@@ -1,6 +1,15 @@
-"""
-Visualisation helpers (animation, plotting).
+"""Visualisation helpers (animation, plotting)."""
 
-TODO: Extract the matplotlib animation loop from geometrodynamics_v39.py
-into reusable plotting functions here.
-"""
+from geometrodynamics.viz.antipodal_crossing import (
+    AntipodalCrossingSim,
+    Absorption,
+    Crossing,
+    run_animation,
+)
+
+__all__ = [
+    "AntipodalCrossingSim",
+    "Absorption",
+    "Crossing",
+    "run_animation",
+]
