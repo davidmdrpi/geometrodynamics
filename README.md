@@ -44,13 +44,14 @@ condensates, and non-orientable throat topology.
 | Cavity detector-conditioned dynamics | **Dynamical** | Derived Hopf phases drive cavity ODE; packets fire on 0/π branches |
 | Cavity persistent memory | **Verified** | Energy persists between steps; slow ring-down |
 | Green kernel derivative | **Fixed** | Now matches analytic dG/dψ to < 10⁻⁴ |
+| Lepton mass spectrum (calibration) | **Quantified** | Bare Tangherlini ladder reproduces charge anchor but under-predicts μ/e and τ/e ratios by ~O(100×); residual flags needed extra geometry |
 
 ### Research goals (not yet fully derived)
 
 | Physics | Proposed geometry |
 |---------|-------------------|
 | Electromagnetism | Curvature of the Hopf connection on S³ |
-| Particle mass | Eigenvalue of the 5D Tangherlini operator |
+| Particle mass (quantitative match) | Eigenvalue of the 5D Tangherlini operator + additional structure (Möbius/non-orientable corrections, Hopf phase sectors, multi-pass throat knots) |
 | QCD confinement | 1D flux-tube network with bridge nucleation |
 | Retrocausal photon exchange | Wheeler–Feynman absorber theory on S³ |
 | Black-hole interior | Coherent condensate of non-orientable wormhole throats |
@@ -165,6 +166,23 @@ for l in [1, 3, 5]:
 result = solve_maxwell_from_eigenmode(modes)
 print(f"Q = {result['Q']:.6f}")
 print(f"Relative error vs exact Coulomb: {result['rel_err']:.2e}")
+```
+
+### Calibrate the charged-lepton mass ladder
+
+```python
+from geometrodynamics.tangherlini import (
+    compute_lepton_spectrum, DEFAULT_ASSIGNMENT_RADIAL, format_report,
+)
+
+report = compute_lepton_spectrum(DEFAULT_ASSIGNMENT_RADIAL)
+print(format_report(report))
+# Electron anchors the single length scale R_throat = ω·ℏc/m_e.
+# The bare Tangherlini radial ladder predicts μ/e ≈ 1.87 and τ/e ≈ 2.74
+# (PDG: 206.77, 3477.23) — a clean, quantitative residual that flags
+# the need for additional defect structure (Möbius transport, Hopf
+# phase sectors, or multi-pass throat knotting) beyond the simplest
+# wormhole-eigenmode identification.
 ```
 
 ### Run a QCD meson simulation

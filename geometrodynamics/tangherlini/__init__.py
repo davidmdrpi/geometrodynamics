@@ -15,3 +15,14 @@ from geometrodynamics.tangherlini.radial import (
 )
 from geometrodynamics.tangherlini.maxwell import solve_maxwell_from_eigenmode
 from geometrodynamics.tangherlini.alpha_q import derive_alpha_q, throat_du_dr
+from geometrodynamics.tangherlini.lepton_spectrum import (
+    DEFAULT_ASSIGNMENT_ANGULAR,
+    DEFAULT_ASSIGNMENT_RADIAL,
+    HBAR_C_MEV_FM,
+    PDG_LEPTON_MASSES_MEV,
+    LeptonAssignment,
+    LeptonMode,
+    LeptonSpectrumReport,
+    compute_lepton_spectrum,
+    format_report,
+)
