@@ -26,3 +26,15 @@ from geometrodynamics.tangherlini.lepton_spectrum import (
     compute_lepton_spectrum,
     format_report,
 )
+from geometrodynamics.tangherlini.multipass import (
+    AMPLIFIERS,
+    KNOT_DEPTHS,
+    MultiPassFit,
+    amp_exponential,
+    amp_linear,
+    amp_power,
+    evaluate_multipass,
+    format_multipass_fit,
+    format_multipass_scan,
+    scan_multipass,
+)

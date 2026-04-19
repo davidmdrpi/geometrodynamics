@@ -45,6 +45,7 @@ condensates, and non-orientable throat topology.
 | Cavity persistent memory | **Verified** | Energy persists between steps; slow ring-down |
 | Green kernel derivative | **Fixed** | Now matches analytic dG/dψ to < 10⁻⁴ |
 | Lepton mass spectrum (calibration) | **Quantified** | Bare Tangherlini ladder reproduces charge anchor but under-predicts μ/e and τ/e ratios by ~O(100×); residual flags needed extra geometry |
+| Multi-pass throat-knot amplification | **Fitted** | Möbius odd-depth (k = 1, 3, 5) with power amp k^p (p ≈ 4.39) reduces lepton-mass residual from ~99% to ≲ 13% on both μ and τ — one free parameter, two predictions |
 
 ### Research goals (not yet fully derived)
 
@@ -166,6 +167,27 @@ for l in [1, 3, 5]:
 result = solve_maxwell_from_eigenmode(modes)
 print(f"Q = {result['Q']:.6f}")
 print(f"Relative error vs exact Coulomb: {result['rel_err']:.2e}")
+```
+
+### Scan multi-pass throat-knot hypotheses against the lepton ladder
+
+```python
+from geometrodynamics.tangherlini import (
+    scan_multipass, format_multipass_scan, DEFAULT_ASSIGNMENT_RADIAL,
+)
+
+results = scan_multipass(DEFAULT_ASSIGNMENT_RADIAL)
+print(format_multipass_scan(results[:4]))
+# Best fit (electron-anchored):
+#   depth=odd (k = 1, 3, 5), amp = k^p, p ≈ 4.39
+#   μ_pred ≈ 118.8 MeV (PDG 105.7, +12.5%)
+#   τ_pred ≈ 1639.8 MeV (PDG 1776.9, −7.7%)
+#
+# Interpretation: Möbius odd-integer half-windings (non-orientable
+# throat topology) with a single-parameter power-law amplifier turn
+# ~99% residuals into ~10% residuals.  The residual gap quantifies
+# what remains for Hopf phase / cavity resonance / condensate
+# dressing to close.
 ```
 
 ### Calibrate the charged-lepton mass ladder
