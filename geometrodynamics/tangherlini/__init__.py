@@ -15,3 +15,11 @@ from geometrodynamics.tangherlini.radial import (
 )
 from geometrodynamics.tangherlini.maxwell import solve_maxwell_from_eigenmode
 from geometrodynamics.tangherlini.alpha_q import derive_alpha_q, throat_du_dr
+from geometrodynamics.tangherlini.lepton_spectrum import (
+    Crossing,
+    LadderFit,
+    calibrate_electron_predict_heavier,
+    compute_knotted_lepton_spectrum,
+    compute_tunneling_envelope,
+    tune_transport_and_resistance,
+)
