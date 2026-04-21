@@ -17,6 +17,7 @@ from scipy.optimize import brentq
 from scipy.optimize import minimize_scalar
 
 from geometrodynamics.tangherlini.lepton_spectrum import (
+    S3_ACTION_BASE,
     calibrate_electron_predict_heavier,
     compute_knotted_lepton_spectrum,
     compute_tunneling_envelope,
@@ -51,6 +52,7 @@ def _mu_e_ratio(
     depth_cost_mode: str,
     winding_mode: str,
     k_uplift_beta: float,
+    action_base: float,
 ) -> float:
     spec = compute_knotted_lepton_spectrum(
         depths=(1, 3, 5),
@@ -63,6 +65,7 @@ def _mu_e_ratio(
         depth_cost_mode=depth_cost_mode,
         winding_mode=winding_mode,
         k_uplift_beta=k_uplift_beta,
+        action_base=action_base,
     )
     return spec[3] / spec[1]
 
@@ -77,6 +80,7 @@ def _solve_resistance_for_ratio(
     depth_cost_mode: str,
     winding_mode: str,
     k_uplift_beta: float,
+    action_base: float,
 ) -> float | None:
     def objective(resistance_scale: float) -> float:
         return (
@@ -89,6 +93,7 @@ def _solve_resistance_for_ratio(
                 depth_cost_mode=depth_cost_mode,
                 winding_mode=winding_mode,
                 k_uplift_beta=k_uplift_beta,
+                action_base=action_base,
             )
             - TARGET_MU_E_RATIO
         )
@@ -126,6 +131,7 @@ def calibrate_grid(
     depth_cost_mode: str,
     winding_mode: str,
     k_uplift_beta: float,
+    action_base: float = S3_ACTION_BASE,
 ) -> list[CalibrationCandidate]:
     phases = np.linspace(1e-3, np.pi / 8.0, phase_steps)
     transports = np.linspace(transport_min, transport_max, transport_steps)
@@ -145,6 +151,7 @@ def calibrate_grid(
                     depth_cost_mode=depth_cost_mode,
                     winding_mode=winding_mode,
                     k_uplift_beta=k_uplift_beta,
+                    action_base=action_base,
                 )
                 exact = res is not None
                 if res is None:
@@ -158,6 +165,7 @@ def calibrate_grid(
                             depth_cost_mode=depth_cost_mode,
                             winding_mode=winding_mode,
                             k_uplift_beta=k_uplift_beta,
+                            action_base=action_base,
                         )
                         - TARGET_MU_E_RATIO
                     )
@@ -182,6 +190,7 @@ def calibrate_grid(
                     depth_cost_mode=depth_cost_mode,
                     winding_mode=winding_mode,
                     k_uplift_beta=k_uplift_beta,
+                    action_base=action_base,
                 )
                 mu_e = fit.predicted_mev[3] / fit.predicted_mev[1]
                 tau_pred = fit.predicted_mev[5]
@@ -222,6 +231,7 @@ def main() -> None:
     parser.add_argument("--depth-cost-mode", type=str, default="tunnel_only")
     parser.add_argument("--winding-mode", type=str, default="max")
     parser.add_argument("--k-uplift-beta", type=float, default=0.0)
+    parser.add_argument("--action-base", type=float, default=S3_ACTION_BASE)
     args = parser.parse_args()
 
     candidates = calibrate_grid(
@@ -238,6 +248,7 @@ def main() -> None:
         depth_cost_mode=args.depth_cost_mode,
         winding_mode=args.winding_mode,
         k_uplift_beta=args.k_uplift_beta,
+        action_base=args.action_base,
     )
 
     print(f"Target mu/e ratio: {TARGET_MU_E_RATIO:.12f}")
@@ -259,10 +270,12 @@ def main() -> None:
 
     if candidates:
         best = candidates[0]
+        print(f"action_base (locked) = {args.action_base:.12f}")
         env3 = compute_tunneling_envelope(
             depth=3,
             phase_per_pass=best.phase_per_pass,
             resistance_scale=best.resistance_scale,
+            action_base=args.action_base,
             winding_mode=args.winding_mode,
         )
         upper = env3[np.triu_indices(3, k=1)]

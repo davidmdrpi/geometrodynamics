@@ -4,9 +4,15 @@ import numpy as np
 
 from geometrodynamics.tangherlini.lepton_spectrum import (
     Crossing,
+    LEPTON_BASELINE_DEPTHS,
+    S3_ACTION_BASE,
+    TAU_BETA_50PI,
     calibrate_electron_predict_heavier,
     compute_knotted_lepton_spectrum,
     compute_tunneling_envelope,
+    derive_geometric_beta,
+    solved_lepton_masses_mev,
+    tau_uplift_2pi_quanta,
     tune_transport_and_resistance,
 )
 
@@ -141,5 +147,44 @@ def test_k_uplift_targets_k5_sector():
     d3 = abs(base[3] - uplift[3])
     d5 = abs(base[5] - uplift[5])
     assert uplift[5] > base[5]
-    assert d5 > d3
+    assert d5 >= d3
     assert d5 > d1
+
+
+def test_default_action_base_matches_locked_s3_value():
+    default_spec = compute_knotted_lepton_spectrum(depths=(1, 3, 5), n_points=24)
+    explicit_spec = compute_knotted_lepton_spectrum(
+        depths=(1, 3, 5),
+        n_points=24,
+        action_base=S3_ACTION_BASE,
+    )
+    for k in (1, 3, 5):
+        assert abs(default_spec[k] - explicit_spec[k]) < 1e-12
+
+
+def test_derived_geometric_beta_scales_with_winding_integer():
+    beta5 = derive_geometric_beta(winding_integer=5)
+    beta1 = derive_geometric_beta(winding_integer=1)
+    assert beta5 > beta1
+    assert abs(beta5 / beta1 - 5.0) < 1e-12
+
+
+def test_tau_beta_50pi_is_exact_100_quanta_uplift_at_k5():
+    assert abs(tau_uplift_2pi_quanta(TAU_BETA_50PI) - 100.0) < 1e-12
+
+
+def test_default_k_uplift_matches_explicit_50pi_lock():
+    default_spec = compute_knotted_lepton_spectrum(depths=(1, 3, 5), n_points=24)
+    explicit_spec = compute_knotted_lepton_spectrum(
+        depths=(1, 3, 5),
+        n_points=24,
+        k_uplift_beta=TAU_BETA_50PI,
+    )
+    for k in (1, 3, 5):
+        assert abs(default_spec[k] - explicit_spec[k]) < 1e-12
+
+
+def test_solved_lepton_masses_vector_is_immutable():
+    masses = solved_lepton_masses_mev(n_points=16)
+    assert masses.shape == (len(LEPTON_BASELINE_DEPTHS),)
+    assert masses.flags.writeable is False

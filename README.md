@@ -130,6 +130,18 @@ pytest -m ""
 pytest -m "not slow"
 ```
 
+## Lepton baseline axioms (locked)
+
+The lepton surrogate now ships with locked topological defaults:
+
+- `action_base = 2π`,
+- `k_uplift_beta = 50π`,
+- `winding_mode = "max"`,
+- baseline optimizer anchor near `(phase, transport, pinhole, resistance) ≈ (0.001, 25.1, 22.5, 0.217869)`.
+
+See `docs/lepton_axioms.md` for the formalized matrix structure and the exact
+`k=5` uplift interpretation (`4*beta = 200π`).
+
 ## Quick Start
 
 ### Verify charge quantisation from pure geometry

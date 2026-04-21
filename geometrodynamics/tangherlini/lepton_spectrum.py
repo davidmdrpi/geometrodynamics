@@ -17,6 +17,60 @@ from scipy.linalg import eigh
 from geometrodynamics.constants import CAVITY_GAMMA, R_MID
 from geometrodynamics.hopf.connection import hopf_holonomy
 
+S3_ACTION_BASE = float(2.0 * np.pi)
+TAU_BETA_50PI = float(50.0 * np.pi)
+LEPTON_BASELINE_PHASE = 0.001
+LEPTON_BASELINE_TRANSPORT = 25.1
+LEPTON_BASELINE_PINHOLE = 22.5
+LEPTON_BASELINE_RESISTANCE = 0.217869435878
+LEPTON_BASELINE_DEPTHS = (1, 3, 5)
+
+
+@lru_cache(maxsize=1)
+def _default_core_scale() -> float:
+    """Use existing condensate geometry to set a default core scale l."""
+    from geometrodynamics.blackhole.condensate import build_schwarzschild_condensate
+
+    return float(build_schwarzschild_condensate(mass=1.0).core_scale)
+
+
+def derive_geometric_beta(*, winding_integer: int = 5, scale: float = 1.0) -> float:
+    """Return beta from a geometric invariant ansatz.
+
+    Uses beta = 4π (R_MID / l_core) * winding_integer * scale.
+    """
+    if winding_integer <= 0:
+        raise ValueError("winding_integer must be positive")
+    if scale <= 0.0:
+        raise ValueError("scale must be positive")
+    l_core = _default_core_scale()
+    return float(4.0 * np.pi * (R_MID / l_core) * winding_integer * scale)
+
+
+def tau_uplift_2pi_quanta(beta: float) -> float:
+    """For k=5 uplift (4*beta), return the equivalent number of 2π units."""
+    return float((4.0 * beta) / (2.0 * np.pi))
+
+
+def solved_lepton_masses_mev(*, n_points: int = 24) -> np.ndarray:
+    """Return immutable (e, mu, tau) masses from the locked baseline."""
+    fit = calibrate_electron_predict_heavier(
+        depths=LEPTON_BASELINE_DEPTHS,
+        phase_per_pass=LEPTON_BASELINE_PHASE,
+        transport_strength=LEPTON_BASELINE_TRANSPORT,
+        hard_pinhole_gamma=LEPTON_BASELINE_PINHOLE,
+        resistance_scale=LEPTON_BASELINE_RESISTANCE,
+        resistance_model="exponential",
+        depth_cost_mode="tunnel_only",
+        winding_mode="max",
+        action_base=S3_ACTION_BASE,
+        k_uplift_beta=TAU_BETA_50PI,
+        n_points=n_points,
+    )
+    masses = np.asarray([fit.predicted_mev[k] for k in LEPTON_BASELINE_DEPTHS], dtype=float)
+    masses.setflags(write=False)
+    return masses
+
 @dataclass(frozen=True)
 class Crossing:
     """Crossing descriptor.
@@ -93,14 +147,6 @@ def _instanton_action(
     return s_topological
 
 
-@lru_cache(maxsize=1)
-def _default_core_scale() -> float:
-    """Use existing condensate geometry to set a default core scale l."""
-    from geometrodynamics.blackhole.condensate import build_schwarzschild_condensate
-
-    return float(build_schwarzschild_condensate(mass=1.0).core_scale)
-
-
 def _build_instanton_matrix(
     k: int,
     phase_per_pass: float,
@@ -116,10 +162,9 @@ def _build_instanton_matrix(
     winding_mode: str,
 ) -> np.ndarray:
     resistance = _resistance_sequence(k, resistance_model, resistance_scale)
-    l_core = _default_core_scale()
     if action_base <= 0.0:
-        # Requested geometric baseline: S0 = π * (R_MID / l)
-        action_base = float(np.pi * (R_MID / l_core))
+        # Hard-lock to S^3 circumference scale unless explicitly overridden.
+        action_base = S3_ACTION_BASE
 
     if depth_cost_mode not in {"both", "diag_only", "tunnel_only"}:
         raise ValueError(f"Unknown depth_cost_mode: {depth_cost_mode}")
@@ -189,8 +234,7 @@ def _build_generation_block(
     n = len(depths)
     h = np.zeros((n, n), dtype=float)
     if action_base <= 0.0:
-        l_core = _default_core_scale()
-        action_base = float(np.pi * (R_MID / l_core))
+        action_base = S3_ACTION_BASE
     if resistance_model == "none":
         res_diag = np.zeros(n, dtype=float)
     elif resistance_model == "writhe":
@@ -233,20 +277,20 @@ def compute_knotted_lepton_spectrum(
     n_points: int = 64,
     rs: float = 1.0,
     r_outer: float = 50.0,
-    phase_per_pass: float = 0.0,
-    transport_strength: float = 4.0,
+    phase_per_pass: float = LEPTON_BASELINE_PHASE,
+    transport_strength: float = LEPTON_BASELINE_TRANSPORT,
     resistance_model: str = "writhe",
-    resistance_scale: float = 0.5,
+    resistance_scale: float = LEPTON_BASELINE_RESISTANCE,
     crossings: Iterable[Crossing | dict] | None = None,
     mode_selection: str = "depth_index",
-    hard_pinhole_gamma: float = 0.0,
+    hard_pinhole_gamma: float = LEPTON_BASELINE_PINHOLE,
     hard_pinhole_depths: Sequence[int] = (3, 5),
     action_base: float = 0.0,
     action_slope: float = 0.5,
     depth_cost_mode: str = "both",
-    winding_mode: str = "delta",
+    winding_mode: str = "max",
     hierarchy_block: bool = True,
-    k_uplift_beta: float = 0.0,
+    k_uplift_beta: float = TAU_BETA_50PI,
 ) -> dict[int, float]:
     """Compute depth spectrum from instanton transition matrices.
 
@@ -324,9 +368,8 @@ def compute_tunneling_envelope(
     """Return matrix of effective instanton amplitudes exp(-S_ij)."""
     if depth < 2:
         return np.zeros((depth, depth), dtype=float)
-    l_core = _default_core_scale()
     if action_base <= 0.0:
-        action_base = float(np.pi * (R_MID / l_core))
+        action_base = S3_ACTION_BASE
     resistance = _resistance_sequence(depth, resistance_model, resistance_scale)
     amps = np.zeros((depth, depth), dtype=float)
     for i in range(depth):
