@@ -122,14 +122,11 @@ def _as_crossings(crossings: Iterable[Crossing | dict] | None) -> list[Crossing]
 def _instanton_action(
     i: int,
     j: int,
-    k: int,
     phase_per_pass: float,
-    action_base: float,
     action_slope: float,
     resistance: np.ndarray,
     winding_mode: str,
 ) -> float:
-    del k
     sep = abs(i - j)
     # === BAM GEOMETRIC ACTION ===
     # Use difference in winding multiplicity, not global offset.
@@ -170,7 +167,7 @@ def _build_instanton_matrix(
         raise ValueError(f"Unknown depth_cost_mode: {depth_cost_mode}")
 
     diag_action = action_base + resistance_scale * k
-    tunnel_action_base = action_base if depth_cost_mode in {"both", "tunnel_only"} else 0.0
+    mix_off_diagonal = depth_cost_mode in {"both", "tunnel_only"}
 
     h = np.zeros((k, k), dtype=float)
 
@@ -179,23 +176,22 @@ def _build_instanton_matrix(
         h[i, i] = diag_action
 
     # Instanton transitions: exp(-S_topological) suppression.
-    for i in range(k):
-        for j in range(i + 1, k):
-            s_ij = _instanton_action(
-                i=i,
-                j=j,
-                k=k,
-                phase_per_pass=phase_per_pass,
-                action_base=tunnel_action_base,
-                action_slope=action_slope,
-                resistance=resistance,
-                winding_mode=winding_mode,
-            )
-            amp = transport_strength * np.exp(-s_ij)
-            # Hopf/Möbius phase proxy projected to scalar real sector.
-            amp *= np.cos(phase_per_pass * abs(i - j))
-            h[i, j] -= amp
-            h[j, i] -= amp
+    if mix_off_diagonal:
+        for i in range(k):
+            for j in range(i + 1, k):
+                s_ij = _instanton_action(
+                    i=i,
+                    j=j,
+                    phase_per_pass=phase_per_pass,
+                    action_slope=action_slope,
+                    resistance=resistance,
+                    winding_mode=winding_mode,
+                )
+                amp = transport_strength * np.exp(-s_ij)
+                # Hopf/Möbius phase proxy projected to scalar real sector.
+                amp *= np.cos(phase_per_pass * abs(i - j))
+                h[i, j] -= amp
+                h[j, i] -= amp
 
     # True identified crossings lower (or raise) local action barrier.
     for c in crossings:
@@ -365,11 +361,15 @@ def compute_tunneling_envelope(
     action_base: float = 0.0,
     winding_mode: str = "delta",
 ) -> np.ndarray:
-    """Return matrix of effective instanton amplitudes exp(-S_ij)."""
+    """Return matrix of effective instanton amplitudes exp(-S_ij).
+
+    ``action_base`` is accepted for call-site compatibility but does not enter
+    the off-diagonal action; the S^3 base action only contributes on the
+    diagonal of the full operator (see ``compute_knotted_lepton_spectrum``).
+    """
+    del action_base
     if depth < 2:
         return np.zeros((depth, depth), dtype=float)
-    if action_base <= 0.0:
-        action_base = S3_ACTION_BASE
     resistance = _resistance_sequence(depth, resistance_model, resistance_scale)
     amps = np.zeros((depth, depth), dtype=float)
     for i in range(depth):
@@ -377,9 +377,7 @@ def compute_tunneling_envelope(
             s_ij = _instanton_action(
                 i=i,
                 j=j,
-                k=depth,
                 phase_per_pass=phase_per_pass,
-                action_base=action_base,
                 action_slope=0.0,
                 resistance=resistance,
                 winding_mode=winding_mode,

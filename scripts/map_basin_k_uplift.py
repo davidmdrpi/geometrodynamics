@@ -4,13 +4,17 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
 from scipy.optimize import minimize
 
-from scripts.calibrate_muon_ratio import ELECTRON_MEV, MUON_MEV, TAU_MEV
-from geometrodynamics.tangherlini.lepton_spectrum import (
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from scripts.calibrate_muon_ratio import ELECTRON_MEV, MUON_MEV, TAU_MEV  # noqa: E402
+from geometrodynamics.tangherlini.lepton_spectrum import (  # noqa: E402
     LEPTON_BASELINE_PHASE,
     LEPTON_BASELINE_PINHOLE,
     LEPTON_BASELINE_RESISTANCE,

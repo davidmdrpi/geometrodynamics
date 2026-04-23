@@ -4,12 +4,16 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
 
-from scripts.calibrate_muon_ratio import TAU_MEV, calibrate_grid
-from geometrodynamics.tangherlini.lepton_spectrum import S3_ACTION_BASE
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from scripts.calibrate_muon_ratio import TAU_MEV, calibrate_grid  # noqa: E402
+from geometrodynamics.tangherlini.lepton_spectrum import S3_ACTION_BASE  # noqa: E402
 
 
 @dataclass(frozen=True)
