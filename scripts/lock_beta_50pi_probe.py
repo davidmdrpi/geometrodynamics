@@ -4,16 +4,20 @@
 from __future__ import annotations
 
 import argparse
+import sys
+from pathlib import Path
 
 import numpy as np
 from scipy.optimize import minimize
 
-from geometrodynamics.tangherlini.lepton_spectrum import (
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from geometrodynamics.tangherlini.lepton_spectrum import (  # noqa: E402
     S3_ACTION_BASE,
     TAU_BETA_50PI,
     tau_uplift_2pi_quanta,
 )
-from scripts.map_basin_k_uplift import evaluate
+from scripts.map_basin_k_uplift import evaluate  # noqa: E402
 
 
 def _objective(x: np.ndarray, n_points: int, beta: float, action_base_locked: float) -> float:
