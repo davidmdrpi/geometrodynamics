@@ -145,15 +145,34 @@ def main() -> int:
     else:
         failures.append(f"Color check failed: {cc}")
 
-    # ── 8. Uncalibrated solve raises helpful error ──────────────────
-    try:
-        qs.solved_quark_masses_mev()
-        failures.append("solved_quark_masses_mev should have raised")
-    except NotImplementedError as exc:
-        if "not yet calibrated" in str(exc):
-            print("[pass] Uncalibrated solve raises helpful NotImplementedError")
-        else:
-            failures.append(f"Wrong error message: {exc}")
+    # ── 8. Calibration-state gate ────────────────────────────────────
+    # Behaves differently depending on whether the four-step pipeline
+    # has populated LOCKED_QUARK_PARAMS yet:
+    #   - unlocked (None)  → solved_quark_masses_mev must raise
+    #                        NotImplementedError with a helpful message.
+    #   - locked           → solved_quark_masses_mev must return a
+    #                        length-6 ndarray in QUARK_SPECIES order.
+    if qs.LOCKED_QUARK_PARAMS is None:
+        try:
+            qs.solved_quark_masses_mev()
+            failures.append("solved_quark_masses_mev should have raised")
+        except NotImplementedError as exc:
+            if "not yet calibrated" in str(exc):
+                print("[pass] Uncalibrated solve raises helpful "
+                      "NotImplementedError")
+            else:
+                failures.append(f"Wrong error message: {exc}")
+    else:
+        try:
+            masses = qs.solved_quark_masses_mev()
+            if masses.shape == (6,) and masses[0] > 0:
+                print(f"[pass] Locked solve returns 6 masses (u = "
+                      f"{masses[0]:.4f} MeV)")
+            else:
+                failures.append(f"solved_quark_masses_mev returned "
+                                f"unexpected shape/anchor: {masses}")
+        except Exception as exc:
+            failures.append(f"Locked solve raised unexpectedly: {exc}")
 
     # ── 9. (r2) Extract spectrum at unmixed limit ───────────────────
     try:

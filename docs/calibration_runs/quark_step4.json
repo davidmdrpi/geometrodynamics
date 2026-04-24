@@ -1,0 +1,55 @@
+{
+  "integer_winding": 123,
+  "action_base": 3.141592653589793,
+  "locked_params": {
+    "action_base": 3.141592653589793,
+    "beta": 193.20794819577227,
+    "gamma_q": 0.108,
+    "u_q_form": "k_minus_2",
+    "phase": 0.0005,
+    "transport": 1.24,
+    "pinhole": 10.0,
+    "resistance": 0.22000000000000003,
+    "partition_mixing": 0.0,
+    "winding_mode": "max",
+    "resistance_model": "exponential",
+    "depth_cost_mode": "tunnel_only",
+    "spectrum_zero": null
+  },
+  "residual_log_rms": 1.3336519202878185,
+  "predicted_masses_mev": [
+    2.16,
+    8.139922377184773,
+    331.60560447953554,
+    337.585536840942,
+    21945.231692018515,
+    21963.277826258403
+  ],
+  "target_masses_mev": [
+    2.16,
+    4.67,
+    93.4,
+    1270.0,
+    4180.0,
+    172690.0
+  ],
+  "rel_err_per_species": [
+    0.0,
+    0.7430240636369964,
+    2.550381204277682,
+    0.7341846166606756,
+    4.250055428712564,
+    0.8728167361963148
+  ],
+  "max_rel_err": 4.250055428712564,
+  "species_order": [
+    "u",
+    "d",
+    "s",
+    "c",
+    "b",
+    "t"
+  ],
+  "rejected_points": 42282,
+  "total_points": 46656
+}

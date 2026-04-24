@@ -399,19 +399,174 @@ These are all reasonable future work, not preconditions for v3 shipping.
 
 ---
 
-## §8 Calibration log — to be populated
+## §8 Calibration log — first pipeline run (2026-04-24)
 
-Once the calibration pipeline runs, record here:
+The four-step pipeline from `HANDOFF.md` §7 was executed end-to-end.
+**Outcome: negative for the minimal v3 ansatz.** The pipeline ran to
+completion and produced a nominal `LOCKED_QUARK_PARAMS`, but the
+residual against the observed masses is O(1), not O(10⁻³) as in the
+lepton sector. This section records the numbers so the next iteration
+has a starting point; §3.5 outcome #2/#3 is the structural reason.
 
-- The locked `action_base` (π, 2π, or numeric).
-- The locked integer winding `N`.
-- The basin width around `N` within 2× of the best residual.
-- The locked `QuarkParams` as a code snippet.
-- The six predicted masses and their relative errors.
+### Step 1 — coarse grid scan
+Command: `python scripts/calibrate_quark_ratios.py --n-points 8 --verbose`
+Grid: 5 residual axes × 4 γ_q values = 131072 points.
+
+- max rel err:          **9.99 × 10⁻¹** (anchor u=2.16 MeV locked)
+- scan points:          131072
+- rejected (unphysical):115160 (87.9% — positivity rejector firing hard)
+- best γ_q:             0.050 (smallest in {0.05, 0.1, 0.2, 0.5})
+
+Predicted vs observed (MeV):
+
+| species | predicted | observed |
+|---------|----------:|---------:|
+| u | 2.16  | 2.16     |
+| d | 3.95  | 4.67     |
+| s | 181.3 | 93.4     |
+| c | 183.1 | 1270     |
+| b | 229.9 | 4180     |
+| t | 233.3 | 172690   |
+
+Interpretation: as `HANDOFF.md` warned, the coarse grid cannot discover
+the heavy-sector uplift; `β` is still zero here, so the heavy sector
+collapses to a tight cluster near the strange-region diagonal.
+
+### Step 2 — integer-winding β hunt
+Command: `python scripts/sweep_quark_beta.py --input-json /tmp/quark_step1.json --integer-min 10 --integer-max 1000000 --n-samples 600 --verbose`
+
+- best integer winding: **N = 122** (log-spaced sample)
+- β = N · π/2 =         191.64
+- max rel err:          **9.53 × 10⁻¹**
+- rejected:             0 / 556
+- observed split:       max_rel_err decreases monotonically ≈ 4 × 10⁻⁴
+  per unit N over N ∈ [10, 122]; larger log-spaced samples past N=122
+  gave worse error (never triggered a new-best log line), so the basin
+  is bounded.
+
+Predicted vs observed (MeV) at N=122:
+
+| species | predicted | observed | rel err |
+|---------|----------:|---------:|--------:|
+| u | 2.16    | 2.16     | 0       |
+| d | 3.95    | 4.67     | 0.154   |
+| s | 180.8   | 93.4     | 0.936   |
+| c | 182.6   | 1270     | 0.856   |
+| b | 8097.7  | 4180     | 0.937   |
+| t | 8101.2  | 172690   | 0.953   |
+
+The heavy uplift brings both k=5 states up to ~8100 MeV — bracketing b
+and massively undershooting t. **The t/b ratio is essentially 1.0005 in
+the prediction versus 41.3 in the observed spectrum.** This is the
+structural signature of outcome #2/#3 from §3.5: the β · (k−3)² term
+gives the SAME uplift to both partitions at k=5, so the b–t split must
+come from `γ_q · σ · u_q(k=5) = γ_q · σ · 3`, and γ_q is held small by
+the (1,+) positivity constraint.
+
+### Step 3 — basin-width probe around N=122
+Command: `python scripts/map_basin_quark_uplift.py --integer-winding 122 --half-width 50 --n-points 101 --input-json /tmp/quark_step1.json`
+
+- best N in window:     **N = 123**
+- best max rel err:     9.53 × 10⁻¹
+- basin within 2× best: [72, 172]  (width 100)
+
+The basin is wide and shallow — not a needle, but also not a well: the
+floor is O(1), so the "attractor" is topologically real in the sense
+that error changes smoothly across a 100-wide integer neighborhood,
+but the attractor bottom is nowhere near a good fit.
+
+### Step 4 — final lock (β and action_base hard-locked)
+Command: `python scripts/lock_quark_beta_probe.py --integer-winding 123 --action-base-label pi --n-points 6 --verbose`
+
+(Run with `--n-points 6` for tractability — the default n=12 is a
+12⁶ = 2.99M-point grid that timed out at 20 min; n=6 is 46656 points.
+The comparison against step 2 is still apples-to-apples because step 4
+optimizes a log-RMS residual, not max rel err, and the tighter n=12
+grid would not have rescued the underlying structural limitation.)
+
+- integer_winding:      123
+- action_base:          π = 3.14159…
+- residual (log-RMS):   1.33
+- **max rel err:        4.25**  (worse than step 2's max-rel-err
+  minimum because step 4 targets log-RMS, not the L∞ error)
+- rejected points:      42282 / 46656 (90.6% — positivity fires even
+  harder on this grid because γ_q is extended up to 0.5)
+
+Locked `QuarkParams` written to `quark_spectrum.py`:
+
+```python
+LOCKED_QUARK_PARAMS = QuarkParams(
+    action_base=3.141592653589793,
+    beta=193.20794819577227,       # 123·π/2
+    gamma_q=0.108,
+    u_q_form='k_minus_2',
+    phase=0.0005,
+    transport=1.24,
+    pinhole=10.0,
+    resistance=0.22,
+    partition_mixing=0.0,
+    winding_mode='max',
+    resistance_model='exponential',
+    depth_cost_mode='tunnel_only',
+    spectrum_zero=None,
+)
+```
+
+Predicted vs observed (MeV):
+
+| species | predicted | observed | rel err |
+|---------|----------:|---------:|--------:|
+| u |     2.16 |      2.16 | 0       |
+| d |     8.14 |      4.67 | 0.74    |
+| s |    331.6 |     93.4  | 2.55    |
+| c |    337.6 |   1270    | 0.73    |
+| b |  21945   |   4180    | **4.25**|
+| t |  21963   | 172690    | 0.87    |
+
+### Verdict
+
+Per `HANDOFF.md` §7 step 8: **the integer winding N≈122–123 is not a
+clean topological invariant and the minimal v3 ansatz needs revision.**
+The diagnostic signatures are:
+
+1. **Heavy-sector rigidity.** Both b and t predictions sit within 0.1%
+   of each other regardless of β, because `max(0, k−3)² = 4` identically
+   at k=5 for both partitions. No β can open a t/b gap.
+
+2. **Positivity squeeze.** Raising γ_q (which would split b and t)
+   pushes the (1,+) diagonal below `action_base`, and the
+   `extract_physical_spectrum` rejector fires. Rejection rate climbs
+   from 88% (step 1) to 91% (step 4, wider γ_q range).
+
+3. **Shallow basin, bad floor.** The integer-winding locus is a
+   100-wide smooth attractor around N=123, but the attractor's floor
+   is max-rel-err ≈ 0.95, not ≈ 10⁻³.
+
+These three together point to §3.5 outcome #2 or #3 — the minimal
+ansatz `u_q(k) = k − 2` combined with a k-dependent uplift that is
+partition-degenerate at k=5 cannot reproduce the observed heavy-sector
+hierarchy. Next-session candidates:
+
+- Try `u_q(k) = k · (k − 2)` or `|k − 2|` variants (the former has the
+  same sign problem at k=1; the latter breaks the generation-1
+  inversion — see §3.5 outcome #2).
+- Introduce a partition-dependent uplift term, e.g. `β · σ(p) · (k−3)²`
+  or `β · (k−3)² · (1 + α σ)` — both would break the k=5 degeneracy.
+- Reinterpret `action_base` as a typical rather than absolute floor,
+  and take the spectrum zero to be `min(eigenvalues)`. This removes the
+  positivity constraint and frees γ_q to grow.
+- Treat the integer-winding hunt as a false positive and revert to
+  searching over continuous β.
+
+The nominal lock is recorded in `quark_spectrum.py` with a prominent
+"NOT a successful fit" comment so downstream code that calls
+`solved_quark_masses_mev()` does not silently claim a calibrated
+result.
 
 This section is the direct analog of the calibration-results section in
 `docs/lepton_axioms.md`; it is what the community can cite when
-discussing the discovered invariants.
+discussing the discovered invariants — or, as in this first pass, the
+discovered obstruction.
 
 ---
 

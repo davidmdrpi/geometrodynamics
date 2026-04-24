@@ -450,7 +450,33 @@ def extract_physical_spectrum(
 # LOCKED BASELINE AND SOLVED MASSES
 # ════════════════════════════════════════════════════════════════════════
 
-LOCKED_QUARK_PARAMS: Optional[QuarkParams] = None
+# Populated by scripts/lock_quark_beta_probe.py on 2026-04-24.
+#
+# HONESTY NOTE: this lock is NOT a successful fit.  Reported here as the
+# best residual-knob point produced by the step-4 optimizer after hard-
+# locking β = 123·π/2 (the step-2/step-3 best integer winding), but the
+# resulting max relative error is O(1) — see docs/quark_axioms.md §8
+# for the full calibration log and the structural reason (γ_q /
+# r_q positivity tension, documented in §3.5).  Calibration is NOT
+# closed; the v3 ansatz needs revision before a physically meaningful
+# lock can be claimed.  This populated value exists so that
+# ``solved_quark_masses_mev()`` is runnable and so the bad-fit masses
+# can be inspected; it is not a discovered invariant.
+LOCKED_QUARK_PARAMS: Optional[QuarkParams] = QuarkParams(
+    action_base=3.141592653589793,
+    beta=193.20794819577227,
+    gamma_q=0.108,
+    u_q_form="k_minus_2",
+    phase=0.0005,
+    transport=1.24,
+    pinhole=10.0,
+    resistance=0.22000000000000003,
+    partition_mixing=0.0,
+    winding_mode="max",
+    resistance_model="exponential",
+    depth_cost_mode="tunnel_only",
+    spectrum_zero=None,
+)
 
 QUARK_ANCHOR_SPECIES: str = "u"
 QUARK_ANCHOR_MASS_MEV: float = OBSERVED_MASSES_MEV["u"]
