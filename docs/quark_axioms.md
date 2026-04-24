@@ -732,6 +732,56 @@ Raw scan output: `docs/calibration_runs/experiment_k3_splitter.json`.
 The `chi_q_k3` extension is committed with default 0.0, so the
 minimal-ansatz pipeline remains the reference.
 
+### Follow-up experiment 4: refined grid + targeted (3,−)-(5,−) coupling, pass 1
+
+Addresses the next-session milestone: refine the edge-limited
+optimum, add one targeted off-diagonal coupling, aim for max rel err
+below ~0.3 without broadening structural assumptions.
+
+New knob: `eta_k3k5_minus` — single opt-in scalar on QuarkParams that
+adds `−η` to the (3,−)↔(5,−) Hamiltonian element and leaves every
+other off-diagonal untouched. Default 0.0 recovers experiment 3.
+Physically: a level-repulsion channel between the two outlier states
+(s and t both live in the partition-"−" block at k=3 and k=5).
+
+Command:
+`python scripts/experiment_refined_k3k5.py --verbose`
+
+5-axis pass (N, ε, χ, η, γ_q), residuals pinned at exp-3 best values.
+12288 points, 0 rejected.
+
+Best point: N = 280, ε = +0.95, χ = 10, **η = 10 (grid edge)**,
+γ_q = 0.10.
+
+**max rel err = 0.482** — continued qualitative improvement over
+experiment 3's 0.553, but the η grid edge is obviously limiting.
+
+| species | predicted | observed | rel err |
+|---------|----------:|---------:|--------:|
+| u |        0.00 |      2.16 | 1.00 (by construction) |
+| d |        4.67 |      4.67 | 0 (anchor)             |
+| s |      134.57 |     93.4  | 0.44                   |
+| c |      684.46 |  1270     | 0.46                   |
+| b |     2783.81 |  4180     | 0.33                   |
+| t |    89410.81 | 172690    | 0.48                   |
+
+Observations:
+
+- The error floor moved from 0.55 → 0.48 as η grew; monotone improvement
+  along the η axis up to the grid edge.
+- χ retreated from 15 (exp-3 edge) to 10 (this grid's low end): with
+  the targeted off-diagonal coupling doing some of the splitting work,
+  the diagonal k=3 splitter is no longer pinned.
+- N moved from 150 → 280. Not an obviously clean topological integer;
+  next pass should check whether the scan is tracking a ridge rather
+  than a point.
+- The error spread is now relatively flat across species (0.33–0.48)
+  rather than concentrated in s and t, which is structurally cleaner.
+
+Raw scan output: `docs/calibration_runs/experiment_refined_k3k5_pass1.json`.
+Pass 2 (with η extended past 10 and residual knobs unpinned) is the
+obvious next step.
+
 ---
 
 ## §9 Phenomenological interpretation (post-topology, separated by rule)
