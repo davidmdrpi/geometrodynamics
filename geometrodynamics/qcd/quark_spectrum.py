@@ -174,6 +174,7 @@ class QuarkParams:
     uplift_mode: str = "k_minus_3_sq"
     uplift_asymmetry: float = 0.0
     spectrum_zero_mode: str = "action_base"
+    chi_q_k3: float = 0.0
 
     spectrum_zero: Optional[float] = None
 
@@ -212,7 +213,8 @@ def _diagonal_entry(k: int, p: str, params: QuarkParams) -> float:
     else:
         raise ValueError(f"Unknown uplift_mode: {params.uplift_mode!r}")
     partition = params.gamma_q * _SIGMA[p] * _u_q(k, params.u_q_form)
-    return base + k_cost + pinhole_term + uplift + partition
+    k3_split = params.chi_q_k3 * _SIGMA[p] if k == 3 else 0.0
+    return base + k_cost + pinhole_term + uplift + partition + k3_split
 
 
 def _offdiag_same_partition(k1: int, k2: int, params: QuarkParams) -> float:

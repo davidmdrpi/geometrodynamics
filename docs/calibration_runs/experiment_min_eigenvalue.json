@@ -1,0 +1,57 @@
+{
+  "anchor_species": "d",
+  "anchor_mass_mev": 4.67,
+  "best_max_rel_err_excluding_u": 0.8870717971543165,
+  "best_params": {
+    "action_base": 3.141592653589793,
+    "beta": 392.6990816987241,
+    "gamma_q": 0.3,
+    "u_q_form": "k_minus_2",
+    "phase": 0.001,
+    "transport": 3.0,
+    "pinhole": 15.0,
+    "resistance": 0.3,
+    "partition_mixing": 0.0,
+    "winding_mode": "max",
+    "resistance_model": "exponential",
+    "depth_cost_mode": "tunnel_only",
+    "uplift_mode": "partition_asymmetric",
+    "uplift_asymmetry": 0.9,
+    "spectrum_zero_mode": "min_eigenvalue",
+    "spectrum_zero": null
+  },
+  "predicted_masses_mev": [
+    0.0,
+    4.67,
+    138.70967387248564,
+    143.41881761401797,
+    1411.4608094902712,
+    23749.68689711269
+  ],
+  "target_masses_mev": [
+    2.16,
+    4.67,
+    93.4,
+    1270.0,
+    4180.0,
+    172690.0
+  ],
+  "rel_err_per_species": [
+    1.0,
+    0.0,
+    0.485114281289996,
+    0.8870717971543165,
+    0.6623299498827102,
+    0.8624721356354583
+  ],
+  "species_order": [
+    "u",
+    "d",
+    "s",
+    "c",
+    "b",
+    "t"
+  ],
+  "scan_points_total": 12960,
+  "rejected_points": 0
+}

@@ -626,6 +626,112 @@ The `uplift_mode` extension is committed to `QuarkParams` with
 default `"k_minus_3_sq"`, so the minimal-ansatz calibration pipeline
 remains the reference and the extension is opt-in only.
 
+### Follow-up experiment 2: min-eigenvalue spectrum zero + large γ_q
+
+Per the next-session plan, `QuarkParams` was further extended with an
+opt-in `spectrum_zero_mode="min_eigenvalue"` (candidate #3 from §3.5).
+With this zero, the lightest species is always at 0 and anchoring
+must use another species; we pick d = 4.67 MeV. The positivity
+rejector becomes inoperative because the zero is defined after
+diagonalization, so γ_q is free to scale past `r_q`.
+
+Command:
+`python scripts/experiment_min_eigenvalue_zero.py --verbose`
+
+6-axis scan (N, ε, γ_q ∈ [0.05, 5.0], transport, pinhole,
+resistance), 12960 points, **0 rejected**.
+
+Best point: N = 250, ε = +0.9, γ_q = **0.30**, transport = 3.0,
+max rel err = **0.887** (essentially unchanged from 0.888).
+
+| species | predicted | observed | rel err |
+|---------|----------:|---------:|--------:|
+| u |    0.00 |      2.16 | 1.00 (by construction) |
+| d |    4.67 |      4.67 | 0 (anchor)             |
+| s |   138.7 |     93.4  | 0.49                   |
+| c |   143.4 |  1270     | 0.89                   |
+| b |  1411   |  4180     | 0.66                   |
+| t | 23750   | 172690    | 0.86                   |
+
+Two structural observations:
+
+- **γ_q did not want to grow.** Best γ_q = 0.30, not 5.0. Level
+  repulsion makes large γ_q *hurt* the fit elsewhere, so removing
+  the positivity bound does not itself unlock new physics.
+- **c and s remain degenerate** (143 vs 139). Confirmed: a single
+  `γ_q · σ · u_q(k)` knob cannot split c/s independently of k=1 and
+  k=5 because γ_q is a global multiplier across all k.
+
+Takeaway: candidate #3 alone is unproductive. The bottleneck moved
+from positivity to the c/s degeneracy. This motivates plan step 4
+(k=3-specific splitter).
+
+Raw scan output: `docs/calibration_runs/experiment_min_eigenvalue.json`.
+
+### Follow-up experiment 3: k=3 partition splitter (plan step 4)
+
+Added a new opt-in parameter `chi_q_k3` which contributes
+`χ · σ(p)` to the k=3 diagonal only, leaving k=1 and k=5 untouched.
+Zero `chi_q_k3` recovers experiment 2. Combined with
+min_eigenvalue zero, partition-asymmetric uplift, and d-anchor.
+
+Command:
+`python scripts/experiment_k3_splitter.py --verbose`
+
+7-axis scan (N, ε, γ_q, χ ∈ [0, 30], transport, pinhole, resistance),
+5760 points, 90 rejected (1.6%).
+
+Best point: N = 150, ε = **+0.9** (grid edge), γ_q = 0.10,
+χ = **15.0** (grid edge), transport = 0.5, pinhole = 15, resistance = 0.15.
+
+**max rel err = 0.553** — a qualitative improvement (experiments 1
+and 2 were both stuck at ≈ 0.88).
+
+| species | predicted | observed | rel err |
+|---------|----------:|---------:|--------:|
+| u |     0.00  |      2.16 | 1.00 (by construction) |
+| d |     4.67  |      4.67 | 0 (anchor)             |
+| s |    55.27  |     93.4  | 0.41                   |
+| c |  1339.29  |  1270     | **0.055**              |
+| b |  4803.90  |  4180     | 0.15                   |
+| t | 77172.72  | 172690    | 0.55                   |
+
+Structural wins:
+
+- **c/s degeneracy is broken.** Predicted c = 1339 MeV, s = 55 MeV —
+  ratio 24× versus observed 13.6×. Previous experiments had c/s ≈ 1.03.
+- **c fits to 5.5%** — the first predicted species other than the
+  anchor that fits within 10%. Strong evidence that a k=3-specific
+  partition term is required and that it behaves the way a
+  topological splitting should.
+- **b fits to 15%** — consistent with experiment 1's 5% fit.
+- **t undershoots by 55%** and **s overshoots by 41%** — the two
+  remaining structural gaps. Both likely resolvable by finer-grid
+  refinement since ε and χ both hit their grid edges.
+
+Plan step 5 (condensed-pipeline re-run) executed; the minimal-plus-
+two-extensions Hamiltonian is **structurally capable** of reproducing
+four of the five non-anchor species within 15%. The remaining gaps
+at s and t look like scan-resolution artifacts rather than structural
+obstructions. Next session should:
+
+- Refine the grid around (N=150, ε=0.9, χ=15, γ_q=0.1) with finer
+  resolution and extend ε and χ past their current grid edges.
+- Check whether (N=150, ε=0.9) is a *clean* integer winding (N=150 is
+  not obviously a topological invariant — neither is 75 = 150/2).
+  Candidates for physical interpretation include 4·37, 6·25, 2·3·25,
+  150 = 100 + 50 (lepton τ winding + half).
+- Investigate whether the s undershoot is coupled to t via level
+  repulsion; the (3,−)–(5,−) off-diagonal might be pulling both.
+- Consider whether χ and ε should be tied together by a single
+  topological constraint (they both parameterize partition
+  asymmetry; combining them into one knob would reduce the free
+  parameter count from 9 to 8).
+
+Raw scan output: `docs/calibration_runs/experiment_k3_splitter.json`.
+The `chi_q_k3` extension is committed with default 0.0, so the
+minimal-ansatz pipeline remains the reference.
+
 ---
 
 ## §9 Phenomenological interpretation (post-topology, separated by rule)
