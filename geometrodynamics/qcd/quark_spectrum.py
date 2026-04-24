@@ -175,6 +175,7 @@ class QuarkParams:
     uplift_asymmetry: float = 0.0
     spectrum_zero_mode: str = "action_base"
     chi_q_k3: float = 0.0
+    eta_k3k5_minus: float = 0.0
 
     spectrum_zero: Optional[float] = None
 
@@ -217,7 +218,9 @@ def _diagonal_entry(k: int, p: str, params: QuarkParams) -> float:
     return base + k_cost + pinhole_term + uplift + partition + k3_split
 
 
-def _offdiag_same_partition(k1: int, k2: int, params: QuarkParams) -> float:
+def _offdiag_same_partition(
+    k1: int, k2: int, p: str, params: QuarkParams,
+) -> float:
     if k1 == k2:
         raise ValueError("same-partition off-diagonal requires k1 ≠ k2")
     if params.winding_mode == "max":
@@ -227,7 +230,18 @@ def _offdiag_same_partition(k1: int, k2: int, params: QuarkParams) -> float:
     else:
         raise ValueError(f"Unknown winding_mode: {params.winding_mode!r}")
     alpha_eff = params.resistance
-    return -params.transport * math.exp(-alpha_eff * dk) * math.cos(params.phase * dk)
+    base = -params.transport * math.exp(-alpha_eff * dk) * math.cos(
+        params.phase * dk,
+    )
+    # Targeted (3,−)–(5,−) coupling: single opt-in amplitude that lives
+    # only on the k=3↔k=5 element inside the partition-"−" block.
+    # Default 0.0 recovers the minimal ansatz.  Physical motivation:
+    # the s and t outliers in experiment 3 both sit in partition "−"
+    # at k=3 and k=5 respectively, so a level-repulsion channel that
+    # acts on that pair alone is the minimal structural fix.
+    if params.eta_k3k5_minus != 0.0 and p == "-" and {k1, k2} == {3, 5}:
+        base += -params.eta_k3k5_minus
+    return base
 
 
 def _offdiag_different_partition(k: int, params: QuarkParams) -> complex:
@@ -266,7 +280,7 @@ def build_quark_hamiltonian(
         for j in range(i + 1, n):
             kj, pj = BASIS_STATES[j]
             if ki != kj and pi == pj:
-                H[i, j] = _offdiag_same_partition(ki, kj, params)
+                H[i, j] = _offdiag_same_partition(ki, kj, pi, params)
             elif ki == kj and pi != pj:
                 H[i, j] = _offdiag_different_partition(ki, params)
             else:
