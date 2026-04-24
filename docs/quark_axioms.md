@@ -568,6 +568,64 @@ This section is the direct analog of the calibration-results section in
 discussing the discovered invariants — or, as in this first pass, the
 discovered obstruction.
 
+### Follow-up experiment: partition-asymmetric uplift (candidate #2)
+
+To test the leading candidate revision from the verdict, `QuarkParams`
+was extended with an opt-in `uplift_mode="partition_asymmetric"`:
+
+    uplift(k, p) = β · (1 + ε · σ(p)) · max(0, k − 3)²
+
+ε = 0 recovers the minimal ansatz; ε ≠ 0 gives the k=5 partitions
+different uplifts and (in principle) opens the b/t gap without
+touching γ_q.
+
+Command:
+`python scripts/experiment_partition_asymmetric_uplift.py --verbose`
+
+6-axis scan (ε, N, γ_q, transport, resistance, pinhole) with 12960
+points, 8275 rejected (63.8%).
+
+Best point:
+- ε = +0.70, N = 250, γ_q = 0.010
+- max rel err = **0.888** (versus 0.953 in step 2 — a real improvement)
+
+| species | predicted | observed | rel err |
+|---------|----------:|---------:|--------:|
+| u |     2.16 |      2.16 | 0       |
+| d |     2.32 |      4.67 | 0.50    |
+| s |    142.4 |     93.4  | 0.52    |
+| c |    142.6 |  1270     | 0.89    |
+| b |   3970   |  4180     | **0.05** |
+| t |  21653   | 172690    | 0.87    |
+
+What the experiment shows:
+
+- **b is now fit to 5%** — the partition-asymmetric uplift does open
+  the b/t gap structurally, exactly as predicted. This is positive
+  structural evidence for candidate #2.
+- **t is still under-fit by ~8×.** The best ε ran up to the grid edge
+  (+0.7; axis went to +0.9); a finer sweep should push t higher. But
+  the ratio t/b ≈ 5.5 at this point versus 41 observed suggests the
+  simple multiplicative `(1 + ε σ)` factor still saturates before it
+  can reach the observed split at realistic β.
+- **c and s are still degenerate** (both ~142 MeV). Expected: the
+  uplift contributes zero at k=3 because `max(0, k−3)² = 0`, so
+  `uplift_mode` alone cannot split c from s. This sector needs its
+  own mechanism — likely an analogous partition-asymmetric
+  contribution to the `k · k` cost term, or a non-zero `u_q(3)` that
+  scales with k rather than the current `k − 2`.
+
+Takeaway: candidate #2 is a productive direction for the heavy
+sector but is insufficient on its own. The next iteration should
+either combine it with a k=3 splitting mechanism or reinterpret the
+spectrum zero (candidate #3 from the verdict) so γ_q can grow
+without violating positivity.
+
+Raw scan output: `docs/calibration_runs/experiment_partition_asymmetric.json`.
+The `uplift_mode` extension is committed to `QuarkParams` with
+default `"k_minus_3_sq"`, so the minimal-ansatz calibration pipeline
+remains the reference and the extension is opt-in only.
+
 ---
 
 ## §9 Phenomenological interpretation (post-topology, separated by rule)
