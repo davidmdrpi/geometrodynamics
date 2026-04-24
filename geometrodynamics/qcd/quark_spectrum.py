@@ -171,6 +171,8 @@ class QuarkParams:
     winding_mode: str = "max"
     resistance_model: str = "exponential"
     depth_cost_mode: str = "tunnel_only"
+    uplift_mode: str = "k_minus_3_sq"
+    uplift_asymmetry: float = 0.0
 
     spectrum_zero: Optional[float] = None
 
@@ -193,7 +195,21 @@ def _diagonal_entry(k: int, p: str, params: QuarkParams) -> float:
     base = params.action_base
     k_cost = params.resistance * k * k
     pinhole_term = params.pinhole if k in (3, 5) else 0.0
-    uplift = params.beta * max(0, k - 3) ** 2
+    base_uplift = max(0, k - 3) ** 2
+    if params.uplift_mode == "k_minus_3_sq":
+        uplift = params.beta * base_uplift
+    elif params.uplift_mode == "partition_asymmetric":
+        # Multiplicative partition breaking; keeps uplift non-negative
+        # when |uplift_asymmetry| <= 1, so positivity rejection is
+        # governed by gamma_q / resistance as before.  Reduces to the
+        # k_minus_3_sq mode at uplift_asymmetry = 0.
+        uplift = (
+            params.beta
+            * base_uplift
+            * (1.0 + params.uplift_asymmetry * _SIGMA[p])
+        )
+    else:
+        raise ValueError(f"Unknown uplift_mode: {params.uplift_mode!r}")
     partition = params.gamma_q * _SIGMA[p] * _u_q(k, params.u_q_form)
     return base + k_cost + pinhole_term + uplift + partition
 
