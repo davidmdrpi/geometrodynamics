@@ -173,6 +173,7 @@ class QuarkParams:
     depth_cost_mode: str = "tunnel_only"
     uplift_mode: str = "k_minus_3_sq"
     uplift_asymmetry: float = 0.0
+    spectrum_zero_mode: str = "action_base"
 
     spectrum_zero: Optional[float] = None
 
@@ -353,9 +354,20 @@ def extract_physical_spectrum(
     if params is None:
         params = QuarkParams()
 
-    zero = (params.spectrum_zero
-            if params.spectrum_zero is not None
-            else _default_spectrum_zero(params))
+    # Explicit numeric override wins; otherwise dispatch on
+    # spectrum_zero_mode.  "min_eigenvalue" is resolved after the final
+    # diagonalization below; flagged here with NaN so the shift step
+    # knows to recompute.
+    if params.spectrum_zero is not None:
+        zero = params.spectrum_zero
+    elif params.spectrum_zero_mode == "action_base":
+        zero = _default_spectrum_zero(params)
+    elif params.spectrum_zero_mode == "min_eigenvalue":
+        zero = float("nan")
+    else:
+        raise ValueError(
+            f"Unknown spectrum_zero_mode: {params.spectrum_zero_mode!r}"
+        )
 
     # ── Step 1: unmixed diagonalization, trivial species labeling ──
     unmixed = _unmixed_params(params)
@@ -448,6 +460,9 @@ def extract_physical_spectrum(
                 f"Adiabatic tracking diverged at column {col}: "
                 f"|overlap| = {ov:.3f}.  Try increasing n_adiabatic_steps."
             )
+
+    if math.isnan(zero):
+        zero = float(np.min(eig_final_chk))
 
     result: Dict[str, float] = {}
     for col, species in enumerate(current_species):
