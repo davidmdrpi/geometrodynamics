@@ -145,19 +145,18 @@ def main() -> int:
     p.add_argument("--verbose", action="store_true")
     args = p.parse_args()
 
-    # Pass 1: hold transport/pinhole/resistance at exp-3 best and
-    # sweep the primary four axes (N, ε, χ, η) plus γ_q.  The
-    # residual knobs can be re-optimized in a follow-up once the
-    # primary basin is located.
+    # Pass 2: eta extended past the pass-1 grid edge (10 → 50),
+    # residual knobs unpinned, primary axes tightened around pass-1
+    # best (N=280, eps=0.95, chi=10, gamma_q=0.1).
     axes = [
-        ("integer_winding",   np.array([80, 120, 150, 180, 220, 280])),
-        ("uplift_asymmetry",  np.array([0.85, 0.95, 1.05, 1.15, 1.30, 1.50, 1.70, 1.90])),
-        ("chi_q_k3",          np.array([10.0, 18.0, 28.0, 40.0, 55.0, 75.0, 100.0, 140.0])),
-        ("eta_k3k5_minus",    np.array([0.0, 0.5, 1.0, 2.0, 3.5, 5.0, 7.5, 10.0])),
-        ("gamma_q",           np.array([0.05, 0.10, 0.20, 0.40])),
-        ("transport",         np.array([0.5])),
-        ("pinhole",           np.array([15.0])),
-        ("resistance",        np.array([0.15])),
+        ("integer_winding",   np.array([200, 260, 320, 400, 500])),
+        ("uplift_asymmetry",  np.array([0.85, 0.95, 1.05, 1.20, 1.40])),
+        ("chi_q_k3",          np.array([5.0, 10.0, 20.0, 40.0])),
+        ("eta_k3k5_minus",    np.array([5.0, 10.0, 18.0, 28.0, 40.0, 50.0])),
+        ("gamma_q",           np.array([0.05, 0.10, 0.25])),
+        ("transport",         np.array([0.3, 0.6, 1.0])),
+        ("pinhole",           np.array([10.0, 15.0, 22.0])),
+        ("resistance",        np.array([0.10, 0.15, 0.22])),
     ]
 
     result = run(axes, verbose=args.verbose)
