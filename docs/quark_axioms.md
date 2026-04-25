@@ -1163,6 +1163,136 @@ Raw output: `docs/calibration_runs/n_ablation.json`.
 
 ---
 
+### Residuals from geometry — does N stop drifting?
+
+User-named follow-up to the N-ablation: replace one residual
+knob at a time with geometry-derived quantities from the
+existing codebase, then re-run the N stability check.  If N
+stops drifting after substitution, it may become meaningful
+again; if it still drifts, β should stay explicitly
+phenomenological.
+
+The substitutions used (deliberately the most natural single
+scalars from each module):
+
+  transport  ←  hopf.hopf_connection(0) = 1/2
+                Canonical Hopf-bundle holonomy coefficient at
+                χ = 0; the "equator-to-pole" transport amplitude
+                that emerges from S³ geometry without ansatz.
+
+  resistance ←  (α_q(5,0) − α_q(1,0)) / 2 ≈ 0.1473
+                Half-range of throat-flux ratios across the
+                closure pass-count band, computed via
+                tangherlini.alpha_q.derive_alpha_q.
+
+  pinhole    ←  Σ_{l=1}^{5} V_max(l) ≈ 21.80
+                Cumulative Tangherlini centrifugal-barrier
+                height summed over partial waves up to the
+                heaviest pass count k_5 = 5.  Closest match of
+                the three to the fitted residual (22.25, 2% off).
+
+Hold all four shell-index constraints + γ_q = 1/10 fixed.  Pin
+the substituted residual(s) to their derived values.  Free knobs:
+N plus any non-substituted residuals.  Run under PDG masses
+plus three per-species 10% perturbations and report N range.
+
+Command:
+`python scripts/experiment_residuals_from_geometry.py`
+
+| substitution mode      | N range    | width | err range |
+|------------------------|-----------:|------:|-----------|
+| baseline (all free)    | [430, 494] | **64** | 1.6%–5.5% |
+| transport pinned       | [432, 514] | 82    | 2.1%–5.1% |
+| resistance pinned      | [434, 502] | 68    | 1.7%–5.4% |
+| pinhole pinned         | [478, 524] | 46    | 1.3%–8.0% |
+| **all three pinned**   | **[538, 540]** | **2** | **11.7%** |
+
+### Verdict
+
+**The substitution programme produces a clear yes-and-no answer.**
+
+- **Yes, N stops drifting** when all three residuals are
+  simultaneously pinned to their derived values.  The width
+  collapses from 64 (baseline) to 2.  N=538-540 is read
+  consistently across all four mass scenarios — the per-species
+  perturbations no longer move it.
+- **No, that does not rescue N as a topological invariant.**
+  The price of pinning all three residuals is a jump in
+  max_rel_err from 1.6% to 11.7%.  N's stability is bought by
+  forcing the model to a worse fit, not by removing genuine
+  degrees of freedom.
+
+**Mechanistic reading:** with residuals free, N compensates
+mass perturbations by trading against transport / pinhole /
+resistance.  With residuals pinned, N has nothing to compensate,
+so it reads the **fixed structural mismatch** between (model +
+derived geometry) and the observed masses.  That mismatch is
+11.7% — much worse than the unpinned 1.6%.
+
+**Single-knob pinning does not stabilize N.**  Only joint
+locking of all three residuals does.  But pinhole carries the
+most compensator burden (range narrows from 64 to 46 when
+pinhole alone is pinned), consistent with pinhole_geom (21.80)
+being the closest match to the fitted value (22.25, 2%).
+
+### What this tells us about the geometry derivations
+
+The geometry-derived scalars are **roughly right but not
+exact**:
+
+- pinhole_geom 21.80 vs fitted 22.25: 2% off.
+- transport_geom 0.5 vs fitted 0.54: 7% off.
+- resistance_geom 0.147 vs fitted 0.14: 5% off.
+
+Each is plausible to within 10%, but combined they do not
+reproduce the spectrum to better than 12%.  Either:
+
+1. The minimal-scalar choices made here are not the right
+   ones — e.g. transport might require a particular Hopf χ
+   (not χ=0); resistance might require a finer α_q
+   construction; pinhole might require a different combination
+   of V_max values.
+2. There is a residual structural effect not captured by any
+   of these derivations — perhaps the placeholder partition-
+   mixing phase φ_q(k) that is currently set to 0 at the lock.
+   The HANDOFF post-landing TODO of replacing it with the
+   live Hopf-derived phase becomes more important here.
+3. The Hopf / α_q / Tangherlini machinery does encode the
+   physics correctly, but the connection to the QCD
+   Hamiltonian's residual knobs requires a derivation step
+   that has not been done yet.
+
+### Recommendation
+
+**β should stay phenomenological.**  N=466 is a compensator,
+and the candidate geometry-derived scalars are not yet
+quantitatively tight enough to constrain it.  The integer-N
+framing should be retired from the locking discipline (per the
+previous N-ablation result), and β should be optimized as a
+continuous knob.
+
+The next-session priorities are correspondingly:
+
+1. **Wire up the Hopf-derived partition-mixing phase** (HANDOFF
+   post-landing TODO).  The current φ=0 lock means that channel
+   is structurally inactive; if the live Hopf phase is non-zero,
+   the lock will shift and may make the geometry-derived
+   residuals viable.
+2. **Search for the right Hopf χ for transport.**  hopf_connection(0)=½ is the canonical equatorial value, but the
+   k=5 heavy-shell coupling probably wants χ = π/3 or 2π/5
+   (where holonomy = π·cos(χ) takes intermediate values).
+3. **Consider a per-pass α_q-based resistance.**  Currently
+   resistance is a single scalar.  But α_q(l,0) varies with l;
+   a per-shell decay constant might be more natural.
+4. **Document pinhole = Σ V_max as the strongest candidate
+   constraint.**  At 2% off the fitted value, this is the most
+   promising of the three — worth a careful inspection of
+   whether the discrepancy is grid-resolution or structural.
+
+Raw output: `docs/calibration_runs/residuals_from_geometry.json`.
+
+---
+
 ## §9 Phenomenological interpretation (post-topology, separated by rule)
 
 **This section is separated from the axioms by the methodological rule
