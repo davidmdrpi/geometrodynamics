@@ -528,6 +528,37 @@ def extract_physical_spectrum(
 # See docs/quark_axioms.md §8 "N-stability ablation" for the
 # evidence and the recommended next steps.
 #
+# RESIDUAL SECTOR GEOMETRIZED (added after transport+pinhole+
+# resistance derivations): the three residual knobs in this lock
+# match within 1% of geometric values derived from
+# `tangherlini.radial.solve_radial_modes` and
+# `tangherlini.alpha_q.derive_alpha_q` on the eigensolver tortoise
+# grid:
+#
+#   pinhole    = Σ_{l=1..5} V_max(l)                      (-1.09%)
+#   transport  = mean ⟨u_l|V_{l+2}-V_l|u_{l+2}⟩            (+0.87%)
+#   resistance = transport · ln(α_q(5,0) / α_q(1,0))       (-0.43%)
+#
+# DECISIVE N-ABLATION (added after the geometric ablation): even
+# with all three residuals pinned to their derived values, N still
+# drifts by 90 units under physical perturbations.  The residual
+# sector is fully geometrized, but β remains the model's last fit
+# knob — the heaviest-shell closure winding number with no
+# discovered topological reading.
+#
+# v3 ansatz status (see docs/quark_axioms.md §9 for full picture):
+#   Shell-index axioms (ε, η, χ, phase): geometric in k_5 = 5  ✓
+#   γ_q = 1/10                         : empirical clean        ✓
+#   transport / pinhole / resistance   : geometric (tortoise)   ✓
+#   N (β = N·π/2)                      : phenomenological       ✗
+#
+# β at k=5 only contributes to b and t directly; the lighter
+# shells (u, d, s, c) are determined entirely by the chamber-
+# interaction sector.  This makes the quark ladder a
+# "shell-coupled closure" spectrum, distinct from the lepton
+# ladder's "minimal closure" framing where global pass-count
+# winding dominates every species' mass.
+#
 # max_rel_err = 1.6% across {s, c, b, t}; u is 0 by construction
 # under min_eigenvalue zero, d is the anchor at 4.67 MeV.
 LOCKED_QUARK_PARAMS: Optional[QuarkParams] = QuarkParams(

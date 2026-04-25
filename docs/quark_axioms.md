@@ -1809,3 +1809,141 @@ None of the above is an axiom. It is post-hoc interpretation. If the
 calibration reveals that the natural mapping differs from what this
 section suggests, the correct response is to update this section, not
 the axioms.
+
+### Shell-coupled vs minimal closure: what the calibration revealed
+
+The full calibration log (§8) shows a structural distinction between
+the two sectors that was not obvious before the experiments ran:
+
+> **The lepton ladder is a *minimal closure* spectrum.** Each lepton
+> mass is dominated by the global pass-count winding β·k² acting on a
+> nearly bare closure skeleton.  The integer-N=100 lock that closed
+> the lepton ladder is a topological winding number — the heaviest
+> lepton requires exactly 100 great-circle traversals of the S³
+> closure.
+>
+> **The quark ladder is a *shell-coupled closure* spectrum.**  The
+> same closure skeleton interacts with an interior chamber through
+> four explicit channels:
+>
+>   - **barrier height** (pinhole = Σ V_max(l) on tortoise grid)
+>   - **cross-ℓ transport** (mean ⟨u_l|V_{l+2}−V_l|u_{l+2}⟩)
+>   - **flux-ratio damping** (resistance = transport·ln(α_q ratio))
+>   - **partition asymmetry** (ε, η, χ, all functions of k_5 = 5)
+>
+> Only the heaviest closure shell still picks up a global winding β,
+> and even there only via the partition-asymmetric factor (1±ε).
+> The lighter shells are determined entirely by the chamber-coupling
+> terms.
+
+This is supported quantitatively by the diagonal-Hamiltonian
+decomposition at the lock (units: action_base = π = 3.14):
+
+| basis  | action_base | k_cost | pinhole | β·uplift | partition | k3_split | total H_diag |
+|--------|------------:|-------:|--------:|---------:|----------:|---------:|-------------:|
+| (1, +) | 3.14        | 0.14   | 0.00    | **0**    | −0.10     | 0.00     | 3.18        |
+| (1, −) | 3.14        | 0.14   | 0.00    | **0**    | +0.10     | 0.00     | 3.38        |
+| (3, +) | 3.14        | 1.26   | 22.25   | **0**    | +0.10     | +20.00   | 46.75       |
+| (3, −) | 3.14        | 1.26   | 22.25   | **0**    | −0.10     | −20.00   | 6.55        |
+| (5, +) | 3.14        | 3.50   | 22.25   | **5739** | +0.30     | 0.00     | 5768        |
+| (5, −) | 3.14        | 3.50   | 22.25   | **117**  | −0.30     | 0.00     | 145.7       |
+
+Two things stand out:
+
+1. **β does not enter at all for k = 1 or k = 3.**  The
+   `max(0, k−3)²` factor in the uplift means u, d, s, c get exactly
+   zero direct contribution from the integer-winding β.
+2. **At k = 5, β provides 99% of the (5,+) diagonal and 80% of the
+   (5,−) diagonal**, with the (1−ε) = 1/k_5² = 1/25 factor responsible
+   for the asymmetry that splits b from t.
+
+The β contribution per *species* (computed by re-extracting the
+spectrum with β = 0 and comparing d-anchored masses):
+
+| species | with β     | β = 0      | β contribution |
+|---------|-----------:|-----------:|---------------:|
+| u       | 0          | 0          | 0%             |
+| d       | 4.67       | 4.67       | 0% (anchor)    |
+| s       | 94.9       | 84.8       | +11%           |
+| c       | 1285       | 1634       | **−27%**       |
+| b       | 4210       | 998        | **+76%**       |
+| t       | 170,022    | 975        | **+99%**       |
+
+The negative contribution at c is the level-repulsion fingerprint:
+without β at k = 5, level repulsion is weaker, c sits *higher* in
+the spectrum.  Turning on β actually pushes c down via the off-diagonal
+coupling.  This is the operational signature of "shell-coupled closure"
+— β at the heaviest shell rearranges the lighter shells through
+mixing, not through direct contribution.
+
+### β as the remaining phenomenological parameter
+
+With three of the four model sectors now reading geometrically
+(shell-index axioms, residual sector, γ_q clean rational), N=466
+stands out as the **single remaining free parameter** that survives
+all ablations.  N drifts under per-species mass perturbations and
+anchor-species changes, both with residuals free and with residuals
+fixed.  Uniform mass scaling leaves it invariant — the diagnostic
+signature of a fit knob.
+
+The honest statement of the v3 ansatz is therefore:
+
+> The quark spectrum is fit to 1.6% by:
+> (a) the shell-index closure axioms in terms of k_5 = 5,
+> (b) γ_q = 1/10 (an empirically clean rational),
+> (c) the chamber-interaction sector derived from
+>     `tangherlini.radial.solve_radial_modes` and
+>     `tangherlini.alpha_q.derive_alpha_q` on the eigensolver
+>     tortoise grid (3 residuals, all matched to ~1%),
+> (d) one phenomenological parameter β ≡ N·π/2 with N = 466,
+>     the heaviest-shell closure winding number, which has no
+>     topological reading at present.
+
+The β=continuous reading is consistent with the user's framing:
+β counts the residual heaviest-shell pass-count winding that
+remains after the chamber sector has done its work.  Whether
+that residual winding admits an analytic closure condition (as
+the lepton β does, via the τ argument) is an open theoretical
+question — it cannot be settled by further numerical fitting.
+
+### Candidate paths for an analytic β
+
+Three directions worth pursuing in subsequent theoretical work
+(none requires more numerical scanning):
+
+1. **A k = 5 closure-loop condition.**  For the lepton τ, β was
+   locked by demanding 4β = 100·(2π) — i.e. a 100-fold great-circle
+   winding.  For the quark sector, the analogous condition would
+   live at k = 5 specifically (since β only enters there).  The
+   integer-N reading inherited from `sweep_quark_beta` is a
+   fit-resolution artifact, but the *form* β = N·π/2 still encodes
+   a possible winding number.  N = 466 = 2 · 233 (with 233 prime)
+   does not factor cleanly, but 4β = 932π = 466·(2π) and any
+   topological interpretation should explain that 466 specifically.
+
+2. **Matching the lepton heavy-shell closure.**  In the lepton
+   sector, β_lepton = 50π fixes 4β_lepton = 100·(2π).  In the
+   quark sector at the lock, β_quark = 233π gives 4β_quark =
+   466·(2π), so β_quark / β_lepton = 4.66.  Whether this ratio
+   has a structural meaning — e.g. tied to the chamber-coupling
+   strength via the (1−ε) = 1/k_5² factor — is worth working out
+   analytically.  At face value, 4β_quark · (1−ε) = 4β_quark/25 =
+   932π/25 ≈ 117.1, which is exactly the (5,−) uplift contribution
+   — i.e. b's β-uplift is ((4β_quark/25)·η) for some normalization
+   tied to η = k_5.  The numerical match is exact by construction,
+   but it is suggestive that the β-quark / k_5² reading is the
+   right one to pursue.
+
+3. **A separate closure condition from the embedding.**  The
+   `embedding/transport.py` module derives the throat transport
+   T = iσ_y from S³ orientation reversal.  An analogous closure-
+   path argument might fix β_quark by demanding consistency
+   between the chamber-coupling sector (which is already
+   geometric) and the heaviest-shell winding.  This would close
+   the loop: β = derivable from the geometry that already
+   determines transport, pinhole, resistance.
+
+Until one of these analytic paths produces a definite β, the
+v3 ansatz should explicitly label β as **the remaining
+phenomenological parameter in the quark-sector calibration** —
+not a discovered topological invariant.
