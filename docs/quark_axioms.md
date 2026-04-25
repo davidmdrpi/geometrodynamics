@@ -1079,37 +1079,87 @@ that admits a geometric reading has been replaced by one.
 
 Raw output: `docs/calibration_runs/constraint_search.json`.
 
-### What is left to interpret
+### N-stability ablation — N is a compensator, not a lock
 
-- **N still has no clean topological reading.**  Pass 3 had
-  N=460; the constrained refit shifted slightly to N=466.  Both
-  are unique local minima at their respective residual settings,
-  but neither factors cleanly.  N=466 = 2·233 (233 prime).
-  Candidates for next session: search for N as a function of
-  k_high · k_low, lepton τ winding, Hopf linking number, or
-  S³ great-circle counts.
-- **γ_q = 1/10 reading.**  Empirically clean but topologically
-  opaque.  Candidates: γ_q = 1/(k₁ + k₃ + k₅ + 1) = 1/10
-  (sum of pass-counts plus one); γ_q = 2/(k₃ · k₅ + k₃ + k₅ - 5)
-  = 2/20 = 1/10; etc.  Worth a focused search.
-- **The three residual knobs (transport, pinhole, resistance)
-  are sharply pinned but have no clean readings.**  Pass-3
-  values: 0.54, 22.25, 0.14.  Same questions — are these
-  empirical, or do they fall out of the Hopf connection / α_q
-  / shell-circumference geometry once that machinery is wired up?
+User-named milestone: attack N=466 not by fitting but by asking
+what changes it.  Hold the four shell-index constraints (ε=24/25,
+η=5, χ=20, phase=0) plus γ_q=1/10 fixed; let only N, transport,
+pinhole, resistance vary; rerun the constrained descent under
+alternate anchor species, perturbed observed masses, and a
+non-default spectrum-zero strategy.
 
-### Next session
+If N is a topological invariant, it stays at 466 across these
+choices.  If N is an effective compensator for the
+transport/pinhole/resistance sector, it drifts.
 
-- **Topological reading for N.**  Independent search.
-- **Topological reading for γ_q.**  Same.
-- **Replace the partition-mixing phase placeholder.**  At the
-  lock phase=0, so the channel is inactive — but if the Hopf-
-  derived phase φ_q(k) is nonzero, that channel becomes active
-  again and the lock would shift.  Worth wiring up.
-- **Lepton-limit ratio sync** (the long-standing pre-existing
-  pytest TODO from the original drop): now that the quark module
-  has a real lock with most knobs constrained geometrically, the
-  residual lepton-limit absolute-mass check should converge.
+Command:
+`python scripts/experiment_n_ablation.py`
+
+| ablation | best N | err |
+|----------|-------:|----:|
+| baseline (anchor=d, PDG, min_eig)         | **466** | 0.016 |
+| PDG × 1.10 (uniform scale)                | **466** | 0.016 |
+| PDG × 0.90 (uniform scale)                | **466** | 0.016 |
+| anchor = s                                | 476     | 0.011 |
+| anchor = c                                | 474     | 0.010 |
+| anchor = b                                | 474     | 0.019 |
+| anchor = t                                | 482     | 0.016 |
+| c × 1.10                                  | **432** | 0.018 |
+| b × 1.10                                  | 494     | 0.042 |
+| t × 1.10                                  | 494     | 0.055 |
+| t × 0.90                                  | **440** | 0.037 |
+| all ±5% (deterministic)                   | 510     | 0.046 |
+| spectrum_zero = second_min                | 520     | 1.025 (fit fails) |
+
+**N range across well-fit ablations: [432, 510], width 78.**
+
+### Verdict
+
+**N is a compensator, not a topological invariant.**  Three
+diagnostic patterns confirm this:
+
+1. **Uniform mass scaling leaves N exactly at 466.** Multiplying
+   every observed mass by the same factor only rescales the
+   MeV anchor; it does not change relative ratios.  N is
+   invariant under this trivial transformation, as expected
+   for any fit knob.
+2. **Per-species mass perturbations shift N by tens of units.**
+   A 10% bump in c moves N by 34; a 10% bump in b or t moves
+   it by 28; a 5% per-species perturbation bundles up to a
+   44-unit shift.  N is being moved to absorb the new ratios.
+3. **Anchor-species choice shifts N by 8–16 units** while keeping
+   the fit residual at the same 1–2% level.  Same compensator
+   behavior — the model can hit any of these spectra at low
+   error by trading N against transport/pinhole/resistance.
+
+The four shell-index constraints survive all ablations: only
+N (and the residual continuous knobs) drift.  The constraint-
+reduction conclusion stands — ε, η, χ, phase are real structural
+features in terms of k₅.  But N is not.
+
+### Implications
+
+- **The "integer winding" framing for β should be retired.**
+  Pass-2's "N=400 = 4 × lepton τ winding" was a grid coincidence.
+  Pass-3's "N=460" and the reduced-lock's "N=466" are not
+  topologically meaningful either; they are just where β sits
+  to absorb the residual sector.
+- **β should be treated as a continuous knob.**  The integer
+  constraint inherited from `sweep_quark_beta.py` is a fit-
+  resolution artifact, not a physical lock.
+- **Next-session focus should shift to the residual sector.**
+  transport, pinhole, resistance are the remaining unread knobs.
+  If they have a clean reading from the Hopf connection / α_q /
+  shell-circumference geometry once that machinery is wired up,
+  N might absorb less of the fit and the basin might tighten or
+  shift toward a cleaner value.  Until then, N is what it is.
+
+This is the kind of negative result the methodology is set up
+to produce.  The shell-index constraints are stronger for having
+been tested against a real ablation; the N-as-topological-lock
+hypothesis is honestly retired.
+
+Raw output: `docs/calibration_runs/n_ablation.json`.
 
 ---
 

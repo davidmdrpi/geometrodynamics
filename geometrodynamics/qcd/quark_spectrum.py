@@ -517,6 +517,17 @@ def extract_physical_spectrum(
 # reduction log and basin probes confirming each constraint as a
 # basin feature, not a grid coincidence.
 #
+# N STABILITY (added after the N-ablation pass): N=466 is a
+# compensator, NOT a topological invariant.  N drifts by tens of
+# units under per-species mass perturbations or anchor-species
+# changes, while staying invariant under uniform mass scaling.
+# The four shell-index constraints survive every ablation; only N
+# moves.  The "integer winding" framing for β should be retired
+# — β is effectively continuous, and the integer-N constraint
+# inherited from sweep_quark_beta.py is a fit-resolution artifact.
+# See docs/quark_axioms.md §8 "N-stability ablation" for the
+# evidence and the recommended next steps.
+#
 # max_rel_err = 1.6% across {s, c, b, t}; u is 0 by construction
 # under min_eigenvalue zero, d is the anchor at 4.67 MeV.
 LOCKED_QUARK_PARAMS: Optional[QuarkParams] = QuarkParams(

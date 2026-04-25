@@ -1,0 +1,74 @@
+{
+  "baseline": {
+    "N": 466,
+    "err": 0.01610352923084611,
+    "params": {
+      "action_base": 3.141592653589793,
+      "beta": 731.9910882864218,
+      "gamma_q": 0.1,
+      "u_q_form": "k_minus_2",
+      "phase": 0.0,
+      "transport": 0.5400000000000001,
+      "pinhole": 22.25,
+      "resistance": 0.14,
+      "partition_mixing": 0.0,
+      "winding_mode": "max",
+      "resistance_model": "exponential",
+      "depth_cost_mode": "tunnel_only",
+      "uplift_mode": "partition_asymmetric",
+      "uplift_asymmetry": 0.96,
+      "spectrum_zero_mode": "min_eigenvalue",
+      "chi_q_k3": 20.0,
+      "eta_k3k5_minus": 5.0,
+      "spectrum_zero": null
+    }
+  },
+  "anchor=s": {
+    "N": 476,
+    "err": 0.010597162516293545
+  },
+  "anchor=c": {
+    "N": 474,
+    "err": 0.009552971093217922
+  },
+  "anchor=b": {
+    "N": 474,
+    "err": 0.018645609873662074
+  },
+  "anchor=t": {
+    "N": 482,
+    "err": 0.01607796399170854
+  },
+  "PDG_x_1.10": {
+    "N": 466,
+    "err": 0.016103529230846177
+  },
+  "PDG_x_0.90": {
+    "N": 466,
+    "err": 0.016103529230846195
+  },
+  "c_x_1.10": {
+    "N": 432,
+    "err": 0.017541941813268833
+  },
+  "b_x_1.10": {
+    "N": 494,
+    "err": 0.04169464993911719
+  },
+  "t_x_1.10": {
+    "N": 494,
+    "err": 0.054890526332316364
+  },
+  "t_x_0.90": {
+    "N": 440,
+    "err": 0.03730714433741764
+  },
+  "all_perturb_5pct": {
+    "N": 510,
+    "err": 0.04584935128078858
+  },
+  "zero=second_min": {
+    "N": 520,
+    "err": 1.0254148465460584
+  }
+}
