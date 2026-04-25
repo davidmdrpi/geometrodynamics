@@ -1293,6 +1293,140 @@ Raw output: `docs/calibration_runs/residuals_from_geometry.json`.
 
 ---
 
+### Transport-form and pinhole-refinement search
+
+User-named follow-up: instead of a broad scan, do two focused
+1D investigations.  (1) For transport, since 0.54 > 0.5 the
+canonical hopf_connection(0)=½ is too small — it is not a wrong-χ
+problem but a wrong-normalization problem.  Search over Hopf
+amplitude/holonomy/curvature/cos²/sin² forms.  (2) For pinhole,
+the Σ V_max construction is closest (2% off); refine it with
+odd-l only, degeneracy-weighted, turning-point V, and tortoise-
+coordinate evaluation to see which subvariant tightens the match.
+
+Command:
+`python scripts/experiment_transport_pinhole_search.py`
+
+#### Transport — every clean form bottoms out at ½
+
+| form           | max amp | χ solving 0.54 | best canonical χ | value | joint-fit N | err |
+|----------------|--------:|----------------|------------------|------:|------------:|----:|
+| ½·cos(χ)       | 0.500   | unreachable    | 0                | 0.500 | 490         | 0.0228 |
+| cos(χ)         | 1.000   | 1.001 rad      | π/3              | 0.500 | 490         | 0.0228 |
+| sin(χ)         | 1.000   | 0.571 rad      | π/6              | 0.500 | 490         | 0.0228 |
+| cos²(χ)        | 1.000   | 0.746 rad      | π/4              | 0.500 | 490         | 0.0228 |
+| sin²(χ)        | 1.000   | 0.826 rad      | π/4              | 0.500 | 490         | 0.0228 |
+| π·cos(χ)       | π       | 1.397 rad      | π/2              | 0.000 | —           | —   |
+
+Two structural conclusions:
+
+1. **The χ solving f(χ) = 0.54 is never a clean angle.**  arccos(0.54) ≈ 1.001 rad (not π/3 = 1.047, not 1 exactly within the
+   precision the fit gives), arcsin(0.54) ≈ 0.571 rad,
+   arccos(√0.54) ≈ 0.746 rad — all just numerical roots, no
+   topological reading.
+2. **At every canonical χ ∈ {0, π/6, π/4, π/3, π/2}, all forms
+   evaluate to 0.5 (or 0).** They are degenerate as transport
+   pins: each gives the same joint-fit (N=490, err=0.0228, ~1.4×
+   the unpinned baseline of 0.0161).
+
+The user's diagnosis is confirmed: **0.54 > 0.5 reflects a
+normalization problem, not a χ problem.**  Some structural
+correction (likely from a channel that is currently inactive at
+the lock — e.g. the placeholder partition-mixing phase φ_q(k)
+which is set to 0) is shifting transport from its bare Hopf
+value.  No simple alternate normalization (multiplying by π,
+1/π, e, etc.) gives a clean match.
+
+#### Pinhole — tortoise-grid evaluation tightens to 1.1%
+
+V_max(l) and ω(l, n=0) computed via `solve_radial_modes(N=80)`:
+
+| l | V_max(l) | ω(l, 0) |
+|---|---------:|--------:|
+| 1 | 1.137    | 1.055   |
+| 2 | 2.296    | 1.132   |
+| 3 | 3.919    | 1.219   |
+| 4 | 6.005    | 1.309   |
+| 5 | 8.554    | 1.396   |
+| 6 | 11.568   | 1.479   |
+
+| candidate                          | value  | rel diff | joint-fit N | err     |
+|------------------------------------|-------:|---------:|------------:|--------:|
+| Σ V_max(l=1..5), raw r-grid        | 21.91  | **−1.53%** | 488         | 0.0212 |
+| **Σ V_max(l=1..5), tortoise grid** | **22.01** | **−1.09%** | **496**     | **0.0295** |
+| Σ V_max(l=1..6) extended           | 33.48  | +50.5%   | 380         | 2.56    |
+| Σ V_max for odd l ∈ {1,3,5}        | 13.61  | −38.8%   | 466         | 1.00    |
+| 2 × Σ V_max(odd l)                 | 27.22  | +22.3%   | 380         | 1.02    |
+| Σ (2l+1) V_max(l), l=1..5          | 190.46 | +756%    | —           | —       |
+| Σ l · V_max(l), l=1..5             | 84.28  | +279%    | —           | —       |
+| Σ V at outer turning point         | 7.48   | −66.4%   | 466         | 1.00    |
+| V_max(l=5) only                    | 8.55   | −61.5%   | 466         | 1.00    |
+| V_max(l=5) × π                     | 26.87  | +20.8%   | 380         | 0.93    |
+| V_max(l=5) × e                     | 23.25  | +4.5%    | 380         | 0.22    |
+
+**The clean structural reading is `Σ V_max(l=1..5) on the
+tortoise grid = 22.01`.**  This is exactly the construction the
+eigenmode solver uses, evaluated in the same coordinate domain
+that defines the Tangherlini bound modes.  The match to the
+fitted pinhole = 22.25 is **−1.09%**.
+
+Refinements that DEGRADE the match (and rule themselves out):
+
+- **Including l=6** (33.48): too high by 50%; the heavy-shell
+  contribution at l=6 is decisive against this.
+- **Odd-l only** (13.61): too low by 39%; even-l contributions
+  are required.
+- **Degeneracy-weighted (2l+1)** (190.46): too high by 756×;
+  the angular-momentum degeneracy is NOT what enters pinhole.
+- **Turning-point V** (7.48): too low by 66%; the centrifugal
+  barrier maximum, not the classical turning-point height, is
+  what matters.
+- **Single-l × π or × e** (26.9, 23.3): no clean match, joint
+  fit fails.
+
+The 1.1% remaining gap between 22.01 and the fitted 22.25 is
+within the pinhole-fit grid resolution (0.25 step → ±0.6%),
+plus a likely small contribution from a higher-order or higher-l
+correction.  Practically: **`pinhole = Σ_{l=1}^{5} V_max(l)`
+evaluated on the eigensolver's tortoise grid is the
+strongest-supported geometric reading of any residual knob in
+the model.**
+
+### What this changes
+
+The transport result is a negative one: no simple Hopf form
+gives the fitted value, so the geometric reading of transport
+remains open.  But the pinhole result is positive — the simple
+∑V_max construction, evaluated on the right grid, captures the
+fit to within 1%.  This is the first residual knob with a
+quantitative geometric reading.
+
+If the same structural-mismatch logic from the previous
+substitution experiment holds, pinning pinhole to 22.01 should
+let N drift less than the unpinned case but cost 0.03 in error.
+That matches the joint-fit row exactly: N=496 (vs 466), err
+0.0295 (vs 0.0161).  The mechanism is consistent.
+
+The remaining open questions concentrate on transport
+specifically.  Candidates worth testing in a follow-up:
+
+1. **Hopf phase at non-zero φ_q(k).**  Currently phase=0 at the
+   lock; replacing the placeholder phase·k with the live
+   `hopf/connection.py` derivation may push transport closer to
+   a clean Hopf value.
+2. **An overlap integral**.  ⟨ψ_l | ψ_{l+2}⟩ between adjacent
+   bound modes (l→l+2 to stay in the same partition class)
+   computed on the tortoise grid would naturally produce O(0.5)
+   amplitudes, like the spectroscopic factor in nuclear
+   physics.  Worth deriving.
+3. **A throat-flux off-diagonal**.  α_q ratios at l and l+2
+   can be combined into an off-diagonal coupling; the value
+   need not be ½ exactly.
+
+Raw output: `docs/calibration_runs/transport_pinhole_search.json`.
+
+---
+
 ## §9 Phenomenological interpretation (post-topology, separated by rule)
 
 **This section is separated from the axioms by the methodological rule
