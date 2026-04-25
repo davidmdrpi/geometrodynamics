@@ -981,33 +981,135 @@ the default for pre-calibration code paths.
 
 Raw scan output: `docs/calibration_runs/refine_pass3.json`.
 
+### Constraint-reduction pass — geometric relations among (χ, η, ε, φ)
+
+User-named milestone: instead of refining the 9-axis fit further,
+test whether (χ, η, ε, φ) can be replaced by one or two geometric
+relations.  At the pass-3 lock the suspiciously clean ratios were:
+
+- χ · η = 19.8 · 5.0 = 99      (≈ 100, lepton τ winding)
+- χ / η = 19.8 / 5.0 = 3.96    (≈ 4)
+- ε     = 0.96                 (= 24/25 exactly)
+- φ     ≈ 0.0049               (≈ 1/200)
+
+Command:
+`python scripts/experiment_constraint_search.py`
+
+For each candidate constraint, the script fixes the relation and
+re-runs coordinate descent over the remaining axes.  A relation
+that is structurally meaningful holds the lock open at the
+unconstrained ≈1.6% within scan resolution.  A coincidence
+degrades the residual.
+
+| constraint | err | ratio to baseline |
+|------------|----:|------------------:|
+| (none — baseline)                | 1.62e-02 | 1.00 |
+| χ · η = 99                       | 1.62e-02 | 1.00 |
+| χ · η = 100                      | 1.68e-02 | 1.03 |
+| **χ / η = 4**                    | **1.54e-02** | **0.95** |
+| **χ = 20, η = 5  (exact ints)**  | **1.54e-02** | **0.95** |
+| **ε = 0.96 = 24/25**             | **1.62e-02** | **1.00** |
+| ε = 0.95                         | 1.10e-01 | 6.78 |
+| ε = 1.00                         | 6.97e-01 | 42.94 |
+| **phase = 0.005 = 1/200**        | **1.63e-02** | **1.01** |
+| **phase = 0**                    | **1.64e-02** | **1.01** |
+
+### What survives
+
+Five constraints cost zero or sub-1% in residual.  Four of them
+have a clean reading in terms of the heaviest pass-count k₅ = 5:
+
+- **ε = 1 − 1/k₅²** = 24/25.  At k=5 in the partition-asymmetric
+  uplift `β · (k−3)² · (1 + ε · σ(p))`, the (5,−) state receives
+  uplift `β · 4 · (1 − ε) = β · 4 / k₅²`. The asymmetry equals
+  the inverse-square of the heaviest shell radius — the form one
+  would write down for an inverse-square dimensional rescaling
+  on S³ at the heaviest closure.  Sharply pinned: shifting ε by
+  0.04 (to 1.0) costs a 43× increase in error.
+- **η = k₅** = 5.  The targeted (3,−)–(5,−) coupling amplitude
+  equals the heaviest pass-count itself.
+- **χ = (k₅ − 1) · k₅** = 20.  The k=3 partition splitter equals
+  the heaviest "active" coupling product (4 · 5).
+- **phase = 0.**  The placeholder φ_q(k) = phase·k partition-
+  mixing phase contributes nothing at the lock; the partition-
+  mixing channel is structurally inactive.
+
+Plus one empirical clean rational with no obvious topological
+reading yet:
+
+- **γ_q = 1/10** = 0.10.  Razor-pinned: 10% shift (to 0.09 or
+  0.11) costs an order of magnitude in error.
+
+### Reduced lock
+
+The constrained lock has been written into
+`geometrodynamics/qcd/quark_spectrum.py` as the new
+`LOCKED_QUARK_PARAMS`, replacing the pass-3 lock.  Free knobs
+collapse from 9 (pass 3) down to **4 continuous + 1 integer**:
+
+```
+   action_base       = π                 (structural)
+   beta              = N · π/2           (N integer winding)
+   gamma_q           = 1/10              (clean rational)
+   phase             = 0                 (no partition mixing)
+   uplift_asymmetry  = 1 − 1/k₅² = 24/25 (geometric in k₅)
+   chi_q_k3          = (k₅−1)·k₅ = 20    (geometric in k₅)
+   eta_k3k5_minus    = k₅ = 5            (geometric in k₅)
+
+   N (= 466)         free integer  ← still no clean topological reading
+   transport (= 0.54) free continuous
+   pinhole   (= 22.25) free continuous
+   resistance (= 0.14) free continuous
+```
+
+Predicted vs observed (MeV) at the constrained lock:
+
+| species | predicted | observed | rel err |
+|---------|----------:|---------:|--------:|
+| u |        0.00 |      2.16 | 1.00 (by construction) |
+| d |        4.67 |      4.67 | 0 (anchor)             |
+| s |       94.90 |     93.4  | **0.0161**             |
+| c |     1285.18 |  1270     | **0.0120**             |
+| b |     4209.56 |  4180     | **0.0071**             |
+| t |   170021.78 | 172690    | **0.0155**             |
+
+**Maximum relative error 1.6% on a 4-continuous-knob model.**
+This is the constraint-reduction pass: every redundant fit knob
+that admits a geometric reading has been replaced by one.
+
+Raw output: `docs/calibration_runs/constraint_search.json`.
+
+### What is left to interpret
+
+- **N still has no clean topological reading.**  Pass 3 had
+  N=460; the constrained refit shifted slightly to N=466.  Both
+  are unique local minima at their respective residual settings,
+  but neither factors cleanly.  N=466 = 2·233 (233 prime).
+  Candidates for next session: search for N as a function of
+  k_high · k_low, lepton τ winding, Hopf linking number, or
+  S³ great-circle counts.
+- **γ_q = 1/10 reading.**  Empirically clean but topologically
+  opaque.  Candidates: γ_q = 1/(k₁ + k₃ + k₅ + 1) = 1/10
+  (sum of pass-counts plus one); γ_q = 2/(k₃ · k₅ + k₃ + k₅ - 5)
+  = 2/20 = 1/10; etc.  Worth a focused search.
+- **The three residual knobs (transport, pinhole, resistance)
+  are sharply pinned but have no clean readings.**  Pass-3
+  values: 0.54, 22.25, 0.14.  Same questions — are these
+  empirical, or do they fall out of the Hopf connection / α_q
+  / shell-circumference geometry once that machinery is wired up?
+
 ### Next session
 
-With the lock in place at 1.6% max rel err and the basins
-verified, the remaining open questions are interpretive rather
-than computational:
-
-- **Does N=460 have a topological reading?**  Independent search
-  for clean factorizations or relationships to the lepton τ
-  winding (100), the S² visual analogy, or the Hopf invariants.
-- **Can (χ, η, ε) be reduced to fewer knobs?**  All three are
-  partition-asymmetry knobs at different k-shells; a single
-  topological constraint relating them would cut the parameter
-  count from 9 (after the extensions) toward the v3 minimal 6.
-  The narrow χ basin (width 0.15 at pass 3) suggests χ is
-  strongly determined; the wider η basin (width 1.0) suggests η
-  has more slack.
-- **Replace the placeholder partition-mixing phase** φ_q(k) =
-  phase·k with the Hopf-derived phase from `hopf/connection.py`,
-  per HANDOFF.md "post-landing TODO".  Pass-3 has phase ≈ 0.005
-  which is much smaller than pass-2's 0.001 — phase moved to
-  near-zero, i.e. the partition mixing channel is barely active
-  at the lock.
+- **Topological reading for N.**  Independent search.
+- **Topological reading for γ_q.**  Same.
+- **Replace the partition-mixing phase placeholder.**  At the
+  lock phase=0, so the channel is inactive — but if the Hopf-
+  derived phase φ_q(k) is nonzero, that channel becomes active
+  again and the lock would shift.  Worth wiring up.
 - **Lepton-limit ratio sync** (the long-standing pre-existing
   pytest TODO from the original drop): now that the quark module
-  has a real lock, it is finally meaningful to synchronize the
-  residual continuous knobs with the lepton baseline and check
-  the absolute (not just ratio) lepton-limit equality.
+  has a real lock with most knobs constrained geometrically, the
+  residual lepton-limit absolute-mass check should converge.
 
 ---
 

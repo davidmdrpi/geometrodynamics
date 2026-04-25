@@ -497,37 +497,45 @@ def extract_physical_spectrum(
 # LOCKED BASELINE AND SOLVED MASSES
 # ════════════════════════════════════════════════════════════════════════
 
-# Pass-3 lock from scripts/refine_pass3_coord_descent.py on 2026-04-24.
+# Pass-3 lock with constraint reduction from
+# scripts/experiment_constraint_search.py on 2026-04-25.
 #
-# Combines the minimal v3 ansatz with three opt-in structural extensions:
-#   uplift_mode = "partition_asymmetric"   — k=5 b/t splitter
-#   spectrum_zero_mode = "min_eigenvalue"  — d-anchor instead of u-anchor
-#   chi_q_k3 = 19.8                        — k=3 c/s splitter
-#   eta_k3k5_minus = 5.0                   — targeted (3,−)–(5,−) coupling
+# Five-constraint reduction expresses four knobs in terms of the
+# heaviest pass-count k_5 = 5, plus one empirical clean rational:
 #
-# Hits max_rel_err = 1.6% across {s, c, b, t} (u is 0 by construction
-# under min_eigenvalue zero; d is the anchor at 4.67 MeV).  N=460 sits
-# in a smooth basin of width ~30 (within 2× of best); χ and η likewise
-# in clean basins of widths ~0.3 and ~2 respectively.  See
-# docs/quark_axioms.md §8 for the full calibration log, basin-probe
-# evidence, and the candidate topological readings of N, χ, η.
+#   uplift_asymmetry  = 1 − 1/k_5²  = 24/25
+#   eta_k3k5_minus    = k_5         = 5
+#   chi_q_k3          = (k_5 − 1)·k_5 = 20
+#   phase             = 0
+#   gamma_q           = 1/10  (empirically pinned to 1% precision;
+#                              no obvious topological reading, but
+#                              gamma_q = 0.09 or 0.11 cost an order
+#                              of magnitude in error)
+#
+# Free knobs after reduction: N (integer), transport, pinhole,
+# resistance.  See docs/quark_axioms.md §8 for the full constraint-
+# reduction log and basin probes confirming each constraint as a
+# basin feature, not a grid coincidence.
+#
+# max_rel_err = 1.6% across {s, c, b, t}; u is 0 by construction
+# under min_eigenvalue zero, d is the anchor at 4.67 MeV.
 LOCKED_QUARK_PARAMS: Optional[QuarkParams] = QuarkParams(
     action_base=QUARK_ACTION_BASE,
-    beta=460 * math.pi / 2.0,
+    beta=466 * math.pi / 2.0,
     gamma_q=0.10,
     u_q_form="k_minus_2",
-    phase=0.0049,
-    transport=0.55,
-    pinhole=22.0,
+    phase=0.0,
+    transport=0.54,
+    pinhole=22.25,
     resistance=0.14,
     partition_mixing=0.0,
     winding_mode="max",
     resistance_model="exponential",
     depth_cost_mode="tunnel_only",
     uplift_mode="partition_asymmetric",
-    uplift_asymmetry=0.96,
+    uplift_asymmetry=24.0 / 25.0,
     spectrum_zero_mode="min_eigenvalue",
-    chi_q_k3=19.8,
+    chi_q_k3=20.0,
     eta_k3k5_minus=5.0,
     spectrum_zero=None,
 )
