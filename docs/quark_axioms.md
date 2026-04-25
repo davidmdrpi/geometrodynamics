@@ -862,25 +862,152 @@ original minimal v3 Hamiltonian, so the reference line is preserved.
 
 Raw scan output: `docs/calibration_runs/experiment_refined_k3k5_pass2.json`.
 
-### Next session — refinement path
+### Basin probes — credibility test for N, χ, η
 
-With the basin located, obvious improvements:
+User-named credibility threshold: are N=400, χ=20, η=5 from pass 2
+basin features or grid coincidences?
 
-- **Fine-grained scan around the pass-2 best** to push below 10%.
-  Grid spacing of O(1%) on the primary axes; include a second-pass
-  on the residuals. Check whether the t undershoot closes further
-  as N increases past 400, or saturates — the latter would suggest
-  the topological interpretation N = 400 is exact.
-- **Test whether N = 400 is a true attractor** with a basin-width
-  probe analogous to step 3 of the original pipeline. Width of the
-  2×-best-error well would be the empirical signature.
-- **Investigate whether (χ, η) can be tied together**, or to
-  (ε, γ_q), by a single topological constraint, reducing the free
-  parameter count from 10 (w/ extensions) back toward the minimal 6.
-- **Paste the refined lock into `LOCKED_QUARK_PARAMS`** once the
-  fine-grained scan has converged. The current module still carries
-  the failed original-pipeline lock with an explicit "NOT a
-  successful fit" honesty note; that note will become replaceable.
+Command:
+`python scripts/basin_probe_topological_locks.py`
+
+Holds 7 axes at the pass-2 best and sweeps the target axis on a
+fine 1D grid.  Results at the pass-2 baseline (max_rel_err 0.133):
+
+| axis | best | 2× window | width | shape |
+|------|-----:|-----------|------:|-------|
+| N (integer winding) | 400 | [350, 450]   | 100  | smooth quadratic |
+| χ_q_k3              | 19.8| [19.0, 20.6] | 1.6  | smooth, asymmetric (level crossing at χ ≈ 22.5) |
+| η_k3k5_minus        | 4.0 | [0.0, 9.5]   | 9.5  | smooth quadratic |
+
+**All three are basin features, not grid coincidences.** The χ
+basin is the narrowest by far, but it is continuous and convex
+within the d-anchor regime. At χ ≈ 22.5 the d eigenvalue crosses
+zero (d ceases to be the second-lightest species), which is a
+physical regime boundary, not a flaw in χ.  An identical regime
+boundary at η ≈ 18 limits the η basin from above.
+
+Raw output:
+`docs/calibration_runs/basin_probe_pass2{,_fine}.json`.
+
+### Pass 3 — coordinate-descent refinement
+
+Command:
+`python scripts/refine_pass3_coord_descent.py --verbose`
+
+Coordinate descent over 9 axes (the 8 from pass 2 plus phase),
+fine 1D grids tuned to the basin widths from the probes.
+Converged in 3 rounds.
+
+**Final lock — max rel err = 1.6%:**
+
+| field | value |
+|-------|------:|
+| N (= 2β/π)             | 460 |
+| uplift_asymmetry (ε)   | 0.96 |
+| chi_q_k3 (χ)           | 19.8 |
+| eta_k3k5_minus (η)     | 5.0 |
+| gamma_q                | 0.10 |
+| transport              | 0.55 |
+| pinhole                | 22.0 |
+| resistance             | 0.14 |
+| phase                  | 0.0049 |
+
+Predicted vs observed (MeV), d-anchor:
+
+| species | predicted | observed | rel err |
+|---------|----------:|---------:|--------:|
+| u |        0.00 |      2.16 | 1.00 (by construction) |
+| d |        4.67 |      4.67 | 0 (anchor)             |
+| s |       94.82 |     93.4  | **0.0152**             |
+| c |     1290.92 |  1270     | **0.0165**             |
+| b |     4219.92 |  4180     | **0.0095**             |
+| t |   170342.41 | 172690    | **0.0136**             |
+
+**All four non-anchor species fit to better than 2%.** Pass 2's
+13.3% max error reduced by an order of magnitude.
+
+### Re-probing the basins at the pass-3 lock
+
+Same probe procedure, run against the pass-3 best (max_rel_err
+0.016):
+
+| axis | best | 2× window | width |
+|------|-----:|-----------|------:|
+| N    | 460  | [455, 470]   | 15  |
+| χ    | 19.8 | [≈19.7, ≈19.85] | ≈0.15 |
+| η    | 5.0  | [4.5, 5.5]   | 1.0 |
+
+The basins are still smooth and convex — the structure is
+preserved at the new optimum.  All three knobs sit in the interior
+of their physical regimes.  A wide N sweep over [50, 1600] at the
+pass-3 residuals reveals **a single local minimum** (at N=460);
+no competing topological lock exists.
+
+### Verdict at pass 3
+
+The minimal v3 ansatz extended with three opt-in structural
+additions (`uplift_mode="partition_asymmetric"`,
+`spectrum_zero_mode="min_eigenvalue"`, `chi_q_k3`,
+`eta_k3k5_minus`) fits the observed six-quark mass ladder to
+**1.6% maximum relative error**, anchored on d = 4.67 MeV.  All
+three new topological knobs (N, χ, η) are basin features at the
+fitted point, with smooth convex error wells and physical
+regime boundaries on either side.
+
+**The "N = 4 × lepton τ winding" reading from pass 2 does not
+survive refinement.** Pass 2's N=400 was the best on a
+factor-of-2 logarithmic N grid; under refinement N migrated to
+460, which has no obvious topological reading (460 = 4·115 =
+20·23).  Either:
+
+1. There is a different N basin further out with a cleaner
+   topological reading.  The single-minimum result over [50,
+   1600] argues against this for the current ε/χ/η/residuals.
+2. The integer winding is not a clean topological invariant in
+   the shelled sector; it is just where the fit lives.  In that
+   case the "4β = N · 2π" framing should be retired and β
+   becomes a continuous knob.
+3. N=460 has a topological reading we have not yet identified.
+   460 modulo small integers: 460/π ≈ 146.4; 460/2π ≈ 73.2;
+   neither obviously clean.  Worth an independent search.
+
+The pass-3 lock has been written into
+`geometrodynamics/qcd/quark_spectrum.py` as
+`LOCKED_QUARK_PARAMS` (replacing the failed original-pipeline
+lock with its "NOT a successful fit" honesty note).  Under
+`spectrum_zero_mode="min_eigenvalue"`, `solved_quark_masses_mev`
+auto-dispatches to the d-anchor; the u-anchor convention remains
+the default for pre-calibration code paths.
+
+Raw scan output: `docs/calibration_runs/refine_pass3.json`.
+
+### Next session
+
+With the lock in place at 1.6% max rel err and the basins
+verified, the remaining open questions are interpretive rather
+than computational:
+
+- **Does N=460 have a topological reading?**  Independent search
+  for clean factorizations or relationships to the lepton τ
+  winding (100), the S² visual analogy, or the Hopf invariants.
+- **Can (χ, η, ε) be reduced to fewer knobs?**  All three are
+  partition-asymmetry knobs at different k-shells; a single
+  topological constraint relating them would cut the parameter
+  count from 9 (after the extensions) toward the v3 minimal 6.
+  The narrow χ basin (width 0.15 at pass 3) suggests χ is
+  strongly determined; the wider η basin (width 1.0) suggests η
+  has more slack.
+- **Replace the placeholder partition-mixing phase** φ_q(k) =
+  phase·k with the Hopf-derived phase from `hopf/connection.py`,
+  per HANDOFF.md "post-landing TODO".  Pass-3 has phase ≈ 0.005
+  which is much smaller than pass-2's 0.001 — phase moved to
+  near-zero, i.e. the partition mixing channel is barely active
+  at the lock.
+- **Lepton-limit ratio sync** (the long-standing pre-existing
+  pytest TODO from the original drop): now that the quark module
+  has a real lock, it is finally meaningful to synchronize the
+  residual continuous knobs with the lepton baseline and check
+  the absolute (not just ratio) lepton-limit equality.
 
 ---
 

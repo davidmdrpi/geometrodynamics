@@ -165,9 +165,27 @@ def main() -> int:
     else:
         try:
             masses = qs.solved_quark_masses_mev()
-            if masses.shape == (6,) and masses[0] > 0:
-                print(f"[pass] Locked solve returns 6 masses (u = "
-                      f"{masses[0]:.4f} MeV)")
+            # Two valid regimes: u-anchor (action_base zero, masses[0]
+            # is the u observed mass) and d-anchor (min_eigenvalue
+            # zero, masses[0] = 0 and masses[1] is the d observed mass).
+            mode = qs.LOCKED_QUARK_PARAMS.spectrum_zero_mode
+            ok_u_anchor = (
+                mode == "action_base"
+                and masses.shape == (6,)
+                and masses[0] > 0
+            )
+            ok_d_anchor = (
+                mode == "min_eigenvalue"
+                and masses.shape == (6,)
+                and masses[0] == 0
+                and masses[1] > 0
+            )
+            if ok_u_anchor:
+                print(f"[pass] Locked solve returns 6 masses "
+                      f"(u-anchor, u = {masses[0]:.4f} MeV)")
+            elif ok_d_anchor:
+                print(f"[pass] Locked solve returns 6 masses "
+                      f"(d-anchor, d = {masses[1]:.4f} MeV)")
             else:
                 failures.append(f"solved_quark_masses_mev returned "
                                 f"unexpected shape/anchor: {masses}")
