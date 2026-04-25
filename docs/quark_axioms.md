@@ -1670,6 +1670,118 @@ Raw output: `docs/calibration_runs/resistance_wkb.json`.
 
 ---
 
+### Decisive N-ablation: residuals geometric, N still drifts
+
+User-named decisive test: re-run the N-stability ablation, this
+time with all three residuals pinned to their refined geometric
+derivations.  The earlier ablation (residuals FREE) showed N
+drifting by 64 units; the broad-scalar all-pinned attempt
+stabilized N at 538-540 only by costing 11.7% in err.  The
+question now: with the refined geometric values that hold the
+fit at N=466 with err=3.4%, does N stay at 466 under physical
+perturbations?
+
+If yes, N becomes a real interpretive target.  If no, N is
+phenomenological while the residual sector is geometric.
+
+Command:
+`python scripts/experiment_n_ablation_geometric.py`
+
+Pin transport=0.5447, pinhole=22.01, resistance=0.1407 (all
+derived).  Free knob: N only.  Run under PDG plus mass
+perturbations and anchor-species changes.
+
+| ablation                       | best N | err     |
+|--------------------------------|-------:|--------:|
+| **PDG**                        | **466** | 0.0344 |
+| PDG × 1.10 (uniform)           | 466    | 0.0344  |
+| PDG × 0.90 (uniform)           | 466    | 0.0344  |
+| c × 1.10                       | 434    | 0.0573  |
+| b × 1.10                       | 480    | 0.0410  |
+| t × 1.10                       | 478    | 0.0574  |
+| t × 0.90                       | 428    | 0.0375  |
+| all ±5% (deterministic)        | 518    | 0.1215  |
+| anchor = s                     | 466    | 0.0675  |
+| anchor = c                     | 500    | 0.0597  |
+| anchor = b                     | 448    | 0.0337  |
+| anchor = t                     | 462    | 0.0345  |
+
+**N range across well-fit ablations: [428, 518], width = 90.**
+
+### Verdict: N is phenomenological
+
+Three patterns confirm:
+
+1. **Uniform mass scaling leaves N at exactly 466.**  PDG × 1.10
+   and × 0.90 both give N=466 — the trivial invariance any fit
+   knob has, since uniform scaling only rescales the MeV anchor.
+2. **Per-species mass perturbations shift N by 30–50 units.**
+   c×1.10 → N=434, b×1.10 → 480, t×1.10 → 478, all±5% → 518.
+   The drift is comparable to (in fact slightly worse than) the
+   residuals-free ablation's [432, 510].
+3. **Anchor-species changes shift N by 8–34 units.**  d → c
+   moves N from 466 to 500.  Same compensator behavior, just
+   redirected through N because transport/pinhole/resistance
+   are now fixed.
+
+| run                            | N range    | width | err |
+|--------------------------------|------------|------:|----:|
+| residuals FREE (original)      | [432, 510] | 78    | 1.6%–5.5% |
+| broad geometric scalars pinned | [538, 540] | 2     | 11.7% |
+| **refined geometric residuals pinned** | **[428, 518]** | **90** | **3.4%–12%** |
+
+The refined geometric residuals do NOT stabilize N.  In fact,
+the drift is wider (90 vs 78) than under the residuals-free
+case, because the residual sector can no longer absorb
+mismatches and the burden has shifted entirely to N.  This is
+the diagnostic signature of a true compensator: the model has
+exactly one degree of freedom left (N), and that degree of
+freedom does the compensating.
+
+### Honest conclusion
+
+**The residual sector is fully geometrized.  N is not.**
+
+- ε, η, χ, phase: structural shell-index constraints in terms of
+  k_5 = 5, all stable across ablations.
+- transport, pinhole, resistance: each derives from the
+  tangherlini eigenmode machinery to within ~1%.  Their
+  derivations are basin features, not coincidences (verified
+  by previous basin probes).
+- N: a continuous winding number whose integer-N framing is a
+  fit-resolution artifact.  N=466 at the lock is what the model
+  happens to want given the geometric residuals; it has no
+  topological reading and shifts under physical perturbations.
+
+This is the methodologically honest endpoint.  The residual
+sector closes; β stays explicitly phenomenological.  The "all
+geometric" lock fits the spectrum to ~3.4% with N=466 free —
+comparable to many serious candidate ansatzes.  Tightening any
+of the three derivations (particularly the −1.09% pinhole gap
+and the +0.87% transport gap) would reduce the 3.4% overhead
+toward the 1.6% unpinned floor.
+
+### Status of the v3 ansatz
+
+| sector | description | reading |
+|--------|-------------|---------|
+| Shell-index axioms | ε, η, χ, phase | geometric (functions of k_5) ✓ |
+| γ_q | residual coupling | empirical clean (1/10) ✓ |
+| Residual sector | transport, pinhole, resistance | geometric (tangherlini eigenmode) ✓ |
+| Continuous winding | N (β = N·π/2) | phenomenological ✗ |
+
+Three of the four sectors have closed geometric/algebraic
+readings.  The fourth — N — is a free fit parameter, like β in
+the lepton sector before it was hard-locked to N=100.  Whether
+N for the quark sector is similarly susceptible to a topological
+locking argument is a question the analytical work would need
+to settle; numerically we have a stable lock at N=466 with the
+model's only remaining degree of freedom.
+
+Raw output: `docs/calibration_runs/n_ablation_geometric.json`.
+
+---
+
 ## §9 Phenomenological interpretation (post-topology, separated by rule)
 
 **This section is separated from the axioms by the methodological rule
