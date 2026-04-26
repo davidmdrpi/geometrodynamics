@@ -1,0 +1,141 @@
+{
+  "final_max_rel_err_excl_u": 0.016469676908380596,
+  "final_params": {
+    "action_base": 3.141592653589793,
+    "beta": 722.5663103256525,
+    "gamma_q": 0.1,
+    "u_q_form": "k_minus_2",
+    "phase": 0.004900000000000001,
+    "transport": 0.5499999999999999,
+    "pinhole": 22.0,
+    "resistance": 0.13999999999999996,
+    "partition_mixing": 0.0,
+    "winding_mode": "max",
+    "resistance_model": "exponential",
+    "depth_cost_mode": "tunnel_only",
+    "uplift_mode": "partition_asymmetric",
+    "uplift_asymmetry": 0.9600000000000002,
+    "spectrum_zero_mode": "min_eigenvalue",
+    "chi_q_k3": 19.800000000000026,
+    "eta_k3k5_minus": 5.0,
+    "spectrum_zero": null
+  },
+  "predicted_masses_mev": [
+    0.0,
+    4.67,
+    94.81754414660087,
+    1290.9164896736434,
+    4219.917538123562,
+    170342.4139771891
+  ],
+  "target_masses_mev": [
+    2.16,
+    4.67,
+    93.4,
+    1270.0,
+    4180.0,
+    172690.0
+  ],
+  "rel_err_per_species": [
+    1.0,
+    0.0,
+    0.015177132190587373,
+    0.016469676908380596,
+    0.009549650268794695,
+    0.013594220990276762
+  ],
+  "species_order": [
+    "u",
+    "d",
+    "s",
+    "c",
+    "b",
+    "t"
+  ],
+  "history": [
+    {
+      "round": 0,
+      "axis": "integer_winding",
+      "new_value": 396.0,
+      "new_err": 0.12390043120654053
+    },
+    {
+      "round": 0,
+      "axis": "uplift_asymmetry",
+      "new_value": 0.9600000000000002,
+      "new_err": 0.10275866304991596
+    },
+    {
+      "round": 0,
+      "axis": "chi_q_k3",
+      "new_value": 20.10000000000003,
+      "new_err": 0.09734674824203216
+    },
+    {
+      "round": 0,
+      "axis": "eta_k3k5_minus",
+      "new_value": 4.75,
+      "new_err": 0.09417103337412261
+    },
+    {
+      "round": 0,
+      "axis": "transport",
+      "new_value": 0.5999999999999999,
+      "new_err": 0.09417103337138026
+    },
+    {
+      "round": 0,
+      "axis": "phase",
+      "new_value": 0.0001,
+      "new_err": 0.09416787293498953
+    },
+    {
+      "round": 1,
+      "axis": "integer_winding",
+      "new_value": 460.0,
+      "new_err": 0.08638441902847649
+    },
+    {
+      "round": 1,
+      "axis": "chi_q_k3",
+      "new_value": 19.900000000000027,
+      "new_err": 0.05499714038400446
+    },
+    {
+      "round": 1,
+      "axis": "eta_k3k5_minus",
+      "new_value": 4.5,
+      "new_err": 0.05335051419156519
+    },
+    {
+      "round": 1,
+      "axis": "transport",
+      "new_value": 0.5499999999999999,
+      "new_err": 0.032410981123446536
+    },
+    {
+      "round": 1,
+      "axis": "resistance",
+      "new_value": 0.13999999999999996,
+      "new_err": 0.023982488213035204
+    },
+    {
+      "round": 1,
+      "axis": "phase",
+      "new_value": 0.004900000000000001,
+      "new_err": 0.02391467637685363
+    },
+    {
+      "round": 2,
+      "axis": "chi_q_k3",
+      "new_value": 19.800000000000026,
+      "new_err": 0.021494982501347328
+    },
+    {
+      "round": 2,
+      "axis": "eta_k3k5_minus",
+      "new_value": 5.0,
+      "new_err": 0.016469676908380596
+    }
+  ]
+}
