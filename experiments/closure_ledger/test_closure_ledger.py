@@ -34,13 +34,17 @@ from experiments.closure_ledger.ledger import (
 )
 from experiments.closure_ledger.sk_bridge import (
     DEFAULT_SK_CANDIDATE,
+    LEPTON_DEPTHS,
     WIRED_CANDIDATES,
     WKB_CONVENTION,
     Mode,
+    _locked_lepton_eigenvectors,
+    lepton_eigenvector_weights,
     phi_convergence_table,
     phi_radial_for_mode,
     phi_radial_from_sk,
     s_k_membership,
+    s_k_weighted_modes,
 )
 
 
@@ -168,10 +172,93 @@ def test_sk_membership_candidate_b2():
     assert s_k_membership(5, "B2_single_radial_excitation") == [Mode(l=1, n=2)]
 
 
-def test_sk_membership_candidate_c_is_not_implemented():
-    """Candidate C is intentionally NotImplementedError until defined."""
-    with pytest.raises(NotImplementedError):
-        s_k_membership(1, "C_eigenvector_weighted")
+def test_sk_membership_candidate_c1_is_full_depth_basis():
+    """C1: membership covers all B1 modes across the depth basis."""
+    expected = [Mode(l=1, n=0), Mode(l=3, n=0), Mode(l=5, n=0)]
+    assert s_k_membership(1, "C1_eigenvector_weighted_B1") == expected
+    assert s_k_membership(3, "C1_eigenvector_weighted_B1") == expected
+    assert s_k_membership(5, "C1_eigenvector_weighted_B1") == expected
+
+
+def test_sk_membership_candidate_c2_is_full_depth_basis():
+    """C2: membership covers all B2 modes across the depth basis."""
+    expected = [Mode(l=1, n=0), Mode(l=1, n=1), Mode(l=1, n=2)]
+    assert s_k_membership(1, "C2_eigenvector_weighted_B2") == expected
+    assert s_k_membership(3, "C2_eigenvector_weighted_B2") == expected
+    assert s_k_membership(5, "C2_eigenvector_weighted_B2") == expected
+
+
+def test_locked_lepton_eigenvectors_are_orthonormal():
+    """Eigenvectors of the locked block are orthonormal (rows of V.T)."""
+    eigenvalues, eigenvectors = _locked_lepton_eigenvectors()
+    assert len(eigenvalues) == 3
+    assert len(eigenvectors) == 3
+    for v in eigenvectors:
+        assert len(v) == 3
+        norm = sum(c ** 2 for c in v)
+        assert math.isclose(norm, 1.0, abs_tol=1e-9)
+    for i in range(3):
+        for j in range(i + 1, 3):
+            dot = sum(
+                eigenvectors[i][a] * eigenvectors[j][a] for a in range(3)
+            )
+            assert math.isclose(dot, 0.0, abs_tol=1e-9)
+
+
+def test_lepton_eigenvector_weights_sum_to_one_per_species():
+    """|v_species,i|² over the depth basis sums to 1 by orthonormality."""
+    weights = lepton_eigenvector_weights()
+    assert set(weights.keys()) == set(LEPTON_DEPTHS)
+    for k, ws in weights.items():
+        assert math.isclose(sum(ws), 1.0, abs_tol=1e-9)
+        for w in ws:
+            assert 0.0 <= w <= 1.0
+
+
+def test_lepton_eigenvector_weights_are_deterministic():
+    """Two independent calls produce bit-identical weight sequences."""
+    w1 = lepton_eigenvector_weights()
+    w2 = lepton_eigenvector_weights()
+    for k in LEPTON_DEPTHS:
+        assert w1[k] == w2[k]
+
+
+def test_lepton_eigenvector_weights_match_expected_dominance():
+    """e is dominantly k=1, μ dominantly k=3, τ dominantly k=5."""
+    weights = lepton_eigenvector_weights()
+    # e: weight on depth-basis index 0 (depth=1) is the largest.
+    e_w = weights[1]
+    assert e_w[0] > e_w[1] > e_w[2]
+    assert e_w[0] > 0.5
+    # μ: weight on depth-basis index 1 (depth=3) is the largest.
+    mu_w = weights[3]
+    assert mu_w[1] > mu_w[0] > mu_w[2]
+    assert mu_w[1] > 0.5
+    # τ: weight on depth-basis index 2 (depth=5) is the largest.
+    tau_w = weights[5]
+    assert tau_w[2] > tau_w[0] and tau_w[2] > tau_w[1]
+    assert tau_w[2] > 0.99
+
+
+def test_s_k_weighted_modes_returns_normalized_weights_for_c_candidates():
+    """s_k_weighted_modes returns weights summing to 1 for C1 and C2."""
+    for cand in ("C1_eigenvector_weighted_B1", "C2_eigenvector_weighted_B2"):
+        for k in LEPTON_DEPTHS:
+            modes_with_weights = s_k_weighted_modes(k, cand)
+            total_w = sum(w for _, w in modes_with_weights)
+            assert math.isclose(total_w, 1.0, abs_tol=1e-9)
+
+
+def test_s_k_weighted_modes_returns_unit_weights_for_unweighted_candidates():
+    """A/B1/B2 use unit weights."""
+    for cand in (
+        "A_lowest_radial_per_l",
+        "B1_single_angular_mode",
+        "B2_single_radial_excitation",
+    ):
+        for k in LEPTON_DEPTHS:
+            for mode, weight in s_k_weighted_modes(k, cand):
+                assert weight == 1.0
 
 
 def test_sk_membership_none_is_empty():
@@ -223,7 +310,8 @@ def test_layer2_blocker_marks_implemented_candidate():
     assert impls["A_lowest_radial_per_l"] == "implemented"
     assert impls["B1_single_angular_mode"] == "open"
     assert impls["B2_single_radial_excitation"] == "open"
-    assert impls["C_eigenvector_weighted"] == "open"
+    assert impls["C1_eigenvector_weighted_B1"] == "open"
+    assert impls["C2_eigenvector_weighted_B2"] == "open"
 
 
 def test_phi_radial_uses_wkb_convention_label():
@@ -264,6 +352,29 @@ def test_b1_b2_falsify_universality_under_wkb():
         )
         # Spread should be visibly larger than numeric tolerance.
         assert result.universality_check["spread"] > 1e-3
+
+
+def test_c1_c2_falsify_universality_under_wkb():
+    """Both C1 and C2 still break universality under WKB convention."""
+    for cand in (
+        "C1_eigenvector_weighted_B1",
+        "C2_eigenvector_weighted_B2",
+    ):
+        result = run_experiment(sk_candidate=cand)
+        assert result.universality_check["universal"] is False, (
+            f"{cand} unexpectedly universal: {result.universality_check}"
+        )
+        assert result.universality_check["spread"] > 1e-3
+
+
+def test_c1_tightens_spread_relative_to_b1():
+    """The eigenvector mixing of C1 reduces the spread compared to B1."""
+    b1 = run_experiment(sk_candidate="B1_single_angular_mode")
+    c1 = run_experiment(sk_candidate="C1_eigenvector_weighted_B1")
+    assert c1.universality_check["spread"] < b1.universality_check["spread"], (
+        f"Expected C1 spread ({c1.universality_check['spread']:.3e}) < "
+        f"B1 spread ({b1.universality_check['spread']:.3e})"
+    )
 
 
 def test_run_comparison_covers_layer1_baseline_and_wired_candidates():

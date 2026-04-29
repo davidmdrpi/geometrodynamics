@@ -154,30 +154,55 @@ def layer2_blocker_report(
             ),
         ),
         CandidateSkMap(
-            name="C_eigenvector_weighted",
+            name="C1_eigenvector_weighted_B1",
             formula=(
-                "S(k) = eigenvector / generation-block decomposition of "
-                "the surrogate Hamiltonian onto Tangherlini (l, n) modes"
+                "Φ_radial(k) = Σ_i |v_species(k),i|² · Φ(l = k_i, n = 0), "
+                "weights from the locked lepton generation block"
             ),
             physical_picture=(
-                "The map S(k) is not imposed by hand. Instead it is "
-                "derived: project the depth-k eigenvector of the lepton "
-                "instanton surrogate onto Tangherlini radial modes, and "
-                "use the resulting weights to build a coherent "
-                "superposition phase Φ_radial(k)."
+                "The depth basis {1, 3, 5} is shared with the instanton "
+                "surrogate; each species' radial phase is the squared-"
+                "amplitude weighted sum of the B1 ground modes (l = k_i, "
+                "n = 0) over the depth basis. The B1 hand-imposed "
+                "single-mode bridge is the |v|² = δ_ij limit of this map."
             ),
             advantages=(
-                "Most physically principled: the bridge from instanton "
-                "surrogate to Tangherlini operator becomes a derived "
-                "quantity. Eliminates the by-hand selection of (l, n) "
-                "shells that A, B1, and B2 all rely on."
+                "Derives weights from the existing lepton Hamiltonian "
+                "without introducing fitted parameters. The eigenvector "
+                "mixing lifts B1's degeneracy and produces tighter "
+                "residues than any prior hand-imposed candidate."
             ),
             open_questions=(
-                "Requires explicitly mapping `compute_knotted_lepton_spectrum`'s "
-                "eigenvectors onto an (l, n) basis — currently the "
-                "surrogate Hamiltonian is depth-only and uses no radial "
-                "basis. The mapping has to be defined before the candidate "
-                "is computable."
+                "Does the lifting close the residues to a single value "
+                "mod 2π? If not, the eigenvector mixing alone does not "
+                "supply the missing bridge under the WKB convention; "
+                "test whether a different phase convention (Maslov, "
+                "Bohr-Sommerfeld) revives universality given the "
+                "tightened spread."
+            ),
+        ),
+        CandidateSkMap(
+            name="C2_eigenvector_weighted_B2",
+            formula=(
+                "Φ_radial(k) = Σ_i |v_species(k),i|² · Φ(l = 1, n = (k_i−1)/2), "
+                "weights from the locked lepton generation block"
+            ),
+            physical_picture=(
+                "Same eigenvector weights as C1 but selecting B2's "
+                "single-l radial-excitation ladder. Each species mixes "
+                "across radial excitations n ∈ {0, 1, 2} of l = 1."
+            ),
+            advantages=(
+                "Tests whether the eigenvector mixing of B2's ladder "
+                "(which under WKB asymptotes to (n+1)π) collapses the "
+                "parity pattern across generations to a single value."
+            ),
+            open_questions=(
+                "Same convention-dependence as C1; weight rows are the "
+                "same in both candidates, only the per-mode Φ values "
+                "differ. The two are independent tests of which mode "
+                "ladder (B1 angular or B2 radial) the lepton "
+                "Hamiltonian's eigenvectors actually align with."
             ),
         ),
     ]

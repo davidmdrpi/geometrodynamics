@@ -141,8 +141,11 @@ class ExperimentResult:
         if self.sk_candidate != "none":
             lines.append("## Radial bulk channel — per-mode breakdown")
             lines.append("")
-            lines.append("| lepton | k | (l, n) | ω(l, n) | Φ(l, n) | status |")
-            lines.append("|---|---|---|---|---|---|")
+            lines.append(
+                "| lepton | k | (l, n) | ω(l, n) | Φ(l, n) | "
+                "weight | weight·Φ | status |"
+            )
+            lines.append("|---|---|---|---|---|---|---|---|")
             for row in self.rows:
                 detail = row.get("radial_detail")
                 if not detail or not detail.get("modes"):
@@ -155,9 +158,15 @@ class ExperimentResult:
                         f"{m['phi'] / math.pi:.6f}π"
                         if m["phi"] is not None else "—"
                     )
+                    weight = m.get("weight", 1.0)
+                    weighted_phi = (
+                        f"{(weight * m['phi']) / math.pi:.6f}π"
+                        if m["phi"] is not None else "—"
+                    )
                     lines.append(
                         f"| {row['label']} | {row['k']} | "
                         f"(l={m['l']}, n={m['n']}) | {omega} | {phi} | "
+                        f"{weight:.6f} | {weighted_phi} | "
                         f"{m['status']} |"
                     )
             lines.append("")
@@ -506,7 +515,7 @@ def render_comparison_markdown(comparison: dict) -> str:
         "single l=k ground mode per generation. The per-row Φ values are "
         "exactly the candidate-A summands; if A's cumulative residues are "
         "non-universal, the same per-mode numbers cannot be universal "
-        "alone unless they happen to coincide mod 2π. FAIL in that case."
+        "alone unless they happen to coincide mod 2π. FAIL."
     )
     lines.append(
         "- Layer 2B2 (`B2_single_radial_excitation`, WKB convention): "
@@ -515,9 +524,19 @@ def render_comparison_markdown(comparison: dict) -> str:
         "a single universal value. FAIL."
     )
     lines.append(
-        "- Layer 2C (`C_eigenvector_weighted`): not implemented. "
-        "OPEN — requires defining the surrogate-to-Tangherlini eigenvector "
-        "projection before computation is possible."
+        "- Layer 2C1 (`C1_eigenvector_weighted_B1`, WKB convention): "
+        "B1 modes weighted by |v_species,i|² from the locked lepton "
+        "generation block. The eigenvector mixing tightens the spread "
+        "relative to B1 (the {1,3} mixing pulls e and μ residues toward "
+        "each other) but does NOT close them to a universal value. "
+        "FAIL — under this WKB convention, the surrogate Hamiltonian's "
+        "own eigenvectors do not supply the missing bridge."
+    )
+    lines.append(
+        "- Layer 2C2 (`C2_eigenvector_weighted_B2`, WKB convention): "
+        "B2 modes weighted by the same eigenvectors. The (n+1)π "
+        "spacing between B2 modes dominates the eigenvector mixing, "
+        "leaving residues distributed across [0, 2π). FAIL."
     )
     lines.append("")
 
