@@ -27,6 +27,7 @@ below for reference.
 from __future__ import annotations
 
 from dataclasses import dataclass, field, asdict
+from typing import Optional
 
 
 @dataclass
@@ -37,6 +38,7 @@ class CandidateSkMap:
     physical_picture: str
     advantages: str
     open_questions: str
+    implementation_status: str = "open"   # "implemented" | "open" | "deferred"
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -45,17 +47,21 @@ class CandidateSkMap:
 @dataclass
 class SkBridgeBlocker:
     """
-    Structured blocker for Φ_radial(k) computation.
+    Structured Layer-2 status report for the S(k) → Φ_radial bridge.
 
-    `verdict` is the headline conclusion in one line. `evidence` lists
-    the specific repo-audit findings. `candidates` lists viable S(k)
-    map definitions to consider. `next_steps` is the actionable list.
+    Originally a pure blocker (Layer 2 unimplemented). Now parameterized
+    by `implemented_candidate`: when one of the candidates is wired, the
+    verdict reports the wiring and the candidate's `implementation_status`
+    flips to "implemented"; the other candidates continue to live here as
+    open thesis-level alternatives. The downgraded P3 prediction is
+    retained because the quark sector still requires its own S(k) bridge.
     """
     verdict: str
     evidence: list[str] = field(default_factory=list)
     candidates: list[CandidateSkMap] = field(default_factory=list)
     next_steps: list[str] = field(default_factory=list)
     downgraded_predictions: list[str] = field(default_factory=list)
+    implemented_candidate: Optional[str] = None
 
     def to_dict(self) -> dict:
         return {
@@ -64,16 +70,20 @@ class SkBridgeBlocker:
             "candidates": [c.to_dict() for c in self.candidates],
             "next_steps": list(self.next_steps),
             "downgraded_predictions": list(self.downgraded_predictions),
+            "implemented_candidate": self.implemented_candidate,
         }
 
 
-def layer2_blocker_report() -> SkBridgeBlocker:
+def layer2_blocker_report(
+    implemented_candidate: Optional[str] = None,
+) -> SkBridgeBlocker:
     """
-    Construct the canonical Layer-2 blocker report.
+    Construct the Layer-2 status report.
 
-    This is deterministic — it summarizes the repo audit findings and
-    the chat-pass analysis, both of which are static at the time of
-    this experiment's first run.
+    If `implemented_candidate` matches one of the candidate names, that
+    candidate is marked as implemented and the verdict reports the wiring;
+    other candidates remain open thesis-level alternatives. Pass None or
+    "none" to get the original "Layer 2 blocked" verdict.
     """
     candidates = [
         CandidateSkMap(
@@ -139,13 +149,31 @@ def layer2_blocker_report() -> SkBridgeBlocker:
         ),
     ]
 
-    return SkBridgeBlocker(
-        verdict=(
+    impl = implemented_candidate if implemented_candidate not in (None, "none") else None
+    if impl is not None:
+        for c in candidates:
+            if c.name == impl:
+                c.implementation_status = "implemented"
+        verdict = (
+            f"Φ_radial(k) is wired in the lepton sector via candidate "
+            f"`{impl}` using `geometrodynamics.tangherlini.radial.solve_radial_modes` "
+            f"plus a Bohr-Sommerfeld integration of √max(ω² − V_eff, 0) "
+            f"over the tortoise grid. The remaining candidates are kept "
+            f"as open thesis-level alternatives. The quark-sector S(k) "
+            f"bridge is still undefined, so the 366-quanta gap remains "
+            f"S(k)-conditional."
+        )
+    else:
+        verdict = (
             "Φ_radial(k) is structurally blocked for the lepton sector: "
             "lepton_spectrum.py operates on depth labels k ∈ {1, 3, 5} "
             "via an instanton-transition surrogate, with no map from "
             "generation depth to Tangherlini eigenmodes (l, n)."
-        ),
+        )
+
+    return SkBridgeBlocker(
+        verdict=verdict,
+        implemented_candidate=impl,
         evidence=[
             "compute_knotted_lepton_spectrum accepts `l`, `n_points`, "
             "`rs`, `r_outer` for API compatibility but explicitly does "
@@ -159,19 +187,39 @@ def layer2_blocker_report() -> SkBridgeBlocker:
             "single integrated quantities, not a per-generation "
             "S(k) → (l, n) mapping.",
         ],
-        next_steps=[
-            "Define S(k) for the lepton sector. Three candidates listed "
-            "in `candidates`; selection is thesis-level, not "
-            "implementation-level.",
-            "Once S(k) is fixed, the radial phase extractor becomes "
-            "well-posed: Φ_radial(k) = Σ_(l,n)∈S(k) ∫ k_local(r*) dr*.",
-            "Test the three falsification predictions (P1 lepton "
-            "universality, P2 quark universality, P3 the 366-quanta gap) "
-            "against the implemented S(k).",
-            "Update THESIS.md to reflect the result: either close the "
-            "ℏ open-problem bullet to a derived dimensionless invariant, "
-            "or report which channel was overcredited.",
-        ],
+        next_steps=(
+            [
+                "Read the universality_check on the lepton ledger: candidate "
+                f"`{impl}` either preserves closure mod 2π (supports the "
+                "candidate) or breaks it (falsifies the candidate; rerun with "
+                "another wired candidate).",
+                "Define a quark-sector S(k) bridge. The lepton implementation "
+                "operates on (l, n) Tangherlini modes; the quark sector needs "
+                "its own per-generation mode assignment before P3 (the "
+                "366-quanta gap) becomes testable end-to-end.",
+                "Investigate whether the candidate's per-mode Φ(l, n) values "
+                "match the surrogate's β·k² uplift coefficients — this is the "
+                "open-question line in candidate A's record.",
+                "Update THESIS.md to reflect whichever way the universality "
+                "check went: either close the ℏ open-problem bullet to a "
+                "derived dimensionless invariant, or report which channel "
+                "was overcredited.",
+            ]
+            if impl is not None
+            else [
+                "Define S(k) for the lepton sector. Three candidates listed "
+                "in `candidates`; selection is thesis-level, not "
+                "implementation-level.",
+                "Once S(k) is fixed, the radial phase extractor becomes "
+                "well-posed: Φ_radial(k) = Σ_(l,n)∈S(k) ∫ k_local(r*) dr*.",
+                "Test the three falsification predictions (P1 lepton "
+                "universality, P2 quark universality, P3 the 366-quanta gap) "
+                "against the implemented S(k).",
+                "Update THESIS.md to reflect the result: either close the "
+                "ℏ open-problem bullet to a derived dimensionless invariant, "
+                "or report which channel was overcredited.",
+            ]
+        ),
         downgraded_predictions=[
             "P3 (366-quanta gap as integrated bulk-mode contribution): "
             "downgraded from near-term falsification test to S(k)-"

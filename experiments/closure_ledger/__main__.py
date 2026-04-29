@@ -22,6 +22,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from experiments.closure_ledger.runner import run_experiment
+from experiments.closure_ledger.sk_bridge import (
+    DEFAULT_SK_CANDIDATE,
+    SK_CANDIDATES,
+)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -52,6 +56,16 @@ def main(argv: list[str] | None = None) -> int:
         ),
     )
     parser.add_argument(
+        "--sk-candidate",
+        choices=SK_CANDIDATES,
+        default=DEFAULT_SK_CANDIDATE,
+        help=(
+            "S(k) → {(l, n)} bridge candidate. Default wires the radial "
+            "channel via candidate A (lowest radial mode per odd l up to k). "
+            "Pass 'none' to reproduce the Layer-1 ledger."
+        ),
+    )
+    parser.add_argument(
         "--output-dir",
         type=Path,
         default=None,
@@ -70,6 +84,7 @@ def main(argv: list[str] | None = None) -> int:
     result = run_experiment(
         chi=args.chi,
         transport_power=args.transport_power,
+        sk_candidate=args.sk_candidate,
     )
 
     print(result._render_markdown())

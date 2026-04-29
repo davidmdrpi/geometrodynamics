@@ -32,6 +32,13 @@ from experiments.closure_ledger.ledger import (
     _load_repo_constants,
     compute_lepton_ledger,
 )
+from experiments.closure_ledger.sk_bridge import (
+    DEFAULT_SK_CANDIDATE,
+    Mode,
+    phi_radial_for_mode,
+    phi_radial_from_sk,
+    s_k_membership,
+)
 
 
 TAU = 2.0 * math.pi
@@ -110,7 +117,9 @@ def test_full_experiment_runs_and_serializes():
         assert (out / "result.json").exists()
         assert (out / "summary.md").exists()
         loaded = json.loads((out / "result.json").read_text())
-        assert loaded["experiment_name"] == "closure_ledger.layer1"
+        # Default run wires the S(k) bridge → Layer 2.
+        assert loaded["experiment_name"] == "closure_ledger.layer2"
+        assert loaded["sk_candidate"] == DEFAULT_SK_CANDIDATE
         assert "rows" in loaded and len(loaded["rows"]) == 3
         assert "sk_bridge_blocker" in loaded
         # Markdown is non-empty and contains expected headers.
@@ -118,6 +127,90 @@ def test_full_experiment_runs_and_serializes():
         assert "# Closure-phase ledger — run summary" in md
         assert "## Per-lepton ledger" in md
         assert "## Layer 2 blocker" in md
+        assert "## Radial bulk channel — per-mode breakdown" in md
+
+
+def test_layer1_only_run_reproduces_pre_bridge_universality():
+    """Passing sk_candidate='none' reproduces the Layer-1 universality result."""
+    result = run_experiment(sk_candidate="none")
+    assert result.experiment_name == "closure_ledger.layer1"
+    assert result.universality_check["universal"] is True
+    assert math.isclose(
+        result.universality_check["universal_value"], 0.0, abs_tol=1e-9,
+    )
+
+
+def test_sk_membership_candidate_a():
+    """Candidate A: S(k) is the odd-l ground states up to l=k."""
+    assert s_k_membership(1, "A_lowest_radial_per_l") == [Mode(l=1, n=0)]
+    assert s_k_membership(3, "A_lowest_radial_per_l") == [
+        Mode(l=1, n=0), Mode(l=3, n=0),
+    ]
+    assert s_k_membership(5, "A_lowest_radial_per_l") == [
+        Mode(l=1, n=0), Mode(l=3, n=0), Mode(l=5, n=0),
+    ]
+
+
+def test_sk_membership_candidate_b():
+    """Candidate B: S(k) = {(l, n) : 2n+l = k, l odd ≥ 1}."""
+    assert s_k_membership(1, "B_fixed_total_quantum_number") == [Mode(l=1, n=0)]
+    assert s_k_membership(3, "B_fixed_total_quantum_number") == [
+        Mode(l=1, n=1), Mode(l=3, n=0),
+    ]
+    assert s_k_membership(5, "B_fixed_total_quantum_number") == [
+        Mode(l=1, n=2), Mode(l=3, n=1), Mode(l=5, n=0),
+    ]
+
+
+def test_sk_membership_none_is_empty():
+    """sk_candidate='none' yields an empty membership."""
+    assert s_k_membership(1, "none") == []
+    assert s_k_membership(5, "none") == []
+
+
+def test_phi_radial_for_mode_l1_n0_is_finite_and_positive():
+    """The Bohr-Sommerfeld radial action for the (l=1, n=0) mode resolves."""
+    result = phi_radial_for_mode(l=1, n=0)
+    assert result.status == "computed"
+    assert result.phi is not None and math.isfinite(result.phi)
+    assert result.phi > 0
+    # Eigenfrequency for the lowest l=1 mode should be near 1 in geometric units.
+    assert result.omega is not None and 0.5 < result.omega < 2.0
+
+
+def test_phi_radial_from_sk_candidate_a_total_is_sum_of_modes():
+    """Φ_radial(k) is the sum of Φ(l, n) over S(k)."""
+    result = phi_radial_from_sk(5, "A_lowest_radial_per_l")
+    assert result.status == "computed"
+    assert result.total_phi is not None
+    expected = sum(m.phi for m in result.modes)
+    assert math.isclose(result.total_phi, expected, abs_tol=1e-12)
+    assert len(result.modes) == 3   # l ∈ {1, 3, 5}
+
+
+def test_radial_channel_wired_in_default_run():
+    """Default run has no row blocked on radial_bulk_phase."""
+    result = run_experiment()
+    for row in result.rows:
+        names = [t["name"] for t in row["terms"]]
+        assert "radial_bulk_phase" in names
+        radial = next(t for t in row["terms"] if t["name"] == "radial_bulk_phase")
+        assert radial["status"] == "available"
+        assert radial["value"] is not None
+        assert "radial_bulk_phase" not in row["blocking_terms"]
+
+
+def test_layer2_blocker_marks_implemented_candidate():
+    """When candidate A is wired, blocker reports it as the implemented one."""
+    result = run_experiment(sk_candidate="A_lowest_radial_per_l")
+    blocker = result.sk_bridge_blocker
+    assert blocker["implemented_candidate"] == "A_lowest_radial_per_l"
+    impls = {
+        c["name"]: c["implementation_status"] for c in blocker["candidates"]
+    }
+    assert impls["A_lowest_radial_per_l"] == "implemented"
+    assert impls["B_fixed_total_quantum_number"] == "open"
+    assert impls["C_closure_coherent_superposition"] == "open"
 
 
 def test_quark_sector_quanta_gap_is_366():

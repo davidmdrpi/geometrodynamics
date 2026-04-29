@@ -24,6 +24,7 @@ from experiments.closure_ledger.ledger import (
     compute_lepton_ledger,
     compute_quark_sector_summary,
 )
+from experiments.closure_ledger.sk_bridge import DEFAULT_SK_CANDIDATE
 
 
 TAU = 2.0 * math.pi
@@ -35,6 +36,7 @@ class ExperimentResult:
     experiment_name: str
     transport_convention: str          # "T2_sign_flip" | "T1_diagnostic"
     chi: float                          # Hopf fibre angle used
+    sk_candidate: str                   # S(k) bridge candidate ("none" = Layer 1)
     constants: dict                     # RepoConstants as dict
     import_errors: list[str]            # any failed repo imports
     rows: list[dict]                    # each lepton ledger row
@@ -64,6 +66,7 @@ class ExperimentResult:
         lines.append(f"**Experiment:** {self.experiment_name}")
         lines.append(f"**Transport convention:** `{self.transport_convention}`")
         lines.append(f"**χ (Hopf fibre):** {self.chi}")
+        lines.append(f"**S(k) candidate:** `{self.sk_candidate}`")
         lines.append("")
         lines.append(f"**Overall status:** {self.overall_status}")
         lines.append("")
@@ -134,12 +137,42 @@ class ExperimentResult:
             )
         lines.append("")
 
+        # Per-mode radial breakdown when the S(k) bridge is active.
+        if self.sk_candidate != "none":
+            lines.append("## Radial bulk channel — per-mode breakdown")
+            lines.append("")
+            lines.append("| lepton | k | (l, n) | ω(l, n) | Φ(l, n) | status |")
+            lines.append("|---|---|---|---|---|---|")
+            for row in self.rows:
+                detail = row.get("radial_detail")
+                if not detail or not detail.get("modes"):
+                    continue
+                for m in detail["modes"]:
+                    omega = (
+                        f"{m['omega']:.6f}" if m["omega"] is not None else "—"
+                    )
+                    phi = (
+                        f"{m['phi'] / math.pi:.6f}π"
+                        if m["phi"] is not None else "—"
+                    )
+                    lines.append(
+                        f"| {row['label']} | {row['k']} | "
+                        f"(l={m['l']}, n={m['n']}) | {omega} | {phi} | "
+                        f"{m['status']} |"
+                    )
+            lines.append("")
+
         # Universality
         u = self.universality_check
-        lines.append("## Universality check (Layer 1)")
+        layer_label = (
+            "Layer 1" if self.sk_candidate == "none" else "Layer 2"
+        )
+        lines.append(f"## Universality check ({layer_label})")
         lines.append("")
-        lines.append(f"- All available-term sums mod 2π: "
-                     f"{[f'{v:.6f}' for v in u['per_lepton_mod_2pi']]}")
+        lines.append(
+            "- Per-lepton totals mod 2π (in units of π): "
+            f"{[f'{v / math.pi:.6f}' for v in u['per_lepton_mod_2pi']]}"
+        )
         lines.append(f"- Spread across leptons: {u['spread']:.2e}")
         lines.append(f"- Universal mod 2π (within 1e-9): "
                      f"**{u['universal']}**")
@@ -223,16 +256,38 @@ def _overall_status(
     universality: dict,
     blocker: SkBridgeBlocker,
     import_errors: list[str],
+    sk_candidate: str,
+    any_radial_missing: bool,
 ) -> str:
     parts: list[str] = []
-    if universality["universal"]:
-        parts.append(
-            f"Layer 1 PASS: lepton ledger universal mod 2π at "
-            f"{universality['universal_value'] / math.pi:.3f}π."
-        )
+    if sk_candidate == "none":
+        if universality["universal"]:
+            parts.append(
+                f"Layer 1 PASS: lepton ledger universal mod 2π at "
+                f"{universality['universal_value'] / math.pi:.3f}π."
+            )
+        else:
+            parts.append(
+                "Layer 1 FAIL: lepton ledger does NOT close universally."
+            )
+        parts.append("Layer 2 DISABLED (sk_candidate='none').")
     else:
-        parts.append("Layer 1 FAIL: lepton ledger does NOT close universally.")
-    parts.append("Layer 2 BLOCKED: S(k) bridge undefined.")
+        if any_radial_missing:
+            parts.append(
+                f"Layer 2 PARTIAL: candidate '{sk_candidate}' wired but at "
+                f"least one row's radial channel did not resolve."
+            )
+        elif universality["universal"]:
+            parts.append(
+                f"Layer 2 PASS: candidate '{sk_candidate}' yields universal "
+                f"closure mod 2π at {universality['universal_value'] / math.pi:.3f}π."
+            )
+        else:
+            parts.append(
+                f"Layer 2 FALSIFIES candidate '{sk_candidate}': lepton "
+                f"ledger does NOT close universally mod 2π "
+                f"(spread {universality['spread']:.3e})."
+            )
     if import_errors:
         parts.append(
             f"({len(import_errors)} repo import(s) fell back to README values.)"
@@ -243,36 +298,59 @@ def _overall_status(
 def run_experiment(
     chi: float = 0.0,
     transport_power: int = 2,
+    sk_candidate: str = DEFAULT_SK_CANDIDATE,
 ) -> ExperimentResult:
     """
     Run the closure-phase ledger experiment and return a complete
     ExperimentResult. No I/O — call .write_json(...) and
     .write_summary_markdown(...) on the result to persist.
+
+    sk_candidate selects the S(k) → {(l, n)} bridge. Defaults to the
+    wired candidate (`A_lowest_radial_per_l`); pass "none" to reproduce
+    the Layer-1 ledger.
     """
     rows, constants, import_errors = compute_lepton_ledger(
         chi=chi,
         transport_power=transport_power,
+        sk_candidate=sk_candidate,
     )
 
     universality = _build_universality_check(rows)
     quark_sector = compute_quark_sector_summary(constants)
-    blocker = layer2_blocker_report()
+    blocker = layer2_blocker_report(implemented_candidate=sk_candidate)
 
     convention = (
         "T2_sign_flip" if transport_power == 2
         else "T1_diagnostic"
     )
 
+    any_radial_missing = any(
+        any(
+            t.name == "radial_bulk_phase" and t.status != "available"
+            for t in r.terms
+        )
+        for r in rows
+    )
+
+    experiment_name = (
+        "closure_ledger.layer1" if sk_candidate == "none"
+        else "closure_ledger.layer2"
+    )
+
     return ExperimentResult(
         timestamp_utc=datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        experiment_name="closure_ledger.layer1",
+        experiment_name=experiment_name,
         transport_convention=convention,
         chi=chi,
+        sk_candidate=sk_candidate,
         constants=asdict(constants),
         import_errors=import_errors,
         rows=[r.to_dict() for r in rows],
         universality_check=universality,
         quark_sector=quark_sector,
         sk_bridge_blocker=blocker.to_dict(),
-        overall_status=_overall_status(universality, blocker, import_errors),
+        overall_status=_overall_status(
+            universality, blocker, import_errors,
+            sk_candidate, any_radial_missing,
+        ),
     )

@@ -48,6 +48,12 @@ import math
 from dataclasses import dataclass, field, asdict
 from typing import Optional
 
+from experiments.closure_ledger.sk_bridge import (
+    DEFAULT_SK_CANDIDATE,
+    RadialPhaseResult,
+    phi_radial_from_sk,
+)
+
 
 # ---------------------------------------------------------------------------
 # Constants (also imported from the repo when possible; see fallback logic
@@ -226,6 +232,7 @@ class LedgerRow:
     available_total: Optional[float] = None
     available_total_mod_2pi: Optional[float] = None
     blocking_terms: list[str] = field(default_factory=list)
+    radial_detail: Optional[dict] = None   # per-mode Φ(l, n) breakdown
 
     def to_dict(self) -> dict:
         return {
@@ -236,6 +243,7 @@ class LedgerRow:
             "available_total_mod_2pi": self.available_total_mod_2pi,
             "blocking_terms": list(self.blocking_terms),
             "terms": [asdict(t) for t in self.terms],
+            "radial_detail": self.radial_detail,
         }
 
 
@@ -249,13 +257,17 @@ def _assemble_lepton_row(
     constants: RepoConstants,
     chi: float = 0.0,
     transport_power: int = 2,
+    sk_candidate: Optional[str] = None,
 ) -> LedgerRow:
     """
     Build a single lepton ledger row from the four wired channels plus
-    the two structurally missing ones.
+    the radial bulk channel (when an S(k) candidate is supplied) and the
+    not-yet-modeled moving-mouth channel.
 
     transport_power: 2 (default, T² closure) or 1 (diagnostic).
     chi: Hopf fibre angle, default 0 (canonical fibre, holonomy = π).
+    sk_candidate: name of the S(k) → {(l, n)} map. If None or "none",
+        the radial channel stays at the Layer-1 "missing" status.
     """
     # Channel 1: antipodal closure
     antipodal_value = k * constants.action_base
@@ -299,15 +311,48 @@ def _assemble_lepton_row(
         status="available",
     )
 
-    # Channel 3: radial bulk phase — STRUCTURALLY MISSING in lepton sector
-    # (no S(k) bridge in lepton_spectrum.py per repo audit).
-    radial = PhaseTerm(
-        name="radial_bulk_phase",
-        source="Tangherlini eigenmode phase Φ_radial(k); requires S(k) bridge",
-        repo_provenance="missing",
-        value=None,
-        status="missing",
-    )
+    # Channel 3: radial bulk phase. Wired through the S(k) bridge when a
+    # candidate is supplied; otherwise reproduces the Layer-1 "missing"
+    # status to keep the pre-bridge ledger reachable for diagnostics.
+    radial_detail: Optional[dict] = None
+    if sk_candidate is None or sk_candidate == "none":
+        radial = PhaseTerm(
+            name="radial_bulk_phase",
+            source="Tangherlini eigenmode phase Φ_radial(k); S(k) bridge disabled",
+            repo_provenance="missing",
+            value=None,
+            status="missing",
+        )
+    else:
+        radial_result = phi_radial_from_sk(k, sk_candidate)
+        radial_detail = radial_result.to_dict()
+        if radial_result.status == "computed":
+            mode_descr = ", ".join(
+                f"(l={m.l}, n={m.n})" for m in radial_result.modes
+            )
+            radial = PhaseTerm(
+                name="radial_bulk_phase",
+                source=(
+                    f"Φ_radial({k}) = Σ over S(k)={{{mode_descr}}} of "
+                    f"∫√max(ω² − V_eff, 0) dr* "
+                    f"= {radial_result.total_phi / math.pi:.6f}π "
+                    f"[candidate={sk_candidate}]"
+                ),
+                repo_provenance="repo_eigenmode_integral",
+                value=radial_result.total_phi,
+                status="available",
+            )
+        else:
+            radial = PhaseTerm(
+                name="radial_bulk_phase",
+                source=(
+                    f"S(k={k}) candidate={sk_candidate}; "
+                    f"status={radial_result.status}"
+                ),
+                repo_provenance="missing",
+                value=None,
+                status="missing",
+            )
 
     # Moving-mouth: not modeled (future falsification test in THESIS.md)
     moving = PhaseTerm(
@@ -352,6 +397,7 @@ def _assemble_lepton_row(
         available_total=available_sum,
         available_total_mod_2pi=available_mod,
         blocking_terms=blocking,
+        radial_detail=radial_detail,
     )
 
 
@@ -359,6 +405,7 @@ def compute_lepton_ledger(
     chi: float = 0.0,
     transport_power: int = 2,
     constants: Optional[RepoConstants] = None,
+    sk_candidate: Optional[str] = None,
 ) -> tuple[list[LedgerRow], RepoConstants, list[str]]:
     """
     Compute the closure-phase ledger across the three lepton generations.
@@ -370,6 +417,10 @@ def compute_lepton_ledger(
     constants_used: the RepoConstants instance, with provenance per field.
     import_errors: list of error messages from any failed repo imports
                    (empty if everything resolved cleanly).
+
+    sk_candidate selects the S(k) → {(l, n)} bridge. If None or "none",
+    the radial channel stays "missing" and the result is the Layer-1
+    ledger. Pass a wired candidate name to get the full Layer-2 ledger.
     """
     if constants is None:
         constants, errors = _load_repo_constants()
@@ -378,11 +429,14 @@ def compute_lepton_ledger(
 
     rows = [
         _assemble_lepton_row("electron", k=1, constants=constants,
-                             chi=chi, transport_power=transport_power),
+                             chi=chi, transport_power=transport_power,
+                             sk_candidate=sk_candidate),
         _assemble_lepton_row("muon", k=3, constants=constants,
-                             chi=chi, transport_power=transport_power),
+                             chi=chi, transport_power=transport_power,
+                             sk_candidate=sk_candidate),
         _assemble_lepton_row("tau", k=5, constants=constants,
-                             chi=chi, transport_power=transport_power),
+                             chi=chi, transport_power=transport_power,
+                             sk_candidate=sk_candidate),
     ]
     return rows, constants, errors
 
