@@ -34,7 +34,10 @@ from experiments.closure_ledger.ledger import (
 )
 from experiments.closure_ledger.sk_bridge import (
     DEFAULT_SK_CANDIDATE,
+    WIRED_CANDIDATES,
+    WKB_CONVENTION,
     Mode,
+    phi_convergence_table,
     phi_radial_for_mode,
     phi_radial_from_sk,
     s_k_membership,
@@ -151,15 +154,24 @@ def test_sk_membership_candidate_a():
     ]
 
 
-def test_sk_membership_candidate_b():
-    """Candidate B: S(k) = {(l, n) : 2n+l = k, l odd ≥ 1}."""
-    assert s_k_membership(1, "B_fixed_total_quantum_number") == [Mode(l=1, n=0)]
-    assert s_k_membership(3, "B_fixed_total_quantum_number") == [
-        Mode(l=1, n=1), Mode(l=3, n=0),
-    ]
-    assert s_k_membership(5, "B_fixed_total_quantum_number") == [
-        Mode(l=1, n=2), Mode(l=3, n=1), Mode(l=5, n=0),
-    ]
+def test_sk_membership_candidate_b1():
+    """Candidate B1: single l=k angular mode at n=0."""
+    assert s_k_membership(1, "B1_single_angular_mode") == [Mode(l=1, n=0)]
+    assert s_k_membership(3, "B1_single_angular_mode") == [Mode(l=3, n=0)]
+    assert s_k_membership(5, "B1_single_angular_mode") == [Mode(l=5, n=0)]
+
+
+def test_sk_membership_candidate_b2():
+    """Candidate B2: single l=1 radial excitation at n = (k-1)/2."""
+    assert s_k_membership(1, "B2_single_radial_excitation") == [Mode(l=1, n=0)]
+    assert s_k_membership(3, "B2_single_radial_excitation") == [Mode(l=1, n=1)]
+    assert s_k_membership(5, "B2_single_radial_excitation") == [Mode(l=1, n=2)]
+
+
+def test_sk_membership_candidate_c_is_not_implemented():
+    """Candidate C is intentionally NotImplementedError until defined."""
+    with pytest.raises(NotImplementedError):
+        s_k_membership(1, "C_eigenvector_weighted")
 
 
 def test_sk_membership_none_is_empty():
@@ -209,8 +221,65 @@ def test_layer2_blocker_marks_implemented_candidate():
         c["name"]: c["implementation_status"] for c in blocker["candidates"]
     }
     assert impls["A_lowest_radial_per_l"] == "implemented"
-    assert impls["B_fixed_total_quantum_number"] == "open"
-    assert impls["C_closure_coherent_superposition"] == "open"
+    assert impls["B1_single_angular_mode"] == "open"
+    assert impls["B2_single_radial_excitation"] == "open"
+    assert impls["C_eigenvector_weighted"] == "open"
+
+
+def test_phi_radial_uses_wkb_convention_label():
+    """ModePhase carries the WKB convention label by default."""
+    mp = phi_radial_for_mode(l=1, n=0)
+    assert mp.convention == WKB_CONVENTION
+    assert mp.maslov_correction == 0.0
+
+
+def test_phi_grid_convergence_for_l1_n0():
+    """Φ(l=1, n=0) is grid-stable across N: variation under ~1e-3."""
+    table = phi_convergence_table(1, 0, Ns=(60, 80, 100, 120))
+    phis = [row["phi"] for row in table]
+    assert all(p is not None for p in phis)
+    # All values within 1e-3 of the largest-grid value.
+    ref = phis[-1]
+    assert max(abs(p - ref) for p in phis) < 1e-3, (
+        f"Φ(l=1, n=0) grid spread = {phis} (ref={ref})"
+    )
+
+
+def test_maslov_shift_is_additive():
+    """A maslov_correction adds a constant to phi at fixed (l, n, N)."""
+    base = phi_radial_for_mode(l=1, n=0)
+    shifted = phi_radial_for_mode(l=1, n=0, maslov_correction=math.pi / 4.0)
+    assert math.isclose(
+        shifted.phi - base.phi, math.pi / 4.0, abs_tol=1e-12,
+    )
+    assert shifted.maslov_correction == math.pi / 4.0
+
+
+def test_b1_b2_falsify_universality_under_wkb():
+    """Both B1 and B2 break universal closure mod 2π under WKB convention."""
+    for cand in ("B1_single_angular_mode", "B2_single_radial_excitation"):
+        result = run_experiment(sk_candidate=cand)
+        assert result.universality_check["universal"] is False, (
+            f"{cand} unexpectedly universal: {result.universality_check}"
+        )
+        # Spread should be visibly larger than numeric tolerance.
+        assert result.universality_check["spread"] > 1e-3
+
+
+def test_run_comparison_covers_layer1_baseline_and_wired_candidates():
+    """run_comparison runs Layer-1 + every wired candidate and labels each."""
+    from experiments.closure_ledger.runner import run_comparison
+
+    comparison = run_comparison()
+    candidates_run = comparison["candidates_run"]
+    assert "none" in candidates_run
+    for cand in WIRED_CANDIDATES:
+        assert cand in candidates_run
+
+    by_cand = {row["candidate"]: row for row in comparison["status_table"]}
+    assert by_cand["none"]["result"] == "PASS"
+    for cand in WIRED_CANDIDATES:
+        assert by_cand[cand]["result"] == "FAIL"
 
 
 def test_quark_sector_quanta_gap_is_366():

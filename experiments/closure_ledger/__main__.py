@@ -21,7 +21,12 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from experiments.closure_ledger.runner import run_experiment
+from experiments.closure_ledger.runner import (
+    render_comparison_markdown,
+    run_comparison,
+    run_experiment,
+    write_comparison_outputs,
+)
 from experiments.closure_ledger.sk_bridge import (
     DEFAULT_SK_CANDIDATE,
     SK_CANDIDATES,
@@ -79,7 +84,33 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Skip writing files; print summary to stdout only.",
     )
+    parser.add_argument(
+        "--compare",
+        action="store_true",
+        help=(
+            "Run all wired S(k) candidates plus the Layer-1 baseline and "
+            "write a comparison directory with a status table, mode-map "
+            "comparison, and per-candidate sub-runs."
+        ),
+    )
     args = parser.parse_args(argv)
+
+    if args.compare:
+        comparison = run_comparison(
+            chi=args.chi, transport_power=args.transport_power,
+        )
+        print(render_comparison_markdown(comparison))
+        print()
+        if not args.no_write:
+            if args.output_dir is None:
+                ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+                here = Path(__file__).resolve().parent
+                out = here / "runs" / f"{ts}_comparison"
+            else:
+                out = Path(args.output_dir)
+            write_comparison_outputs(comparison, out)
+            print(f"Wrote: {out}/")
+        return 0
 
     result = run_experiment(
         chi=args.chi,

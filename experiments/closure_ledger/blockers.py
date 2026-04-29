@@ -101,50 +101,83 @@ def layer2_blocker_report(
                 "angular harmonics."
             ),
             open_questions=(
-                "Does this map reproduce the locked lepton masses when "
-                "Φ_radial(k) is added back into the diagonal Hamiltonian? "
-                "If yes, the lepton instanton surrogate is a depth-block "
-                "effective theory of this microscopic mode set."
+                "Result with WKB radial-action convention: FALSIFIES "
+                "universal closure mod 2π. The cumulative-odd-ground-mode "
+                "interpretation of lepton depth is rejected; whether a "
+                "different phase convention (Maslov, Bohr-Sommerfeld with "
+                "two soft turning points) revives it is open."
             ),
         ),
         CandidateSkMap(
-            name="B_fixed_total_quantum_number",
-            formula="S(k) = { (l, n) : 2n + l = k }",
+            name="B1_single_angular_mode",
+            formula="S(k) = { (l = k, n = 0) }",
             physical_picture=(
-                "Generation k is a single shell in the joint (l, n) "
-                "spectrum, with each generation mapping to one mode "
-                "rather than a sum."
+                "Generation k is a single angular harmonic (l = k) in its "
+                "radial ground state. One mode per generation, indexed by "
+                "the angular quantum number alone."
             ),
             advantages=(
-                "Clean single-mode-per-generation interpretation. Easier "
-                "to falsify: each generation's Φ_radial value is a single "
-                "eigenmode integral, with no sum-over-modes ambiguity."
+                "Cleanest single-mode-per-generation interpretation: one "
+                "angular eigenstate per lepton family. Easy to falsify "
+                "because the per-row Φ is a single integrated quantity."
             ),
             open_questions=(
-                "Does the surrogate's β·k² term then read as the "
-                "eigenfrequency ω(l, n) for the selected single mode? "
-                "If so, this candidate gives a sharper microscopic "
-                "interpretation than candidate A."
+                "Does Φ(l = k, n = 0) close to a universal value mod 2π "
+                "under the chosen WKB convention? The B1 phases are the "
+                "same numbers that already appear in the candidate-A "
+                "decomposition, so candidate-A's failure mode constrains "
+                "B1 directly."
             ),
         ),
         CandidateSkMap(
-            name="C_closure_coherent_superposition",
-            formula="S(k) = { (l, n) : ω(l, n) satisfies S³ closure at depth k }",
+            name="B2_single_radial_excitation",
+            formula="S(k) = { (l = 1, n = (k − 1) / 2) }",
             physical_picture=(
-                "The mode set is determined by which (l, n) combinations "
-                "actually close on the antipodal cavity at depth k — the "
-                "S³ closure condition selects the membership of S(k)."
+                "All generations share the lowest angular harmonic l = 1; "
+                "depth labels successive radial excitations n = 0, 1, 2. "
+                "Lepton depth is reinterpreted as radial-mode quantum "
+                "number rather than angular content."
             ),
             advantages=(
-                "Most physically principled: makes S(k) emergent from the "
-                "antipodal closure condition rather than imposed. Connects "
-                "channel 1 (closure) and channel 3 (eigenmodes) directly."
+                "Uses one fixed angular sector and a single radial ladder, "
+                "matching the surrogate's `β · k²` uplift if and only if "
+                "ω²(1, n) ≈ ω²(1, 0) + β · n² (testable directly). "
+                "Maximally falsifiable: a single mode integral per row."
             ),
             open_questions=(
-                "Requires the S³ closure phase condition to be spelled out "
-                "as an explicit equation on ω(l, n) before the membership "
-                "of S(k) becomes computable. This is the highest-leverage "
-                "candidate but also the highest-effort to define."
+                "Does Φ(l = 1, n) close to a universal value mod 2π? "
+                "Asymptotically Φ(1, n) → (n + 1) π by WKB, so for high n "
+                "the residues converge to a parity pattern {π, 0, π, 0, …} "
+                "rather than a single universal value — universality "
+                "requires a Maslov-shifted convention or a convention "
+                "that absorbs the (n + 1) π structure."
+            ),
+        ),
+        CandidateSkMap(
+            name="C_eigenvector_weighted",
+            formula=(
+                "S(k) = eigenvector / generation-block decomposition of "
+                "the surrogate Hamiltonian onto Tangherlini (l, n) modes"
+            ),
+            physical_picture=(
+                "The map S(k) is not imposed by hand. Instead it is "
+                "derived: project the depth-k eigenvector of the lepton "
+                "instanton surrogate onto Tangherlini radial modes, and "
+                "use the resulting weights to build a coherent "
+                "superposition phase Φ_radial(k)."
+            ),
+            advantages=(
+                "Most physically principled: the bridge from instanton "
+                "surrogate to Tangherlini operator becomes a derived "
+                "quantity. Eliminates the by-hand selection of (l, n) "
+                "shells that A, B1, and B2 all rely on."
+            ),
+            open_questions=(
+                "Requires explicitly mapping `compute_knotted_lepton_spectrum`'s "
+                "eigenvectors onto an (l, n) basis — currently the "
+                "surrogate Hamiltonian is depth-only and uses no radial "
+                "basis. The mapping has to be defined before the candidate "
+                "is computable."
             ),
         ),
     ]
