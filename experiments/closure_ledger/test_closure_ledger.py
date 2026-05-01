@@ -33,12 +33,14 @@ from experiments.closure_ledger.ledger import (
     compute_lepton_ledger,
 )
 from experiments.closure_ledger.sk_bridge import (
+    D_OPERATOR_VARIANTS,
     DEFAULT_SK_CANDIDATE,
     LEPTON_DEPTHS,
     WIRED_CANDIDATES,
     WKB_CONVENTION,
     Mode,
     _locked_lepton_eigenvectors,
+    _operator_phase_matrix,
     lepton_eigenvector_weights,
     phi_convergence_table,
     phi_radial_for_mode,
@@ -342,6 +344,9 @@ def test_layer2_blocker_marks_implemented_candidate():
     assert impls["C1_maslov_standard"] == "open"
     assert impls["B2_maslov_standard"] == "open"
     assert impls["C2_maslov_standard"] == "open"
+    assert impls["D0_overlap_phase"] == "open"
+    assert impls["D1_potential_difference_phase"] == "open"
+    assert impls["D2_symmetrized_momentum_phase"] == "open"
 
 
 def test_phi_radial_uses_wkb_convention_label():
@@ -635,3 +640,151 @@ def test_p3_is_downgraded():
     assert any(
         "366" in dp for dp in blocker["downgraded_predictions"]
     ), f"downgraded_predictions = {blocker['downgraded_predictions']}"
+
+
+# --- Candidate D: operator-valued radial phase ----------------------------
+
+def test_d_family_membership_matches_c1():
+    """All D variants share the C1 depth-basis labels (l=1,3,5; n=0)."""
+    for variant in D_OPERATOR_VARIANTS:
+        for k in LEPTON_DEPTHS:
+            assert (
+                s_k_membership(k, variant)
+                == s_k_membership(k, "C1_eigenvector_weighted_B1")
+            )
+
+
+def test_d_family_phase_matrix_is_hermitian():
+    """Each D variant's Φ matrix must equal its transpose (real Hermitian)."""
+    for variant in D_OPERATOR_VARIANTS:
+        Phi, _omegas, _labels = _operator_phase_matrix(variant)
+        for i in range(3):
+            for j in range(3):
+                assert math.isclose(
+                    Phi[i][j], Phi[j][i], abs_tol=1e-12,
+                ), f"{variant}: Phi[{i}][{j}]={Phi[i][j]} ≠ Phi[{j}][{i}]={Phi[j][i]}"
+
+
+def test_d_family_phase_matrix_is_deterministic():
+    """Repeated calls produce bit-identical matrices (lru_cache + pure compute)."""
+    for variant in D_OPERATOR_VARIANTS:
+        m1, _, _ = _operator_phase_matrix(variant)
+        m2, _, _ = _operator_phase_matrix(variant)
+        assert m1 == m2
+
+
+def test_d0_diagonal_is_phase_scale_pi():
+    """D0 diagonal Φ_ii = π · ⟨u_i|u_i⟩ = π by L²-normalization."""
+    Phi, _, _ = _operator_phase_matrix("D0_overlap_phase")
+    for i in range(3):
+        assert math.isclose(Phi[i][i], math.pi, rel_tol=1e-9, abs_tol=1e-9)
+
+
+def test_d1_diagonal_is_zero():
+    """D1 diagonal Φ_ii = ⟨u_i|V_i − V_i|u_i⟩ = 0 by construction."""
+    Phi, _, _ = _operator_phase_matrix("D1_potential_difference_phase")
+    for i in range(3):
+        assert math.isclose(Phi[i][i], 0.0, abs_tol=1e-12)
+
+
+def test_d_family_off_diagonals_are_nonzero():
+    """
+    Each D variant must produce non-trivial off-diagonal phase coupling;
+    otherwise the operator candidate collapses to scalar B1 modes and
+    contributes no new physics relative to C1.
+    """
+    for variant in D_OPERATOR_VARIANTS:
+        Phi, _, _ = _operator_phase_matrix(variant)
+        off_diag_max = max(
+            abs(Phi[i][j])
+            for i in range(3) for j in range(3) if i != j
+        )
+        assert off_diag_max > 1e-3, (
+            f"{variant}: off-diagonal max |Φ_ij|={off_diag_max} "
+            "is below 1e-3; operator candidate is degenerate."
+        )
+
+
+def test_d_family_modes_carry_pair_metadata():
+    """Each D-variant ModePhase entry exposes (l_i, n_i) and (l_j, n_j)."""
+    for variant in D_OPERATOR_VARIANTS:
+        for k in LEPTON_DEPTHS:
+            r = phi_radial_from_sk(k, variant)
+            assert r.status == "computed"
+            assert len(r.modes) == 9   # 3×3 matrix
+            for mp in r.modes:
+                assert mp.pair_l is not None
+                assert mp.pair_n is not None
+                assert mp.operator_variant == variant
+
+
+def test_d_family_total_phi_equals_quadratic_form():
+    """RadialPhaseResult.total_phi equals v_species^T Φ v_species exactly."""
+    _, eigenvectors = _locked_lepton_eigenvectors()
+    for variant in D_OPERATOR_VARIANTS:
+        Phi, _, _ = _operator_phase_matrix(variant)
+        for sp_idx, k in enumerate(LEPTON_DEPTHS):
+            v = eigenvectors[sp_idx]
+            quad = sum(
+                v[i] * Phi[i][j] * v[j]
+                for i in range(3) for j in range(3)
+            )
+            r = phi_radial_from_sk(k, variant)
+            assert math.isclose(r.total_phi, quad, abs_tol=1e-12), (
+                f"{variant} k={k}: total_phi={r.total_phi}, v^T Φ v={quad}"
+            )
+
+
+def test_d_family_residues_are_deterministic():
+    """D-family per-lepton residues are reproducible to 1e-12."""
+    for variant in D_OPERATOR_VARIANTS:
+        r1 = _residues_in_pi(run_experiment(sk_candidate=variant))
+        r2 = _residues_in_pi(run_experiment(sk_candidate=variant))
+        for a, b in zip(r1, r2):
+            assert math.isclose(a, b, abs_tol=1e-12), (
+                f"{variant}: {a} vs {b}"
+            )
+
+
+def test_d_family_runs_to_completion_through_runner():
+    """Each D variant runs end-to-end and produces a Layer-2 result."""
+    for variant in D_OPERATOR_VARIANTS:
+        result = run_experiment(sk_candidate=variant)
+        assert result.experiment_name == "closure_ledger.layer2"
+        assert result.universality_check["per_lepton_mod_2pi"]
+        # Spread fields populated.
+        assert result.universality_check["spread"] >= 0
+        assert result.universality_check["circular_spread"] >= 0
+
+
+def test_circular_spread_caps_linear_spread():
+    """Circular spread is always ≤ linear spread for any residue distribution."""
+    for cand in WIRED_CANDIDATES + ("none",):
+        result = run_experiment(sk_candidate=cand)
+        uc = result.universality_check
+        if not uc["per_lepton_mod_2pi"]:
+            continue
+        assert uc["circular_spread"] <= uc["spread"] + 1e-12, (
+            f"{cand}: circular={uc['circular_spread']}, linear={uc['spread']}"
+        )
+
+
+def test_no_d_baselines_change_existing_candidate_residues():
+    """Adding D-family does not perturb the previously-recorded residues."""
+    expected = {
+        "none": [0.0, 0.0, 0.0],
+        "A_lowest_radial_per_l": [0.881876, 1.652620, 0.413097],
+        "B1_single_angular_mode": [0.881876, 0.770744, 0.760477],
+        "B2_single_radial_excitation": [0.881876, 1.994352, 0.999437],
+        "C1_eigenvector_weighted_B1": [0.864195, 0.788396, 0.760506],
+        "C2_eigenvector_weighted_B2": [1.059227, 1.817711, 0.998727],
+        "C1_maslov_standard": [0.364195, 0.288396, 0.260506],
+        "B2_maslov_standard": [0.381876, 1.994352, 0.999437],
+        "C2_maslov_standard": [0.638760, 1.738289, 0.998617],
+    }
+    for cand, ref in expected.items():
+        residues = _residues_in_pi(run_experiment(sk_candidate=cand))
+        for a, b in zip(residues, ref):
+            assert math.isclose(a, b, abs_tol=1e-5), (
+                f"{cand} residue drift: got {residues}, expected {ref}"
+            )

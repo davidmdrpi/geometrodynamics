@@ -31,6 +31,11 @@ Wired candidates:
     C1_maslov_standard          — C1 mode set with −π/2 per turning point
     B2_maslov_standard          — B2 mode set with −π/2 per turning point
     C2_maslov_standard          — C2 mode set with −π/2 per turning point
+    D0_overlap_phase            — v^T Φ v with Φ_ij = π·⟨u_i|u_j⟩
+    D1_potential_difference_phase — v^T Φ v with Φ_ij = ⟨u_i|V_j−V_i|u_j⟩
+                                  (off-diagonal mirrored to make Hermitian)
+    D2_symmetrized_momentum_phase — v^T Φ v with
+                                  Φ_ij = ⟨u_i|√(ω̄²−V̄)_+|u_j⟩, ω̄/V̄ symmetric
 
 C1 and C2 derive their weights from the **locked lepton generation
 block** of `geometrodynamics.tangherlini.lepton_spectrum` (no fitted
@@ -62,6 +67,9 @@ SK_CANDIDATES = (
     "C1_maslov_standard",
     "B2_maslov_standard",
     "C2_maslov_standard",
+    "D0_overlap_phase",
+    "D1_potential_difference_phase",
+    "D2_symmetrized_momentum_phase",
     "none",
 )
 DEFAULT_SK_CANDIDATE = "A_lowest_radial_per_l"
@@ -75,6 +83,9 @@ WIRED_CANDIDATES = (
     "C1_maslov_standard",
     "B2_maslov_standard",
     "C2_maslov_standard",
+    "D0_overlap_phase",
+    "D1_potential_difference_phase",
+    "D2_symmetrized_momentum_phase",
 )
 
 # Candidates that derive the per-mode Maslov correction from a turning-point
@@ -85,6 +96,17 @@ MASLOV_STANDARD_CANDIDATES = (
     "C1_maslov_standard",
     "B2_maslov_standard",
     "C2_maslov_standard",
+)
+
+# Operator-valued candidates: the radial phase is v^T Φ v where Φ is a
+# 3×3 Hermitian matrix indexed by the depth-basis B1 modes (l ∈ {1,3,5},
+# n=0). Off-diagonal entries — the new degree of freedom relative to the
+# scalar-per-mode C-family — are determined by an explicit operator
+# kernel; v are the locked lepton eigenvectors used by C1/C2.
+D_OPERATOR_VARIANTS = (
+    "D0_overlap_phase",
+    "D1_potential_difference_phase",
+    "D2_symmetrized_momentum_phase",
 )
 
 
@@ -134,6 +156,12 @@ def s_k_membership(k: int, candidate: str) -> list[Mode]:
     if candidate == "C2_maslov_standard":
         # Same membership as C2; differs only in the Maslov policy.
         return [Mode(l=1, n=(ll - 1) // 2) for ll in LEPTON_DEPTHS]
+    if candidate in D_OPERATOR_VARIANTS:
+        # Operator candidates use the B1 depth-basis modes as the row/column
+        # index of a 3×3 Hermitian Φ matrix; the scalar per-mode list returned
+        # here matches C1's diagonal labels for compatibility with the
+        # mode-map comparison rendering.
+        return [Mode(l=ll, n=0) for ll in LEPTON_DEPTHS]
     raise ValueError(f"Unknown S(k) candidate: {candidate}")
 
 
@@ -254,6 +282,12 @@ class ModePhase:
     N_grid: int = 0
     weight: float = 1.0
     error: Optional[str] = None
+    # Operator-valued candidates only: the row/column pair of the 3×3 Φ
+    # matrix this entry contributes to. For diagonal-only candidates these
+    # remain None.
+    pair_l: Optional[int] = None
+    pair_n: Optional[int] = None
+    operator_variant: Optional[str] = None
 
     def to_dict(self) -> dict:
         return {
@@ -269,6 +303,9 @@ class ModePhase:
             "N_grid": self.N_grid,
             "weight": self.weight,
             "error": self.error,
+            "pair_l": self.pair_l,
+            "pair_n": self.pair_n,
+            "operator_variant": self.operator_variant,
         }
 
 
@@ -424,6 +461,148 @@ class RadialPhaseResult:
         }
 
 
+@lru_cache(maxsize=64)
+def _operator_phase_matrix(
+    variant: str,
+    *,
+    N: int = 80,
+    phase_scale: float = 3.141592653589793,
+) -> tuple[
+    tuple[tuple[float, ...], ...],   # Phi (3×3)
+    tuple[float, ...],                # omegas[i] for each depth-basis mode
+    tuple[tuple[int, int], ...],      # mode labels (l_i, n_i)
+]:
+    """
+    Build the 3×3 Hermitian radial phase matrix Φ for an operator-valued
+    candidate. Indexed by the B1 depth-basis modes (l ∈ {1,3,5}, n=0).
+
+    Eigenfunctions u_i are L²-normalized on the tortoise grid before
+    matrix-element evaluation. The grid is shared across all l in
+    `solve_radial_modes` (it depends only on N, rs, r_outer), so all
+    three eigenfunctions share a common discretization.
+
+    Variants:
+        D0_overlap_phase            — Φ_ij = phase_scale · ⟨u_i | u_j⟩
+                                      (positive on diagonal; off-diagonal
+                                      measures orthogonality breaking
+                                      between different-l eigenfunctions)
+        D1_potential_difference_phase — Φ_ij = ⟨u_i | V_j − V_i | u_j⟩,
+                                        Hermitized by mirroring i<j to j<i
+                                        (the canonical quark transport
+                                        matrix-element form, reused as the
+                                        upper triangle and reflected to make
+                                        the matrix real symmetric).
+                                        Diagonal Φ_ii = 0 by construction.
+        D2_symmetrized_momentum_phase — Φ_ij = ⟨u_i | √max(ω̄² − V̄, 0) | u_j⟩
+                                        with ω̄² = (ω_i² + ω_j²)/2 and
+                                        V̄(r) = (V_i(r) + V_j(r))/2. Symmetric
+                                        by construction (kernel symmetric in
+                                        i,j; both u real).
+    """
+    import math as _math
+    import numpy as np
+    from geometrodynamics.tangherlini.radial import (
+        solve_radial_modes,
+        r_to_rstar,
+        V_tangherlini,
+    )
+    from geometrodynamics.constants import R_MID
+
+    if variant not in D_OPERATOR_VARIANTS:
+        raise ValueError(f"Unknown operator variant: {variant!r}")
+
+    rs = float(R_MID)
+    omegas: list[float] = []
+    us: list = []
+    Vs: list = []
+    rstar_sorted = None
+    for ll in LEPTON_DEPTHS:
+        oms, funcs, rg = solve_radial_modes(ll, N=N, n_modes=1)
+        omega = float(oms[0])
+        u = np.asarray(funcs[0]["u_half"], dtype=float)
+        Vg = np.asarray(V_tangherlini(rg, ll, rs), dtype=float)
+        rstar = np.array([r_to_rstar(float(r), rs) for r in rg])
+        order = np.argsort(rstar)
+        if rstar_sorted is None:
+            rstar_sorted = rstar[order]
+        u_sorted = u[order]
+        norm2 = float(np.trapezoid(u_sorted ** 2, rstar_sorted))
+        u_normed = u_sorted / _math.sqrt(norm2)
+        omegas.append(omega)
+        us.append(u_normed)
+        Vs.append(Vg[order])
+
+    Phi = np.zeros((3, 3))
+    for i in range(3):
+        for j in range(i, 3):
+            if variant == "D0_overlap_phase":
+                Phi[i, j] = phase_scale * float(
+                    np.trapezoid(us[i] * us[j], rstar_sorted)
+                )
+            elif variant == "D1_potential_difference_phase":
+                if i == j:
+                    Phi[i, j] = 0.0
+                else:
+                    Phi[i, j] = float(np.trapezoid(
+                        us[i] * (Vs[j] - Vs[i]) * us[j], rstar_sorted,
+                    ))
+            elif variant == "D2_symmetrized_momentum_phase":
+                omega_bar2 = (omegas[i] ** 2 + omegas[j] ** 2) / 2.0
+                V_bar = (Vs[i] + Vs[j]) / 2.0
+                kernel = np.sqrt(np.maximum(omega_bar2 - V_bar, 0.0))
+                Phi[i, j] = float(np.trapezoid(
+                    us[i] * kernel * us[j], rstar_sorted,
+                ))
+            if i != j:
+                Phi[j, i] = Phi[i, j]
+
+    Phi_t = tuple(tuple(float(x) for x in row) for row in Phi)
+    omegas_t = tuple(omegas)
+    labels_t = tuple((int(ll), 0) for ll in LEPTON_DEPTHS)
+    return Phi_t, omegas_t, labels_t
+
+
+def _operator_mode_phases(
+    k: int, variant: str, *, N: int = 80,
+) -> list[ModePhase]:
+    """
+    Materialize the contraction v^T Φ v as a list of 9 ModePhase entries
+    (one per (i, j) pair of the 3×3 Φ matrix). Each entry carries
+    weight = v_species,i · v_species,j and phi = Φ_ij; the candidate's
+    total radial phase is Σ weight·phi over the 9 entries, which equals
+    v^T Φ v exactly.
+    """
+    Phi, omegas, labels = _operator_phase_matrix(variant, N=N)
+    weights = lepton_eigenvector_weights()  # placeholder to ensure cache warm
+    # The C-family weights helper returns |v_i|² but we need signed v_i
+    # here; pull the eigenvectors directly.
+    _, eigenvectors = _locked_lepton_eigenvectors()
+    if k not in LEPTON_DEPTHS:
+        raise ValueError(
+            f"Operator candidates require k ∈ {LEPTON_DEPTHS}; got k={k}"
+        )
+    sp_idx = LEPTON_DEPTHS.index(k)
+    v = eigenvectors[sp_idx]   # signed amplitudes over the depth basis
+    entries: list[ModePhase] = []
+    for i, (l_i, n_i) in enumerate(labels):
+        for j, (l_j, n_j) in enumerate(labels):
+            entries.append(ModePhase(
+                l=l_i, n=n_i,
+                omega=float(omegas[i]),
+                phi=float(Phi[i][j]),
+                status="computed",
+                convention="operator_radial_phase",
+                maslov_correction=0.0,
+                maslov_policy="none",
+                n_turning_points=0,
+                N_grid=N,
+                weight=float(v[i] * v[j]),
+                pair_l=l_j, pair_n=n_j,
+                operator_variant=variant,
+            ))
+    return entries
+
+
 def phi_radial_from_sk(
     k: int, candidate: str, *,
     N: int = 80, maslov_correction: float = 0.0,
@@ -446,6 +625,19 @@ def phi_radial_from_sk(
         return RadialPhaseResult(
             candidate=candidate, k=k, modes=[],
             total_phi=None, status="missing",
+        )
+    if candidate in D_OPERATOR_VARIANTS:
+        try:
+            mode_results = _operator_mode_phases(k, candidate, N=N)
+        except ImportError as exc:
+            return RadialPhaseResult(
+                candidate=candidate, k=k, modes=[],
+                total_phi=None, status="missing",
+            )
+        total = sum(mr.weight * mr.phi for mr in mode_results)
+        return RadialPhaseResult(
+            candidate=candidate, k=k, modes=mode_results,
+            total_phi=float(total), status="computed",
         )
     policy = (
         "standard" if candidate in MASLOV_STANDARD_CANDIDATES else "none"

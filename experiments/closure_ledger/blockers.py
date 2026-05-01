@@ -301,6 +301,109 @@ def layer2_blocker_report(
                 "ladder where N_turning is expected to vary."
             ),
         ),
+        CandidateSkMap(
+            name="D0_overlap_phase",
+            formula=(
+                "Φ_radial(species) = v_species^T Φ v_species with "
+                "Φ_ij = π · ⟨u_i | u_j⟩ on L²-normalized depth-basis "
+                "eigenfunctions"
+            ),
+            physical_picture=(
+                "Operator-valued radial phase: a 3×3 Hermitian Φ matrix "
+                "indexed by the B1 depth-basis modes (l ∈ {1, 3, 5}, "
+                "n=0), with entries given by the eigenfunction overlap "
+                "scaled by a symmetric phase constant (π by convention). "
+                "Diagonal entries are π by L²-normalization; off-diagonals "
+                "measure how non-orthogonal the different-l ground modes "
+                "are on the tortoise grid. The per-species value is the "
+                "quadratic form v^T Φ v with v from the locked lepton "
+                "Hamiltonian eigenvectors used by C1/C2."
+            ),
+            advantages=(
+                "Smallest viable operator-valued candidate. Tests whether "
+                "the off-diagonal degree of freedom — non-orthogonal "
+                "overlaps between different-l ground modes — can redistribute "
+                "phase across species when contracted with v. If different "
+                "leptons have different sign patterns on the depth basis, "
+                "the cross-terms 2·Σ_{i<j} v_i v_j Φ_ij can carry sign "
+                "information that scalar-per-mode candidates cannot access."
+            ),
+            open_questions=(
+                "Does the symmetric phase scale (π) collapse to the "
+                "scalar B1 case in the orthogonal limit (Φ → π·I), or do "
+                "the empirical ⟨u_i|u_j⟩ ≠ 0 cross-terms dominate? "
+                "Whether the resulting v^T Φ v values close mod 2π is the "
+                "thesis-level test."
+            ),
+        ),
+        CandidateSkMap(
+            name="D1_potential_difference_phase",
+            formula=(
+                "Φ_radial(species) = v_species^T Φ v_species with "
+                "Φ_ij = ⟨u_i | V_j − V_i | u_j⟩, Hermitized by mirroring "
+                "i<j entries to j<i"
+            ),
+            physical_picture=(
+                "Operator-valued radial phase reusing the canonical "
+                "quark transport matrix element form: ⟨u_l | V_{l+2} − V_l "
+                "| u_{l+2}⟩, which closed the QCD residual sector to "
+                "+0.87% via the same tortoise-grid eigenfunctions. The "
+                "raw matrix is real antisymmetric for real eigenfunctions; "
+                "we Hermitize by treating the upper-triangle entries as "
+                "the canonical transport couplings and reflecting them to "
+                "the lower triangle. Diagonal Φ_ii = 0 by construction "
+                "(V_i − V_i = 0)."
+            ),
+            advantages=(
+                "Reuses a structurally-validated kernel: the same V_l "
+                "operator-difference matrix element that succeeded in the "
+                "quark sector at sub-percent. Off-diagonals are non-trivial "
+                "(unlike a strict (M+M†)/2 Hermitization which would "
+                "vanish), and the resulting v^T Φ v contraction inherits "
+                "transport-class structure from the QCD ledger."
+            ),
+            open_questions=(
+                "Whether the same operator that geometrized the quark "
+                "residual sector can also supply the lepton radial phase "
+                "bridge. The diagonal-zero structure means the entire "
+                "radial phase comes from cross-terms 2·Σ_{i<j} v_i v_j Φ_ij, "
+                "so the result is sensitive to the eigenvector sign pattern "
+                "on the depth basis."
+            ),
+        ),
+        CandidateSkMap(
+            name="D2_symmetrized_momentum_phase",
+            formula=(
+                "Φ_radial(species) = v_species^T Φ v_species with "
+                "Φ_ij = ⟨u_i | √max(ω̄² − V̄, 0) | u_j⟩, "
+                "ω̄² = (ω_i² + ω_j²)/2, V̄ = (V_i + V_j)/2"
+            ),
+            physical_picture=(
+                "Operator generalization of the WKB radial-action integrand "
+                "to a matrix kernel: the symmetrized momentum operator "
+                "k_local(r*) = √max(ω̄² − V̄, 0) is averaged over the "
+                "(i, j) pair before the matrix-element contraction. The "
+                "diagonal Φ_ii recovers the WKB single-mode action used by "
+                "candidate B1; the off-diagonals couple modes through the "
+                "averaged classical momentum."
+            ),
+            advantages=(
+                "Most directly continuous with the WKB convention used by "
+                "B1/B2/C1/C2: the i = j entries are the same scalar Φ(l_i, "
+                "n=0) values that those candidates report. Off-diagonals "
+                "introduce mode-coupling that is symmetric in (i, j) by "
+                "construction (kernel symmetric, both u_i, u_j real), so "
+                "the matrix is Hermitian without explicit symmetrization."
+            ),
+            open_questions=(
+                "Does the symmetrized-momentum kernel produce off-diagonals "
+                "with the right magnitude and sign structure to redistribute "
+                "phase across species? D2 is the most conservative D variant "
+                "— if even it fails to close mod 2π under the locked lepton "
+                "eigenvectors, the entire operator-radial-phase ansatz is "
+                "constrained on this depth basis."
+            ),
+        ),
     ]
 
     impl = implemented_candidate if implemented_candidate not in (None, "none") else None

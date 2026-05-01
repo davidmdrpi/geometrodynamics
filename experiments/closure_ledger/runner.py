@@ -142,7 +142,7 @@ class ExperimentResult:
             lines.append("## Radial bulk channel — per-mode breakdown")
             lines.append("")
             lines.append(
-                "| lepton | k | (l, n) | ω(l, n) | Φ(l, n) | "
+                "| lepton | k | mode / pair | ω | Φ | "
                 "weight | weight·Φ | N_tp | Δ_maslov | status |"
             )
             lines.append("|---|---|---|---|---|---|---|---|---|---|")
@@ -169,10 +169,17 @@ class ExperimentResult:
                         f"{delta / math.pi:+.6f}π"
                         if delta else "0"
                     )
+                    if m.get("pair_l") is not None:
+                        label = (
+                            f"(l={m['l']}, n={m['n']})→"
+                            f"(l={m['pair_l']}, n={m['pair_n']})"
+                        )
+                    else:
+                        label = f"(l={m['l']}, n={m['n']})"
                     lines.append(
                         f"| {row['label']} | {row['k']} | "
-                        f"(l={m['l']}, n={m['n']}) | {omega} | {phi} | "
-                        f"{weight:.6f} | {weighted_phi} | "
+                        f"{label} | {omega} | {phi} | "
+                        f"{weight:+.6f} | {weighted_phi} | "
                         f"{n_tp} | {delta_str} | "
                         f"{m['status']} |"
                     )
@@ -189,7 +196,11 @@ class ExperimentResult:
             "- Per-lepton totals mod 2π (in units of π): "
             f"{[f'{v / math.pi:.6f}' for v in u['per_lepton_mod_2pi']]}"
         )
-        lines.append(f"- Spread across leptons: {u['spread']:.2e}")
+        lines.append(f"- Linear spread (max−min): {u['spread']:.2e}")
+        lines.append(
+            f"- Circular spread (mod 2π): "
+            f"{u.get('circular_spread', float('nan')):.2e}"
+        )
         lines.append(f"- Universal mod 2π (within 1e-9): "
                      f"**{u['universal']}**")
         lines.append(f"- Universal value: "
@@ -240,6 +251,24 @@ class ExperimentResult:
         return "\n".join(lines)
 
 
+def _circular_spread(mods: list[float]) -> float:
+    """
+    Spread of points on a circle of circumference 2π. Equals 2π minus the
+    largest gap between consecutive sorted values (with the wrap gap
+    included). Reduces to max−min when no point straddles the 0/2π
+    boundary; correctly detects clustering across the wrap when they do.
+    """
+    if len(mods) < 2:
+        return 0.0
+    sorted_mods = sorted(mods)
+    gaps = [
+        sorted_mods[i + 1] - sorted_mods[i]
+        for i in range(len(sorted_mods) - 1)
+    ]
+    wrap_gap = TAU - (sorted_mods[-1] - sorted_mods[0])
+    return TAU - max(*gaps, wrap_gap)
+
+
 def _build_universality_check(
     rows: list[LedgerRow],
 ) -> dict:
@@ -253,16 +282,20 @@ def _build_universality_check(
         return {
             "per_lepton_mod_2pi": [],
             "spread": float("nan"),
+            "circular_spread": float("nan"),
             "universal": False,
             "universal_value": None,
         }
     spread = max(mods) - min(mods)
-    # Spread might also be ~2π if values straddle the wrap point.
-    universal = spread < 1e-9 or abs(spread - TAU) < 1e-9
+    circular = _circular_spread(mods)
+    # Universality is a circle property: residues live mod 2π, so the
+    # honest test is whether the points are circularly tight.
+    universal = circular < 1e-9
     universal_value = mods[0] if universal else None
     return {
         "per_lepton_mod_2pi": mods,
         "spread": spread,
+        "circular_spread": circular,
         "universal": universal,
         "universal_value": universal_value,
     }
@@ -415,6 +448,7 @@ def run_comparison(
             "result": _classify_universality(uc, cand),
             "per_lepton_mod_2pi_in_pi": residues_pi,
             "spread": uc["spread"],
+            "circular_spread": uc.get("circular_spread", float("nan")),
             "universal_value_in_pi": (
                 uc["universal_value"] / math.pi
                 if uc.get("universal_value") is not None else None
@@ -464,9 +498,9 @@ def render_comparison_markdown(comparison: dict) -> str:
     lines.append("")
     lines.append(
         "| candidate | layer | result | per-lepton mod 2π (units of π) | "
-        "spread | universal value |"
+        "linear spread | circular spread | universal value |"
     )
-    lines.append("|---|---|---|---|---|---|")
+    lines.append("|---|---|---|---|---|---|---|")
     for r in comparison["status_table"]:
         residues = (
             "[" + ", ".join(f"{v:.6f}" for v in r["per_lepton_mod_2pi_in_pi"]) + "]"
@@ -478,7 +512,8 @@ def render_comparison_markdown(comparison: dict) -> str:
         )
         lines.append(
             f"| `{r['candidate']}` | {r['experiment_layer']} | **{r['result']}** | "
-            f"{residues} | {r['spread']:.3e} | {univ} |"
+            f"{residues} | {r['spread']:.3e} | "
+            f"{r.get('circular_spread', float('nan')):.3e} | {univ} |"
         )
     lines.append("")
 
@@ -577,6 +612,31 @@ def render_comparison_markdown(comparison: dict) -> str:
         "the eigenvector weights redistribute the Maslov shift across "
         "species — the most aggressive composition of the two known "
         "structural levers."
+    )
+    lines.append(
+        "- Layer 2 D-family (`D0_overlap_phase`, `D1_potential_difference"
+        "_phase`, `D2_symmetrized_momentum_phase`): operator-valued radial "
+        "phase. A 3×3 Hermitian Φ matrix is built on the depth-basis B1 "
+        "modes from the Tangherlini eigenfunctions on the tortoise grid, "
+        "then contracted as v_species^T Φ v_species using the same locked "
+        "lepton eigenvectors that drive C1/C2. D0 uses Φ_ij = π·⟨u_i|u_j⟩ "
+        "(L²-normalized overlap with a symmetric phase scale); D1 uses "
+        "the canonical quark transport matrix element Φ_ij = ⟨u_i|V_j−V_i"
+        "|u_j⟩ with the upper triangle mirrored to make Φ Hermitian (so "
+        "Φ_ij = Φ_ji = the transport coupling, diagonal = 0); D2 uses the "
+        "symmetrized-momentum kernel Φ_ij = ⟨u_i|√max(ω̄²−V̄, 0)|u_j⟩ with "
+        "ω̄² = (ω_i² + ω_j²)/2 and V̄ = (V_i + V_j)/2. The off-diagonal "
+        "entries are the new degree of freedom relative to scalar-per-mode "
+        "candidates: cross-terms 2·Σ_{i<j} v_i v_j Φ_ij can redistribute "
+        "phase across species when the eigenvector signs disagree."
+    )
+    lines.append(
+        "- Reading the D-family results: the residues mod 2π may straddle "
+        "the wrap (e.g. one near 0, two near 2π), in which case the "
+        "linear max−min `spread` over-states the actual closure error. "
+        "The `circular spread` column is the honest closure metric — "
+        "2π minus the largest gap between consecutive residues on the "
+        "circle — and is what `universal` is keyed off."
     )
     lines.append("")
 
