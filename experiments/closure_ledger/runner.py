@@ -557,6 +557,27 @@ def render_comparison_markdown(comparison: dict) -> str:
         "sub-run reports the per-mode `n_turning_points` so the regime can "
         "be read directly."
     )
+    lines.append(
+        "- Layer 2 B2+Maslov (`B2_maslov_standard`, Bohr-Sommerfeld "
+        "convention): single-mode B2 ladder (l = 1, n = (k−1)/2) with the "
+        "standard −π/2 turning-point shift. The B2 ladder is the natural "
+        "test for differential Maslov: the (l=1, n=0) ground mode has a "
+        "centrifugal-barrier soft turning point while the n ≥ 1 "
+        "excitations sit above the barrier and have no interior turning "
+        "points. Whether the differential shift collapses the (n+1)π "
+        "parity pattern is read directly off the per-row Φ + Δ_maslov "
+        "in the breakdown table."
+    )
+    lines.append(
+        "- Layer 2 C2+Maslov (`C2_maslov_standard`, Bohr-Sommerfeld "
+        "convention): C2's eigenvector-weighted B2 ladder with the same "
+        "standard Maslov shift. Combines C-family weighting (lifts the "
+        "B2 single-mode degeneracy) with the per-mode turning-point "
+        "correction. Differential N_turning across the B2 ladder lets "
+        "the eigenvector weights redistribute the Maslov shift across "
+        "species — the most aggressive composition of the two known "
+        "structural levers."
+    )
     lines.append("")
 
     return "\n".join(lines)

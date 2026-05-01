@@ -182,6 +182,30 @@ def layer2_blocker_report(
             ),
         ),
         CandidateSkMap(
+            name="C2_eigenvector_weighted_B2",
+            formula=(
+                "Φ_radial(k) = Σ_i |v_species(k),i|² · Φ(l = 1, n = (k_i−1)/2), "
+                "weights from the locked lepton generation block"
+            ),
+            physical_picture=(
+                "Same eigenvector weights as C1 but selecting B2's "
+                "single-l radial-excitation ladder. Each species mixes "
+                "across radial excitations n ∈ {0, 1, 2} of l = 1."
+            ),
+            advantages=(
+                "Tests whether the eigenvector mixing of B2's ladder "
+                "(which under WKB asymptotes to (n+1)π) collapses the "
+                "parity pattern across generations to a single value."
+            ),
+            open_questions=(
+                "Same convention-dependence as C1; weight rows are the "
+                "same in both candidates, only the per-mode Φ values "
+                "differ. The two are independent tests of which mode "
+                "ladder (B1 angular or B2 radial) the lepton "
+                "Hamiltonian's eigenvectors actually align with."
+            ),
+        ),
+        CandidateSkMap(
             name="C1_maslov_standard",
             formula=(
                 "Φ_radial(k) = Σ_i |v_species(k),i|² · "
@@ -207,36 +231,74 @@ def layer2_blocker_report(
                 "principle redistribute residues."
             ),
             open_questions=(
-                "Does the per-mode turning-point count vary across the "
-                "depth basis B1 modes (l ∈ {1, 3, 5}, n = 0)? The Tangherlini "
-                "centrifugal barrier scales with l(l+d−3), so the inner soft "
-                "turning point is present for every l; whether the integration "
-                "grid actually spans both turning points or only one fixes "
-                "whether the correction is uniform −π/2 or differential."
+                "Empirical result: every B1 ground mode reports "
+                "N_turning = 1 on the canonical tortoise grid, so the "
+                "correction is a uniform −π/2 across the depth basis. "
+                "Spread is preserved relative to C1; residues translate "
+                "but do not collapse. Universality is not restored by "
+                "the standard Maslov correction on this mode set."
             ),
         ),
         CandidateSkMap(
-            name="C2_eigenvector_weighted_B2",
+            name="B2_maslov_standard",
             formula=(
-                "Φ_radial(k) = Σ_i |v_species(k),i|² · Φ(l = 1, n = (k_i−1)/2), "
-                "weights from the locked lepton generation block"
+                "Φ_radial(k) = ∫√max(ω² − V_eff(l=1), 0) dr* "
+                "− (π/2) · N_turning(l=1, n=(k−1)/2), "
+                "S(k) modes as in B2"
             ),
             physical_picture=(
-                "Same eigenvector weights as C1 but selecting B2's "
-                "single-l radial-excitation ladder. Each species mixes "
-                "across radial excitations n ∈ {0, 1, 2} of l = 1."
+                "Same single-mode l=1 ladder as B2, with the standard "
+                "Bohr-Sommerfeld Maslov shift (−π/2 per detected sign "
+                "change of ω² − V_eff) applied to each mode integral."
             ),
             advantages=(
-                "Tests whether the eigenvector mixing of B2's ladder "
-                "(which under WKB asymptotes to (n+1)π) collapses the "
-                "parity pattern across generations to a single value."
+                "Tests whether the per-mode turning-point count varies "
+                "across the radial ladder. The (l=1, n=0) ground mode "
+                "sits below the centrifugal+grid-bounded barrier and has "
+                "a soft inner turning point; higher excitations (l=1, "
+                "n≥1) sit above the barrier and may have N_turning = 0. "
+                "If so, the Maslov shift is differential across "
+                "generations — exactly the structure that could "
+                "redistribute residues mod 2π."
             ),
             open_questions=(
-                "Same convention-dependence as C1; weight rows are the "
-                "same in both candidates, only the per-mode Φ values "
-                "differ. The two are independent tests of which mode "
-                "ladder (B1 angular or B2 radial) the lepton "
-                "Hamiltonian's eigenvectors actually align with."
+                "Does the differential Maslov correction collapse the "
+                "(n+1)π parity pattern of B2 to a universal value, or "
+                "does it merely permute the residues? The radial-detail "
+                "table reports n_turning_points per mode so the regime "
+                "can be read off directly."
+            ),
+        ),
+        CandidateSkMap(
+            name="C2_maslov_standard",
+            formula=(
+                "Φ_radial(k) = Σ_i |v_species(k),i|² · "
+                "[ ∫√max(ω² − V_eff(l=1), 0) dr* "
+                "− (π/2)·N_turning(l=1, n=i) ], "
+                "S(k) modes as in C2"
+            ),
+            physical_picture=(
+                "C2's eigenvector-weighted B2 ladder with the standard "
+                "Maslov shift applied per mode. Each species' radial "
+                "phase is the squared-amplitude weighted sum over the "
+                "B2 ladder of (Φ_WKB − (π/2)·N_turning)."
+            ),
+            advantages=(
+                "Combines the two structural levers that have any chance "
+                "of breaking the ledger non-universality: eigenvector "
+                "mixing across the depth basis (C-family) and a per-mode "
+                "turning-point-dependent phase (Maslov). If the B2 modes "
+                "have non-uniform N_turning, the eigenvector weights "
+                "redistribute the differential Maslov shift across "
+                "species."
+            ),
+            open_questions=(
+                "Whether either the C-family weighting alone, the Maslov "
+                "shift alone, or their composition supplies the missing "
+                "bridge. C1_maslov_standard already showed the composition "
+                "with the B1 mode set is degenerate (uniform N_turning); "
+                "this candidate is the natural follow-on test on the B2 "
+                "ladder where N_turning is expected to vary."
             ),
         ),
     ]

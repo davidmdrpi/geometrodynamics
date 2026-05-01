@@ -28,6 +28,9 @@ Wired candidates:
     B2_single_radial_excitation — S(k) = {(l = 1, n = (k − 1) / 2)}
     C1_eigenvector_weighted_B1  — Σ_i |v_species,i|² Φ(l = k_i, n = 0)
     C2_eigenvector_weighted_B2  — Σ_i |v_species,i|² Φ(l = 1, n = (k_i−1)/2)
+    C1_maslov_standard          — C1 mode set with −π/2 per turning point
+    B2_maslov_standard          — B2 mode set with −π/2 per turning point
+    C2_maslov_standard          — C2 mode set with −π/2 per turning point
 
 C1 and C2 derive their weights from the **locked lepton generation
 block** of `geometrodynamics.tangherlini.lepton_spectrum` (no fitted
@@ -57,6 +60,8 @@ SK_CANDIDATES = (
     "C1_eigenvector_weighted_B1",
     "C2_eigenvector_weighted_B2",
     "C1_maslov_standard",
+    "B2_maslov_standard",
+    "C2_maslov_standard",
     "none",
 )
 DEFAULT_SK_CANDIDATE = "A_lowest_radial_per_l"
@@ -68,13 +73,19 @@ WIRED_CANDIDATES = (
     "C1_eigenvector_weighted_B1",
     "C2_eigenvector_weighted_B2",
     "C1_maslov_standard",
+    "B2_maslov_standard",
+    "C2_maslov_standard",
 )
 
 # Candidates that derive the per-mode Maslov correction from a turning-point
 # count rather than from a caller-supplied constant offset. The "standard"
 # policy applies −π/2 per detected turning point (sign change of ω² − V_eff
 # inside the integration grid).
-MASLOV_STANDARD_CANDIDATES = ("C1_maslov_standard",)
+MASLOV_STANDARD_CANDIDATES = (
+    "C1_maslov_standard",
+    "B2_maslov_standard",
+    "C2_maslov_standard",
+)
 
 
 @dataclass(frozen=True)
@@ -113,6 +124,16 @@ def s_k_membership(k: int, candidate: str) -> list[Mode]:
         # Same membership as C1; differs only in the Maslov policy applied
         # by phi_radial_from_sk.
         return [Mode(l=ll, n=0) for ll in LEPTON_DEPTHS]
+    if candidate == "B2_maslov_standard":
+        # Same membership as B2; differs only in the Maslov policy.
+        if (k - 1) % 2 != 0:
+            raise ValueError(
+                f"B2_maslov_standard requires odd k; got k={k}"
+            )
+        return [Mode(l=1, n=(k - 1) // 2)]
+    if candidate == "C2_maslov_standard":
+        # Same membership as C2; differs only in the Maslov policy.
+        return [Mode(l=1, n=(ll - 1) // 2) for ll in LEPTON_DEPTHS]
     raise ValueError(f"Unknown S(k) candidate: {candidate}")
 
 
@@ -207,6 +228,7 @@ def s_k_weighted_modes(k: int, candidate: str) -> list[tuple[Mode, float]]:
         "C1_eigenvector_weighted_B1",
         "C2_eigenvector_weighted_B2",
         "C1_maslov_standard",
+        "C2_maslov_standard",
     ):
         if k not in LEPTON_DEPTHS:
             raise ValueError(

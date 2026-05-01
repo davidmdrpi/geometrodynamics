@@ -197,6 +197,24 @@ def test_sk_membership_candidate_c1_maslov_matches_c1():
         )
 
 
+def test_sk_membership_candidate_b2_maslov_matches_b2():
+    """B2_maslov_standard shares the B2 mode set; only the policy differs."""
+    for k in LEPTON_DEPTHS:
+        assert (
+            s_k_membership(k, "B2_maslov_standard")
+            == s_k_membership(k, "B2_single_radial_excitation")
+        )
+
+
+def test_sk_membership_candidate_c2_maslov_matches_c2():
+    """C2_maslov_standard shares the C2 mode set; only the policy differs."""
+    for k in LEPTON_DEPTHS:
+        assert (
+            s_k_membership(k, "C2_maslov_standard")
+            == s_k_membership(k, "C2_eigenvector_weighted_B2")
+        )
+
+
 def test_locked_lepton_eigenvectors_are_orthonormal():
     """Eigenvectors of the locked block are orthonormal (rows of V.T)."""
     eigenvalues, eigenvectors = _locked_lepton_eigenvectors()
@@ -322,6 +340,8 @@ def test_layer2_blocker_marks_implemented_candidate():
     assert impls["C1_eigenvector_weighted_B1"] == "open"
     assert impls["C2_eigenvector_weighted_B2"] == "open"
     assert impls["C1_maslov_standard"] == "open"
+    assert impls["B2_maslov_standard"] == "open"
+    assert impls["C2_maslov_standard"] == "open"
 
 
 def test_phi_radial_uses_wkb_convention_label():
@@ -419,6 +439,143 @@ def test_c1_maslov_standard_falsifies_universality_under_bohr_sommerfeld():
     result = run_experiment(sk_candidate="C1_maslov_standard")
     assert result.universality_check["universal"] is False
     assert result.universality_check["spread"] > 1e-9
+
+
+def _per_mode_turning_points(rows: list) -> list[int]:
+    counts: list[int] = []
+    for row in rows:
+        detail = row["radial_detail"]
+        assert detail is not None
+        for m in detail["modes"]:
+            counts.append(m["n_turning_points"])
+    return counts
+
+
+def _residues_in_pi(result) -> list[float]:
+    return [v / math.pi for v in result.universality_check["per_lepton_mod_2pi"]]
+
+
+def test_b2_maslov_standard_residues_are_deterministic():
+    """B2_maslov_standard mod-2π residues are reproducible to 1e-12."""
+    r1 = _residues_in_pi(run_experiment(sk_candidate="B2_maslov_standard"))
+    r2 = _residues_in_pi(run_experiment(sk_candidate="B2_maslov_standard"))
+    assert len(r1) == 3 and len(r2) == 3
+    for a, b in zip(r1, r2):
+        assert math.isclose(a, b, abs_tol=1e-12), f"{a} vs {b}"
+
+
+def test_c2_maslov_standard_residues_are_deterministic():
+    """C2_maslov_standard mod-2π residues are reproducible to 1e-12."""
+    r1 = _residues_in_pi(run_experiment(sk_candidate="C2_maslov_standard"))
+    r2 = _residues_in_pi(run_experiment(sk_candidate="C2_maslov_standard"))
+    assert len(r1) == 3 and len(r2) == 3
+    for a, b in zip(r1, r2):
+        assert math.isclose(a, b, abs_tol=1e-12), f"{a} vs {b}"
+
+
+def test_b2_maslov_standard_falsifies_universality():
+    """B2_maslov_standard breaks universal closure mod 2π."""
+    result = run_experiment(sk_candidate="B2_maslov_standard")
+    assert result.universality_check["universal"] is False
+    assert result.universality_check["spread"] > 1e-9
+
+
+def test_c2_maslov_standard_falsifies_universality():
+    """C2_maslov_standard breaks universal closure mod 2π."""
+    result = run_experiment(sk_candidate="C2_maslov_standard")
+    assert result.universality_check["universal"] is False
+    assert result.universality_check["spread"] > 1e-9
+
+
+def test_b2_modes_have_non_uniform_turning_point_count_if_solver_says_so():
+    """
+    The B2 ladder is the canonical place to look for differential N_turning:
+    (l=1, n=0) crosses the centrifugal barrier; (l=1, n≥1) sits above it.
+    If the solver reports non-uniform counts, the B2 Maslov candidate is in
+    the differential regime; if uniform, it is in the degenerate regime.
+    Either is valid — we only assert the test surfaces what the solver
+    actually reports, so the regime is recorded in the run artifact.
+    """
+    result = run_experiment(sk_candidate="B2_maslov_standard")
+    counts = _per_mode_turning_points(result.rows)
+    assert all(c >= 0 for c in counts)
+    # Each row contributes exactly one B2 mode (single-mode candidate).
+    assert len(counts) == len(result.rows)
+    # The ground mode of B2 (k=1 row, l=1 n=0) must have at least one
+    # turning point — otherwise either the solver or the integration grid
+    # has changed in a way the Maslov diagnostic should flag immediately.
+    e_count = next(
+        m["n_turning_points"]
+        for row in result.rows
+        if row["k"] == 1
+        for m in row["radial_detail"]["modes"]
+    )
+    assert e_count >= 1, (
+        "B2 ground mode (l=1, n=0) reported zero turning points — "
+        "differential Maslov diagnostic is moot if this regresses."
+    )
+
+
+def test_no_maslov_baselines_are_preserved_by_new_candidates():
+    """Adding B2/C2 Maslov variants does not perturb the existing baselines."""
+    # Snapshot of pre-change residues for the no-Maslov candidates.
+    expected = {
+        "none": [0.0, 0.0, 0.0],
+        "A_lowest_radial_per_l": [0.881876, 1.652620, 0.413097],
+        "B1_single_angular_mode": [0.881876, 0.770744, 0.760477],
+        "B2_single_radial_excitation": [0.881876, 1.994352, 0.999437],
+        "C1_eigenvector_weighted_B1": [0.864195, 0.788396, 0.760506],
+        "C2_eigenvector_weighted_B2": [1.059227, 1.817711, 0.998727],
+    }
+    for cand, ref in expected.items():
+        residues = _residues_in_pi(run_experiment(sk_candidate=cand))
+        for a, b in zip(residues, ref):
+            assert math.isclose(a, b, abs_tol=1e-5), (
+                f"{cand} residue drift: got {residues}, expected {ref}"
+            )
+
+
+def test_b2_maslov_standard_residues_relate_to_b2_via_per_mode_shift():
+    """
+    Each B2 row has a single mode, so the row's mod-2π residue must be
+    (B2_residue + (−π/2)·N_turning_for_that_row) mod 2π exactly.
+    """
+    b2 = run_experiment(sk_candidate="B2_single_radial_excitation")
+    b2m = run_experiment(sk_candidate="B2_maslov_standard")
+    for r_base, r_shift in zip(b2.rows, b2m.rows):
+        modes = r_shift["radial_detail"]["modes"]
+        assert len(modes) == 1
+        n_tp = modes[0]["n_turning_points"]
+        delta = -(math.pi / 2.0) * n_tp
+        expected = (r_base["available_total_mod_2pi"] + delta) % TAU
+        assert math.isclose(
+            r_shift["available_total_mod_2pi"], expected, abs_tol=1e-9,
+        ), (
+            f"row k={r_base['k']}: expected {expected}, "
+            f"got {r_shift['available_total_mod_2pi']} (N_tp={n_tp})"
+        )
+
+
+def test_c2_maslov_standard_residues_relate_to_c2_via_weighted_shift():
+    """
+    Each C2 row's residue under the Maslov policy equals
+    (C2_residue + Σ_i w_i · (−π/2) · N_turning_i) mod 2π.
+    """
+    c2 = run_experiment(sk_candidate="C2_eigenvector_weighted_B2")
+    c2m = run_experiment(sk_candidate="C2_maslov_standard")
+    for r_base, r_shift in zip(c2.rows, c2m.rows):
+        modes = r_shift["radial_detail"]["modes"]
+        delta = sum(
+            m["weight"] * (-(math.pi / 2.0) * m["n_turning_points"])
+            for m in modes
+        )
+        expected = (r_base["available_total_mod_2pi"] + delta) % TAU
+        assert math.isclose(
+            r_shift["available_total_mod_2pi"], expected, abs_tol=1e-9,
+        ), (
+            f"row k={r_base['k']}: expected {expected}, "
+            f"got {r_shift['available_total_mod_2pi']}"
+        )
 
 
 def test_c1_maslov_standard_preserves_c1_spread_when_uniform():
