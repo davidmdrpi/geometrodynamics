@@ -188,6 +188,15 @@ def test_sk_membership_candidate_c2_is_full_depth_basis():
     assert s_k_membership(5, "C2_eigenvector_weighted_B2") == expected
 
 
+def test_sk_membership_candidate_c1_maslov_matches_c1():
+    """C1_maslov_standard shares the C1 mode set; only the policy differs."""
+    for k in LEPTON_DEPTHS:
+        assert (
+            s_k_membership(k, "C1_maslov_standard")
+            == s_k_membership(k, "C1_eigenvector_weighted_B1")
+        )
+
+
 def test_locked_lepton_eigenvectors_are_orthonormal():
     """Eigenvectors of the locked block are orthonormal (rows of V.T)."""
     eigenvalues, eigenvectors = _locked_lepton_eigenvectors()
@@ -312,6 +321,7 @@ def test_layer2_blocker_marks_implemented_candidate():
     assert impls["B2_single_radial_excitation"] == "open"
     assert impls["C1_eigenvector_weighted_B1"] == "open"
     assert impls["C2_eigenvector_weighted_B2"] == "open"
+    assert impls["C1_maslov_standard"] == "open"
 
 
 def test_phi_radial_uses_wkb_convention_label():
@@ -367,6 +377,14 @@ def test_c1_c2_falsify_universality_under_wkb():
         assert result.universality_check["spread"] > 1e-3
 
 
+def test_s_k_weighted_modes_normalized_for_c1_maslov_standard():
+    """C1_maslov_standard inherits C1's normalized weights."""
+    for k in LEPTON_DEPTHS:
+        modes_with_weights = s_k_weighted_modes(k, "C1_maslov_standard")
+        total_w = sum(w for _, w in modes_with_weights)
+        assert math.isclose(total_w, 1.0, abs_tol=1e-9)
+
+
 def test_c1_tightens_spread_relative_to_b1():
     """The eigenvector mixing of C1 reduces the spread compared to B1."""
     b1 = run_experiment(sk_candidate="B1_single_angular_mode")
@@ -375,6 +393,56 @@ def test_c1_tightens_spread_relative_to_b1():
         f"Expected C1 spread ({c1.universality_check['spread']:.3e}) < "
         f"B1 spread ({b1.universality_check['spread']:.3e})"
     )
+
+
+def test_c1_maslov_standard_emits_turning_point_metadata():
+    """C1_maslov_standard reports per-mode turning-point counts and Δ."""
+    result = run_experiment(sk_candidate="C1_maslov_standard")
+    seen_modes = 0
+    for row in result.rows:
+        detail = row["radial_detail"]
+        assert detail is not None
+        for m in detail["modes"]:
+            assert m["status"] == "computed"
+            assert m["maslov_policy"] == "standard"
+            # Per-mode shift = -π/2 * N_turning, exact equality.
+            expected = -(math.pi / 2.0) * m["n_turning_points"]
+            assert math.isclose(
+                m["maslov_correction"], expected, abs_tol=1e-12,
+            )
+            seen_modes += 1
+    assert seen_modes >= 3
+
+
+def test_c1_maslov_standard_falsifies_universality_under_bohr_sommerfeld():
+    """Maslov-shifted C1 still breaks universal closure mod 2π."""
+    result = run_experiment(sk_candidate="C1_maslov_standard")
+    assert result.universality_check["universal"] is False
+    assert result.universality_check["spread"] > 1e-9
+
+
+def test_c1_maslov_standard_preserves_c1_spread_when_uniform():
+    """
+    If every C1 mode has the same turning-point count, the Maslov shift
+    is a uniform offset and the spread mod 2π must equal the C1 spread
+    mod 2π exactly (modular arithmetic preserves differences for uniform
+    shifts smaller than a single 2π wrap).
+    """
+    c1 = run_experiment(sk_candidate="C1_eigenvector_weighted_B1")
+    c1m = run_experiment(sk_candidate="C1_maslov_standard")
+    # Collect per-mode N_tp across all rows; uniform iff all equal.
+    counts: list[int] = []
+    for row in c1m.rows:
+        detail = row["radial_detail"]
+        assert detail is not None
+        for m in detail["modes"]:
+            counts.append(m["n_turning_points"])
+    if len(set(counts)) == 1:
+        assert math.isclose(
+            c1m.universality_check["spread"],
+            c1.universality_check["spread"],
+            abs_tol=1e-9,
+        )
 
 
 def test_run_comparison_covers_layer1_baseline_and_wired_candidates():

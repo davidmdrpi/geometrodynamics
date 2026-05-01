@@ -56,6 +56,7 @@ SK_CANDIDATES = (
     "B2_single_radial_excitation",
     "C1_eigenvector_weighted_B1",
     "C2_eigenvector_weighted_B2",
+    "C1_maslov_standard",
     "none",
 )
 DEFAULT_SK_CANDIDATE = "A_lowest_radial_per_l"
@@ -66,7 +67,14 @@ WIRED_CANDIDATES = (
     "B2_single_radial_excitation",
     "C1_eigenvector_weighted_B1",
     "C2_eigenvector_weighted_B2",
+    "C1_maslov_standard",
 )
+
+# Candidates that derive the per-mode Maslov correction from a turning-point
+# count rather than from a caller-supplied constant offset. The "standard"
+# policy applies −π/2 per detected turning point (sign change of ω² − V_eff
+# inside the integration grid).
+MASLOV_STANDARD_CANDIDATES = ("C1_maslov_standard",)
 
 
 @dataclass(frozen=True)
@@ -101,6 +109,10 @@ def s_k_membership(k: int, candidate: str) -> list[Mode]:
     if candidate == "C2_eigenvector_weighted_B2":
         # All B2 modes across the depth basis; weights selected by k.
         return [Mode(l=1, n=(ll - 1) // 2) for ll in LEPTON_DEPTHS]
+    if candidate == "C1_maslov_standard":
+        # Same membership as C1; differs only in the Maslov policy applied
+        # by phi_radial_from_sk.
+        return [Mode(l=ll, n=0) for ll in LEPTON_DEPTHS]
     raise ValueError(f"Unknown S(k) candidate: {candidate}")
 
 
@@ -191,10 +203,14 @@ def s_k_weighted_modes(k: int, candidate: str) -> list[tuple[Mode, float]]:
     For C1/C2, the weights are the squared eigenvector amplitudes of
     the species selected by k (k=1 → electron, k=3 → muon, k=5 → tau).
     """
-    if candidate in ("C1_eigenvector_weighted_B1", "C2_eigenvector_weighted_B2"):
+    if candidate in (
+        "C1_eigenvector_weighted_B1",
+        "C2_eigenvector_weighted_B2",
+        "C1_maslov_standard",
+    ):
         if k not in LEPTON_DEPTHS:
             raise ValueError(
-                f"C1/C2 require k ∈ {LEPTON_DEPTHS}; got k={k}"
+                f"C-family candidates require k ∈ {LEPTON_DEPTHS}; got k={k}"
             )
         weights = lepton_eigenvector_weights()[k]
         modes = s_k_membership(k, candidate)
@@ -211,6 +227,8 @@ class ModePhase:
     status: str           # "computed" | "mode_unavailable" | "import_failed"
     convention: str = WKB_CONVENTION
     maslov_correction: float = 0.0
+    maslov_policy: str = "none"   # "none" | "standard"
+    n_turning_points: int = 0
     N_grid: int = 0
     weight: float = 1.0
     error: Optional[str] = None
@@ -224,10 +242,40 @@ class ModePhase:
             "status": self.status,
             "convention": self.convention,
             "maslov_correction": self.maslov_correction,
+            "maslov_policy": self.maslov_policy,
+            "n_turning_points": self.n_turning_points,
             "N_grid": self.N_grid,
             "weight": self.weight,
             "error": self.error,
         }
+
+
+def _count_turning_points(omega2_minus_V) -> int:
+    """
+    Count classical turning points along the integration grid.
+
+    A turning point is detected as a sign change of (ω² − V_eff) between
+    adjacent grid samples; zeros count as their adjacent sign for this
+    purpose. This counts the genuinely soft turning points where the
+    classical momentum vanishes inside the grid; a grid endpoint where
+    (ω² − V_eff) > 0 is a hard wall and is NOT counted.
+    """
+    import numpy as np
+    arr = np.asarray(omega2_minus_V)
+    sign = np.sign(arr)
+    # Treat any zero as belonging to its previous sign so isolated zeros
+    # don't double-count.
+    for i in range(1, len(sign)):
+        if sign[i] == 0:
+            sign[i] = sign[i - 1]
+    if sign[0] == 0:
+        # Pick whichever non-zero sign appears first.
+        for s in sign:
+            if s != 0:
+                sign[0] = s
+                break
+    changes = int(np.sum(np.diff(sign) != 0))
+    return changes
 
 
 def phi_radial_for_mode(
@@ -236,14 +284,23 @@ def phi_radial_for_mode(
     *,
     N: int = 80,
     maslov_correction: float = 0.0,
+    maslov_policy: str = "none",
 ) -> ModePhase:
     """
     Compute Φ(l, n) by integrating √max(ω² − V_eff, 0) over the tortoise grid.
 
     Convention: one-sided WKB radial action, no Maslov correction by
-    default. Pass `maslov_correction` (e.g. π/4 for one soft turning
-    point, π/2 for two soft turning points) to add a constant offset to
-    the returned phi.
+    default.
+
+    `maslov_policy` controls how the Maslov phase is determined:
+        "none"     — use the caller-supplied `maslov_correction` verbatim
+                     (default; preserves the prior behaviour).
+        "standard" — derive the correction as `−π/2 · n_turning_points`,
+                     where `n_turning_points` is the number of sign changes
+                     of (ω² − V_eff) inside the tortoise grid. The
+                     `maslov_correction` argument is ignored under this
+                     policy and the computed value is reported on the
+                     returned ModePhase.
 
     Returns a ModePhase with status:
         "computed"          — phi is the integrated radial action + Maslov.
@@ -262,7 +319,8 @@ def phi_radial_for_mode(
         return ModePhase(
             l=l, n=n, omega=None, phi=None,
             status="import_failed", error=str(exc),
-            maslov_correction=maslov_correction, N_grid=N,
+            maslov_correction=maslov_correction,
+            maslov_policy=maslov_policy, N_grid=N,
         )
 
     omegas, _funcs, r_grid = solve_radial_modes(l, N=N, n_modes=n + 1)
@@ -274,21 +332,39 @@ def phi_radial_for_mode(
                 f"solver returned {len(omegas)} modes for l={l}; "
                 f"need at least n+1={n + 1}"
             ),
-            maslov_correction=maslov_correction, N_grid=N,
+            maslov_correction=maslov_correction,
+            maslov_policy=maslov_policy, N_grid=N,
         )
 
+    import math as _math
     omega_n = float(omegas[n])
     rs = float(R_MID)
     Vg = V_tangherlini(r_grid, l, rs)
-    integrand = np.sqrt(np.maximum(omega_n ** 2 - Vg, 0.0))
+    diff = omega_n ** 2 - Vg
+    integrand = np.sqrt(np.maximum(diff, 0.0))
     rstar = np.array([r_to_rstar(float(r), rs) for r in r_grid])
     order = np.argsort(rstar)
     phi_wkb = float(np.trapezoid(integrand[order], rstar[order]))
+
+    n_tp = _count_turning_points(diff[order])
+    if maslov_policy == "standard":
+        applied_correction = -(_math.pi / 2.0) * n_tp
+    elif maslov_policy == "none":
+        applied_correction = float(maslov_correction)
+    else:
+        raise ValueError(
+            f"Unknown maslov_policy: {maslov_policy!r}; "
+            "expected 'none' or 'standard'."
+        )
+
     return ModePhase(
         l=l, n=n, omega=omega_n,
-        phi=phi_wkb + maslov_correction,
+        phi=phi_wkb + applied_correction,
         status="computed",
-        maslov_correction=maslov_correction, N_grid=N,
+        maslov_correction=applied_correction,
+        maslov_policy=maslov_policy,
+        n_turning_points=n_tp,
+        N_grid=N,
     )
 
 
@@ -331,10 +407,13 @@ def phi_radial_from_sk(
     N: int = 80, maslov_correction: float = 0.0,
 ) -> RadialPhaseResult:
     """
-    Compute Φ_radial(k) = Σ_(l,n)∈S(k) Φ(l, n).
+    Compute Φ_radial(k) = Σ_(l,n)∈S(k) w(l, n; k) · Φ(l, n).
 
-    `maslov_correction` is added per mode (so a candidate with |S(k)|
-    modes accumulates |S(k)| · maslov_correction). Default 0.
+    `maslov_correction` is added per mode for candidates that use the
+    "none" Maslov policy (so a candidate with |S(k)| modes accumulates
+    |S(k)| · maslov_correction). Candidates listed in
+    MASLOV_STANDARD_CANDIDATES instead derive the per-mode correction
+    as −π/2 per detected classical turning point.
 
     Returns a RadialPhaseResult with overall status:
         "computed" — every mode integral resolved.
@@ -346,11 +425,16 @@ def phi_radial_from_sk(
             candidate=candidate, k=k, modes=[],
             total_phi=None, status="missing",
         )
+    policy = (
+        "standard" if candidate in MASLOV_STANDARD_CANDIDATES else "none"
+    )
     weighted = s_k_weighted_modes(k, candidate)
     mode_results: list[ModePhase] = []
     for mode, weight in weighted:
         mp = phi_radial_for_mode(
-            mode.l, mode.n, N=N, maslov_correction=maslov_correction,
+            mode.l, mode.n, N=N,
+            maslov_correction=maslov_correction,
+            maslov_policy=policy,
         )
         mp.weight = float(weight)
         mode_results.append(mp)

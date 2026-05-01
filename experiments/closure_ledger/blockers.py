@@ -182,6 +182,40 @@ def layer2_blocker_report(
             ),
         ),
         CandidateSkMap(
+            name="C1_maslov_standard",
+            formula=(
+                "Φ_radial(k) = Σ_i |v_species(k),i|² · "
+                "[ ∫√max(ω² − V_eff, 0) dr* − (π/2)·N_turning(l_i) ], "
+                "S(k) modes as in C1, Maslov shift = −π/2 per detected "
+                "classical turning point"
+            ),
+            physical_picture=(
+                "Same eigenvector-weighted B1 mode set as C1, but each "
+                "mode integral is corrected by the standard Bohr-Sommerfeld "
+                "Maslov shift: −π/2 for every sign change of (ω² − V_eff) "
+                "inside the tortoise grid. Hard-wall grid endpoints (where "
+                "ω² > V_eff at the boundary) contribute no Maslov phase."
+            ),
+            advantages=(
+                "Adds the textbook turning-point correction without "
+                "introducing any fitted parameters. Tests whether the "
+                "WKB-bare convention is the obstruction to closure: if "
+                "the correction is uniform across species (e.g. every B1 "
+                "mode has the same turning-point count) the spread is "
+                "preserved and only the universal residue shifts; if the "
+                "count varies across modes, the correction can in "
+                "principle redistribute residues."
+            ),
+            open_questions=(
+                "Does the per-mode turning-point count vary across the "
+                "depth basis B1 modes (l ∈ {1, 3, 5}, n = 0)? The Tangherlini "
+                "centrifugal barrier scales with l(l+d−3), so the inner soft "
+                "turning point is present for every l; whether the integration "
+                "grid actually spans both turning points or only one fixes "
+                "whether the correction is uniform −π/2 or differential."
+            ),
+        ),
+        CandidateSkMap(
             name="C2_eigenvector_weighted_B2",
             formula=(
                 "Φ_radial(k) = Σ_i |v_species(k),i|² · Φ(l = 1, n = (k_i−1)/2), "

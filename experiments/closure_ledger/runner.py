@@ -143,9 +143,9 @@ class ExperimentResult:
             lines.append("")
             lines.append(
                 "| lepton | k | (l, n) | ω(l, n) | Φ(l, n) | "
-                "weight | weight·Φ | status |"
+                "weight | weight·Φ | N_tp | Δ_maslov | status |"
             )
-            lines.append("|---|---|---|---|---|---|---|---|")
+            lines.append("|---|---|---|---|---|---|---|---|---|---|")
             for row in self.rows:
                 detail = row.get("radial_detail")
                 if not detail or not detail.get("modes"):
@@ -163,10 +163,17 @@ class ExperimentResult:
                         f"{(weight * m['phi']) / math.pi:.6f}π"
                         if m["phi"] is not None else "—"
                     )
+                    n_tp = m.get("n_turning_points", 0)
+                    delta = m.get("maslov_correction", 0.0)
+                    delta_str = (
+                        f"{delta / math.pi:+.6f}π"
+                        if delta else "0"
+                    )
                     lines.append(
                         f"| {row['label']} | {row['k']} | "
                         f"(l={m['l']}, n={m['n']}) | {omega} | {phi} | "
                         f"{weight:.6f} | {weighted_phi} | "
+                        f"{n_tp} | {delta_str} | "
                         f"{m['status']} |"
                     )
             lines.append("")
@@ -537,6 +544,18 @@ def render_comparison_markdown(comparison: dict) -> str:
         "B2 modes weighted by the same eigenvectors. The (n+1)π "
         "spacing between B2 modes dominates the eigenvector mixing, "
         "leaving residues distributed across [0, 2π). FAIL."
+    )
+    lines.append(
+        "- Layer 2 C1+Maslov (`C1_maslov_standard`, Bohr-Sommerfeld "
+        "convention): same C1 mode set and weights, but each integrated "
+        "phase is shifted by −π/2 per detected classical turning point "
+        "(sign change of ω² − V_eff inside the tortoise grid). When the "
+        "turning-point count is uniform across the B1 ground modes the "
+        "Maslov shift is a uniform offset and the spread inherits from C1; "
+        "when the count varies across modes the correction can in "
+        "principle redistribute residues. The radial-detail table in each "
+        "sub-run reports the per-mode `n_turning_points` so the regime can "
+        "be read directly."
     )
     lines.append("")
 
