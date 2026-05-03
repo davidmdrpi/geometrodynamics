@@ -788,3 +788,68 @@ def test_no_d_baselines_change_existing_candidate_residues():
             assert math.isclose(a, b, abs_tol=1e-5), (
                 f"{cand} residue drift: got {residues}, expected {ref}"
             )
+
+
+# --- Dynamic-phase probe -----------------------------------------------
+
+def test_dynamic_phase_probe_runs_to_completion():
+    """The dynamic-phase probe builds a structured summary without errors."""
+    from experiments.closure_ledger.dynamic_phase_probe import (
+        BASELINE_RESIDUES_PI,
+        run_probe,
+    )
+
+    summary = run_probe()
+    assert "best_per_candidate" in summary
+    for cand in BASELINE_RESIDUES_PI:
+        assert cand in summary["best_per_candidate"]
+        info = summary["best_per_candidate"][cand]
+        assert "baseline_spread_rad" in info
+        assert "best_per_mechanism" in info
+        assert "overall_best" in info
+        # Overall best spread must be ≤ baseline (the m=0 / α=0 grid point
+        # always exists and reproduces the baseline).
+        assert (
+            info["overall_best"]["circular_spread_rad"]
+            <= info["baseline_spread_rad"] + 1e-12
+        )
+
+
+def test_dynamic_phase_probe_natural_mechanisms_do_not_close_c1_or_d1():
+    """
+    Empirical claim: none of the four natural BAM loop phases close
+    C1 or D1 mod 2π (within 1e-9). If a future repo change ever flips
+    this — e.g. a new mechanism is added that DOES close — this test
+    will fail and force a re-read of the verdict text in the probe.
+    """
+    from experiments.closure_ledger.dynamic_phase_probe import run_probe
+
+    summary = run_probe()
+    for cand, info in summary["best_per_candidate"].items():
+        assert info["any_mechanism_closes"] is False, (
+            f"{cand}: a natural loop phase unexpectedly closes the "
+            f"residual. Best: {info['overall_best']}"
+        )
+
+
+def test_dynamic_phase_probe_baseline_grid_point_exists():
+    """
+    The probe's null hypothesis (zero dynamic phase) must be in every
+    mechanism's parameter grid, so the baseline is reachable. If this
+    invariant is dropped, the 'helps' verdict can become inconsistent.
+    """
+    from experiments.closure_ledger.dynamic_phase_probe import (
+        _build_mechanisms,
+    )
+    for m in _build_mechanisms():
+        deltas_at_each_grid_point = [
+            [m.delta_k(k, p) for k in (1, 3, 5)]
+            for p in m.parameter_grid
+        ]
+        any_zero = any(
+            all(abs(d) < 1e-12 for d in deltas)
+            for deltas in deltas_at_each_grid_point
+        )
+        assert any_zero, (
+            f"{m.name} has no zero-Δ grid point; baseline is unreachable."
+        )
