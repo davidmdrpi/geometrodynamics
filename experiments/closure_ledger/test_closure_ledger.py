@@ -853,3 +853,115 @@ def test_dynamic_phase_probe_baseline_grid_point_exists():
         assert any_zero, (
             f"{m.name} has no zero-Δ grid point; baseline is unreachable."
         )
+
+
+# --- Geometric-Hamiltonian probe ---------------------------------------
+
+def test_geometric_hamiltonian_probe_runs_to_completion():
+    """The geometric-Hamiltonian probe builds a structured summary."""
+    from experiments.closure_ledger.geometric_hamiltonian_probe import (
+        run_probe,
+    )
+
+    summary = run_probe()
+    assert "variants" in summary
+    assert len(summary["variants"]) >= 5
+    for v in summary["variants"]:
+        assert "eigenvalues" in v and len(v["eigenvalues"]) == 3
+        assert "eigenvectors" in v and len(v["eigenvectors"]) == 3
+        assert "closure_spread_b1_rad" in v
+        assert "closure_spread_d1_rad" in v
+
+
+def test_geometric_hamiltonian_d1_identity_holds_to_machine_precision():
+    """
+    Verifies the structural identity ⟨u_i|V_j−V_i|u_j⟩ = (ω_j²−ω_i²)·⟨u_i|u_j⟩
+    on the canonical N=80 Chebyshev grid. This is the operator-theoretic
+    statement that GH_C and D1 derive their off-diagonals from.
+    """
+    import numpy as np
+    from experiments.closure_ledger.geometric_hamiltonian_probe import (
+        _build_radial_basis,
+    )
+
+    b = _build_radial_basis()
+    for i in range(3):
+        for j in range(3):
+            if i == j:
+                continue
+            ovl = float(np.trapezoid(b.us[i] * b.us[j], b.rstar))
+            lhs = float(np.trapezoid(
+                b.us[i] * (b.Vs[j] - b.Vs[i]) * b.us[j], b.rstar,
+            ))
+            rhs = (b.omegas[j] ** 2 - b.omegas[i] ** 2) * ovl
+            assert math.isclose(lhs, rhs, abs_tol=1e-9), (
+                f"({i},{j}): lhs={lhs}, rhs={rhs}"
+            )
+
+
+def test_geometric_hamiltonian_no_variant_jointly_passes():
+    """
+    Empirical claim, recorded as a regression: no Tangherlini-matrix-element
+    Hamiltonian both (a) reproduces observed lepton mass ratios within a
+    factor of 2 AND (b) closes the closure ledger non-trivially. If a
+    future variant ever flips this — flag it as the headline finding.
+    """
+    from experiments.closure_ledger.geometric_hamiltonian_probe import (
+        run_probe,
+    )
+    summary = run_probe()
+    for v in summary["variants"]:
+        joint = (
+            v["matches_observed_within_factor_of_2"]
+            and (
+                v["closes_b1_within_1e_9"]
+                or (v["closes_d1_within_1e_9"]
+                    and not v["is_trivial_d1_closure"])
+            )
+        )
+        assert not joint, (
+            f"{v['name']} unexpectedly satisfies both mass ratio AND "
+            f"non-trivial closure: {v}"
+        )
+
+
+def test_geometric_hamiltonian_flags_trivial_d1_closure():
+    """GH_A's identity eigenvectors × D1's zero diagonal → trivial closure."""
+    from experiments.closure_ledger.geometric_hamiltonian_probe import (
+        run_probe,
+    )
+    summary = run_probe()
+    by_name = {v["name"]: v for v in summary["variants"]}
+    assert by_name["GH_A_diagonal_omega_squared"]["is_trivial_d1_closure"] is True
+    # Other variants have non-identity eigenvectors, so even if their D1
+    # spread happened to vanish it would not be flagged trivial.
+    for name in (
+        "GH_B_potential_average",
+        "GH_C_induced_hamiltonian",
+        "GH_D_omega_squared_overlap",
+        "GH_E_symmetric_momentum",
+    ):
+        assert by_name[name]["is_trivial_d1_closure"] is False
+
+
+def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
+    """
+    The probe's reference eigensystem must agree with the existing C1
+    eigenvectors used by the closure ledger. This catches accidental
+    drift between the two computation paths.
+    """
+    import numpy as np
+    from experiments.closure_ledger.geometric_hamiltonian_probe import (
+        _locked_surrogate_eigensystem,
+    )
+    from experiments.closure_ledger.sk_bridge import (
+        _locked_lepton_eigenvectors,
+    )
+    evals_probe, evecs_probe = _locked_surrogate_eigensystem()
+    evals_sk, evecs_sk = _locked_lepton_eigenvectors()
+    for a, b in zip(evals_probe, evals_sk):
+        assert math.isclose(a, b, rel_tol=1e-9, abs_tol=1e-9)
+    # Eigenvectors are sign-ambiguous; compare |v|² element-wise.
+    for vp, vs in zip(evecs_probe, evecs_sk):
+        for p, s in zip(vp, vs):
+            assert math.isclose(p ** 2, s ** 2, abs_tol=1e-9)

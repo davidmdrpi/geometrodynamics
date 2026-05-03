@@ -1,0 +1,346 @@
+{
+  "timestamp_utc": "2026-05-03T06:15:41+00:00",
+  "N_grid": 80,
+  "lepton_depths": [
+    1,
+    3,
+    5
+  ],
+  "observed_lepton_masses_mev": {
+    "e": 0.5109989461,
+    "mu": 105.6583745,
+    "tau": 1776.86
+  },
+  "observed_mass_ratios_to_e": [
+    1.0,
+    206.76828260879265,
+    3477.2283065575584
+  ],
+  "tangherlini_omegas": [
+    1.0547269375351367,
+    1.219082740577607,
+    1.3959734850917922
+  ],
+  "tangherlini_omega_squared": [
+    1.112448912762248,
+    1.4861627283742092,
+    1.9487419710793241
+  ],
+  "tangherlini_omega_ratios_to_l1": [
+    1.0,
+    1.1558278234806107,
+    1.3235401841107215
+  ],
+  "locked_surrogate_eigenvalues": [
+    0.19963353370353695,
+    41.25999966535142,
+    694.9832217663729
+  ],
+  "locked_surrogate_sqrt_eigenvalues": [
+    0.4468036858661049,
+    6.423394715051491,
+    26.362534433668795
+  ],
+  "locked_surrogate_mass_ratios_to_e": [
+    1.0,
+    14.376324364021496,
+    59.002499906791144
+  ],
+  "variants": [
+    {
+      "name": "GH_A_diagonal_omega_squared",
+      "description": "H_ij = \u03b4_ij \u00b7 \u03c9_i\u00b2. Eigenvalues = \u03c9_i\u00b2, eigenvectors = standard basis. Sanity baseline.",
+      "eigenvalues": [
+        1.112448912762248,
+        1.4861627283742092,
+        1.9487419710793241
+      ],
+      "sqrt_eigenvalues": [
+        1.0547269375351367,
+        1.219082740577607,
+        1.3959734850917922
+      ],
+      "mass_ratio_predicted_to_e": [
+        1.0,
+        1.1558278234806107,
+        1.3235401841107215
+      ],
+      "mass_ratio_observed_to_e": [
+        1.0,
+        206.76828260879265,
+        3477.2283065575584
+      ],
+      "log10_mass_ratio_error_mu": -2.252590775830031,
+      "log10_mass_ratio_error_tau": -3.4194960748768333,
+      "eigenvectors": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closure_spread_b1_rad": 0.3813854965772272,
+      "closure_residues_b1_in_pi": [
+        0.8818757480866662,
+        0.7707441697969166,
+        0.7604769740790205
+      ],
+      "closure_spread_d1_rad": 0.0,
+      "closure_residues_d1_in_pi": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "matches_observed_within_factor_of_2": false,
+      "closes_b1_within_1e_9": false,
+      "closes_d1_within_1e_9": true,
+      "is_trivial_d1_closure": true
+    },
+    {
+      "name": "GH_B_potential_average",
+      "description": "H_ij = \u27e8u_i | V\u0304 | u_j\u27e9 with V\u0304 = (V_1+V_3+V_5)/3. Common potential operator projected onto the basis.",
+      "eigenvalues": [
+        4.923551656107528e-05,
+        0.028376212894883193,
+        1.6658711641077144
+      ],
+      "sqrt_eigenvalues": [
+        0.007016802445635425,
+        0.16845240542919887,
+        1.2906863151469896
+      ],
+      "mass_ratio_predicted_to_e": [
+        1.0,
+        24.007004149586574,
+        183.94223368078707
+      ],
+      "mass_ratio_observed_to_e": [
+        1.0,
+        206.76828260879265,
+        3477.2283065575584
+      ],
+      "log10_mass_ratio_error_mu": -0.9351459530368942,
+      "log10_mass_ratio_error_tau": -1.2765517503797206,
+      "eigenvectors": [
+        [
+          0.4088162641983544,
+          -0.811796989169407,
+          0.4169591232991399
+        ],
+        [
+          0.6347243123857383,
+          -0.07536227909740889,
+          -0.769054987732149
+        ],
+        [
+          -0.6557395133689544,
+          -0.5790562798767753,
+          -0.484457960345288
+        ]
+      ],
+      "closure_spread_b1_rad": 0.08981103431752757,
+      "closure_residues_b1_in_pi": [
+        0.7875326700848394,
+        0.8094438116812641,
+        0.8161204101965002
+      ],
+      "closure_spread_d1_rad": 1.8193656519676908,
+      "closure_residues_d1_in_pi": [
+        1.9104799199272848,
+        1.7551990032340907,
+        0.33432107683862444
+      ],
+      "matches_observed_within_factor_of_2": false,
+      "closes_b1_within_1e_9": false,
+      "closes_d1_within_1e_9": false,
+      "is_trivial_d1_closure": false
+    },
+    {
+      "name": "GH_C_induced_hamiltonian",
+      "description": "H_ii = \u03c9_i\u00b2; H_ij = (\u03c9_j\u00b2\u2212\u03c9_i\u00b2)\u00b7\u27e8u_i|u_j\u27e9 mirrored. The exact projection of H_l_j \u2212 H_l_i onto the {u_i} basis (provably equivalent to the D1 transport matrix element).",
+      "eigenvalues": [
+        0.613666672151874,
+        1.217587339036439,
+        2.71609960102747
+      ],
+      "sqrt_eigenvalues": [
+        0.783368797024667,
+        1.1034434009211522,
+        1.6480593439034499
+      ],
+      "mass_ratio_predicted_to_e": [
+        1.0,
+        1.408587379420994,
+        2.103810300031079
+      ],
+      "mass_ratio_observed_to_e": [
+        1.0,
+        206.76828260879265,
+        3477.2283065575584
+      ],
+      "log10_mass_ratio_error_mu": -2.1667001276633684,
+      "log10_mass_ratio_error_tau": -3.2182266293255495,
+      "eigenvectors": [
+        [
+          0.86739856683938,
+          -0.11444626918332679,
+          -0.48427448592198913
+        ],
+        [
+          0.12067391437307375,
+          -0.8957652476948162,
+          0.4278345794955388
+        ],
+        [
+          -0.4827603262850723,
+          -0.4295423989459739,
+          -0.7631748127872595
+        ]
+      ],
+      "closure_spread_b1_rad": 0.2559340526583149,
+      "closure_residues_b1_in_pi": [
+        0.8519494961014756,
+        0.7704831569292511,
+        0.7906642389318765
+      ],
+      "closure_spread_d1_rad": 1.7474170431815086,
+      "closure_residues_d1_in_pi": [
+        1.7772448127983955,
+        1.8892902542724868,
+        0.33346493292911766
+      ],
+      "matches_observed_within_factor_of_2": false,
+      "closes_b1_within_1e_9": false,
+      "closes_d1_within_1e_9": false,
+      "is_trivial_d1_closure": false
+    },
+    {
+      "name": "GH_D_omega_squared_overlap",
+      "description": "H_ii = \u03c9_i\u00b2; H_ij = \u03c0 \u00b7 \u27e8u_i|u_j\u27e9. Eigenfrequency diagonal with closure-quantum-scaled overlap coupling.",
+      "eigenvalues": [
+        -1.8292450135089877,
+        -1.31969369665856,
+        7.696292322383331
+      ],
+      "sqrt_eigenvalues": [
+        0.0,
+        0.0,
+        2.7742192275275093
+      ],
+      "mass_ratio_predicted_to_e": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mass_ratio_observed_to_e": [
+        1.0,
+        206.76828260879265,
+        3477.2283065575584
+      ],
+      "log10_mass_ratio_error_mu": Infinity,
+      "log10_mass_ratio_error_tau": Infinity,
+      "eigenvectors": [
+        [
+          0.767661240124725,
+          -0.6340246159102304,
+          -0.0933220597182364
+        ],
+        [
+          -0.32807310302883796,
+          -0.5138918732942364,
+          0.7926431615999535
+        ],
+        [
+          -0.5505127241755624,
+          -0.5778649746973987,
+          -0.602501295881408
+        ]
+      ],
+      "closure_spread_b1_rad": 0.1881507340463493,
+      "closure_residues_b1_in_pi": [
+        0.8361450118372166,
+        0.7762547730975264,
+        0.8006971070278605
+      ],
+      "closure_spread_d1_rad": 1.7561454401157537,
+      "closure_residues_d1_in_pi": [
+        1.8656334980578444,
+        1.7876840233883635,
+        0.3466824785537921
+      ],
+      "matches_observed_within_factor_of_2": false,
+      "closes_b1_within_1e_9": false,
+      "closes_d1_within_1e_9": false,
+      "is_trivial_d1_closure": false
+    },
+    {
+      "name": "GH_E_symmetric_momentum",
+      "description": "H_ij = \u27e8u_i|\u221amax(\u03c9\u0304\u00b2\u2212V\u0304, 0)|u_j\u27e9, \u03c9\u0304/V\u0304 symmetric averages. Diagonal recovers WKB action; off-diagonal couples through symmetric momentum kernel (the D2 form interpreted as H).",
+      "eigenvalues": [
+        0.0011379244494629645,
+        0.08813747472828189,
+        2.8900888191355123
+      ],
+      "sqrt_eigenvalues": [
+        0.03373313577868154,
+        0.2968795626652025,
+        1.7000261230744405
+      ],
+      "mass_ratio_predicted_to_e": [
+        1.0,
+        8.800829090215284,
+        50.396326455627424
+      ],
+      "mass_ratio_observed_to_e": [
+        1.0,
+        206.76828260879265,
+        3477.2283065575584
+      ],
+      "log10_mass_ratio_error_mu": -1.3709603333814249,
+      "log10_mass_ratio_error_tau": -1.8388343258353586,
+      "eigenvectors": [
+        [
+          0.3773964700986019,
+          -0.8151663701507261,
+          0.4394037930337024
+        ],
+        [
+          0.7400188837642699,
+          -0.019785488373961213,
+          -0.6722950142029077
+        ],
+        [
+          -0.5567261050367577,
+          -0.5788888696676541,
+          -0.5957715338496021
+        ]
+      ],
+      "closure_spread_b1_rad": 0.1331164182584672,
+      "closure_residues_b1_in_pi": [
+        0.7845900829267017,
+        0.8269623548717483,
+        0.801544454164154
+      ],
+      "closure_spread_d1_rad": 1.8896586056350175,
+      "closure_residues_d1_in_pi": [
+        1.9080825991931751,
+        1.7452101925604608,
+        0.34670720824636403
+      ],
+      "matches_observed_within_factor_of_2": false,
+      "closes_b1_within_1e_9": false,
+      "closes_d1_within_1e_9": false,
+      "is_trivial_d1_closure": false
+    }
+  ]
+}
