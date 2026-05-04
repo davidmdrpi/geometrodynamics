@@ -944,6 +944,91 @@ def test_geometric_hamiltonian_flags_trivial_d1_closure():
         assert by_name[name]["is_trivial_d1_closure"] is False
 
 
+# --- Composed-Hamiltonian probe ----------------------------------------
+
+def test_composed_hamiltonian_probe_runs_to_completion():
+    """The composed-Hamiltonian probe builds a structured summary."""
+    from experiments.closure_ledger.composed_hamiltonian_probe import (
+        run_probe,
+    )
+
+    summary = run_probe()
+    assert "variants" in summary
+    assert len(summary["variants"]) >= 5
+    for v in summary["variants"]:
+        assert len(v["eigenvalues"]) == 3
+        assert len(v["eigenvectors"]) == 3
+        # Each variant carries the near-identity diagnostic.
+        assert "eigenvector_max_off_diagonal" in v
+        assert "is_near_identity_d1_regime" in v
+
+
+def test_composed_hamiltonian_uses_only_geometric_constants():
+    """
+    Probe's composition formulas must reference only β = 50π and
+    action_base = 2π as numerical constants — no fitted values.
+    """
+    from experiments.closure_ledger.composed_hamiltonian_probe import (
+        BETA, ACTION_BASE,
+    )
+    assert math.isclose(BETA, 50.0 * math.pi)
+    assert math.isclose(ACTION_BASE, 2.0 * math.pi)
+    # 4·β / (2π) is the integer closure-quantum count (= 100).
+    assert round(4 * BETA / (2 * math.pi)) == 100
+
+
+def test_composed_hamiltonian_tau_eigenvalue_dominated_by_closure_quantum():
+    """
+    Across every variant, λ_τ should be within ~15% of 4β = 200π. This
+    is the structural claim that the τ row mass comes overwhelmingly
+    from the closure quantum, not from radial matrix elements.
+    """
+    from experiments.closure_ledger.composed_hamiltonian_probe import (
+        run_probe, BETA,
+    )
+    target = 4 * BETA   # 200π
+    summary = run_probe()
+    for v in summary["variants"]:
+        lam_tau = v["eigenvalues"][2]
+        rel = abs(lam_tau - target) / target
+        assert rel < 0.15, (
+            f"{v['name']}: λ_τ = {lam_tau:.3f}, target = {target:.3f} "
+            f"(4β = 200π). Relative diff {rel:.3f}."
+        )
+
+
+def test_composed_hamiltonian_no_variant_matches_observed_within_factor_5():
+    """
+    Empirical claim: even with the closure quantum included, no variant
+    in the catalog reaches factor-5 agreement on the muon row. If a
+    future variant ever does, it should flip this test and force a
+    re-read of the verdict text.
+    """
+    from experiments.closure_ledger.composed_hamiltonian_probe import (
+        run_probe,
+    )
+    summary = run_probe()
+    for v in summary["variants"]:
+        assert not v["matches_observed_within_factor_of_5"], (
+            f"{v['name']} unexpectedly within factor 5 of observed: "
+            f"{v['mass_ratios_predicted_to_e']}"
+        )
+
+
+def test_composed_hamiltonian_flags_near_identity_d1_regime():
+    """HC_8 (large diagonal prefactor) should be flagged near-identity."""
+    from experiments.closure_ledger.composed_hamiltonian_probe import (
+        run_probe,
+    )
+    summary = run_probe()
+    by_name = {v["name"]: v for v in summary["variants"]}
+    # HC_8 has (2π)² ≈ 39.5 prefactor on ω², dominating off-diag D1
+    # entries (which are O(0.5)). Eigenvectors near-identity → flag.
+    assert by_name[
+        "HC_8_action_squared_plus_closure_with_d1"
+    ]["is_near_identity_d1_regime"] is True
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
