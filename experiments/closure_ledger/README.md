@@ -190,7 +190,32 @@ A passing run should report:
 
 ## See also
 
+- `docs/odd_k_closure_lemma.md` — one-page proof that (i) only odd `k`
+  admit stable bound states on the non-orientable throat and (ii) the
+  Layer-1 ledger residue is identically zero mod 2π under the locked
+  baseline. This experiment's `none | layer1 | PASS` row is the direct
+  empirical verification.
 - `docs/THESIS.md` — BAM conjecture, three mechanisms, falsification roadmap.
 - `docs/lepton_axioms.md` — locked lepton baseline, β-lock derivation log.
 - `docs/quark_axioms.md` — locked quark spectrum, residual-sector
   geometrization, β = 466·π/2 phenomenological status.
+
+## Follow-up probes
+
+After Layer 1 PASS / Layer 2 FAIL across A/B/C/D candidates, four
+focused probes were added (each with its own JSON + markdown archive
+under `runs/<timestamp>_<probe>_probe/`):
+
+- `dynamic_phase_probe.py` — natural BAM loop phases (moving throat,
+  Hopf fibre loop, antipodal out-and-back, worldline crossings) cannot
+  redistribute the residual ~0.3 rad spread.
+- `geometric_hamiltonian_probe.py` — radial matrix elements alone
+  cannot reproduce the lepton mass ladder; the dynamic range is
+  ~10⁶× too small.
+- `composed_hamiltonian_probe.py` — closure quantum + radial matrix
+  elements jointly explain the τ row but leave the μ row a factor
+  ≥ 100 too low.
+- `pinhole_origin_probe.py` and `gamma_offset_probe.py` — locate the
+  μ-row pinhole γ ≈ 22.5 inside the radial barrier-spectrum sum
+  `Σ_{l=0..5} V_max(l) ≈ 22.45` (the QCD pinhole formula extended to
+  include the 5D-specific `l = 0` channel from `3·rs²/r⁴`).
