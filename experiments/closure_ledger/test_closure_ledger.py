@@ -1200,6 +1200,75 @@ def test_quark_beta_origin_k5_squared_plus_one_pattern_brackets_targets():
     assert has_14x26, "14·(k_5²+1) = 364 missing from 366 near-miss list"
 
 
+# --- Quark β: focused boundary-correction probe -----------------------
+
+def test_quark_beta_boundary_probe_runs_to_completion():
+    """The boundary-correction probe builds a structured fit catalog."""
+    from experiments.closure_ledger.quark_beta_boundary_probe import run_probe
+    summary = run_probe()
+    assert summary["targets"]["N_lepton"] == 100
+    assert summary["targets"]["N_quark"] == 466
+    assert summary["targets"]["delta_N"] == 366
+    assert summary["all_fits"]
+    assert summary["best_fit"]
+    assert summary["robustness_snapshots_under_best_fit"]
+
+
+def test_quark_beta_boundary_best_fit_is_k_5_with_plus_one_correction():
+    """
+    Headline finding: the cleanest joint decomposition is
+        N_l =  20 · k_5     (δ = 0)
+        N_q =  93 · k_5 + 1 (δ = +1)
+        ΔN  =  73 · k_5 + 1 (δ = +1)
+    The probe must continue to surface this as the best fit.
+    """
+    from experiments.closure_ledger.quark_beta_boundary_probe import run_probe
+    summary = run_probe()
+    best = summary["best_fit"]
+    assert best["unit_name"] == "k_5"
+    assert best["unit_value"] == 5
+    assert best["m_lepton"] == 20 and best["delta_lepton"] == 0
+    assert best["m_quark"] == 93 and best["delta_quark"] == 1
+    assert best["m_delta"] == 73 and best["delta_gap"] == 1
+    assert best["sum_abs_delta"] == 2
+    assert best["deltas_in_natural_set"] is True
+    assert best["deltas_consistent_across_quark_and_gap"] is True
+    assert best["deltas_zero_for_lepton"] is True
+
+
+def test_quark_beta_boundary_k5_squared_plus_one_is_strictly_worse():
+    """
+    The earlier near-miss `(k_5² + 1) = 26` must rank strictly below
+    `k_5` on the joint-cleanness measure — it had Σ|δ| = 8 with
+    inconsistent δ across targets, while `k_5` has Σ|δ| = 2 with
+    consistent +1 boundary correction.
+    """
+    from experiments.closure_ledger.quark_beta_boundary_probe import run_probe
+    summary = run_probe()
+    fits = {f["unit_name"]: f for f in summary["all_fits"]}
+    f_k5 = fits["k_5"]
+    f_k5sq1 = fits["k_5² + 1"]
+    assert f_k5["sum_abs_delta"] < f_k5sq1["sum_abs_delta"]
+    assert f_k5["deltas_consistent_across_quark_and_gap"]
+    # k_5²+1 has δ = (-2, +2) which are not consistent across q and ΔN.
+    assert not f_k5sq1["deltas_consistent_across_quark_and_gap"]
+
+
+def test_quark_beta_boundary_delta_invariance_under_documented_drifts():
+    """
+    Under the documented quark_axioms §8 perturbations, the +1 boundary
+    correction must persist for the majority of cases (the structural
+    reading predicts m absorbs the drift while δ stays fixed).
+    """
+    from experiments.closure_ledger.quark_beta_boundary_probe import run_probe
+    summary = run_probe()
+    rate = summary["delta_invariance_rate_under_documented_drifts"]
+    assert rate >= 0.5, (
+        f"δ-invariance rate {rate:.2f} below the 50% threshold; the "
+        "structural reading is no longer supported."
+    )
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
