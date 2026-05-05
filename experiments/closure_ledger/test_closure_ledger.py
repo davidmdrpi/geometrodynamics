@@ -1029,6 +1029,71 @@ def test_composed_hamiltonian_flags_near_identity_d1_regime():
     ]["is_near_identity_d1_regime"] is True
 
 
+# --- Pinhole-origin probe ----------------------------------------------
+
+def test_pinhole_origin_probe_runs_to_completion():
+    """The pinhole-origin probe builds a structured summary across categories."""
+    from experiments.closure_ledger.pinhole_origin_probe import run_probe
+    summary = run_probe()
+    for cat in ("barrier_sum", "non_ground_mode", "matrix_element", "closure_quantum"):
+        assert cat in summary["candidates_per_category"], (
+            f"missing category {cat}"
+        )
+        assert summary["candidates_per_category"][cat], (
+            f"category {cat} is empty"
+        )
+        assert cat in summary["best_per_category"]
+
+
+def test_pinhole_origin_barrier_sum_within_3pct_of_gamma_lepton():
+    """
+    The QCD-style Σ_{l=1..5} V_max(l) on the Chebyshev grid must remain
+    within 3% of γ_lepton = 22.5. This is the headline structural
+    finding of the probe; if the radial solver or grid changes, the
+    test will surface the drift.
+    """
+    from experiments.closure_ledger.pinhole_origin_probe import run_probe
+    summary = run_probe()
+    barrier = next(
+        c for c in summary["candidates_per_category"]["barrier_sum"]
+        if c["name"] == "Sum_l=1..5_V_max[chebyshev_N80]"
+    )
+    assert abs(barrier["pct_diff_lepton"]) < 3.0, (
+        f"Σ V_max diverged: {barrier['value']} ({barrier['pct_diff_lepton']:+.3f}%)"
+    )
+
+
+def test_pinhole_origin_locked_baseline_reproduces_observed_masses():
+    """
+    The mass-sensitivity reference row must agree with the locked
+    surrogate: γ = 22.5 should give m_μ and m_τ within 0.2% of PDG.
+    """
+    from experiments.closure_ledger.pinhole_origin_probe import run_probe
+    summary = run_probe()
+    locked = next(
+        s for s in summary["mass_sensitivity"]
+        if s["label"] == "locked_baseline_22.5"
+    )
+    assert locked["rel_err_pct"][3] < 0.2
+    assert locked["rel_err_pct"][5] < 0.2
+
+
+def test_pinhole_origin_geometric_gamma_breaks_mass_match_significantly():
+    """
+    Plugging the bare geometric γ = Σ V_max ≈ 22.008 into the locked
+    block must significantly degrade the muon-mass match (>10% error).
+    This is the empirical statement that the locked γ is fine-tuned at
+    the percent level on top of its geometric origin.
+    """
+    from experiments.closure_ledger.pinhole_origin_probe import (
+        _mass_sensitivity_for_gamma,
+    )
+    sens = _mass_sensitivity_for_gamma(22.0082)
+    assert sens["rel_err_pct"][3] > 10.0, (
+        f"Geometric γ unexpectedly preserved muon match: {sens}"
+    )
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
