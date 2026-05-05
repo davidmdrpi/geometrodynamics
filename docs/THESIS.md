@@ -233,16 +233,17 @@ fitting. Each is a test the existing framework can be put to that admits
 a clean pass-or-fail.
 
 **Odd-`k` closure from topology.** _Closed_ — see `docs/odd_k_closure_lemma.md`.
-The lemma states (i) only odd `k = 1, 3, 5, ...` admit self-consistent
-stable bound states on the non-orientable throat (the partition-
-reversal boundary condition `T² = −I` requires odd pass counts), and
-(ii) under the locked baseline (`action_base = 2π`, `χ = 0`, `T²`
-convention, `4β/(2π) = 100 ∈ ℤ`) every odd-`k` Layer-1 ledger sum
-is identically zero mod 2π. The arithmetic closure is automatic from
-the four wired geometric channels; only the topological selection
-restricts `k` to odd values. The empirical "all three lepton ledgers
-close to 0 mod 2π" result of `experiments/closure_ledger` is the
-direct verification.
+The lemma states (i) even `k` and odd `k` both admit valid closure
+boundary conditions on the throat — even `k` is orientation-preserving
+closure on the doubled cover, odd `k` is orientation-reversing closure
+across the non-orientable throat. BAM's lepton sector chooses the
+orientation-reversing branch, so the physical particle states sit at
+`k ∈ {1, 3, 5, …}`. (ii) Under the locked baseline (`action_base = 2π`,
+`χ = 0`, `T²` convention, `4β/(2π) = 100 ∈ ℤ`) the Layer-1 ledger sum
+is identically zero mod 2π for every integer `k`; the choice of sector
+selects which `k` enter the spectrum. The empirical "all three lepton
+ledgers close to 0 mod 2π" result of `experiments/closure_ledger` is
+the direct verification.
 
 **Moving-mouth Berry phase.** Drag a single throat mouth around a
 closed loop in `S³` in the existing solver and verify that the
