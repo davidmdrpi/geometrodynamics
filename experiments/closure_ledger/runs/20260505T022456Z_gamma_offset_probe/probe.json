@@ -1,0 +1,185 @@
+{
+  "timestamp_utc": "2026-05-05T02:24:56+00:00",
+  "gamma_lepton_target": 22.5,
+  "gamma_quark_target": 22.25,
+  "candidates": [
+    {
+      "name": "ref_QCD_Sum_l_1to5_V_max",
+      "formula": "\u03a3_{l=1..5} V_max(l)",
+      "value": 22.008240059546566,
+      "pct_diff_lepton": -2.185599735348597,
+      "pct_diff_quark": -1.0865615301277947,
+      "muon_mass_err_pct": 63.78141972206199,
+      "tau_mass_err_pct": 65.58485220784391,
+      "closes_gamma_within_1pct": false,
+      "closes_muon_within_5pct": false
+    },
+    {
+      "name": "extend_Sum_l_0to5_V_max",
+      "formula": "\u03a3_{l=0..5} V_max(l)   [adds 5D centrifugal-free l=0 barrier]",
+      "value": 22.452678711350607,
+      "pct_diff_lepton": -0.2103168384417447,
+      "pct_diff_quark": 0.9109155566319436,
+      "muon_mass_err_pct": 3.776962514113592,
+      "tau_mass_err_pct": 4.0366367165486725,
+      "closes_gamma_within_1pct": true,
+      "closes_muon_within_5pct": true
+    },
+    {
+      "name": "extend_Sum_l_1to6_V_max",
+      "formula": "\u03a3_{l=1..6} V_max(l)",
+      "value": 33.63290635771286,
+      "pct_diff_lepton": 49.479583812057164,
+      "pct_diff_quark": 51.1591296975859,
+      "muon_mass_err_pct": 84.90249240644546,
+      "tau_mass_err_pct": 87.56114319796208,
+      "closes_gamma_within_1pct": false,
+      "closes_muon_within_5pct": false
+    },
+    {
+      "name": "extend_Sum_l_0to6_V_max",
+      "formula": "\u03a3_{l=0..6} V_max(l)",
+      "value": 34.077345009516904,
+      "pct_diff_lepton": 51.45486670896401,
+      "pct_diff_quark": 53.156606784345634,
+      "muon_mass_err_pct": 85.19780696742511,
+      "tau_mass_err_pct": 87.89156259962165,
+      "closes_gamma_within_1pct": false,
+      "closes_muon_within_5pct": false
+    },
+    {
+      "name": "weight_Sum_2lp1_V_max_l_1to5",
+      "formula": "\u03a3_{l=1..5} (2l+1) V_max(l)",
+      "value": 191.3377747975072,
+      "pct_diff_lepton": 750.3901102111431,
+      "pct_diff_quark": 759.9450552696952,
+      "muon_mass_err_pct": 82.36803084196345,
+      "tau_mass_err_pct": 95.5759871210719,
+      "closes_gamma_within_1pct": false,
+      "closes_muon_within_5pct": false
+    },
+    {
+      "name": "weight_Sum_lp1_V_max_l_0to5",
+      "formula": "\u03a3_{l=0..5} (l+1) V_max(l)",
+      "value": 107.11744608033091,
+      "pct_diff_lepton": 376.077538134804,
+      "pct_diff_quark": 381.42672395654336,
+      "muon_mass_err_pct": 87.70852704089266,
+      "tau_mass_err_pct": 95.3033883939947,
+      "closes_gamma_within_1pct": false,
+      "closes_muon_within_5pct": false
+    },
+    {
+      "name": "weight_Sum_lpls2_V_max_l_1to5",
+      "formula": "\u03a3_{l=1..5} l(l+2) V_max(l)   [S^3 angular eigenvalue weighting]",
+      "value": 526.5224667933261,
+      "pct_diff_lepton": 2240.0998524147826,
+      "pct_diff_quark": 2266.393109183488,
+      "muon_mass_err_pct": 59.02750588355265,
+      "tau_mass_err_pct": 94.5824154292358,
+      "closes_gamma_within_1pct": false,
+      "closes_muon_within_5pct": false
+    },
+    {
+      "name": "tp_Sum_l_1to5_V_at_outer_tp",
+      "formula": "\u03a3_{l=1..5} V(r_tp_outer, l)",
+      "value": 7.54032687167626,
+      "pct_diff_lepton": -66.48743612588328,
+      "pct_diff_quark": -66.11089046437635,
+      "muon_mass_err_pct": NaN,
+      "tau_mass_err_pct": NaN,
+      "closes_gamma_within_1pct": false,
+      "closes_muon_within_5pct": false
+    },
+    {
+      "name": "composite_bare_plus_min_omega_sq",
+      "formula": "\u03a3_{l=1..5} V_max(l) + min_l \u03c9(l, 0)\u00b2",
+      "value": 23.120688972308812,
+      "pct_diff_lepton": 2.758617654705833,
+      "pct_diff_quark": 3.9132088643092695,
+      "muon_mass_err_pct": 31.9884330145682,
+      "tau_mass_err_pct": 32.6725273946147,
+      "closes_gamma_within_1pct": false,
+      "closes_muon_within_5pct": false
+    },
+    {
+      "name": "composite_bare_plus_V_max_l_eq_0",
+      "formula": "\u03a3_{l=1..5} V_max(l) + V_max(l=0)",
+      "value": 22.452678711350604,
+      "pct_diff_lepton": -0.2103168384417605,
+      "pct_diff_quark": 0.9109155566319276,
+      "muon_mass_err_pct": 3.776962514113592,
+      "tau_mass_err_pct": 4.0366367165486725,
+      "closes_gamma_within_1pct": true,
+      "closes_muon_within_5pct": true
+    },
+    {
+      "name": "ext_R_to_2rs_Sum_l_1to5",
+      "formula": "\u03a3_{l=1..5} V_max(l) on r \u2208 [rs, 2\u00b7rs]",
+      "value": 23.18716616643379,
+      "pct_diff_lepton": 3.0540718508168476,
+      "pct_diff_quark": 4.211982770488947,
+      "muon_mass_err_pct": 34.17783433576685,
+      "tau_mass_err_pct": 34.92120764984875,
+      "closes_gamma_within_1pct": false,
+      "closes_muon_within_5pct": false
+    },
+    {
+      "name": "ext_R_to_2rs_Sum_l_0to5",
+      "formula": "\u03a3_{l=0..5} V_max(l) on r \u2208 [rs, 2\u00b7rs]",
+      "value": 23.631610610859795,
+      "pct_diff_lepton": 5.0293804927101995,
+      "pct_diff_quark": 6.209485891504697,
+      "muon_mass_err_pct": 45.6335475133963,
+      "tau_mass_err_pct": 46.692798144532055,
+      "closes_gamma_within_1pct": false,
+      "closes_muon_within_5pct": false
+    }
+  ],
+  "best_by_gamma_closeness": {
+    "name": "extend_Sum_l_0to5_V_max",
+    "formula": "\u03a3_{l=0..5} V_max(l)   [adds 5D centrifugal-free l=0 barrier]",
+    "value": 22.452678711350607,
+    "pct_diff_lepton": -0.2103168384417447,
+    "pct_diff_quark": 0.9109155566319436,
+    "muon_mass_err_pct": 3.776962514113592,
+    "tau_mass_err_pct": 4.0366367165486725,
+    "closes_gamma_within_1pct": true,
+    "closes_muon_within_5pct": true
+  },
+  "best_by_muon_match": {
+    "name": "extend_Sum_l_0to5_V_max",
+    "formula": "\u03a3_{l=0..5} V_max(l)   [adds 5D centrifugal-free l=0 barrier]",
+    "value": 22.452678711350607,
+    "pct_diff_lepton": -0.2103168384417447,
+    "pct_diff_quark": 0.9109155566319436,
+    "muon_mass_err_pct": 3.776962514113592,
+    "tau_mass_err_pct": 4.0366367165486725,
+    "closes_gamma_within_1pct": true,
+    "closes_muon_within_5pct": true
+  },
+  "joint_winners_within_1pct_gamma_and_5pct_muon": [
+    {
+      "name": "extend_Sum_l_0to5_V_max",
+      "formula": "\u03a3_{l=0..5} V_max(l)   [adds 5D centrifugal-free l=0 barrier]",
+      "value": 22.452678711350607,
+      "pct_diff_lepton": -0.2103168384417447,
+      "pct_diff_quark": 0.9109155566319436,
+      "muon_mass_err_pct": 3.776962514113592,
+      "tau_mass_err_pct": 4.0366367165486725,
+      "closes_gamma_within_1pct": true,
+      "closes_muon_within_5pct": true
+    },
+    {
+      "name": "composite_bare_plus_V_max_l_eq_0",
+      "formula": "\u03a3_{l=1..5} V_max(l) + V_max(l=0)",
+      "value": 22.452678711350604,
+      "pct_diff_lepton": -0.2103168384417605,
+      "pct_diff_quark": 0.9109155566319276,
+      "muon_mass_err_pct": 3.776962514113592,
+      "tau_mass_err_pct": 4.0366367165486725,
+      "closes_gamma_within_1pct": true,
+      "closes_muon_within_5pct": true
+    }
+  ]
+}

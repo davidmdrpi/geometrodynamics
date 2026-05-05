@@ -1094,6 +1094,62 @@ def test_pinhole_origin_geometric_gamma_breaks_mass_match_significantly():
     )
 
 
+# --- γ-offset probe ----------------------------------------------------
+
+def test_gamma_offset_probe_runs_to_completion():
+    """The γ-offset probe builds a structured candidate list."""
+    from experiments.closure_ledger.gamma_offset_probe import run_probe
+    summary = run_probe()
+    assert "candidates" in summary
+    assert len(summary["candidates"]) >= 5
+    assert "best_by_gamma_closeness" in summary
+    assert "best_by_muon_match" in summary
+
+
+def test_gamma_offset_l_eq_0_extension_closes_offset_within_1pct():
+    """
+    Σ_{l=0..5} V_max(l) — the QCD pinhole with the 5D-specific l=0
+    barrier added — must land within 1% of γ_lepton = 22.5. This is
+    the headline finding of the probe.
+    """
+    from experiments.closure_ledger.gamma_offset_probe import run_probe
+    summary = run_probe()
+    cands = {c["name"]: c for c in summary["candidates"]}
+    c = cands["extend_Sum_l_0to5_V_max"]
+    assert abs(c["pct_diff_lepton"]) < 1.0, (
+        f"l=0 extension drifted: γ = {c['value']} ({c['pct_diff_lepton']:+.3f}%)"
+    )
+
+
+def test_gamma_offset_l_eq_0_extension_recovers_muon_to_within_5pct():
+    """
+    Re-evaluating the locked block with γ = Σ_{l=0..5} V_max(l) must
+    bring the muon-mass error down to < 5% (vs ~64% at the bare
+    Σ_{l=1..5} value).
+    """
+    from experiments.closure_ledger.gamma_offset_probe import run_probe
+    summary = run_probe()
+    cands = {c["name"]: c for c in summary["candidates"]}
+    c = cands["extend_Sum_l_0to5_V_max"]
+    assert c["muon_mass_err_pct"] < 5.0, (
+        f"l=0-extended γ does not recover the muon: "
+        f"err = {c['muon_mass_err_pct']:.3f}%"
+    )
+    assert c["tau_mass_err_pct"] < 5.0
+
+
+def test_gamma_offset_has_a_joint_winner():
+    """
+    The probe must return at least one (γ-within-1%, muon-within-5%)
+    joint winner. Otherwise the offset is not closed by any candidate.
+    """
+    from experiments.closure_ledger.gamma_offset_probe import run_probe
+    summary = run_probe()
+    assert summary["joint_winners_within_1pct_gamma_and_5pct_muon"], (
+        "no candidate jointly closes both γ and muon-mass criteria"
+    )
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
