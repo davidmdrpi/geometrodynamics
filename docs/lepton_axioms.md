@@ -51,3 +51,35 @@ The API exports `solved_lepton_masses_mev()` which returns a read-only NumPy arr
 
 This gives downstream sectors a stable anchor for comparative fits and coupling
 constraints without re-running scans.
+
+## 5) Geometric origin of the locked anchors (post-hoc identifications)
+
+After the closure-ledger probes (`experiments/closure_ledger/`), three
+of the four solver anchors have geometric counterparts — see
+`docs/odd_k_closure_lemma.md` for the depth-count and Layer-1
+universality, and the `gamma_offset_probe` and `pinhole_origin_probe`
+archives for the pinhole identification:
+
+- `4 · k_uplift_beta = 100 · (2π)` is an integer count of antipodal
+  closure quanta (the closure quantum). Geometric.
+- `hard_pinhole_gamma ≈ 22.5` matches `Σ_{l=0..5} V_max(l)` ≈ 22.453
+  on the canonical Chebyshev tortoise grid (within −0.21%, recovering
+  the muon mass within 3.8% under the locked block). The `l = 0`
+  channel is the 5D-specific centrifugal-free `3·rs²/r⁴` barrier
+  unique to the Tangherlini metric. Geometric.
+- `action_base = 2π` is the S³ great-circle action. Geometric.
+- `transport_strength`, `resistance_scale`, `phase_per_pass` retain
+  their phenomenological status — no geometric identification yet.
+
+Together with the odd-k closure lemma, this leaves the lepton
+diagonal fully geometric:
+
+| row | source | value |
+|---|---|---|
+| `e (k=1)` | radial baseline + Hopf + throat | small (~6.9) |
+| `μ (k=3)` | barrier-spectrum sum `Σ_{l=0..5} V_max(l)` | ≈ 22.45 |
+| `τ (k=5)` | closure quantum `4β = 100·(2π)` | ≈ 628 |
+
+The remaining sub-percent gap between the geometric μ-row anchor
+(22.45) and the locked value (22.5) is recorded as a calibration
+caveat in the probe archives.

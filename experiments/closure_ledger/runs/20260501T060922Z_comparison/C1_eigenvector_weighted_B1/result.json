@@ -1,0 +1,490 @@
+{
+  "timestamp_utc": "2026-05-01T06:09:22+00:00",
+  "experiment_name": "closure_ledger.layer2",
+  "transport_convention": "T2_sign_flip",
+  "chi": 0.0,
+  "sk_candidate": "C1_eigenvector_weighted_B1",
+  "constants": {
+    "action_base": 6.283185307179586,
+    "beta_lepton": 157.07963267948966,
+    "beta_quark": 731.9910882864218,
+    "lepton_quanta": 100,
+    "quark_quanta": 466,
+    "source": {
+      "action_base": "repo",
+      "beta_lepton": "repo",
+      "beta_quark": "repo"
+    }
+  },
+  "import_errors": [],
+  "rows": [
+    {
+      "label": "electron",
+      "k": 1,
+      "closure_status": "partial_fails_to_close",
+      "available_total": 15.281317785148122,
+      "available_total_mod_2pi": 2.7149471707889496,
+      "blocking_terms": [
+        "moving_mouth_phase"
+      ],
+      "terms": [
+        {
+          "name": "antipodal_closure",
+          "source": "k \u00b7 action_base = 1 \u00b7 2.000\u03c0",
+          "repo_provenance": "repo",
+          "value": 6.283185307179586,
+          "status": "available"
+        },
+        {
+          "name": "hopf_holonomy",
+          "source": "\u222eA = \u03c0 cos(\u03c7=0.000) = 1.000\u03c0",
+          "repo_provenance": "repo",
+          "value": 3.141592653589793,
+          "status": "available"
+        },
+        {
+          "name": "throat_transport_T2",
+          "source": "T^2 eigenvalue arg = 2\u00b7(\u03c0/2) = 1.000\u03c0",
+          "repo_provenance": "repo_matrix_verified",
+          "value": 3.141592653589793,
+          "status": "available"
+        },
+        {
+          "name": "lepton_uplift",
+          "source": "\u03b2 \u00b7 max(0, k\u22123)\u00b2 = 50.000\u03c0 \u00b7 0",
+          "repo_provenance": "repo",
+          "value": 0.0,
+          "status": "available"
+        },
+        {
+          "name": "radial_bulk_phase",
+          "source": "\u03a6_radial(1) = \u03a3 over S(k)={(l=1, n=0), (l=3, n=0), (l=5, n=0)} of \u222b\u221amax(\u03c9\u00b2 \u2212 V_eff, 0) dr* = 0.864195\u03c0 [candidate=C1_eigenvector_weighted_B1]",
+          "repo_provenance": "repo_eigenmode_integral",
+          "value": 2.7149471707889488,
+          "status": "available"
+        },
+        {
+          "name": "moving_mouth_phase",
+          "source": "time-dependent T(t) along closed mouth trajectory",
+          "repo_provenance": "not_modeled",
+          "value": null,
+          "status": "not_modeled"
+        }
+      ],
+      "radial_detail": {
+        "candidate": "C1_eigenvector_weighted_B1",
+        "k": 1,
+        "modes": [
+          {
+            "l": 1,
+            "n": 0,
+            "omega": 1.0547269375351367,
+            "phi": 2.770494371568074,
+            "status": "computed",
+            "convention": "WKB_one_sided_radial_action_no_maslov",
+            "maslov_correction": 0.0,
+            "maslov_policy": "none",
+            "n_turning_points": 1,
+            "N_grid": 80,
+            "weight": 0.8409345836527126,
+            "error": null,
+            "pair_l": null,
+            "pair_n": null,
+            "operator_variant": null
+          },
+          {
+            "l": 3,
+            "n": 0,
+            "omega": 1.219082740577607,
+            "phi": 2.4213642216311575,
+            "status": "computed",
+            "convention": "WKB_one_sided_radial_action_no_maslov",
+            "maslov_correction": 0.0,
+            "maslov_policy": "none",
+            "n_turning_points": 1,
+            "N_grid": 80,
+            "weight": 0.15867267153633804,
+            "error": null,
+            "pair_l": null,
+            "pair_n": null,
+            "operator_variant": null
+          },
+          {
+            "l": 5,
+            "n": 0,
+            "omega": 1.3959734850917922,
+            "phi": 2.3891088749908462,
+            "status": "computed",
+            "convention": "WKB_one_sided_radial_action_no_maslov",
+            "maslov_correction": 0.0,
+            "maslov_policy": "none",
+            "n_turning_points": 1,
+            "N_grid": 80,
+            "weight": 0.00039274481094917814,
+            "error": null,
+            "pair_l": null,
+            "pair_n": null,
+            "operator_variant": null
+          }
+        ],
+        "total_phi": 2.7149471707889488,
+        "status": "computed"
+      }
+    },
+    {
+      "label": "muon",
+      "k": 3,
+      "closure_status": "partial_fails_to_close",
+      "available_total": 27.609560587704323,
+      "available_total_mod_2pi": 2.4768193589859777,
+      "blocking_terms": [
+        "moving_mouth_phase"
+      ],
+      "terms": [
+        {
+          "name": "antipodal_closure",
+          "source": "k \u00b7 action_base = 3 \u00b7 2.000\u03c0",
+          "repo_provenance": "repo",
+          "value": 18.84955592153876,
+          "status": "available"
+        },
+        {
+          "name": "hopf_holonomy",
+          "source": "\u222eA = \u03c0 cos(\u03c7=0.000) = 1.000\u03c0",
+          "repo_provenance": "repo",
+          "value": 3.141592653589793,
+          "status": "available"
+        },
+        {
+          "name": "throat_transport_T2",
+          "source": "T^2 eigenvalue arg = 2\u00b7(\u03c0/2) = 1.000\u03c0",
+          "repo_provenance": "repo_matrix_verified",
+          "value": 3.141592653589793,
+          "status": "available"
+        },
+        {
+          "name": "lepton_uplift",
+          "source": "\u03b2 \u00b7 max(0, k\u22123)\u00b2 = 50.000\u03c0 \u00b7 0",
+          "repo_provenance": "repo",
+          "value": 0.0,
+          "status": "available"
+        },
+        {
+          "name": "radial_bulk_phase",
+          "source": "\u03a6_radial(3) = \u03a3 over S(k)={(l=1, n=0), (l=3, n=0), (l=5, n=0)} of \u222b\u221amax(\u03c9\u00b2 \u2212 V_eff, 0) dr* = 0.788396\u03c0 [candidate=C1_eigenvector_weighted_B1]",
+          "repo_provenance": "repo_eigenmode_integral",
+          "value": 2.476819358985978,
+          "status": "available"
+        },
+        {
+          "name": "moving_mouth_phase",
+          "source": "time-dependent T(t) along closed mouth trajectory",
+          "repo_provenance": "not_modeled",
+          "value": null,
+          "status": "not_modeled"
+        }
+      ],
+      "radial_detail": {
+        "candidate": "C1_eigenvector_weighted_B1",
+        "k": 3,
+        "modes": [
+          {
+            "l": 1,
+            "n": 0,
+            "omega": 1.0547269375351367,
+            "phi": 2.770494371568074,
+            "status": "computed",
+            "convention": "WKB_one_sided_radial_action_no_maslov",
+            "maslov_correction": 0.0,
+            "maslov_policy": "none",
+            "n_turning_points": 1,
+            "N_grid": 80,
+            "weight": 0.15884437774408017,
+            "error": null,
+            "pair_l": null,
+            "pair_n": null,
+            "operator_variant": null
+          },
+          {
+            "l": 3,
+            "n": 0,
+            "omega": 1.219082740577607,
+            "phi": 2.4213642216311575,
+            "status": "computed",
+            "convention": "WKB_one_sided_radial_action_no_maslov",
+            "maslov_correction": 0.0,
+            "maslov_policy": "none",
+            "n_turning_points": 1,
+            "N_grid": 80,
+            "weight": 0.8410866704746781,
+            "error": null,
+            "pair_l": null,
+            "pair_n": null,
+            "operator_variant": null
+          },
+          {
+            "l": 5,
+            "n": 0,
+            "omega": 1.3959734850917922,
+            "phi": 2.3891088749908462,
+            "status": "computed",
+            "convention": "WKB_one_sided_radial_action_no_maslov",
+            "maslov_correction": 0.0,
+            "maslov_policy": "none",
+            "n_turning_points": 1,
+            "N_grid": 80,
+            "weight": 6.895178124137123e-05,
+            "error": null,
+            "pair_l": null,
+            "pair_n": null,
+            "operator_variant": null
+          }
+        ],
+        "total_phi": 2.476819358985978,
+        "status": "computed"
+      }
+    },
+    {
+      "label": "tau",
+      "k": 5,
+      "closure_status": "partial_fails_to_close",
+      "available_total": 668.4068434994513,
+      "available_total_mod_2pi": 2.3892009384151294,
+      "blocking_terms": [
+        "moving_mouth_phase"
+      ],
+      "terms": [
+        {
+          "name": "antipodal_closure",
+          "source": "k \u00b7 action_base = 5 \u00b7 2.000\u03c0",
+          "repo_provenance": "repo",
+          "value": 31.41592653589793,
+          "status": "available"
+        },
+        {
+          "name": "hopf_holonomy",
+          "source": "\u222eA = \u03c0 cos(\u03c7=0.000) = 1.000\u03c0",
+          "repo_provenance": "repo",
+          "value": 3.141592653589793,
+          "status": "available"
+        },
+        {
+          "name": "throat_transport_T2",
+          "source": "T^2 eigenvalue arg = 2\u00b7(\u03c0/2) = 1.000\u03c0",
+          "repo_provenance": "repo_matrix_verified",
+          "value": 3.141592653589793,
+          "status": "available"
+        },
+        {
+          "name": "lepton_uplift",
+          "source": "\u03b2 \u00b7 max(0, k\u22123)\u00b2 = 50.000\u03c0 \u00b7 4",
+          "repo_provenance": "repo",
+          "value": 628.3185307179587,
+          "status": "available"
+        },
+        {
+          "name": "radial_bulk_phase",
+          "source": "\u03a6_radial(5) = \u03a3 over S(k)={(l=1, n=0), (l=3, n=0), (l=5, n=0)} of \u222b\u221amax(\u03c9\u00b2 \u2212 V_eff, 0) dr* = 0.760506\u03c0 [candidate=C1_eigenvector_weighted_B1]",
+          "repo_provenance": "repo_eigenmode_integral",
+          "value": 2.3892009384151494,
+          "status": "available"
+        },
+        {
+          "name": "moving_mouth_phase",
+          "source": "time-dependent T(t) along closed mouth trajectory",
+          "repo_provenance": "not_modeled",
+          "value": null,
+          "status": "not_modeled"
+        }
+      ],
+      "radial_detail": {
+        "candidate": "C1_eigenvector_weighted_B1",
+        "k": 5,
+        "modes": [
+          {
+            "l": 1,
+            "n": 0,
+            "omega": 1.0547269375351367,
+            "phi": 2.770494371568074,
+            "status": "computed",
+            "convention": "WKB_one_sided_radial_action_no_maslov",
+            "maslov_correction": 0.0,
+            "maslov_policy": "none",
+            "n_turning_points": 1,
+            "N_grid": 80,
+            "weight": 0.0002210386032070415,
+            "error": null,
+            "pair_l": null,
+            "pair_n": null,
+            "operator_variant": null
+          },
+          {
+            "l": 3,
+            "n": 0,
+            "omega": 1.219082740577607,
+            "phi": 2.4213642216311575,
+            "status": "computed",
+            "convention": "WKB_one_sided_radial_action_no_maslov",
+            "maslov_correction": 0.0,
+            "maslov_policy": "none",
+            "n_turning_points": 1,
+            "N_grid": 80,
+            "weight": 0.00024065798898350292,
+            "error": null,
+            "pair_l": null,
+            "pair_n": null,
+            "operator_variant": null
+          },
+          {
+            "l": 5,
+            "n": 0,
+            "omega": 1.3959734850917922,
+            "phi": 2.3891088749908462,
+            "status": "computed",
+            "convention": "WKB_one_sided_radial_action_no_maslov",
+            "maslov_correction": 0.0,
+            "maslov_policy": "none",
+            "n_turning_points": 1,
+            "N_grid": 80,
+            "weight": 0.9995383034078092,
+            "error": null,
+            "pair_l": null,
+            "pair_n": null,
+            "operator_variant": null
+          }
+        ],
+        "total_phi": 2.3892009384151494,
+        "status": "computed"
+      }
+    }
+  ],
+  "universality_check": {
+    "per_lepton_mod_2pi": [
+      2.7149471707889496,
+      2.4768193589859777,
+      2.3892009384151294
+    ],
+    "spread": 0.3257462323738203,
+    "circular_spread": 0.3257462323738203,
+    "universal": false,
+    "universal_value": null
+  },
+  "quark_sector": {
+    "lepton_lock_quanta": 100,
+    "quark_lock_quanta": 466,
+    "lock_quanta_gap": 366,
+    "t_quark_uplift_quanta": 466,
+    "t_quark_uplift_mod_2pi": 7.105427357601002e-14,
+    "interpretation": "Both \u03b2-locks are integer-compatibility conditions for the closure ledger: each multiplier ensures the heaviest-shell uplift contributes 0 mod 2\u03c0. The lepton lock fits at 100 quanta of 2\u03c0 (channels 2 and 3 nearly inactive); the quark lock fits at 466 (channels 2 and 3 active). The gap of 366 is a hypothesis about what the bulk-coupling channel contributes across the quark spectrum, contingent on S(k) being defined.",
+    "hypothesis_status": "S_k_bridge_required"
+  },
+  "sk_bridge_blocker": {
+    "verdict": "\u03a6_radial(k) is wired in the lepton sector via candidate `C1_eigenvector_weighted_B1` using `geometrodynamics.tangherlini.radial.solve_radial_modes` plus a Bohr-Sommerfeld integration of \u221amax(\u03c9\u00b2 \u2212 V_eff, 0) over the tortoise grid. The remaining candidates are kept as open thesis-level alternatives. The quark-sector S(k) bridge is still undefined, so the 366-quanta gap remains S(k)-conditional.",
+    "evidence": [
+      "compute_knotted_lepton_spectrum accepts `l`, `n_points`, `rs`, `r_outer` for API compatibility but explicitly does not use them in the surrogate Hamiltonian.",
+      "The locked lepton diagonal H_kk = action_base + resistance_scale\u00b7k\u00b2 + res_diag(k) + pinhole(k\u2208{3,5}) + \u03b2\u00b7max(0, k\u22123)\u00b2 has no eigenmode index and no Tangherlini potential evaluation.",
+      "The quark residual sector (transport, pinhole, resistance) DOES read scalars off the tortoise grid \u2014 but those are single integrated quantities, not a per-generation S(k) \u2192 (l, n) mapping."
+    ],
+    "candidates": [
+      {
+        "name": "A_lowest_radial_per_l",
+        "formula": "S(k) = { (l, n=0) : l = 1, 3, ..., k }",
+        "physical_picture": "Generation k is the sum of odd-l radial ground states up to angular harmonic l = k. Ties odd-k closure to odd-l angular content.",
+        "advantages": "Consistent with the non-orientable transport rule: closure must flip the Z\u2082 partition class, and odd-l modes are the natural candidates for partition-flipping angular harmonics.",
+        "open_questions": "Result with WKB radial-action convention: FALSIFIES universal closure mod 2\u03c0. The cumulative-odd-ground-mode interpretation of lepton depth is rejected; whether a different phase convention (Maslov, Bohr-Sommerfeld with two soft turning points) revives it is open.",
+        "implementation_status": "open"
+      },
+      {
+        "name": "B1_single_angular_mode",
+        "formula": "S(k) = { (l = k, n = 0) }",
+        "physical_picture": "Generation k is a single angular harmonic (l = k) in its radial ground state. One mode per generation, indexed by the angular quantum number alone.",
+        "advantages": "Cleanest single-mode-per-generation interpretation: one angular eigenstate per lepton family. Easy to falsify because the per-row \u03a6 is a single integrated quantity.",
+        "open_questions": "Does \u03a6(l = k, n = 0) close to a universal value mod 2\u03c0 under the chosen WKB convention? The B1 phases are the same numbers that already appear in the candidate-A decomposition, so candidate-A's failure mode constrains B1 directly.",
+        "implementation_status": "open"
+      },
+      {
+        "name": "B2_single_radial_excitation",
+        "formula": "S(k) = { (l = 1, n = (k \u2212 1) / 2) }",
+        "physical_picture": "All generations share the lowest angular harmonic l = 1; depth labels successive radial excitations n = 0, 1, 2. Lepton depth is reinterpreted as radial-mode quantum number rather than angular content.",
+        "advantages": "Uses one fixed angular sector and a single radial ladder, matching the surrogate's `\u03b2 \u00b7 k\u00b2` uplift if and only if \u03c9\u00b2(1, n) \u2248 \u03c9\u00b2(1, 0) + \u03b2 \u00b7 n\u00b2 (testable directly). Maximally falsifiable: a single mode integral per row.",
+        "open_questions": "Does \u03a6(l = 1, n) close to a universal value mod 2\u03c0? Asymptotically \u03a6(1, n) \u2192 (n + 1) \u03c0 by WKB, so for high n the residues converge to a parity pattern {\u03c0, 0, \u03c0, 0, \u2026} rather than a single universal value \u2014 universality requires a Maslov-shifted convention or a convention that absorbs the (n + 1) \u03c0 structure.",
+        "implementation_status": "open"
+      },
+      {
+        "name": "C1_eigenvector_weighted_B1",
+        "formula": "\u03a6_radial(k) = \u03a3_i |v_species(k),i|\u00b2 \u00b7 \u03a6(l = k_i, n = 0), weights from the locked lepton generation block",
+        "physical_picture": "The depth basis {1, 3, 5} is shared with the instanton surrogate; each species' radial phase is the squared-amplitude weighted sum of the B1 ground modes (l = k_i, n = 0) over the depth basis. The B1 hand-imposed single-mode bridge is the |v|\u00b2 = \u03b4_ij limit of this map.",
+        "advantages": "Derives weights from the existing lepton Hamiltonian without introducing fitted parameters. The eigenvector mixing lifts B1's degeneracy and produces tighter residues than any prior hand-imposed candidate.",
+        "open_questions": "Does the lifting close the residues to a single value mod 2\u03c0? If not, the eigenvector mixing alone does not supply the missing bridge under the WKB convention; test whether a different phase convention (Maslov, Bohr-Sommerfeld) revives universality given the tightened spread.",
+        "implementation_status": "implemented"
+      },
+      {
+        "name": "C2_eigenvector_weighted_B2",
+        "formula": "\u03a6_radial(k) = \u03a3_i |v_species(k),i|\u00b2 \u00b7 \u03a6(l = 1, n = (k_i\u22121)/2), weights from the locked lepton generation block",
+        "physical_picture": "Same eigenvector weights as C1 but selecting B2's single-l radial-excitation ladder. Each species mixes across radial excitations n \u2208 {0, 1, 2} of l = 1.",
+        "advantages": "Tests whether the eigenvector mixing of B2's ladder (which under WKB asymptotes to (n+1)\u03c0) collapses the parity pattern across generations to a single value.",
+        "open_questions": "Same convention-dependence as C1; weight rows are the same in both candidates, only the per-mode \u03a6 values differ. The two are independent tests of which mode ladder (B1 angular or B2 radial) the lepton Hamiltonian's eigenvectors actually align with.",
+        "implementation_status": "open"
+      },
+      {
+        "name": "C1_maslov_standard",
+        "formula": "\u03a6_radial(k) = \u03a3_i |v_species(k),i|\u00b2 \u00b7 [ \u222b\u221amax(\u03c9\u00b2 \u2212 V_eff, 0) dr* \u2212 (\u03c0/2)\u00b7N_turning(l_i) ], S(k) modes as in C1, Maslov shift = \u2212\u03c0/2 per detected classical turning point",
+        "physical_picture": "Same eigenvector-weighted B1 mode set as C1, but each mode integral is corrected by the standard Bohr-Sommerfeld Maslov shift: \u2212\u03c0/2 for every sign change of (\u03c9\u00b2 \u2212 V_eff) inside the tortoise grid. Hard-wall grid endpoints (where \u03c9\u00b2 > V_eff at the boundary) contribute no Maslov phase.",
+        "advantages": "Adds the textbook turning-point correction without introducing any fitted parameters. Tests whether the WKB-bare convention is the obstruction to closure: if the correction is uniform across species (e.g. every B1 mode has the same turning-point count) the spread is preserved and only the universal residue shifts; if the count varies across modes, the correction can in principle redistribute residues.",
+        "open_questions": "Empirical result: every B1 ground mode reports N_turning = 1 on the canonical tortoise grid, so the correction is a uniform \u2212\u03c0/2 across the depth basis. Spread is preserved relative to C1; residues translate but do not collapse. Universality is not restored by the standard Maslov correction on this mode set.",
+        "implementation_status": "open"
+      },
+      {
+        "name": "B2_maslov_standard",
+        "formula": "\u03a6_radial(k) = \u222b\u221amax(\u03c9\u00b2 \u2212 V_eff(l=1), 0) dr* \u2212 (\u03c0/2) \u00b7 N_turning(l=1, n=(k\u22121)/2), S(k) modes as in B2",
+        "physical_picture": "Same single-mode l=1 ladder as B2, with the standard Bohr-Sommerfeld Maslov shift (\u2212\u03c0/2 per detected sign change of \u03c9\u00b2 \u2212 V_eff) applied to each mode integral.",
+        "advantages": "Tests whether the per-mode turning-point count varies across the radial ladder. The (l=1, n=0) ground mode sits below the centrifugal+grid-bounded barrier and has a soft inner turning point; higher excitations (l=1, n\u22651) sit above the barrier and may have N_turning = 0. If so, the Maslov shift is differential across generations \u2014 exactly the structure that could redistribute residues mod 2\u03c0.",
+        "open_questions": "Does the differential Maslov correction collapse the (n+1)\u03c0 parity pattern of B2 to a universal value, or does it merely permute the residues? The radial-detail table reports n_turning_points per mode so the regime can be read off directly.",
+        "implementation_status": "open"
+      },
+      {
+        "name": "C2_maslov_standard",
+        "formula": "\u03a6_radial(k) = \u03a3_i |v_species(k),i|\u00b2 \u00b7 [ \u222b\u221amax(\u03c9\u00b2 \u2212 V_eff(l=1), 0) dr* \u2212 (\u03c0/2)\u00b7N_turning(l=1, n=i) ], S(k) modes as in C2",
+        "physical_picture": "C2's eigenvector-weighted B2 ladder with the standard Maslov shift applied per mode. Each species' radial phase is the squared-amplitude weighted sum over the B2 ladder of (\u03a6_WKB \u2212 (\u03c0/2)\u00b7N_turning).",
+        "advantages": "Combines the two structural levers that have any chance of breaking the ledger non-universality: eigenvector mixing across the depth basis (C-family) and a per-mode turning-point-dependent phase (Maslov). If the B2 modes have non-uniform N_turning, the eigenvector weights redistribute the differential Maslov shift across species.",
+        "open_questions": "Whether either the C-family weighting alone, the Maslov shift alone, or their composition supplies the missing bridge. C1_maslov_standard already showed the composition with the B1 mode set is degenerate (uniform N_turning); this candidate is the natural follow-on test on the B2 ladder where N_turning is expected to vary.",
+        "implementation_status": "open"
+      },
+      {
+        "name": "D0_overlap_phase",
+        "formula": "\u03a6_radial(species) = v_species^T \u03a6 v_species with \u03a6_ij = \u03c0 \u00b7 \u27e8u_i | u_j\u27e9 on L\u00b2-normalized depth-basis eigenfunctions",
+        "physical_picture": "Operator-valued radial phase: a 3\u00d73 Hermitian \u03a6 matrix indexed by the B1 depth-basis modes (l \u2208 {1, 3, 5}, n=0), with entries given by the eigenfunction overlap scaled by a symmetric phase constant (\u03c0 by convention). Diagonal entries are \u03c0 by L\u00b2-normalization; off-diagonals measure how non-orthogonal the different-l ground modes are on the tortoise grid. The per-species value is the quadratic form v^T \u03a6 v with v from the locked lepton Hamiltonian eigenvectors used by C1/C2.",
+        "advantages": "Smallest viable operator-valued candidate. Tests whether the off-diagonal degree of freedom \u2014 non-orthogonal overlaps between different-l ground modes \u2014 can redistribute phase across species when contracted with v. If different leptons have different sign patterns on the depth basis, the cross-terms 2\u00b7\u03a3_{i<j} v_i v_j \u03a6_ij can carry sign information that scalar-per-mode candidates cannot access.",
+        "open_questions": "Does the symmetric phase scale (\u03c0) collapse to the scalar B1 case in the orthogonal limit (\u03a6 \u2192 \u03c0\u00b7I), or do the empirical \u27e8u_i|u_j\u27e9 \u2260 0 cross-terms dominate? Whether the resulting v^T \u03a6 v values close mod 2\u03c0 is the thesis-level test.",
+        "implementation_status": "open"
+      },
+      {
+        "name": "D1_potential_difference_phase",
+        "formula": "\u03a6_radial(species) = v_species^T \u03a6 v_species with \u03a6_ij = \u27e8u_i | V_j \u2212 V_i | u_j\u27e9, Hermitized by mirroring i<j entries to j<i",
+        "physical_picture": "Operator-valued radial phase reusing the canonical quark transport matrix element form: \u27e8u_l | V_{l+2} \u2212 V_l | u_{l+2}\u27e9, which closed the QCD residual sector to +0.87% via the same tortoise-grid eigenfunctions. The raw matrix is real antisymmetric for real eigenfunctions; we Hermitize by treating the upper-triangle entries as the canonical transport couplings and reflecting them to the lower triangle. Diagonal \u03a6_ii = 0 by construction (V_i \u2212 V_i = 0).",
+        "advantages": "Reuses a structurally-validated kernel: the same V_l operator-difference matrix element that succeeded in the quark sector at sub-percent. Off-diagonals are non-trivial (unlike a strict (M+M\u2020)/2 Hermitization which would vanish), and the resulting v^T \u03a6 v contraction inherits transport-class structure from the QCD ledger.",
+        "open_questions": "Whether the same operator that geometrized the quark residual sector can also supply the lepton radial phase bridge. The diagonal-zero structure means the entire radial phase comes from cross-terms 2\u00b7\u03a3_{i<j} v_i v_j \u03a6_ij, so the result is sensitive to the eigenvector sign pattern on the depth basis.",
+        "implementation_status": "open"
+      },
+      {
+        "name": "D2_symmetrized_momentum_phase",
+        "formula": "\u03a6_radial(species) = v_species^T \u03a6 v_species with \u03a6_ij = \u27e8u_i | \u221amax(\u03c9\u0304\u00b2 \u2212 V\u0304, 0) | u_j\u27e9, \u03c9\u0304\u00b2 = (\u03c9_i\u00b2 + \u03c9_j\u00b2)/2, V\u0304 = (V_i + V_j)/2",
+        "physical_picture": "Operator generalization of the WKB radial-action integrand to a matrix kernel: the symmetrized momentum operator k_local(r*) = \u221amax(\u03c9\u0304\u00b2 \u2212 V\u0304, 0) is averaged over the (i, j) pair before the matrix-element contraction. The diagonal \u03a6_ii recovers the WKB single-mode action used by candidate B1; the off-diagonals couple modes through the averaged classical momentum.",
+        "advantages": "Most directly continuous with the WKB convention used by B1/B2/C1/C2: the i = j entries are the same scalar \u03a6(l_i, n=0) values that those candidates report. Off-diagonals introduce mode-coupling that is symmetric in (i, j) by construction (kernel symmetric, both u_i, u_j real), so the matrix is Hermitian without explicit symmetrization.",
+        "open_questions": "Does the symmetrized-momentum kernel produce off-diagonals with the right magnitude and sign structure to redistribute phase across species? D2 is the most conservative D variant \u2014 if even it fails to close mod 2\u03c0 under the locked lepton eigenvectors, the entire operator-radial-phase ansatz is constrained on this depth basis.",
+        "implementation_status": "open"
+      }
+    ],
+    "next_steps": [
+      "Read the universality_check on the lepton ledger: candidate `C1_eigenvector_weighted_B1` either preserves closure mod 2\u03c0 (supports the candidate) or breaks it (falsifies the candidate; rerun with another wired candidate).",
+      "Define a quark-sector S(k) bridge. The lepton implementation operates on (l, n) Tangherlini modes; the quark sector needs its own per-generation mode assignment before P3 (the 366-quanta gap) becomes testable end-to-end.",
+      "Investigate whether the candidate's per-mode \u03a6(l, n) values match the surrogate's \u03b2\u00b7k\u00b2 uplift coefficients \u2014 this is the open-question line in candidate A's record.",
+      "Update THESIS.md to reflect whichever way the universality check went: either close the \u210f open-problem bullet to a derived dimensionless invariant, or report which channel was overcredited."
+    ],
+    "downgraded_predictions": [
+      "P3 (366-quanta gap as integrated bulk-mode contribution): downgraded from near-term falsification test to S(k)-conditional hypothesis. The number 366 = 466 \u2212 100 is a structural prediction about what the bulk-coupling channel must contribute across the quark ladder relative to the lepton ladder, contingent on S(k) being defined for both."
+    ],
+    "implemented_candidate": "C1_eigenvector_weighted_B1"
+  },
+  "overall_status": "Layer 2 FALSIFIES candidate 'C1_eigenvector_weighted_B1': lepton ledger does NOT close universally mod 2\u03c0 (spread 3.257e-01)."
+}

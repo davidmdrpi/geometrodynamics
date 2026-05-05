@@ -1,0 +1,324 @@
+{
+  "timestamp_utc": "2026-04-29T14:06:17+00:00",
+  "experiment_name": "closure_ledger.layer2",
+  "transport_convention": "T2_sign_flip",
+  "chi": 0.0,
+  "sk_candidate": "B1_single_angular_mode",
+  "constants": {
+    "action_base": 6.283185307179586,
+    "beta_lepton": 157.07963267948966,
+    "beta_quark": 731.9910882864218,
+    "lepton_quanta": 100,
+    "quark_quanta": 466,
+    "source": {
+      "action_base": "repo",
+      "beta_lepton": "repo",
+      "beta_quark": "repo"
+    }
+  },
+  "import_errors": [],
+  "rows": [
+    {
+      "label": "electron",
+      "k": 1,
+      "closure_status": "partial_fails_to_close",
+      "available_total": 15.336864985927246,
+      "available_total_mod_2pi": 2.7704943715680734,
+      "blocking_terms": [
+        "moving_mouth_phase"
+      ],
+      "terms": [
+        {
+          "name": "antipodal_closure",
+          "source": "k \u00b7 action_base = 1 \u00b7 2.000\u03c0",
+          "repo_provenance": "repo",
+          "value": 6.283185307179586,
+          "status": "available"
+        },
+        {
+          "name": "hopf_holonomy",
+          "source": "\u222eA = \u03c0 cos(\u03c7=0.000) = 1.000\u03c0",
+          "repo_provenance": "repo",
+          "value": 3.141592653589793,
+          "status": "available"
+        },
+        {
+          "name": "throat_transport_T2",
+          "source": "T^2 eigenvalue arg = 2\u00b7(\u03c0/2) = 1.000\u03c0",
+          "repo_provenance": "repo_matrix_verified",
+          "value": 3.141592653589793,
+          "status": "available"
+        },
+        {
+          "name": "lepton_uplift",
+          "source": "\u03b2 \u00b7 max(0, k\u22123)\u00b2 = 50.000\u03c0 \u00b7 0",
+          "repo_provenance": "repo",
+          "value": 0.0,
+          "status": "available"
+        },
+        {
+          "name": "radial_bulk_phase",
+          "source": "\u03a6_radial(1) = \u03a3 over S(k)={(l=1, n=0)} of \u222b\u221amax(\u03c9\u00b2 \u2212 V_eff, 0) dr* = 0.881876\u03c0 [candidate=B1_single_angular_mode]",
+          "repo_provenance": "repo_eigenmode_integral",
+          "value": 2.770494371568074,
+          "status": "available"
+        },
+        {
+          "name": "moving_mouth_phase",
+          "source": "time-dependent T(t) along closed mouth trajectory",
+          "repo_provenance": "not_modeled",
+          "value": null,
+          "status": "not_modeled"
+        }
+      ],
+      "radial_detail": {
+        "candidate": "B1_single_angular_mode",
+        "k": 1,
+        "modes": [
+          {
+            "l": 1,
+            "n": 0,
+            "omega": 1.0547269375351367,
+            "phi": 2.770494371568074,
+            "status": "computed",
+            "convention": "WKB_one_sided_radial_action_no_maslov",
+            "maslov_correction": 0.0,
+            "N_grid": 80,
+            "weight": 1.0,
+            "error": null
+          }
+        ],
+        "total_phi": 2.770494371568074,
+        "status": "computed"
+      }
+    },
+    {
+      "label": "muon",
+      "k": 3,
+      "closure_status": "partial_fails_to_close",
+      "available_total": 27.554105450349503,
+      "available_total_mod_2pi": 2.4213642216311584,
+      "blocking_terms": [
+        "moving_mouth_phase"
+      ],
+      "terms": [
+        {
+          "name": "antipodal_closure",
+          "source": "k \u00b7 action_base = 3 \u00b7 2.000\u03c0",
+          "repo_provenance": "repo",
+          "value": 18.84955592153876,
+          "status": "available"
+        },
+        {
+          "name": "hopf_holonomy",
+          "source": "\u222eA = \u03c0 cos(\u03c7=0.000) = 1.000\u03c0",
+          "repo_provenance": "repo",
+          "value": 3.141592653589793,
+          "status": "available"
+        },
+        {
+          "name": "throat_transport_T2",
+          "source": "T^2 eigenvalue arg = 2\u00b7(\u03c0/2) = 1.000\u03c0",
+          "repo_provenance": "repo_matrix_verified",
+          "value": 3.141592653589793,
+          "status": "available"
+        },
+        {
+          "name": "lepton_uplift",
+          "source": "\u03b2 \u00b7 max(0, k\u22123)\u00b2 = 50.000\u03c0 \u00b7 0",
+          "repo_provenance": "repo",
+          "value": 0.0,
+          "status": "available"
+        },
+        {
+          "name": "radial_bulk_phase",
+          "source": "\u03a6_radial(3) = \u03a3 over S(k)={(l=3, n=0)} of \u222b\u221amax(\u03c9\u00b2 \u2212 V_eff, 0) dr* = 0.770744\u03c0 [candidate=B1_single_angular_mode]",
+          "repo_provenance": "repo_eigenmode_integral",
+          "value": 2.4213642216311575,
+          "status": "available"
+        },
+        {
+          "name": "moving_mouth_phase",
+          "source": "time-dependent T(t) along closed mouth trajectory",
+          "repo_provenance": "not_modeled",
+          "value": null,
+          "status": "not_modeled"
+        }
+      ],
+      "radial_detail": {
+        "candidate": "B1_single_angular_mode",
+        "k": 3,
+        "modes": [
+          {
+            "l": 3,
+            "n": 0,
+            "omega": 1.219082740577607,
+            "phi": 2.4213642216311575,
+            "status": "computed",
+            "convention": "WKB_one_sided_radial_action_no_maslov",
+            "maslov_correction": 0.0,
+            "N_grid": 80,
+            "weight": 1.0,
+            "error": null
+          }
+        ],
+        "total_phi": 2.4213642216311575,
+        "status": "computed"
+      }
+    },
+    {
+      "label": "tau",
+      "k": 5,
+      "closure_status": "partial_fails_to_close",
+      "available_total": 668.406751436027,
+      "available_total_mod_2pi": 2.389108874990839,
+      "blocking_terms": [
+        "moving_mouth_phase"
+      ],
+      "terms": [
+        {
+          "name": "antipodal_closure",
+          "source": "k \u00b7 action_base = 5 \u00b7 2.000\u03c0",
+          "repo_provenance": "repo",
+          "value": 31.41592653589793,
+          "status": "available"
+        },
+        {
+          "name": "hopf_holonomy",
+          "source": "\u222eA = \u03c0 cos(\u03c7=0.000) = 1.000\u03c0",
+          "repo_provenance": "repo",
+          "value": 3.141592653589793,
+          "status": "available"
+        },
+        {
+          "name": "throat_transport_T2",
+          "source": "T^2 eigenvalue arg = 2\u00b7(\u03c0/2) = 1.000\u03c0",
+          "repo_provenance": "repo_matrix_verified",
+          "value": 3.141592653589793,
+          "status": "available"
+        },
+        {
+          "name": "lepton_uplift",
+          "source": "\u03b2 \u00b7 max(0, k\u22123)\u00b2 = 50.000\u03c0 \u00b7 4",
+          "repo_provenance": "repo",
+          "value": 628.3185307179587,
+          "status": "available"
+        },
+        {
+          "name": "radial_bulk_phase",
+          "source": "\u03a6_radial(5) = \u03a3 over S(k)={(l=5, n=0)} of \u222b\u221amax(\u03c9\u00b2 \u2212 V_eff, 0) dr* = 0.760477\u03c0 [candidate=B1_single_angular_mode]",
+          "repo_provenance": "repo_eigenmode_integral",
+          "value": 2.3891088749908462,
+          "status": "available"
+        },
+        {
+          "name": "moving_mouth_phase",
+          "source": "time-dependent T(t) along closed mouth trajectory",
+          "repo_provenance": "not_modeled",
+          "value": null,
+          "status": "not_modeled"
+        }
+      ],
+      "radial_detail": {
+        "candidate": "B1_single_angular_mode",
+        "k": 5,
+        "modes": [
+          {
+            "l": 5,
+            "n": 0,
+            "omega": 1.3959734850917922,
+            "phi": 2.3891088749908462,
+            "status": "computed",
+            "convention": "WKB_one_sided_radial_action_no_maslov",
+            "maslov_correction": 0.0,
+            "N_grid": 80,
+            "weight": 1.0,
+            "error": null
+          }
+        ],
+        "total_phi": 2.3891088749908462,
+        "status": "computed"
+      }
+    }
+  ],
+  "universality_check": {
+    "per_lepton_mod_2pi": [
+      2.7704943715680734,
+      2.4213642216311584,
+      2.389108874990839
+    ],
+    "spread": 0.3813854965772343,
+    "universal": false,
+    "universal_value": null
+  },
+  "quark_sector": {
+    "lepton_lock_quanta": 100,
+    "quark_lock_quanta": 466,
+    "lock_quanta_gap": 366,
+    "t_quark_uplift_quanta": 466,
+    "t_quark_uplift_mod_2pi": 7.105427357601002e-14,
+    "interpretation": "Both \u03b2-locks are integer-compatibility conditions for the closure ledger: each multiplier ensures the heaviest-shell uplift contributes 0 mod 2\u03c0. The lepton lock fits at 100 quanta of 2\u03c0 (channels 2 and 3 nearly inactive); the quark lock fits at 466 (channels 2 and 3 active). The gap of 366 is a hypothesis about what the bulk-coupling channel contributes across the quark spectrum, contingent on S(k) being defined.",
+    "hypothesis_status": "S_k_bridge_required"
+  },
+  "sk_bridge_blocker": {
+    "verdict": "\u03a6_radial(k) is wired in the lepton sector via candidate `B1_single_angular_mode` using `geometrodynamics.tangherlini.radial.solve_radial_modes` plus a Bohr-Sommerfeld integration of \u221amax(\u03c9\u00b2 \u2212 V_eff, 0) over the tortoise grid. The remaining candidates are kept as open thesis-level alternatives. The quark-sector S(k) bridge is still undefined, so the 366-quanta gap remains S(k)-conditional.",
+    "evidence": [
+      "compute_knotted_lepton_spectrum accepts `l`, `n_points`, `rs`, `r_outer` for API compatibility but explicitly does not use them in the surrogate Hamiltonian.",
+      "The locked lepton diagonal H_kk = action_base + resistance_scale\u00b7k\u00b2 + res_diag(k) + pinhole(k\u2208{3,5}) + \u03b2\u00b7max(0, k\u22123)\u00b2 has no eigenmode index and no Tangherlini potential evaluation.",
+      "The quark residual sector (transport, pinhole, resistance) DOES read scalars off the tortoise grid \u2014 but those are single integrated quantities, not a per-generation S(k) \u2192 (l, n) mapping."
+    ],
+    "candidates": [
+      {
+        "name": "A_lowest_radial_per_l",
+        "formula": "S(k) = { (l, n=0) : l = 1, 3, ..., k }",
+        "physical_picture": "Generation k is the sum of odd-l radial ground states up to angular harmonic l = k. Ties odd-k closure to odd-l angular content.",
+        "advantages": "Consistent with the non-orientable transport rule: closure must flip the Z\u2082 partition class, and odd-l modes are the natural candidates for partition-flipping angular harmonics.",
+        "open_questions": "Result with WKB radial-action convention: FALSIFIES universal closure mod 2\u03c0. The cumulative-odd-ground-mode interpretation of lepton depth is rejected; whether a different phase convention (Maslov, Bohr-Sommerfeld with two soft turning points) revives it is open.",
+        "implementation_status": "open"
+      },
+      {
+        "name": "B1_single_angular_mode",
+        "formula": "S(k) = { (l = k, n = 0) }",
+        "physical_picture": "Generation k is a single angular harmonic (l = k) in its radial ground state. One mode per generation, indexed by the angular quantum number alone.",
+        "advantages": "Cleanest single-mode-per-generation interpretation: one angular eigenstate per lepton family. Easy to falsify because the per-row \u03a6 is a single integrated quantity.",
+        "open_questions": "Does \u03a6(l = k, n = 0) close to a universal value mod 2\u03c0 under the chosen WKB convention? The B1 phases are the same numbers that already appear in the candidate-A decomposition, so candidate-A's failure mode constrains B1 directly.",
+        "implementation_status": "implemented"
+      },
+      {
+        "name": "B2_single_radial_excitation",
+        "formula": "S(k) = { (l = 1, n = (k \u2212 1) / 2) }",
+        "physical_picture": "All generations share the lowest angular harmonic l = 1; depth labels successive radial excitations n = 0, 1, 2. Lepton depth is reinterpreted as radial-mode quantum number rather than angular content.",
+        "advantages": "Uses one fixed angular sector and a single radial ladder, matching the surrogate's `\u03b2 \u00b7 k\u00b2` uplift if and only if \u03c9\u00b2(1, n) \u2248 \u03c9\u00b2(1, 0) + \u03b2 \u00b7 n\u00b2 (testable directly). Maximally falsifiable: a single mode integral per row.",
+        "open_questions": "Does \u03a6(l = 1, n) close to a universal value mod 2\u03c0? Asymptotically \u03a6(1, n) \u2192 (n + 1) \u03c0 by WKB, so for high n the residues converge to a parity pattern {\u03c0, 0, \u03c0, 0, \u2026} rather than a single universal value \u2014 universality requires a Maslov-shifted convention or a convention that absorbs the (n + 1) \u03c0 structure.",
+        "implementation_status": "open"
+      },
+      {
+        "name": "C1_eigenvector_weighted_B1",
+        "formula": "\u03a6_radial(k) = \u03a3_i |v_species(k),i|\u00b2 \u00b7 \u03a6(l = k_i, n = 0), weights from the locked lepton generation block",
+        "physical_picture": "The depth basis {1, 3, 5} is shared with the instanton surrogate; each species' radial phase is the squared-amplitude weighted sum of the B1 ground modes (l = k_i, n = 0) over the depth basis. The B1 hand-imposed single-mode bridge is the |v|\u00b2 = \u03b4_ij limit of this map.",
+        "advantages": "Derives weights from the existing lepton Hamiltonian without introducing fitted parameters. The eigenvector mixing lifts B1's degeneracy and produces tighter residues than any prior hand-imposed candidate.",
+        "open_questions": "Does the lifting close the residues to a single value mod 2\u03c0? If not, the eigenvector mixing alone does not supply the missing bridge under the WKB convention; test whether a different phase convention (Maslov, Bohr-Sommerfeld) revives universality given the tightened spread.",
+        "implementation_status": "open"
+      },
+      {
+        "name": "C2_eigenvector_weighted_B2",
+        "formula": "\u03a6_radial(k) = \u03a3_i |v_species(k),i|\u00b2 \u00b7 \u03a6(l = 1, n = (k_i\u22121)/2), weights from the locked lepton generation block",
+        "physical_picture": "Same eigenvector weights as C1 but selecting B2's single-l radial-excitation ladder. Each species mixes across radial excitations n \u2208 {0, 1, 2} of l = 1.",
+        "advantages": "Tests whether the eigenvector mixing of B2's ladder (which under WKB asymptotes to (n+1)\u03c0) collapses the parity pattern across generations to a single value.",
+        "open_questions": "Same convention-dependence as C1; weight rows are the same in both candidates, only the per-mode \u03a6 values differ. The two are independent tests of which mode ladder (B1 angular or B2 radial) the lepton Hamiltonian's eigenvectors actually align with.",
+        "implementation_status": "open"
+      }
+    ],
+    "next_steps": [
+      "Read the universality_check on the lepton ledger: candidate `B1_single_angular_mode` either preserves closure mod 2\u03c0 (supports the candidate) or breaks it (falsifies the candidate; rerun with another wired candidate).",
+      "Define a quark-sector S(k) bridge. The lepton implementation operates on (l, n) Tangherlini modes; the quark sector needs its own per-generation mode assignment before P3 (the 366-quanta gap) becomes testable end-to-end.",
+      "Investigate whether the candidate's per-mode \u03a6(l, n) values match the surrogate's \u03b2\u00b7k\u00b2 uplift coefficients \u2014 this is the open-question line in candidate A's record.",
+      "Update THESIS.md to reflect whichever way the universality check went: either close the \u210f open-problem bullet to a derived dimensionless invariant, or report which channel was overcredited."
+    ],
+    "downgraded_predictions": [
+      "P3 (366-quanta gap as integrated bulk-mode contribution): downgraded from near-term falsification test to S(k)-conditional hypothesis. The number 366 = 466 \u2212 100 is a structural prediction about what the bulk-coupling channel must contribute across the quark ladder relative to the lepton ladder, contingent on S(k) being defined for both."
+    ],
+    "implemented_candidate": "B1_single_angular_mode"
+  },
+  "overall_status": "Layer 2 FALSIFIES candidate 'B1_single_angular_mode': lepton ledger does NOT close universally mod 2\u03c0 (spread 3.814e-01)."
+}

@@ -232,13 +232,17 @@ The next phase of BAM is organized around demonstrations, not parameter
 fitting. Each is a test the existing framework can be put to that admits
 a clean pass-or-fail.
 
-**Odd-`k` closure from topology.** Prove that only odd closure passes
-`k = 1, 3, 5, ...` are allowed because the non-orientable throat
-transport requires partition reversal. Even-`k` closures return the
-spinor to the same `Z₂` partition class without an orientation flip
-and so fail the throat boundary condition. Target: convert a current
-ansatz into a one-page lemma using `T = iσ_y` and `T² = −I`. Closes
-one of the two flagged open items in the lepton sector at low cost.
+**Odd-`k` closure from topology.** _Closed_ — see `docs/odd_k_closure_lemma.md`.
+The lemma states (i) only odd `k = 1, 3, 5, ...` admit self-consistent
+stable bound states on the non-orientable throat (the partition-
+reversal boundary condition `T² = −I` requires odd pass counts), and
+(ii) under the locked baseline (`action_base = 2π`, `χ = 0`, `T²`
+convention, `4β/(2π) = 100 ∈ ℤ`) every odd-`k` Layer-1 ledger sum
+is identically zero mod 2π. The arithmetic closure is automatic from
+the four wired geometric channels; only the topological selection
+restricts `k` to odd values. The empirical "all three lepton ledgers
+close to 0 mod 2π" result of `experiments/closure_ledger` is the
+direct verification.
 
 **Moving-mouth Berry phase.** Drag a single throat mouth around a
 closed loop in `S³` in the existing solver and verify that the

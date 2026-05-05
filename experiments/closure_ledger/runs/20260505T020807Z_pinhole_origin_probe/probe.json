@@ -1,0 +1,1531 @@
+{
+  "timestamp_utc": "2026-05-05T02:08:07+00:00",
+  "gamma_lepton": 22.5,
+  "gamma_quark": 22.25,
+  "candidates_per_category": {
+    "barrier_sum": [
+      {
+        "name": "Sum_l=1..5_V_max[chebyshev_N80]",
+        "category": "barrier_sum",
+        "formula": "\u03a3_{l=1..5} V_max(l)",
+        "value": 22.008240059546566,
+        "pct_diff_lepton": -2.185599735348597,
+        "pct_diff_quark": -1.0865615301277947,
+        "explains_lepton_within_5pct": true,
+        "explains_quark_within_5pct": true
+      },
+      {
+        "name": "Sum_l=1..6_V_max[chebyshev_N80]",
+        "category": "barrier_sum",
+        "formula": "\u03a3_{l=1..6} V_max(l)",
+        "value": 33.63290635771286,
+        "pct_diff_lepton": 49.479583812057164,
+        "pct_diff_quark": 51.1591296975859,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "Sum_odd_l_V_max[chebyshev_N80]",
+        "category": "barrier_sum",
+        "formula": "V_max(1) + V_max(3) + V_max(5)",
+        "value": 13.670945215486455,
+        "pct_diff_lepton": -39.24024348672687,
+        "pct_diff_quark": -38.5575495933193,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "Sum_l=1..5_V_max[dense_r]",
+        "category": "barrier_sum",
+        "formula": "\u03a3_{l=1..5} V_max(l)",
+        "value": 23.18716541898487,
+        "pct_diff_lepton": 3.054068528821637,
+        "pct_diff_quark": 4.211979411167948,
+        "explains_lepton_within_5pct": true,
+        "explains_quark_within_5pct": true
+      },
+      {
+        "name": "Sum_l=1..6_V_max[dense_r]",
+        "category": "barrier_sum",
+        "formula": "\u03a3_{l=1..6} V_max(l)",
+        "value": 35.5650040457299,
+        "pct_diff_lepton": 58.06668464768844,
+        "pct_diff_quark": 59.842714812269215,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "Sum_odd_l_V_max[dense_r]",
+        "category": "barrier_sum",
+        "formula": "V_max(1) + V_max(3) + V_max(5)",
+        "value": 14.417037303855528,
+        "pct_diff_lepton": -35.92427864953098,
+        "pct_diff_quark": -35.204326724244815,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "Sum_l=1..5_V_max[uniform_rstar]",
+        "category": "barrier_sum",
+        "formula": "\u03a3_{l=1..5} V_max(l)",
+        "value": 22.008240059546566,
+        "pct_diff_lepton": -2.185599735348597,
+        "pct_diff_quark": -1.0865615301277947,
+        "explains_lepton_within_5pct": true,
+        "explains_quark_within_5pct": true
+      },
+      {
+        "name": "Sum_l=1..6_V_max[uniform_rstar]",
+        "category": "barrier_sum",
+        "formula": "\u03a3_{l=1..6} V_max(l)",
+        "value": 33.63290635771286,
+        "pct_diff_lepton": 49.479583812057164,
+        "pct_diff_quark": 51.1591296975859,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "Sum_odd_l_V_max[uniform_rstar]",
+        "category": "barrier_sum",
+        "formula": "V_max(1) + V_max(3) + V_max(5)",
+        "value": 13.670945215486455,
+        "pct_diff_lepton": -39.24024348672687,
+        "pct_diff_quark": -38.5575495933193,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      }
+    ],
+    "non_ground_mode": [
+      {
+        "name": "omega_sq_l=1_n=2",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=1, n=2)\u00b2",
+        "value": 8.375641841352145,
+        "pct_diff_lepton": -62.77492514954603,
+        "pct_diff_quark": -62.356665881563394,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=1_n=3",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=1, n=3)\u00b2",
+        "value": 14.6280743544203,
+        "pct_diff_lepton": -34.986336202576446,
+        "pct_diff_quark": -34.255845598111016,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=1_n=4",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=1, n=4)\u00b2",
+        "value": 22.666590034389507,
+        "pct_diff_lepton": 0.7404001528422555,
+        "pct_diff_quark": 1.8723147613011573,
+        "explains_lepton_within_5pct": true,
+        "explains_quark_within_5pct": true
+      },
+      {
+        "name": "omega_sq_l=1_n=5",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=1, n=5)\u00b2",
+        "value": 32.491721964870734,
+        "pct_diff_lepton": 44.407653177203265,
+        "pct_diff_quark": 46.03021107807072,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=1_n=6",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=1, n=6)\u00b2",
+        "value": 44.10339148258966,
+        "pct_diff_lepton": 96.01507325595404,
+        "pct_diff_quark": 98.21748980939172,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=1_n=7",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=1, n=7)\u00b2",
+        "value": 57.501550513416305,
+        "pct_diff_lepton": 155.5624467262947,
+        "pct_diff_quark": 158.43393489175867,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=2_n=2",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=2, n=2)\u00b2",
+        "value": 8.68815640822744,
+        "pct_diff_lepton": -61.38597151898916,
+        "pct_diff_quark": -60.95210603043847,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=2_n=3",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=2, n=3)\u00b2",
+        "value": 14.940937406468196,
+        "pct_diff_lepton": -33.59583374903024,
+        "pct_diff_quark": -32.84971952149125,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=2_n=4",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=2, n=4)\u00b2",
+        "value": 22.978354904649525,
+        "pct_diff_lepton": 2.1260217984423315,
+        "pct_diff_quark": 3.2735051894360656,
+        "explains_lepton_within_5pct": true,
+        "explains_quark_within_5pct": true
+      },
+      {
+        "name": "omega_sq_l=2_n=5",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=2, n=5)\u00b2",
+        "value": 32.80273759189168,
+        "pct_diff_lepton": 45.7899448528519,
+        "pct_diff_quark": 47.428034120861476,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=2_n=6",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=2, n=6)\u00b2",
+        "value": 44.41393044165559,
+        "pct_diff_lepton": 97.39524640735817,
+        "pct_diff_quark": 99.61317052429479,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=2_n=7",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=2, n=7)\u00b2",
+        "value": 57.81177316827172,
+        "pct_diff_lepton": 156.94121408120765,
+        "pct_diff_quark": 159.82819401470437,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=3_n=2",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=3, n=2)\u00b2",
+        "value": 9.132410283881422,
+        "pct_diff_lepton": -59.4115098494159,
+        "pct_diff_quark": -58.95545939828574,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=3_n=3",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=3, n=3)\u00b2",
+        "value": 15.385618736290144,
+        "pct_diff_lepton": -31.619472283154913,
+        "pct_diff_quark": -30.851151747010586,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=3_n=4",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=3, n=4)\u00b2",
+        "value": 23.419495648391834,
+        "pct_diff_lepton": 4.086647326185929,
+        "pct_diff_quark": 5.256160217491389,
+        "explains_lepton_within_5pct": true,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=3_n=5",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=3, n=5)\u00b2",
+        "value": 33.24145849812126,
+        "pct_diff_lepton": 47.7398155472056,
+        "pct_diff_quark": 49.39981347470229,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=3_n=6",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=3, n=6)\u00b2",
+        "value": 44.85111942236414,
+        "pct_diff_lepton": 99.33830854384063,
+        "pct_diff_quark": 101.57806481961411,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=3_n=7",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=3, n=7)\u00b2",
+        "value": 58.247951468940464,
+        "pct_diff_lepton": 158.87978430640206,
+        "pct_diff_quark": 161.7885459278223,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=4_n=1",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=4, n=1)\u00b2",
+        "value": 5.068578007929798,
+        "pct_diff_lepton": -77.47298663142313,
+        "pct_diff_quark": -77.21987412166384,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=4_n=2",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=4, n=2)\u00b2",
+        "value": 9.710610750555972,
+        "pct_diff_lepton": -56.84172999752901,
+        "pct_diff_quark": -56.35680561547878,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=4_n=3",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=4, n=3)\u00b2",
+        "value": 15.96839563011394,
+        "pct_diff_lepton": -29.029352755049153,
+        "pct_diff_quark": -28.231929752296896,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=4_n=4",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=4, n=4)\u00b2",
+        "value": 23.994814570232226,
+        "pct_diff_lepton": 6.643620312143225,
+        "pct_diff_quark": 7.841863236998766,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=4_n=5",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=4, n=5)\u00b2",
+        "value": 33.81129433349479,
+        "pct_diff_lepton": 50.27241925997686,
+        "pct_diff_quark": 51.96087340896536,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=4_n=6",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=4, n=6)\u00b2",
+        "value": 45.41746054223297,
+        "pct_diff_lepton": 101.85538018770211,
+        "pct_diff_quark": 104.12341816733921,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=4_n=7",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=4, n=7)\u00b2",
+        "value": 58.811993503858325,
+        "pct_diff_lepton": 161.3866377949259,
+        "pct_diff_quark": 164.3235663094756,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=5_n=1",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=5, n=1)\u00b2",
+        "value": 5.614026929885164,
+        "pct_diff_lepton": -75.04876920051039,
+        "pct_diff_quark": -74.76841829265095,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=5_n=2",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=5, n=2)\u00b2",
+        "value": 10.418213832115212,
+        "pct_diff_lepton": -53.696827412821285,
+        "pct_diff_quark": -53.176567046673206,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=5_n=3",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=5, n=3)\u00b2",
+        "value": 16.696048177214386,
+        "pct_diff_lepton": -25.79534143460273,
+        "pct_diff_quark": -24.96158122600276,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=5_n=4",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=5, n=4)\u00b2",
+        "value": 24.710579521245744,
+        "pct_diff_lepton": 9.824797872203309,
+        "pct_diff_quark": 11.058784365149414,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=5_n=5",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=5, n=5)\u00b2",
+        "value": 34.51678372393289,
+        "pct_diff_lepton": 53.40792766192396,
+        "pct_diff_quark": 55.131612242395015,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=5_n=6",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=5, n=6)\u00b2",
+        "value": 46.11627108016338,
+        "pct_diff_lepton": 104.96120480072612,
+        "pct_diff_quark": 107.26413968612755,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=5_n=7",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=5, n=7)\u00b2",
+        "value": 59.5064142895158,
+        "pct_diff_lepton": 164.47295239784802,
+        "pct_diff_quark": 167.4445586045654,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=6_n=1",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=6, n=1)\u00b2",
+        "value": 6.194294545583318,
+        "pct_diff_lepton": -72.4698020196297,
+        "pct_diff_quark": -72.16047395243453,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=6_n=2",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=6, n=2)\u00b2",
+        "value": 11.239648010113527,
+        "pct_diff_lepton": -50.04600884393988,
+        "pct_diff_quark": -49.48472804443359,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=6_n=3",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=6, n=3)\u00b2",
+        "value": 17.57350660685215,
+        "pct_diff_lepton": -21.895526191768226,
+        "pct_diff_quark": -21.017947834372364,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=6_n=4",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=6, n=4)\u00b2",
+        "value": 25.574328985992118,
+        "pct_diff_lepton": 13.663684382187189,
+        "pct_diff_quark": 14.940804431425248,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=6_n=5",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=6, n=5)\u00b2",
+        "value": 35.36369020908835,
+        "pct_diff_lepton": 57.1719564848371,
+        "pct_diff_quark": 58.93793352399257,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_sq_l=6_n=6",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=6, n=6)\u00b2",
+        "value": 46.95176346098901,
+        "pct_diff_lepton": 108.67450427106225,
+        "pct_diff_quark": 111.01916162242249,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "Sum_l=1..5_omega_sq_n=0",
+        "category": "non_ground_mode",
+        "formula": "\u03a3_{l=1..5} \u03c9(l, 0)\u00b2",
+        "value": 7.54048873940085,
+        "pct_diff_lepton": -66.486716713774,
+        "pct_diff_quark": -66.11016296898494,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "Sum_l=1..5_omega_sq_n=1",
+        "category": "non_ground_mode",
+        "formula": "\u03a3_{l=1..5} \u03c9(l, 1)\u00b2",
+        "value": 23.35407733343943,
+        "pct_diff_lepton": 3.7958992597308043,
+        "pct_diff_quark": 4.962145318828903,
+        "explains_lepton_within_5pct": true,
+        "explains_quark_within_5pct": true
+      },
+      {
+        "name": "omega_l=1_n=1_squared",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=1, n=1)\u00b2",
+        "value": 3.8981789521689496,
+        "pct_diff_lepton": -82.67476021258246,
+        "pct_diff_quark": -82.4800945969935,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_l=1_n=2_squared",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=1, n=2)\u00b2",
+        "value": 8.375641841352145,
+        "pct_diff_lepton": -62.77492514954603,
+        "pct_diff_quark": -62.356665881563394,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_l=1_n=3_squared",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=1, n=3)\u00b2",
+        "value": 14.6280743544203,
+        "pct_diff_lepton": -34.986336202576446,
+        "pct_diff_quark": -34.255845598111016,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_l=3_n=1_squared",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=3, n=1)\u00b2",
+        "value": 4.584770530345317,
+        "pct_diff_lepton": -79.62324208735414,
+        "pct_diff_quark": -79.394289751257,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_l=3_n=2_squared",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=3, n=2)\u00b2",
+        "value": 9.132410283881422,
+        "pct_diff_lepton": -59.4115098494159,
+        "pct_diff_quark": -58.95545939828574,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_l=3_n=3_squared",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=3, n=3)\u00b2",
+        "value": 15.385618736290144,
+        "pct_diff_lepton": -31.619472283154913,
+        "pct_diff_quark": -30.851151747010586,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_l=5_n=1_squared",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=5, n=1)\u00b2",
+        "value": 5.614026929885164,
+        "pct_diff_lepton": -75.04876920051039,
+        "pct_diff_quark": -74.76841829265095,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_l=5_n=2_squared",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=5, n=2)\u00b2",
+        "value": 10.418213832115212,
+        "pct_diff_lepton": -53.696827412821285,
+        "pct_diff_quark": -53.176567046673206,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "omega_l=5_n=3_squared",
+        "category": "non_ground_mode",
+        "formula": "\u03c9(l=5, n=3)\u00b2",
+        "value": 16.696048177214386,
+        "pct_diff_lepton": -25.79534143460273,
+        "pct_diff_quark": -24.96158122600276,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      }
+    ],
+    "matrix_element": [
+      {
+        "name": "<u_1|V_1|u_1>",
+        "category": "matrix_element",
+        "formula": "\u27e8u_l|V_l|u_l\u27e9, l=1",
+        "value": 0.2046782957285142,
+        "pct_diff_lepton": -99.09031868565106,
+        "pct_diff_quark": -99.08009754728758,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "<u_1|V_centrif|u_1>",
+        "category": "matrix_element",
+        "formula": "\u27e8u_l|V_l\u2212V_0|u_l\u27e9, l=1",
+        "value": 0.10699304711262528,
+        "pct_diff_lepton": -99.52447534616611,
+        "pct_diff_quark": -99.51913237252754,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "<u_1|max(V-omega^2,0)|u_1>",
+        "category": "matrix_element",
+        "formula": "\u27e8u_l|(V\u2212\u03c9\u00b2)\u00b7\u03b8(V\u2212\u03c9\u00b2)|u_l\u27e9, l=1",
+        "value": 8.16203533975626e-07,
+        "pct_diff_lepton": -99.99999637242874,
+        "pct_diff_quark": -99.99999633166952,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "<u_1|V\u00b7\u03b8(V-omega^2)|u_1>",
+        "category": "matrix_element",
+        "formula": "\u27e8u_l|V\u00b7\u03b8(V\u2212\u03c9\u00b2)|u_l\u27e9, l=1",
+        "value": 0.00010154134255289708,
+        "pct_diff_lepton": -99.99954870514422,
+        "pct_diff_quark": -99.9995436344155,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "<u_3|V_3|u_3>",
+        "category": "matrix_element",
+        "formula": "\u27e8u_l|V_l|u_l\u27e9, l=3",
+        "value": 0.48593306168750816,
+        "pct_diff_lepton": -97.84029750361108,
+        "pct_diff_quark": -97.81603118342694,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "<u_3|V_centrif|u_3>",
+        "category": "matrix_element",
+        "formula": "\u27e8u_l|V_l\u2212V_0|u_l\u27e9, l=3",
+        "value": 0.40971057571911357,
+        "pct_diff_lepton": -98.17906410791505,
+        "pct_diff_quark": -98.1586041540714,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "<u_3|max(V-omega^2,0)|u_3>",
+        "category": "matrix_element",
+        "formula": "\u27e8u_l|(V\u2212\u03c9\u00b2)\u00b7\u03b8(V\u2212\u03c9\u00b2)|u_l\u27e9, l=3",
+        "value": 0.036940260270035816,
+        "pct_diff_lepton": -99.83582106546652,
+        "pct_diff_quark": -99.83397635833693,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "<u_3|V\u00b7\u03b8(V-omega^2)|u_3>",
+        "category": "matrix_element",
+        "formula": "\u27e8u_l|V\u00b7\u03b8(V\u2212\u03c9\u00b2)|u_l\u27e9, l=3",
+        "value": 0.1321494351735647,
+        "pct_diff_lepton": -99.41266917700638,
+        "pct_diff_quark": -99.40606995427612,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "<u_5|V_5|u_5>",
+        "category": "matrix_element",
+        "formula": "\u27e8u_l|V_l|u_l\u27e9, l=5",
+        "value": 0.7522908877045782,
+        "pct_diff_lepton": -96.6564849435352,
+        "pct_diff_quark": -96.6189173586311,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "<u_5|V_centrif|u_5>",
+        "category": "matrix_element",
+        "formula": "\u27e8u_l|V_l\u2212V_0|u_l\u27e9, l=5",
+        "value": 0.6956657632254335,
+        "pct_diff_lepton": -96.90815216344252,
+        "pct_diff_quark": -96.87341230011042,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "<u_5|max(V-omega^2,0)|u_5>",
+        "category": "matrix_element",
+        "formula": "\u27e8u_l|(V\u2212\u03c9\u00b2)\u00b7\u03b8(V\u2212\u03c9\u00b2)|u_l\u27e9, l=5",
+        "value": 0.08749534371073947,
+        "pct_diff_lepton": -99.61113180573005,
+        "pct_diff_quark": -99.60676250017646,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "<u_5|V\u00b7\u03b8(V-omega^2)|u_5>",
+        "category": "matrix_element",
+        "formula": "\u27e8u_l|V\u00b7\u03b8(V\u2212\u03c9\u00b2)|u_l\u27e9, l=5",
+        "value": 0.2554592492528275,
+        "pct_diff_lepton": -98.86462555887633,
+        "pct_diff_quark": -98.85186854268393,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      }
+    ],
+    "closure_quantum": [
+      {
+        "name": "1_pi",
+        "category": "closure_quantum",
+        "formula": "1 \u00b7 \u03c0",
+        "value": 3.141592653589793,
+        "pct_diff_lepton": -86.03736598404537,
+        "pct_diff_quark": -85.8804824557762,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "1_x_2pi",
+        "category": "closure_quantum",
+        "formula": "1 \u00b7 2\u03c0",
+        "value": 6.283185307179586,
+        "pct_diff_lepton": -72.07473196809073,
+        "pct_diff_quark": -71.76096491155242,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "2_pi",
+        "category": "closure_quantum",
+        "formula": "2 \u00b7 \u03c0",
+        "value": 6.283185307179586,
+        "pct_diff_lepton": -72.07473196809073,
+        "pct_diff_quark": -71.76096491155242,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "2_x_2pi",
+        "category": "closure_quantum",
+        "formula": "2 \u00b7 2\u03c0",
+        "value": 12.566370614359172,
+        "pct_diff_lepton": -44.149463936181455,
+        "pct_diff_quark": -43.52192982310484,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "3_pi",
+        "category": "closure_quantum",
+        "formula": "3 \u00b7 \u03c0",
+        "value": 9.42477796076938,
+        "pct_diff_lepton": -58.11209795213609,
+        "pct_diff_quark": -57.64144736732863,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "3_x_2pi",
+        "category": "closure_quantum",
+        "formula": "3 \u00b7 2\u03c0",
+        "value": 18.84955592153876,
+        "pct_diff_lepton": -16.224195904272186,
+        "pct_diff_quark": -15.282894734657265,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "4_pi",
+        "category": "closure_quantum",
+        "formula": "4 \u00b7 \u03c0",
+        "value": 12.566370614359172,
+        "pct_diff_lepton": -44.149463936181455,
+        "pct_diff_quark": -43.52192982310484,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "4_x_2pi",
+        "category": "closure_quantum",
+        "formula": "4 \u00b7 2\u03c0",
+        "value": 25.132741228718345,
+        "pct_diff_lepton": 11.701072127637088,
+        "pct_diff_quark": 12.956140353790314,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "5_pi",
+        "category": "closure_quantum",
+        "formula": "5 \u00b7 \u03c0",
+        "value": 15.707963267948966,
+        "pct_diff_lepton": -30.18682992022682,
+        "pct_diff_quark": -29.40241227888105,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "5_x_2pi",
+        "category": "closure_quantum",
+        "formula": "5 \u00b7 2\u03c0",
+        "value": 31.41592653589793,
+        "pct_diff_lepton": 39.62634015954636,
+        "pct_diff_quark": 41.1951754422379,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "6_pi",
+        "category": "closure_quantum",
+        "formula": "6 \u00b7 \u03c0",
+        "value": 18.84955592153876,
+        "pct_diff_lepton": -16.224195904272186,
+        "pct_diff_quark": -15.282894734657265,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "6_x_2pi",
+        "category": "closure_quantum",
+        "formula": "6 \u00b7 2\u03c0",
+        "value": 37.69911184307752,
+        "pct_diff_lepton": 67.55160819145563,
+        "pct_diff_quark": 69.43421053068546,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "7_pi",
+        "category": "closure_quantum",
+        "formula": "7 \u00b7 \u03c0",
+        "value": 21.991148575128552,
+        "pct_diff_lepton": -2.2615618883175475,
+        "pct_diff_quark": -1.163377190433475,
+        "explains_lepton_within_5pct": true,
+        "explains_quark_within_5pct": true
+      },
+      {
+        "name": "7_x_2pi",
+        "category": "closure_quantum",
+        "formula": "7 \u00b7 2\u03c0",
+        "value": 43.982297150257104,
+        "pct_diff_lepton": 95.47687622336491,
+        "pct_diff_quark": 97.67324561913306,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "8_pi",
+        "category": "closure_quantum",
+        "formula": "8 \u00b7 \u03c0",
+        "value": 25.132741228718345,
+        "pct_diff_lepton": 11.701072127637088,
+        "pct_diff_quark": 12.956140353790314,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "8_x_2pi",
+        "category": "closure_quantum",
+        "formula": "8 \u00b7 2\u03c0",
+        "value": 50.26548245743669,
+        "pct_diff_lepton": 123.40214425527418,
+        "pct_diff_quark": 125.91228070758063,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "9_pi",
+        "category": "closure_quantum",
+        "formula": "9 \u00b7 \u03c0",
+        "value": 28.274333882308138,
+        "pct_diff_lepton": 25.66370614359172,
+        "pct_diff_quark": 27.0756578980141,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "9_x_2pi",
+        "category": "closure_quantum",
+        "formula": "9 \u00b7 2\u03c0",
+        "value": 56.548667764616276,
+        "pct_diff_lepton": 151.32741228718345,
+        "pct_diff_quark": 154.1513157960282,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "10_pi",
+        "category": "closure_quantum",
+        "formula": "10 \u00b7 \u03c0",
+        "value": 31.41592653589793,
+        "pct_diff_lepton": 39.62634015954636,
+        "pct_diff_quark": 41.1951754422379,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "10_x_2pi",
+        "category": "closure_quantum",
+        "formula": "10 \u00b7 2\u03c0",
+        "value": 62.83185307179586,
+        "pct_diff_lepton": 179.25268031909272,
+        "pct_diff_quark": 182.3903508844758,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "11_pi",
+        "category": "closure_quantum",
+        "formula": "11 \u00b7 \u03c0",
+        "value": 34.55751918948772,
+        "pct_diff_lepton": 53.58897417550098,
+        "pct_diff_quark": 55.314692986461665,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "11_x_2pi",
+        "category": "closure_quantum",
+        "formula": "11 \u00b7 2\u03c0",
+        "value": 69.11503837897544,
+        "pct_diff_lepton": 207.17794835100196,
+        "pct_diff_quark": 210.62938597292333,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "12_pi",
+        "category": "closure_quantum",
+        "formula": "12 \u00b7 \u03c0",
+        "value": 37.69911184307752,
+        "pct_diff_lepton": 67.55160819145563,
+        "pct_diff_quark": 69.43421053068546,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "12_x_2pi",
+        "category": "closure_quantum",
+        "formula": "12 \u00b7 2\u03c0",
+        "value": 75.39822368615503,
+        "pct_diff_lepton": 235.10321638291126,
+        "pct_diff_quark": 238.86842106137092,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "13_pi",
+        "category": "closure_quantum",
+        "formula": "13 \u00b7 \u03c0",
+        "value": 40.840704496667314,
+        "pct_diff_lepton": 81.51424220741028,
+        "pct_diff_quark": 83.55372807490927,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "13_x_2pi",
+        "category": "closure_quantum",
+        "formula": "13 \u00b7 2\u03c0",
+        "value": 81.68140899333463,
+        "pct_diff_lepton": 263.0284844148206,
+        "pct_diff_quark": 267.1074561498185,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "14_pi",
+        "category": "closure_quantum",
+        "formula": "14 \u00b7 \u03c0",
+        "value": 43.982297150257104,
+        "pct_diff_lepton": 95.47687622336491,
+        "pct_diff_quark": 97.67324561913306,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "14_x_2pi",
+        "category": "closure_quantum",
+        "formula": "14 \u00b7 2\u03c0",
+        "value": 87.96459430051421,
+        "pct_diff_lepton": 290.9537524467298,
+        "pct_diff_quark": 295.3464912382661,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "15_pi",
+        "category": "closure_quantum",
+        "formula": "15 \u00b7 \u03c0",
+        "value": 47.12388980384689,
+        "pct_diff_lepton": 109.43951023931952,
+        "pct_diff_quark": 111.79276316335681,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "15_x_2pi",
+        "category": "closure_quantum",
+        "formula": "15 \u00b7 2\u03c0",
+        "value": 94.24777960769379,
+        "pct_diff_lepton": 318.87902047863906,
+        "pct_diff_quark": 323.58552632671365,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "beta_lepton_over_4",
+        "category": "closure_quantum",
+        "formula": "50\u03c0 / 4",
+        "value": 39.269908169872416,
+        "pct_diff_lepton": 74.53292519943295,
+        "pct_diff_quark": 76.49396930279737,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "beta_lepton_over_5",
+        "category": "closure_quantum",
+        "formula": "50\u03c0 / 5",
+        "value": 31.41592653589793,
+        "pct_diff_lepton": 39.62634015954636,
+        "pct_diff_quark": 41.1951754422379,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "beta_lepton_over_6",
+        "category": "closure_quantum",
+        "formula": "50\u03c0 / 6",
+        "value": 26.179938779914945,
+        "pct_diff_lepton": 16.355283466288647,
+        "pct_diff_quark": 17.662646201864924,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "beta_lepton_over_7",
+        "category": "closure_quantum",
+        "formula": "50\u03c0 / 7",
+        "value": 22.43994752564138,
+        "pct_diff_lepton": -0.26689988603831377,
+        "pct_diff_quark": 0.8536967444556377,
+        "explains_lepton_within_5pct": true,
+        "explains_quark_within_5pct": true
+      },
+      {
+        "name": "beta_lepton_over_8",
+        "category": "closure_quantum",
+        "formula": "50\u03c0 / 8",
+        "value": 19.634954084936208,
+        "pct_diff_lepton": -12.73353740028352,
+        "pct_diff_quark": -11.753015348601313,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "beta_lepton_over_10",
+        "category": "closure_quantum",
+        "formula": "50\u03c0 / 10",
+        "value": 15.707963267948966,
+        "pct_diff_lepton": -30.18682992022682,
+        "pct_diff_quark": -29.40241227888105,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "beta_lepton_over_12",
+        "category": "closure_quantum",
+        "formula": "50\u03c0 / 12",
+        "value": 13.089969389957473,
+        "pct_diff_lepton": -41.82235826685568,
+        "pct_diff_quark": -41.16867689906754,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "beta_lepton_over_14",
+        "category": "closure_quantum",
+        "formula": "50\u03c0 / 14",
+        "value": 11.21997376282069,
+        "pct_diff_lepton": -50.13344994301916,
+        "pct_diff_quark": -49.573151627772184,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "beta_lepton_over_16",
+        "category": "closure_quantum",
+        "formula": "50\u03c0 / 16",
+        "value": 9.817477042468104,
+        "pct_diff_lepton": -56.36676870014176,
+        "pct_diff_quark": -55.876507674300655,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "beta_lepton_over_20",
+        "category": "closure_quantum",
+        "formula": "50\u03c0 / 20",
+        "value": 7.853981633974483,
+        "pct_diff_lepton": -65.0934149601134,
+        "pct_diff_quark": -64.70120613944053,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "beta_lepton_over_22",
+        "category": "closure_quantum",
+        "formula": "50\u03c0 / 22",
+        "value": 7.139983303613167,
+        "pct_diff_lepton": -68.26674087283037,
+        "pct_diff_quark": -67.91018739949139,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "beta_lepton_over_25",
+        "category": "closure_quantum",
+        "formula": "50\u03c0 / 25",
+        "value": 6.283185307179586,
+        "pct_diff_lepton": -72.07473196809073,
+        "pct_diff_quark": -71.76096491155242,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "5_half_pi",
+        "category": "closure_quantum",
+        "formula": "5/2 \u00b7 \u03c0",
+        "value": 7.853981633974483,
+        "pct_diff_lepton": -65.0934149601134,
+        "pct_diff_quark": -64.70120613944053,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "7_half_pi",
+        "category": "closure_quantum",
+        "formula": "7/2 \u00b7 \u03c0",
+        "value": 10.995574287564276,
+        "pct_diff_lepton": -51.13078094415878,
+        "pct_diff_quark": -50.58168859521674,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "9_half_pi",
+        "category": "closure_quantum",
+        "formula": "9/2 \u00b7 \u03c0",
+        "value": 14.137166941154069,
+        "pct_diff_lepton": -37.16814692820414,
+        "pct_diff_quark": -36.46217105099295,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "11_half_pi",
+        "category": "closure_quantum",
+        "formula": "11/2 \u00b7 \u03c0",
+        "value": 17.27875959474386,
+        "pct_diff_lepton": -23.20551291224951,
+        "pct_diff_quark": -22.342653506769167,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "13_half_pi",
+        "category": "closure_quantum",
+        "formula": "13/2 \u00b7 \u03c0",
+        "value": 20.420352248333657,
+        "pct_diff_lepton": -9.242878896294858,
+        "pct_diff_quark": -8.223135962545362,
+        "explains_lepton_within_5pct": false,
+        "explains_quark_within_5pct": false
+      },
+      {
+        "name": "15_half_pi",
+        "category": "closure_quantum",
+        "formula": "15/2 \u00b7 \u03c0",
+        "value": 23.561944901923447,
+        "pct_diff_lepton": 4.719755119659762,
+        "pct_diff_quark": 5.896381581678412,
+        "explains_lepton_within_5pct": true,
+        "explains_quark_within_5pct": false
+      }
+    ]
+  },
+  "best_per_category": {
+    "barrier_sum": {
+      "name": "Sum_l=1..5_V_max[chebyshev_N80]",
+      "category": "barrier_sum",
+      "formula": "\u03a3_{l=1..5} V_max(l)",
+      "value": 22.008240059546566,
+      "pct_diff_lepton": -2.185599735348597,
+      "pct_diff_quark": -1.0865615301277947,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    "non_ground_mode": {
+      "name": "omega_sq_l=1_n=4",
+      "category": "non_ground_mode",
+      "formula": "\u03c9(l=1, n=4)\u00b2",
+      "value": 22.666590034389507,
+      "pct_diff_lepton": 0.7404001528422555,
+      "pct_diff_quark": 1.8723147613011573,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    "matrix_element": {
+      "name": "<u_5|V_5|u_5>",
+      "category": "matrix_element",
+      "formula": "\u27e8u_l|V_l|u_l\u27e9, l=5",
+      "value": 0.7522908877045782,
+      "pct_diff_lepton": -96.6564849435352,
+      "pct_diff_quark": -96.6189173586311,
+      "explains_lepton_within_5pct": false,
+      "explains_quark_within_5pct": false
+    },
+    "closure_quantum": {
+      "name": "beta_lepton_over_7",
+      "category": "closure_quantum",
+      "formula": "50\u03c0 / 7",
+      "value": 22.43994752564138,
+      "pct_diff_lepton": -0.26689988603831377,
+      "pct_diff_quark": 0.8536967444556377,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    }
+  },
+  "overall_best": {
+    "name": "beta_lepton_over_7",
+    "category": "closure_quantum",
+    "formula": "50\u03c0 / 7",
+    "value": 22.43994752564138,
+    "pct_diff_lepton": -0.26689988603831377,
+    "pct_diff_quark": 0.8536967444556377,
+    "explains_lepton_within_5pct": true,
+    "explains_quark_within_5pct": true
+  },
+  "candidates_within_5pct_of_lepton": [
+    {
+      "name": "Sum_l=1..5_V_max[chebyshev_N80]",
+      "category": "barrier_sum",
+      "formula": "\u03a3_{l=1..5} V_max(l)",
+      "value": 22.008240059546566,
+      "pct_diff_lepton": -2.185599735348597,
+      "pct_diff_quark": -1.0865615301277947,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "Sum_l=1..5_V_max[dense_r]",
+      "category": "barrier_sum",
+      "formula": "\u03a3_{l=1..5} V_max(l)",
+      "value": 23.18716541898487,
+      "pct_diff_lepton": 3.054068528821637,
+      "pct_diff_quark": 4.211979411167948,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "Sum_l=1..5_V_max[uniform_rstar]",
+      "category": "barrier_sum",
+      "formula": "\u03a3_{l=1..5} V_max(l)",
+      "value": 22.008240059546566,
+      "pct_diff_lepton": -2.185599735348597,
+      "pct_diff_quark": -1.0865615301277947,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "omega_sq_l=1_n=4",
+      "category": "non_ground_mode",
+      "formula": "\u03c9(l=1, n=4)\u00b2",
+      "value": 22.666590034389507,
+      "pct_diff_lepton": 0.7404001528422555,
+      "pct_diff_quark": 1.8723147613011573,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "omega_sq_l=2_n=4",
+      "category": "non_ground_mode",
+      "formula": "\u03c9(l=2, n=4)\u00b2",
+      "value": 22.978354904649525,
+      "pct_diff_lepton": 2.1260217984423315,
+      "pct_diff_quark": 3.2735051894360656,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "omega_sq_l=3_n=4",
+      "category": "non_ground_mode",
+      "formula": "\u03c9(l=3, n=4)\u00b2",
+      "value": 23.419495648391834,
+      "pct_diff_lepton": 4.086647326185929,
+      "pct_diff_quark": 5.256160217491389,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": false
+    },
+    {
+      "name": "Sum_l=1..5_omega_sq_n=1",
+      "category": "non_ground_mode",
+      "formula": "\u03a3_{l=1..5} \u03c9(l, 1)\u00b2",
+      "value": 23.35407733343943,
+      "pct_diff_lepton": 3.7958992597308043,
+      "pct_diff_quark": 4.962145318828903,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "7_pi",
+      "category": "closure_quantum",
+      "formula": "7 \u00b7 \u03c0",
+      "value": 21.991148575128552,
+      "pct_diff_lepton": -2.2615618883175475,
+      "pct_diff_quark": -1.163377190433475,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "beta_lepton_over_7",
+      "category": "closure_quantum",
+      "formula": "50\u03c0 / 7",
+      "value": 22.43994752564138,
+      "pct_diff_lepton": -0.26689988603831377,
+      "pct_diff_quark": 0.8536967444556377,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "15_half_pi",
+      "category": "closure_quantum",
+      "formula": "15/2 \u00b7 \u03c0",
+      "value": 23.561944901923447,
+      "pct_diff_lepton": 4.719755119659762,
+      "pct_diff_quark": 5.896381581678412,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": false
+    }
+  ],
+  "candidates_within_5pct_of_quark": [
+    {
+      "name": "Sum_l=1..5_V_max[chebyshev_N80]",
+      "category": "barrier_sum",
+      "formula": "\u03a3_{l=1..5} V_max(l)",
+      "value": 22.008240059546566,
+      "pct_diff_lepton": -2.185599735348597,
+      "pct_diff_quark": -1.0865615301277947,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "Sum_l=1..5_V_max[dense_r]",
+      "category": "barrier_sum",
+      "formula": "\u03a3_{l=1..5} V_max(l)",
+      "value": 23.18716541898487,
+      "pct_diff_lepton": 3.054068528821637,
+      "pct_diff_quark": 4.211979411167948,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "Sum_l=1..5_V_max[uniform_rstar]",
+      "category": "barrier_sum",
+      "formula": "\u03a3_{l=1..5} V_max(l)",
+      "value": 22.008240059546566,
+      "pct_diff_lepton": -2.185599735348597,
+      "pct_diff_quark": -1.0865615301277947,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "omega_sq_l=1_n=4",
+      "category": "non_ground_mode",
+      "formula": "\u03c9(l=1, n=4)\u00b2",
+      "value": 22.666590034389507,
+      "pct_diff_lepton": 0.7404001528422555,
+      "pct_diff_quark": 1.8723147613011573,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "omega_sq_l=2_n=4",
+      "category": "non_ground_mode",
+      "formula": "\u03c9(l=2, n=4)\u00b2",
+      "value": 22.978354904649525,
+      "pct_diff_lepton": 2.1260217984423315,
+      "pct_diff_quark": 3.2735051894360656,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "Sum_l=1..5_omega_sq_n=1",
+      "category": "non_ground_mode",
+      "formula": "\u03a3_{l=1..5} \u03c9(l, 1)\u00b2",
+      "value": 23.35407733343943,
+      "pct_diff_lepton": 3.7958992597308043,
+      "pct_diff_quark": 4.962145318828903,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "7_pi",
+      "category": "closure_quantum",
+      "formula": "7 \u00b7 \u03c0",
+      "value": 21.991148575128552,
+      "pct_diff_lepton": -2.2615618883175475,
+      "pct_diff_quark": -1.163377190433475,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    },
+    {
+      "name": "beta_lepton_over_7",
+      "category": "closure_quantum",
+      "formula": "50\u03c0 / 7",
+      "value": 22.43994752564138,
+      "pct_diff_lepton": -0.26689988603831377,
+      "pct_diff_quark": 0.8536967444556377,
+      "explains_lepton_within_5pct": true,
+      "explains_quark_within_5pct": true
+    }
+  ],
+  "mass_sensitivity": [
+    {
+      "label": "locked_baseline_22.5",
+      "gamma": 22.5,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 105.61259901551102,
+        "5": 1778.9380736364326
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 0.04332404762574747,
+        "5": 0.11695201852890444
+      }
+    },
+    {
+      "label": "gamma_quark_22.25",
+      "gamma": 22.25,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 131.37962129998022,
+        "5": 2223.4831668161305
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 24.34378431591357,
+        "5": 25.13552935043451
+      }
+    },
+    {
+      "label": "Sum_l=1..5_V_max[chebyshev_N80]",
+      "gamma": 22.008240059546566,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 173.0487858113531,
+        "5": 2942.211004940295
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 63.78141972206199,
+        "5": 65.58485220784391
+      }
+    },
+    {
+      "label": "Sum_l=1..5_V_max[dense_r]",
+      "gamma": 23.18716541898487,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 69.54665540465483,
+        "5": 1156.3594633704304
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 34.177810576998006,
+        "5": 34.92118324626417
+      }
+    },
+    {
+      "label": "omega_sq_l=1_n=4",
+      "gamma": 22.666590034389507,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 93.59078617363848,
+        "5": 1571.4799906939047
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 11.42132687869575,
+        "5": 11.558592646921829
+      }
+    },
+    {
+      "label": "omega_sq_l=2_n=4",
+      "gamma": 22.978354904649525,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 77.42178887269118,
+        "5": 1292.3632523654783
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 26.7244179753199,
+        "5": 27.26701865282136
+      }
+    },
+    {
+      "label": "omega_sq_l=3_n=4",
+      "gamma": 23.419495648391834,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 62.59151524343702,
+        "5": 1036.1937389285724
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 40.76047872245373,
+        "5": 41.68399654848595
+      }
+    }
+  ]
+}

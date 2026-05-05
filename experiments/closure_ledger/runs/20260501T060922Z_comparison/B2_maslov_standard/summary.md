@@ -1,0 +1,150 @@
+# Closure-phase ledger — run summary
+
+**Run:** 2026-05-01T06:09:22+00:00
+**Experiment:** closure_ledger.layer2
+**Transport convention:** `T2_sign_flip`
+**χ (Hopf fibre):** 0.0
+**S(k) candidate:** `B2_maslov_standard`
+
+**Overall status:** Layer 2 FALSIFIES candidate 'B2_maslov_standard': lepton ledger does NOT close universally mod 2π (spread 5.066e+00).
+
+## Constants used
+
+| name | value | source |
+|---|---|---|
+| `action_base` | 6.283185 (2.000π) | repo |
+| `beta_lepton` | 157.079633 (50.000π) | repo |
+| `beta_quark` | 731.991088 (233.000π) | repo |
+| `lepton_quanta` (4β/2π) | 100 | derived |
+| `quark_quanta` (4β/2π) | 466 | derived |
+
+## Per-lepton ledger
+
+Phase contributions in units of π. `mod 2π` column shows the available-term sum reduced to [0, 2π).
+
+| lepton | k | antipodal | Hopf | throat | uplift | radial | moving | total | mod 2π | status |
+|---|---|---|---|---|---|---|---|---|---|---|
+| electron | 1 | 2.000π | 1.000π | 1.000π | 0.000π | 0.382π | — | 4.382π | 0.381876π | partial_fails_to_close |
+| muon | 3 | 6.000π | 1.000π | 1.000π | 0.000π | 1.994π | — | 9.994π | 1.994352π | partial_fails_to_close |
+| tau | 5 | 10.000π | 1.000π | 1.000π | 200.000π | 2.999π | — | 214.999π | 0.999437π | partial_fails_to_close |
+
+## Radial bulk channel — per-mode breakdown
+
+| lepton | k | mode / pair | ω | Φ | weight | weight·Φ | N_tp | Δ_maslov | status |
+|---|---|---|---|---|---|---|---|---|---|
+| electron | 1 | (l=1, n=0) | 1.054727 | 0.381876π | +1.000000 | 0.381876π | 1 | -0.500000π | computed |
+| muon | 3 | (l=1, n=1) | 1.974381 | 1.994352π | +1.000000 | 1.994352π | 0 | 0 | computed |
+| tau | 5 | (l=1, n=2) | 2.894070 | 2.999437π | +1.000000 | 2.999437π | 0 | 0 | computed |
+
+## Universality check (Layer 2)
+
+- Per-lepton totals mod 2π (in units of π): ['0.381876', '1.994352', '0.999437']
+- Linear spread (max−min): 5.07e+00
+- Circular spread (mod 2π): 3.16e+00
+- Universal mod 2π (within 1e-9): **False**
+- Universal value: N/A (not universal)
+
+## Quark sector (structural)
+
+- Lepton lock quanta: 100
+- Quark lock quanta: 466
+- Lock quanta gap: 366
+
+_Both β-locks are integer-compatibility conditions for the closure ledger: each multiplier ensures the heaviest-shell uplift contributes 0 mod 2π. The lepton lock fits at 100 quanta of 2π (channels 2 and 3 nearly inactive); the quark lock fits at 466 (channels 2 and 3 active). The gap of 366 is a hypothesis about what the bulk-coupling channel contributes across the quark spectrum, contingent on S(k) being defined._
+
+## Layer 2 blocker — S(k) bridge
+
+**Verdict:** Φ_radial(k) is wired in the lepton sector via candidate `B2_maslov_standard` using `geometrodynamics.tangherlini.radial.solve_radial_modes` plus a Bohr-Sommerfeld integration of √max(ω² − V_eff, 0) over the tortoise grid. The remaining candidates are kept as open thesis-level alternatives. The quark-sector S(k) bridge is still undefined, so the 366-quanta gap remains S(k)-conditional.
+
+### Evidence
+- compute_knotted_lepton_spectrum accepts `l`, `n_points`, `rs`, `r_outer` for API compatibility but explicitly does not use them in the surrogate Hamiltonian.
+- The locked lepton diagonal H_kk = action_base + resistance_scale·k² + res_diag(k) + pinhole(k∈{3,5}) + β·max(0, k−3)² has no eigenmode index and no Tangherlini potential evaluation.
+- The quark residual sector (transport, pinhole, resistance) DOES read scalars off the tortoise grid — but those are single integrated quantities, not a per-generation S(k) → (l, n) mapping.
+
+### Candidate S(k) maps
+
+**A_lowest_radial_per_l**
+
+- Formula: `S(k) = { (l, n=0) : l = 1, 3, ..., k }`
+- Physical picture: Generation k is the sum of odd-l radial ground states up to angular harmonic l = k. Ties odd-k closure to odd-l angular content.
+- Advantages: Consistent with the non-orientable transport rule: closure must flip the Z₂ partition class, and odd-l modes are the natural candidates for partition-flipping angular harmonics.
+- Open questions: Result with WKB radial-action convention: FALSIFIES universal closure mod 2π. The cumulative-odd-ground-mode interpretation of lepton depth is rejected; whether a different phase convention (Maslov, Bohr-Sommerfeld with two soft turning points) revives it is open.
+
+**B1_single_angular_mode**
+
+- Formula: `S(k) = { (l = k, n = 0) }`
+- Physical picture: Generation k is a single angular harmonic (l = k) in its radial ground state. One mode per generation, indexed by the angular quantum number alone.
+- Advantages: Cleanest single-mode-per-generation interpretation: one angular eigenstate per lepton family. Easy to falsify because the per-row Φ is a single integrated quantity.
+- Open questions: Does Φ(l = k, n = 0) close to a universal value mod 2π under the chosen WKB convention? The B1 phases are the same numbers that already appear in the candidate-A decomposition, so candidate-A's failure mode constrains B1 directly.
+
+**B2_single_radial_excitation**
+
+- Formula: `S(k) = { (l = 1, n = (k − 1) / 2) }`
+- Physical picture: All generations share the lowest angular harmonic l = 1; depth labels successive radial excitations n = 0, 1, 2. Lepton depth is reinterpreted as radial-mode quantum number rather than angular content.
+- Advantages: Uses one fixed angular sector and a single radial ladder, matching the surrogate's `β · k²` uplift if and only if ω²(1, n) ≈ ω²(1, 0) + β · n² (testable directly). Maximally falsifiable: a single mode integral per row.
+- Open questions: Does Φ(l = 1, n) close to a universal value mod 2π? Asymptotically Φ(1, n) → (n + 1) π by WKB, so for high n the residues converge to a parity pattern {π, 0, π, 0, …} rather than a single universal value — universality requires a Maslov-shifted convention or a convention that absorbs the (n + 1) π structure.
+
+**C1_eigenvector_weighted_B1**
+
+- Formula: `Φ_radial(k) = Σ_i |v_species(k),i|² · Φ(l = k_i, n = 0), weights from the locked lepton generation block`
+- Physical picture: The depth basis {1, 3, 5} is shared with the instanton surrogate; each species' radial phase is the squared-amplitude weighted sum of the B1 ground modes (l = k_i, n = 0) over the depth basis. The B1 hand-imposed single-mode bridge is the |v|² = δ_ij limit of this map.
+- Advantages: Derives weights from the existing lepton Hamiltonian without introducing fitted parameters. The eigenvector mixing lifts B1's degeneracy and produces tighter residues than any prior hand-imposed candidate.
+- Open questions: Does the lifting close the residues to a single value mod 2π? If not, the eigenvector mixing alone does not supply the missing bridge under the WKB convention; test whether a different phase convention (Maslov, Bohr-Sommerfeld) revives universality given the tightened spread.
+
+**C2_eigenvector_weighted_B2**
+
+- Formula: `Φ_radial(k) = Σ_i |v_species(k),i|² · Φ(l = 1, n = (k_i−1)/2), weights from the locked lepton generation block`
+- Physical picture: Same eigenvector weights as C1 but selecting B2's single-l radial-excitation ladder. Each species mixes across radial excitations n ∈ {0, 1, 2} of l = 1.
+- Advantages: Tests whether the eigenvector mixing of B2's ladder (which under WKB asymptotes to (n+1)π) collapses the parity pattern across generations to a single value.
+- Open questions: Same convention-dependence as C1; weight rows are the same in both candidates, only the per-mode Φ values differ. The two are independent tests of which mode ladder (B1 angular or B2 radial) the lepton Hamiltonian's eigenvectors actually align with.
+
+**C1_maslov_standard**
+
+- Formula: `Φ_radial(k) = Σ_i |v_species(k),i|² · [ ∫√max(ω² − V_eff, 0) dr* − (π/2)·N_turning(l_i) ], S(k) modes as in C1, Maslov shift = −π/2 per detected classical turning point`
+- Physical picture: Same eigenvector-weighted B1 mode set as C1, but each mode integral is corrected by the standard Bohr-Sommerfeld Maslov shift: −π/2 for every sign change of (ω² − V_eff) inside the tortoise grid. Hard-wall grid endpoints (where ω² > V_eff at the boundary) contribute no Maslov phase.
+- Advantages: Adds the textbook turning-point correction without introducing any fitted parameters. Tests whether the WKB-bare convention is the obstruction to closure: if the correction is uniform across species (e.g. every B1 mode has the same turning-point count) the spread is preserved and only the universal residue shifts; if the count varies across modes, the correction can in principle redistribute residues.
+- Open questions: Empirical result: every B1 ground mode reports N_turning = 1 on the canonical tortoise grid, so the correction is a uniform −π/2 across the depth basis. Spread is preserved relative to C1; residues translate but do not collapse. Universality is not restored by the standard Maslov correction on this mode set.
+
+**B2_maslov_standard**
+
+- Formula: `Φ_radial(k) = ∫√max(ω² − V_eff(l=1), 0) dr* − (π/2) · N_turning(l=1, n=(k−1)/2), S(k) modes as in B2`
+- Physical picture: Same single-mode l=1 ladder as B2, with the standard Bohr-Sommerfeld Maslov shift (−π/2 per detected sign change of ω² − V_eff) applied to each mode integral.
+- Advantages: Tests whether the per-mode turning-point count varies across the radial ladder. The (l=1, n=0) ground mode sits below the centrifugal+grid-bounded barrier and has a soft inner turning point; higher excitations (l=1, n≥1) sit above the barrier and may have N_turning = 0. If so, the Maslov shift is differential across generations — exactly the structure that could redistribute residues mod 2π.
+- Open questions: Does the differential Maslov correction collapse the (n+1)π parity pattern of B2 to a universal value, or does it merely permute the residues? The radial-detail table reports n_turning_points per mode so the regime can be read off directly.
+
+**C2_maslov_standard**
+
+- Formula: `Φ_radial(k) = Σ_i |v_species(k),i|² · [ ∫√max(ω² − V_eff(l=1), 0) dr* − (π/2)·N_turning(l=1, n=i) ], S(k) modes as in C2`
+- Physical picture: C2's eigenvector-weighted B2 ladder with the standard Maslov shift applied per mode. Each species' radial phase is the squared-amplitude weighted sum over the B2 ladder of (Φ_WKB − (π/2)·N_turning).
+- Advantages: Combines the two structural levers that have any chance of breaking the ledger non-universality: eigenvector mixing across the depth basis (C-family) and a per-mode turning-point-dependent phase (Maslov). If the B2 modes have non-uniform N_turning, the eigenvector weights redistribute the differential Maslov shift across species.
+- Open questions: Whether either the C-family weighting alone, the Maslov shift alone, or their composition supplies the missing bridge. C1_maslov_standard already showed the composition with the B1 mode set is degenerate (uniform N_turning); this candidate is the natural follow-on test on the B2 ladder where N_turning is expected to vary.
+
+**D0_overlap_phase**
+
+- Formula: `Φ_radial(species) = v_species^T Φ v_species with Φ_ij = π · ⟨u_i | u_j⟩ on L²-normalized depth-basis eigenfunctions`
+- Physical picture: Operator-valued radial phase: a 3×3 Hermitian Φ matrix indexed by the B1 depth-basis modes (l ∈ {1, 3, 5}, n=0), with entries given by the eigenfunction overlap scaled by a symmetric phase constant (π by convention). Diagonal entries are π by L²-normalization; off-diagonals measure how non-orthogonal the different-l ground modes are on the tortoise grid. The per-species value is the quadratic form v^T Φ v with v from the locked lepton Hamiltonian eigenvectors used by C1/C2.
+- Advantages: Smallest viable operator-valued candidate. Tests whether the off-diagonal degree of freedom — non-orthogonal overlaps between different-l ground modes — can redistribute phase across species when contracted with v. If different leptons have different sign patterns on the depth basis, the cross-terms 2·Σ_{i<j} v_i v_j Φ_ij can carry sign information that scalar-per-mode candidates cannot access.
+- Open questions: Does the symmetric phase scale (π) collapse to the scalar B1 case in the orthogonal limit (Φ → π·I), or do the empirical ⟨u_i|u_j⟩ ≠ 0 cross-terms dominate? Whether the resulting v^T Φ v values close mod 2π is the thesis-level test.
+
+**D1_potential_difference_phase**
+
+- Formula: `Φ_radial(species) = v_species^T Φ v_species with Φ_ij = ⟨u_i | V_j − V_i | u_j⟩, Hermitized by mirroring i<j entries to j<i`
+- Physical picture: Operator-valued radial phase reusing the canonical quark transport matrix element form: ⟨u_l | V_{l+2} − V_l | u_{l+2}⟩, which closed the QCD residual sector to +0.87% via the same tortoise-grid eigenfunctions. The raw matrix is real antisymmetric for real eigenfunctions; we Hermitize by treating the upper-triangle entries as the canonical transport couplings and reflecting them to the lower triangle. Diagonal Φ_ii = 0 by construction (V_i − V_i = 0).
+- Advantages: Reuses a structurally-validated kernel: the same V_l operator-difference matrix element that succeeded in the quark sector at sub-percent. Off-diagonals are non-trivial (unlike a strict (M+M†)/2 Hermitization which would vanish), and the resulting v^T Φ v contraction inherits transport-class structure from the QCD ledger.
+- Open questions: Whether the same operator that geometrized the quark residual sector can also supply the lepton radial phase bridge. The diagonal-zero structure means the entire radial phase comes from cross-terms 2·Σ_{i<j} v_i v_j Φ_ij, so the result is sensitive to the eigenvector sign pattern on the depth basis.
+
+**D2_symmetrized_momentum_phase**
+
+- Formula: `Φ_radial(species) = v_species^T Φ v_species with Φ_ij = ⟨u_i | √max(ω̄² − V̄, 0) | u_j⟩, ω̄² = (ω_i² + ω_j²)/2, V̄ = (V_i + V_j)/2`
+- Physical picture: Operator generalization of the WKB radial-action integrand to a matrix kernel: the symmetrized momentum operator k_local(r*) = √max(ω̄² − V̄, 0) is averaged over the (i, j) pair before the matrix-element contraction. The diagonal Φ_ii recovers the WKB single-mode action used by candidate B1; the off-diagonals couple modes through the averaged classical momentum.
+- Advantages: Most directly continuous with the WKB convention used by B1/B2/C1/C2: the i = j entries are the same scalar Φ(l_i, n=0) values that those candidates report. Off-diagonals introduce mode-coupling that is symmetric in (i, j) by construction (kernel symmetric, both u_i, u_j real), so the matrix is Hermitian without explicit symmetrization.
+- Open questions: Does the symmetrized-momentum kernel produce off-diagonals with the right magnitude and sign structure to redistribute phase across species? D2 is the most conservative D variant — if even it fails to close mod 2π under the locked lepton eigenvectors, the entire operator-radial-phase ansatz is constrained on this depth basis.
+
+### Next steps
+- Read the universality_check on the lepton ledger: candidate `B2_maslov_standard` either preserves closure mod 2π (supports the candidate) or breaks it (falsifies the candidate; rerun with another wired candidate).
+- Define a quark-sector S(k) bridge. The lepton implementation operates on (l, n) Tangherlini modes; the quark sector needs its own per-generation mode assignment before P3 (the 366-quanta gap) becomes testable end-to-end.
+- Investigate whether the candidate's per-mode Φ(l, n) values match the surrogate's β·k² uplift coefficients — this is the open-question line in candidate A's record.
+- Update THESIS.md to reflect whichever way the universality check went: either close the ℏ open-problem bullet to a derived dimensionless invariant, or report which channel was overcredited.
+
+### Downgraded predictions
+- P3 (366-quanta gap as integrated bulk-mode contribution): downgraded from near-term falsification test to S(k)-conditional hypothesis. The number 366 = 466 − 100 is a structural prediction about what the bulk-coupling channel must contribute across the quark ladder relative to the lepton ladder, contingent on S(k) being defined for both.
