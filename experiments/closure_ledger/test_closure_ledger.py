@@ -1150,6 +1150,56 @@ def test_gamma_offset_has_a_joint_winner():
     )
 
 
+# --- Quark β-origin probe ----------------------------------------------
+
+def test_quark_beta_origin_probe_runs_to_completion():
+    """The quark β-origin probe builds a structured candidate list."""
+    from experiments.closure_ledger.quark_beta_origin_probe import run_probe
+    summary = run_probe()
+    assert summary["targets"]["N_quark"] == 466
+    assert summary["targets"]["delta_N_quark_lepton_gap"] == 366
+    assert summary["n_candidates_total"] > 100
+    assert summary["principled_categories"]
+    # Every principled category should have at least one near-miss.
+    assert summary["best_per_category_for_466"]
+    assert summary["best_per_category_for_366"]
+
+
+def test_quark_beta_origin_no_principled_exact_match():
+    """
+    Empirical claim: no principled enumeration in this catalog produces
+    N = 466 or ΔN = 366 exactly. A future positive result should flip
+    this test and force a re-read of the verdict.
+    """
+    from experiments.closure_ledger.quark_beta_origin_probe import run_probe
+    summary = run_probe()
+    assert not summary["principled_exact_matches_466"], (
+        f"unexpected principled exact match on N=466: "
+        f"{summary['principled_exact_matches_466']}"
+    )
+    assert not summary["principled_exact_matches_366"], (
+        f"unexpected principled exact match on ΔN=366: "
+        f"{summary['principled_exact_matches_366']}"
+    )
+
+
+def test_quark_beta_origin_k5_squared_plus_one_pattern_brackets_targets():
+    """
+    `(k_5² + 1) = 26` near-misses bracket both targets within ±2:
+    18·26 = 468 (vs N=466) and 14·26 = 364 (vs ΔN=366). This pattern
+    is the principled candidate the probe surfaces; if it disappears
+    after a structure change, the verdict must be re-read.
+    """
+    from experiments.closure_ledger.quark_beta_origin_probe import run_probe
+    summary = run_probe()
+    p_near_466 = summary["principled_near_matches_466_within_5pct"]
+    p_near_366 = summary["principled_near_matches_366_within_5pct"]
+    has_18x26 = any(c["value"] == 468 for c in p_near_466)
+    has_14x26 = any(c["value"] == 364 for c in p_near_366)
+    assert has_18x26, "18·(k_5²+1) = 468 missing from 466 near-miss list"
+    assert has_14x26, "14·(k_5²+1) = 364 missing from 366 near-miss list"
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
