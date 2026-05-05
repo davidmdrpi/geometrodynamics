@@ -1269,6 +1269,88 @@ def test_quark_beta_boundary_delta_invariance_under_documented_drifts():
     )
 
 
+# --- Quark β: structural decomposition sub-probe -----------------------
+
+def test_quark_beta_decomposition_probe_runs_to_completion():
+    """The decomposition probe builds a structured catalog of fits."""
+    from experiments.closure_ledger.quark_beta_decomposition_probe import run_probe
+    summary = run_probe()
+    assert summary["targets"]["m_lepton"] == 20
+    assert summary["targets"]["m_quark"] == 93
+    assert summary["targets"]["m_delta"] == 73
+    assert summary["n_decompositions"]["m_lepton"] >= 1
+    assert summary["n_decompositions"]["m_quark"] >= 1
+
+
+def test_quark_beta_decomposition_lepton_is_single_block():
+    """
+    The simplest lepton decomposition is `(k_5-1)·k_5 = 20` — a single
+    structural block at complexity 1.
+    """
+    from experiments.closure_ledger.quark_beta_decomposition_probe import run_probe
+    summary = run_probe()
+    best = summary["best_decompositions"]["m_lepton"]
+    assert best is not None
+    assert best["nonzero_blocks_count"] == 1
+    assert best["coeff_complexity"] == 1
+    assert best["block_coeffs"]["(k_5-1)·k_5"] == 1
+
+
+def test_quark_beta_decomposition_quark_contains_lepton_subpiece():
+    """
+    The cleanest joint reading places the lepton block as a strict
+    sub-decomposition of the quark formula, mirroring the
+    'minimal closure ⊂ shell-coupled closure' framing in §1.
+    """
+    from experiments.closure_ledger.quark_beta_decomposition_probe import run_probe
+    summary = run_probe()
+    pairs = summary["joint_sub_decomposition_pairs"]
+    assert pairs, "no lepton ⊆ quark decomposition pair found"
+    top = pairs[0]
+    # The leading pair must include the (k_5-1)·k_5 lepton block.
+    assert "(k_5-1)·k_5" in top["lepton_quark_overlap_blocks"]
+
+
+def test_quark_beta_decomposition_boundary_origin_is_color_residue():
+    """
+    The C_color_residue_N_c_minus_2 candidate scores 3/3 on the three
+    boundary-origin tests (predicts +1 for quarks, 0 for leptons,
+    drift-invariant). The other two candidates score lower.
+    """
+    from experiments.closure_ledger.quark_beta_decomposition_probe import run_probe
+    summary = run_probe()
+    best = summary["best_boundary_origin"]
+    assert best["name"] == "C_color_residue_N_c_minus_2"
+    assert best["consistency_score"] == 3
+    by_name = {o["name"]: o for o in summary["boundary_origin_analysis"]}
+    assert by_name["A_Z2_partition_residue"]["consistency_score"] < 3
+    assert by_name["B_l_zero_s_wave_closure"]["consistency_score"] < 3
+
+
+def test_quark_beta_decomposition_full_identity_holds():
+    """
+    The full structural identity must reproduce N_quark = 466 exactly:
+        N_q = ((k_5-1)·k_5 + 2·k_5·(k_5+2) + N_c) · k_5 + (N_c - 2)
+            = 93 · 5 + 1
+            = 466
+    """
+    k_5 = 5
+    n_c = 3
+    m_q = (k_5 - 1) * k_5 + 2 * k_5 * (k_5 + 2) + n_c
+    delta_q = n_c - 2
+    n_q = m_q * k_5 + delta_q
+    assert m_q == 93
+    assert delta_q == 1
+    assert n_q == 466
+    # Lepton parallel: m_l = (k_5-1)·k_5, δ_l = 0.
+    n_c_lepton = 1   # colorless
+    m_l = (k_5 - 1) * k_5
+    delta_l = max(0, n_c_lepton - 2)   # spinor factorization yields 0
+    assert m_l == 20
+    assert delta_l == 0
+    assert m_l * k_5 + delta_l == 100
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
