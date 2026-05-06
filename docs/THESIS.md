@@ -260,11 +260,20 @@ test of "EM from Hopf curvature" and the place the program is most
 exposed to falsification.
 
 **Quark `β = N · π/2` with `N = 466` derived or principled-bounded.**
-Either via torus-knot closure numbers on the non-orientable `S³` throat,
-or via representation dimensions in the throat condensate's color
-sector, or by some other finite enumeration the framework already
-supports. A clean negative result — `466` is not in the principled
-list — is also progress, and would refocus the search.
+_Principled-bounded; full derivation open._ See
+`docs/quark_beta_status.md` for the closing summary. A five-probe
+sequence in `experiments/closure_ledger/` (origin → boundary →
+decomposition → audit → sub-block stability) localized the
+irreducible structural piece: across all 12 logged §8 ablations the
+only preserved invariant is `N_q ≡ 0 (mod 2)`. The structural reading
+is `N_q = 2 · n_part` with the factor of 2 topological (the Z₂
+partition multiplicity from the v3 Hamiltonian basis `{(k, ±)}`) and
+`n_part` the phenomenological compensator. The clean negative
+result for the listed enumerations — torus-knot crossings, SU(3)
+representation dimensions, S³/S² harmonic counts, Tangherlini barrier
+sums — is recorded by the origin probe. Deriving `n_part = 233` from
+first principles is open and is unlikely to be the next-most-tractable
+work in this framework.
 
 **Three structural quark axioms reduced to one partition principle.**
 The quark Hamiltonian currently rests on four shell-index axioms
@@ -281,12 +290,19 @@ The README's validation table is the authoritative status snapshot.
 Several items deserve to be called out here as research-level open
 problems rather than implementation TODOs:
 
-- **Where does `ℏ` enter?** The recovered ratios are dimensionless. The
-  absolute scale is set by anchoring `m_e`. A genuine derivation of QED
-  from geometry needs a geometric source for the action quantum; the
-  natural candidates are Aharonov-Bohm-style flux quantization around
-  the Hopf fibre and discreteness of the Tangherlini eigenvalue
-  spectrum. Neither is closed.
+- **Where does `ℏ` enter? (next major target.)** The recovered ratios
+  are dimensionless. The absolute scale is set by anchoring `m_e`. A
+  genuine derivation of QED from geometry needs a geometric source for
+  the action quantum. The closure-ledger experiment has localized the
+  natural object — the **closure-phase invariant from the full closure
+  cycle** (antipodal closure × Hopf holonomy × throat T² × radial bulk
+  phase) — and Layer 1 is universal mod 2π by the odd-`k` lemma; what
+  remains is to derive Layer 2 (the radial-channel residue) so the full
+  cycle yields a **single dimensionful action quantum** identifiable
+  with `ℏ`. The natural candidates are Aharonov-Bohm-style flux
+  quantization around the Hopf fibre and discreteness of the
+  Tangherlini eigenvalue spectrum. Neither is closed. After the quark
+  β-status PR, this is the next concrete research target.
 - **Self-consistent throat radius.** `R_MID` is currently imposed. The
   deeper version determines `R_MID` dynamically as the equilibrium
   throat radius for a given excitation amplitude, with the

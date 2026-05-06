@@ -1161,6 +1161,20 @@ hypothesis is honestly retired.
 
 Raw output: `docs/calibration_runs/n_ablation.json`.
 
+### Follow-up: closure-ledger probe sequence
+
+The closure-ledger experiment in `experiments/closure_ledger/` (built
+for the lepton-sector S(k) bridge) produced a five-probe sequence
+that revisited `N = 466`. The summary is in
+`docs/quark_beta_status.md`. Headline refinement: across all 12
+ablations in this table, the only preserved invariant is
+`N_q ≡ 0 (mod 2)`; the structural reading is `N_q = 2 · n_part` with
+the factor of 2 topological (Z₂ partition multiplicity) and `n_part`
+the compensator. This **agrees** with the §8 verdict — N is a
+compensator at the value level — and adds the cleaner statement that
+the parity is preserved, with the per-partition count carrying the
+entire fit drift.
+
 ---
 
 ### Residuals from geometry — does N stop drifting?
