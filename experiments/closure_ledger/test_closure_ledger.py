@@ -1411,6 +1411,60 @@ def test_quark_beta_robustness_audit_plus_one_rate_is_one_third():
     assert math.isclose(summary["plus_one_rate"], 4.0 / 12.0, abs_tol=0.01)
 
 
+# --- Quark β: sub-block stability -------------------------------------
+
+def test_quark_beta_subblock_stability_runs_to_completion():
+    """The sub-block stability probe runs end-to-end."""
+    from experiments.closure_ledger.quark_beta_subblock_stability import run_probe
+    summary = run_probe()
+    assert "subblock_tests" in summary
+    assert "modular_invariant_tests" in summary
+    assert "preserved_modular_invariants" in summary
+    assert summary["baseline_decomposition"]["total"] == 466
+
+
+def test_quark_beta_subblock_no_constant_shift_reduces_variance():
+    """
+    Sanity check: every constant-shift subtraction of a baseline sub-block
+    leaves the residual width invariant. (Proof: Var(N − c) = Var(N).)
+    The probe must surface this — if it ever shows a strict reduction,
+    the underlying arithmetic is wrong.
+    """
+    from experiments.closure_ledger.quark_beta_subblock_stability import run_probe
+    summary = run_probe()
+    widths = {t["residual_width"] for t in summary["subblock_tests"]}
+    assert len(widths) == 1, (
+        f"sub-block subtractions gave varying widths {widths}; expected "
+        "all equal under constant-shift invariance"
+    )
+
+
+def test_quark_beta_subblock_only_invariant_is_parity():
+    """
+    The only modular invariant preserved across all 12 §8 ablations is
+    `N_q ≡ 0 (mod 2)`. Other natural moduli (3, 4, 5, 10, 15, 25, 100)
+    fail.
+    """
+    from experiments.closure_ledger.quark_beta_subblock_stability import run_probe
+    summary = run_probe()
+    invariants = summary["preserved_modular_invariants"]
+    assert len(invariants) == 1
+    assert invariants[0]["modulus"] == 2
+    assert invariants[0]["baseline_residue"] == 0
+
+
+def test_quark_beta_subblock_all_logged_N_values_are_even():
+    """
+    The Z₂ partition-class invariance: every logged §8 N value is even.
+    This is the structural foundation of the N_q = 2·n_part reading.
+    """
+    from experiments.closure_ledger.quark_beta_subblock_stability import run_probe
+    summary = run_probe()
+    half = summary["half_partition_diagnostic"]
+    assert half["all_N_even"] is True
+    assert half["half_baseline"] == 233   # 466 / 2
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
