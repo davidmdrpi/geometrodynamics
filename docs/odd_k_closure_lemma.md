@@ -26,10 +26,13 @@ with the locked baseline:
 
 **Lemma (odd-k closure).** Under (1) and the locked baseline:
 
-1. **Topological selection.** Only odd `k ∈ ℤ⁺` admit a self-consistent
-   stable bound state on the non-orientable S³ throat. Even `k` fail
-   the partition-reversal boundary condition imposed by `T = iσ_y`,
-   `T² = −I`.
+1. **Topological selection.** Even `k` and odd `k` both admit
+   self-consistent closure boundary conditions on the throat, but
+   they identify different sectors: even `k` is orientation-preserving
+   closure on the doubled cover, while odd `k` is orientation-
+   reversing closure across the non-orientable throat. BAM's lepton
+   sector chooses the orientation-reversing branch, so the physical
+   particle states sit at `k ∈ {1, 3, 5, …}`.
 
 2. **Universal closure.** For every odd `k`, the Layer-1 ledger residue
    is identically zero mod 2π:
@@ -52,30 +55,36 @@ pass through the non-orientable throat flips the Z₂ partition class of
 the spinor and contributes a half-turn of phase.
 
 A stable bound state is one whose worldline closes on itself after `k`
-throat passes, returning the spinor to its own state. Two conditions
-must hold simultaneously after `k` passes:
+throat passes, returning the spinor to a state identified with the
+initial one. Both even and odd `k` admit a self-consistent boundary
+condition, but they identify *different* states:
 
-(i) The Z₂ partition class is restored. Each pass flips the class, so
-    the net partition flip after `k` passes is `(−1)^k`. The state
-    self-identifies only if `(−1)^k = +1`.
+- **Even `k`**: the spinor returns to the same Z₂ partition class,
+  with accumulated phase `k · π = (k/2) · 2π`. This is
+  orientation-preserving closure on the doubled cover — the worldline
+  identifies with itself after an even number of throat traversals
+  without ever experiencing a net orientation flip.
+- **Odd `k`**: the spinor returns to the *opposite* Z₂ class, with
+  accumulated phase `k · π = (odd) · π`. This is
+  orientation-reversing closure across the non-orientable throat —
+  the worldline identifies with itself only after a net partition
+  flip, the defining property of the non-orientable embedding.
 
-(ii) The spinor phase satisfies the closure condition. After `k`
-     passes the accumulated transport phase is `k · (π/2) · 2 = k · π`
-     (each `T = iσ_y` contributes phase argument `π/2`, and `T² = −I`
-     pairs them as `π` per closure pass). The spinor is identified up
-     to a sign by the Z₂ class.
+Both are valid topological boundary conditions. BAM's lepton sector
+**chooses the second**: the physical particle states are those whose
+closure picks up the net orientation flip enforced by the
+non-orientable throat. This selects `k = 1, 3, 5, …` as the
+generation index. The even-`k` branch corresponds to a different
+sector of the same geometry and does not host the lepton spectrum.
 
-The two conditions are compatible only when `k` is odd: even `k`
-returns the spinor to the *same* class without orientation reversal,
-violating the non-orientable boundary condition that defines the
-throat. Odd `k` reverses orientation an odd number of times, picks up
-the net `(−1)` consistent with the partition flip, and self-identifies
-on the universal cover.
+### Implication
 
-This is the throat-level statement of the well-known double-cover fact
-that fermions need 4π (i.e. two full traversals of a 2π loop) to
-return to themselves; the BAM throat halves the rotation budget per
-pass, so odd pass-counts are precisely the spinor-consistent ones.
+The "odd-k" restriction is a *choice of boundary condition* tied to
+the BAM thesis (particles ARE the orientation-reversing closures of
+the non-orientable throat), not an exclusion principle. A theory
+that selected the even-`k` branch would describe a different
+spectrum — orientation-preserving stable states — but would not
+produce the lepton ladder anchored at `m_e`.
 
 ### Part 2 — universal closure
 
@@ -104,12 +113,14 @@ integer multiple of `2π` (or completes one with its partner). The
 lemma factors as: **the Layer-1 ledger is universally zero mod 2π by
 construction of its constituent geometric channels.**
 
-The only condition that constrains `k` to odd values is topological,
-not arithmetic: the partition-reversal boundary condition of the
-non-orientable throat. Without it, the closure identity (Part 2) would
-hold for any integer `k`, which would predict an even-generation
-lepton between `e` and `μ`. The non-orientable throat enforces the
-odd-k restriction.
+The condition that picks `k` odd is a *choice of sector*, not an
+arithmetic restriction: the closure identity (Part 2) holds for any
+integer `k`. The lepton sector selects the orientation-reversing
+closure (odd `k`); the orientation-preserving closure (even `k`)
+hosts a different sector of the same geometry. The non-orientable
+throat does not forbid even-`k` closure — it identifies it with the
+orientation-preserving branch, which BAM does not assign to the
+lepton spectrum.
 
 ## Caveats and scope
 

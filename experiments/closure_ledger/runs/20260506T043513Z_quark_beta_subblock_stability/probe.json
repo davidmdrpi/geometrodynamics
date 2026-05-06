@@ -1,0 +1,594 @@
+{
+  "timestamp_utc": "2026-05-06T04:35:13+00:00",
+  "k_5": 5,
+  "N_c_quark": 3,
+  "baseline_decomposition": {
+    "lepton_block_(k_5-1)\u00b7k_5\u00b2": 100,
+    "shell_block_2\u00b7k_5\u00b2(k_5+2)": 350,
+    "color_x_k_5": 15,
+    "boundary_N_c-2": 1,
+    "total": 466
+  },
+  "ablation_N_values": {
+    "baseline (anchor=d, PDG, min_eig)": 466,
+    "PDG \u00d7 1.10 (uniform scale)": 466,
+    "PDG \u00d7 0.90 (uniform scale)": 466,
+    "anchor = s": 476,
+    "anchor = c": 474,
+    "anchor = b": 474,
+    "anchor = t": 482,
+    "c \u00d7 1.10": 432,
+    "b \u00d7 1.10": 494,
+    "t \u00d7 1.10": 494,
+    "t \u00d7 0.90": 440,
+    "all \u00b15% (deterministic)": 510
+  },
+  "subblock_tests": [
+    {
+      "name": "S_zero",
+      "formula": "0 (no subtraction)",
+      "baseline_value": 0,
+      "residuals": [
+        466,
+        466,
+        466,
+        476,
+        474,
+        474,
+        482,
+        432,
+        494,
+        494,
+        440,
+        510
+      ],
+      "residual_range": [
+        432,
+        510
+      ],
+      "residual_width": 78,
+      "residual_mean": 472.8333333333333,
+      "residual_stdev": 21.866675905393468,
+      "differentially_stable": false
+    },
+    {
+      "name": "S_lepton",
+      "formula": "(k_5\u22121)\u00b7k_5\u00b2",
+      "baseline_value": 100,
+      "residuals": [
+        366,
+        366,
+        366,
+        376,
+        374,
+        374,
+        382,
+        332,
+        394,
+        394,
+        340,
+        410
+      ],
+      "residual_range": [
+        332,
+        410
+      ],
+      "residual_width": 78,
+      "residual_mean": 372.8333333333333,
+      "residual_stdev": 21.866675905393468,
+      "differentially_stable": false
+    },
+    {
+      "name": "S_lepton_plus_boundary",
+      "formula": "(k_5\u22121)\u00b7k_5\u00b2 + (N_c\u22122)",
+      "baseline_value": 101,
+      "residuals": [
+        365,
+        365,
+        365,
+        375,
+        373,
+        373,
+        381,
+        331,
+        393,
+        393,
+        339,
+        409
+      ],
+      "residual_range": [
+        331,
+        409
+      ],
+      "residual_width": 78,
+      "residual_mean": 371.8333333333333,
+      "residual_stdev": 21.866675905393468,
+      "differentially_stable": false
+    },
+    {
+      "name": "S_shell",
+      "formula": "2\u00b7k_5\u00b2(k_5+2)",
+      "baseline_value": 350,
+      "residuals": [
+        116,
+        116,
+        116,
+        126,
+        124,
+        124,
+        132,
+        82,
+        144,
+        144,
+        90,
+        160
+      ],
+      "residual_range": [
+        82,
+        160
+      ],
+      "residual_width": 78,
+      "residual_mean": 122.83333333333333,
+      "residual_stdev": 21.866675905393468,
+      "differentially_stable": false
+    },
+    {
+      "name": "S_color_x_k5",
+      "formula": "N_c\u00b7k_5",
+      "baseline_value": 15,
+      "residuals": [
+        451,
+        451,
+        451,
+        461,
+        459,
+        459,
+        467,
+        417,
+        479,
+        479,
+        425,
+        495
+      ],
+      "residual_range": [
+        417,
+        495
+      ],
+      "residual_width": 78,
+      "residual_mean": 457.8333333333333,
+      "residual_stdev": 21.866675905393468,
+      "differentially_stable": false
+    },
+    {
+      "name": "S_color_plus_boundary",
+      "formula": "N_c\u00b7k_5 + (N_c\u22122)",
+      "baseline_value": 16,
+      "residuals": [
+        450,
+        450,
+        450,
+        460,
+        458,
+        458,
+        466,
+        416,
+        478,
+        478,
+        424,
+        494
+      ],
+      "residual_range": [
+        416,
+        494
+      ],
+      "residual_width": 78,
+      "residual_mean": 456.8333333333333,
+      "residual_stdev": 21.866675905393468,
+      "differentially_stable": false
+    },
+    {
+      "name": "S_lepton_plus_shell",
+      "formula": "(k_5\u22121)\u00b7k_5\u00b2 + 2\u00b7k_5\u00b2(k_5+2)",
+      "baseline_value": 450,
+      "residuals": [
+        16,
+        16,
+        16,
+        26,
+        24,
+        24,
+        32,
+        -18,
+        44,
+        44,
+        -10,
+        60
+      ],
+      "residual_range": [
+        -18,
+        60
+      ],
+      "residual_width": 78,
+      "residual_mean": 22.833333333333332,
+      "residual_stdev": 21.866675905393468,
+      "differentially_stable": false
+    },
+    {
+      "name": "S_lepton_plus_color",
+      "formula": "(k_5\u22121)\u00b7k_5\u00b2 + N_c\u00b7k_5",
+      "baseline_value": 115,
+      "residuals": [
+        351,
+        351,
+        351,
+        361,
+        359,
+        359,
+        367,
+        317,
+        379,
+        379,
+        325,
+        395
+      ],
+      "residual_range": [
+        317,
+        395
+      ],
+      "residual_width": 78,
+      "residual_mean": 357.8333333333333,
+      "residual_stdev": 21.866675905393468,
+      "differentially_stable": false
+    },
+    {
+      "name": "S_shell_plus_color",
+      "formula": "2\u00b7k_5\u00b2(k_5+2) + N_c\u00b7k_5",
+      "baseline_value": 365,
+      "residuals": [
+        101,
+        101,
+        101,
+        111,
+        109,
+        109,
+        117,
+        67,
+        129,
+        129,
+        75,
+        145
+      ],
+      "residual_range": [
+        67,
+        145
+      ],
+      "residual_width": 78,
+      "residual_mean": 107.83333333333333,
+      "residual_stdev": 21.866675905393468,
+      "differentially_stable": false
+    },
+    {
+      "name": "S_all_but_boundary",
+      "formula": "(k_5\u22121)\u00b7k_5\u00b2 + 2\u00b7k_5\u00b2(k_5+2) + N_c\u00b7k_5",
+      "baseline_value": 465,
+      "residuals": [
+        1,
+        1,
+        1,
+        11,
+        9,
+        9,
+        17,
+        -33,
+        29,
+        29,
+        -25,
+        45
+      ],
+      "residual_range": [
+        -33,
+        45
+      ],
+      "residual_width": 78,
+      "residual_mean": 7.833333333333333,
+      "residual_stdev": 21.866675905393468,
+      "differentially_stable": false
+    },
+    {
+      "name": "S_full_baseline",
+      "formula": "(k_5\u22121)\u00b7k_5\u00b2 + 2\u00b7k_5\u00b2(k_5+2) + N_c\u00b7k_5 + (N_c\u22122)",
+      "baseline_value": 466,
+      "residuals": [
+        0,
+        0,
+        0,
+        10,
+        8,
+        8,
+        16,
+        -34,
+        28,
+        28,
+        -26,
+        44
+      ],
+      "residual_range": [
+        -34,
+        44
+      ],
+      "residual_width": 78,
+      "residual_mean": 6.833333333333333,
+      "residual_stdev": 21.866675905393468,
+      "differentially_stable": false
+    }
+  ],
+  "modular_invariant_tests": [
+    {
+      "name": "N_q mod 2",
+      "modulus": 2,
+      "formula": "N_q mod 2",
+      "baseline_residue": 0,
+      "residues_observed": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "is_invariant_across_all_ablations": true,
+      "structural_interpretation": "Z\u2082 partition class \u2014 two partition sectors (p = \u00b1) contribute equally to \u03b2"
+    },
+    {
+      "name": "N_q mod 3",
+      "modulus": 3,
+      "formula": "N_q mod 3",
+      "baseline_residue": 1,
+      "residues_observed": [
+        1,
+        1,
+        1,
+        2,
+        0,
+        0,
+        2,
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      "is_invariant_across_all_ablations": false,
+      "structural_interpretation": "SU(3) color triplet (N_c = 3)"
+    },
+    {
+      "name": "N_q mod 4",
+      "modulus": 4,
+      "formula": "N_q mod 4",
+      "baseline_residue": 2,
+      "residues_observed": [
+        2,
+        2,
+        2,
+        0,
+        2,
+        2,
+        2,
+        0,
+        2,
+        2,
+        0,
+        2
+      ],
+      "is_invariant_across_all_ablations": false,
+      "structural_interpretation": "spinor double cover or 4-fold winding"
+    },
+    {
+      "name": "N_q mod 5",
+      "modulus": 5,
+      "formula": "N_q mod 5",
+      "baseline_residue": 1,
+      "residues_observed": [
+        1,
+        1,
+        1,
+        1,
+        4,
+        4,
+        2,
+        2,
+        4,
+        4,
+        0,
+        0
+      ],
+      "is_invariant_across_all_ablations": false,
+      "structural_interpretation": "k_5 modulus (heaviest shell label)"
+    },
+    {
+      "name": "N_q mod 6",
+      "modulus": 6,
+      "formula": "N_q mod 6",
+      "baseline_residue": 4,
+      "residues_observed": [
+        4,
+        4,
+        4,
+        2,
+        0,
+        0,
+        2,
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      "is_invariant_across_all_ablations": false,
+      "structural_interpretation": "(k_5 + 1) modulus \u2014 closure-quantum on shell+1"
+    },
+    {
+      "name": "N_q mod 10",
+      "modulus": 10,
+      "formula": "N_q mod 10",
+      "baseline_residue": 6,
+      "residues_observed": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        4,
+        2,
+        2,
+        4,
+        4,
+        0,
+        0
+      ],
+      "is_invariant_across_all_ablations": false,
+      "structural_interpretation": "2 \u00b7 k_5 (Z\u2082 \u00d7 k_5 combined)"
+    },
+    {
+      "name": "N_q mod 15",
+      "modulus": 15,
+      "formula": "N_q mod 15",
+      "baseline_residue": 1,
+      "residues_observed": [
+        1,
+        1,
+        1,
+        11,
+        9,
+        9,
+        2,
+        12,
+        14,
+        14,
+        5,
+        0
+      ],
+      "is_invariant_across_all_ablations": false,
+      "structural_interpretation": "N_c \u00b7 k_5"
+    },
+    {
+      "name": "N_q mod 25",
+      "modulus": 25,
+      "formula": "N_q mod 25",
+      "baseline_residue": 16,
+      "residues_observed": [
+        16,
+        16,
+        16,
+        1,
+        24,
+        24,
+        7,
+        7,
+        19,
+        19,
+        15,
+        10
+      ],
+      "is_invariant_across_all_ablations": false,
+      "structural_interpretation": "k_5\u00b2"
+    },
+    {
+      "name": "N_q mod 26",
+      "modulus": 26,
+      "formula": "N_q mod 26",
+      "baseline_residue": 24,
+      "residues_observed": [
+        24,
+        24,
+        24,
+        8,
+        6,
+        6,
+        14,
+        16,
+        0,
+        0,
+        24,
+        16
+      ],
+      "is_invariant_across_all_ablations": false,
+      "structural_interpretation": "k_5\u00b2 + 1"
+    },
+    {
+      "name": "N_q mod 100",
+      "modulus": 100,
+      "formula": "N_q mod 100",
+      "baseline_residue": 66,
+      "residues_observed": [
+        66,
+        66,
+        66,
+        76,
+        74,
+        74,
+        82,
+        32,
+        94,
+        94,
+        40,
+        10
+      ],
+      "is_invariant_across_all_ablations": false,
+      "structural_interpretation": "lepton closure quantum"
+    }
+  ],
+  "preserved_modular_invariants": [
+    {
+      "name": "N_q mod 2",
+      "modulus": 2,
+      "formula": "N_q mod 2",
+      "baseline_residue": 0,
+      "residues_observed": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "is_invariant_across_all_ablations": true,
+      "structural_interpretation": "Z\u2082 partition class \u2014 two partition sectors (p = \u00b1) contribute equally to \u03b2"
+    }
+  ],
+  "half_partition_diagnostic": {
+    "all_N_even": true,
+    "half_baseline": 233,
+    "half_values": [
+      233,
+      233,
+      233,
+      238,
+      237,
+      237,
+      241,
+      216,
+      247,
+      247,
+      220,
+      255
+    ],
+    "half_range": [
+      216,
+      255
+    ],
+    "half_drift_pm_baseline": 22
+  }
+}

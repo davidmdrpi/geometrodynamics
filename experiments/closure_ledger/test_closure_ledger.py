@@ -1150,6 +1150,321 @@ def test_gamma_offset_has_a_joint_winner():
     )
 
 
+# --- Quark β-origin probe ----------------------------------------------
+
+def test_quark_beta_origin_probe_runs_to_completion():
+    """The quark β-origin probe builds a structured candidate list."""
+    from experiments.closure_ledger.quark_beta_origin_probe import run_probe
+    summary = run_probe()
+    assert summary["targets"]["N_quark"] == 466
+    assert summary["targets"]["delta_N_quark_lepton_gap"] == 366
+    assert summary["n_candidates_total"] > 100
+    assert summary["principled_categories"]
+    # Every principled category should have at least one near-miss.
+    assert summary["best_per_category_for_466"]
+    assert summary["best_per_category_for_366"]
+
+
+def test_quark_beta_origin_no_principled_exact_match():
+    """
+    Empirical claim: no principled enumeration in this catalog produces
+    N = 466 or ΔN = 366 exactly. A future positive result should flip
+    this test and force a re-read of the verdict.
+    """
+    from experiments.closure_ledger.quark_beta_origin_probe import run_probe
+    summary = run_probe()
+    assert not summary["principled_exact_matches_466"], (
+        f"unexpected principled exact match on N=466: "
+        f"{summary['principled_exact_matches_466']}"
+    )
+    assert not summary["principled_exact_matches_366"], (
+        f"unexpected principled exact match on ΔN=366: "
+        f"{summary['principled_exact_matches_366']}"
+    )
+
+
+def test_quark_beta_origin_k5_squared_plus_one_pattern_brackets_targets():
+    """
+    `(k_5² + 1) = 26` near-misses bracket both targets within ±2:
+    18·26 = 468 (vs N=466) and 14·26 = 364 (vs ΔN=366). This pattern
+    is the principled candidate the probe surfaces; if it disappears
+    after a structure change, the verdict must be re-read.
+    """
+    from experiments.closure_ledger.quark_beta_origin_probe import run_probe
+    summary = run_probe()
+    p_near_466 = summary["principled_near_matches_466_within_5pct"]
+    p_near_366 = summary["principled_near_matches_366_within_5pct"]
+    has_18x26 = any(c["value"] == 468 for c in p_near_466)
+    has_14x26 = any(c["value"] == 364 for c in p_near_366)
+    assert has_18x26, "18·(k_5²+1) = 468 missing from 466 near-miss list"
+    assert has_14x26, "14·(k_5²+1) = 364 missing from 366 near-miss list"
+
+
+# --- Quark β: focused boundary-correction probe -----------------------
+
+def test_quark_beta_boundary_probe_runs_to_completion():
+    """The boundary-correction probe builds a structured fit catalog."""
+    from experiments.closure_ledger.quark_beta_boundary_probe import run_probe
+    summary = run_probe()
+    assert summary["targets"]["N_lepton"] == 100
+    assert summary["targets"]["N_quark"] == 466
+    assert summary["targets"]["delta_N"] == 366
+    assert summary["all_fits"]
+    assert summary["best_fit"]
+    assert summary["robustness_snapshots_under_best_fit"]
+
+
+def test_quark_beta_boundary_best_fit_is_k_5_with_plus_one_correction():
+    """
+    Headline finding: the cleanest joint decomposition is
+        N_l =  20 · k_5     (δ = 0)
+        N_q =  93 · k_5 + 1 (δ = +1)
+        ΔN  =  73 · k_5 + 1 (δ = +1)
+    The probe must continue to surface this as the best fit.
+    """
+    from experiments.closure_ledger.quark_beta_boundary_probe import run_probe
+    summary = run_probe()
+    best = summary["best_fit"]
+    assert best["unit_name"] == "k_5"
+    assert best["unit_value"] == 5
+    assert best["m_lepton"] == 20 and best["delta_lepton"] == 0
+    assert best["m_quark"] == 93 and best["delta_quark"] == 1
+    assert best["m_delta"] == 73 and best["delta_gap"] == 1
+    assert best["sum_abs_delta"] == 2
+    assert best["deltas_in_natural_set"] is True
+    assert best["deltas_consistent_across_quark_and_gap"] is True
+    assert best["deltas_zero_for_lepton"] is True
+
+
+def test_quark_beta_boundary_k5_squared_plus_one_is_strictly_worse():
+    """
+    The earlier near-miss `(k_5² + 1) = 26` must rank strictly below
+    `k_5` on the joint-cleanness measure — it had Σ|δ| = 8 with
+    inconsistent δ across targets, while `k_5` has Σ|δ| = 2 with
+    consistent +1 boundary correction.
+    """
+    from experiments.closure_ledger.quark_beta_boundary_probe import run_probe
+    summary = run_probe()
+    fits = {f["unit_name"]: f for f in summary["all_fits"]}
+    f_k5 = fits["k_5"]
+    f_k5sq1 = fits["k_5² + 1"]
+    assert f_k5["sum_abs_delta"] < f_k5sq1["sum_abs_delta"]
+    assert f_k5["deltas_consistent_across_quark_and_gap"]
+    # k_5²+1 has δ = (-2, +2) which are not consistent across q and ΔN.
+    assert not f_k5sq1["deltas_consistent_across_quark_and_gap"]
+
+
+def test_quark_beta_boundary_delta_invariance_under_documented_drifts():
+    """
+    Audit-corrected statement (was overstated in the original probe).
+    Using the actual §8 ablation N values (not extrapolated), only ~33%
+    of perturbations leave δ at +1; the structural reading is
+    descriptively useful for the BASELINE locked value but does NOT
+    survive per-species or anchor perturbations. The audit probe
+    `quark_beta_robustness_audit.py` carries the rigorous treatment.
+    Pin the actual rate so any future drift in the §8 numbers surfaces.
+    """
+    from experiments.closure_ledger.quark_beta_boundary_probe import run_probe
+    summary = run_probe()
+    rate = summary["delta_invariance_rate_under_documented_drifts"]
+    # 4 of 12 logged ablations sit at δ = +1.
+    assert math.isclose(rate, 4.0 / 12.0, abs_tol=0.01), (
+        f"δ-invariance rate {rate:.3f} drifted from the documented "
+        f"4/12 = 0.333; the §8 ablation table may have changed."
+    )
+
+
+# --- Quark β: structural decomposition sub-probe -----------------------
+
+def test_quark_beta_decomposition_probe_runs_to_completion():
+    """The decomposition probe builds a structured catalog of fits."""
+    from experiments.closure_ledger.quark_beta_decomposition_probe import run_probe
+    summary = run_probe()
+    assert summary["targets"]["m_lepton"] == 20
+    assert summary["targets"]["m_quark"] == 93
+    assert summary["targets"]["m_delta"] == 73
+    assert summary["n_decompositions"]["m_lepton"] >= 1
+    assert summary["n_decompositions"]["m_quark"] >= 1
+
+
+def test_quark_beta_decomposition_lepton_is_single_block():
+    """
+    The simplest lepton decomposition is `(k_5-1)·k_5 = 20` — a single
+    structural block at complexity 1.
+    """
+    from experiments.closure_ledger.quark_beta_decomposition_probe import run_probe
+    summary = run_probe()
+    best = summary["best_decompositions"]["m_lepton"]
+    assert best is not None
+    assert best["nonzero_blocks_count"] == 1
+    assert best["coeff_complexity"] == 1
+    assert best["block_coeffs"]["(k_5-1)·k_5"] == 1
+
+
+def test_quark_beta_decomposition_quark_contains_lepton_subpiece():
+    """
+    The cleanest joint reading places the lepton block as a strict
+    sub-decomposition of the quark formula, mirroring the
+    'minimal closure ⊂ shell-coupled closure' framing in §1.
+    """
+    from experiments.closure_ledger.quark_beta_decomposition_probe import run_probe
+    summary = run_probe()
+    pairs = summary["joint_sub_decomposition_pairs"]
+    assert pairs, "no lepton ⊆ quark decomposition pair found"
+    top = pairs[0]
+    # The leading pair must include the (k_5-1)·k_5 lepton block.
+    assert "(k_5-1)·k_5" in top["lepton_quark_overlap_blocks"]
+
+
+def test_quark_beta_decomposition_boundary_origin_is_color_residue():
+    """
+    The C_color_residue_N_c_minus_2 candidate scores 3/3 on the three
+    boundary-origin tests (predicts +1 for quarks, 0 for leptons,
+    drift-invariant). The other two candidates score lower.
+    """
+    from experiments.closure_ledger.quark_beta_decomposition_probe import run_probe
+    summary = run_probe()
+    best = summary["best_boundary_origin"]
+    assert best["name"] == "C_color_residue_N_c_minus_2"
+    assert best["consistency_score"] == 3
+    by_name = {o["name"]: o for o in summary["boundary_origin_analysis"]}
+    assert by_name["A_Z2_partition_residue"]["consistency_score"] < 3
+    assert by_name["B_l_zero_s_wave_closure"]["consistency_score"] < 3
+
+
+def test_quark_beta_decomposition_full_identity_holds():
+    """
+    The full structural identity must reproduce N_quark = 466 exactly:
+        N_q = ((k_5-1)·k_5 + 2·k_5·(k_5+2) + N_c) · k_5 + (N_c - 2)
+            = 93 · 5 + 1
+            = 466
+    """
+    k_5 = 5
+    n_c = 3
+    m_q = (k_5 - 1) * k_5 + 2 * k_5 * (k_5 + 2) + n_c
+    delta_q = n_c - 2
+    n_q = m_q * k_5 + delta_q
+    assert m_q == 93
+    assert delta_q == 1
+    assert n_q == 466
+    # Lepton parallel: m_l = (k_5-1)·k_5, δ_l = 0.
+    n_c_lepton = 1   # colorless
+    m_l = (k_5 - 1) * k_5
+    delta_l = max(0, n_c_lepton - 2)   # spinor factorization yields 0
+    assert m_l == 20
+    assert delta_l == 0
+    assert m_l * k_5 + delta_l == 100
+
+
+# --- Quark β: §8 robustness audit --------------------------------------
+
+def test_quark_beta_robustness_audit_runs_to_completion():
+    """The robustness audit produces a structured verdict over §8 data."""
+    from experiments.closure_ledger.quark_beta_robustness_audit import run_probe
+    summary = run_probe()
+    assert summary["k_5"] == 5
+    assert summary["baseline_N"] == 466
+    assert len(summary["ablation_decompositions"]) == 12
+    assert "claim_verdicts" in summary
+    assert summary["n_claims_true"] + summary["n_claims_partial"] + \
+        summary["n_claims_false"] == len(summary["claim_verdicts"])
+
+
+def test_quark_beta_robustness_audit_baseline_and_uniform_scale_pass():
+    """
+    Claim 1 must hold: the +1 boundary correction is preserved under
+    the no-physics-change perturbations (baseline + uniform scale).
+    This is the only structural claim that survives the audit.
+    """
+    from experiments.closure_ledger.quark_beta_robustness_audit import run_probe
+    summary = run_probe()
+    by_name = {c["name"]: c for c in summary["claim_verdicts"]}
+    claim1 = by_name["Claim 1: δ = +1 in baseline / uniform-scale runs"]
+    assert claim1["verdict"] == "TRUE"
+
+
+def test_quark_beta_robustness_audit_perturbation_claims_fail():
+    """
+    Claims 2, 3, 4 must FAIL: under per-species and anchor perturbations,
+    δ wanders across {-1, 0, +1, +2}, contradicting the prior probes'
+    structural-invariance reading. This is the audit's headline
+    correction.
+    """
+    from experiments.closure_ledger.quark_beta_robustness_audit import run_probe
+    summary = run_probe()
+    by_name = {c["name"]: c for c in summary["claim_verdicts"]}
+    assert by_name[
+        "Claim 2: δ = +1 across single-species perturbations"
+    ]["verdict"] == "FALSE"
+    assert by_name[
+        "Claim 3: δ = +1 across anchor-species changes"
+    ]["verdict"] == "FALSE"
+    assert by_name[
+        "Claim 4: overall δ-invariance rate ≥ 50%"
+    ]["verdict"] == "FALSE"
+
+
+def test_quark_beta_robustness_audit_plus_one_rate_is_one_third():
+    """The audit's headline rate is ~1/3 (4 of 12 logged ablations)."""
+    from experiments.closure_ledger.quark_beta_robustness_audit import run_probe
+    summary = run_probe()
+    assert math.isclose(summary["plus_one_rate"], 4.0 / 12.0, abs_tol=0.01)
+
+
+# --- Quark β: sub-block stability -------------------------------------
+
+def test_quark_beta_subblock_stability_runs_to_completion():
+    """The sub-block stability probe runs end-to-end."""
+    from experiments.closure_ledger.quark_beta_subblock_stability import run_probe
+    summary = run_probe()
+    assert "subblock_tests" in summary
+    assert "modular_invariant_tests" in summary
+    assert "preserved_modular_invariants" in summary
+    assert summary["baseline_decomposition"]["total"] == 466
+
+
+def test_quark_beta_subblock_no_constant_shift_reduces_variance():
+    """
+    Sanity check: every constant-shift subtraction of a baseline sub-block
+    leaves the residual width invariant. (Proof: Var(N − c) = Var(N).)
+    The probe must surface this — if it ever shows a strict reduction,
+    the underlying arithmetic is wrong.
+    """
+    from experiments.closure_ledger.quark_beta_subblock_stability import run_probe
+    summary = run_probe()
+    widths = {t["residual_width"] for t in summary["subblock_tests"]}
+    assert len(widths) == 1, (
+        f"sub-block subtractions gave varying widths {widths}; expected "
+        "all equal under constant-shift invariance"
+    )
+
+
+def test_quark_beta_subblock_only_invariant_is_parity():
+    """
+    The only modular invariant preserved across all 12 §8 ablations is
+    `N_q ≡ 0 (mod 2)`. Other natural moduli (3, 4, 5, 10, 15, 25, 100)
+    fail.
+    """
+    from experiments.closure_ledger.quark_beta_subblock_stability import run_probe
+    summary = run_probe()
+    invariants = summary["preserved_modular_invariants"]
+    assert len(invariants) == 1
+    assert invariants[0]["modulus"] == 2
+    assert invariants[0]["baseline_residue"] == 0
+
+
+def test_quark_beta_subblock_all_logged_N_values_are_even():
+    """
+    The Z₂ partition-class invariance: every logged §8 N value is even.
+    This is the structural foundation of the N_q = 2·n_part reading.
+    """
+    from experiments.closure_ledger.quark_beta_subblock_stability import run_probe
+    summary = run_probe()
+    half = summary["half_partition_diagnostic"]
+    assert half["all_N_even"] is True
+    assert half["half_baseline"] == 233   # 466 / 2
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1

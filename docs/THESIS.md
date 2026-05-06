@@ -233,16 +233,17 @@ fitting. Each is a test the existing framework can be put to that admits
 a clean pass-or-fail.
 
 **Odd-`k` closure from topology.** _Closed_ — see `docs/odd_k_closure_lemma.md`.
-The lemma states (i) only odd `k = 1, 3, 5, ...` admit self-consistent
-stable bound states on the non-orientable throat (the partition-
-reversal boundary condition `T² = −I` requires odd pass counts), and
-(ii) under the locked baseline (`action_base = 2π`, `χ = 0`, `T²`
-convention, `4β/(2π) = 100 ∈ ℤ`) every odd-`k` Layer-1 ledger sum
-is identically zero mod 2π. The arithmetic closure is automatic from
-the four wired geometric channels; only the topological selection
-restricts `k` to odd values. The empirical "all three lepton ledgers
-close to 0 mod 2π" result of `experiments/closure_ledger` is the
-direct verification.
+The lemma states (i) even `k` and odd `k` both admit valid closure
+boundary conditions on the throat — even `k` is orientation-preserving
+closure on the doubled cover, odd `k` is orientation-reversing closure
+across the non-orientable throat. BAM's lepton sector chooses the
+orientation-reversing branch, so the physical particle states sit at
+`k ∈ {1, 3, 5, …}`. (ii) Under the locked baseline (`action_base = 2π`,
+`χ = 0`, `T²` convention, `4β/(2π) = 100 ∈ ℤ`) the Layer-1 ledger sum
+is identically zero mod 2π for every integer `k`; the choice of sector
+selects which `k` enter the spectrum. The empirical "all three lepton
+ledgers close to 0 mod 2π" result of `experiments/closure_ledger` is
+the direct verification.
 
 **Moving-mouth Berry phase.** Drag a single throat mouth around a
 closed loop in `S³` in the existing solver and verify that the
@@ -259,11 +260,20 @@ test of "EM from Hopf curvature" and the place the program is most
 exposed to falsification.
 
 **Quark `β = N · π/2` with `N = 466` derived or principled-bounded.**
-Either via torus-knot closure numbers on the non-orientable `S³` throat,
-or via representation dimensions in the throat condensate's color
-sector, or by some other finite enumeration the framework already
-supports. A clean negative result — `466` is not in the principled
-list — is also progress, and would refocus the search.
+_Principled-bounded; full derivation open._ See
+`docs/quark_beta_status.md` for the closing summary. A five-probe
+sequence in `experiments/closure_ledger/` (origin → boundary →
+decomposition → audit → sub-block stability) localized the
+irreducible structural piece: across all 12 logged §8 ablations the
+only preserved invariant is `N_q ≡ 0 (mod 2)`. The structural reading
+is `N_q = 2 · n_part` with the factor of 2 topological (the Z₂
+partition multiplicity from the v3 Hamiltonian basis `{(k, ±)}`) and
+`n_part` the phenomenological compensator. The clean negative
+result for the listed enumerations — torus-knot crossings, SU(3)
+representation dimensions, S³/S² harmonic counts, Tangherlini barrier
+sums — is recorded by the origin probe. Deriving `n_part = 233` from
+first principles is open and is unlikely to be the next-most-tractable
+work in this framework.
 
 **Three structural quark axioms reduced to one partition principle.**
 The quark Hamiltonian currently rests on four shell-index axioms
@@ -280,12 +290,19 @@ The README's validation table is the authoritative status snapshot.
 Several items deserve to be called out here as research-level open
 problems rather than implementation TODOs:
 
-- **Where does `ℏ` enter?** The recovered ratios are dimensionless. The
-  absolute scale is set by anchoring `m_e`. A genuine derivation of QED
-  from geometry needs a geometric source for the action quantum; the
-  natural candidates are Aharonov-Bohm-style flux quantization around
-  the Hopf fibre and discreteness of the Tangherlini eigenvalue
-  spectrum. Neither is closed.
+- **Where does `ℏ` enter? (next major target.)** The recovered ratios
+  are dimensionless. The absolute scale is set by anchoring `m_e`. A
+  genuine derivation of QED from geometry needs a geometric source for
+  the action quantum. The closure-ledger experiment has localized the
+  natural object — the **closure-phase invariant from the full closure
+  cycle** (antipodal closure × Hopf holonomy × throat T² × radial bulk
+  phase) — and Layer 1 is universal mod 2π by the odd-`k` lemma; what
+  remains is to derive Layer 2 (the radial-channel residue) so the full
+  cycle yields a **single dimensionful action quantum** identifiable
+  with `ℏ`. The natural candidates are Aharonov-Bohm-style flux
+  quantization around the Hopf fibre and discreteness of the
+  Tangherlini eigenvalue spectrum. Neither is closed. After the quark
+  β-status PR, this is the next concrete research target.
 - **Self-consistent throat radius.** `R_MID` is currently imposed. The
   deeper version determines `R_MID` dynamically as the equilibrium
   throat radius for a given excitation amplitude, with the

@@ -219,3 +219,34 @@ under `runs/<timestamp>_<probe>_probe/`):
   μ-row pinhole γ ≈ 22.5 inside the radial barrier-spectrum sum
   `Σ_{l=0..5} V_max(l) ≈ 22.45` (the QCD pinhole formula extended to
   include the 5D-specific `l = 0` channel from `3·rs²/r⁴`).
+
+## Quark β probe sequence
+
+Five probes targeting the locked closure-quantum integer
+`N = 4 β_quark / (2π) = 466`. Each writes its own JSON + markdown
+archive under `runs/<timestamp>_<probe>_probe/`. Summary doc:
+`docs/quark_beta_status.md`.
+
+- `quark_beta_origin_probe.py` — scans seven principled-enumeration
+  categories (S³/S² harmonics, S³ angular eigenvalues, SU(3) reps,
+  torus-knot invariants, …) for an exact match to N = 466 or the
+  366-quanta gap. Clean negative result; suggestive `(k_5²+1)·m ± 2`
+  pattern.
+- `quark_beta_boundary_probe.py` — fits `N = m · u + δ` over candidate
+  units and reports the cleanest. Headline: `u = k_5` gives
+  `N_l = 20·k_5, N_q = 93·k_5 + 1`, suggesting `+1 = N_c − 2`
+  (color residue).
+- `quark_beta_decomposition_probe.py` — searches a 9-block × 4-color
+  natural-coefficient space and finds the cleanest joint reading
+  `N_q = ((k_5−1)·k_5 + 2·k_5(k_5+2) + N_c)·k_5 + (N_c − 2)` with the
+  lepton block `(k_5−1)·k_5²` strictly contained.
+- `quark_beta_robustness_audit.py` — runs the §8 N-ablation table
+  (12 logged points) against the structural-invariance claims.
+  3/4 claims FALSE; the +1 holds for only 33 % of perturbations.
+  Corrects the over-optimistic boundary-probe verdict.
+- `quark_beta_subblock_stability.py` — the closer. Across all 12 §8
+  ablations the only preserved invariant is `N_q ≡ 0 (mod 2)` (Z₂
+  partition multiplicity). All sub-block subtractions and all other
+  modular structures fail. Final reading: `N_q = 2 · n_part`, with
+  the factor of 2 topological and `n_part` the phenomenological
+  compensator.
