@@ -1,0 +1,179 @@
+{
+  "timestamp_utc": "2026-05-06T00:01:13+00:00",
+  "k_5": 5,
+  "baseline_N": 466,
+  "ablation_decompositions": [
+    {
+      "label": "baseline (anchor=d, PDG, min_eig)",
+      "perturbation_class": "baseline",
+      "N": 466,
+      "m": 93,
+      "delta_unsigned": 1,
+      "delta_signed": 1,
+      "delta_drift_from_baseline": 0,
+      "fit_residual_pct": 1.6
+    },
+    {
+      "label": "PDG \u00d7 1.10 (uniform scale)",
+      "perturbation_class": "uniform_scale",
+      "N": 466,
+      "m": 93,
+      "delta_unsigned": 1,
+      "delta_signed": 1,
+      "delta_drift_from_baseline": 0,
+      "fit_residual_pct": 1.6
+    },
+    {
+      "label": "PDG \u00d7 0.90 (uniform scale)",
+      "perturbation_class": "uniform_scale",
+      "N": 466,
+      "m": 93,
+      "delta_unsigned": 1,
+      "delta_signed": 1,
+      "delta_drift_from_baseline": 0,
+      "fit_residual_pct": 1.6
+    },
+    {
+      "label": "anchor = s",
+      "perturbation_class": "anchor",
+      "N": 476,
+      "m": 95,
+      "delta_unsigned": 1,
+      "delta_signed": 1,
+      "delta_drift_from_baseline": 0,
+      "fit_residual_pct": 1.1
+    },
+    {
+      "label": "anchor = c",
+      "perturbation_class": "anchor",
+      "N": 474,
+      "m": 94,
+      "delta_unsigned": 4,
+      "delta_signed": -1,
+      "delta_drift_from_baseline": -2,
+      "fit_residual_pct": 1.0
+    },
+    {
+      "label": "anchor = b",
+      "perturbation_class": "anchor",
+      "N": 474,
+      "m": 94,
+      "delta_unsigned": 4,
+      "delta_signed": -1,
+      "delta_drift_from_baseline": -2,
+      "fit_residual_pct": 1.9
+    },
+    {
+      "label": "anchor = t",
+      "perturbation_class": "anchor",
+      "N": 482,
+      "m": 96,
+      "delta_unsigned": 2,
+      "delta_signed": 2,
+      "delta_drift_from_baseline": 1,
+      "fit_residual_pct": 1.6
+    },
+    {
+      "label": "c \u00d7 1.10",
+      "perturbation_class": "single_species",
+      "N": 432,
+      "m": 86,
+      "delta_unsigned": 2,
+      "delta_signed": 2,
+      "delta_drift_from_baseline": 1,
+      "fit_residual_pct": 1.8
+    },
+    {
+      "label": "b \u00d7 1.10",
+      "perturbation_class": "single_species",
+      "N": 494,
+      "m": 98,
+      "delta_unsigned": 4,
+      "delta_signed": -1,
+      "delta_drift_from_baseline": -2,
+      "fit_residual_pct": 4.2
+    },
+    {
+      "label": "t \u00d7 1.10",
+      "perturbation_class": "single_species",
+      "N": 494,
+      "m": 98,
+      "delta_unsigned": 4,
+      "delta_signed": -1,
+      "delta_drift_from_baseline": -2,
+      "fit_residual_pct": 5.5
+    },
+    {
+      "label": "t \u00d7 0.90",
+      "perturbation_class": "single_species",
+      "N": 440,
+      "m": 88,
+      "delta_unsigned": 0,
+      "delta_signed": 0,
+      "delta_drift_from_baseline": -1,
+      "fit_residual_pct": 3.7
+    },
+    {
+      "label": "all \u00b15% (deterministic)",
+      "perturbation_class": "all_species",
+      "N": 510,
+      "m": 102,
+      "delta_unsigned": 0,
+      "delta_signed": 0,
+      "delta_drift_from_baseline": -1,
+      "fit_residual_pct": 4.6
+    }
+  ],
+  "delta_signed_distribution": {
+    "1": 4,
+    "-1": 4,
+    "2": 2,
+    "0": 2
+  },
+  "delta_unsigned_distribution": {
+    "1": 4,
+    "4": 4,
+    "2": 2,
+    "0": 2
+  },
+  "plus_one_rate": 0.3333333333333333,
+  "m_envelope": {
+    "baseline_m": 93,
+    "m_min": 86,
+    "m_max": 102,
+    "m_drift_pm": 9
+  },
+  "claim_verdicts": [
+    {
+      "name": "Claim 1: \u03b4 = +1 in baseline / uniform-scale runs",
+      "description": "Under perturbations that do NOT change the physics (just the MeV anchor or a uniform mass rescaling), \u03b4 should equal the baseline +1.",
+      "expected": "all 3 runs at \u03b4 = +1",
+      "observed": "3/3 at \u03b4 = +1 (rate 100%)",
+      "verdict": "TRUE"
+    },
+    {
+      "name": "Claim 2: \u03b4 = +1 across single-species perturbations",
+      "description": "Under single-species \u00b110% perturbations (c, b, t each \u00d71.10 or \u00d70.90), \u03b4 should remain at +1 if the structural reading is robust.",
+      "expected": "all 4 runs at \u03b4 = +1",
+      "observed": "0/4 at \u03b4 = +1; observed \u03b4 values: [-1, -1, 0, 2]",
+      "verdict": "FALSE"
+    },
+    {
+      "name": "Claim 3: \u03b4 = +1 across anchor-species changes",
+      "description": "Anchor-species choice (s, c, b, t instead of d) is a convention; structural reading expects \u03b4 = +1 throughout.",
+      "expected": "all 4 runs at \u03b4 = +1",
+      "observed": "1/4 at \u03b4 = +1; observed \u03b4 values: [-1, -1, 1, 2]",
+      "verdict": "FALSE"
+    },
+    {
+      "name": "Claim 4: overall \u03b4-invariance rate \u2265 50%",
+      "description": "Aggregated over every logged ablation, at least half should sit at \u03b4 = +1 if the boundary correction is a structural invariant.",
+      "expected": "\u2265 50% of runs at \u03b4 = +1",
+      "observed": "33% of runs at \u03b4 = +1",
+      "verdict": "FALSE"
+    }
+  ],
+  "n_claims_true": 1,
+  "n_claims_partial": 0,
+  "n_claims_false": 3
+}

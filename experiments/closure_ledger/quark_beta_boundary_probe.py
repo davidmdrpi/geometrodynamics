@@ -156,29 +156,28 @@ def _robustness_snapshots(unit_name: str, u: int) -> list[RobustnessSnapshot]:
     Document what the existing N-stability ablation says, restated under
     the (m, δ) decomposition.
 
-    Per docs/quark_axioms.md §8 'N-stability ablation':
-      - Uniform mass scaling (×0.9, ×1.0, ×1.1):     N stays at 466
-      - Per-species c-quark perturbation:             N drifts by tens
-      - Per-species b-quark perturbation:             N drifts by tens
-      - Combined heavy-quark perturbations:           N drifts ~90 units
+    Source: `docs/quark_axioms.md` §8 N-stability table (12 logged
+    ablation points from `experiment_n_ablation.py`). All N values are
+    EXACT logged values; no extrapolation.
 
-    The drift values are documented order-of-magnitude in the source.
-    A clean structural decomposition has δ fixed and m drifting
-    proportionally. We report what the (m, δ) re-read says for each
-    documented N value.
+    The decisive N-ablation conclusion of §8 is that N is a compensator,
+    not a topological invariant. This snapshot routine just restates
+    the table under the (m, δ) decomposition; the audit-grade analysis
+    is in `quark_beta_robustness_audit.py`.
     """
-    # Documented N values from quark_axioms.md §8 perturbation runs
-    # (order-of-magnitude; exact log values not retained as attributes).
     snapshots: list[tuple[str, int]] = [
         ("baseline (anchor=d, PDG, min_eig)", 466),
         ("PDG × 1.10 (uniform scale)", 466),
         ("PDG × 0.90 (uniform scale)", 466),
-        ("c-quark perturbed +10%", 460),    # representative drift
-        ("c-quark perturbed −10%", 472),
-        ("b-quark perturbed +10%", 482),
-        ("b-quark perturbed −10%", 450),
-        ("c+b perturbed +10% each", 466 - 90),
-        ("c+b perturbed −10% each", 466 + 90),
+        ("anchor = s", 476),
+        ("anchor = c", 474),
+        ("anchor = b", 474),
+        ("anchor = t", 482),
+        ("c × 1.10", 432),
+        ("b × 1.10", 494),
+        ("t × 1.10", 494),
+        ("t × 0.90", 440),
+        ("all ±5% (deterministic)", 510),
     ]
     out: list[RobustnessSnapshot] = []
     baseline_delta = N_QUARK - round(N_QUARK / u) * u
@@ -369,11 +368,14 @@ def render_markdown(summary: dict) -> str:
         )
     else:
         lines.append(
-            "**Most documented drifts move δ away from its baseline**,"
-            " i.e. m is held approximately fixed and δ absorbs the"
-            " perturbation. Less consistent with the structural reading;"
-            " the (m, δ) decomposition under this unit is partially a"
-            " coincidence of the mid-grid k_5 = 5 spacing."
+            f"**Only {100 * rate:.0f}% of documented drifts leave δ at"
+            " baseline**; under per-species and anchor perturbations,"
+            " both m and δ wander. The structural reading is descriptively"
+            " useful for the BASELINE locked value but is NOT a robust"
+            " topological invariant — consistent with §8's headline"
+            " conclusion that N (and therefore both m and δ) is a fit"
+            " compensator. See `quark_beta_robustness_audit.py` for the"
+            " full audit."
         )
     lines.append("")
 

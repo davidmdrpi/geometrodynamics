@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-05-05T23:37:37+00:00",
+  "timestamp_utc": "2026-05-06T00:03:13+00:00",
   "targets": {
     "N_lepton": 100,
     "N_quark": 466,
@@ -401,23 +401,31 @@
       "delta_drift_from_baseline": 0
     },
     {
-      "perturbation": "c-quark perturbed +10%",
-      "N_q_at_perturbation": 460,
+      "perturbation": "anchor = s",
+      "N_q_at_perturbation": 476,
       "fit_unit": "k_5",
-      "m_at_perturbation": 92,
-      "delta_at_perturbation": 0,
-      "delta_drift_from_baseline": -1
+      "m_at_perturbation": 95,
+      "delta_at_perturbation": 1,
+      "delta_drift_from_baseline": 0
     },
     {
-      "perturbation": "c-quark perturbed \u221210%",
-      "N_q_at_perturbation": 472,
+      "perturbation": "anchor = c",
+      "N_q_at_perturbation": 474,
       "fit_unit": "k_5",
-      "m_at_perturbation": 94,
-      "delta_at_perturbation": 2,
-      "delta_drift_from_baseline": 1
+      "m_at_perturbation": 95,
+      "delta_at_perturbation": -1,
+      "delta_drift_from_baseline": -2
     },
     {
-      "perturbation": "b-quark perturbed +10%",
+      "perturbation": "anchor = b",
+      "N_q_at_perturbation": 474,
+      "fit_unit": "k_5",
+      "m_at_perturbation": 95,
+      "delta_at_perturbation": -1,
+      "delta_drift_from_baseline": -2
+    },
+    {
+      "perturbation": "anchor = t",
       "N_q_at_perturbation": 482,
       "fit_unit": "k_5",
       "m_at_perturbation": 96,
@@ -425,30 +433,46 @@
       "delta_drift_from_baseline": 1
     },
     {
-      "perturbation": "b-quark perturbed \u221210%",
-      "N_q_at_perturbation": 450,
+      "perturbation": "c \u00d7 1.10",
+      "N_q_at_perturbation": 432,
       "fit_unit": "k_5",
-      "m_at_perturbation": 90,
+      "m_at_perturbation": 86,
+      "delta_at_perturbation": 2,
+      "delta_drift_from_baseline": 1
+    },
+    {
+      "perturbation": "b \u00d7 1.10",
+      "N_q_at_perturbation": 494,
+      "fit_unit": "k_5",
+      "m_at_perturbation": 99,
+      "delta_at_perturbation": -1,
+      "delta_drift_from_baseline": -2
+    },
+    {
+      "perturbation": "t \u00d7 1.10",
+      "N_q_at_perturbation": 494,
+      "fit_unit": "k_5",
+      "m_at_perturbation": 99,
+      "delta_at_perturbation": -1,
+      "delta_drift_from_baseline": -2
+    },
+    {
+      "perturbation": "t \u00d7 0.90",
+      "N_q_at_perturbation": 440,
+      "fit_unit": "k_5",
+      "m_at_perturbation": 88,
       "delta_at_perturbation": 0,
       "delta_drift_from_baseline": -1
     },
     {
-      "perturbation": "c+b perturbed +10% each",
-      "N_q_at_perturbation": 376,
+      "perturbation": "all \u00b15% (deterministic)",
+      "N_q_at_perturbation": 510,
       "fit_unit": "k_5",
-      "m_at_perturbation": 75,
-      "delta_at_perturbation": 1,
-      "delta_drift_from_baseline": 0
-    },
-    {
-      "perturbation": "c+b perturbed \u221210% each",
-      "N_q_at_perturbation": 556,
-      "fit_unit": "k_5",
-      "m_at_perturbation": 111,
-      "delta_at_perturbation": 1,
-      "delta_drift_from_baseline": 0
+      "m_at_perturbation": 102,
+      "delta_at_perturbation": 0,
+      "delta_drift_from_baseline": -1
     }
   ],
-  "delta_invariance_rate_under_documented_drifts": 0.5555555555555556,
+  "delta_invariance_rate_under_documented_drifts": 0.3333333333333333,
   "structural_prediction": "If N_q = m \u00b7 u + \u03b4 is the correct decomposition with \u03b4 fixed by structure, then per-species mass perturbations should leave \u03b4 invariant and drift m proportionally. The quark_axioms \u00a78 ~90-unit N drift translates to 18 units of m drift under k_5 = 5 as the structural increment."
 }

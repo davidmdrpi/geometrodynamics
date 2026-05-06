@@ -1,6 +1,6 @@
 # Quark β: focused boundary-correction probe
 
-**Run:** 2026-05-05T23:37:37+00:00
+**Run:** 2026-05-06T00:03:13+00:00
 **Targets:** N_l = 100, N_q = 466, ΔN = 366; k_5 = 5.
 **Natural δ set:** [-10, -6, -5, -4, -2, -1, 0, 1, 2, 4, 5, 6, 10].
 
@@ -44,16 +44,19 @@ From `docs/quark_axioms.md` §8 N-stability ablation, restated under the (m, δ)
 | baseline (anchor=d, PDG, min_eig) | 466 | 93 | +1 | +0 |
 | PDG × 1.10 (uniform scale) | 466 | 93 | +1 | +0 |
 | PDG × 0.90 (uniform scale) | 466 | 93 | +1 | +0 |
-| c-quark perturbed +10% | 460 | 92 | +0 | -1 |
-| c-quark perturbed −10% | 472 | 94 | +2 | +1 |
-| b-quark perturbed +10% | 482 | 96 | +2 | +1 |
-| b-quark perturbed −10% | 450 | 90 | +0 | -1 |
-| c+b perturbed +10% each | 376 | 75 | +1 | +0 |
-| c+b perturbed −10% each | 556 | 111 | +1 | +0 |
+| anchor = s | 476 | 95 | +1 | +0 |
+| anchor = c | 474 | 95 | -1 | -2 |
+| anchor = b | 474 | 95 | -1 | -2 |
+| anchor = t | 482 | 96 | +2 | +1 |
+| c × 1.10 | 432 | 86 | +2 | +1 |
+| b × 1.10 | 494 | 99 | -1 | -2 |
+| t × 1.10 | 494 | 99 | -1 | -2 |
+| t × 0.90 | 440 | 88 | +0 | -1 |
+| all ±5% (deterministic) | 510 | 102 | +0 | -1 |
 
-**δ-invariance rate under documented drifts:** 56% of perturbations leave δ at its baseline value of +1.
+**δ-invariance rate under documented drifts:** 33% of perturbations leave δ at its baseline value of +1.
 
-**Most documented drifts are absorbed by m**, with δ staying near its baseline. Consistent with the structural reading.
+**Only 33% of documented drifts leave δ at baseline**; under per-species and anchor perturbations, both m and δ wander. The structural reading is descriptively useful for the BASELINE locked value but is NOT a robust topological invariant — consistent with §8's headline conclusion that N (and therefore both m and δ) is a fit compensator. See `quark_beta_robustness_audit.py` for the full audit.
 
 ## Verdict
 

@@ -1256,16 +1256,21 @@ def test_quark_beta_boundary_k5_squared_plus_one_is_strictly_worse():
 
 def test_quark_beta_boundary_delta_invariance_under_documented_drifts():
     """
-    Under the documented quark_axioms §8 perturbations, the +1 boundary
-    correction must persist for the majority of cases (the structural
-    reading predicts m absorbs the drift while δ stays fixed).
+    Audit-corrected statement (was overstated in the original probe).
+    Using the actual §8 ablation N values (not extrapolated), only ~33%
+    of perturbations leave δ at +1; the structural reading is
+    descriptively useful for the BASELINE locked value but does NOT
+    survive per-species or anchor perturbations. The audit probe
+    `quark_beta_robustness_audit.py` carries the rigorous treatment.
+    Pin the actual rate so any future drift in the §8 numbers surfaces.
     """
     from experiments.closure_ledger.quark_beta_boundary_probe import run_probe
     summary = run_probe()
     rate = summary["delta_invariance_rate_under_documented_drifts"]
-    assert rate >= 0.5, (
-        f"δ-invariance rate {rate:.2f} below the 50% threshold; the "
-        "structural reading is no longer supported."
+    # 4 of 12 logged ablations sit at δ = +1.
+    assert math.isclose(rate, 4.0 / 12.0, abs_tol=0.01), (
+        f"δ-invariance rate {rate:.3f} drifted from the documented "
+        f"4/12 = 0.333; the §8 ablation table may have changed."
     )
 
 
@@ -1349,6 +1354,61 @@ def test_quark_beta_decomposition_full_identity_holds():
     assert m_l == 20
     assert delta_l == 0
     assert m_l * k_5 + delta_l == 100
+
+
+# --- Quark β: §8 robustness audit --------------------------------------
+
+def test_quark_beta_robustness_audit_runs_to_completion():
+    """The robustness audit produces a structured verdict over §8 data."""
+    from experiments.closure_ledger.quark_beta_robustness_audit import run_probe
+    summary = run_probe()
+    assert summary["k_5"] == 5
+    assert summary["baseline_N"] == 466
+    assert len(summary["ablation_decompositions"]) == 12
+    assert "claim_verdicts" in summary
+    assert summary["n_claims_true"] + summary["n_claims_partial"] + \
+        summary["n_claims_false"] == len(summary["claim_verdicts"])
+
+
+def test_quark_beta_robustness_audit_baseline_and_uniform_scale_pass():
+    """
+    Claim 1 must hold: the +1 boundary correction is preserved under
+    the no-physics-change perturbations (baseline + uniform scale).
+    This is the only structural claim that survives the audit.
+    """
+    from experiments.closure_ledger.quark_beta_robustness_audit import run_probe
+    summary = run_probe()
+    by_name = {c["name"]: c for c in summary["claim_verdicts"]}
+    claim1 = by_name["Claim 1: δ = +1 in baseline / uniform-scale runs"]
+    assert claim1["verdict"] == "TRUE"
+
+
+def test_quark_beta_robustness_audit_perturbation_claims_fail():
+    """
+    Claims 2, 3, 4 must FAIL: under per-species and anchor perturbations,
+    δ wanders across {-1, 0, +1, +2}, contradicting the prior probes'
+    structural-invariance reading. This is the audit's headline
+    correction.
+    """
+    from experiments.closure_ledger.quark_beta_robustness_audit import run_probe
+    summary = run_probe()
+    by_name = {c["name"]: c for c in summary["claim_verdicts"]}
+    assert by_name[
+        "Claim 2: δ = +1 across single-species perturbations"
+    ]["verdict"] == "FALSE"
+    assert by_name[
+        "Claim 3: δ = +1 across anchor-species changes"
+    ]["verdict"] == "FALSE"
+    assert by_name[
+        "Claim 4: overall δ-invariance rate ≥ 50%"
+    ]["verdict"] == "FALSE"
+
+
+def test_quark_beta_robustness_audit_plus_one_rate_is_one_third():
+    """The audit's headline rate is ~1/3 (4 of 12 logged ablations)."""
+    from experiments.closure_ledger.quark_beta_robustness_audit import run_probe
+    summary = run_probe()
+    assert math.isclose(summary["plus_one_rate"], 4.0 / 12.0, abs_tol=0.01)
 
 
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
