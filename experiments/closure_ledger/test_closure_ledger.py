@@ -1675,6 +1675,81 @@ def test_hard_wall_best_hypothesis_is_DD():
     assert summary["best_boundary_hypothesis"]["name"] == "DD_dirichlet_both"
 
 
+# --- Aharonov-Bohm Hopf-fibre probe (ℏ-origin sub-target #2) ----------
+
+def test_ab_hopf_fibre_probe_runs_to_completion():
+    """The AB Hopf-fibre probe builds a structured summary."""
+    from experiments.closure_ledger.aharonov_bohm_hopf_fibre_probe import run_probe
+    summary = run_probe()
+    assert "holonomy_trials" in summary
+    assert "spinor_closure_table" in summary
+    assert "full_cycle_breakdown_at_chi_0" in summary
+
+
+def test_ab_hopf_fibre_holonomy_matches_closed_form():
+    """
+    Numerical integration of A_φ dφ along a φ-loop matches the closed
+    form π·cos(χ) to machine precision at every canonical χ.
+    """
+    from experiments.closure_ledger.aharonov_bohm_hopf_fibre_probe import run_probe
+    summary = run_probe()
+    assert summary["all_holonomy_match_closed_form"] is True
+    for t in summary["holonomy_trials"]:
+        assert t["matches_closed_form"], (
+            f"χ = {t['chi']:.4f} mismatch: closed = "
+            f"{t['holonomy_closed_form']}, numerical = "
+            f"{t['holonomy_numerical']}"
+        )
+
+
+def test_ab_hopf_fibre_double_cover_integer_at_polar_fibres_only():
+    """
+    The spinor double-cover phase 2π·cos(χ) is integer-quantized at
+    exactly the three polar fibres χ ∈ {0, π/2, π} of the Hopf base S²,
+    and at no other canonical χ in the catalog.
+    """
+    from experiments.closure_ledger.aharonov_bohm_hopf_fibre_probe import run_probe
+    summary = run_probe()
+    polar_chis = sorted(summary["double_cover_integer_quantized_at"])
+    assert len(polar_chis) == 3
+    assert math.isclose(polar_chis[0], 0.0, abs_tol=1e-9)
+    assert math.isclose(polar_chis[1], math.pi / 2, abs_tol=1e-9)
+    assert math.isclose(polar_chis[2], math.pi, abs_tol=1e-9)
+
+
+def test_ab_hopf_fibre_layer_1_integer_counts_reproduced():
+    """
+    Per-species sum of (antipodal + Hopf + throat + uplift) channels in
+    units of 2π equals the integer N_layer_1 from
+    closure_cycle_action_probe (2, 4, 106). The Hopf-throat partnership
+    is the angular completion of the closure cycle.
+    """
+    from experiments.closure_ledger.aharonov_bohm_hopf_fibre_probe import run_probe
+    summary = run_probe()
+    assert summary["layer_1_integers_consistent"] is True
+    by_species = {f["species"]: f for f in summary["full_cycle_breakdown_at_chi_0"]}
+    expected = {"electron": (2, 3), "muon": (4, 6), "tau": (106, 109)}
+    for sp, (n_l1, n_total) in expected.items():
+        assert by_species[sp]["n_layer_1"] == n_l1
+        assert by_species[sp]["n_total"] == n_total
+
+
+def test_ab_hopf_fibre_hopf_throat_sum_to_one_quantum_at_chi_0():
+    """
+    At χ = 0 the Hopf channel contributes π = 1/2 quantum and the throat
+    T² channel contributes π = 1/2 quantum; together they make exactly
+    one full closure quantum (2π). This is the structural partnership
+    that closes the angular sector.
+    """
+    from experiments.closure_ledger.aharonov_bohm_hopf_fibre_probe import run_probe
+    summary = run_probe()
+    for f in summary["full_cycle_breakdown_at_chi_0"]:
+        hopf_throat = f["contribution_hopf_in_2pi"] + f["contribution_throat_in_2pi"]
+        assert math.isclose(hopf_throat, 1.0, abs_tol=1e-12), (
+            f"{f['species']}: hopf+throat = {hopf_throat}, expected 1.0"
+        )
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
