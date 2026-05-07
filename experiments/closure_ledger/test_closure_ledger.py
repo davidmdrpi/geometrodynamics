@@ -1608,6 +1608,73 @@ def test_closed_orbit_wkb_error_explains_c1_residue():
     )
 
 
+# --- Hard-wall boundary verification (ℏ-origin sub-target #1c) --------
+
+def test_hard_wall_boundary_verification_runs_to_completion():
+    """The verification probe builds a structured summary."""
+    from experiments.closure_ledger.hard_wall_boundary_verification import run_probe
+    summary = run_probe()
+    assert "endpoint_checks" in summary
+    assert "boundary_hypothesis_comparison" in summary
+    assert "t_fixed_point_argument" in summary
+    assert summary["dirichlet_verified_numerically"] is True
+
+
+def test_hard_wall_endpoints_vanish_to_machine_precision():
+    """
+    All eigenfunctions u(r) returned by `solve_radial_modes` vanish at
+    BOTH grid endpoints (inner = R_MID + 5e-4, outer = R_OUTER − 5e-4)
+    to machine precision. This is the numerical Dirichlet condition,
+    a consequence of the eigensolver's [1:N, 1:N] interior-point slice.
+    """
+    from experiments.closure_ledger.hard_wall_boundary_verification import run_probe
+    summary = run_probe()
+    for e in summary["endpoint_checks"]:
+        assert e["inner_is_zero"], f"inner not zero: {e}"
+        assert e["outer_is_zero"], f"outer not zero: {e}"
+
+
+def test_hard_wall_DD_hypothesis_fits_observed_at_high_n():
+    """
+    The DD (Dirichlet+Dirichlet) hypothesis has the smallest deviation
+    from observed closed-orbit action at n ≥ 2. Alternative BCs (DN,
+    ND, NN, soft+soft) are decisively rejected.
+    """
+    from experiments.closure_ledger.hard_wall_boundary_verification import run_probe
+    summary = run_probe()
+    by_name = {h["name"]: h for h in summary["boundary_hypothesis_comparison"]}
+    dd = by_name["DD_dirichlet_both"]
+    dn = by_name["DN_dirichlet_inner_neumann_outer"]
+    nn = by_name["NN_neumann_both"]
+    soft = by_name["soft_both_standard_bs"]
+    # DD should fit at high n.
+    assert dd["deviation_max_at_high_n"] < 0.01
+    # All other BCs should have substantial deviation at high n.
+    assert dn["deviation_max_at_high_n"] > 0.1
+    assert nn["deviation_max_at_high_n"] > 0.1
+    assert soft["deviation_max_at_high_n"] > 0.1
+
+
+def test_hard_wall_t_fixed_point_forces_dirichlet():
+    """
+    T = iσ_y has T² = −I, and ψ = T·ψ admits only ψ = 0 as solution.
+    This is the topological argument that forces Dirichlet at the
+    throat — Dirichlet inner is physical, not just numerical.
+    """
+    from experiments.closure_ledger.hard_wall_boundary_verification import run_probe
+    summary = run_probe()
+    t_arg = summary["t_fixed_point_argument"]
+    assert t_arg["T_squared_eq_minus_I"] is True
+    assert t_arg["only_zero_solution_to_psi_eq_T_psi"] is True
+
+
+def test_hard_wall_best_hypothesis_is_DD():
+    """The data-best boundary hypothesis must be DD."""
+    from experiments.closure_ledger.hard_wall_boundary_verification import run_probe
+    summary = run_probe()
+    assert summary["best_boundary_hypothesis"]["name"] == "DD_dirichlet_both"
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
