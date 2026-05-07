@@ -290,19 +290,27 @@ The README's validation table is the authoritative status snapshot.
 Several items deserve to be called out here as research-level open
 problems rather than implementation TODOs:
 
-- **Where does `ℏ` enter? (next major target.)** The recovered ratios
-  are dimensionless. The absolute scale is set by anchoring `m_e`. A
-  genuine derivation of QED from geometry needs a geometric source for
-  the action quantum. The closure-ledger experiment has localized the
-  natural object — the **closure-phase invariant from the full closure
-  cycle** (antipodal closure × Hopf holonomy × throat T² × radial bulk
-  phase) — and Layer 1 is universal mod 2π by the odd-`k` lemma; what
-  remains is to derive Layer 2 (the radial-channel residue) so the full
-  cycle yields a **single dimensionful action quantum** identifiable
-  with `ℏ`. The natural candidates are Aharonov-Bohm-style flux
-  quantization around the Hopf fibre and discreteness of the
-  Tangherlini eigenvalue spectrum. Neither is closed. After the quark
-  β-status PR, this is the next concrete research target.
+- **Where does `ℏ` enter?** _Structurally complete in geometric units;
+  SI conversion still anchored at m_e._ See `docs/hbar_origin_status.md`
+  for the closing summary. A four-probe sequence in
+  `experiments/closure_ledger/` (closure-cycle action, closed-orbit
+  radial action, hard-wall boundary verification, Aharonov-Bohm Hopf-
+  fibre, ω ↔ m_e) established that **the closure cycle is integer-
+  quantized in units of 2π for every species**: `N_total = N_layer_1
+  + N_radial`, with all four constituent channels (antipodal closure,
+  Hopf-throat partnership at χ = 0, β-uplift closure quantum,
+  hard-wall radial Bohr-Sommerfeld) integer-quantized individually.
+  The Hopf-throat partnership and the hard-wall Dirichlet condition
+  at the throat are both forced by the topology of T = iσ_y (T² = −I).
+  The remaining open piece is the **dimensional bridge to physical
+  ℏ**: the Tangherlini lowest eigenfrequency `ω(1, 0) = 1.05` is
+  approximately the electron Compton frequency at the 5 %-level, but
+  the species mass ratios m_μ/m_e ≈ 207 and m_τ/m_e ≈ 3477 are NOT
+  in the Tangherlini ω-spectrum (which spans factor ~4) — they live
+  in the locked surrogate's closure-quantum uplift and pinhole
+  structure. Predicting ℏ in SI requires `R_MID` to be geometrically
+  determined from a self-consistency condition (next bullet), which
+  remains open.
 - **Self-consistent throat radius.** `R_MID` is currently imposed. The
   deeper version determines `R_MID` dynamically as the equilibrium
   throat radius for a given excitation amplitude, with the

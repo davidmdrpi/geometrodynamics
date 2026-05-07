@@ -1750,6 +1750,64 @@ def test_ab_hopf_fibre_hopf_throat_sum_to_one_quantum_at_chi_0():
         )
 
 
+# --- Tangherlini ω ↔ m_e probe (ℏ-origin sub-target #3) --------------
+
+def test_omega_m_e_probe_runs_to_completion():
+    """The ω ↔ m_e probe builds a structured summary."""
+    from experiments.closure_ledger.tangherlini_omega_m_e_probe import run_probe
+    summary = run_probe()
+    assert "q1_compton_identification" in summary
+    assert "q2_mass_ratio_test" in summary
+    assert "dimensional_verdict" in summary
+
+
+def test_omega_m_e_q1_compton_match_within_5pct():
+    """
+    Q1: ω(l=1, n=0) ≈ 1 in canonical Compton units. Numerically the
+    deviation is ~5.47%, which is suggestive but doesn't pass the
+    1%-level "predictive" threshold.
+    """
+    from experiments.closure_ledger.tangherlini_omega_m_e_probe import run_probe
+    summary = run_probe()
+    q1 = summary["q1_compton_identification"]
+    # Suggestive but not predictive: 5%-level match, NOT 1%-level.
+    assert q1["matches_within_5pct"] is False  # 5.47% is just outside 5%
+    assert q1["matches_within_1pct"] is False
+
+
+def test_omega_m_e_q2_mass_ratios_not_in_omega_spectrum():
+    """
+    Q2: the largest Tangherlini ω-ratio in the catalog is ~3.87, far
+    below the lepton mass ratio m_τ/m_e ≈ 3477. The lepton mass ladder
+    is NOT inside the Tangherlini eigenfrequency spectrum.
+    """
+    from experiments.closure_ledger.tangherlini_omega_m_e_probe import run_probe
+    summary = run_probe()
+    q2 = summary["q2_mass_ratio_test"]
+    # Best ω-ratio for m_τ/m_e is off by >99% (the spectrum span is too
+    # small by 3 orders of magnitude).
+    _, _, _, err_tau = q2["best_candidate_for_tau"]
+    assert err_tau > 0.95   # off by more than 95%
+    # ω-spectrum spans only factor ~4, while m_τ/m_e is 3477.
+    assert q2["spectrum_span_ratio"] < 5.0
+    assert q2["matches_at_5pct"] is False
+
+
+def test_omega_m_e_dimensional_verdict_requires_external_anchor():
+    """
+    The closing verdict: BAM is dimensional-ratio-complete but
+    dimensional-scale-incomplete. Predicting ℏ in physical units
+    requires geometric determination of R_MID (sub-target #4), which
+    is open in the present scope.
+    """
+    from experiments.closure_ledger.tangherlini_omega_m_e_probe import run_probe
+    summary = run_probe()
+    v = summary["dimensional_verdict"]
+    assert v["can_predict_hbar_in_si"] is False
+    assert v["requires_external_anchor"] is True
+    assert len(v["open_subtargets"]) >= 1
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
