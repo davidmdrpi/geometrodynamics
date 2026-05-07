@@ -1537,6 +1537,77 @@ def test_closure_cycle_R_MID_self_consistency_under_compton_identification():
         )
 
 
+# --- Closed-orbit radial action probe (ℏ-origin sub-target #1) --------
+
+def test_closed_orbit_radial_action_probe_runs_to_completion():
+    """The closed-orbit radial action probe builds a structured summary."""
+    from experiments.closure_ledger.closed_orbit_radial_action_probe import run_probe
+    summary = run_probe()
+    assert "radial_action_table" in summary
+    assert "species_couplings" in summary
+    assert "exact_quantum_reading" in summary
+    # Coverage: 3 l-values × 4 n-values = 12 entries.
+    assert len(summary["radial_action_table"]) == 12
+
+
+def test_closed_orbit_integer_quantization_holds_at_high_n():
+    """
+    Headline P1-at-exact-level finding: S_full(l, n) / 2π → (n + 1)
+    integer at high n. Numerically, max deviation at n ≥ 2 must be
+    < 0.05 (essentially exact for excited states).
+    """
+    from experiments.closure_ledger.closed_orbit_radial_action_probe import run_probe
+    summary = run_probe()
+    assert summary["wkb_to_exact_max_dev_at_n_ge_2"] < 0.05
+
+
+def test_closed_orbit_b2_radial_ladder_integer_counts():
+    """
+    Under the B2_radial_ladder coupling (l=1, n=(k-1)/2), each species
+    lands at exactly one bound mode that gives an integer total cycle:
+        electron + (1, 0)  →  N_total_exact = 3
+        muon     + (1, 1)  →  N_total_exact = 6
+        tau      + (1, 2)  →  N_total_exact = 109
+    The tau and muon WKB deviations should be < 0.01 (essentially
+    exact for excited states); the electron's is larger (0.118 at
+    the ground state) but the EXACT integer is still 3.
+    """
+    from experiments.closure_ledger.closed_orbit_radial_action_probe import run_probe
+    summary = run_probe()
+    rows = summary["species_couplings"]["B2_radial_ladder (l=1, n=(k-1)/2)"]
+    by_label = {r["label"]: r for r in rows}
+    assert by_label["electron"]["n_total_exact"] == 3
+    assert by_label["muon"]["n_total_exact"] == 6
+    assert by_label["tau"]["n_total_exact"] == 109
+    # WKB convergence is sharp for the excited-state couplings.
+    assert by_label["muon"]["wkb_deviation_from_exact"] < 0.01
+    assert by_label["tau"]["wkb_deviation_from_exact"] < 0.01
+
+
+def test_closed_orbit_wkb_error_explains_c1_residue():
+    """
+    The earlier closure-ledger probes' residues at the ground state
+    (l, n=0) match the WKB-to-exact deviation: C1 reported residues
+    0.760π–0.882π, and our probe shows the WKB deviations at n=0 are
+    0.118, 0.229, 0.240 (1 − 0.882, 1 − 0.771, 1 − 0.760). The
+    earlier failures are now isolated to a WKB approximation issue.
+    """
+    from experiments.closure_ledger.closed_orbit_radial_action_probe import run_probe
+    summary = run_probe()
+    table = summary["radial_action_table"]
+    by_ln = {(r["l"], r["n"]): r for r in table}
+    # Match the previously-recorded WKB single-pass values to ~3 sig figs.
+    assert math.isclose(
+        by_ln[(1, 0)]["s_single_wkb"] / math.pi, 0.882, abs_tol=0.001
+    )
+    assert math.isclose(
+        by_ln[(3, 0)]["s_single_wkb"] / math.pi, 0.771, abs_tol=0.001
+    )
+    assert math.isclose(
+        by_ln[(5, 0)]["s_single_wkb"] / math.pi, 0.760, abs_tol=0.001
+    )
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1

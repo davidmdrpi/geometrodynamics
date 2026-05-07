@@ -1,0 +1,511 @@
+{
+  "timestamp_utc": "2026-05-07T06:47:55+00:00",
+  "throat_correction": {
+    "value": 3.141592653589793,
+    "interpretation": "T = i\u03c3_y has eigenvalues \u00b1i. T\u00b2 = \u2212I contributes phase argument \u03c0 per closure pass through the non-orientable throat. Adding \u03c0 to the WKB closed-orbit action gives S_full_with_throat = 2\u03c0(n + 1) \u2014 integer-quantized."
+  },
+  "n_layer_1_per_species": {
+    "1": 2,
+    "3": 4,
+    "5": 106
+  },
+  "radial_action_table": [
+    {
+      "l": 1,
+      "n": 0,
+      "omega": 1.0547269375351367,
+      "s_single_wkb": 2.770494371568074,
+      "s_full_wkb": 5.540988743136148,
+      "s_full_with_throat": 8.68258139672594,
+      "N_radial_predict_int": 1,
+      "N_radial_observed": 1.3818757480866661,
+      "deviation_from_integer": 0.38187574808666613,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 1,
+      "n": 1,
+      "omega": 1.9743806502721175,
+      "s_single_wkb": 6.265441717728456,
+      "s_full_wkb": 12.530883435456913,
+      "s_full_with_throat": 15.672476089046706,
+      "N_radial_predict_int": 2,
+      "N_radial_observed": 2.494352040061319,
+      "deviation_from_integer": 0.49435204006131883,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 1,
+      "n": 2,
+      "omega": 2.894070116868654,
+      "s_single_wkb": 9.423010353087182,
+      "s_full_wkb": 18.846020706174365,
+      "s_full_with_throat": 21.987613359764158,
+      "N_radial_predict_int": 3,
+      "N_radial_observed": 3.499437352999862,
+      "deviation_from_integer": 0.49943735299986214,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 1,
+      "n": 3,
+      "omega": 3.824666567744213,
+      "s_single_wkb": 12.565849204843355,
+      "s_full_wkb": 25.13169840968671,
+      "s_full_with_throat": 28.273291063276503,
+      "N_radial_predict_int": 4,
+      "N_radial_observed": 4.499834030196365,
+      "deviation_from_integer": 0.4998340301963653,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 3,
+      "n": 0,
+      "omega": 1.219082740577607,
+      "s_single_wkb": 2.4213642216311575,
+      "s_full_wkb": 4.842728443262315,
+      "s_full_with_throat": 7.984321096852108,
+      "N_radial_predict_int": 1,
+      "N_radial_observed": 1.2707441697969166,
+      "deviation_from_integer": 0.2707441697969166,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 3,
+      "n": 1,
+      "omega": 2.1412077270422216,
+      "s_single_wkb": 6.094062323651878,
+      "s_full_wkb": 12.188124647303756,
+      "s_full_with_throat": 15.329717300893549,
+      "N_radial_predict_int": 2,
+      "N_radial_observed": 2.4398002846385562,
+      "deviation_from_integer": 0.43980028463855625,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 3,
+      "n": 2,
+      "omega": 3.021987803397198,
+      "s_single_wkb": 9.40412640735332,
+      "s_full_wkb": 18.80825281470664,
+      "s_full_with_throat": 21.949845468296434,
+      "N_radial_predict_int": 3,
+      "N_radial_observed": 3.493426406382616,
+      "deviation_from_integer": 0.4934264063826159,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 3,
+      "n": 3,
+      "omega": 3.9224506034225777,
+      "s_single_wkb": 12.561591347572104,
+      "s_full_wkb": 25.12318269514421,
+      "s_full_with_throat": 28.264775348734002,
+      "N_radial_predict_int": 4,
+      "N_radial_observed": 4.498478712132966,
+      "deviation_from_integer": 0.49847871213296635,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 5,
+      "n": 0,
+      "omega": 1.3959734850917922,
+      "s_single_wkb": 2.3891088749908462,
+      "s_full_wkb": 4.7782177499816925,
+      "s_full_with_throat": 7.919810403571486,
+      "N_radial_predict_int": 1,
+      "N_radial_observed": 1.2604769740790205,
+      "deviation_from_integer": 0.2604769740790205,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 5,
+      "n": 1,
+      "omega": 2.3693937895346067,
+      "s_single_wkb": 5.5834893946930215,
+      "s_full_wkb": 11.166978789386043,
+      "s_full_with_throat": 14.308571442975836,
+      "N_radial_predict_int": 2,
+      "N_radial_observed": 2.277279873733138,
+      "deviation_from_integer": 0.2772798737331379,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 5,
+      "n": 2,
+      "omega": 3.227725798780809,
+      "s_single_wkb": 9.292777890505533,
+      "s_full_wkb": 18.585555781011067,
+      "s_full_with_throat": 21.72714843460086,
+      "N_radial_predict_int": 3,
+      "N_radial_observed": 3.4579830726580627,
+      "deviation_from_integer": 0.4579830726580627,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 5,
+      "n": 3,
+      "omega": 4.086079805536645,
+      "s_single_wkb": 12.545273886491358,
+      "s_full_wkb": 25.090547772982717,
+      "s_full_with_throat": 28.23214042657251,
+      "N_radial_predict_int": 4,
+      "N_radial_observed": 4.493284702953546,
+      "deviation_from_integer": 0.4932847029535461,
+      "integer_quantized_within_tol": false
+    }
+  ],
+  "species_couplings": {
+    "B1_ground (k=k_species, n=0)": [
+      {
+        "label": "electron",
+        "k": 1,
+        "n_layer_1": 2,
+        "coupling": "B1_ground (k=k_species, n=0)",
+        "coupled_modes": [
+          [
+            1,
+            0
+          ]
+        ],
+        "n_radial_total": 1.3818757480866661,
+        "n_radial_total_predict": 1,
+        "n_total": 3.3818757480866664,
+        "n_total_predict": 3,
+        "integer_quantized": false,
+        "deviation": 0.38187574808666636
+      },
+      {
+        "label": "muon",
+        "k": 3,
+        "n_layer_1": 4,
+        "coupling": "B1_ground (k=k_species, n=0)",
+        "coupled_modes": [
+          [
+            3,
+            0
+          ]
+        ],
+        "n_radial_total": 1.2707441697969166,
+        "n_radial_total_predict": 1,
+        "n_total": 5.270744169796917,
+        "n_total_predict": 5,
+        "integer_quantized": false,
+        "deviation": 0.2707441697969166
+      },
+      {
+        "label": "tau",
+        "k": 5,
+        "n_layer_1": 106,
+        "coupling": "B1_ground (k=k_species, n=0)",
+        "coupled_modes": [
+          [
+            5,
+            0
+          ]
+        ],
+        "n_radial_total": 1.2604769740790205,
+        "n_radial_total_predict": 1,
+        "n_total": 107.26047697407903,
+        "n_total_predict": 107,
+        "integer_quantized": false,
+        "deviation": 0.26047697407902604
+      }
+    ],
+    "B1_first_excited (k=k_species, n=1)": [
+      {
+        "label": "electron",
+        "k": 1,
+        "n_layer_1": 2,
+        "coupling": "B1_first_excited (k=k_species, n=1)",
+        "coupled_modes": [
+          [
+            1,
+            1
+          ]
+        ],
+        "n_radial_total": 2.494352040061319,
+        "n_radial_total_predict": 2,
+        "n_total": 4.494352040061319,
+        "n_total_predict": 4,
+        "integer_quantized": false,
+        "deviation": 0.49435204006131883
+      },
+      {
+        "label": "muon",
+        "k": 3,
+        "n_layer_1": 4,
+        "coupling": "B1_first_excited (k=k_species, n=1)",
+        "coupled_modes": [
+          [
+            3,
+            1
+          ]
+        ],
+        "n_radial_total": 2.4398002846385562,
+        "n_radial_total_predict": 2,
+        "n_total": 6.439800284638556,
+        "n_total_predict": 6,
+        "integer_quantized": false,
+        "deviation": 0.43980028463855625
+      },
+      {
+        "label": "tau",
+        "k": 5,
+        "n_layer_1": 106,
+        "coupling": "B1_first_excited (k=k_species, n=1)",
+        "coupled_modes": [
+          [
+            5,
+            1
+          ]
+        ],
+        "n_radial_total": 2.277279873733138,
+        "n_radial_total_predict": 2,
+        "n_total": 108.27727987373314,
+        "n_total_predict": 108,
+        "integer_quantized": false,
+        "deviation": 0.2772798737331357
+      }
+    ],
+    "B1_second_excited (k=k_species, n=2)": [
+      {
+        "label": "electron",
+        "k": 1,
+        "n_layer_1": 2,
+        "coupling": "B1_second_excited (k=k_species, n=2)",
+        "coupled_modes": [
+          [
+            1,
+            2
+          ]
+        ],
+        "n_radial_total": 3.499437352999862,
+        "n_radial_total_predict": 3,
+        "n_total": 5.499437352999863,
+        "n_total_predict": 5,
+        "integer_quantized": false,
+        "deviation": 0.4994373529998626
+      },
+      {
+        "label": "muon",
+        "k": 3,
+        "n_layer_1": 4,
+        "coupling": "B1_second_excited (k=k_species, n=2)",
+        "coupled_modes": [
+          [
+            3,
+            2
+          ]
+        ],
+        "n_radial_total": 3.493426406382616,
+        "n_radial_total_predict": 3,
+        "n_total": 7.493426406382616,
+        "n_total_predict": 7,
+        "integer_quantized": false,
+        "deviation": 0.4934264063826159
+      },
+      {
+        "label": "tau",
+        "k": 5,
+        "n_layer_1": 106,
+        "coupling": "B1_second_excited (k=k_species, n=2)",
+        "coupled_modes": [
+          [
+            5,
+            2
+          ]
+        ],
+        "n_radial_total": 3.4579830726580627,
+        "n_radial_total_predict": 3,
+        "n_total": 109.45798307265807,
+        "n_total_predict": 109,
+        "integer_quantized": false,
+        "deviation": 0.4579830726580667
+      }
+    ],
+    "B1_third_excited (k=k_species, n=3)": [
+      {
+        "label": "electron",
+        "k": 1,
+        "n_layer_1": 2,
+        "coupling": "B1_third_excited (k=k_species, n=3)",
+        "coupled_modes": [
+          [
+            1,
+            3
+          ]
+        ],
+        "n_radial_total": 4.499834030196365,
+        "n_radial_total_predict": 4,
+        "n_total": 6.499834030196365,
+        "n_total_predict": 6,
+        "integer_quantized": false,
+        "deviation": 0.4998340301963653
+      },
+      {
+        "label": "muon",
+        "k": 3,
+        "n_layer_1": 4,
+        "coupling": "B1_third_excited (k=k_species, n=3)",
+        "coupled_modes": [
+          [
+            3,
+            3
+          ]
+        ],
+        "n_radial_total": 4.498478712132966,
+        "n_radial_total_predict": 4,
+        "n_total": 8.498478712132966,
+        "n_total_predict": 8,
+        "integer_quantized": false,
+        "deviation": 0.49847871213296635
+      },
+      {
+        "label": "tau",
+        "k": 5,
+        "n_layer_1": 106,
+        "coupling": "B1_third_excited (k=k_species, n=3)",
+        "coupled_modes": [
+          [
+            5,
+            3
+          ]
+        ],
+        "n_radial_total": 4.493284702953546,
+        "n_radial_total_predict": 4,
+        "n_total": 110.49328470295355,
+        "n_total_predict": 110,
+        "integer_quantized": false,
+        "deviation": 0.4932847029535452
+      }
+    ],
+    "B2_radial_ladder (l=1, n=(k-1)/2)": [
+      {
+        "label": "electron",
+        "k": 1,
+        "n_layer_1": 2,
+        "coupling": "B2_radial_ladder (l=1, n=(k-1)/2)",
+        "coupled_modes": [
+          [
+            1,
+            0
+          ]
+        ],
+        "n_radial_total": 1.3818757480866661,
+        "n_radial_total_predict": 1,
+        "n_total": 3.3818757480866664,
+        "n_total_predict": 3,
+        "integer_quantized": false,
+        "deviation": 0.38187574808666636
+      },
+      {
+        "label": "muon",
+        "k": 3,
+        "n_layer_1": 4,
+        "coupling": "B2_radial_ladder (l=1, n=(k-1)/2)",
+        "coupled_modes": [
+          [
+            1,
+            1
+          ]
+        ],
+        "n_radial_total": 2.494352040061319,
+        "n_radial_total_predict": 2,
+        "n_total": 6.494352040061319,
+        "n_total_predict": 6,
+        "integer_quantized": false,
+        "deviation": 0.49435204006131883
+      },
+      {
+        "label": "tau",
+        "k": 5,
+        "n_layer_1": 106,
+        "coupling": "B2_radial_ladder (l=1, n=(k-1)/2)",
+        "coupled_modes": [
+          [
+            1,
+            2
+          ]
+        ],
+        "n_radial_total": 3.499437352999862,
+        "n_radial_total_predict": 3,
+        "n_total": 109.49943735299986,
+        "n_total_predict": 109,
+        "integer_quantized": false,
+        "deviation": 0.4994373529998626
+      }
+    ],
+    "A_cumulative_odd (l=1..k, n=0)": [
+      {
+        "label": "electron",
+        "k": 1,
+        "n_layer_1": 2,
+        "coupling": "A_cumulative_odd (l=1..k, n=0)",
+        "coupled_modes": [
+          [
+            1,
+            0
+          ]
+        ],
+        "n_radial_total": 1.3818757480866661,
+        "n_radial_total_predict": 1,
+        "n_total": 3.3818757480866664,
+        "n_total_predict": 3,
+        "integer_quantized": false,
+        "deviation": 0.38187574808666636
+      },
+      {
+        "label": "muon",
+        "k": 3,
+        "n_layer_1": 4,
+        "coupling": "A_cumulative_odd (l=1..k, n=0)",
+        "coupled_modes": [
+          [
+            1,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "n_radial_total": 2.652619917883583,
+        "n_radial_total_predict": 2,
+        "n_total": 6.652619917883583,
+        "n_total_predict": 6,
+        "integer_quantized": false,
+        "deviation": 0.652619917883583
+      },
+      {
+        "label": "tau",
+        "k": 5,
+        "n_layer_1": 106,
+        "coupling": "A_cumulative_odd (l=1..k, n=0)",
+        "coupled_modes": [
+          [
+            1,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            5,
+            0
+          ]
+        ],
+        "n_radial_total": 3.9130968919626037,
+        "n_radial_total_predict": 3,
+        "n_total": 109.91309689196261,
+        "n_total_predict": 109,
+        "integer_quantized": false,
+        "deviation": 0.9130968919626099
+      }
+    ]
+  },
+  "integer_quantization_at_high_n": false,
+  "best_low_n_deviation_max": 0.38187574808666613,
+  "best_high_n_deviation_max": 0.4998340301963653
+}
