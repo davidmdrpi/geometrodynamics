@@ -1,0 +1,348 @@
+{
+  "timestamp_utc": "2026-05-07T07:06:06+00:00",
+  "endpoint_checks": [
+    {
+      "l": 1,
+      "n": 0,
+      "omega": 1.0547269375351367,
+      "u_inner": 0.0,
+      "u_outer": 0.0,
+      "u_max_abs": 0.9999999999948104,
+      "inner_is_zero": true,
+      "outer_is_zero": true
+    },
+    {
+      "l": 1,
+      "n": 1,
+      "omega": 1.9743806502721175,
+      "u_inner": 0.0,
+      "u_outer": 0.0,
+      "u_max_abs": 0.9999999999945074,
+      "inner_is_zero": true,
+      "outer_is_zero": true
+    },
+    {
+      "l": 1,
+      "n": 2,
+      "omega": 2.894070116868654,
+      "u_inner": 0.0,
+      "u_outer": 0.0,
+      "u_max_abs": 0.9999999999943613,
+      "inner_is_zero": true,
+      "outer_is_zero": true
+    },
+    {
+      "l": 1,
+      "n": 3,
+      "omega": 3.824666567744213,
+      "u_inner": 0.0,
+      "u_outer": 0.0,
+      "u_max_abs": 0.999999999994245,
+      "inner_is_zero": true,
+      "outer_is_zero": true
+    },
+    {
+      "l": 3,
+      "n": 0,
+      "omega": 1.219082740577607,
+      "u_inner": -0.0,
+      "u_outer": -0.0,
+      "u_max_abs": 0.9999999999950098,
+      "inner_is_zero": true,
+      "outer_is_zero": true
+    },
+    {
+      "l": 3,
+      "n": 1,
+      "omega": 2.1412077270422216,
+      "u_inner": 0.0,
+      "u_outer": 0.0,
+      "u_max_abs": 0.999999999994654,
+      "inner_is_zero": true,
+      "outer_is_zero": true
+    },
+    {
+      "l": 3,
+      "n": 2,
+      "omega": 3.021987803397198,
+      "u_inner": 0.0,
+      "u_outer": 0.0,
+      "u_max_abs": 0.9999999999945196,
+      "inner_is_zero": true,
+      "outer_is_zero": true
+    },
+    {
+      "l": 3,
+      "n": 3,
+      "omega": 3.9224506034225777,
+      "u_inner": 0.0,
+      "u_outer": 0.0,
+      "u_max_abs": 0.9999999999943822,
+      "inner_is_zero": true,
+      "outer_is_zero": true
+    },
+    {
+      "l": 5,
+      "n": 0,
+      "omega": 1.3959734850917922,
+      "u_inner": 0.0,
+      "u_outer": 0.0,
+      "u_max_abs": 0.9999999999952383,
+      "inner_is_zero": true,
+      "outer_is_zero": true
+    },
+    {
+      "l": 5,
+      "n": 1,
+      "omega": 2.3693937895346067,
+      "u_inner": 0.0,
+      "u_outer": 0.0,
+      "u_max_abs": 0.9999999999948395,
+      "inner_is_zero": true,
+      "outer_is_zero": true
+    },
+    {
+      "l": 5,
+      "n": 2,
+      "omega": 3.227725798780809,
+      "u_inner": 0.0,
+      "u_outer": 0.0,
+      "u_max_abs": 0.9999999999947004,
+      "inner_is_zero": true,
+      "outer_is_zero": true
+    },
+    {
+      "l": 5,
+      "n": 3,
+      "omega": 4.086079805536645,
+      "u_inner": 0.0,
+      "u_outer": 0.0,
+      "u_max_abs": 0.9999999999945686,
+      "inner_is_zero": true,
+      "outer_is_zero": true
+    }
+  ],
+  "dirichlet_verified_numerically": true,
+  "all_inner_endpoints_zero": true,
+  "all_outer_endpoints_zero": true,
+  "boundary_hypothesis_comparison": [
+    {
+      "name": "DD_dirichlet_both",
+      "description": "Dirichlet at BOTH endpoints (hard walls). \u222ep\u00b7dq = 2\u03c0\u00b7N, N = 1, 2, 3, \u2026 Solver's 0-indexed n maps to N = n + 1.",
+      "bs_formula": "\u222ep\u00b7dq / 2\u03c0 = n + 1",
+      "bs_predict_per_solver_n": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "deviation_max_at_n_0": 0.11812425191333376,
+      "deviation_max_at_high_n": 0.0005626470001378614
+    },
+    {
+      "name": "DN_dirichlet_inner_neumann_outer",
+      "description": "Dirichlet at inner (hard), Neumann at outer (free reflection). \u222ep\u00b7dq = 2\u03c0\u00b7(N \u2212 1/4). Solver's n \u2192 N = n + 1.",
+      "bs_formula": "\u222ep\u00b7dq / 2\u03c0 = (n + 1) \u2212 1/4 = n + 3/4",
+      "bs_predict_per_solver_n": [
+        0.75,
+        1.75,
+        2.75,
+        3.75
+      ],
+      "deviation_max_at_n_0": 0.13187574808666624,
+      "deviation_max_at_high_n": 0.24983403019636485
+    },
+    {
+      "name": "ND_neumann_inner_dirichlet_outer",
+      "description": "Neumann at inner (free at throat), Dirichlet at outer.",
+      "bs_formula": "\u222ep\u00b7dq / 2\u03c0 = (n + 1) \u2212 1/4 = n + 3/4",
+      "bs_predict_per_solver_n": [
+        0.75,
+        1.75,
+        2.75,
+        3.75
+      ],
+      "deviation_max_at_n_0": 0.13187574808666624,
+      "deviation_max_at_high_n": 0.24983403019636485
+    },
+    {
+      "name": "NN_neumann_both",
+      "description": "Neumann at both (free reflection both ends).",
+      "bs_formula": "\u222ep\u00b7dq / 2\u03c0 = (n + 1) \u2212 1/2 = n + 1/2",
+      "bs_predict_per_solver_n": [
+        0.5,
+        1.5,
+        2.5,
+        3.5
+      ],
+      "deviation_max_at_n_0": 0.38187574808666624,
+      "deviation_max_at_high_n": 0.49983403019636485
+    },
+    {
+      "name": "soft_both_standard_bs",
+      "description": "Two soft turning points (standard Bohr-Sommerfeld with Maslov = \u2212\u03c0). \u222ep\u00b7dq = 2\u03c0\u00b7(n + 1/2), n = 0, 1, 2, \u2026",
+      "bs_formula": "\u222ep\u00b7dq / 2\u03c0 = n + 1/2",
+      "bs_predict_per_solver_n": [
+        0.5,
+        1.5,
+        2.5,
+        3.5
+      ],
+      "deviation_max_at_n_0": 0.38187574808666624,
+      "deviation_max_at_high_n": 0.49983403019636485
+    }
+  ],
+  "best_boundary_hypothesis": {
+    "name": "DD_dirichlet_both",
+    "description": "Dirichlet at BOTH endpoints (hard walls). \u222ep\u00b7dq = 2\u03c0\u00b7N, N = 1, 2, 3, \u2026 Solver's 0-indexed n maps to N = n + 1.",
+    "bs_formula": "\u222ep\u00b7dq / 2\u03c0 = n + 1",
+    "bs_predict_per_solver_n": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "deviation_max_at_n_0": 0.11812425191333376,
+    "deviation_max_at_high_n": 0.0005626470001378614
+  },
+  "t_fixed_point_argument": {
+    "description": "T = i\u03c3_y has T\u00b2 = \u2212I (numerically verified). A spinor \u03c8 that is T-invariant satisfies both \u03c8 = T\u00b7\u03c8 and \u2212\u03c8 = T\u00b2\u00b7\u03c8 = T(T\u00b7\u03c8) = T\u00b7\u03c8 = \u03c8, forcing 2\u00b7\u03c8 = 0, hence \u03c8 = 0. The only T-fixed wavefunction is the zero spinor, so any wavefunction that 'returns to itself' after a single throat traversal must vanish AT the throat.",
+    "T_squared_eq_minus_I": true,
+    "T_fixed_point_implies_zero": true,
+    "only_zero_solution_to_psi_eq_T_psi": true
+  },
+  "observed_closed_orbit": [
+    {
+      "l": 1,
+      "n": 0,
+      "omega": 1.0547269375351367,
+      "s_single_wkb": 2.770494371568074,
+      "s_full_wkb": 5.540988743136148,
+      "n_radial_wkb": 0.8818757480866662,
+      "n_radial_exact": 1,
+      "deviation_wkb_from_exact": 0.11812425191333376,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 1,
+      "n": 1,
+      "omega": 1.9743806502721175,
+      "s_single_wkb": 6.265441717728456,
+      "s_full_wkb": 12.530883435456913,
+      "n_radial_wkb": 1.9943520400613188,
+      "n_radial_exact": 2,
+      "deviation_wkb_from_exact": 0.0056479599386811685,
+      "integer_quantized_within_tol": true
+    },
+    {
+      "l": 1,
+      "n": 2,
+      "omega": 2.894070116868654,
+      "s_single_wkb": 9.423010353087182,
+      "s_full_wkb": 18.846020706174365,
+      "n_radial_wkb": 2.999437352999862,
+      "n_radial_exact": 3,
+      "deviation_wkb_from_exact": 0.0005626470001378614,
+      "integer_quantized_within_tol": true
+    },
+    {
+      "l": 1,
+      "n": 3,
+      "omega": 3.824666567744213,
+      "s_single_wkb": 12.565849204843355,
+      "s_full_wkb": 25.13169840968671,
+      "n_radial_wkb": 3.999834030196365,
+      "n_radial_exact": 4,
+      "deviation_wkb_from_exact": 0.00016596980363514646,
+      "integer_quantized_within_tol": true
+    },
+    {
+      "l": 3,
+      "n": 0,
+      "omega": 1.219082740577607,
+      "s_single_wkb": 2.4213642216311575,
+      "s_full_wkb": 4.842728443262315,
+      "n_radial_wkb": 0.7707441697969166,
+      "n_radial_exact": 1,
+      "deviation_wkb_from_exact": 0.22925583020308338,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 3,
+      "n": 1,
+      "omega": 2.1412077270422216,
+      "s_single_wkb": 6.094062323651878,
+      "s_full_wkb": 12.188124647303756,
+      "n_radial_wkb": 1.9398002846385562,
+      "n_radial_exact": 2,
+      "deviation_wkb_from_exact": 0.06019971536144375,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 3,
+      "n": 2,
+      "omega": 3.021987803397198,
+      "s_single_wkb": 9.40412640735332,
+      "s_full_wkb": 18.80825281470664,
+      "n_radial_wkb": 2.993426406382616,
+      "n_radial_exact": 3,
+      "deviation_wkb_from_exact": 0.006573593617384077,
+      "integer_quantized_within_tol": true
+    },
+    {
+      "l": 3,
+      "n": 3,
+      "omega": 3.9224506034225777,
+      "s_single_wkb": 12.561591347572104,
+      "s_full_wkb": 25.12318269514421,
+      "n_radial_wkb": 3.9984787121329664,
+      "n_radial_exact": 4,
+      "deviation_wkb_from_exact": 0.0015212878670336494,
+      "integer_quantized_within_tol": true
+    },
+    {
+      "l": 5,
+      "n": 0,
+      "omega": 1.3959734850917922,
+      "s_single_wkb": 2.3891088749908462,
+      "s_full_wkb": 4.7782177499816925,
+      "n_radial_wkb": 0.7604769740790205,
+      "n_radial_exact": 1,
+      "deviation_wkb_from_exact": 0.23952302592097952,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 5,
+      "n": 1,
+      "omega": 2.3693937895346067,
+      "s_single_wkb": 5.5834893946930215,
+      "s_full_wkb": 11.166978789386043,
+      "n_radial_wkb": 1.7772798737331381,
+      "n_radial_exact": 2,
+      "deviation_wkb_from_exact": 0.22272012626686188,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 5,
+      "n": 2,
+      "omega": 3.227725798780809,
+      "s_single_wkb": 9.292777890505533,
+      "s_full_wkb": 18.585555781011067,
+      "n_radial_wkb": 2.9579830726580627,
+      "n_radial_exact": 3,
+      "deviation_wkb_from_exact": 0.042016927341937294,
+      "integer_quantized_within_tol": false
+    },
+    {
+      "l": 5,
+      "n": 3,
+      "omega": 4.086079805536645,
+      "s_single_wkb": 12.545273886491358,
+      "s_full_wkb": 25.090547772982717,
+      "n_radial_wkb": 3.9932847029535457,
+      "n_radial_exact": 4,
+      "deviation_wkb_from_exact": 0.006715297046454349,
+      "integer_quantized_within_tol": true
+    }
+  ]
+}

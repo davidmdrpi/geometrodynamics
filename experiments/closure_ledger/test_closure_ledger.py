@@ -1465,6 +1465,349 @@ def test_quark_beta_subblock_all_logged_N_values_are_even():
     assert half["half_baseline"] == 233   # 466 / 2
 
 
+# --- Closure-cycle action quantum probe (ℏ-origin sub-target #1) -------
+
+def test_closure_cycle_action_probe_runs_to_completion():
+    """The action-quantum probe builds a structured summary."""
+    from experiments.closure_ledger.closure_cycle_action_probe import run_probe
+    summary = run_probe()
+    assert summary["p1_status"] in {"PASS", "FAIL"}
+    assert "n_quanta_per_species" in summary
+    assert summary["all_species_integer_quantized"] is True
+    assert "hbar_conversion_check" in summary
+    assert "layer_2_effect_analysis" in summary
+
+
+def test_closure_cycle_p1_pass_with_specific_integer_counts():
+    """
+    Headline finding: each species' Layer-1 ledger sum is an integer
+    multiple of 2π under the locked baseline, with the specific
+    counts (electron=2, muon=4, tau=106) reading off as
+    (k+1) closure passes plus the 100·(2π) τ-uplift quantum.
+    """
+    from experiments.closure_ledger.closure_cycle_action_probe import run_probe
+    summary = run_probe()
+    assert summary["p1_status"] == "PASS"
+    assert summary["n_quanta_per_species"] == {
+        "electron": 2,
+        "muon": 4,
+        "tau": 106,
+    }
+
+
+def test_closure_cycle_layer_2_candidates_break_integer_quantization():
+    """
+    Sanity check on the closure-ledger sweep's Layer-2 candidates: C1
+    and D1 each shift the per-species φ/2π by non-integer amounts,
+    confirming that a Layer-2 closure form has to contribute exactly
+    an integer multiple of 2π per species (not just be universal mod
+    2π) to preserve the action-quantum reading.
+    """
+    from experiments.closure_ledger.closure_cycle_action_probe import run_probe
+    summary = run_probe()
+    by_name = {e["layer_2_candidate"]: e for e in summary["layer_2_effect_analysis"]}
+    assert by_name[
+        "Layer 2 absent (ledger universal at 0 mod 2π)"
+    ]["preserves_integer_quantization"] is True
+    assert by_name[
+        "C1 (eigenvector-weighted B1 modes)"
+    ]["preserves_integer_quantization"] is False
+    assert by_name[
+        "D1 (operator-valued V_j-V_i Hermitian matrix element)"
+    ]["preserves_integer_quantization"] is False
+
+
+def test_closure_cycle_R_MID_self_consistency_under_compton_identification():
+    """
+    Under R_MID = ℏ/(m_e c), the closure cycle in Compton wavelengths
+    equals N · 2π by construction. The check verifies this self-
+    consistency (it does NOT predict ℏ; it just records the
+    convention's tautology).
+    """
+    from experiments.closure_ledger.closure_cycle_action_probe import run_probe
+    summary = run_probe()
+    for c in summary["hbar_conversion_check"]:
+        assert c["self_consistent"] is True
+        # cycle length in Compton wavelengths == N · 2π
+        expected = c["n_quanta"] * 2.0 * math.pi
+        assert math.isclose(
+            c["closure_cycle_physical_compton_wavelengths"],
+            expected,
+            rel_tol=1e-12,
+        )
+
+
+# --- Closed-orbit radial action probe (ℏ-origin sub-target #1) --------
+
+def test_closed_orbit_radial_action_probe_runs_to_completion():
+    """The closed-orbit radial action probe builds a structured summary."""
+    from experiments.closure_ledger.closed_orbit_radial_action_probe import run_probe
+    summary = run_probe()
+    assert "radial_action_table" in summary
+    assert "species_couplings" in summary
+    assert "exact_quantum_reading" in summary
+    # Coverage: 3 l-values × 4 n-values = 12 entries.
+    assert len(summary["radial_action_table"]) == 12
+
+
+def test_closed_orbit_integer_quantization_holds_at_high_n():
+    """
+    Headline P1-at-exact-level finding: S_full(l, n) / 2π → (n + 1)
+    integer at high n. Numerically, max deviation at n ≥ 2 must be
+    < 0.05 (essentially exact for excited states).
+    """
+    from experiments.closure_ledger.closed_orbit_radial_action_probe import run_probe
+    summary = run_probe()
+    assert summary["wkb_to_exact_max_dev_at_n_ge_2"] < 0.05
+
+
+def test_closed_orbit_b2_radial_ladder_integer_counts():
+    """
+    Under the B2_radial_ladder coupling (l=1, n=(k-1)/2), each species
+    lands at exactly one bound mode that gives an integer total cycle:
+        electron + (1, 0)  →  N_total_exact = 3
+        muon     + (1, 1)  →  N_total_exact = 6
+        tau      + (1, 2)  →  N_total_exact = 109
+    The tau and muon WKB deviations should be < 0.01 (essentially
+    exact for excited states); the electron's is larger (0.118 at
+    the ground state) but the EXACT integer is still 3.
+    """
+    from experiments.closure_ledger.closed_orbit_radial_action_probe import run_probe
+    summary = run_probe()
+    rows = summary["species_couplings"]["B2_radial_ladder (l=1, n=(k-1)/2)"]
+    by_label = {r["label"]: r for r in rows}
+    assert by_label["electron"]["n_total_exact"] == 3
+    assert by_label["muon"]["n_total_exact"] == 6
+    assert by_label["tau"]["n_total_exact"] == 109
+    # WKB convergence is sharp for the excited-state couplings.
+    assert by_label["muon"]["wkb_deviation_from_exact"] < 0.01
+    assert by_label["tau"]["wkb_deviation_from_exact"] < 0.01
+
+
+def test_closed_orbit_wkb_error_explains_c1_residue():
+    """
+    The earlier closure-ledger probes' residues at the ground state
+    (l, n=0) match the WKB-to-exact deviation: C1 reported residues
+    0.760π–0.882π, and our probe shows the WKB deviations at n=0 are
+    0.118, 0.229, 0.240 (1 − 0.882, 1 − 0.771, 1 − 0.760). The
+    earlier failures are now isolated to a WKB approximation issue.
+    """
+    from experiments.closure_ledger.closed_orbit_radial_action_probe import run_probe
+    summary = run_probe()
+    table = summary["radial_action_table"]
+    by_ln = {(r["l"], r["n"]): r for r in table}
+    # Match the previously-recorded WKB single-pass values to ~3 sig figs.
+    assert math.isclose(
+        by_ln[(1, 0)]["s_single_wkb"] / math.pi, 0.882, abs_tol=0.001
+    )
+    assert math.isclose(
+        by_ln[(3, 0)]["s_single_wkb"] / math.pi, 0.771, abs_tol=0.001
+    )
+    assert math.isclose(
+        by_ln[(5, 0)]["s_single_wkb"] / math.pi, 0.760, abs_tol=0.001
+    )
+
+
+# --- Hard-wall boundary verification (ℏ-origin sub-target #1c) --------
+
+def test_hard_wall_boundary_verification_runs_to_completion():
+    """The verification probe builds a structured summary."""
+    from experiments.closure_ledger.hard_wall_boundary_verification import run_probe
+    summary = run_probe()
+    assert "endpoint_checks" in summary
+    assert "boundary_hypothesis_comparison" in summary
+    assert "t_fixed_point_argument" in summary
+    assert summary["dirichlet_verified_numerically"] is True
+
+
+def test_hard_wall_endpoints_vanish_to_machine_precision():
+    """
+    All eigenfunctions u(r) returned by `solve_radial_modes` vanish at
+    BOTH grid endpoints (inner = R_MID + 5e-4, outer = R_OUTER − 5e-4)
+    to machine precision. This is the numerical Dirichlet condition,
+    a consequence of the eigensolver's [1:N, 1:N] interior-point slice.
+    """
+    from experiments.closure_ledger.hard_wall_boundary_verification import run_probe
+    summary = run_probe()
+    for e in summary["endpoint_checks"]:
+        assert e["inner_is_zero"], f"inner not zero: {e}"
+        assert e["outer_is_zero"], f"outer not zero: {e}"
+
+
+def test_hard_wall_DD_hypothesis_fits_observed_at_high_n():
+    """
+    The DD (Dirichlet+Dirichlet) hypothesis has the smallest deviation
+    from observed closed-orbit action at n ≥ 2. Alternative BCs (DN,
+    ND, NN, soft+soft) are decisively rejected.
+    """
+    from experiments.closure_ledger.hard_wall_boundary_verification import run_probe
+    summary = run_probe()
+    by_name = {h["name"]: h for h in summary["boundary_hypothesis_comparison"]}
+    dd = by_name["DD_dirichlet_both"]
+    dn = by_name["DN_dirichlet_inner_neumann_outer"]
+    nn = by_name["NN_neumann_both"]
+    soft = by_name["soft_both_standard_bs"]
+    # DD should fit at high n.
+    assert dd["deviation_max_at_high_n"] < 0.01
+    # All other BCs should have substantial deviation at high n.
+    assert dn["deviation_max_at_high_n"] > 0.1
+    assert nn["deviation_max_at_high_n"] > 0.1
+    assert soft["deviation_max_at_high_n"] > 0.1
+
+
+def test_hard_wall_t_fixed_point_forces_dirichlet():
+    """
+    T = iσ_y has T² = −I, and ψ = T·ψ admits only ψ = 0 as solution.
+    This is the topological argument that forces Dirichlet at the
+    throat — Dirichlet inner is physical, not just numerical.
+    """
+    from experiments.closure_ledger.hard_wall_boundary_verification import run_probe
+    summary = run_probe()
+    t_arg = summary["t_fixed_point_argument"]
+    assert t_arg["T_squared_eq_minus_I"] is True
+    assert t_arg["only_zero_solution_to_psi_eq_T_psi"] is True
+
+
+def test_hard_wall_best_hypothesis_is_DD():
+    """The data-best boundary hypothesis must be DD."""
+    from experiments.closure_ledger.hard_wall_boundary_verification import run_probe
+    summary = run_probe()
+    assert summary["best_boundary_hypothesis"]["name"] == "DD_dirichlet_both"
+
+
+# --- Aharonov-Bohm Hopf-fibre probe (ℏ-origin sub-target #2) ----------
+
+def test_ab_hopf_fibre_probe_runs_to_completion():
+    """The AB Hopf-fibre probe builds a structured summary."""
+    from experiments.closure_ledger.aharonov_bohm_hopf_fibre_probe import run_probe
+    summary = run_probe()
+    assert "holonomy_trials" in summary
+    assert "spinor_closure_table" in summary
+    assert "full_cycle_breakdown_at_chi_0" in summary
+
+
+def test_ab_hopf_fibre_holonomy_matches_closed_form():
+    """
+    Numerical integration of A_φ dφ along a φ-loop matches the closed
+    form π·cos(χ) to machine precision at every canonical χ.
+    """
+    from experiments.closure_ledger.aharonov_bohm_hopf_fibre_probe import run_probe
+    summary = run_probe()
+    assert summary["all_holonomy_match_closed_form"] is True
+    for t in summary["holonomy_trials"]:
+        assert t["matches_closed_form"], (
+            f"χ = {t['chi']:.4f} mismatch: closed = "
+            f"{t['holonomy_closed_form']}, numerical = "
+            f"{t['holonomy_numerical']}"
+        )
+
+
+def test_ab_hopf_fibre_double_cover_integer_at_polar_fibres_only():
+    """
+    The spinor double-cover phase 2π·cos(χ) is integer-quantized at
+    exactly the three polar fibres χ ∈ {0, π/2, π} of the Hopf base S²,
+    and at no other canonical χ in the catalog.
+    """
+    from experiments.closure_ledger.aharonov_bohm_hopf_fibre_probe import run_probe
+    summary = run_probe()
+    polar_chis = sorted(summary["double_cover_integer_quantized_at"])
+    assert len(polar_chis) == 3
+    assert math.isclose(polar_chis[0], 0.0, abs_tol=1e-9)
+    assert math.isclose(polar_chis[1], math.pi / 2, abs_tol=1e-9)
+    assert math.isclose(polar_chis[2], math.pi, abs_tol=1e-9)
+
+
+def test_ab_hopf_fibre_layer_1_integer_counts_reproduced():
+    """
+    Per-species sum of (antipodal + Hopf + throat + uplift) channels in
+    units of 2π equals the integer N_layer_1 from
+    closure_cycle_action_probe (2, 4, 106). The Hopf-throat partnership
+    is the angular completion of the closure cycle.
+    """
+    from experiments.closure_ledger.aharonov_bohm_hopf_fibre_probe import run_probe
+    summary = run_probe()
+    assert summary["layer_1_integers_consistent"] is True
+    by_species = {f["species"]: f for f in summary["full_cycle_breakdown_at_chi_0"]}
+    expected = {"electron": (2, 3), "muon": (4, 6), "tau": (106, 109)}
+    for sp, (n_l1, n_total) in expected.items():
+        assert by_species[sp]["n_layer_1"] == n_l1
+        assert by_species[sp]["n_total"] == n_total
+
+
+def test_ab_hopf_fibre_hopf_throat_sum_to_one_quantum_at_chi_0():
+    """
+    At χ = 0 the Hopf channel contributes π = 1/2 quantum and the throat
+    T² channel contributes π = 1/2 quantum; together they make exactly
+    one full closure quantum (2π). This is the structural partnership
+    that closes the angular sector.
+    """
+    from experiments.closure_ledger.aharonov_bohm_hopf_fibre_probe import run_probe
+    summary = run_probe()
+    for f in summary["full_cycle_breakdown_at_chi_0"]:
+        hopf_throat = f["contribution_hopf_in_2pi"] + f["contribution_throat_in_2pi"]
+        assert math.isclose(hopf_throat, 1.0, abs_tol=1e-12), (
+            f"{f['species']}: hopf+throat = {hopf_throat}, expected 1.0"
+        )
+
+
+# --- Tangherlini ω ↔ m_e probe (ℏ-origin sub-target #3) --------------
+
+def test_omega_m_e_probe_runs_to_completion():
+    """The ω ↔ m_e probe builds a structured summary."""
+    from experiments.closure_ledger.tangherlini_omega_m_e_probe import run_probe
+    summary = run_probe()
+    assert "q1_compton_identification" in summary
+    assert "q2_mass_ratio_test" in summary
+    assert "dimensional_verdict" in summary
+
+
+def test_omega_m_e_q1_compton_match_within_5pct():
+    """
+    Q1: ω(l=1, n=0) ≈ 1 in canonical Compton units. Numerically the
+    deviation is ~5.47%, which is suggestive but doesn't pass the
+    1%-level "predictive" threshold.
+    """
+    from experiments.closure_ledger.tangherlini_omega_m_e_probe import run_probe
+    summary = run_probe()
+    q1 = summary["q1_compton_identification"]
+    # Suggestive but not predictive: 5%-level match, NOT 1%-level.
+    assert q1["matches_within_5pct"] is False  # 5.47% is just outside 5%
+    assert q1["matches_within_1pct"] is False
+
+
+def test_omega_m_e_q2_mass_ratios_not_in_omega_spectrum():
+    """
+    Q2: the largest Tangherlini ω-ratio in the catalog is ~3.87, far
+    below the lepton mass ratio m_τ/m_e ≈ 3477. The lepton mass ladder
+    is NOT inside the Tangherlini eigenfrequency spectrum.
+    """
+    from experiments.closure_ledger.tangherlini_omega_m_e_probe import run_probe
+    summary = run_probe()
+    q2 = summary["q2_mass_ratio_test"]
+    # Best ω-ratio for m_τ/m_e is off by >99% (the spectrum span is too
+    # small by 3 orders of magnitude).
+    _, _, _, err_tau = q2["best_candidate_for_tau"]
+    assert err_tau > 0.95   # off by more than 95%
+    # ω-spectrum spans only factor ~4, while m_τ/m_e is 3477.
+    assert q2["spectrum_span_ratio"] < 5.0
+    assert q2["matches_at_5pct"] is False
+
+
+def test_omega_m_e_dimensional_verdict_requires_external_anchor():
+    """
+    The closing verdict: BAM is dimensional-ratio-complete but
+    dimensional-scale-incomplete. Predicting ℏ in physical units
+    requires geometric determination of R_MID (sub-target #4), which
+    is open in the present scope.
+    """
+    from experiments.closure_ledger.tangherlini_omega_m_e_probe import run_probe
+    summary = run_probe()
+    v = summary["dimensional_verdict"]
+    assert v["can_predict_hbar_in_si"] is False
+    assert v["requires_external_anchor"] is True
+    assert len(v["open_subtargets"]) >= 1
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1

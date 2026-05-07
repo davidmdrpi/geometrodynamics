@@ -1,0 +1,192 @@
+{
+  "timestamp_utc": "2026-05-07T22:39:37+00:00",
+  "hopf_connection_form": "A = (1/2) cos(\u03c7) d\u03c6",
+  "closed_form_holonomy": "\u222eA = \u03c0 \u00b7 cos(\u03c7)",
+  "holonomy_trials": [
+    {
+      "chi": 0.0,
+      "chi_in_pi": 0.0,
+      "holonomy_closed_form": 3.141592653589793,
+      "holonomy_numerical": 3.141592653589793,
+      "deviation": 0.0,
+      "matches_closed_form": true
+    },
+    {
+      "chi": 0.7853981633974483,
+      "chi_in_pi": 0.25,
+      "holonomy_closed_form": 2.221441469079183,
+      "holonomy_numerical": 2.221441469079183,
+      "deviation": 0.0,
+      "matches_closed_form": true
+    },
+    {
+      "chi": 1.0471975511965976,
+      "chi_in_pi": 0.3333333333333333,
+      "holonomy_closed_form": 1.570796326794897,
+      "holonomy_numerical": 1.5707963267948968,
+      "deviation": 2.220446049250313e-16,
+      "matches_closed_form": true
+    },
+    {
+      "chi": 1.5707963267948966,
+      "chi_in_pi": 0.5,
+      "holonomy_closed_form": 1.9236706937217898e-16,
+      "holonomy_numerical": 1.92367069372179e-16,
+      "deviation": 2.465190328815662e-32,
+      "matches_closed_form": true
+    },
+    {
+      "chi": 2.0943951023931953,
+      "chi_in_pi": 0.6666666666666666,
+      "holonomy_closed_form": -1.570796326794896,
+      "holonomy_numerical": -1.5707963267948963,
+      "deviation": 4.440892098500626e-16,
+      "matches_closed_form": true
+    },
+    {
+      "chi": 2.356194490192345,
+      "chi_in_pi": 0.75,
+      "holonomy_closed_form": -2.221441469079183,
+      "holonomy_numerical": -2.221441469079183,
+      "deviation": 0.0,
+      "matches_closed_form": true
+    },
+    {
+      "chi": 3.141592653589793,
+      "chi_in_pi": 1.0,
+      "holonomy_closed_form": -3.141592653589793,
+      "holonomy_numerical": -3.141592653589793,
+      "deviation": 0.0,
+      "matches_closed_form": true
+    }
+  ],
+  "all_holonomy_match_closed_form": true,
+  "spinor_closure_table": [
+    {
+      "chi": 0.0,
+      "chi_label": "0 (canonical north pole, \u03c7=0)",
+      "single_closure_phase": 3.141592653589793,
+      "single_in_2pi": 0.5,
+      "double_closure_phase": 6.283185307179586,
+      "double_in_2pi": 1.0,
+      "single_is_integer": false,
+      "double_is_integer": true,
+      "interpretation": "Hopf flux at maximum; single closure picks up \u03c0 = 1/2 quantum, spinor double cover gives 2\u03c0 = 1 full quantum."
+    },
+    {
+      "chi": 0.7853981633974483,
+      "chi_label": "\u03c0/4",
+      "single_closure_phase": 2.221441469079183,
+      "single_in_2pi": 0.3535533905932738,
+      "double_closure_phase": 4.442882938158366,
+      "double_in_2pi": 0.7071067811865476,
+      "single_is_integer": false,
+      "double_is_integer": false,
+      "interpretation": "Intermediate; cos(\u03c0/4) = \u221a2/2 \u2248 0.707."
+    },
+    {
+      "chi": 1.0471975511965976,
+      "chi_label": "\u03c0/3",
+      "single_closure_phase": 1.570796326794897,
+      "single_in_2pi": 0.25000000000000006,
+      "double_closure_phase": 3.141592653589794,
+      "double_in_2pi": 0.5000000000000001,
+      "single_is_integer": false,
+      "double_is_integer": false,
+      "interpretation": "Intermediate; cos(\u03c0/3) = 1/2 = exact half."
+    },
+    {
+      "chi": 1.5707963267948966,
+      "chi_label": "\u03c0/2 (equator)",
+      "single_closure_phase": 1.9236706937217898e-16,
+      "single_in_2pi": 3.061616997868383e-17,
+      "double_closure_phase": 3.8473413874435795e-16,
+      "double_in_2pi": 6.123233995736766e-17,
+      "single_is_integer": true,
+      "double_is_integer": true,
+      "interpretation": "Hopf flux vanishes; both single and double closure give 0 \u2014 trivial AB phase. Equatorial fibre has zero electromagnetic self-interaction."
+    },
+    {
+      "chi": 2.0943951023931953,
+      "chi_label": "2\u03c0/3",
+      "single_closure_phase": -1.570796326794896,
+      "single_in_2pi": -0.2499999999999999,
+      "double_closure_phase": -3.141592653589792,
+      "double_in_2pi": -0.4999999999999998,
+      "single_is_integer": false,
+      "double_is_integer": false,
+      "interpretation": "Intermediate; cos(2\u03c0/3) = \u22121/2."
+    },
+    {
+      "chi": 2.356194490192345,
+      "chi_label": "3\u03c0/4",
+      "single_closure_phase": -2.221441469079183,
+      "single_in_2pi": -0.3535533905932738,
+      "double_closure_phase": -4.442882938158366,
+      "double_in_2pi": -0.7071067811865476,
+      "single_is_integer": false,
+      "double_is_integer": false,
+      "interpretation": "Intermediate; cos(3\u03c0/4) = \u2212\u221a2/2."
+    },
+    {
+      "chi": 3.141592653589793,
+      "chi_label": "\u03c0 (south pole)",
+      "single_closure_phase": -3.141592653589793,
+      "single_in_2pi": -0.5,
+      "double_closure_phase": -6.283185307179586,
+      "double_in_2pi": -1.0,
+      "single_is_integer": false,
+      "double_is_integer": true,
+      "interpretation": "Antipode of canonical; single closure picks up \u2212\u03c0 = \u22121/2 quantum, double cover gives \u22122\u03c0 = \u22121 full quantum (mod 2\u03c0 = 0)."
+    }
+  ],
+  "double_cover_integer_quantized_at": [
+    0.0,
+    1.5707963267948966,
+    3.141592653589793
+  ],
+  "double_cover_integer_quantized_chi_labels": [
+    "0 (canonical north pole, \u03c7=0)",
+    "\u03c0/2 (equator)",
+    "\u03c0 (south pole)"
+  ],
+  "full_cycle_breakdown_at_chi_0": [
+    {
+      "species": "electron",
+      "k": 1,
+      "n_layer_1": 2,
+      "contribution_antipodal_in_2pi": 1,
+      "contribution_hopf_in_2pi": 0.5,
+      "contribution_throat_in_2pi": 0.5,
+      "contribution_uplift_in_2pi": 0.0,
+      "sum_in_2pi": 2.0,
+      "n_radial_at_b2_coupling": 1,
+      "n_total": 3
+    },
+    {
+      "species": "muon",
+      "k": 3,
+      "n_layer_1": 4,
+      "contribution_antipodal_in_2pi": 3,
+      "contribution_hopf_in_2pi": 0.5,
+      "contribution_throat_in_2pi": 0.5,
+      "contribution_uplift_in_2pi": 0.0,
+      "sum_in_2pi": 4.0,
+      "n_radial_at_b2_coupling": 2,
+      "n_total": 6
+    },
+    {
+      "species": "tau",
+      "k": 5,
+      "n_layer_1": 106,
+      "contribution_antipodal_in_2pi": 5,
+      "contribution_hopf_in_2pi": 0.5,
+      "contribution_throat_in_2pi": 0.5,
+      "contribution_uplift_in_2pi": 100.0,
+      "sum_in_2pi": 106.0,
+      "n_radial_at_b2_coupling": 3,
+      "n_total": 109
+    }
+  ],
+  "layer_1_integers_consistent": true
+}

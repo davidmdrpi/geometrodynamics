@@ -1,0 +1,140 @@
+{
+  "timestamp_utc": "2026-05-07T01:52:05+00:00",
+  "constants": {
+    "action_base_2pi": 6.283185307179586,
+    "hopf_at_chi_0": 3.141592653589793,
+    "throat_T2": 3.141592653589793,
+    "beta_lepton_50pi": 157.07963267948966,
+    "M_e_grams": 9.1093837015e-28,
+    "hbar_cgs": 1.054571817e-27,
+    "c_cgs": 29979245800.0,
+    "lambda_e_reduced_cm": 3.861592677242834e-11
+  },
+  "layer_1_per_species": [
+    {
+      "label": "electron",
+      "k": 1,
+      "antipodal": 6.283185307179586,
+      "hopf": 3.141592653589793,
+      "throat": 3.141592653589793,
+      "uplift": 0.0,
+      "phi_total": 12.566370614359172,
+      "n_quanta": 2.0,
+      "is_integer_quantized": true,
+      "n_quanta_rounded": 2
+    },
+    {
+      "label": "muon",
+      "k": 3,
+      "antipodal": 18.84955592153876,
+      "hopf": 3.141592653589793,
+      "throat": 3.141592653589793,
+      "uplift": 0.0,
+      "phi_total": 25.132741228718345,
+      "n_quanta": 4.0,
+      "is_integer_quantized": true,
+      "n_quanta_rounded": 4
+    },
+    {
+      "label": "tau",
+      "k": 5,
+      "antipodal": 31.41592653589793,
+      "hopf": 3.141592653589793,
+      "throat": 3.141592653589793,
+      "uplift": 628.3185307179587,
+      "phi_total": 666.0176425610362,
+      "n_quanta": 106.0,
+      "is_integer_quantized": true,
+      "n_quanta_rounded": 106
+    }
+  ],
+  "all_species_integer_quantized": true,
+  "p1_status": "PASS",
+  "n_quanta_per_species": {
+    "electron": 2,
+    "muon": 4,
+    "tau": 106
+  },
+  "hbar_conversion_check": [
+    {
+      "species_label": "electron",
+      "n_quanta": 2,
+      "R_MID_geom_units": 1.0,
+      "R_MID_physical_cm": 3.861592677242834e-11,
+      "closure_cycle_geometric_length": 12.566370614359172,
+      "closure_cycle_physical_cm": 4.852620474392891e-10,
+      "closure_cycle_physical_compton_wavelengths": 12.566370614359172,
+      "self_consistent": true
+    },
+    {
+      "species_label": "muon",
+      "n_quanta": 4,
+      "R_MID_geom_units": 1.0,
+      "R_MID_physical_cm": 3.861592677242834e-11,
+      "closure_cycle_geometric_length": 25.132741228718345,
+      "closure_cycle_physical_cm": 9.705240948785782e-10,
+      "closure_cycle_physical_compton_wavelengths": 25.132741228718345,
+      "self_consistent": true
+    },
+    {
+      "species_label": "tau",
+      "n_quanta": 106,
+      "R_MID_geom_units": 1.0,
+      "R_MID_physical_cm": 3.861592677242834e-11,
+      "closure_cycle_geometric_length": 666.0176425610362,
+      "closure_cycle_physical_cm": 2.571888851428232e-08,
+      "closure_cycle_physical_compton_wavelengths": 666.0176425610362,
+      "self_consistent": true
+    }
+  ],
+  "layer_2_effect_analysis": [
+    {
+      "layer_2_candidate": "Layer 2 absent (ledger universal at 0 mod 2\u03c0)",
+      "description": "Layer 1 only \u2014 the odd-k lemma's domain of validity.",
+      "delta_phi_in_pi": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "new_phi_in_2pi": [
+        2.0,
+        4.0,
+        106.0
+      ],
+      "preserves_integer_quantization": true,
+      "new_residue_circular_spread_rad": 0.0
+    },
+    {
+      "layer_2_candidate": "C1 (eigenvector-weighted B1 modes)",
+      "description": "Best scalar S(k) candidate from the closure-ledger sweep; circular spread 0.326 rad.",
+      "delta_phi_in_pi": [
+        0.864195,
+        0.788396,
+        0.760506
+      ],
+      "new_phi_in_2pi": [
+        2.4320975,
+        4.394198,
+        106.380253
+      ],
+      "preserves_integer_quantization": false,
+      "new_residue_circular_spread_rad": 0.32574860065809474
+    },
+    {
+      "layer_2_candidate": "D1 (operator-valued V_j-V_i Hermitian matrix element)",
+      "description": "Best operator-valued candidate from the D-family probe; circular spread 0.577 rad.",
+      "delta_phi_in_pi": [
+        0.097827,
+        1.914264,
+        1.98791
+      ],
+      "new_phi_in_2pi": [
+        2.0489135000000003,
+        4.957132,
+        106.993955
+      ],
+      "preserves_integer_quantization": false,
+      "new_residue_circular_spread_rad": 0.5766801722709074
+    }
+  ]
+}
