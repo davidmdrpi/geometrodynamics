@@ -1465,6 +1465,78 @@ def test_quark_beta_subblock_all_logged_N_values_are_even():
     assert half["half_baseline"] == 233   # 466 / 2
 
 
+# --- Closure-cycle action quantum probe (ℏ-origin sub-target #1) -------
+
+def test_closure_cycle_action_probe_runs_to_completion():
+    """The action-quantum probe builds a structured summary."""
+    from experiments.closure_ledger.closure_cycle_action_probe import run_probe
+    summary = run_probe()
+    assert summary["p1_status"] in {"PASS", "FAIL"}
+    assert "n_quanta_per_species" in summary
+    assert summary["all_species_integer_quantized"] is True
+    assert "hbar_conversion_check" in summary
+    assert "layer_2_effect_analysis" in summary
+
+
+def test_closure_cycle_p1_pass_with_specific_integer_counts():
+    """
+    Headline finding: each species' Layer-1 ledger sum is an integer
+    multiple of 2π under the locked baseline, with the specific
+    counts (electron=2, muon=4, tau=106) reading off as
+    (k+1) closure passes plus the 100·(2π) τ-uplift quantum.
+    """
+    from experiments.closure_ledger.closure_cycle_action_probe import run_probe
+    summary = run_probe()
+    assert summary["p1_status"] == "PASS"
+    assert summary["n_quanta_per_species"] == {
+        "electron": 2,
+        "muon": 4,
+        "tau": 106,
+    }
+
+
+def test_closure_cycle_layer_2_candidates_break_integer_quantization():
+    """
+    Sanity check on the closure-ledger sweep's Layer-2 candidates: C1
+    and D1 each shift the per-species φ/2π by non-integer amounts,
+    confirming that a Layer-2 closure form has to contribute exactly
+    an integer multiple of 2π per species (not just be universal mod
+    2π) to preserve the action-quantum reading.
+    """
+    from experiments.closure_ledger.closure_cycle_action_probe import run_probe
+    summary = run_probe()
+    by_name = {e["layer_2_candidate"]: e for e in summary["layer_2_effect_analysis"]}
+    assert by_name[
+        "Layer 2 absent (ledger universal at 0 mod 2π)"
+    ]["preserves_integer_quantization"] is True
+    assert by_name[
+        "C1 (eigenvector-weighted B1 modes)"
+    ]["preserves_integer_quantization"] is False
+    assert by_name[
+        "D1 (operator-valued V_j-V_i Hermitian matrix element)"
+    ]["preserves_integer_quantization"] is False
+
+
+def test_closure_cycle_R_MID_self_consistency_under_compton_identification():
+    """
+    Under R_MID = ℏ/(m_e c), the closure cycle in Compton wavelengths
+    equals N · 2π by construction. The check verifies this self-
+    consistency (it does NOT predict ℏ; it just records the
+    convention's tautology).
+    """
+    from experiments.closure_ledger.closure_cycle_action_probe import run_probe
+    summary = run_probe()
+    for c in summary["hbar_conversion_check"]:
+        assert c["self_consistent"] is True
+        # cycle length in Compton wavelengths == N · 2π
+        expected = c["n_quanta"] * 2.0 * math.pi
+        assert math.isclose(
+            c["closure_cycle_physical_compton_wavelengths"],
+            expected,
+            rel_tol=1e-12,
+        )
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
