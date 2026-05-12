@@ -1,0 +1,48 @@
+{
+  "timestamp_utc": "2026-05-12T02:33:53+00:00",
+  "constants": {
+    "M_e_grams": 9.1093837015e-28,
+    "hbar_cgs": 1.054571817e-27,
+    "c_cgs": 29979245800.0,
+    "lambda_e_reduced_cm": 3.861592677242834e-11
+  },
+  "compton_bridge_snapshot": {
+    "R_outer": 1.449004599452019,
+    "omega_l1_n0": 1.000000000392943,
+    "sigma_vmax_0_5": 23.630766414871662,
+    "R_MID_predicted_geom": 1.000000000392943,
+    "R_MID_predicted_cm": 3.86159267876022e-11,
+    "R_outer_predicted_cm": 5.5954655527338016e-11,
+    "cavity_volume_geometric": 12.043068649288143,
+    "cavity_volume_compton_units": 12.043068663484862
+  },
+  "gamma_lock_snapshot": {
+    "R_outer": 1.2622663497924804,
+    "omega_l1_n0": 1.0536940214495045,
+    "sigma_vmax_0_5": 22.4999990224432,
+    "R_MID_predicted_geom": 1.0536940214495045,
+    "R_MID_predicted_cm": 4.06893711728396e-11,
+    "R_outer_predicted_cm": 5.1360824025691624e-11,
+    "cavity_volume_geometric": 6.742600784424859,
+    "cavity_volume_compton_units": 7.8880743327907314
+  },
+  "canonical_R_OUTER_1.26_snapshot": {
+    "R_outer": 1.26,
+    "omega_l1_n0": 1.0547269375351367,
+    "sigma_vmax_0_5": 22.452678711350607,
+    "R_MID_predicted_geom": 1.0547269375351367,
+    "R_MID_predicted_cm": 4.0729258184764434e-11,
+    "R_outer_predicted_cm": 5.131886531280319e-11,
+    "cavity_volume_geometric": 6.6817570727454205,
+    "cavity_volume_compton_units": 7.839904923153414
+  },
+  "tension_summary": {
+    "R_outer_at_omega_1": 1.449004599452019,
+    "R_outer_at_gamma_22_5": 1.2622663497924804,
+    "relative_difference_pct": 14.793886384615963,
+    "omega_at_gamma_lock": 1.0536940214495045,
+    "sigma_at_compton_lock": 23.630766414871662,
+    "gamma_lepton_value": 22.5,
+    "interpretation": "Two natural conditions on R_OUTER give DIFFERENT values: the Compton bridge (\u03c9 = 1 exactly) wants R_OUTER \u2248 1.4490, while the \u03b3_lepton lock (\u03a3 V_max[0..5] = 22.5) wants R_OUTER \u2248 1.2623. The difference is 14.79 %. Both cannot hold simultaneously: the current locked geometry chose the \u03b3-lock, leaving a 5 % deviation from the Compton bridge."
+  }
+}

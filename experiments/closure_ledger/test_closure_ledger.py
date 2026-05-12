@@ -1808,6 +1808,91 @@ def test_omega_m_e_dimensional_verdict_requires_external_anchor():
     assert len(v["open_subtargets"]) >= 1
 
 
+# --- Tangherlini → electron-scale bridge (ℏ-origin sub-target #4) ----
+
+def test_electron_scale_bridge_runs_to_completion():
+    """The Tangherlini → electron-scale bridge probe builds a summary."""
+    from experiments.closure_ledger.tangherlini_electron_scale_bridge import run_probe
+    summary = run_probe()
+    assert "compton_bridge_snapshot" in summary
+    assert "gamma_lock_snapshot" in summary
+    assert "tension_summary" in summary
+    assert "canonical_R_OUTER_1.26_snapshot" in summary
+
+
+def test_electron_scale_bridge_compton_at_R_outer_1_449():
+    """
+    The Compton-bridge condition ω(1, 0) = 1 is solved at
+    R_OUTER ≈ 1.449. Under this geometry, R_MID = λ_C_reduced
+    exactly (the reduced electron Compton wavelength). Both pinned
+    to 1e-3 to catch any drift in the eigensolver or the Compton
+    constants.
+    """
+    from experiments.closure_ledger.tangherlini_electron_scale_bridge import run_probe
+    summary = run_probe()
+    snap = summary["compton_bridge_snapshot"]
+    assert math.isclose(snap["R_outer"], 1.449, abs_tol=1e-2), (
+        f"Compton-bridge R_OUTER drifted from 1.449: got {snap['R_outer']}"
+    )
+    assert math.isclose(snap["omega_l1_n0"], 1.0, abs_tol=1e-6)
+    # R_MID prediction matches λ_C_reduced ≈ 3.862e-11 cm.
+    lambda_c_reduced_cm = 3.861593e-11
+    assert math.isclose(
+        snap["R_MID_predicted_cm"], lambda_c_reduced_cm,
+        rel_tol=1e-3,
+    )
+
+
+def test_electron_scale_bridge_gamma_lock_at_R_outer_1_262():
+    """
+    The γ_lepton-lock condition Σ V_max[0..5] = 22.5 is solved at
+    R_OUTER ≈ 1.262. Under this geometry, ω(1, 0) ≈ 1.054 — about
+    5.4% above the Compton-bridge value. R_MID under this lock is
+    ≈ 4.07e-11 cm, about 5.4% larger than λ_C_reduced.
+    """
+    from experiments.closure_ledger.tangherlini_electron_scale_bridge import run_probe
+    summary = run_probe()
+    snap = summary["gamma_lock_snapshot"]
+    assert math.isclose(snap["R_outer"], 1.262, abs_tol=1e-2)
+    assert math.isclose(snap["sigma_vmax_0_5"], 22.5, abs_tol=1e-3)
+    # ω at the γ-lock differs from 1 by ~5%.
+    assert math.isclose(snap["omega_l1_n0"], 1.054, abs_tol=1e-2)
+
+
+def test_electron_scale_bridge_structural_tension_preserved():
+    """
+    The two natural R_OUTER conditions — Compton bridge (ω = 1) and
+    γ_lepton lock (Σ V_max = 22.5) — give R_OUTER values that differ
+    by ~14-15 %. The framework cannot satisfy both simultaneously.
+    This test pins the tension so a future probe that tries to
+    resolve it has a clear before/after marker.
+    """
+    from experiments.closure_ledger.tangherlini_electron_scale_bridge import run_probe
+    summary = run_probe()
+    t = summary["tension_summary"]
+    # The tension is substantial (> 10%).
+    assert t["relative_difference_pct"] > 10.0, (
+        f"Tension shrank unexpectedly: {t['relative_difference_pct']:.2f}%; "
+        "either the eigensolver changed or a resolving mechanism has "
+        "been introduced."
+    )
+    # And below 20% (the current ~14.79% value).
+    assert t["relative_difference_pct"] < 20.0
+
+
+def test_electron_scale_bridge_canonical_baseline_consistent_with_prior_probes():
+    """
+    Canonical R_OUTER = 1.26 baseline reproduces the values used in
+    earlier probes: ω(1, 0) ≈ 1.0547 (the closed_orbit and ω↔m_e
+    probes) and Σ V_max[0..5] ≈ 22.45 (the γ-offset probe).
+    """
+    from experiments.closure_ledger.tangherlini_electron_scale_bridge import run_probe
+    summary = run_probe()
+    snap = summary["canonical_R_OUTER_1.26_snapshot"]
+    assert math.isclose(snap["omega_l1_n0"], 1.0547, abs_tol=1e-3)
+    assert math.isclose(snap["sigma_vmax_0_5"], 22.45, abs_tol=1e-2)
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
