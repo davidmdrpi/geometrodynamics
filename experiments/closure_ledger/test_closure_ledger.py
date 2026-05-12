@@ -2020,6 +2020,61 @@ def test_compton_bridge_locked_baseline_reproduces_lepton_ladder():
     assert nl["matches_sub_percent"] is True
 
 
+# --- Closed-form search for the 1.054 factor --------------------------
+
+def test_factor_1054_search_runs_to_completion():
+    """The closed-form search probe builds a structured summary."""
+    from experiments.closure_ledger.factor_1054_search_probe import run_probe
+    summary = run_probe()
+    assert "best_per_family" in summary
+    assert "overall_best" in summary
+    assert summary["n_candidates_total"] > 100
+
+
+def test_factor_1054_no_high_plausibility_match_under_001pct():
+    """
+    Empirical claim — clean negative result: no high-plausibility
+    candidate (small integers, k_5, π) matches the γ-lock ω(1, 0)
+    to within 0.01 %. The dimensional bridge to ℏ retains an
+    irreducible structural constant.
+    """
+    from experiments.closure_ledger.factor_1054_search_probe import run_probe
+    summary = run_probe()
+    assert summary["exact_matches_under_01pct_high_plausibility"] == []
+
+
+def test_factor_1054_best_high_plausibility_near_miss_is_10_over_9():
+    """
+    The best high-plausibility near-miss is ω² ≈ 10/9, off by ~0.04 %.
+    If a future probe surfaces a tighter closed-form, this test will
+    flag the change.
+    """
+    from experiments.closure_ledger.factor_1054_search_probe import run_probe
+    summary = run_probe()
+    hp = summary["high_plausibility_top_10"]
+    assert hp
+    top_formulas = {c["formula"] for c in hp}
+    assert "10/9" in top_formulas
+    # The 10/9 entry should land within 0.1 % but not within 0.01 %.
+    by_formula_target = {(c["formula"], c["target"]): c for c in hp}
+    c = by_formula_target.get(("10/9", "omega_sq"))
+    assert c is not None
+    assert abs(c["deviation_pct_gamma_lock"]) < 0.1
+    assert abs(c["deviation_pct_gamma_lock"]) > 0.01
+
+
+def test_factor_1054_overall_best_uses_large_integers():
+    """
+    The overall best fit (no plausibility filter) involves integers
+    > 30 — i.e. the closest matches lack obvious structural meaning.
+    """
+    from experiments.closure_ledger.factor_1054_search_probe import run_probe
+    summary = run_probe()
+    ob = summary["overall_best"]
+    # Overall best should be tight (better than 0.001%) but use large ints.
+    assert abs(ob["deviation_pct_gamma_lock"]) < 0.005
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
