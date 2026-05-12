@@ -290,27 +290,35 @@ The README's validation table is the authoritative status snapshot.
 Several items deserve to be called out here as research-level open
 problems rather than implementation TODOs:
 
-- **Where does `ℏ` enter?** _Structurally complete in geometric units;
-  SI conversion still anchored at m_e._ See `docs/hbar_origin_status.md`
-  for the closing summary. A four-probe sequence in
-  `experiments/closure_ledger/` (closure-cycle action, closed-orbit
-  radial action, hard-wall boundary verification, Aharonov-Bohm Hopf-
-  fibre, ω ↔ m_e) established that **the closure cycle is integer-
-  quantized in units of 2π for every species**: `N_total = N_layer_1
-  + N_radial`, with all four constituent channels (antipodal closure,
-  Hopf-throat partnership at χ = 0, β-uplift closure quantum,
-  hard-wall radial Bohr-Sommerfeld) integer-quantized individually.
-  The Hopf-throat partnership and the hard-wall Dirichlet condition
-  at the throat are both forced by the topology of T = iσ_y (T² = −I).
-  The remaining open piece is the **dimensional bridge to physical
-  ℏ**: the Tangherlini lowest eigenfrequency `ω(1, 0) = 1.05` is
-  approximately the electron Compton frequency at the 5 %-level, but
-  the species mass ratios m_μ/m_e ≈ 207 and m_τ/m_e ≈ 3477 are NOT
-  in the Tangherlini ω-spectrum (which spans factor ~4) — they live
-  in the locked surrogate's closure-quantum uplift and pinhole
-  structure. Predicting ℏ in SI requires `R_MID` to be geometrically
-  determined from a self-consistency condition (next bullet), which
-  remains open.
+- **Where does `ℏ` enter?** _Closure-cycle structurally complete;
+  R_OUTER physically selected; SI conversion reduced to a single
+  1.054 factor._ See `docs/hbar_origin_status.md` for the closing
+  summary. An eight-probe sequence in `experiments/closure_ledger/`
+  established three connected results: (1) **the closure cycle is
+  integer-quantized in units of 2π for every species** —
+  `N_total = N_layer_1 + N_radial` with all constituent channels
+  (antipodal closure, Hopf-throat partnership at χ = 0, β-uplift
+  closure quantum, hard-wall radial Bohr-Sommerfeld) integer-quantized
+  individually; the Hopf-throat partnership and the hard-wall
+  Dirichlet condition at the throat are both forced by `T² = −I`.
+  (2) **The Compton-bridge geometry (ω(1, 0) = 1 exactly at
+  R_OUTER ≈ 1.449) is physically vetoed** — re-running the locked
+  lepton surrogate at this geometry breaks the muon and tau masses
+  by ~46 %, and no β re-tuning recovers both species. The γ-lock
+  geometry (R_OUTER ≈ 1.262, Σ V_max = 22.5, ω(1, 0) = 1.054) is the
+  unique physical selection. (3) **The γ-lock R_OUTER is selected
+  by a cross-species self-consistency loop**: bisecting μ and τ
+  independently against `γ = Σ V_max(R)` gives the same R* to within
+  0.008 %, confirming that the radial barrier-sum geometry
+  reproduces both lepton mass ratios at a single R_OUTER. The
+  remaining open piece is **the SI conversion factor 1.054** —
+  ω(1, 0) at the cross-species fixed point. Whether 1.054 has a
+  closed form in `(k_5, π, barrier invariants)`, and whether the
+  R_OUTER fixed point can be lifted from "phenomenological-
+  parameter-dependent" to "fully geometric" (current sensitivity to
+  transport / resistance is ~1–7 %), are concrete next-pass targets
+  identified in `docs/hbar_origin_status.md`. Predicting ℏ in SI
+  remains gated by the m_e anchor plus this 1.054 factor.
 - **Self-consistent throat radius.** `R_MID` is currently imposed. The
   deeper version determines `R_MID` dynamically as the equilibrium
   throat radius for a given excitation amplitude, with the

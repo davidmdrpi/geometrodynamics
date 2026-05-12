@@ -1,0 +1,270 @@
+{
+  "timestamp_utc": "2026-05-12T02:40:53+00:00",
+  "geometry_inputs": {
+    "gamma_lock_lepton": 22.5,
+    "gamma_compton_bridge": 23.6308,
+    "beta_lock_50pi": 157.07963267948966
+  },
+  "observed_masses_mev": {
+    "m_e": 0.5109989461,
+    "m_mu": 105.6583745,
+    "m_tau": 1776.86
+  },
+  "naive_locked_baseline": {
+    "label": "Locked baseline (\u03b3=22.5, \u03b2=50\u03c0)",
+    "gamma": 22.5,
+    "beta_in_pi_units": 50.0,
+    "closure_quantum_integer_4beta_over_2pi": 100,
+    "m_mu_predicted": 105.61259901551102,
+    "m_tau_predicted": 1778.9380736364326,
+    "err_mu_pct": 0.04332404762574747,
+    "err_tau_pct": 0.11695201852890444,
+    "matches_sub_percent": true
+  },
+  "compton_naive": {
+    "label": "Compton bridge \u03b3=23.6308, \u03b2=50\u03c0 (naive)",
+    "gamma": 23.6308,
+    "beta_in_pi_units": 50.0,
+    "closure_quantum_integer_4beta_over_2pi": 100,
+    "m_mu_predicted": 57.460615256593954,
+    "m_tau_predicted": 947.503924545777,
+    "err_mu_pct": 45.61660111797957,
+    "err_tau_pct": 46.67537540685383,
+    "matches_sub_percent": false
+  },
+  "compton_beta_sweep_best_joint": {
+    "label": "\u03b3=23.6308, \u03b2=30\u03c0",
+    "gamma": 23.6308,
+    "beta_in_pi_units": 30.0,
+    "closure_quantum_integer_4beta_over_2pi": 60,
+    "m_mu_predicted": 96.89194965311428,
+    "m_tau_predicted": 1021.9994278841815,
+    "err_mu_pct": 8.29695221828887,
+    "err_tau_pct": 42.48283894712124,
+    "matches_sub_percent": false
+  },
+  "compton_beta_sweep_best_mu_only": {
+    "label": "\u03b3=23.6308, \u03b2=30\u03c0",
+    "gamma": 23.6308,
+    "beta_in_pi_units": 30.0,
+    "closure_quantum_integer_4beta_over_2pi": 60,
+    "m_mu_predicted": 96.89194965311428,
+    "m_tau_predicted": 1021.9994278841815,
+    "err_mu_pct": 8.29695221828887,
+    "err_tau_pct": 42.48283894712124,
+    "matches_sub_percent": false
+  },
+  "compton_beta_sweep_best_tau_only": {
+    "label": "\u03b3=23.6308, \u03b2=146\u03c0",
+    "gamma": 23.6308,
+    "beta_in_pi_units": 146.0,
+    "closure_quantum_integer_4beta_over_2pi": 292,
+    "m_mu_predicted": 39.4815924135956,
+    "m_tau_predicted": 1777.8014845033917,
+    "err_mu_pct": 62.632784575352694,
+    "err_tau_pct": 0.052985857264604315,
+    "matches_sub_percent": false
+  },
+  "compton_beta_sweep_all": [
+    {
+      "label": "\u03b3=23.6308, \u03b2=30\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 30.0,
+      "closure_quantum_integer_4beta_over_2pi": 60,
+      "m_mu_predicted": 96.89194965311428,
+      "m_tau_predicted": 1021.9994278841815,
+      "err_mu_pct": 8.29695221828887,
+      "err_tau_pct": 42.48283894712124,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=40\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 40.0,
+      "closure_quantum_integer_4beta_over_2pi": 80,
+      "m_mu_predicted": 68.28682678070723,
+      "m_tau_predicted": 923.1127038944969,
+      "err_mu_pct": 35.37017098374229,
+      "err_tau_pct": 48.04809023251708,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=50\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 50.0,
+      "closure_quantum_integer_4beta_over_2pi": 100,
+      "m_mu_predicted": 57.460615256593954,
+      "m_tau_predicted": 947.503924545777,
+      "err_mu_pct": 45.61660111797957,
+      "err_tau_pct": 46.67537540685383,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=60\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 60.0,
+      "closure_quantum_integer_4beta_over_2pi": 120,
+      "m_mu_predicted": 51.7683562923169,
+      "m_tau_predicted": 1007.4990516090684,
+      "err_mu_pct": 51.00401975962927,
+      "err_tau_pct": 43.298906407422734,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=70\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 70.0,
+      "closure_quantum_integer_4beta_over_2pi": 140,
+      "m_mu_predicted": 48.25822771166504,
+      "m_tau_predicted": 1082.6292963874284,
+      "err_mu_pct": 54.32616871115593,
+      "err_tau_pct": 39.07064729987571,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=80\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 80.0,
+      "closure_quantum_integer_4beta_over_2pi": 160,
+      "m_mu_predicted": 45.87732711846066,
+      "m_tau_predicted": 1165.5927242364965,
+      "err_mu_pct": 56.57956377280755,
+      "err_tau_pct": 34.401544058817436,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=90\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 90.0,
+      "closure_quantum_integer_4beta_over_2pi": 180,
+      "m_mu_predicted": 44.1562653778639,
+      "m_tau_predicted": 1253.133763148754,
+      "err_mu_pct": 58.20845665398353,
+      "err_tau_pct": 29.474817197260666,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=100\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 100.0,
+      "closure_quantum_integer_4beta_over_2pi": 200,
+      "m_mu_predicted": 42.85413716110272,
+      "m_tau_predicted": 1343.581395922192,
+      "err_mu_pct": 59.4408513628016,
+      "err_tau_pct": 24.384509982655235,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=110\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 110.0,
+      "closure_quantum_integer_4beta_over_2pi": 220,
+      "m_mu_predicted": 41.83458248423191,
+      "m_tau_predicted": 1435.9896957212493,
+      "err_mu_pct": 60.40580533043132,
+      "err_tau_pct": 19.183858282518074,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=120\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 120.0,
+      "closure_quantum_integer_4beta_over_2pi": 240,
+      "m_mu_predicted": 41.014626528825715,
+      "m_tau_predicted": 1529.7830248773319,
+      "err_mu_pct": 61.18184978434841,
+      "err_tau_pct": 13.905258440319892,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=130\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 130.0,
+      "closure_quantum_integer_4beta_over_2pi": 260,
+      "m_mu_predicted": 40.340883700124266,
+      "m_tau_predicted": 1624.5909962541616,
+      "err_mu_pct": 61.819511334499786,
+      "err_tau_pct": 8.56955549372704,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=140\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 140.0,
+      "closure_quantum_integer_4beta_over_2pi": 280,
+      "m_mu_predicted": 39.77744789389276,
+      "m_tau_predicted": 1720.1644798364052,
+      "err_mu_pct": 62.352773187994906,
+      "err_tau_pct": 3.190770244340841,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=150\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 150.0,
+      "closure_quantum_integer_4beta_over_2pi": 300,
+      "m_mu_predicted": 39.29927998149206,
+      "m_tau_predicted": 1816.3297354061688,
+      "err_mu_pct": 62.8053335407956,
+      "err_tau_pct": 2.221319372723167,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=160\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 160.0,
+      "closure_quantum_integer_4beta_over_2pi": 320,
+      "m_mu_predicted": 38.888385942018445,
+      "m_tau_predicted": 1912.9619008999277,
+      "err_mu_pct": 63.194222771221554,
+      "err_tau_pct": 7.65968623864164,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=170\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 170.0,
+      "closure_quantum_integer_4beta_over_2pi": 340,
+      "m_mu_predicted": 38.53150193758138,
+      "m_tau_predicted": 2009.9689333366105,
+      "err_mu_pct": 63.53199439237882,
+      "err_tau_pct": 13.119150261506848,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=180\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 180.0,
+      "closure_quantum_integer_4beta_over_2pi": 360,
+      "m_mu_predicted": 38.2186358739883,
+      "m_tau_predicted": 2107.2814908615414,
+      "err_mu_pct": 63.828105386962676,
+      "err_tau_pct": 18.595808947330774,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=190\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 190.0,
+      "closure_quantum_integer_4beta_over_2pi": 380,
+      "m_mu_predicted": 37.94211722289409,
+      "m_tau_predicted": 2204.8463405677458,
+      "err_mu_pct": 64.08981549976988,
+      "err_tau_pct": 24.08666639846391,
+      "matches_sub_percent": false
+    },
+    {
+      "label": "\u03b3=23.6308, \u03b2=200\u03c0",
+      "gamma": 23.6308,
+      "beta_in_pi_units": 200.0,
+      "closure_quantum_integer_4beta_over_2pi": 400,
+      "m_mu_predicted": 37.69595980243514,
+      "m_tau_predicted": 2302.6219373892172,
+      "err_mu_pct": 64.32279033174494,
+      "err_tau_pct": 29.589384497890514,
+      "matches_sub_percent": false
+    }
+  ],
+  "verdict": "Compton-bridge geometry is INCOMPATIBLE with the locked lepton mass spectrum: even with optimal \u03b2 = 30\u00b7\u03c0, the best joint fit has max(err_\u03bc, err_\u03c4) = 42.48%. No \u03b2 recovers both species at sub-percent. The \u03b3-lock R_OUTER \u2248 1.262 is therefore the physical geometry; the Compton bridge \u03c9(1, 0) = 1 cannot be realized without breaking the lepton ladder by ~46%.",
+  "compton_bridge_compatible_with_lepton_lock": false
+}
