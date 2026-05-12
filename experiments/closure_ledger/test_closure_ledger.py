@@ -1893,6 +1893,82 @@ def test_electron_scale_bridge_canonical_baseline_consistent_with_prior_probes()
     assert math.isclose(snap["sigma_vmax_0_5"], 22.45, abs_tol=1e-2)
 
 
+# --- R_OUTER self-consistency loop ------------------------------------
+
+def test_R_outer_self_consistency_probe_runs_to_completion():
+    """The self-consistency probe builds a structured summary."""
+    from experiments.closure_ledger.R_outer_self_consistency_probe import run_probe
+    summary = run_probe()
+    assert "sweep_F_R" in summary
+    assert "fixed_point_mu_only" in summary
+    assert "fixed_point_tau_only" in summary
+    assert "sensitivity_to_phenomenological_params" in summary
+
+
+def test_R_outer_cross_species_consistency_under_0_01_pct():
+    """
+    Both species independently bisect to the same R_OUTER to within
+    0.01 %. This is the non-trivial test the framework PASSES: a single
+    geometric R_OUTER fits both m_μ/m_e and m_τ/m_e simultaneously.
+    """
+    from experiments.closure_ledger.R_outer_self_consistency_probe import run_probe
+    summary = run_probe()
+    fp_mu = summary["fixed_point_mu_only"]
+    fp_tau = summary["fixed_point_tau_only"]
+    # R_star_mu ≈ R_star_tau within 0.01 %
+    rel = abs(fp_mu["R_star"] - fp_tau["R_star"]) / fp_mu["R_star"] * 100.0
+    assert rel < 0.01
+    # Both R* should land near 1.262 (the γ-locked geometry)
+    assert math.isclose(fp_mu["R_star"], 1.262, abs_tol=1e-3)
+    assert math.isclose(fp_tau["R_star"], 1.262, abs_tol=1e-3)
+
+
+def test_R_outer_self_consistency_recovers_gamma_lock_value():
+    """At the fixed-point R*, Σ V_max[0..5] ≈ 22.5 (γ-lock value)."""
+    from experiments.closure_ledger.R_outer_self_consistency_probe import run_probe
+    summary = run_probe()
+    sigma = summary["sigma_vmax_at_R_star_mu"]
+    assert math.isclose(sigma, 22.5, abs_tol=1e-2)
+
+
+def test_R_outer_phase_per_pass_is_decoupled():
+    """
+    phase_per_pass perturbations move R* by less than 0.001 % — the
+    closure-phase parameter is essentially decoupled from the
+    self-consistency loop.
+    """
+    from experiments.closure_ledger.R_outer_self_consistency_probe import run_probe
+    summary = run_probe()
+    phase_rows = [
+        r for r in summary["sensitivity_to_phenomenological_params"]
+        if r["parameter"] == "phase_per_pass"
+        and not math.isnan(r["R_star_shift_pct"])
+    ]
+    assert phase_rows
+    for r in phase_rows:
+        assert abs(r["R_star_shift_pct"]) < 0.001
+
+
+def test_R_outer_transport_resistance_at_small_perturbations():
+    """
+    At ±1 % perturbations of transport_strength and resistance_scale,
+    R* shifts by less than 10 % (slope-based linear estimate). The
+    self-consistency loop has structural content even though it
+    retains phenomenological sensitivity.
+    """
+    from experiments.closure_ledger.R_outer_self_consistency_probe import run_probe
+    summary = run_probe()
+    small_perturbs = [
+        r for r in summary["sensitivity_to_phenomenological_params"]
+        if r["parameter"] in {"transport_strength", "resistance_scale"}
+        and abs(r["delta_pct"]) <= 1.0
+        and not math.isnan(r["R_star_shift_pct"])
+    ]
+    assert small_perturbs
+    for r in small_perturbs:
+        assert abs(r["R_star_shift_pct"]) < 10.0
+
+
 # --- Compton-bridge feasibility (ℏ-origin sub-target #4 closure) ------
 
 def test_compton_bridge_feasibility_probe_runs_to_completion():
