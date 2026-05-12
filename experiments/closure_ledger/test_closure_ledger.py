@@ -1893,6 +1893,57 @@ def test_electron_scale_bridge_canonical_baseline_consistent_with_prior_probes()
     assert math.isclose(snap["sigma_vmax_0_5"], 22.45, abs_tol=1e-2)
 
 
+# --- Compton-bridge feasibility (ℏ-origin sub-target #4 closure) ------
+
+def test_compton_bridge_feasibility_probe_runs_to_completion():
+    """The feasibility probe builds a structured summary."""
+    from experiments.closure_ledger.compton_bridge_feasibility_probe import run_probe
+    summary = run_probe()
+    assert "naive_locked_baseline" in summary
+    assert "compton_naive" in summary
+    assert "compton_beta_sweep_best_joint" in summary
+
+
+def test_compton_bridge_naive_substitution_fails_at_46_pct():
+    """
+    Naive substitution γ = 23.6308 (Compton-bridge value) with β = 50π
+    (locked) gives ~46% mass error on both species — decisive failure.
+    """
+    from experiments.closure_ledger.compton_bridge_feasibility_probe import run_probe
+    summary = run_probe()
+    cn = summary["compton_naive"]
+    assert cn["err_mu_pct"] > 40.0
+    assert cn["err_tau_pct"] > 40.0
+    assert cn["matches_sub_percent"] is False
+
+
+def test_compton_bridge_beta_retuning_cannot_recover_both_species():
+    """
+    No value of β in the integer-winding sweep recovers both m_μ/m_e
+    and m_τ/m_e at sub-percent when γ = 23.6308. The best joint fit
+    has >40% error.
+    """
+    from experiments.closure_ledger.compton_bridge_feasibility_probe import run_probe
+    summary = run_probe()
+    bj = summary["compton_beta_sweep_best_joint"]
+    # Best joint error is at least 40% (currently ~42%).
+    worst = max(bj["err_mu_pct"], bj["err_tau_pct"])
+    assert worst > 40.0
+    assert bj["matches_sub_percent"] is False
+    # The verdict bit explicitly: not compatible.
+    assert summary["compton_bridge_compatible_with_lepton_lock"] is False
+
+
+def test_compton_bridge_locked_baseline_reproduces_lepton_ladder():
+    """Locked γ = 22.5, β = 50π reproduces the lepton ladder at <0.2%."""
+    from experiments.closure_ledger.compton_bridge_feasibility_probe import run_probe
+    summary = run_probe()
+    nl = summary["naive_locked_baseline"]
+    assert nl["err_mu_pct"] < 0.2
+    assert nl["err_tau_pct"] < 0.2
+    assert nl["matches_sub_percent"] is True
+
+
 def test_geometric_hamiltonian_locked_surrogate_matches_locked_lepton_eigenvectors():
     """
     The probe's reference eigensystem must agree with the existing C1
