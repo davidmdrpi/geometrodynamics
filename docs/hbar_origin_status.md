@@ -168,11 +168,21 @@ The 1.054 is **structural**, not a fitted parameter — it is the
 The closure-cycle integer-quantization AND the R_OUTER selection are
 now both established. Two concrete open questions remain:
 
-- **Closed-form expression for the 1.054 factor.** It is ω(1, 0) at
-  the cross-species fixed point R_OUTER ≈ 1.262. Whether 1.054 has a
-  closed form in terms of (k_5, π, barrier-spectrum invariants) is
-  open. Direct enumeration in `factor_1054_search_probe.py` returned a
-  negative result on the small `(k_5, π, integer)` space.
+- **Closed-form expression for the 1.054 factor.**
+  **Reframed (2026-05-13).** Direct enumeration in
+  `factor_1054_search_probe.py` returned a negative result on the
+  small `(k_5, π, integer)` space. The follow-up
+  `scale_bridge_regularization_probe.py` shows the question was the
+  wrong one: ω(1, 0) is NOT a converged Sturm-Liouville eigenvalue —
+  it depends strongly on the inner-boundary regularization ε. The
+  closure-quantum machinery is robust: (R*, γ) shift by < 0.4 % over
+  1.5 orders of magnitude in ε, but ω drifts from 1.59 to 0.85. The
+  1.054 value is the ω at ε = 5×10⁻⁴ specifically.
+  At ε* ≈ 3.51×10⁻⁴, ω = 1 exactly — the Compton bridge
+  `ℏ = m_e R_MID c` is **restorable** with no 1.054 factor. The
+  closest natural-BAM candidate is `1/(1000·π) ≈ 3.183×10⁻⁴` (1.4 %
+  off ε*). The residual external input is now the regularization ε
+  itself; deriving ε structurally is the next sub-target.
 - **Lift R_OUTER from phenomenological to fully geometric.**
   **Closed (2026-05-13).** Research thread:
   `docs/transport_resistance_research_plan.md`. Two probes:

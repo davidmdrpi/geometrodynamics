@@ -280,59 +280,103 @@ After §2, §3, and §4, the BAM framework predicts:
 
 What it does *not* yet predict is the absolute MeV scale. The
 electron mass is anchored externally; the conversion factor from
-geometric units to physical ℏ involves a single residual number:
+geometric units to physical ℏ ran, until the regularization probe
+below, through a single residual number:
 
 ```
 ℏ · ω(1, 0)  =  1.054 · m_e c²    at the self-selected R_OUTER ≈ 1.262
 ```
 
-The 1.054 is **structural**, not fitted — it is ω(l = 1, n = 0)
-evaluated at the cross-species fixed point R_OUTER ≈ 1.262, where
-the lepton mass ratios both fall into place. The Compton-bridge
-alternative ω = 1 exactly was tested and physically vetoed.
+### The 1.054 factor is not a Tangherlini eigenvalue
 
-The 1.054 is the single remaining dimensional handle. If it has a
-closed form in `(k_5, π, barrier-spectrum invariants)`, the
-dimensional bridge closes:
+The `factor_1054_search_probe` enumerated small `(k_5, π, integer)`
+combinations for a closed form of 1.054 and returned a clean negative
+result. The follow-up `scale_bridge_regularization_probe` asked a
+deeper question: **is 1.054 even a converged eigenvalue?** The 5D
+Tangherlini radial problem has a singular inner boundary at the
+throat (r = r_s, where f(r) = 0). In tortoise coordinates the throat
+maps to r* → −∞; the closure-ledger code regularizes by truncating
+the grid at r = r_s + ε with ε = 5 × 10⁻⁴.
 
-```
-ℏ  =  m_e c² / ω(1, 0)  ·  (factor 1.054)
-   =  m_e c² · (1 / 1.054) · ...
-```
+Sweeping ε from 5 × 10⁻³ to 10⁻⁴ at the closure-quantum R*:
 
-would predict ℏ in physical units from `m_e` alone. If it doesn't —
-if 1.054 is an irreducible numerical artefact of the Tangherlini
-spectrum at R_OUTER ≈ 1.262 with no closed form — then BAM is
-*dimensional-ratio-complete and dimensional-scale-incomplete*: it
-predicts every ratio at sub-percent but anchors the absolute MeV
-scale at `m_e`.
+| ε       | R*(ε)    | γ at R* | ω(1, 0)  |
+|---------|---------:|--------:|---------:|
+| 5×10⁻³  | 1.267136 | 22.508  | 1.591606 |
+| 2×10⁻³  | 1.264136 | 22.508  | 1.325684 |
+| 1×10⁻³  | 1.263137 | 22.508  | 1.175060 |
+| 5×10⁻⁴  | 1.262636 | 22.508  | 1.053527 |
+| 2×10⁻⁴  | 1.262338 | 22.508  | 0.924840 |
+| 1×10⁻⁴  | 1.262236 | 22.508  | 0.845462 |
 
-This is the next concrete target, and it is a sharp one. The
-1.054 is computable to arbitrary precision from the canonical
-Tangherlini grid; closed-form candidates are constructible by
-exhaustive search over small `(k_5, π, integer)` combinations.
-A targeted probe in this branch begins that search.
+Two facts emerge. **(R\*, γ) are ε-invariant** to better than 0.4 %
+over 1.5 orders of magnitude in ε — the mass-ratio prediction
+decouples completely from the regularization. **ω at R\* is NOT
+ε-invariant** — it drifts from 1.59 down to 0.85, ruling out any
+reading of 1.054 as a Sturm-Liouville eigenvalue of the bare
+Tangherlini operator.
+
+### The Compton bridge is restorable
+
+At ε* ≈ 3.51 × 10⁻⁴ (between 5 × 10⁻⁴ and 2 × 10⁻⁴), ω(1, 0; R*, ε*) =
+1 exactly. The dimensional bridge `ℏ = m_e R_MID c` would close with
+**no 1.054 factor** at this regularization — and the closure-quantum
+machinery still predicts the lepton mass ratios at the same precision
+(self-consistency holds across the entire ε sweep). The Compton
+bridge that was physically vetoed under the canonical ε is therefore
+**recovered** at the Compton-bridge ε.
+
+The closest natural BAM ingredient is `ε = 1/(1000·π) ≈ 3.183 × 10⁻⁴`,
+which gives ω(1, 0) = 0.9862 — within 1.4 % of unity but not exact.
+The Compton-bridge ε does not currently have a closed form in BAM
+ingredients at this probe's precision.
+
+### Reframing of the scale problem
+
+The proper residual external input to BAM is therefore not the 1.054
+factor but the **inner-boundary regularization ε**:
+
+- Take ε = ε* ≈ 3.5 × 10⁻⁴ (Compton bridge): dimensional bridge is
+  the clean `ℏ = m_e R_MID c`. BAM is dimensional-scale-incomplete
+  with the m_e anchor as the unique external input.
+- Take ε = 5 × 10⁻⁴ (closure-ledger default, numerical convenience):
+  dimensional bridge is `ℏ · ω(1, 0) = 1.054 · m_e c²`. The 1.054
+  is the eigenvalue at that specific ε.
+
+The two readings are gauge-equivalent: choosing one fixes the other.
+Whether ε can be derived structurally from BAM ingredients (closure-
+quantum integers, throat geometry, Hopf invariants) is the open
+question. If yes, the Compton bridge closes and BAM becomes
+ratio-and-scale-complete modulo m_e. If no, the residual external
+input is ε itself, not 1.054.
 
 ---
 
 ## What this leaves open
 
-After the §4 closure-quantum reading of `(transport, resistance)`,
-two structural questions remain:
+After §5's reframing, the residual external input is the
+inner-boundary regularization ε (which fixes the 1.054 factor as a
+gauge), and the m_e anchor. Two structural questions remain:
 
-* **Closed form for the 1.054 factor.** The factor-1054 search probe
-  enumerated small `(k_5, π, integer)` combinations and returned a
-  clean negative result. Whether a larger ansatz space (e.g.
-  barrier-spectrum invariants combined with closure-quantum integers)
-  contains a closed-form match is open. If 1.054 has no closed form,
-  BAM is *dimensional-ratio-complete and dimensional-scale-
-  incomplete* with the m_e anchor as the unique external input.
+* **Structural derivation of ε.** Can the inner-boundary
+  regularization be read off BAM ingredients (closure-quantum
+  integers, throat geometry, Hopf invariants)? The current
+  best-natural-candidate `ε = 1/(1000·π)` is within 1.4 % of the
+  Compton-bridge value but not exact. If a clean ε* can be derived,
+  the dimensional bridge closes to `ℏ = m_e R_MID c` with the
+  m_e anchor as the sole external input.
 
 * **The deeper R_MID self-consistency.** R_MID = 1 by convention.
   Determining R_MID dynamically from a self-consistency condition
   (equilibrium throat radius for the locked mass spectrum) would
   lift the m_e anchor itself. This is THESIS.md "self-consistent
   throat radius" — outside the closure-ledger scope.
+
+Alternative path: replace the hard-wall regularization with a
+boundary condition derived from the throat dynamics. The
+tortoise-coordinate hard wall at finite ε is a numerical
+convenience; a quasi-regular throat boundary would remove the
+regularization dependence entirely.
 
 ---
 
