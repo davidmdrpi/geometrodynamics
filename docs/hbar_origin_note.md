@@ -243,16 +243,23 @@ A targeted probe in this branch begins that search.
   established that the diagonal pinhole γ IS the geometric
   Σ V_max[0..5]; the off-diagonals are the remaining unread
   channels).
-  **Update (2026-05-13):** opened as a research thread —
-  `docs/transport_resistance_research_plan.md`. Opening probe
-  (`transport_resistance_origin_probe.py`) reads
-  `transport_strength = 8π = 4·(2π)` (+0.13 %, the 4th closure
-  quantum) and `resistance_scale ≈ 7π/100` (+0.94 %) or
-  `4·(ω(1,0) − 1)` (+0.48 %) — joint substitution survives the
-  lepton-ladder mass-sensitivity test at < 0.7 %. The remaining
-  work is to sharpen the resistance reading to a single principled
-  form and re-close the R_OUTER self-consistency loop on those
-  inputs alone.
+  **Update (2026-05-13): CLOSED.** Research thread
+  `docs/transport_resistance_research_plan.md` ran two probes:
+  - `transport_resistance_origin_probe.py` identifies
+    `transport = 8π = 4·(2π)` (+0.13 %) and two within-1 %
+    candidates for `resistance` (`7π/100`, `4·(ω(1,0) − 1)`).
+  - `resistance_disambiguation_probe.py` re-bisects R_OUTER under
+    each candidate. The closure-quantum reading `8π, 7π/100` wins:
+    cross-species agreement 0.0021 % (tighter than locked
+    0.0078 %), R*-match 0.031 %, γ-match 0.034 %.
+  R_OUTER is now structurally selected by closure-quantum invariants
+  alone — `transport`, `resistance`, `action_base`, `β`, and `4β`
+  are all members of the same `(2π)·Z` ledger; the prior γ ≈ 22.5
+  pinhole was already located on Σ V_max[1..5]. The remaining
+  external handle is m_e (equivalently, the 1.054 factor), as
+  before. The off-diagonal transport/resistance channels of the
+  locked surrogate are now READ — completing the agenda the
+  pinhole-origin probe set out.
 * **The deeper R_MID self-consistency.** Currently R_MID = 1 by
   convention. Determining R_MID dynamically from a self-consistency
   condition (equilibrium throat radius for the locked mass spectrum)

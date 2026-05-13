@@ -173,20 +173,24 @@ now both established. Two concrete open questions remain:
   closed form in terms of (k_5, π, barrier-spectrum invariants) is
   open. Direct enumeration in `factor_1054_search_probe.py` returned a
   negative result on the small `(k_5, π, integer)` space.
-- **Lift R_OUTER from phenomenological to fully geometric.** The
-  current R_OUTER ≈ 1.262 fixed point depends on the locked
-  surrogate's transport / resistance parameters at the ~1–7 %
-  sensitivity level. **Now an open research thread:**
-  `docs/transport_resistance_research_plan.md`. The opening probe
-  (`transport_resistance_origin_probe.py`) finds:
-  - `transport_strength = 8π = 4·(2π)` to +0.13 % — the 4th closure
-    quantum, structurally parallel to the antipodal k·2π, Hopf-throat
-    1·2π, τ-uplift 100·2π.
-  - `resistance_scale ≈ 7π/100` (+0.94 %) or `4·(ω(1,0) − 1)`
-    (+0.48 %) — within 1 % but not distinguishable at this resolution.
-  - Joint substitution recovers the lepton ladder at < 0.7 % mass
-    error, vs ~8 % for single substitutions — the closure-quantum
-    reading survives by cancellation.
+- **Lift R_OUTER from phenomenological to fully geometric.**
+  **Closed (2026-05-13).** Research thread:
+  `docs/transport_resistance_research_plan.md`. Two probes:
+  - `transport_resistance_origin_probe.py` — identifies
+    `transport = 8π = 4·(2π)` (+0.13 %) and two within-1 % candidates
+    for resistance (`7π/100` and `4·(ω(1,0) − 1)`).
+  - `resistance_disambiguation_probe.py` — re-bisects R_OUTER under
+    each candidate. The closure-quantum reading
+    `transport = 8π, resistance = 7π/100` wins on every criterion:
+    cross-species agreement 0.0021 % (tighter than locked baseline's
+    0.0078 %), R*-match to locked baseline 0.031 %, γ at R* match to
+    canonical 22.5 within 0.034 %. The eigenfrequency reading
+    `4·(ω(1,0;R) − 1)` drifts R* by 0.31 % and is ruled out.
+  - R_OUTER is now **structurally selected by closure-quantum
+    invariants alone** — no transport or resistance constants enter
+    the loop as free inputs. The "dimensional-scale-incomplete"
+    residual is now isolated to the 1.054 factor only (the m_e
+    anchor).
 
 ## Cross-references
 
