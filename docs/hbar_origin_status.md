@@ -171,14 +171,22 @@ now both established. Two concrete open questions remain:
 - **Closed-form expression for the 1.054 factor.** It is ω(1, 0) at
   the cross-species fixed point R_OUTER ≈ 1.262. Whether 1.054 has a
   closed form in terms of (k_5, π, barrier-spectrum invariants) is
-  open.
+  open. Direct enumeration in `factor_1054_search_probe.py` returned a
+  negative result on the small `(k_5, π, integer)` space.
 - **Lift R_OUTER from phenomenological to fully geometric.** The
   current R_OUTER ≈ 1.262 fixed point depends on the locked
   surrogate's transport / resistance parameters at the ~1–7 %
-  sensitivity level. A deeper self-consistency condition (presumably
-  involving throat dynamics, as in THESIS.md "Self-consistent throat
-  radius") would remove this residual phenomenological dependence
-  and make R_OUTER fully derivable from R_MID.
+  sensitivity level. **Now an open research thread:**
+  `docs/transport_resistance_research_plan.md`. The opening probe
+  (`transport_resistance_origin_probe.py`) finds:
+  - `transport_strength = 8π = 4·(2π)` to +0.13 % — the 4th closure
+    quantum, structurally parallel to the antipodal k·2π, Hopf-throat
+    1·2π, τ-uplift 100·2π.
+  - `resistance_scale ≈ 7π/100` (+0.94 %) or `4·(ω(1,0) − 1)`
+    (+0.48 %) — within 1 % but not distinguishable at this resolution.
+  - Joint substitution recovers the lepton ladder at < 0.7 % mass
+    error, vs ~8 % for single substitutions — the closure-quantum
+    reading survives by cancellation.
 
 ## Cross-references
 

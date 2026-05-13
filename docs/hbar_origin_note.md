@@ -243,6 +243,16 @@ A targeted probe in this branch begins that search.
   established that the diagonal pinhole γ IS the geometric
   Σ V_max[0..5]; the off-diagonals are the remaining unread
   channels).
+  **Update (2026-05-13):** opened as a research thread —
+  `docs/transport_resistance_research_plan.md`. Opening probe
+  (`transport_resistance_origin_probe.py`) reads
+  `transport_strength = 8π = 4·(2π)` (+0.13 %, the 4th closure
+  quantum) and `resistance_scale ≈ 7π/100` (+0.94 %) or
+  `4·(ω(1,0) − 1)` (+0.48 %) — joint substitution survives the
+  lepton-ladder mass-sensitivity test at < 0.7 %. The remaining
+  work is to sharpen the resistance reading to a single principled
+  form and re-close the R_OUTER self-consistency loop on those
+  inputs alone.
 * **The deeper R_MID self-consistency.** Currently R_MID = 1 by
   convention. Determining R_MID dynamically from a self-consistency
   condition (equilibrium throat radius for the locked mass spectrum)

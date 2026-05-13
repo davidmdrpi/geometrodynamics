@@ -1,0 +1,1821 @@
+{
+  "timestamp_utc": "2026-05-13T00:22:11+00:00",
+  "targets": {
+    "transport_locked": 25.1,
+    "resistance_locked": 0.217869435878
+  },
+  "thresholds": {
+    "explains_within_pct": 1.0,
+    "scale_within_pct": 5.0,
+    "mass_tol_pct": 5.0
+  },
+  "candidates": {
+    "transport": [
+      {
+        "name": "1_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "1\u00b7\u03c0",
+        "value": 3.141592653589793,
+        "pct_diff": -87.48369460721199,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "1_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "1\u00b72\u03c0",
+        "value": 6.283185307179586,
+        "pct_diff": -74.96738921442396,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "2_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "2\u00b7\u03c0",
+        "value": 6.283185307179586,
+        "pct_diff": -74.96738921442396,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "2_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "2\u00b72\u03c0",
+        "value": 12.566370614359172,
+        "pct_diff": -49.93477842884792,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "3_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "3\u00b7\u03c0",
+        "value": 9.42477796076938,
+        "pct_diff": -62.45108382163595,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "3_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "3\u00b72\u03c0",
+        "value": 18.84955592153876,
+        "pct_diff": -24.90216764327188,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "4_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "4\u00b7\u03c0",
+        "value": 12.566370614359172,
+        "pct_diff": -49.93477842884792,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "4_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "4\u00b72\u03c0",
+        "value": 25.132741228718345,
+        "pct_diff": 0.13044314230415738,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "5_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "5\u00b7\u03c0",
+        "value": 15.707963267948966,
+        "pct_diff": -37.4184730360599,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "5_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "5\u00b72\u03c0",
+        "value": 31.41592653589793,
+        "pct_diff": 25.163053927880195,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "6_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "6\u00b7\u03c0",
+        "value": 18.84955592153876,
+        "pct_diff": -24.90216764327188,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "6_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "6\u00b72\u03c0",
+        "value": 37.69911184307752,
+        "pct_diff": 50.19566471345624,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "7_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "7\u00b7\u03c0",
+        "value": 21.991148575128552,
+        "pct_diff": -12.385862250483862,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "7_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "7\u00b72\u03c0",
+        "value": 43.982297150257104,
+        "pct_diff": 75.22827549903228,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "8_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "8\u00b7\u03c0",
+        "value": 25.132741228718345,
+        "pct_diff": 0.13044314230415738,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "8_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "8\u00b72\u03c0",
+        "value": 50.26548245743669,
+        "pct_diff": 100.26088628460832,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "9_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "9\u00b7\u03c0",
+        "value": 28.274333882308138,
+        "pct_diff": 12.646748535092177,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "9_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "9\u00b72\u03c0",
+        "value": 56.548667764616276,
+        "pct_diff": 125.29349707018436,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "10_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "10\u00b7\u03c0",
+        "value": 31.41592653589793,
+        "pct_diff": 25.163053927880195,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "10_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "10\u00b72\u03c0",
+        "value": 62.83185307179586,
+        "pct_diff": 150.3261078557604,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "11_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "11\u00b7\u03c0",
+        "value": 34.55751918948772,
+        "pct_diff": 37.679359320668205,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "11_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "11\u00b72\u03c0",
+        "value": 69.11503837897544,
+        "pct_diff": 175.35871864133642,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "12_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "12\u00b7\u03c0",
+        "value": 37.69911184307752,
+        "pct_diff": 50.19566471345624,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "12_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "12\u00b72\u03c0",
+        "value": 75.39822368615503,
+        "pct_diff": 200.39132942691248,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "13_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "13\u00b7\u03c0",
+        "value": 40.840704496667314,
+        "pct_diff": 62.71197010624427,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "13_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "13\u00b72\u03c0",
+        "value": 81.68140899333463,
+        "pct_diff": 225.42394021248853,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "14_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "14\u00b7\u03c0",
+        "value": 43.982297150257104,
+        "pct_diff": 75.22827549903228,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "14_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "14\u00b72\u03c0",
+        "value": 87.96459430051421,
+        "pct_diff": 250.45655099806456,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "15_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "15\u00b7\u03c0",
+        "value": 47.12388980384689,
+        "pct_diff": 87.74458089182028,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "15_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "15\u00b72\u03c0",
+        "value": 94.24777960769379,
+        "pct_diff": 275.4891617836406,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "beta_over_1",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "50\u03c0/1",
+        "value": 157.07963267948966,
+        "pct_diff": 525.815269639401,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "beta_over_2",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "50\u03c0/2",
+        "value": 78.53981633974483,
+        "pct_diff": 212.90763481970052,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "beta_over_3",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "50\u03c0/3",
+        "value": 52.35987755982989,
+        "pct_diff": 108.60508987980035,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "beta_over_4",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "50\u03c0/4",
+        "value": 39.269908169872416,
+        "pct_diff": 56.45381740985025,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "beta_over_5",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "50\u03c0/5",
+        "value": 31.41592653589793,
+        "pct_diff": 25.163053927880195,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "beta_over_6",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "50\u03c0/6",
+        "value": 26.179938779914945,
+        "pct_diff": 4.302544939900173,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "beta_over_7",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "50\u03c0/7",
+        "value": 22.43994752564138,
+        "pct_diff": -10.597818622942716,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "15_half_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "15/2\u00b7\u03c0",
+        "value": 23.561944901923447,
+        "pct_diff": -6.12770955408986,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "16_half_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "16/2\u00b7\u03c0",
+        "value": 25.132741228718345,
+        "pct_diff": 0.13044314230415738,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "17_half_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "17/2\u00b7\u03c0",
+        "value": 26.703537555513243,
+        "pct_diff": 6.3885958386981745,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "18_half_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "18/2\u00b7\u03c0",
+        "value": 28.274333882308138,
+        "pct_diff": 12.646748535092177,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "Sum_V_max_15",
+        "category": "barrier_sum",
+        "target": "transport",
+        "formula": "\u03a3_{l=1..5} V_max(l)",
+        "value": 22.008240059546566,
+        "pct_diff": -12.317768687065481,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "Sum_V_max_16",
+        "category": "barrier_sum",
+        "target": "transport",
+        "formula": "\u03a3_{l=1..6} V_max(l)",
+        "value": 33.63290635771286,
+        "pct_diff": 33.995642859413785,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "Sum_V_max_05",
+        "category": "barrier_sum",
+        "target": "transport",
+        "formula": "\u03a3_{l=0..5} V_max(l)",
+        "value": 22.452678711350604,
+        "pct_diff": -10.54709676752748,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "Sum_V_max_15_plus_omega1sq",
+        "category": "barrier_sum",
+        "target": "transport",
+        "formula": "\u03a3 V_max[1..5] + \u03c9(1,0)\u00b2",
+        "value": 23.120632149546566,
+        "pct_diff": -7.8859276910495435,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "Sum_V_max_15_plus_pi",
+        "category": "barrier_sum",
+        "target": "transport",
+        "formula": "\u03a3 V_max[1..5] + \u03c0",
+        "value": 25.14983271313636,
+        "pct_diff": 0.19853670572253942,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "Sum_V_max_15_x_8pi_over_22.5",
+        "category": "barrier_sum",
+        "target": "transport",
+        "formula": "\u03a3 V_max[1..5] \u00b7 (8\u03c0/22.5)",
+        "value": 24.58344010293763,
+        "pct_diff": -2.058007558017418,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "Sum_omega2_15",
+        "category": "eigenfrequency",
+        "target": "transport",
+        "formula": "\u03a3_{l=1..5} \u03c9(l,0)\u00b2",
+        "value": 7.54048873940085,
+        "pct_diff": -69.95821219362212,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "Sum_omega2_16",
+        "category": "eigenfrequency",
+        "target": "transport",
+        "formula": "\u03a3_{l=1..6} \u03c9(l,0)\u00b2",
+        "value": 9.728986618736037,
+        "pct_diff": -61.23909713650982,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "Sum_omega2_n=1",
+        "category": "eigenfrequency",
+        "target": "transport",
+        "formula": "\u03a3_{l=1..5} \u03c9(l,1)\u00b2",
+        "value": 23.35407733343943,
+        "pct_diff": -6.955867197452473,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_1|w=1|u_3>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_1|w=1|u_3\u27e9",
+        "value": 0.9919142557625993,
+        "pct_diff": -96.04815037544782,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_1|w=V_l1|u_3>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_1|w=V_l1|u_3\u27e9",
+        "value": 0.17810630786597048,
+        "pct_diff": -99.29041311607183,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_1|w=V_l2|u_3>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_1|w=V_l2|u_3\u27e9",
+        "value": 0.5487983691441416,
+        "pct_diff": -97.81355231416677,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_1|w=mean_V|u_3>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_1|w=mean_V|u_3\u27e9",
+        "value": 0.36345233850505604,
+        "pct_diff": -98.55198271511931,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_1|w=V_l2-V_l1|u_3>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_1|w=V_l2-V_l1|u_3\u27e9",
+        "value": 0.37069206127817117,
+        "pct_diff": -98.52313919809494,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_1|w=(V_l1+V_l2)/2*(l2^2-l1^2)/r*|u_3>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_1|w=(V_l1+V_l2)/2*(l2^2-l1^2)/r*|u_3\u27e9",
+        "value": 2.9076187080404483,
+        "pct_diff": -88.4158617209544,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_3|w=1|u_5>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_3|w=1|u_5\u27e9",
+        "value": 0.989592315714932,
+        "pct_diff": -96.05740113260983,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_3|w=V_l1|u_5>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_3|w=V_l1|u_5\u27e9",
+        "value": 0.40791685304405656,
+        "pct_diff": -98.37483325480454,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_3|w=V_l2|u_5>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_3|w=V_l2|u_5\u27e9",
+        "value": 0.8656817170396087,
+        "pct_diff": -96.55106885641588,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_3|w=mean_V|u_5>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_3|w=mean_V|u_5\u27e9",
+        "value": 0.6367992850418327,
+        "pct_diff": -97.46295105561023,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_3|w=V_l2-V_l1|u_5>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_3|w=V_l2-V_l1|u_5\u27e9",
+        "value": 0.4577648639955521,
+        "pct_diff": -98.17623560161134,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_3|w=(V_l1+V_l2)/2*(l2^2-l1^2)/r*|u_5>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_3|w=(V_l1+V_l2)/2*(l2^2-l1^2)/r*|u_5\u27e9",
+        "value": 10.188788560669323,
+        "pct_diff": -59.40721688976365,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_1|w=1|u_5>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_1|w=1|u_5\u27e9",
+        "value": 0.9635138720393265,
+        "pct_diff": -96.16129931458435,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_1|w=V_l1|u_5>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_1|w=V_l1|u_5\u27e9",
+        "value": 0.14605206956934708,
+        "pct_diff": -99.41811924474364,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_1|w=V_l2|u_5>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_1|w=V_l2|u_5\u27e9",
+        "value": 0.9518320323519439,
+        "pct_diff": -96.20784050855798,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_1|w=mean_V|u_5>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_1|w=mean_V|u_5\u27e9",
+        "value": 0.5489420509606455,
+        "pct_diff": -97.81297987665083,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_1|w=V_l2-V_l1|u_5>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_1|w=V_l2-V_l1|u_5\u27e9",
+        "value": 0.8057799627825969,
+        "pct_diff": -96.78972126381436,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "<u_1|w=(V_l1+V_l2)/2*(l2^2-l1^2)/r*|u_5>",
+        "category": "overlap",
+        "target": "transport",
+        "formula": "\u27e8u_1|w=(V_l1+V_l2)/2*(l2^2-l1^2)/r*|u_5\u27e9",
+        "value": 13.174609223055493,
+        "pct_diff": -47.511517039619555,
+        "within_tight": false,
+        "within_scale": false
+      }
+    ],
+    "resistance": [
+      {
+        "name": "1pi_over_50",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "1\u00b7\u03c0/50",
+        "value": 0.06283185307179587,
+        "pct_diff": -71.16077671997107,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "2pi_over_50",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "2\u00b7\u03c0/50",
+        "value": 0.12566370614359174,
+        "pct_diff": -42.32155343994215,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "2pi_over_100",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "2\u00b7\u03c0/100",
+        "value": 0.06283185307179587,
+        "pct_diff": -71.16077671997107,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "3pi_over_50",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "3\u00b7\u03c0/50",
+        "value": 0.18849555921538758,
+        "pct_diff": -13.482330159913237,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "3pi_over_100",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "3\u00b7\u03c0/100",
+        "value": 0.09424777960769379,
+        "pct_diff": -56.74116507995662,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "4pi_over_50",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "4\u00b7\u03c0/50",
+        "value": 0.25132741228718347,
+        "pct_diff": 15.356893120115698,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "4pi_over_100",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "4\u00b7\u03c0/100",
+        "value": 0.12566370614359174,
+        "pct_diff": -42.32155343994215,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "4pi_over_200",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "4\u00b7\u03c0/200",
+        "value": 0.06283185307179587,
+        "pct_diff": -71.16077671997107,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "5pi_over_50",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "5\u00b7\u03c0/50",
+        "value": 0.3141592653589793,
+        "pct_diff": 44.19611640014461,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "5pi_over_100",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "5\u00b7\u03c0/100",
+        "value": 0.15707963267948966,
+        "pct_diff": -27.901941799927695,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "5pi_over_200",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "5\u00b7\u03c0/200",
+        "value": 0.07853981633974483,
+        "pct_diff": -63.95097089996385,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "6pi_over_50",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "6\u00b7\u03c0/50",
+        "value": 0.37699111843077515,
+        "pct_diff": 73.03533968017352,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "6pi_over_100",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "6\u00b7\u03c0/100",
+        "value": 0.18849555921538758,
+        "pct_diff": -13.482330159913237,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "6pi_over_200",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "6\u00b7\u03c0/200",
+        "value": 0.09424777960769379,
+        "pct_diff": -56.74116507995662,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "7pi_over_50",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "7\u00b7\u03c0/50",
+        "value": 0.43982297150257105,
+        "pct_diff": 101.87456296020245,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "7pi_over_100",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "7\u00b7\u03c0/100",
+        "value": 0.21991148575128552,
+        "pct_diff": 0.9372814801012295,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "7pi_over_200",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "7\u00b7\u03c0/200",
+        "value": 0.10995574287564276,
+        "pct_diff": -49.53135925994938,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "8pi_over_100",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "8\u00b7\u03c0/100",
+        "value": 0.25132741228718347,
+        "pct_diff": 15.356893120115698,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "8pi_over_200",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "8\u00b7\u03c0/200",
+        "value": 0.12566370614359174,
+        "pct_diff": -42.32155343994215,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "9pi_over_100",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "9\u00b7\u03c0/100",
+        "value": 0.2827433388230814,
+        "pct_diff": 29.776504760130152,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "9pi_over_200",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "9\u00b7\u03c0/200",
+        "value": 0.1413716694115407,
+        "pct_diff": -35.111747619934924,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "10pi_over_100",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "10\u00b7\u03c0/100",
+        "value": 0.3141592653589793,
+        "pct_diff": 44.19611640014461,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "10pi_over_200",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "10\u00b7\u03c0/200",
+        "value": 0.15707963267948966,
+        "pct_diff": -27.901941799927695,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "11pi_over_100",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "11\u00b7\u03c0/100",
+        "value": 0.34557519189487723,
+        "pct_diff": 58.61572804015907,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "11pi_over_200",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "11\u00b7\u03c0/200",
+        "value": 0.17278759594743862,
+        "pct_diff": -20.69213597992047,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "inv_1_pi",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "1/(1\u00b7pi)",
+        "value": 0.3183098861837907,
+        "pct_diff": 46.10121190290967,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "inv_1_2pi",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "1/(1\u00b72pi)",
+        "value": 0.15915494309189535,
+        "pct_diff": -26.949394048545166,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "inv_2_pi",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "1/(2\u00b7pi)",
+        "value": 0.15915494309189535,
+        "pct_diff": -26.949394048545166,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "inv_2_2pi",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "1/(2\u00b72pi)",
+        "value": 0.07957747154594767,
+        "pct_diff": -63.47469702427257,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "inv_3_pi",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "1/(3\u00b7pi)",
+        "value": 0.1061032953945969,
+        "pct_diff": -51.29959603236344,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "inv_3_2pi",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "1/(3\u00b72pi)",
+        "value": 0.05305164769729845,
+        "pct_diff": -75.64979801618172,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "inv_4_pi",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "1/(4\u00b7pi)",
+        "value": 0.07957747154594767,
+        "pct_diff": -63.47469702427257,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "inv_5_pi",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "1/(5\u00b7pi)",
+        "value": 0.06366197723675814,
+        "pct_diff": -70.77975761941806,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "inv_6_pi",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "1/(6\u00b7pi)",
+        "value": 0.05305164769729845,
+        "pct_diff": -75.64979801618172,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "beta_over_500",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "50\u03c0/500",
+        "value": 0.3141592653589793,
+        "pct_diff": 44.19611640014461,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "beta_over_700",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "50\u03c0/700",
+        "value": 0.2243994752564138,
+        "pct_diff": 2.997226000103293,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "beta_over_1000",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "50\u03c0/1000",
+        "value": 0.15707963267948966,
+        "pct_diff": -27.901941799927695,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "beta_over_1500",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "50\u03c0/1500",
+        "value": 0.10471975511965978,
+        "pct_diff": -51.934627866618456,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "V_max_1_over_5",
+        "category": "barrier_sum",
+        "target": "resistance",
+        "formula": "V_max(l=1) / 5",
+        "value": 0.22792795071994174,
+        "pct_diff": 4.616762696156326,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "V_max_1_over_2pi",
+        "category": "barrier_sum",
+        "target": "resistance",
+        "formula": "V_max(l=1) / 2\u03c0",
+        "value": 0.18137930012942327,
+        "pct_diff": -16.7486254331746,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "Sum_V_max_15_over_100",
+        "category": "barrier_sum",
+        "target": "resistance",
+        "formula": "\u03a3 V_max[1..5] / 100",
+        "value": 0.22008240059546566,
+        "pct_diff": 1.0157297688625055,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "Sum_V_max_15_over_eta",
+        "category": "barrier_sum",
+        "target": "resistance",
+        "formula": "\u03a3 V_max[1..5] / \u03b2_lepton",
+        "value": 0.14010880776919618,
+        "pct_diff": -35.69138910900165,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "1_over_omega2_l=1",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "1/\u03c9(1,0)\u00b2",
+        "value": 0.8989176837945451,
+        "pct_diff": 312.5946717454717,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "1_over_omega_l=1_x_2pi",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "1/(\u03c9(1,0)\u00b72\u03c0)",
+        "value": 0.15089682213278385,
+        "pct_diff": -30.73979306703612,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "1_over_omega2_l=2",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "1/\u03c9(2,0)\u00b2",
+        "value": 0.7809757791980397,
+        "pct_diff": 258.46045869204045,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "1_over_omega_l=2_x_2pi",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "1/(\u03c9(2,0)\u00b72\u03c0)",
+        "value": 0.14064973368650793,
+        "pct_diff": -35.44310925500017,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "1_over_omega2_l=3",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "1/\u03c9(3,0)\u00b2",
+        "value": 0.672873825260005,
+        "pct_diff": 208.84268945222453,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "1_over_omega_l=3_x_2pi",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "1/(\u03c9(3,0)\u00b72\u03c0)",
+        "value": 0.13055302794007811,
+        "pct_diff": -40.07740121327359,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "1_over_omega2_l=4",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "1/\u03c9(4,0)\u00b2",
+        "value": 0.583878296020408,
+        "pct_diff": 167.99458752321797,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "1_over_omega_l=4_x_2pi",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "1/(\u03c9(4,0)\u00b72\u03c0)",
+        "value": 0.12161336281003314,
+        "pct_diff": -44.180622527460535,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "1_over_omega2_l=5",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "1/\u03c9(5,0)\u00b2",
+        "value": 0.5131515689817792,
+        "pct_diff": 135.53169214112611,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "1_over_omega_l=5_x_2pi",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "1/(\u03c9(5,0)\u00b72\u03c0)",
+        "value": 0.11401000433860684,
+        "pct_diff": -47.67049178827964,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "omega_1_minus_1",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "\u03c9(1,0) \u2212 1",
+        "value": 0.05472693753513669,
+        "pct_diff": -74.88085590592797,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "omega_1_minus_1_x_4",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "4\u00b7(\u03c9(1,0) \u2212 1)",
+        "value": 0.21890775014054675,
+        "pct_diff": 0.4765763762881223,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "log_omega_l=1",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "ln \u03c9(1,0)",
+        "value": 0.053281906445632854,
+        "pct_diff": -75.54411143953709,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "log_omega_l=2",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "ln \u03c9(2,0)",
+        "value": 0.12360557108693775,
+        "pct_diff": -43.26621786630367,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "log_omega_l=3",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "ln \u03c9(3,0)",
+        "value": 0.19809872397714381,
+        "pct_diff": -9.074568822001801,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "log_omega_l=4",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "ln \u03c9(4,0)",
+        "value": 0.269031357548479,
+        "pct_diff": 23.48283570125369,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "log_omega_l=5",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "ln \u03c9(5,0)",
+        "value": 0.3335920106725473,
+        "pct_diff": 53.11556177129328,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "kappa_per_dk[mean_om2_mean_V_dkmax]",
+        "category": "wkb_tunneling",
+        "target": "resistance",
+        "formula": "mean_pairs \u03ba_{l1,l2}/dk  (mean_om2_mean_V_dkmax)",
+        "value": 0.2694438516305453,
+        "pct_diff": 23.672166563751205,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "kappa_per_dk_spread[mean_om2_mean_V_dkmax]",
+        "category": "wkb_tunneling",
+        "target": "resistance",
+        "formula": "spread of \u03ba/dk across pairs (mean_om2_mean_V_dkmax)",
+        "value": 0.12582039829220523,
+        "pct_diff": -42.24963323324495,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "kappa_per_dk[om2_l1_V_l1_dkmax]",
+        "category": "wkb_tunneling",
+        "target": "resistance",
+        "formula": "mean_pairs \u03ba_{l1,l2}/dk  (om2_l1_V_l1_dkmax)",
+        "value": 0.07237320810834144,
+        "pct_diff": -66.78138545836777,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "kappa_per_dk_spread[om2_l1_V_l1_dkmax]",
+        "category": "wkb_tunneling",
+        "target": "resistance",
+        "formula": "spread of \u03ba/dk across pairs (om2_l1_V_l1_dkmax)",
+        "value": 0.20908246310211073,
+        "pct_diff": -4.033136975123808,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "kappa_per_dk[om2_l2_V_l2_dkmax]",
+        "category": "wkb_tunneling",
+        "target": "resistance",
+        "formula": "mean_pairs \u03ba_{l1,l2}/dk  (om2_l2_V_l2_dkmax)",
+        "value": 0.4037972948855378,
+        "pct_diff": 85.33911985325537,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "kappa_per_dk_spread[om2_l2_V_l2_dkmax]",
+        "category": "wkb_tunneling",
+        "target": "resistance",
+        "formula": "spread of \u03ba/dk across pairs (om2_l2_V_l2_dkmax)",
+        "value": 0.07750990192104334,
+        "pct_diff": -64.42369182777595,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "kappa_per_dk[geomean_om2_max_V_dkmax]",
+        "category": "wkb_tunneling",
+        "target": "resistance",
+        "formula": "mean_pairs \u03ba_{l1,l2}/dk  (geomean_om2_max_V_dkmax)",
+        "value": 0.4466174234176085,
+        "pct_diff": 104.99315180110905,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "kappa_per_dk_spread[geomean_om2_max_V_dkmax]",
+        "category": "wkb_tunneling",
+        "target": "resistance",
+        "formula": "spread of \u03ba/dk across pairs (geomean_om2_max_V_dkmax)",
+        "value": 0.09028346815841964,
+        "pct_diff": -58.56074635040799,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "ln2_over_pi",
+        "category": "inverse_form",
+        "target": "resistance",
+        "formula": "ln 2 / \u03c0",
+        "value": 0.2206356001526516,
+        "pct_diff": 1.2696431068929555,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "1_over_pi_squared",
+        "category": "inverse_form",
+        "target": "resistance",
+        "formula": "1 / \u03c0\u00b2",
+        "value": 0.10132118364233778,
+        "pct_diff": -53.49453986787095,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "2_over_3pi",
+        "category": "inverse_form",
+        "target": "resistance",
+        "formula": "2 / (3\u03c0)",
+        "value": 0.2122065907891938,
+        "pct_diff": -2.5991920647268882,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "e_minus_e_squared_inv",
+        "category": "inverse_form",
+        "target": "resistance",
+        "formula": "1 / (e \u2212 1)\u00b71/\u03c0",
+        "value": 0.18524893932519262,
+        "pct_diff": -14.972497827126992,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "inv_2pi_plus_e",
+        "category": "inverse_form",
+        "target": "resistance",
+        "formula": "1 / (2\u03c0 + e)",
+        "value": 0.1110930012776248,
+        "pct_diff": -49.009368464223975,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "inv_4pi_plus_pi",
+        "category": "inverse_form",
+        "target": "resistance",
+        "formula": "1 / 5\u03c0",
+        "value": 0.06366197723675814,
+        "pct_diff": -70.77975761941806,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "DELTA",
+        "category": "inverse_form",
+        "target": "resistance",
+        "formula": "DELTA (R_OUTER \u2212 R_MID)",
+        "value": 0.26,
+        "pct_diff": 19.33752843863413,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "DELTA_over_R_outer_2",
+        "category": "inverse_form",
+        "target": "resistance",
+        "formula": "(R_OUTER\u00b2 \u2212 1) / R_OUTER\u00b2",
+        "value": 0.37211329085470446,
+        "pct_diff": 70.79646319141165,
+        "within_tight": false,
+        "within_scale": false
+      },
+      {
+        "name": "DELTA_squared",
+        "category": "inverse_form",
+        "target": "resistance",
+        "formula": "DELTA\u00b2",
+        "value": 0.06760000000000001,
+        "pct_diff": -68.97224260595513,
+        "within_tight": false,
+        "within_scale": false
+      }
+    ]
+  },
+  "best_per_target": {
+    "transport": {
+      "name": "4_x_2pi",
+      "category": "closure_quantum",
+      "target": "transport",
+      "formula": "4\u00b72\u03c0",
+      "value": 25.132741228718345,
+      "pct_diff": 0.13044314230415738,
+      "within_tight": true,
+      "within_scale": true
+    },
+    "resistance": {
+      "name": "omega_1_minus_1_x_4",
+      "category": "eigenfrequency",
+      "target": "resistance",
+      "formula": "4\u00b7(\u03c9(1,0) \u2212 1)",
+      "value": 0.21890775014054675,
+      "pct_diff": 0.4765763762881223,
+      "within_tight": true,
+      "within_scale": true
+    }
+  },
+  "within_tight": {
+    "transport": [
+      {
+        "name": "4_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "4\u00b72\u03c0",
+        "value": 25.132741228718345,
+        "pct_diff": 0.13044314230415738,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "8_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "8\u00b7\u03c0",
+        "value": 25.132741228718345,
+        "pct_diff": 0.13044314230415738,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "16_half_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "16/2\u00b7\u03c0",
+        "value": 25.132741228718345,
+        "pct_diff": 0.13044314230415738,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "Sum_V_max_15_plus_pi",
+        "category": "barrier_sum",
+        "target": "transport",
+        "formula": "\u03a3 V_max[1..5] + \u03c0",
+        "value": 25.14983271313636,
+        "pct_diff": 0.19853670572253942,
+        "within_tight": true,
+        "within_scale": true
+      }
+    ],
+    "resistance": [
+      {
+        "name": "7pi_over_100",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "7\u00b7\u03c0/100",
+        "value": 0.21991148575128552,
+        "pct_diff": 0.9372814801012295,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "omega_1_minus_1_x_4",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "4\u00b7(\u03c9(1,0) \u2212 1)",
+        "value": 0.21890775014054675,
+        "pct_diff": 0.4765763762881223,
+        "within_tight": true,
+        "within_scale": true
+      }
+    ]
+  },
+  "within_scale": {
+    "transport": [
+      {
+        "name": "4_x_2pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "4\u00b72\u03c0",
+        "value": 25.132741228718345,
+        "pct_diff": 0.13044314230415738,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "8_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "8\u00b7\u03c0",
+        "value": 25.132741228718345,
+        "pct_diff": 0.13044314230415738,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "beta_over_6",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "50\u03c0/6",
+        "value": 26.179938779914945,
+        "pct_diff": 4.302544939900173,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "16_half_pi",
+        "category": "closure_quantum",
+        "target": "transport",
+        "formula": "16/2\u00b7\u03c0",
+        "value": 25.132741228718345,
+        "pct_diff": 0.13044314230415738,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "Sum_V_max_15_plus_pi",
+        "category": "barrier_sum",
+        "target": "transport",
+        "formula": "\u03a3 V_max[1..5] + \u03c0",
+        "value": 25.14983271313636,
+        "pct_diff": 0.19853670572253942,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "Sum_V_max_15_x_8pi_over_22.5",
+        "category": "barrier_sum",
+        "target": "transport",
+        "formula": "\u03a3 V_max[1..5] \u00b7 (8\u03c0/22.5)",
+        "value": 24.58344010293763,
+        "pct_diff": -2.058007558017418,
+        "within_tight": false,
+        "within_scale": true
+      }
+    ],
+    "resistance": [
+      {
+        "name": "7pi_over_100",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "7\u00b7\u03c0/100",
+        "value": 0.21991148575128552,
+        "pct_diff": 0.9372814801012295,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "beta_over_700",
+        "category": "closure_quantum",
+        "target": "resistance",
+        "formula": "50\u03c0/700",
+        "value": 0.2243994752564138,
+        "pct_diff": 2.997226000103293,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "V_max_1_over_5",
+        "category": "barrier_sum",
+        "target": "resistance",
+        "formula": "V_max(l=1) / 5",
+        "value": 0.22792795071994174,
+        "pct_diff": 4.616762696156326,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "Sum_V_max_15_over_100",
+        "category": "barrier_sum",
+        "target": "resistance",
+        "formula": "\u03a3 V_max[1..5] / 100",
+        "value": 0.22008240059546566,
+        "pct_diff": 1.0157297688625055,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "omega_1_minus_1_x_4",
+        "category": "eigenfrequency",
+        "target": "resistance",
+        "formula": "4\u00b7(\u03c9(1,0) \u2212 1)",
+        "value": 0.21890775014054675,
+        "pct_diff": 0.4765763762881223,
+        "within_tight": true,
+        "within_scale": true
+      },
+      {
+        "name": "kappa_per_dk_spread[om2_l1_V_l1_dkmax]",
+        "category": "wkb_tunneling",
+        "target": "resistance",
+        "formula": "spread of \u03ba/dk across pairs (om2_l1_V_l1_dkmax)",
+        "value": 0.20908246310211073,
+        "pct_diff": -4.033136975123808,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "ln2_over_pi",
+        "category": "inverse_form",
+        "target": "resistance",
+        "formula": "ln 2 / \u03c0",
+        "value": 0.2206356001526516,
+        "pct_diff": 1.2696431068929555,
+        "within_tight": false,
+        "within_scale": true
+      },
+      {
+        "name": "2_over_3pi",
+        "category": "inverse_form",
+        "target": "resistance",
+        "formula": "2 / (3\u03c0)",
+        "value": 0.2122065907891938,
+        "pct_diff": -2.5991920647268882,
+        "within_tight": false,
+        "within_scale": true
+      }
+    ]
+  },
+  "mass_sensitivity": [
+    {
+      "label": "locked_baseline",
+      "transport": 25.1,
+      "resistance": 0.217869435878,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 105.61259901551102,
+        "5": 1778.9380736364326
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 0.04332404762574747,
+        "5": 0.11695201852890444
+      }
+    },
+    {
+      "label": "transport=4_x_2pi",
+      "candidate": "4\u00b72\u03c0",
+      "transport": 25.132741228718345,
+      "resistance": 0.217869435878,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 114.14896297905406,
+        "5": 1922.0725102478755
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 8.035887850095657,
+        "5": 8.17242271466945
+      }
+    },
+    {
+      "label": "resistance=omega_1_minus_1_x_4",
+      "candidate": "4\u00b7(\u03c9(1,0) \u2212 1)",
+      "transport": 25.1,
+      "resistance": 0.21890775014054675,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 102.06271360055258,
+        "5": 1718.5455768734664
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 3.4031007163065996,
+        "5": 3.281880571712655
+      }
+    },
+    {
+      "label": "joint_best",
+      "candidate": "4\u00b72\u03c0, 4\u00b7(\u03c9(1,0) \u2212 1)",
+      "transport": 25.132741228718345,
+      "resistance": 0.21890775014054675,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 110.00568640400337,
+        "5": 1851.6629271271624
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 4.114498187745049,
+        "5": 4.209837979759945
+      }
+    },
+    {
+      "label": "transport=8*pi",
+      "candidate": "8\u00b7\u03c0 = 25.1327",
+      "transport": 25.132741228718345,
+      "resistance": 0.217869435878,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 114.14896297905406,
+        "5": 1922.0725102478755
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 8.035887850095657,
+        "5": 8.17242271466945
+      }
+    },
+    {
+      "label": "joint_8pi_and_best_resistance",
+      "candidate": "8\u00b7\u03c0, 4\u00b7(\u03c9(1,0) \u2212 1)",
+      "transport": 25.132741228718345,
+      "resistance": 0.21890775014054675,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 110.00568640400337,
+        "5": 1851.6629271271624
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 4.114498187745049,
+        "5": 4.209837979759945
+      }
+    },
+    {
+      "label": "transport=8pi, resistance=7pi_over_100",
+      "candidate": "8\u00b7\u03c0, 7\u00b7\u03c0/100",
+      "transport": 25.132741228718345,
+      "resistance": 0.21991148575128552,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 106.28323596622276,
+        "5": 1788.4041598648732
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 0.5913979551358403,
+        "5": 0.6496943971316445
+      }
+    },
+    {
+      "label": "transport=8pi, resistance=omega_1_minus_1_x_4",
+      "candidate": "8\u00b7\u03c0, 4\u00b7(\u03c9(1,0) \u2212 1)",
+      "transport": 25.132741228718345,
+      "resistance": 0.21890775014054675,
+      "predicted_mev": {
+        "1": 0.5109989461,
+        "3": 110.00568640400337,
+        "5": 1851.6629271271624
+      },
+      "rel_err_pct": {
+        "1": 0.0,
+        "3": 4.114498187745049,
+        "5": 4.209837979759945
+      }
+    }
+  ]
+}
