@@ -1,0 +1,126 @@
+{
+  "timestamp_utc": "2026-05-13T00:44:03+00:00",
+  "readings": [
+    {
+      "name": "locked_baseline",
+      "description": "transport = 25.1, resistance = 0.217869 (locked values)",
+      "R_star_mu": 1.2622393088042734,
+      "R_star_tau": 1.2623378262296323,
+      "agreement_pct": 0.007804972058132229,
+      "gamma_at_R_star_mu": 22.499442001637007,
+      "transport_at_R_star_mu": 25.1,
+      "resistance_at_R_star_mu": 0.217869435878,
+      "omega_1_0_at_R_star_mu": 1.0537062599786444,
+      "masses_at_R_star_mu": [
+        0.5109989461,
+        105.65837446572559,
+        1779.7279321779292
+      ],
+      "err_mu_pct": -3.243889324863294e-08,
+      "err_tau_pct": 0.16140451008685733,
+      "bracket_hit": null
+    },
+    {
+      "name": "closure_quantum",
+      "description": "transport = 8\u03c0, resistance = 7\u03c0/100 (both R-independent)",
+      "R_star_mu": 1.2626355783641339,
+      "R_star_tau": 1.2626623728498814,
+      "agreement_pct": 0.0021221076141549307,
+      "gamma_at_R_star_mu": 22.507586596933074,
+      "transport_at_R_star_mu": 25.132741228718345,
+      "resistance_at_R_star_mu": 0.21991148575128552,
+      "omega_1_0_at_R_star_mu": 1.0535271170255458,
+      "masses_at_R_star_mu": [
+        0.5109989461,
+        105.65837454516122,
+        1777.6345921154934
+      ],
+      "err_mu_pct": 4.274268806092066e-08,
+      "err_tau_pct": 0.04359331154359562,
+      "bracket_hit": null
+    },
+    {
+      "name": "eigenfrequency",
+      "description": "transport = 8\u03c0, resistance = 4\u00b7(\u03c9(1,0;R) \u2212 1) (R-dependent)",
+      "R_star_mu": 1.2583156272210183,
+      "R_star_tau": 1.2582838041242217,
+      "agreement_pct": 0.0025290234109937707,
+      "gamma_at_R_star_mu": 22.416669163375644,
+      "transport_at_R_star_mu": 25.132741228718345,
+      "resistance_at_R_star_mu": 0.222016604672147,
+      "omega_1_0_at_R_star_mu": 1.0555041511680368,
+      "masses_at_R_star_mu": [
+        0.5109989461,
+        105.65837439828111,
+        1779.4411508122266
+      ],
+      "err_mu_pct": -9.627148125974092e-08,
+      "err_tau_pct": 0.14526472610260371,
+      "bracket_hit": null
+    },
+    {
+      "name": "closure_quantum_locked_transport",
+      "description": "transport = 25.1 (locked), resistance = 7\u03c0/100",
+      "R_star_mu": 1.2580666033923626,
+      "R_star_tau": 1.258217415288091,
+      "agreement_pct": 0.011987592335861646,
+      "gamma_at_R_star_mu": 22.41128398205214,
+      "transport_at_R_star_mu": 25.1,
+      "resistance_at_R_star_mu": 0.21991148575128552,
+      "omega_1_0_at_R_star_mu": 1.0556197569476273,
+      "masses_at_R_star_mu": [
+        0.5109989461,
+        105.65837451482372,
+        1781.4831567501103
+      ],
+      "err_mu_pct": 1.402986399956827e-08,
+      "err_tau_pct": 0.26018688867498907,
+      "bracket_hit": null
+    },
+    {
+      "name": "eigenfrequency_locked_transport",
+      "description": "transport = 25.1 (locked), resistance = 4\u00b7(\u03c9(1,0;R) \u2212 1)",
+      "R_star_mu": 1.259966765809804,
+      "R_star_tau": 1.2599195028841494,
+      "agreement_pct": 0.0037511247865425327,
+      "gamma_at_R_star_mu": 22.45197517853498,
+      "transport_at_R_star_mu": 25.1,
+      "resistance_at_R_star_mu": 0.21896877361174205,
+      "omega_1_0_at_R_star_mu": 1.0547421934029355,
+      "masses_at_R_star_mu": [
+        0.5109989461,
+        105.65837456207444,
+        1780.6728742782932
+      ],
+      "err_mu_pct": 5.8750145443822424e-08,
+      "err_tau_pct": 0.21458495763837857,
+      "bracket_hit": null
+    }
+  ],
+  "verdict_lines": [
+    "Cross-species agreement \u2014 locked: 0.0078%, closure: 0.0021%, eig: 0.0025%.",
+    "R*-match to locked baseline \u2014 closure: 0.0314%, eig: 0.3109%.",
+    "\u03b3 at R* vs canonical 22.5 \u2014 closure: 0.0337%, eig: 0.3704%.",
+    "",
+    "**closure-quantum reading PREFERRED.** Both readings close the loop at high cross-species precision, but closure-quantum's R* (1.262636) matches the locked baseline (1.262239) to 0.0314%, while eigenfrequency drifts by 0.3109%. The closure-quantum reading also lands \u03b3 at R* on 22.5 to 0.0337%, preserving the pinhole-origin anchor; eigenfrequency drifts \u03b3 by 0.3704%."
+  ],
+  "locked_baseline_summary": {
+    "name": "locked_baseline",
+    "description": "transport = 25.1, resistance = 0.217869 (locked values)",
+    "R_star_mu": 1.2622393088042734,
+    "R_star_tau": 1.2623378262296323,
+    "agreement_pct": 0.007804972058132229,
+    "gamma_at_R_star_mu": 22.499442001637007,
+    "transport_at_R_star_mu": 25.1,
+    "resistance_at_R_star_mu": 0.217869435878,
+    "omega_1_0_at_R_star_mu": 1.0537062599786444,
+    "masses_at_R_star_mu": [
+      0.5109989461,
+      105.65837446572559,
+      1779.7279321779292
+    ],
+    "err_mu_pct": -3.243889324863294e-08,
+    "err_tau_pct": 0.16140451008685733,
+    "bracket_hit": null
+  }
+}
