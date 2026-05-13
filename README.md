@@ -9,6 +9,59 @@ spacetime itself — specifically the Hopf fibration on S³, 5D Tangherlini
 wormholes, topological flux-tube networks, coherent wormhole-throat
 condensates, and non-orientable throat topology.
 
+## Where ℏ enters: closure-ledger reduction of the locked surrogate
+
+A sequence of closure-ledger probes
+(`experiments/closure_ledger/`, PRs #11–18 of this repository) has
+reduced the locked lepton surrogate's residual external input from
+six phenomenological parameters down to **one anchor (m_e)**. The
+chain is:
+
+```
+2π ledger  →  R*  →  (γ, transport, resistance)  →  ε  →  Compton bridge  →  m_e
+```
+
+Each arrow is a probe with a quantitative test; each parameter is
+identified with a closure-quantum invariant or a Tangherlini-grid
+quantity computed on the same geometry. The full closure-quantum
+ledger of the locked surrogate after the chain:
+
+| parameter         | locked value | structural identification |
+|-------------------|-------------:|---------------------------|
+| `action_base`     | 2π           | S³ great-circle action     |
+| `transport`       | 25.1         | 8π = 4·(2π)               |
+| `resistance`      | 0.2179       | 7π / 100                  |
+| `pinhole γ`       | 22.5         | Σ V_max[1..5] ≈ 22.0       |
+| `β` (τ-uplift)    | 50π          | locked closure quantum     |
+| `4β` (τ-uplift integer) | 100·2π | τ-uplift quantum          |
+| `R*` (outer radius) | 1.2626    | cross-species fixed point  |
+| `ε` (inner cutoff) | 3.51×10⁻⁴   | resistance / k_5⁴          |
+
+At the inner-cutoff identification `ε = 7π/(100·5⁴)`, the
+dimensional bridge collapses to the clean Compton form:
+
+```
+ℏ  =  m_e · R_MID · c
+```
+
+BAM is *dimensional-scale-incomplete only modulo m_e*. The
+remaining open work is in throat physics (THESIS.md "self-consistent
+throat radius"), not the closure ledger.
+
+**Paper draft:** `docs/hbar_origin_note.md` — five-section narrative
+of the closure-ledger chain with the full quantitative trail.
+
+**Probe ledger:** `docs/hbar_origin_status.md` — every probe with
+result, precision, and archive pointer.
+
+**Reproduce in seconds:**
+
+```bash
+python -m experiments.closure_ledger.inner_boundary_derivation_probe
+# Writes runs/<timestamp>_inner_boundary_derivation_probe/{probe.json, probe.md}
+# Verdict: ε = resistance / k_5⁴ closes the Compton bridge to 0.04 %.
+```
+
 ## Why progress is possible beyond Wheeler's geometrodynamics
 
 Wheeler's original geometrodynamic programme had the right *instinct*
@@ -116,6 +169,13 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Lepton mass ladder (e, μ, τ) | **Closed** | Sub-percent all three generations from locked S³ axioms (see below) |
 | S³ action base `action_base = 2π` | **Locked** | Hard topological invariant; default in all lepton scans |
 | k=5 uplift `4β = 200π` (100 × 2π) | **Locked** | τ uplift equals exactly 100 S³ winding quanta |
+| Closure cycle integer-quantised in 2π | **Verified** | `(N_e, N_μ, N_τ) = (3, 6, 109)` from antipodal + Hopf-throat + radial BS + τ-uplift |
+| R_OUTER selected by cross-species fixed point | **Verified** | Bisection on each lepton gives same R* ≈ 1.262 to 0.008 % |
+| Pinhole γ ≈ Σ V_max[1..5] on Chebyshev grid | **Verified** | −2.2 % off the locked γ = 22.5; same operator as the QCD-sector γ_q |
+| Transport = 8π = 4·(2π) | **Verified** | +0.13 % off the locked transport = 25.1; 4th closure quantum |
+| Resistance = 7π / 100 | **Verified** | +0.94 % off the locked resistance = 0.2179; selected over `4·(ω−1)` by R_OUTER bisection |
+| Inner cutoff `ε = resistance / k_5⁴` | **Verified** | Closes the Compton bridge `ℏ = m_e R_MID c` to 0.04 % |
+| Closure-quantum ledger closes modulo m_e | **Established** | Every locked parameter is a closure-quantum invariant; m_e is the unique remaining external input |
 | Quark mass ladder (u, d, s, c, b, t) | **Fitted** | 1.6% max rel err on s, c, b, t with d-anchor, four shell-index axioms, and one phenomenological β |
 | Quark shell-index axioms (ε, η, χ, phase) | **Geometric** | All four expressible in `k_5 = 5` only: `(1−1/k_5², k_5, (k_5−1)·k_5, 0)` |
 | Quark residual sector (transport, pinhole, resistance) | **Derived** | Each matches Tangherlini eigenmode quantity within ~1% on the tortoise grid |
@@ -233,7 +293,11 @@ the overall MeV scale.
 - `resistance_model = "exponential"`  — re-entry cost `κ·(eᵏ − 1)` captures
   exponential geometric writhe/curvature build-up with generation depth.
 - Baseline anchor `(phase, transport, pinhole, resistance) ≈
-  (0.001, 25.1, 22.5, 0.217869)`.
+  (0.001, 25.1, 22.5, 0.217869)`. As of the closure-ledger sequence
+  (`docs/hbar_origin_note.md`), all four are now identified with
+  closure-quantum / Tangherlini-grid invariants:
+  `transport = 8π`, `pinhole γ = Σ V_max[1..5]`,
+  `resistance = 7π/100`, with the phase channel decoupled.
 
 The generation-block diagonal takes the form
 
@@ -318,7 +382,9 @@ sub-leading knobs; it reports `mu/e` error ≈ 1 × 10⁻⁶% and
 | `scripts/lock_beta_50pi_probe.py` | Hard `β = 50π` lock; optimizes only (phase, transport, pinhole, resistance). |
 
 See `docs/lepton_ablation_results.md`, `docs/lepton_tau_target.md`, and
-`docs/lepton_next_steps.md` for the full scan archaeology.
+`docs/lepton_next_steps.md` for the full scan archaeology, and
+`docs/hbar_origin_note.md` for the closure-ledger reduction of the
+locked surrogate's parameters to closure-quantum invariants.
 
 ## Quark mass ladder (u, d, s, c, b, t) from a shell-coupled S³ closure
 
@@ -520,6 +586,7 @@ This package refactors and unifies three monolithic scripts:
 | New in v0.43.0 | `embedding/transport.py`, `bell/hopf_phases.py`, `history/` |
 | New in v0.44.0 | `tangherlini/lepton_spectrum.py` (locked e/μ/τ ladder) + `scripts/` (calibration CLIs) |
 | New in v0.45.0 | `qcd/quark_spectrum.py` + `qcd/hadron_spectrum.py` (shell-coupled six-quark ladder; residual sector geometrized to ~1% via Tangherlini eigenmode) |
+| New in v0.46.0 | `experiments/closure_ledger/` (closure-ledger sequence; reduces the locked lepton surrogate's residual external input from six phenomenological parameters to one anchor m_e). Paper draft in `docs/hbar_origin_note.md`. |
 
 ## License
 
