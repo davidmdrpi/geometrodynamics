@@ -299,6 +299,8 @@ and is outside the closure-ledger framework.
 
 ## Cross-references
 
+- `docs/throat_dynamics_status.md` — four-probe summary table
+  with archive pointers, updated as each sub-target closes.
 - `docs/hbar_origin_note.md` — closure-ledger paper draft; §5 and
   §6 motivate this thread.
 - `docs/hbar_origin_status.md` — probe-by-probe ledger of the
