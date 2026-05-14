@@ -1,0 +1,178 @@
+{
+  "timestamp_utc": "2026-05-14T05:40:29+00:00",
+  "R_star": 1.262636,
+  "epsilon_closure_quantum": 0.00035185837720205684,
+  "matching_equation": "tan(J + \u03c0/4) = (1/2) \u00b7 exp(\u22122 I)",
+  "residual_at_closure_quantum": {
+    "omega_chebyshev": 1.0004034509949267,
+    "J": 2.6857277463477036,
+    "I": 0.08816910049707802,
+    "r_c_turning_point": 1.1610538281744547,
+    "rstar_a": -3.322450589167373,
+    "rstar_c": -0.1372524815866003,
+    "rstar_b": 0.1849332226781233,
+    "L_classical": 3.1851981075807725,
+    "L_forbidden": 0.3221857042647236,
+    "tan_J_plus_pi_4": 0.3420034470866871,
+    "half_exp_minus_2I": 0.4191672049282559,
+    "residual": -0.07716375784156876,
+    "wkb_precision_estimate_1_over_J_squared": 0.13863600281171068
+  },
+  "wkb_vs_chebyshev_at_R_star": {
+    "omega_chebyshev": 1.0004034509949267,
+    "omega_wkb": 1.0188935682526792,
+    "pct_diff": 1.8482660410021199,
+    "omega_wkb_times_L": 3.5736508072829416,
+    "omega_cheb_times_L": 3.508798869333975,
+    "gamma_15_over_2pi": 3.5114600975319674
+  },
+  "delta_decomposition": {
+    "omega": 1.0004034509949267,
+    "L_total": 3.5073838118454965,
+    "L_classical": 3.1851981075807725,
+    "L_forbidden": 0.3221857042647236,
+    "J_classical_BS_phase": 2.6857277463477036,
+    "omega_L_classical_part": 3.1864831789263146,
+    "omega_L_forbidden_part": 0.32231569040766034,
+    "Delta_cl_potential_correction_in_classical": 0.500755432578611,
+    "check_J_plus_Delta_cl_equals_omega_L_cl": 0.0,
+    "omega_L_total": 3.508798869333975,
+    "Delta_total_omega_L_minus_pi": 0.367206215744182,
+    "gamma_15_over_2pi_minus_pi_target": 0.3698674439421743,
+    "pct_diff_Delta_vs_target": -0.71950863520942
+  },
+  "robustness_R": [
+    {
+      "R": 1.2,
+      "omega_chebyshev": 1.0310441112171325,
+      "omega_wkb": null,
+      "J": 2.832459017383691,
+      "I": 0.0024987712864390265,
+      "residual": 0.018364656384341593,
+      "wkb_vs_cheb_pct": null
+    },
+    {
+      "R": 1.25,
+      "omega_chebyshev": 1.0055756703079162,
+      "omega_wkb": 1.0210147507139482,
+      "J": 2.7097908503295396,
+      "I": 0.06817601234206219,
+      "residual": -0.06715828240859034,
+      "wkb_vs_cheb_pct": 1.5353474494171535
+    },
+    {
+      "R": 1.262636,
+      "omega_chebyshev": 1.0004034509949267,
+      "omega_wkb": 1.0188935682526792,
+      "J": 2.6857277463477036,
+      "I": 0.08816910049707802,
+      "residual": -0.07716375784156876,
+      "wkb_vs_cheb_pct": 1.8482660410021199
+    },
+    {
+      "R": 1.27,
+      "omega_chebyshev": 0.9975728583724882,
+      "omega_wkb": 1.0176290407602209,
+      "J": 2.672661478069029,
+      "I": 0.09995207899152617,
+      "residual": -0.08193164228317268,
+      "wkb_vs_cheb_pct": 2.010498002166353
+    },
+    {
+      "R": 1.3,
+      "omega_chebyshev": 0.9872409875241255,
+      "omega_wkb": 1.0124050772603366,
+      "J": 2.6255414616355033,
+      "I": 0.1479798924551582,
+      "residual": -0.09585345455739225,
+      "wkb_vs_cheb_pct": 2.5489308136729028
+    },
+    {
+      "R": 1.35,
+      "omega_chebyshev": 0.9733781387102409,
+      "omega_wkb": 1.0040137052361389,
+      "J": 2.5636000798542815,
+      "I": 0.22504150595484745,
+      "residual": -0.10835594786431565,
+      "wkb_vs_cheb_pct": 3.147344830087422
+    }
+  ],
+  "robustness_l": [
+    {
+      "l": 1,
+      "omega_chebyshev": 1.0004034509949267,
+      "omega_wkb": 1.0188935682292937,
+      "J": 2.6857277463477036,
+      "I": 0.08816910049707802,
+      "residual": -0.07716375784156876,
+      "wkb_vs_cheb_pct": 1.8482660386645116
+    },
+    {
+      "l": 2,
+      "omega_chebyshev": 1.072495806630087,
+      "omega_wkb": 0.5220602143086139,
+      "J": 2.478817681708446,
+      "I": 0.6242677359052728,
+      "residual": -0.020220832850370532,
+      "wkb_vs_cheb_pct": -51.322866618099795
+    },
+    {
+      "l": 3,
+      "omega_chebyshev": 1.1535272422388883,
+      "omega_wkb": null,
+      "J": 2.417932943431411,
+      "I": 1.1694180541278127,
+      "residual": 0.013597105314490487,
+      "wkb_vs_cheb_pct": null
+    },
+    {
+      "l": 4,
+      "omega_chebyshev": 1.2355261834158384,
+      "omega_wkb": null,
+      "J": 2.400083358446334,
+      "I": 1.725585754621865,
+      "residual": 0.028062836118285764,
+      "wkb_vs_cheb_pct": null
+    },
+    {
+      "l": 5,
+      "omega_chebyshev": 1.31467908040284,
+      "omega_wkb": null,
+      "J": 2.3963908972767793,
+      "I": 2.293477548127393,
+      "residual": 0.03512616023392501,
+      "wkb_vs_cheb_pct": null
+    }
+  ],
+  "robustness_n": [
+    {
+      "n_idx": 0,
+      "omega_chebyshev": 1.0004034509949267,
+      "omega_L": 3.508798869333975,
+      "J": 2.6857277463477036,
+      "I": 0.08816910049707802,
+      "J_minus_n_plus_3_4_pi": 0.3295332561553588
+    },
+    {
+      "n_idx": 1,
+      "omega_chebyshev": 1.8753728684374837,
+      "note": "no turning point (energy above V_max \u2014 fully classical)",
+      "omega_L": 6.577652439931884,
+      "empty_box_BS_n_plus_1_pi": 6.283185307179586
+    },
+    {
+      "n_idx": 2,
+      "omega_chebyshev": 2.746364652488502,
+      "note": "no turning point (energy above V_max \u2014 fully classical)",
+      "omega_L": 9.632554923562855,
+      "empty_box_BS_n_plus_1_pi": 9.42477796076938
+    },
+    {
+      "n_idx": 3,
+      "omega_chebyshev": 3.627491750974962,
+      "note": "no turning point (energy above V_max \u2014 fully classical)",
+      "omega_L": 12.723005844972656,
+      "empty_box_BS_n_plus_1_pi": 12.566370614359172
+    }
+  ]
+}

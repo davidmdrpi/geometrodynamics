@@ -212,6 +212,42 @@ The 0.3–0.8 % residual gaps are at the precision of the WKB
 approximation; whether they are irreducible or admit higher-order
 corrections is left open.
 
+**Formalization (2026-05-14, follow-up).**
+`experiments/closure_ledger/throat_reflection_phase_formalization_probe.py`
+recasts (*) as a WKB-corrected BS quantization for the lowest
+l = 1 mode at R\*:
+
+```
+ω(1, 0) · L  =  π  +  Δ        (BS ground state)
+                                π  =  empty-box hard-wall phase
+                                Δ  ≈  γ_{1..5}/(2π) − π        (~0.5 %)
+```
+
+What the throat operator T = iσ_y derives:
+
+  - **Dirichlet at throat.** T-fixed-point + T² = −I gives ψ = 0
+    at the throat.
+  - **Empty-box `π`.** Standard WKB hard-wall ground state.
+  - **(n+1)·π asymptotic.** Higher modes converge to the empty-
+    box BS limit (verified: at n = 3 the deviation is only 1.2 %).
+
+What is not yet derived from T:
+
+  - **The specific Δ = γ/(2π) − π identification.** This is an
+    empirical match at WKB precision; rigorous derivation would
+    require either a uniform WKB expansion including tunneling-
+    tail contributions, or an algebraic identity tying the BS
+    phase to the closure-quantum γ. The match is at the same
+    precision level as the other closure-quantum identifications
+    in PRs #15–18.
+
+The condition is **R-specific** (holds tightly only at R\* =
+1.262636), **l-specific** (l = 1 is the lepton ground-state
+coupling), and **n-asymptotic** (ω·L → (n+1)·π at higher n). The
+R\* specificity is consistent with the closure-quantum reading:
+R\* is the unique R at which BOTH the lepton mass ratios fit
+(PR #15) AND the BS phase equals γ(R)/(2π) (this thread).
+
 ### (4) R_MID self-consistency (deepest)
 
 **Status.** Open. Beyond this thread. R_MID = 1 by convention. If
@@ -263,6 +299,8 @@ and is outside the closure-ledger framework.
 
 ## Cross-references
 
+- `docs/throat_dynamics_status.md` — four-probe summary table
+  with archive pointers, updated as each sub-target closes.
 - `docs/hbar_origin_note.md` — closure-ledger paper draft; §5 and
   §6 motivate this thread.
 - `docs/hbar_origin_status.md` — probe-by-probe ledger of the
@@ -279,3 +317,11 @@ and is outside the closure-ledger framework.
 - `experiments/closure_ledger/throat_reflection_phase_probe.py`
   — third probe (sub-target 3, **positive result**): identifies
   the non-local WKB-BS condition ω · L = γ/(2π).
+- `experiments/closure_ledger/throat_reflection_phase_formalization_probe.py`
+  — formalizes the condition: derives Dirichlet at the throat from
+  T² = −I, the empty-box `π` from standard WKB, and identifies the
+  closure-quantum identification Δ = γ/(2π) − π as a structural
+  reading at WKB precision (~0.5 %). Robustness tests show the
+  identity is **R-specific** (cross-species fixed point only),
+  **l-specific** (l = 1 mode coupled to the lepton ground state),
+  and **n-asymptotic** (ω·L → (n+1)·π for higher n).
