@@ -131,15 +131,35 @@ negative result — it identifies what kind of physics is required
 
 ### (2) Throat-thickness probe
 
-**Status.** Open. Implement V_throat = V_0 · θ(r_throat − r) and
-scan (V_0, δ_throat). Test:
+**Status (2026-05-14): closed — negative result.**
+`experiments/closure_ledger/throat_thickness_probe.py` replaces the
+hard wall with a smooth confining sigmoid `V_throat(r) = V_0 / (1 +
+exp((r − r_t)/σ))` centered at r_t = r_s + δ_throat, then scans
+(V_0, δ_throat) and tests both ε-convergence and Compton-bridge
+closure under closure-quantum natural choices.
 
-  - Does any natural (V_0, δ_throat) recover the closure-quantum
-    spectrum?
-  - Is V_0 = some closure-quantum invariant a clean match (e.g.,
-    `V_0 = γ`, `V_0 = transport`, etc.)?
-  - Is δ_throat = some closure-quantum length (e.g., the
-    `resistance/k_5⁴` ε itself, in physical r units)?
+Outcome:
+
+- **σ is a third arbitrary parameter.** The smoothing scale shifts
+  ω by O(σ/δ): default σ = δ/30 puts the V_0 → ∞ limit at ω ≈ 1.04,
+  while σ = δ/100 (sharp step) gives ω ≈ 1.004 (matching the
+  hard-wall reference). Apparent "Compton-clean hits" at the
+  default σ (`V_0 = 100·γ` at +0.13 % from ω = 1) are σ-fitting
+  artifacts; at σ → 0 they shift by 1–3 %.
+- **No ε-convergence at finite V_0.** Even for strong barriers
+  (V_0 = 100, 10⁶) the spectrum still drifts with ε at the
+  few-% level. The throat remains asymptotically free; tunneling
+  into the throat region depends on the cutoff.
+- **No closure-quantum natural (V_0, δ) on the Compton-bridge
+  surface at σ → 0.** Best within-5 % at the sharp limit:
+  V_0 = ∞ at +1.46 %, V_0 = 100·γ at −1.84 %. Comparable to
+  precisions of other closure-quantum identifications, but
+  insufficient to claim structural derivation.
+
+The thickness model is a valid mathematical alternative to the
+hard wall but not parameter-reducing (3 parameters vs 1) and not
+derivable from closure-quantum scaffolding. Sub-target (B) is
+closed.
 
 ### (3) Quasi-regular reflection-phase analysis
 
@@ -176,6 +196,19 @@ The thread closes when:
 
 Either outcome sharpens the framework.
 
+### Status (2026-05-14): partial outcome (b)
+
+Sub-targets (1) BC substitution and (2) thickness regularization
+both returned negative results. No purely local prescription at
+the inner endpoint reproduces the closure-quantum spectrum without
+external input. The remaining route within the closure-ledger
+scope is sub-target (3) reflection-phase analysis, which is non-
+local in the radial coordinate. If (3) also fails, the thread
+closes on outcome (b)(ii): the hard-wall scheme with
+`ε = resistance/k_5⁴` is the correct effective description, and
+the deeper R_MID self-consistency (sub-target 4, THESIS.md) is
+the next layer of physics.
+
 ## Cross-references
 
 - `docs/hbar_origin_note.md` — closure-ledger paper draft; §5 and
@@ -188,4 +221,6 @@ Either outcome sharpens the framework.
 - `experiments/closure_ledger/inner_boundary_derivation_probe.py`
   — identifies ε = resistance/k_5⁴ as the closure-quantum form.
 - `experiments/closure_ledger/throat_boundary_condition_probe.py`
-  — first probe in this thread (sub-target 1).
+  — first probe in this thread (sub-target 1, negative result).
+- `experiments/closure_ledger/throat_thickness_probe.py`
+  — second probe (sub-target 2, negative result).
