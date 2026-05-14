@@ -1,0 +1,150 @@
+{
+  "timestamp_utc": "2026-05-14T00:34:59+00:00",
+  "R_star": 1.262636,
+  "epsilon_closure_quantum": 0.00035185837720205684,
+  "gamma_15_at_R_star": 22.063154491560255,
+  "phi_invariance": [
+    {
+      "eps": 0.01,
+      "omega": 1.8952955686324098,
+      "L": 1.800335130308479,
+      "omega_L": 3.412167194526912,
+      "is_closure_quantum": false
+    },
+    {
+      "eps": 0.005,
+      "omega": 1.5978015516279198,
+      "L": 2.1643538181079762,
+      "omega_L": 3.4582078888447367,
+      "is_closure_quantum": false
+    },
+    {
+      "eps": 0.002,
+      "omega": 1.3269424586021472,
+      "L": 2.6328750543030743,
+      "omega_L": 3.493673697749183,
+      "is_closure_quantum": false
+    },
+    {
+      "eps": 0.001,
+      "omega": 1.1753626691889243,
+      "L": 2.9828924175944334,
+      "omega_L": 3.5059803938471967,
+      "is_closure_quantum": false
+    },
+    {
+      "eps": 0.0005,
+      "omega": 1.0535269266495844,
+      "L": 3.3311851416267357,
+      "omega_L": 3.5094932443587754,
+      "is_closure_quantum": false
+    },
+    {
+      "eps": 0.00035185837720205684,
+      "omega": 1.0004034509949267,
+      "L": 3.5073838118454965,
+      "omega_L": 3.508798869333975,
+      "is_closure_quantum": true
+    },
+    {
+      "eps": 0.0002,
+      "omega": 0.924745058829734,
+      "L": 3.790361110933479,
+      "omega_L": 3.5051177085161163,
+      "is_closure_quantum": false
+    },
+    {
+      "eps": 0.0001,
+      "omega": 0.845361121521371,
+      "L": 4.137278089851092,
+      "omega_L": 3.497494046082315,
+      "is_closure_quantum": false
+    },
+    {
+      "eps": 5e-05,
+      "omega": 0.7778023733333423,
+      "L": 4.484023347131984,
+      "omega_L": 3.487684001481375,
+      "is_closure_quantum": false
+    },
+    {
+      "eps": 1e-05,
+      "omega": 0.6544271625351242,
+      "L": 5.288879623774255,
+      "omega_L": 3.461186485176421,
+      "is_closure_quantum": false
+    }
+  ],
+  "invariant_identification": {
+    "n_converged": 5,
+    "Phi_mean": 3.505376852427676,
+    "Phi_spread": 0.011999198276460454,
+    "Phi_spread_pct": 0.3423083674484333,
+    "gamma_15_at_R_star": 22.063154491560255,
+    "candidates_ranked": [
+      {
+        "name": "22 / (2\u03c0)",
+        "value": 3.5014087480216975,
+        "pct_diff_from_mean": 0.11332879682272134,
+        "within_0p5pct": "True"
+      },
+      {
+        "name": "11 / \u03c0",
+        "value": 3.5014087480216975,
+        "pct_diff_from_mean": 0.11332879682272134,
+        "within_0p5pct": "True"
+      },
+      {
+        "name": "7 / 2",
+        "value": 3.5,
+        "pct_diff_from_mean": 0.15362435507645852,
+        "within_0p5pct": "True"
+      },
+      {
+        "name": "\u03b3_{1..5} / (2\u03c0)",
+        "value": 3.5114600975319674,
+        "pct_diff_from_mean": -0.17323976167540625,
+        "within_0p5pct": "True"
+      },
+      {
+        "name": "10\u03c0 / 9",
+        "value": 3.490658503988659,
+        "pct_diff_from_mean": 0.42164962347931817,
+        "within_0p5pct": "True"
+      },
+      {
+        "name": "\u03b3_lepton (22.5) / (2\u03c0)",
+        "value": 3.580986219567645,
+        "pct_diff_from_mean": -2.1114118431066715,
+        "within_0p5pct": "False"
+      },
+      {
+        "name": "\u03c0",
+        "value": 3.141592653589793,
+        "pct_diff_from_mean": 11.5796106927548,
+        "within_0p5pct": "False"
+      }
+    ],
+    "best_candidate": {
+      "name": "22 / (2\u03c0)",
+      "value": 3.5014087480216975,
+      "pct_diff_from_mean": 0.11332879682272134,
+      "within_0p5pct": "True"
+    }
+  },
+  "structural_eps_derivation": {
+    "target_L": 3.5114600975319674,
+    "eps_structural": 0.0003490083221536924,
+    "eps_closure_quantum_7pi_100_k5_4": 0.00035185837720205684,
+    "pct_diff": -0.8100006232700248,
+    "L_at_eps_structural": 3.511460097531683,
+    "L_at_eps_closure_quantum": 3.5073838118454965
+  },
+  "compton_bridge_at_structural_eps": {
+    "eps_structural": 0.0003490083221536924,
+    "omega": 0.9992329680058006,
+    "L": 3.511460097531683,
+    "omega_L": 3.508766695290522,
+    "pct_diff_omega_1": -0.07670319941993631
+  }
+}
