@@ -28,6 +28,7 @@ Each probe has JSON + markdown archives under
 | 2 | `throat_thickness_probe`                    | (B) thickness regularization | **negative**: replacing the hard wall with a smooth confining sigmoid V_throat = V_0/(1 + exp((r − r_t)/σ)) does not remove the inner-boundary problem. σ is a *third* arbitrary parameter (shifts ω by O(σ/δ)); the V_0 → ∞ limit only recovers the hard wall at r_t. No closure-quantum natural (V_0, δ) closes the Compton bridge at σ → 0 — apparent hits at σ = δ/30 (e.g. V_0 = 100·γ at +0.13 %) are σ-fitting artifacts. The model has 3 parameters where the hard-wall scheme has 1. |
 | 3 | `throat_reflection_phase_probe`             | (3) reflection-phase analysis | **POSITIVE**: the asymptotic phase Φ = ω · L is ε-INVARIANT (0.34 % spread across ε ∈ [1e-4, 1e-3]) with mean value 3.509. The invariant matches `γ_{1..5}/(2π) = 3.511` to 0.17 % (and `22/(2π) = 3.501`, `7/2 = 3.500` to similar precision). The closure-quantum ε of PR #18 is the solution of L(ε) = γ/(2π) at ω = 1 — i.e., the inner cutoff is structurally derived from a non-local BS condition. |
 | 4 | `throat_reflection_phase_formalization_probe` | formalization layer       | **partial derivation**: formalizes ω · L = π + Δ as the WKB-BS quantization, where π is the empty-box hard-wall ground state and Δ ≈ γ/(2π) − π is the closure-quantum potential correction. T² = −I rigorously derives Dirichlet at the throat; standard WKB derives the (n+1)·π asymptotic limit (verified: at n = 3 the deviation is 1.2 %). The Δ = γ/(2π) − π identification is at WKB precision (~0.5 %) but not yet rigorously derived from the throat algebra. Identity is **R-specific** (R\* = 1.262636 only), **l-specific** (l = 1), **n-asymptotic** (higher n → empty-box BS). |
+| 5 | `throat_wkb_uniform_probe` | uniform-WKB derivation     | **EXACT three-piece decomposition** of Δ. The uniform-WKB matching `tan(J + π/4) = (1/2)·exp(−2I)` across the turning point (Airy connection) is approximately satisfied at the Chebyshev eigenstate (residual -0.077, consistent with WKB precision 1/J² ≈ 0.14). The WKB-predicted ω matches Chebyshev to 1.85%. Most importantly: Δ decomposes exactly as `Δ = (J − π) + Δ_cl + ω·L_fb` where (J − π) is the BS-phase shift below empty-box ground state, Δ_cl is the classical-region potential deficit, and ω·L_fb is the geometric tortoise width of the forbidden region. Each piece is computed from V(r*), R\*, ε alone. The sum equals Δ_total = 0.367 to machine precision; matches γ/(2π) − π = 0.370 to 0.72%. |
 
 ## Headline finding — the inner cutoff is a WKB-BS consequence
 
@@ -49,6 +50,22 @@ Within the closure-ledger scaffolding (γ, R\*, ω = 1, ε), there is
 now a single non-local matching identity rather than three
 independent quantities.
 
+The uniform-WKB probe (probe 5) makes the structural origin of the
+identity explicit: Δ = ω·L − π admits an *exact* three-piece
+decomposition in WKB quantities,
+
+```
+Δ  =  (J − π)  +  Δ_cl  +  ω · L_forbidden        (exact)
+```
+
+where (J − π) is the BS-phase shift below the empty-box ground
+state, Δ_cl is the classical-region potential-phase deficit, and
+ω·L_forbidden is the geometric tortoise-coordinate width of the
+forbidden region. Each piece is a Tangherlini-geometry integral
+over (V, R\*, ε). The numerical match of this sum to γ/(2π) − π
+at R\* (0.72 % gap) is consistent with the WKB precision of the
+matching equation itself (residual 0.077 ~ 1/J²).
+
 ## What's rigorously derived vs structural reading
 
 The formalization probe makes the derivability explicit:
@@ -58,7 +75,9 @@ The formalization probe makes the derivability explicit:
 | Dirichlet boundary at the throat | **rigorously derived** | T² = −I via T-fixed-point: ψ = T·ψ = T²·ψ = −ψ ⇒ ψ = 0 |
 | Dirichlet at the outer wall | convention | radial-grid choice; regular boundary |
 | Empty-box `(n+1)·π` asymptotic | **rigorously derived** | standard WKB hard-wall BS; verified at n = 3 (1.2 % deviation) |
-| n = 0 potential correction Δ = γ/(2π) − π | **structural reading** (~0.5 %) | empirical match at WKB precision |
+| Uniform-WKB matching `tan(J + π/4) = (1/2)·exp(−2I)` | **rigorously derived** | Airy connection across the turning point at WKB precision (residual 0.077 ~ 1/J²) |
+| Decomposition Δ = (J − π) + Δ_cl + ω·L_fb | **exact identity** | algebraic; sum reproduces Δ_total to machine precision |
+| n = 0 potential correction Δ ≈ γ/(2π) − π | **structural reading** (~0.7 %) | the decomposition's value at R\* numerically matches γ/(2π) − π at WKB precision |
 | R\* = 1.262636 specificity | derived | the unique R at which both lepton mass ratios (PR #15) and BS phase = γ/(2π) (this thread) hold simultaneously |
 
 The 0.5 % gap in the Δ ↔ γ/(2π) identification is at the precision
@@ -152,5 +171,9 @@ consistency (outside the closure-ledger scope).
   (sub-target 3, positive — non-local BS identification).
 - `experiments/closure_ledger/throat_reflection_phase_formalization_probe.py`
   (formalization layer — WKB decomposition + (R, l, n) robustness).
+- `experiments/closure_ledger/throat_wkb_uniform_probe.py`
+  (uniform-WKB derivation — Airy-connection matching equation
+  `tan(J + π/4) = (1/2)·exp(−2I)` and exact three-piece decomposition
+  of Δ).
 - `experiments/closure_ledger/runs/` — per-probe JSON + markdown
   archives, one timestamped directory per run.
