@@ -1,0 +1,218 @@
+{
+  "timestamp_utc": "2026-05-15T00:37:18+00:00",
+  "connection_used": "A_\u03c6(\u03c7) = \u00bd\u00b7cos(\u03c7),  A_\u03c7 = 0   (BAM symmetric gauge, hopf/connection.py)",
+  "pass_threshold_line": 1e-10,
+  "pass_threshold_link": 0.001,
+  "tests": [
+    {
+      "trajectory_name": "constant_chi_0.0000",
+      "smoothness": "smooth",
+      "tolerance_line": 1e-10,
+      "description": "Single Hopf fibre at \u03c7 = 0.0000 (\u03c6 from 0 to 2\u03c0).",
+      "gamma_BAM_predicted": 3.141592653589793,
+      "gamma_numerical_line_integral": 3.141592653589793,
+      "gamma_numerical_link_variable": 3.1415926535897842,
+      "absolute_error_line": 0.0,
+      "absolute_error_link": 8.881784197001252e-15,
+      "pass_line": true,
+      "pass_link": true
+    },
+    {
+      "trajectory_name": "constant_chi_0.5236",
+      "smoothness": "smooth",
+      "tolerance_line": 1e-10,
+      "description": "Single Hopf fibre at \u03c7 = 0.5236 (\u03c6 from 0 to 2\u03c0).",
+      "gamma_BAM_predicted": 2.720699046351327,
+      "gamma_numerical_line_integral": 2.720699046351326,
+      "gamma_numerical_link_variable": 2.7206991797279105,
+      "absolute_error_line": 8.881784197001252e-16,
+      "absolute_error_link": 1.3337658355538906e-07,
+      "pass_line": true,
+      "pass_link": true
+    },
+    {
+      "trajectory_name": "constant_chi_0.7854",
+      "smoothness": "smooth",
+      "tolerance_line": 1e-10,
+      "description": "Single Hopf fibre at \u03c7 = 0.7854 (\u03c6 from 0 to 2\u03c0).",
+      "gamma_BAM_predicted": 2.221441469079183,
+      "gamma_numerical_line_integral": 2.221441469079182,
+      "gamma_numerical_link_variable": 2.221441686882041,
+      "absolute_error_line": 8.881784197001252e-16,
+      "absolute_error_link": 2.178028579713498e-07,
+      "pass_line": true,
+      "pass_link": true
+    },
+    {
+      "trajectory_name": "constant_chi_1.0472",
+      "smoothness": "smooth",
+      "tolerance_line": 1e-10,
+      "description": "Single Hopf fibre at \u03c7 = 1.0472 (\u03c6 from 0 to 2\u03c0).",
+      "gamma_BAM_predicted": 1.570796326794897,
+      "gamma_numerical_line_integral": 1.5707963267948968,
+      "gamma_numerical_link_variable": 1.5707965578096923,
+      "absolute_error_line": 2.220446049250313e-16,
+      "absolute_error_link": 2.3101479529330504e-07,
+      "pass_line": true,
+      "pass_link": true
+    },
+    {
+      "trajectory_name": "constant_chi_1.5708",
+      "smoothness": "smooth",
+      "tolerance_line": 1e-10,
+      "description": "Single Hopf fibre at \u03c7 = 1.5708 (\u03c6 from 0 to 2\u03c0).",
+      "gamma_BAM_predicted": 1.9236706937217898e-16,
+      "gamma_numerical_line_integral": 1.9236706937217903e-16,
+      "gamma_numerical_link_variable": -6.361558118229062e-16,
+      "absolute_error_line": 4.930380657631324e-32,
+      "absolute_error_link": 8.285228811950852e-16,
+      "pass_line": true,
+      "pass_link": true
+    },
+    {
+      "trajectory_name": "constant_chi_2.0944",
+      "smoothness": "smooth",
+      "tolerance_line": 1e-10,
+      "description": "Single Hopf fibre at \u03c7 = 2.0944 (\u03c6 from 0 to 2\u03c0).",
+      "gamma_BAM_predicted": -1.570796326794896,
+      "gamma_numerical_line_integral": -1.5707963267948963,
+      "gamma_numerical_link_variable": -1.570796557809693,
+      "absolute_error_line": 4.440892098500626e-16,
+      "absolute_error_link": 2.3101479706966188e-07,
+      "pass_line": true,
+      "pass_link": true
+    },
+    {
+      "trajectory_name": "constant_chi_2.6180",
+      "smoothness": "smooth",
+      "tolerance_line": 1e-10,
+      "description": "Single Hopf fibre at \u03c7 = 2.6180 (\u03c6 from 0 to 2\u03c0).",
+      "gamma_BAM_predicted": -2.720699046351327,
+      "gamma_numerical_line_integral": -2.720699046351326,
+      "gamma_numerical_link_variable": -2.7206991797279105,
+      "absolute_error_line": 8.881784197001252e-16,
+      "absolute_error_link": 1.3337658355538906e-07,
+      "pass_line": true,
+      "pass_link": true
+    },
+    {
+      "trajectory_name": "constant_chi_3.1416",
+      "smoothness": "smooth",
+      "tolerance_line": 1e-10,
+      "description": "Single Hopf fibre at \u03c7 = 3.1416 (\u03c6 from 0 to 2\u03c0).",
+      "gamma_BAM_predicted": -3.141592653589793,
+      "gamma_numerical_line_integral": -3.141592653589793,
+      "gamma_numerical_link_variable": -3.1415926535897842,
+      "absolute_error_line": 0.0,
+      "absolute_error_link": 8.881784197001252e-15,
+      "pass_line": true,
+      "pass_link": true
+    },
+    {
+      "trajectory_name": "double_cover_4pi_chi_0.0000",
+      "smoothness": "smooth",
+      "tolerance_line": 1e-10,
+      "description": "Constant \u03c7 = 0.0000, \u03c6 from 0 to 4\u03c0 (twice around).",
+      "gamma_BAM_predicted": 6.283185307179586,
+      "gamma_numerical_line_integral": 6.283185307179586,
+      "gamma_numerical_link_variable": 6.283185307179578,
+      "absolute_error_line": 0.0,
+      "absolute_error_link": 7.993605777301127e-15,
+      "pass_line": true,
+      "pass_link": true
+    },
+    {
+      "trajectory_name": "double_cover_4pi_chi_1.0472",
+      "smoothness": "smooth",
+      "tolerance_line": 1e-10,
+      "description": "Constant \u03c7 = 1.0472, \u03c6 from 0 to 4\u03c0 (twice around).",
+      "gamma_BAM_predicted": 3.141592653589794,
+      "gamma_numerical_line_integral": 3.1415926535897936,
+      "gamma_numerical_link_variable": 3.14159450170884,
+      "absolute_error_line": 4.440892098500626e-16,
+      "absolute_error_link": 1.8481190457997343e-06,
+      "pass_line": true,
+      "pass_link": true
+    },
+    {
+      "trajectory_name": "octant_triangle_parameter_space",
+      "smoothness": "piecewise",
+      "tolerance_line": 1e-05,
+      "description": "Triangle in (\u03c7, \u03c6) parameter space: (0,0) \u2192 (\u03c0/2, 0) \u2192 (\u03c0/2, \u03c0/2) \u2192 (0, 0). The third edge is linear in (\u03c7, \u03c6); BAM line integral analytically equals \u2212\u00bd. Piecewise-smooth (corner discontinuities in d\u03c7/dt, d\u03c6/dt) so trapezoidal convergence is `O(1/N\u00b2)` rather than spectral.",
+      "gamma_BAM_predicted": -0.5,
+      "gamma_numerical_line_integral": -0.4999997977807276,
+      "gamma_numerical_link_variable": -0.49999998161642323,
+      "absolute_error_line": 2.0221927238273096e-07,
+      "absolute_error_link": 1.838357677197422e-08,
+      "pass_line": true,
+      "pass_link": true
+    }
+  ],
+  "n_passed_line": 11,
+  "n_passed_link": 11,
+  "n_total_tests": 11,
+  "convergence_test_octant_triangle": [
+    {
+      "N": 16,
+      "gamma_numerical": -0.48677309165304783,
+      "gamma_analytic_BAM": -0.5,
+      "absolute_error": 0.013226908346952171
+    },
+    {
+      "N": 32,
+      "gamma_numerical": -0.49669279991057136,
+      "gamma_analytic_BAM": -0.5,
+      "absolute_error": 0.0033072000894286413
+    },
+    {
+      "N": 64,
+      "gamma_numerical": -0.4991718103815118,
+      "gamma_analytic_BAM": -0.5,
+      "absolute_error": 0.0008281896184881843
+    },
+    {
+      "N": 128,
+      "gamma_numerical": -0.4997929507523349,
+      "gamma_analytic_BAM": -0.5,
+      "absolute_error": 0.00020704924766512534
+    },
+    {
+      "N": 256,
+      "gamma_numerical": -0.4999482322574949,
+      "gamma_analytic_BAM": -0.5,
+      "absolute_error": 5.1767742505093306e-05
+    },
+    {
+      "N": 512,
+      "gamma_numerical": -0.4999870580571754,
+      "gamma_analytic_BAM": -0.5,
+      "absolute_error": 1.2941942824584718e-05
+    },
+    {
+      "N": 1024,
+      "gamma_numerical": -0.49999676449307995,
+      "gamma_analytic_BAM": -0.5,
+      "absolute_error": 3.2355069200518116e-06
+    },
+    {
+      "N": 2048,
+      "gamma_numerical": -0.49999919112324187,
+      "gamma_analytic_BAM": -0.5,
+      "absolute_error": 8.08876758129351e-07
+    },
+    {
+      "N": 4096,
+      "gamma_numerical": -0.4999997977807276,
+      "gamma_analytic_BAM": -0.5,
+      "absolute_error": 2.0221927238273096e-07
+    },
+    {
+      "N": 8192,
+      "gamma_numerical": -0.4999999494451818,
+      "gamma_analytic_BAM": -0.5,
+      "absolute_error": 5.055481822058283e-08
+    }
+  ],
+  "convergence_exponent_p_in_N_minus_p": 1.9997286063710795,
+  "overall_falsification_status": "PASS \u2014 all line-integral tests within smoothness-appropriate tolerance AND all link-variable tests within 1e-3"
+}
