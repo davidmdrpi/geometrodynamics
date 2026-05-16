@@ -1,0 +1,332 @@
+{
+  "timestamp_utc": "2026-05-16T22:06:52+00:00",
+  "target_coefficient": -1.5,
+  "tests": [
+    {
+      "name": "T1_numerical_evaluation",
+      "description": "Compute each candidate derivation and check whether it evaluates to \u22123/2.",
+      "target": -1.5,
+      "candidate_evaluations": [
+        {
+          "label": "A_doubled_electron_casimir",
+          "expression": "\u22122\u00b7j(j+1) for j=1/2",
+          "value": -1.5,
+          "delta_from_target": 0.0,
+          "matches_target": true
+        },
+        {
+          "label": "B_photon_casimir_minus_hopf_charge",
+          "expression": "\u2212(C_2(j=1) \u2212 A_\u03c6(0)) = \u2212(2 \u2212 1/2)",
+          "value": -1.5,
+          "delta_from_target": 0.0,
+          "matches_target": true
+        },
+        {
+          "label": "C_embedding_over_polarization",
+          "expression": "\u2212dim(R\u00b3)/dim(transverse pol)",
+          "value": -1.5,
+          "delta_from_target": 0.0,
+          "matches_target": true
+        },
+        {
+          "label": "D_hopf_charge_times_photon_multiplicity",
+          "expression": "\u2212A_\u03c6(0) \u00b7 (2j_\u03b3+1) = \u2212(1/2)\u00b73",
+          "value": -1.5,
+          "delta_from_target": 0.0,
+          "matches_target": true
+        },
+        {
+          "label": "E_antipodal_throat_natural_units",
+          "expression": "\u22123\u00b7R_S3/(2c) with R_S3 = c = 1",
+          "value": -1.5,
+          "delta_from_target": 0.0,
+          "matches_target": true
+        },
+        {
+          "label": "F_closure_winding_plus_hopf",
+          "expression": "\u2212(n_closure + 1/2) for n_closure = 1",
+          "value": -1.5,
+          "delta_from_target": 0.0,
+          "matches_target": true
+        },
+        {
+          "label": "G_pauli_trace_normalized",
+          "expression": "\u2212\u03a3_i Tr(\u03c3_i\u00b2)/(2\u00b7dim_\u03c3) = \u22126/4",
+          "value": -1.5,
+          "delta_from_target": 0.0,
+          "matches_target": true
+        },
+        {
+          "label": "H_two_mouth_spin_half_casimir",
+          "expression": "\u2212n_mouth \u00b7 C_2(1/2) = \u22122\u00b7(3/4)",
+          "value": -1.5,
+          "delta_from_target": 0.0,
+          "matches_target": true
+        }
+      ],
+      "n_matching": 8,
+      "n_total": 8,
+      "pass": true
+    },
+    {
+      "name": "T2_alpha_beta_prediction",
+      "description": "Determine for each \u03b3 = \u22123/2 candidate whether the same BAM ingredient predicts \u03b1 = 0 and \u03b2 = 0 (the analytic PR #31 result).",
+      "candidate_assessments": [
+        {
+          "label": "A_doubled_electron_casimir",
+          "predicts_alpha_zero": false,
+          "predicts_beta_zero": false,
+          "predicts_full_triple": false,
+          "rationale": "Scalar derivation \u2014 silent on \u03b1, \u03b2."
+        },
+        {
+          "label": "B_photon_casimir_minus_hopf_charge",
+          "predicts_alpha_zero": false,
+          "predicts_beta_zero": false,
+          "predicts_full_triple": false,
+          "rationale": "Scalar derivation \u2014 silent on \u03b1, \u03b2."
+        },
+        {
+          "label": "C_embedding_over_polarization",
+          "predicts_alpha_zero": true,
+          "predicts_beta_zero": true,
+          "predicts_full_triple": true,
+          "rationale": "Embedding-dim / polarisation count is a structural counting argument; the natural extension counts allowed contractions, giving \u03b1 = \u03b2 = 0 for \u03b5\u00b7k and sin\u00b2\u03b8 terms (no natural structural reason for those)."
+        },
+        {
+          "label": "D_hopf_charge_times_photon_multiplicity",
+          "predicts_alpha_zero": false,
+          "predicts_beta_zero": false,
+          "predicts_full_triple": false,
+          "rationale": "Scalar derivation \u2014 silent on \u03b1, \u03b2."
+        },
+        {
+          "label": "E_antipodal_throat_natural_units",
+          "predicts_alpha_zero": false,
+          "predicts_beta_zero": false,
+          "predicts_full_triple": false,
+          "rationale": "Throat-pinch is speculative; angular structure unconstrained."
+        },
+        {
+          "label": "F_closure_winding_plus_hopf",
+          "predicts_alpha_zero": false,
+          "predicts_beta_zero": false,
+          "predicts_full_triple": false,
+          "rationale": "Scalar derivation \u2014 silent on \u03b1, \u03b2."
+        },
+        {
+          "label": "G_pauli_trace_normalized",
+          "predicts_alpha_zero": false,
+          "predicts_beta_zero": false,
+          "predicts_full_triple": false,
+          "rationale": "Scalar derivation \u2014 silent on \u03b1, \u03b2."
+        },
+        {
+          "label": "H_two_mouth_spin_half_casimir",
+          "predicts_alpha_zero": false,
+          "predicts_beta_zero": false,
+          "predicts_full_triple": false,
+          "rationale": "Scalar derivation \u2014 silent on \u03b1, \u03b2."
+        }
+      ],
+      "n_predicting_full_triple": 1,
+      "pass": true
+    },
+    {
+      "name": "T3_naturalness_ranking",
+      "description": "Rank candidates by naturalness criteria: matches target, single ingredient, sign derived, predicts the full (\u03b1, \u03b2, \u03b3) triple, and BAM thread connections.",
+      "ranked_candidates": [
+        {
+          "label": "G_pauli_trace_normalized",
+          "expression": "\u2212\u03a3_i Tr(\u03c3_i\u00b2)/(2\u00b7dim_\u03c3) = \u22126/4",
+          "matches": true,
+          "single_ingredient": true,
+          "sign_derived": true,
+          "predicts_alpha_beta_zero": false,
+          "n_BAM_connections": 1,
+          "BAM_connections": [
+            "embedding/transport.py: T = i\u03c3_y"
+          ],
+          "naturalness_score_out_of_10": 8
+        },
+        {
+          "label": "C_embedding_over_polarization",
+          "expression": "\u2212dim(R\u00b3)/dim(transverse pol)",
+          "matches": true,
+          "single_ingredient": false,
+          "sign_derived": false,
+          "predicts_alpha_beta_zero": true,
+          "n_BAM_connections": 2,
+          "BAM_connections": [
+            "hopf/connection.py: Hopf base S\u00b2 \u2192 R\u00b3 embedding",
+            "bell/hopf_phases.py: photon Hopf phase"
+          ],
+          "naturalness_score_out_of_10": 7
+        },
+        {
+          "label": "A_doubled_electron_casimir",
+          "expression": "\u22122\u00b7j(j+1) for j=1/2",
+          "matches": true,
+          "single_ingredient": false,
+          "sign_derived": true,
+          "predicts_alpha_beta_zero": false,
+          "n_BAM_connections": 2,
+          "BAM_connections": [
+            "hopf/spinor.py: SU(2) spinor transport",
+            "embedding/transport.py: T\u00b2 = \u2212I double-mouth"
+          ],
+          "naturalness_score_out_of_10": 6
+        },
+        {
+          "label": "B_photon_casimir_minus_hopf_charge",
+          "expression": "\u2212(C_2(j=1) \u2212 A_\u03c6(0)) = \u2212(2 \u2212 1/2)",
+          "matches": true,
+          "single_ingredient": false,
+          "sign_derived": true,
+          "predicts_alpha_beta_zero": false,
+          "n_BAM_connections": 2,
+          "BAM_connections": [
+            "bell/hopf_phases.py: photon Hopf phase",
+            "hopf/connection.py: A_\u03c6 = \u00bdcos(\u03c7)"
+          ],
+          "naturalness_score_out_of_10": 6
+        },
+        {
+          "label": "D_hopf_charge_times_photon_multiplicity",
+          "expression": "\u2212A_\u03c6(0) \u00b7 (2j_\u03b3+1) = \u2212(1/2)\u00b73",
+          "matches": true,
+          "single_ingredient": false,
+          "sign_derived": true,
+          "predicts_alpha_beta_zero": false,
+          "n_BAM_connections": 2,
+          "BAM_connections": [
+            "hopf/connection.py: A_\u03c6 = \u00bdcos(\u03c7)",
+            "bell/hopf_phases.py: photon Hopf phase"
+          ],
+          "naturalness_score_out_of_10": 6
+        },
+        {
+          "label": "F_closure_winding_plus_hopf",
+          "expression": "\u2212(n_closure + 1/2) for n_closure = 1",
+          "matches": true,
+          "single_ingredient": false,
+          "sign_derived": true,
+          "predicts_alpha_beta_zero": false,
+          "n_BAM_connections": 2,
+          "BAM_connections": [
+            "docs/THESIS.md: antipodal closure on S\u00b3",
+            "hopf/connection.py: A_\u03c6 = \u00bdcos(\u03c7)"
+          ],
+          "naturalness_score_out_of_10": 6
+        },
+        {
+          "label": "H_two_mouth_spin_half_casimir",
+          "expression": "\u2212n_mouth \u00b7 C_2(1/2) = \u22122\u00b7(3/4)",
+          "matches": true,
+          "single_ingredient": false,
+          "sign_derived": true,
+          "predicts_alpha_beta_zero": false,
+          "n_BAM_connections": 2,
+          "BAM_connections": [
+            "embedding/transport.py: T\u00b2 = \u2212I double-mouth",
+            "hopf/spinor.py: SU(2) spinor transport"
+          ],
+          "naturalness_score_out_of_10": 6
+        },
+        {
+          "label": "E_antipodal_throat_natural_units",
+          "expression": "\u22123\u00b7R_S3/(2c) with R_S3 = c = 1",
+          "matches": true,
+          "single_ingredient": false,
+          "sign_derived": false,
+          "predicts_alpha_beta_zero": false,
+          "n_BAM_connections": 0,
+          "BAM_connections": [],
+          "naturalness_score_out_of_10": 4
+        }
+      ],
+      "top_candidate": {
+        "label": "G_pauli_trace_normalized",
+        "expression": "\u2212\u03a3_i Tr(\u03c3_i\u00b2)/(2\u00b7dim_\u03c3) = \u22126/4",
+        "matches": true,
+        "single_ingredient": true,
+        "sign_derived": true,
+        "predicts_alpha_beta_zero": false,
+        "n_BAM_connections": 1,
+        "BAM_connections": [
+          "embedding/transport.py: T = i\u03c3_y"
+        ],
+        "naturalness_score_out_of_10": 8
+      },
+      "pass": true
+    },
+    {
+      "name": "T4_discrimination_test",
+      "description": "For the top candidates, identify what next-order or cross-process prediction would discriminate between them.",
+      "discrimination_paths": [
+        {
+          "candidate": "A_doubled_electron_casimir",
+          "next_order_prediction": "extends to higher j: predict O(\u03b5\u00b2) coupling involves C_2\u00b2 or higher Casimir; needs analytic calculation."
+        },
+        {
+          "candidate": "B_photon_casimir_minus_hopf_charge",
+          "next_order_prediction": "extends to higher j: predict O(\u03b5\u00b2) coupling involves C_2\u00b2 or higher Casimir; needs analytic calculation."
+        },
+        {
+          "candidate": "C_embedding_over_polarization",
+          "next_order_prediction": "extends to higher dimensions: in d-dim S\u00b2 embedding, predict \u03b3 = \u2212d/2; testable for d=5 (Tangherlini bulk)."
+        }
+      ],
+      "n_matching_candidates": 8,
+      "pass": true
+    },
+    {
+      "name": "T5_o_eps2_prediction",
+      "description": "For each \u03b3 = \u22123/2 candidate, identify what would be needed to predict the O(\u03b5\u00b2) coefficient.",
+      "analytic_extensions_needed": [
+        {
+          "candidate": "A_doubled_electron_casimir",
+          "O_eps2_extension_feasibility": "requires explicit second-order spin/spinor/connection algebra in the candidate framework; not computed."
+        },
+        {
+          "candidate": "B_photon_casimir_minus_hopf_charge",
+          "O_eps2_extension_feasibility": "requires explicit second-order spin/spinor/connection algebra in the candidate framework; not computed."
+        },
+        {
+          "candidate": "C_embedding_over_polarization",
+          "O_eps2_extension_feasibility": "requires explicit second-order spin/spinor/connection algebra in the candidate framework; not computed."
+        },
+        {
+          "candidate": "D_hopf_charge_times_photon_multiplicity",
+          "O_eps2_extension_feasibility": "requires explicit second-order spin/spinor/connection algebra in the candidate framework; not computed."
+        },
+        {
+          "candidate": "E_antipodal_throat_natural_units",
+          "O_eps2_extension_feasibility": "requires explicit second-order spin/spinor/connection algebra in the candidate framework; not computed."
+        },
+        {
+          "candidate": "F_closure_winding_plus_hopf",
+          "O_eps2_extension_feasibility": "requires explicit second-order spin/spinor/connection algebra in the candidate framework; not computed."
+        },
+        {
+          "candidate": "G_pauli_trace_normalized",
+          "O_eps2_extension_feasibility": "requires explicit second-order spin/spinor/connection algebra in the candidate framework; not computed."
+        },
+        {
+          "candidate": "H_two_mouth_spin_half_casimir",
+          "O_eps2_extension_feasibility": "requires explicit second-order spin/spinor/connection algebra in the candidate framework; not computed."
+        }
+      ],
+      "observed_residual_order_at_analytic_optimum": 1.88,
+      "predicted_for_clean_O_eps_closure": 2.0,
+      "difference": 0.12,
+      "note": "The PR #31 numerical fit shows residual ~ \u03b5^1.88, slightly below the predicted \u03b5\u00b2 scaling. The 0.12 shortfall could be either finite-grid numerics or a real residual O(\u03b5^{3/2}) term \u2014 also natural in the BAM Hopf framework given the half-integer structure.",
+      "pass": true
+    }
+  ],
+  "n_candidates": 8,
+  "n_matching": 8,
+  "top_naturalness_score": 8,
+  "verdict_class": "MULTIPLE_PLAUSIBLE",
+  "verdict": "MULTIPLE PLAUSIBLE \u2014 8 candidates evaluate to \u03b3 = \u22123/2. Top candidate by naturalness: `G_pauli_trace_normalized` (score 8/10), expression `\u2212\u03a3_i Tr(\u03c3_i\u00b2)/(2\u00b7dim_\u03c3) = \u22126/4`. Discrimination requires either: (1) a higher-order BAM prediction that distinguishes them; (2) an additional QED observable (e.g. lepton g-2, pair production cross section) whose value depends differently on each candidate ingredient. The probe lists the discrimination paths in T4. Without further analytic work, the clean -3/2 has multiple plausible BAM origins; numerology cannot be ruled out, but the structural patterns (Casimirs, charges, embedding dims) are real BAM ingredients."
+}
