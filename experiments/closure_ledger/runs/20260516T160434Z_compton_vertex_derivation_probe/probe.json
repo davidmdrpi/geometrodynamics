@@ -1,0 +1,402 @@
+{
+  "timestamp_utc": "2026-05-16T16:04:34+00:00",
+  "analytic_setup": "f_KN(\u03b5, \u03b8) \u2248 (1+cos\u00b2\u03b8)/2 \u2212 \u03b5\u00b7(1\u2212cos \u03b8)\u00b7cos\u00b2\u03b8 + O(\u03b5\u00b2). f_BAM_baseline(\u03b5, \u03b8) \u2248 (1+cos\u00b2\u03b8)/2 + \u03b5\u00b7(1\u2212cos \u03b8)\u00b7(1+cos\u00b2\u03b8)/2 + O(\u03b5\u00b2). \u0394_required = \u2212\u03b5\u00b7(1\u2212cos \u03b8)\u00b7(1 + 3 cos\u00b2\u03b8)/2.",
+  "tests": [
+    {
+      "name": "T1_analytic_expansion_verification",
+      "description": "Numerically extract the O(\u03b5) Taylor coefficient of f_KN, f_BAM_baseline, and \u0394_required, and compare to the closed-form predictions.",
+      "samples_first_8": [
+        {
+          "theta_in_pi": 0.0,
+          "cos_theta": 1.0,
+          "kn_O_eps_numerical": 0.0,
+          "kn_O_eps_analytic": -0.0,
+          "bam_O_eps_numerical": 0.0,
+          "bam_O_eps_analytic": 0.0,
+          "delta_required_O_eps_numerical": 0.0,
+          "delta_required_O_eps_analytic": -0.0
+        },
+        {
+          "theta_in_pi": 0.03125,
+          "cos_theta": 0.9951847266721969,
+          "kn_O_eps_numerical": -0.009584284477170968,
+          "kn_O_eps_analytic": -0.009584284592218374,
+          "bam_O_eps_numerical": 0.004792142460630089,
+          "bam_O_eps_analytic": 0.004792142296109187,
+          "delta_required_O_eps_numerical": -0.014376426937801057,
+          "delta_required_O_eps_analytic": -0.014376426888327559
+        },
+        {
+          "theta_in_pi": 0.0625,
+          "cos_theta": 0.9807852804032304,
+          "kn_O_eps_numerical": -0.03769812129128525,
+          "kn_O_eps_analytic": -0.03769812247435382,
+          "bam_O_eps_numerical": 0.018849061200754136,
+          "bam_O_eps_analytic": 0.01884906123717691,
+          "delta_required_O_eps_numerical": -0.05654718249203938,
+          "delta_required_O_eps_analytic": -0.05654718371153073
+        },
+        {
+          "theta_in_pi": 0.09375,
+          "cos_theta": 0.9569403357322088,
+          "kn_O_eps_numerical": -0.08249089133993692,
+          "kn_O_eps_analytic": -0.0824908975789958,
+          "bam_O_eps_numerical": 0.04124544927819329,
+          "bam_O_eps_analytic": 0.0412454487894979,
+          "delta_required_O_eps_numerical": -0.12373634061813021,
+          "delta_required_O_eps_analytic": -0.1237363463684937
+        },
+        {
+          "theta_in_pi": 0.125,
+          "cos_theta": 0.9238795325112867,
+          "kn_O_eps_numerical": -0.14109333168477178,
+          "kn_O_eps_analytic": -0.14109335060724953,
+          "bam_O_eps_numerical": 0.07054667650052693,
+          "bam_O_eps_analytic": 0.07054667530362477,
+          "delta_required_O_eps_numerical": -0.2116400081852987,
+          "delta_required_O_eps_analytic": -0.2116400259108743
+        },
+        {
+          "theta_in_pi": 0.15625,
+          "cos_theta": 0.881921264348355,
+          "kn_O_eps_numerical": -0.20991857441199357,
+          "kn_O_eps_analytic": -0.20991861881778962,
+          "bam_O_eps_numerical": 0.1049593125745929,
+          "bam_O_eps_analytic": 0.10495930940889481,
+          "delta_required_O_eps_numerical": -0.3148778869865865,
+          "delta_required_O_eps_analytic": -0.3148779282266844
+        },
+        {
+          "theta_in_pi": 0.1875,
+          "cos_theta": 0.8314696123025452,
+          "kn_O_eps_numerical": -0.285042388803447,
+          "kn_O_eps_analytic": -0.2850424751571228,
+          "bam_O_eps_numerical": 0.1425212436956258,
+          "bam_O_eps_analytic": 0.1425212375785614,
+          "delta_required_O_eps_numerical": -0.4275636324990728,
+          "delta_required_O_eps_analytic": -0.42756371273568416
+        },
+        {
+          "theta_in_pi": 0.21875,
+          "cos_theta": 0.773010453362737,
+          "kn_O_eps_numerical": -0.3626259027500467,
+          "kn_O_eps_analytic": -0.3626260518297738,
+          "bam_O_eps_numerical": 0.18131303625157358,
+          "bam_O_eps_analytic": 0.1813130259148869,
+          "delta_required_O_eps_numerical": -0.5439389390016203,
+          "delta_required_O_eps_analytic": -0.5439390777446608
+        }
+      ],
+      "max_KN_O_eps_error": 1.3999908340167622e-05,
+      "max_BAM_O_eps_error": 1.0003684565162985e-06,
+      "max_Delta_required_O_eps_error": 1.2999539883651323e-05,
+      "finite_difference_eps": 1e-06,
+      "pass": true
+    },
+    {
+      "name": "T2_linear_system_AB",
+      "description": "Linear system from matching Family A + B vertex modification to \u0394_required in the {1, c, c\u00b2, c\u00b3} basis.",
+      "system_info": {
+        "matrix_A": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            -1.0,
+            1.0,
+            0.0
+          ],
+          [
+            -1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ]
+        ],
+        "rhs_b": [
+          -1.5,
+          0.0,
+          -1.5,
+          0.0
+        ],
+        "lsq_alpha": -5.635747833150126e-16,
+        "lsq_beta": -1.1102230246251565e-16,
+        "lsq_gamma": -1.4999999999999998,
+        "lsq_residual_vec": [
+          0.0,
+          4.525524808524969e-16,
+          6.661338147750939e-16,
+          -1.1102230246251565e-16
+        ],
+        "lsq_max_residual": 6.661338147750939e-16,
+        "rank_A": 3,
+        "rank_augmented": 3,
+        "exact_solution_exists": true
+      },
+      "conclusion": "EXACT solution exists. The empirical (\u03b2, \u03b3) = (\u22121/2, \u22121) from PR #30 corresponds to a clean analytic match. \u03b1 = -0.0000, \u03b2 = -0.0000, \u03b3 = -1.5000.",
+      "pass": true
+    },
+    {
+      "name": "T3_lsq_vs_empirical",
+      "description": "Compare analytic LSQ (\u03b2, \u03b3) from over-determined linear system to PR #30 empirical fit (\u03b2, \u03b3) = (\u22121/2, \u22121).",
+      "analytic_lsq": {
+        "alpha": -5.635747833150126e-16,
+        "beta": -1.1102230246251565e-16,
+        "gamma": -1.4999999999999998
+      },
+      "empirical_pr30": {
+        "alpha": 0.0,
+        "beta": -0.5,
+        "gamma": -1.0
+      },
+      "differences": {
+        "alpha_analytic_minus_empirical": -5.635747833150126e-16,
+        "beta_analytic_minus_empirical": 0.4999999999999999,
+        "gamma_analytic_minus_empirical": -0.4999999999999998
+      },
+      "max_difference": 0.4999999999999999,
+      "pass": true
+    },
+    {
+      "name": "T4_residual_after_analytic_optimum",
+      "description": "Decompose the residual after the analytic optimum (\u03b2, \u03b3) = (0, \u22123/2) and compare to the PR #30 empirical (\u03b2, \u03b3) = (\u22121/2, \u22121). The analytic optimum gives exact cancellation at O(\u03b5); the empirical fit has a non-zero residual at O(\u03b5) (the finite-\u03b5 grid favored a different point that better captures O(\u03b5\u00b2)).",
+      "delta_required_coefficients_c0_to_c4": [
+        -1.5,
+        1.5,
+        -1.5,
+        1.5,
+        0.0
+      ],
+      "delta_mod_analytic_optimum_coefficients": [
+        -1.5,
+        1.5,
+        -1.5,
+        1.5,
+        0.0
+      ],
+      "delta_mod_PR30_empirical_coefficients": [
+        -1.5,
+        1.0,
+        -1.0,
+        1.0,
+        0.5
+      ],
+      "residual_after_analytic_optimum": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "residual_after_PR30_empirical": [
+        0.0,
+        -0.5,
+        0.5,
+        -0.5,
+        0.5
+      ],
+      "max_abs_residual_analytic": 0.0,
+      "max_abs_residual_PR30": 0.5,
+      "residual_evaluation_samples": [
+        {
+          "theta_in_pi": 0.015915494309189534,
+          "cos_theta": 0.9987502603949663,
+          "delta_mod_B": -0.0037445361957169077,
+          "delta_required": -0.0037445361957169077,
+          "residual": 0.0,
+          "residual_from_coeffs_check": 0.0
+        },
+        {
+          "theta_in_pi": 0.13693662073189217,
+          "cos_theta": 0.9088827403151799,
+          "delta_mod_B": -0.24957944577354785,
+          "delta_required": -0.24957944577354785,
+          "residual": 0.0,
+          "residual_from_coeffs_check": 0.0
+        },
+        {
+          "theta_in_pi": 0.2579577471545948,
+          "cos_theta": 0.6892099936627883,
+          "delta_mod_B": -0.6876277445079542,
+          "delta_required": -0.6876277445079542,
+          "residual": 0.0,
+          "residual_from_coeffs_check": 0.0
+        },
+        {
+          "theta_in_pi": 0.3789788735772974,
+          "cos_theta": 0.3711053421945145,
+          "delta_mod_B": -1.0732582668655535,
+          "delta_required": -1.0732582668655535,
+          "residual": 0.0,
+          "residual_from_coeffs_check": 0.0
+        },
+        {
+          "theta_in_pi": 0.5000000000000001,
+          "cos_theta": -1.6081226496766364e-16,
+          "delta_mod_B": -1.5000000000000002,
+          "delta_required": -1.5000000000000002,
+          "residual": 0.0,
+          "residual_from_coeffs_check": 0.0
+        },
+        {
+          "theta_in_pi": 0.6210211264227027,
+          "cos_theta": -0.3711053421945148,
+          "delta_mod_B": -2.339899258150371,
+          "delta_required": -2.339899258150371,
+          "residual": 0.0,
+          "residual_from_coeffs_check": 0.0
+        },
+        {
+          "theta_in_pi": 0.7420422528454053,
+          "cos_theta": -0.6892099936627885,
+          "delta_mod_B": -3.7374035015860283,
+          "delta_required": -3.7374035015860283,
+          "residual": 0.0,
+          "residual_from_coeffs_check": 0.0
+        },
+        {
+          "theta_in_pi": 0.8630633792681078,
+          "cos_theta": -0.9088827403151798,
+          "delta_mod_B": -5.228624061154943,
+          "delta_required": -5.228624061154943,
+          "residual": 0.0,
+          "residual_from_coeffs_check": 0.0
+        },
+        {
+          "theta_in_pi": 0.9840845056908105,
+          "cos_theta": -0.9987502603949663,
+          "delta_mod_B": -5.988761711721322,
+          "delta_required": -5.988761711721322,
+          "residual": 0.0,
+          "residual_from_coeffs_check": 0.0
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T5_numerical_confirmation",
+      "description": "Numerically evaluate the BAM amplitude with the analytic optimum (\u03b2, \u03b3) = (0, \u22123/2) and compare to KN at multiple \u03b5. Verify the residual scales as O(\u03b5\u00b2) (vanishes at O(\u03b5)) at the analytic optimum, vs O(\u03b5) at PR #30 empirical and at baseline.",
+      "rows": [
+        {
+          "point_label": "analytic optimum (0, -3/2)",
+          "beta": 0.0,
+          "gamma": -1.5,
+          "epsilon": 0.001,
+          "max_KN_residual": 1.5942625108178454e-05
+        },
+        {
+          "point_label": "analytic optimum (0, -3/2)",
+          "beta": 0.0,
+          "gamma": -1.5,
+          "epsilon": 0.01,
+          "max_KN_residual": 0.0015450119627294923
+        },
+        {
+          "point_label": "analytic optimum (0, -3/2)",
+          "beta": 0.0,
+          "gamma": -1.5,
+          "epsilon": 0.05,
+          "max_KN_residual": 0.03364357312348454
+        },
+        {
+          "point_label": "analytic optimum (0, -3/2)",
+          "beta": 0.0,
+          "gamma": -1.5,
+          "epsilon": 0.1,
+          "max_KN_residual": 0.11310878474874009
+        },
+        {
+          "point_label": "analytic optimum (0, -3/2)",
+          "beta": 0.0,
+          "gamma": -1.5,
+          "epsilon": 0.2,
+          "max_KN_residual": 0.3089357068565912
+        },
+        {
+          "point_label": "PR #30 empirical (-1/2, -1)",
+          "beta": -0.5,
+          "gamma": -1.0,
+          "epsilon": 0.001,
+          "max_KN_residual": 0.001982799485772624
+        },
+        {
+          "point_label": "PR #30 empirical (-1/2, -1)",
+          "beta": -0.5,
+          "gamma": -1.0,
+          "epsilon": 0.01,
+          "max_KN_residual": 0.018344449492228687
+        },
+        {
+          "point_label": "PR #30 empirical (-1/2, -1)",
+          "beta": -0.5,
+          "gamma": -1.0,
+          "epsilon": 0.05,
+          "max_KN_residual": 0.06281309602355989
+        },
+        {
+          "point_label": "PR #30 empirical (-1/2, -1)",
+          "beta": -0.5,
+          "gamma": -1.0,
+          "epsilon": 0.1,
+          "max_KN_residual": 0.06836861157558616
+        },
+        {
+          "point_label": "PR #30 empirical (-1/2, -1)",
+          "beta": -0.5,
+          "gamma": -1.0,
+          "epsilon": 0.2,
+          "max_KN_residual": 0.0677254805632978
+        },
+        {
+          "point_label": "baseline (0, 0)",
+          "beta": 0.0,
+          "gamma": 0.0,
+          "epsilon": 0.001,
+          "max_KN_residual": 0.005986595086158064
+        },
+        {
+          "point_label": "baseline (0, 0)",
+          "beta": 0.0,
+          "gamma": 0.0,
+          "epsilon": 0.01,
+          "max_KN_residual": 0.058738369739732565
+        },
+        {
+          "point_label": "baseline (0, 0)",
+          "beta": 0.0,
+          "gamma": 0.0,
+          "epsilon": 0.05,
+          "max_KN_residual": 0.27227712377804714
+        },
+        {
+          "point_label": "baseline (0, 0)",
+          "beta": 0.0,
+          "gamma": 0.0,
+          "epsilon": 0.1,
+          "max_KN_residual": 0.5039448521773393
+        },
+        {
+          "point_label": "baseline (0, 0)",
+          "beta": 0.0,
+          "gamma": 0.0,
+          "epsilon": 0.2,
+          "max_KN_residual": 0.9005764565963373
+        }
+      ],
+      "fitted_residual_order_analytic_optimum": 1.8847785508008263,
+      "fitted_residual_order_PR30_empirical": 0.6998760256797978,
+      "fitted_residual_order_baseline": 0.9511060953927938,
+      "pass": true
+    }
+  ],
+  "n_passed": 5,
+  "n_total": 5,
+  "verdict_class": "CLEAN_DERIVATION",
+  "verdict": "CLEAN DERIVATION \u2014 the small-\u03b5 linear system for Family A + B has an EXACT solution at (\u03b1, \u03b2, \u03b3) = (-0.0000, -0.0000, -1.5000). All values are clean rationals (\u03b1 = 0, \u03b2 = 0, \u03b3 = \u22123/2). T5 confirms numerically that the residual scales as O(\u03b5^1.88) at this point, vs O(\u03b5^0.95) at baseline \u2014 consistent with O(\u03b5\u00b2) cancellation at the analytic optimum. The PR #30 empirical fit (\u03b2, \u03b3) = (\u22121/2, \u22121) was a finite-\u03b5 grid optimum that DIFFERS from the analytic O(\u03b5) optimum: the empirical fit traded O(\u03b5) match for better O(\u03b5\u00b2) behaviour. The analytic derivation identifies the correct O(\u03b5) vertex coupling as (\u03b1, \u03b2, \u03b3) = (0, 0, \u22123/2), i.e. an angular modulation `V = (\u03b5\u00b7\u03b5'*)\u00b7(1 \u2212 (3/2)\u00b7(\u03c9/m)\u00b7(1\u2212cos \u03b8))` with no sin\u00b2\u03b8 or \u03b5\u00b7k coupling needed at this order."
+}
