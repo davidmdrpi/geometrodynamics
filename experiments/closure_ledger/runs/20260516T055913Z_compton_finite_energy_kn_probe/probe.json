@@ -1,0 +1,248 @@
+{
+  "timestamp_utc": "2026-05-16T05:59:13+00:00",
+  "construction": "BAM: |M|\u00b2 \u221d (1+cos\u00b2\u03b8) \u00b7 (1/\u03c8_s + 1/\u03c8_u)\u00b2  with \u03c8_x = (x\u2212m\u00b2)/(2m\u00b2). KN: |M|\u00b2 \u221d x\u00b2\u00b7(x + 1/x \u2212 sin\u00b2\u03b8) with x = \u03c9'/\u03c9.",
+  "tests": [
+    {
+      "name": "T1_thomson_sanity",
+      "description": "At \u03c9/m = 1e-4 the BAM and KN normalised angular distributions agree across \u03b8 \u2208 [0, \u03c0].",
+      "omega": 0.0001,
+      "max_pointwise_diff": 0.0005998795960258096,
+      "pass": true
+    },
+    {
+      "name": "T2_leading_order_discrepancy",
+      "description": "Lowest non-vanishing order in \u03b5 = \u03c9/m of f_BAM(\u03b5, \u03b8) \u2212 f_KN(\u03b5, \u03b8) at generic \u03b8. Predicted fitted slope = 1.0 (O(\u03b5)).",
+      "per_theta": [
+        {
+          "theta_in_pi": 0.25,
+          "epsilons": [
+            0.1,
+            0.01,
+            0.001,
+            0.0001,
+            1e-05,
+            1e-06
+          ],
+          "diffs": [
+            0.0650801572640538,
+            0.006578928285860375,
+            0.0006588951242219032,
+            6.589982500304625e-05,
+            6.590086050084487e-06,
+            6.589974030912771e-07
+          ],
+          "fitted_order_in_eps": 0.999158533886119
+        },
+        {
+          "theta_in_pi": 0.5,
+          "epsilons": [
+            0.1,
+            0.01,
+            0.001,
+            0.0001,
+            1e-05,
+            1e-06
+          ],
+          "diffs": [
+            0.13725203396773028,
+            0.014840387968335922,
+            0.0014983677938176787,
+            0.0001499836412523492,
+            1.4999836830509317e-05,
+            1.4999878026888958e-06
+          ],
+          "fitted_order_in_eps": 0.9940801715440509
+        },
+        {
+          "theta_in_pi": 0.75,
+          "epsilons": [
+            0.1,
+            0.01,
+            0.001,
+            0.0001,
+            1e-05,
+            1e-06
+          ],
+          "diffs": [
+            0.33507042415620525,
+            0.03774776837401328,
+            0.00383415789569852,
+            0.0003840304863431676,
+            3.840921826181454e-05,
+            3.8409646931913954e-06
+          ],
+          "fitted_order_in_eps": 0.9908614466654472
+        }
+      ],
+      "fitted_orders_summary": [
+        0.999158533886119,
+        0.9940801715440509,
+        0.9908614466654472
+      ],
+      "all_near_O_eps": true,
+      "pass": true
+    },
+    {
+      "name": "T3_forward_backward_asymmetry",
+      "description": "Forward-backward asymmetry A(\u03b5) = (f(0)\u2212f(\u03c0))/(f(0)+f(\u03c0)) compared between BAM and KN across \u03b5 \u2208 [0.01, 1].",
+      "rows": [
+        {
+          "epsilon": 0.01,
+          "f_BAM_pi_normalized": 1.0201982497993676,
+          "f_KN_pi_normalized": 0.9613572457048948,
+          "asymmetry_BAM": -0.009998152310731645,
+          "asymmetry_KN": 0.019702047844536018,
+          "asymmetry_difference": -0.029700200155267663
+        },
+        {
+          "epsilon": 0.05,
+          "f_BAM_pi_normalized": 1.1052392757768612,
+          "f_KN_pi_normalized": 0.8302028549962434,
+          "asymmetry_BAM": -0.04998922307205509,
+          "asymmetry_KN": 0.09277504105090316,
+          "asymmetry_difference": -0.14276426412295826
+        },
+        {
+          "epsilon": 0.1,
+          "f_BAM_pi_normalized": 1.2224563728550264,
+          "f_KN_pi_normalized": 0.7060185185185186,
+          "asymmetry_BAM": -0.10009482101520538,
+          "asymmetry_KN": 0.17232021709633644,
+          "asymmetry_difference": -0.27241503811154183
+        },
+        {
+          "epsilon": 0.2,
+          "f_BAM_pi_normalized": 1.503400007454837,
+          "f_KN_pi_normalized": 0.5393586005830904,
+          "asymmetry_BAM": -0.20108652470870408,
+          "asymmetry_KN": 0.29924242424242425,
+          "asymmetry_difference": -0.5003289489511283
+        },
+        {
+          "epsilon": 0.5,
+          "f_BAM_pi_normalized": 3.0568059800852234,
+          "f_KN_pi_normalized": 0.3125,
+          "asymmetry_BAM": -0.5070013183233414,
+          "asymmetry_KN": 0.5238095238095238,
+          "asymmetry_difference": -1.0308108421328652
+        },
+        {
+          "epsilon": 1.0,
+          "f_BAM_pi_normalized": 23.506075042279825,
+          "f_KN_pi_normalized": 0.18518518518518517,
+          "asymmetry_BAM": -0.918387583627756,
+          "asymmetry_KN": 0.6875000000000001,
+          "asymmetry_difference": -1.605887583627756
+        }
+      ],
+      "max_asymmetry_difference": 1.605887583627756,
+      "asymmetry_grows_with_eps": true,
+      "pass": true
+    },
+    {
+      "name": "T4_compton_edge",
+      "description": "Compton backscatter (\u03b8 = \u03c0) comparison vs \u03b5 on log scale. Identifies the \u03b5 at which BAM and KN diverge by > 10 %.",
+      "rows_compact": [
+        {
+          "epsilon": 0.0001,
+          "f_BAM": 1.0002000195520386,
+          "f_KN": 0.9996001399560128,
+          "relative_difference": 0.0006001195598594126
+        },
+        {
+          "epsilon": 0.00031622776601683794,
+          "f_BAM": 1.0006326511118016,
+          "f_KN": 0.9987364875458095,
+          "relative_difference": 0.0018985624232589387
+        },
+        {
+          "epsilon": 0.001,
+          "f_BAM": 1.0020019576750654,
+          "f_KN": 0.9960139561276488,
+          "relative_difference": 0.006011965505681341
+        },
+        {
+          "epsilon": 0.0031622776601683794,
+          "f_BAM": 1.0063441915197526,
+          "f_KN": 0.9874895106467642,
+          "relative_difference": 0.019093550533655235
+        },
+        {
+          "epsilon": 0.01,
+          "f_BAM": 1.0201982497993676,
+          "f_KN": 0.9613572457048948,
+          "relative_difference": 0.06120617944823298
+        },
+        {
+          "epsilon": 0.03162277660168379,
+          "f_BAM": 1.0652886151905412,
+          "f_KN": 0.8862352187892691,
+          "relative_difference": 0.20203823161743217
+        },
+        {
+          "epsilon": 0.1,
+          "f_BAM": 1.2224563728550264,
+          "f_KN": 0.7060185185185186,
+          "relative_difference": 0.7314791904044962
+        },
+        {
+          "epsilon": 0.31622776601683794,
+          "f_BAM": 1.940150972370145,
+          "f_KN": 0.4212203693365248,
+          "relative_difference": 3.6060236247029733
+        },
+        {
+          "epsilon": 1.0,
+          "f_BAM": 23.506075042279825,
+          "f_KN": 0.18518518518518517,
+          "relative_difference": 125.93280522831105
+        },
+        {
+          "epsilon": 3.1622776601683795,
+          "f_BAM": 1.6745813411721013,
+          "f_KN": 0.06953593722927467,
+          "relative_difference": 23.082243051541145
+        },
+        {
+          "epsilon": 10.0,
+          "f_BAM": 1.115212603191716,
+          "f_KN": 0.023863513659432022,
+          "relative_difference": 45.732958905694495
+        }
+      ],
+      "eps_at_10pct_divergence": 0.01778279410038923,
+      "pass": true
+    },
+    {
+      "name": "T5_angular_fit_at_finite_omega",
+      "description": "Fit |M|\u00b2(\u03b8) to {1, cos \u03b8, cos\u00b2\u03b8, cos\u00b3\u03b8} at \u03c9/m = 0.5 for both BAM and KN. Compare coefficients.",
+      "omega": 0.5,
+      "bam_coefficients_c0_c1_c2_c3": [
+        0.9407724225175997,
+        -0.5140555315576216,
+        1.0798542899720176,
+        -0.5143406572075171
+      ],
+      "kn_coefficients_c0_c1_c2_c3": [
+        0.2441979968262746,
+        0.09405302556111195,
+        0.39640375936330147,
+        0.2461613700042837
+      ],
+      "coefficient_differences_c0_c1_c2_c3": [
+        0.6965744256913251,
+        -0.6081085571187336,
+        0.6834505306087162,
+        -0.7605020272118008
+      ],
+      "bam_fit_residual_in_basis": 0.008268029946663091,
+      "kn_fit_residual_in_basis": 0.01918384824502828,
+      "max_pointwise_difference": 2.7443059800852234,
+      "pass": true
+    }
+  ],
+  "n_passed": 5,
+  "n_total": 5,
+  "verdict_class": "PARTIAL_MATCH_O1_THOMSON_ONLY",
+  "verdict": "PARTIAL MATCH \u2014 KN reproduced at O(1) in \u03b5 = \u03c9/m_e (Thomson limit, PR #28), but the natural BAM construction fails to reproduce KN at leading order O(\u03b5). The discrepancy f_BAM \u2212 f_KN scales linearly in \u03c9/m_e (T2 fitted slopes near 1.0). The forward-backward asymmetry (T3) and the Compton edge at \u03b8 = \u03c0 (T4) show the structural signature: BAM's per-channel propagator sum (G_s + G_u)\u00b2 gives a (1 + 1/x)\u00b2 energy dependence, while QED's vertex-factor algebra gives x\u00b2 \u00b7 (x + 1/x \u2212 sin\u00b2\u03b8). The missing BAM ingredient is the per-channel kinematic weighting \u2014 the QED vertex factors that contract photon polarization with momentum (\u03b5\u00b7k structures), which the present BAM construction does not have natively. This locates the next structural piece: a vertex-coupling derivation from the Hopf connection or throat-transport algebra."
+}
