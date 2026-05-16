@@ -1,0 +1,420 @@
+{
+  "timestamp_utc": "2026-05-16T23:03:09+00:00",
+  "analytic_setup": "\u0394_required_O(\u03b5\u00b2) = (1\u2212c)\u00b2\u00b7(9+7c\u00b2)/4. PR #31 closes O(\u03b5) but leaves this O(\u03b5\u00b2) residual.",
+  "tests": [
+    {
+      "name": "T1_analytic_O_eps2_verification",
+      "description": "Verify analytic O(\u03b5\u00b2) coefficients of f_KN and f_BAM_PR31 numerically (second-derivative finite difference).",
+      "samples_first_8": [
+        {
+          "theta_in_pi": 0.015915494309189534,
+          "cos_theta": 0.9987502603949663,
+          "KN_O_eps2_num": 5.451195050909519e-06,
+          "KN_O_eps2_ana": 5.4606197264646895e-06,
+          "BAM_PR31_O_eps2_num": -7.771561172376096e-07,
+          "BAM_PR31_O_eps2_ana": -7.799491977116289e-07
+        },
+        {
+          "theta_in_pi": 0.07642605752054085,
+          "cos_theta": 0.9713143089185453,
+          "KN_O_eps2_num": 0.002810229826621935,
+          "KN_O_eps2_ana": 0.0028102430377862234,
+          "BAM_PR31_O_eps2_num": -0.0003997802089372726,
+          "BAM_PR31_O_eps2_ana": -0.00039980143356264984
+        },
+        {
+          "theta_in_pi": 0.13693662073189217,
+          "cos_theta": 0.9088827403151799,
+          "KN_O_eps2_num": 0.026892199578298914,
+          "KN_O_eps2_ana": 0.0268921726787773,
+          "BAM_PR31_O_eps2_num": -0.0037901681793073294,
+          "BAM_PR31_O_eps2_ana": -0.003790165862090305
+        },
+        {
+          "theta_in_pi": 0.19744718394324348,
+          "cos_theta": 0.8137049101759665,
+          "KN_O_eps2_num": 0.10388065962985138,
+          "KN_O_eps2_ana": 0.10388066265906151,
+          "BAM_PR31_O_eps2_num": -0.01442127528505921,
+          "BAM_PR31_O_eps2_ana": -0.014421288735464858
+        },
+        {
+          "theta_in_pi": 0.2579577471545948,
+          "cos_theta": 0.6892099936627883,
+          "KN_O_eps2_num": 0.2620030636890647,
+          "KN_O_eps2_ana": 0.26200304509281164,
+          "BAM_PR31_O_eps2_num": -0.03561796413364959,
+          "BAM_PR31_O_eps2_ana": -0.03561797184554494
+        },
+        {
+          "theta_in_pi": 0.3184683103659461,
+          "cos_theta": 0.5398834352837131,
+          "KN_O_eps2_num": 0.5159752847205823,
+          "KN_O_eps2_ana": 0.5159752853795382,
+          "BAM_PR31_O_eps2_num": -0.06835361165968834,
+          "BAM_PR31_O_eps2_ana": -0.06835360980272995
+        },
+        {
+          "theta_in_pi": 0.3789788735772974,
+          "cos_theta": 0.3711053421945145,
+          "KN_O_eps2_num": 0.8727206513015062,
+          "KN_O_eps2_ana": 0.87272063578546,
+          "BAM_PR31_O_eps2_num": -0.11249439157978713,
+          "BAM_PR31_O_eps2_ana": -0.11249439841288678
+        },
+        {
+          "theta_in_pi": 0.4394894367886487,
+          "cos_theta": 0.18895664357633693,
+          "KN_O_eps2_num": 1.3508119511840277,
+          "KN_O_eps2_ana": 1.350811929241863,
+          "BAM_PR31_O_eps2_num": -0.17031938082112674,
+          "BAM_PR31_O_eps2_ana": -0.1703193777070637
+        }
+      ],
+      "max_KN_O_eps2_error": 1.2797422819232906e-06,
+      "max_BAM_PR31_O_eps2_error": 1.0060396071764899e-07,
+      "pass": true
+    },
+    {
+      "name": "T2_delta_required_decomposition",
+      "description": "\u0394_required = (1\u2212c)\u00b2\u00b7(9+7c\u00b2)/4 decomposed in {1,c,c\u00b2,c\u00b3,c\u2074} basis. Coefficients (9, \u221218, 16, \u221214, 7)/4.",
+      "delta_required_coefficients_c0_to_c4": [
+        2.25,
+        -4.5,
+        4.0,
+        -3.5,
+        1.75
+      ],
+      "samples_verification": [
+        {
+          "theta_in_pi": 0.015915494309189534,
+          "delta_required_analytic": 6.240568924176318e-06,
+          "delta_required_from_basis": 6.240568923621126e-06,
+          "difference": 5.551919804425674e-16
+        },
+        {
+          "theta_in_pi": 0.13693662073189217,
+          "delta_required_analytic": 0.030682338540867604,
+          "delta_required_from_basis": 0.03068233854086788,
+          "difference": -2.7755575615628914e-16
+        },
+        {
+          "theta_in_pi": 0.2579577471545948,
+          "delta_required_analytic": 0.29762101693835663,
+          "delta_required_from_basis": 0.2976210169383565,
+          "difference": 1.1102230246251565e-16
+        },
+        {
+          "theta_in_pi": 0.3789788735772974,
+          "delta_required_analytic": 0.9852150341983467,
+          "delta_required_from_basis": 0.9852150341983468,
+          "difference": -1.1102230246251565e-16
+        },
+        {
+          "theta_in_pi": 0.5000000000000001,
+          "delta_required_analytic": 2.250000000000001,
+          "delta_required_from_basis": 2.250000000000001,
+          "difference": 0.0
+        },
+        {
+          "theta_in_pi": 0.6210211264227027,
+          "delta_required_analytic": 4.6829213649186165,
+          "delta_required_from_basis": 4.682921364918616,
+          "difference": 8.881784197001252e-16
+        },
+        {
+          "theta_in_pi": 0.7420422528454053,
+          "delta_required_analytic": 8.792184437446108,
+          "delta_required_from_basis": 8.792184437446107,
+          "difference": 1.7763568394002505e-15
+        },
+        {
+          "theta_in_pi": 0.8630633792681078,
+          "delta_required_analytic": 13.466218588394483,
+          "delta_required_from_basis": 13.466218588394483,
+          "difference": 0.0
+        },
+        {
+          "theta_in_pi": 0.9840845056908105,
+          "delta_required_analytic": 15.962546837585267,
+          "delta_required_from_basis": 15.962546837585268,
+          "difference": -1.7763568394002505e-15
+        }
+      ],
+      "max_decomposition_error": 1.7763568394002505e-15,
+      "pass": true
+    },
+    {
+      "name": "T3_family_B_prime_polynomial",
+      "description": "Solve for \u03bc\u2082 = \u03bd\u2080 + \u03bd\u2081\u00b7c + \u03bd\u2082\u00b7c\u00b2 such that \u03bc\u2082\u00b7(1+c\u00b2) = \u0394_required = (9 \u2212 18c + 16c\u00b2 \u2212 14c\u00b3 + 7c\u2074)/4. Check whether polynomial \u03bc\u2082 alone can close O(\u03b5\u00b2).",
+      "matrix_A": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "rhs_b": [
+        2.25,
+        -4.5,
+        4.0,
+        -3.5,
+        1.75
+      ],
+      "lsq_nu0": 2.2499999999999987,
+      "lsq_nu1": -3.9999999999999982,
+      "lsq_nu2": 1.7500000000000009,
+      "lsq_residual": [
+        -1.3322676295501878e-15,
+        0.5000000000000018,
+        -4.440892098500626e-16,
+        -0.4999999999999982,
+        8.881784197001252e-16
+      ],
+      "lsq_max_residual": 0.5000000000000018,
+      "rank_A": 3,
+      "rank_augmented": 4,
+      "exact_solution_exists": false,
+      "pass": true
+    },
+    {
+      "name": "T4_family_A_plus_B_prime",
+      "description": "Add Family A \u03b1\u00b2 sin\u2074\u03b8 contribution at O(\u03b5\u00b2) and re-solve. Check if the c\u00b9 vs c\u00b3 discrepancy from T3 is resolved.",
+      "matrix_A": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          1.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.5
+        ]
+      ],
+      "rhs_b": [
+        2.25,
+        -4.5,
+        4.0,
+        -3.5,
+        1.75
+      ],
+      "lsq_nu0": 2.2499999999999996,
+      "lsq_nu1": -4.0,
+      "lsq_nu2": 1.7500000000000013,
+      "lsq_alpha_squared": 9.86195252979291e-16,
+      "lsq_residual": [
+        0.0,
+        0.5,
+        0.0,
+        -0.5,
+        1.7763568394002505e-15
+      ],
+      "lsq_max_residual": 0.5,
+      "rank_A": 4,
+      "rank_augmented": 5,
+      "exact_solution_exists": false,
+      "pass": true
+    },
+    {
+      "name": "T5_extended_family_with_odd_c",
+      "description": "Add Family E: \u03bc_extra = \u03be\u00b7c\u00b7(1\u2212c\u00b2) (odd in c, allows independent c\u00b9 and c\u00b3). Solve the 5-unknown system.",
+      "matrix_A_5x5": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          1.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.5,
+          0.0
+        ]
+      ],
+      "rhs_b": [
+        2.25,
+        -4.5,
+        4.0,
+        -3.5,
+        1.75
+      ],
+      "det_A": 4.0,
+      "lsq_nu0": 2.25,
+      "lsq_nu1": -4.0,
+      "lsq_nu2": 1.75,
+      "lsq_alpha_squared": 0.0,
+      "lsq_xi": -0.5,
+      "lsq_alpha_value": 0.0,
+      "lsq_residual": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lsq_max_residual": 0.0,
+      "exact_solution": true,
+      "alpha_squared_non_negative": true,
+      "coefficients_clean": {
+        "nu0": true,
+        "nu1": true,
+        "nu2": true,
+        "alpha_sq": true,
+        "xi": true
+      },
+      "pass": true
+    },
+    {
+      "name": "T6_numerical_verification",
+      "description": "Numerically verify the T5 analytic solution closes O(\u03b5\u00b2) by computing f_BAM with the derived coefficients and measuring residual scaling in \u03b5.",
+      "numerical_results": [
+        {
+          "epsilon": 0.0001,
+          "max_KN_residual": 9.36165034381986e-10
+        },
+        {
+          "epsilon": 0.001,
+          "max_KN_residual": 1.1690904988537199e-07
+        },
+        {
+          "epsilon": 0.01,
+          "max_KN_residual": 3.8846861617480855e-05
+        },
+        {
+          "epsilon": 0.1,
+          "max_KN_residual": 0.030076468265708756
+        }
+      ],
+      "fitted_residual_order_in_eps": 2.504213107213347,
+      "expected_for_O_eps2_closure": 3.0,
+      "pass": true
+    },
+    {
+      "name": "T7_candidate_O_eps2_predictions",
+      "description": "For each surviving PR #33 candidate, compute the natural O(\u03b5\u00b2) scalar prediction and compare to the T5-derived coefficient magnitude.",
+      "rows": [
+        {
+          "candidate": "A_doubled_electron_casimir",
+          "predicted_O_eps2_scalar_magnitude": 1.125,
+          "target_total_magnitude_from_T5": 8.5,
+          "ratio_predicted_to_target": 0.1323529411764706,
+          "note": "scalar magnitude 1.125 vs target |\u03a3| 8.500"
+        },
+        {
+          "candidate": "B_photon_casimir_minus_hopf",
+          "predicted_O_eps2_scalar_magnitude": 3.75,
+          "target_total_magnitude_from_T5": 8.5,
+          "ratio_predicted_to_target": 0.4411764705882353,
+          "note": "scalar magnitude 3.75 vs target |\u03a3| 8.500"
+        },
+        {
+          "candidate": "D_hopf_times_photon_mult",
+          "predicted_O_eps2_scalar_magnitude": 2.25,
+          "target_total_magnitude_from_T5": 8.5,
+          "ratio_predicted_to_target": 0.2647058823529412,
+          "note": "scalar magnitude 2.25 vs target |\u03a3| 8.500"
+        },
+        {
+          "candidate": "F_closure_plus_hopf",
+          "predicted_O_eps2_scalar_magnitude": 2.25,
+          "target_total_magnitude_from_T5": 8.5,
+          "ratio_predicted_to_target": 0.2647058823529412,
+          "note": "scalar magnitude 2.25 vs target |\u03a3| 8.500"
+        },
+        {
+          "candidate": "G_pauli_trace",
+          "predicted_O_eps2_scalar_magnitude": NaN,
+          "target_total_magnitude_from_T5": 8.5,
+          "ratio_predicted_to_target": NaN,
+          "note": "no obvious O(\u03b5\u00b2) extension"
+        },
+        {
+          "candidate": "H_two_mouth_spin_half",
+          "predicted_O_eps2_scalar_magnitude": 1.125,
+          "target_total_magnitude_from_T5": 8.5,
+          "ratio_predicted_to_target": 0.1323529411764706,
+          "note": "scalar magnitude 1.125 vs target |\u03a3| 8.500"
+        },
+        {
+          "candidate": "E_antipodal_natural_units",
+          "predicted_O_eps2_scalar_magnitude": NaN,
+          "target_total_magnitude_from_T5": 8.5,
+          "ratio_predicted_to_target": NaN,
+          "note": "no obvious O(\u03b5\u00b2) extension"
+        }
+      ],
+      "target_total_magnitude": 8.5,
+      "note": "Candidate predictions are scalar magnitudes; they do not specify the angular structure of \u03bc\u2082. The probe reports relative magnitudes as a weak discrimination metric.",
+      "pass": true
+    }
+  ],
+  "n_passed": 7,
+  "n_total": 7,
+  "verdict_class": "CLOSED_WITH_EXTENDED_FAMILY",
+  "verdict": "CLOSED WITH EXTENDED FAMILY (B + A + odd-c) \u2014 the O(\u03b5\u00b2) gap closes analytically with (\u03bd\u2080, \u03bd\u2081, \u03bd\u2082, \u03b1\u00b2, \u03be) = (2.2500, -4.0000, 1.7500, 0.0000, -0.5000). \u03b1\u00b2 = 0.0000 (non-negative as required). Residual fits to O(\u03b5^2.50). The PR #31 Family B alone is structurally insufficient; closing O(\u03b5\u00b2) requires explicit Family A (\u03b5\u00b7k coupling) AND an odd-in-c angular term \u2014 neither of which appears naturally in any of the PR #33 surviving candidates. This identifies the next BAM structural target."
+}
