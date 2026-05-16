@@ -1,0 +1,206 @@
+{
+  "timestamp_utc": "2026-05-16T01:37:16+00:00",
+  "natural_units": "c = \u210f = m_e = 1; R_S3 = 1",
+  "reinterpretation": "Local QED 4-vertex (\u03b3 + e \u2192 \u03b3 + e) \u21a6 antipodal transaction with front-vertex at X and back-vertex at the `S\u00b3` antipode X\u0303, linked by throat worldlines. Antipodal map on 4-momentum: (E, p) \u2192 (E, \u2212p).",
+  "tests": [
+    {
+      "name": "P1_closure_no_overconstraint",
+      "description": "For every (\u03c9, \u03b8), the back-vertex 4-momentum balance (under antipodal flip of all 4-momenta) holds whenever the front vertex does. Tests that BAM closure does not add constraints beyond standard QED Compton kinematics.",
+      "max_front_residual": 2.220446049250313e-16,
+      "max_back_residual": 1.6653345369377348e-16,
+      "max_stu_deviation": 8.881784197001252e-16,
+      "samples_first_5": [
+        {
+          "omega": 0.01,
+          "theta": 0.0,
+          "front_residual_inf": 0.0,
+          "back_residual_inf": 8.673617379884035e-18,
+          "stu_residual": 0.0
+        },
+        {
+          "omega": 0.01,
+          "theta": 0.39269908169872414,
+          "front_residual_inf": 0.0,
+          "back_residual_inf": 1.5612511283791264e-17,
+          "stu_residual": 0.0
+        },
+        {
+          "omega": 0.01,
+          "theta": 0.7853981633974483,
+          "front_residual_inf": 0.0,
+          "back_residual_inf": 5.204170427930421e-18,
+          "stu_residual": 0.0
+        },
+        {
+          "omega": 0.01,
+          "theta": 1.1780972450961724,
+          "front_residual_inf": 0.0,
+          "back_residual_inf": 1.5612511283791264e-17,
+          "stu_residual": 0.0
+        },
+        {
+          "omega": 0.01,
+          "theta": 1.5707963267948966,
+          "front_residual_inf": 0.0,
+          "back_residual_inf": 8.673617379884035e-18,
+          "stu_residual": 0.0
+        }
+      ],
+      "n_samples": 63,
+      "pass": true
+    },
+    {
+      "name": "P2_inter_mouth_skew_vanishes",
+      "description": "The proper-time skew between the two mouths of the same particle vanishes identically: \u03b3_front = \u03b3_back because the antipodal map flips 3-momentum while preserving energy, so the boost factor \u03b3 = E/m is identical at both mouths.",
+      "max_inter_mouth_skew": 0.0,
+      "samples_first_5": [
+        {
+          "omega": 0.01,
+          "theta": 0.0,
+          "particle": "p_e_in",
+          "gamma_front": 1.0,
+          "gamma_back": 1.0,
+          "inter_mouth_skew": 0.0
+        },
+        {
+          "omega": 0.01,
+          "theta": 0.0,
+          "particle": "p_e_out",
+          "gamma_front": 1.0,
+          "gamma_back": 1.0,
+          "inter_mouth_skew": 0.0
+        },
+        {
+          "omega": 0.01,
+          "theta": 0.39269908169872414,
+          "particle": "p_e_in",
+          "gamma_front": 1.0,
+          "gamma_back": 1.0,
+          "inter_mouth_skew": 0.0
+        },
+        {
+          "omega": 0.01,
+          "theta": 0.39269908169872414,
+          "particle": "p_e_out",
+          "gamma_front": 1.0000076062568308,
+          "gamma_back": 1.0000076062568308,
+          "inter_mouth_skew": 0.0
+        },
+        {
+          "omega": 0.01,
+          "theta": 0.7853981633974483,
+          "particle": "p_e_in",
+          "gamma_front": 1.0,
+          "gamma_back": 1.0,
+          "inter_mouth_skew": 0.0
+        }
+      ],
+      "interpretation": "Inter-mouth skew is NOT the BAM-specific dynamical variable \u2014 it is identically zero by the antipodal momentum map. Throat-pinch skew (P3) is the next candidate.",
+      "pass": true
+    },
+    {
+      "name": "P3_throat_pinch_skew",
+      "description": "Throat-pinch proper-time skew \u0394\u03c4_throat = (\u03c0\u00b7R_S3/c)\u00b7(1/\u03b3_out \u2212 1/\u03b3_in) \u2014 the integrated information-propagation delay between front and back mouth during the scattering, and the BAM-specific dynamical quantity. Tests its scaling with photon energy and identifies whether it is structurally a recoil-induced quantity or a topological invariant.",
+      "samples_count": 63,
+      "samples_first_5": [
+        {
+          "omega": 0.01,
+          "theta": 0.0,
+          "omega_over_me": 0.01,
+          "gamma_e_out": 1.0,
+          "delta_tau_throat": 0.0,
+          "delta_tau_over_omega_over_me": 0.0
+        },
+        {
+          "omega": 0.01,
+          "theta": 0.39269908169872414,
+          "omega_over_me": 0.01,
+          "gamma_e_out": 1.0000076062568308,
+          "delta_tau_throat": -2.3895578824983943e-05,
+          "delta_tau_over_omega_over_me": -0.0023895578824983943
+        },
+        {
+          "omega": 0.01,
+          "theta": 0.7853981633974483,
+          "omega_over_me": 0.01,
+          "gamma_e_out": 1.0000292037859726,
+          "delta_tau_throat": -9.17437202043736e-05,
+          "delta_tau_over_omega_over_me": -0.00917437202043736
+        },
+        {
+          "omega": 0.01,
+          "theta": 1.1780972450961724,
+          "omega_over_me": 0.01,
+          "gamma_e_out": 1.0000613529150544,
+          "delta_tau_throat": -0.00019273404241593184,
+          "delta_tau_over_omega_over_me": -0.019273404241593184
+        },
+        {
+          "omega": 0.01,
+          "theta": 1.5707963267948966,
+          "omega_over_me": 0.01,
+          "gamma_e_out": 1.00009900990099,
+          "delta_tau_throat": -0.00031101798372334954,
+          "delta_tau_over_omega_over_me": -0.031101798372334954
+        }
+      ],
+      "max_abs_skew": 1.9332877868244875,
+      "soft_photon_power_law_exponent_theta_pi": 1.8854401448892368,
+      "interpretation": "For \u03c9 \u2192 0 (Thomson limit), \u0394\u03c4_throat \u2192 0 quadratically in \u03c9 (electron recoil is `O(\u03c9\u00b2/m_e\u00b2)` to leading non-trivial order). This identifies \u0394\u03c4_throat as a *recoil-induced* dynamical quantity, not a topological invariant. The closure-quantum reading is ruled out at this level; the BAM-specific content here is the specific propagation-delay formula tied to the `S\u00b3` antipodal traverse time \u03c0\u00b7R_S3/c.",
+      "pass": true
+    },
+    {
+      "name": "P4_crossing_via_antipodal",
+      "description": "Tests that the BAM antipodal map on the outgoing-photon 4-momentum leaves the Mandelstam-u invariant in the electron rest frame. This is the relevant statement for s\u2194u crossing symmetry in the BAM antipodal-transaction reinterpretation.",
+      "max_u_invariance_residual": 0.0,
+      "samples_first_5": [
+        {
+          "omega": 0.01,
+          "theta": 0.0,
+          "s": 1.02,
+          "u_original": 0.98,
+          "u_after_antipodal": 0.98,
+          "u_invariance_residual": 0.0
+        },
+        {
+          "omega": 0.01,
+          "theta": 0.39269908169872414,
+          "s": 1.02,
+          "u_original": 0.9800152125136612,
+          "u_after_antipodal": 0.9800152125136612,
+          "u_invariance_residual": 0.0
+        },
+        {
+          "omega": 0.01,
+          "theta": 0.7853981633974483,
+          "s": 1.02,
+          "u_original": 0.9800584075719452,
+          "u_after_antipodal": 0.9800584075719452,
+          "u_invariance_residual": 0.0
+        },
+        {
+          "omega": 0.01,
+          "theta": 1.1780972450961724,
+          "s": 1.02,
+          "u_original": 0.9801227058301083,
+          "u_after_antipodal": 0.9801227058301083,
+          "u_invariance_residual": 0.0
+        },
+        {
+          "omega": 0.01,
+          "theta": 1.5707963267948966,
+          "s": 1.02,
+          "u_original": 0.9801980198019802,
+          "u_after_antipodal": 0.9801980198019802,
+          "u_invariance_residual": 0.0
+        }
+      ],
+      "interpretation": "The antipodal map on a single 4-momentum (E, p) \u2192 (E, \u2212p) preserves p \u00b7 q for any 4-momentum q with q_spatial = 0 (i.e. for a rest-frame particle). In the electron rest frame, all Mandelstam invariants involving p_e_in are invariant under the antipodal map on any other 4-momentum. This makes the BAM antipodal action structurally compatible with crossing, but it does NOT directly implement crossing (which would require a full p \u2192 \u2212p map across all particles, not just the outgoing photon).",
+      "pass": true
+    }
+  ],
+  "n_passed": 4,
+  "n_total": 4,
+  "overall_pass": true,
+  "verdict": "PASS \u2014 BAM antipodal-closure picture is kinematically consistent with standard Compton scattering. The predictions are: (P1) closure adds no constraints beyond the standard ones; (P2) inter-mouth proper-time skew vanishes identically; (P3) throat-pinch skew \u0394\u03c4_throat = (\u03c0\u00b7R_S3/c)\u00b7(1/\u03b3_out \u2212 1/\u03b3_in) is the BAM-specific dynamical quantity, scaling as \u03c9\u00b2 at small recoil (Thomson limit) \u2014 this is a recoil-induced effect tied to the `S\u00b3` antipodal traverse time, not a topological closure quantum; (P4) the antipodal map on the outgoing photon preserves the Mandelstam-u invariant in the electron rest frame, structurally compatible with crossing symmetry though not implementing it directly. The thread is cleared to proceed to the amplitude / cross-section probe."
+}
