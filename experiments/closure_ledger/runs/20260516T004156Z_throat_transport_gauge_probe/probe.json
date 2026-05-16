@@ -1,0 +1,208 @@
+{
+  "timestamp_utc": "2026-05-16T00:41:56+00:00",
+  "gauge_transformation": "g(\u03c7,\u03c6) = e^{\u2212i\u03c6/2} (scalar U(1), multi-valued), \u03c8_BAM = g \u00b7 \u03c8_Bloch, A_BAM \u2212 A_Bloch = +\u00bd (per d\u03c6).",
+  "scalar_tests": [
+    {
+      "name": "connection_difference_is_half",
+      "description": "A_BAM(\u03c7) \u2212 A_Bloch(\u03c7) = \u00bd for all \u03c7.",
+      "max_deviation_from_half": 5.551115123125783e-17,
+      "pass": true
+    },
+    {
+      "name": "spinor_frame_transformation",
+      "description": "\u03c8_BAM(\u03c7,\u03c6) = g(\u03c7,\u03c6) \u00b7 \u03c8_Bloch(\u03c7,\u03c6) with g = e^{\u2212i\u03c6/2} (scalar U(1) phase, multi-valued under \u03c6 \u2192 \u03c6+2\u03c0).",
+      "max_deviation": 2.482534153247273e-16,
+      "pass": true
+    },
+    {
+      "name": "throat_conjugation_preserves_invariants",
+      "description": "T_Bloch(\u03c6_in, \u03c6_out) preserves Tr = 0 universally; for instantaneous throat (\u03c6_in = \u03c6_out) also preserves det = 1 and T\u00b2 = \u2212I \u2014 same SU(2) invariants as i\u03c3_y.",
+      "max_det_deviation_instantaneous": 4.444534506838836e-16,
+      "max_trace_deviation": 0.0,
+      "max_T_squared_plus_I_deviation_instantaneous": 4.444534506838836e-16,
+      "pass": true
+    },
+    {
+      "name": "relative_phase_gauge_invariance",
+      "description": "\u0394\u03b3(\u03b8_a, \u03b8_b) for the detector-holonomy phase agrees between BAM and Bloch gauges (the offset cancels).",
+      "max_deviation": 8.881784197001252e-16,
+      "samples": [
+        {
+          "theta_a": 0.0,
+          "theta_b": 0.0,
+          "delta_gamma_BAM": 0.0,
+          "delta_gamma_Bloch": -0.0
+        },
+        {
+          "theta_a": 0.0,
+          "theta_b": 0.20943951023931953,
+          "delta_gamma_BAM": 0.06865133699798703,
+          "delta_gamma_Bloch": 0.06865133699798703
+        },
+        {
+          "theta_a": 0.0,
+          "theta_b": 0.41887902047863906,
+          "delta_gamma_BAM": 0.2716049551394727,
+          "delta_gamma_Bloch": 0.2716049551394727
+        },
+        {
+          "theta_a": 0.0,
+          "theta_b": 0.6283185307179586,
+          "delta_gamma_BAM": 0.5999908074321633,
+          "delta_gamma_Bloch": 0.5999908074321633
+        },
+        {
+          "theta_a": 0.0,
+          "theta_b": 0.8377580409572781,
+          "delta_gamma_BAM": 1.0394568563607203,
+          "delta_gamma_Bloch": 1.0394568563607203
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "single_valued_gauge_cannot_remove_pi",
+      "description": "Any single-valued (periodic) gauge function \u039b(\u03c6) has \u222ed\u039b = 0 around a 2\u03c0 loop. The \u03c0/loop BAM\u2212Bloch offset is therefore a true bundle invariant (Wu-Yang transition function), not a removable gauge artifact.",
+      "max_integral_residual_over_basis": 1.959434878635765e-15,
+      "samples": [
+        {
+          "mode": "cos(1\u03c6)",
+          "integral_over_2pi_loop": 0.0
+        },
+        {
+          "mode": "sin(1\u03c6)",
+          "integral_over_2pi_loop": -2.4492935982947064e-16
+        },
+        {
+          "mode": "cos(2\u03c6)",
+          "integral_over_2pi_loop": 0.0
+        },
+        {
+          "mode": "sin(2\u03c6)",
+          "integral_over_2pi_loop": -4.898587196589413e-16
+        },
+        {
+          "mode": "cos(3\u03c6)",
+          "integral_over_2pi_loop": 0.0
+        },
+        {
+          "mode": "sin(3\u03c6)",
+          "integral_over_2pi_loop": -7.347880794884119e-16
+        },
+        {
+          "mode": "cos(4\u03c6)",
+          "integral_over_2pi_loop": 0.0
+        },
+        {
+          "mode": "sin(4\u03c6)",
+          "integral_over_2pi_loop": -9.797174393178826e-16
+        },
+        {
+          "mode": "cos(5\u03c6)",
+          "integral_over_2pi_loop": 0.0
+        },
+        {
+          "mode": "sin(5\u03c6)",
+          "integral_over_2pi_loop": -1.2246467991473533e-15
+        },
+        {
+          "mode": "cos(6\u03c6)",
+          "integral_over_2pi_loop": 0.0
+        },
+        {
+          "mode": "sin(6\u03c6)",
+          "integral_over_2pi_loop": -1.4695761589768238e-15
+        },
+        {
+          "mode": "cos(7\u03c6)",
+          "integral_over_2pi_loop": 0.0
+        },
+        {
+          "mode": "sin(7\u03c6)",
+          "integral_over_2pi_loop": -1.7145055188062944e-15
+        },
+        {
+          "mode": "cos(8\u03c6)",
+          "integral_over_2pi_loop": 0.0
+        },
+        {
+          "mode": "sin(8\u03c6)",
+          "integral_over_2pi_loop": -1.959434878635765e-15
+        }
+      ],
+      "pi_offset_persists": true,
+      "pass": true
+    }
+  ],
+  "loop_holonomy_tests": [
+    {
+      "loop_name": "equatorial_2pi_chi_pi_over_3",
+      "description": "Constant \u03c7 = \u03c0/3, \u03c6 \u2208 [0, 2\u03c0]. No throat crossing.",
+      "crosses_throat": false,
+      "phi_winding_2pi_units": 1,
+      "predicted_sign_BAM_over_Bloch": -1,
+      "trace_BAM": {
+        "real": -3.2162452993532727e-16,
+        "imag": 2.0
+      },
+      "trace_Bloch": {
+        "real": 1.2246467991473532e-16,
+        "imag": -2.0
+      },
+      "so3_invariant_BAM": 4.0,
+      "so3_invariant_Bloch": 4.0,
+      "so3_invariant_residual": 0.0,
+      "operator_scaled_residual": 9.957992501029598e-17,
+      "pass_so3_equivalence": true,
+      "pass_operator_relation": true
+    },
+    {
+      "loop_name": "polar_cap_with_throat_at_phi_pi",
+      "description": "Pole \u2192 equator \u2192 throat at (\u03c0/2, \u03c0) \u2192 equator \u2192 pole. Crosses the throat once at the equator.",
+      "crosses_throat": true,
+      "phi_winding_2pi_units": 1,
+      "predicted_sign_BAM_over_Bloch": -1,
+      "trace_BAM": {
+        "real": 0.0,
+        "imag": 0.0
+      },
+      "trace_Bloch": {
+        "real": 0.0,
+        "imag": 0.0
+      },
+      "so3_invariant_BAM": 0.0,
+      "so3_invariant_Bloch": 0.0,
+      "so3_invariant_residual": 0.0,
+      "operator_scaled_residual": 3.74186820392619e-16,
+      "pass_so3_equivalence": true,
+      "pass_operator_relation": true
+    },
+    {
+      "loop_name": "equatorial_throat_sweep",
+      "description": "Constant \u03c7 = \u03c0/2, \u03c6 0 \u2192 2\u03c0, throat insertion at midpoint (\u03c6 = \u03c0). Tests throat conjugation at the equatorial gauge string.",
+      "crosses_throat": true,
+      "phi_winding_2pi_units": 1,
+      "predicted_sign_BAM_over_Bloch": -1,
+      "trace_BAM": {
+        "real": 0.0,
+        "imag": 0.0
+      },
+      "trace_Bloch": {
+        "real": 0.0,
+        "imag": 0.0
+      },
+      "so3_invariant_BAM": 0.0,
+      "so3_invariant_Bloch": 0.0,
+      "so3_invariant_residual": 0.0,
+      "operator_scaled_residual": 1.5214221546758763e-16,
+      "pass_so3_equivalence": true,
+      "pass_operator_relation": true
+    }
+  ],
+  "n_scalar_passed": 5,
+  "n_scalar_total": 5,
+  "n_loop_passed": 3,
+  "n_loop_total": 3,
+  "overall_pass": true,
+  "verdict": "PASS \u2014 BAM symmetric gauge is gauge-equivalent to Bloch gauge under the multi-valued scalar U(1) transformation g(\u03c7,\u03c6) = e^{\u2212i\u03c6/2}. The two combinations (A_BAM, \u03c8_BAM, T_BAM=i\u03c3_y) and (A_Bloch, \u03c8_Bloch, T_Bloch) make identical predictions for every SO(3)-level observable. They differ by (\u22121)^n per n-winding closed loop at the SU(2) level \u2014 the Wu-Yang transition function that IS the spin-\u00bd double cover. This sign is observable only in interference between coherent spinor branches (Bell singlets), where BOTH gauges produce the same observable phenomena because the relative phase cancels the gauge offset. No experiment can distinguish the two gauges; the choice is computational, not physical."
+}
