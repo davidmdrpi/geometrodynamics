@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/1181274003.svg)](https://doi.org/10.5281/zenodo.20225786)
 # Geometrodynamics
 
 **A research framework implementing and testing Wheeler's geometrodynamic program.**
