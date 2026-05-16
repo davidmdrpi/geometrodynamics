@@ -1,0 +1,215 @@
+{
+  "timestamp_utc": "2026-05-16T01:58:42+00:00",
+  "construction": "M_BAM(\u03b8, \u03c9) = M_s + M_u with M_x = G_S3(\u03c8_x) \u00b7 exp(i\u00b7\u03c6_x) \u00b7 T\u00b2 where \u03c8_x = (x \u2212 m\u00b2)/(2m\u00b2), \u03c6_x = \u03c0 \u00b1 \u03b8/2, T\u00b2 = \u2212I.",
+  "tests": [
+    {
+      "name": "T1_propagator_pole_reproduction",
+      "description": "Verify |M_BAM| \u221d 1/(s \u2212 m\u00b2) as s \u2192 m\u00b2 (\u03c9 \u2192 0). The fitted log-log slope should be \u22121; equivalently, the pole exponent is +1.",
+      "theta_fixed": 1.0471975511965976,
+      "omegas_sampled": [
+        0.01,
+        0.001,
+        0.0001,
+        1e-05,
+        1e-06
+      ],
+      "amplitudes": [
+        13.751427948250312,
+        137.8008273902886,
+        1378.2908821203475,
+        13783.191033048273,
+        137832.1925101886
+      ],
+      "s_minus_msq": [
+        0.020000000000000018,
+        0.0019999999999997797,
+        0.00019999999999997797,
+        2.0000000000131024e-05,
+        1.9999999998354667e-06
+      ],
+      "fitted_pole_exponent": 1.0002103684045975,
+      "residue": 0.2750299807581249,
+      "expected_pole_exponent": 1.0,
+      "pass": true
+    },
+    {
+      "name": "T2_thomson_angular",
+      "description": "Compute |M_BAM(\u03b8)|\u00b2 in the Thomson limit (\u03c9 \u2192 0) and fit A + B\u00b7cos \u03b8 + C\u00b7cos\u00b2\u03b8. Klein-Nishina: (\u00bd, 0, \u00bd).",
+      "omega_thomson_limit": 0.0001,
+      "fitted_coefficients": {
+        "A": 0.5000500048879328,
+        "B": 0.4999999949995043,
+        "C": -4.9999887450691276e-05
+      },
+      "klein_nishina_coefficients": {
+        "A": 0.5,
+        "B": 0.0,
+        "C": 0.5
+      },
+      "max_pointwise_residual_to_KN": 0.9999999899990449,
+      "dominant_angular_form": "cos \u03b8-dominant (single-cosine spin-\u00bd structure)",
+      "theta_samples": [
+        0.0,
+        0.09817477042468103,
+        0.19634954084936207,
+        0.2945243112740431,
+        0.39269908169872414,
+        0.4908738521234052,
+        0.5890486225480862,
+        0.6872233929727672,
+        0.7853981633974483,
+        0.8835729338221293,
+        0.9817477042468103,
+        1.0799224746714913,
+        1.1780972450961724,
+        1.2762720155208536,
+        1.3744467859455345,
+        1.4726215563702154,
+        1.5707963267948966,
+        1.6689710972195777,
+        1.7671458676442586,
+        1.8653206380689396,
+        1.9634954084936207,
+        2.061670178918302,
+        2.1598449493429825,
+        2.2580197197676637,
+        2.356194490192345,
+        2.454369260617026,
+        2.552544031041707,
+        2.650718801466388,
+        2.748893571891069,
+        2.84706834231575,
+        2.945243112740431,
+        3.043417883165112,
+        3.141592653589793
+      ],
+      "amplitude_squared_normalized": [
+        1.0,
+        0.9975928437270265,
+        0.9903945433053744,
+        0.9784743813315755,
+        0.9619470889502925,
+        0.9409717434833762,
+        0.9157502398734803,
+        0.8865253505134315,
+        0.8535783920015046,
+        0.8172265211004678,
+        0.7778196857405151,
+        0.735737260224201,
+        0.6913843968429327,
+        0.6451881288136831,
+        0.5975932619128538,
+        0.5490580941957118,
+        0.5000500048878723,
+        0.45104095484624374,
+        0.4025029418482341,
+        0.35490345446201843,
+        0.30870096830502713,
+        0.26434052811300224,
+        0.22224945827679554,
+        0.18283324328172204,
+        0.14647161788686622,
+        0.11351490488126299,
+        0.0842806358864152,
+        0.05905048795551326,
+        0.038067565678678576,
+        0.021534055169747702,
+        0.009609272710661934,
+        0.002408127007686128,
+        1.0000955075620494e-08
+      ],
+      "kn_normalized": [
+        1.0,
+        0.9951963201008076,
+        0.9809698831278217,
+        0.9578674030756362,
+        0.9267766952966369,
+        0.8888925582549005,
+        0.8456708580912724,
+        0.7987725805040321,
+        0.75,
+        0.7012274194959679,
+        0.6543291419087276,
+        0.6111074417450996,
+        0.5732233047033631,
+        0.5421325969243637,
+        0.5190301168721784,
+        0.5048036798991924,
+        0.5,
+        0.5048036798991924,
+        0.5190301168721783,
+        0.5421325969243637,
+        0.5732233047033631,
+        0.6111074417450995,
+        0.6543291419087274,
+        0.7012274194959679,
+        0.75,
+        0.7987725805040321,
+        0.8456708580912725,
+        0.8888925582549005,
+        0.9267766952966369,
+        0.9578674030756362,
+        0.9809698831278217,
+        0.9951963201008076,
+        1.0
+      ],
+      "pass": false
+    },
+    {
+      "name": "T3_ansatz_sensitivity",
+      "description": "Repeat T2 with three spin-phase ans\u00e4tze and identify which (if any) approaches Klein-Nishina.",
+      "ansatz_results": {
+        "spin_half": {
+          "fitted_A_B_C": [
+            0.5000500048879328,
+            0.4999999949995043,
+            -4.9999887450691276e-05
+          ],
+          "max_residual_to_KN": 0.9999999899990449
+        },
+        "spin_one": {
+          "fitted_A_B_C": [
+            2.5002529028967712e-09,
+            -7.647924054765554e-05,
+            1.0001000072756734
+          ],
+          "max_residual_to_KN": 0.4999999974997612
+        },
+        "only_u": {
+          "fitted_A_B_C": [
+            0.5000500048879329,
+            0.4999999949995041,
+            -4.999988745074679e-05
+          ],
+          "max_residual_to_KN": 0.9999999899990449
+        }
+      },
+      "closest_to_KN_ansatz": "spin_one",
+      "closest_residual": 0.4999999974997612,
+      "pass": false
+    },
+    {
+      "name": "T4_photon_factor",
+      "description": "Multiply M_BAM by exp(i\u03b8) (a putative photon spin-1 contribution) and check whether Klein-Nishina structure is restored.",
+      "baseline_fit_A_B_C": [
+        0.5000500048879328,
+        0.4999999949995043,
+        -4.9999887450691276e-05
+      ],
+      "with_photon_factor_fit_A_B_C": [
+        0.5000500048879328,
+        0.4999999949995043,
+        -4.9999887450691276e-05
+      ],
+      "baseline_residual_to_KN": 0.9999999899990449,
+      "with_photon_factor_residual_to_KN": 0.9999999899990449,
+      "improvement_from_photon_factor": 0.0,
+      "photon_factor_restores_KN": false,
+      "pass": false
+    }
+  ],
+  "n_passed": 1,
+  "n_total": 4,
+  "verdict_class": "PARTIAL_MATCH",
+  "verdict": "PARTIAL STRUCTURAL MATCH \u2014 the BAM amplitude reproduces the propagator pole structure (T1 PASS: `G_S3(\u03c8) \u223c 1/\u03c8` with `\u03c8 \u221d s \u2212 m\u00b2` gives the correct 1/(s \u2212 m\u00b2) leading divergence) but NOT the Klein-Nishina angular dependence (T2 FAIL). The dominant angular form is `cos \u03b8-dominant (single-cosine spin-\u00bd structure)` rather than KN`s cos\u00b2\u03b8-dominant structure. The diagnostic T4 identifies whether an extra photon-side phase factor restores KN \u2014 if yes, the missing structure is the photon throat-pair representation; if no, the gap is deeper. This is the expected outcome and identifies the next structural piece."
+}
