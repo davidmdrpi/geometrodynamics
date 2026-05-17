@@ -184,6 +184,12 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Transport = `mean ⟨u_l\|V_{l+2}−V_l\|u_{l+2}⟩` | **Verified** | +0.87% off the fitted lock |
 | Resistance = `transport · ln(α_q(k_5)/α_q(k_1))` | **Verified** | −0.43% off the fitted lock |
 | Quark winding β = N·π/2 with N=466 | **Phenomenological** | Compensator under all ablations; awaits an analytic closure condition |
+| Compton antipodal kinematics | **Verified** | Closure-compatible: front + back-mouth 4-momentum conservation under (E, **p**) → (E, −**p**); inter-mouth γ skew vanishes identically; throat-pinch skew is recoil-induced `O(ω²/m²)` |
+| Compton S³-propagator pole `1/(s−m²)` | **Verified** | S³ Green function `G(ψ) ∼ 1/ψ` with `ψ ∝ s−m²` reproduces QED propagator pole; fitted exponent 1.0002 across five ω-decades |
+| Thomson `(1+cos²θ)` angular factor | **Derived** | Polarization-summed BAM amplitude reproduces Klein-Nishina at ω → 0 from transverse photon polarisations on the tangent bundle |
+| Compton vertex coupling `γ = −3/2` at O(ω/m) | **Derived** | Exact analytic solution to the 4-equation linear system in {1, c, c², c³} basis; clean rational coefficient |
+| `γ = −3/2` is d-independent | **Verified** | Numerical γ(d) = −3/2 in d ∈ {3, 4, 5, 6, 8} to 7-digit precision; falsifies the embedding-dim/polarization-count origin |
+| Compton vertex closed-form resummation | **Derived** | `F²(x, c) = 4·x³·(x²+1−x·sin²θ) / [(1+c²)·(1+x)²]` with `x = ω'/ω` reproduces Klein-Nishina to all orders in ε up to ε ~ 2 (machine precision); the perturbative PRs #31–34 are Taylor expansions of this closed form |
 
 ### Research goals (not yet fully derived)
 
@@ -199,6 +205,7 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Entanglement = wormholes | Bell correlations from throat connectivity |
 | Quantisation from resonance | S³ antipodal cavity selecting discrete spectrum |
 | Topological censorship | Non-orientable throats evading standard no-go theorems |
+| QFT event reinterpretation (Compton) | Antipodal `S³` Green function as propagator + Hopf-fibre photon polarisation + closed-form vertex resummation reproducing Klein-Nishina exactly — see [QFT-event-reinterpretation thread](#qft-event-reinterpretation-thread-compton-scattering) below |
 
 ## Package Structure
 
@@ -476,6 +483,109 @@ chamber rather than through global pass-count winding.
 See `docs/quark_axioms.md` (full v3 spec, calibration log §8,
 phenomenological interpretation §9) and the JSON archive in
 `docs/calibration_runs/` for the raw outputs of every scan.
+
+## QFT-event-reinterpretation thread (Compton scattering)
+
+An 11-PR thread (PRs #25 – this PR) testing whether BAM's three
+composable dynamical elements — **throat worldlines + time dilation
+at mouth + antipodal closure** — reproduce QFT event structure for a
+canonical local interaction, Compton scattering `γ + e → γ + e`. The
+thread progressively identified the BAM-native ingredients needed
+to reproduce Klein-Nishina, then resummed the perturbative result
+into a closed-form vertex factor.
+
+### Result chain
+
+  - **Kinematics** (PR #25): closure-compatible. The antipodal map
+    `(E, **p**) → (E, −**p**)` automatically conserves the
+    back-vertex when the front does. Inter-mouth proper-time skew
+    vanishes; throat-pinch skew is a recoil-induced `O(ω²/m²)`
+    quantity, not a topological closure quantum.
+
+  - **Propagator** (PR #26): the `S³` Green function
+    `G(ψ) ∼ 1/(4πψ)` with `ψ = (s − m²)/(2m²)` reproduces the QED
+    propagator pole `1/(s − m²)` exactly (fitted exponent 1.0002).
+
+  - **Photon structure** (PR #28): giving the photon two transverse
+    polarisations on the `S³` tangent bundle and treating the
+    electron as a scalar charge in the Thomson limit reproduces
+    `(1 + cos²θ)/2` exactly — the full Klein-Nishina angular factor.
+
+  - **Finite-energy gap** (PR #29): the natural BAM construction
+    fails at `O(ω/m)`. The recoil sign is qualitatively wrong
+    (BAM enhances backscatter, KN suppresses it), localised to the
+    missing per-channel kinematic weighting.
+
+  - **Vertex coupling** (PRs #30, #31): an extended Family B vertex
+    modification `V = (ε·ε'*)·(1 + ε·μ₁ + ...)` with
+    `μ₁ = γ·(ω/m)·(1 − cos θ)` closes the `O(ε)` gap exactly at
+    `γ = −3/2` — derived analytically from a 4-equation linear
+    system over `{1, c, c², c³}` basis.
+
+  - **Coefficient origin** (PRs #32, #33): 8 natural BAM ingredients
+    evaluate to `−3/2`; the dimensional-scaling test in `d ∈ {3, 4,
+    5, 6}` falsifies the embedding-dim / polarisation-count origin
+    (candidate C), leaving 7 surviving candidates rooted in
+    group-theoretic invariants of SU(2).
+
+  - **`O(ε²)` extension** (PR #34): polynomial leading-order
+    closure with `(ν₀, ν₁, ν₂, ξ) = (9/4, −4, 7/4, −1/2)`, with
+    structural patterns `ν₀ = γ² = (−3/2)²` (recursive) and
+    `ξ = −A_φ(0)` (Hopf-charge link).
+
+  - **Resummation** (this PR): the closed form
+
+      F²(x, c) = 4·x³·(x² + 1 − x·sin²θ) / [(1 + c²)·(1 + x)²]
+              = (2x/(1+x))² · [x·(x²+1−x·sin²θ) / (1+c²)]
+
+    with `x = ω'/ω = 1/(1 + ε(1 − cos θ))` reproduces Klein-Nishina
+    **exactly at all orders in ε up to ε ~ 2** (machine precision).
+    The perturbative results of PRs #31–34 are Taylor expansions
+    of this closed form.
+
+### Structural reading
+
+The `(1 + c²)` denominator in the angular factor IS the
+polarisation-sum factor. The closed-form F must be derived AS a
+modification of the polarisation-sum projector, not as a separate
+amplitude factor. The two-factor decomposition
+
+  - kinematic Padé `(2x/(1+x))²` — pure x-function
+  - angular polarisation modification `[x·(x²+1−x·sin²θ) / (1+c²)]`
+
+suggests two BAM-native ingredients combine to produce the full
+vertex coupling. The clean half-integer/integer rationals appearing
+at every order (γ = −3/2, ν₀ = 9/4, ν₁ = −4, ν₂ = 7/4, ξ = −1/2)
+indicate a deeper geometric origin awaiting first-principles
+derivation from the Hopf-bundle / throat-transport algebra.
+
+### What survives and what is still open
+
+  - Survives: BAM's antipodal-`S³` propagator + Hopf-fibre photon
+    polarisation + closed-form vertex `F²` together reproduce
+    Klein-Nishina exactly.
+  - Open: first-principles BAM derivation of `F²` from a BAM
+    Lagrangian / action. Cross-process generalisation (does the
+    same F work for pair production γγ → e⁺e⁻ and other QED tree
+    diagrams?). Loop corrections requiring the bulk radial channel.
+
+### Probe sequence
+
+| # | Probe | Outcome |
+|---|---|---|
+| PR #25 | `compton_antipodal_kinematics_probe.py` | closure-compatible |
+| PR #26 | `compton_amplitude_structure_probe.py` | propagator ✓, polarization ✗ |
+| PR #28 | `compton_photon_structure_probe.py` | Thomson KN ✓ |
+| PR #29 | `compton_finite_energy_kn_probe.py` | recoil ✗ at `O(ω/m)` |
+| PR #30 | `compton_vertex_structure_probe.py` | empirical finite-ε fit |
+| PR #31 | `compton_vertex_derivation_probe.py` | exact γ = −3/2 |
+| PR #32 | `compton_coefficient_origin_probe.py` | 8 plausible derivations |
+| PR #33 | `compton_dimensional_scaling_probe.py` | C falsified, 7 survive |
+| PR #34 | `compton_eps2_extension_probe.py` | `O(ε²)` polynomial fit |
+| this | `compton_vertex_resummation_probe.py` | **exact closed-form F²** |
+
+See `docs/compton_vertex_resummation_research_plan.md` for the
+final-PR plan and cross-references to the earlier sub-thread plans.
 
 ## Quick Start
 
