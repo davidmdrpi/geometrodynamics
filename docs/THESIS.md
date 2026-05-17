@@ -144,7 +144,8 @@ detail):
 | Coulomb radial response | verified by Tangherlini/Maxwell BVP |
 | Coulomb force at finite separation | falsification test, not yet closed |
 | Black-hole interior / entropy | regular metric derived; entropy currently a consistency check |
-| Full QFT / Born rule / `ℏ` origin | open |
+| Compton tree amplitude (Klein-Nishina) | reproduced exactly via closed-form F² (PRs #25–#35); first-principles BAM derivation of F² open |
+| Full QFT / Born rule / `ℏ` origin | partially open (Compton closed; pair production, e⁻e⁻, loops still open) |
 
 ## Three mechanisms that compose
 
@@ -283,6 +284,56 @@ asymmetry. If `χ` and `η` can be derived from the same `Z₂` partition
 structure rather than just expressed in `k_5`, the residual sector
 goes from "geometric expressions" to "consequences of one partition
 principle" — a much stronger claim with no new physics required.
+
+**QFT event reinterpretation: Compton scattering from BAM.** _Closed
+at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a
+BAM amplitude for Compton scattering by progressively identifying
+the BAM-native ingredients needed to reproduce Klein-Nishina. The
+thread reaches a closed form at the resummation stage: the vertex
+modification factor is
+
+```
+F²(x, c) = 4·x³·(x² + 1 − x·sin²θ) / [(1 + c²)·(1 + x)²]
+```
+
+with `x = ω'/ω = 1/(1 + ε(1 − cos θ))` and `c = cos θ`. The BAM
+amplitude `f_BAM_baseline · F²` reproduces the full Klein-Nishina
+differential cross section **exactly at all orders in ε up to
+ε ~ 2** (highly relativistic Compton), to machine precision. The
+perturbative results — γ = −3/2 at O(ε), the patterns `ν₀ = γ²` and
+`ξ = −A_φ(0)` at O(ε²) — are Taylor expansions of this closed form.
+
+What this establishes:
+
+  - The antipodal `S³` Green function `G(ψ) ∼ 1/(4πψ)` reproduces
+    the QED propagator pole exactly.
+  - Two transverse photon polarisations on the `S³` tangent bundle
+    reproduce the Thomson angular factor `(1 + cos²θ)/2`.
+  - The closed-form F² resums all finite-energy corrections; no
+    `ε·k` vertex contraction is needed (α = 0 in the parametric
+    scans, at both O(ε) and O(ε²)).
+
+What this does *not* yet establish:
+
+  - First-principles BAM derivation of F² from a Lagrangian / action.
+    The clean structure — two-factor decomposition into kinematic
+    Padé `(2x/(1+x))²` × angular polarisation modification — points
+    to a derivation involving a modified pol-sum projector tied to
+    the Hopf bundle, but the explicit construction is open.
+  - Cross-process consistency. Does the same F work for pair
+    production `γγ → e⁺e⁻` and other QED tree diagrams? This is
+    the natural next-thread target.
+  - Loop corrections. Tree level only; vertex/self-energy/vacuum
+    polarisation would couple to the bulk radial channel.
+
+This is the strongest amplitude-level result in BAM so far. It
+demonstrates that the Compton amplitude — historically the cleanest
+non-trivial QED prediction — is reproducible from a BAM-native
+construction (antipodal Green function + transverse Hopf-fibre
+polarisation + closed-form vertex). The first-principles derivation
+of F² is the next analytic task; if it succeeds, BAM's amplitude-
+level reach extends from "reproduces Compton" to "derives QED tree
+amplitudes from geometry".
 
 ## Open problems
 
