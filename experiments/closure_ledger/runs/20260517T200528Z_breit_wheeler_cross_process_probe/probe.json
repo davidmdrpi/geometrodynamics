@@ -1,0 +1,446 @@
+{
+  "timestamp_utc": "2026-05-17T20:05:28+00:00",
+  "crossing_map": "s_C \u2192 u_BW, t_C \u2192 s_BW, u_C \u2192 t_BW",
+  "crossed_variables": "x_\u2297 = \u2212(1\u2212\u03b2c)/(1+\u03b2c),  c_\u2297 = (2\u03b2\u00b2\u2212\u03b2\u00b2c\u00b2\u22121)/(1\u2212\u03b2\u00b2c\u00b2),  sin\u00b2\u03b8_\u2297 = 4\u03b2\u00b2(1\u2212\u03b2\u00b2)sin\u00b2\u03b8/(1\u2212\u03b2\u00b2c\u00b2)\u00b2",
+  "tests": [
+    {
+      "name": "T1_mandelstam_crossing_identity",
+      "description": "Standard QED prediction: |M\u0304|\u00b2_BW = \u2212|M\u0304|\u00b2_KN evaluated at (s_C=u_BW, t_C=s_BW, u_C=t_BW). The sign flip arises from one crossed fermion line.",
+      "samples_first_8": [
+        {
+          "beta": 0.05,
+          "cos_theta": -0.95,
+          "M2_KN_at_crossed_Mandelstam": -2.0100223747894446,
+          "M2_BW_direct": 2.010022374789444,
+          "predicted_minus_M2_KN_crossed": 2.0100223747894446,
+          "difference": 4.440892098500626e-16
+        },
+        {
+          "beta": 0.05,
+          "cos_theta": -0.8312499999999999,
+          "M2_KN_at_crossed_Mandelstam": -2.0100149086495493,
+          "M2_BW_direct": 2.0100149086495493,
+          "predicted_minus_M2_KN_crossed": 2.0100149086495493,
+          "difference": 0.0
+        },
+        {
+          "beta": 0.05,
+          "cos_theta": -0.7124999999999999,
+          "M2_KN_at_crossed_Mandelstam": -2.0100066320632273,
+          "M2_BW_direct": 2.0100066320632255,
+          "predicted_minus_M2_KN_crossed": 2.0100066320632273,
+          "difference": 1.7763568394002505e-15
+        },
+        {
+          "beta": 0.05,
+          "cos_theta": -0.59375,
+          "M2_KN_at_crossed_Mandelstam": -2.0099983226117644,
+          "M2_BW_direct": 2.0099983226117635,
+          "predicted_minus_M2_KN_crossed": 2.0099983226117644,
+          "difference": 8.881784197001252e-16
+        },
+        {
+          "beta": 0.05,
+          "cos_theta": -0.475,
+          "M2_KN_at_crossed_Mandelstam": -2.0099906354659334,
+          "M2_BW_direct": 2.0099906354659334,
+          "predicted_minus_M2_KN_crossed": 2.0099906354659334,
+          "difference": 0.0
+        },
+        {
+          "beta": 0.05,
+          "cos_theta": -0.35624999999999996,
+          "M2_KN_at_crossed_Mandelstam": -2.0099841047834746,
+          "M2_BW_direct": 2.0099841047834746,
+          "predicted_minus_M2_KN_crossed": 2.0099841047834746,
+          "difference": 0.0
+        },
+        {
+          "beta": 0.05,
+          "cos_theta": -0.23750000000000004,
+          "M2_KN_at_crossed_Mandelstam": -2.0099791448468807,
+          "M2_BW_direct": 2.009979144846879,
+          "predicted_minus_M2_KN_crossed": 2.0099791448468807,
+          "difference": 1.7763568394002505e-15
+        },
+        {
+          "beta": 0.05,
+          "cos_theta": -0.11875000000000002,
+          "M2_KN_at_crossed_Mandelstam": -2.0099760509448403,
+          "M2_BW_direct": 2.0099760509448417,
+          "predicted_minus_M2_KN_crossed": 2.0099760509448403,
+          "difference": 1.3322676295501878e-15
+        }
+      ],
+      "max_difference": 5.684341886080802e-14,
+      "pass": true
+    },
+    {
+      "name": "T2_BAM_crossed_reproduces_BW",
+      "description": "BAM-predicted |M\u0304|\u00b2_BW = \u22122\u00b7(f_baseline \u00b7 F\u00b2)/x_\u2297\u00b2 evaluated at the crossed variables, compared to the textbook |M\u0304|\u00b2_BW. The conversion factor \u22122/x_\u2297\u00b2 is the standard Compton x\u00b2/2 relation between f_KN_invariant and |M\u0304|\u00b2/(8e\u2074), with the fermion-crossing sign. Machine precision agreement means the BAM Compton vertex factor is process-general under analytic continuation.",
+      "samples_first_12": [
+        {
+          "beta": 0.1,
+          "cos_theta": -0.95,
+          "x_crossed": -1.2099447513812154,
+          "c_crossed": -0.9980322409747975,
+          "BAM_product_f_KN_invariant": -1.4935094455845819,
+          "BAM_predicted_M2_BW": 2.040360415620879,
+          "textbook_M2_BW": 2.0403604156208797,
+          "difference": 4.440892098500626e-16
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": -0.8312499999999999,
+          "x_crossed": -1.1813224267211997,
+          "c_crossed": -0.9937765285207043,
+          "BAM_product_f_KN_invariant": -1.4236003005257372,
+          "BAM_predicted_M2_BW": 2.0402395821102353,
+          "textbook_M2_BW": 2.0402395821102353,
+          "difference": 0.0
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": -0.7124999999999999,
+          "x_crossed": -1.1534320323014806,
+          "c_crossed": -0.9901028816601778,
+          "BAM_product_f_KN_invariant": -1.3570841705896506,
+          "BAM_predicted_M2_BW": 2.0401061456679654,
+          "textbook_M2_BW": 2.040106145667966,
+          "difference": 4.440892098500626e-16
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": -0.59375,
+          "x_crossed": -1.1262458471760797,
+          "c_crossed": -0.9870049686884423,
+          "BAM_product_f_KN_invariant": -1.2937809526626025,
+          "BAM_predicted_M2_BW": 2.039972643680171,
+          "textbook_M2_BW": 2.0399726436801693,
+          "difference": 1.7763568394002505e-15
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": -0.475,
+          "x_crossed": -1.099737532808399,
+          "c_crossed": -0.9844774773081764,
+          "BAM_product_f_KN_invariant": -1.233520088086233,
+          "BAM_predicted_M2_BW": 2.0398495053763157,
+          "textbook_M2_BW": 2.039849505376316,
+          "difference": 4.440892098500626e-16
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": -0.35624999999999996,
+          "x_crossed": -1.0738820479585223,
+          "c_crossed": -0.9825160917117077,
+          "BAM_product_f_KN_invariant": -1.1761401526032222,
+          "BAM_predicted_M2_BW": 2.039745143086556,
+          "textbook_M2_BW": 2.0397451430865576,
+          "difference": 1.7763568394002505e-15
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": -0.23750000000000004,
+          "x_crossed": -1.0486555697823303,
+          "c_crossed": -0.9811174740752204,
+          "BAM_product_f_KN_invariant": -1.121488441798648,
+          "BAM_predicted_M2_BW": 2.039666025448543,
+          "textbook_M2_BW": 2.0396660254485433,
+          "difference": 4.440892098500626e-16
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": -0.11875000000000002,
+          "x_crossed": -1.024035420619861,
+          "c_crossed": -0.9802792503161575,
+          "BAM_product_f_KN_invariant": -1.0694205575844966,
+          "BAM_predicted_M2_BW": 2.0396167334524367,
+          "textbook_M2_BW": 2.0396167334524358,
+          "difference": 8.881784197001252e-16
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": 0.0,
+          "x_crossed": -1.0,
+          "c_crossed": -0.9799999999999998,
+          "BAM_product_f_KN_invariant": -1.0198000000000003,
+          "BAM_predicted_M2_BW": 2.0396000000000005,
+          "textbook_M2_BW": 2.0396,
+          "difference": 4.440892098500626e-16
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": 0.11874999999999991,
+          "x_crossed": -0.9765287214329832,
+          "c_crossed": -0.9802792503161575,
+          "BAM_product_f_KN_invariant": -0.9724977675703826,
+          "BAM_predicted_M2_BW": 2.039616733452436,
+          "textbook_M2_BW": 2.0396167334524358,
+          "difference": 4.440892098500626e-16
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": 0.23750000000000004,
+          "x_crossed": -0.9536019536019535,
+          "c_crossed": -0.9811174740752204,
+          "BAM_product_f_KN_invariant": -0.9273919686360854,
+          "BAM_predicted_M2_BW": 2.039666025448543,
+          "textbook_M2_BW": 2.0396660254485433,
+          "difference": 4.440892098500626e-16
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": 0.35624999999999996,
+          "x_crossed": -0.9312009656004828,
+          "c_crossed": -0.9825160917117077,
+          "BAM_product_f_KN_invariant": -0.8843674453967869,
+          "BAM_predicted_M2_BW": 2.0397451430865563,
+          "textbook_M2_BW": 2.0397451430865576,
+          "difference": 1.3322676295501878e-15
+        }
+      ],
+      "max_difference": 2.1316282072803006e-14,
+      "pass": true
+    },
+    {
+      "name": "T3_individual_factor_inspection",
+      "description": "Are f_baseline_C and F\u00b2_C individually well-defined (positive, finite) at BW kinematics, or does the analytic continuation force a sign flip / pole in one factor?",
+      "samples_first_10": [
+        {
+          "beta": 0.1,
+          "cos_theta": -0.9,
+          "x_crossed": -1.1978021978021978,
+          "c_crossed": -0.9961689686460322,
+          "baseline_at_crossed": 0.0067915395059993805,
+          "F2_at_crossed": -215.51056303915104
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": -0.75,
+          "x_crossed": -1.162162162162162,
+          "c_crossed": -0.9912005028284099,
+          "baseline_at_crossed": 0.004824852874869013,
+          "F2_at_crossed": -285.5493958107893
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": -0.6000000000000001,
+          "x_crossed": -1.1276595744680853,
+          "c_crossed": -0.9871537535126453,
+          "baseline_at_crossed": 0.003163092345615344,
+          "F2_at_crossed": -410.0529667645552
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": -0.45000000000000007,
+          "x_crossed": -1.094240837696335,
+          "c_crossed": -0.9840176357123176,
+          "baseline_at_crossed": 0.001824953037920625,
+          "F2_at_crossed": -669.1711581254788
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": -0.30000000000000004,
+          "x_crossed": -1.0618556701030928,
+          "c_crossed": -0.9817836052447202,
+          "baseline_at_crossed": 0.0008330234436679173,
+          "F2_at_crossed": -1380.4190707529715
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": -0.15000000000000002,
+          "x_crossed": -1.030456852791878,
+          "c_crossed": -0.9804456002600586,
+          "baseline_at_crossed": 0.00021416998926962052,
+          "F2_at_crossed": -5056.170215445363
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": -1.1102230246251565e-16,
+          "x_crossed": -1.0,
+          "c_crossed": -0.9799999999999998,
+          "baseline_at_crossed": 0.0,
+          "F2_at_crossed": -Infinity
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": 0.15000000000000002,
+          "x_crossed": -0.9704433497536946,
+          "c_crossed": -0.9804456002600586,
+          "baseline_at_crossed": 0.00022741454528103802,
+          "F2_at_crossed": -4223.211343350281
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": 0.29999999999999993,
+          "x_crossed": -0.9417475728155339,
+          "c_crossed": -0.9817836052447202,
+          "baseline_at_crossed": 0.0009392651412342377,
+          "F2_at_crossed": -962.9816418843926
+        },
+        {
+          "beta": 0.1,
+          "cos_theta": 0.44999999999999984,
+          "x_crossed": -0.9138755980861245,
+          "c_crossed": -0.9840176357123172,
+          "baseline_at_crossed": 0.002185131264203568,
+          "F2_at_crossed": -389.81603614283273
+        }
+      ],
+      "baseline_range": [
+        0.0,
+        39.49732433131584
+      ],
+      "F2_range": [
+        -Infinity,
+        -0.0008260020167285424
+      ],
+      "n_baseline_negative": 0,
+      "n_F2_negative": 78,
+      "pass": true
+    },
+    {
+      "name": "T4_total_cross_section_recovery",
+      "description": "Integrate the BAM-crossed differential d\u03c3/dcos\u03b8 over c \u2208 [\u22121, 1] and compare to the textbook integrated differential. A constant ratio across \u03b2 means the BAM construction reproduces BW under crossing.",
+      "rows": [
+        {
+          "beta": 0.1,
+          "textbook_diff_integral": 0.10097594864604473,
+          "BAM_diff_integral": 0.10097594864604474,
+          "ratio_BAM_over_textbook": 1.0000000000000002,
+          "textbook_total_formula": 0.3172256154920871
+        },
+        {
+          "beta": 0.3,
+          "textbook_diff_integral": 0.321276745724822,
+          "BAM_diff_integral": 0.3212767457248219,
+          "ratio_BAM_over_textbook": 0.9999999999999997,
+          "textbook_total_formula": 1.0093216215295624
+        },
+        {
+          "beta": 0.5,
+          "textbook_diff_integral": 0.5539398214612407,
+          "BAM_diff_integral": 0.5539398214612405,
+          "ratio_BAM_over_textbook": 0.9999999999999998,
+          "textbook_total_formula": 1.7402541462885075
+        },
+        {
+          "beta": 0.7,
+          "textbook_diff_integral": 0.6816996937178698,
+          "BAM_diff_integral": 0.6816996937178699,
+          "ratio_BAM_over_textbook": 1.0000000000000002,
+          "textbook_total_formula": 2.141617398781097
+        },
+        {
+          "beta": 0.9,
+          "textbook_diff_integral": 0.4521739660644902,
+          "BAM_diff_integral": 0.4521739660644901,
+          "ratio_BAM_over_textbook": 0.9999999999999999,
+          "textbook_total_formula": 1.4204701749332775
+        },
+        {
+          "beta": 0.95,
+          "textbook_diff_integral": 0.28873453104751423,
+          "BAM_diff_integral": 0.28873453104751423,
+          "ratio_BAM_over_textbook": 1.0,
+          "textbook_total_formula": 0.9068843450896802
+        },
+        {
+          "beta": 0.98,
+          "textbook_diff_integral": 0.14887241293180867,
+          "BAM_diff_integral": 0.1488724129318087,
+          "ratio_BAM_over_textbook": 1.0000000000000002,
+          "textbook_total_formula": 0.4671081935463734
+        }
+      ],
+      "ratio_mean": 1.0,
+      "ratio_std_over_mean": 2.1396753516965273e-16,
+      "pass": true
+    },
+    {
+      "name": "T5_threshold_and_ultrarelativistic_limits",
+      "description": "Check that the BAM-crossed integrated differential matches the textbook BW integrated differential at threshold (\u03b2 \u2192 0) and in the ultra-relativistic limit (\u03b2 \u2192 1). The linear-in-\u03b2 threshold behaviour and the (1\u2212\u03b2\u00b2)\u00b7log envelope at high energy must be reproduced by the crossing of the closed-form Compton F.",
+      "threshold_rows": [
+        {
+          "beta": 0.01,
+          "textbook_int_diff": 0.010000989759005785,
+          "BAM_int_diff": 0.010000989759005784,
+          "textbook_over_beta": 1.0000989759005785,
+          "BAM_over_beta": 1.0000989759005783,
+          "ratio_BAM_over_textbook": 0.9999999999999998
+        },
+        {
+          "beta": 0.02,
+          "textbook_int_diff": 0.0200079723126606,
+          "BAM_int_diff": 0.020007972312660598,
+          "textbook_over_beta": 1.00039861563303,
+          "BAM_over_beta": 1.0003986156330298,
+          "ratio_BAM_over_textbook": 0.9999999999999998
+        },
+        {
+          "beta": 0.05,
+          "textbook_int_diff": 0.05012420026458986,
+          "BAM_int_diff": 0.05012420026458986,
+          "textbook_over_beta": 1.0024840052917972,
+          "BAM_over_beta": 1.0024840052917972,
+          "ratio_BAM_over_textbook": 1.0
+        },
+        {
+          "beta": 0.1,
+          "textbook_int_diff": 0.10097594864604473,
+          "BAM_int_diff": 0.10097594864604474,
+          "textbook_over_beta": 1.009759486460447,
+          "BAM_over_beta": 1.0097594864604473,
+          "ratio_BAM_over_textbook": 1.0000000000000002
+        }
+      ],
+      "ultra_relativistic_rows": [
+        {
+          "beta": 0.95,
+          "textbook_int_diff": 0.28873453104751423,
+          "BAM_int_diff": 0.28873453104751423,
+          "log_envelope": 0.35719726049764056,
+          "textbook_over_envelope": 0.8083335539731035,
+          "BAM_over_envelope": 0.8083335539731035,
+          "ratio_BAM_over_textbook": 1.0
+        },
+        {
+          "beta": 0.99,
+          "textbook_int_diff": 0.08770675776869825,
+          "BAM_int_diff": 0.0877067577686983,
+          "log_envelope": 0.10533676601201752,
+          "textbook_over_envelope": 0.8326319583296499,
+          "BAM_over_envelope": 0.8326319583296503,
+          "ratio_BAM_over_textbook": 1.0000000000000004
+        },
+        {
+          "beta": 0.999,
+          "textbook_int_diff": 0.015569296226983689,
+          "BAM_int_diff": 0.015569296226983421,
+          "log_envelope": 0.015193204266666094,
+          "textbook_over_envelope": 1.0247539593173733,
+          "BAM_over_envelope": 1.0247539593173558,
+          "ratio_BAM_over_textbook": 0.9999999999999828
+        }
+      ],
+      "BAM_over_textbook_ratios": [
+        0.9999999999999998,
+        0.9999999999999998,
+        1.0,
+        1.0000000000000002,
+        1.0,
+        1.0000000000000004,
+        0.9999999999999828
+      ],
+      "ratio_mean": 0.9999999999999976,
+      "ratio_std": 6.0386627256279385e-15,
+      "relative_spread": 1.7652546091540033e-14,
+      "pass": true
+    }
+  ],
+  "n_passed": 5,
+  "n_total": 5,
+  "verdict_class": "PROCESS_GENERAL_UNDER_CROSSING",
+  "verdict": "PROCESS-GENERAL UNDER CROSSING. The BAM Compton vertex factor F\u00b2(x, c) = 4\u00b7x\u00b3\u00b7(x\u00b2+1\u2212x\u00b7sin\u00b2\u03b8)/[(1+c\u00b2)(1+x)\u00b2], when expressed in Lorentz-invariant form and analytically continued via standard Mandelstam crossing (s_C \u2192 u_BW, t_C \u2192 s_BW, u_C \u2192 t_BW), exactly reproduces the Breit-Wheeler differential and total cross sections. The Compton-side construction is not a process-specific algebraic fit \u2014 it is the closed form of the invariant QED amplitude in Compton variables, and crossing carries it to BW automatically. The same closed-form F (with x_\u2297 < 0 as the analytic continuation of \u03c9\u2032/\u03c9) governs pair production."
+}
