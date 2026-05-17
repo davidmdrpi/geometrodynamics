@@ -580,11 +580,15 @@ derivation from the Hopf-bundle / throat-transport algebra.
 
   - Survives: BAM's antipodal-`S³` propagator + Hopf-fibre photon
     polarisation + closed-form vertex `F²` together reproduce
-    Klein-Nishina exactly.
+    Klein-Nishina exactly. The same closed form, crossed via
+    Mandelstam permutation, reproduces Breit–Wheeler `γγ → e⁺e⁻`
+    (PR #36) and pair annihilation `e⁺e⁻ → γγ` (this PR); the full
+    Compton/BW/annihilation crossing triangle closes (loop is
+    identity at both the Mandelstam-label and amplitude level).
   - Open: first-principles BAM derivation of `F²` from a BAM
-    Lagrangian / action. Other tree-level cross-process partners
-    (pair annihilation `e⁺e⁻ → γγ`, Bhabha, Møller) and loop
-    corrections requiring the bulk radial channel.
+    Lagrangian / action. Two-channel tree processes (Bhabha, Møller)
+    with interfering s+t diagrams; loop corrections requiring the
+    bulk radial channel.
 
 ### Probe sequence
 
@@ -600,12 +604,15 @@ derivation from the Hopf-bundle / throat-transport algebra.
 | PR #33 | `compton_dimensional_scaling_probe.py` | C falsified, 7 survive |
 | PR #34 | `compton_eps2_extension_probe.py` | `O(ε²)` polynomial fit |
 | PR #35 | `compton_vertex_resummation_probe.py` | exact closed-form F² |
-| this | `breit_wheeler_cross_process_probe.py` | **F process-general under crossing** |
+| PR #36 | `breit_wheeler_cross_process_probe.py` | F process-general under Compton → BW crossing |
+| this | `pair_annihilation_crossing_probe.py` | **full Compton/BW/annihilation crossing triangle closes** |
 
 See `docs/compton_vertex_resummation_research_plan.md` for the
-Compton-thread culmination and
-`docs/breit_wheeler_cross_process_research_plan.md` for the
-cross-process validation plan.
+Compton-thread culmination,
+`docs/breit_wheeler_cross_process_research_plan.md` for the BW
+cross-process plan, and
+`docs/pair_annihilation_crossing_research_plan.md` for the
+triangle-closure plan.
 
 ## Quick Start
 
