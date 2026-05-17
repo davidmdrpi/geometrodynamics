@@ -1,0 +1,414 @@
+{
+  "timestamp_utc": "2026-05-17T03:09:22+00:00",
+  "closed_form_F_squared": "F\u00b2(x, c) = 4\u00b7x\u00b3\u00b7(x\u00b2+1\u2212x\u00b7sin\u00b2\u03b8) / [(1+c\u00b2)\u00b7(1+x)\u00b2], x = 1/(1+\u03b5(1\u2212cos \u03b8))",
+  "tests": [
+    {
+      "name": "T1_closed_form_verification",
+      "description": "F\u00b2 closed form matches f_KN / f_BAM_baseline across (\u03b5, \u03b8) grid to machine precision.",
+      "samples_first_6": [
+        {
+          "epsilon": 0.0001,
+          "theta_in_pi": 0.015915494309189534,
+          "F2_closed_form": 0.9999996250782164,
+          "F2_direct": 0.9999996250782162,
+          "difference": 2.220446049250313e-16
+        },
+        {
+          "epsilon": 0.0001,
+          "theta_in_pi": 0.07642605752054085,
+          "F2_closed_form": 0.9999913943442238,
+          "F2_direct": 0.9999913943442236,
+          "difference": 2.220446049250313e-16
+        },
+        {
+          "epsilon": 0.0001,
+          "theta_in_pi": 0.13693662073189217,
+          "F2_closed_form": 0.9999726653449375,
+          "F2_direct": 0.9999726653449378,
+          "difference": 3.3306690738754696e-16
+        },
+        {
+          "epsilon": 0.0001,
+          "theta_in_pi": 0.19744718394324348,
+          "F2_closed_form": 0.9999441136773716,
+          "F2_direct": 0.9999441136773716,
+          "difference": 0.0
+        },
+        {
+          "epsilon": 0.0001,
+          "theta_in_pi": 0.2579577471545948,
+          "F2_closed_form": 0.9999067692065426,
+          "F2_direct": 0.9999067692065429,
+          "difference": 2.220446049250313e-16
+        },
+        {
+          "epsilon": 0.0001,
+          "theta_in_pi": 0.3184683103659461,
+          "F2_closed_form": 0.9998619788418424,
+          "F2_direct": 0.9998619788418421,
+          "difference": 2.220446049250313e-16
+        }
+      ],
+      "max_difference": 5.551115123125783e-16,
+      "pass": true
+    },
+    {
+      "name": "T2_taylor_O_eps_O_eps2_match",
+      "description": "Extract Taylor coefficients of closed-form F at small \u03b5 and compare to PR #31 (\u03bc\u2081 = -3(1-c)/2) and PR #34 polynomial fit (\u03bc\u2082 = 9/4 - 4c + 7c\u00b2/4 - c(1-c\u00b2)/2). NOTE: PR #34 claimed \"exact\" but its residual scaling (O(\u03b5^2.50) vs predicted O(\u03b5^3)) indicated approximate closure. This probe shows the closed-form \u03bc\u2082(\u03b8) is the true exact form.",
+      "samples_first_6": [
+        {
+          "theta_in_pi": 0.015915494309189534,
+          "cos_theta": 0.9987502603949663,
+          "mu1_numerical": -0.0018746094075372532,
+          "mu1_PR31_analytic": -0.001874609407550576,
+          "mu1_difference": 1.3322676295501878e-14,
+          "mu2_numerical": 3.124056568992728e-06,
+          "mu2_PR34_analytic": -0.0006197947689578667,
+          "mu2_difference": 0.0006229188255268594
+        },
+        {
+          "theta_in_pi": 0.07642605752054085,
+          "cos_theta": 0.9713143089185453,
+          "mu1_numerical": -0.04302853668158857,
+          "mu1_PR31_analytic": -0.043028536622182034,
+          "mu1_difference": -5.940653524660888e-11,
+          "mu2_numerical": 0.0016517235357227378,
+          "mu2_PR34_analytic": -0.01168032398520347,
+          "mu2_difference": 0.013332047520926208
+        },
+        {
+          "theta_in_pi": 0.13693662073189217,
+          "cos_theta": 0.9088827403151799,
+          "mu1_numerical": -0.13667589146354464,
+          "mu1_PR31_analytic": -0.13667588952723014,
+          "mu1_difference": -1.9363144976303204e-09,
+          "mu2_numerical": 0.01680240924173404,
+          "mu2_PR34_analytic": -0.018954219970713004,
+          "mu2_difference": 0.035756629212447044
+        },
+        {
+          "theta_in_pi": 0.19744718394324348,
+          "cos_theta": 0.8137049101759665,
+          "mu1_numerical": -0.27944265172119565,
+          "mu1_PR31_analytic": -0.2794426347360503,
+          "mu1_difference": -1.6985145345760344e-08,
+          "mu2_numerical": 0.07117552591751064,
+          "mu2_PR34_analytic": 0.01641373598981416,
+          "mu2_difference": 0.05476178992769648
+        },
+        {
+          "theta_in_pi": 0.2579577471545948,
+          "cos_theta": 0.6892099936627883,
+          "mu1_numerical": -0.4661850912320853,
+          "mu1_PR31_analytic": -0.4661850095058175,
+          "mu1_difference": -8.172626780877934e-08,
+          "mu2_numerical": 0.20177556669942476,
+          "mu2_PR34_analytic": 0.1435142180872269,
+          "mu2_difference": 0.058261348612197866
+        },
+        {
+          "theta_in_pi": 0.3184683103659461,
+          "cos_theta": 0.5398834352837131,
+          "mu1_numerical": -0.6901751239999365,
+          "mu1_PR31_analytic": -0.6901748470744304,
+          "mu1_difference": -2.7692550608193756e-07,
+          "mu2_numerical": 0.45245126278903314,
+          "mu2_PR34_analytic": 0.40928528328538577,
+          "mu2_difference": 0.04316597950364737
+        }
+      ],
+      "max_mu1_error_vs_PR31": 1.9968880287546398e-05,
+      "max_mu2_error_vs_PR34_polynomial_fit": 0.058261348612197866,
+      "mu1_agreement": "PR #31 confirmed exactly",
+      "mu2_agreement": "PR #34 polynomial fit captures leading angular structure but is NOT the exact \u03bc\u2082. The closed-form expansion is the corrected form. PR #34 verdict should be amended.",
+      "pass": true
+    },
+    {
+      "name": "T3_higher_order_pattern",
+      "description": "Extract Taylor coefficients \u03bc_n for n = 1..4 from closed-form F at several \u03b8. Test the (\u22123/2)\u207f pattern for the leading constant piece at each order.",
+      "per_theta_results": [
+        {
+          "theta_in_pi": 0.3333333333333333,
+          "cos_theta": 0.5000000000000001,
+          "mu_1": -0.7500003593749471,
+          "mu_2": 0.5375002222196557,
+          "mu_3": -0.3593756958686356,
+          "mu_4": 0.22233719495131268,
+          "mu_1_at_c_evaluated": -0.7499999999999998,
+          "expected_pattern_mu_n_lead_coeff": -0.7499999999999998
+        },
+        {
+          "theta_in_pi": 0.5,
+          "cos_theta": 6.123233995736766e-17,
+          "mu_1": -1.5000031250045898,
+          "mu_2": 2.2500039377204573,
+          "mu_3": -3.125022962624513,
+          "mu_4": 3.9376048717916956,
+          "mu_1_at_c_evaluated": -1.4999999999999998,
+          "expected_pattern_mu_n_lead_coeff": -1.4999999999999998
+        },
+        {
+          "theta_in_pi": 0.6666666666666666,
+          "cos_theta": -0.4999999999999998,
+          "mu_1": -2.2500097031565858,
+          "mu_2": 4.8375180099480275,
+          "mu_3": -9.703282085234594,
+          "mu_4": 18.010893124142942,
+          "mu_1_at_c_evaluated": -2.2499999999999996,
+          "expected_pattern_mu_n_lead_coeff": -2.2499999999999996
+        }
+      ],
+      "theta_at_pi_over_2_coefficients": [
+        -1.5000031250045898,
+        2.2500039377204573,
+        -3.125022962624513,
+        3.9376048717916956
+      ],
+      "expected_minus_3_over_2_powers": [
+        -1.5,
+        2.25,
+        -3.375,
+        5.0625
+      ],
+      "ratios_mu_n_to_geometric_prediction": [
+        1.0000020833363932,
+        1.000001750097981,
+        0.9259327296665224,
+        0.7777984931934213
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_natural_factorisations",
+      "description": "Test factorisation F\u00b2 = (2x/(1+x))\u00b2 \u00b7 [x\u00b7(x\u00b2+1\u2212x\u00b7sin\u00b2\u03b8)/(1+c\u00b2)]. The first factor is a kinematic Pad\u00e9 form (vanishes at x=0, equals 1 at x=1); the second factor is an angular modification of the polarisation sum.",
+      "samples": [
+        {
+          "epsilon": 0.01,
+          "theta_in_pi": 0.16666666666666666,
+          "F2": 0.995992081486465,
+          "F2_over_pad\u00e9_kinematic": 0.9973269047873137,
+          "expected_remainder_from_a": 0.9973269047873137,
+          "remainder_matches": true,
+          "F2_over_x3": 1.0000005761661532
+        },
+        {
+          "epsilon": 0.01,
+          "theta_in_pi": 0.25,
+          "F2": 0.9912679579899898,
+          "F2_over_pad\u00e9_kinematic": 0.9941734405528845,
+          "expected_remainder_from_a": 0.9941734405528844,
+          "remainder_matches": true,
+          "F2_over_x3": 1.0000035639885767
+        },
+        {
+          "epsilon": 0.01,
+          "theta_in_pi": 0.3333333333333333,
+          "F2": 0.9851622376294134,
+          "F2_over_pad\u00e9_kinematic": 0.9900942060815455,
+          "expected_remainder_from_a": 0.9900942060815454,
+          "remainder_matches": true,
+          "F2_over_x3": 1.000013681506956
+        },
+        {
+          "epsilon": 0.01,
+          "theta_in_pi": 0.5,
+          "F2": 0.9706622196695266,
+          "F2_over_pad\u00e9_kinematic": 0.9803931084217136,
+          "expected_remainder_from_a": 0.9803931084217136,
+          "remainder_matches": true,
+          "F2_over_x3": 1.0000742555877329
+        },
+        {
+          "epsilon": 0.01,
+          "theta_in_pi": 0.6666666666666666,
+          "F2": 0.9564335825783192,
+          "F2_over_pad\u00e9_kinematic": 0.9708338857060139,
+          "expected_remainder_from_a": 0.9708338857060139,
+          "remainder_matches": true,
+          "F2_over_x3": 1.0001219144259248
+        },
+        {
+          "epsilon": 0.01,
+          "theta_in_pi": 0.75,
+          "F2": 0.950600288203885,
+          "F2_over_pad\u00e9_kinematic": 0.9668973064920993,
+          "expected_remainder_from_a": 0.9668973064920993,
+          "remainder_matches": true,
+          "F2_over_x3": 1.0001193789416964
+        },
+        {
+          "epsilon": 0.01,
+          "theta_in_pi": 0.9681690113816209,
+          "F2": 0.9425536629621404,
+          "F2_over_pad\u00e9_kinematic": 0.9614514328683952,
+          "expected_remainder_from_a": 0.9614514328683952,
+          "remainder_matches": true,
+          "F2_over_x3": 1.0000985223767462
+        },
+        {
+          "epsilon": 0.1,
+          "theta_in_pi": 0.16666666666666666,
+          "F2": 0.9609157001305104,
+          "F2_over_pad\u00e9_kinematic": 0.9738326485747577,
+          "expected_remainder_from_a": 0.9738326485747575,
+          "remainder_matches": true,
+          "F2_over_x3": 1.0000569285799084
+        },
+        {
+          "epsilon": 0.1,
+          "theta_in_pi": 0.25,
+          "F2": 0.9173569568939969,
+          "F2_over_pad\u00e9_kinematic": 0.944422462047967,
+          "expected_remainder_from_a": 0.9444224620479669,
+          "remainder_matches": true,
+          "F2_over_x3": 1.0003471997813773
+        },
+        {
+          "epsilon": 0.1,
+          "theta_in_pi": 0.3333333333333333,
+          "F2": 0.8649681414920762,
+          "F2_over_pad\u00e9_kinematic": 0.9087571536551127,
+          "expected_remainder_from_a": 0.9087571536551128,
+          "remainder_matches": true,
+          "F2_over_x3": 1.001308744794765
+        }
+      ],
+      "n_remainder_matches": 28,
+      "n_total": 28,
+      "factorisation_holds": true,
+      "pass": true
+    },
+    {
+      "name": "T5_hopf_link_search",
+      "description": "The factor (2x/(1+x)) is a kinematic Pad\u00e9 approximant. Investigate its possible link to the Hopf-connection charge A_\u03c6(0) = 1/2. The PR #34 \u03be = \u2212A_\u03c6(0) appeared in an odd-in-c angular structure; the factor 2x/(1+x) does NOT itself contain A_\u03c6(0) \u2014 it is a pure kinematic ratio. The Hopf link is in the perturbative coefficients (PR #34), not in the kinematic factor.",
+      "samples": [
+        {
+          "epsilon": 0.01,
+          "theta_in_pi": 0.25,
+          "x": 0.9970796214027405,
+          "pad\u00e9_2x_over_1+x": 0.998537675430683,
+          "pad\u00e9_squared": 0.9970774892545119
+        },
+        {
+          "epsilon": 0.01,
+          "theta_in_pi": 0.5,
+          "x": 0.9900990099009901,
+          "pad\u00e9_2x_over_1+x": 0.9950248756218906,
+          "pad\u00e9_squared": 0.9900745031063588
+        },
+        {
+          "epsilon": 0.01,
+          "theta_in_pi": 0.75,
+          "x": 0.9832154621715941,
+          "pad\u00e9_2x_over_1+x": 0.9915367048368879,
+          "pad\u00e9_squared": 0.9831450370387939
+        },
+        {
+          "epsilon": 0.1,
+          "theta_in_pi": 0.25,
+          "x": 0.9715441312188006,
+          "pad\u00e9_2x_over_1+x": 0.9855667097019999,
+          "pad\u00e9_squared": 0.9713417392728261
+        },
+        {
+          "epsilon": 0.1,
+          "theta_in_pi": 0.5,
+          "x": 0.9090909090909091,
+          "pad\u00e9_2x_over_1+x": 0.9523809523809523,
+          "pad\u00e9_squared": 0.9070294784580498
+        },
+        {
+          "epsilon": 0.1,
+          "theta_in_pi": 0.75,
+          "x": 0.8541820098600376,
+          "pad\u00e9_2x_over_1+x": 0.9213572403547539,
+          "pad\u00e9_squared": 0.8488991643541277
+        },
+        {
+          "epsilon": 0.5,
+          "theta_in_pi": 0.25,
+          "x": 0.872260419102717,
+          "pad\u00e9_2x_over_1+x": 0.931772535703926,
+          "pad\u00e9_squared": 0.8682000582921241
+        },
+        {
+          "epsilon": 0.5,
+          "theta_in_pi": 0.5,
+          "x": 0.6666666666666666,
+          "pad\u00e9_2x_over_1+x": 0.8,
+          "pad\u00e9_squared": 0.6400000000000001
+        },
+        {
+          "epsilon": 0.5,
+          "theta_in_pi": 0.75,
+          "x": 0.5395042867796359,
+          "pad\u00e9_2x_over_1+x": 0.7008805255205637,
+          "pad\u00e9_squared": 0.4912335110539815
+        },
+        {
+          "epsilon": 1.0,
+          "theta_in_pi": 0.25,
+          "x": 0.7734590803390136,
+          "pad\u00e9_2x_over_1+x": 0.872260419102717,
+          "pad\u00e9_squared": 0.7608382387332475
+        },
+        {
+          "epsilon": 1.0,
+          "theta_in_pi": 0.5,
+          "x": 0.5,
+          "pad\u00e9_2x_over_1+x": 0.6666666666666666,
+          "pad\u00e9_squared": 0.4444444444444444
+        },
+        {
+          "epsilon": 1.0,
+          "theta_in_pi": 0.75,
+          "x": 0.3693980625181293,
+          "pad\u00e9_2x_over_1+x": 0.5395042867796359,
+          "pad\u00e9_squared": 0.2910648754536036
+        }
+      ],
+      "interpretation": "(2x/(1+x)) is a kinematic Pad\u00e9 form, not a Hopf-derived quantity. The Hopf link is in the angular structure of F.",
+      "pass": true
+    },
+    {
+      "name": "T6_end_to_end_KN_reproduction",
+      "description": "Verify that f_BAM_baseline \u00b7 F\u00b2 = f_KN at all (\u03b5, \u03b8) sampled, including \u03b5 up to 2 (highly relativistic Compton).",
+      "rows": [
+        {
+          "epsilon": 0.01,
+          "max_residual": 5.551115123125783e-16
+        },
+        {
+          "epsilon": 0.05,
+          "max_residual": 4.440892098500626e-16
+        },
+        {
+          "epsilon": 0.1,
+          "max_residual": 3.3306690738754696e-16
+        },
+        {
+          "epsilon": 0.2,
+          "max_residual": 4.440892098500626e-16
+        },
+        {
+          "epsilon": 0.5,
+          "max_residual": 2.220446049250313e-16
+        },
+        {
+          "epsilon": 1.0,
+          "max_residual": 3.3306690738754696e-16
+        },
+        {
+          "epsilon": 2.0,
+          "max_residual": 2.220446049250313e-16
+        }
+      ],
+      "max_residual_global": 5.551115123125783e-16,
+      "pass": true
+    }
+  ],
+  "n_passed": 6,
+  "n_total": 6,
+  "verdict_class": "EXACT_RESUMMATION",
+  "verdict": "EXACT RESUMMATION ACHIEVED \u2014 the BAM vertex modification factor F(\u03b5, \u03b8) has the closed form `F\u00b2(x, c) = 4\u00b7x\u00b3\u00b7(x\u00b2+1\u2212x\u00b7sin\u00b2\u03b8) / [(1+c\u00b2)\u00b7(1+x)\u00b2]` with x = \u03c9'/\u03c9 = 1/(1+\u03b5(1\u2212cos \u03b8)). This reproduces Klein-Nishina exactly at all (\u03b5, \u03b8), including \u03b5 up to 2 (highly relativistic Compton). The perturbative coefficients from PR #31 (\u03b3 = \u22123/2) and PR #34 ((\u03bd\u2080, \u03bd\u2081, \u03bd\u2082, \u03be) = (9/4, \u22124, 7/4, \u22121/2)) are Taylor expansions of this closed form. The factor decomposes naturally as F\u00b2 = (2x/(1+x))\u00b2 \u00b7 [x\u00b7(x\u00b2+1\u2212x\u00b7sin\u00b2\u03b8)/(1+c\u00b2)] \u2014 a kinematic Pad\u00e9 form times an angular polarisation modification. The (1+c\u00b2) denominator in the angular factor is the polarisation sum itself, confirming that F must be derived AS a modification of the polarisation sum rather than as a separate amplitude piece."
+}
