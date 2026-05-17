@@ -533,7 +533,7 @@ into a closed-form vertex factor.
     structural patterns `ν₀ = γ² = (−3/2)²` (recursive) and
     `ξ = −A_φ(0)` (Hopf-charge link).
 
-  - **Resummation** (this PR): the closed form
+  - **Resummation** (PR #35): the closed form
 
       F²(x, c) = 4·x³·(x² + 1 − x·sin²θ) / [(1 + c²)·(1 + x)²]
               = (2x/(1+x))² · [x·(x²+1−x·sin²θ) / (1+c²)]
@@ -542,6 +542,23 @@ into a closed-form vertex factor.
     **exactly at all orders in ε up to ε ~ 2** (machine precision).
     The perturbative results of PRs #31–34 are Taylor expansions
     of this closed form.
+
+  - **Cross-process validation via Breit–Wheeler** (this PR): the
+    same closed-form F, expressed in Lorentz invariants and
+    analytically continued via standard Mandelstam crossing
+    (`s_C → u_BW`, `t_C → s_BW`, `u_C → t_BW`), exactly reproduces
+    the Breit–Wheeler pair-production amplitude `γγ → e⁺e⁻`.
+    Crossed variables `x_⊗ = −(1−β·cosθ)/(1+β·cosθ) < 0` and
+    `c_⊗ = (2β² − β²cos²θ − 1)/(1−β²cos²θ)` carry the construction
+    from Compton lab kinematics to BW CM kinematics; the
+    BAM-predicted `|M̄|²_BW = −2·(f_baseline · F²)/x_⊗²` agrees
+    with the textbook formula to machine precision at all sampled
+    `(β, cosθ)`, and the integrated differential reproduces the
+    textbook BW total at threshold (`β → 0` linear) and in the
+    ultra-relativistic regime (`β → 1` logarithmic). The vertex F
+    is therefore **not a Compton-specific algebraic fit** — it is
+    the closed form of the invariant QED amplitude carried by
+    crossing to its tree-level partners.
 
 ### Structural reading
 
@@ -565,9 +582,9 @@ derivation from the Hopf-bundle / throat-transport algebra.
     polarisation + closed-form vertex `F²` together reproduce
     Klein-Nishina exactly.
   - Open: first-principles BAM derivation of `F²` from a BAM
-    Lagrangian / action. Cross-process generalisation (does the
-    same F work for pair production γγ → e⁺e⁻ and other QED tree
-    diagrams?). Loop corrections requiring the bulk radial channel.
+    Lagrangian / action. Other tree-level cross-process partners
+    (pair annihilation `e⁺e⁻ → γγ`, Bhabha, Møller) and loop
+    corrections requiring the bulk radial channel.
 
 ### Probe sequence
 
@@ -582,10 +599,13 @@ derivation from the Hopf-bundle / throat-transport algebra.
 | PR #32 | `compton_coefficient_origin_probe.py` | 8 plausible derivations |
 | PR #33 | `compton_dimensional_scaling_probe.py` | C falsified, 7 survive |
 | PR #34 | `compton_eps2_extension_probe.py` | `O(ε²)` polynomial fit |
-| this | `compton_vertex_resummation_probe.py` | **exact closed-form F²** |
+| PR #35 | `compton_vertex_resummation_probe.py` | exact closed-form F² |
+| this | `breit_wheeler_cross_process_probe.py` | **F process-general under crossing** |
 
 See `docs/compton_vertex_resummation_research_plan.md` for the
-final-PR plan and cross-references to the earlier sub-thread plans.
+Compton-thread culmination and
+`docs/breit_wheeler_cross_process_research_plan.md` for the
+cross-process validation plan.
 
 ## Quick Start
 
