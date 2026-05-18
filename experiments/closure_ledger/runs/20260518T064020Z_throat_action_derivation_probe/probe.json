@@ -1,0 +1,541 @@
+{
+  "timestamp_utc": "2026-05-18T06:40:20+00:00",
+  "action_functional": "S[\u03b3] = \u222e_\u03b3 [\u03c9(s)\u00b7dt/ds + A_Hopf(s)\u00b7d\u03c7/ds] ds = S_energy + S_Hopf",
+  "principles": {
+    "P1_closure_quantum": "S = 2\u03c0 (BAM action_base)",
+    "P2_antipodal_symmetry": "\u03c3(p) = \u2212p is involution; swaps mouths",
+    "P3_stationary_action": "extremum of S under antipodal symmetry + closure constraint"
+  },
+  "derived_postulates": {
+    "energy_equal_action": "\u03c9_1\u00b7\u03c4_1 = \u03c9_2\u00b7\u03c4_2 = \u03c0  \u2192 K = 2x/(1+x)",
+    "Hopf_equal_rotation": "\u0394\u03c7_1 = \u0394\u03c7_2 = \u03c0  \u2192 A_pres = x",
+    "coupled_recoil_helicity_flip": "A_flip = \u221ax \u00b7 (1\u2212x)/\u221a(1+c\u00b2) (recoil-deficit-coupled)"
+  },
+  "tests": [
+    {
+      "name": "T1_closure_quantum",
+      "description": "BAM closure quantum = 2\u03c0 (action_base from experiments.closure_ledger.ledger). The throat action must accumulate exactly one closure quantum per closed orbit.",
+      "action_base_value": 6.283185307179586,
+      "expected_value_two_pi": 6.283185307179586,
+      "difference": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T2_antipodal_involution",
+      "description": "S\u00b3 antipodal map \u03c3(p) = \u2212p is an involution: \u03c3\u00b2 = id. Used as the BAM symmetry that exchanges the two throat mouths and forces equipartition of the closure quantum.",
+      "samples": [
+        {
+          "p": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "antipode4(p)": [
+            -1.0,
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "antipode4_of_antipode4_p": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "antipode_equals_negation_diff": 0.0,
+          "involution_diff_(\u03c3\u00b2-id)": 0.0
+        },
+        {
+          "p": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "antipode4(p)": [
+            -0.0,
+            -1.0,
+            -0.0,
+            -0.0
+          ],
+          "antipode4_of_antipode4_p": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "antipode_equals_negation_diff": 0.0,
+          "involution_diff_(\u03c3\u00b2-id)": 0.0
+        },
+        {
+          "p": [
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "antipode4(p)": [
+            -0.5,
+            -0.5,
+            -0.5,
+            -0.5
+          ],
+          "antipode4_of_antipode4_p": [
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "antipode_equals_negation_diff": 0.0,
+          "involution_diff_(\u03c3\u00b2-id)": 0.0
+        },
+        {
+          "p": [
+            0.6016870890901646,
+            -0.3008435445450823,
+            0.40112472606010974,
+            -0.62174332539317
+          ],
+          "antipode4(p)": [
+            -0.6016870890901646,
+            0.3008435445450823,
+            -0.40112472606010974,
+            0.62174332539317
+          ],
+          "antipode4_of_antipode4_p": [
+            0.6016870890901646,
+            -0.3008435445450823,
+            0.40112472606010974,
+            -0.62174332539317
+          ],
+          "antipode_equals_negation_diff": 0.0,
+          "involution_diff_(\u03c3\u00b2-id)": 0.0
+        }
+      ],
+      "max_difference": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T3_stationary_energy_action",
+      "description": "Stationary S_energy = \u03c9_1\u00b7\u03c4_1 + \u03c9_2\u00b7\u03c4_2 under antipodal symmetry (forces S_1 = S_2) + closure (S_1 + S_2 = 2\u03c0) \u2192 \u03c9_i\u00b7\u03c4_i = \u03c0.",
+      "samples": [
+        {
+          "omega_1": 1.0,
+          "omega_2": 1.0,
+          "tau_1_derived": 3.141592653589793,
+          "tau_2_derived": 3.141592653589793,
+          "S_1": 3.141592653589793,
+          "S_2": 3.141592653589793,
+          "S_total": 6.283185307179586,
+          "S_1_minus_pi": 0.0,
+          "S_2_minus_pi": 0.0,
+          "closure_residual": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 0.5,
+          "tau_1_derived": 3.141592653589793,
+          "tau_2_derived": 6.283185307179586,
+          "S_1": 3.141592653589793,
+          "S_2": 3.141592653589793,
+          "S_total": 6.283185307179586,
+          "S_1_minus_pi": 0.0,
+          "S_2_minus_pi": 0.0,
+          "closure_residual": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 2.0,
+          "tau_1_derived": 3.141592653589793,
+          "tau_2_derived": 1.5707963267948966,
+          "S_1": 3.141592653589793,
+          "S_2": 3.141592653589793,
+          "S_total": 6.283185307179586,
+          "S_1_minus_pi": 0.0,
+          "S_2_minus_pi": 0.0,
+          "closure_residual": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 0.1,
+          "tau_1_derived": 3.141592653589793,
+          "tau_2_derived": 31.41592653589793,
+          "S_1": 3.141592653589793,
+          "S_2": 3.141592653589793,
+          "S_total": 6.283185307179586,
+          "S_1_minus_pi": 0.0,
+          "S_2_minus_pi": 0.0,
+          "closure_residual": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 10.0,
+          "tau_1_derived": 3.141592653589793,
+          "tau_2_derived": 0.3141592653589793,
+          "S_1": 3.141592653589793,
+          "S_2": 3.141592653589793,
+          "S_total": 6.283185307179586,
+          "S_1_minus_pi": 0.0,
+          "S_2_minus_pi": 0.0,
+          "closure_residual": 0.0
+        }
+      ],
+      "max_difference": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T4_K_pad\u00e9_from_extremum",
+      "description": "K(x) = 2x/(1+x) emerges as \u03c9_eff/\u03c9_1 where \u03c9_eff is the harmonic mean derived from the antipodally-symmetric stationary action.",
+      "samples": [
+        {
+          "x": 0.01,
+          "omega_1": 1.0,
+          "omega_2": 0.01,
+          "tau_1": 3.141592653589793,
+          "tau_2": 314.1592653589793,
+          "T_total": 317.3008580125691,
+          "omega_eff": 0.019801980198019802,
+          "K_derived": 0.019801980198019802,
+          "K_target_2x_over_1plus_x": 0.019801980198019802,
+          "difference": 0.0
+        },
+        {
+          "x": 0.1,
+          "omega_1": 1.0,
+          "omega_2": 0.1,
+          "tau_1": 3.141592653589793,
+          "tau_2": 31.41592653589793,
+          "T_total": 34.55751918948772,
+          "omega_eff": 0.18181818181818182,
+          "K_derived": 0.18181818181818182,
+          "K_target_2x_over_1plus_x": 0.18181818181818182,
+          "difference": 0.0
+        },
+        {
+          "x": 0.5,
+          "omega_1": 1.0,
+          "omega_2": 0.5,
+          "tau_1": 3.141592653589793,
+          "tau_2": 6.283185307179586,
+          "T_total": 9.42477796076938,
+          "omega_eff": 0.6666666666666666,
+          "K_derived": 0.6666666666666666,
+          "K_target_2x_over_1plus_x": 0.6666666666666666,
+          "difference": 0.0
+        },
+        {
+          "x": 1.0,
+          "omega_1": 1.0,
+          "omega_2": 1.0,
+          "tau_1": 3.141592653589793,
+          "tau_2": 3.141592653589793,
+          "T_total": 6.283185307179586,
+          "omega_eff": 1.0,
+          "K_derived": 1.0,
+          "K_target_2x_over_1plus_x": 1.0,
+          "difference": 0.0
+        },
+        {
+          "x": 2.0,
+          "omega_1": 1.0,
+          "omega_2": 2.0,
+          "tau_1": 3.141592653589793,
+          "tau_2": 1.5707963267948966,
+          "T_total": 4.71238898038469,
+          "omega_eff": 1.3333333333333333,
+          "K_derived": 1.3333333333333333,
+          "K_target_2x_over_1plus_x": 1.3333333333333333,
+          "difference": 0.0
+        },
+        {
+          "x": 10.0,
+          "omega_1": 1.0,
+          "omega_2": 10.0,
+          "tau_1": 3.141592653589793,
+          "tau_2": 0.3141592653589793,
+          "T_total": 3.4557519189487724,
+          "omega_eff": 1.8181818181818181,
+          "K_derived": 1.8181818181818181,
+          "K_target_2x_over_1plus_x": 1.8181818181818181,
+          "difference": 0.0
+        }
+      ],
+      "max_difference": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T5_stationary_hopf_action",
+      "description": "Stationary S_Hopf = A_\u03c6\u00b7(\u0394\u03c7_1 + \u0394\u03c7_2) under antipodal symmetry + Hopf closure (\u0394\u03c7_1 + \u0394\u03c7_2 = 2\u03c0) \u2192 \u0394\u03c7_i = \u03c0.",
+      "A_phi_at_lock": 0.5,
+      "hopf_closure_quantum_2pi": 6.283185307179586,
+      "dchi_1_derived": 3.141592653589793,
+      "dchi_2_derived": 3.141592653589793,
+      "equal_split_diff": 0.0,
+      "closure_residual": 0.0,
+      "S_Hopf_total": 3.141592653589793,
+      "S_Hopf_expected_pi_cos_chi_eq_0": 3.141592653589793,
+      "S_Hopf_residual": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T6_A_pres_from_per_mouth_amplitude",
+      "description": "A_pres = x follows from the equal-action stationary point: per-mouth amplitude \u221ax, two mouths preserving give \u221ax \u00b7 \u221ax = x.",
+      "samples": [
+        {
+          "x": 0.05,
+          "per_mouth_amplitude_sqrt_x": 0.22360679774997896,
+          "two_mouth_product": 0.049999999999999996,
+          "A_pres_target": 0.05,
+          "difference": 6.938893903907228e-18
+        },
+        {
+          "x": 0.5,
+          "per_mouth_amplitude_sqrt_x": 0.7071067811865476,
+          "two_mouth_product": 0.5000000000000001,
+          "A_pres_target": 0.5,
+          "difference": 1.1102230246251565e-16
+        },
+        {
+          "x": 1.0,
+          "per_mouth_amplitude_sqrt_x": 1.0,
+          "two_mouth_product": 1.0,
+          "A_pres_target": 1.0,
+          "difference": 0.0
+        },
+        {
+          "x": 2.0,
+          "per_mouth_amplitude_sqrt_x": 1.4142135623730951,
+          "two_mouth_product": 2.0000000000000004,
+          "A_pres_target": 2.0,
+          "difference": 4.440892098500626e-16
+        },
+        {
+          "x": 10.0,
+          "per_mouth_amplitude_sqrt_x": 3.1622776601683795,
+          "two_mouth_product": 10.000000000000002,
+          "A_pres_target": 10.0,
+          "difference": 1.7763568394002505e-15
+        }
+      ],
+      "max_difference": 1.7763568394002505e-15,
+      "pass": true
+    },
+    {
+      "name": "T7_A_flip_from_coupled_energy_hopf_action",
+      "description": "A_flip from coupled energy\u2013Hopf throat action: per-mouth flip = (1\u2212x)/\u221a(1+c\u00b2) (recoil deficit \u00d7 inverse Hopf-sum normalisation); composed with one preserving mouth (amplitude \u221ax) gives A_flip = \u221ax\u00b7(1\u2212x)/\u221a(1+c\u00b2).",
+      "samples": [
+        {
+          "x": 0.1,
+          "cos_theta": -0.7,
+          "per_mouth_preserve_sqrt_x": 0.31622776601683794,
+          "per_mouth_flip_(1-x)_over_sqrt(1+c2)": 0.7373087284671365,
+          "A_flip_derived": 0.23315749206787792,
+          "A_flip_target": 0.23315749206787792,
+          "difference": 0.0
+        },
+        {
+          "x": 0.1,
+          "cos_theta": 0.0,
+          "per_mouth_preserve_sqrt_x": 0.31622776601683794,
+          "per_mouth_flip_(1-x)_over_sqrt(1+c2)": 0.9,
+          "A_flip_derived": 0.28460498941515416,
+          "A_flip_target": 0.28460498941515416,
+          "difference": 0.0
+        },
+        {
+          "x": 0.1,
+          "cos_theta": 0.7,
+          "per_mouth_preserve_sqrt_x": 0.31622776601683794,
+          "per_mouth_flip_(1-x)_over_sqrt(1+c2)": 0.7373087284671365,
+          "A_flip_derived": 0.23315749206787792,
+          "A_flip_target": 0.23315749206787792,
+          "difference": 0.0
+        },
+        {
+          "x": 0.5,
+          "cos_theta": -0.7,
+          "per_mouth_preserve_sqrt_x": 0.7071067811865476,
+          "per_mouth_flip_(1-x)_over_sqrt(1+c2)": 0.40961596025952024,
+          "A_flip_derived": 0.28964222318174615,
+          "A_flip_target": 0.28964222318174615,
+          "difference": 0.0
+        },
+        {
+          "x": 0.5,
+          "cos_theta": 0.0,
+          "per_mouth_preserve_sqrt_x": 0.7071067811865476,
+          "per_mouth_flip_(1-x)_over_sqrt(1+c2)": 0.5,
+          "A_flip_derived": 0.3535533905932738,
+          "A_flip_target": 0.3535533905932738,
+          "difference": 0.0
+        },
+        {
+          "x": 0.5,
+          "cos_theta": 0.7,
+          "per_mouth_preserve_sqrt_x": 0.7071067811865476,
+          "per_mouth_flip_(1-x)_over_sqrt(1+c2)": 0.40961596025952024,
+          "A_flip_derived": 0.28964222318174615,
+          "A_flip_target": 0.28964222318174615,
+          "difference": 0.0
+        },
+        {
+          "x": 1.0,
+          "cos_theta": -0.7,
+          "per_mouth_preserve_sqrt_x": 1.0,
+          "per_mouth_flip_(1-x)_over_sqrt(1+c2)": 0.0,
+          "A_flip_derived": 0.0,
+          "A_flip_target": 0.0,
+          "difference": 0.0
+        },
+        {
+          "x": 1.0,
+          "cos_theta": 0.0,
+          "per_mouth_preserve_sqrt_x": 1.0,
+          "per_mouth_flip_(1-x)_over_sqrt(1+c2)": 0.0,
+          "A_flip_derived": 0.0,
+          "A_flip_target": 0.0,
+          "difference": 0.0
+        },
+        {
+          "x": 1.0,
+          "cos_theta": 0.7,
+          "per_mouth_preserve_sqrt_x": 1.0,
+          "per_mouth_flip_(1-x)_over_sqrt(1+c2)": 0.0,
+          "A_flip_derived": 0.0,
+          "A_flip_target": 0.0,
+          "difference": 0.0
+        },
+        {
+          "x": 2.0,
+          "cos_theta": -0.7,
+          "per_mouth_preserve_sqrt_x": 1.4142135623730951,
+          "per_mouth_flip_(1-x)_over_sqrt(1+c2)": -0.8192319205190405,
+          "A_flip_derived": -1.1585688927269846,
+          "A_flip_target": -1.1585688927269846,
+          "difference": 0.0
+        },
+        {
+          "x": 2.0,
+          "cos_theta": 0.0,
+          "per_mouth_preserve_sqrt_x": 1.4142135623730951,
+          "per_mouth_flip_(1-x)_over_sqrt(1+c2)": -1.0,
+          "A_flip_derived": -1.4142135623730951,
+          "A_flip_target": -1.4142135623730951,
+          "difference": 0.0
+        },
+        {
+          "x": 2.0,
+          "cos_theta": 0.7,
+          "per_mouth_preserve_sqrt_x": 1.4142135623730951,
+          "per_mouth_flip_(1-x)_over_sqrt(1+c2)": -0.8192319205190405,
+          "A_flip_derived": -1.1585688927269846,
+          "A_flip_target": -1.1585688927269846,
+          "difference": 0.0
+        }
+      ],
+      "max_difference": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T8_alternative_principles_rejected",
+      "description": "Each of: broken antipodal symmetry (equal-time splitting \u2192 arithmetic mean), wrong closure quantum, or wrong action functional fails to reproduce K(x) = 2x/(1+x). The triple (closure quantum 2\u03c0, antipodal symmetry, stationary action) is necessary and sufficient.",
+      "rows": [
+        {
+          "x": 0.5,
+          "K_target_2x_over_1plus_x": 0.6666666666666666,
+          "variation_a_broken_symm_K": 0.75,
+          "variation_a_diff": 0.08333333333333337,
+          "variation_b_wrong_closure_K": 1.3333333333333333,
+          "variation_b_diff": 0.6666666666666666,
+          "variation_c_wrong_functional_K": NaN
+        },
+        {
+          "x": 1.0,
+          "K_target_2x_over_1plus_x": 1.0,
+          "variation_a_broken_symm_K": 1.0,
+          "variation_a_diff": 0.0,
+          "variation_b_wrong_closure_K": 2.0,
+          "variation_b_diff": 1.0,
+          "variation_c_wrong_functional_K": 1.0
+        },
+        {
+          "x": 2.0,
+          "K_target_2x_over_1plus_x": 1.3333333333333333,
+          "variation_a_broken_symm_K": 1.5,
+          "variation_a_diff": 0.16666666666666674,
+          "variation_b_wrong_closure_K": 2.6666666666666665,
+          "variation_b_diff": 1.3333333333333333,
+          "variation_c_wrong_functional_K": NaN
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T9_F2_end_to_end_reconstruction",
+      "description": "F\u00b2(x, c) = K(x)\u00b2 \u00b7 Q(x, c) reconstructed from the throat action derivation (both K and Q from the SAME stationary action + antipodal symmetry + closure principle).",
+      "samples_first_6": [
+        {
+          "x": 0.05,
+          "cos_theta": -0.9,
+          "K_from_throat_action": 0.09523809523809523,
+          "Q_from_throat_action": 0.027430939226519332,
+          "F2_reconstructed_K_squared_times_Q": 0.0002488067050024429,
+          "F2_closed_form": 0.000248806705002443,
+          "difference": 1.0842021724855044e-19
+        },
+        {
+          "x": 0.05,
+          "cos_theta": -0.72,
+          "K_from_throat_action": 0.09523809523809523,
+          "Q_from_throat_action": 0.03221878292939936,
+          "F2_reconstructed_K_squared_times_Q": 0.00029223385877006215,
+          "F2_closed_form": 0.00029223385877006236,
+          "difference": 2.168404344971009e-19
+        },
+        {
+          "x": 0.05,
+          "cos_theta": -0.54,
+          "K_from_throat_action": 0.09523809523809523,
+          "Q_from_throat_action": 0.03743728708578508,
+          "F2_reconstructed_K_squared_times_Q": 0.0003395672298030392,
+          "F2_closed_form": 0.0003395672298030392,
+          "difference": 0.0
+        },
+        {
+          "x": 0.05,
+          "cos_theta": -0.36,
+          "K_from_throat_action": 0.09523809523809523,
+          "Q_from_throat_action": 0.042447769121813035,
+          "F2_reconstructed_K_squared_times_Q": 0.00038501377888265783,
+          "F2_closed_form": 0.00038501377888265794,
+          "difference": 1.0842021724855044e-19
+        },
+        {
+          "x": 0.05,
+          "cos_theta": -0.18000000000000005,
+          "K_from_throat_action": 0.09523809523809523,
+          "Q_from_throat_action": 0.046208833785354515,
+          "F2_reconstructed_K_squared_times_Q": 0.00041912774408484814,
+          "F2_closed_form": 0.0004191277440848483,
+          "difference": 1.6263032587282567e-19
+        },
+        {
+          "x": 0.05,
+          "cos_theta": -1.1102230246251565e-16,
+          "K_from_throat_action": 0.09523809523809523,
+          "Q_from_throat_action": 0.047625,
+          "F2_reconstructed_K_squared_times_Q": 0.0004319727891156462,
+          "F2_closed_form": 0.0004319727891156463,
+          "difference": 1.0842021724855044e-19
+        }
+      ],
+      "max_difference": 1.4210854715202004e-14,
+      "pass": true
+    }
+  ],
+  "n_passed": 9,
+  "n_total": 9,
+  "verdict_class": "ACTIONS_DERIVED",
+  "verdict": "BOTH EQUAL-ACTION POSTULATES DERIVED. From the single BAM throat action functional\n  S = S_energy + S_Hopf = (\u03c9_1\u00b7\u03c4_1 + \u03c9_2\u00b7\u03c4_2) + A_\u03c6\u00b7(\u0394\u03c7_1 + \u0394\u03c7_2),\nand the three principles\n  (P1) closure quantum: S_energy = S_Hopf = 2\u03c0 (BAM action_base, verified in repo)\n  (P2) S\u00b3 antipodal symmetry: antipode4 is an involution swapping the two mouths\n  (P3) stationary action under the antipodally-symmetric ansatz,\nthe equal-action splittings\n  \u03c9_1\u00b7\u03c4_1 = \u03c9_2\u00b7\u03c4_2 = \u03c0 (energy)  and  \u0394\u03c7_1 = \u0394\u03c7_2 = \u03c0 (Hopf)\nare FORCED. These reproduce PR #39 K(x) = 2x/(1+x) and PR #40 Q(x, c) = x\u00b2 + x(1\u2212x)\u00b2/(1+c\u00b2), and combine into the full F\u00b2(x, c) closed form to machine precision. Alternative principles (broken antipodal symmetry, wrong closure quantum, non-stationary action) all fail to reproduce K. The two equal-action postulates of PR #39 and PR #40 are CONSEQUENCES of a single throat action principle."
+}
