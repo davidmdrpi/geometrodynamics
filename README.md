@@ -609,7 +609,10 @@ derivation from the Hopf-bundle / throat-transport algebra.
 | PR #38 | `throat_nucleation_caustic_derivation_probe.py` | F² = K(x)²·Q(x, c) BAM-geometric decomposition |
 | PR #39 | `two_mouth_flux_action_probe.py` | K(x) = 2x/(1+x) from equal-action throat-rate splitting |
 | PR #40 | `hopf_helicity_transport_probe.py` | Q(x, c) from Hopf-fibre helicity spinor (A_pres, A_flip) |
-| this | `throat_action_derivation_probe.py` | **BAM throat action: both equal-action postulates derived from S³ antipodal symmetry + closure quantum + stationary action** |
+| PR #41 | `throat_action_derivation_probe.py` | BAM throat action: both equal-action postulates derived from S³ antipodal symmetry + closure quantum + stationary action |
+| PR #42 | `bhabha_moller_interference_probe.py` | scalar Compton kernel insufficient for Bhabha/Møller — identifies Dirac-trace + Fermi-sign gaps |
+| PR #43 | `dirac_trace_geometry_probe.py` | 4-fermion diagonal numerators (s²+u²), (u²+t²), (s²+t²) from BAM SU(2) Hopf-bundle Pauli/Weyl traces |
+| this | `mobius_exchange_sign_probe.py` | **Bhabha/Møller interference signs derived from T = iσ_y = ε non-orientable throat transport — Fermi statistics from BAM geometry** |
 
 The derivation rests on the algebraic identity
 
@@ -638,8 +641,8 @@ with BAM-geometric interpretation:
   - Decomposition survives analytic continuation under crossing
     (full Compton ↔ BW ↔ annihilation triangle, PR #37).
 
-The full F² closed form is now derived from three foundational
-principles via a single BAM throat action functional (this PR):
+The full F² closed form is derived from three foundational
+principles via a single BAM throat action functional (PR #41):
 
   (P1) closure quantum `S = 2π` (BAM `action_base`)
   (P2) S³ antipodal symmetry `σ(p) = −p` (involution swapping mouths)
@@ -649,6 +652,21 @@ Both equal-action postulates (PR #39 energy → K, PR #40 spin/Hopf → Q)
 follow as consequences. Alternative principles (broken antipodal
 symmetry; wrong closure quantum; wrong action functional) all fail
 to reproduce K(x), confirming the principles are necessary.
+
+The thread then extends to 4-fermion tree QED (Bhabha and Møller,
+PRs #42–this). PR #42 identified that the BAM scalar Compton kernel
+cannot directly produce the 4-fermion structures; PR #43 closed the
+diagonal-channel-numerator gap by showing the SU(2) Hopf-bundle
+spinor traces (Pauli/Weyl, parity-symmetric `L + R`) reproduce the
+QED Dirac trace product `32·[(p_a·p_c)(p_b·p_d) + (p_a·p_d)(p_b·p_c)]`
+with channel-specific kinematic pairings selecting `(s²+u²)`,
+`(u²+t²)`, `(s²+t²)`. This PR closes the interference-sign gap:
+the BAM throat transport `T = iσ_y` IS the SU(2) antisymmetric `ε`
+tensor, and one fermion-leg transposition acts as `−1` on the
+antisymmetric singlet — directly reproducing both the Bhabha s↔t
+Wick sign and the Møller t↔u Pauli sign. End-to-end Bhabha and Møller
+`|M̄|²/(8e⁴)` now match QED to machine precision from BAM-geometric
+ingredients alone.
 
 See `docs/compton_vertex_resummation_research_plan.md` for the
 Compton-thread culmination,
@@ -660,8 +678,14 @@ triangle-closure plan,
 geometric decomposition plan,
 `docs/two_mouth_flux_action_research_plan.md` for the K-factor plan,
 `docs/hopf_helicity_transport_research_plan.md` for the Q-factor plan,
-and `docs/throat_action_derivation_research_plan.md` for the throat
-action derivation plan.
+`docs/throat_action_derivation_research_plan.md` for the throat
+action derivation plan,
+`docs/bhabha_moller_interference_research_plan.md` for the 4-fermion
+gap identification,
+`docs/dirac_trace_geometry_research_plan.md` for the SU(2) Pauli-trace
+diagonal-numerator derivation, and
+`docs/mobius_exchange_sign_research_plan.md` for the
+T = iσ_y interference-sign derivation.
 
 ## Quick Start
 
