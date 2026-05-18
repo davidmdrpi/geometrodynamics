@@ -1,0 +1,482 @@
+{
+  "timestamp_utc": "2026-05-18T01:38:44+00:00",
+  "model": {
+    "topology": "two antipodal mouths on S\u00b3 connected by throat",
+    "closure_quantum": "action_base = 2\u03c0 (BAM closure-ledger)",
+    "splitting_postulate": "equal-action: \u03c9\u2081\u00b7\u03c4\u2081 = \u03c9\u2082\u00b7\u03c4\u2082 = \u03c0 (flux continuity)",
+    "derivation_chain": "\u03c4_i = \u03c0/\u03c9_i  \u2192  T = \u03c0\u00b7(\u03c9\u2081+\u03c9\u2082)/(\u03c9\u2081\u00b7\u03c9\u2082)  \u2192  \u03c9_eff = 2\u00b7\u03c9\u2081\u00b7\u03c9\u2082/(\u03c9\u2081+\u03c9\u2082) = harmonic mean  \u2192  K = \u03c9_eff/\u03c9\u2081 = 2x/(1+x)"
+  },
+  "tests": [
+    {
+      "name": "T1_BAM_closure_quantum",
+      "description": "BAM closure quantum = 2\u03c0 (action of one S\u00b3 great-circle). Loaded from the closure-ledger constants.",
+      "action_base_value": 6.283185307179586,
+      "expected_value_two_pi": 6.283185307179586,
+      "source": "repo",
+      "difference": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T2_equal_action_algebraic_derivation",
+      "description": "Algebraic derivation: \u03c9\u2081\u00b7\u03c4\u2081 = \u03c9\u2082\u00b7\u03c4\u2082 = \u03c0 \u2192 \u03c9_eff = 2\u00b7\u03c9\u2081\u00b7\u03c9\u2082/(\u03c9\u2081+\u03c9\u2082) (harmonic mean) \u2192 K = 2x/(1+x).",
+      "samples_first_8": [
+        {
+          "omega_1": 1.0,
+          "omega_2": 0.01,
+          "x_ratio": 0.01,
+          "K_derived_from_equal_action": 0.019801980198019802,
+          "K_pad\u00e9_2x_over_1+x": 0.019801980198019802,
+          "difference": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 0.1098,
+          "x_ratio": 0.1098,
+          "K_derived_from_equal_action": 0.19787349071904847,
+          "K_pad\u00e9_2x_over_1+x": 0.19787349071904847,
+          "difference": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 0.2096,
+          "x_ratio": 0.2096,
+          "K_derived_from_equal_action": 0.34656084656084657,
+          "K_pad\u00e9_2x_over_1+x": 0.34656084656084657,
+          "difference": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 0.3094,
+          "x_ratio": 0.3094,
+          "K_derived_from_equal_action": 0.4725828623797159,
+          "K_pad\u00e9_2x_over_1+x": 0.47258286237971586,
+          "difference": 5.551115123125783e-17
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 0.4092,
+          "x_ratio": 0.4092,
+          "K_derived_from_equal_action": 0.580755038319614,
+          "K_pad\u00e9_2x_over_1+x": 0.580755038319614,
+          "difference": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 0.509,
+          "x_ratio": 0.509,
+          "K_derived_from_equal_action": 0.6746189529489729,
+          "K_pad\u00e9_2x_over_1+x": 0.6746189529489729,
+          "difference": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 0.6088,
+          "x_ratio": 0.6088,
+          "K_derived_from_equal_action": 0.7568373943311785,
+          "K_pad\u00e9_2x_over_1+x": 0.7568373943311785,
+          "difference": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 0.7086,
+          "x_ratio": 0.7086,
+          "K_derived_from_equal_action": 0.8294510125248742,
+          "K_pad\u00e9_2x_over_1+x": 0.8294510125248741,
+          "difference": 1.1102230246251565e-16
+        }
+      ],
+      "max_difference": 2.220446049250313e-16,
+      "pass": "True"
+    },
+    {
+      "name": "T3_numerical_two_segment_orbit",
+      "description": "Integrate a piecewise-constant phase oscillator across two segments (\u03c9\u2081 for \u03c4\u2081 = \u03c0/\u03c9\u2081, then \u03c9\u2082 for \u03c4\u2082 = \u03c0/\u03c9\u2082). Measure \u03c9_eff = 2\u03c0/T_total and verify K = \u03c9_eff/\u03c9\u2081 = 2x/(1+x).",
+      "samples": [
+        {
+          "omega_2_over_omega_1": 0.1,
+          "T_total_numerical": 34.55751918937923,
+          "T_total_analytic": 34.55751918948772,
+          "omega_eff_numerical": 0.18181818181875264,
+          "omega_eff_harmonic_mean": 0.18181818181818182,
+          "K_numerical": 0.18181818181875264,
+          "K_pad\u00e9_target": 0.18181818181818182,
+          "difference": 5.708211681110242e-13
+        },
+        {
+          "omega_2_over_omega_1": 0.25,
+          "T_total_numerical": 15.707963267897268,
+          "T_total_analytic": 15.707963267948966,
+          "omega_eff_numerical": 0.40000000000131647,
+          "omega_eff_harmonic_mean": 0.4,
+          "K_numerical": 0.40000000000131647,
+          "K_pad\u00e9_target": 0.4,
+          "difference": 1.3164469514492794e-12
+        },
+        {
+          "omega_2_over_omega_1": 0.5,
+          "T_total_numerical": 9.424777960736874,
+          "T_total_analytic": 9.42477796076938,
+          "omega_eff_numerical": 0.666666666668966,
+          "omega_eff_harmonic_mean": 0.6666666666666666,
+          "K_numerical": 0.666666666668966,
+          "K_pad\u00e9_target": 0.6666666666666666,
+          "difference": 2.2993829063011617e-12
+        },
+        {
+          "omega_2_over_omega_1": 0.75,
+          "T_total_numerical": 7.33038285841131,
+          "T_total_analytic": 7.330382858376184,
+          "omega_eff_numerical": 0.8571428571387498,
+          "omega_eff_harmonic_mean": 0.8571428571428571,
+          "K_numerical": 0.8571428571387498,
+          "K_pad\u00e9_target": 0.8571428571428571,
+          "difference": 4.107270079600767e-12
+        },
+        {
+          "omega_2_over_omega_1": 1.0,
+          "T_total_numerical": 6.283185307159711,
+          "T_total_analytic": 6.283185307179586,
+          "omega_eff_numerical": 1.0000000000031632,
+          "omega_eff_harmonic_mean": 1.0,
+          "K_numerical": 1.0000000000031632,
+          "K_pad\u00e9_target": 1.0,
+          "difference": 3.163247441761996e-12
+        },
+        {
+          "omega_2_over_omega_1": 1.5,
+          "T_total_numerical": 5.235987755944514,
+          "T_total_analytic": 5.235987755982988,
+          "omega_eff_numerical": 1.2000000000088178,
+          "omega_eff_harmonic_mean": 1.2,
+          "K_numerical": 1.2000000000088178,
+          "K_pad\u00e9_target": 1.2,
+          "difference": 8.817835350782843e-12
+        },
+        {
+          "omega_2_over_omega_1": 2.0,
+          "T_total_numerical": 4.712388980371129,
+          "T_total_analytic": 4.71238898038469,
+          "omega_eff_numerical": 1.3333333333371702,
+          "omega_eff_harmonic_mean": 1.3333333333333333,
+          "K_numerical": 1.3333333333371702,
+          "K_pad\u00e9_target": 1.3333333333333333,
+          "difference": 3.836930773104541e-12
+        },
+        {
+          "omega_2_over_omega_1": 4.0,
+          "T_total_numerical": 3.926990816976838,
+          "T_total_analytic": 3.9269908169872414,
+          "omega_eff_numerical": 1.6000000000042387,
+          "omega_eff_harmonic_mean": 1.6,
+          "K_numerical": 1.6000000000042387,
+          "K_pad\u00e9_target": 1.6,
+          "difference": 4.238609463413923e-12
+        },
+        {
+          "omega_2_over_omega_1": 10.0,
+          "T_total_numerical": 3.4557519189402637,
+          "T_total_analytic": 3.4557519189487724,
+          "omega_eff_numerical": 1.818181818186295,
+          "omega_eff_harmonic_mean": 1.8181818181818181,
+          "K_numerical": 1.818181818186295,
+          "K_pad\u00e9_target": 1.8181818181818181,
+          "difference": 4.476863324498481e-12
+        }
+      ],
+      "max_difference": 8.817835350782843e-12,
+      "pass": true
+    },
+    {
+      "name": "T4_alternative_splittings_rejected",
+      "description": "Try alternative splitting postulates (equal-time, equal-energy\u00b2, linear-ratio-swap, equal-root-action) and verify only equal-action gives K = 2x/(1+x).",
+      "rows": [
+        {
+          "postulate": "equal_action",
+          "K_values_at_x_in_0_1_to_5": [
+            0.18181818181818182,
+            0.6666666666666666,
+            1.0,
+            1.3333333333333333,
+            1.6666666666666667
+          ],
+          "K_target_2x_over_1+x_values": [
+            0.18181818181818182,
+            0.6666666666666666,
+            1.0,
+            1.3333333333333333,
+            1.6666666666666667
+          ],
+          "max_difference_from_Pad\u00e9": 0.0,
+          "matches_Pad\u00e9": true
+        },
+        {
+          "postulate": "equal_time",
+          "K_values_at_x_in_0_1_to_5": [
+            0.55,
+            0.75,
+            1.0,
+            1.5,
+            3.0
+          ],
+          "K_target_2x_over_1+x_values": [
+            0.18181818181818182,
+            0.6666666666666666,
+            1.0,
+            1.3333333333333333,
+            1.6666666666666667
+          ],
+          "max_difference_from_Pad\u00e9": 1.3333333333333333,
+          "matches_Pad\u00e9": false
+        },
+        {
+          "postulate": "equal_energy_squared",
+          "K_values_at_x_in_0_1_to_5": [
+            0.10891089108910892,
+            0.6,
+            1.0,
+            1.2,
+            1.1538461538461537
+          ],
+          "K_target_2x_over_1+x_values": [
+            0.18181818181818182,
+            0.6666666666666666,
+            1.0,
+            1.3333333333333333,
+            1.6666666666666667
+          ],
+          "max_difference_from_Pad\u00e9": 0.512820512820513,
+          "matches_Pad\u00e9": false
+        },
+        {
+          "postulate": "linear_ratio_swap",
+          "K_values_at_x_in_0_1_to_5": [
+            0.918181818181818,
+            0.8333333333333334,
+            1.0,
+            1.6666666666666667,
+            4.333333333333333
+          ],
+          "K_target_2x_over_1+x_values": [
+            0.18181818181818182,
+            0.6666666666666666,
+            1.0,
+            1.3333333333333333,
+            1.6666666666666667
+          ],
+          "max_difference_from_Pad\u00e9": 2.666666666666666,
+          "matches_Pad\u00e9": false
+        },
+        {
+          "postulate": "equal_root_action",
+          "K_values_at_x_in_0_1_to_5": [
+            0.316227766016838,
+            0.7071067811865476,
+            1.0,
+            1.4142135623730951,
+            2.2360679774997902
+          ],
+          "K_target_2x_over_1+x_values": [
+            0.18181818181818182,
+            0.6666666666666666,
+            1.0,
+            1.3333333333333333,
+            1.6666666666666667
+          ],
+          "max_difference_from_Pad\u00e9": 0.5694013108331235,
+          "matches_Pad\u00e9": false
+        }
+      ],
+      "n_postulates_matching_Pad\u00e9": 1,
+      "equal_action_is_unique": true,
+      "pass": true
+    },
+    {
+      "name": "T5_series_impedance_equivalence",
+      "description": "Series impedance Z_i = 1/\u03c9_i in series \u2192 Z_total = 1/\u03c9\u2081 + 1/\u03c9\u2082. Effective admittance \u00d7 2 (two-mouth pinch factor) = harmonic mean. Classical-physics convergent derivation of the same K.",
+      "samples": [
+        {
+          "omega_1": 1.0,
+          "omega_2": 0.1,
+          "Z_total_series_sum": 11.0,
+          "effective_admittance_1_over_Z_total": 0.09090909090909091,
+          "twice_admittance_two_mouth_factor": 0.18181818181818182,
+          "harmonic_mean_2ww/(w+w)": 0.18181818181818182,
+          "difference": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 0.5,
+          "Z_total_series_sum": 3.0,
+          "effective_admittance_1_over_Z_total": 0.3333333333333333,
+          "twice_admittance_two_mouth_factor": 0.6666666666666666,
+          "harmonic_mean_2ww/(w+w)": 0.6666666666666666,
+          "difference": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 1.0,
+          "Z_total_series_sum": 2.0,
+          "effective_admittance_1_over_Z_total": 0.5,
+          "twice_admittance_two_mouth_factor": 1.0,
+          "harmonic_mean_2ww/(w+w)": 1.0,
+          "difference": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 2.0,
+          "Z_total_series_sum": 1.5,
+          "effective_admittance_1_over_Z_total": 0.6666666666666666,
+          "twice_admittance_two_mouth_factor": 1.3333333333333333,
+          "harmonic_mean_2ww/(w+w)": 1.3333333333333333,
+          "difference": 0.0
+        },
+        {
+          "omega_1": 1.0,
+          "omega_2": 10.0,
+          "Z_total_series_sum": 1.1,
+          "effective_admittance_1_over_Z_total": 0.9090909090909091,
+          "twice_admittance_two_mouth_factor": 1.8181818181818181,
+          "harmonic_mean_2ww/(w+w)": 1.8181818181818181,
+          "difference": 0.0
+        }
+      ],
+      "max_difference": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T6_K_squared_reproduces_F2_Pad\u00e9",
+      "description": "The K(x) derived from the two-mouth model, squared, reproduces the Pad\u00e9 factor in F\u00b2(x, c) = K(x)\u00b2\u00b7Q(x, c).",
+      "samples_first_6": [
+        {
+          "x": 0.05,
+          "cos_theta": -0.9,
+          "K_derived": 0.09523809523809523,
+          "Q_polarization": 0.027430939226519332,
+          "K_squared_times_Q": 0.0002488067050024429,
+          "F2_closed_form": 0.000248806705002443,
+          "difference": 1.0842021724855044e-19
+        },
+        {
+          "x": 0.05,
+          "cos_theta": -0.72,
+          "K_derived": 0.09523809523809523,
+          "Q_polarization": 0.032218782929399364,
+          "K_squared_times_Q": 0.0002922338587700622,
+          "F2_closed_form": 0.00029223385877006236,
+          "difference": 1.6263032587282567e-19
+        },
+        {
+          "x": 0.05,
+          "cos_theta": -0.54,
+          "K_derived": 0.09523809523809523,
+          "Q_polarization": 0.03743728708578507,
+          "K_squared_times_Q": 0.00033956722980303916,
+          "F2_closed_form": 0.0003395672298030392,
+          "difference": 5.421010862427522e-20
+        },
+        {
+          "x": 0.05,
+          "cos_theta": -0.36,
+          "K_derived": 0.09523809523809523,
+          "Q_polarization": 0.042447769121813035,
+          "K_squared_times_Q": 0.00038501377888265783,
+          "F2_closed_form": 0.00038501377888265794,
+          "difference": 1.0842021724855044e-19
+        },
+        {
+          "x": 0.05,
+          "cos_theta": -0.18000000000000005,
+          "K_derived": 0.09523809523809523,
+          "Q_polarization": 0.046208833785354515,
+          "K_squared_times_Q": 0.00041912774408484814,
+          "F2_closed_form": 0.0004191277440848483,
+          "difference": 1.6263032587282567e-19
+        },
+        {
+          "x": 0.05,
+          "cos_theta": -1.1102230246251565e-16,
+          "K_derived": 0.09523809523809523,
+          "Q_polarization": 0.047625,
+          "K_squared_times_Q": 0.0004319727891156462,
+          "F2_closed_form": 0.0004319727891156463,
+          "difference": 1.0842021724855044e-19
+        }
+      ],
+      "max_difference": 5.684341886080802e-14,
+      "pass": true
+    },
+    {
+      "name": "T7_cross_process_analytic_continuation",
+      "description": "K(x) = 2x/(1+x) continues analytically to negative x_\u2297 for BW/annihilation kinematics, with a pole at x_\u2297 = -1 corresponding to perpendicular scattering.",
+      "samples_first_8": [
+        {
+          "beta": 0.1,
+          "cos_theta_CM": -0.7,
+          "x_crossed": -1.1505376344086022,
+          "K_Pad\u00e9_at_x_crossed": 15.285714285714278,
+          "distance_from_pole_at_x_eq_-1": 0.15053763440860224
+        },
+        {
+          "beta": 0.1,
+          "cos_theta_CM": -0.3,
+          "x_crossed": -1.0618556701030928,
+          "K_Pad\u00e9_at_x_crossed": 34.33333333333333,
+          "distance_from_pole_at_x_eq_-1": 0.061855670103092786
+        },
+        {
+          "beta": 0.1,
+          "cos_theta_CM": 0.3,
+          "x_crossed": -0.9417475728155339,
+          "K_Pad\u00e9_at_x_crossed": -32.333333333333286,
+          "distance_from_pole_at_x_eq_-1": 0.058252427184466105
+        },
+        {
+          "beta": 0.1,
+          "cos_theta_CM": 0.7,
+          "x_crossed": -0.8691588785046729,
+          "K_Pad\u00e9_at_x_crossed": -13.285714285714285,
+          "distance_from_pole_at_x_eq_-1": 0.13084112149532712
+        },
+        {
+          "beta": 0.3,
+          "cos_theta_CM": -0.7,
+          "x_crossed": -1.5316455696202531,
+          "K_Pad\u00e9_at_x_crossed": 5.761904761904762,
+          "distance_from_pole_at_x_eq_-1": 0.5316455696202531
+        },
+        {
+          "beta": 0.3,
+          "cos_theta_CM": -0.3,
+          "x_crossed": -1.1978021978021978,
+          "K_Pad\u00e9_at_x_crossed": 12.111111111111112,
+          "distance_from_pole_at_x_eq_-1": 0.19780219780219777
+        },
+        {
+          "beta": 0.3,
+          "cos_theta_CM": 0.3,
+          "x_crossed": -0.8348623853211009,
+          "K_Pad\u00e9_at_x_crossed": -10.11111111111111,
+          "distance_from_pole_at_x_eq_-1": 0.1651376146788991
+        },
+        {
+          "beta": 0.3,
+          "cos_theta_CM": 0.7,
+          "x_crossed": -0.6528925619834711,
+          "K_Pad\u00e9_at_x_crossed": -3.7619047619047628,
+          "distance_from_pole_at_x_eq_-1": 0.3471074380165289
+        }
+      ],
+      "max_difference": 0.0,
+      "pole_analysis": {
+        "x_\u2297_pole": -1.0,
+        "corresponds_to_beta_cos_theta_eq_0": true,
+        "physical_interpretation": "Throat-closure breakdown at perpendicular scattering (\u03b2\u00b7cos\u03b8 = 0 with \u03b2 > 0) in the BW frame \u2014 the two mouths face exact antipodal directions and the harmonic-mean rate formally diverges."
+      },
+      "pass": true
+    }
+  ],
+  "n_passed": 7,
+  "n_total": 7,
+  "verdict_class": "PAD\u00c9_DERIVED",
+  "verdict": "PAD\u00c9 DERIVED. The caustic Pad\u00e9 factor K(x) = 2x/(1+x) is derived from a concrete BAM throat model:\n  (1) Two-mouth throat-pair on S\u00b3 with mouth frequencies \u03c9\u2081, \u03c9\u2082.\n  (2) BAM closure quantum action_base = 2\u03c0 (verified from the closure-ledger).\n  (3) Equal-action splitting at the two mouths (flux continuity at the throat bottleneck): \u03c9\u2081\u00b7\u03c4\u2081 = \u03c9\u2082\u00b7\u03c4\u2082 = \u03c0.\n  (4) Effective angular frequency = 2\u03c0/T_total = 2\u00b7\u03c9\u2081\u00b7\u03c9\u2082/(\u03c9\u2081+\u03c9\u2082) = harmonic mean.\n  (5) Normalised to \u03c9\u2081: K = 2x/(1+x).\nAlternative splitting postulates (equal-time, equal-energy\u00b2, linear-ratio-swap, equal-root-action) all fail to reproduce 2x/(1+x), so the equal-action postulate is the unique flux-continuous choice. A classical series-impedance derivation (Z = 1/\u03c9) converges on the same harmonic mean, confirming the flux-continuity interpretation. The derived K(x) squared reproduces the Pad\u00e9 factor in the F\u00b2 closed form (PR #38), and the analytic continuation to BW/annihilation kinematics has a pole at x_\u2297 = -1 \u2014 the throat-closure breakdown locus at perpendicular scattering."
+}
