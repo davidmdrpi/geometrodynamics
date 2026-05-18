@@ -606,7 +606,10 @@ derivation from the Hopf-bundle / throat-transport algebra.
 | PR #35 | `compton_vertex_resummation_probe.py` | exact closed-form F² |
 | PR #36 | `breit_wheeler_cross_process_probe.py` | F process-general under Compton → BW crossing |
 | PR #37 | `pair_annihilation_crossing_probe.py` | full Compton/BW/annihilation crossing triangle closes |
-| this | `throat_nucleation_caustic_derivation_probe.py` | **F² derived from caustic throat-rate × Hopf-fibre helicity transport** |
+| PR #38 | `throat_nucleation_caustic_derivation_probe.py` | F² = K(x)²·Q(x, c) BAM-geometric decomposition |
+| PR #39 | `two_mouth_flux_action_probe.py` | K(x) = 2x/(1+x) from equal-action throat-rate splitting |
+| PR #40 | `hopf_helicity_transport_probe.py` | Q(x, c) from Hopf-fibre helicity spinor (A_pres, A_flip) |
+| this | `throat_action_derivation_probe.py` | **BAM throat action: both equal-action postulates derived from S³ antipodal symmetry + closure quantum + stationary action** |
 
 The derivation rests on the algebraic identity
 
@@ -635,14 +638,30 @@ with BAM-geometric interpretation:
   - Decomposition survives analytic continuation under crossing
     (full Compton ↔ BW ↔ annihilation triangle, PR #37).
 
+The full F² closed form is now derived from three foundational
+principles via a single BAM throat action functional (this PR):
+
+  (P1) closure quantum `S = 2π` (BAM `action_base`)
+  (P2) S³ antipodal symmetry `σ(p) = −p` (involution swapping mouths)
+  (P3) stationary action under the antipodally-symmetric ansatz
+
+Both equal-action postulates (PR #39 energy → K, PR #40 spin/Hopf → Q)
+follow as consequences. Alternative principles (broken antipodal
+symmetry; wrong closure quantum; wrong action functional) all fail
+to reproduce K(x), confirming the principles are necessary.
+
 See `docs/compton_vertex_resummation_research_plan.md` for the
 Compton-thread culmination,
 `docs/breit_wheeler_cross_process_research_plan.md` for the BW
 cross-process plan,
 `docs/pair_annihilation_crossing_research_plan.md` for the
-triangle-closure plan, and
+triangle-closure plan,
 `docs/throat_nucleation_caustic_derivation_research_plan.md` for the
-geometric derivation plan.
+geometric decomposition plan,
+`docs/two_mouth_flux_action_research_plan.md` for the K-factor plan,
+`docs/hopf_helicity_transport_research_plan.md` for the Q-factor plan,
+and `docs/throat_action_derivation_research_plan.md` for the throat
+action derivation plan.
 
 ## Quick Start
 
