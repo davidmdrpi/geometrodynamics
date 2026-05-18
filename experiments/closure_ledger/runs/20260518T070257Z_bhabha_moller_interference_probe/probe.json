@@ -1,0 +1,399 @@
+{
+  "timestamp_utc": "2026-05-18T07:02:57+00:00",
+  "tests": [
+    {
+      "name": "T1_QED_bhabha_scalar_intensity",
+      "description": "QED |M\u0304|\u00b2_Bhabha/(8e\u2074) = (s\u00b2+u\u00b2)/t\u00b2 + (u\u00b2+t\u00b2)/s\u00b2 + 2u\u00b2/(s\u00b7t) at sample CM angles. Diagonal and interference terms tabulated.",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "cos_theta": 0.8660254037844387,
+          "s": 1.0,
+          "t": -0.06698729810778065,
+          "u": -0.9330127018922194,
+          "M2_t_channel": 416.84609690826574,
+          "M2_s_channel": 0.8750000000000002,
+          "interference_2u2_over_st": -25.990381056766598,
+          "total_M2_over_8e4": 391.73071585149916
+        },
+        {
+          "theta_deg": 60,
+          "cos_theta": 0.5000000000000001,
+          "s": 1.0,
+          "t": -0.24999999999999994,
+          "u": -0.75,
+          "M2_t_channel": 25.00000000000001,
+          "M2_s_channel": 0.625,
+          "interference_2u2_over_st": -4.500000000000001,
+          "total_M2_over_8e4": 21.12500000000001
+        },
+        {
+          "theta_deg": 90,
+          "cos_theta": 6.123233995736766e-17,
+          "s": 1.0,
+          "t": -0.49999999999999994,
+          "u": -0.5,
+          "M2_t_channel": 5.000000000000001,
+          "M2_s_channel": 0.49999999999999994,
+          "interference_2u2_over_st": -1.0000000000000002,
+          "total_M2_over_8e4": 4.500000000000001
+        },
+        {
+          "theta_deg": 120,
+          "cos_theta": -0.4999999999999998,
+          "s": 1.0,
+          "t": -0.7499999999999999,
+          "u": -0.2500000000000001,
+          "M2_t_channel": 1.8888888888888893,
+          "M2_s_channel": 0.625,
+          "interference_2u2_over_st": -0.16666666666666685,
+          "total_M2_over_8e4": 2.3472222222222223
+        },
+        {
+          "theta_deg": 150,
+          "cos_theta": -0.8660254037844387,
+          "s": 1.0,
+          "t": -0.9330127018922194,
+          "u": -0.06698729810778065,
+          "M2_t_channel": 1.1539030917347244,
+          "M2_s_channel": 0.8750000000000002,
+          "interference_2u2_over_st": -0.009618943233420288,
+          "total_M2_over_8e4": 2.019284148501304
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_QED_moller_scalar_intensity",
+      "description": "QED |M\u0304|\u00b2_M\u00f8ller/(8e\u2074) = (s\u00b2+u\u00b2)/t\u00b2 + (s\u00b2+t\u00b2)/u\u00b2 + 2s\u00b2/(t\u00b7u). M\u00f8ller is the e\u207be\u207b analogue with Pauli antisymmetrisation; the interference sign is positive (t\u00b7u > 0 since both < 0).",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "cos_theta": 0.8660254037844387,
+          "s": 1.0,
+          "t": -0.06698729810778065,
+          "u": -0.9330127018922194,
+          "M2_t_channel": 416.84609690826574,
+          "M2_u_channel": 1.1539030917347244,
+          "interference_2s2_over_tu": 32.000000000000014,
+          "total_M2_over_8e4": 450.00000000000045
+        },
+        {
+          "theta_deg": 60,
+          "cos_theta": 0.5000000000000001,
+          "s": 1.0,
+          "t": -0.24999999999999994,
+          "u": -0.75,
+          "M2_t_channel": 25.00000000000001,
+          "M2_u_channel": 1.8888888888888888,
+          "interference_2s2_over_tu": 10.66666666666667,
+          "total_M2_over_8e4": 37.55555555555557
+        },
+        {
+          "theta_deg": 90,
+          "cos_theta": 6.123233995736766e-17,
+          "s": 1.0,
+          "t": -0.49999999999999994,
+          "u": -0.5,
+          "M2_t_channel": 5.000000000000001,
+          "M2_u_channel": 5.0,
+          "interference_2s2_over_tu": 8.000000000000002,
+          "total_M2_over_8e4": 18.0
+        },
+        {
+          "theta_deg": 120,
+          "cos_theta": -0.4999999999999998,
+          "s": 1.0,
+          "t": -0.7499999999999999,
+          "u": -0.2500000000000001,
+          "M2_t_channel": 1.8888888888888893,
+          "M2_u_channel": 24.99999999999998,
+          "interference_2s2_over_tu": 10.666666666666664,
+          "total_M2_over_8e4": 37.55555555555553
+        },
+        {
+          "theta_deg": 150,
+          "cos_theta": -0.8660254037844387,
+          "s": 1.0,
+          "t": -0.9330127018922194,
+          "u": -0.06698729810778065,
+          "M2_t_channel": 1.1539030917347244,
+          "M2_u_channel": 416.84609690826574,
+          "interference_2s2_over_tu": 32.000000000000014,
+          "total_M2_over_8e4": 450.00000000000045
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T3_interference_signs",
+      "description": "Bhabha interference 2u\u00b2/(s\u00b7t) is NEGATIVE in CM (t < 0, s > 0). M\u00f8ller interference 2s\u00b2/(t\u00b7u) is POSITIVE (t\u00b7u > 0 since both negative). The opposite signs come from different Fermi-statistics origins: Wick-contraction for Bhabha s\u2194t exchange, Pauli antisymmetrisation for M\u00f8ller t\u2194u exchange.",
+      "bhabha_signs_across_angles": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "moller_signs_across_angles": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bhabha_all_negative": true,
+      "moller_all_positive": true,
+      "pass": true
+    },
+    {
+      "name": "T4_construction_I_positive_sum",
+      "description": "Construction I: M_channel = \u221a(diagonal QED |M|\u00b2), summed with positive sign. Predicts positive interference always \u2014 fails on Bhabha (which is negative) and on M\u00f8ller magnitude (sign right but value wrong).",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "bhabha_QED_interference": -25.990381056766598,
+          "bhabha_BAM_positive_interference": 38.19635243290818,
+          "bhabha_interference_residual": 64.18673348967478,
+          "bhabha_total_residual": 64.18673348967474,
+          "moller_QED_interference": 32.000000000000014,
+          "moller_BAM_positive_interference": 43.86342439892263,
+          "moller_interference_residual": 11.863424398922618,
+          "moller_total_residual": 11.863424398922632
+        },
+        {
+          "theta_deg": 60,
+          "bhabha_QED_interference": -4.500000000000001,
+          "bhabha_BAM_positive_interference": 7.90569415042095,
+          "bhabha_interference_residual": 12.40569415042095,
+          "bhabha_total_residual": 12.405694150420953,
+          "moller_QED_interference": 10.66666666666667,
+          "moller_BAM_positive_interference": 13.743685418725539,
+          "moller_interference_residual": 3.077018752058869,
+          "moller_total_residual": 3.077018752058869
+        },
+        {
+          "theta_deg": 90,
+          "bhabha_QED_interference": -1.0000000000000002,
+          "bhabha_BAM_positive_interference": 3.1622776601683795,
+          "bhabha_interference_residual": 4.16227766016838,
+          "bhabha_total_residual": 4.162277660168379,
+          "moller_QED_interference": 8.000000000000002,
+          "moller_BAM_positive_interference": 10.0,
+          "moller_interference_residual": 1.9999999999999982,
+          "moller_total_residual": 2.0
+        },
+        {
+          "theta_deg": 120,
+          "bhabha_QED_interference": -0.16666666666666685,
+          "bhabha_BAM_positive_interference": 2.173067468400883,
+          "bhabha_interference_residual": 2.33973413506755,
+          "bhabha_total_residual": 2.33973413506755,
+          "moller_QED_interference": 10.666666666666664,
+          "moller_BAM_positive_interference": 13.743685418725532,
+          "moller_interference_residual": 3.0770187520588674,
+          "moller_total_residual": 3.077018752058869
+        },
+        {
+          "theta_deg": 150,
+          "bhabha_QED_interference": -0.009618943233420288,
+          "bhabha_BAM_positive_interference": 2.0096419634033165,
+          "bhabha_interference_residual": 2.019260906636737,
+          "bhabha_total_residual": 2.019260906636737,
+          "moller_QED_interference": 32.000000000000014,
+          "moller_BAM_positive_interference": 43.86342439892263,
+          "moller_interference_residual": 11.863424398922618,
+          "moller_total_residual": 11.863424398922632
+        }
+      ],
+      "bhabha_max_total_residual": 64.18673348967474,
+      "moller_max_total_residual": 11.863424398922632,
+      "pass": false
+    },
+    {
+      "name": "T5_construction_II_fermi_sign",
+      "description": "Construction II: explicit Fermi-statistics sign added by hand (Bhabha: -1 between s and t channels; M\u00f8ller: +1 between t and u channels, matching antisymmetrised result). The sign is now correct, but the magnitude of the interference (2\u00b7\u221a(|M_a|\u00b2\u00b7|M_b|\u00b2)) does not equal the QED interference (2u\u00b2/(s\u00b7t) for Bhabha or 2s\u00b2/(t\u00b7u) for M\u00f8ller) because the Dirac-trace algebra produces a different functional form than the geometric mean of the diagonals.",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "bhabha_QED_interference": -25.990381056766598,
+          "bhabha_BAM_signed_interference": -38.19635243290818,
+          "bhabha_interference_residual": -12.20597137614158,
+          "bhabha_total_residual": -12.205971376141576,
+          "moller_QED_interference": 32.000000000000014,
+          "moller_BAM_signed_interference": 43.86342439892263,
+          "moller_interference_residual": 11.863424398922618,
+          "moller_total_residual": 11.863424398922632
+        },
+        {
+          "theta_deg": 60,
+          "bhabha_QED_interference": -4.500000000000001,
+          "bhabha_BAM_signed_interference": -7.90569415042095,
+          "bhabha_interference_residual": -3.405694150420949,
+          "bhabha_total_residual": -3.405694150420949,
+          "moller_QED_interference": 10.66666666666667,
+          "moller_BAM_signed_interference": 13.743685418725539,
+          "moller_interference_residual": 3.077018752058869,
+          "moller_total_residual": 3.077018752058869
+        },
+        {
+          "theta_deg": 90,
+          "bhabha_QED_interference": -1.0000000000000002,
+          "bhabha_BAM_signed_interference": -3.1622776601683795,
+          "bhabha_interference_residual": -2.162277660168379,
+          "bhabha_total_residual": -2.1622776601683795,
+          "moller_QED_interference": 8.000000000000002,
+          "moller_BAM_signed_interference": 10.0,
+          "moller_interference_residual": 1.9999999999999982,
+          "moller_total_residual": 2.0
+        },
+        {
+          "theta_deg": 120,
+          "bhabha_QED_interference": -0.16666666666666685,
+          "bhabha_BAM_signed_interference": -2.173067468400883,
+          "bhabha_interference_residual": -2.006400801734216,
+          "bhabha_total_residual": -2.006400801734216,
+          "moller_QED_interference": 10.666666666666664,
+          "moller_BAM_signed_interference": 13.743685418725532,
+          "moller_interference_residual": 3.0770187520588674,
+          "moller_total_residual": 3.077018752058869
+        },
+        {
+          "theta_deg": 150,
+          "bhabha_QED_interference": -0.009618943233420288,
+          "bhabha_BAM_signed_interference": -2.0096419634033165,
+          "bhabha_interference_residual": -2.000023020169896,
+          "bhabha_total_residual": -2.000023020169896,
+          "moller_QED_interference": 32.000000000000014,
+          "moller_BAM_signed_interference": 43.86342439892263,
+          "moller_interference_residual": 11.863424398922618,
+          "moller_total_residual": 11.863424398922632
+        }
+      ],
+      "bhabha_max_total_residual": 12.205971376141576,
+      "moller_max_total_residual": 11.863424398922632,
+      "pass": false
+    },
+    {
+      "name": "T6_construction_III_compton_vertex",
+      "description": "Construction III: M_channel = K(1)\u00b7\u221aQ(1,c)/q\u00b2 = 1/q\u00b2. Even the diagonal Bhabha/M\u00f8ller intensities don't match \u2014 QED diagonals have numerators (s\u00b2+u\u00b2), (u\u00b2+t\u00b2), (s\u00b2+t\u00b2) from Dirac traces, which 1/q\u2074 alone doesn't capture. Bhabha/M\u00f8ller sit outside the BAM Compton-F\u00b2 analytic continuation class.",
+      "rows": [
+        {
+          "theta_deg": 60,
+          "bhabha_QED_M2_t": 25.00000000000001,
+          "bhabha_BAM_M2_t_via_compton_vertex": 16.000000000000007,
+          "bhabha_t_diag_residual": -9.000000000000004,
+          "bhabha_QED_M2_s": 0.625,
+          "bhabha_BAM_M2_s_via_compton_vertex": 1.0,
+          "bhabha_s_diag_residual": 0.375,
+          "moller_QED_M2_t": 25.00000000000001,
+          "moller_BAM_M2_t_via_compton_vertex": 16.000000000000007,
+          "moller_t_diag_residual": -9.000000000000004,
+          "moller_QED_M2_u": 1.8888888888888888,
+          "moller_BAM_M2_u_via_compton_vertex": 1.7777777777777777,
+          "moller_u_diag_residual": -0.11111111111111116
+        },
+        {
+          "theta_deg": 90,
+          "bhabha_QED_M2_t": 5.000000000000001,
+          "bhabha_BAM_M2_t_via_compton_vertex": 4.000000000000001,
+          "bhabha_t_diag_residual": -1.0,
+          "bhabha_QED_M2_s": 0.49999999999999994,
+          "bhabha_BAM_M2_s_via_compton_vertex": 1.0,
+          "bhabha_s_diag_residual": 0.5,
+          "moller_QED_M2_t": 5.000000000000001,
+          "moller_BAM_M2_t_via_compton_vertex": 4.000000000000001,
+          "moller_t_diag_residual": -1.0,
+          "moller_QED_M2_u": 5.0,
+          "moller_BAM_M2_u_via_compton_vertex": 4.0,
+          "moller_u_diag_residual": -1.0
+        },
+        {
+          "theta_deg": 120,
+          "bhabha_QED_M2_t": 1.8888888888888893,
+          "bhabha_BAM_M2_t_via_compton_vertex": 1.7777777777777781,
+          "bhabha_t_diag_residual": -0.11111111111111116,
+          "bhabha_QED_M2_s": 0.625,
+          "bhabha_BAM_M2_s_via_compton_vertex": 1.0,
+          "bhabha_s_diag_residual": 0.375,
+          "moller_QED_M2_t": 1.8888888888888893,
+          "moller_BAM_M2_t_via_compton_vertex": 1.7777777777777781,
+          "moller_t_diag_residual": -0.11111111111111116,
+          "moller_QED_M2_u": 24.99999999999998,
+          "moller_BAM_M2_u_via_compton_vertex": 15.999999999999986,
+          "moller_u_diag_residual": -8.999999999999993
+        }
+      ],
+      "bhabha_max_diagonal_residual": 9.000000000000004,
+      "moller_max_diagonal_residual": 9.000000000000004,
+      "pass": false
+    },
+    {
+      "name": "T7_residual_analysis",
+      "description": "Two BAM residuals identified: (a) the QED diagonal-term Dirac-trace numerators (s\u00b2+u\u00b2) etc. don't factor as Pad\u00e9\u00b7Hopf-spinor; (b) the interference magnitude is specific to Dirac-trace algebra, not the geometric mean of the diagonals.",
+      "diagonal_term_analysis": [
+        {
+          "theta_deg": 60,
+          "s2_plus_u2": 1.5625,
+          "u2_plus_t2": 0.625,
+          "s2_plus_t2": 1.0625,
+          "comment": "These trace-derived numerators cannot be reproduced by Pad\u00e9(x)\u00b7Hopf-spinor(x,c) for any natural BAM x and c."
+        },
+        {
+          "theta_deg": 90,
+          "s2_plus_u2": 1.25,
+          "u2_plus_t2": 0.49999999999999994,
+          "s2_plus_t2": 1.25,
+          "comment": "These trace-derived numerators cannot be reproduced by Pad\u00e9(x)\u00b7Hopf-spinor(x,c) for any natural BAM x and c."
+        },
+        {
+          "theta_deg": 120,
+          "s2_plus_u2": 1.0625,
+          "u2_plus_t2": 0.625,
+          "s2_plus_t2": 1.5625,
+          "comment": "These trace-derived numerators cannot be reproduced by Pad\u00e9(x)\u00b7Hopf-spinor(x,c) for any natural BAM x and c."
+        }
+      ],
+      "interference_vs_geometric_mean_analysis": [
+        {
+          "theta_deg": 60,
+          "bhabha_|interference|_QED": 4.500000000000001,
+          "bhabha_2x_geometric_mean_diagonals_BAM_positive": 7.90569415042095,
+          "ratio_BAM_over_QED": 1.7568209223157663
+        },
+        {
+          "theta_deg": 90,
+          "bhabha_|interference|_QED": 1.0000000000000002,
+          "bhabha_2x_geometric_mean_diagonals_BAM_positive": 3.1622776601683795,
+          "ratio_BAM_over_QED": 3.1622776601683786
+        },
+        {
+          "theta_deg": 120,
+          "bhabha_|interference|_QED": 0.16666666666666685,
+          "bhabha_2x_geometric_mean_diagonals_BAM_positive": 2.173067468400883,
+          "ratio_BAM_over_QED": 13.038404810405284
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_required_BAM_extension",
+      "description": "BAM's scalar-intensity kernel (verified for the Compton/BW/ann triangle in PRs #35-#41) cannot reproduce Bhabha/M\u00f8ller scalar intensities at either the diagonal or interference level. The missing structure is the Dirac \u03b3-matrix algebra at the QED vertex \u2014 specifically the spinor trace that produces (s\u00b2+u\u00b2), (u\u00b2+t\u00b2), (s\u00b2+t\u00b2) numerators and the specific (2u\u00b2/(s\u00b7t), 2s\u00b2/(t\u00b7u)) interference.",
+      "missing_ingredients": [
+        "Dirac spinors at the vertex. The Compton BAM kernel F\u00b2 = K\u00b2\u00b7Q already integrates over Dirac structure implicitly via the closed form, but for multi-channel processes the per-channel amplitudes must carry explicit spinor weights.",
+        "Virtual-photon propagator structure beyond 1/q\u00b2. Internal photon lines couple two BAM vertices; their transport on the throat may carry Hopf-fibre phase in addition to 1/q\u00b2.",
+        "Channel sign rule from non-orientable throat topology. The README's channel-2 (M\u00f6bius / antipodal T = i\u03c3_y) is the geometric origin of spin-\u00bd and could in principle drive Pauli signs for identical-fermion interference (M\u00f8ller t\u2194u). Whether it correctly predicts the Bhabha s\u2194t Wick sign is a deeper open question."
+      ],
+      "next_probe_candidates": [
+        "Dirac-trace BAM probe: derive (s\u00b2+u\u00b2) etc. from a geometric trace over per-vertex spinor configurations.",
+        "M\u00f6bius-sign probe: test whether T = i\u03c3_y gives the M\u00f8ller Pauli sign automatically.",
+        "Virtual-photon throat-fibre propagator probe: derive 1/q\u00b2 + corrections from BAM throat-fibre dynamics."
+      ],
+      "pass": true
+    }
+  ],
+  "n_passed": 5,
+  "n_total": 8,
+  "verdict_class": "DIAGONAL_FAILS_TOO",
+  "verdict": "DIAGONAL_FAILS_TOO. Even the diagonal channel intensities for Bhabha/M\u00f8ller do not match the BAM Compton-F\u00b2 analytic continuation \u2014 these 4-fermion processes sit outside the Compton kernel's crossing-orbit class. A fundamentally new BAM tree kernel is needed for multi-fermion scattering, with explicit Dirac-trace structure at the vertex and a virtual-photon propagator beyond 1/q\u00b2. The Compton/BW/ann triangle does NOT extend to Bhabha/M\u00f8ller by Mandelstam crossing alone."
+}
