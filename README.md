@@ -605,14 +605,44 @@ derivation from the Hopf-bundle / throat-transport algebra.
 | PR #34 | `compton_eps2_extension_probe.py` | `O(ε²)` polynomial fit |
 | PR #35 | `compton_vertex_resummation_probe.py` | exact closed-form F² |
 | PR #36 | `breit_wheeler_cross_process_probe.py` | F process-general under Compton → BW crossing |
-| this | `pair_annihilation_crossing_probe.py` | **full Compton/BW/annihilation crossing triangle closes** |
+| PR #37 | `pair_annihilation_crossing_probe.py` | full Compton/BW/annihilation crossing triangle closes |
+| this | `throat_nucleation_caustic_derivation_probe.py` | **F² derived from caustic throat-rate × Hopf-fibre helicity transport** |
+
+The derivation rests on the algebraic identity
+
+  x² + 1 − x·sin²θ ≡ (1 − x)² + x · (1 + c²)
+
+which yields two equivalent decompositions:
+
+  F²(x, c) = [2x/(1+x)]² · [x² + x·(1−x)²/(1+c²)]
+  |M̄|²_KN/(8e⁴) = (1+c²) + (1−x)²/x
+
+with BAM-geometric interpretation:
+
+  - **P(x) = 2x/(1+x)** = harmonic mean of in/out photon frequencies
+    = standard classical bottleneck-flux average through the throat;
+    squared because both throat-pair mouths pinch. Uniquely
+    polynomial — alternative throat-rates (arithmetic, geometric mean,
+    linear x) leave Q non-polynomial at x → −1.
+  - **(1+c²)/2 = cos⁴(θ/2) + sin⁴(θ/2)** = sum of squared Wigner-d¹₁,±₁
+    matrix elements = Hopf-fibre spin-1 helicity transport through θ.
+  - **Q = |a|² + |b|²** = orthogonal sum of helicity-preserving
+    (a = x) and helicity-flipping (b = √x(1−x)/√(1+c²)) channels,
+    each non-negative across the physical region.
+  - The Hopf connection at the BAM lock `A_φ(0) = 1/2` (from
+    `geometrodynamics.hopf.connection`) matches the PR #34 perturbative
+    coefficient `ξ = −1/2` exactly.
+  - Decomposition survives analytic continuation under crossing
+    (full Compton ↔ BW ↔ annihilation triangle, PR #37).
 
 See `docs/compton_vertex_resummation_research_plan.md` for the
 Compton-thread culmination,
 `docs/breit_wheeler_cross_process_research_plan.md` for the BW
-cross-process plan, and
+cross-process plan,
 `docs/pair_annihilation_crossing_research_plan.md` for the
-triangle-closure plan.
+triangle-closure plan, and
+`docs/throat_nucleation_caustic_derivation_research_plan.md` for the
+geometric derivation plan.
 
 ## Quick Start
 
