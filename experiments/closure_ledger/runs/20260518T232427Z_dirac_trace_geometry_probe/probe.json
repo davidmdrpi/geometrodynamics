@@ -1,0 +1,460 @@
+{
+  "timestamp_utc": "2026-05-18T23:24:27+00:00",
+  "identity": "T_BAM(p_a, p_b, p_c, p_d) = 32\u00b7[(p_a\u00b7p_c)(p_b\u00b7p_d) + (p_a\u00b7p_d)(p_b\u00b7p_c)]  (QED Dirac trace product, derived from BAM SU(2) Pauli/Weyl traces with parity-symmetric Re\u00b7Re combination)",
+  "kinematic_pairings": {
+    "bhabha_t_channel": "(p_1, p_3)(p_2, p_4)  \u2192  8\u00b7(s\u00b2+u\u00b2)",
+    "bhabha_s_channel": "(p_1, p_2)(p_3, p_4)  \u2192  8\u00b7(u\u00b2+t\u00b2)",
+    "moller_t_channel": "(p_1, p_3)(p_2, p_4)  \u2192  8\u00b7(s\u00b2+u\u00b2)",
+    "moller_u_channel": "(p_1, p_4)(p_2, p_3)  \u2192  8\u00b7(s\u00b2+t\u00b2)"
+  },
+  "tests": [
+    {
+      "name": "T1_pauli_setup",
+      "description": "Verify the basic Pauli/Weyl trace identity Tr[\u03c3^\u03bc \u03c3\u0304^\u03bd] = 2\u00b7\u03b7^{\u03bc\u03bd} (mostly-minus signature).",
+      "rows": [
+        {
+          "mu": 0,
+          "nu": 0,
+          "Tr[sigma^mu sigma_bar^nu]_real": 2.0,
+          "Tr[sigma^mu sigma_bar^nu]_imag": 0.0,
+          "expected_2_eta_munu": 2.0,
+          "difference": 0.0
+        },
+        {
+          "mu": 1,
+          "nu": 1,
+          "Tr[sigma^mu sigma_bar^nu]_real": -2.0,
+          "Tr[sigma^mu sigma_bar^nu]_imag": 0.0,
+          "expected_2_eta_munu": -2.0,
+          "difference": 0.0
+        },
+        {
+          "mu": 2,
+          "nu": 2,
+          "Tr[sigma^mu sigma_bar^nu]_real": -2.0,
+          "Tr[sigma^mu sigma_bar^nu]_imag": 0.0,
+          "expected_2_eta_munu": -2.0,
+          "difference": 0.0
+        },
+        {
+          "mu": 3,
+          "nu": 3,
+          "Tr[sigma^mu sigma_bar^nu]_real": -2.0,
+          "Tr[sigma^mu sigma_bar^nu]_imag": 0.0,
+          "expected_2_eta_munu": -2.0,
+          "difference": 0.0
+        }
+      ],
+      "max_difference": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T2_parity_symmetric_trace_product_equals_QED",
+      "description": "BAM parity-symmetric Pauli trace product = 32\u00b7[(p_a\u00b7p_c)(p_b\u00b7p_d) + (p_a\u00b7p_d)(p_b\u00b7p_c)] = QED Dirac trace product. Verified across random light-like 4-momenta.",
+      "samples_first_6": [
+        {
+          "T_BAM": 120.6146077748146,
+          "QED_32x_kinematic": 120.61460777481456,
+          "difference": 4.263256414560601e-14,
+          "relative_difference": 3.5346103537641385e-16
+        },
+        {
+          "T_BAM": 14.654941357132273,
+          "QED_32x_kinematic": 14.654941357132317,
+          "difference": 4.440892098500626e-14,
+          "relative_difference": 3.0303035612894607e-15
+        },
+        {
+          "T_BAM": 197.77926309912806,
+          "QED_32x_kinematic": 197.779263099128,
+          "difference": 5.684341886080802e-14,
+          "relative_difference": 2.8740838634997744e-16
+        },
+        {
+          "T_BAM": 181.99302960799952,
+          "QED_32x_kinematic": 181.99302960799955,
+          "difference": 2.842170943040401e-14,
+          "relative_difference": 1.5616921973123043e-16
+        },
+        {
+          "T_BAM": 256.5885041159541,
+          "QED_32x_kinematic": 256.588504115954,
+          "difference": 1.1368683772161603e-13,
+          "relative_difference": 4.4307065943312963e-16
+        },
+        {
+          "T_BAM": 29.434152260335097,
+          "QED_32x_kinematic": 29.434152260335086,
+          "difference": 1.0658141036401503e-14,
+          "relative_difference": 3.621011722075045e-16
+        }
+      ],
+      "max_relative_difference": 3.0303035612894607e-15,
+      "pass": "True"
+    },
+    {
+      "name": "T3_bhabha_t_channel_diagonal",
+      "description": "Bhabha t-channel diagonal trace with kinematic pairing (p_1, p_3)(p_2, p_4): T_BAM = 8\u00b7(s\u00b2+u\u00b2).",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "s": 4.0,
+          "t": -0.26794919243112264,
+          "u": -3.732050807568878,
+          "T_BAM": 239.4256258422041,
+          "QED_8x(s2+u2)": 239.4256258422041,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 60,
+          "s": 4.0,
+          "t": -0.9999999999999998,
+          "u": -3.0,
+          "T_BAM": 200.0,
+          "QED_8x(s2+u2)": 200.0,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 90,
+          "s": 4.0,
+          "t": -1.9999999999999998,
+          "u": -2.0,
+          "T_BAM": 160.0,
+          "QED_8x(s2+u2)": 160.0,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 120,
+          "s": 4.0,
+          "t": -2.9999999999999996,
+          "u": -1.0000000000000004,
+          "T_BAM": 136.0,
+          "QED_8x(s2+u2)": 136.0,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 150,
+          "s": 4.0,
+          "t": -3.732050807568878,
+          "u": -0.26794919243112264,
+          "T_BAM": 128.57437415779594,
+          "QED_8x(s2+u2)": 128.57437415779592,
+          "relative_difference": 2.2105267567176954e-16
+        }
+      ],
+      "max_relative_difference": 2.2105267567176954e-16,
+      "pass": "True"
+    },
+    {
+      "name": "T4_bhabha_s_channel_diagonal",
+      "description": "Bhabha s-channel diagonal trace with kinematic pairing (p_1, p_2)(p_3, p_4): T_BAM = 8\u00b7(u\u00b2+t\u00b2).",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "s": 4.0,
+          "t": -0.26794919243112264,
+          "u": -3.732050807568878,
+          "T_BAM": 112.00000000000003,
+          "QED_8x(u2+t2)": 112.00000000000006,
+          "relative_difference": 2.5376526277146424e-16
+        },
+        {
+          "theta_deg": 60,
+          "s": 4.0,
+          "t": -0.9999999999999998,
+          "u": -3.0,
+          "T_BAM": 80.0,
+          "QED_8x(u2+t2)": 80.0,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 90,
+          "s": 4.0,
+          "t": -1.9999999999999998,
+          "u": -2.0,
+          "T_BAM": 64.0,
+          "QED_8x(u2+t2)": 63.99999999999999,
+          "relative_difference": 1.1102230246251568e-16
+        },
+        {
+          "theta_deg": 120,
+          "s": 4.0,
+          "t": -2.9999999999999996,
+          "u": -1.0000000000000004,
+          "T_BAM": 80.0,
+          "QED_8x(u2+t2)": 80.0,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 150,
+          "s": 4.0,
+          "t": -3.732050807568878,
+          "u": -0.26794919243112264,
+          "T_BAM": 112.00000000000003,
+          "QED_8x(u2+t2)": 112.00000000000006,
+          "relative_difference": 2.5376526277146424e-16
+        }
+      ],
+      "max_relative_difference": 2.5376526277146424e-16,
+      "pass": "True"
+    },
+    {
+      "name": "T5_moller_t_channel_diagonal",
+      "description": "M\u00f8ller t-channel diagonal (same pairing as Bhabha t-channel): T_BAM = 8\u00b7(s\u00b2+u\u00b2).",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "s": 4.0,
+          "t": -0.26794919243112264,
+          "u": -3.732050807568878,
+          "T_BAM": 239.4256258422041,
+          "QED_8x(s2+u2)": 239.4256258422041,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 60,
+          "s": 4.0,
+          "t": -0.9999999999999998,
+          "u": -3.0,
+          "T_BAM": 200.0,
+          "QED_8x(s2+u2)": 200.0,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 90,
+          "s": 4.0,
+          "t": -1.9999999999999998,
+          "u": -2.0,
+          "T_BAM": 160.0,
+          "QED_8x(s2+u2)": 160.0,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 120,
+          "s": 4.0,
+          "t": -2.9999999999999996,
+          "u": -1.0000000000000004,
+          "T_BAM": 136.0,
+          "QED_8x(s2+u2)": 136.0,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 150,
+          "s": 4.0,
+          "t": -3.732050807568878,
+          "u": -0.26794919243112264,
+          "T_BAM": 128.57437415779594,
+          "QED_8x(s2+u2)": 128.57437415779592,
+          "relative_difference": 2.2105267567176954e-16
+        }
+      ],
+      "max_relative_difference": 2.2105267567176954e-16,
+      "pass": "True"
+    },
+    {
+      "name": "T6_moller_u_channel_diagonal",
+      "description": "M\u00f8ller u-channel diagonal with kinematic pairing (p_1, p_4)(p_2, p_3): T_BAM = 8\u00b7(s\u00b2+t\u00b2). Reflects Pauli antisymmetrisation (swap of final-state identical electrons p_3 \u2194 p_4).",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "s": 4.0,
+          "t": -0.26794919243112264,
+          "u": -3.732050807568878,
+          "T_BAM": 128.57437415779594,
+          "QED_8x(s2+t2)": 128.57437415779592,
+          "relative_difference": 2.2105267567176954e-16
+        },
+        {
+          "theta_deg": 60,
+          "s": 4.0,
+          "t": -0.9999999999999998,
+          "u": -3.0,
+          "T_BAM": 136.0,
+          "QED_8x(s2+t2)": 136.0,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 90,
+          "s": 4.0,
+          "t": -1.9999999999999998,
+          "u": -2.0,
+          "T_BAM": 160.0,
+          "QED_8x(s2+t2)": 160.0,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 120,
+          "s": 4.0,
+          "t": -2.9999999999999996,
+          "u": -1.0000000000000004,
+          "T_BAM": 199.99999999999997,
+          "QED_8x(s2+t2)": 200.0,
+          "relative_difference": 1.4210854715202004e-16
+        },
+        {
+          "theta_deg": 150,
+          "s": 4.0,
+          "t": -3.732050807568878,
+          "u": -0.26794919243112264,
+          "T_BAM": 239.4256258422041,
+          "QED_8x(s2+t2)": 239.4256258422041,
+          "relative_difference": 0.0
+        }
+      ],
+      "max_relative_difference": 2.2105267567176954e-16,
+      "pass": "True"
+    },
+    {
+      "name": "T7_bhabha_interference_single_trace",
+      "description": "Bhabha s\u2194t interference single trace computed via the BAM Pauli parity-symmetric 8-\u03c3 trace. Numerical evaluation: the trace value is reported and compared to the QED structural magnitude 8\u00b7u\u00b2. The relative cross-section sign (Fermi-statistics from Wick contraction) is documented as a separate overlay rather than a derivation from the trace itself.",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "s": 4.0,
+          "t": -0.26794919243112264,
+          "u": -3.732050807568878,
+          "BAM_interference_trace": -111.4256258422041,
+          "QED_interference_2u2_over_st_times_s_t_8e4_norm": 111.42562584220413
+        },
+        {
+          "theta_deg": 60,
+          "s": 4.0,
+          "t": -0.9999999999999998,
+          "u": -3.0,
+          "BAM_interference_trace": -72.0,
+          "QED_interference_2u2_over_st_times_s_t_8e4_norm": 72.0
+        },
+        {
+          "theta_deg": 90,
+          "s": 4.0,
+          "t": -1.9999999999999998,
+          "u": -2.0,
+          "BAM_interference_trace": -32.0,
+          "QED_interference_2u2_over_st_times_s_t_8e4_norm": 32.0
+        },
+        {
+          "theta_deg": 120,
+          "s": 4.0,
+          "t": -2.9999999999999996,
+          "u": -1.0000000000000004,
+          "BAM_interference_trace": -8.000000000000007,
+          "QED_interference_2u2_over_st_times_s_t_8e4_norm": 8.000000000000007
+        },
+        {
+          "theta_deg": 150,
+          "s": 4.0,
+          "t": -3.732050807568878,
+          "u": -0.26794919243112264,
+          "BAM_interference_trace": -0.5743741577959285,
+          "QED_interference_2u2_over_st_times_s_t_8e4_norm": 0.5743741577959264
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_moller_interference_single_trace",
+      "description": "M\u00f8ller t\u2194u interference single trace via BAM Pauli parity-symmetric construction. Magnitude reported and compared to QED structural magnitude 8\u00b7s\u00b2; relative interference sign is the Pauli antisymmetrisation overlay.",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "s": 4.0,
+          "t": -0.26794919243112264,
+          "u": -3.732050807568878,
+          "BAM_interference_trace": -128.00000000000003,
+          "QED_interference_2s2_over_tu_times_t_u_8e4_norm": 128.0
+        },
+        {
+          "theta_deg": 60,
+          "s": 4.0,
+          "t": -0.9999999999999998,
+          "u": -3.0,
+          "BAM_interference_trace": -128.0,
+          "QED_interference_2s2_over_tu_times_t_u_8e4_norm": 128.0
+        },
+        {
+          "theta_deg": 90,
+          "s": 4.0,
+          "t": -1.9999999999999998,
+          "u": -2.0,
+          "BAM_interference_trace": -128.0,
+          "QED_interference_2s2_over_tu_times_t_u_8e4_norm": 128.0
+        },
+        {
+          "theta_deg": 120,
+          "s": 4.0,
+          "t": -2.9999999999999996,
+          "u": -1.0000000000000004,
+          "BAM_interference_trace": -128.0,
+          "QED_interference_2s2_over_tu_times_t_u_8e4_norm": 128.0
+        },
+        {
+          "theta_deg": 150,
+          "s": 4.0,
+          "t": -3.732050807568878,
+          "u": -0.26794919243112264,
+          "BAM_interference_trace": -128.00000000000003,
+          "QED_interference_2s2_over_tu_times_t_u_8e4_norm": 128.0
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T9_M2_reconstruction",
+      "description": "End-to-end Bhabha and M\u00f8ller |M\u0304|\u00b2/(8e\u2074) reconstructed from BAM Pauli diagonal traces (T3\u2013T6) plus the QED interference magnitudes 2u\u00b2/(s\u00b7t) and 2s\u00b2/(t\u00b7u) with explicit Fermi-statistics-determined signs.",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "M2_bhabha_BAM_over_8e4": 391.7307158514989,
+          "M2_bhabha_QED_over_8e4": 391.7307158514989,
+          "bhabha_relative_diff": 0.0,
+          "M2_moller_BAM_over_8e4": 450.0000000000002,
+          "M2_moller_QED_over_8e4": 450.0000000000002,
+          "moller_relative_diff": 0.0
+        },
+        {
+          "theta_deg": 60,
+          "M2_bhabha_BAM_over_8e4": 21.12500000000001,
+          "M2_bhabha_QED_over_8e4": 21.12500000000001,
+          "bhabha_relative_diff": 0.0,
+          "M2_moller_BAM_over_8e4": 37.55555555555557,
+          "M2_moller_QED_over_8e4": 37.55555555555557,
+          "moller_relative_diff": 0.0
+        },
+        {
+          "theta_deg": 90,
+          "M2_bhabha_BAM_over_8e4": 4.500000000000001,
+          "M2_bhabha_QED_over_8e4": 4.500000000000001,
+          "bhabha_relative_diff": 0.0,
+          "M2_moller_BAM_over_8e4": 18.0,
+          "M2_moller_QED_over_8e4": 18.0,
+          "moller_relative_diff": 0.0
+        },
+        {
+          "theta_deg": 120,
+          "M2_bhabha_BAM_over_8e4": 2.3472222222222223,
+          "M2_bhabha_QED_over_8e4": 2.3472222222222223,
+          "bhabha_relative_diff": 0.0,
+          "M2_moller_BAM_over_8e4": 37.55555555555553,
+          "M2_moller_QED_over_8e4": 37.55555555555553,
+          "moller_relative_diff": 0.0
+        },
+        {
+          "theta_deg": 150,
+          "M2_bhabha_BAM_over_8e4": 2.019284148501304,
+          "M2_bhabha_QED_over_8e4": 2.019284148501304,
+          "bhabha_relative_diff": 0.0,
+          "M2_moller_BAM_over_8e4": 450.0000000000002,
+          "M2_moller_QED_over_8e4": 450.0000000000002,
+          "moller_relative_diff": 0.0
+        }
+      ],
+      "bhabha_max_relative_difference": 0.0,
+      "moller_max_relative_difference": 0.0,
+      "pass": true
+    }
+  ],
+  "n_passed": 9,
+  "n_total": 9,
+  "verdict_class": "DIAGONALS_DERIVED_INTERFERENCE_MAGNITUDE_OK",
+  "verdict": "DIAGONALS DERIVED FROM BAM SPINOR TRACES. The QED 4-fermion diagonal numerator structures (s\u00b2+u\u00b2), (u\u00b2+t\u00b2), (s\u00b2+t\u00b2) emerge from the parity-symmetric Pauli (SU(2) Hopf-bundle) trace product\n  T_BAM(p_a, p_b, p_c, p_d) = \u03a3_{\u03bc\u03bd} \u03b7_\u03bc \u03b7_\u03bd \u00b7 (2 Re Tr[\u03c3^\u03bc \u03c3\u0304\u00b7p_a \u03c3^\u03bd \u03c3\u0304\u00b7p_b])\u00b7(2 Re Tr[\u03c3^\u03bc \u03c3\u0304\u00b7p_c \u03c3^\u03bd \u03c3\u0304\u00b7p_d]) = 32\u00b7[(p_a\u00b7p_c)(p_b\u00b7p_d) + (p_a\u00b7p_d)(p_b\u00b7p_c)],\nwith specific kinematic pairings selecting each channel:\n  Bhabha t-channel (p_1, p_3)(p_2, p_4) \u2192 8\u00b7(s\u00b2+u\u00b2)\n  Bhabha s-channel (p_1, p_2)(p_3, p_4) \u2192 8\u00b7(u\u00b2+t\u00b2)\n  M\u00f8ller t-channel (p_1, p_3)(p_2, p_4) \u2192 8\u00b7(s\u00b2+u\u00b2)\n  M\u00f8ller u-channel (p_1, p_4)(p_2, p_3) \u2192 8\u00b7(s\u00b2+t\u00b2)\nThe Dirac-trace structure that PR #42 identified as \"missing from BAM\" is in fact NOT missing \u2014 it emerges directly from BAM's natural SU(2) Hopf-bundle spinor representation (the same structure that gives Pauli matrices for spin-\u00bd and the T = i\u03c3_y throat transport for non-orientable spinor closure). End-to-end |M\u0304|\u00b2 reconstruction for Bhabha and M\u00f8ller matches QED to machine precision once the interference sign (Fermi-statistics / Pauli antisymmetrisation) is supplied; deriving that sign from the BAM M\u00f6bius / antipodal T = i\u03c3_y structure is the next probe (README channel 2)."
+}
