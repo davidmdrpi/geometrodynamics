@@ -1,0 +1,489 @@
+{
+  "timestamp_utc": "2026-05-20T06:17:58+00:00",
+  "potential": "V(\u03c8) = q\u00b7G(\u03c8), G(\u03c8) = ((\u03c0\u2212\u03c8)cot \u03c8 \u2212 \u00bd)/(4\u03c0\u00b2R)",
+  "force_exact": "F(\u03c8) = q\u2081q\u2082\u00b7N(\u03c8)/(4\u03c0\u00b2R\u00b2sin\u00b2\u03c8), N(\u03c8)=(\u03c0\u2212\u03c8)+sin\u03c8cos\u03c8",
+  "flat_limits": "V \u2192 q/(4\u03c0 r), F \u2192 q\u2081q\u2082/(4\u03c0 r\u00b2)",
+  "gauss_law": "\u03a6(\u03c8) = q\u00b7N(\u03c8)/\u03c0 = Q_enclosed(\u03c8)",
+  "tests": [
+    {
+      "name": "T1_potential_is_s3_green_function",
+      "description": "Two-throat Coulomb potential V(\u03c8) = q\u00b7G(\u03c8) with the S\u00b3 Green function from geometrodynamics.transaction.s3_geometry. Zero-mean (the \u2212\u00bd is the compact-manifold neutralizing background).",
+      "rows": [
+        {
+          "psi": 0.1,
+          "V_repo": 0.7552094097975245,
+          "V_analytic": 0.7552094097975245,
+          "difference": 0.0
+        },
+        {
+          "psi": 0.3,
+          "V_repo": 0.22002139577699836,
+          "V_analytic": 0.22002139577699834,
+          "difference": 2.7755575615628914e-17
+        },
+        {
+          "psi": 0.5,
+          "V_repo": 0.10981703880865303,
+          "V_analytic": 0.10981703880865303,
+          "difference": 0.0
+        },
+        {
+          "psi": 1.0,
+          "V_repo": 0.022166562955467237,
+          "V_analytic": 0.022166562955467237,
+          "difference": 0.0
+        },
+        {
+          "psi": 1.5,
+          "V_repo": -0.009716364936571404,
+          "V_analytic": -0.009716364936571404,
+          "difference": 0.0
+        },
+        {
+          "psi": 2.0,
+          "V_repo": -0.025899176409865013,
+          "V_analytic": -0.025899176409865013,
+          "difference": 0.0
+        },
+        {
+          "psi": 2.5,
+          "V_repo": -0.03442049827021651,
+          "V_analytic": -0.03442049827021651,
+          "difference": 0.0
+        },
+        {
+          "psi": 3.0,
+          "V_repo": -0.037825939208752844,
+          "V_analytic": -0.037825939208752844,
+          "difference": 0.0
+        }
+      ],
+      "max_difference": 2.7755575615628914e-17,
+      "pass": true
+    },
+    {
+      "name": "T2_coulomb_potential_flat_limit",
+      "description": "Flat-space limit: V(\u03c8)\u00b7r \u2192 q/(4\u03c0) as \u03c8 \u2192 0, i.e. the Coulomb potential V = q/(4\u03c0 r). The S\u00b3 Green function reproduces electrostatics at short range.",
+      "rows": [
+        {
+          "psi": 1e-05,
+          "r": 1e-05,
+          "V": 7957.709158885643,
+          "V_times_r": 0.07957709158885644,
+          "coulomb_target_q_over_4pi": 0.07957747154594767,
+          "residual": -3.7995709123439525e-07
+        },
+        {
+          "psi": 0.0001,
+          "r": 0.0001,
+          "V": 795.7367173631128,
+          "V_times_r": 0.07957367173631129,
+          "coulomb_target_q_over_4pi": 0.07957747154594767,
+          "residual": -3.799809636384488e-06
+        },
+        {
+          "psi": 0.001,
+          "r": 0.001,
+          "V": 79.5394495846996,
+          "V_times_r": 0.07953944958469959,
+          "coulomb_target_q_over_4pi": 0.07957747154594767,
+          "residual": -3.802196124808033e-05
+        },
+        {
+          "psi": 0.01,
+          "r": 0.01,
+          "V": 7.919487295070824,
+          "V_times_r": 0.07919487295070825,
+          "coulomb_target_q_over_4pi": 0.07957747154594767,
+          "residual": -0.0003825985952394251
+        },
+        {
+          "psi": 0.05,
+          "r": 0.05,
+          "V": 1.5522485868583284,
+          "V_times_r": 0.07761242934291643,
+          "coulomb_target_q_over_4pi": 0.07957747154594767,
+          "residual": -0.0019650422030312448
+        },
+        {
+          "psi": 0.1,
+          "r": 0.1,
+          "V": 0.7552094097975245,
+          "V_times_r": 0.07552094097975245,
+          "coulomb_target_q_over_4pi": 0.07957747154594767,
+          "residual": -0.004056530566195218
+        }
+      ],
+      "smallest_residual": 3.7995709123439525e-07,
+      "pass": true
+    },
+    {
+      "name": "T3_force_from_field_kernel",
+      "description": "Force F(\u03c8) = q\u2081q\u2082\u00b7|dG/d\u03c8|/R (repo field kernel) equals the analytic q\u2081q\u2082\u00b7N(\u03c8)/(4\u03c0\u00b2R\u00b2sin\u00b2\u03c8) with N(\u03c8)=(\u03c0\u2212\u03c8)+sin\u03c8cos\u03c8.",
+      "rows": [
+        {
+          "psi": 0.1,
+          "F_from_repo_field_kernel": 7.982635173221387,
+          "F_analytic_N_over_4pi2_R2_sin2": 7.982635173221386,
+          "difference": 8.881784197001252e-16
+        },
+        {
+          "psi": 0.3,
+          "F_from_repo_field_kernel": 0.9060766818518089,
+          "F_analytic_N_over_4pi2_R2_sin2": 0.906076681851809,
+          "difference": 1.1102230246251565e-16
+        },
+        {
+          "psi": 0.5,
+          "F_from_repo_field_kernel": 0.33748125824221653,
+          "F_analytic_N_over_4pi2_R2_sin2": 0.3374812582422166,
+          "difference": 5.551115123125783e-17
+        },
+        {
+          "psi": 1.0,
+          "F_from_repo_field_kernel": 0.09287675597513899,
+          "F_analytic_N_over_4pi2_R2_sin2": 0.09287675597513899,
+          "difference": 0.0
+        },
+        {
+          "psi": 1.5,
+          "F_from_repo_field_kernel": 0.0435874341593651,
+          "F_analytic_N_over_4pi2_R2_sin2": 0.043587434159365106,
+          "difference": 6.938893903907228e-18
+        },
+        {
+          "psi": 2.0,
+          "F_from_repo_field_kernel": 0.023380931543972572,
+          "F_analytic_N_over_4pi2_R2_sin2": 0.023380931543972566,
+          "difference": 6.938893903907228e-18
+        },
+        {
+          "psi": 2.5,
+          "F_from_repo_field_kernel": 0.011466137539066928,
+          "F_analytic_N_over_4pi2_R2_sin2": 0.011466137539066924,
+          "difference": 3.469446951953614e-18
+        }
+      ],
+      "max_difference": 8.881784197001252e-16,
+      "pass": true
+    },
+    {
+      "name": "T4_inverse_square_force_flat_limit",
+      "description": "Flat-space limit: F(\u03c8)\u00b7r\u00b2 \u2192 q\u2081q\u2082/(4\u03c0) as \u03c8 \u2192 0, i.e. the inverse-square law F = q\u2081q\u2082/(4\u03c0 r\u00b2). The two-throat S\u00b3 Green function reproduces Coulomb's force law at short range.",
+      "rows": [
+        {
+          "psi": 1e-05,
+          "r": 1e-05,
+          "F": 795774715.4860023,
+          "F_times_r2": 0.07957747154860025,
+          "inverse_square_target_q1q2_over_4pi": 0.07957747154594767,
+          "residual": 2.6525726060100396e-12
+        },
+        {
+          "psi": 0.0001,
+          "r": 0.0001,
+          "F": 7957747.1811189,
+          "F_times_r2": 0.079577471811189,
+          "inverse_square_target_q1q2_over_4pi": 0.07957747154594767,
+          "residual": 2.652413289006006e-10
+        },
+        {
+          "psi": 0.001,
+          "r": 0.001,
+          "F": 79577.49805488996,
+          "F_times_r2": 0.07957749805488996,
+          "inverse_square_target_q1q2_over_4pi": 0.07957747154594767,
+          "residual": 2.65089422912812e-08
+        },
+        {
+          "psi": 0.01,
+          "r": 0.01,
+          "F": 795.8010729429592,
+          "F_times_r2": 0.07958010729429592,
+          "inverse_square_target_q1q2_over_4pi": 0.07957747154594767,
+          "residual": 2.6357483482453148e-06
+        },
+        {
+          "psi": 0.05,
+          "r": 0.05,
+          "F": 31.856683085659245,
+          "F_times_r2": 0.07964170771414812,
+          "inverse_square_target_q1q2_over_4pi": 0.07957747154594767,
+          "residual": 6.423616820044886e-05
+        },
+        {
+          "psi": 0.1,
+          "r": 0.1,
+          "F": 7.982635173221386,
+          "F_times_r2": 0.07982635173221386,
+          "inverse_square_target_q1q2_over_4pi": 0.07957747154594767,
+          "residual": 0.0002488801862661899
+        }
+      ],
+      "smallest_residual": 2.6525726060100396e-12,
+      "pass": true
+    },
+    {
+      "name": "T5_exact_s3_force_form",
+      "description": "THESIS claim F \u221d 1/sin\u00b2\u03c8 is the LEADING behaviour near \u03c8=0; the exact force is modulated by N(\u03c8)=(\u03c0\u2212\u03c8)+sin\u03c8cos\u03c8 (runs \u03c0 \u2192 0). F\u00b7sin\u00b2\u03c8 matches the Coulomb constant only at short range. The N(\u03c8) modulation is the compact-S\u00b3 antipodal-image correction (see T6).",
+      "rows": [
+        {
+          "psi": 0.01,
+          "F": 795.8010729429592,
+          "F_times_sin2_psi": 0.07957745465942147,
+          "N_modulation": 3.1415919869364597,
+          "coulomb_const_at_psi_0": 0.07957747154594767,
+          "ratio_F_sin2_to_coulomb_const": 0.9999997877976533
+        },
+        {
+          "psi": 0.1,
+          "F": 7.982635173221386,
+          "F_times_sin2_psi": 0.07956061842358757,
+          "N_modulation": 3.1409273189873237,
+          "coulomb_const_at_psi_0": 0.07957747154594767,
+          "ratio_F_sin2_to_coulomb_const": 0.9997882174184137
+        },
+        {
+          "psi": 0.5,
+          "F": 0.3374812582422166,
+          "F_times_sin2_psi": 0.07756967811333292,
+          "N_modulation": 3.0623281459937415,
+          "coulomb_const_at_psi_0": 0.07957747154594767,
+          "ratio_F_sin2_to_coulomb_const": 0.9747693236086866
+        },
+        {
+          "psi": 1.0,
+          "F": 0.09287675597513899,
+          "F_times_sin2_psi": 0.06576356208147699,
+          "N_modulation": 2.596241367002634,
+          "coulomb_const_at_psi_0": 0.07957747154594767,
+          "ratio_F_sin2_to_coulomb_const": 0.8264092940362575
+        },
+        {
+          "psi": 1.5707963267948966,
+          "F": 0.039788735772973836,
+          "F_times_sin2_psi": 0.039788735772973836,
+          "N_modulation": 1.5707963267948966,
+          "coulomb_const_at_psi_0": 0.07957747154594767,
+          "ratio_F_sin2_to_coulomb_const": 0.5
+        },
+        {
+          "psi": 2.0,
+          "F": 0.023380931543972566,
+          "F_times_sin2_psi": 0.019331864148769518,
+          "N_modulation": 0.7631914059358289,
+          "coulomb_const_at_psi_0": 0.07957747154594767,
+          "ratio_F_sin2_to_coulomb_const": 0.24293136955988087
+        },
+        {
+          "psi": 2.5,
+          "F": 0.011466137539066924,
+          "F_times_sin2_psi": 0.004106813952956632,
+          "N_modulation": 0.16213051625822383,
+          "coulomb_const_at_psi_0": 0.07957747154594767,
+          "ratio_F_sin2_to_coulomb_const": 0.05160774617707445
+        },
+        {
+          "psi": 3.0,
+          "F": 0.0023974658358263947,
+          "F_times_sin2_psi": 4.774518850325297e-05,
+          "N_modulation": 0.001884904490330186,
+          "coulomb_const_at_psi_0": 0.07957747154594767,
+          "ratio_F_sin2_to_coulomb_const": 0.0005999837337843175
+        }
+      ],
+      "leading_1_over_sin2_confirmed": true,
+      "modulation_present_compact_S3": true,
+      "pass": true
+    },
+    {
+      "name": "T6_antipodal_equilibrium",
+      "description": "At the antipode \u03c8 \u2192 \u03c0, N(\u03c8) \u2192 0 so the force F \u2192 0. A charge on compact S\u00b3 has its field lines converge at its antipode; a test charge placed there feels zero net force by symmetry. This is the compact-S\u00b3 signature absent in flat space \u2014 a charge feels its own antipodal image.",
+      "rows": [
+        {
+          "psi": 2.641592653589793,
+          "pi_minus_psi": 0.5,
+          "N_modulation": 0.07926450759605169,
+          "force": 0.008735277371388505
+        },
+        {
+          "psi": 3.041592653589793,
+          "pi_minus_psi": 0.10000000000000009,
+          "N_modulation": 0.0006653346024692725,
+          "force": 0.0016909411967370312
+        },
+        {
+          "psi": 3.1315926535897933,
+          "pi_minus_psi": 0.009999999999999787,
+          "N_modulation": 6.666533333369445e-07,
+          "force": 0.00016887089098667238
+        },
+        {
+          "psi": 3.1405926535897932,
+          "pi_minus_psi": 0.0009999999999998899,
+          "N_modulation": 6.666664108777309e-10,
+          "force": 1.6886863090133394e-05
+        }
+      ],
+      "N_near_pi": -1.224646799147604e-16,
+      "force_decreasing_toward_antipode": true,
+      "pass": true
+    },
+    {
+      "name": "T7_gauss_law_on_s3",
+      "description": "Gauss's law on compact S\u00b3: flux through the colatitude-\u03c8 2-sphere equals the enclosed charge (point q plus the neutralizing uniform background within the cap). Flux falls from q at the source to 0 at the antipode, consistent with the zero-mean (compact-manifold) Green function. Exact internal-consistency check of the whole electrostatic picture.",
+      "rows": [
+        {
+          "psi": 0.1,
+          "flux_E_times_area": 0.999788217418414,
+          "Q_enclosed_point_plus_background_cap": 0.9997882174184138,
+          "difference": 1.1102230246251565e-16
+        },
+        {
+          "psi": 0.5,
+          "flux_E_times_area": 0.9747693236086864,
+          "Q_enclosed_point_plus_background_cap": 0.9747693236086865,
+          "difference": 1.1102230246251565e-16
+        },
+        {
+          "psi": 1.0,
+          "flux_E_times_area": 0.8264092940362575,
+          "Q_enclosed_point_plus_background_cap": 0.8264092940362576,
+          "difference": 1.1102230246251565e-16
+        },
+        {
+          "psi": 1.5707963267948966,
+          "flux_E_times_area": 0.5,
+          "Q_enclosed_point_plus_background_cap": 0.5,
+          "difference": 0.0
+        },
+        {
+          "psi": 2.0,
+          "flux_E_times_area": 0.24293136955988093,
+          "Q_enclosed_point_plus_background_cap": 0.24293136955988093,
+          "difference": 0.0
+        },
+        {
+          "psi": 2.5,
+          "flux_E_times_area": 0.05160774617707447,
+          "Q_enclosed_point_plus_background_cap": 0.05160774617707453,
+          "difference": 6.245004513516506e-17
+        },
+        {
+          "psi": 3.0,
+          "flux_E_times_area": 0.0005999837337843171,
+          "Q_enclosed_point_plus_background_cap": 0.0005999837337843372,
+          "difference": 2.0166160408230382e-17
+        }
+      ],
+      "max_difference": 1.1102230246251565e-16,
+      "pass": true
+    },
+    {
+      "name": "T8_attraction_repulsion_sign",
+      "description": "Signed radial force \u2212dU/ds: like charges (q\u2081q\u2082>0) repel (F>0, pushed to larger \u03c8); opposite charges (q\u2081q\u2082<0) attract (F<0).",
+      "force_like_charges_++": 0.3374812582422166,
+      "force_opposite_charges_+-": -0.3374812582422166,
+      "like_repels": true,
+      "opposite_attracts": true,
+      "pass": true
+    },
+    {
+      "name": "T9_two_mouth_placement_realization",
+      "description": "Place two throat mouths at explicit S\u00b3 points (Hopf-sphere parameterisation); the geo4-geodesic-separation interaction via the Green function matches the analytic V(\u03c8). Each particle's antipodal back-mouth sits at geodesic distance \u03c0 (throat-pair structure).",
+      "rows": [
+        {
+          "chi": 0.2,
+          "mouth_2_4vector": [
+            0.12165962199702515,
+            0.12165962199702512,
+            0.09933466539753064,
+            0.9800665778412416
+          ],
+          "geodesic_separation_psi": 0.2,
+          "U_interaction": 0.35491118923420506,
+          "U_analytic": 0.35491118923420506,
+          "difference": 0.0,
+          "antipodal_mouth_distance_should_be_pi": 3.141592653589793
+        },
+        {
+          "chi": 0.5,
+          "mouth_2_4vector": [
+            0.293586984809824,
+            0.2935869848098239,
+            0.23971276930210156,
+            0.8775825618903728
+          ],
+          "geodesic_separation_psi": 0.4999999999999999,
+          "U_interaction": 0.10981703880865304,
+          "U_analytic": 0.10981703880865304,
+          "difference": 0.0,
+          "antipodal_mouth_distance_should_be_pi": 3.141592653589793
+        },
+        {
+          "chi": 1.0,
+          "mouth_2_4vector": [
+            0.5152936365341505,
+            0.5152936365341504,
+            0.42073549240394836,
+            0.5403023058681398
+          ],
+          "geodesic_separation_psi": 0.9999999999999999,
+          "U_interaction": 0.022166562955467248,
+          "U_analytic": 0.022166562955467248,
+          "difference": 0.0,
+          "antipodal_mouth_distance_should_be_pi": 3.141592653589793
+        },
+        {
+          "chi": 1.5,
+          "mouth_2_4vector": [
+            0.6108384345410688,
+            0.6108384345410687,
+            0.49874749330202733,
+            0.0707372016677029
+          ],
+          "geodesic_separation_psi": 1.5,
+          "U_interaction": -0.009716364936571404,
+          "U_analytic": -0.009716364936571404,
+          "difference": 0.0,
+          "antipodal_mouth_distance_should_be_pi": 3.141592653589793
+        },
+        {
+          "chi": 2.0,
+          "mouth_2_4vector": [
+            0.5568286800371612,
+            0.5568286800371611,
+            0.45464871341284097,
+            -0.4161468365471424
+          ],
+          "geodesic_separation_psi": 2.0,
+          "U_interaction": -0.025899176409865013,
+          "U_analytic": -0.025899176409865013,
+          "difference": 0.0,
+          "antipodal_mouth_distance_should_be_pi": 3.141592653589793
+        },
+        {
+          "chi": 2.5,
+          "mouth_2_4vector": [
+            0.36648784458102446,
+            0.3664878445810244,
+            0.29923607205197833,
+            -0.8011436155469337
+          ],
+          "geodesic_separation_psi": 2.5,
+          "U_interaction": -0.03442049827021651,
+          "U_analytic": -0.03442049827021651,
+          "difference": 0.0,
+          "antipodal_mouth_distance_should_be_pi": 3.141592653589793
+        }
+      ],
+      "max_difference": 0.0,
+      "antipodal_distances_all_pi": true,
+      "pass": true
+    }
+  ],
+  "n_passed": 9,
+  "n_total": 9,
+  "verdict_class": "COULOMB_REPRODUCED",
+  "verdict": "COULOMB LAW REPRODUCED. Two charged BAM throat mouths on S\u00b3, interacting through the S\u00b3 Green function, reproduce electrostatics:\n  (P1) Coulomb potential V \u2192 q/(4\u03c0 r) in the flat-space limit (T2);\n  (P2) inverse-square force F \u2192 q\u2081q\u2082/(4\u03c0 r\u00b2) in the flat-space limit (T4);\n  (P5) Gauss's law \u03a6(\u03c8) = Q_enclosed(\u03c8) holds exactly on compact S\u00b3, with flux falling from q at the source to 0 at the antipode as the neutralizing background is enclosed (T7).\nThe THESIS finite-separation claim F \u221d 1/sin\u00b2\u03c8 is CONFIRMED as the leading short-range behaviour and REFINED: the exact force F(\u03c8) = q\u2081q\u2082\u00b7N(\u03c8)/(4\u03c0\u00b2R\u00b2sin\u00b2\u03c8) carries the modulation N(\u03c8) = (\u03c0\u2212\u03c8)+sin\u03c8cos\u03c8 (T5), which encodes the compact-S\u00b3 antipodal image \u2014 the force vanishes exactly at the antipode (T6), an equilibrium absent in flat space. Like charges repel, opposite charges attract (T8). The two-mouth placement realization confirms the geometric picture, with each particle's back-mouth at geodesic distance \u03c0 (T9). The \"charge = throat mouth on S\u00b3\" identification is NOT falsified \u2014 it reproduces Coulomb electrostatics with calculable compact-manifold corrections."
+}

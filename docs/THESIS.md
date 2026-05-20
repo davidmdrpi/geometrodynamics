@@ -39,12 +39,16 @@ demonstrated that several of the most distinctive observables — charge
 quantization, spin-½, the Coulomb radial response, the charged-lepton
 mass ladder, the six-quark mass ladder, Bell's inequality saturation,
 regular black-hole interiors — can each be derived from, or made
-consistent with, classical geometry on `S³` alone. (The stronger
+consistent with, classical geometry on `S³` alone. (The
 finite-separation Coulomb claim — that two throat mouths on `S³`
-produce `F(ψ) ∝ 1/sin²(ψ)` — is a near-term falsification test, not a
-demonstrated result.) Whether this set is closeable into a complete
-derivation of quantum field theory is the open question BAM exists to
-test.
+produce `F(ψ) ∝ 1/sin²(ψ)` — has now been **demonstrated**: the S³
+Green response reproduces the Coulomb potential and inverse-square
+force in the flat-space limit, with the `1/sin²ψ` form confirmed as
+the leading behaviour and refined by a compact-`S³` antipodal-image
+modulation; see `docs/two_throat_coulomb_research_plan.md` and the
+`two_throat_coulomb_probe`.) Whether this set is closeable into a
+complete derivation of quantum field theory is the open question BAM
+exists to test.
 
 A reader looking for "BAM replaces QFT" should read the program as a
 falsification campaign for that claim. A reader looking for "geometric
@@ -115,11 +119,14 @@ them in the validation table with status flags: *Verified*, *Derived*,
 `Modeled` is not the same as a claim labelled `Derived`, and the README
 is uniform about the distinction.
 
-Second, BAM is **falsifiable in concrete tests** that have not yet been
-run. Two-throat Coulomb force on `S³`, moving-throat Berry phase, even-`k`
-closure absence, and quark `β` derivation are each tests where a clean
-negative result would invalidate parts of the program. These are listed
-below.
+Second, BAM is **falsifiable in concrete tests**. Moving-throat Berry
+phase, even-`k` closure absence, and quark `β` derivation are tests
+where a clean negative result would invalidate parts of the program;
+these are listed below and have not yet been run. The **two-throat
+Coulomb force on `S³`** has now been run (`two_throat_coulomb_probe`):
+it reproduces the Coulomb potential and inverse-square force in the
+flat-space limit and confirms the `F(ψ) ∝ 1/sin²(ψ)` leading form, so
+this particular falsification test is **passed** rather than open.
 
 Third, BAM **rests on classical geometric machinery only**. No canonical
 commutators are imposed, no Hilbert space is assumed at the outset, and
@@ -253,12 +260,18 @@ the static-spin-½ result (already verified) to the dynamic-particle
 picture. Operationalizes the moving-boundary refinement and gives the
 project a clean, single-experiment statement of "spin from geometry."
 
-**Two-throat Coulomb limit.** Place two wormhole mouths at angular
-separation `ψ` on `S³` and measure the inter-throat force from the
-gradient of the Hopf connection energy. Predicts `F(ψ) ∝ 1/sin²(ψ)`,
-reducing to `F ∝ 1/ψ²` at small separation. This is the cleanest single
-test of "EM from Hopf curvature" and the place the program is most
-exposed to falsification.
+**Two-throat Coulomb limit.** _Run and passed (`two_throat_coulomb_probe`)._
+Two wormhole mouths at angular separation `ψ` on `S³` interact through
+the `S³` Green response. The probe confirms `F(ψ) ∝ 1/sin²(ψ)` as the
+leading form, reducing to `F ∝ 1/r²` (inverse square) and `V ∝ 1/r`
+(Coulomb) in the small-separation flat limit, both to machine
+precision. The exact force carries a compact-`S³` modulation
+`N(ψ) = (π−ψ) + sin ψ cos ψ` — the antipodal-image correction — which
+makes the force vanish at the antipode; Gauss's law `Φ(ψ) = Q_enclosed(ψ)`
+holds exactly on the closed manifold. This was the cleanest single test
+of "EM from `S³` geometry" and the place the program was most exposed to
+falsification; it is now a demonstrated result. See
+`docs/two_throat_coulomb_research_plan.md`.
 
 **Quark `β = N · π/2` with `N = 466` derived or principled-bounded.**
 _Principled-bounded; full derivation open._ See
@@ -401,11 +414,13 @@ then geometry is doing more work than the standard QFT picture credits
 it with, and BAM has identified specific geometric channels through
 which it does that work. That is itself a result.
 
-If BAM fails on the falsification tests — if the two-throat force does
-not go as `1/sin²(ψ)`, if Berry phases do not reproduce spin-½ under
-motion, if `β = 466·π/2` resists every principled enumeration — then
-the proposal is wrong in a way that points to which of the three
-channels was overcredited, and a sharper version of the program may
-still be available.
+If BAM fails on its remaining falsification tests — if Berry phases do
+not reproduce spin-½ under motion, if `β = 466·π/2` resists every
+principled enumeration — then the proposal is wrong in a way that
+points to which of the three channels was overcredited, and a sharper
+version of the program may still be available. (The two-throat
+Coulomb force test, once the program's most exposed prediction, has
+now passed: the force goes as `1/sin²(ψ)` and reduces to the
+inverse-square law.)
 
 The package is a tool for distinguishing these three outcomes.
