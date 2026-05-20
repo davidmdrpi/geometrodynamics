@@ -609,9 +609,19 @@ derivation from the Hopf-bundle / throat-transport algebra.
 | PR #38 | `throat_nucleation_caustic_derivation_probe.py` | F² = K(x)²·Q(x, c) BAM-geometric decomposition |
 | PR #39 | `two_mouth_flux_action_probe.py` | K(x) = 2x/(1+x) from equal-action throat-rate splitting |
 | PR #40 | `hopf_helicity_transport_probe.py` | Q(x, c) from Hopf-fibre helicity spinor (A_pres, A_flip) |
-| this | `throat_action_derivation_probe.py` | **BAM throat action: both equal-action postulates derived from S³ antipodal symmetry + closure quantum + stationary action** |
+| PR #41 | `throat_action_derivation_probe.py` | BAM throat action: both equal-action postulates derived from S³ antipodal symmetry + closure quantum + stationary action |
+| PR #42 | `bhabha_moller_interference_probe.py` | 4-fermion gap identified: scalar Compton kernel insufficient for Bhabha/Møller |
+| PR #43 | `dirac_trace_geometry_probe.py` | 4-fermion diagonal numerators (s²+u²), (u²+t²), (s²+t²) from SU(2) Hopf-bundle Pauli traces |
+| PR #44 | `mobius_exchange_sign_probe.py` | Bhabha/Møller interference signs from T = iσ_y = ε non-orientable throat transport |
+| PR #45 | `bam_exchange_kernel_probe.py` | photon propagator magnitude 1/q² from S³ Green function (flat limit) |
+| PR #46 | `hopf_vector_exchange_kernel_probe.py` | **photon propagator Lorentz tensor −η^{μν}/q² from Hopf-bundle U(1) connection** |
 
-The derivation rests on the algebraic identity
+**Synthesis / release note:** `docs/tree_qed_status.md` collects the
+PR #35 → #46 result — all tree-level `2 → 2` QED scalar intensities
+(Compton, Breit–Wheeler, pair annihilation, Bhabha, Møller)
+reproduced from BAM-geometric primitives.
+
+The Compton derivation rests on the algebraic identity
 
   x² + 1 − x·sin²θ ≡ (1 − x)² + x · (1 + c²)
 
@@ -638,8 +648,8 @@ with BAM-geometric interpretation:
   - Decomposition survives analytic continuation under crossing
     (full Compton ↔ BW ↔ annihilation triangle, PR #37).
 
-The full F² closed form is now derived from three foundational
-principles via a single BAM throat action functional (this PR):
+The full F² closed form is derived from three foundational
+principles via a single BAM throat action functional (PR #41):
 
   (P1) closure quantum `S = 2π` (BAM `action_base`)
   (P2) S³ antipodal symmetry `σ(p) = −p` (involution swapping mouths)
@@ -650,18 +660,28 @@ follow as consequences. Alternative principles (broken antipodal
 symmetry; wrong closure quantum; wrong action functional) all fail
 to reproduce K(x), confirming the principles are necessary.
 
-See `docs/compton_vertex_resummation_research_plan.md` for the
-Compton-thread culmination,
-`docs/breit_wheeler_cross_process_research_plan.md` for the BW
-cross-process plan,
-`docs/pair_annihilation_crossing_research_plan.md` for the
-triangle-closure plan,
-`docs/throat_nucleation_caustic_derivation_research_plan.md` for the
-geometric decomposition plan,
-`docs/two_mouth_flux_action_research_plan.md` for the K-factor plan,
-`docs/hopf_helicity_transport_research_plan.md` for the Q-factor plan,
-and `docs/throat_action_derivation_research_plan.md` for the throat
-action derivation plan.
+The thread then extends to 4-fermion tree QED (Bhabha, Møller,
+PRs #42–#46): SU(2) Hopf-bundle Pauli traces give the Dirac-trace
+diagonal numerators (#43), the non-orientable throat transport
+`T = iσ_y = ε` gives the Fermi-statistics interference signs (#44),
+and the `S³` Green function (scalar #45, Hopf-bundle vector #46)
+gives the photon propagator `1/q²` with full Lorentz tensor
+structure. End-to-end Bhabha and Møller `|M̄|²` match QED to machine
+precision from BAM-geometric ingredients alone.
+
+See `docs/tree_qed_status.md` for the full synthesis. Per-PR
+research plans: `docs/compton_vertex_resummation_research_plan.md`
+(#35), `docs/breit_wheeler_cross_process_research_plan.md` (#36),
+`docs/pair_annihilation_crossing_research_plan.md` (#37),
+`docs/throat_nucleation_caustic_derivation_research_plan.md` (#38),
+`docs/two_mouth_flux_action_research_plan.md` (#39),
+`docs/hopf_helicity_transport_research_plan.md` (#40),
+`docs/throat_action_derivation_research_plan.md` (#41),
+`docs/bhabha_moller_interference_research_plan.md` (#42),
+`docs/dirac_trace_geometry_research_plan.md` (#43),
+`docs/mobius_exchange_sign_research_plan.md` (#44),
+`docs/bam_exchange_kernel_research_plan.md` (#45), and
+`docs/hopf_vector_exchange_kernel_research_plan.md` (#46).
 
 ## Quick Start
 
