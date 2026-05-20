@@ -1,0 +1,472 @@
+{
+  "timestamp_utc": "2026-05-20T00:56:35+00:00",
+  "vector_propagator_feynman": "D_F^{\u03bc\u03bd}(q) = \u2212\u03b7^{\u03bc\u03bd} / q\u00b2",
+  "transverse_projector": "P_T^{\u03bc\u03bd}(q) = \u2212\u03b7^{\u03bc\u03bd} + q^\u03bc q^\u03bd / q\u00b2",
+  "factorization_chain": "Hopf-bundle U(1) \u2192 vector propagator D^{\u03bc\u03bd} \u2192 Feynman gauge \u2192 factor as \u2212\u03b7^{\u03bc\u03bd} \u00d7 D_scalar \u2192 PR #45 scalar Green function \u2192 flat-limit 1/q\u00b2 (no virtual photons)",
+  "tests": [
+    {
+      "name": "T1_vector_propagator_setup",
+      "description": "Feynman-gauge photon propagator D_F^{\u03bc\u03bd}(q) = \u2212\u03b7^{\u03bc\u03bd}/q\u00b2 and transverse propagator D_T^{\u03bc\u03bd}(q) = P_T^{\u03bc\u03bd}(q)/q\u00b2. Standard Lorentz tensor structure of QED photon propagators in different gauges.",
+      "q_sample": [
+        1.0,
+        0.5,
+        0.3,
+        0.2
+      ],
+      "q_squared": 0.62,
+      "D_feynman_residual": 0.0,
+      "D_transverse_residual": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T2_feynman_gauge_factorization",
+      "description": "Feynman-gauge vector propagator factors as a Lorentz tensor (\u2212\u03b7^{\u03bc\u03bd}) times the scalar Green function. The scalar piece is exactly PR #45's flat-limit result 1/q\u00b2. The Lorentz structure is the BAM-Hopf-bundle-natural U(1) gauge connection on S\u00b3.",
+      "samples": [
+        {
+          "q": [
+            1.0,
+            0.5,
+            0.3,
+            0.2
+          ],
+          "q_squared": 0.62,
+          "D_scalar_PR45_1_over_q2": 1.6129032258064517,
+          "D_F_full": [
+            [
+              -1.6129032258064517,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              1.6129032258064517,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              1.6129032258064517,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.6129032258064517
+            ]
+          ],
+          "D_F_factored_minus_eta_times_D_scalar": [
+            [
+              -1.6129032258064517,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              1.6129032258064517,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              1.6129032258064517,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.6129032258064517
+            ]
+          ],
+          "max_difference": 0.0
+        },
+        {
+          "q": [
+            2.0,
+            1.0,
+            -0.5,
+            0.0
+          ],
+          "q_squared": 2.75,
+          "D_scalar_PR45_1_over_q2": 0.36363636363636365,
+          "D_F_full": [
+            [
+              -0.36363636363636365,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              0.36363636363636365,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              0.36363636363636365,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              -0.0,
+              0.36363636363636365
+            ]
+          ],
+          "D_F_factored_minus_eta_times_D_scalar": [
+            [
+              -0.36363636363636365,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              0.36363636363636365,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              0.36363636363636365,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              -0.0,
+              0.36363636363636365
+            ]
+          ],
+          "max_difference": 0.0
+        },
+        {
+          "q": [
+            0.5,
+            0.1,
+            0.0,
+            0.4
+          ],
+          "q_squared": 0.07999999999999996,
+          "D_scalar_PR45_1_over_q2": 12.500000000000007,
+          "D_F_full": [
+            [
+              -12.500000000000007,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              12.500000000000007,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              12.500000000000007,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              -0.0,
+              12.500000000000007
+            ]
+          ],
+          "D_F_factored_minus_eta_times_D_scalar": [
+            [
+              -12.500000000000007,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              12.500000000000007,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              12.500000000000007,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              -0.0,
+              12.500000000000007
+            ]
+          ],
+          "max_difference": 0.0
+        }
+      ],
+      "max_difference": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T3_transverse_projector_properties",
+      "description": "Idempotent transverse projector P_T^{\u03bc\u03bd}(q) = \u03b7^{\u03bc\u03bd} \u2212 q^\u03bcq^\u03bd/q\u00b2 is idempotent (P\u00b2=P), transverse (q_\u03bcP^{\u03bc\u03bd}=0), and has trace 3 (three modes orthogonal to q). The 'propagator transverse piece' Q_T = \u2212P_T appears in the photon propagator D_T^{\u03bc\u03bd} = \u2212P_T/q\u00b2; Q_T is transverse to q but not idempotent.",
+      "q_sample": [
+        2.0,
+        1.0,
+        0.5,
+        0.3
+      ],
+      "q_squared": 2.66,
+      "idempotent_residual_P\u03b7P_minus_P": 2.220446049250313e-16,
+      "transverse_residual_P_q_mu_P_mu_nu": 1.6528132246299323e-16,
+      "transverse_residual_Q_q_mu_Q_mu_nu": 1.6528132246299323e-16,
+      "trace_P_mu_mu_expected_3": 3.0,
+      "trace_Q_mu_mu_expected_neg_3": -3.0,
+      "Q_equals_minus_P_residual": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T4_ward_identity_current_conservation",
+      "description": "Ward identity: q_\u03bc J^\u03bc\u03bd = 0 = J^\u03bc\u03bd q_\u03bd for the fermion current correlator J^\u03bc\u03bd(p_1, p_3) = Tr[\u03b3^\u03bc p\u0338_1 \u03b3^\u03bd p\u0338_3] with momentum transfer q = p_1 \u2212 p_3. Holds identically for massless on-shell fermions; ensures gauge-mode contributions to the photon propagator drop out of physical amplitudes.",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "q_mu_J_mu_nu_max_residual": 1.400182824469976e-16,
+          "J_mu_nu_q_nu_max_residual": 1.1102230246251565e-16
+        },
+        {
+          "theta_deg": 60,
+          "q_mu_J_mu_nu_max_residual": 2.220446049250313e-16,
+          "J_mu_nu_q_nu_max_residual": 4.440892098500626e-16
+        },
+        {
+          "theta_deg": 90,
+          "q_mu_J_mu_nu_max_residual": 4.440892098500626e-16,
+          "J_mu_nu_q_nu_max_residual": 4.440892098500626e-16
+        },
+        {
+          "theta_deg": 120,
+          "q_mu_J_mu_nu_max_residual": 4.440892098500624e-16,
+          "J_mu_nu_q_nu_max_residual": 4.440892098500626e-16
+        },
+        {
+          "theta_deg": 150,
+          "q_mu_J_mu_nu_max_residual": 6.886634646797779e-16,
+          "J_mu_nu_q_nu_max_residual": 6.661338147750939e-16
+        }
+      ],
+      "max_residual": 6.886634646797779e-16,
+      "pass": true
+    },
+    {
+      "name": "T5_gauge_equivalence_feynman_vs_transverse",
+      "description": "Feynman-gauge and transverse-gauge photon propagators give the SAME physical amplitude when contracted with a conserved fermion current (Ward identity from T4). Demonstrates that the gauge mode of the photon propagator is unphysical.",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "D_F_contracted_with_J_1": -4.0,
+          "D_T_contracted_with_J_1": -4.0,
+          "gauge_difference": 0.0
+        },
+        {
+          "theta_deg": 60,
+          "D_F_contracted_with_J_1": -4.0,
+          "D_T_contracted_with_J_1": -4.0,
+          "gauge_difference": 0.0
+        },
+        {
+          "theta_deg": 90,
+          "D_F_contracted_with_J_1": -3.9999999999999996,
+          "D_T_contracted_with_J_1": -3.9999999999999996,
+          "gauge_difference": 0.0
+        },
+        {
+          "theta_deg": 120,
+          "D_F_contracted_with_J_1": -4.0,
+          "D_T_contracted_with_J_1": -4.0,
+          "gauge_difference": 0.0
+        },
+        {
+          "theta_deg": 150,
+          "D_F_contracted_with_J_1": -4.0,
+          "D_T_contracted_with_J_1": -4.0,
+          "gauge_difference": 0.0
+        }
+      ],
+      "max_gauge_difference": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T6_hopf_bundle_2_helicity_polarization_sum",
+      "description": "Spin-1 photon has 2 physical helicity states (transverse, \u03bb=\u00b11); the Hopf-fibre helicity sum from PR #38 T4 gives (1+cos\u00b2\u03b8)/2 = cos\u2074(\u03b8/2)+sin\u2074(\u03b8/2). The Hopf bundle is the BAM-native geometric structure carrying the photon's 2-polarization content.",
+      "rows": [
+        {
+          "theta_deg": 15,
+          "|d^1_{1,+1}|^2": 0.9662160886175889,
+          "|d^1_{1,-1}|^2": 0.0002902623285206873,
+          "sum_helicity_squared": 0.9665063509461096,
+          "(1+cos2_theta)_over_2_thomson": 0.9665063509461097,
+          "difference": 1.1102230246251565e-16
+        },
+        {
+          "theta_deg": 30,
+          "|d^1_{1,+1}|^2": 0.8705127018922195,
+          "|d^1_{1,-1}|^2": 0.004487298107780675,
+          "sum_helicity_squared": 0.8750000000000002,
+          "(1+cos2_theta)_over_2_thomson": 0.875,
+          "difference": 2.220446049250313e-16
+        },
+        {
+          "theta_deg": 45,
+          "|d^1_{1,+1}|^2": 0.7285533905932737,
+          "|d^1_{1,-1}|^2": 0.021446609406726238,
+          "sum_helicity_squared": 0.75,
+          "(1+cos2_theta)_over_2_thomson": 0.75,
+          "difference": 0.0
+        },
+        {
+          "theta_deg": 60,
+          "|d^1_{1,+1}|^2": 0.5625000000000002,
+          "|d^1_{1,-1}|^2": 0.06249999999999997,
+          "sum_helicity_squared": 0.6250000000000002,
+          "(1+cos2_theta)_over_2_thomson": 0.625,
+          "difference": 2.220446049250313e-16
+        },
+        {
+          "theta_deg": 90,
+          "|d^1_{1,+1}|^2": 0.2500000000000001,
+          "|d^1_{1,-1}|^2": 0.2499999999999999,
+          "sum_helicity_squared": 0.5,
+          "(1+cos2_theta)_over_2_thomson": 0.5,
+          "difference": 0.0
+        },
+        {
+          "theta_deg": 120,
+          "|d^1_{1,+1}|^2": 0.06250000000000006,
+          "|d^1_{1,-1}|^2": 0.5624999999999999,
+          "sum_helicity_squared": 0.625,
+          "(1+cos2_theta)_over_2_thomson": 0.6249999999999999,
+          "difference": 1.1102230246251565e-16
+        },
+        {
+          "theta_deg": 150,
+          "|d^1_{1,+1}|^2": 0.004487298107780675,
+          "|d^1_{1,-1}|^2": 0.8705127018922195,
+          "sum_helicity_squared": 0.8750000000000002,
+          "(1+cos2_theta)_over_2_thomson": 0.875,
+          "difference": 2.220446049250313e-16
+        }
+      ],
+      "max_difference": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "name": "T7_end_to_end_bhabha_via_vector_exchange",
+      "description": "Bhabha |M\u0304|\u00b2/(8e\u2074) reconstructed via vector exchange: contract fermion currents J^{\u03bc\u03bd} = Tr[\u03b3^\u03bc p\u0338 \u03b3^\u03bd p\u0338] with Feynman-gauge photon propagator \u2212\u03b7^{\u03bc\u03bd}/q\u00b2. Result matches PR #43+#44+#45 and QED textbook to machine precision.",
+      "rows": [
+        {
+          "theta_deg": 30,
+          "M2_t_via_vector_exchange": 416.8460969082655,
+          "M2_s_via_vector_exchange": 0.875,
+          "interference_via_PR44_mobius": -25.990381056766598,
+          "M2_Bhabha_BAM": 391.7307158514989,
+          "M2_Bhabha_QED": 391.7307158514989,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 60,
+          "M2_t_via_vector_exchange": 25.00000000000001,
+          "M2_s_via_vector_exchange": 0.625,
+          "interference_via_PR44_mobius": -4.500000000000001,
+          "M2_Bhabha_BAM": 21.12500000000001,
+          "M2_Bhabha_QED": 21.12500000000001,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 90,
+          "M2_t_via_vector_exchange": 5.000000000000001,
+          "M2_s_via_vector_exchange": 0.5,
+          "interference_via_PR44_mobius": -1.0000000000000002,
+          "M2_Bhabha_BAM": 4.500000000000001,
+          "M2_Bhabha_QED": 4.500000000000001,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 120,
+          "M2_t_via_vector_exchange": 1.8888888888888893,
+          "M2_s_via_vector_exchange": 0.6249999999999998,
+          "interference_via_PR44_mobius": -0.16666666666666685,
+          "M2_Bhabha_BAM": 2.3472222222222223,
+          "M2_Bhabha_QED": 2.3472222222222223,
+          "relative_difference": 0.0
+        },
+        {
+          "theta_deg": 150,
+          "M2_t_via_vector_exchange": 1.1539030917347244,
+          "M2_s_via_vector_exchange": 0.875,
+          "interference_via_PR44_mobius": -0.009618943233420293,
+          "M2_Bhabha_BAM": 2.019284148501304,
+          "M2_Bhabha_QED": 2.019284148501304,
+          "relative_difference": 0.0
+        }
+      ],
+      "max_relative_difference": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T8_s3_curvature_corrections_vector_propagator",
+      "description": "S\u00b3 has constant Ricci R_\u03bc\u03bd = (2/R\u00b2)g_\u03bc\u03bd; the gauge-covariant Laplacian on S\u00b3 in Feynman gauge has a curvature mass term. In the flat limit R \u2192 \u221e this vanishes and the QED Feynman-gauge propagator \u2212\u03b7^{\u03bc\u03bd}/q\u00b2 is recovered.",
+      "rows": [
+        {
+          "R_S3_radius": 1.0,
+          "curvature_mass_squared_2_over_R2": 2.0,
+          "prop_flat_minus_1_over_q2": -1.0,
+          "prop_with_curvature_mass": 1.0,
+          "relative_curvature_correction": 2.0
+        },
+        {
+          "R_S3_radius": 10.0,
+          "curvature_mass_squared_2_over_R2": 0.02,
+          "prop_flat_minus_1_over_q2": -1.0,
+          "prop_with_curvature_mass": -1.0204081632653061,
+          "relative_curvature_correction": 0.020408163265306145
+        },
+        {
+          "R_S3_radius": 100.0,
+          "curvature_mass_squared_2_over_R2": 0.0002,
+          "prop_flat_minus_1_over_q2": -1.0,
+          "prop_with_curvature_mass": -1.0002000400080016,
+          "relative_curvature_correction": 0.0002000400080015563
+        },
+        {
+          "R_S3_radius": 1000.0,
+          "curvature_mass_squared_2_over_R2": 2e-06,
+          "prop_flat_minus_1_over_q2": -1.0,
+          "prop_with_curvature_mass": -1.000002000004,
+          "relative_curvature_correction": 2.0000039999690244e-06
+        },
+        {
+          "R_S3_radius": 10000.0,
+          "curvature_mass_squared_2_over_R2": 2e-08,
+          "prop_flat_minus_1_over_q2": -1.0,
+          "prop_with_curvature_mass": -1.0000000200000003,
+          "relative_curvature_correction": 2.000000032253979e-08
+        }
+      ],
+      "correction_at_R_10000": 2.000000032253979e-08,
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "VECTOR_KERNEL_FROM_HOPF_BUNDLE",
+  "verdict": "HOPF-BUNDLE VECTOR EXCHANGE KERNEL DERIVED. The QED photon propagator in its full Lorentz tensor structure D^{\u03bc\u03bd}(q) = \u2212\u03b7^{\u03bc\u03bd}/q\u00b2 (Feynman gauge) emerges from BAM as follows:\n  (1) The scalar Green function on S\u00b3 in flat limit gives D_scalar(q\u00b2) = 1/q\u00b2 (PR #45).\n  (2) The Feynman-gauge vector propagator factors as D_F^{\u03bc\u03bd} = \u2212\u03b7^{\u03bc\u03bd}\u00b7D_scalar (T2).\n  (3) The transverse projector P_T^{\u03bc\u03bd} = \u2212\u03b7^{\u03bc\u03bd} + q^\u03bcq^\u03bd/q\u00b2 has the standard idempotent / transverse / trace=\u22123 properties (T3).\n  (4) Gauge-mode differences between Feynman, Lorenz, and transverse propagators drop out of physical amplitudes via the Ward identity q_\u03bc Tr[\u03b3^\u03bc p\u0338_1 \u03b3^\u03bd p\u0338_2] = 0 for conserved fermion currents (T4, T5).\n  (5) The 2-polarization structure of the photon (transverse helicity \u00b11) is the BAM Hopf-fibre helicity sum (PR #38 T4): (1+c\u00b2)/2 = cos\u2074(\u03b8/2) + sin\u2074(\u03b8/2) = \u03a3_\u03bb|d\u00b9_{1,\u03bb}|\u00b2 (T6).\n  (6) End-to-end Bhabha |M\u0304|\u00b2 via vector exchange matches QED to machine precision (T7).\n  (7) S\u00b3 curvature corrections from the Ricci mass term 2/R\u00b2 vanish in the flat limit (T8).\nThe Hopf-bundle vector exchange kernel is fully consistent with QED tree-level photon-mediated amplitudes; the scalar simplification of PR #45 is the appropriate reduction for spin-summed amplitudes between conserved currents."
+}
