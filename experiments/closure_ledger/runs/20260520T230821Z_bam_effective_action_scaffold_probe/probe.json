@@ -1,0 +1,262 @@
+{
+  "timestamp_utc": "2026-05-20T23:08:21+00:00",
+  "action": "S_BAM = \u222b_{M\u2085} \u221a(\u2212g\u2085)[ (R\u2085\u22122\u039b\u2085)/2\u03ba\u2085 \u2212 \u00bcF_{MN}F^{MN} + \u03c8\u0304(i\u0393^M D_M \u2212 m)\u03c8 + L_throat ] + S_\u2202[hard walls] + S_closure[\u222eA = 2\u03c0n]",
+  "tests": [
+    {
+      "name": "T1_action_scaffold_structure",
+      "description": "Candidate covariant BAM effective action on the 5D Tangherlini bulk with non-orientable throat and S\u00b3 Hopf fibration. Three targets attach to three sectors.",
+      "action_terms": {
+        "G_gravity": "(1/2\u03ba\u2085)(R\u2085 \u2212 2\u039b\u2085)  \u2014 5D Einstein-Hilbert + cosmological",
+        "A_gauge": "\u2212\u00bc F_{MN}F^{MN}  \u2014 U(1) gauge field strength",
+        "D_dirac": "\u03c8\u0304(i\u0393^M D_M \u2212 m)\u03c8  \u2014 bulk fermions",
+        "T_throat": "L_throat[\u03a6, g, A]  \u2014 throat / closure scalar",
+        "B_boundary": "S_\u2202[hard walls]  \u2014 topological boundary conditions",
+        "C_closure": "S_closure[\u222eA = 2\u03c0n]  \u2014 closure-quantum constraint"
+      },
+      "target_sector_variation_map": {
+        "A_phi_hopf_connection": "sector (A) U(1) gauge; \u03b4S/\u03b4A = 0 on S\u00b3",
+        "Delta_R_tangherlini_boundaries": "sector (G) gravity + (B) BCs; \u03b4S/\u03b4g = 0 + boundary data",
+        "F_squared_compton_vertex": "sector (T) throat + (C) closure; \u03b4S/\u03b4\u03a6 = 0 + \u222eA = 2\u03c0n"
+      },
+      "pass": true
+    },
+    {
+      "name": "T2_gauge_sector_closes",
+      "description": "Gauge sector (A): A_\u03c6 = \u00bdcos \u03c7 is the homogeneous Maxwell solution on the Hopf bundle (symmetric-critical by Palais' principle \u2014 the unique SU(2)-invariant connection). First Chern number c\u2081 = 1 exactly. Derives from \u03b4S/\u03b4A = 0 with no external input \u2014 this sector CLOSES.",
+      "connection_samples": [
+        {
+          "chi_in_pi": 0.0,
+          "A_phi": 0.5,
+          "half_cos_chi": 0.5,
+          "difference": 0.0
+        },
+        {
+          "chi_in_pi": 0.125,
+          "A_phi": 0.46193976625564337,
+          "half_cos_chi": 0.46193976625564337,
+          "difference": 0.0
+        },
+        {
+          "chi_in_pi": 0.25,
+          "A_phi": 0.3535533905932738,
+          "half_cos_chi": 0.3535533905932738,
+          "difference": 0.0
+        },
+        {
+          "chi_in_pi": 0.375,
+          "A_phi": 0.19134171618254492,
+          "half_cos_chi": 0.19134171618254492,
+          "difference": 0.0
+        },
+        {
+          "chi_in_pi": 0.5,
+          "A_phi": 3.061616997868383e-17,
+          "half_cos_chi": 3.061616997868383e-17,
+          "difference": 0.0
+        }
+      ],
+      "max_connection_difference": 0.0,
+      "curvature_at_equator_minus_half": 0.0,
+      "chern_c1_abs": 0.9999999871457392,
+      "chern_c1_error": 1.2854260766914649e-08,
+      "pass": true
+    },
+    {
+      "name": "T3_throat_sector_closes_with_constraint",
+      "description": "Throat sector (T): F\u00b2 = K(x)\u00b2\u00b7Q(x, c) reconstructs from the equal-action throat splitting (K = 2x/(1+x)) and the Hopf-helicity spinor (Q). CLOSES \u2014 but requires two imposed inputs: the closure quantum S = 2\u03c0 (B1, topological) and the antipodal Z\u2082 (B2, discrete). Neither is a local Lagrangian density derivable from \u03b4S/\u03b4\u03a6 = 0 alone.",
+      "samples": [
+        {
+          "x": 0.1,
+          "cos_theta": -0.7,
+          "K_from_equal_action": 0.18181818181818182,
+          "Q_from_hopf_spinor": 0.06436241610738257,
+          "K2_Q": 0.002127683177103556,
+          "F2_closed": 0.002127683177103556,
+          "difference": 0.0
+        },
+        {
+          "x": 0.1,
+          "cos_theta": 0.0,
+          "K_from_equal_action": 0.18181818181818182,
+          "Q_from_hopf_spinor": 0.09100000000000003,
+          "K2_Q": 0.003008264462809918,
+          "F2_closed": 0.0030082644628099176,
+          "difference": 4.336808689942018e-19
+        },
+        {
+          "x": 0.1,
+          "cos_theta": 0.7,
+          "K_from_equal_action": 0.18181818181818182,
+          "Q_from_hopf_spinor": 0.06436241610738257,
+          "K2_Q": 0.002127683177103556,
+          "F2_closed": 0.002127683177103556,
+          "difference": 0.0
+        },
+        {
+          "x": 0.5,
+          "cos_theta": -0.7,
+          "K_from_equal_action": 0.6666666666666666,
+          "Q_from_hopf_spinor": 0.3338926174496644,
+          "K2_Q": 0.1483967188665175,
+          "F2_closed": 0.14839671886651754,
+          "difference": 2.7755575615628914e-17
+        },
+        {
+          "x": 0.5,
+          "cos_theta": 0.0,
+          "K_from_equal_action": 0.6666666666666666,
+          "Q_from_hopf_spinor": 0.375,
+          "K2_Q": 0.16666666666666666,
+          "F2_closed": 0.16666666666666666,
+          "difference": 0.0
+        },
+        {
+          "x": 0.5,
+          "cos_theta": 0.7,
+          "K_from_equal_action": 0.6666666666666666,
+          "Q_from_hopf_spinor": 0.3338926174496644,
+          "K2_Q": 0.1483967188665175,
+          "F2_closed": 0.14839671886651754,
+          "difference": 2.7755575615628914e-17
+        }
+      ],
+      "max_difference": 2.842170943040401e-14,
+      "imposed_inputs": [
+        "B1_closure_quantum_2pi",
+        "B2_antipodal_Z2"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_gravity_sector_partial",
+      "description": "Gravity sector (G): the Tangherlini metric f(r) = 1 \u2212 (r_s/r)\u00b2 solves the 5D vacuum Einstein equation and underlies V_tangherlini. PARTIAL closure: the metric is bulk-derived, but the radial-domain boundaries R_INNER, R_OUTER are boundary data. R_OUTER \u2248 1.2626 is fixed by the cross-species \u03b3-lock fixed point; R_MID = 1 is a gauge choice. The boundaries are not bulk-equation output (B3).",
+      "samples": [
+        {
+          "r": 0.8,
+          "f_tangherlini_1_minus_rs2_over_r2": -0.5625,
+          "f_recovered_from_V_tangherlini": -0.5625,
+          "difference": 0.0
+        },
+        {
+          "r": 1.2,
+          "f_tangherlini_1_minus_rs2_over_r2": 0.30555555555555547,
+          "f_recovered_from_V_tangherlini": 0.30555555555555547,
+          "difference": 0.0
+        },
+        {
+          "r": 1.5,
+          "f_tangherlini_1_minus_rs2_over_r2": 0.5555555555555556,
+          "f_recovered_from_V_tangherlini": 0.5555555555555556,
+          "difference": 0.0
+        },
+        {
+          "r": 2.0,
+          "f_tangherlini_1_minus_rs2_over_r2": 0.75,
+          "f_recovered_from_V_tangherlini": 0.75,
+          "difference": 0.0
+        }
+      ],
+      "max_f_difference": 0.0,
+      "R_MID": 1.0,
+      "R_OUTER": 1.26,
+      "R_INNER": 0.74,
+      "Delta_R": 0.52,
+      "boundary_data_imposed": true,
+      "pass": true
+    },
+    {
+      "name": "T5_dimensional_bridge_barrier",
+      "description": "Barrier B4: the action fixes dimensionless structure but not the absolute scale. F\u00b2, the Chern number, the closure quantum, K and Q are all scale-free. The only external input setting MeV is m_e via \u210f = m_e\u00b7R_MID\u00b7c (consistent with docs/hbar_origin_status.md). The action is scale-complete modulo m_e.",
+      "scale_free_quantities": {
+        "F_squared": "dimensionless (function of x = \u03c9\u2032/\u03c9 and c = cos \u03b8)",
+        "chern_c1": "pure integer = 1",
+        "closure_quantum": "2\u03c0 (dimensionless action units)",
+        "K_pade": "dimensionless (harmonic-mean ratio)",
+        "Q_polarization": "dimensionless (helicity-channel sum)"
+      },
+      "dimensional_bridge": "\u210f = m_e \u00b7 R_MID \u00b7 c  (m_e is the single external anchor)",
+      "external_anchors_count": 1,
+      "pass": true
+    },
+    {
+      "name": "T6_5d_to_4d_reduction_barrier",
+      "description": "Barrier B5: F\u00b2 is 4D-effective; the bulk is 5D. The dimensional-reduction map (radial-mode integration + vertex projection) that produces F\u00b2 from the 5D action is not constructed. This is a structural gap, not a numerical mismatch \u2014 the largest open piece of the scaffold.",
+      "reduction_requirements": [
+        "Radial-mode integration: integrate the 5D fields over the Tangherlini radial channel [R_INNER, R_OUTER] against the bound modes u_{l,n}(r*) to obtain 4D effective couplings.",
+        "Vertex projection: project the bulk Dirac\u2013gauge\u2013throat coupling onto the 4D Compton kinematic variables (x, c) to recover F\u00b2(x, c).",
+        "Consistency of the radial-mode spectrum (which sets lepton/quark masses) with the F\u00b2 vertex normalisation \u2014 the two currently live in separate sub-threads (closure-ledger vs tree-QED) and are not connected by an explicit reduction."
+      ],
+      "constructed": false,
+      "pass": true
+    },
+    {
+      "name": "T7_barrier_ledger",
+      "description": "Closure assessment: 1 sector closes outright (gauge), 1 closes given constraints (throat), 1 is partial (gravity). Five mismatch terms block full closure, in three families: topological (B1, B2), boundary (B3), and scale/reduction (B4, B5).",
+      "sectors": {
+        "A_gauge": {
+          "target": "A_\u03c6 = \u00bdcos \u03c7",
+          "status": "CLOSES",
+          "external_input": "none"
+        },
+        "T_throat": {
+          "target": "F\u00b2 = K\u00b2\u00b7Q",
+          "status": "CLOSES_WITH_CONSTRAINT",
+          "external_input": "B1 (closure quantum) + B2 (antipodal Z\u2082)"
+        },
+        "G_gravity": {
+          "target": "\u0394R = R_OUTER \u2212 R_INNER",
+          "status": "PARTIAL",
+          "external_input": "B3 (boundary conditions)"
+        }
+      },
+      "barriers": {
+        "B1_closure_quantum": {
+          "type": "topological",
+          "description": "\u222eA = 2\u03c0n Wilson-loop constraint, not local density",
+          "mismatch": "one global topological input per closed orbit"
+        },
+        "B2_antipodal_Z2": {
+          "type": "discrete",
+          "description": "\u03c3: p \u2192 \u2212p (T = i\u03c3_y), discrete quotient not in smooth Lagrangian",
+          "mismatch": "one discrete symmetry imposed as identification"
+        },
+        "B3_boundary_conditions": {
+          "type": "boundary",
+          "description": "hard wall (Dirichlet) from T\u00b2=\u2212I at throat fixed point",
+          "mismatch": "boundary data imposed by non-orientable topology"
+        },
+        "B4_dimensional_bridge": {
+          "type": "scale",
+          "description": "absolute mass scale via \u210f = m_e\u00b7R_MID\u00b7c",
+          "mismatch": "one external scale anchor (m_e)"
+        },
+        "B5_5d_to_4d_reduction": {
+          "type": "reduction",
+          "description": "radial-mode integration + vertex projection producing F\u00b2",
+          "mismatch": "structural map not constructed"
+        }
+      },
+      "n_sectors_closing_outright": 1,
+      "n_sectors_partial_or_constrained": 2,
+      "n_barriers": 5,
+      "barrier_families": {
+        "topological": [
+          "B1_closure_quantum",
+          "B2_antipodal_Z2"
+        ],
+        "boundary": [
+          "B3_boundary_conditions"
+        ],
+        "scale_and_reduction": [
+          "B4_dimensional_bridge",
+          "B5_5d_to_4d_reduction"
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "n_passed": 7,
+  "n_total": 7,
+  "verdict_class": "SCAFFOLD_WITH_BARRIERS",
+  "verdict": "SCAFFOLD WITH BARRIERS. A single covariant action\n  S_BAM = \u222b_{M\u2085} \u221a(\u2212g\u2085)[ (R\u2085\u22122\u039b\u2085)/2\u03ba\u2085 \u2212 \u00bcF\u00b2 + \u03c8\u0304(i\u0393\u00b7D\u2212m)\u03c8 + L_throat ] + S_\u2202 + S_closure\nunifies the three BAM targets STRUCTURALLY, but full closure is blocked by five identified mismatch terms.\n\nSector status:\n  (A) gauge   \u2014 CLOSES. A_\u03c6 = \u00bdcos \u03c7 is the homogeneous Maxwell solution on the Hopf bundle; c\u2081 = 1 exactly; no external input.\n  (T) throat  \u2014 CLOSES WITH CONSTRAINT. F\u00b2 = K\u00b2\u00b7Q reconstructs from the equal-action splitting, but requires the closure quantum (B1) and antipodal Z\u2082 (B2).\n  (G) gravity \u2014 PARTIAL. The Tangherlini metric is bulk-derived, but \u0394R boundary data is imposed (B3).\n\nMismatch terms (barriers), in three families:\n  TOPOLOGICAL: B1 closure quantum (\u222eA = 2\u03c0n, not a local density); B2 antipodal Z\u2082 (T = i\u03c3_y, discrete quotient).\n  BOUNDARY: B3 hard-wall Dirichlet from T\u00b2=\u2212I (topological, not from \u03b4S/\u03b4g).\n  SCALE / REDUCTION: B4 dimensional bridge (\u210f = m_e\u00b7R_MID\u00b7c, one external anchor); B5 5D\u21924D reduction producing F\u00b2 (not constructed, the largest gap).\n\nThe barriers are not five unrelated patches: they are a recognisable set \u2014 topological quantisation, discrete antipodal identification, the dimensional anchor, and the unbuilt dimensional reduction \u2014 that recurs throughout the BAM programme. Full closure requires (i) promoting the closure quantum + antipodal Z\u2082 to a topological / discrete sector of the action (e.g. a \u03b8-term + S\u00b3/Z\u2082 quotient), (ii) deriving the hard-wall BC from the non-orientable bulk, and (iii) constructing the 5D\u21924D radial reduction that projects the bulk coupling onto F\u00b2(x, c)."
+}
