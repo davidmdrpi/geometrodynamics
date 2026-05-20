@@ -139,6 +139,7 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Charge quantisation from topology | **Verified** | c₁ = 1 to < 1e-9 error |
 | Spin-½ from Hopf holonomy | **Demonstrated** | SU(2) sign-flip at 2π, illustrative |
 | Coulomb law from throat eigenmode | **Verified** | BVP matches Q/r to rel_err < 3e-9 |
+| Two-throat Coulomb force on S³ (finite separation) | **Demonstrated** | S³ Green response → V ∝ 1/r, F ∝ 1/r² (flat limit); F ∝ 1/sin²ψ on S³; Gauss law exact (`two_throat_coulomb_probe`) |
 | α_q coupling ratios (no free parameters) | **Computed** | Forced-origin slope extraction |
 | Möbius half-integer spectrum | **Verified** | Numerical vs analytic < 5% |
 | Meson energy conservation | **Verified** | Drift < 1% over test window |
