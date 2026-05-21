@@ -1,0 +1,165 @@
+{
+  "timestamp_utc": "2026-05-21T04:05:29+00:00",
+  "derivation_chain": "RP\u00b3 non-trivial spin structure (PR #49) \u2192 T\u00b2 = \u2212I \u2192 single-valuedness \u03c8 = T\u00b7\u03c8 at throat \u2192 \u03c8(throat) = 0 (Dirichlet hard wall)",
+  "tests": [
+    {
+      "name": "T1_T_eigenvalues",
+      "description": "T = i\u03c3_y from PR #49's non-trivial RP\u00b3 spin structure has eigenvalues \u00b1i and NO +1 eigenvalue. Hence no nonzero spinor is invariant under throat transport (T\u00b7\u03c8 = \u03c8 has only \u03c8 = 0).",
+      "eigenvalues": [
+        {
+          "real": 2.7755575615628914e-17,
+          "imag": -1.0
+        },
+        {
+          "real": 0.0,
+          "imag": 0.9999999999999997
+        }
+      ],
+      "has_plus_i": true,
+      "has_minus_i": true,
+      "has_plus_1_eigenvalue": false,
+      "pass": true
+    },
+    {
+      "name": "T2_t_fixed_point_forces_dirichlet",
+      "description": "T-fixed-point argument: a spinor single-valued across the non-orientable throat satisfies \u03c8 = T\u00b7\u03c8. Under T\u00b2 = \u2212I this forces \u03c8 = 0 (Dirichlet). (T \u2212 I) is invertible (null space {0}), so no nonzero invariant spinor exists.",
+      "T2_equals_minus_I": true,
+      "det_T_minus_I": {
+        "real": 2.0,
+        "imag": 0.0
+      },
+      "rank_T_minus_I": 2,
+      "null_space_dimension": 0,
+      "generic_psi_invariance_defect_nonzero": true,
+      "dirichlet_forced": "True",
+      "pass": true
+    },
+    {
+      "name": "T3_radial_solver_odd_extension",
+      "description": "The Tangherlini radial solver extends modes antisymmetrically across the throat (u_full = [\u2212u_reflected, u]) \u2014 the T-odd transport realizing the Dirichlet node u(R_MID) = 0. Both grid endpoints are Dirichlet nodes. Concrete realization of the spin-structure-forced hard wall.",
+      "rows": [
+        {
+          "l": 1,
+          "n_eigenfrequencies": [
+            1.0547269375351367,
+            1.9743806502721175,
+            2.894070116868654
+          ],
+          "odd_extension_residual": 0.0,
+          "throat_node_value": 0.0,
+          "endpoint_value": 0.0
+        },
+        {
+          "l": 3,
+          "n_eigenfrequencies": [
+            1.219082740577607,
+            2.1412077270422216,
+            3.021987803397198
+          ],
+          "odd_extension_residual": 0.0,
+          "throat_node_value": 0.0,
+          "endpoint_value": 0.0
+        },
+        {
+          "l": 5,
+          "n_eigenfrequencies": [
+            1.3959734850917922,
+            2.3693937895346067,
+            3.227725798780809
+          ],
+          "odd_extension_residual": 0.0,
+          "throat_node_value": 0.0,
+          "endpoint_value": 0.0
+        }
+      ],
+      "max_odd_extension_residual": 0.0,
+      "max_throat_node_value": 0.0,
+      "max_endpoint_value": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T4_alternatives_ruled_out",
+      "description": "Neumann/Robin BCs require a nonzero spinor at the throat, which would have to be T-invariant for single-valuedness. No nonzero T-invariant spinor exists (T\u00b2 = \u2212I, eigenvalues \u00b1i). Across 1000 random unit spinors, none is T-invariant. Only Dirichlet is consistent with the spin structure.",
+      "found_nonzero_T_invariant_spinor": false,
+      "dirichlet_is_unique": true,
+      "pass": true
+    },
+    {
+      "name": "T5_discrete_bulk_spectrum",
+      "description": "The spin-structure-derived Dirichlet BC produces a discrete radial \u03c9 spectrum (the bulk channel feeding the lepton/quark ladder). Near-uniform spacing reflects the hard-wall Bohr\u2013Sommerfeld structure.",
+      "rows": [
+        {
+          "l": 1,
+          "omegas": [
+            1.0547269375351367,
+            1.9743806502721175,
+            2.894070116868654,
+            3.824666567744213
+          ],
+          "spacings": [
+            0.9196537127369808,
+            0.9196894665965365,
+            0.9305964508755591
+          ],
+          "discrete": true
+        },
+        {
+          "l": 3,
+          "omegas": [
+            1.219082740577607,
+            2.1412077270422216,
+            3.021987803397198,
+            3.9224506034225777
+          ],
+          "spacings": [
+            0.9221249864646146,
+            0.8807800763549762,
+            0.9004628000253798
+          ],
+          "discrete": true
+        },
+        {
+          "l": 5,
+          "omegas": [
+            1.3959734850917922,
+            2.3693937895346067,
+            3.227725798780809,
+            4.086079805536645
+          ],
+          "spacings": [
+            0.9734203044428145,
+            0.8583320092462023,
+            0.8583540067558362
+          ],
+          "discrete": true
+        }
+      ],
+      "all_discrete": true,
+      "pass": true
+    },
+    {
+      "name": "T6_consistency_with_prior_probe",
+      "description": "Cross-check with hard_wall_boundary_verification: the T\u00b2 = \u2212I \u2192 \u03c8 = 0 argument is reconfirmed. The prior probe established DD (Dirichlet-Dirichlet) wins over DN/ND/NN numerically; this probe supplies the topological-sector derivation (the spin structure is now PR #49 action data).",
+      "T_squared_is_minus_I": true,
+      "invariance_would_contradict": "True",
+      "prior_probe_verdict": "DD wins (hard_wall_boundary_verification)",
+      "pass": "True"
+    },
+    {
+      "name": "T7_b3_promotion",
+      "description": "B3 (hard-wall boundary condition) is absorbed into the PR #49 topological sector: the non-trivial RP\u00b3 spin structure (T\u00b2 = \u2212I, now action data) forces the throat Dirichlet BC via single-valuedness. B3 is no longer an independent imposition. Scaffold barriers 3 \u2192 2.",
+      "b3_derivation": "RP\u00b3 non-trivial spin structure (PR #49) \u2192 T\u00b2 = \u2212I \u2192 single-valuedness \u03c8 = T\u00b7\u03c8 at throat \u2192 \u03c8 = 0 (Dirichlet)",
+      "scaffold_barriers_before": 3,
+      "scaffold_barriers_after": 2,
+      "residual_barriers": {
+        "B4_dimensional_bridge": "absolute MeV scale needs m_e anchor (\u210f = m_e\u00b7R_MID\u00b7c)",
+        "B5_5d_to_4d_reduction": "radial spectrum (this BC) and F\u00b2 vertex still in separate sub-threads; reduction map unconstructed (largest gap)"
+      },
+      "pass": true
+    }
+  ],
+  "n_passed": 7,
+  "n_total": 7,
+  "verdict_class": "HARD_WALL_DERIVED",
+  "verdict": "HARD-WALL BOUNDARY DERIVED. The Dirichlet condition at the throat is a consequence of the PR #49 non-trivial RP\u00b3 spin structure, not an independent imposition:\n\n  RP\u00b3 non-trivial spin structure (PR #49)\n    \u2192 T = i\u03c3_y, T\u00b2 = \u2212I  (eigenvalues \u00b1i, no +1 eigenvector)\n    \u2192 single-valuedness at the throat fixed point: \u03c8 = T\u00b7\u03c8\n    \u2192 T\u00b2\u03c8 = T\u03c8 = \u03c8  but  T\u00b2\u03c8 = \u2212\u03c8  \u27f9  \u03c8 = \u2212\u03c8  \u27f9  \u03c8(throat) = 0\n    \u2192 Dirichlet (hard wall) at the throat.\n\nThe argument is realized concretely in the Tangherlini radial solver, whose modes are extended antisymmetrically across the throat (u_full = [\u2212u_reflected, u], odd to machine precision) \u2014 the T-odd transport producing the throat node u(R_MID) = 0, with both grid endpoints at Dirichlet. Neumann/Robin BCs are ruled out: no nonzero spinor is T-invariant under T\u00b2 = \u2212I. The derived BC yields the discrete bulk \u03c9 spectrum feeding the lepton/quark ladder. Consistent with the prior hard_wall_boundary_verification probe (DD wins).\n\nB3 is absorbed into the PR #49 topological sector; the scaffold barrier count drops 3 \u2192 2. Residual: B4 (dimensional bridge \u2014 absolute scale needs m_e) and B5 (5D\u21924D reduction producing F\u00b2, the largest remaining gap)."
+}
