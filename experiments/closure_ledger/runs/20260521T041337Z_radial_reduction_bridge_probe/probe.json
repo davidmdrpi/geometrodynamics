@@ -1,0 +1,256 @@
+{
+  "timestamp_utc": "2026-05-21T04:13:37+00:00",
+  "reduction": "\u03a8(x^\u03bc, r, \u03a9) = \u03a3 \u03c8_{l,n}(x^\u03bc)\u00b7u_{l,n}(r)\u00b7Y_l(\u03a9); integrate over (r, \u03a9) \u2192 three channels",
+  "three_channels": {
+    "radial": "KK masses \u03c9(l,n)",
+    "s3": "c\u2081 = 1 + propagator 1/q\u00b2",
+    "throat": "F\u00b2(x, c) form factor"
+  },
+  "central_finding": "F\u00b2(x, c) is the throat form factor, NOT a radial overlap (overlaps are kinematics-independent constants)",
+  "tests": [
+    {
+      "name": "T1_kk_reduction_basis",
+      "description": "The Sturm\u2013Liouville radial modes (Dirichlet BCs from B3) form an orthonormal KK reduction basis. Symmetric-FD eigenvectors are orthonormal (Gram \u2248 I); the spectrum matches the Chebyshev solver.",
+      "rows": [
+        {
+          "l": 1,
+          "omega_fd": [
+            1.0547245621803736,
+            1.9743618088981982,
+            2.894005466425389,
+            3.8245120830681816
+          ],
+          "omega_cheb": [
+            1.0547269375351367,
+            1.9743806502721175,
+            2.894070116868654,
+            3.824666567744213
+          ],
+          "gram_off_diagonal_max": 1.1379786002407855e-15,
+          "spectrum_difference": 0.00015448467603151883
+        },
+        {
+          "l": 3,
+          "omega_fd": [
+            1.2190796872073697,
+            2.141188954664273,
+            3.0219250583678785,
+            3.922299436679061
+          ],
+          "omega_cheb": [
+            1.219082740577607,
+            2.1412077270422216,
+            3.021987803397198,
+            3.9224506034225777
+          ],
+          "gram_off_diagonal_max": 8.881784197001252e-16,
+          "spectrum_difference": 0.000151166743516562
+        },
+        {
+          "l": 5,
+          "omega_fd": [
+            1.3959690214987805,
+            2.3693721983426563,
+            3.227663205088433,
+            4.085932366245734
+          ],
+          "omega_cheb": [
+            1.3959734850917922,
+            2.3693937895346067,
+            3.227725798780809,
+            4.086079805536645
+          ],
+          "gram_off_diagonal_max": 1.6792123247455493e-15,
+          "spectrum_difference": 0.00014743929091132202
+        }
+      ],
+      "max_gram_off_diagonal": 1.6792123247455493e-15,
+      "max_spectrum_difference": 0.00015448467603151883,
+      "pass": true
+    },
+    {
+      "name": "T2_radial_channel_masses",
+      "description": "Radial channel of the reduction: the KK masses are the radial eigenfrequencies \u03c9(l,n), the closure-ledger lepton/quark mass ladder. Discrete spectrum.",
+      "rows": [
+        {
+          "l": 1,
+          "kk_masses_omega": [
+            1.0547269375351367,
+            1.9743806502721175,
+            2.894070116868654,
+            3.824666567744213
+          ],
+          "spacings": [
+            0.9196537127369808,
+            0.9196894665965365,
+            0.9305964508755591
+          ],
+          "discrete": true
+        },
+        {
+          "l": 3,
+          "kk_masses_omega": [
+            1.219082740577607,
+            2.1412077270422216,
+            3.021987803397198,
+            3.9224506034225777
+          ],
+          "spacings": [
+            0.9221249864646146,
+            0.8807800763549762,
+            0.9004628000253798
+          ],
+          "discrete": true
+        },
+        {
+          "l": 5,
+          "kk_masses_omega": [
+            1.3959734850917922,
+            2.3693937895346067,
+            3.227725798780809,
+            4.086079805536645
+          ],
+          "spacings": [
+            0.9734203044428145,
+            0.8583320092462023,
+            0.8583540067558362
+          ],
+          "discrete": true
+        }
+      ],
+      "all_discrete": true,
+      "pass": true
+    },
+    {
+      "name": "T3_s3_channel_gauge_propagator",
+      "description": "S\u00b3 angular channel: Hopf charge c\u2081 = 1 (gauge coupling) and S\u00b3 Green function flat limit \u2192 Coulomb 1/(4\u03c0 r) (Fourier transform 1/q\u00b2, the photon propagator from PRs #45\u2013#46).",
+      "chern_c1_abs": 0.9999999871457392,
+      "chern_c1_error": 1.2854260766914649e-08,
+      "green_flat_limit_coulomb_residual": 3.799809636384488e-06,
+      "pass": true
+    },
+    {
+      "name": "T4_throat_channel_F2",
+      "description": "Throat channel (r \u2192 R_MID pinch): the form factor F\u00b2(x, c) = K(x)\u00b2\u00b7Q(x, c). Distinct from the radial modes (it is the throat-pinch dynamics, PRs #39\u2013#41).",
+      "samples": [
+        {
+          "x": 0.1,
+          "cos_theta": -0.7,
+          "K2_Q": 0.002127683177103556,
+          "F2_closed": 0.002127683177103556,
+          "difference": 0.0
+        },
+        {
+          "x": 0.1,
+          "cos_theta": 0.0,
+          "K2_Q": 0.003008264462809918,
+          "F2_closed": 0.0030082644628099176,
+          "difference": 4.336808689942018e-19
+        },
+        {
+          "x": 0.1,
+          "cos_theta": 0.7,
+          "K2_Q": 0.002127683177103556,
+          "F2_closed": 0.002127683177103556,
+          "difference": 0.0
+        },
+        {
+          "x": 0.5,
+          "cos_theta": -0.7,
+          "K2_Q": 0.1483967188665175,
+          "F2_closed": 0.14839671886651754,
+          "difference": 2.7755575615628914e-17
+        },
+        {
+          "x": 0.5,
+          "cos_theta": 0.0,
+          "K2_Q": 0.16666666666666666,
+          "F2_closed": 0.16666666666666666,
+          "difference": 0.0
+        },
+        {
+          "x": 0.5,
+          "cos_theta": 0.7,
+          "K2_Q": 0.1483967188665175,
+          "F2_closed": 0.14839671886651754,
+          "difference": 2.7755575615628914e-17
+        }
+      ],
+      "max_difference": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "name": "T5_F2_is_not_a_radial_overlap",
+      "description": "CENTRAL FINDING: radial overlap integrals \u222bu_m u_n dr are kinematics-independent constants (orthonormality: \u03b4_mn). F\u00b2(x, c) varies strongly with (x, c). Therefore F\u00b2 is NOT a radial overlap \u2014 it is the throat-channel form factor. The naive 'F\u00b2 from radial integration' is falsified; the reduction channels produce different physical objects.",
+      "radial_overlaps_constants": {
+        "<u0|u0>": 0.9999999999999991,
+        "<u0|u1>": -3.4644127045498927e-16,
+        "<u1|u1>": 1.0000000000000002,
+        "<u0|u2>": -4.0764864438315275e-16
+      },
+      "overlap_kinematic_spread": 0.0,
+      "F2_values_across_kinematics": {
+        "F2(x=0.5,c=0)": 0.16666666666666666,
+        "F2(x=1.0,c=0)": 1.0,
+        "F2(x=2.0,c=0)": 10.666666666666666,
+        "F2(x=1.0,c=0.9)": 1.0
+      },
+      "F2_kinematic_spread": 10.5,
+      "F2_is_kinematics_dependent": true,
+      "overlaps_are_kinematics_independent": true,
+      "pass": true
+    },
+    {
+      "name": "T6_shared_substrate_consistency",
+      "description": "The three reduction channels share one geometric substrate: R_MID (throat radius), the closure quantum 2\u03c0, and the spin structure T\u00b2 = \u2212I. This shared substrate is the bridge connecting the mass and amplitude sub-threads.",
+      "channels_share": {
+        "R_MID": {
+          "radial_channel": "inner boundary of [R_MID, R_OUTER]",
+          "s3_channel": "S\u00b3 Green function radius (unit)",
+          "throat_channel": "throat-pinch location r = R_MID",
+          "value": 1.0
+        },
+        "closure_quantum_2pi": {
+          "radial_channel": "Bohr\u2013Sommerfeld mode quantization",
+          "s3_channel": "Hopf holonomy / winding",
+          "throat_channel": "throat closure (K from 2\u03c0 split)",
+          "value": 6.283185307179586
+        },
+        "spin_structure_T2_minus_I": {
+          "radial_channel": "hard-wall Dirichlet BC (B3)",
+          "s3_channel": "RP\u00b3 = S\u00b3/Z\u2082 non-trivial spin structure",
+          "throat_channel": "throat transport T = i\u03c3_y (F\u00b2 helicity)",
+          "value": "T\u00b2 = \u2212I"
+        }
+      },
+      "T2_minus_I_verified": true,
+      "R_MID": 1.0,
+      "closure_quantum": 6.283185307179586,
+      "pass": true
+    },
+    {
+      "name": "T7_b5_assessment",
+      "description": "The 5D \u2192 4D reduction factorizes into three consistent channels (mass / gauge+propagator / F\u00b2) sharing the substrate (R_MID, 2\u03c0, T\u00b2=\u2212I). The mass and amplitude sub-threads are structurally connected. Residual: F\u00b2 is the throat form factor, NOT a radial overlap, so a single master integral unifying masses and F\u00b2 is not achieved. B5 reduced from 'unconstructed' to 'factorized framework + one residual (master integral)'.",
+      "three_channels": {
+        "radial": "r \u2208 [R_MID, R_OUTER] \u2192 KK masses \u03c9(l,n) [mass thread]",
+        "s3_angular": "\u03a9 \u2208 S\u00b3 \u2192 c\u2081 = 1 + propagator 1/q\u00b2 [gauge/prop]",
+        "throat": "r \u2192 R_MID pinch \u2192 F\u00b2(x, c) form factor [vertex]"
+      },
+      "channels_share_substrate": true,
+      "F2_is_throat_form_factor_not_overlap": true,
+      "residual_master_integral_unconstructed": true,
+      "scaffold_status": {
+        "B1": "closed (PR #49 winding \u03b8-term)",
+        "B2": "closed (PR #49 RP\u00b3 + spin structure)",
+        "B3": "closed (hard-wall from spin structure)",
+        "B4": "open (dimensional bridge, m_e anchor)",
+        "B5": "substantially reduced (3-channel factorization; residual = master integral)"
+      },
+      "pass": true
+    }
+  ],
+  "n_passed": 7,
+  "n_total": 7,
+  "verdict_class": "BRIDGE_FACTORIZED",
+  "verdict": "BRIDGE FACTORIZED. The 5D \u2192 4D radial reduction of the Tangherlini bulk action factorizes into three consistent channels, all reductions of one action on the same internal geometry:\n\n  radial  (r \u2208 [R_MID, R_OUTER]) \u2192 KK masses \u03c9(l,n)    [mass sub-thread]\n  S\u00b3      (\u03a9 \u2208 S\u00b3)               \u2192 c\u2081 = 1 + 1/q\u00b2        [gauge + propagator]\n  throat  (r \u2192 R_MID pinch)      \u2192 F\u00b2(x, c) form factor [vertex]\n\nThe radial modes form an orthonormal KK basis (Gram \u2248 I) with masses matching the Chebyshev solver; the S\u00b3 channel gives the Hopf charge c\u2081 = 1 and the Coulomb/1/q\u00b2 propagator; the throat channel gives F\u00b2 = K\u00b2\u00b7Q. All three share the substrate: R_MID (throat radius), the closure quantum 2\u03c0, and the spin structure T\u00b2 = \u2212I (the radial Dirichlet BC and the throat transport are the same datum). The mass and amplitude sub-threads are thereby structurally connected.\n\nCENTRAL FINDING (T5): F\u00b2(x, c) is NOT a radial overlap integral. Radial overlaps \u222bu_m u_n dr are kinematics-independent constants (orthonormality \u03b4_mn); F\u00b2(x, c) varies strongly with the scattering kinematics (x, c). So F\u00b2 is the throat-channel form factor, not a KK overlap \u2014 the naive \"F\u00b2 from radial integration\" is falsified. The reduction connects the sub-threads structurally (shared substrate, three channels of one action) but does NOT unify masses and F\u00b2 into a single master integral.\n\nB5 is substantially reduced: from \"the reduction map is unconstructed\" to \"the reduction factorizes into three consistent channels, with one residual \u2014 a single master integral producing masses AND F\u00b2 together.\" Scaffold status: B1, B2, B3 closed; B5 reduced to its residual; B4 (dimensional bridge / m_e anchor) remains."
+}
