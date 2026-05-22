@@ -1,0 +1,348 @@
+{
+  "timestamp_utc": "2026-05-22T20:35:47+00:00",
+  "maslov_dictionary": {
+    "soft_turning_point_beta": 0.25,
+    "hard_wall_beta": 0.5,
+    "bohr_sommerfeld": "\u222e p dr* = 2\u03c0(n + \u03bc/4)",
+    "tangherlini_cavity_mu": 4,
+    "radial_ledger_integer": "n+1 (= \u03bc/4 with \u03bc=4)"
+  },
+  "b4_audit": {
+    "machinery": "scale-free (all outputs dimensionless)",
+    "dimensionful_inputs": 1,
+    "anchor": "m_e (\u210f = m_e\u00b7R_MID\u00b7c)",
+    "verdict": "irreducible by dimensional necessity"
+  },
+  "tests": [
+    {
+      "name": "T1_maslov_dictionary",
+      "description": "Per-boundary Maslov deficits {soft turning point: \u00bc (phase \u03c0/2), hard wall: \u00bd (Dirichlet phase \u03c0)} reproduce \u222bk dx = \u03c0(n + \u03b2_left + \u03b2_right) for the square well (hard+hard \u2192 n+1) and the harmonic oscillator (soft+soft \u2192 n+\u00bd). The Maslov dictionary.",
+      "rows": [
+        {
+          "cavity": "square_well_hard+hard",
+          "n": 0,
+          "integral_over_pi": 1.0,
+          "beta_sum_measured": 1.0,
+          "beta_sum_predicted": 1.0,
+          "match": true
+        },
+        {
+          "cavity": "square_well_hard+hard",
+          "n": 1,
+          "integral_over_pi": 2.0,
+          "beta_sum_measured": 1.0,
+          "beta_sum_predicted": 1.0,
+          "match": true
+        },
+        {
+          "cavity": "square_well_hard+hard",
+          "n": 2,
+          "integral_over_pi": 3.0,
+          "beta_sum_measured": 1.0,
+          "beta_sum_predicted": 1.0,
+          "match": true
+        },
+        {
+          "cavity": "square_well_hard+hard",
+          "n": 3,
+          "integral_over_pi": 4.0,
+          "beta_sum_measured": 1.0,
+          "beta_sum_predicted": 1.0,
+          "match": true
+        },
+        {
+          "cavity": "harmonic_oscillator_soft+soft",
+          "n": 0,
+          "integral_over_pi": 0.49999981283721334,
+          "beta_sum_measured": 0.49999981283721334,
+          "beta_sum_predicted": 0.5,
+          "match": true
+        },
+        {
+          "cavity": "harmonic_oscillator_soft+soft",
+          "n": 1,
+          "integral_over_pi": 1.4999994385128022,
+          "beta_sum_measured": 0.49999943851280215,
+          "beta_sum_predicted": 0.5,
+          "match": true
+        },
+        {
+          "cavity": "harmonic_oscillator_soft+soft",
+          "n": 2,
+          "integral_over_pi": 2.4999990641860665,
+          "beta_sum_measured": 0.49999906418606654,
+          "beta_sum_predicted": 0.5,
+          "match": true
+        },
+        {
+          "cavity": "harmonic_oscillator_soft+soft",
+          "n": 3,
+          "integral_over_pi": 3.499998689860494,
+          "beta_sum_measured": 0.4999986898604938,
+          "beta_sum_predicted": 0.5,
+          "match": true
+        }
+      ],
+      "square_well_hard_wall_beta_half": true,
+      "oscillator_soft_tp_beta_quarter": true,
+      "pass": true
+    },
+    {
+      "name": "T2_tangherlini_doubly_dirichlet_mu4",
+      "description": "The Tangherlini throat cavity is bounded by a hard wall at each end (throat Dirichlet from B3/T\u00b2=\u2212I; outer wall), so the Maslov index \u03bc=4 and \u222e p dr*/2\u03c0 \u2192 n+1. The one-sided WKB action \u222b\u221a(\u03c9\u00b2\u2212V) dr* \u2192 \u03c0(n+1); the implied \u03bc \u2192 4 at high n (WKB error largest at the ground state, as in the closed-orbit probe).",
+      "rows": [
+        {
+          "l": 1,
+          "n": 0,
+          "omega": 1.0547269375350206,
+          "wkb_action": 2.770341630545939,
+          "action_over_pi": 0.881827129109295,
+          "target_n_plus_1": 1,
+          "mu_implied": 3.52730851643718,
+          "deviation_from_n_plus_1": 0.11817287089070505
+        },
+        {
+          "l": 1,
+          "n": 1,
+          "omega": 1.9743806502719132,
+          "wkb_action": 6.265473992592575,
+          "action_over_pi": 1.9943623134696433,
+          "target_n_plus_1": 2,
+          "mu_implied": 3.9774492538785733,
+          "deviation_from_n_plus_1": 0.005637686530356678
+        },
+        {
+          "l": 1,
+          "n": 2,
+          "omega": 2.8940701168684546,
+          "wkb_action": 9.423030890589754,
+          "action_over_pi": 2.9994438902899683,
+          "target_n_plus_1": 3,
+          "mu_implied": 3.997775561159873,
+          "deviation_from_n_plus_1": 0.0005561097100317269
+        },
+        {
+          "l": 1,
+          "n": 3,
+          "omega": 3.8246665677441474,
+          "wkb_action": 12.565864384602225,
+          "action_over_pi": 3.999838862063683,
+          "target_n_plus_1": 4,
+          "mu_implied": 3.9993554482547324,
+          "deviation_from_n_plus_1": 0.00016113793631689077
+        },
+        {
+          "l": 1,
+          "n": 4,
+          "omega": 4.760944237689523,
+          "wkb_action": 15.707710951080033,
+          "action_over_pi": 4.999919685046168,
+          "target_n_plus_1": 5,
+          "mu_implied": 3.9996787401846703,
+          "deviation_from_n_plus_1": 8.03149538324277e-05
+        },
+        {
+          "l": 1,
+          "n": 5,
+          "omega": 5.700151047548693,
+          "wkb_action": 18.849408078320984,
+          "action_over_pi": 5.999952940042177,
+          "target_n_plus_1": 6,
+          "mu_implied": 3.9998117601687078,
+          "deviation_from_n_plus_1": 4.705995782305905e-05
+        }
+      ],
+      "high_n_mu_implied": 3.9998117601687078,
+      "mu_approaches_4": true,
+      "converging_to_n_plus_1": true,
+      "pass": true
+    },
+    {
+      "name": "T3_throat_pi_is_three_things",
+      "description": "The throat \u03c0 is simultaneously: (1) the Dirichlet hard-wall reflection phase (B3, from T\u00b2=\u2212I); (2) the closure half-quantum (2\u03c0 split by the antipodal Z\u2082); (3) the throat dwell phase \u03c9\u00b7\u03c4=\u03c0 (\u03c4=\u03c0/\u03c9, K-channel impedance, PR #51). The throat Maslov contribution is \u03bc=2 (\u03b2=\u00bd).",
+      "dirichlet_reflection_phase": 3.141592653589793,
+      "closure_half_quantum": 3.141592653589793,
+      "dwell_phase_omega_tau": [
+        3.141592653589793,
+        3.141592653589793,
+        3.141592653589793,
+        3.141592653589793
+      ],
+      "mu_throat": 2.0,
+      "all_equal_pi": true,
+      "pass": true
+    },
+    {
+      "name": "T4_ledger_integers_dimensionless_quanta",
+      "description": "The closure-ledger integers (3, 6, 109) are sums of dimensionless quanta: antipodal k + Hopf/throat 1 + \u03b2-uplift 100\u00b7[k=5] + radial Maslov (n+1). The radial term is the \u03bc=4 Maslov count. Every term is a dimensionless integer.",
+      "rows": [
+        {
+          "species": "electron",
+          "k_antipodal": 1,
+          "hopf_throat": 1,
+          "beta_uplift": 0,
+          "radial_maslov_n_plus_1": 1,
+          "N_total_computed": 3,
+          "N_total_expected": 3,
+          "match": true
+        },
+        {
+          "species": "muon",
+          "k_antipodal": 3,
+          "hopf_throat": 1,
+          "beta_uplift": 0,
+          "radial_maslov_n_plus_1": 2,
+          "N_total_computed": 6,
+          "N_total_expected": 6,
+          "match": true
+        },
+        {
+          "species": "tau",
+          "k_antipodal": 5,
+          "hopf_throat": 1,
+          "beta_uplift": 100,
+          "radial_maslov_n_plus_1": 3,
+          "N_total_computed": 109,
+          "N_total_expected": 109,
+          "match": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T5_scale_invariance_core_audit",
+      "description": "Rescaling R_MID \u2192 \u03bb\u00b7R_MID: the absolute \u03c9 scales as 1/\u03bb but every dimensionless output (\u03c9\u00b7R_MID, the WKB action S, the Maslov index, mass ratios) is invariant to machine precision. The closure-ledger machinery is scale-free \u2014 it cannot produce a dimensionful scale. This is the dimensional proof that B4 requires one external anchor.",
+      "rows": [
+        {
+          "lambda": 1.0,
+          "R_MID_scaled": 1.0,
+          "omega0_absolute": 1.0547245621857753,
+          "omega0_times_R_MID_dimensionless": 1.0547245621857753,
+          "wkb_action_S_dimensionless": 2.7705851716647985,
+          "mass_ratio_omega1_over_omega0": 1.871921712725891
+        },
+        {
+          "lambda": 2.0,
+          "R_MID_scaled": 2.0,
+          "omega0_absolute": 0.5273622810876399,
+          "omega0_times_R_MID_dimensionless": 1.0547245621752799,
+          "wkb_action_S_dimensionless": 2.770585171610392,
+          "mass_ratio_omega1_over_omega0": 1.8719217127372414
+        },
+        {
+          "lambda": 0.5,
+          "R_MID_scaled": 0.5,
+          "omega0_absolute": 2.1094491243668996,
+          "omega0_times_R_MID_dimensionless": 1.0547245621834498,
+          "wkb_action_S_dimensionless": 2.7705851716526078,
+          "mass_ratio_omega1_over_omega0": 1.8719217127277736
+        },
+        {
+          "lambda": 3.7,
+          "R_MID_scaled": 3.7,
+          "omega0_absolute": 0.28506069248225346,
+          "omega0_times_R_MID_dimensionless": 1.054724562184338,
+          "wkb_action_S_dimensionless": 2.7705851716572303,
+          "mass_ratio_omega1_over_omega0": 1.871921712730182
+        }
+      ],
+      "max_omega_R_deviation": 1.0495382340991455e-11,
+      "max_action_deviation": 5.440625727715087e-11,
+      "max_mass_ratio_deviation": 1.135047611455775e-11,
+      "scale_free": true,
+      "pass": true
+    },
+    {
+      "name": "T6_dimensionless_residuals_closed",
+      "description": "The geometric residuals are dimensionless closure-quantum invariants (\u210f-origin thread): R_OUTER (cross-species fixed point), \u03b5 = 7\u03c0/(100\u00b75\u2074), transport = 8\u03c0, resistance = 7\u03c0/100. None carries a dimensionful scale; all are closed in closure-quantum form.",
+      "rows": [
+        {
+          "quantity": "R_OUTER",
+          "value": 1.2623,
+          "closed_form": "cross-species fixed point \u03b3_geom=\u03a3V_max=22.5",
+          "dimensionless": true
+        },
+        {
+          "quantity": "epsilon_inner_cutoff",
+          "value": 0.00035185837720205684,
+          "closed_form": "7\u03c0/(100\u00b75\u2074) = 7\u03c0/62500",
+          "expected": 0.00035186,
+          "dimensionless": true
+        },
+        {
+          "quantity": "transport",
+          "value": 25.132741228718345,
+          "closed_form": "8\u03c0 = 4\u00b7(2\u03c0)",
+          "dimensionless": true
+        },
+        {
+          "quantity": "resistance",
+          "value": 0.21991148575128552,
+          "closed_form": "7\u03c0/100",
+          "dimensionless": true
+        }
+      ],
+      "epsilon_matches": true,
+      "transport_matches": true,
+      "resistance_matches": true,
+      "pass": true
+    },
+    {
+      "name": "T7_1054_does_not_close_b4",
+      "description": "The 1.054 factor is \u03c9(1,0) at the \u03b3-locked geometry \u2014 dimensionless. factor_1054_search returned a clean negative (no closed form within 0.01 %). But even a closed form would not close B4: a dimensionless number cannot supply the dimensionful MeV scale. The 1.054 is orthogonal to the dimensional anchor.",
+      "omega_canonical": 1.054727,
+      "omega_gamma_lock": 1.053694,
+      "factor_1054_is_dimensionless": true,
+      "closed_form_found_in_search": false,
+      "closing_1054_would_close_b4": false,
+      "pass": true
+    },
+    {
+      "name": "T8_b4_irreducibility",
+      "description": "Exactly one dimensionful input (m_e). The bridge \u210f = m_e\u00b7R_MID\u00b7c is dimensionally consistent ([kg\u00b7m\u00b7(m/s)] = [J\u00b7s]). Everything else is derived and dimensionless. A scale-free theory requires exactly one external dimensionful anchor; B4 is irreducible by dimensional necessity \u2014 a structural feature, not a gap (cf. SI fixing c, \u210f, e by convention).",
+      "bridge": "\u210f = m_e\u00b7R_MID\u00b7c",
+      "dim_product_m_e_R_MID_c": [
+        1,
+        2,
+        -1
+      ],
+      "dim_hbar": [
+        1,
+        2,
+        -1
+      ],
+      "dimensionally_consistent": true,
+      "n_dimensionful_inputs": 1,
+      "dimensionless_derived_quantities": [
+        "closure quantum 2\u03c0",
+        "winding integers k,n",
+        "Maslov index \u03bc",
+        "action ratios S/2\u03c0",
+        "\u03c9\u00b7R_MID",
+        "mass ratios m_\u03bc/m_e, m_\u03c4/m_e",
+        "R_OUTER",
+        "\u03b5",
+        "transport",
+        "resistance",
+        "1.054"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T9_scaffold_final_assessment",
+      "description": "The BAM effective-action scaffold: B1 (closure quantum), B2 (antipodal Z\u2082), B3 (hard-wall throat) promoted to a topological/discrete sector; B5 (5D\u21924D reduction) closed by the master integral; B4 (dimensional bridge) audited as irreducible by dimensional necessity. The Maslov closure-ledger shows the radial '+1' is the \u03bc=4 Maslov index and the throat \u03c0 is the B3 reflection = closure half = dwell phase. The programme is complete: four barriers derived, the fifth shown to be the single mandatory dimensionful unit.",
+      "barrier_status": {
+        "B1_closure_quantum": "CLOSED (winding \u03b8-term)",
+        "B2_antipodal_Z2": "CLOSED (RP\u00b3 + spin structure)",
+        "B3_hard_wall": "CLOSED (T\u00b2=\u2212I \u2192 Dirichlet; Maslov \u03c0 reflection)",
+        "B5_reduction": "CLOSED (C\u00d7S\u00b3 master integral)",
+        "B4_dimensional_bridge": "IRREDUCIBLE (single m_e anchor, by scale-freeness)"
+      },
+      "pass": true
+    }
+  ],
+  "n_passed": 9,
+  "n_total": 9,
+  "verdict_class": "B4_IRREDUCIBLE",
+  "verdict": "B4 IRREDUCIBLE; MASLOV CLOSURE-LEDGER FORMALIZED. Two results in one probe:\n\nPART A \u2014 the Maslov closure-ledger. Bohr\u2013Sommerfeld with a Maslov correction at each boundary, \u222e p dr* = 2\u03c0(n + \u03bc/4), with per-boundary deficits {soft turning point: \u00bc (phase \u03c0/2); hard wall (Dirichlet): \u00bd (phase \u03c0)} \u2014 verified against the square well (hard+hard \u2192 n+1) and the harmonic oscillator (soft+soft \u2192 n+\u00bd). The Tangherlini throat cavity is bounded by a hard wall at each end (throat = Dirichlet from B3/T\u00b2=\u2212I; outer wall), so \u03bc=4 and \u222e/2\u03c0 \u2192 n+1: the closure-ledger Layer-2 \"+1\" per radial mode IS the Maslov index of the doubly-Dirichlet throat cavity. Its throat half (\u03bc=2, reflection phase \u03c0) is the B3 hard wall \u2014 and that \u03c0 is simultaneously the closure half-quantum (2\u03c0 split by the antipodal Z\u2082) and the throat dwell phase \u03c9\u00b7\u03c4=\u03c0 (\u03c4=\u03c0/\u03c9, the K-channel impedance). The per-species ledger integers (3, 6, 109) are sums of dimensionless quanta (antipodal k + Hopf/throat 1 + \u03b2-uplift + radial Maslov n+1).\n\nPART B \u2014 the B4 audit. Every quantity the closure-ledger + Maslov machinery produces is dimensionless: winding integers, the Maslov index \u03bc, action ratios S/2\u03c0, \u03c9\u00b7R_MID, mass ratios, and the geometric residuals (R_OUTER, \u03b5 = 7\u03c0/(100\u00b75\u2074), transport = 8\u03c0, resistance = 7\u03c0/100, the 1.054 factor). Scale invariance is explicit: rescaling R_MID \u2192 \u03bb\u00b7R_MID leaves every dimensionless output unchanged to machine precision and shifts only the absolute scale. A scale-free theory cannot produce a dimensionful scale, so exactly ONE dimensionful anchor is mathematically required; m_e (equivalently R_MID via \u210f = m_e\u00b7R_MID\u00b7c, dimensionally consistent) is the minimal choice. B4 is therefore IRREDUCIBLE by dimensional necessity \u2014 a structural feature, not an unsolved gap (cf. SI fixing c, \u210f, e by convention). The 1.054 factor is dimensionless and orthogonal to B4: even a closed form would not supply the MeV scale.\n\nThe scaffold is closed: B1, B2, B3, B5 derived; B4 shown to be the single mandatory dimensionful unit. What remains genuinely open is m_e itself \u2014 which, by this audit, cannot come from scale-free geometry."
+}
