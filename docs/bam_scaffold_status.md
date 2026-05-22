@@ -32,7 +32,7 @@ Three sectors close the three targets:
 | **B2** antipodal Z₂ `T = iσ_y` | discrete | imposed identification | **CLOSED** | `RP³ = S³/Z₂` + non-trivial spin structure (topological-discrete sector probe) |
 | **B3** hard-wall BC (Dirichlet at throat) | boundary | imposed by hand | **CLOSED** | single-valuedness under `T² = −I` forces `ψ(throat) = 0` (hard-wall boundary derivation probe) |
 | **B5** 5D→4D reduction producing F² | reduction | unconstructed | **CLOSED** | one separable master functional `ℳ = G_C ⊗ 𝒢_{S³}` on the warped product `C × S³` yields masses (poles), K (throat boundary), Q (S³ Hopf); vertex residue = `F²=K²·Q` (master integral probe) |
-| **B4** dimensional bridge `ℏ = m_e·R_MID·c` | scale | one external anchor | **OPEN** | (the single `m_e` anchor; documented in `docs/hbar_origin_status.md`) |
+| **B4** dimensional bridge `ℏ = m_e·R_MID·c` | scale | one external anchor | **IRREDUCIBLE** | the closure-ledger/Maslov machinery is scale-free, so exactly one dimensionful anchor is mathematically required; `m_e` is the minimal choice (Maslov dimensional-bridge probe) |
 
 ## How each barrier was addressed
 
@@ -121,31 +121,57 @@ it is the direct consequence of the product internal geometry
 (separation of variables `Ψ = Σ u_{l,n}(r)𝒴_l(Ω)` makes the Green
 function a sum of factor products). B5′ is **closed**.
 
-### B4 → dimensional bridge (OPEN)
+### B4 → dimensional bridge (IRREDUCIBLE)
 
 The action fixes dimensionless structure (`F²`, `c₁`, the closure
 quantum, `K`, `Q` are all scale-free); the absolute MeV scale enters
-only through the single anchor `ℏ = m_e·R_MID·c`. The 2π winding (B1)
-is metric-independent, but the physical great-circle length `2πR` and
-the mass scale still need `m_e`. This is the last external input; it is
-the subject of the separate ℏ-origin thread
-(`docs/hbar_origin_status.md`), which reduced the lepton surrogate to
-this one anchor.
+only through the single anchor `ℏ = m_e·R_MID·c`. The Maslov
+dimensional-bridge probe audits whether this last anchor can be derived
+away, and shows it **cannot** — provably:
+
+  - **The closure-ledger/Maslov machinery is scale-free.** Every
+    quantity it produces is dimensionless: the winding integers `k, n`,
+    the Maslov index `μ`, action ratios `S/2π`, `ω·R_MID`, mass *ratios*,
+    and the geometric residuals (`R_OUTER`, `ε = 7π/(100·5⁴)`,
+    transport `= 8π`, resistance `= 7π/100`, the `1.054` factor). This
+    is shown concretely by **scale invariance**: rescaling
+    `R_MID → λ·R_MID` leaves every dimensionless output unchanged to
+    machine precision and shifts only the absolute scale.
+
+  - **A scale-free theory cannot produce a dimensionful scale.** By
+    dimensional analysis, exactly **one** external dimensionful anchor
+    is mathematically required; `m_e` (equivalently `R_MID` via
+    `ℏ = m_e·R_MID·c`, dimensionally consistent) is the minimal choice.
+
+So B4 is **irreducible by dimensional necessity** — a structural
+feature, not an unsolved gap (cf. SI fixing `c, ℏ, e` by convention).
+The Maslov reading also ties B4 to B3: the radial ledger integer `n+1`
+is the Maslov index of the doubly-Dirichlet throat cavity (`μ = 4`),
+whose throat half (`μ = 2`, reflection phase `π`) is the B3 hard wall —
+and that `π` is the closure half-quantum and the dwell phase `ω·τ`
+(`τ = π/ω`). The companion ℏ-origin thread
+(`docs/hbar_origin_status.md`) had already reduced every dimensionless
+residual to closure-quantum form; this audit closes the interpretation.
+What remains genuinely open is `m_e` itself, which by the audit cannot
+come from scale-free geometry.
 
 ## Summary
 
-The scaffold began with five barriers. Four (B1, B2, B3, B5) are now
-**closed**. B1, B2, B3 were promoted to a topological/discrete action
-sector (`RP³ + spin structure + winding θ-term`) whose spin structure
-also forces the hard-wall BC. B5 is closed by the master integral: a
-single separable functional `ℳ = G_C ⊗ 𝒢_{S³}` on the warped product
-`C × S³` yields the masses (poles), `K` (throat boundary), and `Q` (S³
-Hopf), with vertex residue `F²=K²·Q` — masses and the vertex from one
-object; the factorization is the product-geometry consequence. One
-(B4) remains **open** — the single `m_e` dimensional anchor.
+The scaffold began with five barriers and is now **complete**. Four
+(B1, B2, B3, B5) are **closed**: B1, B2, B3 promoted to a topological/
+discrete action sector (`RP³ + spin structure + winding θ-term`) whose
+spin structure also forces the hard-wall BC; B5 closed by the master
+integral (one `C × S³` functional yielding masses, `K`, and `Q`, with
+vertex residue `F²=K²·Q` — the factorization being the product-geometry
+consequence). The fifth (B4) is **irreducible by dimensional
+necessity**: the closure-ledger/Maslov machinery is scale-free, so
+exactly one external dimensionful anchor is mathematically required,
+and `m_e` is the minimal choice.
 
-The sole survivor is the most fundamental: the external mass scale
-(B4), the subject of the separate ℏ-origin thread.
+The programme is therefore complete in a precise sense: four barriers
+derived from geometry, the fifth shown to be the single mandatory
+dimensionful unit. The only genuinely open input is `m_e` itself, which
+the B4 audit shows cannot come from scale-free geometry.
 
 ## Probe ledger
 
@@ -157,6 +183,7 @@ The sole survivor is the most fundamental: the external mass scale
 | `radial_reduction_bridge_probe` | B5 | BRIDGE_FACTORIZED |
 | `bulk_boundary_interaction_probe` | B5′ (radial+throat) | BULK_BOUNDARY_FORMULATED |
 | `master_integral_probe` | B5′ (+ S³ Q) | MASTER_INTEGRAL_COMPLETE |
+| `maslov_dimensional_bridge_probe` | B4 + Maslov ledger | B4_IRREDUCIBLE |
 
 ## Cross-references
 
@@ -167,6 +194,8 @@ The sole survivor is the most fundamental: the external mass scale
   - `docs/radial_reduction_bridge_research_plan.md` — B5.
   - `docs/bulk_boundary_interaction_research_plan.md` — B5′ (radial+throat).
   - `docs/master_integral_research_plan.md` — B5′ closed (+ S³ Q).
+  - `docs/maslov_dimensional_bridge_research_plan.md` — B4 audit +
+    Maslov closure-ledger (B4 irreducible).
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
     summarises.
