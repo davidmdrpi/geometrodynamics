@@ -151,8 +151,8 @@ detail):
 | Coulomb radial response | verified by Tangherlini/Maxwell BVP |
 | Coulomb force at finite separation | falsification test, not yet closed |
 | Black-hole interior / entropy | regular metric derived; entropy currently a consistency check |
-| Compton tree amplitude (Klein-Nishina) | reproduced exactly via closed-form F² (PRs #25–#35); first-principles BAM derivation of F² open |
-| Full QFT / Born rule / `ℏ` origin | partially open (Compton closed; pair production, e⁻e⁻, loops still open) |
+| Compton tree amplitude (Klein-Nishina) | reproduced exactly via closed-form F² (PRs #25–#35); F² = K²·Q derived from a single C×S³ master functional (scaffold closure, B5′ closed) |
+| Full QFT / Born rule / `ℏ` origin | tree level closed (Compton, BW, annihilation, Bhabha, Møller, PRs #36–#46); loops open; `ℏ` reduced to the single `m_e` anchor (B4) |
 
 ## Three mechanisms that compose
 
@@ -328,25 +328,59 @@ What this establishes:
 
 What this does *not* yet establish:
 
-  - First-principles BAM derivation of F² from a Lagrangian / action.
-    The clean structure — two-factor decomposition into kinematic
-    Padé `(2x/(1+x))²` × angular polarisation modification — points
-    to a derivation involving a modified pol-sum projector tied to
-    the Hopf bundle, but the explicit construction is open.
-  - Cross-process consistency. Does the same F work for pair
-    production `γγ → e⁺e⁻` and other QED tree diagrams? This is
-    the natural next-thread target.
   - Loop corrections. Tree level only; vertex/self-energy/vacuum
     polarisation would couple to the bulk radial channel.
+
+Both of the open items flagged at the time of the resummation result
+have since been addressed:
+
+  - **First-principles BAM derivation of F²** — _now established._ The
+    two-factor decomposition `F² = K(x)²·Q(x, c)` is derived from a
+    single master functional on the warped-product internal geometry
+    `M_int = C × S³` (`C` = radial cavity `[R_MID, R_OUTER]`):
+
+    ```
+    ℳ(ω; x, c) = G_C(r, r′; ω) ⊗ 𝒢_{S³}(Ω, Ω′)
+    ```
+
+    read three ways from one object — the mass spectrum as its ω-poles
+    (radial ladder × S³ Casimir), `K(x) = 2x/(1+x)` as the throat-
+    boundary dwell-time impedance series, and `Q(x, c)` as the S³
+    Hopf-fibre helicity reduction. The vertex residue reproduces F² to
+    machine precision while the poles give the masses — masses and the
+    vertex from one functional. The `F² = K²·Q` factorization is the
+    consequence of the product internal geometry (separation of
+    variables), not a failure to unify. This closes the **B5′ residual**
+    of the BAM effective-action scaffold; see
+    `docs/bam_scaffold_status.md` and `docs/master_integral_research_plan.md`.
+  - **Cross-process consistency** — _established._ The same closed-form
+    F is process-general under crossing (Breit–Wheeler `γγ → e⁺e⁻`,
+    pair annihilation `e⁺e⁻ → γγ`) and the thread extends to the
+    4-fermion tree processes (Bhabha, Møller); see
+    `docs/tree_qed_status.md` (PRs #36–#46).
+
+### BAM effective-action scaffold — barrier closure
+
+The first-principles programme was organised as a covariant 5D
+effective-action scaffold with five mismatch terms (B1–B5). Four are
+now closed: **B1** (closure quantum `∮A = 2πn`) and **B2** (antipodal
+`Z₂`, `T = iσ_y`) promoted to a topological/discrete action sector
+(`RP³ + spin structure + winding θ-term`); **B3** (hard-wall throat BC)
+forced by single-valuedness under `T² = −I`; and **B5** (the 5D→4D
+reduction producing F²) closed by the master integral above. The sole
+surviving barrier is **B4** — the single `m_e` dimensional anchor
+(`ℏ = m_e·R_MID·c`), the subject of the separate ℏ-origin thread. The
+full ledger is in `docs/bam_scaffold_status.md`.
 
 This is the strongest amplitude-level result in BAM so far. It
 demonstrates that the Compton amplitude — historically the cleanest
 non-trivial QED prediction — is reproducible from a BAM-native
 construction (antipodal Green function + transverse Hopf-fibre
-polarisation + closed-form vertex). The first-principles derivation
-of F² is the next analytic task; if it succeeds, BAM's amplitude-
-level reach extends from "reproduces Compton" to "derives QED tree
-amplitudes from geometry".
+polarisation + closed-form vertex). With the master integral (above)
+deriving `F² = K²·Q` from one `C × S³` functional and the tree-QED
+thread (PRs #36–#46) extending the same primitives to BW, annihilation,
+Bhabha and Møller, BAM's amplitude-level reach has extended from
+"reproduces Compton" to "derives QED tree amplitudes from geometry".
 
 ## Open problems
 
