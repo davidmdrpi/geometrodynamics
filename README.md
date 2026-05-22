@@ -191,6 +191,7 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Compton vertex coupling `γ = −3/2` at O(ω/m) | **Derived** | Exact analytic solution to the 4-equation linear system in {1, c, c², c³} basis; clean rational coefficient |
 | `γ = −3/2` is d-independent | **Verified** | Numerical γ(d) = −3/2 in d ∈ {3, 4, 5, 6, 8} to 7-digit precision; falsifies the embedding-dim/polarization-count origin |
 | Compton vertex closed-form resummation | **Derived** | `F²(x, c) = 4·x³·(x²+1−x·sin²θ) / [(1+c²)·(1+x)²]` with `x = ω'/ω` reproduces Klein-Nishina to all orders in ε up to ε ~ 2 (machine precision); the perturbative PRs #31–34 are Taylor expansions of this closed form |
+| F² and masses from one master integral | **Derived** | Single `C × S³` master functional `ℳ = G_C ⊗ 𝒢_{S³}`: ω-poles → mass spectrum, throat boundary → `K(x)`, S³ Hopf → `Q(x,c)`; vertex residue = `F²=K²·Q` to `2e-14`. Closes scaffold barrier B5′ (`master_integral_probe`, `docs/bam_scaffold_status.md`) |
 
 ### Research goals (not yet fully derived)
 
@@ -616,6 +617,11 @@ derivation from the Hopf-bundle / throat-transport algebra.
 | PR #44 | `mobius_exchange_sign_probe.py` | Bhabha/Møller interference signs from T = iσ_y = ε non-orientable throat transport |
 | PR #45 | `bam_exchange_kernel_probe.py` | photon propagator magnitude 1/q² from S³ Green function (flat limit) |
 | PR #46 | `hopf_vector_exchange_kernel_probe.py` | **photon propagator Lorentz tensor −η^{μν}/q² from Hopf-bundle U(1) connection** |
+| PR #48 | `two_throat_coulomb_probe.py` | inverse-square Coulomb force from the S³ Green response; Gauss law exact |
+| PR #49 | `topological_discrete_sector_probe.py` | scaffold B1+B2 promoted to action data (RP³ + spin structure + winding θ-term) |
+| PR #50 | `radial_reduction_bridge_probe.py` | scaffold B5 factorized: 5D→4D into three channels; F² not a radial overlap |
+| PR #51 | `bulk_boundary_interaction_probe.py` | scaffold B5′: radial (masses) + throat (K) unified by one bulk-boundary cavity |
+| PR #52 | `master_integral_probe.py` | **scaffold B5′ closed: masses and F²=K²·Q from one C×S³ master functional** |
 
 **Synthesis / release note:** `docs/tree_qed_status.md` collects the
 PR #35 → #46 result — all tree-level `2 → 2` QED scalar intensities
@@ -683,6 +689,48 @@ research plans: `docs/compton_vertex_resummation_research_plan.md`
 `docs/mobius_exchange_sign_research_plan.md` (#44),
 `docs/bam_exchange_kernel_research_plan.md` (#45), and
 `docs/hopf_vector_exchange_kernel_research_plan.md` (#46).
+
+### BAM effective-action scaffold — barrier closure (PRs #49–#52)
+
+The tree-QED ingredients above were assembled into a single covariant
+5D effective-action scaffold and its five mismatch terms (B1–B5) were
+worked off one by one. Four are now **closed**:
+
+| barrier | what it was | now |
+|---|---|---|
+| **B1** closure quantum `∮A = 2πn` | imposed constraint | winding θ-term `S_top = 2π·n` |
+| **B2** antipodal `Z₂` (`T = iσ_y`) | imposed identification | `RP³ = S³/Z₂` + non-trivial spin structure |
+| **B3** hard-wall throat BC | imposed by hand | single-valuedness under `T² = −I` ⟹ `ψ(throat) = 0` |
+| **B5** 5D→4D reduction producing F² | unconstructed | one master functional yields masses **and** `F²=K²·Q` |
+
+B5 is closed by the **master integral**: a single separable functional
+on the warped-product internal geometry `M_int = C × S³`
+(`C` = radial cavity `[R_MID, R_OUTER]`),
+
+```
+ℳ(ω; x, c) = G_C(r, r′; ω) ⊗ 𝒢_{S³}(Ω, Ω′)
+```
+
+read three ways from one object —
+
+  - **poles in ω** → the mass spectrum `ω(l,n)` (radial ladder `n` ×
+    S³ Casimir `l`, the centrifugal term of the warp);
+  - **throat boundary of `G_C`** → `K(x) = 2x/(1+x)` (dwell-time
+    impedance `Z(ω)=π/ω` in series);
+  - **S³ Hopf reduction of `𝒢_{S³}`** → `Q(x,c) = x²+x(1−x)²/(1+c²)`
+    (Hopf-fibre helicity spinor).
+
+The vertex residue reproduces `F²(x,c) = K²·Q` to machine precision
+(`2e-14`) while the poles give the masses — **masses and the full
+vertex from one functional**. The `F²=K²·Q` factorization is the direct
+consequence of the product internal geometry (separation of variables),
+not a failure to unify. The sole surviving barrier is **B4** — the
+single `m_e` dimensional anchor (`ℏ = m_e·R_MID·c`). Full ledger:
+`docs/bam_scaffold_status.md`; per-probe plans:
+`docs/topological_discrete_sector_research_plan.md` (#49),
+`docs/radial_reduction_bridge_research_plan.md` (#50),
+`docs/bulk_boundary_interaction_research_plan.md` (#51),
+`docs/master_integral_research_plan.md` (#52).
 
 ## Quick Start
 
