@@ -1,0 +1,185 @@
+{
+  "timestamp_utc": "2026-05-23T16:41:04+00:00",
+  "question": "Is \u0394R invariant under S\u00b3 cosmological expansion?",
+  "delta_r_definition": "\u0394R = R_OUTER \u2212 R_INNER = 0.52\u00b7R_MID",
+  "answer": "invariant (proper length; static bound vacuole)",
+  "relocated_anchor": "m_e = f_closure\u00b7\u210f/(\u0394R\u00b7c), f_closure = 0.52",
+  "theorem_status": "scale-modulus theorem satisfied (one anchor), not evaded",
+  "tests": [
+    {
+      "name": "T1_bound_system_discrete_spectrum",
+      "description": "The throat cavity has a discrete spectrum with O(1) level spacings (hard walls from B3/T\u00b2=\u2212I) \u2014 the signature of a bound system, which carries an intrinsic PROPER length scale (as an atom's Bohr radius does, set by local binding, not by cosmology). A scale-free field would have no intrinsic scale.",
+      "rows": [
+        {
+          "l": 1,
+          "spectrum": [
+            1.0547245621857753,
+            1.9743618089008619,
+            2.8940054664268877,
+            3.824512083070093,
+            4.760641311347554
+          ],
+          "level_spacings": [
+            0.9196372467150866,
+            0.9196436575260258,
+            0.9305066166432052,
+            0.9361292282774607
+          ],
+          "discrete_O1_spacings": true
+        },
+        {
+          "l": 3,
+          "spectrum": [
+            1.2190796872043845,
+            2.141188954663843,
+            3.0219250583670036,
+            3.9222994366785766,
+            4.839070914548353
+          ],
+          "level_spacings": [
+            0.9221092674594586,
+            0.8807361037031605,
+            0.900374378311573,
+            0.9167714778697764
+          ],
+          "discrete_O1_spacings": true
+        },
+        {
+          "l": 5,
+          "spectrum": [
+            1.3959690214974787,
+            2.369372198342296,
+            3.227663205087287,
+            4.085932366245224,
+            4.9706814947893
+          ],
+          "level_spacings": [
+            0.9734031768448175,
+            0.8582910067449907,
+            0.8582691611579372,
+            0.8847491285440761
+          ],
+          "discrete_O1_spacings": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_comoving_vs_proper_redshift",
+      "description": "Comoving throat (rs \u221d a) \u2192 \u03c9(a)=\u03c9/a=\u03c9\u00b7(1+z) \u2192 masses redshift by ~z (100\u2013300 % at z~1\u20133). Proper throat (fixed rs) \u2192 constant masses. Quasar bound \u227210\u207b\u2075 excludes comoving by ~5 orders. Observation selects the PROPER throat \u2192 \u0394R invariant.",
+      "omega0": 1.0547245621857753,
+      "observational_bound": 1e-05,
+      "rows": [
+        {
+          "z": 0.5,
+          "scale_factor_a": 0.6666666666666666,
+          "omega_comoving": 1.5820868432928035,
+          "mass_ratio_comoving_(1+z)": 1.5000000000134068,
+          "mass_shift_comoving": 0.5000000000134068,
+          "mass_shift_proper": 0.0,
+          "comoving_excluded_by_obs": true
+        },
+        {
+          "z": 1.0,
+          "scale_factor_a": 0.5,
+          "omega_comoving": 2.1094491243668996,
+          "mass_ratio_comoving_(1+z)": 1.9999999999955904,
+          "mass_shift_comoving": 0.9999999999955904,
+          "mass_shift_proper": 0.0,
+          "comoving_excluded_by_obs": true
+        },
+        {
+          "z": 2.0,
+          "scale_factor_a": 0.3333333333333333,
+          "omega_comoving": 3.164173686522522,
+          "mass_ratio_comoving_(1+z)": 2.999999999967002,
+          "mass_shift_comoving": 1.999999999967002,
+          "mass_shift_proper": 0.0,
+          "comoving_excluded_by_obs": true
+        },
+        {
+          "z": 3.0,
+          "scale_factor_a": 0.25,
+          "omega_comoving": 4.218898248697403,
+          "mass_ratio_comoving_(1+z)": 3.9999999999566733,
+          "mass_shift_comoving": 2.9999999999566733,
+          "mass_shift_proper": 0.0,
+          "comoving_excluded_by_obs": true
+        }
+      ],
+      "comoving_excluded": true,
+      "pass": true
+    },
+    {
+      "name": "T3_staticity_vacuum",
+      "description": "Comoving rs(t)=a(t)rs\u2080 \u2192 \u2202_t rs = H\u00b7rs \u2260 0: time-dependent metric needing a stress-energy source. The Tangherlini throat is vacuum + dimensionless topological BC (no source) \u2192 static (\u2202_t rs = 0) \u2192 fixed proper rs. Einstein\u2013Straus vacuole: static interior, comoving matching boundary.",
+      "rs_proper_m": 3.8615926772428334e-13,
+      "drs_dt_comoving_m_per_s": 8.46731426339036e-31,
+      "drs_dt_proper_m_per_s": 0.0,
+      "comoving_needs_stress_energy_source": true,
+      "vacuum_throat_is_static_proper": true,
+      "pass": true
+    },
+    {
+      "name": "T4_scale_separation_einstein_straus",
+      "description": "\u0394R ~ \u03bb_C (microscopic) inside R_cosmo ~ R_H (Hubble radius): \u0394R/R_cosmo ~ 1e-39; the tidal expansion effect on the bound throat ~ (\u0394R/R_cosmo)\u00b2 ~ 1e-78. The throat is decoupled from Hubble flow \u2014 \u0394R is a proper invariant length.",
+      "delta_r_proper_m": 2.0080281921662736e-13,
+      "R_cosmo_hubble_m": 1.3672297076663474e+26,
+      "ratio_deltaR_over_Rcosmo": 1.468683850933631e-39,
+      "tidal_effect_ratio_squared": 2.15703225399324e-78,
+      "decoupled_from_hubble_flow": true,
+      "pass": true
+    },
+    {
+      "name": "T5_relocated_anchor",
+      "description": "\u0394R as the anchor: m_e = f_closure\u00b7\u210f/(\u0394R\u00b7c), f_closure = \u0394R/R_MID = 0.52. The electron mass is a consequence of a fixed bulk length. This is the SAME single anchor re-expressed (\u0394R, R_MID, m_e differ only by the dimensionless 0.52) \u2014 relocation to a geometric invariant, not a derivation of the value.",
+      "f_closure_deltaR_over_R_MID": 0.52,
+      "delta_r_proper_m": 2.0080281921662736e-13,
+      "m_e_predicted_kg": 9.109383701499999e-31,
+      "m_e_actual_kg": 9.1093837015e-31,
+      "relative_error": 1.9228777026019768e-16,
+      "hbar_bridge_reconstructed": 1.054571817e-34,
+      "hbar_relative_error": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T6_falsifiable_prediction",
+      "description": "\u0394R fixed, R_cosmo \u221d a(t): local throat ratios (\u0394R/R_MID, R_INNER/R_MID, lepton mass ratios) are a-independent \u2192 constant in cosmic time (matches observed constancy of dimensionless constants). Only \u0394R/R_cosmo(t) \u221d 1/a drifts. BAM predicts stable mass ratios; a detection of drift correlated with the cosmic ratio would falsify.",
+      "lepton_ratio_at_a1": 1.1558275315765902,
+      "lepton_ratio_at_a2": 1.1558275315915953,
+      "lepton_ratio_drift": 1.500510826701884e-11,
+      "local_ratios": {
+        "deltaR_over_R_MID": 0.52,
+        "R_INNER_over_R_MID": 0.74,
+        "R_OUTER_over_R_MID": 1.26
+      },
+      "cosmo_ratio_a1": 1.468683850933631e-39,
+      "cosmo_ratio_a2": 7.343419254668155e-40,
+      "local_ratios_stable": true,
+      "cosmo_ratio_drifts": true,
+      "pass": true
+    },
+    {
+      "name": "T7_two_s3_distinction",
+      "description": "Internal/particle S\u00b3 (~R_MID~\u03bb_C) vs cosmological S\u00b3 (~R_H) differ by ~39 orders. The closure ledger uses only the internal S\u00b3 \u2192 cosmological expansion does not enter the spectrum. If the two are the same manifold, Einstein\u2013Straus still gives invariance. \u0394R invariant either way.",
+      "internal_s3_radius_m": 3.8615926772428334e-13,
+      "cosmological_s3_radius_m": 1.3672297076663474e+26,
+      "separation_orders_of_magnitude": 38.54907502406763,
+      "ledger_uses_internal_s3_only": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "\u0394R is a proper, cosmologically invariant length: the throat is a static bound vacuole (discrete spectrum + vacuum + dimensionless BC) and comoving co-expansion is observationally excluded. \u0394R supplies the single B4 anchor as a geometric invariant, m_e = f_closure\u00b7\u210f/(\u0394R\u00b7c). The scale-modulus theorem is satisfied (one anchor), not evaded; \u0394R's value remains the one external number.",
+      "delta_r_invariant": true,
+      "supplies_b4_anchor_as_geometric_invariant": true,
+      "derives_the_value": false,
+      "remaining_prize": "pin \u0394R to a second fixed scale (e.g. Planck via closure quantum)",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "DELTA_R_INVARIANT",
+  "verdict": "\u0394R INVARIANT under S\u00b3 cosmological expansion. The bulk separation \u0394R = R_OUTER \u2212 R_INNER = 0.52\u00b7R_MID is a PROPER, cosmologically invariant length:\n\n  (1) The throat is a BOUND SYSTEM \u2014 a discrete spectrum with O(1) level spacings (hard walls from B3/T\u00b2=\u2212I) \u2014 so it carries an intrinsic proper scale (as an atom does), not a comoving one.\n  (2) COMOVING co-expansion is observationally EXCLUDED: rs \u221d a would give \u03c9 \u221d (1+z), redshifting particle masses by ~100\u2013300 % to z~1\u20133, against quasar bounds \u227210\u207b\u2075 (~5 orders).\n  (3) A comoving throat rs(t)=a(t)rs\u2080 has \u2202_t rs = H\u00b7rs \u2260 0, needing a stress-energy source; the vacuum Tangherlini throat is static (\u2202_t rs = 0) \u2192 fixed proper rs (Einstein\u2013Straus vacuole: static interior, comoving boundary).\n  (4) Scale separation is overwhelming: \u0394R/R_cosmo ~ 10\u207b\u00b3\u2079, tidal ~ 10\u207b\u2077\u2078 \u2014 the bound throat is decoupled from Hubble flow.\n\nSo \u0394R can supply the single B4 anchor as a GEOMETRIC INVARIANT: the dimensional bridge becomes m_e = f_closure\u00b7\u210f/(\u0394R\u00b7c) with f_closure = \u0394R/R_MID = 0.52, making the electron mass a consequence of a fixed bulk length, and predicting that local throat ratios (lepton mass ratios included) are constant in cosmic time while only \u0394R/R_cosmo(t) \u221d 1/a drifts \u2014 consistent with the observed constancy of dimensionless constants.\n\nHONEST CAVEAT: this does NOT evade the scale-modulus theorem (PR #52). \u0394R is still ONE external dimensionful input \u2014 the bridge is the same single anchor re-expressed (\u0394R, R_MID, m_e differ only by the dimensionless 0.52). The gain is identifying that anchor as a cosmologically-invariant geometric length rather than a particle property; \u0394R's value itself is still not derived. Pinning \u0394R to a second fixed scale (e.g. a closure-quantum relation to the Planck length) is the remaining prize."
+}
