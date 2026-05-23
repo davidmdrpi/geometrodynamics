@@ -152,7 +152,7 @@ detail):
 | Coulomb force at finite separation | falsification test, not yet closed |
 | Black-hole interior / entropy | regular metric derived; entropy currently a consistency check |
 | Compton tree amplitude (Klein-Nishina) | reproduced exactly via closed-form F² (PRs #25–#35); F² = K²·Q derived from a single C×S³ master functional (scaffold closure, B5′ closed) |
-| Full QFT / Born rule / `ℏ` origin | tree level closed (Compton, BW, annihilation, Bhabha, Møller, PRs #36–#46); loops open; `ℏ` reduced to the single `m_e` anchor (B4) |
+| Full QFT / Born rule / `ℏ` origin | tree level closed (Compton, BW, annihilation, Bhabha, Møller, PRs #36–#46); loops open; B4 audited — `ℏ` needs exactly one dimensionful anchor (scale-free machinery), relocatable to the invariant bulk separation `ΔR` |
 
 ## Three mechanisms that compose
 
@@ -362,15 +362,23 @@ have since been addressed:
 ### BAM effective-action scaffold — barrier closure
 
 The first-principles programme was organised as a covariant 5D
-effective-action scaffold with five mismatch terms (B1–B5). Four are
-now closed: **B1** (closure quantum `∮A = 2πn`) and **B2** (antipodal
-`Z₂`, `T = iσ_y`) promoted to a topological/discrete action sector
-(`RP³ + spin structure + winding θ-term`); **B3** (hard-wall throat BC)
-forced by single-valuedness under `T² = −I`; and **B5** (the 5D→4D
-reduction producing F²) closed by the master integral above. The sole
-surviving barrier is **B4** — the single `m_e` dimensional anchor
-(`ℏ = m_e·R_MID·c`), the subject of the separate ℏ-origin thread. The
-full ledger is in `docs/bam_scaffold_status.md`.
+effective-action scaffold with five mismatch terms (B1–B5), and is now
+**complete**. Four are closed: **B1** (closure quantum `∮A = 2πn`) and
+**B2** (antipodal `Z₂`, `T = iσ_y`) promoted to a topological/discrete
+action sector (`RP³ + spin structure + winding θ-term`); **B3**
+(hard-wall throat BC) forced by single-valuedness under `T² = −I`; and
+**B5** (the 5D→4D reduction producing F²) closed by the master integral
+above. The fifth, **B4** (the dimensional bridge `ℏ = m_e·R_MID·c`), is
+not a gap but a **structural necessity**: the closure-ledger/Maslov
+machinery is scale-free, so exactly one external dimensionful anchor is
+mathematically required (B4 irreducible). That anchor is relocatable
+from the particle mass to the **invariant bulk separation**
+`ΔR = R_OUTER − R_INNER` — a proper, cosmologically fixed length (the
+throat is a static bound vacuole, decoupled from Hubble flow; comoving
+co-expansion is observationally excluded) — giving
+`m_e = f_closure·ℏ/(ΔR·c)`, `f_closure = 0.52`. The full ledger is in
+`docs/bam_scaffold_status.md`; the closure release note (through PR #53)
+is in `docs/scaffold_closure_release_note.md`.
 
 This is the strongest amplitude-level result in BAM so far. It
 demonstrates that the Compton amplitude — historically the cleanest
@@ -415,8 +423,13 @@ problems rather than implementation TODOs:
   R_OUTER fixed point can be lifted from "phenomenological-
   parameter-dependent" to "fully geometric" (current sensitivity to
   transport / resistance is ~1–7 %), are concrete next-pass targets
-  identified in `docs/hbar_origin_status.md`. Predicting ℏ in SI
-  remains gated by the m_e anchor plus this 1.054 factor.
+  identified in `docs/hbar_origin_status.md`. The B4 audit (PRs
+  #52–#53) sharpens this: the 1.054 factor is *dimensionless* and
+  orthogonal to the anchor (even a closed form would not supply the MeV
+  scale); the only dimensionful input is a single length, irreducible by
+  scale-freeness and relocatable to the invariant bulk separation `ΔR`.
+  Predicting ℏ in SI is therefore gated solely by the value of that one
+  geometric anchor.
 - **Self-consistent throat radius.** `R_MID` is currently imposed. The
   deeper version determines `R_MID` dynamically as the equilibrium
   throat radius for a given excitation amplitude, with the
