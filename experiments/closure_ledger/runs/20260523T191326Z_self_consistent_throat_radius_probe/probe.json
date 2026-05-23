@@ -1,0 +1,179 @@
+{
+  "timestamp_utc": "2026-05-23T19:13:26+00:00",
+  "target": "remaining BAM scale anchor: throat radius R_MID (\u2248 \u0394R)",
+  "finite_self_energy": "U_EM = \u03b1 \u210fc/(2 R_MID); throat caps the field; U/mc\u00b2 = \u03b1/2",
+  "equilibrium": "E(R)=A/R+B R\u00b2 \u2192 stable R*=(A/2B)^(1/3)",
+  "b4_caveat": "absolute R* rides on one dimensionful coupling (or a relation to \u03b1)",
+  "tests": [
+    {
+      "name": "T1_finite_self_energy_throat_cutoff",
+      "description": "A point charge's Coulomb self-energy U = \u03b1 \u210fc/(2R) diverges as the cutoff R \u2192 0. The BAM throat is the inner boundary (f(r)=1\u2212(rs/r)\u00b2=0 at r=R_MID; no r<R_MID), capping the field at the throat \u2192 U_EM = \u03b1 \u210fc/(2 R_MID) finite. The cutoff is the throat radius itself, not an arbitrary \u03b5.",
+      "point_charge_cutoffs_m": [
+        1e-13,
+        1e-15,
+        1e-17,
+        1e-19
+      ],
+      "point_charge_self_energies_J": [
+        1.1535387754675453e-15,
+        1.1535387754675453e-13,
+        1.1535387754675452e-11,
+        1.1535387754675454e-09
+      ],
+      "point_charge_diverges": true,
+      "throat_radius_m": 3.8615926772428334e-13,
+      "throat_self_energy_J": 2.987209868781833e-16,
+      "throat_self_energy_finite": true,
+      "pass": true
+    },
+    {
+      "name": "T2_s3_farfield_regular",
+      "description": "On compact S\u00b3 the Green function G(\u03c8) is regular at the antipode (G(\u03c0) = (\u22121\u2212\u00bd)/(4\u03c0\u00b2R), finite) with a zero-mean background (the \u2212\u00bd neutralizing charge). No far-field divergence \u2014 the long-distance end of the self-energy is regularized by S\u00b3 compactness.",
+      "psis_near_antipode": [
+        3.1315926535897933,
+        3.1405926535897932,
+        3.141492653589793
+      ],
+      "G_near_antipode": [
+        -0.03799459951705033,
+        -0.037995435422441035,
+        -0.03799544378141133
+      ],
+      "G_antipode_analytic": -0.037995443865876666,
+      "antipode_finite": true,
+      "bounded": true,
+      "matches_analytic": true,
+      "pass": true
+    },
+    {
+      "name": "T3_scale_free_obstruction",
+      "description": "EM-only energy E(R)=A/R is monotone decreasing (dE/dR=\u2212A/R\u00b2<0 everywhere): no stationary point, no equilibrium. A scale-free 1/R energy cannot fix R \u2014 the B4 scale-modulus obstruction in self-energy language. A second term of different R-scaling is required.",
+      "A_coupling_J_m": 1.1535387754675453e-28,
+      "radii_m": [
+        1.9307963386214167e-13,
+        3.8615926772428334e-13,
+        7.723185354485667e-13,
+        1.5446370708971334e-12,
+        3.0892741417942667e-12
+      ],
+      "energies_J": [
+        5.974419737563666e-16,
+        2.987209868781833e-16,
+        1.4936049343909166e-16,
+        7.468024671954583e-17,
+        3.7340123359772915e-17
+      ],
+      "dE_dR": [
+        -0.0030942775361949286,
+        -0.0007735693840487322,
+        -0.00019339234601218304,
+        -4.834808650304576e-05,
+        -1.208702162576144e-05
+      ],
+      "monotone_no_equilibrium": true,
+      "pass": true
+    },
+    {
+      "name": "T4_self_consistent_equilibrium",
+      "description": "E(R)=A/R+B R\u00b2 (EM repulsion \u221d1/R + cohesion \u221dR\u00b2) has a unique stable minimum R*=(A/2B)^(1/3) (d\u00b2E/dR\u00b2=2A/R\u00b3+2B>0). The throat radius is a self-consistent stationary point, not an imposed constant.",
+      "A_coupling": 1.1535387754675453e-28,
+      "B_coupling": 1001619601.9424019,
+      "R_star_analytic_m": 3.8615926772428395e-13,
+      "R_star_numeric_m": 3.861561784501416e-13,
+      "relative_error": 8.000000001399229e-06,
+      "second_derivative_positive": true,
+      "equilibrium_exists_and_stable": true,
+      "pass": true
+    },
+    {
+      "name": "T5_scale_modulus",
+      "description": "R*=(A/2B)^(1/3): rescaling B \u2192 B/\u03bb\u00b3 gives R* \u2192 \u03bb R*. The absolute equilibrium radius is set by the single dimensionful coupling B (the cohesive stiffness) \u2014 one scale modulus, as the B4 theorem requires. The self-consistency fixes R* given the coupling; it does not produce an absolute length from scale-free ingredients.",
+      "rows": [
+        {
+          "lambda": 1.0,
+          "B_coupling": 1001619601.9424019,
+          "R_star_m": 3.8615926772428395e-13,
+          "predicted_lambda_R0": 3.8615926772428395e-13,
+          "deviation": 0.0
+        },
+        {
+          "lambda": 2.0,
+          "B_coupling": 125202450.24280024,
+          "R_star_m": 7.723185354485679e-13,
+          "predicted_lambda_R0": 7.723185354485679e-13,
+          "deviation": 0.0
+        },
+        {
+          "lambda": 0.5,
+          "B_coupling": 8012956815.539215,
+          "R_star_m": 1.9307963386214197e-13,
+          "predicted_lambda_R0": 1.9307963386214197e-13,
+          "deviation": 0.0
+        },
+        {
+          "lambda": 10.0,
+          "B_coupling": 1001619.6019424018,
+          "R_star_m": 3.861592677242839e-12,
+          "predicted_lambda_R0": 3.86159267724284e-12,
+          "deviation": 2.0918663216522286e-16
+        }
+      ],
+      "R_star_scales_linearly_with_lambda": true,
+      "pass": true
+    },
+    {
+      "name": "T6_renormalization_free",
+      "description": "U_EM/(m c\u00b2) = [\u03b1 \u210fc/(2R)]/[\u210fc/R] = \u03b1/2 \u2248 0.0036 at the throat (R_MID = \u03bb_C): a finite, small EM self-energy correction \u2014 no UV divergence, no renormalization, unlike QED's divergent point-electron self-energy.",
+      "throat_self_energy_J": 2.987209868781833e-16,
+      "rest_energy_J": 8.187105776823886e-14,
+      "fraction_U_over_mc2": 0.0036486762846500006,
+      "expected_alpha_over_2": 0.00364867628465,
+      "relative_error": 1.1885978233221166e-16,
+      "finite_and_small": true,
+      "pass": true
+    },
+    {
+      "name": "T7_pure_em_relocation",
+      "description": "Demanding rest energy = EM self-energy, m c\u00b2 = g\u00b7\u03b1 \u210fc/(2R), with the bridge m c\u00b2 = \u210fc/R, gives g = 2/\u03b1 \u2014 and since both sides \u221d 1/R the balance is R-INDEPENDENT. The self-consistency fixes a geometry\u2013\u03b1 relation (g = 2/\u03b1 \u2248 274), not the length. The scale question is relocated to \u03b1 (still one external input), not eliminated \u2014 the B4 obstruction in self-energy form.",
+      "g_required_2_over_alpha": 274.0719981673916,
+      "rows": [
+        {
+          "R_m": 1.9307963386214167e-13,
+          "mc2_J": 1.6374211553647772e-13,
+          "g_solved": 274.07199816739154
+        },
+        {
+          "R_m": 3.8615926772428334e-13,
+          "mc2_J": 8.187105776823886e-14,
+          "g_solved": 274.07199816739154
+        },
+        {
+          "R_m": 7.723185354485667e-13,
+          "mc2_J": 4.093552888411943e-14,
+          "g_solved": 274.07199816739154
+        }
+      ],
+      "g_is_R_independent": true,
+      "g_equals_2_over_alpha": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The remaining BAM scale anchor (R_MID \u2248 \u0394R) is recast: from imposed \u2192 invariant geometric length \u0394R (#53) \u2192 finite-self-energy stable equilibrium R*=(A/2B)^(1/3) (this probe). The self-energy is finite (throat caps the field; no UV divergence; U_EM/mc\u00b2=\u03b1/2). The absolute value still rides on one dimensionful coupling (the cohesive stiffness B, equivalently a relation to \u03b1), as the B4 theorem requires. Progress: an explicit stable equilibrium + finite self-energy + the \u03b1-relocation; not a derivation of the absolute scale.",
+      "relocation_chain": [
+        "imposed R_MID (constants.py)",
+        "\u0394R invariant geometric length (#53)",
+        "finite-self-energy stable equilibrium R*=(A/2B)^(1/3) (this probe)"
+      ],
+      "self_energy_finite": true,
+      "equilibrium_stable": true,
+      "absolute_value_derived": false,
+      "remaining_prize": "pin B (or \u03b1-relation) to a second fixed scale (e.g. Planck via closure quantum)",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "SELF_CONSISTENT_THROAT_EQUILIBRIUM",
+  "verdict": "SELF-CONSISTENT THROAT EQUILIBRIUM. The remaining BAM scale anchor \u2014 the throat radius R_MID (\u2248 the invariant bulk separation \u0394R) \u2014 is recast from an imposed constant into a finite-self-energy stable equilibrium.\n\nFINITE SELF-ENERGY. A point charge has divergent Coulomb self-energy U = \u03b1 \u210fc/(2R) \u2192 \u221e as R \u2192 0. The BAM throat removes the divergence geometrically: (short distance) the wormhole throat is the inner boundary (no r < R_MID), capping the field at the throat \u2192 U_EM = \u03b1 \u210fc/(2 R_MID) finite; (long distance) on compact S\u00b3 the Green function G(\u03c8) is regular at the antipode with a zero-mean background. The result is U_EM/(m c\u00b2) = \u03b1/2 \u2248 0.0036 \u2014 a finite, small correction with NO UV divergence (no renormalization), unlike QED.\n\nSELF-CONSISTENT EQUILIBRIUM. With only the scale-free EM energy (\u221d1/R) there is no stationary point \u2014 a scale-free 1/R energy cannot fix R (the B4 obstruction in self-energy form). Adding a cohesive term (\u221dR\u00b2) gives E(R)=A/R+B R\u00b2 with a unique stable minimum R*=(A/2B)^(1/3) (d\u00b2E/dR\u00b2>0): the throat radius is a stationary point, not imposed.\n\nHONEST CAVEAT (B4). The absolute R* rides on the single dimensionful coupling B: rescaling B \u2192 B/\u03bb\u00b3 sends R* \u2192 \u03bb R* (one scale modulus). Equivalently, the BAM-native balance \"rest energy = EM self-energy\" is R-independent (both \u221d1/R) and fixes a geometry\u2013\u03b1 relation g = 2/\u03b1 \u2248 274, not the length \u2014 relocating the scale question to \u03b1. So the self-consistency recasts the anchor as a finite-self-energy equilibrium condition (genuine progress) and relates it to \u03b1, but it does NOT derive the absolute value \u2014 by the scale-modulus theorem, that needs one external dimensionful coupling.\n\nRelocation chain: imposed R_MID \u2192 \u0394R invariant geometric length (#53) \u2192 finite-self-energy stable equilibrium (this probe). The remaining prize: pin B (or the \u03b1-relation) to a second fixed scale, e.g. a closure-quantum relation to the Planck length."
+}

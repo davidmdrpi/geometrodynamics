@@ -430,11 +430,18 @@ problems rather than implementation TODOs:
   scale-freeness and relocatable to the invariant bulk separation `ΔR`.
   Predicting ℏ in SI is therefore gated solely by the value of that one
   geometric anchor.
-- **Self-consistent throat radius.** `R_MID` is currently imposed. The
-  deeper version determines `R_MID` dynamically as the equilibrium
-  throat radius for a given excitation amplitude, with the
-  pair-production threshold falling out as the lowest stable
-  configuration.
+- **Self-consistent throat radius.** `R_MID` was imposed; the
+  `self_consistent_throat_radius_probe` recasts it as a
+  **finite-self-energy stable equilibrium** `R* = (A/2B)^{1/3}` of
+  `E(R) = A/R + B·R²` (EM repulsion vs cohesion), with the self-energy
+  made finite by the throat capping the field (`U_EM/(m c²) = α/2`, no UV
+  divergence). Consistent with the B4 theorem, the absolute `R*` still
+  rides on one dimensionful coupling (equivalently a relation `g = 2/α`);
+  the self-consistency recasts and relates the anchor, it does not derive
+  the value. Remaining: derive the cohesive term from the throat action;
+  the pair-production threshold (`2 m_e c²` at the lowest stable `R*`) as
+  a dynamical nucleation calculation. See
+  `docs/self_consistent_throat_radius_research_plan.md`.
 - **Stable moving throats.** A boosted throat solution must remain
   self-consistent. The "is the throat actually a particle" test is
   whether `m c²` for a moving throat agrees with the static eigenvalue.

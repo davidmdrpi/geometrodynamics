@@ -171,6 +171,19 @@ while only `ΔR/R_cosmo(t) ∝ 1/a` drifts. This **relocates** the anchor
 to a geometric invariant; it does not evade the scale-modulus theorem
 (ΔR is still the one external dimensionful number, its value underived).
 
+**The anchor as a self-energy equilibrium.** The
+`self_consistent_throat_radius_probe` recasts the (previously imposed)
+throat radius as a **finite-self-energy stable equilibrium**: the throat
+caps the EM field at `R_MID` (no `r < R_MID`), making the self-energy
+finite (`U_EM/(m c²) = α/2`, no UV divergence — unlike a point charge),
+and `E(R) = A/R + B·R²` (EM repulsion vs cohesion) has a unique stable
+minimum `R* = (A/2B)^{1/3}`. Consistent with the theorem, `R*` rides on
+one dimensionful coupling (`B → B/λ³` ⟹ `R* → λ R*`); the BAM-native
+balance `m c² = U_EM` is `R`-independent and instead fixes `g = 2/α`,
+relocating the scale question to `α`. The chain is therefore: imposed
+`R_MID` → invariant geometric length `ΔR` → finite-self-energy
+equilibrium — each step more physical, none deriving the absolute value.
+
 ## Summary
 
 The scaffold began with five barriers and is now **complete**. Four
@@ -201,6 +214,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `master_integral_probe` | B5′ (+ S³ Q) | MASTER_INTEGRAL_COMPLETE |
 | `maslov_dimensional_bridge_probe` | B4 + Maslov ledger | B4_IRREDUCIBLE |
 | `delta_r_scale_modulus_probe` | B4 anchor (ΔR) | DELTA_R_INVARIANT |
+| `self_consistent_throat_radius_probe` | B4 anchor (self-energy) | SELF_CONSISTENT_THROAT_EQUILIBRIUM |
 
 ## Cross-references
 
@@ -215,6 +229,8 @@ the B4 audit shows cannot come from scale-free geometry.
     Maslov closure-ledger (B4 irreducible).
   - `docs/delta_r_scale_modulus_research_plan.md` — ΔR invariant under
     S³ expansion; the B4 anchor as a geometric invariant.
+  - `docs/self_consistent_throat_radius_research_plan.md` — the B4 anchor
+    as a finite-self-energy equilibrium.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
     summarises.
