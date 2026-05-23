@@ -446,13 +446,21 @@ problems rather than implementation TODOs:
   turn sharpened to the **exact** RS fine-tuning by
   `brane_tension_tuning_probe`: `λ_crit = √(6|Λ₅|)/κ₅²` (dimensionless
   factor `√6`, from the Israel junction `K_μν = −κ₅²λ/6 h_μν` + bulk
-  `AdS₅`), which is the flat / static-throat condition (`Λ₄ = 0`).
-  Remaining: matching the canonical RS brane to the exact BAM throat
-  junction from `S_BAM`, and the pair-production threshold (`2 m_e c²` at
-  the lowest stable `R*`) as a dynamical nucleation calculation. See
+  `AdS₅`), which is the flat / static-throat condition (`Λ₄ = 0`). The
+  **pair-production threshold** then falls out (`pair_production_threshold_probe`)
+  as `2 m_e c²` — twice the lowest stable throat, forced into a
+  C-conjugate throat–antithroat pair by Hopf-charge / antipodal-`Z₂`
+  conservation (`Σ c₁ = 0`), with a bubble-nucleation barrier giving the
+  disperse-below / persist-above dichotomy and the Schwinger critical
+  field `E_S = m_e²c³/(eℏ)` (`e E_S R_MID = m_e c²`) tying the throat
+  scale to the threshold. Remaining: matching the canonical RS brane to
+  the exact BAM throat junction from `S_BAM`, the full
+  instanton/tunneling nucleation rate, and the heavier-lepton thresholds
+  (`2 m_μ c²`, `2 m_τ c²`). See
   `docs/self_consistent_throat_radius_research_plan.md`,
-  `docs/cohesive_tension_derivation_research_plan.md`, and
-  `docs/brane_tension_tuning_research_plan.md`.
+  `docs/cohesive_tension_derivation_research_plan.md`,
+  `docs/brane_tension_tuning_research_plan.md`, and
+  `docs/pair_production_threshold_research_plan.md`.
 - **Stable moving throats.** A boosted throat solution must remain
   self-consistent. The "is the throat actually a particle" test is
   whether `m c²` for a moving throat agrees with the static eigenvalue.

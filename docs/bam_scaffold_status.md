@@ -209,6 +209,18 @@ combination remains — the single anchor (the bulk gravitational scale
 not. The `AdS₅` warp over the bulk depth `ΔR` gives an RS exponential
 hierarchy `e^{−kΔR}`.
 
+Finally, `pair_production_threshold_probe` shows the **pair-production
+threshold** falls out as the lowest stable configuration: a throat
+carries one Hopf charge (`|c₁| = 1`), so conservation (`Σ c₁ = 0`) forces
+creation as a C-conjugate throat–antithroat pair (the antipodal `Z₂`,
+B2), with threshold `E_thr = 2 E(R*) = 2 m_e c² = 1.022 MeV`. A
+bubble-nucleation barrier (`R_c = 2σ/ρ`, the brane tension `σ` as the
+surface cost) gives the *disperse-below / persist-above* dichotomy, and
+the Schwinger critical field `E_S = m_e²c³/(eℏ)` (where
+`e E_S R_MID = m_e c²`) ties the throat scale to the threshold. The
+factor 2 and the structure are derived; the absolute `2 m_e c²` rides on
+the single anchor `m_e c² = ℏc/R_MID`.
+
 ## Summary
 
 The scaffold began with five barriers and is now **complete**. Four
@@ -242,6 +254,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `self_consistent_throat_radius_probe` | B4 anchor (self-energy) | SELF_CONSISTENT_THROAT_EQUILIBRIUM |
 | `cohesive_tension_derivation_probe` | B4 anchor (cohesive term) | COHESIVE_TENSION_DERIVED |
 | `brane_tension_tuning_probe` | B4 anchor (bulk-gravity tuning) | BRANE_TUNING_DERIVED |
+| `pair_production_threshold_probe` | B4 anchor (pair threshold) | PAIR_THRESHOLD_DERIVED |
 
 ## Cross-references
 
@@ -262,6 +275,8 @@ the B4 audit shows cannot come from scale-free geometry.
     `B·R²` term derived as the throat brane tension.
   - `docs/brane_tension_tuning_research_plan.md` — the RS-like
     bulk-gravity fine-tuning (factor `√6`).
+  - `docs/pair_production_threshold_research_plan.md` — the
+    pair-production threshold `2 m_e c²` (lowest stable throat pair).
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
     summarises.
