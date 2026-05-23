@@ -1,0 +1,131 @@
+{
+  "timestamp_utc": "2026-05-23T22:48:56+00:00",
+  "threshold": "2 m_e c\u00b2 = 1.022 MeV",
+  "mechanism": "C-conjugate throat pair (\u03a3c\u2081=0); lowest stable R*",
+  "dynamics": "nucleation barrier (disperse/persist); Schwinger field",
+  "b4_caveat": "factor 2 derived; absolute scale = single anchor m_e c\u00b2 = \u210fc/R_MID",
+  "tests": [
+    {
+      "name": "T1_lowest_stable_configuration",
+      "description": "E(R)=A/R+B\u00b7R\u00b2 (EM repulsion + brane tension) has a unique global minimum at R*=(A/2B)^(1/3); the ground-state throat (lowest stable configuration) has rest energy E(R*), identified with m_e c\u00b2 (the single anchor).",
+      "R_star_m": 3.8615926772428395e-13,
+      "R_min_numeric_m": 3.861561784501416e-13,
+      "E_at_min_J": 4.48081480317275e-16,
+      "second_derivative_positive": true,
+      "relative_error": 8.000000001399229e-06,
+      "pass": true
+    },
+    {
+      "name": "T2_pair_from_conservation",
+      "description": "A throat carries |c\u2081|=1 (Hopf charge, compute_c1); the vacuum has c\u2081=0. The two Hopf orientations (\u00b11) are the throat and its C-conjugate antithroat (inner/outer swap / antipodal Z\u2082). Conservation \u03a3c\u2081=0 forbids single-throat creation and forces C-conjugate PAIR creation.",
+      "throat_hopf_charge_abs": 1,
+      "orientation_a_c1": -0.9999999485700981,
+      "orientation_b_c1": 0.9999999485700981,
+      "pair_charge_sum": 0,
+      "vacuum_charge": 0,
+      "single_throat_allowed": false,
+      "pair_creation_allowed": true,
+      "pass": true
+    },
+    {
+      "name": "T3_threshold_2mc2",
+      "description": "By C-symmetry both partners have rest energy E(R*)=m_e c\u00b2; the pair-production threshold is E_thr = 2 m_e c\u00b2 = 1.022 MeV (the minimal on-shell C-conjugate pair).",
+      "single_throat_rest_energy_MeV": 0.5109989499961642,
+      "pair_threshold_MeV": 1.0219978999923285,
+      "expected_MeV": 1.0219979,
+      "relative_error": 7.506296300173325e-12,
+      "pass": true
+    },
+    {
+      "name": "T4_nucleation_barrier",
+      "description": "Bubble nucleation E_nuc(R)=4\u03c0\u03c3R\u00b2\u2212(4/3)\u03c0\u03c1R\u00b2 R (surface cost \u2212 volume gain): critical radius R_c=2\u03c3/\u03c1, barrier E_c=(16\u03c0/3)\u03c3\u00b3/\u03c1\u00b2. Below R_c the throat shrinks (the antipodal focus disperses \u2192 vacuum); above R_c it grows to the stable R* (a real throat persists).",
+      "sigma": 1.0,
+      "rho": 1.5,
+      "critical_radius_R_c": 1.3333333333333333,
+      "dE_below_R_c_positive_disperse": true,
+      "dE_above_R_c_negative_persist": true,
+      "dE_at_R_c_zero": true,
+      "barrier_height_E_c": 7.446738141842472,
+      "pass": true
+    },
+    {
+      "name": "T5_schwinger_critical_field",
+      "description": "Schwinger critical field E_S = m_e\u00b2c\u00b3/(e\u210f) \u2248 1.32\u00d710\u00b9\u2078 V/m: the field whose work over a reduced Compton wavelength (= R_MID = \u03bb_C) equals m_e c\u00b2, i.e. e E_S \u00b7 R_MID = m_e c\u00b2. Ties the throat scale to the pair-production threshold.",
+      "schwinger_field_V_per_m": 1.323285474948166e+18,
+      "expected_V_per_m": 1.3232855e+18,
+      "relative_error_E_S": 1.8931541312891284e-08,
+      "work_e_ES_lambdaC_over_mc2": 1.0000000000000002,
+      "R_MID_equals_lambda_C_m": 3.8615926772428334e-13,
+      "pass": true
+    },
+    {
+      "name": "T6_subthreshold_dispersal",
+      "description": "Below 2 m_e c\u00b2 the delivered energy cannot put two throats on-shell at R*; the configuration is sub-critical (inside the nucleation barrier) and disperses \u2014 the antipodal focus relaxes to vacuum. Above threshold a real pair persists.",
+      "threshold_MeV": 1.0219978999923285,
+      "rows": [
+        {
+          "E_in_MeV": 0.3,
+          "above_threshold": false,
+          "outcome": "sub-critical: disperses to vacuum"
+        },
+        {
+          "E_in_MeV": 0.6,
+          "above_threshold": false,
+          "outcome": "sub-critical: disperses to vacuum"
+        },
+        {
+          "E_in_MeV": 1.0,
+          "above_threshold": false,
+          "outcome": "sub-critical: disperses to vacuum"
+        },
+        {
+          "E_in_MeV": 1.022,
+          "above_threshold": true,
+          "outcome": "real pair persists"
+        },
+        {
+          "E_in_MeV": 1.5,
+          "above_threshold": true,
+          "outcome": "real pair persists"
+        },
+        {
+          "E_in_MeV": 2.0,
+          "above_threshold": true,
+          "outcome": "real pair persists"
+        }
+      ],
+      "sub_threshold_disperses": true,
+      "above_threshold_persists": true,
+      "pass": true
+    },
+    {
+      "name": "T7_b4_accounting",
+      "description": "The threshold 2 m_e c\u00b2 rides on the single anchor m_e c\u00b2 = \u210fc/R_MID. The factor 2, the pair structure (\u03a3c\u2081=0), the disperse/persist dichotomy, and e E_S R_MID = m_e c\u00b2 are derived/dimensionless; the absolute scale is the one anchor (B4-consistent).",
+      "mc2_from_bridge_J": 8.187105776823886e-14,
+      "mc2_actual_J": 8.187105776823886e-14,
+      "bridge_consistent": true,
+      "derived_dimensionless_content": {
+        "pair_factor": 2,
+        "charge_sum": 0,
+        "schwinger_relation": "e E_S R_MID / (m_e c\u00b2) = 1"
+      },
+      "absolute_scale": "single anchor m_e c\u00b2 = \u210fc/R_MID",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Pair-production threshold = 2 m_e c\u00b2: twice the lowest stable throat (R*, E(R*)=m_e c\u00b2), forced into a C-conjugate pair by Hopf-charge/antipodal-Z\u2082 conservation (\u03a3c\u2081=0). The nucleation barrier gives disperse-below / persist-above; the Schwinger field (e E_S R_MID = m_e c\u00b2) ties the throat scale to the threshold. Factor 2 + structure derived; absolute 2 m_e c\u00b2 rides on the single anchor (B4).",
+      "threshold": "2 m_e c\u00b2 = 1.022 MeV",
+      "lowest_stable_config": "ground-state throat R* (electron)",
+      "pair_mechanism": "C-conjugate (\u03a3c\u2081=0); single-throat creation forbidden",
+      "dynamics": "nucleation barrier R_c=2\u03c3/\u03c1; disperse below / persist above",
+      "field_connection": "Schwinger E_S: e E_S R_MID = m_e c\u00b2",
+      "remaining": "full instanton rate; heavier-lepton thresholds 2m_\u03bcc\u00b2, 2m_\u03c4c\u00b2",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "PAIR_THRESHOLD_DERIVED",
+  "verdict": "PAIR THRESHOLD DERIVED. The pair-production threshold falls out as 2\u00d7 the lowest stable throat configuration.\n\nLOWEST STABLE CONFIGURATION. The self-energy E(R)=A/R+B\u00b7R\u00b2 (EM repulsion + brane tension, PRs #55\u2013#57) has a unique global minimum at R*=(A/2B)^(1/3); the ground-state throat has rest energy E(R*) = m_e c\u00b2 (the single anchor) \u2014 this is the electron.\n\nPAIRS FROM CONSERVATION. A throat carries one unit of Hopf charge (|c\u2081|=1, compute_c1); the vacuum has c\u2081=0. The two Hopf orientations (\u00b11) are the throat and its C-conjugate antithroat (the inner/outer swap / antipodal Z\u2082). Conservation \u03a3c\u2081=0 forbids single-throat creation and forces C-conjugate PAIR creation.\n\nTHRESHOLD. By C-symmetry both partners have rest energy m_e c\u00b2, so the pair-production threshold is E_thr = 2 m_e c\u00b2 = 1.022 MeV \u2014 the minimal on-shell pair.\n\nDYNAMICS. Creating a throat from the vacuum is bubble nucleation, E_nuc(R)=4\u03c0\u03c3R\u00b2\u2212(4/3)\u03c0\u03c1R\u00b3, with critical radius R_c=2\u03c3/\u03c1: below R_c the configuration shrinks (the antipodal focus disperses \u2192 vacuum), above R_c it grows to the stable R* (a real throat persists) \u2014 exactly the THESIS dichotomy. The Schwinger critical field E_S=m_e\u00b2c\u00b3/(e\u210f)\u22481.32\u00d710\u00b9\u2078 V/m is where the field work over a reduced Compton wavelength (= R_MID) equals m_e c\u00b2: e E_S\u00b7R_MID = m_e c\u00b2, tying the throat scale to the threshold.\n\nB4. The factor 2, the pair structure (\u03a3c\u2081=0), the disperse/persist dichotomy, and e E_S R_MID = m_e c\u00b2 are all derived / dimensionless; the absolute threshold 2 m_e c\u00b2 rides on the single anchor m_e c\u00b2 = \u210fc/R_MID, consistent with the B4 scale-modulus theorem. Remaining: the full instanton/tunneling rate and the heavier-lepton thresholds 2 m_\u03bc c\u00b2, 2 m_\u03c4 c\u00b2 (the excited radial throats)."
+}
