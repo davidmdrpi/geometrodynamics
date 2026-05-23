@@ -438,10 +438,15 @@ problems rather than implementation TODOs:
   divergence). Consistent with the B4 theorem, the absolute `R*` still
   rides on one dimensionful coupling (equivalently a relation `g = 2/α`);
   the self-consistency recasts and relates the anchor, it does not derive
-  the value. Remaining: derive the cohesive term from the throat action;
-  the pair-production threshold (`2 m_e c²` at the lowest stable `R*`) as
-  a dynamical nucleation calculation. See
-  `docs/self_consistent_throat_radius_research_plan.md`.
+  the value. The cohesive term is in turn **derived** by
+  `cohesive_tension_derivation_probe` as the throat brane tension
+  `E = σ·Area = 4πσR²` (`B = 4πσ`) — its `R²` power uniquely selected by
+  power-counting (the induced Tangherlini junction tension is `R¹`), with
+  `σ` set by the bulk gravity sector (`σ ∝ √|Λ₅|/κ₅`). Remaining: the
+  exact RS-like tuning from `S_BAM`, and the pair-production threshold
+  (`2 m_e c²` at the lowest stable `R*`) as a dynamical nucleation
+  calculation. See `docs/self_consistent_throat_radius_research_plan.md`
+  and `docs/cohesive_tension_derivation_research_plan.md`.
 - **Stable moving throats.** A boosted throat solution must remain
   self-consistent. The "is the throat actually a particle" test is
   whether `m c²` for a moving throat agrees with the static eigenvalue.

@@ -184,6 +184,17 @@ relocating the scale question to `α`. The chain is therefore: imposed
 `R_MID` → invariant geometric length `ΔR` → finite-self-energy
 equilibrium — each step more physical, none deriving the absolute value.
 
+The cohesive `B·R²` (posited in the equilibrium) is then **derived** by
+`cohesive_tension_derivation_probe`: it is the throat **brane tension**
+`E = σ·Area = 4πσR²` (so `B = 4πσ`), the `R²` power being the unique
+signature of a constant surface tension by power-counting — distinct
+from the induced Tangherlini junction tension (`R¹`, computed from
+`f(r)=1−(rs/r)²`), Einstein–Hilbert (`R¹`), and the cosmological bag
+(`R³`). The tension is set by the bulk gravity sector (`σ ∝ √|Λ₅|/κ₅`,
+Randall–Sundrum-like), so its *value* is the single dimensionful anchor:
+the derivation fixes the cohesive term's form and identity, not the
+absolute scale.
+
 ## Summary
 
 The scaffold began with five barriers and is now **complete**. Four
@@ -215,6 +226,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `maslov_dimensional_bridge_probe` | B4 + Maslov ledger | B4_IRREDUCIBLE |
 | `delta_r_scale_modulus_probe` | B4 anchor (ΔR) | DELTA_R_INVARIANT |
 | `self_consistent_throat_radius_probe` | B4 anchor (self-energy) | SELF_CONSISTENT_THROAT_EQUILIBRIUM |
+| `cohesive_tension_derivation_probe` | B4 anchor (cohesive term) | COHESIVE_TENSION_DERIVED |
 
 ## Cross-references
 
@@ -231,6 +243,8 @@ the B4 audit shows cannot come from scale-free geometry.
     S³ expansion; the B4 anchor as a geometric invariant.
   - `docs/self_consistent_throat_radius_research_plan.md` — the B4 anchor
     as a finite-self-energy equilibrium.
+  - `docs/cohesive_tension_derivation_research_plan.md` — the cohesive
+    `B·R²` term derived as the throat brane tension.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
     summarises.
