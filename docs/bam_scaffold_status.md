@@ -195,6 +195,20 @@ Randall–Sundrum-like), so its *value* is the single dimensionful anchor:
 the derivation fixes the cohesive term's form and identity, not the
 absolute scale.
 
+`brane_tension_tuning_probe` sharpens that bulk-gravity relation to the
+**exact** RS fine-tuning. The `Z₂` Israel junction for a pure-tension
+brane gives `K_μν = −(κ₅²λ/6) h_μν`; the bulk `AdS₅` equation
+`Λ₅ = −6k²` and staticity (`K_μν = k h_μν`) then fix
+`λ_crit = 6k/κ₅² = √(6|Λ₅|)/κ₅²` — the **dimensionless tuning factor is
+√6**. The tuning is the flat / static-throat condition (`Λ₄ ∝ λ²−λ_crit²`
+vanishes at `λ_crit`; over-/under-tension give dS/AdS throats), tying the
+critically-tuned brane to the static equilibrium of `#55`. The fine-tuning
+is one condition among `(λ, Λ₅, κ₅)`, so a net one dimensionful
+combination remains — the single anchor (the bulk gravitational scale
+`k = √|Λ₅/6|`); `√6` and the flatness condition are derived, the scale is
+not. The `AdS₅` warp over the bulk depth `ΔR` gives an RS exponential
+hierarchy `e^{−kΔR}`.
+
 ## Summary
 
 The scaffold began with five barriers and is now **complete**. Four
@@ -227,6 +241,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `delta_r_scale_modulus_probe` | B4 anchor (ΔR) | DELTA_R_INVARIANT |
 | `self_consistent_throat_radius_probe` | B4 anchor (self-energy) | SELF_CONSISTENT_THROAT_EQUILIBRIUM |
 | `cohesive_tension_derivation_probe` | B4 anchor (cohesive term) | COHESIVE_TENSION_DERIVED |
+| `brane_tension_tuning_probe` | B4 anchor (bulk-gravity tuning) | BRANE_TUNING_DERIVED |
 
 ## Cross-references
 
@@ -245,6 +260,8 @@ the B4 audit shows cannot come from scale-free geometry.
     as a finite-self-energy equilibrium.
   - `docs/cohesive_tension_derivation_research_plan.md` — the cohesive
     `B·R²` term derived as the throat brane tension.
+  - `docs/brane_tension_tuning_research_plan.md` — the RS-like
+    bulk-gravity fine-tuning (factor `√6`).
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
     summarises.

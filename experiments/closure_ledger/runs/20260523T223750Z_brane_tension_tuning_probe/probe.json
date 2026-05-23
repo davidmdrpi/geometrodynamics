@@ -1,0 +1,202 @@
+{
+  "timestamp_utc": "2026-05-23T22:37:50+00:00",
+  "derived": "\u03bb_crit = \u221a(6|\u039b\u2085|)/\u03ba\u2085\u00b2 (RS fine-tuning)",
+  "tuning_factor": "sqrt(6) \u2248 2.449",
+  "meaning": "flat / static-throat condition (\u039b\u2084 = 0)",
+  "b4_caveat": "one condition among (\u03bb,\u039b\u2085,\u03ba\u2085); \u221a6 derived, bulk scale is the anchor",
+  "tests": [
+    {
+      "name": "T1_israel_junction_pure_tension",
+      "description": "Z\u2082 pure-tension junction (S_\u03bc\u03bd=\u2212\u03bbh_\u03bc\u03bd, 4D worldvolume): trace-reversal gives K_\u03bc\u03bd = \u2212(\u03ba\u2085\u00b2\u03bb/6) h_\u03bc\u03bd. The 1/6 factor is the trace-reversal coefficient d/(2(d\u22121))\u00b7(2/d)\u2026 \u2192 1/6 for d=4.",
+      "kappa5_sq": 1.0,
+      "lambda": 3.0,
+      "d": 4,
+      "K_coefficient_derived": -0.5,
+      "K_coefficient_expected_minus_k5sq_lam_over_6": -0.5,
+      "factor_one_sixth_verified": true,
+      "pass": true
+    },
+    {
+      "name": "T2_bulk_ads5_relation",
+      "description": "Bulk AdS\u2085 vacuum Einstein equation: \u039b\u2085 = \u22126k\u00b2 (warp a(y)=e^{\u2212k|y|}), so k = \u221a(|\u039b\u2085|/6). The 6 is the AdS\u2085 curvature coefficient.",
+      "rows": [
+        {
+          "k": 1.0,
+          "Lambda5": -6.0,
+          "k_recovered": 1.0,
+          "deviation": 0.0
+        },
+        {
+          "k": 2.0,
+          "Lambda5": -24.0,
+          "k_recovered": 2.0,
+          "deviation": 0.0
+        },
+        {
+          "k": 3.5,
+          "Lambda5": -73.5,
+          "k_recovered": 3.5,
+          "deviation": 0.0
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T3_fine_tuning_factor_sqrt6",
+      "description": "\u03bb_crit = 6k/\u03ba\u2085\u00b2 = \u221a(6|\u039b\u2085|)/\u03ba\u2085\u00b2; the dimensionless tuning factor \u03bb_crit \u03ba\u2085\u00b2/\u221a|\u039b\u2085| = \u221a6 \u2248 2.449 \u2014 the exact RS-like factor (sharpening PR #56's parametric \u221d).",
+      "sqrt6": 2.449489742783178,
+      "rows": [
+        {
+          "k": 1.0,
+          "kappa5_sq": 1.0,
+          "Lambda5": -6.0,
+          "lambda_crit_6k_over_k5sq": 6.0,
+          "lambda_crit_sqrt_6_Lam_over_k5sq": 6.0,
+          "dimensionless_factor": 2.4494897427831783
+        },
+        {
+          "k": 2.0,
+          "kappa5_sq": 0.5,
+          "Lambda5": -24.0,
+          "lambda_crit_6k_over_k5sq": 24.0,
+          "lambda_crit_sqrt_6_Lam_over_k5sq": 24.0,
+          "dimensionless_factor": 2.4494897427831783
+        },
+        {
+          "k": 3.5,
+          "kappa5_sq": 2.0,
+          "Lambda5": -73.5,
+          "lambda_crit_6k_over_k5sq": 10.5,
+          "lambda_crit_sqrt_6_Lam_over_k5sq": 10.5,
+          "dimensionless_factor": 2.449489742783178
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_flat_static_throat_condition",
+      "description": "\u039b\u2084 \u221d \u03bb\u00b2 \u2212 \u03bb_crit\u00b2: zero at the fine-tuning (flat, static throat \u2014 a stable particle with no induced 4D vacuum energy), positive (de Sitter) for over-tension, negative (anti-de Sitter) for under-tension.",
+      "lambda_crit": 12.0,
+      "rows": [
+        {
+          "lambda_over_crit": 0.5,
+          "lambda": 6.0,
+          "Lambda4": -108.0,
+          "sign": "AdS(-)"
+        },
+        {
+          "lambda_over_crit": 0.9,
+          "lambda": 10.8,
+          "Lambda4": -27.359999999999985,
+          "sign": "AdS(-)"
+        },
+        {
+          "lambda_over_crit": 1.0,
+          "lambda": 12.0,
+          "Lambda4": 0.0,
+          "sign": "flat"
+        },
+        {
+          "lambda_over_crit": 1.1,
+          "lambda": 13.200000000000001,
+          "Lambda4": 30.240000000000038,
+          "sign": "dS(+)"
+        },
+        {
+          "lambda_over_crit": 2.0,
+          "lambda": 24.0,
+          "Lambda4": 432.0,
+          "sign": "dS(+)"
+        }
+      ],
+      "tuned_is_flat": true,
+      "over_tension_dS": true,
+      "under_tension_AdS": true,
+      "pass": true
+    },
+    {
+      "name": "T5_cohesive_connection",
+      "description": "The cohesive B = 4\u03c0\u03c3 (PR #56) is the 4D-effective image of the RS-tuned brane tension \u03bb_crit; it inherits the \u221a6 factor and the bulk-gravity scale \u221a|\u039b\u2085|/\u03ba\u2085\u00b2. The fine-tuning (flat brane) is the static-throat equilibrium of PR #55.",
+      "lambda_crit": 12.0,
+      "sigma_4d_effective": 12.0,
+      "B_equals_4pi_sigma": 150.79644737231007,
+      "inherits_sqrt6_factor": true,
+      "tuning_is_static_throat_condition": true,
+      "pass": true
+    },
+    {
+      "name": "T6_b4_accounting",
+      "description": "The fine-tuning is one condition among (\u03bb, \u039b\u2085, \u03ba\u2085): a net one dimensionful combination remains \u2014 the single anchor (B4). The dimensionless factor \u221a6 is invariant under rescaling the bulk scale k; the absolute scale (k = \u221a|\u039b\u2085/6|) is the one external input.",
+      "dimensionless_factor_invariant_sqrt6": true,
+      "rows": [
+        {
+          "k_scale": 1.0,
+          "k": 2.0,
+          "lambda_crit": 12.0,
+          "dimensionless_factor": 2.4494897427831783
+        },
+        {
+          "k_scale": 2.0,
+          "k": 4.0,
+          "lambda_crit": 24.0,
+          "dimensionless_factor": 2.4494897427831783
+        },
+        {
+          "k_scale": 0.5,
+          "k": 1.0,
+          "lambda_crit": 6.0,
+          "dimensionless_factor": 2.4494897427831783
+        },
+        {
+          "k_scale": 10.0,
+          "k": 20.0,
+          "lambda_crit": 120.0,
+          "dimensionless_factor": 2.4494897427831783
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T7_warp_hierarchy",
+      "description": "AdS\u2085 warp a(y)=e^{\u2212k|y|} over the bulk depth L=\u0394R gives w = e^{\u2212kL}: an exponential hierarchy between bulk and throat scales (RS mechanism), relating the bulk-gravity scale to the BAM bulk geometry.",
+      "delta_R_geometric": 0.52,
+      "rows": [
+        {
+          "k_times_L": 1.0,
+          "warp_factor": 0.36787944117144233,
+          "hierarchy_orders": 0.4342944819032518
+        },
+        {
+          "k_times_L": 5.0,
+          "warp_factor": 0.006737946999085467,
+          "hierarchy_orders": 2.171472409516259
+        },
+        {
+          "k_times_L": 10.0,
+          "warp_factor": 4.5399929762484854e-05,
+          "hierarchy_orders": 4.342944819032518
+        },
+        {
+          "k_times_L": 35.0,
+          "warp_factor": 6.305116760146989e-16,
+          "hierarchy_orders": 15.200306866613815
+        }
+      ],
+      "exponential_hierarchy": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Derived: \u03bb_crit = \u221a(6|\u039b\u2085|)/\u03ba\u2085\u00b2, dimensionless tuning factor \u221a6, from the Israel junction (K_\u03bc\u03bd=\u2212\u03ba\u2085\u00b2\u03bb/6 h_\u03bc\u03bd) + bulk AdS\u2085 (\u039b\u2085=\u22126k\u00b2) + staticity. The tuning is the flat/static-throat condition (\u039b\u2084=0). It fixes the cohesive B=4\u03c0\u03c3 up to the bulk gravitational scale; the absolute value (k=\u221a|\u039b\u2085/6|) is the single dimensionful anchor (B4).",
+      "tuning_factor": "sqrt(6) \u2248 2.449",
+      "tuned_tension": "\u03bb_crit = \u221a(6|\u039b\u2085|)/\u03ba\u2085\u00b2",
+      "tuning_meaning": "flat / static-throat condition (\u039b\u2084 = 0)",
+      "anchor": "bulk gravitational scale k = \u221a|\u039b\u2085/6| (one input)",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "BRANE_TUNING_DERIVED",
+  "verdict": "BRANE TUNING DERIVED. The Randall\u2013Sundrum-like fine-tuning of the throat brane tension is derived from the junction conditions, sharpening PR #56's parametric \u03c3 \u221d \u221a|\u039b\u2085|/\u03ba\u2085 to an exact relation with a derived dimensionless factor.\n\nDERIVATION. (1) The Z\u2082 Israel junction for a pure-tension 4D worldvolume brane (S_\u03bc\u03bd=\u2212\u03bbh_\u03bc\u03bd) trace-reverses to K_\u03bc\u03bd = \u2212(\u03ba\u2085\u00b2\u03bb/6) h_\u03bc\u03bd \u2014 the 1/6 factor. (2) The bulk AdS\u2085 vacuum equation gives \u039b\u2085 = \u22126k\u00b2, so k = \u221a(|\u039b\u2085|/6). (3) Staticity (a flat brane, K_\u03bc\u03bd = k h_\u03bc\u03bd) matches the junction at k = \u03ba\u2085\u00b2\u03bb/6, giving the fine-tuned tension \u03bb_crit = 6k/\u03ba\u2085\u00b2 = \u221a(6|\u039b\u2085|)/\u03ba\u2085\u00b2. The dimensionless tuning factor is \u03bb_crit \u03ba\u2085\u00b2/\u221a|\u039b\u2085| = \u221a6 \u2248 2.449.\n\nMEANING. Detuning induces a 4D cosmological constant \u039b\u2084 \u221d \u03bb\u00b2\u2212\u03bb_crit\u00b2, so \u039b\u2084=0 \u27fa \u03bb=\u03bb_crit: the fine-tuning is the flat, static-throat condition (a stable particle with no induced 4D vacuum energy). Over-tension \u2192 de Sitter throat, under-tension \u2192 anti-de Sitter; the critically-tuned, static configuration is the cohesive equilibrium of PR #55.\n\nCONNECTION + B4. The cohesive B = 4\u03c0\u03c3 (PR #56) is the 4D-effective image of \u03bb_crit; it inherits the \u221a6 factor and the bulk-gravity scale \u221a|\u039b\u2085|/\u03ba\u2085\u00b2. The fine-tuning is one condition among (\u03bb, \u039b\u2085, \u03ba\u2085), so a net one dimensionful combination remains \u2014 the single anchor the B4 scale-modulus theorem requires. The dimensionless content (\u221a6, the flatness condition) is derived; the absolute scale (k = \u221a|\u039b\u2085/6|, the bulk gravitational scale) is the one external input. The AdS\u2085 warp over the bulk depth \u0394R gives an RS exponential hierarchy w = e^{\u2212k\u0394R}."
+}
