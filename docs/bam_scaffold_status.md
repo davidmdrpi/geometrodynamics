@@ -155,6 +155,22 @@ residual to closure-quantum form; this audit closes the interpretation.
 What remains genuinely open is `m_e` itself, which by the audit cannot
 come from scale-free geometry.
 
+**The anchor as a geometric invariant (ΔR).** The single required
+anchor need not be the particle mass `m_e` — it can be the **invariant
+bulk separation** `ΔR = R_OUTER − R_INNER = 0.52·R_MID`, *provided* ΔR
+is a proper (cosmologically fixed) length. The ΔR scale-modulus probe
+shows it is: the throat is a static bound vacuole (discrete spectrum +
+vacuum + dimensionless BC), so it is decoupled from Hubble flow
+(`ΔR/R_cosmo ~ 10⁻³⁹`), and a comoving throat (`rs ∝ a`) is
+observationally excluded — it would redshift particle masses as `(1+z)`
+against quasar bounds `≲10⁻⁵`. The bridge then reads
+`m_e = f_closure·ℏ/(ΔR·c)` with `f_closure = ΔR/R_MID = 0.52`, making
+`m_e` a consequence of a fixed bulk length and predicting that local
+throat ratios (lepton mass ratios included) are constant in cosmic time
+while only `ΔR/R_cosmo(t) ∝ 1/a` drifts. This **relocates** the anchor
+to a geometric invariant; it does not evade the scale-modulus theorem
+(ΔR is still the one external dimensionful number, its value underived).
+
 ## Summary
 
 The scaffold began with five barriers and is now **complete**. Four
@@ -184,6 +200,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `bulk_boundary_interaction_probe` | B5′ (radial+throat) | BULK_BOUNDARY_FORMULATED |
 | `master_integral_probe` | B5′ (+ S³ Q) | MASTER_INTEGRAL_COMPLETE |
 | `maslov_dimensional_bridge_probe` | B4 + Maslov ledger | B4_IRREDUCIBLE |
+| `delta_r_scale_modulus_probe` | B4 anchor (ΔR) | DELTA_R_INVARIANT |
 
 ## Cross-references
 
@@ -196,6 +213,8 @@ the B4 audit shows cannot come from scale-free geometry.
   - `docs/master_integral_research_plan.md` — B5′ closed (+ S³ Q).
   - `docs/maslov_dimensional_bridge_research_plan.md` — B4 audit +
     Maslov closure-ledger (B4 irreducible).
+  - `docs/delta_r_scale_modulus_research_plan.md` — ΔR invariant under
+    S³ expansion; the B4 anchor as a geometric invariant.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
     summarises.
