@@ -192,6 +192,7 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | `γ = −3/2` is d-independent | **Verified** | Numerical γ(d) = −3/2 in d ∈ {3, 4, 5, 6, 8} to 7-digit precision; falsifies the embedding-dim/polarization-count origin |
 | Compton vertex closed-form resummation | **Derived** | `F²(x, c) = 4·x³·(x²+1−x·sin²θ) / [(1+c²)·(1+x)²]` with `x = ω'/ω` reproduces Klein-Nishina to all orders in ε up to ε ~ 2 (machine precision); the perturbative PRs #31–34 are Taylor expansions of this closed form |
 | F² and masses from one master integral | **Derived** | Single `C × S³` master functional `ℳ = G_C ⊗ 𝒢_{S³}`: ω-poles → mass spectrum, throat boundary → `K(x)`, S³ Hopf → `Q(x,c)`; vertex residue = `F²=K²·Q` to `2e-14`. Closes scaffold barrier B5′ (`master_integral_probe`, `docs/bam_scaffold_status.md`) |
+| Dimensional anchor (B4) is structural, not a gap | **Audited** | Closure-ledger/Maslov machinery is scale-free (rescale `R_MID → λ·R_MID` → all dimensionless outputs invariant), so exactly one external dimensionful anchor is required; relocatable to the cosmologically-invariant bulk separation `ΔR`, giving `m_e = 0.52·ℏ/(ΔR·c)` (`maslov_dimensional_bridge_probe`, `delta_r_scale_modulus_probe`) |
 
 ### Research goals (not yet fully derived)
 
@@ -621,7 +622,9 @@ derivation from the Hopf-bundle / throat-transport algebra.
 | PR #49 | `topological_discrete_sector_probe.py` | scaffold B1+B2 promoted to action data (RP³ + spin structure + winding θ-term) |
 | PR #50 | `radial_reduction_bridge_probe.py` | scaffold B5 factorized: 5D→4D into three channels; F² not a radial overlap |
 | PR #51 | `bulk_boundary_interaction_probe.py` | scaffold B5′: radial (masses) + throat (K) unified by one bulk-boundary cavity |
-| PR #52 | `master_integral_probe.py` | **scaffold B5′ closed: masses and F²=K²·Q from one C×S³ master functional** |
+| PR #51 | `master_integral_probe.py` | **scaffold B5 closed: masses and F²=K²·Q from one C×S³ master functional** |
+| PR #52 | `maslov_dimensional_bridge_probe.py` | scaffold B4 audit: irreducible by scale-freeness; Maslov closure-ledger (radial +1 = μ=4) |
+| PR #53 | `delta_r_scale_modulus_probe.py` | scaffold B4 anchor: ΔR is a cosmologically-invariant bulk separation |
 
 **Synthesis / release note:** `docs/tree_qed_status.md` collects the
 PR #35 → #46 result — all tree-level `2 → 2` QED scalar intensities
@@ -690,7 +693,7 @@ research plans: `docs/compton_vertex_resummation_research_plan.md`
 `docs/bam_exchange_kernel_research_plan.md` (#45), and
 `docs/hopf_vector_exchange_kernel_research_plan.md` (#46).
 
-### BAM effective-action scaffold — barrier closure (PRs #49–#52)
+### BAM effective-action scaffold — barrier closure (PRs #49–#53)
 
 The tree-QED ingredients above were assembled into a single covariant
 5D effective-action scaffold and its five mismatch terms (B1–B5) were
@@ -724,13 +727,26 @@ The vertex residue reproduces `F²(x,c) = K²·Q` to machine precision
 (`2e-14`) while the poles give the masses — **masses and the full
 vertex from one functional**. The `F²=K²·Q` factorization is the direct
 consequence of the product internal geometry (separation of variables),
-not a failure to unify. The sole surviving barrier is **B4** — the
-single `m_e` dimensional anchor (`ℏ = m_e·R_MID·c`). Full ledger:
-`docs/bam_scaffold_status.md`; per-probe plans:
+not a failure to unify.
+
+The fifth barrier **B4** (the dimensional bridge `ℏ = m_e·R_MID·c`) is
+not a gap but a **structural necessity**: the closure-ledger/Maslov
+machinery is *scale-free* (rescaling `R_MID → λ·R_MID` leaves every
+dimensionless output invariant), so exactly one external dimensionful
+anchor is mathematically required — **B4 is irreducible** (#52). That
+anchor need not be a particle mass: it can be the **invariant bulk
+separation** `ΔR = R_OUTER − R_INNER`, a proper (cosmologically fixed)
+length, giving `m_e = f_closure·ℏ/(ΔR·c)` with `f_closure = 0.52` (#53).
+The scaffold is therefore complete: four barriers derived, the fifth the
+single mandatory dimensionful unit. Full ledger:
+`docs/bam_scaffold_status.md`; closure release note:
+`docs/scaffold_closure_release_note.md`; per-probe plans:
 `docs/topological_discrete_sector_research_plan.md` (#49),
 `docs/radial_reduction_bridge_research_plan.md` (#50),
-`docs/bulk_boundary_interaction_research_plan.md` (#51),
-`docs/master_integral_research_plan.md` (#52).
+`docs/bulk_boundary_interaction_research_plan.md` and
+`docs/master_integral_research_plan.md` (#51),
+`docs/maslov_dimensional_bridge_research_plan.md` (#52),
+`docs/delta_r_scale_modulus_research_plan.md` (#53).
 
 ## Quick Start
 
