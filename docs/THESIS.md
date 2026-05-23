@@ -442,11 +442,17 @@ problems rather than implementation TODOs:
   `cohesive_tension_derivation_probe` as the throat brane tension
   `E = σ·Area = 4πσR²` (`B = 4πσ`) — its `R²` power uniquely selected by
   power-counting (the induced Tangherlini junction tension is `R¹`), with
-  `σ` set by the bulk gravity sector (`σ ∝ √|Λ₅|/κ₅`). Remaining: the
-  exact RS-like tuning from `S_BAM`, and the pair-production threshold
-  (`2 m_e c²` at the lowest stable `R*`) as a dynamical nucleation
-  calculation. See `docs/self_consistent_throat_radius_research_plan.md`
-  and `docs/cohesive_tension_derivation_research_plan.md`.
+  `σ` set by the bulk gravity sector. That bulk-gravity relation is in
+  turn sharpened to the **exact** RS fine-tuning by
+  `brane_tension_tuning_probe`: `λ_crit = √(6|Λ₅|)/κ₅²` (dimensionless
+  factor `√6`, from the Israel junction `K_μν = −κ₅²λ/6 h_μν` + bulk
+  `AdS₅`), which is the flat / static-throat condition (`Λ₄ = 0`).
+  Remaining: matching the canonical RS brane to the exact BAM throat
+  junction from `S_BAM`, and the pair-production threshold (`2 m_e c²` at
+  the lowest stable `R*`) as a dynamical nucleation calculation. See
+  `docs/self_consistent_throat_radius_research_plan.md`,
+  `docs/cohesive_tension_derivation_research_plan.md`, and
+  `docs/brane_tension_tuning_research_plan.md`.
 - **Stable moving throats.** A boosted throat solution must remain
   self-consistent. The "is the throat actually a particle" test is
   whether `m c²` for a moving throat agrees with the static eigenvalue.
