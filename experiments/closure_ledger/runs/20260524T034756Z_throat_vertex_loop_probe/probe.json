@@ -1,0 +1,113 @@
+{
+  "timestamp_utc": "2026-05-24T03:47:56+00:00",
+  "anomaly": "a = \u03b1/2\u03c0 (Schwinger, one loop)",
+  "loop": "throat self-exchange: S\u00b3 virtual photon at the throat-pinch vertex",
+  "integral": "I = \u222b\u2080\u00b9 2z dz = 1 \u27f9 F\u2082(0) = \u03b1/2\u03c0",
+  "scope": "reconstruction (tree-normalized primitives); 1/2\u03c0 from S_BAM open",
+  "b4_caveat": "a, g dimensionless; \u03b1 the coupling; scale = single anchor",
+  "tests": [
+    {
+      "name": "T1_bam_one_loop_vertex_structure",
+      "description": "The one-loop throat-vertex correction: the throat emits and reabsorbs one virtual photon (S\u00b3 exchange) at the throat-pinch vertex \u2014 the BAM image of the QED vertex triangle. Loop parameter \u03b1/\u03c0.",
+      "loop_pieces": {
+        "external_lines": "in/out throat (electron) at the pinch vertex",
+        "virtual_photon": "S\u00b3 Green-function exchange (flat limit 1/q\u00b2)",
+        "vertex": "throat-pinch F\u00b2 vertex (PRs #38\u2013#41)",
+        "coupling": "\u03b1 (Hopf charge structure)",
+        "loop_parameter": "\u03b1/\u03c0 (coupling \u03b1 \u00d7 loop phase space 1/\u03c0)"
+      },
+      "one_loop_factor_alpha_over_pi": 0.0023228194657768757,
+      "pass": true
+    },
+    {
+      "name": "T2_virtual_photon_is_s3_exchange",
+      "description": "The virtual photon is an S\u00b3 Green-function exchange: G(\u03c8) \u2192 1/(4\u03c0 d) (Coulomb / 1/q\u00b2 propagator) in the flat limit, the BAM photon propagator (#45\u2013#46).",
+      "rows": [
+        {
+          "psi": 0.01,
+          "G": 7.919487295070824,
+          "G_times_4pi_d": 0.9951921242556881
+        },
+        {
+          "psi": 0.001,
+          "G": 79.5394495846996,
+          "G_times_4pi_d": 0.999522201943472
+        },
+        {
+          "psi": 0.0001,
+          "G": 795.7367173631128,
+          "G_times_4pi_d": 0.9999522501838453
+        }
+      ],
+      "max_deviation_from_coulomb": 0.004807875744311851,
+      "flat_limit_is_1_over_q2": true,
+      "pass": true
+    },
+    {
+      "name": "T3_schwinger_feynman_parameter_integral",
+      "description": "F\u2082(0) = (\u03b1/2\u03c0)\u00b7I, I = \u222bdxdydz \u03b4(x+y+z\u22121) 2z(1\u2212z)/(1\u2212z)\u00b2 = \u222b\u2080\u00b9 2z dz = 1 (the x,y simplex slice measure (1\u2212z) cancels the 1/(1\u2212z)). The throat-vertex loop reproduces F\u2082(0)=\u03b1/2\u03c0.",
+      "I_reduced_int_2z": 1.0,
+      "I_simplex": 0.9999999999999999,
+      "integral_equals_1": true,
+      "F2_0": 0.0011614097328884376,
+      "pass": true
+    },
+    {
+      "name": "T4_anomaly_vs_experiment",
+      "description": "a = \u03b1/2\u03c0 \u2248 0.0011614 (Schwinger one-loop) vs measured a_e = 0.00115965 \u2014 the leading term, agreeing to ~0.15%; higher orders (\u03b1\u00b2, \u03b1\u00b3, \u2026) make up the small remainder.",
+      "a_alpha_over_2pi": 0.0011614097328884378,
+      "a_e_experiment": 0.00115965218,
+      "relative_difference": 0.0015155862410725092,
+      "leading_term_agrees": true,
+      "pass": true
+    },
+    {
+      "name": "T5_one_loop_g_factor",
+      "description": "g = 2(1 + a) = 2(1 + \u03b1/2\u03c0) = 2.00232\u2026 \u2014 the tree g=2 (PR #61) plus the one-loop Schwinger anomaly.",
+      "tree_g": 2.0,
+      "anomaly_a": 0.0011614097328884378,
+      "one_loop_g": 2.002322819465777,
+      "g_expected": 2.0023228,
+      "pass": true
+    },
+    {
+      "name": "T6_honest_scope",
+      "description": "Reconstruction, not first-principles: the one-loop integrand is the QED vertex integrand in tree-normalized BAM primitives (S\u00b3 propagator, throat-pinch vertex, Hopf \u03b1); the probe verifies the loop integral gives \u03b1/2\u03c0. BAM-native: the loop pieces (virtual photon = S\u00b3 exchange; vertex = throat pinch) and structure. Open: 1/2\u03c0 from a pure-geometry S_BAM loop measure (the full covariant throat loop).",
+      "bam_native": [
+        "virtual photon = S\u00b3 Green-function exchange",
+        "vertex = throat-pinch F\u00b2",
+        "structure = throat dressing its moment by one self-exchange"
+      ],
+      "inherited_from_tree_normalization": [
+        "the 1/q\u00b2 propagator normalization",
+        "the vertex normalization (tree QED match, #35\u2013#46)",
+        "the coupling \u03b1"
+      ],
+      "open_first_principles": "1/2\u03c0 from a covariant S_BAM loop measure",
+      "is_reconstruction_not_derivation": true,
+      "pass": true
+    },
+    {
+      "name": "T7_b4_accounting",
+      "description": "a = \u03b1/2\u03c0 and g = 2(1+a) are dimensionless; \u03b1 is the EM coupling (input, Hopf-charge structure); the absolute mass scale is the single anchor m. The anomaly is a pure number, independent of the anchor's value (B4-consistent).",
+      "a_dimensionless": 0.0011614097328884378,
+      "alpha_is_coupling": true,
+      "scale_is_single_anchor": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The BAM throat-vertex loop (throat dressing its moment by one S\u00b3-photon self-exchange at the throat-pinch vertex) reproduces the Schwinger anomaly a = \u03b1/2\u03c0 (Feynman-parameter integral I=1), matching a_e at leading order. The loop pieces and structure are BAM-native; the coefficient is inherited from the tree-normalized primitives \u2014 a reconstruction, with the first-principles 1/2\u03c0 (from a covariant S_BAM loop measure) the open follow-on.",
+      "anomaly": "a = \u03b1/2\u03c0 (one loop)",
+      "integral": "I = \u222b\u2080\u00b9 2z dz = 1",
+      "one_loop_g": 2.002322819465777,
+      "scope": "reconstruction (tree-normalized primitives), not first-principles 1/2\u03c0",
+      "remaining": "1/2\u03c0 from covariant S_BAM loop; higher-order a_e; throat spinor",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "SCHWINGER_RECONSTRUCTED",
+  "verdict": "SCHWINGER RECONSTRUCTED. The BAM throat-vertex loop reproduces the Schwinger anomalous magnetic moment a = \u03b1/2\u03c0, the one-loop capstone of the spin sector (tree g=2 in PR #61).\n\nTHE LOOP. The one-loop vertex correction, in BAM terms, is the throat dressing its magnetic moment by one virtual-photon self-exchange: external in/out throat lines at the throat-pinch vertex (PRs #38\u2013#41), the virtual photon an S\u00b3 Green-function exchange whose flat limit G \u2192 1/(4\u03c0 d) is the 1/q\u00b2 photon propagator (PRs #45\u2013#46), and the Hopf coupling \u03b1. The loop expansion parameter is \u03b1/\u03c0.\n\nTHE COEFFICIENT. After the loop integral the anomalous form factor is F\u2082(0) = (\u03b1/2\u03c0)\u00b7I with the Feynman-parameter integral I = \u222bdxdydz \u03b4(x+y+z\u22121) 2z(1\u2212z)/(1\u2212z)\u00b2 = \u222b\u2080\u00b9 2z dz = 1 (the x,y simplex slice measure (1\u2212z) cancels the 1/(1\u2212z)). So a = F\u2082(0) = \u03b1/2\u03c0 \u2248 0.0011614, matching the measured a_e = 0.00115965 at leading order (~0.15%; higher orders \u03b1\u00b2, \u03b1\u00b3 make up the remainder), and g = 2(1 + a) = 2.00232\u2026.\n\nHONEST SCOPE. This is a RECONSTRUCTION, not an independent first-principles derivation of 1/2\u03c0. The one-loop integrand is the QED vertex integrand expressed in BAM primitives that were normalized to QED at tree level (the S\u00b3 propagator, the throat-pinch vertex, the coupling \u03b1); the probe verifies the loop integral gives the Schwinger coefficient. What is BAM-native: the loop pieces (virtual photon = S\u00b3 exchange; vertex = throat pinch) and the structure (one self-exchange dressing the moment). What remains open: the 1/2\u03c0 from a pure-geometry loop measure derived from S_BAM (the full covariant throat loop), plus the higher-order a_e series. B4: a and g are dimensionless; \u03b1 is the coupling; the scale is the single anchor."
+}

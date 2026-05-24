@@ -485,12 +485,20 @@ problems rather than implementation TODOs:
   carrying the full `σ = 2S` (the factor 2 = the `SU(2)` anticommutator),
   giving `μ = μ_B`; and `g = 2 ⟺` the BMT anomalous precession vanishes
   (spin tracks momentum, the Thomas/Wigner link). The Schwinger anomaly
-  `a = (g−2)/2 = α/2π` is the known one-loop correction (tree `g = 2`
-  geometric). Remaining: the explicit boosted throat spinor from `S_BAM`,
-  and `α/2π` from the throat loop. See
+  `a = (g−2)/2 = α/2π`: the **one-loop** correction is reconstructed
+  (`throat_vertex_loop_probe`) as the throat dressing its moment by one
+  virtual-photon self-exchange — the virtual photon an S³ Green-function
+  exchange (flat limit `1/q²`), the vertex the throat pinch — with the
+  Feynman-parameter integral `∫₀¹ 2z dz = 1` giving `F₂(0) = α/2π`
+  (`g = 2.00232…`, vs `a_e = 0.00115965` to ~0.15%). This is a
+  reconstruction using the tree-normalized BAM primitives, not an
+  independent derivation of `1/2π` from a covariant `S_BAM` loop measure —
+  which, with the explicit boosted throat spinor and the higher-order
+  `a_e` series, is the remaining piece. See
   `docs/stable_moving_throat_research_plan.md`,
-  `docs/spin_wigner_rotation_research_plan.md`, and
-  `docs/gyromagnetic_ratio_research_plan.md`.
+  `docs/spin_wigner_rotation_research_plan.md`,
+  `docs/gyromagnetic_ratio_research_plan.md`, and
+  `docs/throat_vertex_loop_research_plan.md`.
 - **Charge conjugation from inner/outer swap.** Promote the C-symmetry
   from a postulate to a geometric statement — that swapping
   `r < R_MID ↔ r > R_MID` in the throat eigenmodes flips the sign of
