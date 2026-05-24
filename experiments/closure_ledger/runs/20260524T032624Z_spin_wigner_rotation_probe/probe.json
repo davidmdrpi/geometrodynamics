@@ -1,0 +1,212 @@
+{
+  "timestamp_utc": "2026-05-24T03:26:24+00:00",
+  "test": "does the Hopf-holonomy spin reproduce the Wigner rotation?",
+  "hopf": "A_\u03c6=\u00bd cos \u03c7 (spin-\u00bd monopole); \u222eA=\u03c0 cos \u03c7 = \u00bd \u00d7 solid angle",
+  "wigner": "B\u2082B\u2081=U\u00b7P in SL(2,C); U \u2208 SU(2) is the Wigner rotation",
+  "unification": "same spin-\u00bd SU(2) holonomy: \u00bd factor + spinor double cover",
+  "b4_caveat": "spin/Wigner structure geometric/dimensionless; scale = anchor",
+  "tests": [
+    {
+      "name": "T1_hopf_holonomy_is_spin_half_berry_phase",
+      "description": "The Hopf connection A_\u03c6=\u00bd cos \u03c7 is the spin-\u00bd monopole (charge \u00bd); its holonomy \u222eA = \u03c0 cos \u03c7 = \u2212\u00bd\u03a9 + \u03c0 with \u03a9 = 2\u03c0(1\u2212cos \u03c7) \u2014 the spin-\u00bd Berry phase (\u00bd \u00d7 solid angle).",
+      "rows": [
+        {
+          "chi": 0.1,
+          "A_phi_half_cos_chi": 0.4975020826390129,
+          "monopole_charge_A_over_cos": 0.5,
+          "holonomy_pi_cos_chi": 3.1258977759286903,
+          "solid_angle": 0.031389755322205774,
+          "minus_half_solid_plus_pi": 3.1258977759286903
+        },
+        {
+          "chi": 0.5902654422649655,
+          "A_phi_half_cos_chi": 0.4153964840489826,
+          "monopole_charge_A_over_cos": 0.5,
+          "holonomy_pi_cos_chi": 2.610013085230627,
+          "solid_angle": 1.0631591367183324,
+          "minus_half_solid_plus_pi": 2.610013085230627
+        },
+        {
+          "chi": 1.080530884529931,
+          "A_phi_half_cos_chi": 0.23543004001039788,
+          "monopole_charge_A_over_cos": 0.5,
+          "holonomy_pi_cos_chi": 1.479250568262034,
+          "solid_angle": 3.3246841706555177,
+          "minus_half_solid_plus_pi": 1.4792505682620343
+        },
+        {
+          "chi": 1.5707963267948966,
+          "A_phi_half_cos_chi": 3.061616997868383e-17,
+          "monopole_charge_A_over_cos": 0.5,
+          "holonomy_pi_cos_chi": 1.9236706937217898e-16,
+          "solid_angle": 6.283185307179585,
+          "minus_half_solid_plus_pi": 4.440892098500626e-16
+        },
+        {
+          "chi": 2.061061769059862,
+          "A_phi_half_cos_chi": -0.23543004001039783,
+          "monopole_charge_A_over_cos": 0.5,
+          "holonomy_pi_cos_chi": -1.4792505682620338,
+          "solid_angle": 9.241686443703653,
+          "minus_half_solid_plus_pi": -1.4792505682620334
+        },
+        {
+          "chi": 2.5513272113248275,
+          "A_phi_half_cos_chi": -0.4153964840489825,
+          "monopole_charge_A_over_cos": 0.5,
+          "holonomy_pi_cos_chi": -2.610013085230626,
+          "solid_angle": 11.50321147764084,
+          "minus_half_solid_plus_pi": -2.6100130852306265
+        },
+        {
+          "chi": 3.041592653589793,
+          "A_phi_half_cos_chi": -0.49750208263901285,
+          "monopole_charge_A_over_cos": 0.5,
+          "holonomy_pi_cos_chi": -3.12589777592869,
+          "solid_angle": 12.534980859036965,
+          "minus_half_solid_plus_pi": -3.1258977759286894
+        }
+      ],
+      "monopole_charge_is_half": true,
+      "max_holonomy_error": 0.0,
+      "max_berry_phase_error": 4.440892098500626e-16,
+      "pass": "True"
+    },
+    {
+      "name": "T2_wigner_rotation_from_sl2c",
+      "description": "Two non-collinear boosts compose to U\u00b7P in SL(2,C); the Wigner rotation (SU(2) part U) matches the closed-form tan(\u03c9/2) formula. Collinear boosts \u2192 no rotation.",
+      "rows": [
+        {
+          "zeta1": 1.0,
+          "zeta2": 1.0,
+          "theta_deg": 90.0,
+          "wigner_omega_matrix": 0.4207839616380715,
+          "wigner_omega_closed_form": 0.420783961638073,
+          "error": 1.4988010832439613e-15
+        },
+        {
+          "zeta1": 0.8,
+          "zeta2": 1.2,
+          "theta_deg": 59.99999999999999,
+          "wigner_omega_matrix": 0.31799990641999293,
+          "wigner_omega_closed_form": 0.3179999064199879,
+          "error": 5.051514762044462e-15
+        },
+        {
+          "zeta1": 1.5,
+          "zeta2": 0.5,
+          "theta_deg": 119.99999999999999,
+          "wigner_omega_matrix": 0.2901098576282799,
+          "wigner_omega_closed_form": 0.29010985762828156,
+          "error": 1.6653345369377348e-15
+        },
+        {
+          "zeta1": 1.0,
+          "zeta2": 1.0,
+          "theta_deg": 29.999999999999996,
+          "wigner_omega_matrix": 0.1797363164034139,
+          "wigner_omega_closed_form": 0.17973631640341436,
+          "error": 4.718447854656915e-16
+        }
+      ],
+      "max_error_vs_closed_form": 5.051514762044462e-15,
+      "collinear_omega": 0.0,
+      "collinear_no_rotation": true,
+      "pass": true
+    },
+    {
+      "name": "T3_spinor_double_cover",
+      "description": "The Wigner rotation is SU(2): R(2\u03c0)=\u2212I (spinor sign flip), R(4\u03c0)=+I \u2014 the same double cover as the Hopf bundle / RP\u00b3 (B2, T\u00b2=\u2212I). The Hopf holonomy at the pole is \u03c0 \u2192 e^{i\u03c0}=\u22121, the matching spinor sign flip.",
+      "R_2pi_z_is_minus_I": true,
+      "R_2pi_x_is_minus_I": true,
+      "R_4pi_is_plus_I": true,
+      "hopf_pole_holonomy": 3.141592653589793,
+      "hopf_pole_sign_e_i_phase": -1.0,
+      "pass": true
+    },
+    {
+      "name": "T4_thomas_precession_infinitesimal_wigner",
+      "description": "Small-rapidity Wigner rotation \u03c9 \u2248 \u00bd \u03b6\u2081\u03b6\u2082 sin\u03b8 \u2014 the \u00bd is spin-\u00bd, the leading geometric-phase (\u00bd \u00d7 rapidity-area) term. The Thomas precession factor \u03b3\u00b2/(\u03b3+1) governs the physical spin precession rate (the infinitesimal Wigner rotation).",
+      "rows": [
+        {
+          "zeta": 0.02,
+          "wigner_omega": 0.00019998667191428176,
+          "half_zeta_sq": 0.0002,
+          "ratio": 0.9999333595714087
+        },
+        {
+          "zeta": 0.05,
+          "wigner_omega": 0.0012494791897024874,
+          "half_zeta_sq": 0.0012500000000000002,
+          "ratio": 0.9995833517619898
+        },
+        {
+          "zeta": 0.1,
+          "wigner_omega": 0.004991668091935368,
+          "half_zeta_sq": 0.005000000000000001,
+          "ratio": 0.9983336183870734
+        }
+      ],
+      "max_ratio_error": 0.0016663816129266484,
+      "half_factor_confirmed": true,
+      "thomas_factors": [
+        {
+          "beta": 0.1,
+          "gamma": 1.005037815259212,
+          "thomas_factor_g2_over_gp1": 0.5037815259212076
+        },
+        {
+          "beta": 0.5,
+          "gamma": 1.1547005383792517,
+          "thomas_factor_g2_over_gp1": 0.6188021535170063
+        },
+        {
+          "beta": 0.9,
+          "gamma": 2.294157338705618,
+          "thomas_factor_g2_over_gp1": 1.5977251095131084
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T5_common_spin_half_holonomy",
+      "description": "Both holonomies are the spin-\u00bd SU(2) holonomy: the Hopf monopole charge is \u00bd and the small-rapidity Wigner rotation is \u00bd \u03b6\u00b2; both obey 'rotation = \u00bd \u00d7 solid angle'. The same spin-\u00bd geometric structure governs the Berry phase and the Wigner rotation.",
+      "hopf_monopole_charge": 0.5,
+      "wigner_half_factor": 0.49992500012623203,
+      "both_carry_spin_half": true,
+      "pass": true
+    },
+    {
+      "name": "T6_falsification_criterion",
+      "description": "Falsifier: BAM fails if A_\u03c6=c cos \u03c7 had c\u2260\u00bd (wrong spin) or lacked the spinor double cover (a boson). BAM passes: c=\u00bd (spin-\u00bd), the double cover is present (R(2\u03c0)=\u2212I), matching the Wigner SU(2) holonomy. The throat is a relativistic spin-\u00bd fermion.",
+      "hopf_monopole_charge_c": 0.5,
+      "spin_half_c_equals_half": "True",
+      "spinor_double_cover_present": true,
+      "wigner_is_su2": true,
+      "bam_passes_falsifier": true,
+      "pass": true
+    },
+    {
+      "name": "T7_b4_accounting",
+      "description": "The spin/Wigner structure is purely geometric/dimensionless (angles, SU(2), solid angles); the Wigner rotation depends only on rapidities and angles, not on any mass scale. Spin-\u00bd is topological/geometric, independent of the single anchor m_e (B4-consistent).",
+      "wigner_omega": 0.4207839616380715,
+      "depends_on_mass_scale": false,
+      "scale_independent": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The Hopf-holonomy spin (A_\u03c6=\u00bd cos \u03c7, \u222eA=\u03c0 cos \u03c7) reproduces the relativistic Wigner rotation: both are the spin-\u00bd SU(2) holonomy with the characteristic \u00bd, the spinor double cover (2\u03c0\u2192\u22121, the Hopf/RP\u00b3 structure, B2), and the geometric-phase law 'rotation = \u00bd \u00d7 solid angle'. With PR #59 (energy\u2013momentum), the boosted throat is a genuine relativistic spin-\u00bd particle. BAM survives the Wigner-rotation falsifier.",
+      "spin_matches_wigner": true,
+      "spin_half_monopole": "A_\u03c6 = \u00bd cos \u03c7",
+      "double_cover": "2\u03c0 \u2192 \u22121 (Hopf/RP\u00b3, B2)",
+      "with_pr59": "boosted throat = relativistic spin-\u00bd particle",
+      "remaining": "throat spinor from full S_BAM; g\u22122; exact hyperbolic-area match",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "SPIN_WIGNER_COVARIANT",
+  "verdict": "SPIN-\u00bd WIGNER COVARIANT. The throat's Hopf-holonomy spin reproduces the relativistic Wigner rotation \u2014 BAM survives the spin falsifier, completing the \"throat = relativistic particle\" pair with PR #59 (energy\u2013momentum).\n\nHOPF = SPIN-\u00bd BERRY PHASE. The Hopf connection A_\u03c6=\u00bd cos \u03c7 is the spin-\u00bd monopole (charge \u00bd); its holonomy \u222eA = \u03c0 cos \u03c7 = \u2212\u00bd\u03a9 + \u03c0 with \u03a9 = 2\u03c0(1\u2212cos \u03c7) \u2014 the spin-\u00bd Berry phase, \u00bd \u00d7 solid angle.\n\nWIGNER ROTATION. Two non-collinear Lorentz boosts compose to U\u00b7P in SL(2,C); the unitary part U \u2208 SU(2) is the Wigner rotation, matching the closed-form tan(\u03c9/2) to machine precision (collinear boosts \u2192 no rotation). The spinor boost B(\u03b6,n\u0302)=cosh(\u03b6/2)+sinh(\u03b6/2)n\u0302\u00b7\u03c3 is the spin-\u00bd representation (the \u00bd in \u03b6/2).\n\nCOMMON SPIN-\u00bd HOLONOMY. Both are the same spin-\u00bd SU(2) holonomy: both carry the factor \u00bd (the Hopf monopole charge \u00bd; the small-rapidity Wigner rotation \u03c9 \u2248 \u00bd \u03b6\u2081\u03b6\u2082 sin\u03b8); both live in the spinor double cover (R(2\u03c0)=\u2212I, R(4\u03c0)=+I \u2014 the same double cover as the Hopf bundle / RP\u00b3, B2, T\u00b2=\u2212I); and both obey \"rotation = \u00bd \u00d7 enclosed solid angle.\" The Thomas precession factor \u03b3\u00b2/(\u03b3+1) is the physical infinitesimal Wigner rotation.\n\nFALSIFIER. BAM would fail if A_\u03c6=c cos \u03c7 had c\u2260\u00bd (wrong spin) or lacked the double cover (a boson); it passes both \u2014 c=\u00bd (spin-\u00bd fermion) with the spinor double cover, matching the Wigner SU(2) structure. B4: the spin/Wigner structure is purely geometric/dimensionless (angles, SU(2), solid angles), independent of the single anchor m_e. Remaining: the explicit boosted throat spinor from S_BAM, g\u22122, and the exact hyperbolic-area \u2194 solid-angle match beyond the leading \u00bd."
+}
