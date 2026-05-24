@@ -537,8 +537,22 @@ problems rather than implementation TODOs:
   `docs/cpt_assembly_research_plan.md`,
   `docs/cpt_dirac_operator_research_plan.md`, and
   `docs/throat_dirac_spinor_research_plan.md`.
-- **Even-`k` absence.** Listed above as the highest-leverage near-term
-  result.
+- **Even-`k` absence.** _Classified (`even_k_absence_probe`)._ Even-`k`
+  modes are absent from the charged-lepton sector by a **spin-statistics
+  selection rule**, upgrading the odd-k closure lemma from a
+  "choice of sector" to a genuine rule. Each throat pass applies
+  `T = iσ_y` (`T² = −I`, B2); the spinor monodromy `T^k` is off-diagonal
+  for odd `k` (opposite `Z₂` class — the orientation-reversing closure
+  across the non-orientable throat = a spin-½ fermion) and diagonal for
+  even `k` (same class — orientation-preserving on the orientable double
+  cover `S³` = bosonic). So `k mod 2` is the orientability/spin-statistics
+  grading. Charged leptons are spin-½ Dirac fermions (#59–#66), hence the
+  odd class; even `k` (bosonic) is excluded — and *not* arithmetically,
+  since `Φ_avail(k) ≡ 0 mod 2π` for every integer `k`. The even-`k`
+  absence is the spin-statistics face of the same `T² = −I` fermionic
+  throat as #60/#61/#65/#66. Remaining: the even-`k` (bosonic) spectrum,
+  and why exactly three generations (`k ≤ 5`). See
+  `docs/even_k_absence_research_plan.md`.
 - **Quark `β` lock.** Listed above. The README correctly flags this as
   a phenomenological compensator under all current ablations.
 
