@@ -1,0 +1,89 @@
+{
+  "timestamp_utc": "2026-05-24T04:00:23+00:00",
+  "C_operation": "S : r \u21a6 2 R_MID \u2212 r (inner/outer reflection)",
+  "effect": "c\u2081 \u2192 \u2212c\u2081 (throat \u2192 antithroat)",
+  "charge": "c\u2081 = (1/2\u03c0)\u222eF = \u00b11 (integrated Hopf curvature)",
+  "consistency": "antipodal Z\u2082 / T=i\u03c3_y (B2); pair production (#58)",
+  "b4_caveat": "c\u2081=\u00b11 dimensionless topological integer; C scale-independent",
+  "tests": [
+    {
+      "name": "T1_charge_is_integrated_hopf_curvature",
+      "description": "The throat charge is the integrated Hopf curvature c\u2081 = (1/2\u03c0)\u222eF = \u00b11 (first Chern number; F = \u2212\u00bd sin \u03c7 d\u03c7\u2227d\u03c6).",
+      "c1_abs": 0.9999999485700981,
+      "analytic": -1.0,
+      "is_unit_charge": true,
+      "pass": true
+    },
+    {
+      "name": "T2_swap_involution_modes_odd",
+      "description": "S: r \u21a6 2R_MID \u2212 r fixes R_MID, exchanges R_INNER \u2194 R_OUTER, S\u00b2=id. The throat modes are odd under S (the B3 antisymmetric extension u(2R_MID\u2212r)=\u2212u(r), with the Dirichlet node at the throat).",
+      "fixes_throat": true,
+      "exchanges_inner_outer": true,
+      "is_involution": true,
+      "modes_odd_under_swap": true,
+      "dirichlet_node_at_throat": "True",
+      "pass": true
+    },
+    {
+      "name": "T3_swap_reverses_mouth_orientation",
+      "description": "The mouth orientation is set by the outward normal n\u0302=\u00b1r\u0302 (outer +r\u0302, inner \u2212r\u0302); the normals point oppositely, so the swap (d(2R_MID\u2212r)=\u2212dr) reverses the mouth orientation.",
+      "normal_outer": 1.0,
+      "normal_inner": -1.0,
+      "normals_opposite": true,
+      "swap_reverses_dr": true,
+      "pass": true
+    },
+    {
+      "name": "T4_integrated_curvature_flips",
+      "description": "Under the swap-induced orientation reversal the integrated Hopf curvature flips: c\u2081 \u2192 \u2212c\u2081. The two mouth orientations are compute_c1's c1_chiphi=\u22121 (outer) and c1_phichi=+1 (inner).",
+      "c1_outer_mouth": -0.9999999485700981,
+      "c1_inner_mouth": 0.9999999485700981,
+      "sum_is_zero": 0.0,
+      "charge_flips_under_swap": true,
+      "pass": true
+    },
+    {
+      "name": "T5_C_is_inner_outer_swap",
+      "description": "C = the inner/outer swap S: throat (c\u2081=+1) \u2192 antithroat (c\u2081=\u22121). The C-conjugate of pair production (#58) and the antipodal Z\u2082 (B2). C is geometric, not a postulate.",
+      "throat_charge": 1,
+      "antithroat_charge_C_image": -1,
+      "C_flips_charge": true,
+      "matches_pair_production_antithroat": true,
+      "matches_antipodal_Z2_B2": true,
+      "pass": true
+    },
+    {
+      "name": "T6_C_squared_identity",
+      "description": "C\u00b2=id: the inner/outer swap twice returns the throat (c\u2081\u2192\u2212c\u2081\u2192+c\u2081). Consistent with the antipodal Z\u2082 / T=i\u03c3_y (B2) and the spinor double cover (CPT).",
+      "c1_initial": 1,
+      "c1_after_C": -1,
+      "c1_after_C_squared": 1,
+      "C_squared_is_identity": true,
+      "coordinate_involution": true,
+      "pass": true
+    },
+    {
+      "name": "T7_falsification_b4",
+      "description": "Falsifier: a swap-invariant charge would break C=swap; BAM passes (the swap flips c\u2081). B4: c\u2081=\u00b11 is a dimensionless topological integer, C a discrete geometric involution \u2014 scale-independent.",
+      "charge_flips_under_swap": true,
+      "swap_invariant_would_falsify": false,
+      "c1_is_topological_integer": true,
+      "bam_passes": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "C = the inner/outer swap S: r \u21a6 2R_MID \u2212 r \u2014 an involution fixing the throat, modes odd under it (B3), flipping the integrated Hopf curvature (c\u2081\u2192\u2212c\u2081), throat\u2192antithroat. C is geometric, not a postulate; consistent with the antipodal Z\u2082 (B2) and the pair-production antithroat (#58).",
+      "C_operation": "S : r \u21a6 2 R_MID \u2212 r (inner/outer reflection)",
+      "effect": "c\u2081 \u2192 \u2212c\u2081 (throat \u2192 antithroat)",
+      "involution": "C\u00b2 = id",
+      "consistency": "antipodal Z\u2082 / T=i\u03c3_y (B2); pair production (#58)",
+      "remaining": "full CPT from S_BAM; C on the Dirac spinor (\u03c8 \u2192 C \u03c8\u0304\u1d40)",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "C_IS_INNER_OUTER_SWAP",
+  "verdict": "C IS THE INNER/OUTER SWAP. Charge conjugation is promoted from a postulate to a geometric statement: the inner/outer reflection across the throat is C.\n\nTHE SWAP. The two wormhole regions r < R_MID (inner) and r > R_MID (outer), with R_INNER, R_OUTER symmetric about the throat, are exchanged by the reflection S: r \u21a6 2R_MID \u2212 r \u2014 fixing R_MID, exchanging R_INNER \u2194 R_OUTER, an involution (S\u00b2=id). It is the reflection of the B3 hard-wall odd extension: the throat modes are odd under S (u(2R_MID\u2212r)=\u2212u(r)).\n\nTHE CHARGE FLIPS. The charge is the integrated Hopf curvature c\u2081 = (1/2\u03c0)\u222eF = \u00b11 (first Chern number). The mouth's induced orientation is set by its outward normal n\u0302=\u00b1r\u0302 (outer +r\u0302, inner \u2212r\u0302); the normals point oppositely, so the inner and outer mouths carry opposite orientation and c\u2081(inner) = \u2212c\u2081(outer) \u2014 exactly compute_c1's c1_chiphi=\u22121, c1_phichi=+1. The swap reverses the mouth orientation, flipping the integrated curvature: c\u2081 \u2192 \u2212c\u2081. With the modes odd under S, the swap takes a throat (c\u2081=+1) to its antithroat (c\u2081=\u22121).\n\nC IS GEOMETRIC. Charge conjugation \u2014 particle \u2192 antiparticle \u2014 is realized as C = S, with C: c\u2081 \u2192 \u2212c\u2081 and C\u00b2=id. It is no longer a postulate but the throat-reflection involution, consistent with the antipodal Z\u2082 / T=i\u03c3_y (B2) and the C-conjugate antithroat of pair production (#58). B4: c\u2081=\u00b11 is a dimensionless topological integer, C a discrete geometric involution \u2014 scale-independent. Remaining: the full CPT statement from S_BAM, and the explicit action of S on the throat Dirac spinor (\u03c8 \u2192 C \u03c8\u0304\u1d40) beyond the charge sign."
+}
