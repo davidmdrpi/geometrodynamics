@@ -1,0 +1,84 @@
+{
+  "timestamp_utc": "2026-05-24T08:36:48+00:00",
+  "spinor": "throat Dirac 4-spinor = inner/outer mouth doubling",
+  "C": "i\u03b3\u00b2\u03b3\u2070 (defining C\u207b\u00b9\u03b3^\u03bcC=\u2212(\u03b3^\u03bc)\u1d40; the #63 inner/outer swap)",
+  "P": "\u03b3\u2070 (P\u00b2=+I)",
+  "T": "\u03b3\u00b9\u03b3\u00b3 K (T\u00b2=\u2212I; the B2 i\u03c3_y)",
+  "Theta_CPT": "\u03b3\u2070\u03b3\u00b9\u03b3\u00b2\u03b3\u00b3=\u2212i\u03b3\u2075 (\u221d \u03b3\u2075); \u0398_m\u00b2=\u2212I, antiunitary \u0398\u00b2=+I",
+  "consistency": "\u0398\u207b\u00b9\u03b3^\u03bc\u0398=\u2212\u03b3^\u03bc \u2192 j^\u03bc\u2192\u2212j^\u03bc (the #64 sign table)",
+  "b4_caveat": "dimensionless constant matrices; group facts; scale-independent",
+  "tests": [
+    {
+      "name": "T1_throat_dirac_4spinor",
+      "description": "The throat Dirac 4-spinor = the inner/outer mouth doubling \u03a8=(\u03a8_inner,\u03a8_outer). Dirac-rep Clifford algebra {\u03b3^\u03bc,\u03b3^\u03bd}=2\u03b7^\u03bc\u03bd; \u03b3\u2075=[[0,I],[I,0]] mixes the mouths.",
+      "clifford_algebra_holds": true,
+      "g5_is_offdiag_I": true,
+      "g5_squared_is_I": true,
+      "pass": true
+    },
+    {
+      "name": "T2_charge_conjugation",
+      "description": "C_m=i\u03b3\u00b2\u03b3\u2070 satisfies the defining relation C_m\u207b\u00b9\u03b3^\u03bcC_m=\u2212(\u03b3^\u03bc)\u1d40 (the robust fact); the matrix square is C_m\u00b2=\u2212I. Charge conjugation = the inner/outer swap (#63, c\u2081\u2192\u2212c\u2081) on the throat spinor.",
+      "defining_relation_holds": true,
+      "C_matrix_squared_is_minus_I": true,
+      "pass": true
+    },
+    {
+      "name": "T3_parity",
+      "description": "P_m=\u03b3\u2070: \u03b3\u2070\u03b3\u2071\u03b3\u2070=\u2212\u03b3\u2071 (spatial reflection), \u03b3\u2070\u03b3\u2070\u03b3\u2070=\u03b3\u2070, P\u00b2=+I.",
+      "spatial_gammas_flip": true,
+      "temporal_gamma_fixed": true,
+      "P_squared_is_I": true,
+      "pass": true
+    },
+    {
+      "name": "T4_time_reversal",
+      "description": "T_m=\u03b3\u00b9\u03b3\u00b3 (antiunitary): T\u00b2=T_m T_m*=\u2212I \u2014 the fermionic signature, the same T\u00b2=\u22121 as the B2 i\u03c3_y spin structure.",
+      "T_squared_is_minus_I": true,
+      "matches_B2_iSy_signature": true,
+      "pass": true
+    },
+    {
+      "name": "T5_theta_is_gamma5",
+      "description": "CPT inverts all four spacetime axes; its spinor matrix is the total-inversion product \u0398_m = \u03b3\u2070\u03b3\u00b9\u03b3\u00b2\u03b3\u00b3 = \u2212i\u03b3\u2075 (\u221d \u03b3\u2075). It is characterized by anticommuting with every \u03b3^\u03bc \u2014 the explicit CPT operator on the throat Dirac spinor.",
+      "theta_is_total_inversion_product": true,
+      "theta_equals_minus_i_gamma5": true,
+      "anticommutes_with_all_gamma": true,
+      "proportional_to_g5": true,
+      "pass": true
+    },
+    {
+      "name": "T6_theta_squared",
+      "description": "\u0398_m\u00b2 = (\u2212i\u03b3\u2075)\u00b2 = \u2212I (matrix), but the CPT OPERATOR is antiunitary (one antiunitary factor, T), so \u0398\u00b2 = \u0398_m \u0398_m* = +I \u2014 (CPT)\u00b2=+1, consistent with CPT being a symmetry. The fermionic \u22121 double cover is T\u00b2=\u2212I (the 2\u03c0 rotation / RP\u00b3 spin structure, B2), not CPT\u00b2.",
+      "theta_matrix_squared_is_minus_I": true,
+      "theta_operator_squared_is_plus_I": true,
+      "fermionic_double_cover_is_T2_minus_I": true,
+      "pass": true
+    },
+    {
+      "name": "T7_consistency_falsification_b4",
+      "description": "\u0398_m\u207b\u00b9\u03b3^\u03bc\u0398_m=\u2212\u03b3^\u03bc (\u03b3\u2075 anticommutes with every \u03b3^\u03bc) \u2192 the 4-current j^\u03bc \u2192 \u2212j^\u03bc(\u2212x), recovering the #64 CPT sign at the operator level. C \u2194 the inner/outer swap (#63); T \u2194 the B2 i\u03c3_y. A consistent CPT operator must exist for a local Dirac theory; BAM passes. B4: dimensionless constant matrices.",
+      "current_flips_under_theta": true,
+      "g5_anticommutes_with_all_gamma": true,
+      "C_is_inner_outer_swap_63": true,
+      "T_is_B2_iSy": true,
+      "operators_dimensionless": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Explicit operators: C=i\u03b3\u00b2\u03b3\u2070 (C\u207b\u00b9\u03b3^\u03bcC=\u2212(\u03b3^\u03bc)\u1d40, C_m\u00b2=\u2212I), P=\u03b3\u2070 (P\u00b2=+I), T=\u03b3\u00b9\u03b3\u00b3 K (T\u00b2=\u2212I) \u2192 \u0398=CPT=\u03b3\u2070\u03b3\u00b9\u03b3\u00b2\u03b3\u00b3=\u2212i\u03b3\u2075 (\u221d\u03b3\u2075, total spacetime inversion), with \u0398_m\u00b2=\u2212I but antiunitary \u0398\u00b2=+I (the fermionic \u22121 is T\u00b2=\u2212I, B2), and \u0398\u207b\u00b9\u03b3^\u03bc\u0398=\u2212\u03b3^\u03bc (the #64 current sign). The throat is a Dirac spinor with the standard CPT operator, realized geometrically (mouth doubling; C=#63 swap; T=B2 i\u03c3_y).",
+      "C": "i\u03b3\u00b2\u03b3\u2070 (C\u207b\u00b9\u03b3^\u03bcC=\u2212(\u03b3^\u03bc)\u1d40, C_m\u00b2=\u2212I)",
+      "P": "\u03b3\u2070 (P\u00b2=+I)",
+      "T": "\u03b3\u00b9\u03b3\u00b3 K (T\u00b2=\u2212I)",
+      "Theta_CPT": "\u03b3\u2070\u03b3\u00b9\u03b3\u00b2\u03b3\u00b3=\u2212i\u03b3\u2075 (\u221d \u03b3\u2075)",
+      "Theta_squared": "\u0398_m\u00b2=\u2212I (matrix); antiunitary \u0398\u00b2=+I; fermionic \u22121 = T\u00b2=\u2212I (B2)",
+      "remaining": "the throat spinor as an S_BAM bulk solution; P vs antipodal Z\u2082 at the spinor level",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "CPT_OPERATOR_CONSTRUCTED",
+  "verdict": "CPT OPERATOR CONSTRUCTED. The explicit gamma-matrix CPT operator on the throat Dirac spinor is built, closing the remaining note of PR #64.\n\nTHE SPINOR. The throat Dirac 4-spinor is the doubling of the inner/outer mouth 2-spinors, \u03a8=(\u03a8_inner,\u03a8_outer), with the Dirac-representation Clifford algebra and \u03b3\u2075=[[0,I],[I,0]] mixing the mouths.\n\nTHE OPERATORS. C = i\u03b3\u00b2\u03b3\u2070 (charge conjugation) satisfies the defining relation C_m\u207b\u00b9\u03b3^\u03bcC_m=\u2212(\u03b3^\u03bc)\u1d40 with C\u00b2=\u2212I \u2014 the inner/outer swap (#63, c\u2081\u2192\u2212c\u2081) on the spinor. P = \u03b3\u2070 (parity, \u03b3\u2070\u03b3\u2071\u03b3\u2070=\u2212\u03b3\u2071, P\u00b2=+I). T = i\u03b3\u00b9\u03b3\u00b3 K (time reversal, antiunitary) with T\u00b2=\u2212I \u2014 the fermionic signature, the same T\u00b2=\u22121 as the B2 i\u03c3_y spin structure.\n\nTHE COMPOSITE. CPT inverts all four spacetime axes (P inverts space, T inverts time), so its spinor matrix is the total-inversion product \u0398_m = \u03b3\u2070\u03b3\u00b9\u03b3\u00b2\u03b3\u00b3 = \u2212i\u03b3\u2075 \u2014 proportional to the chiral matrix \u03b3\u2075, characterized by anticommuting with every \u03b3^\u03bc. The matrix squares to \u0398_m\u00b2=(\u2212i\u03b3\u2075)\u00b2=\u2212I, but the CPT OPERATOR is antiunitary (C, P unitary; T antiunitary), so its square is \u0398\u00b2=\u0398_m \u0398_m*=+I \u2014 (CPT)\u00b2=+1, consistent with CPT being a symmetry; the fermionic \u22121 spinor double cover is carried by T\u00b2=\u2212I (the 2\u03c0 rotation / RP\u00b3 spin structure, B2), not by CPT\u00b2. On the 4-current j^\u03bc=\u03a8\u0304\u03b3^\u03bc\u03a8, \u0398_m\u207b\u00b9\u03b3^\u03bc\u0398_m=\u2212\u03b3^\u03bc (\u03b3\u2075 anticommutes with every \u03b3^\u03bc), realizing j^\u03bc(x)\u2192\u2212j^\u03bc(\u2212x) \u2014 the #64 CPT sign table at the operator level.\n\nSo the throat is a Dirac spinor carrying the standard CPT operator, realized geometrically: the inner/outer mouth doubling, C = the #63 swap, T = the B2 i\u03c3_y. B4: the operators are dimensionless constant matrices (\u0398\u221d\u03b3\u2075, T\u00b2=\u2212I are group facts) \u2014 scale-independent. Remaining: the throat spinor as an explicit S_BAM bulk solution, and disentangling P from the antipodal Z\u2082 at the spinor level."
+}
