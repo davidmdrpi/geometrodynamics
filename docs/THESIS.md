@@ -510,8 +510,17 @@ problems rather than implementation TODOs:
   `c1_phichi = +1` of `compute_c1`), taking a throat to its antithroat.
   So `C = S`, `C² = id` — charge conjugation as geometry, consistent with
   the antipodal `Z₂` / `T = iσ_y` (B2) and the pair-production antithroat
-  (#58). Remaining: the full CPT statement from `S_BAM` and `C` on the
-  Dirac spinor. See `docs/charge_conjugation_swap_research_plan.md`.
+  (#58). C, P (spatial `S³` reflection), and T (`iσ_y`, B2) then assemble
+  (`cpt_assembly_probe`) into the antiunitary **CPT** symmetry on throat
+  histories — `q→−, p→+, x→−, s→−, t→−, E→+` with `C²=P²=+1`, `T²=−I` —
+  mapping a throat to the antithroat run backwards (the Feynman–Stückelberg
+  antiparticle = the pair-production "V" in time, #58). CPT is guaranteed
+  by the throat's local Lorentz invariance (#59–#60); the closed `S³`
+  breaks *global* Lorentz invariance, suppressing CPT violation by
+  `(R_MID/R_cosmo)² ~ 10⁻⁷⁸`. Remaining: the explicit CPT operator on the
+  throat Dirac spinor from `S_BAM`. See
+  `docs/charge_conjugation_swap_research_plan.md` and
+  `docs/cpt_assembly_research_plan.md`.
 - **Even-`k` absence.** Listed above as the highest-leverage near-term
   result.
 - **Quark `β` lock.** Listed above. The README correctly flags this as

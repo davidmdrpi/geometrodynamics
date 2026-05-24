@@ -1,0 +1,161 @@
+{
+  "timestamp_utc": "2026-05-24T08:17:58+00:00",
+  "cpt": "C\u00b7P\u00b7T \u2192 q\u2192\u2212, p\u2192+, x\u2192\u2212, s\u2192\u2212, t\u2192\u2212, E\u2192+",
+  "operations": "C = inner/outer swap (#63); P = S\u00b3 reflection; T = i\u03c3_y (B2)",
+  "signatures": "C\u00b2=+1, P\u00b2=+1, T\u00b2=\u2212I",
+  "throat_histories": "CPT(throat fwd) = antithroat bwd (St\u00fcckelberg = #58)",
+  "theorem": "local Lorentz invariance (#59\u2013#60) \u27f9 CPT; global S\u00b3 breaking suppressed",
+  "b4_caveat": "discrete geometric operations; scale-independent",
+  "tests": [
+    {
+      "name": "T1_three_operations",
+      "description": "C = inner/outer swap (#63), P = spatial S\u00b3 reflection, T = i\u03c3_y K (B2, antiunitary) \u2014 the three discrete symmetries on a throat history.",
+      "operations": {
+        "C_charge_conjugation": {
+          "geometry": "inner/outer swap S: r \u21a6 2R_MID \u2212 r (#63)",
+          "effect": "c\u2081 \u2192 \u2212c\u2081 (throat \u2192 antithroat)"
+        },
+        "P_parity": {
+          "geometry": "spatial S\u00b3 reflection x \u2192 \u2212x",
+          "effect": "p \u2192 \u2212p; spin (axial) P-even"
+        },
+        "T_time_reversal": {
+          "geometry": "i\u03c3_y K (B2, antiunitary)",
+          "effect": "t \u2192 \u2212t, s \u2192 \u2212s, E \u2192 +E"
+        }
+      },
+      "pass": true
+    },
+    {
+      "name": "T2_involution_signatures",
+      "description": "C\u00b2=+1, P\u00b2=+1 (ordinary involutions); T\u00b2=\u2212I (fermionic, the RP\u00b3 spin structure, B2). (i\u03c3_y K)\u00b2 = i\u03c3_y(i\u03c3_y)* = \u2212I.",
+      "C_squared_plus1": true,
+      "P_squared_plus1": true,
+      "T_squared_matrix": [
+        [
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0
+        ]
+      ],
+      "T_squared_is_minus_I": true,
+      "pass": true
+    },
+    {
+      "name": "T3_cpt_transformation_table",
+      "description": "CPT = C\u00b7P\u00b7T: q\u2192\u2212q, p\u2192+p, x\u2192\u2212x, s\u2192\u2212s, t\u2192\u2212t, E\u2192+E \u2014 a particle (q,p,s,E>0) \u2192 antiparticle (\u2212q,p,\u2212s,E>0) with x,t reversed.",
+      "rows": [
+        {
+          "observable": "q",
+          "C": -1,
+          "P": 1,
+          "T": 1,
+          "CPT": -1
+        },
+        {
+          "observable": "p",
+          "C": 1,
+          "P": -1,
+          "T": -1,
+          "CPT": 1
+        },
+        {
+          "observable": "x",
+          "C": 1,
+          "P": -1,
+          "T": 1,
+          "CPT": -1
+        },
+        {
+          "observable": "s",
+          "C": 1,
+          "P": 1,
+          "T": -1,
+          "CPT": -1
+        },
+        {
+          "observable": "t",
+          "C": 1,
+          "P": 1,
+          "T": -1,
+          "CPT": -1
+        },
+        {
+          "observable": "E",
+          "C": 1,
+          "P": 1,
+          "T": 1,
+          "CPT": 1
+        }
+      ],
+      "cpt_signs": {
+        "q": -1,
+        "p": 1,
+        "x": -1,
+        "s": -1,
+        "t": -1,
+        "E": 1
+      },
+      "matches_standard_cpt": true,
+      "pass": true
+    },
+    {
+      "name": "T4_bam_realizations",
+      "description": "C = the inner/outer swap (c\u2081\u2192\u2212c\u2081, PR #63); T = i\u03c3_y (T\u00b2=\u2212I, B2). The discrete symmetries are established BAM geometric operations, not postulates.",
+      "C_inner_outer_swap_involution": true,
+      "C_flips_c1": "c\u2081 \u2192 \u2212c\u2081 (PR #63)",
+      "T_is_iSy_T2_minus_I": true,
+      "pass": true
+    },
+    {
+      "name": "T5_stuckelberg_pair_production",
+      "description": "CPT(throat forward, c\u2081=+1) = antithroat backward (c\u2081=\u22121) \u2014 the Feynman\u2013St\u00fcckelberg antiparticle = particle reversed in time. This is the pair-production structure (#58): the throat\u2013antithroat pair is one worldline turning in time at nucleation, the arms CPT-related; total charge 0.",
+      "throat_forward": {
+        "q": 1,
+        "t_direction": 1
+      },
+      "cpt_image": {
+        "q": -1,
+        "t_direction": -1
+      },
+      "is_antithroat_running_backward": true,
+      "pair_total_charge": 0,
+      "pass": true
+    },
+    {
+      "name": "T6_cpt_theorem_from_local_lorentz",
+      "description": "CPT is guaranteed by locality + Lorentz invariance (L\u00fcders\u2013Pauli). The throat has local Lorentz invariance (#59\u2013#60), so CPT is exact locally; the closed S\u00b3 breaks global Lorentz invariance, suppressing CPT violation by (R_MID/R_cosmo)\u00b2 \u2014 calculable, unobservably small.",
+      "local_lorentz_invariance": true,
+      "global_lorentz_broken_by_s3": true,
+      "cpt_violation_suppression": 7.977190288436537e-78,
+      "unobservably_small": true,
+      "pass": true
+    },
+    {
+      "name": "T7_falsification_b4",
+      "description": "Falsifier: an O(1) CPT violation would need non-local or Lorentz-violating physics. BAM passes \u2014 local Lorentz (#59) gives CPT, with only the suppressed (R_MID/R_cosmo)\u00b2 global violation. B4: the operations are dimensionless/geometric; c\u2081 a topological integer, T\u00b2=\u22121 a group fact \u2014 scale-independent.",
+      "o1_violation_would_falsify": true,
+      "bam_violation_suppressed": true,
+      "suppression": 7.977190288436537e-78,
+      "operations_dimensionless": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "C (inner/outer swap, #63) + P (S\u00b3 reflection) + T (i\u03c3_y, B2) = the antiunitary CPT symmetry (q\u2192\u2212,p\u2192+,x\u2192\u2212,s\u2192\u2212,t\u2192\u2212,E+; C\u00b2=P\u00b2=+1, T\u00b2=\u2212I), mapping a throat history to the antithroat history run backwards (St\u00fcckelberg = pair production, #58). Guaranteed by local Lorentz invariance (#59\u2013#60); global S\u00b3 breaking \u2192 suppressed (R_MID/R_cosmo)\u00b2 violation. The discrete-symmetry sector is unified.",
+      "cpt": "q\u2192\u2212, p\u2192+, x\u2192\u2212, s\u2192\u2212, t\u2192\u2212, E\u2192+",
+      "signatures": "C\u00b2=+1, P\u00b2=+1, T\u00b2=\u2212I",
+      "throat_histories": "CPT(throat fwd) = antithroat bwd (St\u00fcckelberg = #58)",
+      "theorem": "local Lorentz invariance (#59\u2013#60) \u27f9 CPT",
+      "remaining": "full CPT operator on the throat spinor from S_BAM; P vs antipodal Z\u2082; observable bounds",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "CPT_ASSEMBLED",
+  "verdict": "CPT ASSEMBLED. The three BAM discrete symmetries compose to the antiunitary CPT symmetry on throat histories, unifying the discrete-symmetry sector.\n\nTHE OPERATIONS. C = charge conjugation = the inner/outer swap (S: r \u21a6 2R_MID \u2212 r, c\u2081 \u2192 \u2212c\u2081, PR #63); P = parity = spatial S\u00b3 reflection (x\u2192\u2212x, p\u2192\u2212p); T = time reversal = i\u03c3_y K (B2, antiunitary, t\u2192\u2212t, s\u2192\u2212s, E\u2192+E). Their signatures are C\u00b2=+1, P\u00b2=+1, and T\u00b2=\u2212I \u2014 the fermionic spin structure (the non-trivial RP\u00b3 spin structure, B2), with (i\u03c3_y K)\u00b2=\u2212I verified.\n\nTHE COMPOSITION. The sign tables compose to CPT: q\u2192\u2212q, p\u2192+p, x\u2192\u2212x, s\u2192\u2212s, t\u2192\u2212t, E\u2192+E \u2014 a particle (q,p,s,E>0) mapped to an antiparticle (\u2212q,p,\u2212s,E>0) with x,t reversed (E>0 preserved by T's antiunitarity).\n\nTHROAT HISTORIES. A throat going forward with c\u2081=+1 maps under CPT to an antithroat (c\u2081=\u22121) running backwards \u2014 the Feynman\u2013St\u00fcckelberg antiparticle. This IS the pair-production structure (PR #58): a throat\u2013antithroat pair is one worldline turning around in time at the nucleation point, the two arms related by CPT (total charge 0).\n\nTHE THEOREM. CPT is guaranteed for any local, Lorentz-invariant theory (L\u00fcders\u2013Pauli). The throat carries LOCAL Lorentz invariance (PRs #59\u2013#60), so CPT is exact locally; the closed S\u00b3 breaks GLOBAL Lorentz invariance (a preferred frame, #59), so any CPT violation is suppressed by (R_MID/R_cosmo)\u00b2 ~ 10\u207b\u2077\u2078 \u2014 calculable, unobservably small. An O(1) violation would falsify; BAM passes. B4: C, P, T, CPT are discrete geometric operations (c\u2081 a topological integer, T\u00b2=\u22121 a group fact) \u2014 scale-independent. Remaining: the full CPT operator on the throat Dirac spinor from S_BAM, disentangling P from the antipodal Z\u2082 (B2), and observable CPT bounds."
+}

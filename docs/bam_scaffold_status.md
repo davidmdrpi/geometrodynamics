@@ -260,6 +260,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `gyromagnetic_ratio_probe` | throat g = 2 (magnetic moment) | G_FACTOR_DERIVED |
 | `throat_vertex_loop_probe` | throat g−2 = α/2π (one loop) | SCHWINGER_RECONSTRUCTED |
 | `charge_conjugation_swap_probe` | C = inner/outer swap (c₁→−c₁) | C_IS_INNER_OUTER_SWAP |
+| `cpt_assembly_probe` | CPT = C·P·T (throat histories) | CPT_ASSEMBLED |
 
 ## Cross-references
 
@@ -292,6 +293,8 @@ the B4 audit shows cannot come from scale-free geometry.
     anomaly `a = α/2π` from the throat-vertex loop (reconstruction).
   - `docs/charge_conjugation_swap_research_plan.md` — C = the inner/outer
     swap (`c₁ → −c₁`); charge conjugation as geometry.
+  - `docs/cpt_assembly_research_plan.md` — C·P·T assembled into the
+    geometric CPT symmetry on throat histories.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
     summarises.
