@@ -470,9 +470,18 @@ problems rather than implementation TODOs:
   and stays stable (`d²E/dR²>0` is a rest-frame condition). The closed
   `S³` breaks *global* Lorentz invariance (a preferred frame), but the
   finite-size violation is suppressed by `(R_MID/R_cosmo)² ~ 10⁻⁷⁸` —
-  local Lorentz covariance holds. Remaining: the explicit boosted soliton
-  from `S_BAM` and the spin Wigner rotation. See
-  `docs/stable_moving_throat_research_plan.md`.
+  local Lorentz covariance holds. The companion **spin** test
+  (`spin_wigner_rotation_probe`) confirms the throat's Hopf-holonomy spin
+  (`A_φ = ½ cos χ`, `∮A = π cos χ`) reproduces the relativistic **Wigner
+  rotation**: both are the spin-½ `SU(2)` holonomy — the same `½` factor,
+  the spinor double cover (`2π → −1`, the Hopf/RP³ structure), and the
+  geometric-phase law "rotation = ½ × solid angle"; two non-collinear
+  boosts compose (in `SL(2,C)`) to the Wigner `SU(2)` rotation matching
+  the closed form. So the boosted throat is a genuine relativistic
+  spin-½ particle. Remaining: the explicit boosted throat spinor from
+  `S_BAM` and `g − 2`. See
+  `docs/stable_moving_throat_research_plan.md` and
+  `docs/spin_wigner_rotation_research_plan.md`.
 - **Charge conjugation from inner/outer swap.** Promote the C-symmetry
   from a postulate to a geometric statement — that swapping
   `r < R_MID ↔ r > R_MID` in the throat eigenmodes flips the sign of
@@ -496,13 +505,16 @@ then geometry is doing more work than the standard QFT picture credits
 it with, and BAM has identified specific geometric channels through
 which it does that work. That is itself a result.
 
-If BAM fails on its remaining falsification tests — if Berry phases do
-not reproduce spin-½ under motion, if `β = 466·π/2` resists every
-principled enumeration — then the proposal is wrong in a way that
-points to which of the three channels was overcredited, and a sharper
-version of the program may still be available. (The two-throat
-Coulomb force test, once the program's most exposed prediction, has
-now passed: the force goes as `1/sin²(ψ)` and reduces to the
-inverse-square law.)
+If BAM fails on its remaining falsification tests — if `β = 466·π/2`
+resists every principled enumeration — then the proposal is wrong in a
+way that points to which of the three channels was overcredited, and a
+sharper version of the program may still be available. (Two of the
+program's most exposed predictions have now passed. The two-throat
+Coulomb force test: the force goes as `1/sin²(ψ)` and reduces to the
+inverse-square law. And the relativistic-particle tests for a moving
+throat: the energy–momentum obeys `E²−(pc)²=(mc²)²` with the invariant
+mass equal to the static eigenvalue (`stable_moving_throat_probe`), and
+the Hopf-holonomy Berry phase reproduces spin-½ under motion — the
+relativistic Wigner rotation (`spin_wigner_rotation_probe`).)
 
 The package is a tool for distinguishing these three outcomes.
