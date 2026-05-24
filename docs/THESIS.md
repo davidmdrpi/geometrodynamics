@@ -461,9 +461,18 @@ problems rather than implementation TODOs:
   `docs/cohesive_tension_derivation_research_plan.md`,
   `docs/brane_tension_tuning_research_plan.md`, and
   `docs/pair_production_threshold_research_plan.md`.
-- **Stable moving throats.** A boosted throat solution must remain
-  self-consistent. The "is the throat actually a particle" test is
-  whether `m c²` for a moving throat agrees with the static eigenvalue.
+- **Stable moving throats.** _Addressed (`stable_moving_throat_probe`)._
+  A boosted throat obeys the relativistic dispersion
+  `ω(k)=√(ω₀²+c²k²)`, so `E²−(pc)²=(mc²)²` with the invariant mass equal
+  to the static rest eigenvalue `ω(1,0)` to machine precision — `m c²`
+  for a moving throat agrees with the static eigenvalue (the throat is a
+  particle). It contracts as `R*/γ` with a boost-invariant proper frame
+  and stays stable (`d²E/dR²>0` is a rest-frame condition). The closed
+  `S³` breaks *global* Lorentz invariance (a preferred frame), but the
+  finite-size violation is suppressed by `(R_MID/R_cosmo)² ~ 10⁻⁷⁸` —
+  local Lorentz covariance holds. Remaining: the explicit boosted soliton
+  from `S_BAM` and the spin Wigner rotation. See
+  `docs/stable_moving_throat_research_plan.md`.
 - **Charge conjugation from inner/outer swap.** Promote the C-symmetry
   from a postulate to a geometric statement — that swapping
   `r < R_MID ↔ r > R_MID` in the throat eigenmodes flips the sign of

@@ -255,6 +255,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `cohesive_tension_derivation_probe` | B4 anchor (cohesive term) | COHESIVE_TENSION_DERIVED |
 | `brane_tension_tuning_probe` | B4 anchor (bulk-gravity tuning) | BRANE_TUNING_DERIVED |
 | `pair_production_threshold_probe` | B4 anchor (pair threshold) | PAIR_THRESHOLD_DERIVED |
+| `stable_moving_throat_probe` | throat = particle (Lorentz) | MOVING_THROAT_COVARIANT |
 
 ## Cross-references
 
@@ -277,6 +278,8 @@ the B4 audit shows cannot come from scale-free geometry.
     bulk-gravity fine-tuning (factor `√6`).
   - `docs/pair_production_threshold_research_plan.md` — the
     pair-production threshold `2 m_e c²` (lowest stable throat pair).
+  - `docs/stable_moving_throat_research_plan.md` — the boosted throat /
+    Lorentz-covariance falsifier (throat = particle).
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
     summarises.
