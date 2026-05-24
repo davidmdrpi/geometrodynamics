@@ -1,0 +1,179 @@
+{
+  "timestamp_utc": "2026-05-24T20:25:21+00:00",
+  "grading": "k mod 2 = orientability (T^k off-diagonal odd / diagonal even)",
+  "rule": "charged lepton = spin-\u00bd fermion \u27fa orientation-reversing \u27fa odd k",
+  "even_k": "orientable double-cover / bosonic sector (not a charged lepton)",
+  "not_arithmetic": "\u03a6_avail(k) \u2261 0 mod 2\u03c0 for every integer k",
+  "b4_caveat": "k dimensionless integer; selection topological, scale-independent",
+  "tests": [
+    {
+      "name": "T1_monodromy_Tk",
+      "description": "T = i\u03c3_y (T\u00b2=\u2212I, B2); the monodromy T^k is off-diagonal for odd k (opposite Z\u2082 class) and diagonal for even k (same class) \u2014 the Z\u2082 orientability grading is k mod 2.",
+      "T_squared_is_minus_I": true,
+      "rows": [
+        {
+          "k": 1,
+          "T_k_offdiagonal": "True",
+          "parity": "odd",
+          "Z2_class": "opposite"
+        },
+        {
+          "k": 2,
+          "T_k_offdiagonal": "False",
+          "parity": "even",
+          "Z2_class": "same"
+        },
+        {
+          "k": 3,
+          "T_k_offdiagonal": "True",
+          "parity": "odd",
+          "Z2_class": "opposite"
+        },
+        {
+          "k": 4,
+          "T_k_offdiagonal": "False",
+          "parity": "even",
+          "Z2_class": "same"
+        },
+        {
+          "k": 5,
+          "T_k_offdiagonal": "True",
+          "parity": "odd",
+          "Z2_class": "opposite"
+        },
+        {
+          "k": 6,
+          "T_k_offdiagonal": "False",
+          "parity": "even",
+          "Z2_class": "same"
+        }
+      ],
+      "grading_is_k_mod_2": "True",
+      "pass": "True"
+    },
+    {
+      "name": "T2_orientation_classes",
+      "description": "Odd k (T^k off-diagonal) = orientation-reversing closure across the non-orientable throat = non-trivial spin structure (T\u00b2=\u2212I) = spin-\u00bd fermion. Even k (T^k diagonal) = orientation-preserving on the orientable double cover S\u00b3 = bosonic/integer class.",
+      "odd_k_orientation_reversing_fermion": true,
+      "even_k_orientation_preserving_boson": true,
+      "pass": true
+    },
+    {
+      "name": "T3_selection_rule",
+      "description": "Charged lepton = Dirac spin-\u00bd fermion (#59\u2013#66) \u27f9 orientation-reversing (non-orientable) closure \u27f9 odd k. The depths (1,3,5) are all odd and fermionic (off-diagonal T^k); even k is excluded from the charged-lepton sector by spin-statistics.",
+      "charged_leptons_are_spin_half_fermions": true,
+      "lepton_depths": [
+        1,
+        3,
+        5
+      ],
+      "depths_all_odd": true,
+      "depths_give_fermionic_closure": true,
+      "even_k_excluded": true,
+      "pass": true
+    },
+    {
+      "name": "T4_even_k_classified",
+      "description": "Even-k modes are orientation-preserving closures on the orientable double cover S\u00b3 \u2014 the integer-class / bosonic sector. They exist but are not charged leptons (the non-orientable spin-\u00bd throats). The absence is a classification, not a prohibition.",
+      "rows": [
+        {
+          "k": 2,
+          "T_k_diagonal": true,
+          "sector": "orientable double-cover (bosonic)",
+          "is_charged_lepton": false
+        },
+        {
+          "k": 4,
+          "T_k_diagonal": true,
+          "sector": "orientable double-cover (bosonic)",
+          "is_charged_lepton": false
+        },
+        {
+          "k": 6,
+          "T_k_diagonal": true,
+          "sector": "orientable double-cover (bosonic)",
+          "is_charged_lepton": false
+        }
+      ],
+      "even_k_is_bosonic_nonlepton_sector": true,
+      "pass": true
+    },
+    {
+      "name": "T5_selection_not_arithmetic",
+      "description": "\u03a6_avail(k) = 2\u03c0(k+1) + 50\u03c0\u00b7max(0,k\u22123)\u00b2 \u2261 0 mod 2\u03c0 for every integer k (the odd-k lemma Part 2). Even k closes the ledger just as well \u2014 so the odd-only selection is spin-statistics / topology, NOT closure arithmetic.",
+      "rows": [
+        {
+          "k": 1,
+          "phi_over_2pi": 2.0,
+          "closes_mod_2pi": true
+        },
+        {
+          "k": 2,
+          "phi_over_2pi": 3.0,
+          "closes_mod_2pi": true
+        },
+        {
+          "k": 3,
+          "phi_over_2pi": 4.0,
+          "closes_mod_2pi": true
+        },
+        {
+          "k": 4,
+          "phi_over_2pi": 30.000000000000004,
+          "closes_mod_2pi": true
+        },
+        {
+          "k": 5,
+          "phi_over_2pi": 106.0,
+          "closes_mod_2pi": true
+        },
+        {
+          "k": 6,
+          "phi_over_2pi": 232.0,
+          "closes_mod_2pi": true
+        }
+      ],
+      "all_k_close_mod_2pi": true,
+      "even_k_also_closes": true,
+      "pass": true
+    },
+    {
+      "name": "T6_unification_with_spin_arc",
+      "description": "Odd-k (non-orientable, T\u00b2=\u2212I) = the same fermionic structure as #60 (Wigner double cover), #61 (g=2), #65 (CPT T\u00b2=\u2212I), #66 (throat Dirac spinor). The even-k absence is the spin-statistics face of the fermionic throat \u2014 one structure (T\u00b2=\u2212I, B2).",
+      "shared_structure": "T\u00b2 = \u2212I (the non-trivial RP\u00b3 spin structure, B2)",
+      "arc": {
+        "B2_topological_sector": "T = i\u03c3_y, T\u00b2 = \u2212I (the spin structure)",
+        "PR60_wigner_rotation": "spinor double cover (\u22121 under 2\u03c0)",
+        "PR61_g_factor": "g = 2 (spin-\u00bd Pauli term)",
+        "PR65_cpt": "T\u00b2 = \u2212I in the CPT operator",
+        "PR66_throat_dirac_spinor": "the fermionic 4-spinor",
+        "this_probe": "odd-k = the fermionic (non-orientable) closure"
+      },
+      "T_squared_minus_I": true,
+      "pass": true
+    },
+    {
+      "name": "T7_falsification_b4",
+      "description": "Falsifier: even-k charged leptons (bosons), or odd k without the orientation flip, would fail. BAM passes \u2014 leptons are spin-\u00bd (odd k, off-diagonal monodromy). B4: k is a dimensionless integer; the selection is topological, scale-independent (the mass values carry the scale).",
+      "leptons_odd_and_fermionic": true,
+      "even_k_would_be_bosonic": true,
+      "k_is_dimensionless_topological": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Even-k absence is a spin-statistics selection rule: k mod 2 = the orientability grading of the throat closure (off-diagonal T^k / odd = orientation-reversing spin-\u00bd fermion; diagonal / even = orientation-preserving boson); charged leptons (spin-\u00bd Dirac fermions, #59\u2013#66) are the odd class. The ledger closes for any k, so the selection is topological, not arithmetic. Even-k = the orientable bosonic sector, not a charged lepton.",
+      "grading": "k mod 2 = orientability (T^k off/on diagonal)",
+      "rule": "charged lepton = spin-\u00bd fermion \u27fa orientation-reversing \u27fa odd k",
+      "even_k": "orientable double-cover / bosonic sector (not a charged lepton)",
+      "not_arithmetic": "\u03a6_avail(k) \u2261 0 mod 2\u03c0 for every k",
+      "unification": "same T\u00b2=\u2212I fermionic structure as #60/#61/#65/#66",
+      "remaining": "the even-k (bosonic) spectrum; why exactly 3 generations (k\u22645)",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "EVEN_K_EXCLUDED_BY_SPIN_STATISTICS",
+  "verdict": "EVEN-K EXCLUDED BY SPIN-STATISTICS. The even-k absence from the charged-lepton throat sector is classified as a spin-statistics selection rule, upgrading the odd-k closure lemma from a \"choice of sector\" to a genuine rule.\n\nTHE GRADING. Each throat pass applies T = i\u03c3_y (T\u00b2=\u2212I, B2); the spinor monodromy T^k after k passes is off-diagonal for odd k (mapping the spinor to the opposite Z\u2082 class \u2014 the antipodal/deck partner p~\u2212p on RP\u00b3, the orientation-reversing closure across the non-orientable throat = the non-trivial spin structure = a spin-\u00bd fermion) and diagonal for even k (same Z\u2082 class \u2014 orientation-preserving on the orientable double cover S\u00b3 = bosonic/integer class). So k mod 2 IS the orientability (= spin-statistics) grading of the closure.\n\nTHE RULE. The charged lepton is a Dirac spin-\u00bd fermion (established across the recent arc: throat Dirac spinor #66, g=2 #61, Wigner rotation #60, CPT T\u00b2=\u2212I #65), which requires the orientation-reversing (non-orientable) closure \u27f9 odd k. The lepton depths (1,3,5) are all odd and fermionic; even k (orientation-preserving, bosonic) is excluded from the charged-lepton sector. The exclusion is NOT arithmetic \u2014 the Layer-1 ledger \u03a6_avail(k) = 2\u03c0(k+1) + 50\u03c0\u00b7max(0,k\u22123)\u00b2 \u2261 0 mod 2\u03c0 for every integer k (even k closes just as well) \u2014 it is spin-statistics / topology.\n\nWHAT EVEN-K IS. Even-k modes are not forbidden; they are the orientation-preserving closures on the orientable double cover S\u00b3, the bosonic/integer-class sector of the same geometry \u2014 simply not charged leptons. The even-k absence is the spin-statistics face of the fermionic throat: the same T\u00b2=\u2212I structure as #60/#61/#65/#66, seen from the generation-counting side. B4: k is a dimensionless integer; the selection is topological, scale-independent. Remaining: the even-k (bosonic) spectrum, and why the charged leptons stop at k=5 (three generations)."
+}

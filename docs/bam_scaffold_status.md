@@ -263,6 +263,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `cpt_assembly_probe` | CPT = C·P·T (throat histories) | CPT_ASSEMBLED |
 | `cpt_dirac_operator_probe` | CPT operator Θ ∝ γ⁵ (Dirac spinor) | CPT_OPERATOR_CONSTRUCTED |
 | `throat_dirac_spinor_probe` | throat 4-spinor from S_BAM (Dirac factorization) | THROAT_DIRAC_DERIVED |
+| `even_k_absence_probe` | even-k absence (spin-statistics) | EVEN_K_EXCLUDED_BY_SPIN_STATISTICS |
 
 ## Cross-references
 
@@ -301,6 +302,9 @@ the B4 audit shows cannot come from scale-free geometry.
     `Θ = γ⁰γ¹γ²γ³ = −iγ⁵` on the throat Dirac spinor.
   - `docs/throat_dirac_spinor_research_plan.md` — the throat Dirac 4-spinor
     derived from the radial Dirac/SUSY factorization of `S_BAM`.
+  - `docs/even_k_absence_research_plan.md` — even-k absence as a
+    spin-statistics selection rule (charged leptons = odd-k fermions).
+  - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
     summarises.
