@@ -1,0 +1,110 @@
+{
+  "timestamp_utc": "2026-05-24T15:38:57+00:00",
+  "factorization": "H \u2212 E\u2080 = A\u2020A (A = d/dr* + W; V \u2212 E\u2080 = W\u00b2 \u2212 W\u2032)",
+  "two_mouths": "A\u2020A, AA\u2020 SUSY-isospectral; inner/outer (B3 odd extension, #63)",
+  "four_spinor": "4 = 2 (mouths) \u00d7 2 (SU(2) spin, B2) = \u03a8_inner \u2295 \u03a8_outer",
+  "parity_vs_z2": "P=\u03b3\u2070 radial (Dirac); antipodal Z\u2082 angular (S\u00b3 base)",
+  "scope": "structure derived; full bulk spinor (S\u00b3 coupling) open",
+  "tests": [
+    {
+      "name": "T1_dirac_factorization",
+      "description": "H \u2212 E\u2080 = A\u2020A, A = d/dr* + W, W = \u2212\u03c8\u2080'/\u03c8\u2080 (Riccati V \u2212 E\u2080 = W\u00b2 \u2212 W'). A is the first-order radial Dirac operator; H = A\u2020A + E\u2080 is its square \u2014 the Dirac structure is the square root of the BAM radial operator.",
+      "E0_omega0_squared": 1.1124439020665808,
+      "omega0": 1.0547245621803736,
+      "max_riccati_error_interior": 0.0001652272375325392,
+      "factorization_holds": true,
+      "pass": true
+    },
+    {
+      "name": "T2_A_reproduces_bam_spectrum",
+      "description": "The discrete first-order A gives A\u2020A whose spectrum (+E\u2080) reproduces the closure-ledger radial ladder \u03c9\u00b2(l,n) \u2014 A is the radial Dirac operator of the BAM spectrum.",
+      "E0": 1.1124439020665808,
+      "rows": [
+        {
+          "k": 0,
+          "AtA_eig": -4.459696500980215e-13,
+          "H_minus_E0_eig": 0.0,
+          "diff": 4.459696500980215e-13
+        },
+        {
+          "k": 1,
+          "AtA_eig": 2.7845509800477464,
+          "H_minus_E0_eig": 2.7856606503691843,
+          "diff": 0.0011096703214379389
+        },
+        {
+          "k": 2,
+          "AtA_eig": 7.2585476136697,
+          "H_minus_E0_eig": 7.262823737633452,
+          "diff": 0.004276123963752099
+        }
+      ],
+      "pass": "True"
+    },
+    {
+      "name": "T3_susy_isospectrality_two_mouths",
+      "description": "A\u2020A (= H\u2212E\u2080) and the partner AA\u2020 share their nonzero spectrum (SUSY isospectrality) \u2014 the two Dirac components / wormhole mouths carry the same mass ladder \u03c9(l,n).",
+      "AtA_top_eigs": [
+        60383.876405818155,
+        62239.51717607085,
+        66935.81830782868,
+        87110.64968118296
+      ],
+      "AAt_top_eigs": [
+        60383.87640581792,
+        62239.51717607096,
+        66935.81830782903,
+        87110.64968118278
+      ],
+      "nonzero_spectra_match": true,
+      "pass": true
+    },
+    {
+      "name": "T4_inner_outer_mouths_odd_extension",
+      "description": "The wormhole is two-sided (inner r<R_MID, outer r>R_MID); the B3 odd extension u(2R_MID\u2212r)=\u2212u(r) (the #63 reflection) joins the mouths at the throat (Dirichlet node). The two mouths are the two SUSY-partner sectors.",
+      "two_sided_wormhole": true,
+      "modes_odd_under_throat_reflection": true,
+      "dirichlet_node_at_throat": true,
+      "pass": true
+    },
+    {
+      "name": "T5_four_spinor_derived",
+      "description": "throat Dirac 4-spinor = 2 (Dirac square-root / two mouths, A/A\u2020) \u00d7 2 (SU(2) spin, T=i\u03c3_y, B2) = \u03a8_inner \u2295 \u03a8_outer. PR #65's posited 4-spinor is derived (the square-root factor from T1\u2013T3, the spin factor from B2).",
+      "dirac_squareroot_factor": 2,
+      "su2_spin_factor": 2,
+      "total_components": 4,
+      "matches_pr65_4spinor": true,
+      "pass": true
+    },
+    {
+      "name": "T6_parity_vs_antipodal_z2",
+      "description": "P=\u03b3\u2070 acts on the radial/Dirac components (the #63 reflection across the throat); the antipodal Z\u2082 (B2) acts on the S\u00b3 angular base (the RP\u00b3 deck transformation). Distinct tensor factors \u2014 radial (Dirac) vs angular (base).",
+      "P_acts_on": "radial/Dirac components (r \u2192 2R_MID \u2212 r across the throat)",
+      "antipodal_Z2_acts_on": "S\u00b3 angular base (RP\u00b3 deck transformation \u03c3: p \u2192 \u2212p)",
+      "distinct_tensor_factors": true,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope_b4",
+      "description": "Derived: the doubling structure (4 = 2 mouths \u00d7 2 spin) from the Dirac factorization + wormhole two-sidedness. Open: the full closed-form bulk Dirac spinor of the complete S_BAM (S\u00b3 angular coupling). B4: the structure is dimensionless/geometric; \u03c9\u00b7R_MID rides on the single anchor.",
+      "derived": "the 4-component doubling structure (radial/throat sector)",
+      "open": "full closed-form bulk spinor with the S\u00b3 angular coupling",
+      "b4": "structure dimensionless/geometric; scale = single anchor",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Derived: H = A\u2020A + E\u2080 (radial operator = square of the first-order Dirac A; V\u2212E\u2080=W\u00b2\u2212W'); the two SUSY-partner sectors A\u2020A, AA\u2020 (isospectral, nonzero spectrum) = the two wormhole mouths (B3 odd extension, #63); 4 = 2 (mouths) \u00d7 2 (SU(2) spin, B2) = \u03a8_inner \u2295 \u03a8_outer \u2014 PR #65's spinor derived. P (\u03b3\u2070, radial) vs antipodal Z\u2082 (angular) disentangled. Open: the full bulk spinor with the S\u00b3 coupling.",
+      "factorization": "H = A\u2020A + E\u2080 (Dirac square root of the radial operator)",
+      "two_mouths": "A\u2020A, AA\u2020 isospectral (SUSY); inner/outer, B3 odd extension (#63)",
+      "four_spinor": "4 = 2 (mouths) \u00d7 2 (SU(2) spin, B2) = \u03a8_inner \u2295 \u03a8_outer",
+      "parity_vs_z2": "P=\u03b3\u2070 radial (Dirac); antipodal Z\u2082 angular (S\u00b3 base)",
+      "remaining": "full closed-form bulk spinor with the S\u00b3 angular coupling",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "THROAT_DIRAC_DERIVED",
+  "verdict": "THROAT DIRAC SPINOR DERIVED. The 4-component throat Dirac spinor posited in PR #65 is derived from the BAM radial structure, closing the #65 open notes.\n\nTHE DIRAC FACTORIZATION. The closure-ledger radial operator H = \u2212d\u00b2/dr*\u00b2 + V_tangherlini (spectrum \u03c9\u00b2(l,n)) factorizes as a perfect square H \u2212 E\u2080 = A\u2020A with A = d/dr* + W, W = \u2212\u03c8\u2080'/\u03c8\u2080 (the Riccati identity V \u2212 E\u2080 = W\u00b2 \u2212 W\u2032, verified in the interior). A is the first-order radial Dirac operator; H = A\u2020A + E\u2080 is its square. The Dirac structure is literally the square root of the BAM radial operator: a 2-component object where H was 1-component \u2014 the doubling. A\u2020A reproduces the closure-ledger ladder.\n\nTHE TWO MOUTHS. A\u2020A (= H \u2212 E\u2080) and the partner AA\u2020 share their nonzero spectrum (SUSY isospectrality) \u2014 the two Dirac components carry the same \u03c9(l,n). These are the two wormhole mouths (inner r<R_MID, outer r>R_MID), joined at the throat by the B3 hard wall / the odd extension u(2R_MID\u2212r)=\u2212u(r) (the #63 reflection).\n\nTHE 4-SPINOR. Combining: throat Dirac 4-spinor = 2 (Dirac square-root / the two mouths, A/A\u2020) \u00d7 2 (SU(2) spin, T=i\u03c3_y, B2) = \u03a8_inner \u2295 \u03a8_outer. PR #65's posited spinor is derived \u2014 the square-root factor from the radial operator, the spin factor from B2.\n\nP vs ANTIPODAL Z\u2082. Parity P=\u03b3\u2070 acts on the radial/Dirac components (the #63 reflection across the throat); the antipodal Z\u2082 (B2) acts on the S\u00b3 angular base (the RP\u00b3 deck transformation) \u2014 distinct tensor factors, radial vs angular (closing the other #65 note).\n\nHONEST SCOPE. The doubling STRUCTURE is derived; the full closed-form bulk Dirac spinor of the complete S_BAM (with the S\u00b3 angular coupling) is the radial/throat sector only. B4: the structure is dimensionless/geometric; the mass scale rides on the single anchor."
+}

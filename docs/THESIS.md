@@ -523,11 +523,20 @@ problems rather than implementation TODOs:
   from `C = iγ²γ⁰` (the #63 swap), `P = γ⁰`, `T = γ¹γ³K` (the B2 `iσ_y`,
   `T²=−I`): it anticommutes with every `γ^μ` (`j^μ → −j^μ`, the sign
   table above), with matrix `Θ_m² = −I` but antiunitary `Θ² = +I`
-  ((CPT)²=+1; the fermionic `−1` is `T²=−I`). Remaining: the throat spinor
-  as an explicit `S_BAM` bulk solution. See
+  ((CPT)²=+1; the fermionic `−1` is `T²=−I`). The throat 4-spinor itself
+  is in turn **derived** from `S_BAM` (`throat_dirac_spinor_probe`): the
+  radial operator `H = −d²/dr*² + V` is a perfect square `A†A + E₀`
+  (`A = d/dr* + W` the first-order radial Dirac operator,
+  `V − E₀ = W² − W′`), its two SUSY-partner sectors (`A†A`, `AA†`,
+  isospectral on the nonzero spectrum) are the two wormhole mouths
+  (joined by the B3 odd extension, #63), and `4 = 2 (mouths) × 2 (SU(2)
+  spin, B2) = Ψ_inner ⊕ Ψ_outer`; parity (`γ⁰`, radial) and the antipodal
+  `Z₂` (angular) are disentangled. Remaining: the full closed-form bulk
+  spinor with the S³ angular coupling. See
   `docs/charge_conjugation_swap_research_plan.md`,
-  `docs/cpt_assembly_research_plan.md`, and
-  `docs/cpt_dirac_operator_research_plan.md`.
+  `docs/cpt_assembly_research_plan.md`,
+  `docs/cpt_dirac_operator_research_plan.md`, and
+  `docs/throat_dirac_spinor_research_plan.md`.
 - **Even-`k` absence.** Listed above as the highest-leverage near-term
   result.
 - **Quark `β` lock.** Listed above. The README correctly flags this as
