@@ -257,6 +257,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `pair_production_threshold_probe` | B4 anchor (pair threshold) | PAIR_THRESHOLD_DERIVED |
 | `stable_moving_throat_probe` | throat = particle (Lorentz) | MOVING_THROAT_COVARIANT |
 | `spin_wigner_rotation_probe` | throat = spin-½ (Wigner) | SPIN_WIGNER_COVARIANT |
+| `gyromagnetic_ratio_probe` | throat g = 2 (magnetic moment) | G_FACTOR_DERIVED |
 
 ## Cross-references
 
@@ -283,6 +284,8 @@ the B4 audit shows cannot come from scale-free geometry.
     Lorentz-covariance falsifier (throat = particle).
   - `docs/spin_wigner_rotation_research_plan.md` — the Hopf-spin / Wigner-
     rotation falsifier (throat = spin-½ particle).
+  - `docs/gyromagnetic_ratio_research_plan.md` — `g = 2` from the
+    Pauli/SU(2) + Hopf monopole (the magnetic moment).
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
     summarises.

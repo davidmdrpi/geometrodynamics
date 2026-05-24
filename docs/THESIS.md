@@ -478,10 +478,19 @@ problems rather than implementation TODOs:
   geometric-phase law "rotation = ½ × solid angle"; two non-collinear
   boosts compose (in `SL(2,C)`) to the Wigner `SU(2)` rotation matching
   the closed form. So the boosted throat is a genuine relativistic
-  spin-½ particle. Remaining: the explicit boosted throat spinor from
-  `S_BAM` and `g − 2`. See
-  `docs/stable_moving_throat_research_plan.md` and
-  `docs/spin_wigner_rotation_research_plan.md`.
+  spin-½ particle. The **magnetic moment** completes the spin sector
+  (`gyromagnetic_ratio_probe`): `g = 2` follows from the throat's
+  Pauli/SU(2) spinor structure (`T = iσ_y`) minimally coupled to the
+  Hopf monopole (`A_φ = ½ cos χ`) — `(σ·D)² = D² − eσ·B`, the σ·B term
+  carrying the full `σ = 2S` (the factor 2 = the `SU(2)` anticommutator),
+  giving `μ = μ_B`; and `g = 2 ⟺` the BMT anomalous precession vanishes
+  (spin tracks momentum, the Thomas/Wigner link). The Schwinger anomaly
+  `a = (g−2)/2 = α/2π` is the known one-loop correction (tree `g = 2`
+  geometric). Remaining: the explicit boosted throat spinor from `S_BAM`,
+  and `α/2π` from the throat loop. See
+  `docs/stable_moving_throat_research_plan.md`,
+  `docs/spin_wigner_rotation_research_plan.md`, and
+  `docs/gyromagnetic_ratio_research_plan.md`.
 - **Charge conjugation from inner/outer swap.** Promote the C-symmetry
   from a postulate to a geometric statement — that swapping
   `r < R_MID ↔ r > R_MID` in the throat eigenmodes flips the sign of
