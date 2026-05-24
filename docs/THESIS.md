@@ -517,10 +517,17 @@ problems rather than implementation TODOs:
   antiparticle = the pair-production "V" in time, #58). CPT is guaranteed
   by the throat's local Lorentz invariance (#59–#60); the closed `S³`
   breaks *global* Lorentz invariance, suppressing CPT violation by
-  `(R_MID/R_cosmo)² ~ 10⁻⁷⁸`. Remaining: the explicit CPT operator on the
-  throat Dirac spinor from `S_BAM`. See
-  `docs/charge_conjugation_swap_research_plan.md` and
-  `docs/cpt_assembly_research_plan.md`.
+  `(R_MID/R_cosmo)² ~ 10⁻⁷⁸`. The **explicit CPT operator** on the throat
+  Dirac spinor (`cpt_dirac_operator_probe`) is the total-spacetime-
+  inversion product `Θ = γ⁰γ¹γ²γ³ = −iγ⁵` (∝ the chiral matrix), built
+  from `C = iγ²γ⁰` (the #63 swap), `P = γ⁰`, `T = γ¹γ³K` (the B2 `iσ_y`,
+  `T²=−I`): it anticommutes with every `γ^μ` (`j^μ → −j^μ`, the sign
+  table above), with matrix `Θ_m² = −I` but antiunitary `Θ² = +I`
+  ((CPT)²=+1; the fermionic `−1` is `T²=−I`). Remaining: the throat spinor
+  as an explicit `S_BAM` bulk solution. See
+  `docs/charge_conjugation_swap_research_plan.md`,
+  `docs/cpt_assembly_research_plan.md`, and
+  `docs/cpt_dirac_operator_research_plan.md`.
 - **Even-`k` absence.** Listed above as the highest-leverage near-term
   result.
 - **Quark `β` lock.** Listed above. The README correctly flags this as
