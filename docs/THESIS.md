@@ -499,10 +499,19 @@ problems rather than implementation TODOs:
   `docs/spin_wigner_rotation_research_plan.md`,
   `docs/gyromagnetic_ratio_research_plan.md`, and
   `docs/throat_vertex_loop_research_plan.md`.
-- **Charge conjugation from inner/outer swap.** Promote the C-symmetry
-  from a postulate to a geometric statement — that swapping
-  `r < R_MID ↔ r > R_MID` in the throat eigenmodes flips the sign of
-  the integrated Hopf curvature.
+- **Charge conjugation from inner/outer swap.** _Addressed
+  (`charge_conjugation_swap_probe`)._ C is the inner/outer reflection
+  `S: r ↦ 2R_MID − r` — an involution fixing the throat that exchanges
+  `R_INNER ↔ R_OUTER`, under which the throat modes are odd (the B3
+  antisymmetric extension). The wormhole mouth's induced orientation is
+  set by its outward normal `n̂ = ±r̂` (opposite for inner/outer), so the
+  swap reverses the mouth orientation and flips the integrated Hopf
+  curvature `c₁ → −c₁` (the two orientations `c1_chiphi = −1`,
+  `c1_phichi = +1` of `compute_c1`), taking a throat to its antithroat.
+  So `C = S`, `C² = id` — charge conjugation as geometry, consistent with
+  the antipodal `Z₂` / `T = iσ_y` (B2) and the pair-production antithroat
+  (#58). Remaining: the full CPT statement from `S_BAM` and `C` on the
+  Dirac spinor. See `docs/charge_conjugation_swap_research_plan.md`.
 - **Even-`k` absence.** Listed above as the highest-leverage near-term
   result.
 - **Quark `β` lock.** Listed above. The README correctly flags this as
