@@ -1,0 +1,149 @@
+{
+  "timestamp_utc": "2026-05-26T07:23:36+00:00",
+  "identification": "k_5 = D_bulk = dim(S\u00b3) + 2 = 5",
+  "foundational_primitive": "Hopf bundle S\u00b9 \u2192 S\u00b3 \u2192 S\u00b2 (BAM angular base, #59\u2013#66)",
+  "D5_minimality": "minimal D above 4D spacetime with squared metric (matches spin-\u00bd double cover)",
+  "unifies": "\u03b2_lepton (#71), #gen (#72), \u03b5 (hbar_origin), V_tangherlini",
+  "b4_caveat": "k_5 dimensionless integer; structural/topological; scale-independent",
+  "tests": [
+    {
+      "name": "T1_hopf_bundle_foundational_primitive",
+      "description": "Hopf bundle S\u00b9 \u2192 S\u00b3 \u2192 S\u00b2 is BAM's foundational angular structure: gives the spin-\u00bd monopole (A_\u03c6 = \u00bd cos \u03c7), the double-cover spinor (T\u00b2 = \u2212I, B2), the Wigner rotation (#60), CPT (#65), the throat Dirac spinor (#66). dim(S\u00b3) = 3 is the foundational primitive.",
+      "bundle": "S\u00b9 \u2192 S\u00b3 \u2192 S\u00b2",
+      "angular_base": "S\u00b3",
+      "dim_S3": 3,
+      "established_in_arc": "#59\u2013#66 (spin / CPT / throat Dirac spinor)",
+      "pass": true
+    },
+    {
+      "name": "T2_k_5_equals_D_bulk",
+      "description": "BAM bulk = time \u00d7 radial \u00d7 S\u00b3; D_bulk = 1 + 1 + dim(S\u00b3) = 1 + 1 + 3 = 5. Identification: k_5 = D_bulk = 5.",
+      "dim_time": 1,
+      "dim_radial": 1,
+      "dim_S3": 3,
+      "D_bulk": 5,
+      "k_5": 5,
+      "k_5_equals_D_bulk": true,
+      "D_bulk_equals_dim_S3_plus_2": true,
+      "pass": true
+    },
+    {
+      "name": "T3_tangherlini_D5_features",
+      "description": "All four Tangherlini-D=5 features in V_tangherlini: metric power D\u22123=2 (f(r)=1\u2212(rs/r)\u00b2), centrifugal l(l+D\u22123)=l(l+2), throat curvature (D\u22122)=3\u00b7rs\u00b2/r\u2074, \u03b5's k_5\u2074=625 denominator. All trace to D = 5.",
+      "metric_power_D_minus_3": 2,
+      "metric_squared_in_source": true,
+      "centrifugal_offset_D_minus_3": 2,
+      "centrifugal_l_lp2_in_source": true,
+      "throat_curvature_coefficient_D_minus_2": 3,
+      "throat_curv_3_rs_squared_in_source": true,
+      "epsilon_k5_to_4_denominator": 625,
+      "pass": true
+    },
+    {
+      "name": "T4_D5_minimal_squared_metric",
+      "description": "Tangherlini metric f(r) = 1 \u2212 (rs/r)^(D\u22123): D=4 linear, D=5 squared (BAM, matches spin-\u00bd double cover / T\u00b2=\u2212I, B2), D=6 cubed. D=5 is the MINIMAL bulk above 4D spacetime with the squared metric.",
+      "rows": [
+        {
+          "D": 4,
+          "metric_power": 1,
+          "metric_form": "1 \u2212 (rs/r)^1",
+          "is_BAM": false
+        },
+        {
+          "D": 5,
+          "metric_power": 2,
+          "metric_form": "1 \u2212 (rs/r)^2",
+          "is_BAM": true
+        },
+        {
+          "D": 6,
+          "metric_power": 3,
+          "metric_form": "1 \u2212 (rs/r)^3",
+          "is_BAM": false
+        },
+        {
+          "D": 7,
+          "metric_power": 4,
+          "metric_form": "1 \u2212 (rs/r)^4",
+          "is_BAM": false
+        }
+      ],
+      "BAM_metric_squared": true,
+      "minimal_above_4d_spacetime": true,
+      "matches_spin_half_double_cover": true,
+      "pass": true
+    },
+    {
+      "name": "T5_unification_across_lepton_sector",
+      "description": "Same k_5 = D_bulk = 5: \u03b2_lepton = k_5\u00b2\u00b7(2\u03c0) = 50\u03c0 (#71), #gen = (k_5+1)/2 = 3 (#72), \u03b5 = 7\u03c0/(100\u00b7k_5\u2074) (hbar_origin). All trace to the same primitive.",
+      "beta_lepton_eq_50pi": true,
+      "n_generations_eq_3": true,
+      "epsilon_eq_7pi_over_100_k5_to_4": true,
+      "beta_lepton": 157.07963267948966,
+      "n_generations": 3,
+      "epsilon_inner": 0.00035185837720205684,
+      "pass": true
+    },
+    {
+      "name": "T6_structural_chain",
+      "description": "Hopf bundle \u2192 S\u00b3 \u2192 D_bulk = 5 \u2192 k_5 = 5 \u2192 all BAM lepton-sector structural results. Reduces 'why k_5 = 5' to 'why the Hopf bundle as angular base' \u2014 BAM's foundational ansatz.",
+      "chain": [
+        {
+          "step": "Hopf bundle S\u00b9 \u2192 S\u00b3 \u2192 S\u00b2",
+          "role": "BAM foundational angular structure (#59\u2013#66)"
+        },
+        {
+          "step": "dim(S\u00b3) = 3",
+          "role": "Hopf bundle total space"
+        },
+        {
+          "step": "D_bulk = dim(S\u00b3) + radial + time = 5",
+          "role": "BAM bulk decomposition"
+        },
+        {
+          "step": "k_5 = D_bulk = 5",
+          "role": "topological-charge identification"
+        },
+        {
+          "step": "\u03b2_lepton = k_5\u00b2\u00b7(2\u03c0) = 50\u03c0",
+          "role": "lepton \u03b2 coupling (#71)"
+        },
+        {
+          "step": "#generations = (k_5+1)/2 = 3",
+          "role": "lepton generation count (#72)"
+        },
+        {
+          "step": "\u03b5 = 7\u03c0/(100\u00b7k_5\u2074)",
+          "role": "inner cutoff (hbar_origin)"
+        },
+        {
+          "step": "V_tangherlini (rs/r)\u00b2, l(l+2), 3\u00b7rs\u00b2/r\u2074",
+          "role": "bulk metric/centrifugal/curvature"
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope_b4",
+      "description": "Structural identification k_5 = D_bulk = dim(S\u00b3) + 2 = 5, given the Hopf bundle as BAM's angular base (foundational primitive, established across #59\u2013#66). Does NOT derive 'why the Hopf bundle' from no assumptions. B4: dimensionless integers; structural/topological; scale-independent.",
+      "derives": "k_5 = 5 from D_bulk = dim(S\u00b3) + 2 (given Hopf bundle)",
+      "does_not_derive": "why the Hopf bundle / S\u00b3 as angular base (BAM ansatz)",
+      "foundational_primitive_established_in": "spin/CPT arc #59\u2013#66",
+      "k_5_dimensionless_topological": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "k_5 = 5 = D_bulk = dim(S\u00b3) + 2: the BAM bulk dimension (time \u00d7 radial \u00d7 S\u00b3). A single primitive underlies \u03b2_lepton (#71), #gen (#72), \u03b5 (hbar_origin), and the V_tangherlini structure. D=5 is minimal above 4D spacetime with squared metric, matching the spin-\u00bd double cover (B2).",
+      "structural_form": "k_5 = D_bulk = dim(time) + dim(radial) + dim(S\u00b3) = 5",
+      "D5_minimality": "minimal D above 4D spacetime with squared metric",
+      "unifies": "\u03b2_lepton (#71), #gen (#72), \u03b5 (hbar_origin), V_tangherlini",
+      "remaining": "first-principles \"why the Hopf bundle / S\u00b3\" (the foundational ansatz)",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "K_5_FROM_BULK_DIMENSION",
+  "verdict": "k_5 = 5 = D_bulk = dim(S\u00b3) + 2. The BAM bulk decomposes as time \u00d7 radial \u00d7 S\u00b3, with S\u00b3 the Hopf bundle's total space (BAM's foundational angular structure, established across the spin/CPT arc #59\u2013#66 as the structure that gives spin-\u00bd, the monopole connection, Wigner rotation, CPT, and the throat Dirac spinor). Therefore k_5 = D_bulk = 1 + 1 + 3 = 5.\n\nTANGHERLINI-D=5 STRUCTURE. Every BAM Tangherlini feature in V_tangherlini traces to D = 5: the squared metric f(r) = 1 \u2212 (rs/r)\u00b2 (power D\u22123 = 2), the centrifugal l(l+2) (S\u00b3 Casimir l(l+D\u22123)), the throat curvature 3\u00b7rs\u00b2/r\u2074 (coefficient D\u22122 = 3), and the k_5\u2074 = 625 denominator of \u03b5 = 7\u03c0/(100\u00b7k_5\u2074).\n\nD=5 MINIMALITY. Tangherlini in D dimensions has f(r) = 1 \u2212 (rs/r)^(D\u22123): D=4 (Schwarzschild) gives the linear (rs/r); D=5 gives the SQUARED (rs/r)\u00b2, which matches BAM's spin-\u00bd double cover (T\u00b2 = \u2212I, B2). D=5 is the MINIMAL bulk above 4D spacetime giving the squared metric.\n\nUNIFICATION. The same k_5 = 5 primitive underlies the entire lepton-sector structural arc: \u03b2_lepton = k_5\u00b2\u00b7(2\u03c0) = 50\u03c0 (#71), #generations = (k_5+1)/2 = 3 (#72), and \u03b5 = 7\u03c0/(100\u00b7k_5\u2074) (hbar_origin). One primitive, all the \"5\"s.\n\nTHE CHAIN. Hopf bundle \u2192 S\u00b3 \u2192 D_bulk = 5 \u2192 k_5 = 5 \u2192 \u03b2_lepton, #gen, \u03b5, V_tangherlini. The \"why k_5 = 5\" question reduces to \"why the Hopf bundle as the angular base\" \u2014 BAM's foundational primitive, set by the spin-\u00bd requirement and independently established across the spin/CPT arc.\n\nHONEST SCOPE. Identifies k_5 = D_bulk via dim(S\u00b3) = 3 + the time/radial extension; does NOT derive \"why the Hopf bundle / S\u00b3\" from no assumptions \u2014 that's the foundational BAM ansatz. B4: k_5 and dim(S\u00b3) are dimensionless integers; the structural identifications are topological \u2014 scale-independent. The mass values carry the scale, the topological charge does not."
+}
