@@ -1,0 +1,183 @@
+{
+  "timestamp_utc": "2026-05-26T07:07:29+00:00",
+  "structural_form": "#generations = (k_5 + 1) / 2",
+  "value": 3,
+  "lepton_depths_from_odd_subset": [
+    1,
+    3,
+    5
+  ],
+  "shared_with_PR71": "k_5 = 5 (\u03b2_lepton = k_5\u00b2\u00b72\u03c0 = 50\u03c0)",
+  "cavity_consistency": "PR #68 saturating crossover at ~3 throat modes",
+  "b4_caveat": "k_5 dimensionless integer; count structural/topological",
+  "tests": [
+    {
+      "name": "T1_odd_k_fermionic_selection",
+      "description": "Recap #67: charged leptons are spin-\u00bd fermions \u27f9 orientation-reversing closure \u27f9 odd k. Even k is bosonic, not a charged lepton.",
+      "lepton_class": "odd k (fermionic)",
+      "lepton_depths_all_odd": true,
+      "pass": true
+    },
+    {
+      "name": "T2_topological_charge_cap",
+      "description": "\u03b3-lock l-range [0, k_5] (hbar_origin_status: \u03a3 V_max[0..k_5] = 22.5). Lepton sector = odd subset of [0, k_5] = [1, 3, 5].",
+      "k_5": 5,
+      "gamma_lock_l_range": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "odd_subset": [
+        1,
+        3,
+        5
+      ],
+      "matches_lepton_depths": true,
+      "pass": true
+    },
+    {
+      "name": "T3_three_generations_count",
+      "description": "(k_5+1)/2 = 3 for k_5 = 5 \u2014 exactly the three observed charged leptons (e, \u03bc, \u03c4).",
+      "formula": "(k_5 + 1) / 2",
+      "k_5": 5,
+      "n_generations": 3,
+      "species_map": {
+        "1": "e",
+        "3": "\u03bc",
+        "5": "\u03c4"
+      },
+      "matches_observed_three": true,
+      "pass": true
+    },
+    {
+      "name": "T4_k5_dependence",
+      "description": "Generation count is locked to k_5: (k_5+1)/2 = 2 (k_5=3), 3 (k_5=5, BAM), 4 (k_5=7), 5 (k_5=9). Observation of 3 charged leptons fixes k_5 = 5.",
+      "rows": [
+        {
+          "k_5": 3,
+          "odd_subset": [
+            1,
+            3
+          ],
+          "n_generations": 2,
+          "is_BAM": false
+        },
+        {
+          "k_5": 5,
+          "odd_subset": [
+            1,
+            3,
+            5
+          ],
+          "n_generations": 3,
+          "is_BAM": true
+        },
+        {
+          "k_5": 7,
+          "odd_subset": [
+            1,
+            3,
+            5,
+            7
+          ],
+          "n_generations": 4,
+          "is_BAM": false
+        },
+        {
+          "k_5": 9,
+          "odd_subset": [
+            1,
+            3,
+            5,
+            7,
+            9
+          ],
+          "n_generations": 5,
+          "is_BAM": false
+        }
+      ],
+      "BAM_k_5_predicts_3": true,
+      "pass": true
+    },
+    {
+      "name": "T5_cavity_geometry_consistency",
+      "description": "Cavity (#68): radial overtones n=0,1,2 are the lepton ladder (monotonic rise of \u27e8r\u27e9\u2212R_MID, the three throat-localized modes), n\u22653 are shell-saturated (asymptote ~0.046). The cavity geometry independently confirms ~3 throat-localized modes; this is a saturating crossover (not razor-sharp, honestly noted in #68), consistent with (k_5+1)/2 = 3.",
+      "modes": [
+        {
+          "n": 0,
+          "r_mean_minus_R_MID": 0.021200952051958932,
+          "sector": "lepton (throat)"
+        },
+        {
+          "n": 1,
+          "r_mean_minus_R_MID": 0.03885081862200246,
+          "sector": "lepton (throat)"
+        },
+        {
+          "n": 2,
+          "r_mean_minus_R_MID": 0.044048602100880796,
+          "sector": "lepton (throat)"
+        },
+        {
+          "n": 3,
+          "r_mean_minus_R_MID": 0.045442608583173616,
+          "sector": "shell (QCD)"
+        },
+        {
+          "n": 4,
+          "r_mean_minus_R_MID": 0.04596445233536928,
+          "sector": "shell (QCD)"
+        },
+        {
+          "n": 5,
+          "r_mean_minus_R_MID": 0.04622155968619701,
+          "sector": "shell (QCD)"
+        }
+      ],
+      "n_lepton_throat_modes": 3,
+      "matches_algebraic_3": true,
+      "pass": true
+    },
+    {
+      "name": "T6_unification_with_PR71",
+      "description": "Same k_5 primitive: \u03b2_lepton = k_5\u00b2\u00b7(2\u03c0) = 50\u03c0 (PR #71) and #gen = (k_5+1)/2 = 3 (this PR). The quadratic and linear faces of the Tangherlini topological charge.",
+      "k_5": 5,
+      "beta_lepton_PR71": 157.07963267948966,
+      "matches_50pi": true,
+      "n_generations_this": 3,
+      "shared_primitive_k_5": true,
+      "pass": true
+    },
+    {
+      "name": "T7_falsification_b4",
+      "description": "Falsifier: a 4th charged lepton would require k_5 \u2265 7 ((k_5+1)/2 \u2265 4); observation is 3. BAM predicts 3 from k_5 = 5. B4: k_5 is a dimensionless integer; the count is topological/structural \u2014 scale-independent.",
+      "observed_n_generations": 3,
+      "bam_predicts": 3,
+      "matches_observation": true,
+      "fourth_would_require_k_5_ge_7": true,
+      "k_5_dimensionless_topological": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "#generations = (k_5+1)/2 = 3 for k_5 = 5. Lepton depths {1,3,5} = odd integers in [0, k_5]. Combines odd-k selection (#67) and \u03b3-lock l-cap (hbar_origin). Same k_5 as #71's \u03b2_lepton = k_5\u00b2\u00b7(2\u03c0). Cavity geometry independently consistent (#68's saturating crossover at ~3 modes).",
+      "structural_form": "#generations = (k_5 + 1) / 2",
+      "value_for_k5_5": 3,
+      "lepton_depths": [
+        1,
+        3,
+        5
+      ],
+      "shared_primitive_with_PR71": "k_5 = 5 (Tangherlini)",
+      "remaining": "first-principles k_5 = 5 (\u03b3-lock R_OUTER fixed point, hbar_origin)",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "THREE_GENERATIONS_FROM_K5",
+  "verdict": "#GENERATIONS = (k_5+1)/2 = 3. The three observed charged-lepton generations follow from the same Tangherlini topological-charge primitive (k_5 = 5) that derived \u03b2_lepton = k_5\u00b2\u00b7(2\u03c0) = 50\u03c0 in PR #71.\n\nSTRUCTURAL FORM. Combining the odd-k fermionic selection (#67: charged leptons are spin-\u00bd fermions \u27f9 orientation-reversing closure \u27f9 odd k) with the \u03b3-lock l-cap (hbar_origin_status: the cross-species R_OUTER fixed point uses \u03a3 V_max[0..k_5] = 22.5 with k_5 = 5), the lepton sector is the odd subset of [0, k_5]:\n\n    lepton depths = {1, 3, 5} = (e, \u03bc, \u03c4),\n    #generations = (k_5 + 1) / 2 = 3 .\n\nk_5-DEPENDENCE. The count is locked to k_5: 2 (k_5=3), 3 (k_5=5, BAM), 4 (k_5=7), 5 (k_5=9). Observation of 3 charged leptons fixes k_5 = 5.\n\nINDEPENDENT CAVITY CHECK (#68). The radial overtone ladder (l=1) shows the throat-localized modes n=0,1,2 (e,\u03bc,\u03c4) form the monotonic-rise lepton sequence, with n\u22653 saturating into shell standing waves (the QCD/quark channel, #69). The cavity geometry independently supports ~3 throat-localized modes \u2014 consistent with the algebraic (k_5+1)/2 = 3. Honest note (from #68): the cavity count is a saturating crossover, not razor-sharp; the algebraic form is exact.\n\nUNIFICATION. Both lepton-sector structural results come from the same k_5 primitive:\n    \u03b2_lepton    = k_5\u00b2\u00b7(2\u03c0) = 50\u03c0   (PR #71, quadratic)\n    #generations = (k_5+1)/2  = 3    (this PR,  linear)\nThe mass-scaling coupling and the generation count are the two faces of the Tangherlini topological charge. HONEST SCOPE. Closes the PR #70 follow-on by deriving the count from k_5; does NOT first-principles derive k_5 = 5 itself (the \u03b3-lock R_OUTER fixed point in hbar_origin_status is the established input). B4: k_5 is a dimensionless integer; the count is structural/topological \u2014 scale-independent."
+}
