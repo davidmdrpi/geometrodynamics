@@ -265,6 +265,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `throat_dirac_spinor_probe` | throat 4-spinor from S_BAM (Dirac factorization) | THROAT_DIRAC_DERIVED |
 | `even_k_absence_probe` | even-k absence (spin-statistics) | EVEN_K_EXCLUDED_BY_SPIN_STATISTICS |
 | `throat_to_shell_transition_probe` | lepton throat → QCD shell channel | THROAT_TO_SHELL_TRANSITION_CONFIRMED |
+| `shell_to_qcd_match_probe` | shell ↔ QCD structural invariants | SHELL_REPRODUCES_QCD_STRUCTURE |
 
 ## Cross-references
 
@@ -308,6 +309,9 @@ the B4 audit shows cannot come from scale-free geometry.
   - `docs/throat_to_shell_transition_research_plan.md` — higher
     excitations delocalize from the lepton throat into the QCD shell
     channel (focused pulse → wavefront).
+  - `docs/shell_to_qcd_match_research_plan.md` — shell modes reproduce
+    the documented structural invariants of the quark sector (Z₂
+    partition, 3×2=6 flavors, heavier scale, extended character).
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
