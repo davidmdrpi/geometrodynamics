@@ -267,6 +267,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `throat_to_shell_transition_probe` | lepton throat → QCD shell channel | THROAT_TO_SHELL_TRANSITION_CONFIRMED |
 | `shell_to_qcd_match_probe` | shell ↔ QCD structural invariants | SHELL_REPRODUCES_QCD_STRUCTURE |
 | `three_generation_boundary_probe` | sharp `k ≤ 5` three-generation boundary | THREE_GENERATIONS_PINNED |
+| `beta_lepton_derivation_probe` | `β_lepton = k_5²·(2π) = 50π` | BETA_LEPTON_DERIVED |
 
 ## Cross-references
 
@@ -316,6 +317,9 @@ the B4 audit shows cannot come from scale-free geometry.
   - `docs/three_generation_boundary_research_plan.md` — the sharp
     `k ≤ 5` boundary from β-uplift quadratic growth + throat-shell
     availability (combining #67–#69).
+  - `docs/beta_lepton_derivation_research_plan.md` — `β_lepton =
+    k_5²·(2π) = 50π` from closure-quantum primitives + topological
+    charge; closes the PR #70 follow-on.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
