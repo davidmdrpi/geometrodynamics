@@ -1,0 +1,233 @@
+{
+  "timestamp_utc": "2026-05-26T02:21:14+00:00",
+  "boundary": "k \u2264 5 (charged-lepton sector); k=7 (and beyond) \u2192 shell/QCD sector",
+  "within_lepton_scaling": "\u03b2-uplift = 50\u03c0\u00b7(k\u22123)\u00b2 \u2192 0,0,100,400,900 (quadratic)",
+  "sector_boundary": "throat \u2194 shell at n=3 (#68); B2: k=7 \u2192 n=3 (shell, QCD #69)",
+  "closure_arithmetic": "closes for any k (recap #67) \u2014 cutoff is NOT arithmetic",
+  "b4_caveat": "k dimensionless integer; boundary topological/structural",
+  "tests": [
+    {
+      "name": "T1_beta_uplift_quadratic_growth",
+      "description": "\u03a6_uplift(k) = 50\u03c0\u00b7max(0,k\u22123)\u00b2 activates at k=5 (\u03c4); the closure-quantum count grows as 25\u00b7(k\u22123)\u00b2 \u2014 0, 0, 100, 400, 900, \u2026 (quadratic explosion beyond k=5).",
+      "rows": [
+        {
+          "k": 1,
+          "beta_uplift_over_2pi": 0,
+          "activates": false
+        },
+        {
+          "k": 3,
+          "beta_uplift_over_2pi": 0,
+          "activates": false
+        },
+        {
+          "k": 5,
+          "beta_uplift_over_2pi": 100,
+          "activates": true
+        },
+        {
+          "k": 7,
+          "beta_uplift_over_2pi": 400,
+          "activates": true
+        },
+        {
+          "k": 9,
+          "beta_uplift_over_2pi": 900,
+          "activates": true
+        },
+        {
+          "k": 11,
+          "beta_uplift_over_2pi": 1600,
+          "activates": true
+        }
+      ],
+      "quadratic_growth_100_400_900": true,
+      "activates_at_k5_tau": true,
+      "pass": true
+    },
+    {
+      "name": "T2_closure_arithmetic_holds_for_any_k",
+      "description": "Recap #67 / odd-k lemma: \u03a6_avail(k) \u2261 0 mod 2\u03c0 for every integer k. The cutoff is NOT arithmetic \u2014 closure alone would allow k = 7, 9, \u2026; the mode-availability boundary (#68) is what cuts.",
+      "rows": [
+        {
+          "k": 1,
+          "N_total": 2.0,
+          "closes_mod_2pi": true
+        },
+        {
+          "k": 3,
+          "N_total": 4.0,
+          "closes_mod_2pi": true
+        },
+        {
+          "k": 5,
+          "N_total": 106.0,
+          "closes_mod_2pi": true
+        },
+        {
+          "k": 7,
+          "N_total": 408.0,
+          "closes_mod_2pi": true
+        },
+        {
+          "k": 9,
+          "N_total": 910.0,
+          "closes_mod_2pi": true
+        },
+        {
+          "k": 11,
+          "N_total": 1612.0000000000002,
+          "closes_mod_2pi": true
+        }
+      ],
+      "closure_holds_for_all_k": true,
+      "cutoff_not_arithmetic": true,
+      "pass": true
+    },
+    {
+      "name": "T3_k_to_n_mapping_B2",
+      "description": "B2 reading (sk_bridge.py): n = (k\u22121)/2. e=(k=1,n=0), \u03bc=(k=3,n=1), \u03c4=(k=5,n=2); would-be 4th generation = (k=7,n=3).",
+      "rows": [
+        {
+          "k": 1,
+          "n": 0,
+          "species": "e"
+        },
+        {
+          "k": 3,
+          "n": 1,
+          "species": "\u03bc"
+        },
+        {
+          "k": 5,
+          "n": 2,
+          "species": "\u03c4"
+        },
+        {
+          "k": 7,
+          "n": 3,
+          "species": "(would-be n=3)"
+        },
+        {
+          "k": 9,
+          "n": 4,
+          "species": "(would-be n=4)"
+        }
+      ],
+      "mapping_correct": true,
+      "pass": true
+    },
+    {
+      "name": "T4_throat_shell_availability",
+      "description": "Throat-localized fermionic ladder: n=0,1,2 (the three leptons, #68). From n=3: shell-saturated (participation \u2192 2/3, the QCD/quark sector with structural Z\u2082 partition, #69). The hard mode-availability cutoff at n=3.",
+      "throat_localized": [
+        0,
+        1,
+        2
+      ],
+      "shell_saturated": [
+        3,
+        4,
+        5
+      ],
+      "table": [
+        {
+          "n": 0,
+          "sector": "throat-localized (lepton, #68)"
+        },
+        {
+          "n": 1,
+          "sector": "throat-localized (lepton, #68)"
+        },
+        {
+          "n": 2,
+          "sector": "throat-localized (lepton, #68)"
+        },
+        {
+          "n": 3,
+          "sector": "shell-saturated (QCD, #69)"
+        },
+        {
+          "n": 4,
+          "sector": "shell-saturated (QCD, #69)"
+        },
+        {
+          "n": 5,
+          "sector": "shell-saturated (QCD, #69)"
+        }
+      ],
+      "cutoff_at_n_3": true,
+      "pass": true
+    },
+    {
+      "name": "T5_would_be_4th_generation_in_shell",
+      "description": "Would-be 4th charged lepton at k=7 \u2192 n=(7\u22121)/2 = 3 \u2014 but n=3 is shell-saturated (#68), not throat-localized, and is in the QCD/quark sector (#69). No 4th charged lepton: the three-generation cutoff IS the lepton/quark boundary.",
+      "k_would_be_4th": 7,
+      "n_for_k7": 3,
+      "k7_in_shell_QCD_sector": true,
+      "three_generation_cutoff_is_lepton_quark_boundary": true,
+      "pass": true
+    },
+    {
+      "name": "T6_combined_mechanism_pins_k_le_5",
+      "description": "Combined mechanism: \u03b2-uplift quadratic growth (50\u03c0\u00b7(k\u22123)\u00b2: 0, 0, 100, 400, \u2026) gives the within-lepton closure-quantum scaling; throat-shell availability (#68 + #69) cuts at n=3. The B2 map sends k=7 \u2192 n=3 (shell/QCD, #69). So the lepton sector is exactly k \u2208 {1,3,5} \u2014 the three observed generations.",
+      "rows": [
+        {
+          "k": 1,
+          "n": 0,
+          "beta_uplift_quanta": 0,
+          "throat_localized": true,
+          "is_charged_lepton": true
+        },
+        {
+          "k": 3,
+          "n": 1,
+          "beta_uplift_quanta": 0,
+          "throat_localized": true,
+          "is_charged_lepton": true
+        },
+        {
+          "k": 5,
+          "n": 2,
+          "beta_uplift_quanta": 100,
+          "throat_localized": true,
+          "is_charged_lepton": true
+        },
+        {
+          "k": 7,
+          "n": 3,
+          "beta_uplift_quanta": 400,
+          "throat_localized": false,
+          "is_charged_lepton": false
+        }
+      ],
+      "boundary_at_k_le_5": true,
+      "closure_arithmetic_alone_does_not_cut": true,
+      "pass": true
+    },
+    {
+      "name": "T7_falsification_b4",
+      "description": "Falsifier: a 4th charged lepton would falsify (n=3 should be shell-saturated, not throat-localized). BAM predicts and observation confirms three generations (e, \u03bc, \u03c4). B4: k is dimensionless; the boundary is topological/structural \u2014 the mass values carry the scale, the generation count does not.",
+      "observed_charged_leptons": 3,
+      "bam_predicts": 3,
+      "matches_observation": true,
+      "fourth_lepton_would_falsify": true,
+      "k_dimensionless_topological": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The k \u2264 5 boundary is the join of (i) \u03b2-uplift quadratic closure-quantum growth (50\u03c0\u00b7(k\u22123)\u00b2: 0,0,100,400,\u2026), the within-lepton scaling, and (ii) throat-shell mode availability cutoff at n=3 (#68), where B2 sends k=7 to the shell/QCD sector (#69). The three observed generations are the three throat-localized odd-k fermionic modes.",
+      "within_lepton_scaling": "\u03b2-uplift = 50\u03c0\u00b7(k\u22123)\u00b2 (quadratic)",
+      "sector_boundary": "throat \u2194 shell at n=3 (#68); k=7 \u2192 shell (#69)",
+      "three_generations": "k \u2208 {1,3,5} \u2194 n \u2208 {0,1,2} (e, \u03bc, \u03c4)",
+      "closure_arithmetic_alone": "does not cut (recap #67)",
+      "remaining": "first-principles \u03b2_lepton = 50\u03c0; why exactly 3 throat modes",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "THREE_GENERATIONS_PINNED",
+  "verdict": "THREE GENERATIONS PINNED. The sharp k \u2264 5 charged-lepton boundary is the join of the \u03b2-uplift quadratic closure-quantum growth and the throat-shell mode availability cutoff (#68), where the B2 mapping places the would-be 4th generation in the shell/QCD sector (#69).\n\n\u03b2-UPLIFT (the within-lepton scaling). The locked lepton surrogate uses \u03a6_avail(k) = 2\u03c0(k+1) + 50\u03c0\u00b7max(0,k\u22123)\u00b2 (the odd-k lemma); the second term gives 25\u00b7(k\u22123)\u00b2 closure quanta \u2014 0, 0, 100, 400, 900, \u2026 \u2014 activating at k=5 (\u03c4) and exploding quadratically beyond. This is the within-lepton mass-scaling structure that fits the muon and tau masses correctly; it quantifies the steep closure-quantum cost of any would-be higher generation but is NOT itself the sector cutoff (closure arithmetic alone closes for every integer k, #67).\n\nTHROAT-SHELL AVAILABILITY (the hard cutoff). The throat-localized fermionic ladder has exactly three modes (n=0,1,2 = e,\u03bc,\u03c4, #68); from n=3 the modes are shell-saturated (participation \u2192 2/3, the QCD/quark sector with the structural Z\u2082 partition, #69). The B2 reading n=(k\u22121)/2 maps the would-be 4th generation k=7 to n=3 \u2014 which is in the shell/QCD sector, NOT a throat-localized charged lepton. So there is no 4th charged lepton.\n\nJOIN. The three observed generations are exactly the three throat-localized odd-k fermionic modes (e,\u03bc,\u03c4 at k=1,3,5 = n=0,1,2); higher k modes are in the shell/QCD sector. The \u03b2-uplift quantifies the within-lepton scaling; the throat-shell availability provides the hard cutoff. Together they pin k \u2264 5 sharply. Closure arithmetic alone does not cut (#67); the cutoff is the mode-availability boundary.\n\nHONEST SCOPE. The \u03b2_lepton = 50\u03c0 itself is the locked surrogate's structure (closure-quantum origins in docs/hbar_origin_status.md: 8\u03c0=4\u00b7(2\u03c0) transport, 7\u03c0/100 resistance); a first-principles derivation of the specific 50\u03c0 factor and why exactly three throat-localized modes fit in the cavity is future work. B4: k is a dimensionless integer; the boundary is topological/structural \u2014 scale-independent."
+}
