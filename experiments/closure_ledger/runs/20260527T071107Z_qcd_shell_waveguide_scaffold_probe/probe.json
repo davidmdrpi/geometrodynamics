@@ -1,0 +1,223 @@
+{
+  "timestamp_utc": "2026-05-27T07:11:07+00:00",
+  "identification": "quarks = shell-saturated cavity wavefronts (NOT throat traversals); 6-state (l, n, p) basis with 6\u00d76 operator scaffold",
+  "physical_insight": "Quarks do not pass through the throat; they are the wavefronts that resolve the cavity itself.",
+  "next_pr": "PR #78 \u2014 shell Hamiltonian mass-ordering / n_part audit",
+  "b4_caveat": "\u03c9 dimensionful; scaffold scale-free in ratios; structural",
+  "tests": [
+    {
+      "name": "T1_shell_waveguide_basis_constructed",
+      "description": "Build the 6-state shell waveguide basis (l=1, n=3,4,5, p=\u00b11). Each state shell-saturated: \u27e8r\u27e9\u2212R_MID \u2265 0.04 and |PR \u2212 2/3| \u2264 0.02.",
+      "basis_size": 6,
+      "expected_size": 6,
+      "basis_labels": [
+        "(l=1, n=3, +)",
+        "(l=1, n=3, \u2212)",
+        "(l=1, n=4, +)",
+        "(l=1, n=4, \u2212)",
+        "(l=1, n=5, +)",
+        "(l=1, n=5, \u2212)"
+      ],
+      "omegas": [
+        3.824628,
+        3.824628,
+        4.760869,
+        4.760869,
+        5.70002,
+        5.70002
+      ],
+      "participation_ratios": [
+        0.6657,
+        0.6657,
+        0.6658,
+        0.6658,
+        0.6658,
+        0.6658
+      ],
+      "r_mean_offsets": [
+        0.0454,
+        0.0454,
+        0.046,
+        0.046,
+        0.0462,
+        0.0462
+      ],
+      "throat_fractions": [
+        0.7517,
+        0.7517,
+        0.794,
+        0.794,
+        0.8195,
+        0.8195
+      ],
+      "all_shell_saturated": true,
+      "pass": true
+    },
+    {
+      "name": "T2_lepton_to_shell_transition",
+      "description": "Lepton ladder (n=0,1,2) = throat-to-shell transition: \u27e8r\u27e9 rises through e,\u03bc,\u03c4 approaching the shell plateau. Shell modes (n\u22653) saturated: \u27e8r\u27e9 on plateau, PR locked to 2/3 (uniform standing wave). Structural distinction sharpest at the electron; saturates at n=3.",
+      "lepton_rmean_e_mu_tau": [
+        0.0212,
+        0.0389,
+        0.044
+      ],
+      "shell_rmean": [
+        0.0454,
+        0.046,
+        0.0462
+      ],
+      "shell_rmean_plateau_threshold": 0.04,
+      "shell_all_at_plateau": true,
+      "electron_below_plateau": true,
+      "lepton_PR_e_mu_tau": [
+        0.6509,
+        0.6646,
+        0.6655
+      ],
+      "shell_PR": [
+        0.6657,
+        0.6658,
+        0.6658
+      ],
+      "shell_PR_near_2_3": true,
+      "shell_standing_wave_target_PR": 0.6666666666666666,
+      "lepton_throat_frac": [
+        0.9628,
+        0.8505,
+        0.7591
+      ],
+      "shell_throat_frac": [
+        0.7517,
+        0.794,
+        0.8195
+      ],
+      "pass": true
+    },
+    {
+      "name": "T3_operator_scaffold_constructed",
+      "description": "6\u00d76 scaffold H = H_kin + H_Z2 + H_couple. H_kin diagonal (\u03c9\u00b2); H_Z2 chi=0 placeholder; H_couple zero placeholder; Hermitian. Eigenvalues with chi=0, no coupling = \u03c9\u00b2 doubled.",
+      "H_kin_diagonal": true,
+      "H_Z2_zero_placeholder": true,
+      "H_couple_zero_placeholder": true,
+      "H_hermitian": true,
+      "eigenvalues_match_omega_squared": true,
+      "eigenvalues": [
+        14.62778,
+        14.62778,
+        22.665871,
+        22.665871,
+        32.490231,
+        32.490231
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_basis_flexibility_n_vs_l_enumeration",
+      "description": "Scaffold supports two natural enumerations: vary n (fix l=1) or vary l (fix n=3). Both yield 6 states. They give DIFFERENT eigenvalues \u2014 PR #78 will choose.",
+      "n_varied_basis_size": 6,
+      "n_varied_labels": [
+        "(l=1, n=3, +)",
+        "(l=1, n=3, \u2212)",
+        "(l=1, n=4, +)",
+        "(l=1, n=4, \u2212)",
+        "(l=1, n=5, +)",
+        "(l=1, n=5, \u2212)"
+      ],
+      "n_varied_eigvals": [
+        14.62778,
+        14.62778,
+        22.665871,
+        22.665871,
+        32.490231,
+        32.490231
+      ],
+      "l_varied_basis_size": 6,
+      "l_varied_labels": [
+        "(l=1, n=3, +)",
+        "(l=1, n=3, \u2212)",
+        "(l=2, n=3, +)",
+        "(l=2, n=3, \u2212)",
+        "(l=3, n=3, +)",
+        "(l=3, n=3, \u2212)"
+      ],
+      "l_varied_eigvals": [
+        14.62778,
+        14.62778,
+        14.940642,
+        14.940642,
+        15.385323,
+        15.385323
+      ],
+      "enumerations_distinct": true,
+      "pass": true
+    },
+    {
+      "name": "T5_six_flavor_structural_count",
+      "description": "6-state basis = 3 generations (l, n) \u00d7 2 partitions (\u00b1) = 6 flavors, matching the structural count from PR #69. The Z\u2082 partition is the same B2 partition behind the m_u<m_d but m_c>m_s mass-ordering inversion (lepton-sector shell-coupled closure).",
+      "n_generations": 3,
+      "n_partitions": 2,
+      "product": 6,
+      "expected_flavors": 6,
+      "matches_pr69": true,
+      "pass": true
+    },
+    {
+      "name": "T6_pr78_79_80_hooks",
+      "description": "Document the slots PRs #78\u2013#80 will populate.",
+      "pr_78_slot": {
+        "name": "shell Hamiltonian mass-ordering / n_part audit",
+        "populates": "H_couple inter-mode mixing; enumeration choice",
+        "tests": "m_u < m_d, m_c > m_s; reaudit n_part on shell basis"
+      },
+      "pr_79_slot": {
+        "name": "boundary stress tensor + singlet constraint",
+        "populates": "chi (Z\u2082 splitter from cavity-wall stress-T)",
+        "tests": "singlet projection \u27f9 colorless physical states"
+      },
+      "pr_80_slot": {
+        "name": "color algebra candidate",
+        "populates": "algebra acting on (l, n, p)",
+        "candidates": [
+          "SU(3)",
+          "SU(2) \u00d7 Z\u2082",
+          "SU(4) Pati-Salam",
+          "other"
+        ]
+      },
+      "scaffold_has_kin_slot": true,
+      "scaffold_has_z2_slot": true,
+      "scaffold_has_couple_slot": true,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope_b4",
+      "description": "Honest scope: scaffold only (basis + operator slots). Does NOT derive quark masses (PR #78), audit n_part (PR #78), define boundary stress tensor (PR #79), or identify color algebra (PR #80). B4: cavity eigenfrequencies \u03c9 are dimensionful (1/length); MASS RATIOS are scale-free.",
+      "scaffold_includes": [
+        "6-state shell waveguide basis",
+        "H_kin diagonal cavity-mass operator",
+        "H_Z2 partition splitter slot (chi placeholder)",
+        "H_couple inter-mode mixing slot (zero placeholder)"
+      ],
+      "scaffold_excludes": [
+        "quark mass predictions (PR #78)",
+        "n_part audit (PR #78)",
+        "boundary stress tensor (PR #79)",
+        "singlet constraint (PR #79)",
+        "color algebra identification (PR #80)"
+      ],
+      "b4_caveat": "\u03c9 dimensionful (1/length, scale-free in ratios); chi and couple_matrix dimensionless if non-zero; scaffold is structurally scale-independent.",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Scaffold for the four-PR QCD-shell arc constructed. Quarks = wavefronts that resolve the cavity (shell-saturated modes PR \u2265 0.5, n \u2265 3 for l=1). 6-state basis, 6\u00d76 operator slots. Distinct from lepton/v3 throat-mode machinery.",
+      "classification": "SHELL_WAVEGUIDE_SCAFFOLD_CONSTRUCTED",
+      "next_steps": "PR #78 mass-ordering / n_part audit",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "SHELL_WAVEGUIDE_SCAFFOLD_CONSTRUCTED",
+  "verdict": "SHELL WAVEGUIDE SCAFFOLD CONSTRUCTED. Quarks are the wavefronts that resolve the cavity itself \u2014 shell-saturated Tangherlini radial modes whose \u27e8r\u27e9 has plateaued at the shell center (~0.046 above R_MID) and whose participation ratio has locked to the uniform-standing-wave value 2/3. The lepton ladder (e=n=0, \u03bc=n=1, \u03c4=n=2) IS the throat-to-shell transition: \u27e8r\u27e9 rises 0.021 \u2192 0.039 \u2192 0.044 toward the plateau but does not reach it; the electron is the most throat-focused. Shell modes (n \u2265 3) sit on the plateau \u2014 the wavefront regime where the mode resolves the cavity rather than focuses on the throat.\n\n6-STATE BASIS. The basis is (l, n, p) with l = S\u00b3 Casimir (Hopf-bundle angular base, #73), n = shell-saturated radial overtone (\u2265 3 for l = 1, from #68 saturation metric), p \u2208 {+, \u2212} = Z\u2082 partition (B2, the non-orientable throat). The lowest 6 states match the 3 \u00d7 2 = 6 flavor structural count documented by #69.\n\nOPERATOR SCAFFOLD. The 6\u00d76 Hamiltonian H = H_kin + H_Z2 + H_couple acts on the shell basis with: H_kin diagonal (\u03c9\u00b2(l, n) cavity-eigenfrequency-squared mass operator); H_Z2 block-\u03c3_z partition splitter (slot for #79\u2013#80 structural constant chi); H_couple inter-mode mixing (slot for #78\u2013#80 population). PR #77 leaves chi = 0 and H_couple = 0 \u2014 the eigenvalues are then \u03c9\u00b2 each doubled by the Z\u2082 partition.\n\nBASIS FLEXIBILITY. Two natural enumerations are supported: vary n at fixed l = 1 ({(1, 3, \u00b1), (1, 4, \u00b1), (1, 5, \u00b1)}) or vary l at fixed shell-saturated n ({(1, 3, \u00b1), (2, 3, \u00b1), (3, 3, \u00b1)}). They give different eigenvalues; PR #78 chooses based on which reproduces the quark mass ordering.\n\nDISTINCTNESS FROM LEPTON/V3 MACHINERY. The lepton sector lives at the throat (basis = odd-k throat-traversal modes {k=1, 3, 5}, diagonal = \u03b2\u00b7k\u00b2\u00b7(2\u03c0) winding cost from #71). The v3 quark Hamiltonian inherited that lepton-shaped basis and absorbed QCD shell physics into the phenomenological n_part = 233 (#76). The shell waveguide basis is structurally distinct: extended-character standing waves on the cavity, not focused throat pulses; \u03c9\u00b2(l, n) cavity eigenfrequency, not \u03b2\u00b7k\u00b2 winding. This IS the right machinery for the quark sector.\n\nHOOKS FOR PR #78\u2013#80. The scaffold names each follow-on slot: PR #78 (mass-ordering / n_part audit) populates H_couple and chooses the enumeration; PR #79 (boundary stress tensor / singlet constraint) sets chi from cavity-wall energy-momentum and adds a singlet (colorless) projection; PR #80 (color algebra) identifies the algebra acting on (l, n, p) \u2014 SU(3) color triplet, SU(2) \u00d7 Z\u2082 partition-flavored, Pati-Salam SU(4) with n as a 4th leptocolor, or another candidate.\n\nHONEST SCOPE. Scaffold only \u2014 does NOT derive quark masses, audit n_part, define the boundary stress tensor, or identify the color algebra. The 6\u00d76 operator is structurally distinct-from-lepton but not yet populated. Mass values, singlet constraint, color algebra are PRs #78\u2013#80 explicitly. B4: cavity eigenfrequencies \u03c9 are dimensionful (scale-free in ratios); the scaffold is structurally scale-independent."
+}
