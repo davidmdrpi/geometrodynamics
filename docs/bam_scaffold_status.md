@@ -274,6 +274,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `quark_npart_origin_probe` | `n_part = 233` (quark) = phenomenological compensator | N_PART_IS_PHENOMENOLOGICAL_COMPENSATOR |
 | `qcd_shell_waveguide_scaffold_probe` | shell waveguide basis + operator scaffold (PRs #77–#80 arc) | SHELL_WAVEGUIDE_SCAFFOLD_CONSTRUCTED |
 | `shell_mass_ordering_audit_probe` | shell mass-ordering / `n_part` audit on PR #77 basis | SHELL_BASIS_STRUCTURALLY_BETTER_N_PART_NOT_YET_RESOLVED |
+| `boundary_stress_chi_n_probe` | `χ_n` derived from cavity-mouth boundary stress; singlet placeholder | CHI_N_DERIVED_BOUNDARY_STRESS_INSUFFICIENT |
 
 ## Cross-references
 
@@ -362,6 +363,18 @@ the B4 audit shows cannot come from scale-free geometry.
     ×6.4·10⁹ — ~9 orders unaccounted for; (v) `n_part` NOT resolved
     at PR #78 alone — depends on PR #79's `χ_n` derivation and PR
     #80's `H_couple` population.
+  - `docs/boundary_stress_chi_n_research_plan.md` — PR #79, derives
+    `χ_n = T_odd(n) = (T_inner − T_outer)/2` from the Z₂-antisymmetric
+    piece of cavity-mouth boundary stress (PR #63's inner/outer swap).
+    Findings: (i) `χ_n` structurally pinned with no free parameter
+    once cavity geometry fixed; (ii) sign is uniform-positive across
+    all `n` (no sign flip), overruling PR #78's sign-flipping ansatz;
+    (iii) magnitude is shell-suppressed (`χ_n/ω² ~ 0.01–0.02` for
+    `n ≥ 3`), 30–100× too small for observed within-generation
+    splittings; (iv) within-generation inversion and inter-generation
+    hierarchy ⟹ PR #80 color sector; (v) v3 species ↔ partition map
+    flagged for revision; (vi) singlet projector placeholder (identity
+    on flavor basis), awaits PR #80 color algebra.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
