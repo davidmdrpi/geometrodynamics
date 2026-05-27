@@ -1,0 +1,218 @@
+{
+  "timestamp_utc": "2026-05-27T06:40:22+00:00",
+  "identification": "n_part = 233 = phenomenological compensator at the v3 baseline (lepton-style Hamiltonian, wrong machinery for the quark sector)",
+  "only_topological_invariant": "N_q \u2261 0 (mod 2) \u2014 Z\u2082 partition multiplicity",
+  "right_derivation_route": "quantitative #68\u2013#69 QCD-shell development (outside closure-ledger scope)",
+  "b4_caveat": "n_part dimensionless integer; scale-independent; structural",
+  "tests": [
+    {
+      "name": "T1_parity_invariance_recap",
+      "description": "Recap from quark_beta_subblock_stability: N_q \u2261 0 (mod 2) across all 12 \u00a78 ablations. The factor of 2 is topological (Z\u2082 partition multiplicity from the v3 ansatz basis {(k, +), (k, \u2212)}, k \u2208 {1, 3, 5}).",
+      "ablation_N_q_values": [
+        466,
+        466,
+        466,
+        476,
+        474,
+        474,
+        482,
+        432,
+        494,
+        494,
+        440,
+        510
+      ],
+      "ablation_parities": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "all_even": true,
+      "topological_interpretation": "Z\u2082 partition multiplicity",
+      "pass": true
+    },
+    {
+      "name": "T2_extended_candidate_catalog",
+      "description": "Scan candidate enumerations NOT in the prior quark_beta_origin_probe catalog: Fibonacci, Lucas, Padovan, Perrin, tribonacci, color \u00d7 flavor \u00d7 generation, QCD \u03b2\u2080 combinations, Tangherlini QCD-shell mode counts. Check for exact matches to n_part = 233 or N_q = 466.",
+      "n_candidates_scanned": 129,
+      "families_scanned": [
+        "fibonacci",
+        "k_5_polynomial",
+        "lucas",
+        "padovan",
+        "perrin",
+        "qcd_beta_function",
+        "qcd_color_flavor",
+        "tangherlini_shell_modes",
+        "tribonacci"
+      ],
+      "families_count": {
+        "fibonacci": 18,
+        "lucas": 18,
+        "padovan": 24,
+        "perrin": 23,
+        "tribonacci": 12,
+        "qcd_color_flavor": 11,
+        "qcd_beta_function": 5,
+        "tangherlini_shell_modes": 12,
+        "k_5_polynomial": 6
+      },
+      "exact_matches_to_n_part_233": [
+        {
+          "family": "fibonacci",
+          "expression": "F_13 = 233",
+          "value": 233
+        },
+        {
+          "family": "k_5_polynomial",
+          "expression": "9k_5\u00b2 + k_5+3 = 233",
+          "value": 233
+        }
+      ],
+      "exact_matches_to_N_q_466": [],
+      "n_part_target": 233,
+      "N_q_target": 466,
+      "pass": true
+    },
+    {
+      "name": "T3_fibonacci_F13_coincidence_under_drift",
+      "description": "n_part = 233 = F_13. But \u00a78 drift values include 216, 220, 237, 238, 241, 247, 255 \u2014 none of which are Fibonacci. So F_13 = 233 is a baseline coincidence, not a topological invariant.",
+      "F_13": 233,
+      "F_13_equals_n_part_baseline": true,
+      "drift_values_unique": [
+        216,
+        220,
+        233,
+        237,
+        238,
+        241,
+        247,
+        255
+      ],
+      "drift_in_fibonacci": {
+        "216": false,
+        "220": false,
+        "233": true,
+        "237": false,
+        "238": false,
+        "241": false,
+        "247": false,
+        "255": false
+      },
+      "n_drift_values_in_fibonacci": 1,
+      "n_drift_values_total": 8,
+      "fibonacci_survives_drift": false,
+      "interpretation": "F_13 = 233 is a baseline coincidence \u2014 a coincidental enumeration match that does not survive \u00a78 perturbations.",
+      "pass": true
+    },
+    {
+      "name": "T4_v3_Hamiltonian_is_lepton_shaped",
+      "description": "The v3 quark Hamiltonian uses the lepton-style closure-quantum basis {(k=1,\u00b1), (k=3,\u00b1), (k=5,\u00b1)} \u2014 the 6 odd-k throat modes that give the charged-lepton ladder. But quarks live in the QCD shell channel (#68\u2013#69), not at the throat. n_part = 233 is the empirical price of fitting quark masses on lepton-shaped basis vectors.",
+      "v3_basis": [
+        "(1, +)",
+        "(1, \u2212)",
+        "(3, +)",
+        "(3, \u2212)",
+        "(5, +)",
+        "(5, \u2212)"
+      ],
+      "v3_basis_size": 6,
+      "lepton_N_clean": 100,
+      "lepton_structural_form": "4\u00b7k_5\u00b2 = 100",
+      "quark_N_observed": 466,
+      "quark_clean_form_exists": false,
+      "sector_mismatch": "v3 basis = closure-quantum throat modes (lepton-shaped); quark sector lives in QCD shell channel (#68\u2013#69)",
+      "pass": true
+    },
+    {
+      "name": "T5_pr68_pr69_as_right_derivation_route",
+      "description": "The quark sector lives in the QCD shell channel (#68\u2013#69), not at the throat. Quantitative development of #68\u2013#69 into a QCD-shell model is the genuine derivation route for n_part; this is structurally outside closure-ledger scope.",
+      "pr_68": "throat_to_shell_transition_probe",
+      "pr_69": "shell_to_qcd_match_probe",
+      "shell_features_matched": [
+        "Z\u2082 partition (#69)",
+        "3 \u00d7 2 = 6 flavors (#69)",
+        "heavier mass scale (#68)",
+        "extended-character wavefront (#68)"
+      ],
+      "closure_ledger_designed_for": "lepton throat sector",
+      "not_designed_for": "QCD shell sector (confinement, \u03b1s, color)",
+      "right_route": "develop #68\u2013#69 from structural match to quantitative QCD-shell model",
+      "is_open_work": true,
+      "pass": true
+    },
+    {
+      "name": "T6_n_part_drifts_across_section_8",
+      "description": "n_part drifts from 216 to 255 across \u00a78 ablations (span 39, mean 236.4) \u2014 not a topological invariant. n_part = 233 at the baseline is a phenomenological compensator, not a protected integer.",
+      "drift_values": [
+        233,
+        233,
+        233,
+        238,
+        237,
+        237,
+        241,
+        216,
+        247,
+        247,
+        220,
+        255
+      ],
+      "drift_min": 216,
+      "drift_max": 255,
+      "drift_span": 39,
+      "drift_mean": 236.41666666666666,
+      "drift_pct_of_mean": 16.496298907296442,
+      "baseline_value": 233,
+      "baseline_in_drift_set": true,
+      "is_topological_invariant": false,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope_b4",
+      "description": "Honest scope: structurally classifies n_part = 233 as a phenomenological compensator at the v3 baseline, not a topological invariant; only N_q \u2261 0 (mod 2) survives \u00a78. B4: n_part dimensionless integer; scale-independent. Identifies #68\u2013#69 as the right derivation route \u2014 outside closure-ledger scope.",
+      "b4_n_part_dimensionless": true,
+      "topological_invariant": false,
+      "phenomenological_compensator": true,
+      "right_route_outside_closure_ledger": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "n_part = 233 is the v3 baseline value of a phenomenological compensator for unmodeled QCD-shell physics. The right derivation route is quantitative development of #68\u2013#69, outside the closure-ledger machinery's scope.",
+      "classification": "PHENOMENOLOGICAL_COMPENSATOR",
+      "only_invariant": "N_q \u2261 0 (mod 2) \u2014 Z\u2082 partition multiplicity",
+      "right_route": "quantitative #68\u2013#69 QCD-shell development",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "surviving_exact_matches": [
+    {
+      "family": "fibonacci",
+      "expression": "F_13 = 233",
+      "value": 233,
+      "survives_section_8_drift": false,
+      "note": "enumeration is parameter-free; equals 233 at baseline but cannot match drift values 216, 220, 237, 238, 241, 247, 255 simultaneously."
+    },
+    {
+      "family": "k_5_polynomial",
+      "expression": "9k_5\u00b2 + k_5+3 = 233",
+      "value": 233,
+      "survives_section_8_drift": false,
+      "note": "enumeration is parameter-free; equals 233 at baseline but cannot match drift values 216, 220, 237, 238, 241, 247, 255 simultaneously."
+    }
+  ],
+  "verdict_class": "N_PART_IS_PHENOMENOLOGICAL_COMPENSATOR",
+  "verdict": "N_PART IS PHENOMENOLOGICAL COMPENSATOR. n_part = 233 at the v3 baseline is one realization of a fit compensator that drifts across docs/quark_axioms.md \u00a78 ablations from 216 to 255 (span 39, mean 236.4). The only topological invariant is the parity N_q \u2261 0 (mod 2), the Z\u2082 partition multiplicity of the v3 ansatz basis {(k, +), (k, \u2212)} (recap from quark_beta_subblock_stability).\n\nEXTENDED CANDIDATE CATALOG. Beyond the prior probe's enumerations (S\u00b3/S\u00b2 harmonics, SU(3) representations, torus-knot crossings, Tangherlini barrier sums), this probe scanned Fibonacci/Lucas/Padovan/Perrin/tribonacci, color \u00d7 flavor \u00d7 generation (3\u00b76 = 18, 3\u00b76\u00b2 = 108, 8\u00b76\u00b73 = 144, 8\u00b76\u00b75 = 240, \u2026), QCD \u03b2\u2080 = 7 combinations (7\u00b725 = 175, 7\u00b730 = 210, \u2026), and Tangherlini QCD-shell mode counts. n_part = 233 = F_13 (the 13th Fibonacci number) is the only exact baseline match in the extended catalog \u2014 but \u00a78 drift values (216, 220, 237, 238, 241, 247, 255) are not Fibonacci, so F_13 = 233 is a baseline coincidence, not a structural invariant. No principled enumeration in the closure-ledger catalog reproduces n_part across \u00a78.\n\nSTRUCTURAL READING. The v3 quark Hamiltonian uses the lepton-style closure-quantum basis {(k=1,\u00b1), (k=3,\u00b1), (k=5,\u00b1)} \u2014 the 6 odd-k throat modes that give the charged-lepton ladder via \u03b2_lepton = k_5\u00b2\u00b7(2\u03c0) = 50\u03c0 (closure-quantum integer 4\u00b7k_5\u00b2 = 100). But the quark sector lives in the QCD SHELL CHANNEL per #68\u2013#69: higher excitations of the focused lepton-throat pulse delocalize into a heavier-scale, extended-character shell wavefront reproducing the documented quark-sector structural invariants (Z\u2082 partition, 3 \u00d7 2 = 6 flavors). The v3 Hamiltonian is the WRONG machinery for the quark sector \u2014 it is fitting QCD-confined quarks on closure-quantum throat basis vectors. n_part = 233 is the empirical price of that sector mismatch: it absorbs unmodeled QCD physics (confinement, \u03b1s running, color), which closure-ledger primitives (action_base = 2\u03c0, transport = 8\u03c0, resistance = 7\u03c0/100, pinhole \u03b3) are not designed to capture.\n\nRIGHT DERIVATION ROUTE. The structurally honest path to n_part is QUANTITATIVE development of #68\u2013#69 (throat-to-shell transition + shell\u2194QCD structural match) into a full QCD-shell model \u2014 i.e., a model in which the quark mass sector is computed from the shell channel directly, with confinement, \u03b1s running, and color sector all explicit rather than absorbed into a phenomenological compensator. This is structurally OUTSIDE the closure-ledger machinery's scope (the closure-ledger primitives are throat-sector / lepton-sector primitives) and is itself a substantial research program \u2014 comparable in scope to deriving lattice QCD's spectrum from underlying geometric principles. It is not the next-most-tractable work in the BAM framework, and should not be pursued by further enumeration on the v3 Hamiltonian.\n\nHONEST SCOPE. This probe classifies n_part = 233 structurally; it does NOT first-principles derive 233 (no such derivation exists in the current catalog). The prior verdict from quark_beta_status.md (\"phenomenological compensator\") is upheld and sharpened: the WHY is the lepton/shell sector mismatch, and the RIGHT-ROUTE is #68\u2013#69 developed quantitatively. B4: n_part is a dimensionless integer; scale-independent; structural."
+}
