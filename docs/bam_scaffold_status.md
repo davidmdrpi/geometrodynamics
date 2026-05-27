@@ -271,6 +271,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `three_throat_modes_probe` | `#gen = (k_5+1)/2 = 3` from `k_5` | THREE_GENERATIONS_FROM_K5 |
 | `k5_origin_probe` | `k_5 = D_bulk = dim(S³)+2 = 5` | K_5_FROM_BULK_DIMENSION |
 | `s_bam_loop_measure_probe` | `1/(2π)` in `a = α/(2π)` = BAM closure quantum | LOOP_MEASURE_IDENTIFIED |
+| `quark_npart_origin_probe` | `n_part = 233` (quark) = phenomenological compensator | N_PART_IS_PHENOMENOLOGICAL_COMPENSATOR |
 
 ## Cross-references
 
@@ -334,6 +335,14 @@ the B4 audit shows cannot come from scale-free geometry.
     dwell, `ε` integer); closes the structural piece of PR #62's open
     follow-on. Full covariant `(2π)^d` path-integral derivation remains
     future work.
+  - `docs/quark_npart_origin_research_plan.md` — `n_part = 233` (quark)
+    classified as a phenomenological compensator at the v3 baseline;
+    extended catalog (Fibonacci, Lucas, Padovan, Perrin, tribonacci,
+    color × flavor × generation, QCD β₀, Tangherlini QCD-shell modes)
+    yields no exact match surviving §8 drift; structural reading is
+    "v3 Hamiltonian is lepton-shaped, quark sector lives in QCD shell
+    channel per #68–#69". Right derivation route (quantitative #68–#69)
+    is outside closure-ledger scope.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
