@@ -1,0 +1,276 @@
+{
+  "timestamp_utc": "2026-05-27T07:37:00+00:00",
+  "identification": "\u03c7_n = T_odd(n) from cavity-mouth boundary stress; uniform-sign / shell-suppressed; structurally insufficient for observed splittings; PR #80 color sector required",
+  "next_pr": "PR #80 \u2014 color algebra acting on (l, n, p) and H_couple",
+  "b4_caveat": "T_inner, T_outer dimensionful (1/length\u00b2); \u03c7_n/\u03c9\u00b2 ratio is scale-free; structural",
+  "tests": [
+    {
+      "name": "T1_boundary_stress_computed_l1",
+      "description": "Compute boundary stresses T_inner = (\u2202\u03c8/\u2202r*)\u00b2|_{r=R_MID+\u03b5} and T_outer = (\u2202\u03c8/\u2202r*)\u00b2|_{r=R_OUTER\u2212\u03b5} for the l=1 radial eigenmodes. Both positive by construction (Dirichlet BCs at both ends, nonzero slope at the wall).",
+      "l": 1,
+      "rows": [
+        {
+          "l": 1,
+          "n": 0,
+          "omega": 1.054726345186706,
+          "omega_sq": 1.1124476632309064,
+          "T_inner": 0.6698787731400012,
+          "T_outer": 0.35787271586165104,
+          "T_even": 0.5138757445008262,
+          "T_odd": 0.1560030286391751,
+          "asymmetry": 0.30358122621785716
+        },
+        {
+          "l": 1,
+          "n": 1,
+          "omega": 1.974375951704394,
+          "omega_sq": 3.8981603986686313,
+          "T_inner": 2.264751605748268,
+          "T_outer": 1.864126689805935,
+          "T_even": 2.0644391477771014,
+          "T_odd": 0.20031245797116648,
+          "asymmetry": 0.0970299648632677
+        },
+        {
+          "l": 1,
+          "n": 2,
+          "omega": 2.894053994605116,
+          "omega_sq": 8.375548523689828,
+          "T_inner": 4.93648308523191,
+          "T_outer": 4.566197230239405,
+          "T_even": 4.751340157735658,
+          "T_odd": 0.1851429274962526,
+          "asymmetry": 0.03896646448156766
+        },
+        {
+          "l": 1,
+          "n": 3,
+          "omega": 3.8246280428228867,
+          "omega_sq": 14.627779665947227,
+          "T_inner": 8.696401046387754,
+          "T_outer": 8.341726975863779,
+          "T_even": 8.519064011125767,
+          "T_odd": 0.17733703526198763,
+          "asymmetry": 0.020816492871797675
+        },
+        {
+          "l": 1,
+          "n": 4,
+          "omega": 4.760868694433718,
+          "omega_sq": 22.665870725639014,
+          "T_inner": 13.532338958549033,
+          "T_outer": 13.183452399615945,
+          "T_even": 13.357895679082489,
+          "T_odd": 0.17444327946654425,
+          "asymmetry": 0.013059188637002906
+        },
+        {
+          "l": 1,
+          "n": 5,
+          "omega": 5.700020220942764,
+          "omega_sq": 32.49023051915639,
+          "T_inner": 19.44228605097085,
+          "T_outer": 19.0960771450101,
+          "T_even": 19.269181597990475,
+          "T_odd": 0.17310445298037536,
+          "asymmetry": 0.008983487549799619
+        }
+      ],
+      "all_positive": true,
+      "pass": true
+    },
+    {
+      "name": "T2_z2_decomposition_inner_outer_swap",
+      "description": "Z\u2082 decomposition under the inner/outer swap r \u21a6 2\u00b7R_MID \u2212 r (PR #63's C involution): T_even = (T_in + T_out)/2 (Z\u2082-symmetric); T_odd = (T_in \u2212 T_out)/2 (Z\u2082-antisymmetric, the \u03c7_n source). T_odd > 0 uniformly: radial profile shifted toward R_MID by 5D Tangherlini curvature.",
+      "rows": [
+        {
+          "n": 0,
+          "T_inner": 0.6698787731400012,
+          "T_outer": 0.35787271586165104,
+          "T_even": 0.5138757445008262,
+          "T_odd": 0.1560030286391751,
+          "asymmetry": 0.30358122621785716
+        },
+        {
+          "n": 1,
+          "T_inner": 2.264751605748268,
+          "T_outer": 1.864126689805935,
+          "T_even": 2.0644391477771014,
+          "T_odd": 0.20031245797116648,
+          "asymmetry": 0.0970299648632677
+        },
+        {
+          "n": 2,
+          "T_inner": 4.93648308523191,
+          "T_outer": 4.566197230239405,
+          "T_even": 4.751340157735658,
+          "T_odd": 0.1851429274962526,
+          "asymmetry": 0.03896646448156766
+        },
+        {
+          "n": 3,
+          "T_inner": 8.696401046387754,
+          "T_outer": 8.341726975863779,
+          "T_even": 8.519064011125767,
+          "T_odd": 0.17733703526198763,
+          "asymmetry": 0.020816492871797675
+        },
+        {
+          "n": 4,
+          "T_inner": 13.532338958549033,
+          "T_outer": 13.183452399615945,
+          "T_even": 13.357895679082489,
+          "T_odd": 0.17444327946654425,
+          "asymmetry": 0.013059188637002906
+        },
+        {
+          "n": 5,
+          "T_inner": 19.44228605097085,
+          "T_outer": 19.0960771450101,
+          "T_even": 19.269181597990475,
+          "T_odd": 0.17310445298037536,
+          "asymmetry": 0.008983487549799619
+        }
+      ],
+      "T_odd_uniformly_positive": true,
+      "asymmetry_decreases_with_n": true,
+      "pass": true
+    },
+    {
+      "name": "T3_chi_n_from_boundary_stress",
+      "description": "Derive \u03c7_n = T_odd(n) per mode. Sign of \u03c7_n is uniform (positive) across all n; magnitude decreases with n (shell saturation). For shell modes (n \u2265 3), \u03c7_n/\u03c9\u00b2 ~ 0.01\u20130.02 \u2014 structurally small.",
+      "chi_n": {
+        "n=0": 0.156003,
+        "n=1": 0.200312,
+        "n=2": 0.185143,
+        "n=3": 0.177337,
+        "n=4": 0.174443,
+        "n=5": 0.173104
+      },
+      "chi_over_omega_sq": {
+        "n=0": 0.140234,
+        "n=1": 0.051386,
+        "n=2": 0.022105,
+        "n=3": 0.012123,
+        "n=4": 0.007696,
+        "n=5": 0.005328
+      },
+      "all_chi_n_positive": true,
+      "pass": true
+    },
+    {
+      "name": "T4_sign_pattern_vs_pr78_ansatz",
+      "description": "Compare derived \u03c7_n signs (uniform positive) to PR #78's sign-flipping ansatz (\u03c7_3 < 0, \u03c7_4 > 0, \u03c7_5 > 0). The boundary-stress derivation overrules PR #78's ansatz: NO sign flip is structurally available from cavity-mouth asymmetry. Two reconciliation paths discussed; PR #80 settles.",
+      "derived_chi_n_signs": {
+        "0": 1,
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 1
+      },
+      "pr78_required_signs": {
+        "3": -1,
+        "4": 1,
+        "5": 1
+      },
+      "sign_match_per_n": {
+        "3": false,
+        "4": true,
+        "5": true
+      },
+      "n_signs_matching": 2,
+      "boundary_stress_gives_sign_flipping_pattern": false,
+      "pass": true
+    },
+    {
+      "name": "T5_chi_n_magnitude_audit_vs_observed",
+      "description": "Required \u03c7_n/\u03c9\u00b2 to reproduce observed within-generation mass\u00b2 ratios vs derived from boundary stress. Derived is 1-2% of \u03c9\u00b2; required is 60-99% \u2014 too small by 50-100\u00d7. Boundary stress alone cannot drive the splittings.",
+      "within_gen_mass_sq_ratios_observed": {
+        "u_over_d": 0.21393100981709307,
+        "c_over_s": 184.89011366919007,
+        "t_over_b": 1706.796782353884,
+        "s_over_c": 0.005408618017236035,
+        "b_over_t": 0.0005858928317294319
+      },
+      "required_chi_over_omega_sq": {
+        "u/d (n=3)": 0.6475400857428847,
+        "s/c (n=4)": 0.9892409555273111,
+        "b/t (n=5)": 0.9988289004753579
+      },
+      "derived_chi_over_omega_sq": {
+        "n=3": 0.01212330506145234,
+        "n=4": 0.007696297291117027,
+        "n=5": 0.00532789242225635
+      },
+      "deficit_factor_required_over_derived": {
+        "n=3": 53.412834409473405,
+        "n=4": 128.53465999410923,
+        "n=5": 187.47167196974974
+      },
+      "boundary_stress_alone_sufficient_for_splittings": false,
+      "pass": true
+    },
+    {
+      "name": "T6_singlet_projector_placeholder",
+      "description": "Singlet projector P_S is identity on the 6-state flavor basis (color is implicit; physical states = color singlets). Spectrum unchanged under projection. Non-trivial singlet content arrives in PR #80 with color algebra identification.",
+      "projector_dim": 6,
+      "projector_is_identity_placeholder": true,
+      "spectrum_unchanged_under_projection": true,
+      "projector_commutes_with_H_flavor": true,
+      "diag_mass_sq_with_boundary_chi": [
+        14.8051,
+        14.4504,
+        22.8403,
+        22.4914,
+        32.6633,
+        32.3171
+      ],
+      "pass": true
+    },
+    {
+      "name": "T7_structural_interpretation_pr79_vs_pr80",
+      "description": "PR #79 fixes \u03c7_n structural slot from cavity-mouth boundary stress \u2014 no free parameter. Magnitudes are small; sign is uniform. Within-generation inversion and inter-generation hierarchy \u27f9 PR #80's color sector.",
+      "pr_79_fixes": [
+        "\u03c7_n = T_odd(n) from cavity-mouth boundary stress",
+        "sign uniform (T_inner > T_outer) \u2014 no sign flip",
+        "magnitude shell-suppressed (\u03c7_n/\u03c9\u00b2 ~ 0.01\u20130.02 for n \u2265 3)",
+        "singlet projector placeholder (identity on flavor basis)",
+        "no free parameter once cavity geometry is fixed"
+      ],
+      "pr_80_owes": [
+        "color algebra acting on (l, n, p)",
+        "H_couple inter-mode mixing",
+        "within-generation splittings beyond boundary-stress \u03c7_n",
+        "inter-generation hierarchy spanning ~9 orders of mass\u00b2",
+        "singlet projector populated with non-trivial color content"
+      ],
+      "v3_species_map_status": "flagged for revision: under boundary-stress reading, natural assignment is \"+ = heavier\" uniformly, which inverts v3's (k=1, +) = u to (n=3, +) = d. PR #80 settles which interpretation is physical.",
+      "pass": true
+    },
+    {
+      "name": "T8_honest_scope_assessment",
+      "description": "PR #79 derives \u03c7_n structurally from boundary stress with no free parameter, identifies the uniform-sign / shell-suppressed structural pattern, overrules PR #78's sign-flipping ansatz, and flags PR #80's color sector as the necessary contributor to the within-generation inversion. Singlet constraint added as placeholder.",
+      "classification": "CHI_N_DERIVED_BOUNDARY_STRESS_INSUFFICIENT",
+      "what_pr_79_establishes": [
+        "\u03c7_n structural source = inner/outer mouth asymmetry",
+        "uniform-sign / shell-suppressed pattern",
+        "no free parameter once cavity geometry fixed",
+        "singlet projector placeholder (identity, awaiting PR #80)",
+        "PR #78 sign-flipping ansatz structurally overruled"
+      ],
+      "what_pr_79_does_not_resolve": [
+        "within-generation inversion (boundary \u03c7_n too small)",
+        "inter-generation hierarchy (~9 orders of magnitude)",
+        "color algebra identification",
+        "v3 species \u2194 partition map (flagged for revision)",
+        "n_part compensator (re-audit after PR #80)"
+      ],
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "CHI_N_DERIVED_BOUNDARY_STRESS_INSUFFICIENT",
+  "verdict": "CHI_N DERIVED FROM BOUNDARY STRESS, INSUFFICIENT FOR OBSERVED SPLITTINGS. The PR #79 derivation pins the structural slot of the generation-dependent Z\u2082 partition splitter \u03c7_n: it is the Z\u2082-antisymmetric piece of the cavity-mouth boundary stress T_odd(n) = (T_inner \u2212 T_outer)/2, where T_inner = (\u2202\u03c8_n/\u2202r*)\u00b2|R_MID and T_outer = (\u2202\u03c8_n/\u2202r*)\u00b2|R_OUTER for the normalized radial eigenfunction. No free parameter \u2014 once the cavity geometry [R_MID, R_OUTER] is fixed, \u03c7_n is determined by the Tangherlini eigensolver.\n\nSTRUCTURAL PATTERN. For l=1, n=0..5 on the standard cavity:\n  - T_inner > T_outer for EVERY mode (uniform positive sign of T_odd). The radial profile is shifted toward R_MID by the 5D Tangherlini centrifugal + throat-curvature potential (the inner mouth has the stronger curvature).\n  - The asymmetry T_odd/T_even DECREASES monotonically with n: 0.30 (electron-focused) \u2192 0.04 (tau, edge of shell saturation) \u2192 0.02, 0.01, 0.009 (shell sector). Shell-saturated modes feel the mouth asymmetry only weakly because the standing wave fills the cavity nearly uniformly.\n  - NO sign flip between n=3 and n=4. The PR #78 existence proof (\u03c7_3 < 0, \u03c7_4 > 0, \u03c7_5 > 0) is STRUCTURALLY INCOMPATIBLE with the boundary-stress derivation \u2014 the sign-flipping ansatz cannot come from cavity-mouth asymmetry.\n\nMAGNITUDE INSUFFICIENT. For shell modes (n \u2265 3), \u03c7_n/\u03c9\u00b2 is in the range 0.01\u20130.02, while the required \u03c7/\u03c9\u00b2 to reproduce the observed within-generation mass\u00b2 ratios is 0.65 (u/d), 0.99 (s/c), 0.95 (b/t). Boundary stress is too small by 50\u2013100\u00d7 to drive the observed splittings on its own.\n\nV3 SPECIES MAP FLAGGED. The v3 convention (k=1, +) = u (with u lighter than d) is incompatible with the natural boundary-stress reading \"+ = heavier\" (uniform across n). Either the v3 map needs revision (assign + to the heavier state at every generation, so (n=3, +) = d, (n=3, \u2212) = u), or the within-generation inversion at n=3 is a different mechanism entirely \u2014 PR #80's color sector is the natural place to settle this.\n\nSINGLET CONSTRAINT. The 6-state shell basis is at the FLAVOR level (u, d, s, c, b, t); color is implicit. The singlet projector P_S is the identity on this basis (physical states = color-singlet observables; color-octet components, if present in any hypothetical extension, would project out under singlet projection). P_S commutes with the diagonal flavor Hamiltonian; the spectrum is unchanged. The non-trivial singlet content arrives in PR #80 with the color algebra identification.\n\nWHAT PR #79 FIXES. (i) Structural origin of \u03c7_n = cavity-mouth boundary stress; (ii) uniform-sign / shell-suppressed pattern; (iii) no free parameter once cavity geometry is fixed; (iv) singlet projector placeholder (identity on flavor basis); (v) PR #78 sign-flipping ansatz overruled.\n\nWHAT PR #80 OWES. (i) Color algebra acting on (l, n, p) \u2014 SU(3), SU(2)\u00d7Z\u2082, Pati-Salam SU(4), or other; (ii) H_couple inter-mode mixing populated by color-algebra transformation rules; (iii) within-generation splittings beyond the small boundary-stress \u03c7_n; (iv) inter-generation hierarchy spanning ~9 orders of magnitude; (v) settling the v3 species \u2194 partition map question. After PR #80 populates the operator, the n_part audit can be re-run; until then, n_part = 233 remains a phenomenological compensator with sharpened scope.\n\nHONEST SCOPE. PR #79 derives \u03c7_n structurally; identifies that it is small and uniform-sign for shell modes; rules out the boundary stress as the source of the within-generation inversion; and flags PR #80's color sector as the necessary next contribution. The n_part question remains open until PR #80."
+}
