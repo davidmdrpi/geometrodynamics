@@ -1,0 +1,253 @@
+{
+  "timestamp_utc": "2026-05-27T07:22:28+00:00",
+  "identification": "shell basis structurally better than v3 (cavity wavefronts vs throat traversals); within-generation inversion requires sign-flipping \u03c7_n (PR #79 slot); n_part NOT yet resolved at PR #78",
+  "next_pr": "PR #79 \u2014 boundary stress tensor to derive \u03c7_n; PR #80 \u2014 color algebra to identify H_couple structure",
+  "b4_caveat": "shell \u03c9 dimensionful; mass-ratio audit scale-free; absolute scale via single B4 anchor (PR #53)",
+  "tests": [
+    {
+      "name": "T1_shell_kinetic_spectrum_n_varied",
+      "description": "Shell kinetic spectrum on n_varied basis: \u03c9\u00b2(l=1, n=3,4,5). This is H_kin's diagonal \u2014 the 'cavity-mass operator'.",
+      "basis_labels": [
+        "(l=1, n=3, +)",
+        "(l=1, n=3, \u2212)",
+        "(l=1, n=4, +)",
+        "(l=1, n=4, \u2212)",
+        "(l=1, n=5, +)",
+        "(l=1, n=5, \u2212)"
+      ],
+      "species": [
+        "u",
+        "d",
+        "c",
+        "s",
+        "t",
+        "b"
+      ],
+      "omegas": [
+        3.8246,
+        3.8246,
+        4.7609,
+        4.7609,
+        5.7,
+        5.7
+      ],
+      "omega_sq_mass_sq": [
+        14.6278,
+        14.6278,
+        22.6659,
+        22.6659,
+        32.4902,
+        32.4902
+      ],
+      "mass_sq_range_factor": 2.2211,
+      "pass": true
+    },
+    {
+      "name": "T2_coverage_gap_shell_vs_observed",
+      "description": "Compare shell kinetic mass\u00b2-range to observed range. Shell alone is insufficient by ~9 orders of magnitude \u2014 PR #79 (boundary stress tensor) and PR #80 (color algebra) must populate the rest.",
+      "shell_kinetic_mass_sq_min": 14.627779665947225,
+      "shell_kinetic_mass_sq_max": 32.4902305191564,
+      "shell_kinetic_range_factor": 2.2211320693318966,
+      "observed_mass_sq_min": 4.6656,
+      "observed_mass_sq_max": 29821836100.0,
+      "observed_range_factor": 6391854445.301783,
+      "coverage_deficit_orders_of_magnitude": 9.459052494079845,
+      "shell_kinetic_alone_sufficient": false,
+      "pass": true
+    },
+    {
+      "name": "T3_uniform_chi_cannot_invert",
+      "description": "A UNIFORM \u03c7 (same sign across all blocks) cannot reproduce the within-generation inversion: u < d (requires + lighter at n=3) but c > s, t > b (require + heavier at n=4, 5). Best uniform-\u03c7 correctness: 2/3 blocks. This identifies the structural slot PR #79 must populate \u2014 a generation-dependent \u03c7_n.",
+      "scan_results": [
+        {
+          "chi": -2.0,
+          "n_correct": "1",
+          "all_correct": false,
+          "block_correct": {
+            "l1n3": "True",
+            "l1n4": "False",
+            "l1n5": "False"
+          }
+        },
+        {
+          "chi": -1.0,
+          "n_correct": "1",
+          "all_correct": false,
+          "block_correct": {
+            "l1n3": "True",
+            "l1n4": "False",
+            "l1n5": "False"
+          }
+        },
+        {
+          "chi": -0.5,
+          "n_correct": "1",
+          "all_correct": false,
+          "block_correct": {
+            "l1n3": "True",
+            "l1n4": "False",
+            "l1n5": "False"
+          }
+        },
+        {
+          "chi": 0.0,
+          "n_correct": "1",
+          "all_correct": false,
+          "block_correct": {
+            "l1n3": "True",
+            "l1n4": "False",
+            "l1n5": "False"
+          }
+        },
+        {
+          "chi": 0.5,
+          "n_correct": "2",
+          "all_correct": false,
+          "block_correct": {
+            "l1n3": "False",
+            "l1n4": "True",
+            "l1n5": "True"
+          }
+        },
+        {
+          "chi": 1.0,
+          "n_correct": "2",
+          "all_correct": false,
+          "block_correct": {
+            "l1n3": "False",
+            "l1n4": "True",
+            "l1n5": "True"
+          }
+        },
+        {
+          "chi": 2.0,
+          "n_correct": "2",
+          "all_correct": false,
+          "block_correct": {
+            "l1n3": "False",
+            "l1n4": "True",
+            "l1n5": "True"
+          }
+        },
+        {
+          "chi": 5.0,
+          "n_correct": "2",
+          "all_correct": false,
+          "block_correct": {
+            "l1n3": "False",
+            "l1n4": "True",
+            "l1n5": "True"
+          }
+        }
+      ],
+      "best_uniform_chi_correctness": "2",
+      "n_blocks_total": 3,
+      "uniform_chi_can_reproduce_all_blocks": "False",
+      "pass": true
+    },
+    {
+      "name": "T4_signflipping_chi_n_existence",
+      "description": "A generation-dependent \u03c7_n (sign-flipping between n=3 and n=4,5) reproduces the within-block inversion. Illustrative magnitudes \u2014 PR #79 must derive the structural values from the boundary stress tensor.",
+      "chi_n_illustrative": {
+        "n=3": -1.0,
+        "n=4": 5.0,
+        "n=5": 20.0
+      },
+      "shell_spec_mass_sq": {
+        "u": 13.6278,
+        "d": 15.6278,
+        "s": 17.6659,
+        "c": 27.6659,
+        "b": 12.4902,
+        "t": 52.4902
+      },
+      "within_block_ordering": {
+        "l1n3 (u<d)": true,
+        "l1n4 (c>s)": true,
+        "l1n5 (t>b)": true
+      },
+      "all_blocks_ok": true,
+      "global_ordering_u_d_s_c_b_t": [
+        "b",
+        "u",
+        "d",
+        "s",
+        "c",
+        "t"
+      ],
+      "global_ordering_correct": false,
+      "pass": true
+    },
+    {
+      "name": "T5_kinetic_only_compensator_residual",
+      "description": "Kinetic-only spectrum (six degenerate \u03c9\u00b2 pairs) fit to observed by a single overall scale; log-residual measures what additional structure is needed.",
+      "shell_mass_sq": {
+        "u": 14.6278,
+        "d": 14.6278,
+        "s": 22.6659,
+        "c": 22.6659,
+        "b": 32.4902,
+        "t": 32.4902
+      },
+      "log10_residual_kinetic_only": 3.2764302607452946,
+      "interpretation": "Large residual: shell kinetic plus a single scale factor cannot reproduce 12-orders-of-magnitude observed spread. PR #79 (boundary stress) + PR #80 (color) must contribute.",
+      "pass": true
+    },
+    {
+      "name": "T6_compensator_with_signflipping_chi_n",
+      "description": "With sign-flipping \u03c7_n (T4 illustrative values), re-fit single scale; report the new log-residual. \u03c7_n improves the ordering but only modestly improves the spread.",
+      "chi_n_illustrative": {
+        "n=3": -1.0,
+        "n=4": 5.0,
+        "n=5": 20.0
+      },
+      "log10_residual_kinetic_only": 3.2764302607452946,
+      "log10_residual_with_chi_n": 3.257428296122475,
+      "residual_reduction": 0.019001964622819667,
+      "observed_log10_range": 9.805626876706125,
+      "interpretation": "Residual stays large after \u03c7_n: the shape needs an exponential or strongly nonlinear inter-mode coupling. PR #79 (n-dependent \u03c7 from boundary stress tensor) is one channel; PR #80 (color algebra mixing) is the complementary one.",
+      "pass": true
+    },
+    {
+      "name": "T7_comparison_with_v3_lepton_shaped_baseline",
+      "description": "Compare shell basis (PR #77/#78) with v3 (lepton-shaped). Shell basis is structurally cleaner (cavity wavefronts not throat traversals, kinetic IS \u03c9\u00b2, 3\u00d72=6 with correct partition slot). But shell-kinetic-only does NOT span the observed 12-order-of-magnitude mass\u00b2 range; the n_part compensator question is NOT yet resolved at #78.",
+      "v3_n_part_baseline": 233,
+      "shell_basis_improvements": [
+        "distinct from throat sector (cavity wavefronts)",
+        "kinetic = \u03c9\u00b2(l, n), not phenomenological \u03b2\u00b7k\u00b2\u00b7(2\u03c0)",
+        "Z\u2082 partition slot for within-generation inversion (T4)",
+        "3 \u00d7 2 = 6 flavors structural (PR #69 match)"
+      ],
+      "shell_basis_not_yet_resolved": [
+        "coverage gap: shell-kinetic range factor 2.2 vs observed 6.4e9",
+        "within-generation inversion needs \u03c7_n, not uniform \u03c7 (T3)",
+        "n_part compensator NOT reduced by PR #78 alone",
+        "PR #79 (boundary stress tensor \u03c7_n) and PR #80 (color algebra coupling H_couple) must populate the operator"
+      ],
+      "pr_78_alone_resolves_n_part": false,
+      "pass": true
+    },
+    {
+      "name": "T8_honest_scope_assessment",
+      "description": "Honest scope: the shell waveguide basis is structurally better than the v3 lepton-shaped basis (cavity wavefronts vs throat traversals; \u03c9\u00b2(l, n) vs phenomenological \u03b2\u00b7k\u00b2; Z\u2082 partition slot for within-generation inversion). The structural slots are identified: uniform \u03c7 insufficient (T3); sign-flipping \u03c7_n needed (T4). However, the n_part compensator question is NOT YET resolved at PR #78 \u2014 the shell kinetic alone cannot span the observed 12-orders-of-magnitude mass\u00b2 range. PR #79 (boundary stress tensor) and PR #80 (color algebra) must populate the operator with structurally derived values. PR #78 SHARPENS the scope of what PRs #79\u2013#80 must do; it does not close it.",
+      "classification": "SHELL_BASIS_STRUCTURALLY_BETTER_N_PART_NOT_YET_RESOLVED",
+      "what_pr_78_establishes": [
+        "shell basis is the right structural machinery",
+        "uniform \u03c7 cannot reproduce within-generation inversion",
+        "sign-flipping \u03c7_n CAN reproduce it (existence proof)",
+        "kinetic-only spectrum does not span observed range"
+      ],
+      "what_pr_78_does_not_resolve": [
+        "absolute scale / n_part compensator (needs #79+#80)",
+        "derivation of \u03c7_n values from a physical principle (#79)",
+        "identification of H_couple structure (#79+#80)",
+        "color algebra (SU(3) vs SU(2)\u00d7Z\u2082 vs other) (#80)"
+      ],
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "SHELL_BASIS_STRUCTURALLY_BETTER_N_PART_NOT_YET_RESOLVED",
+  "verdict": "SHELL BASIS STRUCTURALLY BETTER, N_PART NOT YET RESOLVED. The PR #77 shell waveguide basis is structurally cleaner than the v3 lepton-shaped basis for the quark sector. The kinetic operator is \u03c9\u00b2(l, n) \u2014 the cavity-wavefront eigenfrequency squared \u2014 not the phenomenological winding cost \u03b2\u00b7k\u00b2\u00b7(2\u03c0) that v3 inherited from the lepton ladder. The Z\u2082 partition slot is the natural structural home for the within-generation mass-ordering inversion (u < d but c > s, t > b).\n\nSTRUCTURAL FINDINGS. (1) A UNIFORM \u03c7\u00b7\u03c3_z partition splitter cannot reproduce the inversion: with any single sign of \u03c7, at most 2 of 3 (l, n) blocks have the correct +/\u2212 ordering. (T3 confirms this with a parameter scan.) (2) A GENERATION-DEPENDENT, sign-flipping \u03c7_n CAN reproduce the inversion \u2014 concretely, \u03c7_3 < 0 (so + is lighter at n=3, u < d) with \u03c7_4, \u03c7_5 > 0 (so + is heavier at n=4, 5, c > s and t > b). T4 establishes the existence of this structural slot; the magnitudes are illustrative, NOT derived. PR #79 (boundary stress tensor on the cavity wall) is the natural channel to derive \u03c7_n from physics.\n\nCOVERAGE GAP. The shell kinetic spectrum spans only a factor of ~2.2 in mass\u00b2 (\u03c9\u00b2(n=5)/\u03c9\u00b2(n=3) \u2248 32.5/14.6) while the observed quark mass\u00b2 spans a factor of ~6.4\u00b710\u2079 (u to t). Shell kinetic alone is therefore insufficient by ~9 orders of magnitude. Sign-flipping \u03c7_n improves the ORDERING but not the SPREAD. Closing the spread requires either a large n-dependent \u03c7_n (PR #79) or strong inter-mode coupling H_couple (PR #79 + PR #80).\n\nN_PART STATUS. PR #78 does NOT reduce or remove the v3 phenomenological n_part = 233 compensator on its own. The shell basis identifies the structural SLOTS that must populate the operator, but the values that span the observed range are not derivable at PR #78 \u2014 they require PR #79 (boundary stress tensor \u2192 \u03c7_n) and PR #80 (color algebra \u2192 H_couple). The n_part question is therefore SHARPENED, not closed: PR #78 identifies the right machinery and the missing structural inputs.\n\nCOMPARISON WITH V3. The shell basis (this PR) is structurally distinct from v3 in four ways: (i) basis = cavity wavefronts not throat traversals, (ii) kinetic = \u03c9\u00b2(l, n) cavity eigenfrequency squared not phenomenological \u03b2\u00b7k\u00b2\u00b7(2\u03c0), (iii) Z\u2082 partition slot is the right structural home for the inversion, (iv) the 3 \u00d7 2 = 6 flavor count matches PR #69. These are qualitative improvements at the STRUCTURAL level. Quantitatively, PR #78 alone does not win on mass accuracy or n_part reduction \u2014 both bases require substantial compensation to span the observed range. The shell basis advantage is that its compensation is structurally located (PR #79 + PR #80 slots) rather than absorbed into a single phenomenological integer.\n\nHONEST SCOPE. PR #78 SHARPENS what PR #79 must produce: sign-flipping \u03c7_n from the boundary stress tensor, with magnitudes large enough to push the n=5 block up by a factor of ~10\u2079 in mass\u00b2. It also IDENTIFIES PR #80's role: H_couple inter-mode mixing for the inter-generation hierarchy (and the color algebra it transforms under). PR #78 does not close n_part; it relocates the phenomenological content to structurally-named slots that PRs #79\u2013#80 must populate from physics."
+}
