@@ -272,6 +272,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `k5_origin_probe` | `k_5 = D_bulk = dim(S³)+2 = 5` | K_5_FROM_BULK_DIMENSION |
 | `s_bam_loop_measure_probe` | `1/(2π)` in `a = α/(2π)` = BAM closure quantum | LOOP_MEASURE_IDENTIFIED |
 | `quark_npart_origin_probe` | `n_part = 233` (quark) = phenomenological compensator | N_PART_IS_PHENOMENOLOGICAL_COMPENSATOR |
+| `qcd_shell_waveguide_scaffold_probe` | shell waveguide basis + operator scaffold (PRs #77–#80 arc) | SHELL_WAVEGUIDE_SCAFFOLD_CONSTRUCTED |
 
 ## Cross-references
 
@@ -343,6 +344,13 @@ the B4 audit shows cannot come from scale-free geometry.
     "v3 Hamiltonian is lepton-shaped, quark sector lives in QCD shell
     channel per #68–#69". Right derivation route (quantitative #68–#69)
     is outside closure-ledger scope.
+  - `docs/qcd_shell_waveguide_scaffold_research_plan.md` — PR #77, the
+    foundation of the four-PR QCD-shell arc (#77 scaffold → #78 mass-
+    ordering / `n_part` audit → #79 boundary stress tensor + singlet
+    constraint → #80 color algebra). Quarks reframed as cavity
+    wavefronts that resolve the shell, NOT throat traversals. 6-state
+    `(l, n, p)` basis with 6×6 operator scaffold `H = H_kin + H_Z2 +
+    H_couple`.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
