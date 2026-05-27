@@ -273,6 +273,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `s_bam_loop_measure_probe` | `1/(2π)` in `a = α/(2π)` = BAM closure quantum | LOOP_MEASURE_IDENTIFIED |
 | `quark_npart_origin_probe` | `n_part = 233` (quark) = phenomenological compensator | N_PART_IS_PHENOMENOLOGICAL_COMPENSATOR |
 | `qcd_shell_waveguide_scaffold_probe` | shell waveguide basis + operator scaffold (PRs #77–#80 arc) | SHELL_WAVEGUIDE_SCAFFOLD_CONSTRUCTED |
+| `shell_mass_ordering_audit_probe` | shell mass-ordering / `n_part` audit on PR #77 basis | SHELL_BASIS_STRUCTURALLY_BETTER_N_PART_NOT_YET_RESOLVED |
 
 ## Cross-references
 
@@ -351,6 +352,16 @@ the B4 audit shows cannot come from scale-free geometry.
     wavefronts that resolve the shell, NOT throat traversals. 6-state
     `(l, n, p)` basis with 6×6 operator scaffold `H = H_kin + H_Z2 +
     H_couple`.
+  - `docs/shell_mass_ordering_audit_research_plan.md` — PR #78, the
+    mass-ordering / `n_part` audit on the PR #77 shell basis. Finds:
+    (i) shell basis is structurally better than v3 (cavity wavefronts;
+    `ω²(l, n)` kinetic; Z₂ partition slot for the within-generation
+    inversion); (ii) uniform `χ·σ_z` cannot reproduce the inversion
+    (best 2/3 blocks); (iii) sign-flipping `χ_n` can (existence
+    proof); (iv) shell kinetic spans ×2.2 in mass² vs observed
+    ×6.4·10⁹ — ~9 orders unaccounted for; (v) `n_part` NOT resolved
+    at PR #78 alone — depends on PR #79's `χ_n` derivation and PR
+    #80's `H_couple` population.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
