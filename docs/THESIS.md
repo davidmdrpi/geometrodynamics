@@ -147,7 +147,9 @@ detail):
 | Spinor transport from `T = iσ_y` | verified throat-orientation structure |
 | Bell correlations / CHSH | derived from throat transport; `2√2` verified |
 | Lepton mass ladder | locked spectral model; `β_lepton = k_5²·(2π) = 50π` now derived from the topological charge (PR #71) |
-| Quark mass ladder | 1.6% fitted ladder; residual sector geometrized; quark `β` phenomenological |
+| Quark mass ladder | 1.6% fitted ladder; residual sector geometrized; quark `β = 233π` (with `n_part = 233`) diagnosed as phenomenological compensator absorbing the inter-generation mass hierarchy (PR #76); shell-waveguide arc PRs #77–#80 reframes the sector structurally |
+| Quark sector reframed as cavity wavefronts | PR #76 diagnosis + four-PR shell arc (PRs #77–#80): quarks are the shell-saturated wavefronts that resolve the cavity (not throat traversals like leptons); 6-state `(l, n, p)` basis; `χ_n` derived from cavity-mouth boundary stress (no free parameter, PR #79); BAM-native color algebra `SU(2) × Z₂` from B2 + Hopf + PR #63 (PR #80) |
+| QCD color algebra | BAM-native = `SU(2) × Z₂` from established primitives (PR #80); standard SU(3) NOT derivable from current scaffold — natural triplet candidates all give SO(3)/SU(2); Pati-Salam SU(4) extension (with throat↔shell algebra map) is the most plausible route to SU(3), genuine open work |
 | Coulomb radial response | verified by Tangherlini/Maxwell BVP |
 | Coulomb force at finite separation | verified (`two_throat_coulomb_probe`) |
 | Black-hole interior / entropy | regular metric derived; entropy currently a consistency check |
@@ -259,6 +261,22 @@ documented quark-sector structural invariants (`Z₂` partition,
 throat and the QCD shell are two mode geometries of the same `S³`
 closure skeleton.
 
+**Quantitative QCD-shell development (PRs #76–#80).** The shell
+channel is built out into a quantitative basis: 6-state `(l, n, p)`
+shell waveguide (PR #77), `χ_n` derived from cavity-mouth boundary
+stress (PR #79), BAM-native color algebra `SU(2) × Z₂` (PR #80). The
+user's reframe makes the picture sharp: **"Quarks do not pass through
+the throat; they are the wavefronts that resolve the cavity itself."**
+What closes: the structural machinery. What remains open: the
+inter-generation mass hierarchy (~9 orders in mass²) is outside the
+scope of any BAM color algebra acting on the 6-state shell basis;
+the phenomenological compensator `n_part = 233` (from the v3 lepton-
+shaped fit) survives but with sharply identified scope (PR #76's
+diagnosis). Most plausible derivation route: **Pati-Salam SU(4)**
+unifying throat-leptons and shell-quarks via a quantitative throat↔
+shell algebra map (beyond PR #68's structural transition; genuine
+open work).
+
 ## What success looks like — falsification tests
 
 The next phase of BAM was organized around demonstrations, not parameter
@@ -313,30 +331,79 @@ of "EM from `S³` geometry" and the place the program was most exposed to
 falsification; it is now a demonstrated result. See
 `docs/two_throat_coulomb_research_plan.md`.
 
-**Quark `β = N · π/2` with `N = 466` derived or principled-bounded.**
-_Principled-bounded; full derivation open._ See
-`docs/quark_beta_status.md` for the closing summary. A five-probe
-sequence in `experiments/closure_ledger/` (origin → boundary →
-decomposition → audit → sub-block stability) localized the
-irreducible structural piece: across all 12 logged §8 ablations the
-only preserved invariant is `N_q ≡ 0 (mod 2)`. The structural reading
-is `N_q = 2 · n_part` with the factor of 2 topological (the Z₂
-partition multiplicity from the v3 Hamiltonian basis `{(k, ±)}`) and
-`n_part` the phenomenological compensator. The clean negative
-result for the listed enumerations — torus-knot crossings, SU(3)
-representation dimensions, S³/S² harmonic counts, Tangherlini barrier
-sums — is recorded by the origin probe. Deriving `n_part = 233` from
-first principles is open and is unlikely to be the next-most-tractable
-work in this framework.
+**Quark `β = N · π/2` with `N = 466` and `n_part = 233`.**
+_Scope sharpened across a 6-PR arc; absolute derivation outside the
+current closure-ledger scope._
 
-**Three structural quark axioms reduced to one partition principle.**
-The quark Hamiltonian currently rests on four shell-index axioms
-expressible in `k_5 = 5` only: `(1 − 1/k_5², k_5, (k_5 − 1)·k_5, 0)`.
-The first, `ε = 1 − 1/k_5²`, is recognizably an inverse-square shell
-asymmetry. If `χ` and `η` can be derived from the same `Z₂` partition
-structure rather than just expressed in `k_5`, the residual sector
-goes from "geometric expressions" to "consequences of one partition
-principle" — a much stronger claim with no new physics required.
+The original five-probe sequence (origin → boundary → decomposition
+→ audit → sub-block stability; `docs/quark_beta_status.md`)
+localized the irreducible structural piece: across all 12 logged §8
+ablations the only preserved invariant is `N_q ≡ 0 (mod 2)`. The
+structural reading is `N_q = 2 · n_part`, the factor of 2 topological
+(the Z₂ partition multiplicity), `n_part` phenomenological.
+
+PR #76 (`quark_npart_origin_probe`) extended the candidate catalog
+to Fibonacci, Lucas, Padovan, Perrin, tribonacci, color × flavor ×
+generation, QCD β₀, and Tangherlini QCD-shell mode counts — finding
+only baseline coincidences (`F_13 = 233`, `9·k_5²+k_5+3 = 233`) and
+no enumeration that survives §8 drift. The structural diagnosis:
+**the v3 quark Hamiltonian is lepton-shaped machinery** (basis
+`{(k=1,±), (k=3,±), (k=5,±)}` — the same odd-`k` throat-traversal
+modes that give the lepton ladder), but quarks live in the QCD shell
+channel (#68–#69). `n_part = 233` is the empirical price of fitting
+QCD-confined quarks on closure-quantum throat basis vectors.
+
+The four-PR QCD-shell arc (PRs #77–#80) develops the right machinery
+quantitatively. The user's physical reframe: **quarks do not pass
+through the throat; they are the wavefronts that resolve the cavity
+itself.**
+
+  - **PR #77 (`qcd_shell_waveguide_scaffold_probe`).** 6-state
+    `(l, n, p)` basis where `l` = S³ Casimir, `n` = shell-saturated
+    radial overtone (n ≥ 3 for l=1), `p ∈ {+, −}` = Z₂ partition.
+    Operator scaffold `H = H_kin + H_Z2 + H_couple` with `H_kin =
+    ω²(l, n)` cavity-eigenfrequency-squared — NOT the lepton
+    `β·k²·(2π)` winding cost. Matches PR #69's 3 × 2 = 6 flavor
+    count.
+  - **PR #78 (`shell_mass_ordering_audit_probe`).** Shell basis is
+    structurally better than v3 in four ways (cavity wavefronts; ω²
+    kinetic; Z₂ partition slot for within-generation inversion; 6
+    flavors). Uniform `χ·σ_z` cannot reproduce the inversion (best
+    2/3 blocks); sign-flipping `χ_n` can (existence proof). Coverage
+    gap: shell kinetic ×2.2 vs observed ×6.4·10⁹; `n_part` not
+    resolved at PR #78 alone.
+  - **PR #79 (`boundary_stress_chi_n_probe`).** `χ_n = T_odd(n) =
+    (T_inner − T_outer)/2`, the Z₂-antisymmetric piece of cavity-
+    mouth boundary stress under PR #63's inner/outer swap. NO free
+    parameter once cavity geometry is fixed. Uniform-positive sign
+    (no flip), shell-suppressed magnitude — 30–100× too small for
+    observed splittings. PR #78's sign-flipping ansatz is
+    structurally overruled. Singlet projector added as placeholder.
+  - **PR #80 (`color_algebra_shell_probe`).** **BAM-native color
+    algebra = `SU(2) × Z₂`** (SU(2) from B2 / Hopf holonomy in
+    PRs #59–#66; Z₂ from PR #63's inner/outer swap). 4 generators vs
+    SU(3)'s 8 — substantive structural difference. SU(3) **not**
+    derivable from current scaffold: all natural triplet candidates
+    (3 generations from `(k_5+1)/2`, three Hopf fibrations of S³,
+    S³'s SO(4) isometries, Hopf U(1), bulk 5D structure) give
+    SU(2)/SO(3) algebras. v3 species map revised: `+ = heavier`
+    uniformly. `n_part` re-audit: even with large illustrative
+    couplings, the full Hamiltonian's eigenvalue range factor stays
+    single- to two-digit, while observed inter-generation mass²
+    range is ~6.4·10⁹. **The inter-generation hierarchy is outside
+    the scope of any BAM color algebra acting on the shell basis.**
+
+**Arc closure.** What closed: shell basis is the right machinery;
+`χ_n` has a no-free-parameter structural origin; BAM-native color
+algebra is identified; v3 species map is settled. What remains open:
+the inter-generation mass hierarchy and `n_part = 233` as a residual
+phenomenological compensator with sharply identified scope (it
+absorbs the hierarchy). The most plausible extension route is
+**Pati-Salam SU(4)** with a BAM-native throat↔shell algebra map —
+extending PR #68's structural transition into a quantitative
+unification of the throat (lepton) and shell (quark) sectors. This
+is genuine open work, comparable in scope to deriving the QCD hadron
+spectrum from underlying geometric principles.
 
 **QFT event reinterpretation: Compton scattering from BAM.** _Closed
 at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a
