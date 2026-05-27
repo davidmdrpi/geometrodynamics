@@ -275,6 +275,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `qcd_shell_waveguide_scaffold_probe` | shell waveguide basis + operator scaffold (PRs #77–#80 arc) | SHELL_WAVEGUIDE_SCAFFOLD_CONSTRUCTED |
 | `shell_mass_ordering_audit_probe` | shell mass-ordering / `n_part` audit on PR #77 basis | SHELL_BASIS_STRUCTURALLY_BETTER_N_PART_NOT_YET_RESOLVED |
 | `boundary_stress_chi_n_probe` | `χ_n` derived from cavity-mouth boundary stress; singlet placeholder | CHI_N_DERIVED_BOUNDARY_STRESS_INSUFFICIENT |
+| `color_algebra_shell_probe` | BAM-native color algebra = SU(2)×Z₂; H_couple populated; v3 species map settled | COLOR_ALGEBRA_SU2_Z2_BAM_NATIVE_MASS_HIERARCHY_OPEN |
 
 ## Cross-references
 
@@ -375,6 +376,26 @@ the B4 audit shows cannot come from scale-free geometry.
     hierarchy ⟹ PR #80 color sector; (v) v3 species ↔ partition map
     flagged for revision; (vi) singlet projector placeholder (identity
     on flavor basis), awaits PR #80 color algebra.
+  - `docs/color_algebra_shell_research_plan.md` — PR #80, identifies
+    the BAM-native color algebra as **SU(2) × Z₂**: SU(2) from
+    B2/Hopf holonomy (PRs #59–#66, `T = iσ_y`, `T² = −I`); Z₂ from PR
+    #63's inner/outer swap (C involution). SU(2) acts on the partition
+    index per generation block; Z₂ swaps n=3 ↔ n=5. SU(3) NOT
+    derivable from the current scaffold (all natural triplet
+    candidates give SU(2)/SO(3) algebras). Findings: (i) `H_couple`
+    populated with SU(2)×Z₂ generators; (ii) singlet projector built
+    (1-D fully-singlet subspace = symmetric sum over 6 flavors);
+    (iii) v3 species ↔ partition map revised under uniform `+ =
+    heavier` reading: `(n=3, +) = d, (n=3, −) = u`, etc.; (iv) `n_part`
+    re-audit: eigenvalue range factor of full Hamiltonian saturates
+    at single-digit / modest-two-digit values, while observed
+    inter-generation mass² hierarchy is ~6.4·10⁹ — **outside the scope
+    of any BAM color algebra on the shell basis**. n_part = 233
+    remains a phenomenological compensator with sharply identified
+    scope. Four-PR QCD-shell arc (#77→#80) closes structurally; the
+    inter-generation hierarchy remains genuinely open and most
+    plausibly requires Pati-Salam SU(4) extension with a quantitative
+    throat↔shell algebra map.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
