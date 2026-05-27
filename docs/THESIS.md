@@ -146,13 +146,21 @@ detail):
 | Hopf charge / Chern structure | exact geometric identities |
 | Spinor transport from `T = iσ_y` | verified throat-orientation structure |
 | Bell correlations / CHSH | derived from throat transport; `2√2` verified |
-| Lepton mass ladder | locked spectral model; `β` multiplier still needs analytic origin |
-| Quark mass ladder | 1.6% fitted ladder; residual sector geometrized; `β` phenomenological |
+| Lepton mass ladder | locked spectral model; `β_lepton = k_5²·(2π) = 50π` now derived from the topological charge (PR #71) |
+| Quark mass ladder | 1.6% fitted ladder; residual sector geometrized; quark `β` phenomenological |
 | Coulomb radial response | verified by Tangherlini/Maxwell BVP |
-| Coulomb force at finite separation | falsification test, not yet closed |
+| Coulomb force at finite separation | verified (`two_throat_coulomb_probe`) |
 | Black-hole interior / entropy | regular metric derived; entropy currently a consistency check |
-| Compton tree amplitude (Klein-Nishina) | reproduced exactly via closed-form F² (PRs #25–#35); F² = K²·Q derived from a single C×S³ master functional (scaffold closure, B5′ closed) |
-| Full QFT / Born rule / `ℏ` origin | tree level closed (Compton, BW, annihilation, Bhabha, Møller, PRs #36–#46); loops open; B4 audited — `ℏ` needs exactly one dimensionful anchor (scale-free machinery), relocatable to the invariant bulk separation `ΔR` |
+| Compton tree amplitude (Klein-Nishina) | reproduced exactly via closed-form F² (PRs #25–#35); F² = K²·Q from one C×S³ master functional (B5 closed, PR #51) |
+| Tree QED (BW, annihilation, Bhabha, Møller) | reproduced from BAM-geometric primitives (PRs #36–#46); see `docs/tree_qed_status.md` |
+| BAM effective-action scaffold (B1–B5) | four closed (B1+B2, B3, B5); B4 audited as irreducible-by-dimensional-necessity (PRs #49–#53); `docs/bam_scaffold_status.md` |
+| Throat as finite-self-energy equilibrium | derived `R* = (A/2B)^{1/3}` (PR #55); cohesive `B·R²` = brane tension (PR #56); bulk-gravity tuning √6 (PR #57); pair threshold `2m_e c²` (PR #58) |
+| Throat = relativistic spin-½ particle | dispersion `E²−(pc)²=(mc²)²` (PR #59), Hopf-holonomy Wigner rotation (PR #60), `g = 2` from Pauli + Hopf monopole (PR #61), Schwinger `a = α/2π` reconstructed (PR #62), `1/(2π)` = BAM closure quantum (PR #74) |
+| C / CPT / throat Dirac spinor | `C` = inner/outer swap `c₁ → −c₁` (PR #63), CPT on throat histories (PR #64), explicit `Θ = −iγ⁵` on throat spinor (PR #65), throat 4-spinor from `S_BAM` SUSY (PR #66) |
+| Even-`k` absence → QCD shell | classified as spin-statistics selection rule (PR #67); higher-`k` excitations transition into QCD shell channel (PR #68); shell ↔ QCD structural match (PR #69) |
+| Three generations / `k_5 = 5` | sharp `k ≤ 5` boundary (PR #70), `β_lepton = k_5²·(2π)` (PR #71), `#gen = (k_5+1)/2 = 3` (PR #72), `k_5 = D_bulk = dim(S³)+2 = 5` (PR #73) |
+| `ℏ` origin | B4 audited (#52): closure-ledger machinery scale-free, so exactly one external dimensionful anchor required; relocatable to invariant bulk separation `ΔR` (#53), giving `m_e = 0.52·ℏ/(ΔR·c)`. Predicting ℏ in SI is gated solely by the value of that single geometric anchor |
+| Full QFT / loop measure | `1/(2π)` in Schwinger anomaly identified as BAM closure quantum (PR #74); full covariant `(2π)^d` path-integral derivation from `S_BAM` is genuine open work |
 
 ## Three mechanisms that compose
 
@@ -221,44 +229,76 @@ This picture promotes "particle creation" from a postulated quantum
 event to a geometric instability. The threshold energy for nucleation
 should correspond to the lowest stable Tangherlini eigenvalue; below
 threshold, the antipodal focus disperses and the geometry relaxes; above
-threshold, a self-consistent throat persists. A natural candidate for
-the lepton-sector bifurcation threshold is `2m_e c²`.
+threshold, a self-consistent throat persists. The lepton-sector
+threshold `2 m_e c²` is now **derived**
+(`pair_production_threshold_probe`, PR #58) as twice the lowest stable
+throat configuration, with the pair forced by Hopf-charge / antipodal-`Z₂`
+conservation (one Hopf charge per throat ⟹ `Σ c₁ = 0` ⟹ C-conjugate
+throat–antithroat pair), a bubble-nucleation barrier `R_c = 2σ/ρ` giving
+the disperse-below / persist-above dichotomy, and the Schwinger critical
+field `e E_S R_MID = m_e c²` tying the throat scale to the threshold.
 
 The refinement that distinguishes the present program from "particles
 as static defects" is that the throats produced this way are not
 required to remain at rest. A particle is a **moving topological
 boundary condition** — two mouth positions `X₁(t), X₂(t)` on `S³`, a
 bulk throat length `L_throat(t)`, and a time-dependent transport map
-`T(t): T_{X₁}S³ → T_{X₂}S³` between tangent frames. This is a stronger
-claim than "antipodal focus = particle." It says the focus is the
-*trigger*; the particle is the persistent topological response to that
-trigger.
+`T(t): T_{X₁}S³ → T_{X₂}S³` between tangent frames. The covariance
+(`stable_moving_throat_probe`, PR #59) and Hopf-holonomy Wigner rotation
+(`spin_wigner_rotation_probe`, PR #60) now verify that the boosted
+throat is a genuine relativistic spin-½ particle. The focus is the
+*trigger*; the particle is the persistent topological response.
+
+**The focused pulse / extended-wavefront bridge to the QCD shell**
+(`throat_to_shell_transition_probe`, PR #68; `shell_to_qcd_match_probe`,
+PR #69) extends the same antipodal-focusing story to the quark sector:
+higher excitations of the focused lepton-throat pulse delocalize into a
+QCD shell channel (extended-character wavefront), reproducing the
+documented quark-sector structural invariants (`Z₂` partition,
+`3 × 2 = 6` flavors, heavier scale, extended character). The lepton
+throat and the QCD shell are two mode geometries of the same `S³`
+closure skeleton.
 
 ## What success looks like — falsification tests
 
-The next phase of BAM is organized around demonstrations, not parameter
+The next phase of BAM was organized around demonstrations, not parameter
 fitting. Each is a test the existing framework can be put to that admits
-a clean pass-or-fail.
+a clean pass-or-fail. Through PR #74, the program's most exposed tests
+have largely **passed** — the entries below now record the outcome of
+each falsification, not its prospectus. The remaining genuinely open
+items are concentrated in the loop-measure sector and the quark `β`
+lock.
 
-**Odd-`k` closure from topology.** _Closed_ — see `docs/odd_k_closure_lemma.md`.
-The lemma states (i) even `k` and odd `k` both admit valid closure
-boundary conditions on the throat — even `k` is orientation-preserving
-closure on the doubled cover, odd `k` is orientation-reversing closure
-across the non-orientable throat. BAM's lepton sector chooses the
-orientation-reversing branch, so the physical particle states sit at
-`k ∈ {1, 3, 5, …}`. (ii) Under the locked baseline (`action_base = 2π`,
-`χ = 0`, `T²` convention, `4β/(2π) = 100 ∈ ℤ`) the Layer-1 ledger sum
-is identically zero mod 2π for every integer `k`; the choice of sector
-selects which `k` enter the spectrum. The empirical "all three lepton
-ledgers close to 0 mod 2π" result of `experiments/closure_ledger` is
-the direct verification.
+**Odd-`k` classification (spin-statistics).** _Closed_ —
+`docs/odd_k_closure_lemma.md` (the original closure lemma); upgraded to
+a **classification** by `even_k_absence_probe` (PR #67). The closure
+lemma states (i) even `k` and odd `k` both admit valid closure boundary
+conditions on the throat — even `k` is orientation-preserving closure
+on the doubled cover, odd `k` is orientation-reversing closure across
+the non-orientable throat; (ii) under the locked baseline the Layer-1
+ledger sum is identically zero mod 2π for every integer `k`. The
+upgrade is that **`k mod 2` is the orientability / spin-statistics
+grading**: each throat pass applies `T = iσ_y` (`T² = −I`, B2); the
+spinor monodromy `T^k` is off-diagonal for odd `k` (opposite `Z₂`
+class — orientation-reversing across the non-orientable throat = a
+spin-½ fermion) and diagonal for even `k` (same class —
+orientation-preserving on the orientable double cover `S³` = bosonic).
+Charged leptons are spin-½ Dirac fermions (PRs #59–#66), hence the odd
+class; even-`k` (bosonic) is excluded. So the original "choice of
+sector" is upgraded to a **selection rule**: which `k` enter the
+charged-lepton spectrum is forced by spin-statistics on `T² = −I`, not
+chosen. The upper bound `k ≤ 5` is the three-generation boundary
+(PR #70), with `k_5 = D_bulk = dim(S³)+2 = 5` (PR #73).
 
-**Moving-mouth Berry phase.** Drag a single throat mouth around a
-closed loop in `S³` in the existing solver and verify that the
-accumulated geometric phase reproduces `2π → −1`, `4π → +1`. Bridges
-the static-spin-½ result (already verified) to the dynamic-particle
-picture. Operationalizes the moving-boundary refinement and gives the
-project a clean, single-experiment statement of "spin from geometry."
+**Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
+PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
+reproduces the relativistic **Wigner rotation** from two non-collinear
+boosts (composed in `SL(2,C)` to an `SU(2)` rotation), with the same
+`½` factor / spinor double cover (`2π → −1`) / "rotation = ½ × solid
+angle" law. The boosted throat is a genuine relativistic spin-½
+particle. This closes the static-spin-½ → dynamic-particle bridge in
+the strongest possible form: not just `2π → −1` under a closed loop,
+but the full Wigner-rotation law under composed boosts.
 
 **Two-throat Coulomb limit.** _Run and passed (`two_throat_coulomb_probe`)._
 Two wormhole mouths at angular separation `ψ` on `S³` interact through
@@ -430,33 +470,26 @@ problems rather than implementation TODOs:
   scale-freeness and relocatable to the invariant bulk separation `ΔR`.
   Predicting ℏ in SI is therefore gated solely by the value of that one
   geometric anchor.
-- **Self-consistent throat radius.** `R_MID` was imposed; the
-  `self_consistent_throat_radius_probe` recasts it as a
-  **finite-self-energy stable equilibrium** `R* = (A/2B)^{1/3}` of
-  `E(R) = A/R + B·R²` (EM repulsion vs cohesion), with the self-energy
-  made finite by the throat capping the field (`U_EM/(m c²) = α/2`, no UV
-  divergence). Consistent with the B4 theorem, the absolute `R*` still
-  rides on one dimensionful coupling (equivalently a relation `g = 2/α`);
-  the self-consistency recasts and relates the anchor, it does not derive
-  the value. The cohesive term is in turn **derived** by
-  `cohesive_tension_derivation_probe` as the throat brane tension
-  `E = σ·Area = 4πσR²` (`B = 4πσ`) — its `R²` power uniquely selected by
-  power-counting (the induced Tangherlini junction tension is `R¹`), with
-  `σ` set by the bulk gravity sector. That bulk-gravity relation is in
-  turn sharpened to the **exact** RS fine-tuning by
-  `brane_tension_tuning_probe`: `λ_crit = √(6|Λ₅|)/κ₅²` (dimensionless
-  factor `√6`, from the Israel junction `K_μν = −κ₅²λ/6 h_μν` + bulk
-  `AdS₅`), which is the flat / static-throat condition (`Λ₄ = 0`). The
-  **pair-production threshold** then falls out (`pair_production_threshold_probe`)
-  as `2 m_e c²` — twice the lowest stable throat, forced into a
-  C-conjugate throat–antithroat pair by Hopf-charge / antipodal-`Z₂`
-  conservation (`Σ c₁ = 0`), with a bubble-nucleation barrier giving the
-  disperse-below / persist-above dichotomy and the Schwinger critical
-  field `E_S = m_e²c³/(eℏ)` (`e E_S R_MID = m_e c²`) tying the throat
-  scale to the threshold. Remaining: matching the canonical RS brane to
-  the exact BAM throat junction from `S_BAM`, the full
-  instanton/tunneling nucleation rate, and the heavier-lepton thresholds
-  (`2 m_μ c²`, `2 m_τ c²`). See
+- **Self-consistent throat radius.** _Addressed (PRs #55–#58)._ The
+  imposed `R_MID` is recast as a **finite-self-energy stable equilibrium**
+  `R* = (A/2B)^{1/3}` of `E(R) = A/R + B·R²` (EM repulsion vs cohesion);
+  the throat caps the EM field so `U_EM/(m c²) = α/2` (finite, no UV
+  divergence). The cohesive `B·R²` is **derived** as the throat brane
+  tension `4πσR²` (the `R²` power uniquely selected by power-counting),
+  with `σ` set by the bulk gravity sector at the **exact** RS fine-tuning
+  `λ_crit = √(6|Λ₅|)/κ₅²` (dimensionless factor `√6` from the `Z₂`
+  Israel junction + bulk `AdS₅`; the flat / static-throat condition
+  `Λ₄ = 0`). The **pair-production threshold** `2 m_e c²` falls out as
+  twice the lowest stable throat, forced into a C-conjugate
+  throat–antithroat pair by Hopf-charge / antipodal-`Z₂` conservation,
+  with the Schwinger critical field `e E_S R_MID = m_e c²` tying the
+  scale to the threshold. Consistent with B4, the absolute `R*` still
+  rides on one dimensionful coupling — the chain
+  *imposed `R_MID` → invariant `ΔR` → finite-self-energy equilibrium*
+  recasts and relates the anchor, it does not derive the value.
+  Remaining: matching the canonical RS brane to the exact BAM throat
+  junction from `S_BAM`, the full instanton/tunneling nucleation rate,
+  and the heavier-lepton thresholds (`2 m_μ c²`, `2 m_τ c²`). See
   `docs/self_consistent_throat_radius_research_plan.md`,
   `docs/cohesive_tension_derivation_research_plan.md`,
   `docs/brane_tension_tuning_research_plan.md`, and
@@ -486,19 +519,32 @@ problems rather than implementation TODOs:
   giving `μ = μ_B`; and `g = 2 ⟺` the BMT anomalous precession vanishes
   (spin tracks momentum, the Thomas/Wigner link). The Schwinger anomaly
   `a = (g−2)/2 = α/2π`: the **one-loop** correction is reconstructed
-  (`throat_vertex_loop_probe`) as the throat dressing its moment by one
-  virtual-photon self-exchange — the virtual photon an S³ Green-function
-  exchange (flat limit `1/q²`), the vertex the throat pinch — with the
-  Feynman-parameter integral `∫₀¹ 2z dz = 1` giving `F₂(0) = α/2π`
-  (`g = 2.00232…`, vs `a_e = 0.00115965` to ~0.15%). This is a
-  reconstruction using the tree-normalized BAM primitives, not an
-  independent derivation of `1/2π` from a covariant `S_BAM` loop measure —
-  which, with the explicit boosted throat spinor and the higher-order
-  `a_e` series, is the remaining piece. See
+  (`throat_vertex_loop_probe`, PR #62) as the throat dressing its moment
+  by one virtual-photon self-exchange — the virtual photon an S³
+  Green-function exchange (flat limit `1/q²`), the vertex the throat
+  pinch — with the Feynman-parameter integral `∫₀¹ 2z dz = 1` giving
+  `F₂(0) = α/2π` (`g = 2.00232…`, vs `a_e = 0.00115965` to ~0.15%).
+  PR #62 inherited the `1/(2π)` silently from the tree normalization;
+  **`s_bam_loop_measure_probe` (PR #74)** identifies that `1/(2π)`
+  explicitly as the **BAM closure-quantum loop measure factor** — the
+  same `2π` that underlies `action_base`, `Φ_avail(k) = 2π(k+1) + …`,
+  `β_lepton = k_5²·(2π) = 50π`, the Hopf holonomy, the throat dwell,
+  and `ε`'s `4β/(2π) = 100`. The structural correspondence: a closed
+  cycle of length `L` has density of states `L/(2π)`; for `L = 2π`
+  (BAM's S³ great-circle quantum) the loop integration measure is
+  `dk/(2π)` — **one closure quantum per loop momentum dimension**, the
+  same primitive in QFT and BAM. **Honest scope:** this is the
+  structural identification of `1/(2π)` = BAM closure quantum; a fully
+  rigorous covariant `(2π)^d` Fourier measure derivation from a
+  written-out `S_BAM` path integral on the throat configuration space
+  (explicit path integral, gauge fixing, Jacobians) remains future work.
+  The higher-order `a_e` series and the full bulk spinor are the
+  related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
   `docs/spin_wigner_rotation_research_plan.md`,
-  `docs/gyromagnetic_ratio_research_plan.md`, and
-  `docs/throat_vertex_loop_research_plan.md`.
+  `docs/gyromagnetic_ratio_research_plan.md`,
+  `docs/throat_vertex_loop_research_plan.md`, and
+  `docs/s_bam_loop_measure_research_plan.md`.
 - **Charge conjugation from inner/outer swap.** _Addressed
   (`charge_conjugation_swap_probe`)._ C is the inner/outer reflection
   `S: r ↦ 2R_MID − r` — an involution fixing the throat that exchanges

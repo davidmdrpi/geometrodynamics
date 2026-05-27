@@ -10,57 +10,51 @@ spacetime itself — specifically the Hopf fibration on S³, 5D Tangherlini
 wormholes, topological flux-tube networks, coherent wormhole-throat
 condensates, and non-orientable throat topology.
 
-## Where ℏ enters: closure-ledger reduction of the locked surrogate
+## Where ℏ enters: scale-free closure ledger + one geometric anchor
 
-A sequence of closure-ledger probes
-(`experiments/closure_ledger/`, PRs #11–18 of this repository) has
-reduced the locked lepton surrogate's residual external input from
-six phenomenological parameters down to **one anchor (m_e)**. The
-chain is:
-
-```
-2π ledger  →  R*  →  (γ, transport, resistance)  →  ε  →  Compton bridge  →  m_e
-```
-
-Each arrow is a probe with a quantitative test; each parameter is
-identified with a closure-quantum invariant or a Tangherlini-grid
-quantity computed on the same geometry. The full closure-quantum
-ledger of the locked surrogate after the chain:
-
-| parameter         | locked value | structural identification |
-|-------------------|-------------:|---------------------------|
-| `action_base`     | 2π           | S³ great-circle action     |
-| `transport`       | 25.1         | 8π = 4·(2π)               |
-| `resistance`      | 0.2179       | 7π / 100                  |
-| `pinhole γ`       | 22.5         | Σ V_max[1..5] ≈ 22.0       |
-| `β` (τ-uplift)    | 50π          | locked closure quantum     |
-| `4β` (τ-uplift integer) | 100·2π | τ-uplift quantum          |
-| `R*` (outer radius) | 1.2626    | cross-species fixed point  |
-| `ε` (inner cutoff) | 3.51×10⁻⁴   | resistance / k_5⁴          |
-
-At the inner-cutoff identification `ε = 7π/(100·5⁴)`, the
-dimensional bridge collapses to the clean Compton form:
+The closure-ledger arc (`experiments/closure_ledger/`, PRs #11–#74)
+reduces every dimensionless parameter in the locked lepton surrogate
+to closure-quantum invariants (`action_base = 2π`, `transport = 8π`,
+`resistance = 7π/100`, `pinhole γ = Σ V_max[1..5]`, `β_lepton = k_5²·(2π) = 50π`,
+`ε = 7π/(100·k_5⁴)`), and an audit (`maslov_dimensional_bridge_probe`,
+PR #52) then established that the machinery is **scale-free**:
+rescaling `R_MID → λ·R_MID` leaves every dimensionless output
+invariant. By dimensional analysis, **exactly one external dimensionful
+anchor is mathematically required** (B4 is irreducible). The Compton
+bridge then collapses to
 
 ```
-ℏ  =  m_e · R_MID · c
+ℏ  =  m_e · R_MID · c              (equivalently  m_e = f_closure · ℏ / (ΔR·c))
 ```
 
-BAM is *dimensional-scale-incomplete only modulo m_e*. The
-remaining open work is in throat physics (THESIS.md "self-consistent
-throat radius"), not the closure ledger.
+That anchor need not be a particle mass: it is **relocatable to the
+invariant bulk separation** `ΔR = R_OUTER − R_INNER` (PR #53,
+`delta_r_scale_modulus_probe`), a cosmologically fixed length (the
+throat is a static bound vacuole, decoupled from Hubble flow), with
+`f_closure = ΔR/R_MID = 0.52`. The chain
+**imposed `R_MID` → invariant geometric length `ΔR` → finite-self-energy
+equilibrium** has each step more physical (PRs #55–#58):
+`self_consistent_throat_radius_probe` recasts `R*` as a stable
+equilibrium `E(R) = A/R + B·R²` of EM repulsion vs cohesion (`U_EM/(mc²) = α/2`,
+no UV divergence); `cohesive_tension_derivation_probe` derives
+`B = 4πσ` as the throat brane tension (the unique `R²` power by
+power-counting); `brane_tension_tuning_probe` sharpens the bulk-gravity
+relation to the **exact** RS fine-tuning `λ_crit = √(6|Λ₅|)/κ₅²`
+(dimensionless factor √6, the flat / static-throat condition); and
+`pair_production_threshold_probe` makes `2 m_e c²` the lowest stable
+configuration (one Hopf charge per throat → C-conjugate
+throat–antithroat pair).
 
-**Paper draft:** `docs/hbar_origin_note.md` — five-section narrative
-of the closure-ledger chain with the full quantitative trail.
-
-**Probe ledger:** `docs/hbar_origin_status.md` — every probe with
-result, precision, and archive pointer.
+**Scaffold status:** four of five mismatch terms (B1, B2, B3, B5) closed;
+B4 audited as irreducible-by-dimensional-necessity. Full ledger:
+`docs/bam_scaffold_status.md`. Release note:
+`docs/scaffold_closure_release_note.md`.
 
 **Reproduce in seconds:**
 
 ```bash
-python -m experiments.closure_ledger.inner_boundary_derivation_probe
-# Writes runs/<timestamp>_inner_boundary_derivation_probe/{probe.json, probe.md}
-# Verdict: ε = resistance / k_5⁴ closes the Compton bridge to 0.04 %.
+python -m experiments.closure_ledger.maslov_dimensional_bridge_probe
+# Verdict: B4_IRREDUCIBLE — scale-free invariance verified.
 ```
 
 ## Why progress is possible beyond Wheeler's geometrodynamics
@@ -193,6 +187,26 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Compton vertex closed-form resummation | **Derived** | `F²(x, c) = 4·x³·(x²+1−x·sin²θ) / [(1+c²)·(1+x)²]` with `x = ω'/ω` reproduces Klein-Nishina to all orders in ε up to ε ~ 2 (machine precision); the perturbative PRs #31–34 are Taylor expansions of this closed form |
 | F² and masses from one master integral | **Derived** | Single `C × S³` master functional `ℳ = G_C ⊗ 𝒢_{S³}`: ω-poles → mass spectrum, throat boundary → `K(x)`, S³ Hopf → `Q(x,c)`; vertex residue = `F²=K²·Q` to `2e-14`. Closes scaffold barrier B5′ (`master_integral_probe`, `docs/bam_scaffold_status.md`) |
 | Dimensional anchor (B4) is structural, not a gap | **Audited** | Closure-ledger/Maslov machinery is scale-free (rescale `R_MID → λ·R_MID` → all dimensionless outputs invariant), so exactly one external dimensionful anchor is required; relocatable to the cosmologically-invariant bulk separation `ΔR`, giving `m_e = 0.52·ℏ/(ΔR·c)` (`maslov_dimensional_bridge_probe`, `delta_r_scale_modulus_probe`) |
+| Finite-self-energy throat equilibrium | **Derived / Modeled** | `R* = (A/2B)^{1/3}` stable minimum of `E(R) = A/R + B·R²`; throat caps the EM field so `U_EM/(mc²) = α/2` (finite, no UV divergence) (`self_consistent_throat_radius_probe`, PR #55) |
+| Cohesive brane tension `B·R²` | **Derived** | `E = σ·Area = 4πσR²` (`B = 4πσ`); `R²` power uniquely selected by power-counting (Tangherlini junction is `R¹`, EH is `R¹`, bag is `R³`) (`cohesive_tension_derivation_probe`, PR #56) |
+| RS-like √6 brane tuning | **Derived** | `λ_crit = √(6\|Λ₅\|)/κ₅² = 6k/κ₅²` from `Z₂` Israel junction `K_μν = −κ₅²λ/6 h_μν` + bulk `AdS₅` (`Λ₅ = −6k²`); flat / static-throat condition `Λ₄ = 0` (`brane_tension_tuning_probe`, PR #57) |
+| Pair-production threshold `2 m_e c²` | **Derived** | One Hopf charge per throat (`\|c₁\| = 1`) ⟹ `Σc₁ = 0` forces C-conjugate throat–antithroat pair; bubble-nucleation barrier `R_c = 2σ/ρ`; Schwinger critical field `eE_S R_MID = m_e c²` (`pair_production_threshold_probe`, PR #58) |
+| Moving throat = relativistic particle | **Verified** | Dispersion `ω(k)=√(ω₀²+c²k²)` ⟹ `E²−(pc)²=(mc²)²` with `mc²` = static eigenvalue `ω(1,0)` to machine precision; closed `S³` breaks global Lorentz, suppressed by `(R_MID/R_cosmo)² ~ 10⁻⁷⁸` (`stable_moving_throat_probe`, PR #59) |
+| Spin-½ Wigner rotation (relativistic) | **Verified** | Hopf-holonomy `∮A = π cos χ` reproduces Wigner `SU(2)` rotation from two non-collinear boosts (`SL(2,C)` composition); the same `½` factor / spinor double cover / `½ × solid angle` (`spin_wigner_rotation_probe`, PR #60) |
+| Throat `g = 2` | **Derived** | Pauli/SU(2) `T = iσ_y` + Hopf monopole `A_φ = ½ cos χ`; `(σ·D)² = D² − eσ·B` with `σ = 2S` (the `SU(2)` anticommutator factor of 2); BMT anomalous precession vanishes ⟺ `g = 2` (`gyromagnetic_ratio_probe`, PR #61) |
+| Schwinger anomaly `a = α/2π` | **Reconstructed** | One-loop dressing: virtual photon = `S³` Green-function exchange (flat `1/q²`), vertex = throat pinch, Feynman-parameter `∫₀¹ 2z dz = 1` ⟹ `F₂(0) = α/2π = 0.0011614`; vs `a_e = 0.00115965` to ~0.15% (`throat_vertex_loop_probe`, PR #62) |
+| `S_BAM` loop measure `1/(2π)` | **Structurally identified** | The `1/(2π)` in `a = α/(2π)` = BAM closure-quantum loop measure factor — same `2π` as `action_base`, `Φ_avail(k) = 2π(k+1)+…`, `β_lepton = k_5²·(2π)`, Hopf, throat dwell, `ε`'s `4β/(2π) = 100`; closed cycle of length `2π` → measure `dk/(2π)` per loop dim. Full covariant `(2π)^d` path-integral derivation open (`s_bam_loop_measure_probe`, PR #74) |
+| `C` = inner/outer swap | **Derived** | `C = S: r ↦ 2R_MID − r` involution fixing the throat; reverses mouth normal `n̂ = ±r̂` ⟹ flips Hopf curvature `c₁ → −c₁` (throat → antithroat); `C² = id`, consistent with `T = iσ_y` (B2) and pair-production antithroat (`charge_conjugation_swap_probe`, PR #63) |
+| CPT on throat histories | **Assembled** | `q→−, p→+, x→−, s→−, t→−, E→+` with `C²=P²=+I`, `T²=−I`; throat → antithroat run backwards (Feynman–Stückelberg); guaranteed by local Lorentz, global violation `~ 10⁻⁷⁸` (`cpt_assembly_probe`, PR #64) |
+| Explicit CPT operator `Θ = −iγ⁵` | **Constructed** | Total spacetime inversion `Θ = γ⁰γ¹γ²γ³ = −iγ⁵`; built from `C = iγ²γ⁰`, `P = γ⁰`, `T = γ¹γ³K`; anticommutes with every `γ^μ` (`j^μ → −j^μ`); matrix `Θ_m² = −I` but antiunitary `Θ² = +I` ((CPT)²=+1) (`cpt_dirac_operator_probe`, PR #65) |
+| Throat Dirac 4-spinor from `S_BAM` | **Derived** | Radial `H = −d²/dr*² + V` is a perfect square `A†A + E₀` (SUSY factorization, `W² − W′ = V − E₀`); two SUSY-partner sectors = two wormhole mouths (joined by B3 odd extension); `4 = 2 (mouths) × 2 (SU(2) spin, B2)` = `Ψ_inner ⊕ Ψ_outer` (`throat_dirac_spinor_probe`, PR #66) |
+| Even-`k` absence (spin-statistics) | **Classified** | `k mod 2` is the orientability/spin-statistics grading: `T^k` off-diagonal for odd `k` (spin-½ fermion, orientation-reversing) vs diagonal for even `k` (bosonic, orientable double cover); charged leptons = odd class. Not arithmetic — `Φ_avail(k) ≡ 0 mod 2π` for every `k` (`even_k_absence_probe`, PR #67) |
+| Throat-to-shell transition | **Demonstrated** | Higher excitations delocalize from the focused lepton-throat pulse into the QCD shell channel (extended-character wavefront); same `S³` closure skeleton, different mode geometry (`throat_to_shell_transition_probe`, PR #68) |
+| Shell ↔ QCD structural match | **Partial / Structural** | Shell modes reproduce the documented quark-sector invariants: `Z₂` partition (B2), `3 × 2 = 6` flavors, heavier scale, extended character (`shell_to_qcd_match_probe`, PR #69) |
+| Three-generation boundary (sharp `k ≤ 5`) | **Derived / Pinned** | β-uplift quadratic growth `(k−3)²` + throat–shell availability combine to forbid `k ≥ 7`; the sharp `k ≤ 5` cap is the structural three-generation boundary (`three_generation_boundary_probe`, PR #70) |
+| `β_lepton = k_5²·(2π) = 50π` | **Derived structurally** | The closure-quantum face of the topological charge: one closure quantum (`2π`) per pair of throat passes (`k_5²`); closes the PR #70 follow-on (`beta_lepton_derivation_probe`, PR #71) |
+| `#generations = (k_5+1)/2 = 3` | **Derived structurally** | The linear face of the same `k_5`: number of allowed odd-`k` modes in `{1, 3, …, k_5}` (same primitive as `β_lepton`'s quadratic face) (`three_throat_modes_probe`, PR #72) |
+| `k_5 = dim(S³) + 2 = 5` | **Derived structurally** | `k_5 = D_bulk = time + radial + dim(S³) = 1 + 1 + 3 = 5`; `D = 5` is the minimal bulk above 4D giving `f(r) = 1 − (rs/r)²` (squared, matches spin-½ double cover `T² = −I`); reduces "why `k_5 = 5`" to "why the Hopf bundle / S³" (`k5_origin_probe`, PR #73) |
 
 ### Research goals (not yet fully derived)
 
@@ -353,9 +367,19 @@ sub-leading knobs; it reports `mu/e` error ≈ 1 × 10⁻⁶% and
 
 1. **Three generations correspond to odd pass depths `k = 1, 3, 5`.** The
    ladder is labelled by the number of S³ passes before closure; the locked
-   baseline scans exactly these three depths. Even-`k` branches are not part
-   of the surrogate; deriving their absence from the underlying Hopf/S³
-   topology remains an open research task.
+   baseline scans exactly these three depths. **Even-`k` absence is now
+   classified** as a spin-statistics selection rule (`even_k_absence_probe`,
+   PR #67): `k mod 2` is the orientability/spin-statistics grading
+   (`T^k` off-diagonal for odd `k` = orientation-reversing closure across
+   the non-orientable throat = spin-½ fermion; diagonal for even `k` =
+   orientable double cover = bosonic). Charged leptons are spin-½, hence
+   the odd class. The sharp upper bound `k ≤ 5` is the
+   **three-generation boundary** (`three_generation_boundary_probe`, PR
+   #70), and `k_5 = 5 = D_bulk = dim(S³) + 2` is the BAM bulk dimension
+   (`k5_origin_probe`, PR #73), with `β_lepton = k_5²·(2π) = 50π`
+   (`beta_lepton_derivation_probe`, PR #71) and `#generations = (k_5+1)/2 = 3`
+   (`three_throat_modes_probe`, PR #72) both derived from the same `k_5`
+   primitive.
 2. **τ uplift is exactly 100 quanta of the S³ action.** The k=5 uplift is
    `4β = 200π = 100·(2π)`, a pure integer multiple of the great-circle action
    `2π`. No tuning is required; removing the integer lock degrades `τ` by an
@@ -748,6 +772,19 @@ single mandatory dimensionful unit. Full ledger:
 `docs/maslov_dimensional_bridge_research_plan.md` (#52),
 `docs/delta_r_scale_modulus_research_plan.md` (#53).
 
+### Throat-as-particle arc (PRs #55–#74)
+
+With the scaffold closed, the same primitives extend through the
+lepton/QCD sector arc:
+
+| arc | PRs | summary |
+|---|---|---|
+| **Throat as anchor** | #55–#58 | `R_MID` recast as finite-self-energy equilibrium (#55), cohesive `B·R²` = brane tension (#56), bulk-gravity tuning factor √6 (#57), pair-threshold `2 m_e c²` (#58). |
+| **Throat = relativistic spin-½ particle** | #59–#62 | Moving throat dispersion `E²−(pc)²=(mc²)²` (#59), Hopf-holonomy Wigner rotation (#60), `g = 2` from Pauli/SU(2) + Hopf monopole (#61), one-loop `a = α/2π` reconstructed (#62). |
+| **C, CPT, throat Dirac spinor** | #63–#66 | `C` = inner/outer swap `c₁ → −c₁` (#63), CPT on throat histories (#64), explicit `Θ = γ⁰γ¹γ²γ³ = −iγ⁵` on throat spinor (#65), throat 4-spinor from `S_BAM` SUSY factorization (#66). |
+| **Even-k absence → QCD shell** | #67–#69 | Even-`k` absence = spin-statistics selection rule (#67), higher excitations transition into QCD shell channel (#68), shell ↔ QCD structural match (#69). |
+| **Three generations / `k_5 = 5`** | #70–#74 | Sharp `k ≤ 5` boundary (#70), `β_lepton = k_5²·(2π) = 50π` (#71), `#generations = (k_5+1)/2 = 3` (#72), `k_5 = D_bulk = dim(S³)+2 = 5` (#73), `1/(2π)` in Schwinger anomaly = BAM closure-quantum loop measure (#74). |
+
 ## Quick Start
 
 ### Verify charge quantisation from pure geometry
@@ -859,6 +896,12 @@ This package refactors and unifies three monolithic scripts:
 | New in v0.44.0 | `tangherlini/lepton_spectrum.py` (locked e/μ/τ ladder) + `scripts/` (calibration CLIs) |
 | New in v0.45.0 | `qcd/quark_spectrum.py` + `qcd/hadron_spectrum.py` (shell-coupled six-quark ladder; residual sector geometrized to ~1% via Tangherlini eigenmode) |
 | New in v0.46.0 | `experiments/closure_ledger/` (closure-ledger sequence; reduces the locked lepton surrogate's residual external input from six phenomenological parameters to one anchor m_e). Paper draft in `docs/hbar_origin_note.md`. |
+| New in v0.47.0 | BAM effective-action scaffold (PRs #49–#53): five mismatch terms B1–B5; four closed (B1+B2 topological/discrete sector, B3 hard-wall BC, B5 master integral); B4 audited as irreducible-by-dimensional-necessity. Closure release note in `docs/scaffold_closure_release_note.md`. |
+| New in v0.48.0 | Throat-as-anchor arc (PRs #55–#58): self-consistent equilibrium `R*`, cohesive brane tension `B·R²`, RS-like √6 brane tuning, pair threshold `2 m_e c²`. |
+| New in v0.49.0 | Throat-as-relativistic-spin-½-particle arc (PRs #59–#62): moving-throat covariance, Hopf-holonomy Wigner rotation, `g = 2`, one-loop Schwinger `a = α/2π` reconstructed. |
+| New in v0.50.0 | C / CPT / throat Dirac arc (PRs #63–#66): `C` = inner/outer swap, CPT on throat histories, explicit `Θ = −iγ⁵`, throat 4-spinor from `S_BAM` SUSY factorization. |
+| New in v0.51.0 | Even-k absence + QCD shell arc (PRs #67–#69): spin-statistics classification of even-`k` absence, throat → QCD-shell transition, shell ↔ QCD structural match. |
+| New in v0.52.0 | Three-generation / `k_5 = 5` arc (PRs #70–#74): sharp `k ≤ 5` boundary, `β_lepton = k_5²·(2π) = 50π`, `#gen = (k_5+1)/2 = 3`, `k_5 = D_bulk = dim(S³)+2 = 5`, `1/(2π)` in Schwinger anomaly = BAM closure-quantum loop measure (PR #74). |
 
 ## License
 
