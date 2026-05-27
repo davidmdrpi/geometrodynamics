@@ -270,6 +270,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `beta_lepton_derivation_probe` | `β_lepton = k_5²·(2π) = 50π` | BETA_LEPTON_DERIVED |
 | `three_throat_modes_probe` | `#gen = (k_5+1)/2 = 3` from `k_5` | THREE_GENERATIONS_FROM_K5 |
 | `k5_origin_probe` | `k_5 = D_bulk = dim(S³)+2 = 5` | K_5_FROM_BULK_DIMENSION |
+| `s_bam_loop_measure_probe` | `1/(2π)` in `a = α/(2π)` = BAM closure quantum | LOOP_MEASURE_IDENTIFIED |
 
 ## Cross-references
 
@@ -327,6 +328,12 @@ the B4 audit shows cannot come from scale-free geometry.
     throat modes" follow-on).
   - `docs/k5_origin_research_plan.md` — `k_5 = D_bulk = dim(S³)+2 = 5`
     (reduces "why k_5 = 5" to "why the Hopf bundle / S³").
+  - `docs/s_bam_loop_measure_research_plan.md` — the `1/(2π)` in the
+    Schwinger anomaly `a = α/(2π)` identified as the BAM closure quantum
+    (same `2π` as `action_base`, closure ledger, `β_lepton`, Hopf, throat
+    dwell, `ε` integer); closes the structural piece of PR #62's open
+    follow-on. Full covariant `(2π)^d` path-integral derivation remains
+    future work.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
