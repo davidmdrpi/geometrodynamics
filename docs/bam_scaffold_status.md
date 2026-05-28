@@ -276,6 +276,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `shell_mass_ordering_audit_probe` | shell mass-ordering / `n_part` audit on PR #77 basis | SHELL_BASIS_STRUCTURALLY_BETTER_N_PART_NOT_YET_RESOLVED |
 | `boundary_stress_chi_n_probe` | `χ_n` derived from cavity-mouth boundary stress; singlet placeholder | CHI_N_DERIVED_BOUNDARY_STRESS_INSUFFICIENT |
 | `color_algebra_shell_probe` | BAM-native color algebra = SU(2)×Z₂; H_couple populated; v3 species map settled | COLOR_ALGEBRA_SU2_Z2_BAM_NATIVE_MASS_HIERARCHY_OPEN |
+| `pati_salam_throat_shell_bridge_probe` | throat ↔ shell n+3 Z₂ bridge built; 3 open extensions for full SU(4) | PATI_SALAM_THROAT_SHELL_Z2_BUILT_FULL_SU4_REQUIRES_EXTENSIONS |
 
 ## Cross-references
 
@@ -396,6 +397,23 @@ the B4 audit shows cannot come from scale-free geometry.
     inter-generation hierarchy remains genuinely open and most
     plausibly requires Pati-Salam SU(4) extension with a quantitative
     throat↔shell algebra map.
+  - `docs/pati_salam_throat_shell_bridge_research_plan.md` — PR #82,
+    builds the BAM-native throat ↔ shell `n + 3` Z₂ bridge (each
+    generation has a lepton at `n = g - 1` and a quark-pair at
+    `n = g + 2`; the shift = PR #68's shell-saturation threshold; no
+    free parameter). Constructs the unified 12-state radial-overtone
+    basis `(l=1, n=0..5, p=±)`. Mass-ratio audit under cavity-ω²
+    convention: Gen 3 within 17%, Gen 1 off by factor 2.5, Gen 2 has
+    **wrong sign** (BAM predicts quark heavier than lepton;
+    observation has them ~equal). Identifies three open extensions
+    required for full SU(4) PS: (i) BAM-native neutrinos (candidate
+    channels: opposite-chirality Weyl, sterile Majorana, separate
+    radial mode); (ii) 3-fold quark color (PR #80's open gap); (iii)
+    **lepton-quark mass-operator unification** — v3 leptons use
+    `β·k²` closure-winding (PR #71), PR #77 quarks use `ω²(l, n)`
+    cavity eigenfrequency. Cavity-ω² alone cannot give the observed
+    `(τ/e)² ~ 10⁷` lepton hierarchy (throat-region spread is only
+    ~7.5). PR #82 sharpens the PS extension scope; does not close it.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
