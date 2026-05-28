@@ -485,9 +485,13 @@ Majorana mass *is* a throat↔antithroat flip; `Σ c₁ = 0` on a single
 state reproduces the only-neutrino rule; the scale is *not* the static
 barrier height (`E_c ≈ 2.8 keV`, ~10⁸ too small) but the **tunnelling
 amplitude through** the barrier, `M_R = m_D·e^{S}`, with a modest,
-generation-stable bounce action `S ≈ 15–18`. This closes the first of
-PR #82's three extensions structurally; what remains is `S` from first
-principles (the Euclidean throat-action / instanton normalisation).
+generation-stable bounce action `S ≈ 15–18`. The conceptual upshot is
+that the seesaw scale is **reframed from a free ~TeV mass into an
+instanton action**: the whole keV→TeV gap is carried by the single
+dimensionless tunnelling exponent `S`, not by a new heavy particle. This
+closes the first of PR #82's three extensions structurally; what remains
+is `S` from first principles (the Euclidean throat-action / instanton
+normalisation), which would promote the absolute `m_ν` to a prediction.
 
 **QFT event reinterpretation: Compton scattering from BAM.** _Closed
 at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a

@@ -862,10 +862,15 @@ extension of the Pati-Salam bridge (PR #82).
 **Where it lands.** The neutrino sector is now structurally complete:
 the only-neutrino-Majorana selection rule, the seesaw mechanism, and a
 BAM-native home for the seesaw scale (the throat↔antithroat nucleation
-tunnelling) are all in place. What stays open is the value of the bounce
-action `S` from first principles — the Euclidean throat-action /
-instanton normalisation — which would turn `S ≈ 16` (hence absolute
-`m_ν`) into a prediction rather than a fit.
+tunnelling) are all in place. The headline is the reframing: **`M_R` is
+no longer a free ~TeV mass but an instanton action**. Because
+`M_R = m_D·e^{S}`, the entire 6-order gap between the keV Dirac floor
+and the TeV seesaw scale is carried by a single dimensionless number
+`S ≈ 15–18` — the Euclidean bounce/instanton action for the `ΔL=2`
+throat↔antithroat tunnelling. What stays open is `S` from first
+principles (the throat-action / instanton normalisation), which would
+turn `S ≈ 16` — and hence the absolute `m_ν` — into a prediction rather
+than a fit.
 
 ## Quick Start
 
