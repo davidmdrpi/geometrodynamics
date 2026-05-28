@@ -218,6 +218,7 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Neutrino = Majorana (seesaw) | **Derived structurally** | `k=0 ⟹ c₁=0 ⟹ C-invariant` (PR #63) ⟹ neutrino is its own antiparticle ⟹ **Majorana**; suppression = seesaw `m_ν = m_D²/M_R`, available **only** to the chargeless sector (charged leptons `c₁=±1` are Dirac and keep `β·k²`) — explains why only ν is light; required `M_R ≈ 0.3–1.8 TeV` open (`neutrino_quadrant_suppression_probe`, PR #86) |
 | Seesaw scale `M_R` from throat-nucleation tunnelling | **Grounded / scale recast** | `ΔL=2` Majorana = PR #58 throat↔antithroat (antipodal `Z₂`) transition; PR #58's `Σc₁=0` on a single state **is** PR #86's only-neutrino rule. `M_R` ≠ barrier height (`E_c ≈ 2.8 keV`, ~10⁸ too small); suppression = tunnelling through the barrier `m_ν = m_D·e^{−S}` ⟹ `M_R = m_D·e^{S}`, recasting the open ~TeV scale as a modest, generation-stable bounce action `S ≈ 15–18` (the PR #58 instanton follow-on) (`seesaw_scale_nucleation_compliance_probe`, PR #87) |
 | Majorana bounce `S` = non-orientable tortoise log | **Sharpened / open** | Reduced Euclidean bounce `S = √(2 μ E_c)·L*(ε)` on the odd (`c₁→−c₁`) tortoise path: the tortoise coord diverges logarithmically at the throat ⟹ **rigid throat = massless ν** (compliance `ε` is the mass-generating parameter), and `S ∝ ln(1/ε)` is naturally `O(10)`/gen-stable — the form PR #87 required. But the EM-throat tension **under-produces** by ~40× (`S ≲ 1`); `S ≈ 15–18` needs a `ΔL=2` (B−L) tension `~6–12×` stiffer. Open input localised: ~TeV mass (#86) → `O(15)` action (#87) → `O(10)` tension ratio (#88) (`majorana_bounce_action_probe`, PR #88) |
+| ΔL=2 / B−L tension ratio `t` bracketed | **Constrained** | The `ΔL=2` flip reverses orientation (`c₁→−c₁`) ⟹ a **global** operation, so `t` is a global-closure enhancement of the **local** EM surface tension. Bracketed parameter-free by the **closure quantum `2π`** (minimal orientation reversal, lower) and the **winding action `k_5√(2π) = √β_lepton`** (full winding, upper): `t ∈ [2π, k_5√(2π)] ≈ [6.28, 12.53]` — exactly PR #88's required `6–12` (computed `[6.41, 12.05]` sits inside). Residual = where in the window = compliance `ε`; `m_charged/m_D ≈ 11.9 ≈ √β` cross-check (`b_minus_l_tension_ratio_probe`, PR #89) |
 
 ### Research goals (not yet fully derived)
 
@@ -860,6 +861,7 @@ extension of the Pati-Salam bridge (PR #82).
 | **Neutrino = Majorana seesaw** | #86 | The `(k=0, n<3)` quadrant gives the lightest states but ~10⁵–10⁶ too heavy. The fix is BAM-native: `k=0 ⟹ c₁=0 ⟹ C-invariant` (PR #63) ⟹ the neutrino is its own antiparticle ⟹ **Majorana**, so it admits the seesaw `m_ν = m_D²/M_R`. The seesaw is available **only** to the chargeless sector — charged leptons (`c₁=±1`) are Dirac and keep their full winding mass — which is precisely why only neutrinos are anomalously light. Required `M_R ≈ 0.3–1.8 TeV` was left open (no BAM scale at ~TeV). |
 | **`M_R` from throat-nucleation tunnelling** | #87 | The `ΔL=2` Majorana coupling **is** the PR #58 throat↔antithroat (antipodal `Z₂`) transition, and PR #58's `Σc₁=0` applied to a single state **is** PR #86's only-neutrino selection rule (`k=0` flips `0→0`, allowed; `k≠0` gives `Σc₁=∓2`, forbidden). The literal `M_R = `barrier-height hypothesis is **falsified** — with the electron-throat `σ, ρ` the barrier is `E_c ≈ 2.8 keV`, ~10⁸ too small. Instead the suppression is **tunnelling through** the barrier, `m_ν = m_D·e^{−S}`, so `M_R = m_D²/m_ν = m_D·e^{S}`: the ~TeV scale is the keV Dirac floor exponentially lifted, and the open input is recast from a mysterious ~TeV mass to a modest, generation-stable bounce action `S ≈ 15–18` — exactly the instanton-rate follow-on PR #58 flagged. |
 | **Bounce action `S` = non-orientable tortoise log** | #88 | A reduced Euclidean bounce `S = √(2 μ E_c)·L*(ε)` for the flip, run along the odd (`c₁→−c₁`) tortoise path. The 5D tortoise coordinate diverges logarithmically at the throat, giving two structural results: a **rigid throat ⟹ exactly massless neutrino** (the boundary compliance `ε` is the mass-generating parameter, and the smallness of `m_ν` is the near-rigidity of the throat), and `S ∝ ln(1/ε)` — naturally `O(10)` and generation-stable, the form PR #87 required. **Honest magnitude:** the EM-throat tension under-produces `S` by ~40× (`S ≲ 1` even near-rigid); matching `S ≈ 15–18` needs a `ΔL=2` (B−L) throat tension `~6–12×` stiffer. The open input is localised once more: ~TeV mass (#86) → `O(15)` action `S` (#87) → `O(10)` B−L/EM tension ratio (#88). |
+| **B−L tension ratio bracketed by closure & winding** | #89 | The `ΔL=2` flip reverses orientation (`c₁→−c₁`) — a **global** operation — so `t` is a global-closure enhancement of the **local** EM surface tension. It is bracketed, parameter-free, by the two basic BAM action scales: the **closure quantum `2π`** (a single great-circle orientation reversal, lower) and the **winding action `k_5√(2π) = √β_lepton`** (a full throat winding, upper), giving `t ∈ [2π, k_5√(2π)] ≈ [6.28, 12.53]` — **exactly** PR #88's required `6–12` (the computed `[6.41, 12.05]` sits inside). So the `6–12` band was not a fit but the BAM closure-to-winding window. The residual is "where in the window" = the compliance `ε` (`t=2π ⟹ ε≈6e-7`, `t=√β ⟹ ε≈1.3e-2`); the winding/cavity mass ratio `m_charged/m_D ≈ 11.9 ≈ √β` corroborates the winding edge. |
 
 **Where it lands.** The neutrino sector is now structurally complete:
 the only-neutrino-Majorana selection rule, the seesaw mechanism, and a
@@ -872,11 +874,17 @@ and the TeV seesaw scale is carried by a single dimensionless number
 throat↔antithroat tunnelling. PR #88 then builds that bounce explicitly
 and shows it is the **non-orientable tortoise logarithm**: a rigid
 throat gives an exactly massless neutrino, and `S ∝ ln(1/ε)` is
-naturally `O(10)` and generation-stable. What stays open — now sharply
-localised — is a single dimensionless `ΔL=2` (B−L) throat-tension ratio
-`~6–12` (the EM-throat tension under-produces `S` by ~40×); deriving it,
-together with the compliance `ε`, would turn `S ≈ 16` — and hence the
-absolute `m_ν` — into a prediction rather than a fit.
+naturally `O(10)` and generation-stable. PR #89 then constrains the
+remaining tension ratio: because the flip reverses orientation it is a
+*global* operation, so `t` is bracketed parameter-free by the **closure
+quantum `2π`** and the **winding action `k_5√(2π) = √β_lepton`** —
+`t ∈ [6.28, 12.53]`, exactly PR #88's required `6–12`. The open input
+has now been localised four times — ~TeV mass (#86) → `O(15)` action
+(#87) → `O(10)` tension ratio (#88) → the BAM closure-to-winding window
+(#89) — leaving a single residual number: *where in that window*, i.e.
+the boundary compliance `ε`. Deriving `ε` from the bulk would turn
+`S ≈ 16` — and hence the absolute `m_ν` — into a prediction rather than
+a fit.
 
 ## Quick Start
 
