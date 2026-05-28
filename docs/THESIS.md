@@ -493,6 +493,23 @@ closes the first of PR #82's three extensions structurally; what remains
 is `S` from first principles (the Euclidean throat-action / instanton
 normalisation), which would promote the absolute `m_ν` to a prediction.
 
+PR #88 builds that bounce explicitly and identifies it as the
+**non-orientable tortoise logarithm**. The `ΔL = 2` flip runs along the
+odd extension across the throat (`c₁ → −c₁`), and the 5D tortoise
+coordinate `r* = r + (rs/2)ln|(r−rs)/(r+rs)|` diverges logarithmically
+there. Two structural results follow: a perfectly **rigid throat gives
+an exactly massless neutrino** (`ε → 0 ⟹ L* → ∞ ⟹ S → ∞`), so the
+boundary compliance `ε` is the mass-generating parameter and the
+smallness of `m_ν` is the near-rigidity of the throat; and the reduced
+bounce `S = √(2 μ E_c)·L*(ε) ∝ ln(1/ε)` is naturally `O(10)` and
+generation-stable — exactly the form `S` required. Honestly, though, the
+electron-throat tension under-produces: `S ≲ 1`, some `~40×` short of
+`~16`. Matching needs the `ΔL = 2` (B−L) throat tension to be `~6–12×`
+stiffer than the EM-throat tension. So the open input is localised once
+more — a mysterious `~TeV` mass (PR #86) → an `O(15)` instanton action
+(PR #87) → an `O(10)` dimensionless tension ratio (PR #88) — but not yet
+derived.
+
 **QFT event reinterpretation: Compton scattering from BAM.** _Closed
 at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a
 BAM amplitude for Compton scattering by progressively identifying

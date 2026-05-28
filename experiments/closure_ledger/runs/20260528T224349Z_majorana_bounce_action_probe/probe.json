@@ -1,0 +1,211 @@
+{
+  "timestamp_utc": "2026-05-28T22:43:49+00:00",
+  "identification": "Majorana bounce = non-orientable tortoise logarithm: rigid throat \u27f9 massless \u03bd; S \u221d ln(1/\u03b5), naturally O(10)/gen-stable; EM-throat tension under-produces S by ~40\u00d7",
+  "mechanism": "reduced Euclidean bounce S = \u221a(2 \u03bc E_c)\u00b7L*(\u03b5) along the odd tortoise path",
+  "structural_wins": "rigid throat = massless \u03bd; S is a tortoise log",
+  "open": "\u0394L=2 (B\u2212L) tension ratio t \u2248 6\u201312 + compliance \u03b5 (not yet derived)",
+  "b4_caveat": "tension/inertia from electron-throat calibration; S not produced by EM tension; closing needs a stiffer B\u2212L sector",
+  "tests": [
+    {
+      "name": "T1_required_bounce_action",
+      "description": "PR #87 target: S = ln(m_D/m_\u03bd) \u2248 14.7\u201317.6, generation-stable (spread < 3). This probe asks whether a first-principles tortoise bounce produces it.",
+      "rows": [
+        {
+          "generation": 1,
+          "m_D_keV": 42.851726610166345,
+          "m_nu_obs_eV": 0.001,
+          "S_required": 17.573256496482532
+        },
+        {
+          "generation": 2,
+          "m_D_keV": 80.2155164647442,
+          "m_nu_obs_eV": 0.009,
+          "S_required": 16.003002948916183
+        },
+        {
+          "generation": 3,
+          "m_D_keV": 117.58046164090582,
+          "m_nu_obs_eV": 0.05,
+          "S_required": 14.670610431688155
+        }
+      ],
+      "S_range": [
+        14.670610431688155,
+        17.573256496482532
+      ],
+      "S_spread": 2.902646064794377,
+      "generation_stable": true,
+      "pass": true
+    },
+    {
+      "name": "T2_non_orientable_tortoise_path",
+      "description": "Bounce coordinate = non-orientable tortoise path: the odd extension across the throat (u_full = [\u2212u[::-1], u], c\u2081\u2192\u2212c\u2081, PR #63). The tortoise coordinate diverges logarithmically at the throat (slope rs/2): the throat is infinitely deep.",
+      "rstar_at_eps_1e-4": -3.9516687756430855,
+      "rstar_at_eps_1e-8": -8.556913954756155,
+      "log_slope_numeric": 0.5000081422750895,
+      "log_slope_expected_rs_over_2": 0.5,
+      "orientation_reversal": "u \u2192 \u2212u across rs (c\u2081 \u2192 \u2212c\u2081, PR #63)",
+      "pass": true
+    },
+    {
+      "name": "T3_rigid_throat_gives_massless_neutrino",
+      "description": "Rigid throat (\u03b5\u21920): L*\u2192\u221e \u27f9 S\u2192\u221e \u27f9 m_\u03bd=m_D\u00b7e^{\u2212S}\u21920. A boundary compliance \u03b5>0 is the mass-generating parameter; the smallness of m_\u03bd is the near-rigidity of the throat.",
+      "rows": [
+        {
+          "eps": 0.01,
+          "L_star": 1.820433223404136,
+          "S_base": 0.11010203723827529,
+          "m_nu_over_m_D": 0.8957427315187837
+        },
+        {
+          "eps": 0.0001,
+          "L_star": 4.130449545017684,
+          "S_base": 0.2498146615704756,
+          "m_nu_over_m_D": 0.7789451381623114
+        },
+        {
+          "eps": 1e-08,
+          "L_star": 8.735694724130752,
+          "S_base": 0.528345546243047,
+          "m_nu_over_m_D": 0.5895795953960774
+        },
+        {
+          "eps": 1e-16,
+          "L_star": 17.946035103606935,
+          "S_base": 1.085398244689186,
+          "m_nu_over_m_D": 0.33776724509487166
+        },
+        {
+          "eps": 1e-32,
+          "L_star": 36.3667158475593,
+          "S_base": 2.1995036406742456,
+          "m_nu_over_m_D": 0.1108581701949987
+        }
+      ],
+      "L_star_diverges_as_eps_to_zero": true,
+      "rigid_limit_massless": true,
+      "pass": true
+    },
+    {
+      "name": "T4_reduced_bounce_em_calibrated",
+      "description": "S = \u221a(2 \u03bc E_c)\u00b7L*(\u03b5), EM-throat-calibrated (\u221a(2\u03bcE_c) \u2248 0.060). Logarithmic in \u03b5; even \u03b5=1e-16 (near-rigid) gives S \u2272 1 \u2014 ~40\u00d7 short of the required ~16.",
+      "sigma_em": 0.026525823848649224,
+      "rho_em": 0.238732414637843,
+      "E_c": 0.005486968449931413,
+      "mu_throat": 0.3333333333333333,
+      "under_barrier_momentum_p0": 0.0604812282168686,
+      "rows": [
+        {
+          "eps": 0.1,
+          "L_star": 0.6010419882363096,
+          "S_base": 0.03635175765844069
+        },
+        {
+          "eps": 0.01,
+          "L_star": 1.820433223404136,
+          "S_base": 0.11010203723827529
+        },
+        {
+          "eps": 0.0001,
+          "L_star": 4.130449545017684,
+          "S_base": 0.2498146615704756
+        },
+        {
+          "eps": 1e-08,
+          "L_star": 8.735694724130752,
+          "S_base": 0.528345546243047
+        },
+        {
+          "eps": 1e-16,
+          "L_star": 17.946035103606935,
+          "S_base": 1.085398244689186
+        }
+      ],
+      "S_base_at_eps_1e-16": 1.085398244689186,
+      "underproduces": true,
+      "pass": true
+    },
+    {
+      "name": "T5_required_delta_L_tension_ratio",
+      "description": "Matching S\u2208[15,18] at sane compliance \u03b5~1e-3\u20131e-6 needs a \u0394L=2 tension ratio t\u22486\u201312 (barrier ~10\u00b2\u201310\u00b3\u00d7 larger). Pure compliance (t=1) would need an absurd \u03b5~1e-230.",
+      "rows": [
+        {
+          "eps": 0.01,
+          "L_star": 1.820433223404136,
+          "required_tension_ratio_t": 12.054863965346321,
+          "barrier_boost_t_cubed": 1751.8097601421139
+        },
+        {
+          "eps": 0.001,
+          "L_star": 2.9784819366664648,
+          "required_tension_ratio_t": 9.424367328411762,
+          "barrier_boost_t_cubed": 837.0600501046666
+        },
+        {
+          "eps": 1e-06,
+          "L_star": 6.433108888636646,
+          "required_tension_ratio_t": 6.4126751338167844,
+          "barrier_boost_t_cubed": 263.70460713291266
+        }
+      ],
+      "required_tension_ratio_range": [
+        6.4126751338167844,
+        12.054863965346321
+      ],
+      "eps_needed_if_pure_compliance": 6.411419900670339e-231,
+      "pure_compliance_is_absurd": true,
+      "pass": true
+    },
+    {
+      "name": "T6_generation_structure",
+      "description": "Constant-geometry bounce \u27f9 uniform S \u27f9 m_\u03bd \u221d m_D. Observed m_\u03bd/m_D spans \u00d718, so the detailed spectrum needs a generation-dependent compliance or mixing. The log form does explain the O(15) magnitude + coarse gen-stability.",
+      "rows": [
+        {
+          "generation": 1,
+          "m_nu_over_m_D": 2.3336282551628975e-08,
+          "S_required": 17.573256496482532
+        },
+        {
+          "generation": 2,
+          "m_nu_over_m_D": 1.1219774423512713e-07,
+          "S_required": 16.003002948916183
+        },
+        {
+          "generation": 3,
+          "m_nu_over_m_D": 4.252407185872553e-07,
+          "S_required": 14.670610431688155
+        }
+      ],
+      "m_nu_over_m_D_spread": 18.22229901641175,
+      "log_form_explains_magnitude_and_coarse_stability": true,
+      "detailed_spectrum_needs_gen_dependent_compliance_or_mixing": true,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "Structure established (tortoise-log bounce, rigid\u2192massless, O(15)/gen-stable form); S\u224815\u201318 NOT produced by the EM-throat tension (under by ~40\u00d7); open input sharpened to an O(10) \u0394L=2/EM tension ratio.",
+      "established_bam_native": [
+        "bounce coordinate = non-orientable tortoise path (odd extension, c\u2081\u2192\u2212c\u2081, PR #63)",
+        "rigid throat (\u03b5\u21920) \u27f9 S\u2192\u221e \u27f9 exactly massless Majorana neutrino; compliance \u03b5 is the mass-generating parameter",
+        "S \u221d ln(1/\u03b5): a tortoise logarithm, naturally O(10) and coarsely generation-stable \u2014 the form PR #87 required"
+      ],
+      "open": [
+        "S \u2248 15\u201318 does NOT fall out of the EM-throat tension (under by ~40\u00d7); matching needs a \u0394L=2 (B\u2212L) tension ~6\u201312\u00d7 stiffer (barrier ~10\u00b2\u201310\u00b3\u00d7 larger) \u2014 a dimensionless tension ratio, not yet derived",
+        "the boundary compliance \u03b5 (a sub-throat length), not yet derived from the bulk",
+        "the detailed m_\u03bd spectrum (\u00d718 spread) \u2014 needs gen-dependent compliance or the mixing sector"
+      ],
+      "progressive_localisation": "open input: ~TeV mass (PR #86) \u2192 O(15) action S (PR #87) \u2192 O(10) B\u2212L/EM tension ratio (PR #88)",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The Majorana bounce is the non-orientable tortoise log: rigid throat = massless \u03bd, S \u221d ln(1/\u03b5) naturally O(10)/gen-stable. But the EM-throat tension under-produces S; S\u224815\u201318 needs a \u0394L=2 tension ~6\u201312\u00d7 stiffer \u2014 the residual open input, now a dimensionless ratio.",
+      "classification": "MAJORANA_BOUNCE_IS_TORTOISE_LOG_S_OPEN_AS_TENSION_RATIO",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "MAJORANA_BOUNCE_IS_TORTOISE_LOG_S_OPEN_AS_TENSION_RATIO",
+  "verdict": "MAJORANA BOUNCE IS THE NON-ORIENTABLE TORTOISE LOGARITHM; THE OPEN INPUT IS NOW A \u0394L=2 TENSION RATIO. PR #87 reframed the seesaw scale as a bounce action S = ln(m_D/m_\u03bd) \u2248 15\u201318 but left S open. This probe builds a reduced Euclidean bounce for the throat\u2194antithroat flip and sharpens the verdict.\n\nTHE NON-ORIENTABLE TORTOISE PATH. The \u0394L=2 Majorana flip is the throat\u2194antithroat odd extension (c\u2081\u2192\u2212c\u2081, PR #63 inner/outer swap; u_full = [\u2212u[::-1], u]) \u2014 the orientation-reversing identification across the throat. The 5D tortoise coordinate r* = r + (rs/2)ln|(r\u2212rs)/(r+rs)| diverges LOGARITHMICALLY at the throat (slope rs/2): the throat is infinitely deep in tortoise distance.\n\nRIGID THROAT \u27f9 MASSLESS NEUTRINO. The reduced bounce S = \u221a(2 \u03bc E_c)\u00b7L*(\u03b5), with the PR #58 pinch barrier E_c and brane inertia \u03bc, runs over the tortoise path length L*(\u03b5) to within a compliance cutoff \u03b5 of the throat. As \u03b5\u21920 (a rigid, incompressible throat) L*\u2192\u221e and S\u2192\u221e, so m_\u03bd = m_D\u00b7e^{\u2212S}\u21920: a perfectly rigid throat gives an EXACTLY MASSLESS Majorana neutrino. A boundary compliance \u03b5>0 is precisely what gives the neutrino mass \u2014 the smallness of m_\u03bd is the near-rigidity of the throat.\n\nS IS A TORTOISE LOGARITHM. Because L*(\u03b5) = \u2212(rs/2)ln \u03b5 + const, the bounce action is S \u221d ln(1/\u03b5): naturally O(10) and slowly (logarithmically) varying \u2014 exactly the O(15), generation-stable form PR #87 required. The huge keV\u2192TeV gap is carried by a logarithm, not a hierarchy.\n\nTHE MAGNITUDE FALLS SHORT (HONEST). With the throat tension fixed by the ELECTRON throat (PR #58/#87: \u03c3=1/12\u03c0, \u03c1=3/4\u03c0), the under-barrier momentum \u221a(2 \u03bc E_c) \u2248 0.060, so even a near-rigid compliance gives S \u2248 0.04\u20131 \u2014 ~40\u00d7 SHORT of the required ~16. Pure compliance cannot close the gap (it would need an absurd \u03b5 ~ 1e-230). Matching S\u2208[15,18] at a sane near-rigid compliance (\u03b5 ~ 1e-3\u20131e-6) requires the \u0394L=2 (lepton-number-violating / B\u2212L) throat tension to be a factor t \u2248 6\u201312 stiffer than the EM-throat tension (barrier ~10\u00b2\u201310\u00b3\u00d7 larger, since E_c \u221d \u03c3\u00b3).\n\nPROGRESSIVE LOCALISATION. The open input has been sharpened three times: a mysterious ~TeV mass (PR #86) \u2192 an O(15) instanton action S (PR #87) \u2192 an O(10) dimensionless B\u2212L/EM tension ratio (this probe). Each step ties the unknown more tightly to BAM geometry.\n\nHONEST SCOPE. ESTABLISHED (BAM-native): the bounce coordinate is the non-orientable tortoise path; the rigid throat gives a massless neutrino (compliance is the mass-generating parameter); the bounce action is a tortoise logarithm, hence naturally O(10) and coarsely generation-stable. NOT established: that S\u224815\u201318 follows from the EM-throat tension (it under-produces by ~40\u00d7); matching needs a \u0394L=2 tension ~6\u201312\u00d7 stiffer (a dimensionless ratio, not yet derived), the compliance \u03b5 (a sub-throat length), and the detailed m_\u03bd spectrum (the \u00d718 m_\u03bd/m_D spread needs gen-dependent compliance or the mixing sector)."
+}
