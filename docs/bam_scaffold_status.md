@@ -279,6 +279,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `pati_salam_throat_shell_bridge_probe` | throat ↔ shell n+3 Z₂ bridge built; 3 open extensions for full SU(4) | PATI_SALAM_THROAT_SHELL_Z2_BUILT_FULL_SU4_REQUIRES_EXTENSIONS |
 | `throat_shell_mass_operator_unification_probe` | lepton β·k² and quark ω²(l,n) unified as one Bohr-Sommerfeld operator m²=(S/L)² | MASS_OPERATOR_UNIFIED_BOHR_SOMMERFELD |
 | `winding_shell_quadrant_probe` | (k≠0, n≥3) quadrant = leptoquark sector; complete four-quadrant interpretation | WINDING_SHELL_QUADRANT_IS_LEPTOQUARK_SECTOR |
+| `neutrino_quadrant_suppression_probe` | neutrino = Majorana (k=0 ⟹ c₁=0 ⟹ C-invariant); seesaw mechanism, M_R scale open | NEUTRINO_SUPPRESSION_IS_MAJORANA_SEESAW_SCALE_OPEN |
 
 ## Cross-references
 
@@ -448,6 +449,20 @@ the B4 audit shows cannot come from scale-free geometry.
     the BAM ν/charged-lepton mass ratio ~0.07 is far above observed
     `< 10⁻⁶` (needs extra suppression). Structural map only; absolute
     masses need the L_eff unification (PR #83 open) + B4 anchor.
+  - `docs/neutrino_quadrant_suppression_research_plan.md` — PR #86,
+    identifies the neutrino-quadrant suppression mechanism. The
+    `(k=0, n<3)` quadrant has `c₁ = 0` (no winding ⟹ no Hopf charge);
+    under `C` (`c₁ → −c₁`, PR #63) it is invariant, so the neutrino is
+    **necessarily Majorana**. A Majorana mass admits the seesaw
+    `m_ν = m_D²/M_R` with `m_D` the bare cavity-floor Dirac mass
+    (~43–118 keV) and `M_R` the lepton-number-violating
+    (throat↔antithroat) scale. Because `M_R ≫ m_D`, the smallness of
+    `m_ν` is generic. Only the chargeless `c₁=0` sector gets the
+    seesaw — charged leptons (`c₁=±1`) are Dirac and keep their full
+    winding mass — explaining why only neutrinos are anomalously
+    light. Required `M_R ≈ 0.3–1.8 TeV`, a new heavy input not yet
+    BAM-derivable (no current BAM scale matches ~TeV). Mechanism
+    BAM-native; scale open.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target

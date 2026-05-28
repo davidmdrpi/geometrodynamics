@@ -1,0 +1,176 @@
+{
+  "timestamp_utc": "2026-05-28T05:00:47+00:00",
+  "identification": "neutrino suppression = Majorana seesaw, forced by k=0 \u27f9 c\u2081=0 \u27f9 C-invariance; available only to the chargeless sector (charged leptons are Dirac); seesaw scale M_R ~ TeV is a new open heavy input",
+  "mechanism": "Majorana seesaw m_\u03bd = m_D\u00b2/M_R",
+  "why_only_neutrinos": "only c\u2081=0 (k=0) sector is C-invariant \u27f9 Majorana",
+  "open": "M_R (lepton-number-violating / throat\u2194antithroat scale)",
+  "b4_caveat": "m_D from cavity floor + electron anchor; M_R open; absolute m_\u03bd needs M_R + L_eff unification + B4 anchor",
+  "tests": [
+    {
+      "name": "T1_suppression_gap",
+      "description": "Bare (k=0, n=0) \u03bd / (k=1, n=0) charged-lepton mass ratio \u2248 0.07\u20130.08; observed < 10\u207b\u2076. Suppression of ~10\u2075\u201310\u2076 needed.",
+      "bare_nu_over_charged_ratio": 0.08385856479484607,
+      "observed_ratio_bound": 1e-06,
+      "suppression_factor_needed": 83858.56479484608,
+      "pass": true
+    },
+    {
+      "name": "T2_neutrino_is_majorana_from_c1_zero",
+      "description": "k=0 \u27f9 c\u2081=0 (no Hopf charge). Under C (c\u2081 \u2192 \u2212c\u2081, PR #63): 0 \u2192 0, invariant. The neutrino is its own C-conjugate \u27f9 Majorana. BAM-native \u2014 not assumed.",
+      "k_neutrino": 0,
+      "c1_neutrino": 0,
+      "c1_after_C": 0,
+      "C_invariant": true,
+      "neutrino_is_majorana": true,
+      "pass": true
+    },
+    {
+      "name": "T3_charged_lepton_is_dirac_no_seesaw",
+      "description": "Charged lepton k\u22600 \u27f9 c\u2081=\u00b11. Under C: e\u207b \u2192 e\u207a (distinct) \u27f9 Dirac. No \u0394L=2 Majorana mass \u27f9 no seesaw \u27f9 keeps full winding mass \u03b2\u00b7k\u00b2. Only the chargeless \u03bd sector is suppressed.",
+      "rows": [
+        {
+          "generation": 1,
+          "k_charged_lepton": 1,
+          "c1": 1,
+          "c1_after_C": -1,
+          "particle_antiparticle_distinct": true,
+          "is_dirac": true,
+          "gets_seesaw": false
+        },
+        {
+          "generation": 2,
+          "k_charged_lepton": 3,
+          "c1": 1,
+          "c1_after_C": -1,
+          "particle_antiparticle_distinct": true,
+          "is_dirac": true,
+          "gets_seesaw": false
+        },
+        {
+          "generation": 3,
+          "k_charged_lepton": 5,
+          "c1": 1,
+          "c1_after_C": -1,
+          "particle_antiparticle_distinct": true,
+          "is_dirac": true,
+          "gets_seesaw": false
+        }
+      ],
+      "all_charged_leptons_dirac": true,
+      "pass": true
+    },
+    {
+      "name": "T4_bare_dirac_masses_cavity_floors",
+      "description": "Bare neutrino Dirac mass m_D = cavity floor \u221a(\u03c9\u00b2(0, n)) for n = g\u22121; ~43, 80, 118 keV (gen 1, 2, 3) with electron anchor.",
+      "scale_MeV_per_unit": 0.04062828885020484,
+      "rows": [
+        {
+          "generation": 1,
+          "n": 0,
+          "m_D_bam_units": 1.054726345186706,
+          "m_D_keV": 42.851726610166345
+        },
+        {
+          "generation": 2,
+          "n": 1,
+          "m_D_bam_units": 1.974375951704394,
+          "m_D_keV": 80.2155164647442
+        },
+        {
+          "generation": 3,
+          "n": 2,
+          "m_D_bam_units": 2.894053994605116,
+          "m_D_keV": 117.58046164090582
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T5_required_seesaw_scale",
+      "description": "M_R = m_D\u00b2/m_\u03bd \u2248 0.3\u20131.8 TeV \u2014 a single new heavy scale, roughly generation-uniform. The lepton-number-violating (throat\u2194antithroat) scale.",
+      "rows": [
+        {
+          "generation": 1,
+          "m_D_eV": 42851.72661016635,
+          "m_nu_obs_eV": 0.001,
+          "M_R_eV": 1836270473472.4387,
+          "M_R_GeV": 1836.2704734724387
+        },
+        {
+          "generation": 2,
+          "m_D_eV": 80215.5164647442,
+          "m_nu_obs_eV": 0.009,
+          "M_R_eV": 714947675745.072,
+          "M_R_GeV": 714.947675745072
+        },
+        {
+          "generation": 3,
+          "m_D_eV": 117580.46164090582,
+          "m_nu_obs_eV": 0.05,
+          "M_R_eV": 276503299193.7705,
+          "M_R_GeV": 276.5032991937705
+        }
+      ],
+      "M_R_range_GeV": [
+        276.5032991937705,
+        1836.2704734724387
+      ],
+      "M_R_order_of_magnitude": "TeV",
+      "pass": true
+    },
+    {
+      "name": "T6_bam_scale_candidates_for_M_R",
+      "description": "No BAM scale in the current catalog lands at the required ~TeV M_R (pair-production ~1 MeV, leptoquark sub-MeV, bulk/cosmological ~10\u207b\u00b3\u00b3 eV). M_R is a new heavy input \u2014 the lepton-number-violating scale \u2014 not yet BAM-derivable.",
+      "candidates": [
+        {
+          "scale": "pair-production 2 m_e c\u00b2",
+          "value_eV": 1022000.0,
+          "matches_TeV": false
+        },
+        {
+          "scale": "leptoquark gen-1 (raw operator)",
+          "value_eV": 532381.6196412182,
+          "matches_TeV": false
+        },
+        {
+          "scale": "bulk/cosmological \u210fc/R_cosmo (Hubble)",
+          "value_eV": 1e-33,
+          "matches_TeV": false
+        },
+        {
+          "scale": "required seesaw M_R",
+          "value_eV": 1000000000000.0,
+          "matches_TeV": true
+        }
+      ],
+      "any_existing_bam_scale_matches": false,
+      "M_R_is_open_input": true,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "Mechanism (Majorana seesaw forced by c\u2081=0 C-invariance, available only to the chargeless sector) is BAM-native; the seesaw scale M_R is a new heavy input, open.",
+      "bam_native_results": [
+        "neutrino is Majorana (k=0 \u27f9 c\u2081=0 \u27f9 C-invariant)",
+        "Majorana seesaw is the suppression mechanism",
+        "only the chargeless c\u2081=0 sector gets the seesaw (Dirac charged leptons do not) \u2014 explains why only \u03bd is light"
+      ],
+      "open": [
+        "value of M_R (the lepton-number-violating scale); ~TeV from observed m_\u03bd, not predicted",
+        "no BAM scale currently lands at ~TeV",
+        "absolute neutrino masses (need M_R + L_eff unification from PR #83 + B4 anchor)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Neutrino-quadrant suppression is the Majorana seesaw, forced by c\u2081=0 C-invariance and available only to the chargeless sector. The seesaw scale M_R (~TeV) is a new heavy input, open.",
+      "classification": "NEUTRINO_SUPPRESSION_IS_MAJORANA_SEESAW_SCALE_OPEN",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "NEUTRINO_SUPPRESSION_IS_MAJORANA_SEESAW_SCALE_OPEN",
+  "verdict": "NEUTRINO SUPPRESSION IS THE MAJORANA SEESAW; SCALE OPEN. PR #85 found the (k=0, n<3) neutrino quadrant gives the lightest states but with a mass ratio m_\u03bd/m_charged \u2248 0.07 \u2014 ~10\u2075\u201310\u2076 too heavy for neutrinos. This probe identifies the BAM-native suppression mechanism.\n\nTHE STRUCTURAL KEY: k = 0 \u27f9 c\u2081 = 0 \u27f9 MAJORANA. The throat winding number k IS the Hopf charge: a winding mode carries c\u2081 = \u00b11, a non-winding mode carries c\u2081 = 0. Under charge conjugation C (the inner/outer swap c\u2081 \u2192 \u2212c\u2081, PR #63), the neutrino quadrant (k=0, c\u2081=0) maps 0 \u2192 \u22120 = 0 \u2014 invariant. The neutrino is its own C-conjugate, hence NECESSARILY MAJORANA. This is not assumed; it follows from the chargeless (k=0) sector being the C-invariant sector.\n\nTHE SUPPRESSION: MAJORANA SEESAW. A Majorana mass violates lepton number by \u0394L = 2 and admits the seesaw m_\u03bd = m_D\u00b2/M_R, where m_D is the bare neutrino-quadrant Dirac mass (the cavity floor) and M_R is the heavy lepton-number-violating scale \u2014 in BAM, the throat \u2194 antithroat coupling scale (a Majorana mass flips throat to antithroat, \u0394L = 2). Because M_R \u226b m_D, the seesaw produces m_\u03bd \u226a m_D automatically: the anomalous lightness of neutrinos is GENERIC to the mechanism.\n\nWHY ONLY NEUTRINOS ARE SUPPRESSED. The seesaw is available ONLY to the Majorana (C-invariant, c\u2081=0) sector. Charged leptons (k\u22600, c\u2081=\u00b11) are Dirac \u2014 under C, e\u207b \u2192 e\u207a (distinct), so they cannot have a \u0394L=2 Majorana mass, get no seesaw, and keep their full winding mass \u03b2\u00b7k\u00b2. This is the BAM-native explanation of why the neutrino is anomalously light and the charged lepton is not \u2014 the two differ precisely by their Hopf charge (winding) c\u2081.\n\nNUMBERS. With the electron anchored at (k=1, n=0), the bare neutrino Dirac masses are the cavity floors m_D \u2248 43, 80, 118 keV (generations 1, 2, 3 at n = 0, 1, 2). For observed neutrino masses ~0.001\u20130.05 eV, the required seesaw scale is M_R = m_D\u00b2/m_\u03bd \u2248 0.3\u20131.8 TeV \u2014 a single new heavy scale, roughly generation-uniform.\n\nTHE SCALE M_R IS OPEN. No BAM scale in the current catalog lands at ~TeV: pair-production ~1 MeV, leptoquark sub-MeV (raw operator units), bulk/cosmological ~10\u207b\u00b3\u00b3 eV. So the seesaw scale M_R is a NEW heavy input \u2014 the lepton-number-violating (throat\u2194antithroat / B\u2212L breaking) scale \u2014 not yet BAM-derivable. The TeV value is read off from the observed neutrino mass, not predicted.\n\nHONEST SCOPE. ESTABLISHED (BAM-native): the neutrino is Majorana because the chargeless k=0 quadrant is the C-invariant sector; the Majorana seesaw is the natural suppression mechanism; and the seesaw is available only to the c\u2081=0 sector, explaining why neutrinos (not charged leptons) are anomalously light. NOT established: the value of M_R (a new heavy input, ~TeV from observed m_\u03bd, not predicted; no current BAM scale matches), and absolute neutrino masses (need M_R + the L_eff unification still open from PR #83 + the B4 anchor)."
+}
