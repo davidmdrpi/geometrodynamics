@@ -283,6 +283,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `seesaw_scale_nucleation_compliance_probe` | M_R grounded in PR #58 throat↔antithroat nucleation; Σc₁=0 = only-neutrino rule; barrier-height M_R falsified; suppression = tunnelling, M_R = m_D·e^{S}, S≈15–18 open | SEESAW_SUPPRESSION_IS_THROAT_ANTITHROAT_TUNNELING_S_OPEN |
 | `majorana_bounce_action_probe` | reduced Euclidean bounce on the non-orientable tortoise path; rigid throat ⟹ massless ν; S ∝ ln(1/ε) (O(10), gen-stable); EM-throat tension under-produces S ~40×; S≈15–18 needs ΔL=2 tension ratio t≈6–12 | MAJORANA_BOUNCE_IS_TORTOISE_LOG_S_OPEN_AS_TENSION_RATIO |
 | `b_minus_l_tension_ratio_probe` | ΔL=2/B−L tension ratio t = global-closure enhancement of local EM tension; bracketed parameter-free by closure quantum 2π (lower) and winding action k_5√(2π)=√β (upper): t∈[6.28,12.53], matching PR #88's 6–12; residual = compliance ε | B_MINUS_L_TENSION_BRACKETED_BY_CLOSURE_AND_WINDING_ACTIONS |
+| `boundary_compliance_bulk_geometry_probe` | ε = chargeless-throat sub-throat healing length (ε=ℓ²/2rs; c₁=0 neck not EM-propped, charged → Dirac); bulk scales (R_c³,Δ³) land ε in window; winding-edge t≈√β ⟹ S≈15–19, m_ν~few meV (observed scale, untuned); precise spectrum residual | COMPLIANCE_IS_CHARGELESS_THROAT_HEALING_LENGTH_CHAIN_CLOSED_TO_OOM |
 
 ## Cross-references
 
@@ -511,6 +512,25 @@ the B4 audit shows cannot come from scale-free geometry.
     derivation (the `(t,ε)` degeneracy + bounce-normalisation caveats
     remain). Localisation: `~TeV` (PR #86) → `O(15)` `S` (#87) → `O(10)`
     `t` (#88) → the `[2π, k_5√(2π)]` window + compliance (#89).
+  - `docs/boundary_compliance_bulk_geometry_research_plan.md` — PR #90,
+    the capstone: derives PR #89's residual compliance `ε` from the bulk
+    throat geometry. Near the neck `f ≈ 2(r−rs)/rs`, so `ε = ℓ²/(2rs)` is
+    the throat's (neck-warped) **healing length**. It is sub-throat *for
+    the neutrino* because the chargeless (`c₁=0`) neck has no EM term to
+    prop it open (the charged `c₁=±1` neck is propped open and stays
+    Dirac, PR #86) — the same chargelessness that makes the neutrino
+    Majorana makes its `ε` tiny, hence its mass tiny. Natural BAM
+    sub-throat scales (`R_c³`, `Δ³`, `(m_D/m_charged)²`, `E_c`) land `ε`
+    inside the PR #89 window; at the **winding-edge** tension `t ≈ √β`
+    (the edge PR #89's `m_charged/m_D ≈ 11.9 ≈ √β` cross-check favoured)
+    the chain yields `S ≈ 15–19`, `m_ν ~ few meV` — the observed scale,
+    with no input outside the throat geometry. At the `2π` edge the same
+    `ε` give `S ≈ 4` (too small): the chain closes only at the winding
+    edge, the same one the cross-check picked. So the whole chain (`~TeV`
+    mass → `S` → `t` → window → `ε` → bulk healing length) is closed at
+    order-of-magnitude — the neutrino mass *scale* is geometric, untuned;
+    the precise `m_ν` and the generation spread (`×18` vs the geometric
+    `×2.7`) are the residual.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target

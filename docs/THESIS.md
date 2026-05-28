@@ -530,6 +530,34 @@ the winding edge. So the open input has been localised four times —
 window — leaving the compliance `ε` as the last undetermined number; an
 `(t, ε)` degeneracy and the bounce normalisation are the honest caveats.
 
+PR #90 closes the chain by deriving `ε` from the bulk throat geometry.
+Near the neck the warp is `f(r) = 1 − (rs/r)² ≈ 2(r − rs)/rs`, so the
+proper distance from the neck to `rs + ε` is `ℓ = √(2 rs ε)`, i.e.
+`ε = ℓ²/(2 rs)`: the compliance is the throat's (neck-warped) **healing
+length**. Crucially it is sub-throat *for the neutrino* and only the
+neutrino: the charged-lepton throat (`c₁ = ±1`) is propped open by its
+EM self-repulsion `A/R` at `R* ≈ R_MID` (and so cannot flip — it stays
+Dirac), whereas the neutrino throat (`c₁ = 0`) has `A = 0`, so nothing
+props its neck open and the bounce approaches it down to the bulk
+healing length. The chargelessness that makes the neutrino Majorana is
+the *same* property that makes its compliance sub-throat — and hence its
+mass tiny; the smallness of `m_ν` is the unobstructed near-rigidity of
+the chargeless neck. The natural BAM sub-throat scales (`R_c³`, `Δ³`,
+`(m_D/m_charged)²`, `E_c`) all land `ε` inside the PR #89 window, and at
+the winding-edge tension `t ≈ √β` — the edge the PR #89 mass-ratio
+cross-check already favoured — the chain yields `S ≈ 15–19` and
+`m_ν ~ few meV`, squarely the observed scale, with no input outside the
+throat geometry (the `2π` edge gives `S ≈ 4`, too small, so the chain
+closes only at the winding edge — the same one the cross-check picked).
+So the entire chain — `~TeV` seesaw scale → `O(15)` instanton action →
+`O(10)` tension ratio → closure-to-winding window → sub-throat healing
+length → `meV` — is closed within BAM throat geometry at the
+order-of-magnitude level: **the neutrino mass scale is geometric, not
+tuned.** What remains is the precise `m_ν` and its generation spread (a
+geometry-only `(t, ε)` gives a uniform `S`, hence `m_ν ∝ m_D` — a ×2.7
+spread — whereas the observed `m_ν/m_D` spans ×18, calling for a
+generation-dependent healing length or the mixing sector).
+
 **QFT event reinterpretation: Compton scattering from BAM.** _Closed
 at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a
 BAM amplitude for Compton scattering by progressively identifying
