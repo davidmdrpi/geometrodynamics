@@ -212,6 +212,8 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Shell mass-ordering / `n_part` audit | **Sharpened** | Shell basis structurally better than v3 in 4 ways (cavity wavefronts; ω² kinetic; Z₂ partition slot; 6 flavors). Uniform `χ·σ_z` cannot reproduce within-generation inversion (best 2/3 blocks); sign-flipping χ_n can (existence proof). Coverage gap: shell kinetic ×2.2 vs observed ×6.4·10⁹ — `n_part` NOT resolved at #78 alone (`shell_mass_ordering_audit_probe`, PR #78) |
 | Boundary-stress `χ_n` + singlet placeholder | **Derived structurally** | `χ_n = T_odd(n) = (T_inner − T_outer)/2` from Z₂-antisymmetric piece of cavity-mouth boundary stress (PR #63's inner/outer swap). NO free parameter once cavity geometry fixed. Uniform-positive sign (no flip), shell-suppressed magnitude — 30–100× too small for observed splittings; PR #78 sign-flipping ansatz overruled (`boundary_stress_chi_n_probe`, PR #79) |
 | BAM-native color algebra = `SU(2) × Z₂` | **Identified** | SU(2) from B2 / Hopf holonomy (PRs #59–#66; `T = iσ_y`, `T² = −I`) + Z₂ from PR #63 inner/outer swap. SU(2) acts on partition index; Z₂ swaps n=3 ↔ n=5. SU(3) NOT BAM-derivable from current scaffold (all natural triplets give SO(3)/SU(2)); Pati-Salam SU(4) requires throat↔shell algebra map (open). v3 species map revised: `+ = heavier` uniformly. Inter-generation hierarchy outside BAM color scope; `n_part = 233` residual with sharply identified scope (`color_algebra_shell_probe`, PR #80) |
+| Throat ↔ shell `n + 3` Pati-Salam bridge | **Built (partial)** | Each generation has a lepton at `n = g−1` (throat) and a quark-pair at `n = g+2` (shell); shift `+3` = PR #68 shell threshold (no free parameter). Unified 12-state `(l, n, p)` basis + throat-shell Z₂. Full SU(4) PS needs 3 open extensions: BAM-native neutrinos, 3-fold quark color, lepton-quark mass-operator unification (`pati_salam_throat_shell_bridge_probe`, PR #82) |
+| **Lepton + quark masses = ONE Bohr-Sommerfeld operator** | **Unified** | `m²(k, n) = (k·2π/L_throat)² + ((n+1)·π/L_cavity)²`, `L_throat = √(2π)/k_5`. Lepton `β·k²` (PR #71) and quark `ω²(l,n)` (PR #77) are the same operator `m² = (S/L_eff)²`. Cavity Bohr-Sommerfeld `∮√(ω²−V)dr* = (n+1)·π` verified to machine precision; `(2π/L_throat)² = k_5²·(2π) = 50π = β_lepton` recovered. `k = 0` for quarks = "don't pass through the throat"; closure quanta `2π` (throat) vs `π` (cavity) = BAM full/half-cycle (`throat_shell_mass_operator_unification_probe`, PR #83) |
 
 ### Research goals (not yet fully derived)
 
@@ -219,7 +221,7 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 |---------|-------------------|
 | Electromagnetism | Curvature of the Hopf connection on S³ |
 | Charged-lepton ladder (e, μ, τ) | Eigenvalues of a k-pass instanton-transition matrix with S³ action base `2π` and k=5 uplift `200π` — **sub-percent fit achieved** |
-| Particle mass (general) | Eigenvalue of the 5D Tangherlini operator (leptons only so far) |
+| Particle mass (general) | One Bohr-Sommerfeld closure operator `m² = (S/L_eff)²` over both fermion sectors: leptons = throat-winding (`k ≠ 0`), quarks = cavity-resolving (`k = 0`); inter-generation hierarchy still open (PR #83) |
 | QCD confinement | 1D flux-tube network with bridge nucleation |
 | Retrocausal photon exchange | Wheeler–Feynman absorber theory on S³ |
 | Black-hole interior | Coherent condensate of non-orientable wormhole throats |
@@ -810,13 +812,36 @@ route.
 **Arc closure summary.** The four-PR arc (#77 → #80) closes
 structurally — the shell basis is the right machinery, `χ_n` is
 derived without a free parameter, the BAM-native color algebra is
-identified, and the v3 species map is settled. What remains open:
-the inter-generation mass hierarchy, which no BAM color algebra
-acting on the 6-state shell basis can naturally span; `n_part = 233`
-remains a residual phenomenological compensator with **sharply
-identified scope** (it absorbs the hierarchy). The most plausible
-extension is **Pati-Salam SU(4)** with a quantitative throat↔shell
-algebra map (beyond PR #68's structural transition).
+identified, and the v3 species map is settled. What remained open at
+#80: the inter-generation mass hierarchy and the Pati-Salam SU(4)
+extension.
+
+### Pati-Salam bridge + mass-operator unification (PRs #82–#83)
+
+| arc | PRs | summary |
+|---|---|---|
+| **Throat ↔ shell `n+3` bridge** | #82 | Each generation has a lepton at `n = g−1` (throat) and a quark-pair at `n = g+2` (shell); shift `+3` = PR #68 shell threshold (no free parameter). Unified 12-state `(l, n, p)` basis + throat-shell Z₂. Full SU(4) PS needs 3 open extensions: BAM-native neutrinos, 3-fold quark color, **lepton-quark mass-operator unification**. |
+| **Bohr-Sommerfeld mass-operator unification** | #83 | The third extension is **closed at the structural-form level**: the lepton `β·k²` (PR #71) and quark `ω²(l,n)` (PR #77) mass operators are the SAME Bohr-Sommerfeld operator `m²(k,n) = (k·2π/L_throat)² + ((n+1)·π/L_cavity)²`, `L_throat = √(2π)/k_5`. Cavity `∮√(ω²−V)dr* = (n+1)·π` verified to machine precision; `(2π/L_throat)² = k_5²·(2π) = 50π = β_lepton` recovered. |
+
+**The unification, in one line.** Leptons and quarks are not two kinds
+of object with two mass formulas. They are **one Bohr-Sommerfeld
+closure operator** `m² = (S/L_eff)²` read in two channels of the
+closure ledger (PR #52's `N_total = N_layer1 + N_radial`):
+
+  - **Leptons wind through the throat** — winding number `k ∈ {1,3,5}`,
+    closure quantum `2π` (full S³ great circle) → `m² ≈ β·k²`.
+  - **Quarks resolve the cavity** — `k = 0` (no throat traversal),
+    radial overtone `n ∈ {3,4,5}`, closure quantum `π` (half-cycle
+    Bohr-Sommerfeld node) → `m² ≈ ω²(l, n)`.
+
+The user's physical insight — *"quarks do not pass through the throat;
+they are the wavefronts that resolve the cavity itself"* — is exactly
+`k = 0` in this single operator. The `2π`-vs-`π` distinction between the
+two channels is BAM's pervasive full/half-cycle structure (throat dwell
+`τ = π/ω`, Hopf holonomy `∮A = π cos χ`, B3 reflection phase `π`).
+What remains open: an independent derivation of the two `L_eff` from one
+principle, and the inter-generation hierarchy (the cross-channel /
+mixed-mode question).
 
 ## Quick Start
 
@@ -936,6 +961,7 @@ This package refactors and unifies three monolithic scripts:
 | New in v0.51.0 | Even-k absence + QCD shell arc (PRs #67–#69): spin-statistics classification of even-`k` absence, throat → QCD-shell transition, shell ↔ QCD structural match. |
 | New in v0.52.0 | Three-generation / `k_5 = 5` arc (PRs #70–#74): sharp `k ≤ 5` boundary, `β_lepton = k_5²·(2π) = 50π`, `#gen = (k_5+1)/2 = 3`, `k_5 = D_bulk = dim(S³)+2 = 5`, `1/(2π)` in Schwinger anomaly = BAM closure-quantum loop measure (PR #74). |
 | New in v0.53.0 | QCD-shell arc (PRs #76–#80): quark `n_part = 233` diagnosed as phenomenological compensator (PR #76, v3 lepton-shaped Hamiltonian is wrong machinery); quarks reframed as cavity wavefronts that resolve the shell with 6-state `(l, n, p)` basis + 6×6 operator scaffold (PR #77); shell mass-ordering / `n_part` audit identifies structural slots but not closure (PR #78); `χ_n` derived from cavity-mouth boundary stress (Z₂-antisymmetric piece, no free parameter; PR #79); BAM-native color algebra identified as `SU(2) × Z₂` from B2 + Hopf + PR #63 inner/outer swap (PR #80); inter-generation hierarchy outside BAM color scope, `n_part` remains residual compensator with sharply identified scope. |
+| New in v0.54.0 | Pati-Salam bridge + mass-operator unification (PRs #82–#83): throat ↔ shell `n+3` Z₂ bridge unifying the lepton (throat) and quark (shell) sectors on a 12-state basis, with 3 open extensions identified for full SU(4) PS (PR #82); **the lepton `β·k²` and quark `ω²(l,n)` mass operators unified as one Bohr-Sommerfeld operator** `m² = (S/L_eff)²` with `L_throat = √(2π)/k_5` recovering `β_lepton = k_5²·(2π) = 50π`, `k = 0` for quarks = "don't pass through the throat", closure quanta `2π` (throat) vs `π` (cavity half-cycle) (PR #83). |
 
 ## License
 
