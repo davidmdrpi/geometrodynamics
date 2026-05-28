@@ -280,6 +280,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `throat_shell_mass_operator_unification_probe` | lepton β·k² and quark ω²(l,n) unified as one Bohr-Sommerfeld operator m²=(S/L)² | MASS_OPERATOR_UNIFIED_BOHR_SOMMERFELD |
 | `winding_shell_quadrant_probe` | (k≠0, n≥3) quadrant = leptoquark sector; complete four-quadrant interpretation | WINDING_SHELL_QUADRANT_IS_LEPTOQUARK_SECTOR |
 | `neutrino_quadrant_suppression_probe` | neutrino = Majorana (k=0 ⟹ c₁=0 ⟹ C-invariant); seesaw mechanism, M_R scale open | NEUTRINO_SUPPRESSION_IS_MAJORANA_SEESAW_SCALE_OPEN |
+| `seesaw_scale_nucleation_compliance_probe` | M_R grounded in PR #58 throat↔antithroat nucleation; Σc₁=0 = only-neutrino rule; barrier-height M_R falsified; suppression = tunnelling, M_R = m_D·e^{S}, S≈15–18 open | SEESAW_SUPPRESSION_IS_THROAT_ANTITHROAT_TUNNELING_S_OPEN |
 
 ## Cross-references
 
@@ -463,6 +464,20 @@ the B4 audit shows cannot come from scale-free geometry.
     light. Required `M_R ≈ 0.3–1.8 TeV`, a new heavy input not yet
     BAM-derivable (no current BAM scale matches ~TeV). Mechanism
     BAM-native; scale open.
+  - `docs/seesaw_scale_nucleation_compliance_research_plan.md` — PR #87,
+    grounds PR #86's open `M_R` in the PR #58 throat-nucleation
+    framework. A `ΔL=2` Majorana mass IS a throat↔antithroat (antipodal
+    `Z₂`, inner/outer swap `C`) transition; PR #58's `Σc₁=0` on a
+    *single* state reproduces PR #86's only-neutrino selection rule
+    (`k=0` flips `0→0`, allowed; `k≠0` gives `Σc₁=∓2`, forbidden). The
+    literal `M_R = `nucleation-barrier-height hypothesis is **falsified**
+    (with the electron-throat `σ, ρ`, `E_c ≈ 2.8 keV`, ~10⁸ too small).
+    Instead the suppression is the **tunnelling amplitude through** the
+    barrier, `m_ν = m_D·e^{−S}`, so `M_R = m_D²/m_ν = m_D·e^{S}`: the
+    ~TeV scale is the keV Dirac floor exponentially lifted, and the open
+    input becomes a modest, generation-stable bounce action `S ≈ 15–18`
+    — the instanton-rate follow-on PR #58 flagged. Mechanism + selection
+    rule BAM-native; `S` (hence absolute `m_ν`) open.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target

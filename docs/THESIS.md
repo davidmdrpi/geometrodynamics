@@ -263,6 +263,18 @@ throat–antithroat pair), a bubble-nucleation barrier `R_c = 2σ/ρ` giving
 the disperse-below / persist-above dichotomy, and the Schwinger critical
 field `e E_S R_MID = m_e c²` tying the throat scale to the threshold.
 
+The same throat↔antithroat nucleation channel later supplies the
+neutrino's Majorana suppression (`seesaw_scale_nucleation_compliance_probe`,
+PR #87): a `ΔL=2` Majorana mass *is* a throat↔antithroat flip, and the
+single-state version of `Σ c₁ = 0` selects exactly the chargeless
+`k = 0` (neutrino) sector — `0 → −0 = 0` is allowed, `±1 → ∓1` is not.
+The seesaw scale is *not* the static barrier height (`E_c ≈ 2.8 keV`,
+~10⁸ too small for the required ~TeV) but the **tunnelling amplitude
+through** the barrier, `m_ν = m_D·e^{−S}`, so `M_R = m_D·e^{S}` with a
+modest, generation-stable bounce action `S ≈ 15–18` — recasting PR #86's
+open ~TeV scale as the instanton number this nucleation picture already
+owed.
+
 The refinement that distinguishes the present program from "particles
 as static defects" is that the throats produced this way are not
 required to remain at rest. A particle is a **moving topological
@@ -457,6 +469,26 @@ PR #71's already-derived `β_lepton`), and the inter-generation
 hierarchy (the cross-channel / mixed-mode question, still comparable
 in scope to deriving the QCD hadron spectrum from geometry).
 
+**Neutrino sector — the first of PR #82's three extensions (PRs
+#85–#87).** The unified `(k, n)` operator splits the plane into four
+quadrants; the chargeless `k = 0, n < 3` corner is the neutrino, and
+the winding-and-saturated `k ≠ 0, n ≥ 3` corner the leptoquark (PR
+#85). The neutrino quadrant gives the lightest states, but ~10⁵–10⁶
+too heavy — until the BAM-native fix: `k = 0 ⟹ c₁ = 0`, so under `C`
+(`c₁ → −c₁`, PR #63) the neutrino is invariant — **its own
+antiparticle, necessarily Majorana** — and admits the seesaw
+`m_ν = m_D²/M_R`, available *only* to the chargeless sector (charged
+leptons, `c₁ = ±1`, are Dirac), which is exactly why only neutrinos
+are anomalously light (PR #86). The seesaw scale `M_R ≈ 0.3–1.8 TeV`
+is then grounded in the PR #58 nucleation channel (PR #87): a `ΔL = 2`
+Majorana mass *is* a throat↔antithroat flip; `Σ c₁ = 0` on a single
+state reproduces the only-neutrino rule; the scale is *not* the static
+barrier height (`E_c ≈ 2.8 keV`, ~10⁸ too small) but the **tunnelling
+amplitude through** the barrier, `M_R = m_D·e^{S}`, with a modest,
+generation-stable bounce action `S ≈ 15–18`. This closes the first of
+PR #82's three extensions structurally; what remains is `S` from first
+principles (the Euclidean throat-action / instanton normalisation).
+
 **QFT event reinterpretation: Compton scattering from BAM.** _Closed
 at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a
 BAM amplitude for Compton scattering by progressively identifying
@@ -608,11 +640,16 @@ problems rather than implementation TODOs:
   recasts and relates the anchor, it does not derive the value.
   Remaining: matching the canonical RS brane to the exact BAM throat
   junction from `S_BAM`, the full instanton/tunneling nucleation rate,
-  and the heavier-lepton thresholds (`2 m_μ c²`, `2 m_τ c²`). See
-  `docs/self_consistent_throat_radius_research_plan.md`,
+  and the heavier-lepton thresholds (`2 m_μ c²`, `2 m_τ c²`). The same
+  instanton/tunneling rate is now doubly motivated: PR #87 shows the
+  neutrino's Majorana scale `M_R = m_D·e^{S}` is set by the
+  throat↔antithroat bounce action `S ≈ 15–18`, so deriving the
+  nucleation rate would simultaneously fix the absolute neutrino mass.
+  See `docs/self_consistent_throat_radius_research_plan.md`,
   `docs/cohesive_tension_derivation_research_plan.md`,
-  `docs/brane_tension_tuning_research_plan.md`, and
-  `docs/pair_production_threshold_research_plan.md`.
+  `docs/brane_tension_tuning_research_plan.md`,
+  `docs/pair_production_threshold_research_plan.md`, and
+  `docs/seesaw_scale_nucleation_compliance_research_plan.md`.
 - **Stable moving throats.** _Addressed (`stable_moving_throat_probe`)._
   A boosted throat obeys the relativistic dispersion
   `ω(k)=√(ω₀²+c²k²)`, so `E²−(pc)²=(mc²)²` with the invariant mass equal

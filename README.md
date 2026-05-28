@@ -214,6 +214,9 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | BAM-native color algebra = `SU(2) × Z₂` | **Identified** | SU(2) from B2 / Hopf holonomy (PRs #59–#66; `T = iσ_y`, `T² = −I`) + Z₂ from PR #63 inner/outer swap. SU(2) acts on partition index; Z₂ swaps n=3 ↔ n=5. SU(3) NOT BAM-derivable from current scaffold (all natural triplets give SO(3)/SU(2)); Pati-Salam SU(4) requires throat↔shell algebra map (open). v3 species map revised: `+ = heavier` uniformly. Inter-generation hierarchy outside BAM color scope; `n_part = 233` residual with sharply identified scope (`color_algebra_shell_probe`, PR #80) |
 | Throat ↔ shell `n + 3` Pati-Salam bridge | **Built (partial)** | Each generation has a lepton at `n = g−1` (throat) and a quark-pair at `n = g+2` (shell); shift `+3` = PR #68 shell threshold (no free parameter). Unified 12-state `(l, n, p)` basis + throat-shell Z₂. Full SU(4) PS needs 3 open extensions: BAM-native neutrinos, 3-fold quark color, lepton-quark mass-operator unification (`pati_salam_throat_shell_bridge_probe`, PR #82) |
 | **Lepton + quark masses = ONE Bohr-Sommerfeld operator** | **Unified** | `m²(k, n) = (k·2π/L_throat)² + ((n+1)·π/L_cavity)²`, `L_throat = √(2π)/k_5`. Lepton `β·k²` (PR #71) and quark `ω²(l,n)` (PR #77) are the same operator `m² = (S/L_eff)²`. Cavity Bohr-Sommerfeld `∮√(ω²−V)dr* = (n+1)·π` verified to machine precision; `(2π/L_throat)² = k_5²·(2π) = 50π = β_lepton` recovered. `k = 0` for quarks = "don't pass through the throat"; closure quanta `2π` (throat) vs `π` (cavity) = BAM full/half-cycle (`throat_shell_mass_operator_unification_probe`, PR #83) |
+| `(k≠0, n≥3)` quadrant = leptoquark sector | **Mapped** | The unified `(k, n)` operator's fourth quadrant (winding **and** shell-saturated) is the leptoquark sector, completing the four-quadrant reading: lepton `(k≠0, n<3)`, quark `(k=0, n≥3)`, neutrino `(k=0, n<3)`, leptoquark `(k≠0, n≥3)` (`winding_shell_quadrant_probe`, PR #85) |
+| Neutrino = Majorana (seesaw) | **Derived structurally** | `k=0 ⟹ c₁=0 ⟹ C-invariant` (PR #63) ⟹ neutrino is its own antiparticle ⟹ **Majorana**; suppression = seesaw `m_ν = m_D²/M_R`, available **only** to the chargeless sector (charged leptons `c₁=±1` are Dirac and keep `β·k²`) — explains why only ν is light; required `M_R ≈ 0.3–1.8 TeV` open (`neutrino_quadrant_suppression_probe`, PR #86) |
+| Seesaw scale `M_R` from throat-nucleation tunnelling | **Grounded / scale recast** | `ΔL=2` Majorana = PR #58 throat↔antithroat (antipodal `Z₂`) transition; PR #58's `Σc₁=0` on a single state **is** PR #86's only-neutrino rule. `M_R` ≠ barrier height (`E_c ≈ 2.8 keV`, ~10⁸ too small); suppression = tunnelling through the barrier `m_ν = m_D·e^{−S}` ⟹ `M_R = m_D·e^{S}`, recasting the open ~TeV scale as a modest, generation-stable bounce action `S ≈ 15–18` (the PR #58 instanton follow-on) (`seesaw_scale_nucleation_compliance_probe`, PR #87) |
 
 ### Research goals (not yet fully derived)
 
@@ -842,6 +845,27 @@ two channels is BAM's pervasive full/half-cycle structure (throat dwell
 What remains open: an independent derivation of the two `L_eff` from one
 principle, and the inter-generation hierarchy (the cross-channel /
 mixed-mode question).
+
+### Neutrino & full-quadrant sector (PRs #85–#87)
+
+With the lepton/quark mass operator unified (PR #83), the `(k, n)`
+plane splits into four quadrants, and the chargeless `k = 0` corner
+turns out to be the neutrino — the long-open "BAM-native neutrino"
+extension of the Pati-Salam bridge (PR #82).
+
+| arc | PRs | summary |
+|---|---|---|
+| **Four-quadrant map / leptoquark** | #85 | The unified `(k, n)` operator's fourth quadrant (winding **and** shell-saturated, `k≠0, n≥3`) is the **leptoquark** sector, completing the reading: lepton `(k≠0, n<3)`, quark `(k=0, n≥3)`, neutrino `(k=0, n<3)`, leptoquark `(k≠0, n≥3)`. |
+| **Neutrino = Majorana seesaw** | #86 | The `(k=0, n<3)` quadrant gives the lightest states but ~10⁵–10⁶ too heavy. The fix is BAM-native: `k=0 ⟹ c₁=0 ⟹ C-invariant` (PR #63) ⟹ the neutrino is its own antiparticle ⟹ **Majorana**, so it admits the seesaw `m_ν = m_D²/M_R`. The seesaw is available **only** to the chargeless sector — charged leptons (`c₁=±1`) are Dirac and keep their full winding mass — which is precisely why only neutrinos are anomalously light. Required `M_R ≈ 0.3–1.8 TeV` was left open (no BAM scale at ~TeV). |
+| **`M_R` from throat-nucleation tunnelling** | #87 | The `ΔL=2` Majorana coupling **is** the PR #58 throat↔antithroat (antipodal `Z₂`) transition, and PR #58's `Σc₁=0` applied to a single state **is** PR #86's only-neutrino selection rule (`k=0` flips `0→0`, allowed; `k≠0` gives `Σc₁=∓2`, forbidden). The literal `M_R = `barrier-height hypothesis is **falsified** — with the electron-throat `σ, ρ` the barrier is `E_c ≈ 2.8 keV`, ~10⁸ too small. Instead the suppression is **tunnelling through** the barrier, `m_ν = m_D·e^{−S}`, so `M_R = m_D²/m_ν = m_D·e^{S}`: the ~TeV scale is the keV Dirac floor exponentially lifted, and the open input is recast from a mysterious ~TeV mass to a modest, generation-stable bounce action `S ≈ 15–18` — exactly the instanton-rate follow-on PR #58 flagged. |
+
+**Where it lands.** The neutrino sector is now structurally complete:
+the only-neutrino-Majorana selection rule, the seesaw mechanism, and a
+BAM-native home for the seesaw scale (the throat↔antithroat nucleation
+tunnelling) are all in place. What stays open is the value of the bounce
+action `S` from first principles — the Euclidean throat-action /
+instanton normalisation — which would turn `S ≈ 16` (hence absolute
+`m_ν`) into a prediction rather than a fit.
 
 ## Quick Start
 
