@@ -278,6 +278,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `color_algebra_shell_probe` | BAM-native color algebra = SU(2)×Z₂; H_couple populated; v3 species map settled | COLOR_ALGEBRA_SU2_Z2_BAM_NATIVE_MASS_HIERARCHY_OPEN |
 | `pati_salam_throat_shell_bridge_probe` | throat ↔ shell n+3 Z₂ bridge built; 3 open extensions for full SU(4) | PATI_SALAM_THROAT_SHELL_Z2_BUILT_FULL_SU4_REQUIRES_EXTENSIONS |
 | `throat_shell_mass_operator_unification_probe` | lepton β·k² and quark ω²(l,n) unified as one Bohr-Sommerfeld operator m²=(S/L)² | MASS_OPERATOR_UNIFIED_BOHR_SOMMERFELD |
+| `winding_shell_quadrant_probe` | (k≠0, n≥3) quadrant = leptoquark sector; complete four-quadrant interpretation | WINDING_SHELL_QUADRANT_IS_LEPTOQUARK_SECTOR |
 
 ## Cross-references
 
@@ -432,6 +433,21 @@ the B4 audit shows cannot come from scale-free geometry.
     through the throat". Open: independent derivation of the two
     `L_eff` from one principle; the inter-generation hierarchy
     (cross-channel/mixed modes); prediction of new states.
+  - `docs/winding_shell_quadrant_research_plan.md` — PR #85, maps the
+    full `(k, n)` lattice of the unified operator into four quadrants
+    (one sector each per generation): neutrino candidate `(0, g−1)`,
+    quark `(0, g+2)`, charged lepton `(2g−1, 0)`, and the
+    previously-empty **leptoquark `(2g−1, g+2)`**. The `(k≠0, n≥3)`
+    quadrant flagged by PR #83 carries BOTH throat-winding (lepton) and
+    cavity-resolution (quark) character — both mass terms add, so it is
+    the heaviest state per generation, and it is the operator-level
+    realization of the Pati-Salam `SU(4)/SU(3)` coset (quark↔lepton
+    converters, PR #82). The complementary `(k=0, n<3)` quadrant is a
+    candidate neutrino sector (light, non-winding) — partially closing
+    PR #82's missing-neutrino extension, with the honest caveat that
+    the BAM ν/charged-lepton mass ratio ~0.07 is far above observed
+    `< 10⁻⁶` (needs extra suppression). Structural map only; absolute
+    masses need the L_eff unification (PR #83 open) + B4 anchor.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
