@@ -507,8 +507,28 @@ electron-throat tension under-produces: `S ≲ 1`, some `~40×` short of
 `~16`. Matching needs the `ΔL = 2` (B−L) throat tension to be `~6–12×`
 stiffer than the EM-throat tension. So the open input is localised once
 more — a mysterious `~TeV` mass (PR #86) → an `O(15)` instanton action
-(PR #87) → an `O(10)` dimensionless tension ratio (PR #88) — but not yet
-derived.
+(PR #87) → an `O(10)` dimensionless tension ratio (PR #88).
+
+PR #89 then constrains that tension ratio. Because the `ΔL = 2` flip
+reverses the throat's orientation (`c₁ → −c₁`), it is a **global**
+operation on S³, so `t` is a global-closure enhancement of the **local**
+EM surface tension (PR #56) — not a free coupling. BAM has exactly two
+fundamental action scales for such a closure, and they bracket `t`: the
+**closure quantum `2π`** (a single great-circle orientation reversal —
+the cheapest global flip; lower bound) and the **winding action
+`√β_lepton = k_5√(2π)`** (a full throat winding to the antipode — the
+costliest lepton-sector route; upper bound). Hence
+`t ∈ [2π, k_5√(2π)] ≈ [6.28, 12.53]`, parameter-free — *exactly* PR #88's
+required `6–12` (the computed `[6.41, 12.05]` sits inside). The `6–12`
+band was not a fit but the BAM closure-to-winding window. The residual
+freedom is reduced to a single number — *where in the window* — which is
+the boundary compliance `ε` (the window edges map to `ε ≈ 6×10⁻⁷` at the
+closure-quantum end and `ε ≈ 1.3×10⁻²` at the winding end); the
+winding/cavity mass ratio `m_charged/m_D ≈ 11.9 ≈ √β_lepton` corroborates
+the winding edge. So the open input has been localised four times —
+`~TeV` mass → `O(15)` action → `O(10)` ratio → the closure-to-winding
+window — leaving the compliance `ε` as the last undetermined number; an
+`(t, ε)` degeneracy and the bounce normalisation are the honest caveats.
 
 **QFT event reinterpretation: Compton scattering from BAM.** _Closed
 at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a

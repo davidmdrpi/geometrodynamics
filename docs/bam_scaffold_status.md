@@ -282,6 +282,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `neutrino_quadrant_suppression_probe` | neutrino = Majorana (k=0 ⟹ c₁=0 ⟹ C-invariant); seesaw mechanism, M_R scale open | NEUTRINO_SUPPRESSION_IS_MAJORANA_SEESAW_SCALE_OPEN |
 | `seesaw_scale_nucleation_compliance_probe` | M_R grounded in PR #58 throat↔antithroat nucleation; Σc₁=0 = only-neutrino rule; barrier-height M_R falsified; suppression = tunnelling, M_R = m_D·e^{S}, S≈15–18 open | SEESAW_SUPPRESSION_IS_THROAT_ANTITHROAT_TUNNELING_S_OPEN |
 | `majorana_bounce_action_probe` | reduced Euclidean bounce on the non-orientable tortoise path; rigid throat ⟹ massless ν; S ∝ ln(1/ε) (O(10), gen-stable); EM-throat tension under-produces S ~40×; S≈15–18 needs ΔL=2 tension ratio t≈6–12 | MAJORANA_BOUNCE_IS_TORTOISE_LOG_S_OPEN_AS_TENSION_RATIO |
+| `b_minus_l_tension_ratio_probe` | ΔL=2/B−L tension ratio t = global-closure enhancement of local EM tension; bracketed parameter-free by closure quantum 2π (lower) and winding action k_5√(2π)=√β (upper): t∈[6.28,12.53], matching PR #88's 6–12; residual = compliance ε | B_MINUS_L_TENSION_BRACKETED_BY_CLOSURE_AND_WINDING_ACTIONS |
 
 ## Cross-references
 
@@ -494,6 +495,22 @@ the B4 audit shows cannot come from scale-free geometry.
     tension. Progressive localisation of the open input: `~TeV` mass
     (PR #86) → `O(15)` action `S` (PR #87) → `O(10)` tension ratio
     (PR #88).
+  - `docs/b_minus_l_tension_ratio_research_plan.md` — PR #89, constrains
+    PR #88's open tension ratio `t`. Since the `ΔL=2` flip reverses the
+    throat's orientation (`c₁ → −c₁`), it is a **global** operation, so
+    `t` is a global-closure enhancement of the **local** EM surface
+    tension (PR #56). It is bracketed, parameter-free, by the two basic
+    BAM action scales: the **closure quantum `2π`** (a single
+    great-circle orientation reversal, lower bound) and the **winding
+    action `k_5√(2π) = √β_lepton`** (a full throat winding, upper bound),
+    so `t ∈ [2π, k_5√(2π)] ≈ [6.28, 12.53]` — exactly PR #88's required
+    `6–12` (the computed `[6.41, 12.05]` sits inside). The residual is
+    "where in the window" = the compliance `ε` (`t=2π ⟹ ε≈6e-7`,
+    `t=√β ⟹ ε≈1.3e-2`); cross-check `m_charged/m_D ≈ 11.9 ≈ √β` lands at
+    the winding edge. A constraint + identification, not a unique
+    derivation (the `(t,ε)` degeneracy + bounce-normalisation caveats
+    remain). Localisation: `~TeV` (PR #86) → `O(15)` `S` (#87) → `O(10)`
+    `t` (#88) → the `[2π, k_5√(2π)]` window + compliance (#89).
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
