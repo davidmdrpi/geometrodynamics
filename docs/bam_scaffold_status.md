@@ -281,6 +281,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `winding_shell_quadrant_probe` | (k≠0, n≥3) quadrant = leptoquark sector; complete four-quadrant interpretation | WINDING_SHELL_QUADRANT_IS_LEPTOQUARK_SECTOR |
 | `neutrino_quadrant_suppression_probe` | neutrino = Majorana (k=0 ⟹ c₁=0 ⟹ C-invariant); seesaw mechanism, M_R scale open | NEUTRINO_SUPPRESSION_IS_MAJORANA_SEESAW_SCALE_OPEN |
 | `seesaw_scale_nucleation_compliance_probe` | M_R grounded in PR #58 throat↔antithroat nucleation; Σc₁=0 = only-neutrino rule; barrier-height M_R falsified; suppression = tunnelling, M_R = m_D·e^{S}, S≈15–18 open | SEESAW_SUPPRESSION_IS_THROAT_ANTITHROAT_TUNNELING_S_OPEN |
+| `majorana_bounce_action_probe` | reduced Euclidean bounce on the non-orientable tortoise path; rigid throat ⟹ massless ν; S ∝ ln(1/ε) (O(10), gen-stable); EM-throat tension under-produces S ~40×; S≈15–18 needs ΔL=2 tension ratio t≈6–12 | MAJORANA_BOUNCE_IS_TORTOISE_LOG_S_OPEN_AS_TENSION_RATIO |
 
 ## Cross-references
 
@@ -478,6 +479,21 @@ the B4 audit shows cannot come from scale-free geometry.
     input becomes a modest, generation-stable bounce action `S ≈ 15–18`
     — the instanton-rate follow-on PR #58 flagged. Mechanism + selection
     rule BAM-native; `S` (hence absolute `m_ν`) open.
+  - `docs/majorana_bounce_action_research_plan.md` — PR #88, builds the
+    reduced Euclidean bounce for the `ΔL=2` flip and sharpens PR #87's
+    open `S`. The bounce runs along the **non-orientable tortoise path**
+    (the odd extension across the throat, `c₁ → −c₁`); the tortoise
+    coordinate diverges logarithmically at the throat, so a **rigid
+    throat ⟹ massless neutrino** and the boundary compliance `ε` is the
+    mass-generating parameter. The action is a tortoise logarithm
+    `S = √(2 μ E_c)·L*(ε) ∝ ln(1/ε)` — naturally `O(10)` and coarsely
+    generation-stable, the form PR #87 required. But with the EM-throat
+    tension (PR #58/#87 `σ, ρ`) it **under-produces** by `~40×`
+    (`S ≲ 1`); matching `S ≈ 15–18` at a sane compliance needs the
+    `ΔL=2` (B−L) throat tension `~6–12×` stiffer than the EM-throat
+    tension. Progressive localisation of the open input: `~TeV` mass
+    (PR #86) → `O(15)` action `S` (PR #87) → `O(10)` tension ratio
+    (PR #88).
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
