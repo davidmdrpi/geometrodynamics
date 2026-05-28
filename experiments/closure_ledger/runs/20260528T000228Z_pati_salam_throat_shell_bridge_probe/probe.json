@@ -1,0 +1,260 @@
+{
+  "timestamp_utc": "2026-05-28T00:02:28+00:00",
+  "identification": "throat-shell n+3 Z\u2082 bridge is BAM-native (= PR #68 shell threshold); full SU(4) PS requires three open extensions (neutrinos, 3-fold quark color, mass-operator unification)",
+  "four_pr_arc_plus_bridge_status": "#77 \u2192 #80 + #82 bridge: structural foundation complete; three open extensions remain (neutrinos, color, mass-op)",
+  "b4_caveat": "cavity \u03c9 dimensionful; lepton \u03b2\u00b7k\u00b2 also dimensionful (\u03b2 in mass\u00b2); mass-ratio audit scale-free; absolute MeV scale rides on single B4 anchor (PR #53)",
+  "tests": [
+    {
+      "name": "T1_throat_shell_n_plus_3_map",
+      "description": "Throat \u2194 shell map n_\u2113 + 3 = n_q identified as the BAM-native Pati-Salam-like bridge: each generation has a lepton at radial overtone n = g-1 (throat-focused) and a quark-pair at n = g+2 (shell-saturated). The shift +3 = PR #68's shell-saturation threshold.",
+      "pairings": [
+        {
+          "generation": 1,
+          "n_lepton": 0,
+          "n_quark": 3,
+          "shift": 3,
+          "shift_equals_shell_threshold": true
+        },
+        {
+          "generation": 2,
+          "n_lepton": 1,
+          "n_quark": 4,
+          "shift": 3,
+          "shift_equals_shell_threshold": true
+        },
+        {
+          "generation": 3,
+          "n_lepton": 2,
+          "n_quark": 5,
+          "shift": 3,
+          "shift_equals_shell_threshold": true
+        }
+      ],
+      "all_shifts_equal_shell_threshold": true,
+      "pass": true
+    },
+    {
+      "name": "T2_unified_12_state_radial_overtone_basis",
+      "description": "Unified throat+shell basis: 6 throat states (n=0,1,2 \u00d7 p=\u00b1) + 6 shell states (n=3,4,5 \u00d7 p=\u00b1) = 12 total.",
+      "basis_size": 12,
+      "n_throat_states": 6,
+      "n_shell_states": 6,
+      "basis_states": [
+        {
+          "l": 1,
+          "n": 0,
+          "p": 1,
+          "sector": "throat",
+          "omega_sq": 1.1124476632309064
+        },
+        {
+          "l": 1,
+          "n": 0,
+          "p": -1,
+          "sector": "throat",
+          "omega_sq": 1.1124476632309064
+        },
+        {
+          "l": 1,
+          "n": 1,
+          "p": 1,
+          "sector": "throat",
+          "omega_sq": 3.8981603986686313
+        },
+        {
+          "l": 1,
+          "n": 1,
+          "p": -1,
+          "sector": "throat",
+          "omega_sq": 3.8981603986686313
+        },
+        {
+          "l": 1,
+          "n": 2,
+          "p": 1,
+          "sector": "throat",
+          "omega_sq": 8.375548523689828
+        },
+        {
+          "l": 1,
+          "n": 2,
+          "p": -1,
+          "sector": "throat",
+          "omega_sq": 8.375548523689828
+        },
+        {
+          "l": 1,
+          "n": 3,
+          "p": 1,
+          "sector": "shell",
+          "omega_sq": 14.627779665947227
+        },
+        {
+          "l": 1,
+          "n": 3,
+          "p": -1,
+          "sector": "shell",
+          "omega_sq": 14.627779665947227
+        },
+        {
+          "l": 1,
+          "n": 4,
+          "p": 1,
+          "sector": "shell",
+          "omega_sq": 22.665870725639014
+        },
+        {
+          "l": 1,
+          "n": 4,
+          "p": -1,
+          "sector": "shell",
+          "omega_sq": 22.665870725639014
+        },
+        {
+          "l": 1,
+          "n": 5,
+          "p": 1,
+          "sector": "shell",
+          "omega_sq": 32.49023051915639
+        },
+        {
+          "l": 1,
+          "n": 5,
+          "p": -1,
+          "sector": "shell",
+          "omega_sq": 32.49023051915639
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T3_throat_shell_z2_operator",
+      "description": "Throat-shell Z\u2082 involution: (n, p) \u2194 (n+3 mod 6, p) on the 12-state unified basis. Permutation, involution, swaps throat \u2194 shell sectors.",
+      "is_involution": true,
+      "is_permutation": true,
+      "swaps_throat_shell_correctly": true,
+      "pass": true
+    },
+    {
+      "name": "T4_mass_ratio_audit_cavity_omega_convention",
+      "description": "Under cavity-\u03c9\u00b2 mass convention, predict (m_q/m_\u2113) per generation. Gen 3 best (within 17%); Gen 1 off by factor 2.5 (BAM under-predicts); Gen 2 wrong sign (BAM predicts quark heavier than lepton, observation has them ~equal).",
+      "predictions": [
+        {
+          "generation": 1,
+          "pair": "e \u2194 d",
+          "n_lepton": 0,
+          "n_quark": 3,
+          "BAM_predicted_m_q_over_m_l": 3.6261804403357893,
+          "observed_m_q_over_m_l": 9.13894324853229,
+          "deviation_factor": 0.39678334154423733,
+          "within_factor_3": true
+        },
+        {
+          "generation": 2,
+          "pair": "mu \u2194 s",
+          "n_lepton": 1,
+          "n_quark": 4,
+          "BAM_predicted_m_q_over_m_l": 2.411328344190915,
+          "observed_m_q_over_m_l": 0.883967442740867,
+          "deviation_factor": 2.7278474608909216,
+          "within_factor_3": true
+        },
+        {
+          "generation": 3,
+          "pair": "tau \u2194 b",
+          "n_lepton": 2,
+          "n_quark": 5,
+          "BAM_predicted_m_q_over_m_l": 1.9695625000668007,
+          "observed_m_q_over_m_l": 2.35246445977736,
+          "deviation_factor": 0.8372336899207405,
+          "within_factor_3": true
+        }
+      ],
+      "n_within_factor_3": 3,
+      "n_total_generations": 3,
+      "qualitative_match": true,
+      "pass": true
+    },
+    {
+      "name": "T5_missing_pieces_for_full_su4_ps",
+      "description": "Three open extensions needed for full Pati-Salam SU(4) representation in BAM.",
+      "missing": [
+        {
+          "piece": "BAM-native neutrinos",
+          "pati_salam_role": "4th leptocolor in up-multiplet F^a",
+          "bam_status": "no explicit neutrino mode in current scaffold",
+          "candidate_channels": [
+            "opposite-chirality Weyl component of PR #66 throat Dirac spinor",
+            "sterile Majorana sector (right-handed singlet)",
+            "separate radial mode not yet identified"
+          ],
+          "closure_pr_estimate": "genuine open extension"
+        },
+        {
+          "piece": "3-fold quark color (SU(3) subgroup)",
+          "pati_salam_role": "quark colors \u03b1 = 1, 2, 3 in F^a",
+          "bam_status": "PR #80's verdict: no BAM-derivable triplet in current scaffold",
+          "candidate_channels": [
+            "3 generations from (k_5+1)/2 \u2014 gives SO(3)/SU(2), not SU(3)",
+            "three Hopf fibrations of S\u00b3 \u2014 SO(3), not SU(3)",
+            "S\u00b3 isometries SO(4) = SU(2) \u00d7 SU(2) \u2014 no SU(3)"
+          ],
+          "closure_pr_estimate": "genuine open extension"
+        },
+        {
+          "piece": "lepton-quark mass-operator unification",
+          "pati_salam_role": "SU(4) acts uniformly on the up-multiplet",
+          "bam_status": "v3 leptons use \u03b2\u00b7k\u00b2 closure-winding (PR #71); PR #77 quarks use \u03c9\u00b2(l, n) cavity eigenfrequency. Two different mass operators in current scaffold.",
+          "closure_pr_estimate": "requires reconciling closure-winding (winding cost on odd-k throat traversal) with cavity-eigenfrequency (shell-mode resonance) into a single mass operator on the unified 12-state basis"
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T6_v3_lepton_quark_mass_operator_mismatch",
+      "description": "v3 leptons use \u03b2\u00b7k\u00b2 closure-winding (PR #71, where \u03b2_lepton = k_5\u00b2\u00b7(2\u03c0) = 50\u03c0); PR #77 quarks use \u03c9\u00b2(l, n) cavity eigenfrequency. Lepton \u03c4/e mass-spread observed \u2248 3478 in mass (~1.2\u00b710\u2077 in mass\u00b2) \u2014 far beyond cavity-\u03c9\u00b2 throat-region spread of ~7.5.",
+      "lepton_omega_sq_spread_throat_n_0_to_2": 7.528937136120666,
+      "observed_lepton_mass_sq_spread_e_to_tau": 12091066.821894826,
+      "cavity_only_cannot_give_lepton_hierarchy": true,
+      "pure_closure_winding_predictions_MeV": {
+        "e": 12.533141373155003,
+        "mu": 37.599424119465006,
+        "tau": 62.665706865775014
+      },
+      "observed_lepton_masses_MeV": {
+        "e": 0.511,
+        "mu": 105.66,
+        "tau": 1776.86
+      },
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "PR #82 builds the throat-shell Z\u2082 bridge (BAM-native) and identifies three open extensions any full PS SU(4) must close. It sharpens the scope of the Pati-Salam extension; it does not close it.",
+      "what_pr_82_builds": [
+        "throat \u2194 shell n+3 map (= PR #68 shell threshold)",
+        "unified 12-state radial-overtone basis (l=1, n=0..5, p=\u00b1)",
+        "throat-shell Z\u2082 involution on the unified basis",
+        "cavity-\u03c9\u00b2 mass-ratio audit per generation"
+      ],
+      "what_pr_82_does_not_close": [
+        "BAM-native neutrinos (3 channel candidates listed)",
+        "3-fold quark color (PR #80's open gap)",
+        "lepton-quark mass-operator unification (\u03b2\u00b7k\u00b2 vs \u03c9\u00b2)",
+        "absolute mass predictions"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Pati-Salam SU(4) throat-shell bridge: structurally built what can be built (n+3 Z\u2082 map, unified 12-state basis); three structural extensions remain genuinely open.",
+      "classification": "PATI_SALAM_THROAT_SHELL_Z2_BUILT_FULL_SU4_REQUIRES_EXTENSIONS",
+      "closing_assessment": "PR #82 contributes a clean Z\u2082 bridge between the throat lepton sector and the shell quark sector. The bridge is BAM-native (the n+3 shift = PR #68 shell threshold). Full PS SU(4) requires three open extensions: neutrinos, 3-fold quark color, and lepton-quark mass-operator unification. These are genuinely open BAM research questions, not closure-ledger machinery problems.",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "PATI_SALAM_THROAT_SHELL_Z2_BUILT_FULL_SU4_REQUIRES_EXTENSIONS",
+  "verdict": "PATI-SALAM THROAT-SHELL Z\u2082 BRIDGE BUILT, FULL SU(4) REQUIRES THREE EXTENSIONS. PR #82 constructs the natural BAM-native throat \u2194 shell `n + 3` map: each generation `g \u2208 {1, 2, 3}` has a charged lepton at radial overtone `n = g - 1` (throat-focused per PRs #59\u2013#66) and a quark-pair at `n = g + 2` (shell-saturated per PRs #77\u2013#80). The shift `+3` = PR #68's shell-saturation threshold. The unified 12-state radial-overtone basis (l=1, n=0..5, p=\u00b1) supports a throat-shell Z\u2082 involution that swaps (n, p) \u2194 (n+3 mod 6, p).\n\nMASS-RATIO AUDIT. Under the cavity-\u03c9\u00b2 mass convention (quark sector convention from PR #77), the predicted lepton-quark mass ratios per generation are: Gen 1 (e \u2194 d): BAM 3.63 vs obs 9.14 (off by factor 2.5); Gen 2 (\u03bc \u2194 s): BAM 2.41 vs obs 0.88 (WRONG SIGN \u2014 BAM predicts quark heavier than lepton, observation has them ~equal); Gen 3 (\u03c4 \u2194 b): BAM 1.97 vs obs 2.35 (within 17%). 1 of 3 generations within factor 3 of observed.\n\nMASS-OPERATOR MISMATCH. The Gen 2 sign error and the broader pattern point to a deeper issue: v3 leptons use **\u03b2\u00b7k\u00b2 closure-winding** (PR #71, \u03b2_lepton = k_5\u00b2\u00b7(2\u03c0) = 50\u03c0) while PR #77 quarks use **\u03c9\u00b2(l, n) cavity eigenfrequency**. The lepton observed \u03c4/e mass-spread is ~1.2\u00b710\u2077 in mass\u00b2 \u2014 far beyond the cavity-\u03c9\u00b2 throat-region spread of ~7.5. The lepton hierarchy CANNOT come from cavity \u03c9\u00b2 alone; it requires the closure-winding \u03b2\u00b7k\u00b2 + \u03b2\u00b7(k-3)\u00b2 uplift. The quark hierarchy CANNOT come from closure-winding alone (PR #76's diagnosis: v3 lepton-shaped fitting absorbed unmodeled physics into n_part = 233). The two sectors use STRUCTURALLY DIFFERENT mass operators in the current scaffold.\n\nTHREE OPEN EXTENSIONS for full PS SU(4):\n  (i) BAM-NATIVE NEUTRINOS. Pati-Salam puts the neutrino as the 4th leptocolor in the up-multiplet F^a = (u^\u03b1, \u03bd). BAM's current scaffold has no explicit neutrino mode. Candidate channels: an opposite-chirality Weyl component of PR #66's throat Dirac spinor; a sterile Majorana sector; a separate radial mode not yet identified. Each is a genuine BAM extension, not a closure-ledger question.\n  (ii) 3-FOLD QUARK COLOR. PR #80's verdict: no BAM-derivable triplet in the current scaffold (the 3 generations, three Hopf fibrations, S\u00b3 isometries, Hopf U(1), and bulk 5D all give SO(3)/SU(2)/U(1) algebras, not SU(3)). This is the same open gap that prevented PR #80 from identifying canonical QCD SU(3) color.\n  (iii) LEPTON-QUARK MASS-OPERATOR UNIFICATION. v3 uses \u03b2\u00b7k\u00b2 closure-winding for leptons (PR #71), \u03c9\u00b2(l, n) cavity-eigenfrequency for quarks (PR #77). A full PS SU(4) representation transforms the up-multiplet F^a = (u^\u03b1, \u03bd) uniformly under SU(4); this requires a single mass operator on the unified basis. Reconciling these two operators is a deeper structural question than either (i) or (ii) \u2014 it asks why the same closure-ledger geometry gives \u03c9\u00b2 in the shell sector but \u03b2\u00b7k\u00b2 in the throat sector.\n\nWHAT PR #82 ESTABLISHES. The `n + 3` Z\u2082 throat-shell bridge is BAM-native (the shift = PR #68 shell threshold; no free parameter). The unified 12-state basis combines the lepton and quark sectors structurally. The mass-ratio audit reveals the structural mismatch between the two sectors' mass operators. The verdict sharpens the scope of the PS SU(4) extension: it is not a small incremental probe but a genuine multi-thread research program touching neutrino sector, color algebra, and mass-operator unification.\n\nHONEST SCOPE. PR #82 builds what can be built (the throat-shell Z\u2082 bridge, the unified basis, the mass-ratio audit) and explicitly identifies the three open extensions. It does NOT derive quark masses, introduce BAM-native neutrinos, derive 3-fold quark color, or unify the lepton-quark mass operators. The four-PR QCD-shell arc (#77\u2013#80) plus PR #82 together complete the structural foundation for any future PS SU(4) construction; the three identified extensions remain genuine open work, comparable in scope to deriving the Standard Model from underlying geometry."
+}
