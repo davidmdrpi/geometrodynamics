@@ -580,6 +580,29 @@ structural; the precise spectrum (an `O(1)` coefficient; the absolute
 scale unmeasured) and the explicit angles (the cross-channel overlap
 integrals), and the CP/Majorana phases, are open.
 
+PR #92 takes up the angles. A literal same-coordinate mode overlap turns
+out to give *small* mixing — the cavity overtones are near-orthonormal
+sinusoids, so a winding-imprint overlap is a near-permutation matrix
+(mixing ≲ 5°). The largeness of PMNS is therefore not a literal radial
+overlap; it is that the two lepton generation labels live in *different*
+coordinates of the S³ × radial space — charged leptons in the
+closure-winding `k = 1, 3, 5` (the Hopf fibre), neutrinos in the
+radial-overtone `n = 0, 1, 2` (the cavity) — so the map between them has
+no preferred alignment and is effectively **anarchic** (Haar-random in
+generation space). This is the BAM realisation of neutrino anarchy.
+Quantitatively, a Haar-random `U(3)` has angle medians `θ12 ≈ θ23 ≈ 45°`,
+`θ13 ≈ 33°`, and the observed PMNS angles (33.4°, 49°, 8.6°) sit at the
+~30th / 57th / 4th percentiles — broadly typical of anarchy — whereas the
+CKM angles (13°, 2.4°, 0.2°) sit at the ~5th / 0.2th / 0.0th percentiles,
+with a joint probability ≈ 0 of a Haar matrix being so aligned. So the
+quark mixing is extremely atypical of anarchy — aligned — exactly as
+expected when up- and down-type generations share the single
+radial-overtone (shell) coordinate (intra-channel). The class-level
+separation — PMNS anarchic (cross-coordinate), CKM aligned
+(intra-coordinate) — is a firm BAM prediction matching observation; the
+specific angles, being statistical, are not pinned, and `θ13` sitting on
+the small side of anarchy (4th percentile) is the one mild tension.
+
 **QFT event reinterpretation: Compton scattering from BAM.** _Closed
 at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a
 BAM amplitude for Compton scattering by progressively identifying
