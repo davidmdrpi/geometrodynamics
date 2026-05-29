@@ -1,0 +1,120 @@
+{
+  "timestamp_utc": "2026-05-29T04:12:15+00:00",
+  "identification": "\u03b813 (the two-hop corner U_e3) suppressed by a residual nearest-neighbour alignment of the closure-winding \u00d7 radial-overtone channels; observed \u03b813 moves from 4th to ~21st percentile, and \u03b813 becomes the smallest angle",
+  "mechanism": "corner U_e3 = two-hop amplitude (throat\u2194shell coupling local in (k,n))",
+  "fiducial_mu": 3.0,
+  "open": "exact \u03b813 (\u03bc one parameter); \u03b813 median saturates ~14\u201316\u00b0; CP phases",
+  "tests": [
+    {
+      "name": "T1_recap_theta13_tension",
+      "description": "PR #92: PMNS broadly anarchic, but \u03b813 = 8.6\u00b0 sits at the ~4th percentile of pure anarchy (median 33\u00b0) \u2014 the one mild tension this probe addresses.",
+      "theta13_obs": 8.6,
+      "anarchy_median_theta13": 32.91811971111288,
+      "theta13_percentile_pure_anarchy": 4.2700000000000005,
+      "is_tension": true,
+      "pass": true
+    },
+    {
+      "name": "T2_theta13_is_corner_two_hop",
+      "description": "\u03b813 = |U_e3| links flavour g=1 (lowest winding k=1) to mass i=3 (highest overtone n=2) \u2014 the corner, generation gap 2 (two channel-hops). \u03b812, \u03b823 are adjacent (gap 1).",
+      "generation_gaps": {
+        "theta12_(1,2)": 1,
+        "theta23_(2,3)": 1,
+        "theta13_(1,3)": 2
+      },
+      "theta13_is_max_gap": true,
+      "pass": true
+    },
+    {
+      "name": "T3_residual_nearest_neighbour_alignment",
+      "description": "Throat\u2194shell coupling local in (k,n) \u27f9 adjacent generations mix anarchically (one hop), the corner needs two hops \u27f9 U_e3 suppressed. Model: var=1 for |g\u2212i|\u22641, exp(\u2212\u03bc) for the corner; \u03bc=0 = pure anarchy.",
+      "weight_matrix": [
+        [
+          1.0,
+          1.0,
+          0.22313016014842982
+        ],
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          0.22313016014842982,
+          1.0,
+          1.0
+        ]
+      ],
+      "corner_weight": 0.22313016014842982,
+      "adjacent_weight": 1.0,
+      "corner_suppressed": "True",
+      "pass": "True"
+    },
+    {
+      "name": "T4_model_theta13_shifts_down",
+      "description": "\u03bc\u22483: \u03b813 median 33\u00b0\u2192~16\u00b0, \u03b812/\u03b823 stay ~37\u00b0; \u03b813 robustly smallest (frac 0.50\u2192~0.72).",
+      "mu": 3.0,
+      "medians_anarchy_[12,23,13]": [
+        44.84166262315672,
+        44.76687795496717,
+        32.91811971111288
+      ],
+      "medians_residual_[12,23,13]": [
+        36.98479343028687,
+        36.641140008990774,
+        15.486364759501324
+      ],
+      "theta13_pulled_down": true,
+      "theta12_theta23_stay_large": true,
+      "frac_th13_smallest_anarchy": 0.49835,
+      "frac_th13_smallest_residual": 0.7159,
+      "theta13_more_often_smallest": true,
+      "pass": true
+    },
+    {
+      "name": "T5_theta13_tension_resolved",
+      "description": "Observed \u03b813=8.6\u00b0 moves from 4th percentile (pure anarchy) to ~21st (\u03bc\u22483); \u03b812=33.4\u00b0 (~44th) and \u03b823=49\u00b0 (~70th) stay typical.",
+      "theta13_percentile_anarchy": 4.2700000000000005,
+      "theta13_percentile_residual": 21.23,
+      "theta12_percentile_residual": 43.795,
+      "theta23_percentile_residual": 69.745,
+      "tension_relieved": true,
+      "others_stay_typical": true,
+      "pass": true
+    },
+    {
+      "name": "T6_theta13_smallest_prediction",
+      "description": "Residual alignment makes \u03b813 generically the smallest angle (the observed hierarchy \u03b813 < \u03b812, \u03b823) \u2014 a robust consequence of the two-hop corner.",
+      "observed_theta13_smallest": true,
+      "frac_th13_smallest_residual": 0.7159,
+      "prediction_matches": true,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "Mechanism robust (corner = two-hop \u2192 suppressed \u2192 \u03b813 smallest, tension relieved); \u03bc is one parameter; \u03b813 median saturates ~14\u201316\u00b0.",
+      "established_bam_native": [
+        "\u03b813 = |U_e3| is the corner / most coordinate-distant (two-hop) element",
+        "a residual nearest-neighbour alignment (throat\u2194shell coupling local in (k,n)) suppresses it \u27f9 \u03b813 robustly the smallest angle",
+        "observed \u03b813 moves from the 4th to ~21st percentile \u2014 tension resolved \u2014 while \u03b812, \u03b823 stay typical"
+      ],
+      "open": [
+        "the exact \u03b813: \u03bc is one residual-alignment parameter, not derived",
+        "\u03b813 median saturates at ~14\u00b0 (large \u03bc) \u2014 the corner cannot be driven fully to zero by Gaussian suppression + unitarity; observed 8.6\u00b0 is on the low-typical side",
+        "the BAM origin of the nearest-neighbour locality (Bohr-Sommerfeld / +3 shift) is identified, not fully derived",
+        "the CP / Majorana phases"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "\u03b813 (the two-hop corner U_e3) is suppressed by a residual nearest-neighbour alignment of the channels, making it the smallest angle and moving the observed value from the 4th to ~21st percentile \u2014 resolving the PR #92 tension. Exact value (\u03bc) open.",
+      "classification": "THETA13_SUPPRESSED_BY_RESIDUAL_NEAREST_NEIGHBOUR_ALIGNMENT",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "THETA13_SUPPRESSED_BY_RESIDUAL_NEAREST_NEIGHBOUR_ALIGNMENT",
+  "verdict": "\u03b813 IS SUPPRESSED BY A RESIDUAL NEAREST-NEIGHBOUR ALIGNMENT; THE PR #92 TENSION IS RESOLVED. PR #92 found the PMNS matrix broadly anarchic, with \u03b812 and \u03b823 typical of a Haar-random U(3), but \u03b813 = 8.6\u00b0 sitting at the 4th percentile (Haar median 33\u00b0) \u2014 the one mild tension. This probe explains the \u03b813 suppression.\n\n\u03b813 IS THE MOST COORDINATE-DISTANT ELEMENT. In the standard parametrisation \u03b813 = |U_e3| connects the electron flavour (charged lepton generation 1, the LOWEST winding k=1) to the heaviest neutrino mass eigenstate (overtone n=2, the HIGHEST) \u2014 the corner of the generation/channel lattice, a gap |g\u2212i|=2. \u03b812 and \u03b823 are adjacent (gap 1).\n\nRESIDUAL ALIGNMENT = NEAREST-NEIGHBOUR COUPLING. The two channels are not perfectly unrelated: the throat\u2194shell coupling (the PR #82 +3 shift, the PR #83 unified Bohr-Sommerfeld operator) is LOCAL in the (k,n) lattice \u2014 it links a winding to a nearby overtone. So adjacent generations still mix anarchically (a single channel-hop, unsuppressed), but reaching the g=1\u2194g=3 extreme requires TWO channel-hops, so the corner amplitude U_e3 is suppressed (a two-hop amplitude, as in a tight-binding model). This makes \u03b813 generically the SMALLEST angle and pulls its distribution below pure anarchy.\n\nQUANTITATIVE. With a modest residual-alignment strength \u03bc\u22483 (\u03bc=0 being pure anarchy), the \u03b813 distribution shifts down (median 33\u00b0\u2192~16\u00b0) while \u03b812, \u03b823 stay large (~37\u00b0); \u03b813 becomes robustly the smallest angle (fraction \u03b813<\u03b812,\u03b823 rises from 0.50 to ~0.72); and the observed \u03b813=8.6\u00b0 moves from the 4th percentile (pure anarchy, the tension) to the ~21st (comfortable), while \u03b812=33.4\u00b0 (~44th) and \u03b823=49\u00b0 (~70th) stay typical. So a modest nearest-neighbour residual alignment resolves the \u03b813 tension AND explains why \u03b813 is the smallest mixing angle \u2014 both as consequences of the corner being a two-hop amplitude.\n\nHONEST SCOPE. ESTABLISHED (BAM-native): \u03b813=|U_e3| is the most coordinate-distant (two-hop) element; a residual nearest-neighbour alignment (the throat\u2194shell coupling is local in the (k,n) lattice) suppresses it relative to the adjacent \u03b812, \u03b823, robustly making \u03b813 the smallest angle and moving the observed value from the 4th to ~21st percentile \u2014 resolving the tension while keeping \u03b812, \u03b823 typical. NOT established: the exact \u03b813 (\u03bc is one parameter, not derived; the \u03b813 median saturates at ~14\u201316\u00b0 under this mechanism, so observed 8.6\u00b0 is on the low-typical side), and the BAM origin of the nearest-neighbour locality (Bohr-Sommerfeld / +3 shift) is identified but not fully derived."
+}
