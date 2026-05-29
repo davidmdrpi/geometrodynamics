@@ -286,6 +286,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `boundary_compliance_bulk_geometry_probe` | ε = chargeless-throat sub-throat healing length (ε=ℓ²/2rs; c₁=0 neck not EM-propped, charged → Dirac); bulk scales (R_c³,Δ³) land ε in window; winding-edge t≈√β ⟹ S≈15–19, m_ν~few meV (observed scale, untuned); precise spectrum residual | COMPLIANCE_IS_CHARGELESS_THROAT_HEALING_LENGTH_CHAIN_CLOSED_TO_OOM |
 | `generation_spread_pmns_mixing_probe` | generations = cavity overtones ⟹ bare m_ν ∝ m_D (normal ordering 1:1.87:2.74); spread widened by overtone-dependent neck coupling (PR #79 χ_n ↓ with n ⟹ higher-n less suppressed ⟹ heavier); large PMNS = cross-channel (charged k≠0 × neutrino k=0), small CKM = intra-channel (shell × shell) ⟹ PMNS ≫ CKM; angles/spectrum open | PMNS_CROSS_CHANNEL_CKM_INTRA_CHANNEL_SPREAD_FROM_OVERTONE_COUPLING |
 | `cross_channel_pmns_overlap_probe` | naive radial overlap → near-permutation (small); lepton gens in different coordinates (closure-winding k vs radial-overtone n) ⟹ anarchic map; observed PMNS typical of Haar U(3) (30th/57th/4th pct), CKM extremely atypical (aligned, joint p≈0); specific angles open (θ13 mild tension) | PMNS_ANARCHIC_CROSS_COORDINATE_CKM_ALIGNED_INTRA_COORDINATE |
+| `theta13_residual_alignment_probe` | θ13=U_e3 is the corner / two-hop element (gap |g−i|=2); residual nearest-neighbour alignment (throat↔shell coupling local in (k,n)) suppresses it ⟹ θ13 robustly smallest, observed θ13 moves 4th→~21st percentile (PR #92 tension resolved), θ12/θ23 stay typical; exact θ13 (μ one param, median saturates ~14–16°) open | THETA13_SUPPRESSED_BY_RESIDUAL_NEAREST_NEIGHBOUR_ALIGNMENT |
 
 ## Cross-references
 
@@ -566,6 +567,21 @@ the B4 audit shows cannot come from scale-free geometry.
     class-level separation is BAM-native; the specific angles are not
     pinned (anarchy is statistical; θ13 sits at the 4th percentile, the
     one mild tension).
+  - `docs/theta13_residual_alignment_research_plan.md` — PR #93, resolves
+    PR #92's θ13 tension. θ13 = `|U_e3|` is the corner element, linking
+    the lowest winding (`k=1`) to the highest overtone (`n=2`) — the most
+    coordinate-distant (two-hop) pair (gap `|g−i|=2`); θ12, θ23 are
+    adjacent (gap 1). Because the throat↔shell coupling (PR #82 `+3`
+    shift, PR #83 operator) is **local** in the `(k,n)` lattice, the
+    `g=1↔g=3` corner is a suppressed two-hop amplitude — a residual
+    nearest-neighbour alignment. A structured-anarchy model (corner
+    variance `exp(−μ)`, μ=0 = PR #92 pure anarchy) with `μ≈3` shifts the
+    θ13 distribution down (median 33°→~16°), makes θ13 robustly the
+    smallest angle (frac 0.50→0.72), and moves observed θ13=8.6° from the
+    4th to the ~21st percentile — resolving the tension — while θ12
+    (~44th) and θ23 (~70th) stay typical. The mechanism robustly explains
+    θ13-smallest; the exact value (μ; θ13 median saturates ~14–16°) and
+    the BAM origin of the locality are open.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target

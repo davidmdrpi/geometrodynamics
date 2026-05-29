@@ -603,6 +603,24 @@ separation — PMNS anarchic (cross-coordinate), CKM aligned
 specific angles, being statistical, are not pinned, and `θ13` sitting on
 the small side of anarchy (4th percentile) is the one mild tension.
 
+PR #93 resolves that last tension. `θ13 = |U_e3|` is the *corner*
+element of the generation/channel lattice — it links the lowest winding
+(`k = 1`, the electron flavour) to the highest overtone (`n = 2`, the
+heaviest neutrino), the most coordinate-distant pair (generation gap 2),
+whereas `θ12` and `θ23` are adjacent (gap 1). Because the throat↔shell
+coupling (the PR #82 `+3` shift, the PR #83 unified operator) is *local*
+in the `(k, n)` lattice, the `g = 1 ↔ g = 3` corner is reached only by
+*two* channel-hops, so `U_e3` is a suppressed two-hop amplitude — a
+residual nearest-neighbour alignment of the otherwise-anarchic map. A
+structured-anarchy model (corner variance `exp(−μ)`, `μ = 0` being pure
+anarchy) with a modest `μ ≈ 3` shifts the `θ13` distribution down (median
+33° → ~16°), makes `θ13` robustly the smallest angle (the observed
+hierarchy `θ13 < θ12, θ23`), and moves the observed `θ13 = 8.6°` from the
+4th to the ~21st percentile — relieving the tension — while `θ12` (~44th)
+and `θ23` (~70th) stay typical. The suppression mechanism is robust; the
+exact value (the residual-alignment strength `μ`; the `θ13` median
+saturates near 14–16°) and the CP/Majorana phases remain open.
+
 **QFT event reinterpretation: Compton scattering from BAM.** _Closed
 at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a
 BAM amplitude for Compton scattering by progressively identifying
