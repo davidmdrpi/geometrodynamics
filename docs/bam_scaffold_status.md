@@ -288,6 +288,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `cross_channel_pmns_overlap_probe` | naive radial overlap → near-permutation (small); lepton gens in different coordinates (closure-winding k vs radial-overtone n) ⟹ anarchic map; observed PMNS typical of Haar U(3) (30th/57th/4th pct), CKM extremely atypical (aligned, joint p≈0); specific angles open (θ13 mild tension) | PMNS_ANARCHIC_CROSS_COORDINATE_CKM_ALIGNED_INTRA_COORDINATE |
 | `theta13_residual_alignment_probe` | θ13=U_e3 is the corner / two-hop element (gap |g−i|=2); residual nearest-neighbour alignment (throat↔shell coupling local in (k,n)) suppresses it ⟹ θ13 robustly smallest, observed θ13 moves 4th→~21st percentile (PR #92 tension resolved), θ12/θ23 stay typical; exact θ13 (μ one param, median saturates ~14–16°) open | THETA13_SUPPRESSED_BY_RESIDUAL_NEAREST_NEIGHBOUR_ALIGNMENT |
 | `cp_majorana_phase_probe` | CP violation generic (winding amplitudes Hopf-complex e^{ikχ}, PR #60; CP-conservation measure-zero); Jarlskog dichotomy: \|J_PMNS\|≈0.026 typical of anarchy (51st/81st pct), \|J_CKM\|≈3e-5 extremely atypical (aligned, suppressed); two Majorana phases EXIST ⟸ neutrino Majorana ⟸ c₁=0 (PR #86), 0νββ; specific phase values anarchic/not pinned | CP_GENERIC_MAJORANA_PHASES_EXIST_VALUES_ANARCHIC |
+| `zeronubb_effective_mass_probe` | 0νββ occurs ⟸ Majorana (c₁=0, PR #86); BAM normal-ordering band (PR #91) below IO floor ~19 meV; anarchic Majorana phases (PR #94) populate full band incl. cancellation→~0; light scale (PR #90) ⟹ m_ββ ≲ 8 meV — below current (28–122 meV) & next-gen (~9–20 meV) reach; falsifiable (discovery ≳19 meV ⟹ IO/degenerate); exact m_ββ a band | ZERONUBB_OCCURS_NORMAL_ORDERING_M_BB_FEW_MEV |
 
 ## Cross-references
 
@@ -598,6 +599,19 @@ the B4 audit shows cannot come from scale-free geometry.
     (uniform), set by the Hopf phases of the overlaps and the bounce —
     not pinned (`δ_CP` is itself poorly measured, consistent with
     uniform).
+  - `docs/zeronubb_effective_mass_research_plan.md` — PR #95, turns the
+    arc into a falsifiable 0νββ prediction. The effective Majorana mass
+    `m_ββ = |Σ U_ei² m_i|` combines: 0νββ **occurs** (neutrino Majorana ⟸
+    `c₁=0`, PR #86; a Dirac neutrino would forbid it); **normal ordering**
+    (PR #91) selects the NO band; **anarchic Majorana phases** (PR #94)
+    populate the whole band incl. the cancellation trough (`m_ββ → ~0`);
+    and the **light scale** (PR #90, ~few meV) gives `m_ββ ≲ 8 meV`. That
+    is below the current bound (KamLAND-Zen 28–122 meV, so the null result
+    is expected) and largely below next-gen reach (LEGEND-1000/nEXO,
+    ~9–20 meV), and below the inverted-ordering floor (~19 meV). Sharp
+    falsifier: a 0νββ discovery with `m_ββ ≳ 19 meV` would imply inverted
+    ordering or a quasi-degenerate scale, contradicting BAM. The exact
+    `m_ββ` is a band (lightest mass unmeasured + anarchic phases).
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target

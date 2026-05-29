@@ -642,6 +642,27 @@ Majorana-phase existence are all BAM-native — leaving the precise
 spectrum and the specific phases/angles as the (statistical /
 one-parameter) residuals.
 
+PR #95 collapses that structure into a single falsifiable observable —
+the effective Majorana mass `m_ββ = |Σ U_ei² m_i|` measured in
+neutrinoless double-beta decay. It combines the whole arc: 0νββ *occurs*
+because the neutrino is Majorana (`c₁ = 0`, PR #86; a Dirac neutrino
+would forbid it); the *normal ordering* (PR #91) selects the NO band of
+`m_ββ` (≈ 1.5–3.7 meV at zero lightest mass); the *anarchic Majorana
+phases* (PR #94) populate the whole band, including the cancellation
+trough where the three terms partially cancel and `m_ββ → 0` (around a
+lightest mass of a few meV); and the *light absolute scale* (PR #90)
+places us there, giving `m_ββ ≲ 8 meV`. That lies below the current bound
+(KamLAND-Zen, `m_ββ ≲ 28–122 meV` — so the null result is expected),
+largely below next-generation reach (LEGEND-1000 / nEXO, ~9–20 meV), and
+below the inverted-ordering floor (~19 meV). It is a sharp falsifier: a
+0νββ discovery with `m_ββ ≳ 19 meV` would imply inverted ordering or a
+quasi-degenerate spectrum, contradicting the BAM normal-ordering +
+light-scale prediction. So the neutrino sector ends not merely
+structurally complete but with a concrete experimental target for the
+coming tonne-scale 0νββ searches — the exact `m_ββ` remaining a band
+because the lightest mass is unmeasured and the Majorana phases are
+anarchic.
+
 **QFT event reinterpretation: Compton scattering from BAM.** _Closed
 at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a
 BAM amplitude for Compton scattering by progressively identifying
