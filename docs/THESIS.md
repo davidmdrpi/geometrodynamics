@@ -558,6 +558,28 @@ geometry-only `(t, ε)` gives a uniform `S`, hence `m_ν ∝ m_D` — a ×2.7
 spread — whereas the observed `m_ν/m_D` spans ×18, calling for a
 generation-dependent healing length or the mixing sector).
 
+PR #91 takes up that spread and the mixing. The neutrino generations are
+the cavity radial overtones `n`, so the bare prediction is **normal
+ordering** with `m_ν ∝ m_D` (the cavity-floor ratios `1 : 1.87 : 2.74`).
+The spread is widened in the right direction by the overtone-dependent
+neck coupling: the bounce suppression grows with the throat-neck
+coupling, which is precisely PR #79's boundary stress `χ_n`, and `χ_n`
+*decreases* with `n` (0.304, 0.097, 0.039) — so higher-overtone
+neutrinos are less throat-coupled, more compliant, less suppressed, hence
+relatively heavier, lifting `m₃` toward the `Δm²`-implied value. The
+headline result is the mixing dichotomy: the PMNS matrix is the overlap
+of the charged-lepton mass basis (throat-winding, `k≠0`) with the
+neutrino mass basis (cavity-resolving, `k=0`) — *different* channels of
+the unified operator, generically strongly misaligned ⟹ **large PMNS** —
+whereas up- and down-type quarks are *both* cavity-shell modes (`k=0`,
+same channel) ⟹ nearly aligned ⟹ **small CKM**. So the long-standing
+`PMNS ≫ CKM` puzzle is the BAM **cross-channel** (leptons: throat-winding
+× cavity-resolving) vs **intra-channel** (quarks: shell × shell)
+distinction. The spread direction and the mixing dichotomy are
+structural; the precise spectrum (an `O(1)` coefficient; the absolute
+scale unmeasured) and the explicit angles (the cross-channel overlap
+integrals), and the CP/Majorana phases, are open.
+
 **QFT event reinterpretation: Compton scattering from BAM.** _Closed
 at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a
 BAM amplitude for Compton scattering by progressively identifying
