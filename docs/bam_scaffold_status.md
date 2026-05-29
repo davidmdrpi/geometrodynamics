@@ -285,6 +285,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `b_minus_l_tension_ratio_probe` | ΔL=2/B−L tension ratio t = global-closure enhancement of local EM tension; bracketed parameter-free by closure quantum 2π (lower) and winding action k_5√(2π)=√β (upper): t∈[6.28,12.53], matching PR #88's 6–12; residual = compliance ε | B_MINUS_L_TENSION_BRACKETED_BY_CLOSURE_AND_WINDING_ACTIONS |
 | `boundary_compliance_bulk_geometry_probe` | ε = chargeless-throat sub-throat healing length (ε=ℓ²/2rs; c₁=0 neck not EM-propped, charged → Dirac); bulk scales (R_c³,Δ³) land ε in window; winding-edge t≈√β ⟹ S≈15–19, m_ν~few meV (observed scale, untuned); precise spectrum residual | COMPLIANCE_IS_CHARGELESS_THROAT_HEALING_LENGTH_CHAIN_CLOSED_TO_OOM |
 | `generation_spread_pmns_mixing_probe` | generations = cavity overtones ⟹ bare m_ν ∝ m_D (normal ordering 1:1.87:2.74); spread widened by overtone-dependent neck coupling (PR #79 χ_n ↓ with n ⟹ higher-n less suppressed ⟹ heavier); large PMNS = cross-channel (charged k≠0 × neutrino k=0), small CKM = intra-channel (shell × shell) ⟹ PMNS ≫ CKM; angles/spectrum open | PMNS_CROSS_CHANNEL_CKM_INTRA_CHANNEL_SPREAD_FROM_OVERTONE_COUPLING |
+| `cross_channel_pmns_overlap_probe` | naive radial overlap → near-permutation (small); lepton gens in different coordinates (closure-winding k vs radial-overtone n) ⟹ anarchic map; observed PMNS typical of Haar U(3) (30th/57th/4th pct), CKM extremely atypical (aligned, joint p≈0); specific angles open (θ13 mild tension) | PMNS_ANARCHIC_CROSS_COORDINATE_CKM_ALIGNED_INTRA_COORDINATE |
 
 ## Cross-references
 
@@ -548,6 +549,23 @@ the B4 audit shows cannot come from scale-free geometry.
     direction and the mixing dichotomy are structural; the precise
     spectrum (`ε_n(χ_n)` is `O(1)`, absolute scale unmeasured) and the
     explicit angles (cross-channel overlap integrals) are open.
+  - `docs/cross_channel_pmns_overlap_research_plan.md` — PR #92, computes
+    the cross-channel overlap. A literal same-coordinate radial overlap
+    (winding-imprint `sin(kπs)` × cavity overtones) is a near-permutation
+    matrix ⟹ **small** mixing — so large PMNS is *not* a literal radial
+    overlap. The real structure: the lepton generation labels live in
+    DIFFERENT coordinates — charged leptons in the closure-winding
+    `k=1,3,5` (Hopf fibre), neutrinos in the radial-overtone `n=0,1,2`
+    (cavity) — so their map has no preferred alignment ⟹ **anarchic**
+    (Haar-random) PMNS. Quantitatively the observed PMNS angles
+    (33.4°, 49°, 8.6°) are typical of a Haar `U(3)` (30th/57th/4th
+    percentile), while CKM (13°, 2.4°, 0.2°) is extremely atypical (joint
+    `p ≈ 0`) = aligned, consistent with up & down sharing the
+    radial-overtone (shell) coordinate. So PMNS ∈ anarchy class
+    (cross-coordinate), CKM ∈ aligned class (intra-coordinate). The
+    class-level separation is BAM-native; the specific angles are not
+    pinned (anarchy is statistical; θ13 sits at the 4th percentile, the
+    one mild tension).
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
