@@ -1,0 +1,148 @@
+{
+  "timestamp_utc": "2026-05-29T04:35:04+00:00",
+  "identification": "0\u03bd\u03b2\u03b2 occurs (Majorana, c\u2081=0); BAM normal-ordering band populated by anarchic Majorana phases; at the light scale m_\u03b2\u03b2 \u2272 8 meV \u2014 below current reach, falsifiable",
+  "occurs_because": "neutrino Majorana \u27f8 c\u2081=0 (PR #86)",
+  "ordering": "normal (PR #91) \u2014 NO band, below IO floor ~19 meV",
+  "phases": "anarchic (PR #94) \u2014 full band incl. cancellation to ~0",
+  "scale": "light, ~few meV (PR #90) \u2014 m_\u03b2\u03b2 \u2272 8 meV",
+  "falsifier": "discovery with m_\u03b2\u03b2 \u2273 19 meV \u27f9 IO/degenerate",
+  "tests": [
+    {
+      "name": "T1_setup",
+      "description": "m_\u03b2\u03b2 = |\u03a3 U_ei\u00b2 m_i| = |c12\u00b2c13\u00b2 m1 + s12\u00b2c13\u00b2 m2 e^{i\u03b121} + s13\u00b2 m3 e^{i\u03b131}|. Combines Majorana nature (PR #86), ordering (PR #91), phases (PR #94), scale (PR #90).",
+      "s12sq": 0.30302904520452434,
+      "c12sq": 0.6969709547954757,
+      "s13sq": 0.022360818938828162,
+      "c13sq": 0.9776391810611719,
+      "dm2_21": 7.5e-05,
+      "dm2_31": 0.0025,
+      "pass": true
+    },
+    {
+      "name": "T2_zeronubb_occurs_majorana",
+      "description": "0\u03bd\u03b2\u03b2 requires Majorana (\u0394L=2). BAM neutrino is Majorana \u27f8 c\u2081=0 (PR #86) \u27f9 0\u03bd\u03b2\u03b2 occurs. Dirac would forbid it.",
+      "neutrino_nature": "Majorana (c\u2081=0, PR #86)",
+      "zeronubb_allowed": true,
+      "dirac_would_forbid": true,
+      "pass": true
+    },
+    {
+      "name": "T3_normal_ordering_band",
+      "description": "BAM \u27f9 normal ordering (PR #91) \u27f9 the NO band (m_\u03b2\u03b2 \u2248 1.5\u20133.7 meV at zero lightest mass). IO contrast: ~19\u201348 meV, hard floor ~19 meV, no cancellation.",
+      "no_band_m1zero_meV": [
+        1.4475858842744356,
+        3.683667759770148
+      ],
+      "io_band_m3zero_meV": [
+        18.74172140425452,
+        48.36702791956518
+      ],
+      "io_floor_meV": 18.74172140425452,
+      "no_below_io_floor": true,
+      "pass": true
+    },
+    {
+      "name": "T4_anarchic_phases_populate_band",
+      "description": "Anarchic Majorana phases (PR #94, uniform) populate the whole NO band, including the cancellation trough (m_\u03b2\u03b2 \u2192 ~0 around m_lightest ~ 3\u20135 meV).",
+      "rows": [
+        {
+          "m_lightest_meV": 0.0,
+          "mbb_min_meV": 1.4475858842744356,
+          "mbb_max_meV": 3.683667759770148
+        },
+        {
+          "m_lightest_meV": 2.0,
+          "mbb_min_meV": 0.15278830678797664,
+          "mbb_max_meV": 5.113944427972884
+        },
+        {
+          "m_lightest_meV": 3.0,
+          "mbb_min_meV": 0.016909613290802754,
+          "mbb_max_meV": 5.878385633138834
+        },
+        {
+          "m_lightest_meV": 5.0,
+          "mbb_min_meV": 0.015464288508635255,
+          "mbb_max_meV": 7.491846234927526
+        }
+      ],
+      "cancellation_trough_min_meV": 0.015464288508635255,
+      "cancellation_to_near_zero": true,
+      "pass": true
+    },
+    {
+      "name": "T5_bam_light_scale_mbb",
+      "description": "At the BAM light scale (PR #90, ~few meV) the NO band is m_\u03b2\u03b2 \u2248 0\u20138 meV.",
+      "bam_light_scale_meV": 2.0,
+      "rows": [
+        {
+          "m_lightest_meV": 0.0,
+          "mbb_band_meV": [
+            1.4475858842744356,
+            3.683667759770148
+          ]
+        },
+        {
+          "m_lightest_meV": 2.0,
+          "mbb_band_meV": [
+            0.15278830678797664,
+            5.113944427972884
+          ]
+        },
+        {
+          "m_lightest_meV": 5.0,
+          "mbb_band_meV": [
+            0.015464288508635255,
+            7.491846234927526
+          ]
+        }
+      ],
+      "mbb_upper_few_meV": 7.491846234927526,
+      "mbb_below_10meV": true,
+      "pass": true
+    },
+    {
+      "name": "T6_experimental_comparison_falsifiable",
+      "description": "BAM band \u2272 8 meV: below current KamLAND-Zen (28\u2013122 meV) and largely below next-gen (~9\u201320 meV). Falsifiable \u2014 discovery \u2273 19 meV (IO floor) \u27f9 inverted/degenerate, contradicting BAM.",
+      "bam_mbb_max_meV": 7.491846234927526,
+      "kamland_zen_bound_meV": [
+        28.0,
+        122.0
+      ],
+      "nextgen_reach_meV": [
+        9.0,
+        20.0
+      ],
+      "io_floor_meV": 18.74172140425452,
+      "below_current_bound": true,
+      "falsifier": "discovery with m_\u03b2\u03b2 \u2273 19 meV \u27f9 IO/degenerate (challenges BAM)",
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "Qualitative prediction firm (0\u03bd\u03b2\u03b2 occurs, NO band, light scale); exact m_\u03b2\u03b2 is a band (unmeasured lightest mass + anarchic phases).",
+      "established_bam_native": [
+        "0\u03bd\u03b2\u03b2 occurs \u27f8 neutrino Majorana \u27f8 c\u2081=0 (PR #86)",
+        "BAM selects the normal-ordering m_\u03b2\u03b2 band (PR #91) \u2014 below the IO floor ~19 meV",
+        "anarchic Majorana phases (PR #94) populate the full band incl. cancellation to ~0",
+        "at the BAM light scale (PR #90) m_\u03b2\u03b2 \u2272 8 meV \u2014 below current bounds, a falsifiable target for next-gen experiments"
+      ],
+      "open": [
+        "a single m_\u03b2\u03b2 value: it is a band (the lightest neutrino mass is unmeasured; the Majorana phases are anarchic)",
+        "the exact spectrum (PR #91 \u03c7_n-corrected ratios; absolute scale) and the specific phases"
+      ],
+      "falsifier": "a 0\u03bd\u03b2\u03b2 discovery with m_\u03b2\u03b2 \u2273 19 meV (IO/degenerate)",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "0\u03bd\u03b2\u03b2 occurs (Majorana, c\u2081=0); BAM selects the normal-ordering band, populated by the anarchic Majorana phases; at the light scale m_\u03b2\u03b2 \u2272 8 meV \u2014 below current reach, a falsifiable target for next-gen experiments.",
+      "classification": "ZERONUBB_OCCURS_NORMAL_ORDERING_M_BB_FEW_MEV",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "ZERONUBB_OCCURS_NORMAL_ORDERING_M_BB_FEW_MEV",
+  "verdict": "0\u03bd\u03b2\u03b2 OCCURS, IN NORMAL ORDERING, WITH m_\u03b2\u03b2 \u2272 8 meV \u2014 BELOW CURRENT REACH AND FALSIFIABLE. The neutrino arc (#85\u2013#94) fixed the structure of the BAM neutrino sector; this probe turns it into a prediction for the effective Majorana mass m_\u03b2\u03b2 = |\u03a3 U_ei\u00b2 m_i| measured in 0\u03bd\u03b2\u03b2.\n\n0\u03bd\u03b2\u03b2 OCCURS. 0\u03bd\u03b2\u03b2 requires a Majorana neutrino (\u0394L=2). In BAM the neutrino is Majorana because it is chargeless (c\u2081=0, C-invariant, PR #86), so 0\u03bd\u03b2\u03b2 occurs \u2014 a qualitative prediction. A Dirac neutrino would forbid it (m_\u03b2\u03b2 \u2261 0).\n\nNORMAL ORDERING \u27f9 THE NO BAND. BAM predicts normal ordering (PR #91: generations = cavity overtones, m_\u03bd \u221d m_D), selecting the NO m_\u03b2\u03b2 band \u2014 m_\u03b2\u03b2 \u2248 1.5\u20133.7 meV at zero lightest mass. The inverted-ordering band (the contrast) sits at ~19\u201348 meV with a hard floor ~19 meV and no cancellation to zero \u2014 entirely above the BAM band.\n\nANARCHIC PHASES POPULATE THE BAND. The anarchic Majorana phases (PR #94, uniform) populate the WHOLE NO band, including the cancellation trough where the three terms partially cancel and m_\u03b2\u03b2 \u2192 ~0 (around m_lightest ~ 3\u20135 meV).\n\nLIGHT SCALE \u27f9 m_\u03b2\u03b2 \u2272 8 meV. At the BAM light scale (PR #90: lightest ~ few meV) the NO band is m_\u03b2\u03b2 \u2248 0\u20138 meV. This is below the current bound (KamLAND-Zen, m_\u03b2\u03b2 \u2272 28\u2013122 meV) \u2014 consistent with the null result \u2014 and largely below even next-generation reach (LEGEND-1000 / nEXO, ~9\u201320 meV). It is a sharp falsifier: a 0\u03bd\u03b2\u03b2 discovery with m_\u03b2\u03b2 \u2273 19 meV would imply inverted ordering or a quasi-degenerate scale, contradicting the BAM normal-ordering + light-scale prediction.\n\nHONEST SCOPE. ESTABLISHED (BAM-native): 0\u03bd\u03b2\u03b2 occurs (the neutrino is Majorana, PR #86); BAM selects the normal-ordering band (PR #91), below the IO floor; the anarchic Majorana phases (PR #94) populate the full band (cancellation to ~0 allowed); at the BAM light scale (PR #90) m_\u03b2\u03b2 \u2272 8 meV \u2014 below current bounds and a target/falsifier for next-gen experiments. NOT established: a single m_\u03b2\u03b2 value \u2014 it is a band, because the lightest neutrino mass is unmeasured and the Majorana phases are anarchic (uniform); the exact spectrum (the PR #91 \u03c7_n-corrected ratios, the absolute scale) and the specific phases are the residuals."
+}
