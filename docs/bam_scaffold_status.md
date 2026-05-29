@@ -287,6 +287,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `generation_spread_pmns_mixing_probe` | generations = cavity overtones ⟹ bare m_ν ∝ m_D (normal ordering 1:1.87:2.74); spread widened by overtone-dependent neck coupling (PR #79 χ_n ↓ with n ⟹ higher-n less suppressed ⟹ heavier); large PMNS = cross-channel (charged k≠0 × neutrino k=0), small CKM = intra-channel (shell × shell) ⟹ PMNS ≫ CKM; angles/spectrum open | PMNS_CROSS_CHANNEL_CKM_INTRA_CHANNEL_SPREAD_FROM_OVERTONE_COUPLING |
 | `cross_channel_pmns_overlap_probe` | naive radial overlap → near-permutation (small); lepton gens in different coordinates (closure-winding k vs radial-overtone n) ⟹ anarchic map; observed PMNS typical of Haar U(3) (30th/57th/4th pct), CKM extremely atypical (aligned, joint p≈0); specific angles open (θ13 mild tension) | PMNS_ANARCHIC_CROSS_COORDINATE_CKM_ALIGNED_INTRA_COORDINATE |
 | `theta13_residual_alignment_probe` | θ13=U_e3 is the corner / two-hop element (gap |g−i|=2); residual nearest-neighbour alignment (throat↔shell coupling local in (k,n)) suppresses it ⟹ θ13 robustly smallest, observed θ13 moves 4th→~21st percentile (PR #92 tension resolved), θ12/θ23 stay typical; exact θ13 (μ one param, median saturates ~14–16°) open | THETA13_SUPPRESSED_BY_RESIDUAL_NEAREST_NEIGHBOUR_ALIGNMENT |
+| `cp_majorana_phase_probe` | CP violation generic (winding amplitudes Hopf-complex e^{ikχ}, PR #60; CP-conservation measure-zero); Jarlskog dichotomy: \|J_PMNS\|≈0.026 typical of anarchy (51st/81st pct), \|J_CKM\|≈3e-5 extremely atypical (aligned, suppressed); two Majorana phases EXIST ⟸ neutrino Majorana ⟸ c₁=0 (PR #86), 0νββ; specific phase values anarchic/not pinned | CP_GENERIC_MAJORANA_PHASES_EXIST_VALUES_ANARCHIC |
 
 ## Cross-references
 
@@ -582,6 +583,21 @@ the B4 audit shows cannot come from scale-free geometry.
     (~44th) and θ23 (~70th) stay typical. The mechanism robustly explains
     θ13-smallest; the exact value (μ; θ13 median saturates ~14–16°) and
     the BAM origin of the locality are open.
+  - `docs/cp_majorana_phase_research_plan.md` — PR #94, the CP-phase
+    sector. CP violation is **generic**: the winding amplitudes carry the
+    Hopf holonomy `e^{ikχ}` (PR #60), so the cross-channel overlaps are
+    intrinsically complex and `δ_CP ≠ 0, π` with probability 1 (CP
+    conservation is measure-zero — no BAM symmetry forces real
+    amplitudes). The Jarlskog invariant mirrors the angle dichotomy:
+    `|J_PMNS| ≈ 0.026` is typical of anarchy (51st/81st percentile, large
+    CP violation), `|J_CKM| ≈ 3×10⁻⁵` is extremely atypical (~0.1th, =
+    aligned ⟹ CP suppressed). And the **two Majorana phases exist**
+    because the neutrino is Majorana (`c₁=0`, PR #86) — CP phases of the
+    ΔL=2 throat↔antithroat sector (PRs #87–#90), observable in 0νββ; a
+    Dirac neutrino would have none. The specific phase values are anarchic
+    (uniform), set by the Hopf phases of the overlaps and the bounce —
+    not pinned (`δ_CP` is itself poorly measured, consistent with
+    uniform).
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target

@@ -619,7 +619,28 @@ hierarchy `θ13 < θ12, θ23`), and moves the observed `θ13 = 8.6°` from the
 4th to the ~21st percentile — relieving the tension — while `θ12` (~44th)
 and `θ23` (~70th) stay typical. The suppression mechanism is robust; the
 exact value (the residual-alignment strength `μ`; the `θ13` median
-saturates near 14–16°) and the CP/Majorana phases remain open.
+saturates near 14–16°) remains open.
+
+PR #94 closes the phase sector. CP violation is *generic*: the winding
+(charged-lepton) amplitudes carry the Hopf holonomy `e^{ikχ}` (PR #60,
+the throat Berry phase `∮A = π cos χ`), so the cross-channel overlaps
+that build the PMNS matrix are intrinsically complex, and `δ_CP ≠ 0, π`
+with probability 1 — CP conservation (a real PMNS) is measure-zero, with
+no BAM symmetry forcing it. The Jarlskog invariant
+`J = Im(U_e1 U_μ2 U*_e2 U*_μ1)` mirrors the angle dichotomy: the observed
+`|J_PMNS| ≈ 0.026` is typical of an anarchic `U(3)` (51st–81st
+percentile, large CP violation), whereas `|J_CKM| ≈ 3×10⁻⁵` is extremely
+atypical (~0.1th percentile) — aligned, CP-suppressed. And the *two
+Majorana phases exist* precisely because the neutrino is Majorana
+(`c₁ = 0`, PR #86): they are CP-violating phases of the ΔL=2
+throat↔antithroat sector (the bounce of PRs #87–#90), observable in 0νββ,
+where a Dirac neutrino would have none. The specific phase values, like
+the angles beyond the dichotomy, are anarchic and not pinned. With this
+the neutrino arc closes at the structural level — Majorana nature, mass
+scale, ordering, mixing class, the `θ13` hierarchy, CP genericity, and
+Majorana-phase existence are all BAM-native — leaving the precise
+spectrum and the specific phases/angles as the (statistical /
+one-parameter) residuals.
 
 **QFT event reinterpretation: Compton scattering from BAM.** _Closed
 at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a
