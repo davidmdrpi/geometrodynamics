@@ -1,0 +1,110 @@
+{
+  "timestamp_utc": "2026-05-29T03:26:17+00:00",
+  "identification": "large PMNS = cross-channel (charged throat-winding \u00d7 neutrino cavity-resolving); small CKM = intra-channel (shell \u00d7 shell); generation spread widened by overtone-dependent neck coupling (PR #79 \u03c7_n decreasing with n)",
+  "bare_prediction": "normal ordering, m_\u03bd \u221d m_D (cavity floors 1:1.87:2.74)",
+  "spread_mechanism": "higher-n less throat-coupled (\u03c7_n\u2193) \u27f9 less suppressed \u27f9 heavier",
+  "mixing_dichotomy": "leptons cross-channel (large), quarks intra-channel (small)",
+  "open": "precise spectrum (\u03b5_n(\u03c7_n) O(1)), explicit angles, CP/Majorana phases",
+  "tests": [
+    {
+      "name": "T1_recap_residuals",
+      "description": "Geometry-uniform bounce \u27f9 m_\u03bd \u221d m_D (cavity floors), \u00d72.7 spread; PMNS large mixing untouched. Two residuals to address.",
+      "cavity_floor_ratios": [
+        1.0,
+        1.8719319572461168,
+        2.7438908754031504
+      ],
+      "uniform_spread": 2.7438908754031504,
+      "pass": true
+    },
+    {
+      "name": "T2_overtone_mass_prediction",
+      "description": "Generations = overtones n; uniform bounce \u27f9 m_\u03bd \u221d cavity floors, normal ordering 1:1.87:2.74. Falsifiable prediction (absolute scale unknown; only \u0394m\u00b2 measured).",
+      "predicted_m_nu_ratios": [
+        1.0,
+        1.8719319572461168,
+        2.7438908754031504
+      ],
+      "ordering": "normal (m_D increases with n)",
+      "bare_m2_to_m3": 1.465806951359392,
+      "observed_m2_to_m3_m1zero": 5.773502691896258,
+      "pass": true
+    },
+    {
+      "name": "T3_spread_from_overtone_neck_coupling",
+      "description": "Suppression S_n grows with throat-neck coupling = PR #79 \u03c7_n, which DECREASES with n \u27f9 higher-n less suppressed \u27f9 heavier. Widens m\u2082:m\u2083 from the bare 1:1.47 toward the \u0394m\u00b2-implied 1:5.8 \u2014 right direction.",
+      "rows": [
+        {
+          "n": 0,
+          "chi_n": 0.3035723271003612
+        },
+        {
+          "n": 1,
+          "chi_n": 0.09702025440350676
+        },
+        {
+          "n": 2,
+          "chi_n": 0.038956676241373375
+        }
+      ],
+      "chi_n_decreases_with_n": true,
+      "bare_m2_to_m3": 1.465806951359392,
+      "observed_m2_to_m3": 5.773502691896258,
+      "spread_needs_widening": true,
+      "mechanism_direction_correct": true,
+      "pass": true
+    },
+    {
+      "name": "T4_pmns_large_cross_channel",
+      "description": "PMNS = \u27e8charged-lepton (k\u22600 throat-winding) | neutrino (k=0 cavity-resolving)\u27e9. Different channels (PR #83), related only by throat\u2194shell Z\u2082 (PR #82) \u27f9 strong misalignment \u27f9 large PMNS.",
+      "charged_lepton_channel": "throat-winding (k\u22600, throat-localised)",
+      "neutrino_channel": "cavity-resolving (k=0, shell-distributed)",
+      "mixing_is_cross_channel": true,
+      "expected_mixing": "large",
+      "pass": true
+    },
+    {
+      "name": "T5_ckm_small_intra_channel",
+      "description": "Up & down quarks both cavity-shell (k=0, n\u22653). Same channel \u27f9 aligned bases \u27f9 small CKM. Lepton/quark dichotomy = cross-channel (leptons) vs intra-channel (quarks).",
+      "up_channel": "cavity-shell (k=0, n\u22653)",
+      "down_channel": "cavity-shell (k=0, n\u22653)",
+      "mixing_is_intra_channel": true,
+      "expected_mixing": "small",
+      "explains": "why PMNS \u226b CKM",
+      "pass": true
+    },
+    {
+      "name": "T6_honest_data_context",
+      "description": "Only \u0394m\u00b2 measured; absolute m_\u03bd unknown \u27f9 the spread is a prediction (normal ordering, m_\u03bd \u221d m_D \u00d7 \u03c7_n-correction), not a fit. Mixing dichotomy structural; precise angles need cross-channel overlaps.",
+      "measured": "\u0394m\u00b2_21 \u2248 7.5e-5 eV\u00b2, \u0394m\u00b2_31 \u2248 2.5e-3 eV\u00b2",
+      "unmeasured": "absolute m_\u03bd scale (lightest mass)",
+      "bam_prediction": "normal ordering; m_\u03bd \u221d m_D (cavity floors) widened by \u03c7_n",
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "Spread direction + mixing dichotomy BAM-native; exact spectrum and angles open.",
+      "established_bam_native": [
+        "generations = cavity overtones \u27f9 bare m_\u03bd \u221d m_D (normal ordering 1:1.87:2.74)",
+        "spread widened in the right direction by the overtone-dependent neck coupling (PR #79 \u03c7_n decreasing with n \u27f9 higher-n less suppressed \u27f9 heavier)",
+        "large PMNS = cross-channel (charged throat-winding \u00d7 neutrino cavity-resolving); small CKM = intra-channel (shell \u00d7 shell) \u2014 explains PMNS \u226b CKM"
+      ],
+      "open": [
+        "the precise mass spectrum (the \u03b5_n(\u03c7_n) coefficient is O(1), not derived; absolute scale unmeasured)",
+        "the explicit PMNS angles (need the cross-channel overlap integrals; large but not computed to specific angles here)",
+        "CP phase / Majorana phases"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Large PMNS vs small CKM is the cross-channel (leptons: throat-winding \u00d7 cavity-resolving) vs intra-channel (quarks: shell \u00d7 shell) distinction; the generation spread is widened by the overtone-dependent neck coupling (PR #79 \u03c7_n). Exact angles/spectrum open.",
+      "classification": "PMNS_CROSS_CHANNEL_CKM_INTRA_CHANNEL_SPREAD_FROM_OVERTONE_COUPLING",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "PMNS_CROSS_CHANNEL_CKM_INTRA_CHANNEL_SPREAD_FROM_OVERTONE_COUPLING",
+  "verdict": "LARGE PMNS IS CROSS-CHANNEL, SMALL CKM IS INTRA-CHANNEL; THE GENERATION SPREAD IS WIDENED BY THE OVERTONE-DEPENDENT NECK COUPLING. PR #90 closed the neutrino-mass SCALE from bulk geometry but left a generation-uniform bounce (m_\u03bd \u221d m_D, a \u00d72.7 spread) and the large PMNS mixing. This probe addresses both with BAM-native structure.\n\nGENERATIONS = OVERTONES; THE BARE PREDICTION. The neutrino generations are the cavity radial overtones n = 0, 1, 2 (k = 0, PR #83). A generation-uniform bounce gives m_\u03bd,g \u221d m_D,g = \u221a(\u03c9\u00b2(0,n)), the cavity floors, in the ratio 1 : 1.87 : 2.74 \u2014 normal ordering, a falsifiable prediction. (Only \u0394m\u00b2 are measured; the absolute scale is unknown, so this is a prediction, not a fit.)\n\nTHE SPREAD: OVERTONE-DEPENDENT NECK COUPLING. The bounce suppression S_n grows with how strongly overtone n couples to the throat neck (PR #88). That coupling is exactly PR #79's Z\u2082-antisymmetric boundary stress \u03c7_n = (T_inner\u2212T_outer)/2, which DECREASES monotonically with n (\u2248 0.304, 0.097, 0.039): higher overtones fill the cavity more uniformly and feel the mouth asymmetry less. So higher-n neutrinos are LESS throat-coupled \u27f9 a more compliant neck \u27f9 a smaller bounce \u27f9 LESS suppression \u27f9 relatively HEAVIER. This widens the spread in the right direction, lifting m\u2083 relative to m\u2082 (from the bare m\u2082:m\u2083 = 1:1.47 toward the \u0394m\u00b2-implied 1:5.8). The mechanism and direction are BAM-native; the exact magnitude needs the \u03b5_n(\u03c7_n) coefficient (O(1), not derived).\n\nPMNS LARGE = CROSS-CHANNEL. The PMNS matrix is the overlap of the charged-lepton mass basis (throat-winding, k\u22600, throat-localised) with the neutrino mass basis (cavity-resolving, k=0, shell-distributed) \u2014 DIFFERENT channels of the PR #83 unified operator, related only by the throat\u2194shell Z\u2082 / the +3 shift (PR #82). Two bases built from different quantum numbers (k vs n) are generically strongly misaligned \u27f9 LARGE PMNS mixing.\n\nCKM SMALL = INTRA-CHANNEL. Up-type and down-type quarks are BOTH cavity-shell modes (k=0, n\u22653; PR #85 quadrant, PR #82 quark pair). Same channel \u27f9 nearly aligned mass bases \u27f9 SMALL CKM mixing. So the long-standing puzzle \u2014 why is lepton mixing large and quark mixing small \u2014 is the BAM cross-channel (leptons: throat-winding \u00d7 cavity-resolving) vs intra-channel (quarks: shell \u00d7 shell) distinction.\n\nHONEST SCOPE. ESTABLISHED (BAM-native): generations are overtones, so the bare prediction is normal ordering with m_\u03bd \u221d m_D (cavity-floor ratios 1:1.87:2.74); the spread is widened in the right direction by the overtone-dependent neck coupling (PR #79 \u03c7_n); and large PMNS vs small CKM is the cross-channel vs intra-channel distinction. NOT established: the precise mass spectrum (the \u03b5_n(\u03c7_n) coefficient is O(1), not derived; the absolute scale is unmeasured \u2014 only \u0394m\u00b2), the explicit PMNS angles (need the cross-channel overlap integrals; large but not computed to specific angles here), and the CP / Majorana phases."
+}

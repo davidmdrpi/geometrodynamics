@@ -284,6 +284,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `majorana_bounce_action_probe` | reduced Euclidean bounce on the non-orientable tortoise path; rigid throat ⟹ massless ν; S ∝ ln(1/ε) (O(10), gen-stable); EM-throat tension under-produces S ~40×; S≈15–18 needs ΔL=2 tension ratio t≈6–12 | MAJORANA_BOUNCE_IS_TORTOISE_LOG_S_OPEN_AS_TENSION_RATIO |
 | `b_minus_l_tension_ratio_probe` | ΔL=2/B−L tension ratio t = global-closure enhancement of local EM tension; bracketed parameter-free by closure quantum 2π (lower) and winding action k_5√(2π)=√β (upper): t∈[6.28,12.53], matching PR #88's 6–12; residual = compliance ε | B_MINUS_L_TENSION_BRACKETED_BY_CLOSURE_AND_WINDING_ACTIONS |
 | `boundary_compliance_bulk_geometry_probe` | ε = chargeless-throat sub-throat healing length (ε=ℓ²/2rs; c₁=0 neck not EM-propped, charged → Dirac); bulk scales (R_c³,Δ³) land ε in window; winding-edge t≈√β ⟹ S≈15–19, m_ν~few meV (observed scale, untuned); precise spectrum residual | COMPLIANCE_IS_CHARGELESS_THROAT_HEALING_LENGTH_CHAIN_CLOSED_TO_OOM |
+| `generation_spread_pmns_mixing_probe` | generations = cavity overtones ⟹ bare m_ν ∝ m_D (normal ordering 1:1.87:2.74); spread widened by overtone-dependent neck coupling (PR #79 χ_n ↓ with n ⟹ higher-n less suppressed ⟹ heavier); large PMNS = cross-channel (charged k≠0 × neutrino k=0), small CKM = intra-channel (shell × shell) ⟹ PMNS ≫ CKM; angles/spectrum open | PMNS_CROSS_CHANNEL_CKM_INTRA_CHANNEL_SPREAD_FROM_OVERTONE_COUPLING |
 
 ## Cross-references
 
@@ -531,6 +532,22 @@ the B4 audit shows cannot come from scale-free geometry.
     order-of-magnitude — the neutrino mass *scale* is geometric, untuned;
     the precise `m_ν` and the generation spread (`×18` vs the geometric
     `×2.7`) are the residual.
+  - `docs/generation_spread_pmns_mixing_research_plan.md` — PR #91,
+    addresses PR #90's two residuals (the generation spread and the large
+    PMNS mixing). Generations are the cavity radial overtones `n`, so the
+    bare prediction is **normal ordering** with `m_ν ∝ m_D` (cavity-floor
+    ratios `1:1.87:2.74`). The spread is widened in the right direction
+    by the **overtone-dependent neck coupling**: PR #79's boundary stress
+    `χ_n` decreases with `n` (0.304, 0.097, 0.039), so higher-`n`
+    neutrinos are less throat-coupled ⟹ more compliant ⟹ less suppressed
+    ⟹ relatively heavier (lifting `m₃` toward the `Δm²`-implied value).
+    The headline: large PMNS vs small CKM is the **cross-channel**
+    (leptons: charged throat-winding `k≠0` × neutrino cavity-resolving
+    `k=0`) vs **intra-channel** (quarks: up & down both cavity-shell
+    `k=0`) distinction — the BAM-native reason `PMNS ≫ CKM`. The spread
+    direction and the mixing dichotomy are structural; the precise
+    spectrum (`ε_n(χ_n)` is `O(1)`, absolute scale unmeasured) and the
+    explicit angles (cross-channel overlap integrals) are open.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
