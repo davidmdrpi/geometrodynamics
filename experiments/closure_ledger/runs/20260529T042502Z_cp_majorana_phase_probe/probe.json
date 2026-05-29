@@ -1,0 +1,87 @@
+{
+  "timestamp_utc": "2026-05-29T04:25:02+00:00",
+  "identification": "CP violation generic (Hopf-complex winding amplitudes; Jarlskog dichotomy PMNS-anarchic / CKM-aligned); two Majorana phases exist because the neutrino is Majorana (c\u2081=0); specific values anarchic, not pinned",
+  "cp_source": "Hopf holonomy e^{ik\u03c7} (PR #60) \u27f9 complex PMNS",
+  "jarlskog_dichotomy": "PMNS anarchic (large J), CKM aligned (suppressed J)",
+  "majorana_phases": "two exist \u27f8 neutrino Majorana \u27f8 c\u2081=0 (PR #86); 0\u03bd\u03b2\u03b2",
+  "open": "specific phase values (anarchic, not pinned); \u03b4_CP poorly measured",
+  "tests": [
+    {
+      "name": "T1_recap_phases_remain",
+      "description": "PRs #92\u2013#93 fixed the PMNS angles (anarchic, \u03b813 suppressed). The 3 CP phases remain: Dirac \u03b4_CP + two Majorana phases.",
+      "angles_done": "PR #92 (anarchic), PR #93 (\u03b813 residual alignment)",
+      "phases_remaining": "\u03b4_CP (Dirac) + \u03b121, \u03b131 (Majorana)",
+      "pass": true
+    },
+    {
+      "name": "T2_cp_violation_generic_hopf_phase",
+      "description": "Winding amplitudes carry the Hopf holonomy e^{ik\u03c7} (PR #60) \u27f9 PMNS generically complex \u27f9 CP violated. CP conservation (real PMNS, J=0) is measure-zero \u2014 no BAM symmetry forces it.",
+      "phase_source": "Hopf holonomy \u222eA = \u03c0 cos \u03c7 (PR #60); winding e^{ik\u03c7}",
+      "cp_conservation_is": "measure-zero (real PMNS)",
+      "fraction_anarchy_samples_with_nonzero_J": 1.0,
+      "pass": true
+    },
+    {
+      "name": "T3_delta_cp_anarchic_uniform",
+      "description": "\u03b4_CP is uniform on [0,2\u03c0) for a Haar U(3): no preferred value. Observed \u03b4_CP (~180\u2013270\u00b0, poorly measured) is consistent with the uniform anarchic expectation.",
+      "delta_distribution": "uniform on [0, 2\u03c0) (anarchic)",
+      "observed_delta_cp_deg": "\u2248 180\u2013270 (poorly measured)",
+      "consistent_with_uniform": true,
+      "pass": true
+    },
+    {
+      "name": "T4_jarlskog_pmns_typical_of_anarchy",
+      "description": "|J| \u2264 0.096; anarchic median \u2248 0.025. Observed |J_PMNS| \u2248 0.026 at ~52nd (\u03bc=0) / ~82nd (\u03bc\u22483) percentile \u2014 typical of anarchy: large, generic CP violation.",
+      "J_max": 0.09622504486493763,
+      "J_pmns_obs": 0.026,
+      "anarchy_median_absJ": 0.025488241206695825,
+      "pmns_percentile_mu0": 50.84333333333333,
+      "pmns_percentile_residual": 81.48666666666666,
+      "pmns_typical": true,
+      "pass": true
+    },
+    {
+      "name": "T5_jarlskog_dichotomy_ckm_aligned",
+      "description": "|J_CKM| \u2248 3.1e-5 at ~0.1th percentile of anarchy \u2014 extremely atypical = aligned \u27f9 CP suppressed. Jarlskog dichotomy mirrors the angle dichotomy (PR #92).",
+      "J_ckm_obs": 3.08e-05,
+      "ckm_percentile": 0.08333333333333334,
+      "ckm_extremely_atypical": true,
+      "dichotomy": "PMNS anarchic (large J), CKM aligned (suppressed J)",
+      "pass": true
+    },
+    {
+      "name": "T6_two_majorana_phases_from_c1_zero",
+      "description": "Neutrino is Majorana because c\u2081=0 (PR #86) \u27f9 two physical Majorana phases EXIST (CP phases of the \u0394L=2 throat\u2194antithroat sector, PRs #87\u2013#90), observable in 0\u03bd\u03b2\u03b2. Dirac would have 0.",
+      "n_physical_phases_if_dirac": 1,
+      "n_physical_phases_if_majorana": 3,
+      "n_extra_majorana_phases": 2,
+      "reason": "c\u2081=0 (C-invariant, PR #86)",
+      "observable_in": "0\u03bd\u03b2\u03b2 (neutrinoless double beta decay)",
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "CP violation generic + Majorana-phase existence firm; specific phase values anarchic (not pinned).",
+      "established_bam_native": [
+        "CP violation is generic \u2014 winding amplitudes Hopf-complex (e^{ik\u03c7}, PR #60); CP conservation is measure-zero",
+        "Jarlskog dichotomy: |J_PMNS| typical of anarchy (large CP violation), |J_CKM| extremely atypical (aligned, suppressed)",
+        "two physical Majorana phases EXIST because the neutrino is Majorana (c\u2081=0, PR #86) \u2014 observable in 0\u03bd\u03b2\u03b2"
+      ],
+      "open": [
+        "the specific values of \u03b4_CP and the two Majorana phases \u2014 anarchic (uniform), set by the Hopf phases of the cross-channel overlaps and the throat\u2194antithroat tunnelling; not pinned",
+        "\u03b4_CP is itself poorly measured (the observed value is consistent with the uniform anarchic expectation)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "CP violation is generic (Hopf-complex amplitudes; Jarlskog dichotomy PMNS-anarchic / CKM-aligned), and two physical Majorana phases exist because the neutrino is Majorana (c\u2081=0); the specific phase values are anarchic, not pinned.",
+      "classification": "CP_GENERIC_MAJORANA_PHASES_EXIST_VALUES_ANARCHIC",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "CP_GENERIC_MAJORANA_PHASES_EXIST_VALUES_ANARCHIC",
+  "verdict": "CP VIOLATION IS GENERIC, AND TWO MAJORANA PHASES EXIST BECAUSE THE NEUTRINO IS MAJORANA. PRs #92\u2013#93 fixed the PMNS mixing angles (anarchic, with \u03b813 suppressed by a residual nearest-neighbour alignment). This probe addresses the remaining sector \u2014 the three CP-violating phases.\n\nCP VIOLATION IS GENERIC (THE HOPF PHASE). CP conservation requires a real PMNS matrix (up to rephasing) \u2014 a measure-zero condition. In BAM the winding (charged-lepton) amplitudes carry the Hopf holonomy e^{ik\u03c7} (PR #60: the throat Berry phase \u222eA = \u03c0 cos \u03c7), so they are intrinsically COMPLEX; the cross-channel overlaps that build the PMNS matrix (PR #92) are therefore generically complex, and \u03b4_CP \u2260 0, \u03c0 with probability 1. No BAM symmetry forces real amplitudes, so CP is generically violated.\n\nTHE JARLSKOG DICHOTOMY. The rephasing-invariant measure of Dirac CP violation is J = Im(U_e1 U_\u03bc2 U*_e2 U*_\u03bc1), with |J| \u2264 1/(6\u221a3) \u2248 0.096 and anarchic median \u2248 0.025. The observed |J_PMNS| \u2248 0.026 (\u03b4 ~ 230\u00b0) is the ~52nd percentile of anarchy (\u03bc=0), ~82nd with the PR #93 residual alignment \u2014 typical of anarchy: large, generic CP violation. The observed |J_CKM| \u2248 3.1\u00d710\u207b\u2075 is the ~0.1th percentile \u2014 extremely atypical = aligned \u27f9 CP violation suppressed. So the Jarlskog mirrors the angles (PR #92): PMNS anarchic (cross-coordinate, large CP violation), CKM aligned (intra-coordinate, suppressed).\n\nTWO MAJORANA PHASES EXIST BECAUSE c\u2081=0. A Dirac neutrino has one physical phase (\u03b4_CP) and no Majorana phases; a Majorana neutrino has two extra. In BAM the neutrino is Majorana precisely because it is chargeless (c\u2081=0, C-invariant, PR #86), so the EXISTENCE of two physical Majorana phases is a firm BAM prediction \u2014 CP-violating phases of the \u0394L=2 throat\u2194antithroat sector (the bounce of PRs #87\u2013#90), observable in 0\u03bd\u03b2\u03b2. Were the neutrino Dirac, there would be none.\n\nHONEST SCOPE. ESTABLISHED (BAM-native): CP violation is generic (the winding amplitudes are Hopf-complex; CP conservation is measure-zero); the Jarlskog dichotomy mirrors the angle dichotomy (PMNS typical of anarchy, CKM extremely atypical = aligned/suppressed); and two physical Majorana phases EXIST because the neutrino is Majorana (c\u2081=0, PR #86) \u2014 a firm prediction for 0\u03bd\u03b2\u03b2. NOT established: the specific values of \u03b4_CP and the two Majorana phases \u2014 they are anarchic (uniform), set by the Hopf phases of the cross-channel overlaps and the throat\u2194antithroat tunnelling, and not pinned (\u03b4_CP is itself poorly measured, consistent with the uniform anarchic expectation)."
+}
