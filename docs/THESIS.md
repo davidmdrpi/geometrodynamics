@@ -524,6 +524,29 @@ The honest scope: with no smoking-gun `J^P`, this is a *counting*
 prediction, testable only against the dense spectrum or via decoupling —
 the sharpest, but also the least clean, of BAM's non-orientable tests.
 
+**The heavy-quark Möbius baryon: a concrete, findable prediction
+(PR #103).** The freest channel of PR #102 — the heavy-quark baryons — is
+where BAM can make a clean prediction, and heavy-quark symmetry supplies
+the missing handle. With the heavy quark a near-static spectator, the
+Möbius / flux-tube excitation lives entirely in the light/flux sector, so
+its gap is the flavor-INDEPENDENT flux-tube quantum `Δ = 2√σ ≈ 0.85 GeV`
+— the same above the charm and bottom ground baryons. That
+flavor-independence is the heavy-sector signature that replaces the
+absent exotic `J^P`: a supernumerary state at the *same* ~0.85 GeV above
+both the charm and the bottom ground baryon. The concrete predictions —
+`Λ_c ~3.14`, `Ω_c ~3.54`, `Λ_b ~6.47`, `Ω_b ~6.89`, `Ξ_cc ~4.47 GeV` —
+sit above the ordinary orbital tower (`Λ_c` P-wave at ~+0.31 GeV, the
+`Λ_c(2940)` at ~+0.65 GeV) and just above the currently-measured
+excitation ceilings, so they are unexplored, within LHCb / Belle II
+reach, and not excluded. The doubly-heavy `Ξ_cc` and the `Ω_b` have no
+measured excitation spectrum at all — entirely unconstrained. So across
+the non-orientable hadron sector BAM runs the full gamut of testability:
+the unobserved glueballs (freest), the observed mesonic `1-+` hybrids
+(matched), the densely-constrained light baryons (a counting test), and
+now the heavy Möbius baryons (a clean, correlated, findable prediction in
+the sparse heavy spectrum) — the exact mass (lattice hybrid gaps span
+~0.8–1.3 GeV) and `J^P` remaining open.
+
 The four-PR QCD-shell arc (PRs #77–#80) develops the right machinery
 quantitatively. The user's physical reframe: **quarks do not pass
 through the throat; they are the wavefronts that resolve the cavity

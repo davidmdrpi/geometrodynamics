@@ -1,0 +1,148 @@
+{
+  "timestamp_utc": "2026-05-30T16:16:34+00:00",
+  "identification": "heavy-quark M\u00f6bius/hybrid baryon at the flavor-independent flux-tube gap 2\u221a\u03c3 \u2248 0.85 GeV above the ground heavy baryon (\u039b_c ~3.14, \u039b_b ~6.47 GeV, \u2026), above the orbital tower and just above current data \u2014 findable, not excluded; doubly-heavy / \u03a9_b entirely unconstrained",
+  "gap": "2\u221a\u03c3 \u2248 849 MeV, flavor-independent (heavy quark spectator)",
+  "predictions": "\u039b_c ~3.14, \u03a9_c ~3.54, \u039b_b ~6.47, \u03a9_b ~6.89, \u039e_cc ~4.47 GeV",
+  "signature": "supernumerary state at the SAME gap for c and b (cross-flavor)",
+  "audit": "just above current ceilings \u27f9 findable; \u039e_cc / \u03a9_b entirely unexplored",
+  "open": "exact mass (lattice hybrid gap 0.8\u20131.3 GeV); J^P (no smoking gun)",
+  "tests": [
+    {
+      "name": "T1_recap_freest_channel",
+      "description": "PR #102: heavy-quark baryons = the freest channel (sparse data). This probe makes the concrete M\u00f6bius/hybrid prediction there and audits its constraints.",
+      "freest_channel": "heavy-quark (charm/bottom, doubly-heavy) baryons",
+      "pass": true
+    },
+    {
+      "name": "T2_flavor_independent_flux_gap",
+      "description": "Heavy quark = spectator \u27f9 the M\u00f6bius/flux excitation (2\u221a\u03c3) is in the light/flux sector \u27f9 flavor-INDEPENDENT gap \u0394 \u2248 849 MeV (same for c and b). The cross-flavor handle.",
+      "gap_MeV": 848.5281374238571,
+      "gap_is_2sqrt_sigma": true,
+      "flavor_independent": true,
+      "replaces": "the absent exotic-J^P smoking gun (PR #102)",
+      "pass": true
+    },
+    {
+      "name": "T3_heavy_mobius_predictions",
+      "description": "Ground + 2\u221a\u03c3: \u039b_c ~3.14, \u03a9_c ~3.54, \u039b_b ~6.47, \u03a9_b ~6.89, \u039e_cc ~4.47 GeV.",
+      "rows": [
+        {
+          "baryon": "Lambda_c",
+          "ground_MeV": 2286,
+          "mobius_MeV": 3135
+        },
+        {
+          "baryon": "Omega_c",
+          "ground_MeV": 2695,
+          "mobius_MeV": 3544
+        },
+        {
+          "baryon": "Xi_cc",
+          "ground_MeV": 3622,
+          "mobius_MeV": 4471
+        },
+        {
+          "baryon": "Lambda_b",
+          "ground_MeV": 5620,
+          "mobius_MeV": 6469
+        },
+        {
+          "baryon": "Omega_b",
+          "ground_MeV": 6045,
+          "mobius_MeV": 6894
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_above_orbital_tower",
+      "description": "M\u00f6bius gap ~849 MeV > orbital gaps (P-wave ~310, \u039b_c(2940) ~654) \u27f9 supernumerary state ABOVE the orbital tower.",
+      "mobius_gap_MeV": 848.5281374238571,
+      "orbital_pwave_gap_MeV": 310,
+      "orbital_high_gap_MeV": 654,
+      "above_orbital_tower": true,
+      "pass": true
+    },
+    {
+      "name": "T5_constraint_audit",
+      "description": "All predictions above current excitation ceilings \u27f9 unexplored, findable, not excluded. \u039e_cc and \u03a9_b have no measured excitations \u2014 entirely unconstrained.",
+      "rows": [
+        {
+          "baryon": "Lambda_c",
+          "mobius_MeV": 3135,
+          "ceiling_MeV": 2940,
+          "ceiling_state": "\u039b_c(2940)",
+          "above_ceiling_MeV": 195
+        },
+        {
+          "baryon": "Omega_c",
+          "mobius_MeV": 3544,
+          "ceiling_MeV": 3120,
+          "ceiling_state": "\u03a9_c(3120)",
+          "above_ceiling_MeV": 424
+        },
+        {
+          "baryon": "Xi_cc",
+          "mobius_MeV": 4471,
+          "ceiling_MeV": 3622,
+          "ceiling_state": "none (ground only)",
+          "above_ceiling_MeV": 849
+        },
+        {
+          "baryon": "Lambda_b",
+          "mobius_MeV": 6469,
+          "ceiling_MeV": 6152,
+          "ceiling_state": "\u039b_b(6152)",
+          "above_ceiling_MeV": 317
+        },
+        {
+          "baryon": "Omega_b",
+          "mobius_MeV": 6894,
+          "ceiling_MeV": 6045,
+          "ceiling_state": "none (ground only)",
+          "above_ceiling_MeV": 849
+        }
+      ],
+      "all_above_ceiling": true,
+      "entirely_unexplored": [
+        "Xi_cc",
+        "Omega_b"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T6_cross_flavor_signature",
+      "description": "Signature: supernumerary state at the SAME \u0394 \u2248 849 MeV above both charm and bottom ground baryons \u2014 a correlated cross-flavor prediction (replaces the exotic-J^P smoking gun).",
+      "gap_charm_MeV": 848.5281374238571,
+      "gap_bottom_MeV": 848.5281374238571,
+      "gaps_equal_heavy_quark_symmetry": true,
+      "findable_at": "LHCb / Belle II / future",
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "Flavor-independent gap (heavy-quark symmetry + flux-tube quantum 2\u221a\u03c3) is the prediction; exact mass/J^P uncertain; a correlated counting prediction in the freest channel.",
+      "established": [
+        "heavy M\u00f6bius/hybrid baryon at flavor-INDEPENDENT gap 2\u221a\u03c3 \u2248 0.85 GeV above the ground heavy baryon (heavy quark spectator)",
+        "predictions (\u039b_c ~3.14, \u03a9_c ~3.54, \u039b_b ~6.47, \u03a9_b ~6.89, \u039e_cc ~4.47 GeV) just above current data \u2014 findable, not excluded",
+        "doubly-heavy \u039e_cc and \u03a9_b channels entirely unconstrained",
+        "cross-flavor correlation (same gap for c and b) is the heavy-sector signature"
+      ],
+      "open": [
+        "the exact mass \u2014 the flux-tube/hybrid gap is ~0.85 GeV here but lattice hybrid gaps span ~0.8\u20131.3 GeV",
+        "the J^P \u2014 no smoking gun (PR #102); a supernumerary ordinary-J^P state"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The heavy-quark M\u00f6bius/hybrid baryon sits at the flavor-independent flux-tube gap 2\u221a\u03c3 \u2248 0.85 GeV above the ground heavy baryon, above the orbital tower and just above current data \u2014 findable, not excluded; the doubly-heavy / \u03a9_b channels are entirely unconstrained. The cross-flavor correlation is the heavy-sector signature.",
+      "classification": "HEAVY_MOBIUS_BARYON_FLAVOR_INDEPENDENT_GAP_FINDABLE_UNCONSTRAINED",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "HEAVY_MOBIUS_BARYON_FLAVOR_INDEPENDENT_GAP_FINDABLE_UNCONSTRAINED",
+  "verdict": "THE HEAVY-QUARK M\u00d6BIUS BARYON SITS AT A FLAVOR-INDEPENDENT FLUX-TUBE GAP, JUST ABOVE CURRENT DATA \u2014 FINDABLE AND UNCONSTRAINED. PR #102 found the heavy-quark baryons the freest channel for BAM-specific baryonic exotics. This probe makes the concrete prediction there and audits its constraints.\n\nTHE HEAVY-QUARK-SYMMETRY HANDLE. A heavy baryon (Qqq) has the heavy quark as a near-static color source \u2014 a spectator. The M\u00f6bius / flux-tube excitation (the non-orientable twist of PRs #100\u2013#102) lives entirely in the LIGHT / flux sector, so its energy is INDEPENDENT of the heavy-quark mass: the gap is the flux-tube quantum \u0394 = 2\u221a\u03c3 \u2248 0.85 GeV, the SAME for charm and bottom. This flavor-independence is the heavy-sector handle that replaces the absent exotic-J^P smoking gun of PR #102 \u2014 a supernumerary state sitting the same ~0.85 GeV above BOTH the charm and bottom ground baryon is the M\u00f6bius/hybrid signature.\n\nTHE PREDICTIONS. Ground heavy baryon + \u0394: \u039b_c ~3.14, \u03a9_c ~3.54, \u039b_b ~6.47, \u03a9_b ~6.89, \u039e_cc ~4.47 GeV. The M\u00f6bius gap (~0.85 GeV) is well above the ordinary orbital/radial excitations (\u039b_c P-wave ~+0.31 GeV, \u039b_c(2940) ~+0.65 GeV), so the M\u00f6bius/hybrid baryon is a SUPERNUMERARY state ABOVE the orbital tower, not an orbital excitation.\n\nCONSTRAINT AUDIT. All predicted states lie just above the currently-measured excitation ceilings (\u039b_c data ends ~2.94 GeV, \u039b_b ~6.15 GeV) \u2014 unexplored, within LHCb / Belle II / future reach, and NOT excluded. The doubly-heavy \u039e_cc and the \u03a9_b have no measured excitation spectrum at all \u2014 BAM's prediction there is entirely unconstrained, the freest of the free. The signature is correlated, not exotic-J^P: as in PR #102 there is no forbidden baryon J^P, so the heavy M\u00f6bius baryon is a supernumerary ordinary-J^P state \u2014 but the heavy-quark-symmetry flavor-independence (same \u0394 for c and b) makes it a correlated cross-flavor prediction, findable precisely because the heavy spectrum is sparse and isolated.\n\nHONEST SCOPE. ESTABLISHED (BAM-native): the heavy-quark M\u00f6bius/hybrid baryon sits at the flavor-INDEPENDENT flux-tube gap \u0394 = 2\u221a\u03c3 \u2248 0.85 GeV above the ground heavy baryon, above the orbital tower; the predictions lie just above current data \u2014 findable, not excluded; the doubly-heavy and \u03a9_b channels are entirely unconstrained; the cross-flavor correlation is the heavy-sector signature. NOT established: the exact mass (the flux-tube/hybrid gap is ~0.85 GeV here but lattice hybrid gaps span ~0.8\u20131.3 GeV) or the J^P (no smoking gun) \u2014 it is a correlated counting prediction in the freest channel."
+}
