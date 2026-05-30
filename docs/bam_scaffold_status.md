@@ -298,6 +298,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `baryonic_exotics_classification_probe` | BAM baryonic exotics (Möbius/hybrid baryon) have NO exotic-J^P smoking gun (any J^P ordinary for qqq, no C) ⟹ supernumerary ordinary-J^P states (signature = counting); land in light N*/Δ* (~1.79, 2.08 GeV = base+2√σ); constraint ranking light N*/Δ* > strange hyperons > heavy baryons; Möbius doubling must coincide w/ observed states or decouple else excluded; MOST-constrained corner (opposite of glueballs) | BARYONIC_EXOTICS_LACK_EXOTIC_JP_LIGHT_SECTOR_MOST_CONSTRAINED |
 | `heavy_mobius_baryon_probe` | heavy-quark baryons = freest channel; heavy quark spectator ⟹ Möbius/flux gap 2√σ≈0.85 GeV FLAVOR-INDEPENDENT (same c,b); predictions Λ_c~3.14, Ω_c~3.54, Λ_b~6.47, Ω_b~6.89, Ξ_cc~4.47 GeV — all above current data (findable, not excluded), above orbital tower; Ξ_cc/Ω_b entirely unexplored; cross-flavor correlation = signature (no exotic J^P); exact mass/J^P open | HEAVY_MOBIUS_BARYON_FLAVOR_INDEPENDENT_GAP_FINDABLE_UNCONSTRAINED |
 | `program_synthesis_probe` | capstone: classifies all results into 5 epistemic tiers and counts the input budget — 2 dimensionful anchors (B4: m_e, √σ; the mandatory minimum) + 2 localized open dimensionless residuals (neutrino ε, quark n_part) + 1 universal flavor puzzle; the rest ~22 derived-geometry + 6 non-orientable topological predictions (matched→free) | BAM_TWO_ANCHORS_LOCALIZED_RESIDUALS_DERIVED_GEOMETRY_TOPOLOGICAL_PREDICTIONS |
+| `alpha_G_ledger_classification_probe` | places α and G in the #104 ledger: G = dimensionful ANCHOR (GR-foundational scale, root of m_e/√σ via the RS tuning λ_crit=√(6\|Λ₅\|)/κ₅², PR #57); α = UNIVERSAL dimensionless RESIDUAL (used as input A_EM=αℏc/2, a=α/2π; structure derived not value; only running derived — the 137 problem; sits with flavor puzzle); ℏ = geometric (closure quantum, ℏ=m_e·R_MID·c); c = units | G_IS_ANCHOR_ALPHA_IS_UNIVERSAL_RESIDUAL |
 
 ## Cross-references
 
@@ -754,6 +755,20 @@ the B4 audit shows cannot come from scale-free geometry.
     spanning matched → falsifiable → constrained → findable → free). In one
     line: two mandatory anchors + a couple of localized residuals + the
     universal flavor puzzle, the rest geometry and falsifiable predictions.
+  - `docs/alpha_G_ledger_classification_research_plan.md` — PR #105,
+    places the fundamental constants in the #104 ledger. **G** is the
+    dimensionful ANCHOR — the GR-foundational scale (the throat is a
+    gravitational wormhole; its size, the one B4 length, is set by the
+    bulk gravity via `λ_crit = √(6|Λ₅|)/κ₅²`, PR #57) and the root the
+    #104 sector anchors (`m_e`, `√σ`) descend from. **α** is a UNIVERSAL
+    dimensionless RESIDUAL — used as a numerical input throughout
+    (`A_EM = α·ℏc/2`, `a = α/2π`); BAM derives the charge unit (`|c₁|=1`),
+    the `1/2π` measure, and α's running, but the value 1/137 is a free
+    input as in the SM (the "137 problem"), so it sits with the flavor
+    puzzle, not the BAM-specific residuals. **ℏ** is geometric (the
+    closure quantum, `ℏ = m_e·R_MID·c`); **c** is units. Refines #104: α
+    was a silent residual input to its "derived geometry" tier, and G is
+    the root of its two sector anchors.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
