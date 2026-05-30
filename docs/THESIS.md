@@ -1189,3 +1189,24 @@ units, `G` the anchor, `α` a universal residual — the two genuinely
 irreducible inputs being one gravitational scale and one electromagnetic
 coupling, both of which every physical theory must currently take as
 given.
+
+Pressing the gravitational anchor one level further (PR #106) asks
+whether the two sector scales `m_e` and `√σ` are genuinely independent or
+both readouts of the single `G`. They are not independent: both are
+brane scales of the one bulk geometry, descending from the same
+gravity-tuned tension (`R_MID` and `σ` alike trace to `λ_crit =
+√(6|Λ₅|)/κ₅²`). So the *dimensionful*-anchor count collapses from two to
+one — the sole fundamental scale is `G`. The catch is that their
+dimensionless ratio `√σ/m_e ≈ 830` — the lepton-throat to
+QCD-confinement hierarchy — is not derived: it is no clean closure
+number (the nearest, `50π·k_5 = 785`, is a 5.4% near-coincidence in the
+spirit of `F_13 = 233`). So the reduction is a *repackaging*, not a free
+reduction: a dimensionful anchor has been traded for a dimensionless
+residual, and the total count of irreducible inputs is unchanged. What it
+buys is the cleaner statement of the GR-foundational posture — one
+gravitational scale `G` sets the units, and everything else, including
+the `m_e/√σ` hierarchy, is a dimensionless number the program either
+derives or, for now, carries as a residual alongside `ε`, `n_part`, and
+`α`. Deriving that one ratio — fixing the relative normalisation of the
+throat-winding and cavity-confinement channels — would reduce BAM to a
+single irreducible input.
