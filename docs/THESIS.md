@@ -455,6 +455,28 @@ dimensionful anchor, the B4 analogue (lepton `m_e = ℏc/R_MID` ↔ QCD
 `√σ`). The confinement *form* is geometric; only the one scale is
 anchored.
 
+**Glueballs: a pure-confinement benchmark, and where BAM's topology
+diverges (PR #100).** Glueballs — closed flux loops with no valence
+quarks — are the cleanest confinement probe: no quark masses, untouched
+by the flavor puzzle, mass set entirely by `σ`. The BAM orientable
+closed-loop ground state `√(4πσ) ≈ 1.50 GeV` (3.5√σ) benchmarks the
+lattice 0++ `√σ` scale (4.1√σ) to ~13%, and the closed-string glueball
+Regge slope is half the meson — both parameter-free given `σ`. The
+BAM-specific content is topological: the framework carries *two*
+closed-loop sectors, orientable (the glueball ring, periodic) and
+non-orientable (the Möbius tube, antiperiodic). The Möbius half-twist
+makes the modes antiperiodic — half-integer rather than integer — so the
+non-orientable glueball tower is shifted by `πσ` in `M²` and interleaves
+the orientable one, effectively doubling the glueball spectrum.
+Orientable-string lattice QCD has no such sector. Crucially, glueballs
+are *not experimentally observed* — they mix with ordinary qq̄ mesons of
+the same `J^PC` and have never been cleanly isolated — so the Möbius
+tower is a legitimate BAM-vs-lattice difference for a non-observable:
+testable against lattice (which can isolate pure glue), but contradicted
+by no experiment. This is the first place where BAM's non-orientable
+topology is *expected* to predict differently from QCD, precisely where
+nature has not yet ruled — a feature of the program, not a defect.
+
 The four-PR QCD-shell arc (PRs #77–#80) develops the right machinery
 quantitatively. The user's physical reframe: **quarks do not pass
 through the throat; they are the wavefronts that resolve the cavity

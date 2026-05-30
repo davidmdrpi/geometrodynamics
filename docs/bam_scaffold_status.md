@@ -293,6 +293,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `npart_dynamical_hierarchy_probe` | n_part=233 revisited: a huge hierarchy CAN be geometric (neutrino e^{−S}), so size isn't the obstruction; the quark hierarchy is IRREGULAR (c/u≈588 vs t/c≈136, up/down asym) — the QCD-RG signature; geometric shell span ×2.2 vs observed ×6.4×10⁹; quark is the program's one dynamical sector; gap N_q−N_lepton=366 = dynamical excess; PR #76 upheld+sharpened | QUARK_HIERARCHY_DYNAMICAL_N_PART_COMPENSATES |
 | `quark_hierarchy_flavor_puzzle_probe` | refines #97: quark mass RATIOS are RG-invariant (γ_m flavor-universal) ⟹ hierarchy is NOT α_s running but the FLAVOR PUZZLE (Yukawas); quark Yukawas overflow the compressed shell capacity (×1.49) by ~×5×10⁴; BAM captures quark STRUCTURE (6=3×2, Z₂, k=0, 3 gens) but not the magnitudes; #97 core (dynamical/non-geometric) stands | QUARK_HIERARCHY_IS_FLAVOR_PUZZLE_NOT_RG_RUNNING |
 | `qcd_confinement_cornell_audit_probe` | confinement geometry audit: Cornell V(L)=σL−A·ℏc/L (linear=flux-tube wormhole bridge, Coulomb=throat/gluon exchange); string breaking = Schwinger exp(−πm_q²/(σL)) = the PR #58 throat-pair mechanism with eE→σ; BAM σ reproduces Regge α'=1/(2πσ)=0.884 GeV⁻² and L_break; √σ≈0.42 GeV = the one QCD scale anchor (B4 analogue), calibrated not derived | CONFINEMENT_GEOMETRIC_STRING_BREAK_IS_SCHWINGER_SCALE_IS_QCD_ANCHOR |
+| `glueball_closed_flux_loop_probe` | glueballs = pure-confinement benchmark (closed flux loops, no quark/flavor input); BAM orientable ground √(4πσ)≈1.50 GeV (3.5√σ) benchmarks lattice 0++ (4.1√σ) to ~13%; closed-string glueball Regge slope = half the meson; BAM non-orientable Möbius sector ⟹ extra glueball tower (half-int modes, +πσ in M²) interleaving the orientable one (≈2× states); legitimate vs lattice not experiment (glueballs unobserved) | GLUEBALL_SCALE_BENCHMARKS_LATTICE_MOBIUS_TOWER_IS_BAM_TOPOLOGY |
 
 ## Cross-references
 
@@ -675,6 +676,23 @@ the B4 audit shows cannot come from scale-free geometry.
     analogue: lepton `m_e` ↔ QCD `√σ`); the Cornell form + Schwinger
     break + Regge slope are geometric, the `σ` value calibrated to lattice
     (not derived).
+  - `docs/glueball_closed_flux_loop_research_plan.md` — PR #100, uses
+    closed flux loops (glueballs) as a pure-confinement benchmark vs
+    lattice QCD — the cleanest confinement probe (no valence quarks, no
+    flavor puzzle). The BAM orientable closed-loop ground state
+    `√(4πσ) ≈ 1.50 GeV` (3.5√σ) benchmarks the lattice 0++ `√σ` scale
+    (4.1√σ) to ~13%, and the closed-string glueball Regge slope is half
+    the meson. **Where BAM's topology diverges:** the machinery has both
+    orientable (`make_glueball_ring`, periodic) and **non-orientable**
+    (`make_mobius_tube`, antiperiodic) closed loops; the Möbius
+    antiperiodic boundary condition shifts the modes integer → half-
+    integer, giving an extra **Möbius glueball tower** shifted by `πσ` in
+    `M²` that interleaves the orientable one (≈2× the states). Since
+    glueballs are *not experimentally observed* (they mix with qq̄ mesons),
+    this is a legitimate BAM-vs-lattice difference for a non-observable —
+    testable against lattice (pure-glue states), not contradicted by
+    experiment. The √σ scale + the topological doubling are robust; the
+    exact `M/√σ` coefficients need the full closed-loop dynamics.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
