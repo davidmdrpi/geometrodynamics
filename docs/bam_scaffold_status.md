@@ -297,6 +297,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `mobius_exotic_sector_probe` | flux-network topology = hadron taxonomy (meson/baryon/tetraquark/pentaquark/hybrid/glueball + Möbius Z₂); non-orientable (Möbius) flux tube carries the exotic J^PC (1-+) forbidden to ordinary qq̄; observed 1-+ hybrids π₁(1600), η₁(1855) match at right J^PC and at ρ/ω+2√σ (≈1.62, 1.85 GeV); multiquark exotics (X,Z_c,T_cc,P_c)=multi-junction networks; unlike glueballs, exotics observed ⟹ BAM topology meets data and matches | MOBIUS_FLUX_GIVES_EXOTIC_JPC_OBSERVED_HYBRIDS_MATCH |
 | `baryonic_exotics_classification_probe` | BAM baryonic exotics (Möbius/hybrid baryon) have NO exotic-J^P smoking gun (any J^P ordinary for qqq, no C) ⟹ supernumerary ordinary-J^P states (signature = counting); land in light N*/Δ* (~1.79, 2.08 GeV = base+2√σ); constraint ranking light N*/Δ* > strange hyperons > heavy baryons; Möbius doubling must coincide w/ observed states or decouple else excluded; MOST-constrained corner (opposite of glueballs) | BARYONIC_EXOTICS_LACK_EXOTIC_JP_LIGHT_SECTOR_MOST_CONSTRAINED |
 | `heavy_mobius_baryon_probe` | heavy-quark baryons = freest channel; heavy quark spectator ⟹ Möbius/flux gap 2√σ≈0.85 GeV FLAVOR-INDEPENDENT (same c,b); predictions Λ_c~3.14, Ω_c~3.54, Λ_b~6.47, Ω_b~6.89, Ξ_cc~4.47 GeV — all above current data (findable, not excluded), above orbital tower; Ξ_cc/Ω_b entirely unexplored; cross-flavor correlation = signature (no exotic J^P); exact mass/J^P open | HEAVY_MOBIUS_BARYON_FLAVOR_INDEPENDENT_GAP_FINDABLE_UNCONSTRAINED |
+| `program_synthesis_probe` | capstone: classifies all results into 5 epistemic tiers and counts the input budget — 2 dimensionful anchors (B4: m_e, √σ; the mandatory minimum) + 2 localized open dimensionless residuals (neutrino ε, quark n_part) + 1 universal flavor puzzle; the rest ~22 derived-geometry + 6 non-orientable topological predictions (matched→free) | BAM_TWO_ANCHORS_LOCALIZED_RESIDUALS_DERIVED_GEOMETRY_TOPOLOGICAL_PREDICTIONS |
 
 ## Cross-references
 
@@ -739,6 +740,20 @@ the B4 audit shows cannot come from scale-free geometry.
     doubly-heavy Ξ_cc and Ω_b have no measured excitations at all —
     entirely unconstrained. A correlated counting prediction; exact mass
     (lattice hybrid gap 0.8–1.3 GeV) and `J^P` open.
+  - `docs/program_synthesis_research_plan.md` — PR #104, the capstone
+    synthesis. Classifies every major result into five epistemic tiers and
+    counts the input budget: BAM's entire DIMENSIONFUL content reduces to
+    **two B4 anchors** — `m_e = ℏc/R_MID` (QED/lepton) and `√σ ≈ Λ_QCD`
+    (confinement) — the irreducible B4 minimum (one scale per sector,
+    PR #52). The genuinely-open DIMENSIONLESS inputs are localized to two —
+    the neutrino compliance `ε` (bracketed `[2π, k_5√(2π)]`) and the quark
+    `n_part` (a flavor-puzzle compensator). Beyond these there is one
+    UNIVERSAL open problem, the flavor puzzle (the quark Yukawa hierarchy,
+    derivable by no theory — not BAM-specific). Everything else is derived
+    geometry (~22 results) or a non-orientable topological prediction (~6,
+    spanning matched → falsifiable → constrained → findable → free). In one
+    line: two mandatory anchors + a couple of localized residuals + the
+    universal flavor puzzle, the rest geometry and falsifiable predictions.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
