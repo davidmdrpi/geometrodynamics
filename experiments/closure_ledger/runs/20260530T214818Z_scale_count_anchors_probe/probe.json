@@ -1,0 +1,110 @@
+{
+  "timestamp_utc": "2026-05-30T21:48:18+00:00",
+  "identification": "m_e and \u221a\u03c3 are not independent \u2014 both are sector readouts of the single bulk-gravity scale G (PR #57); the dimensionful-anchor count reduces 2\u21921, but the dimensionless ratio \u221a\u03c3/m_e \u2248 830 is underived (a new open residual), so the total irreducible-input count is unchanged",
+  "origin": "both brane scales of one bulk geometry (G); PR #57 RS tuning",
+  "ratio": "\u221a\u03c3/m_e \u2248 830 \u2014 UNDERIVED (nearest 50\u03c0\u00b7k_5=785, 5.4% off)",
+  "verdict_on_independence": "NOT independent \u2014 one G + one open dimensionless ratio",
+  "bookkeeping": "dimensionful 2\u21921, but a dimensionless residual added; total inputs unchanged",
+  "open": "derive the ~830 lepton/QCD hierarchy (channel normalisation) to reach a true single input",
+  "tests": [
+    {
+      "name": "T1_the_question",
+      "description": "Are m_e (lepton scale) and \u221a\u03c3 (QCD scale) two INDEPENDENT B4 anchors, or readouts of a single bulk-gravity scale G \u00d7 dimensionless ratios?",
+      "pass": true
+    },
+    {
+      "name": "T2_common_gravitational_origin",
+      "description": "Both m_e and \u221a\u03c3 descend from the bulk gravity (PR #57): R_MID from \u03bb_crit = \u221a(6|\u039b\u2085|)/\u03ba\u2085\u00b2; \u03c3 \u221d \u221a|\u039b\u2085|/\u03ba\u2085\u00b2. One bulk-gravity scale G in two channels (throat-winding / cavity-confinement).",
+      "m_e_origin": "\u210fc/R_MID; R_MID from gravity-tuned brane tension (PR #57)",
+      "sqrt_sigma_origin": "\u03c3 \u221d \u221a|\u039b\u2085|/\u03ba\u2085\u00b2 (PR #57)",
+      "two_independent_kinds": false,
+      "one_scale_two_channels": true,
+      "pass": true
+    },
+    {
+      "name": "T3_dimensionless_ratio",
+      "description": "\u221a\u03c3/m_e \u2248 830 (m_e/\u221a\u03c3 \u2248 1/830): the lepton-throat / QCD-confinement scale hierarchy.",
+      "m_e_MeV": 0.5109989,
+      "sqrt_sigma_MeV": 424.26406871192853,
+      "ratio_sqrt_sigma_over_m_e": 830.264152646764,
+      "pass": true
+    },
+    {
+      "name": "T4_ratio_underived",
+      "description": "No clean closure match for ~830: nearest is 50\u03c0\u00b7k_5 = 785 (5.4% off), a near-coincidence (cf. F_13=233), not a derivation. The ratio is UNDERIVED.",
+      "candidates": [
+        {
+          "candidate": "50\u03c0\u00b7k_5",
+          "value": 785.3981633974483,
+          "rel_off": -0.054038210738461136
+        },
+        {
+          "candidate": "k_5\u2074",
+          "value": 625,
+          "rel_off": -0.2472275263148615
+        },
+        {
+          "candidate": "k_5\u2074 + k_5\u00b2",
+          "value": 650,
+          "rel_off": -0.21711662736745596
+        },
+        {
+          "candidate": "(2\u03c0)\u00b3",
+          "value": 248.05021344239853,
+          "rel_off": -0.7012394035661424
+        },
+        {
+          "candidate": "2\u00b7k_5\u2074",
+          "value": 1250.0,
+          "rel_off": 0.505544947370277
+        }
+      ],
+      "closest": "50\u03c0\u00b7k_5",
+      "closest_rel_off": -0.054038210738461136,
+      "clean_match": false,
+      "underived": true,
+      "pass": true
+    },
+    {
+      "name": "T5_not_independent_anchors",
+      "description": "m_e and \u221a\u03c3 NOT independent \u2014 one bulk-gravity scale G + one open dimensionless ratio. Dimensionful-anchor count 2 \u2192 1.",
+      "independent_anchors": false,
+      "dimensionful_anchor_count_before": 2,
+      "dimensionful_anchor_count_after": 1,
+      "plus_one_open_dimensionless_ratio": true,
+      "pass": true
+    },
+    {
+      "name": "T6_repackaging_not_free_reduction",
+      "description": "2\u21921 dimensionful is a REPACKAGING: a dimensionful anchor \u2192 a dimensionless residual. TOTAL irreducible inputs unchanged (2 \u2192 1+1). Buys conceptual cleanliness: the sole fundamental scale is G (GR-foundational).",
+      "total_inputs_before": 2,
+      "total_inputs_after": 2,
+      "total_unchanged": true,
+      "gain": "sole fundamental SCALE = G; everything else dimensionless",
+      "pass": true
+    },
+    {
+      "name": "T7_updated_ledger",
+      "description": "Updated ledger: ONE foundational dimensionful anchor (G); the m_e/\u221a\u03c3 ratio joins \u03b5, n_part, \u03b1 as open dimensionless residuals (its smallness overlaps the flavor puzzle).",
+      "foundational_dimensionful_anchor": "G (the bulk-gravity scale)",
+      "open_dimensionless_residuals": [
+        "neutrino compliance \u03b5",
+        "quark n_part = 233",
+        "\u03b1 (universal; PR #105)",
+        "m_e/\u221a\u03c3 \u2248 1/830 (the lepton/QCD scale hierarchy; this probe)"
+      ],
+      "ratio_overlaps_flavor_puzzle": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "m_e and \u221a\u03c3 are not independent \u2014 both are sector readouts of the single bulk-gravity scale G; the dimensionful-anchor count reduces 2\u21921, but the dimensionless ratio m_e/\u221a\u03c3 \u2248 1/830 is underived and becomes a new open residual, so the total irreducible-input count is unchanged \u2014 a cleaner 'one fundamental scale (G)' repackaging.",
+      "classification": "M_E_SQRT_SIGMA_NOT_INDEPENDENT_ONE_G_PLUS_UNDERIVED_RATIO",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "M_E_SQRT_SIGMA_NOT_INDEPENDENT_ONE_G_PLUS_UNDERIVED_RATIO",
+  "verdict": "m_e AND \u221a\u03c3 ARE NOT INDEPENDENT \u2014 ONE BULK-GRAVITY SCALE G PLUS AN UNDERIVED DIMENSIONLESS RATIO. PR #105 found G the dimensionful anchor and the root the #104 sector anchors descend from. This probe settles whether m_e and \u221a\u03c3 are two independent dimensionful inputs or readouts of the single scale G.\n\nCOMMON GRAVITATIONAL ORIGIN. Both #104 anchors are brane/geometric scales of the SAME bulk geometry, descending from the bulk gravity (PR #57): the throat size R_MID (\u27f9 m_e = \u210fc/R_MID) is set by the Randall\u2013Sundrum-tuned brane tension \u03bb_crit = \u221a(6|\u039b\u2085|)/\u03ba\u2085\u00b2, and the confinement tension \u03c3 \u221d \u221a|\u039b\u2085|/\u03ba\u2085\u00b2. So m_e and \u221a\u03c3 are NOT two independent KINDS of input \u2014 both are the one bulk-gravity scale G read out in two channels (the throat-winding lepton channel and the cavity-confinement QCD channel, PR #83).\n\nBUT THE RATIO IS NOT DERIVED. The dimensionless ratio \u221a\u03c3/m_e \u2248 0.424 GeV / 0.511 MeV \u2248 830 \u2014 the lepton-throat (electron Compton) to QCD-confinement length hierarchy \u2014 is not a clean closure number: the nearest BAM closure quantity is 50\u03c0\u00b7k_5 = 785 (5.4% off), a near-coincidence in the spirit of F_13 = 233 (PR #76), not a derivation. So the geometry does not yet fix the relative normalisation of the two channels.\n\nTHE VERDICT. m_e and \u221a\u03c3 are NOT independent dimensionful anchors \u2014 they share the one bulk-gravity scale G. Equivalently, the program has ONE foundational dimensionful anchor (G) plus ONE open dimensionless ratio (m_e/\u221a\u03c3 \u2248 1/830). The dimensionful-anchor count reduces from two to one. But this is a REPACKAGING, not a free-lunch reduction: a dimensionful anchor has been converted into a dimensionless residual, so the TOTAL count of irreducible inputs is unchanged (2 dimensionful \u2192 1 dimensionful + 1 dimensionless). What it buys is conceptual cleanliness \u2014 the sole fundamental SCALE is the gravitational foundation G, with everything else dimensionless, exactly the GR-foundational posture. The new ratio joins \u03b5, n_part, and \u03b1 as the program's open dimensionless residuals; its smallness (the electron being anomalously light relative to \u039b_QCD) overlaps the flavor puzzle, though it is not identical to it.\n\nHONEST SCOPE. ESTABLISHED (BAM-native): m_e and \u221a\u03c3 both descend from the single bulk-gravity scale G (PR #57), so they are not independent; the dimensionful-anchor count reduces 2\u21921. NOT established: a derivation of the ~830 lepton/QCD hierarchy \u2014 it is underived (no clean closure match) and becomes a new open dimensionless residual, leaving the total irreducible-input count unchanged. Fixing that ratio from the throat-winding vs cavity-confinement channel normalisation would genuinely reduce the count to one."
+}

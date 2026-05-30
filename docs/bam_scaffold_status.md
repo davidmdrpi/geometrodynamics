@@ -299,6 +299,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `heavy_mobius_baryon_probe` | heavy-quark baryons = freest channel; heavy quark spectator ⟹ Möbius/flux gap 2√σ≈0.85 GeV FLAVOR-INDEPENDENT (same c,b); predictions Λ_c~3.14, Ω_c~3.54, Λ_b~6.47, Ω_b~6.89, Ξ_cc~4.47 GeV — all above current data (findable, not excluded), above orbital tower; Ξ_cc/Ω_b entirely unexplored; cross-flavor correlation = signature (no exotic J^P); exact mass/J^P open | HEAVY_MOBIUS_BARYON_FLAVOR_INDEPENDENT_GAP_FINDABLE_UNCONSTRAINED |
 | `program_synthesis_probe` | capstone: classifies all results into 5 epistemic tiers and counts the input budget — 2 dimensionful anchors (B4: m_e, √σ; the mandatory minimum) + 2 localized open dimensionless residuals (neutrino ε, quark n_part) + 1 universal flavor puzzle; the rest ~22 derived-geometry + 6 non-orientable topological predictions (matched→free) | BAM_TWO_ANCHORS_LOCALIZED_RESIDUALS_DERIVED_GEOMETRY_TOPOLOGICAL_PREDICTIONS |
 | `alpha_G_ledger_classification_probe` | places α and G in the #104 ledger: G = dimensionful ANCHOR (GR-foundational scale, root of m_e/√σ via the RS tuning λ_crit=√(6\|Λ₅\|)/κ₅², PR #57); α = UNIVERSAL dimensionless RESIDUAL (used as input A_EM=αℏc/2, a=α/2π; structure derived not value; only running derived — the 137 problem; sits with flavor puzzle); ℏ = geometric (closure quantum, ℏ=m_e·R_MID·c); c = units | G_IS_ANCHOR_ALPHA_IS_UNIVERSAL_RESIDUAL |
+| `scale_count_anchors_probe` | m_e and √σ NOT independent — both descend from the one bulk-gravity scale G (PR #57), so dimensionful-anchor count reduces 2→1; but the ratio √σ/m_e≈830 is UNDERIVED (no clean closure match; nearest 50π·k_5=785, 5.4% off — a near-coincidence like F_13=233), so it becomes a new open dimensionless residual; a repackaging (dimensionful→dimensionless), total irreducible inputs unchanged; cleaner "one fundamental scale G" picture | M_E_SQRT_SIGMA_NOT_INDEPENDENT_ONE_G_PLUS_UNDERIVED_RATIO |
 
 ## Cross-references
 
@@ -769,6 +770,20 @@ the B4 audit shows cannot come from scale-free geometry.
     closure quantum, `ℏ = m_e·R_MID·c`); **c** is units. Refines #104: α
     was a silent residual input to its "derived geometry" tier, and G is
     the root of its two sector anchors.
+  - `docs/scale_count_anchors_research_plan.md` — PR #106, settles the
+    scale-count question #105 raised. `m_e` and `√σ` are NOT independent —
+    both are brane scales of the one bulk geometry, descending from the
+    bulk gravity `G` (PR #57: `m_e=ℏc/R_MID` with `R_MID` from `λ_crit=
+    √(6|Λ₅|)/κ₅²`; `σ∝√|Λ₅|/κ₅²`) — so the dimensionful-anchor count
+    reduces **2→1** (`G`). But their dimensionless ratio `√σ/m_e≈830` (the
+    lepton-throat/QCD-confinement hierarchy) is **underived** — no clean
+    closure number (nearest `50π·k_5=785`, 5.4% off, a near-coincidence
+    like `F_13=233`). So it is a **repackaging, not a free reduction**: a
+    dimensionful anchor becomes a dimensionless residual (joining `ε`,
+    `n_part`, `α`), total irreducible inputs unchanged. The gain is the
+    GR-foundational cleanliness — the sole fundamental *scale* is `G`,
+    everything else dimensionless. Deriving the ~830 ratio (the channel
+    normalisation) would reduce BAM to a single irreducible input.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
