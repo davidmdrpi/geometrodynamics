@@ -663,6 +663,22 @@ coming tonne-scale 0νββ searches — the exact `m_ββ` remaining a band
 because the lightest mass is unmeasured and the Majorana phases are
 anarchic.
 
+PR #96 adds the cosmological companion from the *same* spectrum. The sum
+of neutrino masses `Σm_ν = m1 + m2 + m3`, probed by CMB lensing and
+large-scale structure, has a normal-ordering floor `√Δm²_21 + √Δm²_31 ≈
+58.7 meV` (the inverted-ordering floor being ≈ 99 meV); the BAM light
+scale (PR #90) keeps the sum pinned just above it, `Σm_ν ≈ 59–65 meV`,
+out of the quasi-degenerate regime. This is consistent with Planck 2018 +
+BAO (< 120 meV), just inside DESI DR1 + CMB (< 72 meV), and right at the
+DESI DR2 + CMB frontier (~60–64 meV) — exactly where cosmology is now
+probing. A robust cosmological `Σm_ν` below the normal-ordering floor
+would exclude normal ordering (and sit in tension with the oscillation
+`Δm²` themselves), while a quasi-degenerate `Σm_ν ≳ 100 meV` would
+contradict the light scale. So `m_ββ` (≲ 8 meV) and `Σm_ν` (~60 meV) are
+the two observables of one light, normal-ordered, Majorana spectrum — a
+joint, cross-checkable pair that current and near-term experiments are
+already testing.
+
 **QFT event reinterpretation: Compton scattering from BAM.** _Closed
 at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a
 BAM amplitude for Compton scattering by progressively identifying
