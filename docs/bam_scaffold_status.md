@@ -290,6 +290,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `cp_majorana_phase_probe` | CP violation generic (winding amplitudes Hopf-complex e^{ikχ}, PR #60; CP-conservation measure-zero); Jarlskog dichotomy: \|J_PMNS\|≈0.026 typical of anarchy (51st/81st pct), \|J_CKM\|≈3e-5 extremely atypical (aligned, suppressed); two Majorana phases EXIST ⟸ neutrino Majorana ⟸ c₁=0 (PR #86), 0νββ; specific phase values anarchic/not pinned | CP_GENERIC_MAJORANA_PHASES_EXIST_VALUES_ANARCHIC |
 | `zeronubb_effective_mass_probe` | 0νββ occurs ⟸ Majorana (c₁=0, PR #86); BAM normal-ordering band (PR #91) below IO floor ~19 meV; anarchic Majorana phases (PR #94) populate full band incl. cancellation→~0; light scale (PR #90) ⟹ m_ββ ≲ 8 meV — below current (28–122 meV) & next-gen (~9–20 meV) reach; falsifiable (discovery ≳19 meV ⟹ IO/degenerate); exact m_ββ a band | ZERONUBB_OCCURS_NORMAL_ORDERING_M_BB_FEW_MEV |
 | `cosmological_sigma_mnu_probe` | same light, normal-ordered spectrum ⟹ Σm_ν ≈ 59–65 meV (NO floor 58.7 meV, below IO floor 99 meV); consistent with Planck (<120), at the DESI DR2+CMB frontier (~60–64 meV); falsifiable (Σ<58.7 ⟹ NO excluded; Σ≳100 ⟹ not light); cross-checks PR #95 (m_ββ ≲ 8 meV) | SIGMA_MNU_AT_NORMAL_ORDERING_FLOOR_60MEV |
+| `npart_dynamical_hierarchy_probe` | n_part=233 revisited: a huge hierarchy CAN be geometric (neutrino e^{−S}), so size isn't the obstruction; the quark hierarchy is IRREGULAR (c/u≈588 vs t/c≈136, up/down asym) — the QCD-RG signature; geometric shell span ×2.2 vs observed ×6.4×10⁹; quark is the program's one dynamical sector; gap N_q−N_lepton=366 = dynamical excess; PR #76 upheld+sharpened | QUARK_HIERARCHY_DYNAMICAL_N_PART_COMPENSATES |
 
 ## Cross-references
 
@@ -626,6 +627,22 @@ the B4 audit shows cannot come from scale-free geometry.
     and `m_ββ` (PR #95) are one spectrum's two observables — a joint,
     cross-checkable prediction; the exact `Σm_ν` is a narrow band (the
     lightest mass is unmeasured).
+  - `docs/npart_dynamical_hierarchy_research_plan.md` — PR #97, revisits
+    the `n_part = 233` quark compensator (PR #76) with the now-complete
+    lepton/neutrino sectors. The neutrino arc proved a huge hierarchy can
+    be geometric (the `e^{S}` tortoise bounce, ~10⁶), so *size* is not the
+    obstruction. The quark inter-generation hierarchy is non-geometric for
+    a diagnosable reason: it is **irregular** (up-type `c/u≈588` vs
+    `t/c≈136` ⟹ not exponential; up/down asymmetric ⟹ not a single power
+    law) — the signature of QCD-RG running (`α_s` logarithmic). The
+    geometric shell `ω²(1,n=3,4,5)` carries only ×2.2 of the ×6.4×10⁹
+    observed mass² span. So the quark sector is the program's ONE
+    DYNAMICAL hierarchy; the quark closure integer is the only one that
+    §8-drifts, and the lepton↔quark gap `N_q − N_lepton = 366` quanta is
+    the dynamical (QCD) excess. PR #76's compensator verdict is upheld and
+    sharpened — `n_part` compensates a dynamical hierarchy; the right
+    route is a QCD-shell model *with* `α_s` running. Not a derivation
+    (none should exist in the geometric machinery).
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target

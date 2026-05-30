@@ -388,6 +388,30 @@ modes that give the lepton ladder), but quarks live in the QCD shell
 channel (#68–#69). `n_part = 233` is the empirical price of fitting
 QCD-confined quarks on closure-quantum throat basis vectors.
 
+PR #97 revisits this with the now-complete lepton and neutrino sectors
+and sharpens the diagnosis. The implicit worry behind PR #76 — that the
+~9-order quark mass² hierarchy is simply too large for the geometric
+closure machinery — is overturned by the neutrino arc, which derived a
+comparable hierarchy (the keV→TeV seesaw `M_R = m_D·e^{S}`, ~10⁶ in mass)
+as a *clean geometric exponential* (the tortoise bounce, an O(15)
+action). So size is not the obstruction. The program now has two
+geometric hierarchy types — charged leptons (the closure-ledger ladder
+with the §8-stable integer `4·k_5² = 100`) and neutrinos (the bounce
+exponential). The quark hierarchy, by contrast, is **irregular**: the
+consecutive up-type ratios `m_c/m_u ≈ 588` and `m_t/m_c ≈ 136` are not
+constant (so not a clean exponential), and the down-type ratios differ
+(so not a single power law). Irregularity across a wide scale range is
+the signature of renormalisation-group running (`α_s` logarithmic), so
+the quark masses are QCD-dressed dynamically — the quark sector is the
+mass program's **one dynamical (non-geometric) hierarchy**. This is why
+the quark closure integer is the only one that §8-drifts (216–255): it
+absorbs dynamical content no geometric closure quantity encodes, and the
+lepton↔quark gap `N_q − N_lepton = 466 − 100 = 366` quanta is precisely
+that dynamical (QCD) excess. The compensator verdict stands, sharpened: a
+geometric closure integer can only *compensate* a dynamical hierarchy,
+never derive it — and the right route is a QCD-shell model *with* `α_s`
+running.
+
 The four-PR QCD-shell arc (PRs #77–#80) develops the right machinery
 quantitatively. The user's physical reframe: **quarks do not pass
 through the throat; they are the wavefronts that resolve the cavity
