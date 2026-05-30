@@ -1,0 +1,94 @@
+{
+  "timestamp_utc": "2026-05-30T21:25:02+00:00",
+  "identification": "G = dimensionful ANCHOR (the GR-foundational scale; root of the #104 sector anchors m_e, \u221a\u03c3); \u03b1 = UNIVERSAL dimensionless RESIDUAL (value a free input as in the SM; only the running derived). \u210f = geometric (closure quantum); c = units.",
+  "G": "DIMENSIONFUL ANCHOR (B4) \u2014 gravitational, foundational, root of m_e/\u221a\u03c3",
+  "alpha": "UNIVERSAL RESIDUAL \u2014 value (1/137) free; only running derived; sits with flavor puzzle",
+  "hbar": "GEOMETRIC \u2014 closure quantum, \u210f = m_e\u00b7R_MID\u00b7c",
+  "c": "unit convention",
+  "open": "geometric derivation of \u03b1 (137 problem); first-principles G; how many independent scales",
+  "tests": [
+    {
+      "name": "T1_the_question",
+      "description": "Under the PR #104 five-tier ledger (derived / anchor / residual / flavor-puzzle / topological-prediction), classify the fine-structure constant \u03b1 and Newton's constant G.",
+      "classes": [
+        "DERIVED",
+        "DIMENSIONFUL ANCHOR (B4)",
+        "OPEN dimensionless residual",
+        "universal open problem"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_baseline_c_and_hbar",
+      "description": "c = unit convention (length=time). \u210f = the closure quantum; \u210f = m_e\u00b7R_MID\u00b7c (Compton bridge) \u27f9 geometric / derived-structure, NOT an independent input.",
+      "c": "unit convention (not physical content)",
+      "hbar": "closure quantum (2\u03c0); \u210f = m_e\u00b7R_MID\u00b7c \u2014 geometric/derived",
+      "hbar_is_independent_input": false,
+      "pass": true
+    },
+    {
+      "name": "T3_G_is_dimensionful_anchor",
+      "description": "Throat = gravitational wormhole; its size (the B4 length \u0394R/R_MID) set by bulk gravity (\u03bb_crit = \u221a(6|\u039b\u2085|)/\u03ba\u2085\u00b2, PR #57). G \u221d \u03ba\u2085 is the dimensionful anchor \u2014 the GR-foundational scale, root of the #104 sector anchors (m_e, \u221a\u03c3).",
+      "classification": "DIMENSIONFUL ANCHOR (B4); the gravitational, foundational one",
+      "rs_relation": "\u03bb_crit = \u221a(6|\u039b\u2085|)/\u03ba\u2085\u00b2 (PR #57); \u03c3 \u221d \u221a|\u039b\u2085|/\u03ba\u2085\u00b2",
+      "sector_anchors_descend_from_G": [
+        "m_e = \u210fc/R_MID (R_MID from gravity-tuned tension)",
+        "\u221a\u03c3 (\u03c3 \u221d \u221a|\u039b\u2085|/\u03ba\u2085\u00b2)"
+      ],
+      "derivable_within_framework": false,
+      "pass": true
+    },
+    {
+      "name": "T4_alpha_used_as_input",
+      "description": "\u03b1 is a numerical input: A_EM = \u03b1\u00b7\u210fc/2, U_EM/mc\u00b2 = \u03b1/2 (PR #55), a = \u03b1/2\u03c0 (PR #62). BAM derives the STRUCTURE (charge unit |c\u2081|=1, the 1/2\u03c0 measure, the \u03b1/2 form), not the value.",
+      "alpha_input_value": 0.0072973525693,
+      "structure_derived_around_alpha": [
+        "charge UNIT |c\u2081| = 1 (quantization)",
+        "the 1/2\u03c0 loop measure (PR #74)",
+        "U_EM/(mc\u00b2) = \u03b1/2 self-energy form (PR #55)"
+      ],
+      "value_137_derived": false,
+      "pass": true
+    },
+    {
+      "name": "T5_alpha_universal_residual",
+      "description": "\u03b1's running is derived (\u03b2-function); its value 1/137 is a free input in BAM, the SM, and every framework (the 137 problem). A UNIVERSAL dimensionless residual \u2014 sits with the flavor puzzle, not the BAM-specific residuals (\u03b5, n_part).",
+      "classification": "OPEN dimensionless residual (UNIVERSAL \u2014 like the flavor puzzle)",
+      "running_derived": true,
+      "value_a_free_input": true,
+      "bam_specific": false,
+      "geometric_derivation_of_137": "open aspiration, unfulfilled",
+      "pass": true
+    },
+    {
+      "name": "T6_refinement_of_104",
+      "description": "\u03b1 is a residual INPUT to #104's derived-geometry tier (a=\u03b1/2\u03c0 derives 1/2\u03c0 given \u03b1), not derived. G is the root dimensionful anchor the #104 sector anchors (m_e, \u221a\u03c3) descend from.",
+      "alpha_reclassified": "residual input to the derived-geometry tier (not derived)",
+      "G_placement": "root dimensionful anchor (Tier 2); m_e and \u221a\u03c3 descend from it",
+      "open_question": "how many truly-independent dimensionful scales (toward one gravitational G?)",
+      "pass": true
+    },
+    {
+      "name": "T7_fundamental_constant_classification",
+      "description": "\u210f geometric (closure quantum); c units; G dimensionful anchor (GR scale); \u03b1 universal dimensionless residual.",
+      "table": {
+        "c": "unit convention (length = time)",
+        "hbar": "GEOMETRIC \u2014 the closure quantum (2\u03c0); \u210f = m_e\u00b7R_MID\u00b7c",
+        "G": "DIMENSIONFUL ANCHOR (B4) \u2014 the GR-foundational scale; root of m_e, \u221a\u03c3",
+        "alpha": "UNIVERSAL RESIDUAL \u2014 value (1/137) a free input; only the running derived"
+      },
+      "honest_scope": "BAM derives the charge UNIT (|c\u2081|=1) and the EM structure and \u03b1's running, but not \u03b1's value; G is the foundation's own scale (not derivable within a gravity-foundational theory); the geometric derivation of \u03b1 and a first-principles G are open aspirations",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "G is the dimensionful (gravitational, foundational) anchor \u2014 the GR scale the B4 length and the #104 sector anchors descend from; \u03b1 is a universal dimensionless residual \u2014 BAM derives the charge unit, the EM structure, and \u03b1's running, but the value 1/137 is a free input as in every framework. \u210f is geometric (the closure quantum); c is units.",
+      "classification": "G_IS_ANCHOR_ALPHA_IS_UNIVERSAL_RESIDUAL",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "G_IS_ANCHOR_ALPHA_IS_UNIVERSAL_RESIDUAL",
+  "verdict": "G IS THE GRAVITATIONAL ANCHOR; \u03b1 IS A UNIVERSAL RESIDUAL. PR #104 reduced BAM's dimensionful content to two B4 anchors (m_e, \u221a\u03c3). This probe places the fine-structure constant \u03b1 and Newton's constant G in that ledger, and sharpens it.\n\nBASELINE. Of the four fundamental constants, c is a unit convention and \u210f is the closure quantum \u2014 the closure ledger reduces every dimensionless parameter to 2\u03c0-invariants, and the Compton bridge gives \u210f = m_e\u00b7R_MID\u00b7c, so \u210f is GEOMETRIC (derived-structure), fixed once the single dimensionful anchor is, not an independent input.\n\nG IS AN ANCHOR. BAM is GR-foundational: the throat is a gravitational wormhole, and its size \u2014 the invariant bulk length \u0394R/R_MID, the one dimensionful input the B4 theorem requires \u2014 is set by the bulk gravity sector via the Randall\u2013Sundrum tuning \u03bb_crit = \u221a(6|\u039b\u2085|)/\u03ba\u2085\u00b2 (PR #57). So G (\u221d \u03ba\u2085) is the dimensionful anchor: the GR-foundational scale, not derivable within a theory whose foundation is gravity (it sets the units of the geometry). It is moreover the ROOT anchor \u2014 both #104 sector anchors descend from it (m_e = \u210fc/R_MID with R_MID set by the gravity-tuned brane tension; \u221a\u03c3 with \u03c3 \u221d \u221a|\u039b\u2085|/\u03ba\u2085\u00b2) \u2014 so whether m_e, \u221a\u03c3, G are three independent scales or one gravitational scale plus dimensionless ratios is the open \"how many scales\" question, but in every case G is Tier 2 (anchor), not derived.\n\n\u03b1 IS A RESIDUAL. Throughout BAM, \u03b1 is a NUMERICAL INPUT \u2014 the EM self-energy A_EM = \u03b1\u00b7\u210fc/2, the capped self-energy U_EM/(mc\u00b2) = \u03b1/2 (PR #55), the one-loop anomaly a = \u03b1/2\u03c0 (PR #62). BAM derives the STRUCTURE around \u03b1 (the charge unit |c\u2081| = 1, the 1/2\u03c0 loop measure of PR #74, the \u03b1/2 self-energy form) but NEVER the value 1/137. As in the Standard Model and every current framework, only \u03b1's RUNNING is derived (the \u03b2-function); its value is a free input \u2014 the \"137 problem\". So \u03b1 is a dimensionless residual, and a UNIVERSAL one: not a BAM-specific shortfall but the same open input every theory takes, sitting in the ledger alongside the flavor puzzle, not alongside the BAM-specific residuals (the neutrino compliance \u03b5, the quark n_part). BAM's geometric aspiration to fix \u03b1 from the S\u00b3/Hopf structure is open and unfulfilled.\n\nREFINEMENT OF #104. The \"derived geometry\" tier of #104 used \u03b1 as a silent input (a = \u03b1/2\u03c0 derives the 1/2\u03c0 GIVEN \u03b1), so \u03b1 is properly a residual input to that tier, not itself derived; and the two #104 anchors descend from the gravitational scale G, the root anchor. Sharpened ledger: G \u2014 the foundational dimensionful anchor (root of the sector scales); \u03b1 \u2014 a universal dimensionless residual (value, not running); \u210f \u2014 geometric (the closure quantum); c \u2014 units.\n\nHONEST SCOPE. BAM derives the charge UNIT (|c\u2081|=1), the EM structure, and \u03b1's running \u2014 but not \u03b1's value; G is the foundation's own scale, not derivable within a gravity-foundational theory. The geometric derivation of \u03b1 (the 137 problem) and a first-principles G are open aspirations shared with all of physics."
+}

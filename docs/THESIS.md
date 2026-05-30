@@ -1166,3 +1166,26 @@ and the universal flavor puzzle — with the rest derived geometry and a
 set of falsifiable non-orientable predictions.** Whether the program
 ultimately closes, partially closes, or fails, that is the honest ledger
 it has reached.
+
+The same accounting places the fundamental constants (PR #105). Of the
+four, `c` is a unit convention and `ℏ` is the closure quantum — the
+closure ledger reduces every dimensionless parameter to `2π`-invariants,
+and the Compton bridge `ℏ = m_e·R_MID·c` makes `ℏ` geometric once the
+single dimensionful anchor is fixed. That anchor is gravitational:
+because BAM is GR-foundational, the throat is a gravitational wormhole
+whose size — the one mandatory B4 length — is set by the bulk gravity via
+the Randall–Sundrum tuning `λ_crit = √(6|Λ₅|)/κ₅²`, so **`G` is the
+dimensionful anchor**, the GR scale that the sector anchors `m_e` and
+`√σ` descend from and that no gravity-foundational theory can derive from
+within. The fine-structure constant is the opposite kind of object: `α`
+appears throughout only as a numerical *input* (`A_EM = α·ℏc/2`,
+`a = α/2π`), with BAM deriving the charge *unit* (`|c₁| = 1`), the `1/2π`
+loop measure, and `α`'s *running* — but never the *value* `1/137`. As in
+the Standard Model and every current framework, that value is a free
+input, the "137 problem"; so **`α` is a universal dimensionless
+residual**, sitting beside the flavor puzzle rather than among the
+program's own residuals (`ε`, `n_part`). In short: `ℏ` geometric, `c`
+units, `G` the anchor, `α` a universal residual — the two genuinely
+irreducible inputs being one gravitational scale and one electromagnetic
+coupling, both of which every physical theory must currently take as
+given.
