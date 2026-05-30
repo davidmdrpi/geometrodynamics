@@ -292,6 +292,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `cosmological_sigma_mnu_probe` | same light, normal-ordered spectrum ⟹ Σm_ν ≈ 59–65 meV (NO floor 58.7 meV, below IO floor 99 meV); consistent with Planck (<120), at the DESI DR2+CMB frontier (~60–64 meV); falsifiable (Σ<58.7 ⟹ NO excluded; Σ≳100 ⟹ not light); cross-checks PR #95 (m_ββ ≲ 8 meV) | SIGMA_MNU_AT_NORMAL_ORDERING_FLOOR_60MEV |
 | `npart_dynamical_hierarchy_probe` | n_part=233 revisited: a huge hierarchy CAN be geometric (neutrino e^{−S}), so size isn't the obstruction; the quark hierarchy is IRREGULAR (c/u≈588 vs t/c≈136, up/down asym) — the QCD-RG signature; geometric shell span ×2.2 vs observed ×6.4×10⁹; quark is the program's one dynamical sector; gap N_q−N_lepton=366 = dynamical excess; PR #76 upheld+sharpened | QUARK_HIERARCHY_DYNAMICAL_N_PART_COMPENSATES |
 | `quark_hierarchy_flavor_puzzle_probe` | refines #97: quark mass RATIOS are RG-invariant (γ_m flavor-universal) ⟹ hierarchy is NOT α_s running but the FLAVOR PUZZLE (Yukawas); quark Yukawas overflow the compressed shell capacity (×1.49) by ~×5×10⁴; BAM captures quark STRUCTURE (6=3×2, Z₂, k=0, 3 gens) but not the magnitudes; #97 core (dynamical/non-geometric) stands | QUARK_HIERARCHY_IS_FLAVOR_PUZZLE_NOT_RG_RUNNING |
+| `qcd_confinement_cornell_audit_probe` | confinement geometry audit: Cornell V(L)=σL−A·ℏc/L (linear=flux-tube wormhole bridge, Coulomb=throat/gluon exchange); string breaking = Schwinger exp(−πm_q²/(σL)) = the PR #58 throat-pair mechanism with eE→σ; BAM σ reproduces Regge α'=1/(2πσ)=0.884 GeV⁻² and L_break; √σ≈0.42 GeV = the one QCD scale anchor (B4 analogue), calibrated not derived | CONFINEMENT_GEOMETRIC_STRING_BREAK_IS_SCHWINGER_SCALE_IS_QCD_ANCHOR |
 
 ## Cross-references
 
@@ -659,6 +660,21 @@ the B4 audit shows cannot come from scale-free geometry.
     Yukawa MAGNITUDES are the flavor puzzle, open across all physics.
     #97's core (dynamical / non-geometric, `n_part` compensates) stands;
     the mechanism is sharpened from "QCD-RG" to "flavor puzzle".
+  - `docs/qcd_confinement_cornell_audit_research_plan.md` — PR #99, pivots
+    from the quark *mass* sector to the QCD *confinement* sector (the
+    geometric part of QCD in BAM) and audits the Cornell potential
+    `V(L)=σL−A·ℏc/L`. The linear `σL` is the flux tube = a 1D
+    wormhole-bridge of constant tension; the Coulomb `−A·ℏc/L` is
+    short-distance throat/gluon exchange. String breaking is Schwinger
+    pair nucleation `exp(−πm_q²/(σL))` — the QED Schwinger form with
+    `eE→σ`, i.e. the **PR #58 throat-pair mechanism** (`e E_S R_MID =
+    m_e c²`) in the QCD sector: the string snaps when `σL ≈ 2 m_q`. The
+    BAM `σ` reproduces the Regge slope `α'=1/(2πσ)=0.884 GeV⁻²` (observed
+    ~0.88–0.93) and the string-breaking length (`L≈1.4 fm` vs lattice
+    1.35). `√σ ≈ 0.42 GeV` is the single QCD scale anchor (the B4
+    analogue: lepton `m_e` ↔ QCD `√σ`); the Cornell form + Schwinger
+    break + Regge slope are geometric, the `σ` value calibrated to lattice
+    (not derived).
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target

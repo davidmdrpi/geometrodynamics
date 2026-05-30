@@ -432,6 +432,29 @@ hierarchy is dynamical / non-geometric; `n_part` can only compensate it)
 stands; the mechanism is refined from "QCD-RG running" to "the flavor
 puzzle".
 
+**QCD confinement: Cornell potential and the flux-tube string tension
+(PR #99).** Where the quark *masses* are the (non-geometric) flavor
+puzzle, the quark *confinement* is geometric in BAM. The Cornell static
+energy `V(L) = σ·L − A·ℏc/L` reads, term by term, as BAM geometry: the
+linear `σ·L` is a flux tube — a 1D wormhole-bridge connecting the
+quark–antiquark with constant energy per unit length (the defining
+property of a confining string), and the Coulomb `−A·ℏc/L` is
+short-distance one-gluon exchange (the QCD analogue of the lepton Coulomb
+law derived from eigenmode throat flux). The flux tube breaks by Schwinger
+pair nucleation `Γ ∝ exp(−π m_q²/(σL))` — the QED Schwinger form
+`exp(−π m_e²/(eE))` with the electric field replaced by the string
+tension, `eE → σ`. This is precisely the pair-production / throat-pair
+nucleation of PR #58 (`e E_S · R_MID = m_e c²`) transported to QCD: the
+string snaps when its work `σ·L` reaches the pair threshold `≈ 2 m_q`. So
+QCD string breaking and lepton pair production are the *same* BAM
+nucleation physics with `eE ↔ σ`. The BAM string tension reproduces the
+Nambu–Goto Regge slope `α' = 1/(2πσ) = 0.884 GeV⁻²` (observed ~0.88–0.93)
+and the lattice string-breaking length (`L ≈ 1.4 fm` vs ~1.35), with
+`√σ ≈ 0.42 GeV` — the confinement (Λ_QCD) scale — as the single
+dimensionful anchor, the B4 analogue (lepton `m_e = ℏc/R_MID` ↔ QCD
+`√σ`). The confinement *form* is geometric; only the one scale is
+anchored.
+
 The four-PR QCD-shell arc (PRs #77–#80) develops the right machinery
 quantitatively. The user's physical reframe: **quarks do not pass
 through the throat; they are the wavefronts that resolve the cavity
