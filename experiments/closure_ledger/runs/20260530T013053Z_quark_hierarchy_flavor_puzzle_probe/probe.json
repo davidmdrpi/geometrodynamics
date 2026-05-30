@@ -1,0 +1,98 @@
+{
+  "timestamp_utc": "2026-05-30T01:30:53+00:00",
+  "identification": "quark mass ratios are RG-invariant \u27f9 the hierarchy is not \u03b1_s running but the flavor puzzle (irregular Yukawas), which overflows the compressed shell-overtone capacity (\u00d71.49) by ~\u00d75\u00d710\u2074; n_part compensates",
+  "refines_pr97": "mechanism: QCD-RG \u2192 flavor puzzle (ratios RG-invariant); core (dynamical/non-geometric) stands",
+  "geometric_part": "quark STRUCTURE (6=3\u00d72, Z\u2082, k=0 shell, 3 gens from k_5)",
+  "flavor_puzzle_part": "the Yukawa MAGNITUDES (irregular hierarchy), universal open problem",
+  "tests": [
+    {
+      "name": "T1_recap_pr97",
+      "description": "PR #97: the quark inter-generation hierarchy is dynamical / irregular (the program's one non-geometric sector); n_part = 233 compensates it. This probe tests the *mechanism*.",
+      "pr97_verdict": "QUARK_HIERARCHY_DYNAMICAL_N_PART_COMPENSATES",
+      "pass": true
+    },
+    {
+      "name": "T2_quark_mass_ratios_rg_invariant",
+      "description": "\u03b3_m flavor-universal \u27f9 m_i(\u03bc)/m_j(\u03bc) is RG-invariant; the common running factor cancels. \u03b1_s running sets the overall scale, not the hierarchy \u27f9 the hierarchy is NOT from running.",
+      "gamma_m_flavor_universal": true,
+      "ratio_c_over_u_before": 587.9629629629629,
+      "ratio_c_over_u_after_running": 587.9629629629629,
+      "ratios_rg_invariant": true,
+      "hierarchy_not_from_running": true,
+      "pass": true
+    },
+    {
+      "name": "T3_flavor_puzzle",
+      "description": "Not running \u27f9 the hierarchy is the Yukawa couplings (the flavor puzzle), free SM inputs. Irregular (c/u\u2248588 vs t/c\u2248136). Open across all physics, not BAM-specific.",
+      "up_ratio_c_u": 587.9629629629629,
+      "up_ratio_t_c": 136.03149606299212,
+      "set_by": "Yukawa couplings (flavor puzzle), not \u03b1_s running",
+      "universal_open_problem": true,
+      "pass": true
+    },
+    {
+      "name": "T4_quark_yukawas_overflow_shell",
+      "description": "Shell \u03c9(1,n=3,4,5) = 3.82, 4.76, 5.70 \u27f9 mass range \u00d71.49; up-type quarks span \u00d78\u00d710\u2074. Shell capacity overflowed by ~\u00d75\u00d710\u2074; n_part compensates the overflow.",
+      "shell_omega_n345": [
+        3.8246280428180204,
+        4.760868694425691,
+        5.700020220936045
+      ],
+      "shell_mass_range": 1.4903462917497772,
+      "up_type_mass_span": 79981.48148148147,
+      "overflow_factor": 53666.37399927857,
+      "pass": true
+    },
+    {
+      "name": "T5_lepton_winding_vs_quark_shell",
+      "description": "Leptons: winding ladder (k=1,3,5) + closure ledger fits m_\u03c4/m_e\u22483477 to sub-percent (PR #71). Quarks: shell overtones (\u00d71.49) too compressed \u27f9 overflow. The geometric knob (winding k) has range; the shell overtones do not.",
+      "lepton_range_tau_e": 3477.2211350293537,
+      "lepton_geometric_knob": "winding k \u2208 {1,3,5} (PR #71, sub-percent fit)",
+      "quark_geometric_knob": "shell overtone n \u2208 {3,4,5} (range \u00d71.49 only)",
+      "pass": true
+    },
+    {
+      "name": "T6_structure_vs_magnitudes",
+      "description": "BAM captures quark STRUCTURE (6=3\u00d72, Z\u2082, k=0 shell, 3 gens from k_5) \u2014 robust; the Yukawa MAGNITUDES (flavor puzzle) are RG-invariant (not running) and overflow the shell (not the overtones); n_part compensates.",
+      "geometric_captured": [
+        "six quarks = 3 \u00d7 2 (PR #69)",
+        "Z\u2082 up/down partition (PR #63/#80)",
+        "k=0 shell channel (PR #77/#83)",
+        "three generations from k_5 (PR #72)"
+      ],
+      "flavor_puzzle_open": [
+        "the Yukawa magnitudes (irregular hierarchy)",
+        "RG-invariant ratios \u27f9 not \u03b1_s running",
+        "overflow the shell capacity \u27f9 not the geometric overtones",
+        "n_part = 233 compensates"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "Refines PR #97: core (dynamical/non-geometric) stands; the mechanism is the flavor puzzle (RG-invariant ratios \u27f9 not \u03b1_s running), not QCD running. Not a derivation.",
+      "refines_pr97": "mechanism sharpened from QCD-RG running to the flavor puzzle (irregular Yukawas); quark mass ratios are RG-invariant",
+      "pr97_core_stands": "the quark hierarchy is dynamical / non-geometric \u2014 the program's one such sector; n_part compensates",
+      "established": [
+        "quark mass ratios are RG-invariant \u27f9 hierarchy not from \u03b1_s running",
+        "it is the flavor puzzle (Yukawa couplings) \u2014 universal open problem, not BAM-specific",
+        "the quark Yukawas overflow the compressed shell-overtone capacity (\u00d71.49) by ~\u00d75\u00d710\u2074",
+        "BAM captures the quark STRUCTURE (counting) geometrically; the MAGNITUDES are the flavor puzzle"
+      ],
+      "open": [
+        "the flavor puzzle itself \u2014 the Yukawa couplings; open across all of physics, not derivable from BAM geometry (or any current theory)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Quark mass ratios are RG-invariant, so the hierarchy is not \u03b1_s running but the flavor puzzle (irregular Yukawas), which overflows the compressed shell-overtone capacity (\u00d71.49) by ~\u00d75\u00d710\u2074; n_part compensates. PR #97 refined: dynamical/non-geometric stands, mechanism = flavor puzzle.",
+      "classification": "QUARK_HIERARCHY_IS_FLAVOR_PUZZLE_NOT_RG_RUNNING",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "QUARK_HIERARCHY_IS_FLAVOR_PUZZLE_NOT_RG_RUNNING",
+  "verdict": "THE QUARK HIERARCHY IS THE FLAVOR PUZZLE, NOT \u03b1_s RUNNING \u2014 REFINING #97. PR #97 diagnosed the quark inter-generation hierarchy as dynamical (QCD-RG) and the program's one non-geometric sector. This probe takes the first step on that \"right route\" and, in doing so, tests and sharpens the mechanism.\n\nQUARK MASS RATIOS ARE RG-INVARIANT. QCD's mass anomalous dimension \u03b3_m(\u03b1_s) is flavor-universal \u2014 the same function for every quark \u2014 so under renormalisation-group running every mass is multiplied by the SAME factor, which cancels in any ratio: m_i(\u03bc\u2082)/m_j(\u03bc\u2082) = m_i(\u03bc\u2081)/m_j(\u03bc\u2081). Quark mass RATIOS are therefore RG-invariant; \u03b1_s running sets the overall scale, not the hierarchy. So the irregular hierarchy is NOT generated by QCD running \u2014 PR #97's \"QCD-RG\" attribution was too specific.\n\nIT IS THE FLAVOR PUZZLE. If the hierarchy is not a running effect, it is set by the Yukawa couplings at the fundamental scale \u2014 free inputs in the Standard Model, the flavor puzzle. The irregularity PR #97 measured (m_c/m_u \u2248 588 vs m_t/m_c \u2248 136; up/down asymmetric) is exactly its signature: the Yukawas are hierarchical and irregular for reasons no current theory \u2014 geometric or otherwise \u2014 derives. This is a universal open problem, not a BAM-specific failing.\n\nTHE QUARK YUKAWAS OVERFLOW THE SHELL. The quark shell overtones (k=0, n=3,4,5; PR #77/#83) have \u03c9 = 3.82, 4.76, 5.70 \u2014 a mass range of only \u00d71.49 \u2014 whereas the up-type quarks span m_t/m_u \u2248 8\u00d710\u2074. The geometric shell capacity is overflowed by ~\u00d75\u00d710\u2074; n_part is the compensator for that overflow. By contrast the charged-lepton hierarchy (also a flavor puzzle, m_\u03c4/m_e \u2248 3477) is fit to sub-percent by the BAM winding ladder (k \u2208 {1,3,5}, PR #71): the winding quantum number plus the closure machinery has the dynamic range that the compressed quark shell overtones lack \u2014 which is why BAM captures the lepton flavor structure geometrically but the quark hierarchy overflows.\n\nGEOMETRIC STRUCTURE vs FLAVOR-PUZZLE MAGNITUDES. The quark sector splits cleanly: BAM captures the STRUCTURE \u2014 six quarks (3\u00d72, PR #69), the Z\u2082 up/down partition, the k=0 shell channel, three generations from k_5 (PR #72) \u2014 counting and quantum numbers, robust; the Yukawa MAGNITUDES (the irregular hierarchy) are the flavor puzzle \u2014 RG-invariant (not running), overflowing the shell (not the overtones), with n_part as the compensator.\n\nHONEST SCOPE. This REFINES PR #97 without overturning it: the core conclusion (the quark hierarchy is dynamical / non-geometric, the program's one such sector, n_part can only compensate it) stands; the mechanism is sharpened from \"QCD-RG running\" to \"the flavor puzzle (irregular Yukawas)\", because quark mass ratios are RG-invariant. ESTABLISHED: ratios RG-invariant \u27f9 not running; it is the flavor puzzle (universal open problem); the Yukawas overflow the compressed shell capacity (\u00d71.49) by ~\u00d75\u00d710\u2074; BAM captures the quark structure geometrically, the magnitudes are the flavor puzzle. NOT established: the flavor puzzle itself \u2014 the Yukawa couplings, open across all of physics, not derivable from BAM geometry (or any current theory)."
+}
