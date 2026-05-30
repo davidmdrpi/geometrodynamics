@@ -1,0 +1,127 @@
+{
+  "timestamp_utc": "2026-05-30T20:48:56+00:00",
+  "identification": "BAM = 2 dimensionful anchors (B4: m_e, \u221a\u03c3) + ~2 localized open dimensionless residuals (neutrino \u03b5, quark n_part) + the universal flavor puzzle; the rest derived geometry (~22) or topological predictions (~6)",
+  "dimensionful_anchors": [
+    "m_e = \u210fc/R_MID",
+    "\u221a\u03c3 \u2248 \u039b_QCD \u2248 0.42 GeV"
+  ],
+  "open_residuals": [
+    "neutrino boundary compliance \u03b5",
+    "quark n_part = 233"
+  ],
+  "flavor_puzzle": "quark Yukawa hierarchy (universal, not BAM-specific)",
+  "distinctive_output": "non-orientable topological predictions (matched \u2192 free)",
+  "tests": [
+    {
+      "name": "T1_five_tier_epistemic_scheme",
+      "description": "Five tiers: derived geometry; dimensionful anchors (B4); open dimensionless residuals; the flavor puzzle (universal); topological predictions (BAM-specific).",
+      "tiers": [
+        "DERIVED geometry",
+        "DIMENSIONFUL ANCHORS (B4)",
+        "OPEN dimensionless residuals",
+        "the FLAVOR PUZZLE",
+        "TOPOLOGICAL PREDICTIONS"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_derived_geometry",
+      "description": "Parameter-free geometric/topological results (or reconstructed structural facts matching data) \u2014 the bulk of the program.",
+      "entries": [
+        "|c\u2081| = 1 charge quantization \u2014 Hopf Chern number",
+        "spin-\u00bd from Hopf holonomy \u2014 \u222eA = \u03c0 cos \u03c7",
+        "Coulomb law from eigenmode throat flux \u2014 B5 master integral",
+        "g = 2 \u2014 Pauli SU(2) + Hopf monopole",
+        "Schwinger a = \u03b1/2\u03c0 (one loop, 0.15%) \u2014 S\u00b3 Green fn + throat vertex",
+        "C = inner/outer swap (c\u2081\u2192\u2212c\u2081) \u2014 PR #63 involution",
+        "CPT on throat histories; Dirac 4-spinor \u2014 PR #64\u2013#66",
+        "pair threshold factor 2 (\u03a3c\u2081=0) \u2014 C-conjugate pair, PR #58",
+        "k_5 = D_bulk = dim(S\u00b3)+2 = 5 \u2014 PR #73",
+        "\u03b2_lepton = k_5\u00b2\u00b72\u03c0 = 50\u03c0 \u2014 PR #71",
+        "#generations = (k_5+1)/2 = 3 \u2014 PR #72",
+        "lepton/quark mass operator unified (Bohr-Sommerfeld) \u2014 PR #83",
+        "neutrino Majorana \u27f8 k=0 \u27f9 c\u2081=0 \u2014 PR #86 selection rule",
+        "only-\u03bd seesaw \u27f8 \u03a3c\u2081=0 single-state \u2014 PR #87",
+        "PMNS anarchic (cross-coordinate); CKM aligned \u2014 PR #92",
+        "CP generic (Hopf-complex); 2 Majorana phases \u27f8 c\u2081=0 \u2014 PR #94",
+        "6 quarks = 3\u00d72, Z\u2082 partition, k=0 shell \u2014 PR #69/#77",
+        "Cornell form: flux-tube bridge + throat/gluon exchange \u2014 PR #99",
+        "string breaking = Schwinger (eE\u2192\u03c3) = PR #58 \u2014 PR #99",
+        "Regge slope \u03b1\u2032 = 1/(2\u03c0\u03c3); glueball = half \u2014 PR #99/#100",
+        "exotic J^PC (1-+) \u27f8 non-orientable flux tube \u2014 PR #101",
+        "no exotic J^P for baryons (supernumerary only) \u2014 PR #102"
+      ],
+      "count": 22,
+      "pass": true
+    },
+    {
+      "name": "T3_two_dimensionful_anchors",
+      "description": "B4 (PR #52): one dimensionful anchor per sector is mandatory. BAM has exactly two \u2014 m_e = \u210fc/R_MID and \u221a\u03c3 \u2248 \u039b_QCD.",
+      "anchors": [
+        "m_e = \u210fc/R_MID \u2014 QED / lepton scale (B4, PR #52)",
+        "\u221a\u03c3 \u2248 \u039b_QCD \u2248 0.42 GeV \u2014 confinement scale (B4 analogue, PR #99)"
+      ],
+      "count": 2,
+      "is_b4_minimum": true,
+      "pass": true
+    },
+    {
+      "name": "T4_open_dimensionless_residuals",
+      "description": "Open dimensionless inputs, localized: neutrino compliance \u03b5 (bracketed [2\u03c0, k_5\u221a(2\u03c0)]) and quark n_part = 233 (compensator).",
+      "residuals": [
+        "neutrino boundary compliance \u03b5 \u2014 bracketed by [2\u03c0, k_5\u221a(2\u03c0)]; PR #88\u2013#90",
+        "quark n_part = 233 \u2014 flavor-puzzle compensator; parity-only invariant; PR #76/#97"
+      ],
+      "count": 2,
+      "localized": true,
+      "pass": true
+    },
+    {
+      "name": "T5_flavor_puzzle_universal",
+      "description": "Quark Yukawa hierarchy = the flavor puzzle (RG-invariant ratios \u27f9 not running; irregular). Open across ALL physics, not BAM-specific (PR #98).",
+      "entries": [
+        "quark Yukawa hierarchy \u2014 RG-invariant ratios \u27f9 not running; the flavor puzzle, open in ALL physics (PR #98)"
+      ],
+      "universal_open_problem": true,
+      "bam_specific_failing": false,
+      "pass": true
+    },
+    {
+      "name": "T6_topological_predictions",
+      "description": "Non-orientable topological predictions across the testability gamut: matched, falsifiable, constrained, findable, free.",
+      "predictions": [
+        "mesonic 1-+ hybrids (\u03c0\u2081, \u03b7\u2081) \u2014 MATCHED to data (PR #101)",
+        "neutrino normal ordering; m_\u03b2\u03b2 \u2272 8 meV; \u03a3m_\u03bd \u2248 59\u201365 meV \u2014 FALSIFIABLE (PR #95/#96)",
+        "multiquark exotics (X, Z_c, T_cc, P_c) = multi-junction \u2014 ACCOMMODATED (PR #101)",
+        "light baryonic exotics (M\u00f6bius/hybrid) \u2014 CONSTRAINED counting test (PR #102)",
+        "heavy M\u00f6bius baryon (\u039b_c ~3.14, \u039b_b ~6.47 GeV) \u2014 FINDABLE, unconstrained (PR #103)",
+        "M\u00f6bius glueball tower \u2014 FREE (glueballs unobserved, PR #100)"
+      ],
+      "count": 6,
+      "spans_matched_to_free": true,
+      "pass": true
+    },
+    {
+      "name": "T7_input_budget",
+      "description": "Input budget: 2 dimensionful anchors (B4) + ~2 localized open dimensionless residuals + 1 universal flavor puzzle; the rest (~22 derived, ~6 topological predictions) is geometry or prediction.",
+      "n_derived_geometry": 22,
+      "n_dimensionful_anchors": 2,
+      "n_open_dimensionless_residuals": 2,
+      "n_flavor_puzzle": 1,
+      "n_topological_predictions": 6,
+      "dimensionful_at_b4_minimum": true,
+      "open_inputs_localized": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "BAM's dimensionful content reduces to two B4 anchors (m_e, \u221a\u03c3); the dimensionless content is predominantly derived geometry; the open residuals are localized (neutrino \u03b5, quark n_part) plus the universal flavor puzzle; the distinctive output is a tower of non-orientable topological predictions.",
+      "classification": "BAM_TWO_ANCHORS_LOCALIZED_RESIDUALS_DERIVED_GEOMETRY_TOPOLOGICAL_PREDICTIONS",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "BAM_TWO_ANCHORS_LOCALIZED_RESIDUALS_DERIVED_GEOMETRY_TOPOLOGICAL_PREDICTIONS",
+  "verdict": "PROGRAM-WIDE SYNTHESIS: TWO ANCHORS, LOCALIZED RESIDUALS, DERIVED GEOMETRY, AND A TOWER OF TOPOLOGICAL PREDICTIONS. After the lepton/QED foundations, the neutrino arc (#85\u2013#96), the quark arc (#76\u2013#98), and the QCD confinement / exotic arc (#99\u2013#103), this probe classifies every major result by epistemic status and counts BAM's actual free/anchored inputs.\n\nTHE FIVE TIERS. (1) DERIVED geometry \u2014 parameter-free geometric/topological results (charge quantization |c\u2081|=1, spin-\u00bd, g=2, the one-loop Schwinger a=\u03b1/2\u03c0, k_5=5, \u03b2_lepton=50\u03c0, three generations, C/CPT, the Bohr-Sommerfeld mass operator, the neutrino Majorana selection rule, PMNS anarchy, generic CP, the Cornell form, string-breaking = Schwinger, the Regge slope, the exotic-J^PC bookkeeping, \u2026) \u2014 about two dozen results. (2) DIMENSIONFUL ANCHORS \u2014 the B4 scale-modulus minimum. (3) OPEN dimensionless residuals \u2014 a handful. (4) The FLAVOR PUZZLE \u2014 universal. (5) TOPOLOGICAL PREDICTIONS \u2014 the distinctive output.\n\nTHE INPUT BUDGET. BAM's entire DIMENSIONFUL content reduces to TWO anchors: m_e = \u210fc/R_MID (the QED/lepton scale) and \u221a\u03c3 \u2248 \u039b_QCD (the confinement scale). The B4 scale-modulus theorem (PR #52) says one dimensionful input per sector is mandatory, so two is the irreducible minimum \u2014 BAM sits at it. The genuinely-open DIMENSIONLESS inputs are localized to ~two: the neutrino boundary compliance \u03b5 (the seesaw/bounce residual, itself bracketed to [2\u03c0, k_5\u221a(2\u03c0)]) and the quark n_part=233 (a compensator for the flavor puzzle). Beyond these, there is one UNIVERSAL open problem \u2014 the flavor puzzle (the quark Yukawa hierarchy: RG-invariant ratios, irregular, derivable by no current theory) \u2014 which BAM shares with all of physics and is not a BAM-specific failing. Everything else is derived geometry or a topological prediction.\n\nTHE DISTINCTIVE OUTPUT. The non-orientable structure yields a tower of topological predictions spanning the full testability gamut: MATCHED (the mesonic 1-+ hybrids \u03c0\u2081, \u03b7\u2081), FALSIFIABLE (neutrino normal ordering, m_\u03b2\u03b2 \u2272 8 meV, \u03a3m_\u03bd \u2248 59\u201365 meV), ACCOMMODATED (the multiquark exotic zoo), CONSTRAINED (the light baryonic exotics \u2014 a counting test), FINDABLE (the heavy M\u00f6bius baryon at the flavor-independent 2\u221a\u03c3 gap), and FREE (the M\u00f6bius glueball tower, glueballs unobserved).\n\nSO THE WHOLE PROGRAM, IN ONE LINE: two mandatory B4 anchors + a couple of localized open dimensionless residuals + the universal flavor puzzle, with the rest derived geometry and a set of falsifiable non-orientable topological predictions.\n\nHONEST SCOPE. This is a CLASSIFICATION, not a new derivation: it inventories and ranks the program's results by epistemic status. The \"derived\" tier includes both parameter-free results and reconstructed/fitted structural matches (e.g. the charged-lepton ladder, the Schwinger 0.15% match) \u2014 the inventory does not relitigate each. The two anchors and the flavor puzzle are genuinely open inputs (B4-mandatory and universal respectively); the localized residuals (\u03b5, n_part) are the program's own remaining homework."
+}

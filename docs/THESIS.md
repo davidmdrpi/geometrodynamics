@@ -1134,3 +1134,35 @@ the Hopf-holonomy Berry phase reproduces spin-½ under motion — the
 relativistic Wigner rotation (`spin_wigner_rotation_probe`).)
 
 The package is a tool for distinguishing these three outcomes.
+
+## Synthesis: the input budget
+
+Taking the program as a whole, a five-tier epistemic accounting (PR #104)
+makes its structure concrete. BAM's *entire dimensionful content* reduces
+to **two anchors** — `m_e = ℏc/R_MID` (the QED/lepton scale) and
+`√σ ≈ Λ_QCD` (the confinement scale). The B4 scale-modulus theorem
+(PR #52) holds that one dimensionful input per sector is mandatory, so
+two is the irreducible minimum, and the program sits at it. The
+genuinely-open *dimensionless* inputs are localized to two — the neutrino
+boundary compliance `ε` (the seesaw/bounce residual, itself bracketed to
+`[2π, k_5√(2π)]`) and the quark `n_part = 233` (a compensator for the
+flavor puzzle). Beyond these there is a single *universal* open problem,
+the flavor puzzle — the quark Yukawa hierarchy, which has RG-invariant
+ratios (so it is not a running effect) and is irregular, derivable by no
+current theory and so not a BAM-specific failing. Everything else falls
+into two productive piles: roughly two dozen *derived* geometric or
+topological results (charge quantization, spin-½, `g=2`, the one-loop
+Schwinger term, `k_5=5`, `β_lepton=50π`, three generations, the
+Bohr-Sommerfeld mass operator, the Cornell confinement form, the
+Regge slope, the neutrino Majorana selection rule, PMNS anarchy, generic
+CP, …), and about half a dozen *topological predictions* from the
+non-orientable structure that span the full testability gamut — matched
+(the mesonic `1-+` hybrids), falsifiable (neutrino normal ordering,
+`m_ββ ≲ 8 meV`, `Σm_ν ≈ 59–65 meV`), accommodated (the multiquark exotic
+zoo), constrained (the light baryonic exotics), findable (the heavy
+Möbius baryon), and free (the Möbius glueball tower). In one line: **two
+mandatory B4 anchors, a couple of localized open dimensionless residuals,
+and the universal flavor puzzle — with the rest derived geometry and a
+set of falsifiable non-orientable predictions.** Whether the program
+ultimately closes, partially closes, or fails, that is the honest ledger
+it has reached.
