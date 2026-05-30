@@ -295,6 +295,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `qcd_confinement_cornell_audit_probe` | confinement geometry audit: Cornell V(L)=σL−A·ℏc/L (linear=flux-tube wormhole bridge, Coulomb=throat/gluon exchange); string breaking = Schwinger exp(−πm_q²/(σL)) = the PR #58 throat-pair mechanism with eE→σ; BAM σ reproduces Regge α'=1/(2πσ)=0.884 GeV⁻² and L_break; √σ≈0.42 GeV = the one QCD scale anchor (B4 analogue), calibrated not derived | CONFINEMENT_GEOMETRIC_STRING_BREAK_IS_SCHWINGER_SCALE_IS_QCD_ANCHOR |
 | `glueball_closed_flux_loop_probe` | glueballs = pure-confinement benchmark (closed flux loops, no quark/flavor input); BAM orientable ground √(4πσ)≈1.50 GeV (3.5√σ) benchmarks lattice 0++ (4.1√σ) to ~13%; closed-string glueball Regge slope = half the meson; BAM non-orientable Möbius sector ⟹ extra glueball tower (half-int modes, +πσ in M²) interleaving the orientable one (≈2× states); legitimate vs lattice not experiment (glueballs unobserved) | GLUEBALL_SCALE_BENCHMARKS_LATTICE_MOBIUS_TOWER_IS_BAM_TOPOLOGY |
 | `mobius_exotic_sector_probe` | flux-network topology = hadron taxonomy (meson/baryon/tetraquark/pentaquark/hybrid/glueball + Möbius Z₂); non-orientable (Möbius) flux tube carries the exotic J^PC (1-+) forbidden to ordinary qq̄; observed 1-+ hybrids π₁(1600), η₁(1855) match at right J^PC and at ρ/ω+2√σ (≈1.62, 1.85 GeV); multiquark exotics (X,Z_c,T_cc,P_c)=multi-junction networks; unlike glueballs, exotics observed ⟹ BAM topology meets data and matches | MOBIUS_FLUX_GIVES_EXOTIC_JPC_OBSERVED_HYBRIDS_MATCH |
+| `baryonic_exotics_classification_probe` | BAM baryonic exotics (Möbius/hybrid baryon) have NO exotic-J^P smoking gun (any J^P ordinary for qqq, no C) ⟹ supernumerary ordinary-J^P states (signature = counting); land in light N*/Δ* (~1.79, 2.08 GeV = base+2√σ); constraint ranking light N*/Δ* > strange hyperons > heavy baryons; Möbius doubling must coincide w/ observed states or decouple else excluded; MOST-constrained corner (opposite of glueballs) | BARYONIC_EXOTICS_LACK_EXOTIC_JP_LIGHT_SECTOR_MOST_CONSTRAINED |
 
 ## Cross-references
 
@@ -710,6 +711,21 @@ the B4 audit shows cannot come from scale-free geometry.
     observed (BAM's non-orientable topology must — and does — meet data).
     The Möbius twist is the same Z₂ giving the throat spin-½ (PR #63–#67);
     the Möbius baryon is a BAM-specific prediction.
+  - `docs/baryonic_exotics_classification_research_plan.md` — PR #102,
+    classifies the BAM-specific baryonic exotics (Möbius / hybrid baryon)
+    and ranks the channels by experimental constraint. The key subtlety:
+    unlike mesons (where `1-+` is a smoking-gun exotic via `C`), baryons
+    have NO forbidden `J^P` (`P=(−1)^L`, `S∈{½,3/2}`, no `C` ⟹ every
+    half-integer `J^P` ordinary), so BAM's Möbius/hybrid baryons are
+    *supernumerary ordinary-`J^P`* states — identifiable only by counting.
+    They land in the light N*/Δ* region (`nucleon/Δ + 2√σ ≈ 1.79, 2.08
+    GeV`), the densest, best-measured part of the spectrum — the MOST
+    experimentally constrained corner of BAM's non-orientable predictions
+    (opposite extreme from the unobserved glueballs). The Möbius doubling
+    must either coincide with observed-but-unexplained resonances (fill
+    missing resonances) or decouple from `πN` (the standard
+    missing-resonance mechanism), else be excluded. Constraint ranking:
+    light N*/Δ* > strange hyperons > charm/bottom baryons (the freest).
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
