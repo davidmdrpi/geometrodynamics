@@ -289,6 +289,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `theta13_residual_alignment_probe` | θ13=U_e3 is the corner / two-hop element (gap |g−i|=2); residual nearest-neighbour alignment (throat↔shell coupling local in (k,n)) suppresses it ⟹ θ13 robustly smallest, observed θ13 moves 4th→~21st percentile (PR #92 tension resolved), θ12/θ23 stay typical; exact θ13 (μ one param, median saturates ~14–16°) open | THETA13_SUPPRESSED_BY_RESIDUAL_NEAREST_NEIGHBOUR_ALIGNMENT |
 | `cp_majorana_phase_probe` | CP violation generic (winding amplitudes Hopf-complex e^{ikχ}, PR #60; CP-conservation measure-zero); Jarlskog dichotomy: \|J_PMNS\|≈0.026 typical of anarchy (51st/81st pct), \|J_CKM\|≈3e-5 extremely atypical (aligned, suppressed); two Majorana phases EXIST ⟸ neutrino Majorana ⟸ c₁=0 (PR #86), 0νββ; specific phase values anarchic/not pinned | CP_GENERIC_MAJORANA_PHASES_EXIST_VALUES_ANARCHIC |
 | `zeronubb_effective_mass_probe` | 0νββ occurs ⟸ Majorana (c₁=0, PR #86); BAM normal-ordering band (PR #91) below IO floor ~19 meV; anarchic Majorana phases (PR #94) populate full band incl. cancellation→~0; light scale (PR #90) ⟹ m_ββ ≲ 8 meV — below current (28–122 meV) & next-gen (~9–20 meV) reach; falsifiable (discovery ≳19 meV ⟹ IO/degenerate); exact m_ββ a band | ZERONUBB_OCCURS_NORMAL_ORDERING_M_BB_FEW_MEV |
+| `cosmological_sigma_mnu_probe` | same light, normal-ordered spectrum ⟹ Σm_ν ≈ 59–65 meV (NO floor 58.7 meV, below IO floor 99 meV); consistent with Planck (<120), at the DESI DR2+CMB frontier (~60–64 meV); falsifiable (Σ<58.7 ⟹ NO excluded; Σ≳100 ⟹ not light); cross-checks PR #95 (m_ββ ≲ 8 meV) | SIGMA_MNU_AT_NORMAL_ORDERING_FLOOR_60MEV |
 
 ## Cross-references
 
@@ -612,6 +613,19 @@ the B4 audit shows cannot come from scale-free geometry.
     falsifier: a 0νββ discovery with `m_ββ ≳ 19 meV` would imply inverted
     ordering or a quasi-degenerate scale, contradicting BAM. The exact
     `m_ββ` is a band (lightest mass unmeasured + anarchic phases).
+  - `docs/cosmological_sigma_mnu_research_plan.md` — PR #96, the
+    cosmological companion to PR #95. The same light, normal-ordered
+    spectrum fixes `Σm_ν = m1+m2+m3`: the NO floor is
+    `√Δm²_21 + √Δm²_31 ≈ 58.7 meV` (the IO floor ≈ 99 meV), and the light
+    scale (PR #90) gives `Σm_ν ≈ 59–65 meV` — pinned near the floor, not
+    quasi-degenerate. This is consistent with Planck (<120 meV), just
+    inside DESI DR1+CMB (<72 meV), and right at the DESI DR2+CMB frontier
+    (~60–64 meV). Sharp falsifiers: a robust `Σm_ν < 58.7 meV` excludes
+    normal ordering (and is in tension with the oscillation `Δm²`); a
+    quasi-degenerate `Σm_ν ≳ 100 meV` contradicts the light scale. `Σm_ν`
+    and `m_ββ` (PR #95) are one spectrum's two observables — a joint,
+    cross-checkable prediction; the exact `Σm_ν` is a narrow band (the
+    lightest mass is unmeasured).
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target

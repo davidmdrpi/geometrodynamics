@@ -1,0 +1,111 @@
+{
+  "timestamp_utc": "2026-05-29T05:10:28+00:00",
+  "identification": "BAM light, normal-ordered spectrum \u27f9 \u03a3m_\u03bd \u2248 59\u201365 meV (at the NO floor, below IO ~99 meV); consistent with Planck, at the DESI-DR2 + CMB frontier; falsifiable",
+  "no_floor_meV": 58.66025403784439,
+  "io_floor_meV": 99.24428900898053,
+  "bam_band_meV": "59\u201365",
+  "cosmo_frontier": "DESI DR2 + CMB ~60\u201364 meV",
+  "consistency": "same spectrum as the PR #95 0\u03bd\u03b2\u03b2 prediction (m_\u03b2\u03b2 \u2272 8 meV)",
+  "falsifiers": "\u03a3m_\u03bd < 58.7 meV \u27f9 NO excluded; \u03a3m_\u03bd \u2273 100 meV \u27f9 not light",
+  "tests": [
+    {
+      "name": "T1_setup",
+      "description": "\u03a3m_\u03bd = m1 + m2 + m3, the cosmological observable (CMB lensing + LSS/BAO). Needs the ordering (PR #91) and absolute scale (PR #90); BAM fixes those, not \u0394m\u00b2.",
+      "dm2_21": 7.5e-05,
+      "dm2_31": 0.0025,
+      "pass": true
+    },
+    {
+      "name": "T2_normal_ordering_floor",
+      "description": "NO floor = \u221a\u0394m\u00b2_21 + \u221a\u0394m\u00b2_31 \u2248 58.7 meV; IO floor \u2248 99 meV. BAM \u27f9 normal ordering (PR #91) \u27f9 the lower floor.",
+      "no_floor_meV": 58.66025403784439,
+      "io_floor_meV": 99.24428900898053,
+      "no_below_io": true,
+      "pass": true
+    },
+    {
+      "name": "T3_light_scale_sigma",
+      "description": "BAM light scale (PR #90, ~few meV) \u27f9 \u03a3m_\u03bd \u2248 59\u201365 meV \u2014 pinned near the NO floor, not quasi-degenerate.",
+      "rows": [
+        {
+          "m_lightest_meV": 0.0,
+          "sigma_meV": 58.66025403784439
+        },
+        {
+          "m_lightest_meV": 2.0,
+          "sigma_meV": 60.928178430102804
+        },
+        {
+          "m_lightest_meV": 5.0,
+          "sigma_meV": 65.24937810560445
+        },
+        {
+          "m_lightest_meV": 10.0,
+          "sigma_meV": 74.2189516912508
+        }
+      ],
+      "bam_band_meV": [
+        58.66025403784439,
+        65.24937810560445
+      ],
+      "pinned_near_floor": true,
+      "pass": true
+    },
+    {
+      "name": "T4_cosmological_comparison",
+      "description": "BAM band 59\u201365 meV: below Planck (<120), inside DESI DR1+CMB (<72), at the DESI DR2+CMB frontier (~60\u201364). At the current sensitivity edge.",
+      "bam_sigma_at_light_scale_meV": 60.928178430102804,
+      "planck_bao_meV": 120.0,
+      "desi_dr1_cmb_meV": 72.0,
+      "desi_dr2_cmb_meV": 62.0,
+      "consistent_with_planck": true,
+      "inside_desi_dr1": true,
+      "at_desi_dr2_frontier": true,
+      "pass": true
+    },
+    {
+      "name": "T5_falsifiability",
+      "description": "Falsifiers: \u03a3m_\u03bd < 58.7 meV (NO floor) \u27f9 NO excluded, BAM fails; \u03a3m_\u03bd \u2273 100 meV (quasi-degenerate) \u27f9 contradicts the BAM light scale.",
+      "falsifier_below_no_floor_meV": 58.66025403784439,
+      "falsifier_quasidegenerate_meV": 100.0,
+      "no_floor_is_oscillation_consistency_bound": true,
+      "pass": true
+    },
+    {
+      "name": "T6_consistency_with_0nubb",
+      "description": "\u03a3m_\u03bd (this probe, ~59\u201365 meV) and m_\u03b2\u03b2 (PR #95, \u22728 meV) come from one light, normal-ordered, Majorana spectrum \u2014 a joint, cross-checkable prediction.",
+      "sigma_mnu_meV": "\u2248 59\u201365",
+      "m_betabeta_meV": "\u2272 8 (PR #95)",
+      "one_spectrum": "light, normal-ordered, Majorana (anarchic phases)",
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "\u03a3m_\u03bd pinned near the NO floor (59\u201365 meV) by NO + light scale; exact value needs the absolute scale (narrow band).",
+      "established_bam_native": [
+        "normal ordering (PR #91) \u27f9 NO floor \u2248 58.7 meV, below the IO floor \u2248 99 meV",
+        "light scale (PR #90) \u27f9 \u03a3m_\u03bd \u2248 59\u201365 meV (pinned near the floor, not quasi-degenerate)",
+        "consistent with Planck (<120 meV), at the DESI-DR2 + CMB frontier (~60\u201364 meV) \u2014 a near-term-falsifiable target",
+        "same spectrum as the PR #95 0\u03bd\u03b2\u03b2 prediction (m_\u03b2\u03b2 \u2272 8 meV)"
+      ],
+      "open": [
+        "the exact \u03a3m_\u03bd: a narrow band (59\u201365 meV) because the lightest mass is unmeasured; the absolute scale is the PR #90 residual"
+      ],
+      "falsifiers": [
+        "\u03a3m_\u03bd < 58.7 meV (below NO floor) \u27f9 normal ordering excluded",
+        "\u03a3m_\u03bd \u2273 100 meV (quasi-degenerate) \u27f9 contradicts the light scale"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The BAM light, normal-ordered spectrum gives \u03a3m_\u03bd \u2248 59\u201365 meV \u2014 at the NO floor, below the IO floor, consistent with Planck and at the DESI-DR2 + CMB frontier; a falsifiable target, from the same spectrum as the PR #95 0\u03bd\u03b2\u03b2 prediction.",
+      "classification": "SIGMA_MNU_AT_NORMAL_ORDERING_FLOOR_60MEV",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "SIGMA_MNU_AT_NORMAL_ORDERING_FLOOR_60MEV",
+  "verdict": "\u03a3m_\u03bd \u2248 59\u201365 meV \u2014 AT THE NORMAL-ORDERING FLOOR, AT THE COSMOLOGICAL FRONTIER. The same BAM neutrino spectrum behind the 0\u03bd\u03b2\u03b2 prediction (PR #95) also fixes the sum of neutrino masses \u03a3m_\u03bd = m1 + m2 + m3 \u2014 the quantity probed by cosmology (CMB lensing + large-scale structure / BAO).\n\nNORMAL ORDERING \u27f9 THE NO FLOOR. BAM predicts normal ordering (PR #91: generations = cavity overtones, m_\u03bd \u221d m_D), so the floor (lightest mass \u2192 0) is \u03a3m_\u03bd = \u221a\u0394m\u00b2_21 + \u221a\u0394m\u00b2_31 \u2248 8.7 + 50 \u2248 58.7 meV. The inverted-ordering floor (the contrast) is \u2248 99 meV \u2014 well above.\n\nLIGHT SCALE \u27f9 \u03a3m_\u03bd \u2248 59\u201365 meV. At the BAM light scale (PR #90, lightest ~ few meV) the sum rises only slightly above the floor: \u03a3m_\u03bd \u2248 59 meV (m_lightest = 0), 61 meV (2 meV), 65 meV (5 meV). So BAM predicts \u03a3m_\u03bd \u2248 59\u201365 meV \u2014 pinned near the NO floor, not in the quasi-degenerate regime.\n\nCOSMOLOGICAL COMPARISON. This sits exactly where cosmology is now probing: comfortably below Planck 2018 + BAO (< 120 meV), just inside DESI DR1 + CMB (< 72 meV), and right at the DESI DR2 + CMB frontier (~60\u201364 meV). It is a sharp, near-term falsifier: if cosmology robustly pushes \u03a3m_\u03bd below ~58.7 meV (the NO floor), normal ordering is excluded and the BAM prediction fails \u2014 such a result would also be in tension with the oscillation \u0394m\u00b2 themselves, making it a deep consistency test. Conversely a quasi-degenerate detection (\u03a3m_\u03bd \u2273 100 meV) would contradict the BAM light scale.\n\nONE SPECTRUM, TWO OBSERVABLES. \u03a3m_\u03bd (~59\u201365 meV) and the 0\u03bd\u03b2\u03b2 effective mass m_\u03b2\u03b2 (\u2272 8 meV, PR #95) are both consequences of the SAME light, normal-ordered, Majorana spectrum \u2014 a joint, cross-checkable prediction.\n\nHONEST SCOPE. ESTABLISHED (BAM-native): the light, normal-ordered spectrum gives \u03a3m_\u03bd \u2248 59\u201365 meV \u2014 at the NO floor, below the IO floor (~99 meV), consistent with Planck and at the DESI-DR2 + CMB frontier; a near-term-falsifiable target from the same spectrum as the PR #95 0\u03bd\u03b2\u03b2 prediction. NOT established: the exact \u03a3m_\u03bd \u2014 a narrow band (59\u201365 meV) because the lightest mass is unmeasured (the BAM light scale keeps the band narrow); the absolute scale is the PR #90 residual."
+}
