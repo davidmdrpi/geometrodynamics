@@ -412,6 +412,26 @@ geometric closure integer can only *compensate* a dynamical hierarchy,
 never derive it — and the right route is a QCD-shell model *with* `α_s`
 running.
 
+PR #98 takes the first step on that route and, in testing it, sharpens
+the mechanism. QCD's mass anomalous dimension `γ_m` is flavor-universal,
+so under renormalisation-group running every quark mass is multiplied by
+the *same* factor and quark mass *ratios* are RG-invariant — `α_s`
+running sets the overall scale, not the hierarchy. So the irregular
+hierarchy is not a running effect at all; it is the **flavor puzzle** —
+the Yukawa couplings, free inputs in the Standard Model, hierarchical and
+irregular for reasons no current theory derives. The quark Yukawas
+overflow the compressed shell-overtone capacity (`ω(1,n=3,4,5)` spans
+only ×1.49 in mass) by ~×5×10⁴, which is precisely why `n_part`
+compensates; the charged leptons (also a flavor puzzle, `m_τ/m_e ≈ 3477`)
+instead fit the winding ladder (`k ∈ {1,3,5}`, PR #71) that *has* the
+dynamic range. So BAM captures the quark sector's structure — six quarks
+(`3×2`), the Z₂ up/down partition, the `k=0` shell channel, three
+generations from `k_5` — geometrically, while the Yukawa magnitudes are
+the flavor puzzle, open across all of physics. The #97 core (the quark
+hierarchy is dynamical / non-geometric; `n_part` can only compensate it)
+stands; the mechanism is refined from "QCD-RG running" to "the flavor
+puzzle".
+
 The four-PR QCD-shell arc (PRs #77–#80) develops the right machinery
 quantitatively. The user's physical reframe: **quarks do not pass
 through the throat; they are the wavefronts that resolve the cavity
