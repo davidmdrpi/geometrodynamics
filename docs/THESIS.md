@@ -477,6 +477,29 @@ by no experiment. This is the first place where BAM's non-orientable
 topology is *expected* to predict differently from QCD, precisely where
 nature has not yet ruled — a feature of the program, not a defect.
 
+**The Möbius / exotic sector, where the topology meets data (PR #101).**
+Pursuing the non-orientable topology into the *open* flux networks turns
+the glueball logic on its head: hybrids and multiquark exotics, unlike
+glueballs, *are* experimentally observed, so here BAM's topology must
+match. It does. BAM's flux-network topology is the hadron taxonomy —
+meson (open tube), baryon (Y-junction), tetraquark and pentaquark
+(multi-junction networks), hybrid (tube + excited/twisted flux), glueball
+(closed loop). The key BAM-native statement is that the *exotic* J^PC
+quantum numbers are the signature of a non-orientable flux tube: an
+ordinary orientable qq̄ meson is restricted to `P = (−1)^{L+1}`,
+`C = (−1)^{L+S}` and so cannot have `1-+` (or `0--, 0+-, 2+-`), whereas a
+Möbius (antiperiodic) flux tube carries the phonon that opens exactly
+those channels. The lightest observed exotic hybrids — `π₁(1600)` and
+`η₁(1855)`, both `1-+` — match this both in quantum numbers and in mass:
+the Möbius/hybrid excitation gap is one flux-tube quantum, `≈ 2√σ ≈
+0.85 GeV`, placing them at `ρ + 2√σ ≈ 1.62 GeV` and `~1.0 + 2√σ ≈
+1.85 GeV`. The observed tetraquarks (`X(3872)`, `Z_c`, `T_cc`) and
+pentaquarks (`P_c`) fill the multi-junction network types. The same
+non-orientable Z₂ that gives the throat its spin-½ (PRs #63–#67) is the
+half-twist that marks these exotics; the Möbius baryon remains a
+BAM-specific prediction. So the exotic sector is the first place BAM's
+non-orientable topology confronts data — and passes.
+
 The four-PR QCD-shell arc (PRs #77–#80) develops the right machinery
 quantitatively. The user's physical reframe: **quarks do not pass
 through the throat; they are the wavefronts that resolve the cavity

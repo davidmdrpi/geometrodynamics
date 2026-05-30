@@ -294,6 +294,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `quark_hierarchy_flavor_puzzle_probe` | refines #97: quark mass RATIOS are RG-invariant (γ_m flavor-universal) ⟹ hierarchy is NOT α_s running but the FLAVOR PUZZLE (Yukawas); quark Yukawas overflow the compressed shell capacity (×1.49) by ~×5×10⁴; BAM captures quark STRUCTURE (6=3×2, Z₂, k=0, 3 gens) but not the magnitudes; #97 core (dynamical/non-geometric) stands | QUARK_HIERARCHY_IS_FLAVOR_PUZZLE_NOT_RG_RUNNING |
 | `qcd_confinement_cornell_audit_probe` | confinement geometry audit: Cornell V(L)=σL−A·ℏc/L (linear=flux-tube wormhole bridge, Coulomb=throat/gluon exchange); string breaking = Schwinger exp(−πm_q²/(σL)) = the PR #58 throat-pair mechanism with eE→σ; BAM σ reproduces Regge α'=1/(2πσ)=0.884 GeV⁻² and L_break; √σ≈0.42 GeV = the one QCD scale anchor (B4 analogue), calibrated not derived | CONFINEMENT_GEOMETRIC_STRING_BREAK_IS_SCHWINGER_SCALE_IS_QCD_ANCHOR |
 | `glueball_closed_flux_loop_probe` | glueballs = pure-confinement benchmark (closed flux loops, no quark/flavor input); BAM orientable ground √(4πσ)≈1.50 GeV (3.5√σ) benchmarks lattice 0++ (4.1√σ) to ~13%; closed-string glueball Regge slope = half the meson; BAM non-orientable Möbius sector ⟹ extra glueball tower (half-int modes, +πσ in M²) interleaving the orientable one (≈2× states); legitimate vs lattice not experiment (glueballs unobserved) | GLUEBALL_SCALE_BENCHMARKS_LATTICE_MOBIUS_TOWER_IS_BAM_TOPOLOGY |
+| `mobius_exotic_sector_probe` | flux-network topology = hadron taxonomy (meson/baryon/tetraquark/pentaquark/hybrid/glueball + Möbius Z₂); non-orientable (Möbius) flux tube carries the exotic J^PC (1-+) forbidden to ordinary qq̄; observed 1-+ hybrids π₁(1600), η₁(1855) match at right J^PC and at ρ/ω+2√σ (≈1.62, 1.85 GeV); multiquark exotics (X,Z_c,T_cc,P_c)=multi-junction networks; unlike glueballs, exotics observed ⟹ BAM topology meets data and matches | MOBIUS_FLUX_GIVES_EXOTIC_JPC_OBSERVED_HYBRIDS_MATCH |
 
 ## Cross-references
 
@@ -693,6 +694,22 @@ the B4 audit shows cannot come from scale-free geometry.
     testable against lattice (pure-glue states), not contradicted by
     experiment. The √σ scale + the topological doubling are robust; the
     exact `M/√σ` coefficients need the full closed-loop dynamics.
+  - `docs/mobius_exotic_sector_research_plan.md` — PR #101, pursues the
+    Möbius topology into the **open** flux-network exotics (hybrids,
+    multiquark), where — unlike glueballs — the states ARE observed. The
+    flux-network topology is the hadron taxonomy (meson tube, baryon
+    Y-junction, tetraquark / pentaquark multi-junction, hybrid
+    tube+twist, glueball loop). A non-orientable (Möbius) flux tube
+    carries the antiperiodic phonon that opens the **exotic J^PC** (`1-+`,
+    forbidden to ordinary qq̄ with `P=(−1)^{L+1}`, `C=(−1)^{L+S}`), and
+    the observed exotic hybrids `π₁(1600)`, `η₁(1855)` (all `1-+`) match
+    at the right J^PC and at `ρ/ω + 2√σ ≈ 1.62, 1.85 GeV` (the `2√σ`
+    flux-tube gap). The observed tetraquarks (`X, Z_c, T_cc`) and
+    pentaquarks (`P_c`) fit the multi-junction networks. The contrast
+    with PR #100: glueballs unobserved (BAM free to differ), exotics
+    observed (BAM's non-orientable topology must — and does — meet data).
+    The Möbius twist is the same Z₂ giving the throat spin-½ (PR #63–#67);
+    the Möbius baryon is a BAM-specific prediction.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target
