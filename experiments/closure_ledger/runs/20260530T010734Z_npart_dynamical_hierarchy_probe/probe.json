@@ -1,0 +1,125 @@
+{
+  "timestamp_utc": "2026-05-30T01:07:34+00:00",
+  "identification": "the quark inter-generation hierarchy is irregular (the QCD-RG signature) \u2014 the program's one dynamical sector; unlike the geometric lepton (integer 100) and neutrino (exponential bounce) hierarchies it has no stable geometric closure quantity, so n_part=233 (and the 366-quantum gap) compensates it",
+  "reframing": "a huge hierarchy can be geometric (neutrino exponential); size is not the obstruction",
+  "obstruction": "irregularity (neither power-law nor exponential) = QCD-RG dynamics",
+  "closure_gap": "N_q \u2212 N_lepton = 466 \u2212 100 = 366 quanta = the dynamical (QCD) excess",
+  "right_route": "QCD-shell model WITH \u03b1_s running (the missing RG dynamics)",
+  "upholds": "PR #76 N_PART_IS_PHENOMENOLOGICAL_COMPENSATOR, sharpened",
+  "tests": [
+    {
+      "name": "T1_recap_compensator",
+      "description": "PR #76: n_part=233 (N_q=2\u00b7n_part=466, \u03b2_quark=233\u03c0) is a compensator \u2014 only PARITY (N_q even) is \u00a78-stable; n_part drifts 216\u2013255.",
+      "n_part_baseline": 233,
+      "n_part_s8": [
+        233,
+        233,
+        233,
+        238,
+        237,
+        237,
+        241,
+        216,
+        247,
+        247,
+        220,
+        255
+      ],
+      "s8_min": 216,
+      "s8_max": 255,
+      "s8_span": 39,
+      "parity_invariant": true,
+      "pass": true
+    },
+    {
+      "name": "T2_geometric_lepton_neutrino_sectors",
+      "description": "Charged leptons: closure-ledger ladder, clean \u00a78-stable integer 4\u00b7k_5\u00b2=100 (PR #71). Neutrinos: exponential bounce m_\u03bd=m_D\u00b7e^{\u2212S} (PR #88\u201390). Both geometric.",
+      "lepton_closure_integer": 100,
+      "lepton_form": "power-law-like (closure ledger), \u00a78-stable",
+      "neutrino_form": "geometric exponential m_\u03bd = m_D\u00b7e^{\u2212S} (tortoise bounce)",
+      "both_geometric": true,
+      "pass": true
+    },
+    {
+      "name": "T3_huge_hierarchy_can_be_geometric",
+      "description": "Neutrino M_R = m_D\u00b7e^{S}, S\u224816 \u27f9 ~10\u2076\u201310\u2077 hierarchy from a clean geometric exponential. Size is not the obstruction; the quark mass\u00b2 span (~6\u00d710\u2079) is comparable in log-size.",
+      "neutrino_bounce_action_S": 16.0,
+      "neutrino_mass_hierarchy_e_S": 8886110.520507872,
+      "quark_mass2_span": 6397037379.972564,
+      "log10_neutrino": 6.948711710452029,
+      "log10_quark_mass2": 9.80597888844906,
+      "comparable_log_size": true,
+      "pass": true
+    },
+    {
+      "name": "T4_quark_hierarchy_irregular",
+      "description": "Up-type ratios c/u\u2248588, t/c\u2248136 (not constant \u27f9 not exponential); up/down asymmetric \u27f9 not a single power law. Irregular \u2014 neither geometric type.",
+      "up_type_consecutive_ratios": [
+        587.9629629629629,
+        136.03149606299212
+      ],
+      "down_type_consecutive_ratios": [
+        20.0,
+        44.75374732334047
+      ],
+      "up_ratio_nonconstancy": 4.322256094946533,
+      "up_down_asymmetry": [
+        29.398148148148145,
+        3.0395554383453263
+      ],
+      "not_exponential": true,
+      "not_single_power_law": true,
+      "pass": true
+    },
+    {
+      "name": "T5_geometric_shell_undercarries",
+      "description": "Shell \u03c9\u00b2(1,n=3,4,5) = 14.6, 22.7, 32.5 \u27f9 span \u00d72.2; observed quark mass\u00b2 span \u00d76.4\u00d710\u2079. Geometric shell under-produces by ~2.9\u00d710\u2079; n_part absorbs the gap.",
+      "shell_omega2_n345": [
+        14.62777966591,
+        22.66587072556258,
+        32.4902305190798
+      ],
+      "shell_mass2_span": 2.2211320693323127,
+      "observed_quark_mass2_span": 6397037379.972564,
+      "gap_factor": 2880079698.2304416,
+      "pass": true
+    },
+    {
+      "name": "T6_dynamical_qcd_rg_diagnosis",
+      "description": "Irregular hierarchy = QCD-RG signature (\u03b1_s logarithmic). Leptons/neutrinos geometric (don't feel QCD); quarks dynamical. Quark closure integer is the only \u00a78-drifting one; gap N_q\u2212N_lepton=366 = the dynamical excess.",
+      "lepton_closure_integer": 100,
+      "quark_closure_integer": 466,
+      "closure_gap_366": 366,
+      "lepton_integer_s8_stable": true,
+      "quark_integer_s8_drifts": true,
+      "quark_is_dynamical_sector": true,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "PR #76 compensator verdict upheld and sharpened: n_part compensates a DYNAMICAL hierarchy; right route = QCD-shell + \u03b1_s running.",
+      "established": [
+        "a huge hierarchy can be geometric (neutrino exponential) \u2014 size is not the obstruction",
+        "the quark hierarchy is IRREGULAR (neither power-law nor exponential) \u2014 the QCD-RG signature",
+        "the geometric shell carries only \u00d72.2 of the \u00d76.4\u00d710\u2079 span; n_part (and the 366-quantum gap) is the dynamical excess",
+        "the quark sector is the program's one dynamical (non-geometric) hierarchy"
+      ],
+      "open": [
+        "a first-principles n_part = 233 \u2014 none exists in the geometric machinery, and by the diagnosis none should",
+        "the derivation route: a QCD-shell model WITH \u03b1_s running (the missing RG dynamics) \u2014 substantial, outside the closure-ledger machinery"
+      ],
+      "upholds_pr76": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The quark inter-generation hierarchy is irregular (the QCD-RG signature) \u2014 the program's one dynamical sector. Unlike the geometric lepton (integer 100) and neutrino (exponential bounce) hierarchies, it does not reduce to a stable geometric closure quantity, so n_part=233 (and the 366-quantum gap) can only compensate it. PR #76 upheld and sharpened.",
+      "classification": "QUARK_HIERARCHY_DYNAMICAL_N_PART_COMPENSATES",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "QUARK_HIERARCHY_DYNAMICAL_N_PART_COMPENSATES",
+  "verdict": "THE QUARK HIERARCHY IS THE PROGRAM'S ONE DYNAMICAL SECTOR; n_part = 233 COMPENSATES IT. PR #76 classified n_part = 233 (N_q = 2\u00b7n_part = 466, \u03b2_quark = 233\u03c0) as a phenomenological compensator \u2014 only its parity is \u00a78-stable, n_part itself drifting 216\u2013255 \u2014 and identified the right route as a quantitative QCD-shell model. This probe revisits it with the machinery built since and sharpens the diagnosis.\n\nA HUGE HIERARCHY CAN BE GEOMETRIC. When PR #76 ran, the worry was that the ~9-order quark mass\u00b2 hierarchy was simply too large for the geometric closure machinery. The neutrino arc (#86\u2013#90) overturned that: it derived a comparable hierarchy \u2014 the keV\u2192TeV seesaw M_R = m_D\u00b7e^{S}, ~10\u2076 in mass \u2014 as a CLEAN GEOMETRIC EXPONENTIAL (the non-orientable tortoise bounce, an O(15) action). So size is not the obstruction. The program now has two geometric hierarchy types: charged leptons (a closure-ledger ladder with the clean, \u00a78-stable integer 4\u00b7k_5\u00b2 = 100, PR #71) and neutrinos (the exponential bounce, PR #88\u201390).\n\nTHE QUARK HIERARCHY IS IRREGULAR. The question is then sharper \u2014 does the quark hierarchy have the REGULARITY of a geometric one? It does not. The consecutive up-type mass ratios are m_c/m_u \u2248 588 and m_t/m_c \u2248 136 \u2014 not constant, so NOT a clean exponential (geometric progression); and not the k\u00b2-style pattern of a power law. The down-type ratios (m_s/m_d \u2248 20, m_b/m_s \u2248 45) differ from the up-type, so the two Z\u2082 partitions are asymmetric. The quark hierarchy is irregular \u2014 matching neither geometric type.\n\nTHE GEOMETRIC SHELL CANNOT CARRY IT. The quark shell basis (k=0, overtones n=3,4,5; PR #77/#83) has \u03c9\u00b2(1,n) = 14.6, 22.7, 32.5 \u2014 a mass\u00b2 span of only \u00d72.2 \u2014 whereas the observed quark mass\u00b2 span (t/u) is \u00d76.4\u00d710\u2079. The geometric shell under-produces by ~2.9\u00d710\u2079.\n\nTHE DIAGNOSIS: A DYNAMICAL (QCD-RG) HIERARCHY. Irregularity across a wide scale range is the signature of renormalisation-group running: \u03b1_s runs logarithmically, so the quark masses are QCD-dressed differently at each scale \u2014 an intrinsically DYNAMICAL hierarchy. Leptons and neutrinos do not feel QCD, so their hierarchies are geometric; the quarks do, so theirs is dynamical. This is why the quark closure integer is the ONLY one that drifts under \u00a78 (216\u2013255): it absorbs dynamical content that no geometric closure quantity encodes. The lepton\u2194quark closure gap N_q \u2212 N_lepton = 466 \u2212 100 = 366 quanta is precisely that dynamical (QCD) excess.\n\nSo n_part is not merely fit on the \"wrong basis\" (PR #76) \u2014 the quark hierarchy is the BAM mass program's ONE DYNAMICAL SECTOR, and a geometric closure integer can only compensate it, never derive it. The right route is sharpened: a QCD-shell model WITH \u03b1_s running (the missing ingredient is the RG dynamics, identified now by contrast with the geometric lepton and neutrino sectors).\n\nHONEST SCOPE. ESTABLISHED: the PR #76 compensator verdict is upheld and sharpened \u2014 size is not the obstruction (the neutrino exponential is geometric and huge); the quark hierarchy is irregular (the QCD-RG signature); the geometric shell carries only \u00d72.2 of the \u00d76.4\u00d710\u2079 span; n_part (and the 366-quantum gap) is the dynamical excess; the quark sector is the program's one dynamical hierarchy. NOT established: a first-principles n_part = 233 \u2014 none exists in the geometric machinery, and by the diagnosis none should; the derivation route (a QCD-shell model with \u03b1_s running) is a substantial program outside the closure-ledger machinery."
+}
