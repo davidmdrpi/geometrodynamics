@@ -1,0 +1,147 @@
+{
+  "timestamp_utc": "2026-05-30T15:52:45+00:00",
+  "identification": "BAM-specific baryonic exotics (M\u00f6bius / hybrid baryon) have no exotic-J^P smoking gun (supernumerary ordinary-J^P states), land in the densely-measured light N*/\u0394* region (~1.8\u20132.1 GeV, the 2\u221a\u03c3 gap), and are the MOST experimentally constrained corner of BAM's non-orientable predictions",
+  "no_smoking_gun": "no exotic J^P for baryons (any J^P ordinary for qqq)",
+  "masses": "hybrid N \u2248 1.79 GeV, hybrid \u0394 \u2248 2.08 GeV (nucleon/\u0394 + 2\u221a\u03c3)",
+  "constraint_ranking": "light N*/\u0394* (strongest) > strange hyperons > charm/bottom (weakest)",
+  "test": "M\u00f6bius doubling must coincide with observed states or decouple; else excluded",
+  "contrast": "opposite extreme from the unobserved glueballs (PR #100)",
+  "tests": [
+    {
+      "name": "T1_baryonic_exotics_setup",
+      "description": "PR #101 flagged the M\u00f6bius baryon as a BAM-specific prediction. This probe classifies the baryonic exotics (M\u00f6bius / hybrid baryon) and ranks their experimental constraints.",
+      "bam_baryonic_exotics": [
+        "hybrid baryon (excited Y-junction glue)",
+        "M\u00f6bius baryon (non-orientable Y-network)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_no_exotic_jp_for_baryons",
+      "description": "Baryons: P=(\u22121)^L, S\u2208{\u00bd,3/2}, no C \u27f9 every half-integer J^P reachable by qqq \u27f9 NO exotic J^P (unlike meson 1-+). BAM M\u00f6bius/hybrid baryons are supernumerary (ordinary J^P), signature = counting only.",
+      "rows": [
+        {
+          "jp": "1/2+",
+          "reachable_by_qqq": true
+        },
+        {
+          "jp": "1/2\u2212",
+          "reachable_by_qqq": true
+        },
+        {
+          "jp": "3/2+",
+          "reachable_by_qqq": true
+        },
+        {
+          "jp": "3/2\u2212",
+          "reachable_by_qqq": true
+        },
+        {
+          "jp": "5/2+",
+          "reachable_by_qqq": true
+        },
+        {
+          "jp": "5/2\u2212",
+          "reachable_by_qqq": true
+        },
+        {
+          "jp": "7/2+",
+          "reachable_by_qqq": true
+        }
+      ],
+      "all_jp_reachable_no_exotic": true,
+      "meson_contrast": "1-+ is exotic for mesons (C-forbidden); no baryon analogue",
+      "pass": true
+    },
+    {
+      "name": "T3_baryonic_exotic_masses",
+      "description": "Hybrid baryon \u2248 nucleon + 2\u221a\u03c3 \u2248 1.79 GeV; \u0394-partner \u2248 2.08 GeV (same 2\u221a\u03c3 flux-tube quantum as PR #101). M\u00f6bius baryon = Z\u2082 partner. All in the light N*/\u0394* region.",
+      "flux_tube_gap_2sqrt_sigma_GeV": 0.848528137423857,
+      "hybrid_N_baryon_GeV": 1.787528137423857,
+      "hybrid_Delta_baryon_GeV": 2.080528137423857,
+      "lands_in_light_sector": true,
+      "pass": true
+    },
+    {
+      "name": "T4_experimental_constraint_ranking",
+      "description": "Channels by data density: light N*/\u0394* (strongest) > strange hyperons > charm/bottom baryons (weakest, BAM freest).",
+      "ranking": [
+        {
+          "channel": "light N*/\u0394* (<2.5 GeV)",
+          "data": "~40 PDG states; missing-resonance problem",
+          "constraint": "strongest"
+        },
+        {
+          "channel": "strange hyperons (\u039b*, \u03a3*)",
+          "data": "well measured",
+          "constraint": "strong"
+        },
+        {
+          "channel": "charm/bottom baryons (\u039e_c*, \u03a9_c*, \u039b_b*)",
+          "data": "sparse (LHCb handful)",
+          "constraint": "weakest (BAM freest)"
+        }
+      ],
+      "most_constrained": "light N*/\u0394* (<2.5 GeV)",
+      "least_constrained": "charm/bottom baryon exotics",
+      "pass": true
+    },
+    {
+      "name": "T5_lightest_exotic_in_dense_region",
+      "description": "Lightest BAM baryonic exotic \u2248 1.79 GeV (N-based), 2.08 GeV (\u0394-based) \u2014 in the densely-measured N*/\u0394* region (the most-constrained channel).",
+      "hybrid_N_baryon_GeV": 1.787528137423857,
+      "dense_nstar_region_states": [
+        "N(1710)",
+        "N(1720)",
+        "N(1875)",
+        "N(1880)",
+        "N(1895)",
+        "N(1900)",
+        "N(2000)",
+        "N(2060)"
+      ],
+      "dense_delta_region_states": [
+        "\u0394(1900)",
+        "\u0394(1905)",
+        "\u0394(1910)",
+        "\u0394(1920)",
+        "\u0394(1930)",
+        "\u0394(1950)",
+        "\u0394(2000)"
+      ],
+      "n_nearby_nstar": 8,
+      "in_dense_region": true,
+      "pass": true
+    },
+    {
+      "name": "T6_test_and_tension",
+      "description": "M\u00f6bius doubling vs the dense light sector: the extra states must coincide with observed resonances (fill missing resonances) or decouple (weak \u03c0N), else excluded. A real near-term constraint.",
+      "mobius_doubles_spectrum": true,
+      "resolution_options": [
+        "coincide with observed-but-unexplained resonances (missing resonances the quark model under-predicts)",
+        "decouple from dominant \u03c0N production/decay (weak coupling) \u2014 the standard missing-resonance mechanism"
+      ],
+      "over_prediction_without_decoupling": "excluded",
+      "genuine_constraint": true,
+      "pass": true
+    },
+    {
+      "name": "T7_opposite_extreme_from_glueballs",
+      "description": "Glueballs (PR #100) = least constrained (unobserved, BAM free). Light baryonic exotics = most constrained (dense N*/\u0394*). The two bracket the testability of BAM's non-orientable predictions.",
+      "least_constrained_pole": "M\u00f6bius glueballs (unobserved, PR #100)",
+      "most_constrained_pole": "light M\u00f6bius/hybrid baryons (dense N*/\u0394*)",
+      "honest_caveat": "no exotic-J^P smoking gun for baryons \u27f9 the constraint is a counting one (match the dense spectrum or decouple), not a clean quantum-number test",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "BAM-specific baryonic exotics have no exotic-J^P smoking gun (supernumerary ordinary-J^P states), land in the densely-measured light N*/\u0394* region (~1.8\u20132.1 GeV), and are therefore the MOST experimentally constrained corner of BAM's non-orientable predictions; heavy-quark baryon exotics are the freest.",
+      "classification": "BARYONIC_EXOTICS_LACK_EXOTIC_JP_LIGHT_SECTOR_MOST_CONSTRAINED",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "BARYONIC_EXOTICS_LACK_EXOTIC_JP_LIGHT_SECTOR_MOST_CONSTRAINED",
+  "verdict": "BAM-SPECIFIC BARYONIC EXOTICS HAVE NO SMOKING GUN AND LIVE IN THE MOST CONSTRAINED CHANNEL. PR #101 matched BAM's non-orientable topology to the OBSERVED mesonic exotics and flagged the M\u00f6bius baryon as a BAM-specific prediction. This probe classifies the baryonic exotics and identifies which channels are experimentally constrained.\n\nNO EXOTIC J^P FOR BARYONS. For mesons the M\u00f6bius flux tube gave a smoking-gun exotic quantum number, J^PC = 1-+, forbidden to qq\u0304 by the C=(\u22121)^{L+S} constraint. Baryons have no such constraint: a qqq baryon has P=(\u22121)^L, S\u2208{\u00bd,3/2}, and no good C, so every half-integer J^P is reachable by an ordinary baryon \u2014 there is NO forbidden (exotic) J^P. So a BAM M\u00f6bius / hybrid baryon carries ORDINARY quantum numbers; it is a SUPERNUMERARY state, identifiable only by counting (an extra resonance beyond the qqq quark model), not by a smoking-gun J^P.\n\nTHE BAM BARYONIC EXOTICS. The hybrid baryon (excited Y-junction glue) sits \u2248 nucleon + 2\u221a\u03c3 \u2248 1.79 GeV; the \u0394-based partner \u2248 2.08 GeV \u2014 the same 2\u221a\u03c3 flux-tube quantum as the mesonic hybrids (PR #101). The M\u00f6bius baryon (make_mobius_baryon) is the Z\u2082-twisted partner. Both land in the LIGHT N*/\u0394* region.\n\nEXPERIMENTAL-CONSTRAINT RANKING. By data density: light N*/\u0394* (< 2.5 GeV) \u2014 ~40 PDG states, the missing-resonance problem active \u2014 is the STRONGEST constraint; strange hyperons (\u039b*, \u03a3*) strong; charm/bottom baryons (\u039e_c*, \u03a9_c*, \u039b_b*) sparse \u2014 the WEAKEST (BAM freest). The lightest BAM baryonic exotics (~1.8\u20132.1 GeV) sit squarely in the MOST-constrained light sector (N(1710), N(1875), N(1900), \u2026; \u0394(1900), \u0394(1950), \u0394(2000), \u2026).\n\nTHE TEST / TENSION. BAM's M\u00f6bius topology doubles the spectrum (a Z\u2082-twisted partner per state). The dense light sector cannot absorb arbitrary extras, so the M\u00f6bius/hybrid baryons must either COINCIDE with observed-but-unexplained resonances (filling missing resonances the quark model under-predicts) or DECOUPLE from the dominant \u03c0N production/decay (the standard missing-resonance mechanism); over-prediction without decoupling would be excluded. So this is the opposite extreme from the unobserved glueballs (PR #100): the light baryonic exotics are BAM's MOST exposed topological prediction.\n\nHONEST SCOPE. ESTABLISHED (BAM-native): baryonic exotics have no exotic-J^P smoking gun (any J^P is ordinary for qqq), so BAM's M\u00f6bius/hybrid baryons are supernumerary ordinary-J^P states identifiable only by counting; they land in the light N*/\u0394* region (~1.8\u20132.1 GeV, the 2\u221a\u03c3 gap), the MOST experimentally constrained channel; the constraint ranking is light N*/\u0394* > strange hyperons > heavy-quark baryons (the freest). NOT established: a specific M\u00f6bius-baryon state confirmed in data \u2014 without a smoking-gun J^P the prediction is a counting one, testable only by matching the dense spectrum or demonstrating decoupling."
+}

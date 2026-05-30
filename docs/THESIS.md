@@ -500,6 +500,30 @@ half-twist that marks these exotics; the Möbius baryon remains a
 BAM-specific prediction. So the exotic sector is the first place BAM's
 non-orientable topology confronts data — and passes.
 
+**Baryonic exotics: the most-constrained corner, and why it lacks a
+smoking gun (PR #102).** The baryon analogue is subtler and more
+exposed. For mesons the Möbius twist gave a manifestly exotic `J^PC`
+(`1-+`, C-forbidden); baryons have no good `C` and `P = (−1)^L`,
+`S ∈ {½, 3/2}`, so *every* half-integer `J^P` is reachable by an ordinary
+qqq — there is no forbidden, exotic baryon `J^P`. A BAM Möbius / hybrid
+baryon therefore carries ordinary quantum numbers and shows up only as a
+*supernumerary* state, an extra resonance beyond the quark-model count.
+Its natural mass is one flux-tube quantum above the ground baryon,
+`nucleon/Δ + 2√σ ≈ 1.79, 2.08 GeV` — squarely in the light N*/Δ* region,
+the densest and best-measured part of the entire hadron spectrum. So the
+baryonic exotics are the *opposite* extreme from the glueballs: not BAM's
+freest topological prediction but its most experimentally constrained
+one. The Möbius doubling (a Z₂-twisted partner per state) must either
+coincide with observed-but-unexplained resonances — filling the "missing
+resonances" the quark model under-predicts — or decouple from `πN`
+production (the standard missing-resonance mechanism); unmitigated
+over-prediction would be excluded. Ranked by data density the channels
+run light N*/Δ* (strongest constraint) → strange hyperons → charm/bottom
+baryons (the freest, where a clean new state is most likely findable).
+The honest scope: with no smoking-gun `J^P`, this is a *counting*
+prediction, testable only against the dense spectrum or via decoupling —
+the sharpest, but also the least clean, of BAM's non-orientable tests.
+
 The four-PR QCD-shell arc (PRs #77–#80) develops the right machinery
 quantitatively. The user's physical reframe: **quarks do not pass
 through the throat; they are the wavefronts that resolve the cavity
