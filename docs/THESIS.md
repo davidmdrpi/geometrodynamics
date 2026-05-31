@@ -1184,11 +1184,20 @@ problems rather than implementation TODOs:
   (`e^{ikπ} = −1 ⟹ k odd`), and the PRs #87–#90 bounces are the leading
   saddle — and sets up the `Diff(S¹)` Faddeev–Popov (`bc`-ghost) gauge
   fixing, with the fluctuation operator (the second variation of `S_BAM`,
-  the Tangherlini cavity operator) stable (`min ω² ≈ 1.11`). The *analytic
-  core* still remains future work: the bare fluctuation determinant
-  diverges, so a finite, regularization-independent measure and the
-  normalisation `Z` are not yet rigorously constructed (the saddle results,
-  normalisation-independent, are unaffected).
+  the Tangherlini cavity operator) stable (`min ω² ≈ 1.11`). PR #116 then
+  closes that analytic core: the divergent bare determinant is regularized
+  to a finite, scheme-independent value by two independent standard methods
+  that agree — the Gel'fand–Yaglom boundary-value construction gives
+  `det(H)/det(H_free) = y(L)/L = 1.574` (log `0.454`) from a single
+  initial-value solve with no mode sum (converged to six digits, zero
+  interior nodes), and the zeta/heat-kernel method gives `ζ(0) = −1/2`, the
+  universal Dirichlet-interval value (finite, no zero mode, no anomaly),
+  with the Weyl law `a_{−1/2} ≈ L/√(4π)` confirmed to under a percent. So
+  the `S_BAM` one-loop measure factor is *finite and computable*, not merely
+  formal. What remains is a closed-form analytic expression (the determinant
+  is a definite number, computed numerically) and the absolute normalisation
+  of `Z` (which still carries the bulk `κ₅²/Λ₅` anchor); the saddle results,
+  normalisation-independent, are unaffected throughout.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
