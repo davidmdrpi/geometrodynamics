@@ -284,6 +284,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `majorana_bounce_action_probe` | reduced Euclidean bounce on the non-orientable tortoise path; rigid throat ⟹ massless ν; S ∝ ln(1/ε) (O(10), gen-stable); EM-throat tension under-produces S ~40×; S≈15–18 needs ΔL=2 tension ratio t≈6–12 | MAJORANA_BOUNCE_IS_TORTOISE_LOG_S_OPEN_AS_TENSION_RATIO |
 | `b_minus_l_tension_ratio_probe` | ΔL=2/B−L tension ratio t = global-closure enhancement of local EM tension; bracketed parameter-free by closure quantum 2π (lower) and winding action k_5√(2π)=√β (upper): t∈[6.28,12.53], matching PR #88's 6–12; residual = compliance ε | B_MINUS_L_TENSION_BRACKETED_BY_CLOSURE_AND_WINDING_ACTIONS |
 | `boundary_compliance_bulk_geometry_probe` | ε = chargeless-throat sub-throat healing length (ε=ℓ²/2rs; c₁=0 neck not EM-propped, charged → Dirac); bulk scales (R_c³,Δ³) land ε in window; winding-edge t≈√β ⟹ S≈15–19, m_ν~few meV (observed scale, untuned); precise spectrum residual | COMPLIANCE_IS_CHARGELESS_THROAT_HEALING_LENGTH_CHAIN_CLOSED_TO_OOM |
+| `epsilon_bulk_compliance_probe` | is ε computed from bulk compliance or inferred from meV? COMPUTED (meV-free): healing length ℓ~R_c=2σ/ρ from the ELECTRON calibration (PR #58, R_c=2/9) ⟹ ε~R_c³≈0.011 sub-throat O(10⁻²), no neutrino input; with t=k_5√(2π)=√β_lepton ⟹ S≈16.85 ⟹ m_ν≈2.1 meV (scale output/retrodiction), deriving the exponential smallness (ε≪1⟹large S⟹tiny m_ν). RESIDUAL: precise ε — m_ν∝ε^4.8 ⟹ O(1) ambiguity (R_c³→2, Δ³→20, R_c²/2→108 meV) spans ×50; absolute compliance normalization = unpinned κ₅²/Λ₅ (only √6 fixed, PR #57). Smallness derived from bulk compliance; exact value not | EPSILON_BULK_COMPLIANCE_DERIVES_SMALLNESS_PRECISE_VALUE_STAYS_RESIDUAL |
 | `generation_spread_pmns_mixing_probe` | generations = cavity overtones ⟹ bare m_ν ∝ m_D (normal ordering 1:1.87:2.74); spread widened by overtone-dependent neck coupling (PR #79 χ_n ↓ with n ⟹ higher-n less suppressed ⟹ heavier); large PMNS = cross-channel (charged k≠0 × neutrino k=0), small CKM = intra-channel (shell × shell) ⟹ PMNS ≫ CKM; angles/spectrum open | PMNS_CROSS_CHANNEL_CKM_INTRA_CHANNEL_SPREAD_FROM_OVERTONE_COUPLING |
 | `cross_channel_pmns_overlap_probe` | naive radial overlap → near-permutation (small); lepton gens in different coordinates (closure-winding k vs radial-overtone n) ⟹ anarchic map; observed PMNS typical of Haar U(3) (30th/57th/4th pct), CKM extremely atypical (aligned, joint p≈0); specific angles open (θ13 mild tension) | PMNS_ANARCHIC_CROSS_COORDINATE_CKM_ALIGNED_INTRA_COORDINATE |
 | `theta13_residual_alignment_probe` | θ13=U_e3 is the corner / two-hop element (gap |g−i|=2); residual nearest-neighbour alignment (throat↔shell coupling local in (k,n)) suppresses it ⟹ θ13 robustly smallest, observed θ13 moves 4th→~21st percentile (PR #92 tension resolved), θ12/θ23 stay typical; exact θ13 (μ one param, median saturates ~14–16°) open | THETA13_SUPPRESSED_BY_RESIDUAL_NEAREST_NEIGHBOUR_ALIGNMENT |
@@ -552,6 +553,20 @@ the B4 audit shows cannot come from scale-free geometry.
     order-of-magnitude — the neutrino mass *scale* is geometric, untuned;
     the precise `m_ν` and the generation spread (`×18` vs the geometric
     `×2.7`) are the residual.
+  - `docs/epsilon_bulk_compliance_research_plan.md` — PR #112, sharpens the
+    question "is `ε` computed from bulk compliance, or inferred from the meV
+    scale?" The healing length `ℓ ~ R_c = 2σ/ρ` uses `σ,ρ` from the
+    **electron** calibration (PR #58: `R_c = 2/9`), so `ε ~ R_c³ ≈ 0.011` —
+    sub-throat, `O(10⁻²)` — is computed with NO neutrino input; with
+    `t = k_5√(2π) = √β_lepton` the chain gives `S ≈ 16.85`, `m_ν ≈ 2.1 meV`,
+    so the meV **scale** is an output (retrodiction) and the exponential
+    smallness (`ε ≪ 1 ⟹ large S ⟹ tiny m_ν`) is DERIVED. But because
+    `m_ν ∝ ε^{4.8}`, the `O(1)` ambiguity (`R_c³`→2, `Δ³`→20, `R_c²/2`→108
+    meV) spans ×50, and the absolute compliance normalization is the
+    unpinned `κ₅²/Λ₅` (only `√6` fixed, PR #57); the PRECISE `ε` stays a
+    residual. So `ε` is upgraded from "inferred from the meV scale" to
+    "bulk-geometric to order of magnitude" — the smallness derived, the
+    exact value not.
   - `docs/generation_spread_pmns_mixing_research_plan.md` — PR #91,
     addresses PR #90's two residuals (the generation spread and the large
     PMNS mixing). Generations are the cavity radial overtones `n`, so the
