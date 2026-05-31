@@ -547,6 +547,36 @@ now the heavy Möbius baryons (a clean, correlated, findable prediction in
 the sparse heavy spectrum) — the exact mass (lattice hybrid gaps span
 ~0.8–1.3 GeV) and `J^P` remaining open.
 
+**How the heavy Möbius baryon decays — and how to find it (PR #109).** A
+mass prediction is only half a discovery program; the other half is the
+decay pattern that tells the state apart from an ordinary excitation. Here
+the topology does the work. The Möbius excitation is the non-orientable
+(orientation `−1`) flux sector, while the ground heavy baryon is orientable
+(`+1`), so to decay the half-twist must **unwind**, shedding the stored
+`2√σ ≈ 0.85 GeV` as light isoscalar hadrons — a hybrid de-excitation with
+the heavy quark a spectator. That mechanism inherits the flux-tube model's
+**hybrid selection rule**: a hybrid cannot decay into two ground-state
+(both-S-wave) hadrons, so the Möbius baryon's naive single-S-wave-pion
+transition to the ground state is *suppressed*, while `Σ_Q π` (the spin-1
+light diquark), the coherent isoscalar S-wave dipion `Λ_Q(ππ)` (like
+`ψ(2S) → J/ψ ππ`), and P-wave-baryon + π are *preferred*. An ordinary
+radial excitation does the opposite — single pion to the ground state — so
+the branching **pattern**, not the mass, is the discriminator. The
+cross-flavor handle sharpens further in the decays: because both the gap
+`2√σ` and the light-meson thresholds are flavor-independent, the all-light
+release energies are *identical* for charm and bottom — `Λ_Q ππ` at
+`Q = 569 MeV` and `Λ_Q η` at `Q = 301 MeV` — the same dipion spectrum above
+both ground baryons, with the `Σ_Q π` channels offset only by the small
+`Σ_Q − Λ_Q` hyperfine splitting (167 MeV for c, 194 for b). Honesty about
+the cost: with several open channels at `Q ≈ 0.5 GeV` the state is *broad*
+(lattice hybrid widths run ~tens–150 MeV), so it is best resolved in LHCb
+and Belle II amplitude (Dalitz) analyses of `Λ_Q ππ`, `Σ_Q π`, and the
+open-flavor `D N` / `B N` channels (`Ξ_cc` and `Ω_b` wide open), not as a
+sharp peak. The absolute branching fractions, the total width, and the
+`J^P` need the flux-tube decay amplitudes and remain open; what BAM
+delivers is the branching pattern and the cross-flavor Q-structure — a
+falsifiable search program, not just a bump.
+
 The four-PR QCD-shell arc (PRs #77–#80) develops the right machinery
 quantitatively. The user's physical reframe: **quarks do not pass
 through the throat; they are the wavefronts that resolve the cavity
