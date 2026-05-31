@@ -1210,3 +1210,28 @@ derives or, for now, carries as a residual alongside `ε`, `n_part`, and
 `α`. Deriving that one ratio — fixing the relative normalisation of the
 throat-winding and cavity-confinement channels — would reduce BAM to a
 single irreducible input.
+
+The first attempt at exactly that derivation (PR #107) is a cautionary
+negative result worth recording, because the trap is seductive. The
+closure integers offer a near-perfect candidate: with `N_lepton = 100`,
+`N_q = 466`, and the gap `ΔN = N_q − N_lepton = 366`, the combination
+`N_q + ΔN = 2N_q − N_lepton = 832` sits 0.2% from the observed
+`√σ/m_e ≈ 830`. But `2N_q − N_lepton = 4·n_part − 4·k_5²` is built
+directly from `n_part`, the quark closure integer that is a
+phenomenological compensator — fit to the quark spectrum, drifting
+216–255 across the `quark_axioms` §8 ablations. The decisive test is to
+propagate that drift: `4·n_part − 100` ranges over `[764, 920]` (±9%)
+while the observed ratio is fixed, so `832` is a baseline coincidence
+(of the same family as `50π·k_5 = 785` and `F_13 = 233`), not a stable
+geometric selection. And no *independent* bulk shell-stress integral
+lands near 466 or 832 — the natural ones (`Σω²(n=3..5) ≈ 70`, the
+Bohr–Sommerfeld closure sum `Σ(n+1)π ≈ 47`) are `O(10–70)`; the 466
+enters only through the v3-fit closure count itself. Recovering the
+scale ratio from `n_part` is therefore circular, since `n_part` was fit
+to the spectrum that encodes the scales. The lesson is methodological:
+a genuine reduction to one input must come from a bulk integral that is
+*independent of the spectral fit* and *§8-stable*, not from
+recombining the compensator. Until then `√σ/m_e` stays an honest open
+residual, and the program's irreducible content remains one
+gravitational scale plus a short list of undetermined dimensionless
+numbers.
