@@ -290,6 +290,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `cp_majorana_phase_probe` | CP violation generic (winding amplitudes Hopf-complex e^{ikχ}, PR #60; CP-conservation measure-zero); Jarlskog dichotomy: \|J_PMNS\|≈0.026 typical of anarchy (51st/81st pct), \|J_CKM\|≈3e-5 extremely atypical (aligned, suppressed); two Majorana phases EXIST ⟸ neutrino Majorana ⟸ c₁=0 (PR #86), 0νββ; specific phase values anarchic/not pinned | CP_GENERIC_MAJORANA_PHASES_EXIST_VALUES_ANARCHIC |
 | `zeronubb_effective_mass_probe` | 0νββ occurs ⟸ Majorana (c₁=0, PR #86); BAM normal-ordering band (PR #91) below IO floor ~19 meV; anarchic Majorana phases (PR #94) populate full band incl. cancellation→~0; light scale (PR #90) ⟹ m_ββ ≲ 8 meV — below current (28–122 meV) & next-gen (~9–20 meV) reach; falsifiable (discovery ≳19 meV ⟹ IO/degenerate); exact m_ββ a band | ZERONUBB_OCCURS_NORMAL_ORDERING_M_BB_FEW_MEV |
 | `cosmological_sigma_mnu_probe` | same light, normal-ordered spectrum ⟹ Σm_ν ≈ 59–65 meV (NO floor 58.7 meV, below IO floor 99 meV); consistent with Planck (<120), at the DESI DR2+CMB frontier (~60–64 meV); falsifiable (Σ<58.7 ⟹ NO excluded; Σ≳100 ⟹ not light); cross-checks PR #95 (m_ββ ≲ 8 meV) | SIGMA_MNU_AT_NORMAL_ORDERING_FLOOR_60MEV |
+| `neutrino_mev_scale_sharpening_probe` | sharpens the #96 band into a PINNED spectrum: NuFIT 6.0 fixes m₂=8.65, m₃=50.34 meV (NO floor 59.0); DESI DR2+CMB (≲60–64) corners m₁≲3 meV ⟹ Σm_ν∈[59.0,62.6] (tightened from 59–65, toward the floor); pinned spectrum m=(≲3,8.65,50.34) meV; m_β≈8.8–9.3 meV; m_ββ NONZERO floor [1.5,3.7] meV (no full cancellation in NO: s12²c13²m₂=2.60 > s13²m₃=1.10); honest reachability — only Σm_ν near-term testable (DESI at floor now), m_β ~4–5× below Project 8, m_ββ ~3–10× below LEGEND-1000/nEXO; flag: some 2025 DESI+CMB fits prefer Σ at/below floor ⟹ tension for all NO models; open: m₁ band (0–3 meV) + anarchic Majorana phases | NEUTRINO_MEV_PREDICTIONS_SHARPENED_SPECTRUM_PINNED_SIGMA_TESTABLE |
 | `npart_dynamical_hierarchy_probe` | n_part=233 revisited: a huge hierarchy CAN be geometric (neutrino e^{−S}), so size isn't the obstruction; the quark hierarchy is IRREGULAR (c/u≈588 vs t/c≈136, up/down asym) — the QCD-RG signature; geometric shell span ×2.2 vs observed ×6.4×10⁹; quark is the program's one dynamical sector; gap N_q−N_lepton=366 = dynamical excess; PR #76 upheld+sharpened | QUARK_HIERARCHY_DYNAMICAL_N_PART_COMPENSATES |
 | `quark_hierarchy_flavor_puzzle_probe` | refines #97: quark mass RATIOS are RG-invariant (γ_m flavor-universal) ⟹ hierarchy is NOT α_s running but the FLAVOR PUZZLE (Yukawas); quark Yukawas overflow the compressed shell capacity (×1.49) by ~×5×10⁴; BAM captures quark STRUCTURE (6=3×2, Z₂, k=0, 3 gens) but not the magnitudes; #97 core (dynamical/non-geometric) stands | QUARK_HIERARCHY_IS_FLAVOR_PUZZLE_NOT_RG_RUNNING |
 | `qcd_confinement_cornell_audit_probe` | confinement geometry audit: Cornell V(L)=σL−A·ℏc/L (linear=flux-tube wormhole bridge, Coulomb=throat/gluon exchange); string breaking = Schwinger exp(−πm_q²/(σL)) = the PR #58 throat-pair mechanism with eE→σ; BAM σ reproduces Regge α'=1/(2πσ)=0.884 GeV⁻² and L_break; √σ≈0.42 GeV = the one QCD scale anchor (B4 analogue), calibrated not derived | CONFINEMENT_GEOMETRIC_STRING_BREAK_IS_SCHWINGER_SCALE_IS_QCD_ANCHOR |
@@ -640,6 +641,21 @@ the B4 audit shows cannot come from scale-free geometry.
     and `m_ββ` (PR #95) are one spectrum's two observables — a joint,
     cross-checkable prediction; the exact `Σm_ν` is a narrow band (the
     lightest mass is unmeasured).
+  - `docs/neutrino_mev_scale_sharpening_research_plan.md` — PR #111,
+    sharpens the PR #96 band into a PINNED meV-scale spectrum. Updating to
+    NuFIT 6.0 fixes `m₂ = 8.65`, `m₃ = 50.34 meV` (NO floor `Σm_ν = 59.0`),
+    and the 2025 DESI DR2 + CMB bound (`≲ 60–64 meV`) corners `m₁ ≲ 3 meV`
+    ⟹ `Σm_ν ∈ [59.0, 62.6] meV` (tightened from 59–65, toward the floor).
+    The pinned spectrum gives the laboratory effective masses: `m_β ≈
+    8.8–9.3 meV` and a NONZERO 0νββ floor `m_ββ ∈ [1.5, 3.7] meV` (in NO
+    the solar term `s12²c13²m₂ = 2.60` exceeds the reactor term `s13²m₃ =
+    1.10 meV`, so the contributions cannot fully cancel). Honest
+    reachability: only `Σm_ν` is near-term testable (DESI, at the floor
+    now); `m_β` sits ~4–5× below Project 8 and `m_ββ` ~3–10× below
+    LEGEND-1000 / nEXO. Flag: some 2025 DESI + CMB fits already prefer
+    `Σm_ν` at/below the floor ⟹ tension for all normal-ordered models. Open:
+    `m₁` within its cornered band (0–3 meV) and the anarchic Majorana
+    phases (which set `m_ββ` within the floor band).
   - `docs/npart_dynamical_hierarchy_research_plan.md` — PR #97, revisits
     the `n_part = 233` quark compensator (PR #76) with the now-complete
     lepton/neutrino sectors. The neutrino arc proved a huge hierarchy can
