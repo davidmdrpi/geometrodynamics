@@ -592,6 +592,25 @@ Q-match at 569 / 301 MeV), with the open items — exact masses in the
 carried forward unchanged. It adds no physics; it makes the sector's
 existing content searchable on one page.
 
+**Sharper still: a tiered search table (PR #114).** Where #110 is a
+reference card, #114 turns the heavy-baryon channels into a ranked,
+actionable LHCb / Belle II search table, with one genuinely sharper handle.
+The preferred twist-unwinding channel `Λ_Q(ππ)` has a dipion invariant-mass
+endpoint `m(ππ)_max = M_Möbius − M_ground = 2√σ ≈ 849 MeV` that is
+*flavor-independent* — the same edge above the charm and the bottom ground
+baryon, with the spectrum peaking high (the coherent isoscalar S-wave, like
+`ψ(2S) → J/ψ ππ`). That is sharper than a Q-value: a fixed edge in a
+directly-plotted observable, so a single overlay of the charm and bottom
+dipion spectra tests the whole picture at once. The table is tiered by
+discovery feasibility — Tier 1 the `Λ_c` + `Λ_b` cross-flavor pair (highest
+yield, golden `pK⁻π⁺` reconstruction, and together the Q-match clincher);
+Tier 2 the entirely-unexplored doubly-heavy `Ξ_cc` and `Ω_b` (a clean bump
+would be discovery, but production is rare); Tier 3 the calibratable `Ω_c`,
+sitting above the well-mapped 2017 excitations — with the suppressed
+single-pion-to-ground branch and the cross-flavor Q-match as the
+discriminators. It adds no physics beyond #109/#110; it makes the search
+concrete and ranked.
+
 The four-PR QCD-shell arc (PRs #77–#80) develops the right machinery
 quantitatively. The user's physical reframe: **quarks do not pass
 through the throat; they are the wavefronts that resolve the cavity
