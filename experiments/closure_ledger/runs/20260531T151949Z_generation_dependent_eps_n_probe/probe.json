@@ -1,0 +1,112 @@
+{
+  "timestamp_utc": "2026-05-31T15:19:49+00:00",
+  "identification": "a generation-dependent \u03b5_n \u221d 1/\u03c7_n (overtone boundary stress) reproduces the hierarchy DIRECTION (normal ordering, untuned) but overshoots its MAGNITUDE by \u00d728 (m_3/m_2 = 162 vs 5.85); the spread stays a residual",
+  "direction": "normal ordering, untuned (\u03b5_n \u221d 1/\u03c7_n) \u2014 derived (sharpens PR #91)",
+  "magnitude": "\u03c7_n overshoots \u00d728; required \u03b5_n gentle (1, 1.18, 1.57), not principled",
+  "cause": "the steep bounce (m_\u03bd \u221d \u03b5^{4.8}, PR #112) amplifies the \u00d78 \u03c7_n into ~10\u2074 in mass",
+  "status": "\u03b5_n accommodates the spread but does not derive it \u2014 stays a residual",
+  "plausibly": "the spread belongs to the mixing/anarchy sector (PR #92)",
+  "tests": [
+    {
+      "name": "T1_setup",
+      "description": "PR #112 derived the neutrino-mass SMALLNESS from a sub-throat \u03b5 ~ R_c\u00b3 but left the SPREAD open (uniform \u03b5 \u27f9 m_\u03bd \u221d m_D, \u00d72.7). PR #91 proposed a generation-dependent \u03b5_n driven by the overtone boundary stress \u03c7_n (decreasing). This probe tests it quantitatively.",
+      "uniform_eps_spread": 2.74,
+      "observed_m3_over_m2": 5.82,
+      "chi_n": {
+        "1": 0.304,
+        "2": 0.097,
+        "3": 0.039
+      },
+      "pass": true
+    },
+    {
+      "name": "T2_mechanism_and_direction",
+      "description": "\u03b5_n \u221d 1/\u03c7_n; \u03c7_n decreasing \u27f9 \u03b5_n increasing \u27f9 less suppression for higher overtones \u27f9 m_\u03bd increases with n \u27f9 NORMAL ORDERING (direction right, untuned).",
+      "eps_ratios": {
+        "1": 1.0,
+        "2": 3.13,
+        "3": 7.79
+      },
+      "m_nu_increasing_with_n": true,
+      "gives_normal_ordering": true,
+      "pass": true
+    },
+    {
+      "name": "T3_required_spread_is_gentle",
+      "description": "Required \u03b5_n to hit observed m_2, m_3: (0.011, 0.013, 0.017), ratios (1, 1.18, 1.57) \u2014 a GENTLE generation variation.",
+      "required_eps": {
+        "1": 0.011,
+        "2": 0.013,
+        "3": 0.0172
+      },
+      "required_ratios": {
+        "1": 1.0,
+        "2": 1.18,
+        "3": 1.57
+      },
+      "is_gentle": true,
+      "pass": true
+    },
+    {
+      "name": "T4_chi_driven_overshoots",
+      "description": "\u03b5_n \u221d 1/\u03c7_n \u27f9 m_\u03bd = (2.1, 1038, 167650) meV \u27f9 m_\u03bd3/m_\u03bd2 \u2248 162 vs observed 5.85 \u2014 \u00d728 overshoot (orders of magnitude in absolute mass).",
+      "eps_ratios": {
+        "1": 1.0,
+        "2": 3.13,
+        "3": 7.79
+      },
+      "m_nu_meV": {
+        "1": 2.1,
+        "2": 1037.8,
+        "3": 167650.2
+      },
+      "m3_over_m2_predicted": 161.5,
+      "m3_over_m2_observed": 5.82,
+      "overshoot_factor": 27.8,
+      "pass": true
+    },
+    {
+      "name": "T5_steep_bounce_amplifies_chi",
+      "description": "Steepness \u2202ln m_\u03bd/\u2202ln \u03b5 \u2248 4.8 (PR #112) amplifies the \u00d78 \u03c7_n variation into ~10\u2074 in mass. Required power p \u2248 0.15 (gen 1\u21922), 0.31 (gen 2\u21923) \u2014 inconsistent, not the principled p = 1.",
+      "d_lnmnu_d_lneps": 4.75,
+      "chi_variation_factor": 7.8,
+      "required_power_p_12": 0.146,
+      "required_power_p_23": 0.31,
+      "principled_p_is_1": true,
+      "powers_inconsistent": true,
+      "pass": true
+    },
+    {
+      "name": "T6_accommodates_not_predicts",
+      "description": "No principled \u03b5_n(\u03c7_n) reproduces the gentle required spread: 1/\u03c7_n overshoots \u00d728; the fitted power is an inconsistent fraction. \u03b5_n ACCOMMODATES the spread (fit) but does not PREDICT it from \u03c7_n.",
+      "principled_1_over_chi": "overshoots \u00d728 (m_3/m_2 = 162 vs 5.85)",
+      "fitted_power": "p \u2248 0.15\u20130.31, inconsistent \u2014 a fit, not a law",
+      "accommodates": true,
+      "predicts": false,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "Direction DERIVED (overtone compliance \u27f9 normal ordering, untuned); spread NOT derived from \u03b5_n (\u03c7_n overshoots; required \u03b5_n gentle and unprincipled). The same bounce steepness that made \u03b5's value a residual (PR #112) blocks the spread; it plausibly belongs to the mixing/anarchy sector (PR #92).",
+      "derived": [
+        "the hierarchy DIRECTION \u2014 overtone compliance (\u03b5_n \u221d 1/\u03c7_n) \u27f9 normal ordering, untuned (sharpens PR #91)"
+      ],
+      "not_derived": [
+        "the hierarchy MAGNITUDE \u2014 \u03c7_n overshoots \u00d728; required \u03b5_n is gentle (\u00d71.57) and not a principled function of \u03c7_n",
+        "the same bounce steepness (m_\u03bd \u221d \u03b5^{4.8}, PR #112) amplifies the natural overtone variation far past the data"
+      ],
+      "plausibly_belongs_to": "the mixing / anarchy sector (PR #92), not a generation-dependent \u03b5_n",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "A generation-dependent \u03b5_n from the overtone boundary stress \u03c7_n reproduces the hierarchy's direction (normal ordering, untuned) but overshoots its magnitude by ~28\u00d7 \u2014 the steep bounce amplifies the \u00d78 \u03c7_n variation into orders of magnitude, and no principled \u03b5_n(\u03c7_n) fits the gentle required spread. \u03b5_n accommodates the spread but does not derive it; it stays a residual, plausibly the mixing/anarchy sector.",
+      "classification": "HIERARCHY_SPREAD_DIRECTION_FROM_EPSILON_N_MAGNITUDE_OVERSHOOTS_STAYS_RESIDUAL",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "HIERARCHY_SPREAD_DIRECTION_FROM_EPSILON_N_MAGNITUDE_OVERSHOOTS_STAYS_RESIDUAL",
+  "verdict": "A GENERATION-DEPENDENT \u03b5_n GETS THE HIERARCHY DIRECTION RIGHT BUT OVERSHOOTS ITS MAGNITUDE \u2014 THE SPREAD STAYS A RESIDUAL. PR #112 derived the neutrino-mass SMALLNESS from a sub-throat, bulk-geometric healing length \u03b5 ~ R_c\u00b3, but a uniform \u03b5 gives a uniform bounce action, hence m_\u03bd \u221d m_D \u2014 only a \u00d72.7 generation spread, far short of the observed hierarchy. PR #91 proposed the fix: the generations are cavity radial overtones n, and the overtone boundary stress \u03c7_n (PR #79) decreases with n (0.304, 0.097, 0.039), so higher-overtone necks are more compliant \u2014 a generation-dependent \u03b5_n. This probe makes that quantitative.\n\nTHE DIRECTION IS RIGHT. Compliance is the inverse of stiffness, so the natural law is \u03b5_n \u221d 1/\u03c7_n: with \u03c7_n decreasing, \u03b5_n increases with n, the tortoise length L*(\u03b5_n) decreases, the action S(n) decreases, and the suppression weakens \u2014 so m_\u03bd increases with n, and with m_D also increasing the result is NORMAL ORDERING, untuned. The qualitative hierarchy is reproduced.\n\nTHE MAGNITUDE OVERSHOOTS. But the observed hierarchy needs only a GENTLE \u03b5_n variation. Anchoring gen 1 at \u03b5_1 = R_c\u00b3 (the PR #112 value, m_\u03bd1 \u2248 2.08 meV) and demanding the observed m_2 = 8.65, m_3 = 50.34 meV requires \u03b5_n = (0.011, 0.013, 0.017), ratios (1, 1.18, 1.57). The \u03c7_n-driven law badly overshoots: \u03b5_n \u221d 1/\u03c7_n gives \u03b5 ratios (1, 3.13, 7.79), hence m_\u03bd = (2.1, 1038, 167650) meV and m_\u03bd3/m_\u03bd2 \u2248 162 against the observed 5.85 \u2014 a \u00d728 overshoot on the spread ratio, and orders of magnitude in absolute mass.\n\nWHY: THE STEEP BOUNCE. The culprit is the bounce steepness established in PR #112, \u2202ln m_\u03bd/\u2202ln \u03b5 \u2248 4.8: the factor-~8 variation in \u03c7_n is amplified into ~4 orders of magnitude in mass. The power in \u03b5_n \u221d \u03c7_n^{\u2212p} that would reproduce the data is not the principled p = 1 but an inconsistent fractional p \u2248 0.15 (gen 1\u21922) to 0.31 (gen 2\u21923) \u2014 no single clean law fits both ratios. So a generation-dependent \u03b5_n can ACCOMMODATE the spread (by fitting a gentle profile) but cannot PREDICT it from \u03c7_n.\n\nTHE HONEST VERDICT. The hierarchy DIRECTION is derived (overtone compliance \u27f9 normal ordering, untuned \u2014 a sharpening of PR #91), but its MAGNITUDE is not: the natural \u03c7_n driver overshoots, and the same bounce steepness that made \u03b5's absolute value a residual (PR #112) now blocks the natural overtone variation from setting the spread. The neutrino hierarchy spread stays a residual \u2014 \u03b5_n accommodates it but does not derive it \u2014 and it plausibly belongs to the mixing / anarchy sector (PR #92) rather than a generation-dependent healing length."
+}

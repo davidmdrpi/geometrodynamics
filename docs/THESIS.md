@@ -809,6 +809,29 @@ structural; the precise spectrum (an `O(1)` coefficient; the absolute
 scale unmeasured) and the explicit angles (the cross-channel overlap
 integrals), and the CP/Majorana phases, are open.
 
+PR #113 presses PR #91's spread mechanism for a quantitative prediction —
+can a generation-dependent healing length `ε_n` driven by `χ_n` actually
+reproduce the hierarchy, not merely point in the right direction? The
+honest answer is no, and the reason is instructive. Taking the natural
+law `ε_n ∝ 1/χ_n` (compliance is inverse stiffness), the direction is
+indeed correct — `ε_n` rises with the overtone, so higher-`n` neutrinos
+are less suppressed and heavier, giving normal ordering untuned — but the
+magnitude overshoots wildly. The observed splittings require only a gentle
+`ε_n` profile, ratios `(1, 1.18, 1.57)` across the three generations,
+whereas `1/χ_n` supplies `(1, 3.13, 7.79)`; pushed through the bounce this
+yields `m_ν3/m_ν2 ≈ 162` against the measured `5.85`, a factor of ~28 too
+much spread (and orders of magnitude in the absolute masses). The culprit
+is the very steepness identified in PR #112 — `m_ν ∝ ε^{4.8}` at the
+winding-edge tension — which amplifies the factor-eight variation in `χ_n`
+into four orders of magnitude in mass; the power that would fit the data,
+`p ≈ 0.15` to `0.31` in `ε_n ∝ χ_n^{−p}`, is an inconsistent fraction, not
+the principled unity. So a generation-dependent `ε_n` can *accommodate*
+the spread by fitting a gentle profile but cannot *derive* it from the
+overtone stress: the same bounce steepness that made `ε`'s absolute value
+a residual now blocks the natural overtone variation from setting the
+spread, which therefore stays a residual — plausibly the business of the
+mixing/anarchy sector rather than the healing length.
+
 PR #92 takes up the angles. A literal same-coordinate mode overlap turns
 out to give *small* mixing — the cavity overtones are near-orthonormal
 sinusoids, so a winding-imprint overlap is a near-permutation matrix
