@@ -271,6 +271,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `three_throat_modes_probe` | `#gen = (k_5+1)/2 = 3` from `k_5` | THREE_GENERATIONS_FROM_K5 |
 | `k5_origin_probe` | `k_5 = D_bulk = dim(S³)+2 = 5` | K_5_FROM_BULK_DIMENSION |
 | `s_bam_loop_measure_probe` | `1/(2π)` in `a = α/(2π)` = BAM closure quantum | LOOP_MEASURE_IDENTIFIED |
+| `s_bam_path_integral_measure_probe` | takes up PR #74's open work — builds the full measure `Z = Σ_sectors ∫ Dμ[X] e^{−S_BAM[X]}` on loop space `LS³/(Diff S¹ ⋉ U(1)_Hopf ⋉ Z₂)`, `Dμ~Π dk/(2π)`; closure quantum `2π` = loop holonomy; sectors = closure ledger (`k`, `c₁∈π₃(S²)=ℤ`, `n_part`); odd-k upgraded to the `Z₂` orientation-anomaly condition `e^{ikπ}=−1 ⟹ k odd`; PRs #87–#90 bounces = leading saddle; FP(`bc`-ghost)×fluctuation-det, operator stable (min `ω²≈1.11`); bare det diverges ⟹ needs zeta/heat-kernel reg, `Z` not rigorously constructed (saddle results unaffected) | S_BAM_PATH_INTEGRAL_MEASURE_STRUCTURALLY_DEFINED_ANALYTIC_CORE_OPEN |
 | `quark_npart_origin_probe` | `n_part = 233` (quark) = phenomenological compensator | N_PART_IS_PHENOMENOLOGICAL_COMPENSATOR |
 | `qcd_shell_waveguide_scaffold_probe` | shell waveguide basis + operator scaffold (PRs #77–#80 arc) | SHELL_WAVEGUIDE_SCAFFOLD_CONSTRUCTED |
 | `shell_mass_ordering_audit_probe` | shell mass-ordering / `n_part` audit on PR #77 basis | SHELL_BASIS_STRUCTURALLY_BETTER_N_PART_NOT_YET_RESOLVED |
