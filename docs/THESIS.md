@@ -577,6 +577,21 @@ sharp peak. The absolute branching fractions, the total width, and the
 delivers is the branching pattern and the cross-flavor Q-structure — a
 falsifiable search program, not just a bump.
 
+**One page for the experimentalist (PR #110).** With the non-orientable
+sector now spanning mesonic `1⁻⁺` hybrids, glueballs, and heavy Möbius
+baryons with their decays (PRs #100–#109), the useful consolidation is a
+compact *experimental note* an LHCb / Belle II / BESIII analyst can read
+off — predicted masses, Q-values, preferred/suppressed modes, and analysis
+handles, with every number a pushforward of the single confinement scale
+`√σ`. It collects the matched mesonic hybrids (π₁ ~1.62, η₁ ~1.85 GeV, the
+exotic `1⁻⁺` smoking gun), the unobserved `0⁺⁺` glueball at `√(4πσ) ≈ 1.50
+GeV`, the heavy Möbius baryon masses (Λ_c ~3135 … Ω_b ~6894 MeV), and their
+twist-unwinding decays (single-pion-to-ground suppressed; the cross-flavor
+Q-match at 569 / 301 MeV), with the open items — exact masses in the
+~0.8–1.3 GeV band, branching fractions and widths, and the baryon `J^P` —
+carried forward unchanged. It adds no physics; it makes the sector's
+existing content searchable on one page.
+
 The four-PR QCD-shell arc (PRs #77–#80) develops the right machinery
 quantitatively. The user's physical reframe: **quarks do not pass
 through the throat; they are the wavefronts that resolve the cavity
