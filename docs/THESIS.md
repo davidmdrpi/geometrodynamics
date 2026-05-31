@@ -883,6 +883,26 @@ the two observables of one light, normal-ordered, Majorana spectrum — a
 joint, cross-checkable pair that current and near-term experiments are
 already testing.
 
+PR #111 sharpens these meV-scale numbers from a band into a pinned
+spectrum. Updating the oscillation inputs to the latest global fit (NuFIT
+6.0, 2024) fixes two of the three masses outright — `m₂ = 8.65`, `m₃ =
+50.34 meV`, so the normal-ordering floor is `Σm_ν = 59.0 meV` — and the
+2025 DESI DR2 + CMB bound (`≲ 60–64 meV`) corners the lightest mass against
+that floor, `m₁ ≲ 3 meV`, tightening the sum to `Σm_ν ∈ [59.0, 62.6] meV`.
+The sharpest BAM statement is the hierarchical limit `m₁ → 0`, where the
+laboratory effective masses follow directly: the β-decay mass `m_β ≈ 8.8
+meV` and the 0νββ mass `m_ββ`, which in normal ordering has a *nonzero*
+floor — the solar contribution `s12²c13² m₂ = 2.60 meV` exceeds the
+reactor one `s13² m₃ = 1.10 meV`, so the terms cannot fully cancel and
+`m_ββ ∈ [1.5, 3.7] meV` over the Majorana phases. The honest other half is
+reachability: only `Σm_ν` is near-term testable — DESI is cornering it at
+the floor now — while `m_β` sits ~4–5× below the best foreseeable β-decay
+reach (Project 8) and `m_ββ` ~3–10× below next-gen 0νββ (LEGEND-1000,
+nEXO). The spectrum is pinned, but the program's testable handle is
+cosmological, not laboratory; and a 2025 caveat is worth flagging — some
+DESI + CMB fits already prefer central `Σm_ν` at or below the floor, which
+if it hardens is tension for every normal-ordered model, BAM included.
+
 **QFT event reinterpretation: Compton scattering from BAM.** _Closed
 at the analytic level._ An 11-PR thread (PRs #25–#35) constructed a
 BAM amplitude for Compton scattering by progressively identifying
