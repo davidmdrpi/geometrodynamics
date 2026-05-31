@@ -298,6 +298,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `baryonic_exotics_classification_probe` | BAM baryonic exotics (Möbius/hybrid baryon) have NO exotic-J^P smoking gun (any J^P ordinary for qqq, no C) ⟹ supernumerary ordinary-J^P states (signature = counting); land in light N*/Δ* (~1.79, 2.08 GeV = base+2√σ); constraint ranking light N*/Δ* > strange hyperons > heavy baryons; Möbius doubling must coincide w/ observed states or decouple else excluded; MOST-constrained corner (opposite of glueballs) | BARYONIC_EXOTICS_LACK_EXOTIC_JP_LIGHT_SECTOR_MOST_CONSTRAINED |
 | `heavy_mobius_baryon_probe` | heavy-quark baryons = freest channel; heavy quark spectator ⟹ Möbius/flux gap 2√σ≈0.85 GeV FLAVOR-INDEPENDENT (same c,b); predictions Λ_c~3.14, Ω_c~3.54, Λ_b~6.47, Ω_b~6.89, Ξ_cc~4.47 GeV — all above current data (findable, not excluded), above orbital tower; Ξ_cc/Ω_b entirely unexplored; cross-flavor correlation = signature (no exotic J^P); exact mass/J^P open | HEAVY_MOBIUS_BARYON_FLAVOR_INDEPENDENT_GAP_FINDABLE_UNCONSTRAINED |
 | `heavy_mobius_baryon_decay_probe` | completes #103 with decays + search: decay = twist-unwinding (non-orientable −1 → orientable +1 ground sheds 2√σ as light isoscalar hadrons) ⟹ inherits flux-tube HYBRID SELECTION RULE — single-S-wave-π-to-ground SUPPRESSED, Σ_Q π / isoscalar dipion Λ_Q(ππ) / P-wave+π PREFERRED (the branching PATTERN distinguishes Möbius from a radial excitation); open channels Λ_Q ππ Q=569, Σ_Q π 542/515, Σ_Q* π 477/496, Λ_Q η 301, DN/BN 332/251 MeV; CROSS-FLAVOR Q-MATCH all-light Q identical c=b (Λ_Q ππ 569, Λ_Q η 301; Σ_Q π offset only by hyperfine 167/194); broad (~tens–150 MeV) ⟹ amplitude analyses at LHCb (Λ_Q ππ, Σ_Q π, DN/BN; Ξ_cc/Ω_b wide open) / Belle II; branching fractions/width/J^P open | HEAVY_MOBIUS_BARYON_TWIST_UNWINDING_HYBRID_SELECTION_RULE_CROSS_FLAVOR_FINDABLE |
+| `nonorientable_experimental_note_probe` | compiles the PRs #100–#109 non-orientable (Möbius/closed-flux-loop) hadron sector into one compact LHCb/Belle II/BESIII-style experimental note (deliverable: docs/bam_nonorientable_experimental_note.md), every number a pushforward of √σ: single input √σ 424 / 2√σ 849 / √(4πσ) 1504 MeV; mesonic 1⁻⁺ π₁~1.62, η₁~1.85 GeV (matched); glueball 0⁺⁺ √(4πσ)~1.50 GeV (unobserved); heavy Möbius baryons Λ_c 3135, Ω_c 3544, Ξ_cc 4471, Λ_b 6469, Ω_b 6894 MeV; decays via twist-unwinding (single-π-to-ground SUPPRESSED; Σ_Q π/isoscalar dipion/P-wave+π PREFERRED) with cross-flavor Q-match (569/301); analysis handles (branching pattern, isoscalar high-m(ππ) dipion, broad⟹amplitude fits, 1⁻⁺ smoking gun); open: exact masses 0.8–1.3 GeV band, branching fractions/widths, baryon J^P | NONORIENTABLE_SECTOR_EXPERIMENTAL_NOTE_COMPILED |
 | `program_synthesis_probe` | capstone: classifies all results into 5 epistemic tiers and counts the input budget — 2 dimensionful anchors (B4: m_e, √σ; the mandatory minimum) + 2 localized open dimensionless residuals (neutrino ε, quark n_part) + 1 universal flavor puzzle; the rest ~22 derived-geometry + 6 non-orientable topological predictions (matched→free) | BAM_TWO_ANCHORS_LOCALIZED_RESIDUALS_DERIVED_GEOMETRY_TOPOLOGICAL_PREDICTIONS |
 | `alpha_G_ledger_classification_probe` | places α and G in the #104 ledger: G = dimensionful ANCHOR (GR-foundational scale, root of m_e/√σ via the RS tuning λ_crit=√(6\|Λ₅\|)/κ₅², PR #57); α = UNIVERSAL dimensionless RESIDUAL (used as input A_EM=αℏc/2, a=α/2π; structure derived not value; only running derived — the 137 problem; sits with flavor puzzle); ℏ = geometric (closure quantum, ℏ=m_e·R_MID·c); c = units | G_IS_ANCHOR_ALPHA_IS_UNIVERSAL_RESIDUAL |
 | `scale_count_anchors_probe` | m_e and √σ NOT independent — both descend from the one bulk-gravity scale G (PR #57), so dimensionful-anchor count reduces 2→1; but the ratio √σ/m_e≈830 is UNDERIVED (no clean closure match; nearest 50π·k_5=785, 5.4% off — a near-coincidence like F_13=233), so it becomes a new open dimensionless residual; a repackaging (dimensionful→dimensionless), total irreducible inputs unchanged; cleaner "one fundamental scale G" picture | M_E_SQRT_SIGMA_NOT_INDEPENDENT_ONE_G_PLUS_UNDERIVED_RATIO |
@@ -764,6 +765,20 @@ the B4 audit shows cannot come from scale-free geometry.
     `Ω_b` wide open). Absolute branching fractions, total width, and `J^P`
     remain open — the predictions are the branching pattern and the
     Q-structure, not partial rates.
+  - `docs/nonorientable_experimental_note_research_plan.md` — PR #110, the
+    compact experimental note compiling the PRs #100–#109 non-orientable
+    sector for an LHCb / Belle II / BESIII reader (deliverable:
+    `docs/bam_nonorientable_experimental_note.md`). Every number is a
+    pushforward of the single input `√σ`: the mesonic `1⁻⁺` hybrids (π₁
+    ~1.62, η₁ ~1.85 GeV, matched), the `0⁺⁺` glueball (`√(4πσ)` ~1.50 GeV,
+    unobserved), the heavy Möbius baryon masses (Λ_c 3135 … Ω_b 6894 MeV)
+    and their decays (twist-unwinding ⟹ single-π-to-ground suppressed, `Σ_Q
+    π` / isoscalar dipion / P-wave+π preferred; cross-flavor Q-match 569 /
+    301 MeV). Analysis handles: the branching pattern (vs a radial
+    excitation), the isoscalar high-`m(ππ)` dipion, broad widths ⟹
+    amplitude fits, and the `1⁻⁺` smoking gun in the mesonic sector. A
+    reference card — established masses + decay pattern; exact masses
+    (0.8–1.3 GeV band), branching fractions / widths, and baryon `J^P` open.
   - `docs/program_synthesis_research_plan.md` — PR #104, the capstone
     synthesis. Classifies every major result into five epistemic tiers and
     counts the input budget: BAM's entire DIMENSIONFUL content reduces to
