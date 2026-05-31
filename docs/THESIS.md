@@ -163,7 +163,7 @@ detail):
 | Even-`k` absence → QCD shell | classified as spin-statistics selection rule (PR #67); higher-`k` excitations transition into QCD shell channel (PR #68); shell ↔ QCD structural match (PR #69) |
 | Three generations / `k_5 = 5` | sharp `k ≤ 5` boundary (PR #70), `β_lepton = k_5²·(2π)` (PR #71), `#gen = (k_5+1)/2 = 3` (PR #72), `k_5 = D_bulk = dim(S³)+2 = 5` (PR #73) |
 | `ℏ` origin | B4 audited (#52): closure-ledger machinery scale-free, so exactly one external dimensionful anchor required; relocatable to invariant bulk separation `ΔR` (#53), giving `m_e = 0.52·ℏ/(ΔR·c)`. Predicting ℏ in SI is gated solely by the value of that single geometric anchor |
-| Full QFT / loop measure | `1/(2π)` in Schwinger anomaly identified as BAM closure quantum (PR #74); full covariant `(2π)^d` path-integral derivation from `S_BAM` is genuine open work |
+| Full QFT / loop measure | `1/(2π)` in Schwinger anomaly identified as BAM closure quantum (PR #74); the full `S_BAM` path-integral measure is then **structurally constructed** as a loop-measure — a closure-ledger sector sum over a `Diff(S¹)`-gauge-fixed loop-space integral, with odd-k upgraded to the `Z₂` orientation-anomaly condition and the bounces as leading saddle (PR #115) — but its **analytic core remains open**: the bare fluctuation determinant diverges, so the normalisation needs regularization and is not yet rigorously constructed |
 
 ## Three mechanisms that compose
 
@@ -1174,7 +1174,21 @@ problems rather than implementation TODOs:
   structural identification of `1/(2π)` = BAM closure quantum; a fully
   rigorous covariant `(2π)^d` Fourier measure derivation from a
   written-out `S_BAM` path integral on the throat configuration space
-  (explicit path integral, gauge fixing, Jacobians) remains future work.
+  (explicit path integral, gauge fixing, Jacobians) is taken up by PR #115
+  as a loop-measure formalism — a throat *is* its closure loop, so the
+  configuration space is loop space `LS³` and the measure is
+  `Z = Σ_{k odd, c₁∈ℤ, n_part} ∫_{LS³/(Diff S¹ ⋉ U(1)_Hopf ⋉ Z₂)} Dμ[X]
+  e^{−S_BAM[X]}` (the sector sum = the closure ledger). It fixes the
+  structure — the closure quantum `2π` is the loop holonomy, the odd-k
+  lemma is upgraded to the `Z₂` orientation-anomaly condition
+  (`e^{ikπ} = −1 ⟹ k odd`), and the PRs #87–#90 bounces are the leading
+  saddle — and sets up the `Diff(S¹)` Faddeev–Popov (`bc`-ghost) gauge
+  fixing, with the fluctuation operator (the second variation of `S_BAM`,
+  the Tangherlini cavity operator) stable (`min ω² ≈ 1.11`). The *analytic
+  core* still remains future work: the bare fluctuation determinant
+  diverges, so a finite, regularization-independent measure and the
+  normalisation `Z` are not yet rigorously constructed (the saddle results,
+  normalisation-independent, are unaffected).
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,

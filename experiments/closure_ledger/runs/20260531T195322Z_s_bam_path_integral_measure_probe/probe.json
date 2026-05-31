@@ -1,0 +1,139 @@
+{
+  "timestamp_utc": "2026-05-31T19:53:22+00:00",
+  "identification": "the S_BAM path-integral measure constructed structurally around PR #74's 1/(2\u03c0) factor \u2014 a closure-ledger sector sum over a Diff(S\u00b9)-gauge-fixed loop-space integral (2\u03c0 = loop holonomy, odd-k = Z\u2082 orientation anomaly, bounce = leading saddle); the bare fluctuation determinant diverges \u27f9 the analytic normalisation stays open",
+  "arena": "loop space LS\u00b3 / (Diff S\u00b9 \u22c9 U(1)_Hopf \u22c9 Z\u2082); \u03a3_sectors = the closure ledger",
+  "closure_quantum": "2\u03c0 = the Hopf/Wilson loop holonomy period (PR #74 factor)",
+  "odd_k": "orientation anomaly condition e^{ik\u03c0} = \u22121 \u27f9 k odd",
+  "one_loop": "FP(bc-ghost) \u00d7 fluctuation-det; fluctuation spectrum positive (stable saddle)",
+  "open": "bare determinant diverges \u27f9 needs zeta/heat-kernel reg; Z not rigorously constructed",
+  "saddle_results": "leading e^{\u2212S} term (PRs #87\u2013#90) \u2014 unaffected by the normalisation",
+  "tests": [
+    {
+      "name": "T1_goal_and_status",
+      "description": "PR #74 identified the per-loop-dimension measure FACTOR 1/(2\u03c0) (Schwinger a = \u03b1/(2\u03c0)) as the BAM closure quantum, but flagged the full covariant path-integral measure as open. Goal: construct Z = \u03a3_sectors \u222b D\u03bc[X] e^{\u2212S_BAM[X]} around it (quantization so far is saddle-point only, PRs #87\u2013#90).",
+      "s_bam_terms": [
+        "bulk EH + \u039b\u2085",
+        "brane tension \u03bb\u221ah",
+        "bag \u03c1V",
+        "surface \u03c3A",
+        "EM A/R",
+        "Tangherlini junction"
+      ],
+      "pr74_result": "1/(2\u03c0) = per-loop-dimension measure factor",
+      "this_pr": "the full measure Z = \u03a3_sectors \u222b D\u03bc e^{\u2212S_BAM} around it",
+      "pass": true
+    },
+    {
+      "name": "T2_loop_space_arena_and_formal_measure",
+      "description": "A throat = its closure loop X: S\u00b9 \u2192 base of the Hopf fibration (winding k, Hopf charge c\u2081). Arena = loop space LS\u00b3 (antipodal for the non-orientable sector). Measure: Z = \u03a3_{k odd, c\u2081\u2208\u2124, n_part} \u222b_{LS\u00b3/(Diff S\u00b9 \u22c9 U(1)_Hopf \u22c9 Z\u2082)} D\u03bc[X] e^{\u2212S_BAM[X]}, with PR #74's 1/(2\u03c0) the per-loop-dimension normalization.",
+      "fields": "closure loops X: S\u00b9 \u2192 base (winding k, Hopf charge c\u2081)",
+      "gauge_group": "Diff(S\u00b9) reparametrization \u22c9 U(1)_Hopf \u22c9 Z\u2082 antipodal",
+      "discrete_sum": "the closure ledger (k, c\u2081, n_part)",
+      "continuous_integral": "the gauge-fixed loop integral",
+      "per_dimension_factor": 0.15915494309189535,
+      "pass": true
+    },
+    {
+      "name": "T3_closure_quantum_is_loop_holonomy",
+      "description": "The Hopf/Wilson loop holonomy e^{i\u222eA} = e^{ik\u03c7} is single-valued \u27f9 holonomy period = 2\u03c0 = the closure quantum (the PR #74 factor, here the measure period).",
+      "holonomy": "e^{i\u222eA} = e^{ik\u03c7}",
+      "closure_quantum": 6.283185307179586,
+      "equals_2pi": true,
+      "pass": true
+    },
+    {
+      "name": "T4_sectors_are_the_closure_ledger",
+      "description": "Superselection sectors = homotopy classes: winding k (\u03c0\u2081 of the Hopf fibre), Hopf charge c\u2081 \u2208 \u03c0\u2083(S\u00b2) = \u2124, partition n_part. \u03a3_sectors IS the closure ledger.",
+      "sectors": {
+        "winding_k": "\u03c0\u2081 of the Hopf fibre (odd for M\u00f6bius)",
+        "hopf_charge_c1": "\u03c0\u2083(S\u00b2) = \u2124",
+        "partition_n_part": "the quark closure integer"
+      },
+      "sector_sum_is_ledger": true,
+      "pass": true
+    },
+    {
+      "name": "T5_odd_k_is_orientation_anomaly_condition",
+      "description": "M\u00f6bius loop space non-orientable \u27f9 integrand is a twisted-bundle section, anti-periodic under \u03c7 \u2192 \u03c7+\u03c0 \u27f9 e^{ik\u03c0} = \u22121 \u27f9 k odd. The odd-k lemma upgraded to the measure's Z\u2082 orientation-anomaly condition.",
+      "rows": [
+        {
+          "k": 1,
+          "e_ikpi": -1,
+          "closes_mobius": true
+        },
+        {
+          "k": 2,
+          "e_ikpi": 1,
+          "closes_mobius": false
+        },
+        {
+          "k": 3,
+          "e_ikpi": -1,
+          "closes_mobius": true
+        },
+        {
+          "k": 4,
+          "e_ikpi": 1,
+          "closes_mobius": false
+        },
+        {
+          "k": 5,
+          "e_ikpi": -1,
+          "closes_mobius": true
+        },
+        {
+          "k": 6,
+          "e_ikpi": 1,
+          "closes_mobius": false
+        }
+      ],
+      "condition": "e^{ik\u03c0} = \u22121 (anti-periodic twisted section)",
+      "odd_k_closes_even_k_torus_only": true,
+      "pass": true
+    },
+    {
+      "name": "T6_gauge_fixing_and_one_loop_factor",
+      "description": "Diff(S\u00b9) \u27f9 Faddeev\u2013Popov (bc-ghost) det; measure factor = FP-det \u00d7 fluctuation-det. Fluctuation operator = 2nd variation of S_BAM = Tangherlini cavity operator; low spectrum POSITIVE (min \u03c9\u00b2 \u2248 1.112 > 0) \u27f9 stable saddle, real Gaussian measure.",
+      "gauge_fixing": "Faddeev\u2013Popov bc-ghost for Diff(S\u00b9)",
+      "fluctuation_operator": "second variation of S_BAM (Tangherlini cavity operator)",
+      "low_spectrum_omega2": [
+        1.112,
+        3.898,
+        8.376,
+        14.628,
+        22.666,
+        32.49
+      ],
+      "min_eigenvalue": 1.1124,
+      "stable_saddle": true,
+      "standard_features": "tunneling sector: 1 Coleman negative mode (Im Z = rate); zero modes = collective coordinates",
+      "pass": true
+    },
+    {
+      "name": "T7_hard_analytic_core_open",
+      "description": "Bare fluctuation det \u03a0_n \u03c9_n DIVERGES \u2014 log-det partial sums grow without bound (N = 10..400) \u27f9 needs zeta/heat-kernel regularization; Z regularization-dependent, not rigorously constructed. Saddle results = leading e^{\u2212S}, unaffected.",
+      "logdet_partial_sums": {
+        "10": 14.75,
+        "50": 145.85,
+        "100": 358.1,
+        "200": 850.43,
+        "400": 1964.17
+      },
+      "bare_determinant_diverges": true,
+      "needs_regularization": "zeta / heat-kernel",
+      "normalization_status": "regularization-dependent \u2014 not yet rigorously constructed",
+      "saddle_results_unaffected": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The loop-measure formalism constructs the S_BAM measure around PR #74's 1/(2\u03c0) factor \u2014 a closure-ledger sector sum over a Diff(S\u00b9)-gauge-fixed loop-space integral, with 2\u03c0 the loop holonomy, odd-k the Z\u2082 orientation anomaly (e^{ik\u03c0}=\u22121), and the bounces as leading saddle. The fluctuation operator is stable but its bare determinant diverges \u27f9 the normalisation needs regularization and is not yet rigorously constructed. Structure fixed; analytic core open; prior saddle results unaffected.",
+      "classification": "S_BAM_PATH_INTEGRAL_MEASURE_STRUCTURALLY_DEFINED_ANALYTIC_CORE_OPEN",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "S_BAM_PATH_INTEGRAL_MEASURE_STRUCTURALLY_DEFINED_ANALYTIC_CORE_OPEN",
+  "verdict": "THE LOOP-MEASURE FORMALISM CONSTRUCTS THE S_BAM PATH-INTEGRAL MEASURE STRUCTURALLY; THE HARD ANALYTIC CORE REMAINS OPEN. PR #74 identified the per-loop-dimension measure factor 1/(2\u03c0) (the Schwinger a = \u03b1/(2\u03c0)) as the BAM closure quantum but flagged the full covariant path-integral measure as open; BAM's only other quantization was saddle-point/instanton (the PRs #87\u2013#90 bounces). This sprint constructs the full measure Z = \u03a3_sectors \u222b D\u03bc[X] e^{\u2212S_BAM[X]} around that factor.\n\nTHE ARENA. A throat is its closure loop X: S\u00b9 \u2192 base of the Hopf fibration (winding k, Hopf charge c\u2081), so the configuration space is loop space LS\u00b3 (antipodal for the non-orientable sector), and Z = \u03a3_{k odd, c\u2081\u2208\u2124, n_part} \u222b_{LS\u00b3/(Diff S\u00b9 \u22c9 U(1)_Hopf \u22c9 Z\u2082)} D\u03bc[X] e^{\u2212S_BAM[X]}: the discrete sum is the closure ledger, the continuous integral the gauge-fixed loop integral, and PR #74's 1/(2\u03c0) is the per-loop-dimension normalization (dk/(2\u03c0)).\n\nWHAT IS STRUCTURALLY FIXED (and computable). (1) The closure quantum is the loop holonomy: e^{i\u222eA} = e^{ik\u03c7} single-valued \u27f9 period 2\u03c0. (2) The measure's superselection sectors are the homotopy classes \u2014 winding k (\u03c0\u2081 of the Hopf fibre), Hopf charge c\u2081 \u2208 \u03c0\u2083(S\u00b2) = \u2124, partition n_part \u2014 so \u03a3_sectors IS the closure ledger. (3) The odd-k lemma is UPGRADED to the measure's Z\u2082 orientation-anomaly condition: the M\u00f6bius loop space is non-orientable, the integrand a twisted-bundle section anti-periodic under the antipodal \u03c7 \u2192 \u03c7+\u03c0, so consistency forces e^{ik\u03c0} = \u22121 \u27f9 k odd (even k closes on the torus cover only). (4) Stationary phase reproduces e^{\u2212S_BAM[saddle]} \u2014 the bounce actions of PRs #87\u2013#90 \u2014 as the leading term.\n\nTHE HARD PART. Reparametrization invariance Diff(S\u00b9) must be gauge-fixed \u27f9 a Faddeev\u2013Popov (bc-ghost) determinant, so the measure factor is (FP-det) \u00d7 (fluctuation-det). The fluctuation operator is the second variation of S_BAM \u2014 the Tangherlini cavity operator \u2014 and its low spectrum is positive (min \u03c9\u00b2 \u2248 1.11 > 0), so the saddle is stable and the Gaussian measure is real and well-defined pointwise (the tunneling sector's single Coleman negative mode supplies Im Z = the decay rate; the zero modes are collective coordinates, traded for the moduli measure \u2014 both standard).\n\nWHAT REMAINS OPEN. The bare fluctuation determinant \u03a0_n \u03c9_n diverges \u2014 the log-det partial sums grow without bound (\u2248 15, 146, 358, 850, 1964 at N = 10, 50, 100, 200, 400 modes) \u2014 so it needs zeta/heat-kernel regularization, and the normalisation Z is regularization-dependent and not yet rigorously constructed. So the loop-measure formalism gives a consistent STRUCTURAL definition of the S_BAM measure, but the HARD analytic core \u2014 a finite, regularization-independent fluctuation determinant / a constructive measure \u2014 stays open. Crucially the prior saddle-point results are the leading e^{\u2212S} term and do not depend on the unresolved normalisation, so they stand."
+}
