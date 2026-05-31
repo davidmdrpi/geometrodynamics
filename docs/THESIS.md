@@ -762,6 +762,31 @@ geometry-only `(t, ε)` gives a uniform `S`, hence `m_ν ∝ m_D` — a ×2.7
 spread — whereas the observed `m_ν/m_D` spans ×18, calling for a
 generation-dependent healing length or the mixing sector).
 
+PR #112 presses on the one number this leaves implicit — can `ε` be
+*computed* from the bulk compliance, or is it still being *read back* from
+the meV scale it is meant to predict? The honest answer is a genuine
+partial. The compliance is `ε = ℓ²/(2 rs)` with the neck healing length
+`ℓ ~ R_c = 2σ/ρ`, and the surface tension `σ` and bag density `ρ` are fixed
+by the *electron* rest-energy calibration (PR #58: `σ = 1/(12π)`,
+`ρ = 3/(4π)`, so `R_c = 2/9`) — with no neutrino mass anywhere. The
+candidate compliances are all sub-throat, `O(10⁻²)` (`R_c³ ≈ 0.011`,
+`Δ³ ≈ 0.018`, `R_c²/2 ≈ 0.025`), so the *order of magnitude and sub-throat
+character of `ε` are computable from bulk geometry alone* — and with the
+winding-edge tension `t = k_5√(2π) = √β_lepton` the chain returns
+`S ≈ 16.85` and `m_ν ≈ 2.1 meV`, the observed scale as an *output*. That
+genuinely derives the neutrino's exponential lightness (sub-throat `ε ≪ 1`
+⟹ large `S` ⟹ `m_ν = m_D e^{−S}` tiny) without using the meV scale. What it
+does *not* do is fix the precise value: the bounce action is steep in `ε`
+(`m_ν ∝ ε^{4.8}` at this tension), so the `O(1)` ambiguity among the
+healing-length candidates (`R_c³`, `Δ³`, `R_c²/2`) already spreads `m_ν`
+from ~2 to ~108 meV, and the absolute compliance normalisation is precisely
+the bulk stiffness `κ₅²/Λ₅` that BAM never pins (only the dimensionless
+`√6` RS combination is fixed, PR #57). So `ε` is rightly reclassified from
+"inferred from the meV scale" to "bulk-geometric to order of magnitude":
+**the smallness is derived from bulk compliance; the exact value remains a
+residual**, of the same kind as every other dimensionless number tied to
+the single anchor.
+
 PR #91 takes up that spread and the mixing. The neutrino generations are
 the cavity radial overtones `n`, so the bare prediction is **normal
 ordering** with `m_ν ∝ m_D` (the cavity-floor ratios `1 : 1.87 : 2.74`).

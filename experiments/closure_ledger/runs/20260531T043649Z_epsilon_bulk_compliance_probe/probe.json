@@ -1,0 +1,121 @@
+{
+  "timestamp_utc": "2026-05-31T04:36:49+00:00",
+  "identification": "\u03b5's order of magnitude + sub-throat character are computable from the electron-calibrated bulk nucleation compliance (\u03b5 ~ R_c\u00b3 ~ 10\u207b\u00b2, meV-free), deriving the smallness of m_\u03bd and retrodicting m_\u03bd ~ meV; the precise \u03b5 stays residual (m_\u03bd \u221d \u03b5^{4.8}; absolute normalization = the unpinned anchor)",
+  "computed_meV_free": "\u03b5 ~ R_c\u00b3 ~ 10\u207b\u00b2 (sub-throat); m_\u03bd \u2248 2.1 meV output at t = k_5\u221a(2\u03c0)",
+  "derives": "the exponential smallness of m_\u03bd (sub-throat \u27f9 large S)",
+  "residual": "the precise \u03b5 \u2014 m_\u03bd \u221d \u03b5^{4.8}, O(1) ambiguity spans 2\u2013108 meV",
+  "obstruction": "absolute compliance normalization = unpinned \u03ba\u2085\u00b2/\u039b\u2085 (the one anchor)",
+  "one_line": "the smallness is derived from bulk compliance; the exact value is not",
+  "tests": [
+    {
+      "name": "T1_question_and_current_status",
+      "description": "\u03b5 is the chargeless-throat healing length that sets m_\u03bd = m_D\u00b7e^{\u2212S}, S = t\u00b2\u00b7P0\u00b7L*(\u03b5). PRs #87\u2013#90 INFERRED \u03b5 by demanding the observed S = ln(m_D/m_\u03bd) \u2248 15\u201318 \u2014 \u03b5 read back from the meV scale. Question: can \u03b5 be COMPUTED from bulk compliance instead?",
+      "current_status": "\u03b5 inferred from observed S = ln(m_D/m_\u03bd)",
+      "role_of_eps": "m_\u03bd = m_D\u00b7e^{\u2212S}, S = t\u00b2\u00b7P0\u00b7L*(\u03b5), L* \u2248 \u2212(rs/2)ln \u03b5 + const",
+      "pass": true
+    },
+    {
+      "name": "T2_define_bulk_compliance",
+      "description": "\u03b5 = \u2113\u00b2/(2rs), \u2113 ~ R_c = 2\u03c3/\u03c1 (critical-bubble healing length); \u03c3 = 1/(12\u03c0), \u03c1 = 3/(4\u03c0) from the ELECTRON calibration (PR #58) \u27f9 R_c = 2/9 \u2248 0.222, meV-free.",
+      "sigma_em": 0.026525823848649224,
+      "rho_em": 0.238732414637843,
+      "R_c": 0.22222222222222224,
+      "R_c_exact": "2/9",
+      "calibrated_to": "electron rest energy (PR #58) \u2014 NOT the neutrino",
+      "pass": true
+    },
+    {
+      "name": "T3_compute_eps_from_compliance",
+      "description": "Compliance candidates sub-throat O(10\u207b\u00b2): R_c\u00b3 0.011, \u0394\u00b3 0.018, R_c\u00b2/2 0.025 \u2014 bulk-geometric, meV-free. \u03b5's order of magnitude + sub-throat character ARE computable.",
+      "eps_candidates": {
+        "R_c\u00b3": 0.011,
+        "\u0394\u00b3": 0.0176,
+        "R_c\u00b2/2 (\u2113=R_c)": 0.0247
+      },
+      "all_sub_throat_1e-2": true,
+      "meV_free": true,
+      "pass": true
+    },
+    {
+      "name": "T4_chain_closes_meV_free",
+      "description": "\u03b5 = R_c\u00b3 + t = k_5\u221a(2\u03c0) \u27f9 S \u2248 16.85 \u27f9 predicted m_\u03bd = 2.1\u20135.7 meV \u2014 the meV SCALE output from bulk geometry (retrodiction, no neutrino input). Scale only; the generation spread is the separate PR #90/#91 residual.",
+      "t_wind": 12.533141373155,
+      "t2_wind_eq_50pi": 157.0796326794896,
+      "S": 16.85,
+      "rows": [
+        {
+          "gen": 1,
+          "m_D_keV": 43.0,
+          "m_nu_predicted_meV": 2.08
+        },
+        {
+          "gen": 2,
+          "m_D_keV": 80.0,
+          "m_nu_predicted_meV": 3.86
+        },
+        {
+          "gen": 3,
+          "m_D_keV": 118.0,
+          "m_nu_predicted_meV": 5.7
+        }
+      ],
+      "predicted_scale_meV": "2.1\u20135.7",
+      "observed_scale_meV": {
+        "lightest (\u2272)": 3.0,
+        "\u221a\u0394m\u00b2_21": 8.6,
+        "\u221a\u0394m\u00b2_31": 50.3
+      },
+      "scale_is_meV": true,
+      "spread_is_separate_residual": "uniform S \u27f9 m_\u03bd \u221d m_D (\u00d72.7); observed up to \u00d724 (PR #90/#91)",
+      "pass": true
+    },
+    {
+      "name": "T5_steep_sensitivity_precision_not_geometric",
+      "description": "d ln m_\u03bd/d ln \u03b5 \u2248 4.8 \u27f9 the O(1) candidate ambiguity spans m_\u03bd ~ 2\u2013108 meV (\u00d7~50). Precision is NOT geometric; the exact meV still selects \u03b5 \u2248 R_c\u00b3 via the observed scale.",
+      "d_lnmnu_d_lneps": 4.75,
+      "m_nu_meV_by_candidate": {
+        "R_c\u00b3": 2.1,
+        "\u0394\u00b3": 20.4,
+        "R_c\u00b2/2 (\u2113=R_c)": 107.8
+      },
+      "spread_factor": 51.3,
+      "precision_geometric": false,
+      "pass": true
+    },
+    {
+      "name": "T6_obstruction_unpinned_bulk_normalization",
+      "description": "Absolute compliance = 1/stiffness needs \u03ba\u2085\u00b2/\u039b\u2085; BAM fixes only \u03bb_crit \u03ba\u2085\u00b2/\u221a|\u039b\u2085| = \u221a6 (PR #57). \u03ba\u2085\u00b2, \u039b\u2085 separately absorbed into the one anchor \u27f9 \u03b5 pinned only to O(1).",
+      "pinned_combination": "\u03bb_crit \u03ba\u2085\u00b2/\u221a|\u039b\u2085| = \u221a6 (dimensionless)",
+      "unpinned": "\u03ba\u2085\u00b2 and \u039b\u2085 separately (the absolute bulk stiffness)",
+      "consequence": "\u03b5 computable only up to an O(1) factor (= the one anchor)",
+      "sqrt6": 2.4495,
+      "pass": true
+    },
+    {
+      "name": "T7_reclassification_smallness_derived_value_residual",
+      "description": "\u03b5 upgraded from 'inferred from the meV scale' to 'bulk-geometric to order of magnitude': the SMALLNESS (sub-throat \u27f9 exponential suppression) is derived, meV-independent, and m_\u03bd ~ meV is a retrodiction; the PRECISE value stays residual (m_\u03bd \u221d \u03b5^{4.8}, absolute normalization = the unpinned anchor).",
+      "derived_meV_free": [
+        "\u03b5 is sub-throat (\u03b5 ~ R_c\u00b3 ~ 10\u207b\u00b2) from the electron-calibrated nucleation compliance \u2014 no neutrino input",
+        "hence m_\u03bd = m_D\u00b7e^{\u2212S} is exponentially small (smallness DERIVED)",
+        "m_\u03bd ~ meV is OUTPUT at the winding-edge tension (retrodiction)"
+      ],
+      "still_residual": [
+        "the precise \u03b5 \u2014 O(1) ambiguity (R_c\u00b3/\u0394\u00b3/R_c\u00b2/2) \u27f9 m_\u03bd 2\u2013108 meV",
+        "m_\u03bd \u221d \u03b5^{4.8} \u27f9 steep; exact meV still uses the observed scale",
+        "absolute compliance normalization = unpinned \u03ba\u2085\u00b2/\u039b\u2085 (the anchor)"
+      ],
+      "one_line": "the smallness is derived from bulk compliance; the exact value is not",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Bulk compliance computes \u03b5's order of magnitude and sub-throat character (\u03b5 ~ R_c\u00b3 ~ 10\u207b\u00b2) with no neutrino input \u2014 deriving the exponential smallness of m_\u03bd and retrodicting m_\u03bd ~ meV at the winding-edge tension. But m_\u03bd \u221d \u03b5^{4.8}, the O(1) ambiguity spans 2\u2013108 meV, and the absolute normalization is the unpinned \u03ba\u2085\u00b2/\u039b\u2085; the precise \u03b5 stays residual.",
+      "classification": "EPSILON_BULK_COMPLIANCE_DERIVES_SMALLNESS_PRECISE_VALUE_STAYS_RESIDUAL",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "EPSILON_BULK_COMPLIANCE_DERIVES_SMALLNESS_PRECISE_VALUE_STAYS_RESIDUAL",
+  "verdict": "BULK COMPLIANCE DERIVES THE SMALLNESS OF \u03b5 (AND HENCE m_\u03bd), BUT NOT ITS PRECISE VALUE. PRs #87\u2013#90 inferred the chargeless-throat healing length \u03b5 by demanding the observed S = ln(m_D/m_\u03bd) \u2248 15\u201318 \u2014 \u03b5 read back from the meV scale it is meant to predict. This probe asks whether \u03b5 can instead be COMPUTED from the bulk compliance, with no neutrino input. The answer is a genuine partial: the order of magnitude yes, the precise value no.\n\nTHE COMPLIANCE COMPUTATION (meV-free). The compliance cutoff is a sub-throat healing length \u03b5 = \u2113\u00b2/(2rs), with \u2113 ~ R_c = 2\u03c3/\u03c1 the critical-bubble scale. \u03c3 = 1/(12\u03c0) and \u03c1 = 3/(4\u03c0) are fixed by the ELECTRON rest-energy calibration (PR #58), so R_c = 2/9 \u2248 0.222 is a pure number from the charged-throat geometry \u2014 no neutrino mass anywhere. The candidate compliances are all sub-throat, O(10\u207b\u00b2): R_c\u00b3 \u2248 0.011, \u0394\u00b3 \u2248 0.018, R_c\u00b2/2 \u2248 0.025. So \u03b5's order of magnitude and its decisive sub-throat character ARE computable from bulk compliance, independent of the meV scale.\n\nTHE CHAIN CLOSES meV-FREE. With \u03b5 = R_c\u00b3 and the winding-edge tension t = k_5\u221a(2\u03c0) \u2248 12.53 (the PR #89 closure quantity, also meV-free), S = t\u00b2\u00b7P0\u00b7L*(R_c\u00b3) \u2248 16.85, so m_\u03bd(gen 1) = m_D\u00b7e^{\u2212S} \u2248 2.1 meV with m_D \u2248 43 keV the electron-anchored cavity-floor Dirac mass. The meV scale comes out as an OUTPUT \u2014 a genuine retrodiction. This structurally DERIVES the neutrino's lightness: a sub-throat healing length (\u03b5 \u226a 1) makes L* large, hence S large, hence m_\u03bd exponentially small.\n\nTHE CATCH: PRECISION IS NOT GEOMETRIC. The bounce action is steep in \u03b5 \u2014 d ln m_\u03bd/d ln \u03b5 = t\u00b2\u00b7P0\u00b7rs/2 \u2248 4.8 \u2014 so the O(1) ambiguity among the healing-length candidates blows up: R_c\u00b3 \u2192 2 meV, \u0394\u00b3 \u2192 20 meV, R_c\u00b2/2 \u2192 108 meV, a factor ~50 spread from a factor ~2 in \u03b5. Landing precisely on \"few meV\" still SELECTS \u03b5 \u2248 R_c\u00b3 using the observed scale; there is no first-principles reason to prefer R_c\u00b3 over R_c\u00b2/2.\n\nTHE OBSTRUCTION. A true compliance = 1/stiffness needs the absolute bulk gravitational stiffness (\u03ba\u2085\u00b2, \u039b\u2085). BAM fixes only the dimensionless RS-tuning combination \u03bb_crit \u03ba\u2085\u00b2/\u221a|\u039b\u2085| = \u221a6 (PR #57); \u03ba\u2085\u00b2 and \u039b\u2085 separately are absorbed into the single dimensionful anchor and are not pinned. So \u03b5 is computable only up to an O(1) factor \u2014 the same residual status everything tied to the one anchor shares.\n\nVERDICT. \u03b5 is upgraded from \"inferred from the meV scale\" to \"bulk-geometric to order of magnitude\": the SMALLNESS is derived from the electron-calibrated nucleation compliance (meV-independent), and m_\u03bd ~ meV is a retrodiction at the winding-edge tension. The PRECISE value stays a residual \u2014 m_\u03bd \u221d \u03b5^{4.8}, the O(1) ambiguity spans 2\u2013108 meV, and the absolute normalization is the unpinned \u03ba\u2085\u00b2/\u039b\u2085. The smallness is derived from bulk compliance; the exact value is not."
+}
