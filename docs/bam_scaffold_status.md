@@ -301,6 +301,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `alpha_G_ledger_classification_probe` | places α and G in the #104 ledger: G = dimensionful ANCHOR (GR-foundational scale, root of m_e/√σ via the RS tuning λ_crit=√(6\|Λ₅\|)/κ₅², PR #57); α = UNIVERSAL dimensionless RESIDUAL (used as input A_EM=αℏc/2, a=α/2π; structure derived not value; only running derived — the 137 problem; sits with flavor puzzle); ℏ = geometric (closure quantum, ℏ=m_e·R_MID·c); c = units | G_IS_ANCHOR_ALPHA_IS_UNIVERSAL_RESIDUAL |
 | `scale_count_anchors_probe` | m_e and √σ NOT independent — both descend from the one bulk-gravity scale G (PR #57), so dimensionful-anchor count reduces 2→1; but the ratio √σ/m_e≈830 is UNDERIVED (no clean closure match; nearest 50π·k_5=785, 5.4% off — a near-coincidence like F_13=233), so it becomes a new open dimensionless residual; a repackaging (dimensionful→dimensionless), total irreducible inputs unchanged; cleaner "one fundamental scale G" picture | M_E_SQRT_SIGMA_NOT_INDEPENDENT_ONE_G_PLUS_UNDERIVED_RATIO |
 | `ratio_832_npart_recycling_probe` | tests N_q+ΔN=832≈√σ/m_e≈830 (0.2%) as a derivation of the #106 ratio: 832=2N_q−N_lepton=4·n_part−4·k_5² is BUILT from the n_part compensator; §8-drift test decisive — 4·n_part−100 drifts 764–920 (±9%) while 830 is fixed ⟹ baseline coincidence; independent bulk shell-stress integrals O(10–70) (Σω²≈70, Σ(n+1)π≈47), never ~466/832; circular (n_part fit to the spectrum); #106 ratio stays UNDERIVED | RATIO_832_RECYCLES_N_PART_NOT_INDEPENDENT |
+| `lepton_qcd_ratio_legitimate_search_probe` | the fit-independent search #107 called for: scans quantities built ONLY from fixed geometry (k_5=5, β_lepton=50π, 2π) against √σ/m_e=830.3 under 4 criteria — C1 fit-independent, C2 §8-stable, C3 <1%, C4 principled (no ad-hoc factor); C2 is AUTOMATIC for geometric candidates (no quark-ablation dependence) but C3∧C4 fail — best principled 2π·k_5³=β_lepton·k_5=785.4 (−5.4%); every sub-% match needs a reverse-engineered factor (π·265, (4/3)·k_5⁴, k_5⁵/3.77); exponential route ln(830)=6.72 vs clean 2π=6.28 (7% off); cavity integrals O(10–350) select nothing near 830; √σ/m_e stays UNDERIVED, now plausibly IRREDUCIBLE like α; BAM does NOT collapse to a single anchor (one scale G + ratio + α + flavor puzzle) | LEPTON_QCD_RATIO_NO_PRINCIPLED_GEOMETRIC_SELECTION_STAYS_UNDERIVED |
 
 ## Cross-references
 
@@ -797,6 +798,21 @@ the B4 audit shows cannot come from scale-free geometry.
     only via the v3-fit closure count `4β_quark/(2π)=2·n_part`. It is
     circular (n_part was fit to the spectrum). So `√σ/m_e` stays
     UNDERIVED; the PR #106 ledger is unchanged.
+  - `docs/lepton_qcd_ratio_legitimate_search_research_plan.md` — PR #108,
+    the fit-independent search #107 called for. Scans quantities built ONLY
+    from fixed geometry (`k_5=5`, `β_lepton=50π`, `2π`) against
+    `√σ/m_e=830.3` under four criteria (C1 fit-independent, C2 §8-stable,
+    C3 <1%, C4 principled). C2 is automatic for geometric candidates (they
+    never touch the quark ablations that made `n_part` drift), so the
+    binding bars are C3 ∧ C4 — and no candidate clears both: the best
+    *principled* candidate `2π·k_5³ = β_lepton·k_5 = 785.4` is `−5.4%` off,
+    and every sub-% match needs a reverse-engineered factor (`π·265`,
+    `(4/3)·k_5⁴`, `k_5⁵/3.77`). The exponential route fails too
+    (`ln(830)=6.72` vs the clean action `2π=6.28`, 7% off), and the
+    Tangherlini cavity integrals (`O(10–350)`) select nothing near 830. So
+    `√σ/m_e` stays UNDERIVED and is now plausibly IRREDUCIBLE, like `α`;
+    BAM does NOT collapse to a single anchor (one scale `G` + this ratio +
+    `α` + the flavor puzzle).
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target

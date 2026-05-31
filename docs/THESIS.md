@@ -1235,3 +1235,31 @@ recombining the compensator. Until then `√σ/m_e` stays an honest open
 residual, and the program's irreducible content remains one
 gravitational scale plus a short list of undetermined dimensionless
 numbers.
+
+So we ran the search PR #107 called for (PR #108): a quantity built
+*only* from BAM's fixed geometry — the structural integers `k_5 = 5` and
+`β_lepton = 50π`, and the closure constant `2π` — that selects `~830`
+while being §8-stable and free of any tuned factor. The encouraging part
+is that §8-stability, the bar that killed the `832` candidate, is
+automatic here: a genuinely geometric combination never touches the quark
+ablations, so it cannot drift. The discouraging part is everything else.
+The best *principled* candidate is `2π·k_5³ = β_lepton·k_5 = 785.4`, which
+is `−5.4%` from the target; the next-best principled forms are far worse
+(`k_5⁴ = 625`, `−25%`; `e^(2π) = 535`, `−36%`). The only combinations that
+reach sub-percent agreement do so through a factor reverse-engineered from
+the answer — `π·265 = 832.5`, `(4/3)·k_5⁴ = 833.3`, `k_5⁵/3.77 = 828.9` —
+and none of `265`, `4/3`, `3.77` is a fixed BAM quantity, so each is a fit
+in disguise, not a derivation. The dimensional-transmutation route fares
+no better: `ln(830.3) = 6.72`, while the only clean geometric action
+nearby, the closure quantum `2π = 6.28`, is `7%` off, so `830` is not
+`e^(action)` for any principled action either. And the genuine Tangherlini
+cavity eigenvalue sums are `O(10–350)` — they select nothing near `830`.
+The honest reading of this exhausted search is that `√σ/m_e ≈ 830` is not
+merely *undetermined* but plausibly *irreducible*, belonging to the same
+class as `α` and the electron's anomalous lightness — the universal flavor
+puzzle, a pure number the geometry does not fix. BAM therefore does **not**
+collapse to a single anchor; it rests at one gravitational scale `G` plus
+this one open ratio, `α`, and the flavor puzzle. PR #107's caution is
+vindicated: with the `n_part` recycling rejected, the fit-independent
+route that would have closed the gap comes up empty, and that empty result
+is itself the finding.
