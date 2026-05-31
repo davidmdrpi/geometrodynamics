@@ -1,0 +1,155 @@
+{
+  "timestamp_utc": "2026-05-31T02:30:23+00:00",
+  "identification": "the fit-independent, \u00a78-stable search for a bulk quantity selecting \u221a\u03c3/m_e \u2248 830 fails: best principled candidate 2\u03c0\u00b7k_5\u00b3 = 785 (\u22125.4%); sub-% matches need ad-hoc factors; no clean action exponentiates to 830; cavity integrals select nothing near it",
+  "answer": "search fails \u2014 \u221a\u03c3/m_e stays underived, plausibly irreducible like \u03b1",
+  "best_principled": "2\u03c0\u00b7k_5\u00b3 = \u03b2_lepton\u00b7k_5 = 785.4 (\u22125.4%)",
+  "subpercent_matches": "\u03c0\u00b7265, (4/3)\u00b7k_5\u2074, k_5\u2075/3.77 \u2014 all need ad-hoc factors",
+  "exponential_route": "ln(830)=6.72, clean action 2\u03c0=6.28 is 7% off",
+  "ledger": "PR #106 unchanged \u2014 one scale G + one open ratio + \u03b1 + flavor puzzle; NOT a single anchor",
+  "tests": [
+    {
+      "name": "T1_target_and_criteria",
+      "description": "Target: \u221a\u03c3/m_e \u2248 830.3, the one UNDERIVED ratio (PR #106) whose derivation would collapse BAM to a single anchor G. A candidate counts as a derivation only if it satisfies ALL of: C1 fit-independent (not n_part / the v3 fit \u2014 #107's failure), C2 \u00a78-stable, C3 precise (<1%), C4 principled (no ad-hoc factor).",
+      "target_ratio": 830.264152646764,
+      "criteria": {
+        "C1_fit_independent": "built from fixed geometry, not n_part / the v3 quark fit",
+        "C2_s8_stable": "invariant under the quark_axioms \u00a78 ablations",
+        "C3_precise": "within 1% of 830.3",
+        "C4_principled": "no ad-hoc multiplicative fudge factor"
+      },
+      "pass": true
+    },
+    {
+      "name": "T2_s8_stability_automatic_for_geometric",
+      "description": "C2 is the constraint that killed #107 (4\u00b7n_part\u2212100 drifts 764\u2013920). A fit-independent geometric candidate (k_5, \u03b2_lepton, 2\u03c0) is \u00a78-invariant by construction (it never touches the quark ablations), so C2 is automatic. The binding bars here are C3 and C4.",
+      "npart_route_s8_span": 156,
+      "npart_route_is_s8_stable": false,
+      "geometric_route_s8_span": 0.0,
+      "geometric_route_is_s8_stable": true,
+      "binding_constraints_for_this_search": [
+        "C3_precise",
+        "C4_principled"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T3_principled_scan",
+      "description": "Principled candidates from {k_5, \u03b2_lepton, 2\u03c0}: best is 2\u03c0\u00b7k_5\u00b3 = \u03b2_lepton\u00b7k_5 = 785.4 (\u22125.4%). No principled candidate lands within 1% of 830.3.",
+      "candidates": {
+        "2\u03c0\u00b7k_5\u00b3 (= \u03b2_lepton\u00b7k_5)": {
+          "value": 785.3981633974482,
+          "off_percent": -5.403821073846127
+        },
+        "k_5\u2074": {
+          "value": 625,
+          "off_percent": -24.72275263148615
+        },
+        "k_5\u2075": {
+          "value": 3125,
+          "off_percent": 276.38623684256925
+        },
+        "e^(2\u03c0)": {
+          "value": 535.4916555247646,
+          "off_percent": -35.50345949325966
+        },
+        "2\u03c0\u00b2\u00b7k_5\u00b2": {
+          "value": 493.4802200544679,
+          "off_percent": -40.56346784558587
+        },
+        "(4/3)\u03c0\u00b7k_5\u00b3": {
+          "value": 523.5987755982989,
+          "off_percent": -36.93588071589741
+        },
+        "4\u03c0\u00b7k_5\u00b2": {
+          "value": 314.1592653589793,
+          "off_percent": -62.16152842953845
+        },
+        "\u03b2_lepton\u00b7k_5": {
+          "value": 785.3981633974483,
+          "off_percent": -5.403821073846114
+        }
+      },
+      "best_principled": "\u03b2_lepton\u00b7k_5",
+      "best_off_percent": -5.403821073846114,
+      "any_principled_under_1pct": false,
+      "fails_C3_C4": true,
+      "pass": true
+    },
+    {
+      "name": "T4_subpercent_matches_need_adhoc_factor",
+      "description": "Every sub-% match needs a non-BAM factor: \u03c0\u00b7265 (+0.27%), (4/3)\u00b7k_5\u2074 (+0.37%), k_5\u2075/3.77 (\u22120.16%). 265, 4/3, 3.77 are reverse-engineered from the target \u27f9 fail C4 (principle). A tuned free factor is a fit, not a derivation.",
+      "adhoc_candidates": {
+        "\u03c0\u00b7265": {
+          "value": 832.5220532012952,
+          "adhoc_factor": "265 (not a BAM integer)",
+          "off_percent": 0.27194966172311325
+        },
+        "(4/3)\u00b7k_5\u2074": {
+          "value": 833.3333333333333,
+          "adhoc_factor": "4/3 (ad-hoc)",
+          "off_percent": 0.36966315801845717
+        },
+        "k_5\u2075/3.77": {
+          "value": 828.9124668435013,
+          "adhoc_factor": "3.77 (ad-hoc)",
+          "off_percent": -0.16280189852274815
+        }
+      },
+      "all_subpercent": true,
+      "all_require_adhoc_factor": true,
+      "fails_C4": true,
+      "pass": true
+    },
+    {
+      "name": "T5_exponential_dimensional_transmutation_route",
+      "description": "830 = e^S would need S = ln(830.3) = 6.72; the clean geometric action 2\u03c0 = 6.28 is 7.0% off (e^(2\u03c0)=535, \u221235%). No principled action exponentiates to 830 to <1% \u27f9 the transmutation route also fails.",
+      "ln_target": 6.721743906358802,
+      "clean_action_2pi": 6.283185307179586,
+      "action_off_percent": 6.979876889482947,
+      "e_2pi": 535.4916555247646,
+      "e_2pi_off_percent": -35.50345949325966,
+      "no_clean_action_selects_830": true,
+      "pass": true
+    },
+    {
+      "name": "T6_cavity_eigenvalue_integrals_select_nothing",
+      "description": "Tangherlini cavity eigenvalue sums are O(10\u2013350): \u03a3\u03c9\u00b2(0..5)\u224883, \u03a3\u03c9(0..5)\u224820, \u03a3\u03c9\u00b2(0..9)\u2248347. None near 830; no principled truncation selects it. The independent bulk integral #107 asked for does not exist.",
+      "cavity_integrals": {
+        "\u03a3 \u03c9\u00b2(n=0..5)": {
+          "value": 83.17003749602043,
+          "off_percent": -89.9827016220216
+        },
+        "\u03a3 \u03c9(n=0..5)": {
+          "value": 20.208673249646374,
+          "off_percent": -97.56599472767505
+        },
+        "\u03a3 \u03c9\u00b2(n=0..9)": {
+          "value": 347.09187783985897,
+          "off_percent": -58.19500616359511
+        }
+      },
+      "none_near_830": true,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope_underived_plausibly_irreducible",
+      "description": "No candidate clears C3 \u2227 C4 (C2 automatic). The fit-independent search comes up empty \u27f9 \u221a\u03c3/m_e stays UNDERIVED, and the failure of every principled route points to it being IRREDUCIBLY residual \u2014 same class as \u03b1 and the electron's anomalous lightness (the flavor puzzle).",
+      "search_succeeded": false,
+      "ratio_status": "UNDERIVED (PR #106 unchanged)",
+      "now_classified_as": "plausibly IRREDUCIBLE residual (like \u03b1 / electron anomalous lightness)",
+      "bam_input_floor": "one foundational scale G + this open ratio + \u03b1 + the flavor puzzle",
+      "collapses_to_single_anchor": false,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The fit-independent \u00a78-stable search for a bulk quantity selecting \u221a\u03c3/m_e \u2248 830 fails: best principled candidate 2\u03c0\u00b7k_5\u00b3 = 785 (\u22125.4%); every sub-% match needs an ad-hoc factor; no clean action exponentiates to 830; cavity integrals select nothing near it. \u221a\u03c3/m_e stays underived, plausibly irreducible like \u03b1. BAM does NOT collapse to a single anchor.",
+      "classification": "LEPTON_QCD_RATIO_NO_PRINCIPLED_GEOMETRIC_SELECTION_STAYS_UNDERIVED",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "LEPTON_QCD_RATIO_NO_PRINCIPLED_GEOMETRIC_SELECTION_STAYS_UNDERIVED",
+  "verdict": "THE FIT-INDEPENDENT SEARCH COMES UP EMPTY \u2014 \u221a\u03c3/m_e \u2248 830 STAYS UNDERIVED. PR #106 isolated \u221a\u03c3/m_e \u2248 830.3 as the single underived dimensionless residual whose derivation would collapse BAM to one foundational anchor (G). PR #107 killed the n_part recycling candidate (832 = 4\u00b7n_part \u2212 4\u00b7k_5\u00b2, \u00a78-drifts 764\u2013920) and said the only legitimate route left was an INDEPENDENT, \u00a78-stable bulk quantity selecting ~830. This probe ran that search honestly, and it fails.\n\nA candidate had to clear all four bars: C1 fit-independent, C2 \u00a78-stable, C3 precise (<1%), C4 principled (no ad-hoc factor). C2 turns out to be AUTOMATIC for genuine geometric candidates \u2014 built from BAM's fixed integers k_5 = 5, \u03b2_lepton = 50\u03c0 and the closure constant 2\u03c0, they never touch the quark ablations that made n_part drift. So the binding bars are C3 and C4 \u2014 and no candidate clears both.\n\nTHE PRINCIPLED SCAN. The best principled quantity is 2\u03c0\u00b7k_5\u00b3 = \u03b2_lepton\u00b7k_5 = 785.40, which is \u22125.4% from 830.3. Everything else principled is worse (k_5\u2074 = 625, \u221224.7%; e^(2\u03c0) = 535, \u221235.5%; 2\u03c0\u00b2\u00b7k_5\u00b2 = 493, \u221240.6%). Nothing principled lands within 1%.\n\nSUB-% MATCHES ARE FITS, NOT DERIVATIONS. The only ways to reach <1% use a non-BAM factor reverse-engineered from the target: \u03c0\u00b7265 = 832.5 (+0.27%), (4/3)\u00b7k_5\u2074 = 833.3 (+0.37%), k_5\u2075/3.77 = 828.9 (\u22120.16%). None of 265, 4/3, 3.77 is a fixed BAM quantity; each is tuned to hit 830, so they fail C4. A free factor chosen to match is a fit, not a derivation.\n\nTHE EXPONENTIAL ROUTE FAILS TOO. A hierarchy could arise by dimensional transmutation, 830 = e^S; but ln(830.3) = 6.72, and the only clean geometric action nearby \u2014 the closure quantum 2\u03c0 = 6.28 \u2014 is 7.0% off (e^(2\u03c0) = 535, \u221235%). No principled action exponentiates to 830 to <1%.\n\nNO BULK INTEGRAL SELECTS IT. The genuine Tangherlini cavity eigenvalue sums are O(10\u2013350): \u03a3\u03c9\u00b2(n=0..5) \u2248 83, \u03a3\u03c9(n=0..5) \u2248 20, \u03a3\u03c9\u00b2(n=0..9) \u2248 347. None lands near 830 and no principled truncation selects it. The independent bulk shell-stress integral #107 asked for does not exist.\n\nHONEST CONCLUSION. \u221a\u03c3/m_e \u2248 830 stays an UNDERIVED open dimensionless residual, and the failure of every principled, fit-independent route now points to it being IRREDUCIBLY residual \u2014 in the same class as \u03b1 and the electron's anomalous lightness (the universal flavor puzzle): a pure number the geometry does not fix. BAM does NOT collapse to a single anchor. It sits at one foundational scale (G) + this one open ratio + \u03b1 + the flavor puzzle. That is the honest floor, and PR #107's caution is vindicated: with the n_part recycling rejected, the fit-independent search that would have legitimately closed the gap comes up empty."
+}
