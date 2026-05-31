@@ -300,6 +300,7 @@ the B4 audit shows cannot come from scale-free geometry.
 | `program_synthesis_probe` | capstone: classifies all results into 5 epistemic tiers and counts the input budget — 2 dimensionful anchors (B4: m_e, √σ; the mandatory minimum) + 2 localized open dimensionless residuals (neutrino ε, quark n_part) + 1 universal flavor puzzle; the rest ~22 derived-geometry + 6 non-orientable topological predictions (matched→free) | BAM_TWO_ANCHORS_LOCALIZED_RESIDUALS_DERIVED_GEOMETRY_TOPOLOGICAL_PREDICTIONS |
 | `alpha_G_ledger_classification_probe` | places α and G in the #104 ledger: G = dimensionful ANCHOR (GR-foundational scale, root of m_e/√σ via the RS tuning λ_crit=√(6\|Λ₅\|)/κ₅², PR #57); α = UNIVERSAL dimensionless RESIDUAL (used as input A_EM=αℏc/2, a=α/2π; structure derived not value; only running derived — the 137 problem; sits with flavor puzzle); ℏ = geometric (closure quantum, ℏ=m_e·R_MID·c); c = units | G_IS_ANCHOR_ALPHA_IS_UNIVERSAL_RESIDUAL |
 | `scale_count_anchors_probe` | m_e and √σ NOT independent — both descend from the one bulk-gravity scale G (PR #57), so dimensionful-anchor count reduces 2→1; but the ratio √σ/m_e≈830 is UNDERIVED (no clean closure match; nearest 50π·k_5=785, 5.4% off — a near-coincidence like F_13=233), so it becomes a new open dimensionless residual; a repackaging (dimensionful→dimensionless), total irreducible inputs unchanged; cleaner "one fundamental scale G" picture | M_E_SQRT_SIGMA_NOT_INDEPENDENT_ONE_G_PLUS_UNDERIVED_RATIO |
+| `ratio_832_npart_recycling_probe` | tests N_q+ΔN=832≈√σ/m_e≈830 (0.2%) as a derivation of the #106 ratio: 832=2N_q−N_lepton=4·n_part−4·k_5² is BUILT from the n_part compensator; §8-drift test decisive — 4·n_part−100 drifts 764–920 (±9%) while 830 is fixed ⟹ baseline coincidence; independent bulk shell-stress integrals O(10–70) (Σω²≈70, Σ(n+1)π≈47), never ~466/832; circular (n_part fit to the spectrum); #106 ratio stays UNDERIVED | RATIO_832_RECYCLES_N_PART_NOT_INDEPENDENT |
 
 ## Cross-references
 
@@ -784,6 +785,18 @@ the B4 audit shows cannot come from scale-free geometry.
     GR-foundational cleanliness — the sole fundamental *scale* is `G`,
     everything else dimensionless. Deriving the ~830 ratio (the channel
     normalisation) would reduce BAM to a single irreducible input.
+  - `docs/ratio_832_npart_recycling_research_plan.md` — PR #107, tests the
+    tempting `N_q + ΔN = 832 ≈ √σ/m_e ≈ 830` (0.2%) as a derivation of the
+    #106 ratio, and rejects it: `832 = 2N_q − N_lepton = 4·n_part − 4·k_5²`
+    is built from the `n_part` compensator. The decisive §8-drift test —
+    propagating `n_part ∈ {216..255}` through `4·n_part − 100` gives
+    `[764, 920]` (±9%) while the observed 830 is fixed — shows it is a
+    baseline coincidence (like `50π·k_5=785`, `F_13=233`), not a stable
+    selection. No independent bulk shell-stress integral yields ~466/832
+    (the natural ones, `Σω²≈70`, `Σ(n+1)π≈47`, are `O(10–70)`); 466 enters
+    only via the v3-fit closure count `4β_quark/(2π)=2·n_part`. It is
+    circular (n_part was fit to the spectrum). So `√σ/m_e` stays
+    UNDERIVED; the PR #106 ledger is unchanged.
   - `docs/odd_k_closure_lemma.md` — the closure arithmetic this upgrades.
   - `docs/hbar_origin_status.md` — B4 (the m_e anchor).
   - `docs/tree_qed_status.md` — the tree-QED result the F² target

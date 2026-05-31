@@ -1,0 +1,107 @@
+{
+  "timestamp_utc": "2026-05-31T02:16:49+00:00",
+  "identification": "832 = 2N_q \u2212 N_lepton = 4\u00b7n_part \u2212 4\u00b7k_5\u00b2 is built from the compensator n_part; it \u00a78-drifts 764\u2013920 (so 832 \u2248 830 is a baseline coincidence), and no independent bulk shell-stress integral selects ~466/832 \u2014 we are recycling n_part",
+  "answer": "recycling n_part \u2014 NOT an independent selection",
+  "decisive_test": "4\u00b7n_part\u2212100 drifts 764\u2013920 (\u00b19%) while 830 is fixed",
+  "independent_integrals": "O(10\u201370) (\u03a3\u03c9\u00b2\u224870, \u03a3(n+1)\u03c0\u224847); never ~466/832",
+  "ledger": "PR #106 unchanged \u2014 \u221a\u03c3/m_e underived; one scale G + one open ratio",
+  "tests": [
+    {
+      "name": "T1_the_832_observation",
+      "description": "N_lepton=100, N_q=466, \u0394N=366; N_q+\u0394N = 2N_q\u2212N_lepton = 832 \u2248 \u221a\u03c3/m_e \u2248 830 (0.2%). Tempting as a derivation of the PR #106 scale ratio.",
+      "N_lepton": 100,
+      "N_q": 466,
+      "delta_N": 366,
+      "N_q_plus_delta_N": 832,
+      "equals_2Nq_minus_Nlepton": 832,
+      "observed_ratio": 830.264152646764,
+      "rel_off_percent": 0.2090716969656367,
+      "tempting_match": true,
+      "pass": true
+    },
+    {
+      "name": "T2_832_built_from_npart",
+      "description": "832 = 2N_q \u2212 N_lepton = 4\u00b7n_part \u2212 4\u00b7k_5\u00b2 = 4\u00b7233 \u2212 100 = 832. A linear function of n_part \u2014 built from the compensator.",
+      "formula": "4\u00b7n_part \u2212 4\u00b7k_5\u00b2",
+      "value": 832,
+      "matches_832": true,
+      "is_function_of_npart": true,
+      "pass": true
+    },
+    {
+      "name": "T3_npart_is_phenomenological_compensator",
+      "description": "n_part = 233 is a compensator (PR #76/#97): drifts 216\u2013255 across \u00a78, parity-only invariant, absorbs the quark flavor puzzle. Not derived.",
+      "n_part_s8": [
+        233,
+        233,
+        233,
+        238,
+        237,
+        237,
+        241,
+        216,
+        247,
+        247,
+        220,
+        255
+      ],
+      "s8_min": 216,
+      "s8_max": 255,
+      "s8_span": 39,
+      "parity_only_invariant": true,
+      "derived": false,
+      "pass": true
+    },
+    {
+      "name": "T4_s8_drift_decisive_test",
+      "description": "4\u00b7n_part \u2212 100 drifts [764, 920] (\u00b19%) across \u00a78 while the observed \u221a\u03c3/m_e = 830 is fixed \u27f9 the 832 \u2248 830 match is a baseline coincidence, not a \u00a78-stable selection.",
+      "val_832_analogue_s8_range": [
+        764,
+        920
+      ],
+      "span": 156,
+      "drift_percent": 9.223492313756406,
+      "observed_ratio_fixed": 830.264152646764,
+      "observed_inside_drift_band": true,
+      "is_stable_selection": false,
+      "baseline_coincidence": true,
+      "pass": true
+    },
+    {
+      "name": "T5_no_independent_integral_selects_832",
+      "description": "Bulk shell-stress integrals are O(10\u201370): \u03a3\u03c9\u00b2(n=3..5)\u224869.8, \u03a3(n+1)\u03c0\u224847.1. 466 enters only via the v3 closure count 4\u03b2_quark/(2\u03c0)=2\u00b7n_part. No independent integral selects ~466/832.",
+      "shell_integrals": {
+        "\u03a3 \u03c9\u00b2(l=1, n=3..5)": 69.78388091055238,
+        "\u03a3 (n+1)\u03c0 (Bohr\u2013Sommerfeld closure)": 47.12388980384689
+      },
+      "466_enters_only_via": "v3 closure count 4\u03b2_quark/(2\u03c0) = 2\u00b7n_part (the fit)",
+      "none_near_466_or_832": true,
+      "pass": true
+    },
+    {
+      "name": "T6_circularity",
+      "description": "n_part was fit to the quark spectrum (which encodes the scales); recovering a scale ratio from n_part is circular. 832 \u2248 830 is the compensator echoing the spectrum, not a derivation.",
+      "npart_fit_to": "the quark spectrum (encodes the physical scales)",
+      "recovering_ratio_from_npart_is": "circular",
+      "pass": true
+    },
+    {
+      "name": "T7_ledger_unchanged",
+      "description": "Channel-normalisation derivation via N_q+\u0394N FAILS. PR #106 stands: \u221a\u03c3/m_e \u2248 830 remains an UNDERIVED open residual; BAM is one scale G + one open ratio. A genuine derivation needs an INDEPENDENT \u00a78-stable bulk integral selecting ~830.",
+      "ratio_status": "UNDERIVED (PR #106 unchanged)",
+      "anchors": "one foundational scale G + one open dimensionless ratio",
+      "what_would_count": "an INDEPENDENT bulk shell-stress integral (not the v3 fit) selecting ~830 AND \u00a78-stable",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "832 = 2N_q \u2212 N_lepton = 4\u00b7n_part \u2212 4\u00b7k_5\u00b2 is built from the compensator n_part; it \u00a78-drifts 764\u2013920 (so 832 \u2248 830 is a baseline coincidence), and no independent bulk shell-stress integral selects ~466/832. We are recycling n_part \u2014 the channel-normalisation derivation fails; \u221a\u03c3/m_e stays underived.",
+      "classification": "RATIO_832_RECYCLES_N_PART_NOT_INDEPENDENT",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "RATIO_832_RECYCLES_N_PART_NOT_INDEPENDENT",
+  "verdict": "WE ARE RECYCLING n_part \u2014 832 IS NOT AN INDEPENDENT SELECTION OF THE LEPTON/QCD SCALE RATIO. PR #106 left \u221a\u03c3/m_e \u2248 830 as the one underived ratio whose derivation would reduce BAM to a single anchor. The candidate N_q + \u0394N = 832 \u2248 830 (0.2%) is seductive \u2014 and false.\n\n832 IS BUILT FROM n_part. N_q + \u0394N = 2\u00b7N_q \u2212 N_lepton = 2\u00b7(2\u00b7n_part) \u2212 4\u00b7k_5\u00b2 = 4\u00b7n_part \u2212 4\u00b7k_5\u00b2 = 4\u00b7233 \u2212 100 = 832. So 832 is a linear function of n_part \u2014 the quark closure integer that PR #76/#97 established is a PHENOMENOLOGICAL COMPENSATOR: it absorbs the quark flavor puzzle, drifts 216\u2013255 across the quark_axioms \u00a78 ablations, and only its parity is invariant. 832 inherits that non-derived status.\n\nTHE DECISIVE \u00a78-DRIFT TEST. If 832 independently selected the FIXED observed ratio 830, it would be \u00a78-stable. It is not: propagating n_part \u2208 {216..255} through 4\u00b7n_part \u2212 100 gives [764, 920] \u2014 a span of 156, about \u00b19%. So the quantity drifts nearly \u00b110% while \u221a\u03c3/m_e = 830.3 is fixed; the baseline n_part = 233 merely happens to land it at 832 (0.2% from 830). That is a BASELINE COINCIDENCE \u2014 the same kind as 50\u03c0\u00b7k_5 = 785 (PR #106) and F_13 = 233 (PR #76) \u2014 not a stable selection.\n\nNO INDEPENDENT BULK SHELL-STRESS INTEGRAL SELECTS 832. The genuine bulk shell-stress integrals over the Tangherlini geometry are O(10\u201370), nowhere near 466/832: the sum of shell eigenvalues \u03a3\u03c9\u00b2(l=1,n=3..5) \u2248 69.8, the Bohr\u2013Sommerfeld closure sum \u03a3(n+1)\u03c0 \u2248 47.1. The number 466 enters ONLY through the v3 Hamiltonian closure count 4\u03b2_quark/(2\u03c0) = 2\u00b7n_part \u2014 i.e. through the fit. There is no independent integral that yields ~466 or ~832.\n\nTHE CIRCULARITY. n_part was FIT to reproduce the quark spectrum, which already encodes the physical scales. Recovering a scale ratio from n_part is therefore circular \u2014 you get back (an unstable version of) what was put in. So 832 \u2248 830 is the compensator echoing the spectrum it was fit to, not a derivation of the lepton/QCD hierarchy.\n\nLEDGER UNCHANGED. The channel-normalisation derivation via N_q + \u0394N fails. PR #106 stands: \u221a\u03c3/m_e \u2248 830 remains an UNDERIVED open dimensionless residual, and BAM remains at one foundational scale (G) + one open ratio. A genuine derivation would need an INDEPENDENT bulk shell-stress integral (not the v3-fit closure count) that selects ~830 AND is \u00a78-stable \u2014 which is not available."
+}
