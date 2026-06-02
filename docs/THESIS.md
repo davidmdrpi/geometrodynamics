@@ -1222,7 +1222,20 @@ problems rather than implementation TODOs:
   det^{−1/2}_matter · e^{−S}` (the ghost determinant `Δ_FP = L` being the
   proper-length Jacobian, an `L¹` not `L²` power) is finite and computable
   factor by factor; the absolute normalisation (the `κ₅²/Λ₅` anchor) and the
-  multi-loop measure remain the standing open pieces.
+  multi-loop measure remain the standing open pieces. PR #118 audits this
+  ghost sector in full to fix the `L`-power unambiguously: it separates the
+  four objects `P = ∂_τ`, `P†P = −∂_τ²`, `det'(P)`, `det'(P†P)`; confirms
+  `det'(P†P) = L²` and `det'(P) = det'(P†P)^{1/2} = L`; checks the phase via
+  the η-invariant (`η(−i∂_τ) = 0` by the symmetric spectrum, so `det'(∂_τ) =
+  +L` with no anomalous phase, and in the antiperiodic Möbius sector `η = 0`
+  but there is no zero mode and hence no CKV); and accounts for the
+  zero-mode norms (each constant has norm `√L`, so the two ghost zero modes —
+  CKV and modulus — contribute `√L·√L = L`, making the ghost NET factor
+  `det'(P)/norms = L/L = 1`). The conclusion is that the FP ghost is
+  first-order, contributing `L¹` through `det'(P)` (net `L⁰` after the
+  zero-mode norms); the `L²` value is reached only by adopting an explicit
+  second-order ghost convention, which over-counts by one power of `L`. The
+  net measure is `dL · L^{−1−d/2}` (`d` the matter dimension).
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
