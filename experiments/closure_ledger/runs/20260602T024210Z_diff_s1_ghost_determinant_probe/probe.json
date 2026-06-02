@@ -1,0 +1,114 @@
+{
+  "timestamp_utc": "2026-06-02T02:42:10+00:00",
+  "identification": "the Diff(S\u00b9) Faddeev\u2013Popov ghost determinant is \u0394_FP = det'(P) = det'(P\u2020P)^{1/2} = L (the square root of det'(P\u2020P) = L\u00b2); the corrected one-loop measure is Z = \u03a3 \u222b (dL/L) det^{\u22121/2}_matter e^{\u2212S}, ghost L-power L\u00b9",
+  "which_determinant": "\u0394_FP = det'(P) = det'(P\u2020P)^{1/2} = L  (NOT det'(P\u2020P) = L\u00b2)",
+  "L_power_fix": "ghost L-power L\u00b9 (was wrongly L\u00b2); measure = \u222b (dL/L) det^{\u22121/2}_matter e^{\u2212S}",
+  "ckv_factor": "CKV volume L \u27f9 1/L; for L = 2\u03c0, 1/(2\u03c0) = PR #74 (unchanged)",
+  "anomaly": "anomaly-free (no 1D conformal anomaly); only the discrete Z\u2082 (odd-k, PR #115) is nontrivial",
+  "open": "absolute Z normalization (\u03ba\u2085\u00b2/\u039b\u2085); multi-loop; closed form",
+  "tests": [
+    {
+      "name": "T1_recap",
+      "description": "PR #115 named the Diff(S\u00b9) Faddeev\u2013Popov (bc-ghost) determinant as a piece of the measure; PR #116 regularized the MATTER fluctuation determinant. This probe supplies the GAUGE sector \u2014 the FP/ghost determinant for the Diff(S\u00b9) quotient (revised per review to fix the determinant identification and L-power).",
+      "pr115": "measure structure + Diff(S\u00b9) gauge-fixing flagged",
+      "pr116": "matter fluctuation determinant finite (GY + zeta)",
+      "this_probe": "the Diff(S\u00b9) FP / ghost determinant (corrected)",
+      "pass": true
+    },
+    {
+      "name": "T2_gauge_structure",
+      "description": "Worldline reparametrization: gauge-fixing the loop einbein to a constant leaves ONE Teichm\u00fcller modulus L = \u222e e d\u03c4 (the loop circumference = Schwinger proper time) and ONE conformal Killing vector (the constant \u2202_\u03c4 = rigid U(1) rotation). Algebra = Witt (centrally extended: Virasoro).",
+      "moduli": "1 (the circumference L = Schwinger proper time)",
+      "conformal_killing_vectors": "1 (the rigid U(1) rotation \u2202_\u03c4)",
+      "algebra": "Witt / Virasoro",
+      "pass": true
+    },
+    {
+      "name": "T3_ghost_operator_and_kernel",
+      "description": "FP operator P = d/d\u03c4 (vector ghost \u21a6 einbein variation); P\u2020P = \u2212d\u00b2/d\u03c4\u00b2 (periodic); ker(P) = constants = the ONE CKV (rigid rotation). Periodic Laplacian has exactly 1 zero mode.",
+      "fp_operator": "P = d/d\u03c4",
+      "PtP": "P\u2020P = \u2212d\u00b2/d\u03c4\u00b2 (periodic)",
+      "kernel_dim_zero_modes": 1,
+      "kernel_is_the_CKV": true,
+      "pass": true
+    },
+    {
+      "name": "T4_which_determinant_is_the_ghost_det",
+      "description": "\u0394_FP = det'(P) = det'(P\u2020P)^{1/2} = L (the bc-ghost path integral; the two coincide in 1D by \u00b1n pairing). NOT det'(P\u2020P) = L\u00b2 \u2014 that is the intermediate Laplacian determinant (its square). So the ghost determinant is L, the square root of the first version's L\u00b2.",
+      "candidates": {
+        "det'(P)": "L  \u2014 the bc-ghost integral (FP determinant)",
+        "det'(P\u2020P)": "L\u00b2  \u2014 intermediate Laplacian determinant (the SQUARE; not the ghost det)",
+        "det'(P\u2020P)^{1/2}": "L  \u2014 = det'(P); THE Faddeev\u2013Popov ghost determinant"
+      },
+      "ghost_determinant_is": "det'(P\u2020P)^{1/2} = det'(P) = L",
+      "first_version_error": "wrote det'(P\u2020P) = L\u00b2 as the ghost det; off by one square root",
+      "rows": [
+        {
+          "L": 6.28319,
+          "det_prime_PtP": 39.47842,
+          "det_prime_P": 6.28319,
+          "det_prime_PtP_half": 6.28319,
+          "match": true
+        },
+        {
+          "L": 1.0,
+          "det_prime_PtP": 1.0,
+          "det_prime_P": 1.0,
+          "det_prime_PtP_half": 1.0,
+          "match": true
+        },
+        {
+          "L": 3.32408,
+          "det_prime_PtP": 11.04951,
+          "det_prime_P": 3.32408,
+          "det_prime_PtP_half": 3.32408,
+          "match": true
+        },
+        {
+          "L": 5.0,
+          "det_prime_PtP": 25.0,
+          "det_prime_P": 5.0,
+          "det_prime_PtP_half": 5.0,
+          "match": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T5_corrected_one_loop_measure",
+      "description": "\u0394_FP = det'(P\u2020P)^{1/2} = L is the einbein\u2192proper-length Jacobian (modulus measure = dL); CKV volume L \u27f9 symmetry factor 1/L. Measure: Z = \u03a3_sectors \u222b (dL/L) det^{\u22121/2}_matter e^{\u2212S}. Ghost L-power = L\u00b9 (the dL Jacobian), NOT the spurious L\u00b2 of v1.",
+      "fp_determinant_L_power": 1,
+      "v1_wrong_L_power": 2,
+      "measure": "Z = \u03a3_sectors \u222b (dL/L) \u00b7 det^{\u22121/2}_matter \u00b7 e^{\u2212S}",
+      "no_separate_L2_factor": true,
+      "pass": true
+    },
+    {
+      "name": "T6_ckv_is_closure_quantum_factor",
+      "description": "CKV volume Vol(U(1)) = L \u27f9 symmetry factor 1/L; for L = 2\u03c0, 1/L = 1/(2\u03c0) = PR #74's per-loop factor. The c-ghost zero-mode factor \u2014 independent of the determinant power, so unaffected by the T4 correction.",
+      "closure_loop_L": 6.283185307179586,
+      "ckv_factor_one_over_L": 0.15915494309189535,
+      "pr74_factor": 0.15915494309189535,
+      "matches_pr74": true,
+      "pass": true
+    },
+    {
+      "name": "T7_anomaly_free_1d_worldline",
+      "description": "1D worldline: no Weyl/conformal anomaly (no traceless symmetric 2-tensor in 1D) \u27f9 Diff(S\u00b9) gauge-fixing is anomaly-free (vs 2D string bc-ghost c = \u221226 \u27f9 D = 26). The only nontrivial anomaly is the discrete Z\u2082 orientation anomaly (odd-k, PR #115).",
+      "worldline_conformal_anomaly": "none (1D)",
+      "string_contrast": "bc-ghost c = \u221226 \u27f9 critical D = 26 (2D worldsheet)",
+      "nontrivial_anomaly_in_BAM": "discrete Z\u2082 orientation (odd-k, PR #115)",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The Faddeev\u2013Popov ghost determinant for the Diff(S\u00b9) quotient is \u0394_FP = det'(P) = det'(P\u2020P)^{1/2} = L (the square root of det'(P\u2020P) = L\u00b2). The corrected one-loop measure is Z = \u03a3_sectors \u222b (dL/L) det^{\u22121/2}_matter e^{\u2212S}: ghost L-power L\u00b9 (the proper-length Jacobian), CKV factor 1/L = 1/(2\u03c0) (PR #74) at the closure loop, anomaly-free. Absolute Z normalization and multi-loop stay open.",
+      "classification": "DIFF_S1_FP_GHOST_DET_IS_SQRT_DETPTP_EQUALS_L_ANOMALY_FREE",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "DIFF_S1_FP_GHOST_DET_IS_SQRT_DETPTP_EQUALS_L_ANOMALY_FREE",
+  "verdict": "THE Diff(S\u00b9) FADDEEV\u2013POPOV GHOST DETERMINANT IS det'(P\u2020P)^{1/2} = L (NOT L\u00b2); THE ONE-LOOP MEASURE'S GHOST L-POWER IS FIXED ACCORDINGLY. (Revised per review.) PR #115 named the reparametrization Faddeev\u2013Popov determinant as a piece of the measure; PR #116 regularized the matter determinant. This probe supplies the gauge sector \u2014 and the review correctly flagged that the first version conflated the ghost determinant with det'(P\u2020P).\n\nWHICH DETERMINANT. The Faddeev\u2013Popov determinant is the bc-ghost path integral \u0394_FP = \u222b Db Dc e^{\u2212\u222e b(Pc)} = det'(P), with P = d/d\u03c4 the operator taking the vector ghost c to the einbein variation. Because the b- and c-ghost spaces have equal dimension here, det'(P) = det'(P\u2020P)^{1/2}. The intermediate Laplacian determinant is det'(P\u2020P) = det'(\u2212d\u00b2/d\u03c4\u00b2) = L\u00b2 (\u03b6(0) = \u22121, \u03b6'(0) = \u22122 ln L), so the GHOST determinant is its square root: \u0394_FP = det'(P) = det'(P\u2020P)^{1/2} = L. Of the three candidates {det'(P), det'(P\u2020P), det'(P\u2020P)^{1/2}}, it is det'(P\u2020P)^{1/2} (= det'(P) in 1D by the \u00b1n mode pairing) = L. The first version's \"det'(\u2212d\u00b2/d\u03c4\u00b2) = L\u00b2\" was the ghost determinant off by one square root.\n\nTHE CORRECTED MEASURE (L-POWER FIXED). \u0394_FP = L is the Jacobian of the einbein \u2192 proper-length gauge fixing \u2014 it makes the modulus measure the proper circumference dL. Dividing by the conformal Killing volume Vol(U(1)) = L (the rigid rotation) gives the symmetry factor 1/L. So the gauge sector yields the standard worldline proper-time measure Z = \u03a3_sectors \u222b (dL/L) det^{\u22121/2}_matter e^{\u2212S}: the ghost L-power is L\u00b9 (the dL Jacobian), and there is NO separate det'_ghost = L\u00b2 factor (the v1 error).\n\nPR #74 UNCHANGED. The 1/(2\u03c0) is the CKV (c-ghost zero-mode) factor 1/Vol(U(1)) = 1/L at the closure loop L = 2\u03c0 \u2014 independent of the determinant power, so the correction leaves it intact: PR #74's 1/(2\u03c0) is still the ghost zero-mode of the Diff(S\u00b9) quotient.\n\nANOMALY-FREE. The 1D worldline carries no Weyl/conformal anomaly (no traceless symmetric 2-tensor in 1D), unlike the 2D string (bc-ghost c = \u221226 \u27f9 D = 26); the only nontrivial anomaly is the discrete Z\u2082 orientation (odd-k, PR #115). With PR #116's matter determinant, the one-loop measure is finite/computable; the absolute normalization (\u03ba\u2085\u00b2/\u039b\u2085) and the multi-loop measure remain open."
+}

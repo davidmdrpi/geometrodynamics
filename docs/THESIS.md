@@ -1201,19 +1201,27 @@ problems rather than implementation TODOs:
   the *gauge* half: the reparametrization group `Diff(S¹)` is gauge-fixed
   (worldline/Polyakov) to one Teichmüller modulus — the loop circumference
   `L`, i.e. the Schwinger proper time — and one conformal Killing vector, the
-  rigid `U(1)` rotation. The Faddeev–Popov operator is `−d²/dτ²` on periodic
-  fields (kernel = the constants = the one CKV), and its nonzero-mode
-  determinant is zeta-regularized exactly as the matter one: `ζ_ghost(0) =
-  −1` and `det'(−d²/dτ²) = L²`. Dividing out the CKV (`Vol U(1) = L`) gives
-  the worldline moduli measure `dL/L`, whose `1/L = 1/(2π)` for the closure
-  loop is precisely PR #74's per-loop factor — so PR #74's `1/(2π)` is the
-  ghost zero-mode of the `Diff(S¹)` quotient. And, unlike the 2D string
+  rigid `U(1)` rotation. The Faddeev–Popov operator is `P = d/dτ` (the vector
+  ghost `c` mapped to the einbein variation), with `P†P = −d²/dτ²` on
+  periodic fields and kernel `= ` the constants `= ` the one CKV. The ghost
+  determinant is the `bc`-ghost path integral `Δ_FP = det'(P) =
+  det'(P†P)^{1/2}` (the two coincide in 1D by the `±n` mode pairing): the
+  intermediate Laplacian determinant is `det'(P†P) = det'(−d²/dτ²) = L²`
+  (`ζ(0) = −1`), so the ghost determinant is its *square root*, `Δ_FP = L` —
+  not `L²` (a correction made on review). `Δ_FP = L` is the Jacobian of the
+  einbein → proper-length gauge fixing, so the modulus measure is the proper
+  circumference `dL`; dividing out the CKV (`Vol U(1) = L`) gives the
+  symmetry factor `1/L`, and the worldline measure is `dL/L`, whose `1/L =
+  1/(2π)` for the closure loop is precisely PR #74's per-loop factor — so
+  PR #74's `1/(2π)` is the CKV (ghost zero-mode) factor of the `Diff(S¹)`
+  quotient, independent of the determinant power. And, unlike the 2D string
   (`bc`-ghost `c = −26 ⟹ D = 26`), the 1D worldline carries no
   Weyl/conformal anomaly, so this gauge-fixing is anomaly-free — the only
   nontrivial anomaly being the discrete `Z₂` orientation (odd-k) condition.
   With both halves in hand the one-loop measure `Z = Σ_sectors ∫ (dL/L) ·
-  det'_ghost · det^{−1/2}_matter · e^{−S}` is finite and computable factor by
-  factor; the absolute normalisation (the `κ₅²/Λ₅` anchor) and the
+  det^{−1/2}_matter · e^{−S}` (the ghost determinant `Δ_FP = L` being the
+  proper-length Jacobian, an `L¹` not `L²` power) is finite and computable
+  factor by factor; the absolute normalisation (the `κ₅²/Λ₅` anchor) and the
   multi-loop measure remain the standing open pieces.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
