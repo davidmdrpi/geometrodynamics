@@ -1197,7 +1197,24 @@ problems rather than implementation TODOs:
   formal. What remains is a closed-form analytic expression (the determinant
   is a definite number, computed numerically) and the absolute normalisation
   of `Z` (which still carries the bulk `κ₅²/Λ₅` anchor); the saddle results,
-  normalisation-independent, are unaffected throughout.
+  normalisation-independent, are unaffected throughout. PR #117 then closes
+  the *gauge* half: the reparametrization group `Diff(S¹)` is gauge-fixed
+  (worldline/Polyakov) to one Teichmüller modulus — the loop circumference
+  `L`, i.e. the Schwinger proper time — and one conformal Killing vector, the
+  rigid `U(1)` rotation. The Faddeev–Popov operator is `−d²/dτ²` on periodic
+  fields (kernel = the constants = the one CKV), and its nonzero-mode
+  determinant is zeta-regularized exactly as the matter one: `ζ_ghost(0) =
+  −1` and `det'(−d²/dτ²) = L²`. Dividing out the CKV (`Vol U(1) = L`) gives
+  the worldline moduli measure `dL/L`, whose `1/L = 1/(2π)` for the closure
+  loop is precisely PR #74's per-loop factor — so PR #74's `1/(2π)` is the
+  ghost zero-mode of the `Diff(S¹)` quotient. And, unlike the 2D string
+  (`bc`-ghost `c = −26 ⟹ D = 26`), the 1D worldline carries no
+  Weyl/conformal anomaly, so this gauge-fixing is anomaly-free — the only
+  nontrivial anomaly being the discrete `Z₂` orientation (odd-k) condition.
+  With both halves in hand the one-loop measure `Z = Σ_sectors ∫ (dL/L) ·
+  det'_ghost · det^{−1/2}_matter · e^{−S}` is finite and computable factor by
+  factor; the absolute normalisation (the `κ₅²/Λ₅` anchor) and the
+  multi-loop measure remain the standing open pieces.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
