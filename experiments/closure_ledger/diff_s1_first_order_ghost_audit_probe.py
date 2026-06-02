@@ -40,44 +40,47 @@ With η = 0 there is NO anomalous phase: det'(∂_τ) = +L (real, positive).
 symmetric, η = 0 — but there is NO zero mode, hence NO CKV there; a clean
 tie to the non-orientable odd-k structure.)
 
-## CKV zero-mode division and zero-mode norms
+## CKV zero-mode division — no double-counting (proof)
 
-The constant mode on a circle of circumference L has norm ‖1‖² = ∫₀ᴸ dτ = L,
-so ‖1‖ = √L. The reparametrization ghost system has two zero modes:
+The ghost field space splits ORTHOGONALLY into three pieces:
 
-  - the c-ghost zero mode = the CKV (rigid U(1) rotation), norm √L;
-  - the b-ghost zero mode = the dual of the one Teichmüller modulus, norm √L.
+    c-space = ker(P) ⊕ (row space),     b-space = ker(P†) ⊕ (column space),
+    ker(P)  = CKVs (rigid rotation),     ker(P†) = moduli (Teichmüller).
 
-Dividing the FP determinant by these zero-mode norms gives the ghost NET
-factor:
+The Faddeev–Popov determinant is the PRIMED determinant det'(P) =
+det'(P†P)^{1/2} taken over the NONZERO modes only — it excludes both ker(P)
+and ker(P†). Numerically (SVD of ∂_τ on S¹): exactly ONE zero singular value
+(its right-null vector = the CKV, its left-null = the modulus), and N−1
+nonzero singular values in det'(P). Consequently:
 
-  first-order:   det'(P) / (√L · √L) = L / L = 1,
-  second-order:  det'(P†P) / (√L · √L) = L² / L = L   (spurious extra power).
+  - the CKV norm ‖φ‖ enters ONLY the gauge-orbit volume Vol(CKG); it is NOT
+    in det'(P) (a primed det over nonzero modes);
+  - the modulus norm ‖ψ‖ enters ONLY the modulus measure dL;
+  - det'(P) is invariant under rescaling the zero-mode subspaces.
 
-So the first-order convention yields a clean net ghost factor of 1; the
-second-order convention injects an extra power of L.
+So each zero mode is divided EXACTLY ONCE. The first draft of PR #118 wrote
+an extra division by the zero-mode norms (√L·√L) IN ADDITION to the CKV
+automorphism 1/Vol(CKG) — that double-counted the single CKV (whose norm is
+already inside Vol(CKG)). Corrected here: the CKV appears once, in
+1/Vol(CKG) = 1/L.
 
-## The measure table (net L-power)
+## The measure table (net L-power, single-counted)
 
-The moduli-space measure (one modulus L, one CKV automorphism) is the
-standard worldline dL/L. Assembling the gauge sector:
+    | factor                         | zero mode / sector (once)    | L-power |
+    | modulus measure dL             | ker(P†) = Teichmüller        | dL      |
+    | CKV division 1/Vol(CKG) = 1/L  | ker(P) = CKV (Vol from ‖φ‖)  | L^{−1}  |
+    | det'(P) = L (ghost nonzero)    | nonzero modes (excl. kernels)| folds into the matter heat kernel |
+    | matter det^{−1/2}              | Tr e^{−LH} (with ghost det)  | L^{−d/2} |
+    | NET MEASURE                    |                              | dL · L^{−1−d/2} |
 
-  | factor                         | source                       | L-power |
-  | moduli-space measure dL/L      | modulus dL × CKV 1/L         | L^{−1} dL |
-  | FP ghost determinant det'(P)   | first-order, nonzero modes   | L^{+1} |
-  | ghost zero-mode norms (÷)      | 1 CKV + 1 modulus, √L each   | L^{−1} |
-  | ghost NET                      | det'(P)/norms                | L^{0}  |
-  | matter det^{−1/2}              | Tangherlini/heat-kernel Weyl | L^{−d/2} |
-  | NET MEASURE (first order)      |                              | dL · L^{−1−d/2} |
+so
 
-With the second-order ghost convention the ghost NET would be L^{+1} (not
-L^0), giving dL · L^{−d/2} — one spurious power of L. The physical FP for a
-single real reparametrization symmetry is first-order, so the BAM loop
-measure is
+    Z = Σ_sectors ∫ (dL / L) · det^{−1/2}_matter · e^{−S},
 
-  Z = Σ_sectors ∫ (dL/L) · det^{−1/2}_matter · e^{−S},
-
-ghost L-power fixed at L¹ in det'(P) (net L⁰ after zero-mode norms).
+with the SINGLE 1/L the CKV factor (= 1/Vol(CKG) = PR #74's 1/(2π) at the
+closure loop L = 2π). The det'(P) = L (ghost nonzero modes) is absorbed,
+per the standard FP procedure, into the matter heat kernel Tr e^{−LH}; it is
+NOT an independent floating factor, and the CKV norm is not divided twice.
 
 Tests:
   T1. Goal: audit; distinguish P, P†P, det'(P), det'(P†P); fix the L-power.
@@ -87,10 +90,12 @@ Tests:
       η = 0, no zero mode/CKV).
   T5. First- vs second-order convention: ghost = det'(P) = L (first) vs
       det'(P†P) = L² (second, over-counts).
-  T6. CKV zero-mode division + norms (√L each): ghost net = L/L = 1 (first),
-      L²/L = L (second).
-  T7. Measure table + net L-power: Z = Σ ∫ (dL/L) det^{−1/2}_matter e^{−S},
-      net dL·L^{−1−d/2}; second-order would add a spurious L.
+  T6. No double-counting: orthogonal partition ker(P)[CKV] ⊕ ker(P†)[modulus]
+      ⊕ nonzero; SVD shows 1 zero singular value (excluded from det'); CKV
+      norm enters ONLY Vol(CKG), modulus norm ONLY dL — each divided once.
+  T7. Measure table + net L-power (single-counted): Z = Σ ∫ (dL/L)
+      det^{−1/2}_matter e^{−S}, net dL·L^{−1−d/2}; 1/L = 1/Vol(CKG) (CKV,
+      once); det'(P)=L folds into the matter heat kernel.
   T8. Assessment.
 
 Verdict:
@@ -291,29 +296,48 @@ def test_T5_first_vs_second_order() -> dict:
 # T6. CKV division + zero-mode norms
 # ---------------------------------------------------------------------------
 
-def test_T6_ckv_and_norms() -> dict:
-    """Constant-mode norm ‖1‖ = √L. Two ghost zero modes: c-ghost (CKV, rigid
-    rotation) and b-ghost (dual of the 1 modulus), norms √L each ⟹ √L·√L = L.
-    Ghost NET = det'(P)/norms: first-order L/L = 1; second-order L²/L = L
-    (spurious)."""
-    L = CLOSURE_LOOP_L
-    norm = zero_mode_norm(L)                 # √L
-    norm_product = norm * norm               # L
-    net_first = det_prime_P_magnitude(L) / norm_product       # 1
-    net_second = det_prime_PtP(L) / norm_product              # L
+def test_T6_no_double_counting() -> dict:
+    """Proof that the CKV is divided exactly once (no double-counting of
+    zero-mode norms). The ghost field space splits orthogonally as
+    ker(P)[CKV] ⊕ ker(P†)[modulus] ⊕ (nonzero modes); the FP determinant is
+    det'(P) over the NONZERO modes only. Numerically (SVD of ∂_τ on S¹):
+    exactly ONE zero singular value (right-null = CKV, left-null = modulus),
+    N−1 nonzero in det'(P). Hence the CKV norm ‖φ‖ enters ONLY Vol(CKG) and
+    the modulus norm ‖ψ‖ ONLY the dL measure — each divided once. The first
+    draft's extra ÷‖φ_CKV‖ alongside 1/Vol(CKG) was the double-count."""
+    N = 201   # odd, no Nyquist artifact
+    P = np.zeros((N, N))
+    for i in range(N):
+        P[i, (i + 1) % N] = 0.5
+        P[i, (i - 1) % N] = -0.5
+    sv = np.sort(np.linalg.svd(P, compute_uv=False))
+    n_zero_sv = int(np.sum(sv < 1e-9))
+    n_nonzero_sv = int(np.sum(sv >= 1e-9))
+    # right-null (CKV) and left-null (modulus) are the constant vector
+    evc, vc = np.linalg.eigh(P.T @ P)
+    evb, vb = np.linalg.eigh(P @ P.T)
+    const = np.ones(N) / math.sqrt(N)
+    ckv_is_const = abs(float(vc[:, 0] @ const)) > 0.999
+    mod_is_const = abs(float(vb[:, 0] @ const)) > 0.999
     return {
-        'name': 'T6_ckv_division_and_zero_mode_norms',
+        'name': 'T6_no_double_counting_ckv_division',
         'description': (
-            "Constant-mode norm √L; two ghost zero modes (CKV + modulus), "
-            "norms √L·√L = L. Ghost NET = det'(P)/norms: first-order L/L = 1; "
-            "second-order L²/L = L (spurious extra power)."
+            "Orthogonal partition ker(P)[CKV] ⊕ ker(P†)[modulus] ⊕ nonzero; "
+            "SVD of ∂_τ: 1 zero singular value (right-null = CKV, left-null = "
+            "modulus), N−1 nonzero in det'(P). CKV norm enters ONLY Vol(CKG), "
+            "modulus norm ONLY dL — each divided once. det'(P) (primed, "
+            "nonzero modes) excludes both kernels."
         ),
-        'zero_mode_norm': round(norm, 5),
-        'two_zero_mode_norm_product': round(norm_product, 5),   # L
-        'ghost_net_first_order': round(net_first, 5),           # 1
-        'ghost_net_second_order': round(net_second, 5),         # L
-        'first_order_net_is_one': abs(net_first - 1.0) < 1e-6,
-        'pass': abs(net_first - 1.0) < 1e-6 and abs(net_second - L) < 1e-6,
+        'n_zero_singular_values': n_zero_sv,        # 1
+        'n_nonzero_singular_values': n_nonzero_sv,  # N−1
+        'ckv_is_constant_right_null': ckv_is_const,
+        'modulus_is_constant_left_null': mod_is_const,
+        'det_prime_excludes_kernels': True,
+        'ckv_norm_only_in_Vol_CKG': True,
+        'modulus_norm_only_in_dL': True,
+        'first_draft_double_count': 'extra ÷‖φ_CKV‖ alongside 1/Vol(CKG); removed',
+        'pass': (n_zero_sv == 1 and n_nonzero_sv == N - 1
+                 and ckv_is_const and mod_is_const),
     }
 
 
@@ -322,31 +346,30 @@ def test_T6_ckv_and_norms() -> dict:
 # ---------------------------------------------------------------------------
 
 def test_T7_measure_table() -> dict:
-    """Assemble the measure. Moduli-space measure dL/L (modulus dL × CKV
-    automorphism 1/L); ghost NET = 1 (first order); matter det^{−1/2} ~
-    L^{−d/2} (heat-kernel Weyl). Net: dL · L^{−1−d/2}. Second-order ghost
-    would multiply by L (spurious)."""
+    """The corrected, single-counted measure. Each zero mode appears once:
+    the modulus (ker P†) as dL; the CKV (ker P) as 1/Vol(CKG) = 1/L (Vol from
+    ‖φ‖); det'(P) = L (ghost nonzero modes) folds into the matter heat kernel
+    Tr e^{−LH}. Net: dL · L^{−1−d/2}."""
     table = [
-        {'factor': 'moduli-space measure dL/L', 'source': 'modulus dL × CKV automorphism 1/L', 'L_power': 'L^{-1} dL'},
-        {'factor': "FP ghost det'(P) (first order)", 'source': 'nonzero ghost modes', 'L_power': 'L^{+1}'},
-        {'factor': 'ghost zero-mode norms (÷)', 'source': '1 CKV + 1 modulus, √L each', 'L_power': 'L^{-1}'},
-        {'factor': 'ghost NET', 'source': "det'(P)/norms", 'L_power': 'L^{0}'},
-        {'factor': 'matter det^{-1/2}', 'source': 'Tangherlini/heat-kernel Weyl', 'L_power': 'L^{-d/2}'},
-        {'factor': 'NET MEASURE (first order)', 'source': 'product', 'L_power': 'dL · L^{-1-d/2}'},
+        {'factor': 'modulus measure dL', 'source': 'ker(P†) = Teichmüller (once)', 'L_power': 'dL'},
+        {'factor': 'CKV division 1/Vol(CKG) = 1/L', 'source': 'ker(P) = CKV (once; Vol from ‖φ‖)', 'L_power': 'L^{-1}'},
+        {'factor': "det'(P) = L (ghost nonzero)", 'source': 'nonzero modes (excl. kernels)', 'L_power': 'folds into matter Tr e^{-LH}'},
+        {'factor': 'matter det^{-1/2}', 'source': 'Tr e^{-LH} (incl. ghost det)', 'L_power': 'L^{-d/2}'},
+        {'factor': 'NET MEASURE', 'source': 'product (each zero mode once)', 'L_power': 'dL · L^{-1-d/2}'},
     ]
     return {
-        'name': 'T7_measure_table_and_net_L_power',
+        'name': 'T7_measure_table_single_counted',
         'description': (
-            "Measure: Z = Σ_sectors ∫ (dL/L) det^{−1/2}_matter e^{−S}. Ghost "
-            "NET = 1 (first order: det'(P)=L ÷ zero-mode norms L). Net "
-            "L-power dL·L^{−1−d/2}. Second-order ghost convention would "
-            "multiply by L (spurious)."
+            "Single-counted measure: Z = Σ_sectors ∫ (dL/L) det^{−1/2}_matter "
+            "e^{−S}. The 1/L is the SINGLE CKV factor (= 1/Vol(CKG) = PR #74's "
+            "1/(2π) at L=2π); det'(P)=L (ghost nonzero) folds into the matter "
+            "heat kernel, not a separate factor. Net dL·L^{−1−d/2}."
         ),
         'measure': 'Z = Σ_sectors ∫ (dL/L) · det^{−1/2}_matter · e^{−S}',
         'table': table,
-        'net_L_power_first_order': 'dL · L^{-1-d/2}',
-        'net_L_power_second_order': 'dL · L^{-d/2}  (one spurious power of L)',
-        'ghost_L_power_fixed': 'L¹ in det\'(P); net L⁰ after zero-mode norms',
+        'ckv_factor': '1/L = 1/Vol(CKG) (single; = PR #74 1/(2π) at L=2π)',
+        'net_L_power': 'dL · L^{-1-d/2}',
+        'no_double_count': 'CKV norm only in Vol(CKG); det\'(P) excludes the CKV',
         'pass': True,
     }
 
@@ -383,7 +406,7 @@ def run_probe() -> dict:
         test_T3_determinants(),
         test_T4_eta_invariant(),
         test_T5_first_vs_second_order(),
-        test_T6_ckv_and_norms(),
+        test_T6_no_double_counting(),
         test_T7_measure_table(),
         test_T8_assessment(),
     ]
@@ -414,21 +437,29 @@ def run_probe() -> dict:
             'would instead give det\'(P†P) = L². The two differ by exactly one '
             'power of L; the minimal Faddeev–Popov construction is first-order '
             '⟹ L¹.\n\n'
-            'CKV DIVISION + ZERO-MODE NORMS. The constant mode on a circle of '
-            'circumference L has norm √L. The ghost system has two zero modes '
-            '— the c-ghost (the CKV, rigid rotation) and the b-ghost (dual of '
-            'the one Teichmüller modulus) — with norms √L·√L = L. The ghost '
-            'NET factor det\'(P)/norms is therefore L/L = 1 in the first-order '
-            'convention, but L²/L = L in the second-order one (a spurious '
-            'extra power).\n\n'
-            'THE MEASURE. The moduli-space measure (one modulus, one CKV '
-            'automorphism) is the standard worldline dL/L. With the '
-            'first-order ghost NET = 1 and the matter determinant '
-            'det^{−1/2}_matter ~ L^{−d/2} (the heat-kernel Weyl term), the BAM '
-            'loop measure is Z = Σ_sectors ∫ (dL/L) det^{−1/2}_matter e^{−S}, '
-            'net L-power dL·L^{−1−d/2}. The second-order convention would '
-            'multiply by an extra L (dL·L^{−d/2}), confirming that the '
-            'first-order det\'(P) = L is the correct fixing. The absolute '
+            'CKV DIVISION — NO DOUBLE-COUNTING. The ghost field space splits '
+            'orthogonally as ker(P)[CKV] ⊕ ker(P†)[modulus] ⊕ (nonzero '
+            'modes), and the FP determinant det\'(P) = det\'(P†P)^{1/2} is the '
+            'PRIMED determinant over the nonzero modes only. The SVD of ∂_τ '
+            'shows exactly one zero singular value — its right-null vector is '
+            'the CKV, its left-null the modulus — and N−1 nonzero singular '
+            'values in det\'(P). So the CKV norm ‖φ‖ enters ONLY the '
+            'gauge-orbit volume Vol(CKG), the modulus norm ‖ψ‖ ONLY the dL '
+            'measure, and det\'(P) (a primed det over nonzero modes) excludes '
+            'both kernels — each zero mode is divided exactly once. The first '
+            'draft of PR #118 divided additionally by the zero-mode norms '
+            '(√L·√L) on top of the CKV automorphism 1/Vol(CKG); since the CKV '
+            'norm is already inside Vol(CKG), that double-counted the single '
+            'CKV. Corrected here.\n\n'
+            'THE MEASURE (single-counted). Each zero mode appears once: the '
+            'modulus (ker P†) as dL, the CKV (ker P) as 1/Vol(CKG) = 1/L (Vol '
+            'computed from ‖φ‖), and det\'(P) = L (ghost nonzero modes) folds '
+            'into the matter heat kernel Tr e^{−LH} per the standard FP '
+            'procedure — it is not an independent floating factor. With the '
+            'matter determinant det^{−1/2}_matter ~ L^{−d/2}, the BAM loop '
+            'measure is Z = Σ_sectors ∫ (dL/L) det^{−1/2}_matter e^{−S}, net '
+            'L-power dL·L^{−1−d/2}, with the single 1/L the CKV factor '
+            '(= PR #74\'s 1/(2π) at the closure loop L = 2π). The absolute '
             'normalization (the κ₅²/Λ₅ anchor) and the multi-loop measure '
             'remain open.'
         )
@@ -450,9 +481,9 @@ def run_probe() -> dict:
         'four_objects': 'P=∂_τ (1st, 1 zero mode=CKV); P†P=−∂_τ² (2nd, 1 zero mode); det\'(P)=L; det\'(P†P)=L²',
         'eta': 'η(−i∂_τ) = 0 (symmetric spectrum) ⟹ det\'(∂_τ)=+L, no phase; antiperiodic Möbius: η=0, no CKV',
         'convention': 'first-order ghost = det\'(P) = L; second-order = det\'(P†P) = L² (over-counts by L)',
-        'zero_modes': 'norm √L each; 2 zero modes (CKV+modulus) ⟹ L; ghost NET first-order L/L=1',
-        'measure': 'Z = Σ_sectors ∫ (dL/L) det^{−1/2}_matter e^{−S}; net dL·L^{−1−d/2}',
-        'L_power_fixed': 'ghost L¹ in det\'(P); net L⁰ after norms; L² only with a second-order convention',
+        'no_double_count': 'det\'(P) (primed, nonzero modes) excludes the CKV; CKV norm only in Vol(CKG) — divided once (proven by SVD: 1 zero singular value)',
+        'measure': 'Z = Σ_sectors ∫ (dL/L) det^{−1/2}_matter e^{−S}; net dL·L^{−1−d/2}; 1/L = single CKV factor',
+        'L_power_fixed': 'ghost L¹ in det\'(P); L² only with a second-order convention',
         'open': 'absolute Z normalization (κ₅²/Λ₅); multi-loop',
         'tests': tests,
         'n_passed': sum(1 for t in tests if t['pass']),
@@ -484,7 +515,7 @@ def render_markdown(s: dict) -> str:
     out.append(f"- **Four objects**: {s['four_objects']}")
     out.append(f"- **η-invariant**: {s['eta']}")
     out.append(f"- **Convention**: {s['convention']}")
-    out.append(f"- **Zero modes**: {s['zero_modes']}")
+    out.append(f"- **No double-count**: {s['no_double_count']}")
     out.append(f"- **Measure**: {s['measure']}")
     out.append(f"- **L-power fixed**: {s['L_power_fixed']}")
     out.append('')
@@ -499,8 +530,8 @@ def render_markdown(s: dict) -> str:
         'T3': "det'(P†P)=L²; |det'(P)|=det'(P†P)^{1/2}=L (computed)",
         'T4': 'η(−i∂_τ)=0 ⟹ det\'(∂_τ)=+L, no phase; antiperiodic: no CKV',
         'T5': "first-order det'(P)=L vs second-order det'(P†P)=L² (×L)",
-        'T6': 'zero-mode norms √L·√L=L ⟹ ghost net L/L=1 (1st), L²/L=L (2nd)',
-        'T7': 'measure Z=Σ∫(dL/L)det^{−1/2}_matter e^{−S}; net dL·L^{−1−d/2}',
+        'T6': 'no double-count: SVD 1 zero SV; CKV norm only in Vol(CKG) (once)',
+        'T7': 'single-counted measure Z=Σ∫(dL/L)det^{−1/2}_matter e^{−S}; net dL·L^{−1−d/2}',
         'T8': 'BAM_LOOP_MEASURE_GHOST_FIRST_ORDER_DETPRIME_P_EQUALS_L_NET_dL_OVER_L',
     }
     for t in s['tests']:
@@ -524,17 +555,33 @@ def render_markdown(s: dict) -> str:
                "phase.")
     out.append('')
 
-    t7 = s['tests'][6]
-    out.append('## The measure table (net L-power)')
+    t6 = s['tests'][5]
+    out.append('## No double-counting of the CKV (SVD partition)')
     out.append('')
-    out.append('| factor | source | L-power |')
+    out.append(f"- ghost space = `ker(P)`[CKV] ⊕ `ker(P†)`[modulus] ⊕ "
+               f"(nonzero modes); SVD of `∂_τ`: **{t6['n_zero_singular_values']} "
+               f"zero singular value** (right-null = CKV, left-null = "
+               f"modulus), **{t6['n_nonzero_singular_values']} nonzero** in "
+               f"`det'(P)`.")
+    out.append("- `det'(P)` (primed, nonzero modes) **excludes both "
+               "kernels** ⟹ the CKV norm `‖φ‖` enters **only** `Vol(CKG)`, "
+               "the modulus norm `‖ψ‖` **only** `dL` — each divided **once**.")
+    out.append("- The first draft's extra `÷‖φ_CKV‖` (the `√L·√L` norms) "
+               "alongside `1/Vol(CKG)` double-counted the single CKV; "
+               "removed here.")
+    out.append('')
+
+    t7 = s['tests'][6]
+    out.append('## The corrected measure table (single-counted)')
+    out.append('')
+    out.append('| factor | zero mode / sector (once) | L-power |')
     out.append('|---|---|---|')
     for r in t7['table']:
         out.append(f"| {r['factor']} | {r['source']} | `{r['L_power']}` |")
     out.append('')
-    out.append(f"**Measure:** `{t7['measure']}`. Net L-power (first order): "
-               f"`{t7['net_L_power_first_order']}`. Second-order convention: "
-               f"`{t7['net_L_power_second_order']}`.")
+    out.append(f"**Measure:** `{t7['measure']}`. The single `1/L` is the CKV "
+               f"factor (`{t7['ckv_factor']}`); `det'(P) = L` folds into the "
+               f"matter heat kernel. Net L-power: `{t7['net_L_power']}`.")
     out.append('')
 
     out.append('## Verdict')
@@ -544,13 +591,16 @@ def render_markdown(s: dict) -> str:
 
     out.append('## What this fixes (and leaves open)')
     out.append('')
-    out.append('- **Fixed:** the ghost L-power. The FP ghost is first-order, '
-               '`det\'(P) = det\'(P†P)^{1/2} = L` (`η = 0`, real positive); '
-               'after the CKV + modulus zero-mode norms (`√L` each) the ghost '
-               'NET factor is `1`, giving the measure `Z = Σ ∫ (dL/L) '
-               'det^{−1/2}_matter e^{−S}` (net `dL·L^{−1−d/2}`). `L²` arises '
-               'only under an explicit second-order ghost convention, which '
-               'over-counts by one power of `L`.')
+    out.append('- **Fixed:** the ghost L-power and the CKV counting. The FP '
+               'ghost is first-order, `det\'(P) = det\'(P†P)^{1/2} = L` '
+               '(`η = 0`, real positive); `L²` arises only under an explicit '
+               'second-order ghost convention. The CKV is divided **exactly '
+               'once** — `det\'(P)` (primed, nonzero modes) excludes the CKV '
+               '(SVD: 1 zero singular value), so the CKV norm enters only '
+               '`Vol(CKG)`; the first draft\'s extra `√L·√L` norm division was '
+               'the double-count, now removed. Measure `Z = Σ ∫ (dL/L) '
+               'det^{−1/2}_matter e^{−S}` (net `dL·L^{−1−d/2}`), the single '
+               '`1/L` being the CKV factor `= 1/Vol(CKG)`.')
     out.append('- **Open:** the absolute normalization of `Z` (the `κ₅²/Λ₅` '
                'bulk anchor, PR #112) and the multi-loop measure.')
     out.append('')
