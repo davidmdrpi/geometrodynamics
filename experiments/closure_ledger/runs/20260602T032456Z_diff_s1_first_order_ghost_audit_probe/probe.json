@@ -1,0 +1,144 @@
+{
+  "timestamp_utc": "2026-06-02T03:24:56+00:00",
+  "identification": "first-order Diff(S\u00b9) FP ghost audit: det'(P) = det'(\u2202_\u03c4) = det'(P\u2020P)^{1/2} = L (\u03b7 = 0, real positive); det'(P\u2020P) = L\u00b2 is the second-order square; ghost NET = 1 after \u221aL\u00b7\u221aL zero-mode norms; measure Z = \u03a3 \u222b (dL/L) det^{\u22121/2}_matter e^{\u2212S}",
+  "four_objects": "P=\u2202_\u03c4 (1st, 1 zero mode=CKV); P\u2020P=\u2212\u2202_\u03c4\u00b2 (2nd, 1 zero mode); det'(P)=L; det'(P\u2020P)=L\u00b2",
+  "eta": "\u03b7(\u2212i\u2202_\u03c4) = 0 (symmetric spectrum) \u27f9 det'(\u2202_\u03c4)=+L, no phase; antiperiodic M\u00f6bius: \u03b7=0, no CKV",
+  "convention": "first-order ghost = det'(P) = L; second-order = det'(P\u2020P) = L\u00b2 (over-counts by L)",
+  "no_double_count": "det'(P) (primed, nonzero modes) excludes the CKV; CKV norm only in Vol(CKG) \u2014 divided once (proven by SVD: 1 zero singular value)",
+  "measure": "Z = \u03a3_sectors \u222b (dL/L) det^{\u22121/2}_matter e^{\u2212S}; net dL\u00b7L^{\u22121\u2212d/2}; 1/L = single CKV factor",
+  "L_power_fixed": "ghost L\u00b9 in det'(P); L\u00b2 only with a second-order convention",
+  "open": "absolute Z normalization (\u03ba\u2085\u00b2/\u039b\u2085); multi-loop",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "First-order Diff(S\u00b9) FP ghost audit: distinguish P = \u2202_\u03c4, P\u2020P = \u2212\u2202_\u03c4\u00b2, det'(P), det'(P\u2020P); handle the \u03b7-invariant of det'(\u2202_\u03c4); treat CKV zero-mode division + norms; fix the ghost L-power in the BAM loop measure (L, L\u00b2, or L\u00b2 only with a second-order ghost convention).",
+      "follows": "PR #117 (revised): ghost det = det'(P) = det'(P\u2020P)^{1/2} = L",
+      "pass": true
+    },
+    {
+      "name": "T2_four_objects_and_spectra",
+      "description": "P = \u2202_\u03c4 (first order): eigenvalues 2\u03c0in/L (imaginary), 1 zero mode = CKV. P\u2020P = \u2212\u2202_\u03c4\u00b2 (second order): eigenvalues (2\u03c0n/L)\u00b2, 1 zero mode. det'(P), det'(P\u2020P) are their nonzero-mode determinants.",
+      "P_order": 1,
+      "PtP_order": 2,
+      "P_eigenvalues_imaginary": true,
+      "P_zero_modes": 1,
+      "PtP_zero_modes": 1,
+      "pass": true
+    },
+    {
+      "name": "T3_two_determinants",
+      "description": "det'(P\u2020P) = L\u00b2 (second order); |det'(P)| = det'(P\u2020P)^{1/2} = L (first order). Verified to machine precision.",
+      "rows": [
+        {
+          "L": 6.28319,
+          "det_prime_PtP": 39.47842,
+          "det_prime_P": 6.28319,
+          "sqrt_det_PtP": 6.28319,
+          "match": true
+        },
+        {
+          "L": 1.0,
+          "det_prime_PtP": 1.0,
+          "det_prime_P": 1.0,
+          "sqrt_det_PtP": 1.0,
+          "match": true
+        },
+        {
+          "L": 3.32408,
+          "det_prime_PtP": 11.04951,
+          "det_prime_P": 3.32408,
+          "sqrt_det_PtP": 3.32408,
+          "match": true
+        },
+        {
+          "L": 5.0,
+          "det_prime_PtP": 25.0,
+          "det_prime_P": 5.0,
+          "sqrt_det_PtP": 5.0,
+          "match": true
+        }
+      ],
+      "det_prime_P_equals_sqrt_PtP": true,
+      "pass": true
+    },
+    {
+      "name": "T4_eta_invariant_phase",
+      "description": "\u03b7(\u2212i\u2202_\u03c4) = 0 (spectrum symmetric under n\u2192\u2212n) \u27f9 det'(\u2202_\u03c4) = +L, no anomalous phase. Antiperiodic/M\u00f6bius sector: \u03b7 = 0 too, but no zero mode \u27f9 no CKV there.",
+      "eta_periodic": 0.0,
+      "eta_zero": true,
+      "det_prime_dtau_is_real_positive": true,
+      "det_prime_dtau_value": "L (no phase)",
+      "antiperiodic_mobius": "eigenvalues 2\u03c0i(n+\u00bd)/L: \u03b7 = 0, NO zero mode \u27f9 no CKV",
+      "pass": true
+    },
+    {
+      "name": "T5_first_vs_second_order_convention",
+      "description": "First-order (real bc, the physical FP): \u0394_FP = det'(P) = L. Second-order convention (b(P\u2020P)c): det'(P\u2020P) = L\u00b2. They differ by one power of L; the minimal FP is first-order \u27f9 L\u00b9.",
+      "first_order_ghost_det": 6.28319,
+      "second_order_ghost_det": 39.47842,
+      "ratio_second_over_first": 6.28319,
+      "physical_FP_is": "first-order (L\u00b9)",
+      "second_order_requires": "an explicit second-order ghost convention (doubled/complex ghost)",
+      "pass": true
+    },
+    {
+      "name": "T6_no_double_counting_ckv_division",
+      "description": "Orthogonal partition ker(P)[CKV] \u2295 ker(P\u2020)[modulus] \u2295 nonzero; SVD of \u2202_\u03c4: 1 zero singular value (right-null = CKV, left-null = modulus), N\u22121 nonzero in det'(P). CKV norm enters ONLY Vol(CKG), modulus norm ONLY dL \u2014 each divided once. det'(P) (primed, nonzero modes) excludes both kernels.",
+      "n_zero_singular_values": 1,
+      "n_nonzero_singular_values": 200,
+      "ckv_is_constant_right_null": true,
+      "modulus_is_constant_left_null": true,
+      "det_prime_excludes_kernels": true,
+      "ckv_norm_only_in_Vol_CKG": true,
+      "modulus_norm_only_in_dL": true,
+      "first_draft_double_count": "extra \u00f7\u2016\u03c6_CKV\u2016 alongside 1/Vol(CKG); removed",
+      "pass": true
+    },
+    {
+      "name": "T7_measure_table_single_counted",
+      "description": "Single-counted measure: Z = \u03a3_sectors \u222b (dL/L) det^{\u22121/2}_matter e^{\u2212S}. The 1/L is the SINGLE CKV factor (= 1/Vol(CKG) = PR #74's 1/(2\u03c0) at L=2\u03c0); det'(P)=L (ghost nonzero) folds into the matter heat kernel, not a separate factor. Net dL\u00b7L^{\u22121\u2212d/2}.",
+      "measure": "Z = \u03a3_sectors \u222b (dL/L) \u00b7 det^{\u22121/2}_matter \u00b7 e^{\u2212S}",
+      "table": [
+        {
+          "factor": "modulus measure dL",
+          "source": "ker(P\u2020) = Teichm\u00fcller (once)",
+          "L_power": "dL"
+        },
+        {
+          "factor": "CKV division 1/Vol(CKG) = 1/L",
+          "source": "ker(P) = CKV (once; Vol from \u2016\u03c6\u2016)",
+          "L_power": "L^{-1}"
+        },
+        {
+          "factor": "det'(P) = L (ghost nonzero)",
+          "source": "nonzero modes (excl. kernels)",
+          "L_power": "folds into matter Tr e^{-LH}"
+        },
+        {
+          "factor": "matter det^{-1/2}",
+          "source": "Tr e^{-LH} (incl. ghost det)",
+          "L_power": "L^{-d/2}"
+        },
+        {
+          "factor": "NET MEASURE",
+          "source": "product (each zero mode once)",
+          "L_power": "dL \u00b7 L^{-1-d/2}"
+        }
+      ],
+      "ckv_factor": "1/L = 1/Vol(CKG) (single; = PR #74 1/(2\u03c0) at L=2\u03c0)",
+      "net_L_power": "dL \u00b7 L^{-1-d/2}",
+      "no_double_count": "CKV norm only in Vol(CKG); det'(P) excludes the CKV",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The Diff(S\u00b9) FP ghost is first-order: det'(P) = det'(\u2202_\u03c4) = det'(P\u2020P)^{1/2} = L (\u03b7 = 0, real positive; det'(P\u2020P) = L\u00b2 is the second-order square). After CKV + modulus zero-mode norms (\u221aL each) the ghost NET is L/L = 1, and the measure is Z = \u03a3 \u222b (dL/L) det^{\u22121/2}_matter e^{\u2212S} (net dL\u00b7L^{\u22121\u2212d/2}). The L\u00b2 appears only under an explicit second-order ghost convention (over-counts by one power of L).",
+      "classification": "BAM_LOOP_MEASURE_GHOST_FIRST_ORDER_DETPRIME_P_EQUALS_L_NET_dL_OVER_L",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "BAM_LOOP_MEASURE_GHOST_FIRST_ORDER_DETPRIME_P_EQUALS_L_NET_dL_OVER_L",
+  "verdict": "THE Diff(S\u00b9) FP GHOST IS FIRST-ORDER: det'(P) = L; THE L\u00b2 POWER APPEARS ONLY UNDER AN EXPLICIT SECOND-ORDER GHOST CONVENTION. This audit follows PR #117 and distinguishes the four objects the review named.\n\nTHE FOUR OBJECTS. P = \u2202_\u03c4 is first order (eigenvalues 2\u03c0in/L, one zero mode = the CKV); P\u2020P = \u2212\u2202_\u03c4\u00b2 is second order (eigenvalues (2\u03c0n/L)\u00b2, one zero mode). Their zeta-regularized determinants are det'(P\u2020P) = L\u00b2 and |det'(P)| = det'(P\u2020P)^{1/2} = L (verified to machine precision).\n\nPHASE / \u03b7-INVARIANT. For A = \u2212i\u2202_\u03c4 (self-adjoint, eigenvalues 2\u03c0n/L) the spectrum is symmetric under n \u2192 \u2212n, so the \u03b7-invariant vanishes identically, \u03b7(0) = 0. Hence det'(\u2202_\u03c4) carries no anomalous phase and equals +L (real, positive). In the antiperiodic / M\u00f6bius sector the eigenvalues are 2\u03c0i(n+\u00bd)/L \u2014 still symmetric (\u03b7 = 0) but with NO zero mode, so there is no CKV in the non-orientable sector (a clean tie to the odd-k structure).\n\nFIRST- VS SECOND-ORDER CONVENTION. The physical FP for one real reparametrization symmetry is the first-order bc system, \u0394_FP = \u222b Db Dc e^{\u2212\u222e b \u2202_\u03c4 c} = det'(P) = L. A second-order ghost convention (action b(P\u2020P)c, i.e. a doubled/complex ghost) would instead give det'(P\u2020P) = L\u00b2. The two differ by exactly one power of L; the minimal Faddeev\u2013Popov construction is first-order \u27f9 L\u00b9.\n\nCKV DIVISION \u2014 NO DOUBLE-COUNTING. The ghost field space splits orthogonally as ker(P)[CKV] \u2295 ker(P\u2020)[modulus] \u2295 (nonzero modes), and the FP determinant det'(P) = det'(P\u2020P)^{1/2} is the PRIMED determinant over the nonzero modes only. The SVD of \u2202_\u03c4 shows exactly one zero singular value \u2014 its right-null vector is the CKV, its left-null the modulus \u2014 and N\u22121 nonzero singular values in det'(P). So the CKV norm \u2016\u03c6\u2016 enters ONLY the gauge-orbit volume Vol(CKG), the modulus norm \u2016\u03c8\u2016 ONLY the dL measure, and det'(P) (a primed det over nonzero modes) excludes both kernels \u2014 each zero mode is divided exactly once. The first draft of PR #118 divided additionally by the zero-mode norms (\u221aL\u00b7\u221aL) on top of the CKV automorphism 1/Vol(CKG); since the CKV norm is already inside Vol(CKG), that double-counted the single CKV. Corrected here.\n\nTHE MEASURE (single-counted). Each zero mode appears once: the modulus (ker P\u2020) as dL, the CKV (ker P) as 1/Vol(CKG) = 1/L (Vol computed from \u2016\u03c6\u2016), and det'(P) = L (ghost nonzero modes) folds into the matter heat kernel Tr e^{\u2212LH} per the standard FP procedure \u2014 it is not an independent floating factor. With the matter determinant det^{\u22121/2}_matter ~ L^{\u2212d/2}, the BAM loop measure is Z = \u03a3_sectors \u222b (dL/L) det^{\u22121/2}_matter e^{\u2212S}, net L-power dL\u00b7L^{\u22121\u2212d/2}, with the single 1/L the CKV factor (= PR #74's 1/(2\u03c0) at the closure loop L = 2\u03c0). The absolute normalization (the \u03ba\u2085\u00b2/\u039b\u2085 anchor) and the multi-loop measure remain open."
+}

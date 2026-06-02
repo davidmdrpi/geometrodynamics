@@ -1222,7 +1222,31 @@ problems rather than implementation TODOs:
   det^{−1/2}_matter · e^{−S}` (the ghost determinant `Δ_FP = L` being the
   proper-length Jacobian, an `L¹` not `L²` power) is finite and computable
   factor by factor; the absolute normalisation (the `κ₅²/Λ₅` anchor) and the
-  multi-loop measure remain the standing open pieces.
+  multi-loop measure remain the standing open pieces. PR #118 audits this
+  ghost sector in full to fix the `L`-power unambiguously: it separates the
+  four objects `P = ∂_τ`, `P†P = −∂_τ²`, `det'(P)`, `det'(P†P)`; confirms
+  `det'(P†P) = L²` and `det'(P) = det'(P†P)^{1/2} = L`; checks the phase via
+  the η-invariant (`η(−i∂_τ) = 0` by the symmetric spectrum, so `det'(∂_τ) =
+  +L` with no anomalous phase, and in the antiperiodic Möbius sector `η = 0`
+  but there is no zero mode and hence no CKV); and proves that the
+  conformal Killing vector is divided exactly once. The last point is the
+  subtle one: the ghost field space splits orthogonally as `ker(P)` (the
+  CKV) ⊕ `ker(P†)` (the Teichmüller modulus) ⊕ the nonzero modes, and the
+  Faddeev–Popov determinant `det'(P)` is the *primed* determinant over the
+  nonzero modes alone (the SVD of `∂_τ` shows exactly one zero singular
+  value, whose right-null vector is the CKV and left-null the modulus). The
+  CKV norm therefore enters *only* the gauge-orbit volume `Vol(CKG)`, the
+  modulus norm *only* the `dL` measure, and `det'(P)` excludes both — so each
+  zero mode is divided once. (An earlier draft divided additionally by the
+  zero-mode norms `√L·√L` alongside `1/Vol(CKG)`, double-counting the single
+  CKV whose norm is already inside `Vol(CKG)`; corrected.) The conclusion is
+  that the FP ghost is first-order, contributing `L¹` through `det'(P)`; the
+  `L²` value is reached only by adopting an explicit second-order ghost
+  convention, which over-counts by one power of `L`. The measure is
+  `Z = Σ_sectors ∫ (dL/L) det^{−1/2}_matter e^{−S}` — the single `1/L` the
+  CKV factor `= 1/Vol(CKG)` (PR #74's `1/(2π)` at `L = 2π`), with `det'(P) =
+  L` folding into the matter heat kernel — net `dL · L^{−1−d/2}` (`d` the
+  matter dimension).
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
