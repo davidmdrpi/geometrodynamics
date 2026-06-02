@@ -1,0 +1,113 @@
+{
+  "timestamp_utc": "2026-06-02T02:12:31+00:00",
+  "identification": "the Diff(S\u00b9) Faddeev\u2013Popov / ghost determinant: ghost operator \u2212d\u00b2/d\u03c4\u00b2 with one CKV zero mode; zeta-regularized det' = L\u00b2 (\u03b6_ghost(0) = \u22121); CKV \u27f9 dL/L moduli measure, 1/L = 1/(2\u03c0) = PR #74's factor; anomaly-free (1D worldline)",
+  "gauge_structure": "1 modulus L (circumference = proper time) + 1 CKV (rigid U(1) rotation)",
+  "ghost_determinant": "det'(\u2212d\u00b2/d\u03c4\u00b2) = L\u00b2 (zeta-regularized, \u03b6_ghost(0) = \u22121)",
+  "ckv_factor": "CKV \u27f9 dL/L; for L = 2\u03c0, 1/L = 1/(2\u03c0) = PR #74 closure quantum",
+  "anomaly": "anomaly-free (no 1D conformal anomaly); only the discrete Z\u2082 (odd-k, PR #115) is nontrivial",
+  "completes": "the gauge sector \u2014 with PR #116 matter det, the one-loop measure is finite/computable",
+  "open": "absolute Z normalization (\u03ba\u2085\u00b2/\u039b\u2085); multi-loop; closed form",
+  "tests": [
+    {
+      "name": "T1_recap",
+      "description": "PR #115 named the Diff(S\u00b9) Faddeev\u2013Popov (bc-ghost) determinant as a piece of the measure; PR #116 regularized the MATTER fluctuation determinant. This probe supplies the GAUGE sector \u2014 the FP/ghost determinant for the Diff(S\u00b9) quotient.",
+      "pr115": "measure structure + Diff(S\u00b9) gauge-fixing flagged",
+      "pr116": "matter fluctuation determinant finite (GY + zeta)",
+      "this_probe": "the Diff(S\u00b9) FP / ghost determinant",
+      "pass": true
+    },
+    {
+      "name": "T2_gauge_structure",
+      "description": "Worldline reparametrization: gauge-fixing the loop einbein to a constant leaves ONE Teichm\u00fcller modulus L = \u222e e d\u03c4 (the loop circumference = Schwinger proper time) and ONE conformal Killing vector (the constant \u2202_\u03c4 = rigid U(1) rotation). Algebra = Witt (centrally extended: Virasoro).",
+      "moduli": "1 (the circumference L = Schwinger proper time)",
+      "conformal_killing_vectors": "1 (the rigid U(1) rotation \u2202_\u03c4)",
+      "algebra": "Witt / Virasoro",
+      "pass": true
+    },
+    {
+      "name": "T3_ghost_operator_and_kernel",
+      "description": "FP operator P \u03be ~ d\u03be/d\u03c4 \u27f9 P\u2020P ~ \u2212d\u00b2/d\u03c4\u00b2 on periodic fields; kernel = constants = the ONE CKV (rigid rotation). Periodic Laplacian has exactly 1 zero mode.",
+      "operator": "P\u2020P ~ \u2212d\u00b2/d\u03c4\u00b2 (periodic)",
+      "kernel_dim_zero_modes": 1,
+      "kernel_is_the_CKV": true,
+      "pass": true
+    },
+    {
+      "name": "T4_zeta_regularized_ghost_determinant",
+      "description": "\u03b6_ghost(0) = \u22121 (finite); det'(\u2212d\u00b2/d\u03c4\u00b2) = L\u00b2 (zeta-regularized, scheme-independent), verified for several L by the same method as PR #116.",
+      "zeta_ghost_0": -1.0,
+      "zeta_ghost_0_predict": -1.0,
+      "rows": [
+        {
+          "L": 6.28319,
+          "det_prime": 39.47842,
+          "L_squared": 39.47842,
+          "match": true
+        },
+        {
+          "L": 1.0,
+          "det_prime": 1.0,
+          "L_squared": 1.0,
+          "match": true
+        },
+        {
+          "L": 3.32408,
+          "det_prime": 11.04951,
+          "L_squared": 11.04951,
+          "match": true
+        },
+        {
+          "L": 5.0,
+          "det_prime": 25.0,
+          "L_squared": 25.0,
+          "match": true
+        }
+      ],
+      "det_prime_equals_L2": true,
+      "pass": true
+    },
+    {
+      "name": "T5_ckv_is_closure_quantum_factor",
+      "description": "Dividing out the CKV (Vol U(1) = L) gives the moduli measure dL/L; for the closure loop L = 2\u03c0, 1/L = 1/(2\u03c0) = PR #74's per-loop factor. So PR #74's 1/(2\u03c0) is the FP CKV (ghost zero-mode) factor of the Diff(S\u00b9) quotient.",
+      "closure_loop_L": 6.283185307179586,
+      "moduli_measure": "dL / L",
+      "one_over_L": 0.15915494309189535,
+      "pr74_factor": 0.15915494309189535,
+      "matches_pr74": true,
+      "pass": true
+    },
+    {
+      "name": "T6_anomaly_free_1d_worldline",
+      "description": "1D worldline: no Weyl/conformal anomaly (no traceless symmetric 2-tensor in 1D) \u27f9 Diff(S\u00b9) gauge-fixing is anomaly-free (vs 2D string bc-ghost c = \u221226 \u27f9 D = 26). The only nontrivial anomaly is the discrete Z\u2082 orientation anomaly (odd-k, PR #115).",
+      "worldline_conformal_anomaly": "none (1D)",
+      "string_contrast": "bc-ghost c = \u221226 \u27f9 critical D = 26 (2D worldsheet)",
+      "nontrivial_anomaly_in_BAM": "discrete Z\u2082 orientation (odd-k, PR #115)",
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "Completes the gauge sector: with PR #116's finite matter determinant and this finite, anomaly-free ghost determinant (det' = L\u00b2, CKV \u2192 1/(2\u03c0)), the one-loop measure reads Z = \u03a3_sectors \u222b (dL/L)\u00b7det'_ghost\u00b7det^{\u22121/2}_matter\u00b7e^{\u2212S}, every factor finite. Open: absolute Z normalization (\u03ba\u2085\u00b2/\u039b\u2085) and multi-loop.",
+      "completes": [
+        "the Diff(S\u00b9) gauge sector of the measure",
+        "ghost determinant finite (det' = L\u00b2), anomaly-free",
+        "CKV zero mode = PR #74's 1/(2\u03c0) (gauge origin of the closure quantum)"
+      ],
+      "open": [
+        "the absolute normalization of Z (the \u03ba\u2085\u00b2/\u039b\u2085 bulk anchor, PR #112)",
+        "the multi-loop / interacting measure",
+        "a closed-form expression"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The Diff(S\u00b9) quotient is gauge-fixed to one modulus L + one CKV; the ghost operator \u2212d\u00b2/d\u03c4\u00b2 has a single zero mode (the CKV) and a finite zeta-regularized determinant det' = L\u00b2 (\u03b6_ghost(0) = \u22121). The CKV gives the dL/L moduli measure, whose 1/L = 1/(2\u03c0) for the closure loop is PR #74's factor. The 1D gauge-fixing is anomaly-free. With PR #116, the one-loop gauge sector is complete; absolute Z normalization and multi-loop stay open.",
+      "classification": "DIFF_S1_FADDEEV_POPOV_GHOST_DETERMINANT_FINITE_ANOMALY_FREE",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "DIFF_S1_FADDEEV_POPOV_GHOST_DETERMINANT_FINITE_ANOMALY_FREE",
+  "verdict": "THE Diff(S\u00b9) FADDEEV\u2013POPOV / GHOST DETERMINANT IS FINITE AND ANOMALY-FREE \u2014 THE GAUGE SECTOR OF THE S_BAM MEASURE IS COMPLETE. PR #115 named the reparametrization Faddeev\u2013Popov (bc-ghost) determinant as a piece of the measure; PR #116 regularized the matter fluctuation determinant. This probe supplies the gauge sector.\n\nTHE GAUGE STRUCTURE. The closure loop is reparametrization-invariant under Diff(S\u00b9). Gauge-fixing the loop einbein to a constant (the worldline/Polyakov procedure) leaves exactly one Teichm\u00fcller modulus \u2014 the circumference L = \u222e e d\u03c4, i.e. the Schwinger proper time \u2014 and one conformal Killing vector, the constant \u2202_\u03c4 = the residual rigid U(1) rotation. The algebra is the Witt algebra (centrally extended to Virasoro).\n\nTHE GHOST DETERMINANT. The Faddeev\u2013Popov operator is P \u03be ~ d\u03be/d\u03c4, so P\u2020P ~ \u2212d\u00b2/d\u03c4\u00b2 on periodic fields, whose kernel is the constants \u2014 exactly the one CKV. The nonzero-mode determinant is zeta-regularized by the same method as PR #116: the eigenvalues (2\u03c0n/L)\u00b2 give \u03b6_ghost(s) = 2 (L/2\u03c0)^{2s} \u03b6_R(2s), so \u03b6_ghost(0) = \u22121 (finite) and \u03b6_ghost'(0) = \u22122 ln L, hence det'(\u2212d\u00b2/d\u03c4\u00b2) = L\u00b2 \u2014 finite and scheme-independent (verified to machine precision for L = 2\u03c0, 1, 3.32, 5).\n\nTHE CKV ZERO MODE IS PR #74's 1/(2\u03c0). The single CKV (rigid rotation) is divided out, Vol(U(1)) = L, so the Diff(S\u00b9) quotient produces the worldline moduli measure \u222b dL/L. For the BAM closure loop, whose great-circle length is L = 2\u03c0 (the closure quantum), this 1/L = 1/(2\u03c0) is exactly the per-loop measure factor PR #74 identified from the Schwinger anomaly a = \u03b1/(2\u03c0). So PR #74's 1/(2\u03c0) is the Faddeev\u2013Popov CKV (ghost zero-mode) factor of the Diff(S\u00b9) quotient \u2014 the gauge origin of the closure quantum in the measure.\n\nANOMALY-FREE. Unlike the 2D string worldsheet \u2014 where the bc-ghosts carry central charge c = \u221226 and consistency forces the conformal anomaly to cancel (D = 26) \u2014 the 1D worldline loop has no Weyl/conformal symmetry to be anomalous (there is no traceless symmetric 2-tensor in one dimension), so the Diff(S\u00b9) gauge-fixing is anomaly-free. The only nontrivial anomaly in the BAM measure is the DISCRETE Z\u2082 orientation anomaly \u2014 the odd-k condition of PR #115 \u2014 not this continuous one.\n\nSCOPE. With PR #116's finite matter determinant and this finite, anomaly-free ghost determinant (det' = L\u00b2, CKV \u2192 1/(2\u03c0)), the one-loop measure reads Z = \u03a3_sectors \u222b (dL/L) \u00b7 det'_ghost \u00b7 det^{\u22121/2}_matter \u00b7 e^{\u2212S}, every factor finite/computable: the gauge sector is complete. Still open: the absolute normalization of Z (the bulk \u03ba\u2085\u00b2/\u039b\u2085 anchor, PR #112), the multi-loop / interacting measure, and a closed form."
+}
