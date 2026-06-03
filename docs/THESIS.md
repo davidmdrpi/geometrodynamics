@@ -1320,7 +1320,23 @@ problems rather than implementation TODOs:
   renders the bulk UV of the sector sum finite. What the assembly does not
   fix is the overall scale: the absolute normalisation (the `κ₅²/Λ₅` anchor),
   the full non-perturbative convergence of the sum, and the multi-loop
-  measure remain the standing open pieces.
+  measure remain the standing open pieces. PR #123 then puts this grammar to
+  work in the quark sector. A `Z₂`-graded partition sum carries a Witten /
+  Atiyah–Patodi–Singer *index* — the graded trace `Tr(−1)^k`, a topological
+  invariant whose boundary correction is the η-invariant `ξ(a) = (η+h)/2 =
+  1/2 − a` of PRs #119–#121. As the holonomy winds once, one closure
+  eigenvalue crosses zero, so the index (the spectral flow `ξ(0⁺) − ξ(1⁻) =
+  1`) is an integer. Reading this off for the quark sector is illuminating
+  precisely because of *what* it fixes: the quark closure count is `N_q =
+  2·n_part = 466`, and the factor of two — the even doubling — is exactly the
+  `Z₂`-graded structure, the orientation index pairing and doubling the
+  modes. So the APS index pins down the §8-*stable* topological content of
+  the quark partition (the doubling, even across all twelve `quark_axioms`
+  §8 ablations, and the integer spectral flow) while leaving the bare value
+  `n_part` — the continuous, ξ-type residual that drifts `216–255` — exactly
+  where the compensator audits (PRs #97/#107) put it: undetermined. The index
+  formalises the empirical split: the topology is protected and derived, the
+  phenomenological value is not.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
