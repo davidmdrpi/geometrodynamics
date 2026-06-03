@@ -1246,7 +1246,27 @@ problems rather than implementation TODOs:
   `Z = Σ_sectors ∫ (dL/L) det^{−1/2}_matter e^{−S}` — the single `1/L` the
   CKV factor `= 1/Vol(CKG)` (PR #74's `1/(2π)` at `L = 2π`), with `det'(P) =
   L` folding into the matter heat kernel — net `dL · L^{−1−d/2}` (`d` the
-  matter dimension).
+  matter dimension). PR #119 then supplies the mathematical framework behind
+  the one ingredient PR #118 had only asserted — the *phase* of the
+  first-order determinant `det'(∂_τ)`. Writing the determinant of the
+  self-adjoint `A = −i∂_τ` with a branch choice for the negative
+  eigenvalues, the Singer/Atiyah–Patodi–Singer formula gives `det'(A) =
+  |det'(A)| · exp[±i(π/2)(ζ_{|A|}(0) − η_A(0))]`, so the phase splits into a
+  *local* (heat-kernel / scaling) piece set by `ζ_{|A|}(0)` and a
+  *topological* piece set by the η-invariant `η_A(0)`, the intrinsic
+  spectral asymmetry. Threading a `U(1)` holonomy `a` (the Hopf/Wilson
+  holonomy `∮A = e^{ikχ}`, `a = kχ/2π`) gives, via the Hurwitz zeta `ζ_H(0,a)
+  = ½ − a`, the linear law `η_A(0) = 1 − 2a`. The two physical BAM sectors
+  sit exactly at its zeros: the orientable (periodic) loop at `a = 0` — where
+  the reduced η vanishes once the zero mode (the CKV) is removed — and the
+  Möbius (antiperiodic) loop at `a = 1/2`, where there is no zero mode and
+  the half-integer spectrum is symmetric. So both are `η = 0`, the
+  determinant is real, and the closed forms make it concrete: `det(∂_τ +
+  m)_periodic = 2 sinh(mL/2)` whose residue is `det'(∂_τ) = L`, and
+  `det(∂_τ + m)_antiperiodic = 2 cosh(mL/2)` giving `det(∂_τ) = 2`. This
+  derives PR #118's real `+L` rather than asserting it; a genuine η-phase
+  `exp[−i(π/2)(1−2a)]` survives only for an intermediate Hopf holonomy, which
+  is the open handle.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
