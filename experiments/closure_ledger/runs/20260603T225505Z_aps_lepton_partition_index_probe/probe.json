@@ -1,0 +1,94 @@
+{
+  "timestamp_utc": "2026-06-03T22:55:05+00:00",
+  "identification": "the APS lepton partition index: the same Z\u2082-graded index (spectral flow = 1, \u03be(a) = 1/2 \u2212 a) applied to N_lepton = 4\u00b7k\u2085\u00b2 = 100 \u2014 fully determined (structure AND value) because k\u2085 is the derived bulk dimension; no residual, unlike the quark n_part",
+  "lepton_partition": "N_lepton = 4\u00b7k\u2085\u00b2 = 100 (k\u2085 = 5 = bulk dim, derived; \u03b2_lepton = 50\u03c0)",
+  "aps_index": "I = Tr(\u22121)^k topological; \u03be(a) = 1/2 \u2212 a; spectral flow = 1 (universal)",
+  "fully_topological": "k\u2085 derived \u27f9 structure AND value fixed, NO residual",
+  "contrast": "quark N_q = 2\u00b7n_part (n_part residual, drifts) vs lepton N_lepton = 4\u00b7k\u2085\u00b2 (k\u2085 derived, fixed)",
+  "conclusion": "leptons the clean APS case; quark n_part the program's lone compensator residual",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Apply the APS audit (PR #123) to the LEPTON sector. PR #123 found the quark index fixes the structure (doubling) but not the value (n_part, a residual). Test whether the lepton sector \u2014 built from derived geometry \u2014 behaves the same or differently.",
+      "builds_on": [
+        "#123 APS quark index",
+        "#122 factorized sum",
+        "#73 k\u2085 = bulk dimension",
+        "#71 \u03b2_lepton"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_lepton_partition_derived",
+      "description": "N_lepton = 4\u00b7k\u2085\u00b2 = 100, k\u2085 = 5 = dim(S\u00b3)+2 (bulk dim, DERIVED, PR #73); \u03b2_lepton = k\u2085\u00b2\u00b72\u03c0 = 50\u03c0 (PR #71); the 4 is 4\u03b2/(2\u03c0) = 4k\u2085\u00b2. Generations k \u2208 {1,3,5}, #gen = (k\u2085+1)/2 = 3.",
+      "k5": 5,
+      "k5_origin": "dim(S\u00b3)+2 = bulk dimension (DERIVED, PR #73)",
+      "N_lepton": 100,
+      "beta_lepton_over_pi": 50.0,
+      "structural_factor": 4,
+      "generations": 3,
+      "pass": true
+    },
+    {
+      "name": "T3_aps_index_applies_identically",
+      "description": "Same machinery as PR #123: I = Tr(\u22121)^k topological; \u03be(a) = 1/2 \u2212 a; spectral flow = \u03be(0\u207a) \u2212 \u03be(1\u207b) = 1 (integer). Universal across lepton and quark sectors.",
+      "xi_formula": "\u03be(a) = (\u03b7+h)/2 = 1/2 \u2212 a",
+      "spectral_flow": 1.0,
+      "is_integer_universal": true,
+      "pass": true
+    },
+    {
+      "name": "T4_lepton_partition_fully_topological",
+      "description": "k\u2085 = 5 is a fixed derived integer (bulk dimension), so N_lepton = 4\u00b7k\u2085\u00b2 = 100 is fixed in BOTH structure (4k\u2085\u00b2 closure form) AND value. Fully topological \u2014 no residual.",
+      "N_lepton_value": 100,
+      "feeding_integer": "k\u2085 = 5 (DERIVED bulk dimension, PR #73)",
+      "structure_fixed": true,
+      "value_fixed": true,
+      "residual": "none",
+      "pass": true
+    },
+    {
+      "name": "T5_contrast_with_quarks",
+      "description": "Quark: N_q = 2\u00b7n_part, n_part RESIDUAL (drifts) \u27f9 index fixes structure (doubling) only. Lepton: N_lepton = 4\u00b7k\u2085\u00b2, k\u2085 DERIVED \u27f9 index fixes structure AND value. Leptons clean; quark n_part the lone residual.",
+      "quark": {
+        "partition": "N_q = 2\u00b7n_part = 466",
+        "feeding": "n_part (RESIDUAL, drifts 216\u2013255)",
+        "index_fixes": "structure only (doubling)"
+      },
+      "lepton": {
+        "partition": "N_lepton = 4\u00b7k\u2085\u00b2 = 100",
+        "feeding": "k\u2085 (DERIVED bulk dim)",
+        "index_fixes": "structure AND value"
+      },
+      "leptons_clean_quark_residual": true,
+      "pass": true
+    },
+    {
+      "name": "T6_s8_stability",
+      "description": "N_lepton = 100 fixed (no \u00a78 ablation on k\u2085, a derived integer). n_part drifts 216\u2013255 across the quark_axioms \u00a78 ablations (compensator). The lepton sector has no analog residual.",
+      "N_lepton_fixed": 100,
+      "lepton_s8_drift": "none (k\u2085 derived)",
+      "n_part_s8_span": 39,
+      "n_part_drifts": "216\u2013255",
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "The lepton APS partition index is FULLY determined \u2014 structure and value \u2014 by derived geometry (k\u2085 = bulk dimension): no residual. The quark n_part is the program's lone compensator residual. The same index machinery sharpens the ledger: leptons clean/derived, quarks carry the one undetermined dimensionless residual.",
+      "lepton": "N_lepton = 4\u00b7k\u2085\u00b2 = 100 fully determined (k\u2085 derived); no residual",
+      "quark": "N_q = 2\u00b7n_part: structure fixed, n_part the residual compensator (PR #97/#107/#123)",
+      "ledger": "leptons fully topological/derived; quark n_part the lone residual",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The same APS audit, applied to the lepton sector, finds the lepton partition N_lepton = 4\u00b7k\u2085\u00b2 = 100 fully determined \u2014 structure AND value \u2014 because k\u2085 = 5 is the derived bulk dimension (PR #73), not a compensator. The universal spectral-flow index (= 1) and \u03be(a) = 1/2 \u2212 a are as in PR #123. Unlike the quark N_q = 2\u00b7n_part (n_part the \u00a78-drifting residual), the lepton partition has no residual: leptons are the clean APS case, the quark n_part the program's lone compensator.",
+      "classification": "APS_LEPTON_PARTITION_INDEX_FULLY_TOPOLOGICAL_DERIVED_NO_RESIDUAL",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "APS_LEPTON_PARTITION_INDEX_FULLY_TOPOLOGICAL_DERIVED_NO_RESIDUAL",
+  "verdict": "THE APS LEPTON PARTITION INDEX IS FULLY DETERMINED \u2014 STRUCTURE AND VALUE \u2014 BY DERIVED GEOMETRY; THERE IS NO RESIDUAL, IN CONTRAST TO THE QUARK n_part. PR #123 ran the APS audit on the quark sector; this probe runs the same audit on the leptons.\n\nTHE LEPTON PARTITION. N_lepton = 4\u00b7k\u2085\u00b2 = 100, with k\u2085 = 5 the bulk dimension dim(S\u00b3)+2 (DERIVED, PR #73) and \u03b2_lepton = k\u2085\u00b2\u00b72\u03c0 = 50\u03c0 (PR #71). The factor of 4 is the closure structure 4\u03b2_lepton/(2\u03c0) = 4k\u2085\u00b2. The three generations are the odd-k closures k \u2208 {1,3,5}, with #gen = (k\u2085+1)/2 = 3.\n\nTHE APS INDEX APPLIES IDENTICALLY. The same Z\u2082-graded Witten/APS index of PR #123: the orientation sign (\u22121)^k makes I = Tr(\u22121)^k topological; the APS \u03be-invariant is \u03be(a) = (\u03b7+h)/2 = 1/2 \u2212 a; and the spectral flow over one holonomy cycle is \u03be(0\u207a) \u2212 \u03be(1\u207b) = 1, an integer \u2014 universal, the same for the lepton and quark sectors.\n\nTHE LEPTON PARTITION IS FULLY TOPOLOGICAL. Here is the contrast with the quark sector. For the quarks, N_q = 2\u00b7n_part and the feeding integer n_part is the phenomenological compensator residual (it drifts 216\u2013255 across the quark_axioms \u00a78 ablations), so the APS index fixes only the topological doubling (N_q even). For the leptons, the feeding integer k\u2085 = 5 is a fixed DERIVED structural integer (the bulk dimension), so there is no \u00a78 ablation that moves it: N_lepton = 4\u00b7k\u2085\u00b2 = 100 is fixed in BOTH its structure (the 4k\u2085\u00b2 closure form) AND its value. The lepton partition index is therefore FULLY topological \u2014 there is no residual.\n\nTHE CONCLUSION. Leptons are the clean APS case; the quark n_part is the program's lone compensator residual. The same index machinery, applied to both, sharpens the program ledger: the lepton partition is fully determined by derived geometry (k\u2085, the bulk dimension), while the quark partition carries the one undetermined dimensionless residual (n_part). This is exactly why the lepton sector has been the clean, predictive one throughout."
+}
