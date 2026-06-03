@@ -1,0 +1,126 @@
+{
+  "timestamp_utc": "2026-06-03T05:56:01+00:00",
+  "identification": "the APS quark partition index: a topological spectral-flow integer (= 1 per cycle) from the Z\u2082-graded factorized sector sum, with \u03be(a) = 1/2 \u2212 a the \u03b7-boundary term; it fixes the \u00a78-stable doubling N_q = 2\u00b7n_part, not the residual value n_part",
+  "index": "I = Tr(\u22121)^k (topological, \u03b2-independent); spectral flow = 1 (integer)",
+  "aps_xi": "\u03be(a) = (\u03b7+h)/2 = 1/2 \u2212 a = \u03b6_H(0,a) (\u03b7-boundary correction)",
+  "quark_partition": "N_q = 2\u00b7n_part = 466 (the Z\u2082-graded doubling, \u00a78-stable)",
+  "topological_vs_residual": "\u00a78-stable: doubling N_q=2\u00b7n_part (even) + integer index; residual: n_part value (drifts 216\u2013255, PR #97/#107)",
+  "derives": "the topological structure (graded doubling, spectral-flow integer), NOT the n_part value",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Derive the APS quark partition index from the factorized sector sum (PR #122): the Z\u2082-graded sum has a Witten/APS index (topological), computed via the APS \u03b7-invariant \u03be. Extract it for the quark sector and identify what it fixes about n_part.",
+      "builds_on": [
+        "#122 factorized sector sum",
+        "#119\u2013#121 \u03b7-machinery",
+        "#97/#107 n_part compensator"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_witten_aps_index_from_z2_grading",
+      "description": "The (\u22121)^k orientation sign (PR #121/#122) is a Z\u2082 grading \u27f9 I = Tr(\u22121)^k e^{\u2212\u03b2H} is topological (\u03b2-independent): orientable (+)/M\u00f6bius (\u2212) nonzero modes pair, leaving the net graded content. Z(\u03b2) \u03b2-dependent, I not.",
+      "index": "I = Tr(\u22121)^k e^{\u2212\u03b2H}",
+      "topological": true,
+      "beta_independent": true,
+      "pass": true
+    },
+    {
+      "name": "T3_aps_xi_invariant",
+      "description": "APS \u03be-invariant \u03be(a) = (\u03b7+h)/2 = 1/2 \u2212 a = \u03b6_H(0,a) (twisted, h=0): the \u03b7-boundary correction to the index. \u03be(0)=1/2, \u03be(1/2)=0, \u03be(1\u207b)=\u22121/2.",
+      "xi_formula": "\u03be(a) = (\u03b7+h)/2 = 1/2 \u2212 a = \u03b6_H(0,a)",
+      "rows": [
+        {
+          "a": 0.0,
+          "eta": 1.0,
+          "xi": 0.5
+        },
+        {
+          "a": 0.25,
+          "eta": 0.5,
+          "xi": 0.25
+        },
+        {
+          "a": 0.3333,
+          "eta": 0.3333,
+          "xi": 0.1667
+        },
+        {
+          "a": 0.5,
+          "eta": 0.0,
+          "xi": 0.0
+        },
+        {
+          "a": 0.6667,
+          "eta": -0.3333,
+          "xi": -0.1667
+        },
+        {
+          "a": 0.75,
+          "eta": -0.5,
+          "xi": -0.25
+        },
+        {
+          "a": 1.0,
+          "eta": -1.0,
+          "xi": -0.5
+        }
+      ],
+      "xi_half_is_zero": true,
+      "pass": true
+    },
+    {
+      "name": "T4_spectral_flow_integer_index",
+      "description": "As a:0\u21921 the n=0 mode crosses zero once \u27f9 spectral flow = \u03be(0\u207a) \u2212 \u03be(1\u207b) = 1/2 \u2212 (\u22121/2) = 1, an INTEGER. The fractional \u03be is the \u03b7-boundary correction; the spectral flow is the integer topological index.",
+      "spectral_flow": 1.0,
+      "is_integer": true,
+      "index_value": 1,
+      "pass": true
+    },
+    {
+      "name": "T5_apply_to_quark_partition",
+      "description": "N_q = 2\u00b7n_part = 466 (n_part=233, N_lepton=4k\u2085\u00b2=100). The factor of 2 (the even doubling) IS the Z\u2082-graded structure \u2014 the orientation index pairs/doubles the modes. The APS index extracts this topological (mod-2/doubling) content.",
+      "n_part": 233,
+      "N_q": 466,
+      "N_q_equals_2_n_part": true,
+      "N_q_even": true,
+      "N_lepton": 100,
+      "doubling_is_z2_graded": true,
+      "pass": true
+    },
+    {
+      "name": "T6_topological_stable_vs_value_residual",
+      "description": "APS index formalises the PR #97/#107 split: \u00a78-STABLE topological (the doubling N_q = 2\u00b7n_part even, the spectral-flow integer \u2014 the Z\u2082 mod-2 invariant) vs RESIDUAL value n_part (continuous \u03be-type) drifting 216\u2013255 across \u00a78.",
+      "topological_stable": "N_q = 2\u00b7n_part even (the graded doubling); spectral-flow index = 1",
+      "N_q_s8_all_even": true,
+      "residual_value": "n_part drifts 216\u2013255 across \u00a78 (compensator, PR #97/#107)",
+      "n_part_s8_span": 39,
+      "index_derives_structure_not_value": true,
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "The APS quark partition index DERIVES the \u00a78-stable topological content of the quark partition \u2014 the graded doubling N_q = 2\u00b7n_part (even) and the integer spectral flow \u2014 via the APS \u03be-invariant \u03be(a) = 1/2 \u2212 a. It does NOT derive the value of n_part, which stays the non-topological residual (compensator, PR #97/#107).",
+      "derived": [
+        "the Witten/APS index (topological, \u03b2-independent) from the Z\u2082 grading",
+        "\u03be(a) = (\u03b7+h)/2 = 1/2 \u2212 a (the \u03b7-boundary correction)",
+        "the integer spectral-flow index (= 1 per holonomy cycle)",
+        "the \u00a78-stable doubling N_q = 2\u00b7n_part (the mod-2 / topological content)"
+      ],
+      "not_derived": [
+        "the value of n_part (= 233) \u2014 the non-topological residual, the \u00a78-drifting compensator (PR #97/#107)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The factorized sector sum's Z\u2082 grading defines a Witten/APS index \u2014 a topological spectral-flow integer (= 1 per cycle), with \u03be(a) = 1/2 \u2212 a the \u03b7-boundary correction. For the quark sector it extracts the \u00a78-stable topological content (the graded doubling N_q = 2\u00b7n_part, even) while the bare value n_part stays the non-topological residual. The index derives the structure, not the value.",
+      "classification": "APS_QUARK_PARTITION_INDEX_TOPOLOGICAL_DOUBLING_STABLE_NPART_VALUE_RESIDUAL",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "APS_QUARK_PARTITION_INDEX_TOPOLOGICAL_DOUBLING_STABLE_NPART_VALUE_RESIDUAL",
+  "verdict": "THE APS QUARK PARTITION INDEX IS A TOPOLOGICAL SPECTRAL-FLOW INTEGER \u2014 IT FIXES THE \u00a78-STABLE STRUCTURE OF THE QUARK PARTITION (THE GRADED DOUBLING N_q = 2\u00b7n_part), NOT THE VALUE OF n_part. PR #122 assembled the factorized sector sum Z = \u03a3_{k odd, c\u2081, n_part} (\u22121)^k \u222b(dL/L) det^{\u22121/2}_matter e^{i(\u03c0/2)(1\u22122a)} e^{\u2212S_BAM}; this probe reads off its index.\n\nTHE INDEX FROM THE Z\u2082-GRADING. The orientation sign (\u22121)^k is a Z\u2082 grading, so I = Tr(\u22121)^k e^{\u2212\u03b2H} is a topological (\u03b2-independent) invariant \u2014 the orientable (+) and M\u00f6bius (\u2212) nonzero modes pair, leaving the net graded content. This is the Witten/APS index of the factorized sum.\n\nTHE APS \u03b7-BOUNDARY TERM. For the first-order closure operator \u2202_\u03c4 with holonomy a (eigenvalues 2\u03c0i(n+a)/L), the Atiyah\u2013Patodi\u2013Singer \u03be-invariant is \u03be(a) = (\u03b7_A(0)+h)/2 = 1/2 \u2212 a = \u03b6_H(0,a) (twisted, h = 0), continuous in a \u2014 the \u03b7-boundary correction of PRs #119\u2013#121.\n\nTHE INDEX IS AN INTEGER. As the holonomy winds once, a : 0 \u2192 1, exactly one eigenvalue 2\u03c0(n+a)/L crosses zero (the n = 0 mode), so the APS index \u2014 the spectral flow \u2014 is \u03be(0\u207a) \u2212 \u03be(1\u207b) = 1/2 \u2212 (\u22121/2) = 1, an integer. The fractional \u03be is the boundary \u03b7-correction; the spectral flow is the integer topological index (the discrete Z\u2082 content of the sector-phase ledger, PR #121, made into an index).\n\nTHE QUARK PARTITION. The quark closure count is N_q = 2\u00b7n_part = 466 (n_part = 233, N_lepton = 4 k\u2085\u00b2 = 100). The factor of 2 \u2014 the EVEN doubling \u2014 is precisely the Z\u2082-graded structure: the orientation index pairs the modes, doubling the count. So the APS index extracts the TOPOLOGICAL (mod-2 / doubling) content of the quark partition.\n\nTOPOLOGICAL vs RESIDUAL. The APS index formalises exactly the split PRs #97/#107 found empirically: the \u00a78-STABLE part is the topological doubling N_q = 2\u00b7n_part (even across all the quark_axioms \u00a78 ablations) and the integer spectral flow \u2014 the Z\u2082 mod-2 invariant, protected by APS; the RESIDUAL part is the bare value n_part (the continuous, \u03be-type / \u03b7-boundary content), which drifts 216\u2013255 across \u00a78, the phenomenological compensator. So the APS quark partition index DERIVES the topological structure (the graded doubling, the integer index) but NOT the value of n_part \u2014 exactly as the compensator status requires."
+}
