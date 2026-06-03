@@ -1,0 +1,118 @@
+{
+  "timestamp_utc": "2026-06-03T00:33:54+00:00",
+  "identification": "the phase of det'(\u2202_\u03c4): det'(A) = |det'|\u00b7exp[\u00b1i(\u03c0/2)(\u03b6_{|A|}(0) \u2212 \u03b7_A(0))]; modulus L unambiguous; phase = local scaling \u03b6(0) + topological \u03b7-invariant; \u03b7(0) = 1 \u2212 2a tracks the Hopf holonomy; both BAM sectors (a=0, a=1/2) at \u03b7 = 0 \u27f9 real det'",
+  "phase_formula": "det'(A) = |det'|\u00b7exp[\u00b1i(\u03c0/2)(\u03b6_{|A|}(0) \u2212 \u03b7_A(0))]",
+  "split": "phase = (\u03c0/2)\u03b6(0) [local/scaling] \u2212 (\u03c0/2)\u03b7(0) [topological/asymmetry]",
+  "eta_of_flux": "\u03b7_A(0) = 1 \u2212 2a (Hopf holonomy a = k\u03c7/2\u03c0)",
+  "bam_sectors": "orientable a=0 \u27f9 \u03b7=0; M\u00f6bius a=1/2 \u27f9 \u03b7=0; both \u27f9 real det'",
+  "concrete": "det'_periodic = L; det_antiperiodic = 2",
+  "justifies": "PR #118 det'(\u2202_\u03c4) = +L (no anomalous phase)",
+  "open": "genuine \u03b7-phase for intermediate holonomy; interplay with matter phase",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Build the full phase/\u03b7-invariant framework for det'(\u2202_\u03c4). PR #118 used \u03b7 = 0 (from n \u2192 \u2212n symmetry) to set det'(\u2202_\u03c4) = +L real; this probe derives the phase formula, the local/topological split, the periodic vs antiperiodic sectors, and the Hopf-holonomy connection.",
+      "pr118": "asserted \u03b7(\u2212i\u2202_\u03c4) = 0 \u27f9 det'(\u2202_\u03c4) = +L real",
+      "this_probe": "the full phase/\u03b7 framework",
+      "pass": true
+    },
+    {
+      "name": "T2_setup_and_modulus",
+      "description": "P = \u2202_\u03c4 is anti-self-adjoint (eigenvalues 2\u03c0in/L imaginary); A = \u2212i\u2202_\u03c4 is self-adjoint (\u03bc_n = 2\u03c0n/L real). The modulus |det'(\u2202_\u03c4)| = det'(P\u2020P)^{1/2} = L is unambiguous (PR #116/#117/#118); the phase is the subtle part.",
+      "P_is_anti_self_adjoint": true,
+      "A_eq_minus_i_dtau_self_adjoint": true,
+      "modulus_det_prime": 6.283185307179586,
+      "modulus_unambiguous": true,
+      "pass": true
+    },
+    {
+      "name": "T3_phase_formula",
+      "description": "det'(A) = |det'|\u00b7exp[\u00b1i(\u03c0/2)(\u03b6_{|A|}(0) \u2212 \u03b7_A(0))]: phase = local scaling (\u03c0/2)\u03b6(0) + topological \u2212(\u03c0/2)\u03b7(0). Periodic: \u03b6_{|A|}(0) = 2\u03b6_R(0) = \u22121, \u03b7 = 0 \u27f9 scaling phase \u2212\u03c0/2 (the i-rotation; removed by the symmetric branch).",
+      "formula": "det'(A) = |det'|\u00b7exp[\u00b1i(\u03c0/2)(\u03b6_{|A|}(0) \u2212 \u03b7_A(0))]",
+      "zeta_abs_0_periodic": -1.0,
+      "eta_0_periodic": 0.0,
+      "scaling_phase_rad": -1.5708,
+      "local_vs_topological": "\u03b6(0) local/scaling; \u03b7(0) intrinsic/topological",
+      "pass": true
+    },
+    {
+      "name": "T4_eta_invariant_with_flux",
+      "description": "\u03b7_A(0) = 1 \u2212 2a (Hurwitz \u03b6_H(0,a)=\u00bd\u2212a) tracks the flux linearly. Reduced \u03b7 \u2261 0 for the symmetric sectors: periodic (zero mode removed) and antiperiodic. The naive value 1 at a=0 is the spectral-flow jump of the zero mode.",
+      "eta_of_flux": "\u03b7(0) = 1 \u2212 2a",
+      "rows": [
+        {
+          "a": 0.0,
+          "eta_0": 1.0,
+          "symmetric": false
+        },
+        {
+          "a": 0.25,
+          "eta_0": 0.5,
+          "symmetric": false
+        },
+        {
+          "a": 0.5,
+          "eta_0": 0.0,
+          "symmetric": true
+        },
+        {
+          "a": 0.75,
+          "eta_0": -0.5,
+          "symmetric": false
+        }
+      ],
+      "eta_zero_at_a_0_and_half": true,
+      "reduced_eta_periodic": 0.0,
+      "eta_antiperiodic": 0.0,
+      "spectral_flow_jump_at_a0": "unprimed formula \u2192 1; reduced (zero mode removed) \u2192 0",
+      "pass": true
+    },
+    {
+      "name": "T5_concrete_determinants",
+      "description": "Periodic: 2 sinh(mL/2) \u2192 0 (zero mode); residue \u27f9 det'(\u2202_\u03c4) = L. Antiperiodic: 2 cosh(mL/2) \u2192 2; det(\u2202_\u03c4) = 2 (L-independent, no zero mode).",
+      "det_periodic_closed_form": "2 sinh(mL/2)",
+      "det_prime_periodic": 6.28319,
+      "det_antiperiodic_closed_form": "2 cosh(mL/2)",
+      "det_antiperiodic_value": 2.0,
+      "periodic_equals_L": true,
+      "antiperiodic_equals_2": true,
+      "pass": true
+    },
+    {
+      "name": "T6_bam_hopf_holonomy_connection",
+      "description": "Hopf holonomy \u222eA = e^{ik\u03c7} = flux a = k\u03c7/2\u03c0; \u03b7(0) = 1 \u2212 2a is its spectral-asymmetry phase. M\u00f6bius half-twist = antiperiodic a = 1/2 \u27f9 \u03b7 = 0; orientable = a = 0 \u27f9 \u03b7 = 0. Both BAM sectors at \u03b7 = 0 \u27f9 real det'.",
+      "hopf_holonomy_is_flux": "a = k\u03c7/2\u03c0 (\u222eA = e^{ik\u03c7})",
+      "eta_tracks_holonomy": "\u03b7(0) = 1 \u2212 2a",
+      "mobius_antiperiodic_a_half": "\u03b7(1/2) = 0",
+      "orientable_a_0": "\u03b7(0) = 0 (reduced)",
+      "both_bam_sectors_eta_zero": true,
+      "generic_holonomy": "\u03b7-phase exp[\u2212i(\u03c0/2)(1\u22122a)] for 0<a<1/2 (open)",
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "The framework rigorously justifies PR #118: |det'(\u2202_\u03c4)| = L unambiguous; phase = local scaling \u03b6(0) part (removed by the symmetric branch) + topological \u03b7 part; both BAM sectors (orientable a=0, M\u00f6bius a=1/2) have \u03b7 = 0 \u27f9 det' real (= +L periodic, = 2 antiperiodic). Open: the genuine \u03b7-phase for intermediate Hopf holonomy and its interplay with the matter determinant phase.",
+      "establishes": [
+        "phase formula det'(A) = |det'|\u00b7exp[\u00b1i(\u03c0/2)(\u03b6(0) \u2212 \u03b7(0))]",
+        "modulus L unambiguous; phase = local \u03b6(0) + topological \u03b7(0)",
+        "both BAM sectors \u03b7 = 0 \u27f9 det' real (rigorously justifies PR #118)",
+        "concrete: det'_periodic = L, det_antiperiodic = 2"
+      ],
+      "open": [
+        "the genuine \u03b7-phase exp[\u2212i(\u03c0/2)(1\u22122a)] for intermediate Hopf holonomy",
+        "its interplay with the matter determinant phase in the full measure"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The phase of det'(\u2202_\u03c4) is det'(A) = |det'|\u00b7exp[\u00b1i(\u03c0/2)(\u03b6_{|A|}(0) \u2212 \u03b7_A(0))]: modulus L unambiguous; phase = local scaling \u03b6(0) + topological \u03b7-invariant. \u03b7(0) = 1 \u2212 2a tracks the Hopf holonomy; both BAM sectors (orientable a=0, M\u00f6bius a=1/2) sit at \u03b7 = 0, so det'(\u2202_\u03c4) is real (+L periodic, 2 antiperiodic) \u2014 rigorously justifying PR #118. The intermediate-holonomy \u03b7-phase stays open.",
+      "classification": "DETPRIME_DTAU_PHASE_ETA_INVARIANT_FRAMEWORK_BAM_SECTORS_ETA_ZERO",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "DETPRIME_DTAU_PHASE_ETA_INVARIANT_FRAMEWORK_BAM_SECTORS_ETA_ZERO",
+  "verdict": "THE PHASE OF det'(\u2202_\u03c4) IS GOVERNED BY THE \u03b7-INVARIANT: det'(A) = |det'|\u00b7exp[\u00b1i(\u03c0/2)(\u03b6(0) \u2212 \u03b7(0))], AND BOTH BAM CLOSURE SECTORS SIT AT \u03b7 = 0 (REAL DETERMINANT). PR #118 asserted \u03b7(\u2212i\u2202_\u03c4) = 0 from the n \u2192 \u2212n symmetry; this probe builds the full framework.\n\nSETUP AND MODULUS. P = \u2202_\u03c4 is anti-self-adjoint (eigenvalues 2\u03c0in/L, imaginary); A = \u2212i\u2202_\u03c4 is self-adjoint (\u03bc_n = 2\u03c0n/L). The modulus |det'(\u2202_\u03c4)| = det'(P\u2020P)^{1/2} = L is unambiguous; the phase is the subtle part.\n\nTHE PHASE FORMULA (Singer / APS). Choosing a branch for the negative eigenvalues, \u03b6_A(s) = \u03b6_+(s) + e^{\u2213i\u03c0s}\u03b6_\u2212(s), gives det'(A) = |det'(A)|\u00b7exp[\u00b1i(\u03c0/2)(\u03b6_{|A|}(0) \u2212 \u03b7_A(0))]. The phase splits into a LOCAL (heat-kernel / scaling) piece (\u03c0/2)\u03b6_{|A|}(0) and an INTRINSIC (spectral-asymmetry) piece \u2212(\u03c0/2)\u03b7_A(0). For periodic A: \u03b6_{|A|}(0) = 2\u03b6_R(0) = \u22121 and \u03b7(0) = 0, so the phase is the \u2212\u03c0/2 scaling rotation, removed by the symmetric branch \u27f9 det'(\u2202_\u03c4) real.\n\nTHE \u03b7-INVARIANT AND THE FLUX. Threading a U(1) holonomy a \u2208 [0,1) (eigenvalues 2\u03c0(n+a)/L), the Hurwitz zeta \u03b6_H(0,a) = \u00bd \u2212 a gives \u03b7_A(0) = \u03b6_H(0,a) \u2212 \u03b6_H(0,1\u2212a) = 1 \u2212 2a \u2014 the \u03b7-invariant tracks the holonomy linearly. The reduced \u03b7 of the symmetric sectors vanishes identically: periodic with the zero mode (the CKV) removed, \u03b7' \u2261 0; antiperiodic {2\u03c0(n+\u00bd)/L}, \u03b7 \u2261 0. (The naive value 1 at a = 0 is the spectral-flow jump as the zero mode crosses.)\n\nCONCRETE DETERMINANTS. With an IR mass, det(\u2202_\u03c4 + m)_periodic = 2 sinh(mL/2) \u2192 0 (the zero mode), whose residue gives det'(\u2202_\u03c4)_periodic = L (real, positive \u2014 exactly PR #118's value, now derived); det(\u2202_\u03c4 + m)_antiperiodic = 2 cosh(mL/2) \u2192 2, so det(\u2202_\u03c4)_antiperiodic = 2 (L-independent, no zero mode).\n\nTHE BAM CONNECTION. The Hopf holonomy \u222eA = e^{ik\u03c7} is the flux a = k\u03c7/2\u03c0 threading the closure loop, and \u03b7(0) = 1 \u2212 2a is the spectral-asymmetry phase it induces. The non-orientable (M\u00f6bius) Z\u2082 half-twist is the antiperiodic shift a = 1/2 \u27f9 \u03b7 = 0; the orientable sector is a = 0 \u27f9 \u03b7 = 0. Both physical BAM sectors are \u03b7 = 0 (real determinant), which is precisely why PR #118's det'(\u2202_\u03c4) = +L carries no anomalous phase. A generic intermediate holonomy (0 < a < 1/2) would give a genuine \u03b7-phase exp[\u2212i(\u03c0/2)(1\u22122a)].\n\nSCOPE. ESTABLISHED: the phase formula, the local/topological split, the periodic (det' = L) and antiperiodic (det = 2) sectors, and the rigorous justification of PR #118 (both BAM sectors \u03b7 = 0 \u27f9 real det'). OPEN: the genuine \u03b7-phase for intermediate Hopf holonomy and its interplay with the matter determinant phase in the full measure."
+}
