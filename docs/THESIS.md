@@ -1336,7 +1336,21 @@ problems rather than implementation TODOs:
   `n_part` — the continuous, ξ-type residual that drifts `216–255` — exactly
   where the compensator audits (PRs #97/#107) put it: undetermined. The index
   formalises the empirical split: the topology is protected and derived, the
-  phenomenological value is not.
+  phenomenological value is not. PR #124 runs the identical audit on the
+  lepton sector, and the outcome flips in the most informative way. The
+  lepton partition is `N_lepton = 4·k₅² = 100`, and here the feeding integer
+  is `k₅ = 5` — the bulk dimension `dim(S³)+2`, a *derived* structural number
+  (PR #73), not a fit. The APS machinery is the same (the universal
+  spectral-flow integer `1`, the boundary term `ξ(a) = 1/2 − a`), but because
+  `k₅` is fixed by geometry there is no §8 ablation that can move it: the
+  lepton partition is determined in *both* its structure (the `4k₅²` closure
+  form) *and* its value, with no residual. The contrast is the point — quark
+  `N_q = 2·n_part` has its structure (the doubling) protected but its value
+  `n_part` free and drifting, whereas lepton `N_lepton = 4·k₅²` is fixed
+  outright. So the same index, applied to both sectors, isolates exactly
+  where the program's single undetermined dimensionless integer lives: the
+  leptons are the clean, fully-derived case, and the quark `n_part` is the
+  lone compensator residual.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
