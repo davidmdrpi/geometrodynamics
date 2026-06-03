@@ -1266,7 +1266,26 @@ problems rather than implementation TODOs:
   `det(∂_τ + m)_antiperiodic = 2 cosh(mL/2)` giving `det(∂_τ) = 2`. This
   derives PR #118's real `+L` rather than asserting it; a genuine η-phase
   `exp[−i(π/2)(1−2a)]` survives only for an intermediate Hopf holonomy, which
-  is the open handle.
+  is the open handle. Finally, PR #120 closes the loop on the *numerics*:
+  a high-resolution lattice validation confirms that the discrete
+  finite-difference operators in the code reproduce these continuum analytic
+  results — the `−∂_τ²` eigenvalues converge to `(2πk/L)²` and the lattice
+  log-determinants to `(2 sinh(mL/2))²` (periodic) and `(2 cosh(mL/2))²`
+  (antiperiodic) at the second-order rate `O(1/N²)` (error ratio 16 per
+  `N×4`), the Tangherlini Gel'fand–Yaglom ratio sits at `1.574370`, and the
+  structural quantities (the vanishing η-invariant, the single zero mode, the
+  spectrum's `k ↔ N−k` symmetry) hold *exactly* at finite `N` — so the
+  software behaves exactly as the analytic derivation. The validation also
+  covers the generic twisted-holonomy sectors `a ∈ {1/4, 1/3, 2/3, 3/4}`
+  (boundary condition `ψ(τ+L) = e^{2πia}ψ(τ)`, eigenvalues `2πi(n+a)/L`):
+  there the magnitude `|det P_a| = 2 sin(πa)` is reproduced *exactly* on the
+  lattice at any `N` through the product identity `Π_k 2(1−cos(2π(k+a)/N)) =
+  |1−e^{2πia}|² = 4 sin²(πa)`, the twisted eigenvalues and massive
+  determinant converge `O(1/N²)`, and `η(a) = 1 − 2a` with — because the
+  twisted operator has no zero mode and `ζ(0) = 0` — a phase that is purely
+  the η piece, `arg det P_a = (π/2)(1 − 2a)`, so `det P_a = 2 sin(πa)
+  e^{i(π/2)(1−2a)}` (reducing to the real `2` at the antiperiodic point
+  `a = 1/2`).
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
