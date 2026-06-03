@@ -1266,7 +1266,16 @@ problems rather than implementation TODOs:
   `det(∂_τ + m)_antiperiodic = 2 cosh(mL/2)` giving `det(∂_τ) = 2`. This
   derives PR #118's real `+L` rather than asserting it; a genuine η-phase
   `exp[−i(π/2)(1−2a)]` survives only for an intermediate Hopf holonomy, which
-  is the open handle.
+  is the open handle. Finally, PR #120 closes the loop on the *numerics*:
+  a high-resolution lattice validation confirms that the discrete
+  finite-difference operators in the code reproduce these continuum analytic
+  results — the `−∂_τ²` eigenvalues converge to `(2πk/L)²` and the lattice
+  log-determinants to `(2 sinh(mL/2))²` (periodic) and `(2 cosh(mL/2))²`
+  (antiperiodic) at the second-order rate `O(1/N²)` (error ratio 16 per
+  `N×4`), the Tangherlini Gel'fand–Yaglom ratio sits at `1.574370`, and the
+  structural quantities (the vanishing η-invariant, the single zero mode, the
+  spectrum's `k ↔ N−k` symmetry) hold *exactly* at finite `N` — so the
+  software behaves exactly as the analytic derivation.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
