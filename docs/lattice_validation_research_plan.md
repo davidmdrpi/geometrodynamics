@@ -19,6 +19,21 @@ quantities, at high lattice resolution.
     `(2 sinh(mL/2))²`, `O(1/N²)`; cross-checked by the transfer-matrix closed
     form `2(cosh Nα − 1)` `[2cosh α = 2 + m²h²]` at `N = 10⁶`.
   - **Antiperiodic determinant** → continuum `(2 cosh(mL/2))²`, `O(1/N²)`.
+  - **Generic holonomy `a ∈ {1/4, 1/3, 2/3, 3/4}`** (twisted BC `ψ(τ+L) =
+    e^{2πia}ψ(τ)`, eigenvalues `2πi(n+a)/L`):
+      * **twisted eigenvalues** — discrete `(1/h)sin(2π(k+a)/N)` →
+        `2π(k+a)/L`, `O(1/N²)`;
+      * **`|det P_a| = 2 sin(πa)`** — **EXACT on the lattice at any N** via the
+        product identity `Π_k 2(1−cos(2π(k+a)/N)) = |1−e^{2πia}|² = 4 sin²(πa)`
+        (giving `√2, √3, √3, √2`); massive twisted det → `4(sinh²(mL/2) +
+        sin²(πa))`, `O(1/N²)`;
+      * **`η_A(0) = 1 − 2a`** = `{1/2, 1/3, −1/3, −1/2}` (Hurwitz, continuum);
+      * **branch convention** — `ζ(0) = 0` for the twisted operator (no zero
+        mode, balanced spectrum), so the phase is *purely* the η piece,
+        `arg det P_a = (π/2)(1 − 2a)` (principal branch), hence `det P_a =
+        2 sin(πa)·e^{i(π/2)(1−2a)} = {1+i, 1.5+0.866i, 1.5−0.866i, 1−i}`.
+        Consistency: at `a = 1/2`, `2 sin(π/2) = 2`, `η = 0`, phase `0` ⟹
+        `det = 2` (antiperiodic, PR #119).
   - **`det'(−∂_τ²) = L²`** and **`det(∂_τ)_antiperiodic = 2`**: the continuum
     `m → 0` limits (`(2 sinh)²/m² → L²`, `(2 cosh)² → 4`), with the discrete
     matching the continuum at fixed `m` (PR #117/#119).
@@ -52,10 +67,11 @@ derivation in the high-resolution limit.
 | T2 | eigenvalues | `−∂_τ²` → `(2πk/L)²`, `O(1/N²)` (ratio 16) |
 | T3 | ghost det | lattice log-det → `(2sinh(mL/2))²`, `O(1/N²)`; TM at `N=10⁶` |
 | T4 | antiperiodic | lattice → `(2cosh(mL/2))²`, `O(1/N²)` |
-| T5 | `m→0` limits | `det'(−∂_τ²)=L²`, `det_AP=2` |
-| T6 | η exact | `η = 0` EXACT at finite `N` + 1 zero mode (centered `∂_τ`, odd `N`) |
-| T7 | Tangherlini GY | `det(H)/det(H_free) → 1.574370` (PR #116), high-`N` |
-| T8 | assessment | `LATTICE_VALIDATION_DISCRETE_MATCHES_CONTINUUM` |
+| T5 | generic holonomy | `|det P_a|=2sin(πa)` EXACT; twisted eig/det `O(1/N²)`; `η(a)=1−2a`; phase `(π/2)(1−2a)` |
+| T6 | `m→0` limits | `det'(−∂_τ²)=L²`, `det_AP=2` |
+| T7 | η exact | `η = 0` EXACT at finite `N` + 1 zero mode (centered `∂_τ`, odd `N`) |
+| T8 | Tangherlini GY | `det(H)/det(H_free) → 1.574370` (PR #116), high-`N` |
+| T9 | assessment | `LATTICE_VALIDATION_DISCRETE_MATCHES_CONTINUUM` |
 
 ## Established and open
 
