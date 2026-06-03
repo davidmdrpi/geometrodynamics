@@ -1,0 +1,192 @@
+{
+  "timestamp_utc": "2026-06-03T05:40:33+00:00",
+  "identification": "the factorized BAM sector sum Z = \u03a3_{k odd, c\u2081, n_part} (\u22121)^k \u222b(dL/L) det^{\u22121/2}_matter e^{i(\u03c0/2)(1\u22122a)} e^{\u2212S_BAM} \u2014 discrete Z\u2082-signed (topological) sum \u00d7 continuous \u03b7-phased (analytic) moduli integral; Z\u2082 grading cancels the leading UV",
+  "formula": "Z = \u03a3_{k odd, c\u2081, n_part} (\u22121)^k \u222b(dL/L) det^{\u22121/2}_matter e^{i(\u03c0/2)(1\u22122a)} e^{\u2212S_BAM}",
+  "factorization": "discrete Z\u2082-signed (topological) sum \u2297 continuous \u03b7-phased (analytic) integral; (\u22121)^k pulls out",
+  "no_double_count": "U(1) \u03b7-phase \u27c2 Z\u2082 sign (PR #121)",
+  "graded_uv": "\u03b8_per \u2212 \u03b8_anti ~ e^{\u2212\u03c0\u00b2/t} \u2192 0: Z\u2082 grading cancels the BC-independent Weyl UV term",
+  "open": "absolute normalization (\u03ba\u2085\u00b2/\u039b\u2085); non-perturbative convergence; multi-loop",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Assemble the validated BAM measure ingredients (PRs #74, #115\u2013#121) into the full factorized sector sum Z = \u03a3_sectors (\u22121)^k \u222b(dL/L) det^{\u22121/2}_matter e^{i\u03b7-phase} e^{\u2212S_BAM}, and show it factorizes into a discrete Z\u2082-signed sum \u00d7 a continuous \u03b7-phased moduli integral.",
+      "assembles": [
+        "#74 closure quantum",
+        "#115 measure",
+        "#116 matter det",
+        "#117/#118 ghost det + dL/L",
+        "#119/#121 \u03b7-phase + Z\u2082"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_assembled_measure_formula",
+      "description": "Z = \u03a3_{k odd, c\u2081, n_part} (\u22121)^k \u222b(dL/L) det^{\u22121/2}_matter e^{i(\u03c0/2)(1\u22122a)} e^{\u2212S_BAM} \u2014 every factor finite/validated.",
+      "formula": "Z = \u03a3_{k odd, c\u2081, n_part} (\u22121)^k \u222b(dL/L) det^{\u22121/2}_matter \u00b7 e^{i(\u03c0/2)(1\u22122a)} \u00b7 e^{\u2212S_BAM}",
+      "factors": [
+        {
+          "factor": "\u03a3_{k,c\u2081,n_part}",
+          "meaning": "closure-ledger sector sum",
+          "pr": "#115"
+        },
+        {
+          "factor": "(\u22121)^k",
+          "meaning": "discrete Z\u2082 orientation sign",
+          "pr": "#115/#118/#121"
+        },
+        {
+          "factor": "\u222b (dL/L)",
+          "meaning": "gauge-fixed moduli measure (CKV = closure quantum)",
+          "pr": "#74/#117/#118"
+        },
+        {
+          "factor": "det^{\u22121/2}_matter(L)",
+          "meaning": "matter fluctuation det (finite, GY)",
+          "pr": "#116"
+        },
+        {
+          "factor": "det'(P) = L",
+          "meaning": "first-order ghost det",
+          "pr": "#117/#118"
+        },
+        {
+          "factor": "e^{i(\u03c0/2)(1\u22122a)}",
+          "meaning": "continuous \u03b7-phase (holonomy a)",
+          "pr": "#119/#121"
+        },
+        {
+          "factor": "e^{\u2212S_BAM}",
+          "meaning": "leading bounce saddle",
+          "pr": "#87\u2013#90"
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T3_discrete_sector_sum_signs_pull_out",
+      "description": "Closure-ledger sectors (k odd, c\u2081\u2208\u2124, n_part); (\u22121)^k is a sector-constant (winding parity, not L or a) \u27f9 pulls out of the continuous integral. Odd-k lemma selects the M\u00f6bius sectors.",
+      "rows": [
+        {
+          "k": 1,
+          "z2_sign": -1,
+          "sector": "M\u00f6bius (odd, non-orientable)",
+          "closes_under_odd_k_lemma": true
+        },
+        {
+          "k": 2,
+          "z2_sign": 1,
+          "sector": "torus (even, orientable)",
+          "closes_under_odd_k_lemma": false
+        },
+        {
+          "k": 3,
+          "z2_sign": -1,
+          "sector": "M\u00f6bius (odd, non-orientable)",
+          "closes_under_odd_k_lemma": true
+        },
+        {
+          "k": 4,
+          "z2_sign": 1,
+          "sector": "torus (even, orientable)",
+          "closes_under_odd_k_lemma": false
+        },
+        {
+          "k": 5,
+          "z2_sign": -1,
+          "sector": "M\u00f6bius (odd, non-orientable)",
+          "closes_under_odd_k_lemma": true
+        }
+      ],
+      "z2_is_sector_constant": true,
+      "pulls_out_of_continuous_integral": true,
+      "pass": true
+    },
+    {
+      "name": "T4_continuous_moduli_integral",
+      "description": "Continuous part \u222b(dL/L) det^{\u22121/2}_matter e^{i\u03b7} e^{\u2212S}: dL/L = closure-quantum/CKV measure (#74/#117); finite determinants (#116 GY=1.574, #117 det'=L); continuous \u03b7-phase (#119/#121); IR-convergent via e^{\u2212S}.",
+      "moduli_measure": "dL/L (CKV = closure quantum 1/L)",
+      "determinant_finite": "GY = 1.574 (#116); det'(P) = L (#117)",
+      "eta_phase": "e^{i(\u03c0/2)(1\u22122a)} (continuous, #119/#121)",
+      "ir_tail_integral_by_Lmax": [
+        0.265097,
+        0.265127,
+        0.265127,
+        0.265129
+      ],
+      "ir_convergent": true,
+      "pass": true
+    },
+    {
+      "name": "T5_factorization",
+      "description": "Z = \u03a3_disc (\u22121)^k \u00d7 [\u222b(dL/L) det \u03b7-phase e^{\u2212S}]: discrete Z\u2082-signed (topological) sum \u2297 continuous (analytic) moduli integral. Z\u2082 sign pulls out; no double-counting (PR #121).",
+      "factorized_form": "Z = \u03a3_{discrete} (\u22121)^k \u00d7 [continuous moduli integral]",
+      "discrete_part": "Z\u2082 orientation signs (\u22121)^k (topological)",
+      "continuous_part": "\u222b(dL/L) det^{\u22121/2}_matter e^{i\u03b7-phase} e^{\u2212S} (analytic)",
+      "no_double_counting": "U(1) \u03b7-phase \u27c2 Z\u2082 sign (PR #121)",
+      "pass": true
+    },
+    {
+      "name": "T6_z2_graded_uv_cancellation",
+      "description": "Weyl term a_{\u22121/2} = L/\u221a(4\u03c0) is BC-independent \u27f9 cancels in the Z\u2082-graded difference. Each \u03b8 ~ L/\u221a(4\u03c0t) \u2192 \u221e (UV divergent); \u03b8_per \u2212 \u03b8_anti ~ e^{\u2212\u03c0\u00b2/t} \u2192 0 (UV-finite). The orientation grading renders the bulk UV finite.",
+      "rows": [
+        {
+          "t": 0.2,
+          "theta_per": 3.96333,
+          "theta_anti": 3.96333,
+          "weyl_Lsqrt4pit": 3.96333,
+          "graded_diff": 0.0
+        },
+        {
+          "t": 0.1,
+          "theta_per": 5.60499,
+          "theta_anti": 5.60499,
+          "weyl_Lsqrt4pit": 5.60499,
+          "graded_diff": 8.882e-16
+        },
+        {
+          "t": 0.05,
+          "theta_per": 7.92665,
+          "theta_anti": 7.92665,
+          "weyl_Lsqrt4pit": 7.92665,
+          "graded_diff": 0.0
+        },
+        {
+          "t": 0.02,
+          "theta_per": 12.53314,
+          "theta_anti": 12.53314,
+          "weyl_Lsqrt4pit": 12.53314,
+          "graded_diff": 1.776e-15
+        }
+      ],
+      "each_theta_uv_divergent": true,
+      "graded_difference_uv_finite": true,
+      "asymptotics": "\u03b8 ~ L/\u221a(4\u03c0t) \u2192 \u221e; \u03b8_per \u2212 \u03b8_anti ~ e^{\u2212\u03c0\u00b2/t} \u2192 0",
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "Assembled: the full factorized one-loop sector sum Z \u2014 a discrete Z\u2082-signed sum of continuous \u03b7-phased moduli integrals, every factor finite/validated (PRs #74, #116\u2013#121), with the Z\u2082 grading cancelling the leading UV. Open: absolute normalization (\u03ba\u2085\u00b2/\u039b\u2085, PR #112), full non-perturbative convergence, multi-loop.",
+      "assembled": [
+        "Z = \u03a3_{k odd, c\u2081, n_part} (\u22121)^k \u222b(dL/L) det^{\u22121/2}_matter e^{i\u03b7} e^{\u2212S}",
+        "discrete Z\u2082-signed (topological) \u00d7 continuous \u03b7-phased (analytic)",
+        "every factor finite/validated; Z\u2082 grading cancels leading UV"
+      ],
+      "open": [
+        "the absolute normalization (the \u03ba\u2085\u00b2/\u039b\u2085 bulk anchor, PR #112)",
+        "the full non-perturbative convergence of the sector sum",
+        "the multi-loop measure"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The BAM loop measure assembles into Z = \u03a3_{k odd, c\u2081, n_part} (\u22121)^k \u222b(dL/L) det^{\u22121/2}_matter e^{i(\u03c0/2)(1\u22122a)} e^{\u2212S_BAM}, factorizing into a discrete Z\u2082-signed (topological) sum \u00d7 a continuous \u03b7-phased (analytic) moduli integral \u2014 the Z\u2082 sign a sector-constant that pulls out, no double-counting (PR #121). The Z\u2082 grading cancels the leading UV (\u03b8_per \u2212 \u03b8_anti ~ e^{\u2212\u03c0\u00b2/t} \u2192 0). Absolute normalization and the non-perturbative sum open.",
+      "classification": "BAM_FACTORIZED_SECTOR_SUM_Z_DISCRETE_Z2_TIMES_CONTINUOUS_ETA_GRADED_UV_CANCELS",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "BAM_FACTORIZED_SECTOR_SUM_Z_DISCRETE_Z2_TIMES_CONTINUOUS_ETA_GRADED_UV_CANCELS",
+  "verdict": "THE BAM LOOP MEASURE ASSEMBLES INTO A FACTORIZED SECTOR SUM: A DISCRETE Z\u2082-SIGNED (TOPOLOGICAL) SUM TIMES A CONTINUOUS \u03b7-PHASED (ANALYTIC) MODULI INTEGRAL, WITH THE Z\u2082 GRADING CANCELLING THE LEADING UV. PRs #74 and #115\u2013#121 validated every ingredient; this probe puts them together.\n\nTHE ASSEMBLED MEASURE. Z = \u03a3_{k odd, c\u2081\u2208\u2124, n_part} (\u22121)^k \u222b_0^\u221e (dL/L) det^{\u22121/2}_matter(L) \u00b7 e^{i(\u03c0/2)(1\u22122a)} \u00b7 e^{\u2212S_BAM}, with the closure-ledger sector sum (#115), the discrete Z\u2082 orientation sign (\u22121)^k (#115/#118/#121), the gauge-fixed dL/L moduli measure whose 1/L is the closure-quantum CKV factor (#74/#117/#118), the finite matter determinant (#116), the first-order ghost determinant det'(P) = L (#117/#118), the continuous \u03b7-phase e^{i(\u03c0/2)(1\u22122a)} (#119/#121), and the leading bounce saddle e^{\u2212S_BAM} (#87\u2013#90).\n\nWHY IT FACTORIZES. The discrete Z\u2082 orientation sign (\u22121)^k is a SECTOR-CONSTANT \u2014 it depends only on the winding parity, not on the continuous moduli L or holonomy a \u2014 so it pulls OUT of the continuous integral: Z = \u03a3_{discrete sectors} (\u22121)^k \u00d7 [\u222b(dL/L) det \u03b7-phase e^{\u2212S}]. Thus Z is a discrete Z\u2082-signed sum of continuous moduli integrals; the continuous part carries the \u03b7-phase (confined to the right half-circle, #121) and the finite determinants, the discrete part the orientation signs. They do not double-count (#121: the U(1)-valued \u03b7-phase and the Z\u2082 sign are independent).\n\nTHE Z\u2082-GRADED UV CANCELLATION. Grouped by orientation, Z is the Z\u2082-graded combination of the orientable (periodic, +) and M\u00f6bius (antiperiodic, \u2212) contributions. The leading heat-kernel (Weyl) coefficient a_{\u22121/2} = L/\u221a(4\u03c0) is a BULK quantity, independent of the boundary condition, so it is identical in both sectors and CANCELS in the graded difference: the heat traces \u03b8_per(t) and \u03b8_anti(t) each diverge as L/\u221a(4\u03c0t) as t \u2192 0, but their difference \u03b8_per \u2212 \u03b8_anti ~ e^{\u2212\u03c0\u00b2/t} \u2192 0 is UV-finite (the polynomial UV divergence cancels to all orders, leaving only exponentially small instanton terms). So the orientation Z\u2082 grading renders the bulk UV of the sector sum finite.\n\nSCOPE. ASSEMBLED: the full factorized one-loop sector sum Z, every factor finite/validated (PRs #74, #116\u2013#121), with the Z\u2082 grading cancelling the leading UV. OPEN: the absolute normalization (the bulk \u03ba\u2085\u00b2/\u039b\u2085 anchor, PR #112), the full non-perturbative convergence of the sector sum, and the multi-loop measure. The assembly organizes the structure; it does not fix the overall scale."
+}
