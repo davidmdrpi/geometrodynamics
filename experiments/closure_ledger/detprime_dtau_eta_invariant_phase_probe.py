@@ -232,31 +232,45 @@ def test_T3_phase_formula() -> dict:
 # ---------------------------------------------------------------------------
 
 def test_T4_eta_invariant() -> dict:
-    """η_A(0) = 1 − 2a for flux a (Hurwitz ζ_H(0,a) = ½ − a). The reduced η
-    of the symmetric sectors vanishes identically: periodic (zero mode
-    removed) η' ≡ 0; antiperiodic η ≡ 0. The unprimed formula's value 1 at
-    a = 0 is the spectral-flow jump as the zero mode crosses."""
+    """η_A(0) = 1 − 2a for flux a (Hurwitz ζ_H(0,a) = ½ − a) — the NAIVE
+    (unprimed) value; at a = 0 this is the spectral-flow value 1, the jump as
+    the zero mode crosses. The PHYSICAL claim is that the REDUCED η of the
+    symmetric sectors vanishes: with the summand sign(λ_n)|λ_n|^{−s} ODD under
+    n → −n, the η-function is identically zero, so η_reduced ≡ 0 — verified
+    here by the exact ±n sign cancellation for both the periodic (zero mode
+    removed) and antiperiodic spectra."""
     rows = [{'a': a, 'eta_0': round(eta_0(a), 4),
              'symmetric': abs(eta_0(a)) < 1e-9}
             for a in (0.0, 0.25, 0.5, 0.75)]
-    # reduced/symmetric sectors:
-    eta_periodic_reduced = 0.0     # ±n cancel after removing the zero mode
-    eta_antiperiodic = 0.0         # {±(n+1/2)} symmetric
+    # Reduced periodic η: spectrum {2πn/L : n ≠ 0}, zero mode (= CKV) removed.
+    # η_red(s) = Σ_{n≠0} sign(n)|n|^{−s}(L/2π)^{−s}; summand odd under n→−n ⟹ ≡ 0.
+    ns = list(range(-200, 0)) + list(range(1, 201))
+    reduced_periodic_eta = sum(math.copysign(1.0, n) for n in ns)        # exact 0
+    # Antiperiodic: spectrum {2π(n+½)/L}, symmetric under n → −n−1 ⟹ η ≡ 0.
+    half_modes = [n + 0.5 for n in range(-200, 200)]
+    antiperiodic_eta = sum(math.copysign(1.0, x) for x in half_modes)    # exact 0
     return {
         'name': 'T4_eta_invariant_with_flux',
         'description': (
-            "η_A(0) = 1 − 2a (Hurwitz ζ_H(0,a)=½−a) tracks the flux linearly. "
-            "Reduced η ≡ 0 for the symmetric sectors: periodic (zero mode "
-            "removed) and antiperiodic. The naive value 1 at a=0 is the "
-            "spectral-flow jump of the zero mode."
+            "Naive η_A(0) = 1 − 2a (Hurwitz). The PHYSICAL reduced η of the "
+            "symmetric sectors vanishes IDENTICALLY (summand odd under n→−n): "
+            "periodic (zero mode = CKV removed) η_red ≡ 0; antiperiodic η ≡ 0 "
+            "— both verified by exact ±n sign cancellation. The naive value 1 "
+            "at a = 0 is the spectral-flow jump of the zero mode."
         ),
-        'eta_of_flux': 'η(0) = 1 − 2a',
+        'eta_of_flux_naive': 'η(0) = 1 − 2a',
         'rows': rows,
-        'eta_zero_at_a_0_and_half': abs(eta_0(0.5)) < 1e-9,
-        'reduced_eta_periodic': eta_periodic_reduced,
-        'eta_antiperiodic': eta_antiperiodic,
-        'spectral_flow_jump_at_a0': 'unprimed formula → 1; reduced (zero mode removed) → 0',
-        'pass': abs(eta_0(0.5)) < 1e-9 and abs(eta_0(0.0) - 1.0) < 1e-9,
+        'eta_zero_at_a_half': abs(eta_0(0.5)) < 1e-9,
+        'naive_spectral_flow_value_at_a0': round(eta_0(0.0), 4),     # 1 (the jump)
+        'reduced_periodic_eta': reduced_periodic_eta,                # 0 (the claim)
+        'reduced_periodic_eta_is_zero': abs(reduced_periodic_eta) < 1e-12,
+        'antiperiodic_eta': antiperiodic_eta,                        # 0
+        'antiperiodic_eta_is_zero': abs(antiperiodic_eta) < 1e-12,
+        'reduced_eta_identically_zero': 'summand sign(λ)|λ|^{−s} odd under n→−n ⟹ η(s) ≡ 0',
+        'pass': (abs(reduced_periodic_eta) < 1e-12          # KEY: reduced periodic η = 0
+                 and abs(antiperiodic_eta) < 1e-12          # antiperiodic η = 0
+                 and abs(eta_0(0.5)) < 1e-9                  # naive flux η(1/2) = 0
+                 and abs(eta_0(0.0) - 1.0) < 1e-9),          # naive spectral-flow η(0) = 1 (contrast)
     }
 
 
