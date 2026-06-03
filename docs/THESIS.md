@@ -1285,7 +1285,22 @@ problems rather than implementation TODOs:
   twisted operator has no zero mode and `ζ(0) = 0` — a phase that is purely
   the η piece, `arg det P_a = (π/2)(1 − 2a)`, so `det P_a = 2 sin(πa)
   e^{i(π/2)(1−2a)}` (reducing to the real `2` at the antiperiodic point
-  `a = 1/2`).
+  `a = 1/2`). PR #121 then organises all of this into a **sector-phase
+  ledger** with a clean separation theorem: the BAM loop-measure phase
+  factorises as a *continuous* η-phase `e^{i(π/2)(1−2a)}` — from the U(1)
+  holonomy `a` (the connection / Hopf–Wilson line) — times a *discrete* `Z₂`
+  sign `(−1)^k` — from the Möbius / odd-k orientation (the first
+  Stiefel–Whitney class `w₁`). These never double-count, for three
+  independent reasons: they live in different groups (`U(1)` vs `Z₂`), arise
+  from different geometry (connection vs orientability), and — most sharply —
+  the continuous phase `θ(a) = (π/2)(1−2a)` is confined to the open right
+  half-circle `θ ∈ (−π/2, +π/2)` for `a ∈ (0,1)`, so it *never* reaches `−1`;
+  the Möbius `−1` is therefore inaccessible to it and is purely topological.
+  At `a = 1/2` the η-phase is exactly `+1`, so the antiperiodic determinant's
+  Möbius character is carried entirely by `(−1)^k` — the cleanest witness
+  that the continuous and discrete sectors are independent. The measure phase
+  is the product `det_full = |det P_a| · e^{i(π/2)(1−2a)} · (−1)^k`, each
+  factor counted once.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,

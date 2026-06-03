@@ -1,0 +1,231 @@
+{
+  "timestamp_utc": "2026-06-03T05:28:49+00:00",
+  "identification": "the BAM loop-measure phase = continuous \u03b7-phase e^{i(\u03c0/2)(1\u22122a)} (U(1) holonomy, open right half-circle, never \u22121) \u00d7 discrete Z\u2082 sign (\u22121)^k (M\u00f6bius/odd-k orientation, w\u2081); independent, no double-counting",
+  "continuous": "\u03b7-phase e^{i(\u03c0/2)(1\u22122a)} (U(1) holonomy a; \u03b8 \u2208 (\u2212\u03c0/2,+\u03c0/2), never \u22121)",
+  "discrete": "Z\u2082 sign (\u22121)^k (M\u00f6bius/odd-k orientation, w\u2081)",
+  "no_double_count": "different groups (U(1) vs Z\u2082); different geometry (connection vs orientation); \u03b7-phase never reaches \u22121",
+  "factorization": "det_full = |det P_a| \u00b7 e^{i(\u03c0/2)(1\u22122a)} \u00b7 (\u22121)^k, each factor once",
+  "consistency": "at a = 1/2: \u03b7-phase = +1 \u27f9 antiperiodic det real, M\u00f6bius sign purely (\u22121)^k",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Convert the validated det'(\u2202_\u03c4) \u03b7-invariant machinery (PRs #117\u2013#120) into a BAM sector-phase ledger: prove the generic-holonomy phases are CONTINUOUS \u03b7-phases and the M\u00f6bius/odd-k signs are DISCRETE Z\u2082 topology, with no double-counting.",
+      "builds_on": [
+        "PR #115/#118 odd-k Z\u2082",
+        "PR #119 \u03b7 phase framework",
+        "PR #120 lattice validation"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_two_independent_structures",
+      "description": "A closure loop carries two independent twists: a U(1) holonomy a \u2208 [0,1) (the connection / Hopf-Wilson line \u222eA = e^{2\u03c0ia}, continuous) and an orientation class (orientable vs M\u00f6bius, the winding parity k mod 2 = w\u2081 \u2208 H\u00b9(loop;Z\u2082), discrete). Different topological data.",
+      "continuous_structure": "U(1) holonomy a (connection / \u03c0\u2081 of the fibre)",
+      "discrete_structure": "orientation Z\u2082 (w\u2081 / orientability, odd-k parity)",
+      "independent": true,
+      "pass": true
+    },
+    {
+      "name": "T3_continuous_eta_phase",
+      "description": "\u03b7-phase \u03b8(a) = (\u03c0/2)(1\u22122a), a \u2208 (0,1) \u27f9 \u03b8 \u2208 (\u2212\u03c0/2,+\u03c0/2): confined to the OPEN RIGHT HALF-CIRCLE (Re > 0), = +1 only at a = 1/2, NEVER = \u22121. Continuous in a (\u03b6(0)=0 \u27f9 pure \u03b7 piece).",
+      "rows": [
+        {
+          "a": 0.0,
+          "theta_rad": 1.5708,
+          "eta_phase": "+0.0000+1.0000i",
+          "re": 0.0
+        },
+        {
+          "a": 0.25,
+          "theta_rad": 0.7854,
+          "eta_phase": "+0.7071+0.7071i",
+          "re": 0.7071
+        },
+        {
+          "a": 0.3333,
+          "theta_rad": 0.5236,
+          "eta_phase": "+0.8660+0.5000i",
+          "re": 0.866
+        },
+        {
+          "a": 0.5,
+          "theta_rad": 0.0,
+          "eta_phase": "+1.0000+0.0000i",
+          "re": 1.0
+        },
+        {
+          "a": 0.6667,
+          "theta_rad": -0.5236,
+          "eta_phase": "+0.8660-0.5000i",
+          "re": 0.866
+        },
+        {
+          "a": 0.75,
+          "theta_rad": -0.7854,
+          "eta_phase": "+0.7071-0.7071i",
+          "re": 0.7071
+        },
+        {
+          "a": 1.0,
+          "theta_rad": -1.5708,
+          "eta_phase": "+0.0000-1.0000i",
+          "re": 0.0
+        }
+      ],
+      "theta_range": "(\u2212\u03c0/2, +\u03c0/2) for a \u2208 (0,1)",
+      "right_half_circle": true,
+      "never_minus_one": true,
+      "pass": true
+    },
+    {
+      "name": "T4_discrete_z2_sign",
+      "description": "Orientation Z\u2082 sign (\u22121)^k = e^{ik\u03c0} (odd-k lemma): +1 even (orientable/torus), \u22121 odd (non-orientable/M\u00f6bius). Discrete element of {\u00b11} = w\u2081 holonomy.",
+      "rows": [
+        {
+          "k": 1,
+          "z2": -1,
+          "sector": "M\u00f6bius (non-orientable)"
+        },
+        {
+          "k": 2,
+          "z2": 1,
+          "sector": "torus (orientable)"
+        },
+        {
+          "k": 3,
+          "z2": -1,
+          "sector": "M\u00f6bius (non-orientable)"
+        },
+        {
+          "k": 4,
+          "z2": 1,
+          "sector": "torus (orientable)"
+        },
+        {
+          "k": 5,
+          "z2": -1,
+          "sector": "M\u00f6bius (non-orientable)"
+        }
+      ],
+      "odd_k_minus_one": true,
+      "even_k_plus_one": true,
+      "group": "Z\u2082 = {\u00b11}",
+      "pass": true
+    },
+    {
+      "name": "T5_sector_phase_ledger",
+      "description": "The ledger: magnitude 2 sin(\u03c0a) (\u211d\u208a); CONTINUOUS \u03b7-phase e^{i(\u03c0/2)(1\u22122a)} (U(1), from the holonomy); DISCRETE Z\u2082 sign (\u22121)^k (Z\u2082, from the M\u00f6bius/odd-k orientation); the scaling \u03b6(0) phase absorbed.",
+      "ledger": [
+        {
+          "contribution": "magnitude",
+          "source": "twisted spectrum",
+          "object": "|det P_a| = 2 sin(\u03c0a)",
+          "group": "\u211d\u208a",
+          "type": "continuous",
+          "pr": "#119/#120"
+        },
+        {
+          "contribution": "\u03b7-phase",
+          "source": "U(1) holonomy a (Hopf/Wilson)",
+          "object": "spectral asymmetry \u03b7(0) = 1\u22122a",
+          "group": "U(1)",
+          "value": "e^{i(\u03c0/2)(1\u22122a)}",
+          "type": "CONTINUOUS",
+          "pr": "#119/#120"
+        },
+        {
+          "contribution": "Z\u2082 sign",
+          "source": "M\u00f6bius / odd-k orientation",
+          "object": "w\u2081 / e^{ik\u03c0}",
+          "group": "Z\u2082",
+          "value": "(\u22121)^k",
+          "type": "DISCRETE",
+          "pr": "#115/#118"
+        },
+        {
+          "contribution": "(scaling \u03b6(0) phase)",
+          "source": "local heat-kernel",
+          "object": "\u03b6(0)",
+          "group": "\u2014",
+          "value": "absorbed (\u03b6(0)=0 for twisted; branch for periodic)",
+          "type": "removed",
+          "pr": "#119"
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T6_no_double_counting_proof",
+      "description": "(a) different groups U(1) vs Z\u2082; (b) different geometry connection (\u03b7) vs orientation (w\u2081); (c) no collision \u2014 \u03b7-phase \u2208 open right half-circle (Re > 0) \u2200 a \u2208 (0,1), never \u22121, so the M\u00f6bius \u22121 is inaccessible to the continuous phase (purely Z\u2082). At a = 1/2 the \u03b7-phase is +1 \u27f9 the antiperiodic det's M\u00f6bius character is entirely the (\u22121)^k.",
+      "reason_a_groups": "U(1) (continuous) vs Z\u2082 (discrete)",
+      "reason_b_geometry": "connection/holonomy (\u03b7) vs orientation/w\u2081 (Z\u2082)",
+      "min_eta_phase_real_over_grid": 0.00031,
+      "eta_phase_in_right_half_circle": true,
+      "closest_eta_phase_to_minus1": 1.4144,
+      "eta_phase_never_minus1": true,
+      "eta_phase_at_half": "+1.0000+0.0000i",
+      "mobius_minus1_is_purely_z2": true,
+      "pass": true
+    },
+    {
+      "name": "T7_factorized_measure_phase",
+      "description": "det_full = |det P_a|\u00b7e^{i(\u03c0/2)(1\u22122a)}\u00b7(\u22121)^k = magnitude \u00d7 continuous \u03b7-phase \u00d7 discrete Z\u2082 sign, each counted once. At a = 1/2 (k=1): det_full = 2\u00b7(+1)\u00b7(\u22121) = \u22122 (real) \u2014 the antiperiodic det's M\u00f6bius sign is purely the (\u22121)^k.",
+      "formula": "det_full = |det P_a| \u00b7 e^{i(\u03c0/2)(1\u22122a)} \u00b7 (\u22121)^k",
+      "rows": [
+        {
+          "a": 0.25,
+          "k": 1,
+          "mag": 1.414,
+          "eta_phase": "+0.707+0.707i",
+          "z2": -1,
+          "det_full": "-1.000-1.000i"
+        },
+        {
+          "a": 0.25,
+          "k": 2,
+          "mag": 1.414,
+          "eta_phase": "+0.707+0.707i",
+          "z2": 1,
+          "det_full": "+1.000+1.000i"
+        },
+        {
+          "a": 0.333,
+          "k": 3,
+          "mag": 1.732,
+          "eta_phase": "+0.866+0.500i",
+          "z2": -1,
+          "det_full": "-1.500-0.866i"
+        },
+        {
+          "a": 0.5,
+          "k": 1,
+          "mag": 2.0,
+          "eta_phase": "+1.000+0.000i",
+          "z2": -1,
+          "det_full": "-2.000+0.000i"
+        },
+        {
+          "a": 0.5,
+          "k": 2,
+          "mag": 2.0,
+          "eta_phase": "+1.000+0.000i",
+          "z2": 1,
+          "det_full": "+2.000+0.000i"
+        }
+      ],
+      "a_half_k1_det_full": "-2.000+0.000i",
+      "each_factor_once": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The BAM loop-measure phase factorizes as a CONTINUOUS \u03b7-phase e^{i(\u03c0/2)(1\u22122a)} (from the U(1) holonomy a, confined to the open right half-circle, never \u22121) times a DISCRETE Z\u2082 sign (\u22121)^k (from the M\u00f6bius/odd-k orientation, w\u2081). Independent (different groups, geometry, no collision on \u22121) \u27f9 no double-counting; the measure phase is the product, each factor once.",
+      "classification": "BAM_SECTOR_PHASE_LEDGER_CONTINUOUS_ETA_TIMES_DISCRETE_Z2_NO_DOUBLE_COUNT",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "BAM_SECTOR_PHASE_LEDGER_CONTINUOUS_ETA_TIMES_DISCRETE_Z2_NO_DOUBLE_COUNT",
+  "verdict": "THE BAM LOOP-MEASURE PHASE FACTORIZES INTO A CONTINUOUS \u03b7-PHASE (U(1) HOLONOMY) TIMES A DISCRETE Z\u2082 SIGN (M\u00d6BIUS / ODD-K ORIENTATION), WITH NO DOUBLE-COUNTING. PRs #117\u2013#120 built and lattice-validated the det'(\u2202_\u03c4) \u03b7-invariant machinery; this ledger separates its two \u2014 and only two \u2014 phase/sign sources.\n\nTHE TWO STRUCTURES. A closure loop carries two independent twists: a U(1) holonomy a \u2208 [0,1) (the connection / Hopf-Wilson line \u222eA = e^{2\u03c0ia}, continuous, \u03c0\u2081 of the fibre) and an orientation class (orientable vs M\u00f6bius, the winding parity k mod 2 = w\u2081 \u2208 H\u00b9(loop;Z\u2082), discrete). These are orthogonal topological data \u2014 a connection and an orientability.\n\nTHE CONTINUOUS \u03b7-PHASE. The twisted determinant is det P_a = 2 sin(\u03c0a)\u00b7e^{i\u03b8(a)} with \u03b8(a) = (\u03c0/2)\u03b7_A(0) = (\u03c0/2)(1\u22122a). Since the twisted operator has no zero mode, \u03b6(0) = 0 and the phase is PURELY the \u03b7-invariant piece. As a sweeps (0,1), \u03b8(a) sweeps (\u2212\u03c0/2,+\u03c0/2): the \u03b7-phase is confined to the OPEN RIGHT HALF-CIRCLE (Re > 0), reaching +1 only at a = 1/2 and NEVER reaching \u22121.\n\nTHE DISCRETE Z\u2082 SIGN. The M\u00f6bius / non-orientable closure contributes the orientation sign of the odd-k lemma, e^{ik\u03c0} = (\u22121)^k: +1 for even k (orientable / torus cover), \u22121 for odd k (non-orientable / M\u00f6bius half-twist) \u2014 a discrete element of {\u00b11}, the w\u2081 holonomy, independent of the connection a.\n\nNO DOUBLE-COUNTING. The two are not the same contribution counted twice, for three independent reasons: (a) different groups \u2014 U(1) (continuous) vs Z\u2082 (discrete); (b) different geometry \u2014 the connection/holonomy (\u03b7, spectral asymmetry) vs the orientation/w\u2081 (orientability); (c) no collision on the nontrivial element \u2014 \u03b8(a) \u2208 (\u2212\u03c0/2,+\u03c0/2) confines the \u03b7-phase to the open right half-circle, so it can NEVER equal \u22121; the M\u00f6bius \u22121 is inaccessible to the continuous phase and is purely the discrete Z\u2082. In particular, at the antiperiodic point a = 1/2 the \u03b7-phase is exactly +1 (det P_{1/2} = 2, real), so all of the M\u00f6bius character there is carried by the separate (\u22121)^k.\n\nTHE FACTORIZED PHASE. det_full = |det P_a| \u00b7 e^{i(\u03c0/2)(1\u22122a)} \u00b7 (\u22121)^k = magnitude \u00d7 continuous \u03b7-phase \u00d7 discrete Z\u2082 sign, each factor counted exactly once. The continuous and discrete parts multiply; they do not overlap."
+}
