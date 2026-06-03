@@ -1300,7 +1300,27 @@ problems rather than implementation TODOs:
   Möbius character is carried entirely by `(−1)^k` — the cleanest witness
   that the continuous and discrete sectors are independent. The measure phase
   is the product `det_full = |det P_a| · e^{i(π/2)(1−2a)} · (−1)^k`, each
-  factor counted once.
+  factor counted once. PR #122 closes the arc by *assembling* all of these
+  validated pieces into the full factorized sector sum
+  `Z = Σ_{k odd, c₁∈ℤ, n_part} (−1)^k ∫₀^∞ (dL/L) det^{−1/2}_matter
+  e^{i(π/2)(1−2a)} e^{−S_BAM}` — the closure-ledger sum, the discrete `Z₂`
+  orientation sign, the gauge-fixed `dL/L` moduli measure (whose `1/L` is the
+  closure-quantum CKV factor), the finite matter and ghost determinants, the
+  continuous η-phase, and the leading bounce. Because the `Z₂` sign is a
+  sector-constant (the winding parity, independent of the moduli `L` and
+  holonomy `a`), it pulls out of the continuous integral, so `Z` factorises
+  cleanly into a *discrete* `Z₂`-signed (topological) sum of *continuous*
+  η-phased (analytic) moduli integrals — the two never double-counting
+  (PR #121). The grading even has teeth: the leading heat-kernel (Weyl)
+  coefficient `a_{−1/2} = L/√(4π)` is a bulk quantity independent of the
+  boundary condition, so it is identical in the orientable (periodic) and
+  Möbius (antiperiodic) sectors and *cancels* in their `Z₂`-graded
+  difference — each heat trace diverges as `L/√(4πt)` as `t → 0`, but
+  `θ_per − θ_anti ~ e^{−π²/t} → 0` is UV-finite, so the orientation grading
+  renders the bulk UV of the sector sum finite. What the assembly does not
+  fix is the overall scale: the absolute normalisation (the `κ₅²/Λ₅` anchor),
+  the full non-perturbative convergence of the sum, and the multi-loop
+  measure remain the standing open pieces.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
