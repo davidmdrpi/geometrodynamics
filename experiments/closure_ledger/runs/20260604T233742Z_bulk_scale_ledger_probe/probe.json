@@ -1,0 +1,113 @@
+{
+  "timestamp_utc": "2026-06-04T23:37:42+00:00",
+  "identification": "the bulk dimensionful content {\u03ba\u2085\u00b2, \u039b\u2085} reduces, once \u0394R sets the unit (scale modulus, #52/#53) and \u221a6 fixes the RS tuning (#57), to one open but bounded dimensionless number \u2014 the AdS scale k\u00b7R_MID \u2272 0.1 (#127), the recurring \u03ba\u2085\u00b2/\u039b\u2085 residual",
+  "unit": "\u0394R = R_OUTER \u2212 R_INNER = 0.52 R_MID (scale modulus, #52/#53)",
+  "fixed_tuning": "\u221a6 = \u03bb_crit \u03ba\u2085\u00b2/\u221a|\u039b\u2085| \u2248 2.449 (RS flatness, #57)",
+  "anchor": "G = \u03ba\u2085\u00b2/\u0394R\u00b3 (gravity strength, the one dimensionful anchor, #105/#106)",
+  "open_bounded": "k\u00b7R_MID = R_MID/L_AdS \u2272 0.1 (the \u03ba\u2085\u00b2/\u039b\u2085 residual, #112/#127)",
+  "residual_count": "one bounded dimensionless number",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Consolidating ledger for the bulk dimensionful scale (\u03ba\u2085\u00b2, \u039b\u2085) and the \u0394R normalization: count the content, separate the scale modulus (unit) from the residual, and show the recurring \u03ba\u2085\u00b2/\u039b\u2085 residual (#57/#112/#127/#132) is one bounded dimensionless number.",
+      "consolidates": [
+        "#57 RS tuning (\u221a6 fixed, k open)",
+        "#112 \u03b5 absolute normalization (\u03ba\u2085\u00b2/\u039b\u2085)",
+        "#127 exact AdS scale k open",
+        "#132 absolute nucleation scale open"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_dimensionful_content",
+      "description": "Bulk dimensionful content (\u210f=c=1): \u03ba\u2085\u00b2[L\u00b3] (G\u2085), \u039b\u2085[L\u207b\u00b2] \u27fa k=\u221a(|\u039b\u2085|/6)[L\u207b\u00b9] (L_AdS=1/k), \u03bb_crit=6k/\u03ba\u2085\u00b2[L\u207b\u2074] (4D tension); R_MID, \u0394R[L]. \u03bb_crit \u03ba\u2085\u00b2/\u221a|\u039b\u2085| is dimensionless (\u2192 \u221a6).",
+      "dimensions_L_power": {
+        "kappa5_sq": 3,
+        "Lambda5": -2,
+        "k": -1,
+        "lambda_crit": -4,
+        "R_MID": 1,
+        "Delta_R": 1
+      },
+      "sqrt6_combination_dim": 0.0,
+      "k_dim_from_sqrt_Lambda5": -1.0,
+      "pass": true
+    },
+    {
+      "name": "T3_delta_r_is_scale_modulus",
+      "description": "\u0394R = R_OUTER \u2212 R_INNER = 0.52 R_MID is the scale modulus \u2014 the one required dimensionful anchor (#52), a proper invariant length (#53). It sets the length unit; \u0394R/R_MID = 0.52, R_OUTER/R_MID = 1.26 are fixed geometry ratios. Units, not a residual.",
+      "Delta_R": 0.52,
+      "Delta_R_over_R_MID": 0.52,
+      "R_OUTER_over_R_MID": 1.26,
+      "role": "scale modulus = the length unit (one anchor, #52/#53)",
+      "pass": true
+    },
+    {
+      "name": "T4_sqrt6_fixed_tuning",
+      "description": "RS flatness: \u03bb_crit \u03ba\u2085\u00b2/\u221a|\u039b\u2085| = \u221a6 \u2248 2.449 (the 6 = AdS\u2085 curvature coefficient \u039b\u2085 = \u22126k\u00b2). One condition among (\u03bb, \u039b\u2085, \u03ba\u2085); dimensionless and derived (#57).",
+      "sqrt6": 2.4495,
+      "relation": "\u03bb_crit \u03ba\u2085\u00b2/\u221a|\u039b\u2085| = \u221a6 (verified for sample (k, \u03ba\u2085\u00b2))",
+      "pass": true
+    },
+    {
+      "name": "T5_ads_scale_ratio_bounded",
+      "description": "The open bulk number is the AdS scale k\u00b7R_MID = R_MID/L_AdS (= \u03ba\u2085\u00b2/\u039b\u2085 in throat units). Bounded by the cavity correction (k r)\u00b2 (#127): k\u00b7R_MID \u2272 0.1 \u27f9 correction \u2272 1.6% \u27f9 R_MID \u2272 L_AdS/10. The throat sits deep in the near-flat AdS region (why pure-Tangherlini #116/#127 is a good approximation).",
+      "rows": [
+        {
+          "k_R_MID": 0.05,
+          "cavity_correction_pct": 0.4,
+          "L_AdS_over_R_MID": 20.0
+        },
+        {
+          "k_R_MID": 0.1,
+          "cavity_correction_pct": 1.59,
+          "L_AdS_over_R_MID": 10.0
+        },
+        {
+          "k_R_MID": 0.2,
+          "cavity_correction_pct": 6.35,
+          "L_AdS_over_R_MID": 5.0
+        }
+      ],
+      "bound_k_R_MID": 0.1,
+      "correction_at_bound_pct": 1.59,
+      "pass": true
+    },
+    {
+      "name": "T6_consolidated_ledger",
+      "description": "{\u03ba\u2085\u00b2, \u039b\u2085} \u27f6 { G (gravity strength \u03ba\u2085\u00b2/\u0394R\u00b3 = the dimensionful anchor) } + { \u221a6 (RS tuning, FIXED, #57) } + { k\u00b7R_MID (AdS scale, OPEN but bounded \u2272 0.1, #127/#112) }, with \u0394R the unit (scale modulus, #52/#53). The \u03ba\u2085\u00b2/\u039b\u2085 residual is ONE bounded dimensionless number, not a multi-parameter freedom.",
+      "ledger": {
+        "unit": "\u0394R (scale modulus, #52/#53) \u2014 the length unit",
+        "fixed_tuning": "\u221a6 = \u03bb_crit \u03ba\u2085\u00b2/\u221a|\u039b\u2085| (#57)",
+        "anchor": "G = \u03ba\u2085\u00b2/\u0394R\u00b3 (gravity strength, the one dimensionful anchor, #105/#106)",
+        "open_bounded": "k\u00b7R_MID = R_MID/L_AdS \u2272 0.1 (the \u03ba\u2085\u00b2/\u039b\u2085 residual, #112/#127)"
+      },
+      "residual_count": "one bounded dimensionless number (k\u00b7R_MID)",
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "A consolidating/accounting ledger: it counts the bulk content, separates the scale modulus \u0394R (unit) from the residual, fixes \u221a6 (#57), and BOUNDS the open AdS ratio k\u00b7R_MID \u2272 0.1 (#127). It does NOT pin k\u00b7R_MID (still open, = the #112 residual), nor add any new free parameter. Ties to the input budget (#104): G is the one dimensionful anchor; this audits its bulk origin.",
+      "established": [
+        "\u0394R = the scale modulus (unit, #52/#53), not a residual",
+        "\u221a6 = the one fixed RS tuning (#57)",
+        "the \u03ba\u2085\u00b2/\u039b\u2085 residual = one bounded number k\u00b7R_MID \u2272 0.1 (#127)"
+      ],
+      "open": [
+        "the exact value of k\u00b7R_MID (the #112 residual, not pinned here)",
+        "the absolute G normalization (the dimensionful anchor itself)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The bulk dimensionful content {\u03ba\u2085\u00b2, \u039b\u2085} reduces, once \u0394R sets the unit (scale modulus, #52/#53) and \u221a6 fixes the RS tuning (#57), to ONE open but BOUNDED dimensionless number \u2014 the AdS scale k\u00b7R_MID \u2272 0.1 (#127), the recurring \u03ba\u2085\u00b2/\u039b\u2085 residual. The ledger bounds and isolates it; it does not pin it.",
+      "classification": "BULK_SCALE_LEDGER_ONE_BOUNDED_ADS_RATIO_DELTAR_IS_SCALE_MODULUS",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "BULK_SCALE_LEDGER_ONE_BOUNDED_ADS_RATIO_DELTAR_IS_SCALE_MODULUS",
+  "verdict": "THE BULK SCALE LEDGER REDUCES \u03ba\u2085\u00b2/\u039b\u2085 TO ONE BOUNDED DIMENSIONLESS NUMBER, WITH \u0394R THE UNIT. The absolute bulk scale surfaced as an open residual at every step (#57/#112/#127/#132); this ledger counts the content and separates the scale modulus from the residual.\n\nTHE DIMENSIONFUL CONTENT. In D=5 (\u210f=c=1): \u03ba\u2085\u00b2[L\u00b3] (the 5D Newton constant G\u2085), \u039b\u2085[L\u207b\u00b2] \u27fa k = \u221a(|\u039b\u2085|/6)[L\u207b\u00b9] (the AdS\u2085 inverse radius, L_AdS = 1/k), \u03bb_crit = 6k/\u03ba\u2085\u00b2[L\u207b\u2074] (the 4D brane tension), and the geometric lengths R_MID, \u0394R[L].\n\n\u0394R IS THE SCALE MODULUS \u2014 THE UNIT, NOT A RESIDUAL. The B4 scale-modulus theorem (#52) proved BAM cannot derive an absolute unit from scale-free topology: exactly one external dimensionful anchor is required. \u0394R = R_OUTER \u2212 R_INNER = 0.52 R_MID is that anchor \u2014 a proper, cosmologically-invariant length (#53) \u2014 and it sets the unit (R_MID = 1). The geometry ratios \u0394R/R_MID = 0.52, R_OUTER/R_MID = 1.26 are fixed. So \u0394R is units, not a residual.\n\n\u221a6 IS THE ONE FIXED DIMENSIONLESS TUNING. The Randall\u2013Sundrum flatness condition is \u03bb_crit \u03ba\u2085\u00b2/\u221a|\u039b\u2085| = \u221a6 \u2248 2.449 (the 6 is the AdS\u2085 curvature coefficient \u039b\u2085 = \u22126k\u00b2) \u2014 one condition among (\u03bb, \u039b\u2085, \u03ba\u2085), derived (#57).\n\nTHE OPEN BULK NUMBER IS BOUNDED. Once the unit (\u0394R) and the tuning (\u221a6) are fixed, the only remaining dimensionless bulk freedom is the AdS scale in throat units, k\u00b7R_MID = R_MID/L_AdS (= \u03ba\u2085\u00b2/\u039b\u2085 in throat units). It is not pinned, but it is BOUNDED: the cavity correction to the pure-Tangherlini background is (k r)\u00b2 (#127), so k\u00b7R_MID \u2272 0.1 keeps it \u2272 1.6% on the cavity. Hence R_MID \u2272 L_AdS/10 \u2014 the throat sits deep in the near-flat region of the AdS bulk, which is exactly why the pure-Tangherlini cavity (#116/#127) is a good approximation.\n\nTHE CONSOLIDATED LEDGER. {\u03ba\u2085\u00b2, \u039b\u2085} \u27f6 { G (gravity strength \u03ba\u2085\u00b2/\u0394R\u00b3 = the dimensionful anchor, #105/#106) } + { \u221a6 (RS tuning, FIXED) } + { k\u00b7R_MID (AdS scale, OPEN but bounded \u2272 0.1) }, with \u0394R the unit. So the recurring \"\u03ba\u2085\u00b2/\u039b\u2085 mystery\" is ONE bounded dimensionless number, not a multi-parameter freedom.\n\nSCOPE. A consolidating/accounting ledger: it bounds and isolates the residual, it does not PIN k\u00b7R_MID (still open, = the #112 residual), nor add any new free parameter. Ties to the input budget (#104): G is the one dimensionful anchor; this audits its bulk origin."
+}
