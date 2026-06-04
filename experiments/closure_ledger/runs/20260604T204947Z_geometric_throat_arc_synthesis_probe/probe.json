@@ -1,0 +1,125 @@
+{
+  "timestamp_utc": "2026-06-04T20:49:47+00:00",
+  "identification": "the geometric throat arc (#116, #127\u2013#130) unifies into the antipodal identification of the 5D Tangherlini horizon: a genuine curvature-regular D=5 vacuum throat, postulated as glued antipodally, giving a unitary mirror and a real, stable matter spectrum",
+  "horizon": "f(rs)=0, K=72rs\u2074/r\u2078 regular, T_H=1/2\u03c0rs, k\u2085=D_bulk=5 (#116/#127)",
+  "regular_antipodal": "EF/Kruskal regular, proper=\u221a(2rs \u03b5), F(rs)=4e\u207b\u00b2, (U,V)\u2192(\u2212U,\u2212V)=C-swap (#128)",
+  "antipodal_bc": "Y_l(\u2212x)=(\u22121)^l \u27f9 even-l Neumann/odd-l Dirichlet, unitary mirror (#129)",
+  "spectrum": "antipodal real undamped (stable matter) vs absorbing complex ringdown (#130)",
+  "unified_object": "one antipodal primitive, five faces (#58/#63/#128/#129/#130)",
+  "open": "AdS scale k=\u03ba\u2085\u00b2/\u039b\u2085 (#112); nucleation rate (#58/#88); global brane solution; horizon QNM tower (#130)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Synthesise the geometric throat arc (PRs #116, #127\u2013#130): re-verify a keystone from each member together, consolidate the unified picture (the antipodal identification of the 5D Tangherlini horizon), and lay out the epistemic ledger (derived / postulated / open).",
+      "arc": [
+        "#116 cavity operator",
+        "#127 5D bulk lift",
+        "#128 horizon-regular + antipodal map",
+        "#129 null throat BC",
+        "#130 antipodal vs absorbing spectrum"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_throat_is_5d_tangherlini_horizon",
+      "description": "Throat = 5D Tangherlini horizon: f(rs)=0; Kretschmann K = 72 rs\u2074/r\u2078 finite on the cavity (singularity only at r=0); T_H = 1/(2\u03c0 rs); cavity potential coefficients = D=5 reductions (centrifugal l(l+D\u22123), curvature D\u22122) \u27f9 k\u2085 = D_bulk = 5 (#73).",
+      "f_at_throat": 0.0,
+      "K_at_throat": 72.0,
+      "K_at_R_OUTER": 11.3336,
+      "T_H": 0.159155,
+      "k5_eq_D_bulk": 5,
+      "pass": true
+    },
+    {
+      "name": "T3_horizon_regular_and_antipodal",
+      "description": "EF det g = \u2212r\u2076 sin\u2074\u03c7 sin\u00b2\u03b8 finite/nonzero at the throat; proper distance \u221a(2 rs \u03b5) finite = the \u03b5 healing length (#112); Kruskal F(rs) = 4 e\u207b\u00b2; antipodal map (U,V) \u2192 (\u2212U,\u2212V) preserves UV (= C-swap #63).",
+      "ef_det_at_throat": -0.29904,
+      "proper_distance_sqrt_2rs_eps": 0.2,
+      "F_kruskal_at_throat": 0.54134,
+      "antipodal_preserves_UV": true,
+      "pass": true
+    },
+    {
+      "name": "T4_antipodal_l_parity_bc",
+      "description": "Y_l(\u2212x) = (\u22121)^l Y_l(x) \u27f9 even-l Neumann, odd-l Dirichlet at the throat; the real BC gives zero Klein\u2013Gordon flux (unitary mirror).",
+      "rows": [
+        {
+          "l": 0,
+          "parity": 1,
+          "minus1_l": 1,
+          "bc": "Neumann"
+        },
+        {
+          "l": 1,
+          "parity": -1,
+          "minus1_l": -1,
+          "bc": "Dirichlet"
+        },
+        {
+          "l": 2,
+          "parity": 1,
+          "minus1_l": 1,
+          "bc": "Neumann"
+        },
+        {
+          "l": 3,
+          "parity": -1,
+          "minus1_l": -1,
+          "bc": "Dirichlet"
+        }
+      ],
+      "real_bc_flux": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T5_spectral_consequence",
+      "description": "Antipodal BC \u27f9 real \u03c9 (undamped normal modes \u27f9 stable matter); absorbing BC \u27f9 complex \u03c9, Im < 0 (damped ringdown). The l=0 fundamental under each.",
+      "antipodal_omega": "1.186+0.000i",
+      "absorbing_omega": "1.893-1.159i",
+      "antipodal_real_stable": "True",
+      "absorbing_complex_ringdown": "True",
+      "pass": "True"
+    },
+    {
+      "name": "T6_one_primitive_five_faces",
+      "description": "The antipodal identification of the 5D Tangherlini horizon is one geometric primitive appearing under five faces: (1) C = inner/outer swap (#63); (2) throat \u2194 antithroat nucleation (#58); (3) the antipodal Kruskal map (U,V,\u03a9) \u2192 (\u2212U,\u2212V,\u03a9\u0304) (#128); (4) the l-parity unitary-mirror BC (#129); (5) the selector of the real, stable matter spectrum (#130). 'Bulk Antipodal Mechanics' is the mechanics of this identification.",
+      "faces": {
+        "C inner/outer swap (#63)": "c\u2081 \u2192 \u2212c\u2081",
+        "throat \u2194 antithroat (#58)": "nucleation channel",
+        "Kruskal antipode (#128)": "(U,V,\u03a9) \u2192 (\u2212U,\u2212V,\u03a9\u0304)",
+        "unitary-mirror BC (#129)": "l-parity Neumann/Dirichlet",
+        "stable-matter selector (#130)": "real undamped spectrum"
+      },
+      "pass": true
+    },
+    {
+      "name": "T7_epistemic_ledger",
+      "description": "Derived / postulated / open ledger for the arc.",
+      "derived": [
+        "throat parent = genuine D=5 Tangherlini vacuum (Ricci-flat, curvature-regular cavity, S\u00b3 horizon, T_H=1/2\u03c0rs, k\u2085=D_bulk)",
+        "coordinate singularity removable (EF/Kruskal); finite proper distance = \u03b5 healing length",
+        "antipodal identification \u27f9 l-parity BC, unitary mirror",
+        "antipodal spectrum real (stable matter); absorbing complex (ringdown)"
+      ],
+      "postulated": [
+        "the antipodal identification itself (throat glued antipodally, not absorbing) \u2014 BAM's defining axiom; shown self-consistent, not forced"
+      ],
+      "open": [
+        "exact AdS scale k = \u03ba\u2085\u00b2/\u039b\u2085 (#112)",
+        "dynamical throat \u2194 antithroat nucleation rate (#58/#88)",
+        "global brane-localised solution; idealised r*\u2192\u2212\u221e horizon QNM tower (#130)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The geometric throat arc's keystones are mutually consistent and unify into one picture: the antipodal identification of the 5D Tangherlini horizon \u2014 derived as a genuine curvature-regular D=5 vacuum throat, postulated as glued antipodally, yielding a unitary mirror and a real, stable matter spectrum. The exact AdS scale, the nucleation rate, the global brane solution, and the idealised horizon QNMs remain open.",
+      "classification": "GEOMETRIC_THROAT_ARC_SYNTHESIS_ANTIPODAL_HORIZON_UNIFIED",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "GEOMETRIC_THROAT_ARC_SYNTHESIS_ANTIPODAL_HORIZON_UNIFIED",
+  "verdict": "THE GEOMETRIC THROAT ARC UNIFIES INTO ONE PICTURE: THE ANTIPODAL IDENTIFICATION OF THE 5D TANGHERLINI HORIZON. PRs #116 and #127\u2013#130 lifted the BAM throat from a radial cavity operator to its full five-dimensional geometry and read off the physics; this capstone re-verifies the arc's keystones together and consolidates them.\n\nTHE THROAT IS THE 5D TANGHERLINI HORIZON (#116/#127). f(rs) = 0; the Kretschmann scalar K = 72 rs\u2074/r\u2078 is finite on the whole cavity (the only true singularity is at r = 0); T_H = 1/(2\u03c0 rs) carries the closure quantum; and the cavity potential's coefficients are the D=5 reductions (centrifugal l(l+D\u22123), curvature D\u22122), so k\u2085 = D_bulk = 5. The throat's parent is a genuine, curvature-regular D=5 vacuum.\n\nIT IS HORIZON-REGULAR AND ANTIPODAL (#128). Eddington\u2013Finkelstein and Kruskal coordinates remove the coordinate singularity (det g = \u2212r\u2076 sin\u2074\u03c7 sin\u00b2\u03b8 finite at the throat, proper distance \u221a(2 rs \u03b5) = the \u03b5 healing length, F_Kruskal(rs) = 4 e\u207b\u00b2), and the maximal extension's antipodal map (U,V) \u2192 (\u2212U,\u2212V) preserves UV \u2014 it is the throat \u2194 antithroat C-swap.\n\nTHE ANTIPODAL IDENTIFICATION FIXES THE BC (#129). The S\u00b3 harmonics carry Y_l(\u2212x) = (\u22121)^l Y_l(x), so the antipodal identification forces the wave BC by l-parity \u2014 even-l Neumann, odd-l Dirichlet \u2014 a real BC with zero throat flux: a unitary mirror.\n\nTHE SPECTRUM FOLLOWS (#130). The antipodal BC gives a real, undamped spectrum (sharp, stable matter); an absorbing horizon gives complex frequencies (Im \u03c9 < 0, damped ringdown). Stable matter requires the unitary antipodal throat.\n\nONE PRIMITIVE, FIVE FACES. The antipodal identification of the 5D Tangherlini horizon appears across the program as the C = inner/outer swap (#63), the throat \u2194 antithroat nucleation channel (#58), the antipodal Kruskal map (#128), the l-parity unitary-mirror BC (#129), and the selector of the real, stable matter spectrum (#130). \"Bulk Antipodal Mechanics\" is the mechanics of this one identification.\n\nTHE EPISTEMIC LEDGER. DERIVED: the throat's parent bulk is a genuine D=5 Tangherlini vacuum (Ricci-flat, curvature-regular cavity, S\u00b3 horizon, T_H = 1/2\u03c0rs, k\u2085 = D_bulk); the coordinate singularity is removable; the antipodal identification fixes the l-parity BC and the unitary mirror; the antipodal spectrum is real (stable matter), the absorbing one complex. POSTULATED: the antipodal identification itself \u2014 BAM's defining axiom \u2014 shown self-consistent (unitary, stable-matter-supporting), not forced. OPEN: the exact AdS scale k = \u03ba\u2085\u00b2/\u039b\u2085 (#112); the dynamical throat \u2194 antithroat nucleation rate (#58/#88); the global brane-localised solution; the idealised r* \u2192 \u2212\u221e horizon QNM tower and GW coupling (#130).\n\nSCOPE. A synthesis/consistency capstone: it re-verifies the arc's keystones together and organises them; it does not add new derivations, remove any open item, or strengthen the antipodal postulate from \"self-consistent\" to \"forced\"."
+}
