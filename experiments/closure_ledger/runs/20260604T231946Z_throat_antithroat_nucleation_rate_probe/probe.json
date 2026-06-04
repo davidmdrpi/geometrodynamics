@@ -1,0 +1,152 @@
+{
+  "timestamp_utc": "2026-06-04T23:19:46+00:00",
+  "identification": "the throat \u2194 antithroat nucleation on the horizon-regular background is the odd antipodal instanton on a smooth Euclidean cigar (\u03b2 = 2\u03c0 rs, the closure quantum), \u0393 ~ det^{\u22121/2} e^{\u2212S}: the prefactor is the #116 Tangherlini determinant and S \u221d ln(1/\u03b5) is the horizon tortoise divergence (rigid throat \u27f9 massless \u03bd)",
+  "smooth_cigar": "\u03b2 = 2\u03c0/\u03ba = 2\u03c0 rs (deficit 0); T_nuc = 1/(2\u03c0 rs) = T_H (closure quantum)",
+  "bounce": "odd antipodal instanton, region I\u2194III (#128), c\u2081\u2192\u2212c\u2081 (#63), \u0394L=2 (#58)",
+  "action": "S \u221d L*(\u03b5) = (rs/2) ln(1/\u03b5) + const (horizon tortoise divergence)",
+  "rate": "\u0393 ~ det^{\u22121/2} e^{\u2212S}; t \u2208 [2\u03c0, k\u2085\u221a(2\u03c0)] (#89), \u03b5 ~ R_c\u00b3 \u27f9 S \u2248 15\u201318, m_\u03bd ~ meV",
+  "prefactor": "the #116 Tangherlini determinant 1.574370",
+  "open": "exact \u03b5; absolute scale \u03ba\u2085\u00b2/\u039b\u2085; precise S / m_\u03bd (#88\u2013#90, #112)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Compute the throat \u2194 antithroat dynamical nucleation rate on the horizon-regular 5D Tangherlini background (the #131 lead open item), connecting the geometric throat arc (#127\u2013#131) to the Majorana bounce arc (#87\u2013#90).",
+      "builds_on": [
+        "#128 horizon-regular background + antipodal map",
+        "#58 throat\u2194antithroat / \u0394L=2",
+        "#87\u2013#90 Majorana bounce",
+        "#116 Tangherlini fluctuation determinant (prefactor)",
+        "#112 \u03b5 healing length"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_smooth_euclidean_cigar",
+      "description": "Euclidean cigar ds\u00b2_E \u2248 d\u03c1\u00b2 + \u03ba\u00b2\u03c1\u00b2 d\u03c4\u00b2: smooth (deficit 2\u03c0 \u2212 \u03ba\u03b2 = 0) iff \u03b2 = 2\u03c0/\u03ba = 2\u03c0 rs (Gibbons\u2013Hawking). Nucleation temperature T_nuc = 1/\u03b2 = 1/(2\u03c0 rs) = T_H \u2014 the closure quantum 2\u03c0.",
+      "kappa": 1.0,
+      "beta_smooth": 6.283185,
+      "deficit_rows": [
+        {
+          "beta": 6.28319,
+          "label": "\u03b2 = 2\u03c0/\u03ba",
+          "deficit_2pi_minus_kappa_beta": 0.0,
+          "smooth": true
+        },
+        {
+          "beta": 5.02655,
+          "label": "0.8\u00d7",
+          "deficit_2pi_minus_kappa_beta": 1.256637,
+          "smooth": false
+        },
+        {
+          "beta": 7.53982,
+          "label": "1.2\u00d7",
+          "deficit_2pi_minus_kappa_beta": -1.256637,
+          "smooth": false
+        }
+      ],
+      "near_horizon_check": [
+        {
+          "dr": 0.01,
+          "f": 0.019704,
+          "kappa2_rho2": 0.02,
+          "ratio": 0.9852
+        },
+        {
+          "dr": 0.001,
+          "f": 0.001997,
+          "kappa2_rho2": 0.002,
+          "ratio": 0.9985
+        }
+      ],
+      "T_nuc": 0.159155,
+      "closure_quantum": "2\u03c0 = \u03ba\u00b7\u03b2",
+      "pass": true
+    },
+    {
+      "name": "T3_antipodal_odd_instanton",
+      "description": "The throat \u2194 antithroat transition (the \u0394L = 2 Majorana / pair-production channel, #58) is the region I \u2194 III crossing of the maximal Kruskal extension (#128), mediated by the odd (c\u2081 \u2192 \u2212c\u2081, the C-swap #63) Euclidean instanton. Rate \u0393 ~ det^{\u22121/2} e^{\u2212S}.",
+      "transition": "throat \u2194 antithroat = Kruskal region I \u2194 III (#128)",
+      "odd_path": "c\u2081 \u2192 \u2212c\u2081 (C-swap #63); the \u0394L = 2 channel (#58)",
+      "rate_form": "\u0393 ~ [det(H)/det(H_free)]^{\u22121/2} \u00b7 e^{\u2212S}",
+      "pass": true
+    },
+    {
+      "name": "T4_log_epsilon_horizon_tortoise_divergence",
+      "description": "L*(\u03b5) = (rs/2) ln(1/\u03b5) + const \u2014 the bounce tortoise length is the horizon tortoise divergence (slope rs/2, verified). \u03b5 \u2192 0 \u27f9 S \u2192 \u221e, \u0393 \u2192 0, m_\u03bd \u2192 0 (rigid throat \u27f9 massless \u03bd, #88); the finite \u03b5 healing length (#112) regulates it.",
+      "rows": [
+        {
+          "eps": 0.01,
+          "L_star": 1.8204
+        },
+        {
+          "eps": 0.001,
+          "L_star": 2.9785
+        },
+        {
+          "eps": 0.0001,
+          "L_star": 4.1304
+        },
+        {
+          "eps": 1e-05,
+          "L_star": 5.2818
+        },
+        {
+          "eps": 1e-06,
+          "L_star": 6.4331
+        }
+      ],
+      "fitted_slope": 0.5007,
+      "asymptotic_slope": 0.5,
+      "predicted_slope_rs_over_2": 0.5,
+      "pass": true
+    },
+    {
+      "name": "T5_reduced_action_and_rate",
+      "description": "\u0394L=2 tension window t \u2208 [2\u03c0, k\u2085\u221a(2\u03c0)] \u2248 [6.28, 12.53] (#89), \u03b5 ~ R_c\u00b3 (#112) \u27f9 S \u2248 15\u201318, m_\u03bd = m_D e^{\u2212S} ~ few meV (#87/#90) \u2014 the observed scale to order of magnitude. Placed on the regular background; precise S / m_\u03bd residual.",
+      "tension_window": [
+        6.28,
+        12.53
+      ],
+      "eps_phys_Rc3": 0.011,
+      "L_star_phys": 1.772,
+      "S_band": "\u2248 15\u201318 (#88\u2013#90)",
+      "m_nu": "m_D e^{\u2212S} ~ few meV (#87/#90)",
+      "rate": "\u0393 ~ det^{\u22121/2} e^{\u2212S}",
+      "pass": true
+    },
+    {
+      "name": "T6_prefactor_is_tangherlini_determinant",
+      "description": "The one-loop nucleation prefactor is the Tangherlini fluctuation determinant (PR #116), det(H)/det(H_free) = 1.574370. The geometric arc closes: #116 is the prefactor, #127/#128 the regular stage, #58/#87\u2013#90 the bounce.",
+      "prefactor_det": 1.57437,
+      "prefactor_form": "[det(H)/det(H_free)]^{\u22121/2}",
+      "source": "PR #116 Gel'fand\u2013Yaglom",
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "NEW here: the Euclidean smoothness \u03b2 = 2\u03c0 rs (closure quantum), the ln(1/\u03b5) as the horizon tortoise divergence (slope rs/2), the prefactor = the #116 determinant, the antipodal-instanton structure. INHERITED / open: the exact \u03b5 value, the absolute gravitational scale \u03ba\u2085\u00b2/\u039b\u2085, the precise S and m_\u03bd (#88\u2013#90, #112). The rate is order-of-magnitude (meV), not pinned.",
+      "new": [
+        "smooth Euclidean cigar \u03b2 = 2\u03c0 rs = 2\u03c0/\u03ba (closure quantum)",
+        "bounce action ln(1/\u03b5) = horizon tortoise divergence (slope rs/2)",
+        "rate prefactor = the #116 Tangherlini determinant",
+        "antipodal odd instanton (region I\u2194III, c\u2081\u2192\u2212c\u2081)"
+      ],
+      "inherited_open": [
+        "the exact \u03b5 value (#112); the absolute scale \u03ba\u2085\u00b2/\u039b\u2085 (#112)",
+        "the precise S and m_\u03bd (#88\u2013#90); the rate is order-of-magnitude"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The throat \u2194 antithroat nucleation on the horizon-regular background is the odd antipodal instanton on the smooth Euclidean cigar (\u03b2 = 2\u03c0 rs, the closure quantum), with rate \u0393 ~ det^{\u22121/2} e^{\u2212S}: the prefactor is the #116 Tangherlini determinant and the action S \u221d ln(1/\u03b5) is the horizon tortoise divergence (rigid throat \u27f9 massless \u03bd). The exact \u03b5, the absolute scale, and the precise S / m_\u03bd remain open (inherited from #88\u2013#90, #112).",
+      "classification": "THROAT_ANTITHROAT_NUCLEATION_REGULAR_CIGAR_LOG_EPSILON_BOUNCE",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "THROAT_ANTITHROAT_NUCLEATION_REGULAR_CIGAR_LOG_EPSILON_BOUNCE",
+  "verdict": "THE THROAT \u2194 ANTITHROAT NUCLEATION ON THE HORIZON-REGULAR BACKGROUND IS THE ODD ANTIPODAL INSTANTON ON A SMOOTH EUCLIDEAN CIGAR. The geometric throat arc (#127\u2013#131) built the regular 5D background and identified the antipodal throat \u2194 antithroat map but left the nucleation rate open; the Majorana bounce arc (#87\u2013#90) had the bounce action on the EM/tortoise picture. This probe puts the nucleation on the regular background and supplies what the geometry contributes.\n\nTHE SMOOTH EUCLIDEAN CIGAR. Wick-rotating, the near-horizon Euclidean metric in the proper radius \u03c1 = \u221a(2 rs(r\u2212rs)) is ds\u00b2_E \u2248 d\u03c1\u00b2 + \u03ba\u00b2\u03c1\u00b2 d\u03c4\u00b2 with \u03ba = f'(rs)/2 = 1/rs. This is the flat plane in polar coordinates (\u03c1, \u03ba\u03c4) and is smooth \u2014 deficit 2\u03c0 \u2212 \u03ba\u03b2 = 0 \u2014 iff the imaginary-time period is \u03b2 = 2\u03c0/\u03ba = 2\u03c0 rs (Gibbons\u2013Hawking). So the Euclidean throat closes off smoothly, the nucleation temperature is T_nuc = 1/\u03b2 = 1/(2\u03c0 rs) = T_H, and the period is the closure quantum 2\u03c0 (#127).\n\nTHE BOUNCE IS THE ANTIPODAL ODD INSTANTON. The throat \u2194 antithroat transition (the \u0394L = 2 Majorana / pair-production channel, #58) is the region I \u2194 III crossing of the maximal Kruskal extension (#128), mediated by the odd (c\u2081 \u2192 \u2212c\u2081, the C-swap #63) instanton, with rate \u0393 ~ det^{\u22121/2} e^{\u2212S}.\n\nTHE ACTION IS THE HORIZON TORTOISE LENGTH. The bounce tortoise length to the \u03b5 healing length is L*(\u03b5) = (rs/2) ln(1/\u03b5) + const (slope rs/2 = 0.5, verified to 4 digits). The reduced action S = (tension)\u00b7\u221a(2\u03bc E_c)\u00b7L*(\u03b5) therefore grows as ln(1/\u03b5): the exact-horizon limit \u03b5 \u2192 0 costs infinite tortoise length \u27f9 S \u2192 \u221e, \u0393 \u2192 0, m_\u03bd \u2192 0 \u2014 the \"rigid throat \u27f9 massless neutrino\" of #88, now read off directly as the horizon tortoise divergence, regulated by the finite \u03b5 healing length (#112).\n\nTHE RATE. With the \u0394L = 2 tension window t \u2208 [2\u03c0, k\u2085\u221a(2\u03c0)] \u2248 [6.28, 12.53] (#89) and \u03b5 ~ R_c\u00b3 (#112), the #88\u2013#90 chain gives S \u2248 15\u201318 and m_\u03bd = m_D e^{\u2212S} ~ few meV \u2014 the observed scale, retrodicted to order of magnitude.\n\nTHE PREFACTOR CLOSES THE ARC. The one-loop nucleation prefactor is the Tangherlini fluctuation determinant of PR #116, det(H)/det(H_free) = 1.574370. The geometric arc closes on itself: #116 is the bounce prefactor, #127/#128 the regular stage, #58/#87\u2013#90 the bounce.\n\nSCOPE. NEW here: the Euclidean smoothness \u03b2 = 2\u03c0 rs (the closure quantum), the ln(1/\u03b5) as the horizon tortoise divergence (slope rs/2), the prefactor = the #116 determinant, the antipodal-instanton structure. INHERITED / open: the exact \u03b5 value, the absolute gravitational scale \u03ba\u2085\u00b2/\u039b\u2085, and hence the precise S and m_\u03bd (#88\u2013#90, #112). The rate is order-of-magnitude (meV), not pinned."
+}

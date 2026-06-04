@@ -1533,6 +1533,37 @@ problems rather than implementation TODOs:
   And what stays *open* is unchanged by the synthesis: the exact AdS scale
   `k = κ₅²/Λ₅` (PR #112), the dynamical nucleation rate (PRs #58/#88), the
   global brane-localised solution, and the idealised horizon quasinormal tower.
+  PR #132 takes up the first of those open items — the dynamical nucleation
+  rate — and connects this geometric arc back to the Majorana bounce arc
+  (#87–#90), which had computed the bounce action `S` controlling
+  `m_ν = m_D e^{−S}` on the EM/tortoise picture without a regular background to
+  stand on. Placed on the horizon-regular geometry, the throat ↔ antithroat
+  transition — the `ΔL = 2` Majorana / pair-production channel (#58) — is the
+  region I ↔ III crossing of the maximal Kruskal extension (#128), mediated by
+  the odd `c₁ → −c₁` instanton (the C-swap #63), with the standard bounce rate
+  `Γ ∼ [det(H)/det(H_free)]^{−1/2} e^{−S}`. The geometry supplies three things
+  the earlier arc could only posit. First, the Euclidean section is a *smooth
+  cigar*: Wick-rotating, the near-horizon metric in the proper radius
+  `ρ = √(2 rs(r−rs))` is `ds²_E ≈ dρ² + κ²ρ² dτ²`, the flat plane in polar
+  coordinates `(ρ, κτ)`, regular with no conical defect precisely when the
+  imaginary-time period is `β = 2π/κ = 2π rs` — the Gibbons–Hawking condition —
+  so the nucleation temperature is the Hawking temperature `T_nuc = 1/β =
+  1/(2π rs) = T_H` and the period is the closure quantum `2π`. Second, the
+  bounce action's logarithm is the horizon's own tortoise divergence: the
+  tortoise length of the odd path in to the `ε` healing length is
+  `L*(ε) = (rs/2) ln(1/ε) + const` (asymptotic slope `rs/2`, verified to four
+  digits), so `S ∝ ln(1/ε)` and the exact-horizon limit `ε → 0` costs infinite
+  tortoise length, sending `S → ∞`, `Γ → 0`, `m_ν → 0` — the "rigid throat ⟹
+  massless neutrino" of #88 now read off directly from the metric, regulated by
+  the finite healing length (#112). Third, the one-loop prefactor is the
+  Tangherlini fluctuation determinant of #116, `1.574370` — so the geometric arc
+  closes on itself: #116 is the prefactor, #127/#128 the regular stage, and
+  #58/#87–#90 the bounce. With the `ΔL = 2` tension window `t ∈ [2π, k₅√(2π)]`
+  (#89) and `ε ~ R_c³` (#112), the chain still gives `S ≈ 15–18` and
+  `m_ν ~ few meV` to order of magnitude; what this PR adds is the regular stage,
+  the smoothness condition, the geometric origin of the `ln(1/ε)`, and the
+  prefactor, while the inherited residuals — the exact `ε`, the absolute scale
+  `κ₅²/Λ₅`, and hence the precise `S` and `m_ν` — are unchanged and stay open.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
