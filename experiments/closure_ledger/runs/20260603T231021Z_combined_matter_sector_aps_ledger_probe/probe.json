@@ -1,0 +1,117 @@
+{
+  "timestamp_utc": "2026-06-03T23:10:21+00:00",
+  "identification": "the combined matter-sector APS ledger: partitions = derived topological factor \u00d7 feeding integer; topology derived everywhere; exactly one matter-partition residual (quark n_part), leptons fully derived; input budget = 1 anchor G + 4 dimensionless residuals {n_part, \u221a\u03c3/m_e, \u03b5, \u03b1} + flavor puzzle",
+  "universal_structure": "N = (derived factor) \u00d7 (feeding integer); spectral flow = 1; \u03be(a) = 1/2 \u2212 a",
+  "partition_ledger": "lepton 4\u00b7k\u2085\u00b2 (k\u2085 derived, no residual); quark 2\u00b7n_part (n_part residual); neutrino \u03b5 (value residual)",
+  "unique_partition_residual": "n_part (leptons 0, quarks 1)",
+  "input_budget": "1 anchor G + 4 residuals {n_part, \u221a\u03c3/m_e, \u03b5, \u03b1} + flavor puzzle",
+  "aps_role": "organizes and isolates the residuals; does not remove them",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Combine the quark (#123) and lepton (#124) APS audits into one matter-sector ledger and tie it to the full input budget (PRs #104\u2013#108, #112): a uniform topological classification of the matter sectors' partitions and their residuals.",
+      "combines": [
+        "#123 quark APS index",
+        "#124 lepton APS index",
+        "#104\u2013#108 input budget",
+        "#112 \u03b5 compliance"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_universal_aps_structure",
+      "description": "N_sector = (structural factor) \u00d7 (feeding integer); universal Z\u2082-graded APS index (spectral flow = 1, \u03be(a) = 1/2 \u2212 a). Topology (factor + spectral flow) derived everywhere; only the feeding integer can be residual.",
+      "partition_form": "N = (structural factor) \u00d7 (feeding integer)",
+      "spectral_flow": 1.0,
+      "xi_formula": "\u03be(a) = (\u03b7+h)/2 = 1/2 \u2212 a",
+      "topology_always_derived": true,
+      "pass": true
+    },
+    {
+      "name": "T3_matter_sector_partition_ledger",
+      "description": "Lepton N_lepton = 4\u00b7k\u2085\u00b2 = 100 (k\u2085 derived, no residual); quark N_q = 2\u00b7n_part = 466 (n_part residual); neutrino \u03b5 (order-of-mag derived, value residual).",
+      "ledger": [
+        {
+          "sector": "lepton",
+          "partition": "N_lepton = 4\u00b7k\u2085\u00b2 = 100",
+          "feeding": "k\u2085 = 5 (DERIVED bulk dim, #73)",
+          "residual": "none"
+        },
+        {
+          "sector": "quark",
+          "partition": "N_q = 2\u00b7n_part = 466",
+          "feeding": "n_part = 233 (RESIDUAL, drifts 216\u2013255)",
+          "residual": "n_part"
+        },
+        {
+          "sector": "neutrino",
+          "partition": "(\u03b5 compliance / healing length)",
+          "feeding": "\u03b5 ~ R_c\u00b3 (order-of-mag DERIVED, #112)",
+          "residual": "\u03b5 value"
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_matter_partition_residual_count",
+      "description": "Leptons 0 partition residuals (k\u2085 derived); quarks exactly 1 (n_part, drifts 216\u2013255) \u27f9 unique matter-partition residual = n_part.",
+      "lepton_partition_residuals": 0,
+      "quark_partition_residuals": 1,
+      "unique_matter_partition_residual": "n_part",
+      "n_part_s8_span": 39,
+      "pass": true
+    },
+    {
+      "name": "T5_full_input_budget",
+      "description": "One dimensionful anchor G (m_e, \u221a\u03c3 descend; #105/#106) + four dimensionless residuals {n_part (#123), \u221a\u03c3/m_e\u2248830 (#108), \u03b5 (#112), \u03b1 (#105)} + the universal flavor puzzle.",
+      "dimensionful_anchor": "G (bulk-gravity scale; m_e, \u221a\u03c3 descend; \u210f geometric, c units)",
+      "dimensionless_residuals": {
+        "n_part": "quark partition (APS-confirmed lone matter-partition residual, #123)",
+        "sqrt_sigma_over_m_e": "\u2248 830 lepton/QCD ratio (irreducible, #108)",
+        "epsilon": "neutrino compliance value (order-of-mag derived, #112)",
+        "alpha": "universal coupling (#105)"
+      },
+      "flavor_puzzle": "Yukawa hierarchy (not BAM-specific)",
+      "n_residuals": 4,
+      "pass": true
+    },
+    {
+      "name": "T6_aps_sharpening",
+      "description": "Topology (factor + spectral flow) derived in every sector; exactly ONE partition count (n_part) residual, leptons fully derived. The other residuals (\u221a\u03c3/m_e, \u03b5, \u03b1) are not partition counts \u27f9 APS isolates n_part as the unique matter-partition residual.",
+      "topology_derived_everywhere": true,
+      "unique_partition_residual": "n_part",
+      "non_partition_residuals": [
+        "\u221a\u03c3/m_e (ratio)",
+        "\u03b5 (compliance)",
+        "\u03b1 (coupling)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "Established: a uniform topological classification of the matter sectors (partition = derived factor \u00d7 feeding integer; topology derived everywhere; exactly one partition residual n_part; leptons fully derived) and the assembled input budget (one anchor G + four dimensionless residuals + flavor puzzle). Does not derive n_part, \u221a\u03c3/m_e, \u03b5, or \u03b1 \u2014 APS organizes and isolates the residuals, it does not remove them.",
+      "established": [
+        "matter partitions = derived factor \u00d7 feeding integer; topology derived everywhere",
+        "exactly one matter-partition residual (n_part); leptons fully derived",
+        "input budget: 1 anchor G + 4 residuals {n_part, \u221a\u03c3/m_e, \u03b5, \u03b1} + flavor puzzle"
+      ],
+      "not_removed": [
+        "n_part",
+        "\u221a\u03c3/m_e",
+        "\u03b5",
+        "\u03b1"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The combined matter-sector APS ledger classifies every partition as (derived topological factor) \u00d7 (feeding integer) \u2014 topology derived everywhere \u2014 so the matter sectors carry exactly ONE partition residual, the quark n_part, with leptons fully derived from k\u2085. Tied to the input budget: one anchor G + four dimensionless residuals {n_part, \u221a\u03c3/m_e, \u03b5, \u03b1} + the flavor puzzle. APS organizes and isolates the residuals; it does not remove them.",
+      "classification": "COMBINED_MATTER_SECTOR_APS_LEDGER_LEPTON_DERIVED_QUARK_ONE_RESIDUAL",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "COMBINED_MATTER_SECTOR_APS_LEDGER_LEPTON_DERIVED_QUARK_ONE_RESIDUAL",
+  "verdict": "THE COMBINED MATTER-SECTOR APS LEDGER: EVERY PARTITION IS (DERIVED TOPOLOGICAL FACTOR) \u00d7 (FEEDING INTEGER), SO THE MATTER SECTORS CARRY EXACTLY ONE PARTITION RESIDUAL \u2014 THE QUARK n_part \u2014 WITH LEPTONS FULLY DERIVED. PRs #123/#124 ran the APS index on the quark and lepton sectors; this probe combines them and ties the result to the input budget.\n\nTHE UNIVERSAL APS STRUCTURE. Every matter-sector partition is N_sector = (structural factor) \u00d7 (feeding integer), and the Z\u2082-graded Witten/APS index of the factorized sum (PR #122) is universal: the spectral flow is the integer 1, the APS \u03be-invariant is \u03be(a) = (\u03b7+h)/2 = 1/2 \u2212 a. The topological content \u2014 the structural factor and the integer spectral flow \u2014 is derived in every sector; only the feeding integer can be a residual.\n\nTHE PARTITION LEDGER. Lepton: N_lepton = 4\u00b7k\u2085\u00b2 = 100, feeding k\u2085 = 5 (the derived bulk dimension, #73) \u2014 NO residual. Quark: N_q = 2\u00b7n_part = 466, feeding n_part = 233 (the compensator residual, drifts 216\u2013255) \u2014 residual n_part. Neutrino: \u03b5 (compliance/healing length), order-of-magnitude derived (~R_c\u00b3, #112) \u2014 residual the \u03b5 value. So the unique matter-PARTITION residual is the quark n_part: leptons contribute 0, quarks exactly 1.\n\nTHE FULL INPUT BUDGET. Combining with PRs #104\u2013#108 and #112: one dimensionful anchor G (the bulk-gravity scale, from which both m_e and \u221a\u03c3 descend, #105/#106; \u210f geometric, c units); four dimensionless residuals \u2014 n_part (quark partition, the APS-confirmed lone matter-partition residual), \u221a\u03c3/m_e \u2248 830 (the lepton/QCD ratio, irreducible, #108), \u03b5 (the neutrino compliance value, order-of-mag derived, #112), \u03b1 (the universal coupling, #105); and the universal flavor puzzle. The APS audit's specific contribution is to isolate n_part as the unique matter-PARTITION residual \u2014 the other three residuals are a ratio, a compliance, and a coupling, not partition counts.\n\nSCOPE. The ledger ESTABLISHES the uniform topological classification (partition = derived factor \u00d7 feeding integer; topology derived everywhere; exactly one partition residual; leptons fully derived) and assembles the input budget. It does NOT derive n_part, \u221a\u03c3/m_e, \u03b5, or \u03b1 \u2014 APS organizes and isolates the residuals, it does not remove them."
+}

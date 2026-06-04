@@ -1350,7 +1350,24 @@ problems rather than implementation TODOs:
   outright. So the same index, applied to both sectors, isolates exactly
   where the program's single undetermined dimensionless integer lives: the
   leptons are the clean, fully-derived case, and the quark `n_part` is the
-  lone compensator residual.
+  lone compensator residual. PR #125 collects the two sector audits into a
+  single matter-sector APS ledger and reads off the input budget. The
+  pattern is uniform: every matter partition factorises as a derived
+  topological piece (a structural factor times the integer spectral flow `1`,
+  with `ξ(a) = 1/2 − a` the boundary term) times a single feeding integer,
+  and only that feeding integer can be a residual. So the lepton partition
+  `4·k₅²` is fully derived (`k₅` the bulk dimension), the quark partition
+  `2·n_part` carries the one residual `n_part`, and the neutrino sector
+  carries `ε` (derived to order of magnitude, value residual). The combined
+  picture, tied to the earlier input-budget audits, is then sharp: one
+  dimensionful anchor `G` (the bulk-gravity scale, with `m_e` and `√σ`
+  descending from it), four dimensionless residuals — `n_part` (the lone
+  matter-*partition* residual), `√σ/m_e ≈ 830` (the irreducible lepton/QCD
+  ratio), `ε` (the neutrino compliance value), and `α` (the universal
+  coupling) — and the universal flavour puzzle. The APS audit does not remove
+  any of these; what it adds is the clean statement that, among the matter
+  sectors' closure-partition counts, exactly one is undetermined, and it is
+  `n_part`.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
