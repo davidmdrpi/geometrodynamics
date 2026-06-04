@@ -1391,6 +1391,36 @@ problems rather than implementation TODOs:
   integral)`: it converges non-perturbatively. What stays open is the absolute
   normalisation (the bulk `κ₅²/Λ₅` anchor) and the multi-loop measure — the
   finiteness is established, the overall scale is not.
+  PR #127 then lifts the matter background itself to its parent geometry. The
+  Tangherlini fluctuation determinant (PR #116) runs the radial cavity operator
+  `V = f(r)[l(l+2)/r² + 3 rs²/r⁴]`, `f = 1 − (rs/r)²` — a reduced, radial
+  object — and the question is whether that throat is the boundary of a genuine
+  five-dimensional geometry or a 4D ansatz dressed up. The lift makes it
+  explicit: the parent is the D=5 Schwarzschild–Tangherlini metric
+  `ds² = −f dt² + f⁻¹dr² + r² dΩ₃²` with `f = 1 − (rs/r)^{D−3} = 1 − (rs/r)²`,
+  and a self-contained numerical curvature computation (metric → Christoffel →
+  Riemann → Ricci/Kretschmann) confirms it is a real vacuum: `R_μν = 0`,
+  `Λ = 0`, asymptotically flat, with Kretschmann `K = 72 rs⁴/r⁸` finite on the
+  whole cavity — the only true curvature singularity is at `r = 0`, behind the
+  throat, while `r = rs = R_MID` is a coordinate (horizon) singularity. The
+  throat is that 5D horizon, and its spatial section is the round `S³` — exactly
+  the Hopf base `S¹ → S³ → S²` the spin/CPT arc was built on. The two
+  coefficients of the PR #116 potential are precisely the D=5 reductions of this
+  metric — the centrifugal `l(l+2)` is the S³ Casimir `l(l+D−3)` (`D−3 = 2`),
+  the curvature term `3 rs²/r⁴` is `(D−2)/(2r)·f'` (`D−2 = 3`) — so `k₅ = D_bulk
+  = 5` (PR #73) is realised as the genuine bulk dimension of the metric, not a
+  fitted label. The Hawking period carries the closure quantum: surface gravity
+  `κ = f'(rs)/2 = 1/rs`, so `T_H = κ/2π = 1/(2π rs)`. Finally the lift reconciles
+  this Ricci-flat bulk with the AdS₅ Randall–Sundrum bulk of PR #57 (the `√6`
+  tuning): the Schwarzschild–Tangherlini–AdS₅ metric `f = 1 − rs²/r² + k²r²` is
+  Einstein with `R_μν = −4k² g_μν`, `Λ₅ = −6k²` (verified), interpolating the
+  Tangherlini neck (`k²r² → 0` near the throat) to the AdS₅/RS asymptote
+  (`f → k²r²` far away); on the cavity the AdS correction is `O(10⁻²)` for
+  `k·rs ≲ 0.1`, so the pure-Tangherlini cavity is the near-throat limit, good to
+  ~1%. What stays open is the exact AdS scale `k` — the unpinned bulk ratio
+  `κ₅²/Λ₅` (PR #112) — and the full global brane-localised solution; the
+  classical bulk geometry of the throat is established, its absolute scale is
+  not.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
