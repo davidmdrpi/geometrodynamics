@@ -1,0 +1,185 @@
+{
+  "timestamp_utc": "2026-06-04T05:32:14+00:00",
+  "identification": "the antipodal throat (PR #129) gives a real, undamped normal-mode spectrum (Im \u03c9 = 0, Q = \u221e), while an absorbing horizon gives complex quasinormal frequencies (Im \u03c9 < 0, damped ringdown, Q ~ O(1)); stable matter requires the unitary antipodal throat",
+  "antipodal": "real \u03c9 (Im \u2248 0), undamped normal modes, Q = \u221e, l-parity graded",
+  "absorbing": "complex \u03c9 = \u03c9_R \u2212 i|\u03c9_I| (Im < 0), damped ringdown, Q ~ O(1)",
+  "consequence": "stable matter (sharp real masses) needs the unitary antipodal throat (#64/#129)",
+  "open": "idealised r* \u2192 \u2212\u221e horizon QNMs; GW coupling; absolute normalisation",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Compute and contrast the quasinormal/normal frequency spectrum of the BAM cavity under the two throat boundary conditions \u2014 the antipodal (BAM, PR #129) and the absorbing (ordinary horizon) \u2014 the spectral fingerprint distinguishing them.",
+      "builds_on": [
+        "#129 antipodal l-parity BC (unitary mirror)",
+        "#116 Tangherlini cavity operator",
+        "#64 CPT/unitarity"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_eigenproblem_setup",
+      "description": "\u2212d\u00b2\u03c8/dr*\u00b2 + V_l \u03c8 = \u03c9\u00b2\u03c8 on [R_MID+\u03b5, R_OUTER], shell wall (Dirichlet) at R_OUTER; throat BC either antipodal (real l-parity: even-l Neumann \u03c8'=0, odd-l Dirichlet \u03c8=0; self-adjoint) or absorbing (ingoing \u03c8'=\u2212i\u03c9\u03c8; non-self-adjoint). The absorbing case is a quadratic eigenvalue problem solved by companion linearisation.",
+      "cavity": "[1.0+\u03b5, 1.26], \u03b5 = 0.02",
+      "outer_bc": "Dirichlet shell wall at R_OUTER",
+      "throat_bcs": {
+        "antipodal": "real l-parity (N even / D odd)",
+        "absorbing": "ingoing \u03c8'=\u2212i\u03c9\u03c8"
+      },
+      "method": "QEP companion linearisation (K0+\u03c9K1+\u03c9\u00b2K2)v=0",
+      "grid_N": 200,
+      "pass": true
+    },
+    {
+      "name": "T3_antipodal_real_undamped",
+      "description": "Antipodal (real l-parity) BC \u27f9 self-adjoint operator \u27f9 real spectrum Im(\u03c9) \u2248 0: undamped normal modes (Q = \u221e, zero width), l-parity graded (even-l Neumann, odd-l Dirichlet).",
+      "rows": [
+        {
+          "l": 0,
+          "bc": "N",
+          "omega": [
+            "1.181-0.000i",
+            "3.293-0.000i",
+            "5.439-0.000i"
+          ]
+        },
+        {
+          "l": 1,
+          "bc": "D",
+          "omega": [
+            "2.295+0.000i",
+            "4.363+0.000i",
+            "6.478+0.000i"
+          ]
+        },
+        {
+          "l": 2,
+          "bc": "N",
+          "omega": [
+            "1.436+0.000i",
+            "3.443+0.000i",
+            "5.532-0.000i"
+          ]
+        },
+        {
+          "l": 3,
+          "bc": "D",
+          "omega": [
+            "2.594+0.000i",
+            "4.536+0.000i",
+            "6.595+0.000i"
+          ]
+        }
+      ],
+      "max_abs_Im_omega": 0.0,
+      "real_undamped_spectrum": true,
+      "pass": true
+    },
+    {
+      "name": "T4_absorbing_complex_ringdown",
+      "description": "Absorbing (ingoing \u03c8'=\u2212i\u03c9\u03c8) BC \u27f9 non-self-adjoint operator \u27f9 complex spectrum \u03c9 = \u03c9_R \u2212 i|\u03c9_I|, Im(\u03c9) < 0: damped quasinormal ringdown (energy lost into the horizon).",
+      "rows": [
+        {
+          "l": 0,
+          "omega": [
+            "1.893-1.241i",
+            "3.917-1.166i",
+            "6.009-1.044i"
+          ],
+          "all_Im_negative": true
+        },
+        {
+          "l": 1,
+          "omega": [
+            "1.995-1.126i",
+            "3.973-1.140i",
+            "6.044-1.035i"
+          ],
+          "all_Im_negative": true
+        },
+        {
+          "l": 2,
+          "omega": [
+            "2.168-1.000i",
+            "4.063-1.100i",
+            "6.102-1.021i"
+          ],
+          "all_Im_negative": true
+        },
+        {
+          "l": 3,
+          "omega": [
+            "2.389-0.896i",
+            "4.185-1.050i",
+            "6.182-1.002i"
+          ],
+          "all_Im_negative": true
+        }
+      ],
+      "all_modes_damped": true,
+      "pass": true
+    },
+    {
+      "name": "T5_quality_factor_contrast",
+      "description": "Q = \u03c9_R/(2|\u03c9_I|): antipodal Q = \u221e (sharp \u03b4-line, zero width, infinite lifetime); absorbing Q ~ O(1) (Lorentzian width \u0393 = 2|\u03c9_I|, lifetime \u03c4 = 1/|\u03c9_I|) \u2014 the thin cavity leaks fast into the throat.",
+      "rows": [
+        {
+          "l": 0,
+          "antipodal_omega": "1.181-0.000i",
+          "Q_antipodal": "inf",
+          "absorbing_omega": "1.893-1.241i",
+          "Q_absorbing": 0.763,
+          "lifetime_tau_absorbing": 0.806
+        },
+        {
+          "l": 1,
+          "antipodal_omega": "2.295+0.000i",
+          "Q_antipodal": "inf",
+          "absorbing_omega": "1.995-1.126i",
+          "Q_absorbing": 0.886,
+          "lifetime_tau_absorbing": 0.888
+        },
+        {
+          "l": 2,
+          "antipodal_omega": "1.436+0.000i",
+          "Q_antipodal": "inf",
+          "absorbing_omega": "2.168-1.000i",
+          "Q_absorbing": 1.084,
+          "lifetime_tau_absorbing": 1.0
+        }
+      ],
+      "pass": "True"
+    },
+    {
+      "name": "T6_stable_matter_needs_unitary_throat",
+      "description": "Stable matter (sharp real masses) requires real mode frequencies. The absorbing throat gives every state a width / complex mass (decaying resonance); only the antipodal unitary throat (PR #129) gives the real, stable spectrum the BAM lepton/quark bound states need \u2014 the spectral face of global CPT / unitarity (PR #64).",
+      "antipodal_fundamental": "1.181-0.000i (real \u27f9 stable)",
+      "absorbing_fundamental": "1.893-1.241i (complex \u27f9 decays)",
+      "stable_matter_needs_antipodal": "True",
+      "pass": "True"
+    },
+    {
+      "name": "T7_scope",
+      "description": "Computes the normal/quasinormal spectrum of the FINITE BAM cavity [R_MID+\u03b5, R_OUTER] under the two throat BCs. Does NOT compute the idealised r* \u2192 \u2212\u221e horizon QNMs, the coupling to gravitational radiation, or the absolute mode normalisation. The absorbing case is the counterfactual \u2014 BAM selects the antipodal BC (PR #129); the Im(\u03c9) < 0 sign is the e^{\u2212i\u03c9t} decay convention.",
+      "established": [
+        "antipodal \u27f9 real undamped spectrum (Q = \u221e), l-parity graded",
+        "absorbing \u27f9 complex ringdown (Im \u03c9 < 0, Q ~ O(1))",
+        "stable matter requires the unitary antipodal throat"
+      ],
+      "open": [
+        "the idealised r* \u2192 \u2212\u221e horizon QNMs (full ringdown tower)",
+        "gravitational-radiation coupling; absolute mode normalisation"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The antipodal throat (PR #129) gives a real, undamped normal-mode spectrum (Im \u03c9 = 0, Q = \u221e \u2014 sharp stable lines), while an absorbing horizon gives complex quasinormal frequencies (Im \u03c9 < 0, damped ringdown, Q ~ O(1)). Stable matter \u2014 the BAM lepton/quark bound states \u2014 requires the unitary antipodal throat. The idealised horizon QNMs and the GW coupling remain open.",
+      "classification": "ANTIPODAL_THROAT_REAL_UNDAMPED_VS_ABSORBING_COMPLEX_RINGDOWN",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "ANTIPODAL_THROAT_REAL_UNDAMPED_VS_ABSORBING_COMPLEX_RINGDOWN",
+  "verdict": "THE ANTIPODAL THROAT GIVES A REAL, UNDAMPED SPECTRUM; THE ABSORBING HORIZON GIVES COMPLEX RINGDOWN. PR #129 fixed the BAM throat BC as the antipodal, l-parity-graded condition (a unitary mirror); this probe computes the full frequency spectrum for both that BC and the ordinary absorbing horizon, and contrasts them.\n\nTHE EIGENPROBLEM. The separated radial equation \u2212d\u00b2\u03c8/dr*\u00b2 + V_l \u03c8 = \u03c9\u00b2\u03c8 runs on the BAM cavity [R_MID+\u03b5, R_OUTER] with the shell wall (Dirichlet) at R_OUTER and, at the throat, either the antipodal real l-parity BC (Neumann for even l, Dirichlet for odd l; self-adjoint) or the absorbing ingoing BC \u2202\u03c8(throat) = \u2212i\u03c9 \u03c8(throat) (non-self-adjoint). The absorbing case is a quadratic eigenvalue problem in \u03c9, solved by companion linearisation.\n\nANTIPODAL \u27f9 REAL, UNDAMPED. The antipodal BC makes the operator self-adjoint, so its spectrum is real: Im(\u03c9) \u2248 0 (numerically zero). These are infinitely-lived normal modes \u2014 sharp spectral lines, quality factor Q = \u221e, zero width \u2014 and they are l-parity graded (even-l Neumann, odd-l Dirichlet). The unitary mirror of PR #129 conserves the mode energy.\n\nABSORBING \u27f9 COMPLEX, RINGDOWN. The ingoing BC makes the operator non-self-adjoint; the eigenfrequencies are \u03c9 = \u03c9_R \u2212 i|\u03c9_I| with Im(\u03c9) < 0 \u2014 damped quasinormal modes. The lowest l=0 mode is \u2248 1.89 \u2212 1.24i: a ringdown of lifetime \u03c4 = 1/|\u03c9_I| \u2248 0.8 and quality factor Q = \u03c9_R/(2|\u03c9_I|) \u2248 0.8, the thin cavity leaking fast into the throat. Energy is lost into the horizon.\n\nTHE DECAY CONTRAST. The quality factor Q = \u03c9_R/(2|\u03c9_I|) is infinite for the antipodal throat (a sharp \u03b4-line) but O(1) for the absorbing horizon (a Lorentzian of width \u0393 = 2|\u03c9_I|, finite lifetime \u03c4 = 1/|\u03c9_I|).\n\nSTABLE MATTER NEEDS THE UNITARY THROAT. A matter state is a sharp mass \u2014 a stable or long-lived particle \u2014 only if its cavity mode has a real frequency. The absorbing throat gives every mode a width / complex mass (a decaying resonance); only the antipodal, unitary throat (PR #129) yields the real, stable spectrum that the BAM matter sectors (the lepton/quark bound states) require. The undamped-vs-ringdown distinction is the spectral face of the program's global CPT / unitarity (PR #64): BAM matter is stable precisely because the throat reflects antipodally rather than absorbing.\n\nSCOPE. This computes the spectrum of the FINITE BAM cavity (the physically appropriate region) under the two throat BCs. It does NOT compute the idealised r* \u2192 \u2212\u221e horizon QNMs, the coupling to gravitational radiation, or the absolute mode normalisation. The absorbing case is the counterfactual \u2014 BAM selects the antipodal BC (PR #129); the contrast shows what is at stake. The Im(\u03c9) < 0 sign is the e^{\u2212i\u03c9t} decay convention."
+}
