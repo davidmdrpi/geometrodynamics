@@ -1477,6 +1477,32 @@ problems rather than implementation TODOs:
   even-`k`/odd-`k` Z₂ structure (PRs #67/#121). What stays open is the full
   quasinormal spectrum (complex `ω`, ringdown) and, again, the dynamical
   nucleation rate; the kinematic transport law across the throat is fixed.
+  PR #130 computes that quasinormal spectrum and turns the antipodal-vs-absorbing
+  distinction into a sharp spectral fingerprint. On the same cavity
+  `−d²ψ/dr*² + V_l ψ = ω²ψ` (shell wall at `R_OUTER`), the throat is given either
+  the antipodal real l-parity BC of PR #129 or the absorbing ingoing condition
+  `ψ'(throat) = −iω ψ(throat)` of an ordinary horizon; the latter puts `ω` in the
+  boundary condition, making it a quadratic eigenvalue problem solved by
+  companion linearisation. The two spectra could not be more different. The
+  antipodal BC is self-adjoint, so its spectrum is exactly real — `Im(ω) = 0` to
+  numerical precision — a tower of *undamped* normal modes, sharp zero-width
+  lines of infinite quality factor `Q`, split by parity into even-`l` (Neumann)
+  and odd-`l` (Dirichlet) families. The absorbing BC is non-self-adjoint, and its
+  frequencies are *complex*, `ω = ω_R − i|ω_I|` with `Im(ω) < 0` — damped
+  quasinormal ringdown, the fundamental sitting near `1.89 − 1.24i`, with a finite
+  lifetime `τ = 1/|ω_I|` and a quality factor `Q = ω_R/(2|ω_I|) ∼ O(1)` because
+  the thin cavity leaks fast into the horizon. The physical reading is the
+  payoff: a matter state is a sharp mass — a stable or long-lived particle — only
+  if its cavity mode frequency is real, and the absorbing throat gives every mode
+  a width, a complex mass, a decaying resonance. Only the antipodal, unitary
+  throat yields the real, stable spectrum the BAM matter sectors — the
+  lepton/quark bound states — actually have. The undamped-versus-ringdown
+  contrast is therefore the spectral face of the program's global CPT and
+  unitarity (PR #64): BAM matter is stable precisely because the throat reflects
+  antipodally rather than absorbing. What stays open is the idealised
+  `r* → −∞` horizon quasinormal tower, the coupling to gravitational radiation,
+  and the absolute mode normalisation; the absorbing case is the counterfactual
+  that shows what the antipodal postulate buys.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
