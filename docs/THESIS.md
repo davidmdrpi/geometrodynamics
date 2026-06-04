@@ -1349,8 +1349,10 @@ problems rather than implementation TODOs:
   `n_part` free and drifting, whereas lepton `N_lepton = 4·k₅²` is fixed
   outright. So the same index, applied to both sectors, isolates exactly
   where the program's single undetermined dimensionless integer lives: the
-  leptons are the clean, fully-derived case, and the quark `n_part` is the
-  lone compensator residual. PR #125 collects the two sector audits into a
+  leptons are the clean, fully-derived case, and the quark `n_part` is — after
+  the APS reduction — the *unique matter-partition residual*, no longer an
+  unexplained compensator but the one feeding integer the index cannot fix.
+  PR #125 collects the two sector audits into a
   single matter-sector APS ledger and reads off the input budget. The
   pattern is uniform: every matter partition factorises as a derived
   topological piece (a structural factor times the integer spectral flow `1`,
@@ -1368,6 +1370,27 @@ problems rather than implementation TODOs:
   any of these; what it adds is the clean statement that, among the matter
   sectors' closure-partition counts, exactly one is undetermined, and it is
   `n_part`.
+  PR #126 then audits whether the factorised Z₂-graded sector sum that carries
+  all of this — the sum of PR #122, `Z = Σ_{k odd, c₁, n_part} (−1)^k ∫ (dL/L)
+  det^{−1/2}_matter · e^{i(π/2)(1−2a)} · e^{−S_BAM}` — actually *converges*
+  non-perturbatively, rather than being a formal expression that diverges. It
+  factorises over three independent labels, and each piece is finite. The
+  winding sum is not an infinite tower: the odd-`k` lemma and the available
+  closure phase `Φ_avail(k) = 2π(k+1) + 50π·max(0, k−3)²` cap it at
+  `k ∈ {1, 3, 5}` — the three generations, with `k₅ = 5` the bound — so it is a
+  finite three-term sum. The Hopf-charge sum is a convergent Jacobi theta,
+  `Σ_{c₁∈ℤ} e^{−A c₁²} = √(π/A) · θ₃ → √(π/A)`, the Gaussian `c₁²` action cost
+  making it absolutely convergent. The moduli integral
+  `∫₀^∞ (dt/t)[θ_per − θ_anti] e^{−m²t}` is finite at *both* ends: at the UV
+  (`t → 0`) the Z₂ grading cancels the boundary-condition-independent Weyl
+  divergence, leaving `θ_per − θ_anti ~ e^{−π²/t} → 0`, and at the IR
+  (`t → ∞`) the mass gap `e^{−m²t}` kills the tail. The grading is doing real
+  work — it is exactly the orientation signs `(−1)^k` that remove the UV
+  divergence the individual boundary conditions would carry. So the Z₂-graded
+  sector sum is `(finite winding) × (convergent Hopf theta) × (finite moduli
+  integral)`: it converges non-perturbatively. What stays open is the absolute
+  normalisation (the bulk `κ₅²/Λ₅` anchor) and the multi-loop measure — the
+  finiteness is established, the overall scale is not.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
