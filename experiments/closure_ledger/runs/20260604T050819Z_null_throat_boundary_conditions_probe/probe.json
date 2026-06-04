@@ -1,0 +1,177 @@
+{
+  "timestamp_utc": "2026-06-04T05:08:19+00:00",
+  "identification": "the null throat imposes the antipodal, l-parity-graded BC (even-l Neumann, odd-l Dirichlet, from Y_l(\u2212x) = (\u22121)^l Y_l), making it a unitary flux-conserving mirror rather than an absorbing horizon; the exterior cavity spectrum is real, discrete, even/odd-graded",
+  "vanishing_potential": "V_l \u221d f \u2192 0 at throat; null modes \u03c8 ~ e^{\u00b1i\u03c9r*}",
+  "antipodal_bc": "even-l Neumann (\u03c8'=0), odd-l Dirichlet (\u03c8=0) from Y_l parity (\u22121)^l",
+  "unitarity": "real BC \u27f9 zero throat flux (unitary mirror); ingoing BC \u27f9 flux \u2212\u03c9 (absorbing)",
+  "spectrum": "real, positive, discrete; even-l (N) vs odd-l (D) distinct",
+  "open": "full QNM spectrum (complex \u03c9); throat\u2194antithroat nucleation rate (#58/#88)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Derive the boundary condition the null throat (the 5D horizon) imposes on transported waves (PR #116 cavity operator, PR #128 antipodal structure): the BAM-native antipodal, l-parity-graded BC.",
+      "builds_on": [
+        "#128 antipodal Kruskal horizon (throat\u2194antithroat)",
+        "#116 Tangherlini cavity operator",
+        "#64 CPT/unitarity",
+        "#67/#121 even-k/odd-k Z\u2082 structure"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_vanishing_potential_null_modes",
+      "description": "V_l = f[l(l+2)/r\u00b2 + 3rs\u00b2/r\u2074] \u221d f \u2192 0 at the throat \u27f9 near-horizon \u2212\u03c8'' = \u03c9\u00b2\u03c8, the pure null modes \u03c8 ~ e^{\u00b1i\u03c9r*} (ingoing/outgoing, v = t+r*, u = t\u2212r*).",
+      "rows": [
+        {
+          "l": 0,
+          "V_at_throat": 0.0,
+          "V_at_R_OUTER": 0.4405
+        },
+        {
+          "l": 1,
+          "V_at_throat": 0.0,
+          "V_at_R_OUTER": 1.1399
+        },
+        {
+          "l": 2,
+          "V_at_throat": 0.0,
+          "V_at_R_OUTER": 2.3056
+        },
+        {
+          "l": 3,
+          "V_at_throat": 0.0,
+          "V_at_R_OUTER": 3.9375
+        }
+      ],
+      "near_horizon_modes": "\u03c8 ~ e^{\u00b1i\u03c9r*} (null ingoing/outgoing)",
+      "pass": true
+    },
+    {
+      "name": "T3_three_candidate_bcs",
+      "description": "Three candidate throat BCs: (1) ingoing/absorbing \u03c8 ~ e^{\u2212i\u03c9r*} (flux lost into the horizon, non-unitary); (2) reflective wall (Dirichlet/Neumann, real discrete spectrum, the cavity of #116); (3) antipodal (BAM-native, #128): \u03a6(U,V,\u03a9) = \u03a6(\u2212U,\u2212V,\u03a9_antipodal).",
+      "candidates": {
+        "ingoing_absorbing": "\u03c8 ~ e^{\u2212i\u03c9r*}; flux into horizon; non-unitary",
+        "reflective_wall": "Dirichlet/Neumann; real discrete spectrum (#116)",
+        "antipodal_BAM": "\u03a6(U,V,\u03a9)=\u03a6(\u2212U,\u2212V,\u03a9_antipodal) (#128 identification)"
+      },
+      "pass": true
+    },
+    {
+      "name": "T4_antipodal_map_fixes_l_parity_bc",
+      "description": "Y_l(\u2212x) = (\u22121)^l Y_l(x) on S\u00b3 (degree-l harmonic polynomials; verified). Single-valuedness \u03a6(U,V,\u03a9) = \u03a6(\u2212U,\u2212V,\u03a9_antipodal) \u27f9 radial parity (\u22121)^l across the throat: even-l \u2192 Neumann (antinode), odd-l \u2192 Dirichlet (node).",
+      "rows": [
+        {
+          "l": 0,
+          "antipodal_parity_Yl": 1.0,
+          "minus1_to_l": 1,
+          "throat_bc": "Neumann (\u03c8'=0, antinode)"
+        },
+        {
+          "l": 1,
+          "antipodal_parity_Yl": -1.0,
+          "minus1_to_l": -1,
+          "throat_bc": "Dirichlet (\u03c8=0, node)"
+        },
+        {
+          "l": 2,
+          "antipodal_parity_Yl": 1.0,
+          "minus1_to_l": 1,
+          "throat_bc": "Neumann (\u03c8'=0, antinode)"
+        },
+        {
+          "l": 3,
+          "antipodal_parity_Yl": -1.0,
+          "minus1_to_l": -1,
+          "throat_bc": "Dirichlet (\u03c8=0, node)"
+        },
+        {
+          "l": 4,
+          "antipodal_parity_Yl": 1.0,
+          "minus1_to_l": 1,
+          "throat_bc": "Neumann (\u03c8'=0, antinode)"
+        }
+      ],
+      "rule": "even-l: Neumann \u03c8'(throat)=0; odd-l: Dirichlet \u03c8(throat)=0",
+      "twisted_field_note": "a twisted/M\u00f6bius field flips even\u2194odd (Z\u2082 grading, #67/#121)",
+      "pass": true
+    },
+    {
+      "name": "T5_unitary_mirror_flux_conservation",
+      "description": "Real (antipodal) BC \u27f9 throat flux j \u221d Im(\u03c8*\u03c8') = 0: a unitary mirror. Ingoing/absorbing BC \u03c8 ~ e^{\u2212i\u03c9r*} \u27f9 j = \u2212\u03c9 \u2260 0 (flux into the hole). The antipodal throat conserves flux (unitarity, global CPT #64).",
+      "flux_ingoing_absorbing": -1.3,
+      "flux_real_antipodal_BC": 0.0,
+      "minus_omega": -1.3,
+      "antipodal_is_unitary_mirror": true,
+      "pass": true
+    },
+    {
+      "name": "T6_real_discrete_l_graded_spectrum",
+      "description": "Exterior cavity \u2212d\u00b2/dr*\u00b2 + V_l (shell wall at R_OUTER, antipodal BC at the throat) has a real, positive, discrete spectrum (unitary bound cavity); even-l (Neumann) and odd-l (Dirichlet) families differ \u2014 the wave-transport face of the even/odd Z\u2082 structure (#67/#121).",
+      "rows": [
+        {
+          "l": 0,
+          "antipodal_bc": "N",
+          "lowest_omega2": [
+            1.368,
+            10.629,
+            28.99
+          ]
+        },
+        {
+          "l": 1,
+          "antipodal_bc": "D",
+          "lowest_omega2": [
+            5.269,
+            19.047,
+            41.995
+          ]
+        },
+        {
+          "l": 2,
+          "antipodal_bc": "N",
+          "lowest_omega2": [
+            2.025,
+            11.632,
+            30.004
+          ]
+        },
+        {
+          "l": 3,
+          "antipodal_bc": "D",
+          "lowest_omega2": [
+            6.728,
+            20.582,
+            43.527
+          ]
+        }
+      ],
+      "real_positive_discrete": true,
+      "even_odd_graded": true,
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "Establishes the kinematic BC structure of classical wave transport across the null throat: vanishing potential, l-parity-graded antipodal BC, unitary-mirror flux, real discrete spectrum. Does NOT solve the full quasinormal spectrum or the dynamical throat \u2194 antithroat nucleation amplitude (#58/#88); the absorbing-vs-antipodal choice is fixed by the BAM antipodal postulate (#128), shown here to be self-consistent and unitary.",
+      "established": [
+        "V_l \u2192 0 at the throat; near-horizon null modes e^{\u00b1i\u03c9r*}",
+        "antipodal BC: even-l Neumann, odd-l Dirichlet (Y_l parity (\u22121)^l)",
+        "unitary mirror (zero throat flux); real discrete l-graded spectrum"
+      ],
+      "open": [
+        "the full quasinormal-mode spectrum (complex \u03c9, ringdown)",
+        "the dynamical throat \u2194 antithroat nucleation rate (#58/#88)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The null throat imposes the antipodal, l-parity-graded boundary condition \u2014 even-l Neumann, odd-l Dirichlet, from the S\u00b3 harmonic parity Y_l(\u2212x) = (\u22121)^l Y_l(x) under the PR #128 antipodal identification \u2014 making the throat a unitary, flux-conserving mirror rather than an absorbing horizon; the exterior cavity spectrum is real, discrete, and even/odd-graded. The QNM spectrum and the nucleation rate remain open.",
+      "classification": "NULL_THROAT_BC_ANTIPODAL_L_PARITY_UNITARY_MIRROR",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "NULL_THROAT_BC_ANTIPODAL_L_PARITY_UNITARY_MIRROR",
+  "verdict": "THE NULL THROAT IMPOSES THE ANTIPODAL, l-PARITY-GRADED BOUNDARY CONDITION, MAKING IT A UNITARY MIRROR. PR #128 built the horizon-regular charts and identified the antipodal map as BAM's throat \u2194 antithroat C-swap; this probe derives the boundary condition that antipodal null throat imposes on transported waves.\n\nTHE POTENTIAL VANISHES AT THE HORIZON. The wave equation \u25a1\u03a6 = 0, separated as \u03a6 = e^{\u2212i\u03c9t} Y_l(\u03a9) \u03c8(r)/r^{3/2}, gives \u2212d\u00b2\u03c8/dr*\u00b2 + V_l \u03c8 = \u03c9\u00b2\u03c8 with V_l = f[l(l+2)/r\u00b2 + 3rs\u00b2/r\u2074] (PR #116). Since V_l \u221d f \u2192 0 at the throat, the near-horizon equation is \u2212\u03c8 = \u03c9\u00b2\u03c8: the modes are the pure null phases \u03c8 ~ e^{\u00b1i\u03c9r*} (the ingoing/outgoing null rays of PR #128).\n\nTHREE CANDIDATE BCs. (1) ingoing/absorbing \u03c8 ~ e^{\u2212i\u03c9r*} (flux lost into the horizon, non-unitary); (2) reflective wall (Dirichlet/Neumann, real discrete spectrum \u2014 the cavity of #116); (3) antipodal (BAM-native): the #128 identification \u03a6(U,V,\u03a9) = \u03a6(\u2212U,\u2212V,\u03a9_antipodal).\n\nTHE ANTIPODAL MAP FIXES THE BC BY l-PARITY. The S\u00b3 scalar harmonics carry antipodal parity Y_l(\u2212x) = (\u22121)^l Y_l(x) (degree-l harmonic polynomials on \u211d\u2074; verified). Single-valuedness of the untwisted scalar under the antipodal identification then forces the radial function to carry the compensating (\u22121)^l across the throat: EVEN l \u27f9 Neumann \u2202\u03c8(throat) = 0 (an antinode), ODD l \u27f9 Dirichlet \u03c8(throat) = 0 (a node). A twisted/M\u00f6bius field flips even \u2194 odd, connecting to the Z\u2082 orientation grading (#67/#121).\n\nTHE THROAT IS A UNITARY MIRROR. Both antipodal BCs are REAL, so the Klein\u2013Gordon/Wronskian flux j \u221d Im(\u03c8* \u2202\u03c8) through the throat VANISHES \u2014 a perfect unitary mirror, no net flux lost. This is the sharp contrast with the ingoing/absorbing horizon BC, whose flux j = \u2212\u03c9|A|\u00b2 \u2260 0 carries probability into the hole. The antipodal throat conserves flux: what falls toward it on one sheet re-emerges on the antipodal sheet (global CPT/unitarity, #64).\n\nTHE SPECTRUM IS REAL, DISCRETE, AND l-GRADED. On the exterior [R_MID+\u03b5, R_OUTER] with the shell wall (Dirichlet at R_OUTER) and the antipodal throat BC, \u2212d\u00b2/dr*\u00b2 + V_l has a real, positive, discrete spectrum (a unitary bound cavity), with even-l (Neumann) and odd-l (Dirichlet) families giving distinct spectra \u2014 the wave-transport face of BAM's even-k/odd-k structure (#67/#121).\n\nSCOPE. This establishes the kinematic BC structure of classical wave transport across the null throat: the vanishing potential, the l-parity-graded antipodal BC, the unitary-mirror flux, the real discrete spectrum. It does NOT solve the full quasinormal spectrum or the dynamical throat \u2194 antithroat nucleation amplitude (#58/#88); the absorbing-vs-antipodal choice is fixed by the BAM antipodal postulate (#128), shown here to be self-consistent and unitary."
+}

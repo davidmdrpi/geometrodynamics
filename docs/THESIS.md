@@ -1451,6 +1451,32 @@ problems rather than implementation TODOs:
   the kinematic stage — the smooth crossing, the finite proper distance, the
   antipodal bifurcation; it does not compute the dynamical throat ↔ antithroat
   nucleation rate (the bounce action, PRs #58/#88), which lives on that stage.
+  PR #129 then asks what that null throat does to the waves crossing it — the
+  boundary condition the 5D horizon imposes on the matter modes of PR #116. The
+  separated wave equation `−d²ψ/dr*² + V_l ψ = ω²ψ` has `V_l = f[l(l+2)/r² +
+  3rs²/r⁴] ∝ f → 0` at the throat, so near the horizon the modes are the pure
+  null phases `ψ ~ e^{±iωr*}` — the ingoing and outgoing null rays. Three
+  boundary conditions compete: the ingoing/absorbing one of a standard
+  quasinormal horizon (`ψ ~ e^{−iωr*}`, flux lost into the hole), the reflective
+  wall of a hard box (the matter cavity of #116), and the antipodal one dictated
+  by the #128 identification `Φ(U,V,Ω) = Φ(−U,−V,Ω_antipodal)`. The antipodal
+  postulate settles it, and in a way that is graded by angular parity: the
+  scalar harmonics on the horizon `S³` are degree-`l` harmonic polynomials, so
+  they carry `Y_l(−x) = (−1)^l Y_l(x)`, and single-valuedness of the field under
+  the antipodal map forces the radial function to compensate with the same
+  `(−1)^l` across the throat — even-`l` modes meet the throat as a Neumann
+  antinode (`ψ'(throat) = 0`), odd-`l` modes as a Dirichlet node (`ψ(throat) =
+  0`). Both are *real* conditions, so the Klein–Gordon flux `j ∝ Im(ψ*ψ')`
+  through the throat vanishes: the throat is a perfect *unitary mirror*, not a
+  sink, in sharp contrast with the ingoing horizon whose flux `j = −ω` carries
+  probability into the hole. This is the wave-transport face of the program's
+  global CPT and unitarity (PR #64) — what falls toward the throat on one sheet
+  re-emerges on the antipodal sheet, nothing destroyed — and the resulting
+  exterior cavity has a real, discrete spectrum split by parity into even-`l`
+  (Neumann) and odd-`l` (Dirichlet) families, the wave-transport echo of the
+  even-`k`/odd-`k` Z₂ structure (PRs #67/#121). What stays open is the full
+  quasinormal spectrum (complex `ω`, ringdown) and, again, the dynamical
+  nucleation rate; the kinematic transport law across the throat is fixed.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
