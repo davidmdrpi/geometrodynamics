@@ -1,0 +1,139 @@
+{
+  "timestamp_utc": "2026-06-04T04:27:43+00:00",
+  "identification": "the BAM throat lifts to a genuine D=5 Tangherlini vacuum bulk: Ricci-flat (\u039b = 0), Kretschmann K = 72 rs\u2074/r\u2078 regular on the cavity, S\u00b3 horizon = Hopf base, T_H = 1/(2\u03c0 rs); the cavity potential coefficients are the D=5 reductions (k\u2085 = D_bulk = 5); reconciles with the AdS\u2085/RS bulk via Schwarzschild\u2013Tangherlini\u2013AdS\u2085",
+  "metric": "ds\u00b2 = \u2212f dt\u00b2 + f\u207b\u00b9dr\u00b2 + r\u00b2d\u03a9\u2083\u00b2, f = 1 \u2212 (rs/r)\u00b2 (D=5)",
+  "ricci": "R_\u03bc\u03bd = 0 (vacuum, \u039b = 0), asymptotically flat",
+  "kretschmann": "K = 72 rs\u2074/r\u2078, regular on cavity, singularity only at r=0",
+  "horizon": "throat = S\u00b3 horizon at r = rs = R_MID (= Hopf base)",
+  "hawking": "T_H = 1/(2\u03c0 rs), carries the closure quantum 2\u03c0",
+  "ads5_lift": "f = 1 \u2212 rs\u00b2/r\u00b2 + k\u00b2r\u00b2, Einstein (\u039b\u2085 = \u22126k\u00b2), interpolates neck \u2192 AdS\u2085/RS",
+  "open": "exact AdS scale k (= \u03ba\u2085\u00b2/\u039b\u2085, PR #112); global brane-localised solution",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Lift the PR #116 Tangherlini cavity operator (V = f[l(l+2)/r\u00b2 + 3rs\u00b2/r\u2074], f = 1 \u2212 (rs/r)\u00b2) to its explicit 5D parent metric, verify it is a genuine D=5 vacuum geometry, and reconcile that bulk with the AdS\u2085 / Randall\u2013Sundrum brane bulk (PR #57).",
+      "builds_on": [
+        "#116 Tangherlini fluctuation determinant",
+        "#73 k\u2085 = D_bulk = 5",
+        "#57 AdS\u2085 / RS brane tuning (\u221a6)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_metric_and_horizon",
+      "description": "5D Tangherlini ds\u00b2 = \u2212f dt\u00b2 + f\u207b\u00b9dr\u00b2 + r\u00b2d\u03a9\u2083\u00b2, f = 1 \u2212 (rs/r)\u00b2 (power D\u22123 = 2). Throat = horizon at r = rs = R_MID (f = 0); horizon section = round S\u00b3 = Hopf base S\u00b9\u2192S\u00b3\u2192S\u00b2.",
+      "metric_power_Dminus3": 2,
+      "f_at_throat_rs": 0.0,
+      "f_at_R_OUTER": 0.370118,
+      "horizon_at_R_MID": true,
+      "horizon_topology": "S\u00b3 (round 3-sphere) = Hopf base",
+      "pass": true
+    },
+    {
+      "name": "T3_ricci_flat_vacuum",
+      "description": "D=5 Tangherlini is a vacuum Einstein solution R_\u03bc\u03bd = 0, \u039b = 0 (verified numerically; residual = finite-difference noise). A genuine asymptotically-flat vacuum \u2014 distinct from the AdS\u2085 RS bulk (\u039b\u2085 = \u22126k\u00b2 < 0).",
+      "rows": [
+        {
+          "r": 1.13,
+          "max_abs_Ricci": 1.75e-05,
+          "vacuum_tol": 0.001,
+          "ricci_flat": true
+        },
+        {
+          "r": 1.26,
+          "max_abs_Ricci": 1.16e-06,
+          "vacuum_tol": 0.0001,
+          "ricci_flat": true
+        },
+        {
+          "r": 2.0,
+          "max_abs_Ricci": 1.08e-07,
+          "vacuum_tol": 0.0001,
+          "ricci_flat": true
+        }
+      ],
+      "Lambda": 0.0,
+      "asymptotically_flat": true,
+      "pass": true
+    },
+    {
+      "name": "T4_kretschmann_regular_on_cavity",
+      "description": "Kretschmann K = 72 rs\u2074/r\u2078 (numeric \u2248 analytic to 1e-3), finite on the whole cavity (72 at the throat \u2192 11.3 at R_OUTER). The only curvature singularity is at r = 0 (behind the throat); r = rs is a coordinate/horizon singularity \u2014 the cavity is curvature-regular.",
+      "rows": [
+        {
+          "r": 1.05,
+          "K_numeric": 48.7332,
+          "K_analytic_72mu2_over_r8": 48.7324,
+          "match": true
+        },
+        {
+          "r": 1.13,
+          "K_numeric": 27.0835,
+          "K_analytic_72mu2_over_r8": 27.0835,
+          "match": true
+        },
+        {
+          "r": 1.26,
+          "K_numeric": 11.3336,
+          "K_analytic_72mu2_over_r8": 11.3336,
+          "match": true
+        }
+      ],
+      "K_at_throat": 72.0,
+      "true_singularity_only_at": "r = 0 (behind the throat)",
+      "cavity_curvature_regular": true,
+      "pass": "True"
+    },
+    {
+      "name": "T5_cavity_potential_descends_from_D5",
+      "description": "PR #116 V = f[l(l+2)/r\u00b2 + 3rs\u00b2/r\u2074]: centrifugal l(l+2) = S\u00b3 Casimir l(l+D\u22123) (D\u22123 = 2); curvature 3rs\u00b2/r\u2074 = (D\u22122)/(2r)\u00b7f' (coefficient D\u22122 = 3). Both fix D_bulk = k\u2085 = 5 (PR #73).",
+      "casimir_l_offset_Dminus3": 2,
+      "curvature_coeff_Dminus2": 3,
+      "curv_term_check": 1.4467592593,
+      "curv_target_3rs2_over_r4": 1.4467592593,
+      "k5_equals_D_bulk": 5,
+      "pass": true
+    },
+    {
+      "name": "T6_hawking_temperature_carries_2pi",
+      "description": "Surface gravity \u03ba = f'(rs)/2 = 1/rs; Hawking temperature T_H = \u03ba/2\u03c0 = 1/(2\u03c0 rs). The closure quantum 2\u03c0 is the thermal/closure period (rs = R_MID = 1 \u27f9 T_H = 1/2\u03c0).",
+      "surface_gravity_kappa": 1.0,
+      "T_H": 0.1591549431,
+      "T_H_formula": "1/(2\u03c0 rs)",
+      "closure_quantum": "2\u03c0",
+      "pass": true
+    },
+    {
+      "name": "T7_ads5_rs_reconciliation",
+      "description": "Schwarzschild\u2013Tangherlini\u2013AdS\u2085 f = 1 \u2212 rs\u00b2/r\u00b2 + k\u00b2r\u00b2 is Einstein (R_\u03bc\u03bd = \u22124k\u00b2g_\u03bc\u03bd, \u039b\u2085 = \u22126k\u00b2; verified): interpolates the Tangherlini neck (k\u00b2r\u00b2 \u2192 0, PR #116) to the AdS\u2085/RS asymptote (PR #57, \u221a6). Cavity correction k\u00b2r\u00b2 ~ O(10\u207b\u00b2) for k\u00b7rs \u2272 0.1 \u27f9 PR #116 cavity is the near-throat limit (~1%); exact k = \u03ba\u2085\u00b2/\u039b\u2085 open (PR #112).",
+      "rows": [
+        {
+          "k_ads": 0.1,
+          "Lambda5_minus6k2": -0.06,
+          "max_dev_from_-4k2g": 1.14e-07,
+          "einstein": true
+        },
+        {
+          "k_ads": 0.3,
+          "Lambda5_minus6k2": -0.54,
+          "max_dev_from_-4k2g": 1.63e-07,
+          "einstein": true
+        }
+      ],
+      "interpolation": "k\u00b2r\u00b2\u21920 (throat, Tangherlini) \u2194 f\u2192k\u00b2r\u00b2 (AdS\u2085/RS)",
+      "cavity_correction_at_R_OUTER_k0p1": 0.0159,
+      "exact_k_status": "open: \u03ba\u2085\u00b2/\u039b\u2085 (PR #112), the known bulk-ratio residual",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The BAM throat lifts to a genuine D=5 Tangherlini vacuum bulk: Ricci-flat (\u039b = 0), Kretschmann K = 72 rs\u2074/r\u2078 regular on the cavity (singularity only at r = 0), S\u00b3 horizon = Hopf base, T_H = 1/(2\u03c0 rs) carrying the closure quantum; the cavity potential's coefficients are the D=5 reductions (k\u2085 = D_bulk = 5). It reconciles with the AdS\u2085/RS bulk via the Schwarzschild\u2013Tangherlini\u2013AdS\u2085 interpolation. Open: the exact AdS scale k (= \u03ba\u2085\u00b2/\u039b\u2085) and the global brane-localised solution.",
+      "classification": "FIVE_D_TANGHERLINI_BULK_LIFT_RICCI_FLAT_VACUUM_CAVITY_REGULAR",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "FIVE_D_TANGHERLINI_BULK_LIFT_RICCI_FLAT_VACUUM_CAVITY_REGULAR",
+  "verdict": "THE BAM THROAT LIFTS TO A GENUINE D=5 TANGHERLINI VACUUM BULK. PR #116 ran the Tangherlini cavity operator V = f[l(l+2)/r\u00b2 + 3rs\u00b2/r\u2074] (f = 1 \u2212 (rs/r)\u00b2) as a reduced radial object; this probe lifts it to the explicit Schwarzschild\u2013Tangherlini (D=5) metric and verifies the throat is the boundary trace of a real 5D geometry.\n\nTHE 5D METRIC & HORIZON. ds\u00b2 = \u2212f dt\u00b2 + f\u207b\u00b9dr\u00b2 + r\u00b2d\u03a9\u2083\u00b2 with f = 1 \u2212 (rs/r)^{D\u22123} = 1 \u2212 (rs/r)\u00b2 (D=5, power D\u22123 = 2). The throat is the 5D horizon at r = rs = R_MID (f = 0); its spatial section is the round S\u00b3 \u2014 exactly BAM's Hopf base S\u00b9 \u2192 S\u00b3 \u2192 S\u00b2 (the spin/CPT angular base).\n\nRICCI-FLAT VACUUM. R_\u03bc\u03bd = 0, \u039b = 0 (verified numerically across the cavity; the residual is finite-difference noise). The throat parent is a genuine asymptotically-flat vacuum Einstein solution \u2014 distinct from the AdS\u2085 RS bulk (\u039b\u2085 = \u22126k\u00b2 < 0).\n\nCAVITY CURVATURE-REGULAR. The Kretschmann scalar K = 72 rs\u2074/r\u2078 (numeric \u2248 analytic to 1e-3) is finite on the whole cavity [R_MID, R_OUTER] \u2014 72 at the throat down to \u2248 11.3 at R_OUTER. The only true curvature singularity is at r = 0, behind the throat; r = rs is a coordinate (horizon) singularity, not a curvature one.\n\nTHE CAVITY POTENTIAL DESCENDS FROM D=5. Both coefficients of the PR #116 potential are D=5 reductions of this metric: the centrifugal l(l+2) is the S\u00b3 Casimir l(l+D\u22123) (D\u22123 = 2), and the curvature term 3rs\u00b2/r\u2074 = (D\u22122)/(2r)\u00b7f'(r) has coefficient D\u22122 = 3. So k\u2085 = D_bulk = 5 (PR #73) is realised as the genuine bulk dimension of the metric \u2014 the throat is not a 4D ansatz, it is the boundary of a real D=5 vacuum.\n\nTHE HAWKING PERIOD CARRIES 2\u03c0. Surface gravity \u03ba = f'(rs)/2 = 1/rs \u27f9 T_H = \u03ba/2\u03c0 = 1/(2\u03c0 rs): the closure quantum 2\u03c0 is the thermal/closure period (rs = R_MID = 1 \u27f9 T_H = 1/2\u03c0).\n\nADS\u2085 / RS RECONCILIATION. The Schwarzschild\u2013Tangherlini\u2013AdS\u2085 metric f = 1 \u2212 rs\u00b2/r\u00b2 + k\u00b2r\u00b2 is Einstein with R_\u03bc\u03bd = \u22124k\u00b2g_\u03bc\u03bd, \u039b\u2085 = \u22126k\u00b2 (verified). It interpolates: near the throat k\u00b2r\u00b2 \u2192 0 and f \u2192 the pure Tangherlini neck (PR #116); far away f \u2192 k\u00b2r\u00b2, the AdS\u2085 / RS asymptote (PR #57, the \u221a6 tuning). On the BAM cavity the AdS correction k\u00b2r\u00b2 is O(10\u207b\u00b2) for k\u00b7rs \u2272 0.1, so the pure-Tangherlini cavity of PR #116 is the near-throat limit, good to ~1%.\n\nSCOPE. This establishes the 5D bulk GEOMETRY of the throat and reconciles it with the AdS\u2085/RS bulk. It does NOT pin the AdS scale k (= \u03ba\u2085\u00b2/\u039b\u2085, the known open bulk ratio, PR #112), nor construct the full global brane-localised black-hole-on-brane solution, nor address bulk backreaction / quantum gravity beyond the classical metric."
+}
