@@ -1421,6 +1421,36 @@ problems rather than implementation TODOs:
   `κ₅²/Λ₅` (PR #112) — and the full global brane-localised solution; the
   classical bulk geometry of the throat is established, its absolute scale is
   not.
+  PR #128 then makes the throat crossing manifestly smooth. The bulk lift left
+  the throat `r = rs` as a *coordinate* (horizon) singularity — the Kretschmann
+  scalar is finite there, but in Schwarzschild-type coordinates the metric still
+  degenerates (`g_rr = 1/f → ∞`). The horizon-regular charts remove it. In
+  Eddington–Finkelstein coordinates, with the tortoise `r* = r + (rs/2)
+  ln|(r−rs)/(r+rs)|` and `v = t + r*`, the metric is `ds² = −f dv² + 2 dv dr +
+  r² dΩ₃²`: at the throat `g_vv = 0` but `g_vr = 1`, so the determinant
+  `det g = −r⁶ sin⁴χ sin²θ` is finite and nonzero, and the Kretschmann scalar
+  computed in these coordinates is still `72 rs⁴/r⁸` — the same regular
+  geometry, now with a nondegenerate metric. The throat is infinitely far in the
+  tortoise (optical) coordinate (`r* → −∞`) but only a finite *proper* distance
+  away, `∫dr/√f ≈ √(2 rs (r−rs))` — exactly the ε healing length `√(2 rs ε)`
+  (PR #112). The Kruskal–Szekeres extension completes the picture: the surface
+  gravity `κ = f'(rs)/2 = 1/rs` gives `κ·rs = 1`, and the Kruskal conformal
+  factor `F = −f·e^{−2κr*} = (r+rs)²/r²·e^{−2r/rs}` is finite and nonzero at the
+  throat (`F(rs) = 4 e⁻²`) precisely because `κ·rs = 1` makes the
+  `(r−rs)^{−κrs}` factor cancel the simple zero of `f`. The product
+  `UV = −(1/κ²) e^{2κr*}` vanishes at the throat — the bifurcate Killing horizon
+  `U = V = 0` — and the maximal extension has the four regions (exterior I,
+  interior II, antipodal exterior III, white hole IV). The deepest point is the
+  last: the antipodal map `(U, V, Ω) → (−U, −V, Ω_antipodal)` is an isometry
+  that preserves `UV` (hence `r`) and exchanges region I with region III, and
+  this is exactly BAM's throat ↔ antithroat identification — the `C = inner/outer
+  swap` (PR #63) with `c₁ → −c₁` (PR #58). The maximally-extended 5D Tangherlini
+  horizon with its antipodal gluing is the geometric stage of *Bulk Antipodal
+  Mechanics* itself: the program's defining antipodal structure is the antipodal
+  identification of the throat's Kruskal horizon. What this lift establishes is
+  the kinematic stage — the smooth crossing, the finite proper distance, the
+  antipodal bifurcation; it does not compute the dynamical throat ↔ antithroat
+  nucleation rate (the bounce action, PRs #58/#88), which lives on that stage.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,

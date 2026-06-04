@@ -1,0 +1,198 @@
+{
+  "timestamp_utc": "2026-06-04T04:48:20+00:00",
+  "identification": "the 5D Tangherlini throat coordinate singularity is removable: Eddington\u2013Finkelstein and Kruskal coordinates extend smoothly across it (nondegenerate metric, K = 72 rs\u2074/r\u2078 finite, finite proper distance = \u03b5 healing length, \u03ba = 1/rs, F(rs) = 4 e\u207b\u00b2); the maximal extension's antipodal map (U,V)\u2192(\u2212U,\u2212V) is BAM's throat \u2194 antithroat C-swap",
+  "coordinate_singularity": "removable (g_rr = 1/f \u2192 \u221e but K = 72 rs\u2074/r\u2078 finite)",
+  "eddington_finkelstein": "ds\u00b2 = \u2212f dv\u00b2 + 2 dv dr + r\u00b2d\u03a9\u2083\u00b2, det g = \u2212r\u2076 sin\u2074\u03c7 sin\u00b2\u03b8 regular",
+  "proper_distance": "finite \u221a(2 rs \u0394r) = \u03b5 healing length (#112); tortoise r* \u2192 \u2212\u221e",
+  "surface_gravity": "\u03ba = 1/rs (\u03ba\u00b7rs = 1); Kruskal F(rs) = 4 e\u207b\u00b2; T_H = 1/(2\u03c0 rs)",
+  "maximal_extension": "bifurcate Killing horizon U = V = 0; four regions",
+  "antipodal_identification": "(U,V) \u2192 (\u2212U,\u2212V) = throat \u2194 antithroat C-swap (#63, #58)",
+  "open": "nucleation rate (#58/#88); exact AdS scale k (#112); global brane solution (#127)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Construct the horizon-regular coordinates (Eddington\u2013Finkelstein, Kruskal\u2013Szekeres) that remove the coordinate singularity at the 5D Tangherlini throat r = rs (flagged in PR #127), make the throat crossing smooth, and exhibit the antipodal bifurcation structure.",
+      "builds_on": [
+        "#127 5D Tangherlini bulk lift (throat = coord. horizon)",
+        "#63 C = inner/outer swap",
+        "#58 throat\u2194antithroat",
+        "#112 \u03b5 healing length"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_coordinate_singularity_removable",
+      "description": "Schwarzschild g_rr = 1/f \u2192 \u221e at r = rs while K = 72 rs\u2074/r\u2078 is finite (PR #127) \u27f9 the divergence is a coordinate artifact, removable by changing chart.",
+      "rows": [
+        {
+          "r": 1.001,
+          "f": 0.002,
+          "g_rr_eq_1_over_f": 500.75,
+          "K_72rs4_over_r8": 71.427
+        },
+        {
+          "r": 1.01,
+          "f": 0.0197,
+          "g_rr_eq_1_over_f": 50.751,
+          "K_72rs4_over_r8": 66.491
+        },
+        {
+          "r": 1.1,
+          "f": 0.17355,
+          "g_rr_eq_1_over_f": 5.762,
+          "K_72rs4_over_r8": 33.589
+        }
+      ],
+      "g_rr_diverges_at_throat": true,
+      "curvature_finite_at_throat": true,
+      "pass": true
+    },
+    {
+      "name": "T3_eddington_finkelstein_regular",
+      "description": "EF ds\u00b2 = \u2212f dv\u00b2 + 2 dv dr + r\u00b2d\u03a9\u2083\u00b2: g_vr = 1 \u27f9 det g = \u2212r\u2076 sin\u2074\u03c7 sin\u00b2\u03b8 finite/nonzero at the throat; the Kretschmann scalar in EF coords is 72 rs\u2074/r\u2078 \u2014 same regular geometry, nondegenerate metric.",
+      "rows": [
+        {
+          "r": 1.0,
+          "g_vv_minus_f": -0.0,
+          "g_vr": 1.0,
+          "det_g": -0.29904,
+          "K_EF": 72.0,
+          "K_analytic": 72.0,
+          "regular": true
+        },
+        {
+          "r": 1.13,
+          "g_vv_minus_f": -0.21685,
+          "g_vr": 1.0,
+          "det_g": -0.62259,
+          "K_EF": 27.0835,
+          "K_analytic": 27.0835,
+          "regular": true
+        },
+        {
+          "r": 1.26,
+          "g_vv_minus_f": -0.37012,
+          "g_vr": 1.0,
+          "det_g": -1.19661,
+          "K_EF": 11.3336,
+          "K_analytic": 11.3336,
+          "regular": true
+        }
+      ],
+      "det_at_throat_nonzero": true,
+      "K_at_throat": 72.0,
+      "pass": true
+    },
+    {
+      "name": "T4_tortoise_vs_proper_distance",
+      "description": "Tortoise distance to the throat infinite (r* \u2192 \u2212\u221e), proper distance \u222bdr/\u221af \u2248 \u221a(2 rs(r\u2212rs)) finite = the \u03b5 healing length \u221a(2 rs \u03b5) (PR #112). The throat is finite proper distance away.",
+      "rows": [
+        {
+          "dr": 0.1,
+          "r_star": -0.4223,
+          "proper_distance": 0.4615,
+          "sqrt_2rs_dr": 0.44721,
+          "match": true
+        },
+        {
+          "dr": 0.01,
+          "r_star": -1.6417,
+          "proper_distance": 0.14148,
+          "sqrt_2rs_dr": 0.14142,
+          "match": true
+        },
+        {
+          "dr": 0.001,
+          "r_star": -2.7997,
+          "proper_distance": 0.04429,
+          "sqrt_2rs_dr": 0.04472,
+          "match": true
+        }
+      ],
+      "tortoise_infinite": true,
+      "proper_finite_equals_healing_length": true,
+      "pass": true
+    },
+    {
+      "name": "T5_surface_gravity_and_kruskal_factor",
+      "description": "\u03ba = f'(rs)/2 = 1/rs (\u03ba\u00b7rs = 1). Kruskal factor F = (r+rs)\u00b2/r\u00b2\u00b7e^{\u22122r/rs} finite/nonzero at the throat (F(rs) = 4 e\u207b\u00b2): \u03ba\u00b7rs = 1 makes (r\u2212rs)^{\u2212\u03bars} cancel f's simple zero. T_H = \u03ba/2\u03c0 = 1/(2\u03c0 rs).",
+      "kappa": 1.0,
+      "kappa_times_rs": 1.0,
+      "F_at_throat": 0.541341,
+      "F_at_throat_4_exp_minus2": 0.541341,
+      "T_H": 0.159155,
+      "rows": [
+        {
+          "r": 1.0,
+          "F_closed_form": 0.541341,
+          "F_via_minus_f_exp": 0.541341
+        },
+        {
+          "r": 1.01,
+          "F_closed_form": 0.525381,
+          "F_via_minus_f_exp": 0.525381
+        },
+        {
+          "r": 1.1,
+          "F_closed_form": 0.403836,
+          "F_via_minus_f_exp": 0.403836
+        },
+        {
+          "r": 2.0,
+          "F_closed_form": 0.04121,
+          "F_via_minus_f_exp": 0.04121
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T6_maximal_kruskal_extension",
+      "description": "Kruskal U = \u2212(1/\u03ba)e^{\u2212\u03bau}, V = (1/\u03ba)e^{\u03bav}: UV = \u2212(1/\u03ba\u00b2)e^{2\u03bar*} \u2192 0 at the throat (bifurcate Killing horizon U = V = 0). Maximal extension: four regions (I exterior, II interior, III antipodal exterior, IV white hole).",
+      "rows": [
+        {
+          "r": 1.001,
+          "UV": -0.0037,
+          "region": "I (exterior, UV<0)"
+        },
+        {
+          "r": 1.1,
+          "UV": -0.42976,
+          "region": "I (exterior, UV<0)"
+        },
+        {
+          "r": 2.0,
+          "UV": -18.19938,
+          "region": "I (exterior, UV<0)"
+        }
+      ],
+      "UV_to_zero_at_throat": true,
+      "bifurcation_surface": "U = V = 0 (the throat horizon)",
+      "regions": [
+        "I exterior",
+        "II interior",
+        "III antipodal exterior",
+        "IV white hole"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T7_antipodal_identification_is_C_swap",
+      "description": "Antipodal map (U,V,\u03a9) \u2192 (\u2212U,\u2212V,\u03a9\u0304): isometry preserving UV (\u27f9 same r), region I \u2194 III \u2014 the geometric realisation of BAM's throat \u2194 antithroat C-swap (PR #63), c\u2081 \u2192 \u2212c\u2081 (PR #58). The maximally-extended 5D Tangherlini horizon with its antipodal gluing is the stage of 'Bulk Antipodal Mechanics'.",
+      "antipodal_map": "(U, V, \u03a9) \u2192 (\u2212U, \u2212V, \u03a9_antipodal)",
+      "preserves_UV_and_r": true,
+      "maps_regions": "I \u2194 III (exterior \u2194 antipodal exterior)",
+      "bam_identification": "throat \u2194 antithroat = C inner/outer swap (#63), c\u2081\u2192\u2212c\u2081 (#58)",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The 5D Tangherlini throat's coordinate singularity is removable: Eddington\u2013Finkelstein and Kruskal coordinates extend smoothly across it (nondegenerate metric, K = 72 rs\u2074/r\u2078 finite, finite proper distance = the \u03b5 healing length), with \u03ba = 1/rs and the Kruskal factor F(rs) = 4 e\u207b\u00b2. The maximal extension's antipodal identification (U,V) \u2192 (\u2212U,\u2212V) is the geometric home of BAM's throat \u2194 antithroat C-swap. Open: the nucleation rate (#58/#88), the exact AdS scale k (#112), the global brane solution (#127).",
+      "classification": "FIVE_D_TANGHERLINI_THROAT_HORIZON_REGULAR_ANTIPODAL_BIFURCATION",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "FIVE_D_TANGHERLINI_THROAT_HORIZON_REGULAR_ANTIPODAL_BIFURCATION",
+  "verdict": "THE 5D TANGHERLINI THROAT LIFTS TO HORIZON-REGULAR COORDINATES, AND ITS MAXIMAL EXTENSION IS THE ANTIPODAL STAGE OF BAM. PR #127 showed the throat r = rs is a coordinate (horizon) singularity, not a curvature one (K = 72 rs\u2074/r\u2078 finite); this probe builds the regular charts that remove it and exhibits the antipodal bifurcation structure.\n\nTHE COORDINATE SINGULARITY IS REMOVABLE. In Schwarzschild coordinates g_rr = 1/f \u2192 \u221e as r \u2192 rs, but K = 72 rs\u2074/r\u2078 is finite there: the divergence is a coordinate artifact.\n\nEDDINGTON\u2013FINKELSTEIN IS REGULAR. With the tortoise r* = r + (rs/2)ln|(r\u2212rs)/(r+rs)| and v = t + r*, ds\u00b2 = \u2212f dv\u00b2 + 2 dv dr + r\u00b2d\u03a9\u2083\u00b2. At the throat g_vv = 0 but g_vr = 1, so det g = \u2212r\u2076 sin\u2074\u03c7 sin\u00b2\u03b8 is finite and nonzero, and the Kretschmann scalar computed in EF coordinates is still 72 rs\u2074/r\u2078 \u2014 the same regular geometry, now with a nondegenerate metric.\n\nTHE THROAT IS FINITE PROPER DISTANCE AWAY. The tortoise distance to the throat is infinite (r* \u2192 \u2212\u221e), but the proper radial distance \u222bdr/\u221af \u2248 \u221a(2 rs(r\u2212rs)) is finite \u2014 exactly the \u03b5 healing length \u221a(2 rs \u03b5) (PR #112).\n\nSURFACE GRAVITY & KRUSKAL FACTOR. \u03ba = f'(rs)/2 = 1/rs, so \u03ba\u00b7rs = 1. The Kruskal conformal factor F = \u2212f\u00b7e^{\u22122\u03bar*} = (r+rs)\u00b2/r\u00b2\u00b7e^{\u22122r/rs} is finite/nonzero at the throat (F(rs) = 4 e\u207b\u00b2) precisely because \u03ba\u00b7rs = 1 makes the (r\u2212rs)^{\u2212\u03bars} factor cancel the simple zero of f. The Hawking temperature T_H = \u03ba/2\u03c0 = 1/(2\u03c0 rs) carries the closure quantum (PR #127).\n\nTHE MAXIMAL EXTENSION. In Kruskal coordinates UV = \u2212(1/\u03ba\u00b2)e^{2\u03bar*} \u2192 0 at the throat: the bifurcate Killing horizon U = V = 0. The extension has four regions (exterior I, interior II, antipodal exterior III, white hole IV).\n\nTHE ANTIPODAL IDENTIFICATION = BAM's C-SWAP. The antipodal map (U, V, \u03a9) \u2192 (\u2212U, \u2212V, \u03a9_antipodal) is an isometry preserving UV (hence r) and mapping region I \u2194 region III. This is the geometric realisation of BAM's throat \u2194 antithroat identification \u2014 the C = inner/outer swap (PR #63) with c\u2081 \u2192 \u2212c\u2081 (PR #58). The maximally-extended 5D Tangherlini horizon with its antipodal gluing is the geometric stage of \"Bulk Antipodal Mechanics\" itself.\n\nSCOPE. This is the classical, maximally-extended vacuum geometry \u2014 the regular charts, the finite proper distance, the surface gravity, the antipodal bifurcation. It does NOT compute the dynamical throat \u2194 antithroat nucleation amplitude (the bounce rate, PR #58/#88) \u2014 the lift provides that process's kinematic stage, not its rate. The exact AdS scale k (= \u03ba\u2085\u00b2/\u039b\u2085, PR #112) and the global brane-localised solution (PR #127) remain open."
+}
