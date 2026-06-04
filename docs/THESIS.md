@@ -1503,6 +1503,36 @@ problems rather than implementation TODOs:
   `r* → −∞` horizon quasinormal tower, the coupling to gravitational radiation,
   and the absolute mode normalisation; the absorbing case is the counterfactual
   that shows what the antipodal postulate buys.
+  PR #131 is the capstone of this geometric throat arc, and it is worth stating
+  plainly what the arc, taken together, amounts to. The five steps — the cavity
+  operator (#116), the 5D bulk lift (#127), the horizon-regular charts (#128),
+  the null-throat boundary condition (#129), and the quasinormal spectrum
+  (#130) — re-verify together as a mutually consistent set: `f(rs) = 0` with a
+  finite Kretschmann `K = 72` at the throat, `T_H = 1/2πrs`, an
+  Eddington–Finkelstein determinant `det g = −0.299` that is nondegenerate
+  across the throat, a Kruskal factor `F(rs) = 4 e⁻²`, a proper distance
+  `√(2 rs ε)` to the throat equal to the ε healing length, an antipodal
+  fundamental mode that is real (`ω ≈ 1.19`) and an absorbing one that is
+  complex (`ω ≈ 1.89 − 1.16i`). The unifying recognition is that all of this is
+  one geometric object seen from several sides: the antipodal identification of
+  the 5D Tangherlini horizon. That single primitive is the charge conjugation
+  `C` (the inner/outer swap, #63), the throat ↔ antithroat nucleation channel
+  (#58), the antipodal map `(U,V,Ω) → (−U,−V,Ω̄)` on the maximal Kruskal
+  extension (#128), the l-parity unitary-mirror boundary condition (#129), and
+  the selector of the real, stable matter spectrum (#130) — five faces of the
+  same gluing. *Bulk Antipodal Mechanics* is, quite literally, the mechanics of
+  this one identification on the bulk Tangherlini horizon. The honest ledger is
+  equally plain: what the arc *derives* is that the throat's parent is a genuine
+  curvature-regular D=5 Tangherlini vacuum (Ricci-flat, `S³` horizon = the Hopf
+  base, `k₅ = D_bulk`), that its coordinate singularity is removable, and that —
+  *given* the antipodal gluing — the boundary condition is the l-parity unitary
+  mirror and the matter spectrum is real and stable rather than a decaying
+  ringdown. What the arc *postulates* is the antipodal identification itself,
+  BAM's defining axiom; the arc shows that axiom is self-consistent (unitary,
+  stable-matter-supporting), not that it is forced by anything more primitive.
+  And what stays *open* is unchanged by the synthesis: the exact AdS scale
+  `k = κ₅²/Λ₅` (PR #112), the dynamical nucleation rate (PRs #58/#88), the
+  global brane-localised solution, and the idealised horizon quasinormal tower.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
