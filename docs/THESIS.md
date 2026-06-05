@@ -1676,6 +1676,29 @@ problems rather than implementation TODOs:
   is modelled rather than derived from the S_BAM measure, the coupling is an
   input, and higher loops, the absolute normalisation (#133), and the flavor
   residuals (#134) are untouched.
+  PR #137 takes up exactly that flagged input — the modelled cubic vertex — and
+  draws its ledger, asking how much of it the antipodal structure actually
+  fixes. The vertex of three matter modes factorises into an angular integral,
+  a radial overlap, and an overall coupling, `V = λ · [∫_{S³} Y_{l1}Y_{l2}Y_{l3}
+  dΩ] · [∫ ψ_k ψ_n ψ_m dr*]`, and the first two factors turn out to be derived.
+  The angular integral obeys a selection rule with two parts: it vanishes unless
+  `l1 + l2 + l3` is even, and unless the SO(4) triangle inequality
+  `|l1−l2| ≤ l3 ≤ l1+l2` holds. The even-sum condition is the decisive one — it
+  is the antipodal parity itself: under the inversion `x → −x`, which is the
+  throat ↔ antithroat C-swap (#63), each harmonic carries `Y_l → (−1)^l Y_l`, so
+  the integrand over the inversion-symmetric three-sphere survives only when
+  `(−1)^{l1+l2+l3} = +1`. This is the *same* `(−1)^l` Z₂ that fixed the antipodal
+  boundary condition (#129), graded the exchange kernel (#135), and sorted the
+  flavor sectors (#134); the cubic vertex respects it too, so the one-loop
+  self-energy bubble of #136 connects only even-sum mode triples. The radial
+  factor is geometric: a definite overlap of the antipodal cavity modes (#116),
+  totally symmetric in its three indices and real, so the vertex *shape* is fixed
+  by the geometry. What is *not* fixed is the overall coupling `λ` — the
+  dimensionless strength #136 set to one — and whether the S_BAM measure
+  (#115–#122) generates a cubic term at all. So the ledger reads cleanly: the
+  vertex's structure — its selection rule, its geometric shape, its symmetry and
+  reality — is BAM-native, while its magnitude is input. The quartic and higher
+  vertices, and the bulk-scale (#133) and flavor (#134) residuals, stand.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,

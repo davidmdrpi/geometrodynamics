@@ -1,0 +1,192 @@
+{
+  "timestamp_utc": "2026-06-05T02:08:25+00:00",
+  "identification": "the antipodal structure derives the cubic vertex's angular selection rule (\u03a3l even \u2014 the antipodal Z\u2082 \u2014 plus the SO(4) triangle) and its geometric, symmetric, real radial shape; only the overall coupling \u03bb and the S_BAM generation remain input",
+  "factorisation": "V = \u03bb \u00b7 (angular \u222bYYY) \u00b7 (radial \u222b\u03c8\u03c8\u03c8)",
+  "angular_rule": "DERIVED: \u03a3l even (antipodal Z\u2082, #63 C-swap) + triangle (SO(4))",
+  "radial_overlap": "DERIVED shape: geometric (#116 modes), totally symmetric, real",
+  "parity_z2": "same (\u22121)^l as #129 BC / #134 flavor / #135 kernel grading",
+  "input": "coupling \u03bb (dimensionless); whether S_BAM generates the cubic term",
+  "open": "coupling \u03bb not derived; quartic/higher vertices; S_BAM cubic generation",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Ledger for the cubic vertex g_{knm} = \u222b \u03c8_k \u03c8_n \u03c8_m the #136 self-energy modelled: separate what the antipodal structure DERIVES (selection rules, geometric shape, symmetry) from what stays INPUT (the coupling strength, the S_BAM generation).",
+      "builds_on": [
+        "#136 one-loop self-energy (modelled vertex)",
+        "#129/#134/#135 antipodal Z\u2082 (\u22121)^l",
+        "#116 cavity modes",
+        "#63 C-swap (inversion)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_vertex_factorisation",
+      "description": "A cubic vertex of three matter modes (radial profile \u00d7 S\u00b3 harmonic Y_l) factorises: V = \u03bb \u00b7 [\u222b_{S\u00b3} Y_{l1}Y_{l2}Y_{l3} d\u03a9] \u00b7 [\u222b \u03c8_k \u03c8_n \u03c8_m dr*] \u2014 an angular integral (selection rule), a radial overlap (geometric), and a coupling (input).",
+      "factorisation": "V = \u03bb \u00b7 (angular \u222bYYY) \u00b7 (radial \u222b\u03c8\u03c8\u03c8)",
+      "pass": true
+    },
+    {
+      "name": "T3_angular_selection_rule_derived",
+      "description": "\u222b_{S\u00b3} Y_{l1}Y_{l2}Y_{l3} = 0 unless \u03a3l even (antipodal parity Z\u2082, under x\u2192\u2212x the C-swap #63) AND triangle |l1\u2212l2| \u2264 l3 \u2264 l1+l2 (SO(4)). Odd-\u03a3l forbidden, triangle-violating forbidden; allowed couplings nonzero. Verified exactly.",
+      "rows": [
+        {
+          "lll": "(0,0,0)",
+          "sum_l": 0,
+          "even": true,
+          "triangle": true,
+          "allowed": true,
+          "integral": 1.0,
+          "nonzero": true
+        },
+        {
+          "lll": "(1,1,0)",
+          "sum_l": 2,
+          "even": true,
+          "triangle": true,
+          "allowed": true,
+          "integral": 0.25,
+          "nonzero": true
+        },
+        {
+          "lll": "(1,1,2)",
+          "sum_l": 4,
+          "even": true,
+          "triangle": true,
+          "allowed": true,
+          "integral": 0.041667,
+          "nonzero": true
+        },
+        {
+          "lll": "(2,2,0)",
+          "sum_l": 4,
+          "even": true,
+          "triangle": true,
+          "allowed": true,
+          "integral": 0.041667,
+          "nonzero": true
+        },
+        {
+          "lll": "(2,2,2)",
+          "sum_l": 6,
+          "even": true,
+          "triangle": true,
+          "allowed": true,
+          "integral": 0.005208,
+          "nonzero": true
+        },
+        {
+          "lll": "(1,1,1)",
+          "sum_l": 3,
+          "even": false,
+          "triangle": true,
+          "allowed": false,
+          "integral": 0.0,
+          "nonzero": false
+        },
+        {
+          "lll": "(1,0,0)",
+          "sum_l": 1,
+          "even": false,
+          "triangle": false,
+          "allowed": false,
+          "integral": 0.0,
+          "nonzero": false
+        },
+        {
+          "lll": "(3,1,1)",
+          "sum_l": 5,
+          "even": false,
+          "triangle": false,
+          "allowed": false,
+          "integral": 0.0,
+          "nonzero": false
+        },
+        {
+          "lll": "(1,1,4)",
+          "sum_l": 6,
+          "even": true,
+          "triangle": false,
+          "allowed": false,
+          "integral": 0.0,
+          "nonzero": false
+        }
+      ],
+      "rule": "nonzero \u27fa (\u03a3l even) \u2227 (triangle)",
+      "pass": true
+    },
+    {
+      "name": "T4_parity_rule_is_the_arc_z2",
+      "description": "The \u03a3l-even selection rule is the antipodal Z\u2082 (\u22121)^l of the boundary condition (#129), the kernel grading (#135), and the flavor sectors (#134) \u2014 the C-swap inversion (#63). The cubic vertex respects the same Z\u2082; the #136 bubble connects only even-\u03a3l triples.",
+      "forbidden_odd_sum_integral": 0.0,
+      "allowed_even_sum_integral": 0.041667,
+      "same_z2_as": "#129 BC, #134 flavor, #135 kernel grading (#63 C-swap)",
+      "pass": true
+    },
+    {
+      "name": "T5_radial_overlap_geometric_symmetric",
+      "description": "\u222b \u03c8_k \u03c8_n \u03c8_m dr* is a definite geometric number (antipodal cavity modes #116/#135/#136), totally symmetric in (k,n,m) (Bose symmetry) and real (Hermitian theory). The vertex SHAPE is derived; only the overall scale is free.",
+      "rows": [
+        {
+          "knm": "(0,0,0)",
+          "overlap": -0.9958,
+          "symmetry_err": 0.0
+        },
+        {
+          "knm": "(0,0,1)",
+          "overlap": -0.2031,
+          "symmetry_err": 0.0
+        },
+        {
+          "knm": "(0,1,2)",
+          "overlap": 0.2403,
+          "symmetry_err": 0.0
+        },
+        {
+          "knm": "(1,1,2)",
+          "overlap": 0.4813,
+          "symmetry_err": 0.0
+        }
+      ],
+      "totally_symmetric": true,
+      "real": true,
+      "pass": true
+    },
+    {
+      "name": "T6_cubic_vertex_ledger",
+      "description": "DERIVED (BAM-native): the angular selection rule (\u03a3l even \u2014 the antipodal Z\u2082 \u2014 + the SO(4) triangle), the geometric radial overlap shape (#116), the total Bose symmetry, and reality. INPUT/residual: the overall coupling \u03bb (dimensionless), and whether the S_BAM measure (#115\u2013#122) generates the cubic term at all.",
+      "derived": [
+        "angular selection rule: \u03a3l even (antipodal Z\u2082) + triangle (SO(4))",
+        "radial overlap shape: geometric (#116 cavity modes)",
+        "total Bose symmetry; reality (Hermitian theory)"
+      ],
+      "input": [
+        "the overall coupling strength \u03bb (dimensionless)",
+        "whether S_BAM generates the cubic term (existence/normalisation)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "Audits the cubic-vertex STRUCTURE: the derived angular selection rule, the geometric radial shape, the symmetry and reality. Does NOT derive the coupling \u03bb from S_BAM, nor the quartic / higher vertices; the #136 self-energy used this vertex with \u03bb = 1. The bulk-scale (#133) and flavor (#134) residuals stand.",
+      "established": [
+        "cubic-vertex angular selection rule derived (antipodal Z\u2082 + SO(4))",
+        "radial overlap geometric, symmetric, real"
+      ],
+      "open": [
+        "the coupling \u03bb (input, not derived from S_BAM)",
+        "the quartic / higher vertices; the S_BAM generation of the cubic term"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The antipodal structure DERIVES the cubic vertex's angular selection rule (\u03a3l even \u2014 the antipodal Z\u2082 \u2014 plus the SO(4) triangle) and its geometric, symmetric, real radial shape; only the overall coupling \u03bb and the S_BAM generation of the cubic term remain INPUT. The vertex structure is BAM-native; its magnitude is not.",
+      "classification": "CUBIC_VERTEX_LEDGER_ANTIPODAL_PARITY_SELECTION_GEOMETRIC_SHAPE_COUPLING_INPUT",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "CUBIC_VERTEX_LEDGER_ANTIPODAL_PARITY_SELECTION_GEOMETRIC_SHAPE_COUPLING_INPUT",
+  "verdict": "THE ANTIPODAL STRUCTURE DERIVES THE CUBIC VERTEX'S SELECTION RULE AND GEOMETRIC SHAPE; ONLY THE COUPLING REMAINS INPUT. PR #136 modelled the cubic vertex g_{knm} = \u222b \u03c8_k \u03c8_n \u03c8_m for the one-loop self-energy; this ledger separates its derived structure from its input magnitude.\n\nTHE VERTEX FACTORISES. A cubic vertex of three matter modes (each a radial profile times an S\u00b3 harmonic Y_l) is V = \u03bb \u00b7 [\u222b_{S\u00b3} Y_{l1}Y_{l2}Y_{l3} d\u03a9] \u00b7 [\u222b \u03c8_k \u03c8_n \u03c8_m dr*] \u2014 an angular integral, a radial overlap, and a coupling.\n\nTHE ANGULAR SELECTION RULE IS DERIVED. \u222b_{S\u00b3} Y_{l1}Y_{l2}Y_{l3} is nonzero only if (a) l1+l2+l3 is EVEN \u2014 the antipodal parity rule: under x \u2192 \u2212x (the throat \u2194 antithroat C-swap, #63), Y_l \u2192 (\u22121)^l Y_l, so the integrand over the inversion-symmetric S\u00b3 must be even, (\u22121)^{\u03a3l} = +1 \u2014 and (b) the triangle inequality |l1\u2212l2| \u2264 l3 \u2264 l1+l2 (SO(4) angular-momentum addition). Odd-\u03a3l vertices are forbidden by the Z\u2082 parity, triangle-violating ones by angular momentum (verified exactly via the S\u00b3 monomial integral).\n\nTHE PARITY RULE IS THE ARC'S Z\u2082. The \u03a3l-even rule is the same antipodal parity (\u22121)^l that fixed the boundary condition (#129), graded the kernel (#135), and sorted the flavor sectors (#134). The cubic vertex respects the same Z\u2082; the #136 self-energy bubble connects only even-\u03a3l mode triples.\n\nTHE RADIAL OVERLAP IS GEOMETRIC. \u222b \u03c8_k \u03c8_n \u03c8_m dr* is a definite geometric number set by the antipodal cavity modes (#116/#135/#136), totally symmetric in (k,n,m) (Bose symmetry) and real (Hermitian theory). The vertex SHAPE is derived; only its overall scale is free.\n\nWHAT STAYS INPUT. The overall coupling strength \u03bb (dimensionless) is NOT derived \u2014 it is the input the #136 self-energy set to 1 \u2014 and whether the S_BAM measure (#115\u2013#122) actually generates a cubic term (the existence/normalisation of the vertex) is modelled, not derived. The ledger isolates these as the residual.\n\nSCOPE. Audits the cubic-vertex STRUCTURE: the derived angular selection rule, the geometric radial shape, the symmetry and reality. It does NOT derive the coupling \u03bb from S_BAM, nor the quartic / higher vertices; the bulk-scale (#133) and flavor (#134) residuals stand."
+}
