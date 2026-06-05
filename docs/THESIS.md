@@ -1564,6 +1564,34 @@ problems rather than implementation TODOs:
   the smoothness condition, the geometric origin of the `ln(1/ε)`, and the
   prefactor, while the inherited residuals — the exact `ε`, the absolute scale
   `κ₅²/Λ₅`, and hence the precise `S` and `m_ν` — are unchanged and stay open.
+  PR #133 takes that recurring `κ₅²/Λ₅` residual head-on, not by pinning it but
+  by drawing up its ledger. The absolute bulk scale has surfaced as an open knob
+  at every step — the RS tuning (#57) fixed only the dimensionless `√6`, the ε
+  healing length (#112) left its absolute normalisation to `κ₅²/Λ₅`, the bulk
+  lift (#127) and the nucleation rate (#132) both left the absolute scale open —
+  and the ledger asks what, exactly, is open. The 5D content is two dimensionful
+  parameters, `κ₅² [L³]` (the 5D Newton constant) and `Λ₅ [L⁻²]` (equivalently
+  the AdS inverse radius `k = √(|Λ₅|/6)`), against the geometric lengths
+  `R_MID` and `ΔR`. Sorting these honestly gives three categories rather than
+  one mystery. First, `ΔR = R_OUTER − R_INNER = 0.52 R_MID` is the *scale
+  modulus* — the single dimensionful anchor the B4 theorem (#52) proved is
+  required, a proper cosmologically-invariant length (#53) — and it sets the
+  unit, so it is units, not a residual; the geometry ratios `ΔR/R_MID = 0.52`,
+  `R_OUTER/R_MID = 1.26` are fixed. Second, `√6 = λ_crit κ₅²/√|Λ₅|` is the one
+  fixed dimensionless tuning, the Randall–Sundrum flatness condition (#57).
+  Third — and this is the whole of the recurring residual — the only remaining
+  dimensionless freedom is the AdS scale in throat units, `k·R_MID = R_MID/L_AdS
+  = κ₅²/Λ₅` expressed in the unit. It is not pinned, but it is *bounded*: the
+  cavity correction to the pure-Tangherlini background is `(k r)²` (#127), so
+  `k·R_MID ≲ 0.1` keeps it below about `1.6%` across the cavity, which means
+  `R_MID ≲ L_AdS/10` — the throat sits deep in the near-flat region of the AdS
+  bulk, and that is exactly why the pure-Tangherlini cavity (#116/#127) was a
+  good approximation all along. So the bookkeeping is `{κ₅², Λ₅} → {G, the
+  gravity-strength anchor `κ₅²/ΔR³`} + {√6, fixed} + {k·R_MID, open but bounded
+  ≲ 0.1}`, with `ΔR` the unit: the "`κ₅²/Λ₅` mystery" is one bounded
+  dimensionless number, not a multi-parameter freedom. The ledger bounds and
+  isolates the residual; it does not pin it, and it adds no new free parameter —
+  it is the same #112 residual, now singular and constrained.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
