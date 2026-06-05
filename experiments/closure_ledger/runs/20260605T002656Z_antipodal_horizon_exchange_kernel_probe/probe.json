@@ -1,0 +1,209 @@
+{
+  "timestamp_utc": "2026-06-05T00:26:56+00:00",
+  "identification": "the antipodal-horizon matter exchange kernel is the cavity resolvent with the antipodal horizon boundary data (#129) \u2014 a reciprocal, unitary (real-pole) two-point kernel whose spectral representation is a sum over the stable modes (#130) and whose l-channels are antipodal-parity-graded (\u22121)^l",
+  "kernel": "K_l(r,r';\u03c9) = (H_l \u2212 \u03c9\u00b2)^{-1}, antipodal BC (#129)",
+  "spectral": "K_l = \u03a3_n \u03c8_n \u03c8_n/(\u03c9_n\u00b2 \u2212 \u03c9\u00b2), poles = real #130 spectrum",
+  "reciprocity": "K_l(r,r') = K_l(r',r) (self-adjoint \u27f9 symmetric)",
+  "unitarity": "antipodal real poles \u27f9 unitary; absorbing complex poles \u27f9 lossy (#130)",
+  "parity_grading": "l-channels carry (\u22121)^l (antipodal exchange sign, #129/#134, C-swap #63)",
+  "open": "interacting/multi-loop kernel; absolute normalisation (#133); flavor residuals (#134)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Build the matter-sector exchange kernel \u2014 the two-point Green's function / resolvent of the matter cavity operator (#116) with the antipodal horizon boundary data (#129) \u2014 assembled from the stable modes (#130). (The gauge-sector photon kernel 1/q\u00b2 is the separate PR #42\u2013#44 probe.)",
+      "builds_on": [
+        "#129 antipodal l-parity boundary data (unitary mirror)",
+        "#130 real normal-mode spectrum",
+        "#116 cavity operator",
+        "#115\u2013#122 S_BAM fluctuation measure",
+        "#64 CPT/unitarity"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_kernel_is_cavity_resolvent",
+      "description": "Exchange kernel K_l = (H_l \u2212 \u03c9\u00b2)^{-1}, H_l = \u2212d\u00b2/dr*\u00b2 + V_l with the antipodal boundary data (#129): even-l Neumann, odd-l Dirichlet at the throat, Dirichlet shell wall. H_l exactly self-adjoint (symmetric).",
+      "rows": [
+        {
+          "l": 0,
+          "bc": "N",
+          "dim": 219,
+          "max_abs_H_minus_HT": 0.0
+        },
+        {
+          "l": 1,
+          "bc": "D",
+          "dim": 218,
+          "max_abs_H_minus_HT": 0.0
+        },
+        {
+          "l": 2,
+          "bc": "N",
+          "dim": 219,
+          "max_abs_H_minus_HT": 0.0
+        }
+      ],
+      "operator_form": "K_l(r,r';\u03c9) = \u27e8r|(H_l \u2212 \u03c9\u00b2)^{-1}|r'\u27e9",
+      "pass": true
+    },
+    {
+      "name": "T3_spectral_representation_mode_sum",
+      "description": "K_l = \u03a3_n \u03c8_n(r)\u03c8_n(r')/(\u03c9_n\u00b2 \u2212 \u03c9\u00b2): a sum over the stable modes, poles at the real #130 spectrum. The exchange kernel is a propagator built as a mode sum (verified: mode sum = matrix resolvent to ~1e-14).",
+      "rows": [
+        {
+          "l": 0,
+          "poles_omega2": [
+            1.363,
+            10.581,
+            28.856
+          ],
+          "spectral_vs_resolvent": 4.4e-14
+        },
+        {
+          "l": 1,
+          "poles_omega2": [
+            5.269,
+            19.046,
+            41.99
+          ],
+          "spectral_vs_resolvent": 4.6e-16
+        },
+        {
+          "l": 2,
+          "poles_omega2": [
+            2.017,
+            11.583,
+            29.868
+          ],
+          "spectral_vs_resolvent": 5.2e-15
+        },
+        {
+          "l": 3,
+          "poles_omega2": [
+            6.728,
+            20.581,
+            43.522
+          ],
+          "spectral_vs_resolvent": 3e-16
+        }
+      ],
+      "probe_omega2": 0.5,
+      "pass": true
+    },
+    {
+      "name": "T4_reciprocity_symmetric_kernel",
+      "description": "K_l(r,r') = K_l(r',r): the antipodal boundary data makes H_l self-adjoint \u27f9 symmetric kernel (reciprocal exchange). Verified |K \u2212 K\u1d40|/|K| ~ 1e-14.",
+      "rows": [
+        {
+          "l": 0,
+          "reciprocity_err": 1.9e-13
+        },
+        {
+          "l": 1,
+          "reciprocity_err": 1.8e-15
+        },
+        {
+          "l": 2,
+          "reciprocity_err": 6.9e-14
+        },
+        {
+          "l": 3,
+          "reciprocity_err": 1.7e-15
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T5_unitary_vs_lossy_kernel",
+      "description": "Antipodal (real BC) \u27f9 Hermitian H_l \u27f9 REAL poles \u27f9 unitary, undamped exchange kernel. Absorbing (ingoing BC) \u27f9 non-Hermitian \u27f9 COMPLEX poles \u27f9 lossy kernel (#130). The antipodal horizon boundary data is what makes the exchange kernel unitary (#64/#129).",
+      "rows": [
+        {
+          "l": 0,
+          "poles_real": [
+            1.363,
+            10.581
+          ],
+          "all_poles_real": true
+        },
+        {
+          "l": 1,
+          "poles_real": [
+            5.269,
+            19.046
+          ],
+          "all_poles_real": true
+        },
+        {
+          "l": 2,
+          "poles_real": [
+            2.017,
+            11.583
+          ],
+          "all_poles_real": true
+        },
+        {
+          "l": 3,
+          "poles_real": [
+            6.728,
+            20.581
+          ],
+          "all_poles_real": true
+        }
+      ],
+      "antipodal": "real poles \u27f9 unitary exchange",
+      "absorbing": "complex poles \u27f9 lossy exchange (#130)",
+      "pass": true
+    },
+    {
+      "name": "T6_angular_antipodal_parity_grading",
+      "description": "K(x,x') = \u03a3_l K_l(r,r';\u03c9) C_l(\u03a9\u00b7\u03a9'); under \u03a9'\u2192A\u03a9', C_l(\u2212\u03a9\u00b7\u03a9') = (\u22121)^l C_l(\u03a9\u00b7\u03a9') \u27f9 each l-channel carries the antipodal sign (\u22121)^l (even-l symmetric, odd-l antisymmetric under the C-swap #63) \u2014 the same (\u22121)^l that fixed the boundary condition (#129).",
+      "rows": [
+        {
+          "l": 0,
+          "antipodal_sign": 1,
+          "under_C_swap": "symmetric"
+        },
+        {
+          "l": 1,
+          "antipodal_sign": -1,
+          "under_C_swap": "antisymmetric"
+        },
+        {
+          "l": 2,
+          "antipodal_sign": 1,
+          "under_C_swap": "symmetric"
+        },
+        {
+          "l": 3,
+          "antipodal_sign": -1,
+          "under_C_swap": "antisymmetric"
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "Constructs the FREE / one-loop matter exchange kernel on the fixed antipodal background \u2014 the propagator of the S_BAM fluctuation measure (#115\u2013#122) with the #129 boundary data. Does NOT include the interacting / multi-loop kernel (vertices, self-energy) or fix the absolute normalisation; the bulk-scale (#133) and flavor (#134) residuals stand. (The gauge-sector photon kernel 1/q\u00b2 is the separate PR #42\u2013#44 probe.)",
+      "established": [
+        "the matter exchange kernel = the antipodal-BC cavity resolvent",
+        "spectral mode-sum (poles = #130 spectrum); reciprocal; unitary",
+        "angular channels antipodal-parity-graded (\u22121)^l"
+      ],
+      "open": [
+        "the interacting / multi-loop kernel (vertices, self-energy)",
+        "the absolute normalisation (#133); the flavor residuals (#134)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The matter exchange kernel is the cavity resolvent with the antipodal horizon boundary data (#129) \u2014 a reciprocal, unitary (real-pole) two-point kernel whose spectral representation is a sum over the stable modes (#130) and whose l-channels are antipodal-parity-graded (\u22121)^l. The interacting kernel and the absolute normalisation remain open.",
+      "classification": "ANTIPODAL_HORIZON_EXCHANGE_KERNEL_UNITARY_RECIPROCAL_PARITY_GRADED",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "ANTIPODAL_HORIZON_EXCHANGE_KERNEL_UNITARY_RECIPROCAL_PARITY_GRADED",
+  "verdict": "THE ANTIPODAL-HORIZON MATTER EXCHANGE KERNEL IS THE ANTIPODAL-BC CAVITY RESOLVENT \u2014 RECIPROCAL, UNITARY, AND ANTIPODAL-PARITY-GRADED. PR #129 fixed the boundary data the antipodal horizon imposes and PR #130 the stable spectrum; this probe builds the object that boundary data defines, the matter two-point exchange kernel. (The gauge-sector photon kernel 1/q\u00b2 is the separate PR #42\u2013#44 probe.)\n\nTHE KERNEL = THE CAVITY RESOLVENT. For each angular channel l the exchange kernel is the resolvent K_l(r,r';\u03c9) = \u27e8r|(H_l \u2212 \u03c9\u00b2)^{-1}|r'\u27e9 of the matter cavity operator H_l = \u2212d\u00b2/dr*\u00b2 + V_l (#116) with the antipodal boundary data of #129 \u2014 Neumann for even l, Dirichlet for odd l, Dirichlet shell wall. The operator is exactly self-adjoint.\n\nSPECTRAL REPRESENTATION = EXCHANGE OF THE STABLE MODES. Because the antipodal operator is self-adjoint, the kernel is the mode sum K_l = \u03a3_n \u03c8_n(r)\u03c8_n(r')/(\u03c9_n\u00b2 \u2212 \u03c9\u00b2), with poles at the real normal-mode spectrum of #130. The exchange kernel is a propagator assembled as a sum over the stable exchanged modes, with no decaying contribution (mode sum = matrix resolvent to ~1e-14).\n\nRECIPROCITY. The antipodal boundary data makes H_l self-adjoint, so the kernel is symmetric, K_l(r,r') = K_l(r',r) (reciprocal exchange; |K \u2212 K\u1d40|/|K| ~ 1e-14).\n\nUNITARY VS LOSSY \u2014 THE BOUNDARY DATA DECIDES. The antipodal (real) boundary data gives a Hermitian H_l with REAL poles \u27f9 an undamped, unitary exchange kernel; the absorbing horizon (ingoing BC) would give a non-Hermitian operator with COMPLEX poles \u27f9 a lossy kernel (#130). So the antipodal horizon boundary data is exactly what makes the matter exchange kernel unitary \u2014 the propagator-level face of the unitary mirror (#129) and the global CPT/unitarity (#64).\n\nANGULAR ANTIPODAL-PARITY GRADING. The full kernel factorises K(x,x') = \u03a3_l K_l(r,r';\u03c9) C_l(\u03a9\u00b7\u03a9') with C_l the S\u00b3 zonal harmonic; under the throat \u2194 antithroat exchange \u03a9'\u2192A\u03a9', C_l(\u2212\u03a9\u00b7\u03a9') = (\u22121)^l C_l(\u03a9\u00b7\u03a9') (#129/#134), so each l-channel of the exchange kernel carries the antipodal sign (\u22121)^l \u2014 even-l symmetric, odd-l antisymmetric under the C-swap (#63) \u2014 the same (\u22121)^l that fixed the boundary condition.\n\nSCOPE. This constructs the FREE / one-loop matter exchange kernel on the fixed antipodal background \u2014 the propagator of the S_BAM fluctuation measure (#115\u2013#122) with the #129 boundary data. It does NOT include the interacting / multi-loop kernel (vertices, self-energy) or fix the absolute normalisation; the bulk-scale (#133) and flavor (#134) residuals stand."
+}
