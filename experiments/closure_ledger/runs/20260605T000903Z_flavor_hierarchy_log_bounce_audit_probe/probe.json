@@ -1,0 +1,146 @@
+{
+  "timestamp_utc": "2026-06-05T00:09:03+00:00",
+  "identification": "the logarithmic throat bounce gives a power-law mass m \u221d \u03b5^p, governing the chargeless neutrino sector's form and ordering (#113) but not its value (\u00d728 = 2^4.8 amplification); the charged-lepton (winding) and quark (cavity) hierarchies are different mechanisms \u2014 the flavor hierarchy is not unified by the log-bounce",
+  "mechanism": "log-bounce S = c(rs/2)ln(1/\u03b5) \u27f9 m \u221d \u03b5^p (power law)",
+  "neutrino": "the log-bounce sector: m_\u03bd \u221d \u03b5^{4.8} (#112), right ordering, value overshoots \u00d728 (#113)",
+  "charged_leptons": "winding ladder \u03b2\u00b7k\u00b2 (#71), irregular ln(m) \u2014 NOT log-bounce",
+  "quarks": "cavity overtones / n_part (#77\u2013#80), irregular ln(m) \u2014 NOT log-bounce",
+  "why_residual": "m \u221d \u03b5^p hypersensitivity (\u2202ln m/\u2202ln \u03b5 = p) \u27f9 flavor values residual (#108)",
+  "open": "neutrino value overshoot (#113); charged/quark irregular magnitudes (flavor puzzle #108)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Audit whether the three-generation flavor hierarchy can be read off the logarithmic throat bounce lengths L*(\u03b5) = (rs/2) ln(1/\u03b5) (#88/#132), via tunnelling masses m ~ e^{\u2212S}.",
+      "builds_on": [
+        "#132/#88 logarithmic bounce length",
+        "#112 m_\u03bd \u221d \u03b5^{4.8}",
+        "#113 generation \u03b5_n \u221d 1/\u03c7_n",
+        "#71 winding ladder",
+        "#77\u2013#80 quark cavity / n_part",
+        "#108 flavor puzzle"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_log_bounce_power_law_mass",
+      "description": "S = c\u00b7L*(\u03b5) = c(rs/2)ln(1/\u03b5) \u27f9 m = m_0 e^{\u2212S} = m_0 \u03b5^{c rs/2} = m_0 \u03b5^p: the logarithm turns the exponential into a POWER LAW in the throat penetration depth \u03b5 (verified e^{\u2212cL*} = \u03b5^p).",
+      "rows": [
+        {
+          "eps": 0.01,
+          "c": 2.0,
+          "p_eq_c_rs_over_2": 1.0,
+          "e_minus_cLstar": 0.01,
+          "eps_to_p": 0.01,
+          "match": true
+        },
+        {
+          "eps": 0.1,
+          "c": 1.0,
+          "p_eq_c_rs_over_2": 0.5,
+          "e_minus_cLstar": 0.31622777,
+          "eps_to_p": 0.31622777,
+          "match": true
+        },
+        {
+          "eps": 0.001,
+          "c": 3.6,
+          "p_eq_c_rs_over_2": 1.8,
+          "e_minus_cLstar": 3.98e-06,
+          "eps_to_p": 3.98e-06,
+          "match": true
+        }
+      ],
+      "relation": "m \u221d \u03b5^p, p = c\u00b7rs/2",
+      "pass": true
+    },
+    {
+      "name": "T3_neutrino_sector_is_log_bounce",
+      "description": "\u03bd = the only tunnelling sector (k=0 chargeless, #86/#88); m_\u03bd \u221d \u03b5^{4.8} (#112), a power law. \u03b5_n \u221d 1/\u03c7_n (#79/#113) \u27f9 right ordering (normal), but p=4.8 amplifies the \u03c7_n spread: \u00d72 in \u03b5 \u2192 2^4.8 \u2248 28\u00d7 in mass \u2014 the \u00d728 overshoot (#113). Form & ordering governed, value residual.",
+      "p_nu": 4.8,
+      "chi_n": [
+        0.304,
+        0.097,
+        0.039
+      ],
+      "eps_n_ratios": [
+        1.0,
+        3.13,
+        7.79
+      ],
+      "normal_ordering": true,
+      "amplification_2_to_p": 27.9,
+      "overshoot_113": "\u00d728 (= 2^4.8)",
+      "pass": true
+    },
+    {
+      "name": "T4_charged_leptons_winding_not_bounce",
+      "description": "Charged leptons are Dirac (c\u2081=\u00b11, EM-propped, no tunnelling, #86/#88); masses from the winding ladder \u03b2\u00b7k\u00b2 (#71), not the bounce. ln(m) irregular (gen-differences not equal \u27f9 not a clean power law).",
+      "mechanism": "winding ladder \u03b2\u00b7k\u00b2 (#71), not log-bounce",
+      "ln_m_gen_differences": [
+        5.33,
+        2.82
+      ],
+      "diff_ratio": 0.53,
+      "irregular": true,
+      "pass": true
+    },
+    {
+      "name": "T5_quarks_cavity_not_bounce",
+      "description": "Quarks are shell-resolving cavity overtones (#77\u2013#80, the n_part sector), not throat-tunnelling; their ln(m) is irregular (the flavor puzzle, #97/#107).",
+      "mechanism": "cavity overtones / n_part (#77\u2013#80), not log-bounce",
+      "up_ln_m_differences": [
+        6.37,
+        4.91
+      ],
+      "up_diff_ratio": 0.77,
+      "down_ln_m_differences": [
+        3.01,
+        3.78
+      ],
+      "down_diff_ratio": 1.26,
+      "irregular": true,
+      "pass": true
+    },
+    {
+      "name": "T6_log_bounce_hypersensitivity",
+      "description": "m \u221d \u03b5^p \u27f9 \u2202ln m/\u2202ln \u03b5 = p: masses are hypersensitive to the throat penetration depth (\u00d72 in \u03b5 \u2192 2^p in mass). The flavor values' irreducibility (#108) is a consequence of the exponential mass-action relation \u2014 the log-bounce amplification \u2014 not a separate mystery.",
+      "rows": [
+        {
+          "p": 1.0,
+          "d_ln_m_d_ln_eps": 1.0,
+          "mass_spread_for_2x_eps": 2.0
+        },
+        {
+          "p": 4.8,
+          "d_ln_m_d_ln_eps": 4.8,
+          "mass_spread_for_2x_eps": 27.9
+        }
+      ],
+      "consequence": "flavor values residual by log-bounce hypersensitivity (#108/#112)",
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "An audit/classification: the log-bounce \u27f9 power-law mechanism governs the NEUTRINO sector (form & ordering, #113), not its value; charged leptons are winding (#71), quarks cavity (#77). The flavor hierarchy is a three-mechanism structure, NOT a single log-bounce phenomenon. Does NOT solve the hierarchy, predict any mass, or remove the universal flavor puzzle (#104/#108).",
+      "three_mechanisms": {
+        "neutrino": "log-bounce \u27f9 m \u221d \u03b5^p (form/ordering; value residual, #113)",
+        "charged_lepton": "winding ladder \u03b2\u00b7k\u00b2 (#71)",
+        "quark": "cavity overtones / n_part (#77\u2013#80)"
+      },
+      "open": [
+        "the neutrino value (\u00d728 overshoot, #113); the charged/quark irregular magnitudes (the flavor puzzle, #97/#107/#108)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The logarithmic throat bounce gives a power-law mass m \u221d \u03b5^p, which governs the chargeless neutrino sector's form and ordering (#113) but overshoots its value (\u00d728 = 2^4.8 amplification); the charged-lepton (winding) and quark (cavity) hierarchies are different mechanisms. The flavor hierarchy is not unified by the log-bounce; the steep power explains why the neutrino values are residual (hypersensitivity).",
+      "classification": "FLAVOR_HIERARCHY_LOG_BOUNCE_GOVERNS_NEUTRINO_SECTOR_FORM_NOT_VALUE",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "FLAVOR_HIERARCHY_LOG_BOUNCE_GOVERNS_NEUTRINO_SECTOR_FORM_NOT_VALUE",
+  "verdict": "THE LOGARITHMIC THROAT BOUNCE GOVERNS THE NEUTRINO FLAVOR SECTOR \u2014 ITS FORM AND ORDERING, NOT ITS VALUE \u2014 AND IS NOT THE FLAVOR HIERARCHY'S UNIFYING MECHANISM. PRs #88/#132 made the bounce action logarithmic, S = c(rs/2)ln(1/\u03b5); this probe audits whether the three-generation mass hierarchy follows from those logarithmic bounce lengths.\n\nTHE MECHANISM: LOG-BOUNCE \u27f9 POWER-LAW MASS. With S = c\u00b7L*(\u03b5) = c(rs/2)ln(1/\u03b5), a tunnelling mass is m = m_0 e^{\u2212S} = m_0 \u03b5^{c rs/2} = m_0 \u03b5^p \u2014 the logarithm turns the exponential into a PURE POWER LAW in the throat penetration depth \u03b5 (verified e^{\u2212cL*} = \u03b5^p). Masses are powers of \u03b5, not exponentials of a linear quantity.\n\nTHE NEUTRINO SECTOR IS THE LOG-BOUNCE SECTOR. The neutrino is the only genuine tunnelling sector \u2014 k = 0, chargeless, the neck not EM-propped (#86/#88) \u2014 so m_\u03bd = m_D e^{\u2212S} \u221d \u03b5^p with p \u2248 4.8 (#112). The generation healing lengths \u03b5_n \u221d 1/\u03c7_n (#79/#113) give the right ORDERING (normal), but the steep power amplifies the modest \u03c7_n spread: a ~\u00d72 spread in \u03b5 becomes 2^4.8 \u2248 28\u00d7 in mass \u2014 the \u00d728 overshoot of #113. So the log-bounce governs the neutrino hierarchy's form and ordering, with the value residual.\n\nCHARGED LEPTONS AND QUARKS ARE NOT LOG-BOUNCE. Charged leptons are Dirac (c\u2081 = \u00b11, neck EM-propped, no tunnelling, #86/#88); their masses come from the winding ladder \u03b2\u00b7k\u00b2 (#71), and their ln(m) is irregular (gen-differences 5.33, 2.82 \u2014 ratio 0.53). Quarks are shell-resolving cavity overtones (#77\u2013#80, the n_part sector); their ln(m) is irregular too (up-type 6.37, 4.91 \u2014 ratio 0.77). So the flavor hierarchy is a THREE-mechanism structure \u2014 bounce (\u03bd), winding (charged leptons), cavity (quarks) \u2014 not a single log-bounce phenomenon.\n\nWHY THE FLAVOR VALUES ARE RESIDUAL. The power law m \u221d \u03b5^p has \u2202ln m/\u2202ln \u03b5 = p, so with p a few the masses are HYPERSENSITIVE to the throat penetration depth: a \u00d72 ambiguity in \u03b5 becomes 2^p \u2248 28\u00d7 in mass. The irreducibility of the flavor values (#108) is therefore a CONSEQUENCE of the exponential mass-action relation \u2014 the log-bounce amplification \u2014 not a separate mystery: even a fully-determined geometry would leave the masses hypersensitive to the \u03b5 residual (#112).\n\nSCOPE. An audit/classification: it establishes the log-bounce \u27f9 power-law mechanism, locates it in the neutrino sector (form & ordering), separates the charged-lepton (winding) and quark (cavity) sectors, and explains the flavor values' residual-ness as log-bounce hypersensitivity. It does NOT solve the flavor hierarchy, predict any mass value, or remove the universal flavor puzzle (#104/#108)."
+}

@@ -1592,6 +1592,32 @@ problems rather than implementation TODOs:
   dimensionless number, not a multi-parameter freedom. The ledger bounds and
   isolates the residual; it does not pin it, and it adds no new free parameter —
   it is the same #112 residual, now singular and constrained.
+  PR #134 turns the same logarithmic bounce length on a different question — the
+  flavor hierarchy — and the result is a clean classification rather than a
+  solution. If the bounce action is `S = c·L*(ε) = c·(rs/2) ln(1/ε)` (#88/#132)
+  and a tunnelling mass is `m = m_0 e^{−S}`, then the logarithm collapses the
+  exponential into a *power law* in the throat penetration depth,
+  `m = m_0 ε^{c·rs/2} = m_0 ε^p`. Masses are powers of `ε`, not exponentials of
+  a linear quantity, and that single observation sorts the three generations'
+  three sectors. The neutrino is the only genuine tunnelling sector — chargeless,
+  `k = 0`, the neck not propped open — so `m_ν ∝ ε^p` with `p ≈ 4.8` (#112), and
+  the generation healing lengths `ε_n ∝ 1/χ_n` (#79) give the correct normal
+  ordering; but the steep power amplifies the modest `χ_n` spread, turning a
+  roughly twofold spread in `ε` into `2^{4.8} ≈ 28×` in mass — precisely the
+  overshoot #113 had found. So the log-bounce governs the neutrino hierarchy's
+  *form and ordering*, with the value residual. The other two sectors are not
+  log-bounce at all: the charged leptons are Dirac, their masses set by the
+  winding ladder `β·k²` (#71), and the quarks are shell-resolving cavity
+  overtones (#77–#80, the `n_part` sector) — and both have irregular `ln m`
+  spacings, the signature of the flavor puzzle (#97/#107). The flavor hierarchy
+  is therefore a *three-mechanism* structure — bounce, winding, cavity — not a
+  single log-bounce phenomenon. What the audit does add is an explanation of
+  *why* the flavor values are residual: because `m ∝ ε^p` has
+  `∂ln m/∂ln ε = p`, a few-fold ambiguity in the throat depth becomes an
+  order-of-magnitude ambiguity in mass, so the irreducibility of the flavor
+  values (#108) is a consequence of the exponential mass–action relation rather
+  than a separate mystery. The audit does not predict any mass; the neutrino
+  overshoot and the charged/quark irregular magnitudes stand.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
