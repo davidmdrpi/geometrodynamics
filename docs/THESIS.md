@@ -1645,6 +1645,37 @@ problems rather than implementation TODOs:
   the propagator of the S_BAM fluctuation measure — not the interacting
   multi-loop kernel, and it does not fix the absolute normalisation; the
   bulk-scale (#133) and flavor (#134) residuals are untouched.
+  PR #136 takes the propagator one order further, to its leading interacting
+  correction — the one-loop self-energy `Σ` — and asks the natural question:
+  does dressing the free antipodal kernel spoil the stability and unitarity it
+  had at tree level? The self-energy enters through the Dyson form
+  `G(s) = 1/(s − ω_k² − Σ(s))`, with `s = ω²`, so that `Re Σ` shifts the mass
+  and `Im Σ` gives a width; a mode remains a sharp, stable particle exactly when
+  `Im Σ` vanishes at its pole. For a cubic self-interaction on the cavity the
+  one-loop `Σ` is the two-particle bubble
+  `Σ_k(s) = Σ_{n≤m} c_{nm}|g_{knm}|²/(s − (ω_n+ω_m)² + i0⁺)`, with the vertex the
+  triple overlap `g_{knm} = ∫ ψ_k ψ_n ψ_m dr*` of the antipodal modes, and the
+  optical theorem makes `Im Σ` the two-particle phase space: it is nonzero only
+  once `s` reaches a threshold `(ω_n+ω_m)²`. The lowest such threshold is
+  `2ω_0`, and the lightest mode sits at `ω_0 < 2ω_0`, so its pole `s = ω_0²`
+  lies below `(2ω_0)²` and `Im Σ_0(ω_0²) = 0`: the lightest matter state cannot
+  decay — energy conservation forbids it — and stays a sharp, real-pole, stable
+  particle through one loop. The real part `Re Σ_0` is a finite mass
+  renormalisation: the vertex overlaps fall off with mode index, the mode sum
+  converges, and the residual UV piece is the same zeta/heat-kernel
+  regularisation that gave the #116 fluctuation determinant. The decisive point
+  is unitarity. Above threshold `Im Σ ≤ 0` is a genuine decay width, below it is
+  zero — the optical theorem holds — and because the throat is a unitary mirror
+  (#129) there is *no* horizon-absorption contribution to `Σ` at all: the only
+  width is real multi-particle decay, which the lightest mode is kinematically
+  forbidden from. That is the sharp contrast with an absorbing horizon, which
+  would hand every mode a width already at tree level (#130). So the one-loop
+  self-energy extends the tree-level stable spectrum (#130/#135) intact: BAM
+  matter is stable not only as a free spectrum but through its leading
+  interaction. What stays open is honest and familiar — the interaction vertex
+  is modelled rather than derived from the S_BAM measure, the coupling is an
+  input, and higher loops, the absolute normalisation (#133), and the flavor
+  residuals (#134) are untouched.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
