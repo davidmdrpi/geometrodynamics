@@ -1727,6 +1727,34 @@ problems rather than implementation TODOs:
   couplings `λ_3, λ_4` are not derived from S_BAM (only the sign `λ_4 > 0` is
   forced, by convergence), the quintic and higher vertices are untouched, and the
   bulk-scale (#133) and flavor (#134) residuals stand.
+  PR #139 is the capstone of this matter-interaction arc, and it is worth saying
+  plainly what the arc, taken whole, amounts to. The six steps — the boundary
+  condition (#129), the spectrum (#130), the free propagator (#135), the
+  one-loop self-energy (#136), and the cubic and quartic vertices (#137/#138) —
+  re-verify together as a mutually consistent set: the harmonic parity is
+  `(−1)^l`, the exchange kernel is reciprocal with real poles, the lightest
+  self-energy correction has vanishing imaginary part, the quartic overlap is
+  positive, and the antipodal fundamental frequency is real where the absorbing
+  one is complex. The recognition is that the whole arc is two threads from a
+  single postulate. The first thread is the antipodal `Z₂`: the inversion
+  `x → −x` of the C-swap (#63) carries `Y_l → (−1)^l Y_l`, and that one parity
+  fixes the boundary condition, grades the propagator, and selects which cubic
+  and quartic vertices can exist. The second thread is unitarity and stability:
+  the antipodal boundary condition is a unitary mirror, and from it follow a real
+  stable spectrum, a unitary reciprocal propagator, a self-energy that preserves
+  stability with an exactly-stable lightest mode, and a bounded-below interacting
+  vacuum — the same boundedness the measure itself required for convergence
+  (#122). The two threads are one object seen twice: the real l-parity boundary
+  condition is at once the `Z₂` grading and the unitary mirror, both faces of the
+  single antipodal identification (#128). The honest ledger is then clean. Given
+  the antipodal boundary condition, the selection structure and the unitary,
+  stable, bounded interacting theory are *derived*; the antipodal identification
+  itself is *postulated* — BAM's axiom, shown here to yield a self-consistent
+  interacting theory rather than forced by anything more primitive; the coupling
+  magnitudes are *input* (only the sign of the quartic is fixed, by convergence);
+  and the open pieces are unchanged by the synthesis — the S_BAM generation of
+  the vertices, the higher loops and higher vertices, and the standing bulk-scale
+  (#133) and flavor (#134) residuals.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
