@@ -1699,6 +1699,34 @@ problems rather than implementation TODOs:
   vertex's structure — its selection rule, its geometric shape, its symmetry and
   reality — is BAM-native, while its magnitude is input. The quartic and higher
   vertices, and the bulk-scale (#133) and flavor (#134) residuals, stand.
+  PR #138 takes the next vertex — the quartic — and with it answers a question
+  the cubic alone could not: whether the interacting vacuum is stable. The
+  quartic factorises the same way, into an angular integral, a four-mode radial
+  overlap, and a coupling, and its angular selection rule carries the same
+  antipodal Z₂: the integral `∫_{S³} Y_{l1}Y_{l2}Y_{l3}Y_{l4} dΩ` vanishes unless
+  `l1+l2+l3+l4` is even (and a common SO(4) channel exists), the even-sum
+  condition being once more the inversion parity `(−1)^{Σl} = +1` of the C-swap
+  (#63). So the `(−1)^l` Z₂ that fixed the boundary condition, graded the
+  propagator, and selected the cubic vertices governs the quartic too. The new
+  content is the stability audit. A purely cubic potential is unbounded below, so
+  the cubic ledger of #137 left the vacuum's stability open; the quartic settles
+  it, because the diagonal quartic overlap `g_4 = ∫ ψ_k⁴ dr*` is manifestly
+  positive — an integral of a fourth power. The single-mode effective potential
+  `V(a) = ½ ω_k² a² + (λ_3 g_3/6) a³ + (λ_4 g_4/24) a⁴` is then bounded below
+  whenever its `a⁴` coefficient `λ_4 g_4/24` is positive, which it is for any
+  positive coupling, so `V → +∞` at large field for *any* cubic strength: the
+  cubic can tilt the minimum but never unbound it, and the vacuum is stable. This
+  is not an extra assumption bolted on. A bounded-below action is exactly the
+  condition for the path-integral measure `∫ Dμ e^{−S}` to converge, and that
+  convergence was already established non-perturbatively for the Z₂-graded sector
+  sum (#122); the positive geometric quartic is what realises it. So the
+  stability thread of the program closes a loop: the free modes are stable (#130),
+  the one-loop self-energy preserves that stability and unitarity (#136), and the
+  full interacting vacuum is bounded below (#138) — the same condition the measure
+  itself demanded. What remains input is, as always, the magnitudes: the
+  couplings `λ_3, λ_4` are not derived from S_BAM (only the sign `λ_4 > 0` is
+  forced, by convergence), the quintic and higher vertices are untouched, and the
+  bulk-scale (#133) and flavor (#134) residuals stand.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,

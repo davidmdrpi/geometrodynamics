@@ -1,0 +1,186 @@
+{
+  "timestamp_utc": "2026-06-05T02:21:34+00:00",
+  "identification": "the quartic vertex carries the same antipodal Z\u2082 selection rule (\u03a3l even) plus the SO(4) common-channel condition; its geometric self-overlap \u222b\u03c8\u2074 > 0 is positive, so the effective potential is bounded below (a stable vacuum) \u2014 the S_BAM measure-convergence condition (#122)",
+  "factorisation": "V_4 = \u03bb_4 \u00b7 (angular \u222bYYYY) \u00b7 (radial \u222b\u03c8\u03c8\u03c8\u03c8)",
+  "angular_rule": "DERIVED: \u03a3l even (same antipodal Z\u2082 as #137) + SO(4) common channel",
+  "positive_overlap": "g_4 = \u222b\u03c8_k\u2074 dr* > 0 (manifest)",
+  "bounded": "a\u2074 coeff \u03bb_4 g_4/24 > 0 \u27f9 V \u2192 +\u221e \u27f9 bounded below \u27f9 stable vacuum",
+  "measure_tie": "boundedness = convergence of \u222b D\u03bc e^{\u2212S} (#122)",
+  "input": "coupling magnitudes \u03bb_3, \u03bb_4 (sign \u03bb_4 > 0 from #122)",
+  "open": "coupling magnitudes; quintic/higher vertices; S_BAM generation",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Extend the #137 cubic-vertex ledger to the QUARTIC vertex, and audit whether the BAM matter interaction is bounded below (a stable vacuum) \u2014 the stability question the cubic alone leaves open.",
+      "builds_on": [
+        "#137 cubic vertex ledger (antipodal Z\u2082 selection)",
+        "#122 S_BAM measure convergence (bounded action)",
+        "#130/#136 stability thread",
+        "#116 cavity modes"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_quartic_factorisation",
+      "description": "V_4 = \u03bb_4 \u00b7 [\u222b_{S\u00b3} Y_{l1}Y_{l2}Y_{l3}Y_{l4} d\u03a9] \u00b7 [\u222b \u03c8_k \u03c8_l \u03c8_m \u03c8_n dr*] \u2014 angular integral \u00d7 radial overlap \u00d7 coupling, the same factorisation as the cubic (#137).",
+      "factorisation": "V_4 = \u03bb_4 \u00b7 (angular \u222bYYYY) \u00b7 (radial \u222b\u03c8\u03c8\u03c8\u03c8)",
+      "pass": true
+    },
+    {
+      "name": "T3_quartic_angular_selection_rule",
+      "description": "\u222b_{S\u00b3} Y_{l1}Y_{l2}Y_{l3}Y_{l4} = 0 unless \u03a3l even (the SAME antipodal Z\u2082 as the cubic #137, under x\u2192\u2212x the C-swap #63) AND a common SO(4) intermediate channel L \u2208 [|l1\u2212l2|,l1+l2] \u2229 [|l3\u2212l4|,l3+l4] exists. Odd-\u03a3l forbidden (verified exactly).",
+      "rows": [
+        {
+          "llll": "(0,0,0,0)",
+          "sum_l": 0,
+          "even": true,
+          "common_channel": true,
+          "integral": 1.0,
+          "nonzero": true
+        },
+        {
+          "llll": "(1,1,0,0)",
+          "sum_l": 2,
+          "even": true,
+          "common_channel": true,
+          "integral": 0.25,
+          "nonzero": true
+        },
+        {
+          "llll": "(1,1,1,1)",
+          "sum_l": 4,
+          "even": true,
+          "common_channel": true,
+          "integral": 0.041667,
+          "nonzero": true
+        },
+        {
+          "llll": "(2,1,1,0)",
+          "sum_l": 4,
+          "even": true,
+          "common_channel": true,
+          "integral": 0.041667,
+          "nonzero": true
+        },
+        {
+          "llll": "(1,1,1,0)",
+          "sum_l": 3,
+          "even": false,
+          "common_channel": true,
+          "integral": 0.0,
+          "nonzero": false
+        },
+        {
+          "llll": "(1,0,0,0)",
+          "sum_l": 1,
+          "even": false,
+          "common_channel": false,
+          "integral": 0.0,
+          "nonzero": false
+        }
+      ],
+      "odd_sum_all_vanish": true,
+      "rule": "nonzero \u27fa (\u03a3l even) \u2227 (common SO(4) channel)",
+      "pass": true
+    },
+    {
+      "name": "T4_positive_quartic_self_overlap",
+      "description": "g_4 = \u222b \u03c8_k\u2074 dr* > 0 \u2014 an integral of a fourth power, manifestly positive for every mode. This positive geometric quartic is what bounds the interaction below.",
+      "rows": [
+        {
+          "k": 0,
+          "g4_int_psi4": 1.0335,
+          "positive": true
+        },
+        {
+          "k": 1,
+          "g4_int_psi4": 1.0205,
+          "positive": true
+        },
+        {
+          "k": 2,
+          "g4_int_psi4": 1.0204,
+          "positive": true
+        },
+        {
+          "k": 3,
+          "g4_int_psi4": 1.0204,
+          "positive": true
+        }
+      ],
+      "all_positive": true,
+      "pass": true
+    },
+    {
+      "name": "T5_bounded_interaction_stable_vacuum",
+      "description": "V(a) = \u00bd\u03c9\u00b2a\u00b2 + (\u03bb_3 g_3/6)a\u00b3 + (\u03bb_4 g_4/24)a\u2074 is bounded below iff the a\u2074 coefficient \u03bb_4 g_4/24 > 0. With g_4 > 0 and \u03bb_4 > 0, V \u2192 +\u221e as |a| \u2192 \u221e for ANY cubic \u2014 a stable vacuum; the cubic can tilt but never unbound it.",
+      "rows": [
+        {
+          "lambda3": 0.0,
+          "a4_coeff": 0.0431,
+          "V_at_+1e4": 431000000000000.0,
+          "V_at_-1e4": 431000000000000.0,
+          "bounded": true
+        },
+        {
+          "lambda3": 5.0,
+          "a4_coeff": 0.0431,
+          "V_at_+1e4": 430000000000000.0,
+          "V_at_-1e4": 431000000000000.0,
+          "bounded": true
+        },
+        {
+          "lambda3": 50.0,
+          "a4_coeff": 0.0431,
+          "V_at_+1e4": 422000000000000.0,
+          "V_at_-1e4": 439000000000000.0,
+          "bounded": true
+        },
+        {
+          "lambda3": 200.0,
+          "a4_coeff": 0.0431,
+          "V_at_+1e4": 397000000000000.0,
+          "V_at_-1e4": 464000000000000.0,
+          "bounded": true
+        }
+      ],
+      "criterion": "bounded below \u27fa a\u2074 coefficient > 0",
+      "pass": true
+    },
+    {
+      "name": "T6_boundedness_is_measure_convergence",
+      "description": "A bounded-below action is exactly the condition for the path-integral measure \u222b D\u03bc e^{\u2212S} to converge \u2014 established non-perturbatively for the Z\u2082-graded sector sum in #122. So the positive quartic is not an extra assumption: a bounded interaction is required by, and consistent with, the measure's existence. Extends the stability thread: free modes stable (#130), one-loop unitary (#136), full interacting vacuum bounded (here).",
+      "tie": "bounded-below action \u27fa convergence of \u222b D\u03bc e^{\u2212S} (#122)",
+      "stability_thread": [
+        "#130 stable spectrum",
+        "#136 unitary self-energy",
+        "#138 bounded vacuum"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T7_ledger_and_scope",
+      "description": "DERIVED: the quartic angular selection rule (\u03a3l even \u2014 antipodal Z\u2082 \u2014 + SO(4) common channel), the positive geometric self-overlap (boundedness), the symmetry and reality. INPUT: the coupling magnitudes \u03bb_3, \u03bb_4 (the sign \u03bb_4 > 0 is required by #122 convergence; the magnitude is input). Does NOT derive the couplings from S_BAM, nor address quintic/higher vertices; the bulk-scale (#133) and flavor (#134) residuals stand.",
+      "derived": [
+        "quartic selection rule: \u03a3l even (Z\u2082) + SO(4) common channel",
+        "positive quartic self-overlap \u222b\u03c8\u2074 > 0 \u27f9 bounded below",
+        "boundedness = #122 measure convergence"
+      ],
+      "input": [
+        "coupling magnitudes \u03bb_3, \u03bb_4 (sign \u03bb_4 > 0 from #122)",
+        "quintic / higher vertices; S_BAM generation of the couplings"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The quartic vertex carries the same antipodal Z\u2082 selection rule as the cubic (\u03a3l even) plus the SO(4) common-channel condition; its geometric self-overlap \u222b\u03c8\u2074 > 0 is positive, so the effective potential is bounded below \u2014 a stable interacting vacuum \u2014 and that boundedness is the S_BAM measure-convergence condition (#122). The coupling magnitudes remain input.",
+      "classification": "QUARTIC_VERTEX_LEDGER_Z2_SELECTION_POSITIVE_OVERLAP_BOUNDED_STABLE_VACUUM",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "QUARTIC_VERTEX_LEDGER_Z2_SELECTION_POSITIVE_OVERLAP_BOUNDED_STABLE_VACUUM",
+  "verdict": "THE QUARTIC VERTEX CARRIES THE SAME ANTIPODAL Z\u2082 SELECTION RULE, AND ITS POSITIVE GEOMETRIC OVERLAP BOUNDS THE INTERACTION BELOW \u2014 A STABLE VACUUM. PR #137 drew the cubic-vertex ledger; this probe extends it to the quartic and audits the stability the cubic alone left open.\n\nTHE QUARTIC VERTEX FACTORISES. V_4 = \u03bb_4 \u00b7 [\u222b_{S\u00b3} Y_{l1}Y_{l2}Y_{l3}Y_{l4} d\u03a9] \u00b7 [\u222b \u03c8_k \u03c8_l \u03c8_m \u03c8_n dr*] \u2014 angular integral \u00d7 radial overlap \u00d7 coupling, the same factorisation as the cubic.\n\nTHE QUARTIC SELECTION RULE IS DERIVED. The angular integral is nonzero only if (a) l1+l2+l3+l4 is EVEN \u2014 the SAME antipodal parity Z\u2082 as the cubic (#137): under x \u2192 \u2212x (the throat \u2194 antithroat C-swap #63), Y_l \u2192 (\u22121)^l Y_l, so (\u22121)^{\u03a3l} = +1 over the inversion-symmetric S\u00b3 \u2014 and (b) a common SO(4) intermediate channel exists, L \u2208 [|l1\u2212l2|,l1+l2] \u2229 [|l3\u2212l4|,l3+l4]. The antipodal Z\u2082 persists from the cubic to the quartic (verified exactly via the S\u00b3 monomial integral: odd-\u03a3l \u2192 0).\n\nTHE QUARTIC SELF-OVERLAP IS POSITIVE. The diagonal quartic radial overlap g_4 = \u222b \u03c8_k\u2074 dr* > 0 is manifestly positive \u2014 an integral of a fourth power \u2014 for every mode.\n\nTHE INTERACTION IS BOUNDED BELOW \u2014 A STABLE VACUUM. The single-mode effective potential V(a) = \u00bd \u03c9_k\u00b2 a\u00b2 + (\u03bb_3 g_3/6) a\u00b3 + (\u03bb_4 g_4/24) a\u2074 is bounded below iff its a\u2074 coefficient \u03bb_4 g_4/24 > 0. With g_4 > 0 and \u03bb_4 > 0, V \u2192 +\u221e as |a| \u2192 \u221e for ANY cubic \u2014 the vacuum is stable, the cubic only tilting the minimum, never unbounding it. The positive geometric quartic bounds the cubic.\n\nBOUNDEDNESS IS THE MEASURE-CONVERGENCE CONDITION (#122). A bounded-below action is exactly the condition for the path-integral measure \u222b D\u03bc e^{\u2212S} to converge \u2014 established non-perturbatively for the Z\u2082-graded sector sum in #122. So the positive quartic is not an extra assumption: a bounded interaction is required by, and consistent with, the measure's existence. This extends the program's stability thread \u2014 free modes stable (#130), one-loop self-energy unitarity-preserving (#136), and now the full interacting vacuum bounded below.\n\nSCOPE. Audits the quartic vertex STRUCTURE (the Z\u2082 + SO(4) selection rule, the positive geometric overlap, the boundedness it implies) and ties boundedness to #122. It does NOT derive the coupling magnitudes \u03bb_3, \u03bb_4 from S_BAM (the sign \u03bb_4 > 0 is required by #122 convergence; the magnitude is input), nor address quintic / higher vertices. The bulk-scale (#133) and flavor (#134) residuals stand."
+}
