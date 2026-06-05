@@ -1755,6 +1755,36 @@ problems rather than implementation TODOs:
   and the open pieces are unchanged by the synthesis — the S_BAM generation of
   the vertices, the higher loops and higher vertices, and the standing bulk-scale
   (#133) and flavor (#134) residuals.
+  PR #140 takes up the first of those open pieces — the S_BAM generation of the
+  vertices, which every step from #137 to #139 had to flag as modelled rather
+  than derived — and closes it structurally. The point is simply that the
+  vertices are not separate objects bolted onto the theory: they are the Taylor
+  coefficients of the S_BAM action expanded about the throat background. Writing
+  `S_BAM[φ_cl + φ] = S_cl + S_2 + S_3 + S_4 + …`, the quadratic piece `S_2` is the
+  fluctuation action already met as the #116 determinant and the #135 propagator,
+  while `S_3` and `S_4` are the cubic and quartic vertices of #137 and #138 — the
+  higher functional derivatives of one geometric action. A free, purely quadratic
+  action would have no vertices at all; the geometric, non-quadratic S_BAM
+  generates the whole tower. Two of the vertices' properties, moreover, are not
+  free but forced. The first is the selection rule. The S_BAM measure carries the
+  loop quotient `Diff(S¹) ⋉ U(1) ⋉ Z₂`, whose `Z₂` is the antipodal map — the
+  C-swap `x → −x` of #63 — and under it a mode of angular momentum `l` carries the
+  harmonic parity, so its amplitude transforms `a_l → (−1)^l a_l`. A vertex of
+  several modes therefore picks up `(−1)^{Σl}` and survives the symmetry only when
+  `Σl` is even. Because S_BAM is invariant under that antipodal `Z₂`, every vertex
+  it generates must have `Σl` even — which is exactly the selection rule #137 and
+  #138 found, now read as a Ward identity of the antipodal symmetry rather than an
+  assumption. The second forced property is the sign of the quartic. The measure
+  exists — it is reflection-positive, it yields the unitary kernel of #135, and it
+  converges non-perturbatively (#122) — only if the action is bounded below, and
+  that fixes the quartic coupling positive; the geometric overlap `∫ψ⁴ > 0`
+  realises it. So the structure of the interaction is generated and constrained by
+  the action's symmetry and the measure's consistency. What remains genuinely
+  input is narrower than before: not the existence of the vertices, not their
+  selection rule, not the quartic sign, but only the coupling magnitudes — the
+  numerical higher derivatives of S_BAM — which carry the overall normalisation
+  and so inherit the `κ₅²/Λ₅` bulk scale (#133). The exact functional form of
+  S_BAM, the higher vertices, and the standing scale and flavor residuals stand.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
