@@ -1618,6 +1618,33 @@ problems rather than implementation TODOs:
   values (#108) is a consequence of the exponential mass–action relation rather
   than a separate mystery. The audit does not predict any mass; the neutrino
   overshoot and the charged/quark irregular magnitudes stand.
+  PR #135 returns to the antipodal horizon and builds the object its boundary
+  data defines — the matter-sector exchange kernel, the program's propagator.
+  (The gauge sector already had its exchange kernel, the photon `1/q²` derived
+  from the S³ Green function in PRs #42–#44; this is the complementary matter
+  kernel.) For each angular channel the kernel is the resolvent of the matter
+  cavity operator with the antipodal boundary data of #129,
+  `K_l(r,r';ω) = ⟨r|(H_l − ω²)^{−1}|r'⟩`, and three properties follow directly
+  from that boundary data. First, because the antipodal operator is
+  self-adjoint, the kernel is the mode sum
+  `K_l = Σ_n ψ_n(r)ψ_n(r')/(ω_n² − ω²)`, with poles at the real normal-mode
+  spectrum of #130 — the propagator is literally a sum over the stable
+  exchanged modes, with no decaying contribution. Second, self-adjointness makes
+  the kernel symmetric, `K_l(r,r') = K_l(r',r)`: the exchange is reciprocal.
+  Third, the boundary data decides unitarity: the antipodal (real) condition
+  gives real poles and an undamped, unitary kernel, whereas the absorbing
+  horizon would give complex poles and a lossy one — so the antipodal horizon is
+  exactly what makes the matter propagator unitary, the two-point face of the
+  unitary mirror (#129) and the global CPT and unitarity (#64). And the kernel
+  carries the same parity grading that fixed the boundary condition: writing the
+  full kernel as `Σ_l K_l(r,r';ω) C_l(Ω·Ω')`, the throat ↔ antithroat exchange
+  sends `C_l(Ω·Ω') → (−1)^l C_l(Ω·Ω')`, so each angular channel is graded by the
+  antipodal sign `(−1)^l` — even channels symmetric, odd channels antisymmetric
+  under the C-swap (#63). What stays open is the same as everywhere else at this
+  layer: this is the free, one-loop kernel on the fixed antipodal background —
+  the propagator of the S_BAM fluctuation measure — not the interacting
+  multi-loop kernel, and it does not fix the absolute normalisation; the
+  bulk-scale (#133) and flavor (#134) residuals are untouched.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
