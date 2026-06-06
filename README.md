@@ -10,6 +10,32 @@ spacetime itself — specifically the Hopf fibration on S³, 5D Tangherlini
 wormholes, topological flux-tube networks, coherent wormhole-throat
 condensates, and non-orientable throat topology.
 
+## Direction of the program: GR → QFT, *not* quantum gravity
+
+**BAM derives quantum field theory *from* continuous (classical) general
+relativity — it is the opposite of a quantum-gravity program, and does not
+attempt to quantise gravity.** The foundation is a *classical*, continuous GR
+geometry: the wormhole throat, the 5D Tangherlini bulk, the metric `f(r)`. The
+quantum field theory — the matter spectrum, the propagator/exchange kernel, the
+self-energy, the interaction vertices (PRs #116, #129–#140) — is the *derived*
+output, obtained as standard field theory **on that fixed classical background**.
+
+So the arrow runs **geometry → fields**, never **fields → geometry**:
+
+  - the metric is a classical input, never a quantised dynamical field;
+  - "throat", "horizon", "5D Tangherlini" name a *classical GR background*, and
+    the probes that build propagators, vertices, and self-energies are deriving
+    *QFT on that background*, in the precise sense of QFT-on-curved-spacetime;
+  - asking BAM to "tackle quantum gravity" is therefore a **category error** —
+    it would invert the program. Gravity here is the foundational *classical*
+    layer from which quantum matter is reconstructed, not a thing to be
+    quantised.
+
+When the probes below speak of the path-integral measure `S_BAM`, the
+one-loop determinant, or the bounded interacting vacuum, these are statements
+about the **matter QFT** read off the classical throat geometry — not about a
+quantum theory of the metric.
+
 ## Where ℏ enters: scale-free closure ledger + one geometric anchor
 
 The closure-ledger arc (`experiments/closure_ledger/`, PRs #11–#74)

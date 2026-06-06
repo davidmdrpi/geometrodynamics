@@ -1,5 +1,12 @@
 # S_BAM vertex generation (PR #140)
 
+> **Framing (to avoid a category error).** `S_BAM` is the action of the
+> **matter** field theory on the *fixed classical* throat geometry — this is
+> QFT-on-a-curved-GR-background, **not** a quantum theory of gravity. BAM derives
+> QFT *from* continuous GR (geometry → fields); it does not quantise the metric.
+> "Generating the vertices from S_BAM" means reading the matter self-interaction
+> off the classical geometry, the opposite direction from quantum gravity.
+
 PRs #137–#139 built the antipodal matter interaction with cubic and quartic
 vertices but flagged, each time, the same open item: the vertices were
 **modelled**, not derived — "whether the S_BAM measure (#115–#122) actually

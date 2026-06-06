@@ -16,6 +16,24 @@ when the global and topological machinery Wheeler did not have is added
 to the geometrodynamic instinct that *matter is a property of
 spacetime, not an independent field attached to it*.
 
+One framing point should be stated at the outset, because it is easy to invert.
+**BAM derives quantum field theory from continuous, classical general
+relativity; it is the opposite of a quantum-gravity program, and it does not
+quantise gravity.** The foundational layer is a *classical* GR geometry — the
+`S³` slice, the wormhole throat, the 5D Tangherlini bulk and its metric `f(r)` —
+and the quantum structure (the discrete matter spectrum, the propagator and
+exchange kernel, the self-energy, the interaction vertices) is *reconstructed
+on that fixed classical background*, in the precise sense of quantum field
+theory on a curved spacetime. The arrow runs geometry → fields and never the
+reverse: the metric is a classical input, not a quantised dynamical variable.
+Consequently, asking BAM to address quantum gravity is a category error that
+would turn the program upside down — gravity is the foundational classical layer
+*from which* quantum matter is derived, not an object the program seeks to
+quantise. Where this thesis later speaks of a path-integral measure `S_BAM`, a
+one-loop fluctuation determinant, or a bounded interacting vacuum, those are
+statements about the emergent *matter* field theory, read off the classical
+throat geometry — not about a quantum theory of the metric.
+
 ## The BAM conjecture
 
 > Quantum particles are self-consistent topological boundary conditions on
