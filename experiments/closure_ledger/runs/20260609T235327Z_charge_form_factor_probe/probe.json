@@ -1,0 +1,191 @@
+{
+  "timestamp_utc": "2026-06-09T23:53:27+00:00",
+  "identification": "the charge form factor on the antipodal cavity is anchored at F(0) = c\u2081 by the Ward identity, protected at every q by the Bethe sum rule, and falls off with a finite geometric charge radius set by the cavity mode profile \u2014 the throat charge is spread, not pointlike, with no UV divergence",
+  "form_factor": "F(q) = \u222b\u03c1(x)e^{iq(x\u2212x\u0304)}dx; F(0) = c\u2081 (#145 anchor)",
+  "ward_finite_q": "Bethe sum rule \u03a3(E_m\u2212E_n)|\u27e8m|e^{iqx}|n\u27e9|\u00b2 = q\u00b2 (~1e-4, q \u2208 [0.5,10])",
+  "z2_crosscheck": "dressed-state Z\u2082 = Dyson Z\u2082 = 0.985543 (machine precision)",
+  "charge_radius": "r_c = 0.2649 (tortoise units) \u2014 geometric; cloud shift ~1e-4",
+  "contrast": "charge-violating cloud \u27f9 total \u2260 c\u2081; conservation is the protection (#58/#142)",
+  "open": "recoil; F\u2081/F\u2082 (g\u22122, #62); higher loops; normalisation (#133); flavor (#134)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Extend the #145 zero-momentum charge (F(0) = c\u2081, Z\u2081 = Z\u2082) to finite momentum transfer: the charge form factor F(q), the finite-q Ward identity that protects it, and the charge radius it defines.",
+      "builds_on": [
+        "#145 Z\u2081 = Z\u2082 / F(0) = c\u2081",
+        "#144 TRK sum rule (\u03a0(0) = 0)",
+        "#142 Ward identity",
+        "#136 dressing machinery",
+        "#55 finite self-energy",
+        "#129 unitary mirror"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_bare_charge_density_and_form_factor",
+      "description": "The charge density \u03c1(x) on the cavity integrates to c\u2081; its Fourier transform about the centroid is the form factor: F(0) = c\u2081 and F(q) falls monotonically \u2014 the throat charge has spatial structure (it is not pointlike).",
+      "rows": [
+        {
+          "q": 0.0,
+          "F_bare": 1.0
+        },
+        {
+          "q": 0.5,
+          "F_bare": 0.991255
+        },
+        {
+          "q": 1.0,
+          "F_bare": 0.965387
+        },
+        {
+          "q": 2.0,
+          "F_bare": 0.867254
+        },
+        {
+          "q": 4.0,
+          "F_bare": 0.55029
+        },
+        {
+          "q": 8.0,
+          "F_bare": 0.028812
+        }
+      ],
+      "F0_minus_c1": 4.44e-16,
+      "monotone_falloff": true,
+      "pass": true
+    },
+    {
+      "name": "T3_finite_q_ward_bethe_sum_rule",
+      "description": "The Bethe sum rule \u03a3(E_m\u2212E_n)|\u27e8m|e^{iqx}|n\u27e9|\u00b2 = q\u00b2, verified to ~1e-4 across q \u2208 [0.5, 10]: the double commutator [e^{\u2212iqx},[H,e^{iqx}]] = 2q\u00b2 is V-independent, so current conservation holds at EVERY momentum transfer \u2014 the finite-q generalization of the #144 TRK sum rule (its q\u00b2 \u2192 0 limit) and the finite-q face of the #142 Ward identity.",
+      "rows": [
+        {
+          "q": 0.5,
+          "bethe_sum": 0.249992,
+          "q_squared": 0.25,
+          "ratio": 0.999969
+        },
+        {
+          "q": 1.0,
+          "bethe_sum": 0.999968,
+          "q_squared": 1.0,
+          "ratio": 0.999968
+        },
+        {
+          "q": 2.0,
+          "bethe_sum": 3.999858,
+          "q_squared": 4.0,
+          "ratio": 0.999964
+        },
+        {
+          "q": 5.0,
+          "bethe_sum": 24.998521,
+          "q_squared": 25.0,
+          "ratio": 0.999941
+        },
+        {
+          "q": 10.0,
+          "bethe_sum": 99.985644,
+          "q_squared": 100.0,
+          "ratio": 0.999856
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_dressed_density_exact_charge",
+      "description": "One-loop dressed state |k\u0303\u27e9 = \u221aZ\u2082(|k;0\u27e9 + \u03a3 a_nm|n;m\u27e9), a_nm = g_knm/(s\u2080 \u2212 s_nm): the dressed-state Z\u2082 = 1/(1 + \u03a3a\u00b2) reproduces the #145 Dyson Z\u2082 = 1/(1 \u2212 \u03a3') exactly (the two one-loop pictures agree), and the dressed charge density integrates to c\u2081 EXACTLY \u2014 charge conservation in real space, the #145 F(0) = c\u2081 anchor.",
+      "Z2_dressed_state": 0.98554252,
+      "Z2_dyson_145": 0.98554252,
+      "z2_agreement": 0.0,
+      "total_dressed_charge_minus_c1": 4.44e-16,
+      "charge_centroid": -0.5625,
+      "pass": true
+    },
+    {
+      "name": "T5_geometric_charge_radius",
+      "description": "The charge radius two ways \u2014 density variance vs small-q fall-off \u2014 agree; the one-loop cloud shifts it only at the 1e-4 level (\u00d7 coupling\u00b2). The radius is GEOMETRIC: the bare cavity mode profile, an O(cavity-scale) length in throat units \u2014 the throat charge is spread, finite, with no UV divergence (the form-factor face of the #55 finite self-energy), its size set by the classical geometry with the QFT dressing a small correction.",
+      "rows": [
+        {
+          "quantity": "r_c bare (mode profile)",
+          "value": 0.265
+        },
+        {
+          "quantity": "r_c dressed (one loop)",
+          "value": 0.2649
+        },
+        {
+          "quantity": "r_c from small-q F(q)",
+          "value": 0.2649
+        },
+        {
+          "quantity": "relative cloud shift",
+          "value": 9e-05
+        },
+        {
+          "quantity": "cavity width (tortoise)",
+          "value": 1.4663
+        },
+        {
+          "quantity": "healing length \u221a(2\u00b7rs\u00b7\u03b5)",
+          "value": 0.2
+        }
+      ],
+      "variance_vs_smallq_consistent": true,
+      "cloud_shift_small": true,
+      "pass": true
+    },
+    {
+      "name": "T6_charge_violation_counterfactual",
+      "description": "With the cloud carrying c' \u2260 c\u2081 the dressed density no longer integrates to c\u2081: the F(0) anchor \u2014 and with it the whole form factor normalisation \u2014 rests on exact charge conservation at the throat (\u03a3c\u2081 = 0 from the unitary antipodal mirror, #58/#141/#142/#145); the absorbing throat leaks charge (#142) and loses it. The same single postulate again.",
+      "rows": [
+        {
+          "cloud_charge_cprime": 0.8,
+          "total_charge_minus_c1": -0.002891
+        },
+        {
+          "cloud_charge_cprime": 0.5,
+          "total_charge_minus_c1": -0.007229
+        },
+        {
+          "cloud_charge_cprime": 0.0,
+          "total_charge_minus_c1": -0.01446
+        }
+      ],
+      "conserving_total_minus_c1": 4.44e-16,
+      "pass": true
+    },
+    {
+      "name": "T7_ledger_and_scope",
+      "description": "One loop on the fixed antipodal background, in the radial (partial-wave) reduction. DERIVED: the Bethe sum rule (= q\u00b2 at every q, the finite-q Ward identity), the F(0) = c\u2081 anchor in real space, the equality of the two one-loop pictures (dressed-state Z\u2082 = Dyson Z\u2082), and the geometric finite charge radius with a parametrically small cloud correction. MODELLED: the cubic coupling (the #136 posture), the dressing truncation. INPUT: the value \u03b1(\u03bc\u2080) (#143). NOT COVERED: relativistic recoil and the F\u2081/F\u2082 (electric/magnetic) decomposition \u2014 the magnetic form factor / g\u22122 is #62's territory.",
+      "derived": [
+        "Bethe sum rule = q\u00b2 across q \u2208 [0.5, 10] (~1e-4)",
+        "total dressed charge = c\u2081 exactly (the #145 anchor, real space)",
+        "dressed-state Z\u2082 = Dyson Z\u2082 (machine precision)",
+        "charge radius geometric (variance = small-q F; cloud shift ~1e-4)"
+      ],
+      "modelled": [
+        "cubic coupling magnitude (the #136 posture)",
+        "one-loop dressing truncation; radial reduction (no recoil)"
+      ],
+      "input": [
+        "the boundary value \u03b1(\u03bc\u2080) \u2248 1/137 (#143)"
+      ],
+      "open": [
+        "relativistic recoil; F\u2081/F\u2082 decomposition (magnetic form factor, #62)",
+        "higher loops; absolute normalisation (#133); flavor residuals (#134)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The charge form factor on the antipodal cavity is anchored at F(0) = c\u2081 by the Ward identity (#145), protected at every momentum transfer by the Bethe sum rule (= q\u00b2), and falls off with a finite, geometric charge radius set by the cavity mode profile \u2014 the one-loop cloud correction is parametrically small, and the protection is exact charge conservation at the unitary antipodal throat.",
+      "classification": "CHARGE_FORM_FACTOR_FINITE_Q_WARD_ANCHORED_GEOMETRIC_CHARGE_RADIUS",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "CHARGE_FORM_FACTOR_FINITE_Q_WARD_ANCHORED_GEOMETRIC_CHARGE_RADIUS",
+  "verdict": "THE CHARGE FORM FACTOR ON THE ANTIPODAL CAVITY IS ANCHORED AT F(0) = c\u2081 (#145), PROTECTED AT EVERY MOMENTUM TRANSFER BY THE BETHE SUM RULE, AND FALLS OFF WITH A FINITE, GEOMETRIC CHARGE RADIUS \u2014 THE THROAT CHARGE IS SPREAD OVER THE CAVITY, NOT POINTLIKE, WITH NO UV DIVERGENCE. PR #145 fixed the dressed charge at q = 0; this probe supplies its q \u2260 0 structure.\n\nTHE FORM FACTOR. The dressed charge density \u03c1(x) integrates to c\u2081; F(q) = \u222b\u03c1 e^{iq(x\u2212x\u0304)} dx is its transform about the centroid, with F(0) = c\u2081 and the small-q expansion defining the charge radius r_c\u00b2 = Var_\u03c1(x).\n\nTHE FINITE-q WARD IDENTITY. The Bethe sum rule \u03a3(E_m\u2212E_n)|\u27e8m|e^{iqx}|n\u27e9|\u00b2 = q\u00b2 holds at every momentum transfer (verified to ~1e-4 across q \u2208 [0.5, 10]): the double commutator [e^{\u2212iqx},[H,e^{iqx}]] = 2q\u00b2 is V-independent, so current conservation constrains the cavity at EVERY q \u2014 the finite-q generalization of the #144 TRK sum rule (its q\u00b2 \u2192 0 limit) and the finite-q face of the #142 Ward identity.\n\nTHE DRESSED DENSITY. The one-loop dressed state reproduces the #145 Dyson Z\u2082 exactly (1/(1 + \u03a3a\u00b2) = 1/(1 \u2212 \u03a3'), machine precision \u2014 the two one-loop pictures agree), and its real-space charge density integrates to c\u2081 EXACTLY at every coupling: the #145 anchor, now in real space.\n\nTHE CHARGE RADIUS IS GEOMETRIC. r_c from the density variance equals r_c from the small-q fall-off; the one-loop cloud moves it only at the 1e-4 level (\u00d7 coupling\u00b2). The radius is the bare cavity mode profile \u2014 an O(cavity-scale) geometric length in throat units. The throat charge is not pointlike: it is spread over the cavity, finite, with no UV divergence \u2014 the form-factor face of the #55 finite self-energy \u2014 and its size is set by the CLASSICAL GEOMETRY, with the QFT dressing a small correction on top (geometry \u2192 fields, the program's arrow).\n\nTHE COUNTERFACTUAL. A cloud carrying c' \u2260 c\u2081 shifts the total dressed charge away from c\u2081: the anchor \u2014 and the whole normalisation of F \u2014 rests on exact charge conservation at the unitary throat (\u03a3c\u2081 = 0, #58/#141/#142/#145); the absorbing throat leaks charge and loses it.\n\nSCOPE. One loop, radial reduction: no relativistic recoil, no F\u2081/F\u2082 decomposition (the magnetic form factor / g\u22122 is #62's territory). Modelled cubic coupling (the #136 posture); higher loops, the absolute normalisation (#133), and the flavor residuals (#134) stand; \u03b1(\u03bc\u2080) stays the one EM input (#143)."
+}
