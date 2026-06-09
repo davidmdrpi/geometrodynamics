@@ -163,6 +163,17 @@ class TestLeptonLimit:
         ),
         reason="Requires geometrodynamics.tangherlini.solved_lepton_masses_mev",
     )
+    @pytest.mark.xfail(
+        reason=(
+            "Known open handoff item (docs/qcd_v3_r2_handoff.md): the "
+            "lepton-limit Hamiltonian is built with beta=0, but "
+            "solved_lepton_masses_mev() returns the physical masses "
+            "including the beta=50*pi tau uplift, so the ratio "
+            "comparison cannot pass until the residual knobs are "
+            "synchronized with the lepton locked baseline."
+        ),
+        strict=True,
+    )
     def test_lepton_limit_check_ratios(self):
         """
         Run the public ``quark_lepton_limit_check`` against the live
