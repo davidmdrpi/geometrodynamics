@@ -1,0 +1,137 @@
+{
+  "timestamp_utc": "2026-06-09T23:32:32+00:00",
+  "identification": "the Ward identity Z\u2081 = Z\u2082 holds on the antipodal cavity to machine precision \u2014 the dressed charge equals the bare Hopf charge c\u2081 exactly and universally across matter species, so only the universal photon \u221aZ\u2083 (#144) renormalizes charge, and the protection is exact charge conservation at the unitary throat",
+  "triangle": "Z\u2082 (#136 \u03a3) \u00b7 Z\u2081 (#141/#142 vertex) \u00b7 Z\u2083 (#144 \u03a0); e = (Z\u2082/Z\u2081)\u00b7\u221aZ\u2083\u00b7e\u2080",
+  "ward": "\u039b(0) = \u2212c\u2081\u03a3' (term by term); \u03a3' = -0.014670, Z\u2082 = 0.985543",
+  "dressed_charge": "F(0) = Z\u2082(c\u2081 + \u039b) = c\u2081 exactly; universal across species",
+  "consequence": "e = \u221aZ\u2083\u00b7e\u2080 \u2014 the running of \u03b1 is purely vacuum polarisation (#144)",
+  "protection": "exact charge conservation at the unitary throat (#58/#141/#142)",
+  "open": "q \u2260 0 form factors; higher loops; normalisation (#133); flavor (#134)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Close the renormalization-constant triangle: Z\u2082 from the matter \u03a3 (#136), Z\u2083 from the photon \u03a0 (#144), Z\u2081 from the gauge vertex (#141/#142). e = (Z\u2082/Z\u2081)\u00b7\u221aZ\u2083\u00b7e\u2080, so the Ward identity Z\u2081 = Z\u2082 is charge non-renormalization \u2014 compute it on the antipodal cavity.",
+      "builds_on": [
+        "#136 matter self-energy (Z\u2082)",
+        "#144 vacuum polarisation (Z\u2083)",
+        "#141/#142 gauge vertex + Ward identity (Z\u2081)",
+        "#58 \u03a3c\u2081 = 0",
+        "#129 unitary mirror",
+        "#143 \u03b1 ledger"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_charged_model",
+      "description": "The charged matter field \u03c7 is the odd-l Dirichlet tower (#129) carrying Hopf charge c\u2081 = 1 (#58); the neutral field \u03c6 is the even-l Neumann tower; they couple through the cubic triple-overlap vertex g\u00b7\u03c7\u2020\u03c7\u03c6 (#136/#137) which CONSERVES charge at the vertex (the #141 structure). The external pole is below the lowest threshold, so the renormalization constants are real.",
+      "charged_tower": "l = 1 (Dirichlet), lowest \u03c9 = 2.295",
+      "neutral_tower": "l = 0 (Neumann), lowest \u03c9 = 1.168",
+      "external_pole_s0": 5.269,
+      "lowest_threshold": 11.998,
+      "pole_below_threshold": true,
+      "hopf_charge_c1": 1.0,
+      "pass": true
+    },
+    {
+      "name": "T3_z2_wavefunction_renormalization",
+      "description": "Z\u2082 computed two independent ways: \u03a3'(s\u2080) from the analytic spectral sum and from a central finite difference of the #136 self-energy \u03a3(s). Z\u2082 = 1/(1 \u2212 \u03a3') < 1: the bare-state weight of the dressed particle is genuinely reduced \u2014 there is something real for the Ward identity to cancel.",
+      "sigma_prime_analytic": -0.01466957,
+      "sigma_prime_finite_difference": -0.01466957,
+      "agreement": 1.49e-12,
+      "Z2": 0.985543,
+      "pass": true
+    },
+    {
+      "name": "T4_ward_identity_z1_eq_z2",
+      "description": "\u039b(0) = \u2212c\u2081\u03a3'(s\u2080): the q = 0 photon insertion on the internal charged line (the propagator-doubling sum) equals minus the self-energy slope, term by term \u2014 machine precision against the spectral sum and ~1e-9 against the independent finite-difference derivative. The neutral internal line carries zero charge and contributes nothing. This IS Z\u2081 = Z\u2082 (the #142 Ward\u2013Takahashi identity \u0393(p,p) = \u2202S\u207b\u00b9/\u2202p, computed at one loop).",
+      "vertex_correction_lambda0": 0.01466957,
+      "minus_c1_sigma_prime": 0.01466957,
+      "residual_vs_spectral_sum": 0.0,
+      "residual_vs_finite_difference": -1.49e-12,
+      "neutral_line_contribution": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T5_dressed_charge_exact_and_universal",
+      "description": "F(0) = Z\u2082(c\u2081 + \u039b(0)) = c\u2081(1 \u2212 \u03a3')/(1 \u2212 \u03a3') = c\u2081 EXACTLY (machine precision), and UNIVERSALLY: across species with different towers and couplings Z\u2082 varies by sector but the dressed charge never moves \u2014 each sector's self-interaction cancels out of its own charge. Why different generations (k \u2208 {1,3,5}, #71) carry the same |c\u2081| = 1; only \u221aZ\u2083 (#144) renormalizes charge, so the running of \u03b1 is purely vacuum polarisation.",
+      "rows": [
+        {
+          "species": "\u03c7(l=1)\u00b7\u03c6(l=0), g=1.0",
+          "Z2": 0.985543,
+          "F0_minus_c1": -1.11e-16
+        },
+        {
+          "species": "\u03c7(l=3)\u00b7\u03c6(l=0), g=1.0",
+          "Z2": 0.987631,
+          "F0_minus_c1": 0.0
+        },
+        {
+          "species": "\u03c7(l=1)\u00b7\u03c6(l=2), g=0.7",
+          "Z2": 0.995636,
+          "F0_minus_c1": 0.0
+        },
+        {
+          "species": "\u03c7(l=1)\u00b7\u03c6(l=0), g=0.5",
+          "Z2": 0.996346,
+          "F0_minus_c1": 0.0
+        }
+      ],
+      "z2_varies_across_species": true,
+      "charge_renormalization": "e = \u221aZ\u2083 \u00b7 e\u2080 (Z\u2082/Z\u2081 = 1)",
+      "pass": true
+    },
+    {
+      "name": "T6_charge_violation_counterfactual",
+      "description": "With a charge-violating vertex (internal charge c' \u2260 c\u2081) the insertion no longer matches the self-energy slope and F(0) = c\u2081 + Z\u2082(c' \u2212 c\u2081)\u00b7\u039b/c' \u2260 c\u2081 \u2014 the dressed charge shifts and becomes species/coupling-dependent. Charge non-renormalization rests on EXACT charge conservation at the throat \u2014 \u03a3c\u2081 = 0 from the unitary antipodal mirror (#58/#141/#142); the absorbing throat leaks charge (#142) and loses the protection. The same single postulate as stable matter, gauge invariance, and the massless photon (#129/#130/#142/#144).",
+      "rows": [
+        {
+          "internal_charge_cprime": 0.8,
+          "F0_minus_c1": -0.002891
+        },
+        {
+          "internal_charge_cprime": 0.5,
+          "F0_minus_c1": -0.007229
+        },
+        {
+          "internal_charge_cprime": 0.0,
+          "F0_minus_c1": -0.01446
+        }
+      ],
+      "conserving_F0_minus_c1": -1.11e-16,
+      "pass": true
+    },
+    {
+      "name": "T7_ledger_and_scope",
+      "description": "One loop on the fixed antipodal background. DERIVED: Z\u2081 = Z\u2082 (machine precision, two independent \u03a3' computations), the exact and universal dressed charge F(0) = c\u2081, e = \u221aZ\u2083\u00b7e\u2080 (the running of \u03b1 purely vacuum polarisation, #144), and the dependence of all of it on exact charge conservation at the unitary throat. MODELLED: the cubic coupling (the #136 posture); the insertion is the q = 0 charge-operator limit. INPUT: the value \u03b1(\u03bc\u2080) (#143).",
+      "derived": [
+        "\u039b(0) = \u2212c\u2081\u03a3'(s\u2080) term by term \u27f9 Z\u2081 = Z\u2082 (machine precision)",
+        "F(0) = c\u2081 exactly and universally across species",
+        "e = \u221aZ\u2083\u00b7e\u2080: only the #144 vacuum polarisation renormalizes charge",
+        "protection = exact charge conservation at the unitary throat (#58/#142)"
+      ],
+      "modelled": [
+        "cubic coupling magnitude (the #136 posture)",
+        "q = 0 charge-operator insertion (no q \u2260 0 form factors)"
+      ],
+      "input": [
+        "the boundary value \u03b1(\u03bc\u2080) \u2248 1/137 (#143)"
+      ],
+      "open": [
+        "q \u2260 0 form factors; higher loops",
+        "absolute normalisation (#133); flavor residuals (#134)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The Ward identity Z\u2081 = Z\u2082 holds on the antipodal cavity to machine precision: the dressed charge equals the bare Hopf charge c\u2081 exactly and universally across matter species, so only the universal photon \u221aZ\u2083 (#144) renormalizes charge \u2014 the running of \u03b1 is purely vacuum polarisation \u2014 and the protection is exact charge conservation at the unitary antipodal throat.",
+      "classification": "CHARGE_NON_RENORMALIZATION_Z1_EQ_Z2_DRESSED_CHARGE_EXACT_UNIVERSAL",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "CHARGE_NON_RENORMALIZATION_Z1_EQ_Z2_DRESSED_CHARGE_EXACT_UNIVERSAL",
+  "verdict": "THE WARD IDENTITY Z\u2081 = Z\u2082 HOLDS ON THE ANTIPODAL CAVITY TO MACHINE PRECISION: THE DRESSED CHARGE EQUALS THE BARE HOPF CHARGE c\u2081 EXACTLY AND UNIVERSALLY ACROSS SPECIES \u2014 ONLY THE PHOTON \u221aZ\u2083 (#144) RENORMALIZES CHARGE, AND THE PROTECTION IS EXACT CHARGE CONSERVATION AT THE UNITARY THROAT. PR #144 completed the one-loop two-point sector (Z\u2082 from #136, Z\u2083 from #144); this probe closes the triangle by computing Z\u2081 = Z\u2082.\n\nTHE CHARGED MODEL. A charged field \u03c7 (the odd-l Dirichlet tower, Hopf charge c\u2081 = 1, #129/#58) couples to a neutral field \u03c6 (the even-l Neumann tower) through the charge-conserving cubic triple-overlap vertex (#136/#137/#141); the external pole sits below the lowest threshold, so the constants are real.\n\nZ\u2082 \u2260 1, COMPUTED TWO WAYS. \u03a3'(s\u2080) from the analytic spectral sum and from a finite difference of the #136 self-energy agree to ~1e-9; Z\u2082 = 1/(1 \u2212 \u03a3') \u2248 0.986 at g = 1 \u2014 the dressed particle is genuinely renormalized, so there is something real to cancel.\n\nTHE WARD IDENTITY, COMPUTED. The q = 0 photon insertion on the internal charged line doubles the propagator: \u039b(0) = \u03a3 c\u2081|g|\u00b2/(s\u2080 \u2212 s_nm)\u00b2 = \u2212c\u2081\u03a3'(s\u2080) term by term (machine precision; the neutral line contributes zero). This is the #142 Ward\u2013Takahashi identity \u0393(p,p) = \u2202S\u207b\u00b9/\u2202p at one loop \u2014 equivalently Z\u2081 = Z\u2082.\n\nTHE DRESSED CHARGE IS EXACT AND UNIVERSAL. F(0) = Z\u2082(c\u2081 + \u039b(0)) = c\u2081 exactly (machine precision), across species with different towers and couplings: Z\u2082 varies by sector, F(0) never moves. Each sector's self-interaction cancels out of its own charge \u2014 why different generations (k \u2208 {1,3,5}, #71) carry exactly the same |c\u2081| = 1 \u2014 and the charge renormalization collapses to e = \u221aZ\u2083\u00b7e\u2080: the running of \u03b1 is PURELY the #144 vacuum polarisation.\n\nTHE COUNTERFACTUAL. A charge-violating vertex (c' \u2260 c\u2081) breaks the cancellation: F(0) \u2260 c\u2081 and species-dependent. Charge non-renormalization rests on exact charge conservation at the throat \u2014 \u03a3c\u2081 = 0 from the unitary antipodal mirror (#58/#141/#142); the absorbing throat leaks charge and loses the protection. The same single postulate as stable matter, gauge invariance, and the massless photon (#129/#130/#142/#144).\n\nSCOPE. One loop on the fixed background; modelled cubic coupling (the #136 posture); the q = 0 charge-operator limit only. q \u2260 0 form factors, higher loops, the absolute normalisation (#133), and the flavor residuals (#134) stand; \u03b1(\u03bc\u2080) stays the one EM input (#143)."
+}
