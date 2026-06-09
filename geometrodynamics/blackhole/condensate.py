@@ -254,7 +254,8 @@ def build_schwarzschild_condensate(
         Gravitational mass M.
     seed_modes : list of (l, n, omega) or None
         Bare mode spectrum to seed into every throat.
-        Default: first three Tangherlini modes at l=1.
+        Default: the two lowest l=1 Tangherlini modes plus the lowest
+        l=3 mode, [(1, 0, 3.14), (1, 1, 6.28), (3, 0, 5.50)].
     states_per_throat : int
         Number of microstates per throat (default 2 for ±orientation).
     coherent : bool
@@ -262,6 +263,9 @@ def build_schwarzschild_condensate(
         If False, phases are randomised (thermal state).
     rng : Generator or None
         Random number generator for stochastic initialisation.
+        If None, a fixed-seed generator (seed 42) is used, so repeated
+        calls are deterministic; pass an unseeded Generator for
+        genuinely stochastic initialisation.
 
     Returns
     -------
@@ -332,6 +336,13 @@ def build_charged_condensate(
         Gravitational mass M.
     charge : int
         Net topological charge (sum of throat orientations).
+    seed_modes : list of (l, n, omega) or None
+        Bare mode spectrum to seed into every throat; same default as
+        ``build_schwarzschild_condensate``.
+    rng : Generator or None
+        If None, a fixed-seed generator (seed 42) is used, so repeated
+        calls are deterministic; pass an unseeded Generator for
+        genuinely stochastic initialisation.
     """
     if rng is None:
         rng = np.random.default_rng(42)

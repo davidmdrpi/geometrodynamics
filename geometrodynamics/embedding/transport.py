@@ -130,6 +130,10 @@ def verify_hopf_preservation(n_samples: int = 1000, rng=None) -> float:
     maps fibers to fibers (i.e. preserves the bundle structure).
 
     Returns the maximum fiber-mapping error across random samples.
+
+    If ``rng`` is None, a fixed-seed generator (seed 42) is used so the
+    check is deterministic; pass an unseeded Generator to sample fresh
+    points.
     """
     if rng is None:
         rng = np.random.default_rng(42)
