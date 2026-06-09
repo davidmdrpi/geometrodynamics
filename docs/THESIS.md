@@ -1803,6 +1803,35 @@ problems rather than implementation TODOs:
   numerical higher derivatives of S_BAM — which carry the overall normalisation
   and so inherit the `κ₅²/Λ₅` bulk scale (#133). The exact functional form of
   S_BAM, the higher vertices, and the standing scale and flavor residuals stand.
+  PR #141 turns from the matter self-interaction to the gauge sector and joins
+  the two. The program had built the photon long ago — the exchange kernel
+  `1/q²` read off the S³ Green function (PRs #42–#44) — and the matter sector on
+  the antipodal throat across #129–#140; this step asks how the U(1) Hopf gauge
+  field couples to that matter at the throat. The coupling is the minimal one,
+  `D_μ = ∂_μ − i c₁ A_μ` with `c₁` the Hopf charge, and the interesting content is
+  that the antipodal throat is exactly the right place for it to live. The C-swap
+  `x → −x` of #63 is a single operation with two effects: on the matter harmonics
+  it is the spatial inversion that gives `Y_l → (−1)^l Y_l`, and on the Hopf
+  charge it is charge conjugation, `c₁ → −c₁`. So the throat is the
+  particle ↔ antiparticle surface, the locus where `C` acts — which is why a
+  gauge field that carries charge can couple the matter there at all. Two
+  consequences follow. First, the gauge–matter vertex couples a photon to two
+  matter legs through the angular triple overlap `∫ Y_{l_γ} Y_{l₁} Y_{l₂}`, which
+  is structurally the cubic matter vertex of #137 with one leg now the gauge
+  boson, so it inherits the *same* antipodal Ward identity: `l_γ + l₁ + l₂` must
+  be even. The one `(−1)^l` Z₂ that threaded the boundary condition, the
+  propagator, and the self-interactions now also selects the gauge coupling.
+  Second, U(1) charge is conserved at the throat: the antipodal mirror that lets
+  no net matter flux through (#129) likewise conserves the charge flux, and the
+  C-swap sends outgoing charge back as its conjugate on the antipodal sheet, so
+  `Σ c₁ = 0` (#58) and the throat balances particle against antiparticle —
+  charge conservation is the gauge face of the unitary mirror. What is *not*
+  derived is the one thing that was never going to be: the coupling strength is
+  the fine-structure constant `α`, the 137 problem (#105), which the geometry
+  organises but does not fix. So the gauge–matter coupling's structure — minimal
+  form, the Σl-even vertex, charge conservation, the throat as the C-surface — is
+  BAM-native, while its magnitude `α` is the standing universal residual, beside
+  the bulk-scale (#133) and flavor (#134) ones.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,

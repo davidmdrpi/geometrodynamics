@@ -1,0 +1,138 @@
+{
+  "timestamp_utc": "2026-06-09T03:11:33+00:00",
+  "identification": "the U(1)_Hopf gauge field couples minimally to the antipodal matter modes at the throat (the C-surface); the C-swap is inversion \u00d7 charge conjugation, the gauge vertex inherits the antipodal Z\u2082 selection rule (\u03a3l even), and U(1) charge is conserved by the unitary mirror (\u03a3c\u2081 = 0) \u2014 only the strength \u03b1 is input",
+  "minimal_coupling": "D_\u03bc = \u2202_\u03bc \u2212 i c\u2081 A_\u03bc; vertex c\u2081 \u222b A_\u03bc j^\u03bc",
+  "cswap": "inversion (Y_l \u2192 (\u22121)^l) \u00d7 charge conjugation (c\u2081 \u2192 \u2212c\u2081); throat = C-surface (#63/#64)",
+  "gauge_vertex": "triple overlap \u222b Y_{l_\u03b3}Y_{l\u2081}Y_{l\u2082}, \u03a3l even (antipodal Z\u2082, #137/#140)",
+  "charge_conservation": "unitary mirror (#129) + C-swap flip \u27f9 \u03a3c\u2081 = 0 (#58)",
+  "coupling_strength": "\u03b1 (the EM coupling, #105) \u2014 universal input residual",
+  "open": "\u03b1 (#105/#108); EM normalisation; higher gauge vertices; bulk scale (#133); flavor (#134)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Join the gauge sector (the U(1)_Hopf photon, #42\u2013#44) to the matter sector (the antipodal cavity modes, #129\u2013#140): how the gauge field couples to the matter at the antipodal throat, consistently with the antipodal identification.",
+      "builds_on": [
+        "#42\u2013#44 photon exchange kernel (1/q\u00b2)",
+        "#129\u2013#140 antipodal matter sector",
+        "#63 C-swap",
+        "#58 \u03a3c\u2081=0 charge conservation",
+        "#105 \u03b1"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_minimal_gauge_coupling",
+      "description": "Matter of Hopf charge c\u2081 (|c\u2081| = 1, #58/#74) couples minimally through D_\u03bc = \u2202_\u03bc \u2212 i c\u2081 A_\u03bc, giving the gauge\u2013matter vertex c\u2081 \u222b A_\u03bc j^\u03bc with the matter current j^\u03bc = \u03c8*\u2202^\u03bc\u03c8 \u2212 (\u2202^\u03bc\u03c8*)\u03c8 \u2014 the standard gauge-invariant coupling of the #42\u2013#44 photon to the matter current.",
+      "covariant_derivative": "D_\u03bc = \u2202_\u03bc \u2212 i c\u2081 A_\u03bc",
+      "vertex": "c\u2081 \u222b A_\u03bc j^\u03bc",
+      "hopf_charge": 1,
+      "pass": true
+    },
+    {
+      "name": "T3_cswap_is_inversion_times_charge_conjugation",
+      "description": "The antipodal map A : x \u2192 \u2212x (the C-swap #63) is simultaneously a spatial inversion (matter Y_l \u2192 (\u22121)^l Y_l, #129/#140) and a charge conjugation (c\u2081 \u2192 \u2212c\u2081, #63). One operation, two effects: the throat is the particle \u2194 antiparticle (C) surface (#63/#64), which is why the gauge field couples to the matter there.",
+      "matter_inversion": [
+        {
+          "l": 0,
+          "matter_parity_Yl": 1
+        },
+        {
+          "l": 1,
+          "matter_parity_Yl": -1
+        },
+        {
+          "l": 2,
+          "matter_parity_Yl": 1
+        },
+        {
+          "l": 3,
+          "matter_parity_Yl": -1
+        }
+      ],
+      "charge_conjugation": "c\u2081 = 1 \u2192 -1",
+      "throat_is": "the charge-conjugation (C) surface (#63/#64)",
+      "pass": true
+    },
+    {
+      "name": "T4_gauge_vertex_antipodal_z2_selection",
+      "description": "The gauge\u2013matter vertex angular part \u222b Y_{l_\u03b3}Y_{l\u2081}Y_{l\u2082} is the cubic-vertex triple overlap (#137) with one photon leg; antipodal invariance (the #140 Ward identity) \u27f9 \u03a3l = l_\u03b3 + l\u2081 + l\u2082 even. The gauge coupling inherits the same antipodal Z\u2082 selection rule (verified: odd-\u03a3l forbidden).",
+      "rows": [
+        {
+          "vertex": "\u03b3(1) \u00b7 matter(1,0)",
+          "sum_l": 2,
+          "even": true,
+          "integral": 0.25,
+          "allowed": true
+        },
+        {
+          "vertex": "\u03b3(1) \u00b7 matter(1,2)",
+          "sum_l": 4,
+          "even": true,
+          "integral": 0.041667,
+          "allowed": true
+        },
+        {
+          "vertex": "\u03b3(0) \u00b7 matter(1,1)",
+          "sum_l": 2,
+          "even": true,
+          "integral": 0.25,
+          "allowed": true
+        },
+        {
+          "vertex": "\u03b3(1) \u00b7 matter(1,1)",
+          "sum_l": 3,
+          "even": false,
+          "integral": 0.0,
+          "allowed": false
+        }
+      ],
+      "rule": "\u03a3l = l_\u03b3 + l\u2081 + l\u2082 even (antipodal Z\u2082, #137/#140)",
+      "pass": true
+    },
+    {
+      "name": "T5_u1_charge_conserved_at_throat",
+      "description": "The antipodal mirror (#129) \u2014 zero net matter flux \u2014 conserves the gauge charge flux; the C-swap flip (c\u2081 \u2192 \u2212c\u2081) means outgoing charge re-emerges as the conjugate on the antipodal sheet \u27f9 \u03a3c\u2081 = 0 (#58). Charge conservation at the throat is the gauge face of the unitary mirror.",
+      "unitary_mirror": "zero net matter flux (#129) \u27f9 conserved charge flux",
+      "cswap_flip": "c\u2081 \u2192 \u2212c\u2081 \u27f9 conjugate on the antipodal sheet",
+      "sum_c1": 0,
+      "charge_conserved": true,
+      "pass": true
+    },
+    {
+      "name": "T6_coupling_strength_is_alpha",
+      "description": "The coupling structure (covariant derivative, \u03a3l-even triple-overlap vertex, charge conservation, the C-surface) is derived; the coupling STRENGTH is \u03b1 = e\u00b2/4\u03c0 (the '137 problem', #105) \u2014 the universal input residual. Structure derived, magnitude input.",
+      "alpha": 0.007297353,
+      "inverse_alpha": 137.036,
+      "status": "input residual (the 137 problem, #105/#108)",
+      "pass": true
+    },
+    {
+      "name": "T7_ledger_and_scope",
+      "description": "DERIVED: minimal coupling D_\u03bc = \u2202_\u03bc \u2212 i c\u2081 A_\u03bc; the gauge vertex = \u03a3l-even triple overlap (#137/#140 Ward identity, gauge leg); U(1) charge conservation at the throat (the unitary mirror #129, \u03a3c\u2081=0 #58); the throat as the charge-conjugation surface (#63/#64). INPUT: the coupling strength \u03b1 (#105). OPEN: the EM normalisation, higher gauge vertices, the running of \u03b1. The \u03b1 (#105/#108), bulk-scale (#133), and flavor (#134) residuals stand.",
+      "derived": [
+        "minimal coupling D_\u03bc = \u2202_\u03bc \u2212 i c\u2081 A_\u03bc",
+        "gauge vertex = \u03a3l-even triple overlap (antipodal Z\u2082, #137/#140)",
+        "U(1) charge conservation at the throat (#129/#58)",
+        "the throat = charge-conjugation surface (#63/#64)"
+      ],
+      "input": [
+        "the coupling strength \u03b1 (#105, the 137 problem)"
+      ],
+      "open": [
+        "EM normalisation; higher gauge vertices; running of \u03b1"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The U(1)_Hopf gauge field couples minimally to the antipodal matter modes at the throat; the C-swap is inversion \u00d7 charge conjugation (the throat is the C-surface), the gauge\u2013matter vertex inherits the antipodal Z\u2082 selection rule (\u03a3l even), and U(1) charge is conserved by the unitary mirror (\u03a3c\u2081 = 0). The coupling structure is derived; the strength \u03b1 (#105) is the universal input residual.",
+      "classification": "GAUGE_MATTER_COUPLING_MINIMAL_Z2_SELECTED_CHARGE_CONSERVED_ALPHA_INPUT",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "GAUGE_MATTER_COUPLING_MINIMAL_Z2_SELECTED_CHARGE_CONSERVED_ALPHA_INPUT",
+  "verdict": "THE U(1)_HOPF GAUGE FIELD COUPLES MINIMALLY TO THE ANTIPODAL MATTER AT THE THROAT \u2014 THE C-SURFACE \u2014 WITH THE ANTIPODAL Z\u2082 SELECTION RULE AND CONSERVED CHARGE; ONLY \u03b1 IS INPUT. The matter arc (#129\u2013#140) built the matter sector on the antipodal throat and the gauge arc (#42\u2013#44) the photon exchange kernel; this probe joins them at the throat boundary.\n\nMINIMAL COUPLING. Matter of Hopf charge c\u2081 (|c\u2081| = 1, #58/#74) couples through D_\u03bc = \u2202_\u03bc \u2212 i c\u2081 A_\u03bc, giving the gauge\u2013matter vertex c\u2081 \u222b A_\u03bc j^\u03bc with the matter current j^\u03bc \u2014 the standard gauge-invariant coupling of the #42\u2013#44 photon to the matter current.\n\nTHE C-SWAP = INVERSION \u00d7 CHARGE CONJUGATION. The antipodal map A : x \u2192 \u2212x (the C-swap #63) acts on both sectors at once: the matter harmonics carry Y_l \u2192 (\u22121)^l Y_l (#129/#140) and the Hopf charge flips c\u2081 \u2192 \u2212c\u2081 (#63). One operation, two effects \u2014 a spatial inversion and a charge conjugation \u2014 so the throat is the particle \u2194 antiparticle (C) surface (#63/#64), which is why the gauge field can couple to the matter there.\n\nTHE GAUGE VERTEX INHERITS THE ANTIPODAL Z\u2082 SELECTION RULE. The vertex couples a photon (l_\u03b3) to two matter legs (l\u2081, l\u2082); its angular part \u222b Y_{l_\u03b3}Y_{l\u2081}Y_{l\u2082} is the cubic-vertex triple overlap (#137) with one photon leg. S_BAM's antipodal invariance (the #140 Ward identity) forces \u03a3l = l_\u03b3 + l\u2081 + l\u2082 even \u2014 the same antipodal Z\u2082 selection rule, now with the gauge leg (verified exactly: odd-\u03a3l forbidden).\n\nU(1) CHARGE IS CONSERVED AT THE THROAT. The antipodal mirror (#129) is unitary \u2014 zero net matter flux \u2014 and conserves the gauge charge flux; with the C-swap flip (c\u2081 \u2192 \u2212c\u2081), outgoing charge re-emerges as the conjugate on the antipodal sheet, so \u03a3c\u2081 = 0 (#58) and the throat balances particle against antiparticle. Charge conservation at the throat is the gauge face of the unitary mirror.\n\nTHE COUPLING STRENGTH IS \u03b1 (INPUT). The minimal-coupling structure \u2014 the covariant derivative, the \u03a3l-even triple-overlap vertex, the charge conservation, the C-surface \u2014 is derived from the antipodal geometry. The coupling strength is the EM coupling \u03b1 (the \"137 problem\", #105), a universal residual not fixed by the geometry: structure derived, magnitude input.\n\nSCOPE. Derives the gauge\u2013matter coupling STRUCTURE at the antipodal throat. It does NOT fix \u03b1 (#105) or the EM normalisation; higher gauge vertices and the running of \u03b1 are not addressed. The \u03b1 (#105/#108), bulk-scale (#133), and flavor (#134) residuals stand."
+}
