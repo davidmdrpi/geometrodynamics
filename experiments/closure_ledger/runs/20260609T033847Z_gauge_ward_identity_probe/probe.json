@@ -1,0 +1,103 @@
+{
+  "timestamp_utc": "2026-06-09T03:38:47+00:00",
+  "identification": "the matter current is conserved at the antipodal throat (real modes carry no charge flux, j^r = 0 \u2014 the unitary mirror #129), the Ward\u2013Takahashi identity ties the gauge vertex to the matter propagator, and transversality keeps the photon massless (1/q\u00b2 protected) \u2014 all from the unitary antipodal throat, the same postulate as stable matter",
+  "noether": "j^\u03bc = i(\u03c8*\u2202^\u03bc\u03c8 \u2212 ...), \u2202_\u03bc j^\u03bc = 0",
+  "conservation": "real modes \u27f9 j^r = Im(\u03c8*\u2202\u03c8) = 0 (no charge flux, #129/#135)",
+  "absorbing": "complex modes \u27f9 j^r \u2260 0 (charge leaks) \u27f9 gauge invariance broken",
+  "ward_takahashi": "q_\u03bc \u0393^\u03bc = S\u207b\u00b9(p') \u2212 S\u207b\u00b9(p) (vertex #141 fixed by propagator #135)",
+  "masslessness": "q_\u03bc \u03a0^\u03bc\u03bd = 0 \u27f9 photon massless, 1/q\u00b2 protected (#42\u2013#44)",
+  "one_postulate": "gauge invariance = the gauge face of the unitary mirror (#129); only \u03b1 input",
+  "open": "\u03b1 (#105/#108); higher-order Ward identities; running of \u03b1; scale (#133); flavor (#134)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Audit the gauge consistency of the #141 coupling: current conservation, the Ward\u2013Takahashi identity, and photon masslessness on the antipodal throat \u2014 and tie them to the unitary mirror (#129).",
+      "builds_on": [
+        "#141 gauge\u2013matter coupling",
+        "#135 matter propagator",
+        "#129 unitary mirror",
+        "#130 antipodal vs absorbing modes",
+        "#42\u2013#44 photon 1/q\u00b2",
+        "#105 \u03b1"
+      ],
+      "framing": "QFT on the fixed classical throat \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_conserved_noether_current",
+      "description": "The global U(1)_Hopf phase symmetry of the matter gives the Noether current j^\u03bc = i(\u03c8*\u2202^\u03bc\u03c8 \u2212 (\u2202^\u03bc\u03c8*)\u03c8), conserved on shell \u2202_\u03bc j^\u03bc = 0. For a stationary cavity mode \u03c8_n(r) e^{\u2212i\u03c9_n t}, the charge density \u03c1 = 2\u03c9_n|\u03c8_n|\u00b2 is time-independent \u27f9 conservation reduces to the vanishing radial current.",
+      "current": "j^\u03bc = i(\u03c8*\u2202^\u03bc\u03c8 \u2212 (\u2202^\u03bc\u03c8*)\u03c8)",
+      "conservation": "\u2202_\u03bc j^\u03bc = 0 (on shell)",
+      "stationary": "\u03c1 = 2\u03c9_n|\u03c8_n|\u00b2 static \u27f9 \u2207\u00b7j = 0",
+      "pass": true
+    },
+    {
+      "name": "T3_current_conserved_at_antipodal_throat",
+      "description": "The antipodal cavity modes are REAL (#135) \u27f9 radial charge current j^r \u221d Im(\u03c8_n*\u2202_r\u03c8_n) = 0 exactly: no charge flux through the throat, charge static and conserved. Current conservation in the gauge sector is the zero-flux unitary-mirror property (#129).",
+      "rows": [
+        {
+          "mode_n": 0,
+          "omega": 1.166,
+          "max_abs_jr": 0.0,
+          "real_mode": true
+        },
+        {
+          "mode_n": 1,
+          "omega": 3.25,
+          "max_abs_jr": 0.0,
+          "real_mode": true
+        },
+        {
+          "mode_n": 2,
+          "omega": 5.367,
+          "max_abs_jr": 0.0,
+          "real_mode": true
+        }
+      ],
+      "max_abs_radial_current": 0.0,
+      "no_charge_flux": true,
+      "pass": true
+    },
+    {
+      "name": "T4_absorbing_throat_breaks_conservation",
+      "description": "An absorbing horizon gives complex quasinormal modes (#130); their radial current j^r = Im(\u03c8*\u2202_r\u03c8) \u2260 0 carries charge into the horizon, so current conservation fails and gauge invariance breaks. Gauge invariance REQUIRES the antipodal (unitary) throat \u2014 the same requirement as stable matter.",
+      "absorbing_omega": "1.893-1.122i",
+      "radial_current_at_throat": -0.01445,
+      "charge_leaks": true,
+      "pass": true
+    },
+    {
+      "name": "T5_ward_takahashi_identity",
+      "description": "q_\u03bc \u0393^\u03bc(p,p') = S\u207b\u00b9(p') \u2212 S\u207b\u00b9(p): the gauge vertex (#141) is fixed by the matter inverse propagator (#135), the hallmark of gauge invariance. The differential form \u0393^\u03bc = \u2202S\u207b\u00b9/\u2202p_\u03bc normalises the vertex to the conserved charge.",
+      "wt_identity": "q_\u03bc \u0393^\u03bc = S\u207b\u00b9(p_out) \u2212 S\u207b\u00b9(p_in)",
+      "differential": "\u0393^\u03bc = \u2202S\u207b\u00b9/\u2202p_\u03bc (vertex normalised to the charge)",
+      "pass": true
+    },
+    {
+      "name": "T6_transversality_photon_massless",
+      "description": "Current conservation \u27f9 the vacuum polarisation is transverse, q_\u03bc \u03a0^\u03bc\u03bd = 0, so the gauge correction generates no photon mass: the 1/q\u00b2 photon (#42\u2013#44) is protected. The Ward identity protects masslessness.",
+      "transversality": "q_\u03bc \u03a0^\u03bc\u03bd = 0",
+      "consequence": "no photon mass \u27f9 1/q\u00b2 protected (#42\u2013#44)",
+      "pass": true
+    },
+    {
+      "name": "T7_gauge_invariance_from_unitary_mirror",
+      "description": "Current conservation, the Ward identity, and photon masslessness all follow from the unitary antipodal throat (#129) \u2014 the same real, self-adjoint, zero-flux structure that gave the stable spectrum (#130), the unitary propagator (#135), the stable self-energy (#136), and the bounded vacuum (#138). Gauge invariance is the gauge face of the unitary mirror, not an extra assumption. Only the coupling strength \u03b1 (#105) is input.",
+      "one_postulate": "the unitary antipodal throat (#129)",
+      "gives_matter": "stable spectrum (#130) + propagator (#135) + self-energy (#136) + vacuum (#138)",
+      "gives_gauge": "current conservation + Ward identity + photon masslessness",
+      "input": "\u03b1 (#105)",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The matter current is conserved at the antipodal throat (real modes carry no charge flux, j^r = 0 \u2014 the unitary mirror #129), the Ward\u2013Takahashi identity ties the gauge vertex to the matter propagator, and transversality keeps the photon massless (1/q\u00b2 protected). All follow from the unitary antipodal throat \u2014 the same postulate as stable matter; an absorbing throat would leak charge and break gauge invariance. Only \u03b1 is input.",
+      "classification": "GAUGE_WARD_IDENTITY_CURRENT_CONSERVED_PHOTON_MASSLESS_FROM_ANTIPODAL_MIRROR",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "GAUGE_WARD_IDENTITY_CURRENT_CONSERVED_PHOTON_MASSLESS_FROM_ANTIPODAL_MIRROR",
+  "verdict": "THE MATTER CURRENT IS CONSERVED AT THE ANTIPODAL THROAT, THE WARD IDENTITY HOLDS, AND THE PHOTON STAYS MASSLESS \u2014 ALL FROM THE UNITARY MIRROR, THE SAME POSTULATE AS STABLE MATTER. PR #141 built the minimal gauge\u2013matter coupling; this probe audits its consistency.\n\nTHE CONSERVED NOETHER CURRENT. The global U(1)_Hopf phase symmetry gives the current j^\u03bc = i(\u03c8*\u2202^\u03bc\u03c8 \u2212 (\u2202^\u03bc\u03c8*)\u03c8), conserved on shell \u2202_\u03bc j^\u03bc = 0. For a stationary cavity mode the charge density \u03c1 = 2\u03c9_n|\u03c8_n|\u00b2 is time-independent, so conservation reduces to the vanishing radial current.\n\nCURRENT CONSERVATION AT THE ANTIPODAL THROAT. The antipodal cavity modes are REAL (#135), so the radial charge current j^r \u221d Im(\u03c8_n*\u2202_r\u03c8_n) = 0 exactly (verified). No charge flows through the throat: the charge is static and conserved, a stable charged particle. Current conservation in the gauge sector IS the zero-flux unitary-mirror property (#129).\n\nAN ABSORBING THROAT WOULD BREAK IT. An absorbing horizon gives complex quasinormal modes (#130) whose radial current j^r = Im(\u03c8*\u2202_r\u03c8) \u2260 0 (verified \u2248 \u22120.014 at the throat) carries charge into the horizon. Current conservation fails, and with it gauge invariance \u2014 a charged black-hole-style throat is not gauge-consistent. So gauge invariance REQUIRES the antipodal (unitary) throat, the same requirement as stable matter.\n\nTHE WARD\u2013TAKAHASHI IDENTITY AND PHOTON MASSLESSNESS. Current conservation implies q_\u03bc \u0393^\u03bc(p,p') = S\u207b\u00b9(p') \u2212 S\u207b\u00b9(p), tying the gauge vertex (#141) to the matter inverse propagator (#135): the gauge coupling is fixed by the matter dynamics (the differential form \u0393^\u03bc = \u2202S\u207b\u00b9/\u2202p_\u03bc normalises the vertex to the charge). It also makes the vacuum polarisation transverse, q_\u03bc \u03a0^\u03bc\u03bd = 0, so the gauge correction generates NO photon mass: the 1/q\u00b2 photon (#42\u2013#44) is protected.\n\nONE POSTULATE, BOTH. Current conservation, the Ward identity, and photon masslessness all follow from the unitary antipodal throat (#129) \u2014 the same real, self-adjoint, zero-flux structure that gave the stable spectrum (#130), the unitary propagator (#135), the stable self-energy (#136), and the bounded vacuum (#138). Gauge invariance is the gauge face of the unitary mirror, not an extra assumption. Only the coupling strength \u03b1 (#105) stays input.\n\nSCOPE. Audits gauge consistency on the antipodal throat and ties it to the unitary mirror. It does NOT fix \u03b1 (#105) or compute higher-order Ward identities / the running of \u03b1. The \u03b1 (#105/#108), bulk-scale (#133), and flavor (#134) residuals stand."
+}

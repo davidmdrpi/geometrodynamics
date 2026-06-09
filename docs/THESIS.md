@@ -1832,6 +1832,33 @@ problems rather than implementation TODOs:
   form, the Σl-even vertex, charge conservation, the throat as the C-surface — is
   BAM-native, while its magnitude `α` is the standing universal residual, beside
   the bulk-scale (#133) and flavor (#134) ones.
+  PR #142 audits whether that gauge coupling is consistent — and the answer joins
+  the gauge sector to the stability thread that has run through the whole matter
+  arc. A gauge coupling is consistent only if the matter current it couples to is
+  conserved, and the test of that at the throat is direct: the conserved Noether
+  current of the global U(1) phase symmetry has, for a stationary cavity mode, a
+  time-independent charge density, so conservation comes down to the radial charge
+  current `j^r ∝ Im(ψ* ∂_r ψ)`. Because the antipodal cavity modes are real — the
+  same self-adjointness that made the throat a unitary mirror (#129) and the
+  spectrum stable (#130) — that current is *exactly* zero: no charge flows through
+  the throat, the charge sits static, and the particle is a stable charged state.
+  The counterfactual is just as sharp. An absorbing horizon would give complex,
+  ringing modes whose radial current does not vanish, so charge would leak into
+  the hole and current conservation would fail; a charged black-hole-style throat
+  is simply not gauge-consistent. Gauge invariance therefore *requires* the
+  antipodal throat, exactly as stable matter did. From current conservation the
+  rest follows in the textbook way: the Ward–Takahashi identity `q_μ Γ^μ = S⁻¹(p')
+  − S⁻¹(p)` ties the gauge vertex of #141 to the matter inverse propagator of
+  #135, so the coupling is fixed by the matter dynamics rather than chosen, and
+  the vacuum polarisation is transverse, `q_μ Π^μν = 0`, which forbids a photon
+  mass and protects the `1/q²` photon (#42–#44). The synthesis is that one
+  postulate carries both sectors: the unitary antipodal throat that gave the
+  stable spectrum, the unitary propagator, the stable self-energy, and the bounded
+  vacuum also gives current conservation, the Ward identity, and the massless
+  photon. Gauge invariance is the gauge face of the unitary mirror, not an extra
+  assumption — and once again the only thing left input is the coupling strength,
+  the fine-structure constant `α` (#105), beside the standing bulk-scale (#133)
+  and flavor (#134) residuals.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
