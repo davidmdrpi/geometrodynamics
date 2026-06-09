@@ -1859,6 +1859,27 @@ problems rather than implementation TODOs:
   assumption — and once again the only thing left input is the coupling strength,
   the fine-structure constant `α` (#105), beside the standing bulk-scale (#133)
   and flavor (#134) residuals.
+  PR #143 draws the ledger for that one remaining input, the fine-structure
+  constant, exactly as #133 did for the bulk scale — separating what the geometry
+  fixes about the electromagnetic coupling from what it does not. A great deal is
+  fixed. The charge itself is quantised geometrically: the Hopf number is an
+  integer, `|c₁| = 1`, so the unit of charge is topological, not chosen. The `1/2π`
+  that famously sits in the one-loop anomaly `a = α/2π` is the closure-quantum loop
+  measure of #74, so of that celebrated number the geometry supplies the measure
+  and leaves only the prefactor. And the running of `α` — the way the coupling
+  flows with scale, through the transverse vacuum polarisation of #142 — is derived
+  too. What is *not* derived is the one number the program has always been honest
+  about: the value `α ≈ 1/137`, the boundary condition of that running. A
+  fit-independent scan against the closure numbers — `2π`, `k₅`, `β_lepton = 50π` —
+  finds no clean landing near `137`; the tempting near-misses, `50π − 20` and
+  `4·k₅² + 37`, each smuggle in an ad-hoc additive integer of order twenty to
+  thirty, which is precisely the reverse-engineering the program rejected for
+  `√σ/m_e` in #107 and #108. So `α` is plausibly irreducible in the same sense, and
+  the electromagnetic sector contributes exactly one dimensionless residual, the
+  value of the coupling, taking its place beside `n_part`, `√σ/m_e`, and `ε` in the
+  input budget of #104. The ledger derives the charge quantum, the loop measure,
+  the coupling structure, and the running; the value `α` — the 137 problem — stays
+  the single open input, beside the bulk-scale (#133) and flavor (#134) residuals.
   The higher-order `a_e` series and the full bulk spinor are the
   related open pieces. See
   `docs/stable_moving_throat_research_plan.md`,
