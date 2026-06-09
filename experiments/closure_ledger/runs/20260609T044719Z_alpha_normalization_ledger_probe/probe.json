@@ -1,0 +1,134 @@
+{
+  "timestamp_utc": "2026-06-09T04:47:19+00:00",
+  "identification": "the geometry derives the EM coupling's charge quantum (|c\u2081|=1), its 1/2\u03c0 loop measure (the closure quantum), the coupling structure (#141/#142), and the running of \u03b1; the value \u03b1 \u2248 1/137 is the one EM input residual (the 137 problem), with no clean closure match",
+  "how_alpha_enters": "A_EM = \u03b1\u00b7\u210fc/2; vertex \u221d c\u2081\u00b2\u03b1; a = \u03b1/2\u03c0 \u2014 one number",
+  "charge_quantum": "DERIVED: |c\u2081| = 1 (integer Hopf number, #58/#74)",
+  "measure": "DERIVED: the 1/2\u03c0 in a = \u03b1/2\u03c0 (closure quantum, #74)",
+  "running": "DERIVED (vacuum polarisation, #142); value \u03b1 input (#105)",
+  "value": "the one EM residual \u03b1 \u2248 1/137 (the 137 problem), no clean closure match (#108)",
+  "input_budget": "{n_part, \u221a\u03c3/m_e, \u03b5, \u03b1} (#104/#108) \u2014 \u03b1 the EM residual",
+  "open": "the value \u03b1 (137 problem); EM normalisation; bulk scale (#133); flavor (#134)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Consolidating ledger for the EM coupling normalisation \u03b1 (the strength left input by #141/#142): separate what the geometry derives (charge quantum, 1/2\u03c0 measure, coupling structure, running) from the one irreducible input \u2014 the value \u03b1 \u2248 1/137 (the 137 problem, #105). Parallel to the bulk-scale ledger (#133).",
+      "consolidates": [
+        "#141 coupling structure",
+        "#142 Ward identity / running",
+        "#105 \u03b1 classification",
+        "#108 irreducibility"
+      ],
+      "framing": "QFT on the classical throat \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_how_alpha_enters",
+      "description": "Every EM observable is a function of \u03b1 and the geometry: A_EM = \u03b1\u00b7\u210fc/2 (#105); the gauge\u2013matter vertex strength \u221d c\u2081\u00b2\u03b1 (#141); the Schwinger anomaly a = \u03b1/2\u03c0 (#74). \u03b1 is a single dimensionless number feeding the EM sector.",
+      "A_EM": "\u03b1\u00b7\u210fc/2 (#105)",
+      "vertex_strength": 0.00729735,
+      "schwinger_a": 0.00116141,
+      "pass": true
+    },
+    {
+      "name": "T3_charge_quantum_derived",
+      "description": "The Hopf charge is the integer Hopf number |c\u2081| = 1 (#58/#74): charge quantisation is topological, not input. The charge UNIT is fixed by the geometry; only the coupling STRENGTH (how strongly the unit charge couples) is \u03b1.",
+      "hopf_charge": 1,
+      "is_integer_topological": true,
+      "pass": true
+    },
+    {
+      "name": "T4_two_pi_loop_measure_derived",
+      "description": "In a = \u03b1/2\u03c0 (the one-loop g\u22122, #74), the 2\u03c0 is the BAM closure-quantum loop measure \u2014 derived. The geometry fixes the 1/2\u03c0; only \u03b1 is the input prefactor: BAM derives the measure, not the coupling.",
+      "schwinger_a": 0.0011614,
+      "two_pi_is": "the closure-quantum loop measure (#74), derived",
+      "pass": true
+    },
+    {
+      "name": "T5_running_derived_value_input",
+      "description": "The RG flow of \u03b1 (the vacuum polarisation, transverse by the #142 Ward identity) is derived structurally \u2014 BAM derives HOW \u03b1 runs. The boundary value \u03b1(\u03bc_0) \u2248 1/137 is the input \u2014 BAM does not derive WHERE it starts (the #105 classification, sharpened).",
+      "running": "derived (vacuum polarisation, #142)",
+      "value_alpha_mu0": "\u2248 1/137.036 (input, #105)",
+      "pass": true
+    },
+    {
+      "name": "T6_value_is_one_em_residual",
+      "description": "Fit-independent scan of \u03b1\u207b\u00b9 = 137.036 vs the BAM closure numbers (2\u03c0, k\u2085, \u03b2_lepton = 50\u03c0): NO clean match. The near-misses (50\u03c0 \u2212 20, 4\u00b7k\u2085\u00b2 + 37) need an ad-hoc additive O(20\u201337) term \u2014 fits, not derivations (the #107/#108 failure mode). \u03b1 plausibly irreducible like \u221a\u03c3/m_e (#108): the EM sector contributes one residual.",
+      "target_alpha_inv": 137.036,
+      "scan": [
+        {
+          "candidate": "2\u03c0",
+          "value": 6.283,
+          "pct_off": -95.41,
+          "needs_adhoc_term": false
+        },
+        {
+          "candidate": "\u03b2_lepton = 50\u03c0",
+          "value": 157.08,
+          "pct_off": 14.63,
+          "needs_adhoc_term": false
+        },
+        {
+          "candidate": "2\u03c0\u00b7k\u2085\u00b2 = 50\u03c0",
+          "value": 157.08,
+          "pct_off": 14.63,
+          "needs_adhoc_term": false
+        },
+        {
+          "candidate": "k\u2085\u00b3 + 2\u03c0",
+          "value": 131.283,
+          "pct_off": -4.2,
+          "needs_adhoc_term": false
+        },
+        {
+          "candidate": "50\u03c0 \u2212 20",
+          "value": 137.08,
+          "pct_off": 0.03,
+          "needs_adhoc_term": true
+        },
+        {
+          "candidate": "4\u00b7k\u2085\u00b2 + 37",
+          "value": 137.0,
+          "pct_off": -0.03,
+          "needs_adhoc_term": true
+        },
+        {
+          "candidate": "8\u03c0\u00b7k\u2085",
+          "value": 125.664,
+          "pct_off": -8.3,
+          "needs_adhoc_term": false
+        }
+      ],
+      "clean_matches": [],
+      "near_misses_need_adhoc": [
+        "50\u03c0 \u2212 20",
+        "4\u00b7k\u2085\u00b2 + 37"
+      ],
+      "no_clean_closure_match": true,
+      "pass": true
+    },
+    {
+      "name": "T7_ledger_and_input_budget",
+      "description": "DERIVED: the charge quantum |c\u2081| = 1 (#58/#74); the 1/2\u03c0 loop measure (the closure quantum, #74); the coupling structure (#141/#142); the running of \u03b1 (#142). INPUT: the value \u03b1 \u2248 1/137 (the 137 problem). \u03b1 joins the program's dimensionless residuals \u2014 {n_part, \u221a\u03c3/m_e, \u03b5, \u03b1} (#104/#108) \u2014 as the EM one.",
+      "derived": [
+        "charge quantum |c\u2081| = 1 (integer Hopf number)",
+        "the 1/2\u03c0 loop measure (closure quantum, #74)",
+        "the coupling structure (#141/#142) and the running (#142)"
+      ],
+      "input": [
+        "the value \u03b1 \u2248 1/137 (the 137 problem)"
+      ],
+      "input_budget": "{n_part, \u221a\u03c3/m_e, \u03b5, \u03b1} (#104/#108) \u2014 \u03b1 the EM residual",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The geometry derives the EM coupling's charge quantum (|c\u2081| = 1), its 1/2\u03c0 loop measure (the closure quantum), the coupling structure (#141/#142), and the running of \u03b1; the VALUE \u03b1 \u2248 1/137 is the one EM input residual (the 137 problem), with no clean closure match \u2014 plausibly irreducible like \u221a\u03c3/m_e (#108).",
+      "classification": "ALPHA_NORMALIZATION_LEDGER_CHARGE_QUANTUM_AND_2PI_MEASURE_DERIVED_VALUE_ONE_RESIDUAL",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "ALPHA_NORMALIZATION_LEDGER_CHARGE_QUANTUM_AND_2PI_MEASURE_DERIVED_VALUE_ONE_RESIDUAL",
+  "verdict": "THE EM COUPLING'S CHARGE QUANTUM, 1/2\u03c0 MEASURE, STRUCTURE, AND RUNNING ARE DERIVED; ONLY THE VALUE \u03b1 \u2248 1/137 IS INPUT \u2014 ONE EM RESIDUAL, THE 137 PROBLEM. PRs #141/#142 derived the gauge\u2013matter coupling structure but left the strength \u03b1 input; this ledger consolidates what \u03b1 is, parallel to the bulk-scale ledger (#133).\n\nHOW \u03b1 ENTERS. Every EM observable is a function of \u03b1 and the geometry: the amplitude A_EM = \u03b1\u00b7\u210fc/2 (#105), the gauge\u2013matter vertex strength \u221d c\u2081\u00b2\u03b1 (#141), the Schwinger anomaly a = \u03b1/2\u03c0 (#74). \u03b1 is a single dimensionless number feeding the EM sector.\n\nTHE CHARGE QUANTUM IS DERIVED. The Hopf charge is the integer Hopf number |c\u2081| = 1 (#58/#74) \u2014 charge quantisation is topological, not input. The charge unit is geometric; only the strength is \u03b1.\n\nTHE 1/2\u03c0 MEASURE IS DERIVED. In a = \u03b1/2\u03c0, the 2\u03c0 is the BAM closure-quantum loop measure (#74) \u2014 derived. The geometry fixes the 1/2\u03c0 and leaves only \u03b1 as the input prefactor: BAM derives the measure, not the coupling.\n\nTHE RUNNING IS DERIVED; THE VALUE IS NOT. The RG flow of \u03b1 (the vacuum polarisation, transverse by the #142 Ward identity) is derived structurally \u2014 BAM derives HOW \u03b1 runs. The boundary value \u03b1(\u03bc_0) \u2248 1/137 is the input \u2014 BAM does not derive WHERE it starts (the #105 classification, sharpened).\n\nTHE VALUE IS THE ONE EM RESIDUAL. A fit-independent scan of \u03b1\u207b\u00b9 = 137.036 against the BAM closure numbers (2\u03c0, k\u2085, \u03b2_lepton = 50\u03c0) finds NO clean match: the apparent near-misses (50\u03c0 \u2212 20 = 137.08, 4\u00b7k\u2085\u00b2 + 37 = 137.0) each need an ad-hoc additive O(20\u201337) term \u2014 fits, not derivations, the same reverse-engineering failure mode #107/#108 documented for \u221a\u03c3/m_e. So \u03b1 is plausibly irreducible, like \u221a\u03c3/m_e (#108): the EM sector contributes exactly one dimensionless residual, the value \u03b1.\n\nTIE TO THE INPUT BUDGET. \u03b1 joins the program's handful of dimensionless residuals \u2014 {n_part, \u221a\u03c3/m_e, \u03b5, \u03b1} (#104/#108) \u2014 as the EM one. The charge quantum, the 1/2\u03c0 measure, the coupling structure, and the running are derived; the value \u03b1 is the single EM input, the 137 problem.\n\nSCOPE. A consolidating/accounting ledger. It separates the derived EM structure from the one input (the value \u03b1) and shows \u03b1 has no clean closure match. It does NOT derive \u03b1 (the 137 problem stays open) or the EM normalisation absolutely; the \u03b1 (#105/#108), bulk-scale (#133), and flavor (#134) residuals stand."
+}
