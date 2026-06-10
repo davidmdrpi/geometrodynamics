@@ -1,0 +1,142 @@
+{
+  "timestamp_utc": "2026-06-10T04:13:12+00:00",
+  "identification": "the \u03b5_n overshoot residual is sharply localized: the required compliance profile is pinned at the sub-percent level by the oscillation data (the hypersensitivity inverted), bracketed between Dirac-attribution endpoints, and the \u03c7-driven power law is excluded under both \u2014 the residual plausibly belongs to the mixing/anarchy sector (#92)",
+  "mechanism": "m_\u03bd \u221d \u03b5^p, p = 4.8 (L*(\u03b5) slope r_s/2 re-fit)",
+  "required_profile": "\u03b5\u2082/\u03b5\u2081 = 1.352, \u03b5\u2083/\u03b5\u2082 = 1.435 (pure-bounce; ~0.1\u20130.3%)",
+  "bracket": "\u03b5\u2083/\u03b5\u2082 \u2208 [1.323, 1.435] (attribution endpoints)",
+  "exclusion": "\u03c7-driven \u03c7\u2082/\u03c7\u2083 = 2.487 \u27f9 \u00d714\u201321 in mass (#113: \u00d728); no single q fits",
+  "consistency": "normal ordering; \u03a3m_\u03bd \u2248 61 meV inside the program window",
+  "open": "deriving the gentle profile (mixing/anarchy, #92); #112 anchor; m_D attribution",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "The #148-pattern audit of the #113 residual: re-verify the log-bounce keystones, invert the hypersensitivity into a tight data bracket on the required \u03b5_n profile, bracket the Dirac-attribution endpoints, and sharpen the \u03c7_n power-law failure into a scanned exclusion.",
+      "builds_on": [
+        "#113 \u03b5_n overshoot (\u00d728)",
+        "#112 steep bounce (p = 4.8)",
+        "#88/#132 L*(\u03b5) = (r_s/2)ln(1/\u03b5)",
+        "#79 \u03c7_n boundary stress",
+        "#134 three-mechanism flavor structure",
+        "#148 the bracket-the-residual pattern"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_mechanism_keystones",
+      "description": "The bounce length is the horizon tortoise divergence: L*(\u03b5) = (r_s/2)ln(1/\u03b5) + const, slope re-fit on the metric (#88/#132); and the logarithm converts the exponential mass-action relation into the power law e^{\u2212cL*} \u221d \u03b5^{c\u00b7r_s/2} (constant ratio over three \u03b5 decades) \u2014 at the #112 bounce constant, p = \u2202ln m_\u03bd/\u2202ln \u03b5 = 4.8. The mechanism stands.",
+      "fitted_slope": 0.50001,
+      "expected_rs_over_2": 0.5,
+      "power_law_identity_spread": 0.00072,
+      "p_bounce": 4.8,
+      "pass": true
+    },
+    {
+      "name": "T3_hypersensitivity_inverted",
+      "description": "The steepness cuts both ways. Forward: \u00d72 in \u03b5 \u2192 2^4.8 \u2248 28\u00d7 in mass (the #113 overshoot). Inverted: \u03b4ln \u03b5 = \u03b4ln m/p, so the oscillation-data errors (\u00b12.8% on \u0394m\u00b2\u2082\u2081, \u00b11.1% on \u0394m\u00b2\u2083\u2081) compress into sub-percent uncertainty on the REQUIRED \u03b5 ratios. The hypersensitivity that made the value a residual makes the data bracket TIGHT \u2014 the same inversion as the #148 spectrum bound.",
+      "rows": [
+        {
+          "ratio": "\u03b5\u2082/\u03b5\u2081 (pure-bounce)",
+          "value": 1.3525,
+          "relative_uncertainty": 0.00275
+        },
+        {
+          "ratio": "\u03b5\u2083/\u03b5\u2082 (pure-bounce)",
+          "value": 1.4351,
+          "relative_uncertainty": 0.0039
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_dirac_attribution_bracket",
+      "description": "The data fix only the product m_D,n\u00b7\u03b5_n^p, so the required \u03b5 spread depends on the Dirac attribution. Endpoints: PURE-BOUNCE (uniform m_D) and the #113-implied Dirac growth (ratios 1.88, 1.48). The required \u03b5\u2083/\u03b5\u2082 lies in the bracket [#113, pure] \u2014 and the principled \u03c7-driven prediction \u03c7\u2082/\u03c7\u2083 = 2.49 sits FAR outside both (\u00d71.7\u20131.9 in \u03b5 \u27f9 \u00d714\u201328 in mass) against a sub-percent data bracket: an enormous exclusion margin.",
+      "rows": [
+        {
+          "quantity": "required \u03b5\u2082/\u03b5\u2081",
+          "pure_bounce": 1.352,
+          "md_113": 1.186,
+          "chi_driven": 3.134
+        },
+        {
+          "quantity": "required \u03b5\u2083/\u03b5\u2082",
+          "pure_bounce": 1.435,
+          "md_113": 1.323,
+          "chi_driven": 2.487
+        }
+      ],
+      "bracket_eps32": [
+        1.323,
+        1.435
+      ],
+      "chi_driven_eps32": 2.487,
+      "mass_overshoot_pair32_pure": 14.0,
+      "pass": true
+    },
+    {
+      "name": "T5_power_law_exclusion",
+      "description": "No single power law \u03b5_n \u221d \u03c7_n^{\u2212q} fits: the per-pair implied exponents differ by \u00d71.5 (pure-bounce) to \u00d72.1 (#113 attribution); the best single q still misses one mass ratio by a sizeable factor; and the principled q = 1 overshoots m\u2083/m\u2082 \u00d721 at this data vintage (#113: \u00d728). The spread is NOT a power law in the boundary stress \u2014 #113's 'accommodates, not predicts', now a scanned exclusion.",
+      "per_pair_exponents": {
+        "pure_bounce": {
+          "q12": 0.264,
+          "q23": 0.396,
+          "q_ratio": 1.5
+        },
+        "md_113": {
+          "q12": 0.149,
+          "q23": 0.307,
+          "q_ratio": 2.06
+        }
+      },
+      "best_single_q": 0.323,
+      "best_single_q_minimax_mass_misfit": 1.38,
+      "q1_overshoot_m32": 20.7,
+      "pass": true
+    },
+    {
+      "name": "T6_required_profile_consistency",
+      "description": "The required (gentle) \u03b5_n profile is fully consistent with the program's own absolute predictions: normal ordering (derived, #113), and \u03a3m_\u03bd \u2248 61 meV inside the 59\u201365 meV window (cosmological_sigma_mnu_probe) and below the cosmology bound. The residual is consistent \u2014 just not derived; it plausibly belongs to the mixing/anarchy sector (#92).",
+      "masses_meV": [
+        2.08,
+        8.86,
+        50.18
+      ],
+      "sigma_mnu_meV": 61.1,
+      "program_window_meV": [
+        59.0,
+        65.0
+      ],
+      "inside_window": true,
+      "normal_ordering": true,
+      "pass": true
+    },
+    {
+      "name": "T7_ledger_and_scope",
+      "description": "DERIVED: the log-bounce mechanism (keystones re-verified), normal ordering (#113), the %-level data bracket on the required \u03b5_n profile, the attribution endpoints, and the power-law exclusion. RESIDUAL: the origin of the gentle profile (plausibly mixing/anarchy, #92) \u2014 the audit brackets it, does not derive it. The anchor m\u2081 rides on the #112 \u03b5 ~ R_c\u00b3 value; the m_D attribution is bracketed between endpoints, not derived. Input budget unchanged.",
+      "derived": [
+        "L*(\u03b5) slope = r_s/2; e^{\u2212cL*} \u221d \u03b5^p identity (p = 4.8)",
+        "required \u03b5 ratios pinned to ~0.1\u20130.3% by oscillation data",
+        "attribution bracket: \u03b5\u2083/\u03b5\u2082 \u2208 [1.32, 1.44]; \u03c7-driven 2.49 excluded",
+        "no single power law in \u03c7_n (q\u2081\u2082 \u2260 q\u2082\u2083 under both attributions)"
+      ],
+      "residual": [
+        "the gentle \u03b5_n profile's origin (mixing/anarchy sector, #92)"
+      ],
+      "open": [
+        "deriving the profile; the #112 anchor; the m_D attribution"
+      ],
+      "budget_unchanged": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The log-bounce mechanism stands; the hypersensitivity inverts into a %-level bracket on the data-required \u03b5_n profile; the required spread sits in [1.32, 1.44] per generation step against the \u03c7-driven 2.49 (\u00d714\u201328 overshoot in mass, re-derived); no single power law in \u03c7_n fits. The residual is sharply localized and plausibly belongs to the mixing/anarchy sector (#92).",
+      "classification": "NEUTRINO_EPS_N_REQUIRED_PROFILE_PERCENT_BRACKETED_POWER_LAW_EXCLUDED",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "NEUTRINO_EPS_N_REQUIRED_PROFILE_PERCENT_BRACKETED_POWER_LAW_EXCLUDED",
+  "verdict": "THE \u03b5_n OVERSHOOT RESIDUAL IS NOW A SHARPLY LOCALIZED, DATA-BRACKETED NUMBER: THE LOG-BOUNCE MECHANISM STANDS, THE OSCILLATION DATA PIN THE REQUIRED COMPLIANCE PROFILE AT THE SUB-PERCENT LEVEL, THE REQUIRED SPREAD SITS IN [1.323, 1.435] PER GENERATION STEP AGAINST THE \u03c7-DRIVEN 2.487 (\u00d714\u201321 IN MASS; \u00d728 AT THE #113 VINTAGE), AND NO SINGLE POWER LAW IN \u03c7_n FITS. #113 diagnosed the overshoot; this audit brackets it \u2014 the #148 pattern applied to the flavor sector.\n\nTHE KEYSTONES STAND. The bounce length is the horizon tortoise divergence L*(\u03b5) = (r_s/2)ln(1/\u03b5) (slope re-fit 0.500), and the logarithm converts the exponential mass-action relation into the power law m_\u03bd \u221d \u03b5^p (identity constant over three \u03b5 decades; p = 4.8 at the #112 constant).\n\nHYPERSENSITIVITY INVERTED. Forward, the steepness amplified the \u03c7_n spread into the \u00d728 overshoot (#113). Inverted, \u03b4ln \u03b5 = \u03b4ln m/p: the oscillation-data errors compress by 1/4.8 into ~0.1\u20130.3% on the required \u03b5 ratios \u2014 the residual is not fuzzy, it is a sharply localized number the geometry has not yet produced.\n\nTHE ATTRIBUTION BRACKET. The data fix only m_D,n\u00b7\u03b5_n^p; bracketing the Dirac attribution between the pure-bounce and #113-implied endpoints puts the required \u03b5\u2083/\u03b5\u2082 in [1.323, 1.435]. The principled \u03c7-driven \u03c7\u2082/\u03c7\u2083 = 2.487 sits far outside both endpoints \u2014 excluded by \u00d71.7\u20131.9 in \u03b5, \u00d714\u201328 in mass, against a sub-percent bracket.\n\nTHE POWER-LAW EXCLUSION. The per-pair implied exponents in \u03b5_n \u221d \u03c7_n^{\u2212q} disagree under BOTH attributions (ratio 1.5\u20132.1); the best single q = 0.323 still misses a mass ratio by \u00d71.38 (\u00d71.07 in \u03b5 \u2014 ~25\u00d7 the data bracket); q = 1 overshoots \u00d720.7 at this data vintage (#113 reported \u00d728). The spread is not a power law in the boundary stress.\n\nCONSISTENCY. With the required profile: normal ordering (derived, #113) and \u03a3m_\u03bd \u2248 61 meV \u2014 inside the program's own 59\u201365 meV window. The residual is consistent, just not derived; it plausibly belongs to the mixing/anarchy sector (#92).\n\nSCOPE. The audit brackets, it does not derive: the gentle profile's origin, the #112 anchor, and the m_D attribution remain open; the input budget is unchanged."
+}
