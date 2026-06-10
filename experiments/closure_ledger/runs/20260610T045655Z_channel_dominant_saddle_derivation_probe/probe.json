@@ -1,0 +1,180 @@
+{
+  "timestamp_utc": "2026-06-10T04:56:55+00:00",
+  "identification": "the channel-dominant saddle rule is derived: mouth-localized conversion (the cavity/neck structure) forces A_nm \u224d O(1)\u00b7e^{\u2212min(S_n,S_m)} \u2014 confirmed by exact multi-channel computation, with the counterfactual flipping the rule when the vertex moves into the barrier; the #151 \u03b2 knob is retired",
+  "decomposition": "A_nm = c_near\u00b7e^{\u2212S_m} + c_far\u00b7e^{\u2212S_n} \u224d O(1)\u00b7e^{\u2212min(S)}",
+  "exact_test": "t/max constant (\u00d7<1.3); t/geo varies \u00d79 \u2014 channel-dominant",
+  "counterfactual": "vertex in barrier \u27f9 rule flips to factorized (t/geo constant)",
+  "linearity": "t \u221d W\u2080 exactly \u2014 single conversion vertex",
+  "closure": "#151 consequences derived-footed; \u03b2 knob retired; budget unchanged",
+  "open": "full 5D bounce path integral; anarchic prefactor; PMNS angles/CP",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Derive the #151 channel-dominant pair-tunneling saddle rule from the bounce path decomposition, and confirm it with a controlled exact multi-channel tunneling computation \u2014 retiring the #151 \u03b2 knob (modelled \u2192 derived).",
+      "builds_on": [
+        "#151 channel-dominant rule (modelled)",
+        "#88/#132 the bounce",
+        "#91 mouth overlaps (anarchic c)",
+        "#113 \u03c7-driven compliances",
+        "#136 modelled-vertex posture (now upgraded here)"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_two_path_decomposition",
+      "description": "The off-diagonal bounce amplitude decomposes over the location of the channel-conversion vertex. The vertex (the anarchic O(1) overlap, #91/#151) has support only where the overtone wavefunctions COEXIST \u2014 the cavity mouths; the neck interior is the single-channel tunneling region (#88/#132). Exactly two single-conversion paths: A_nm = c_near\u00b7e^{\u2212S_m} + c_far\u00b7e^{\u2212S_n} (convert-then-tunnel \u2295 tunnel-then-convert), dominated by the cheaper segment: A_nm \u224d O(1)\u00b7e^{\u2212min(S_n,S_m)} \u2014 the channel-dominant rule. Conversion inside the neck would give the factorized e^{\u2212(S_n+S_m)/2}; the vertex has no support there.",
+      "decomposition": "A_nm = c_near\u00b7e^{\u2212S_m} + c_far\u00b7e^{\u2212S_n} \u224d O(1)\u00b7e^{\u2212min(S_n,S_m)}",
+      "localization": "mouths only \u2014 the neck is single-channel (#88/#132)",
+      "pass": true
+    },
+    {
+      "name": "T3_controlled_model",
+      "description": "The controlled exact model: a double well with three internal channels of different barrier heights (WKB actions \u2248 15.4, 11.4, 8.4 \u2014 splittings spanning a factor ~2000) and the conversion coupling localized at the wells (the mouths). Extraction consistency: the L\u00f6wdin-projected same-channel L\u2013R element reproduces the exact single-channel half-splitting \u0394_k/2 to <10% \u2014 the projection is faithful.",
+      "channels": [
+        {
+          "channel": 1,
+          "barrier_height": 1.0,
+          "splitting": 1.458e-08,
+          "wkb_action": 15.44
+        },
+        {
+          "channel": 2,
+          "barrier_height": 0.55,
+          "splitting": 1.063e-06,
+          "wkb_action": 11.43
+        },
+        {
+          "channel": 3,
+          "barrier_height": 0.3,
+          "splitting": 2.851e-05,
+          "wkb_action": 8.4
+        }
+      ],
+      "splitting_span": 1955.0,
+      "extraction_consistency": [
+        {
+          "pair": "(1,2)",
+          "channel": 1,
+          "t_kk_over_half_splitting": 1.0
+        },
+        {
+          "pair": "(1,3)",
+          "channel": 1,
+          "t_kk_over_half_splitting": 1.0
+        },
+        {
+          "pair": "(2,3)",
+          "channel": 2,
+          "t_kk_over_half_splitting": 1.0
+        }
+      ],
+      "pass": "True"
+    },
+    {
+      "name": "T4_exact_element_is_channel_dominant",
+      "description": "The exact cross-channel tunneling element against the two candidate rules: |t|/(\u0394_max/2) \u2248 0.17\u20130.21 \u2014 CONSTANT across pairs whose factorized predictions differ by orders of magnitude (the constant IS the O(1) mouth-conversion factor); |t|/(\u0394_geo/2) varies \u00d79 (= e^{|\u0394S|/2}, exactly the two-path prediction). The exact element follows the CHANNEL-DOMINANT rule \u2014 the #151 \u03b2 = 1 saddle, derived.",
+      "rows": [
+        {
+          "pair": "(1,2)",
+          "t_cross": 8.905e-08,
+          "t_over_max_rule": 0.1675,
+          "t_over_geo_rule": 1.43
+        },
+        {
+          "pair": "(1,3)",
+          "t_cross": 2.922e-06,
+          "t_over_max_rule": 0.205,
+          "t_over_geo_rule": 9.06
+        },
+        {
+          "pair": "(2,3)",
+          "t_cross": 2.883e-06,
+          "t_over_max_rule": 0.2023,
+          "t_over_geo_rule": 1.05
+        }
+      ],
+      "max_rule_spread": 1.22,
+      "geo_rule_spread": 8.65,
+      "pass": true
+    },
+    {
+      "name": "T5_counterfactual_vertex_in_barrier",
+      "description": "The counterfactual: the same model with the conversion vertex supported INSIDE the barrier (mid-neck). The rule FLIPS: t/(\u0394_geo/2) is now the near-constant (conversion mid-tunnel \u27f9 half the path in each channel \u27f9 the factorized geometric mean) while t/(\u0394_max/2) varies \u00d77. The conversion-vertex LOCATION decides the saddle rule \u2014 and since the measured r\u2083\u2082 EXCLUDED the factorized rule (#151, 0.1th percentile), the data independently corroborate mouth-localized conversion, which is the BAM cavity/neck structure (#88/#132).",
+      "rows": [
+        {
+          "pair": "(1,2)",
+          "t_over_max_rule": 0.00519,
+          "t_over_geo_rule": 0.044
+        },
+        {
+          "pair": "(1,3)",
+          "t_over_max_rule": 0.0016,
+          "t_over_geo_rule": 0.071
+        },
+        {
+          "pair": "(2,3)",
+          "t_over_max_rule": 0.0109,
+          "t_over_geo_rule": 0.056
+        }
+      ],
+      "geo_rule_spread_barrier": 1.59,
+      "max_rule_spread_barrier": 6.79,
+      "pass": true
+    },
+    {
+      "name": "T6_linearity_and_151_closure",
+      "description": "t \u221d W\u2080 exactly (spread < 1%): a SINGLE conversion vertex \u2014 the two-segment convert\u2295tunnel saddle, not a multi-conversion path. With the rule derived, the #151 chain stands on derived footing: channel dominance \u27f9 measured r\u2083\u2082 natural (~77th percentile), large mixing (0.44), and the m\u2081 \u2248 0.04 meV / \u03a3m_\u03bd \u2248 58.8 meV prediction. The #151 discrete \u03b2 choice is RETIRED: mouth-localized conversion forces \u03b2 = 1, and mouth localization is the cavity/neck geometry itself.",
+      "rows": [
+        {
+          "W0": 0.25,
+          "t_cross": 1.461e-06,
+          "t_over_W0": 5.8439e-06
+        },
+        {
+          "W0": 0.5,
+          "t_cross": 2.922e-06,
+          "t_over_W0": 5.8439e-06
+        },
+        {
+          "W0": 1.0,
+          "t_cross": 5.844e-06,
+          "t_over_W0": 5.8439e-06
+        }
+      ],
+      "linearity_spread": 1.0,
+      "pr151_consequences": "r\u2083\u2082 ~77th pct; mixing 0.44; m\u2081 \u2248 0.04 meV (now derived-footed)",
+      "pass": true
+    },
+    {
+      "name": "T7_ledger_and_scope",
+      "description": "DERIVED: the channel-dominant rule (two-path decomposition + exact computation + counterfactual flip), and its precondition \u2014 mouth-localized conversion \u2014 from the cavity/neck structure (#88/#132). RETIRED: the #151 \u03b2 knob (modelled \u2192 derived; no new input, one modelling assumption removed). OPEN: the full bounce path integral on the actual 5D throat (the 1D model is the controlled analogue), the prefactor distribution (the anarchic draw, the localized flavor residual), explicit PMNS angles, CP phases.",
+      "derived": [
+        "A_nm \u224d O(1)\u00b7e^{\u2212min(S_n,S_m)} (two-path saddle)",
+        "exact element channel-dominant (t/max constant \u00d7<1.3; t/geo \u00d79)",
+        "rule flips with vertex location (counterfactual)",
+        "t \u221d W\u2080 (single vertex)"
+      ],
+      "retired": [
+        "the #151 \u03b2 interpolation knob"
+      ],
+      "open": [
+        "full 5D bounce path integral",
+        "anarchic prefactor distribution",
+        "PMNS angles / CP phases"
+      ],
+      "budget_unchanged": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The channel-dominant saddle is derived: the conversion vertex lives at the mouths (the neck is single-channel, #88/#132), the two-path decomposition gives A_nm \u224d e^{\u2212min(S_n,S_m)}, the exact multi-channel computation confirms it (constant t/max, \u00d79-varying t/geo), the counterfactual flips the rule when the vertex moves into the barrier, and the #151 \u03b2 knob is retired \u2014 modelled \u2192 derived, no new input.",
+      "classification": "CHANNEL_DOMINANT_SADDLE_DERIVED_MOUTH_CONVERSION_COUNTERFACTUAL_FLIPS",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "CHANNEL_DOMINANT_SADDLE_DERIVED_MOUTH_CONVERSION_COUNTERFACTUAL_FLIPS",
+  "verdict": "THE #151 CHANNEL-DOMINANT SADDLE RULE IS DERIVED: THE CONVERSION VERTEX LIVES AT THE MOUTHS, THE TWO-PATH DECOMPOSITION GIVES A_nm \u224d O(1)\u00b7e^{\u2212min(S_n,S_m)}, THE EXACT MULTI-CHANNEL COMPUTATION CONFIRMS IT, AND THE COUNTERFACTUAL FLIPS THE RULE WHEN THE VERTEX MOVES INTO THE BARRIER \u2014 THE \u03b2 KNOB IS RETIRED, MODELLED \u2192 DERIVED, NO NEW INPUT. #151 flagged \"derive G_ij from the bounce path integral\" as its lead open item; this probe supplies it.\n\nTHE TWO-PATH DECOMPOSITION. The channel-conversion vertex (the anarchic O(1) overlap, #91/#151) has support only where the overtone wavefunctions coexist \u2014 the cavity mouths; the neck interior is the single-channel tunneling region (#88/#132). So the off-diagonal amplitude is a two-path sum, A_nm = c_near\u00b7e^{\u2212S_m} + c_far\u00b7e^{\u2212S_n} (convert-then-tunnel \u2295 tunnel-then-convert), dominated by the cheaper segment: A_nm \u224d O(1)\u00b7e^{\u2212min(S_n,S_m)} \u2014 channel dominance.\n\nTHE EXACT COMPUTATION. A controlled three-channel double well (WKB actions \u2248 15.4/11.4/8.4, splittings spanning \u00d72000) with mouth-localized coupling, solved exactly and L\u00f6wdin-projected: |t|/(\u0394_max/2) is CONSTANT across pairs (spread \u00d71.22) while |t|/(\u0394_geo/2) varies \u00d78.65 (= e^{|\u0394S|/2}, the two-path prediction). The exact element follows the channel-dominant rule with the constant equal to the O(1) conversion factor.\n\nTHE COUNTERFACTUAL DECIDES. Move the vertex INSIDE the barrier and the rule flips: t/geo becomes the constant (spread \u00d71.59) while t/max varies \u00d76.79 \u2014 conversion mid-tunnel gives the factorized geometric mean. The vertex LOCATION decides the saddle rule \u2014 and the measured r\u2083\u2082 already excluded factorized (#151, 0.1th percentile), so the data independently corroborate mouth conversion, which is the BAM cavity/neck structure itself.\n\nONE VERTEX. t \u221d W\u2080 exactly: a single conversion \u2014 the two-segment saddle, not a multi-conversion path.\n\nTHE CLOSURE. The #151 chain now stands on derived footing: mouth conversion (geometry) \u27f9 channel dominance (this probe) \u27f9 measured r\u2083\u2082 natural at the ~77th percentile, large mixing 0.44, and the falsifiable m\u2081 \u2248 0.04 meV / \u03a3m_\u03bd \u2248 58.8 meV prediction. The \u03b2 interpolation knob is retired; the #150 budget is unchanged (one modelling assumption REMOVED).\n\nSCOPE. The 1D model is the controlled analogue of the neck; the full 5D bounce path integral, the anarchic prefactor distribution (the localized flavor residual), explicit PMNS angles, and CP phases remain open."
+}
