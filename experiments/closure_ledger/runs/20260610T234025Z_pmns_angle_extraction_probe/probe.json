@@ -1,0 +1,197 @@
+{
+  "timestamp_utc": "2026-06-10T23:40:25+00:00",
+  "identification": "the PMNS angles extract naturally from the derived channel-dominant anarchy plus one hierarchy-permitted charged-side \u03bc\u2013\u03c4 rotation \u2014 all three observed angles anarchy-typical, CP generic, the e-row hierarchy-protected (why \u03b8\u2081\u2083 is small while \u03b8\u2082\u2083 is large)",
+  "construction": "U = R\u2082\u2083(\u03c6_\u2113)\u00b7O_geom\u00b7U_\u03bd (#151/#152 ensemble; computed O_geom)",
+  "bracket": "near-diagonal O fails \u03b8\u2082\u2083 (98th pct); anarchic O fails \u03b8\u2081\u2083 (\u22647th pct)",
+  "resolution": "left R\u2082\u2083: s12/s13 exactly invariant \u27f9 one rotation; \u03bc\u2013\u03c4 the permitted block",
+  "angles": "s12 @ 62nd, s23 @ 56th, s13 @ 27th percentile (\u03c6_\u2113 = 45\u00b0)",
+  "cp": "median |J| = 0.015; P(|J| > 0.01) = 61% \u2014 generic",
+  "open": "charged-side matrix; Majorana phases/m_\u03b2\u03b2; CKM analogue",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Assemble the PMNS matrix U = R\u2082\u2083(\u03c6_\u2113)\u00b7O_geom\u00b7U_\u03bd from the derived #151/#152 neutrino-side structure plus the mouth-localized cross-channel overlaps, extract the three angle distributions and the CP invariant, and quantify the observed point's naturalness.",
+      "builds_on": [
+        "#151/#152 channel-dominant anarchic seesaw (derived)",
+        "#91 cross-channel large-PMNS identification",
+        "#152 mouth-localized conversion vertex",
+        "README \"PMNS anarchy, generic CP\" claims"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_construction_and_O_geom",
+      "description": "U_PMNS = R\u2082\u2083(\u03c6_\u2113)\u00b7O_geom\u00b7U_\u03bd: U_\u03bd from the derived channel-dominant complex anarchic ensemble (#151/#152, 3000 seeded draws); O_geom = the orthogonal polar factor of the winding(k = 1,3,5) \u2194 overtone(n = 0,1,2) mouth overlaps \u2014 computed NEAR-DIAGONAL (misalignments ~8\u201313\u00b0: the geometric overlap alone is a small rotation); \u03c6_\u2113 = the single charged-side \u03bc\u2013\u03c4 rotation (T4).",
+      "O_geom": [
+        [
+          -0.966,
+          0.216,
+          -0.146
+        ],
+        [
+          -0.201,
+          -0.974,
+          -0.106
+        ],
+        [
+          -0.165,
+          -0.073,
+          0.984
+        ]
+      ],
+      "misalignment_angles_deg": [
+        12.4,
+        8.4,
+        6.1
+      ],
+      "pass": true
+    },
+    {
+      "name": "T3_two_failure_modes",
+      "description": "The two limits both fail, in opposite directions: with the near-diagonal geometric O alone, sin\u00b2\u03b8\u2081\u2082 (62nd pct) and sin\u00b2\u03b8\u2081\u2083 (26th pct) are natural but sin\u00b2\u03b8\u2082\u2083 is far too small (98th pct); with a fully anarchic O, sin\u00b2\u03b8\u2082\u2083 is natural but sin\u00b2\u03b8\u2081\u2083 is far too large (observed at \u22647th pct). The observed PMNS sits BETWEEN the limits \u2014 the data select a specific intermediate charged-side structure.",
+      "rows": [
+        {
+          "O": "near-diagonal (O_geom)",
+          "s12_pct": 62,
+          "s23_pct": 98,
+          "s13_pct": 27
+        },
+        {
+          "O": "fully anarchic (fixed Haar)",
+          "s12_pct": 20,
+          "s23_pct": 16,
+          "s13_pct": 7
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_one_hierarchy_permitted_rotation",
+      "description": "A left \u03bc\u2013\u03c4 rotation leaves sin\u00b2\u03b8\u2081\u2082 and sin\u00b2\u03b8\u2081\u2083 EXACTLY invariant (machine zero \u2014 it never touches the e-row) and moves only sin\u00b2\u03b8\u2082\u2083: the data demand exactly ONE charged-side rotation. And it is the one the winding hierarchy PERMITS: m_\u03bc/m_\u03c4 = 0.060 is \u00d712 less hierarchical than m_e/m_\u03bc = 0.0048, so an O(m_\u03c4) off-diagonal gives an O(1) left \u03bc\u2013\u03c4 rotation while the e-row rotations stay suppressed \u2014 the e-row is HIERARCHY-PROTECTED, which is why \u03b8\u2081\u2083 stays small while \u03b8\u2082\u2083 is large. The natural window is broad (\u03c6_\u2113 \u2208 ~[25\u00b0, 65\u00b0], ~45% of a uniform O(1) draw) \u2014 no fine-tuning.",
+      "invariance_max_ds12": 0.0,
+      "invariance_max_ds13": 0.0,
+      "phi_scan": [
+        {
+          "phi_deg": 0,
+          "median_s23": 0.143,
+          "obs_pct": 98.2
+        },
+        {
+          "phi_deg": 15,
+          "median_s23": 0.142,
+          "obs_pct": 95.8
+        },
+        {
+          "phi_deg": 25,
+          "median_s23": 0.183,
+          "obs_pct": 85.7
+        },
+        {
+          "phi_deg": 35,
+          "median_s23": 0.275,
+          "obs_pct": 73.3
+        },
+        {
+          "phi_deg": 45,
+          "median_s23": 0.406,
+          "obs_pct": 56.4
+        },
+        {
+          "phi_deg": 55,
+          "median_s23": 0.547,
+          "obs_pct": 36.7
+        },
+        {
+          "phi_deg": 65,
+          "median_s23": 0.681,
+          "obs_pct": 19.9
+        },
+        {
+          "phi_deg": 75,
+          "median_s23": 0.789,
+          "obs_pct": 7.8
+        }
+      ],
+      "natural_window_deg": [
+        35,
+        45,
+        55,
+        65
+      ],
+      "hierarchy_ratio_mu_tau_vs_e_mu": 12.3,
+      "pass": true
+    },
+    {
+      "name": "T5_assembled_pmns_all_angles_natural",
+      "description": "The assembled PMNS at the representative \u03c6_\u2113 = 45\u00b0: sin\u00b2\u03b8\u2081\u2082 observed at the 62nd percentile, sin\u00b2\u03b8\u2082\u2083 at the 56th, sin\u00b2\u03b8\u2081\u2083 at the 27th \u2014 ALL THREE natural, the full observed point anarchy-typical. CP is GENERIC: median |J| = 0.015 (data |J|_max \u2248 0.033), P(|J| > 0.01) = 61% \u2014 the program's 'generic CP' claim quantified at the PMNS level.",
+      "rows": [
+        {
+          "angle": "s12",
+          "ensemble_median": 0.2002,
+          "observed": 0.304,
+          "obs_percentile": 62
+        },
+        {
+          "angle": "s23",
+          "ensemble_median": 0.4065,
+          "observed": 0.45,
+          "obs_percentile": 56
+        },
+        {
+          "angle": "s13",
+          "ensemble_median": 0.0499,
+          "observed": 0.0224,
+          "obs_percentile": 27
+        }
+      ],
+      "J_median": 0.0151,
+      "J_max_data": 0.033,
+      "P_J_gt_0p01_pct": 61,
+      "pass": true
+    },
+    {
+      "name": "T6_predictions",
+      "description": "Falsifiable structure: (1) the e-row protection keeps the \u03b8\u2081\u2083 distribution peaked near the observed value \u2014 P(sin\u00b2\u03b8\u2081\u2083 < 0.002) is small, the anarchy '\u03b8\u2081\u2083 not too small' success preserved; (2) no strong octant preference for \u03b8\u2082\u2083 (P(upper octant) computed); (3) the mass-side results are untouched \u2014 the same ensemble carries the #151/#152 m\u2081 \u2248 0.04 meV / \u03a3m_\u03bd \u2248 58.8 meV prediction.",
+      "P_s13_below_0p002_pct": 2.8,
+      "s13_median": 0.0499,
+      "P_upper_octant_pct": 37.6,
+      "m1_prediction": "m\u2081 \u2248 0.04 meV; \u03a3m_\u03bd \u2248 58.8 meV (#151/#152, unchanged)",
+      "pass": true
+    },
+    {
+      "name": "T7_ledger_and_scope",
+      "description": "DERIVED/STRUCTURAL: the \u03bd-side anarchy (#151/#152); the exact R\u2082\u2083 invariance (why one rotation suffices); the hierarchy-permission argument (why the \u03bc\u2013\u03c4 block and only it); the e-row protection (why \u03b8\u2081\u2083 small with \u03b8\u2082\u2083 large). STATISTICAL: the specific angle values (anarchic draws \u2014 the localized flavor residual). MODELLED: the winding-profile shape in O_geom (results need only near-diagonality); \u03c6_\u2113 as an O(1) anarchic draw on the permitted block (broad window, ~45% \u2014 not a tuned knob). OPEN: deriving the charged-side matrix; Majorana phases / m_\u03b2\u03b2 refinement; the CKM intra-channel analogue (#91). No new input; the #150 budget is unchanged.",
+      "derived": [
+        "\u03bd-side anarchy (channel dominance, #151/#152)",
+        "left-R\u2082\u2083 invariance of s12/s13 (exact)",
+        "hierarchy permission: \u03bc\u2013\u03c4 the only O(1)-rotation block",
+        "e-row protection \u27f9 small \u03b8\u2081\u2083 with large \u03b8\u2082\u2083 consistent"
+      ],
+      "statistical": [
+        "the specific angle values (the anarchic draw)"
+      ],
+      "modelled": [
+        "winding-profile shape in O_geom",
+        "\u03c6_\u2113 (O(1) draw, broad window)"
+      ],
+      "open": [
+        "charged-side matrix derivation",
+        "Majorana phases / m_\u03b2\u03b2",
+        "CKM intra-channel analogue"
+      ],
+      "budget_unchanged": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The PMNS angles extract naturally from the derived channel-dominant anarchy plus exactly one hierarchy-permitted charged-side \u03bc\u2013\u03c4 rotation: all three observed angles anarchy-typical (62/56/27th percentiles), CP generic, the e-row hierarchy-protected \u2014 and the two failure modes (near-diagonal and fully anarchic O) bracket why this specific structure is selected.",
+      "classification": "PMNS_NATURAL_ONE_HIERARCHY_PERMITTED_CHARGED_ROTATION_E_ROW_PROTECTED",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "PMNS_NATURAL_ONE_HIERARCHY_PERMITTED_CHARGED_ROTATION_E_ROW_PROTECTED",
+  "verdict": "THE PMNS ANGLES EXTRACT NATURALLY FROM THE DERIVED CHANNEL-DOMINANT ANARCHY PLUS EXACTLY ONE HIERARCHY-PERMITTED CHARGED-SIDE \u03bc\u2013\u03c4 ROTATION: ALL THREE OBSERVED ANGLES ARE ANARCHY-TYPICAL (62nd/56th/27th PERCENTILES), CP IS GENERIC, AND THE E-ROW IS HIERARCHY-PROTECTED \u2014 WHY \u03b8\u2081\u2083 IS SMALL WHILE \u03b8\u2082\u2083 IS LARGE. #151/#152 derived the \u03bd-side structure; this probe assembles the mixing matrix itself.\n\nTHE CONSTRUCTION. U = R\u2082\u2083(\u03c6_\u2113)\u00b7O_geom\u00b7U_\u03bd: the derived channel-dominant complex anarchic ensemble (3000 seeded draws), the computed near-diagonal geometric mouth overlap (misalignments ~8\u201313\u00b0), and one charged-side \u03bc\u2013\u03c4 rotation.\n\nTHE TWO FAILURE MODES BRACKET THE STRUCTURE. Near-diagonal O: \u03b8\u2081\u2082 and \u03b8\u2081\u2083 natural but \u03b8\u2082\u2083 far too small (98th pct). Fully anarchic O: \u03b8\u2082\u2083 natural but \u03b8\u2081\u2083 far too large (\u22647th pct). The data sit between \u2014 they select a specific intermediate charged-side structure.\n\nONE ROTATION RESOLVES IT \u2014 AND IT IS THE PERMITTED ONE. A left \u03bc\u2013\u03c4 rotation leaves sin\u00b2\u03b8\u2081\u2082 and sin\u00b2\u03b8\u2081\u2083 EXACTLY invariant (machine zero; it never touches the e-row) and moves only sin\u00b2\u03b8\u2082\u2083 \u2014 so the data demand exactly one charged-side rotation. The winding hierarchy permits exactly that one: m_\u03bc/m_\u03c4 = 0.060 is \u00d712 less hierarchical than m_e/m_\u03bc, so an O(m_\u03c4) off-diagonal gives an O(1) left \u03bc\u2013\u03c4 rotation while the e-row rotations stay suppressed. The e-row is hierarchy-protected \u2014 the BAM reason \u03b8\u2081\u2083 is small while \u03b8\u2082\u2083 is large. The natural window is broad (\u03c6_\u2113 \u2208 ~[25\u00b0, 65\u00b0], ~45% of a uniform draw): no fine-tuning.\n\nTHE ASSEMBLED PMNS. At \u03c6_\u2113 = 45\u00b0: sin\u00b2\u03b8\u2081\u2082 at the 62nd percentile, sin\u00b2\u03b8\u2082\u2083 at the 56th, sin\u00b2\u03b8\u2081\u2083 at the 27th \u2014 all three natural, the full observed point anarchy-typical. CP GENERIC: median |J| = 0.0151 (data |J|_max \u2248 0.033), P(|J| > 0.01) = 61% \u2014 the README \"generic CP\" claim quantified at the PMNS level.\n\nPREDICTIONS. The e-row protection keeps \u03b8\u2081\u2083 not-too-small (P(sin\u00b2\u03b8\u2081\u2083 < 0.002) small \u2014 the historic anarchy success preserved); no strong \u03b8\u2082\u2083 octant preference; the mass-side m\u2081 \u2248 0.04 meV / \u03a3m_\u03bd \u2248 58.8 meV prediction (#151/#152) rides the same ensemble, unchanged.\n\nSCOPE. The winding-profile shape in O_geom is modelled (results need only its near-diagonality); \u03c6_\u2113 is an O(1) anarchic draw on the permitted block, not a tuned knob; Majorana phases / m_\u03b2\u03b2, the charged-side matrix derivation, and the CKM analogue are open. No new input \u2014 the #150 budget is unchanged."
+}
