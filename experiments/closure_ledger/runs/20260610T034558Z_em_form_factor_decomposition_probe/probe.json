@@ -1,0 +1,129 @@
+{
+  "timestamp_utc": "2026-06-10T03:45:58+00:00",
+  "identification": "the electric/magnetic decomposition is the Dirac algebra of the minimal coupling; the Ward identity pins F\u2081 (exact charge) and leaves F\u2082 free (dressed moment); g = 2 tree and a = \u03b1/2\u03c0 loop re-verify; the radii are geometric \u2014 the EM gauge arc is capstoned with \u03b1(\u03bc\u2080) the one input",
+  "decomposition": "\u0393^\u03bc = \u03b3^\u03bcF\u2081(q\u00b2) + i\u03c3^{\u03bc\u03bd}q_\u03bdF\u2082(q\u00b2)/2m (Gordon-exact)",
+  "ward_asymmetry": "q_\u03bc\u03c3^{\u03bc\u03bd}q_\u03bd = 0 + \u016bq\u0338u = 0 \u27f9 F\u2081 pinned, F\u2082 free",
+  "keystones": "g_tree = 2 (#61); F\u2082(0) = \u03b1/2\u03c0 = 0.00116141 (#62); vs a_e 0.00115965218",
+  "sachs": "G_E(0) = c\u2081 exact; G_M(0) = c\u2081 + \u03b1/2\u03c0; r_M = r_E geometric (minimal model)",
+  "arc": "#141\u2192#147 one primitive: the unitary antipodal throat + Hopf charge",
+  "open": "\u03b1\u00b2 term; r_E\u2212r_M splitting; recoil; normalisation (#133); flavor (#134)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "The EM gauge-arc capstone: assemble the electric/magnetic vertex decomposition \u0393^\u03bc = \u03b3^\u03bcF\u2081 + i\u03c3^{\u03bc\u03bd}q_\u03bdF\u2082/2m on the antipodal cavity, re-verify the arc's keystones together (#131 convention), and exhibit the one Dirac-algebra fact behind the arc's asymmetry: exact charge, dressed moment.",
+      "builds_on": [
+        "#141 vertex",
+        "#142 Ward",
+        "#143 \u03b1 ledger",
+        "#144 \u03a0/running",
+        "#145 Z\u2081=Z\u2082 (F\u2081(0)=c\u2081)",
+        "#146 G_E + geometric radius",
+        "#61 g = 2 (Hopf monopole)",
+        "#62 a = \u03b1/2\u03c0 (Schwinger)"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_gordon_decomposition",
+      "description": "The EM current of the spin-\u00bd throat splits EXACTLY into a convection (electric) piece (p+p\u2032)^\u03bc/2m and a spin (magnetic) piece i\u03c3^{\u03bc\u03bd}q_\u03bd/2m \u2014 the Gordon identity, verified with explicit Dirac spinors over random on-shell momenta. The F\u2081/F\u2082 decomposition is not an ansatz; it is the Dirac algebra of the #141 minimal coupling.",
+      "clifford_max_err": 0.0,
+      "gordon_max_err": 1.33e-15,
+      "pass": "True"
+    },
+    {
+      "name": "T3_ward_pins_f1_only",
+      "description": "The Ward contraction q_\u03bc\u0393^\u03bc kills the F\u2082 term twice over: q_\u03bc\u03c3^{\u03bc\u03bd}q_\u03bd = 0 identically (antisymmetry \u2014 exact) and \u016b(p\u2032)q\u0338u(p) = 0 on shell (Dirac equation, ~1e-16). So q_\u03bc\u0393^\u03bc = S\u207b\u00b9(p\u2032) \u2212 S\u207b\u00b9(p) (#142) constrains F\u2081 ONLY: the charge F\u2081(0) = c\u2081 is exact and coupling-independent (#145/#146) while F\u2082 \u2014 the anomalous moment \u2014 is gauge-FREE and dresses at every loop. One identity explains the exact charge AND the dressed moment: the arc's asymmetry is Dirac algebra.",
+      "max_q_sigma_q": 0.0,
+      "max_onshell_qslash": 6.08e-16,
+      "consequence": "Ward \u27f9 F\u2081(0) = c\u2081 exact; F\u2082 unconstrained (dressed)",
+      "pass": "True"
+    },
+    {
+      "name": "T4_tree_keystone_g_equals_2",
+      "description": "The Pauli/Hopf operator identity (\u03c3\u00b7D)\u00b2 = D\u00b2 \u2212 \u03c3\u00b7B (D = \u2212i\u2207 \u2212 A) verified numerically (central differences on random spinor test functions, constant-B gauge field): the coefficient of \u03c3\u00b7B is the SU(2) anticommutator factor of 2 \u2014 g_s = 2 with NO anomalous moment at tree level (F\u2082(0) = 0), the #61 keystone re-verified in the capstone (the #131 convention).",
+      "operator_identity_max_err": 8.75e-07,
+      "tree_level": "g = 2 exactly; F\u2082(0) = 0",
+      "pass": true
+    },
+    {
+      "name": "T5_loop_keystone_f2_alpha_over_2pi",
+      "description": "The one-loop anomalous moment re-verified (#62): the Feynman simplex integral \u222bdz dy 2z(1\u2212z)/(1\u2212z)\u00b2 = \u222b\u2080\u00b92z dz = 1 (numerically), so F\u2082(0) = a = \u03b1/2\u03c0 \u2014 within 0.15% of the measured a_e (the residual being the \u03b1\u00b2 Sommerfield term and beyond). The contrast with T3: F\u2082 scales with the coupling (\u221d \u03b1) while F\u2081(0) = c\u2081 is coupling-independent (#145 verified it across g \u2208 {0.5, 0.7, 1.0}) \u2014 the Ward-free moment dresses, the Ward-pinned charge cannot.",
+      "simplex_integral": 0.9999998,
+      "a_bam_alpha_over_2pi": 0.00116141,
+      "a_e_measured": 0.00115965218,
+      "relative_difference": 0.0015,
+      "g_bam": 2.002322819,
+      "g_measured": 2.002319304,
+      "pass": true
+    },
+    {
+      "name": "T6_sachs_assembly_on_the_cavity",
+      "description": "The Sachs pair assembled: G_E(q) is the #146 dressed-density transform with the GEOMETRIC radius r_E; the magnetization density rides the same charged-mode profile (the spin is carried by the charged line; \u03c6 is spinless), so r_M = r_E and the normalised form factors scale, G_M(q)/G_M(0) = G_E(q)/G_E(0) (minimal model \u2014 the measurable r_E \u2260 r_M splitting is higher-order, open). At q = 0 the arc's asymmetry is explicit: G_E(0) = c\u2081 EXACT (Ward-pinned, #145/#146), G_M(0) = c\u2081 + \u03b1/2\u03c0 DRESSED (Ward-free, #62/T5) \u2014 g/2 = G_M(0)/c\u2081.",
+      "r_E_tortoise": 0.2649,
+      "r_M_tortoise": 0.2649,
+      "r_ratio_minus_1": 0.0,
+      "G_E_at_0": 1.0,
+      "G_M_at_0": 1.0011614097,
+      "g_over_2": 1.00116141,
+      "scaling_rows": [
+        {
+          "q": 0.5,
+          "G_E_normalised": 0.991257,
+          "G_M_normalised": 0.991257
+        },
+        {
+          "q": 1.0,
+          "G_E_normalised": 0.965393,
+          "G_M_normalised": 0.965393
+        },
+        {
+          "q": 2.0,
+          "G_E_normalised": 0.867278,
+          "G_M_normalised": 0.867278
+        },
+        {
+          "q": 4.0,
+          "G_E_normalised": 0.550363,
+          "G_M_normalised": 0.550363
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T7_capstone_ledger",
+      "description": "The EM gauge arc, one primitive: the unitary antipodal throat carrying the integer Hopf charge. Its faces: minimal coupling + Z\u2082 selection (#141), Ward identity / masslessness (#142), the \u03b1 ledger (#143), \u03a0 and the running (#144), Z\u2081 = Z\u2082 / charge universality (#145), G_E and the geometric radius (#146), the Gordon split + Ward F\u2082-freedom + g = 2 + \u03b1/2\u03c0 (#147, with the #61/#62 keystones). DERIVED: every structure above. MODELLED: the F\u2082(q) shape (flat \u27f9 scaling), the #136-posture couplings. INPUT: the value \u03b1(\u03bc\u2080) (#143). OPEN: the \u03b1\u00b2 Sommerfield term, the r_E \u2212 r_M splitting, recoil/O(q\u00b2/m\u00b2) mixing, the absolute normalisation (#133), the flavor residuals (#134).",
+      "arc": [
+        "#141 minimal coupling + antipodal Z\u2082 vertex",
+        "#142 Ward identity, current conservation, massless photon (structural)",
+        "#143 \u03b1 ledger: structure derived, value input",
+        "#144 vacuum polarisation: Ward computed, screening, log running",
+        "#145 Z\u2081 = Z\u2082: exact universal charge",
+        "#146 G_E: Bethe sum rule, geometric charge radius",
+        "#147 F\u2081/F\u2082: Gordon split, Ward pins F\u2081 only, g = 2, a = \u03b1/2\u03c0"
+      ],
+      "one_primitive": "the unitary antipodal throat with integer Hopf charge (#129/#58)",
+      "input": [
+        "\u03b1(\u03bc\u2080) \u2248 1/137 \u2014 the one EM residual (#143)"
+      ],
+      "open": [
+        "\u03b1\u00b2 Sommerfield term",
+        "r_E \u2212 r_M splitting",
+        "recoil",
+        "normalisation (#133)",
+        "flavor (#134)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The electric/magnetic decomposition is the Dirac algebra of the #141 minimal coupling (Gordon, ~1e-15); the Ward identity pins F\u2081 (exact charge) and leaves F\u2082 free (dressed moment) through one exact identity; the arc's keystones re-verify together (g = 2 tree, a = \u03b1/2\u03c0 loop, geometric radii); only the value \u03b1(\u03bc\u2080) is input. The EM gauge arc is assembled.",
+      "classification": "EM_FORM_FACTORS_F1_WARD_PINNED_F2_ALPHA_OVER_2PI_RADII_GEOMETRIC_CAPSTONE",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "EM_FORM_FACTORS_F1_WARD_PINNED_F2_ALPHA_OVER_2PI_RADII_GEOMETRIC_CAPSTONE",
+  "verdict": "THE ELECTRIC/MAGNETIC FORM-FACTOR DECOMPOSITION IS ASSEMBLED ON THE ANTIPODAL CAVITY AND THE EM GAUGE ARC IS CAPSTONED: THE GORDON SPLIT IS EXACT DIRAC ALGEBRA, THE WARD IDENTITY PINS F\u2081 (EXACT CHARGE) AND LEAVES F\u2082 FREE (DRESSED MOMENT), THE KEYSTONES g = 2 AND a = \u03b1/2\u03c0 RE-VERIFY TOGETHER, AND THE RADII ARE GEOMETRIC \u2014 ONLY \u03b1(\u03bc\u2080) IS INPUT.\n\nTHE GORDON DECOMPOSITION. \u016b\u2032\u03b3^\u03bcu = \u016b\u2032[(p+p\u2032)^\u03bc + i\u03c3^{\u03bc\u03bd}q_\u03bd]u/2m verified with explicit Dirac spinors to ~1e-15: the EM current splits exactly into convection (electric) + spin (magnetic) parts. The F\u2081/F\u2082 decomposition is the Dirac algebra of the #141 minimal coupling, not an ansatz.\n\nWHY THE CHARGE IS EXACT AND THE MOMENT IS NOT \u2014 ONE IDENTITY. The Ward contraction kills the F\u2082 term twice over: q_\u03bc\u03c3^{\u03bc\u03bd}q_\u03bd = 0 identically (exact) and \u016b\u2032q\u0338u = 0 on shell (~1e-16). So the #142/#145 Ward identity constrains F\u2081 only: F\u2081(0) = c\u2081 exact and coupling-independent (#145/#146), while F\u2082 is gauge-free and dresses at every loop \u2014 the arc's asymmetry is Dirac algebra.\n\nTHE KEYSTONES, RE-VERIFIED TOGETHER (the #131 convention). TREE: (\u03c3\u00b7D)\u00b2 = D\u00b2 \u2212 \u03c3\u00b7B (~1e-6, finite differences) \u2014 the SU(2) anticommutator factor of 2 IS g_s = 2, F\u2082(0) = 0 at tree level (#61). LOOP: the Schwinger simplex integral = 1 (numerically 0.999998) \u27f9 F\u2082(0) = \u03b1/2\u03c0 = 0.00116141 vs the measured a_e = 0.00115965 (+0.15%, the \u03b1\u00b2 Sommerfield term and beyond); g = 2(1 + \u03b1/2\u03c0) = 2.0023228 vs 2.0023193 (#62).\n\nTHE SACHS ASSEMBLY. G_E(q) is the #146 dressed-density transform with the geometric radius r_E = 0.265 (tortoise units); the magnetization rides the same charged-mode profile (the spin is on the charged line; \u03c6 is spinless), so r_M = r_E and G_M/G_M(0) = G_E/G_E(0) \u2014 form-factor scaling in the minimal model. At q = 0: G_E(0) = c\u2081 = 1 EXACT, G_M(0) = 1 + \u03b1/2\u03c0 DRESSED, g/2 = G_M(0)/c\u2081.\n\nTHE ARC, ONE PRIMITIVE. #141 coupling, #142 Ward, #143 \u03b1 ledger, #144 \u03a0/running, #145 exact universal charge, #146 G_E/geometric radius, #147 the decomposition \u2014 every face derives from the unitary antipodal throat carrying the integer Hopf charge; the single EM input is the value \u03b1(\u03bc\u2080) (#143).\n\nSCOPE. Capstone assembly: the F\u2082(q) shape is modelled (flat \u27f9 scaling), recoil/O(q\u00b2/m\u00b2) mixing unresolved; the \u03b1\u00b2 Sommerfield term, the r_E \u2212 r_M splitting, the absolute normalisation (#133), and the flavor residuals (#134) stand."
+}
