@@ -2100,3 +2100,43 @@ this one open ratio, `α`, and the flavor puzzle. PR #107's caution is
 vindicated: with the `n_part` recycling rejected, the fit-independent
 route that would have closed the gap comes up empty, and that empty result
 is itself the finding.
+
+### The categorized input budget (PR #150)
+
+The residual-bracket synthesis (`residual_bracket_synthesis_probe`,
+PR #150) consolidates the accounting above — #104's five tiers, #105/#106's
+constants placement, #107/#108's negative results, #123–#125's APS partition
+ledger, #143's α ledger, #133/#148's bulk scale, #113/#149's flavor audits —
+into one categorized table, re-verifying a keystone from every category:
+
+| category | item | status | source PRs |
+|---|---|---|---|
+| **Anchor** (dimensionful) | `G` (→ `ΔR = 0.52·R_MID` unit) | mandatory (B4), relocatable | #52/#53/#57/#106/#133 |
+| **Fixed tuning** | `√6` (RS flatness) | derived constant, not a knob | #57 |
+| **Universal residual** | `α ≈ 1/137` | structure/measure/running derived; value scan-excluded | #74/#141–#147; #143 |
+| **Universal residual** | `√σ/m_e ≈ 830` | one-`G` repackaging derived; value scan-excluded | #106; #107/#108 |
+| **Program residual** | `n_part = 233` | doubling topological (APS); value compensator | #97/#123/#125 |
+| **Program residual** | `ε` (ν compliance) | order-of-magnitude derived; window `[2π, k₅√(2π)]` | #89/#112 |
+| **Bracketed sub-residual** | `k·r_s` | `(0, 0.0064–0.070]` two-sided | #133/#148 |
+| **Bracketed sub-residual** | `ε_n` spread | `[1.32, 1.44]`/step, ~0.3%; power laws excluded | #113/#149 |
+| **Universal open problem** | flavor puzzle | RG-invariant ⟹ not running; no theory derives it | #97/#107/#108/#134 |
+| **No residual** (contrast) | lepton `N = 4k₅² = 100` | structure AND value derived | #124 |
+
+Two features of this table carry the program's epistemic weight. First,
+every residual row has **derived structure attached**: the charge quantum,
+the `1/2π` measure, and the full one-loop EM sector for `α`; the APS
+doubling for `n_part`; the bounce mechanism and ordering for `ε`; two-sided
+brackets — derived from the program's own locked spectrum and the
+oscillation data — for `k·r_s` and the `ε_n` spread. A residual here is not
+a free knob; it is a number boxed by structure the geometry fixes.
+
+Second, the budget is **constant**. The recent arc — #144 (vacuum
+polarisation and the running), #145 (`Z₁ = Z₂`), #146 (the charge form
+factor), #147 (the `F₁/F₂` capstone), #148 and #149 (the two bracket
+audits) — added six probes of derived structure and **zero new inputs**.
+The budget today is the #104/#125 budget: one gravitational anchor, two
+universal dimensionless residuals shared with every current theory, two
+program residuals with derived structure, two bounded sub-residuals, and
+the universal flavor puzzle. Whether the program ultimately closes,
+partially closes, or fails, it is not failing by knob accumulation — the
+ledger is short, categorized, and audited.
