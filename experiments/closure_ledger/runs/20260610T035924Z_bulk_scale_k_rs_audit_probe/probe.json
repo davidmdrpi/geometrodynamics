@@ -1,0 +1,171 @@
+{
+  "timestamp_utc": "2026-06-10T03:59:24+00:00",
+  "identification": "the bulk-scale residual k\u00b7r_s is bracketed two-sided: above by the locked cavity spectrum (0.0064 tight / 0.070 conservative \u2014 up to ~16\u00d7 tighter than the #133 estimate), below by the existence of the static throat (k > 0); quadratic scaling derived; only the value (\u03ba\u2085\u00b2/\u039b\u2085) residual",
+  "background": "f_k = 1 \u2212 r_s\u00b2/r\u00b2 + k\u00b2r\u00b2 (#127); V_l = f[l(l+2)/r\u00b2 + (3/2r)f\u2032]",
+  "scaling": "shifts \u221d (k\u00b7r_s)\u00b2 (exponents 1.98\u20132.00)",
+  "upper_bound": "k\u00b7r_s \u2272 0.0064 (bridge 0.04%) / 0.0696 (pinhole 2.2%)",
+  "lower_bound": "k > 0: flat bulk \u27f9 B = 4\u03c0\u03c3 = 0 \u27f9 no throat equilibrium (#56/#57)",
+  "bracket": "0 < k\u00b7r_s \u2272 0.006\u20130.07 (the #89 two-sided pattern)",
+  "open": "the value of k\u00b7r_s (\u03ba\u2085\u00b2/\u039b\u2085, #112/#133); global brane solution (#127)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Make the #133 bulk-scale bound quantitative: put the #127 Tangherlini\u2013AdS\u2085 background under the cavity operator, convert the locked closure precisions into computed upper bounds on k\u00b7r_s, and close the bracket from below via the static-throat existence condition.",
+      "builds_on": [
+        "#133 bulk-scale ledger (k\u00b7r_s \u2272 0.1 estimate)",
+        "#127 5D Tangherlini\u2013AdS\u2085 lift",
+        "#116 cavity operator",
+        "#56/#57 brane tension / RS tuning",
+        "#112 \u03ba\u2085\u00b2/\u039b\u2085 residual",
+        "#89 two-sided \u03b5 bracket (the pattern)"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_interpolating_background",
+      "description": "f_k = 1 \u2212 r_s\u00b2/r\u00b2 + k\u00b2r\u00b2 (#127, Einstein with \u039b\u2085 = \u22126k\u00b2) under the cavity operator: V_l = f[l(l+2)/r\u00b2 + (3/2r)f'] reduces to the #116 Tangherlini potential EXACTLY at k = 0; the cavity correction (k\u00b7r)\u00b2 \u2264 (k\u00b7r_s\u00b71.26)\u00b2 reproduces the #127 O(10\u207b\u00b2) estimate at k\u00b7r_s = 0.1; and the k = 0 pinhole operator gives \u03a3 V_max = 22.02, \u22122.1% off the locked \u03b3 = 22.5 \u2014 the documented lock residual, reproduced as a cross-check.",
+      "k0_reduction_max_err": 2.22e-16,
+      "cavity_correction_rows": [
+        {
+          "k_rs": 0.02,
+          "max_cavity_correction_(k\u00b7r)\u00b2": 0.00064
+        },
+        {
+          "k_rs": 0.05,
+          "max_cavity_correction_(k\u00b7r)\u00b2": 0.00397
+        },
+        {
+          "k_rs": 0.1,
+          "max_cavity_correction_(k\u00b7r)\u00b2": 0.01588
+        }
+      ],
+      "pinhole_at_k0": 22.019,
+      "locked_gamma": 22.5,
+      "pinhole_residual": -0.0214,
+      "pass": true
+    },
+    {
+      "name": "T3_quadratic_scaling",
+      "description": "Every locked spectral observable shifts QUADRATICALLY in k\u00b7r_s (fitted exponents 1.98\u20132.00): the AdS correction enters at (k\u00b7r_s)\u00b2, so the spectrum constrains the residual through a single derived power \u2014 the structure of the bound is geometry, only its tolerance comes from the locks.",
+      "shift_rows": [
+        {
+          "k_rs": 0.02,
+          "d_omega_1_0": 0.003975,
+          "d_omega_0_0": 0.004075,
+          "d_pinhole": 0.001817
+        },
+        {
+          "k_rs": 0.05,
+          "d_omega_1_0": 0.02466,
+          "d_omega_0_0": 0.02527,
+          "d_pinhole": 0.01136
+        },
+        {
+          "k_rs": 0.1,
+          "d_omega_1_0": 0.09634,
+          "d_omega_0_0": 0.09861,
+          "d_pinhole": 0.04552
+        },
+        {
+          "k_rs": 0.2,
+          "d_omega_1_0": 0.362,
+          "d_omega_0_0": 0.369,
+          "d_pinhole": 0.1834
+        }
+      ],
+      "fitted_exponents": {
+        "omega_1_0": 1.981,
+        "omega_0_0": 1.98,
+        "pinhole_sum": 2.001
+      },
+      "pass": true
+    },
+    {
+      "name": "T4_spectrum_bound",
+      "description": "Each locked closure precision is the room available for the AdS correction: k\u00b7r_s \u2264 \u221a(tol/c). The arc's most precise identity (the 0.04% Compton-bridge closure riding on \u03c9(1,0)) gives k\u00b7r_s \u2272 0.0064; the loosest (the 2.2% pinhole lock on its own operator) gives \u2272 0.070. Both inside the #133 estimate of 0.1 \u2014 the tight bound is ~16\u00d7 sharper. The throat sits DEEP in the near-flat AdS region, which is WHY pure Tangherlini (#116/#127) approximated everything so well \u2014 now quantified by the locks themselves.",
+      "rows": [
+        {
+          "lock": "Compton bridge / \u03b5-lock (0.04%) on \u03c9(1,0)",
+          "sensitivity_c": 9.863,
+          "bound_k_rs": 0.0064
+        },
+        {
+          "lock": "same tolerance on \u03c9(0,0)",
+          "sensitivity_c": 10.108,
+          "bound_k_rs": 0.0063
+        },
+        {
+          "lock": "pinhole \u03b3-lock residual (2.2%) on \u03a3 V_max",
+          "sensitivity_c": 4.544,
+          "bound_k_rs": 0.0696
+        }
+      ],
+      "bound_tight": 0.0064,
+      "bound_conservative": 0.0696,
+      "ledger_133_estimate": 0.1,
+      "tightening_factor": 15.7,
+      "pass": true
+    },
+    {
+      "name": "T5_lower_bound_static_throat_requires_ads",
+      "description": "The flat-bulk limit k \u2192 0 kills the throat: \u039b\u2085 = \u22126k\u00b2 \u2192 0 \u27f9 the RS tension \u03bb_crit = \u221a(6|\u039b\u2085|)/\u03ba\u2085\u00b2 \u2192 0 (#57) \u27f9 the cohesive coefficient B = 4\u03c0\u03c3 \u2192 0 (#56) \u27f9 the equilibrium R* = (A/2B)^{1/3} \u2192 \u221e and E(R) = A/R is monotone (no minimum, computed). A static throat EXISTS only for k > 0 \u2014 the bracket closes from below: 0 < k\u00b7r_s \u2272 0.006\u20130.07, the same two-sided epistemic shape as the \u03b5 bracket (#89).",
+      "r_star_rows": [
+        {
+          "B_over_B0": 1.0,
+          "R_star": 0.63
+        },
+        {
+          "B_over_B0": 0.1,
+          "R_star": 1.357
+        },
+        {
+          "B_over_B0": 0.01,
+          "R_star": 2.924
+        },
+        {
+          "B_over_B0": 0.001,
+          "R_star": 6.3
+        }
+      ],
+      "flat_limit_has_no_minimum": true,
+      "r_star_diverges": true,
+      "bracket": "0 < k\u00b7r_s \u2272 0.0064 (tight) \u2026 0.070 (conservative)",
+      "pass": true
+    },
+    {
+      "name": "T6_ledger_classification",
+      "description": "The audit SHARPENS #133's category (3) without touching the input budget: DERIVED \u2014 the sign (AdS required by the static throat, #56/#57), the (k\u00b7r_s)\u00b2 scaling, and the two-sided bracket; RESIDUAL \u2014 the value of k\u00b7r_s (= \u03ba\u2085\u00b2/\u039b\u2085 in throat units, #112). No parameter added, none removed: the budget stays {G anchor} + {n_part, \u221a\u03c3/m_e, \u03b5, \u03b1} + the flavor puzzle, with k\u00b7r_s the one bounded bulk number \u2014 now bracketed by the program's own locks instead of an order-of-magnitude estimate.",
+      "derived": [
+        "AdS sign: static throat \u27f9 k > 0 (#56/#57)",
+        "quadratic (k\u00b7r_s)\u00b2 scaling (exponents 1.98\u20132.00)",
+        "two-sided bracket 0 < k\u00b7r_s \u2272 0.006\u20130.07 (locks-derived)"
+      ],
+      "residual": [
+        "the value k\u00b7r_s = R_MID/L_AdS (\u03ba\u2085\u00b2/\u039b\u2085, #112)"
+      ],
+      "budget_unchanged": true,
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "The audit bounds the residual; it does NOT derive its value (the absolute normalisation \u03ba\u2085\u00b2/\u039b\u2085 stays open, #112/#133). The cavity domain is held fixed (geometry ratios fixed by the \u0394R modulus, #133); the O(k\u00b2r_s\u00b2) horizon shift inside the \u03b5-healing region is neglected; the tolerance-to-bound mapping pairs each lock with the observable its closure rides on (bridge \u2194 \u03c9(1,0), pinhole \u2194 \u03a3 V_max) \u2014 other locks (transport, resistance) ride on the same operator family and give intermediate bounds.",
+      "open": [
+        "the value of k\u00b7r_s (absolute normalisation \u03ba\u2085\u00b2/\u039b\u2085, #112/#133)",
+        "the global brane-localised solution (#127)",
+        "horizon shift inside the \u03b5 region"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The AdS-scale residual k\u00b7r_s is bracketed two-sided by the program's own structure: above by the locked cavity spectrum (0.006\u20130.07, up to ~16\u00d7 tighter than the #133 estimate), below by the existence of the static throat (k > 0); the quadratic scaling is derived; only the value (\u03ba\u2085\u00b2/\u039b\u2085) remains residual.",
+      "classification": "BULK_SCALE_K_RS_TWO_SIDED_BRACKET_SPECTRUM_BOUND_VALUE_RESIDUAL",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "BULK_SCALE_K_RS_TWO_SIDED_BRACKET_SPECTRUM_BOUND_VALUE_RESIDUAL",
+  "verdict": "THE BULK-SCALE RESIDUAL k\u00b7r_s IS BRACKETED TWO-SIDED BY THE PROGRAM'S OWN STRUCTURE: THE LOCKED CAVITY SPECTRUM BOUNDS IT ABOVE (k\u00b7r_s \u2272 0.0064 TIGHT, 0.0696 CONSERVATIVE \u2014 UP TO ~15.7\u00d7 TIGHTER THAN THE #133 ESTIMATE) AND THE EXISTENCE OF THE STATIC THROAT BOUNDS IT BELOW (k > 0); ONLY THE VALUE STAYS RESIDUAL. #133 isolated the recurring \u03ba\u2085\u00b2/\u039b\u2085 residual as one bounded number with an order-of-magnitude estimate; this audit computes the bound.\n\nTHE BACKGROUND UNDER THE OPERATOR. The #127 interpolating metric f_k = 1 \u2212 r_s\u00b2/r\u00b2 + k\u00b2r\u00b2 carries the potential V_l = f[l(l+2)/r\u00b2 + (3/2r)f'], which reduces to the #116 Tangherlini potential at machine precision when k = 0, and the k = 0 pinhole operator reproduces the documented \u22122.2% \u03b3-lock residual \u2014 the audit stands on the locked machinery itself.\n\nQUADRATIC SCALING, DERIVED. Every observable shifts as (k\u00b7r_s)\u00b2 (fitted exponents 1.98\u20132.00 across a decade of k\u00b7r_s): the structure of the bound is geometry; only its tolerance comes from the locks.\n\nTHE SPECTRUM BOUND. With sensitivities c \u2248 9.9 (\u03c9(1,0)) and \u2248 4.5 (pinhole), the locked precisions give k\u00b7r_s \u2264 \u221a(tol/c): the 0.04% Compton-bridge closure \u27f9 \u2272 0.0064; the 2.2% pinhole lock \u27f9 \u2272 0.070. The throat sits deep in the near-flat AdS region \u2014 why pure Tangherlini approximated everything so well, now quantified.\n\nTHE LOWER BOUND. k \u2192 0 kills the throat: \u03bb_crit \u2192 0 (#57), B = 4\u03c0\u03c3 \u2192 0 (#56), R* = (A/2B)^{1/3} \u2192 \u221e, E(R) = A/R monotone (no minimum, computed). A static throat exists only for k > 0 \u2014 the bracket is two-sided, the #89 \u03b5 pattern.\n\nLEDGER. Derived: the AdS sign, the quadratic scaling, the bracket. Residual: the value (\u03ba\u2085\u00b2/\u039b\u2085, #112). The input budget is unchanged \u2014 the one bounded bulk number is now bracketed by the program's own locks.\n\nSCOPE. The audit bounds, it does not derive: the absolute normalisation stays open (#112/#133), the cavity domain is held fixed (\u0394R modulus), and the \u03b5-region horizon shift is neglected."
+}
