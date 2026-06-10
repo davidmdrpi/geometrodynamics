@@ -1,0 +1,270 @@
+{
+  "timestamp_utc": "2026-06-10T04:27:08+00:00",
+  "identification": "one gravitational anchor, two scan-excluded universal residuals (\u03b1, \u221a\u03c3/m_e), two structure-derived program residuals (n_part, \u03b5), two two-sided-bracketed sub-residuals (k\u00b7r_s, the \u03b5_n spread), and the universal flavor puzzle \u2014 constant since #104/#125, zero new inputs across #144\u2013#149",
+  "budget": "1 anchor + {\u03b1, \u221a\u03c3/m_e} + {n_part, \u03b5} + 2 brackets + flavor puzzle",
+  "anchor": "G \u2192 \u0394R = 0.52\u00b7R_MID (B4-mandatory, #52/#53); \u221a6 fixed (#57)",
+  "scans": "best principled: \u03b1\u207b\u00b9 \u22124.2%, \u221a\u03c3/m_e \u22125.4%; sub-% all ad-hoc (#107/#108/#143)",
+  "brackets": "k\u00b7r_s \u2208 (0, 0.0064\u20130.070] (#148); \u03b5\u2083/\u03b5\u2082 \u2208 [1.32, 1.44] (#149)",
+  "no_new_knobs": "#144\u2013#149: six probes, zero inputs added",
+  "contrast": "lepton N = 4k\u2085\u00b2 = 100 fully derived \u2014 the no-residual sector (#124)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Assemble the program's complete input accounting into one categorized budget \u2014 anchor, universal residuals, program residuals, bracketed sub-residuals, the flavor puzzle \u2014 re-verify a keystone from every category, and make the no-loose-knobs claim checkable: zero inputs added across #144\u2013#149.",
+      "builds_on": [
+        "#104 five-tier accounting",
+        "#105/#106 constants/anchor",
+        "#107/#108 anti-numerology",
+        "#123\u2013#125 APS partition ledger",
+        "#133/#148 bulk scale + audit",
+        "#143 \u03b1 ledger",
+        "#113/#134/#149 flavor audits",
+        "#89 \u03b5 bracket"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_anchor_sector",
+      "description": "The dimensionful content is ONE anchor: B4 scale-freeness makes exactly one external length mandatory (#52), relocatable along the chain G \u2192 \u03bb_crit \u2192 \u03c3 \u2192 R_MID (#57/#106/#133) with the invariant bulk separation \u0394R = R_OUTER \u2212 R_INNER = 0.52\u00b7R_MID the unit (#53); the RS tuning \u221a6 is FIXED by the Z\u2082 Israel junction + AdS\u2085 bulk (#57) \u2014 a derived constant, not a knob; \u210f = m_e\u00b7R_MID\u00b7c is the bridge, with f_closure = \u0394R/R_MID.",
+      "delta_R_over_R_MID": 0.52,
+      "sqrt6_fixed_tuning": 2.44949,
+      "anchor_count": 1,
+      "pass": true
+    },
+    {
+      "name": "T3_universal_residuals_scans",
+      "description": "The two universal residuals, scan-excluded from clean closure matches (re-run): the best PRINCIPLED candidate for \u03b1\u207b\u00b9 is k\u2085\u00b3 + 2\u03c0 at \u22124.2% and for \u221a\u03c3/m_e is 2\u03c0\u00b7k\u2085\u00b3 at \u22125.4%; the only sub-% matches need ad-hoc O(20\u201337) additive terms or non-BAM factors \u2014 fits, not derivations (#107/#108 discipline). Structure derived (charge quantum, 1/2\u03c0 measure, running #141\u2013#147; both sector scales from one G #106); values plausibly irreducible \u2014 shared with every current theory.",
+      "alpha_scan": [
+        {
+          "candidate": "2\u03c0",
+          "value": 6.283,
+          "pct_off": -95.41,
+          "ad_hoc": false
+        },
+        {
+          "candidate": "\u03b2_lepton = 50\u03c0",
+          "value": 157.08,
+          "pct_off": 14.63,
+          "ad_hoc": false
+        },
+        {
+          "candidate": "k\u2085\u00b3 + 2\u03c0",
+          "value": 131.283,
+          "pct_off": -4.2,
+          "ad_hoc": false
+        },
+        {
+          "candidate": "8\u03c0\u00b7k\u2085",
+          "value": 125.664,
+          "pct_off": -8.3,
+          "ad_hoc": false
+        },
+        {
+          "candidate": "50\u03c0 \u2212 20 (ad-hoc)",
+          "value": 137.08,
+          "pct_off": 0.03,
+          "ad_hoc": true
+        },
+        {
+          "candidate": "4k\u2085\u00b2 + 37 (ad-hoc)",
+          "value": 137,
+          "pct_off": -0.03,
+          "ad_hoc": true
+        }
+      ],
+      "sigma_scan": [
+        {
+          "candidate": "2\u03c0\u00b7k\u2085\u00b3 = \u03b2_lepton\u00b7k\u2085",
+          "value": 785.4,
+          "pct_off": -5.4,
+          "ad_hoc": false
+        },
+        {
+          "candidate": "k\u2085\u2074",
+          "value": 625.0,
+          "pct_off": -24.7,
+          "ad_hoc": false
+        },
+        {
+          "candidate": "e^{2\u03c0}",
+          "value": 535.5,
+          "pct_off": -35.5,
+          "ad_hoc": false
+        },
+        {
+          "candidate": "(4/3)\u00b7k\u2085\u2074 (ad-hoc)",
+          "value": 833.3,
+          "pct_off": 0.4,
+          "ad_hoc": true
+        }
+      ],
+      "best_principled_alpha_pct": 4.2,
+      "best_principled_sigma_pct": 5.4,
+      "pass": true
+    },
+    {
+      "name": "T4_program_residuals",
+      "description": "n_part: the doubling N_q = 2\u00b7n_part is topological (APS index, #123 \u2014 \u00a78-stable) but the value is a fit compensator: the drift 216\u2013255 propagates to 4n_part \u2212 100 \u2208 [764, 920] (\u00b19%) against the FIXED observed \u221a\u03c3/m_e \u2248 830 \u2014 recycling it is circular (#107, re-derived). \u03b5: order-of-magnitude derived (~R_c\u00b3, #112), bounce window bracketed [2\u03c0, k\u2085\u221a(2\u03c0)] (#89). The clean contrast: the LEPTON partition N = 4\u00b7k\u2085\u00b2 = 100 with 3 = (k\u2085+1)/2 generations is fully derived \u2014 structure AND value, no residual (#124).",
+      "npart_drift": [
+        216,
+        255
+      ],
+      "recycled_combination_range": [
+        764,
+        920
+      ],
+      "relative_spread": 0.185,
+      "observed_ratio_fixed": 830.0,
+      "lepton_partition_derived": 100,
+      "generations_derived": 3,
+      "pass": true
+    },
+    {
+      "name": "T5_bracketed_subresiduals",
+      "description": "The two #148/#149-style audits: residuals converted from 'open' to TWO-SIDED BRACKETS by inverting the program's own sensitivities. k\u00b7r_s \u2208 (0, 0.0064\u20130.070] \u2014 bounded above by the locked spectrum (sensitivity re-checked here on a light grid), below by static-throat existence; the \u03b5_n required profile pinned to ~0.3% by the data with the \u03c7-driven law and all single power laws excluded. Neither is a free knob: both are boxed by derived structure.",
+      "rows": [
+        {
+          "residual": "k\u00b7r_s (AdS scale, #133)",
+          "bracket": "(0, 0.0064\u20130.07]",
+          "upper": "locked spectrum (#148)",
+          "lower": "static throat (#56/#57)",
+          "keystone_recheck": "sensitivity c = 9.86 (\u2248 9.86)"
+        },
+        {
+          "residual": "\u03b5_n spread (flavor, #113)",
+          "bracket": "\u03b5\u2083/\u03b5\u2082 \u2208 [1.32, 1.44] (~0.3%)",
+          "upper": "oscillation data \u00f7 p (#149)",
+          "lower": "attribution endpoint",
+          "keystone_recheck": "pure-bounce \u03b5\u2083/\u03b5\u2082 = 1.435"
+        }
+      ],
+      "krs_sensitivity_recheck": 9.86,
+      "eps32_recheck": 1.4351,
+      "pass": true
+    },
+    {
+      "name": "T6_the_input_budget_ledger",
+      "description": "The categorized budget: 1 dimensionful anchor (G, with the \u221a6 tuning fixed), 2 universal dimensionless residuals (\u03b1, \u221a\u03c3/m_e \u2014 scan-excluded from clean closure matches), 2 program residuals (n_part, \u03b5 \u2014 structure derived, values residual), 2 bracketed sub-residuals (k\u00b7r_s, the \u03b5_n spread \u2014 boxed two-sided by the program's own structure), 1 universal open problem (the flavor puzzle), and the lepton sector as the no-residual contrast. The no-loose-knobs claim, checkable: #144\u2013#149 added ZERO inputs \u2014 the budget is the SAME as #104/#125, while the derived ledger grew by seven probes.",
+      "ledger": [
+        {
+          "category": "ANCHOR (dimensionful)",
+          "item": "G (\u2192 \u0394R unit)",
+          "status": "mandatory (B4), relocatable",
+          "source": "#52/#53/#57/#106/#133"
+        },
+        {
+          "category": "FIXED TUNING",
+          "item": "\u221a6 (RS flatness)",
+          "status": "derived constant, not a knob",
+          "source": "#57"
+        },
+        {
+          "category": "UNIVERSAL RESIDUAL",
+          "item": "\u03b1 \u2248 1/137",
+          "status": "structure/running derived; value scan-excluded",
+          "source": "#74/#141\u2013#147; #143"
+        },
+        {
+          "category": "UNIVERSAL RESIDUAL",
+          "item": "\u221a\u03c3/m_e \u2248 830",
+          "status": "one-G repackaging derived; value scan-excluded",
+          "source": "#106; #107/#108"
+        },
+        {
+          "category": "PROGRAM RESIDUAL",
+          "item": "n_part = 233",
+          "status": "doubling topological (APS); value compensator",
+          "source": "#97/#123/#125"
+        },
+        {
+          "category": "PROGRAM RESIDUAL",
+          "item": "\u03b5 (\u03bd compliance)",
+          "status": "order-of-mag derived; window [2\u03c0, k\u2085\u221a(2\u03c0)]",
+          "source": "#89/#112"
+        },
+        {
+          "category": "BRACKETED SUB-RESIDUAL",
+          "item": "k\u00b7r_s",
+          "status": "(0, 0.0064\u20130.070] two-sided",
+          "source": "#133/#148"
+        },
+        {
+          "category": "BRACKETED SUB-RESIDUAL",
+          "item": "\u03b5_n spread",
+          "status": "[1.32, 1.44]/step, ~0.3%; power laws excluded",
+          "source": "#113/#149"
+        },
+        {
+          "category": "UNIVERSAL OPEN PROBLEM",
+          "item": "flavor puzzle",
+          "status": "RG-invariant \u27f9 not running; no theory derives it",
+          "source": "#97/#107/#108/#134"
+        },
+        {
+          "category": "NO RESIDUAL (contrast)",
+          "item": "lepton N = 4k\u2085\u00b2 = 100",
+          "status": "structure AND value derived",
+          "source": "#124"
+        }
+      ],
+      "recent_arc_inputs": [
+        {
+          "pr": "#144 vacuum polarisation / running",
+          "inputs_added": 0
+        },
+        {
+          "pr": "#145 Z\u2081 = Z\u2082 charge non-renormalization",
+          "inputs_added": 0
+        },
+        {
+          "pr": "#146 charge form factor / geometric radius",
+          "inputs_added": 0
+        },
+        {
+          "pr": "#147 F\u2081/F\u2082 EM-arc capstone",
+          "inputs_added": 0
+        },
+        {
+          "pr": "#148 k\u00b7r_s bracket",
+          "inputs_added": 0
+        },
+        {
+          "pr": "#149 \u03b5_n bracket",
+          "inputs_added": 0
+        }
+      ],
+      "zero_new_inputs_144_149": true,
+      "budget_counts": {
+        "anchors": 1,
+        "universal_residuals": 2,
+        "program_residuals": 2,
+        "bracketed_subresiduals": 2,
+        "open_problems": 1
+      },
+      "same_budget_as_104_125": true,
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "A consolidating synthesis: it organizes and re-verifies, it does NOT remove residuals (#125's honesty). What would change the ledger: deriving \u03b1 or \u221a\u03c3/m_e (would remove a universal residual \u2014 both scans say unlikely from closure numbers alone); deriving n_part's dynamics (the flavor puzzle); pinning \u03b5 or the \u03b5_n profile (mixing/anarchy sector, #92); deriving k\u00b7r_s (the absolute normalisation, #112). Until then, the honest statement stands: one anchor, a short categorized list of bounded residuals, and the universal flavor puzzle.",
+      "would_change_ledger": [
+        "a derivation of \u03b1 or \u221a\u03c3/m_e (scans make closure-number routes unlikely)",
+        "n_part dynamics (the flavor puzzle)",
+        "the \u03b5_n profile from the mixing/anarchy sector (#92)",
+        "the k\u00b7r_s value (absolute normalisation, #112)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The program's irreducible content, categorized and keystoned: one gravitational anchor, two scan-excluded universal residuals, two structure-derived program residuals, two two-sided-bracketed sub-residuals, the universal flavor puzzle \u2014 constant since #104/#125, with zero new inputs across #144\u2013#149.",
+      "classification": "INPUT_BUDGET_ONE_ANCHOR_FOUR_RESIDUALS_TWO_BRACKETED_ZERO_NEW_KNOBS",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "INPUT_BUDGET_ONE_ANCHOR_FOUR_RESIDUALS_TWO_BRACKETED_ZERO_NEW_KNOBS",
+  "verdict": "THE INPUT BUDGET IS CATEGORIZED, KEYSTONED, AND CONSTANT: ONE GRAVITATIONAL ANCHOR, TWO UNIVERSAL RESIDUALS (\u03b1, \u221a\u03c3/m_e \u2014 SCAN-EXCLUDED FROM CLEAN CLOSURE MATCHES), TWO PROGRAM RESIDUALS (n_part, \u03b5 \u2014 STRUCTURE DERIVED), TWO BRACKETED SUB-RESIDUALS (k\u00b7r_s, THE \u03b5_n SPREAD \u2014 BOXED TWO-SIDED), AND THE UNIVERSAL FLAVOR PUZZLE \u2014 WITH ZERO NEW INPUTS ADDED ACROSS #144\u2013#149. BAM is not accumulating loose knobs; it carries a fixed, categorized budget while the derived ledger grows.\n\nTHE ANCHOR SECTOR. Exactly one dimensionful input is mathematically mandatory (B4 scale-freeness, #52), relocatable along G \u2192 \u03bb_crit \u2192 \u03c3 \u2192 R_MID with \u0394R/R_MID = 0.52 the invariant unit (#53/#133); the \u221a6 RS tuning is a derived constant (#57), not a knob.\n\nTHE UNIVERSAL RESIDUALS. \u03b1 and \u221a\u03c3/m_e: their structure is derived (the charge quantum, the 1/2\u03c0 measure, the running, the full one-loop EM sector #141\u2013#147; the one-G repackaging #106) but their values match no principled closure number \u2014 the re-run scans put the best principled candidates at \u22124.2% (k\u2085\u00b3 + 2\u03c0 for \u03b1\u207b\u00b9) and \u22125.4% (2\u03c0\u00b7k\u2085\u00b3 for 830), with every sub-% match requiring an ad-hoc term (#107/#108). Plausibly irreducible \u2014 and shared with every current theory.\n\nTHE PROGRAM RESIDUALS. n_part: the even doubling N_q = 2\u00b7n_part is topological (APS index, #123) and \u00a78-stable; the value drifts 216\u2013255 across the ablations, so 4n_part \u2212 100 \u2208 [764, 920] against the fixed 830 \u2014 recycling the compensator is circular (#107). \u03b5: order-of-magnitude derived (~R_c\u00b3), window [2\u03c0, k\u2085\u221a(2\u03c0)] (#89/#112). The lepton contrast: N = 4k\u2085\u00b2 = 100 and 3 generations fully derived, no residual (#124).\n\nTHE BRACKETED SUB-RESIDUALS. k\u00b7r_s \u2208 (0, 0.0064\u20130.070]: bounded above by the locked spectrum (sensitivity re-checked here, c \u2248 9.9) and below by static-throat existence (#148). The \u03b5_n spread \u2208 [1.32, 1.44] per step, data-pinned to ~0.3%, with the \u03c7-driven law and ALL single power laws excluded (#149). Neither is free: both are boxed by derived structure.\n\nTHE NO-LOOSE-KNOBS CLAIM. #144 (\u03a0/running), #145 (Z\u2081 = Z\u2082), #146 (G_E), #147 (F\u2081/F\u2082 capstone), #148 (k\u00b7r_s), #149 (\u03b5_n): six probes, ZERO inputs added \u2014 every one derived structure, re-verified keystones, or tightened a bracket. The budget today is the #104/#125 budget.\n\nSCOPE. The synthesis organizes, it does not remove: deriving any residual would change the ledger, and none has been achieved. One anchor, a short categorized list of bounded residuals, the universal flavor puzzle \u2014 the honest ledger."
+}
