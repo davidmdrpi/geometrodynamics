@@ -2140,3 +2140,48 @@ program residuals with derived structure, two bounded sub-residuals, and
 the universal flavor puzzle. Whether the program ultimately closes,
 partially closes, or fails, it is not failing by knob accumulation — the
 ledger is short, categorized, and audited.
+
+### The flavor sector, assembled (PRs #149–#157)
+
+The flavor arc (`flavor_sector_synthesis_probe`, PR #157) converted the
+flavor residuals the input budget above carries into an assembled,
+falsifiable sector: bracket the residual (#149) → test the mixing/anarchy
+hypothesis (#151) → derive the channel-dominant saddle from the bounce
+(#152, retiring the one modelling knob) → extract both mixing matrices
+(#153 PMNS, #155 CKM) → complete CP in both sectors (#154 Majorana, #156
+quark). The card:
+
+| observable | prediction | status | source |
+|---|---|---|---|
+| mass ordering | normal | derived | #113/#151 |
+| `m₁` | ≈ 0.04–0.07 meV | predicted | #151/#152 |
+| `Σm_ν` | ≈ 58.8 meV (vs 61.1 uniform-anchor) | falsifiable (~1–2 meV cosmology) | #151 |
+| `ε_n` spread | channel dominance (β knob retired) | derived | #149→#152 |
+| `sin²θ₁₂/θ₂₃/θ₁₃` | anarchy-natural (62/56/27th pct) | statistical | #153 |
+| lepton Dirac CP | generic (`P(\|J\|>0.01) = 61%`) | derived | #153 |
+| Majorana phases | generic (`P(\|Φ₂₃\|>π/2) = 69%`) | derived | #154 |
+| `m_ββ` | 3.2 meV, 68% [1.5, 5.9]; > 10 meV falsifies | falsifiable | #154 |
+| CKM `\|V\|` | all ≤ ×2.0; `V_cb/V_ts` 10% (stiff) | out-of-sample, zero inputs | #155 |
+| quark CP | calibrated; β = 22° = Hopf-phase test | one input; shape open | #156 |
+
+Three features carry the weight. First, the **mechanism map**: the #134
+three-mechanism flavor structure is realized at matrix level — the bounce
+sector (neutrinos: channel-dominant anarchy through the most compliant
+neck), the winding sector (charged leptons: a hierarchy-protected e-row
+with exactly one permitted μ–τ rotation), and the shell sector (quarks: Z₂
+partition alignment). Large PMNS and small CKM, small θ₁₃ with large θ₂₃ —
+each asymmetry traces to derived structure within one geometry.
+
+Second, the **bookkeeping**: eight probes consumed net ONE new input (the
+quark CP phase content — the flavor puzzle's CP entry made explicit) and
+RETIRED one modelling assumption (the #151 β interpolation, derived in
+#152). The modelled-assumption count went *down* while the sector was
+assembled.
+
+Third, the **falsifiable targets**: (1) `Σm_ν` 58.8 vs 61.1 meV at ~1–2 meV
+cosmology precision; (2) an `m_ββ` detection above ~10 meV falsifies the
+ensemble; (3) β = 22° is the acceptance test for the Hopf-connection
+`φ_q(k)`; (4) the Jarlskog ceiling must rise to 3.5×10⁻⁵ when the soft
+`V_us/V_ub` directions land; (5) `V_cb = 0.038` is stiff at 10%. The
+residual locus after the arc: the anarchic draw (statistical), one CP phase
+content (input), the soft `V_us/V_ub` direction, and the `O_geom` e-row.
