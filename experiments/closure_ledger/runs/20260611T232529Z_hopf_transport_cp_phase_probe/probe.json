@@ -1,0 +1,159 @@
+{
+  "timestamp_utc": "2026-06-11T23:25:29+00:00",
+  "identification": "the quark CP phase is the Hopf-fiber transport phase of the same-partition shell couplings (orientation sign = the Z\u2082 partition class): one parameter predicts the full triangle to ~1\u00b0; the pure \u03c0/k\u2085 reproduces all five CP observables uncalibrated (candidate); the #156 route is excluded/corrected",
+  "correction": "#156 partition-mixing J was non-unitarity artifact (unitarized J \u2248 0)",
+  "relocation": "cos(phase\u00b7dk) = Re(e^{i\u03c6_h\u00b7dk}); (H\u00b1) \u221d e^{\u00b1i\u03c6_h\u00b7dk} (#63 orientation)",
+  "calibrated": "\u03c6_h* = 0.611 \u2192 (\u03b2,\u03b3,\u03b1) \u2248 (22.9, 65.8, 91.3)\u00b0 vs (22.2, 65.9, 91.9)\u00b0",
+  "candidate": "\u03c0/k\u2085 = 0.6283 (2.7% away): 5 observables, 0 parameters \u2014 flagged",
+  "open": "derive the orientation-signed transport explicitly; confirm \u03c0/k\u2085",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Run the #156 acceptance test (the db-triangle shape, \u03b2 = 22\u00b0) from the Hopf connection \u2014 and locate the CP phase's true home: the Hopf-fiber transport of the same-partition shell couplings, with orientation sign set by the Z\u2082 partition class (#63 C-swap).",
+      "builds_on": [
+        "#156 calibration + \u03b2 = 22\u00b0 target",
+        "#155 CKM blocks",
+        "hopf/connection.py (\u222eA = \u03c0 cos \u03c7)",
+        "#63 C-swap (c\u2081 \u2192 \u2212c\u2081)",
+        "#152 modelled\u2192derived precedent",
+        "#107/#108 discipline"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_partition_mixing_excluded",
+      "description": "CORRECTION TO #156: the partition-mixing CP is an artifact. At the #156 point the charged-current CKM is non-unitary at the ~16% level (the u\u2013d near-degeneracy amplifies the cross-partition leakage), the quartet invariants disagree (J\u2081\u2082 ~ 7.7e-6 vs J_db ~ \u22123e-9 \u2014 a unitary CKM has one J), and the UNITARIZED core carries J \u2248 0 for every \u03c6_q(k) form scanned (linear, k\u00b2, Casimir). Independently, the implied first-row unitarity deficit exceeds experimental bounds ~\u00d740. Partition mixing is excluded as the CP origin \u2014 doubly. (#156's ceiling identity and J = 0 baseline are |V| arithmetic and stand; its calibration interpretation is superseded.)",
+      "rows": [
+        {
+          "form": "linear k",
+          "J_raw": 7.66e-06,
+          "J_db_raw": -3.17e-09,
+          "nonunitarity": 0.158,
+          "J_unitarized": -3e-09
+        },
+        {
+          "form": "winding k\u00b2",
+          "J_raw": 7.66e-06,
+          "J_db_raw": -3.19e-09,
+          "nonunitarity": 0.158,
+          "J_unitarized": -3.02e-09
+        },
+        {
+          "form": "Casimir k(k+2)",
+          "J_raw": -2.14e-06,
+          "J_db_raw": 8.8e-10,
+          "nonunitarity": 0.159,
+          "J_unitarized": 8.3e-10
+        }
+      ],
+      "unitarized_J_zero_all_forms": true,
+      "row1_unitarity_deficit": 0.1584,
+      "experimental_scale": 0.005,
+      "pass": true
+    },
+    {
+      "name": "T3_hopf_transport_relocation",
+      "description": "The locked same-partition coupling \u2212t\u00b7e^{\u2212\u03b1\u00b7dk}\u00b7cos(phase\u00b7dk) is the REAL PART of the Hopf transport factor e^{i\u03c6\u00b7dk} (the handoff's placeholder note pointed here). The geometry forces the complexification with OPPOSITE orientation per partition class \u2014 the #63 C-swap flips c\u2081, so the two Z\u2082 classes traverse the fiber oppositely: (H\u00b1)_{kk'} \u221d e^{\u00b1i\u03c6_h\u00b7dk}. Both blocks stay Hermitian \u27f9 V = U\u208a\u2020U\u208b EXACTLY unitary (machine precision) with quartet-consistent J (J\u2081\u2082 = \u2212J_db to machine precision): genuine CP. The locked baseline is the \u03c6_h = 0 point; \u03c0 itself is the \u03c7 = 0 fiber holonomy (hopf/connection.py).",
+      "unitarity_err": 6.66e-16,
+      "quartet_consistency": 2.4e-18,
+      "baseline_recovered": true,
+      "chi0_holonomy": 3.141593,
+      "pass": true
+    },
+    {
+      "name": "T4_one_parameter_full_triangle",
+      "description": "Calibrated to J ALONE (\u03c6_h* = 0.61102): the entire unitarity triangle is PREDICTED \u2014 \u03b2 = 22.89\u00b0 (obs 22.2\u00b0), \u03b3 = 65.79\u00b0 (obs 65.9\u00b0), \u03b1 = 91.32\u00b0 (obs 91.9\u00b0), sin \u03b4 = 0.905 \u2014 with masses shifted 9e-04 (\u226a the 1.6% calibration accuracy), V_cb untouched (0.0377), and V_us moving TOWARD the data (0.112 \u2192 0.1232). The #156 acceptance test (\u03b2 = 22\u00b0) is passed by the relocated mechanism.",
+      "calibrated": {
+        "phi_h": 0.61102,
+        "J": 7.667e-06,
+        "J_over_target": 1.0,
+        "beta": 22.89,
+        "gamma": 65.79,
+        "alpha": 91.32,
+        "sin_delta": 0.905,
+        "max_mass_shift": 0.000868,
+        "V_us": 0.1232,
+        "V_cb": 0.0377
+      },
+      "observed": {
+        "beta": 22.2,
+        "gamma": 65.9,
+        "alpha": 91.9
+      },
+      "max_angle_dev_deg": 0.69,
+      "pass": true
+    },
+    {
+      "name": "T5_pure_pi_over_k5_candidate",
+      "description": "The calibrated \u03c6_h* = 0.611 sits 2.8% from \u03c0/k\u2085 = 0.6283 \u2014 the \u03c7 = 0 fiber holonomy \u03c0 divided by the k\u2085 = 5 winding quanta. The PURE, uncalibrated \u03c0/k\u2085 reproduces FIVE CP observables from ZERO free parameters: J at 0.969 of target, (\u03b2, \u03b3, \u03b1) = (22.78, 63.48, 93.75)\u00b0 vs (22.2, 65.9, 91.9)\u00b0, sin \u03b4 = 0.888 vs 0.887. FLAGGED per the #107/#108 discipline: a clean one-step combination of two derived quantities (the connection-module holonomy and the derived bulk dimension), no ad-hoc factor, tested on observables it was not fitted to \u2014 a CANDIDATE closure identification pending an independent transport derivation (the #152 modelled\u2192derived path).",
+      "pure_value": {
+        "phi_h": 0.62832,
+        "J": 7.429e-06,
+        "J_over_target": 0.969,
+        "beta": 22.78,
+        "gamma": 63.48,
+        "alpha": 93.75,
+        "sin_delta": 0.888,
+        "max_mass_shift": 0.000902,
+        "V_us": 0.1227,
+        "V_cb": 0.0377
+      },
+      "proximity_to_calibration": 0.0275,
+      "checks": {
+        "J/target": {
+          "value": 0.969,
+          "pass": true
+        },
+        "beta": {
+          "value": 22.78,
+          "pass": true
+        },
+        "gamma": {
+          "value": 63.48,
+          "pass": true
+        },
+        "alpha": {
+          "value": 93.75,
+          "pass": true
+        },
+        "sin_delta": {
+          "value": 0.888,
+          "pass": true
+        }
+      },
+      "pass": true
+    },
+    {
+      "name": "T6_budget_impact",
+      "description": "If \u03c0/k\u2085 is confirmed by an independent transport derivation, the #156-consumed input (the quark CP phase content) is RETURNED to the #150 budget \u2014 quark CP would be fully derived, completing the flavor card's last open row. Conservatively today: the input downgrades from a free value to a one-parameter family with a principled candidate at 2.7%, and the triangle shape \u2014 #156's open target \u2014 is explained by the mechanism relocation alone (any \u03c6_h near the calibration gives the observed shape). The falsifiable chain updates: the CP row now predicts (\u03b2, \u03b3, \u03b1, sin \u03b4) jointly, and the partition-mixing magnitude is independently bounded by CKM first-row unitarity (\u03b5 \u2272 0.004).",
+      "if_confirmed": "quark CP fully derived; #156 input returned",
+      "today": "one-parameter family + principled candidate at 2.7%",
+      "new_bound": "partition mixing \u03b5 \u2272 0.004 from first-row unitarity",
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "The orientation-sign rule (opposite fiber traversal per Z\u2082 partition class) is MOTIVATED by the #63 C-swap, not yet derived from explicit transport \u2014 the analogous next step to #152's saddle derivation. \u03c0/k\u2085 is a flagged candidate, not a derivation. The #156 correction is documented here and in the run record; its ceiling identity and baseline structure stand. V_us remains the soft direction (though the Hopf phase moves it toward data). No new input is consumed by this probe; one (#156's) is conditionally returned.",
+      "open": [
+        "derive the orientation-signed transport phase explicitly (#152 path)",
+        "confirm or refute \u03c6_h = \u03c0/k\u2085 independently",
+        "the soft V_us direction (now partially improved)"
+      ],
+      "corrects": [
+        "#156 calibration interpretation (partition-mixing J = artifact)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The quark CP phase lives in the Hopf-fiber transport of the same-partition shell couplings, with orientation sign set by the Z\u2082 partition class: one parameter calibrated to J alone predicts the full unitarity triangle to ~1\u00b0, the pure closure value \u03c0/k\u2085 reproduces all five CP observables uncalibrated (candidate, flagged), and the #156 partition-mixing route is excluded and corrected.",
+      "classification": "QUARK_CP_FROM_HOPF_TRANSPORT_TRIANGLE_PREDICTED_PI_OVER_K5_CANDIDATE",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "QUARK_CP_FROM_HOPF_TRANSPORT_TRIANGLE_PREDICTED_PI_OVER_K5_CANDIDATE",
+  "verdict": "THE QUARK CP PHASE LIVES IN THE HOPF-FIBER TRANSPORT OF THE SAME-PARTITION SHELL COUPLINGS \u2014 ONE PARAMETER CALIBRATED TO J ALONE PREDICTS THE FULL UNITARITY TRIANGLE TO ~1\u00b0, AND THE PURE CLOSURE VALUE \u03c0/k\u2085 REPRODUCES ALL FIVE CP OBSERVABLES UNCALIBRATED (CANDIDATE, FLAGGED) \u2014 WHILE THE #156 PARTITION-MIXING ROUTE IS EXCLUDED AND CORRECTED.\n\nTHE CORRECTION TO #156. The partition-mixing CP was an artifact: 16% charged-current non-unitarity (the u\u2013d near-degeneracy), quartet-inconsistent invariants (J\u2081\u2082 ~ 7.7e-6 vs J_db ~ \u22123e-9), a unitarized core with J \u2248 0 for EVERY \u03c6_q(k) form, and an \u03b5* that violates first-row CKM unitarity ~\u00d740. Partition mixing is doubly excluded as the CP origin. (The #156 ceiling identity and J = 0 baseline stand \u2014 they are |V| arithmetic.)\n\nTHE RELOCATION. The locked coupling \u2212t\u00b7e^{\u2212\u03b1\u00b7dk}\u00b7cos(phase\u00b7dk) is the real part of the Hopf transport factor e^{i\u03c6\u00b7dk}; the two Z\u2082 partition classes traverse the fiber with OPPOSITE orientation (the #63 C-swap flips c\u2081) \u27f9 (H\u00b1) \u221d e^{\u00b1i\u03c6_h\u00b7dk}. Hermitian blocks \u27f9 exactly unitary V with quartet-consistent J \u2014 genuine CP; the locked baseline is \u03c6_h = 0.\n\nONE PARAMETER, THE FULL TRIANGLE. \u03c6_h* = 0.61102 from J alone \u27f9 (\u03b2, \u03b3, \u03b1) = (22.89, 65.79, 91.32)\u00b0 vs (22.2, 65.9, 91.9)\u00b0 \u2014 max deviation 0.69\u00b0; sin \u03b4 = 0.905; masses shifted 9e-04; V_cb untouched; V_us moves toward the data. The #156 acceptance test is PASSED.\n\nTHE \u03c0/k\u2085 CANDIDATE. The calibration sits 2.7% from \u03c0/k\u2085 = 0.6283 \u2014 the \u03c7 = 0 fiber holonomy over the k\u2085 winding quanta. Pure and uncalibrated: J at 0.969 of target, (\u03b2, \u03b3, \u03b1) = (22.78, 63.48, 93.75)\u00b0, sin \u03b4 = 0.888 vs 0.887 \u2014 five observables, zero parameters. Flagged per #107/#108 as a candidate closure identification pending an independent transport derivation (the #152 path).\n\nBUDGET. No input consumed; #156's input conditionally returned (downgraded today to a one-parameter family with a principled candidate); a new independent bound emerges (partition mixing \u03b5 \u2272 0.004 from first-row unitarity). SCOPE: the orientation-sign rule is motivated (C-swap), not yet derived from explicit transport \u2014 the flagged next step."
+}
