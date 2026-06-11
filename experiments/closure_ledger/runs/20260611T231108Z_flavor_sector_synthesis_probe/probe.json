@@ -1,0 +1,174 @@
+{
+  "timestamp_utc": "2026-06-11T23:11:08+00:00",
+  "identification": "the flavor sector assembled: masses, both mixing matrices, CP in both sectors \u2014 every keystone re-verifying, one input consumed, one knob retired, five falsifiable targets",
+  "arc": "#149 bracket \u2192 #151 hypothesis \u2192 #152 saddle \u2192 #153/#155 matrices \u2192 #154/#156 CP",
+  "bookkeeping": "8 probes; inputs +1 (quark CP content); knobs \u22121 (\u03b2 retired)",
+  "mechanisms": "bounce (\u03bd anarchy) \u00b7 winding (e-row protected) \u00b7 shell (partition aligned)",
+  "targets": "\u03a3m_\u03bd; m_\u03b2\u03b2 > 10 meV; \u03b2 = 22\u00b0; J ceiling; V_cb stiff",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "The flavor-sector synthesis capstone: re-verify one keystone from every arc member (#149\u2013#156), assemble the complete flavor card, audit the bookkeeping (inputs consumed, knobs retired), and add the card to docs/THESIS.md.",
+      "builds_on": [
+        "#149 bracket",
+        "#151 mixing origin",
+        "#152 saddle derived",
+        "#153 PMNS",
+        "#154 m_\u03b2\u03b2",
+        "#155 CKM",
+        "#156 quark CP",
+        "#150 input-budget ledger",
+        "#134 three mechanisms"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_neutrino_mass_keystones",
+      "description": "#149 re-derived: the pure-bounce inversion gives required \u03b5\u2083/\u03b5\u2082 = 1.435 (the bracket's data edge). #151 re-run (n = 800): the observed r\u2083\u2082 sits at the 60th percentile of the channel-dominant ensemble (natural), with the light-m\u2081 prediction (median 0.078 meV) and \u03a3m_\u03bd \u2248 58.8 meV standing.",
+      "eps32_required": 1.4351,
+      "r32_observed_percentile": 60.5,
+      "m1_median_meV": 0.078,
+      "pass": true
+    },
+    {
+      "name": "T3_saddle_keystone",
+      "description": "#152 light re-check (one channel pair, reduced grid): the exact cross-channel tunneling element gives t/(\u0394_max/2) = 0.205 (the O(1) mouth-conversion constant \u2014 the channel-dominant rule) while t/(\u0394_geo/2) = 9.1 (the factorized rule fails by e^{|\u0394S|/2}). The derived saddle \u2014 and with it the retired \u03b2 knob \u2014 stands.",
+      "t_over_max_rule": 0.205,
+      "t_over_geo_rule": 9.05,
+      "pass": true
+    },
+    {
+      "name": "T4_lepton_mixing_cp_keystones",
+      "description": "#153 re-run: the observed angles sit at the (61, 56, 25)th percentiles (s12, s23, s13) \u2014 all natural. #154 re-run: m_\u03b2\u03b2 median 3.31 meV with the EXACT \u03c6_\u2113 invariance re-verified (max dependence 0.0e+00).",
+      "angle_percentiles": {
+        "s12": 61.0,
+        "s23": 56.1,
+        "s13": 24.9
+      },
+      "mbb_median_meV": 3.31,
+      "phi_ell_invariance": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T5_quark_keystones",
+      "description": "#155 re-computed: V_cb = 0.0377 (obs \u00d70.90, stiff), hierarchy exact, from the mass-locked blocks. #156 re-verified: the J ceiling ratio 0.249 equals the per-element soft-direction product exactly (identity), and the calibration point (\u03b5* = 0.0528, \u03c6* = 0.8) reproduces the phase-content target (J = 7.66e-06).",
+      "V_us": 0.112,
+      "V_cb": 0.0377,
+      "V_ub": 0.002,
+      "ceiling_ratio": 0.249,
+      "decomposition_exact": "True",
+      "J_calibrated": 7.659e-06,
+      "J_target": 7.667e-06,
+      "pass": "True"
+    },
+    {
+      "name": "T6_the_flavor_card",
+      "description": "The complete flavor card: masses, both mixing matrices, CP in both sectors \u2014 ten rows, five falsifiable targets. Bookkeeping: eight probes, ONE input consumed (the quark CP phase content \u2014 the flavor puzzle's CP entry made explicit in the #150 budget), ONE modelling knob RETIRED (the \u03b2 interpolation, derived away by #152): the net modelled-assumption count DECREASED across the arc. The #134 three-mechanism structure is realized at matrix level \u2014 bounce (\u03bd: channel-dominant anarchy), winding (charged leptons: hierarchy-protected e-row, one permitted rotation), shell (quarks: partition alignment) \u2014 one geometry, three sectors, every asymmetry traced to structure.",
+      "card": [
+        {
+          "observable": "mass ordering",
+          "prediction": "normal",
+          "status": "derived",
+          "source": "#113/#151"
+        },
+        {
+          "observable": "m\u2081",
+          "prediction": "\u2248 0.04\u20130.07 meV",
+          "status": "predicted",
+          "source": "#151/#152"
+        },
+        {
+          "observable": "\u03a3m_\u03bd",
+          "prediction": "\u2248 58.8 meV (vs 61.1 uniform)",
+          "status": "falsifiable (~1\u20132 meV cosmology)",
+          "source": "#151"
+        },
+        {
+          "observable": "\u03b5_n spread",
+          "prediction": "channel dominance (\u03b2 retired)",
+          "status": "derived",
+          "source": "#149\u2192#152"
+        },
+        {
+          "observable": "sin\u00b2\u03b8\u2081\u2082/\u03b8\u2082\u2083/\u03b8\u2081\u2083",
+          "prediction": "anarchy-natural (62/56/27 pct)",
+          "status": "statistical",
+          "source": "#153"
+        },
+        {
+          "observable": "lepton Dirac CP",
+          "prediction": "generic (P(|J|>0.01)=61%)",
+          "status": "derived",
+          "source": "#153"
+        },
+        {
+          "observable": "Majorana phases",
+          "prediction": "generic (P(|\u03a6\u2082\u2083|>\u03c0/2)=69%)",
+          "status": "derived",
+          "source": "#154"
+        },
+        {
+          "observable": "m_\u03b2\u03b2",
+          "prediction": "3.2 meV, 68% [1.5, 5.9]; >10 meV falsifies",
+          "status": "falsifiable",
+          "source": "#154"
+        },
+        {
+          "observable": "CKM |V|",
+          "prediction": "all \u2264 \u00d72.0; V_cb/V_ts 10% (stiff)",
+          "status": "out-of-sample, zero inputs",
+          "source": "#155"
+        },
+        {
+          "observable": "quark CP",
+          "prediction": "calibrated; \u03b2 = 22\u00b0 Hopf target",
+          "status": "one input; shape open",
+          "source": "#156"
+        }
+      ],
+      "falsifiable_targets": [
+        "\u03a3m_\u03bd 58.8 vs 61.1 meV (cosmology discriminator)",
+        "m_\u03b2\u03b2 detection > 10 meV falsifies the ensemble",
+        "\u03b2 = 22\u00b0 \u2014 the Hopf-connection \u03c6_q(k) acceptance test",
+        "J ceiling \u2192 3.5e-5 when the soft V_us/V_ub land (pinhole lock)",
+        "V_cb = 0.038 stiff at 10% (tightens with PDG/lattice)"
+      ],
+      "bookkeeping": {
+        "probes": 8,
+        "inputs_consumed": 1,
+        "input": "the quark CP phase content (#156)",
+        "knobs_retired": 1,
+        "knob": "the #151 \u03b2 interpolation (#152)"
+      },
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "The capstone consolidates; it does not derive the remaining residuals. What would change the card: the Hopf-connection \u03c6_q(k) (would convert the quark CP row to derived \u2014 or falsify it at \u03b2 = 22\u00b0); the pinhole/soft-direction refinement (would tighten V_us and raise the J ceiling \u2014 or break V_cb's 10%); cosmology at ~1 meV (decides \u03a3m_\u03bd); ton-scale 0\u03bd\u03b2\u03b2 (decides m_\u03b2\u03b2). The residual locus after the arc: the anarchic draw (statistical), one CP phase content (input), the soft V_us/V_ub direction (calibration slop), and the O_geom e-row (the m_\u03b2\u03b2 systematic).",
+      "would_change_card": [
+        "Hopf \u03c6_q(k) derivation (\u03b2 = 22\u00b0 test)",
+        "pinhole/soft-direction refinement (V_us, J ceiling)",
+        "~1 meV cosmology (\u03a3m_\u03bd)",
+        "ton-scale 0\u03bd\u03b2\u03b2 (m_\u03b2\u03b2)"
+      ],
+      "residual_locus": [
+        "anarchic draw",
+        "quark CP phase content",
+        "soft V_us/V_ub",
+        "O_geom e-row"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The flavor arc assembles into one card \u2014 masses, both mixing matrices, CP in both sectors \u2014 with every keystone re-verifying together, net one input consumed and one modelling knob retired across eight probes, and five falsifiable targets standing.",
+      "classification": "FLAVOR_SECTOR_ASSEMBLED_ONE_INPUT_ONE_KNOB_RETIRED_FIVE_TARGETS",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "FLAVOR_SECTOR_ASSEMBLED_ONE_INPUT_ONE_KNOB_RETIRED_FIVE_TARGETS",
+  "verdict": "THE FLAVOR SECTOR IS ASSEMBLED: MASSES, BOTH MIXING MATRICES, AND CP IN BOTH SECTORS, WITH EVERY ARC KEYSTONE RE-VERIFYING TOGETHER \u2014 NET ONE INPUT CONSUMED AND ONE MODELLING KNOB RETIRED ACROSS EIGHT PROBES, AND FIVE FALSIFIABLE TARGETS STANDING. The arc: bracket the residual (#149) \u2192 test the mixing hypothesis (#151) \u2192 derive the saddle (#152) \u2192 extract both mixing matrices (#153/#155) \u2192 complete CP (#154/#156).\n\nTHE KEYSTONES, RE-RUN TOGETHER (the #131 convention). #149: required \u03b5\u2083/\u03b5\u2082 = 1.4351. #151: the observed r\u2083\u2082 at the 60.5th percentile, m\u2081 median 0.078 meV. #152: the exact tunneling element follows the max rule (t/(\u0394_max/2) = 0.205, constant; geo fails \u00d79.05). #153: angles at the (61.0, 56.1, 24.9)th percentiles. #154: m_\u03b2\u03b2 median 3.31 meV, \u03c6_\u2113-invariance exact. #155: V_cb = 0.0377 from the mass-locked blocks. #156: the ceiling identity exact, the calibration point reproduces its target.\n\nTHE CARD. Ten rows: normal ordering (derived), m\u2081 light (predicted), \u03a3m_\u03bd \u2248 58.8 meV (falsifiable), the \u03b5_n spread (derived \u2014 \u03b2 retired), the three PMNS angles (anarchy-natural), lepton Dirac CP and Majorana phases (generic), m_\u03b2\u03b2 \u2248 3.2 meV (falsifiable), the CKM (out-of-sample, zero inputs), quark CP (calibrated, shape open).\n\nTHE BOOKKEEPING. Eight probes: ONE input consumed (the quark CP phase content \u2014 the flavor puzzle's CP entry made explicit in the #150 budget) and ONE modelling knob RETIRED (the \u03b2 interpolation, derived away by #152) \u2014 the net modelled-assumption count DECREASED while both mixing matrices and five falsifiable targets were added.\n\nONE GEOMETRY, THREE MECHANISMS, ALL MATRIXED. Bounce (\u03bd: channel-dominant anarchy through the most compliant neck), winding (charged leptons: hierarchy-protected e-row, exactly one permitted \u03bc\u2013\u03c4 rotation), shell (quarks: Z\u2082 partition alignment). Large PMNS / small CKM, small \u03b8\u2081\u2083 / large \u03b8\u2082\u2083 \u2014 each asymmetry traced to derived structure; the residual localized to the anarchic draw, one CP phase content, and the soft V_us/V_ub direction.\n\nTHE TARGETS. (1) \u03a3m_\u03bd 58.8 vs 61.1 meV; (2) m_\u03b2\u03b2 > 10 meV falsifies; (3) \u03b2 = 22\u00b0 \u2014 the Hopf-phase acceptance test; (4) the J ceiling \u2192 3.5e-5 when the soft directions land; (5) V_cb stiff at 10%. SCOPE: the capstone consolidates; the remaining residuals and their falsifiable exits are listed, not removed."
+}
