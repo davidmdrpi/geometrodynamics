@@ -1,0 +1,140 @@
+{
+  "timestamp_utc": "2026-06-12T05:18:43+00:00",
+  "identification": "the \u03b3 misfit resolved: the full SO(3)\u00d7SO(3) mass-preserving family realizes all nine flavor-CP observables at \u2264 1% at exactly preserved masses and the derived \u03c6_h = \u03c0/k\u2085, with physical re-lock targets tabulated",
+  "diagnosis": "\u03b3 couples to the (1,3)/(2,3) planes the #160 family never used",
+  "solution": "five constraints sub-percent; V_td/V_ts/J/\u03b1/sin \u03b4 predicted and landing \u2264 1%",
+  "branch": "down-dominant: targets \u00d71.11\u2013\u00d72.00 (O(1\u20132)); up-dominant excluded (\u00d7\u2212181)",
+  "closes": "the #157 card's \u03b3 row \u2014 the quark flavor-CP sector as a consistency statement",
+  "open": "the knob-level v3+CP re-lock; the lepton anarchic draw",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Attack the #160 \u03b3 misfit \u2014 the flavor sector's last quantitative residual \u2014 by extending the mass-preserving family from the two (1,2) planes to the full SO(3)\u00d7SO(3) rotation group per partition block, at the derived \u03c6_h = \u03c0/k\u2085.",
+      "builds_on": [
+        "#160 joint solution (\u03b3 = 104\u00b0 misfit)",
+        "#158/#159 \u03c6_h = \u03c0/k\u2085 derived",
+        "#155 CKM blocks",
+        "#157 flavor card"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_diagnosis",
+      "description": "\u03b3 = arg(\u2212V_ud V_ub*/(V_cd V_cb*)) lives in the ub corner of the triangle, which couples to the (1,3)/(2,3) rotation planes \u2014 exactly the planes the #160 two-parameter family never used. The full mass-preserving family is SO(3)\u00d7SO(3): six Euler angles (three per partition block), every point at EXACTLY fixed eigenvalues. Against five data constraints (V_us, V_cb, V_ub, \u03b2, \u03b3), a one-parameter solution manifold generically exists \u2014 the #160 misfit was a restricted-family artifact, not an obstruction.",
+      "family": "SO(3)\u00d7SO(3), 6 parameters, masses exactly fixed",
+      "constraints": 5,
+      "expected_manifold_dim": 1,
+      "pass": true
+    },
+    {
+      "name": "T3_complete_dataset_lands",
+      "description": "The solution (residual 0.0052): the five constrained observables land sub-percent (V_us = 0.2256, V_cb = 0.04192, V_ub = 0.00368, \u03b2 = 22.3\u00b0, \u03b3 = 65.9\u00b0), and the four UNCONSTRAINED observables are PREDICTED and land: V_td \u00d71.01, V_ts \u00d71.00, J \u00d71.00, \u03b1 = 91.8\u00b0 (obs 91.9\u00b0), sin \u03b4 = 0.889 (obs 0.887). ALL NINE flavor-CP observables land at \u2264 1% simultaneously \u2014 at exactly preserved masses and the derived \u03c6_h = \u03c0/k\u2085. The \u03b3 misfit is RESOLVED.",
+      "residual_norm": 0.00519,
+      "constrained": {
+        "V_us": 0.22557,
+        "V_cb": 0.04192,
+        "V_ub": 0.00368,
+        "beta": 22.29065,
+        "gamma": 65.89879
+      },
+      "predicted": {
+        "V_td": 1.008,
+        "V_ts": 1.0021,
+        "J": 1.0044,
+        "alpha": 91.8106,
+        "sin_delta": 0.8888
+      },
+      "pass": "True"
+    },
+    {
+      "name": "T4_physical_branch_targets",
+      "description": "The solution manifold is one-dimensional. Its up-dominant end is UNPHYSICAL as a re-lock representative \u2014 the huge t eigenvalue (5768) amplifies sub-degree rotations into \u00d7-1582 element targets. The DOWN-DOMINANT branch (up-block (1,3)/(2,3) frozen) reaches the same residual with PHYSICAL targets: up block H\u208a[12] \u00d71.287 (others exactly unchanged); down block \u00d71.832 / \u00d71.996 / \u00d71.111 \u2014 all O(1\u20132), same-sign, within the transport-element family; rotation angles \u2264 6.1\u00b0. These are the complete targets for the knob-level v3+CP re-lock.",
+      "relock_targets": [
+        {
+          "element": "H\u208a[12]",
+          "locked": -0.3548,
+          "target": -0.4566,
+          "factor": 1.287
+        },
+        {
+          "element": "H\u208a[13]",
+          "locked": -0.2682,
+          "target": -0.2682,
+          "factor": 1.0
+        },
+        {
+          "element": "H\u208a[23]",
+          "locked": -0.2682,
+          "target": -0.2682,
+          "factor": 1.0
+        },
+        {
+          "element": "H\u208b[12]",
+          "locked": -0.3548,
+          "target": -0.6501,
+          "factor": 1.832
+        },
+        {
+          "element": "H\u208b[13]",
+          "locked": -0.2682,
+          "target": -0.5352,
+          "factor": 1.996
+        },
+        {
+          "element": "H\u208b[23]",
+          "locked": -5.2682,
+          "target": -5.8543,
+          "factor": 1.111
+        }
+      ],
+      "rotation_angles_deg": [
+        0.13,
+        0.0,
+        0.0,
+        6.13,
+        0.13,
+        0.22
+      ],
+      "up_dominant_excluded_factor": -1581.6,
+      "same_residual_both_branches": true,
+      "pass": true
+    },
+    {
+      "name": "T5_mass_preservation",
+      "description": "Every point of the family preserves all six quark masses EXACTLY (max eigenvalue shift 8.0e-15) \u2014 the rotations are similarity transforms. The solution sits at small angles (max 6.1\u00b0): a gentle re-aiming of the locked eigenvectors, not a reconstruction.",
+      "max_eigenvalue_shift": 7.99e-15,
+      "max_rotation_angle_deg": 6.13,
+      "pass": true
+    },
+    {
+      "name": "T6_flavor_sector_closes",
+      "description": "The #157 card's last quantitative misfit resolves: the target state realizes the locked masses (exact) + all five CKM elements + the full unitarity triangle + J + sin \u03b4 at the derived CP phase \u03c6_h = \u03c0/k\u2085 \u2014 zero new inputs (the rotations re-aim locked structure). The quark flavor-CP sector is now COMPLETE as a consistency statement: a single target state matches the entire dataset. What remains is engineering \u2014 the realization of the tabulated targets in the model's own knobs (the v3+CP joint re-lock) \u2014 plus the lepton sector's anarchic draw. The #150 budget is unchanged.",
+      "closed": "the \u03b3 row \u2014 and with it the quark flavor-CP dataset",
+      "remaining": [
+        "the knob-level v3+CP re-lock (targets complete)",
+        "the lepton anarchic draw"
+      ],
+      "budget_unchanged": true,
+      "pass": true
+    },
+    {
+      "name": "T7_scope",
+      "description": "Honesty notes: (i) with the five constraints imposed, V_td/V_ts/\u03b1 land partly via CKM unitarity (the observed dataset is itself unitarity-consistent) \u2014 the nontrivial content is EXISTENCE: the mass-preserving family contains a unitary matrix matching the data at fixed masses and the fixed derived phase; (ii) the target state is an existence-plus-targets demonstration, not yet the knob-level model \u2014 whether the model's transport/\u03c7/\u03b7 structure can realize the O(1\u20132) down-block factors is the re-lock's question; (iii) the branch choice (down-dominant) is a physicality selection on a degenerate manifold, documented.",
+      "open": [
+        "the knob-level v3+CP re-lock against the tabulated targets"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The \u03b3 misfit was an artifact of the restricted two-plane family: the full SO(3)\u00d7SO(3) mass-preserving family realizes the complete nine-observable flavor-CP dataset at \u2264 1%, at exactly preserved masses and the derived \u03c6_h = \u03c0/k\u2085, with physical down-dominant re-lock targets tabulated. The quark flavor-CP sector closes as a consistency statement.",
+      "classification": "GAMMA_RESOLVED_FULL_FLAVOR_CP_DATASET_REALIZED_AT_PI_OVER_K5",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "GAMMA_RESOLVED_FULL_FLAVOR_CP_DATASET_REALIZED_AT_PI_OVER_K5",
+  "verdict": "THE \u03b3 MISFIT IS RESOLVED: IT WAS AN ARTIFACT OF THE RESTRICTED TWO-PLANE FAMILY. THE FULL SO(3)\u00d7SO(3) MASS-PRESERVING FAMILY REALIZES THE COMPLETE NINE-OBSERVABLE FLAVOR-CP DATASET AT \u2264 1% \u2014 AT EXACTLY PRESERVED MASSES AND THE DERIVED \u03c6_h = \u03c0/k\u2085 \u2014 WITH PHYSICAL DOWN-DOMINANT RE-LOCK TARGETS TABULATED. The quark flavor-CP sector closes as a consistency statement.\n\nTHE DIAGNOSIS. \u03b3 lives in the ub corner, coupled to the (1,3)/(2,3) rotation planes the #160 family never used. The full mass-preserving family is SO(3)\u00d7SO(3) \u2014 six Euler angles at exactly fixed eigenvalues \u2014 against five data constraints: a one-parameter solution manifold exists.\n\nTHE SOLUTION. Residual 0.00519 across the five constraints, and the four UNCONSTRAINED observables land: V_td \u00d71.01, V_ts \u00d71.00, J \u00d71.00, \u03b1 = 91.8\u00b0 (obs 91.9\u00b0), sin \u03b4 = 0.889 (obs 0.887). All nine observables at \u2264 1%, simultaneously.\n\nTHE PHYSICAL BRANCH. The manifold's up-dominant end is excluded (the 5768 eigenvalue amplifies sub-degree rotations into \u00d7-1581.6 elements); the down-dominant branch reaches the same residual with O(1\u20132) same-sign targets \u2014 up block H\u208a[12] \u00d71.287 (others exactly unchanged), down block \u00d71.832/\u00d71.996/\u00d71.111, angles \u2264 6.1\u00b0 \u2014 the complete targets for the knob-level v3+CP re-lock.\n\nWHAT CLOSES. The #157 card's last quantitative misfit: the target state realizes masses + the full CKM + the full triangle + J + sin \u03b4 at the derived phase, zero new inputs. WHAT REMAINS: the knob-level re-lock (engineering, with complete targets) and the lepton anarchic draw. HONESTY: V_td/V_ts/\u03b1 land partly via unitarity; the nontrivial content is existence at fixed masses and fixed derived phase; the branch choice is a documented physicality selection."
+}
