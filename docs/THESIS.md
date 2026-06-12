@@ -2162,7 +2162,7 @@ quark). The card:
 | Majorana phases | generic (`P(\|Φ₂₃\|>π/2) = 69%`) | derived | #154 |
 | `m_ββ` | 3.2 meV, 68% [1.5, 5.9]; > 10 meV falsifies | falsifiable | #154 |
 | CKM `\|V\|` | all ≤ ×2.0; `V_cb/V_ts` 10% (stiff) | out-of-sample, zero inputs | #155 |
-| quark CP | calibrated; β = 22° = Hopf-phase test | one input; shape open | #156 |
+| quark CP | **derived**: `φ_h = π/k₅`; full dataset realized | derived (see addendum) | #156→#161 |
 
 Three features carry the weight. First, the **mechanism map**: the #134
 three-mechanism flavor structure is realized at matrix level — the bounce
@@ -2186,21 +2186,55 @@ ensemble; (3) β = 22° is the acceptance test for the Hopf-connection
 residual locus after the arc: the anarchic draw (statistical), one CP phase
 content (input), the soft `V_us/V_ub` direction, and the `O_geom` e-row.
 
-**Postscript (PRs #158–#159): quark CP derived.** The card's last open row
-closed in two steps. PR #158 ran the β = 22° acceptance test and found the
-mechanism itself had to move — the partition-mixing CP of #156 was a
-non-unitarity artifact (unitarized Jarlskog ≈ 0 for every phase form; the
-required mixing violates first-row CKM unitarity ×40) — relocating the phase
-to the Hopf-fiber transport of the same-partition shell couplings, with
-orientation sign set by the Z₂ partition class (the #63 C-swap). One
-parameter calibrated to J alone then predicts the full unitarity triangle to
-~1°. PR #159 derived that parameter: φ_h = π/k₅ — the connection's ½ (the
-spin-½ factor) × the winding-capacity sector arc 2π/k₅, carried by the
-mass-locked dk = max rule — verified by explicit path-ordered transport
-(exact to 1e-15, with the full-circuit spinor flip as the consistency
-anchor) and selected by the data over every principled alternative sector
-count. The calibration-free prediction: J at 0.97 of target,
-(β, γ, α) = (22.8°, 63.5°, 93.8°) vs (22.2°, 65.9°, 91.9°), sin δ = 0.888 vs
-0.887. The #156-consumed input is **returned**: the flavor arc #149–#159
-nets **zero new inputs and one retired modelling knob**, with quark CP now a
-derived, falsifiable five-observable prediction.
+### Flavor phase addendum: the Hopf CP derivation and the full CKM realization (PRs #158–#162)
+
+The card's quark-CP row closed through a correction, a derivation, and a
+realization (`flavor_phase_addendum_probe`, PR #162, re-verifies every
+keystone in one run).
+
+**The correction (PR #158).** The #156 partition-mixing calibration was an
+artifact: with partition mixing on, the charged-current CKM is non-unitary
+at ~16% (the u–d near-degeneracy amplifies cross-partition leakage), the
+quartet Jarlskog invariants disagree ×1000, the *unitarized* core carries
+J ≈ 0 for every `φ_q(k)` form, and the required mixing violates first-row
+CKM unitarity ×40. Partition mixing is excluded as the CP origin (and newly
+bounded: `ε ≲ 0.004`).
+
+**The relocation and derivation (PRs #158–#160).** The locked
+same-partition coupling `−t·e^{−α·dk}·cos(phase·dk)` is the real part of
+the Hopf transport factor `e^{iφ·dk}`; the two Z₂ partition classes
+traverse the fiber with opposite orientation (the #63 C-swap), giving
+`(H±) ∝ e^{±iφ_h·dk}` — exactly unitary CKM, quartet-consistent J. The
+scale is derived end-to-end:
+
+| ingredient | value | status |
+|---|---|---|
+| rate ½ | `A_φ(χ=0)` — the spin-½ factor | derived (connection) |
+| sign ± | Z₂ partition orientation | derived (#63 C-swap) |
+| winding dk | `max(k, k′)` | locked (the v3 mass calibration) |
+| arc 2π/k₅ | the Weyl commutator quantum of the capacity-k₅ fiber | derived (#160 algebra) |
+| **φ_h = π/k₅** | 0.6283 | **derived** (#159; all alternative sector counts excluded by data) |
+
+One parameter — and it is not free — yields the full unitarity triangle:
+uncalibrated `π/k₅` gives J at 0.97 of target, `(β, γ, α)` within ~2°, and
+`sin δ = 0.888` vs the observed 0.887.
+
+**The realization (PRs #160–#161).** The soft `V_us` direction resolved in
+stages: single-knob routes excluded exactly (the pinhole breaks `m_s`
+−22.5%; the transport rescale self-defeats via level repulsion); the
+mass-preserving `SO(3)×SO(3)` family (eigenvector rotations at exactly
+fixed eigenvalues) then realizes the **complete nine-observable flavor-CP
+dataset at ≤ 1%** — five constrained (`V_us, V_cb, V_ub, β, γ`), four
+*predicted and landing* (`V_td ×1.01, V_ts ×1.00, J ×1.00, α = 91.8°,
+sin δ = 0.889`) — at the derived phase, with physical down-dominant
+re-lock targets tabulated (down-block elements ×1.83/×2.00/×1.11; up-block
+×1.29) and the #156/#158 J-ceiling consistency lock verified along the way.
+
+**The bookkeeping.** Across #149–#161 (thirteen probes): **net zero new
+inputs** — the one input consumed (#156, the CP phase content) was returned
+by the #159 derivation — and **one modelling knob retired** (the #151 β
+interpolation, derived away in #152). The quark flavor-CP sector stands as
+a consistency statement: locked masses + derived CP phase + the realized
+dataset + complete re-lock targets. Remaining: the knob-level v3+CP
+re-lock (engineering, with targets in hand) and the lepton sector's
+anarchic draw.
