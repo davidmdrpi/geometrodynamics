@@ -2185,3 +2185,22 @@ ensemble; (3) β = 22° is the acceptance test for the Hopf-connection
 `V_us/V_ub` directions land; (5) `V_cb = 0.038` is stiff at 10%. The
 residual locus after the arc: the anarchic draw (statistical), one CP phase
 content (input), the soft `V_us/V_ub` direction, and the `O_geom` e-row.
+
+**Postscript (PRs #158–#159): quark CP derived.** The card's last open row
+closed in two steps. PR #158 ran the β = 22° acceptance test and found the
+mechanism itself had to move — the partition-mixing CP of #156 was a
+non-unitarity artifact (unitarized Jarlskog ≈ 0 for every phase form; the
+required mixing violates first-row CKM unitarity ×40) — relocating the phase
+to the Hopf-fiber transport of the same-partition shell couplings, with
+orientation sign set by the Z₂ partition class (the #63 C-swap). One
+parameter calibrated to J alone then predicts the full unitarity triangle to
+~1°. PR #159 derived that parameter: φ_h = π/k₅ — the connection's ½ (the
+spin-½ factor) × the winding-capacity sector arc 2π/k₅, carried by the
+mass-locked dk = max rule — verified by explicit path-ordered transport
+(exact to 1e-15, with the full-circuit spinor flip as the consistency
+anchor) and selected by the data over every principled alternative sector
+count. The calibration-free prediction: J at 0.97 of target,
+(β, γ, α) = (22.8°, 63.5°, 93.8°) vs (22.2°, 65.9°, 91.9°), sin δ = 0.888 vs
+0.887. The #156-consumed input is **returned**: the flavor arc #149–#159
+nets **zero new inputs and one retired modelling knob**, with quark CP now a
+derived, falsifiable five-observable prediction.
