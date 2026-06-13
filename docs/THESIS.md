@@ -2235,6 +2235,24 @@ inputs** — the one input consumed (#156, the CP phase content) was returned
 by the #159 derivation — and **one modelling knob retired** (the #151 β
 interpolation, derived away in #152). The quark flavor-CP sector stands as
 a consistency statement: locked masses + derived CP phase + the realized
-dataset + complete re-lock targets. Remaining: the knob-level v3+CP
-re-lock (engineering, with targets in hand) and the lepton sector's
-anarchic draw.
+dataset + complete re-lock targets.
+
+**The re-lock, realized and migrated (#163–#164).** The knob-level v3+CP
+re-lock is now done. #163 realized the tabulated targets as the **v4
+candidate lock** — and found an exact *minimal-law no-go*: the v3
+off-diagonal law enforces partition-symmetric transport (`H₊[12] = H₋[12]`)
+and the `dk = max` degeneracy (`H[13] = H[23]`), but the targets break both
+(a partition split of ratio 1.424 and a minus-block d–b enhancement ×1.996),
+while the up block keeps the law *exactly* where data permits (5e-6). The
+breaking pattern is the partition asymmetry on the minus block's d-row —
+exactly where #155 located the mixing. The realization costs the v3 law +
+three new targeted couplings (`η_12^+, η_12^−, η_13^−`) + one retune
+(`η_35^−: 5.0 → 5.586`) + diagonal retunes inside the existing law: **+3
+parameters buying +5 independent observables (net surplus +2), with the CP
+sector at zero parameters** (`φ_h = π/k₅` derived). #164 then migrated this
+lock into `geometrodynamics/qcd` *additively* — the v3 lock stays frozen and
+bit-reproducible (`φ_h = 0` ⇒ real Hamiltonian, real CKM, no CP), while
+`LOCKED_QUARK_PARAMS_V4` and `extract_ckm_matrix()` deliver the masses
+(inherited to ~3e-9, the holonomy stripped) and the nine observables (≤ 1%,
+unitary) from the library directly. The quark flavor-CP sector is now closed
+in code. Remaining: the lepton sector's anarchic draw.
