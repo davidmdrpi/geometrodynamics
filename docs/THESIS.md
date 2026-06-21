@@ -325,6 +325,27 @@ bulk throat length `L_throat(t)`, and a time-dependent transport map
 throat is a genuine relativistic spin-½ particle. The focus is the
 *trigger*; the particle is the persistent topological response.
 
+**The focusing, computed (PR #166).** The antipodal reconvergence is no
+longer only asserted. The zonal sector of `S³` reduces exactly to a 1D
+wave on the string `[0,π]` (modes `sin((ℓ+1)χ)`), and the physical field
+`ψ = f/sin χ` carries the geometric focusing factor `1/sin χ`. A
+**conformal** wave packet (`ω_ℓ = (ℓ+1)/R`) launched near `χ₀` refocuses
+**exactly** at the antipode `π−χ₀` at `t = πR` (half the great-circle
+period) — the identity `ψ(χ,πR) = −ψ(π−χ,0)` holds to machine precision
+and the amplitude fully recovers — then **revives** to its initial state
+at `t = 2πR` (the sub-threshold focus passes through and re-disperses, the
+geometry relaxing). The sharp focus **requires** conformal coupling: the
+minimally-coupled tower `√(ℓ(ℓ+2))` dephases and blurs the caustic, so the
+same conformal coupling that makes the `S³` vacuum tower equally spaced
+(`berger_r_unification_audit_probe`, PR #165) is what makes the antipodal
+caustic sharp. The caustic energy density `∝ 1/sin²χ` is regularized by
+the spectral cutoff `ℓ_max ∼ R/R_MID`, so a delocalized, `S³`-wide wave
+reconcentrates onto the throat scale — the dynamical bridge that lets a
+diffuse wave reach the local nucleation density of the inherited `2 m_e c²`
+threshold (`antipodal_focusing_threshold_probe`, PR #166). The probe maps
+the *trigger* and applies the threshold; the nonlinear throat formation is
+named, not simulated.
+
 **The focused pulse / extended-wavefront bridge to the QCD shell**
 (`throat_to_shell_transition_probe`, PR #68; `shell_to_qcd_match_probe`,
 PR #69) extends the same antipodal-focusing story to the quark sector:
