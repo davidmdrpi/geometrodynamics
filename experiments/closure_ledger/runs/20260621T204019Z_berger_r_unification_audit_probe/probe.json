@@ -1,0 +1,160 @@
+{
+  "timestamp_utc": "2026-06-21T20:40:19+00:00",
+  "identification": "Berger-deformation audit of R-unification: a clean failure \u2014 \u03c1(1) (one-R geometric) is ~35 orders off the measured cosmic/particle ratio; the global Casimir and the local self-energy do not share one R",
+  "negative_result": "\u03c1(1) = 3.313e-04 vs measured 2.970e-39 \u2014 ~35 orders off",
+  "survives_as": "scale-free bookkeeping only (parameter-free \u03c1(\u03bb), moving \u03bb_min)",
+  "guardrails": "all three held (no inversion, no Born/singlet, stability discounted)",
+  "tests": [
+    {
+      "name": "T1_goal_and_guardrails",
+      "description": "An AUDIT of the R-unification assumption \u2014 NOT a quantum test, NOT a throat-formation test, NOT a wave-propagation test. The unified mass operator m\u00b2(k,n) = (k\u00b72\u03c0/L_throat)\u00b2 + ((n+1)\u03c0/L_cavity)\u00b2 rides the throat (Hopf-fiber winding, L_throat = \u221a(2\u03c0)/k\u2085) and the cavity (radial/base) on a single S\u00b3 radius R. The Berger deformation S\u00b3_\u03bb squashes the fiber while keeping the base round \u2014 the one move that separates the two scales \u2014 and so tests whether the global cosmic cavity and the local throat are really one dynamical object on one R.",
+      "is_not": [
+        "quantum test",
+        "throat-formation test",
+        "wave-propagation test"
+      ],
+      "is": "R-unification test (global cavity vs local throat on one R)",
+      "guardrails": [
+        "no derived inversions (no fitted constant relabelled as a \u03c0-multiple)",
+        "no hidden Born-rule / singlet imports (explicit raise instead)",
+        "no false victories from A/R+B\u00b7R\u00b2 stability"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_berger_spectrum",
+      "description": "The scalar Laplacian on the unit Berger sphere is the genuine SU(2) result \u0394(j,m) = 4j(j+1) + 4m\u00b2(\u03bb\u207b\u00b2\u22121), multiplicity (2j+1). At \u03bb=1 it collapses to the round tower (every level-n frequency = n+1, degeneracy (n+1)\u00b2): verified = True. The analytic leading Weyl coefficient a\u2083 = \u00bd[\u221a(1+a)+asinh(\u221aa)/\u221aa] equals 1 at the round point and a\u2083(\u03bb=0.6) = 1.2453 \u2014 fixed analytically, not fit, so the regularization carries no reverse-engineered constant.",
+      "round_tower_recovered": true,
+      "a3_round": 1.0,
+      "a3_lambda_0p6": 1.245313,
+      "pass": true
+    },
+    {
+      "name": "T3_global_casimir_zeta",
+      "description": "The global cosmic-cavity vacuum energy is the zeta-regularized conformal-scalar energy on S\u00b3_\u03bb. VALIDATION: at \u03bb=1 the method recovers the exact closed form E_cav(1) = 1/240 = 0.004167 (computed 0.004167, anomaly 0e+00) \u2014 the round point is anomaly-free. Away from \u03bb=1 E_cav moves strongly and a residual 1/(n+1) spectral term (the standard log-ambiguity of the finite part on a deformed sphere) appears and grows with the squash \u2014 the global energy does not ride rigidly on one scale.",
+      "validated_against_1over240": true,
+      "E_cav_round": 0.004167,
+      "curve": [
+        {
+          "lambda": 0.7,
+          "E_cav": 0.002668,
+          "anomaly": -0.0106
+        },
+        {
+          "lambda": 0.85,
+          "E_cav": 0.005122,
+          "anomaly": -0.00382
+        },
+        {
+          "lambda": 1.0,
+          "E_cav": 0.004167,
+          "anomaly": 0.0
+        },
+        {
+          "lambda": 1.2,
+          "E_cav": 0.005189,
+          "anomaly": -0.0136
+        },
+        {
+          "lambda": 1.4,
+          "E_cav": 0.036706,
+          "anomaly": -0.0753
+        }
+      ],
+      "moves_with_lambda": true,
+      "pass": true
+    },
+    {
+      "name": "T4_local_self_energy",
+      "description": "The local throat self-energy is the unified mass-operator ground state \u03bb_min(\u03bb) = \u221a((2\u03c0/(\u03bb\u00b7L_throat))\u00b2 + \u03c9\u2080\u00b2): the winding term tracks the squashed fiber (\u221d 1/\u03bb) while the radial Tangherlini floor \u03c9\u2080 = 1.0547 is fiber-blind. \u03bb_min MOVES \u2014 from 17.94 (\u03bb=0.7) through 12.58 (\u03bb=1) to 9.01 (\u03bb=1.4), span \u00d71.99. GUARDRAIL 3: the A/R+B\u00b7R\u00b2 well is stable (d\u00b2E/dR\u00b2 = 6.00 > 0 at R* = 0.7937), but this is an artifact of a hardcoded potential and is DISCOUNTED \u2014 it is not counted as evidence for R-unification.",
+      "lambda_min_curve": [
+        {
+          "lambda": 0.7,
+          "lambda_min": 17.9355
+        },
+        {
+          "lambda": 0.85,
+          "lambda_min": 14.7825
+        },
+        {
+          "lambda": 1.0,
+          "lambda_min": 12.5774
+        },
+        {
+          "lambda": 1.2,
+          "lambda_min": 10.4974
+        },
+        {
+          "lambda": 1.4,
+          "lambda_min": 9.0142
+        }
+      ],
+      "span_ratio": 1.99,
+      "lambda_min_moves": true,
+      "well_stability_DISCOUNTED": {
+        "d2E_dR2": 6.0,
+        "counts_as_evidence": false
+      },
+      "pass": true
+    },
+    {
+      "name": "T5_rho_parameter_free_curve",
+      "description": "\u03c1(\u03bb) = E_cav(\u03bb)/\u03bb_min(\u03bb) is parameter-free (pure geometry, no free knob). It is NOT flat \u2014 across \u03bb \u2208 [0.7, 1.4] it spans \u00d727.37. The global cavity and the local throat respond DIFFERENTLY to the same deformation (the cavity by the full Berger spectrum, the throat only through the winding term), so \u03c1 does not reduce to a single \u03bb-independent number: the 'one R' cancellation that R-unification would require does not occur even in shape.",
+      "rho_curve": [
+        {
+          "lambda": 0.7,
+          "rho": 0.00014875
+        },
+        {
+          "lambda": 0.85,
+          "rho": 0.00034647
+        },
+        {
+          "lambda": 1.0,
+          "rho": 0.00033128
+        },
+        {
+          "lambda": 1.2,
+          "rho": 0.00049431
+        },
+        {
+          "lambda": 1.4,
+          "rho": 0.0040721
+        }
+      ],
+      "rho_round": 0.00033128,
+      "spread": 27.375,
+      "not_flat": "True",
+      "pass": "True"
+    },
+    {
+      "name": "T6_clean_failure_scale_mismatch",
+      "description": "THE DECISIVE TEST (negative result, reported first). R-unification asserts E_cav and E_self both equal (pure number)/R on ONE R, so \u03c1 = E_cav/E_self must be a pure number, computed here as \u03c1(1) = 3.313e-04 \u2014 an O(10\u207b\u2074) 'one-R' number. But physically E_cav is the global COSMIC-cavity vacuum energy (~1/R_Hubble) and E_self is the local PARTICLE throat (~1/\u03bb_Compton), whose measured ratio is \u03bb_C/R_H = 2.970e-39. The geometric 'one-R' prediction overshoots the measured global/local ratio by ~35 ORDERS OF MAGNITUDE. The cosmic cavity and the local throat cannot both ride on one R: this is the global-Casimir vs local-self-energy mismatch \u2014 the cosmological-constant problem, rediscovered as the failure of the geometric shorthand.",
+      "rho_predicted_one_R": 0.0003313,
+      "rho_measured_global_local": 2.97e-39,
+      "orders_of_magnitude_off": 35.0,
+      "clean_failure": true,
+      "pass": true
+    },
+    {
+      "name": "T7_enforcement_audit",
+      "description": "The guardrails held: (1) no derived inversion \u2014 L_throat = \u221a(2\u03c0)/k\u2085 is used as the THESIS-locked value, no constant is relabelled as an arbitrary \u03c0-multiple; (2) no hidden imports \u2014 geometrodynamics.bell (Born rule / singlet) is never imported, and _forbid_quantum_inputs raises an explicit exception when a quantum shortcut is requested (verified: True); (3) the A/R+B\u00b7R\u00b2 stability is computed but discounted as non-evidence.",
+      "no_derived_inversion": true,
+      "no_hidden_quantum_imports": true,
+      "explicit_raise_works": true,
+      "stability_discounted": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "CLEAN FAILURE on the decisive criterion. The within-geometry structure of R-unification is intact \u2014 \u03c1(\u03bb) is a parameter-free curve and \u03bb_min(\u03bb) moves dynamically with the fiber squash \u2014 but the absolute-scale identification fails: \u03c1(1) is an O(10\u207b\u2074) one-R number while the measured global/local ratio is ~10^-39, a ~35-order mismatch. The cosmic cavity and the local throat do NOT ride on one R. R-unification survives only as scale-free bookkeeping (consistent with the B4 anchor audit), not as a physical single-R claim. The geometric shorthand breaks exactly at the global-Casimir vs local-self-energy boundary.",
+      "classification": "R_UNIFICATION_BREAKS_GLOBAL_CASIMIR_LOCAL_SELFENERGY_MISMATCH",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "R_UNIFICATION_BREAKS_GLOBAL_CASIMIR_LOCAL_SELFENERGY_MISMATCH",
+  "verdict": "NEGATIVE RESULT FIRST \u2014 CLEAN FAILURE. The 'everything rides on one R' assumption breaks under the Berger deformation. \u03c1(1) = E_cav/E_self = 3.313e-04 is a pure geometric one-R number, but the MEASURED global/local ratio (cosmic cavity 1/R_Hubble over particle throat 1/\u03bb_Compton) is 2.970e-39 \u2014 a ~35-ORDER-OF-MAGNITUDE mismatch. The global cosmic-cavity Casimir energy and the local throat self-energy cannot share one R; this is the cosmological-constant problem rediscovered as the failure of the geometric shorthand.\n\nWHAT SURVIVES (not a victory). Within geometric units the structure is internally consistent: \u03c1(\u03bb) is a parameter-free curve (no free knob), the global Casimir E_cav(\u03bb) is validated at \u03bb=1 against the exact conformal closed form 1/240R, and \u03bb_min(\u03bb) moves dynamically as the winding term tracks the squashed fiber. But \u03c1(\u03bb) is NOT flat \u2014 the cavity and the throat respond differently to the SAME deformation \u2014 so they are not one dynamical object even in shape. The A/R+B\u00b7R\u00b2 well's stability was computed and explicitly DISCOUNTED.\n\nBOUNDARY MAPPED. R-unification is a valid scale-free bookkeeping device (consistent with the B4 single-anchor audit) but a failed physical identification: the geometric shorthand breaks precisely at the global-Casimir vs local-self-energy boundary, by tens of orders of magnitude, under un-dialed conditions. All three anti-rigging guardrails held."
+}

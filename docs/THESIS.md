@@ -259,6 +259,27 @@ cavity-resolution dichotomy is the single quantum number `k`, and the
 distinction. The two channels are exactly the closure ledger's
 `N_total = N_layer1 + N_radial` (the B4 Maslov audit).
 
+**A boundary on the unified operator (PR #165).** The two channels share
+one S³ radius `R` — "everything rides on one R". A Berger-sphere
+deformation audit (squashing the Hopf fiber by `λ` while keeping the base
+round — the one move that separates the throat scale from the cavity
+scale) maps where that shorthand breaks. The global cosmic-cavity Casimir
+energy `E_cav(λ)` (zeta-regularized conformal scalar on the genuine SU(2)
+Berger spectrum, validated at `λ=1` against the exact `1/240R`) and the
+local throat self-energy `λ_min(λ)` both vary with `λ`, but **differently**:
+the parameter-free ratio `ρ(λ) = E_cav/E_self` is not flat, so the two are
+not one dynamical object even in shape. Decisively, `ρ(1) ≈ 3.3·10⁻⁴` (the
+geometric one-R prediction) sits **~35 orders of magnitude** off the
+measured global/local ratio `λ_C/R_Hubble ≈ 3·10⁻³⁹` — the cosmic cavity
+and the local throat cannot ride on one `R` (the cosmological-constant
+problem, in geometric form). R-unification is therefore a valid
+**scale-free bookkeeping** device — fully consistent with the B4 audit
+that the machinery is dimensionless and needs exactly one external anchor —
+but **not** a physical single-`R` identification. *(Honest negative result;
+the audit enforced anti-rigging guardrails: no relabelled constants, no
+imported Born rule/singlet, and the `A/R+B·R²` well's stability explicitly
+discounted as non-evidence.)*
+
 ## Why antipodal focusing matters
 
 On a closed surface, a wavefront does not dissipate into infinity; it
