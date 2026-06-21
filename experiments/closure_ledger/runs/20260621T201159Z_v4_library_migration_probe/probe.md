@@ -1,6 +1,6 @@
 # The v4 library migration: the flavor-CP lock lands in geometrodynamics/qcd (PR #164)
 
-**Run:** 2026-06-13T08:14:26+00:00
+**Run:** 2026-06-21T20:11:59+00:00
 
 Performs the migration PR #163 staged: the v4 flavor-CP lock moves from probe-local code into the calibrated library, additively over the FROZEN v3 lock. At the φ_h = 0 default the v3 surface is bit-for-bit reproducible (real Hamiltonian, real CKM, no CP), so every PR #155–#162 probe is untouched. The v4 lock inherits the v3 mass spectrum exactly (the Hopf holonomy is a pure mixing phase — the #158 relocation) and realizes the complete nine-observable flavor-CP dataset at ≤ 1% from `extract_ckm_matrix` at the derived φ_h = π/k₅. *(QFT on the classical throat, not quantum gravity.)*
 

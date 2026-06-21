@@ -39,6 +39,19 @@ So:
   two partition eigenbases — the CKM matrix, carrying the physical
   Jarlskog invariant.
 
+## The unmixed reference (the species-labeling regime)
+
+The three targeted couplings are **mixing** couplings — they generate the
+CKM rotation — so they are treated exactly like `transport`/`γ_q`/
+`partition_mixing`: `_unmixed_params` zeroes them, and the adiabatic
+continuation ramps them on together from the unmixed reference. This keeps
+the species-labeling reference cleanly block-diagonal (the three v4
+off-diagonals — u–c, d–s, d–b — vanish exactly) and the ramp path
+continuous from it. The structural level-repulsion `eta_k3k5_minus` is
+**not** a mixing knob (it fixes the s/t masses across an enormous diagonal
+gap); it stays on in both the reference and every ramp step, so the v3
+mass-extraction path is bit-for-bit untouched.
+
 ## What the library now realizes (verified in the probe and the tests)
 
 | property | result |
@@ -56,8 +69,9 @@ So:
 The v3 `LOCKED_QUARK_PARAMS` is kept **frozen**; `LOCKED_QUARK_PARAMS_V4`
 sits beside it. Every PR #155–#162 probe pins to the v3 lock, so the
 migration needs **no re-baseline** — those probes stay bit-reproducible,
-and the v4 lock is pinned by `tests/test_quark_v4_lock.py` (16 tests).
-The full suite is **242 passed, 1 xfailed**.
+and the v4 lock is pinned by `tests/test_quark_v4_lock.py` (19 tests,
+including the unmixed-reference regression). The full suite is **245
+passed, 1 xfailed**.
 
 ## The counting (unchanged from #163)
 

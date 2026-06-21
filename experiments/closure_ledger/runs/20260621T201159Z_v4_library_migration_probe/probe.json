@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-06-13T08:14:26+00:00",
+  "timestamp_utc": "2026-06-21T20:11:59+00:00",
   "identification": "the v4 flavor-CP lock migrated into geometrodynamics/qcd: additive over the frozen v3 lock, v3 bit-reproducible, masses inherited, nine observables \u2264 1% from extract_ckm_matrix at the derived \u03c6_h = \u03c0/k\u2085",
   "surface": "6 new QuarkParams fields + extract_ckm_matrix + LOCKED_QUARK_PARAMS_V4 (\u03c6_h = \u03c0/k\u2085), all default-off",
   "default_off": "v3 lock real H + real CKM (no CP); #155\u2013#162 untouched",

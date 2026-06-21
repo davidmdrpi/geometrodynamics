@@ -161,6 +161,52 @@ class TestV4FlavorCPObservables:
         assert abs(sin_delta - SIN_DELTA_OBS) < 0.01
 
 
+class TestV4UnmixedReference:
+    """The unmixed species-labeling reference must zero the v4 targeted
+    mixing couplings — they generate the CKM rotation and belong in the
+    adiabatic ramp, not in the diagonal reference."""
+
+    def test_unmixed_params_zeroes_v4_mixing_couplings(self):
+        u = qs._unmixed_params(qs.LOCKED_QUARK_PARAMS_V4)
+        # the mixing knobs (transport + the three v4 etas) are off
+        assert u.transport == 0.0
+        assert u.gamma_q == 0.0
+        assert u.partition_mixing == 0.0
+        assert u.eta_k1k3_plus == 0.0
+        assert u.eta_k1k3_minus == 0.0
+        assert u.eta_k1k5_minus == 0.0
+        # the structural level-repulsion stays on (it is not a mixing knob)
+        assert u.eta_k3k5_minus == qs.LOCKED_QUARK_PARAMS_V4.eta_k3k5_minus
+
+    def test_unmixed_reference_has_clean_diagonal(self):
+        # In the unmixed reference (φ_h stripped as in mass extraction) the
+        # three v4 targeted off-diagonals vanish, so each eigenvector is a
+        # clean basis state and species labeling is unambiguous.  Only the
+        # structural (3,−)–(5,−) repulsion survives, across an enormous gap.
+        u = qs.replace(qs._unmixed_params(qs.LOCKED_QUARK_PARAMS_V4), phi_h=0.0)
+        H = qs.build_quark_hamiltonian(u)
+        # u–c = (1,+)-(3,+) at (0,2); d–s = (1,-)-(3,-) at (1,3);
+        # d–b = (1,-)-(5,-) at (1,5)
+        assert abs(H[0, 2]) < 1e-14
+        assert abs(H[1, 3]) < 1e-14
+        assert abs(H[1, 5]) < 1e-14
+        # the structural s–b element remains
+        assert abs(H[3, 5]) > 1.0
+        # every eigenvector overlaps a single basis state ≥ 0.999
+        _, vecs = np.linalg.eigh(H)
+        for col in range(vecs.shape[1]):
+            assert np.max(np.abs(vecs[:, col])) > 0.999
+
+    def test_v3_unmixed_reference_unchanged(self):
+        # For the v3 lock the v4 etas are already 0, so the new zeroing is
+        # a strict no-op: the unmixed reference is bit-identical.
+        u = qs._unmixed_params(qs.LOCKED_QUARK_PARAMS)
+        assert u.eta_k1k3_plus == 0.0
+        assert u.eta_k1k3_minus == 0.0
+        assert u.eta_k1k5_minus == 0.0
+        assert u.eta_k3k5_minus == qs.LOCKED_QUARK_PARAMS.eta_k3k5_minus
+
+
 class TestV4DerivedPhase:
     def test_phi_h_is_pi_over_k5(self):
         assert qs.LOCKED_QUARK_PARAMS_V4.phi_h == pytest.approx(math.pi / 5.0)

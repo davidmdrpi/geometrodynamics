@@ -346,16 +346,32 @@ def build_quark_hamiltonian(
 def _unmixed_params(params: QuarkParams) -> QuarkParams:
     """
     Return the fully-unmixed reference version of the given params:
-    γ_q = 0, partition_mixing = 0, AND transport = 0.  This is the
-    regime where the Hamiltonian is fully diagonal and each eigenvector
-    is exactly a basis vector ``|k,p⟩``, so species identification is
-    unambiguous.
+    γ_q = 0, partition_mixing = 0, transport = 0, AND the v4 targeted
+    mixing couplings (eta_k1k3_plus, eta_k1k3_minus, eta_k1k5_minus) = 0.
+    This is the regime where the only same-partition off-diagonal that
+    survives is the structural level-repulsion eta_k3k5_minus (a
+    mass-structure coupling, not a mixing knob, whose pair sits across
+    an enormous diagonal gap), so every eigenvector is — to within that
+    negligible repulsion — a basis vector ``|k,p⟩`` and species
+    identification is unambiguous.
 
-    The adiabatic continuation in ``extract_physical_spectrum`` turns
-    ALL three mixing knobs on together, scaling them uniformly from 0
-    to their target values over the adiabatic path.
+    The targeted v4 etas ARE mixing couplings (they generate the CKM
+    rotation), so they belong with transport/γ_q/partition_mixing: the
+    adiabatic continuation in ``extract_physical_spectrum`` turns all of
+    them on together, scaling them uniformly from 0 to their target
+    values over the adiabatic path.  ``eta_k3k5_minus`` is deliberately
+    NOT zeroed here — it is structural and stays on in both the
+    reference and every ramp step (its v3 behaviour is untouched).
     """
-    return replace(params, gamma_q=0.0, partition_mixing=0.0, transport=0.0)
+    return replace(
+        params,
+        gamma_q=0.0,
+        partition_mixing=0.0,
+        transport=0.0,
+        eta_k1k3_plus=0.0,
+        eta_k1k3_minus=0.0,
+        eta_k1k5_minus=0.0,
+    )
 
 
 def _default_spectrum_zero(params: QuarkParams) -> float:
@@ -470,13 +486,18 @@ def extract_physical_spectrum(
     current_species = list(species_by_column)
 
     # ── Step 3: adiabatic continuation toward target mixing ──
-    # Ramp all three mixing knobs (transport, γ_q, partition_mixing)
-    # together from 0 to their target values.  This keeps the path
-    # smooth even when multiple knobs are simultaneously large in the
-    # target regime.
+    # Ramp every mixing knob (transport, γ_q, partition_mixing, and the
+    # v4 targeted couplings eta_k1k3_plus / eta_k1k3_minus /
+    # eta_k1k5_minus) together from 0 to its target value.  Ramping the
+    # v4 etas alongside transport keeps the path continuous from the
+    # unmixed reference (which zeroes exactly these knobs) and smooth
+    # even when several are simultaneously large in the target regime.
     gamma_target = params.gamma_q
     mixing_target = params.partition_mixing
     transport_target = params.transport
+    eta13p_target = params.eta_k1k3_plus
+    eta13m_target = params.eta_k1k3_minus
+    eta15m_target = params.eta_k1k5_minus
 
     if n_adiabatic_steps < 1:
         raise ValueError("n_adiabatic_steps must be >= 1")
@@ -489,6 +510,9 @@ def extract_physical_spectrum(
             gamma_q=fraction * gamma_target,
             partition_mixing=fraction * mixing_target,
             transport=fraction * transport_target,
+            eta_k1k3_plus=fraction * eta13p_target,
+            eta_k1k3_minus=fraction * eta13m_target,
+            eta_k1k5_minus=fraction * eta15m_target,
         )
         H_step = build_quark_hamiltonian(step_params)
         eig_step, vec_step = np.linalg.eigh(H_step)
