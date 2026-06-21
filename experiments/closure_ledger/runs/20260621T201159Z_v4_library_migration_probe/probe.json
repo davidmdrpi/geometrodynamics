@@ -1,0 +1,101 @@
+{
+  "timestamp_utc": "2026-06-21T20:11:59+00:00",
+  "identification": "the v4 flavor-CP lock migrated into geometrodynamics/qcd: additive over the frozen v3 lock, v3 bit-reproducible, masses inherited, nine observables \u2264 1% from extract_ckm_matrix at the derived \u03c6_h = \u03c0/k\u2085",
+  "surface": "6 new QuarkParams fields + extract_ckm_matrix + LOCKED_QUARK_PARAMS_V4 (\u03c6_h = \u03c0/k\u2085), all default-off",
+  "default_off": "v3 lock real H + real CKM (no CP); #155\u2013#162 untouched",
+  "mass_inheritance": "holonomy stripped; v4 masses \u2261 v3 (1e-9)",
+  "nine_observables": "\u2264 1% from the library at \u03c6_h = \u03c0/k\u2085, unitary",
+  "counting": "+3 params, +5 independent observables (net +2); CP at 0 params",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Perform the migration #163 staged: move the v4 flavor-CP lock from probe-local code into the calibrated library (geometrodynamics/qcd), additively over the frozen v3 lock, and verify every property the candidate established now holds of the library's public surface.",
+      "builds_on": [
+        "#163 v4 candidate lock (probe-local)",
+        "#158\u2013#160 \u03c6_h = \u03c0/k\u2085 derived",
+        "#161 nine-observable target state",
+        "v3 LOCKED_QUARK_PARAMS (frozen, inherited masses)"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_public_surface",
+      "description": "The migrated surface: six new QuarkParams fields (the Hopf phase \u03c6_h, three targeted couplings eta_k1k3_plus / eta_k1k3_minus / eta_k1k5_minus, the per-shell diagonal-retune tuples diag_shift_plus / diag_shift_minus), the extract_ckm_matrix() reader, and the LOCKED_QUARK_PARAMS_V4 lock at the derived \u03c6_h = \u03c0/k\u2085. All default-off, so the v3 surface is unchanged.",
+      "fields_present": true,
+      "extract_ckm_matrix": true,
+      "locked_v4_present": true,
+      "phi_h_locked": 0.6283185307179586,
+      "pass": true
+    },
+    {
+      "name": "T3_default_off_v3_bit_reproducible",
+      "description": "The migration is ADDITIVE: at the \u03c6_h = 0 default the v3 lock's Hamiltonian is exactly real (max |Im| = 0e+00) and its CKM matrix is a real rotation with no CP (max |Im V| = 0e+00, J = 0e+00). Every PR #155\u2013#162 probe pins to the FROZEN LOCKED_QUARK_PARAMS and is therefore bit-for-bit untouched \u2014 the migration adds the v4 layer without re-baselining anything.",
+      "v3_hamiltonian_max_imag": 0.0,
+      "v3_ckm_max_imag": 0.0,
+      "v3_jarlskog": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T4_mass_inheritance",
+      "description": "The Hopf holonomy is a pure mixing phase (the #158 relocation): extract_physical_spectrum strips \u03c6_h, so the v4 lock inherits the v3 mass spectrum exactly (max relative drift 3e-09 across all six species). The strip is explicit \u2014 the masses are \u03c6_h-independent to 0e+00.",
+      "max_relative_mass_drift": 3.1e-09,
+      "phi_strip_consistency": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T5_nine_observables",
+      "description": "extract_ckm_matrix at LOCKED_QUARK_PARAMS_V4 realizes the complete flavor-CP dataset from the library directly: the five magnitudes and J at \u2264 1%, the unitarity triangle (\u03b2, \u03b3, \u03b1) = (22.3, 65.9, 91.8)\u00b0 and sin \u03b4 = 0.889, all \u2264 1% of observed, at the derived \u03c6_h = \u03c0/k\u2085, unitarily (deviation 7e-16). The first complete flavor state of the program, now a library call.",
+      "observable_ratios": {
+        "V_us": 1.0025,
+        "V_cb": 1.0024,
+        "V_ub": 0.9976,
+        "V_td": 1.008,
+        "V_ts": 1.0021,
+        "J": 1.0044
+      },
+      "triangle": [
+        22.29,
+        65.9,
+        91.81
+      ],
+      "sin_delta": 0.889,
+      "unitarity_deviation": 6.7e-16,
+      "pass": true
+    },
+    {
+      "name": "T6_counting_and_regression",
+      "description": "The counting is carried unchanged from #163: +3 parameters (the three targeted couplings) buy +5 independent observables (V_us, V_cb, V_ub, \u03b2, \u03b3 \u2014 the other four follow from unitarity and the derived phase), net predictive surplus +2; the entire CP sector costs ZERO parameters (\u03c6_h = \u03c0/k\u2085 derived). The regression decision (#163 step 4): the migration is ADDITIVE \u2014 LOCKED_QUARK_PARAMS is frozen and LOCKED_QUARK_PARAMS_V4 sits beside it \u2014 so the #155\u2013#162 probes need no re-baseline; they stay bit-reproducible against the v3 lock, and the v4 lock is pinned by tests/test_quark_v4_lock.py. The #150 input budget is unchanged.",
+      "params_added": 3,
+      "independent_observables_added": 5,
+      "net_surplus": 2,
+      "cp_parameters": 0,
+      "regression_strategy": "additive (v3 frozen, v4 alongside)",
+      "budget_unchanged": true,
+      "pass": true
+    },
+    {
+      "name": "T7_program_position",
+      "description": "After the migration the quark flavor-CP sector is closed in code: locked masses + the derived CP phase + the realized nine-observable dataset, all reachable from the library's public surface (build_quark_hamiltonian, extract_physical_spectrum, extract_ckm_matrix, LOCKED_QUARK_PARAMS_V4). What remains for the program is the lepton sector's anarchic draw and the standing residuals (k\u00b7r_s, \u03b1, \u221a\u03c3/m_e, n_part dynamics) \u2014 no longer a flavor-sector item.",
+      "flavor_cp_sector": "closed in library",
+      "remaining": [
+        "lepton anarchic draw",
+        "k\u00b7r_s",
+        "\u03b1",
+        "\u221a\u03c3/m_e",
+        "n_part dynamics"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The v4 flavor-CP lock is migrated into geometrodynamics/qcd, additively over the frozen v3 lock: the v3 surface is bit-for-bit reproducible (real H, real CKM, no CP); the v4 lock inherits the v3 masses exactly (the holonomy stripped) and realizes the nine flavor-CP observables at \u2264 1% from extract_ckm_matrix at the derived \u03c6_h = \u03c0/k\u2085; the counting is unchanged (net surplus +2, CP at zero parameters); the #155\u2013#162 probes need no re-baseline. The four-step migration is complete.",
+      "classification": "V4_LOCK_MIGRATED_LIBRARY_DEFAULT_OFF_MASSES_INHERITED_NINE_OBSERVABLES",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "V4_LOCK_MIGRATED_LIBRARY_DEFAULT_OFF_MASSES_INHERITED_NINE_OBSERVABLES",
+  "verdict": "THE v4 FLAVOR-CP LOCK IS MIGRATED INTO THE LIBRARY, ADDITIVELY OVER THE FROZEN v3 LOCK: v3 IS BIT-FOR-BIT REPRODUCIBLE, v4 INHERITS THE MASSES EXACTLY AND REALIZES THE NINE OBSERVABLES AT \u2264 1% AT THE DERIVED \u03c6_h = \u03c0/k\u2085.\n\nTHE SURFACE. Six new QuarkParams fields (the Hopf phase \u03c6_h, three targeted couplings, the per-shell diagonal retunes), the extract_ckm_matrix() reader, and LOCKED_QUARK_PARAMS_V4 at \u03c6_h = \u03c0/k\u2085 \u2014 all default-off.\n\nDEFAULT-OFF. At \u03c6_h = 0 the v3 Hamiltonian is exactly real and the CKM is a real rotation with no CP; every PR #155\u2013#162 probe pins to the frozen v3 lock and is untouched. The migration is additive, not a re-baseline.\n\nMASS INHERITANCE. The holonomy is a pure mixing phase (the #158 relocation): extract_physical_spectrum strips \u03c6_h, so the v4 lock inherits the v3 spectrum to 3e-09.\n\nTHE NINE OBSERVABLES. extract_ckm_matrix at the v4 lock returns the magnitudes and J at \u2264 1%, (\u03b2, \u03b3, \u03b1) = (22.29, 65.9, 91.81)\u00b0 and sin \u03b4 = 0.889, unitarily \u2014 the complete flavor state as a library call.\n\nTHE COUNTING. Unchanged from #163: +3 parameters for +5 independent observables (net +2); the CP sector costs zero parameters; the #150 budget is unchanged. The four-step migration is complete."
+}

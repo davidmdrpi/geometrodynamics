@@ -118,6 +118,11 @@ SPECIES_TO_BASIS: Dict[str, Tuple[int, str]] = {
     v: k for k, v in BASIS_TO_SPECIES.items()
 }
 
+# Indices of each partition's 3×3 block inside the 6×6 BASIS_STATES
+# ordering.  "+" = (u, c, t) at {0, 2, 4}; "−" = (d, s, b) at {1, 3, 5}.
+PARTITION_PLUS_INDICES: Tuple[int, int, int] = (0, 2, 4)
+PARTITION_MINUS_INDICES: Tuple[int, int, int] = (1, 3, 5)
+
 # Observed masses in MeV (PDG 2024 MS-bar, approximate)
 OBSERVED_MASSES_MEV: Dict[str, float] = {
     "u":      2.16,
@@ -177,6 +182,28 @@ class QuarkParams:
     chi_q_k3: float = 0.0
     eta_k3k5_minus: float = 0.0
 
+    # ── v4 flavor-CP layer (PRs #158–#163; default-off) ──────────────
+    # The Hopf-connection transport phase φ_h is applied to every
+    # same-partition off-diagonal as a winding holonomy
+    # e^{±i·σ(p)·φ_h·dk}.  φ_h is DERIVED (= π/k₅; #158–#160), not fit.
+    # At φ_h = 0 every same-partition element is real and the spectrum
+    # reduces bit-for-bit to v3.  The holonomy is a pure phase: it
+    # changes how the two partition eigenbases align (the CKM matrix,
+    # ``extract_ckm_matrix``) but NOT the closure-cost magnitudes that
+    # set the masses, so ``extract_physical_spectrum`` strips it (the
+    # #158 relocation: |transport| → mass, arg(transport) → mixing).
+    phi_h: float = 0.0
+    # Three targeted same-partition couplings completing the #161
+    # flavor-CP target state (subtract convention, like eta_k3k5_minus:
+    # element = law − η).  Default 0.0 recovers the minimal v3 law.
+    eta_k1k3_plus: float = 0.0
+    eta_k1k3_minus: float = 0.0
+    eta_k1k5_minus: float = 0.0
+    # Per-shell diagonal retunes within the existing diagonal law's
+    # reach, indexed by PASS_COUNTS = (1, 3, 5), one tuple per partition.
+    diag_shift_plus: Tuple[float, float, float] = (0.0, 0.0, 0.0)
+    diag_shift_minus: Tuple[float, float, float] = (0.0, 0.0, 0.0)
+
     spectrum_zero: Optional[float] = None
 
 
@@ -215,12 +242,15 @@ def _diagonal_entry(k: int, p: str, params: QuarkParams) -> float:
         raise ValueError(f"Unknown uplift_mode: {params.uplift_mode!r}")
     partition = params.gamma_q * _SIGMA[p] * _u_q(k, params.u_q_form)
     k3_split = params.chi_q_k3 * _SIGMA[p] if k == 3 else 0.0
-    return base + k_cost + pinhole_term + uplift + partition + k3_split
+    # v4 per-shell diagonal retune (default (0,0,0) → no effect).
+    shift_tuple = params.diag_shift_plus if p == "+" else params.diag_shift_minus
+    diag_shift = shift_tuple[PASS_COUNTS.index(k)]
+    return base + k_cost + pinhole_term + uplift + partition + k3_split + diag_shift
 
 
 def _offdiag_same_partition(
     k1: int, k2: int, p: str, params: QuarkParams,
-) -> float:
+) -> complex:
     if k1 == k2:
         raise ValueError("same-partition off-diagonal requires k1 ≠ k2")
     if params.winding_mode == "max":
@@ -233,14 +263,31 @@ def _offdiag_same_partition(
     base = -params.transport * math.exp(-alpha_eff * dk) * math.cos(
         params.phase * dk,
     )
+    pair = {k1, k2}
     # Targeted (3,−)–(5,−) coupling: single opt-in amplitude that lives
     # only on the k=3↔k=5 element inside the partition-"−" block.
     # Default 0.0 recovers the minimal ansatz.  Physical motivation:
     # the s and t outliers in experiment 3 both sit in partition "−"
     # at k=3 and k=5 respectively, so a level-repulsion channel that
     # acts on that pair alone is the minimal structural fix.
-    if params.eta_k3k5_minus != 0.0 and p == "-" and {k1, k2} == {3, 5}:
+    if params.eta_k3k5_minus != 0.0 and p == "-" and pair == {3, 5}:
         base += -params.eta_k3k5_minus
+    # v4 targeted couplings completing the #161 flavor-CP target state.
+    # The partition split (×1.287 up vs ×1.832 down on the 1↔3 element)
+    # and the minus-block d–b enhancement (×1.996) break the two v3-law
+    # equalities; the up block keeps the minimal law exactly.  Subtract
+    # convention: element = law − η.
+    if params.eta_k1k3_plus != 0.0 and p == "+" and pair == {1, 3}:
+        base += -params.eta_k1k3_plus
+    if params.eta_k1k3_minus != 0.0 and p == "-" and pair == {1, 3}:
+        base += -params.eta_k1k3_minus
+    if params.eta_k1k5_minus != 0.0 and p == "-" and pair == {1, 5}:
+        base += -params.eta_k1k5_minus
+    # Hopf transport holonomy e^{±i·σ(p)·φ_h·dk} (#158 relocation).  At
+    # φ_h = 0 this is exactly 1.0 and the element stays real (bit-for-bit
+    # v3).  The magnitude — the mass-relevant closure cost — is untouched.
+    if params.phi_h != 0.0:
+        return base * np.exp(1j * _SIGMA[p] * params.phi_h * dk)
     return base
 
 
@@ -299,16 +346,32 @@ def build_quark_hamiltonian(
 def _unmixed_params(params: QuarkParams) -> QuarkParams:
     """
     Return the fully-unmixed reference version of the given params:
-    γ_q = 0, partition_mixing = 0, AND transport = 0.  This is the
-    regime where the Hamiltonian is fully diagonal and each eigenvector
-    is exactly a basis vector ``|k,p⟩``, so species identification is
-    unambiguous.
+    γ_q = 0, partition_mixing = 0, transport = 0, AND the v4 targeted
+    mixing couplings (eta_k1k3_plus, eta_k1k3_minus, eta_k1k5_minus) = 0.
+    This is the regime where the only same-partition off-diagonal that
+    survives is the structural level-repulsion eta_k3k5_minus (a
+    mass-structure coupling, not a mixing knob, whose pair sits across
+    an enormous diagonal gap), so every eigenvector is — to within that
+    negligible repulsion — a basis vector ``|k,p⟩`` and species
+    identification is unambiguous.
 
-    The adiabatic continuation in ``extract_physical_spectrum`` turns
-    ALL three mixing knobs on together, scaling them uniformly from 0
-    to their target values over the adiabatic path.
+    The targeted v4 etas ARE mixing couplings (they generate the CKM
+    rotation), so they belong with transport/γ_q/partition_mixing: the
+    adiabatic continuation in ``extract_physical_spectrum`` turns all of
+    them on together, scaling them uniformly from 0 to their target
+    values over the adiabatic path.  ``eta_k3k5_minus`` is deliberately
+    NOT zeroed here — it is structural and stays on in both the
+    reference and every ramp step (its v3 behaviour is untouched).
     """
-    return replace(params, gamma_q=0.0, partition_mixing=0.0, transport=0.0)
+    return replace(
+        params,
+        gamma_q=0.0,
+        partition_mixing=0.0,
+        transport=0.0,
+        eta_k1k3_plus=0.0,
+        eta_k1k3_minus=0.0,
+        eta_k1k5_minus=0.0,
+    )
 
 
 def _default_spectrum_zero(params: QuarkParams) -> float:
@@ -366,9 +429,21 @@ def extract_physical_spectrum(
     is not a physical particle.
 
     Raises ValueError if adiabatic tracking fails.
+
+    NOTE (v4): the Hopf transport holonomy ``φ_h`` is a pure phase on the
+    same-partition off-diagonals.  It rotates the partition eigenbases
+    (the CKM mixing, ``extract_ckm_matrix``) but leaves the closure-cost
+    magnitudes — and therefore the mass spectrum — unchanged (the #158
+    relocation).  Masses are accordingly read off the ``φ_h = 0`` real
+    Hamiltonian, so the v4 lock inherits the v3 spectrum exactly.
     """
     if params is None:
         params = QuarkParams()
+
+    # Masses are φ_h-independent (the holonomy is a pure mixing phase);
+    # strip it so the spectrum is the real closure-cost spectrum.
+    if params.phi_h != 0.0:
+        params = replace(params, phi_h=0.0)
 
     # Explicit numeric override wins; otherwise dispatch on
     # spectrum_zero_mode.  "min_eigenvalue" is resolved after the final
@@ -411,13 +486,18 @@ def extract_physical_spectrum(
     current_species = list(species_by_column)
 
     # ── Step 3: adiabatic continuation toward target mixing ──
-    # Ramp all three mixing knobs (transport, γ_q, partition_mixing)
-    # together from 0 to their target values.  This keeps the path
-    # smooth even when multiple knobs are simultaneously large in the
-    # target regime.
+    # Ramp every mixing knob (transport, γ_q, partition_mixing, and the
+    # v4 targeted couplings eta_k1k3_plus / eta_k1k3_minus /
+    # eta_k1k5_minus) together from 0 to its target value.  Ramping the
+    # v4 etas alongside transport keeps the path continuous from the
+    # unmixed reference (which zeroes exactly these knobs) and smooth
+    # even when several are simultaneously large in the target regime.
     gamma_target = params.gamma_q
     mixing_target = params.partition_mixing
     transport_target = params.transport
+    eta13p_target = params.eta_k1k3_plus
+    eta13m_target = params.eta_k1k3_minus
+    eta15m_target = params.eta_k1k5_minus
 
     if n_adiabatic_steps < 1:
         raise ValueError("n_adiabatic_steps must be >= 1")
@@ -430,6 +510,9 @@ def extract_physical_spectrum(
             gamma_q=fraction * gamma_target,
             partition_mixing=fraction * mixing_target,
             transport=fraction * transport_target,
+            eta_k1k3_plus=fraction * eta13p_target,
+            eta_k1k3_minus=fraction * eta13m_target,
+            eta_k1k5_minus=fraction * eta15m_target,
         )
         H_step = build_quark_hamiltonian(step_params)
         eig_step, vec_step = np.linalg.eigh(H_step)
@@ -582,6 +665,43 @@ LOCKED_QUARK_PARAMS: Optional[QuarkParams] = QuarkParams(
     spectrum_zero=None,
 )
 
+# ────────────────────────────────────────────────────────────────────────
+# THE v4 FLAVOR-CP LOCK (PR #164; additive over the frozen v3 lock)
+# ────────────────────────────────────────────────────────────────────────
+#
+# The v3 lock above is kept FROZEN: every PR #155–#162 probe pins to it
+# and stays bit-reproducible.  The v4 lock extends it additively with the
+# flavor-CP layer realized in #161/#163 — the first complete flavor state
+# of the program in one parameter set:
+#
+#   * the derived Hopf transport phase φ_h = π/k₅ (zero free parameters;
+#     #158–#160) carried on every same-partition off-diagonal;
+#   * three new targeted same-partition couplings completing the #161
+#     down-dominant target state (the two v3-law equalities — partition
+#     symmetry of the 1↔3 transport and the dk=max degeneracy — are
+#     broken exactly where #155 located the physical mixing, on the
+#     minus block's d-row; the up block keeps the minimal law exactly);
+#   * the existing η_35^− retuned 5.0 → 5.586 (+11.7%);
+#   * per-shell diagonal retunes within the existing diagonal law's reach.
+#
+# By the #158 relocation the holonomy is a pure mixing phase, so the v4
+# lock INHERITS the v3 mass spectrum exactly (eigenvalues preserved to
+# ~1e-10) while ``extract_ckm_matrix`` returns the full CKM matrix:
+# |V_us|, |V_cb|, |V_ub|, |V_td|, |V_ts|, J, β, γ, α and sin δ all land
+# at ≤ 1%.  The counting: +3 parameters buy +5 independent observables
+# (net surplus +2); the entire CP sector costs zero parameters.  See
+# experiments/closure_ledger/v4_library_migration_probe.py.
+LOCKED_QUARK_PARAMS_V4: QuarkParams = replace(
+    LOCKED_QUARK_PARAMS,
+    phi_h=math.pi / 5.0,
+    eta_k1k3_plus=0.1018103450,
+    eta_k1k3_minus=0.2953135513,
+    eta_k1k5_minus=0.2670749288,
+    eta_k3k5_minus=5.5861632105,
+    diag_shift_plus=(0.0018961946, -0.0018961941, -0.0000000004),
+    diag_shift_minus=(0.1127516149, -0.0647265474, -0.0480250675),
+)
+
 QUARK_ANCHOR_SPECIES: str = "u"
 QUARK_ANCHOR_MASS_MEV: float = OBSERVED_MASSES_MEV["u"]
 
@@ -617,6 +737,45 @@ def solved_quark_masses_mev() -> np.ndarray:
             anchor_mass_mev=OBSERVED_MASSES_MEV["d"],
         )
     return _anchor_to_mev(species_map)
+
+
+def extract_ckm_matrix(
+    params: Optional[QuarkParams] = None,
+) -> np.ndarray:
+    """
+    Return the 3×3 partition-mixing (CKM) matrix ``V = U₊† U₋``.
+
+    The two partition blocks of the full Hamiltonian — "+" = (u, c, t) at
+    indices (0, 2, 4) and "−" = (d, s, b) at (1, 3, 5) — are diagonalized
+    separately; the misalignment of their eigenbases is the mixing matrix.
+    Rows index the "+" mass eigenstates and columns the "−" mass
+    eigenstates, both in ascending-mass (generation) order, so ``V[0, 1]``
+    is the u–s entry (|V_us|), ``V[1, 2]`` the c–b entry (|V_cb|), etc.
+
+    The Hopf transport phase ``params.phi_h`` enters here as the holonomy
+    on the same-partition off-diagonals: at ``phi_h = 0`` the blocks are
+    real and ``V`` is a real rotation (no CP); at the derived
+    ``phi_h = π/k₅`` (``LOCKED_QUARK_PARAMS_V4``) ``V`` carries the
+    physical Jarlskog invariant.  This requires ``partition_mixing = 0``
+    so the "+" and "−" subspaces decouple cleanly (the lock satisfies it).
+    """
+    if params is None:
+        params = QuarkParams()
+
+    H = build_quark_hamiltonian(params)
+    plus = list(PARTITION_PLUS_INDICES)
+    minus = list(PARTITION_MINUS_INDICES)
+    cross = np.max(np.abs(H[np.ix_(plus, minus)]))
+    if cross > 1e-12:
+        raise ValueError(
+            "extract_ckm_matrix requires decoupled partition blocks "
+            f"(partition_mixing = 0); max cross-block entry is {cross:.2e}."
+        )
+    h_plus = H[np.ix_(plus, plus)]
+    h_minus = H[np.ix_(minus, minus)]
+    _, u_plus = np.linalg.eigh(h_plus)
+    _, u_minus = np.linalg.eigh(h_minus)
+    return u_plus.conj().T @ u_minus
 
 
 def _anchor_to_mev(
