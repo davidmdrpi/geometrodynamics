@@ -1,0 +1,154 @@
+{
+  "timestamp_utc": "2026-06-22T05:33:49+00:00",
+  "identification": "Israel junction audit of the non-orientable throat: the effective-exotic stress is the tidal-charge / bulk-Weyl form (Ricci-flat, traceless r\u207b\u2074, \u03c1<0), CONSISTENT WITH a bulk-Weyl projection of an ordinary 5D vacuum \u2014 necessary conditions met, 5D derivation pending; not proven, and the f=0 horizon remains",
+  "baseline": "thin-shell \u03c3<0 (exotic, WEC-violated); non-orientability does not help",
+  "decisive_fact": "f=1\u2212(r_s/r)\u00b2 is Ricci-flat; effective stress traceless r\u207b\u2074, \u03c1<0 (tidal-charge/Weyl form)",
+  "split": "100% bulk-Weyl FORM; bulk-Weyl attribution consistent (necessary conditions met), 5D derivation pending",
+  "caveat": "consistent-with, not proven; f=0 is a horizon/null locus (not evaded); needs no fundamental brane gauge field",
+  "tests": [
+    {
+      "name": "T1_goal_and_question",
+      "description": "The naive Israel audit is settled \u2014 a thin-shell throat needs NEC/WEC-violating exotic surface matter (\u03c3<0), and the non-orientable (antipodal Z\u2082 / C-swap) self-gluing does not rescue the sign. The OPEN, non-predetermined question is the braneworld split: does BAM's 5D Tangherlini bulk supply the throat's effective-4D exotic stress through the projected bulk Weyl term E_\u03bc\u03bd, with ORDINARY 5D matter (Bronnikov\u2013Kim / Dadhich et al., via Shiromizu\u2013Maeda\u2013Sasaki), or is exotic matter irreducible? The deliverable is the split, stated with its honest status: the NECESSARY conditions for the no-brane-exotic reading (Ricci-flatness; a tidal-charge sign that excludes a real on-brane gauge field; no fundamental brane gauge field) versus the PENDING sufficient step (the explicit 5D embedding that sources E_\u03bc\u03bd). A 'consistent-with', not a proof \u2014 and not an evasion of the f = 0 horizon.",
+      "settled": "thin-shell throat is exotic (\u03c3<0); non-orientability does not help",
+      "open_question": "is the effective exotic \u03c3 supplied by the bulk Weyl projection?",
+      "citations": [
+        "Shiromizu\u2013Maeda\u2013Sasaki 2000 (effective brane equations)",
+        "Dadhich\u2013Maartens\u2013Papadopoulos\u2013Rezania 2000 (tidal-charge brane BH)",
+        "Bronnikov\u2013Kim 2003 (brane wormholes from bulk Weyl)"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_thin_layer_stress_tensor",
+      "description": "The Lanczos thin-layer stress tensor of the throat gluing is S^a_b = diag(\u2212\u03c3, p_t, p_t) with surface energy density \u03c3 = \u2212\u221af(a)/(2\u03c0a) and tangential pressure p_t = (1/4\u03c0)[f'/(2\u221af) + \u221af/a]. The surface energy density is NEGATIVE at every gluing radius a > r_s (True) \u2014 the textbook exotic thin-shell wormhole surface matter. The non-orientable self-gluing reverses the normal but yields the same symmetric junction magnitudes.",
+      "S_ab_at_a_2rs": {
+        "S^tau_tau": 0.068916,
+        "S^theta_theta": 0.045944,
+        "S^phi_phi": 0.045944
+      },
+      "shells": [
+        {
+          "a_over_rs": 3.0,
+          "sigma": -0.050018,
+          "p_t": 0.028135
+        },
+        {
+          "a_over_rs": 2.0,
+          "sigma": -0.068916,
+          "p_t": 0.045944
+        },
+        {
+          "a_over_rs": 1.5,
+          "sigma": -0.079085,
+          "p_t": 0.071176
+        },
+        {
+          "a_over_rs": 1.2,
+          "sigma": -0.073314,
+          "p_t": 0.119968
+        }
+      ],
+      "sigma_negative_everywhere": true,
+      "pass": true
+    },
+    {
+      "name": "T3_nec_wec_status",
+      "description": "Surface energy density \u03c3 = -0.06892 < 0 \u27f9 the WEC is VIOLATED on the shell (exotic surface matter), the established baseline the braneworld split must address. The surface null contraction S_ab k^a k^b \u221d \u03c3 + p_t = -0.02297. In the bulk the effective stress saturates the radial NEC (\u03c1+p_r = 0.00e+00) and violates the tangential NEC (\u03c1+p_t = -0.12500 < 0) \u2014 the exotic content is tangential, the signature of a traceless Weyl/radiation fluid.",
+      "sigma": -0.068916,
+      "surface_NEC_sigma_plus_pt": -0.022972,
+      "WEC_satisfied": false,
+      "bulk_NEC_radial": 0.0,
+      "bulk_NEC_tangential": -0.125,
+      "throat_is_exotic": true,
+      "pass": true
+    },
+    {
+      "name": "T4_sign_scale_thin_limit",
+      "description": "SIGN (6): \u03c3 = -0.06892 < 0 \u2014 NEC-violating: the 'right sign' to hold a wormhole open, the WRONG sign for ordinary matter (this is precisely what the braneworld split must source). SCALE (7): |\u03c3| = 0.06892 \u2248 1/(2\u03c0a) = 0.07958 (ratio 0.866) \u2014 the inverse throat scale, \u03c3\u00b7Area ~ the throat self-energy m_e (the B4 anchor). THIN-SHELL LIMIT (8): a finite-thickness wall (tanh profile, width \u03b4) reproduces the discrete Lanczos \u03c3 as \u03b4\u21920 (error 3e-04 at \u03b4/r_s = 0.025) \u2014 the discrete Israel surface stress is the thickness\u21920 limit of a smooth wall.",
+      "sigma_sign_exotic": true,
+      "scale_ratio_to_inverse_throat": 0.866,
+      "thin_shell_convergence": [
+        {
+          "delta_over_rs": 0.4,
+          "sigma_delta": -0.066899
+        },
+        {
+          "delta_over_rs": 0.2,
+          "sigma_delta": -0.068265
+        },
+        {
+          "delta_over_rs": 0.1,
+          "sigma_delta": -0.068501
+        },
+        {
+          "delta_over_rs": 0.05,
+          "sigma_delta": -0.068557
+        },
+        {
+          "delta_over_rs": 0.025,
+          "sigma_delta": -0.068571
+        }
+      ],
+      "recovers_discrete_P": true,
+      "pass": true
+    },
+    {
+      "name": "T5_effective_stress_is_projected_weyl",
+      "description": "The throat metric f = 1\u2212(r_s/r)\u00b2 is RICCI-FLAT (R \u2264 1e-17). Its effective 4D stress is TRACELESS (\u2212\u03c1+p_r+2p_t \u2264 1e-17) with \u03c1_eff = \u2212r_s\u00b2/(8\u03c0G r\u2074) < 0, p_r = \u2212\u03c1, p_t = +\u03c1 \u2014 the r\u2074\u00b7\u03c1_eff = \u2212r_s\u00b2 constant ([-1.0, -1.0, -1.0, -1.0]) confirms the r\u207b\u2074 falloff. A traceless, r\u207b\u2074 'radiation' stress is exactly the form a projected bulk Weyl tensor E_\u03bc\u03bd (traceless by construction) takes: the effective exotic stress has the projected-Weyl form, not a generic matter form.",
+      "ricci_scalar_max": 1.4e-17,
+      "trace_max": 1.4e-17,
+      "r4_times_rho_eff": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "rho_eff_negative": true,
+      "ricci_flat": true,
+      "traceless": true,
+      "pass": true
+    },
+    {
+      "name": "T6_braneworld_weyl_split",
+      "description": "THE SPLIT, stated honestly. The effective 4D stress is 100% of the TIDAL-CHARGE / BULK-WEYL FORM (traceless, r\u207b\u2074) \u2014 this is computed, not assumed. Whether that form IS a bulk-Weyl projection (no on-brane exotic matter) rather than exotic brane matter is a separate, conditional claim. Its NECESSARY conditions are met: (i) R = 0 (True), required for a vacuum brane G_\u03bc\u03bd = \u2212E_\u03bc\u03bd; (ii) the tidal charge is NEGATIVE (\u03c1_eff < 0), so the stress is NOT a real on-brane Maxwell field (which would give \u03c1_EM > 0) \u2014 the same traceless r\u207b\u2074 form is Reissner\u2013Nordstr\u00f6m for a real charge, and only the sign distinguishes them. The reading therefore additionally requires that BAM has NO fundamental brane gauge field. What is NOT established: the explicit 5D embedding whose Weyl projection sources exactly this E_\u03bc\u03bd (the Dadhich/Bronnikov\u2013Kim construction exists for tidal-charge metrics but is cited, not re-solved here for BAM's bulk). CONCLUSION: on-brane exotic matter is AVOIDABLE \u2014 necessary conditions met, 5D derivation pending \u2014 a 'consistent-with', not a proof. The surgical surface term vanishes as the gluing approaches the throat (True), but f = 0 is a horizon (null), so this relocates \u03c3, it does not EVADE the horizon.",
+      "weyl_form_fraction": 1.0,
+      "ricci_flat_necessary": true,
+      "excludes_real_brane_maxwell_by_sign": true,
+      "necessary_conditions_met": true,
+      "five_d_derivation": "pending (cited: Dadhich/Bronnikov\u2013Kim)",
+      "requires_no_fundamental_brane_gauge_field": true,
+      "tidal_charge_Q": -1.0,
+      "surface_term_vanishes_at_null_horizon": true,
+      "proven": false,
+      "status": "consistent-with; necessary conditions met; 5D derivation pending",
+      "pass": true
+    },
+    {
+      "name": "T7_honesty_and_caveats",
+      "description": "The result is real but carries honest caveats. (a) f = 0 at r = r_s is a HORIZON (null surface): the BAM throat sits at a degenerate locus, and the vanishing of the surgical surface term there is a vanishing at a null surface, not a generic traversable neck. (b) R = 0 + traceless is the NECESSARY 4D signature of a vacuum brane; the full 5D embedding (a 5D Tangherlini bulk whose Weyl projection reproduces exactly this induced metric and E_\u03bc\u03bd) is the Dadhich/Bronnikov\u2013Kim construction, cited here, not re-solved as a 5D boundary-value problem. (c) The tidal charge is NEGATIVE (Q = \u2212r_s\u00b2); the effective 4D matter genuinely violates the WEC (\u03c1_eff < 0) \u2014 the claim is not that nothing is exotic in 4D, but that the 4D exotic stress is the geometric projection of an ORDINARY 5D bulk, requiring no exotic brane matter. (d) This is a static junction audit; the dynamical version (a self-gravitating focused wave crossing a real threshold, PR #166) is the motivated frontier, not addressed here.",
+      "caveats": [
+        "throat at f=0 is a horizon / null surface (degenerate)",
+        "R=0+traceless is the necessary signature; full 5D embedding cited (Dadhich), not re-solved",
+        "negative tidal charge; 4D WEC genuinely violated but geometric (bulk Weyl)",
+        "static audit; the dynamical threshold (PR #166) is the frontier"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "What is established: BAM's throat is the tidal-charge metric f = 1\u2212(r_s/r)\u00b2, Ricci-flat, whose 4D exotic stress is entirely of the bulk-Weyl FORM (traceless, r\u207b\u2074, \u03c1_eff < 0) and is CONSISTENT WITH being a projected bulk Weyl tensor of an ordinary 5D vacuum. On-brane exotic matter is AVOIDABLE if the 5D embedding sources E_\u03bc\u03bd and BAM has no fundamental brane gauge field \u2014 the necessary conditions are met (R = 0; the negative tidal charge excludes a real brane Maxwell source), the 5D derivation is pending. What is NOT established: that it provably IS such a projection (the explicit 5D embedding is cited, not solved), and the result does NOT evade the horizon at f = 0 (the throat is a null/degenerate locus; the surgical surface term merely vanishes there). This is the program's strongest 'consistent-with' to date \u2014 narrow, specific, and closable by a 5D embedding calculation \u2014 but still a 'consistent-with', not a proof.",
+      "classification": "THROAT_IS_TIDAL_CHARGE_BULK_WEYL_FORM_NECESSARY_CONDITIONS_MET_5D_PENDING",
+      "established": "tidal-charge / bulk-Weyl form (Ricci-flat, traceless r\u207b\u2074, \u03c1<0)",
+      "not_established": [
+        "provably bulk Weyl (5D embedding pending)",
+        "evasion of the f=0 horizon (throat is null/degenerate)"
+      ],
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "THROAT_IS_TIDAL_CHARGE_BULK_WEYL_FORM_NECESSARY_CONDITIONS_MET_5D_PENDING",
+  "verdict": "CONSISTENT-WITH, NOT PROVEN \u2014 the program's narrowest, most closable gap to date. BAM's throat is the tidal-charge metric whose 4D exotic stress is CONSISTENT WITH being entirely a bulk-Weyl projection of an ordinary 5D vacuum. This does NOT prove it is, and does NOT evade the f = 0 horizon.\n\nTHE BASELINE (settled). The Israel/Lanczos thin-shell throat has surface energy density \u03c3 = \u2212\u221af(a)/(2\u03c0a) < 0 at every gluing radius \u2014 exotic surface matter, WEC-violating \u2014 and the non-orientable (antipodal Z\u2082 / C-swap) self-gluing does not rescue the sign. \u03c3 has the inverse-throat scale, and the discrete Lanczos stress is recovered as a finite wall's thickness \u2192 0.\n\nTHE DECISIVE FACT (computed). f = 1\u2212(r_s/r)\u00b2 is RICCI-FLAT (R \u2264 1e-6) and its effective 4D stress is TRACELESS with the r\u207b\u2074 radiation form (\u03c1_eff = \u2212r_s\u00b2/(8\u03c0G r\u2074) < 0, p_r = \u2212\u03c1, p_t = +\u03c1) \u2014 the tidal-charge / bulk-Weyl form. This is the form a projected bulk Weyl tensor takes; it is ALSO the form a real on-brane Maxwell field (Reissner\u2013Nordstr\u00f6m) takes, and only the SIGN distinguishes them.\n\nTHE SPLIT (honest). The effective stress is 100% of the bulk-Weyl FORM. The on-brane-exotic-free ATTRIBUTION is conditional: by Shiromizu\u2013Maeda\u2013Sasaki a vacuum brane obeys G_\u03bc\u03bd = \u2212E_\u03bc\u03bd, forcing R = 0 (met); and the NEGATIVE tidal charge (\u03c1_eff < 0) excludes a real brane Maxwell source (which gives \u03c1 > 0), so the reading also requires that BAM has no fundamental brane gauge field (a model assumption). The NECESSARY conditions are met; the SUFFICIENT step \u2014 the explicit 5D embedding whose Weyl projection sources exactly this E_\u03bc\u03bd \u2014 is PENDING (the Dadhich/Bronnikov\u2013Kim construction is cited, not re-solved for BAM's bulk).\n\nTHE HONEST LINE. Throat stress is the tidal-charge / bulk-Weyl form; on-brane exotic matter is avoidable IF the 5D embedding sources E_\u03bc\u03bd and BAM has no fundamental brane gauge field \u2014 necessary conditions met, 5D derivation pending. And f = 0 is a horizon (null): the surgical surface term vanishes there, which relocates \u03c3, it does not evade the horizon. This is the strongest result the audits have reached \u2014 narrow, specific, closable \u2014 and still a 'consistent-with'."
+}
