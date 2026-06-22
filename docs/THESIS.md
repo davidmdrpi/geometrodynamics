@@ -328,6 +328,28 @@ relocating σ rather than removing it. This is the strongest "consistent-
 with" the audits have reached — narrow, specific, and closable by a 5D
 embedding calculation (`israel_junction_weyl_split_probe`, PR #167).
 
+**The embedding, supplied — the gap closes (PR #168).** That 5D
+calculation is now done, as an explicit **global regular** embedding (not
+a Campbell–Magaard local-existence series). The BAM throat is the
+**equatorial (`χ = π/2`) totally-geodesic slice** of the 5D
+Schwarzschild–Tangherlini bulk `ds²₅ = −F dt² + dρ²/F + ρ²dΩ₃²`,
+`F = 1 − μ/ρ²`, with `μ = r_s²`. The equator is a Z₂ fixed-point set, so
+`K_μν = 0` (a tension-free, matter-free brane); the induced 4D metric is
+exactly `f = 1 − (r_s/r)²`; the projected bulk Weyl equals the brane tidal
+stress, `E_μν = −G⁴_μν` (verified to `~10⁻⁸`); the bulk is Ricci-flat (an
+ordinary 5D vacuum); and the 5D Kretschmann `K₅ = 72 μ²/ρ⁸` is **finite
+throughout** the exterior `ρ ≥ r_s` (max `72/r_s⁴` at the throat), the only
+singularity `ρ = 0` lying behind the regular 5D Killing horizon `ρ = r_s`,
+with the extra dimension `χ` compact and regular. Three checks and the
+regularity gate pass: the bulk-Weyl reading is **realised**, not merely
+consistent-with — no exotic brane matter, no brane gauge field — and the
+`f = 0` throat is identified as the **regular 5D Killing horizon** (an
+improvement on the #167 caveat: regular, not singular). The honest residue
+is that the throat sits at that (regular) horizon, the brane is the
+tension-free totally-geodesic slice (`μ = r_s²` fixing the bulk mass), and
+it is the exterior embedding `ρ ≥ r_s`
+(`global_regular_5d_embedding_probe`, PR #168).
+
 The same throat↔antithroat nucleation channel later supplies the
 neutrino's Majorana suppression (`seesaw_scale_nucleation_compliance_probe`,
 PR #87): a `ΔL=2` Majorana mass *is* a throat↔antithroat flip, and the
