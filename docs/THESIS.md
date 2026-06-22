@@ -302,6 +302,27 @@ throat–antithroat pair), a bubble-nucleation barrier `R_c = 2σ/ρ` giving
 the disperse-below / persist-above dichotomy, and the Schwinger critical
 field `e E_S R_MID = m_e c²` tying the throat scale to the threshold.
 
+**The exotic-matter question, and why the bulk answers it (PR #167).** A
+throat is a wormhole junction, and a thin-shell wormhole classically needs
+NEC/WEC-violating *exotic* surface matter — the Israel/Lanczos surface
+density `σ = −√f(a)/(2πa) < 0` — which the non-orientable (antipodal `Z₂` /
+C-swap) gluing does **not** rescue. The honest resolution is braneworld,
+not 4D. The BAM throat metric `f(r) = 1 − (r_s/r)²` is **Ricci-flat**
+(`R = 0`), and its effective 4D stress is **traceless** with the `r⁻⁴`
+form `ρ_eff = −r_s²/(8πG r⁴) < 0`, `p_r = −ρ_eff`, `p_t = +ρ_eff` — exactly
+the form a projected bulk Weyl tensor `E_μν` (traceless by construction)
+takes. By Shiromizu–Maeda–Sasaki a vacuum brane obeys `G_μν = −E_μν`,
+forcing `R = 0`; satisfied here, so the entire effective-exotic stress is
+the **projected bulk Weyl term** (tidal charge `Q = −r_s²`, in the
+Dadhich–Maartens–Papadopoulos–Rezania sense), sourced by the **ordinary 5D
+Tangherlini vacuum** — `~100%` bulk Weyl, `~0%` irreducible brane exotic
+matter (Bronnikov–Kim). The 4D exotic stress is the geometric shadow of an
+ordinary 5D bulk; the surgical surface term vanishes at the `f = 0` throat.
+The honest caveats: `f = 0` is a horizon/null locus (a degenerate throat),
+and `R = 0` + traceless is the *necessary* vacuum-brane signature with the
+full 5D embedding cited, not re-solved here
+(`israel_junction_weyl_split_probe`, PR #167).
+
 The same throat↔antithroat nucleation channel later supplies the
 neutrino's Majorana suppression (`seesaw_scale_nucleation_compliance_probe`,
 PR #87): a `ΔL=2` Majorana mass *is* a throat↔antithroat flip, and the
