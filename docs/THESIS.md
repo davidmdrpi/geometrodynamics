@@ -394,6 +394,31 @@ exchange↔rotation homotopy, the one configuration-space theorem linking the
 throat's internal Pin holonomy to the physical exchange
 (`pin_rp2_fermi_statistics_probe`, PR #170).
 
+**The exchange, on the correct non-orientable footing (PR #171).** The
+Finkelstein–Rubinstein homotopy cited above is the *orientable* result, and
+the throat mouth is the non-orientable `RP²` (Pin⁻), so it does not transfer
+for free. The correct framework is **geon statistics** (Friedman–Sorkin;
+Aneziris–Balachandran–Bourdeau–Jo–Ramadas–Sorkin; Dowker–Sorkin), where a
+geon's statistics is a representation of `π₁` of the configuration space and
+the spin–statistics correlation is a theorem *with hypotheses, known to fail
+for some geons*. Computing `π₁` of the two-mouth configuration space: the
+exchange `σ` has `σ² = e` (in ≥3 spatial dimensions the symmetric group, no
+braiding — only the ±1 statistics), the single geon's 2π rotation acts as
+`−I` (spinorial; the Pin⁻ holonomy and Friedman–Sorkin's spin-½), and —
+because the mouth is non-orientable — there is an orientation-reversing loop
+`τ_i` the orientable argument never sees. That reversal carries a
+**reflection**, and `RP²` admits **Pin⁻ only**, in which a reflection
+**squares to −1** (Pin⁺, which `RP²` does not admit, would give `+1`) — the
+ingredient that makes the non-orientable exchange sign well-defined and
+fermionic. Non-orientability also makes the geon **achiral** (its own mirror
+image), meeting the theorem's handedness hypothesis automatically. So the
+−1 (Fermi) **survives** the Pin⁻ mouth, now on the right footing —
+**conditional** on the Dowker–Sorkin exchangeability ("slide") hypothesis,
+which holds for identical asymptotically-flat throats and is cited, not
+derived from the full BAM field theory. The remaining honest gap is that
+hypothesis (and the field-theory mapping class group), not the spinor sign
+or the reflection algebra (`geon_statistics_pi1_probe`, PR #171).
+
 The same throat↔antithroat nucleation channel later supplies the
 neutrino's Majorana suppression (`seesaw_scale_nucleation_compliance_probe`,
 PR #87): a `ΔL=2` Majorana mass *is* a throat↔antithroat flip, and the
