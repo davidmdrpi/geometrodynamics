@@ -1,0 +1,112 @@
+{
+  "timestamp_utc": "2026-06-22T14:44:43+00:00",
+  "identification": "the antipodal J-quotient is consistent and dimension-parity-split: bulk S\u00b3\u2192RP\u00b3 orientable (det +1), brane mouth S\u00b2\u2192RP\u00b2 non-orientable (det \u22121); the non-orientable throat is the RP\u00b2 cross-cap in the orientable RP\u00b3 Tangherlini bulk of #168",
+  "bulk": "S\u00b3/antipodal = RP\u00b3 orientable (det +1)",
+  "brane": "S\u00b2/antipodal = RP\u00b2 non-orientable (det \u22121)",
+  "consistency": "one free isometric involution; det = (\u22121)^{n+1}; metric descends",
+  "realization": "J fixes the \u03c7=\u03c0/2 brane and restricts to the S\u00b2 antipodal map (#168)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Identify WHY the BAM throat is non-orientable (PR #167) while the bulk is not. The antipodal (J) quotient is consistent but dimension-parity-split: the bulk angular sphere S\u00b3/antipodal = RP\u00b3 is ORIENTABLE (det +1), the brane angular slice S\u00b2/antipodal = RP\u00b2 is NON-ORIENTABLE (det \u22121). The throat mouth is the brane's even-dimensional angular S\u00b2, so it quotients to the non-orientable RP\u00b2 (a cross-cap) inside the orientable RP\u00b3 bulk \u2014 realized concretely in the #168 Tangherlini embedding.",
+      "bulk": "S\u00b3 / antipodal = RP\u00b3 (orientable, det +1)",
+      "brane": "S\u00b2 / antipodal = RP\u00b2 (non-orientable, det \u22121)",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_free_isometric_involution",
+      "description": "The antipodal map J = \u2212I is an involution (J\u00b2 = I), is FREE on S\u207f (no fixed points: \u2212x = x \u27f9 x = 0 \u2209 S\u207f; verified S\u00b3 True, S\u00b2 True), and is an ISOMETRY of the round sphere (J\u1d40J = I; S\u00b3 True, S\u00b2 True). A free involution gives a smooth manifold quotient (no orbifold points), and an isometry means the 5D Tangherlini metric \u2014 whose angular part is round \u2014 descends to the quotient. So the J-quotient of the bulk is a well-defined smooth geometry.",
+      "free_S3": true,
+      "free_S2": true,
+      "isometry_S3": true,
+      "isometry_S2": true,
+      "involution": true,
+      "pass": true
+    },
+    {
+      "name": "T3_bulk_orientation_determinant",
+      "description": "The S\u00b3 antipodal map PRESERVES orientation: the pushed tangent frame (with the antipode's outward normal) has the same orientation as the original \u2014 determinant +1 (computed +1.000 over 6 random frames). Hence the bulk quotient S\u00b3 / antipodal = RP\u00b3 is ORIENTABLE: the BAM spatial bulk remains a consistent oriented manifold under the antipodal identification.",
+      "bulk_orientation_determinant": 1.0,
+      "RP3_orientable": true,
+      "pass": true
+    },
+    {
+      "name": "T4_brane_angular_determinant",
+      "description": "The S\u00b2 antipodal map REVERSES orientation: the pushed tangent frame has the opposite orientation \u2014 determinant \u22121 (computed -1.000 over 6 random frames). Hence the brane's angular quotient S\u00b2 / antipodal = RP\u00b2 is NON-ORIENTABLE: the throat mouth is a cross-cap. This is the topological content of PR #167's 'non-orientable throat gluing' \u2014 it is the RP\u00b2 of the antipodally-identified mouth 2-sphere.",
+      "brane_angular_determinant": -1.0,
+      "RP2_non_orientable": true,
+      "pass": true
+    },
+    {
+      "name": "T5_dimension_parity_law",
+      "description": "The antipodal orientation determinant is (\u22121)^{n+1}: ODD spheres preserve orientation (orientable RP\u207f), EVEN spheres reverse it (non-orientable RP\u207f) \u2014 verified n = 1..5. The bulk angular sphere (S\u00b3, odd) and the throat mouth (S\u00b2, even) sit one dimension apart, on opposite sides of the parity, so the SINGLE antipodal J-quotient is consistently orientable on the bulk and non-orientable on the brane. The non-orientable throat is forced by the one-dimension drop from bulk to mouth \u2014 not an extra assumption.",
+      "parity_table": [
+        {
+          "n": 1,
+          "orientation_det": 1.0,
+          "formula_(-1)^(n+1)": 1,
+          "RP^n_orientable": true,
+          "match": true
+        },
+        {
+          "n": 2,
+          "orientation_det": -1.0,
+          "formula_(-1)^(n+1)": -1,
+          "RP^n_orientable": false,
+          "match": true
+        },
+        {
+          "n": 3,
+          "orientation_det": 1.0,
+          "formula_(-1)^(n+1)": 1,
+          "RP^n_orientable": true,
+          "match": true
+        },
+        {
+          "n": 4,
+          "orientation_det": -1.0,
+          "formula_(-1)^(n+1)": -1,
+          "RP^n_orientable": false,
+          "match": true
+        },
+        {
+          "n": 5,
+          "orientation_det": 1.0,
+          "formula_(-1)^(n+1)": 1,
+          "RP^n_orientable": true,
+          "match": true
+        }
+      ],
+      "bulk_orientable_brane_not": true,
+      "pass": true
+    },
+    {
+      "name": "T6_tangherlini_realization",
+      "description": "In the #168 coordinates the S\u00b3 antipodal map (\u03c7,\u03b8,\u03c6)\u21a6(\u03c0\u2212\u03c7,\u03c0\u2212\u03b8,\u03c6+\u03c0) equals x\u21a6\u2212x (True); it FIXES the equatorial \u03c7 = \u03c0/2 brane (True) and RESTRICTS there to the S\u00b2 antipodal map (\u03b8,\u03c6)\u21a6(\u03c0\u2212\u03b8,\u03c6+\u03c0) (True). The round angular metric is J-invariant, so the 5D Tangherlini metric descends to the quotient: the bulk becomes the orientable RP\u00b3-angular Tangherlini and the throat mouth becomes the non-orientable RP\u00b2. The #167 non-orientable throat is exactly this RP\u00b2 cross-cap inside the orientable RP\u00b3 bulk of #168.",
+      "map_equals_antipodal": true,
+      "fixes_equatorial_brane": true,
+      "restricts_to_S2_antipodal": true,
+      "tangherlini_metric_descends": true,
+      "pass": true
+    },
+    {
+      "name": "T7_spin_pin_consistency",
+      "description": "The orientability split lands exactly where BAM's spinor structure lives. The bulk quotient RP\u00b3 \u2245 SO(3) is orientable, parallelizable, and admits a spin structure \u2014 a consistent arena for bulk fields. The brane mouth RP\u00b2 is non-orientable and admits NO spin structure, only a PIN structure: the half-twist that carries the spin-\u00bd / fermionic character. This is the same orientability grading already seen in BAM as the C-swap (C = i\u03c3_y, T\u00b2 = \u22121; #63) and the even-k absence (k mod 2 = orientability/spin-statistics; #67). A consistency observation, not a new derivation: the throat's RP\u00b2 non-orientability is the topological seat of its Pin/spin-\u00bd structure.",
+      "RP3_orientable_spin": true,
+      "RP2_pin_only": true,
+      "consistency_only": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The antipodal J-quotient is consistent and dimension-parity-split: the bulk angular S\u00b3 \u2192 RP\u00b3 is orientable (det +1), the brane angular S\u00b2 \u2192 RP\u00b2 is non-orientable (det \u22121), from the one free isometric involution J = \u2212I (orientation determinant (\u22121)^{n+1}). The non-orientable throat of #167 is the RP\u00b2 cross-cap of the antipodally-identified mouth 2-sphere, sitting inside the orientable RP\u00b3 bulk of the #168 Tangherlini embedding (J fixes the \u03c7=\u03c0/2 brane and restricts to the S\u00b2 antipodal map; the metric descends). The non-orientability is forced by the single-dimension drop from bulk to mouth, and it is the topological seat of the throat's Pin/spin-\u00bd structure (#63/#67).",
+      "classification": "J_QUOTIENT_CONSISTENT_BULK_RP3_ORIENTABLE_BRANE_RP2_NON_ORIENTABLE",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "J_QUOTIENT_CONSISTENT_BULK_RP3_ORIENTABLE_BRANE_RP2_NON_ORIENTABLE",
+  "verdict": "CONSISTENT, AND IT EXPLAINS THE NON-ORIENTABLE THROAT. The antipodal (J) quotient is a single free isometric involution whose orientation determinant is (\u22121)^{n+1}, so it acts oppositely on the bulk and the brane mouth.\n\nTHE BULK. S\u00b3 / antipodal = RP\u00b3: the S\u00b3 antipodal map preserves orientation (determinant +1), so the BAM spatial bulk remains a consistent ORIENTABLE manifold \u2014 RP\u00b3 \u2245 SO(3).\n\nTHE BRANE MOUTH. S\u00b2 / antipodal = RP\u00b2: the S\u00b2 antipodal map reverses orientation (determinant -1), so the throat mouth is the NON-ORIENTABLE RP\u00b2 (a cross-cap). This is exactly PR #167's 'non-orientable throat gluing'.\n\nTHE CONSISTENCY. The bulk angular sphere (S\u00b3, odd) and the throat mouth (S\u00b2, even) sit one dimension apart, on opposite sides of the parity (\u22121)^{n+1}: ONE antipodal quotient is therefore consistently orientable on the bulk and non-orientable on the mouth. In the #168 coordinates J = (\u03c7,\u03b8,\u03c6)\u21a6(\u03c0\u2212\u03c7,\u03c0\u2212\u03b8,\u03c6+\u03c0) fixes the equatorial \u03c7=\u03c0/2 brane and restricts to the S\u00b2 antipodal map; the round-angular Tangherlini metric is J-invariant and descends. So the #167 non-orientable throat is the RP\u00b2 cross-cap inside the orientable RP\u00b3 bulk of #168 \u2014 forced by the single-dimension drop, and the topological seat of the throat's Pin/spin-\u00bd structure (#63/#67)."
+}
