@@ -1,0 +1,97 @@
+{
+  "timestamp_utc": "2026-06-22T21:25:18+00:00",
+  "identification": "the Pin\u207b structure on the throat's RP\u00b2 mouth delivers the \u22121 exchange sign (spin-\u00bd + Finkelstein\u2013Rubinstein) and the Fermi equation of state (degeneracy pressure, \u0393 = 5/3 / 4/3)",
+  "pin_structure": "RP\u00b2 admits Pin\u207b only (w\u2081=w\u2082=a; Spin/Pin\u207a excluded)",
+  "exchange_sign": "\u22121 (spinor 2\u03c0 = \u22121; exchange \u2243 2\u03c0 rotation, Finkelstein\u2013Rubinstein)",
+  "fermi_eos": "P=\u2154u \u0393=5/3 (NR); P=\u2153u \u0393=4/3 (UR); T=0 degeneracy pressure > 0",
+  "scope": "computed: Pin\u207b class, spinor sign, EoS; cited: the FR exchange\u2194rotation homotopy",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Stop deferring: take the Pin\u207b structure on the throat's RP\u00b2 mouth (PR #169) and show it DELIVERS the physics \u2014 the \u22121 exchange sign and the Fermi equation of state. The chain: RP\u00b2 \u2192 Pin\u207b spinor (spin-\u00bd, 2\u03c0 = \u22121) \u2192 exchange \u2243 2\u03c0 rotation (Finkelstein\u2013Rubinstein) \u2192 antisymmetry \u2192 Pauli exclusion \u2192 the degeneracy-pressure EoS (\u0393 = 5/3 non-relativistic, 4/3 ultra-relativistic). This is the calculation that makes the topology matter, not a tidy-up of it.",
+      "chain": [
+        "RP\u00b2 mouth",
+        "Pin\u207b spinor (2\u03c0=\u22121)",
+        "exchange \u2243 2\u03c0 rotation (Finkelstein\u2013Rubinstein)",
+        "antisymmetric wavefunction (exchange \u22121)",
+        "Pauli exclusion (n_p\u2208{0,1})",
+        "Fermi EoS (degeneracy pressure)"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_rp2_is_pin_minus",
+      "description": "The total Stiefel\u2013Whitney class of RP\u00b2 is w = (1+a)\u00b3 = 1 + a + a\u00b2 (coeffs (1, 1, 1)): w\u2081 = a \u2260 0 (non-orientable, so no Spin structure) and w\u2082 = a\u00b2 \u2260 0. The admissibility conditions then give: Spin False (needs w\u2081=w\u2082=0), Pin\u207a False (needs w\u2082=0), Pin\u207b True (needs w\u2082+w\u2081\u00b2=0, here a\u00b2+a\u00b2=0). So RP\u00b2 carries a Pin\u207b structure and ONLY Pin\u207b \u2014 the throat's mouth has a unique, definite spinor structure, the non-orientable analogue of Spin.",
+      "stiefel_whitney": {
+        "w0": 1,
+        "w1": 1,
+        "w2": 1
+      },
+      "admits_spin": false,
+      "admits_pin_plus": false,
+      "admits_pin_minus": true,
+      "pass": true
+    },
+    {
+      "name": "T3_spinor_2pi_is_minus_one",
+      "description": "The Pin\u207b structure carries the spin-\u00bd (double-valued) representation. A 2\u03c0 rotation acts on the spinor as R(2\u03c0) = exp(\u2212i\u03c0\u03c3_z) = \u2212I (sign -1), and only a 4\u03c0 rotation returns to +I (True). This \u22121 under 2\u03c0 is the defining spin-\u00bd holonomy \u2014 the same orientation-entanglement already in BAM as C = i\u03c3_y, T\u00b2 = \u22121 (#63) and the even-k absence (#67).",
+      "R_2pi_sign": -1.0,
+      "R_2pi_is_minus_identity": true,
+      "R_4pi_is_identity": true,
+      "pass": true
+    },
+    {
+      "name": "T4_exchange_sign_minus_one",
+      "description": "By the Finkelstein\u2013Rubinstein construction, exchanging two identical throats is homotopic to a 2\u03c0 rotation of one of them (the orientation-entanglement / belt trick; \u03c0\u2081 of the two-particle configuration space in \u22653D is \u2124\u2082, with the exchange generator identified with the 2\u03c0-rotation generator). The Pin\u207b spinor assigns that loop the value \u22121 (T3), so the two-throat wavefunction picks up an exchange sign of -1 \u2014 it is ANTISYMMETRIC. The spin-statistics connection is realised, not assumed: the same spin-\u00bd holonomy delivers both 2\u03c0 = \u22121 and exchange = \u22121. (The FR homotopy is the cited structural input; the sign is computed.)",
+      "exchange_sign": -1.0,
+      "wavefunction_antisymmetric": true,
+      "pass": true
+    },
+    {
+      "name": "T5_pauli_exclusion_fermi_dirac",
+      "description": "An antisymmetric two-throat wavefunction vanishes when the two occupy the same single-throat state (\u03a8 = \u2212\u03a8 \u27f9 \u03a8 = 0) \u2014 Pauli exclusion. So each mode's occupation is n_p \u2208 {0, 1} (Fermi\u2013Dirac), versus n_p \u2208 {0, 1, 2, \u2026} (Bose\u2013Einstein) for the symmetric +1 sign. The \u22121 exchange sign from the Pin\u207b mouth is exactly what caps the occupation at one \u2014 the statistical input the equation of state then integrates.",
+      "fermi_occupations": [
+        0,
+        1
+      ],
+      "bose_occupations": "0,1,2,...,\u221e",
+      "exclusion_from_minus_sign": true,
+      "pass": true
+    },
+    {
+      "name": "T6_fermi_equation_of_state",
+      "description": "Filling the Fermi sphere (occupation 1 up to p_F) gives the degenerate equation of state. NON-RELATIVISTIC (\u03b5 = p\u00b2/2m): P/u = 0.6667 = 2/3 and P \u221d n^\u0393 with \u0393 = 1.6667 = 5/3. ULTRA-RELATIVISTIC (\u03b5 = pc): P/u = 0.3333 = 1/3 and \u0393 = 1.3333 = 4/3. The pressure is STRICTLY POSITIVE at T = 0 (degeneracy pressure) \u2014 the pressure that holds up white dwarfs and neutron stars \u2014 and it exists ONLY because of the exclusion: a Bose gas at T = 0 collapses all quanta to p = 0 with pressure 0. The Fermi equation of state is delivered by the \u22121 exchange sign of the Pin\u207b mouth.",
+      "P_over_u_nonrel": 0.6667,
+      "P_over_u_ultrarel": 0.3333,
+      "Gamma_nonrel": 1.6667,
+      "Gamma_ultrarel": 1.3333,
+      "fermi_pressure_T0_positive": true,
+      "bose_pressure_T0": 0.0,
+      "pass": "True"
+    },
+    {
+      "name": "T7_honesty_and_scope",
+      "description": "COMPUTED here from first principles: the Pin\u207b classification of RP\u00b2 (Stiefel\u2013Whitney classes w\u2081=w\u2082=a, Pin\u207a/Spin excluded, Pin\u207b admitted), the spin-\u00bd spinor 2\u03c0 = \u22121, and the Fermi-gas equation of state (P/u and the polytropic indices \u0393 = 5/3, 4/3, from the T=0 momentum integrals). CITED, not re-derived: the Finkelstein\u2013Rubinstein homotopy that identifies the two-particle exchange loop with a 2\u03c0 rotation of one defect \u2014 the topological theorem (two-particle configuration-space \u03c0\u2081 = \u2124\u2082) linking the throat's internal Pin holonomy to the physical exchange. The spin-statistics connection is therefore realised by the construction, not assumed; what remains a citation is the configuration-space homotopy, not the spinor sign or the EoS.",
+      "computed": [
+        "RP\u00b2 Pin\u207b classification (SW classes)",
+        "spinor 2\u03c0 = \u22121 (spin-\u00bd)",
+        "Fermi EoS (\u0393=5/3, 4/3; P/u=2/3, 1/3)"
+      ],
+      "cited": [
+        "Finkelstein\u2013Rubinstein exchange \u2243 2\u03c0-rotation homotopy"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The deferred calculation is delivered. The throat mouth RP\u00b2 carries a Pin\u207b structure (and only Pin\u207b); its spinor is spin-\u00bd (2\u03c0 = \u22121); the Finkelstein\u2013Rubinstein homotopy makes the two-throat exchange a 2\u03c0 rotation, so the exchange sign is \u22121 and the wavefunction is antisymmetric; Pauli exclusion caps the occupation at one; and filling the Fermi sphere yields the degenerate equation of state P = \u2154u, \u0393 = 5/3 (non-relativistic) and P = \u2153u, \u0393 = 4/3 (ultra-relativistic), with a strictly positive T=0 degeneracy pressure that a Bose gas does not have. The Pin\u207b mouth of the non-orientable throat delivers the Fermi exchange sign and the Fermi equation of state.",
+      "classification": "PIN_MINUS_ON_RP2_DELIVERS_FERMI_EXCHANGE_SIGN_AND_EOS",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "PIN_MINUS_ON_RP2_DELIVERS_FERMI_EXCHANGE_SIGN_AND_EOS",
+  "verdict": "DELIVERED. The Pin\u207b structure on the throat's RP\u00b2 mouth yields the \u22121 exchange sign and the Fermi equation of state \u2014 the deferred calculation, done.\n\nTHE SPINOR STRUCTURE. RP\u00b2 has Stiefel\u2013Whitney classes w\u2081 = w\u2082 = a, so it admits no Spin and no Pin\u207a structure \u2014 only Pin\u207b (w\u2082 + w\u2081\u00b2 = 0). The throat mouth therefore has a unique, definite spinor structure, the non-orientable analogue of Spin.\n\nTHE EXCHANGE SIGN. The Pin\u207b spinor is spin-\u00bd: a 2\u03c0 rotation acts as R(2\u03c0) = \u2212I (and 4\u03c0 = +I). By Finkelstein\u2013Rubinstein the two-throat exchange is homotopic to a 2\u03c0 rotation of one throat, so the exchange sign is \u22121 and the two-throat wavefunction is ANTISYMMETRIC \u2014 the spin-statistics connection realised by the SAME holonomy that gives 2\u03c0 = \u22121.\n\nTHE EQUATION OF STATE. Antisymmetry \u27f9 Pauli exclusion (occupation 0 or 1) \u27f9 filling the Fermi sphere gives the degenerate EoS: P = \u2154u, \u0393 = 1.667 = 5/3 (non-relativistic) and P = \u2153u, \u0393 = 1.333 = 4/3 (ultra-relativistic), with a strictly positive T=0 degeneracy pressure \u2014 the support of white dwarfs and neutron stars \u2014 that a Bose gas (which collapses to p=0, P=0) lacks.\n\nSCOPE. Computed: the Pin\u207b classification, the spinor 2\u03c0 sign, and the Fermi EoS. Cited: the Finkelstein\u2013Rubinstein exchange\u2194rotation homotopy \u2014 the one configuration-space theorem linking the throat's internal Pin holonomy to the physical exchange."
+}

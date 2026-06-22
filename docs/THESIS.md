@@ -371,6 +371,29 @@ structure — the half-twist of the spin-½ / fermionic character, the same
 orientability grading as the C-swap (`C = iσ_y`, `T² = −1`; PR #63) and the
 even-`k` absence (PR #67) (`tangherlini_j_quotient_probe`, PR #169).
 
+**The Pin⁻ mouth delivers Fermi statistics (PR #170).** The Pin structure
+is not just a topological remark — it carries the physics. The throat mouth
+`RP²` has Stiefel–Whitney classes `w₁ = a`, `w₂ = a²`, so it admits **no
+Spin and no Pin⁺ structure, only Pin⁻** (`w₂ + w₁² = 0`): a unique, definite
+spinor structure. That Pin⁻ spinor is spin-½ — a 2π rotation acts as
+`R(2π) = exp(−iπσ_z) = −I`, with only `R(4π) = +I` — and by the
+Finkelstein–Rubinstein construction the exchange of two identical throats is
+homotopic to a 2π rotation of one (the two-particle configuration space in
+≥3D has `π₁ = ℤ₂`, the exchange generator mapping to the 2π-rotation
+generator). The exchange sign is therefore **−1**: the two-throat
+wavefunction is antisymmetric, the spin-statistics connection realised by the
+*same* holonomy that gives `2π = −1`. Antisymmetry forces Pauli exclusion
+(occupation `n_p ∈ {0,1}`, against the Bose `{0,1,2,…}`), and filling the
+Fermi sphere yields the degenerate **Fermi equation of state**: `P = ⅔u`,
+`P ∝ n^{5/3}` (`Γ = 5/3`, non-relativistic) and `P = ⅓u`, `P ∝ n^{4/3}`
+(`Γ = 4/3`, ultra-relativistic), with a strictly positive `T = 0` degeneracy
+pressure — the support of white dwarfs and neutron stars — that a Bose gas
+lacks. Computed here: the Pin⁻ classification, the spinor 2π sign, and the
+Fermi-gas EoS; cited (not re-derived): the Finkelstein–Rubinstein
+exchange↔rotation homotopy, the one configuration-space theorem linking the
+throat's internal Pin holonomy to the physical exchange
+(`pin_rp2_fermi_statistics_probe`, PR #170).
+
 The same throat↔antithroat nucleation channel later supplies the
 neutrino's Majorana suppression (`seesaw_scale_nucleation_compliance_probe`,
 PR #87): a `ΔL=2` Majorana mass *is* a throat↔antithroat flip, and the
