@@ -350,6 +350,27 @@ tension-free totally-geodesic slice (`μ = r_s²` fixing the bulk mass), and
 it is the exterior embedding `ρ ≥ r_s`
 (`global_regular_5d_embedding_probe`, PR #168).
 
+**Why the throat is non-orientable but the bulk is not (PR #169).** The
+non-orientability of the throat is not an extra assumption — it is forced
+by a dimension-parity property of the antipodal (J) quotient. The antipodal
+involution `J: x ↦ −x` on `Sⁿ` has orientation determinant `(−1)^{n+1}`:
+orientation-**preserving** for odd `n` (orientable `RPⁿ`),
+orientation-**reversing** for even `n` (non-orientable `RPⁿ`). The bulk's
+angular sphere is `S³` (odd), so `S³ / J = RP³` is **orientable** (det +1);
+the throat mouth is the brane's angular `S²` (even), so `S² / J = RP²` is
+**non-orientable** (det −1). The *same* free isometric involution thus acts
+oppositely on the two — they sit one dimension apart — and since `J` is
+free (`−x = x ⟹ x = 0 ∉ Sⁿ`) and an isometry of the round angular metric,
+the 5D Tangherlini geometry descends to the quotient cleanly. In the #168
+coordinates `J = (χ,θ,φ) ↦ (π−χ, π−θ, φ+π)` fixes the equatorial `χ = π/2`
+brane and restricts there to the `S²` antipodal map, so the #167
+non-orientable throat is exactly the `RP²` cross-cap inside the orientable
+`RP³` bulk. The split also lands where BAM's spinor structure lives:
+`RP³ ≅ SO(3)` is orientable and spin, while `RP²` admits only a **Pin**
+structure — the half-twist of the spin-½ / fermionic character, the same
+orientability grading as the C-swap (`C = iσ_y`, `T² = −1`; PR #63) and the
+even-`k` absence (PR #67) (`tangherlini_j_quotient_probe`, PR #169).
+
 The same throat↔antithroat nucleation channel later supplies the
 neutrino's Majorana suppression (`seesaw_scale_nucleation_compliance_probe`,
 PR #87): a `ΔL=2` Majorana mass *is* a throat↔antithroat flip, and the
