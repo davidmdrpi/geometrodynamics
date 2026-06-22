@@ -302,26 +302,31 @@ throat–antithroat pair), a bubble-nucleation barrier `R_c = 2σ/ρ` giving
 the disperse-below / persist-above dichotomy, and the Schwinger critical
 field `e E_S R_MID = m_e c²` tying the throat scale to the threshold.
 
-**The exotic-matter question, and why the bulk answers it (PR #167).** A
-throat is a wormhole junction, and a thin-shell wormhole classically needs
+**The exotic-matter question, and the narrowest gap (PR #167).** A throat
+is a wormhole junction, and a thin-shell wormhole classically needs
 NEC/WEC-violating *exotic* surface matter — the Israel/Lanczos surface
 density `σ = −√f(a)/(2πa) < 0` — which the non-orientable (antipodal `Z₂` /
-C-swap) gluing does **not** rescue. The honest resolution is braneworld,
-not 4D. The BAM throat metric `f(r) = 1 − (r_s/r)²` is **Ricci-flat**
-(`R = 0`), and its effective 4D stress is **traceless** with the `r⁻⁴`
-form `ρ_eff = −r_s²/(8πG r⁴) < 0`, `p_r = −ρ_eff`, `p_t = +ρ_eff` — exactly
-the form a projected bulk Weyl tensor `E_μν` (traceless by construction)
-takes. By Shiromizu–Maeda–Sasaki a vacuum brane obeys `G_μν = −E_μν`,
-forcing `R = 0`; satisfied here, so the entire effective-exotic stress is
-the **projected bulk Weyl term** (tidal charge `Q = −r_s²`, in the
-Dadhich–Maartens–Papadopoulos–Rezania sense), sourced by the **ordinary 5D
-Tangherlini vacuum** — `~100%` bulk Weyl, `~0%` irreducible brane exotic
-matter (Bronnikov–Kim). The 4D exotic stress is the geometric shadow of an
-ordinary 5D bulk; the surgical surface term vanishes at the `f = 0` throat.
-The honest caveats: `f = 0` is a horizon/null locus (a degenerate throat),
-and `R = 0` + traceless is the *necessary* vacuum-brane signature with the
-full 5D embedding cited, not re-solved here
-(`israel_junction_weyl_split_probe`, PR #167).
+C-swap) gluing does **not** rescue. The honest resolution is *consistent
+with* braneworld. The BAM throat metric `f(r) = 1 − (r_s/r)²` is
+**Ricci-flat** (`R = 0`), and its effective 4D stress is **traceless** with
+the `r⁻⁴` form `ρ_eff = −r_s²/(8πG r⁴) < 0`, `p_r = −ρ_eff`, `p_t = +ρ_eff`
+— the **tidal-charge / bulk-Weyl form**: exactly what a projected bulk Weyl
+tensor `E_μν` (traceless by construction) takes. Crucially it is *also*
+what a real on-brane Maxwell field (Reissner–Nordström) takes, and **only
+the sign distinguishes them** — a real brane gauge field gives `ρ > 0`,
+whereas here `ρ_eff < 0`. So on-brane exotic matter is **avoidable if**
+(i) the 5D embedding sources `E_μν` — by Shiromizu–Maeda–Sasaki a vacuum
+brane obeys `G_μν = −E_μν`, forcing `R = 0`, which is **met** — and
+(ii) BAM carries **no fundamental brane gauge field** that would force the
+Reissner–Nordström reading. The **necessary conditions are met**; the
+**sufficient** step — the explicit 5D embedding (the
+Dadhich–Maartens–Papadopoulos–Rezania / Bronnikov–Kim tidal-charge
+construction) — is **cited, not re-solved**, so this is a *consistent-with*,
+not a proof. Nor does it evade the `f = 0` **horizon**: that locus is null
+and degenerate, and the surgical surface term merely **vanishes** there,
+relocating σ rather than removing it. This is the strongest "consistent-
+with" the audits have reached — narrow, specific, and closable by a 5D
+embedding calculation (`israel_junction_weyl_split_probe`, PR #167).
 
 The same throat↔antithroat nucleation channel later supplies the
 neutrino's Majorana suppression (`seesaw_scale_nucleation_compliance_probe`,

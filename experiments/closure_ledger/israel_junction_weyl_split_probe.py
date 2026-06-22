@@ -49,13 +49,17 @@ Deliverables (the eight requested + the split):
   + honest caveats                            (T7)
 
 Verdict:
-  - BULK_WEYL_SUPPLIES_EFFECTIVE_EXOTIC_SIGMA_RICCI_FLAT_VACUUM_BRANE
-    (expected): the throat metric is Ricci-flat, its effective-exotic
-    stress is the traceless r⁻⁴ projected bulk Weyl term, sourced by the
-    ordinary 5D Tangherlini vacuum — the bulk covers it (Bronnikov–Kim /
-    Dadhich et al.), no irreducible brane exotic matter — with the honest
-    caveat that the throat sits at the f = 0 (horizon/null) locus, where
-    the surgical surface term itself vanishes.
+  - THROAT_IS_TIDAL_CHARGE_BULK_WEYL_FORM_NECESSARY_CONDITIONS_MET_5D_PENDING
+    (expected): the throat metric is Ricci-flat and its 4D exotic stress is
+    entirely of the tidal-charge / bulk-Weyl form (traceless r⁻⁴, ρ < 0),
+    CONSISTENT WITH being a projected bulk Weyl tensor of an ordinary 5D
+    vacuum. On-brane exotic matter is AVOIDABLE if the 5D embedding sources
+    E_μν and BAM has no fundamental brane gauge field — the necessary
+    conditions are met (R = 0; the negative tidal charge excludes a real
+    on-brane Maxwell source), the 5D derivation is pending. This is a
+    "consistent-with", NOT a proof, and it does not evade the f = 0
+    (horizon/null) locus.  Citations: Shiromizu–Maeda–Sasaki,
+    Dadhich–Maartens–Papadopoulos–Rezania, Bronnikov–Kim.
 """
 
 from __future__ import annotations
@@ -144,9 +148,13 @@ def test_T1_goal() -> dict:
             "throat's effective-4D exotic stress through the projected bulk "
             "Weyl term E_μν, with ORDINARY 5D matter (Bronnikov–Kim / "
             "Dadhich et al., via Shiromizu–Maeda–Sasaki), or is exotic "
-            "matter irreducible? The deliverable is the split — the fraction "
-            "of the required exotic stress carried by the bulk Weyl "
-            "projection versus the irreducible brane remainder."
+            "matter irreducible? The deliverable is the split, stated with "
+            "its honest status: the NECESSARY conditions for the "
+            "no-brane-exotic reading (Ricci-flatness; a tidal-charge sign "
+            "that excludes a real on-brane gauge field; no fundamental brane "
+            "gauge field) versus the PENDING sufficient step (the explicit "
+            "5D embedding that sources E_μν). A 'consistent-with', not a "
+            "proof — and not an evasion of the f = 0 horizon."
         ),
         "settled": "thin-shell throat is exotic (σ<0); non-orientability does not help",
         "open_question": "is the effective exotic σ supplied by the bulk Weyl projection?",
@@ -323,45 +331,70 @@ def test_T5_effective_stress_is_weyl() -> dict:
 
 
 def test_T6_the_split() -> dict:
-    """The split, part 2: vacuum brane G_μν = −E_μν ⟹ 100% bulk Weyl,
-    0% irreducible brane exotic matter."""
+    """The split, part 2: the effective stress is entirely of the
+    tidal-charge / bulk-Weyl FORM; the no-brane-exotic ATTRIBUTION is
+    consistent and its necessary conditions are met, but is not proven —
+    the 5D derivation is pending."""
     # Shiromizu–Maeda–Sasaki: G_μν = 8πG₄ T_brane + κ₅⁴ Π(T_brane) − E_μν.
     # A vacuum brane (T_brane = 0 ⟹ Π = 0) obeys G_μν = −E_μν, which forces
-    # R = 0 (E traceless).  R = 0 is satisfied here (T5), so the geometry is
-    # consistent with a vacuum brane sourced entirely by the bulk Weyl.
+    # R = 0 (E traceless).  R = 0 is satisfied here (T5), a NECESSARY (not
+    # sufficient) condition for the bulk-Weyl reading.
     _, _, _, ricci = einstein_mixed(2.0 * R_S)
-    vacuum_brane_consistent = abs(ricci) < 1e-6
-    # the bulk Weyl fluid (= the full effective stress for a vacuum brane)
-    rho, pr, pt = effective_stress(2.0 * R_S)
-    weyl_fraction = 1.0 if vacuum_brane_consistent else 0.0
-    irreducible_brane = 1.0 - weyl_fraction
-    # the surgical surface term vanishes at the throat (f→0)
+    ricci_flat = abs(ricci) < 1e-6
+    # The traceless r⁻⁴ form is shared by (a) a projected bulk Weyl tensor
+    # and (b) an on-brane Maxwell field (Reissner–Nordström).  They are
+    # distinguished by the SIGN: a real brane Maxwell field has ρ_EM =
+    # +Q²/(8πG r⁴) > 0, whereas here ρ_eff = −r_s²/(8πG r⁴) < 0 (tidal
+    # charge Q = −r_s² < 0).  So the stress is NOT a real brane gauge field
+    # — the no-brane-exotic reading additionally requires that BAM carries
+    # no fundamental brane gauge field that would force interpretation (b).
+    rho, _, _ = effective_stress(2.0 * R_S)
+    negative_tidal_charge = rho < 0.0
+    excludes_real_brane_maxwell = negative_tidal_charge
+    # the surgical surface term vanishes at the throat (f→0) — but f=0 is a
+    # horizon (null), so this does not EVADE the horizon, only relocate σ
     sig_near, _ = israel_surface_stress(1.001 * R_S)
     sig_far, _ = israel_surface_stress(2.0 * R_S)
-    surface_vanishes = abs(sig_near) < abs(sig_far)
-    ok = vacuum_brane_consistent and weyl_fraction == 1.0
+    surface_vanishes_at_null_horizon = abs(sig_near) < abs(sig_far)
+    # the weyl-FORM fraction is 1.0 (proven); the bulk-Weyl ATTRIBUTION is
+    # consistent with necessary conditions met, 5D derivation pending.
+    necessary_conditions_met = ricci_flat and excludes_real_brane_maxwell
+    ok = necessary_conditions_met
     return {
         "name": "T6_braneworld_weyl_split",
         "description": (
-            "THE SPLIT. By Shiromizu–Maeda–Sasaki a vacuum brane "
-            "(T_brane = 0) obeys G_μν = −E_μν, which forces the brane Ricci "
-            f"scalar R = 0 — satisfied here ({vacuum_brane_consistent}). So "
-            "the ENTIRE effective-exotic stress (ρ_eff < 0, NEC-violating) "
-            "is the projected bulk Weyl tensor E_μν, carrying tidal charge "
-            "Q = −r_s² (Dadhich et al.); the 5D Tangherlini bulk that "
-            "sources it is an ordinary 5D vacuum (Ricci-flat). THE SPLIT IS "
-            "~100% BULK WEYL / ~0% IRREDUCIBLE BRANE EXOTIC MATTER: the "
-            "exotic-looking 4D stress is the geometric shadow of the "
-            "ordinary 5D bulk, not real exotic matter on the brane "
-            "(Bronnikov–Kim). The surgical thin-shell surface term itself "
-            f"vanishes as the gluing approaches the throat (f→0): "
-            f"{surface_vanishes}."
+            "THE SPLIT, stated honestly. The effective 4D stress is 100% of "
+            "the TIDAL-CHARGE / BULK-WEYL FORM (traceless, r⁻⁴) — this is "
+            "computed, not assumed. Whether that form IS a bulk-Weyl "
+            "projection (no on-brane exotic matter) rather than exotic brane "
+            "matter is a separate, conditional claim. Its NECESSARY "
+            f"conditions are met: (i) R = 0 ({ricci_flat}), required for a "
+            "vacuum brane G_μν = −E_μν; (ii) the tidal charge is NEGATIVE "
+            "(ρ_eff < 0), so the stress is NOT a real on-brane Maxwell field "
+            "(which would give ρ_EM > 0) — the same traceless r⁻⁴ form is "
+            "Reissner–Nordström for a real charge, and only the sign "
+            "distinguishes them. The reading therefore additionally requires "
+            "that BAM has NO fundamental brane gauge field. What is NOT "
+            "established: the explicit 5D embedding whose Weyl projection "
+            "sources exactly this E_μν (the Dadhich/Bronnikov–Kim "
+            "construction exists for tidal-charge metrics but is cited, not "
+            "re-solved here for BAM's bulk). CONCLUSION: on-brane exotic "
+            "matter is AVOIDABLE — necessary conditions met, 5D derivation "
+            "pending — a 'consistent-with', not a proof. The surgical "
+            "surface term vanishes as the gluing approaches the throat "
+            f"({surface_vanishes_at_null_horizon}), but f = 0 is a horizon "
+            "(null), so this relocates σ, it does not EVADE the horizon."
         ),
-        "vacuum_brane_consistent_R_zero": vacuum_brane_consistent,
-        "bulk_weyl_fraction": weyl_fraction,
-        "irreducible_brane_exotic_fraction": irreducible_brane,
+        "weyl_form_fraction": 1.0,
+        "ricci_flat_necessary": ricci_flat,
+        "excludes_real_brane_maxwell_by_sign": excludes_real_brane_maxwell,
+        "necessary_conditions_met": necessary_conditions_met,
+        "five_d_derivation": "pending (cited: Dadhich/Bronnikov–Kim)",
+        "requires_no_fundamental_brane_gauge_field": True,
         "tidal_charge_Q": round(-R_S ** 2, 6),
-        "surface_term_vanishes_at_throat": surface_vanishes,
+        "surface_term_vanishes_at_null_horizon": surface_vanishes_at_null_horizon,
+        "proven": False,
+        "status": "consistent-with; necessary conditions met; 5D derivation pending",
         "pass": ok,
     }
 
@@ -403,22 +436,29 @@ def test_T8_assessment() -> dict:
     return {
         "name": "T8_assessment",
         "description": (
-            "The bulk covers it. The Israel thin-shell throat is exotic "
-            "(σ < 0, WEC violated) — established and not rescued by "
-            "non-orientability. But the throat metric f = 1−(r_s/r)² is "
-            "Ricci-flat, and its effective-exotic stress is the traceless "
-            "r⁻⁴ projected bulk Weyl term — a vacuum braneworld solution "
-            "(G_μν = −E_μν) sourced by the ordinary 5D Tangherlini vacuum, "
-            "carrying tidal charge Q = −r_s². The split is ~100% bulk Weyl / "
-            "~0% irreducible brane exotic matter (Bronnikov–Kim / Dadhich "
-            "et al.), with the surgical surface term vanishing at the f = 0 "
-            "throat. The 'geometrically enforced, no exotic brane matter' "
-            "claim SURVIVES — modulo the honest caveat that the throat is a "
-            "horizon/null locus."
+            "What is established: BAM's throat is the tidal-charge metric "
+            "f = 1−(r_s/r)², Ricci-flat, whose 4D exotic stress is entirely "
+            "of the bulk-Weyl FORM (traceless, r⁻⁴, ρ_eff < 0) and is "
+            "CONSISTENT WITH being a projected bulk Weyl tensor of an "
+            "ordinary 5D vacuum. On-brane exotic matter is AVOIDABLE if the "
+            "5D embedding sources E_μν and BAM has no fundamental brane "
+            "gauge field — the necessary conditions are met (R = 0; the "
+            "negative tidal charge excludes a real brane Maxwell source), "
+            "the 5D derivation is pending. What is NOT established: that it "
+            "provably IS such a projection (the explicit 5D embedding is "
+            "cited, not solved), and the result does NOT evade the horizon "
+            "at f = 0 (the throat is a null/degenerate locus; the surgical "
+            "surface term merely vanishes there). This is the program's "
+            "strongest 'consistent-with' to date — narrow, specific, and "
+            "closable by a 5D embedding calculation — but still a "
+            "'consistent-with', not a proof."
         ),
         "classification": (
-            "BULK_WEYL_SUPPLIES_EFFECTIVE_EXOTIC_SIGMA_RICCI_FLAT_VACUUM_BRANE"
+            "THROAT_IS_TIDAL_CHARGE_BULK_WEYL_FORM_NECESSARY_CONDITIONS_MET_5D_PENDING"
         ),
+        "established": "tidal-charge / bulk-Weyl form (Ricci-flat, traceless r⁻⁴, ρ<0)",
+        "not_established": ["provably bulk Weyl (5D embedding pending)",
+                            "evasion of the f=0 horizon (throat is null/degenerate)"],
         "pass": True,
     }
 
@@ -441,12 +481,14 @@ def run_probe() -> dict:
     t6 = tests[5]
     if all(t["pass"] for t in tests):
         verdict_class = (
-            "BULK_WEYL_SUPPLIES_EFFECTIVE_EXOTIC_SIGMA_RICCI_FLAT_VACUUM_BRANE"
+            "THROAT_IS_TIDAL_CHARGE_BULK_WEYL_FORM_NECESSARY_CONDITIONS_MET_5D_PENDING"
         )
         verdict = (
-            "THE BULK COVERS IT. The throat's effective-exotic stress is "
-            "supplied by the projected bulk Weyl term, with ordinary 5D "
-            "matter — the 'no exotic brane matter' claim survives.\n\n"
+            "CONSISTENT-WITH, NOT PROVEN — the program's narrowest, most "
+            "closable gap to date. BAM's throat is the tidal-charge metric "
+            "whose 4D exotic stress is CONSISTENT WITH being entirely a "
+            "bulk-Weyl projection of an ordinary 5D vacuum. This does NOT "
+            "prove it is, and does NOT evade the f = 0 horizon.\n\n"
             "THE BASELINE (settled). The Israel/Lanczos thin-shell throat "
             "has surface energy density σ = −√f(a)/(2πa) < 0 at every "
             "gluing radius — exotic surface matter, WEC-violating — and the "
@@ -457,29 +499,35 @@ def run_probe() -> dict:
             "THE DECISIVE FACT (computed). f = 1−(r_s/r)² is RICCI-FLAT "
             "(R ≤ 1e-6) and its effective 4D stress is TRACELESS with the "
             "r⁻⁴ radiation form (ρ_eff = −r_s²/(8πG r⁴) < 0, p_r = −ρ, "
-            "p_t = +ρ) — exactly the form a projected bulk Weyl tensor E_μν "
-            "(traceless by construction) takes.\n\n"
-            "THE SPLIT. By Shiromizu–Maeda–Sasaki a vacuum brane obeys "
-            "G_μν = −E_μν, forcing R = 0 — satisfied here. So the entire "
-            "effective-exotic stress is the bulk Weyl projection (tidal "
-            "charge Q = −r_s², Dadhich et al.), sourced by the ordinary 5D "
-            "Tangherlini vacuum: ~100% bulk Weyl / ~0% irreducible brane "
-            "exotic matter (Bronnikov–Kim). The 4D exotic stress is the "
-            "geometric shadow of an ordinary 5D bulk; the surgical surface "
-            "term vanishes at the f = 0 throat.\n\n"
-            "THE CAVEATS (honest). f = 0 is a horizon/null surface — the "
-            "throat is a degenerate locus; R = 0 + traceless is the "
-            "necessary vacuum-brane signature, with the full 5D embedding "
-            "cited (Dadhich), not re-solved; the 4D WEC is genuinely "
-            "violated, but geometrically (bulk Weyl), needing no exotic "
-            "brane matter. The dynamical threshold (PR #166) is the "
-            "motivated frontier."
+            "p_t = +ρ) — the tidal-charge / bulk-Weyl form. This is the "
+            "form a projected bulk Weyl tensor takes; it is ALSO the form a "
+            "real on-brane Maxwell field (Reissner–Nordström) takes, and "
+            "only the SIGN distinguishes them.\n\n"
+            "THE SPLIT (honest). The effective stress is 100% of the "
+            "bulk-Weyl FORM. The on-brane-exotic-free ATTRIBUTION is "
+            "conditional: by Shiromizu–Maeda–Sasaki a vacuum brane obeys "
+            "G_μν = −E_μν, forcing R = 0 (met); and the NEGATIVE tidal "
+            "charge (ρ_eff < 0) excludes a real brane Maxwell source (which "
+            "gives ρ > 0), so the reading also requires that BAM has no "
+            "fundamental brane gauge field (a model assumption). The "
+            "NECESSARY conditions are met; the SUFFICIENT step — the "
+            "explicit 5D embedding whose Weyl projection sources exactly "
+            "this E_μν — is PENDING (the Dadhich/Bronnikov–Kim construction "
+            "is cited, not re-solved for BAM's bulk).\n\n"
+            "THE HONEST LINE. Throat stress is the tidal-charge / bulk-Weyl "
+            "form; on-brane exotic matter is avoidable IF the 5D embedding "
+            "sources E_μν and BAM has no fundamental brane gauge field — "
+            "necessary conditions met, 5D derivation pending. And f = 0 is a "
+            "horizon (null): the surgical surface term vanishes there, which "
+            "relocates σ, it does not evade the horizon. This is the "
+            "strongest result the audits have reached — narrow, specific, "
+            "closable — and still a 'consistent-with'."
         )
     else:
         verdict_class = "JUNCTION_AUDIT_INCONCLUSIVE"
         verdict = (
             "INCONCLUSIVE. A junction or curvature check failed; review the "
-            "Israel stress, the Ricci-flatness, or the Weyl split before "
+            "Israel stress, the Ricci-flatness, or the Weyl form before "
             "reading the attribution."
         )
 
@@ -487,15 +535,15 @@ def run_probe() -> dict:
         "timestamp_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "identification": (
             "Israel junction audit of the non-orientable throat: the "
-            "effective-exotic σ is supplied by the projected bulk Weyl term "
-            "(Ricci-flat vacuum brane, tidal charge Q=−r_s²), sourced by the "
-            "ordinary 5D Tangherlini vacuum — no irreducible brane exotic "
-            "matter (Bronnikov–Kim / Dadhich)"
+            "effective-exotic stress is the tidal-charge / bulk-Weyl form "
+            "(Ricci-flat, traceless r⁻⁴, ρ<0), CONSISTENT WITH a bulk-Weyl "
+            "projection of an ordinary 5D vacuum — necessary conditions met, "
+            "5D derivation pending; not proven, and the f=0 horizon remains"
         ),
         "baseline": "thin-shell σ<0 (exotic, WEC-violated); non-orientability does not help",
-        "decisive_fact": "f=1−(r_s/r)² is Ricci-flat; effective stress traceless r⁻⁴ (Weyl form)",
-        "split": "~100% bulk Weyl / ~0% irreducible brane exotic matter",
-        "caveat": "throat at f=0 is a horizon/null locus; 5D embedding cited, not re-solved",
+        "decisive_fact": "f=1−(r_s/r)² is Ricci-flat; effective stress traceless r⁻⁴, ρ<0 (tidal-charge/Weyl form)",
+        "split": "100% bulk-Weyl FORM; bulk-Weyl attribution consistent (necessary conditions met), 5D derivation pending",
+        "caveat": "consistent-with, not proven; f=0 is a horizon/null locus (not evaded); needs no fundamental brane gauge field",
         "tests": tests,
         "n_passed": sum(1 for t in tests if t["pass"]),
         "n_total": len(tests),
@@ -533,9 +581,9 @@ def render_markdown(s: dict) -> str:
         "T3": "S_ab k^a k^b (null); NEC/WEC — the throat is exotic",
         "T4": "σ sign (exotic), σ scale (1/throat), discrete-P thin limit",
         "T5": "effective stress: Ricci-flat, traceless, r⁻⁴ — Weyl form",
-        "T6": "the split: vacuum brane ⟹ ~100% bulk Weyl / ~0% brane exotic",
+        "T6": "the split: 100% Weyl FORM; attribution consistent, 5D pending",
         "T7": "honesty: horizon/null throat; 5D embedding cited not re-solved",
-        "T8": "BULK_WEYL_SUPPLIES_EXOTIC_SIGMA_RICCI_FLAT_VACUUM_BRANE",
+        "T8": "tidal-charge/bulk-Weyl form; necessary conditions met, 5D pending",
     }
     for t in s["tests"]:
         p = "**PASS**" if t["pass"] else "**FAIL**"
@@ -550,10 +598,11 @@ def render_markdown(s: dict) -> str:
     out.append(f"| Ricci scalar (max) | {t5['ricci_scalar_max']:.0e} |")
     out.append(f"| effective-stress trace (max) | {t5['trace_max']:.0e} |")
     out.append(f"| r⁴·ρ_eff (constant = −r_s²) | {t5['r4_times_rho_eff'][0]} |")
-    out.append(f"| ρ_eff sign | negative (exotic in 4D) |")
-    out.append(f"| tidal charge Q | {t6['tidal_charge_Q']} |")
-    out.append(f"| bulk Weyl fraction | {t6['bulk_weyl_fraction']:.2f} |")
-    out.append(f"| irreducible brane exotic fraction | {t6['irreducible_brane_exotic_fraction']:.2f} |")
+    out.append(f"| ρ_eff sign | negative (exotic in 4D; tidal charge Q = {t6['tidal_charge_Q']}) |")
+    out.append(f"| bulk-Weyl FORM fraction | {t6['weyl_form_fraction']:.2f} (computed) |")
+    out.append(f"| Ricci-flat (necessary) | {t6['ricci_flat_necessary']} |")
+    out.append(f"| excludes real brane Maxwell (sign) | {t6['excludes_real_brane_maxwell_by_sign']} |")
+    out.append(f"| bulk-Weyl attribution proven | {t6['proven']} (5D derivation {t6['five_d_derivation']}) |")
     out.append("")
     out.append("## Verdict")
     out.append("")

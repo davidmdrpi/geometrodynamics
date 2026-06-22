@@ -49,36 +49,48 @@ is **traceless** with the `r⁻⁴` "radiation" form
 A traceless, `r⁻⁴` stress is exactly the form a **projected bulk Weyl
 tensor** `E_μν` (traceless by construction) takes.
 
-## The split
+## The split — what is, and is not, established
 
-By Shiromizu–Maeda–Sasaki, a **vacuum brane** (`T_brane = 0`) obeys
-`G_μν = −E_μν`, which forces `R = 0` — **satisfied here**. So the entire
-effective-exotic stress is the projected bulk Weyl term, carrying tidal
-charge `Q = −r_s²` (Dadhich et al.), sourced by the **ordinary 5D
-Tangherlini vacuum** (Ricci-flat in 5D). The split is
+The effective stress is **100% of the bulk-Weyl FORM** (this is computed).
+But the *attribution* — that this form **is** a bulk-Weyl projection with
+no on-brane exotic matter — is **consistent-with, not proven**. The split
+is honestly a split of necessary vs pending:
 
-```
-~100% bulk Weyl projection   /   ~0% irreducible brane exotic matter.
-```
+**Necessary conditions — met:**
 
-The exotic-looking 4D stress is the **geometric shadow of the ordinary 5D
-bulk**, not real exotic matter on the brane (Bronnikov–Kim). The surgical
-thin-shell surface term itself **vanishes** as the gluing approaches the
-throat (`f → 0`).
+- `R = 0` (Ricci-flat). By Shiromizu–Maeda–Sasaki, a vacuum brane
+  (`T_brane = 0`) obeys `G_μν = −E_μν`, which *forces* `R = 0`. Satisfied.
+- A **negative** tidal charge (`Q = −r_s²`, `ρ_eff < 0`). The traceless
+  `r⁻⁴` form is shared by (a) a projected bulk Weyl tensor and (b) a real
+  on-brane Maxwell field (Reissner–Nordström) — and **only the sign
+  distinguishes them**: a real brane gauge field gives `ρ_EM > 0`, whereas
+  here `ρ_eff < 0`. So the stress is **not** a real on-brane gauge field —
+  provided BAM carries **no fundamental brane gauge field** that would
+  force reading (b).
 
-## Honest caveats
+**Sufficient step — pending:**
 
-- `f = 0` at `r = r_s` is a **horizon** (null surface): the throat sits at
-  a degenerate locus, and the vanishing surface term is a vanishing at a
-  null surface, not a generic traversable neck.
-- `R = 0` + traceless is the **necessary** 4D signature of a vacuum brane;
-  the full 5D embedding (a 5D Tangherlini bulk whose Weyl projection
-  reproduces this induced metric and `E_μν`) is the Dadhich/Bronnikov–Kim
-  construction, **cited**, not re-solved as a 5D boundary-value problem.
-- The tidal charge is **negative**; the 4D WEC is genuinely violated — the
-  claim is not that nothing is exotic in 4D, but that the 4D exotic stress
-  is the geometric projection of an ordinary 5D bulk, requiring no exotic
-  brane matter.
+- The explicit 5D embedding (a 5D Tangherlini bulk whose Weyl projection
+  sources exactly this `E_μν`). The Dadhich/Bronnikov–Kim construction
+  exists for tidal-charge metrics and is **cited**, not re-solved here as a
+  5D boundary-value problem.
+
+**The honest line.** Throat stress is the tidal-charge / bulk-Weyl form;
+on-brane exotic matter is **avoidable if** the 5D embedding sources `E_μν`
+and BAM has no fundamental brane gauge field — **necessary conditions met,
+5D derivation pending**. This is a *consistent-with*, the program's
+narrowest and most closable gap, not a proof.
+
+## What this does NOT establish
+
+- It does **not** prove the stress *is* a bulk-Weyl projection — only that
+  it is consistent with one and the necessary conditions hold.
+- It does **not** evade the **horizon at `f = 0`**: that locus is null and
+  degenerate, and the surgical surface term merely **vanishes** there —
+  relocating σ, not removing it.
+- The 4D WEC is genuinely violated; the claim is only that the 4D exotic
+  stress *could be* the projection of an ordinary 5D bulk, not that nothing
+  is exotic in 4D.
 - This is a **static** junction audit; the dynamical version (a
   self-gravitating focused wave crossing a real threshold, PR #166) is the
   motivated frontier, not addressed here.
@@ -87,5 +99,5 @@ throat (`f → 0`).
 
 ```bash
 python -m experiments.closure_ledger.israel_junction_weyl_split_probe
-# Verdict: BULK_WEYL_SUPPLIES_EFFECTIVE_EXOTIC_SIGMA_RICCI_FLAT_VACUUM_BRANE
+# Verdict: THROAT_IS_TIDAL_CHARGE_BULK_WEYL_FORM_NECESSARY_CONDITIONS_MET_5D_PENDING
 ```
