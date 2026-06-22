@@ -1,0 +1,141 @@
+{
+  "timestamp_utc": "2026-06-22T05:50:30+00:00",
+  "identification": "global regular 5D embedding of the BAM throat: the equatorial totally-geodesic slice of the 5D Tangherlini bulk (\u03bc=r_s\u00b2); induced metric = f, E_\u03bc\u03bd = \u2212G\u2074_\u03bc\u03bd, bulk Ricci-flat, Kretschmann finite \u2014 three checks + the regularity gate pass; PR #167's gap closed",
+  "embedding": "equatorial \u03c7=\u03c0/2 totally-geodesic slice of 5D Tangherlini (\u03bc=r_s\u00b2)",
+  "check1": "induced metric = f=1\u2212(r_s/r)\u00b2; K_\u03bc\u03bd=0 (totally geodesic)",
+  "check2": "projected bulk Weyl E_\u03bc\u03bd = \u2212G\u2074_\u03bc\u03bd (tidal fluid)",
+  "check3": "bulk Ricci-flat (ordinary 5D vacuum)",
+  "gate": "K\u2085=72\u03bc\u00b2/\u03c1\u2078 finite \u03c1\u2265r_s; singularity behind the regular horizon; compact \u03c7 \u2014 PASSES",
+  "closes": "PR #167 positively; f=0 throat is the REGULAR 5D Killing horizon",
+  "tests": [
+    {
+      "name": "T1_goal_global_not_local",
+      "description": "PR #167 left a precise gap: the throat stress is the tidal-charge / bulk-Weyl form with the NECESSARY conditions for a no-on-brane-exotic reading met, but the SUFFICIENT step \u2014 an explicit GLOBAL REGULAR 5D bulk sourcing it \u2014 was pending. This probe supplies it as a global, regular, EXACT embedding (not a Campbell\u2013Magaard local-existence series): the BAM brane is the equatorial \u03c7 = \u03c0/2 totally-geodesic slice of the 5D Schwarzschild\u2013Tangherlini bulk (\u03bc = r_s\u00b2). Three printed checks (induced metric, projected Weyl, 5D field equations) plus a regularity gate (finite 5D Kretschmann throughout, regular compact extra dimension).",
+      "embedding": "BAM brane = equatorial \u03c7=\u03c0/2 slice of 5D Tangherlini (\u03bc=r_s\u00b2)",
+      "not_local_existence": "explicit global exact bulk, not a Campbell\u2013Magaard series",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_construction_selects_bam_metric",
+      "description": "The equatorial slice induces F(\u03c1) = 1 \u2212 \u03bc/\u03c1\u00b2; matching the BAM throat f = 1 \u2212 r_s\u00b2/r\u00b2 forces \u03bc = r_s\u00b2 and r = \u03c1. The construction works ONLY for the pure-tidal (M = 0) form \u2014 a Schwarzschild 1/r term has no counterpart in the 5D Tangherlini 1/\u03c1\u00b2 potential \u2014 so the gate has teeth: it selects exactly BAM's metric and ties the bulk mass parameter to the throat scale (\u03bc = r_s\u00b2).",
+      "induced_F_matches_f": true,
+      "mu_equals_rs_squared": true,
+      "pass": true
+    },
+    {
+      "name": "T3_check1_induced_metric_and_K",
+      "description": "CHECK 1. The \u03c7 = \u03c0/2 slice induces exactly the BAM throat metric diag(\u2212F, 1/F, \u03c1\u00b2, \u03c1\u00b2sin\u00b2\u03b8) = \u2212f dt\u00b2 + dr\u00b2/f + r\u00b2d\u03a9\u00b2 with f = 1\u2212(r_s/r)\u00b2 (match True). The extrinsic curvature vanishes, K_\u03bc\u03bd = 0 (max |K| = 0e+00) \u2014 the brane is TOTALLY GEODESIC, hence tension-free and matter-free; the Israel junction [K] = 0 is satisfied with no brane stress-energy.",
+      "induced_metric_matches": "True",
+      "extrinsic_curvature_max": 0.0,
+      "totally_geodesic": true,
+      "pass": true
+    },
+    {
+      "name": "T4_check2_projected_weyl_equals_tidal",
+      "description": "CHECK 2. The projected bulk Weyl tensor E^a_b = R_{a\u03c7b\u03c7}/g_\u03c7\u03c7 (Weyl = Riemann in the Ricci-flat bulk) EQUALS minus the 4D tidal Einstein tensor \u2212G\u2074^a_b at every brane radius (max |E + G\u2074| = 1e-08). So the brane's effective exotic stress (\u03c1_eff < 0, the tidal fluid) IS the projected bulk Weyl term of the ordinary 5D vacuum \u2014 the bulk-Weyl mechanism, made explicit by an actual 5D solution rather than asserted. The brane carries no matter and no gauge field; the exotic 4D stress is entirely geometric.",
+      "max_E_plus_G4": 1.1e-08,
+      "samples": [
+        {
+          "rho_over_rs": 1.5,
+          "E_tt": -0.197531,
+          "minus_G4_tt": -0.197531
+        },
+        {
+          "rho_over_rs": 2.0,
+          "E_tt": -0.0625,
+          "minus_G4_tt": -0.0625
+        },
+        {
+          "rho_over_rs": 3.0,
+          "E_tt": -0.012346,
+          "minus_G4_tt": -0.012346
+        }
+      ],
+      "pass": "True"
+    },
+    {
+      "name": "T5_check3_bulk_field_equations",
+      "description": "CHECK 3. The 5D Schwarzschild\u2013Tangherlini bulk is RICCI-FLAT (max |R\u2075_MN| = 3e-07) \u2014 an ordinary 5D vacuum solution of the source-free Einstein equations. There is no 5D matter and no 5D exotic source: the brane's 4D exotic stress is sourced purely by the bulk's Weyl curvature (the 5D mass \u03bc), not by anything that violates an energy condition in 5D.",
+      "max_bulk_ricci": 2.7e-07,
+      "bulk_is_vacuum": true,
+      "pass": true
+    },
+    {
+      "name": "T6_regularity_gate",
+      "description": "THE REGULARITY GATE (global, not local). The 5D Kretschmann \u2014 a coordinate INVARIANT \u2014 is K\u2085 = 72 \u03bc\u00b2/\u03c1\u2078. The closed form is validated against the numerical curvature to 1e-07 at \u03c1 \u2265 1.5 r_s (finite-differencing is unreliable nearer the horizon, where g_\u03c1\u03c1 = 1/F \u2192 \u221e is a COORDINATE, not curvature, breakdown). On the exterior domain \u03c1 \u2208 [r_s, \u221e) the invariant is FINITE everywhere, rising monotonically to its maximum 72/r_s\u2074 = 72.0 at the throat \u03c1 = r_s \u2014 a regular value, not a blow-up. The only curvature singularity, \u03c1 = 0, lies BEHIND the regular 5D Killing horizon \u03c1 = r_s and is off the brane's exterior domain; the extra dimension \u03c7 \u2208 [0, \u03c0] is compact and regular at its poles. GLOBAL and REGULAR \u2014 the gate PASSES (True).",
+      "closed_form_validation": [
+        {
+          "rho_over_rs": 1.5,
+          "K5_numeric": 2.8093,
+          "K5_closed_form": 2.8093,
+          "rel_err": 1.1e-07
+        },
+        {
+          "rho_over_rs": 2.0,
+          "K5_numeric": 0.2813,
+          "K5_closed_form": 0.2812,
+          "rel_err": 1.7e-08
+        },
+        {
+          "rho_over_rs": 3.0,
+          "K5_numeric": 0.011,
+          "K5_closed_form": 0.011,
+          "rel_err": 1.2e-07
+        }
+      ],
+      "closed_form_validated_max_rel": 1.2e-07,
+      "invariant_K5_on_exterior": [
+        {
+          "rho_over_rs": 1.0,
+          "K5_invariant": 72.0
+        },
+        {
+          "rho_over_rs": 1.5,
+          "K5_invariant": 2.8093
+        },
+        {
+          "rho_over_rs": 2.0,
+          "K5_invariant": 0.2812
+        },
+        {
+          "rho_over_rs": 4.0,
+          "K5_invariant": 0.0011
+        },
+        {
+          "rho_over_rs": 100.0,
+          "K5_invariant": 0.0
+        }
+      ],
+      "K5_at_throat": 72.0,
+      "finite_everywhere_exterior": true,
+      "max_at_throat_not_blowup": true,
+      "singularity_behind_horizon": true,
+      "extra_dimension_compact_regular": true,
+      "gate_passes": true,
+      "pass": true
+    },
+    {
+      "name": "T7_what_closes_and_residue",
+      "description": "CLOSES PR #167, positively. The bulk-Weyl reading is no longer a 'consistent-with': it is realised by an explicit GLOBAL REGULAR 5D vacuum (the Tangherlini bulk), whose projected Weyl tensor IS the brane's effective exotic stress. No exotic brane matter; the brane is matter-free and carries no fundamental gauge field (the two conditions #167 flagged are now both met by an actual bulk). The f = 0 throat is identified as the REGULAR 5D Killing horizon \u03c1 = r_s \u2014 an improvement on #167's 'horizon/null' caveat: it is regular (K\u2085 = 72/r_s\u2074 finite), not singular. HONEST RESIDUE: the throat still sits at a horizon (now known regular, with the true singularity \u03c1 = 0 safely behind it); the brane is the tension-free totally-geodesic equatorial slice (a clean special case, with \u03bc = r_s\u00b2 fixing the bulk mass); and it is the exterior embedding \u03c1 \u2265 r_s. The construction is special to the M = 0 pure-tidal metric \u2014 which is exactly BAM's.",
+      "closes": "PR #167 (bulk-Weyl reading now realised by an explicit regular bulk)",
+      "improvement": "f=0 throat is the REGULAR 5D Killing horizon, not a singularity",
+      "residue": [
+        "throat at a (regular) horizon",
+        "tension-free totally-geodesic brane (\u03bc=r_s\u00b2 fixed)",
+        "exterior embedding \u03c1\u2265r_s"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The 5D derivation #167 flagged is supplied. The BAM throat is the equatorial totally-geodesic slice of the 5D Schwarzschild\u2013Tangherlini bulk (\u03bc = r_s\u00b2): the induced metric is exactly f = 1\u2212(r_s/r)\u00b2 with K_\u03bc\u03bd = 0; the projected bulk Weyl equals the 4D tidal stress (E_\u03bc\u03bd = \u2212G\u2074_\u03bc\u03bd); the bulk is an ordinary Ricci-flat 5D vacuum; and the 5D Kretschmann 72 \u03bc\u00b2/\u03c1\u2078 is finite throughout the exterior, with the only singularity behind the regular 5D horizon. Three checks pass, the regularity gate passes \u2014 a GLOBAL REGULAR embedding, not local existence. The throat's exotic 4D stress is the geometric shadow of an ordinary, regular 5D vacuum: no exotic brane matter, the gap closed.",
+      "classification": "GLOBAL_REGULAR_5D_EMBEDDING_EXISTS_BAM_THROAT_IS_EQUATORIAL_TANGHERLINI_SLICE",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "GLOBAL_REGULAR_5D_EMBEDDING_EXISTS_BAM_THROAT_IS_EQUATORIAL_TANGHERLINI_SLICE",
+  "verdict": "THE GAP CLOSES. The 5D derivation PR #167 flagged is supplied by an explicit, global, regular embedding \u2014 not local existence.\n\nTHE EMBEDDING. The BAM throat is the EQUATORIAL (\u03c7 = \u03c0/2) totally-geodesic slice of the 5D Schwarzschild\u2013Tangherlini bulk ds\u00b2\u2085 = \u2212F dt\u00b2 + d\u03c1\u00b2/F + \u03c1\u00b2d\u03a9\u2083\u00b2, F = 1 \u2212 \u03bc/\u03c1\u00b2, with \u03bc = r_s\u00b2. The equator is a Z\u2082 fixed-point set, hence tension-free and matter-free; the construction works only for the pure-tidal (M = 0) form \u2014 exactly BAM's.\n\nTHE THREE CHECKS. (1) The induced metric is exactly f = 1\u2212(r_s/r)\u00b2 with K_\u03bc\u03bd = 0 (max |K| = 0e+00). (2) The projected bulk Weyl equals the 4D tidal stress, E_\u03bc\u03bd = \u2212G\u2074_\u03bc\u03bd (max |E + G\u2074| = 1e-08) \u2014 the bulk-Weyl mechanism realised by an actual solution. (3) The bulk is Ricci-flat (max |R\u2075_MN| = 3e-07) \u2014 an ordinary 5D vacuum.\n\nTHE REGULARITY GATE. K\u2085 = 72 \u03bc\u00b2/\u03c1\u2078 is finite throughout the exterior \u03c1 \u2265 r_s (= 72 at the throat); the only singularity \u03c1 = 0 is behind the regular 5D Killing horizon; the extra dimension \u03c7 is compact and regular. The embedding is GLOBAL and REGULAR \u2014 the gate passes.\n\nWHAT CLOSES. PR #167's bulk-Weyl reading is realised by an explicit regular 5D vacuum: no exotic brane matter, no brane gauge field, and the f = 0 throat is identified as the REGULAR 5D Killing horizon (the singularity \u03c1 = 0 safely behind it). Honest residue: the throat sits at a (regular) horizon, the brane is the tension-free totally-geodesic slice (\u03bc = r_s\u00b2 fixed), and it is the exterior embedding."
+}
