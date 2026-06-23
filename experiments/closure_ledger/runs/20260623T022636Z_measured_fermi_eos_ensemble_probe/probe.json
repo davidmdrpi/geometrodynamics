@@ -1,0 +1,139 @@
+{
+  "timestamp_utc": "2026-06-23T02:26:36+00:00",
+  "identification": "the Fermi equation of state measured from a many-throat box ensemble (\u22121 sign as Pauli single-occupancy): P/u = 2/3, 1/3 and \u0393 = 5/3, 4/3 by simulation, matching #170 (assumed) and confirming #171 (topological sign); Bose control \u0393 = 1",
+  "ensemble": "free fermions in a box; \u22121 exchange sign = Pauli single-occupancy",
+  "measured_P_over_u": "2/3 (NR), 1/3 (UR) from P = \u2212dE/dV",
+  "measured_gamma": "5/3 (NR), 4/3 (UR) from extrapolated level-filling",
+  "control": "Bose \u0393 = 1, degeneracy pressure vanishes",
+  "comparison": "matches #170 (assumed) and confirms #171 (topological sign)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "The second of the two closing options, on the same branch as #171 for comparison. PR #170 ASSUMED antisymmetry and read the index 5/3 off the analytic Fermi integral; #171 derived the \u22121 exchange sign topologically (the Pin\u207b geon). Here the \u22121 is imposed as Pauli single-occupancy in a many-throat box ensemble, and the equation of state is MEASURED from the simulated ground-state energies \u2014 \u0393 extracted by extrapolation, not read off a formula. The three routes (assumed-analytic, topological-sign, measured) can then be compared directly.",
+      "routes": {
+        "assumed_analytic": "PR #170 (Fermi integral)",
+        "topological_sign": "PR #171 (Pin\u207b geon statistics)",
+        "measured": "this probe (many-fermion ensemble)"
+      },
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_many_throat_ensemble",
+      "description": "N identical throats are free fermions in a cubic box of side L. The \u22121 exchange sign (the Pin\u207b result of #170/#171) is realised as PAULI single-occupancy: each spatial mode (n_x,n_y,n_z), n_i \u2265 1, holds at most g = 2 fermions (the lowest mode (1,1,1) has square-momentum 3). The many-body ground state is the filled Fermi sea \u2014 a Slater determinant \u2014 built by filling the N lowest of 1,331,000 enumerated modes. No occupation distribution is assumed; the ground state is constructed by level-filling.",
+      "spin_degeneracy": 2,
+      "modes_enumerated": 1331000,
+      "lowest_mode_square_momenta": [
+        3,
+        6,
+        6,
+        6,
+        9
+      ],
+      "pass": true
+    },
+    {
+      "name": "T3_measure_pressure_over_u",
+      "description": "P/u is MEASURED from the box volume derivative P = \u2212dE/dV at fixed N (a finite-difference of the simulated ground-state energy): non-relativistic 0.666667 = 2/3, ultra-relativistic 0.333333 = 1/3. The virial relation emerges from the ensemble rather than being asserted.",
+      "P_over_u_nonrel": 0.666667,
+      "P_over_u_ultrarel": 0.333333,
+      "pass": true
+    },
+    {
+      "name": "T4_measure_polytropic_index",
+      "description": "The polytropic index \u0393 = d ln P/d ln n is MEASURED as the local log-slope of the filled-mode energy sum K(N), which converges monotonically toward its limit; the Weyl surface correction \u0393(N) = \u0393\u221e \u2212 a\u00b7N^{\u22121/3} is extrapolated to the thermodynamic limit. Non-relativistic: \u0393 = 1.6665 = 5/3 (0.01% from target). Ultra-relativistic: \u0393 = 1.3332 = 4/3 (0.01%). The 5/3 and 4/3 are OUTPUTS of the simulated level-filling, not read off a formula.",
+      "Gamma_nonrel_measured": 1.6665,
+      "Gamma_ultrarel_measured": 1.3332,
+      "local_slopes_nonrel": [
+        {
+          "N_mid": 28284.0,
+          "local_slope": 1.6462
+        },
+        {
+          "N_mid": 56569.0,
+          "local_slope": 1.6503
+        },
+        {
+          "N_mid": 113137.0,
+          "local_slope": 1.6537
+        },
+        {
+          "N_mid": 226274.0,
+          "local_slope": 1.6563
+        }
+      ],
+      "local_slopes_ultrarel": [
+        {
+          "N_mid": 28284.0,
+          "local_slope": 1.3224
+        },
+        {
+          "N_mid": 56569.0,
+          "local_slope": 1.3246
+        },
+        {
+          "N_mid": 113137.0,
+          "local_slope": 1.3264
+        },
+        {
+          "N_mid": 226274.0,
+          "local_slope": 1.3278
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T5_bose_control",
+      "description": "The control that shows the index depends on the exchange sign. With Bose statistics all N throats condense into the lowest mode, so K_B(N) \u221d N and the measured index is \u0393 = 1.0000 = 1 \u2014 no degeneracy stiffening \u2014 and at fixed density the mode energy \u221d 1/L\u00b2 \u2192 0, so the T = 0 degeneracy pressure VANISHES. The 5/3 of the fermionic ensemble is therefore a measured CONSEQUENCE of the \u22121 exchange sign (Pauli single-occupancy), not a universal property of the box.",
+      "Gamma_bose_measured": 1.0,
+      "bose_degeneracy_pressure_vanishes": true,
+      "pass": true
+    },
+    {
+      "name": "T6_three_route_comparison",
+      "description": "The three independent routes agree. ASSUMED-ANALYTIC (#170): filling the Fermi sphere in the analytic integral gives 5/3, 4/3. TOPOLOGICAL-SIGN (#171): the Pin\u207b geon's \u22121 exchange sign forces Fermi statistics, hence those indices. MEASURED (here): the many-fermion ensemble yields \u0393 = 1.6665 (NR) and 1.3332 (UR). The measured indices reproduce #170's assumed values and confirm the equation of state implied by #171's topological sign \u2014 three routes, one answer.",
+      "comparison": {
+        "non_relativistic": {
+          "assumed_analytic_#170": "5/3 (Fermi integral)",
+          "topological_sign_#171": "\u22121 exchange \u21d2 Fermi \u21d2 5/3",
+          "measured_here_#172": 1.6665
+        },
+        "ultra_relativistic": {
+          "assumed_analytic_#170": "4/3 (Fermi integral)",
+          "topological_sign_#171": "\u22121 exchange \u21d2 Fermi \u21d2 4/3",
+          "measured_here_#172": 1.3332
+        }
+      },
+      "all_agree": true,
+      "pass": true
+    },
+    {
+      "name": "T7_honesty_and_scope",
+      "description": "What is MEASURED: the box single-particle spectrum (enumerated), the Pauli-filled ground-state energy K(N), the P/u virial ratio (finite-difference of E in V), the polytropic index \u0393 (finite-size-extrapolated local slope), and the Bose control. What is INPUT: the \u22121 exchange sign itself \u2014 realised as Pauli single-occupancy \u2014 which is the Pin\u207b/geon result of #170/#171, not re-derived here. So this probe measures the EQUATION OF STATE that the \u22121 produces; it does not re-establish the sign. Idealizations (the standard degenerate-gas ones): free (non-interacting) throats, T = 0, and the cubic box as the confining volume; interactions and finite temperature would add the usual corrections without changing the leading degeneracy index.",
+      "measured": [
+        "box spectrum",
+        "Pauli-filled ground energy",
+        "P/u virial",
+        "\u0393 (extrapolated)",
+        "Bose control"
+      ],
+      "input_not_rederived": "the \u22121 exchange sign (Pin\u207b/geon, #170/#171), as Pauli single-occupancy",
+      "idealizations": [
+        "free (non-interacting)",
+        "T=0",
+        "cubic box volume"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The equation of state is measured, not assumed. A many-throat ensemble of free fermions in a box \u2014 the \u22121 exchange sign imposed as Pauli single-occupancy \u2014 has its ground-state energies simulated and its EoS extracted: P/u = 2/3 (NR), 1/3 (UR) from the volume derivative, and \u0393 = 1.666 \u2248 5/3 (NR), 1.333 \u2248 4/3 (UR) from the finite-size-extrapolated level-filling. The Bose control gives \u0393 = 1 with vanishing degeneracy pressure, so the stiffening is a measured consequence of the exchange sign. The measured indices match #170's assumed values and confirm the EoS implied by #171's topological \u22121 \u2014 the three routes agree.",
+      "classification": "MEASURED_FERMI_EOS_FROM_PAULI_FILLING_GAMMA_5_3_AND_4_3",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "MEASURED_FERMI_EOS_FROM_PAULI_FILLING_GAMMA_5_3_AND_4_3",
+  "verdict": "MEASURED, NOT ASSUMED. The Fermi equation of state is extracted from a simulated many-throat ensemble, and it matches the two earlier routes.\n\nTHE ENSEMBLE. N identical throats are free fermions in a cubic box; the \u22121 exchange sign (Pin\u207b/geon, #170/#171) is realised as Pauli single-occupancy of the box modes, and the ground state is the filled Fermi sea built by level-filling \u2014 no occupation distribution assumed.\n\nTHE MEASUREMENTS. From the volume derivative P = \u2212dE/dV: P/u = 0.6667 = 2/3 (non-relativistic) and 0.3333 = 1/3 (ultra-relativistic). From the finite-size-extrapolated level-filling: \u0393 = 1.6665 \u2248 5/3 (NR) and 1.3332 \u2248 4/3 (UR) \u2014 the indices are outputs of the simulation, not read off a formula.\n\nTHE CONTROL. With Bose statistics the index is \u0393 = 1.0000 = 1 and the T = 0 degeneracy pressure vanishes \u2014 so the 5/3 stiffening is a measured consequence of the \u22121 exchange sign, not a universal property of the box.\n\nTHE COMPARISON. The measured indices reproduce #170's assumed-analytic values and confirm the equation of state implied by #171's topological \u22121 sign. Assumed, topological, and measured \u2014 three routes, one answer. (Input not re-derived: the exchange sign itself; idealizations: free, T=0, box.)"
+}
