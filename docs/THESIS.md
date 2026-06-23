@@ -2318,6 +2318,34 @@ the universal flavor puzzle. Whether the program ultimately closes,
 partially closes, or fails, it is not failing by knob accumulation — the
 ledger is short, categorized, and audited.
 
+**The sensitivity audit (PR #173).** The input budget above is counted by
+hand; it can also be *measured*. The dynamical inverse problem — vary the
+continuous geometry and read the Jacobian `J_ij = ∂O_i/∂I_j` of the live
+observables at the lock — turns the predictive accounting into a
+singular-value decomposition. On the 14 currently-reproduced observables (4
+quark mass ratios, the 5 CKM magnitudes, `J`, `β`, `γ`, and the 2 lepton
+mass ratios) against the free *fitted* knobs (the k₅-derived locks φ_h, χ,
+uplift, action, winding excluded as zero-cost), the result is honest and
+mixed. The **isolation dimension** rank(J) = 10, with a clean
+singular-value gap. The **forced core** — n_obs − rank = **4** — is entirely
+CKM combinations: the **CKM unitarity relations** (`V = U₊†U₋` is exactly
+unitary, so the 8 CKM observables lie on the 4-parameter unitary manifold,
+forcing 8 − 4 = 4 relations). This is the largest observable set the rigid
+core forces at zero input cost — a genuine structural prediction, but the
+*standard* unitarity, not a BAM-specific numerical relation. The **masses
+are fitted** (quark and lepton): no forced mass relation appears. The
+**compensator redundancy** — n_inputs − rank = **10** — is dominated by the
+mass-preserving diagonal shifts, which is the `n_part`/loose-knob
+compensator structure flagged above, now measured: the v4 quark
+parametrization is substantially over-complete. And a direct test of the
+*"CP at zero parameters"* claim — adding φ_h as an input — leaves the rank
+unchanged, so deriving φ_h saves no effective input; the CP economy is a
+counting statement, not a Jacobian reduction. The audit confirms the ledger
+is not failing by knob accumulation *and* quantifies precisely where the
+predictive content is thin — the forced core is real but modest, the masses
+are calibrated, and the flavor parametrization carries genuine redundancy
+(`sensitivity_jacobian_audit_probe`, PR #173).
+
 ### The flavor sector, assembled (PRs #149–#157)
 
 The flavor arc (`flavor_sector_synthesis_probe`, PR #157) converted the
