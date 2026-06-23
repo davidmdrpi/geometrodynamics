@@ -419,6 +419,24 @@ derived from the full BAM field theory. The remaining honest gap is that
 hypothesis (and the field-theory mapping class group), not the spinor sign
 or the reflection algebra (`geon_statistics_pi1_probe`, PR #171).
 
+**The equation of state, measured (PR #172).** Where #170 *assumed*
+antisymmetry and read the index `5/3` off the analytic Fermi integral, and
+#171 derived the `−1` exchange sign topologically, a companion simulation
+(kept on the same branch for comparison) **measures** the equation of state
+from a many-throat ensemble. `N` identical throats are free fermions in a
+cubic box, the `−1` sign realised as Pauli single-occupancy of the box
+modes, and the filled Fermi sea built by level-filling. From the volume
+derivative `P = −dE/dV` the virial ratios `P/u = 2/3` (non-relativistic)
+and `1/3` (ultra-relativistic) emerge; from the filled-mode energy sum,
+finite-size-extrapolated by the Weyl correction `Γ(N) = Γ∞ − a·N^{−1/3}`,
+the polytropic index is measured as `Γ = 1.6665 ≈ 5/3` and `1.3332 ≈ 4/3`
+(0.01% from target) — outputs of the simulation, not a formula. A Bose
+control (all `N` in the ground mode) gives `Γ = 1` with a vanishing `T = 0`
+degeneracy pressure, so the stiffening is a measured consequence of the
+exchange sign. The three routes — assumed-analytic (#170), topological-sign
+(#171), and measured (#172) — agree
+(`measured_fermi_eos_ensemble_probe`, PR #172).
+
 The same throat↔antithroat nucleation channel later supplies the
 neutrino's Majorana suppression (`seesaw_scale_nucleation_compliance_probe`,
 PR #87): a `ΔL=2` Majorana mass *is* a throat↔antithroat flip, and the
