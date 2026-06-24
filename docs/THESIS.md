@@ -538,6 +538,29 @@ charged-lepton spectrum is forced by spin-statistics on `T² = −I`, not
 chosen. The upper bound `k ≤ 5` is the three-generation boundary
 (PR #70), with `k_5 = D_bulk = dim(S³)+2 = 5` (PR #73).
 
+**Rigidity and uniqueness of the ladder (PR #174).** The selection rule
+can be stressed: is the discreteness rigid against the continuous geometry,
+and is it unique to this geometry? Running the #173 inverse problem on the
+odd-`k` ladder as the discrete feature answers both. The continuous
+deformation space splits (from the #173 Jacobian) into 10 *active*
+directions that move the masses and CKM **linearly** (scaling exponent
+≈ 1.0), 10 *null/compensator* directions that are **flat to first order**
+(exponent ≈ 2.0, ~10⁴× smaller response), and *mixed* directions that are
+active-dominated (≈ 1.0) — so nonlinear effects do **not** break the local
+rank story; the null leakage stays quadratic. The odd-`k` labels and the
+generation count are invariant under *every* active, null, and mixed
+deformation, because they are integer winding plus the ℤ₂ orientability
+grading (`T² = −I`) — discrete topological data that lives **outside** the
+entire continuous deformation manifold (there is no generation-number
+knob). The discreteness is therefore structurally **forced**, not an
+emergent near-integer that could drift. And it is **unique**: an orientable
+geometry (`T² = +I`) gives the orientation-preserving even/bosonic sector,
+not an odd-only fermion ladder, while the specific `{1,3,5}` needs
+`k ≤ k_5 = 5 = D_bulk` — so odd-`{1,3,5}` is the joint signature of the
+non-orientable antipodal spin structure and the 5D bulk (an
+exclusion/signature argument within BAM, not a no-go against every
+conceivable alternative) (`odd_k_ladder_rigidity_probe`, PR #174).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear

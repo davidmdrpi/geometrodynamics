@@ -1,0 +1,91 @@
+{
+  "timestamp_utc": "2026-06-24T05:18:12+00:00",
+  "identification": "the odd-k lepton ladder {1,3,5} is forced (fermion \u27f9 odd via T\u00b2=\u2212I; k\u22645 \u27f9 3 generations), rigid against every active/null/mixed continuous deformation (rank story survives nonlinearity), and unique to the non-orientable antipodal 5D geometry",
+  "origin": "T=i\u03c3_y, T\u00b2=\u2212I: odd k off-diagonal (fermion/non-orientable), even k diagonal (boson)",
+  "active": "rank-10 subspace moves observables linearly (exponent \u2248 1.0)",
+  "null": "10-dim kernel flat to first order (exponent \u2248 2.0; ~10\u2074\u00d7 smaller)",
+  "mixed": "active-dominated (\u2248 1.0): nonlinearity does not break the rank story",
+  "forced": "labels are integer winding + \u2124\u2082 grading; no continuous knob moves them",
+  "unique": "orientable geometry \u2192 even/bosonic; {1,3,5} needs k\u22645=D_bulk",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Take the cleanest discrete feature \u2014 the odd-k charged-lepton ladder k \u2208 {1,3,5} \u2014 and ask the two questions that decide whether a discrete feature is physics or bookkeeping: (a) does the geometry FORCE it (is the discreteness rigid against every continuous deformation, or could it drift)? (b) could anything but THIS geometry produce it (is odd-{1,3,5} a signature of the non-orientable antipodal 5D geometry, or generic)? Answered with the #173 direction analysis \u2014 active (move observables), null (do not), and mixed (test nonlinearity).",
+      "discrete_feature": "odd-k lepton ladder k \u2208 {1,3,5}",
+      "questions": [
+        "is it forced by the geometry?",
+        "could anything but this geometry produce it?"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_discrete_feature_and_grading",
+      "description": "The charged-lepton ladder is PASS_COUNTS = (1, 3, 5) (and LEPTON_BASELINE_DEPTHS = (1, 3, 5)) \u2014 all odd. Its origin is the throat monodromy T = i\u03c3_y (T\u00b2 = \u2212I): T^k has period 4, and odd k gives an OFF-DIAGONAL T^k (\u00b1i\u03c3_y) \u2014 the orientation-reversing, non-orientable (RP\u00b2, Pin\u207b; #169/#170) closure of a spin-\u00bd FERMION (verified for k=1,3,5: True); even k gives a DIAGONAL T^k (\u00b1I) \u2014 orientable/bosonic (True). So k mod 2 is the orientability grading (#67). Charged leptons are spin-\u00bd fermions \u27f9 odd k; the bulk boundary k \u2264 k_5 = 5 = D_bulk \u27f9 3 generations = (k_5+1)/2.",
+      "monodromy_pattern": {
+        "1": "off_diagonal_fermion",
+        "2": "diagonal_boson",
+        "3": "off_diagonal_fermion",
+        "4": "diagonal_boson",
+        "5": "off_diagonal_fermion",
+        "6": "diagonal_boson"
+      },
+      "odd_k_fermionic": true,
+      "even_k_bosonic": true,
+      "n_generations": 3,
+      "pass": true
+    },
+    {
+      "name": "T3_active_singular_directions",
+      "description": "The ACTIVE subspace \u2014 the 10 singular directions with nonzero singular value (quark 8 + lepton 2, the #173 rank) \u2014 is where the observables live. Perturbing along the steepest active direction, the observable response scales LINEARLY (exponent 1.03; max|\u0394O| = 1.23e-01 at \u03b5 = 10\u207b\u00b2): these are the 10 directions that actually move the masses and the CKM. None of them is a generation-changing direction \u2014 the active subspace acts entirely within the continuous observables.",
+      "active_dimension_total": 10,
+      "steepest_active_exponent": 1.03,
+      "moves_observables_linearly": true,
+      "pass": true
+    },
+    {
+      "name": "T4_null_compensator_directions",
+      "description": "The NULL subspace \u2014 the 10 kernel directions (quark 7 + lepton 3) \u2014 is where the compensators live. Perturbing along them, the observable response is FLAT TO FIRST ORDER: the scaling exponent is \u2248 2.00 (quadratic), and the response at \u03b5 = 10\u207b\u00b2 (median 4.1e-06) is ~10\u2074\u00d7 smaller than along an active direction. These are the 10 directions that should not \u2014 and to first order do not \u2014 move the observables; the only motion is the second-order curvature.",
+      "null_dimension_total": 10,
+      "median_null_exponent": 2.0,
+      "median_response_at_1e-2": 4.1e-06,
+      "flat_to_first_order": true,
+      "pass": true
+    },
+    {
+      "name": "T5_mixed_directions_nonlinearity",
+      "description": "Finite-amplitude combinations test whether nonlinear effects break the local rank story. They do not. Active scales linearly (exponent 1.03), null quadratically (2.00, flat to first order), and a MIXED (active+null) direction is dominated by its active content (1.02, max|\u0394O| = 8.46e-02 at \u03b5 = 10\u207b\u00b2): the null component does not hide observable motion, and the null directions do not turn linear at finite amplitude \u2014 their leakage stays quadratic. The rank-10 picture is robust beyond the local linear approximation.",
+      "active_exponent": 1.03,
+      "null_exponent": 2.0,
+      "mixed_exponent": 1.02,
+      "local_rank_story_holds": true,
+      "pass": true
+    },
+    {
+      "name": "T6_forced_rigid_discreteness",
+      "description": "FORCED. The odd-k labels {1,3,5} and the generation count (3) are INVARIANT under every active, null, and mixed continuous deformation \u2014 because they are integer winding plus the \u2124\u2082 orientability grading (T\u00b2 = \u2212I, fixed by the B2 spin structure: verified True), discrete topological data that lives OUTSIDE the entire continuous deformation manifold. There is no generation-number or k-label among the continuous inputs (True). So the discreteness is not an emergent near-integer that could drift under deformation \u2014 it is structurally forced, the right way for a discrete feature to be geometric. The continuous geometry (rank-10 active + 10 null) deforms only the masses and the CKM; the ladder is rigid.",
+      "labels_topological_integers": true,
+      "spin_structure_T2_minus_I_fixed": true,
+      "no_generation_knob": true,
+      "pass": true
+    },
+    {
+      "name": "T7_unique_to_non_orientable_5d",
+      "description": "UNIQUE. The odd-ONLY grading is the \u2124\u2082 orientability of the non-orientable antipodal quotient (T\u00b2 = \u2212I): a fermion's orientation-reversing closure exists only for odd k. An ORIENTABLE geometry (T\u00b2 = +I) gives the orientation-preserving even/bosonic sector \u2014 no odd-only fermion ladder. And the SPECIFIC {1,3,5} requires the bulk boundary k \u2264 k_5 = 5 = D_bulk (three generations = (k_5+1)/2). So odd-{1,3,5} is the JOINT signature of (the non-orientable antipodal spin structure) and (the 5D bulk) \u2014 not generic, not tunable. (Honest: an exclusion/signature argument within BAM \u2014 the grading requires non-orientability \u2014 not a no-go theorem against every conceivable alternative mechanism.)",
+      "odd_requires_non_orientable_T2_minus_I": true,
+      "orientable_admits_even_k": true,
+      "boundary_equals_bulk_dimension": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The odd-k ladder passes both tests. FORCED: charged leptons are spin-\u00bd fermions, so the orientation-reversing T\u00b2 = \u2212I grading forces odd k, and the bulk boundary k \u2264 5 forces exactly {1,3,5} = three generations; the labels are topological integers no continuous knob can move. RIGID: the #173 direction analysis confirms the continuous geometry (rank-10 active + 10 null) deforms only the masses and the CKM \u2014 active directions move observables linearly, null directions stay quadratically flat, mixed directions are active-dominated, and the local rank story survives nonlinearity; the ladder is invariant under all of it. UNIQUE: only the non-orientable antipodal spin structure (odd) plus the 5D bulk (k \u2264 5) produce odd-{1,3,5} \u2014 an orientable geometry gives the even/bosonic sector. The discreteness is a geometric signature, not a tuned coincidence.",
+      "classification": "ODD_K_LADDER_FORCED_RIGID_UNIQUE_TO_NON_ORIENTABLE_5D_GEOMETRY",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "ODD_K_LADDER_FORCED_RIGID_UNIQUE_TO_NON_ORIENTABLE_5D_GEOMETRY",
+  "verdict": "FORCED, RIGID, UNIQUE. The cleanest discrete feature \u2014 the odd-k charged-lepton ladder {1,3,5} \u2014 is geometry, not bookkeeping.\n\nTHE ORIGIN. The throat monodromy T = i\u03c3_y (T\u00b2 = \u2212I) makes T^k off-diagonal for odd k (the orientation-reversing, non-orientable closure of a spin-\u00bd fermion) and diagonal for even k (orientable, bosonic). Charged leptons are fermions \u27f9 odd k; the bulk boundary k \u2264 k_5 = 5 = D_bulk \u27f9 {1,3,5} = three generations.\n\nTHE THREE DIRECTION SETS. ACTIVE (the rank-10 subspace): perturbing along it moves the observables LINEARLY (exponent 1.03) \u2014 the 10 directions that actually move the masses and the CKM. NULL (the 10-dim kernel): flat to first order (exponent 2.00, quadratic; ~10\u2074\u00d7 smaller response than active). MIXED (active+null): active-dominated (exponent 1.02) \u2014 nonlinear effects do NOT break the local rank story; the null leakage stays quadratic.\n\nFORCED & RIGID. The odd-k labels and the generation count are integer winding plus the \u2124\u2082 orientability grading (T\u00b2 = \u2212I) \u2014 discrete topological data outside the entire continuous deformation manifold (there is no generation-number knob). The continuous geometry deforms only the masses and the CKM; the ladder is rigid against every active, null, and mixed deformation, linear and nonlinear.\n\nUNIQUE. An orientable geometry (T\u00b2 = +I) gives the even/bosonic sector, not an odd-only fermion ladder; the specific {1,3,5} needs k \u2264 5 = the bulk dimension. So odd-{1,3,5} is the joint signature of the non-orientable antipodal spin structure and the 5D bulk \u2014 an exclusion/signature argument within BAM, not a no-go against every conceivable alternative."
+}
