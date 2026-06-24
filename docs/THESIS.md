@@ -561,6 +561,29 @@ non-orientable antipodal spin structure and the 5D bulk (an
 exclusion/signature argument within BAM, not a no-go against every
 conceivable alternative) (`odd_k_ladder_rigidity_probe`, PR #174).
 
+**Can a continuous geometry evolve into the discrete sector? (PR #175).**
+The static rigidity of #174 has a dynamical counterpart: a nonlinear
+antipodal-focusing PDE sandbox (`nonlinear_antipodal_focusing_pde_probe`)
+— a focusing nonlinear Schrödinger field `i∂_t ψ = −∂_χχ ψ − g|ψ|^p ψ` on
+the antipodal ring, with the discrete sector taken as the winding number
+`Q = (1/2π)∮ d(arg ψ)`. The answer is **yes, but only through the caustic**.
+Smooth evolution **conserves** `Q` exactly while `|ψ| > 0` (the discrete
+sector is locked out of continuous evolution — the dynamical confirmation of
+#174). The only gate into it is an amplitude-zero **node**: because the
+winding is a homotopy invariant of maps to `ℂ∖{0}`, interpolating between
+`Q = 0` and `Q = 1` forces a zero of `|ψ|` located **exactly at the antipode**
+— the focus — so the antipodal focusing of #166 is precisely what drives the
+field toward the gate. Whether the nonlinear focusing reaches that core
+depends on a **critical mass** (below it the field disperses and stays
+continuous; above it concentrates toward the core — the disperse/persist
+threshold of #58/#166, now simulated nonlinearly where #166 had deferred
+it), and the winding jump at the core is **quantized ±1**: a discrete
+response to a smooth focusing drive. The honest scope is a reduced 1D ring
+model (`Q` proxies the discrete `k`, the collapse core proxies throat
+nucleation, the critical-NLS collapse is marginal) — the conceptual answer
+is robust, the numbers model-dependent
+(`nonlinear_antipodal_focusing_pde_probe`, PR #175).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
