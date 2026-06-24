@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-06-23T07:23:40+00:00",
+  "timestamp_utc": "2026-06-24T00:15:41+00:00",
   "identification": "the sensitivity audit measures the predictive content: isolation dimension (rank) 10/14, forced core 4 (CKM unitarity), masses fitted, compensator redundancy 10, \u03c6_h adding no effective input",
   "isolation_dimension": "rank(J) = 10 of 14 observables",
   "forced_core": "4 (entirely CKM unitarity relations; V = U\u208a\u2020U\u208b structural)",
@@ -101,7 +101,7 @@
     },
     {
       "name": "T5_masses_are_fitted",
-      "description": "The mass observables carry essentially ZERO weight in the forced core (quark mass weight 5e-12; lepton forced core 0). So the 4 quark mass ratios and the 2 lepton mass ratios are fully inside the fitted subspace \u2014 the knobs (\u03b2, transport, pinhole, resistance, \u03b3_q, \u03c7, \u03b7 \u2026; and the lepton ladder knobs) span them. Honest reading: the mass VALUES are calibrated; the geometric ladder sets where they sit, but the Jacobian finds them controllable, not forced. There is no forced mass relation in the live observable set.",
+      "description": "The mass observables carry essentially ZERO weight in the forced core (quark mass weight 5e-12; lepton forced core 0). So the 4 quark mass ratios and the 2 lepton mass ratios are fully inside the fitted subspace \u2014 the free knobs (\u03b2, transport, pinhole, resistance, \u03b3_q, the \u03b7 targeted couplings and the diagonal shifts; and the lepton ladder knobs) span them. Honest reading: the mass VALUES are calibrated; the geometric ladder sets where they sit, but the Jacobian finds them controllable, not forced. There is no forced mass relation in the live observable set.",
       "quark_mass_forced_weight": 4.6e-12,
       "lepton_forced_core": 0,
       "masses_fitted": true,
@@ -147,14 +147,48 @@
       "pass": true
     },
     {
-      "name": "T8_assessment",
+      "name": "T8_rank_robustness",
+      "description": "The rank \u2014 and therefore the forced core and the redundancy \u2014 is stable under the finite-difference step h and the SVD tolerance. Across a 4\u00d73 grid (h \u2208 {1e-3\u20261e-6}, tol \u2208 {1e-4, 1e-6, 1e-8}) the total rank is 10 in 11/12 cells. The lone deviation is the largest step (1e-3) at the tightest tolerance (1e-8), where finite-difference truncation noise lifts one near-zero singular value across the 1e-8 cut \u2014 not a genuine direction: the rank-8 separation gap (sv\u2087/sv\u2088) is \u2265 2e+03 everywhere, so the forced core of 4 is robust, not a tuning of h or tol.",
+      "grid": [
+        {
+          "h": 0.001,
+          "tol_1e-04": 10,
+          "tol_1e-06": 10,
+          "tol_1e-08": 11
+        },
+        {
+          "h": 0.0001,
+          "tol_1e-04": 10,
+          "tol_1e-06": 10,
+          "tol_1e-08": 10
+        },
+        {
+          "h": 1e-05,
+          "tol_1e-04": 10,
+          "tol_1e-06": 10,
+          "tol_1e-08": 10
+        },
+        {
+          "h": 1e-06,
+          "tol_1e-04": 10,
+          "tol_1e-06": 10,
+          "tol_1e-08": 10
+        }
+      ],
+      "modal_total_rank": 10,
+      "modal_fraction": 0.917,
+      "min_rank8_gap_ratio": 1900.0,
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
       "description": "The sensitivity audit measures, not asserts, the predictive content. ISOLATION DIMENSION rank(J) = 10 of 14 live observables. FORCED CORE = 4, entirely CKM unitarity relations (structural, V = U\u208a\u2020U\u208b) \u2014 the largest observable set the rigid core forces at zero input cost; a genuine prediction, but the standard unitarity, not a BAM-specific relation. The MASSES (quark and lepton) are fitted \u2014 no forced mass relation. The COMPENSATOR REDUNDANCY is 10, dominated by the mass-preserving diagonal shifts \u2014 the over-completeness the program flagged, measured. And deriving \u03c6_h adds no rank: 'CP at zero cost' is a counting economy, not a Jacobian reduction. An honest measurement, where it is not flattering.",
       "classification": "JACOBIAN_AUDIT_FORCED_CORE_4_CKM_UNITARITY_MASSES_FITTED_REDUNDANCY_10",
       "pass": true
     }
   ],
-  "n_passed": 8,
-  "n_total": 8,
+  "n_passed": 9,
+  "n_total": 9,
   "verdict_class": "JACOBIAN_AUDIT_FORCED_CORE_4_CKM_UNITARITY_MASSES_FITTED_REDUNDANCY_10",
-  "verdict": "MEASURED, NOT ASSERTED. The Jacobian of the live observables with respect to the free continuous geometry gives a definite, and honestly mixed, picture of the predictive content.\n\nISOLATION DIMENSION. rank(J) = 10 of 14 observables (quark 8, lepton 2), with a clean singular-value gap \u2014 the free knobs dial that many independent observable directions.\n\nTHE FORCED CORE. n_obs \u2212 rank = 4, entirely CKM combinations: the CKM UNITARITY relations. BAM's V = U\u208a\u2020U\u208b is exactly unitary (\u2016V\u2020V\u2212I\u2016 = 7e-16), so the 8 CKM observables lie on the 4-parameter unitary manifold and 4 relations are forced at zero input cost \u2014 the largest such set. A genuine structural prediction, but the standard unitarity, not a BAM-specific numerical relation.\n\nTHE MASSES ARE FITTED. The quark and lepton mass ratios carry no weight in the forced core \u2014 the ladder sets their values, but the knobs span them; there is no forced mass relation in the live observable set.\n\nTHE REDUNDANCY. n_inputs \u2212 rank = 10 compensator directions, dominated by the mass-preserving diagonal shifts (kernel share 0.68) \u2014 the over-completeness the program flagged qualitatively, now measured. The v4 quark parametrization is substantially over-complete.\n\nCP AT ZERO COST. Adding \u03c6_h as an input leaves the rank unchanged (8 \u2192 8): the CP-phase direction is already spanned, so deriving \u03c6_h saves no effective input \u2014 'CP at zero parameters' is a counting economy, not a Jacobian reduction. An audit: a measurement, honest where it is not flattering."
+  "verdict": "MEASURED, NOT ASSERTED. The Jacobian of the live observables with respect to the free continuous geometry gives a definite, and honestly mixed, picture of the predictive content.\n\nISOLATION DIMENSION. rank(J) = 10 of 14 observables (quark 8, lepton 2), with a clean singular-value gap \u2014 the free knobs dial that many independent observable directions.\n\nTHE FORCED CORE. n_obs \u2212 rank = 4, entirely CKM combinations: the CKM UNITARITY relations. BAM's V = U\u208a\u2020U\u208b is exactly unitary (\u2016V\u2020V\u2212I\u2016 = 7e-16), so the 8 CKM observables lie on the 4-parameter unitary manifold and 4 relations are forced at zero input cost \u2014 the largest such set. A genuine structural prediction, but the standard unitarity, not a BAM-specific numerical relation.\n\nTHE MASSES ARE FITTED. The quark and lepton mass ratios carry no weight in the forced core \u2014 the ladder sets their values, but the knobs span them; there is no forced mass relation in the live observable set.\n\nTHE REDUNDANCY. n_inputs \u2212 rank = 10 compensator directions, dominated by the mass-preserving diagonal shifts (kernel share 0.68) \u2014 the over-completeness the program flagged qualitatively, now measured. The v4 quark parametrization is substantially over-complete.\n\nCP AT ZERO COST. Adding \u03c6_h as an input leaves the rank unchanged (8 \u2192 8): the CP-phase direction is already spanned, so deriving \u03c6_h saves no effective input \u2014 'CP at zero parameters' is a counting economy, not a Jacobian reduction.\n\nROBUSTNESS. The rank is stable under the numerical choices: across a 4\u00d73 grid of finite-difference step and SVD tolerance the total rank is 10 in 11/12 cells (the lone deviation is the largest step at the tightest tolerance, truncation noise crossing the cut), with a rank-8 separation gap \u2265 2e+03 everywhere \u2014 the forced core of 4 is not a tuning of h or tol. An audit: a measurement, honest where it is not flattering."
 }

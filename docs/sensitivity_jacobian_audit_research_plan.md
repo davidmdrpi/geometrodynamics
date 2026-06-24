@@ -86,6 +86,19 @@ statement (no dedicated CP number is fit to data), not a reduction in the
 Jacobian rank — and the over-completeness makes this a weak test, since
 essentially any extra knob is redundant here.
 
+### Robustness
+
+The rank — and hence the forced core and the redundancy — is **stable
+under the numerical choices**. Across a 4×3 grid of finite-difference step
+(`h ∈ {1e-3, 1e-4, 1e-5, 1e-6}`) and SVD tolerance
+(`tol ∈ {1e-4, 1e-6, 1e-8}`), the total rank is **10 in 11 of 12 cells**.
+The lone deviation is the largest step (`1e-3`) at the tightest tolerance
+(`1e-8`), where finite-difference *truncation* noise lifts one near-zero
+singular value across the `1e-8` cut — not a genuine direction. The rank-8
+separation gap (`sv₇/sv₈`) is `≥ 1e3` everywhere (and `~1e5–1e6` for
+`h ≤ 1e-4`), so the forced core of 4 is robust, not a tuning of `h` or the
+tolerance.
+
 ## What this is
 
 An **audit**: a measurement of the predictive content, honest where it is

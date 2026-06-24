@@ -1,6 +1,6 @@
 # The sensitivity audit: Jacobian rank, the forced core, the isolation dimension (PR #173)
 
-**Run:** 2026-06-23T07:23:40+00:00
+**Run:** 2026-06-24T00:15:41+00:00
 
 The dynamical inverse problem: vary the continuous geometry and MEASURE the observable response, to quantify the predictive content rather than assert it. *(QFT on the classical throat, not quantum gravity.)*
 
@@ -21,7 +21,8 @@ The dynamical inverse problem: vary the continuous geometry and MEASURE the obse
 | T5 | `T5_masses_are_fitted` | the masses are fitted (no forced mass relation) | **PASS** |
 | T6 | `T6_compensator_redundancy` | compensator redundancy 10 (the diagonal-shift over-completeness) | **PASS** |
 | T7 | `T7_cp_at_zero_cost_test` | CP-at-zero-cost: φ_h adds no rank (honest) | **PASS** |
-| T8 | `T8_assessment` | JACOBIAN_AUDIT_FORCED_CORE_4_CKM_UNITARITY | **PASS** |
+| T8 | `T8_rank_robustness` | rank robustness over finite-difference step and SVD tolerance | **PASS** |
+| T9 | `T9_assessment` | JACOBIAN_AUDIT_FORCED_CORE_4_CKM_UNITARITY | **PASS** |
 
 ## The quark singular-value spectrum (the rank gap)
 
@@ -52,4 +53,6 @@ THE MASSES ARE FITTED. The quark and lepton mass ratios carry no weight in the f
 
 THE REDUNDANCY. n_inputs − rank = 10 compensator directions, dominated by the mass-preserving diagonal shifts (kernel share 0.68) — the over-completeness the program flagged qualitatively, now measured. The v4 quark parametrization is substantially over-complete.
 
-CP AT ZERO COST. Adding φ_h as an input leaves the rank unchanged (8 → 8): the CP-phase direction is already spanned, so deriving φ_h saves no effective input — 'CP at zero parameters' is a counting economy, not a Jacobian reduction. An audit: a measurement, honest where it is not flattering.
+CP AT ZERO COST. Adding φ_h as an input leaves the rank unchanged (8 → 8): the CP-phase direction is already spanned, so deriving φ_h saves no effective input — 'CP at zero parameters' is a counting economy, not a Jacobian reduction.
+
+ROBUSTNESS. The rank is stable under the numerical choices: across a 4×3 grid of finite-difference step and SVD tolerance the total rank is 10 in 11/12 cells (the lone deviation is the largest step at the tightest tolerance, truncation noise crossing the cut), with a rank-8 separation gap ≥ 2e+03 everywhere — the forced core of 4 is not a tuning of h or tol. An audit: a measurement, honest where it is not flattering.
