@@ -664,6 +664,38 @@ from the 5D bulk action) and the dynamical q–metric coupling are the
 follow-ups. The throat's three discrete facts become one object: a vortex of
 `q(t,r,θ)` (`throat_order_field_probe`, PR #178).
 
+**Self-gravity-driven throat-order instability (PR #178).** The #178
+throat-order field introduced `q` but coupled it to the geometry only by
+hand. `self_gravity_driven_order_probe` closes the loop: does the
+self-gravitating concentration of #176/#177 merely BIND the wave, or DRIVE
+the order parameter? The matter density `ρ = |ψ|²` (from the #176/#177
+solver, actually run) becomes the control field of a density-dependent
+Landau potential `V(q; ρ) = ½(a₀ − gρ)|q|² + (λ/4)|q|⁴`, so the order
+field's effective mass² `a(ρ) = a₀ − gρ` changes sign at a critical
+concentration `ρ_c = a₀/g`: below it `q = 0` is the only minimum
+(disordered, merely bound), above it `q = 0` destabilizes and the order
+parameter rolls to `|q| = √((gρ − a₀)/λ)` (ordered). **Merely bound:** a
+sub-threshold packet (M = 1) reaches only `ρ_peak ≈ 0.06 < ρ_c`, and the
+order field relaxed under the Ginzburg–Landau gradient flow stays at zero —
+bound, no geometric order. **Drives order:** above the mass threshold
+(M = 3) the collapse drives `ρ_peak ≈ 0.90 > ρ_c` and the order field
+NUCLEATES a localized symmetry-broken domain (`max|q| ≈ 0.68`) at the
+density peak (the throat core of #178). **Gravitational:** with gravity off
+(`G = 0`) the same mass never crosses `ρ_c` (`ρ_peak ≈ 0.18`) and no order
+nucleates; restoring `G` it does — the ordering inherits the `M_c ∝ 1/G`
+gravity of #176/#177. **Dynamical:** driving `q` by the time-dependent
+`ρ_peak(t)` of the collapse, the order parameter switches on only after the
+density crosses `ρ_c` — a moving order front following the gravitational
+concentration. So weak-field concentration does NOT merely bind: above a
+critical concentration, reached only by the gravitational collapse, it
+drives the throat-order parameter off zero and nucleates geometric order.
+Scope: ONE-WAY coupling (`ρ → q`; the self-consistent q–metric back-reaction
+is the next step); the constants `a₀, g, λ` — and so `ρ_c` — are effective
+(the existence of a gravitationally-crossed concentration threshold is the
+result, not its microscopic value); the spatial nucleation carries the usual
+GL droplet-size barrier; still weak-field / semi-dynamical
+(`self_gravity_driven_order_probe`, PR #178).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
