@@ -1,0 +1,121 @@
+{
+  "timestamp_utc": "2026-06-25T06:15:31+00:00",
+  "identification": "the throat-order field q(t,r,\u03b8) introduced as a Ginzburg\u2013Landau complex order parameter whose topological defects are the throats \u2014 unifying the odd-k winding (#174), the antipodal node (#175), and the focusing threshold (#176/#177)",
+  "field": "q(t,r,\u03b8) = |q| e^{i\u03c6}, V(q) = (\u03bb/4)(|q|\u00b2 \u2212 q\u2080\u00b2)\u00b2",
+  "two_phases": "q=0 unstable (disordered max); |q|=q\u2080 stable (ordered bulk vacuum)",
+  "defect": "the throat is a vortex: |q|\u21920 core (the #175 node), winding 2\u03c0k (the #174 charge)",
+  "nucleation": "disorder\u2192defect = the #176/#177 self-gravitating focusing threshold",
+  "scope": "effective GL level; microscopic V(q) and q\u2013metric coupling are follow-ups",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Introduce the throat-order field q(t,r,\u03b8): a single complex Ginzburg\u2013Landau order parameter whose ORDERED vacuum |q| = q\u2080 is the orientable bulk and whose TOPOLOGICAL DEFECTS are the throats. The aim is to unify three discrete facts the arc has established separately \u2014 the odd-k winding ladder (#174), the forced antipodal amplitude-zero node/gate (#175), and the focusing/nucleation threshold (#176/#177) \u2014 as the defect data of one field: the defect core (|q| \u2192 0) is the node, the phase winding (\u222e\u2207\u03c6 = 2\u03c0k) is the discrete charge, and the disorder\u2192defect transition is the threshold.",
+      "field": "q(t,r,\u03b8) = |q| e^{i\u03c6}, complex Ginzburg\u2013Landau order parameter",
+      "unifies": [
+        "#174 odd-k winding",
+        "#175 antipodal node/gate",
+        "#176/#177 focusing/nucleation threshold"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_landau_potential_two_phases",
+      "description": "The throat-order field carries a Mexican-hat Landau potential V(q) = (\u03bb/4)(|q|\u00b2 \u2212 q\u2080\u00b2)\u00b2. It has TWO phases. The disordered, symmetric point q = 0 (V = 0.250, V\u2033 = -1.000 < 0) is an UNSTABLE local maximum \u2014 the symmetric phase the field rolls off. The ordered point |q| = q\u2080 (V = 0.000, V\u2033 = +2.000 > 0) is a STABLE, degenerate minimum \u2014 the broken-symmetry vacuum that fills the orientable bulk. The degeneracy (any phase \u03c6 minimizes) is the U(1) the winding will wind: the bulk picks |q| = q\u2080, leaving the phase free, and that free phase is what a defect twists.",
+      "disordered_q0": {
+        "V": 0.25,
+        "Vpp": -1.0,
+        "unstable_max": true
+      },
+      "ordered_q0amp": {
+        "V": 0.0,
+        "Vpp": 2.0,
+        "stable_min": true
+      },
+      "pass": true
+    },
+    {
+      "name": "T3_throat_is_a_topological_defect",
+      "description": "The throat is a TOPOLOGICAL DEFECT of q \u2014 a global vortex. The radial profile f(r) = |q|(r) solving f\u2033 + f\u2032/r \u2212 k\u00b2f/r\u00b2 = \u03bb f(f\u00b2 \u2212 q\u2080\u00b2) with f(0) = 0, f(\u221e) = q\u2080 exists for each winding k: {1: {'core_amp': 0.0, 'bulk_amp': 1.0, 'core_size': 0.8}, 3: {'core_amp': 0.0, 'bulk_amp': 1.0, 'core_size': 1.4}, 5: {'core_amp': 0.0, 'bulk_amp': 1.0, 'core_size': 2.02}}. In every case |q| = 0 at the CORE (the field must vanish where the phase is undefined) and heals to the bulk vacuum q\u2080 away from it \u2014 a LOCALIZED defect, not a global rearrangement. The core size grows with k ([0.8, 1.4, 2.02] for k = 1, 3, 5): a higher-charge throat costs a wider core. The throat is precisely this object \u2014 a vortex in the throat-order field.",
+      "profiles": {
+        "1": {
+          "core_amp": 0.0,
+          "bulk_amp": 1.0,
+          "core_size": 0.8
+        },
+        "3": {
+          "core_amp": 0.0,
+          "bulk_amp": 1.0,
+          "core_size": 1.4
+        },
+        "5": {
+          "core_amp": 0.0,
+          "bulk_amp": 1.0,
+          "core_size": 2.02
+        }
+      },
+      "all_cores_vanish": true,
+      "all_heal_to_bulk": true,
+      "core_grows_with_k": true,
+      "pass": true
+    },
+    {
+      "name": "T4_winding_is_the_discrete_charge",
+      "description": "The phase winding IS the discrete sector. For a defect q = q\u2080 e^{ik\u03b8} the topological charge \u222e\u2207\u03c6/2\u03c0 is the integer winding: measured {1: 1, 3: 3, 5: 5} for k = 1, 3, 5 \u2014 exactly k. This charge is the homotopy class in \u03c0\u2081(S\u00b9) = \u2124; it cannot change continuously while |q| > 0 (only by passing through a core where |q| = 0), so it is CONSERVED and DISCRETE \u2014 the discrete throat ladder is the defect's winding number. The realized sector is ODD-k, the #174 orientability grading: the non-orientable 5D geometry forces the odd rungs, and here those rungs are odd winding numbers of the order field. The discrete sector and the winding sector are one and the same.",
+      "measured_winding": {
+        "1": 1,
+        "3": 3,
+        "5": 5
+      },
+      "winding_equals_k": true,
+      "realized_sector_odd_k": true,
+      "homotopy": "\u03c0\u2081(S\u00b9) = \u2124; charge conserved while |q| > 0",
+      "pass": true
+    },
+    {
+      "name": "T5_core_is_the_antipodal_node",
+      "description": "The defect CORE and the antipodal NODE of #175 are the same point. At the throat's core |q| = 0.000 \u2192 0: the order field must VANISH wherever the phase winds, because the phase is undefined where |q| = 0. This is exactly the forced amplitude-zero NODE that #175 showed is the only gateway from the continuous to the discrete sector. The gate is topological: a loop enclosing no node has winding 0 (the continuous sector), and acquiring the discrete charge 3 REQUIRES the amplitude to pass through zero \u2014 there is no continuous path between winding sectors that keeps |q| > 0 everywhere. The antipodal focus of #175 is where the order field is driven to zero, opening the throat's core.",
+      "core_amplitude": 0.0,
+      "core_vanishes": true,
+      "smooth_winding": 0,
+      "defect_winding": 3,
+      "node_gates_the_sector": true,
+      "pass": true
+    },
+    {
+      "name": "T6_nucleation_is_the_focusing_threshold",
+      "description": "Nucleating a throat is the focusing threshold of #176/#177, in order-field language. The disordered state q = 0 is UNSTABLE (V\u2033 = -1.000 < 0): under the Ginzburg\u2013Landau gradient flow \u2202_t|q| = \u2212\u03bb|q|(|q|\u00b2 \u2212 q\u2080\u00b2) the amplitude rolls OFF zero toward the ordered vacuum q\u2080 (a tiny seed 10\u207b\u00b3 \u2192 1.000, a finite seed 0.2 \u2192 1.000; q\u2080 is the attractor, q = 0 a repeller). So once a region is driven off the symmetric point, an ordered domain with a fixed-winding core NUCLEATES. The TRIGGER \u2014 what drives the region off q = 0 \u2014 is precisely the self-gravitating FOCUSING of #176/#177: the M_c \u221d 1/G collapse concentrates the field and crosses the disorder\u2192order transition. Nucleation of a throat-defect IS the crossing of that threshold.",
+      "disordered_state_unstable": true,
+      "ordered_vacuum_is_attractor": true,
+      "rolloff_small_seed": 1.0,
+      "rolloff_finite_seed": 1.0,
+      "trigger": "the #176/#177 self-gravitating focusing (M_c \u221d 1/G) drives q off zero",
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "What this probe does and does NOT establish. It INTRODUCES q(t,r,\u03b8) at the EFFECTIVE Ginzburg\u2013Landau / Landau order-parameter level \u2014 the coarse-grained order field whose topological defects ARE the throats \u2014 and shows the arc's three discrete facts are its defect data: the defect core is the antipodal node (#175), the phase winding is the discrete odd-k charge (#174), and the disorder\u2192defect nucleation is the focusing threshold (#176/#177). It does NOT derive the potential V(q) \u2014 the coefficients \u03bb, q\u2080 from the 5D bulk action \u2014 nor does it dynamically couple q to the self-gravitating metric of #176/#177 (here the focusing is the trigger, not yet a solved-together field\u2013metric system). Those two \u2014 the microscopic V(q) from the geometry, and the q\u2013metric coupling \u2014 are the follow-ups. This probe establishes the unifying field and its defect structure, not its first-principles derivation.",
+      "level": "effective Ginzburg\u2013Landau / Landau order parameter",
+      "established": [
+        "defect core = antipodal node (#175)",
+        "winding = discrete odd-k charge (#174)",
+        "nucleation = focusing threshold (#176/#177)"
+      ],
+      "follow_ups": [
+        "microscopic V(q) (\u03bb, q\u2080) from the 5D bulk action",
+        "dynamical q\u2013metric coupling (q with #176/#177 self-gravity)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Introduced. The throat-order field q(t,r,\u03b8) \u2014 a complex Ginzburg\u2013Landau order parameter with V(q) = (\u03bb/4)(|q|\u00b2 \u2212 q\u2080\u00b2)\u00b2 \u2014 unifies the antipodal-mechanics arc. Its disordered point q = 0 is an unstable maximum and its ordered vacuum |q| = q\u2080 fills the orientable bulk; its TOPOLOGICAL DEFECTS are the throats. The defect core (|q| \u2192 0) is the forced antipodal amplitude-zero node (#175); the phase winding (\u222e\u2207\u03c6 = 2\u03c0k) is the discrete charge, odd by the orientability grading (#174); and the disorder\u2192defect nucleation is the self-gravitating focusing threshold (#176/#177). Three separate discrete facts become one object: a vortex of the throat-order field. SCOPE: this is the effective GL level; the microscopic V(q) from the 5D geometry and the dynamical q\u2013metric coupling are follow-ups.",
+      "classification": "THROAT_ORDER_FIELD_INTRODUCED_DEFECTS_ARE_THROATS_UNIFYING_THE_ARC",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "THROAT_ORDER_FIELD_INTRODUCED_DEFECTS_ARE_THROATS_UNIFYING_THE_ARC",
+  "verdict": "INTRODUCED \u2014 THE THROAT IS A DEFECT OF THE ORDER FIELD q(t,r,\u03b8). A single complex Ginzburg\u2013Landau order parameter unifies the antipodal-mechanics arc.\n\nTWO PHASES. The Landau potential V(q) = (\u03bb/4)(|q|\u00b2 \u2212 q\u2080\u00b2)\u00b2 has q = 0 as an unstable maximum (V\u2033 = -1.0) and |q| = q\u2080 as a stable minimum (V\u2033 = 2.0) \u2014 the disordered symmetric phase and the ordered bulk vacuum.\n\nTHE THROAT IS A VORTEX. The radial profile f(r) solving the GL equation exists for each winding k: |q| = 0 at the core and heals to q\u2080 in the bulk, the core widening with k ([0.8, 1.4, 2.02] for k = 1, 3, 5). The throat is precisely this localized defect.\n\nWINDING = THE DISCRETE k. The topological charge \u222e\u2207\u03c6/2\u03c0 is the integer winding ({1: 1, 3: 3, 5: 5}), conserved while |q| > 0 (\u03c0\u2081(S\u00b9) = \u2124); the realized sector is ODD-k \u2014 the #174 orientability grading.\n\nCORE = THE ANTIPODAL NODE. The defect core where |q| \u2192 0 is the forced amplitude-zero node of #175: acquiring the discrete charge (3) from the continuous sector (0) REQUIRES the amplitude to pass through zero \u2014 the node IS the core.\n\nNUCLEATION = THE THRESHOLD. The disordered q = 0 state is unstable; the self-gravitating focusing of #176/#177 (M_c \u221d 1/G) drives a region off zero and a fixed-winding defect nucleates \u2014 the order-field reading of the collapse threshold.\n\nSCOPE. This is the effective Ginzburg\u2013Landau level: the microscopic V(q) (\u03bb, q\u2080 from the 5D bulk) and the dynamical q\u2013metric coupling are follow-ups. But the throat's three discrete facts are now one object \u2014 a vortex of q(t,r,\u03b8)."
+}

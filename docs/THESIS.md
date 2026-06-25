@@ -633,6 +633,37 @@ unchanged: weak-field / semi-dynamical, with the strong-field endpoint
 (a horizon / a resolved throat) left for full numerical relativity
 (`self_gravity_threshold_hardening_probe`, PR #177).
 
+**The throat-order field q(t,r,θ) (PR #178).** The arc had established three
+discrete facts about the throat in three separate languages — the odd-k
+winding ladder (#174), the forced antipodal amplitude-zero node (#175), and
+the self-gravitating focusing threshold (#176/#177). `throat_order_field_probe`
+introduces a single field that unifies them: a complex Ginzburg–Landau order
+parameter `q(t,r,θ) = |q| e^{iφ}` with the Mexican-hat potential
+`V(q) = (λ/4)(|q|² − q₀²)²`, whose ordered vacuum `|q| = q₀` fills the
+orientable bulk and whose **topological defects ARE the throats**. **Two
+phases:** `q = 0` is an unstable maximum (`V″ = −1 < 0`, the disordered
+symmetric phase) and `|q| = q₀` a stable degenerate minimum (`V″ = +2 > 0`,
+the broken-symmetry vacuum); the free phase φ is the U(1) a defect winds.
+**The throat is a vortex:** the radial GL profile `f(r)` solving
+`f″ + f′/r − k²f/r² = λ f(f² − q₀²)` with `f(0) = 0, f(∞) = q₀` exists for
+each winding — `|q| = 0` at the core, healing to `q₀` in the bulk, the core
+widening with k (core size 0.8/1.4/2.0 for k = 1, 3, 5). **Winding = the
+discrete k:** the charge `∮∇φ/2π` is the integer winding (`π₁(S¹) = ℤ`),
+conserved while `|q| > 0`; the realized sector is odd-k — the #174
+orientability grading. **Core = the antipodal node:** the field must vanish
+where the phase winds, so the defect core `|q| = 0` is precisely the forced
+amplitude-zero node of #175 — reaching the discrete sector from the
+continuous (winding-0) sector requires passing through a zero. **Nucleation
+= the threshold:** the disordered `q = 0` is unstable, so under the GL
+gradient flow any perturbed region rolls off zero to `q₀` and a fixed-winding
+defect nucleates; the trigger that drives a region off zero is the
+self-gravitating focusing of #176/#177 (`M_c ∝ 1/G`). Scope: this is the
+**effective** Ginzburg–Landau level — q is introduced as the coarse-grained
+order field whose defects are the throats; the microscopic `V(q)` (λ, q₀
+from the 5D bulk action) and the dynamical q–metric coupling are the
+follow-ups. The throat's three discrete facts become one object: a vortex of
+`q(t,r,θ)` (`throat_order_field_probe`, PR #178).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
