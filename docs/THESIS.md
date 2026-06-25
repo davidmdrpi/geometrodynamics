@@ -696,6 +696,41 @@ result, not its microscopic value); the spatial nucleation carries the usual
 GL droplet-size barrier; still weak-field / semi-dynamical
 (`self_gravity_driven_order_probe`, PR #178).
 
+**Two-way ψ–Φ–q evolution: the self-consistent throat-soliton (PR #179).**
+PR #178 coupled the geometry to the order field ONE way (`ρ → q`; `q`
+neither gravitated nor acted on the wave). `two_way_psi_phi_q_probe` closes
+the loop into the full two-way system of three co-evolving fields — the
+matter wave `ψ`, the gravitational potential `Φ`, and the throat-order field
+`q` — all descending from one energy functional `E[ψ,q] = ∫[½|∇ψ|² +
+½κ|∇q|² + ½a₀q² + ¼λq⁴ − ½g|ψ|²q²] + W_grav[|ψ|² + μq²]`. Its fixed-mass
+gradient flow is `∂_τψ = ½∇²ψ − Φψ + ½g q²ψ`, `∂_τq = κ∇²q − (a₀−g|ψ|²)q −
+λq³`, `∇²Φ = 4πG(|ψ|² + μq²)`, so the four back-reaction channels are all
+live: ψ↔Φ (Schrödinger–Newton, #176/#177), ψ→q (the density orders q,
+#178), q→ψ (the ordered throat core binds the wave, NEW), q→Φ (the order
+field gravitates, NEW); the ordering and binding terms share the same `g`,
+so the coupling is consistent, not hand-wired. **Self-consistent:** the
+coupled flow converges — energy monotone → plateau, q stationarity residual
+`~10⁻⁴` — a self-consistent throat-soliton exists. **Two-way back-reaction:**
+at super-threshold mass the order field nucleates and, versus the pure
+Schrödinger–Newton soliton, the self-consistent state has a deeper well
+(`Φ(0) = −3.18` vs `−3.03`, ~5% deeper) and a denser core (~13% denser) —
+the throat traps the wave, which concentrates it, which strengthens the
+order. **Saturation vs collapse:** with sub-critical self-gravity the
+quartic `λq⁴` saturates the feedback into a stable bound soliton (`|q|`
+plateaus; intermediate μ gives a denser soliton), but super-critical
+self-gravity has no weak-field fixed point and the flow diverges (`max|q| →
+31`, `Φ(0) → −252`) — the onset of strong-field gravitational collapse.
+**Continuity:** below the ordering threshold the order field vanishes and the
+system reduces exactly to the Schrödinger–Newton soliton of #176/#177 — the
+#176 → #178 → #179 arc is one continuous system, switched by the matter
+concentration. So the throat-order field is not a passive readout of the
+geometry; closing the loop it back-reacts both ways, forming a
+self-consistent throat-soliton. Scope: weak-field, semi-dynamical,
+spherically reduced (the self-gravity sphericalizes, #176); the constants
+are effective (the structure is the result); the stable soliton is
+sub-critical and the strong-field runaway endpoint is for full numerical
+relativity (`two_way_psi_phi_q_probe`, PR #179).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
