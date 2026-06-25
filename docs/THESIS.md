@@ -584,6 +584,32 @@ nucleation, the critical-NLS collapse is marginal) — the conceptual answer
 is robust, the numbers model-dependent
 (`nonlinear_antipodal_focusing_pde_probe`, PR #175).
 
+**Does real GR back the focusing threshold? (PR #176).** The #175 sandbox
+used a 1D ring with an *ad-hoc* focusing nonlinearity `g|ψ|^p`; the next
+step replaces the proxy with real (weak-field) general relativity. A
+semi-dynamical, **axisymmetric** self-gravitating scalar
+(`self_gravitating_axisymmetric_probe`) evolves `ψ(r,θ,t)` under
+`i∂_t ψ = −½∇²ψ + Φ ψ` with the metric potential `∇²Φ = 4πG|ψ|²`
+(`g_tt = −(1+2Φ)`, the weak-field Einstein–Klein–Gordon / Schrödinger–Newton
+system) — the field in the `(r,ℓ)` Legendre basis, the radial Laplacian by a
+Dirichlet sine transform, and `Φ(r,θ)` from the axisymmetric multipole
+Poisson each step (split-step, mass-conserving to ~10⁻³). The disperse/
+collapse **threshold survives** under actual gravitational back-reaction:
+below a critical mass the packet disperses (the metric stays shallow), above
+it the self-gravity concentrates it (the metric well deepens, runaway). The
+decisive check that this is GRAVITY and not a tuned nonlinearity is the
+**`1/G` scaling** of the critical mass — `G=0.5: >3.2`, `G=1: 2.29`,
+`G=2: 1.10`, halving from `G=1` to `G=2` (ratio `0.48 ≈ 0.5`). So real
+weak-field GR backs the antipodal-focusing threshold of #166/#175 and the
+nucleation of #58. Honest scope: semi-dynamical weak-field GR — the field
+evolves while the metric responds quasi-statically (not full numerical
+relativity); the threshold and concentration (the throat-formation analog)
+are confirmed, but the strong-field endpoint (a horizon / a resolved throat)
+is for full NR, and self-gravity sphericalizes (the monopole dominates), so
+the collapse is predominantly radial — the axisymmetric machinery is
+exercised, not a directional jet claimed
+(`self_gravitating_axisymmetric_probe`, PR #176).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
