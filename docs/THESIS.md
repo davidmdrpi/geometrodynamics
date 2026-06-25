@@ -610,6 +610,29 @@ the collapse is predominantly radial — the axisymmetric machinery is
 exercised, not a directional jet claimed
 (`self_gravitating_axisymmetric_probe`, PR #176).
 
+**The self-gravity threshold, hardened into a benchmark (PR #177).** PR #176
+was a promising proxy; `self_gravity_threshold_hardening_probe` turns it
+into a trustworthy PDE benchmark with controls, scaling, and robustness.
+**Controls:** with `G = 0` (gravity off) the packet never concentrates at
+any mass, and with repulsive gravity (`G < 0`) it never collapses — the
+threshold requires attractive gravity, not the packet or the grid.
+**Energy anchor:** the total energy `E = T + W` (kinetic + gravitational
+self-energy) defines the rigorous binding threshold `M_bind` (where
+`E = 0`); below it the core mass drains (disperse, `E > 0`), above it the
+core holds (bound, `E < 0`) — the dynamical disperse/bound transition
+tracks the energy sign, an independent physics check on the integrator.
+**Scaling:** the product `M_bind·G` is constant to `0.69%` across
+`G ∈ {0.5, 1, 2}` (`1.134, 1.133, 1.127`) — the `1/G` law sharpened from
+#176's coarse 0.48 to <1% — and the Schrödinger–Newton invariant
+`M_bind·G·w ≈ const` holds across widths. **Robustness:** `M_bind`
+converges to ~1–2% under radial-grid refinement and the split-step
+integrator conserves mass to ~10⁻³. The weak-field self-gravity collapse
+threshold is therefore gravitational, energy-validated, `1/G`-scaling to
+<1%, and grid-converged — a benchmark, not a proxy. Standing scope
+unchanged: weak-field / semi-dynamical, with the strong-field endpoint
+(a horizon / a resolved throat) left for full numerical relativity
+(`self_gravity_threshold_hardening_probe`, PR #177).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
