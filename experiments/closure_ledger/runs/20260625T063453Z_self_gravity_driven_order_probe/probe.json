@@ -1,0 +1,96 @@
+{
+  "timestamp_utc": "2026-06-25T06:34:53+00:00",
+  "identification": "weak-field self-gravity drives the throat-order parameter: coupling the #176/#177 concentration to the #178 order field, the matter density is the control parameter of a geometric phase transition \u2014 bind-only below a critical concentration \u03c1_c, order-nucleating above it, gravitationally crossed and dynamical",
+  "coupling": "V(q;\u03c1) = \u00bd(a\u2080 \u2212 g\u03c1)|q|\u00b2 + (\u03bb/4)|q|\u2074; a(\u03c1)=a\u2080\u2212g\u03c1; \u03c1_c=a\u2080/g",
+  "merely_bound": "sub-threshold \u03c1_peak < \u03c1_c \u2192 q = 0 (no geometric order)",
+  "drives_order": "super-threshold collapse \u03c1_peak > \u03c1_c \u2192 q nucleates at the core",
+  "gravitational": "G=0 never crosses \u03c1_c \u2192 no order; restoring G nucleates it",
+  "scope": "one-way coupling (q metric back-reaction pending); effective constants; weak-field",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Couple the #176/#177 weak-field self-gravity solver to the #178 throat-order field q, and ask the decisive question: does the gravitational CONCENTRATION merely BIND the wave (a bound lump in the disordered q = 0 phase), or does it DRIVE the order parameter \u2014 nucleating geometric order? The matter density \u03c1 = |\u03c8|\u00b2 becomes the control field of a density-dependent Landau potential V(q; \u03c1) = \u00bd(a\u2080 \u2212 g\u03c1)|q|\u00b2 + (\u03bb/4)|q|\u2074, so the order field's effective mass\u00b2 a(\u03c1) = a\u2080 \u2212 g\u03c1 changes sign at a critical concentration \u03c1_c = a\u2080/g. The test is whether the self-gravity collapse carries \u03c1 across \u03c1_c.",
+      "couples": "#176/#177 self-gravity (\u03c1=|\u03c8|\u00b2) \u2192 #178 order field q",
+      "potential": "V(q;\u03c1) = \u00bd(a\u2080 \u2212 g\u03c1)|q|\u00b2 + (\u03bb/4)|q|\u2074",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_density_coupled_landau_potential",
+      "description": "The order field carries a DENSITY-COUPLED Landau potential V(q; \u03c1) = \u00bd(a\u2080 \u2212 g\u03c1)|q|\u00b2 + (\u03bb/4)|q|\u2074, so its effective mass\u00b2 is a(\u03c1) = a\u2080 \u2212 g\u03c1 (a\u2080 = 0.3, g = 1.0, \u03bb = 1.0). It changes sign at the CRITICAL CONCENTRATION \u03c1_c = a\u2080/g = 0.300. Dilute (\u03c1 = 0.150 < \u03c1_c): a = +0.150 > 0, the only minimum is q = 0 (DISORDERED \u2014 the wave can be bound but carries no geometric order). Dense (\u03c1 = 0.600 > \u03c1_c): a = -0.300 < 0, q = 0 destabilizes and the order parameter rolls to |q| = 0.548 = \u221a((g\u03c1 \u2212 a\u2080)/\u03bb) (ORDERED \u2014 symmetry broken). Concentration is the control parameter of a geometric phase transition.",
+      "rho_c": 0.3,
+      "dilute_a_and_disordered": true,
+      "dense_a_and_ordered": true,
+      "ordered_amplitude_dense": 0.5477,
+      "pass": true
+    },
+    {
+      "name": "T3_merely_bound_no_order",
+      "description": "MERELY BOUND. A sub-threshold self-gravitating packet (M = 1, G = 1) concentrates only weakly: the peak density reaches \u03c1_peak = 0.062 < \u03c1_c = 0.300. With \u03c1 below the critical concentration everywhere, the order field relaxed under the Ginzburg\u2013Landau flow stays at zero (max |q| = 1.07e-10) \u2014 the disordered phase. The wave is bound (or dispersing), but the geometry carries NO order: concentration alone, below \u03c1_c, does not nucleate a throat.",
+      "rho_peak": 0.0617,
+      "rho_c": 0.3,
+      "below_rho_c": true,
+      "max_order_amplitude": 1.0698072986769769e-10,
+      "no_order": true,
+      "pass": true
+    },
+    {
+      "name": "T4_drives_order_nucleation",
+      "description": "DRIVES ORDER. Above the mass threshold (M = 3, G = 1) the self-gravity collapse concentrates the packet to \u03c1_peak = 0.896 > \u03c1_c = 0.300: the matter density crosses the critical concentration. The order field relaxed under the Ginzburg\u2013Landau flow NUCLEATES a localized symmetry-broken domain \u2014 max |q| = 0.681 > 0 \u2014 sitting at the density peak (\u03c1 peak at r = 0.12, order peak at r = 0.12: co-located). The gravitational collapse drives the throat-order parameter off zero: a geometric ordered core (the throat of #178) nucleates where the matter concentrates.",
+      "rho_peak": 0.8957,
+      "above_rho_c": true,
+      "max_order_amplitude": 0.6813,
+      "order_co_located_with_density_peak": "True",
+      "pass": "True"
+    },
+    {
+      "name": "T5_ordering_is_gravitational",
+      "description": "The ordering is DRIVEN BY SELF-GRAVITY, not the bare amplitude. With gravity OFF (G = 0) the SAME high-mass packet (M = 3) never concentrates past the threshold \u2014 \u03c1_peak = 0.184 < \u03c1_c = 0.300 \u2014 so the order field stays at zero (max |q| = 1.46e-08): no nucleation. Restoring gravity (G = 1) the same mass concentrates to \u03c1_peak = 0.896 > \u03c1_c and the order field nucleates (max |q| = 0.681). It is the gravitational concentration \u2014 not the mass or amplitude on its own \u2014 that carries the density across \u03c1_c and drives the geometric order. The ordering inherits the M_c \u221d 1/G gravity of #176/#177.",
+      "rho_peak_G0": 0.1839,
+      "G0_below_rho_c": true,
+      "G0_no_order": true,
+      "max_order_G0": 1.4561830450777018e-08,
+      "G1_same_mass_orders": true,
+      "max_order_G1": 0.6813,
+      "pass": true
+    },
+    {
+      "name": "T6_dynamical_order_front",
+      "description": "DYNAMICAL. Co-evolving the order parameter under the Ginzburg\u2013Landau gradient flow sourced by the time-dependent peak density \u03c1_peak(t) of the collapse, the order field switches ON exactly when the density crosses \u03c1_c. The density first exceeds \u03c1_c at step 210 of the collapse, and the order parameter switches on (|q| > 0.1) at step 380 \u2014 after, not before, the crossing (the response is causal in the density drive). The final ordered amplitude is |q| = 0.771. The geometric order is not pre-existing; it is switched on by the gravitational concentration as a moving order front following the collapse \u2014 the dynamical nucleation of the throat-order field.",
+      "rho_crossed_rho_c_at_step": 210,
+      "order_switched_on_at_step": 380,
+      "causal_order_follows_density": true,
+      "final_order_amplitude": 0.7709,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "What this probe does and does NOT establish. It couples the #176/#177 self-gravity solver (the actual PDE, run here) to the #178 order field and shows the concentration DRIVES the order parameter \u2014 bind-only below a critical concentration, order-nucleating above it, and gravitational (G = 0 never crosses it). But the coupling is ONE-WAY: the self-gravitating \u03c1(t) drives q, while q's back-reaction on the metric is NOT yet included \u2014 the fully self-consistent q\u2013metric system (q sourcing the geometry it nucleates in) is the next step. The coupling constants (a\u2080, g, \u03bb), and hence the numerical \u03c1_c, are EFFECTIVE \u2014 chosen to place the order transition inside the collapse's reachable density range; the physics result is the EXISTENCE of a gravitationally-crossed concentration threshold separating bind-only from drive-order, not the specific \u03c1_c (its microscopic value awaits V(q) derived from the 5D bulk). And the SPATIAL nucleation carries the usual Ginzburg\u2013Landau droplet-size barrier \u2014 the ordered core must exceed the coherence length \u03be = \u221a(\u03ba/|a|) \u2014 so the spatial ordering threshold sits somewhat ABOVE the local a(\u03c1) = 0 crossing; the sub-/super-threshold cases here (M = 1 vs M = 3) are chosen well-separated so the qualitative bind-vs-drive split is robust. Still weak-field / semi-dynamical.",
+      "established": [
+        "concentration drives the order parameter (not merely binds)",
+        "bind-only below \u03c1_c, order-nucleating above",
+        "ordering is gravitational (G=0 never crosses \u03c1_c)"
+      ],
+      "scope": [
+        "one-way coupling (\u03c1\u2192q; q back-reaction on metric pending)",
+        "effective constants a\u2080,g,\u03bb (\u03c1_c value not microscopic)",
+        "weak-field / semi-dynamical (not full NR)"
+      ],
+      "follow_ups": [
+        "self-consistent q\u2013metric system",
+        "microscopic V(q) (a\u2080, g, \u03bb) from the 5D bulk action"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Answered. Weak-field self-gravity does NOT merely bind the wave. Coupling the #176/#177 self-gravity solver to the #178 throat-order field through a density-dependent Landau potential V(q; \u03c1) = \u00bd(a\u2080 \u2212 g\u03c1)|q|\u00b2 + (\u03bb/4)|q|\u2074, the matter concentration is the control parameter of a geometric phase transition: below a critical concentration \u03c1_c the order field stays at zero (merely bound, no geometric order), while above it \u2014 reached only by the super-threshold gravitational collapse \u2014 the order parameter nucleates a localized symmetry-broken domain at the density peak (the throat core). The transition is gravitational (gravity off never crosses \u03c1_c) and dynamical (the order switches on as \u03c1_peak(t) crosses \u03c1_c). So the concentration of #176/#177 DRIVES the order field of #178: the collapse carries the matter density across the order transition and nucleates geometric order. Scope: one-way coupling (q's metric back-reaction pending), effective constants (\u03c1_c not yet microscopic), weak-field.",
+      "classification": "SELF_GRAVITY_DRIVES_THROAT_ORDER_ABOVE_A_CRITICAL_CONCENTRATION_NOT_MERELY_BINDING",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "SELF_GRAVITY_DRIVES_THROAT_ORDER_ABOVE_A_CRITICAL_CONCENTRATION_NOT_MERELY_BINDING",
+  "verdict": "DRIVES ORDER \u2014 NOT MERELY BINDING. Coupling the #176/#177 self-gravity solver to the #178 throat-order field, the gravitational concentration drives the order parameter off zero.\n\nTHE COUPLING. The matter density \u03c1 = |\u03c8|\u00b2 is the control field of a density-dependent Landau potential V(q; \u03c1) = \u00bd(a\u2080 \u2212 g\u03c1)|q|\u00b2 + (\u03bb/4)|q|\u2074; the order field's effective mass\u00b2 a(\u03c1) = a\u2080 \u2212 g\u03c1 changes sign at \u03c1_c = 0.300.\n\nMERELY BOUND (sub-threshold). A sub-threshold packet (M = 1) reaches only \u03c1_peak = 0.062 < \u03c1_c, and the order field relaxes to zero (max |q| = 1.1e-10) \u2014 bound, but no geometric order.\n\nDRIVES ORDER (super-threshold). Above the mass threshold (M = 3) the collapse drives \u03c1_peak = 0.896 > \u03c1_c and the order field NUCLEATES (max |q| = 0.681) \u2014 a localized symmetry-broken domain at the density peak (the throat core).\n\nGRAVITATIONAL. With gravity off (G = 0) the same mass never crosses \u03c1_c (\u03c1_peak = 0.184) and no order nucleates; restoring gravity it does \u2014 the ordering inherits the M_c \u221d 1/G gravity of #176/#177.\n\nDYNAMICAL. Driving q by the time-dependent \u03c1_peak(t) of the collapse, the order parameter switches on (step 380) after the density crosses \u03c1_c (step 210) \u2014 a moving order front following the gravitational concentration.\n\nSCOPE. One-way coupling (q's metric back-reaction pending); the constants a\u2080, g, \u03bb \u2014 and so \u03c1_c \u2014 are effective (the existence of a gravitationally-crossed concentration threshold is the result, not its microscopic value); weak-field. The collapse of #176/#177 carries the matter density across the order transition and nucleates the throat-order field of #178."
+}
