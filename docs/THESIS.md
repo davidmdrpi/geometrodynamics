@@ -796,6 +796,38 @@ the realized PHYSICAL ladder is odd-k {1, 3, 5} by the #174 orientability
 grading, with its survival under a deformed bulk geometry the subject of #183;
 weak-field (`discrete_invariant_survival_probe`, PR #181).
 
+**The phase-slip / topology-change event (PR #182).** PR #181 showed the
+winding charge survives the continuous evolution while `|q| > 0` and can
+change only where `|q| = 0`. `phase_slip_topology_change_probe` dissects that
+event — exactly how the invariant changes when `q` hits zero. **The
+obstruction:** `Q` is a homotopy invariant of `q: S¹ → ℂ∖{0}`, so to change it
+the field must leave `ℂ∖{0}`; the straight homotopy `(1−s)·[winding 1] +
+s·[winding 0]` is FORCED through an exact zero (`min|q| = 2.5×10⁻¹⁷` at
+`s* = 0.5`, located at `φ* = π`), where `Q` jumps 1 → 0 — there is no
+nowhere-zero path between the sectors (the dynamical content of the #175
+gate). **The quantum:** across that simple zero `ΔQ = −1` exactly — the
+integrated winding density `∮∇φ` changes by `−2π` (one full turn removed at
+the zero point); a generic simple zero carries unit topological charge, so
+each elementary slip is `±1`. **The dynamics:** in a genuine ψ–Φ–q evolution
+`Q(t)` is piecewise-constant and steps by `±1` EXACTLY at the instants
+`min|q|(t) → 0` — a single slip (the unsustained k = 5 holds flat then steps
+−1 to 4 at a zero) or a quantized STAIRCASE (k = 8 cascading
+`[8,7,5,4,3,2]`, every step at an amplitude-zero event, shedding winding one
+quantum at a time; a recorded `−2` step is two elementary slips unresolved in
+sampling time). **Localization:** away from the slips (`min|q| > 0.1`) the
+unrounded winding equals an integer to `10⁻¹⁵` — `Q` is a rigid integer
+between events, ambiguous only at the measure-zero set of amplitude zeros. The
+phase slip is the throat changing its winding / generation sector
+(`k → k∓1`) through the amplitude-zero node — the #175 antipodal node, the
+#178 defect core: the #175 gate made into the sector-CHANGING event itself.
+With #181 (survival between events), the throat's winding is a conserved
+topological charge that transitions ONLY at nodes; the realized ladder is
+odd-k by the #174 orientability grading, its survival under a deformed bulk
+geometry the subject of #183. Scope: the obstruction and the `±1` quantum are
+exact (topological); the dynamical staircase is on the reduced
+vortex-on-soliton loop (the full 2D/3D vortex-line reconnection is a
+follow-up); weak-field (`phase_slip_topology_change_probe`, PR #182).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
