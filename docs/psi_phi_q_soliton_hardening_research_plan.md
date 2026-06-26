@@ -10,26 +10,29 @@ throat-soliton. This probe hardens it into a trustworthy object — with the
 three things such a result needs — and **re-examines the #179 collapse claim
 with a better-conditioned solver**.
 
-The key methodological upgrade: ψ's kinetic is put on an
-**operator-consistent spectral basis** (`u = rψ`, DST-I for the radial
-second derivative), so the imaginary-time relaxation and the real-time
-evolution use the **same** Laplacian. (In #179 the relaxation used a
-finite-difference `np.gradient` Laplacian; mixing that with a spectral
-real-time operator would spuriously perturb the state.)
+The key methodological upgrade: ψ's kinetic is put on a **spectral basis**
+(`u = rψ`, DST-I for the radial second derivative) — **the order field `q`
+keeps its finite-difference Laplacian, so this is not a fully spectral ψ–q
+solver** — so the imaginary-time relaxation and the real-time step use the
+**same ψ** Laplacian. (In #179 the relaxation used a finite-difference
+`np.gradient` ψ Laplacian; mixing that with a spectral real-time operator
+would spuriously perturb the state.)
 
-## Stationarity — a genuine real-time eigenstate
+## Stationarity — a genuine eigenstate
 
-The relaxed state is a genuine stationary eigenstate, not just a
-gradient-flow endpoint:
+The relaxed state is a genuine stationary eigenstate of its self-consistent
+potential, not just a gradient-flow endpoint:
 
 - **Eigenstate residual** `‖Hψ − μψ‖/‖ψ‖ ≈ 10⁻⁴` (chemical potential
   `μ ≈ −1.45`): `Hψ = μψ`.
-- **Real-time persistence**: a unitary split-step evolution under the
-  self-consistent `V_eff = Φ + ½g q²` leaves the profile stationary (max
+- **Real-time persistence of ψ in the frozen background**: evolving **ψ
+  alone** by a unitary split-step in the **frozen** self-consistent
+  `V_eff = Φ + ½g q²` (Φ and q held fixed) leaves the profile stationary (max
   `|ψ|` drift `~4×10⁻⁵`) and conserves mass to machine precision.
 
-The two-way throat-soliton is a real bound state that persists under real
-dynamics.
+So ψ is a stationary eigenstate of its self-consistent potential — a real
+bound soliton. (The fully coupled real-time ψ–Φ–q dynamics, with Φ and q
+also evolving, is a follow-up; here the background is frozen.)
 
 ## Branch scan — a smooth family
 
@@ -64,13 +67,14 @@ self-consistent fixed point, no blow-up.
 
 PR #179 reported that super-critical `q`-self-gravity drives a **runaway
 collapse** (`|q| → 31`, `Φ(0) → −252`). That used a finite-difference
-(`np.gradient`) Laplacian. With the operator-consistent **spectral** kinetic
-here, the μ branch is smooth and convergent up to `μ = 2` — **the apparent
-runaway was a discretization artifact** of the FD scheme.
+(`np.gradient`) ψ Laplacian. With the **spectral ψ kinetic** here, the μ
+branch is smooth and convergent over the tested range `μ ∈ [0.05, 2]` — **the
+apparent runaway was a discretization artifact** of the FD scheme.
 
 The genuine large-μ limit is **not** a numerical runaway but the soliton
-**deepening out of weak-field validity** (`Φ(0)` from −3 to −25 and beyond as
-`μ` grows) — the strong-field domain for full numerical relativity.
+**deepening out of weak-field validity** (`Φ(0)` from −3.09 to −24.6 across
+the tested `μ ∈ [0.05, 2]`) — the strong-field domain for full numerical
+relativity.
 
 **What survives #179** — the soliton's existence, two-way back-reaction
 (deeper well / denser core), and threshold continuity — is confirmed and
@@ -78,15 +82,18 @@ hardened; the specific "runaway" claim does not survive as stated.
 
 ## Basin map — a robust attractor
 
-Initial conditions varied over Gaussian width and order-seed all flow to the
-**same** soliton:
+The **full** initial-condition grid — Gaussian width `w ∈ {1.2, 1.8, 2.6}`
+crossed with order seed `∈ {10⁻², 10⁻¹}` (all six combinations) — flows to
+the **same** soliton:
 
 | init (w, q-seed) | max\|q\| | Φ(0) |
 |---|---:|---:|
 | (1.2, 10⁻²) | 0.424 | −3.090 |
+| (1.2, 10⁻¹) | 0.425 | −3.089 |
 | (1.8, 10⁻²) | 0.423 | −3.092 |
-| (2.6, 10⁻²) | 0.420 | −3.094 |
 | (1.8, 10⁻¹) | 0.425 | −3.089 |
+| (2.6, 10⁻²) | 0.420 | −3.094 |
+| (2.6, 10⁻¹) | 0.424 | −3.090 |
 
 `max|q|` spread **1.1%**, `Φ(0)` spread **0.16%** — a robust dynamical
 attractor, not a fine-tuned state. (A tiny seed `10⁻³` reaches the same

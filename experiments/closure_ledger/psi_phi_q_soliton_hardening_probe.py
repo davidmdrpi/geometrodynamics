@@ -13,11 +13,14 @@ with a better-conditioned solver:
 
   STATIONARITY — the imaginary-time fixed point must be a genuine STATIONARY
                  state under REAL-time evolution (an eigenstate), not just a
-                 gradient-flow endpoint.  Hardened with an OPERATOR-CONSISTENT
-                 spectral kinetic (u = rψ, DST): the relaxed state is an
-                 eigenstate (residual ~10⁻⁴) and persists under real-time
-                 split-step evolution (profile drift ~10⁻⁴, mass conserved to
-                 machine precision).
+                 gradient-flow endpoint.  Hardened with a SPECTRAL ψ KINETIC
+                 (u = rψ, DST; the order field q keeps its finite-difference
+                 Laplacian — this is NOT a fully spectral ψ–q solver), so the
+                 relaxation and the real-time step use the SAME ψ operator:
+                 evolving ψ in the FROZEN self-consistent (Φ, q) background,
+                 the relaxed state is an eigenstate (residual ~10⁻⁴) and stays
+                 stationary (profile drift ~10⁻⁴, mass conserved to machine
+                 precision).
   BRANCH SCAN  — the soliton must be a SMOOTH FAMILY, not an isolated point.
                  Scanned over mass M (the ordering onset where ρ_peak crosses
                  ρ_c) and over q's self-gravity μ (the deepening branch).
@@ -28,21 +31,22 @@ with a better-conditioned solver:
 A CORRECTION TO #179 (what hardening is for)
   #179 reported that super-critical q-self-gravity drives a RUNAWAY collapse
   (|q| → 31, Φ(0) → −252).  That used a finite-difference (np.gradient)
-  Laplacian.  With the operator-consistent SPECTRAL kinetic here, the μ
-  branch is SMOOTH, MONOTONE, and EVERYWHERE-CONVERGENT up to μ = 2–3
+  Laplacian.  With the spectral ψ kinetic here, the μ branch is SMOOTH,
+  MONOTONE, and EVERYWHERE-CONVERGENT over the tested range μ ∈ [0.05, 2]
   (residuals ≤ 10⁻³, no blow-up) — the apparent runaway was a DISCRETIZATION
   ARTIFACT of the FD scheme.  The genuine large-μ limit is not a numerical
   runaway but the soliton deepening OUT OF WEAK-FIELD VALIDITY (Φ(0) from
-  −3 to −50 as μ: 0.05 → 3) — the strong-field domain for full NR.  What
+  −3.1 to −24.6 as μ: 0.05 → 2) — the strong-field domain for full NR.  What
   SURVIVES from #179 — the soliton's existence, two-way back-reaction, and
   threshold continuity — is confirmed and hardened; the specific "runaway"
   claim does not survive as stated.
 
 WHAT IS COMPUTED (measured; the coupled flow run, N = 240 radial default)
   • STATIONARY EIGENSTATE: H ψ = μ ψ to a residual ~10⁻⁴; real-time
-    split-step evolution under the self-consistent V_eff = Φ + ½g q² leaves
-    |ψ| stationary (drift ~10⁻⁴) and conserves mass to machine precision —
-    the soliton is a genuine bound state, not just a relaxation endpoint.
+    split-step evolution of ψ in the FROZEN self-consistent background
+    (V_eff = Φ + ½g q², with Φ and q held fixed) leaves |ψ| stationary
+    (drift ~10⁻⁴) and conserves mass to machine precision — the soliton is a
+    genuine bound state, not just a relaxation endpoint.
   • MASS BRANCH: the soliton family is smooth and monotone in M; the order
     field switches on where ρ_peak crosses ρ_c (near M ≈ 2.7, the spatial
     onset just above ρ_c by the GL droplet barrier); max|q| and the well
@@ -87,7 +91,7 @@ Verdict:
     stationary eigenstate, a smooth everywhere-convergent branch in mass and
     self-gravity, and a robust attractor with a basin; the #179 high-μ
     runaway is corrected as a finite-difference discretization artifact (the
-    operator-consistent spectral solver finds a smooth deepening branch that
+    spectral ψ kinetic finds a smooth deepening branch that
     exits weak-field validity, not a collapse).
 """
 
@@ -189,8 +193,10 @@ def relax(M: float, mu: float, N: int = _N, w: float = _W0,
 
 def stationarity(s: dict, steps: int = 3000, dt: float = 2e-3):
     """Test the relaxed state is a genuine stationary eigenstate: (i) the
-    eigenstate residual ‖Hψ − μψ‖/‖ψ‖ with the consistent spectral H, and
-    (ii) real-time split-step persistence (profile drift + mass drift)."""
+    eigenstate residual ‖Hψ − μψ‖/‖ψ‖ with the consistent spectral ψ H, and
+    (ii) real-time split-step persistence of ψ in the FROZEN self-consistent
+    (Φ, q) background (profile drift + mass drift).  Only ψ evolves; Φ and q
+    are held fixed at their self-consistent values."""
     r, dr, k2 = s["r"], s["dr"], s["k2"]
     u0 = s["u"]
     Veff = s["Phi"] + 0.5 * _GC * s["q"] ** 2
@@ -198,7 +204,7 @@ def stationarity(s: dict, steps: int = 3000, dt: float = 2e-3):
     Hu = -0.5 * _u_rr(u0, k2) + Veff * u0
     mu_e = float(np.sum(u0 * Hu) / np.sum(u0 ** 2))
     eig_res = float(math.sqrt(np.sum((Hu - mu_e * u0) ** 2) / np.sum(u0 ** 2)))
-    # (ii) real-time split-step (unitary), same spectral kinetic
+    # (ii) real-time split-step (unitary), same spectral ψ kinetic
     u = u0.astype(complex)
     a0 = np.abs(u).copy()
     m0 = 4 * math.pi * np.sum(np.abs(u) ** 2) * dr
@@ -226,8 +232,8 @@ def test_T1_goal() -> dict:
             "Harden PR #179's two-way ψ–Φ–q throat-soliton from a "
             "self-consistent state into a trustworthy object with the three "
             "things it needs — STATIONARITY (it must be a genuine real-time "
-            "stationary eigenstate, hardened with an operator-consistent "
-            "spectral kinetic), a BRANCH SCAN (it must be a smooth family in "
+            "stationary eigenstate, hardened with a "
+            "spectral ψ kinetic), a BRANCH SCAN (it must be a smooth family in "
             "mass and in q's self-gravity, not an isolated point), and a "
             "BASIN MAP (it must be an attractor reached from a range of "
             "initial conditions, not fine-tuned) — and to re-examine #179's "
@@ -253,15 +259,20 @@ def test_T2_stationarity() -> dict:
         "description": (
             "The imaginary-time fixed point is a GENUINE STATIONARY "
             "eigenstate, not merely a gradient-flow endpoint — hardened with "
-            "an operator-consistent spectral kinetic (u = rψ, DST), so the "
-            "relaxation and the real-time evolution share the SAME Laplacian. "
+            "a spectral ψ kinetic (u = rψ, DST; the order field q keeps its "
+            "finite-difference Laplacian, so this is not a fully spectral "
+            "ψ–q solver), which makes the relaxation and the real-time step "
+            "use the SAME ψ Laplacian. "
             f"The eigenstate residual ‖Hψ − μψ‖/‖ψ‖ = {eig_res:.1e} "
-            f"(chemical potential μ = {mu_e:.3f}): Hψ = μψ. Evolving the "
-            "state in REAL time by a unitary split-step under the "
-            "self-consistent V_eff = Φ + ½g q² leaves the profile stationary "
-            f"(max |ψ| drift {dev:.1e}) and conserves mass to {mdrift:.0e} "
-            "(machine precision). The two-way throat-soliton is a genuine "
-            "bound state that persists under real dynamics."
+            f"(chemical potential μ = {mu_e:.3f}): Hψ = μψ. Evolving ψ in "
+            "REAL time by a unitary split-step in the FROZEN self-consistent "
+            "background (V_eff = Φ + ½g q², with Φ and q held fixed — only ψ "
+            f"evolves) leaves the profile stationary (max |ψ| drift {dev:.1e}) "
+            f"and conserves mass to {mdrift:.0e} (machine precision). The "
+            "two-way throat-soliton is a genuine bound state: ψ is a "
+            "stationary eigenstate of its self-consistent potential. (The "
+            "fully coupled real-time ψ–Φ–q dynamics is a follow-up; here the "
+            "background is frozen.)"
         ),
         "chemical_potential": round(mu_e, 4),
         "eigenstate_residual": eig_res,
@@ -334,9 +345,9 @@ def test_T4_self_gravity_branch() -> dict:
             f"point (residuals { {mu: float('%.0e'%res[mu]) for mu in mus} } "
             "≤ 10⁻³, no blow-up). #179 reported a RUNAWAY collapse at "
             "super-critical μ (|q| → 31, Φ(0) → −252) — but that used a "
-            "finite-difference (np.gradient) Laplacian; with the "
-            "operator-consistent SPECTRAL kinetic here there is NO collapse "
-            "up to μ = 2, so the #179 runaway was a DISCRETIZATION ARTIFACT. "
+            "finite-difference (np.gradient) Laplacian; with the spectral ψ "
+            "kinetic here there is NO collapse over the tested range up to "
+            "μ = 2, so the #179 runaway was a DISCRETIZATION ARTIFACT. "
             "The genuine large-μ limit is not a runaway but the soliton "
             f"deepening OUT OF weak-field validity (Φ(0): {phi0[0.05]:.1f} → "
             f"{phi0[2.0]:.1f} as μ grows) — the strong-field domain for full "
@@ -347,16 +358,18 @@ def test_T4_self_gravity_branch() -> dict:
         "residual_by_mu": {str(mu): res[mu] for mu in mus},
         "everywhere_convergent_no_collapse": all_converged,
         "monotone_deepening": monotone and deepens,
-        "corrects_179_runaway": "FD-Laplacian artifact; spectral solver finds no collapse",
+        "corrects_179_runaway": "FD-Laplacian artifact; spectral ψ kinetic finds no collapse",
         "pass": ok,
     }
 
 
 def test_T5_basin_map() -> dict:
     """The soliton is a robust attractor (varied init → same state)."""
-    # vary the initial Gaussian width and the order seed
-    widths = [(1.2, 1e-2), (1.8, 1e-2), (2.6, 1e-2), (1.8, 1e-1)]
-    states = [relax(3.0, 0.05, w=w, qseed=qs) for (w, qs) in widths]
+    # the FULL initial-condition grid: width × order-seed (3 × 2)
+    ws = [1.2, 1.8, 2.6]
+    seeds = [1e-2, 1e-1]
+    inits = [(w, qs) for w in ws for qs in seeds]
+    states = [relax(3.0, 0.05, w=w, qseed=qs) for (w, qs) in inits]
     mq = [st["max_q"] for st in states]
     ph = [st["phi0"] for st in states]
     mq_spread = (max(mq) - min(mq)) / np.mean(mq)
@@ -370,9 +383,10 @@ def test_T5_basin_map() -> dict:
         "name": "T5_basin_attractor",
         "description": (
             "The throat-soliton is a ROBUST ATTRACTOR with a basin, not a "
-            "fine-tuned state. Initial conditions varied over Gaussian width "
-            "w ∈ {1.2, 1.8, 2.6} and order seed ∈ {10⁻², 10⁻¹} all flow to "
-            f"the SAME soliton: max|q| = {[round(x,3) for x in mq]} (spread "
+            "fine-tuned state. The FULL initial-condition grid — Gaussian "
+            "width w ∈ {1.2, 1.8, 2.6} crossed with order seed "
+            "∈ {10⁻², 10⁻¹} (all six combinations) — flows to the SAME "
+            f"soliton: max|q| = {[round(x,3) for x in mq]} (spread "
             f"{mq_spread*100:.1f}%) and Φ(0) = {[round(x,3) for x in ph]} "
             f"(spread {ph_spread*100:.2f}%). The self-consistent state is "
             "independent of how the flow is started — a genuine dynamical "
@@ -381,6 +395,7 @@ def test_T5_basin_map() -> dict:
             "toward the same value — a convergence-time effect, not a "
             "different basin.)"
         ),
+        "init_grid": [f"w={w},seed={qs:.0e}" for (w, qs) in inits],
         "max_q_varied_init": [round(x, 4) for x in mq],
         "phi0_varied_init": [round(x, 4) for x in ph],
         "max_q_spread_percent": round(mq_spread * 100, 2),
@@ -437,7 +452,7 @@ def test_T7_scope() -> dict:
             "SMOOTH everywhere-convergent BRANCH in mass and self-gravity, "
             "and (iii) a robust ATTRACTOR with a basin — and it CORRECTS "
             "#179's high-μ runaway as a finite-difference discretization "
-            "artifact (the operator-consistent spectral solver finds a smooth "
+            "artifact (the spectral ψ kinetic finds a smooth "
             "deepening branch, not a collapse). It remains weak-field, "
             "semi-dynamical, and spherically reduced, with effective "
             "constants. The deep-well large-μ branch exits weak-field "
@@ -474,7 +489,7 @@ def test_T8_assessment() -> dict:
             "same soliton, max|q| within ~1%, Φ(0) within ~0.1%). The "
             "hardening also CORRECTS #179: the reported high-μ runaway "
             "collapse was a finite-difference Laplacian artifact — the "
-            "operator-consistent spectral solver finds no collapse up to "
+            "spectral ψ kinetic finds no collapse up to "
             "μ = 2, only a branch deepening out of weak-field validity (the "
             "strong-field endpoint, for NR). The soliton's existence, "
             "two-way back-reaction, and threshold continuity survive and are "
@@ -512,7 +527,7 @@ def run_probe() -> dict:
             "HARDENED — A TRUSTWORTHY THROAT-SOLITON (and a correction to "
             "#179). PR #179's two-way self-consistent state passes "
             "stationarity, branch scan, and basin map.\n\n"
-            "STATIONARITY. With an operator-consistent spectral kinetic the "
+            "STATIONARITY. With the spectral ψ kinetic the "
             f"fixed point is a genuine eigenstate (‖Hψ − μψ‖/‖ψ‖ = "
             f"{t2['eigenstate_residual']:.1e}, μ = {t2['chemical_potential']}) "
             "that persists under unitary real-time evolution (profile drift "
@@ -526,7 +541,7 @@ def run_probe() -> dict:
             "fixed point, residuals ≤ 10⁻³).\n\n"
             "CORRECTION TO #179. #179 reported a high-μ RUNAWAY collapse — but "
             "that used a finite-difference Laplacian; the operator-consistent "
-            "spectral solver finds NO collapse up to μ = 2 (smooth, "
+            "spectral ψ kinetic finds NO collapse up to μ = 2 (smooth, "
             "convergent), so the runaway was a DISCRETIZATION ARTIFACT. The "
             "genuine large-μ limit is the soliton deepening out of weak-field "
             f"validity (Φ(0): {t4['phi0_by_mu']['0.05']} → "
@@ -561,7 +576,7 @@ def run_probe() -> dict:
         ),
         "stationarity": "eigenstate (residual ~1e-4); real-time stationary, mass-conserving",
         "branch_scan": "smooth monotone family in mass (onset at ρ_c) and in μ (deepening)",
-        "correction": "#179 high-μ runaway was an FD-Laplacian artifact; spectral solver finds no collapse",
+        "correction": "#179 high-μ runaway was an FD-Laplacian artifact; spectral ψ kinetic finds no collapse",
         "basin": "robust attractor — varied width/seed flow to the same soliton (~1%)",
         "robustness": "well depth grid-converges; pointwise core ~10% grid-sensitive (honest)",
         "scope": "weak-field/semi-dynamical, spherically reduced; effective constants",
@@ -581,8 +596,8 @@ def render_markdown(s: dict) -> str:
     out.append("")
     out.append(
         "Hardens PR #179's two-way self-consistent throat-soliton — "
-        "stationarity, branch scan, basin map — with an operator-consistent "
-        "spectral solver, and corrects #179's high-μ runaway as a "
+        "stationarity, branch scan, basin map — with a "
+        "spectral ψ kinetic, and corrects #179's high-μ runaway as a "
         "discretization artifact. *(QFT on the classical throat, not quantum "
         "gravity.)*"
     )
