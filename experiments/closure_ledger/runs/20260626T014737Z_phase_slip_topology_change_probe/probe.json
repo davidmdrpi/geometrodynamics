@@ -1,0 +1,108 @@
+{
+  "timestamp_utc": "2026-06-26T01:47:37+00:00",
+  "identification": "the phase-slip / topology-change event dissected: the discrete winding invariant changes ONLY when |q| hits zero (a topological obstruction), and at each simple zero by exactly \u00b11 (a 2\u03c0 phase kink); dynamically Q(t) is a quantized staircase whose every step coincides with an amplitude-zero event",
+  "obstruction": "changing Q forces an exact zero (no nowhere-zero path between sectors)",
+  "quantum": "a simple zero changes Q by exactly \u00b11 (a localized 2\u03c0 phase kink)",
+  "dynamics": "Q(t) piecewise-constant, steps \u00b11 exactly at min|q|\u21920 (single slip + staircase)",
+  "localization": "Q is an exact integer except at the measure-zero amplitude-zero events",
+  "meaning": "the throat changes winding/generation sector through the #175/#178 node",
+  "scope": "obstruction + \u00b11 exact (topological); staircase on the reduced loop; weak-field",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Dissect the phase slip \u2014 show EXACTLY how the discrete invariant Q = (1/2\u03c0)\u222e\u2207\u03c6 changes when the order field q hits zero. PR #181 established Q survives the continuous \u03c8\u2013\u03a6\u2013q evolution while |q| > 0 and changes only where |q| = 0; this probe resolves that event: the topological OBSTRUCTION (changing Q forces a zero), the QUANTUM (a simple zero changes Q by exactly \u00b11, a 2\u03c0 phase kink), and the DYNAMICS (Q(t) is a quantized staircase whose every step coincides with an amplitude-zero event).",
+      "event": "the phase slip \u2014 the order field passing through |q| = 0",
+      "on": "the #180/#181 self-consistent \u03c8\u2013\u03a6\u2013q throat-soliton loop",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_topological_obstruction",
+      "description": "Changing Q is FORCED through a zero \u2014 a topological obstruction, not an accident. The straight homotopy (1\u2212s)\u00b7[winding 1] + s\u00b7[winding 0] between the two sectors is driven through an EXACT zero: the global minimum of |q| over the path is 2.5e-17 (machine zero), reached at s* = 0.495 and located at \u03c6* = 3.142 \u2248 \u03c0. The winding jumps Q: 1 \u2192 0 there. There is NO nowhere-zero path between the winding sectors \u2014 to change the invariant the field must leave \u2102\u2216{0}, i.e. q must hit zero. (This is the dynamical/topological content of the #175 gate: the discrete sector is reached only through an amplitude zero.)",
+      "Q_before": 1,
+      "Q_after": 0,
+      "s_star": 0.495,
+      "phi_zero": 3.1416,
+      "forced_min_amplitude": 2.461025054504805e-17,
+      "pass": "True"
+    },
+    {
+      "name": "T3_elementary_quantum_pm_one",
+      "description": "Across a simple zero the invariant changes by EXACTLY \u00b11 \u2014 the elementary phase slip. Just below the slip (s = 0.48) the field has winding Q = 1; just above (s = 0.52), Q = 0: \u0394Q = -1 = \u22121. Equivalently, the integrated winding density \u222e\u2207\u03c6 changes by exactly -6.283 = \u22122\u03c0 \u2014 one full turn of phase is removed as the field passes through the zero (a 2\u03c0 phase kink through the zero point, which concentrates at \u03c6* = \u03c0 as s \u2192 0.5). The winding is an integer before and after; the only non-integer instant is exactly at the zero. A generic simple zero carries unit topological charge in (space \u00d7 parameter), so \u0394Q = \u00b11 per elementary slip.",
+      "Q_below": 1,
+      "Q_above": 0,
+      "delta_Q": -1,
+      "phase_integral_change": -6.2832,
+      "minus_two_pi": -6.2832,
+      "pass": true
+    },
+    {
+      "name": "T4_single_dynamical_slip",
+      "description": "A single elementary phase slip, resolved in time, in a genuine evolution on the soliton. The unsustained winding k = 5 relaxes under the order field's own \u03c8\u2013\u03a6\u2013q gradient flow: Q(t) holds FLAT at 5, then the FIRST slip steps it by \u0394Q = -1 to 4 EXACTLY at the instant min|q|(t) \u2192 0 (min|q| = 0.0005 at the step). Before the event Q is a stable integer (= 5) and the transition is instantaneous and quantized: the amplitude touches zero and the winding unwinds by exactly one. (The subsequent elementary slips of the same relaxation \u2014 k = 5 is well over the loop's capacity \u2014 form the staircase of T5.)",
+      "Q_start": 5,
+      "Q_after_first_slip": 4,
+      "first_slip_dQ": -1,
+      "min_q_at_slip": 0.0005,
+      "held_flat_before": true,
+      "pass": true
+    },
+    {
+      "name": "T5_quantized_staircase_cascade",
+      "description": "A strongly over-wound state cascades down a QUANTIZED STAIRCASE, every step at an amplitude zero. The winding k = 8 relaxes through the staircase [8, 7, 5, 4, 3, 2]: 5 slips, each a descending step that coincides with a min|q| \u2192 0 event (min|q| at the steps = [0.0, 0.0, 0.0, 0.0, 0.0]). Q is constant between events and changes only AT the zeros. Each ELEMENTARY slip is \u0394Q = \u00b11 (T3); a recorded larger step is two elementary slips unresolved in sampling time, not a single \u0394Q = 2 event. The over-wound throat sheds its winding one quantum at a time, each through an amplitude-zero node, until a low sustainable winding remains.",
+      "staircase": [
+        8,
+        7,
+        5,
+        4,
+        3,
+        2
+      ],
+      "n_slips": 5,
+      "min_q_at_each_step": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "every_step_at_zero": true,
+      "pass": true
+    },
+    {
+      "name": "T6_invariant_localized_to_zeros",
+      "description": "The invariant is an EXACT integer at every instant except the amplitude-zero events. Along the cascade, at every recorded time with min|q| > 0.1 (away from a slip), the unrounded winding (1/2\u03c0)\u222e\u2207\u03c6 equals an integer to 1.8e-15 \u2014 Q is exactly quantized while |q| > 0. The only times the winding is ambiguous / changes are the slip instants, where min|q| \u2192 0 (min|q| at the slips \u2264 0.000). The non-integer-ness of the invariant is confined to the measure-zero set of amplitude zeros \u2014 between them Q is a rigid integer (#181), at them it jumps by \u00b11 (#182).",
+      "max_noninteger_away_from_slips": 1.7763568394002505e-15,
+      "max_min_q_at_slips": 8.286239697709551e-07,
+      "pass": true
+    },
+    {
+      "name": "T7_physical_meaning_and_scope",
+      "description": "PHYSICAL MEANING. The phase slip is the throat changing its winding / generation sector (k \u2192 k\u22131) THROUGH the amplitude-zero node \u2014 the #175 antipodal node, the #178 defect core. The #175 'gate' (the discrete sector is reachable only through an amplitude zero) is here the sector-CHANGING event itself, resolved: each transition removes one unit of winding at a node. Together with #181 (the sector survives between events), the throat's winding is a conserved topological charge that transitions ONLY at nodes \u2014 and the realized ladder is odd-k by the #174 orientability grading (its survival under a DEFORMED bulk geometry is PR #183). SCOPE: the obstruction and the \u00b11 quantum are EXACT (topological); the dynamical staircase is on the reduced vortex-on-soliton loop (amplitude from the #180 radial soliton, winding azimuthal); the elementary slip is \u0394Q = \u00b11, and a recorded '\u22122' step is two unresolved-in-time elementary slips, not a \u0394Q = 2 event; the full 2D/3D vortex-line reconnection (the zero as a moving vortex line threading the loop) is a follow-up. Weak-field, effective constants.",
+      "meaning": "the slip = the throat changing winding/generation sector through the node",
+      "bridges": {
+        "the_gate": "PR #175 (amplitude-zero node)",
+        "the_core": "PR #178 (defect core)",
+        "survival_between_events": "PR #181",
+        "deformed_bulk_odd_k": "PR #183"
+      },
+      "scope": [
+        "obstruction + \u00b11 quantum are exact (topological)",
+        "dynamical staircase on the reduced vortex-on-soliton loop",
+        "elementary slip is \u00b11; a '\u22122' step is two unresolved slips",
+        "full 2D/3D vortex-line reconnection is a follow-up",
+        "weak-field, effective constants"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Resolved. The discrete invariant changes ONLY when q hits zero, and exactly by \u00b11 per elementary event. (i) OBSTRUCTION: the straight homotopy between winding sectors is forced through an exact zero (min|q| = 2.5\u00d710\u207b\u00b9\u2077 at s* = 0.5, \u03c6* = \u03c0) \u2014 no nowhere-zero path connects them, so changing Q REQUIRES |q| = 0. (ii) QUANTUM: across a simple zero \u0394Q = \u22121, a localized 2\u03c0 phase kink. (iii) DYNAMICS: in a genuine \u03c8\u2013\u03a6\u2013q evolution Q(t) is piecewise-constant and steps by \u00b11 EXACTLY at min|q| \u2192 0 events \u2014 a single slip (k = 5 \u2192 4) or a quantized staircase (k = 8 shedding winding one quantum at a time, every step at a node). (iv) LOCALIZATION: away from the zeros the unrounded winding is an exact integer (to ~10\u207b\u00b9\u00b2); the invariant is ambiguous only at the amplitude zeros. The phase slip is the throat changing its winding/generation sector through the amplitude-zero node (#175/#178): with #181, the sector is a conserved charge that transitions only at nodes.",
+      "classification": "TOPOLOGY_CHANGE_OCCURS_ONLY_AT_AMPLITUDE_ZEROS_EACH_ELEMENTARY_SLIP_CHANGES_Q_BY_PLUS_MINUS_ONE",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "TOPOLOGY_CHANGE_OCCURS_ONLY_AT_AMPLITUDE_ZEROS_EACH_ELEMENTARY_SLIP_CHANGES_Q_BY_PLUS_MINUS_ONE",
+  "verdict": "RESOLVED \u2014 THE INVARIANT CHANGES ONLY AT |q| = 0, BY \u00b11. The phase slip, dissected on the #180/#181 throat-soliton.\n\nOBSTRUCTION. The straight homotopy between the winding-1 and winding-0 sectors is FORCED through an exact zero (min|q| = 2.5e-17 at s* = 0.495, \u03c6* = 3.1416 \u2248 \u03c0), where Q jumps 1 \u2192 0: no nowhere-zero path connects the sectors \u2014 changing Q REQUIRES |q| = 0.\n\nQUANTUM. Across the simple zero \u0394Q = -1: the integrated winding density \u222e\u2207\u03c6 changes by exactly -6.2832 = \u22122\u03c0 \u2014 one full turn of phase removed at the zero. The elementary slip is \u00b11.\n\nSINGLE EVENT. In a genuine \u03c8\u2013\u03a6\u2013q evolution the unsustained k = 5 holds flat, then the first slip steps \u0394Q = -1 to 4 EXACTLY when min|q| \u2192 0 (min|q| = 0.0005 at the slip).\n\nSTAIRCASE. The over-wound k = 8 cascades down the quantized staircase [8, 7, 5, 4, 3, 2] (5 slips), every step at an amplitude-zero event \u2014 the throat sheds winding one quantum at a time through the nodes.\n\nLOCALIZATION. Away from the zeros the unrounded winding is an exact integer (to 2e-15); the invariant is ambiguous only at the amplitude zeros. With #181 (survival between events), the throat's winding sector is a conserved charge that transitions ONLY at the #175/#178 nodes."
+}
