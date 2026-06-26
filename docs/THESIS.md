@@ -865,6 +865,39 @@ orientability/spin-preserving class; this establishes robustness, not a
 re-derivation; the result is purely topological — weak-field is not invoked
 (`odd_k_generation_survival_probe`, PR #183).
 
+**α as a protected boundary invariant, not a continuous tuning parameter
+(PR #184).** PR #105/#143 classified the EM coupling α: the geometry derives
+its STRUCTURE — the charge quantum `|c₁| = 1` (the integer Hopf number), the
+`1/2π` closure loop measure (the `2π` in the Schwinger anomaly `a = α/2π`),
+and the running — but not the VALUE `α⁻¹ ≈ 137` (the residual "137 problem").
+`alpha_protected_boundary_invariant_probe` applies the #181/#182/#183
+protected-invariant test to that derived structure: it is a PROTECTED BOUNDARY
+INVARIANT, not a tunable continuum. **The charge quantum is a boundary
+invariant:** the first Chern number of the BAM Hopf / spin-½ monopole over the
+boundary S² (the Gauss-law charge `(1/2π)∮F`), by the exactly-quantized
+Fukui–Hatsugai–Suzuki method, `c₁ = +1` (`|c₁| = 1`) — an exact integer.
+**Protected:** across 30 smooth diffeomorphisms of the boundary geometry `c₁`
+stays the same integer to `5×10⁻⁷` — it does not drift. **Not a tuning
+parameter:** under the same deformations a generic continuous coupling
+functional (the mean monopole potential `⟨A_φ⟩`) drifts `6.8%` on average
+(up to `15.8%`) while `c₁` moves `5×10⁻⁷` — the discriminator (quantized +
+deformation-invariant = protected; continuous + drifts = tuning) puts α's
+charge quantum on the protected side. **The loop measure + topology change:**
+the boundary flux `∮F = 2π·c₁` is quantized in units of the closure quantum
+`2π` (fixing the `2π` of `a = α/2π`); and the charge integer changes ONLY when
+the Berry gap closes — sweeping the gap parameter `m`, `C(m) = 1` while the gap
+is open and jumps to `0` exactly at `m = 1`, where `min|d| → 0` (the
+degeneracy crosses the boundary), the EM-boundary analog of `|q| = 0` (#182)
+and `½ tr T² = 0` (#183). **Unity:** the EM charge quantum is to the boundary
+what the order-field winding is to the soliton (#181/#182) and the generation
+sector is to the bulk (#183) — a protected topological charge robust to smooth
+deformation, changing only at a topology-change event. This does NOT derive
+the value `α⁻¹ ≈ 137` — that residual stands (the 137 problem is unchanged) —
+but it refines the #105/#143 ledger: the structure around α is specifically
+PROTECTED, so α should be tested as protected-boundary-structure × one residual
+scale, not fit as a continuous tuning family
+(`alpha_protected_boundary_invariant_probe`, PR #184).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
