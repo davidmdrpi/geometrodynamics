@@ -731,6 +731,42 @@ are effective (the structure is the result); the stable soliton is
 sub-critical and the strong-field runaway endpoint is for full numerical
 relativity (`two_way_psi_phi_q_probe`, PR #179).
 
+**ψ–Φ–q soliton hardening: stationarity, branch scan, basin map (PR #180).**
+`psi_phi_q_soliton_hardening_probe` hardens the #179 two-way throat-soliton
+(as #177 hardened #176) and re-examines its collapse claim with a
+better-conditioned solver. **Stationarity:** putting `ψ`'s kinetic on a
+spectral basis (`u = rψ`, DST; the order field `q` keeps its finite-difference
+Laplacian — this is not a fully spectral ψ–q solver) so the relaxation and the
+real-time step share the same `ψ` Laplacian, the relaxed state is a genuine
+eigenstate (`‖Hψ − μψ‖/‖ψ‖ ≈ 10⁻⁴`, chemical potential `μ ≈ −1.45`), and
+evolving `ψ` alone in the frozen self-consistent `(Φ, q)` background by a
+unitary real-time split-step leaves it stationary (profile drift `~4×10⁻⁵`,
+mass conserved to machine precision) — `ψ` is a stationary eigenstate of its
+self-consistent potential, a real bound soliton (the fully coupled real-time
+ψ–Φ–q dynamics is a follow-up). **Branch scan:** the soliton is a smooth
+monotone family in mass (the order field switches on where `ρ_peak` crosses
+`ρ_c`, near M ≈ 2.7) and in `q`'s self-gravity `μ` (`max|q|` 0.42 → 2.62,
+`Φ(0)` −3.09 → −24.6 across the tested range `μ ∈ [0.05, 2]`, residuals
+`≤ 10⁻³`, everywhere convergent). **A correction to #179:** #179 reported a
+runaway collapse at super-critical `μ` (`|q| → 31`, `Φ(0) → −252`), but that
+used a finite-difference (`np.gradient`) Laplacian; the spectral `ψ` kinetic
+finds no collapse up to `μ = 2`, so the runaway was a discretization artifact
+— the genuine large-`μ` limit is the soliton deepening out of weak-field
+validity (`Φ(0)` −3.09 → −24.6 across the tested μ; the strong-field domain
+for full NR), not a numerical runaway. **Basin:** the soliton is a robust
+attractor — the full initial-condition grid (widths `w ∈ {1.2, 1.8, 2.6}`
+crossed with seeds `∈ {10⁻², 10⁻¹}`, all six) flows to the same state
+(`max|q|` spread ~1%, `Φ(0)` spread ~0.1%; a tiny seed `10⁻³` reaches the
+same attractor more slowly). **Robustness:** the well depth
+`Φ(0)` grid-converges (`N = 160 → 240 → 320`: −3.34 → −3.09 → −2.98) while
+the pointwise core `max|q|` is more grid-sensitive (~10% per refinement, the
+sharp core) — an honest caveat. What survives #179 — the soliton's
+existence, two-way back-reaction, and threshold continuity — is confirmed and
+hardened; the specific "runaway" claim does not survive as stated. Scope
+unchanged: weak-field, semi-dynamical, spherically reduced, effective
+constants; the deep-`μ` branch and the strong-field endpoint are for full
+numerical relativity (`psi_phi_q_soliton_hardening_probe`, PR #180).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
