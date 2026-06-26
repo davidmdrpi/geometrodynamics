@@ -1,0 +1,125 @@
+{
+  "timestamp_utc": "2026-06-26T01:30:14+00:00",
+  "identification": "the discrete winding invariant survives on the #180 self-consistent \u03c8\u2013\u03a6\u2013q throat-soliton: quantized (Q = k), conserved to machine precision under continuous wave and dissipative evolution while |q| > 0, rigid under |q|>0-preserving homotopies, changing only through |q| = 0 (the #182 phase slip)",
+  "invariant": "Q = (1/2\u03c0)\u222e\u2207\u03c6\u00b7dl, the winding charge of the order field",
+  "quantized": "Q = k exactly on an ordered loop of the soliton",
+  "survival": "machine-precision under continuous evolution while |q|>0 (wave: all k; dissipative: sustained k=1,3)",
+  "criterion": "Q changes ONLY through |q|=0 (the unsustained k=5 slips \u2014 the #182 event)",
+  "rigidity": "unchanged under all |q|>0-preserving homotopies",
+  "scope": "reduced vortex-on-soliton; odd-k is #174 orientability; deformed-bulk survival is #183; weak-field",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Show the throat's DISCRETE invariant \u2014 the winding charge k of the order-field phase (the #178 vortex charge / the #174 odd-k ladder) \u2014 SURVIVES on the continuous, self-consistent \u03c8\u2013\u03a6\u2013q throat-soliton of #180. Dress the soliton's ordered core with a winding-k phase and ask whether the topological charge Q = (1/2\u03c0)\u222e\u2207\u03c6\u00b7dl rides through the continuous \u03c8\u2013\u03a6\u2013q evolution. It must, by homotopy-invariance, so long as |q| > 0 on the loop \u2014 and the self-consistent soliton keeps |q| off zero. The exceptional event, |q| \u2192 0 and Q jumps, is the phase slip of PR #182.",
+      "invariant": "Q = (1/2\u03c0)\u222e\u2207\u03c6\u00b7dl, the winding charge of the order field",
+      "on": "the #180 self-consistent two-way \u03c8\u2013\u03a6\u2013q throat-soliton",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_quantized_invariant_on_the_soliton",
+      "description": "The discrete invariant on the soliton. On an equatorial loop of radius R = 0.75 in the soliton's ordered core (\u03c1_loop = 0.362 > \u03c1_c = 0.20, so the order field is on, |q| = 0.402 > 0), a winding-k phase q = |q| e^{ik\u03c6} carries the topological charge Q = (1/2\u03c0)\u222e\u2207\u03c6 = {1: 1.0, 3: 3.0, 5: 5.0} \u2014 exactly the integer k (to ~10\u207b\u00b9\u2075). The winding-k vortex is SUSTAINED when the well depth beats the centrifugal cost, A\u00b2 = (g\u03c1 \u2212 a\u2080) \u2212 (\u03ba/R\u00b2)k\u00b2 > 0: A\u00b2 = {1: 0.153, 3: 0.082, 5: -0.061} \u2014 the soliton sustains k = 1, 3 (A\u00b2 > 0); k = 5 exceeds the loop's capacity (A\u00b2 < 0).",
+      "winding_measured": {
+        "1": 1.0,
+        "3": 3.0,
+        "5": 5.0
+      },
+      "sustain_A2": {
+        "1": 0.1526,
+        "3": 0.0815,
+        "5": -0.0607
+      },
+      "loop_R": 0.75,
+      "loop_ordered": true,
+      "sustains_1_3": true,
+      "pass": true
+    },
+    {
+      "name": "T3_survival_continuous_wave_evolution",
+      "description": "SURVIVAL under continuous, norm-conserving (unitary) wave evolution. Starting from a smoothly perturbed winding-k state on the soliton loop, evolving by a split-step wave equation i\u2202_t q = \u2212(\u03ba/R\u00b2)\u2202\u00b2_\u03c6 q + (a\u2080 \u2212 g\u03c1)q + \u03bb|q|\u00b2q, the winding charge is conserved to MACHINE PRECISION for every k \u2208 {1, 3, 5}: max winding deviation \u0394W = {1: 3e-16, 3: 4e-16, 5: 9e-16} (~10\u207b\u00b9\u2076), with min|q| = {1: 0.272, 3: 0.33, 5: 0.233} > 0 throughout. The norm-conserving dynamics keeps |q| off zero, so the discrete charge rides the continuous evolution untouched \u2014 even the unsustained k = 5 survives unitary evolution (the wave does not relax it to zero).",
+      "winding_deviation": {
+        "1": 3.3306690738754696e-16,
+        "3": 4.440892098500626e-16,
+        "5": 8.881784197001252e-16
+      },
+      "min_q": {
+        "1": 0.2721,
+        "3": 0.3296,
+        "5": 0.2334
+      },
+      "all_conserved": true,
+      "pass": true
+    },
+    {
+      "name": "T4_survival_dissipative_relaxation",
+      "description": "SURVIVAL under the order field's OWN dynamics \u2014 the dissipative gradient flow \u2202_t q = (\u03ba/R\u00b2)\u2202\u00b2_\u03c6 q \u2212 (a\u2080 \u2212 g\u03c1)q \u2212 \u03bb|q|\u00b2q (the same relaxational dynamics that built the #180 soliton). For the windings the soliton SUSTAINS (k = 1, 3, A\u00b2 > 0), a smoothly perturbed winding-k state relaxes back to the clean vortex with the charge conserved to ~10\u207b\u00b9\u2075: \u0394W = {1: 3e-16, 3: 4e-16}, min|q| = {1: 0.307, 3: 0.212} > 0, final Q = {1: 1, 3: 3} = k. The discrete invariant survives the dissipative \u03c8\u2013\u03a6\u2013q dynamics for every winding the soliton can hold.",
+      "winding_deviation": {
+        "1": 3.3306690738754696e-16,
+        "3": 4.440892098500626e-16
+      },
+      "min_q": {
+        "1": 0.3075,
+        "3": 0.2122
+      },
+      "final_Q": {
+        "1": 1,
+        "3": 3
+      },
+      "pass": true
+    },
+    {
+      "name": "T5_invariant_changes_only_through_q_zero",
+      "description": "The survival CRITERION, made sharp \u2014 Q changes ONLY where |q| = 0. The winding k = 5 is NOT sustained on this loop (A\u00b2 = (g\u03c1 \u2212 a\u2080) \u2212 (\u03ba/R\u00b2)\u00b725 = -0.061 < 0: the centrifugal cost beats the well), so under dissipation no ordered k = 5 vortex exists and the amplitude is driven to |q| \u2192 0 (min|q| = 0.000); at that zero the phase unwinds and the charge SLIPS, Q: 5 \u2192 2 (\u0394W = 3.0). Contrast the sustained k = 3, which keeps |q| > 0 (min = 0.212) and holds Q = 3. So survival \u27fa |q| > 0, exactly: the soliton maintains |q| > 0 for the windings it sustains, so those survive; an unsustained winding reaches a zero and slips. That slip \u2014 exactly how the invariant changes when q hits zero \u2014 is the topology-change event of PR #182.",
+      "k5_sustain_A2": -0.0607,
+      "k5_min_q": 0.0001,
+      "k5_Q_after": 2,
+      "k5_winding_jump": 3.0,
+      "k3_holds": true,
+      "bridges_to": "PR #182 (phase-slip / topology-change event)",
+      "pass": true
+    },
+    {
+      "name": "T6_rigidity_under_homotopy",
+      "description": "The invariant is RIGID \u2014 a superselection charge outside the continuous deformation manifold. Under 40 random smooth homotopies per sector (independent amplitude and phase perturbations of the winding-k vortex, all keeping |q| > 0), the charge is UNCHANGED in every case: {1: '40/40', 3: '40/40', 5: '40/40'} held Q = k for k \u2208 {1, 3, 5}. No continuous deformation that avoids |q| = 0 can touch the winding \u2014 the dynamical realization of the #173/#174 rigidity (the discrete charge lives outside the rank-controlled continuous moduli), now on the self-consistent soliton.",
+      "held_per_sector": {
+        "1": "40/40",
+        "3": "40/40",
+        "5": "40/40"
+      },
+      "all_rigid": true,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "What this establishes and does NOT. Homotopy-invariance is EXACT (topological): the winding survives any continuous \u03c8\u2013\u03a6\u2013q evolution while |q| > 0, and the #180 soliton maintains |q| > 0 on the loop for the windings it sustains \u2014 so the discrete invariant rides the continuous soliton. The geometry is the reduced vortex-on-soliton: the amplitude envelope is the #180 RADIAL soliton and the winding is azimuthal on an equatorial loop (the full 2D/3D self-consistent vortex-LINE soliton \u2014 |q| = 0 on the axis, the winding back-reacting on \u03c8 and \u03a6 \u2014 is a follow-up). WHICH rungs the soliton sustains is set by its capacity (\u03ba, R, well depth): here k = 1, 3 survive the dissipative dynamics, k = 5 exceeds the loop and phase slips (#182); a wave (norm-conserving) evolution preserves all three. The realized PHYSICAL ladder is odd-k {1, 3, 5} by the #174 orientability grading (even-k is topologically conserved too but excluded by orientability); its survival under a DEFORMED bulk geometry is PR #183. Weak-field, semi-dynamical, effective constants.",
+      "established": [
+        "winding survives continuous evolution while |q|>0",
+        "machine-precision conservation (wave; dissipative for sustained k)",
+        "rigid under |q|>0-preserving homotopies",
+        "changes only through |q|=0 (the #182 slip)"
+      ],
+      "scope": [
+        "homotopy-invariance exact; reduced vortex-on-soliton geometry",
+        "amplitude from the #180 radial soliton, winding azimuthal",
+        "sustained rungs set by soliton capacity (k=1,3 here)",
+        "odd-k ladder is #174 orientability; deformed-bulk survival is #183",
+        "weak-field / semi-dynamical, effective constants"
+      ],
+      "bridges": {
+        "phase_slip": "PR #182",
+        "deformed_bulk_odd_k": "PR #183"
+      },
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The discrete invariant survives on the continuous soliton. On the #180 self-consistent \u03c8\u2013\u03a6\u2013q throat-soliton, the winding charge Q = (1/2\u03c0)\u222e\u2207\u03c6 of the order-field phase is quantized (Q = k on an ordered loop) and CONSERVED to machine precision under continuous evolution \u2014 a norm-conserving wave evolution preserves all k \u2208 {1, 3, 5}, and the order field's own dissipative dynamics preserves every winding the soliton sustains (k = 1, 3). It is rigid under all |q| > 0-preserving homotopies. The survival criterion is exact and sharp: Q changes ONLY through |q| = 0 \u2014 the unsustained k = 5 is driven to a zero and slips (5 \u2192 2), which is precisely the phase-slip / topology-change event of PR #182. So the continuous geometry CARRIES the discrete charge: the #174/#178 winding ladder rides the #179/#180 soliton untouched, except at the amplitude zeros where topology changes.",
+      "classification": "DISCRETE_WINDING_INVARIANT_SURVIVES_CONTINUOUS_EVOLUTION_ON_THE_SOLITON_WHILE_Q_NONZERO",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "DISCRETE_WINDING_INVARIANT_SURVIVES_CONTINUOUS_EVOLUTION_ON_THE_SOLITON_WHILE_Q_NONZERO",
+  "verdict": "SURVIVES \u2014 THE CONTINUOUS SOLITON CARRIES THE DISCRETE CHARGE. On the #180 self-consistent \u03c8\u2013\u03a6\u2013q throat-soliton, the winding invariant rides the continuous dynamics untouched.\n\nQUANTIZED. On an ordered equatorial loop (R = 0.75, |q| > 0) the charge Q = (1/2\u03c0)\u222e\u2207\u03c6 = k exactly for k \u2208 {1, 3, 5}; the soliton sustains k = 1, 3 (A\u00b2 = {'1': 0.1526, '3': 0.0815, '5': -0.0607}).\n\nSURVIVAL \u2014 WAVE. Continuous norm-conserving evolution conserves Q to machine precision for ALL k \u2208 {1, 3, 5} (\u0394W ~ 10\u207b\u00b9\u2076, min|q| > 0).\n\nSURVIVAL \u2014 DISSIPATIVE. The order field's own gradient flow preserves the sustained windings k = 1, 3 (\u0394W ~ 10\u207b\u00b9\u2075, the perturbed vortex relaxes back, min|q| > 0).\n\nTHE CRITERION (\u2192 #182). Q changes ONLY through |q| = 0: the unsustained k = 5 (A\u00b2 < 0) is driven to a zero (min|q| = 0.0001) and slips (5 \u2192 2) \u2014 survival \u27fa |q| > 0, exactly; that slip is the PR #182 topology-change event.\n\nRIGID. Under random |q|>0-preserving homotopies the charge is unchanged in every case ({'1': '40/40', '3': '40/40', '5': '40/40'}) \u2014 a superselection charge outside the continuous moduli (the #173/#174 rigidity on the dynamical soliton).\n\nSo the #174/#178 winding ladder rides the #179/#180 soliton untouched, except at the amplitude zeros where topology changes. The odd-k ladder's survival under a deformed bulk is PR #183."
+}

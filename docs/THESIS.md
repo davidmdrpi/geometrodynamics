@@ -767,6 +767,35 @@ unchanged: weak-field, semi-dynamical, spherically reduced, effective
 constants; the deep-`μ` branch and the strong-field endpoint are for full
 numerical relativity (`psi_phi_q_soliton_hardening_probe`, PR #180).
 
+**Discrete invariant survival on the ψ–Φ–q soliton (PR #181).** The arc has a
+continuous object (the #179/#180 self-consistent throat-soliton) and a
+discrete one (the #174/#178 winding ladder). `discrete_invariant_survival_probe`
+shows the continuous geometry CARRIES the discrete charge: dress the #180
+soliton's ordered core (an equatorial loop of radius `R = 0.75`, where
+`ρ = |ψ|² = 0.36 > ρ_c`, so `|q| > 0`) with a winding-k phase
+`q = |q| e^{ikφ}`, and the topological charge `Q = (1/2π)∮∇φ = k` (exact to
+~10⁻¹⁵). A winding-k vortex is sustained when the well beats the centrifugal
+cost, `A² = (gρ − a₀) − (κ/R²)k² > 0`: the soliton sustains k = 1, 3; k = 5
+exceeds it. **Survival:** under continuous norm-conserving (wave) evolution Q
+is conserved to MACHINE PRECISION (`ΔW ~ 10⁻¹⁶`) for all k ∈ {1, 3, 5} with
+`min|q| > 0`; under the order field's own dissipative gradient flow the
+sustained windings k = 1, 3 survive (a perturbed vortex relaxes back, Q
+conserved to ~10⁻¹⁵). **The criterion:** Q changes ONLY through `|q| = 0` —
+the unsustained k = 5 is driven to a zero (`min|q| → 10⁻⁴`) and the charge
+slips (5 → 2); survival ⟺ `|q| > 0`, exactly. That slip is the phase-slip /
+topology-change event of PR #182. **Rigidity:** under 40 random
+`|q| > 0`-preserving homotopies per sector the charge is unchanged in every
+case (40/40 for k = 1, 3, 5) — a superselection charge outside the continuous
+moduli (the #173/#174 rigidity, now on the dynamical soliton). So the
+#174/#178 winding ladder rides the #179/#180 soliton untouched, except at the
+amplitude zeros where topology changes. Scope: homotopy-invariance is exact;
+the geometry is the reduced vortex-on-soliton (amplitude from the radial #180
+soliton, winding azimuthal — the full 2D/3D self-consistent vortex-line
+soliton is a follow-up); which rungs survive is set by the soliton's capacity;
+the realized PHYSICAL ladder is odd-k {1, 3, 5} by the #174 orientability
+grading, with its survival under a deformed bulk geometry the subject of #183;
+weak-field (`discrete_invariant_survival_probe`, PR #181).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
