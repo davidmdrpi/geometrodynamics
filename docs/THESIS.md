@@ -828,6 +828,43 @@ exact (topological); the dynamical staircase is on the reduced
 vortex-on-soliton loop (the full 2D/3D vortex-line reconnection is a
 follow-up); weak-field (`phase_slip_topology_change_probe`, PR #182).
 
+**Odd-k / generation-sector survival under a deformed bulk geometry
+(PR #183).** PR #174 derived the odd-k charged-lepton ladder {1, 3, 5} (= 3
+generations) from the non-orientable bulk (the throat closure `T = iσ_y`,
+`T² = −I`). `odd_k_generation_survival_probe` shows that derivation is
+topologically PROTECTED — it survives any smooth deformation of the bulk
+geometry — closing the #181/#182 structure one level up, at the bulk. **The
+grading is metric-independent:** the antipodal deck map is `−I` in any linear
+frame, so `det = (−1)^dim` — the brane angular slice `S²/antipodal = RP²` is
+non-orientable (`det = −1`), the bulk `S³/antipodal = RP³` orientable
+(`det = +1`); the closure `T = iσ_y` has `T² = −I`, `½ tr T² = −1` (the Pin⁻
+structure forced by `w₁² = w₂`); the grading `tr(T^k) = 2cos(kπ/2) = 0` for
+odd k (off-diagonal, fermionic) and `±2` for even k (diagonal, bosonic).
+**Survival:** a smooth metric/frame deformation acts on the holonomy by
+orientation-preserving conjugation and on the deck map by a GL⁺ frame
+change, neither of which can flip a determinant sign or a trace; across 1000
+random deformations `½ tr T²` stays `−1` and the deck dets stay `∓1` to
+machine precision (`~10⁻¹⁵`), with named squash/tidal deformations likewise.
+**The generation count:** odd k ≤ `k₅ = D_bulk = 5 ⟹ {1, 3, 5} = (k₅+1)/2 =
+3` (matching `LEPTON_BASELINE_DEPTHS`); `D_bulk` and the odd-parity selection
+are topological, so the count survives every smooth deformation — not an
+artifact of the round metric. **Changes only at a topology change:** the only
+sector-flipping path, the non-metric `T(θ) = exp(iθσ_y)` driving `T² : −I →
++I`, has its orientability invariant cross zero at `θ = π/4` — a degenerate
+spin structure, the topology-change event; smooth deformations act by
+conjugation and never move `θ`, so they can never reach it (the exact
+bulk-level analog of the #182 amplitude zero). **Unity:** the generation
+sector is to the bulk geometry what the order-field winding is to the soliton
+(#181/#182) — a topological charge robust to smooth deformation, changing only
+at a singular / topology-change event. So the #174 round-metric derivation is
+not special; the odd-k, three-generation structure is topologically protected
+against any smooth deformation of the bulk. Scope: the invariance is exact
+(topological: the deck determinant and the spin-closure / Stiefel–Whitney
+class are metric-independent); the deformations are within the
+orientability/spin-preserving class; this establishes robustness, not a
+re-derivation; the result is purely topological — weak-field is not invoked
+(`odd_k_generation_survival_probe`, PR #183).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear

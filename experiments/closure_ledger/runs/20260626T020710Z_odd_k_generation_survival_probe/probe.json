@@ -1,0 +1,97 @@
+{
+  "timestamp_utc": "2026-06-26T02:07:10+00:00",
+  "identification": "the odd-k {1,3,5} generation sector is topologically protected against bulk deformation: its grading is set by metric-independent invariants (deck determinant + spin-closure class), preserved to machine precision under smooth deformation, changing only at a genuine topology change (\u00bd tr T\u00b2 = 0 at \u03b8 = \u03c0/4)",
+  "grading": "deck det \u22131 (RP\u00b2/RP\u00b3); \u00bd tr T\u00b2 = \u22121 (Pin\u207b); tr(T^k)=0 odd / \u00b12 even",
+  "survival": "1000 random deformations preserve the invariants to ~1e-15",
+  "generations": "odd k \u2264 D_bulk=5 \u27f9 {1,3,5}=3 (topological count) survives",
+  "topology_change": "flips only at the degenerate spin structure \u00bd tr T\u00b2=0 (\u03b8=\u03c0/4)",
+  "unity": "generation sector : bulk :: winding : soliton (#181/#182)",
+  "scope": "exact/topological; deformations within the orientability/spin class; robustness not re-derivation",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Ask whether the odd-k charged-lepton generation sector {1, 3, 5} \u2014 derived in #174 from the NON-ORIENTABLE bulk (the throat closure T = i\u03c3_y, T\u00b2 = \u2212I) \u2014 SURVIVES when the bulk geometry is deformed. The odd-k grading is set by metric-INDEPENDENT topological invariants (the orientability of the antipodal quotient and the spin-closure class), so the expectation is that it is topologically protected: it rides any smooth bulk deformation and changes only at a genuine topology change \u2014 the bulk-level analog of #181/#182 (the winding survives while |q| > 0, changes only at |q| = 0).",
+      "sector": "the odd-k charged-lepton ladder {1, 3, 5} = 3 generations",
+      "from": "PR #174 (the non-orientable closure T = i\u03c3_y, T\u00b2 = \u2212I)",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_topological_grading",
+      "description": "The odd-k grading is a TOPOLOGICAL invariant, metric-independent. (i) ORIENTABILITY of the antipodal quotient: the deck map is \u2212I in any linear frame, so det = (\u22121)^dim \u2014 the brane angular slice S\u00b2/antipodal = RP\u00b2 has det = -1 (NON-ORIENTABLE) and the bulk S\u00b3/antipodal = RP\u00b3 has det = +1 (ORIENTABLE). (ii) SPIN CLOSURE: T = i\u03c3_y has T\u00b2 = \u2212I, the orientability invariant \u00bd tr T\u00b2 = -1 (the Pin\u207b structure on RP\u00b2, forced by w\u2081\u00b2 = w\u2082). The grading tr(T^k) = 2cos(k\u03c0/2) = {1: 0.0, 2: -2.0, 3: 0.0, 4: 2.0, 5: 0.0, 6: -2.0}: ZERO for odd k \u2208 {1, 3, 5} (off-diagonal \u2014 orientation-reversing, FERMIONIC, the realized lepton ladder) and \u00b12 for even k (diagonal \u2014 orientable, BOSONIC). None of these reference the metric.",
+      "orientability_half_tr_T2": -1.0,
+      "deck_det_brane_RP2": -1.0,
+      "deck_det_bulk_RP3": 1.0,
+      "tr_T_k": {
+        "1": 0.0,
+        "2": -2.0,
+        "3": 0.0,
+        "4": 2.0,
+        "5": 0.0,
+        "6": -2.0
+      },
+      "pass": true
+    },
+    {
+      "name": "T3_survival_under_deformation",
+      "description": "SURVIVAL under smooth bulk deformation. A metric/frame deformation acts on the holonomy by orientation-preserving conjugation and on the deck map by a GL\u207a frame change \u2014 neither of which can change a determinant sign or a trace. Across 1000 random such deformations, the spin-closure invariant \u00bd tr T\u00b2 stays \u22121 to 2e-15, the brane deck det stays \u22121 to 7e-16, and the bulk deck det stays +1 to 1e-15 \u2014 MACHINE PRECISION. Named deformations (a Berger squash of the S\u00b3 Hopf fiber, a tidal-charge radial stretch) leave the bulk orientability +1 exactly. The odd-k grading rides every smooth bulk deformation untouched.",
+      "max_dev_orientability": 1.9984014443252818e-15,
+      "max_dev_deck_brane": 6.661338147750939e-16,
+      "max_dev_deck_bulk": 1.3322676295501878e-15,
+      "named_deformations_invariant": true,
+      "pass": true
+    },
+    {
+      "name": "T4_generation_count_survives",
+      "description": "The generation COUNT survives the deformation. The realized rungs are the odd k with k \u2264 k\u2085 = D_bulk = 5: [1, 3, 5] \u2014 exactly the repo's LEPTON_BASELINE_DEPTHS (1, 3, 5) \u2014 giving 3 = (k\u2085+1)/2 generations. Both inputs are TOPOLOGICAL: D_bulk = 5 is the bulk dimension (an integer, unchanged by any metric deformation) and the odd-parity selection is the orientability grading (preserved by deformation, T3). So the 3-generation count is not an artifact of the round metric \u2014 it is fixed by the bulk dimension and the orientability class, and survives every smooth deformation.",
+      "odd_rungs": [
+        1,
+        3,
+        5
+      ],
+      "generation_count": 3,
+      "k5_D_bulk": 5,
+      "matches_lepton_baseline": true,
+      "pass": true
+    },
+    {
+      "name": "T5_changes_only_at_topology_change",
+      "description": "The grading changes ONLY at a genuine topology change \u2014 never by a smooth metric deformation. Metric deformations act by conjugation and EXACTLY preserve \u00bd tr T\u00b2 (T3); the ONLY path that flips the sector is a NON-metric deformation of the spin closure itself, T(\u03b8) = exp(i\u03b8\u03c3_y), driving T\u00b2 from \u2212I (\u03b8 = \u03c0/2, \u00bd tr T\u00b2 = -1, non-orientable/fermionic) to +I (\u03b8 = 0, \u00bd tr T\u00b2 = +1, orientable/bosonic). Its orientability invariant crosses ZERO at \u03b8 = 0.7854 \u2248 \u03c0/4 \u2014 a DEGENERATE spin structure, the topology-change event. This is the exact bulk-level analog of the #182 phase slip: the invariant is locally constant and jumps only where it passes through the singular configuration (\u00bd tr T\u00b2 = 0 here, |q| = 0 there). Smooth bulk deformations never move \u03b8, so they can never reach the crossing.",
+      "invariant_start": -1.0,
+      "invariant_end": 1.0,
+      "theta_crossing": 0.7854,
+      "pi_over_4": 0.7854,
+      "pass": true
+    },
+    {
+      "name": "T6_robustness_random_deformations",
+      "description": "Robustness over 500 random smooth bulk deformations (SU(2) frame changes of the closure holonomy). In EVERY case the odd-k grading is preserved \u2014 tr(T^k) \u2248 0 for k \u2208 {1, 3, 5} (the fermionic rungs stay fermionic) and the orientability invariant \u00bd tr T\u00b2 stays \u22121: 500/500 held. The generation sector is rigid against arbitrary smooth deformation of the bulk geometry \u2014 a superselection/topological charge, exactly as the winding is on the soliton (#181).",
+      "held": "500/500",
+      "all_rigid": true,
+      "pass": true
+    },
+    {
+      "name": "T7_unity_and_scope",
+      "description": "UNITY. The generation sector is to the BULK geometry what the order-field winding is to the SOLITON (#181/#182): a topological charge robust to smooth deformation, changing only at a singular / topology-change event (\u00bd tr T\u00b2 = 0 here; |q| = 0 there). So the #174 round-metric derivation of the odd-k {1,3,5} ladder is not special \u2014 the 3-generation structure is topologically PROTECTED against any smooth deformation of the bulk. SCOPE. The invariance is EXACT (topological: the deck determinant and the Stiefel\u2013Whitney / spin-closure class are metric-independent). The deformations are within the orientability/spin-preserving class (smooth metric/frame changes); a genuine topology change (a different antipodal quotient, or the degenerate \u03b8 = \u03c0/4 spin structure) lies OUTSIDE the smooth family by construction. The odd-k ladder and the count are read from the #174 closure algebra \u2014 this probe establishes their ROBUSTNESS, not a re-derivation. The result is purely topological; weak-field is not even invoked.",
+      "unity": "generation sector : bulk :: winding : soliton (#181/#182)",
+      "exact": "deck determinant + spin-closure class are metric-independent",
+      "scope": [
+        "deformations within the orientability/spin-preserving class",
+        "a genuine topology change is outside the smooth family",
+        "robustness established, not a re-derivation of #174",
+        "purely topological \u2014 weak-field not invoked"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The odd-k {1, 3, 5} generation sector is topologically PROTECTED against bulk deformation. Its grading is fixed by two metric-independent invariants \u2014 the orientability of the antipodal quotient (deck det = \u22121 for the brane RP\u00b2, +1 for the bulk RP\u00b3) and the spin-closure class (\u00bd tr T\u00b2 = \u22121, the Pin\u207b structure; tr(T^k) = 0 for odd/fermionic k, \u00b12 for even/bosonic k). A smooth metric deformation acts by orientation-preserving conjugation and a GL\u207a frame change, so across 1000 random deformations these invariants \u2014 and the 3-generation count (D_bulk = 5 + odd parity) \u2014 are preserved to machine precision. The sector can change ONLY at a genuine topology change: the non-metric path driving T\u00b2 from \u2212I to +I crosses the degenerate spin structure \u00bd tr T\u00b2 = 0 at \u03b8 = \u03c0/4, the bulk-level analog of the #182 amplitude zero. So the #174 round-metric derivation is not special \u2014 the odd-k, three-generation structure rides any smooth bulk deformation untouched, exactly as the winding rides the soliton (#181/#182).",
+      "classification": "ODD_K_GENERATION_SECTOR_SURVIVES_BULK_DEFORMATION_TOPOLOGICALLY_PROTECTED_CHANGES_ONLY_AT_A_TOPOLOGY_CHANGE",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "ODD_K_GENERATION_SECTOR_SURVIVES_BULK_DEFORMATION_TOPOLOGICALLY_PROTECTED_CHANGES_ONLY_AT_A_TOPOLOGY_CHANGE",
+  "verdict": "SURVIVES \u2014 THE GENERATION SECTOR IS TOPOLOGICALLY PROTECTED. The odd-k {1, 3, 5} ladder rides any smooth bulk deformation.\n\nTOPOLOGICAL GRADING. The grading is set by metric-independent invariants: deck det = -1 (brane RP\u00b2, non-orientable) and +1 (bulk RP\u00b3, orientable); \u00bd tr T\u00b2 = -1 (Pin\u207b); tr(T^k) = 0 for odd k (fermion), \u00b12 for even (boson).\n\nSURVIVAL. Across 1000 random orientation-preserving deformations \u00bd tr T\u00b2 stays \u22121 (to 2e-15) and the deck dets stay \u22131 (to 1e-15) \u2014 machine precision; named squash/tidal deformations too.\n\nGENERATION COUNT. Odd k \u2264 D_bulk = 5 \u27f9 [1, 3, 5] = 3 generations (matching LEPTON_BASELINE_DEPTHS); D_bulk and the parity selection are topological, so the count survives every smooth deformation.\n\nCHANGES ONLY AT A TOPOLOGY CHANGE. The only sector-flipping path (T\u00b2 : \u2212I \u2192 +I) crosses the degenerate spin structure \u00bd tr T\u00b2 = 0 at \u03b8 = 0.7854 \u2248 \u03c0/4 \u2014 the bulk-level analog of the #182 amplitude zero; smooth deformations never reach it.\n\nROBUST. 500/500 random deformations preserved the odd-k grading and the orientability class. The generation sector is to the bulk what the winding is to the soliton (#181/#182): a topological charge robust to smooth deformation, changing only at a topology change. The #174 round-metric result is not special \u2014 it is topologically protected."
+}
