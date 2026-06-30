@@ -1,0 +1,147 @@
+{
+  "timestamp_utc": "2026-06-30T01:11:47+00:00",
+  "identification": "the overlap-normalized two-throat Hartree\u2013Fock energy E\u00b1(R) = (J(R) \u00b1 K_ex(R))/(1 \u00b1 S\u00b2) assembled from the #180 soliton orbitals and a screened-photon interaction: for a repulsive V the GR-selected antisymmetric (Pin\u207b) branch sits below the symmetric one at every finite separation, and at coincidence the antisymmetric state is the zero vector (Pauli-forbidden)",
+  "structure": "E\u00b1(R) = (J(R) \u00b1 K_ex(R))/(1 \u00b1 S\u00b2) : overlap-normalized; S=\u27e8\u03c6_a|\u03c6_b\u27e9",
+  "numerators": "J, K_ex positive/decaying, J \u2265 K_ex (unnormalized HF numerators)",
+  "ordering": "fermion branch E\u208b below boson E\u208a at finite R \u2014 FOR A REPULSIVE V (attractive reverses)",
+  "pauli": "at coincidence the antisymmetric state is the zero vector (forbidden); contact V \u2192 E\u208b=0 at finite R",
+  "scope": "rigid orbitals; screened-photon V; spatial exchange only; code units; weak-field",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Assemble the overlap-NORMALIZED two-throat HARTREE\u2013FOCK energy \u2014 both the DIRECT (Hartree) and the EXCHANGE terms \u2014 by convolving the #186 hardened overlap kernels with an interaction V. With two rigid #180 throat-solitons at separation R as the orbitals, and because two displaced throats are NON-orthogonal (overlap S(R) = \u27e8\u03c6_a|\u03c6_b\u27e9 \u2260 0), the physical energy is E\u00b1(R) = (J(R) \u00b1 K_ex(R))/(1 \u00b1 S\u00b2), where J, K_ex are the direct and exchange numerators. The GR-selected Pin\u207b sign \u22121 (#185) puts the throats in the antisymmetric sector (E\u208b), and the sandbox computes the energies, the ordering, and the Pauli physics at coincidence.",
+      "energy": "E\u00b1(R) = (J(R) \u00b1 K_ex(R))/(1 \u00b1 S\u00b2) : overlap-normalized HF",
+      "orbitals": "two rigid #180 throat-solitons; V = screened-photon (Yukawa)",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_hartree_fock_structure",
+      "description": "The overlap-normalized two-throat Hartree\u2013Fock energy. For two identical throats in NON-orthogonal orbitals \u03c6_a, \u03c6_b (overlap S = \u27e8\u03c6_a|\u03c6_b\u27e9), with densities \u03c1 = |\u03c6|\u00b2 and overlap density \u03c4 = \u03c6_a \u03c6_b, the (anti)symmetric two-body state is \u03a8\u00b1 = (\u03c6_a \u03c6_b \u00b1 \u03c6_b \u03c6_a)/\u221a(2(1 \u00b1 S\u00b2)), so its interaction energy is E\u00b1 = (J \u00b1 K_ex)/(1 \u00b1 S\u00b2). The DIRECT (Hartree) numerator J = \u222b\u222b \u03c1_a(r\u2081) \u03c1_b(r\u2082) V (the sign-independent density\u2013density energy \u2014 the #186 direct channel) and the EXCHANGE numerator K_ex = \u222b\u222b \u03c4(r\u2081) \u03c4(r\u2082) V (the overlap-density self-energy \u2014 the #186 exchange channel, weighted by V) are the UNNORMALIZED numerators; the (1 \u00b1 S\u00b2) is the overlap normalization that the non-orthogonal orbitals require. The GR-selected Pin\u207b \u22121 makes two throats fermions, so their physical energy is E\u208b = (J \u2212 K_ex)/(1 \u2212 S\u00b2).",
+      "overlap_S": "S = \u27e8\u03c6_a|\u03c6_b\u27e9  (orbital overlap; the (1 \u00b1 S\u00b2) normalization)",
+      "direct_J": "\u222b\u222b \u03c1_a \u03c1_b V  (Hartree numerator, sign-independent)",
+      "exchange_Kx": "\u222b\u222b \u03c4 \u03c4 V, \u03c4=\u03c6_a \u03c6_b  (exchange numerator)",
+      "fermion_branch": "E\u208b = (J \u2212 K_ex)/(1 \u2212 S\u00b2) (the Pin\u207b-selected antisymmetric sector)",
+      "pass": true
+    },
+    {
+      "name": "T3_overlap_and_numerators",
+      "description": "The three ingredients. The orbital OVERLAP S(R) = \u27e8\u03c6_a|\u03c6_b\u27e9 = {0.0: 1.0, 1.0: 0.7911, 2.0: 0.4093, 3.0: 0.1529, 4.0: 0.0454, 6.0: 0.0026} decays from S(0) = 1 to ~0 over the soliton size \u2014 the throats are non-orthogonal at finite overlap, orthogonal (distinguishable) far apart. The DIRECT and EXCHANGE numerators J(R) = {0.0: 0.0393, 1.0: 0.031, 2.0: 0.0173, 3.0: 0.0086, 4.0: 0.0044, 6.0: 0.0013} and K_ex(R) = {0.0: 0.0393, 1.0: 0.0237, 2.0: 0.0058, 3.0: 0.0007, 4.0: 0.0001, 6.0: 0.0} (from the 3D-FFT Coulomb solve on the GR soliton orbitals) are positive (repulsive V) and decaying, the direct dominating (K_ex/J from 1.00 at contact to 0.01 at R = 4). J and K_ex are the unnormalized HF numerators; the physical energies divide by (1 \u00b1 S\u00b2) (T4).",
+      "overlap_S": {
+        "0.0": 1.0,
+        "1.0": 0.79109,
+        "2.0": 0.40927,
+        "3.0": 0.15287,
+        "4.0": 0.04543,
+        "6.0": 0.00261
+      },
+      "direct_J": {
+        "0.0": 0.03928,
+        "1.0": 0.03101,
+        "2.0": 0.01727,
+        "3.0": 0.0086,
+        "4.0": 0.0044,
+        "6.0": 0.00134
+      },
+      "exchange_Kx": {
+        "0.0": 0.03928,
+        "1.0": 0.02375,
+        "2.0": 0.00579,
+        "3.0": 0.00071,
+        "4.0": 5e-05,
+        "6.0": 0.0
+      },
+      "direct_dominates": true,
+      "pass": true
+    },
+    {
+      "name": "T4_overlap_normalized_energies",
+      "description": "The overlap-normalized energies E\u00b1 = (J \u00b1 K_ex)/(1 \u00b1 S\u00b2). For the REPULSIVE screened interaction, the antisymmetric (fermion) branch E\u208b lies BELOW the symmetric (boson) branch E\u208a at every finite separation: {0.5: {'S': 0.9424, 'E_plus': 0.03788, 'E_minus': 0.02112}, 1.0: {'S': 0.7911, 'E_plus': 0.03368, 'E_minus': 0.0194}, 1.5: {'S': 0.5967, 'E_plus': 0.02712, 'E_minus': 0.01683}, 2.0: {'S': 0.4093, 'E_plus': 0.01975, 'E_minus': 0.01379}, 3.0: {'S': 0.1529, 'E_plus': 0.0091, 'E_minus': 0.00808}, 4.0: {'S': 0.0454, 'E_plus': 0.00445, 'E_minus': 0.00436}}. The exchange hole reduces the interaction energy of the antisymmetric state, so the GR-selected Pin\u207b \u22121 (#185) places the two throats in the LOWER branch \u2014 and the gap closes as the overlap dies (S \u2192 0 \u27f9 E\u208a \u2248 E\u208b, distinguishable). This ordering is SCOPED to a repulsive V: with an attractive interaction the exchange term flips the comparison. (Note the normalization matters \u2014 dividing E\u208b by 1 \u2212 S\u00b2 < 1 raises it and E\u208a by 1 + S\u00b2 > 1 lowers it \u2014 yet the fermion branch remains lower across the tested range.)",
+      "branches": {
+        "0.5": {
+          "S": 0.9424,
+          "E_plus": 0.03788,
+          "E_minus": 0.02112
+        },
+        "1.0": {
+          "S": 0.7911,
+          "E_plus": 0.03368,
+          "E_minus": 0.0194
+        },
+        "1.5": {
+          "S": 0.5967,
+          "E_plus": 0.02712,
+          "E_minus": 0.01683
+        },
+        "2.0": {
+          "S": 0.4093,
+          "E_plus": 0.01975,
+          "E_minus": 0.01379
+        },
+        "3.0": {
+          "S": 0.1529,
+          "E_plus": 0.0091,
+          "E_minus": 0.00808
+        },
+        "4.0": {
+          "S": 0.0454,
+          "E_plus": 0.00445,
+          "E_minus": 0.00436
+        }
+      },
+      "fermion_lower_for_repulsive_V": true,
+      "scope": "ordering holds for the repulsive screened interaction (attractive V reverses it)",
+      "pass": true
+    },
+    {
+      "name": "T5_pauli_zero_vector_at_coincidence",
+      "description": "PAULI AT COINCIDENCE \u2014 the antisymmetric state is the ZERO VECTOR, not a zero-energy state. As R \u2192 0 the two orbitals become identical (S \u2192 1.0000 = 1), and the antisymmetric combination \u03a8\u208b = (\u03c6_a \u03c6_b \u2212 \u03c6_b \u03c6_a)/\u221a(2(1 \u2212 S\u00b2)) has BOTH a vanishing numerator (J \u2212 K_ex = 0.0e+00 \u2192 0) and a vanishing normalization (1 \u2212 S\u00b2 = 0.0e+00 \u2192 0): it is the ZERO VECTOR \u2014 two identical fermions CANNOT occupy the same orbital, so the antisymmetric state is FORBIDDEN (not a state with zero interaction energy). The symmetric (boson) state survives (E\u208a = (J + K_ex)/(1 + S\u00b2) = 0.0393, the boson bunching). For a CONTACT interaction V = g \u03b4 the numerator J \u2212 K_ex = 0 at ALL R (J = K_ex = g\u00b7D(R), the hardened #186 direct overlap D = {1.0: 0.0377, 2.0: 0.0083, 4.0: 0.0001}), so the antisymmetric energy E\u208b = 0 at every finite separation (the exchange exactly cancels the direct \u2014 the Pauli hole removes the contact interaction), the state being forbidden only at exact coincidence.",
+      "overlap_at_coincidence": 1.0,
+      "numerator_J_minus_Kx": 0.0,
+      "normalization_one_minus_S2": 0.0,
+      "antisymmetric_is_zero_vector": true,
+      "contact_E_minus_zero_at_finite_R": true,
+      "pass": true
+    },
+    {
+      "name": "T6_controls_and_convergence",
+      "description": "Controls and convergence. FAR SEPARATION: at R = 6 the overlap S = 0.0026 \u2192 0 (the orbitals are orthogonal \u2014 distinguishable throats) and both numerators vanish (J = 0.0013, K_ex = 1.3e-07 \u2192 0), so E\u208a \u2248 E\u208b (no interaction, no exchange splitting). CONVERGENCE: under 3D-grid refinement (N = 64 \u2192 80 \u2192 96) the direct J(2) varies by 0.0% and the exchange K_ex(2) by 0.0% \u2014 both grid-convergent. (The precise values still carry the #186 soliton-profile ~3% uncertainty.) The overlap-normalized HF energies are a trustworthy sandbox.",
+      "far_separation_overlap": 0.00261,
+      "far_separation_J": 0.00134,
+      "far_separation_Kx": 1.3498683920593167e-07,
+      "J_grid_spread_percent": 0.0,
+      "Kx_grid_spread_percent": 0.01,
+      "pass": "True"
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "A SANDBOX, with honest limits. The orbitals are RIGID #180 throat-solitons (not relaxed in each other's presence \u2014 the self-consistent two-throat HF solve is a follow-up). The interaction V is a screened-photon (Yukawa) regulated stand-in for the BAM throat-fibre exchange (the unscreened Coulomb/photon 1/q\u00b2 is the #42\u2013#44 result; the screening is a numerical regulator). Only the SPATIAL (orbital) exchange is computed here; the spin/statistics factor is the separate Pin\u207b \u22121 (#185). The energies are in code units (the interaction strength is a scale, not calibrated to \u03b1). The OVERLAP-NORMALIZED structure \u2014 the overlap S(R), the direct/exchange numerators, the (1 \u00b1 S\u00b2) normalization, the fermion-lower ordering FOR A REPULSIVE V (an attractive V reverses it), and the FORBIDDEN (zero-vector) antisymmetric state at coincidence \u2014 is robust; the precise numbers carry the #186 soliton-profile ~3% uncertainty. Weak-field / semi-dynamical soliton.",
+      "sandbox_limits": [
+        "rigid orbitals (no self-consistent relaxation)",
+        "screened-photon (Yukawa) V as a regulated stand-in",
+        "spatial exchange only (spin factor is the Pin\u207b \u22121)",
+        "energies in code units (not calibrated to \u03b1)"
+      ],
+      "robust": [
+        "S(R) + the (1 \u00b1 S\u00b2)-normalized E\u00b1",
+        "fermion branch lower FOR A REPULSIVE V",
+        "antisymmetric state forbidden (zero vector) at coincidence"
+      ],
+      "follow_ups": [
+        "self-consistent two-throat HF (relaxed orbitals)",
+        "the unscreened BAM Coulomb/photon interaction"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The two-throat Hartree\u2013Fock sandbox, overlap-normalized. Convolving the #186 hardened overlap kernels with a screened-photon interaction gives the two-throat energy E\u00b1(R) = (J(R) \u00b1 K_ex(R))/(1 \u00b1 S\u00b2), with the orbital overlap S(R) = \u27e8\u03c6_a|\u03c6_b\u27e9, the DIRECT (Hartree) numerator J, and the EXCHANGE numerator K_ex all computed from the actual #180 throat-soliton orbitals (S, J, K_ex positive/decaying, J \u2265 K_ex). For the REPULSIVE screened interaction the GR-selected antisymmetric (Pin\u207b) branch E\u208b = (J \u2212 K_ex)/(1 \u2212 S\u00b2) sits BELOW the symmetric E\u208a = (J + K_ex)/(1 + S\u00b2) at every finite separation (the exchange hole lowers it; the gap closes as the overlap dies) \u2014 an ordering scoped to a repulsive V. At coincidence the antisymmetric state is the ZERO VECTOR \u2014 both the numerator (J \u2212 K_ex) and the normalization (1 \u2212 S\u00b2) vanish \u2014 so two identical throats in the same orbital are Pauli-FORBIDDEN (not a zero-energy state); for a contact V the antisymmetric energy is zero at all finite R. Both numerators vanish at far separation (orthogonal, distinguishable), and the energies are grid-convergent. The exchange interaction and the Pauli physics of throat matter, assembled from the GR-derived kernel.",
+      "classification": "TWO_THROAT_HARTREE_FOCK_OVERLAP_NORMALIZED_DIRECT_PLUS_EXCHANGE_FERMION_LOWER_FOR_REPULSIVE_V_ANTISYM_FORBIDDEN_AT_COINCIDENCE",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "TWO_THROAT_HARTREE_FOCK_OVERLAP_NORMALIZED_DIRECT_PLUS_EXCHANGE_FERMION_LOWER_FOR_REPULSIVE_V_ANTISYM_FORBIDDEN_AT_COINCIDENCE",
+  "verdict": "ASSEMBLED \u2014 THE OVERLAP-NORMALIZED TWO-THROAT HARTREE\u2013FOCK ENERGY. E\u00b1(R) = (J(R) \u00b1 K_ex(R))/(1 \u00b1 S\u00b2) from the GR soliton orbitals.\n\nOVERLAP + NUMERATORS. The non-orthogonal throats have overlap S(R) = \u27e8\u03c6_a|\u03c6_b\u27e9 (1 at contact \u2192 0 far apart); the direct J(R) and exchange K_ex(R) numerators are positive and decay, the direct dominating (K_ex/J = 0.77 at R = 1).\n\nNORMALIZED ENERGIES, FERMION LOWER (REPULSIVE V). For the repulsive screened interaction the antisymmetric branch E\u208b = (J \u2212 K_ex)/(1 \u2212 S\u00b2) lies below the symmetric E\u208a = (J + K_ex)/(1 + S\u00b2) at every finite separation (the gap closing as the overlap dies) \u2014 the GR-selected Pin\u207b state is the lower one; an attractive V would reverse this.\n\nPAULI \u2014 THE ZERO VECTOR. At coincidence the antisymmetric state is the ZERO VECTOR (both J \u2212 K_ex \u2192 0 and 1 \u2212 S\u00b2 \u2192 0): two identical throats in the same orbital are Pauli-FORBIDDEN, not a zero-energy state. (For a contact V the antisymmetric energy is zero at all finite R.)\n\nCONTROLS. Both numerators and the overlap vanish at far separation (orthogonal, distinguishable), and the energies are grid-convergent (J(2) to 0.0%, K_ex(2) to 0.0%). The exchange interaction and the Pauli physics of throat matter, from the GR-derived kernel."
+}

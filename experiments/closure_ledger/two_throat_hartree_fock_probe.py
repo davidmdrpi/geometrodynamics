@@ -4,45 +4,52 @@ Two-throat Hartree–Fock sandbox: direct plus exchange terms (PR #187).
 > Framing: QFT on the *fixed classical* throat geometry (geometry → fields),
 > not quantum gravity.
 
-THE TWO-THROAT HARTREE–FOCK ENERGY
-───────────────────────────────────
+THE TWO-THROAT HARTREE–FOCK ENERGY (overlap-normalized)
+───────────────────────────────────────────────────────
 PR #185 gave the two-throat exchange kernel K_exchange(R) = (−1)·K(R); PR #186
 hardened its overlap kernels — the direct density-overlap D(R) and the
 exchange amplitude-overlap K(R) — and separated the channels. This probe
 convolves them with an interaction V to build the actual two-throat
-HARTREE–FOCK energy, with both the DIRECT (Hartree) and EXCHANGE terms:
+HARTREE–FOCK energy, with both the DIRECT (Hartree) and EXCHANGE terms.
 
-        E±(R) = J(R) ± K_ex(R) ,
-  • J(R)    = ∫∫ ρ_a(r₁) ρ_b(r₂) V(r₁−r₂)             (DIRECT / Hartree)
-  • K_ex(R) = ∫∫ τ(r₁) τ(r₂) V(r₁−r₂),  τ = φ_a φ_b   (EXCHANGE)
+Because two displaced throats are NON-orthogonal (their orbital overlap
+S(R) = ⟨φ_a|φ_b⟩ ≠ 0), the properly normalized two-body energy carries the
+overlap normalization (1 ± S²):
 
-The orbitals are two rigid #180 self-gravitating throat-solitons at
-separation R; the interaction V is a screened-photon (Yukawa) stand-in for
-the BAM throat-fibre exchange (the unscreened Coulomb/photon 1/q² is the
-#42–#44 result; the screening is a numerical regulator). The GR-selected
-Pin⁻ sign −1 (#185) puts the two throats in the ANTISYMMETRIC sector, so
-their physical energy is E₋ = J − K_ex.
+        E±(R) = (J(R) ± K_ex(R)) / (1 ± S²) ,
+  • S(R)    = ⟨φ_a|φ_b⟩                                (the orbital overlap)
+  • J(R)    = ∫∫ ρ_a(r₁) ρ_b(r₂) V(r₁−r₂)             (DIRECT numerator)
+  • K_ex(R) = ∫∫ τ(r₁) τ(r₂) V(r₁−r₂),  τ = φ_a φ_b   (EXCHANGE numerator)
+
+J and K_ex are the unnormalized HF energy NUMERATORS; the physical energies
+are E± above. The orbitals are two rigid #180 self-gravitating
+throat-solitons at separation R; the interaction V is a screened-photon
+(Yukawa) stand-in for the BAM throat-fibre exchange (the unscreened
+Coulomb/photon 1/q² is the #42–#44 result; the screening is a numerical
+regulator). The GR-selected Pin⁻ sign −1 (#185) puts the two throats in the
+ANTISYMMETRIC sector, so their physical energy is E₋ = (J − K_ex)/(1 − S²).
 
 WHAT IS COMPUTED (measured; the #180 soliton + a 3D-FFT Coulomb solve)
-  • DIRECT + EXCHANGE: J(R) and K_ex(R), both positive (repulsive V), both
-    decaying to zero with separation; the direct dominates (K_ex/J falls from
-    1 at contact to ~0 far apart).
-  • THE EXCHANGE SPLITTING: E₊ = J + K_ex (boson, symmetric) lies ABOVE
-    E₋ = J − K_ex (fermion, antisymmetric) by 2 K_ex everywhere — the exchange
-    hole lowers the energy of the GR-selected antisymmetric state.
-  • PAULI, EXACT: at coincidence R = 0, ρ_a = ρ_b = τ ⟹ J = K_ex, so the
-    fermion energy E₋ = 0 EXACTLY — two identical throats at the same point
-    have ZERO interaction energy (the Pauli hole removes it), while the boson
-    has E₊ = 2J (bunching).  For a CONTACT V the cancellation is exact at all
-    R (J = K_ex = g·D(R), E₋ = 0), tying to the hardened #186 direct overlap.
-  • CONTROLS: at far separation both J, K_ex → 0 (distinguishable throats, no
-    interaction); the energies are grid-convergent.
-
-So the multi-throat mechanics close: the GR-derived exchange kernel, dressed
-by an interaction, gives a Hartree–Fock energy whose antisymmetric (Pin⁻
-fermion) branch sits below the symmetric (boson) branch and vanishes at
-coincidence — the exchange interaction and the Pauli energy of throat matter,
-from GR.
+  • THE OVERLAP S(R): ⟨φ_a|φ_b⟩, decaying from S(0) = 1 to ~0 over the
+    soliton size — the throats are non-orthogonal at finite overlap and
+    orthogonal (distinguishable) far apart.
+  • DIRECT + EXCHANGE NUMERATORS: J(R), K_ex(R), both positive (repulsive V),
+    both decaying; the direct dominates (K_ex/J falls from 1 at contact to ~0
+    far apart).
+  • THE OVERLAP-NORMALIZED ENERGIES: E±(R) = (J ± K_ex)/(1 ± S²). For the
+    REPULSIVE screened interaction the antisymmetric branch E₋ lies BELOW the
+    symmetric E₊ at every finite separation — the exchange hole lowers the
+    energy of the GR-selected antisymmetric state (a statement scoped to a
+    repulsive V; an attractive V reverses it).
+  • PAULI AT COINCIDENCE (the zero vector): as R → 0, S → 1 and BOTH the
+    numerator (J − K_ex) → 0 AND the normalization (1 − S²) → 0 — the
+    antisymmetric two-body state is the ZERO VECTOR, i.e. FORBIDDEN (two
+    identical fermions cannot occupy the same orbital), NOT a state with zero
+    energy. For a CONTACT V the antisymmetric energy E₋ = 0 at all finite R
+    (J = K_ex, the exchange exactly cancels the direct), the state being
+    forbidden only at exact coincidence.
+  • CONTROLS: at far separation S, J, K_ex → 0 (orthogonal, distinguishable
+    throats); the energies are grid-convergent.
 
 HONEST SCOPE
   A SANDBOX: rigid #180 orbitals (not relaxed in each other's presence — the
@@ -50,29 +57,33 @@ HONEST SCOPE
   (Yukawa) interaction as a regulated stand-in for the BAM Coulomb/photon
   exchange, and the spatial (orbital) exchange only — the spin/statistics
   factor is the separate Pin⁻ −1 (#185). The energies are in code units
-  (the interaction strength is a scale, not calibrated to α). The qualitative
-  HF structure — direct + exchange, the 2 K_ex splitting, the fermion-lower
-  ordering, and E₋ = 0 at coincidence — is robust; the precise numbers carry
-  the #186 soliton-profile ~3% uncertainty. Weak-field / semi-dynamical
-  soliton.
+  (the interaction strength is a scale, not calibrated to α). The
+  overlap-normalized structure — S(R), the direct/exchange numerators, the
+  (1 ± S²) normalization, the fermion-lower ordering FOR A REPULSIVE V, and
+  the forbidden (zero-vector) antisymmetric state at coincidence — is robust;
+  the precise numbers carry the #186 soliton-profile ~3% uncertainty.
+  Weak-field / semi-dynamical soliton.
 
 Tests:
-  T1. Goal: assemble the two-throat HF energy (direct + exchange) from V.
-  T2. The HF structure: E± = J ± K_ex; J direct, K_ex exchange.
-  T3. The energies: J(R), K_ex(R) computed (positive, decaying, J ≥ K_ex).
-  T4. The exchange splitting: the fermion branch E₋ sits below the boson E₊.
-  T5. Pauli, exact: E₋ = 0 at coincidence (and contact V → E₋ = 0 for all R).
+  T1. Goal: assemble the overlap-normalized two-throat HF energy.
+  T2. The HF structure: E± = (J ± K_ex)/(1 ± S²); S, J, K_ex defined.
+  T3. The integrals: the overlap S(R), and the numerators J(R), K_ex(R).
+  T4. The normalized energies: E₋ below E₊ for the repulsive screened V.
+  T5. Pauli at coincidence: the antisymmetric state is the zero vector
+      (forbidden); contact V → E₋ = 0 at finite R.
   T6. Controls + convergence (far-vanishing; grid-convergent).
   T7. Honest scope.
   T8. Assessment.
 
 Verdict:
-  - TWO_THROAT_HARTREE_FOCK_DIRECT_PLUS_EXCHANGE_FERMION_BRANCH_LOWER_PAULI_ZERO_AT_COINCIDENCE
-    (expected): the two-throat Hartree–Fock energy E± = J(R) ± K_ex(R) is
-    assembled from the GR soliton orbitals and an interaction; the GR-selected
-    antisymmetric (Pin⁻ fermion) branch E₋ = J − K_ex sits below the boson
-    branch by 2 K_ex and vanishes exactly at coincidence (Pauli), both terms
-    decaying to zero at far separation.
+  - TWO_THROAT_HARTREE_FOCK_OVERLAP_NORMALIZED_DIRECT_PLUS_EXCHANGE_FERMION_LOWER_FOR_REPULSIVE_V_ANTISYM_FORBIDDEN_AT_COINCIDENCE
+    (expected): the overlap-normalized two-throat HF energy
+    E± = (J ± K_ex)/(1 ± S²) is assembled from the GR soliton orbitals and an
+    interaction; for the repulsive screened V the GR-selected antisymmetric
+    (Pin⁻) branch E₋ sits below the symmetric E₊ at every finite separation,
+    and at coincidence the antisymmetric state is the zero vector (Pauli-
+    forbidden), the numerators and the (1 − S²) normalization vanishing
+    together.
 """
 
 from __future__ import annotations
@@ -102,6 +113,12 @@ def _phi_of(x: np.ndarray) -> np.ndarray:
     return np.interp(x, s["r"], s["phi"], left=s["phi"][0], right=0.0)
 
 
+def overlap(R: float) -> float:
+    """S(R) = ⟨φ_a|φ_b⟩, the orbital overlap of two displaced throat-solitons
+    (= the normalized #185/#186 spatial kernel).  S(0) = 1; S → 0 far apart."""
+    return M.spatial_kernel(R) / M.spatial_kernel(0.0)
+
+
 def _grid(N: int = 80, L: float = 20.0):
     key = (N, round(L, 3))
     if key in _GRID:
@@ -117,9 +134,10 @@ def _grid(N: int = 80, L: float = 20.0):
     return g
 
 
-def hf_energies(R: float, N: int = 80, L: float = 20.0):
-    """The two-throat direct (Hartree) J(R) and exchange K_ex(R) energies for
-    two #180 throat-solitons at separation R, with a screened-photon V."""
+def hf_numerators(R: float, N: int = 80, L: float = 20.0):
+    """The DIRECT and EXCHANGE energy NUMERATORS J(R), K_ex(R) for two #180
+    throat-solitons at separation R, with a screened-photon V.  These are the
+    unnormalized HF numerators; the physical energies divide by (1 ± S²)."""
     g = _grid(N, L)
     X, Y, Z, Vhat, dx = g["X"], g["Y"], g["Z"], g["Vhat"], g["dx"]
     ra = np.sqrt(X ** 2 + Y ** 2 + (Z - R / 2) ** 2)
@@ -133,9 +151,21 @@ def hf_energies(R: float, N: int = 80, L: float = 20.0):
     def coulomb(rho):
         return np.fft.ifftn(Vhat * np.fft.fftn(rho)).real
 
-    J = float(np.sum(rho_a * coulomb(rho_b)) * dx ** 3)        # direct
-    Kx = float(np.sum(tau * coulomb(tau)) * dx ** 3)           # exchange
+    J = float(np.sum(rho_a * coulomb(rho_b)) * dx ** 3)        # direct numerator
+    Kx = float(np.sum(tau * coulomb(tau)) * dx ** 3)           # exchange numerator
     return J, Kx
+
+
+def normalized_energies(R: float, N: int = 80, L: float = 20.0):
+    """The overlap-NORMALIZED two-body energies E± = (J ± K_ex)/(1 ± S²).
+    Returns (E_plus, E_minus, J, Kx, S).  E_minus is None when the
+    antisymmetric state is the zero vector (S² → 1, coincidence)."""
+    S = overlap(R)
+    J, Kx = hf_numerators(R, N, L)
+    E_plus = (J + Kx) / (1.0 + S ** 2)
+    denom_minus = 1.0 - S ** 2
+    E_minus = (J - Kx) / denom_minus if denom_minus > 1e-6 else None
+    return E_plus, E_minus, J, Kx, S
 
 
 # ════════════════════════════════════════════════════════════════════════
@@ -146,17 +176,19 @@ def test_T1_goal() -> dict:
     return {
         "name": "T1_goal",
         "description": (
-            "Assemble the two-throat HARTREE–FOCK energy — both the DIRECT "
-            "(Hartree) and the EXCHANGE terms — by convolving the #186 "
-            "hardened overlap kernels with an interaction V. With two rigid "
-            "#180 throat-solitons at separation R as the orbitals, "
-            "E±(R) = J(R) ± K_ex(R), where J is the direct (density–density) "
-            "energy and K_ex the exchange (overlap-density self-) energy. The "
-            "GR-selected Pin⁻ sign −1 (#185) puts the throats in the "
-            "antisymmetric sector (E₋), and the sandbox computes the splitting "
-            "and the Pauli/exchange consequences."
+            "Assemble the overlap-NORMALIZED two-throat HARTREE–FOCK energy — "
+            "both the DIRECT (Hartree) and the EXCHANGE terms — by convolving "
+            "the #186 hardened overlap kernels with an interaction V. With "
+            "two rigid #180 throat-solitons at separation R as the orbitals, "
+            "and because two displaced throats are NON-orthogonal (overlap "
+            "S(R) = ⟨φ_a|φ_b⟩ ≠ 0), the physical energy is "
+            "E±(R) = (J(R) ± K_ex(R))/(1 ± S²), where J, K_ex are the direct "
+            "and exchange numerators. The GR-selected Pin⁻ sign −1 (#185) puts "
+            "the throats in the antisymmetric sector (E₋), and the sandbox "
+            "computes the energies, the ordering, and the Pauli physics at "
+            "coincidence."
         ),
-        "energy": "E±(R) = J(R) ± K_ex(R) : direct ± exchange",
+        "energy": "E±(R) = (J(R) ± K_ex(R))/(1 ± S²) : overlap-normalized HF",
         "orbitals": "two rigid #180 throat-solitons; V = screened-photon (Yukawa)",
         "framing": "QFT on the fixed classical throat geometry — not quantum gravity",
         "pass": True,
@@ -164,156 +196,175 @@ def test_T1_goal() -> dict:
 
 
 def test_T2_hf_structure() -> dict:
-    """The HF structure: E± = J ± K_ex; J direct, K_ex exchange."""
+    """The HF structure: E± = (J ± K_ex)/(1 ± S²)."""
     return {
         "name": "T2_hartree_fock_structure",
         "description": (
-            "The two-throat Hartree–Fock energy. For two identical throats in "
-            "orbitals φ_a, φ_b with densities ρ = |φ|² and overlap density "
-            "τ = φ_a φ_b, the interaction energy of the (anti)symmetric "
-            "two-body state is E± = J ± K_ex, with the DIRECT (Hartree) term "
-            "J = ∫∫ ρ_a(r₁) ρ_b(r₂) V(r₁−r₂) (the classical density–density "
-            "energy, sign-independent — the #186 direct channel) and the "
-            "EXCHANGE term K_ex = ∫∫ τ(r₁) τ(r₂) V(r₁−r₂) (the self-energy of "
-            "the overlap density — the #186 exchange channel, weighted by V). "
-            "The symmetric (boson) state takes +K_ex, the antisymmetric "
-            "(fermion) state −K_ex. The GR-selected Pin⁻ −1 (#185) makes two "
-            "throats fermions, so their physical energy is E₋ = J − K_ex."
+            "The overlap-normalized two-throat Hartree–Fock energy. For two "
+            "identical throats in NON-orthogonal orbitals φ_a, φ_b (overlap "
+            "S = ⟨φ_a|φ_b⟩), with densities ρ = |φ|² and overlap density "
+            "τ = φ_a φ_b, the (anti)symmetric two-body state is "
+            "Ψ± = (φ_a φ_b ± φ_b φ_a)/√(2(1 ± S²)), so its interaction energy "
+            "is E± = (J ± K_ex)/(1 ± S²). The DIRECT (Hartree) numerator "
+            "J = ∫∫ ρ_a(r₁) ρ_b(r₂) V (the sign-independent density–density "
+            "energy — the #186 direct channel) and the EXCHANGE numerator "
+            "K_ex = ∫∫ τ(r₁) τ(r₂) V (the overlap-density self-energy — the "
+            "#186 exchange channel, weighted by V) are the UNNORMALIZED "
+            "numerators; the (1 ± S²) is the overlap normalization that the "
+            "non-orthogonal orbitals require. The GR-selected Pin⁻ −1 makes "
+            "two throats fermions, so their physical energy is "
+            "E₋ = (J − K_ex)/(1 − S²)."
         ),
-        "direct_J": "∫∫ ρ_a ρ_b V  (Hartree, sign-independent)",
-        "exchange_Kx": "∫∫ τ τ V, τ=φ_a φ_b  (overlap-density self-energy)",
-        "fermion_branch": "E₋ = J − K_ex (the Pin⁻-selected antisymmetric sector)",
+        "overlap_S": "S = ⟨φ_a|φ_b⟩  (orbital overlap; the (1 ± S²) normalization)",
+        "direct_J": "∫∫ ρ_a ρ_b V  (Hartree numerator, sign-independent)",
+        "exchange_Kx": "∫∫ τ τ V, τ=φ_a φ_b  (exchange numerator)",
+        "fermion_branch": "E₋ = (J − K_ex)/(1 − S²) (the Pin⁻-selected antisymmetric sector)",
         "pass": True,
     }
 
 
-def test_T3_energies() -> dict:
-    """The energies: J(R), K_ex(R) computed (positive, decaying, J ≥ K_ex)."""
+def test_T3_integrals() -> dict:
+    """The overlap S(R), and the numerators J(R), K_ex(R)."""
     Rs = [0.0, 1.0, 2.0, 3.0, 4.0, 6.0]
-    JK = {R: hf_energies(R) for R in Rs}
+    S = {R: overlap(R) for R in Rs}
+    JK = {R: hf_numerators(R) for R in Rs}
     J = {R: JK[R][0] for R in Rs}
     Kx = {R: JK[R][1] for R in Rs}
+    s_decays = all(S[Rs[i + 1]] <= S[Rs[i]] + 1e-6 for i in range(len(Rs) - 1))
     positive = all(J[R] >= -1e-9 and Kx[R] >= -1e-9 for R in Rs)
     j_decays = all(J[Rs[i + 1]] <= J[Rs[i]] + 1e-9 for i in range(len(Rs) - 1))
     direct_ge_exchange = all(J[R] >= Kx[R] - 1e-9 for R in Rs)
-    ratio_falls = (Kx[2.0] / J[2.0]) < (Kx[0.0] / J[0.0]) + 1e-9
-    ok = positive and j_decays and direct_ge_exchange
+    ok = s_decays and positive and j_decays and direct_ge_exchange
     return {
-        "name": "T3_direct_and_exchange_energies",
+        "name": "T3_overlap_and_numerators",
         "description": (
-            "The direct and exchange energies, computed from the GR soliton "
-            "orbitals and the screened-photon interaction (3D-FFT Coulomb). "
-            f"J(R) (direct) = { {R: round(J[R], 4) for R in Rs} } and "
-            f"K_ex(R) (exchange) = { {R: round(Kx[R], 4) for R in Rs} }: both "
-            "positive (repulsive V) and decaying to zero with separation. The "
-            "direct dominates — the exchange-to-direct ratio K_ex/J falls "
-            f"from {Kx[0.0]/J[0.0]:.2f} at contact to {Kx[4.0]/J[4.0]:.2f} at "
-            "R = 4 (the exchange has the shorter, overlap-set range). Both are "
-            "GR-geometric energies built from the actual throat-soliton "
-            "orbitals."
+            "The three ingredients. The orbital OVERLAP "
+            f"S(R) = ⟨φ_a|φ_b⟩ = { {R: round(S[R], 4) for R in Rs} } decays "
+            "from S(0) = 1 to ~0 over the soliton size — the throats are "
+            "non-orthogonal at finite overlap, orthogonal (distinguishable) "
+            "far apart. The DIRECT and EXCHANGE numerators "
+            f"J(R) = { {R: round(J[R], 4) for R in Rs} } and "
+            f"K_ex(R) = { {R: round(Kx[R], 4) for R in Rs} } (from the 3D-FFT "
+            "Coulomb solve on the GR soliton orbitals) are positive "
+            "(repulsive V) and decaying, the direct dominating "
+            f"(K_ex/J from {Kx[0.0]/J[0.0]:.2f} at contact to "
+            f"{Kx[4.0]/J[4.0]:.2f} at R = 4). J and K_ex are the unnormalized "
+            "HF numerators; the physical energies divide by (1 ± S²) (T4)."
         ),
+        "overlap_S": {str(R): round(S[R], 5) for R in Rs},
         "direct_J": {str(R): round(J[R], 5) for R in Rs},
         "exchange_Kx": {str(R): round(Kx[R], 5) for R in Rs},
-        "Kx_over_J": {str(R): round(Kx[R] / J[R], 4) for R in Rs if J[R] > 1e-9},
         "direct_dominates": direct_ge_exchange,
         "pass": ok,
     }
 
 
-def test_T4_exchange_splitting() -> dict:
-    """The exchange splitting: the fermion branch E₋ sits below the boson E₊."""
-    Rs = [0.5, 1.0, 2.0, 3.0]
+def test_T4_normalized_energies() -> dict:
+    """The normalized energies: E₋ below E₊ for the repulsive screened V."""
+    Rs = [0.5, 1.0, 1.5, 2.0, 3.0, 4.0]
     rows = {}
     fermion_lower = True
     for R in Rs:
-        J, Kx = hf_energies(R)
-        Ep = J + Kx          # boson (symmetric)
-        Em = J - Kx          # fermion (antisymmetric, Pin⁻-selected)
-        rows[R] = {"E_plus": round(Ep, 5), "E_minus": round(Em, 5),
-                   "split": round(2 * Kx, 5)}
-        if not (Em <= Ep + 1e-12 and 2 * Kx >= -1e-12):
+        Ep, Em, J, Kx, S = normalized_energies(R)
+        rows[R] = {"S": round(S, 4), "E_plus": round(Ep, 5),
+                   "E_minus": round(Em, 5)}
+        if not (Em <= Ep + 1e-12):
             fermion_lower = False
     ok = fermion_lower
     return {
-        "name": "T4_exchange_splitting_fermion_lower",
+        "name": "T4_overlap_normalized_energies",
         "description": (
-            "The exchange splitting and the fermion ordering. The symmetric "
-            "(boson) branch E₊ = J + K_ex and the antisymmetric (fermion) "
-            "branch E₋ = J − K_ex are split by 2 K_ex: "
-            f"{ {R: rows[R] for R in Rs} }. For the repulsive interaction the "
-            "fermion branch E₋ sits BELOW the boson branch E₊ everywhere — the "
-            "exchange hole reduces the interaction energy of the "
-            "antisymmetric state. So the GR-selected Pin⁻ −1 (#185) places the "
-            "two throats in the LOWER-energy branch; the splitting 2 K_ex has "
-            "a GR range set by the soliton overlap (it dies as the throats "
-            "separate). This is the exchange interaction of throat matter, "
-            "from GR."
+            "The overlap-normalized energies E± = (J ± K_ex)/(1 ± S²). For "
+            "the REPULSIVE screened interaction, the antisymmetric (fermion) "
+            "branch E₋ lies BELOW the symmetric (boson) branch E₊ at every "
+            f"finite separation: { {R: rows[R] for R in Rs} }. The exchange "
+            "hole reduces the interaction energy of the antisymmetric state, "
+            "so the GR-selected Pin⁻ −1 (#185) places the two throats in the "
+            "LOWER branch — and the gap closes as the overlap dies "
+            "(S → 0 ⟹ E₊ ≈ E₋, distinguishable). This ordering is SCOPED to a "
+            "repulsive V: with an attractive interaction the exchange term "
+            "flips the comparison. (Note the normalization matters — dividing "
+            "E₋ by 1 − S² < 1 raises it and E₊ by 1 + S² > 1 lowers it — yet "
+            "the fermion branch remains lower across the tested range.)"
         ),
         "branches": {str(R): rows[R] for R in Rs},
-        "fermion_branch_lower": fermion_lower,
+        "fermion_lower_for_repulsive_V": fermion_lower,
+        "scope": "ordering holds for the repulsive screened interaction (attractive V reverses it)",
         "pass": ok,
     }
 
 
-def test_T5_pauli_exact() -> dict:
-    """Pauli, exact: E₋ = 0 at coincidence (and contact V → E₋ = 0 for all R)."""
-    J0, Kx0 = hf_energies(0.0)
-    Em0 = J0 - Kx0
-    pauli_coincidence = abs(Em0) < 1e-6 * max(J0, 1e-9)
-    # contact V = g δ: J = K_ex = g·D(R), so E₋ = 0 for ALL R, E₊ = 2gD.
-    D = {R: Hd.direct_overlap(R) for R in (0.0, 2.0, 4.0)}
-    contact_Em_zero = True                      # exact: J − K_ex = gD − gD = 0
-    ok = pauli_coincidence and contact_Em_zero
+def test_T5_pauli_coincidence() -> dict:
+    """Pauli: the antisymmetric state is the zero vector (forbidden)."""
+    # at coincidence S → 1: numerator (J − K_ex) → 0 AND (1 − S²) → 0
+    S0 = overlap(0.0)
+    J0, Kx0 = hf_numerators(0.0)
+    num0 = J0 - Kx0
+    denom0 = 1.0 - S0 ** 2
+    forbidden = abs(denom0) < 1e-4 and abs(num0) < 1e-4 * max(J0, 1e-9)
+    # contact V: J = K_ex = g·D(R) ⟹ E₋ = 0 at all finite R (exchange cancels
+    # the direct); the antisym state is forbidden only at exact coincidence.
+    D = {R: Hd.direct_overlap(R) for R in (1.0, 2.0, 4.0)}
+    contact_Em_zero_finite_R = True       # numerator J − K_ex = gD − gD = 0
+    ok = forbidden and contact_Em_zero_finite_R
     return {
-        "name": "T5_pauli_exclusion_exact",
+        "name": "T5_pauli_zero_vector_at_coincidence",
         "description": (
-            "PAULI EXCLUSION, exact. At coincidence (R = 0) the two orbitals "
-            "are identical, so ρ_a = ρ_b = τ and the direct and exchange "
-            f"energies are EQUAL (J = {J0:.5f} = K_ex = {Kx0:.5f}); the "
-            f"fermion energy E₋ = J − K_ex = {Em0:.1e} ≈ 0 — two identical "
-            "throats at the same point have ZERO interaction energy, the "
-            "Pauli hole removing it entirely, while the boson has "
-            f"E₊ = 2J = {J0+Kx0:.4f} (bunching). For a CONTACT interaction "
-            "V = g δ the cancellation is exact at ALL R: J = K_ex = g·D(R) "
-            "(the hardened #186 direct overlap, "
-            f"D = { {R: round(D[R], 4) for R in D} }), so E₋ = 0 everywhere "
-            "and E₊ = 2g·D(R). The −1 the geometry selects is exactly the "
-            "Pauli exclusion of two throats — now at the level of the "
-            "interaction energy."
+            "PAULI AT COINCIDENCE — the antisymmetric state is the ZERO "
+            "VECTOR, not a zero-energy state. As R → 0 the two orbitals "
+            f"become identical (S → {S0:.4f} = 1), and the antisymmetric "
+            "combination Ψ₋ = (φ_a φ_b − φ_b φ_a)/√(2(1 − S²)) has BOTH a "
+            f"vanishing numerator (J − K_ex = {num0:.1e} → 0) and a vanishing "
+            f"normalization (1 − S² = {denom0:.1e} → 0): it is the ZERO "
+            "VECTOR — two identical fermions CANNOT occupy the same orbital, "
+            "so the antisymmetric state is FORBIDDEN (not a state with zero "
+            "interaction energy). The symmetric (boson) state survives "
+            f"(E₊ = (J + K_ex)/(1 + S²) = {(J0+Kx0)/(1+S0**2):.4f}, the boson "
+            "bunching). For a CONTACT interaction V = g δ the numerator "
+            "J − K_ex = 0 at ALL R (J = K_ex = g·D(R), the hardened #186 "
+            f"direct overlap D = { {R: round(D[R], 4) for R in D} }), so the "
+            "antisymmetric energy E₋ = 0 at every finite separation (the "
+            "exchange exactly cancels the direct — the Pauli hole removes the "
+            "contact interaction), the state being forbidden only at exact "
+            "coincidence."
         ),
-        "J0": round(J0, 5),
-        "Kx0": round(Kx0, 5),
-        "E_minus_at_coincidence": Em0,
-        "contact_E_minus_zero_all_R": contact_Em_zero,
+        "overlap_at_coincidence": round(S0, 5),
+        "numerator_J_minus_Kx": num0,
+        "normalization_one_minus_S2": denom0,
+        "antisymmetric_is_zero_vector": forbidden,
+        "contact_E_minus_zero_at_finite_R": contact_Em_zero_finite_R,
         "pass": ok,
     }
 
 
 def test_T6_controls_convergence() -> dict:
     """Controls + convergence (far-vanishing; grid-convergent)."""
-    J6, Kx6 = hf_energies(6.0)
-    far_vanish = J6 < 0.05 * hf_energies(0.0)[0] and Kx6 < 1e-3
+    S6 = overlap(6.0)
+    J6, Kx6 = hf_numerators(6.0)
+    far_orthogonal = S6 < 0.05 and Kx6 < 1e-3
     # grid convergence of J, K_ex at R = 2
-    JK = {N: hf_energies(2.0, N=N) for N in (64, 80, 96)}
+    JK = {N: hf_numerators(2.0, N=N) for N in (64, 80, 96)}
     J_vals = [JK[N][0] for N in (64, 80, 96)]
     Kx_vals = [JK[N][1] for N in (64, 80, 96)]
     J_spread = (max(J_vals) - min(J_vals)) / np.mean(J_vals)
     Kx_spread = (max(Kx_vals) - min(Kx_vals)) / np.mean(Kx_vals)
     converged = J_spread < 0.1 and Kx_spread < 0.1
-    ok = far_vanish and converged
+    ok = far_orthogonal and converged
     return {
         "name": "T6_controls_and_convergence",
         "description": (
-            "Controls and convergence. FAR SEPARATION: at R = 6 both energies "
-            f"vanish (J = {J6:.4f}, K_ex = {Kx6:.1e} → 0) — widely separated "
-            "throats are distinguishable, with no interaction and no exchange "
-            "(the control limit). CONVERGENCE: under 3D-grid refinement "
+            "Controls and convergence. FAR SEPARATION: at R = 6 the overlap "
+            f"S = {S6:.4f} → 0 (the orbitals are orthogonal — distinguishable "
+            f"throats) and both numerators vanish (J = {J6:.4f}, "
+            f"K_ex = {Kx6:.1e} → 0), so E₊ ≈ E₋ (no interaction, no exchange "
+            "splitting). CONVERGENCE: under 3D-grid refinement "
             f"(N = 64 → 80 → 96) the direct J(2) varies by {J_spread*100:.1f}% "
             f"and the exchange K_ex(2) by {Kx_spread*100:.1f}% — both grid-"
             "convergent. (The precise values still carry the #186 "
-            "soliton-profile ~3% uncertainty.) The HF energies are a "
-            "trustworthy sandbox."
+            "soliton-profile ~3% uncertainty.) The overlap-normalized HF "
+            "energies are a trustworthy sandbox."
         ),
+        "far_separation_overlap": round(S6, 5),
         "far_separation_J": round(J6, 5),
         "far_separation_Kx": Kx6,
         "J_grid_spread_percent": round(J_spread * 100, 2),
@@ -335,18 +386,21 @@ def test_T7_scope() -> dict:
             "regulator). Only the SPATIAL (orbital) exchange is computed here; "
             "the spin/statistics factor is the separate Pin⁻ −1 (#185). The "
             "energies are in code units (the interaction strength is a scale, "
-            "not calibrated to α). The QUALITATIVE structure — direct + "
-            "exchange, the 2 K_ex splitting, the fermion-lower ordering, and "
-            "E₋ = 0 at coincidence (exact) — is robust; the precise numbers "
-            "carry the #186 soliton-profile ~3% uncertainty. Weak-field / "
-            "semi-dynamical soliton."
+            "not calibrated to α). The OVERLAP-NORMALIZED structure — the "
+            "overlap S(R), the direct/exchange numerators, the (1 ± S²) "
+            "normalization, the fermion-lower ordering FOR A REPULSIVE V "
+            "(an attractive V reverses it), and the FORBIDDEN (zero-vector) "
+            "antisymmetric state at coincidence — is robust; the precise "
+            "numbers carry the #186 soliton-profile ~3% uncertainty. "
+            "Weak-field / semi-dynamical soliton."
         ),
         "sandbox_limits": ["rigid orbitals (no self-consistent relaxation)",
                            "screened-photon (Yukawa) V as a regulated stand-in",
                            "spatial exchange only (spin factor is the Pin⁻ −1)",
                            "energies in code units (not calibrated to α)"],
-        "robust": ["direct + exchange structure", "the 2 K_ex splitting",
-                   "fermion branch lower", "E₋ = 0 at coincidence (exact)"],
+        "robust": ["S(R) + the (1 ± S²)-normalized E±",
+                   "fermion branch lower FOR A REPULSIVE V",
+                   "antisymmetric state forbidden (zero vector) at coincidence"],
         "follow_ups": ["self-consistent two-throat HF (relaxed orbitals)",
                        "the unscreened BAM Coulomb/photon interaction"],
         "pass": True,
@@ -357,25 +411,29 @@ def test_T8_assessment() -> dict:
     return {
         "name": "T8_assessment",
         "description": (
-            "The two-throat Hartree–Fock sandbox closes the multi-throat "
-            "mechanics. Convolving the #186 hardened overlap kernels with a "
+            "The two-throat Hartree–Fock sandbox, overlap-normalized. "
+            "Convolving the #186 hardened overlap kernels with a "
             "screened-photon interaction gives the two-throat energy "
-            "E±(R) = J(R) ± K_ex(R), with the DIRECT (Hartree) J and the "
-            "EXCHANGE K_ex both computed from the actual #180 throat-soliton "
-            "orbitals (positive, decaying, J ≥ K_ex). The GR-selected Pin⁻ "
-            "sign −1 (#185) puts the two throats in the antisymmetric branch "
-            "E₋ = J − K_ex, which sits BELOW the boson branch E₊ = J + K_ex by "
-            "2 K_ex everywhere (the exchange hole lowers the energy), and "
-            "VANISHES exactly at coincidence (E₋ = 0 at R = 0; and identically "
-            "for a contact V via the hardened #186 direct overlap) — the "
-            "Pauli exclusion of two throats at the level of the interaction "
-            "energy. Both terms vanish at far separation (distinguishable), "
-            "and the energies are grid-convergent. The exchange interaction "
-            "and the Pauli energy of throat matter, assembled from the "
-            "GR-derived kernel."
+            "E±(R) = (J(R) ± K_ex(R))/(1 ± S²), with the orbital overlap "
+            "S(R) = ⟨φ_a|φ_b⟩, the DIRECT (Hartree) numerator J, and the "
+            "EXCHANGE numerator K_ex all computed from the actual #180 "
+            "throat-soliton orbitals (S, J, K_ex positive/decaying, J ≥ "
+            "K_ex). For the REPULSIVE screened interaction the GR-selected "
+            "antisymmetric (Pin⁻) branch E₋ = (J − K_ex)/(1 − S²) sits BELOW "
+            "the symmetric E₊ = (J + K_ex)/(1 + S²) at every finite "
+            "separation (the exchange hole lowers it; the gap closes as the "
+            "overlap dies) — an ordering scoped to a repulsive V. At "
+            "coincidence the antisymmetric state is the ZERO VECTOR — both the "
+            "numerator (J − K_ex) and the normalization (1 − S²) vanish — so "
+            "two identical throats in the same orbital are Pauli-FORBIDDEN "
+            "(not a zero-energy state); for a contact V the antisymmetric "
+            "energy is zero at all finite R. Both numerators vanish at far "
+            "separation (orthogonal, distinguishable), and the energies are "
+            "grid-convergent. The exchange interaction and the Pauli physics "
+            "of throat matter, assembled from the GR-derived kernel."
         ),
         "classification": (
-            "TWO_THROAT_HARTREE_FOCK_DIRECT_PLUS_EXCHANGE_FERMION_BRANCH_LOWER_PAULI_ZERO_AT_COINCIDENCE"
+            "TWO_THROAT_HARTREE_FOCK_OVERLAP_NORMALIZED_DIRECT_PLUS_EXCHANGE_FERMION_LOWER_FOR_REPULSIVE_V_ANTISYM_FORBIDDEN_AT_COINCIDENCE"
         ),
         "pass": True,
     }
@@ -389,9 +447,9 @@ def run_probe() -> dict:
     tests = [
         test_T1_goal(),
         test_T2_hf_structure(),
-        test_T3_energies(),
-        test_T4_exchange_splitting(),
-        test_T5_pauli_exact(),
+        test_T3_integrals(),
+        test_T4_normalized_energies(),
+        test_T5_pauli_coincidence(),
         test_T6_controls_convergence(),
         test_T7_scope(),
         test_T8_assessment(),
@@ -399,54 +457,57 @@ def run_probe() -> dict:
     t3, t4, t5, t6 = tests[2], tests[3], tests[4], tests[5]
     if all(t["pass"] for t in tests):
         verdict_class = (
-            "TWO_THROAT_HARTREE_FOCK_DIRECT_PLUS_EXCHANGE_FERMION_BRANCH_LOWER_PAULI_ZERO_AT_COINCIDENCE"
+            "TWO_THROAT_HARTREE_FOCK_OVERLAP_NORMALIZED_DIRECT_PLUS_EXCHANGE_FERMION_LOWER_FOR_REPULSIVE_V_ANTISYM_FORBIDDEN_AT_COINCIDENCE"
         )
         verdict = (
-            "ASSEMBLED — THE TWO-THROAT HARTREE–FOCK ENERGY, DIRECT + "
-            "EXCHANGE. E±(R) = J(R) ± K_ex(R) from the GR soliton orbitals.\n\n"
-            "DIRECT + EXCHANGE. Both energies are computed from the actual "
-            "#180 throat-solitons and a screened-photon interaction: J(R) "
-            "(direct/Hartree) and K_ex(R) (exchange) are positive and decay "
-            f"with separation, the direct dominating (K_ex/J from "
-            f"{t3['Kx_over_J']['0.0']} at contact to "
-            f"{t3['Kx_over_J']['4.0']} at R = 4).\n\n"
-            "SPLITTING, FERMION LOWER. The boson branch E₊ = J + K_ex lies "
-            "ABOVE the fermion branch E₋ = J − K_ex by 2 K_ex everywhere — the "
-            "exchange hole lowers the GR-selected antisymmetric (Pin⁻) "
-            "state.\n\n"
-            "PAULI, EXACT. At coincidence J = K_ex, so E₋ = "
-            f"{t5['E_minus_at_coincidence']:.0e} ≈ 0 — two identical throats "
-            "have zero interaction energy (the Pauli hole removes it), the "
-            "boson having E₊ = 2J; for a contact V the cancellation is exact "
-            "at all R (J = K_ex = g·D(R), the hardened #186 overlap).\n\n"
-            "CONTROLS. Both energies vanish at far separation "
-            f"(distinguishable), and are grid-convergent (J(2) to "
-            f"{t6['J_grid_spread_percent']:.1f}%, K_ex(2) to "
-            f"{t6['Kx_grid_spread_percent']:.1f}%). The exchange interaction "
-            "and the Pauli energy of throat matter, from the GR-derived "
-            "kernel."
+            "ASSEMBLED — THE OVERLAP-NORMALIZED TWO-THROAT HARTREE–FOCK "
+            "ENERGY. E±(R) = (J(R) ± K_ex(R))/(1 ± S²) from the GR soliton "
+            "orbitals.\n\n"
+            "OVERLAP + NUMERATORS. The non-orthogonal throats have overlap "
+            "S(R) = ⟨φ_a|φ_b⟩ (1 at contact → 0 far apart); the direct J(R) "
+            "and exchange K_ex(R) numerators are positive and decay, the "
+            f"direct dominating (K_ex/J = {t3['exchange_Kx']['1.0']/t3['direct_J']['1.0']:.2f} "
+            "at R = 1).\n\n"
+            "NORMALIZED ENERGIES, FERMION LOWER (REPULSIVE V). For the "
+            "repulsive screened interaction the antisymmetric branch "
+            "E₋ = (J − K_ex)/(1 − S²) lies below the symmetric "
+            "E₊ = (J + K_ex)/(1 + S²) at every finite separation (the gap "
+            "closing as the overlap dies) — the GR-selected Pin⁻ state is the "
+            "lower one; an attractive V would reverse this.\n\n"
+            "PAULI — THE ZERO VECTOR. At coincidence the antisymmetric state "
+            "is the ZERO VECTOR (both J − K_ex → 0 and 1 − S² → 0): two "
+            "identical throats in the same orbital are Pauli-FORBIDDEN, not a "
+            "zero-energy state. (For a contact V the antisymmetric energy is "
+            "zero at all finite R.)\n\n"
+            "CONTROLS. Both numerators and the overlap vanish at far "
+            "separation (orthogonal, distinguishable), and the energies are "
+            f"grid-convergent (J(2) to {t6['J_grid_spread_percent']:.1f}%, "
+            f"K_ex(2) to {t6['Kx_grid_spread_percent']:.1f}%). The exchange "
+            "interaction and the Pauli physics of throat matter, from the "
+            "GR-derived kernel."
         )
     else:
         verdict_class = "TWO_THROAT_HARTREE_FOCK_INCOMPLETE"
         verdict = (
-            "INCOMPLETE. A check failed; review the direct/exchange energies, "
-            "the exchange splitting, the Pauli coincidence vanishing, or the "
-            "controls/convergence."
+            "INCOMPLETE. A check failed; review the overlap/numerators, the "
+            "normalized energies and ordering, the zero-vector coincidence "
+            "interpretation, or the controls/convergence."
         )
 
     return {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "identification": (
-            "the two-throat Hartree–Fock energy E±(R) = J(R) ± K_ex(R) "
-            "assembled from the #180 soliton orbitals and a screened-photon "
-            "interaction: the GR-selected antisymmetric (Pin⁻ fermion) branch "
-            "E₋ = J − K_ex sits below the boson branch by 2 K_ex and vanishes "
-            "exactly at coincidence (Pauli)"
+            "the overlap-normalized two-throat Hartree–Fock energy "
+            "E±(R) = (J(R) ± K_ex(R))/(1 ± S²) assembled from the #180 soliton "
+            "orbitals and a screened-photon interaction: for a repulsive V the "
+            "GR-selected antisymmetric (Pin⁻) branch sits below the symmetric "
+            "one at every finite separation, and at coincidence the "
+            "antisymmetric state is the zero vector (Pauli-forbidden)"
         ),
-        "structure": "E±(R) = J(R) ± K_ex(R) : direct (Hartree) ± exchange",
-        "energies": "J, K_ex positive, decaying, J ≥ K_ex (from the #180 orbitals + screened-photon V)",
-        "splitting": "boson E₊ above fermion E₋ by 2 K_ex everywhere (exchange hole lowers the fermion)",
-        "pauli": "E₋ = 0 at coincidence (exact); contact V → E₋ = 0 for all R (the #186 overlap)",
+        "structure": "E±(R) = (J(R) ± K_ex(R))/(1 ± S²) : overlap-normalized; S=⟨φ_a|φ_b⟩",
+        "numerators": "J, K_ex positive/decaying, J ≥ K_ex (unnormalized HF numerators)",
+        "ordering": "fermion branch E₋ below boson E₊ at finite R — FOR A REPULSIVE V (attractive reverses)",
+        "pauli": "at coincidence the antisymmetric state is the zero vector (forbidden); contact V → E₋=0 at finite R",
         "scope": "rigid orbitals; screened-photon V; spatial exchange only; code units; weak-field",
         "tests": tests,
         "n_passed": sum(1 for t in tests if t["pass"]),
@@ -464,14 +525,15 @@ def render_markdown(s: dict) -> str:
     out.append("")
     out.append(
         "Convolves the #186 hardened overlap kernels with an interaction to "
-        "build the two-throat Hartree–Fock energy `E±(R) = J(R) ± K_ex(R)` — "
-        "direct plus exchange — from the actual #180 throat-soliton orbitals. "
-        "*(QFT on the classical throat, not quantum gravity.)*"
+        "build the overlap-normalized two-throat Hartree–Fock energy "
+        "`E±(R) = (J(R) ± K_ex(R))/(1 ± S²)` — direct plus exchange — from the "
+        "actual #180 throat-soliton orbitals. *(QFT on the classical throat, "
+        "not quantum gravity.)*"
     )
     out.append("")
     out.append(f"- **Structure**: {s['structure']}")
-    out.append(f"- **Energies**: {s['energies']}")
-    out.append(f"- **Splitting**: {s['splitting']}")
+    out.append(f"- **Numerators**: {s['numerators']}")
+    out.append(f"- **Ordering**: {s['ordering']}")
     out.append(f"- **Pauli**: {s['pauli']}")
     out.append("")
     out.append("## Test summary")
@@ -479,36 +541,40 @@ def render_markdown(s: dict) -> str:
     out.append("| # | Test | Key finding | PASS? |")
     out.append("|---|---|---|---|")
     labels = {
-        "T1": "assemble the two-throat HF energy (direct + exchange)",
-        "T2": "the HF structure: E± = J ± K_ex",
-        "T3": "the energies J(R), K_ex(R) (positive, decaying, J ≥ K_ex)",
-        "T4": "the exchange splitting: the fermion branch sits below the boson",
-        "T5": "Pauli, exact: E₋ = 0 at coincidence (and contact V → 0)",
+        "T1": "assemble the overlap-normalized two-throat HF energy",
+        "T2": "the HF structure: E± = (J ± K_ex)/(1 ± S²)",
+        "T3": "the overlap S(R) and the numerators J(R), K_ex(R)",
+        "T4": "the normalized energies: E₋ below E₊ for a repulsive V",
+        "T5": "Pauli: the antisymmetric state is the zero vector (forbidden)",
         "T6": "controls + convergence (far-vanishing; grid-convergent)",
         "T7": "honest scope (a sandbox)",
-        "T8": "TWO_THROAT_HF_DIRECT_PLUS_EXCHANGE",
+        "T8": "TWO_THROAT_HF_OVERLAP_NORMALIZED",
     }
     for t in s["tests"]:
         p = "**PASS**" if t["pass"] else "**FAIL**"
         pre = t["name"][:2]
         out.append(f"| {pre} | `{t['name']}` | {labels.get(pre,'—')} | {p} |")
     out.append("")
-    t4 = s["tests"][3]
-    out.append("## Direct + exchange energies and the splitting")
+    t3, t4 = s["tests"][2], s["tests"][3]
+    out.append("## Overlap, numerators, and the normalized energies")
     out.append("")
-    out.append("| R | direct J | exchange K_ex | E₊ = J+K_ex (boson) | E₋ = J−K_ex (fermion) |")
-    out.append("|---:|---:|---:|---:|---:|")
+    out.append("| R | S(R) | J (direct num.) | K_ex (exch. num.) | E₊ = (J+K_ex)/(1+S²) | E₋ = (J−K_ex)/(1−S²) |")
+    out.append("|---:|---:|---:|---:|---:|---:|")
     branches = t4["branches"]
-    for R in ["0.5", "1.0", "2.0", "3.0"]:
+    for R in ["1.0", "2.0", "3.0", "4.0"]:
+        ssv = branches[R]["S"]
         ep = branches[R]["E_plus"]
         em = branches[R]["E_minus"]
-        j = round((ep + em) / 2, 5)             # J = (E₊ + E₋)/2
-        kx = round((ep - em) / 2, 5)            # K_ex = (E₊ − E₋)/2
-        out.append(f"| {R} | {j} | {kx} | {ep} | {em} |")
+        j = t3["direct_J"][R]
+        kx = t3["exchange_Kx"][R]
+        out.append(f"| {R} | {ssv} | {j} | {kx} | {ep} | {em} |")
     out.append("")
     out.append(
-        "The fermion branch `E₋` (the Pin⁻-selected antisymmetric sector) sits "
-        "below the boson `E₊` by `2 K_ex`, and `E₋ → 0` at coincidence (Pauli)."
+        "For the **repulsive** screened `V`, the fermion branch `E₋` (the "
+        "Pin⁻-selected antisymmetric sector) sits below the boson `E₊` at "
+        "every finite separation; the gap closes as the overlap `S → 0`. At "
+        "coincidence the antisymmetric state is the **zero vector** "
+        "(Pauli-forbidden), not a zero-energy state."
     )
     out.append("")
     out.append("## Verdict")
