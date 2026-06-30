@@ -959,6 +959,38 @@ soliton-overlap kernel is now a trustworthy benchmark; convolving the
 overlaps with `V` to get the Hartree and exchange energies is PR #187;
 weak-field (`rigid_soliton_exchange_kernel_hardening_probe`, PR #186).
 
+**Two-throat Hartree–Fock sandbox: direct plus exchange terms (PR #187).**
+`two_throat_hartree_fock_probe` convolves the #186 hardened overlap kernels
+with an interaction `V` (a screened-photon Yukawa stand-in for the BAM
+throat-fibre exchange) to build the two-throat Hartree–Fock energy
+`E±(R) = J(R) ± K_ex(R)`, with both the DIRECT (Hartree) term
+`J = ∫∫ ρ_a(r₁) ρ_b(r₂) V(r₁−r₂)` and the EXCHANGE term
+`K_ex = ∫∫ τ(r₁) τ(r₂) V(r₁−r₂)` (`τ = φ_a φ_b` the overlap density), computed
+from the actual #180 throat-soliton orbitals by a 3D-FFT Coulomb solve.
+**The energies** are positive (repulsive `V`) and decay with separation —
+`J = 0.039, 0.031, 0.017, …`, `K_ex = 0.039, 0.024, 0.006, …` at `R = 0,1,2` —
+the direct dominating (the exchange has the shorter, overlap-set range).
+**The splitting:** the boson branch `E₊ = J + K_ex` sits ABOVE the fermion
+branch `E₋ = J − K_ex` by `2 K_ex` everywhere — the exchange hole lowers the
+energy of the GR-selected antisymmetric (Pin⁻) state (#185), so the geometry
+places the two throats in the LOWER branch. **Pauli, exact:** at coincidence
+(`R = 0`) `ρ_a = ρ_b = τ` ⟹ `J = K_ex`, so `E₋ = 0` EXACTLY — two identical
+throats at the same point have zero interaction energy (the Pauli hole
+removes it), the boson having `E₊ = 2J`; for a contact `V` the cancellation
+is exact at all `R` (`J = K_ex = g·D(R)`, the hardened #186 direct overlap).
+Both energies vanish at far separation (distinguishable), and are
+grid-convergent to `< 0.1%`. So the multi-throat mechanics close: the
+GR-derived exchange kernel, dressed by an interaction, gives a Hartree–Fock
+energy whose antisymmetric (Pin⁻ fermion) branch sits below the symmetric
+(boson) branch and vanishes at coincidence — the exchange interaction and the
+Pauli energy of throat matter, from GR. Scope: a sandbox — rigid #180
+orbitals (the self-consistent two-throat solve is a follow-up), a
+screened-photon (Yukawa) regulated stand-in for the BAM Coulomb/photon
+interaction, spatial exchange only (the spin factor is the Pin⁻ `−1`),
+energies in code units; the qualitative structure is robust, the precise
+numbers carry the #186 soliton-profile ~3% uncertainty; weak-field
+(`two_throat_hartree_fock_probe`, PR #187).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
