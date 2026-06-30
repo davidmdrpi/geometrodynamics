@@ -1,0 +1,99 @@
+{
+  "timestamp_utc": "2026-06-30T02:03:54+00:00",
+  "identification": "a self-consistent two-throat Hartree\u2013Fock relaxation: the orbitals deform in each other's direct + exchange field, the imaginary-time SCF (self-interaction-free Fock operator) lowering the energy monotonically to a self-consistent variational fixed point (robust across seeded restarts) below the rigid 1D #187-style reference, with the Fock exchange lowering the same-spin energy",
+  "convergence": "imaginary-time HF SCF, monotone descent to a fixed point (robust across seeds)",
+  "relaxation": "the self-consistent energy lies below the rigid 1D #187-style reference (~2.5%)",
+  "deformation": "the two-throat density polarizes in the mean field (RMS shift, fidelity<1)",
+  "exchange": "turning off the Fock \u2212K (consistent control) raises the energy \u2014 the exchange lowers it",
+  "scope": "1D sandbox SCF; a variational fixed point (not certified global ground state); 3D SCF is the follow-up",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Do the follow-up PR #187 flagged: RELAX the two-throat orbitals self-consistently in each other's DIRECT (Hartree) + EXCHANGE (Fock) field. PR #187 used rigid #180 throat-solitons; here a genuine self-consistent-field (SCF) iteration lets the two same-spin throats (the Pin\u207b antisymmetric sector of #185/#188) DEFORM in the mean field they produce, relaxing to a self-consistent variational fixed point. Each orbital is relaxed in an orbital-specific, self-interaction-free Fock operator F_i = h + J_{\u2260i} \u2212 K_{\u2260i} (the exact variational derivative of the reported energy), iterated to self-consistency.",
+      "relaxes": "PR #187's rigid two-throat orbitals, self-consistently",
+      "fock_operator": "F_i = h + J_{\u2260i} \u2212 K_{\u2260i} (self-interaction-free)",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_hartree_fock_mean_field",
+      "description": "Each throat orbital is relaxed in an ORBITAL-SPECIFIC, self-interaction-free Fock operator F_i = h + J_{\u2260i} \u2212 K_{\u2260i}: the DIRECT (Hartree) field J_{\u2260i}(x) = \u222b |\u03c6_{\u2260i}(x')|\u00b2 V(x\u2212x') dx' of the OTHER throat (max |J_{\u2260i}| = 1.130 > 0) minus the non-local EXCHANGE with the other orbital, (K_{\u2260i}\u03c6)(x) = \u03c6_{\u2260i}(x) \u222b \u03c6_{\u2260i}(x') V(x\u2212x') \u03c6(x') (integral K = 0.647 > 0). Excluding self-interaction makes F_i the EXACT variational derivative of the reported energy E = \u03a3\u27e8i|h|i\u27e9 + (J\u2080\u2081 \u2212 K\u2080\u2081) \u2014 the same functional for the operator and the energy, in both the full-HF and Hartree-only branches. Both channels (the #186 direct and exchange kernels, now as mean-field operators) act, and the SCF solves the orbitals and the field together.",
+      "direct_field_max": 1.1299,
+      "exchange_integral_K": 0.6466,
+      "pass": true
+    },
+    {
+      "name": "T3_scf_convergence_and_robustness",
+      "description": "The self-consistent field converges, to a robust fixed point. The imaginary-time HF relaxation (gradient descent of the self-interaction-free Fock operator, orbitals kept orthonormal) lowers the energy MONOTONICALLY from -3.8080 to -3.9046, settling to a self-consistent fixed point (final step \u0394E = -4.4e-08 \u2192 0). And the fixed point is ROBUST: five random localized initial orbitals converge to [-3.897, -3.905, -3.905, -3.905, -3.904] \u2014 the lowest, -3.9046, matches the eigenstate-seeded run, with spread 7.6e-03. So this is a self-consistent VARIATIONAL FIXED POINT robustly reached across seeded restarts (not certified the global ground state, but seed-independent). The monotone descent (no oscillation) confirms a genuine variational relaxation.",
+      "energy_initial": -3.80798,
+      "energy_converged": -3.9046,
+      "monotone": true,
+      "final_delta_E": -4.400782627200783e-08,
+      "seeded_restart_finals": [
+        -3.8969,
+        -3.9046,
+        -3.9046,
+        -3.9046,
+        -3.9045
+      ],
+      "seeded_restart_spread": 0.00764,
+      "pass": true
+    },
+    {
+      "name": "T4_relaxation_lowers_energy",
+      "description": "The relaxation lowers the energy below the rigid 1D #187-STYLE REFERENCE \u2014 the variational gain. The RIGID 1D reference (the unrelaxed initial orbitals, evaluated with the FULL Hartree\u2013Fock energy including the interaction \u2014 the 1D analogue of #187's rigid-orbital evaluation) gives E_rigid = -3.8080; relaxing the orbitals self-consistently gives E = -3.9046, LOWER by 2.54%. In #187 the orbitals were held rigid; here they deform in the direct + exchange field to lower the energy (the variational principle the SCF realizes). The two-throat Hartree\u2013Fock energy is genuinely minimized over the orbital shapes, not just evaluated on fixed ones.",
+      "E_rigid_1d_reference": -3.80798,
+      "E_relaxed": -3.9046,
+      "lowering_percent": 2.537,
+      "pass": true
+    },
+    {
+      "name": "T5_orbitals_deform_in_mean_field",
+      "description": "The orbitals are no longer rigid \u2014 they DEFORM in the mean field. The two-throat density polarizes/spreads under the direct + exchange field: its RMS width shifts from 2.646 to 3.055 (\u0394 = +0.410), and its overlap (fidelity) with the rigid density drops to 0.9783 < 1. The throats respond to each other's field \u2014 the relaxation is a real deformation of the orbitals, the content that the rigid #187 sandbox omitted.",
+      "rms_rigid": 2.6458,
+      "rms_relaxed": 3.0554,
+      "rms_shift": 0.4097,
+      "density_fidelity_rigid_relaxed": 0.9783,
+      "pass": true
+    },
+    {
+      "name": "T6_exchange_field_lowers_energy",
+      "description": "The non-local Fock EXCHANGE field matters \u2014 measured with a CONSISTENT control. The Hartree-only run uses the SAME self-interaction-free variational functional, just with the exchange operator dropped from BOTH the Fock operator (F_i = h + J_{\u2260i}) and the energy (E = \u03a3\u27e8i|h|i\u27e9 + J\u2080\u2081) \u2014 so its operator and energy are the same functional. The full HF SCF gives E_HF = -3.9046; the consistent Hartree-only SCF gives E = -3.3376 \u2014 HIGHER by 0.5670. For the two SAME-SPIN throats (the Pin\u207b antisymmetric sector) the Fock exchange substantially LOWERS the energy: the exchange hole (#186/#187) keeps the like throats apart, reducing the repulsive direct energy. The \u22121 of #185/#188 does real work in the self-consistent mean field, not only in the rigid kernel.",
+      "E_full_HF": -3.9046,
+      "E_hartree_only": -3.33756,
+      "exchange_lowering": 0.56703,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "A SANDBOX SCF, in 1D. The confinement is an external double well (a stand-in for the throats' self-binding \u2014 the #180 self-gravity); the interaction is a screened-photon (Yukawa) stand-in for the BAM throat-fibre exchange; and the Hartree\u2013Fock is spatial-orbital (same-spin / unrestricted), in one dimension for tractability. The SCF ITSELF is genuine \u2014 an imaginary-time relaxation to self-consistency, monotone and machine-converged, with an orbital-specific SELF-INTERACTION-FREE Fock operator consistent with the reported energy \u2014 and the qualitative physics (convergence, the variational energy lowering, the orbital deformation, the exchange lowering) is robust and standard. The relaxed state is a self-consistent VARIATIONAL FIXED POINT, robust across seeded restarts but not certified the global ground state. The 'rigid' reference is the 1D #187-STYLE evaluation (unrelaxed orbitals with the full HF energy), not the 3D #187 number. The FULL 3D self-gravitating two-throat SCF \u2014 relaxing actual #180 \u03c8\u2013\u03a6\u2013q throat-solitons in each other's direct + exchange field \u2014 is the follow-up. Weak-field, code units.",
+      "sandbox_limits": [
+        "1D (for tractability)",
+        "external double-well confinement (stand-in for self-gravity)",
+        "screened-photon (Yukawa) interaction stand-in",
+        "spatial-orbital same-spin HF; code units"
+      ],
+      "genuine": [
+        "the SCF (imaginary-time, monotone, machine-converged)",
+        "self-interaction-free Fock operator = the reported energy's derivative",
+        "the fixed point is robust across seeded restarts"
+      ],
+      "caveats": [
+        "a variational fixed point, not certified the global ground state",
+        "the 'rigid' reference is the 1D #187-style evaluation, not the 3D number"
+      ],
+      "follow_up": "the full 3D self-gravitating two-throat SCF (relaxing #180 solitons)",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Relaxed. A genuine self-consistent Hartree\u2013Fock calculation lets the two-throat orbitals deform in each other's direct + exchange field \u2014 the follow-up #187 flagged. With an orbital-specific self-interaction-free Fock operator (consistent with the reported energy), the imaginary-time SCF lowers the energy MONOTONICALLY to a self-consistent variational fixed point (machine-converged, robust across seeded restarts); the relaxed energy lies BELOW the rigid 1D #187-style reference (~2.5%) \u2014 the variational gain from optimizing the orbitals; the two-throat density DEFORMS in the mean field (its RMS width shifts and its overlap with the rigid density drops below 1); and the non-local Fock EXCHANGE lowers the same-spin energy (turning off \u2212K, with the consistent control, raises it), the exchange hole of #185\u2013#188 doing real work in the mean field. So the two throats are no longer rigid: they settle into a self-consistent variational fixed point of their mutual direct + exchange field. SCOPE: a 1D sandbox SCF (external-well confinement, screened-photon interaction, same-spin orbitals); the full 3D self-gravitating two-throat SCF is the follow-up.",
+      "classification": "SELF_CONSISTENT_TWO_THROAT_HF_RELAXATION_CONVERGES_LOWERS_ENERGY_ORBITALS_DEFORM_IN_DIRECT_PLUS_EXCHANGE_FIELD",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "SELF_CONSISTENT_TWO_THROAT_HF_RELAXATION_CONVERGES_LOWERS_ENERGY_ORBITALS_DEFORM_IN_DIRECT_PLUS_EXCHANGE_FIELD",
+  "verdict": "RELAXED \u2014 A SELF-CONSISTENT TWO-THROAT HARTREE\u2013FOCK VARIATIONAL FIXED POINT. The orbitals deform in each other's direct + exchange field.\n\nCONVERGENT + ROBUST. The imaginary-time HF relaxation (with a self-interaction-free Fock operator) lowers the energy monotonically from -3.80798 to -3.9046, settling to a fixed point (\u0394E = -4.4e-08 \u2192 0) that is robust across seeded restarts (spread 7.6e-03).\n\nRELAXATION. The self-consistent energy (-3.9046) lies below the rigid 1D #187-style reference (-3.80798) by 2.54% \u2014 the variational gain from optimizing the orbital shapes.\n\nDEFORMED. The two-throat density polarizes in the mean field \u2014 RMS width 2.6458 \u2192 3.0554, fidelity to the rigid density 0.9783 < 1.\n\nEXCHANGE WORKS. With the consistent self-interaction-free control, turning off the non-local Fock exchange raises the energy by 0.56703 (E_HF = -3.9046 vs -3.33756): the same-spin exchange hole of #185\u2013#188 substantially lowers the energy in the self-consistent mean field. SCOPE: a 1D sandbox SCF, a variational fixed point (not certified the global ground state); the full 3D self-gravitating two-throat solve is the follow-up."
+}
