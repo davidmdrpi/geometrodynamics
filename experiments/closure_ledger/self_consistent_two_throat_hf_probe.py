@@ -12,53 +12,56 @@ fixed #180 throat-solitons) and flagged the self-consistent solve as a
 follow-up. This probe does that follow-up: it RELAXES the two orbitals in
 each other's DIRECT (Hartree) + EXCHANGE (Fock) field by a genuine
 self-consistent-field (SCF) iteration, so the throats DEFORM in the mean field
-and the energy drops to its variational minimum.
+and the energy drops to its variational fixed point.
 
-The Fock operator each orbital feels is
+The two same-spin throats (whose spatial state is antisymmetric — the Pin⁻
+sector of #185/#188) occupy two orthonormal orbitals.  Each is relaxed in an
+ORBITAL-SPECIFIC, self-interaction-free Fock operator
 
-        F = h + V_H − K ,
-  • h   = −½∇² + V_ext       (kinetic + the confining well of each throat),
-  • V_H = ∫ ρ(r') V(r−r')    (the DIRECT / Hartree field of the other throat),
-  • K   = the non-local Fock EXCHANGE operator (Kφ)(r) =
-          Σ_j φ_j(r) ∫ φ_j(r') V(r−r') φ(r').
+        F_i = h + J_{≠i} − K_{≠i} ,
+  • h     = −½∇² + V_ext             (kinetic + the confining well),
+  • J_{≠i}= ∫ |φ_{≠i}|² V(x−x')      (the DIRECT / Hartree field of the OTHER
+                                       throat — self-interaction excluded),
+  • K_{≠i}= the non-local Fock EXCHANGE with the other orbital.
 
-Two same-spin fermions (the two throats, whose spatial state is antisymmetric
-— the Pin⁻ sector of #185/#188) occupy the two lowest orbitals; the SCF
-relaxes them (orthonormal, by imaginary-time gradient descent) to the
-self-consistent ground state.
+This makes the Fock operator the exact variational derivative of the reported
+energy E = Σ_i ⟨i|h|i⟩ + (J₀₁ − K₀₁) (no self-interaction in either), for both
+the full-HF and the Hartree-only control.
 
 WHAT IS COMPUTED (measured; a genuine 1D HF SCF)
   • CONVERGENCE: the imaginary-time HF relaxation lowers the energy
-    MONOTONICALLY to a self-consistent fixed point (to machine precision) —
-    the orbitals settle in the field they themselves produce.
+    MONOTONICALLY to a self-consistent fixed point (to machine precision), and
+    that fixed point is robustly reached across seeded restarts (random
+    initial orbitals converge to the same energy).
   • RELAXATION (energy lowering): the self-consistent energy lies BELOW the
-    rigid (#187-style) energy of the unrelaxed orbitals — the orbitals deform
-    to lower the energy variationally (~2.5% here).
+    rigid 1D #187-style reference (the unrelaxed orbitals) — the orbitals
+    deform to lower the energy variationally (~2.5% here).
   • THE ORBITALS DEFORM: the relaxed density spreads/polarizes in the mean
-    field (its RMS width shifts, and its overlap with the rigid density drops
-    below 1) — the throats are no longer rigid.
-  • THE EXCHANGE FIELD MATTERS: turning OFF the non-local exchange (Hartree
-    only) raises the energy substantially — the Fock exchange (−K) lowers the
-    same-spin two-throat energy (the Pauli/exchange interaction in the mean
-    field).
+    field (its RMS width shifts, its overlap with the rigid density < 1).
+  • THE EXCHANGE FIELD MATTERS: with the consistent self-interaction-free
+    control, turning OFF the non-local exchange (Hartree only) raises the
+    energy — the Fock exchange (−K) lowers the same-spin two-throat energy.
 
 HONEST SCOPE
   A SANDBOX SCF in 1D: the confinement is an external double well (a stand-in
   for the throats' self-binding — the #180 self-gravity), the interaction is a
   screened-photon (Yukawa) stand-in for the BAM throat-fibre exchange, and the
   HF is spatial-orbital (same-spin / unrestricted), in one dimension for
-  tractability. The SCF itself is genuine (imaginary-time relaxation to
-  self-consistency, monotone and machine-converged) and the qualitative
+  tractability.  The SCF itself is genuine (imaginary-time relaxation to
+  self-consistency, monotone and machine-converged, with a self-interaction-
+  free Fock operator consistent with the reported energy) and the qualitative
   physics — convergence, the variational energy lowering, the orbital
-  deformation, the exchange lowering — is robust. The full 3D self-gravitating
-  two-throat SCF (relaxing actual #180 solitons in each other's field) is the
-  follow-up. Weak-field, code units.
+  deformation, the exchange lowering — is robust.  The state is a
+  self-consistent variational fixed point (robust across seeded restarts), not
+  certified the global ground state.  The full 3D self-gravitating two-throat
+  SCF (relaxing actual #180 solitons in each other's field) is the follow-up.
+  Weak-field, code units.
 
 Tests:
   T1. Goal: relax the orbitals self-consistently in the direct + exchange field.
-  T2. The HF mean field: F = h + V_H − K (the Fock operator).
-  T3. CONVERGENCE: the SCF lowers the energy monotonically to a fixed point.
-  T4. RELAXATION: the self-consistent energy is below the rigid energy.
+  T2. The HF mean field: F_i = h + J_{≠i} − K_{≠i} (self-interaction-free).
+  T3. CONVERGENCE: monotone descent to a fixed point, robust across seeds.
+  T4. RELAXATION: the energy is below the rigid 1D #187-style reference.
   T5. THE ORBITALS DEFORM: the density relaxes (RMS shift, fidelity < 1).
   T6. THE EXCHANGE FIELD: turning off −K raises the energy (Fock lowers it).
   T7. Honest scope.
@@ -67,10 +70,10 @@ Tests:
 Verdict:
   - SELF_CONSISTENT_TWO_THROAT_HF_RELAXATION_CONVERGES_LOWERS_ENERGY_ORBITALS_DEFORM_IN_DIRECT_PLUS_EXCHANGE_FIELD
     (expected): a genuine self-consistent Hartree–Fock relaxation of two
-    same-spin throats lowers the energy monotonically to a fixed point below
-    the rigid value, the orbitals deforming in each other's direct + exchange
-    field, with the non-local Fock exchange substantially lowering the
-    same-spin energy.
+    same-spin throats lowers the energy monotonically to a self-consistent
+    variational fixed point (robust across seeded restarts) below the rigid 1D
+    reference, the orbitals deforming in each other's direct + exchange field,
+    with the self-interaction-free Fock exchange lowering the same-spin energy.
 """
 
 from __future__ import annotations
@@ -119,51 +122,74 @@ def _orthonorm(phi: np.ndarray) -> np.ndarray:
 
 
 def _energy(phi: np.ndarray, exchange: bool = True):
-    """The HF total energy of the two-throat Slater determinant, with the
-    direct J and exchange K integrals."""
+    """The HF total energy of the two-throat Slater determinant: the
+    one-body terms plus the cross direct J₀₁ minus exchange K₀₁ (no
+    self-interaction — matching the self-interaction-free Fock operator)."""
     hii = sum(phi[:, i] @ _H @ phi[:, i] * _DX for i in range(2))
-    i, j = 0, 1
-    J = float(np.sum((phi[:, i] ** 2)[:, None] * _VMAT
-                     * (phi[:, j] ** 2)[None, :]) * _DX * _DX)
-    K = float(np.sum((phi[:, i] * phi[:, j])[:, None] * _VMAT
-                     * (phi[:, i] * phi[:, j])[None, :]) * _DX * _DX)
+    J = float(np.sum((phi[:, 0] ** 2)[:, None] * _VMAT
+                     * (phi[:, 1] ** 2)[None, :]) * _DX * _DX)
+    K = float(np.sum((phi[:, 0] * phi[:, 1])[:, None] * _VMAT
+                     * (phi[:, 0] * phi[:, 1])[None, :]) * _DX * _DX)
     E = float(hii + (J - (K if exchange else 0.0)))
     return E, J, K
 
 
+def _scf(phi_init: np.ndarray, exchange: bool = True, iters: int = _ITERS):
+    """Imaginary-time HF relaxation from a given initial pair of orbitals,
+    using ORBITAL-SPECIFIC, self-interaction-free Fock operators
+    F_i = h + J_{≠i} − K_{≠i}.  Returns (energy trace, relaxed orbitals)."""
+    phi = _orthonorm(phi_init.copy())
+    trace = [_energy(phi, exchange)[0]]
+    for it in range(iters):
+        new = np.zeros_like(phi)
+        for i in range(2):
+            o = 1 - i                                   # the OTHER orbital
+            Jother = (_VMAT @ (phi[:, o] ** 2)) * _DX    # Hartree field of the other
+            Fi = _H + np.diag(Jother)
+            if exchange:
+                Kk = (phi[:, o][:, None] * phi[:, o][None, :]) * _VMAT
+                Fi = Fi - Kk * _DX                       # exchange with the other
+            new[:, i] = phi[:, i] - _DT * (Fi @ phi[:, i])
+        phi = _orthonorm(new)
+        if it % 200 == 199:
+            trace.append(_energy(phi, exchange)[0])
+    return np.array(trace), phi
+
+
 def hf_scf(exchange: bool = True, iters: int = _ITERS):
-    """Self-consistent Hartree–Fock relaxation of two same-spin throats by
-    imaginary-time gradient descent of the Fock operator.  Returns a dict with
-    the energy trace, the rigid and relaxed energies, the orbitals/densities,
-    and the direct/exchange integrals.  Memoized on (exchange, iters)."""
+    """Self-consistent HF relaxation seeded from the non-interacting orbitals.
+    Returns a dict with the trace, rigid and relaxed energies, orbitals/
+    densities, and the direct/exchange integrals.  Memoized."""
     key = (exchange, iters)
     if key in _CACHE:
         return _CACHE[key]
     w, v = np.linalg.eigh(_H)
     v = v / math.sqrt(_DX)
-    phi0 = _orthonorm(v[:, :2])               # initial (unrelaxed) orbitals
-    phi = phi0.copy()
-    E0 = _energy(phi0, exchange)[0]
-    trace = [E0]
-    for it in range(iters):
-        rho = phi[:, 0] ** 2 + phi[:, 1] ** 2
-        VH = (_VMAT @ rho) * _DX                          # direct / Hartree
-        Kk = (phi[:, 0][:, None] * phi[:, 0][None, :]
-              + phi[:, 1][:, None] * phi[:, 1][None, :]) * _VMAT   # exchange kernel
-        F = _H + np.diag(VH) - (Kk * _DX if exchange else 0.0)
-        phi = phi - _DT * (F @ phi)                       # imaginary-time step
-        phi = _orthonorm(phi)
-        if it % 200 == 199:
-            trace.append(_energy(phi, exchange)[0])
+    phi0 = _orthonorm(v[:, :2])               # rigid (unrelaxed) 1D reference
+    trace, phi = _scf(phi0, exchange, iters)
     E, J, K = _energy(phi, exchange)
     out = {
-        "trace": np.array(trace), "phi0": phi0, "phi": phi,
-        "E0": E0, "E": E, "J": J, "K": K,
+        "trace": trace, "phi0": phi0, "phi": phi,
+        "E0": _energy(phi0, exchange)[0], "E": E, "J": J, "K": K,
         "rho0": phi0[:, 0] ** 2 + phi0[:, 1] ** 2,
         "rho": phi[:, 0] ** 2 + phi[:, 1] ** 2,
     }
     _CACHE[key] = out
     return out
+
+
+def seeded_restarts(n: int = 5, iters: int = _ITERS):
+    """Run the SCF from n random localized initial orbitals; return the list
+    of converged energies (to check the fixed point is robustly reached, not
+    seed-dependent)."""
+    rng = np.random.default_rng(0)
+    finals = []
+    env = np.exp(-_X ** 2 / 50.0)
+    for _ in range(n):
+        pr = rng.normal(size=(_N, 2)) * env[:, None]
+        tr, _phi = _scf(pr, exchange=True, iters=iters)
+        finals.append(float(tr[-1]))
+    return finals
 
 
 # ════════════════════════════════════════════════════════════════════════
@@ -179,79 +205,93 @@ def test_T1_goal() -> dict:
             "(Fock) field. PR #187 used rigid #180 throat-solitons; here a "
             "genuine self-consistent-field (SCF) iteration lets the two "
             "same-spin throats (the Pin⁻ antisymmetric sector of #185/#188) "
-            "DEFORM in the mean field they produce, relaxing to the "
-            "variational Hartree–Fock ground state. The Fock operator is "
-            "F = h + V_H − K (kinetic + confinement, the direct field V_H, the "
-            "non-local exchange K), and the SCF iterates it to "
-            "self-consistency."
+            "DEFORM in the mean field they produce, relaxing to a "
+            "self-consistent variational fixed point. Each orbital is relaxed "
+            "in an orbital-specific, self-interaction-free Fock operator "
+            "F_i = h + J_{≠i} − K_{≠i} (the exact variational derivative of "
+            "the reported energy), iterated to self-consistency."
         ),
         "relaxes": "PR #187's rigid two-throat orbitals, self-consistently",
-        "fock_operator": "F = h + V_H − K (kinetic+confinement, direct, exchange)",
+        "fock_operator": "F_i = h + J_{≠i} − K_{≠i} (self-interaction-free)",
         "framing": "QFT on the fixed classical throat geometry — not quantum gravity",
         "pass": True,
     }
 
 
 def test_T2_mean_field() -> dict:
-    """The HF mean field: F = h + V_H − K (the Fock operator)."""
+    """The HF mean field: F_i = h + J_{≠i} − K_{≠i} (self-interaction-free)."""
     s = hf_scf()
-    # the field is built from the orbitals: V_H from the density, K from the
-    # orbital pair — verify both are nonzero (the throats see each other).
-    rho = s["rho"]
-    VH = (_VMAT @ rho) * _DX
-    direct_on = float(np.max(np.abs(VH))) > 0
+    # the field is built from the orbitals: each orbital sees the OTHER's
+    # Hartree + exchange (no self-interaction) — verify both nonzero.
+    J_other = (_VMAT @ (s["phi"][:, 1] ** 2)) * _DX
+    direct_on = float(np.max(np.abs(J_other))) > 0
     exchange_on = s["K"] > 0
     ok = direct_on and exchange_on
     return {
         "name": "T2_hartree_fock_mean_field",
         "description": (
-            "Each throat orbital is relaxed in the self-consistent Fock "
-            "operator F = h + V_H − K. The DIRECT (Hartree) potential "
-            "V_H(x) = ∫ ρ(x') V(x−x') dx' is the screened field of the total "
-            f"two-throat density (max |V_H| = {np.max(np.abs(VH)):.3f} > 0), "
-            "and the non-local EXCHANGE operator K (the Fock term, "
-            "(Kφ)(x) = Σ_j φ_j(x) ∫ φ_j(x') V(x−x') φ(x')) carries the "
-            f"same-spin exchange (the integral K = {s['K']:.3f} > 0). Both "
-            "channels — the #186 direct and exchange kernels, now as mean-"
-            "field operators — act on the orbitals, and the SCF solves the "
-            "orbitals and the field together."
+            "Each throat orbital is relaxed in an ORBITAL-SPECIFIC, "
+            "self-interaction-free Fock operator F_i = h + J_{≠i} − K_{≠i}: "
+            "the DIRECT (Hartree) field J_{≠i}(x) = ∫ |φ_{≠i}(x')|² V(x−x') dx' "
+            "of the OTHER throat "
+            f"(max |J_{{≠i}}| = {np.max(np.abs(J_other)):.3f} > 0) minus the "
+            "non-local EXCHANGE with the other orbital, "
+            "(K_{≠i}φ)(x) = φ_{≠i}(x) ∫ φ_{≠i}(x') V(x−x') φ(x') "
+            f"(integral K = {s['K']:.3f} > 0). Excluding self-interaction "
+            "makes F_i the EXACT variational derivative of the reported "
+            "energy E = Σ⟨i|h|i⟩ + (J₀₁ − K₀₁) — the same functional for the "
+            "operator and the energy, in both the full-HF and Hartree-only "
+            "branches. Both channels (the #186 direct and exchange kernels, "
+            "now as mean-field operators) act, and the SCF solves the orbitals "
+            "and the field together."
         ),
-        "direct_field_max": round(float(np.max(np.abs(VH))), 4),
+        "direct_field_max": round(float(np.max(np.abs(J_other))), 4),
         "exchange_integral_K": round(s["K"], 4),
         "pass": ok,
     }
 
 
 def test_T3_convergence() -> dict:
-    """The SCF lowers the energy monotonically to a fixed point."""
+    """Monotone descent to a fixed point, robust across seeded restarts."""
     s = hf_scf()
     tr = s["trace"]
     monotone = all(tr[k + 1] <= tr[k] + 1e-9 for k in range(len(tr) - 1))
     converged = abs(tr[-1] - tr[-2]) < 1e-6
-    ok = monotone and converged
+    # robustness: random localized seeds converge to the same fixed point
+    finals = seeded_restarts(5)
+    best = min(finals)
+    spread = max(finals) - best
+    robust = abs(best - tr[-1]) < 1e-3 and spread < 0.05
+    ok = monotone and converged and robust
     return {
-        "name": "T3_scf_convergence",
+        "name": "T3_scf_convergence_and_robustness",
         "description": (
-            "The self-consistent field converges. The imaginary-time HF "
-            "relaxation (gradient descent of the Fock operator, with the two "
-            "orbitals kept orthonormal) lowers the energy MONOTONICALLY from "
-            f"E = {tr[0]:.4f} to {tr[-1]:.4f}, settling to a self-consistent "
-            f"fixed point (final step ΔE = {tr[-1]-tr[-2]:+.1e} → 0). The "
-            "orbitals come to rest in the mean field they themselves produce "
-            "— the defining condition of Hartree–Fock self-consistency. The "
-            "monotone descent (no oscillation) confirms a genuine variational "
-            "relaxation to the ground state."
+            "The self-consistent field converges, to a robust fixed point. "
+            "The imaginary-time HF relaxation (gradient descent of the "
+            "self-interaction-free Fock operator, orbitals kept orthonormal) "
+            f"lowers the energy MONOTONICALLY from {tr[0]:.4f} to {tr[-1]:.4f}, "
+            f"settling to a self-consistent fixed point (final step ΔE = "
+            f"{tr[-1]-tr[-2]:+.1e} → 0). And the fixed point is ROBUST: five "
+            "random localized initial orbitals converge to "
+            f"{ [round(f,3) for f in finals] } — the lowest, {best:.4f}, "
+            f"matches the eigenstate-seeded run, with spread {spread:.1e}. So "
+            "this is a self-consistent VARIATIONAL FIXED POINT robustly "
+            "reached across seeded restarts (not certified the global ground "
+            "state, but seed-independent). The monotone descent (no "
+            "oscillation) confirms a genuine variational relaxation."
         ),
         "energy_initial": round(float(tr[0]), 5),
         "energy_converged": round(float(tr[-1]), 5),
         "monotone": monotone,
         "final_delta_E": float(tr[-1] - tr[-2]),
+        "seeded_restart_finals": [round(f, 4) for f in finals],
+        "seeded_restart_spread": round(spread, 5),
         "pass": ok,
     }
 
 
 def test_T4_relaxation_lowers_energy() -> dict:
-    """The self-consistent energy is below the rigid energy."""
+    """The energy is below the rigid 1D #187-style reference."""
     s = hf_scf()
     E0 = s["E0"]
     E = s["E"]
@@ -261,18 +301,19 @@ def test_T4_relaxation_lowers_energy() -> dict:
     return {
         "name": "T4_relaxation_lowers_energy",
         "description": (
-            "The relaxation lowers the energy below the rigid value — the "
-            "variational gain. The RIGID orbitals (the unrelaxed initial "
-            "states, evaluated with the FULL Hartree–Fock energy including the "
-            f"interaction) give E_rigid = {E0:.4f}; relaxing them "
-            f"self-consistently gives E = {E:.4f}, LOWER by "
+            "The relaxation lowers the energy below the rigid 1D #187-STYLE "
+            "REFERENCE — the variational gain. The RIGID 1D reference (the "
+            "unrelaxed initial orbitals, evaluated with the FULL Hartree–Fock "
+            "energy including the interaction — the 1D analogue of #187's "
+            f"rigid-orbital evaluation) gives E_rigid = {E0:.4f}; relaxing the "
+            f"orbitals self-consistently gives E = {E:.4f}, LOWER by "
             f"{lowering*100:.2f}%. In #187 the orbitals were held rigid; here "
             "they deform in the direct + exchange field to lower the energy "
             "(the variational principle the SCF realizes). The two-throat "
             "Hartree–Fock energy is genuinely minimized over the orbital "
             "shapes, not just evaluated on fixed ones."
         ),
-        "E_rigid": round(E0, 5),
+        "E_rigid_1d_reference": round(E0, 5),
         "E_relaxed": round(E, 5),
         "lowering_percent": round(lowering * 100, 3),
         "pass": ok,
@@ -310,7 +351,7 @@ def test_T5_orbitals_deform() -> dict:
 
 
 def test_T6_exchange_field() -> dict:
-    """Turning off −K raises the energy (Fock lowers it)."""
+    """Turning off −K raises the energy (Fock lowers it), consistent control."""
     full = hf_scf(exchange=True)
     hartree = hf_scf(exchange=False)
     e_full = full["E"]
@@ -321,16 +362,19 @@ def test_T6_exchange_field() -> dict:
     return {
         "name": "T6_exchange_field_lowers_energy",
         "description": (
-            "The non-local Fock EXCHANGE field matters — it is not just a "
-            "correction. Running the SCF with the exchange operator −K "
-            f"included gives E_HF = {e_full:.4f}; running it Hartree-ONLY "
-            f"(direct field, no exchange) gives E = {e_hartree:.4f} — HIGHER "
-            f"by {delta:.4f}. For the two SAME-SPIN throats (the Pin⁻ "
-            "antisymmetric sector), the Fock exchange substantially LOWERS the "
-            "energy: the exchange hole (#186/#187) keeps the like throats "
-            "apart, reducing the repulsive direct energy. The −1 of #185/#188 "
-            "is doing real work in the self-consistent mean field, not only in "
-            "the rigid kernel."
+            "The non-local Fock EXCHANGE field matters — measured with a "
+            "CONSISTENT control. The Hartree-only run uses the SAME "
+            "self-interaction-free variational functional, just with the "
+            "exchange operator dropped from BOTH the Fock operator "
+            "(F_i = h + J_{≠i}) and the energy (E = Σ⟨i|h|i⟩ + J₀₁) — so its "
+            "operator and energy are the same functional. The full HF SCF "
+            f"gives E_HF = {e_full:.4f}; the consistent Hartree-only SCF gives "
+            f"E = {e_hartree:.4f} — HIGHER by {delta:.4f}. For the two "
+            "SAME-SPIN throats (the Pin⁻ antisymmetric sector) the Fock "
+            "exchange substantially LOWERS the energy: the exchange hole "
+            "(#186/#187) keeps the like throats apart, reducing the repulsive "
+            "direct energy. The −1 of #185/#188 does real work in the "
+            "self-consistent mean field, not only in the rigid kernel."
         ),
         "E_full_HF": round(e_full, 5),
         "E_hartree_only": round(e_hartree, 5),
@@ -349,21 +393,28 @@ def test_T7_scope() -> dict:
             "stand-in for the BAM throat-fibre exchange; and the Hartree–Fock "
             "is spatial-orbital (same-spin / unrestricted), in one dimension "
             "for tractability. The SCF ITSELF is genuine — an imaginary-time "
-            "relaxation to self-consistency, monotone and machine-converged — "
-            "and the qualitative physics (convergence, the variational energy "
-            "lowering, the orbital deformation, the exchange lowering) is "
-            "robust and standard. The FULL 3D self-gravitating two-throat SCF "
-            "— relaxing actual #180 ψ–Φ–q throat-solitons in each other's "
-            "direct + exchange field — is the follow-up; this probe "
-            "establishes the self-consistent relaxation at the tractable 1D "
-            "level. Weak-field, code units."
+            "relaxation to self-consistency, monotone and machine-converged, "
+            "with an orbital-specific SELF-INTERACTION-FREE Fock operator "
+            "consistent with the reported energy — and the qualitative physics "
+            "(convergence, the variational energy lowering, the orbital "
+            "deformation, the exchange lowering) is robust and standard. The "
+            "relaxed state is a self-consistent VARIATIONAL FIXED POINT, "
+            "robust across seeded restarts but not certified the global ground "
+            "state. The 'rigid' reference is the 1D #187-STYLE evaluation "
+            "(unrelaxed orbitals with the full HF energy), not the 3D #187 "
+            "number. The FULL 3D self-gravitating two-throat SCF — relaxing "
+            "actual #180 ψ–Φ–q throat-solitons in each other's direct + "
+            "exchange field — is the follow-up. Weak-field, code units."
         ),
         "sandbox_limits": ["1D (for tractability)",
                            "external double-well confinement (stand-in for self-gravity)",
                            "screened-photon (Yukawa) interaction stand-in",
                            "spatial-orbital same-spin HF; code units"],
-        "genuine": ["the SCF itself (imaginary-time, monotone, machine-converged)",
-                    "convergence, energy lowering, orbital deformation, exchange lowering"],
+        "genuine": ["the SCF (imaginary-time, monotone, machine-converged)",
+                    "self-interaction-free Fock operator = the reported energy's derivative",
+                    "the fixed point is robust across seeded restarts"],
+        "caveats": ["a variational fixed point, not certified the global ground state",
+                    "the 'rigid' reference is the 1D #187-style evaluation, not the 3D number"],
         "follow_up": "the full 3D self-gravitating two-throat SCF (relaxing #180 solitons)",
         "pass": True,
     }
@@ -375,20 +426,23 @@ def test_T8_assessment() -> dict:
         "description": (
             "Relaxed. A genuine self-consistent Hartree–Fock calculation lets "
             "the two-throat orbitals deform in each other's direct + exchange "
-            "field — the follow-up #187 flagged. The imaginary-time SCF lowers "
-            "the energy MONOTONICALLY to a self-consistent fixed point (to "
-            "machine precision); the relaxed energy lies BELOW the rigid "
-            "(#187-style) value (~2.5%) — the variational gain from optimizing "
-            "the orbitals; the two-throat density DEFORMS in the mean field "
-            "(its RMS width shifts and its overlap with the rigid density "
-            "drops below 1); and the non-local Fock EXCHANGE substantially "
-            "lowers the same-spin energy (turning off −K raises it), the "
-            "exchange hole of #185–#188 doing real work in the mean field. So "
-            "the two throats are no longer rigid: they settle into the "
-            "self-consistent ground state of their mutual direct + exchange "
-            "field. SCOPE: a 1D sandbox SCF (external-well confinement, "
-            "screened-photon interaction, same-spin orbitals); the full 3D "
-            "self-gravitating two-throat SCF is the follow-up."
+            "field — the follow-up #187 flagged. With an orbital-specific "
+            "self-interaction-free Fock operator (consistent with the reported "
+            "energy), the imaginary-time SCF lowers the energy MONOTONICALLY "
+            "to a self-consistent variational fixed point (machine-converged, "
+            "robust across seeded restarts); the relaxed energy lies BELOW the "
+            "rigid 1D #187-style reference (~2.5%) — the variational gain from "
+            "optimizing the orbitals; the two-throat density DEFORMS in the "
+            "mean field (its RMS width shifts and its overlap with the rigid "
+            "density drops below 1); and the non-local Fock EXCHANGE lowers "
+            "the same-spin energy (turning off −K, with the consistent "
+            "control, raises it), the exchange hole of #185–#188 doing real "
+            "work in the mean field. So the two throats are no longer rigid: "
+            "they settle into a self-consistent variational fixed point of "
+            "their mutual direct + exchange field. SCOPE: a 1D sandbox SCF "
+            "(external-well confinement, screened-photon interaction, "
+            "same-spin orbitals); the full 3D self-gravitating two-throat SCF "
+            "is the follow-up."
         ),
         "classification": (
             "SELF_CONSISTENT_TWO_THROAT_HF_RELAXATION_CONVERGES_LOWERS_ENERGY_ORBITALS_DEFORM_IN_DIRECT_PLUS_EXCHANGE_FIELD"
@@ -418,34 +472,37 @@ def run_probe() -> dict:
             "SELF_CONSISTENT_TWO_THROAT_HF_RELAXATION_CONVERGES_LOWERS_ENERGY_ORBITALS_DEFORM_IN_DIRECT_PLUS_EXCHANGE_FIELD"
         )
         verdict = (
-            "RELAXED — A SELF-CONSISTENT TWO-THROAT HARTREE–FOCK GROUND "
-            "STATE. The orbitals deform in each other's direct + exchange "
-            "field.\n\n"
-            "CONVERGENT. The imaginary-time HF relaxation lowers the energy "
+            "RELAXED — A SELF-CONSISTENT TWO-THROAT HARTREE–FOCK VARIATIONAL "
+            "FIXED POINT. The orbitals deform in each other's direct + "
+            "exchange field.\n\n"
+            "CONVERGENT + ROBUST. The imaginary-time HF relaxation (with a "
+            "self-interaction-free Fock operator) lowers the energy "
             f"monotonically from {t3['energy_initial']} to "
-            f"{t3['energy_converged']}, settling to a self-consistent fixed "
-            f"point (ΔE = {t3['final_delta_E']:+.1e} → 0).\n\n"
+            f"{t3['energy_converged']}, settling to a fixed point "
+            f"(ΔE = {t3['final_delta_E']:+.1e} → 0) that is robust across "
+            f"seeded restarts (spread {t3['seeded_restart_spread']:.1e}).\n\n"
             "RELAXATION. The self-consistent energy "
-            f"({t4['E_relaxed']}) lies below the rigid #187-style value "
-            f"({t4['E_rigid']}) by {t4['lowering_percent']:.2f}% — the "
-            "variational gain from optimizing the orbital shapes.\n\n"
+            f"({t4['E_relaxed']}) lies below the rigid 1D #187-style reference "
+            f"({t4['E_rigid_1d_reference']}) by {t4['lowering_percent']:.2f}% "
+            "— the variational gain from optimizing the orbital shapes.\n\n"
             "DEFORMED. The two-throat density polarizes in the mean field — "
             f"RMS width {t5['rms_rigid']} → {t5['rms_relaxed']}, fidelity to "
-            f"the rigid density {t5['density_fidelity_rigid_relaxed']} < 1 — "
-            "the throats are no longer rigid.\n\n"
-            "EXCHANGE WORKS. Turning off the non-local Fock exchange "
-            f"(Hartree only) raises the energy by {t6['exchange_lowering']} "
-            "(E_HF = "
-            f"{t6['E_full_HF']} vs {t6['E_hartree_only']}): the same-spin "
-            "exchange hole of #185–#188 substantially lowers the energy in the "
-            "self-consistent mean field. SCOPE: a 1D sandbox SCF; the full 3D "
+            f"the rigid density {t5['density_fidelity_rigid_relaxed']} < 1.\n\n"
+            "EXCHANGE WORKS. With the consistent self-interaction-free "
+            "control, turning off the non-local Fock exchange raises the "
+            f"energy by {t6['exchange_lowering']} (E_HF = {t6['E_full_HF']} vs "
+            f"{t6['E_hartree_only']}): the same-spin exchange hole of "
+            "#185–#188 substantially lowers the energy in the self-consistent "
+            "mean field. SCOPE: a 1D sandbox SCF, a variational fixed point "
+            "(not certified the global ground state); the full 3D "
             "self-gravitating two-throat solve is the follow-up."
         )
     else:
         verdict_class = "SELF_CONSISTENT_TWO_THROAT_HF_INCOMPLETE"
         verdict = (
-            "INCOMPLETE. A check failed; review the SCF convergence, the "
-            "energy lowering, the orbital deformation, or the exchange field."
+            "INCOMPLETE. A check failed; review the SCF convergence/robustness, "
+            "the energy lowering, the orbital deformation, or the exchange "
+            "field control."
         )
 
     return {
@@ -453,15 +510,17 @@ def run_probe() -> dict:
         "identification": (
             "a self-consistent two-throat Hartree–Fock relaxation: the "
             "orbitals deform in each other's direct + exchange field, the "
-            "imaginary-time SCF lowering the energy monotonically to a fixed "
-            "point below the rigid value, with the non-local Fock exchange "
-            "substantially lowering the same-spin energy"
+            "imaginary-time SCF (self-interaction-free Fock operator) lowering "
+            "the energy monotonically to a self-consistent variational fixed "
+            "point (robust across seeded restarts) below the rigid 1D "
+            "#187-style reference, with the Fock exchange lowering the "
+            "same-spin energy"
         ),
-        "convergence": "imaginary-time HF SCF, monotone energy descent to a fixed point",
-        "relaxation": "the self-consistent energy lies below the rigid #187 value (~2.5%)",
+        "convergence": "imaginary-time HF SCF, monotone descent to a fixed point (robust across seeds)",
+        "relaxation": "the self-consistent energy lies below the rigid 1D #187-style reference (~2.5%)",
         "deformation": "the two-throat density polarizes in the mean field (RMS shift, fidelity<1)",
-        "exchange": "turning off the Fock −K raises the energy — the exchange lowers it",
-        "scope": "1D sandbox SCF (external well, screened-photon V); full 3D self-gravitating SCF is the follow-up",
+        "exchange": "turning off the Fock −K (consistent control) raises the energy — the exchange lowers it",
+        "scope": "1D sandbox SCF; a variational fixed point (not certified global ground state); 3D SCF is the follow-up",
         "tests": tests,
         "n_passed": sum(1 for t in tests if t["pass"]),
         "n_total": len(tests),
@@ -478,9 +537,10 @@ def render_markdown(s: dict) -> str:
     out.append("")
     out.append(
         "Relaxes PR #187's rigid two-throat orbitals self-consistently — a "
-        "genuine HF SCF lets the two same-spin throats deform in each other's "
-        "direct + exchange field, lowering the energy to its variational "
-        "minimum. *(QFT on the classical throat, not quantum gravity.)*"
+        "genuine HF SCF (self-interaction-free Fock operator) lets the two "
+        "same-spin throats deform in each other's direct + exchange field, "
+        "lowering the energy to a self-consistent variational fixed point. "
+        "*(QFT on the classical throat, not quantum gravity.)*"
     )
     out.append("")
     out.append(f"- **Convergence**: {s['convergence']}")
@@ -494,12 +554,12 @@ def render_markdown(s: dict) -> str:
     out.append("|---|---|---|---|")
     labels = {
         "T1": "relax the orbitals self-consistently in the direct + exchange field",
-        "T2": "the HF mean field: F = h + V_H − K (the Fock operator)",
-        "T3": "convergence: the SCF lowers the energy monotonically to a fixed point",
-        "T4": "relaxation: the self-consistent energy is below the rigid value",
+        "T2": "the HF mean field: F_i = h + J_{≠i} − K_{≠i} (self-interaction-free)",
+        "T3": "convergence: monotone descent to a fixed point, robust across seeds",
+        "T4": "relaxation: the energy is below the rigid 1D #187-style reference",
         "T5": "the orbitals deform: the density relaxes (RMS shift, fidelity<1)",
-        "T6": "the exchange field: turning off −K raises the energy",
-        "T7": "honest scope (a 1D sandbox SCF)",
+        "T6": "the exchange field: turning off −K (consistent control) raises the energy",
+        "T7": "honest scope (a 1D sandbox SCF; a variational fixed point)",
         "T8": "SELF_CONSISTENT_TWO_THROAT_HF_RELAXED",
     }
     for t in s["tests"]:
@@ -512,11 +572,12 @@ def render_markdown(s: dict) -> str:
     out.append("")
     out.append("| quantity | value |")
     out.append("|---|---|")
-    out.append(f"| energy: rigid → relaxed | {t4['E_rigid']} → {t4['E_relaxed']} ({t4['lowering_percent']}% lower) |")
+    out.append(f"| energy: rigid 1D ref → relaxed | {t4['E_rigid_1d_reference']} → {t4['E_relaxed']} ({t4['lowering_percent']}% lower) |")
     out.append(f"| SCF convergence (final ΔE) | {t3['final_delta_E']:+.1e} (monotone) |")
+    out.append(f"| seeded-restart spread | {t3['seeded_restart_spread']:.1e} (robust fixed point) |")
     out.append(f"| density RMS: rigid → relaxed | {t5['rms_rigid']} → {t5['rms_relaxed']} |")
     out.append(f"| density fidelity (rigid vs relaxed) | {t5['density_fidelity_rigid_relaxed']} |")
-    out.append(f"| exchange lowering (E_Hartree−E_HF) | {t6['exchange_lowering']} |")
+    out.append(f"| exchange lowering (E_Hartree − E_HF, consistent control) | {t6['exchange_lowering']} |")
     out.append("")
     out.append("## Verdict")
     out.append("")
