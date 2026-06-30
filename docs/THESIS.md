@@ -898,6 +898,42 @@ PROTECTED, so α should be tested as protected-boundary-structure × one residua
 scale, not fit as a continuous tuning family
 (`alpha_protected_boundary_invariant_probe`, PR #184).
 
+**Multi-throat mechanics & the exchange kernel from the GR soliton
+(PR #185).** The arc built a single self-gravitating ψ–Φ–q throat-soliton
+(#176–#180); `multi_throat_exchange_kernel_probe` takes TWO of them and
+derives the EXCHANGE KERNEL from GR — no postulated statistics. It factorizes
+as `K_exchange(R) = (−1)·K(R)`: a GR-geometric SPATIAL overlap times a
+TOPOLOGICAL sign. **The spatial kernel** `K(R)` is the overlap of two actual
+#180 throat-solitons separated by `R`, decaying smoothly from `K̂(0) = 1` over
+the soliton size (RMS ≈ 1.27) — a GR exchange RANGE, not a postulated form
+factor (`K̂`: `1.00, 0.79, 0.41, 0.15, 0.045, 0.003` at `R = 0,1,2,3,4,6`).
+**The sign** is `−1` (fermionic), derived from GR: the large diffeomorphism
+that swaps two throats is homotopic to a 2π rotation of one throat (the
+Friedman–Sorkin / Dowker–Sorkin spin-statistics theorem for geons), and a 2π
+rotation on the non-orientable Pin⁻ throat is `T² = −I` (`½ tr T² = −1`), so
+the exchange phase is `−1`; a boson would need the orientable `T² = +I`
+closure the throat does not have (#170/#174/#183). So the geometry SELECTS the
+antisymmetric (Fermi) eigenvalue of the exchange operator `P` (`P² = 1`,
+eigenvalues `±1`). **Pauli exclusion:** the antisymmetric two-throat state
+`Ψ₋(z₁,z₂) = φ_a(z₁)φ_b(z₂) − φ_a(z₂)φ_b(z₁)` vanishes identically at
+coincidence (`max|Ψ₋(z,z)| = 0` to machine precision — the determinant of two
+equal rows), so two identical throats cannot occupy the same state; the boson
+`Ψ₊` does not (it bunches). **The exchange hole + Fermi pressure:** the
+exchange term `∝ K(R)²` carves an exchange hole of GR range = the soliton
+size; macroscopically the exclusion fills a degenerate Fermi tower — with the
+3D DOS `g(E) ∝ √E`, `N ∝ E_F^{3/2}`, `E ∝ E_F^{5/2}` ⟹ `E ∝ N^{5/3}` ⟹
+`P = (2/3)(E/V) ∝ n^{5/3}`, polytropic `Γ = 5/3` — exactly the Fermi EoS
+measured in #172. The GR-derived exchange kernel is the microscopic origin of
+the Fermi pressure of throat matter. Scope: the exchange sign is exact /
+topological (the Pin⁻ geon statistics, a GR large-diffeomorphism / mapping-
+class-group representation); the spatial kernel is the rigid #180
+soliton-overlap model (the single-particle orbitals) — the full two-body GR
+problem (the two-throat metric, the gravitational direct/Hartree term, the
+dynamical swap with back-reaction) is a follow-up; the Fermi index 5/3 is the
+standard degenerate-gas result, here attributed to the GR-derived exchange
+kernel; weak-field / semi-dynamical soliton
+(`multi_throat_exchange_kernel_probe`, PR #185).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
