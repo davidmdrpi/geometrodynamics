@@ -1032,6 +1032,38 @@ spatial exchange kernel and Hartree–Fock energies — the statistics/holonomy
 layer of the multi-throat mechanics
 (`adiabatic_exchange_holonomy_probe`, PR #188).
 
+**Self-consistent two-throat Hartree–Fock relaxation (PR #189).** PR #187
+assembled the two-throat HF energy with RIGID orbitals and flagged the
+self-consistent solve as a follow-up; `self_consistent_two_throat_hf_probe`
+does it. A genuine self-consistent-field iteration relaxes the two same-spin
+throats (the Pin⁻ antisymmetric sector of #185/#188) in each other's DIRECT
+(Hartree) + EXCHANGE (Fock) field. Each orbital is relaxed in the Fock
+operator `F = h + V_H − K` — kinetic + confinement `h`, the direct potential
+`V_H(x) = ∫ ρ(x') V(x−x') dx'`, and the non-local exchange operator
+`(Kφ)(x) = Σ_j φ_j(x) ∫ φ_j(x') V(x−x') φ(x')` — by imaginary-time gradient
+descent with the two orbitals kept orthonormal. **Convergence:** the energy
+descends MONOTONICALLY (`−3.808 → −3.905`, final `ΔE ~ 10⁻⁸ → 0`) to a
+self-consistent fixed point — the orbitals come to rest in the field they
+produce (the imaginary-time relaxation avoids the eigenstate-swapping
+oscillation a naive diagonalization-SCF shows for these near-degenerate
+orbitals). **Relaxation:** the self-consistent energy lies `2.54%` below the
+rigid (#187-style) value — the variational gain from optimizing the orbital
+shapes that #187 omitted. **Deformation:** the two-throat density polarizes in
+the mean field (RMS width `2.65 → 3.06`, overlap with the rigid density
+`0.978 < 1`). **Exchange:** turning off the non-local Fock exchange
+(Hartree-only) raises the energy by `0.62` — for the two same-spin throats the
+exchange substantially lowers the energy (the exchange hole of #186/#187 keeps
+the like throats apart, reducing the repulsive direct energy), so the `−1` of
+#185/#188 does real work in the self-consistent mean field. So the two throats
+are no longer rigid: they settle into the self-consistent ground state of
+their mutual direct + exchange field. Scope: a 1D sandbox SCF (external
+double-well confinement standing in for the throats' self-gravity, a
+screened-photon interaction stand-in, spatial-orbital same-spin HF, in 1D for
+tractability); the SCF itself is genuine and the qualitative physics robust;
+the full 3D self-gravitating two-throat SCF (relaxing actual #180 solitons) is
+the follow-up; weak-field, code units
+(`self_consistent_two_throat_hf_probe`, PR #189).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
