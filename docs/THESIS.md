@@ -1110,6 +1110,24 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**Dynamic two-throat exchange path with back-reaction.** The exchange `−1`
+of #188 (the adiabatic Pin⁻ holonomy) is the **adiabatic limit of a real
+dynamical swap**: the throat's internal Pin spinor driven around the swap loop
+`n̂(s)=(cos2πs, sin2πs, 0)` at finite speed `1/T`, coupled to a back-reacting
+field `ẍ+γẋ+ω²x=−κ⟨σ_z⟩` that the moving throat sources and that acts back
+through `g·x·σ_z`. The loop's exact Berry phase is `−½·2π=−π` (the exchange
+`−1`); as the swap slows the *dynamical* geometric phase `φ_geo→−π` and the
+non-adiabatic excitation `P_exc→0`, while at finite speed both deviate by an
+explicit `O(1/T)` cost (`deviation×T≈29.7`, constant) that vanishes
+adiabatically. The back-reacting field is sourced at finite speed (peak energy
+`≈0.028` at `T=20`, → `1.5e-4` slow) and acts back on the spinor, but leaves
+the adiabatic `−1` **unchanged** — the dynamics add a quantified,
+adiabatically-vanishing cost, not a change of sign. Honest scope: an effective
+model (the internal spinor + one field mode); the field-resolved real-time
+two-throat solve (orbitals translating, the #190 Coulomb field re-solved each
+step, the swap geometry in 3D) is the follow-up; weak-field, code units
+(`dynamic_two_throat_exchange_probe`, PR #191).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
