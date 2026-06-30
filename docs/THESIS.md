@@ -1076,6 +1076,40 @@ qualitative physics robust; the relaxed state is a variational fixed point
 two-throat SCF (relaxing actual #180 solitons) is the follow-up; weak-field,
 code units (`self_consistent_two_throat_hf_probe`, PR #189).
 
+**The BAM Coulomb-photon kernel for the two-throat HF (PR #190).** PR #187 and
+#189 used a screened-photon (Yukawa) interaction as a regulated stand-in;
+`bam_coulomb_two_throat_hf_probe` replaces it with the genuine BAM
+Coulomb-photon kernel — the UNSCREENED Coulomb `V(d) = 1/(4πd) ⟷ 1/q²`, the
+photon propagator BAM derives from the throat-fibre exchange geometry
+(#42–#44), the flat-space limit of the S³ scalar Green function
+`G(ψ) = ((π−ψ)cotψ − ½)/(4π²R)` (the repo's `s3_green_potential`). **The
+kernel** is verified: the isolated-system Coulomb of a unit point source
+reproduces `1/(4πd)` to machine precision, and near the source `G·4πs = 0.957
+→ 1`, the Coulomb coefficient (`s = Rψ` the geodesic distance), so on the
+local weak-field patch the throats see the unscreened photon with S³ curvature
+corrections `O(1/R²)` carried by `G`. **The regulator** is the Hockney
+zero-padded open-boundary Coulomb (density padded to a 2× box, convolved with
+the free-space `1/(4πr)` Green function) — a proper isolated-system scheme,
+NOT physical screening; validated against the analytic Gaussian Coulomb
+self-energy (ratio `0.9992`, ~0.08%). **The recomputed energies** (on the #180
+orbitals): the direct `J(R)` is now correctly LONG-RANGED — `J(6) = 0.0133 ≈
+1/(4π·6)` (ratio `1.003`), the point-charge Coulomb tail — unlike the Yukawa
+stand-in's exponential decay; the exchange `K_ex(R)` stays short-ranged
+(overlap-set), so far-apart throats feel the Coulomb direct field but not the
+exchange. **The #187 physics survives:** with the overlap-normalized
+`E±(R) = (J ± K_ex)/(1 ± S²)`, for the repulsive photon the antisymmetric
+(Pin⁻) branch `E₋` lies below the symmetric `E₊` at every finite separation
+(fermion-lower), and at coincidence `J = K_ex` and `S → 1`, so the
+antisymmetric state is the zero vector (Pauli-forbidden). The statistics are a
+property of the geometry (the Pin⁻ sign + the overlap structure), not of the
+interaction's screening — the Yukawa was a faithful short-range stand-in, now
+upgraded to the real long-ranged photon. Scope: the flat Coulomb limit (the
+`O(1/R²)` S³ curvature corrections are carried by `G` but not applied — the
+weak-field local patch); the Hockney is a numerical open-boundary regulator,
+not screening; the orbitals are the rigid #180 throat-solitons (the
+self-consistent #189 SCF with the Coulomb kernel is the follow-up);
+weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
