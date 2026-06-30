@@ -1,0 +1,114 @@
+{
+  "timestamp_utc": "2026-06-30T00:49:34+00:00",
+  "identification": "the #185 rigid-soliton exchange kernel hardened: normalized (\u222b|\u03c6|\u00b2=1, K(0)=1, parity, bounded), overlap-grid converged to <0.1% (with the ~3% soliton-profile grid-sensitivity the honest dominant uncertainty), and its direct (sign-independent) and exchange (\u00b1-carrying) channels separated and controlled",
+  "normalization": "orbital \u222b|\u03c6|\u00b2=1; K(0)=1 (to 0.1%); parity exact; Cauchy\u2013Schwarz bound",
+  "convergence": "overlap grid <0.1%; soliton-profile grid ~3% (the #180 core caveat)",
+  "direct_controls": "direct D(R) sign-independent, exchange carries \u22121; both vanish far",
+  "scope": "rigid soliton-overlap kernel; energies (convolution with V) are PR #187",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Harden PR #185's rigid-soliton exchange kernel K_exchange(R) = (\u22121)\u00b7K(R) into a trustworthy benchmark with the three things it needs: NORMALIZATION (the orbital normalized, K(0) = 1, parity, the Cauchy\u2013Schwarz bound), CONVERGENCE (under both the overlap-integral grid and the soliton grid, with the dominant uncertainty honestly identified), and DIRECT-TERM CONTROLS (the sign-independent direct density-overlap separated from the \u00b1-carrying exchange, both vanishing at far separation, the \u22121 living purely in the exchange channel).",
+      "hardens": "PR #185 (the rigid soliton-overlap exchange kernel)",
+      "pillars": [
+        "normalization",
+        "convergence",
+        "direct-term controls"
+      ],
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_normalization",
+      "description": "The kernel is correctly normalized. The single-throat orbital is normalized to \u222b|\u03c6|\u00b2 d\u00b3r = 1.000000 = 1; the self-overlap K(0) = 1.00089 reproduces that norm to 0.09% (the residual is the overlap-quadrature discretization, T3). The kernel is PARITY-symmetric \u2014 K(2) = 0.40963 = K(\u22122) = 0.40963 (\u03c6 is radial) \u2014 and obeys the Cauchy\u2013Schwarz bound 0 \u2264 K(R) \u2264 K(0): K(2) = 0.410 < 1. The exchange amplitude is a proper normalized overlap.",
+      "orbital_norm": 1.0,
+      "self_overlap_K0": 1.00089,
+      "parity_K2_vs_Kneg2": [
+        0.40963,
+        0.40963
+      ],
+      "cauchy_schwarz_bound": true,
+      "pass": true
+    },
+    {
+      "name": "T3_overlap_grid_convergence",
+      "description": "The overlap integral is well-resolved. Refining the angular/radial quadrature (Nr, Nu), K(2) = {'160x80': 0.40977, '320x160': 0.40963, '640x320': 0.4096, '1000x500': 0.40959} \u2014 the value at (320\u00d7160) differs from the finest (1000\u00d7500) by only 0.009%, so the production grid is converged to < 0.1%. The overlap quadrature contributes negligible error; the remaining uncertainty is in the soliton profile (T4).",
+      "K2_by_grid": {
+        "160x80": 0.40977,
+        "320x160": 0.40963,
+        "640x320": 0.4096,
+        "1000x500": 0.40959
+      },
+      "rel_to_finest_percent": 0.0092,
+      "converged_below_0p1pct": true,
+      "pass": true
+    },
+    {
+      "name": "T4_soliton_grid_convergence",
+      "description": "The dominant uncertainty is the soliton PROFILE, honestly reported. Rebuilding the #180 throat-soliton at radial grids N = 240 \u2192 320, K(2) = 0.40962 \u2192 0.42153, a 2.9% shift. This is NOT the overlap integral (T3, < 0.1%) but the soliton profile's core grid-sensitivity \u2014 the documented #180 caveat (the sharp core carries ~10% per-point grid uncertainty, integral overlaps a few %). So the kernel's shape and scale are trustworthy to a few %, with the soliton profile the limiting factor \u2014 not a flaw in the kernel computation but an inherited, known limitation.",
+      "K2_N240": 0.40962,
+      "K2_N320": 0.42153,
+      "soliton_grid_spread_percent": 2.91,
+      "bounded": true,
+      "pass": true
+    },
+    {
+      "name": "T5_direct_vs_exchange_kernels",
+      "description": "Two distinct GR-geometric kernels. The DIRECT density-overlap D(R) = \u222b \u03c1_a \u03c1_b d\u00b3x (the Hartree channel, sign-independent) and the EXCHANGE amplitude-overlap K(R) (the \u00b1-carrying channel) differ: D = {0.0: 0.0648, 1.0: 0.0377, 2.0: 0.0083, 3.0: 0.0009, 4.0: 0.0001, 6.0: 0.0} versus the exchange weight X = K\u00b2 = {0.0: 1.0, 1.0: 0.6258, 2.0: 0.1675, 3.0: 0.0234, 4.0: 0.0021, 6.0: 0.0}. Both decay monotonically to zero at large R, but the DIRECT decays FASTER (it is the product of densities, D(2)/D(0) = 0.128, vs the amplitude overlap K(2)/K(0) = 0.409). They are genuinely different objects: the direct measures density coincidence, the exchange measures amplitude overlap (which carries the statistics).",
+      "direct_D": {
+        "0.0": 0.06481,
+        "1.0": 0.03767,
+        "2.0": 0.00828,
+        "3.0": 0.00089,
+        "4.0": 6e-05,
+        "6.0": 0.0
+      },
+      "exchange_X_K2": {
+        "0.0": 1.0,
+        "1.0": 0.62583,
+        "2.0": 0.1675,
+        "3.0": 0.02337,
+        "4.0": 0.00206,
+        "6.0": 1e-05
+      },
+      "both_monotone_decay": true,
+      "direct_decays_faster": true,
+      "pass": true
+    },
+    {
+      "name": "T6_direct_term_controls",
+      "description": "The direct-term controls that isolate the exchange. (i) FAR-SEPARATION: at R = 6 both channels vanish \u2014 the direct D = 0.0000 and the exchange X = K\u00b2 = 0.0000 \u2192 0 \u2014 so widely separated throats are distinguishable (no overlap, no exchange, no interaction). (ii) SIGN-INDEPENDENCE: the direct density-overlap D(R) is a positive integral with NO sign \u2014 it is identical for the boson (+) and fermion (\u2212) sectors \u2014 while the exchange carries the Pin\u207b sign (-1). So the \u22121 the geometry selects lives PURELY in the exchange channel; the direct is the control that isolates it. (iii) Consequently the two-body energy splits as E = E_direct \u2213 E_exchange, the direct being the common part and the exchange the sign-dependent splitting \u2014 the structure the #187 Hartree\u2013Fock sandbox will evaluate against an interaction V.",
+      "far_separation_direct": 0.0,
+      "far_separation_exchange": 1e-05,
+      "direct_sign_independent": true,
+      "exchange_sign": -1,
+      "both_vanish_far": true,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "What this hardens. The RIGID soliton-overlap kernel \u2014 two rigid copies of the #180 radial throat-soliton at separation R \u2014 is normalized (\u222b|\u03c6|\u00b2 = 1, K(0) = 1, parity, bounded), overlap-grid converged to < 0.1%, with the soliton profile's ~3% core grid-sensitivity the honest dominant uncertainty (inherited from #180), and its direct (sign-independent) and exchange (\u00b1-carrying) OVERLAP channels separated and controlled. It does NOT yet convolve these overlaps with an interaction V to produce the Hartree (direct) and exchange ENERGIES \u2014 that two-throat Hartree\u2013Fock sandbox is PR #187 \u2014 nor relax the orbitals in each other's presence (the rigid approximation; the self-consistent two-throat solve is a further follow-up). Weak-field / semi-dynamical soliton. The kernel is now a trustworthy benchmark for #187.",
+      "hardened": [
+        "normalization (norm, K(0)=1, parity, bound)",
+        "overlap-grid convergence (<0.1%)",
+        "soliton-grid uncertainty identified (~3%, the #180 caveat)",
+        "direct/exchange channels separated and controlled"
+      ],
+      "follow_ups": [
+        "convolve with V \u2192 Hartree + exchange energies (PR #187)",
+        "relax orbitals self-consistently (beyond the rigid model)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Hardened. The #185 rigid-soliton exchange kernel is a trustworthy benchmark: NORMALIZED (orbital \u222b|\u03c6|\u00b2 = 1.000000, self-overlap K(0) = 1.001 reproducing the norm to 0.1%, parity K(R) = K(\u2212R) exact, Cauchy\u2013Schwarz bound K(R) \u2264 1 satisfied); CONVERGENT (the overlap integral converges to < 0.1% under quadrature refinement, with the ~3% soliton-profile core grid-sensitivity honestly identified as the dominant, inherited uncertainty); and DIRECT-TERM CONTROLLED (the sign-independent direct density-overlap D(R) is separated from the \u00b1-carrying exchange amplitude-overlap K(R), both vanish at far separation \u2014 distinguishable throats \u2014 and the Pin\u207b \u22121 lives purely in the exchange channel, the direct being the boson = fermion control). The kernel is ready to be convolved with an interaction in the #187 two-throat Hartree\u2013Fock sandbox.",
+      "classification": "RIGID_SOLITON_EXCHANGE_KERNEL_HARDENED_NORMALIZED_OVERLAP_CONVERGED_DIRECT_TERM_CONTROLLED",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "RIGID_SOLITON_EXCHANGE_KERNEL_HARDENED_NORMALIZED_OVERLAP_CONVERGED_DIRECT_TERM_CONTROLLED",
+  "verdict": "HARDENED \u2014 A TRUSTWORTHY RIGID-SOLITON EXCHANGE KERNEL.\n\nNORMALIZED. The orbital norm is 1.0 = 1, the self-overlap K(0) = 1.00089 reproduces it to 0.1%, parity K(2) = K(\u22122) = 0.40963 holds exactly, and the Cauchy\u2013Schwarz bound K(R) \u2264 1 is satisfied.\n\nCONVERGENT. The overlap integral converges to 0.009% under quadrature refinement; the dominant uncertainty is the soliton profile's core grid-sensitivity (2.9% over N = 240 \u2192 320), the documented #180 caveat, honestly identified.\n\nDIRECT-TERM CONTROLLED. The sign-independent direct density-overlap D(R) is separated from the \u00b1-carrying exchange amplitude-overlap K(R) (D decays faster); both vanish at far separation (D(6) = 0.0, X(6) = 1e-05 \u2192 0, distinguishable throats); and the Pin\u207b \u22121 lives purely in the exchange channel, the direct being the boson = fermion control. The kernel is ready for the #187 Hartree\u2013Fock sandbox."
+}

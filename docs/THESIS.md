@@ -934,6 +934,31 @@ standard degenerate-gas result, here attributed to the GR-derived exchange
 kernel; weak-field / semi-dynamical soliton
 (`multi_throat_exchange_kernel_probe`, PR #185).
 
+**Rigid soliton exchange-kernel hardening (PR #186).**
+`rigid_soliton_exchange_kernel_hardening_probe` hardens the #185
+rigid-soliton exchange kernel (as #177 hardened #176). **Normalization:** the
+single-throat orbital is normalized (`∫|φ|² d³r = 1.000000`); the self-overlap
+`K(0) = 1.001` reproduces the norm to 0.1% (the overlap-quadrature residual);
+the kernel is parity-symmetric (`K(2) = K(−2) = 0.40963`, φ radial) and obeys
+the Cauchy–Schwarz bound `K(R) ≤ K(0) = 1`. **Convergence:** refining the
+overlap quadrature, `K(2)` converges to `< 0.01%` (the overlap integral is
+well-resolved); the dominant uncertainty is the soliton PROFILE — rebuilding
+the #180 soliton at `N = 240 → 320` shifts `K(2)` by `~2.9%`, the documented
+#180 core grid-sensitivity, honestly identified as inherited (not a flaw in
+the kernel). **Direct-term controls:** the DIRECT density-overlap
+`D(R) = ∫ ρ_a ρ_b d³x` (the sign-independent Hartree channel) and the
+EXCHANGE amplitude-overlap `K(R)` (the ±-carrying channel) are distinct
+GR-geometric kernels, both decaying to zero at large R (the direct faster);
+at far separation both vanish (distinguishable throats); and the direct is a
+positive density overlap with no sign — identical for the boson (+) and
+fermion (−) sectors — so the Pin⁻ `−1` lives purely in the exchange channel,
+the direct being the control that isolates it. Consequently the two-body
+energy splits as `E = E_direct ∓ E_exchange`, the structure the #187
+Hartree–Fock sandbox evaluates against an interaction. Scope: the rigid
+soliton-overlap kernel is now a trustworthy benchmark; convolving the
+overlaps with `V` to get the Hartree and exchange energies is PR #187;
+weak-field (`rigid_soliton_exchange_kernel_hardening_probe`, PR #186).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
