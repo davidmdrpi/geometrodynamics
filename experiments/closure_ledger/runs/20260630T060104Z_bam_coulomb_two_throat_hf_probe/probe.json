@@ -1,0 +1,131 @@
+{
+  "timestamp_utc": "2026-06-30T06:01:04+00:00",
+  "identification": "the screened Yukawa stand-in replaced by the unscreened / regulated BAM Coulomb-photon kernel (1/(4\u03c0d) \u27f7 1/q\u00b2, the flat limit of the S\u00b3 Green function): the two-throat direct energy is now correctly long-ranged (J \u2192 1/(4\u03c0R)) while the #187 overlap-normalized physics \u2014 fermion-lower for the repulsive Coulomb, the zero-vector Pauli state at coincidence \u2014 survives",
+  "kernel": "unscreened BAM Coulomb photon V(d)=1/(4\u03c0d) \u27f7 1/q\u00b2 (flat limit of the S\u00b3 Green fn)",
+  "regulator": "Hockney open-boundary Coulomb (validated ~0.2% on the Gaussian self-energy)",
+  "long_ranged": "the direct J(R) \u2192 1/(4\u03c0R) (the Coulomb tail); the exchange stays short-ranged",
+  "physics_robust": "fermion-lower for the repulsive Coulomb; zero-vector Pauli state at coincidence",
+  "scope": "rigid #180 orbitals; flat limit (curvature corrections + SCF are follow-ups); weak-field",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Replace the screened-photon (Yukawa) STAND-IN used in #187/#189 with the genuine BAM Coulomb-photon kernel \u2014 the UNSCREENED Coulomb V(d) = 1/(4\u03c0d) (real space) \u27f7 1/q\u00b2 (Fourier), the photon propagator BAM derives from the throat-fibre exchange geometry (#42\u2013#44) \u2014 and recompute the two-throat direct + exchange energies. The interaction is regulated PROPERLY for an isolated system (the Hockney zero-padded Coulomb), not by ad-hoc Yukawa screening. The question: does the #187 overlap-normalized physics survive the kernel upgrade, and what changes (the long-range direct channel)?",
+      "replaces": "the screened Yukawa stand-in (#187/#189)",
+      "kernel": "the unscreened BAM Coulomb photon V(d)=1/(4\u03c0d) \u27f7 1/q\u00b2 (#42\u2013#44)",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_bam_coulomb_photon_kernel",
+      "description": "The kernel is the BAM photon. The isolated-system Coulomb reproduces the real-space 1/(4\u03c0d) \u2014 sampling the potential of a unit point source: {1.25: '0.06366 vs 1/(4\u03c0d)=0.06366', 2.5: '0.03183 vs 1/(4\u03c0d)=0.03183', 3.75: '0.02122 vs 1/(4\u03c0d)=0.02122'} (within 10%) \u2014 whose 3D Fourier transform is 1/q\u00b2, the photon propagator in Feynman gauge (#42\u2013#44). This is the flat-space limit of the BAM S\u00b3 scalar Green function G(\u03c8) = ((\u03c0\u2212\u03c8)cot\u03c8 \u2212 \u00bd)/(4\u03c0\u00b2R) (the repo's s3_green_potential): near the source G\u00b74\u03c0s = 0.957 \u2192 1, the Coulomb coefficient (s = R\u03c8 the geodesic distance). So on the local weak-field patch the throats interact via the unscreened Coulomb photon, with the S\u00b3 curvature corrections O(1/R\u00b2) carried by G.",
+      "point_source_vs_coulomb": {
+        "1.25": [
+          0.06366,
+          0.06366
+        ],
+        "2.5": [
+          0.03183,
+          0.03183
+        ],
+        "3.75": [
+          0.02122,
+          0.02122
+        ]
+      },
+      "s3_flat_limit_coeff": 0.9571,
+      "pass": true
+    },
+    {
+      "name": "T3_isolated_system_regulator",
+      "description": "The interaction is regulated PROPERLY for an isolated system, not by screening. The unscreened Coulomb is solved by the Hockney zero-padded convolution (the density padded to a 2\u00d7 box so periodic images do not interact; convolved with the free-space 1/(4\u03c0r) Green function). It is validated against the analytic Gaussian Coulomb self-energy: U = 0.01495 vs the exact \u00bd\u00b7(1/4\u03c0)\u00b71/(\u03c3\u221a\u03c0) = 0.01497, ratio 0.9992 (to 0.1%). So the kernel is the true unscreened Coulomb \u2014 the Yukawa screening parameter \u03bc is gone, replaced by a numerical open-boundary regulator with no spurious long-range cutoff.",
+      "hockney_gaussian_self_energy": 0.01495,
+      "analytic_self_energy": 0.01497,
+      "ratio": 0.9992,
+      "pass": true
+    },
+    {
+      "name": "T4_long_ranged_direct_short_exchange",
+      "description": "With the unscreened photon the DIRECT channel is now correctly LONG-RANGED. The direct energy J(R) = {0.0: 0.0627, 1.0: 0.0536, 2.0: 0.0377, 3.0: 0.0265, 4.0: 0.0199, 6.0: 0.0133} approaches the point-charge Coulomb tail 1/(4\u03c0R) far apart \u2014 J(6) = 0.0133 vs 1/(4\u03c0\u00b76) = 0.0133 (ratio 1.003) \u2014 unlike the Yukawa stand-in, which decayed exponentially. The EXCHANGE K_ex(R) = {0.0: 0.0627, 1.0: 0.0383, 2.0: 0.0096, 3.0: 0.0012, 4.0: 0.0001, 6.0: 0.0} stays SHORT-ranged (set by the overlap density, it dies far faster than the direct). So far-separated throats feel the Coulomb direct field but not the exchange \u2014 the physically correct long-range structure the screened stand-in lacked.",
+      "direct_J": {
+        "0.0": 0.0627,
+        "1.0": 0.05356,
+        "2.0": 0.03765,
+        "3.0": 0.02646,
+        "4.0": 0.01995,
+        "6.0": 0.0133
+      },
+      "exchange_Kx": {
+        "0.0": 0.0627,
+        "1.0": 0.03833,
+        "2.0": 0.00963,
+        "3.0": 0.00123,
+        "4.0": 0.0001,
+        "6.0": 0.0
+      },
+      "coulomb_tail_ratio_at_R6": 1.0031,
+      "pass": true
+    },
+    {
+      "name": "T5_187_physics_robust_under_kernel",
+      "description": "The #187 overlap-normalized physics SURVIVES the kernel upgrade. With the genuine BAM Coulomb and the proper normalization E\u00b1(R) = (J \u00b1 K_ex)/(1 \u00b1 S\u00b2), for the REPULSIVE photon the antisymmetric (fermion) branch E\u208b lies BELOW the symmetric (boson) branch E\u208a at every finite separation: {1.0: {'S': 0.7921, 'E_plus': 0.05646, 'E_minus': 0.04089}, 2.0: {'S': 0.4097, 'E_plus': 0.04049, 'E_minus': 0.03367}, 3.0: {'S': 0.1529, 'E_plus': 0.02706, 'E_minus': 0.02583}, 4.0: {'S': 0.0454, 'E_plus': 0.02001, 'E_minus': 0.01989}}. The exchange hole still lowers the GR-selected antisymmetric (Pin\u207b) state, so the fermion-lower result of #187 \u2014 established there with the Yukawa stand-in \u2014 holds with the real unscreened photon. The statistics are a property of the geometry (the Pin\u207b sign and the overlap structure), not of the interaction's screening.",
+      "branches": {
+        "1.0": {
+          "S": 0.7921,
+          "E_plus": 0.05646,
+          "E_minus": 0.04089
+        },
+        "2.0": {
+          "S": 0.4097,
+          "E_plus": 0.04049,
+          "E_minus": 0.03367
+        },
+        "3.0": {
+          "S": 0.1529,
+          "E_plus": 0.02706,
+          "E_minus": 0.02583
+        },
+        "4.0": {
+          "S": 0.0454,
+          "E_plus": 0.02001,
+          "E_minus": 0.01989
+        }
+      },
+      "fermion_lower_for_repulsive_coulomb": true,
+      "pass": true
+    },
+    {
+      "name": "T6_pauli_zero_vector_at_coincidence",
+      "description": "Pauli at coincidence holds with the BAM Coulomb too. At R = 0 the two orbitals coincide, so \u03c1_a = \u03c1_b = \u03c4 and the direct and exchange energies are EQUAL (J = 0.06270 = K_ex = 0.06270, numerator J \u2212 K_ex = 0.0e+00 \u2192 0) while the overlap S \u2192 1.0015 = 1 (so the normalization 1 \u2212 S\u00b2 \u2192 0). The antisymmetric combination \u03a8\u208b = (\u03c6_a\u03c6_b \u2212 \u03c6_b\u03c6_a)/\u221a(2(1\u2212S\u00b2)) is therefore the ZERO VECTOR \u2014 two identical throats in the same orbital are Pauli-FORBIDDEN, not a state with zero energy \u2014 exactly as in #187, independent of the interaction kernel. The Pauli structure is geometric (the determinant + the overlap), not an artifact of the Yukawa stand-in.",
+      "overlap_at_coincidence": 1.00146,
+      "J0": 0.0627,
+      "Kx0": 0.0627,
+      "numerator_J_minus_Kx": 0.0,
+      "antisymmetric_is_zero_vector": true,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "What this upgrades and what it does NOT. The kernel is now the genuine BAM photon \u2014 the unscreened Coulomb 1/(4\u03c0d) \u27f7 1/q\u00b2, the FLAT-space limit of the S\u00b3 Green function G(\u03c8) (the #42\u2013#44 result); the O(1/R\u00b2) S\u00b3 curvature corrections are carried by G but not applied here (the weak-field local patch). The unscreened Coulomb is regulated by the Hockney zero-padded OPEN-BOUNDARY solver \u2014 a numerical regulator validated to ~0.2% on the analytic Gaussian self-energy \u2014 NOT physical screening (the Yukawa \u03bc is gone). The orbitals are the RIGID #180 throat-solitons; the self-consistent SCF with the Coulomb kernel (the #189 relaxation with the real photon) is the follow-up. Energies in code units; weak-field. The upshot: the Yukawa was a faithful SHORT-RANGE stand-in, and replacing it with the unscreened photon leaves the #187 statistics (fermion-lower, the zero-vector Pauli state) intact while making the direct channel correctly long-ranged (J \u2192 1/(4\u03c0R)).",
+      "kernel": "unscreened Coulomb = flat limit of the S\u00b3 Green function (#42\u2013#44)",
+      "regulator": "Hockney open-boundary Coulomb (validated ~0.2%), not screening",
+      "follow_ups": [
+        "the S\u00b3 curvature corrections O(1/R\u00b2) from G(\u03c8)",
+        "the self-consistent SCF (#189) with the Coulomb kernel"
+      ],
+      "scope": [
+        "rigid #180 orbitals; weak-field local patch; code units"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "Replaced. The screened-photon (Yukawa) stand-in of #187/#189 is replaced by the genuine BAM Coulomb-photon kernel \u2014 the unscreened Coulomb 1/(4\u03c0d) \u27f7 1/q\u00b2 (the photon propagator, #42\u2013#44), the flat-space limit of the S\u00b3 Green function \u2014 regulated properly for an isolated system (the Hockney open-boundary solver, validated to ~0.2%), not by screening. The two-throat direct + exchange energies, recomputed on the #180 orbitals, show: the DIRECT channel is now correctly LONG-RANGED (J \u2192 1/(4\u03c0R), the Coulomb tail) while the exchange stays short-ranged; and the #187 overlap-normalized physics is ROBUST \u2014 for the repulsive photon the antisymmetric (Pin\u207b) branch E\u208b = (J \u2212 K_ex)/(1 \u2212 S\u00b2) lies below the symmetric E\u208a at every finite separation (fermion-lower), and at coincidence the antisymmetric state is the zero vector (Pauli-forbidden). The statistics are geometric, not an artifact of the stand-in; the Yukawa was a faithful short-range proxy, now upgraded to the real long-ranged photon. SCOPE: the S\u00b3 curvature corrections and the self-consistent SCF with the Coulomb kernel are follow-ups.",
+      "classification": "BAM_COULOMB_PHOTON_KERNEL_REPLACES_YUKAWA_STANDIN_LONG_RANGED_DIRECT_TWO_THROAT_HF_PHYSICS_ROBUST",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "BAM_COULOMB_PHOTON_KERNEL_REPLACES_YUKAWA_STANDIN_LONG_RANGED_DIRECT_TWO_THROAT_HF_PHYSICS_ROBUST",
+  "verdict": "REPLACED \u2014 THE BAM COULOMB-PHOTON KERNEL, AND THE #187 PHYSICS SURVIVES. The screened Yukawa stand-in is gone.\n\nTHE KERNEL. The unscreened Coulomb 1/(4\u03c0d) \u27f7 1/q\u00b2 (the photon propagator, #42\u2013#44) \u2014 the flat limit of the S\u00b3 Green function (G\u00b74\u03c0s = 0.9571 \u2192 1) \u2014 regulated by the Hockney open-boundary solver (validated against the Gaussian self-energy to ratio 0.9992, ~0.1%).\n\nLONG-RANGED DIRECT. The direct energy is now correctly long-ranged \u2014 J(6) = 0.0133 \u2248 1/(4\u03c0\u00b76) (ratio 1.0031) \u2014 while the exchange stays short-ranged; the screened stand-in lacked this Coulomb tail.\n\nPHYSICS ROBUST. With the overlap-normalized E\u00b1 = (J \u00b1 K_ex)/(1 \u00b1 S\u00b2), for the repulsive photon the antisymmetric (Pin\u207b) branch E\u208b sits below the symmetric E\u208a at every finite separation (fermion-lower survives), and at coincidence the antisymmetric state is the zero vector (Pauli-forbidden: J = K_ex, S \u2192 1). The statistics are geometric, not an artifact of the stand-in. SCOPE: the S\u00b3 curvature corrections and the self-consistent SCF with the Coulomb kernel are follow-ups."
+}
