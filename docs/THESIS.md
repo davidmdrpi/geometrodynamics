@@ -1002,6 +1002,36 @@ energies in code units; the structure is robust, the precise numbers carry
 the #186 soliton-profile ~3% uncertainty; weak-field
 (`two_throat_hartree_fock_probe`, PR #187).
 
+**Adiabatic two-throat exchange holonomy (PR #188).**
+`adiabatic_exchange_holonomy_probe` makes the #185 Pin⁻ exchange sign
+operational — measured, not asserted. The relative-coordinate configuration
+space of two identical throats is `(ℝ³∖0)/ℤ₂ ≃ RP² × ℝ₊`, whose angular factor
+`S²/antipodal = RP²` is the BAM antipodal closure itself (#169/#170); the
+exchange `r → −r` is the generator of `π₁(RP²) = ℤ₂`, and by the
+Finkelstein–Rubinstein / Friedman–Sorkin spin-statistics theorem it is
+homotopic to a 2π rotation of one throat. **Measured:** path-ordering the
+spin connection along the swap (2π) loop — `dU/ds = −i(ω·σ/2)U` — gives the
+adiabatic holonomy `Hol = −I` to machine precision (`‖Hol + I‖ ~ 10⁻⁶`): the
+throat's spin-½ state returns to MINUS itself, the measured exchange sign
+`⟨ψ|Hol|ψ⟩ = −1`, the Berry phase `π`. **Topological:** a wandering-axis swap
+gives the same `−I` (the ℤ₂ homotopy class), converging as the transport is
+refined — any way of doing the exchange gives the same `−1`. **Controls:** a
+double-swap (4π, two exchanges) gives `+I` (two fermion exchanges = a boson)
+and a contractible loop gives `+I`, so the `−1` is the single-swap (odd)
+class. **Pin⁻:** the `−1` is the monodromy `T = iσ_y`, `T² = −I`
+(`½ tr T² = −1`; #170/#174/#183) — the throat is a spin-½ spinor via the
+non-orientable RP² closure, so its 2π/swap holonomy is `(−1)^{2j} = −1`
+(a scalar throat would give `+1`). The adiabatic holonomy IS this `T² = −I`,
+now transported along an explicit swap path rather than read off the algebra.
+Scope: operationalizes the FR/geon-statistics result (the holonomy is exact
+and topological — the ℤ₂ class — so the `−1` is exact); the swap path is the
+reduced relative-coordinate / frame model, the spin-statistics connection
+(exchange ≃ 2π rotation) the FR theorem cited, the throat's Pin⁻ spinor nature
+the #170 result; the adiabatic limit assumed; it complements the #185–#187
+spatial exchange kernel and Hartree–Fock energies — the statistics/holonomy
+layer of the multi-throat mechanics
+(`adiabatic_exchange_holonomy_probe`, PR #188).
+
 **Moving-mouth Berry phase.** _Closed_ (`spin_wigner_rotation_probe`,
 PR #60). The Hopf-holonomy result `A_φ = ½ cos χ` (`∮A = π cos χ`)
 reproduces the relativistic **Wigner rotation** from two non-collinear
