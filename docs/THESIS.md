@@ -1110,6 +1110,38 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The analytic Berger–Dirac ladder (closed-form spectral geometry,
+PR #197).** Item 2 of the theorem-shaped program: the Dirac spectrum on
+the Berger-squashed S³ derived in closed form (Peter–Weyl; the spectrum
+classical — Hitchin 1974, Bär — re-derived self-contained in
+`docs/berger_dirac_analytic_ladder.md`) and applied to the {1,3,5}
+ladder for the **actual spinor field content**. The spectrum: family A
+`a_j = (2j+1)/λ + λ/2` (the winding tower), family B `b± = λ/2 ±
+2√((j+½)² + m′²(λ⁻²−1))` — machine-validated against the assembled
+operator (`1e-15`), the round spectrum `±(3/2+n)` with exact
+multiplicities `(n+1)(n+2)`, the λ→0 collapse limit (the S²(½) Dirac
+spectrum), and **Lichnerowicz** (`scal = 8−2λ²`: every zero lies at
+λ > 2; the first harmonic spinor — the Hitchin phenomenon — located at
+λ = 4). The odd-k ladder is the winding tower `m_k(λ) = k/λ + λ/2` with
+**uniform gaps 2/λ**: ordered and gapped at every λ, absolutely
+protected on the squash side, with O(1) round-point sensitivities
+`(½−k)/(k+½) = −1/3, −5/7, −9/11` — the infinitesimal-squash refutation
+is **analytically excluded**, and the #192 surrogate's fine-tuning has
+no counterpart in the true spinor spectrum (closing the #194/#195
+loop). Every crossing is located in closed form: character changes at
+`λ×(k) = √(2k+4)` (√6, √10, √14), harmonic-spinor masslessness at
+`λ*(k) ≈ 5.668, 8.035, 9.851` — under extreme stretch **the electron
+sector collapses first**. The k₅ = 5 cutoff has **no spectral
+counterpart at any λ** (the gap is independent of k; the collapse
+boundaries grow with k — stretch removes sectors from the bottom, never
+truncates the top): the three-generation count is dynamical (the
+#122/#136 phase budget), now as a closed-form statement on the whole
+family. Round ratios 7/3, 11/7 — O(1); the hierarchy stays dynamical.
+Scope: S³ cover, unique spin structure; on RP³ the odd-k sectors are
+the Pin-twisted modes and everything descends (the deck map is a fiber
+translation, an isometry of every Berger metric)
+(`berger_dirac_analytic_ladder_probe`, PR #197).
+
 **The geon-statistics adjudication: is the exchange −1 a theorem?
 (PR #196 — a correction and a sharpening.)** Careful mathematics against
 the Sorkin-school literature (Sorkin–Surya gr-qc/9605050; Dowker–Sorkin

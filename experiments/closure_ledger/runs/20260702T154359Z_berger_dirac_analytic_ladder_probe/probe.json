@@ -1,0 +1,185 @@
+{
+  "timestamp_utc": "2026-07-02T15:43:59+00:00",
+  "identification": "The analytic Berger-Dirac ladder: closed-form spectrum (two families, machine-validated), odd-k winding tower m_k = k/lam + lam/2 with uniform gaps, all crossings located (sqrt(2k+4); 5.668/8.035/9.851, electron first), no spectral k5 cutoff at any lambda",
+  "upgrades": "PR #183 (algebra) / #192 (surrogate) / #193 (scalar) -> spinor, closed form",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Item 2 of the theorem-shaped program: the ANALYTIC Berger deformation test. The Dirac spectrum on the Berger family is known in closed form (Hitchin; Baer); it is re-derived self-contained in docs/berger_dirac_analytic_ladder.md via Peter-Weyl (every fiber-momentum sector is an exact 2x2 block) and applied to the ladder questions #192/#193 answered only numerically or for the scalar: which levels persist, where the crossings occur, whether k5 = 5 has a spectral counterpart off the round metric. This probe verifies every identity of the document to machine precision. A clean failure (ladder collapsing at infinitesimal squash) would refute the generation claim; the clean pass converts it from algebraic protection to spectral fact with exactly located boundaries.",
+      "deliverable": "docs/berger_dirac_analytic_ladder.md",
+      "framing": "QFT on the fixed classical throat geometry - not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_closed_form_vs_operator",
+      "description": "The 2x2 reduction validated against the operator itself: the Berger Dirac D = s+J- + s-J+ + (2/lam)s3J3 + (lam/2 + 1/lam) is assembled as an explicit matrix on V_j (x) C-squared for all j <= 3 at lam in {0.6, 1, 2.7, 5} and diagonalized; the eigenvalues match the two closed-form families A and B to 3.6e-15 (machine precision). The derivation - Koszul coefficients Gamma_123 = Gamma_231 = lam, Gamma_312 = 2/lam - lam, constant term lam/2 + 1/lam - has no unchecked algebra.",
+      "max_abs_deviation": 3.55e-15,
+      "pass": true
+    },
+    {
+      "name": "T3_checkpoints",
+      "description": "Two independent literature checkpoints. (a) ROUND: at lam=1 the two families assemble to EXACTLY the round S3 Dirac spectrum +-(3/2+n) with multiplicities (n+1)(n+2), verified through n=7 with exact counts (True) - family A supplies 2(n+1) of each positive level, family B's plus branch n(n+1), the minus branch all negatives. (b) COLLAPSE (lam -> 0, Gromov-Hausdorff collapse to the base S2 of radius 1/2): the m'=0 survivors converge to +-2(l+1) - precisely the Dirac spectrum of S2(1/2), the Ammann-Baer circle-bundle limit (True); all m' != 0 modes diverge as the KK fiber momenta 2|m'|/lam.",
+      "round_levels": [
+        {
+          "n": 0,
+          "eig": 1.5,
+          "mult_plus": 2,
+          "mult_minus": 2,
+          "expected": 2
+        },
+        {
+          "n": 1,
+          "eig": 2.5,
+          "mult_plus": 6,
+          "mult_minus": 6,
+          "expected": 6
+        },
+        {
+          "n": 2,
+          "eig": 3.5,
+          "mult_plus": 12,
+          "mult_minus": 12,
+          "expected": 12
+        },
+        {
+          "n": 3,
+          "eig": 4.5,
+          "mult_plus": 20,
+          "mult_minus": 20,
+          "expected": 20
+        },
+        {
+          "n": 4,
+          "eig": 5.5,
+          "mult_plus": 30,
+          "mult_minus": 30,
+          "expected": 30
+        },
+        {
+          "n": 5,
+          "eig": 6.5,
+          "mult_plus": 42,
+          "mult_minus": 42,
+          "expected": 42
+        },
+        {
+          "n": 6,
+          "eig": 7.5,
+          "mult_plus": 56,
+          "mult_minus": 56,
+          "expected": 56
+        },
+        {
+          "n": 7,
+          "eig": 8.5,
+          "mult_plus": 72,
+          "mult_minus": 72,
+          "expected": 72
+        }
+      ],
+      "round_ok": true,
+      "collapse_ok": true,
+      "pass": true
+    },
+    {
+      "name": "T4_lichnerowicz_and_asymmetry",
+      "description": "A theorem-level cross-check the closed forms had no right to pass by accident. LICHNEROWICZ: D-squared >= scal/4 forbids zero modes while scal(lam) = 8 - 2 lam-squared > 0, i.e. for all lam < 2. Every zero of the closed forms lies at lam > 2 (True; each verified a genuine root, True): the first harmonic spinor at lam = 4 (even sector, scal = -24) - the Hitchin phenomenon, located - and the odd sectors at 5.668, 8.035, 9.851 (scal -56, -121, -186). ASYMMETRY: off the round point the spectrum is NOT symmetric about zero (max mismatch 9.80 at lam=0.7) - the nonzero eta invariant of Berger spheres, as required.",
+      "zeros": [
+        {
+          "which": "even m'=0 j=1/2",
+          "lambda": 4.0,
+          "scal": -24.0
+        },
+        {
+          "which": "odd k=1",
+          "lambda": 5.6678,
+          "scal": -56.25
+        },
+        {
+          "which": "odd k=3",
+          "lambda": 8.0348,
+          "scal": -121.12
+        },
+        {
+          "which": "odd k=5",
+          "lambda": 9.8504,
+          "scal": -186.06
+        }
+      ],
+      "all_zeros_past_scal_zero": true,
+      "asymmetric_off_round": true,
+      "pass": true
+    },
+    {
+      "name": "T5_ladder_protection",
+      "description": "The ladder off the round metric, from the closed forms. ORDERING: m1 < m3 < m5 at every one of 800 grid points on (0, lam*(1) = 5.668) - the whole window up to the electron sector's masslessness (True). GAPS: the winding tower has m_(k+2) - m_k = 2/lam EXACTLY, uniform in k, positive at every lam (True); on the squash side the masses stiffen as k/lam - absolute protection. NO INFINITESIMAL BREAKDOWN, analytically: the sector grounds are smooth with round-point sensitivities d ln m_k/d lam = (1/2-k)/(k+1/2) = -1/3, -5/7, -9/11 - O(1), METRIC-SOFT. The #192 surrogate's fine-tuned sensitivity (-71) has no counterpart in the true spinor spectrum, closing the loop with #194/#195: the fine-tuning was dynamics, never spectral geometry.",
+      "ordering_on_window": true,
+      "uniform_gaps_2_over_lambda": true,
+      "round_sensitivities": {
+        "k=1": {
+          "numeric": -0.333333,
+          "closed_form": -0.333333
+        },
+        "k=3": {
+          "numeric": -0.714286,
+          "closed_form": -0.714286
+        },
+        "k=5": {
+          "numeric": -0.818182,
+          "closed_form": -0.818182
+        }
+      },
+      "pass": true
+    },
+    {
+      "name": "T6_boundaries_closed_form",
+      "description": "Every crossing located exactly. CHARACTER CHANGE: setting the winding level k/lam + lam/2 equal to the descending family-B level gives lam_x(k) = sqrt(2k+4) in closed form - sqrt6, sqrt10, sqrt14 = 2.449, 3.162, 3.742 - verified against numerical roots to 1e-9; below lam_x (the whole squash side plus a 145% stretch margin around round) every odd-k sector ground is the PURE WINDING state. MASSLESSNESS: the harmonic-spinor points lam*(k)^2 = 8(k+1) + 2 sqrt(16(k+1)^2 + k^2) = 5.668, 8.035, 9.851 - under extreme stretch THE ELECTRON SECTOR COLLAPSES FIRST (True), mu and tau following in order; all lie deep in the scal < 0 regime (T4). The refutation edge is resolved: no collapse at infinitesimal squash; collapse exists, is located, and is far from the round point.",
+      "boundaries": [
+        {
+          "k": 1,
+          "lam_x_closed": 2.44949,
+          "lam_x_numeric": 2.44949,
+          "lam_star_closed": 5.667849,
+          "lam_star_numeric": 5.667849
+        },
+        {
+          "k": 3,
+          "lam_x_closed": 3.162278,
+          "lam_x_numeric": 3.162278,
+          "lam_star_closed": 8.034777,
+          "lam_star_numeric": 8.034777
+        },
+        {
+          "k": 5,
+          "lam_x_closed": 3.741657,
+          "lam_x_numeric": 3.741657,
+          "lam_star_closed": 9.850411,
+          "lam_star_numeric": 9.850411
+        }
+      ],
+      "electron_sector_collapses_first": true,
+      "pass": true
+    },
+    {
+      "name": "T7_k5_question_and_scope",
+      "description": "THE k5 QUESTION: does the three-generation cutoff k <= 5 have a spectral counterpart at lam != 1? NO. The winding gap m_(k+2) - m_k = 2/lam is INDEPENDENT of k at every lambda (True): nothing distinguishes k=5 from k=7 anywhere on the Berger family - the tower continues 7, 9, ... with identical spacing. Even the collapse boundaries lam*(k) grow monotonically with k (True): extreme stretch removes sectors from the BOTTOM (electron first), never truncates from the top. The cutoff is DYNAMICAL (the #122/#136 phase budget) - now a closed-form statement for every lambda, not a round-point observation. SCOPE: the round ratios 7/3 = 2.333 and 11/7 = 1.571 are O(1) - the spectrum supplies grading, ordering, protection; the mass hierarchy remains the instanton dynamics (#193/#194/#195). Analysis on the S3 cover (unique spin structure); on the RP3 quotient the odd-k sectors are the Pin-twisted modes and every statement descends (the deck map is a fiber translation - an isometry of every Berger metric). The spectrum is classical (Hitchin; Baer); the checkpointed derivation and the ladder application are what this PR adds.",
+      "gap_independent_of_k": true,
+      "collapse_boundaries_monotone_in_k": true,
+      "round_ratios": {
+        "m3/m1": 2.3333,
+        "m5/m3": 1.5714
+      },
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "CLEAN PASS, with the boundaries located. The refutation edge - 'the ladder structure collapses at infinitesimal squash' - is analytically excluded: the odd-k sector grounds are the smooth closed-form winding tower m_k = k/lam + lam/2 with uniform gaps 2/lam and O(1) round-point sensitivities (-1/3, -5/7, -9/11). The flagship generation claim upgrades from algebraic protection (#183) and numerical evidence (#192/#193) to SPECTRAL FACT on the whole Berger family, for the actual spinor field content, with every crossing in closed form: character changes at sqrt(2k+4), harmonic-spinor collapses at 5.668/8.035/9.851 (electron first), nothing below lam = 2 (Lichnerowicz). The k5 = 5 cutoff has NO spectral counterpart at any lambda - the generation COUNT stays dynamical, exactly where #122/#136 put it. What Wheeler lacked was this spectral geometry; what a numerical probe lacked was the closed form; both gaps are now closed.",
+      "classification": "ANALYTIC_BERGER_DIRAC_ODD_K_LADDER_PROTECTED_WITH_ALL_CROSSINGS_LOCATED_IN_CLOSED_FORM_NO_SPECTRAL_K5_CUTOFF_AT_ANY_LAMBDA",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "ANALYTIC_BERGER_DIRAC_ODD_K_LADDER_PROTECTED_WITH_ALL_CROSSINGS_LOCATED_IN_CLOSED_FORM_NO_SPECTRAL_K5_CUTOFF_AT_ANY_LAMBDA",
+  "verdict": "CLOSED-FORM SPECTRAL GEOMETRY (the argument is in docs/berger_dirac_analytic_ladder.md; this probe checks its identities).\n\nTHE SPECTRUM. The Berger Dirac operator reduces by Peter-Weyl to exact 2x2 blocks: family A (the winding tower) a_j = (2j+1)/lam + lam/2 and family B b+- = lam/2 +- 2 sqrt((j+1/2)^2 + m'^2(lam^-2 - 1)) - validated against the assembled operator to 1e-15, against the round spectrum +-(3/2+n) with EXACT multiplicities (n+1)(n+2), against the lam->0 collapse limit (the S2(1/2) Dirac spectrum), and against Lichnerowicz (every zero lies in the scal < 0 regime lam > 2).\n\nTHE LADDER. The odd-k sector grounds are m_k(lam) = k/lam + lam/2 with UNIFORM gaps 2/lam: ordered and gapped at every lambda, absolutely protected on the squash side, smooth with O(1) sensitivities (-1/3, -5/7, -9/11) at the round point - the infinitesimal-squash refutation is analytically excluded, and the #192 surrogate's fine-tuning has no counterpart in the true spinor spectrum. Every crossing is located in closed form: character changes at lam_x(k) = sqrt(2k+4) (sqrt6 first, a 145% stretch margin around round), harmonic-spinor masslessness at lam*(k) = 5.668, 8.035, 9.851 - the ELECTRON SECTOR COLLAPSES FIRST under extreme stretch.\n\nTHE k5 QUESTION. No spectral counterpart at any lambda: the gap 2/lam is independent of k, the tower continues 7, 9, ... with identical spacing, and the collapse boundaries grow with k (stretch removes sectors from the bottom, never truncates the top). The three-generation cutoff is DYNAMICAL - the phase budget - now as a closed-form statement on the whole Berger family."
+}
