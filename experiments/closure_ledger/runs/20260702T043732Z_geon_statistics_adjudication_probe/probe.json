@@ -1,0 +1,137 @@
+{
+  "timestamp_utc": "2026-07-02T04:37:32+00:00",
+  "identification": "The geon-statistics adjudication: SSC hypotheses (prime/non-chiral/abelian) all hold for the RP\u00b3 throat \u2014 the correlation is a theorem; the sign is framing-dependent (bare GR: Bose, non-spinorial RP\u00b3; Pin\u207b-framed: Fermi, the computed pin lift) \u2014 the honest label is 'Pauli from GR + the forced Pin\u207b framing'",
+  "adjudicates": "the #185/#188 exchange \u22121 against Sorkin\u2013Surya / Dowker\u2013Sorkin / Hendriks",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "The adjudication PR: is the BAM exchange \u22121 a THEOREM? The deliverable is docs/geon_statistics_adjudication.md \u2014 mathematics against the Sorkin-school literature (Sorkin\u2013Surya gr-qc/9605050; Dowker\u2013Sorkin gr-qc/9609064; Hendriks; Giulini), applied to the actual BAM topology (the RP\u00b3 geon with RP\u00b2 cross-cap throat slice, from the repo's own #169 quotient). This probe machine-checks every finite/algebraic step of the document's argument so the chain has no unchecked arithmetic. The adjudicated verdict: the SSC CORRELATION is a theorem (prime/non-chiral/abelian all hold); the SIGN is framing-dependent \u2014 bare metric GR selects BOSE (RP\u00b3 is non-spinorial), the Pin\u207b framing BAM's quotient forces selects FERMI.",
+      "deliverable": "docs/geon_statistics_adjudication.md",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_lemma1_orientation_arithmetic",
+      "description": "Lemma 1's arithmetic. The antipodal map on S\u207f carries orientation factor (\u22121)^{n+1}: on the brane's angular S\u00b2 it is -1 (RP\u00b2 non-orientable \u2014 the cross-cap throat slice), on the bulk's S\u00b3 it is +1 (RP\u00b3 orientable) \u2014 the #169/#183 grading re-verified. The throat involution J(x,y) = (\u2212x,\u2212y) on the Einstein\u2013Rosen neighborhood S\u00b2\u00d7\u211d has determinant (\u22121)\u00b7(\u22121) = +1: orientation-PRESERVING and free, so the quotient is an orientable 3-manifold \u2014 the twisted \u211d-bundle over RP\u00b2, i.e. RP\u00b3 \u2216 {point}: the throat prime is the RP\u00b3 GEON, the canonical object of the entire geon-statistics literature.",
+      "det_antipodal_S2": -1.0,
+      "det_antipodal_S3": 1.0,
+      "det_throat_involution": 1.0,
+      "throat_prime": "RP3 (the RP3 geon; minimal surface RP2)",
+      "pass": true
+    },
+    {
+      "name": "T3_lemma2_hypotheses",
+      "description": "Lemma 2's arithmetic \u2014 the three Dowker\u2013Sorkin hypotheses. (a) PRIME: RP\u00b3 is an elliptic space form, irreducible (cited; no arithmetic). (b) NON-CHIRAL: the lens-space criterion q\u00b2 \u2261 \u22121 (mod p) holds at L(2,1): 1\u00b2 \u2261 1 \u2261 1 (mod 2) \u2713; explicitly, the reflection R = diag(\u22121,1,1,1) has det \u22121 and commutes with the deck map \u2212I\u2084 (True), hence descends to an orientation-REVERSING diffeomorphism of RP\u00b3 \u2014 the throat is its own mirror, so the pair-created partner is an identical geon. (c) ABELIAN: the deck group {I, \u2212I} \u2245 Z\u2082 is closed and abelian (True). All three hypotheses of the Dowker\u2013Sorkin spin-statistics theorem HOLD for the BAM throat: the CORRELATION is a theorem on this topology.",
+      "amphichirality_q2_eq_minus1_mod_p": true,
+      "explicit_reflection_descends": true,
+      "det_reflection": -1.0,
+      "pi1_abelian_Z2": true,
+      "pass": true
+    },
+    {
+      "name": "T4_pin_lift_of_rotation",
+      "description": "Lemma 3 + Theorem 5's arithmetic. BARE DIFF: RP\u00b3 = L(2,1) is a lens space with cyclic \u03c0\u2081, hence NON-SPINORIAL (Hendriks; Giulini's tabulation \u2014 cited, not re-proved): the 2\u03c0 rotation is isotopic to the identity, so in bare metric GR the throat is tensorial and the Friedman\u2013Sorkin spin-\u00bd from pure topology is NOT available \u2014 the correction to #170/#171. THE PIN LIFT (computed): the trivializing isotopy traces the rotation loop t \u21a6 R(t) in SO(3) \u2245 RP\u00b3, the generator of \u03c0\u2081(SO(3)) = Z\u2082; its lift to the double cover ends at \u2212I (verified: True, with the SO(3) projection closed: True), while the 4\u03c0 loop lifts to +I (True). On the Pin\u207b-framed state space the 2\u03c0 rotation therefore acts as \u2212I: the throat is SPINORIAL WITH FRAMING \u2014 exactly what the #188 holonomy measured.",
+      "bare_diff_spinorial": false,
+      "bare_diff_source": "Hendriks 1977; cyclic-pi1 primes are non-spinorial (cited)",
+      "pin_lift_2pi": "-I (computed)",
+      "pin_lift_4pi": "+I (computed)",
+      "so3_loop_closed": true,
+      "pass": true
+    },
+    {
+      "name": "T5_two_throat_mcg_sectors",
+      "description": "Lemma 4's algebra. The two-throat mapping class group (Sorkin\u2013Surya, with the Fouxe-Rabinovitch relations; internal diffeos trivial, rotation trivial by Lemma 3) is G = \u27e8s\u2081,s\u2082,E | s\u2081\u00b2=s\u2082\u00b2=E\u00b2=1, Es\u2081E=s\u2082\u27e9 = (Z\u2082\u2217Z\u2082)\u22caS\u2082. A faithful 2D orthogonal model verifies all relations (True); the slides do NOT commute (True \u2014 the slide subgroup is the FREE product Z\u2082\u2217Z\u2082 \u2245 D_\u221e, G is infinite). SECTORS: exactly 4 one-dimensional sectors (slides \u00b11 \u00d7 exchange \u00b11) \u2014 the FERMI sector exists (True), so #171's consistency claim survives \u2014 plus a CONTINUUM of 2-dimensional sectors (one per slide angle \u03b8) in which exchange and slides do not commute (True, irreducible: True): geons with INDEFINITE statistics, the Sorkin\u2013Surya anomalous sectors realized on BAM's own prime. Bare frozen-topology GR does NOT select the \u22121.",
+      "relations_verified": true,
+      "slides_free_product": true,
+      "one_dim_sectors": [
+        {
+          "slides": 1,
+          "exchange": 1,
+          "consistent": true
+        },
+        {
+          "slides": 1,
+          "exchange": -1,
+          "consistent": true
+        },
+        {
+          "slides": -1,
+          "exchange": 1,
+          "consistent": true
+        },
+        {
+          "slides": -1,
+          "exchange": -1,
+          "consistent": true
+        }
+      ],
+      "n_scalar_sectors": 4,
+      "fermi_sector_exists": true,
+      "indefinite_sector_exists": true,
+      "pass": true
+    },
+    {
+      "name": "T6_soh_selection",
+      "description": "Theorem 5's selection logic, encoded. In the SOH with topology change the weights come from ABELIAN reps (Sorkin\u2013Surya) \u2014 the indefinite sectors of T5 are eliminated \u2014 and for pair-created geons the Dowker\u2013Sorkin theorem forces exchange phase = 2\u03c0-rotation phase (SSC), its hypotheses all holding by T3. Evaluating the rotation phase: BARE metric GR \u2014 non-spinorial (T4, Hendriks) \u27f9 +1 \u27f9 pair-created BAM throats are BOSONS (if BAM were bare geometrodynamics, the exchange arc would be refuted here). PIN\u207b-FRAMED GR \u2014 the framing forced by #169 (non-orientable RP\u00b2 slice) + #170 (Pin\u207b unique) + #195 (the modes ARE pin spinors): the rotation lifts to \u22121 (T4) \u27f9 FERMI \u2014 consistent with the #188 measured holonomy (-1).",
+      "ssc_hypotheses": {
+        "prime": true,
+        "non_chiral": true,
+        "abelian": true
+      },
+      "ssc_applies": true,
+      "bare_GR": {
+        "rotation": 1,
+        "exchange": 1,
+        "statistics": "Bose"
+      },
+      "pin_framed": {
+        "rotation": -1,
+        "exchange": -1,
+        "statistics": "Fermi"
+      },
+      "consistent_with_188_holonomy": true,
+      "pass": true
+    },
+    {
+      "name": "T7_cobordism_ledger",
+      "description": "Section 6's ledger: the #58 throat\u2013antithroat nucleation channel against the Dowker\u2013Sorkin pair-creation condition. CLOSED (3): the mirror-pair identity (the created partner is an identical geon, by amphichirality); the existence of interpolating 4-manifolds (\u03a9\u2083^SO = 0); the extension of the spin/pin framing (RP\u00b3 spin, \u03a9\u2083^Spin = 0). OPEN (1): the EXPLICIT BAM 4-manifold \u2014 the Dowker\u2013Sorkin construction transplanted from the \u211d\u00b3 background to the S\u00b3 background with their causal/Morse structure intact \u2014 a construction problem with no topological obstruction found, flagged as the honest residue.",
+      "ledger": {
+        "mirror_pair_identity": {
+          "status": true,
+          "why": "amphichirality (T3): the created mirror partner is diffeomorphic to the throat \u2014 identical geons"
+        },
+        "bordism_existence": {
+          "status": true,
+          "why": "Omega_3^SO = 0 (every closed orientable 3-manifold bounds): 4-manifolds S3 -> S3 # RP3 # RP3 exist (cited)"
+        },
+        "spin_structure_extension": {
+          "status": true,
+          "why": "RP3 is spin (orientable Lie group SO(3), parallelizable); Omega_3^Spin = 0: the pin/spin framing extends over a bounding 4-manifold (cited)"
+        },
+        "explicit_BAM_4manifold": {
+          "status": null,
+          "why": "the Dowker-Sorkin construction is over the R3 background; the S3 transplant (connected-sum locality) with their causal/Morse conditions has NOT been written down - the honest open construction, with no topological obstruction found"
+        }
+      },
+      "closed_items": [
+        "mirror_pair_identity",
+        "bordism_existence",
+        "spin_structure_extension"
+      ],
+      "open_items": [
+        "explicit_BAM_4manifold"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "THE ADJUDICATION. Neither pure Outcome A nor pure Outcome B. WHAT BAM OWNS AS A THEOREM: the spin-statistics CORRELATION \u2014 the throat prime RP\u00b3 passes all three Dowker\u2013Sorkin hypotheses (prime, non-chiral, abelian), and the SOH abelianness closes the anomalous/indefinite sectors. WHAT CHANGES: the bare-GR reading is NOT survivable \u2014 RP\u00b3 is non-spinorial (Hendriks), so bare geometrodynamics + SSC makes pair-created throats BOSONS; the #170/#171 'spinorial' sentence is corrected. WHAT SURVIVES, SHARPENED: in Pin\u207b-framed GR \u2014 the framing BAM's own antipodal quotient forces (#169/#170) and its matter content requires (#195) \u2014 the rotation lifts to \u22121 and SSC delivers FERMI: 'Pauli from GR + the forced Pin\u207b framing', with the #188 holonomy correctly reinterpreted as the pin lift. REMAINING: the explicit BAM pair-creation 4-manifold (a construction, not an obstruction).",
+      "classification": "SSC_THEOREM_HYPOTHESES_HOLD_SIGN_IS_FRAMING_DEPENDENT_BARE_GR_SELECTS_BOSE_PIN_MINUS_FRAMING_SELECTS_FERMI",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "SSC_THEOREM_HYPOTHESES_HOLD_SIGN_IS_FRAMING_DEPENDENT_BARE_GR_SELECTS_BOSE_PIN_MINUS_FRAMING_SELECTS_FERMI",
+  "verdict": "THE ADJUDICATION (the argument is in docs/geon_statistics_adjudication.md; this probe checks its arithmetic).\n\nWHAT IS A THEOREM. The BAM throat prime is RP\u00b3 \u2014 the RP\u00b3 geon, from the repo's own #169 quotient (orientation arithmetic verified) \u2014 and it passes ALL THREE hypotheses of the Dowker\u2013Sorkin spin-statistics theorem: PRIME (elliptic, irreducible), NON-CHIRAL (q\u00b2 \u2261 \u22121 mod 2; the explicit reflection descends), ABELIAN (\u03c0\u2081 = Z\u2082). The spin-statistics CORRELATION is therefore a theorem for pair-created BAM throats \u2014 the strongest topological proof point available.\n\nWHAT THE SIGN DEPENDS ON. RP\u00b3 is NON-SPINORIAL in bare Diff (Hendriks: cyclic-\u03c0\u2081 primes; the #170/#171 'spinorial' sentence is hereby corrected): in bare metric GR the SSC selects BOSE, and in frozen-topology canonical GR the statistics is a sector choice among Bose, Fermi, and a continuum of indefinite sectors (G = (Z\u2082\u2217Z\u2082)\u22caS\u2082 \u2014 four scalar sectors + the anomalous 2-dim family, all verified in a faithful model). The \u22121 is NOT a bare-GR theorem. In PIN\u207b-FRAMED GR \u2014 forced by the non-orientable RP\u00b2 slice (#169), the uniqueness of Pin\u207b on it (#170), and the pin-spinor matter content (#195) \u2014 the trivialized rotation lifts to \u2212I (the SU(2) lift of the \u03c0\u2081(SO(3)) generator, computed), the throat is spinorial WITH FRAMING, and the same SSC theorem selects FERMI \u2014 the #188 holonomy, correctly reinterpreted as the pin lift.\n\nTHE #58 CHANNEL. Mirror-pair identity \u2713 (amphichirality), bordism existence \u2713 (\u03a9\u2083^SO = 0), framing extension \u2713 (RP\u00b3 spin, \u03a9\u2083^Spin = 0); the explicit BAM 4-manifold (the Dowker\u2013Sorkin construction transplanted from \u211d\u00b3 to the S\u00b3 background) is the honest open construction \u2014 no obstruction found. LABEL CHANGE: 'Pauli from GR' \u2192 'Pauli from GR + the forced Pin\u207b framing.'"
+}
