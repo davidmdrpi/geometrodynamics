@@ -1,0 +1,117 @@
+{
+  "timestamp_utc": "2026-07-02T04:04:00+00:00",
+  "identification": "The index mechanism: the Pin\u207b/Dirac structure pins exactly k chiral zero modes in winding sector k (Atiyah\u2013Singer, verified); the k=1 electron level is zero by topology, its mass the natural two-mouth pairing \u2014 the protection the scalar surrogate lacks",
+  "answers": "PR #194's mechanism question",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Answer #194's sharply-posed mechanism question: is there structure in the throat geometry that pins a k=1 zero mode \u2014 an index, a chiral grading of the winding sectors, a geometric identity tying the base action to the transport repulsion? #194 proved the scalar surrogate's near-zero is dialed (unprotected cancellation); this probe asks whether the GEOMETRY, treated with the field content BAM actually requires (the Pin\u207b spinor), contains the protection the surrogate lacks. Either outcome is a real result: a mechanism found, or the hierarchy problem confirmed at the geometric level.",
+      "answers": "PR #194's mechanism question (via #193's sector reduction)",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_candidate",
+      "description": "The candidate is already forced by the repo. BAM throats are Pin\u207b (the #183/#188 grading: T = i\u03c3_y, T\u00b2 = \u2212I) \u2014 the throat's internal mode is a SPINOR. On the #193 sector reduction the winding-k mode lives on the base S\u00b2 coupled to a monopole of charge q = k/2, so the spinor's operator is the DIRAC operator with monopole charge \u2014 and the Atiyah\u2013Singer index theorem predicts exactly 2q = k chiral zero modes in sector k: sectors {1,3,5} carry {1,3,5} zero modes, all one chirality, pinned at E = 0 by topology. The mechanism is made computable by the SUSY decomposition D\u00b2\u208a = L_{q\u2212\u00bd} \u2212 (q\u2212\u00bd), D\u00b2\u208b = L_{q+\u00bd} + (q+\u00bd): the 'geometric identity tying the diagonal to the repulsion' that #194 asked for IS the factorization D\u00b2 = A\u2020A \u2014 for the spinor the two pieces form a perfect square, guaranteed to cancel on the kernel; the scalar has no factorization, hence the surrogate's dialing. Half-integer q for odd k is the Pin-twisted monopole bundle \u2014 the same twisted sector #193 identified.",
+      "prediction": "index = 2q = k chiral zero modes in winding sector k",
+      "identity": "D^2 = A^dag A (SUSY factorization) \u2014 spinor only",
+      "pass": true
+    },
+    {
+      "name": "T3_count_verified",
+      "description": "The index prediction verified numerically through the validated #193 monopole solver: winding sectors k = 1, 3, 5 carry EXACTLY 1, 3, 5 zero modes (chirality +, residuals \u2264 1e-7 across all azimuthal sectors), the opposite chirality is GAPPED with lowest eigenvalue 2q+1 (no j = q\u2212\u00bd level exists there \u2014 the asymmetry IS the index), and the nonzero towers match the exact Dirac spectrum \u03bb\u00b2 = (j+\u00bd)\u00b2 \u2212 q\u00b2 at the first excited level in both chiralities. The odd-k sectors {1,3,5} carry {1,3,5} index-protected zero modes \u2014 the count coincidence with the repo's LEPTON_BASELINE_DEPTHS is noted, not built upon.",
+      "sectors": [
+        {
+          "k": 1,
+          "zero_modes": 1,
+          "predicted": 1,
+          "worst_zero_residual": 1.5e-10,
+          "first_excited_plus": 2.0,
+          "lowest_minus": 2.0,
+          "exact_gap_2q_plus_1": 2.0
+        },
+        {
+          "k": 3,
+          "zero_modes": 3,
+          "predicted": 3,
+          "worst_zero_residual": 2.88e-08,
+          "first_excited_plus": 4.0,
+          "lowest_minus": 4.0,
+          "exact_gap_2q_plus_1": 4.0
+        },
+        {
+          "k": 5,
+          "zero_modes": 5,
+          "predicted": 5,
+          "worst_zero_residual": 9.34e-08,
+          "first_excited_plus": 5.999999,
+          "lowest_minus": 6.0,
+          "exact_gap_2q_plus_1": 6.0
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_protection_certificates",
+      "description": "THE DISCRIMINATOR vs #194's cancellation: energy-PINNED vs energy-TUNED. (a) GAUGE WOBBLE (flux fixed, \u03b5 = 0.05): the deformed zero mode is constructed in closed form (v\u2080\u00b7e^{\u2212\u03b5\u222bf}) and certified variationally \u2014 since D\u00b2\u208a \u2ab0 0, its lowest eigenvalue is pinned in [0, 5.8e-10]: the ENERGY stays at zero while the WAVEFUNCTION deforms, the defining signature of index protection. (b) METRIC DEFORMATION: in 2D every metric deformation of the base is conformal, and ker D is conformally rigid \u2014 the same zero mode is annihilated on the deformed metric, certificate 8.6e-16, \u03a9-INDEPENDENT. (c) THE SCALAR CONTRAST: on the same deformed metric the scalar sector ground moves 1.5000 \u2192 1.4012 (\u0394 = -0.0988, O(\u03b5)) \u2014 8 orders of magnitude between the pinned spinor zero and the moving scalar level. The #192 Berger squash moved the surrogate's electron level because the surrogate is a SCALAR-type cancellation; the spinor zero mode would not have moved.",
+      "gauge_wobble_certificate": 5.8e-10,
+      "metric_certificate": 8.57e-16,
+      "scalar_round": 1.5,
+      "scalar_deformed": 1.401226,
+      "scalar_shift": -0.0988,
+      "contrast_orders_of_magnitude": 8.2,
+      "pass": true
+    },
+    {
+      "name": "T5_flux_change_control",
+      "description": "The index has teeth: it responds to TOPOLOGY and only topology. Adding one flux quantum (q \u2192 q+1, i.e. k \u2192 k+2, the only way to change the monopole charge) jumps the zero-mode count by exactly 2 (1 \u2192 3 \u2192 5), while the smooth deformations of T4 (gauge wobble, metric) leave the count and the zero energies untouched. This is the same dichotomy #183 established for the algebra (smooth deformations conjugate, topology changes flip) \u2014 now realized at the level of the SPECTRUM, which is what #192 showed the algebra alone could not deliver.",
+      "counts": {
+        "k=1": 1,
+        "k=3": 3,
+        "k=5": 5
+      },
+      "jump_per_flux_quantum": 2,
+      "pass": true
+    },
+    {
+      "name": "T6_natural_mass",
+      "description": "How the electron gets a SMALL mass NATURALLY. (a) Within one mouth a first-order mass lift is FORBIDDEN by angular momentum: the zero modes sit at j = q\u2212\u00bd and the opposite-chirality tower starts at j = q+\u00bd (lowest D\u00b2\u208b = 2.0000 = 2q+1; no j = q\u2212\u00bd partner exists) \u2014 a Weyl-like protection. (b) The lift requires pairing the throat's TWO MOUTHS (opposite winding \u00b1k \u27f9 opposite monopole charge \u27f9 opposite chirality \u2014 a genuine Dirac pair; the BAM wormhole supplies exactly this). For k = 1 both mouths' zero modes are the l = 0 constants; the antipodal pairing overlap is o = 1.000000, and the lifted level is |E_e| = \u03b5\u00b7o \u2014 LINEAR in the mouth coupling \u03b5, MULTIPLICATIVE and sign-stable, 't Hooft-natural (\u03b5 \u2192 0 restores the two independent chiral zero modes, so E_e is radiatively protected). CONTRAST #194: the surrogate's E_e was the DIFFERENCE of two O(7) numbers (sign-flips under \u00b12%, \u0394 = 74.7); here it is a PRODUCT \u2014 small because the mouths couple weakly, not because two big numbers cancel.",
+      "one_mouth_first_order_lift": "forbidden (angular-momentum mismatch)",
+      "lowest_opposite_chirality_k1": 2.0,
+      "pairing_overlap_o": 1.0,
+      "lift_vs_eps": [
+        {
+          "eps": 0.001,
+          "E_e": 0.001
+        },
+        {
+          "eps": 0.01,
+          "E_e": 0.01
+        },
+        {
+          "eps": 0.1,
+          "E_e": 0.1
+        }
+      ],
+      "linear_multiplicative": true,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "What is and is not established. ESTABLISHED: the throat geometry, with the field content BAM already requires (the Pin\u207b spinor of #183/#188) on the #193 sector reduction, contains an index mechanism that pins a k=1 zero mode \u2014 energy-rigid under gauge and metric deformations (T4 certificates), count set by topology alone (T5), with a natural (multiplicative, 't Hooft-protected) mass from the two-mouth pairing (T6). NOT ESTABLISHED: the lepton mass LADDER is not re-derived \u2014 the locked surrogate's {1,3,5} energies and the observed ratios are untouched; identifying the surrogate's k=1 state with the spinor zero mode, computing the mouth coupling \u03b5 from the throat geometry (e.g. the #185/#190 overlap machinery), and rebuilding the ladder on the Dirac tower is the follow-up. Also noted, not built on: sectors {1,3,5} carry {1,3,5} zero modes \u2014 a count coincidence with the generation depths. The base is the round (and conformally deformed) S\u00b2; the full Berger 3-geometry Dirac spectrum is a further check.",
+      "established": "the index mechanism exists in the required field content",
+      "not_established": "the mass ladder is not re-derived here",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "MECHANISM FOUND \u2014 the answer to #194 is YES. The protection the scalar surrogate lacks exists in the throat geometry, and with no new ingredients: the Pin\u207b structure BAM already requires makes the throat mode a spinor, the #193 reduction makes it a charged spinor on the base, and the Atiyah\u2013Singer index pins exactly k chiral zero modes in winding sector k. The k=1 (electron) level is then zero by TOPOLOGY \u2014 energy-rigid under every smooth deformation (certified to 1e-10/1e-15), the count movable only by a flux quantum \u2014 and its physical mass is the two-mouth pairing \u03b5\u00b7o: linear, multiplicative, 't Hooft-natural. The #194 dichotomy resolves: the surrogate's dialing is an artifact of treating a spinor problem with scalar dynamics; the geometric identity that ties the diagonal to the repulsion is the SUSY factorization D\u00b2 = A\u2020A, available only to the spinor. What remains (the follow-up): rebuild the mass ladder on the Dirac tower and compute the mouth coupling from the throat overlap machinery.",
+      "classification": "K1_ZERO_MODE_IS_INDEX_PROTECTED_THE_PIN_DIRAC_STRUCTURE_SUPPLIES_THE_MECHANISM_THE_SCALAR_SURROGATE_LACKS",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "K1_ZERO_MODE_IS_INDEX_PROTECTED_THE_PIN_DIRAC_STRUCTURE_SUPPLIES_THE_MECHANISM_THE_SCALAR_SURROGATE_LACKS",
+  "verdict": "MECHANISM FOUND \u2014 #194's question is answered YES, with no new ingredients.\n\nTHE MECHANISM. BAM throats are Pin\u207b (#183/#188), so the throat mode is a SPINOR; on the #193 sector reduction it is a spinor on the base S\u00b2 with monopole charge q = k/2, and the Atiyah\u2013Singer index pins exactly 2q = k chiral zero modes in winding sector k \u2014 verified: sectors {1,3,5} carry {1,3,5} zero modes (residuals \u2264 1e-7), opposite chirality gapped at 2q+1, towers matching the exact Dirac spectrum. The 'geometric identity tying the diagonal to the repulsion' is the SUSY factorization D\u00b2 = A\u2020A \u2014 a perfect square that cancels on the kernel, available only to the spinor.\n\nTHE PROTECTION (the discriminator vs #194). Under a flux-preserving gauge wobble the zero energy is certified pinned in [0, 6e-10]; under a metric deformation of the base, ker D is conformally rigid (certificate 9e-16, \u03a9-independent) while the SCALAR ground on the same metric moves by -0.099 \u2014 8 orders of contrast: energy-PINNED vs energy-TUNED. The count changes only with a flux quantum (1 \u2192 3 \u2192 5).\n\nTHE NATURAL MASS. Within one mouth a first-order lift is forbidden by angular momentum (no opposite-chirality j = q\u2212\u00bd partner exists); the mass comes from pairing the throat's TWO MOUTHS (\u00b1k winding, opposite chirality \u2014 the BAM wormhole supplies the Dirac pair): |E_e| = \u03b5\u00b7o with o = 1.000 \u2014 linear, multiplicative, sign-stable, 't Hooft-natural. The surrogate's dialing (#194: a sign-flipping difference of two O(7) numbers, \u0394 = 74.7) is an artifact of treating a spinor problem with scalar dynamics. FOLLOW-UP: rebuild the mass ladder on the Dirac tower; compute the mouth coupling \u03b5 from the throat overlap machinery (#185/#190)."
+}

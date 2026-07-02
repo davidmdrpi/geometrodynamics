@@ -1110,6 +1110,35 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The index mechanism: a Pin/Dirac zero mode for the k=1 sector.**
+Answers #194's mechanism question YES, with no new ingredients. BAM
+throats are Pin⁻ (#183/#188), so the throat mode is a **spinor**; on the
+#193 sector reduction it is a charged spinor on the base S² (monopole
+`q = k/2`), and the Atiyah–Singer index pins exactly `2q = k` chiral zero
+modes in winding sector k — verified via the SUSY decomposition
+`D²₊ = L_{q−½} − (q−½)`, `D²₋ = L_{q+½} + (q+½)` through the validated
+#193 monopole solver: sectors {1,3,5} carry {1,3,5} zero modes
+(residuals ≤ 1e-7), the opposite chirality gapped at `2q+1`, towers
+matching the exact Dirac spectrum. The k=1 electron level is **zero by
+topology**: under a flux-preserving gauge wobble the zero energy is
+certified pinned in `[0, 6e-10]` (the wavefunction deforms, the energy
+does not); under metric deformation of the base, ker D is conformally
+rigid (`9e-16`, Ω-independent) while the scalar ground on the same
+metric moves by O(ε) — 8 orders of contrast, energy-pinned vs
+energy-tuned; the count changes only with a flux quantum (1→3→5). The
+natural mass: a one-mouth first-order lift is forbidden by angular
+momentum (no opposite-chirality `j = q−½` partner); the lift requires
+the throat's **two mouths** (±k winding, opposite chirality — the BAM
+wormhole supplies the Dirac pair): `|E_e| = ε·o` with `o = 1.000` —
+linear, multiplicative, sign-stable, 't Hooft-natural. The #194
+"geometric identity tying the diagonal to the repulsion" is the SUSY
+factorization `D² = A†A`, available only to the spinor — the surrogate's
+dialing is an artifact of treating a spinor problem with scalar
+dynamics. Scope: mechanism established; the mass ladder is *not*
+re-derived — rebuilding it on the Dirac tower with ε computed from the
+throat overlap machinery (#185/#190) is the follow-up
+(`k1_zero_mode_index_mechanism_probe`, PR #195).
+
 **Attacking the fine-tuning: the electron near-zero — stabilized or
 dialed?** The follow-up to #192/#193: is the surrogate's electron
 near-cancellation (`E_e = 6.8754 − 6.6758 = 0.1996`, a 2.9% residue
