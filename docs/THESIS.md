@@ -1110,6 +1110,34 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**Attacking the fine-tuning: the electron near-zero — stabilized or
+dialed?** The follow-up to #192/#193: is the surrogate's electron
+near-cancellation (`E_e = 6.8754 − 6.6758 = 0.1996`, a 2.9% residue
+between the k=1 diagonal and the transport repulsion) protected by
+anything? Every candidate is tested and **excluded**: no chiral/sublattice
+conjugation (`tr H = 736 ≠ 0`), no spectral reflection, no index-like
+structured zero-mode (best overlap `0.917`), and E_e flips sign under a
+±2% transport change — a cancellation, not a sign-stable seesaw. The
+tuning is quantified and localized: Barbieri–Giudice `Δ(E_e)` up to 57
+while every `Δ(E_μ), Δ(E_τ) < 1` (only the near-zero is tuned); the one
+codimension-1 dialed combination is 76% transport vs 42% base action +
+41% slope (global `Δ = 74.7`), and its fiber-map contraction `+71.1`
+reproduces the #192 Berger λ-sensitivity — the two probes see the same
+dial. The Monte Carlo null (20 000 samples, ±25% log-uniform) gives
+`P(|E_e| ≤ observed) = 0.077` vs the linear-measure estimate `0.060`,
+flat through zero — no attractor, no repulsion: exactly as rare as
+generic. Origin: the **calibration imports the hierarchy** — fitting
+`μ/e = 206.77` with an O(10)-scale matrix forces `|E_e| = E_μ/206.77`;
+the surrogate carries the hierarchy problem, it does not solve it (and
+the #193 operator has no near-zero at all — the tuning lives in the
+instanton dynamics, where the dialed direction points). Numerology
+guardrail held (det-zero roots vs round constants NOT matched; transport
+root vs 8π: 1.6%, rejected). The sharpened question: a real solution
+needs new structure pinning a k=1 zero mode — an index, a chiral grading
+of winding sectors, or a geometric identity tying the 2π base action to
+the transport repulsion (`electron_near_zero_naturalness_probe`,
+PR #194).
+
 **The field-theoretic odd-k ladder (the actual wave operator on the
 Berger sphere).** The follow-up #192 promised: the genuine SU(2) Berger
 Laplacian sectored by Hopf-fiber winding `k = 2m` replaces the instanton

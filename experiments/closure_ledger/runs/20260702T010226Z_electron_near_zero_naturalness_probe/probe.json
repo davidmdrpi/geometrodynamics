@@ -1,0 +1,186 @@
+{
+  "timestamp_utc": "2026-07-02T01:02:26+00:00",
+  "identification": "The fine-tuning attacked: the electron near-zero is an unprotected cancellation \u2014 no symmetry/index/seesaw/attractor \u2014 one dialed combination (76% transport) imported by the calibration to the observed hierarchy",
+  "attacks": "PR #192's metric-fine-tuned electron near-zero (via #193's contrast)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Attack the #192 fine-tuning. The locked surrogate's electron eigenvalue is a near-zero (0.1996 vs \u03bc 41.26, \u03c4 694.98) with no counterpart in the actual wave operator (#193: E\u2081 \u2265 2). Is the near-cancellation STABILIZED \u2014 a symmetry, an index, a seesaw, an attractor \u2014 or GENUINELY DIALED? Every candidate protection mechanism is tested and must survive or be excluded; the naturalness of the near-zero is measured against a Monte Carlo null. Either outcome is a real result: a mechanism would be a discovery, an exclusion sharpens the hierarchy problem the surrogate carries.",
+      "attacks": "PR #192's fine-tuned electron near-zero",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_anatomy",
+      "description": "The near-zero is a CANCELLATION between two a-priori unrelated quantities: the k=1 diagonal action h\u2081\u2081 = 6.8754 (2\u03c0 base + resistance) and the level repulsion 6.6758 from the transport coupling to the k=3,5 rungs (t\u2081\u2083 = 14.848, t\u2081\u2085 = 10.463) \u2014 leaving E_e = 0.1996, a 2.9% residue. The zero locus det H = 0 is codimension 1 in the 7-parameter space: a zero eigenvalue needs no symmetry, only one tuned combination. The near-zero eigenvector (0.917, 0.398, 0.020) is dominantly k=1 with a large k=3 admixture \u2014 the electron of this surrogate IS the almost-cancelled combination.",
+      "h_diag": [
+        6.8754,
+        34.9022,
+        694.6653
+      ],
+      "t13": 14.848,
+      "t15": 10.4631,
+      "E_e": 0.19963,
+      "cancellation_residue_fraction": 0.029,
+      "near_zero_eigenvector": [
+        0.917,
+        0.3983,
+        0.0198
+      ],
+      "pass": true
+    },
+    {
+      "name": "T3_symmetry_candidates_excluded",
+      "description": "Every candidate protection is tested and EXCLUDED. (a) CHIRAL/SUBLATTICE: no sign matrix S gives SHS = \u2212H (a chiral grading needs a zero diagonal; tr H = 736.4 \u2260 0). (b) SPECTRAL REFLECTION about zero: absent (False). (c) STRUCTURED ZERO-MODE: the near-zero eigenvector aligns with no topological candidate (best overlap 0.917 < 0.999 \u2014 an index-protected mode would be pinned to a structured direction). (d) SEESAW vs CANCELLATION: a seesaw suppression is multiplicative and sign-stable; here E_e FLIPS SIGN under a \u00b12% transport change (+0.4263 \u2192 +0.1996 \u2192 -0.0294) \u2014 the smallness is a cancellation between comparable terms, the unprotected kind.",
+      "chiral_conjugation_found": null,
+      "trace_H": 736.44,
+      "spectral_reflection": false,
+      "zero_mode_overlaps": {
+        "uniform": 0.7709,
+        "alternating_parity": 0.3109,
+        "k1_only": 0.917
+      },
+      "E_e_sign_flip_pm2pct_transport": [
+        0.4263,
+        0.1996,
+        -0.0294
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_bg_sensitivities",
+      "description": "The Barbieri\u2013Giudice measure \u0394_p = |d ln E/d ln p| separates the tuned from the natural. The electron level is wildly sensitive \u2014 \u0394 up to 57 (transport 57, base action 31, slope 31, pinhole 18) \u2014 while EVERY sensitivity of the \u03bc and \u03c4 levels is below 1 (max 0.46, 0.90). The heavy rungs are natural outputs of the geometry-scale parameters; ONLY the near-zero is tuned. This is the surrogate-side fingerprint of the #192 result: the {1,3,5} structure and \u03c4/\u03bc are robust, and the whole fine-tuning is concentrated in the electron's cancellation.",
+      "sensitivities": [
+        {
+          "param": "phase_per_pass",
+          "E_e": 0.0,
+          "E_mu": -0.0,
+          "E_tau": -0.0
+        },
+        {
+          "param": "transport_strength",
+          "E_e": -57.07,
+          "E_mu": 0.261,
+          "E_tau": 0.001
+        },
+        {
+          "param": "hard_pinhole_gamma",
+          "E_e": 17.93,
+          "E_mu": 0.459,
+          "E_tau": 0.032
+        },
+        {
+          "param": "resistance_scale",
+          "E_e": 7.43,
+          "E_mu": 0.127,
+          "E_tau": 0.054
+        },
+        {
+          "param": "action_base",
+          "E_e": 31.47,
+          "E_mu": 0.152,
+          "E_tau": 0.009
+        },
+        {
+          "param": "action_slope",
+          "E_e": 30.92,
+          "E_mu": -0.136,
+          "E_tau": -0.001
+        },
+        {
+          "param": "k_uplift_beta",
+          "E_e": 1.24,
+          "E_mu": 0.001,
+          "E_tau": 0.904
+        }
+      ],
+      "max_Delta_E_e": 57.1,
+      "max_Delta_E_mu": 0.459,
+      "max_Delta_E_tau": 0.904,
+      "pass": true
+    },
+    {
+      "name": "T5_dialed_combination",
+      "description": "The zero locus is codimension 1, so exactly ONE parameter combination is dialed \u2014 and it is identified: the unit direction n\u0302 \u221d \u2207ln E_e is 76% transport, 42% base action, 41% slope, 24% pinhole (signs: transport opposes the others \u2014 more transport deepens the repulsion, more action raises the diagonal). The global tuning is \u0394 = |\u2207ln E_e| = 74.7: a 1% move along n\u0302 changes E_e by ~75%. CROSS-CHECK against #192: contracting \u2207ln E_e with the fiber-map direction (base action + slope + resistance + uplift, each \u00d7\u03bb) gives +71.1 \u2014 exactly the Berger \u03bb-sensitivity #192 measured (+71 on E_e, hence \u221270.9 on \u03bc/e). The Berger probe found the fine-tuning because the fiber squash has an 87% overlap with the dialed direction \u2014 the two probes see one and the same tuned combination.",
+      "grad_ln_E_e": {
+        "phase_per_pass": 0.0,
+        "transport_strength": -57.07,
+        "hard_pinhole_gamma": 17.93,
+        "resistance_scale": 7.43,
+        "action_base": 31.47,
+        "action_slope": 30.92,
+        "k_uplift_beta": 1.24
+      },
+      "global_Delta": 74.7,
+      "dialed_direction_nhat": {
+        "phase_per_pass": 0.0,
+        "transport_strength": -0.764,
+        "hard_pinhole_gamma": 0.24,
+        "resistance_scale": 0.099,
+        "action_base": 0.421,
+        "action_slope": 0.414,
+        "k_uplift_beta": 0.017
+      },
+      "fiber_contraction": 71.1,
+      "matches_192_lambda_sensitivity": true,
+      "pass": true
+    },
+    {
+      "name": "T6_monte_carlo_null",
+      "description": "The naturalness null: 20000 samples, log-uniform \u00b125% around the locked point (fixed seed). P(|E_e| \u2264 the observed 0.1996) = 0.077, against the naive codimension-1 LINEAR-MEASURE estimate 2/(\u0394\u00b72ln1.25) = 0.060 \u2014 same order. And the E_e histogram is FLAT through zero (max/min = 1031/780 over the interior bins): no accumulation at 0 (which a stabilizing attractor/mechanism would produce) and no gap (which a protective repulsion would). The near-zero is exactly as rare as generic linear measure predicts \u2014 a ~7% accident under a \u00b125% prior, ~1/\u0394-tuned, with NOTHING enhancing or suppressing it. P(\u03bc/e \u2265 206.7) = 0.040: the observed hierarchy is reached only inside the tuned sliver.",
+      "n_samples": 20000,
+      "P_near_zero": 0.0767,
+      "P_estimate_linear_measure": 0.06,
+      "P_hierarchy": 0.0399,
+      "E_e_histogram_interior": [
+        780,
+        826,
+        878,
+        915,
+        1024,
+        954,
+        1031,
+        960
+      ],
+      "distribution_flat_through_zero": true,
+      "pass": true
+    },
+    {
+      "name": "T7_origin_and_guardrail",
+      "description": "WHERE THE DIALING COMES FROM. The surrogate is CALIBRATED to the observed masses: with the matrix's natural scale O(10), demanding \u03bc/e = 206.77 forces |E_e| = E_\u03bc/206.77 = 0.1995 \u2014 the near-zero is not an internal accident, it is the observed hierarchy TRANSFERRED from the data to the parameters by the fit (the hierarchy problem, imported). NUMEROLOGY GUARDRAIL (the #165 anti-rigging rule: no fitted constant relabelled as a \u03c0-multiple): the det H = 0 roots are measured against round constants and NOT matched \u2014 e.g. the transport root 25.5379 vs 8\u03c0 = 25.1327 differs by 1.6% (rejected as a derivation; reported for completeness). THE #193 CONTRAST: the actual wave operator has NO near-zero to tune (E\u2081 = 2 + 1/\u03bb\u00b2 \u2265 2 at every \u03bb) \u2014 the tuning enters only with the instanton dynamics, i.e. the surrogate's transport terms, which is exactly where the dialed direction points (76% transport).",
+      "det_zero_roots": {
+        "transport_strength": {
+          "root": 25.537906,
+          "locked": 25.1,
+          "rel_distance": 0.01745
+        },
+        "action_base": {
+          "root": 6.083552,
+          "locked": 6.283185,
+          "rel_distance": -0.03177
+        },
+        "hard_pinhole_gamma": {
+          "root": 21.276223,
+          "locked": 22.5,
+          "rel_distance": -0.05439
+        }
+      },
+      "transport_root_vs_8pi_rel": 0.01612,
+      "numerology_rejected": true,
+      "E_e_implied_by_observed_hierarchy": 0.19955,
+      "calibration_transfer_verified": true,
+      "operator_floor_193": 2.0,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "DIALED, NOT STABILIZED. Every candidate protection is excluded: no chiral/sublattice conjugation (tr H \u2260 0), no spectral reflection, no structured (index-like) zero-mode, and the smallness is sign-flipping cancellation, not sign-stable seesaw suppression. The tuning is quantified (global \u0394 = 74.7, a ~7% linear-measure accident under a \u00b125% prior) and LOCALIZED: one codimension-1 combination \u2014 76% transport against 42% base action + 41% slope \u2014 the same direction the #192 Berger squash probed (contraction +71.1 vs the measured +71). Its origin is the calibration itself: fitting \u03bc/e = 207 with an O(10)-scale matrix forces |E_e| = E_\u03bc/207. The constructive upshot: the surrogate carries the hierarchy problem, it does not solve it \u2014 and the question is now sharply posed. A mechanism would need NEW structure that pins a k=1 zero mode (an index, a chiral grading of the winding sectors, a geometric identity tying the 2\u03c0 base action to the transport repulsion). Finding or refuting such structure in the throat geometry is the follow-up.",
+      "classification": "ELECTRON_NEAR_ZERO_IS_UNPROTECTED_CANCELLATION_TUNING_IMPORTED_BY_CALIBRATION_NO_STABILIZING_SYMMETRY_FOUND",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "ELECTRON_NEAR_ZERO_IS_UNPROTECTED_CANCELLATION_TUNING_IMPORTED_BY_CALIBRATION_NO_STABILIZING_SYMMETRY_FOUND",
+  "verdict": "DIALED, NOT STABILIZED \u2014 and the dial is identified.\n\nEXCLUSIONS. The near-zero survives no protection candidate: no chiral/sublattice sign conjugation exists (tr H = 736 \u2260 0), the spectrum is not reflection-symmetric, the near-zero eigenvector aligns with no structured/topological direction, and the smallness FLIPS SIGN under a \u00b12% transport change \u2014 cancellation between comparable terms, not a sign-stable seesaw suppression.\n\nTHE DIAL. The zero locus is codimension 1 and the one tuned combination is measured: n\u0302 = 76% transport vs 42% base action + 41% slope + 24% pinhole, with global tuning \u0394 = 74.7. The Monte Carlo null (log-uniform \u00b125%, 20000 samples) gives P(|E_e| \u2264 observed) = 0.077 \u2014 matching the naive linear-measure estimate 0.060 with a FLAT distribution through zero: no attractor, no repulsion, exactly as rare as generic. Cross-check: the dialed direction contracted with the #192 fiber map gives +71.1, reproducing the measured Berger \u03bb-sensitivity \u2014 #192 and this probe see one and the same tuned combination.\n\nORIGIN AND UPSHOT. The tuning is imported by the calibration itself: fitting \u03bc/e = 206.77 with an O(10)-scale matrix forces |E_e| = E_\u03bc/206.77. The surrogate CARRIES the hierarchy problem rather than solving it (and the #193 operator has no near-zero at all \u2014 the tuning lives entirely in the instanton/transport dynamics, exactly where the dialed direction points). The mechanism question is now sharp: new structure pinning a k=1 zero mode \u2014 an index, a chiral grading of winding sectors, or a geometric identity tying the 2\u03c0 base action to the transport repulsion \u2014 is what a real solution requires; finding or refuting it in the throat geometry is the follow-up. Numerology guardrail held: det-zero roots measured against round constants and NOT matched (transport root vs 8\u03c0: 1.6% \u2014 rejected)."
+}
