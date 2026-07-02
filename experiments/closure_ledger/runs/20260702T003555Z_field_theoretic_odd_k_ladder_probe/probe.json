@@ -1,0 +1,172 @@
+{
+  "timestamp_utc": "2026-07-02T00:35:55+00:00",
+  "identification": "The field-theoretic odd-k ladder: the actual Berger wave operator carries {1,3,5} with absolute protection (E_k = 2k + (k/\u03bb)\u00b2, all \u03bb) but O(1) ratios \u2014 structure is kinematic, the hierarchy is dynamical (the #192 fine-tuning has no operator counterpart)",
+  "follows_up": "PR #192 (surrogate) \u2014 the promised field-theoretic version",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "The follow-up #192 promised: replace the locked instanton-transition SURROGATE (deformed via a declared fiber/base ingredient map) with the ACTUAL wave operator on the Berger-squashed S\u00b3_\u03bb \u2014 the genuine SU(2) scalar Laplacian (#165), sectored by the Hopf-fiber winding k, no surrogate and no ingredient map. Track the odd-k {1,3,5} ladder of the operator itself as \u03bb moves, and ask the two questions #192 left sharp: does the STRUCTURE have a field-level \u03bb_break, and can the bare operator produce the mass HIERARCHY?",
+      "follows_up": "PR #192 (surrogate window) using PR #165 machinery",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_operator_and_sectors",
+      "description": "The operator is the genuine SU(2) Berger scalar Laplacian imported from #165 (round conformal tower \u03c9 = n+1 recovered at \u03bb=1: True). A mode's Hopf-fiber winding is k = 2m (fiber phase e^{ik\u03b8}, period 2\u03c0), so the k-sector is m = k/2, j \u2265 k/2, and the imported eigenvalue 4j(j+1) + 4m\u00b2(\u03bb\u207b\u00b2\u22121) is EXACTLY E(j,k;\u03bb) = 4j(j+1) \u2212 k\u00b2 + k\u00b2/\u03bb\u00b2 (verified over all (j,m,\u03bb) sampled: True). The sector ground (j = k/2) is the Kaluza\u2013Klein split E_k(\u03bb) = 2k + (k/\u03bb)\u00b2: the (k/\u03bb)\u00b2 fiber-winding momentum is the (k\u00b72\u03c0/L_throat)\u00b2 throat term of the unified mass operator (PR #83) DERIVED from the spectrum with L \u221d \u03bb, and 2k is the base (monopole) part.",
+      "round_tower_recovered": true,
+      "sector_formula_matches_import": true,
+      "kk_split": true,
+      "pass": true
+    },
+    {
+      "name": "T3_independent_field_solve",
+      "description": "The sector reduction is verified by an INDEPENDENT numerical field solve, not by the same algebra twice: for fixed winding k the Berger Laplacian reduces to the Wu\u2013Yang charged Laplacian on the base S\u00b2 with monopole charge q = k/2 (the winding IS the charge on the base \u2014 the #42\u2013#44 Hopf\u27f7charge geometry) plus the fiber term (k/\u03bb)\u00b2. A cell-centered finite-volume solve (natural no-flux boundaries at the poles, N = 6000) reproduces the monopole spectrum l(l+1) \u2212 q\u00b2: the grounds give 4\u00b7\u039b = 2k to ~2e-7 for k = 1, 3, 5, the first excited levels match 3q+2, and the q=0 control recovers the ordinary S\u00b2 tower (0, 2): True. Half-integer q for odd k is the double-valued (Pin-twisted) monopole bundle \u2014 the odd-k sector is twisted already on the base.",
+      "levels": [
+        {
+          "k": 1,
+          "q": 0.5,
+          "ground_numeric": 0.49999999,
+          "ground_exact": 0.5,
+          "excited_numeric": 3.5,
+          "excited_exact": 3.5,
+          "base_part_4g": 2.0,
+          "base_part_exact_2k": 2
+        },
+        {
+          "k": 3,
+          "q": 1.5,
+          "ground_numeric": 1.49999994,
+          "ground_exact": 1.5,
+          "excited_numeric": 6.499999,
+          "excited_exact": 6.5,
+          "base_part_4g": 6.0,
+          "base_part_exact_2k": 6
+        },
+        {
+          "k": 5,
+          "q": 2.5,
+          "ground_numeric": 2.49999988,
+          "ground_exact": 2.5,
+          "excited_numeric": 9.499999,
+          "excited_exact": 9.5,
+          "base_part_4g": 10.0,
+          "base_part_exact_2k": 10
+        }
+      ],
+      "ordinary_sphere_control": true,
+      "pass": true
+    },
+    {
+      "name": "T4_grading_lambda_independent",
+      "description": "The #183 algebra realized spectrally, at every \u03bb. The antipodal (deck) map of S\u00b3 lies ON the Hopf fiber \u2014 it is the fiber translation \u03b8 \u2192 \u03b8 + \u03c0 \u2014 so a winding-k mode picks up e^{ik\u03c0} = (\u22121)^k under the deck map: odd k is antipodally ODD (descends to RP\u00b3 only as a section of the twisted Pin bundle), even k is an honest RP\u00b3 function. Because the deck map is a FIBER translation, it is an isometry of EVERY Berger metric (the squash only rescales the fiber direction), so the odd/even grading is \u03bb-independent \u2014 and m is a good quantum number at every \u03bb (the spectrum is resolved mode-by-mode in m, no odd\u2013even mixing: True). The topological grading does not need the round metric; the SPECTRUM (below) is what moves.",
+      "deck_parity_by_k": {
+        "0": 1,
+        "1": -1,
+        "2": 1,
+        "3": -1,
+        "4": 1,
+        "5": -1
+      },
+      "odd_k_twisted": true,
+      "even_k_untwisted": true,
+      "m_good_quantum_number": true,
+      "pass": true
+    },
+    {
+      "name": "T5_absolute_protection",
+      "description": "The field-level ladder has NO \u03bb_break \u2014 protection over the WHOLE Berger family, in closed form: E_k(\u03bb) = 2k + (k/\u03bb)\u00b2 gives positivity E_k \u2265 2k \u2265 2 and gaps E_{k+2} \u2212 E_k = 4 + (4k+4)/\u03bb\u00b2 > 4 for every \u03bb \u2208 (0, \u221e) \u2014 the squash limit stiffens the fiber momenta (E \u2192 \u221e), the stretch limit floors at the base monopole part 2k, and the sectors can never cross or vanish. Numeric sweep \u03bb \u2208 [0.05, 20] (400 points): min E\u2081 = 2.002 (> 2), min gaps = 4.020, 4.040 (> 4). Note the contrast with #192: the SURROGATE's electron level crossed zero at a 1.4% squash; the operator's k=1 sector cannot cross zero at ANY squash. The {1,3,5} structure of the actual wave operator is absolutely protected.",
+      "closed_form": "E_k(lambda) = 2k + (k/lambda)^2",
+      "ladder_table": [
+        {
+          "lambda": 0.1,
+          "E1": 102.0,
+          "E3": 906.0,
+          "E5": 2510.0
+        },
+        {
+          "lambda": 0.5,
+          "E1": 6.0,
+          "E3": 42.0,
+          "E5": 110.0
+        },
+        {
+          "lambda": 0.986,
+          "E1": 3.0286,
+          "E3": 15.2574,
+          "E5": 35.715
+        },
+        {
+          "lambda": 1.0,
+          "E1": 3.0,
+          "E3": 15.0,
+          "E5": 35.0
+        },
+        {
+          "lambda": 2.0,
+          "E1": 2.25,
+          "E3": 8.25,
+          "E5": 16.25
+        },
+        {
+          "lambda": 5.0,
+          "E1": 2.04,
+          "E3": 6.36,
+          "E5": 11.0
+        },
+        {
+          "lambda": 20.0,
+          "E1": 2.0025,
+          "E3": 6.0225,
+          "E5": 10.0625
+        }
+      ],
+      "min_E1_on_sweep": 2.0025,
+      "min_gap_13": 4.02,
+      "min_gap_35": 4.04,
+      "field_level_lambda_break": null,
+      "pass": true
+    },
+    {
+      "name": "T6_hierarchy_not_kinematic",
+      "description": "The bare operator CANNOT produce the lepton hierarchy at any \u03bb. The conformal frequencies \u03c9_k = \u221a(E_k + 1) give a \u03bc/e-analog \u03c9\u2083/\u03c9\u2081 = 2.000 and \u03c4/\u03bc-analog \u03c9\u2085/\u03c9\u2083 = 1.500 at the round point; over ALL \u03bb \u2208 (0, \u221e) the ratios are pinned to O(1) \u2014 \u03c9\u2083/\u03c9\u2081 \u2208 [1.528, 3.000] (limits \u221a7/\u221a3 = 1.528 stretch, 3 squash) and \u03c9\u2085/\u03c9\u2083 \u2208 [1.254, 1.667] (limits 1.254, 5/3) \u2014 versus the observed \u03bc/e = 206.8 and \u03c4/\u03bc = 16.8, a factor \u2265 69 away at the closest approach. The hierarchy is NOT kinematic: no Berger deformation of the wave operator reaches it. Combined with #192 (the hierarchy IS reached by the instanton dynamics, at the price of a metric-fine-tuned near-cancellation), the division of labor is measured: structure from kinematics/topology, hierarchy from dynamics.",
+      "round_ratios": {
+        "mu_e_analog": 2.0,
+        "tau_mu_analog": 1.5
+      },
+      "mue_range_all_lambda": [
+        1.5275,
+        3.0
+      ],
+      "taumu_range_all_lambda": [
+        1.2536,
+        1.6667
+      ],
+      "observed": {
+        "mu_e": 206.77,
+        "tau_mu": 16.82
+      },
+      "closest_approach_factor": 68.9,
+      "pass": true
+    },
+    {
+      "name": "T7_controls",
+      "description": "(a) COUPLING: with minimal coupling \u03c9 = \u221aE instead of conformal \u221a(E+1), the ordering holds at every sampled \u03bb (True) and the \u03bc/e-analog stays bounded by 3 (True) \u2014 the conclusions do not depend on the coupling choice. (b) EVEN-k: the untwisted sectors obey the same closed form (k=0 the constant mode E=0; E\u2082(\u03bb) = 4+4/\u03bb\u00b2 verified: True) \u2014 the grading separates the towers, it does not gap the untwisted one. (c) THE #192 SIDE-BY-SIDE: the surrogate's electron level breaks at \u03bb_break = 0.98598 (1.4% squash), while the operator's k=1 sector is bounded below by 2 for EVERY \u03bb \u2014 the fine-tuning #192 found lives in the instanton near-cancellation (the dynamics), and has NO counterpart in the wave operator (the kinematics).",
+      "minimal_coupling_ordered": true,
+      "minimal_coupling_bounded": true,
+      "even_k_closed_form": true,
+      "surrogate_lambda_break": 0.98598,
+      "field_level_E1_infimum": 2.0,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "The field-theoretic version lands the two-sided claim. THE STRUCTURE IS KINEMATIC: the actual wave operator on S\u00b3_\u03bb carries the odd-k {1,3,5} ladder with ABSOLUTE protection \u2014 closed-form positivity and gaps for every \u03bb \u2208 (0, \u221e), the deck grading (\u22121)^k \u03bb-independent because the antipode is a fiber translation \u2014 no window, no boundary, no fine-tuning. THE HIERARCHY IS DYNAMICAL: the same operator's mass ratios are pinned to O(1) at every \u03bb (\u03bc/e-analog \u2264 3 vs observed 207), so the lepton hierarchy cannot come from the kinematics; it comes from the instanton dynamics \u2014 which is exactly where #192 measured the metric-fine-tuned electron near-zero. Together: topology/kinematics guarantee three gapped generations on every Berger sphere; the dynamics generate the hierarchy at the cost of a fine-tuned near-cancellation. The thesis claim is now bracketed from both sides by the spectrum.",
+      "classification": "FIELD_THEORETIC_ODD_K_LADDER_ABSOLUTELY_PROTECTED_ON_EVERY_BERGER_SPHERE_STRUCTURE_KINEMATIC_HIERARCHY_DYNAMICAL",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "FIELD_THEORETIC_ODD_K_LADDER_ABSOLUTELY_PROTECTED_ON_EVERY_BERGER_SPHERE_STRUCTURE_KINEMATIC_HIERARCHY_DYNAMICAL",
+  "verdict": "THE ACTUAL WAVE OPERATOR, NO SURROGATE. The scalar Laplacian on the Berger sphere S\u00b3_\u03bb, sectored by Hopf-fiber winding k = 2m, has the closed-form sector grounds E_k(\u03bb) = 2k + (k/\u03bb)\u00b2 \u2014 a Kaluza\u2013Klein split DERIVED from the genuine SU(2) spectrum: the (k/\u03bb)\u00b2 fiber term is the unified mass operator's throat winding term (PR #83), the 2k base part is the charge-q = k/2 monopole zero-point on the base S\u00b2 (verified by an independent Wu\u2013Yang finite-volume solve to ~2e-7).\n\nABSOLUTE PROTECTION. For EVERY \u03bb \u2208 (0,\u221e): E_k \u2265 2k \u2265 2 and gaps > 4 (numeric sweep: min E\u2081 = 2.0025, min gaps 4.02, 4.04). The deck grading (\u22121)^k is \u03bb-independent because the antipode lies ON the Hopf fiber \u2014 the deck map is a fiber translation, an isometry of every Berger metric. The {1,3,5} ladder of the operator has NO \u03bb_break \u2014 where the #192 SURROGATE broke at a 1.4% squash (\u03bb_break = 0.98598), the operator's electron sector is bounded below by 2 at any squash: the fine-tuning lives in the dynamics, not the kinematics.\n\nTHE HIERARCHY IS NOT KINEMATIC. The operator's mass ratios are pinned to O(1) at every \u03bb \u2014 \u03bc/e-analog \u2208 [1.5275, 3.0] vs observed 206.8 (factor \u2265 68.9 away at closest approach) \u2014 so no Berger deformation of the bare operator produces the lepton hierarchy. Combined with #192: STRUCTURE from kinematics/topology (absolutely protected), HIERARCHY from the instanton dynamics (metric-fine-tuned near-cancellation) \u2014 the claim is bracketed from both sides by measurement."
+}
