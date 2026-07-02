@@ -1110,6 +1110,30 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The spectral deformation test (upgrading #183 from algebra to
+spectrum).** #183 proved the odd-k {1,3,5} sector is protected by
+metric-independent algebra (deck determinant, `½trT²=−1`, odd parity) —
+but algebra is not spectrum. Rebuilding the locked lepton Hamiltonian's
+geometric ingredients on the Berger-squashed S³_λ (the #165 SU(2)
+machinery; fiber-riding ingredients × λ, connection/base ingredients
+fixed, the map declared before the sweep): the {1,3,5} structure — three
+positive ordered levels — survives a **finite** window `λ ∈ (0.986, ≥3]`
+with smooth, linear-at-round-point mass-ratio deformation, so the ladder
+does **not** break at infinitesimal squash and the protection claim
+upgrades from algebra to spectrum. The discovery the algebra could not
+see: the electron level is a metric-fine-tuned **near-zero** (`0.1996` in
+action units vs μ `41.26`, τ `694.98`) that crosses zero at a 1.4% fiber
+squash (`λ_break = 0.98598`), and the μ/e log-sensitivity `−70.9` equals
+`−1/(1−λ_break) = −71.3` — the steepness *is* the proximity to the
+spectral boundary, in every ingredient map (default, flipped, minimal) —
+while τ/μ is gentle (`+0.82`). So the topology guarantees three
+generations; the round metric tunes the e–μ hierarchy — the protected
+structure and the metrically-tuned numbers are now separated by
+measurement. Scope: the locked instanton-transition surrogate under a
+declared fiber/base map, not a first-principles wave operator on S³_λ
+(that is the follow-up); action units, electron-calibrated ratios
+(`odd_k_ladder_spectral_deformation_probe`, PR #192).
+
 **Dynamic two-throat exchange path with back-reaction.** The exchange `−1`
 of #188 (the adiabatic Pin⁻ holonomy) is the **adiabatic limit of a real
 dynamical swap**: the throat's internal Pin spinor driven around the swap loop

@@ -1,0 +1,235 @@
+{
+  "timestamp_utc": "2026-07-01T22:08:07+00:00",
+  "identification": "The spectral deformation test: the locked {1,3,5} lepton ladder on the Berger-squashed S\u00b3 \u2014 structure survives a finite window (no infinitesimal breakdown), but the electron level is a metric-fine-tuned near-zero (\u03bb_break = 0.986, sensitivity = inverse distance to the boundary)",
+  "upgrades": "PR #183 (algebra) \u2192 spectrum; machinery from PR #165",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Upgrade #183 from ALGEBRA to SPECTRUM. #183 proved the odd-k {1,3,5} sector is protected by metric-independent invariants (deck determinant, \u00bdtrT\u00b2=\u22121, odd parity) \u2014 but algebra is not spectrum. This probe rebuilds the locked lepton Hamiltonian's geometric ingredients on a Berger-squashed S\u00b3_\u03bb (fiber \u00d7 \u03bb, base round \u2014 the #165 machinery) and tracks the ladder as \u03bb moves off 1. PASS: the {1,3,5} structure and mass ratios deform smoothly over a finite \u03bb window. FAIL: the ladder breaks at infinitesimal squash \u2014 the round metric was doing spectral work the topology can't protect. Either outcome is a real result; #183 cannot distinguish them.",
+      "upgrades": "PR #183 (algebraic protection) \u2192 spectral protection",
+      "machinery": "PR #165 Berger-sphere SU(2) spectrum (imported)",
+      "framing": "QFT on the fixed classical throat geometry \u2014 not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_machinery",
+      "description": "The machinery is the genuine article, not rebuilt for the occasion. (a) The SU(2) Berger spectrum is IMPORTED from the #165 R-unification audit: at \u03bb=1 it collapses to the round conformal tower (\u03c9=n+1, verified = True); squashing stiffens the fiber modes (\u0394(j,m)=4j(j+1)+4m\u00b2(\u03bb\u207b\u00b2\u22121): max eigenvalue at j=2 rises 24 \u2192 33.0 at \u03bb=0.8). (b) At \u03bb=1 the deformed Hamiltonian IS the locked baseline: electron-calibrated masses (e, \u03bc, \u03c4) = (0.5110, 105.61, 1778.9) MeV match solved_lepton_masses_mev() to machine precision (True) \u2014 \u03bc/e = 206.68, \u03c4/\u03bc = 16.84.",
+      "round_tower_recovered": true,
+      "fiber_modes_stiffen": true,
+      "lambda1_reproduces_locked_masses": true,
+      "masses_mev_at_round": [
+        0.510999,
+        105.6126,
+        1778.938087
+      ],
+      "pass": true
+    },
+    {
+      "name": "T3_ingredient_map",
+      "description": "The map is declared BEFORE the sweep and never reassigned post-hoc. The Berger squash multiplies the Hopf-fiber length by \u03bb and leaves the base S\u00b2 and the Hopf CONNECTION untouched, so: fiber-riding (\u00d7 \u03bb) = the 2\u03c0 base action (fiber circumference), the tunnel slope, the winding resistance, the \u03c4 uplift; metric-blind = the Hopf holonomy phase (the very invariant #183 protects), the base-S\u00b2 pinhole, the transport prefactor. The two AMBIGUOUS assignments (resistance, uplift) are flipped in T7 \u2014 the conclusion must survive every map. COMPLEMENTARITY: the #183 algebra layer (\u00bdtrT\u00b2 = -1, brane deck det -1, bulk 1) never references the metric, so it is \u03bb-independent BY CONSTRUCTION \u2014 the algebra cannot see the squash; only the spectrum can, which is exactly why this test is needed.",
+      "fiber_riding": {
+        "action_base": "2\u03c0 \u2192 2\u03c0\u03bb (the fiber circumference per pass)",
+        "action_slope": "0.5 \u2192 0.5\u03bb (per-winding tunnel action = fiber path length)",
+        "resistance_scale": "0.2179 \u2192 0.2179\u03bb (transport resistance along the winding)",
+        "k_uplift_beta": "50\u03c0 \u2192 50\u03c0\u03bb (the \u03c4 uplift counted in fiber 2\u03c0-quanta)"
+      },
+      "metric_blind": {
+        "phase_per_pass": "0.001 (the Hopf HOLONOMY \u2014 connection-level; the #183 invariant)",
+        "hard_pinhole_gamma": "22.5 (a localized barrier on the round base S\u00b2)",
+        "transport_strength": "25.1 (attempt-frequency prefactor)"
+      },
+      "algebra_layer_lambda_independent": true,
+      "pass": true
+    },
+    {
+      "name": "T4_spectral_deformation",
+      "description": "The {1,3,5} ladder \u2014 three positive, ordered, non-degenerate levels \u2014 persists across the whole sampled window \u03bb \u2208 [0.99, 3.0] (dense check \u03bb \u2208 [1,3], 81 points: True), and the mass ratios deform SMOOTHLY (finite central-difference derivatives at every sampled \u03bb). The ratios MOVE \u2014 \u03bc/e from 718.159 (\u03bb=0.99) through 206.679 (round) to 3.028 (\u03bb=3), \u03c4/\u03bc from 16.705 to 33.767 \u2014 so the test has dynamic range: the spectrum genuinely responds to the metric, it is not frozen by construction.",
+      "ladder_curve": [
+        {
+          "lambda": 0.99,
+          "levels": [
+            0.0574,
+            41.2008,
+            688.2703
+          ],
+          "mu_over_e": 718.159,
+          "tau_over_mu": 16.705
+        },
+        {
+          "lambda": 0.995,
+          "levels": [
+            0.1286,
+            41.2303,
+            691.6267
+          ],
+          "mu_over_e": 320.601,
+          "tau_over_mu": 16.775
+        },
+        {
+          "lambda": 1.0,
+          "levels": [
+            0.1996,
+            41.26,
+            694.9832
+          ],
+          "mu_over_e": 206.679,
+          "tau_over_mu": 16.844
+        },
+        {
+          "lambda": 1.01,
+          "levels": [
+            0.3411,
+            41.3198,
+            701.6964
+          ],
+          "mu_over_e": 121.14,
+          "tau_over_mu": 16.982
+        },
+        {
+          "lambda": 1.05,
+          "levels": [
+            0.8991,
+            41.5643,
+            728.5516
+          ],
+          "mu_over_e": 46.229,
+          "tau_over_mu": 17.528
+        },
+        {
+          "lambda": 1.1,
+          "levels": [
+            1.5798,
+            41.8818,
+            762.1255
+          ],
+          "mu_over_e": 26.511,
+          "tau_over_mu": 18.197
+        },
+        {
+          "lambda": 1.25,
+          "levels": [
+            3.5204,
+            42.9108,
+            862.8725
+          ],
+          "mu_over_e": 12.189,
+          "tau_over_mu": 20.109
+        },
+        {
+          "lambda": 1.5,
+          "levels": [
+            6.4688,
+            44.8578,
+            1030.8377
+          ],
+          "mu_over_e": 6.935,
+          "tau_over_mu": 22.98
+        },
+        {
+          "lambda": 2.0,
+          "levels": [
+            11.5701,
+            49.4568,
+            1366.8588
+          ],
+          "mu_over_e": 4.275,
+          "tau_over_mu": 27.637
+        },
+        {
+          "lambda": 3.0,
+          "levels": [
+            19.9452,
+            60.3843,
+            2038.9991
+          ],
+          "mu_over_e": 3.028,
+          "tau_over_mu": 33.767
+        }
+      ],
+      "structure_intact_on_window": true,
+      "ratios_smooth": true,
+      "stretch_side_intact_to_3": true,
+      "pass": true
+    },
+    {
+      "name": "T5_no_infinitesimal_breakdown",
+      "description": "THE FAIL-MODE TEST. If the round metric were doing spectral work that breaks at infinitesimal squash, the ratios would jump or the derivative would diverge as h \u2192 0. Instead the central-difference slope d(\u03bc/e)/d\u03bb converges to a FINITE limit (-14656.7, stable to <0.1% between h=1e-4 and h=1e-5): the response is LINEAR in (\u03bb\u22121) \u2014 an ordinary, differentiable spectral flow, no discontinuity. The ladder does NOT break at infinitesimal squash; the #183 protection claim survives its first genuinely spectral test.",
+      "d_mu_over_e_dlambda_by_h": {
+        "1e-02": -29851.0,
+        "1e-03": -14731.7,
+        "1e-04": -14657.5,
+        "1e-05": -14656.7
+      },
+      "converged_linear_response": true,
+      "pass": true
+    },
+    {
+      "name": "T6_finite_boundary_and_fine_tuning",
+      "description": "THE DISCOVERY (the part #183's algebra could not see). The squash-side window boundary is the ELECTRON level's zero crossing at \u03bb_break = 0.98598 \u2014 a finite 1.4% squash, not infinitesimal, but CLOSE. The electron eigenvalue at the round point is a NEAR-ZERO: 0.1996 in action units against \u03bc = 41.26 and \u03c4 = 694.98 \u2014 the celebrated \u03bc/e \u2248 207 is the ratio of a fine-tuned near-cancellation to a normal level. The Berger deformation exposes it: the \u03bc/e log-sensitivity d ln(\u03bc/e)/d\u03bb = -70.9 EQUALS \u22121/(1\u2212\u03bb_break) = \u221271.3 (to 0.6%) \u2014 the steepness IS the proximity to the spectral boundary. By contrast \u03c4/\u03bc is GENTLE (d ln(\u03c4/\u03bc)/d\u03bb = 0.82, O(1)). So: the topology protects the {1,3,5} STRUCTURE, and \u03c4/\u03bc is metric-robust \u2014 but the e\u2013\u03bc hierarchy is doing round-metric spectral work the topology cannot protect. A 1.4% fiber squash makes the electron level cross zero.",
+      "lambda_break": 0.985983,
+      "one_minus_lambda_break": 0.014017,
+      "electron_level_round": 0.19963,
+      "mu_level_round": 41.26,
+      "tau_level_round": 694.98,
+      "dln_mue_dlambda": -70.92,
+      "inverse_distance_to_boundary": 71.34,
+      "sensitivity_equals_inverse_distance": true,
+      "dln_taumu_dlambda": 0.822,
+      "pass": true
+    },
+    {
+      "name": "T7_robustness",
+      "description": "The two ambiguous assignments (resistance, uplift) are flipped to the metric-blind side, and a minimal map (ONLY the unambiguous 2\u03c0 fiber circumference rides \u03bb) is run. All four maps agree on every conclusion: a FINITE squash-side boundary (\u03bb_break \u2208 [0.968, 0.986], never infinitesimal), the sensitivity\u2013boundary identity |d ln(\u03bc/e)/d\u03bb| = 1/(1\u2212\u03bb_break) (within 5% in each map), a GENTLE \u03c4/\u03bc (|d ln/d\u03bb| \u2264 0.9), and an intact stretch side to \u03bb=3. The fine-tuned electron near-zero is a property of the LOCKED HAMILTONIAN, not of the fiber/base bookkeeping.",
+      "maps": [
+        {
+          "map": "default_all_fiber",
+          "lambda_break": 0.98598,
+          "dln_mue_dlambda": -70.92,
+          "inv_distance": 71.34,
+          "identity_holds": true,
+          "dln_taumu_dlambda": 0.822,
+          "stretch_intact": true
+        },
+        {
+          "map": "flip_resistance_blind",
+          "lambda_break": 0.98435,
+          "dln_mue_dlambda": -63.61,
+          "inv_distance": 63.89,
+          "identity_holds": true,
+          "dln_taumu_dlambda": 0.895,
+          "stretch_intact": true
+        },
+        {
+          "map": "flip_uplift_blind",
+          "lambda_break": 0.98573,
+          "dln_mue_dlambda": -69.68,
+          "inv_distance": 70.06,
+          "identity_holds": true,
+          "dln_taumu_dlambda": -0.081,
+          "stretch_intact": true
+        },
+        {
+          "map": "minimal_only_2pi_base",
+          "lambda_break": 0.96823,
+          "dln_mue_dlambda": -31.32,
+          "inv_distance": 31.47,
+          "identity_holds": true,
+          "dln_taumu_dlambda": -0.143,
+          "stretch_intact": true
+        }
+      ],
+      "all_maps_agree": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "MIXED \u2014 and both halves are real. (1) THE PASS: the {1,3,5} structure and the mass ratios deform smoothly over a finite \u03bb window (linear response at \u03bb=1; three ordered positive levels from \u03bb=0.986 to beyond \u03bb=3) \u2014 the ladder does NOT break at infinitesimal squash, so the #183 protection claim upgrades from algebra to spectrum. (2) THE CAVEAT: the protection is for the STRUCTURE, not the numbers. The electron level is a metric-fine-tuned near-zero \u2014 1.4% of fiber squash away from a zero crossing, with the \u03bc/e log-sensitivity (\u221271) exactly the inverse distance to that boundary \u2014 while \u03c4/\u03bc is metric-robust (+0.8). The round metric IS doing spectral work for the e\u2013\u03bc hierarchy; the topology guarantees three generations, not the mass hierarchy. That sharpens, not weakens, the thesis claim: what is topologically protected and what is metrically tuned are now separated by measurement.",
+      "classification": "ODD_K_LADDER_SPECTRUM_DEFORMS_SMOOTHLY_OVER_A_FINITE_BERGER_WINDOW_BUT_THE_MU_E_HIERARCHY_IS_METRIC_FINE_TUNED",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "ODD_K_LADDER_SPECTRUM_DEFORMS_SMOOTHLY_OVER_A_FINITE_BERGER_WINDOW_BUT_THE_MU_E_HIERARCHY_IS_METRIC_FINE_TUNED",
+  "verdict": "SPECTRUM, NOT JUST ALGEBRA \u2014 with a sharp caveat the algebra could not see.\n\nTHE PASS. The locked lepton Hamiltonian, rebuilt on the Berger-squashed S\u00b3_\u03bb (fiber-riding ingredients \u00d7 \u03bb, connection/base ingredients fixed), keeps its {1,3,5} structure \u2014 three positive, ordered levels \u2014 over a FINITE window \u03bb \u2208 (0.9860, \u22653], and the mass ratios deform SMOOTHLY with a linear response at the round point. The ladder does not break at infinitesimal squash: the round metric is not smuggling in the sector structure, and the #183 protection claim is upgraded from algebraic invariants to the actual spectrum.\n\nTHE DISCOVERY. The protection does not extend to the HIERARCHY. The electron level at the round point is a near-zero (0.1996 in action units vs \u03bc 41.3, \u03c4 695) that crosses zero at a 1.4% fiber squash (\u03bb_break = 0.98598); the \u03bc/e log-sensitivity -70.9 equals \u22121/(1\u2212\u03bb_break) = \u221271.3 \u2014 the steepness IS the proximity to the spectral boundary \u2014 while \u03c4/\u03bc moves gently (+0.82). Robust across all four ingredient maps (flipped and minimal assignments). So the topology guarantees THREE GENERATIONS; the round metric tunes the e\u2013\u03bc hierarchy \u2014 the two claims are now separated by measurement, which is what the thesis needed."
+}
