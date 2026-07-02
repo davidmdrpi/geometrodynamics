@@ -1110,6 +1110,41 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The Born-rule equivariance test (PR #198 — the deepest import
+replaced by a theorem).** Item 3 of the theorem-shaped program. For a
+classical-field-foundational theory the one honest route to the Born
+rule is **equivariance** (Dürr–Goldstein–Zanghì): is `|ψ|²` the measure
+preserved by the BAM transport flow, or does the ψ–Φ–q dynamics
+equivariantly transport some other functional? Anything else would
+refute BAM at its foundation. The answer
+(`docs/born_rule_equivariance.md`): **Theorem 1** — the real-time
+Hamiltonian flow of the #179/#180 functional (`i∂ₜψ = −½∇²ψ +
+[Φ + ½gq²]ψ`, self-consistent Poisson gravity, live real order field)
+satisfies `∂ₜρ + ∇·(ρ∇S) = 0` **exactly**, because every BAM coupling
+enters as a *real* potential — the nonlinearity of Φ[ρ] and q is
+irrelevant; verified on the live dynamics (residual `3e-4`; a
+20 000-throat Born ensemble stays at sampling noise through a
+two-soliton collision, KS ≤ 0.009 vs noise 0.007). The throat transport
+is the local momentum field `v = ∇S` (Galilean structure; the exact
+Ehrenfest relation verified on the nonlinear dynamics; the unique
+current closing continuity). **Theorem 2** — `∂ₜh + ∇·(hv) =
+(h−ρh′)∇·v`: only `h ∝ ρ` is equivariant (compressible flow, verified;
+`√ρ`/`ρ²` ensembles and wrong flows all fail demonstrably).
+**Falsifiable:** a dissipative deformation `iγWψ` produces exactly the
+predicted continuity source `−2γWρ` (0.1% match) and breaks the
+transport — the repo's own imaginary-time *relaxation* flow is of
+precisely this non-equivariant type; only the Hamiltonian flow carries
+the Born rule. **Relaxation:** a uniform ensemble falls 3.48 nats in
+the coarse-grained H-function toward Born (the subquantum H-theorem on
+the BAM dynamics) — fixed point *and* attractor. The label: the Born
+rule enters BAM at **dBB grade** — equivariance + uniqueness +
+relaxation, the same epistemic status as in Bohmian mechanics —
+conditional on the guidance identification (throat velocity = phase
+gradient; its 5D derivation is its own program) and the linear
+measurement regime (test throat in an external pilot wave). The
+`bell`-module import is now labeled: derived at dBB grade with stated
+hypotheses (`born_rule_equivariance_probe`, PR #198).
+
 **The analytic Berger–Dirac ladder (closed-form spectral geometry,
 PR #197).** Item 2 of the theorem-shaped program: the Dirac spectrum on
 the Berger-squashed S³ derived in closed form (Peter–Weyl; the spectrum

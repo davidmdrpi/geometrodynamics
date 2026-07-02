@@ -1,0 +1,82 @@
+{
+  "timestamp_utc": "2026-07-02T20:27:37+00:00",
+  "identification": "The Born-rule equivariance test: |psi|^2 is the unique equivariant density of the BAM psi-Phi-q transport flow (exact continuity from the reality of the potentials; alternatives and wrong flows fail; dissipative deformation refutes as predicted; uniform ensembles relax toward Born) - the Born rule at dBB grade, conditions stated",
+  "answers": "item 3 - the deepest refutation vector (the flagged Born-rule import)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Item 3 of the theorem-shaped program - the deepest refutation vector. For a classical-field-foundational theory the one honest route to the Born rule is EQUIVARIANCE (Duerr-Goldstein-Zanghi): is |psi|^2 the measure preserved by the BAM transport flow, or does the psi-Phi-q dynamics equivariantly transport some OTHER functional? The stakes: |psi|^2 -> the first genuine foothold on the Born rule (the item every audit flagged as the deepest import); anything else -> BAM is refuted at its foundation. The argument is in docs/born_rule_equivariance.md (two theorems + controls); this probe verifies every claim on the running dynamics.",
+      "deliverable": "docs/born_rule_equivariance.md",
+      "framing": "QFT on the fixed classical throat geometry - not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_flow_and_guidance",
+      "description": "The BAM transport flow. The real-time Hamiltonian flow of the #179/#180 functional - i dpsi/dt = -1/2 lap psi + [Phi + g/2 q^2] psi with self-consistent 1D Poisson gravity and the live real order field - conserves the norm EXACTLY (|dN| = 2.5e-12: the potentials are real, the split-step is unitary). THE GUIDANCE IDENTIFICATION: the throat velocity is the local momentum field v = grad S = J/rho; verified by the exact Ehrenfest relation on the full NONLINEAR dynamics for a genuinely moving (asymmetric) soliton: d<x>/dt = 0.350004 vs <grad S>_rho = 0.350003 - the soliton centroid follows the phase-gradient flow. Not an extra postulate: it is also the unique velocity whose current closes the continuity equation (T3).",
+      "norm_drift": 2.5e-12,
+      "ehrenfest_dxdt": 0.350004,
+      "ehrenfest_mean_v": 0.350003,
+      "pass": true
+    },
+    {
+      "name": "T3_theorem1_equivariance",
+      "description": "THEOREM 1 VERIFIED ON THE RUNNING DYNAMICS. (a) The grid continuity residual d(rho)/dt + div(rho grad S), evaluated on the live evolution with the self-consistent Phi and the live q, is 3.3e-04 (relative L2 - integrator error only): the polar-decomposition identity holds exactly for the BAM structure because every coupling is a REAL potential. (b) The ensemble statement: 20000 throats sampled from |psi(0)|^2 and transported by v = grad S remain |psi(t)|^2-distributed through 10 time units INCLUDING a two-soliton collision - KS distance [0.0065, 0.0068, 0.0091, 0.0087] vs sampling noise 1/sqrt(N) = 0.0071: never above 3x noise, ending at 0.0087. If the throat ensemble is Born-distributed once, the BAM transport keeps it Born-distributed.",
+      "ks_born_series": [
+        0.0065,
+        0.0068,
+        0.0091,
+        0.0087
+      ],
+      "sampling_noise": 0.0071,
+      "continuity_residual": 0.000334,
+      "pass": true
+    },
+    {
+      "name": "T4_theorem2_uniqueness",
+      "description": "THEOREM 2 VERIFIED: ONLY |psi|^2. For any h(rho) the transported residual is d(h)/dt + div(h v) = (h - rho h') div v - zero for all configurations iff h ~ rho, GIVEN compressibility. (a) The flow is strongly compressible: max|div v| = 2240.8 through the collision - the uniqueness hypothesis is non-vacuous. (b) The identity itself is verified pointwise on the live dynamics for h = sqrt(rho): the directly computed residual matches (h - rho h') div v to 4.0% (core region). (c) The ensemble statement: sqrt(rho)- and rho^2-prepared ensembles transported by the SAME flow depart from their functionals immediately - final KS 0.095 and 0.148 vs the Born ensemble's 0.0087 (>5x separation). Among density functionals, |psi|^2 is the unique equivariant one (Goldstein-Struyve extend to all local functionals - cited).",
+      "max_abs_div_v": 2240.77,
+      "identity_rel_err": 0.0403,
+      "ks_sqrt_end": 0.0952,
+      "ks_rho2_end": 0.1477,
+      "pass": true
+    },
+    {
+      "name": "T5_wrong_flow_controls",
+      "description": "THE FLOW MATTERS. The same Born-prepared ensemble transported by the WRONG flow loses the Born distribution: half-speed transport (v/2) ends at KS = 0.205, a frozen ensemble at KS = 0.396 - versus 0.0087 for the true BAM flow (>5x separation). Equivariance is a property of the pair (|psi|^2, grad S), not of |psi|^2 alone: the phase-gradient transport is the unique flow under which the Born measure is preserved (the current rho*grad S is the one that closes the continuity equation, T3a).",
+      "ks_half_flow_end": 0.2052,
+      "ks_frozen_end": 0.3964,
+      "pass": true
+    },
+    {
+      "name": "T6_teeth_dissipative_deformation",
+      "description": "THE TEETH - the reality of the BAM potentials is load-bearing, not automatic. Deforming the pilot equation by a dissipative term i*gamma*W(x)*psi (gamma = 0.15, W on the soliton's path - the structure of an imaginary-time/absorbing coupling): (a) the continuity equation acquires EXACTLY the predicted source -2 gamma W rho (direct grid computation matches to 0.1%); (b) the norm decays (16.6% over 2 time units) - no functional of rho can be equivariant; (c) the Born-prepared ensemble drifts off |psi|^2 (KS = 0.109). The repo's own imaginary-time RELAXATION flow is of exactly this non-equivariant type (its norm is renormalized by hand each step) - the solver tool and the physical Hamiltonian flow are distinct, and only the latter carries the Born rule. Had the BAM energy functional contained any complex, dissipative, or derivative coupling, this test would have refuted the Born rule at the foundation. It does not.",
+      "predicted_residual_match_relerr": 0.001,
+      "norm_lost_2tu": 0.1656,
+      "ks_born_broken": 0.1091,
+      "pass": true
+    },
+    {
+      "name": "T7_relaxation",
+      "description": "THE BORN RULE AS ATTRACTOR (Valentini's subquantum H-theorem, on the BAM dynamics). A UNIFORM ensemble - maximally non-Born - transported by the same flow through the soliton-collision dynamics relaxes toward |psi|^2: the coarse-grained H-function Hbar = integral fbar ln(fbar/rhobar) falls from 4.13 to 0.65 (a drop of 3.48 nats; series [3.0763, 1.1687, 0.6987, 0.6524]). Equivariance makes Born a fixed point; relaxation makes it an attractor of coarse-grained non-equilibrium - the two halves of the dBB-grade Born rule, both now demonstrated on the BAM transport.",
+      "hbar_initial": 4.129,
+      "hbar_series": [
+        3.0763,
+        1.1687,
+        0.6987,
+        0.6524
+      ],
+      "drop_nats": 3.476,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "THE FOOTHOLD, WITH ITS CONDITIONS. Established: |psi|^2 is EXACTLY equivariant under the real-time BAM psi-Phi-q transport (structural - the reality of Phi and the q-coupling; residual at integrator error on the live dynamics); it is the UNIQUE equivariant density among functionals of rho (compressible flow; alternatives fail demonstrably); non-equilibrium relaxes toward it (H-theorem); and the property is falsifiable - the dissipative deformation breaks it exactly as predicted, so the refutation vector was live and did not fire. This is the Born rule at dBB GRADE - the same epistemic status it has in Bohmian mechanics, no weaker and no stronger. The bell-module import is now labeled: derived at dBB grade, CONDITIONAL on (1) the guidance identification (throat velocity = grad S - motivated by Galilean structure, Ehrenfest, and uniqueness of the closing current; its derivation from 5D throat motion is its own program), and (2) the measurement regime (test throat in an external pilot wave, where the nonlinear pilot equation linearizes; the general nonlinear measurement theory is open). 1D demonstration; the theorems are dimension-blind and apply verbatim to the radial 3D #180 system.",
+      "classification": "PSI_SQUARED_IS_THE_UNIQUE_EQUIVARIANT_DENSITY_OF_THE_BAM_TRANSPORT_FLOW_BORN_RULE_AT_DBB_GRADE_CONDITIONAL_ON_GUIDANCE_AND_EQUILIBRIUM",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "PSI_SQUARED_IS_THE_UNIQUE_EQUIVARIANT_DENSITY_OF_THE_BAM_TRANSPORT_FLOW_BORN_RULE_AT_DBB_GRADE_CONDITIONAL_ON_GUIDANCE_AND_EQUILIBRIUM",
+  "verdict": "THE DEEPEST REFUTATION VECTOR DID NOT FIRE (the argument is in docs/born_rule_equivariance.md; this probe verifies it on the running dynamics).\n\nEQUIVARIANCE. The real-time Hamiltonian flow of the BAM psi-Phi-q functional preserves |psi|^2 EXACTLY: the continuity residual on the live evolution (self-consistent gravity + live order field) is 3e-04, and a 20000-throat Born ensemble transported by v = grad S stays at sampling noise through a two-soliton collision (KS series [0.0065, 0.0068, 0.0091, 0.0087], noise 0.0071). The reason is structural: every BAM coupling - the self-consistent Phi, the order field q - enters the pilot equation as a REAL potential.\n\nUNIQUENESS AND FALSIFIABILITY. Among density functionals only |psi|^2 is equivariant ((h - rho h') div v with max|div v| = 2240.77; sqrt(rho)- and rho^2-ensembles fail, wrong flows fail), and the property is falsifiable: a dissipative deformation produces exactly the predicted continuity source and breaks the transport - the repo's own imaginary-time relaxation flow is of that non-equivariant type; only the Hamiltonian flow carries the Born rule. RELAXATION: a uniform ensemble falls 3.476 nats toward Born - fixed point AND attractor.\n\nTHE LABEL. The Born rule enters BAM at dBB GRADE - equivariance + uniqueness + relaxation, the same standing it has in Bohmian mechanics - conditional on the guidance identification (throat velocity = phase gradient; Ehrenfest-verified, uniquely current-closing, but its 5D derivation is its own program) and on the linear measurement regime (test throat in an external pilot wave). The deepest import is replaced by a theorem with stated hypotheses."
+}
