@@ -1110,6 +1110,30 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The field-theoretic odd-k ladder (the actual wave operator on the
+Berger sphere).** The follow-up #192 promised: the genuine SU(2) Berger
+Laplacian sectored by Hopf-fiber winding `k = 2m` replaces the instanton
+surrogate — no ingredient map. The sector grounds are the closed-form
+Kaluza–Klein split `E_k(λ) = 2k + (k/λ)²`, **derived** from the spectrum:
+the `(k/λ)²` fiber term is the #83 unified-mass-operator throat winding
+term, and the `2k` base part is the charge-`q = k/2` **monopole**
+zero-point on the base S² (the winding is the charge — the #42–#44
+Hopf⟷charge geometry; half-integer q for odd k = the Pin-twisted monopole
+bundle), verified by an independent Wu–Yang finite-volume solve to
+`~2e-7`. The {1,3,5} ladder is **absolutely protected**: `E_k ≥ 2k ≥ 2`
+and gaps `> 4` in closed form for every `λ ∈ (0,∞)` — no λ_break — and
+the deck grading `(−1)^k` is λ-independent because the antipode lies *on*
+the Hopf fiber (a fiber translation, an isometry of every Berger metric):
+the #183 algebra realized spectrally at every λ. But the same operator's
+mass ratios are pinned O(1) at every λ (`ω₃/ω₁ ∈ [1.53, 3.0]` vs observed
+μ/e `206.8`; `ω₅/ω₃ ∈ [1.25, 1.67]` vs `16.8`), so the hierarchy is
+**not kinematic**. With #192 the claim is bracketed from both sides:
+structure from kinematics/topology (absolutely protected — the surrogate's
+1.4%-squash electron break has no operator counterpart), hierarchy from
+the instanton dynamics (the metric-fine-tuned near-cancellation). Scope:
+scalar operator, throat = winding sector, one deformation axis
+(`field_theoretic_odd_k_ladder_probe`, PR #193).
+
 **The spectral deformation test (upgrading #183 from algebra to
 spectrum).** #183 proved the odd-k {1,3,5} sector is protected by
 metric-independent algebra (deck determinant, `½trT²=−1`, odd parity) —
