@@ -1110,6 +1110,40 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The geon-statistics adjudication: is the exchange −1 a theorem?
+(PR #196 — a correction and a sharpening.)** Careful mathematics against
+the Sorkin-school literature (Sorkin–Surya gr-qc/9605050; Dowker–Sorkin
+gr-qc/9609064; Hendriks; Giulini), applied to the actual BAM topology:
+the #169 quotient makes the throat prime the **RP³ geon** (the
+antipodally identified Einstein–Rosen neighborhood; one-sided RP²
+cross-cap slice) — the canonical example of that literature. **What is a
+theorem:** the throat passes all three Dowker–Sorkin hypotheses — prime
+(elliptic, irreducible), non-chiral (`q² ≡ −1 mod 2`; an explicit
+reflection descends), abelian (`π₁ = Z₂`) — so the spin-statistics
+**correlation** is a theorem for pair-created BAM throats. **The
+correction (to #170/#171):** RP³ is **non-spinorial** in bare Diff
+(Hendriks: cyclic-π₁ primes; lens spaces) — the 2π rotation is *isotopic
+to the identity*, so the sentence "the single geon's 2π rotation acts as
+−I (spinorial)" is false as a bare-diffeomorphism statement; in bare
+metric GR the SSC selects **Bose**, and frozen-topology canonical GR
+leaves statistics a sector choice (the two-throat mapping class group is
+`(Z₂∗Z₂)⋊S₂`: four scalar sectors plus a continuum of
+indefinite-statistics sectors). **What survives, sharpened:** in
+**Pin⁻-framed GR** — the framing BAM's own construction forces (#169
+non-orientable RP² slice; #170 Pin⁻ unique; #195 pin-spinor modes) — the
+trivialized rotation lifts to **−1** on the pin bundle (the SU(2) lift of
+the `π₁(SO(3)) = Z₂` generator; RP³ ≅ SO(3)), the throat is spinorial
+*with framing*, and the same SSC theorem selects **Fermi** — the #188
+holonomy correctly reinterpreted as the pin lift. The honest label:
+**"Pauli from GR + the forced Pin⁻ framing"**, not "Pauli from GR". The
+#58 nucleation channel passes every bordism-level check (mirror-pair
+identity by amphichirality; `Ω₃^{SO} = 0`; RP³ spin and `Ω₃^{Spin} = 0`);
+the explicit BAM pair-creation 4-manifold (the Dowker–Sorkin construction
+transplanted from ℝ³ to the S³ background) is the honest open
+construction. Full argument: `docs/geon_statistics_adjudication.md`;
+machine-checked arithmetic: (`geon_statistics_adjudication_probe`,
+PR #196).
+
 **The index mechanism: a Pin/Dirac zero mode for the k=1 sector.**
 Answers #194's mechanism question YES, with no new ingredients. BAM
 throats are Pin⁻ (#183/#188), so the throat mode is a **spinor**; on the
