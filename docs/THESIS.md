@@ -1110,6 +1110,38 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The guidance law from the 5D bulk (PR #199 — discharging #198's
+condition 1).** The #198 Born rule was conditional on the guidance
+identification `v = ∇S`; it is here **derived** from the bulk field
+equations (`docs/guidance_law_from_5d.md`). The chain: (1) the throat
+mode is the fiber-winding KK mode `Ψ = ψe^{ikχ}` (#83/#193); (2) the de
+Broglie current **is** bulk stress-energy — `T_{μχ} = k·Im(ψ*∂_μψ)`
+identically (verified to `1e-12`; winding = charge, #42–#44); (3) its
+conservation is the χ-component of the **contracted Bianchi identity**
+of the 5D Einstein equations — `∇·G ≡ 0` verified symbolically and
+*exactly* on the weak-field KK metric with arbitrary Φ(t,x), all five
+components — so the continuity equation behind the Born rule is a
+Bianchi identity of the bulk, not a model assumption; (4) the throat is
+the quantized, topologically conserved unit of winding (#178/#181/#182)
+and must ride its own conserved current: `v = 𝒥^i/𝒥^0 = ∇S` —
+demonstrated **pointwise**: quantized 2D cores transported through the
+live nonlinear dynamics move with the ambient `J/ρ` at the core
+(background and partner-induced parts both reproduced; winding exactly
+±1 throughout). GR taken whole **selects the Bohmian flow**: the
+transport differs from geodesic motion exactly by the quantum potential
+Q, which sits inside the same wave stress tensor (Madelung balance
+verified at `1e-3`; the quantum force dominates ×27 on the live
+dynamics) — geodesic transport is precisely the wrong flow #198 showed
+destroys equivariance. The law is species-universal (k cancels in the
+ratio). The chain now runs: **5D Einstein equations → Bianchi →
+conserved fiber current → topological transport → `v = ∇S` → (#198)
+`|ψ|²` equivariant and unique → Born rule** — the dBB-grade
+interpretation as a consequence of the bulk field equations,
+conditional only on the #198 equilibrium/measurement conditions and the
+throat-core scale identification (the full 5D core dynamics is
+constrained by its charge, not solved)
+(`guidance_law_from_5d_probe`, PR #199).
+
 **The Born-rule equivariance test (PR #198 — the deepest import
 replaced by a theorem).** Item 3 of the theorem-shaped program. For a
 classical-field-foundational theory the one honest route to the Born
