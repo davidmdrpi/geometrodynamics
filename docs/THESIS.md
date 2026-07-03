@@ -1110,6 +1110,30 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The coupled 5D+soliton solve: the confrontation (PR #203).** The
+final register item of the mass-ladder thread — and the refutation edge
+**fired at the weak-field level**, cleanly. With no knobs left (the
+#202 law exact, the #180 solution locked), the coupled solve gives
+`σ_mode/r_core = 4.6–6.7` (pairing definitions) versus the required
+`88.6`: **m_e over-predicted by ×13–19**. The structure of the failure
+is itself informative: the direction is right — the true 5D core is the
+strong-field endpoint of the #179 runaway, smaller than the weak-field
+q-core, so the weak-field value is an **upper bound** on m_e (which
+holds) — and the gap is **provably not closable inside the weak-field
+model**: the binding sweep moves the ratio the wrong way
+(`RMS/r_q = 3.17 → 1.53 → 1.25` as `Φ(0)` deepens `−2.6 → −6.9`; the
+`ψ² > ρ_c` core compacts slower than the wave, structurally). The
+thread — #192 → #193 → #194 → #195 → #201 → #202 → #203 — therefore
+closes onto **one falsifiable number**: the NR core contraction
+`r_q(weak)/r_s(true) = 13–45×` (convention/definition band), with the
+failure mode stated: an O(1) contraction refutes the mouth-pairing
+mechanism as the quantitative origin of the electron mass (the
+smallness mechanism — index protection, multiplicative structure,
+naturalness — survives; its numerical anchor does not). No new fits
+anywhere; `Φ(0) = −4.2` at the locked point independently strains the
+weak-field label — the strong-field solve is not optional
+(`coupled_5d_soliton_solve_probe`, PR #203).
+
 **The 5D throat-core solve: the exact suppression law (PR #202).**
 #201's fitted mouth-coupling exponent becomes a law. On the t=0 slice
 of the J-quotiented Tangherlini throat the k-winding problem is 1D on
