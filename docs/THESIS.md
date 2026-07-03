@@ -1110,6 +1110,34 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The 5D throat-core solve: the exact suppression law (PR #202).**
+#201's fitted mouth-coupling exponent becomes a law. On the t=0 slice
+of the J-quotiented Tangherlini throat the k-winding problem is 1D on
+the bridge `ρ(σ) = √(r_s²+σ²)` (proper-distance identity verified to
+1e-16), and: (1) the deck parity forces the **Pin-twisted boundary
+condition** — odd-k modes have a **node at the cross-cap**
+(quotient-spectrum equality to 1e-5; #195's forbidden one-mouth lift,
+geometrized), even-k are Neumann, and the k=0 (vacuum/boson) channel is
+exactly flat — only the uncharged mode touches the identification
+locus; (2) the **exact E≈0 radial law**: for k=1 the regular mode is
+exactly `φ(σ) = σ` (closed form), general k grows as `σ^k`, and a
+genuinely shallow bound state's tail *is* the regular solution
+(pointwise, 2%) — the power-law regime is the physical one; (3) the
+**suppression law** `ε_k = (r_s/σ_mode)^k·e^{c₀(k)}` with computed
+constants `c₀ = {0 (exact), −0.405, −0.783}` — #201's `e^{−kc}`
+derived, `c = ln(σ_mode/r_s)`. Consequences: the electron mass is a
+**linear readout of the throat-to-mode scale hierarchy** — the
+sensitivity to the physical parameter is `−1` exactly, closing the
+naturalness chain `74.7 (dialed, #194) → 4.48 (log-parametrized, #201)
+→ 1 (physical, #202)`; the inversion is exact (`c₀(1) = 0`):
+`σ_mode/r_s = 88.6` (conv A) — the throat core is ~1% of the wave
+extent, and **one dimensionless number, governed by an exact law, now
+separates the program from an outright m_e/m_μ prediction** (the
+coupled 5D+soliton solve); the pairing-impossibility bound hardens
+(`ε₃/ε₁ ≈ 2e-4` vs the 88.6 a pairing hierarchy would need). Scope:
+rigid vacuum Tangherlini, E≈0 regime, `σ_mode` from the soliton sector,
+scalar reduction (`throat_core_5d_solve_probe`, PR #202).
+
 **The Dirac-tower mass ladder: un-dialing the electron (PR #201).**
 Executes the first item of the #200 register. The electron level is
 rebuilt as a **multiplicative chain** on the #195 index-protected zero
