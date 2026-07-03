@@ -224,6 +224,13 @@ threshold 2m_ec²). Against the theorem's requirements:
   obstruction: no topological invariant blocks it (all the bordism-level
   checks pass), but the explicit BAM 4-manifold has not been written down.
 
+  **[CLOSED in PR #200.]** The explicit manifold is exhibited in
+  `docs/pair_creation_cobordism_capstone.md`: two 2-handles attached to
+  S³×I along an unlink with framings ±2 — boundary S³ → RP³ # RP³, spin
+  (even framings), signature 0, only index-2 Morse points (causally
+  continuous, avoiding the proven-discontinuous classes) — built
+  directly over the S³ background, no ℝ³ transplant needed.
+
 ## 7. The adjudication table
 
 | Question | Answer | Source |

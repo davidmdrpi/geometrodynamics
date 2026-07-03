@@ -1110,6 +1110,36 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**PR #200 — the pair-creation cobordism, constructed: the capstone.**
+The one open construction of the #196 adjudication is closed: the BAM
+pair-creation cobordism is exhibited explicitly —
+`M = (S³×I) + H²₍₊₂₎ + H²₍₋₂₎`, two 2-handles attached along a
+two-component unlink with framings ±2, boundary
+`S³ → L(2,1) # L(−2,1) = RP³ # RP³` — **pair creation from the actual
+closed S³ background** (integer surgery on an unknot = L(n,1); split
+link = connected sum). Machine-checked: linking matrix `diag(2,−2)`
+with `|det| = 4 = |H₁(RP³#RP³)|` and Smith form `diag(2,2)` (coker
+= Z₂⊕Z₂ exactly); **even framings ⟹ spin cobordism** (the structure the
+Pin⁻-framed SSC theorem requires); signature 0; **only index-2 Morse
+points** — causally continuous, avoiding the proven-discontinuous
+classes {1, 3} (Dowker–Garcia–Surya): the Sorkin selection rule
+*selects* pair creation, the channel the #58 threshold always assumed,
+and the ±2 mirror structure *is* the C-conjugate throat–antithroat
+pair (Σc₁ = 0). With this, the exchange-statistics chain runs end to
+end with no unconstructed step — 5D Einstein equations → RP³ geon →
+SSC hypotheses → the explicit spin, causally-continuous 4-manifold →
+SOH abelian weights → the forced Pin⁻ lift `−I` → **Fermi, Pauli** —
+and **"Pauli from GR + the forced Pin⁻ framing" is a constructed
+theorem**. The capstone probe also re-verifies the release ledger green
+in one run (the #183/#196 algebra, the #193 scalar ladder, the #195
+index zero mode, the #197 Dirac ladder, the #198/#199 guidance-current
+identity) and encodes the open-items register (the Dirac-tower mass
+ladder; the nonlinear measurement theory; the 5D core; the standing
+negative results #165 and #160; the Borde–Sorkin remainder). The
+defining claim at #200: the program's deepest steps are theorems with
+hypotheses, not imports
+(`pair_creation_cobordism_capstone_probe`, PR #200).
+
 **The guidance law from the 5D bulk (PR #199 — discharging #198's
 condition 1).** The #198 Born rule was conditional on the guidance
 identification `v = ∇S`; it is here **derived** from the bulk field
