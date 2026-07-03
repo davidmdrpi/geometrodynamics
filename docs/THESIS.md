@@ -1110,6 +1110,38 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The Dirac-tower mass ladder: un-dialing the electron (PR #201).**
+Executes the first item of the #200 register. The electron level is
+rebuilt as a **multiplicative chain** on the #195 index-protected zero
+mode — `m_e = ε₁·o₁·S₁` with the bare level *exactly* zero
+(Atiyah–Singer), the one-mouth additive lift forbidden (angular
+momentum), and inter-sector mixing superselected: the surrogate's
+`t₁₃ = 14.85`, whose near-cancellation was the #194 dial, has **no
+counterpart** — nothing in the chain can cancel. Heavy sector: the
+surrogate's natural 2×2 {k=3,5} block, uplift honestly refit after the
+k=1 decoupling (`β → 0.79·50π`). Fitting μ/e fixes
+`ε₁ = (7/3)/206.77 = 0.0113` (convention stated, band carried), and the
+fitted number **is O(1) geometry**: a WKB neck aspect `ℓ/a ≈ 4.5–5.3`,
+and the #185 overlap kernel on the actual #180 soliton gives
+`K(R*) = ε₁` at `R* ≈ 3.9–4.4 soliton radii` — constrained, not derived
+(the 5D core solve remains the register item). **The three fine-tuning
+diagnostics collapse:** Barbieri–Giudice `74.7 → 4.48` (= the neck
+aspect; all heavy entries ≤ 0.89; zero sign flips in 2000 ±25% draws vs
+flipping at ±2%); Berger sensitivity `−70.9 → +4.15` with **no
+λ_break** on `(0,∞)` (the #192 signature — sensitivity = inverse
+distance to a zero crossing — eliminated because there is no crossing);
+Monte Carlo `P(m_e ≤ observed)`: `7.7% sliver → 49.6% typical`, smooth,
+no cliff. **The impossibility bound:** pairing masses scale
+`ε_k = e^{−kc}` (decreasing in k); μ/e from pairing alone would need
+`ε₃/ε₁ = 88.6` — a tunneling amplitude growing with the barrier —
+impossible: the inter-generation hierarchy provably cannot be mouth
+pairing and stays with the dynamical uplift (fitted, natural per #194).
+After the rebuild every sensitivity in the ladder is O(few) or below:
+the ladder is fully natural — smallness from geometry (index +
+pairing), ratios from dynamics (the phase budget), the #193/#197
+division of labor realized in the mass model itself
+(`dirac_tower_mass_ladder_probe`, PR #201).
+
 **PR #200 — the pair-creation cobordism, constructed: the capstone.**
 The one open construction of the #196 adjudication is closed: the BAM
 pair-creation cobordism is exhibited explicitly —

@@ -1,0 +1,154 @@
+{
+  "timestamp_utc": "2026-07-03T02:38:27+00:00",
+  "identification": "The Dirac-tower mass ladder: the electron rebuilt as eps1*o1*S1 on the index-protected zero mode - BG 74.7 -> ~4.5, Berger -70.9 -> +4.1 with no lambda_break, MC 7.7% -> ~50%; eps1 = O(1) geometry (neck aspect ~4.5-5.3, mouth separation ~4 soliton radii); the hierarchy provably not pairing - stays dynamical and natural",
+  "executes": "the #200 register item 1 (the #195 follow-up; un-dials #194)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "The first item of the #200 open-items register: rebuild the mass ladder with the electron level on the #195 index-protected zero mode, the mouth coupling checked against the #185/#190 throat overlap machinery, and the three #192/#194 fine-tuning diagnostics re-run on the rebuilt model. The goal is not a new fit (three fitted numbers for three masses, as always) - it is the STRUCTURE of the fitted point: a multiplicative chain with no subtraction, whose fine-tuning measures must collapse from the surrogate's Delta = 74.7 to O(few) if the #195 mechanism truly removes the #194 dial.",
+      "deliverable": "docs/dirac_tower_mass_ladder.md",
+      "executes": "the #200 register item 1 (the #195 follow-up)",
+      "framing": "QFT on the fixed classical throat geometry - not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_protected_foundation",
+      "description": "The foundation, re-verified live. (a) The k=1 sector's bare level is EXACTLY zero (index): monopole ground 1.5e-10 - the surrogate's 6.8754 - 6.6758 subtraction is replaced by a protected zero; nothing is being cancelled. (b) The one-mouth additive lift is FORBIDDEN by angular momentum (the opposite-chirality gap = 2.0000 = 2q+1; no j = q-1/2 partner exists, #195): the only mass channel is the two-mouth pairing - multiplicative BY STRUCTURE. (c) First-order mixing between winding sectors is forbidden by charge superselection: the surrogate's t13 = 14.85 - the term whose near-cancellation #194 diagnosed as the dial - has NO counterpart in the rebuilt model.",
+      "k1_zero_mode": 1.5e-10,
+      "one_mouth_gap": 2.0,
+      "t13_counterpart": null,
+      "pass": true
+    },
+    {
+      "name": "T3_rebuilt_fit",
+      "description": "The rebuilt ladder: heavy sector = the surrogate's natural 2x2 {k=3,5} block with the uplift honestly REFIT after the k=1 decoupling (removing the electron's level repulsion shifts mu): beta = 129.26 = 0.823 x (50 pi) - the uplift remains the fitted dynamical knob it always was (#194: its sensitivities are natural). Electron = eps1*o1*S1 with eps1 = (7/3)/206.77 = 0.01128 (convention A - note eps1 is INDEPENDENT of the heavy refit) and c = -ln eps1 = 4.484. Fit check: mu/e = 206.7683 (True), tau/mu = 16.8170 (True). Convention band (carried through every number): {'A': {'eps1': 0.011285, 'c': 4.484}, 'B': {'eps1': 0.004836, 'c': 5.332}}. Three fitted numbers for three masses - same count as the surrogate; the content is T5-T7.",
+      "beta_refit": 129.262,
+      "beta_over_50pi": 0.8229,
+      "eps1": 0.011285,
+      "c": 4.4843,
+      "convention_band": {
+        "A": {
+          "eps1": 0.011285,
+          "c": 4.484
+        },
+        "B": {
+          "eps1": 0.004836,
+          "c": 5.332
+        }
+      },
+      "pass": true
+    },
+    {
+      "name": "T4_geometry_of_eps1",
+      "description": "What the fitted coupling IS - constrained, not derived (anti-rigging: no claim of deriving 206.77). (a) THE WKB NECK ASPECT: eps1 = e^{-l/a} gives l/a = 4.484 (A) - 5.332 (B): a throat neck a few radii long - an O(1) geometric aspect ratio, not a cancellation. (b) THE SOLITON-KERNEL INVERSION on the ACTUAL #180 self-gravitating throat-soliton (the #185 machinery, soliton RMS = 1.274): K(R*) = eps1 at R* = 5.015 (A) - 5.593 (B) code units = 3.937 - 4.391 x RMS: the mouth separation is a few soliton radii. The coupling the electron mass requires sits exactly where the repo's own GR overlap machinery puts a few-radii separation. Deriving l/a from the 5D throat solution is the remaining step (the #199 register's 5D core dynamics).",
+      "soliton_rms": 1.2738,
+      "inversions": {
+        "A": {
+          "eps1": 0.011285,
+          "l_over_a": 4.484,
+          "R_star": 5.015,
+          "R_star_over_RMS": 3.937
+        },
+        "B": {
+          "eps1": 0.004836,
+          "l_over_a": 5.332,
+          "R_star": 5.593,
+          "R_star_over_RMS": 4.391
+        }
+      },
+      "pass": true
+    },
+    {
+      "name": "T5_undialing_bg",
+      "description": "UN-DIALING, PART 1 - the #194 Barbieri-Giudice table on the rebuilt model. Worst Delta(m_e) = 4.48 (= c, the neck aspect - the exponent of a positive exponential), vs the surrogate's 74.7; every heavy-sector sensitivity <= 0.89 (they were already natural, #194). SIGN STABILITY: m_e is a product of positive factors - across 2000 random +-25% parameter draws it flipped sign 0 times (the surrogate flipped under +-2%). The dial is structurally gone: nothing in the chain can cancel.",
+      "sensitivities": [
+        {
+          "param": "c",
+          "m_e": -4.484,
+          "m_mu": 0.0,
+          "m_tau": 0.0
+        },
+        {
+          "param": "o1",
+          "m_e": 1.0,
+          "m_mu": 0.0,
+          "m_tau": 0.0
+        },
+        {
+          "param": "transport",
+          "m_e": -0.011,
+          "m_mu": -0.011,
+          "m_tau": 0.001
+        },
+        {
+          "param": "pinhole",
+          "m_e": 0.648,
+          "m_mu": 0.648,
+          "m_tau": 0.039
+        },
+        {
+          "param": "resistance",
+          "m_e": 0.177,
+          "m_mu": 0.177,
+          "m_tau": 0.064
+        },
+        {
+          "param": "base",
+          "m_e": 0.181,
+          "m_mu": 0.181,
+          "m_tau": 0.011
+        },
+        {
+          "param": "slope",
+          "m_e": 0.01,
+          "m_mu": 0.01,
+          "m_tau": -0.001
+        },
+        {
+          "param": "beta",
+          "m_e": 0.005,
+          "m_mu": 0.005,
+          "m_tau": 0.886
+        }
+      ],
+      "worst_Delta_m_e": 4.484,
+      "worst_Delta_heavy": 0.886,
+      "sign_flips_in_2000_draws": 0,
+      "surrogate_comparison": {
+        "Delta": 74.7,
+        "flip_at": "2%"
+      },
+      "pass": true
+    },
+    {
+      "name": "T6_undialing_berger",
+      "description": "UN-DIALING, PART 2 - the #192 Berger deformation re-run on the rebuilt electron: m_e(lam) = e^{-c/lam} * (1/lam + lam/2) (the fiber-riding neck - the winding decay rate scales as 1/lam - times the #197 k=1 tower factor). Log-sensitivity at the round point: 4.151 = c - 1/3 (closed form), vs the surrogate's -70.9; and m_e(lam) is a POSITIVE EXPONENTIAL times a positive tower factor - positive on all of (0, infinity) (True, 800-point sweep): THERE IS NO lambda_break (the surrogate's electron crossed zero at a 1.4% squash). The #192 spectral fine-tuning signature - sensitivity = inverse distance to a zero crossing - is eliminated because there is no zero crossing to be near.",
+      "dln_me_dlam_round": 4.151,
+      "closed_form": "c - 1/3",
+      "surrogate_value": -70.9,
+      "lambda_break": null,
+      "pass": true
+    },
+    {
+      "name": "T7_undialing_mc_and_impossibility",
+      "description": "UN-DIALING, PART 3 - the #194 Monte Carlo re-run (20000 draws, log-uniform +-25%, fixed seed): P(m_e <= observed) = 0.496 - the observed value is TYPICAL (the surrogate's 7.7% linear-measure sliver is gone), because ln m_e is smoothly distributed (multiplicative model; interior histogram max/min < 4: True) with no cliff and no sign flips (T5). THE IMPOSSIBILITY BOUND: pairing-generated masses scale as eps_k = e^{-kc} - DECREASING in k. Reproducing mu/e = 206.77 from pairing alone would need eps3/eps1 = 88.6; tunneling gives e^{-2c} = 1.3e-04 <= 1: a tunneling amplitude cannot grow with the barrier. The inter-generation hierarchy CANNOT be mouth pairing - it stays with the dynamical uplift (the #122/#136 phase budget), which #194 already showed is natural (Delta < 1) and which remains the honestly-fitted sector. Smallness = geometry (index + pairing); ratios = dynamics (uplift): the same division of labor #193/#197 found spectrally, now realized in the mass model.",
+      "P_below_observed": 0.4963,
+      "surrogate_P": 0.077,
+      "log_distribution_smooth": true,
+      "pairing_needed_ratio": 88.6,
+      "pairing_possible_ratio": 0.000127,
+      "hierarchy_origin": "dynamical uplift (fitted, natural) - not pairing",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "THE #194 DIAL IS REMOVED. The electron level is rebuilt as a multiplicative chain on the index-protected zero mode - eps1 * o1 * S1, with the bare level exactly zero (Atiyah-Singer), the additive lift forbidden (angular momentum), and inter-sector mixing superselected (no t13 to cancel against). The three fine-tuning diagnostics collapse: Barbieri-Giudice 74.7 -> ~4.5 (= the neck aspect); Berger sensitivity -70.9 -> +4.1 with NO lambda_break anywhere; Monte Carlo 7.7% sliver -> ~50% typical, sign-stable under +-25%. The fitted coupling corresponds to O(1) geometry - a neck a few radii long, a mouth separation of 3.9-4.4 soliton radii on the actual #180 profile - constrained, not derived (the 5D core solve remains the register item). And the clean impossibility bound shows the inter-generation hierarchy cannot come from pairing: smallness is geometry, ratios are dynamics. After the rebuild, EVERY sensitivity in the ladder is O(few) or below: the ladder is fully natural, with the hierarchy parametrized but no longer tuned.",
+      "classification": "ELECTRON_LEVEL_REBUILT_ON_THE_INDEX_PROTECTED_ZERO_MODE_FINE_TUNING_REMOVED_HIERARCHY_REMAINS_DYNAMICAL_AND_NATURAL",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "ELECTRON_LEVEL_REBUILT_ON_THE_INDEX_PROTECTED_ZERO_MODE_FINE_TUNING_REMOVED_HIERARCHY_REMAINS_DYNAMICAL_AND_NATURAL",
+  "verdict": "THE #194 DIAL IS REMOVED (the argument is in docs/dirac_tower_mass_ladder.md; this probe re-runs the diagnostics).\n\nTHE REBUILD. The electron level sits on the #195 index-protected zero mode: bare level exactly zero, one-mouth lift forbidden, inter-sector mixing superselected - the surrogate's cancellation structure has no counterpart. The mass is the multiplicative chain eps1*o1*S1; fitting mu/e fixes eps1 = 0.0113 (conv A), and the fitted number IS O(1) geometry: a neck aspect l/a = 4.484-5.332, a mouth separation 3.937-4.391 soliton radii on the actual #180 profile (constrained, not derived).\n\nTHE DIAGNOSTICS COLLAPSE. Barbieri-Giudice: worst Delta(m_e) = 4.484 vs the surrogate's 74.7, zero sign flips in 2000 +-25% draws (vs flipping at +-2%). Berger: d ln m_e/d lam = 4.151 (= c - 1/3) vs -70.9, and NO lambda_break on (0, infinity) (vs 0.986). Monte Carlo: P(m_e <= observed) = 0.4963 - typical, smooth, no cliff (vs the 7.7% sliver).\n\nTHE DIVISION OF LABOR, FINAL FORM. The impossibility bound (pairing needs eps3/eps1 = 88.6; tunneling gives 1e-4) proves the inter-generation hierarchy cannot be mouth pairing: smallness = geometry (index + pairing), ratios = dynamics (the uplift - fitted, and natural per #194). After the rebuild every sensitivity in the ladder is O(few) or below: the ladder is fully natural. The remaining register item: derive the neck aspect from the 5D core solve."
+}
