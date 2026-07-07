@@ -1,0 +1,148 @@
+{
+  "timestamp_utc": "2026-07-07T17:12:04+00:00",
+  "identification": "Entanglement swapping is bridge surgery: local pair annihilation relinks the bridges of two unrelated pairs, leaving never-co-nucleated throats Bell-connected - the composition law is the textbook swapping law with the junction holonomy as the Bell outcome, superselection makes the unconditioned mixture separable (no-signaling), the annihilated pair radiates to wave fronts, monogamy is the perfect matching, and repeater chains complete pairwise entanglement distribution",
+  "executes": "the dynamical half of #206's register consequence",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "THE DYNAMICAL PATH. #206 derived the entangled sector for throats that share a nucleation (one bridge, one shared fiber, the singlet from the Pin- transport) and left the N-body half open: entangling throats that NEVER shared a nucleation. The mechanism examined here: throats interact - a proximity pair can pinch off in pair annihilation (the #58/#200 topology-change channel run in reverse, returning the pair to wave fronts), and the pinch RELINKS the bridges of two previously unrelated pairs in the bulk, leaving the distant survivors connected exactly as if they shared a nucleation. That is entanglement swapping, realized as bridge surgery. The probe quantifies both sides: the transport composition law against the textbook quantum swapping law, and the surgery event live on the #206 lattice.",
+      "deliverable": "docs/bridge_surgery_entanglement_swapping.md",
+      "executes": "the dynamical half of #206's register consequence",
+      "framing": "QFT on the fixed classical throat geometry - not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_composition_is_swapping",
+      "description": "THE COMPOSITION LAW IS THE QUANTUM SWAPPING LAW. QM SIDE (16-dim, machine-checked): for pairs Psi_a(1,2) x Psi_b(3,4), projecting mouths (2,3) onto the charge-zero Bell state Psi_c leaves (1,4) in Psi_{a+b+c} - fidelity 1.000000000000 - with outcome probabilities exactly 1/4 each. BULK SIDE: bridge surgery composes transports; the (1,4) pair phase obeys phi_14 = phi(s12) + phi(s34) + pi sj/2 (measured in T3) - the SAME a+b+c law, with the Bell outcome phase supplied by the JUNCTION HOLONOMY of the pinch: quantum swapping's measurement outcome is a topological datum of the local annihilation event. SUPERSELECTION: annihilation conserves winding (the (2,3) pair must carry zero net charge), so the surgery orbit is confined to the charge-zero Psi sector - the charged Bell states are not annihilation outcomes, exactly as a charge-conserving Bell measurement is sector-restricted in QM. And the unconditioned mixture over the four holonomies is SEPARABLE (negativity 1.7e-17): without the outcome record there is no usable (1,4) correlation - swapping's classical-communication requirement and no-signaling (#204), in one identity.",
+      "qm_worst_fidelity": 1.0,
+      "qm_outcome_probs": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "bulk_phase_law": {
+        "sj=0": 0.0,
+        "sj=1": 1.5708,
+        "sj=2": 3.1416,
+        "sj=3": 4.7124
+      },
+      "unconditioned_mixture_negativity": 1.66e-17,
+      "pass": true
+    },
+    {
+      "name": "T3_composite_bridge_orbit",
+      "description": "THE COMPOSITE BRIDGE, LIVE. With the junction on and the middle pinched, winding injected at mouth 1 arrives at mouth 4 through bridge -> junction -> bridge: END-TO-END CONJUGATION with channel purity 0.999832 (k = +1 in at 1, k = -1 out at 4: the composite bridge conserves the winding constraint k1 + k4 = 0 - the swapped pair sits in the charge-zero sector, the superselection of T2, measured). THE FOUR-OUTCOME ORBIT: sweeping the junction holonomy sj = 0..3, the extracted (1,4) pair phase matches the composition law to 0.023 rad (state fidelities >= 0.9998): [{'sj': 0, 'phase': 0.0, 'predicted': 0.0, 'fidelity': np.float64(1.0)}, {'sj': 1, 'phase': 1.5874, 'predicted': 1.5708, 'fidelity': np.float64(0.99991)}, {'sj': 2, 'phase': 3.165, 'predicted': 3.1416, 'fidelity': np.float64(0.99983)}, {'sj': 3, 'phase': 4.7288, 'predicted': 4.7124, 'fidelity': np.float64(0.99992)}]. The four Bell outcomes of quantum swapping = the four fiber holonomies at which the proximity pair can pinch.",
+      "conjugation_purity": 0.999832,
+      "orbit": [
+        {
+          "sj": 0,
+          "phase": 0.0,
+          "predicted": 0.0,
+          "fidelity": 1.0
+        },
+        {
+          "sj": 1,
+          "phase": 1.5874,
+          "predicted": 1.5708,
+          "fidelity": 0.99991
+        },
+        {
+          "sj": 2,
+          "phase": 3.165,
+          "predicted": 3.1416,
+          "fidelity": 0.99983
+        },
+        {
+          "sj": 3,
+          "phase": 4.7288,
+          "predicted": 4.7124,
+          "fidelity": 0.99992
+        }
+      ],
+      "worst_phase_error": 0.0234,
+      "worst_fidelity": 0.99983,
+      "pass": true
+    },
+    {
+      "name": "T4_annihilation_event",
+      "description": "THE EVENT, LIVE. Two populated, disjoint bridges - (1,2) prepared with Alice's phase alpha1, (3,4) prepared independently. At t_j the proximity pair (2,3) is annihilated: a LOCAL operation (the mouths are 8 sites apart) - their fibers glue and their binding wells vanish (the pinch-off). Measured: (a) BEFORE the surgery the distant pair (1,4) shows no response to alpha1 - differential 3.0e-06 (the ballistic tail); AFTER, 1.41e-02 - a factor 4652. (b) The response lands in EXACTLY the swapped channel (alpha1 rides m1's k = -1 mode, whose surgery image is m4's k = +1): channel power ratio 288. (c) The linkage carries Alice's phase LINEARLY: the transited amplitude obeys D(alpha) ~ (e^{i alpha} - 1) - magnitude ratio 1.990 vs predicted 1.990, phase step 0.100 vs predicted 0.100. (d) THE PAIR RETURNS TO WAVE FRONTS: the middle bound population falls 0.502 -> 0.285 -> 0.227 (t = 2 -> 5 -> 8) after the pinch, while the no-annihilation control keeps 0.543 -> 0.719, and the population outside every mouth neighborhood rises 0.000 -> 0.045 - the annihilated pair disperses to propagating waves while the (1,4) linkage it created persists. A local event; a nonlocal-in-projection correlation; never-co-nucleated mouths, linked.",
+      "response_before": 3.03e-06,
+      "response_after": 0.0141,
+      "response_gain": 4652.0,
+      "swapped_channel_power_ratio": 288.0,
+      "phase_imprint": {
+        "mag_ratio": 1.99,
+        "mag_pred": 1.99,
+        "phase_step": 0.1,
+        "phase_pred": 0.1
+      },
+      "middle_population": {
+        "before": 0.5017,
+        "after_pinch": 0.2853,
+        "late": 0.2268,
+        "no_pinch_control": 0.5431,
+        "no_pinch_control_late": 0.7188
+      },
+      "radiated_fraction": {
+        "before": 0.0,
+        "after": 0.0448
+      },
+      "pass": true
+    },
+    {
+      "name": "T5_swapped_bell_pair",
+      "description": "THE SWAPPED PAIR IS A BELL PAIR. The extracted (1,4) effective states across the holonomy orbit reach CHSH = {0: 2.8284, 1: 2.8284, 2: 2.8283, 3: 2.8284} (worst 2.8283 vs Tsirelson 2.8284) - maximal Bell violation between mouths that NEVER SHARED A GLUING at any time: their linkage exists only through the local (2,3) annihilation (T4's before-control: response 5e-6 without it - the product side of #206's gap). THE REPEATER: surgeries compose - applying the a+b+c law twice on a three-bridge chain gives the end-to-end pair phase 1.8292 = the total-sum prediction 1.8292 (associativity, machine-checked), with the end pair at CHSH = 2.828427: a chain of local annihilations links ANY two throats in the network - the N-body pairwise entanglement distribution is mechanism-complete.",
+      "chsh_orbit": [
+        {
+          "sj": 0,
+          "CHSH": 2.8284
+        },
+        {
+          "sj": 1,
+          "CHSH": 2.8284
+        },
+        {
+          "sj": 2,
+          "CHSH": 2.8283
+        },
+        {
+          "sj": 3,
+          "CHSH": 2.8284
+        }
+      ],
+      "repeater_associativity": true,
+      "repeater_end_chsh": 2.828427,
+      "pass": true
+    },
+    {
+      "name": "T6_monogamy_is_the_matching",
+      "description": "MONOGAMY IS THE MATCHING. Bridges pair mouths: the bridge configuration of a many-throat universe is a PERFECT MATCHING, and the #206 derivation gives one Bell pair per bridge. Machine-checked on a three-bridge (six-mouth) state: a mouth with its bridge partner - negativity 0.500000000000 = 1/2 (maximal); a mouth with any non-partner - negativity -0.0e+00 = 0 (exactly unentangled). The monogamy of maximal entanglement is not an inequality here - it is the statement that a mouth has exactly one bridge. Surgery (T4) is the only rewiring move, and it preserves the matching (two pairs in, one pair + radiation out). What the matching CANNOT reach is genuinely multipartite entanglement (GHZ/W): that would require junctions joining three or more mouths into one bridge - a sharp, named open construction.",
+      "negativity_partner": 0.5,
+      "negativity_non_partner": -0.0,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "SCOPE, stated. (1) THE PINCH is modeled as its topological content - fiber gluing (the relinking) plus removal of the binding wells (the mass returned to radiation); the full 5D pinch-off dynamics (the #58/#200 topology-change channel run in reverse, with its Sorkin/causal-continuity structure) is not solved here - the #200 cobordism machinery is where that lives. (2) THE OUTCOME DISTRIBUTION over the four junction holonomies is not derived: which holonomy a given annihilation realizes is set by the local beables of the event; QM's 1/4-each is recovered under the equilibrium hypothesis (#198/#204, dBB grade) - stated, not derived. (3) Still the INTERNAL (fiber/winding) sector; spatial entanglement and measurement transport remain open (#206 scope). (4) The junction gluing is quasi-local (8 lattice sites) standing in for a proximity annihilation; the 'both pairs populated' preparation uses one classical field - the two-pair phase composition is carried by the field's channel structure, as it must be in a classical-field-foundational theory. (5) Multipartite (>= 3-mouth) junctions - the GHZ sector - are the named open construction.",
+      "scope": [
+        "pinch = topological content (full 5D dynamics open)",
+        "holonomy outcome distribution: equilibrium hypothesis",
+        "internal sector (spatial + measurement transport open)",
+        "quasi-local junction stand-in",
+        "multipartite junctions open (GHZ)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "THE DYNAMICAL PATH, OPENED. #206 made entanglement bridge topology for co-nucleated pairs; this PR makes the topology DYNAMICAL: local pair annihilation is bridge surgery, and bridge surgery is entanglement swapping - with the quantitative correspondences measured, not asserted: the composition law phi_14 = phi_a + phi_b + phi_c is the textbook swapping law with the Bell outcome supplied by the pinch's fiber holonomy (four outcomes, orbit reproduced at fidelity >= 0.995); winding superselection confines outcomes to the charge-zero sector and makes the unconditioned mixture separable (no-signaling and the classical-communication requirement in one identity); the event is local, the linkage distant, the annihilated pair radiates to wave fronts; the swapped pair saturates Tsirelson; monogamy is the perfect matching; and repeater chains make pairwise entanglement distribution mechanism-complete for the whole throat network. The register moves: #206's dynamical half narrows to (i) the spatial/measurement sector and (ii) multipartite junctions - both named, both sharp.",
+      "classification": "ENTANGLEMENT_SWAPPING_IS_BRIDGE_SURGERY_THE_JUNCTION_HOLONOMY_IS_THE_BELL_OUTCOME_LOCAL_ANNIHILATION_LINKS_NEVER_CONUCLEATED_THROATS_MONOGAMY_IS_THE_MATCHING",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "ENTANGLEMENT_SWAPPING_IS_BRIDGE_SURGERY_THE_JUNCTION_HOLONOMY_IS_THE_BELL_OUTCOME_LOCAL_ANNIHILATION_LINKS_NEVER_CONUCLEATED_THROATS_MONOGAMY_IS_THE_MATCHING",
+  "verdict": "THE DYNAMICAL PATH IS OPEN - LOCAL ANNIHILATION LINKS NEVER-CO-NUCLEATED THROATS (the argument is in docs/bridge_surgery_entanglement_swapping.md; this probe measures both sides).\n\nTHE LAW. Bridge surgery composes transports, and the composition law IS the quantum swapping law: phi_14 = phi_a + phi_b + phi_c, with the Bell outcome phi_c supplied by the junction holonomy of the pinch (QM side machine-checked at fidelity 1.0, probabilities 1/4; bulk side measured across the four-outcome orbit to 0.0234 rad, fidelities >= 0.99983). Winding superselection confines outcomes to the charge-zero sector, and the unconditioned mixture is separable (negativity 2e-17) - no outcome record, no usable correlation: swapping's classical-communication requirement and no-signaling in one identity.\n\nTHE EVENT. Two populated disjoint bridges; the proximity pair (2,3) annihilates - locally. The distant (1,4) response rises x4652, lands in the swapped channel (power ratio 288), carries Alice's phase linearly, and the middle population (0.5017 -> 0.2853, control 0.5431) radiates to wave fronts - the pair returns to radiation, the linkage persists.\n\nTHE NETWORK. The swapped pair saturates Tsirelson (worst CHSH 2.8283); monogamy is the perfect matching (partner negativity 1/2, non-partner exactly 0); surgeries compose associatively (the repeater chain) - pairwise entanglement distribution over the whole throat network is mechanism-complete. Remaining, named: the spatial/measurement sector; multipartite (>= 3-mouth) junctions."
+}

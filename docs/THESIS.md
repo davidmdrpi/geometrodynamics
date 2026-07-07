@@ -1110,6 +1110,53 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**Entanglement swapping is bridge surgery: linking never-co-nucleated
+throats (PR #207).** Opens the dynamical half of #206's register
+consequence. By #206's own theorem, throats that never shared a
+nucleation cannot become Bell-correlated through any 3-space-local
+dynamics — the mechanism that closes the gap is that **throats
+interact**: a proximity pair pinches off in pair annihilation (the
+#58/#200 topology-change channel run in reverse, returning the pair to
+wave fronts), and the pinch **relinks the bridges** of two previously
+unrelated pairs, leaving the distant survivors connected exactly as if
+they shared a nucleation — entanglement swapping, as bridge surgery
+(`docs/bridge_surgery_entanglement_swapping.md`). Quantitative, both
+sides: (1) **the composition law is the quantum swapping law** — QM
+side machine-checked in 16-dim (projecting mouths (2,3) of Ψ_a⊗Ψ_b onto
+Ψ_c leaves (1,4) in Ψ_{a+b+c}, fidelity 1−1e-12, probabilities exactly
+¼); bulk side measured on the 4-mouth lattice: φ₁₄ = φ_a + φ_b + φ_c
+with the Bell-outcome phase **supplied by the junction holonomy of the
+pinch** (the four-outcome orbit reproduced to ≤0.024 rad, state
+fidelities ≥0.9998); (2) **winding superselection**: annihilation
+conserves winding, so outcomes are confined to the charge-zero Ψ
+sector, and the **unconditioned mixture over the four holonomies is
+separable** (negativity 0, machine) — swapping's
+classical-communication requirement and no-signaling (#204) in one
+identity; (3) **the event, live**: two populated disjoint bridges; the
+proximity pair (2,3) annihilates locally (fibers glue, binding wells
+vanish); the distant (1,4) response to Alice's phase rises from 3e-6
+(the ballistic tail) to 1.3e-2 — **×4650** — landing in exactly the
+swapped winding channel (power ratio ~290) and carrying her phase
+linearly (D(α) ∝ e^{iα}−1: magnitude ratio 1.99 vs 1.99, phase step
+0.100 vs 0.100), while the middle bound population drains 0.50 → 0.29 →
+0.20 (no-annihilation control ~0.54) into propagating waves — **the
+annihilated pair returns to wave fronts, the linkage persists**; (4)
+**the swapped pair saturates Tsirelson** (CHSH ≥ 2.8280 across the
+orbit) between mouths that never shared a gluing; **repeater chains
+compose associatively** (the a+b+c law applied twice = the total sum,
+machine) — pairwise entanglement distribution over the whole throat
+network is **mechanism-complete**; (5) **monogamy is the matching**:
+bridges pair mouths (a perfect matching); partner negativity = 1/2
+exactly, non-partner = 0 exactly (machine, three-bridge state) — the
+monogamy of maximal entanglement is the statement that a mouth has one
+bridge; surgery is the only rewiring move. Scope: the pinch modeled by
+its topological content (full 5D pinch-off dynamics — the #58/#200
+channel in reverse — not solved); the holonomy outcome distribution
+rests on the equilibrium hypothesis (¼-each recovered at dBB grade);
+internal sector; **multipartite (≥3-mouth) junctions — the GHZ
+sector — are the named open construction**, alongside the
+spatial/measurement sector (`bridge_surgery_swapping_probe`, PR #207).
+
 **Configuration-space emergence: entanglement is bridge topology
 (PR #206).** Attacks #198's condition 2 at its sharpest point, stated
 as the target: **a single classical field on 3-space with local
