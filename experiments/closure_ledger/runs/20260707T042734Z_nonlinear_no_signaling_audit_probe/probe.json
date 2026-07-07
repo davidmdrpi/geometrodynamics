@@ -1,0 +1,101 @@
+{
+  "timestamp_utc": "2026-07-07T04:27:34+00:00",
+  "identification": "The nonlinear no-signaling audit: the only channel opened by the BAM nonlinearity is the gravitational field (O(G), Phi-clamp verified), instantaneous only in the Newtonian approximation, confined to the light cone by the causal wave-equation completion at zero cost to equivariance; entangled-sector marginal invariance exact in the linear part, violated at O(G) by the mean field and confined behind the front; equilibrium signal-locality at dBB grade, with the non-equilibrium Valentini signal exhibited",
+  "executes": "#198 condition 2 (the nonlinear measurement theory), no-signaling edge",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "The register item, faced at its sharpest edge. #198 derived the Born rule at dBB grade CONDITIONAL on the linear measurement regime; the #200 register carries the nonlinear measurement theory as open. The sharpest refutation vector inside that item is NO-SIGNALING: by Gisin/Polchinski, deterministic nonlinear quantum evolutions generically allow superluminal signaling through entangled states - and BAM's pilot equation is genuinely nonlinear (Phi[rho], q[rho]). If BAM signals superluminally in equilibrium in its causal completion, it is refuted by relativity and experiment. The linear no-signaling theorem does not protect it; the Gisin proof (which uses the projection postulate BAM does not have) does not automatically convict it. The question must be settled BY CONSTRUCTION on the running dynamics - this probe.",
+      "deliverable": "docs/nonlinear_no_signaling_audit.md",
+      "executes": "#198 condition 2 / the #200 register item, no-signaling edge",
+      "framing": "QFT on the fixed classical throat geometry - not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_edge_is_live",
+      "description": "THE EDGE IS LIVE - BAM is genuinely nonlinear, so the Gisin threat applies to it and the audit has teeth. The superposition defect of the 1-time-unit flow map, ||T[psi_a+psi_b] - T[psi_a] - T[psi_b]||/||T[psi_a+psi_b]||, is 1.88e+00 for the full psi-Phi-q dynamics (self-consistent gravity + live order field) versus 1.6e-14 for the stripped linear control (G = 0, q = 0 - machine zero). BAM cannot appeal to the linear no-signaling theorem: whether its nonlinearity signals must be measured, channel by channel.",
+      "superposition_defect_bam": 1.882,
+      "superposition_defect_linear_control": 1.6e-14,
+      "pass": true
+    },
+    {
+      "name": "T3_channel_identified",
+      "description": "THE CHANNEL IS EXACTLY THE GRAVITATIONAL FIELD - measured three ways on the 1D field sector (two throat-packets separated by 30; a local unitary kick at A for t <= 0.5; the density response D(t) = L2 norm of rho_kick - rho_base over Bob's region, at t = 3). (a) THE RESPONSE IS REAL: D = 1.47e-06 with instantaneous (Poisson) gravity vs the kinematic (G = 0) floor 3.26e-13 - a factor 4.5e+06: the nonlinearity DOES transmit a local operation to a distant region, instantaneously, in the Newtonian model. Stated plainly. (b) IT IS O(G): halving G gives D = 6.88e-07, ratio 2.138 (linear response in the coupling). (c) NOTHING BUT PHI CARRIES IT: clamping Phi to the no-kick history (same kick, same live q, gravity blinded) collapses the response to D = 2.36e-13 - back AT the kinematic floor, a suppression of 6.2e+06. The order field q is local (diffusive, kappa = 0.5) and carries nothing to B. One channel, at gravitational strength - a physical interaction, not a measurement-theoretic pathology.",
+      "t_measure": 3.0,
+      "D_floor": 3.261e-13,
+      "D_newton": 1.472e-06,
+      "D_newton_halfG": 6.885e-07,
+      "D_clamp": 2.359e-13,
+      "G_ratio": 2.138,
+      "clamp_suppression": 6240000.0,
+      "pass": true
+    },
+    {
+      "name": "T4_causal_front",
+      "description": "RETARDATION CONFINES THE CHANNEL TO THE CONE. Replacing the instantaneous Poisson equation by the causal wave equation Box Phi = 4 pi G rho (propagation speed c - the Newtonian model is its c -> infinity limit, recovered exactly by the same mean-subtracted spectral solver), the kick response at B stays at the MACHINE floor (~1e-15, pre-front values {'8': 7e-15, '12': 3.4e-15, '16': 2.9e-15}) until the front arrives, then rises to the instantaneous amplitude. Front times: {'8': 3.15, '12': 2.2, '16': 1.7} giving c*t_front = {'8': 25.2, '12': 26.4, '16': 27.2} versus the geometric distance 25 (kick center to Bob's near edge) - the front scales as d/c across a factor-2 speed sweep, and is monotone in c. The c -> infinity check: at t = 3, D(c = 20) / D(Newton) = 1.22 (the retarded amplitude recovers the instantaneous one, modulo wave-transient ringing). The apparent superluminal signaling of T3 is the action-at-a-distance OF THE NEWTONIAN APPROXIMATION, not of the theory: in the causal completion the channel is an ordinary retarded interaction.",
+      "front_times": {
+        "8": 3.15,
+        "12": 2.2,
+        "16": 1.7
+      },
+      "c_times_t": {
+        "8": 25.2,
+        "12": 26.4,
+        "16": 27.2
+      },
+      "geometric_distance": 25.0,
+      "pre_front_response": {
+        "8": 6.96e-15,
+        "12": 3.42e-15,
+        "16": 2.9e-15
+      },
+      "c_inf_over_newton_at_t3": 1.224,
+      "pass": true
+    },
+    {
+      "name": "T5_equivariance_survives_retardation",
+      "description": "NO-SIGNALING AND THE BORN RULE HOLD SIMULTANEOUSLY. The #198 equivariance theorem needed only the REALITY of the potentials - and the retarded Phi is exactly as real as the instantaneous one, so making gravity causal costs nothing. Verified on the kicked, retarded (c = 12) live dynamics: norm drift 1.1e-12 (unitary - the kick and the retarded Phi are real potentials); continuity residual d(rho)/dt + div(rho grad S) = 1.5e-04 (integrator error); a 20000-throat Born ensemble transported by v = grad S stays at sampling noise through the kicked retarded evolution (KS series [0.0073, 0.0069, 0.0064, 0.0061] vs noise 0.0071). The causal completion that removes the signaling PRESERVES the Born rule - the two halves of the audit are compatible, structurally.",
+      "norm_drift": 1.08e-12,
+      "continuity_residual": 0.00015,
+      "ks_series": [
+        0.0073,
+        0.0069,
+        0.0064,
+        0.0061
+      ],
+      "sampling_noise": 0.0071,
+      "pass": true
+    },
+    {
+      "name": "T6_entangled_linear_sector",
+      "description": "THE ENTANGLED SECTOR, LINEAR PART - where Gisin's theorem actually lives. The two-throat state psi(x1,x2) = phi_L(x1)phi_R(x2) + phi_R(x1)phi_L(x2) (the #198 effective linear-regime description; packets approach and the branches overlap in configuration space around t = 3). (a) THE THEOREM, ON THE DISCRETE FLOW: a local unitary on throat 1 (real potential pulse on x1 only) leaves the x2-marginal invariant to max|delta rho_2| = 2.7e-15 - machine precision, the exact factorization Tr_1[(K x 1) rho (K x 1)^dag] = rho_2. (b) EQUILIBRIUM ENSEMBLES ARE SIGNAL-LOCAL: 12000 throat pairs sampled from |psi|^2 and transported by the dBB flow show NO kick dependence in the x2-marginal - two-sample KS 0.0152 vs noise 0.0176. (c) NON-EQUILIBRIUM ENSEMBLES SIGNAL: the same trajectories with a branch-only (non-Born) preparation give KS 0.0447 - 2.5x noise: Alice's local choice IS visible at B out of equilibrium. This is Valentini's signal-locality boundary reproduced on the BAM transport: no-signaling is an EQUILIBRIUM property, with the #198 H-theorem relaxation as the mechanism that attains it - exactly dBB's epistemic position, no weaker and no stronger.",
+      "marginal_invariance": 2.69e-15,
+      "ks_equilibrium": 0.0152,
+      "ks_nonequilibrium": 0.0447,
+      "noise_two_sample": 0.0176,
+      "pass": true
+    },
+    {
+      "name": "T7_entangled_nonlinear_channel",
+      "description": "THE GISIN CHANNEL, EXHIBITED AND CONFINED. Dressing the entangled pair with the BAM mean-field gravity - Phi(x) sourced by the physical-space density rho_1(x) + rho_2(x), V = Phi(x_1) + Phi(x_2) - and kicking throat 1 at x = -8 (a local unitary on x1 ONLY, so the linear theorem makes the background exactly zero). The x2-marginal response in Bob's region [4, 12]: LINEAR CONTROL: 5.5e-15 at all times - machine zero, the theorem. INSTANTANEOUS (Newtonian) MEAN FIELD: nonzero from t = 0.6 (immediately, O(G)) rising to 1.9e-06 - the marginal-invariance theorem IS violated by the nonlinearity, exactly as Gisin says it generically must be. Stated plainly. RETARDED MEAN FIELD (c = 6): the response stays at machine floor (2.0e-15 at t = 1.0) until t = 1.9 - versus the geometric d/c = 2.0 - then rises to 7.2e-05. The violation of the linear no-signaling theorem is real, is exactly the gravitational coupling, and travels ON THE CONE in the causal completion: at the entangled level too, BAM's nonlinear 'signaling' is ordinary retarded interaction.",
+      "linear_floor_max": 5.54e-15,
+      "newton_front": 0.6,
+      "newton_final": 1.93e-06,
+      "wave_front": 1.9,
+      "wave_pre_arrival_t1": 2e-15,
+      "wave_final": 7.21e-05,
+      "geometric_arrival": 2.0,
+      "pass": true
+    },
+    {
+      "name": "T8_scope_and_assessment",
+      "description": "THE AUDIT'S VERDICT, WITH ITS SCOPE. ESTABLISHED: the BAM nonlinearity opens exactly ONE channel from a local operation to a distant region - the gravitational field - measured (O(G), Phi-clamp kills it, q is local); in the Newtonian model that channel is instantaneous (the refutation edge was live and FIRED at the approximation level, stated plainly); in the causal completion (Box Phi = 4 pi G rho) it is confined to the cone (front = d/c at three speeds, machine-floor quiet outside, c -> infinity recovers Newton); the completion costs nothing - the retarded potential is real, so #198 equivariance, unitarity, and the Born ensemble survive untouched; and the entangled sector obeys the same structure (linear part: exact marginal invariance + equilibrium signal-locality + the Valentini non-equilibrium signal; nonlinear part: the O(G) violation confined behind the front). SCOPE, stated: (1) the wave-equation Phi is the minimal causal completion - the gauge-fixed weak-field form of the 5D Einstein equations whose Bianchi structure #199 verified; the full GR constraint analysis (lapse/shift, gauge-invariant vs gauge potentials) is not run here. (2) The configuration-space pair is the #198 EFFECTIVE description of the linear measurement regime, now shown to admit a causal gravitational dressing - the derivation of configuration-space structure from the single 3-space wave remains the standing open item (the register item is NARROWED: its no-signaling edge is audited, its emergence question is not). (3) Equilibrium is a hypothesis with a mechanism (the #198 relaxation), not a theorem - non-equilibrium ensembles signal, exactly as in dBB (Valentini), and this is a PREDICTION shared with that program, not a defect specific to BAM. (4) 1D/2D reductions; c is a model parameter (the physical value is the light speed); the theorems invoked are dimension-blind. THE LABEL: nonlinear no-signaling SURVIVES THE AUDIT - superluminal signaling in BAM is an artifact of the instantaneous-gravity approximation, removable at zero cost to the Born rule, with signal-locality holding at dBB grade (in equilibrium) and the one genuine nonlinear channel identified as ordinary retarded gravity.",
+      "classification": "NO_SIGNALING_SURVIVES_AUDIT_THE_ONLY_NONLINEAR_CHANNEL_IS_THE_RETARDED_GRAVITATIONAL_FIELD_EQUIVARIANCE_INTACT_EQUILIBRIUM_SIGNAL_LOCALITY_AT_DBB_GRADE",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "NO_SIGNALING_SURVIVES_AUDIT_THE_ONLY_NONLINEAR_CHANNEL_IS_THE_RETARDED_GRAVITATIONAL_FIELD_EQUIVARIANCE_INTACT_EQUILIBRIUM_SIGNAL_LOCALITY_AT_DBB_GRADE",
+  "verdict": "THE AUDIT RAN, THE EDGE FIRED WHERE IT SHOULD, AND THE THEORY SURVIVES IT (the argument is in docs/nonlinear_no_signaling_audit.md; this probe measures everything on the live dynamics).\n\nTHE CHANNEL. BAM is genuinely nonlinear (superposition defect measured), so Gisin's threat applies - and indeed a local kick at A reaches B instantaneously in the Newtonian model, 5e+06 above the kinematic floor. But the channel is EXACTLY the gravitational field: O(G) (ratio 2.138), and clamping Phi collapses it to the floor (suppression 6e+06). A physical interaction, not a measurement pathology.\n\nTHE CONE. With the causal wave-equation Phi, the response is machine-floor quiet outside the light cone and arrives at c*t = [25.2, 26.4, 27.2] vs geometric distance 25, at three speeds; c -> infinity recovers Newton. The superluminality belongs to the APPROXIMATION, not the theory.\n\nTHE COEXISTENCE. The retarded potential is still real: norm exact, continuity residual 1e-04, Born ensemble at noise through the kicked retarded evolution - removing the signaling costs the Born rule nothing.\n\nTHE ENTANGLED SECTOR. Linear part: exact marginal invariance (3e-15); equilibrium trajectories signal-local (KS 0.0152 ~ noise 0.0176); non-equilibrium trajectories signal (KS 0.0447) - the Valentini boundary on the BAM transport. Nonlinear part: the mean-field gravitational dressing violates marginal invariance at O(G) instantaneously (the Gisin channel, exhibited) - and retardation confines it behind the front (arrival 1.9 vs geometric 2.0; machine floor before). No-signaling survives at dBB grade: equilibrium + causal fields, both now measured properties of the BAM dynamics."
+}
