@@ -1,0 +1,120 @@
+{
+  "timestamp_utc": "2026-07-07T18:23:03+00:00",
+  "identification": "The GHZ sector: a three-mouth bridge (one junction fiber, three reading frames) yields GHZ with the multipartite holonomy law, Mermin 4 against the enumerated local bound 2, pairwise marginals exactly empty; charged GHZ is superselection-forbidden (the derived charge/spin split); bridge valence is the entanglement class",
+  "executes": "the GHZ open of #207",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "THE FIRST NAMED OPEN OF #207. Pairwise entanglement distribution is mechanism-complete (nucleation -> Bell pairs; annihilation -> swapping; monogamy = the matching), and the matching provably cannot reach genuinely multipartite entanglement: GHZ requires a junction joining three or more mouths into ONE bridge - topologically, the trousers (pair-of-pants) nucleation with three boundary mouths sharing one bulk fiber. This probe builds the Y-junction on the #206/#207 lattice, derives what emerges, and attaches the no-go that comes with it: which LABEL can carry multipartite entanglement at all.",
+      "deliverable": "docs/multi_mouth_bridge_ghz.md",
+      "executes": "the GHZ open of #207 (multipartite junctions)",
+      "framing": "QFT on the fixed classical throat geometry - not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_charged_no_go",
+      "description": "THE CHARGED NO-GO, DERIVED. If the doublet label is a conserved FLUX (winding = charge, #42-#44), a Y-junction must conserve it: k_A + k_B + k_C = 0. Enumerated: the +-1 doublet has 0 zero-sum triples - NO conserving channel exists (sums are +-1, +-3). And independently of the junction, GHZ-type states superpose DISTINCT total charges (components carry totals [-1, 1]; the textbook |+++> + |---> carries [-3, 3]) - forbidden by charge superselection, exactly as in QM (no superpositions across charge sectors). THE SPLIT THIS DERIVES: the pairwise sector never felt it - (k, -k) is zero-sum (2 channels), so #206/#207's Bell pairs are consistent with BOTH readings of the doublet (flux or frame). The multipartite sector is where charge and spin PART WAYS: GHZ can only live in the TRANSPORTED-FRAME label - the spin/Pin structure a bridge carries without a flux sum (#195/#197's spinor sector, whose scalar stand-in the lattice fiber plays when read as frame). BAM thus PREDICTS: multipartite entanglement of charge states is impossible; of spin states, a topology - matching the superselection structure of QM.",
+      "zero_sum_triples_in_doublet": 0,
+      "ghz_component_totals": [
+        -1,
+        1
+      ],
+      "pairwise_zero_sum_channels": 2,
+      "pass": true
+    },
+    {
+      "name": "T3_y_junction_identification",
+      "description": "THE Y-JUNCTION, LIVE. One bulk junction fiber (the tri-mouth bridge core) read by three mouths - leg A by the identity, legs B and C by the conjugating transport with holonomy 2. A nucleation superposition injected into the junction distributes EXACTLY symmetrically (three-way population spread 3.0e-15); each leg imprints its deck phase precisely as transport theory demands (the conjugating legs carry eta_k = e^{i pi k/2} = +-i on the k = +-1 channels - measured to 1e-6); the three mouths read ONE shared variable (readout-magnitude spread across channels 1.1e-15, across legs 1.3e-15). LEG-CUT CONSISTENCY: removing leg C collapses the Y to the #206 two-mouth bridge - mouth C receives 3.7e-33, and the extracted (A,B) pair phase 3.1416 equals the composed two-leg holonomy law 3.1416 (the #206/#207 law recovered as the valence-2 special case of the junction).",
+      "population_symmetry_spread": 3.03e-15,
+      "deck_phases_pm_i": true,
+      "one_object_spread": 1.33e-15,
+      "leg_cut_population": 3.74e-33,
+      "leg_cut_pair_phase": 3.1416,
+      "leg_cut_pair_predicted": 3.1416,
+      "pass": true
+    },
+    {
+      "name": "T4_ghz_emergence",
+      "description": "GHZ EMERGES, WITH A HOLONOMY LAW. (a) The multi-frame embedding W|k> = |k> x T|k> x ... x T|k> - one shared junction mode read through n legs - is an ISOMETRY for n = 2 and n = 3 legs alike (error 5.0e-16): the N-party tensor structure is the N-frame description of one bulk object, the direct generalization of #206. (b) The extracted three-mouth state IS GHZ: fidelity >= 1.0000 to the predicted state across junction configurations, with the relative phase obeying the MULTIPARTITE HOLONOMY LAW phi = -pi(s_B + s_C)/2: [{'legs': '(2,2)', 'phase': 0.0, 'predicted': 0.0, 'fidelity': np.float64(1.0)}, {'legs': '(0,2)', 'phase': 3.1416, 'predicted': 3.1416, 'fidelity': np.float64(1.0)}, {'legs': '(2,1)', 'phase': 1.5708, 'predicted': 1.5708, 'fidelity': np.float64(1.0)}] - the #206 pair law and the #207 swapping composition, extended to valence 3. (c) GENUINELY TRIPARTITE: 3-tangle tau = 1.0000 (= 1, the GHZ maximum; C^2(A|BC) = 1.0000 with pairwise concurrences 0.0e+00, 0.0e+00), and the GHZ-fidelity witness (> 1/2) certifies genuine multipartite entanglement. The junction does not make three Bell pairs - it makes one irreducible triple.",
+      "isometry_error": 4.97e-16,
+      "holonomy_orbit": [
+        {
+          "legs": "(2,2)",
+          "phase": 0.0,
+          "predicted": 0.0,
+          "fidelity": 1.0
+        },
+        {
+          "legs": "(0,2)",
+          "phase": 3.1416,
+          "predicted": 3.1416,
+          "fidelity": 1.0
+        },
+        {
+          "legs": "(2,1)",
+          "phase": 1.5708,
+          "predicted": 1.5708,
+          "fidelity": 1.0
+        }
+      ],
+      "worst_fidelity": 1.0,
+      "three_tangle": 1.0,
+      "pairwise_concurrences": [
+        0.0,
+        0.0
+      ],
+      "pass": true
+    },
+    {
+      "name": "T5_mermin",
+      "description": "MERMIN = 4, FROM PAIRWISE-EMPTY MARGINALS. (a) THE LOCAL BOUND, enumerated exactly: all 64 deterministic local strategies cap the Mermin functional at 2 (the tripartite analog of #206's CHSH enumeration). (b) THE Y-STATE: the extracted three-mouth state reaches M = 4.0000 - the ALGEBRAIC maximum 4, double the local bound and beyond any pairwise mechanism (Tsirelson caps two-party correlations at 2*sqrt2 = 2.83). (c) THE IRREDUCIBILITY: every two-mouth marginal of the same state is UNENTANGLED - negativities [-0.0, -0.0, -0.0], pairwise CHSH = [2.0, 2.0, 2.0] (exactly the classical bound 2). The tri-mouth bridge stores ALL of its correlation in the triple and none in any pair - the exact opposite of the #207 matching, where pairs carry everything. One topology, two extremes, both measured.",
+      "lhv_max_exact": 2,
+      "mermin_extracted": 4.0,
+      "pairwise_negativities": [
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "pairwise_chsh": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "pass": true
+    },
+    {
+      "name": "T6_valence_ledger",
+      "description": "BRIDGE VALENCE IS THE ENTANGLEMENT CLASS - the ledger the last three PRs assemble. VALENCE 2 (the #206/#207 sector): nucleation makes Bell pairs (CHSH 2*sqrt2), monogamy is the perfect matching (partner negativity 1/2, non-partner 0), annihilation surgery rewires the matching (swapping, the a+b+c law), and repeater chains distribute pairs network-wide. VALENCE 3 (this PR): the trousers junction makes GHZ (Mermin 4), with EMPTY pairwise marginals (negativity 0, CHSH exactly 2) - all correlation in the triple. The entanglement CLASS of a throat collection is the topology of its bridge hypergraph: matchings give the Bell sector, higher-valence junctions the GHZ sector, and the holonomies select the state within each class (phi = -pi Sigma s/2 at every valence - one law). Charge superselection prunes the hypergraph: flux labels admit only even, zero-sum junction channels (the pairwise sector), while frame (spin/Pin) labels populate every valence - the derived charge/spin split of T2. W-class states (pairwise-robust multipartite) are NOT reachable by a single junction - whether bridge networks + surgery reach them is a sharp successor question, stated not answered.",
+      "ledger": {
+        "valence 2": "Bell pairs; monogamy = matching; swapping; CHSH 2*sqrt2",
+        "valence 3": "GHZ; pairwise marginals empty; Mermin 4",
+        "holonomy law": "phi = -pi Sigma s_legs / 2 (all valences)",
+        "charge labels": "even zero-sum channels only (superselection)",
+        "frame labels": "all valences"
+      },
+      "open": "W-class reachability via networks + surgery",
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "SCOPE, stated. (1) The junction fiber is the stand-in for the TROUSERS cobordism (the pair-of-pants three-mouth nucleation); the full 5D pants geometry - its Sorkin causal-continuity class, its nucleation channel and rate relative to the #58/#200 pair channel - is not solved: whether tri-mouth nucleation is dynamically REALIZED (or only kinematically consistent) is the physical successor question. (2) The scalar lattice fiber models the TRANSPORTED-FRAME label; the physical GHZ carrier is the Pin spinor sector (#195/#197) per T2's derived split - the frame/flux distinction is the probe's own result, stated as scope for the lattice. (3) Equilibrium hypothesis for operational statistics, as throughout (#198/#204). (4) The spatial/measurement sector (#206 scope) remains the standing open - now the ONLY standing open of the entangled-sector thread.",
+      "scope": [
+        "junction fiber = trousers stand-in (5D pants unsolved)",
+        "frame label (Pin spinor is the physical carrier)",
+        "equilibrium hypothesis",
+        "spatial/measurement sector remains (the last open)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "THE GHZ OPEN, CLOSED AT MECHANISM LEVEL. A three-mouth bridge - one junction fiber, three reading frames - yields the GHZ state with a holonomy law continuous with #206/#207 (one composition rule at every valence), reaches the algebraic Mermin maximum 4 against the enumerated local bound 2, and stores its correlation irreducibly in the triple (pairwise marginals exactly empty - the counterpoint to #207's matching, where pairs carry everything). The sector comes with a derived no-go: charged (flux-label) GHZ is superselection-forbidden - the Y-junction has no conserving channel in the charge doublet, and GHZ components straddle charge sectors - so multipartite entanglement is a property of the TRANSPORTED-FRAME (spin/Pin) label alone, exactly matching QM's superselection structure. Bridge valence is the entanglement class; the holonomies pick the state; the entangled-sector thread now has one standing open (spatial/measurement) and two sharp successor questions (the 5D pants nucleation; W-class reachability).",
+      "classification": "GHZ_IS_A_THREE_MOUTH_BRIDGE_MERMIN_4_MEASURED_CHARGED_GHZ_SUPERSELECTION_FORBIDDEN_PAIRWISE_MARGINALS_EMPTY_BRIDGE_VALENCE_IS_THE_ENTANGLEMENT_CLASS",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "GHZ_IS_A_THREE_MOUTH_BRIDGE_MERMIN_4_MEASURED_CHARGED_GHZ_SUPERSELECTION_FORBIDDEN_PAIRWISE_MARGINALS_EMPTY_BRIDGE_VALENCE_IS_THE_ENTANGLEMENT_CLASS",
+  "verdict": "THE GHZ SECTOR IS BRIDGE VALENCE (the argument is in docs/multi_mouth_bridge_ghz.md; this probe measures every claim).\n\nTHE NO-GO. For a flux (charge) label the Y-junction has 0 conserving channels in the doublet, and GHZ components straddle charge sectors [-1, 1]: charged GHZ is superselection-forbidden, exactly as in QM. Multipartite entanglement belongs to the transported-frame (spin/Pin) label - a derived charge/spin split, invisible in the pairwise sector where (k, -k) is zero-sum.\n\nTHE JUNCTION. One bulk fiber, three reading frames: exactly symmetric distribution, per-leg deck phases as transport demands, leg-cut collapsing to the #206 pair with the composed holonomy (consistency across three PRs).\n\nTHE STATE. The three-frame embedding is an isometry; the extracted state is GHZ at fidelity 1.0 obeying the multipartite holonomy law phi = -pi(s_B + s_C)/2; 3-tangle = 1.0. Mermin: local bound 2 (64 strategies enumerated), the Y-state reaches 4.0 - the algebraic maximum - while every pairwise marginal is empty (negativities [-0.0, -0.0, -0.0], pairwise CHSH exactly 2). Valence 2: pairs carry everything (#207). Valence 3: the triple carries everything. Bridge valence is the entanglement class; one open remains (spatial/measurement), two successor questions named (the 5D pants; W-class reachability)."
+}
