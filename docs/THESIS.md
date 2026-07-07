@@ -1110,6 +1110,51 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The GHZ sector: multipartite entanglement is bridge valence
+(PR #208).** Closes the first named open of #207. A matching cannot
+make genuinely multipartite entanglement; GHZ requires a **junction
+joining three mouths into one bridge** — the trousers (pair-of-pants)
+nucleation (`docs/multi_mouth_bridge_ghz.md`). Delivered with a derived
+no-go attached: (1) **charged GHZ is superselection-forbidden** — if
+the doublet label is a conserved flux (winding = charge), the
+Y-junction has **zero** conserving channels in the ±1 doublet
+(enumerated: all sums ±1, ±3) and GHZ components straddle distinct
+total-charge sectors — exactly QM's charge superselection; the pairwise
+sector never felt this ((k,−k) is zero-sum), so **the multipartite
+sector is where charge and spin part ways**: GHZ lives only in the
+transported-frame (spin/Pin, #195/#197) label — a derived distinction.
+(2) **The Y-junction, live** (one bulk junction fiber read by three
+mouths on the #206/#207 lattice): exactly symmetric three-way
+distribution (spread 1e-16); per-leg deck phases η_k = ±i as transport
+demands; one shared variable (ratio spreads 1e-16); **leg-cut
+consistency** — removing a leg collapses the Y to the #206 two-mouth
+bridge (cut mouth receives 1e-33; the (A,B) pair phase equals the
+composed two-leg law): valence 2 recovered as the junction's special
+case. (3) **GHZ emerges with a holonomy law**: the N-frame embedding
+W|k⟩ = |k⟩⊗T|k⟩⊗…⊗T|k⟩ is an isometry for n = 2, 3 alike; the
+extracted state is GHZ at **fidelity 1.00000** with relative phase
+obeying the **multipartite holonomy law φ = −π(s_B+s_C)/2** (verified
+at (2,2)/(0,2)/(2,1): phases 0/π/π/2 exact) — the #206 pair law and the
+#207 swapping composition extended: **one composition rule,
+φ = −πΣs/2, at every valence**; genuinely tripartite: **3-tangle
+τ = 1.0000** (pairwise concurrences 0). (4) **Mermin = 4.0000 from
+pairwise-empty marginals**: the local bound enumerated exactly (all 64
+deterministic strategies cap at 2); the Y-state reaches the algebraic
+maximum 4 (beyond any pairwise mechanism — Tsirelson caps two-party at
+2√2); every two-mouth marginal is **unentangled** (negativities 0,
+pairwise CHSH exactly 2) — all correlation in the triple, none in any
+pair: the exact opposite of #207's matching. **The valence ledger:**
+valence 2 → Bell pairs + strict monogamy + swapping; valence 3 → GHZ +
+empty pairs; holonomies select the state within the class; charge
+superselection prunes the hypergraph (flux labels: zero-sum channels
+only; frame labels: every valence). Scope: the junction fiber stands in
+for the 5D trousers cobordism (its Sorkin class and nucleation rate vs
+the #58/#200 pair channel unsolved — whether tri-mouth nucleation is
+dynamically *realized* is the physical successor question); W-class
+reachability via networks + surgery named open; the
+spatial/measurement sector is now the **only** standing open of the
+entangled-sector thread (`multi_mouth_bridge_ghz_probe`, PR #208).
+
 **Entanglement swapping is bridge surgery: linking never-co-nucleated
 throats (PR #207).** Opens the dynamical half of #206's register
 consequence. By #206's own theorem, throats that never shared a
