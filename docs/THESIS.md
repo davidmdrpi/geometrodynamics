@@ -1110,6 +1110,63 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The SN-phenomenology audit: the committed Φ[ρ] meets the laboratory
+(PR #205).** The #204 follow-through. Until #204, Φ[ρ] was an internal
+modeling device; #204's no-signaling verdict is a statement *about* it,
+so the SN-type self-coupling is now a **commitment of the theory** —
+and with it BAM enters the reach of laboratory tests (macromolecule
+interferometry, levitated optomechanics, gravitational-entanglement
+witnesses): the program's **nearest-term falsification channel**, far
+closer than the neutrino-sector cards, now on the register. The lab
+predictions hinge on the sourcing subtlety #198 flagged and never
+resolved ("a throat's own self-field is not a pilot wave for itself"):
+**universal-wave sourcing** (empty interferometer branches gravitate at
+~M/2 → full Schrödinger–Newton phenomenology) versus
+**conditional/actual-configuration sourcing** (the mass rides the lump
+through one branch → SN signatures absent). The two give different lab
+predictions; #204 forces the pick, in writing — and this audit makes
+the pick the only honest way: **by running the experiment on the
+committed dynamics** (`docs/sn_phenomenology_audit.md`). (1) **The
+beamsplitter adjudication:** the relaxed 1D throat-soliton (μ_c =
+−10.5, ordered core) sent at a barrier transmits or reflects **as a
+whole** — max(R,T) ≥ 0.95 at 7/8 velocities, co-occupation confined to
+one grid point (bracket (0.5, 0.6)), deep-sub-threshold leakage into
+the untaken branch ~1e-4 — while the **linear control** (same profile,
+binding off) co-occupies both branches across the entire sweep
+(max(R,T) ≤ 0.82): whole-body transport *is* the self-binding. The
+regime mapping: the sandbox threshold sits at kinetic/binding ≈ 0.01; a
+300 m/s molecular beam sits at ~5e-13 — eleven orders below: **the
+mass-carrying field never co-occupies interferometer arms**; splitting
+the mass is the relativistic/QFT regime (#200's pair-creation domain).
+The pick, made by the equations: effective-level sourcing is
+**conditional** — #198's aside, now measured. (2) **The channel is real
+and exactly calculable:** a hand-prepared 50/50 branch split contracts
+at exactly the field-equation Newtonian rate (measured/predicted =
+1.000–1.005 to merger, zero fit) — the SN signatures scale as f², and
+BAM's co-occupied fraction f is exponentially zero in the lab regime:
+**SN signatures predicted null**. (3) **The classical channel cannot
+entangle:** the BAM mean-field Φ[ρ₁+ρ₂] keeps a product two-throat
+state at entanglement entropy **0 (machine)** while the
+quantized-gravity pairwise operator at the same coupling entangles it
+to S = 0.148 — BAM predicts **strictly null** in
+Bose–Marletto–Vedral-type witnesses (phase 0.79 rad for the standard
+proposal scale, where quantized gravity predicts a witness). (4) **The
+SI confrontation:** existing data exclude nothing — the f=1 SN phase at
+the Fein-2019 record (2.7e4 amu) is 4.8e-17 rad, the record sits ~1e5
+below the SN inhibition scale m*(σ) = (ℏ²/2Gσ)^{1/3} ≈ 3–6e9 amu, and
+ω_SN(Si) ≈ 0.05 s⁻¹ is beyond current optomechanics. **The register
+gains two near-term nulls, both actively hunted:** the **SN-null**
+(detection of SN signatures refutes the committed sourcing) and the
+**BMV-null** (an observed gravitational entanglement witness refutes
+classical Φ outright) — the first BAM predictions addressable by living
+experimentalists. Scope: 1D structural/regime adjudication (3D repeat a
+follow-up); the emergence of the CM pilot wave (how the empty branch
+guides without gravitating) remains the standing open item, narrowed
+(its gravitational sourcing now fixed); the committed signature is the
+combination SN-null + BMV-null + fringes intact at every mass; if the
+throat sector ever requires f > 0, these bounds propagate back as
+constraints (`sn_phenomenology_audit_probe`, PR #205).
+
 **The nonlinear no-signaling audit: the Gisin edge, faced by
 construction (PR #204).** The second named frontier item after #203 —
 the no-signaling edge of the #200 register's "nonlinear measurement
