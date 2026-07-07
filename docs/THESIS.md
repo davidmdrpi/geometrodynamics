@@ -1110,6 +1110,54 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The nonlinear no-signaling audit: the Gisin edge, faced by
+construction (PR #204).** The second named frontier item after #203 —
+the no-signaling edge of the #200 register's "nonlinear measurement
+theory" (#198 condition 2). The stakes: BAM's pilot equation is
+genuinely nonlinear (superposition defect `O(1)` measured vs `2e-14`
+for the stripped linear control), and by Gisin/Polchinski nonlinear
+quantum evolutions generically signal superluminally; the linear
+no-signaling theorem cannot protect BAM, and the Gisin proof (which
+uses the projection postulate BAM doesn't have) cannot automatically
+convict it — so the audit is run **by construction** on the live
+dynamics (`docs/nonlinear_no_signaling_audit.md`). The edge **fired
+where it should, and the theory survives it**: (1) **the channel is
+exactly the gravitational field** — a local unitary kick at A produces
+a density response at B (separation 30) at `5e6×` the kinematic floor
+in the Newtonian model (the weak-field model *does* signal, stated
+plainly), but the response is O(G) (ratio 2.14 under G→G/2) and
+**clamping Φ to the no-kick history collapses it back to the floor**
+(suppression `6e6`; the order field q is local and carries nothing);
+(2) **retardation confines it to the cone** — replacing Poisson by the
+causal `□Φ = 4πGρ` (the gauge-fixed weak-field form of the 5D Einstein
+equations whose Bianchi structure #199 verified), the response is
+*machine-floor* quiet (`~1e-15`) outside the light cone, the front
+scales as d/c (`c·t_front = 25.2/26.4/27.2` at c = 8/12/16 vs geometric
+distance 25), and c→∞ recovers Newton — the superluminality belongs to
+the **approximation, not the theory**; (3) **the completion is free** —
+the retarded Φ is still a *real* potential, so #198 equivariance
+survives untouched (norm exact, continuity residual `1e-4`, a
+20 000-throat Born ensemble at sampling noise through the kicked
+retarded evolution): no-signaling and the Born rule hold
+*simultaneously*; (4) **the entangled sector obeys the same
+structure** — on the two-throat state ψ(x₁,x₂) the x₂-marginal is
+invariant under Alice's local unitary to machine precision (`3e-15`,
+the partial-trace theorem on the discrete flow), equilibrium dBB
+trajectory ensembles are signal-local (KS 0.015 ≈ noise 0.018) while
+**non-equilibrium ensembles signal** (KS 0.045 — the Valentini
+boundary, reproduced on the BAM transport: equilibrium is load-bearing,
+exactly as in dBB), and the BAM mean-field gravitational dressing
+violates marginal invariance at O(G) instantaneously (the Gisin
+channel, exhibited) but **confined behind the front** when retarded
+(arrival 1.9 vs geometric 2.0; machine floor before). Scope: minimal
+causal completion (full GR constraint analysis not run); the
+configuration-space pair is the #198 *effective* description — the
+register item is **narrowed** (no-signaling edge audited), not closed
+(the emergence of configuration space from the single 3-space wave
+remains); equilibrium is a hypothesis with the #198 relaxation as
+mechanism — non-equilibrium signaling is a prediction shared with the
+whole dBB program (`nonlinear_no_signaling_audit_probe`, PR #204).
+
 **The coupled 5D+soliton solve: the confrontation (PR #203).** The
 final register item of the mass-ladder thread — and the refutation edge
 **fired at the weak-field level**, cleanly. With no knobs left (the
