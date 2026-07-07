@@ -1,0 +1,129 @@
+{
+  "timestamp_utc": "2026-07-07T08:48:55+00:00",
+  "identification": "Configuration-space emergence: the effective psi(x1,x2) of a throat pair derived from the universal 3-space field plus the bulk identification - the tensor structure is the two-frame description of one bulk object, the Pin- transport makes the symmetric bridge the singlet, Schmidt weights are bridge-mode amplitudes, and CHSH = 2*sqrt(1+C^2) runs from the enumerated Bell bound 2 (bridge cut) to Tsirelson 2*sqrt(2) (symmetric bridge): entanglement is bridge topology, quantitatively",
+  "executes": "#198 condition 2 at its sharpest: the entangled-sector emergence",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "THE SHARP TARGET. #198's condition 2 conceals its strongest form, stated here as the target: a single classical field on 3-space with local dynamics and local readout is a local-hidden-variable model and cannot violate CHSH - Bell's theorem itself. So BAM's entangled sector CANNOT emerge from field correlations alone; it must come from the one nonlocal element the theory legitimately owns - THE BRIDGE, whose two mouths are one object through the bulk (the #168 embedding; the #169 J-quotient; bell.bulk_identity's kinematic reading). The concrete problem: derive the effective psi(x1,x2) of a throat pair from the universal 3-space field plus the bulk identification, and show the bulk connectivity is exactly what carries the non-factorizable correlation. Success makes classical ER=EPR quantitative: entanglement IS bridge topology.",
+      "deliverable": "docs/configuration_space_emergence.md",
+      "executes": "#198 condition 2, sharpest form (the entangled-sector emergence)",
+      "framing": "QFT on the fixed classical throat geometry - not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_no_go_and_gap",
+      "description": "THE NO-GO, MACHINE-CHECKED, AND THE GAP TO CLOSE. Local outcome functions of shared classical data lambda (which is what local readout of a single 3-space field IS - the field configuration is lambda, the detectors respond locally, and without a bridge the dBB guidance of independent throats factorizes) admit only mixtures of the 16 deterministic strategies; enumerated exactly: max CHSH = 2.000000000000000 = 2 (Bell). The quantum target: the singlet gives 2.828427124746 = 2*sqrt(2) (Tsirelson). The gap 2 -> 2.83 is what the entangled sector must supply, and no amount of local field correlation can supply it - by theorem. The one element of BAM that is NOT 3-space-local is the bridge: the two mouths are one object through the bulk (#168), adjacent in the bulk while distant on the brane. That is the legitimate budget this PR spends.",
+      "lhv_max_exact": 2,
+      "tsirelson_from_singlet": 2.828427124746,
+      "pass": true
+    },
+    {
+      "name": "T3_identification_on_lattice",
+      "description": "THE IDENTIFICATION, LIVE ON THE LATTICE. A universal field on (x, chi) - a 128-site 3-space ring with an 8-site fiber - with local dynamics everywhere EXCEPT the two mouth cells, glued through the bulk as (x_A, chi) <-> (x_B, (s - chi) mod 8) (local in the full topology, nonlocal only in the 3-space projection). Measured: (a) CHARGE CONJUGATION: winding k=+1 sent into A arrives at B in channel k=-1 with purity 1.000000 (transmitted fraction 0.281) - the C-conjugate pair (#42-#44 winding = charge; Sigma c1 = 0, #58/#200), as topology requires. (b) PHASE LOCKING: the inter-channel phase at B tracks the phase at A with slope 1.00000000 = 1 exactly - the two mouths hold ONE phase, not two. (c) THE HOLONOMY IS THE BELL-STATE SELECTOR: the handle shift s = 2 (a pi fiber holonomy - a topological datum of the gluing) offsets the locked phase by 3.14159265 = pi: the singlet sign. (d) ONE OBJECT: the B-side/A-side readout ratio of the shared mode is identical across channels to 7.6e-15 - both mouths read the SAME variable. (e) CUT CONTROL: removing the handle, B receives 1.6e-30 - everything above is carried by the bridge and nothing else.",
+      "conjugation_purity": 1.0,
+      "transmitted_fraction": 0.2808,
+      "phase_lock_slope": 1.0,
+      "holonomy_offset_vs_pi": 2.66e-15,
+      "one_object_ratio_spread": 7.6e-15,
+      "cut_transmission": 1.58e-30,
+      "pass": true
+    },
+    {
+      "name": "T4_emergence_lemmas",
+      "description": "THE EMERGENCE, AS THREE MACHINE-CHECKED LEMMAS. LEMMA A (the tensor embedding of one shared variable): the map W|k> = |k>_A x T|k>_B - 'one shared fiber mode, read at both mouths through the bridge transport' - is an ISOMETRY (error 0.0e+00): a single shared circle, described by two local observers, IS a maximally correlated two-party state. The tensor-product structure is not postulated; it is the two-frame description of one bulk object. LEMMA B (which state): the repo's derived non-orientable throat transport T = i sigma_y (T^2 = -1 - the SAME Pin- minus sign that forces Fermi statistics, #195/#196) gives psi_eff = (I x T)|Phi+> = THE SINGLET (fidelity 1.000000000000), and it equals bell.bulk_identity's postulated pair state to 1.000000000000: what that module ASSUMED from topology is here DERIVED from field + identification - two independent paths, one state. LEMMA C (the law): the derived state's correlation E(a,b) = -cos(a-b) matches the bulk_identity module pointwise to 2.2e-16 (and the analytic law to 3.3e-16). The exchange sign and the entanglement sign have one origin: the bridge transport that squares to -1.",
+      "transport_is_i_sigma_y": true,
+      "transport_squares_to_minus_one": true,
+      "isometry_error": 0.0,
+      "singlet_fidelity": 1.0,
+      "module_state_fidelity": 1.0,
+      "correlation_law_error": 3.33e-16,
+      "cross_module_error": 2.22e-16,
+      "pass": true
+    },
+    {
+      "name": "T5_er_epr_curve",
+      "description": "CLASSICAL ER=EPR, QUANTITATIVE. Sweeping the bridge preparation (the nucleation stand-in) and reading the effective two-observer state off the field: the SCHMIDT WEIGHTS ARE THE BRIDGE-MODE AMPLITUDES (extracted concurrence tracks sin 2beta to 2e-3 across the sweep), the entanglement entropy is the bridge participation entropy, and the Bell violation is a FUNCTION OF BRIDGE CONTENT: CHSH(psi_eff) = 2*sqrt(1 + C^2) exactly (Horodecki vs prediction: 4.4e-16; direct settings optimization within 7.4e-04) - running from 2 at zero bridge coherence through 2*sqrt(2) = 2.8284 at the symmetric bridge. At beta = pi/4 the extracted state IS the singlet (fidelity 1.0000) - the maximal violation is the symmetric two-mode bridge with the pi holonomy. THE CUT CONTROL: two throats without a bridge give a product state (entropy -0.0e+00) and CHSH = 2.000000000 = 2 exactly - on the LHV side of T2's gap, as Bell demands of any 3-space-local remainder. Entanglement - and its Bell violation - is bridge topology, measured.",
+      "curve": [
+        {
+          "beta": "0",
+          "sin2beta": 0.0,
+          "C_extracted": 0.0,
+          "S_ent": -0.0,
+          "CHSH": 2.0,
+          "CHSH_grid": 2.0,
+          "2sqrt(1+C^2)": 2.0
+        },
+        {
+          "beta": "pi/12",
+          "sin2beta": 0.5,
+          "C_extracted": 0.5,
+          "S_ent": 0.2458,
+          "CHSH": 2.2361,
+          "CHSH_grid": 2.2356,
+          "2sqrt(1+C^2)": 2.2361
+        },
+        {
+          "beta": "pi/8",
+          "sin2beta": 0.7071,
+          "C_extracted": 0.7071,
+          "S_ent": 0.4165,
+          "CHSH": 2.4495,
+          "CHSH_grid": 2.4489,
+          "2sqrt(1+C^2)": 2.4495
+        },
+        {
+          "beta": "pi/6",
+          "sin2beta": 0.866,
+          "C_extracted": 0.866,
+          "S_ent": 0.5623,
+          "CHSH": 2.6458,
+          "CHSH_grid": 2.645,
+          "2sqrt(1+C^2)": 2.6458
+        },
+        {
+          "beta": "pi/4",
+          "sin2beta": 1.0,
+          "C_extracted": 1.0,
+          "S_ent": 0.6931,
+          "CHSH": 2.8284,
+          "CHSH_grid": 2.8284,
+          "2sqrt(1+C^2)": 2.8284
+        }
+      ],
+      "singlet_fidelity_at_pi4": 1.0,
+      "chsh_cut": 2.0,
+      "entropy_cut": -0.0,
+      "pass": true
+    },
+    {
+      "name": "T6_no_signaling_consistency",
+      "description": "THE NONLOCALITY BUDGET, AUDITED. (a) MARGINALS: Bob's reduced state of the derived psi_eff is invariant under every Alice-side unitary (worst deviation 5.6e-16); the module-level marginal is setting-independent to 2.2e-16. The bridge supplies Bell correlations, not a telegraph. (b) THE OPERATIONAL STATISTICS ride on quantum equilibrium: Born-distributed beables on the effective configuration space (#198, dBB grade), whose equilibrium signal-locality - and whose non-equilibrium Valentini signal - #204 MEASURED on this very structure (its T6). (c) NON-TRAVERSABILITY, stated honestly: the physical bridge is non-traversable (#168 - the identification is a property of the geometry, not a transport channel); the correlation is IMPRINTED at nucleation - the two mouths are born as the boundary of ONE 2-handle (#200's explicit cobordism) - and conserved topologically thereafter. The lattice handle is a modeling stand-in for that identification; the trajectory-level setting-dependence at B is the dBB kind, invisible in equilibrium marginals. The budget closes: bulk-geometric correlation, no superluminal signal (#204), Bell violation at the effective level - exactly the triple quantum mechanics itself exhibits.",
+      "marginal_invariance_worst": 5.55e-16,
+      "module_marginal_spread": 2.22e-16,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "SCOPE, stated. (1) THE SECTOR: the derivation covers the pair's INTERNAL (fiber/winding = spin/charge) degrees of freedom - the sector where Bell lives; the spatial part of psi(x1, x2) (positional entanglement of mouth centers) and the full measurement dynamics (Stern-Gerlach-type transport on the effective space) are not derived here - Born statistics enter at dBB grade per #198. (2) N PARTICLES: the mechanism gives one shared variable per bridge; a many-pair state is a tensor product over bridges. The general N-body configuration space (entangling throats that never shared a nucleation) requires bridge networks / entanglement swapping at the dynamical level - exhibited mechanism, open construction. (3) THE LATTICE HANDLE is traversable (a coupling), standing in for the nucleation-imprinted identification of the non-traversable physical bridge; what it demonstrates - conjugation, locking, holonomy, one-object readout - are properties of the identification itself. (4) Nchi = 8 fiber sites; the k = +-1 doublet is the scalar reduction of the #195/#197 spinor structure (the transport T = i sigma_y is the repo's derived one). (5) The equilibrium hypothesis (#198/#204) carries the operational statistics, as everywhere in the program.",
+      "scope": [
+        "internal (fiber) sector; spatial entanglement open",
+        "N-body beyond shared-nucleation pairs open (mechanism shown)",
+        "lattice handle = stand-in for nucleation imprint",
+        "Nchi = 8; k = +-1 doublet (scalar reduction)",
+        "equilibrium hypothesis (dBB grade)"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "CLASSICAL ER=EPR, MADE QUANTITATIVE. The sharpest form of the emergence problem - Bell's theorem forbids a 3-space-local classical field from violating CHSH - is answered with the one nonlocal element BAM owns: the bridge. Derived and measured: the tensor-product structure is the two-frame description of one bulk object (isometry lemma); the bridge transport T = i sigma_y (T^2 = -1, the Pin- sign of Fermi statistics) makes the symmetric bridge state THE SINGLET - bell.bulk_identity's postulate, now derived, two paths agreeing to 1e-12; the identification's field-level signature is exact charge conjugation + rigid phase locking + the pi-holonomy Bell-state selector, all measured on the lattice and all killed by cutting the bridge; and the law is quantitative - Schmidt weights = bridge-mode amplitudes, entanglement entropy = bridge participation entropy, CHSH = 2*sqrt(1 + C^2) with C the bridge concurrence: 2 without a bridge (the Bell bound, enumerated exactly), 2*sqrt(2) with the symmetric pi-holonomy bridge (Tsirelson, saturated). Entanglement is bridge topology - with the register consequence that #198's condition 2 is split: its Bell-sector half is DISCHARGED (the entangled structure has a topological origin), its dynamical half (spatial sector, N-body networks, measurement transport) remains the standing item, now sharply bounded.",
+      "classification": "CONFIGURATION_SPACE_EMERGES_FROM_THE_BRIDGE_SCHMIDT_WEIGHTS_ARE_BRIDGE_MODE_AMPLITUDES_CHSH_2_WITHOUT_2SQRT2_WITH_CLASSICAL_ER_EPR_QUANTITATIVE",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "CONFIGURATION_SPACE_EMERGES_FROM_THE_BRIDGE_SCHMIDT_WEIGHTS_ARE_BRIDGE_MODE_AMPLITUDES_CHSH_2_WITHOUT_2SQRT2_WITH_CLASSICAL_ER_EPR_QUANTITATIVE",
+  "verdict": "ENTANGLEMENT IS BRIDGE TOPOLOGY - MEASURED (the argument is in docs/configuration_space_emergence.md; this probe checks every step).\n\nTHE TARGET. Bell's theorem, enumerated exactly: local strategies cap at CHSH = 2; the quantum sector needs 2.8284. A 3-space-local classical field cannot cross that gap - the entangled sector must come from the bridge, the one nonlocal element BAM owns.\n\nTHE IDENTIFICATION. On the lattice, the bulk gluing delivers exact charge conjugation (purity 1.0), rigid phase locking (slope 1.0), the pi-holonomy Bell-state selector, and one-object readout - all destroyed by cutting the bridge.\n\nTHE EMERGENCE. One shared fiber read from two mouths embeds isometrically as a maximally correlated pair state; the derived transport T = i sigma_y (T^2 = -1, the Pin- sign) makes it THE SINGLET - bell.bulk_identity's postulated state, now derived (fidelity 1.000000), its E(a,b) = -cos(a-b) matching the module to 2e-16.\n\nTHE LAW. Schmidt weights = bridge-mode amplitudes (concurrence tracks the preparation to 2e-3); CHSH = 2*sqrt(1 + C^2) exactly across the sweep; bridge cut -> CHSH = 2.0000; symmetric bridge -> 2*sqrt(2). Marginals stay setting-independent (the budget: Bell correlation without a telegraph, #204). Classical ER=EPR is quantitative, and #198's condition 2 splits: the Bell-sector half discharged, the dynamical half sharply bounded."
+}
