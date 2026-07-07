@@ -1110,6 +1110,56 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The measurement sector: pointer outcomes for the entangled sector
+(PR #209).** Closes the last standing open of the entangled-sector
+thread. #206–#208 derived the entangled STATES from bridge topology,
+but their operational content rested on "Born statistics for internal
+states at dBB grade" — and #198's equivariance covers spatial transport
+only. The missing chain — internal state → spatial pointer branches →
+position beables → Born — is delivered in three links
+(`docs/measurement_sector.md`): (1) **the pointer coupling exists in
+the committed structure**: winding couples minimally to the fiber
+connection (winding = charge, #42–#44 — the KK gauge coupling); the
+per-channel potential V_k = −2t_χcos(2πk/N − θ(x)) is exact on the
+lattice, its **k-odd part** −2t_χ sin(2πk/N) sinθ an identity (1e-16) —
+a connection-gradient region exerts opposite forces on opposite
+windings: **the winding Stern–Gerlach is charge measurement by
+deflection**, derived not postulated (live, from the raw dispersion:
+k = +1 crosses to +28, k = −1 turned back to −23); (2)
+**fiber-integrated equivariance** — the #198 theorem extends verbatim
+to the multichannel wave (orthogonal internal channels, real
+per-channel potentials): continuity residual 1e-4 on the live
+Stern–Gerlach evolution, a 20 000-throat Born ensemble at sampling
+noise through branch separation; (3) **Born statistics for internal
+states, measured**: P(+) = cos²β to ≤ 0.003 across the sweep (branches
+7σ apart) — the internal-sector Born rule is #198's spatial
+equivariance routed through the committed coupling, not a new
+postulate; **pointer permanence**: the empty branch's influence on
+occupied-branch guidance dies with the Gaussian branch overlap
+(1e-4 → 7e-9): **effective collapse, from geometry, without
+collapse**. **The operational closing**: the #206-derived singlet +
+local setting rotations + Stern–Gerlach branches at both wings + dBB
+position beables: E(0,0) = −1.0000 exact; the four CHSH correlators
+within 0.012 of −cos(a−b); **CHSH = 2.824 read out of the POSITIONS OF
+CLASSICAL BEABLES** with setting-independent marginals (operational
+no-signaling) — Bell violation as pointer statistics, with no imported
+quantum rule anywhere: state (#206 topology), coupling (KK), statistics
+(#198 extended), equilibrium (#198/#204). **The spatial sector**: the
+pointer IS the spatial part of the pair wave in a measurement;
+**positional EPR follows from conservation at nucleation** (the
+#58/#200 C-conjugate pair: co-located birth, anticorrelated momenta):
+Duan–Simon sum 0.53 < 2 — spatially entangled, structure from symmetry
+(widths as inputs); and the **#205 guiding-without-gravitating split is
+realized exactly here**: the empty pointer branch guides until
+separation and never gravitates (back-action ~1e-17, nil). Scope: the
+SG window = co-moving connection-gradient transit;
+registration/irreversibility beyond branch separation (amplification,
+radiative decoherence) not modeled; equilibrium hypothesis; nucleation
+widths underived. **The entangled-sector thread closes operationally**;
+program-wide remaining opens: the 5D pants nucleation, W-class
+reachability, the strong-field NR target
+(`measurement_sector_probe`, PR #209).
+
 **The GHZ sector: multipartite entanglement is bridge valence
 (PR #208).** Closes the first named open of #207. A matching cannot
 make genuinely multipartite entanglement; GHZ requires a **junction
