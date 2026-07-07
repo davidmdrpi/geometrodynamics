@@ -1110,6 +1110,63 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**Configuration-space emergence: entanglement is bridge topology
+(PR #206).** Attacks #198's condition 2 at its sharpest point, stated
+as the target: **a single classical field on 3-space with local
+dynamics and local readout is an LHV model and cannot violate CHSH —
+Bell's theorem itself** (machine-checked: all 16 deterministic local
+strategies enumerated, max CHSH = 2 exactly; the quantum sector needs
+2√2). So BAM's entangled sector cannot emerge from field correlations
+alone — it must come from the one nonlocal element the theory
+legitimately owns: **the bridge**, whose two mouths are one object
+through the bulk (#168's regular 5D Killing horizon; #169's J-quotient;
+`bell.bulk_identity`'s kinematic reading). The concrete problem —
+derive the effective ψ(x₁,x₂) of a throat pair from the universal
+3-space field plus the bulk identification — is solved in three
+measured/machine-checked layers
+(`docs/configuration_space_emergence.md`). (1) **The identification,
+live on a lattice** (a universal field on a 128-site ring × 8-site
+fiber, local everywhere except the mouth cells glued through the bulk
+as χ → s−χ): winding k=+1 into mouth A arrives at B as k=−1 with purity
+**1.000000** (charge conjugation — the C-conjugate pair, Σc₁ = 0); the
+inter-channel phase at B tracks A with slope **1 exactly** (one phase,
+not two); the handle's **π fiber holonomy (s = 2) is the Bell-state
+selector** (offsets the locked phase by exactly π — the singlet sign);
+both mouths read the same shared mode (ratio spread 1e-8); cutting the
+bridge kills everything (1e-30). (2) **The emergence lemmas:** the map
+`W|k⟩ = |k⟩_A ⊗ T|k⟩_B` — one shared fiber read at two mouths — is an
+**isometry**: the tensor-product structure is the two-frame description
+of one bulk object (this is where configuration space comes from); with
+the repo's derived non-orientable transport **T = iσ_y (T² = −1 — the
+same Pin⁻ sign that forces Fermi statistics)**, the symmetric bridge
+gives ψ_eff = (I⊗T)|Φ⁺⟩ = **the singlet**, equal to
+`bell.bulk_identity`'s *postulated* pair state to fidelity
+1.000000000000 — what that module assumed from topology is now
+**derived** from field + identification (two independent paths, one
+state; E(a,b) = −cos(a−b) matching to 2e-16). (3) **The quantitative
+ER=EPR law:** sweeping the bridge preparation, the extracted
+concurrence tracks the bridge-mode amplitudes to 2e-3 (**Schmidt
+weights are bridge-mode amplitudes**; entanglement entropy = bridge
+participation entropy) and **CHSH(ψ_eff) = 2√(1+C²) exactly**
+(Horodecki, verified by direct settings optimization) — from the Bell
+bound 2 at zero bridge coherence (and exactly 2 for the bridge-cut
+product state) to Tsirelson **2√2** at the symmetric π-holonomy bridge
+(extracted singlet fidelity 1.000000). **The nonlocality budget
+closes:** marginals invariant under all Alice-side unitaries (1e-16) —
+Bell correlation without a telegraph; statistics at dBB grade on
+equilibrium (#198), whose signal-locality #204 measured; the physical
+bridge is non-traversable — the identification is **imprinted at
+nucleation** (the mouths bound one 2-handle, #200) and conserved
+topologically (the lattice handle is a stand-in). **The register
+consequence: #198's condition 2 splits** — its Bell-sector half (where
+does non-factorizable structure come from?) is **discharged**:
+entanglement is bridge topology, quantitatively; its dynamical half
+(the spatial sector, N-body bridge networks/swapping, measurement
+transport) remains the standing item, now sharply bounded. Scope:
+internal (fiber/spin) sector; k = ±1 doublet (scalar reduction of
+#195/#197); N_χ = 8; equilibrium hypothesis
+(`configuration_space_emergence_probe`, PR #206).
+
 **The SN-phenomenology audit: the committed Φ[ρ] meets the laboratory
 (PR #205).** The #204 follow-through. Until #204, Φ[ρ] was an internal
 modeling device; #204's no-signaling verdict is a statement *about* it,
