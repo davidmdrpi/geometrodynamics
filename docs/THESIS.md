@@ -1110,6 +1110,60 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The strong-field core solve: the collapse reading refuted, the anchor
+relocated (PR #210).** Executes #203's register target — the
+strong-field core contraction — at the tractable and sufficient level:
+the **static spherical GR family of the committed ψ–q structure**
+(shooting; ground state by the 0→1 node transition; the turning-point
+criterion brackets the collapse endpoint), benchmarked on the **Kaup
+point to 0.2%** (M_max = 0.6327 vs 0.633; ω/m = 0.848 at criticality)
+(`docs/strong_field_core_solve.md`). (1) **The #179 runaway is a
+genuine GR instability**: the order field enters by adiabatic
+elimination (κ = 0.005), contributing the non-convex
+V_int = −(gσ²−a₀)²/4λ above threshold; measured — the family's maximum
+mass sits AT the ordering onset (σ_c = 0.15) and the ordered branch
+loses mass monotonically (0.542 → 0.295): switching on the core order
+destabilizes the star — the strong-field endpoint of the committed
+structure IS collapse, confirming the premise of #203's collapse
+reading before the measurement that decides it. (2) **The
+measurement**: at criticality, σ_mode/r_s = **2.45–5.83 (RMS) /
+5.42–12.72 (R99)** across the potential class (Kaup / the committed
+q-channel / a repulsive control) — universally O(few–10), a factor ≥ 7
+short of the required 88.6 (conv A) and ≥ 16 of 206.8 (conv B);
+structural, not parametric (the Buchdahl-type bound: at criticality
+every length is the gravitational radius × O(few); σ/r_s = 88.6 means
+compactness ~1e-2 — far from collapse). (3) **The verdict — the
+pre-registered failure mode fires**: the collapse contraction is
+r_q(weak)/r_s(true) = **O(1)** (the #203 weak-field band 4.6–6.7
+overlaps the critical band 2.5–12.7), not 13–45: **the mouth-pairing
+mechanism is refuted as the quantitative origin of the electron mass in
+its collapse reading** — constructively (the cores really collapse;
+collapse just cannot make them light); the smallness mechanism (#195
+index protection, #201 multiplicative structure, #202 exact law)
+survives, exactly as #203 stated. (4) **The relocation — the
+primordial EM-capped throat**: in BAM the throat is the PRE-EXISTING
+object (#168's regular 5D Tangherlini Killing horizon; bulk mass
+μ = r_s² a geometric datum), and the repo's own #55–#58 anchor puts its
+radius at the EM-capped equilibrium (U_EM/mc² = α/2): r_s ~ α·λ̄_C —
+the classical electron radius. The required hierarchy becomes
+σ_mode/λ̄_C = 88.6α = **0.647** (A) / 206.8α = **1.509** (B) — **the
+convention band brackets 1**: σ_mode = λ̄_C and r_s = r_e meet the #202
+law with **no new number**; the neck aspect **c = ln(1/α) + O(1)**
+(4.484 = 4.920 − 0.436); **m_e/m_μ = (3/7…1)·α = [0.00313, 0.00730]
+brackets the observed 0.00484**; and the #203 window is met by this
+anchor (r_q(weak)/r_s = [13.2, 44.6] ∈ [13, 45]) — by the primordial
+throat, not by collapse. Constrained, not derived (the O(1) band is
+×2.3); but the mass ladder's remaining unknown is now the same α the
+#184 thread protects — **the electron/muon ratio as a fine-structure
+phenomenon; the mass ladder and the α thread are one thread**. Scope:
+static spherical 4D GR + turning point (sufficient for the
+adjudication; 5D criticality differs by O(1) — cannot rescue ×15);
+adiabatic q; three-potential class + the structural bound; the α anchor
+inherits #55–#58's scope. **The register**: "do full 5D NR" is replaced
+by two sharper items — derive σ_mode/λ̄_C (the O(1)) and connect the
+#55–#58 R* to the bulk mass μ = r_s²
+(`strong_field_core_solve_probe`, PR #210).
+
 **The measurement sector: pointer outcomes for the entangled sector
 (PR #209).** Closes the last standing open of the entangled-sector
 thread. #206–#208 derived the entangled STATES from bridge topology,

@@ -1,0 +1,144 @@
+{
+  "timestamp_utc": "2026-07-08T03:35:24+00:00",
+  "identification": "The strong-field core solve: the #203 target measured - critical sigma_mode/r_s = 2.5-12.7 across the potential class (Kaup benchmark 0.2%; the #179 runaway confirmed as a GR instability), so the collapse reading yields an O(1) contraction and is refuted as m_e's quantitative origin; the anchor relocates to the primordial EM-capped throat (r_s = alpha lambda_C), where the required hierarchy is met with no new number and c = ln(1/alpha) + O(1)",
+  "executes": "the #203 register target (the strong-field core contraction)",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "THE #203 TARGET, EXECUTED. The mass-ladder thread closed onto one number: the strong-field core solve must yield a contraction r_q(weak)/r_s(true) = 13-45 for mouth pairing to land m_e/m_mu - with the failure mode pre-registered (an O(1) contraction refutes the mechanism as m_e's quantitative origin; the smallness mechanism survives). Executed here at the tractable and sufficient level: the static spherical GR family of the committed psi-q structure, whose maximum-mass turning point brackets the collapse endpoint (the turning-point stability criterion) - the adjudication needs the critical configuration, not the ringdown. Both outcomes were pre-registered; the edge is live.",
+      "deliverable": "docs/strong_field_core_solve.md",
+      "executes": "the #203 register target (the NR core contraction)",
+      "framing": "QFT on the fixed classical throat geometry - not quantum gravity",
+      "pass": true
+    },
+    {
+      "name": "T2_solver_benchmark",
+      "description": "THE SOLVER, BENCHMARKED ON THE KAUP POINT. Static spherical Einstein-Klein-Gordon, shooting on the frequency with the ground state bracketed by the 0->1 node transition; observables cut where the field has decayed; M from the metric function. The classic mini-boson-star maximum: M_max = 0.6327 (literature 0.633 M_Pl^2/m - agreement 0.2%), with omega/m = 0.8484 at criticality (literature ~0.85). The family table: {0.1: 0.4747, 0.15: 0.5419, 0.2: 0.584, 0.25: 0.61, 0.3: 0.625, 0.35: 0.6318, 0.4: 0.6327, 0.45: 0.6291}. The machinery that adjudicates #203 reproduces the canonical strong-field result before it is asked anything new.",
+      "M_max": 0.6327,
+      "omega_phys_at_max": 0.8484,
+      "family_M": {
+        "0.1": 0.4747,
+        "0.15": 0.5419,
+        "0.2": 0.584,
+        "0.25": 0.61,
+        "0.3": 0.625,
+        "0.35": 0.6318,
+        "0.4": 0.6327,
+        "0.45": 0.6291
+      },
+      "pass": true
+    },
+    {
+      "name": "T3_committed_structure_relativistic",
+      "description": "THE RELATIVISTIC COMPLETION OF THE COMMITTED STRUCTURE, AND THE #179 RUNAWAY CONFIRMED AS A GR INSTABILITY. The order field enters by adiabatic elimination (kappa = 0.005 << 1 in the locked #180 functional): q^2 = (g sigma^2 - a0)/lam above threshold, contributing the non-convex V_int = -(g sigma^2 - a0)^2/(4 lam) - the ordering channel as an attractive, unbounded-below potential: the #179 runaway, made relativistic. Measured (g = 4, a0 = 0.09: onset at sigma_c = 0.150): the family's maximum mass sits AT the ordering onset (peak at sigma_c = 0.15), and the branch beyond loses mass monotonically (M = [0.5419, 0.5277, 0.47, 0.4135, 0.3656, 0.3266, 0.295]) - by the turning-point criterion, the ordered branch is UNSTABLE: switching on the core order destabilizes the star. The strong-field endpoint of the committed structure is collapse - the premise of #203's collapse reading, confirmed before the measurement that decides its fate (T4/T5).",
+      "ordering_onset_sigma": 0.15,
+      "peak_at_sigma": 0.15,
+      "unstable_branch_M": [
+        0.5419,
+        0.5277,
+        0.47,
+        0.4135,
+        0.3656,
+        0.3266,
+        0.295
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_critical_ratio_measurement",
+      "description": "THE MEASUREMENT. At the collapse threshold (the maximum-mass configuration), the wave-to-horizon scale ratio sigma_mode/r_s (r_s = 2M), across the three potentials - Kaup (pure mass term), the committed q-channel, and a repulsive-quartic control: RMS measure {'kaup': 2.67, 'qchan': 5.83, 'rep': 2.45}, R99 measure {'kaup': 6.05, 'qchan': 12.72, 'rep': 5.42}. UNIVERSALLY O(few-10) - the required 88.6 (conv A) / 206.8 (conv B) is a factor >= 7 beyond the largest critical value. The reason is structural, not parametric: at criticality every length is the gravitational radius times O(few) (the Buchdahl-type compactness bound); a configuration with sigma/r_s = 88.6 has compactness ~1e-2 - FAR from collapse, stable, and nothing drives it to a horizon. No corner of the potential class reaches the required hierarchy at criticality.",
+      "critical_ratios": {
+        "kaup": {
+          "rms_over_rs": 2.67,
+          "r99_over_rs": 6.05,
+          "M_max": 0.6327
+        },
+        "qchan": {
+          "rms_over_rs": 5.83,
+          "r99_over_rs": 12.72,
+          "M_max": 0.5419
+        },
+        "rep": {
+          "rms_over_rs": 2.45,
+          "r99_over_rs": 5.42,
+          "M_max": 0.7566
+        }
+      },
+      "required": {
+        "conv_A": 88.6,
+        "conv_B": 206.8
+      },
+      "shortfall_factor": 7.0,
+      "pass": true
+    },
+    {
+      "name": "T5_verdict_collapse_refuted",
+      "description": "THE VERDICT - THE PRE-REGISTERED FAILURE MODE FIRES. #203's collapse reading holds that the true core is the strong-field endpoint of the #179 runaway; T3 confirms that endpoint exists. But T4 measures its scale: a collapsing core passes through criticality, where sigma_mode/r_s = [2.45, 2.67, 5.42, 5.83, 6.05, 12.72] - the SAME order as the weak-field band (4.6, 6.7) that #203 already measured. The contraction available from collapse is r_q(weak)/r_s(true) = [0.36, 2.73] - O(1), NOT the required 13-45. Per the failure mode #203 pre-registered: THE MOUTH-PAIRING MECHANISM IS REFUTED AS THE QUANTITATIVE ORIGIN OF THE ELECTRON MASS IN ITS COLLAPSE READING - m_e stays over-predicted by an order of magnitude at any collapse endpoint. What survives, exactly as #203 stated: the smallness mechanism (the #195 index protection, the #201 multiplicative structure, the #202 exact law and its naturalness) - and the law's anchor question, which T6 relocates.",
+      "critical_band": [
+        2.45,
+        2.67,
+        5.42,
+        5.83,
+        6.05,
+        12.72
+      ],
+      "weak_field_band": [
+        4.6,
+        6.7
+      ],
+      "collapse_contraction": [
+        0.36,
+        2.73
+      ],
+      "required_contraction": [
+        13,
+        45
+      ],
+      "pass": true
+    },
+    {
+      "name": "T6_relocation_alpha_anchor",
+      "description": "THE RELOCATION - THE PRIMORDIAL THROAT AND THE ALPHA ANCHOR. In BAM the throat is not a collapse product: it is the PRE-EXISTING topological object - #168's regular 5D Tangherlini Killing horizon, with the bulk mass mu = r_s^2 a geometric datum. And the repo already anchors that radius: the #55-#58 finite-self-energy equilibrium caps the EM field at U_EM/(m c^2) = alpha/2 - the throat radius sits at the CLASSICAL ELECTRON RADIUS scale, r_s ~ alpha lambda_C. Under this reading the required #202 hierarchy becomes sigma_mode/lambda_C = 88.6 alpha = 0.647 (conv A) / 206.8 alpha = 1.509 (conv B) - THE CONVENTION BAND BRACKETS 1: sigma_mode = lambda_C (the Compton cloud #202 already described) and r_s = r_e meet the law with NO NEW NUMBER. Equivalently: the neck aspect c = ln(sigma/r_s) = 4.484 = ln(1/alpha) + (-0.436) - the suppression exponent is the FINE-STRUCTURE LOGARITHM up to an O(1); and m_e/m_mu = (3/7..1) alpha = [0.00313, 0.00730] brackets the observed 0.00484. The #203 contraction window is met by this anchor: r_q(weak)/r_s = [13.2, 44.6] - inside [13, 45] - achieved by the primordial EM-capped throat, not by collapse. CONSTRAINED, NOT DERIVED: the O(1) band is x2.3 wide; but the mass ladder's remaining unknown is now THE SAME alpha the #184 thread protects - the electron/muon ratio as a fine-structure phenomenon.",
+      "sigma_over_lambdaC_band": [
+        0.647,
+        1.509
+      ],
+      "neck_aspect": {
+        "c_needed": 4.484,
+        "ln_1_over_alpha": 4.92,
+        "O1_residual": -0.436
+      },
+      "me_over_mmu_alpha_band": [
+        0.00313,
+        0.0073
+      ],
+      "observed": 0.00484,
+      "contraction_from_alpha_anchor": [
+        13.2,
+        44.6
+      ],
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "SCOPE, stated. (1) STATIC SPHERICAL 4D GR with the turning-point stability criterion - sufficient for the adjudication (the collapse endpoint's scale is bracketed by criticality); full dynamical NR would sharpen the endpoint but cannot move it past the Buchdahl-type bound; 5D Tangherlini criticality differs by O(1) factors - unable to rescue a x15 shortfall. (2) ADIABATIC q (kappa = 0.005; the gradient-energy correction is percent-level). (3) THREE potentials scanned; the structural compactness argument covers the class - a potential engineered to hold sigma/r_s = 88.6 AT collapse would need a conspiracy the committed functional does not contain. (4) The alpha anchor inherits the #55-#58 scope: R* is the finite-self-energy equilibrium (itself carrying the program's one dimensionful anchor per B4/#184), and sigma_mode/lambda_C = O(1) is CONSTRAINED (band x2.3), not derived - deriving that O(1), and connecting R* to the 5D bulk mass mu = r_s^2, are the two successor items that replace 'do full NR' on the register.",
+      "scope": [
+        "static spherical GR + turning-point criterion",
+        "adiabatic q (kappa small)",
+        "three-potential class + structural bound",
+        "alpha anchor: #55-#58 scope inherited; O(1) constrained"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "THE MASS-LADDER THREAD LANDS. #203 closed onto one number with both outcomes pre-registered, and the number is now measured: at the collapse threshold sigma_mode/r_s = 2.5-12.7 across the potential class (solver benchmarked on the Kaup point to 0.2%) - the collapse reading gives an O(1) contraction, and the mouth-pairing mechanism is REFUTED as the quantitative origin of the electron mass in that reading. The refutation is constructive: the #179 runaway IS a genuine GR instability (measured - the ordering onset destabilizes the family), so the committed dynamics really does collapse its cores; collapse just cannot make them light. What makes the electron light, if the #202 law is right, is the PRIMORDIAL throat - the #168 Tangherlini horizon at the #55-#58 EM-capped radius r_e = alpha lambda_C - under which the required hierarchy is met with no new number (the convention band brackets sigma_mode = lambda_C exactly), the suppression exponent is c = ln(1/alpha) + O(1), and m_e/m_mu = (3/7..1) alpha brackets the observed value. The register: 'do full 5D NR' is replaced by two sharper items - derive the O(1) (sigma_mode/lambda_C) and connect the #55-#58 R* to the bulk mass mu = r_s^2. The mass ladder and the alpha thread (#184) are now one thread.",
+      "classification": "COLLAPSE_READING_REFUTED_CRITICAL_SIGMA_OVER_RS_IS_O_FEW_NOT_88_THE_ANCHOR_RELOCATES_TO_THE_EM_CAPPED_PRIMORDIAL_THROAT_C_EQUALS_LN_ONE_OVER_ALPHA_PLUS_O1",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "COLLAPSE_READING_REFUTED_CRITICAL_SIGMA_OVER_RS_IS_O_FEW_NOT_88_THE_ANCHOR_RELOCATES_TO_THE_EM_CAPPED_PRIMORDIAL_THROAT_C_EQUALS_LN_ONE_OVER_ALPHA_PLUS_O1",
+  "verdict": "THE #203 NUMBER IS MEASURED, AND THE EDGE FIRED ON THE PRE-REGISTERED BRANCH (the argument is in docs/strong_field_core_solve.md).\n\nTHE SOLVE. Static spherical GR, benchmarked on the Kaup point (M_max = 0.6327 vs 0.633; omega = 0.848). The committed q-channel, made relativistic by adiabatic elimination, confirms the #179 runaway as a genuine GR instability: the ordering onset destabilizes the family (the maximum mass sits at the threshold; the ordered branch loses mass monotonically). The strong-field endpoint IS collapse.\n\nTHE MEASUREMENT. At criticality, sigma_mode/r_s = [2.45, 2.67, 5.42, 5.83, 6.05, 12.72] across the potential class - O(few-10), structurally bounded (Buchdahl): a factor >= 7 short of the required 88.6. The collapse contraction is [0.36, 2.73] - O(1), not 13-45: THE MOUTH-PAIRING MECHANISM IS REFUTED AS m_e's QUANTITATIVE ORIGIN IN ITS COLLAPSE READING, exactly per #203's pre-registered failure mode. The smallness mechanism survives.\n\nTHE RELOCATION. The throat is primordial (#168's Tangherlini Killing horizon), and the repo's own #55-#58 anchor puts its radius at r_e = alpha lambda_C. The required hierarchy becomes sigma_mode/lambda_C = [0.647, 1.509] - the convention band BRACKETS 1: sigma = lambda_C, r_s = r_e, no new number. The neck aspect c = ln(1/alpha) -0.436; m_e/m_mu = (3/7..1) alpha = [0.00313, 0.0073] brackets the observed 0.00484; and the #203 window is met by this anchor ([13.2, 44.6] in [13, 45]). The mass ladder joins the alpha thread: the register replaces 'full 5D NR' with 'derive the O(1) and connect R* to the bulk mass'."
+}
