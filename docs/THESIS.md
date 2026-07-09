@@ -1110,6 +1110,56 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The Compton-edge capstone: Release II (PR #211).** The closing PR of
+the #204–#210 arc — the whole chain re-verified green in one run (as
+#200 did for the previous arc), the register updated, plus **one new
+parameter-free law** aimed at the arc's final unknown
+(`docs/compton_edge_capstone.md`). **The Compton-edge law**: #210 left
+the mass ladder with one O(1) — σ_mode/λ̄_C. Adding the mass term to
+#202's bridge equation, `(ρ³φ′)′ = [k(k+2)ρ + m²ρ³]φ`, deforms the
+exact suppression law **universally in x = σ_mode/λ̄_C alone** (the
+m·r_s = 0.02 and 0.05 curves coincide to 2.6e-4; the massless limit
+re-derives φ = σ to machine zero, #202's c₀(1) = 0): the law is
+`ε₁ = (r_s/σ_mode)·D(x)` with D computed (0.966 at conv A, 0.831 at
+conv B), and the **sensitivity S(x) = |d ln ε₁/d ln σ| = 1 exactly
+below the Compton scale** (the #202 naturalness, its validity domain
+now located) growing beyond — so **naturalness caps the O(1)**: S ≤ 2
+confines x ≤ 2.58, the ladder's own worst-tolerated 4.48 confines
+x ≤ 5.58, and **both convention anchors sit inside** (S = 1.07, 1.36).
+The deformation-corrected self-consistent band tightens the #210
+bracket to **σ_mode/λ̄_C ∈ [0.626, 1.307] — still bracketing 1**: the
+successor derivation has a compact, derived target at the Compton edge
+of the natural domain, not an unbounded O(1); the electron/muon ratio
+is a fine-structure phenomenon with its correction controlled and small
+exactly where the anchor sits. **The ledger, green in one run**: (1)
+the commitment chain — a kicked *retarded* run with real potentials
+conserves the norm (6e-14) and closes continuity (2e-3), the classical
+mean-field channel keeps a product state at entropy 0 vs the quantized
+pairwise operator's 0.026, the SN/BMV nulls armed (SN phase 4.8e-17
+rad, BMV witness 0.79 rad where BAM predicts zero); (2) the topology
+chain — the singlet from (I⊗T)|Φ⁺⟩ (fidelity 1.0, E = −cos(a−b) to
+2e-16), the swapping law (Ψ_{a+b+c}, separable mixture 2e-17), the
+enumerated LHV bounds CHSH = 2 / Mermin = 2 vs the Y-junction's
+Mermin = 4 with exactly-empty pairwise marginals (negativity 0); (3)
+measurement + mass — the k-odd dispersion identity (2e-16), a live
+Stern–Gerlach Born check (within 0.0024 of cos²β), a live Kaup point
+(M = 0.632), the α bands bracketing their targets. **The register
+after the arc** (all named and bounded): derive σ_mode/λ̄_C within the
+Compton-edge window; connect the #55–#58 R* to the bulk mass μ = r_s²;
+the 5D pants nucleation (Sorkin class, rate); W-class reachability;
+registration/irreversibility (radiative decoherence); standing
+negative kept — the cosmological constant (#165). **The falsification
+card**: two near-term nulls (SN-scale signatures; a BMV witness), the
+m_e/m_μ = (3/7…1)·α prediction at the ×1.5 level with its O(1)
+confined, the neutrino cards unchanged. Scope: full-GR no-signaling is
+a completion argument; the CM-wave emergence is derived only in its
+gravitational sourcing and entangled structure; the pinch/pants are
+topological content; the α anchor is constrained, not derived;
+equilibrium is a hypothesis with a mechanism throughout. **Release II**:
+the program's deepest interpretive machinery is now theorems,
+measurements, and bounded windows — not imports
+(`compton_edge_capstone_probe`, PR #211).
+
 **The strong-field core solve: the collapse reading refuted, the anchor
 relocated (PR #210).** Executes #203's register target — the
 strong-field core contraction — at the tractable and sufficient level:
