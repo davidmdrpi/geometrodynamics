@@ -6,6 +6,20 @@ from geometrodynamics.viz.antipodal_crossing import (
     Crossing,
     run_animation,
 )
+from geometrodynamics.viz.antipodal_focusing import (
+    PlaneWaveSim,
+    SphereWaveSim,
+    RefocusResult,
+    focusing_factor,
+    measure_refocus,
+    draw_contrast,
+    draw_focus_object,
+    draw_focusing_factor,
+    plot_contrast_panel,
+    plot_focusing_panel,
+    plot_object_panel,
+    run_animation as run_focusing_animation,
+)
 from geometrodynamics.viz.geometry_panels import (
     draw_green,
     draw_handshake,
@@ -23,6 +37,20 @@ __all__ = [
     "Absorption",
     "Crossing",
     "run_animation",
+    # antipodal focusing
+    "PlaneWaveSim",
+    "SphereWaveSim",
+    "RefocusResult",
+    "focusing_factor",
+    "measure_refocus",
+    "draw_contrast",
+    "draw_focus_object",
+    "draw_focusing_factor",
+    "plot_contrast_panel",
+    "plot_focusing_panel",
+    "plot_object_panel",
+    "run_focusing_animation",
+    # geometry panels
     "draw_green",
     "draw_handshake",
     "draw_hopf",
