@@ -1110,6 +1110,54 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The wormhole-network confirmation (PR #216).** #213 derived the
+Feynman propagator from retarded + advanced completions, but the
+advanced half sat where Wheeler left it — waves propagate forward in
+time, and the engine's `advanced_confirm_amplitude` assigned the
+conjugated phase by fiat. `wormhole_network_confirm_probe` + the new
+module `geometrodynamics/transaction/network.py` supply the
+**classical geometric mechanism**
+(`docs/wormhole_network_confirmation.md`): one retarded C-wave →
+forward to the future antipode (t = π) → transmitted into the throat
+with the #215 greybody t_AB(ω) → traversed *forward* (τ_th > 0 in
+mouth-clock time) → emerges through a clock-offset mouth at
+t = π + τ_th + Δ_BA < 0 — **the global past, reached only through the
+frozen desynchronization of the mouths** (differential aging, the
+Morris–Thorne–Yurtsever mechanism) → forward again on S³ → intersects
+the original crossing (t_return = t_emit to 1e-12). Every leg locally
+future-directed (ledger machine-checked). **The central identity**:
+clock continuity *forces* the global-frame transfer factor
+U_BA = e^{iωΔ_BA} (identity to 1e-12, |U| = 1) — the clock offset IS
+the transfer phase — so the absorption→return kernel is
+**K = Λ(ω)e^{−iωD′} with D′ < 0 and |Λ| = √T: the retarded rule
+analytically continued to a negative exterior interval — the ADVANCED
+kernel with greybody weight**. The projected response is advanced;
+nothing propagates backward. **Phase closure = #213's coherence
+condition**: arg t_AB + ωΔ_BA = 0 (mod 2π) selects a discrete
+frequency comb (spacing 2π/|Δ_BA + τ_W|, measured to 4%; the throat's
+Wigner delay 2.30→0.08 below→above the barrier); the engine's
+`retro_phase_match` accepts the network loop at the comb (weight
+1.000) and rejects it at quarter detuning (< 0.5) — the mechanism
+welds to the existing engine. **Live packet**: emerges in the global
+past (peak −3.06 = t_e + τ_W), intersects the crossing (return peak
+0.088 vs τ_W = 0.085), returns the greybody energy fraction (0.9998 =
+mean T); a below-barrier packet confirms weakly (T ≈ 0.33 — the #215
+IR transparency as partial confirmation). **The pole**: the two
+Compton completion families = two globally causal path classes (direct
+exterior = offer ordering I₊; network = confirmation I₋): at closure
+|Λ| = 0.999996, arg Λ = 2e-6, K = I₊ + ΛI₋ = the covariant pole to
+3e-6; **detuning the network reproduces the #213 deform test exactly**
+(φ = ωδ to 1e-15, deviations matching the #213 diagnostic to 1e-5) —
+the refutation edge now has a geometric knob; below the barrier
+K = I₊ + √T·I₋ splits exactly into coherent share (1+√T)/2 + deficit
+(1−√T)/2. Scope: global hyperbolicity broken by construction (time
+machine); the closure condition is the Novikov self-consistency fixed
+point — transactions are its solutions; the network posited (mouths
+from #58/#200 nucleation, Δ from MTY aging), not solved from the 5D
+equations; zonal scalar; migration of the engine staged
+(`wormhole_network_confirm_probe` + `transaction/network.py` + 9 unit
+tests, PR #216).
+
 **The throat's spectral density (PR #215).** #214 promoted the
 absorber to a degree of freedom but modelled its spectrum as a *flat*
 oscillator bank — the one thing about the absorber still chosen by

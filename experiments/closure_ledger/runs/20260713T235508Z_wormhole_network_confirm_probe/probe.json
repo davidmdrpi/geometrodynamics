@@ -1,0 +1,142 @@
+{
+  "timestamp_utc": "2026-07-13T23:55:08+00:00",
+  "identification": "The wormhole-network confirmation: the advanced half of the Wheeler transaction as an everywhere-future-directed network traversal - greybody transmission at the future antipodal mouth, forward traversal, emergence through a clock-offset mouth in the global past, and return to the original crossing; the projected kernel is the advanced kernel with weight sqrt(T), and phase closure is #213's coherence condition",
+  "executes": "the requested model: advanced_confirm_amplitude replaced by an explicit network traversal",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Replace advanced_confirm_amplitude with an explicit network traversal: one retarded C-wave to the future antipode, greybody transmission into the throat, forward traversal, emergence through a clock-offset mouth deep in the global past, forward propagation back to the original crossing - showing the projected response is advanced, every segment is locally future-directed, the closures hold, and the effective kernel has the #213 pole structure. The advanced half of a Wheeler transaction gets a classical geometric mechanism.",
+      "pass": true
+    },
+    {
+      "name": "T2_traversal_ledger",
+      "description": "every leg future-directed in its own clock; the global past reached only through the frozen mouth offset; time closure at the crossing; U_BA = e^{i w Delta_BA} derived",
+      "ledger": [
+        {
+          "leg": "offer: source -> mouth A",
+          "t_start_global": 0.0,
+          "t_end_global": 3.141592653589793,
+          "local_duration": 3.141592653589793
+        },
+        {
+          "leg": "throat",
+          "t_start_global": 3.141592653589793,
+          "t_end_global": -3.141592653589793,
+          "local_duration": 0.8
+        },
+        {
+          "leg": "return: mouth B -> source",
+          "t_start_global": -3.141592653589793,
+          "t_end_global": 0.0,
+          "local_duration": 3.141592653589793
+        }
+      ],
+      "t_emit": 0.0,
+      "t_absorb": 3.141592653589793,
+      "t_emerge": -3.141592653589793,
+      "t_return": 0.0,
+      "delta_BA": -7.083185307179586,
+      "locally_forward": true,
+      "globally_advanced": true,
+      "transfer_factor_identity_error": 3.1660827807476365e-15,
+      "pass": true
+    },
+    {
+      "name": "T3_greybody_amplitude",
+      "description": "the complex t_AB(w) from the #215 scattering problem, plane-wave referenced (V = 0 gives t = 1 exactly); flux-closed; the Wigner delay of the throat",
+      "match_to_215_relative": 0.00016218547970163556,
+      "flux_closure": 0.0001140173550510104,
+      "free_throat_null_error": 2.254636567165774e-09,
+      "wigner_delay": {
+        "0.5": 2.300159531070989,
+        "1.0": 1.0035136263447653,
+        "3.0": 0.08488427637065588
+      },
+      "pass": true
+    },
+    {
+      "name": "T4_advanced_projection",
+      "description": "K = Lambda e^{-iwD'} with D' < 0 and |Lambda| = sqrt(T): the advanced kernel with greybody weight; phase closure selects a discrete frequency comb; the engine's phase closure accepts the network loop at the comb",
+      "pastward_interval": true,
+      "weight_equals_greybody_error": 2.220446049250313e-16,
+      "closure_comb_roots": [
+        2.620476342045305,
+        3.5180359124868867
+      ],
+      "comb_spacing_predicted": 0.8978158097970981,
+      "comb_spacing_max_error": 0.0002854030333618862,
+      "engine_weight_at_closure": 0.9999999999764412,
+      "engine_weight_at_quarter_detune": 0.03306705480813469,
+      "pass": true
+    },
+    {
+      "name": "T5_live_packet",
+      "description": "a Gaussian packet run through the closed network: emerges in the global past, intersects the original crossing within the Wigner delay, returns the greybody energy fraction; a below-barrier packet confirms weakly (the #215 IR transparency as partial confirmation)",
+      "above_barrier": {
+        "return_peak": 0.08800000000000008,
+        "emergence_peak": -3.053592653589793,
+        "t_emergence_geometric": -3.141592653589793,
+        "wigner": 0.08488427637065588,
+        "energy_fraction": 0.9997561535052828,
+        "mean_T": 0.9999978545883623
+      },
+      "below_barrier": {
+        "return_peak": 2.2,
+        "emergence_peak": -0.9415926535897929,
+        "t_emergence_geometric": -3.141592653589793,
+        "wigner": 2.300159531070989,
+        "energy_fraction": 0.31356284025682746,
+        "mean_T": 0.342405025044828
+      },
+      "pass": true
+    },
+    {
+      "name": "T6_pole_structure",
+      "description": "the two completion families as path classes: at network closure I+ + Lambda I- is the covariant pole; network detuning IS the #213 deform test (phi = w delta); partial confirmation splits coherent share/deficit by sqrt(T)",
+      "closing_mode": 3.5180359124868867,
+      "Lambda_magnitude": 0.9999995622707711,
+      "Lambda_phase": 2.232367545579798e-06,
+      "pole_deviation_at_closure": 2.754021229388361e-06,
+      "deform_knob": {
+        "0.1": {
+          "phi_geometric": 0.3518035912486859,
+          "phi_predicted_w_delta": 0.35180359124868854,
+          "pole_deviation": 0.4237114090034668,
+          "pole_deviation_213_diag": 0.42370884088451655
+        },
+        "0.5": {
+          "phi_geometric": 1.7590179562434436,
+          "phi_predicted_w_delta": 1.7590179562434436,
+          "pole_deviation": 1.8653931669089312,
+          "pole_deviation_213_diag": 1.8653918522187478
+        }
+      },
+      "partial_confirmation_split_error": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "what this PR does and does not establish",
+      "scope": [
+        "The network breaks global hyperbolicity by construction (a time-machine geometry); the closure condition is exactly the Novikov self-consistency fixed point - transactions are its solutions.  No chronology-protection dynamics is addressed: the network is frozen background, consistent with the program framing.",
+        "The network geometry is posited, not solved: the mouth pair from the #58/#200 nucleation channel, the offset Delta_BA from differential aging (Morris-Thorne-Yurtsever mechanism) - cited as mechanism, not derived from the 5D field equations.",
+        "Single-mode scalar, zonal (1D transit) reduction throughout; the greybody is the l = 0 channel.",
+        "The elastic case (equal mouth clock rates) is analyzed; unequal rates red/blueshift the traversal (emergent_frequency) and are only unit-tested.",
+        "The engine's advanced_confirm_amplitude is retained; network_confirmation is the mechanism-level replacement and the T4 weld shows the engine's phase closure accepts it - full engine migration is staged, not performed.",
+        "Phase closure selects a frequency comb; which tower modes land on the comb depends on the network parameters - mode selectivity is demonstrated, not matched to a spectrum."
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "the standing of the network-confirmation model",
+      "core_green": true,
+      "assessment": "The advanced half of the Wheeler transaction now has a classical geometric mechanism: a retarded wave, absorbed at the future antipodal mouth, transmitted with the throat's own greybody amplitude, traversed forward, and re-emitted through a clock-offset mouth in the global past, projects onto the exterior as EXACTLY the advanced kernel with weight sqrt(T) - every segment locally future-directed, the past reached only through the frozen differential aging of the mouths.  #213's coherent relative phase is re-derived as the network's phase-closure condition, its deform test becomes a geometric detuning knob, and the two Compton completion families become two globally causal path classes through the wormhole network.",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "THE_ADVANCED_HALF_IS_A_FUTURE_DIRECTED_NETWORK_TRAVERSAL_THE_CLOCK_OFFSET_MOUTH_IS_THE_ANALYTIC_CONTINUATION_AND_PHASE_CLOSURE_IS_THE_COHERENCE_CONDITION",
+  "verdict": "DERIVED (the argument is in docs/wormhole_network_confirmation.md).\n\nTHE MECHANISM. One retarded C-wave: source -> future antipode (t = 3.142) -> greybody transmission -> forward throat traversal -> emergence at t = -3.142 (the global PAST, via the frozen mouth offset Delta_BA = -7.083) -> forward return -> the original crossing (t_return = 0e+00). Every leg locally future-directed; the derived transfer factor U_BA = e^{i w Delta_BA} (identity to 3e-15).\n\nTHE PROJECTION IS ADVANCED. The absorption -> return kernel is Lambda(w) e^{-i w D'} with D' < 0 and |Lambda| = sqrt(T): the retarded rule continued to a negative exterior interval - the advanced kernel with the #215 greybody weight. Phase closure arg t + w Delta = 0 (mod 2 pi) selects a comb (spacing 2 pi/|Delta + tau_W| to 0%); the engine's retro_phase_match accepts the loop at the comb (1.000) and rejects it detuned (0.03). Live packet: emerges at -3.05 (< 0), intersects the crossing at 0.088 (the Wigner delay 0.085), energy fraction 0.9998 = mean T.\n\nTHE POLE. At closure I+ + Lambda I- is the covariant pole (|Lambda| = 1.0000, phase 0.000); detuning the network IS the #213 deform test (phi = w delta exactly; deviations match the #213 diagnostic to 2%); below the barrier the confirmation is partial with the coherent share (1+sqrt T)/2. The two Compton completion families are two globally causal wormhole-network path classes."
+}
