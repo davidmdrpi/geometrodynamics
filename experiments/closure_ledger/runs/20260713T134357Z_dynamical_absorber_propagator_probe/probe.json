@@ -1,0 +1,122 @@
+{
+  "timestamp_utc": "2026-07-13T13:43:57+00:00",
+  "identification": "The dynamical absorber: S = S_field + S_absorber + S_coupling on the frozen bulk - absorption as an outcome, epsilon as the computed absorber response rate, and the antipodal point as the geometry's own impedance-matched absorber (vs generic-point remnants and the exact uniform-distribution selection rule)",
+  "executes": "the decisive #213 successor: the absorber boundary condition promoted to a degree of freedom",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Promote the absorber from a boundary condition (#213) to a degree of freedom: S = S_field + S_absorber + S_coupling, all Gaussian, all classical.  Show absorption is an outcome of the dynamics, epsilon is the computed damping rate of the absorber response, and the geometry itself adjudicates where the absorber must live - the antipodal point is impedance-matched to every tower mode while a uniformly distributed absorber couples only to the ground mode.",
+      "pass": true
+    },
+    {
+      "name": "T2_exact_elimination",
+      "description": "the Gaussian absorber integrates out exactly: G_eff^-1 = w0^2 - W^2 - Sigma(W), verified against direct matrix inversion; the coupled action is stable",
+      "resolvent_identity_error": 1.7731474045892254e-16,
+      "min_stiffness_eigenvalue": 0.2494819068490557,
+      "continuum_sigma_error": 2.978324807192658e-07,
+      "pass": true
+    },
+    {
+      "name": "T3_derived_damping",
+      "description": "the pole moves below the axis by a computed amount: complex pole, live decay, and golden rule agree; gamma scales exactly as g^2",
+      "gamma_design": 0.05,
+      "gamma_from_pole": 0.049931551023295,
+      "gamma_from_live_decay": 0.04990837447017471,
+      "gamma_from_golden_rule": 0.05,
+      "g2_scaling_slope": 1.9996267618785495,
+      "golden_rule_ratio_over_g_grid": [
+        0.9999859254979616,
+        0.9999438508677668,
+        0.9997791848092273,
+        0.9991787958883147
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_placement_adjudication",
+      "description": "antipodal point absorber: flat rate g^2/(4 pi) for every mode (impedance matched); generic point: near-zeros, 1/n^2 rates; uniform distributed: couples only to n = 1",
+      "flat_rate_g2_over_4pi": 0.00716197243913529,
+      "predicted_antipodal_residual": 0.01360682922359122,
+      "live_residuals": {
+        "antipode": 0.01378669126432252,
+        "generic": 0.9533511987256138,
+        "uniform": 0.9977795158602533
+      },
+      "antipodal_per_mode_residual_range": [
+        0.009462371250241113,
+        0.014006643419013002
+      ],
+      "antipodal_limit_error": 2.116965269749471e-09,
+      "uniform_selection_integrals": [
+        1.5707963267948966,
+        1.1102230246251565e-16,
+        -5.551115123125783e-17,
+        2.7755575615628914e-17
+      ],
+      "generic_min_coupling": 0.008851309290403876,
+      "pass": true
+    },
+    {
+      "name": "T5_recurrence",
+      "description": "finite bank revives near T_rec = 2 pi/dnu, linear in N: epsilon finite = Poincare recurrence on the closed bulk; eps -> 0 is the continuum limit N -> infinity FIRST",
+      "revivals": {
+        "300": {
+          "t_rec_predicted": 341.5768012448541,
+          "t_revival_measured": 382.9195693421027,
+          "revival_energy": 0.27156272434151824
+        },
+        "600": {
+          "t_rec_predicted": 684.2959998182886,
+          "t_revival_measured": 725.9935023113896,
+          "revival_energy": 0.2713576478449619
+        }
+      },
+      "revival_time_scaling_ratio": 1.8959425436488533,
+      "pass": true
+    },
+    {
+      "name": "T6_213_closure",
+      "description": "eps_derived = w_tilde*gamma fills in the orderings' i*epsilon as a physical rate; the pole form agrees to O(gamma^2); g -> 0 recovers the #213 kernel",
+      "pole_form_gap_vs_gamma_sq": [
+        [
+          2.0293124244020806e-06,
+          4.87172650173986e-05
+        ],
+        [
+          3.240239552334249e-05,
+          0.0007785403365188194
+        ]
+      ],
+      "ordering_integral_error": 2.8748004194915475e-08,
+      "kernel_recovery_sequence": [
+        0.011603221697484439,
+        0.0029782591222748778,
+        0.000749512935076569
+      ],
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "what this PR does and does not establish",
+      "scope": [
+        "The absorber is Gaussian/bilinear BY DESIGN - that is what makes the elimination exact; anharmonic absorber dynamics (real registration/irreversibility) is the standing #209 open, not claimed here.",
+        "The flat bank density is a modeling choice; the physical absorber is the throat's internal continuum - the engine's MouthState.modes are exactly this degree of freedom (this PR gives it an action; deriving its spectral density from the throat geometry is the successor).",
+        "The source point psi = 0 shares the antipode's matching property (Y_n(0) = n/sqrt(2 pi^2)): source and antipode are the two distinguished points; the antipode is the unique OTHER one - recorded, not hidden.",
+        "Classical throughout; per-mode field; frozen geometry, no backreaction.",
+        "The adjudication is at fixed absorber budget (one point vs one distribution); a dense random cloud of point absorbers also works generically - the sharp statements are the flat antipodal rate law and the exact uniform selection rule."
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "the standing of the dynamical-absorber derivation",
+      "core_green": true,
+      "assessment": "The absorber is now a degree of freedom, and everything #213 imposed is an outcome: absorption happens dynamically (live energy decay matching the derived rate), the i*epsilon is the computed absorber response rate (pole, live decay, and golden rule agreeing, scaling exactly as g^2, vanishing with the coupling to recover #213), the finite-bank recurrences locate the physical meaning of epsilon on a closed bulk, and the geometry itself picks the absorber's address: the antipodal point is impedance-matched to every tower mode - the #166 caustic in its absorber role - while a uniformly distributed absorber is forbidden by an exact selection rule from absorbing anything above the ground mode.",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "EPSILON_IS_THE_ABSORBER_RESPONSE_RATE_AND_THE_ANTIPODE_IS_THE_IMPEDANCE_MATCHED_ABSORBER_OF_THE_CLOSED_BULK",
+  "verdict": "DERIVED (the argument is in docs/dynamical_absorber_propagator.md).\n\nTHE PROMOTION. S = S_field + S_absorber + S_coupling, all Gaussian: the elimination is exact (resolvent identity to machine precision), and #213's imposed epsilon is now the computed damping rate of the absorber response - the complex pole, the live time-domain decay, and the golden rule agree (0.0499 / 0.0499 / 0.0500), scaling exactly as g^2 (slope 1.9996), with g -> 0 recovering the #213 kernel.\n\nTHE ADDRESS. The geometry adjudicates placement: the antipodal point absorber couples as Y_n ~ n - exactly cancelling the kinematic suppression - so EVERY tower mode damps at the same rate g^2/(4 pi); live residuals 0.014 (antipode, uniform across modes) vs 0.95 (generic point, near-zero couplings) vs 1.00 (uniform distribution - an exact selection rule confines it to the ground mode). The #166 focusing caustic is the impedance matching.\n\nTHE MEANING OF EPSILON. A finite bank revives at T_rec = 2 pi/dnu (linear in N, measured ratio 1.90): on the closed bulk, finite epsilon is Poincare recurrence, and the eps -> 0 limit is the continuum limit of the throat's internal spectrum taken first. The orderings' i*epsilon is filled in as a physical rate (quadrature error 3e-08), and the covariant pole form agrees to O(gamma^2)."
+}
