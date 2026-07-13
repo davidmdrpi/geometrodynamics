@@ -1110,6 +1110,53 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The transactional Compton propagator (PR #213).** The Compton arc
+(#35/#45/#46, #211) derived the propagator's *spatial* structure from
+geometry but **imported its time structure** — the Feynman iε
+prescription, the split into two time-ordering completions, and their
+coherent relative phase. `compton_transactional_propagator_probe`
+derives all three from the **frozen classical bulk** via complete
+(Wheeler–Feynman/transactional) histories
+(`docs/compton_transactional_propagator.md`). **The construction**: (1)
+the bulk is *static*, so t → −t is an isometry and the elementary field
+is the time-symmetric Ḡ = (G_ret + G_adv)/2 — the geometry cannot
+prefer retardation (tower identity G_ret(t) = G_adv(−t) at machine
+zero on ω_ℓ = (ℓ+1)/R); (2) the bulk is *closed*, so Wheeler–Feynman's
+perfect-absorber hypothesis is a **theorem of the geometry** — every
+retarded front refocuses at the antipode at t = πR (measured: 50% of
+the |G|² mass within 0.3 rad, vs 1e-28 at mid-flight) and returns at
+2πR (the #166 focusing as absorber condition); (3) complete histories
+leave no free remnants (pure positive-frequency far future = every
+emission confirmed), a **well-posed 2×2 system** (condition number 1.0)
+whose *unique* solution is `G_F = Ḡ + (i/2ω)cos(ωt) =
+(i/2ω)e^{−iω|t|}` — **the Feynman propagator is the time-symmetric
+field plus the absorber response of the closed universe**. **The two
+orderings**: the θ(±t) split of G_F is offer and confirmation; each
+half-line transform is an OFPT energy denominator — individually
+regulator-dependent (finite-T truncation never converges, spread 0.50)
+and non-covariant (Δ→−Δ violation ≥ 0.21) — and the coherent sum is
+the *exact* covariant pole `−(ω−iε)/[ω(Δ²−(ω−iε)²)]` (7e-15 on a
+random grid), exactly even in Δ. **The phase is forced**: the isometry
+maps offer into confirmation (the same history read in the two time
+directions), so relative phase 0; the deform test S_φ = I₊ + e^{iφ}I₋
+breaks evenness and the pole form at O(1) for every φ ≠ 0 (0.81/0.59
+at φ = 0.3 up to 2.0/3.9 at π), and the engine's `retro_phase_match`
+already peaks exactly at the coherent point (its π branch = the #48
+exchange sign, a distinct discrete sector, recorded). **The Compton
+tie-in**: the two-ordering sums equal `1/(s−m²)` and `1/(u−m²)` exactly
+across lab kinematics (1e-14; the u-channel entirely off-shell — the
+"virtual" regime is the coherent pair, no on-shell intermediary), and
+the deformed phase fails them by ≥ 7%: the denominators the arc
+assumed are now derived, and the amplitude factors as denominators
+(this PR: complete histories) × numerators/vertices (#37–#44, #46) ×
+pole/magnitude/tensor geometry (#35/#45/#46). What QED postulates as
+the iε prescription is, on this geometry, a theorem about complete
+histories. Scope: per-mode, tree-level, free propagator; spinor
+numerators/vertices not rederived; ε → 0 is the complete-absorption
+idealization (on the closed bulk a physical inverse absorption time);
+frozen geometry, no backreaction
+(`compton_transactional_propagator_probe`, PR #213).
+
 **The Compton-edge capstone: Release II (PR #211).** The closing PR of
 the #204–#210 arc — the whole chain re-verified green in one run (as
 #200 did for the previous arc), the register updated, plus **one new
