@@ -1,0 +1,114 @@
+{
+  "timestamp_utc": "2026-07-13T06:38:33+00:00",
+  "identification": "The transactional Compton propagator: the Feynman propagator, its two completion orderings (offer and confirmation), and their coherent relative phase, derived from the frozen classical bulk - static implies time symmetry, closed implies complete absorption, and the complete-history boundary condition selects G_F uniquely",
+  "executes": "the next Compton frontier: replace the imported i*epsilon time structure with a derivation",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Derive the Feynman propagator, its two completion orderings, and their coherent relative phase from the frozen classical bulk: static geometry forces the time-symmetric Wheeler-Feynman field, the closed S^3 makes complete absorption a geometric fact, and the complete-history (transactional) boundary condition selects G_F uniquely - closing the one element of the Compton amplitude (#35/#45/#46/#211) that was imported rather than derived: the i*epsilon time structure.",
+      "pass": true
+    },
+    {
+      "name": "T2_transactional_construction",
+      "description": "G_F = Gbar + absorber response, with the response the unique homogeneous field satisfying complete absorption",
+      "jump_conditions_ok": true,
+      "decomposition_error": 5.551115123125783e-17,
+      "response_homogeneity": 5.05323803356994e-08,
+      "uniqueness_error": 0.0,
+      "uniqueness_condition_number": 1.0000000000000004,
+      "response_coefficients": "a = i/(2w) = 0.294118i, b = 0.0e+00",
+      "frequency_split_mismatch": {
+        "1e-01": 0.01912337785708285,
+        "1e-02": 0.001918512449908359,
+        "1e-03": 0.00019185743979216157
+      },
+      "split_scaling_per_decade": [
+        9.96781535506653,
+        9.99967711435468
+      ],
+      "pass": true
+    },
+    {
+      "name": "T3_two_orderings",
+      "description": "the theta(t)/theta(-t) split gives the two OFPT energy denominators; individually regulator-dependent and non-covariant, coherently summing to the exact pole",
+      "undamped_truncation_spread": 0.49996650148001365,
+      "oscillation_amplitude": 0.49019607843137264,
+      "damped_convergence_error": 6.784290914707347e-12,
+      "covariant_pole_identity_error": 7.0689986136169104e-15,
+      "coherent_sum_evenness": 0.0,
+      "single_ordering_evenness_violation": 0.21052628663071005,
+      "pass": true
+    },
+    {
+      "name": "T4_frozen_bulk_conditions",
+      "description": "static bulk: G_ret(t) = G_adv(-t) on the tower (time symmetry); closed bulk: antipodal refocus + full return (complete absorption is geometric, not assumed)",
+      "time_reversal_identity_error": 0.0,
+      "launch_peak_at_psi": 0.599282115030473,
+      "refocus_peak_at_psi": 3.0915926535897933,
+      "refocus_concentration_near_antipode": 0.5016394670676407,
+      "midtime_concentration_near_antipode": 1.4600922244242403e-28,
+      "return_peak_at_psi": 0.599282115030473,
+      "pass": true
+    },
+    {
+      "name": "T5_coherent_phase",
+      "description": "phi = 0 forced by the t -> -t isometry; any deformed e^{i phi} breaks covariance and the pole form at O(1); the engine phase closure peaks at the coherent point",
+      "phi0_evenness": 3.3661752189380405e-15,
+      "phi0_pole_form_deviation": 6.661347665092646e-16,
+      "deform_diagnostics": {
+        "0.300": {
+          "evenness_violation": 0.8125624515816972,
+          "pole_form_dev": 0.5889619561771321
+        },
+        "1.571": {
+          "evenness_violation": 1.8938850137314867,
+          "pole_form_dev": 2.7868321570956383
+        },
+        "3.142": {
+          "evenness_violation": 2.0000000000000435,
+          "pole_form_dev": 3.9411758326221196
+        }
+      },
+      "engine_peak_at_zero": true,
+      "engine_peak_branches_x_pi": [
+        0,
+        1
+      ],
+      "engine_weight_monotone_from_peak": true,
+      "pass": true
+    },
+    {
+      "name": "T6_compton_denominators",
+      "description": "the two-ordering coherent sums equal the 1/(s - m^2) and 1/(u - m^2) denominators the Compton arc assumed - exact across lab kinematics; the deformed phase fails them",
+      "s_channel_identity_error": 8.881784197001252e-15,
+      "u_channel_identity_error": 1.0658141036401503e-14,
+      "deformed_phase_min_relative_error": 0.06685051801677225,
+      "kinematics_grid": "4 photon energies x 7 angles, electron at rest",
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "what this PR does and does not establish",
+      "scope": [
+        "DERIVED here: the time structure of the propagator - the Feynman i*epsilon, the two ordering completions, and their coherent relative phase - from the static + closed frozen bulk with the complete-history boundary condition.",
+        "NOT rederived here: the spinor numerators and vertex factors (#37-#44, #46); this PR supplies the denominators those results multiply.",
+        "The epsilon -> 0 limit is the complete-absorption idealization: on the closed bulk, epsilon is a physical inverse absorption time, not a formal regulator - but its limit is still taken.",
+        "The analysis is per-mode on the free (tree-level) propagator; no loop or interacting-history statement is made.",
+        "The geometry is frozen: no backreaction of the exchanged field on the bulk (consistent with the program framing).",
+        "The engine phase closure also admits the pi branch - the #48 Moebius exchange sign, a discrete topological sector distinct from the continuous phase derived here; recorded, not hidden."
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "the standing of the transactional derivation",
+      "core_green": true,
+      "assessment": "The transactional derivation closes: on a frozen bulk that is static (time symmetry forced) and closed (complete absorption geometric), the complete-history boundary condition selects the Feynman propagator uniquely; its two ordering completions are the offer and confirmation segments of one classical history, and their relative phase is forced to zero by the t -> -t isometry - the deform test shows any other phase destroys covariance, the pole, and the Compton denominators. What QED postulates as the i*epsilon prescription is, on this geometry, a theorem about complete histories.",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "FEYNMAN_PROPAGATOR_FROM_COMPLETE_HISTORIES_THE_TWO_ORDERINGS_ARE_OFFER_AND_CONFIRMATION_THE_COHERENT_PHASE_FORCED_BY_THE_FROZEN_BULK",
+  "verdict": "DERIVED (the argument is in docs/compton_transactional_propagator.md).\n\nTHE CONSTRUCTION. The static bulk forces the time-symmetric Wheeler-Feynman field; the closed S^3 makes complete absorption a geometric fact (antipodal refocus concentration 0.50 at t = pi R vs 1e-28 at mid-flight, full return at 2 pi R); the complete-history boundary condition is a well-posed 2x2 system (uniqueness error 0e+00) whose unique solution is the Feynman propagator, G_F = Gbar + (i/2w) cos(wt).\n\nTHE TWO ORDERINGS. The theta(+t)/theta(-t) split of G_F is offer and confirmation; each half-line transform is an OFPT energy denominator - individually regulator-dependent (truncation spread 0.50) and non-covariant (evenness violation 0.21) - and the coherent sum is the exact covariant pole (identity to 7e-15).\n\nTHE PHASE. The t -> -t isometry (tower identity to 0e+00) forces relative phase 0; deforming it breaks evenness and the pole form at O(1) and fails the Compton denominators (min error 0.07 at phi = pi/2). The s- and u-channel denominators the Compton arc assumed are recovered exactly (9e-15 / 1e-14): the i*epsilon prescription is, on this geometry, a theorem about complete histories."
+}
