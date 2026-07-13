@@ -1110,6 +1110,51 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The dynamical absorber: S = S_field + S_absorber + S_coupling
+(PR #214).** #213 derived the Feynman propagator with complete
+absorption as a *boundary condition*; the decisive successor promotes
+the absorber to an actual degree of freedom — a bank of oscillators
+(the throat's internal continuum; the engine's `MouthState.modes`,
+given an action for the first time) coupled to the tower through the
+point value Φ(ψₐ) — and shows everything #213 imposed is an **outcome
+of the dynamics** (`docs/dynamical_absorber_propagator.md`). **Exact
+elimination**: the action is Gaussian, so integrating out the absorber
+is exact — G_eff(Ω)⁻¹ = ω₀² − Ω² − Σ(Ω) verified against direct
+inversion of the coupled system (1e-10), stiffness positive-definite
+(a stable absorber, no ghost). **The ε is derived**: the resolvent
+pole moves below the axis by a computed amount Ω* = ω̃ − iγ/2 with the
+complex pole, the *live* time-domain energy decay of the coupled
+system, and the golden rule γ = πg²ρ/(2ω₀²) agreeing
+(0.0499/0.0499/0.0500), scaling exactly as g² (log–log slope 1.9996),
+the orderings' iε filled in as the physical rate iγ/2 (quadrature
+3e-8), the Δ²-pole form agreeing to O(γ²), and g → 0 recovering the
+#213 kernel monotonically — the boundary condition was the
+zero-coupling shadow of the dynamics. **The geometry adjudicates the
+absorber's address** (antipodal vs distributed): the per-mode rate is
+γₙ = π(gYₙ(ψₐ))²ρ/(2ωₙ²), and (a) the ANTIPODE is impedance-matched —
+Yₙ(π) = n(−1)ⁿ⁺¹/√(2π²) grows as n and never vanishes, exactly
+cancelling the kinematic suppression: **γₙ = g²/(4π), the same rate
+for every tower mode** (the #166 focusing caustic in its absorber
+role); (b) a GENERIC point leaks — couplings oscillate with a
+near-zero at n = 22 (|sin 22| = 0.009), rates fall as 1/n², high
+modes are long-lived remnants; (c) a UNIFORM distribution is forbidden
+by the exact selection rule ∫sin(nψ)sinψ dψ = (π/2)δₙ₁ — it couples
+only to the ground mode. Live adjudication (24 kicked tower modes +
+3000-oscillator bank, exact normal-mode evolution to t = 600):
+residual field energy **0.014 (antipode**, per-mode residuals uniform
+as the flat-rate law demands, = e^{−γt} predicted 0.0136) vs **0.95
+(generic)** vs **1.00 (uniform)**. **What ε means on a closed bulk**:
+a finite bank revives near the Poincaré time T_rec = 2π/dν (383 vs
+342 predicted at N = 300; 726 vs 684 at N = 600; linear in N, ratio
+1.90) — finite ε *is* recurrence, and #213's ε → 0⁺ is the continuum
+limit of the throat's internal spectrum taken before t → ∞. Scope:
+Gaussian/bilinear absorber by design (exactness); the flat bank
+density a modeling choice — deriving the physical spectral density
+from the Tangherlini mouth's quasinormal spectrum is the named
+successor; the source point shares the antipode's matching property
+(the two distinguished zonal points); classical, per-mode, frozen
+geometry (`dynamical_absorber_propagator_probe`, PR #214).
+
 **The transactional Compton propagator (PR #213).** The Compton arc
 (#35/#45/#46, #211) derived the propagator's *spatial* structure from
 geometry but **imported its time structure** — the Feynman iε
