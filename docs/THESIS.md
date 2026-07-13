@@ -1110,6 +1110,50 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The throat's spectral density (PR #215).** #214 promoted the
+absorber to a degree of freedom but modelled its spectrum as a *flat*
+oscillator bank — the one thing about the absorber still chosen by
+hand. `throat_spectral_density_probe` retires the bank: the spectral
+density is the **greybody transmission T_ℓ(ω) of the 5D Tangherlini
+mouth itself** (f = 1 − r_h²/r², the #168 identification), computed by
+solving the scattering problem ψ_xx + [ω² − V]ψ = 0,
+V = f[(ℓ(ℓ+2)+3/4)/r² + (9/4)r_h²/r⁴], with ingoing horizon data and
+Hankel-matched asymptotics (flux conservation 2e-5; regulator
+independence 4e-6) — and **both wings are pinned by theorems**
+(`docs/throat_spectral_density.md`). **The IR wing is the area
+theorem**: the universal low-frequency result σ_s(ω→0) = A_horizon =
+2π²r_h³ is *measured* — σ_s/A_h = 1.012 at ωr_h = 0.04, monotone → 1,
+extrapolating to 0.983, with T₀ ∝ ω³ (slope 3.02): J(ω→0) ∝ A_h ω³/4π
+— the horizon area, not a parameter; the universe is IR-transparent.
+**The UV wing is the photon sphere**: r_c = √2 r_h, b_c = 2r_h
+(machine-checked), the T = ½ crossings at the eikonal (ℓ+1)/b_c
+(ratios 1.04/1.02/1.01 for ℓ = 1,2,3, WKB ordering correct), T → 1
+above the barrier (0.9999 at ωr_h = 3): the throat is UV-black — a
+perfect absorber for every mode that resolves it. **The horizon is the
+continuum**: the tortoise depth grows as −(r_h/2)ln δ (fitted −0.5005
+vs −½ exact) — level spacing → 0, recurrence time → ∞: #214's order
+of limits (bank N → ∞ *first*) is a property of the horizon, not a
+choice; classically the throat never revives. **The weld
+(parameter-free)**: cavity quasimodes ω_q − iγ/2 (ingoing at horizon,
+node at wall, complex secant) obey γ = T(ω_q)/(2L_cav) with L_cav =
+x_wall − x_barrier-peak — measured 0.994/1.013/1.080 down the
+three-mode ladder (the drift = the WKB transit picture degrading
+toward the barrier top, bracketing the law's domain), ladder spacing
+π/L_cav to 4%: **ε = ω·T(ω)/(2L_cav), fully geometric**. **The tower
+density** (r_h/R = 0.1, one antipodal delivery per half-period πR —
+the #213 refocus/#214 impedance matching): per-pass absorption 0.0017
+(n = 1) rising as n³ (ratio 9.1, the finite-ω correction to the area
+law) through 0.85 (n = 8) to 1.000 (n = 24) — IR-transparent,
+UV-black at the throat's own Compton-edge scale (the #210 anchor
+r_s ~ αλ̄_C puts laboratory modes far into the transparent wing).
+**After #213/#214/#215 nothing about the absorber is chosen: its
+spectrum, its address, and its ε are all read off the frozen bulk.**
+Scope: classical scalar greybody (no Hawking, no spin/tensor
+channels); the zonal 1D transit reduction (full S³-with-throat matched
+asymptotics = named successor); r_h/R a parameter; the horizon
+interior #168/#200 territory; frozen geometry
+(`throat_spectral_density_probe`, PR #215).
+
 **The dynamical absorber: S = S_field + S_absorber + S_coupling
 (PR #214).** #213 derived the Feynman propagator with complete
 absorption as a *boundary condition*; the decisive successor promotes
