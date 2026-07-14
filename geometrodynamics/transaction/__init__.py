@@ -29,3 +29,20 @@ from geometrodynamics.transaction.handshake import (
     make_offer,
     complete_transaction,
 )
+from geometrodynamics.transaction.network import (
+    NetworkMouth,
+    NetworkThroat,
+    NetworkTraversal,
+    TraversalLeg,
+    closure_offset,
+    emergent_frequency,
+    network_confirmation,
+    projected_kernel,
+    s3_leg,
+    traverse_throat,
+)
+from geometrodynamics.transaction.network import (
+    MouthPort,
+    emergence_train,
+    transparent_port,
+)
