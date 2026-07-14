@@ -34,7 +34,7 @@ monochromatic form ``e^{-i w t}``; mouth-local clocks
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Callable, List
+from typing import Callable, List, Optional
 
 import numpy as np
 
@@ -85,24 +85,33 @@ class NetworkMouth:
 
 @dataclass
 class NetworkThroat:
-    """A throat linking two mouths.
+    """A throat linking two mouths — a TWO-PORT scattering device.
+
+    Each mouth carries its own barrier (its ``MouthPort``): a wave
+    entering through A's interface partially transmits, bounces between
+    the two interior barrier faces (repeated loops), and leaks out
+    through B's own interface as an echo train.  The composite
+    transmission ``t_AB(w)`` is *derived* from the two ports by summing
+    the interior loops (the Fabry–Pérot geometric series), not supplied.
 
     Parameters
     ----------
     mouth_A, mouth_B : NetworkMouth
         Entry and exit mouths.
     tau_th : float
-        Interior traversal proper time (mouth-clock time), > 0: the
-        traversal is future-directed in the throat's own clock.
-    t_AB : Callable[[float], complex]
-        Complex greybody transmission amplitude t_AB(w) of the entry
-        mouth (PR #215: |t_AB|^2 = T(w), the Tangherlini transmission).
+        Interior transit time between the two ports' reference planes
+        (mouth-clock time), > 0: each pass is future-directed in the
+        throat's own clock.  A loop-k emergence takes (2k+1) tau_th.
+    port_A, port_B : MouthPort
+        One-sided scattering data of each mouth's barrier (PR #215
+        greybody: t, r_out, r_in per interface).
     """
 
     mouth_A: NetworkMouth
     mouth_B: NetworkMouth
     tau_th: float
-    t_AB: Callable[[float], complex]
+    port_A: "MouthPort"
+    port_B: "MouthPort"
 
     @property
     def delta_BA(self) -> float:
@@ -122,6 +131,67 @@ class NetworkThroat:
                 * np.exp(1j * (self.mouth_A.transfer_phase
                                + self.mouth_B.transfer_phase)))
         return complex(np.exp(1j * w * self.delta_BA) * deco)
+
+    # ── the derived two-port scattering matrix ───────────────────────
+
+    def _loop_factor(self, w: float) -> complex:
+        """One interior round trip: reflect off B's inner face, off A's
+        inner face, with the round-trip propagation phase."""
+        return complex(self.port_A.r_in(w) * self.port_B.r_in(w)
+                       * np.exp(2j * w * self.tau_th))
+
+    def t_AB(self, w: float) -> complex:
+        """Composite excess transmission A -> B with ALL interior loops
+        summed: t_A t_B / (1 - r_inA r_inB e^{2 i w tau_th}).  This is
+        the factor in excess of free interior propagation (transparent
+        ports give exactly 1); the free transit phase e^{-i w tau_th}
+        is carried by the traversal leg."""
+        return complex(self.port_A.t(w) * self.port_B.t(w)
+                       / (1.0 - self._loop_factor(w)))
+
+    def r_AA(self, w: float) -> complex:
+        """Composite reflection back into A's exterior: the direct
+        bounce plus every path that enters, loops k times, and exits
+        back through A (reciprocity: interior->exterior transmission of
+        a port equals its t)."""
+        lf = self._loop_factor(w)
+        return complex(self.port_A.r_out(w)
+                       + self.port_A.t(w) ** 2 * self.port_B.r_in(w)
+                       * np.exp(2j * w * self.tau_th) / (1.0 - lf))
+
+    def loop_expansion(self, w: float, kmax: int) -> list:
+        """The echo amplitudes: loop k transmits with
+        t_A t_B (r_inA r_inB e^{2 i w tau_th})^k after a local transit
+        of (2k+1) tau_th.  Partial sums converge to t_AB(w)."""
+        t0 = self.port_A.t(w) * self.port_B.t(w)
+        lf = self._loop_factor(w)
+        return [complex(t0 * lf ** k) for k in range(kmax + 1)]
+
+
+@dataclass
+class MouthPort:
+    """One-sided scattering data of a mouth's barrier interface.
+
+    ``t(w)``      transmission amplitude (either direction — 1D
+                  reciprocity makes exterior->interior and
+                  interior->exterior transmissions equal);
+    ``r_out(w)``  reflection for exterior incidence;
+    ``r_in(w)``   reflection for interior incidence (the face the
+                  repeated loops bounce off).  Unitarity ties them:
+                  |r_in| = |r_out| and r_in = -conj(r_out) t/conj(t).
+    """
+
+    t: Callable[[float], complex]
+    r_out: Callable[[float], complex]
+    r_in: Callable[[float], complex]
+
+
+def transparent_port() -> MouthPort:
+    """A fully open interface: t = 1, no reflections (the single-
+    interface limit of PR #216 v1 — no repeated loops)."""
+    one = lambda w: 1.0 + 0.0j
+    zero = lambda w: 0.0 + 0.0j
+    return MouthPort(t=one, r_out=zero, r_in=zero)
 
 
 # ── Traversal bookkeeping ────────────────────────────────────────────────────
@@ -173,24 +243,49 @@ def s3_leg(w: float, dist: float, t_start: float,
     )
 
 
-def traverse_throat(throat: NetworkThroat, w: float,
-                    t_entry: float) -> TraversalLeg:
-    """Forward traversal A -> B: local duration tau_th > 0; global exit
-    t_entry + tau_th + Delta_BA (possibly in the past); amplitude
-    t_AB(w) * local phase; the emergent *local* frequency is
-    w * rate_A / rate_B (elastic iff the mouth rates match)."""
-    t_exit = t_entry + throat.tau_th + throat.delta_BA
-    factor = throat.t_AB(w) * np.exp(-1j * w * throat.tau_th)
+def traverse_throat(throat: NetworkThroat, w: float, t_entry: float,
+                    loop: Optional[int] = None) -> TraversalLeg:
+    """Forward traversal A -> B.
+
+    ``loop=None`` (default): the composite factor with all interior
+    loops coherently summed — the monochromatic steady state; the leg
+    is labelled with the primary (k = 0) transit times.
+
+    ``loop=k``: the k-th echo alone — local duration (2k+1) tau_th
+    (one crossing plus k interior round trips, every one of them
+    future-directed in the throat clock), global exit
+    t_entry + (2k+1) tau_th + Delta_BA, amplitude
+    t_A t_B (r_inA r_inB e^{2 i w tau_th})^k.
+    """
     deco = (throat.mouth_A.orientation * throat.mouth_B.orientation
             * np.exp(1j * (throat.mouth_A.transfer_phase
                            + throat.mouth_B.transfer_phase)))
+    if loop is None:
+        local = throat.tau_th
+        amp = throat.t_AB(w)
+        name = "throat (loops summed)"
+    else:
+        local = (2 * loop + 1) * throat.tau_th
+        amp = throat.loop_expansion(w, loop)[loop]
+        name = f"throat (echo k={loop})"
+    t_exit = t_entry + local + throat.delta_BA
+    factor = amp * np.exp(-1j * w * local)
     return TraversalLeg(
-        name="throat",
+        name=name,
         t_start=t_entry,
         t_end=t_exit,
-        local_duration=throat.tau_th,
+        local_duration=local,
         factor=complex(factor * deco),
     )
+
+
+def emergence_train(throat: NetworkThroat, w: float, t_entry: float,
+                    kmax: int) -> List[TraversalLeg]:
+    """The full echo train of one absorption event: emergences at
+    t_entry + (2k+1) tau_th + Delta_BA, geometrically damped by the
+    interior loop factor, each locally future-directed."""
+    return [traverse_throat(throat, w, t_entry, loop=k)
+            for k in range(kmax + 1)]
 
 
 def emergent_frequency(throat: NetworkThroat, w: float) -> float:

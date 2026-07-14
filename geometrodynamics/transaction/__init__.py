@@ -41,3 +41,8 @@ from geometrodynamics.transaction.network import (
     s3_leg,
     traverse_throat,
 )
+from geometrodynamics.transaction.network import (
+    MouthPort,
+    emergence_train,
+    transparent_port,
+)
