@@ -46,3 +46,7 @@ from geometrodynamics.transaction.network import (
     emergence_train,
     transparent_port,
 )
+from geometrodynamics.transaction.network import (
+    effective_green,
+    loop_eigenvalue,
+)

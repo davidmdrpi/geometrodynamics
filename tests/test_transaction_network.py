@@ -23,8 +23,10 @@ from geometrodynamics.transaction import (
     NetworkMouth,
     NetworkThroat,
     closure_offset,
+    effective_green,
     emergence_train,
     emergent_frequency,
+    loop_eigenvalue,
     network_confirmation,
     projected_kernel,
     transparent_port,
@@ -137,8 +139,43 @@ def test_phase_closure_makes_weight_real_positive():
 def test_frequency_elastic_iff_rates_match():
     th = make_throat(rate_A=1.0, rate_B=1.0)
     assert emergent_frequency(th, 2.4) == pytest.approx(2.4)
-    th2 = make_throat(rate_A=1.0, rate_B=0.5)   # B deep in a well
-    assert emergent_frequency(th2, 2.4) == pytest.approx(4.8)
+    # B deep in a well (slow clock): the wave climbs out and REDSHIFTS
+    th2 = make_throat(rate_A=1.0, rate_B=0.5)
+    assert emergent_frequency(th2, 2.4) == pytest.approx(1.2)
+
+
+def test_clock_rate_correct_exit_time():
+    # equal rates rho: global traversal duration is tau_th / rho
+    th = make_throat(delta=-9.0, tau_th=0.8, rate_A=0.5, rate_B=0.5,
+                     port_A=unitary_port(), port_B=unitary_port())
+    leg = traverse_throat(th, w=1.3, t_entry=2.0)
+    assert leg.t_end == pytest.approx(2.0 + 0.8 / 0.5 - 9.0)
+    assert leg.local_duration == pytest.approx(0.8)   # proper time
+
+
+def test_loop_eigenvalue_and_effective_green():
+    d, tau = math.pi, 0.8
+    th = make_throat(delta=closure_offset(d, d, tau), tau_th=tau,
+                     port_A=unitary_port(0.6, 0.2),
+                     port_B=unitary_port(0.6, 0.2))
+    for w in (0.7, 1.3, 2.9):
+        lam = loop_eigenvalue(th, w, d, d)
+        # value transport: at time closure the eigenvalue is the
+        # composite throat amplitude alone - the carrier closes on the
+        # throat's own scattering phase (delays live in arrival times)
+        assert abs(lam - th.t_AB(w)) < 1e-12
+        # passivity: the two-port throat cannot self-amplify
+        assert abs(lam) <= 1.0 + 1e-12
+        # the self-consistent resolvent
+        g = effective_green(th, w, d, d)
+        assert abs(g - 1.0 / (1.0 - lam)) < 1e-12
+    # off time closure the displacement phase enters the eigenvalue
+    th_off = make_throat(delta=closure_offset(d, d, tau) + 0.3,
+                         tau_th=tau, port_A=unitary_port(0.6, 0.2),
+                         port_B=unitary_port(0.6, 0.2))
+    w = 1.3
+    lam_off = loop_eigenvalue(th_off, w, d, d)
+    assert abs(lam_off - th_off.t_AB(w) * np.exp(1j * w * 0.3)) < 1e-12
 
 
 def test_orientation_composition():

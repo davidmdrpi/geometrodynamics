@@ -1110,6 +1110,62 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The self-consistent network loop (PR #217).** #216 built the
+two-port throat and showed the network's projection is advanced — but
+treated the loop at first order and postulated the I± assembly.
+`self_consistent_network_loop_probe` constructs the **full two-mouth
+transfer system and solves the loop self-consistently**: the returned
+confirmation re-enters the network (the closed universe refocuses it
+onto mouth A), so the field at the crossing obeys F = F₀ + ΛF ⟹
+**G_eff = g/(1 − Λ), derived before any comparison with I±**
+(`docs/self_consistent_network_loop.md`). Doing it honestly forced
+three corrections of #216: (1) **clock-rate-correct traversal** — the
+throat runs at ω_τ = ω/rate_A and the emergent frequency is
+ω·rate_B/rate_A (a slow-clock exit mouth REDSHIFTS — correcting an
+inverted ratio shipped in #216); elastic confirmation then REQUIRES
+rate-matched mouths (state closure derives #216's equal-rate
+analysis); (2) **the value-transport loop eigenvalue** Λ =
+t_net(ω_τ)·e^{iωD_loop} — validated from first principles against a
+RING spectrum (transfer-matrix modes 2.7429/3.6000 vs the Λ = 1 comb
+2.7390/3.6071, 0.2%; the opposite convention misses by 0.16,
+EXCLUDED) — correcting #216's closure bookkeeping (which tracked the
+engine's time-phase amplitude; offset exactly e^{−iω(d_A+d_B+τ)},
+1e-16; the deform knob and all magnitudes unchanged): at time closure
+the carrier closes on the throat's own scattering phase; (3)
+**Wigner-delay-correct closure** — solving group (D_loop = −τ_W) and
+carrier (arg Λ = 0) closure TOGETHER: above the barrier the mouth
+phase tunes the carrier and the packet lands ON the crossing (peak
+0.006 vs 0.175 uncorrected, phase-aligned 0.005, Λ = 0.999998 + 0i);
+below the barrier both equations are solved by the throat alone at
+τ* = 5.1105 (residual 2e-12) — **the completed transaction sits ON
+the interior Fabry–Pérot resonance (|t_net|² = 0.969): completed
+transactions live on the throat's resonance comb, a solved fixed
+point**. **The transfer system**: matrix resolvent = 1/(1−Λ) to
+9e-15; nested interior×winding resummation to 1e-15. **State
+evolution**: input–output rates match the derived linewidth (κ =
+0.065 vs FWHM 0.052) and the resonant storage time (30.7 vs 31.1);
+the source fixed-point iteration converges at rate |Λ| exactly
+(0.23239907 vs 0.23239900) — marginal at completion: the transaction
+is a persistent self-consistent history; the cavity state builds to
+steady state. **G_eff, then I±**: the line at a completed transaction
+is QUARTIC (group closure makes the loop phase stationary — FWHM
+0.0116 vs predicted 0.0118: anomalously flat, completed transactions
+are robust to detuning), Lorentzian at carrier-only closure (0.0439
+vs 0.0456); **passivity max|Λ| = 0.9999993 ≤ 1: the Novikov fixed
+point cannot run away** (existence + uniqueness of the CTC field for
+Λ ≠ 1); the O(Λ) truncation IS #216's K₁ = I₊ + ΛI₋; the resummation
+renormalizes the confirmation weight to Λ/(1−Λ) (1e-11; at completion
+~5e5 — the divergence IS the transaction pole); the confirmation
+deficit 1−|Λ| → 0 at completion (2e-6 vs 0.11 partial): **the
+completed transaction is the #213 coherent ε → 0 limit and the
+deficit is #214's absorber damping in transactional form — three ε's,
+one number**. Scope: the convention correction affects closure phase
+bookkeeping only; continuous ω interpolates the tower; CMT a
+consistency check; frozen linear network per winding (no
+back-reaction); classical zonal scalar; MTY history posited
+(`self_consistent_network_loop_probe` + module upgrades + 16 unit
+tests, PR #217).
+
 **The wormhole-network confirmation (PR #216).** #213 derived the
 Feynman propagator from retarded + advanced completions, but the
 advanced half sat where Wheeler left it — waves propagate forward in

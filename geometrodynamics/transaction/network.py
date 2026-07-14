@@ -133,20 +133,34 @@ class NetworkThroat:
         return complex(np.exp(1j * w * self.delta_BA) * deco)
 
     # ── the derived two-port scattering matrix ───────────────────────
+    #
+    # Clock-rate correctness: the throat is static in its own proper
+    # time tau (glued to the mouth clocks), so scattering at the two
+    # interfaces and the interior loop phase all run at the THROAT
+    # frequency w_tau = w / clock_rate_A.  For unit rates w_tau = w.
+
+    def local_frequency(self, w: float) -> float:
+        """The throat proper frequency of an exterior mode w entering
+        through mouth A: w_tau = w / rate_A (frequency per unit throat
+        proper time is conserved through the interior)."""
+        return w / self.mouth_A.clock_rate
 
     def _loop_factor(self, w: float) -> complex:
         """One interior round trip: reflect off B's inner face, off A's
-        inner face, with the round-trip propagation phase."""
-        return complex(self.port_A.r_in(w) * self.port_B.r_in(w)
-                       * np.exp(2j * w * self.tau_th))
+        inner face, with the round-trip propagation phase - all at the
+        throat proper frequency."""
+        wt = self.local_frequency(w)
+        return complex(self.port_A.r_in(wt) * self.port_B.r_in(wt)
+                       * np.exp(2j * wt * self.tau_th))
 
     def t_AB(self, w: float) -> complex:
         """Composite excess transmission A -> B with ALL interior loops
-        summed: t_A t_B / (1 - r_inA r_inB e^{2 i w tau_th}).  This is
-        the factor in excess of free interior propagation (transparent
-        ports give exactly 1); the free transit phase e^{-i w tau_th}
-        is carried by the traversal leg."""
-        return complex(self.port_A.t(w) * self.port_B.t(w)
+        summed: t_A t_B / (1 - r_inA r_inB e^{2 i w_tau tau_th}).  This
+        is the factor in excess of free interior propagation
+        (transparent ports give exactly 1); the free transit phase is
+        carried by the traversal leg."""
+        wt = self.local_frequency(w)
+        return complex(self.port_A.t(wt) * self.port_B.t(wt)
                        / (1.0 - self._loop_factor(w)))
 
     def r_AA(self, w: float) -> complex:
@@ -154,16 +168,18 @@ class NetworkThroat:
         bounce plus every path that enters, loops k times, and exits
         back through A (reciprocity: interior->exterior transmission of
         a port equals its t)."""
+        wt = self.local_frequency(w)
         lf = self._loop_factor(w)
-        return complex(self.port_A.r_out(w)
-                       + self.port_A.t(w) ** 2 * self.port_B.r_in(w)
-                       * np.exp(2j * w * self.tau_th) / (1.0 - lf))
+        return complex(self.port_A.r_out(wt)
+                       + self.port_A.t(wt) ** 2 * self.port_B.r_in(wt)
+                       * np.exp(2j * wt * self.tau_th) / (1.0 - lf))
 
     def loop_expansion(self, w: float, kmax: int) -> list:
         """The echo amplitudes: loop k transmits with
-        t_A t_B (r_inA r_inB e^{2 i w tau_th})^k after a local transit
-        of (2k+1) tau_th.  Partial sums converge to t_AB(w)."""
-        t0 = self.port_A.t(w) * self.port_B.t(w)
+        t_A t_B (r_inA r_inB e^{2 i w_tau tau_th})^k after a local
+        transit of (2k+1) tau_th.  Partial sums converge to t_AB(w)."""
+        wt = self.local_frequency(w)
+        t0 = self.port_A.t(wt) * self.port_B.t(wt)
         lf = self._loop_factor(w)
         return [complex(t0 * lf ** k) for k in range(kmax + 1)]
 
@@ -253,9 +269,15 @@ def traverse_throat(throat: NetworkThroat, w: float, t_entry: float,
 
     ``loop=k``: the k-th echo alone — local duration (2k+1) tau_th
     (one crossing plus k interior round trips, every one of them
-    future-directed in the throat clock), global exit
-    t_entry + (2k+1) tau_th + Delta_BA, amplitude
-    t_A t_B (r_inA r_inB e^{2 i w tau_th})^k.
+    future-directed in the throat clock), amplitude
+    t_A t_B (r_inA r_inB e^{2 i w_tau tau_th})^k.
+
+    Clock-rate-correct exit time (exact clock composition):
+    tau_B^exit = rate_A (t_entry - o_A) + local  ⇒
+    t_exit = [rate_A (t_entry - o_A) + local]/rate_B + o_B ,
+    reducing to t_entry + local/rate + Delta_BA at equal rates and to
+    the PR #216 form at unit rates.  The local phase runs at the
+    throat proper frequency w_tau.
     """
     deco = (throat.mouth_A.orientation * throat.mouth_B.orientation
             * np.exp(1j * (throat.mouth_A.transfer_phase
@@ -268,8 +290,11 @@ def traverse_throat(throat: NetworkThroat, w: float, t_entry: float,
         local = (2 * loop + 1) * throat.tau_th
         amp = throat.loop_expansion(w, loop)[loop]
         name = f"throat (echo k={loop})"
-    t_exit = t_entry + local + throat.delta_BA
-    factor = amp * np.exp(-1j * w * local)
+    rate_a = throat.mouth_A.clock_rate
+    rate_b = throat.mouth_B.clock_rate
+    t_exit = ((rate_a * (t_entry - throat.mouth_A.clock_offset) + local)
+              / rate_b + throat.mouth_B.clock_offset)
+    factor = amp * np.exp(-1j * throat.local_frequency(w) * local)
     return TraversalLeg(
         name=name,
         t_start=t_entry,
@@ -289,10 +314,20 @@ def emergence_train(throat: NetworkThroat, w: float, t_entry: float,
 
 
 def emergent_frequency(throat: NetworkThroat, w: float) -> float:
-    """Global frequency at emergence: w * rate_A / rate_B (the throat is
-    stationary in mouth-clock time, so the *local* frequency is
-    conserved through traversal)."""
-    return w * throat.mouth_A.clock_rate / throat.mouth_B.clock_rate
+    """Global frequency at emergence: w * rate_B / rate_A.
+
+    The throat is static in its own proper time, so the PROPER
+    frequency w_tau = w / rate_A is conserved through the interior;
+    re-expressed against global time at mouth B the emergent frequency
+    is w_tau * rate_B.  A slow-clock mouth (rate_B < 1, deep well)
+    REDSHIFTS the emerging wave - it climbs out of B's well.  (This
+    corrects the inverted rate ratio shipped with PR #216, which was
+    only exercised at rate_A = rate_B.)  Elastic confirmation - the
+    return matching the source mode - therefore requires
+    rate_A = rate_B at traversal epoch: state closure selects
+    rate-matched networks, with only the aged-in offset Delta_BA
+    surviving."""
+    return w * throat.mouth_B.clock_rate / throat.mouth_A.clock_rate
 
 
 def closure_offset(d_A: float, d_B: float, tau_th: float) -> float:
@@ -329,6 +364,66 @@ def network_confirmation(throat: NetworkThroat, w: float,
 
     out.amp = leg1.factor * leg2.factor * leg3.factor
     return out
+
+
+def loop_eigenvalue(throat: NetworkThroat, w: float, d_A: float,
+                    d_B: float) -> complex:
+    """The eigenvalue Lambda(w) of the closed network loop acting on a
+    monochromatic exterior mode e^{-i w t}, in VALUE TRANSPORT.
+
+    The physical self-consistency of the field at the crossing is
+    governed by the returned field VALUE per unit emitted value.  A
+    d'Alembert wave carries its value unchanged along rays (delays
+    live in the arrival times, not in phases), and the interfaces act
+    through their frequency-domain amplitudes; summing the echo train
+    with its k-dependent arrival displacements gives
+
+        [L f](t) = Sum_k a_k f(t - D_k)   with
+        a_k = t_A t_B (r_inA r_inB)^k * deco ,
+        D_k = d_A + d_B + (2k+1) tau_glob + Delta_BA ,
+
+    whose eigenvalue on e^{-i w t} resums to
+
+        Lambda(w) = t_net(w_tau) * deco * e^{+i w D_loop} ,
+        D_loop = d_A + d_B + tau_glob + Delta_BA .
+
+    At time closure (D_loop = 0) Lambda = t_net * deco: the carrier
+    closes on the throat's own scattering phase.  NOTE the convention
+    correction to PR #216: the engine's leg bookkeeping (retarded
+    time-phases e^{-i w d}) coincides with value transport on the
+    exterior tower legs (e^{-2 pi i n} = 1) but not for the transit
+    phase; the #216 closure comb tracked the engine-convention loop
+    amplitude, while the self-consistent field is governed by this
+    eigenvalue.  (Sanity anchor: ring-resonator modes must depend on
+    the ring circumference - only this form delivers that.)
+    Passivity of the two-port throat gives |Lambda| <= 1 for every
+    real w: the network cannot self-amplify (the Novikov fixed point
+    is stable or marginal, never runaway)."""
+    tr = network_confirmation(throat, w, 0.0, d_A, d_B)
+    d_loop = tr.t_return - tr.t_emit
+    deco = (throat.mouth_A.orientation * throat.mouth_B.orientation
+            * np.exp(1j * (throat.mouth_A.transfer_phase
+                           + throat.mouth_B.transfer_phase)))
+    return complex(throat.t_AB(w) * deco * np.exp(1j * w * d_loop))
+
+
+def effective_green(throat: NetworkThroat, w: float, d_A: float,
+                    d_B: float, g_direct: complex = 1.0 + 0.0j) -> complex:
+    """The self-consistent effective Green function of the crossing.
+
+    The returned confirmation re-enters the network (the closed
+    universe refocuses it onto mouth A again), so the field at the
+    crossing obeys F = F_0 + Lambda F - the self-consistent CTC wave
+    constraint - with the unique solution
+
+        G_eff(w) = g_direct / (1 - Lambda(w))        (|Lambda| != 1).
+
+    The winding (generation) expansion G_eff = g Sum Lambda^j converges
+    for |Lambda| < 1; Lambda -> 1 is the completed transaction - a
+    persistent self-consistent history, the pole of the effective
+    Green function."""
+    lam = loop_eigenvalue(throat, w, d_A, d_B)
+    return complex(g_direct / (1.0 - lam))
 
 
 def projected_kernel(throat: NetworkThroat, w: float, d_B: float) -> dict:

@@ -1,0 +1,113 @@
+{
+  "timestamp_utc": "2026-07-14T05:27:48+00:00",
+  "identification": "The self-consistent network loop: the full two-mouth transfer system solved - clock-rate-correct traversal, Wigner-delay-correct closure, nested winding resummation, source and mouth state evolution - and the effective Green function G_eff = g/(1 - Lambda) derived (ring-validated value-transport eigenvalue) before comparison with I+-: completed transactions sit on the throat's interior resonances and the Novikov fixed point is passive",
+  "executes": "the decisive #216 successor: the loop solved self-consistently",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Construct the full two-mouth transfer system and solve the loop self-consistently: both mouth barriers, clock-rate-correct traversal, Wigner-delay-correct packet closure, repeated winding resummation, source and mouth state evolution - and the resulting effective Green function DERIVED (as the resolvent of the transfer system, validated against a first-principles ring spectrum) before any comparison with I+-.",
+      "pass": true
+    },
+    {
+      "name": "T2_clock_rates",
+      "description": "the throat runs at w_tau = w/rate_A; the emergent frequency is w rate_B/rate_A (redshift out of the slow-clock well - correcting the inverted #216 ratio); elastic confirmation forces rate-matched mouths",
+      "emergent_frequency_slow_exit": 1.2,
+      "corrected_from_216_value": 4.8,
+      "exit_time_composition_ok": true,
+      "state_closure_mismatch_unequal_rates": 1.2,
+      "state_closure_mismatch_equal_rates": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T3_transfer_system",
+      "description": "the explicit transfer system resolves to G = 1/(1-Lambda) exactly; interior x winding loops resum nested; the ring spectrum validates Lambda = t_net e^{+i w D_loop} from first principles and excludes the opposite convention",
+      "matrix_resolvent_error": 9.036560719766055e-15,
+      "nested_resummation_error": 1.4133557720257279e-15,
+      "ring_modes": [
+        2.7389807483107034,
+        3.6070901855014394
+      ],
+      "ring_prediction_error": 1.0841701982844398e-05,
+      "wrong_convention_miss": 0.1197805919799455,
+      "engine_convention_offset_error": 2.2887833992611187e-16,
+      "pass": true
+    },
+    {
+      "name": "T4_transaction_points",
+      "description": "Wigner-correct closure lands the packet ON the crossing, phase-aligned; the above-barrier point needs the mouth phase; the below-barrier point is solved by the throat alone and sits ON the interior Fabry-Perot resonance",
+      "above_barrier": {
+        "w0": 3.0,
+        "tau": 0.8,
+        "theta_star": 1.0117384893273105,
+        "delta_star": -7.2529535067929825,
+        "Lambda": [
+          0.9999979821216802,
+          -1.4432899320127035e-15
+        ],
+        "packet_peak_corrected": 0.006000000000000227,
+        "packet_peak_uncorrected": 0.17499999999999982,
+        "wigner": 0.16976819961339595,
+        "phase_at_crossing": -0.005386459148813732
+      },
+      "below_barrier": {
+        "w0": 0.5,
+        "tau_star": 5.1105157658307165,
+        "carrier_residual": 5.236186291654017e-13,
+        "T_net_at_point": 0.9688294474745772,
+        "wigner_at_point": 31.12188716035691
+      },
+      "pass": true
+    },
+    {
+      "name": "T5_state_evolution",
+      "description": "input-output rates match the derived linewidth and the resonant storage time; the source fixed-point iteration converges at rate |Lambda| (marginal at the completed transaction); the cavity state builds to steady state",
+      "kappa_tot": 0.06517593321732697,
+      "linewidth_fwhm": 0.052000000000000046,
+      "wigner_at_resonance": 31.12188716035691,
+      "storage_time_2_over_kappa": 30.68617358083799,
+      "iteration_rate": 0.23239907357287615,
+      "Lambda_magnitude": 0.23239899644550027,
+      "cavity_steady_state_reached": true,
+      "pass": true
+    },
+    {
+      "name": "T6_geff_vs_orderings",
+      "description": "G_eff derived first: quartic line at the completed transaction, Lorentzian at carrier-only closure, widths predicted by 1-|Lambda|; passivity (Novikov); THEN the I+- comparison: O(Lambda) = the #216 assembly, resummed weight Lambda/(1-Lambda), epsilon -> 0 at completion",
+      "quartic_fwhm": 0.011806787529677898,
+      "quartic_fwhm_predicted": 0.011792114616607995,
+      "lorentzian_fwhm": 0.04848791225248894,
+      "lorentzian_fwhm_predicted": 0.04558214228658844,
+      "passivity_max_Lambda": 0.9999993364290719,
+      "resummation_identity_error": 3.03543989777123e-14,
+      "confirmation_weight_at_completion": 495569.0203535811,
+      "deficit_completed": 2.0178783197710715e-06,
+      "deficit_partial": 0.10887793580733773,
+      "transaction_pole_peak_ratio": 3089910646.399489,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "what this PR does and does not establish",
+      "scope": [
+        "The convention correction to #216: the closure comb there tracked the engine's time-phase loop amplitude (retro_phase_match's bookkeeping), which coincides with value transport on the tower's exterior legs but not for the transit phase; the self-consistent field is governed by Lambda = t_net e^{+i w D_loop} (ring-validated).  The #216 deform knob (phi = w delta) and all magnitude/advanced-projection results are unchanged.",
+        "Continuous-w analysis interpolates between the physical tower modes; the above-barrier transaction point uses the mouths' geometric transfer phase as the carrier tuning (a free parameter of the frozen network), while the below-barrier point is solved by the throat alone.",
+        "The coupled-mode (input-output) rates are valid at moderate finesse (25% tolerances here); they are a consistency check, not the derivation.",
+        "The elastic selection rule fixes rate_A = rate_B at traversal epoch; the differential aging that builds Delta_BA must have happened earlier - the network history is posited (MTY), not solved.",
+        "The winding resummation assumes an unchanged network per winding (frozen geometry, linear field); back-reaction of the stored cavity energy on the throat is out of scope.",
+        "Classical, zonal scalar, l = 0 greybody throughout; the engine migration remains staged."
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "the standing of the self-consistent solve",
+      "core_green": true,
+      "assessment": "The loop is solved, not sampled: the full two-mouth transfer system resolves to G_eff = g/(1 - Lambda) with the value-transport eigenvalue validated against a first-principles ring spectrum (and the #216 bookkeeping corrected in the process); clock rates enter exactly (the redshift inversion fixed, elastic confirmation forcing rate-matched mouths); Wigner-correct closure lands the packet on the crossing phase-aligned, and the two closure equations solved together put the completed transaction ON the throat's interior resonance below the barrier; the source and cavity states evolve to the steady state at rate |Lambda| with input-output rates matching the derived linewidth; and the effective Green function - derived before any I+- comparison - reproduces #216's assembly at first winding order, renormalizes the confirmation weight to Lambda/(1-Lambda), shows an anomalously flat (quartic) resonance exactly at completed transactions, and is passive everywhere: the Novikov fixed point cannot run away, and the completed transaction is the #213 coherent epsilon -> 0 limit with the width given by the confirmation deficit - #214's absorber damping in its transactional form.",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "THE_LOOP_SOLVED_SELF_CONSISTENTLY_G_EFF_DERIVED_COMPLETED_TRANSACTIONS_SIT_ON_THE_THROAT_RESONANCES_AND_THE_NOVIKOV_FIXED_POINT_IS_PASSIVE",
+  "verdict": "DERIVED (the argument is in docs/self_consistent_network_loop.md).\n\nTHE SYSTEM. Both barriers in one signal-flow system: the resolvent equals g/(1 - Lambda) exactly (9e-15); the interior x winding double series resums nested (1e-15); and the value-transport eigenvalue Lambda = t_net e^{i w D_loop} is validated against a first-principles ring spectrum (modes to 0.000; the opposite convention misses by 0.12) - correcting the #216 closure bookkeeping.\n\nTHE CLOSURES. Clock rates exact (redshift fixed; elastic confirmation forces rate-matched mouths). Wigner-correct closure lands the packet at 0.006 (uncorrected: 0.175 = tau_W), phase-aligned (-0.005). Above the barrier the mouth phase closes the carrier (Lambda = 0.999998); below it BOTH closures are solved by the throat alone and the completed transaction sits ON the interior resonance (|t_net|^2 = 0.969 at tau* = 5.1105, residual 5e-13).\n\nTHE STATES. Input-output rates match the derived linewidth (kappa = 0.0652 vs FWHM 0.0520) and the resonant storage time (31.1 vs 30.7); the source iteration converges at rate |Lambda| (0.2324 vs 0.2324) - marginal at completion; the cavity builds to steady state.\n\nG_EFF, THEN I+-. Quartic line at the completed transaction (FWHM 0.0118 vs 0.0118 - group closure makes the resonance anomalously flat), Lorentzian at carrier-only closure (0.0485 vs 0.0456); passivity max|Lambda| = 0.999999 <= 1 (Novikov, no runaway); the O(Lambda) truncation IS the #216 assembly, the resummation renormalizes the confirmation weight to Lambda/(1-Lambda) (3e-14; at completion the weight reaches 5.0e+05 - the divergence IS the transaction pole), and the confirmation deficit 1-|Lambda| -> 0 at completion (2.0e-06 vs partial 0.11): the completed transaction is the #213 coherent limit, its deficit the #214 absorber damping in transactional form."
+}
