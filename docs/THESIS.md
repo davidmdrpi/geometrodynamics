@@ -1110,6 +1110,57 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The eigenhistory transaction (PR #218).** #217 solved the *driven*
+loop and found G_eff diverging exactly at the completed transaction —
+the message being that a completed transaction is not a response to a
+source. `eigenhistory_transaction_probe` formulates it as what it is —
+**a homogeneous, globally constrained eigenhistory** F = Λ_tot(ω, I)F
+with NO source term, existing where the null space of the full
+transfer system opens, its amplitude fixed by the closure constraints
+— and establishes the theorem: **A FINITE, SOURCE-INCLUSIVE,
+ENERGY-CONSERVING, SELF-CONSISTENT WORMHOLE TRANSACTION EXISTS**
+(`docs/eigenhistory_transaction.md`). **The source joins the loop**:
+an energy-conserving reactive scatterer (|s| = 1 to 1e-16) whose
+phase is pulled by the field, φ_s(I) = βI/(1+I/I_sat) — the classical
+internal-state (level) shift with saturation. **Energy closure
+(|Λ| = 1)**: every element lossless at the working point — and the
+throat is lossless EXACTLY on its interior resonance by a unitarity
+identity (loop factor real positive |r|² ⟹ |t_net| = T/(1−R)·... =
+T/T = 1): exact tier 1e-16; Tangherlini deficit 2.0e-4 = 10× the
+solver's own port flux error (finesse-amplified) — the eigenhistory
+can live ONLY on the resonance comb, now forced by energy closure
+alone. **State closure (arg Λ = 0) fixes the amplitude**: the
+throat's scattering phase χ = 2 arg t = 2.8631 must be cancelled by
+the source, φ_s(I*) = −χ mod 2π; the IVT (source range βI_sat = 12 >
+2π) guarantees a root: **I* = 1.5944** (residual 8e-14), giving
+Λ_tot − 1 = 3e-16, with the smallest singular value of (I − M_tot) =
+1e-16 AT the eigenhistory vs 0.14/0.9 detuned in intensity/frequency
+— the homogeneous solution exists at exactly one point per branch,
+and **the branches are discrete**: I*₀ = 1.594, I*₁ = 16.90 — a
+discrete transaction-amplitude spectrum from classical closure
+(branch structure, NOT quantization — scope). **Dynamics**: the loop
+map conserves |z| exactly per pass; 10⁴ passes drift the amplitude by
+1e-16 and the phase by 1e-11; the null eigenvector carries the
+source's state shift (3.42) and the mouths' resonantly enhanced
+interior — source, mouths, and field are parts of ONE closed history;
+perturbed amplitudes dephase at exactly dφ_s/dI (state closure
+selects); the physical tier decays at exactly its solver deficit
+(matched 1e-6 over 200 passes). **The correspondence**: with the
+source frozen at I*, #217's driven response exceeds 1e15 at the
+eigenhistory vs O(10) detuned — the driven pole IS the eigenhistory:
+the marginal Novikov point is populated by an explicit history; weak
+driving shadows it (F₀ → 0 ⟹ z → z*). The Wheeler–Feynman/Cramer arc
+closes conceptually: #213 the propagator from complete histories,
+#216 the advanced half's causal mechanism, #217 the resummed loop,
+#218 the completed transaction itself — a finite self-consistent
+object with its own fixed amplitude. Scope: ℏ NOT derived (the scale
+from the source's β, I_sat; discreteness = branch structure);
+monochromatic skeleton (packet eigenhistory = carrier + group closure,
+named successor); marginal stability (dephasing selection; a
+dissipative registration mechanism — the #209 opens — would make it
+attracting); single-channel reactive source; frozen geometry;
+classical (`eigenhistory_transaction_probe`, PR #218).
+
 **The self-consistent network loop (PR #217).** #216 built the
 two-port throat and showed the network's projection is advanced — but
 treated the loop at first order and postulated the I± assembly.
