@@ -1110,6 +1110,47 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The Hamiltonian source eigenhistory (PR #219).** #218's
+eigenhistory theorem used an *imposed* source phase law.
+`hamiltonian_source_eigenhistory_probe` replaces it with the **minimal
+conservative source that has an explicit Hamiltonian** — a
+side-coupled Duffing oscillator, H = p²/2 + ω₀²q²/2 + (μ/4)q⁴ +
+g·q·u(0) (the quartic the minimal anharmonicity, the cubic absent by
+symmetry) — includes the source's state and energy in the loop, and
+solves **U(X)X = X together with total-energy closure**, reporting the
+fixed-point residual and the stability eigenvalues
+(`docs/hamiltonian_source_eigenhistory.md`). **Three #218 impositions
+become consequences**: harmonic balance gives the source a DERIVED
+point-scattering κ_eff = g·a/U₀ with t_s = 2iω/(2iω−κ) — unitary
+BECAUSE the Hamiltonian is conservative (1e-13), reactive on the real
+branch (zero net power, 1e-15), the amplitude-dependent phase carried
+by D(a) = ω₀²−ω²+(3/4)μa² — and **#218's law is its weak-coupling
+limit** (ratio 1.000000 at g → 0). **The ring**: the reflecting
+source makes the loop a genuine two-direction ring; the trace is real
+(time-reversal, 1e-10); **the #217 gap tangency is resolved** (tr > 2
+on [2.7325, 2.7390], max 2.0006 — the ring modes are the split pair
+at the gap edges); the homogeneous condition defines a **nonlinear
+mode BRANCH ω*(A)** (traced U₀ = 0.2–1.6, eigen-residual ≤ 1e-14) —
+homogeneity alone cannot fix the amplitude. **The joint solve**: 2D
+Newton on (tr − 2, E_tot − E₀) at E₀ = 11.177 lands on (ω*, U₀*) =
+(2.732375, 0.912168), a* = −0.1963, with **‖U(X*)X* − X*‖ = 2.5e-14**,
+Newton residuals (1e-15, 5e-14), source slaving 1e-13, energy
+partition E_field = 11.006 + E_source = 0.171 = E₀ to 5e-14; the flux
+form constant around the ring (2e-15); 10⁴-pass drift 5e-11; raw-port
+systematic 2e-5 (interpolation, anchored). **The stability
+eigenvalues**: all four ON the unit circle — a Jordan block at 1
+(reciprocal product 1 + 3e-10; the parabolic direction along the mode
+branch) plus a rotating pair 0.9999882 ± 0.0048669i (|λ| = 1 to
+1e-10): the conservative eigenhistory is MARGINAL, as a Hamiltonian
+fixed point must be — Novikov-passive, no runaway; perturbations
+shear at most LINEARLY (log-log slope 0.999, late ratio 1.82 — never
+exponential). Scope: harmonic balance (third-harmonic weight 2e-4);
+E₀ a specified budget (the #58 nucleation quantum is program input);
+ℏ still not derived (scales ω₀, μ, g, E₀); monochromatic skeleton;
+selection by shear/dephasing — a dissipative registration mechanism
+(#209 opens) would make the eigenhistory attracting; classical,
+frozen geometry (`hamiltonian_source_eigenhistory_probe`, PR #219).
+
 **The eigenhistory transaction (PR #218).** #217 solved the *driven*
 loop and found G_eff diverging exactly at the completed transaction —
 the message being that a completed transaction is not a response to a

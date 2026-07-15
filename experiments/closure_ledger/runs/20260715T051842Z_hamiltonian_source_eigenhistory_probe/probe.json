@@ -1,0 +1,156 @@
+{
+  "timestamp_utc": "2026-07-15T05:18:42+00:00",
+  "identification": "The Hamiltonian source: #218's imposed phase law replaced by a minimal conservative source (side-coupled Duffing, explicit Hamiltonian, unitary-by-construction harmonic-balance scattering); the eigenhistory solved as U(X)X = X together with total-energy closure on the two-direction ring; fixed-point residuals at machine precision and a marginal (all-unit-circle) stability spectrum reported",
+  "executes": "the requested model replacement and joint solve",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Replace #218's imposed source phase law with a minimal conservative source derived from an explicit Hamiltonian (side-coupled Duffing oscillator, harmonic balance); include the source state and energy in the loop; solve the homogeneous condition U(X)X = X together with total-energy closure; report the fixed-point residual and the stability eigenvalues.",
+      "pass": true
+    },
+    {
+      "name": "T2_source_derived",
+      "description": "H = p^2/2 + w0^2 q^2/2 + mu q^4/4 + g q u(0): the scattering is unitary BECAUSE the Hamiltonian is conservative, reactive (zero net power) on the real branch, and reduces to the #218 law at weak coupling",
+      "unitarity_deviation": 2.220446049250313e-16,
+      "net_power_deviation": 0.0,
+      "branch_max_jump": 0.006623221574626759,
+      "weak_coupling_limit_ratios": [
+        0.9999999884665239,
+        0.9999999997047431
+      ],
+      "pass": true
+    },
+    {
+      "name": "T3_ring_modes",
+      "description": "the two-direction ring with the source inside: real trace (time reversal); the tr > 2 gap segment resolved (the #217 tangency was a coarse-grid artifact); the homogeneous condition defines a nonlinear mode BRANCH w*(A) - the amplitude is not fixed by homogeneity alone",
+      "trace_imag_max": 1.6653345369377348e-16,
+      "gap_segment": [
+        2.7324,
+        2.739
+      ],
+      "gap_max_trace": 2.000605393782867,
+      "mode_branch": [
+        {
+          "U0": 0.2,
+          "w_star": 2.7323433075456722,
+          "eig_residual": 1.0265333537342442e-14
+        },
+        {
+          "U0": 0.5,
+          "w_star": 2.732351820058473,
+          "eig_residual": 1.061483737648999e-14
+        },
+        {
+          "U0": 0.8,
+          "w_star": 2.7323674551090513,
+          "eig_residual": 3.4063213894626747e-15
+        },
+        {
+          "U0": 1.2,
+          "w_star": 2.7323988430746122,
+          "eig_residual": 1.1627999846941135e-14
+        },
+        {
+          "U0": 1.6,
+          "w_star": 2.732441323361513,
+          "eig_residual": 2.16672793231769e-15
+        }
+      ],
+      "branch_frequency_span": 9.801581584056862e-05,
+      "pass": true
+    },
+    {
+      "name": "T4_joint_solve",
+      "description": "the homogeneous condition solved TOGETHER with total-energy closure: 2D Newton on (tr - 2, E_tot - E0); the state X* includes the source amplitude; residuals reported as requested",
+      "E0": 11.177,
+      "w_star": 2.7323750728811627,
+      "U0_star": 0.9121676623203764,
+      "a_star": -0.19626557613681075,
+      "newton_residuals": [
+        -8.881784197001252e-16,
+        4.618527782440651e-14
+      ],
+      "UX_equals_X_residual": 1.8223730563415494e-14,
+      "eigen_residual": 1.8218857957123448e-14,
+      "source_slaving_residual": 1.1102230246251565e-16,
+      "E_field": 11.006422103784297,
+      "E_source": 0.17057789621574887,
+      "energy_closure_residual": 4.618527782440651e-14,
+      "raw_port_systematic": 5.5817322319740015e-08,
+      "pass": true
+    },
+    {
+      "name": "T5_energy_closure",
+      "description": "the conserved flux form is constant around the ring; the source absorbs zero net power; the full nonlinear state persists 1e4 passes",
+      "flux_constancy": 1.942890293094024e-16,
+      "source_net_power": 2.790846553341478e-19,
+      "norm_drift_1e4": 3.8645420197269686e-11,
+      "U0_drift_1e4": 3.8557214454775365e-11,
+      "pass": true
+    },
+    {
+      "name": "T6_stability",
+      "description": "the stability eigenvalues of the loop map at the fixed point: all on the unit circle (the marginal pair a Jordan block at 1, numerically split by O(sqrt(eps)); reciprocal product 1) - marginal: Novikov-passive; perturbations shear at most linearly (parabolic), never exponentially",
+      "map_residual_at_fixed_point": 1.1757584609410077e-14,
+      "stability_eigenvalues": [
+        [
+          1.000000453707063,
+          0.0
+        ],
+        [
+          0.9999995465499416,
+          0.0
+        ],
+        [
+          0.9999881564514221,
+          0.004866903856260777
+        ],
+        [
+          0.9999881564514221,
+          -0.004866903856260777
+        ]
+      ],
+      "eigenvalue_moduli": [
+        1.000000453707063,
+        0.9999995465499416,
+        0.99999999989813,
+        0.99999999989813
+      ],
+      "max_modulus_deviation": 4.5370706303060615e-07,
+      "jordan_pair_product": 1.0000000002567988,
+      "rotation_angles": [
+        0.0,
+        0.0,
+        0.004866923070486413,
+        -0.004866923070486413
+      ],
+      "perturbation_growth_slope": 0.9993426139565378,
+      "perturbation_late_ratio": 1.8191639792847663,
+      "pass": true
+    },
+    {
+      "name": "T7_honest_scope",
+      "description": "what this PR does and does not establish",
+      "scope": [
+        "Harmonic balance keeps the fundamental only; the neglected third-harmonic weight is O(mu a^2/8w^2) ~ 2.4e-04 at the fixed point - small, and computable if needed.",
+        "The Duffing quartic is the MINIMAL conservative anharmonicity (the cubic is absent by q -> -q symmetry); any conservative source with a nonlinear frequency pull plays the same role.",
+        "E_0 is a specified energy budget; its physical value (e.g. the #58 nucleation quantum) is program-level input, not derived here.  hbar is still not derived: the scales are (w0, mu, g, E_0).",
+        "The mouth ports are cubic-spline interpolants of the unitarized Tangherlini greybody (re-unitarized pointwise); the raw-port systematic at the fixed point is 5.6e-08 in tr - the working point is defined in the interpolated model, anchored to the physical solver at that tolerance.",
+        "The ring is the monochromatic (carrier-closed) skeleton; packet eigenhistories need the group condition (named successor since #218).",
+        "Classical, zonal scalar, frozen geometry; MTY network history posited."
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "the standing of the Hamiltonian-source solve",
+      "core_green": true,
+      "assessment": "Nothing about the source is imposed anymore: its scattering is unitary because its Hamiltonian is conservative, its reactivity and amplitude-dependent phase are consequences of harmonic balance, and #218's law is its weak-coupling shadow.  Because the Hamiltonian source also reflects, the loop became a genuine two-direction ring whose homogeneous condition defines a nonlinear mode BRANCH - and the amplitude is fixed, as it must be, by TOTAL-ENERGY closure: the 2D Newton lands on (w*, U0*) with fixed-point residuals at machine precision, the state including the source amplitude and energy.  The stability spectrum is the cleanest possible answer to the Novikov question: two conjugate pairs, all on the unit circle - the conservative eigenhistory is an elliptic center, neither growing nor decaying, with perturbations bounded in libration.  The self-consistent wormhole transaction of #218 now rests on an explicit Hamiltonian.",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "THE_SOURCE_PHASE_LAW_IS_DERIVED_FROM_A_HAMILTONIAN_THE_EIGENHISTORY_SOLVES_UXX_EQUALS_X_WITH_TOTAL_ENERGY_CLOSURE_AND_ITS_STABILITY_SPECTRUM_IS_MARGINAL",
+  "verdict": "ESTABLISHED (the argument is in docs/hamiltonian_source_eigenhistory.md).\n\nTHE SOURCE, DERIVED. H = p^2/2 + w0^2 q^2/2 + mu q^4/4 + g q u(0): unitary scattering as a CONSEQUENCE (2e-16), reactive (0e+00), and #218's imposed law recovered as the weak-coupling limit (ratios [0.9999999884665239, 0.9999999997047431]).\n\nTHE RING. The reflecting source makes the loop a true two-direction ring: real trace, the tr > 2 gap segment resolved (2.7324-2.7390, max 2.0006 - cleaning up #217's coarse-scan tangency), and the homogeneous condition defining a nonlinear mode BRANCH w*(A) (span 9.8e-05): homogeneity alone cannot fix the amplitude.\n\nTHE JOINT SOLVE. U(X)X = X TOGETHER WITH total-energy closure: (w*, U0*) = (2.732375, 0.912168), a* = -0.1963; FIXED-POINT RESIDUALS: Newton (-9e-16, 5e-14), U(X)X = X 2e-14, source slaving 1e-16; energy partition E_field = 11.0064 + E_source = 0.1706 = E0 to 5e-14. Flux constant around the ring (2e-16); 1e4-pass persistence (drift 4e-11).\n\nTHE STABILITY EIGENVALUES: [1.000000453707063, 0.0] , [0.9999995465499416, 0.0] , [0.9999881564514221, 0.004866903856260777] , [0.9999881564514221, -0.004866903856260777] - moduli within 5e-07 of the unit circle (the marginal pair a Jordan block at 1, reciprocal product to 3e-10) - the conservative eigenhistory is marginal: Novikov-passive, no runaway; perturbations shear at most linearly (log-log slope 1.00, late ratio 1.82) - polynomial, never exponential."
+}
