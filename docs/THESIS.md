@@ -1110,6 +1110,62 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The Hamiltonian source eigenhistory (PR #219).** #218's
+eigenhistory theorem used an *imposed* source phase law.
+`hamiltonian_source_eigenhistory_probe` replaces it with the **minimal
+conservative source that has an explicit Hamiltonian** — a
+side-coupled Duffing oscillator, H = p²/2 + ω₀²q²/2 + (μ/4)q⁴ +
+g·q·u(0) (the quartic the minimal anharmonicity, the cubic absent by
+symmetry) — includes the source's state and energy in the loop, and
+solves **U(X)X = X together with total-energy closure on the CORRECTED
+ledger** — the time-averaged interaction energy ⟨g·q·u(0)⟩ = g·a·U₀/2
+included in the total Hamiltonian energy — reporting the fixed-point
+residual and the **full Hamiltonian stability spectrum** (the Duffing
+(q, p) evolved as independent variables, not slaved)
+(`docs/hamiltonian_source_eigenhistory.md`). **Three #218 impositions
+become consequences**: harmonic balance gives the source a DERIVED
+point-scattering κ_eff = g·a/U₀ with t_s = 2iω/(2iω−κ) — unitary
+BECAUSE the Hamiltonian is conservative (1e-13), reactive on the real
+branch (zero net power, 1e-15), the amplitude-dependent phase carried
+by D(a) = ω₀²−ω²+(3/4)μa² — and **#218's law is its weak-coupling
+limit** (ratio 1.000000 at g → 0). **The ring**: the reflecting
+source makes the loop a genuine two-direction ring; the trace is real
+(time-reversal, 1e-10); **the #217 gap tangency is resolved** (tr > 2
+on [2.7325, 2.7390], max 2.0006 — the ring modes are the split pair
+at the gap edges); the homogeneous condition defines a **nonlinear
+mode BRANCH ω*(A)** (traced U₀ = 0.2–1.6, eigen-residual ≤ 1e-14) —
+homogeneity alone cannot fix the amplitude. **The joint solve, corrected
+ledger**: 2D Newton on (tr − 2, E_f + E_s + ⟨gqu(0)⟩ − E₀) at E₀ =
+11.177 lands on (ω*, U₀*) = (2.732375, 0.914367) — U₀* shifted 0.2%
+by the interaction term — a* = −0.1963, with **‖U(X*)X* − X*‖ =
+3e-14**, Newton residuals (9e-16, 1e-13), source slaving 1e-13,
+energy partition E_field = 11.060 + E_source = 0.171 + **E_int =
+−0.05397** = E₀ to 1e-13; flux form constant around the ring (2e-15);
+10⁴-pass drift 5e-11; raw-port systematic 2e-5. **The FULL
+Hamiltonian stability spectrum**: the Duffing (q, p) evolved as
+INDEPENDENT variables in the 4×4 variational monodromy of the reduced
+2-dof Hamiltonian H_red = (P²+ω_r²Q²)/2 + (p²+ω₀²q²)/2 + μq⁴/4 +
+g_eff·qQ (ω_r = 2.738858 the bare ring mode, g_eff = g·ψ(0) = 0.3203
+— both derived) about its shooting-refined periodic orbit (residual
+4e-14; NNM frequency within 8.8e-5 of the full-ring ω* — the
+reduction consistency metric): eigenvalues = the Floquet-trivial pair
+at 1 (8e-9) plus **the SOURCE pair 0.4541 ± 0.8910i rotating at its
+dressed frequency 3.2102 (bare ω₀ = 3.2)** — the degree of freedom
+the slaved harmonic-balance map froze — all |λ| = 1, det M = 1 −
+6e-14, symplectic to 5e-14, orbit energy drift 6e-11: the
+conservative eigenhistory is MARGINAL in the full Hamiltonian sense —
+Novikov-passive, no runaway direction anywhere in its phase space
+(the slaved winding-map spectrum retained as the comparison — it
+answers winding convergence, not time stability). Scope: harmonic
+balance (third-harmonic weight 2e-4); the interaction term ~0.5% of
+E₀ (its inclusion the review correction); single-ring-mode reduction
+for the Floquet (consistency 8.8e-5);
+E₀ a specified budget (the #58 nucleation quantum is program input);
+ℏ still not derived (scales ω₀, μ, g, E₀); monochromatic skeleton;
+selection by shear/dephasing — a dissipative registration mechanism
+(#209 opens) would make the eigenhistory attracting; classical,
+frozen geometry (`hamiltonian_source_eigenhistory_probe`, PR #219).
+
 **The eigenhistory transaction (PR #218).** #217 solved the *driven*
 loop and found G_eff diverging exactly at the completed transaction —
 the message being that a completed transaction is not a response to a
