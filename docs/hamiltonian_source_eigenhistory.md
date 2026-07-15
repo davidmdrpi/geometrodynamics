@@ -4,11 +4,13 @@
 > fields, **not** quantum gravity. #218 established the eigenhistory
 > existence theorem with an *imposed* source phase law. This PR replaces
 > it with the minimal conservative source that has an explicit
-> Hamiltonian, includes the source's state and energy in the loop,
-> solves the homogeneous condition U(X)X = X **together with**
-> total-energy closure, and reports the fixed-point residual and the
-> stability eigenvalues. The companion probe machine-checks every claim
-> (~20 s).
+> Hamiltonian, includes the source's state and energy in the loop —
+> **with the time-averaged interaction energy ⟨g·q·u(0)⟩ in the
+> ledger** — solves the homogeneous condition U(X)X = X **together
+> with** total-energy closure, and reports the fixed-point residual and
+> the **full Hamiltonian stability spectrum** (the Duffing (q,p)
+> evolved as independent variables, not slaved). The companion probe
+> machine-checks every claim (~25 s).
 
 ## 0. The source, derived
 
@@ -70,22 +72,25 @@ The amplitude is fixed by the energy budget. Two equations, two
 unknowns:
 
 ```
-tr T_ring(ω, U₀) = 2          (the homogeneous condition)
-E_field + E_source = E₀       (total-energy closure)
+tr T_ring(ω, U₀) = 2                       (the homogeneous condition)
+E_field + E_source + ⟨g·q·u(0)⟩ = E₀       (total-energy closure,
+                                            corrected ledger)
 ```
 
-solved by 2D Newton. At E₀ = 11.177:
+with the time-averaged interaction energy ⟨g·q·u(0)⟩ = g·a·U₀/2
+(negative: a and u(0) are antiphased) included in the total
+Hamiltonian energy. Solved by 2D Newton at E₀ = 11.177:
 
 | quantity | value |
 |---|---|
 | ω* | 2.732375 |
-| U₀* | 0.912168 |
+| U₀* | 0.914367 (shifted from 0.912168 by the corrected ledger) |
 | a* (source amplitude) | −0.1963 |
-| Newton residuals | (1.3×10⁻¹⁵, 4.6×10⁻¹⁴) |
-| **‖U(X*)X* − X*‖/‖X*‖** | **2.5×10⁻¹⁴** |
+| Newton residuals | (9×10⁻¹⁶, 1.0×10⁻¹³) |
+| **‖U(X*)X* − X*‖/‖X*‖** | **3×10⁻¹⁴** |
 | source slaving residual | 10⁻¹³ |
-| E_field / E_source | 11.006 / 0.171 |
-| energy closure residual | 5×10⁻¹⁴ |
+| E_field / E_source / **E_int** | 11.060 / 0.171 / **−0.05397** |
+| energy closure residual | 10⁻¹³ |
 | raw-port systematic | 2×10⁻⁵ (interpolation, anchored) |
 
 The state X* *includes the source*: its amplitude a*, its internal-state
@@ -97,32 +102,57 @@ form |R|² − |L|² is constant around the ring (2×10⁻¹⁵); the source
 absorbs zero net power; the full nonlinear state iterated 10⁴ passes
 drifts by 5×10⁻¹¹.
 
-## 3. The stability eigenvalues
+## 3. The full Hamiltonian stability spectrum
 
-The Jacobian of the loop map X → T_ring(ω*, U₀(X))·X at the fixed point
-(4-dim real):
+Harmonic balance slaves the source algebraically to the instantaneous
+field; its winding-map spectrum (retained for comparison) cannot see
+the source's own dynamics. The full analysis evolves the Duffing
+**(q, p) as independent phase-space variables**: the reduced 2-dof
+Hamiltonian
 
 ```
-λ = { 1 (double — a Jordan block, numerically split by O(√ε_FD),
-       reciprocal product 1 + 3×10⁻¹⁰) ,
-      0.9999882 ± 0.0048669i  (|λ| = 1 to 10⁻¹⁰) }
+H_red = (P² + ω_r²Q²)/2 + (p² + ω₀²q²)/2 + μq⁴/4 + g_eff·q·Q
 ```
 
-**All four on the unit circle** — the conservative eigenhistory is
-marginal, as a Hamiltonian fixed point must be: Novikov-passive, no
-runaway. The Jordan pair at 1 is the parabolic direction along the mode
-branch: perturbations **shear at most linearly** (measured log-log
-growth slope 0.999 — exactly linear; late-time ratio 1.82 ≈ 2 for a
-doubling of pass count), never exponentially. The rotating pair
-(angle 0.00487 rad/pass) is the amplitude–phase libration about the
-center. Selection of the eigenhistory against its neighbors remains by
-dephasing/shear — a weakly dissipative registration mechanism (the #209
-opens) would convert marginal into attracting.
+with **ω_r = 2.738858** (the bare ring mode, source removed) and
+**g_eff = g·ψ(0) = 0.3203** (ψ the normalized bare mode function) both
+*derived* from the ring. Its periodic orbit — the eigenhistory in
+reduced form — is found by shooting (residual 4×10⁻¹⁴), with the NNM
+frequency landing within **8.8×10⁻⁵** of the full-ring ω* (the
+single-mode reduction consistency metric). The **4×4 variational
+monodromy** over one period gives the full Hamiltonian Floquet
+spectrum:
+
+```
+λ = { 1 (double, to 8×10⁻⁹ — the Floquet-trivial pair:
+       along-flow + energy) ,
+      0.454058 ± 0.890972i  (|λ| = 1 exactly) }
+```
+
+- **the nontrivial pair is the source**: its unwrapped rotation
+  frequency (θ + 2π)/T = **3.2102** ≈ the Duffing's dressed frequency
+  (bare ω₀ = 3.2 plus anharmonic + coupling dressing) — exactly the
+  degree of freedom the slaved map froze;
+- **symplectic to machine precision**: det M = 1 − 6×10⁻¹⁴,
+  MᵀJM − J at 5×10⁻¹⁴; energy drift along the orbit 6×10⁻¹¹;
+- **all four on the unit circle** — the conservative eigenhistory is
+  marginal in the *full* Hamiltonian sense: Novikov-passive, no runaway
+  direction anywhere in its phase space.
+
+The winding-map (slaved) spectrum answers a different question — the
+convergence of the winding iteration — and is reported alongside; only
+the Floquet monodromy exposes the source pair.
 
 ## 4. Honest scope
 
 - Harmonic balance keeps the fundamental; the neglected third-harmonic
   weight at the fixed point is O(μa²/8ω²) ≈ 2×10⁻⁴.
+- The corrected ledger's interaction term is ~0.5% of E₀ here; its
+  inclusion shifts U₀* by 0.2% — small, but the ledger is now the full
+  Hamiltonian.
+- The Floquet analysis lives on the reduced 2-dof Hamiltonian (one ring
+  mode + source); higher ring modes are dropped, with the NNM-vs-ring
+  frequency match (8.8×10⁻⁵) as the consistency metric.
 - The Duffing quartic is minimal; any conservative source with a
   nonlinear frequency pull plays the same role.
 - E₀ is a specified budget (its physical value — e.g. the #58 nucleation
@@ -142,19 +172,19 @@ opens) would convert marginal into attracting.
   resolved, crossings bracketed.)
 - A Newton fixed point failing U(X)X = X or the energy budget.
   (Checked: 2.5×10⁻¹⁴ and 5×10⁻¹⁴.)
-- A stability eigenvalue off the unit circle — growth or decay of the
-  conservative history. (Checked: all within 5×10⁻⁷, the deviation
-  being finite-difference splitting of the Jordan pair with reciprocal
-  product 1 + 3×10⁻¹⁰.)
-- Exponential perturbation growth — a runaway time loop. (Checked:
-  linear shear, slope 0.999.)
+- A Floquet eigenvalue off the unit circle — growth or decay of the
+  conservative history in its full phase space. (Checked: all within
+  10⁻⁹; det M = 1 and symplectic to 5×10⁻¹⁴.)
+- A missing source pair — the (q,p) dynamics would be spurious.
+  (Checked: present, at the dressed frequency 3.2102 vs bare 3.2.)
 
 ## 6. Companion probe
 
 `experiments/closure_ledger/hamiltonian_source_eigenhistory_probe.py`
-(T1–T8, ~20 s): the derived source checks; the ring modes and the
-resolved gap; the joint Newton with all residuals; the element-wise and
-dynamic energy closure; the stability spectrum and shear analysis.
+(T1–T8, ~25 s): the derived source checks; the ring modes and the
+resolved gap; the joint Newton on the corrected ledger with all
+residuals; the element-wise and dynamic energy closure; the full
+Hamiltonian Floquet spectrum with the slaved comparison.
 
 **Verdict:**
 `THE_SOURCE_PHASE_LAW_IS_DERIVED_FROM_A_HAMILTONIAN_THE_EIGENHISTORY_SOLVES_UXX_EQUALS_X_WITH_TOTAL_ENERGY_CLOSURE_AND_ITS_STABILITY_SPECTRUM_IS_MARGINAL`

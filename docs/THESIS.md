@@ -1117,8 +1117,11 @@ conservative source that has an explicit Hamiltonian** — a
 side-coupled Duffing oscillator, H = p²/2 + ω₀²q²/2 + (μ/4)q⁴ +
 g·q·u(0) (the quartic the minimal anharmonicity, the cubic absent by
 symmetry) — includes the source's state and energy in the loop, and
-solves **U(X)X = X together with total-energy closure**, reporting the
-fixed-point residual and the stability eigenvalues
+solves **U(X)X = X together with total-energy closure on the CORRECTED
+ledger** — the time-averaged interaction energy ⟨g·q·u(0)⟩ = g·a·U₀/2
+included in the total Hamiltonian energy — reporting the fixed-point
+residual and the **full Hamiltonian stability spectrum** (the Duffing
+(q, p) evolved as independent variables, not slaved)
 (`docs/hamiltonian_source_eigenhistory.md`). **Three #218 impositions
 become consequences**: harmonic balance gives the source a DERIVED
 point-scattering κ_eff = g·a/U₀ with t_s = 2iω/(2iω−κ) — unitary
@@ -1131,20 +1134,32 @@ source makes the loop a genuine two-direction ring; the trace is real
 on [2.7325, 2.7390], max 2.0006 — the ring modes are the split pair
 at the gap edges); the homogeneous condition defines a **nonlinear
 mode BRANCH ω*(A)** (traced U₀ = 0.2–1.6, eigen-residual ≤ 1e-14) —
-homogeneity alone cannot fix the amplitude. **The joint solve**: 2D
-Newton on (tr − 2, E_tot − E₀) at E₀ = 11.177 lands on (ω*, U₀*) =
-(2.732375, 0.912168), a* = −0.1963, with **‖U(X*)X* − X*‖ = 2.5e-14**,
-Newton residuals (1e-15, 5e-14), source slaving 1e-13, energy
-partition E_field = 11.006 + E_source = 0.171 = E₀ to 5e-14; the flux
-form constant around the ring (2e-15); 10⁴-pass drift 5e-11; raw-port
-systematic 2e-5 (interpolation, anchored). **The stability
-eigenvalues**: all four ON the unit circle — a Jordan block at 1
-(reciprocal product 1 + 3e-10; the parabolic direction along the mode
-branch) plus a rotating pair 0.9999882 ± 0.0048669i (|λ| = 1 to
-1e-10): the conservative eigenhistory is MARGINAL, as a Hamiltonian
-fixed point must be — Novikov-passive, no runaway; perturbations
-shear at most LINEARLY (log-log slope 0.999, late ratio 1.82 — never
-exponential). Scope: harmonic balance (third-harmonic weight 2e-4);
+homogeneity alone cannot fix the amplitude. **The joint solve, corrected
+ledger**: 2D Newton on (tr − 2, E_f + E_s + ⟨gqu(0)⟩ − E₀) at E₀ =
+11.177 lands on (ω*, U₀*) = (2.732375, 0.914367) — U₀* shifted 0.2%
+by the interaction term — a* = −0.1963, with **‖U(X*)X* − X*‖ =
+3e-14**, Newton residuals (9e-16, 1e-13), source slaving 1e-13,
+energy partition E_field = 11.060 + E_source = 0.171 + **E_int =
+−0.05397** = E₀ to 1e-13; flux form constant around the ring (2e-15);
+10⁴-pass drift 5e-11; raw-port systematic 2e-5. **The FULL
+Hamiltonian stability spectrum**: the Duffing (q, p) evolved as
+INDEPENDENT variables in the 4×4 variational monodromy of the reduced
+2-dof Hamiltonian H_red = (P²+ω_r²Q²)/2 + (p²+ω₀²q²)/2 + μq⁴/4 +
+g_eff·qQ (ω_r = 2.738858 the bare ring mode, g_eff = g·ψ(0) = 0.3203
+— both derived) about its shooting-refined periodic orbit (residual
+4e-14; NNM frequency within 8.8e-5 of the full-ring ω* — the
+reduction consistency metric): eigenvalues = the Floquet-trivial pair
+at 1 (8e-9) plus **the SOURCE pair 0.4541 ± 0.8910i rotating at its
+dressed frequency 3.2102 (bare ω₀ = 3.2)** — the degree of freedom
+the slaved harmonic-balance map froze — all |λ| = 1, det M = 1 −
+6e-14, symplectic to 5e-14, orbit energy drift 6e-11: the
+conservative eigenhistory is MARGINAL in the full Hamiltonian sense —
+Novikov-passive, no runaway direction anywhere in its phase space
+(the slaved winding-map spectrum retained as the comparison — it
+answers winding convergence, not time stability). Scope: harmonic
+balance (third-harmonic weight 2e-4); the interaction term ~0.5% of
+E₀ (its inclusion the review correction); single-ring-mode reduction
+for the Floquet (consistency 8.8e-5);
 E₀ a specified budget (the #58 nucleation quantum is program input);
 ℏ still not derived (scales ω₀, μ, g, E₀); monochromatic skeleton;
 selection by shear/dephasing — a dissipative registration mechanism

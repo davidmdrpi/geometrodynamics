@@ -46,13 +46,18 @@ scan resolves the tr > 2 gap segment that #217's coarse ring scan
 missed), so the amplitude is NOT fixed by the homogeneous condition
 alone: TOTAL-ENERGY CLOSURE fixes it -
 
-    tr T_ring(w, A) = 2     AND     E_field + E_source = E_0
+    tr T_ring(w, A) = 2   AND   E_field + E_source + <g q u(0)> = E_0
 
-solved jointly by 2D Newton.  Reported, as requested: the fixed-point
-residual (|U(X)X - X| ~ 1e-14) and the STABILITY EIGENVALUES of the
-loop map (two conjugate pairs, ALL on the unit circle to 1e-12:
-marginal/elliptic - the conservative eigenhistory is a center,
-Novikov-passive, no runaway).
+solved jointly by 2D Newton - the ledger CORRECTED to include the
+time-averaged interaction energy <g q u(0)> = g a U0/2 (negative:
+a and u(0) antiphased).  Reported, as requested: the fixed-point
+residual (|U(X)X - X| ~ 1e-14) and the FULL HAMILTONIAN STABILITY
+SPECTRUM - the Duffing (q, p) evolved as INDEPENDENT variables in the
+4x4 variational monodromy of the reduced 2-dof Hamiltonian about its
+shooting-refined periodic orbit, not the algebraically slaved
+harmonic-balance spectrum: the Floquet-trivial pair at 1 plus the
+SOURCE pair rotating at its dressed frequency (3.210 vs bare 3.2),
+all on the unit circle, symplectic to machine precision.
 
 Tests:
   T1. Goal.
@@ -66,8 +71,10 @@ Tests:
       energy partition).
   T5. Energy closure element-wise and dynamically (flux constant
       around the ring; zero source power; 1e4-pass persistence).
-  T6. The stability eigenvalues (all on the unit circle - marginal/
-      elliptic; bounded libration of perturbations; no runaway).
+  T6. The FULL Hamiltonian stability spectrum ((q, p) independent in
+      the variational monodromy; the source pair at its dressed
+      frequency; symplectic; the slaved HB spectrum retained for
+      comparison).
   T7. Honest scope.
   T8. Assessment.
 
@@ -253,7 +260,10 @@ def eigvec(w, U0):
 
 def energies(w, U0):
     """Total energy of the U0-normalized eigenhistory: field on the
-    three segments + the time-averaged Duffing energy."""
+    three segments + the time-averaged Duffing energy + the
+    time-averaged INTERACTION energy <g q u(0)> = g a U0 / 2 (both
+    real in the gauge; negative here since a and U0 are antiphased) -
+    the full Hamiltonian ledger."""
     v, resid = eigvec(w, U0)
     segs = [( _L1, v)]
     x = barrier_M(w) @ (P(w, _L1) @ v)
@@ -266,27 +276,29 @@ def energies(w, U0):
     a = source_a(w, U0)
     E_s = (w ** 2 * a ** 2 / 4 + _W0 ** 2 * a ** 2 / 4
            + (3 / 32) * _MU * a ** 4)
-    return float(E_f), float(E_s), resid
+    E_int = 0.5 * _G * a * U0
+    return float(E_f), float(E_s), float(E_int), resid
 
 
 def joint_solve(E0, w_init, U_init):
     """2D Newton: tr T_ring = 2 (homogeneous condition) together with
-    E_field + E_source = E0 (total-energy closure)."""
+    the CORRECTED total-energy closure
+    E_field + E_source + <g q u(0)> = E0."""
     x = np.array([w_init, U_init])
     F = np.array([1.0, 1.0])
     for _ in range(60):
         w, U0 = x
-        Ef, Es, _ = energies(w, U0)
-        F = np.array([tr_ring(w, U0) - 2, Ef + Es - E0])
+        Ef, Es, Ei, _ = energies(w, U0)
+        F = np.array([tr_ring(w, U0) - 2, Ef + Es + Ei - E0])
         if np.abs(F).max() < 1e-12:
             break
         J = np.zeros((2, 2))
         h = 1e-6
         for j, dx in enumerate(([h, 0], [0, h])):
             wp, Up = x + np.array(dx)
-            Efp, Esp, _ = energies(wp, Up)
+            Efp, Esp, Eip, _ = energies(wp, Up)
             J[0, j] = (tr_ring(wp, Up) - 2 - F[0]) / h
-            J[1, j] = (Efp + Esp - E0 - F[1]) / h
+            J[1, j] = (Efp + Esp + Eip - E0 - F[1]) / h
         x = x - np.linalg.solve(J, F)
     return x, F
 
@@ -402,7 +414,7 @@ def test_T3_ring_modes() -> dict:
                 wstar = brentq(lambda w: tr_ring(w, U0) - 2,
                                wg[i], wg[i + 1], xtol=1e-11)
                 break
-        _, _, resid = energies(wstar, U0)
+        _, _, _, resid = energies(wstar, U0)
         branch.append({'U0': U0, 'w_star': float(wstar),
                        'eig_residual': resid})
     w_span = branch[-1]['w_star'] - branch[0]['w_star']
@@ -441,7 +453,7 @@ def test_T4_joint_solve() -> dict:
     E0 = 11.177
     x, F = joint_solve(E0, 2.7324, 0.9)
     w_s, U_s = float(x[0]), float(x[1])
-    Ef, Es, eig_resid = energies(w_s, U_s)
+    Ef, Es, Ei, eig_resid = energies(w_s, U_s)
     v, a_s = scaled_state(w_s, U_s)
     T = ring_T(w_s, U_s)
     ux_resid = float(np.linalg.norm(T @ v - v) / np.linalg.norm(v))
@@ -465,15 +477,16 @@ def test_T4_joint_solve() -> dict:
 
     ok = (np.abs(F).max() < 1e-11 and ux_resid < 1e-12
           and eig_resid < 1e-12 and slave_resid < 1e-10
-          and abs(Ef + Es - E0) < 1e-9
+          and abs(Ef + Es + Ei - E0) < 1e-9
+          and Ei < 0
           and interp_syst < 1e-3)
     out = {
         'name': 'T4_joint_solve',
         'description': (
-            'the homogeneous condition solved TOGETHER with '
-            'total-energy closure: 2D Newton on (tr - 2, E_tot - E0); '
-            'the state X* includes the source amplitude; residuals '
-            'reported as requested'
+            'the homogeneous condition solved TOGETHER with the '
+            'CORRECTED total-energy closure (E_field + E_source + '
+            '<g q u(0)> = E0): 2D Newton; the state X* includes the '
+            'source amplitude; residuals reported as requested'
         ),
         'E0': E0,
         'w_star': w_s,
@@ -485,7 +498,8 @@ def test_T4_joint_solve() -> dict:
         'source_slaving_residual': float(slave_resid),
         'E_field': Ef,
         'E_source': Es,
-        'energy_closure_residual': float(abs(Ef + Es - E0)),
+        'E_interaction': Ei,
+        'energy_closure_residual': float(abs(Ef + Es + Ei - E0)),
         'raw_port_systematic': float(interp_syst),
         'pass': bool(ok),
     }
@@ -541,81 +555,229 @@ def test_T5_energy_closure() -> dict:
     }
 
 
+# ── the reduced 2-dof Hamiltonian for the full Floquet analysis ─────────
+#
+# The bare ring (source removed) has a mode at w_r with normalized mode
+# function psi(x); the reduced Hamiltonian keeps that one field mode
+# with the Duffing source as INDEPENDENT (q, p):
+#
+#   H_red = (P^2 + w_r^2 Q^2)/2 + (p^2 + w0^2 q^2)/2 + mu q^4/4
+#           + g_eff q Q ,        g_eff = g psi(0) ,
+#
+# whose periodic orbit (nonlinear normal mode) is the eigenhistory in
+# reduced form, and whose 4x4 variational monodromy over one period is
+# the FULL Hamiltonian stability spectrum - (q, p) evolved, not slaved.
+
+
+def bare_ring_mode():
+    if 'BARE' in _CACHE:
+        return _CACHE['BARE']
+
+    def tr_bare(w):
+        T = (P(w, _L2) @ barrier_M(w, rev=True) @ P(w, _TAU)
+             @ barrier_M(w) @ P(w, _L1))
+        return float(complex(np.trace(T)).real)
+
+    ws = np.linspace(2.70, 2.78, 400)
+    tb = [tr_bare(w) for w in ws]
+    w_r = None
+    for i in range(len(ws) - 1):
+        if (tb[i] - 2) * (tb[i + 1] - 2) < 0:
+            w_r = brentq(lambda w: tr_bare(w) - 2, ws[i], ws[i + 1],
+                         xtol=1e-12)
+            break
+    T = (P(w_r, _L2) @ barrier_M(w_r, rev=True) @ P(w_r, _TAU)
+         @ barrier_M(w_r) @ P(w_r, _L1))
+    _, sv, vh = np.linalg.svd(T - np.eye(2))
+    v = vh[-1].conj()
+    segs = [(_L1, v)]
+    x = barrier_M(w_r) @ (P(w_r, _L1) @ v)
+    segs.append((_TAU, x))
+    x = barrier_M(w_r, rev=True) @ (P(w_r, _TAU) @ x)
+    segs.append((_L2, x))
+    norm2 = 0.0
+    for Lg, s0 in segs:
+        xs = np.linspace(0, Lg, 2001)
+        prof = (s0[0] * np.exp(1j * w_r * xs)
+                + s0[1] * np.exp(-1j * w_r * xs))
+        norm2 += np.trapezoid(np.abs(prof) ** 2, xs)
+    psi0 = abs(v[0] + v[1]) / math.sqrt(norm2)
+    out = {'w_r': float(w_r), 'psi0': float(psi0),
+           'g_eff': float(_G * psi0), 'bare_resid': float(sv[-1])}
+    _CACHE['BARE'] = out
+    return out
+
+
+def _h_red(y, w_r, g_eff):
+    Q, Pq, q, pp = y
+    return ((Pq ** 2 + w_r ** 2 * Q ** 2) / 2
+            + (pp ** 2 + _W0 ** 2 * q ** 2) / 2
+            + _MU * q ** 4 / 4 + g_eff * q * Q)
+
+
+def _rhs_red(w_r, g_eff):
+    def rhs(t, y):
+        Q, Pq, q, pp = y
+        return [Pq, -w_r ** 2 * Q - g_eff * q,
+                pp, -_W0 ** 2 * q - _MU * q ** 3 - g_eff * Q]
+    return rhs
+
+
+def _rhs_var(w_r, g_eff):
+    base = _rhs_red(w_r, g_eff)
+
+    def rhs(t, y):
+        q = y[2]
+        A = np.array([[0, 1, 0, 0],
+                      [-w_r ** 2, 0, -g_eff, 0],
+                      [0, 0, 0, 1],
+                      [-g_eff, 0, -(_W0 ** 2 + 3 * _MU * q ** 2), 0]])
+        M = y[4:].reshape(4, 4)
+        return np.concatenate([base(t, y[:4]), (A @ M).ravel()])
+    return rhs
+
+
 # ========================================================================
-# T6. The stability eigenvalues
+# T6. The full Hamiltonian stability spectrum
 # ========================================================================
 
 
 def test_T6_stability() -> dict:
     t4 = test_T4_joint_solve()
     w_s, U_s = t4['w_star'], t4['U0_star']
+    bare = bare_ring_mode()
+    w_r, psi0, g_eff = bare['w_r'], bare['psi0'], bare['g_eff']
+
+    # the reduced-model initial guess from harmonic balance
+    Q_amp = U_s / psi0
+    a_hb = source_a(w_s, U_s)
+    E_red = _h_red([Q_amp, 0, a_hb, 0], w_r, g_eff)
+    rhs = _rhs_red(w_r, g_eff)
+
+    # (i) the periodic orbit (nonlinear normal mode) by shooting:
+    # turning-point start (P = p = 0); unknowns (Q0, q0, T); equations
+    # P(T) = 0, p(T) = 0, H_red = E_red
+    def shot(Q0, q0, Tp):
+        sol = solve_ivp(rhs, (0, Tp), [Q0, 0, q0, 0], rtol=1e-12,
+                        atol=1e-14, method="DOP853")
+        y = sol.y[:, -1]
+        return np.array([y[1], y[3]])
+
+    xk = np.array([Q_amp, a_hb, 2 * math.pi / w_s])
+    F3 = np.array([1.0, 1.0, 1.0])
+    for _ in range(40):
+        Q0, q0, Tp = xk
+        F3 = np.concatenate([shot(Q0, q0, Tp),
+                             [_h_red([Q0, 0, q0, 0], w_r, g_eff)
+                              - E_red]])
+        if np.abs(F3).max() < 1e-11:
+            break
+        J = np.zeros((3, 3))
+        h = 1e-7
+        for j in range(3):
+            d = np.zeros(3)
+            d[j] = h
+            Q1, q1, T1 = xk + d
+            F1 = np.concatenate([shot(Q1, q1, T1),
+                                 [_h_red([Q1, 0, q1, 0], w_r, g_eff)
+                                  - E_red]])
+            J[:, j] = (F1 - F3) / h
+        xk = xk - np.linalg.solve(J, F3)
+    orbit_resid = float(np.abs(F3).max())
+    w_nnm = 2 * math.pi / xk[2]
+    freq_consistency = abs(w_nnm - w_s) / w_s
+
+    # (ii) the 4x4 variational monodromy over one period: the FULL
+    # Hamiltonian spectrum with (q, p) evolved as independent variables
+    y0 = np.concatenate([[xk[0], 0, xk[1], 0], np.eye(4).ravel()])
+    sol = solve_ivp(_rhs_var(w_r, g_eff), (0, xk[2]), y0, rtol=1e-12,
+                    atol=1e-14, method="DOP853")
+    Mf = sol.y[4:, -1].reshape(4, 4)
+    ev = np.linalg.eigvals(Mf)
+    mods = np.abs(ev)
+    det_M = float(np.linalg.det(Mf).real)
+    Jsym = np.array([[0, 1, 0, 0], [-1, 0, 0, 0],
+                     [0, 0, 0, 1], [0, 0, -1, 0]], dtype=float)
+    sympl_resid = float(np.max(np.abs(Mf.T @ Jsym @ Mf - Jsym)))
+
+    # identify the pairs: the Floquet-trivial pair at 1 (along-flow +
+    # energy) and the source pair rotating at its dressed frequency
+    idx = np.argsort(np.abs(ev - 1))
+    trivial = ev[idx[:2]]
+    nontriv = ev[idx[2:]]
+    theta = float(abs(np.angle(nontriv[0])))
+    w_pair = (theta + 2 * math.pi) / xk[2]
+    dressed_dev = abs(w_pair - _W0) / _W0
+
+    # (iii) energy conservation along the orbit
+    solE = solve_ivp(rhs, (0, xk[2]), [xk[0], 0, xk[1], 0], rtol=1e-12,
+                     atol=1e-14, dense_output=True, method="DOP853")
+    Hs = [_h_red(solE.sol(t), w_r, g_eff)
+          for t in np.linspace(0, xk[2], 50)]
+    e_drift = float(max(Hs) - min(Hs))
+
+    # (iv) the slaved harmonic-balance winding-map spectrum, retained
+    # for comparison (this is what v1 reported; it cannot see the
+    # source pair)
     v, _ = scaled_state(w_s, U_s)
 
     def themap(vr):
         vv = vr[:2] + 1j * vr[2:]
-        U0 = abs(vv[0] + vv[1])
-        out = ring_T(w_s, U0) @ vv
-        return np.concatenate([out.real, out.imag])
+        return np.concatenate([
+            (ring_T(w_s, abs(vv[0] + vv[1])) @ vv).real,
+            (ring_T(w_s, abs(vv[0] + vv[1])) @ vv).imag])
 
     X0 = np.concatenate([v.real, v.imag])
-    map_resid = float(np.linalg.norm(themap(X0) - X0))
-
-    J = np.zeros((4, 4))
+    Jm = np.zeros((4, 4))
     h = 1e-7
     for j in range(4):
         dp = X0.copy()
         dp[j] += h
         dm = X0.copy()
         dm[j] -= h
-        J[:, j] = (themap(dp) - themap(dm)) / (2 * h)
-    ev = np.linalg.eigvals(J)
-    mods = np.abs(ev)
-    # the marginal pair is a Jordan block at exactly 1; finite
-    # differencing splits it by O(sqrt(eps_FD)) - check the reciprocal
-    # structure: the product of the near-real pair must be 1
-    idx = np.argsort(np.abs(ev.imag))
-    pair_prod = abs(ev[idx[0]] * ev[idx[1]])
+        Jm[:, j] = (themap(dp) - themap(dm)) / (2 * h)
+    ev_slaved = np.linalg.eigvals(Jm)
 
-    # marginal growth: perturbations shear at most LINEARLY along the
-    # mode branch (parabolic/Jordan structure) - polynomial, never
-    # exponential: fit the log-log slope of the deviation
-    rng = np.random.default_rng(3)
-    dz = (rng.standard_normal(2) + 1j * rng.standard_normal(2)) * 1e-4
-    z = v + dz
-    ns, devs = [], []
-    for n in range(1, 4001):
-        U0 = abs(z[0] + z[1])
-        z = ring_T(w_s, U0) @ z
-        if n % 200 == 0:
-            ns.append(n)
-            devs.append(float(np.linalg.norm(z - v)))
-    slope = float(np.polyfit(np.log(ns[4:]), np.log(devs[4:]), 1)[0])
-    late_ratio = devs[-1] / devs[len(devs) // 2]
-
-    ok = (map_resid < 1e-12
-          and np.all(np.abs(mods - 1.0) < 1e-5)
-          and abs(pair_prod - 1.0) < 1e-9
-          and slope < 1.3                    # at most linear shear
-          and late_ratio < 3.0)              # no exponential trend
+    ok = (orbit_resid < 1e-10
+          and freq_consistency < 1e-3
+          and np.all(np.abs(mods - 1.0) < 1e-9)
+          and abs(det_M - 1.0) < 1e-10
+          and sympl_resid < 1e-10
+          and np.max(np.abs(trivial - 1.0)) < 1e-6
+          and dressed_dev < 0.05
+          and e_drift < 1e-9)
     return {
         'name': 'T6_stability',
         'description': (
-            'the stability eigenvalues of the loop map at the fixed '
-            'point: all on the unit circle (the marginal pair a '
-            'Jordan block at 1, numerically split by O(sqrt(eps)); '
-            'reciprocal product 1) - marginal: Novikov-passive; '
-            'perturbations shear at most linearly (parabolic), '
-            'never exponentially'
+            'the FULL Hamiltonian stability spectrum: the Duffing '
+            '(q, p) evolved as independent variables in the 4x4 '
+            'variational monodromy of the reduced 2-dof Hamiltonian '
+            'about its shooting-refined periodic orbit - the '
+            'Floquet-trivial pair at 1 plus the SOURCE pair rotating '
+            'at its dressed frequency (invisible to the slaved '
+            'harmonic-balance map); all on the unit circle, '
+            'symplectic to machine precision'
         ),
-        'map_residual_at_fixed_point': map_resid,
-        'stability_eigenvalues': [[float(e.real), float(e.imag)]
-                                  for e in ev],
+        'bare_ring_mode': bare,
+        'orbit': {'Q0': float(xk[0]), 'q0': float(xk[1]),
+                  'period': float(xk[2]),
+                  'shooting_residual': orbit_resid},
+        'nnm_frequency': float(w_nnm),
+        'ring_frequency': float(w_s),
+        'reduction_consistency': float(freq_consistency),
+        'floquet_eigenvalues': [[float(e.real), float(e.imag)]
+                                for e in ev],
         'eigenvalue_moduli': [float(m) for m in mods],
         'max_modulus_deviation': float(np.max(np.abs(mods - 1))),
-        'jordan_pair_product': float(pair_prod),
-        'rotation_angles': [float(np.angle(e)) for e in ev],
-        'perturbation_growth_slope': slope,
-        'perturbation_late_ratio': float(late_ratio),
+        'trivial_pair_deviation': float(np.max(np.abs(trivial - 1.0))),
+        'source_pair_frequency': float(w_pair),
+        'source_bare_frequency': _W0,
+        'dressed_frequency_deviation': float(dressed_dev),
+        'det_monodromy': det_M,
+        'symplectic_residual': sympl_resid,
+        'energy_drift_on_orbit': e_drift,
+        'slaved_hb_spectrum': [[float(e.real), float(e.imag)]
+                               for e in ev_slaved],
         'pass': bool(ok),
     }
 
@@ -641,6 +803,19 @@ def test_T7_honest_scope() -> dict:
         'the #58 nucleation quantum) is program-level input, not '
         'derived here.  hbar is still not derived: the scales are '
         '(w0, mu, g, E_0).',
+        'The corrected ledger includes the time-averaged '
+        'interaction energy <g q u(0)> (negative, ~0.5% of E_0 '
+        'here); with it the working point shifts (U0*: 0.9122 -> '
+        '0.9144) and closure holds to 1e-13.',
+        'The full stability spectrum is computed on the reduced '
+        '2-dof Hamiltonian (the bare ring mode + the Duffing source, '
+        'g_eff = g psi(0) derived from the bare eigenvector); higher '
+        'ring modes are dropped - the reduction consistency metric '
+        'is the NNM-vs-ring frequency match (8.8e-5).  The slaved '
+        'harmonic-balance map iterates WINDINGS; the Floquet '
+        'monodromy evolves TIME over one carrier period - the two '
+        'spectra answer different questions, and only the latter '
+        'sees the source pair.',
         'The mouth ports are cubic-spline interpolants of the '
         'unitarized Tangherlini greybody (re-unitarized pointwise); '
         'the raw-port systematic at the fixed point is '
@@ -674,23 +849,23 @@ def test_T8_assessment() -> dict:
     t6 = test_T6_stability()
     core = all(t['pass'] for t in (t2, t3, t4, t5, t6))
     assessment = (
-        'Nothing about the source is imposed anymore: its scattering '
-        'is unitary because its Hamiltonian is conservative, its '
-        'reactivity and amplitude-dependent phase are consequences of '
-        'harmonic balance, and #218\'s law is its weak-coupling '
-        'shadow.  Because the Hamiltonian source also reflects, the '
-        'loop became a genuine two-direction ring whose homogeneous '
-        'condition defines a nonlinear mode BRANCH - and the amplitude '
-        'is fixed, as it must be, by TOTAL-ENERGY closure: the 2D '
-        'Newton lands on (w*, U0*) with fixed-point residuals at '
-        'machine precision, the state including the source amplitude '
-        'and energy.  The stability spectrum is the cleanest possible '
-        'answer to the Novikov question: two conjugate pairs, all on '
-        'the unit circle - the conservative eigenhistory is an '
-        'elliptic center, neither growing nor decaying, with '
-        'perturbations bounded in libration.  The self-consistent '
-        'wormhole transaction of #218 now rests on an explicit '
-        'Hamiltonian.'
+        'Nothing about the source is imposed anymore, and nothing '
+        'about its dynamics is frozen: the scattering is unitary '
+        'because the Hamiltonian is conservative, #218\'s law is its '
+        'weak-coupling shadow, the ledger now carries the interaction '
+        'energy <g q u(0)> explicitly, and the amplitude is fixed by '
+        'the CORRECTED total-energy closure on the nonlinear mode '
+        'branch.  The stability question is answered at the full '
+        'Hamiltonian level: with the Duffing (q, p) evolved as '
+        'independent variables in the variational monodromy about the '
+        'shooting-refined periodic orbit, the spectrum is the '
+        'Floquet-trivial pair at 1 plus the source pair rotating at '
+        'its dressed frequency - the degree of freedom the slaved '
+        'harmonic-balance map could not see - all on the unit circle, '
+        'symplectic to machine precision: the conservative '
+        'eigenhistory is marginal in the full Hamiltonian sense, '
+        'Novikov-passive, with no runaway direction anywhere in its '
+        'phase space.'
         if core else
         'INCONCLUSIVE - a core check failed; do not quote.'
     )
@@ -727,7 +902,6 @@ def run_probe() -> dict:
             "EIGENHISTORY_SOLVES_UXX_EQUALS_X_WITH_TOTAL_ENERGY_"
             "CLOSURE_AND_ITS_STABILITY_SPECTRUM_IS_MARGINAL"
         )
-        evs = t6['stability_eigenvalues']
         verdict = (
             "ESTABLISHED (the argument is in "
             "docs/hamiltonian_source_eigenhistory.md).\n\n"
@@ -745,29 +919,39 @@ def run_probe() -> dict:
             "homogeneous condition defining a nonlinear mode BRANCH "
             f"w*(A) (span {t3['branch_frequency_span']:.1e}): "
             "homogeneity alone cannot fix the amplitude.\n\n"
-            "THE JOINT SOLVE. U(X)X = X TOGETHER WITH total-energy "
-            f"closure: (w*, U0*) = ({t4['w_star']:.6f}, "
-            f"{t4['U0_star']:.6f}), a* = {t4['a_star']:.4f}; "
-            "FIXED-POINT RESIDUALS: Newton "
+            "THE JOINT SOLVE, CORRECTED LEDGER. U(X)X = X TOGETHER "
+            "WITH E_field + E_source + <g q u(0)> = E0: (w*, U0*) = "
+            f"({t4['w_star']:.6f}, {t4['U0_star']:.6f}), a* = "
+            f"{t4['a_star']:.4f}; FIXED-POINT RESIDUALS: Newton "
             f"({t4['newton_residuals'][0]:.0e}, "
             f"{t4['newton_residuals'][1]:.0e}), U(X)X = X "
             f"{t4['UX_equals_X_residual']:.0e}, source slaving "
             f"{t4['source_slaving_residual']:.0e}; energy partition "
             f"E_field = {t4['E_field']:.4f} + E_source = "
-            f"{t4['E_source']:.4f} = E0 to "
-            f"{t4['energy_closure_residual']:.0e}. Flux constant "
-            f"around the ring ({t5['flux_constancy']:.0e}); 1e4-pass "
-            f"persistence (drift {t5['norm_drift_1e4']:.0e}).\n\n"
-            "THE STABILITY EIGENVALUES: "
-            f"{evs[0]} , {evs[1]} , {evs[2]} , {evs[3]} - moduli "
-            f"within {t6['max_modulus_deviation']:.0e} of the unit "
-            "circle (the marginal pair a Jordan block at 1, "
-            f"reciprocal product to {abs(t6['jordan_pair_product']-1):.0e}) "
-            "- the conservative eigenhistory is marginal: Novikov-"
-            "passive, no runaway; perturbations shear at most "
-            f"linearly (log-log slope {t6['perturbation_growth_slope']:.2f}, "
-            f"late ratio {t6['perturbation_late_ratio']:.2f}) - "
-            "polynomial, never exponential."
+            f"{t4['E_source']:.4f} + E_int = {t4['E_interaction']:.5f} "
+            f"= E0 to {t4['energy_closure_residual']:.0e}. Flux "
+            f"constant around the ring ({t5['flux_constancy']:.0e}); "
+            f"1e4-pass persistence (drift {t5['norm_drift_1e4']:.0e})."
+            "\n\n"
+            "THE FULL HAMILTONIAN STABILITY SPECTRUM. The Duffing "
+            "(q, p) evolved as INDEPENDENT variables in the 4x4 "
+            "variational monodromy about the shooting-refined "
+            f"periodic orbit (residual {t6['orbit']['shooting_residual']:.0e}; "
+            "NNM frequency consistent with the full ring to "
+            f"{t6['reduction_consistency']:.1e}): eigenvalues "
+            f"{t6['floquet_eigenvalues'][2]} (double - the Floquet-"
+            f"trivial pair, to {t6['trivial_pair_deviation']:.0e}) and "
+            f"{t6['floquet_eigenvalues'][0]} - THE SOURCE PAIR, "
+            f"rotating at its dressed frequency "
+            f"{t6['source_pair_frequency']:.4f} (bare w0 = "
+            f"{t6['source_bare_frequency']}), invisible to the slaved "
+            "harmonic-balance map; ALL moduli within "
+            f"{t6['max_modulus_deviation']:.0e} of the unit circle; "
+            f"det M = 1 to {abs(t6['det_monodromy']-1):.0e}, "
+            f"symplectic to {t6['symplectic_residual']:.0e}, energy "
+            f"drift {t6['energy_drift_on_orbit']:.0e}: the "
+            "conservative eigenhistory is marginal in the FULL "
+            "Hamiltonian sense - Novikov-passive, no runaway."
         )
     else:
         verdict_class = "HAMILTONIAN_SOURCE_INCONCLUSIVE"
@@ -835,7 +1019,7 @@ def render_markdown(s: dict) -> str:
         "T3": "the ring: the gap resolved; a mode BRANCH w*(A)",
         "T4": "U(X)X = X + energy closure: residuals at 1e-14",
         "T5": "flux constant; zero source power; 1e4-pass persistence",
-        "T6": "stability eigenvalues: all on the unit circle",
+        "T6": "the FULL Hamiltonian Floquet spectrum ((q,p) evolved)",
         "T7": "honest scope",
         "T8": "assessment",
     }
