@@ -6,8 +6,10 @@
 > 88.6α = 0.6467 (convention A) or 206.8α = 1.5089 (convention B) —
 > "constrained, not derived", a ×2.3 band. This PR **derives it** —
 > no fit anywhere — on the spatially converged, spectrally stable PDE
-> eigenhistory background of #220. The companion probe machine-checks
-> every claim (~2 min).
+> eigenhistory background of #220, and demonstrates the result
+> invariant under energy budget, cavity depth, source coupling, mode
+> amplitude, and branch choice. The companion probe machine-checks
+> every claim (~1.5 min).
 
 ## 0. Why the coefficient is derivable at all
 
@@ -93,7 +95,29 @@ the odd interior fundamental:
   X is **amplitude-independent** (the half-amplitude state is
   periodic at the same T to 10⁻¹⁰).
 
-## 4. The confrontation — zero fitted numbers
+## 4. The invariance suite
+
+The coefficient is demonstrated invariant under every knob of the
+construction:
+
+| knob | range | result |
+|---|---|---|
+| **energy budget E₀** | ×16 (0.178 → 2.844), *independent* Gauss–Newton solves | X and T identical to 10⁻⁷/10⁻⁹ |
+| **source coupling g** | 0 → 4× the #220 value | the *same* orbit periodic to 10⁻¹² at every g (u(0) = 0 by parity); complete monodromy at 4g unit-circle to 10⁻¹⁴ |
+| **mode amplitude** | ×¼ → ×2 | one knob with the budget for the exactly linear decoupled sector; the half-amplitude state periodic at the same T to 10⁻¹³ |
+| **cavity depth** | 8 → 48 (the #215 regulator) | X_match band 4% (§2) |
+| **branch choice** | the first three odd interior branches | X_match = 1.620 / 1.575 / 1.571 → **π/2**, spread < 0.05 |
+
+The branch row is the sharpest: each branch's first antinode is a
+quarter of *its own* wavelength, so X_match is branch-invariant
+(hard-wall exactly π/2 for every branch, and the throat values
+converge *toward* π/2 up the ladder as the barriers look harder to
+shorter wavelengths) — while the amplitude-RMS definition **grows
+×3.3** from branch 1 to branch 3. Branch invariance singles out the
+#202 matching radius as the physical definition of σ_mode; the RMS
+convention is a fundamental-only surrogate.
+
+## 5. The confrontation — zero fitted numbers
 
 Inputs: the throat geometry (r_h = 1) and α (the #184-protected
 boundary invariant), through #210's primordial anchor r_s = α·λ̄_C and
@@ -126,7 +150,7 @@ The residual 4–8% is real and one-sided (the throat correction pushes
 X *up* from π/2 while the observation sits 4% *below* it) — owned by
 the named successor below.
 
-## 5. Honest scope
+## 6. Honest scope
 
 - The ring-transit ↔ #202-bridge identification (ring interior = the
   bridge σ coordinate, neck = cross-cap) is structural and
@@ -147,7 +171,7 @@ the named successor below.
 - Classical, zonal scalar, frozen geometry; ℏ enters only through
   λ̄_C = ℏ/mc (the B4 anchor), as always.
 
-## 6. What would falsify this
+## 7. What would falsify this
 
 - An even-parity (node-free) mode at the neck for k = 1 — the #202
   boundary condition would fail on the transit background. (Checked:
@@ -162,14 +186,19 @@ the named successor below.
   resolved.)
 - The eigenhistory orbit shifting X or going spectrally unstable.
   (Checked: same X to 10⁻³; monodromy unit-circle to 10⁻¹⁴.)
+- X depending on the energy budget, the source coupling, the mode
+  amplitude, or the branch — the coefficient would be a property of
+  the *state*, not of the throat geometry. (Checked: invariant under
+  all four — §4; the budget ×16 through independent solves moves X by
+  < 10⁻⁶, and the branch ladder returns π/2.)
 
-## 7. Companion probe
+## 8. Companion probe
 
-`experiments/closure_ledger/lepton_o1_coefficient_probe.py` (T1–T8,
-~2 min): the hard-wall closed forms; the parity dichotomy and the
+`experiments/closure_ledger/lepton_o1_coefficient_probe.py` (T1–T9,
+~1.5 min): the hard-wall closed forms; the parity dichotomy and the
 measurement; the regulator/exterior/grid robustness; the
 source-decoupled eigenhistory orbit with complete monodromy; the
-confrontation.
+five-knob invariance suite; the confrontation.
 
 **Verdict:**
 `THE_REMAINING_O1_IS_DERIVED_THE_ODD_THROAT_FUNDAMENTAL_GIVES_X_EQUALS_PI_OVER_2_PLUS_THROAT_SHIFT_AND_ME_OVER_MMU_EQUALS_ALPHA_OVER_X_AT_92_TO_96_PERCENT_NO_FIT`

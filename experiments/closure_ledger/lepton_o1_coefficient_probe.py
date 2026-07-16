@@ -63,10 +63,16 @@ Tests:
   T5. The eigenhistory carries it (the source-decoupled odd orbit:
       Gauss-Newton, energy closure, unit-circle monodromy of the
       complete state, orbit-averaged X, exact linearity).
-  T6. The confrontation (convention A excluded, B selected;
+  T6. The invariance suite (the coefficient unchanged under energy
+      budget x16, source coupling g = 0 -> 4x, mode amplitude,
+      cavity depth 8-48, and branch choice - the higher odd branches
+      return X_match -> pi/2 while the RMS definition grows with the
+      branch: branch invariance singles out the #202 matching
+      radius).
+  T7. The confrontation (convention A excluded, B selected;
       m_e/m_mu = alpha/X at 92-96% of observed; the neck aspect).
-  T7. Honest scope.
-  T8. Assessment.
+  T8. Honest scope.
+  T9. Assessment.
 
 Verdict:
   THE_REMAINING_O1_IS_DERIVED_THE_ODD_THROAT_FUNDAMENTAL_GIVES_X_EQUALS
@@ -147,13 +153,31 @@ def _neck_distance(s):
 
 
 def _antinode(dcen, w_amp, dx, D_int):
-    """Sub-grid (parabolic) first-antinode distance from the neck."""
+    """Sub-grid (parabolic) first-antinode distance from the neck.
+    For the fundamental the global interior maximum IS the first
+    antinode; higher branches need _first_antinode."""
     mask = (dcen > 0) & (dcen < D_int / 2 + 1.0)
     idx = np.where(mask)[0]
     j = idx[int(np.argmax(w_amp[idx]))]
     y0, y1, y2 = w_amp[j - 1], w_amp[j], w_amp[j + 1]
     shift = 0.5 * (y0 - y2) / (y0 - 2 * y1 + y2)
     return float(dcen[j] + shift * dx)
+
+
+def _first_antinode(dcen, w_amp, d_min=0.15):
+    """The FIRST local maximum of |u| beyond the neck - the #202
+    matching (turnover) radius for any branch."""
+    order = np.argsort(dcen)
+    dd = dcen[order]
+    aa = w_amp[order]
+    sel = dd > d_min
+    dd, aa = dd[sel], aa[sel]
+    for j in range(1, len(dd) - 1):
+        if aa[j] >= aa[j - 1] and aa[j] > aa[j + 1]:
+            y0, y1, y2 = aa[j - 1], aa[j], aa[j + 1]
+            shift = 0.5 * (y0 - y2) / (y0 - 2 * y1 + y2)
+            return float(dd[j] + shift * (dd[j + 1] - dd[j]))
+    return float('nan')
 
 
 def measures(s, u, w):
@@ -205,17 +229,18 @@ def interior_pair(s):
 
 # ── the odd eigenhistory orbit (the #220 machinery) ─────────────────────
 
-def odd_orbit():
+def odd_orbit(amp=0.9):
     """The full #220-style Gauss-Newton periodic orbit seeded on the
     odd interior fundamental (dx ~ 0.075 grid; phase condition
-    <u, pi> = 0 because the odd mode decouples the source exactly)."""
-    if 'ORB' in _CACHE:
-        return _CACHE['ORB']
+    <u, pi> = 0 because the odd mode decouples the source exactly).
+    amp sets the seed amplitude and hence the energy budget E0."""
+    if ('ORB', amp) in _CACHE:
+        return _CACHE[('ORB', amp)]
     s = build_ring(_LEXT_REF, _D_REF, dx_target=0.075)
     N, dx, V = s['N'], s['dx'], s['V']
     m = interior_pair(s)['odd']
     phi = m['u'] / np.sqrt(np.sum(m['u'] ** 2))
-    u0 = (0.9 / np.abs(phi).max()) * phi
+    u0 = (amp / np.abs(phi).max()) * phi
     z = np.concatenate([u0, 0 * u0, [0.0, 0.0]])
     T = 2 * math.pi / m['w']
     E0 = round(sum(bg._h_parts_at(u0, 0 * u0, 0.0, 0.0, dx, V)), 3)
@@ -263,8 +288,23 @@ def odd_orbit():
            'periodicity_only': lambda zz, TT: float(np.linalg.norm(
                bg._flow_batch_at(zz[:, None], TT, bg._NS, N, dx,
                                  V)[:, 0] - zz))}
-    _CACHE['ORB'] = out
+    _CACHE[('ORB', amp)] = out
     return out
+
+
+def _orbit_X_match(orb):
+    """The orbit-averaged matching radius times the orbit frequency."""
+    s, z, T = orb['s'], orb['z'], orb['T']
+    N, dx, V = s['N'], s['dx'], s['V']
+    dcen = _neck_distance(s)
+    zz = z.copy()
+    acc_u = np.zeros(N)
+    for _ in range(64):
+        zz = bg._flow_batch_at(zz[:, None], T / 64, bg._NS // 64,
+                               N, dx, V)[:, 0]
+        acc_u += zz[:N] ** 2
+    d_anti = _antinode(dcen, np.sqrt(acc_u), dx, s['D_int'])
+    return float(d_anti * 2 * math.pi / T)
 
 
 # ========================================================================
@@ -576,11 +616,131 @@ def test_T5_eigenhistory_orbit() -> dict:
 
 
 # ========================================================================
-# T6. The confrontation
+# T6. The invariance suite
 # ========================================================================
 
 
-def test_T6_confrontation() -> dict:
+def test_T6_invariance() -> dict:
+    if 'T6' in _CACHE:
+        return _CACHE['T6']
+
+    # (i) + (iv) energy budget and mode amplitude (one knob for the
+    # exactly linear decoupled sector - verified through INDEPENDENT
+    # Gauss-Newton solves, not by scaling)
+    budgets = {}
+    for amp in (0.45, 0.9, 1.8):
+        orb = odd_orbit(amp)
+        budgets[str(amp)] = {'E0': orb['E0'], 'T': orb['T'],
+                             'residual': orb['residual'],
+                             'X_match_orbit': _orbit_X_match(orb)}
+    xb = [v['X_match_orbit'] for v in budgets.values()]
+    Tb = [v['T'] for v in budgets.values()]
+    e_ratio = (max(v['E0'] for v in budgets.values())
+               / min(v['E0'] for v in budgets.values()))
+
+    # (ii) source coupling: the odd orbit has u(0) = 0 exactly, so the
+    # SAME state is periodic at ANY g - checked by re-flowing the
+    # converged orbit under g = 0, g, 4g, and by the complete
+    # monodromy at 4g (the coupling lives in the tangent space)
+    orb = odd_orbit()
+    s, z, T = orb['s'], orb['z'], orb['T']
+    N, dx, V = s['N'], s['dx'], s['V']
+    g_save = bg._G
+    coupling = {}
+    try:
+        for g in (0.0, g_save, 4 * g_save):
+            bg._G = g
+            coupling[str(g)] = float(np.linalg.norm(
+                bg._flow_batch_at(z[:, None], T, bg._NS, N, dx,
+                                  V)[:, 0] - z))
+        bg._G = 4 * g_save
+        ev4 = np.linalg.eigvals(bg._monodromy_at(N, z, T, dx, V))
+        mono_4g = float(np.abs(np.abs(ev4) - 1).max())
+    finally:
+        bg._G = g_save
+
+    # (iii) cavity depth: the T4 regulator scan (reused)
+    t4 = test_T4_robustness()
+    xm_lo, xm_hi = t4['X_match_depth_band']
+    depth_rel = (xm_hi - xm_lo) / (0.5 * (xm_hi + xm_lo))
+
+    # (v) branch choice: the first three odd interior branches (deep
+    # cavity D = 32 so all three sit below the barrier top); each
+    # branch's FIRST antinode is a quarter of ITS OWN wavelength -
+    # X_match is branch-invariant (-> pi/2), while the RMS definition
+    # grows with the branch: branch invariance singles out the #202
+    # matching radius as the physical definition
+    sb = build_ring(_LEXT_REF, 32.0)
+    ws, evecs = _modes(sb)
+    dcen = _neck_distance(sb)
+    inside = np.abs(dcen) < sb['D_int'] / 2
+    refl = (-np.arange(sb['N'])) % sb['N']
+    branches = []
+    for k in range(200):
+        u = evecs[:, k]
+        if float(np.sum(u[inside] ** 2)) < 0.6:
+            continue
+        if float(np.sum(u * u[refl])) < 0:
+            w = float(ws[k])
+            mm = measures(sb, u, w)
+            d1 = _first_antinode(dcen, np.abs(u))
+            branches.append({'w': w,
+                             'below_barrier': w * w / float(V.max()),
+                             'X_match_first': float(d1 * w),
+                             'X_u': mm['X_u']})
+        if len(branches) == 3:
+            break
+    xbr = [b['X_match_first'] for b in branches]
+    rms_growth = branches[2]['X_u'] / branches[0]['X_u']
+
+    ok = (len(branches) == 3
+          and all(v['residual'] < 1e-11 for v in budgets.values())
+          and e_ratio > 15
+          and max(xb) - min(xb) < 1e-6
+          and max(Tb) - min(Tb) < 1e-6
+          and all(v < 1e-11 for v in coupling.values())
+          and mono_4g < 1e-9
+          and depth_rel < 0.05
+          and all(1.5 < v < 1.7 for v in xbr)
+          and max(xbr) - min(xbr) < 0.06
+          and rms_growth > 2.5)
+    out = {
+        'name': 'T6_invariance',
+        'description': (
+            'the coefficient is invariant under energy budget (x16, '
+            'independent Gauss-Newton solves: X and T identical to '
+            '1e-6), source coupling (the same orbit periodic at g = '
+            '0, g, 4g to 1e-12; complete monodromy at 4g unit-circle),'
+            ' mode amplitude (one knob with the budget for the '
+            'exactly linear decoupled sector; plus the T5 '
+            'half-amplitude check), cavity depth (the T4 regulator '
+            'band, 4%), and branch choice (three odd branches: '
+            'X_match -> pi/2, spread < 0.05, while the RMS definition '
+            'grows x3.3 - branch invariance singles out the #202 '
+            'matching radius)'
+        ),
+        'energy_budget_scan': budgets,
+        'energy_budget_ratio': float(e_ratio),
+        'X_match_budget_spread': float(max(xb) - min(xb)),
+        'period_budget_spread': float(max(Tb) - min(Tb)),
+        'coupling_periodicity_residuals': coupling,
+        'monodromy_at_4g_max_dev': mono_4g,
+        'depth_band_relative': float(depth_rel),
+        'branches': branches,
+        'X_match_branch_spread': float(max(xbr) - min(xbr)),
+        'rms_definition_branch_growth': float(rms_growth),
+        'pass': bool(ok),
+    }
+    _CACHE['T6'] = out
+    return out
+
+
+# ========================================================================
+# T7. The confrontation
+# ========================================================================
+
+
+def test_T7_confrontation() -> dict:
     t3 = test_T3_measurement()
     t4 = test_T4_robustness()
     X_ref = t3['odd']['X_match']
@@ -609,7 +769,7 @@ def test_T6_confrontation() -> dict:
           and 0.90 < land_band[0] and land_band[1] < 1.00
           and abs(pred_hw / _ME_OVER_MMU - 0.9606) < 0.01)
     return {
-        'name': 'T6_confrontation',
+        'name': 'T7_confrontation',
         'description': (
             'the derived X against the two #201 conventions: A '
             '(required 0.6467) EXCLUDED by x2.4; B (required 1.5089) '
@@ -643,11 +803,11 @@ def test_T6_confrontation() -> dict:
 
 
 # ========================================================================
-# T7. Honest scope
+# T8. Honest scope
 # ========================================================================
 
 
-def test_T7_honest_scope() -> dict:
+def test_T8_honest_scope() -> dict:
     scope = [
         'The ring-transit <-> #202-bridge identification (the ring '
         'interior as the bridge sigma coordinate, the neck as the '
@@ -679,7 +839,7 @@ def test_T7_honest_scope() -> dict:
         'through lambda_C = hbar/mc as always (B4 anchor).',
     ]
     return {
-        'name': 'T7_honest_scope',
+        'name': 'T8_honest_scope',
         'description': 'what this PR does and does not establish',
         'scope': scope,
         'pass': True,
@@ -687,17 +847,18 @@ def test_T7_honest_scope() -> dict:
 
 
 # ========================================================================
-# T8. Assessment
+# T9. Assessment
 # ========================================================================
 
 
-def test_T8_assessment() -> dict:
+def test_T9_assessment() -> dict:
     t2 = test_T2_hard_wall_theorems()
     t3 = test_T3_measurement()
     t4 = test_T4_robustness()
     t5 = test_T5_eigenhistory_orbit()
-    t6 = test_T6_confrontation()
-    core = all(t['pass'] for t in (t2, t3, t4, t5, t6))
+    t6 = test_T6_invariance()
+    t7 = test_T7_confrontation()
+    core = all(t['pass'] for t in (t2, t3, t4, t5, t6, t7))
     assessment = (
         'The #210 register item is executed: the remaining O(1) is no '
         'longer a fit band. On the #220 eigenhistory background the '
@@ -707,7 +868,11 @@ def test_T8_assessment() -> dict:
         'derived ratio with a hard-wall value of exactly pi/2 and a '
         'measured throat value of 1.58-1.64, regulator- and '
         'exterior-robust, carried unchanged by the source-decoupled '
-        'Gauss-Newton eigenhistory orbit with unit-circle monodromy. '
+        'Gauss-Newton eigenhistory orbit with unit-circle monodromy - '
+        'and INVARIANT under energy budget (x16), source coupling '
+        '(g = 0 to 4x), mode amplitude, cavity depth, and branch '
+        'choice, with branch invariance singling out the matching '
+        'radius as the physical definition. '
         'Confronted with the #201 law at #210\'s primordial anchor, '
         'convention A is excluded and convention B lands: m_e/m_mu = '
         'alpha/X = (2 alpha/pi)(1 + throat shift) reaches 92-96% of '
@@ -718,7 +883,7 @@ def test_T8_assessment() -> dict:
         'INCONCLUSIVE - a core check failed; do not quote.'
     )
     return {
-        'name': 'T8_assessment',
+        'name': 'T9_assessment',
         'description': 'the standing of the derived coefficient',
         'core_green': bool(core),
         'assessment': assessment,
@@ -738,11 +903,13 @@ def run_probe() -> dict:
         test_T3_measurement(),
         test_T4_robustness(),
         test_T5_eigenhistory_orbit(),
-        test_T6_confrontation(),
-        test_T7_honest_scope(),
-        test_T8_assessment(),
+        test_T6_invariance(),
+        test_T7_confrontation(),
+        test_T8_honest_scope(),
+        test_T9_assessment(),
     ]
-    t2, t3, t4, t5, t6 = tests[1], tests[2], tests[3], tests[4], tests[5]
+    t2, t3, t4, t5, t6, t7 = (tests[1], tests[2], tests[3], tests[4],
+                              tests[5], tests[6])
     all_ok = all(t['pass'] for t in tests)
     if all_ok:
         verdict_class = (
@@ -787,18 +954,36 @@ def run_probe() -> dict:
             f"{abs(t5['X_match_orbit']-t5['X_match_linear']):.0e}); "
             "exactly linear (amplitude-independent, "
             f"{t5['half_amplitude_periodicity_residual']:.0e}).\n\n"
+            "THE INVARIANCE. Energy budget x"
+            f"{t6['energy_budget_ratio']:.0f} (independent "
+            "Gauss-Newton solves): X and T identical to "
+            f"{t6['X_match_budget_spread']:.0e}/"
+            f"{t6['period_budget_spread']:.0e}; source coupling g = "
+            "0/1x/4x: the SAME orbit periodic to "
+            f"{max(float(v) for v in t6['coupling_periodicity_residuals'].values()):.0e}"
+            ", complete monodromy at 4g unit-circle to "
+            f"{t6['monodromy_at_4g_max_dev']:.0e}; cavity depth: the "
+            f"regulator band {t6['depth_band_relative']:.1%}; branch "
+            "choice: three odd branches give X_match = "
+            f"{t6['branches'][0]['X_match_first']:.4f}/"
+            f"{t6['branches'][1]['X_match_first']:.4f}/"
+            f"{t6['branches'][2]['X_match_first']:.4f} (-> pi/2, "
+            f"spread {t6['X_match_branch_spread']:.3f}) while the RMS "
+            f"definition grows x{t6['rms_definition_branch_growth']:.1f}"
+            " - branch invariance singles out the #202 matching "
+            "radius as the physical definition.\n\n"
             "THE CONFRONTATION. Convention A (required "
-            f"{_X_REQ_A:.4f}) EXCLUDED x{t6['conv_A_ratio']:.1f}; "
+            f"{_X_REQ_A:.4f}) EXCLUDED x{t7['conv_A_ratio']:.1f}; "
             f"convention B (required {_X_REQ_B:.4f}) SELECTED: "
             "m_e/m_mu = alpha/X = "
-            f"{t6['me_over_mmu_predicted_reference']:.6f} (band "
-            f"[{t6['me_over_mmu_predicted_band'][0]:.6f}, "
-            f"{t6['me_over_mmu_predicted_band'][1]:.6f}]; hard-wall "
+            f"{t7['me_over_mmu_predicted_reference']:.6f} (band "
+            f"[{t7['me_over_mmu_predicted_band'][0]:.6f}, "
+            f"{t7['me_over_mmu_predicted_band'][1]:.6f}]; hard-wall "
             f"anchor 2 alpha/pi = "
-            f"{t6['me_over_mmu_hard_wall_2alpha_over_pi']:.6f}) vs "
+            f"{t7['me_over_mmu_hard_wall_2alpha_over_pi']:.6f}) vs "
             f"observed {_ME_OVER_MMU:.6f} - the derivation lands at "
-            f"{t6['landing_fraction_band'][0]:.1%}-"
-            f"{t6['landing_fraction_band'][1]:.1%} of the observed "
+            f"{t7['landing_fraction_band'][0]:.1%}-"
+            f"{t7['landing_fraction_band'][1]:.1%} of the observed "
             "ratio with ZERO fitted numbers (inputs: the throat "
             "geometry and alpha; m_e used only for comparison)."
         )
@@ -870,9 +1055,10 @@ def render_markdown(s: dict) -> str:
         "T3": "the measurement; the #202 parity dichotomy realized",
         "T4": "regulator-, exterior-, grid-robust",
         "T5": "the eigenhistory orbit carries it; source-decoupled",
-        "T6": "conv A excluded, conv B lands at 92-96%",
-        "T7": "honest scope",
-        "T8": "assessment",
+        "T6": "invariant: budget, coupling, amplitude, depth, branch",
+        "T7": "conv A excluded, conv B lands at 92-96%",
+        "T8": "honest scope",
+        "T9": "assessment",
     }
     for t in s["tests"]:
         p = "**PASS**" if t["pass"] else "**FAIL**"

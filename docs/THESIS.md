@@ -1140,7 +1140,15 @@ carries it**: the #220 Gauss–Newton orbit on the odd mode (residual
 3e-13) with the source EXACTLY decoupled by parity (q* ~ 1e-17 — the
 charged transit mode is source-transparent at the crossing), complete
 monodromy unit-circle to 1e-14, orbit-averaged X unchanged (1e-3),
-exactly linear (amplitude-independent). **The confrontation** (inputs:
+exactly linear (amplitude-independent). **The invariance suite**: X
+unchanged under energy budget ×16 (independent Gauss–Newton solves; X
+and T identical to 6e-15/5e-15), source coupling g = 0→4× (the SAME
+orbit periodic to 3e-13; monodromy at 4g unit-circle 3e-14), mode
+amplitude, cavity depth (the 4% regulator band), and **branch choice**
+— the first three odd branches give X_match = 1.620/1.575/1.571 → π/2
+(spread 0.049) while the RMS definition grows ×3.3: branch invariance
+SINGLES OUT the #202 matching radius as the physical definition.
+**The confrontation** (inputs:
 geometry + α via #210's primordial anchor r_s = α·λ̄_C; m_e used only
 for comparison): convention A EXCLUDED ×2.4; convention B SELECTED —
 **m_e/m_μ = α/X = (2α/π)(1 + throat shift) = 0.004455–0.004622 vs
