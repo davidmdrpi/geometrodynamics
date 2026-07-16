@@ -1110,6 +1110,50 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The derived O(1) lepton mass coefficient (PR #221).** #210's
+register left one number between the mass ladder and an outright
+m_e/m_μ prediction: σ_mode/λ̄_C, "constrained, not derived" (required
+88.6α = 0.6467 in convention A / 206.8α = 1.5089 in convention B — a
+×2.3 band). `lepton_o1_coefficient_probe` **derives it — no fit — on
+the #220 eigenhistory background** (`docs/lepton_o1_coefficient.md`).
+**Why it is derivable**: the eigenhistory's mass IS its frequency
+(λ̄_C = 1/ω*), and σ_mode is a length on the SAME object — X =
+σ_mode·ω* is a ratio of two properties of one geometric mode. **The
+mode is forced**: the arc (#217/#218) puts eigenhistories on the
+throat's interior resonance comb (the ring interior = #202's bridge
+coordinate, the neck = the cross-cap), and #202's machine-verified
+Pin-twisted boundary condition forces the electron (k = 1) transit
+mode ODD — the node at the neck reproduced to 1e-15 with the φ ∝ σ
+near-neck law (drift 1.8%), while the even mode touches the neck
+(#202's k = 0 uncharged channel — the dichotomy realized). **The
+length is forced**: #202's ε₁ = r_s/σ_mode defines σ_mode as the
+MATCHING radius — the antinode distance. **The hard-wall theorem**:
+the odd fundamental's antinode is the quarter wave — X = ω·σ_match =
+π/2 EXACTLY, cavity-length independent (the analytic reason the
+coefficient is O(1); full definitional family in closed form, verified
+1e-5). **The measurement** (real Tangherlini barriers): X_match =
+1.579 (reference D = 12), regulator scan depth 8–48 band
+[1.579, 1.638] (4%, all within 6% of π/2), exterior spread < 0.04
+(the matching radius robust exactly where RMS is
+hybridization-contaminated), dx-converged 1e-3. **The eigenhistory
+carries it**: the #220 Gauss–Newton orbit on the odd mode (residual
+3e-13) with the source EXACTLY decoupled by parity (q* ~ 1e-17 — the
+charged transit mode is source-transparent at the crossing), complete
+monodromy unit-circle to 1e-14, orbit-averaged X unchanged (1e-3),
+exactly linear (amplitude-independent). **The confrontation** (inputs:
+geometry + α via #210's primordial anchor r_s = α·λ̄_C; m_e used only
+for comparison): convention A EXCLUDED ×2.4; convention B SELECTED —
+**m_e/m_μ = α/X = (2α/π)(1 + throat shift) = 0.004455–0.004622 vs
+observed 0.004836: the derivation lands at 92–96% of the observed
+ratio with zero fitted numbers**; the #210 neck aspect c = ln(1/α) +
+O(1) now has the O(1) computed (ln X ≈ ln π/2 = 0.45; c = 5.38 vs the
+conv-B-observed 5.33). Scope: the 1D transit measure is not the 5D ρ³
+bridge measure — the 5D radial operator is the named successor and
+the leading candidate for the one-sided 4–8% residual; winding parity
+imported from #202; the interior depth a scanned regulator (α-capped
+depth a successor); classical, frozen geometry
+(`lepton_o1_coefficient_probe`, PR #221).
+
 **The PDE-ring eigenhistory (PR #220).** #219 derived the source from
 a Hamiltonian but analyzed the loop in harmonic balance with a reduced
 2-dof Floquet model. `pde_ring_eigenhistory_probe` retires every
