@@ -1110,6 +1110,52 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The PDE-ring eigenhistory (PR #220).** #219 derived the source from
+a Hamiltonian but analyzed the loop in harmonic balance with a reduced
+2-dof Floquet model. `pde_ring_eigenhistory_probe` retires every
+reduction: **the field is the PDE** — the two-direction wave on the
+periodic ring (C = 2π + 8, N = 192) with the glued finite-width
+Tangherlini barrier potentials of #215 — and the Duffing (q, p) evolve
+in **explicit time domain**, coupled at the crossing: H = Σdx[π²/2 +
+(Du)²/2 + Vu²/2] + p²/2 + ω₀²q²/2 + μq⁴/4 + **g·q·u(0) IN the
+conserved energy** (`docs/pde_ring_eigenhistory.md`). **The term is
+load-bearing**: under symplectic leapfrog the full H is conserved to a
+bounded non-secular 2e-5 over ONE HUNDRED periods (O(dt²) ratio 4.0),
+while the ledger without it fails 99× worse in a single period. **The
+periodic orbit, literally as requested**: unknowns (X(0), T) with X
+the complete source-field state in R^386, conditions X(T) − X(0) = 0,
+H[X] − E₀ = 0, p(0) = 0 (the single phase condition removing
+time-translation degeneracy), solved by Gauss-Newton with the full
+finite-difference Jacobian: **quadratic convergence to 2e-13**, E₀ =
+20.834 hit exactly, ω_orbit = 2.669296 (nonlinear pull −3e-3),
+dt-converged to 3e-7. **The one-period monodromy of the COMPLETE
+state**: the tangent leapfrog (exact linearization of the symplectic
+map) gives the 386×386 monodromy — **ALL eigenvalues on the unit
+circle to 4e-14** (no parametric instability of ANY field mode against
+the eigenhistory), det = 1 to 2e-13, the dx-weighted symplectic form
+preserved to 4e-15, the trivial pair at 1 to 9e-11. **The source pair
+confirms #219 from the field itself**: identified by (q,p)-eigenvector
+weight (0.36 vs 0.008 for the next), rotating at the dressed frequency
+**3.2124 — within 0.07% of #219's reduced-model 3.2102** (bare ω₀ =
+3.2); the low field modes sit at their folded angles. **The ledger,
+time-resolved**: E_int oscillates about −0.0467 (negative, q and u(0)
+antiphased), equal to the #219 harmonic-balance value g·a·U₀/2 to
+0.04%; the full H constant along the orbit to 5e-5. **Spatial
+convergence**: the complete solve repeated at N = 128/192/256/384
+(ring, barriers, coupling, E₀ fixed) — the orbit frequency, q and
+u(0), the partition, the interpolated profile, the source pair, and
+the low Floquet angles ALL converge O(dx²) with the exact predicted
+diff-to-finest ratios (6.400/2.400; measured 6.06–6.66/2.36–2.42);
+every monodromy stays unit-circle; Richardson continuum ω_orbit =
+2.673464, source frequency 3.2132 — 0.09% from #219. Every
+approximation #219 made — harmonic balance, single-mode reduction,
+point-barrier transfer matrices — is retired, and its answer survives.
+Scope: the discrete symplectic map at n_s = 2048 (continuum O(dt²));
+E₀ a specified budget, ℏ not derived; classical, zonal scalar, frozen
+geometry — the ring as the time-closed loop's covering model, the
+CTC/network aspects in #216–#218
+(`pde_ring_eigenhistory_probe`, PR #220).
+
 **The Hamiltonian source eigenhistory (PR #219).** #218's
 eigenhistory theorem used an *imposed* source phase law.
 `hamiltonian_source_eigenhistory_probe` replaces it with the **minimal
