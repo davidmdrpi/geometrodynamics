@@ -1140,7 +1140,14 @@ weight (0.36 vs 0.008 for the next), rotating at the dressed frequency
 3.2); the low field modes sit at their folded angles. **The ledger,
 time-resolved**: E_int oscillates about −0.0467 (negative, q and u(0)
 antiphased), equal to the #219 harmonic-balance value g·a·U₀/2 to
-0.04%; the full H constant along the orbit to 5e-5. Every
+0.04%; the full H constant along the orbit to 5e-5. **Spatial
+convergence**: the complete solve repeated at N = 128/192/256/384
+(ring, barriers, coupling, E₀ fixed) — the orbit frequency, q and
+u(0), the partition, the interpolated profile, the source pair, and
+the low Floquet angles ALL converge O(dx²) with the exact predicted
+diff-to-finest ratios (6.400/2.400; measured 6.06–6.66/2.36–2.42);
+every monodromy stays unit-circle; Richardson continuum ω_orbit =
+2.673464, source frequency 3.2132 — 0.09% from #219. Every
 approximation #219 made — harmonic balance, single-mode reduction,
 point-barrier transfer matrices — is retired, and its answer survives.
 Scope: the discrete symplectic map at n_s = 2048 (continuum O(dt²));

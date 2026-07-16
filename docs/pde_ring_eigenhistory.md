@@ -10,7 +10,9 @@
 > conserved energy**, the periodic orbit solves the **literal** system
 > X(T) − X(0) = 0, H[X] − E₀ = 0 with one phase condition, and the
 > one-period monodromy of the **complete** source–field state is
-> computed. The companion probe machine-checks every claim (~50 s).
+> computed — with the complete solve repeated at four spatial
+> resolutions to demonstrate O(dx²) convergence of everything
+> reported. The companion probe machine-checks every claim (~2.5 min).
 
 ## 0. The complete Hamiltonian system
 
@@ -115,7 +117,42 @@ Sampled at 64 points along the orbit:
   orbit** to the shadow-Hamiltonian bound;
 - E_field / E_source / E_int partition reported per snapshot.
 
-## 5. Honest scope
+## 5. Spatial-resolution convergence
+
+The complete solve — orbit, partition, monodromy — repeated at
+**N = 128, 192, 256, 384** while holding the physical ring, the
+barriers, the coupling, and E₀ = 20.834 fixed (temporal resolution
+held at n_s = 2048, so the sweep isolates the spatial error):
+
+| N | dx | ω_orbit | u(0) | q | E_field / E_source / E_int (means) | ω_source |
+|---|---|---|---|---|---|---|
+| 128 | 0.1112 | 2.664093 | 0.902121 | −0.171645 | 20.75271 / 0.12772 / −0.04645 | 3.211378 |
+| 192 | 0.0741 | 2.669296 | 0.900333 | −0.172817 | 20.75097 / 0.12968 / −0.04667 | 3.212364 |
+| 256 | 0.0556 | 2.671118 | 0.899710 | −0.173234 | 20.75035 / 0.13038 / −0.04676 | 3.212728 |
+| 384 | 0.0371 | 2.672421 | 0.899267 | −0.173534 | 20.74990 / 0.13088 / −0.04681 | 3.212994 |
+| **∞ (Richardson)** | — | **2.673464** | **0.898913** | **−0.173774** | E_int → **−0.046859** | **3.213207** |
+
+- **Clean O(dx²), quantitatively**: against a finite reference the
+  second-order prediction for the diff-to-finest ratios is *exactly*
+  d₁₂₈/d₂₅₆ = 6.400 and d₁₉₂/d₂₅₆ = 2.400; the measured ratios for the
+  orbit frequency, q, u(0), all three energy-partition means, the
+  periodic-cubic-interpolated field profile (L₂, on a common 768-point
+  grid), the source-pair frequency, and the two machine-matched low
+  Floquet angles all land in 6.06–6.66 and 2.36–2.42.
+- **Every resolution's Gauss–Newton converges to < 10⁻¹¹** and every
+  resolution's complete monodromy (258 → 770 dimensional) stays on the
+  unit circle (worst deviation 1.4×10⁻¹⁰, at N = 256).
+- **Low Floquet multipliers converge with the spectrum**: the matched
+  low field pairs (k = 2, 3, gaps ~10⁻⁷–10⁻⁸ at every N) move O(dx²) to
+  their continuum angles; the source pair converges 3.2114 → 3.2124 →
+  3.2127 → 3.2130, Richardson **3.2132 — 0.09% from #219's reduced-model
+  3.2102**: the confirmation of #219 survives the continuum limit.
+- The N = 192 production grid sits ~1.2×10⁻³ (relative, profile L₂)
+  from the finest grid and ~4×10⁻³ absolute in ω_orbit from the
+  continuum — small against every physical effect quoted, and now
+  *measured*, not assumed.
+
+## 6. Honest scope
 
 - The orbit and monodromy are those of the *discrete* symplectic map at
   n_s = 2048; the continuum is approached O(dt²) (frequency shift ~10⁻⁶
@@ -123,7 +160,9 @@ Sampled at 64 points along the orbit:
   oscillation, never secularly.
 - Grid N = 192 (dx ≈ 0.075, ~30 points per carrier wavelength); the
   monodromy spectrum is the discretized field's — all of it on the
-  unit circle.
+  unit circle. The residual spatial error is quantified by the
+  N = 128–384 sweep (§5): O(dx²) with the exact predicted ratios, and
+  Richardson-extrapolated to the continuum.
 - The ring uses the physical finite-width Tangherlini barriers
   (interior separation 8) — the *fuller* model than #219's
   point-barrier idealization; the local source physics is robust to
@@ -134,7 +173,7 @@ Sampled at 64 points along the orbit:
   this PR is the conservative-dynamics core: the ring as the
   time-closed loop's covering model.
 
-## 6. What would falsify this
+## 7. What would falsify this
 
 - Secular energy drift, or a conserved ledger *without* the interaction
   term — the Hamiltonian structure would be wrong. (Checked: bounded
@@ -149,14 +188,19 @@ Sampled at 64 points along the orbit:
   3.2102.)
 - An interaction-energy mean inconsistent with the #219 ledger.
   (Checked: negative, matching to a few percent.)
+- Non-convergence under grid refinement — the reported orbit and
+  spectrum would be discretization artifacts. (Checked: O(dx²) with
+  the exact predicted ratios in every quantity; the source pair's
+  continuum limit still 0.09% from #219.)
 
-## 7. Companion probe
+## 8. Companion probe
 
-`experiments/closure_ledger/pde_ring_eigenhistory_probe.py` (T1–T8,
-~50 s): the conservation checks with and without the interaction
+`experiments/closure_ledger/pde_ring_eigenhistory_probe.py` (T1–T9,
+~2.5 min): the conservation checks with and without the interaction
 term; the literal Gauss–Newton periodic-orbit solve; the complete
 monodromy with the dx-weighted symplectic form; the source-pair
-identification and #219 comparison; the time-resolved ledger.
+identification and #219 comparison; the time-resolved ledger; the
+four-resolution convergence sweep with Richardson extrapolation.
 
 **Verdict:**
 `THE_FULL_PDE_EIGENHISTORY_EXISTS_ITS_COMPLETE_MONODROMY_IS_UNIT_CIRCLE_SYMPLECTIC_AND_THE_219_REDUCTION_IS_CONFIRMED_BY_THE_FIELD_ITSELF`

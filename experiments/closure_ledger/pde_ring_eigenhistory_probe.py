@@ -67,8 +67,15 @@ Tests:
   T6. The energy ledger on the orbit (time-resolved partition; the
       oscillating interaction energy and its average vs the #219
       harmonic-balance value; conservation along the orbit).
-  T7. Honest scope.
-  T8. Assessment.
+  T7. Spatial-resolution convergence (the COMPLETE solve - orbit,
+      partition, monodromy - repeated at N = 128, 192, 256, 384 with
+      the physical ring, barriers, coupling, and E_0 held fixed: the
+      orbit frequency, q and u(0), the energy partition, the
+      interpolated field profile, the source pair, and the low
+      Floquet angles all converge O(dx^2) with the exact predicted
+      diff ratios; Richardson-extrapolated continuum reported).
+  T8. Honest scope.
+  T9. Assessment.
 
 Verdict:
   THE_FULL_PDE_EIGENHISTORY_EXISTS_ITS_COMPLETE_MONODROMY_IS_UNIT_
@@ -85,7 +92,7 @@ from pathlib import Path
 from typing import Optional
 
 import numpy as np
-from scipy.interpolate import interp1d
+from scipy.interpolate import CubicSpline, interp1d
 
 _CACHE: dict = {}
 _RH = 1.0
@@ -303,6 +310,169 @@ def monodromy(orb):
     Mono = np.vstack([dU, dPi, dQ[None, :], dP[None, :]])
     _CACHE[key] = Mono
     return Mono
+
+
+# ── spatial-resolution convergence machinery (T7) ───────────────────────
+# The complete solve repeated at N = 128, 192, 256, 384 while holding
+# the physical ring (C), the barriers (ring_potential), the coupling
+# (w0, mu, g), and the energy budget E_0 fixed.
+
+_E0_FIXED = 20.834
+_CONV_N = (128, 192, 256, 384)
+
+
+def _grid_at(N):
+    dx = _C / N
+    x = np.arange(N) * dx
+    return dx, x, ring_potential(x)
+
+
+def _flow_batch_at(Z, T, n_s, N, dx, V):
+    u = Z[:N].copy()
+    pi = Z[N:2 * N].copy()
+    q = Z[2 * N].copy()
+    p = Z[2 * N + 1].copy()
+    dt = T / n_s
+    Vc = V[:, None] if u.ndim == 2 else V
+    for _ in range(n_s):
+        fu = (np.roll(u, -1, axis=0) - 2 * u
+              + np.roll(u, 1, axis=0)) / dx ** 2 - Vc * u
+        fu[0] -= _G * q / dx
+        pi = pi + 0.5 * dt * fu
+        p = p + 0.5 * dt * (-_W0 ** 2 * q - _MU * q ** 3 - _G * u[0])
+        u = u + dt * pi
+        q = q + dt * p
+        fu = (np.roll(u, -1, axis=0) - 2 * u
+              + np.roll(u, 1, axis=0)) / dx ** 2 - Vc * u
+        fu[0] -= _G * q / dx
+        pi = pi + 0.5 * dt * fu
+        p = p + 0.5 * dt * (-_W0 ** 2 * q - _MU * q ** 3 - _G * u[0])
+    out = np.empty_like(Z)
+    out[:N] = u
+    out[N:2 * N] = pi
+    out[2 * N] = q
+    out[2 * N + 1] = p
+    return out
+
+
+def _h_parts_at(u, pi, q, p, dx, V):
+    du = (np.roll(u, -1) - u) / dx
+    e_f = float(dx * np.sum(pi ** 2 / 2 + du ** 2 / 2 + V * u ** 2 / 2))
+    e_s = float(p ** 2 / 2 + _W0 ** 2 * q ** 2 / 2 + _MU * q ** 4 / 4)
+    return e_f, e_s, float(_G * q * u[0])
+
+
+def _solve_orbit_at(N):
+    """The complete Gauss-Newton periodic-orbit solve at resolution N
+    (same conditions as periodic_orbit; E_0 = 20.834 fixed)."""
+    key = ('CONV_ORB', N)
+    if key in _CACHE:
+        return _CACHE[key]
+    dx, x, V = _grid_at(N)
+    L = (np.diag(-2.0 * np.ones(N)) + np.diag(np.ones(N - 1), 1)
+         + np.diag(np.ones(N - 1), -1))
+    L[0, -1] = L[-1, 0] = 1.0
+    L /= dx ** 2
+    evals, evecs = np.linalg.eigh(-L + np.diag(V))
+    ws = np.sqrt(np.abs(evals))
+    # the same physical mode at every N: source-coupled (|phi(0)| of
+    # grid-independent size), nearest the working carrier
+    coup = np.abs(evecs[0]) * math.sqrt(N)
+    k = min((kk for kk in range(N) if coup[kk] > 0.3),
+            key=lambda kk: abs(ws[kk] - 2.6723))
+    phi = evecs[:, k] * np.sign(evecs[0, k])
+    u0 = (0.9 / abs(phi[0])) * phi
+    q0 = -_G * u0[0] / (_W0 ** 2 - ws[k] ** 2)
+
+    def _h(uu, pp, qq, pq):
+        return sum(_h_parts_at(uu, pp, qq, pq, dx, V))
+
+    sc = math.sqrt(_E0_FIXED / _h(u0, 0 * u0, q0, 0.0))
+    u0, q0 = sc * u0, sc * q0
+    z = np.concatenate([u0, 0 * u0, [q0, 0.0]])
+    T = 2 * math.pi / ws[k]
+    n_dim = 2 * N + 2
+
+    def residual(zz, TT):
+        zT = _flow_batch_at(zz[:, None], TT, _NS, N, dx, V)[:, 0]
+        return np.concatenate(
+            [zT - zz,
+             [_h(zz[:N], zz[N:2 * N], zz[2 * N], zz[2 * N + 1])
+              - _E0_FIXED, zz[2 * N + 1]]])
+
+    for _ in range(14):
+        R = residual(z, T)
+        if np.linalg.norm(R) < 1e-11:
+            break
+        eps = 1e-7
+        Zb = np.concatenate([z[:, None],
+                             z[:, None] + eps * np.eye(n_dim)], axis=1)
+        ZT = _flow_batch_at(Zb, T, _NS, N, dx, V)
+        base = ZT[:, 0]
+        h_base = _h(z[:N], z[N:2 * N], z[2 * N], z[2 * N + 1])
+        J = np.empty((n_dim + 2, n_dim + 1))
+        for j in range(n_dim):
+            zj = Zb[:, j + 1]
+            dtop = (ZT[:, j + 1] - base) / eps - (zj - z) / eps
+            dH = (_h(zj[:N], zj[N:2 * N], zj[2 * N], zj[2 * N + 1])
+                  - h_base) / eps
+            J[:, j] = np.concatenate(
+                [dtop, [dH, (zj - z)[2 * N + 1] / eps]])
+        zT2 = _flow_batch_at(z[:, None], T + eps, _NS, N, dx, V)[:, 0]
+        J[:, n_dim] = np.concatenate([(zT2 - base) / eps, [0.0, 0.0]])
+        step, *_ = np.linalg.lstsq(J, -R, rcond=None)
+        z = z + step[:n_dim]
+        T = T + step[n_dim]
+    out = {'z': z, 'T': float(T), 'dx': dx, 'x': x, 'V': V, 'ws': ws,
+           'k': int(k), 'w_lin': float(ws[k]),
+           'residual': float(np.linalg.norm(residual(z, T)))}
+    _CACHE[key] = out
+    return out
+
+
+def _monodromy_at(N, z, T, dx, V):
+    n_dim = 2 * N + 2
+    u = z[:N].copy()
+    pi = z[N:2 * N].copy()
+    q = float(z[2 * N])
+    p = float(z[2 * N + 1])
+    M = np.eye(n_dim)
+    dU = M[:N]
+    dPi = M[N:2 * N]
+    dQ = M[2 * N]
+    dP = M[2 * N + 1]
+    dt = T / _NS
+
+    def lap(a):
+        return (np.roll(a, -1, axis=0) - 2 * a
+                + np.roll(a, 1, axis=0)) / dx ** 2
+
+    for _ in range(_NS):
+        fu = lap(u) - V * u
+        fu[0] -= _G * q / dx
+        fq = -_W0 ** 2 * q - _MU * q ** 3 - _G * u[0]
+        dfu = lap(dU) - V[:, None] * dU
+        dfu[0] -= _G * dQ / dx
+        dfq = -(_W0 ** 2 + 3 * _MU * q ** 2) * dQ - _G * dU[0]
+        pi = pi + 0.5 * dt * fu
+        p = p + 0.5 * dt * fq
+        dPi = dPi + 0.5 * dt * dfu
+        dP = dP + 0.5 * dt * dfq
+        u = u + dt * pi
+        q = q + dt * p
+        dU = dU + dt * dPi
+        dQ = dQ + dt * dP
+        fu = lap(u) - V * u
+        fu[0] -= _G * q / dx
+        fq = -_W0 ** 2 * q - _MU * q ** 3 - _G * u[0]
+        dfu = lap(dU) - V[:, None] * dU
+        dfu[0] -= _G * dQ / dx
+        dfq = -(_W0 ** 2 + 3 * _MU * q ** 2) * dQ - _G * dU[0]
+        pi = pi + 0.5 * dt * fu
+        p = p + 0.5 * dt * fq
+        dPi = dPi + 0.5 * dt * dfu
+        dP = dP + 0.5 * dt * dfq
+    return np.vstack([dU, dPi, dQ[None, :], dP[None, :]])
 
 
 # ========================================================================
@@ -621,11 +791,134 @@ def test_T6_energy_ledger() -> dict:
 
 
 # ========================================================================
-# T7. Honest scope
+# T7. Spatial-resolution convergence
 # ========================================================================
 
 
-def test_T7_honest_scope() -> dict:
+def test_T7_spatial_convergence() -> dict:
+    if 'T7' in _CACHE:
+        return _CACHE['T7']
+    fine = 768                       # common multiple of every N
+    xf = np.arange(fine) * (_C / fine)
+    per = {}
+    for N in _CONV_N:
+        orb = _solve_orbit_at(N)
+        z, T, dx, V = orb['z'], orb['T'], orb['dx'], orb['V']
+        # time-averaged energy partition (64 snapshots)
+        zz = z.copy()
+        parts = []
+        for _ in range(64):
+            zz = _flow_batch_at(zz[:, None], T / 64, _NS // 64,
+                                N, dx, V)[:, 0]
+            parts.append(_h_parts_at(zz[:N], zz[N:2 * N], zz[2 * N],
+                                     zz[2 * N + 1], dx, V))
+        parts = np.array(parts)
+        # complete monodromy + spectrum at this N
+        Mono = _monodromy_at(N, z, T, dx, V)
+        ev, vecs = np.linalg.eig(Mono)
+        qp_w = ((np.abs(vecs[2 * N]) ** 2
+                 + np.abs(vecs[2 * N + 1]) ** 2)
+                / np.sum(np.abs(vecs) ** 2, axis=0))
+        i_src = int(np.argmax(qp_w))
+        w_src = (abs(np.angle(ev[i_src])) + 2 * math.pi) / T
+        ang = np.sort(np.abs(np.angle(ev)))
+        theta = {}
+        for kk in (2, 3):            # the machine-matched low pairs
+            tgt = orb['ws'][kk] * T % (2 * math.pi)
+            tgt = min(tgt, 2 * math.pi - tgt)
+            theta[kk] = float(ang[int(np.argmin(np.abs(ang - tgt)))])
+        # periodic cubic interpolant of the orbit field profile
+        prof = CubicSpline(np.append(orb['x'], _C),
+                           np.append(z[:N], z[0]),
+                           bc_type='periodic')(xf)
+        per[N] = {
+            'dx': float(dx), 'w_lin': orb['w_lin'],
+            'residual': orb['residual'],
+            'w_orbit': float(2 * math.pi / T),
+            'u0': float(z[0]), 'q_star': float(z[2 * N]),
+            'E_field': float(parts[:, 0].mean()),
+            'E_source': float(parts[:, 1].mean()),
+            'E_int': float(parts[:, 2].mean()),
+            'w_source': float(w_src),
+            'qp_weight': float(qp_w[i_src]),
+            'max_modulus_deviation':
+                float(np.abs(np.abs(ev) - 1).max()),
+            'theta_k2': theta[2], 'theta_k3': theta[3],
+            'profile': prof,
+        }
+
+    # differences to the finest grid
+    scalars = ('w_orbit', 'q_star', 'u0', 'E_field', 'E_source',
+               'E_int', 'w_source', 'theta_k2', 'theta_k3')
+    ref = per[384]
+    diffs = {s: [float(abs(per[N][s] - ref[s]))
+                 for N in (128, 192, 256)] for s in scalars}
+    pn = np.linalg.norm(ref['profile'])
+    diffs['profile_l2'] = [
+        float(np.linalg.norm(per[N]['profile'] - ref['profile']) / pn)
+        for N in (128, 192, 256)]
+
+    # O(dx^2) against a FINITE reference: d_N = c(dx_N^2 - dx_384^2)
+    # => d128/d256 = 6.400 and d192/d256 = 2.400 exactly
+    r13 = {s: float(d[0] / d[2]) for s, d in diffs.items()}
+    r23 = {s: float(d[1] / d[2]) for s, d in diffs.items()}
+    monotone = all(d[0] > d[1] > d[2] > 0 for d in diffs.values())
+    ratios_ok = all(4.5 < r13[s] < 8.5 and 1.8 < r23[s] < 3.1
+                    for s in diffs)
+
+    # Richardson continuum from the (256, 384) pair:
+    # Q_inf = Q_384 + 0.8 (Q_384 - Q_256)
+    fac = (1 / 384 ** 2) / (1 / 256 ** 2 - 1 / 384 ** 2)
+    rich = {s: float(per[384][s] + fac * (per[384][s] - per[256][s]))
+            for s in ('w_orbit', 'q_star', 'u0', 'E_int', 'w_source')}
+    src_vs_219 = abs(rich['w_source'] - 3.2102) / 3.2102
+
+    # the N = 192 convergence solve must be the T3 production orbit
+    consist = abs(per[192]['w_orbit'] - periodic_orbit()['w_orbit'])
+    same_mode = max(per[N]['w_lin'] for N in _CONV_N) \
+        - min(per[N]['w_lin'] for N in _CONV_N)
+
+    ok = (all(per[N]['residual'] < 1e-11 for N in _CONV_N)
+          and all(per[N]['max_modulus_deviation'] < 1e-9
+                  for N in _CONV_N)
+          and monotone and ratios_ok
+          and consist < 1e-6 and same_mode < 0.02
+          and src_vs_219 < 5e-3)
+    out = {
+        'name': 'T7_spatial_convergence',
+        'description': (
+            'the complete solve (orbit + partition + monodromy) '
+            'repeated at N = 128, 192, 256, 384 with the physical '
+            'ring, barriers, coupling, and E_0 = 20.834 held fixed: '
+            'the orbit frequency, q and u(0), the energy partition, '
+            'the interpolated field profile, the source pair, and '
+            'the low Floquet angles all converge O(dx^2) with the '
+            'exact predicted diff-to-finest ratios 6.400 / 2.400; '
+            'Richardson continuum reported'
+        ),
+        'resolutions': {str(N): {kk: vv for kk, vv in per[N].items()
+                                 if kk != 'profile'}
+                        for N in _CONV_N},
+        'diffs_to_finest_128_192_256': diffs,
+        'measured_ratio_d128_over_d256': r13,
+        'measured_ratio_d192_over_d256': r23,
+        'predicted_dx2_ratios': [6.400, 2.400],
+        'richardson_continuum': rich,
+        'continuum_source_vs_219': float(src_vs_219),
+        'consistency_with_T3_orbit': float(consist),
+        'mode_identification_spread': float(same_mode),
+        'pass': bool(ok),
+    }
+    _CACHE['T7'] = out
+    return out
+
+
+# ========================================================================
+# T8. Honest scope
+# ========================================================================
+
+
+def test_T8_honest_scope() -> dict:
     scope = [
         'The orbit and monodromy are those of the DISCRETE symplectic '
         '(leapfrog) map at n_s = 2048 steps/period; the continuous '
@@ -634,7 +927,12 @@ def test_T7_honest_scope() -> dict:
         'shadow-Hamiltonian oscillation (2e-5), never secularly.',
         'Grid N = 192 (dx = 0.075, ~30 points per carrier '
         'wavelength); the spectrum is the discretized field\'s - all '
-        'of it on the unit circle.',
+        'of it on the unit circle. The N = 128-384 sweep (T7) '
+        'quantifies the residual spatial error (O(dx^2) with the '
+        'exact predicted ratios) and Richardson-extrapolates the '
+        'continuum; the sweep holds n_s = 2048 fixed, so it isolates '
+        'the spatial error at fixed (separately quantified, T3) '
+        'temporal error.',
         'The ring geometry uses the physical finite-width Tangherlini '
         'barriers (interior separation 8): the fuller model than '
         '#219\'s point-barrier transfer-matrix idealization (tau = '
@@ -647,7 +945,7 @@ def test_T7_honest_scope() -> dict:
         'ring as the time-closed loop\'s covering model.',
     ]
     return {
-        'name': 'T7_honest_scope',
+        'name': 'T8_honest_scope',
         'description': 'what this PR does and does not establish',
         'scope': scope,
         'pass': True,
@@ -655,17 +953,18 @@ def test_T7_honest_scope() -> dict:
 
 
 # ========================================================================
-# T8. Assessment
+# T9. Assessment
 # ========================================================================
 
 
-def test_T8_assessment() -> dict:
+def test_T9_assessment() -> dict:
     t2 = test_T2_hamiltonian_system()
     t3 = test_T3_periodic_orbit()
     t4 = test_T4_monodromy()
     t5 = test_T5_pairs()
     t6 = test_T6_energy_ledger()
-    core = all(t['pass'] for t in (t2, t3, t4, t5, t6))
+    t7 = test_T7_spatial_convergence()
+    core = all(t['pass'] for t in (t2, t3, t4, t5, t6, t7))
     assessment = (
         'Every reduction is retired: the field is the PDE on the '
         'ring, the source is the explicit (q, p) Duffing, the energy '
@@ -679,14 +978,20 @@ def test_T8_assessment() -> dict:
         'field mode against the eigenhistory, the trivial pair where '
         'Floquet theory demands it, and the source pair at its '
         'dressed frequency within 0.07% of the #219 reduced '
-        'prediction.  The eigenhistory of the transactional arc now '
-        'stands as a complete, explicitly evolved, energy-conserving '
-        'Hamiltonian object.'
+        'prediction.  The complete solve repeated at N = 128-384 with '
+        'the physics held fixed converges O(dx^2) in every reported '
+        'quantity - the orbit frequency, the amplitudes, the '
+        'partition, the profile, the source pair, and the low Floquet '
+        'angles - with the exact predicted diff ratios, and the '
+        'Richardson continuum keeps the source pair within 0.1% of '
+        'the #219 reduction.  The eigenhistory of the transactional '
+        'arc now stands as a complete, explicitly evolved, '
+        'energy-conserving, resolution-converged Hamiltonian object.'
         if core else
         'INCONCLUSIVE - a core check failed; do not quote.'
     )
     return {
-        'name': 'T8_assessment',
+        'name': 'T9_assessment',
         'description': 'the standing of the full-PDE eigenhistory',
         'core_green': bool(core),
         'assessment': assessment,
@@ -707,10 +1012,12 @@ def run_probe() -> dict:
         test_T4_monodromy(),
         test_T5_pairs(),
         test_T6_energy_ledger(),
-        test_T7_honest_scope(),
-        test_T8_assessment(),
+        test_T7_spatial_convergence(),
+        test_T8_honest_scope(),
+        test_T9_assessment(),
     ]
-    t2, t3, t4, t5, t6 = tests[1], tests[2], tests[3], tests[4], tests[5]
+    t2, t3, t4, t5, t6, t7 = (tests[1], tests[2], tests[3], tests[4],
+                              tests[5], tests[6])
     all_ok = all(t['pass'] for t in tests)
     if all_ok:
         verdict_class = (
@@ -760,7 +1067,25 @@ def run_probe() -> dict:
             f"about {t6['E_int_mean']:.4f} (negative), equal to the "
             f"#219 harmonic-balance value to {t6['hb_agreement']:.1%}; "
             "the full H is constant along the orbit to "
-            f"{t6['H_conservation_along_orbit']:.0e}."
+            f"{t6['H_conservation_along_orbit']:.0e}.\n\n"
+            "THE CONVERGENCE. The complete solve repeated at N = "
+            "128/192/256/384 (ring, barriers, coupling, E0 fixed): "
+            "the orbit frequency, q and u(0), the partition, the "
+            "interpolated profile, the source pair, and the low "
+            "Floquet angles ALL converge O(dx^2) - measured "
+            "diff-to-finest ratios (exact prediction 6.40 / 2.40): "
+            f"w_orbit {t7['measured_ratio_d128_over_d256']['w_orbit']:.2f}"
+            f" / {t7['measured_ratio_d192_over_d256']['w_orbit']:.2f}, "
+            "profile "
+            f"{t7['measured_ratio_d128_over_d256']['profile_l2']:.2f}"
+            f" / {t7['measured_ratio_d192_over_d256']['profile_l2']:.2f}"
+            "; every monodromy stays on the unit circle (worst "
+            f"{max(t7['resolutions'][str(N)]['max_modulus_deviation'] for N in (128, 192, 256, 384)):.0e}"
+            "); Richardson continuum w_orbit = "
+            f"{t7['richardson_continuum']['w_orbit']:.6f}, source "
+            f"frequency = {t7['richardson_continuum']['w_source']:.4f}"
+            f" - {t7['continuum_source_vs_219']:.2%} from #219's "
+            "3.2102."
         )
     else:
         verdict_class = "PDE_RING_EIGENHISTORY_INCONCLUSIVE"
@@ -780,7 +1105,8 @@ def run_probe() -> dict:
             "H[X] - E0 = 0 with the p(0) = 0 phase condition; and the "
             "one-period monodromy - all Floquet pairs on the unit "
             "circle, symplectic, with the source pair confirming the "
-            "#219 reduction at 0.07%"
+            "#219 reduction at 0.07%; the complete solve repeated at "
+            "N = 128-384 converges O(dx^2) in every reported quantity"
         ),
         "executes": (
             "the requested full Hamiltonian successor to #219"
@@ -832,8 +1158,9 @@ def render_markdown(s: dict) -> str:
         "T4": "the complete monodromy: all unit circle, symplectic",
         "T5": "the source pair confirms #219 at 0.07%",
         "T6": "the time-resolved ledger closes",
-        "T7": "honest scope",
-        "T8": "assessment",
+        "T7": "spatial convergence: O(dx^2), Richardson continuum",
+        "T8": "honest scope",
+        "T9": "assessment",
     }
     for t in s["tests"]:
         p = "**PASS**" if t["pass"] else "**FAIL**"
