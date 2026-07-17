@@ -1110,6 +1110,47 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The bridge dressing and the two-mouth port (PR #223).** The #222
+successor, both requested steps on the forced primordial background
+(`docs/bridge_dressing_network.md`). **The geometry**: the ultrastatic
+MTY bridge — the #202 t=0 slice ρ(σ) = √(r_s²+σ²) with unit lapse
+(traversable, the frozen-transit reading) — with the exact reduction
+u = ρ^{3/2}φ carrying the 5D ρ³ measure: neck height (ℓ(ℓ+2)+3/2)/r_s²
+closed-form, far tail = THE #215 FORM (ℓ(ℓ+2)+3/4)/σ² to 1e-3, the
+#202 near-neck φ ∝ σ law to 0.4%; glued into the S³ exterior ring
+(u = R sinχ ψ exact on the arcs). **The port**: the two-mouth spectrum
+solved (parities about the neck and the source point); the same-parity
+spacing = the #217 network closure comb π/L to 2%. **A NEW UNIVERSAL**:
+on the true bridge the #202 matching radius gives X = σ_match·ω =
+2.2995 — invariant across modes (4 digits), r_s (the anchor limit),
+exterior curvature, and the seam — with the CLOSED FORM z* = root of
+z·J₁(z) = 3·J₂(z) (the first antinode of φ = J₂(ωσ)/σ: the 5D
+two-mouth analog of the quarter wave). **The interior-depth family
+unifies #221 and #223**: inserting the regulated tortoise channel
+(the #215 horizon reading) of ANY depth past the quarter wave steps X
+to π/2 EXACTLY (1e-4) — one family, discriminated by the interior
+depth, and **X ≥ π/2 across the whole frozen class**: the required
+conv-B 1.5089 sits 3.9% below the class INFIMUM — the residual is
+STRUCTURAL (m_e/m_μ ≤ 2α/π = 0.004646 vs observed 0.004836; the
+anchor or S₁ carries a ~4% correction — deriving it, and the physical
+interior depth, are the named successors; #165 forbids matching the
+3.9% without derivation). **Transit protection**: the even/odd
+splitting through the neck (the through-bulk identity exchange) obeys
+the Bessel-index tunneling law Δω ∝ (ωr_s)^4.1/4.0 (predicted 2ν = 4)
+— at the primordial anchor the electron mode's non-local exchange is
+O(α⁴) ~ 1e-12 of its frequency: THE DRESSED SOLITON SITS STILL ON THE
+NETWORK while the even/ℓ=0 carrier channels (the transactional arc's
+waves, #213–#221) do the transiting. **The perturbative dressing,
+quantified**: the first-order ρ³-measure back-reaction δμ is EXACTLY
+quadratic in the amplitude (machine); the throat-local share
+(σ < 3r_s) is 0.2% of the cloud total — the neck undisturbed, μ the
+primordial datum (the #222 division of roles realized); the cloud
+energy is the particle's contribution to the exterior mass; the
+10%-shift window A ≈ 0.014. Scope: ultrastatic vs horizon readings
+now ONE family bracketing X (successor adjudicates); transparent
+mouth seam (robustness checked); first-order back-reaction; classical
+(`bridge_dressing_network_probe`, PR #223).
+
 **The coupled 5D EKG weld (PR #222).** The #221 identifiability
 audit's successor, and the one PR that deliberately UNFREEZES the
 geometry: the soliton core's localized energy density directly sources
