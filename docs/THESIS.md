@@ -1148,6 +1148,17 @@ amplitude, cavity depth (the 4% regulator band), and **branch choice**
 — the first three odd branches give X_match = 1.620/1.575/1.571 → π/2
 (spread 0.049) while the RMS definition grows ×3.3: branch invariance
 SINGLES OUT the #202 matching radius as the physical definition.
+**The alternative branches RUN, not just measured**: the second odd
+branch's complete Gauss–Newton orbit (D = 24; residual 6e-13; source
+still exactly decoupled q* ~ 1e-15; monodromy unit-circle 2e-13)
+carries X_match = 1.57070 — π/2 to 1e-4, closer than the fundamental;
+and the even (k = 0 channel) branch's full source-COUPLED orbit
+(q* = −6.2e-3 genuinely nonzero — the coupling contrast; residual
+4e-13; unit-circle 3e-12) lands the parity-excluded conv-A alternate
+at 0.004891 = 101.1% of observed — numerically CLOSER than the
+primary, excluded purely by #202's parity theorem: the parity
+identification is the sharpest falsification target for the 5D
+successor, which adjudicates between the two readings.
 **The confrontation** (inputs:
 geometry + α via #210's primordial anchor r_s = α·λ̄_C; m_e used only
 for comparison): convention A EXCLUDED ×2.4; convention B SELECTED —

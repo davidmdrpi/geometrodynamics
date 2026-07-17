@@ -117,6 +117,19 @@ shorter wavelengths) — while the amplitude-RMS definition **grows
 #202 matching radius as the physical definition of σ_mode; the RMS
 convention is a fundamental-only surrogate.
 
+**The alternative branch is run, not just measured**: the second odd
+branch's complete Gauss–Newton orbit (deep cavity D = 24; residual
+6×10⁻¹³; the source still exactly decoupled, q* ≈ 10⁻¹⁵; complete
+monodromy unit-circle to 2×10⁻¹³) carries
+
+```
+X_match(branch 2 orbit) = 1.57070   —   π/2 to 1×10⁻⁴
+```
+
+— the alternative rung of the eigenhistory ladder is a genuine,
+spectrally stable, energy-closed orbit carrying the *same* derived
+coefficient, closer to the hard-wall theorem than the fundamental.
+
 ## 5. The confrontation — zero fitted numbers
 
 Inputs: the throat geometry (r_h = 1) and α (the #184-protected
@@ -146,6 +159,24 @@ c = ln(X/α) = 5.38 vs the convention-B-observed ln(m_μ/m_e) = 5.33 —
 #210's "c = ln(1/α) + O(1)" with the O(1) now **computed** (ln X ≈
 ln π/2 = 0.45).
 
+**The alternate branch, run.** The even (k = 0 channel) branch behind
+the conv-A alternate is put through the *same* full machinery — the
+source-**coupled** Gauss–Newton orbit (residual 4×10⁻¹³, q* =
+−6.2×10⁻³ genuinely nonzero, the coupling contrast with the odd
+branch; complete monodromy unit-circle to 3×10⁻¹²) carries
+X_u = 0.6395, landing the parity-excluded alternate at
+
+```
+m_e/m_μ (even + conv A) = 0.004891 = 101.1% of observed
+```
+
+— **numerically closer than the primary**. Stated plainly: the
+alternate's exclusion is purely structural (#202's parity theorem
+forces the k = 1 mode odd), not numerical. The parity identification
+is therefore the sharpest falsification target for the 5D
+bridge-measure successor, which adjudicates between the two readings
+— either outcome is decisive.
+
 The residual 4–8% is real and one-sided (the throat correction pushes
 X *up* from π/2 while the observation sits 4% *below* it) — owned by
 the named successor below.
@@ -166,8 +197,10 @@ the named successor below.
   is stable to 4% over depth 8–48 (band carried); the physically
   capped depth (the α-capped tortoise depth) is a successor
   refinement.
-- The even-parity/conv-A alternate lands in-band numerically but is
-  **parity-excluded** by #202; it is recorded, not used.
+- The even-parity/conv-A alternate is run through the full machinery
+  (§5) and lands at 101.1% of observed — *closer than the primary* —
+  but is **parity-excluded** by #202; the exclusion is structural, not
+  numerical, and the 5D bridge-measure successor adjudicates.
 - Classical, zonal scalar, frozen geometry; ℏ enters only through
   λ̄_C = ℏ/mc (the B4 anchor), as always.
 
