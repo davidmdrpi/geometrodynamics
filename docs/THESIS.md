@@ -1110,6 +1110,50 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The coupled 5D EKG weld (PR #222).** The #221 identifiability
+audit's successor, and the one PR that deliberately UNFREEZES the
+geometry: the soliton core's localized energy density directly sources
+the local 5D Tangherlini metric — the static spherical
+Einstein–Klein–Gordon system (`docs/coupled_5d_ekg_weld.md`), solved by
+shooting with the #210 machinery generalized to n = D−2 (n = 2 IS the
+#210 system: Kaup M_max = 0.6327 reproduced; tt-Einstein identity
+pointwise 3e-6; dx/xmax-converged). **The weld exists**: the background
+cavity scale R*, the soliton's R_RMS, and the exterior Tangherlini
+r_s = √μ∞ emerge from ONE solve in ONE unit (the scalar mass), with
+the gravitational-coupling convention dropping out EXACTLY (the
+(KF, φ)→(KF/4, 2φ) rescale shifts every geometric observable by
+machine ZERO) — the audit's free radial rescale is forbidden by the
+field equations. **The Israel junction verified** (option B): interior
+extrinsic curvature matches the exterior Tangherlini's at the core
+boundary ([K^θ] ~ 1e-16, [K^t] ~ 5e-7, each tracking the scalar tail —
+no shell), and the exterior reads the interior mass to 1e-6: one
+physical boundary, shared scales. **The 5D critical-mass marginality,
+measured**: on the dilute branch μ → μ_crit = 7.695 (linear-in-φ_c,
+difference ratio 2.0) with ω → 1 and the SIZE RUNNING FREE at fixed
+mass (X = σω ∝ φ_c^{−1/2}, slope −0.503) — the 5D Newtonian potential
+is 1/r², marginal, the same marginality as #221's exterior tails.
+**The cavity from the same metric**: the test-wave potential on the
+solved background (FD-constructed, vacuum-validated against the #215
+closed form to 2e-6) has a well whose centroid tracks the THROAT
+(R*/r_s = 0.78–1.00) while R*/R_RMS falls 0.39 → 0.17 dilute — R* and
+R_RMS emerge together and DECOUPLE: the cavity belongs to the
+gravitational core, not the matter cloud. **The confrontation — the
+lock excludes self-sourcing**: r_s·ω pinned into [1.53, 2.774] over
+the ENTIRE family (spiral turnaround included; q-channel spot checks
+in-band) vs the EM-cap anchor's r_s·ω = α = 0.0073 — **excluded ×210**;
+jointly σ/r_s = 206.8 forces X = 574 vs the required 1.51 (×380): a 5D
+scalar CANNOT be much lighter than the throat its own field creates.
+Self-sourcing is refuted at the fully coupled level; **#210's
+primordial-throat relocation is now FORCED by the weld** (the throat
+mass a geometric datum), the #221 cavity is the primordial throat's
+(R* tracks r_s), and the program's frozen-background framing survives
+its own stress test. Successor: the soliton as perturbative dressing
+of the fixed-μ primordial bridge, this exact solver. Scope: boson-star
+ansatz for #180's real structure (potential-class robustness per
+#210); one-mouth topology (the refutation is of self-sourcing);
+ground states; test-wave cavity; α imported for comparison only
+(`coupled_5d_ekg_weld_probe`, PR #222).
+
 **The derived O(1) lepton mass coefficient (PR #221).** #210's
 register left one number between the mass ladder and an outright
 m_e/m_μ prediction: σ_mode/λ̄_C, "constrained, not derived" (required

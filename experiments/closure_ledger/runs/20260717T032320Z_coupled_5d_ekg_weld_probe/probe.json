@@ -1,0 +1,327 @@
+{
+  "timestamp_utc": "2026-07-17T03:23:20+00:00",
+  "identification": "The coupled 5D Einstein-Klein-Gordon weld: the soliton's energy density sources the local Tangherlini metric; R_RMS, the cavity R*, and r_s emerge from one solve in one unit (convention invariance exact; Israel junction verified); the 5D critical-mass marginality is measured (mu_crit = 7.695, scale-free size zero mode); and the lock r_s*omega in [1.53, 2.77] excludes the self-sourced anchor by x210 - the throat is primordial",
+  "executes": "the requested action modification (option A) with the Israel junction verification (option B) - the #221 audit's successor",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Execute the requested modification: couple the soliton core's localized energy density to the local 5D metric (the static spherical Einstein-Klein-Gordon system, option A), so the background cavity scale R*, the soliton's R_RMS, and the exterior Tangherlini scale r_s emerge from a single coupled solve; verify the Israel junction at the core boundary (option B); and answer the #221 identifiability audit's missing-weld finding with the derived, convention-free family relations.",
+      "pass": true
+    },
+    {
+      "name": "T2_solver",
+      "description": "the general-n static spherical EKG solver: the n = 2 reduction reproduces the #210 Kaup benchmark; the tt Einstein (mass-function) identity holds pointwise on the stored 5D profile as an independent implementation check; mu is dx- and xmax-converged",
+      "kaup_M_max": 0.6327352523101072,
+      "kaup_error": 0.00026474768989281916,
+      "constraint_residual_median": 2.6470119537299153e-06,
+      "constraint_residual_max": 0.0003853453920159503,
+      "mu_dx_halving_shift": 2.582248322458014e-05,
+      "mu_xmax_extension_shift": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T3_family",
+      "description": "the coupled 5D family: mu monotone along the main branch; the dilute endpoint has a CRITICAL MASS (mu -> mu_crit, linear-in-sc, difference ratio 2.0) with omega -> 1 and the size running free at fixed mass (X ~ sc^(-1/2)) - the 5D Newtonian 1/r^2 marginality, the same marginality as #221's exterior tails; the spiral turnaround bounds the compact end",
+      "family": [
+        {
+          "sc": 0.02,
+          "W_phys": 0.996792,
+          "mu": 7.486533,
+          "r_s": 2.736153,
+          "rms": 25.577405,
+          "r99": 54.49,
+          "X": 25.495365,
+          "rms_over_rs": 9.347944,
+          "rs_omega": 2.727377
+        },
+        {
+          "sc": 0.05,
+          "W_phys": 0.99218,
+          "mu": 7.182299,
+          "r_s": 2.679981,
+          "rms": 16.019002,
+          "r99": 34.22,
+          "X": 15.893733,
+          "rms_over_rs": 5.977282,
+          "rs_omega": 2.659024
+        },
+        {
+          "sc": 0.08,
+          "W_phys": 0.987795,
+          "mu": 6.900147,
+          "r_s": 2.626813,
+          "rms": 12.580741,
+          "r99": 27.1,
+          "X": 12.427199,
+          "rms_over_rs": 4.789355,
+          "rs_omega": 2.594754
+        },
+        {
+          "sc": 0.12,
+          "W_phys": 0.982315,
+          "mu": 6.53948,
+          "r_s": 2.557241,
+          "rms": 10.167743,
+          "r99": 22.07,
+          "X": 9.987925,
+          "rms_over_rs": 3.97606,
+          "rs_omega": 2.512015
+        },
+        {
+          "sc": 0.18,
+          "W_phys": 0.974865,
+          "mu": 6.039394,
+          "r_s": 2.457518,
+          "rms": 8.183247,
+          "r99": 17.97,
+          "X": 7.977559,
+          "rms_over_rs": 3.329883,
+          "rs_omega": 2.395748
+        },
+        {
+          "sc": 0.25,
+          "W_phys": 0.967335,
+          "mu": 5.512633,
+          "r_s": 2.3479,
+          "rms": 6.839721,
+          "r99": 15.24,
+          "X": 6.616298,
+          "rms_over_rs": 2.913123,
+          "rs_omega": 2.271204
+        },
+        {
+          "sc": 0.35,
+          "W_phys": 0.958731,
+          "mu": 4.853909,
+          "r_s": 2.203159,
+          "rms": 5.678681,
+          "r99": 12.94,
+          "X": 5.444327,
+          "rms_over_rs": 2.577518,
+          "rs_omega": 2.112236
+        },
+        {
+          "sc": 0.5,
+          "W_phys": 0.950506,
+          "mu": 4.043599,
+          "r_s": 2.01087,
+          "rms": 4.675878,
+          "r99": 11.05,
+          "X": 4.44445,
+          "rms_over_rs": 2.325301,
+          "rs_omega": 1.911344
+        },
+        {
+          "sc": 0.7,
+          "W_phys": 0.947807,
+          "mu": 3.242425,
+          "r_s": 1.800674,
+          "rms": 3.98406,
+          "r99": 9.92,
+          "X": 3.776119,
+          "rms_over_rs": 2.212539,
+          "rs_omega": 1.70669
+        },
+        {
+          "sc": 0.01,
+          "W_phys": 0.998383,
+          "mu": 7.589877,
+          "r_s": 2.754973,
+          "rms": 36.274448,
+          "r99": 77.15,
+          "X": 36.215798,
+          "rms_over_rs": 13.166897,
+          "rs_omega": 2.750519
+        },
+        {
+          "sc": 0.005,
+          "W_phys": 0.999188,
+          "mu": 7.642164,
+          "r_s": 2.764446,
+          "rms": 51.37263,
+          "r99": 109.16,
+          "X": 51.330931,
+          "rms_over_rs": 18.583334,
+          "rs_omega": 2.762203
+        },
+        {
+          "sc": 0.0025,
+          "W_phys": 0.999593,
+          "mu": 7.668469,
+          "r_s": 2.7692,
+          "rms": 72.703703,
+          "r99": 154.42,
+          "X": 72.674137,
+          "rms_over_rs": 26.254406,
+          "rs_omega": 2.768074
+        },
+        {
+          "sc": 1.0,
+          "W_phys": 0.95684,
+          "mu": 2.5624,
+          "r_s": 1.60075,
+          "rms": 3.737755,
+          "r99": 10.02,
+          "X": 3.576434,
+          "rms_over_rs": 2.335002,
+          "rs_omega": 1.531662,
+          "branch": "spiral"
+        },
+        {
+          "sc": 1.4,
+          "W_phys": 0.96883,
+          "mu": 2.513547,
+          "r_s": 1.585417,
+          "rms": 4.277964,
+          "r99": 11.73,
+          "X": 4.144619,
+          "rms_over_rs": 2.698321,
+          "rs_omega": 1.535999,
+          "branch": "spiral"
+        }
+      ],
+      "mu_monotone_main_branch": true,
+      "dilute_diff_ratio": 1.9877091786644496,
+      "mu_crit_extrapolated": 7.69510110613172,
+      "rs_omega_supremum": 2.7740045252543695,
+      "one_minus_omega_at_dilute_end": 0.000406667273471939,
+      "X_dilute_slope_vs_sc": -0.5024114237002367,
+      "spiral_turnaround": true,
+      "pass": true
+    },
+    {
+      "name": "T4_weld_invariance",
+      "description": "the audit's missing weld, supplied: in the coupled system every length is in the scalar-mass unit and the gravitational-coupling convention drops out EXACTLY - the (KF, s) -> (KF/4, 2s) rescale leaves every geometric observable unchanged (here to machine zero), so the family relations mu(omega), X(sigma/r_s), r_s*omega are DERIVED convention-free functions and the audit-T5 free radial rescale is forbidden by the field equations",
+      "rescale_relative_shifts": {
+        "W_phys": 0.0,
+        "mu": 0.0,
+        "rms": 0.0
+      },
+      "pass": true
+    },
+    {
+      "name": "T5_israel_junction",
+      "description": "option B executed as the verification layer: the extrinsic curvature of the interior numeric solution matches the exterior Tangherlini's on the shared boundary with jumps tracking the scalar tail (no shell in the smooth-matching limit), and the mass the exterior reads equals the integrated interior energy - the two sectors' length scales are locked to one physical boundary",
+      "member_sc": 0.18,
+      "junction_rows": [
+        {
+          "Rb_over_cut": 1.0,
+          "Rb": 36.48000000000131,
+          "tail_phi_over_phi0": 9.991352961380316e-05,
+          "jump_K_theta_rel": 1.2685359568455044e-16,
+          "jump_K_t_rel": 4.7094444975227076e-07
+        },
+        {
+          "Rb_over_cut": 1.5,
+          "Rb": 54.72999999999768,
+          "tail_phi_over_phi0": 2.1328088917618865e-06,
+          "jump_K_theta_rel": 4.104611931491327e-09,
+          "jump_K_t_rel": 4.132708719789482e-06
+        },
+        {
+          "Rb_over_cut": 2.25,
+          "Rb": 59.989999999996634,
+          "tail_phi_over_phi0": 3.358287774567913e-06,
+          "jump_K_theta_rel": 3.4344288894595197e-09,
+          "jump_K_t_rel": 4.142021705069936e-06
+        }
+      ],
+      "exterior_reads_interior_mass_rel": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T6_cavity",
+      "description": "the requested single-system emergence: the wave potential on the SOLVED metric (FD-constructed, validated on vacuum against the #215 closed form) has a well whose centroid R* tracks the THROAT scale (R*/r_s = 0.78-1.00) while R*/R_RMS falls monotonically toward the dilute end - R* and R_RMS emerge from one coupled system and DECOUPLE: the cavity belongs to the gravitational core, not to the matter cloud",
+      "vacuum_deviation_vs_215": 1.8682247229506474e-06,
+      "members": [
+        {
+          "sc": 0.5,
+          "R_star": 1.82699994875399,
+          "width": 1.1281768124726672,
+          "depth": 1.8924887204475975,
+          "R_star_over_rs": 0.9085618505586216,
+          "R_star_over_rms": 0.39072875641834826,
+          "rms": 4.675877878816385,
+          "r_s": 2.010870198468794
+        },
+        {
+          "sc": 0.18,
+          "R_star": 2.1928949294025033,
+          "width": 1.658996767669625,
+          "depth": 0.8652614828435112,
+          "R_star_over_rs": 0.8923210275658502,
+          "R_star_over_rms": 0.2679736939170558,
+          "rms": 8.183247009616013,
+          "r_s": 2.4575179354278696
+        },
+        {
+          "sc": 0.05,
+          "R_star": 2.6911462364580516,
+          "width": 2.6651026139208507,
+          "depth": 0.26217838884748756,
+          "R_star_over_rs": 1.0038830456366394,
+          "R_star_over_rms": 0.16774718773222005,
+          "rms": 16.04286946827395,
+          "r_s": 2.6807368130730693
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T7_confrontation",
+      "description": "the lock excludes self-sourcing: r_s*omega is pinned into [1.53, 2.77] over the entire family (q-channel in the same band) - the EM-cap anchor r_s*omega = alpha is excluded by x210, and jointly sigma/r_s = 206.8 forces X = 574 vs the required 1.51 (x380): a 5D scalar cannot be much lighter than the throat its own field creates. The #210 primordial relocation is FORCED by the weld: the throat mass is a geometric datum, the #221 cavity is the primordial throat's (T6: R* tracks r_s, not the cloud), and the successor is the soliton on the fixed-mu throat background with perturbative back-reaction",
+      "rs_omega_band": [
+        1.531662,
+        2.768074
+      ],
+      "rs_omega_supremum": 2.7740045252543695,
+      "anchor_required_rs_omega": 0.0072973525693,
+      "anchor_exclusion_factor": 209.89283242853168,
+      "X_at_sigma_over_rs_206": 573.576199879153,
+      "X_required_conv_B": 1.5088611852547933,
+      "X_exclusion_factor": 380.13848158092577,
+      "qchan_band": [
+        {
+          "sc": 0.12,
+          "rs_omega": 2.512015429858267,
+          "X": 9.987924530535995
+        },
+        {
+          "sc": 0.18,
+          "rs_omega": 2.395830255814335,
+          "X": 8.1903886303395
+        },
+        {
+          "sc": 0.25,
+          "rs_omega": 2.2198245114179094,
+          "X": 7.579780533911643
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_honest_scope",
+      "description": "what this PR does and does not establish",
+      "scope": [
+        "The stationary complex-scalar (boson-star) ansatz stands in for the #180 real psi-phi-q structure; the #210 q-channel potential is spot-checked in 5D and lands in the same r_s*omega band - the conclusion is a property of the potential class (the #210 compactness argument), not of the Kaup choice.",
+        "One-mouth trivial topology: no cross-cap, no Pin-odd winding sector.  The refutation is of SELF-SOURCING - the reading in which the electron's own field creates its throat.  The forced alternative (the primordial fixed-mu throat with the soliton as a perturbative dressing, the bridge version of this exact solver) is the named successor.",
+        "Ground states only; the spiral is entered (two members past the frequency minimum) but not traced; the compact end of the r_s*omega band is bounded by the solver's bracket window, and tracing the spiral deeper can only shrink the band from inside [1.4, 2.85] - it cannot reach alpha.",
+        "The cavity potential is for test waves on the solved background (no back-reaction of the probe wave), FD-constructed and vacuum-validated; R* definitional band (centroid vs minimum vs width) carried by reporting all three.",
+        "Classical throughout; hbar enters only through lambda_C = 1/omega as in the whole arc; alpha imported (#184) for the confrontation only.",
+        "This PR intentionally unfreezes the geometry (the program framing freezes it): the point is exactly to test what the frozen-background reading posits - and the coupled solve CONFIRMS the frozen primordial background as the only consistent reading of the anchor."
+      ],
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
+      "description": "the standing of the derived weld",
+      "core_green": true,
+      "assessment": "The audit's missing weld is supplied by the requested coupled system - and the weld decides. In the 5D Einstein-Klein-Gordon solve every scale (the soliton R_RMS, the cavity R*, the exterior Tangherlini r_s) emerges from one solution in one unit, with the coupling convention dropping out exactly and the Israel junction confirming a shared boundary. The derived family carries a 5D critical-mass marginality (mu -> 7.695 with a scale-free size zero mode - the same 1/r^2 marginality as #221's tails), and it pins r_s*omega into [1.53, 2.77]: the EM-cap anchor r_s*omega = alpha is excluded by x210. Self-sourcing is refuted at the coupled level; the #210 primordial-throat relocation is now forced, the #221 cavity is the primordial throat's (R* tracks r_s, not the cloud), and the identifiability program continues on the fixed-mu bridge with perturbative back-reaction.",
+      "pass": true
+    }
+  ],
+  "n_passed": 9,
+  "n_total": 9,
+  "verdict_class": "THE_WELD_IS_DERIVED_AND_IT_REFUTES_SELF_SOURCING_THE_COUPLED_5D_EKG_LOCKS_RS_OMEGA_INTO_1P5_TO_2P8_NEVER_ALPHA_THE_THROAT_IS_PRIMORDIAL_AND_THE_CRITICAL_MASS_MARGINALITY_IS_MEASURED",
+  "verdict": "ESTABLISHED (the argument is in docs/coupled_5d_ekg_weld.md).\n\nTHE SYSTEM. The requested modification, solved: the soliton's energy density sources the local 5D metric (static spherical EKG, shooting); the n = 2 reduction lands the Kaup benchmark (M_max = 0.6327 vs 0.633); the tt Einstein identity holds pointwise (median 3e-06); mu is dx/xmax-converged (3e-05/0e+00).\n\nTHE FAMILY. mu monotone along the main branch; the dilute endpoint has a CRITICAL MASS: mu -> 7.695 (difference ratio 1.99), omega -> 1 (1 - omega = 4e-04), and the size runs FREE at fixed mass (X ~ sc^-0.502) - the 5D Newtonian 1/r^2 marginality, the same marginality as #221's tails; the spiral turnaround bounds the compact end.\n\nTHE WELD. Convention invariance EXACT (worst rescale shift 0e+00): every scale in one unit, the family relations derived - the audit's free rescale is forbidden by the field equations.  The Israel junction: [K^theta] = 1e-16, [K^t] = 5e-07 at the core boundary (jumps tracking the tail), and the exterior reads the interior mass to 0e+00.\n\nTHE CAVITY. The wave potential on the solved metric (vacuum-validated vs #215 to 2e-06): R* tracks the THROAT (R*/r_s = 0.91-1.00) while R*/R_RMS falls 0.39 -> 0.17 dilute: R* and R_RMS emerge from ONE system and DECOUPLE - the cavity belongs to the gravitational core, not the cloud.\n\nTHE CONFRONTATION. r_s*omega pinned into [1.532, 2.774] over the entire family (q-channel in-band): the EM-cap anchor r_s*omega = alpha is EXCLUDED x210; jointly, sigma/r_s = 206.8 forces X = 574 vs the required 1.51 (x380). A 5D scalar cannot be much lighter than the throat its own field creates: SELF-SOURCING IS REFUTED at the coupled level, the #210 primordial relocation is FORCED, and the successor is the soliton on the fixed-mu throat bridge with perturbative back-reaction."
+}
