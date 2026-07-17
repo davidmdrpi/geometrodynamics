@@ -4,12 +4,14 @@
 > fields, **not** quantum gravity. #210 closed the mass-ladder thread
 > onto one number: the O(1) coefficient σ_mode/λ̄_C, required
 > 88.6α = 0.6467 (convention A) or 206.8α = 1.5089 (convention B) —
-> "constrained, not derived", a ×2.3 band. This PR **derives it** —
-> no fit anywhere — on the spatially converged, spectrally stable PDE
-> eigenhistory background of #220, and demonstrates the result
-> invariant under energy budget, cavity depth, source coupling, mode
-> amplitude, and branch choice. The companion probe machine-checks
-> every claim (~1.5 min).
+> "constrained, not derived", a ×2.3 band. This PR derives the
+> **quarter-wave cavity invariant** — no fit anywhere — on the
+> spatially converged, spectrally stable PDE eigenhistory background
+> of #220, demonstrates it invariant under energy budget, cavity
+> depth, source coupling, mode amplitude, and branch choice, and
+> lands m_e/m_μ at 92–96% **conditional on the soliton↔cavity weld**
+> (§5b: the independent identifiability audit that narrows the claim).
+> The companion probe machine-checks every claim (~2 min).
 
 ## 0. Why the coefficient is derivable at all
 
@@ -117,6 +119,19 @@ shorter wavelengths) — while the amplitude-RMS definition **grows
 #202 matching radius as the physical definition of σ_mode; the RMS
 convention is a fundamental-only surrogate.
 
+**The alternative branch is run, not just measured**: the second odd
+branch's complete Gauss–Newton orbit (deep cavity D = 24; residual
+6×10⁻¹³; the source still exactly decoupled, q* ≈ 10⁻¹⁵; complete
+monodromy unit-circle to 2×10⁻¹³) carries
+
+```
+X_match(branch 2 orbit) = 1.57070   —   π/2 to 1×10⁻⁴
+```
+
+— the alternative rung of the eigenhistory ladder is a genuine,
+spectrally stable, energy-closed orbit carrying the *same* derived
+coefficient, closer to the hard-wall theorem than the fundamental.
+
 ## 5. The confrontation — zero fitted numbers
 
 Inputs: the throat geometry (r_h = 1) and α (the #184-protected
@@ -146,6 +161,54 @@ c = ln(X/α) = 5.38 vs the convention-B-observed ln(m_μ/m_e) = 5.33 —
 #210's "c = ln(1/α) + O(1)" with the O(1) now **computed** (ln X ≈
 ln π/2 = 0.45).
 
+**The alternate branch, run.** The even (k = 0 channel) branch behind
+the conv-A alternate is put through the *same* full machinery — the
+source-**coupled** Gauss–Newton orbit (residual 4×10⁻¹³, q* =
+−6.2×10⁻³ genuinely nonzero, the coupling contrast with the odd
+branch; complete monodromy unit-circle to 3×10⁻¹²) carries
+X_u = 0.6395, landing the parity-excluded alternate at
+
+```
+m_e/m_μ (even + conv A) = 0.004891 = 101.1% of observed
+```
+
+— **numerically closer than the primary**. Stated plainly: the
+alternate's exclusion is purely structural (#202's parity theorem
+forces the k = 1 mode odd), not numerical. The parity identification
+is therefore the sharpest falsification target for the 5D
+bridge-measure successor, which adjudicates between the two readings
+— either outcome is decisive.
+
+## 5b. The independent identifiability audit — the claim, narrowed
+
+`lepton_o1_identifiability_audit_probe` (independent companion, 8/8
+PASS) audits the *logical status* of the coefficient, and its verdict
+is adopted here:
+
+- **Unconditional**: the quarter-wave invariant — X_cavity = π/2 +
+  throat shift, regulator/exterior/amplitude/coupling/branch-robust —
+  is a validated property of the throat cavity.
+- **Conditional**: the m_e/m_μ landing. Within the *existing*
+  equations, #202/#203's σ_mode is the **soliton** IR localization
+  scale (the vacuum throat problem has no bound state; it supplies
+  only the suppression law), and no current equation welds the soliton
+  length unit to the cavity/bridge unit: the audit shows the soliton
+  length family (r50/r90/r95/RMS/R*) spans **×4** under the cavity
+  frequency, and a rescaling of the soliton radial unit moves X
+  linearly while leaving all normalized soliton shape data unchanged.
+  Identifying σ_mode with the cavity antinode — the
+  eigenhistory-particle identification this PR is built on — is
+  therefore a *posit* the current equations neither derive nor
+  exclude.
+- **The successor contract** (the audit's executable list): one
+  coupled Pin-Dirac/soliton state on the Tangherlini bridge; the ρ³
+  5D radial measure in the normalization; the 3D-soliton-radius →
+  5D-bridge-coordinate map derived from the action; the
+  neck-to-asymptotic overlap functional computed, not defined by an
+  antinode; convergence under grid/boundary/matching refinement;
+  Floquet stability used only to reject unstable branches; the
+  coefficient locked *before* comparison with the observed masses.
+
 The residual 4–8% is real and one-sided (the throat correction pushes
 X *up* from π/2 while the observation sits 4% *below* it) — owned by
 the named successor below.
@@ -166,8 +229,10 @@ the named successor below.
   is stable to 4% over depth 8–48 (band carried); the physically
   capped depth (the α-capped tortoise depth) is a successor
   refinement.
-- The even-parity/conv-A alternate lands in-band numerically but is
-  **parity-excluded** by #202; it is recorded, not used.
+- The even-parity/conv-A alternate is run through the full machinery
+  (§5) and lands at 101.1% of observed — *closer than the primary* —
+  but is **parity-excluded** by #202; the exclusion is structural, not
+  numerical, and the 5D bridge-measure successor adjudicates.
 - Classical, zonal scalar, frozen geometry; ℏ enters only through
   λ̄_C = ℏ/mc (the B4 anchor), as always.
 
@@ -195,10 +260,21 @@ the named successor below.
 ## 8. Companion probe
 
 `experiments/closure_ledger/lepton_o1_coefficient_probe.py` (T1–T9,
-~1.5 min): the hard-wall closed forms; the parity dichotomy and the
+~2 min): the hard-wall closed forms; the parity dichotomy and the
 measurement; the regulator/exterior/grid robustness; the
 source-decoupled eigenhistory orbit with complete monodromy; the
-five-knob invariance suite; the confrontation.
+five-knob invariance suite with the alternative branches run; the
+confrontation with the conditionality stated.
+
+`experiments/closure_ledger/lepton_o1_identifiability_audit_probe.py`
+(independent, 8/8): the definition ledger; the quarter-wave benchmark
+classification; the soliton localization family; the cross-sector
+non-uniqueness; the scale-weld falsification; the stability role; the
+successor contract.
 
 **Verdict:**
-`THE_REMAINING_O1_IS_DERIVED_THE_ODD_THROAT_FUNDAMENTAL_GIVES_X_EQUALS_PI_OVER_2_PLUS_THROAT_SHIFT_AND_ME_OVER_MMU_EQUALS_ALPHA_OVER_X_AT_92_TO_96_PERCENT_NO_FIT`
+`THE_QUARTER_WAVE_INVARIANT_IS_DERIVED_PI_OVER_2_PLUS_THROAT_SHIFT_AND_THE_ME_OVER_MMU_LANDING_AT_92_TO_96_PERCENT_IS_CONDITIONAL_ON_THE_SOLITON_CAVITY_WELD`
+
+**Independent audit:**
+`lepton_o1_identifiability_audit_probe` (8/8) —
+`QUARTER_WAVE_INVARIANT_VALIDATED_BUT_LEPTON_COEFFICIENT_NOT_IDENTIFIABLE_UNTIL_THE_SOLITON_TO_5D_SCALE_WELD_IS_DERIVED`

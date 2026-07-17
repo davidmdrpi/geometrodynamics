@@ -52,6 +52,21 @@ k = 1 law eps_1 = r_s/sigma_mode:
   fitted numbers (inputs: the throat geometry and alpha; m_mu enters
   only as the anchor scale, m_e is never used).
 
+CONDITIONALITY (the independent audit)
+--------------------------------------
+The independent identifiability audit
+(lepton_o1_identifiability_audit_probe, 8/8) validates the
+quarter-wave invariant as UNCONDITIONAL but shows that, within the
+EXISTING equations, #202/#203's sigma_mode is the soliton IR
+localization scale and no current equation welds the soliton length
+unit to the cavity/bridge unit (the soliton length family spans x4
+under the cavity frequency; a radial-unit rescale moves X linearly).
+The m_e/m_mu landing above is therefore CONDITIONAL on the
+eigenhistory-particle identification (sigma_mode = the cavity
+antinode); the audit's successor contract - the coupled
+Pin-Dirac/soliton state on the bridge with the rho^3 measure and an
+action-derived 3D-to-5D map - is what derives or refutes the weld.
+
 Tests:
   T1. Goal.
   T2. The identifications and the hard-wall theorems (closed forms for
@@ -75,9 +90,9 @@ Tests:
   T9. Assessment.
 
 Verdict:
-  THE_REMAINING_O1_IS_DERIVED_THE_ODD_THROAT_FUNDAMENTAL_GIVES_X_EQUALS
-  _PI_OVER_2_PLUS_THROAT_SHIFT_AND_ME_OVER_MMU_EQUALS_ALPHA_OVER_X_AT_
-  92_TO_96_PERCENT_NO_FIT
+  THE_QUARTER_WAVE_INVARIANT_IS_DERIVED_PI_OVER_2_PLUS_THROAT_SHIFT_
+  AND_THE_ME_OVER_MMU_LANDING_AT_92_TO_96_PERCENT_IS_CONDITIONAL_ON_
+  THE_SOLITON_CAVITY_WELD
 """
 
 from __future__ import annotations
@@ -305,6 +320,125 @@ def _orbit_X_match(orb):
         acc_u += zz[:N] ** 2
     d_anti = _antinode(dcen, np.sqrt(acc_u), dx, s['D_int'])
     return float(d_anti * 2 * math.pi / T)
+
+
+def _gn_orbit(s, u_seed, w_seed, phase, q0=0.0):
+    """General #220-style Gauss-Newton periodic orbit on geometry s.
+    phase = 'field' (<u, pi> = 0, for the source-decoupled odd
+    branches) or 'source' (p(0) = 0, the #220 condition, for the
+    source-coupled even branch)."""
+    N, dx, V = s['N'], s['dx'], s['V']
+    z = np.concatenate([u_seed, 0 * u_seed, [q0, 0.0]])
+    T = 2 * math.pi / w_seed
+    E0 = round(sum(bg._h_parts_at(u_seed, 0 * u_seed, q0, 0.0,
+                                  dx, V)), 3)
+    n_dim = 2 * N + 2
+
+    def hh(zz):
+        return sum(bg._h_parts_at(zz[:N], zz[N:2 * N], zz[2 * N],
+                                  zz[2 * N + 1], dx, V))
+
+    def ph(zz):
+        if phase == 'field':
+            return float(np.dot(zz[:N], zz[N:2 * N]))
+        return float(zz[2 * N + 1])
+
+    def residual(zz, TT):
+        zT = bg._flow_batch_at(zz[:, None], TT, bg._NS, N, dx, V)[:, 0]
+        return np.concatenate([zT - zz, [hh(zz) - E0, ph(zz)]])
+
+    for _ in range(10):
+        R = residual(z, T)
+        if np.linalg.norm(R) < 1e-11:
+            break
+        eps = 1e-7
+        Zb = np.concatenate([z[:, None],
+                             z[:, None] + eps * np.eye(n_dim)], axis=1)
+        ZT = bg._flow_batch_at(Zb, T, bg._NS, N, dx, V)
+        base = ZT[:, 0]
+        hb = hh(z)
+        ph_b = ph(z)
+        J = np.empty((n_dim + 2, n_dim + 1))
+        for j in range(n_dim):
+            zj = Zb[:, j + 1]
+            dtop = (ZT[:, j + 1] - base) / eps - (zj - z) / eps
+            J[:, j] = np.concatenate(
+                [dtop, [(hh(zj) - hb) / eps, (ph(zj) - ph_b) / eps]])
+        zT2 = bg._flow_batch_at(z[:, None], T + eps, bg._NS, N,
+                                dx, V)[:, 0]
+        J[:, n_dim] = np.concatenate([(zT2 - base) / eps, [0.0, 0.0]])
+        step, *_ = np.linalg.lstsq(J, -R, rcond=None)
+        z = z + step[:n_dim]
+        T = T + step[n_dim]
+    return {'s': s, 'z': z, 'T': float(T), 'E0': E0,
+            'residual': float(np.linalg.norm(residual(z, T)))}
+
+
+def _orbit_measures(orb, first=False):
+    """Orbit-averaged (X_match, X_u) and the complete-monodromy
+    unit-circle deviation for a general orbit."""
+    s, z, T = orb['s'], orb['z'], orb['T']
+    N, dx, V = s['N'], s['dx'], s['V']
+    dcen = _neck_distance(s)
+    zz = z.copy()
+    acc_u = np.zeros(N)
+    for _ in range(64):
+        zz = bg._flow_batch_at(zz[:, None], T / 64, bg._NS // 64,
+                               N, dx, V)[:, 0]
+        acc_u += zz[:N] ** 2
+    w = 2 * math.pi / T
+    if first:
+        d_anti = _first_antinode(dcen, np.sqrt(acc_u))
+    else:
+        d_anti = _antinode(dcen, np.sqrt(acc_u), dx, s['D_int'])
+    sig_u = math.sqrt(float(np.sum(acc_u * dcen ** 2) / np.sum(acc_u)))
+    ev = np.linalg.eigvals(bg._monodromy_at(N, z, T, dx, V))
+    return {'X_match': float(d_anti * w), 'X_u': float(sig_u * w),
+            'monodromy_max_dev': float(np.abs(np.abs(ev) - 1).max())}
+
+
+def alt_branch2_orbit():
+    """The ALTERNATIVE odd branch (second rung) as a complete orbit:
+    deep cavity D = 24 so it sits below the barrier top."""
+    if 'ALT_B2' in _CACHE:
+        return _CACHE['ALT_B2']
+    s = build_ring(_LEXT_REF, 24.0, dx_target=0.075)
+    ws, evecs = _modes(s)
+    dcen = _neck_distance(s)
+    inside = np.abs(dcen) < s['D_int'] / 2
+    refl = (-np.arange(s['N'])) % s['N']
+    odd = []
+    for k in range(200):
+        u = evecs[:, k]
+        if float(np.sum(u[inside] ** 2)) < 0.6:
+            continue
+        if float(np.sum(u * u[refl])) < 0:
+            odd.append((float(ws[k]), u))
+        if len(odd) == 2:
+            break
+    w2, u2 = odd[1]
+    phi = u2 / np.sqrt(np.sum(u2 ** 2))
+    orb = _gn_orbit(s, (0.9 / np.abs(phi).max()) * phi, w2, 'field')
+    orb['w_lin'] = w2
+    _CACHE['ALT_B2'] = orb
+    return orb
+
+
+def alt_even_orbit():
+    """The even (k = 0 channel) branch as a complete source-COUPLED
+    orbit at the reference geometry - the conv-A alternate, run."""
+    if 'ALT_EV' in _CACHE:
+        return _CACHE['ALT_EV']
+    s = build_ring(_LEXT_REF, _D_REF, dx_target=0.075)
+    m = interior_pair(s)['even']
+    phi = m['u'] / np.sqrt(np.sum(m['u'] ** 2))
+    phi = phi * np.sign(phi[int(np.argmax(np.abs(phi)))])
+    u0 = (0.9 / np.abs(phi).max()) * phi
+    q0 = -bg._G * u0[0] / (bg._W0 ** 2 - m['w'] ** 2)
+    orb = _gn_orbit(s, u0, m['w'], 'source', q0=q0)
+    orb['w_lin'] = m['w']
+    _CACHE['ALT_EV'] = orb
+    return orb
 
 
 # ========================================================================
@@ -693,7 +827,16 @@ def test_T6_invariance() -> dict:
     xbr = [b['X_match_first'] for b in branches]
     rms_growth = branches[2]['X_u'] / branches[0]['X_u']
 
+    # (vi) the ALTERNATIVE branch RUN, not just measured: the second
+    # odd branch as a complete Gauss-Newton orbit + monodromy
+    b2 = alt_branch2_orbit()
+    b2m = _orbit_measures(b2, first=True)
+    b2_q = abs(float(b2['z'][2 * b2['s']['N']]))
+
     ok = (len(branches) == 3
+          and b2['residual'] < 1e-11 and b2_q < 1e-12
+          and b2m['monodromy_max_dev'] < 1e-9
+          and abs(b2m['X_match'] - _XM_ODD_HW) < 0.05
           and all(v['residual'] < 1e-11 for v in budgets.values())
           and e_ratio > 15
           and max(xb) - min(xb) < 1e-6
@@ -729,6 +872,15 @@ def test_T6_invariance() -> dict:
         'branches': branches,
         'X_match_branch_spread': float(max(xbr) - min(xbr)),
         'rms_definition_branch_growth': float(rms_growth),
+        'branch2_orbit': {
+            'D_int': 24.0, 'w_linear': b2['w_lin'],
+            'period': b2['T'], 'E0': b2['E0'],
+            'residual': b2['residual'], 'q_star': b2_q,
+            'monodromy_max_dev': b2m['monodromy_max_dev'],
+            'X_match_orbit': b2m['X_match'],
+            'X_match_minus_pi_over_2':
+                float(b2m['X_match'] - _XM_ODD_HW),
+            'X_u_orbit': b2m['X_u']},
         'pass': bool(ok),
     }
     _CACHE['T6'] = out
@@ -760,14 +912,23 @@ def test_T7_confrontation() -> dict:
     c_derived = math.log(X_ref / _ALPHA)
     c_required_B = math.log(_MMU_OVER_ME)
 
-    # the even/conv-A alternate (parity-excluded by #202; recorded)
-    X_even = t3['even']['X_u']
-    alt_pred = (3.0 / 7.0) * _ALPHA / X_even
+    # the even/conv-A alternate branch - REVIEWED AND RUN: the full
+    # source-COUPLED Gauss-Newton orbit on the even (k = 0 channel)
+    # mode, its monodromy, and its orbit-averaged X_u
+    evo = alt_even_orbit()
+    evm = _orbit_measures(evo)
+    ev_q = abs(float(evo['z'][2 * evo['s']['N']]))
+    alt_pred = (3.0 / 7.0) * _ALPHA / evm['X_u']
+    alt_land = alt_pred / _ME_OVER_MMU
 
     ok = (excluded_A
           and 0.90 < land_ref < 1.00
           and 0.90 < land_band[0] and land_band[1] < 1.00
-          and abs(pred_hw / _ME_OVER_MMU - 0.9606) < 0.01)
+          and abs(pred_hw / _ME_OVER_MMU - 0.9606) < 0.01
+          and evo['residual'] < 1e-11
+          and ev_q > 1e-4                 # genuinely source-coupled
+          and evm['monodromy_max_dev'] < 1e-9
+          and 0.60 < evm['X_u'] < 0.67)
     return {
         'name': 'T7_confrontation',
         'description': (
@@ -793,11 +954,24 @@ def test_T7_confrontation() -> dict:
         'landing_fraction_hard_wall': float(pred_hw / _ME_OVER_MMU),
         'neck_aspect_c_derived': float(c_derived),
         'neck_aspect_c_required_conv_B': float(c_required_B),
+        'even_conv_A_alternate_orbit': {
+            'residual': evo['residual'], 'period': evo['T'],
+            'E0': evo['E0'], 'q_star_coupled': ev_q,
+            'monodromy_max_dev': evm['monodromy_max_dev'],
+            'X_u_orbit': evm['X_u']},
         'even_conv_A_alternate_prediction': float(alt_pred),
+        'even_conv_A_alternate_landing': float(alt_land),
         'even_conv_A_alternate_note': (
-            'lands in-band but is parity-EXCLUDED: #202 proves the '
-            'k = 1 mode has a node at the neck (odd), and the even '
-            'mode is the k = 0 (uncharged) channel'),
+            'the alternate branch RUN, not just measured: the full '
+            'source-coupled orbit (q* genuinely nonzero, unlike the '
+            'odd branch) lands conv A at 101% of observed - '
+            'numerically CLOSER than the primary. Its exclusion is '
+            'purely structural: #202 proves the k = 1 mode has a node '
+            'at the neck (odd), and the even mode is the k = 0 '
+            '(uncharged) channel. The parity identification is '
+            'therefore the sharpest falsification target for the 5D '
+            'bridge-measure successor, which adjudicates between the '
+            'two readings.'),
         'pass': bool(ok),
     }
 
@@ -816,6 +990,22 @@ def test_T8_honest_scope() -> dict:
         'transit measure is not the 5D rho^3 bridge measure - redoing '
         'X on the true 5D radial operator is the named successor and '
         'the leading candidate for the remaining 4-8% residual.',
+        'THE INDEPENDENT IDENTIFIABILITY AUDIT '
+        '(lepton_o1_identifiability_audit_probe, 8/8 PASS) sharpens '
+        'the previous bullet into a conditionality statement: within '
+        'the EXISTING equations, #202/#203\'s sigma_mode is the '
+        'soliton IR localization scale, and no current equation welds '
+        'the soliton length unit to the cavity/bridge unit - the '
+        'soliton length family (r50/r90/r95/RMS/R*) spans x4 under '
+        'the cavity frequency, and a radial-unit rescale moves X '
+        'linearly. The quarter-wave invariant is UNCONDITIONAL; the '
+        'm_e/m_mu landing is CONDITIONAL on the eigenhistory-particle '
+        'identification (sigma_mode = the cavity antinode). The '
+        'audit\'s successor contract (the coupled Pin-Dirac/soliton '
+        'bridge state, the rho^3 measure, an action-derived 3D-to-5D '
+        'map, an antinode-free overlap functional, convergence, and '
+        'the coefficient locked BEFORE comparison) is the executable '
+        'path to deriving or refuting the weld.',
         'The winding number k is not represented in the zonal scalar; '
         'the parity of the k = 1 mode is imported from #202\'s '
         'machine-verified Pin-twisted boundary condition, not '
@@ -876,9 +1066,14 @@ def test_T9_assessment() -> dict:
         'Confronted with the #201 law at #210\'s primordial anchor, '
         'convention A is excluded and convention B lands: m_e/m_mu = '
         'alpha/X = (2 alpha/pi)(1 + throat shift) reaches 92-96% of '
-        'the observed value with zero fitted numbers. The residual '
-        '4-8% is real, stated, and owned by the named successor (the '
-        '5D bridge measure).'
+        'the observed value with zero fitted numbers - CONDITIONAL, '
+        'per the independent identifiability audit, on identifying '
+        'the #202 sigma_mode with the cavity antinode: the '
+        'quarter-wave invariant is unconditional, and the landing '
+        'awaits the soliton-cavity weld that the audit\'s successor '
+        'contract derives or refutes. The residual 4-8% is real, '
+        'stated, and owned by the same successor (the 5D bridge '
+        'measure).'
         if core else
         'INCONCLUSIVE - a core check failed; do not quote.'
     )
@@ -913,9 +1108,9 @@ def run_probe() -> dict:
     all_ok = all(t['pass'] for t in tests)
     if all_ok:
         verdict_class = (
-            "THE_REMAINING_O1_IS_DERIVED_THE_ODD_THROAT_FUNDAMENTAL_"
-            "GIVES_X_EQUALS_PI_OVER_2_PLUS_THROAT_SHIFT_AND_ME_OVER_"
-            "MMU_EQUALS_ALPHA_OVER_X_AT_92_TO_96_PERCENT_NO_FIT"
+            "THE_QUARTER_WAVE_INVARIANT_IS_DERIVED_PI_OVER_2_PLUS_"
+            "THROAT_SHIFT_AND_THE_ME_OVER_MMU_LANDING_AT_92_TO_96_"
+            "PERCENT_IS_CONDITIONAL_ON_THE_SOLITON_CAVITY_WELD"
         )
         verdict = (
             "ESTABLISHED (the argument is in "
@@ -971,7 +1166,17 @@ def run_probe() -> dict:
             f"spread {t6['X_match_branch_spread']:.3f}) while the RMS "
             f"definition grows x{t6['rms_definition_branch_growth']:.1f}"
             " - branch invariance singles out the #202 matching "
-            "radius as the physical definition.\n\n"
+            "radius as the physical definition; and the ALTERNATIVE "
+            "branch is RUN, not just measured: the second odd "
+            "branch's complete Gauss-Newton orbit (residual "
+            f"{t6['branch2_orbit']['residual']:.0e}, source still "
+            f"exactly decoupled q* = {t6['branch2_orbit']['q_star']:.0e}"
+            ", monodromy unit-circle to "
+            f"{t6['branch2_orbit']['monodromy_max_dev']:.0e}) carries "
+            f"X_match = {t6['branch2_orbit']['X_match_orbit']:.5f} - "
+            "pi/2 to "
+            f"{abs(t6['branch2_orbit']['X_match_minus_pi_over_2']):.0e}"
+            ".\n\n"
             "THE CONFRONTATION. Convention A (required "
             f"{_X_REQ_A:.4f}) EXCLUDED x{t7['conv_A_ratio']:.1f}; "
             f"convention B (required {_X_REQ_B:.4f}) SELECTED: "
@@ -985,7 +1190,37 @@ def run_probe() -> dict:
             f"{t7['landing_fraction_band'][0]:.1%}-"
             f"{t7['landing_fraction_band'][1]:.1%} of the observed "
             "ratio with ZERO fitted numbers (inputs: the throat "
-            "geometry and alpha; m_e used only for comparison)."
+            "geometry and alpha; m_e used only for comparison).\n\n"
+            "THE ALTERNATE BRANCH, RUN. The even (k = 0 channel) "
+            "branch's full source-COUPLED orbit (residual "
+            f"{t7['even_conv_A_alternate_orbit']['residual']:.0e}, "
+            f"q* = {t7['even_conv_A_alternate_orbit']['q_star_coupled']:.1e}"
+            " genuinely nonzero - the coupling contrast with the odd "
+            "branch - monodromy unit-circle to "
+            f"{t7['even_conv_A_alternate_orbit']['monodromy_max_dev']:.0e}"
+            f") carries X_u = "
+            f"{t7['even_conv_A_alternate_orbit']['X_u_orbit']:.4f} and "
+            "lands the conv-A alternate at "
+            f"{t7['even_conv_A_alternate_prediction']:.6f} = "
+            f"{t7['even_conv_A_alternate_landing']:.1%} of observed - "
+            "numerically CLOSER than the primary; its exclusion is "
+            "purely structural (#202's parity theorem), so the parity "
+            "identification is the sharpest falsification target for "
+            "the 5D bridge-measure successor, which adjudicates "
+            "between the two readings.\n\n"
+            "THE CONDITIONALITY (the independent audit). "
+            "lepton_o1_identifiability_audit_probe (8/8) validates "
+            "the quarter-wave invariant as UNCONDITIONAL but shows "
+            "that no existing equation welds the soliton length unit "
+            "(#202/#203's sigma_mode) to the cavity unit: the soliton "
+            "length family spans x4 under the cavity frequency and a "
+            "radial-unit rescale moves X linearly. The m_e/m_mu "
+            "landing is therefore CONDITIONAL on the "
+            "eigenhistory-particle identification; the audit's "
+            "successor contract (coupled Pin-Dirac/soliton bridge "
+            "state, rho^3 measure, action-derived 3D-to-5D map, "
+            "antinode-free overlap functional, coefficient locked "
+            "before comparison) derives or refutes the weld."
         )
     else:
         verdict_class = "LEPTON_O1_COEFFICIENT_INCONCLUSIVE"
