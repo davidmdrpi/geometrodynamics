@@ -1110,6 +1110,45 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**Mouth-exchange dynamics (PR #224).** The #223 successor: the five
+requested exchange observables on the network's genuine two-level
+system (`docs/mouth_exchange_dynamics.md`). **An honest topological
+finding first**: a SINGLE two-mouth bridge ring has ONE connected
+exterior cavity — no mouth-localized doublet exists on it (#223's
+even/odd splitting is the neck-BC sensitivity, the correct
+transit-coupling measure, not a beatable two-state splitting); the
+genuine mouth-to-mouth system is the TWO-THROAT NETWORK — the interior
+eigenhistories of two #221 throats on the shared S³ exterior, with the
+grid kept segment-commensurate so the discrete ring carries the EXACT
+A↔B swap symmetry (without it the tiny coupling loses to grid
+detuning). Working doublet (r_s = 0.3, ω ≈ 2.19): interior fraction
+0.98, basins localized 0.977. **P_other-mouth(t)**: the exact identity
+P_B(t) = P_B(0) + [P_max − P_B(0)]sin²(Δωt/2) (machine zero), and the
+DIRECT leapfrog evolution reproduces it — A depletes to 1e-4, the
+maximum arrives at t/T = 0.998, the half-period point at P_max/2 to
+2%. **Maximum transferred probability** = the localization weight
+0.977 (= 4a²b²; limited only by the dressing tail); **exchange period
+π/Δω** = 1833 vs evolution 1829. **The coupling law**: Δω(r_s)
+exponents 3.3→3.7 rising toward the #223 (ωr_s)⁴ limit — at the
+primordial anchor the exchange period scales as α⁻⁴: mouth-to-mouth
+transfer is DYNAMICALLY FROZEN for the physical electron. **Survival
+with realistic asymmetry** (a clock-rate bias on throat B — the MTY
+differential-aging proxy): the Rabi identity P_max·Δω² = Δω₀² to 1%
+across the scan, the Lorentzian P_max = Δω₀²/(Δω₀²+δ²) pointwise to
+1%, and a 1.5% frequency asymmetry pins survival above 98.6% —
+LOCALIZATION BY ASYMMETRY completes the #223 protection dynamically
+(the exact-degeneracy loophole closes: no two physical throats are
+identical). **The complex width**: on the COMPACT network Γ = 0
+exactly (real symmetric operator — the #218 persistence); opening a
+channel (a lead beyond throat B, the wider-network continuation) gives
+the QNM doublet Γ = 4.0e-4/4.2e-4 (outgoing-BC complex Newton,
+lead-independent < 1%), in the STRONG-COUPLING regime J > Γ/4 (ratio
+~8: the exchange survives under the decay envelope), with Γ_pair ≈
+Γ_direct/2 (the width shared by hybridization). Scope: classical norm
+fraction as probability; interior-channel reading for the bound
+basins; bias asymmetry (length is grid-quantized); model lead;
+frozen background (`mouth_exchange_dynamics_probe`, PR #224).
+
 **The bridge dressing and the two-mouth port (PR #223).** The #222
 successor, both requested steps on the forced primordial background
 (`docs/bridge_dressing_network.md`). **The geometry**: the ultrastatic

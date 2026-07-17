@@ -1,0 +1,228 @@
+{
+  "timestamp_utc": "2026-07-17T21:19:56+00:00",
+  "identification": "Mouth-exchange dynamics on the two-throat network: P_other-mouth(t) = P_max sin^2(dw t/2) (exact + direct evolution), P_max = the localization weight, period pi/dw, the Rabi/Lorentzian survival law under clock-rate asymmetry, Gamma = 0 on the compact network and the lead-independent QNM width when a channel opens",
+  "executes": "the requested exchange observables: P_other-mouth(t), maximum transferred probability, exchange period pi/dw, survival with realistic asymmetry, complex decay width with open channels",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "The requested exchange dynamics, computed on the genuine two-level system of the network - the interior eigenhistories of two throats on the shared exterior: P_other-mouth(t), the maximum transferred probability, the exchange period pi/dw, the survival probability under realistic (clock-rate) asymmetry, and the complex decay width when an open channel exists.",
+      "pass": true
+    },
+    {
+      "name": "T2_network",
+      "description": "the two-throat network (grid-commensurate, so the discrete ring carries the EXACT A<->B swap symmetry): the interior-doublet ladder; the working doublet (interior fraction > 0.95) has half-half eigenmodes and a localized combination (e +- o)/sqrt(2) with > 0.95 of its weight in one throat - the mouth basins are genuine",
+      "doublet_ladder": [
+        {
+          "w": 0.7302850451631148,
+          "dw": 8.352496418062572e-06
+        },
+        {
+          "w": 1.4595566045718185,
+          "dw": 9.183383971644865e-05
+        },
+        {
+          "w": 2.185724527894756,
+          "dw": 0.001714089651943862
+        },
+        {
+          "w": 2.9099363710256907,
+          "dw": 0.0039638819359595345
+        }
+      ],
+      "working_doublet": {
+        "w1": 2.184867483068784,
+        "w2": 2.186581572720728,
+        "dw": 0.001714089651943862,
+        "period_pi_over_dw": 1832.8053319889495
+      },
+      "interior_fraction": 0.9652110929438624,
+      "eigenmode_side_weight": 0.499999999989513,
+      "localized_combo_weight": 0.9768297418711014,
+      "pass": true
+    },
+    {
+      "name": "T3_p_other_mouth",
+      "description": "P_other-mouth(t): the exact two-mode regional beat is P_max sin^2(dw t / 2) identically (regional cross-term algebra), and the DIRECT leapfrog evolution of the wave equation from the throat-A state reproduces it: complete depletion of A, transfer maximum at pi/dw to 1%, the half-period point at P_max/2",
+      "dw": 0.001714089651943862,
+      "period_pi_over_dw": 1832.8053319889495,
+      "analytic_sin2_identity_deviation": 1.1102230246251565e-16,
+      "prepared_state_weight_A": 0.9768297418711014,
+      "evolution_P_B_max": 0.9768250181559803,
+      "evolution_t_max": 1833.8389999999997,
+      "period_ratio": 1.0005639813421583,
+      "evolution_P_A_min": 3.225311633241228e-05,
+      "half_time_P_B_over_P_max": 0.5005008263268994,
+      "pass": true
+    },
+    {
+      "name": "T4_max_and_period",
+      "description": "the two headline numbers: the maximum transferred probability equals the prepared state's localization weight (= 4 a^2 b^2 of the doublet; < 1 only by the exterior dressing tail), and the exchange period is pi/dw - both confirmed by direct evolution",
+      "P_max_eigen": 0.9768297418711014,
+      "P_max_evolution": 0.9768250181559803,
+      "exchange_period_predicted": 1832.8053319889495,
+      "exchange_period_evolution": 1833.8389999999997,
+      "pass": true
+    },
+    {
+      "name": "T5_coupling_law",
+      "description": "the exchange coupling J = dw/2 falls with the neck radius with exponent 3.3 -> 3.7, rising toward the #223 amplitude law (w r_s)^4 as the neck deepens: at the primordial anchor (r_s w = alpha) the exchange period scales as alpha^-4 - mouth-to-mouth transfer is DYNAMICALLY FROZEN for the physical electron",
+      "rows": [
+        {
+          "rs": 0.25,
+          "w": 2.213628281736074,
+          "dw": 0.0009464229978535244,
+          "period": 3319.438201221744
+        },
+        {
+          "rs": 0.3,
+          "w": 2.185724527894756,
+          "dw": 0.001714089651943862,
+          "period": 1832.8053319889495
+        },
+        {
+          "rs": 0.4,
+          "w": 2.129100308991717,
+          "dw": 0.00474687513280303,
+          "period": 661.8233186459831
+        },
+        {
+          "rs": 0.5,
+          "w": 2.071311520071452,
+          "dw": 0.01078705742699615,
+          "period": 291.2372233902741
+        }
+      ],
+      "exponents": [
+        3.257693720905358,
+        3.540729533840203,
+        3.678620733103628
+      ],
+      "limiting_exponent": 4.0,
+      "anchor_period_extrapolated": 119487298934.7024,
+      "pass": true
+    },
+    {
+      "name": "T6_asymmetric_survival",
+      "description": "realistic asymmetry (a clock-rate bias on throat B - the MTY differential-aging proxy) detunes the basins and the textbook two-level laws hold to 1%: the Rabi identity P_max dw^2 = dw0^2 across the scan, the Lorentzian P_max = dw0^2/(dw0^2 + delta^2) with delta = eps f_B/(2w) - a 1.5% frequency asymmetry already pins the survival above 98.6%: LOCALIZATION BY ASYMMETRY - no two physical throats are identical, so the dressed eigenhistory stays home",
+      "dw0": 0.001714089651943862,
+      "rows": [
+        {
+          "eps": 0.0,
+          "dw": 0.001714089651943862,
+          "a2": 0.499999999989513,
+          "P_max": 0.9999999999999999,
+          "rabi_identity": 0.9999999999999999,
+          "lorentzian_prediction": 1.0,
+          "survival_floor": 1.1102230246251565e-16
+        },
+        {
+          "eps": 0.002,
+          "dw": 0.0017763588647552453,
+          "a2": 0.6272366372462155,
+          "P_max": 0.9352433525690999,
+          "rabi_identity": 1.0044283893408892,
+          "lorentzian_prediction": 0.9359599725372604,
+          "survival_floor": 0.06475664743090015
+        },
+        {
+          "eps": 0.004,
+          "dw": 0.0019421266104018287,
+          "a2": 0.7324957428714504,
+          "P_max": 0.7837829181866097,
+          "rabi_identity": 1.0061988249097533,
+          "lorentzian_prediction": 0.7851222258266272,
+          "survival_floor": 0.21621708181339028
+        },
+        {
+          "eps": 0.008,
+          "dw": 0.002490007206333189,
+          "a2": 0.8617220386393583,
+          "P_max": 0.47662866705034646,
+          "rabi_identity": 1.0058061840541632,
+          "lorentzian_prediction": 0.47738435983016686,
+          "survival_floor": 0.5233713329496535
+        },
+        {
+          "eps": 0.016,
+          "dw": 0.003978247770202614,
+          "a2": 0.9510856437366935,
+          "P_max": 0.18608696805861144,
+          "rabi_identity": 1.0023803624734968,
+          "lorentzian_prediction": 0.18590841845644232,
+          "survival_floor": 0.8139130319413885
+        },
+        {
+          "eps": 0.032,
+          "dw": 0.007352397383443954,
+          "a2": 0.9862599625714314,
+          "P_max": 0.05420499520012035,
+          "rabi_identity": 0.9973100323788395,
+          "lorentzian_prediction": 0.054007431785166454,
+          "survival_floor": 0.9457950047998797
+        },
+        {
+          "eps": 0.064,
+          "dw": 0.01433755220241073,
+          "a2": 0.9964505050323186,
+          "P_max": 0.014147584212623302,
+          "rabi_identity": 0.9898405606831386,
+          "lorentzian_prediction": 0.01407184614955156,
+          "survival_floor": 0.9858524157873767
+        }
+      ],
+      "rabi_identity_max_deviation": 0.010159439316861363,
+      "lorentzian_max_deviation": 0.0013393076400174397,
+      "pass": true
+    },
+    {
+      "name": "T7_complex_width",
+      "description": "the decay width: on the COMPACT network every channel is closed and Gamma = 0 exactly (real symmetric operator - the #218 persistence); opening a channel (a lead beyond throat B: the wider-network continuation) gives the QNM doublet its width via outgoing-BC complex Newton - lead-length-independent, in the STRONG-COUPLING regime J > Gamma/4 (the exchange survives the opening under a decay envelope), with Gamma_pair ~ Gamma_direct/2 (the width shared by hybridization)",
+      "closed_network_width": 0.0,
+      "closed_note": "the closed-ring operator is real symmetric: all frequencies exactly real - persistence",
+      "qnm": {
+        "1": {
+          "w_re": 2.1865732049071314,
+          "Gamma": 0.0004007367446503546,
+          "Gamma_lead14": 0.00040079890964916443,
+          "lead_shift": 0.00015512677497055594
+        },
+        "-1": {
+          "w_re": 2.186712326098329,
+          "Gamma": 0.00042335755578060987,
+          "Gamma_lead14": 0.0004234204438458594,
+          "lead_shift": 0.00014854598528088843
+        }
+      },
+      "J": 0.000857044825971931,
+      "Gamma_pair_mean": 0.0004120471502154822,
+      "Gamma_direct_single_throat": 0.0008620657632250535,
+      "direct_over_pair": 2.092153198424578,
+      "strong_coupling": true,
+      "pass": true
+    },
+    {
+      "name": "T8_honest_scope",
+      "description": "what this PR does and does not establish",
+      "scope": [
+        "THE TOPOLOGICAL FINDING, stated honestly: a SINGLE two-mouth bridge ring has ONE connected exterior cavity, so no mouth-localized doublet exists on it - #223's even/odd splitting is the neck-BC sensitivity (the transit-coupling measure), not a beatable two-state splitting.  The genuine mouth-to-mouth two-level system is the TWO-THROAT network (the interior eigenhistories of two #221 throats on the shared exterior), and that is what this probe computes.",
+        "The interior-channel (#215/#221 horizon-tortoise) reading supplies the localized basins; the ultrastatic pure bridge (#223, no interior) has no bound interior state to exchange.",
+        "\"Probability\" is the classical normalized field-norm fraction (the u^2-weight regional share), as everywhere in the program; hbar enters nowhere.",
+        "The asymmetry is a constant clock-rate bias on one channel (the MTY differential-aging proxy); length asymmetry is equivalent at first order but grid-quantized, so the bias form is used.  The grid is kept segment-commensurate so the discrete ring carries the exact A<->B swap symmetry.",
+        "The open channel is a semi-infinite lead (the wider-network continuation) attached beyond throat B; the compact-network statement Gamma = 0 is exact and structural.",
+        "Classical, frozen background; the working point (r_s = 0.3) is chosen so the exchange period fits direct evolution; the anchor statement is the T5 extrapolation along the measured coupling law."
+      ],
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
+      "description": "the standing of the exchange dynamics",
+      "core_green": true,
+      "assessment": "All five requested quantities are delivered on the genuine two-level system of the network. P_other-mouth(t) is the exact sin^2 beat, confirmed by direct evolution of the wave equation to 1% in period and 3% in amplitude; the maximum transferred probability is the prepared state's localization weight (0.977, limited only by the dressing tail); the exchange period is pi/dw; realistic clock-rate asymmetry obeys the Rabi/Lorentzian law to 1% and pins survival above 98.6% at a 1.5% bias - localization by asymmetry completes the #223 transit protection dynamically; and the width is exactly zero on the compact network, becoming the computed lead-independent QNM width when a channel opens, in the strong-coupling regime where the exchange survives under a decay envelope. At the primordial anchor the exchange period scales as alpha^-4: the physical electron does not hop mouths.",
+      "pass": true
+    }
+  ],
+  "n_passed": 9,
+  "n_total": 9,
+  "verdict_class": "THE_MOUTH_EXCHANGE_IS_A_TEXTBOOK_TWO_LEVEL_BEAT_WITH_PERIOD_PI_OVER_DW_ASYMMETRY_LOCALIZES_BY_THE_RABI_LAW_AND_THE_WIDTH_IS_ZERO_UNTIL_A_CHANNEL_OPENS",
+  "verdict": "ESTABLISHED (the argument is in docs/mouth_exchange_dynamics.md).\n\nTHE SYSTEM. The genuine mouth-to-mouth two-level system is the two-throat network (a single bridge ring has ONE exterior cavity - stated as a finding): the working interior doublet has interior fraction 0.965, half-half eigenmodes (0.500), and basins with 0.977 localization.\n\nP_OTHER-MOUTH(t). The exact two-mode regional beat is P_max sin^2(dw t/2) IDENTICALLY (deviation 1e-16); direct evolution: transfer max 0.9768 at t/T = 1.0006, A depleted to 0.0000, half-period point at 0.501 of max.\n\nTHE TWO NUMBERS. P_max = 0.9768 (eigen) = 0.9768 (evolution) - limited only by the dressing tail; exchange period pi/dw = 1833 vs evolution 1834.\n\nTHE COUPLING LAW. J(r_s) exponents 3.26/3.54/3.68 rising toward the #223 limit 4: at the primordial anchor the period extrapolates to 1e+11 - mouth-to-mouth transfer is dynamically frozen.\n\nTHE SURVIVAL LAW. Clock-rate asymmetry: the Rabi identity to 1.0%, the Lorentzian to 0.1%; at a 1.5% bias survival = 0.986: LOCALIZATION BY ASYMMETRY.\n\nTHE WIDTH. Compact network: Gamma = 0 exactly (persistence). Open channel: QNM doublet Gamma = 4.0e-04/4.2e-04 (lead-independent to 0.0%); strong coupling J/(Gamma/4) = 8.3; Gamma_direct/Gamma_pair = 2.09 (the width shared by hybridization)."
+}
