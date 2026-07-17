@@ -4,12 +4,14 @@
 > fields, **not** quantum gravity. #210 closed the mass-ladder thread
 > onto one number: the O(1) coefficient σ_mode/λ̄_C, required
 > 88.6α = 0.6467 (convention A) or 206.8α = 1.5089 (convention B) —
-> "constrained, not derived", a ×2.3 band. This PR **derives it** —
-> no fit anywhere — on the spatially converged, spectrally stable PDE
-> eigenhistory background of #220, and demonstrates the result
-> invariant under energy budget, cavity depth, source coupling, mode
-> amplitude, and branch choice. The companion probe machine-checks
-> every claim (~1.5 min).
+> "constrained, not derived", a ×2.3 band. This PR derives the
+> **quarter-wave cavity invariant** — no fit anywhere — on the
+> spatially converged, spectrally stable PDE eigenhistory background
+> of #220, demonstrates it invariant under energy budget, cavity
+> depth, source coupling, mode amplitude, and branch choice, and
+> lands m_e/m_μ at 92–96% **conditional on the soliton↔cavity weld**
+> (§5b: the independent identifiability audit that narrows the claim).
+> The companion probe machine-checks every claim (~2 min).
 
 ## 0. Why the coefficient is derivable at all
 
@@ -177,6 +179,36 @@ is therefore the sharpest falsification target for the 5D
 bridge-measure successor, which adjudicates between the two readings
 — either outcome is decisive.
 
+## 5b. The independent identifiability audit — the claim, narrowed
+
+`lepton_o1_identifiability_audit_probe` (independent companion, 8/8
+PASS) audits the *logical status* of the coefficient, and its verdict
+is adopted here:
+
+- **Unconditional**: the quarter-wave invariant — X_cavity = π/2 +
+  throat shift, regulator/exterior/amplitude/coupling/branch-robust —
+  is a validated property of the throat cavity.
+- **Conditional**: the m_e/m_μ landing. Within the *existing*
+  equations, #202/#203's σ_mode is the **soliton** IR localization
+  scale (the vacuum throat problem has no bound state; it supplies
+  only the suppression law), and no current equation welds the soliton
+  length unit to the cavity/bridge unit: the audit shows the soliton
+  length family (r50/r90/r95/RMS/R*) spans **×4** under the cavity
+  frequency, and a rescaling of the soliton radial unit moves X
+  linearly while leaving all normalized soliton shape data unchanged.
+  Identifying σ_mode with the cavity antinode — the
+  eigenhistory-particle identification this PR is built on — is
+  therefore a *posit* the current equations neither derive nor
+  exclude.
+- **The successor contract** (the audit's executable list): one
+  coupled Pin-Dirac/soliton state on the Tangherlini bridge; the ρ³
+  5D radial measure in the normalization; the 3D-soliton-radius →
+  5D-bridge-coordinate map derived from the action; the
+  neck-to-asymptotic overlap functional computed, not defined by an
+  antinode; convergence under grid/boundary/matching refinement;
+  Floquet stability used only to reject unstable branches; the
+  coefficient locked *before* comparison with the observed masses.
+
 The residual 4–8% is real and one-sided (the throat correction pushes
 X *up* from π/2 while the observation sits 4% *below* it) — owned by
 the named successor below.
@@ -228,10 +260,21 @@ the named successor below.
 ## 8. Companion probe
 
 `experiments/closure_ledger/lepton_o1_coefficient_probe.py` (T1–T9,
-~1.5 min): the hard-wall closed forms; the parity dichotomy and the
+~2 min): the hard-wall closed forms; the parity dichotomy and the
 measurement; the regulator/exterior/grid robustness; the
 source-decoupled eigenhistory orbit with complete monodromy; the
-five-knob invariance suite; the confrontation.
+five-knob invariance suite with the alternative branches run; the
+confrontation with the conditionality stated.
+
+`experiments/closure_ledger/lepton_o1_identifiability_audit_probe.py`
+(independent, 8/8): the definition ledger; the quarter-wave benchmark
+classification; the soliton localization family; the cross-sector
+non-uniqueness; the scale-weld falsification; the stability role; the
+successor contract.
 
 **Verdict:**
-`THE_REMAINING_O1_IS_DERIVED_THE_ODD_THROAT_FUNDAMENTAL_GIVES_X_EQUALS_PI_OVER_2_PLUS_THROAT_SHIFT_AND_ME_OVER_MMU_EQUALS_ALPHA_OVER_X_AT_92_TO_96_PERCENT_NO_FIT`
+`THE_QUARTER_WAVE_INVARIANT_IS_DERIVED_PI_OVER_2_PLUS_THROAT_SHIFT_AND_THE_ME_OVER_MMU_LANDING_AT_92_TO_96_PERCENT_IS_CONDITIONAL_ON_THE_SOLITON_CAVITY_WELD`
+
+**Independent audit:**
+`lepton_o1_identifiability_audit_probe` (8/8) —
+`QUARTER_WAVE_INVARIANT_VALIDATED_BUT_LEPTON_COEFFICIENT_NOT_IDENTIFIABLE_UNTIL_THE_SOLITON_TO_5D_SCALE_WELD_IS_DERIVED`

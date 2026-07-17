@@ -1,0 +1,116 @@
+{
+  "timestamp_utc": "2026-07-17T01:01:31+00:00",
+  "identification": "Independent audit separating the #221 quarter-wave cavity invariant from the #202/#203 soliton localization scale",
+  "tests": [
+    {
+      "name": "T1_definition_ledger",
+      "description": "The audit preserves the upstream ledger: #202 defines sigma_mode as the IR localization scale supplied by the soliton sector, because the vacuum winding problem has no bound state; #203 measures that scale from the locked #180 soliton.  The first-antinode distance introduced in #221 is recorded as a separate cavity observable, sigma_antinode.",
+      "sigma_mode_source": "#180/#203 localized soliton",
+      "sigma_antinode_source": "#221 odd cavity mode",
+      "definitions_identical_by_assumption": false,
+      "pass": true
+    },
+    {
+      "name": "T2_quarter_wave_benchmark",
+      "description": "The odd cavity mode genuinely carries a robust quarter-wave invariant: omega*sigma_antinode is close to pi/2.  However, amplitude-RMS and energy-RMS lengths on the same mode give different O(1) values, and the orbit is exactly source-decoupled. The result is therefore classified as a cavity benchmark, not yet as the soliton mass-map coefficient.",
+      "X_antinode": 1.5783130407661117,
+      "pi_over_2": 1.5707963267948966,
+      "hard_wall_error": 0.0075167139712151165,
+      "X_amplitude_rms": 1.861382368552789,
+      "X_energy_rms": 1.9911769269919288,
+      "definition_spread": 0.41286388622581716,
+      "source_decoupled": true,
+      "pass": true
+    },
+    {
+      "name": "T3_soliton_localization_family",
+      "description": "The locked #180 soliton supplies several standard, independently computable IR localization lengths.  They are not numerically identical: quantile, RMS, and exterior-overlap radii span an O(1) family.  A physical matching functional is therefore needed to select which scale enters the #202 suppression law.",
+      "scales": {
+        "r50": 1.0388931684521716,
+        "r90": 1.8329980602181946,
+        "r95": 2.108278454222028,
+        "rms": 1.273283732723137,
+        "Rstar_A": 5.014821548752873,
+        "Rstar_B": 5.592899220003164,
+        "core_half": 0.8333333333333335,
+        "core_threshold": 1.0833333333333333
+      },
+      "wave_scale_max_over_min": 5.383517179476621,
+      "pass": true
+    },
+    {
+      "name": "T4_cross_sector_nonuniqueness",
+      "description": "Applying the #221 cavity frequency to the pre-existing #203 soliton length definitions does not produce one coefficient. The candidate X values retain order-one definition dependence. Therefore the present equations do not yet identify sigma_mode with the first cavity antinode.",
+      "candidate_X": {
+        "r50": 0.5188363866630126,
+        "r90": 0.915422412239784,
+        "r95": 1.0529009223323207,
+        "rms": 0.6358939986746859,
+        "Rstar_A": 2.504465301269846,
+        "Rstar_B": 2.7931646009379025
+      },
+      "candidate_max_over_min": 5.383517179476621,
+      "distance_from_pi_over_2": {
+        "r50": 1.051959940131884,
+        "r90": 0.6553739145551125,
+        "r95": 0.5178954044625759,
+        "rms": 0.9349023281202107,
+        "Rstar_A": 0.9336689744749496,
+        "Rstar_B": 1.222368274143006
+      },
+      "unique_coefficient_selected": false,
+      "pass": true
+    },
+    {
+      "name": "T5_scale_weld_falsification",
+      "description": "The soliton and cavity sectors currently use separately normalized length units.  In the absence of an explicit field equation or matching condition fixing their ratio, a rescaling of the soliton radial unit rescales X linearly while leaving normalized soliton shape data unchanged.  This is the missing cross-sector weld.",
+      "coordinate_scale_factors": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "mapped_X_from_rms": {
+        "0.5": 0.31794699933734294,
+        "1.0": 0.6358939986746859,
+        "2.0": 1.2717879973493718
+      },
+      "linearity_error": 0.0,
+      "range_ratio": 4.0,
+      "cross_sector_scale_fixed_by_existing_equation": false,
+      "pass": true
+    },
+    {
+      "name": "T6_stability_role",
+      "description": "The #220 monodromy is valuable as a rejection test for unstable branches.  In the branch used by #221, however, parity makes the source vanish and the mode is exactly linear under amplitude rescaling.  Stability therefore does not normalize the soliton length or supply the missing 3D-to-5D matching coefficient.",
+      "exactly_linear_sector": true,
+      "source_decoupled": true,
+      "stability_selects_normalization": false,
+      "pass": true
+    },
+    {
+      "name": "T7_successor_contract",
+      "description": "These are the minimum executable conditions under which the alpha-to-lepton coefficient would become identifiable rather than definition-selected.",
+      "requirements": [
+        "Solve one coupled localized Pin-Dirac/soliton state on the Tangherlini bridge.",
+        "Use the rho^3 five-dimensional radial measure in the mode normalization.",
+        "Derive the 3D soliton radius to 5D bridge-coordinate map from the action.",
+        "Compute the neck-to-asymptotic overlap functional without defining it by an antinode.",
+        "Show convergence under radial-grid, outer-boundary, and matching-surface refinement.",
+        "Use Floquet stability only to reject unstable branches.",
+        "Lock the coefficient before comparing with the observed lepton masses."
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "description": "logical status of the proposed coefficient",
+      "core_green": true,
+      "assessment": "The quarter-wave number is validated as a robust cavity invariant, but the original #202 soliton localization scale remains a distinct object.  Existing equations do not supply a unique dimensional weld or matching functional between the soliton and cavity sectors.  The O(1) lepton coefficient is therefore not yet identifiable from the current model; PR #221 should retain pi/2 as a benchmark and narrow its mass-unification claim until the successor contract is executed.",
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "QUARTER_WAVE_INVARIANT_VALIDATED_BUT_LEPTON_COEFFICIENT_NOT_IDENTIFIABLE_UNTIL_THE_SOLITON_TO_5D_SCALE_WELD_IS_DERIVED",
+  "verdict": "The quarter-wave number is validated as a robust cavity invariant, but the original #202 soliton localization scale remains a distinct object.  Existing equations do not supply a unique dimensional weld or matching functional between the soliton and cavity sectors.  The O(1) lepton coefficient is therefore not yet identifiable from the current model; PR #221 should retain pi/2 as a benchmark and narrow its mass-unification claim until the successor contract is executed."
+}

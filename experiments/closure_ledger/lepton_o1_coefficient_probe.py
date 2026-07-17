@@ -52,6 +52,21 @@ k = 1 law eps_1 = r_s/sigma_mode:
   fitted numbers (inputs: the throat geometry and alpha; m_mu enters
   only as the anchor scale, m_e is never used).
 
+CONDITIONALITY (the independent audit)
+--------------------------------------
+The independent identifiability audit
+(lepton_o1_identifiability_audit_probe, 8/8) validates the
+quarter-wave invariant as UNCONDITIONAL but shows that, within the
+EXISTING equations, #202/#203's sigma_mode is the soliton IR
+localization scale and no current equation welds the soliton length
+unit to the cavity/bridge unit (the soliton length family spans x4
+under the cavity frequency; a radial-unit rescale moves X linearly).
+The m_e/m_mu landing above is therefore CONDITIONAL on the
+eigenhistory-particle identification (sigma_mode = the cavity
+antinode); the audit's successor contract - the coupled
+Pin-Dirac/soliton state on the bridge with the rho^3 measure and an
+action-derived 3D-to-5D map - is what derives or refutes the weld.
+
 Tests:
   T1. Goal.
   T2. The identifications and the hard-wall theorems (closed forms for
@@ -75,9 +90,9 @@ Tests:
   T9. Assessment.
 
 Verdict:
-  THE_REMAINING_O1_IS_DERIVED_THE_ODD_THROAT_FUNDAMENTAL_GIVES_X_EQUALS
-  _PI_OVER_2_PLUS_THROAT_SHIFT_AND_ME_OVER_MMU_EQUALS_ALPHA_OVER_X_AT_
-  92_TO_96_PERCENT_NO_FIT
+  THE_QUARTER_WAVE_INVARIANT_IS_DERIVED_PI_OVER_2_PLUS_THROAT_SHIFT_
+  AND_THE_ME_OVER_MMU_LANDING_AT_92_TO_96_PERCENT_IS_CONDITIONAL_ON_
+  THE_SOLITON_CAVITY_WELD
 """
 
 from __future__ import annotations
@@ -975,6 +990,22 @@ def test_T8_honest_scope() -> dict:
         'transit measure is not the 5D rho^3 bridge measure - redoing '
         'X on the true 5D radial operator is the named successor and '
         'the leading candidate for the remaining 4-8% residual.',
+        'THE INDEPENDENT IDENTIFIABILITY AUDIT '
+        '(lepton_o1_identifiability_audit_probe, 8/8 PASS) sharpens '
+        'the previous bullet into a conditionality statement: within '
+        'the EXISTING equations, #202/#203\'s sigma_mode is the '
+        'soliton IR localization scale, and no current equation welds '
+        'the soliton length unit to the cavity/bridge unit - the '
+        'soliton length family (r50/r90/r95/RMS/R*) spans x4 under '
+        'the cavity frequency, and a radial-unit rescale moves X '
+        'linearly. The quarter-wave invariant is UNCONDITIONAL; the '
+        'm_e/m_mu landing is CONDITIONAL on the eigenhistory-particle '
+        'identification (sigma_mode = the cavity antinode). The '
+        'audit\'s successor contract (the coupled Pin-Dirac/soliton '
+        'bridge state, the rho^3 measure, an action-derived 3D-to-5D '
+        'map, an antinode-free overlap functional, convergence, and '
+        'the coefficient locked BEFORE comparison) is the executable '
+        'path to deriving or refuting the weld.',
         'The winding number k is not represented in the zonal scalar; '
         'the parity of the k = 1 mode is imported from #202\'s '
         'machine-verified Pin-twisted boundary condition, not '
@@ -1035,9 +1066,14 @@ def test_T9_assessment() -> dict:
         'Confronted with the #201 law at #210\'s primordial anchor, '
         'convention A is excluded and convention B lands: m_e/m_mu = '
         'alpha/X = (2 alpha/pi)(1 + throat shift) reaches 92-96% of '
-        'the observed value with zero fitted numbers. The residual '
-        '4-8% is real, stated, and owned by the named successor (the '
-        '5D bridge measure).'
+        'the observed value with zero fitted numbers - CONDITIONAL, '
+        'per the independent identifiability audit, on identifying '
+        'the #202 sigma_mode with the cavity antinode: the '
+        'quarter-wave invariant is unconditional, and the landing '
+        'awaits the soliton-cavity weld that the audit\'s successor '
+        'contract derives or refutes. The residual 4-8% is real, '
+        'stated, and owned by the same successor (the 5D bridge '
+        'measure).'
         if core else
         'INCONCLUSIVE - a core check failed; do not quote.'
     )
@@ -1072,9 +1108,9 @@ def run_probe() -> dict:
     all_ok = all(t['pass'] for t in tests)
     if all_ok:
         verdict_class = (
-            "THE_REMAINING_O1_IS_DERIVED_THE_ODD_THROAT_FUNDAMENTAL_"
-            "GIVES_X_EQUALS_PI_OVER_2_PLUS_THROAT_SHIFT_AND_ME_OVER_"
-            "MMU_EQUALS_ALPHA_OVER_X_AT_92_TO_96_PERCENT_NO_FIT"
+            "THE_QUARTER_WAVE_INVARIANT_IS_DERIVED_PI_OVER_2_PLUS_"
+            "THROAT_SHIFT_AND_THE_ME_OVER_MMU_LANDING_AT_92_TO_96_"
+            "PERCENT_IS_CONDITIONAL_ON_THE_SOLITON_CAVITY_WELD"
         )
         verdict = (
             "ESTABLISHED (the argument is in "
@@ -1171,7 +1207,20 @@ def run_probe() -> dict:
             "purely structural (#202's parity theorem), so the parity "
             "identification is the sharpest falsification target for "
             "the 5D bridge-measure successor, which adjudicates "
-            "between the two readings."
+            "between the two readings.\n\n"
+            "THE CONDITIONALITY (the independent audit). "
+            "lepton_o1_identifiability_audit_probe (8/8) validates "
+            "the quarter-wave invariant as UNCONDITIONAL but shows "
+            "that no existing equation welds the soliton length unit "
+            "(#202/#203's sigma_mode) to the cavity unit: the soliton "
+            "length family spans x4 under the cavity frequency and a "
+            "radial-unit rescale moves X linearly. The m_e/m_mu "
+            "landing is therefore CONDITIONAL on the "
+            "eigenhistory-particle identification; the audit's "
+            "successor contract (coupled Pin-Dirac/soliton bridge "
+            "state, rho^3 measure, action-derived 3D-to-5D map, "
+            "antinode-free overlap functional, coefficient locked "
+            "before comparison) derives or refutes the weld."
         )
     else:
         verdict_class = "LEPTON_O1_COEFFICIENT_INCONCLUSIVE"

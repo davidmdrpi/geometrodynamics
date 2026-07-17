@@ -1166,12 +1166,25 @@ for comparison): convention A EXCLUDED ×2.4; convention B SELECTED —
 observed 0.004836: the derivation lands at 92–96% of the observed
 ratio with zero fitted numbers**; the #210 neck aspect c = ln(1/α) +
 O(1) now has the O(1) computed (ln X ≈ ln π/2 = 0.45; c = 5.38 vs the
-conv-B-observed 5.33). Scope: the 1D transit measure is not the 5D ρ³
-bridge measure — the 5D radial operator is the named successor and
-the leading candidate for the one-sided 4–8% residual; winding parity
-imported from #202; the interior depth a scanned regulator (α-capped
-depth a successor); classical, frozen geometry
-(`lepton_o1_coefficient_probe`, PR #221).
+conv-B-observed 5.33). **The independent identifiability audit**
+(`lepton_o1_identifiability_audit_probe`, 8/8) narrows the claim, and
+the narrowing is adopted: the quarter-wave invariant is UNCONDITIONAL,
+but within the existing equations #202/#203's σ_mode is the SOLITON IR
+scale and no equation yet welds the soliton length unit to the cavity
+unit (the soliton length family spans ×4 under the cavity frequency; a
+radial-unit rescale moves X linearly) — the m_e/m_μ landing is
+therefore CONDITIONAL on the eigenhistory-particle identification
+(σ_mode = the cavity antinode), with the audit's successor contract
+(the coupled Pin-Dirac/soliton bridge state, the ρ³ measure, an
+action-derived 3D→5D map, an antinode-free overlap functional, the
+coefficient locked before comparison) as the executable path to
+deriving or refuting the weld. Scope: the 1D transit measure is not
+the 5D ρ³ bridge measure — the 5D radial operator is the named
+successor and the leading candidate for the one-sided 4–8% residual;
+winding parity imported from #202; the interior depth a scanned
+regulator (α-capped depth a successor); classical, frozen geometry
+(`lepton_o1_coefficient_probe` + `lepton_o1_identifiability_audit_probe`,
+PR #221).
 
 **The PDE-ring eigenhistory (PR #220).** #219 derived the source from
 a Hamiltonian but analyzed the loop in harmonic balance with a reduced
