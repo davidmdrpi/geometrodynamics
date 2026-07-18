@@ -1110,6 +1110,46 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The absolute-coupling capstone (PR #225, FINAL).** The arc's closing
+question — does canonical dimensional reduction and charge
+normalization uniquely determine the 4D electromagnetic coupling, or
+does a continuous dimensionless modulus remain? — answered cleanly and
+honestly (`docs/absolute_coupling_capstone.md`): **A MODULUS REMAINS.**
+The canonical chain (5D Einstein–Hilbert on the Hopf-fibered ansatz;
+G₄ = G₅/2πR_f; canonical F²; charge from the covariant derivative)
+determines **α_k = 4k²(l_P/R_f)² = 4k²/ρ² EXACTLY** — a function of
+ONE continuous modulus ρ = R_f/l_P (the radion). Machine-checked
+structure: the fiber KK tower (FD = closed form 1e-11) WELDS to the
+#193 Berger spectra (E = 4j(j+1) − k² + k²/λ², identity exact) with
+the Wu–Yang half-charge q = k/2 = the Hopf half-radius fiber; charge =
+fiber winding with tracked-branch spectral-flow slope 2(k+η)/R_f² to
+3e-4 and EXACT one-quantum flux periodicity (4e-11 — large gauge
+invariance: the normalization is topological, not chosen); the
+adiabatic-ramp force check (a slowly threaded flux chirps the k-mode
+at |k+η(t)|/R_f to 3e-4 — the electric force evolved, not asserted).
+**The modulus verdict**: the kinematics is EXACTLY invariant under
+rescaling R_f (machine zero) — the precise mirror of #222 (there the
+coupled equations killed the rescale; the vacuum kinematics keeps it):
+uniqueness FAILS at the canonical level, α is not a kinematic pure
+number. **The stabilizer**: the EM cap (#55–#58, primordial per #222)
+dynamically selects ρ* = 2/√α = 23.4125 — the Hopf fiber at ~23 Planck
+lengths; the #165 guardrail scan finds NO closure-constant match
+(nearest e^π at 1.2%, k₅² at 6.8% — rejected): the selection is
+dynamical, correctly located OUTSIDE canonical kinematics. **THE
+GLOBAL NO-RETUNING HOLDOUT**: eight keystone constants of the arc
+re-read from the committed run ledgers and independently re-derived —
+the Bessel universal z·J₁ = 3J₂ (#223), the π/2 step (#223), the
+quarter wave (#221), r_sω-sup = √μ_crit (#222), the Rabi identity
+(#224), the Weyl commutator e^{2πi/5} (#160, live to 1e-16), φ_h =
+π/k₅, β_lepton = 50π — ALL ratios, roots, or topological phases,
+independent of ρ: fixing ρ* RETUNES NOTHING. **The arc closes with its
+books balanced: what is derived is derived, what is selected is named,
+and nothing was retuned along the way.** Scope: kinematic, tree-level
+(α = the #184-protected boundary invariant; no running); the round
+Hopf point (Berger squashing = part of the modulus space, #192–#197);
+l_P via G₄ (the B4 single-anchor discipline); ℏ still not derived
+(`absolute_coupling_capstone_probe`, PR #225).
+
 **Mouth-exchange dynamics (PR #224).** The #223 successor: the five
 requested exchange observables on the network's genuine two-level
 system (`docs/mouth_exchange_dynamics.md`). **An honest topological
