@@ -53,7 +53,7 @@ neck the odd solution is u = √σ·J₂(ωσ), so φ = J₂(z)/σ and the first
 antinode solves
 
 ```
-z·J₁(z) = 3·J₂(z)      →      z* = 2.29948…
+z·J₁(z) = 3·J₂(z)      →      z* = 2.29991…
 ```
 
 — the 5D two-mouth analog of the quarter wave (#221's π/2 was the

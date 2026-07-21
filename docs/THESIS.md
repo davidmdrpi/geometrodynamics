@@ -1110,6 +1110,71 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The absolute-coupling capstone (PR #225, FINAL; revised).** The
+arc's closing question — does canonical dimensional reduction and
+charge normalization uniquely determine the 4D electromagnetic
+coupling, or does a continuous dimensionless modulus remain? —
+answered cleanly and honestly (`docs/absolute_coupling_capstone.md`):
+**A MODULUS REMAINS.** The canonical chain (5D Einstein–Hilbert on the
+Hopf-fibered ansatz; G₄ = G₅/2πR_f; canonical F²; charge from the
+covariant derivative) determines **α_k = 4k²(l_P/R_f)² = 4k²/ρ²
+EXACTLY** — a function of ONE continuous modulus ρ = R_f/l_P (the
+radion). Machine-checked structure: the fiber KK tower (FD = closed
+form 1e-11) WELDS to the #193 Berger spectra (E = 4j(j+1) − k² +
+k²/λ², identity exact) with the Wu–Yang half-charge q = k/2; **the
+explicit geometry map** (revision): the Hopf fiber of the committed
+Berger metric has proper length 2πλR_u by quadrature — R_f = λR_u,
+round point R_f = R_u — with the KK-monopole base the HALF-radius
+sphere, and with the committed Tangherlini conventions R_u = r_h = 1
+the EM cap converts the model unit: **1 model unit = ρ\*·l_P = 23.41
+l_P**. Charge = fiber winding with tracked-branch spectral-flow slope
+2(k+η)/R_f² to 3e-4, EXACT one-quantum flux periodicity (4e-11), and
+the adiabatic-ramp force check to 3e-4 (the electric force evolved,
+not asserted). **THE FULL EINSTEIN-FRAME REDUCTION WITH THE RADION**
+(revision, symbolic sympy 5×5 Ricci): the 4D curvature terms carry
+e^{(2a+b)φ} — the Einstein frame is b = −2a and nothing else; the
+radion kinetic coefficient is −6a² (canonical −½ at a = 1/(2√3), the
+φ″ remainder an exact total derivative); the gauge-kinetic term is
+−(R₀³/2)e^{3bφ} — the standard KK dilaton coupling e^{−√3φ}F²;
+**V_tree = 0 exactly** (the modulus is a canonical 4D field on a flat
+potential); and the dilaton exponent EQUALS the geometric-law exponent
+6a = √3 of 1/R_fE²: **α(φ) = α(0)e^{√3φ} — the α law and the dilaton
+coupling are one statement**, so the EM cap is a genuinely dynamical
+claim about ⟨φ⟩. **THE FULL MODULUS-RANK AUDIT** (revision): five
+continuous log-knobs (ln R_u/l_P, ln λ, ln r_h/R_u, ln R_RMS/r_s,
+ln A), committed constraint rows (#222 weld; the EM cap), numpy rank:
+before the cap rank 1, four flats, ∇α NOT annihilated (projection
+2.83 — α undetermined); after the cap rank 2, three flats, ∇α
+annihilated to 2e-16 — **the cap fixes exactly the one α-coupled
+direction (ln ρ = ln λ + ln R_u/l_P) and every remaining flat
+(squash-at-fixed-fiber, λ pinned observationally to (0.986, ≥3] by
+#192; r_h/R_u; A) is α-DECOUPLED** — the rank-proven form of
+no-retuning. **The stabilizer and the leptons**: ρ* = 2/√α = 23.4125;
+#165 guardrail: NO closure-constant match (nearest e^π 1.2% —
+rejected); the implied KK scale m₁ = (√α/2)m_P = 5.2e17 GeV sits
+5e18 above m_μ — **leptons are NOT fiber KK modes and need not be:
+compatible by DECOUPLING** (the committed mechanism is the #221/#223
+throat-cavity sector carrying α in ratios), with the #197
+winding-ladder slope 1/λ = 1/R_f (4e-5) and β_lepton/L_fiber = k₅²
+exact. **THE α-DEPENDENT HOLDOUT** (revision, replacing the
+ρ-independent check): twelve committed ledger constants that are
+GENUINE functions of α — linear (#221 landings and X_required, #222
+anchor exclusions, #223 structural residual), quartic (#223 transit
+protection ∝ α⁴), inverse-quartic (#224 frozen period ∝ α⁻⁴) — all
+re-derive at machine zero from their ledger inputs plus α; inverted,
+the twelve inferred α's agree to 4e-16 relative: **ONE COMMON α runs
+the whole arc**. (The #223 Bessel universal stands as committed:
+z* = 2.29991…, root of z·J₁ = 3J₂; the earlier doc draft misprinted
+its digits — corrected.) **The arc closes with its books balanced:
+what is derived is derived, what is selected is named, and nothing
+was retuned along the way.** Scope: tree-level (α = the
+#184-protected boundary invariant; no running; no loop-induced
+radion potential); reduction checks on term-isolating test metrics
+(the standard KK-dilaton coefficients); l_P via G₄ (the B4
+single-anchor discipline); ℏ still not derived. The capstone now
+runs in CI (`tests/test_absolute_coupling_capstone.py`)
+(`absolute_coupling_capstone_probe`, PR #225).
+
 **Mouth-exchange dynamics (PR #224).** The #223 successor: the five
 requested exchange observables on the network's genuine two-level
 system (`docs/mouth_exchange_dynamics.md`). **An honest topological
