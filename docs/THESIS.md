@@ -1110,6 +1110,52 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**Radion stabilization from the primordial EM-capped throat (PR
+#226).** The one dynamical problem #225 left — *derive ρ\* from the EM
+cap's own equations* — executed
+(`docs/radion_stabilization.md`): **THE HOPF CHARGE STABILIZES THE
+RADION.** The committed throat is a DYON — the #55 cap threads it
+with fixed electric flux (U_EM = αℏc/2R, finite; A = αℏc/2 re-read
+from the #55 ledger at machine zero, continuing the α-dependent
+holdout), and the #58 topology puts ONE HOPF CHARGE on every throat
+(Σc₁ = 0) — and under the #225 dilaton coupling e^{−√3φ}F² the two
+flux energies carry OPPOSITE radion charges (machine-checked by
+quadrature through the dielectric ε = e^{−√3φ}): a FIXED CHARGE costs
+e^{+√3φ} (Gauss pins D; weaker coupling → cheaper field), a FIXED
+FLUX costs e^{−√3φ} (topology pins F; weaker coupling → DEARER flux),
+with the Dirac partner ratio U_mag/U_el = 1/(4α²) exact and the #222
+primordial frame factor e^{aφ}, a = 1/(2√3). So V_eff(φ) =
+U_el,0·e^{7φ/2√3} + U_mag,0·e^{−5φ/2√3} — **one exponent of each
+sign: the minimum EXISTS** (numeric = closed form 1e-8), with the
+coefficient-free identity **m_φ² = −pr·V_min = (3−a²)V_min =
+(35/12)V_min** (numeric + symbolic) and E″(φ\*) = 7·U_el\* exactly
+(U_mag/U_el = 7/5 at the minimum). **THE NO-GO**: without the Hopf
+charge every committed term has a positive exponent — V monotonic,
+runaway to decompactification (α → 0): **the #58 topological charge
+is exactly what saves the vacuum**. **THE LANDING**: α\*² = 5κ/28 —
+at the symmetric Dirac point (κ = 1) α\* = √(5/28) = 0.4226, ORDER
+ONE, 58× observed: the mechanism is derived, modulus-free, and
+anchor-free; the observed α requires the electric–magnetic cap
+asymmetry κ = 28α²/5 = 2.98e-4 (verified by minimization; #165
+guardrail: NO closure-constant match, nearest α/k₅² at 2.1% —
+rejected; cohesion-provenance tilt < 0.3% both derived cases) — the
+open problem moves from "derive ρ\*" to "derive κ", strictly sharper.
+**THE MASS**: anchored per B4 — E″ = (7/4)α^{3/2}m_P = 1.33e16 GeV
+per throat at the observed-α minimum on the #225 fiber anchor
+(GUT-scale: the radion is HEAVY, no fifth-force tension; 0.48 m_P at
+the Dirac point), (7α/2)m_ec² = 13 keV on the #55 Compton anchor;
+m_φ² = 16πn·E″/m_P² with n the throat density (stated, not derived).
+**THE ARC**: the stabilizer's gradient is EXACTLY the (1,1,0,0,0)
+rank-audit row #225 reserved for the cap — rank 2, ∇α annihilated
+2e-16, the three α-decoupled flats unchanged; ρ(φ\*) = 3.08
+(near-Planckian) at the Dirac point, 23.41 at observed α; #222's
+×210 primordial exclusion re-read. Nothing else in the arc moves.
+Scope: κ not derived (the quantified gap); Born–Oppenheimer single
+throat; tree-level (no Casimir, no loops, no backreaction); the flat
+capped-field quadratures shift only O(1) factors inside κ, never the
+exponents (Weyl algebra, #225)
+(`radion_stabilization_probe`, PR #226).
+
 **The absolute-coupling capstone (PR #225, FINAL; revised).** The
 arc's closing question — does canonical dimensional reduction and
 charge normalization uniquely determine the 4D electromagnetic
