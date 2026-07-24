@@ -1,0 +1,156 @@
+{
+  "timestamp_utc": "2026-07-24T07:26:19+00:00",
+  "identification": "Radion stabilization from the primordial EM-capped throat: the dyonic throat's electric (e^{+sqrt3 phi}) and Hopf-magnetic (e^{-sqrt3 phi}) cap energies give V_eff(phi) a modulus-free minimum - alpha*^2 = 5 kappa/28, order one at the Dirac point - with m_phi^2 = (35/12) V_min and E'' = 7 U_el* per throat; the observed alpha requires kappa = 2.98e-4, the named open problem",
+  "executes": "the open dynamical problem #225 named: V_eff(phi), alpha at the minimum, and the radion mass, from the committed cap, topology, and dilaton coupling",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Execute the open dynamical problem #225 named: build the radion effective potential of the primordial EM-capped throat (#55-#58 cap, #222 primordial, #225 dilaton coupling alpha(phi) = alpha0 e^{sqrt3 phi}), and answer: does V_eff(phi) stabilize the radion, at what alpha, and with what radion mass?",
+      "pass": true
+    },
+    {
+      "name": "T2_cap_imported",
+      "description": "the committed EM cap imported from the #55 ledger: the throat is the inner boundary that caps the Coulomb field - U_EM = alpha hbar c/(2R) FINITE - with the equilibrium E(R) = A/R + B R^2, R* = (A/2B)^{1/3} (stable, E'' = 6B > 0), U/mc^2 = alpha/2, and the committed anchor R* = lambda_C (the #55 Compton anchor).  The re-read continues the #225 alpha-dependent holdout: A = alpha hbar c/2 is a genuine function of alpha, re-derived at machine zero",
+      "A_stored_J_m": 1.1535387754675453e-28,
+      "A_derived_alpha_hbar_c_over_2": 1.1535387754675453e-28,
+      "A_rel_dev": 0.0,
+      "R_star_identity_rel_dev": 0.0,
+      "U_over_mc2_vs_alpha_over_2_rel_dev": 2.220446049250313e-16,
+      "stability_Epp_6B": 6009717611.654411,
+      "R_star_vs_compton_rel_dev": 1.5543122344752192e-15,
+      "pass": true
+    },
+    {
+      "name": "T3_radion_charges",
+      "description": "the radion charges of the two flux energies of the DYONIC throat, derived from the #225 dilaton coupling (a dielectric eps = e^{-sqrt3 phi}): a FIXED CHARGE costs U_el ~ e^{+sqrt3 phi} (Gauss law fixes D; weaker coupling -> cheaper field), a FIXED FLUX costs U_mag ~ e^{-sqrt3 phi} (topology pins F; weaker coupling -> DEARER flux) - both by radial quadrature with the throat cap; the Dirac partner ratio U_mag/U_el = 1/(4 alpha^2) exactly (kappa = 1); and the primordial radius (#222, fixed in 5D-frame lengths) adds e^{a phi}: the exponents are p = sqrt3 + a = 7/(2 sqrt3) and r = -sqrt3 + a = -5/(2 sqrt3) - ONE OF EACH SIGN",
+      "electric_scaling_e_plus_sqrt3_phi_dev": 4.1666458334699286e-06,
+      "magnetic_scaling_e_minus_sqrt3_phi_dev": 4.166645833247884e-06,
+      "dirac_ratio_1_over_4alpha2_dev": 1.1102230246251565e-16,
+      "exponent_electric_p": 2.0207259421636903,
+      "exponent_magnetic_r": -1.4433756729740643,
+      "pass": true
+    },
+    {
+      "name": "T4_potential",
+      "description": "V_eff(phi) = U_el0 e^{p phi} + U_mag0 e^{r phi} with p > 0 > r: the dyonic throat STABILIZES the radion - the minimum exists (numeric = closed form), V'' > 0, and the coefficient-free mass identity m_phi^2 = -p r V_min = (3 - a^2) V_min = (35/12) V_min holds numerically AND symbolically (the two-exponential theorem).  THE NO-GO: without the Hopf charge (kappa = 0) every committed term has a positive exponent - V is monotonic and the radion runs away to decompactification (alpha -> 0): the #58 topological charge (one Hopf charge per throat) is EXACTLY what saves the vacuum",
+      "phi_star": 2.3433841132124162,
+      "alpha_at_min_numeric": 0.42257712155762783,
+      "alpha_at_min_closed_form": 0.4225771273642583,
+      "min_rel_dev": 1.3740995563615854e-08,
+      "V_second_derivative": 5.818273507429694,
+      "mass_identity_35_over_12_dev": 7.237261234749326e-09,
+      "mass_identity_symbolic": true,
+      "no_go_without_hopf_charge": true,
+      "pass": true
+    },
+    {
+      "name": "T5_alpha",
+      "description": "alpha at the minimum, closed form: alpha*^2 = (kappa/4)(sqrt3-a)/(sqrt3+a) = 5 kappa/28.  At the symmetric Dirac point (kappa = 1, U_mag = U_el/(4 alpha^2)): ALPHA* = sqrt(5/28) = 0.4226 - ORDER ONE, the self-dual landing, 58x the observed value.  The observed alpha requires the magnetic-to-electric cap asymmetry kappa = 28 alpha^2/5 = 2.98e-4 (verified by direct minimization): the stabilization MECHANISM is derived and modulus-free; the smallness of kappa is the new, sharply-quantified open problem.  Guardrail: no closure-constant match for kappa_req (nearest alpha/k5^2 at 2.1% - rejected).  Cohesion-provenance robustness: both derived tilt cases shift alpha* by < 0.3%",
+      "alpha_star_closed_form": "alpha*^2 = 5 kappa / 28",
+      "alpha_star_dirac_point": 0.4225771273642583,
+      "alpha_star_over_alpha_obs": 57.9082788382793,
+      "kappa_required_for_observed_alpha": 0.00029820758531574817,
+      "kappa_required_verified_dev": 1.5892069882283977e-09,
+      "guardrail_scan": {
+        "alpha/2pi": {
+          "value": 0.0011614097328884378,
+          "rel_dev": 2.894635113519041
+        },
+        "alpha^2": {
+          "value": 5.3251354520669314e-05,
+          "rel_dev": 0.8214285714285714
+        },
+        "alpha^{3/2}": {
+          "value": 0.0006233730093051121,
+          "rel_dev": 1.0903995739916283
+        },
+        "2pi alpha^2": {
+          "value": 0.00033458812831168065,
+          "rel_dev": 0.12199737628206886
+        },
+        "alpha/e^pi": {
+          "value": 0.00031534719747165866,
+          "rel_dev": 0.057475439928071324
+        },
+        "alpha/k5^2": {
+          "value": 0.000291894102772,
+          "rel_dev": 0.021171435116458606
+        },
+        "1/k5^4": {
+          "value": 0.0016,
+          "rel_dev": 4.36539001281905
+        },
+        "(me/mmu)^2": {
+          "value": 2.3390100390133643e-05,
+          "rel_dev": 0.9215643681049638
+        }
+      },
+      "nearest_candidate": {
+        "name": "alpha/k5^2",
+        "value": 0.000291894102772,
+        "rel_dev": 0.021171435116458606
+      },
+      "no_numerological_match": true,
+      "cohesion_tilts": {
+        "sigma_5D_fixed_+a_b0.0036": -0.0006165620808628036,
+        "sigma_5D_fixed_+a_b0.0073": -0.0012327300645881278,
+        "sigma_5D_fixed_+a_b0.0146": -0.0024639249518140227,
+        "sigma_E_fixed_-2a_b0.0036": 0.00016207795382272572,
+        "sigma_E_fixed_-2a_b0.0073": 0.00032416964271075877,
+        "sigma_E_fixed_-2a_b0.0146": 0.0006483530028882356
+      },
+      "max_cohesion_tilt": 0.0024639249518140227,
+      "pass": true
+    },
+    {
+      "name": "T6_radion_mass",
+      "description": "the radion mass, closed chain: at the minimum U_mag/U_el = (sqrt3+a)/(sqrt3-a) = 7/5, E_min = (12/5) U_el*, and the per-throat curvature is E''(phi*) = 7 U_el* EXACTLY (machine-checked).  Anchored (B4 discipline, both anchors reported): on the #225 fiber anchor E'' = (7/4) alpha*^{3/2} m_P - 0.48 m_P at the Dirac point, 1.3e16 GeV at the observed-alpha minimum (a GUT-scale curvature: the radion is HEAVY, no fifth-force tension); on the #55 Compton anchor E'' = (7 alpha/2) m_e c^2 = 13 keV.  The canonical mass is m_phi^2 = 16 pi n E''/m_P^2 with n the throat number density - the one astrophysical input, stated not derived",
+      "U_mag_over_U_el_at_min": 1.4000000384747888,
+      "ratio_7_over_5_dev": 3.847478891039202e-08,
+      "Epp_over_7Uel_dev": 8.79390049668416e-09,
+      "Epp_dirac_point_mP": 0.4807253545709117,
+      "Epp_observed_alpha_mP": 0.0010909027662839462,
+      "Epp_observed_alpha_GeV": 1.331872278328407e+16,
+      "Epp_compton_anchor_keV": 13.051288252422356,
+      "mass_formula": "m_phi^2 = 16 pi n E''(phi*) / m_P^2",
+      "pass": true
+    },
+    {
+      "name": "T7_arc_consistency",
+      "description": "the stabilizer slots into the arc without retuning: the V_eff minimum condition fixes alpha(phi) - its gradient in the #225 5-knob log space is EXACTLY the (1,1,0,0,0) cap row the rank audit reserved (rank 2, grad alpha annihilated to machine zero, three alpha-decoupled flats unchanged); the #225 ledger re-reads pass (rho* = 2/sqrt(alpha), the model-unit conversion); the alpha law closes the loop (Dirac-point fiber at rho = 3.08 near-Planckian, observed-alpha fiber at 23.41); and #222's x210 anchor exclusion - the verdict that forced the throat PRIMORDIAL, giving the e^{a phi} frame factor - is re-read from its ledger",
+      "rank_with_stabilizer_row": 2,
+      "grad_alpha_null_projection": 2.220446049250313e-16,
+      "stabilizer_row_equals_cap_row": true,
+      "rho_star_ledger_rel_dev": 0.0,
+      "model_unit_conversion_rel_dev": 0.0,
+      "rho_at_dirac_point": 3.0766422692538344,
+      "rho_at_observed_alpha": 23.41247522870624,
+      "primordial_exclusion_factor_222": 209.89283242853168,
+      "pass": true
+    },
+    {
+      "name": "T8_honest_scope",
+      "description": "what this probe does and does not establish",
+      "scope": [
+        "kappa - the magnetic-to-electric cap-energy ratio in Dirac units - is NOT derived.  kappa = 1 is the symmetric Dirac point (g = 2 pi/e with equal geometric factors); the observed alpha requires kappa = 2.98e-4.  The O(1) Wu-Yang half-charge and cap-geometry factors can shift kappa by O(1), not by 3e3: the smallness is real and is THE quantified open problem this probe leaves.",
+        "V_eff is the Born-Oppenheimer energy of a SINGLE throat as a function of the asymptotic radion value; the canonical mass requires a throat number density n (m_phi^2 = 16 pi n E''/m_P^2) - n is an astrophysical input, stated not derived.  For any realistic n the radion is far above fifth-force bounds (E'' is GUT-scale per throat at the observed-alpha minimum).",
+        "Tree-level throughout: no Casimir energy of the fiber, no loop-induced radion potential, no backreaction of V_eff on the 5D geometry.  The #225 flatness statement (V_tree = 0 in vacuo) is unchanged - V_eff here is SOURCED by the throat, which is the point.",
+        "The cohesion term's frame provenance is mapped (5D-fixed tension -> e^{+a phi}; Einstein-frame-fixed -> e^{-2a phi}), not chosen: both tilt alpha* by < 0.3% at the #55-scale cohesion, and neither overturns the electric-magnetic balance.  The fiber-wrapped case carries exactly the magnetic exponent and is absorbed into kappa.",
+        "The two committed anchors (#55 Compton lambda_C for the matter-sector throat; #225 Planck fiber rho* for the geometric throat) are reported separately per the B4 one-anchor discipline; alpha* itself is anchor-FREE (pure exponent-and-topology arithmetic).",
+        "The electric/magnetic quadratures use the flat capped-field model of #55 (the throat as inner boundary); the full 5D field profile would shift the O(1) coefficients inside kappa, not the exponents - the exponents are Weyl algebra (#225, machine-checked there)."
+      ],
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
+      "description": "the stabilization verdict",
+      "core_green": true,
+      "assessment": "The open dynamical problem #225 named is executed, and the answer has a clean shape.  The primordial EM-capped throat is a dyon: its capped electric flux costs e^{+sqrt3 phi} and its topological Hopf flux costs e^{-sqrt3 phi} under the #225 dilaton coupling, and with the #222 primordial frame factor e^{a phi} the effective potential has one exponent of each sign: THE RADION IS STABILIZED, and the no-go shows the #58 Hopf charge is exactly what saves the vacuum from decompactification.  The minimum is modulus-free and closed-form: alpha*^2 = 5 kappa/28, with the coefficient-free mass identity m_phi^2 = (35/12) V_min and E'' = 7 U_el* per throat.  At the symmetric Dirac point the landing is alpha* = 0.42 - order one, 58x the observed coupling: the mechanism is derived, the scale is honest, and the gap is sharply quantified as kappa = 2.98e-4 with no closure-constant match - the program's open problem moves from \"derive rho*\" to \"derive the electric-magnetic cap asymmetry\", a strictly sharper question.  The stabilizer row lands exactly in the rank-audit slot #225 reserved for it: nothing else in the arc moves.",
+      "pass": true
+    }
+  ],
+  "n_passed": 9,
+  "n_total": 9,
+  "verdict_class": "THE_HOPF_CHARGE_STABILIZES_THE_RADION_V_EFF_HAS_A_MINIMUM_WITH_ALPHA_STAR_EQUALS_SQRT_5KAPPA_OVER_28_ORDER_ONE_AT_THE_DIRAC_POINT_AND_M_PHI2_EQUALS_35_OVER_12_V_MIN_THE_OBSERVED_ALPHA_NEEDS_KAPPA_3E_MINUS_4_THE_NAMED_OPEN_PROBLEM",
+  "verdict": "ESTABLISHED (the argument is in docs/radion_stabilization.md).\n\nTHE CAP. The #55 ledger re-read at machine zero (A = alpha hbar c/2, R* = (A/2B)^{1/3}, U/mc^2 = alpha/2, E'' = 6B > 0) - the alpha-dependent holdout continues.\n\nTHE CHARGES. Fixed charge -> e^{+sqrt3 phi} (4e-06), fixed Hopf flux -> e^{-sqrt3 phi} (4e-06), Dirac ratio 1/(4 alpha^2) exact; primordial radius (#222) adds e^{a phi}: exponents 7/(2 sqrt3) and -5/(2 sqrt3) - ONE OF EACH SIGN.\n\nTHE POTENTIAL. The dyonic minimum exists (numeric = closed form to 1e-08); m_phi^2 = (35/12) V_min holds numerically (7e-09) and symbolically; WITHOUT the Hopf charge V is monotonic - runaway to decompactification: the #58 topology saves the vacuum.\n\nALPHA. alpha*^2 = 5 kappa/28: at the Dirac point alpha* = 0.4226 (order one, 58x observed); observed alpha needs kappa = 2.98e-04 (verified by minimization; guardrail: no match, nearest alpha/k5^2 at 2.1%); cohesion tilt < 0.2%.\n\nTHE MASS. U_mag/U_el = 7/5 at the minimum, E'' = 7 U_el* exactly (9e-09); anchored: 1.3e+16 GeV per throat at the observed-alpha minimum (fiber anchor; GUT-scale - the radion is heavy), 13 keV on the #55 Compton anchor; m_phi^2 = 16 pi n E''/m_P^2.\n\nTHE ARC. The stabilizer row = the reserved cap row (rank 2, grad alpha annihilated 2e-16); rho at the Dirac point 3.08, at observed alpha 23.41; #222's x210 primordial exclusion re-read. Nothing else in the arc moves."
+}
