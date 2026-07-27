@@ -472,9 +472,8 @@ Expected verdict:
 
 ## 8. What comes next
 
-  1. **The #207 surgery Z₂ term** — the one corollary this probe left
-     uncomputed. `φ₁₄ = φ_a + φ_b + φ_c + π·[n_twist mod 2]`, checkable
-     against the existing 16-dim swapping calculation.
+  1. ~~**The #207 surgery Z₂ term**~~ — **DONE, and the answer is no.**
+     See §9.
   2. **Is the Möbius identification quantitative?** T5 establishes the
      twisted loop and the QCD Möbius sector are the same Z₂ structurally
      (same holonomy, same half-integer comb, two implementations). Whether
@@ -486,3 +485,85 @@ Expected verdict:
      Z₂ label. Nothing here says which networks carry `W = −1`. A
      dynamical selection principle — or a demonstration that both sectors
      are populated — is the obvious open.
+
+## 9. §8.1 resolved — the surgery composition law has **no** Z₂ term
+
+`experiments/closure_ledger/er_link_twist_surgery_probe.py` (T1–T5, 5/5
+PASS, ~4 min) computes the conjecture on #207's own 4-mouth surgery
+lattice, reusing its Hamiltonian, mouths, holonomies (`s₁₂ = s₃₄ = 2`)
+and phase extraction unchanged. **The conjecture is refuted.**
+
+Sweeping all 8 sign assignments `(ε₁₂, ε₃₄, ε_j)` at every junction
+holonomy `s_j = 0..3`:
+
+  - twisting **either outer bridge** moves the pair phase by at most
+    **2.3e-13** — identically zero, not `π` — and leaves `|c_pm|`
+    unchanged to 1e-14 as well;
+  - twisting the **junction bridge** moves it by **4.68e-02 rad** —
+    neither 0 nor `π`;
+  - every odd-`n_twist` row misses the conjectured `π` by at least
+    **3.09 rad**.
+
+**The corrected law is the original law:** `φ₁₄ = φ_a + φ_b + φ_c`.
+Surgery across twisted bridges does **not** swap the Bell outcome.
+
+### Why — and why this is not a null result awaiting a better lattice
+
+The reason is algebraic. #207 extracts the pair phase as
+`arg(c_mp / c_pm)` — a **ratio of two branches that traverse the same
+links**. A link-uniform sign multiplies both branches equally and cancels
+identically; `|c_pm|` is a modulus, so it cancels there too. No choice of
+lattice parameters can change this.
+
+Crucially this is *not* because the twist is gaugeable away here — it
+moves the spectrum by ~2.2e-02 to 2.8e-02, so the Z₂ is physical on this
+lattice. It simply does not enter this observable.
+
+### Where the twist does act — and it confirms T2 dynamically
+
+The junction's 4.68e-02 residual is **bridge-vs-exterior interference
+around the M2–M3 cycle**: those mouths sit only 8 lattice sites apart, so
+the short exterior hop competes with the junction bridge and the relative
+sign between the two paths is physical. It behaves like an interference
+amplitude, not a topological phase:
+
+| M2–M3 gap | `Δφ` junction twist | `Δφ` outer twist |
+|---:|---:|---:|
+| 4 | 2.877e-01 | 1.221e-13 |
+| 8 | 4.678e-02 | 2.283e-13 |
+| 16 | 2.139e-04 | 2.984e-13 |
+| 32 | **2.975e-14** | 1.776e-13 |
+| 48 | **1.763e-13** | 1.337e-13 |
+
+| exterior hopping `t_x` | `Δφ` junction twist |
+|---:|---:|
+| 0.25 | 2.486e-05 |
+| 0.50 | 1.154e-03 |
+| 1.00 | 4.678e-02 |
+| 2.00 | 1.770e-01 |
+
+It **dies with the cycle length** (machine zero once the competing path
+is long enough) and **scales continuously with the exterior hopping that
+carries the competing path**. A topological phase does neither. The
+outer-bridge twists, whose competing exterior path is 60 sites long, stay
+at ~1e-13 for every gap and every hopping — they never do anything.
+
+So the twist acts **only through cycles**, exactly as T2's `b₁` audit
+requires — now confirmed *dynamically* rather than combinatorially. In
+#207's geometry that cycle carries a tunable interference amplitude, not
+a Bell-outcome flip.
+
+### What this leaves open
+
+Whether *any* Bell-type observable is twist-sensitive. It would have to
+compare two paths traversing **different link sets** — which #207's
+geometry does not naturally provide, since both branches of its pair
+phase run through the same bridges. That is a constraint on what to look
+for, not a gap in this calculation.
+
+```bash
+python -m experiments.closure_ledger.er_link_twist_surgery_probe
+```
+
+Expected verdict:
+`THE_SURGERY_COMPOSITION_LAW_HAS_NO_Z2_TERM_THE_PAIR_PHASE_IS_A_RATIO_AND_THE_TWIST_ACTS_ONLY_AS_CYCLE_INTERFERENCE`, 5/5 PASS.
