@@ -474,13 +474,17 @@ Expected verdict:
 
   1. ~~**The #207 surgery Z₂ term**~~ — **DONE, and the answer is no.**
      See §9.
-  2. **Is the Möbius identification quantitative?** T5 establishes the
-     twisted loop and the QCD Möbius sector are the same Z₂ structurally
-     (same holonomy, same half-integer comb, two implementations). Whether
-     the `+πσ` tower shift is the *same number* needs the full closed-loop
-     dynamics. If it is, #110/#114's search table (π₁(1600), η₁(1855),
-     Λ_c 3135, Λ_b 6469, the 849 MeV dipion endpoint) becomes the
-     experimental face of the network twist.
+  2. ~~**Is the Möbius identification quantitative?**~~ — **DONE (PR #229):
+     partially.** The `+πσ` factorizes as `(1/2) × (2πσ)`. The `1/2` is
+     derived, shared across three implementations, and topological
+     (`O(1/M²)` exactly, circumference-independent to 1.4e-11) — #100 had
+     only *asserted* it. The `2πσ` is an imported closed-string relation
+     the network does not supply. And #100's common intercept across both
+     towers is unjustified: antiperiodic moding shifts the zero point by
+     `+π/(4C)` per polarization, so its Möbius ground state is not
+     `M₀² + πσ`. Scope: the glueball tower only — #103/#109/#114's search
+     table is built from `Δ = 2√σ` and stands as published. See
+     `docs/mobius_identification_quantitative_research_plan.md`.
   3. **Where does the twist come from?** This probe takes `ε_b` as a free
      Z₂ label. Nothing here says which networks carry `W = −1`. A
      dynamical selection principle — or a demonstration that both sectors
