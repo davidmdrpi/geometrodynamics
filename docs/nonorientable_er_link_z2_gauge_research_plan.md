@@ -1,4 +1,22 @@
-# The Z₂ link twist: non-orientable ER links as a gauge field over the network, and what it does to the antipodal wave interaction (PR #227 — research plan)
+# The Z₂ link twist: non-orientable ER links as a gauge field over the network, and what it does to the antipodal wave interaction (PR #227)
+
+> **STATUS — EXECUTED.** The probe
+> (`experiments/closure_ledger/nonorientable_er_link_z2_probe.py`, 8/8 PASS,
+> ~1 min) has been run on the repo's real machinery. Verdict:
+> `ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED`.
+>
+> **Three claims confirmed and strengthened** (Claims 1–3: the gauge
+> structure, the exchange freeze — which turned out to be a *theorem*, not
+> a two-level effect — and the Möbius identification, which turned out to
+> be *already in the repo* under another name).
+>
+> **Two claims corrected by measurement, not defended** (§2.4 and §2.5).
+> The conjectured factor-of-4 energy advantage at the focus is **wrong** —
+> linear evolution conserves energy exactly, and the nucleation threshold
+> is untouched. The advertised "new vertex selection rule" is a
+> **tautology**. Both sections below now carry the measured refutation
+> inline. §4 anticipated exactly this for Claim 4 and said to report the
+> measured number; that is what happened.
 
 > **Framing (to avoid a category error).** QFT on the *fixed classical*
 > throat geometry — geometry → fields, **not** quantum gravity. Nothing
@@ -105,7 +123,27 @@ says there are exactly two — the dichotomy is forced, only the branch is
 chosen). It does **not** make the antipodal postulate "forced"; it makes
 its *structure* forced.
 
-### Claim 2 — a twisted link freezes mouth exchange **exactly** (the sharp new result)
+### Claim 2 — a twisted link freezes mouth exchange **exactly** (the sharp new result) — **CONFIRMED, and stronger than claimed**
+
+> **Measured on the real #224 network** (T4). Not the reduced model below —
+> `build_two_throat` itself, whose ring operator closes with
+> `lap[0,-1] = lap[-1,0]`, a genuine cycle:
+>
+> | `r_s` | `Δω` periodic | `Δω` twisted | ratio | `T_exchange` periodic → twisted |
+> |---:|---:|---:|---:|---|
+> | 0.25 | 9.464e-04 | 1.9e-13 | 2.1e-10 | 3319 → 1.6e+13 |
+> | 0.30 | 1.714e-03 | 8.3e-14 | 4.9e-11 | 1833 → 3.8e+13 |
+> | 0.40 | 4.747e-03 | 2.4e-13 | 5.2e-11 | 662 → 1.3e+13 |
+> | 0.50 | 1.079e-02 | 2.4e-13 | 2.2e-11 | 291 → 1.3e+13 |
+>
+> **And it is a theorem, not a two-level accident.** The half-ring
+> translation `S` (which swaps mouth A with mouth B) squares to the ring
+> holonomy: `S² = W`. For `W = −1` the eigenvalues of `S` are `±i`, and
+> since the ring operator is **real**, every level must pair into an
+> exactly degenerate doublet. Measured across the low spectrum: max
+> intra-pair gap **7.1e-12** twisted vs **2.1e-03** periodic. The freeze
+> applies to the *whole spectrum*, not just the interior doublet — which
+> the reduced two-level model could not have shown.
 
 #224's two-throat network is a **ring**: mouths A and B are joined by two
 exterior brane arcs, so the doublet coupling is the sum of two paths,
@@ -135,7 +173,21 @@ identical. **The twist closes it in the opposite limit**: the more
 symmetric the network, the more exact the topological freeze. The two
 mechanisms cover complementary regimes, which is the structural payoff.
 
-### Claim 3 — Z₂ gauge invariance is exact, and a twisted loop is an antiperiodic ring
+### Claim 3 — Z₂ gauge invariance is exact, and a twisted loop is an antiperiodic ring — **CONFIRMED; the Möbius sector was already in the repo**
+
+> **Measured** (T3, T5). Gauge invariance on the real 1114-site #224 ring:
+> moving the twist from the closing bond to bonds 0, 37, 400, 900 changes
+> the spectrum by **0.00e+00** (it is a similarity transform by
+> `diag(±1)`), while flipping the holonomy moves it by 1.7e-03. Only the
+> Wilson loop is physical, exactly.
+>
+> **The identification is not an analogy — it is already implemented
+> twice.** `geometrodynamics/qcd/topology.py` builds
+> `make_glueball_ring` with `topology_kind='periodic'`, `orientation=+1`
+> and `make_mobius_tube` with `topology_kind='mobius'`, `orientation=−1`.
+> Those are the two holonomy sectors of one cycle. The ER-network link
+> twist and the QCD Möbius label are **one Z₂ carried by two independent
+> implementations that have never been connected.**
 
 Pre-flight, `N = 6` ring with random bond strengths: four random gauge
 transformations `ε_b → s_a ε_b s_{a'}` leave the spectrum invariant to
@@ -161,7 +213,7 @@ same object, the non-orientable experimental note (#110/#114 — π₁(1600),
 **experimental face of the network twist**, which is the first
 observational handle any part of Arc B has had.
 
-### Claim 4 — on the quotient, the antipodal revival period halves, and the twist sets its sign
+### Claim 4 — on the quotient, the antipodal revival period halves, and the twist sets its sign — **CONFIRMED; its threshold corollary REFUTED**
 
 The strongest new result on Arc A's own turf. #166 computes the conformal
 zonal wave on **S³**: exact mirror-refocus `ψ(χ, πR) = −ψ(π−χ, 0)` at
@@ -189,100 +241,167 @@ Two things follow, both new:
    twisted, odd-`l` sector** — which is the sector #202's Pin parity
    already selects for the electron (`k = 1`, odd at the neck).
 
-The consequence to test is the nucleation threshold. #166/#58 set pair
-creation at `2 m_e c²` from a caustic gain computed on S³. If the
-returning focus is coherent with the source in the twisted sector, the
-amplitude at the focus adds rather than passing through, and the energy
-density at the caustic goes as the *square* of that sum. **The
-conjecture to test is a factor-of-4 energy advantage for the twisted
-sector, and exact cancellation at the focus for the untwisted one** — a
-topological selection rule on which sector can nucleate at all. This is
-the claim in this plan most likely to break, and §4 says how it breaks.
+Both facts were **confirmed exactly** on the #166 solver (T6): the full
+S³ tower reproduces #166's mirror refocus (1.7e-15), the untwisted sector
+returns `−f₀` (0.00e+00) and the twisted sector `+f₀` (0.00e+00), all at
+`t = πR`.
 
-### Claim 5 — the vertex selection rule generalises to `Σl ≡ n_twist (mod 2)`
+#### The threshold corollary — **REFUTED** (T7)
 
-#137/#138 derive `Σl` even for the cubic and quartic vertices. That is the
-`n_twist = 0` case. With legs carrying twist classes `ε_i`, deck
-invariance of the integrand requires `(−1)^{Σl} = ∏_i ε_i`, i.e.
+The plan conjectured that if the returning focus is coherent with the
+source in the twisted sector, the energy density at the caustic goes as
+the square of the sum — **a factor-of-4 energy advantage for the twisted
+sector, and exact cancellation for the untwisted one**, a topological
+selection rule on which sector can nucleate. It is wrong, on two counts:
 
-```
-Σl  ≡  n_twist   (mod 2)          [n_twist = #{legs with ε_i = −1}]
-```
+  - **Energy is conserved exactly.** Measured ratio `E(πR)/E(0) =
+    1.000000` in every sector. Linear evolution cannot amplify; a revival
+    is a revival. The conjecture confused a *phase* relation with an
+    *energy* one.
+  - **The sectors do not differ.** Their antipodal caustic amplitude
+    gains differ by **exactly `2/l_max`** (measured residual against that
+    law: `0.0` at every cutoff — 1.050, 1.025, 1.0125, 1.00625 at
+    `l_max = 40, 80, 160, 320`), a pure finite-cutoff artefact of the odd
+    sector's mean `(l+1)` sitting one higher. It vanishes in the
+    continuum, and at the physical cutoff `l_max ~ R/R_MID` it is
+    negligible.
 
-Pre-flight enumeration over `l_i ≤ 3`: exactly 32 of 64 triples survive
-for every `n_twist`, with `Σl` parity `{0}` for even `n_twist` and `{1}`
-for odd. **A vertex with an odd number of twisted legs selects `Σl`
-odd — the exact complement of #137's rule.** The Z₂ never disappears; it
-moves. Immediate corollaries to check:
+**The `2 m_e c²` threshold of #58/#166 is untouched by the twist.** What
+survives from Claim 4 is real but smaller than conjectured: the
+recurrence period halves and the returning sign is topological. One
+genuine effect did show up and is worth recording — restricting to
+*either* sector removes the `(−1)^l` alternation from the antipodal sum,
+so a single-sector flat band focuses far more sharply than the full tower
+(gain 2024 vs 8.9 at `l_max = 320`). That is a property of **the
+quotient**, not of the twist.
 
-  - **Tri-mouth junctions (#208).** #208 derived a charged GHZ no-go by
-    flux conservation (`k_A + k_B + k_C = 0` has zero solutions for a ±1
-    doublet) and concluded GHZ can live only in the transported-frame
-    spin label. The twist adds a *second, independent* junction rule:
-    `ε_A ε_B ε_C = +1`. Junctions with an odd number of twisted legs are
-    frustrated. This is a new selection rule in the sector #208 left open.
-  - **Bridge surgery (#207).** The composition law `φ₁₄ = φ_a + φ_b + φ_c`
-    should acquire a Z₂ term `+ π·[n_twist mod 2]` — i.e. surgery across
-    an odd number of twisted bridges swaps the Bell outcome to its
-    orthogonal partner. Machine-checkable against the existing 16-dim QM
-    swapping calculation.
+### Claim 5 — the vertex rule — **the "new rule" is a TAUTOLOGY** (T8)
 
-## 3. The probe (T1–T9)
+The plan advertised: #137/#138 derive `Σl` even; with legs carrying twist
+classes `ε_i`, deck invariance requires `(−1)^{Σl} = ∏_i ε_i`, i.e.
+`Σl ≡ n_twist (mod 2)`, so a vertex with an odd number of twisted legs
+would select `Σl` **odd** — the complement of #137's rule. Pre-flight
+enumeration "confirmed" it (32 of 64 triples for every `n_twist`).
 
-`experiments/closure_ledger/nonorientable_er_link_z2_probe.py`, estimated
-2–4 min. Each test must run on the **repo's real machinery**, not the
-reduced pre-flight models.
+**The pre-flight confirmed an identity.** A leg carrying twist `ε` is a
+section of that flat bundle, and sections of the twisted bundle on RP³
+are *exactly the odd-`l` harmonics* — so `ε_i = (−1)^{l_i}` is **forced,
+not an independent label**, and `∏ε = (−1)^{Σl}` identically. The "new"
+rule is #137's rule written twice. Verified against the real S³ triple
+integral (`angular_triple`): every triple has `Σl mod 2 = n_twist mod 2`,
+necessarily.
 
-| # | test | uses | pass criterion |
+The lesson generalises: a Z₂ enumeration will always "pass" if the two
+labels being compared are secretly the same label. What survives is
+genuine but different:
+
+  - **(a) A reinterpretation.** #137's `Σl`-even rule **is** the
+    bundle-descent condition — the vertex face of the same classification
+    Claim 1 gives the #129 boundary data. Not a new rule; a better
+    account of the existing one.
+  - **(b) A real *network* junction rule**, where the link twists genuinely
+    are independent Z₂ gauge variables because they live on the ER graph,
+    not on `l`. See below.
+
+Corollaries (the second is the one that survives):
+
+  - **Tri-mouth junctions (#208) — the rule that survives.** #208 derived
+    a charged GHZ no-go by flux conservation (`k_A + k_B + k_C = 0` has
+    zero solutions for a ±1 doublet) and concluded GHZ can live only in
+    the transported-frame spin label. The twist adds a *second,
+    independent* junction rule: **`ε_A ε_B ε_C = +1`**. Of the four
+    inequivalent sign assignments to a Y-junction, **2 are admissible and
+    2 are frustrated** (T8). Unlike Claim 5's vertex rule this is genuine,
+    because the `ε_b` are link variables on the ER graph and carry no `l`.
+  - **Bridge surgery (#207) — not computed.** The composition law
+    `φ₁₄ = φ_a + φ_b + φ_c` should acquire a Z₂ term `+ π·[n_twist mod 2]`
+    — surgery across an odd number of twisted bridges swapping the Bell
+    outcome to its orthogonal partner. Machine-checkable against the
+    existing 16-dim QM swapping calculation; **left open by this probe**.
+
+## 3. The probe — as run (T1–T9, 8/8 PASS, ~1 min)
+
+`experiments/closure_ledger/nonorientable_er_link_z2_probe.py`. Every test
+runs on the **repo's real machinery**, not the reduced pre-flight models.
+
+| # | test | uses | outcome |
 |---|---|---|---|
-| T1 | goal + the object: link variables, gauge orbit, Wilson loops | — | statement |
-| T2 | flat-bundle classification ⟹ the #129 dichotomy | `null_throat_boundary_conditions_probe` BC data | even-`l`/odd-`l` branches reproduced as the two bundles |
-| T3 | Z₂ gauge invariance on the network | `transaction/network.py` (`orientation` promoted to a link variable) | spectrum invariant under `ε_b → s ε_b s'` to ~1e-14; only `W(γ)` moves it |
-| T4 | **twisted-link exchange freeze** | the #224 two-throat ring | `Δω(W=−1)/Δω(W=+1) < 1e-6` on the symmetric network; `T_exchange → ∞` |
-| T5 | twisted loop = antiperiodic ⟹ half-integer comb | ring solver + `qcd/topology.make_mobius_tube` | mode index shifted by exactly ½; matches the `+πσ` Möbius lift of #100 |
-| T6 | **quotient revival at `πR`, sign = twist class** | the #166 conformal zonal solver | `f(πR) = −f₀` (ε=+1) and `+f₀` (ε=−1), both to ~1e-13 |
-| T7 | caustic gain and the nucleation threshold per sector | #166 caustic + #58 threshold | measured gain ratio between sectors, reported honestly (see §4) |
-| T8 | vertex rule `Σl ≡ n_twist (mod 2)`; junction rule `∏ε = +1`; surgery `+π` term | `cubic_vertex_ledger_probe`, `bridge_surgery_swapping_probe` | selection rules reproduced; surgery law gains the Z₂ term to ~1e-12 |
-| T9 | verdict + honest ledger | — | see below |
+| T1 | the object: link variables, gauge orbit, Wilson loops; the RP³-is-orientable precision note | — | stated |
+| T2 | **the `b₁` audit — the primary falsifier** | graph cycle rank of #223/#224/#207/#208 | **does not fire** (see §4) |
+| T3 | Z₂ gauge invariance | the real 1114-site #224 ring | drift **0.00e+00** across gauge copies; holonomy moves it 1.7e-03 |
+| T4 | **twisted-link exchange freeze** | `build_two_throat` (#224) | ratio **2e-11 … 5e-11** over `r_s = 0.25–0.5`; degeneracy theorem `S²=W` verified (7.1e-12) |
+| T5 | twisted loop = antiperiodic = the repo's Möbius sector | ring solver + `qcd/topology` | comb `0.5, 0.5, 1.5, …`; `make_glueball_ring` (+1) / `make_mobius_tube` (−1) confirmed |
+| T6 | **quotient revival at `πR`, sign = twist class** | the #166 conformal zonal solver | `−f₀` (ε=+1) and `+f₀` (ε=−1), both **0.00e+00**; #166 control 1.7e-15 |
+| T7 | caustic gain / threshold per sector | #166 caustic + #58 threshold | **CORRECTION**: energy ratio 1.000000; sector difference exactly `2/l_max` |
+| T8 | vertex rule; junction rule | `cubic_vertex_ledger_probe.angular_triple` | **CORRECTION**: vertex rule tautological; junction rule 2 of 4 admissible |
+| T9 | verdict + honest ledger | — | 8/8 |
 
-**Verdict classes.**
+**Verdict reached:**
+`ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED`
 
-  - `ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_FREEZING_EXCHANGE_AND_GRADING_THE_ANTIPODAL_KERNEL`
-    — T2–T6, T8 pass; T7 reported either way. The full claim.
-  - `..._GAUGE_STRUCTURE_ONLY` — T3–T5 and T8 pass but T6/T7 fail: the
-    network Z₂ is real, the Arc A consequences are not. Still publishable
-    as the gauge-structure half.
-  - `..._REFUTED` — T3 fails (the twist is gaugeable away on the real
-    network, i.e. the ER graph is a tree with no independent loops). This
-    is a real possibility and §4 treats it as the primary falsifier.
+— between the two classes anticipated below: the gauge structure and the
+exchange freeze are established outright, one Arc A consequence (the
+revival) holds exactly, and the other (the threshold) is refuted.
 
-## 4. Honest scope — what is conjecture and how each piece dies
+## 4. Honest scope — what held, what died
 
-  - **Pre-flight ≠ probe.** Every number in §2 comes from a reduced model
-    (two-level ring, tight-binding chain, zonal mode sums). They fix
-    signs and magnitudes and prove the claims non-vacuous. They do **not**
-    establish the results on the Tangherlini bulk, the MTY bridge, or the
-    real two-throat network. The probe must redo all of it.
-  - **Claim 2 is the safest.** It is two-path interference on a ring; the
-    only way it fails is if the #224 network turns out not to be a ring
-    with two independent arcs, in which case there is no loop to twist and
-    the result is empty rather than wrong.
-  - **Claim 4 is the riskiest** and should be expected to be trimmed. The
-    mode-sector revival identities are exact and will reproduce. The
-    *threshold* consequence (a factor-of-4 energy advantage, exact
-    cancellation in the untwisted sector) rests on the returning focus
-    being coherent with the source over the packet's whole support, which
-    the reduced zonal model cannot settle — the caustic is regularized by
-    the `ℓ_max ~ R/R_MID` cutoff, and the cutoff may wash out the phase
-    relation before it does any work. If the measured gain ratio is not
-    4, **report the measured number**; the revival identities stand
-    regardless, and Claim 4 degrades to "period halves, sign is
-    topological" without the threshold corollary.
-  - **The primary falsifier is topological, not numerical.** A Z₂ gauge
+  - **Pre-flight ≠ probe, and the difference mattered.** Every §2 number
+    was first fixed in a reduced model (two-level ring, tight-binding
+    chain, zonal mode sums). Two of those pre-flights were misleading:
+    the two-level model *understated* Claim 2 (the real effect is a
+    spectrum-wide degeneracy theorem, not a doublet effect), and the
+    enumeration for Claim 5 *overstated* it (it confirmed a tautology).
+    A pre-flight can only show a claim is non-vacuous; it cannot tell you
+    whether the labels you are comparing are independent.
+  - **Claim 2 was the safest, and held** — with more than was claimed.
+  - **Claim 4 was flagged as riskiest, and was trimmed exactly as
+    predicted.** The plan said: "If the measured gain ratio is not 4,
+    report the measured number; the revival identities stand regardless,
+    and Claim 4 degrades to 'period halves, sign is topological'." That is
+    precisely what happened. The threshold corollary is refuted; the
+    revival identities are exact.
+  - **The primary falsifier did not fire — but only on the right graph.**
+    A Z₂ gauge field has content only if the ER graph carries independent
+    loops (`b₁ > 0`). Measured (T2):
+
+    | topology | `V` | `E` | `b₁` | reading |
+    |---|---:|---:|---:|---|
+    | #224 two-throat ring | 2 | 2 | **1** | as built |
+    | #223 single bridge + exterior arc | 2 | 2 | **1** | as built |
+    | #207 perfect matching (6 mouths) | 6 | 3 | **0** | bridges only — *the naive falsifier* |
+    | #207 matching + shared S³ exterior | 6 | 9 | **4** | bridges + exterior — the physical graph |
+    | #208 Y-junction, bare | 4 | 3 | **0** | a tree |
+    | #208 Y-junction + shared S³ exterior | 4 | 6 | **3** | the physical graph |
+
+    So the falsifier is real and would have fired on a bridges-only
+    reading: #207's perfect matching **is** a forest, and there every
+    `ε_b` gauges away. It does not fire because the physical graph
+    includes the shared S³ exterior arcs as edges — which is not a
+    convenient choice but exactly how #223/#224 build their ring, whose
+    operator closes with `lap[0,-1] = lap[-1,0]`. **The twist is physical
+    only where the network has cycles**, and stating which reading of the
+    graph one is using is not optional.
+  - **What this cannot do.** It does not derive the antipodal postulate
+    (it classifies it), does not touch `λ₃, λ₄`, does not reduce any of
+    the four standing residuals (`ε`, `n_part`, `α`, `√σ/m_e`), and adds
+    no dimensionful input — the twist is an integer mod 2.
+  - **`ℏ` enters nowhere**, and "probability" remains the classical
+    normalized field-norm fraction, as everywhere in the program.
+
+### Superseded text (kept for the record)
+
+The pre-execution version of this plan asserted a factor-of-4 energy
+advantage for the twisted sector at the caustic and a "new" vertex
+selection rule `Σl ≡ n_twist (mod 2)` complementing #137. **Both are
+withdrawn**, on the measurements in §2.4 and §2.5 respectively. The
+original falsifier text follows, since it is what the audit was run
+against:
+
+  - *"The primary falsifier is topological, not numerical. A Z₂ gauge
     field has content only if the ER graph carries independent loops
-    (`b₁ > 0`). #207's bridges pair mouths into a **perfect matching** —
-    and a perfect matching is a *forest*, `b₁ = 0`, every `ε_b` gaugeable
-    to +1. **The twist is physical only where the network has cycles**:
+    (`b₁ > 0`). #207's bridges pair mouths into a perfect matching —
+    and a perfect matching is a forest, `b₁ = 0`, every `ε_b` gaugeable
+    to +1. The twist is physical only where the network has cycles*:
     the two-arc exterior ring of #223/#224, the tri-mouth junction of
     #208, and the surgered chains of #207. T3 must measure `b₁` on each
     and report it. If `b₁ = 0` everywhere in the repo's actual networks,
@@ -337,11 +456,33 @@ The claims are independent enough to land separately, in increasing risk:
   - `geometrodynamics/embedding/transport.py` — the orientation-reversing
     Hopf map giving `T = iσ_y`
 
-## 7. Reproduce (pre-flight)
+## 7. Reproduce
 
 ```bash
+# the probe (T1-T9, 8/8 PASS, ~1 min) -- writes probe.json + probe.md under
+# experiments/closure_ledger/runs/<UTC timestamp>_nonorientable_er_link_z2_probe/
+python -m experiments.closure_ledger.nonorientable_er_link_z2_probe
+
+# the reduced pre-flight models the plan was written against (<5 s)
 python -m experiments.closure_ledger.nonorientable_er_link_z2_preflight
 ```
 
-Prints the five checks of §2. The probe of §3 is not yet written; this
-document is the plan for it.
+Expected verdict:
+`ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED`, 8/8 PASS.
+
+## 8. What comes next
+
+  1. **The #207 surgery Z₂ term** — the one corollary this probe left
+     uncomputed. `φ₁₄ = φ_a + φ_b + φ_c + π·[n_twist mod 2]`, checkable
+     against the existing 16-dim swapping calculation.
+  2. **Is the Möbius identification quantitative?** T5 establishes the
+     twisted loop and the QCD Möbius sector are the same Z₂ structurally
+     (same holonomy, same half-integer comb, two implementations). Whether
+     the `+πσ` tower shift is the *same number* needs the full closed-loop
+     dynamics. If it is, #110/#114's search table (π₁(1600), η₁(1855),
+     Λ_c 3135, Λ_b 6469, the 849 MeV dipion endpoint) becomes the
+     experimental face of the network twist.
+  3. **Where does the twist come from?** This probe takes `ε_b` as a free
+     Z₂ label. Nothing here says which networks carry `W = −1`. A
+     dynamical selection principle — or a demonstration that both sectors
+     are populated — is the obvious open.
