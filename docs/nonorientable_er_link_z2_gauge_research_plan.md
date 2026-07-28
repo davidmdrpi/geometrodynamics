@@ -487,8 +487,13 @@ Expected verdict:
      `docs/mobius_identification_quantitative_research_plan.md`.
   3. ~~**Where does the twist come from?**~~ — **DONE (PR #230): energetics
      select, topology freezes.** The sectors differ by `π/(4C)` per degree
-     of freedom, with the sign set by the **statistics of the link field**
-     (bosonic ⟹ untwisted favoured; fermionic ⟹ twisted favoured). But the
+     of freedom. (The original "sign = statistics of the link field" rule
+     was **withdrawn in the same PR**: computing BAM's actual Pin⁻ spinor
+     shows the holonomy composes with the intrinsic B2 spin structure,
+     swapping the moding, so energetics favour **untwisted** in both
+     sectors and matter is selected by the Dirac **zero-mode index**
+     instead — `docs/bam_spinor_spectrum_effective_action_research_plan.md`.)
+     But the
      preference never drives a relaxation: changing `W` requires the link
      amplitude to pass through zero, severing the cycle (`b₁`: 1 → 0) —
      the #175 gate again — and `W` is exactly deformation-invariant

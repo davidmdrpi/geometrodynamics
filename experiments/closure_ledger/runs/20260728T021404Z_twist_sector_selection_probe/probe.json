@@ -6,7 +6,7 @@
   },
   "T2": {
     "name": "T2_the_twist_costs_energy_and_the_sign_is_the_statistics",
-    "description": "The #229 Casimir computation, re-read as a selection rule. The two holonomy sectors differ in zero-point energy by exactly pi/(4C) per degree of freedom on a loop of circumference C (verified to 1e-12 at every C). The SIGN is set by the statistics of the field living on the link, because the zero point is +1/2 sum omega for a boson and -1/2 sum omega for a fermion: bosonic links give dE = +pi/(4C), so the UNTWISTED sector is favoured; fermionic links give dE = -pi/(4C), so the TWISTED sector is. Same magnitude, opposite sign. There is therefore no universal answer to which sector is the ground state -- it is a property of what lives on the link, which is what makes T5's cross-check meaningful rather than circular.",
+    "description": "The #229 Casimir computation, re-read as a selection rule. The two holonomy sectors differ in zero-point energy by exactly pi/(4C) per degree of freedom on a loop of circumference C (verified to 1e-12 at every C). The SIGN is set by the statistics of the field living on the link, because the zero point is +1/2 sum omega for a boson and -1/2 sum omega for a fermion: bosonic links give dE = +pi/(4C), so the UNTWISTED sector is favoured; fermionic links give dE = -pi/(4C), so the TWISTED sector is. Same magnitude, opposite sign. There is therefore no universal answer to which sector is the ground state -- it is a property of what lives on the link. *** CORRECTED, same PR: this is the right statement for a field whose moding is fixed independently, but NOT for the BAM spinor. The network holonomy composes with the intrinsic B2 spin structure (eta = -1), which swaps the spinor's moding relative to the scalar; the two flips cancel and the BAM spinor also gives dE = +pi/(4C), favouring UNTWISTED. See bam_spinor_spectrum_effective_action_probe. The magnitude pi/(4C) below is unaffected. ***",
     "rows": [
       {
         "circumference": 1.0,
@@ -161,8 +161,9 @@
     "pass": true
   },
   "T5": {
-    "name": "T5_consistency_with_both_moebius_sectors",
-    "description": "The statistics-dependent sign of T2 is not tunable, so it is a real check: the program already contains two Moebius sectors with OPPOSITE character, and one Casimir sign gets both right. The QCD sector's link field is a flux-tube phonon (bosonic) -- untwisted favoured -- and #100/#103 do indeed present the Moebius states as an extra tower ABOVE the orientable ground (+pi*sigma, +2 sqrt(sigma)). The matter sector's link field is a Pin- spinor (fermionic) -- twisted favoured -- and #202/#227 do indeed put matter in the odd/twisted sector. Neither was arranged: both readings predate this probe. Honest limit: this is a consistency check on the SIGN, not an independent derivation of either sector's content.",
+    "name": "T5_SUPERSEDED_consistency_check_on_the_statistics_sign",
+    "description": "*** SUPERSEDED, same PR. *** This test read the fermionic sign of T2 as confirming that BAM matter sits in the twisted sector, and treated that as a non-trivial check because the sign is not tunable. The sign was wrong. bam_spinor_spectrum_effective_action_probe computes the actual Pin- spinor and finds the holonomy composes with the intrinsic B2 spin structure (eta = -1), swapping the moding: energetics favour the UNTWISTED sector for the BAM spinor as well. So energy does NOT explain why matter is twisted. The corrected picture is two mechanisms rather than one sign -- the bosonic QCD Moebius sector is selected energetically (untwisted cheaper, hence Moebius states as excitations above the ground, as #100/#103 present them), while the fermionic matter sector is selected by the INDEX: the twisted sector is where the Pin- Dirac zero mode lives (dim ker D = 1, det D = 0), which is #195's Atiyah-Singer mechanism. Both sectors still come out right, for different and now correctly identified reasons. The rows below are retained as the superseded record.",
+    "superseded_by": "bam_spinor_spectrum_effective_action_probe (T3-T6)",
     "cases": [
       {
         "sector": "QCD Moebius (#100/#103)",
@@ -192,10 +193,10 @@
     "description": "#227 sec. 8.3 is answered, and the arc's last open item closes. Selection is energetic but not relaxational: the two sectors differ by pi/(4C) per degree of freedom, with the sign set by the statistics of the link field, and the sector is then topologically frozen because changing it requires severing the cycle. So the twist is chosen AT NUCLEATION and kept -- which is why the program can carry two Moebius sectors with opposite selections side by side without either relaxing into the other.",
     "established": [
       "the two holonomy sectors differ by exactly pi/(4C) per degree of freedom (verified to 1e-12)",
-      "the sign is the statistics of the link field: bosonic -> untwisted favoured, fermionic -> twisted favoured",
+      "CORRECTED same-PR: the naive rule \"the sign is the statistics\" does NOT hold for the BAM spinor -- the holonomy composes with the intrinsic B2 spin structure, the moding swaps, and energetics favour UNTWISTED in both sectors; matter is selected by the zero-mode index instead (see bam_spinor_spectrum_effective_action_probe)",
       "W cannot change continuously: the gate is an amplitude zero that severs the cycle (b_1: 1 -> 0), the #175 gate again",
       "W is exactly deformation-invariant (zero-mode diagnostic, 200 random re-weightings per sector, gap never closes)",
-      "the sign gets BOTH of the program's Moebius sectors right, and neither reading was arranged for it"
+      "both of the program's Moebius sectors still come out right, but by two different mechanisms -- energy for the bosonic QCD sector, index for the fermionic matter sector"
     ],
     "does_not_explain": [
       "the ABSOLUTE population of each sector: that is set by the nucleation ensemble, which this probe does not compute -- energetics give the ordering, not the abundance",
@@ -203,14 +204,14 @@
       "the magnitude pi/(4C) is per degree of freedom on a free loop; counting conventions (polarizations, components) change the coefficient, though not the sign"
     ],
     "tests_passed": "5/5",
-    "verdict_class": "THE_TWIST_SECTOR_IS_SELECTED_ENERGETICALLY_WITH_A_SIGN_SET_BY_THE_LINK_FIELD_STATISTICS_AND_THEN_TOPOLOGICALLY_FROZEN_AT_NUCLEATION",
+    "verdict_class": "THE_TWIST_SECTOR_IS_SELECTED_ENERGETICALLY_AND_THEN_TOPOLOGICALLY_FROZEN_AT_NUCLEATION_SIGN_RULE_CORRECTED_BY_THE_SPINOR_PROBE",
     "pass": true
   },
   "summary": {
     "probe": "twist_sector_selection_probe",
     "pr": 230,
-    "utc": "2026-07-28T01:18:14.934093+00:00",
+    "utc": "2026-07-28T02:14:04.403226+00:00",
     "tests_passed": "5/5",
-    "verdict_class": "THE_TWIST_SECTOR_IS_SELECTED_ENERGETICALLY_WITH_A_SIGN_SET_BY_THE_LINK_FIELD_STATISTICS_AND_THEN_TOPOLOGICALLY_FROZEN_AT_NUCLEATION"
+    "verdict_class": "THE_TWIST_SECTOR_IS_SELECTED_ENERGETICALLY_AND_THEN_TOPOLOGICALLY_FROZEN_AT_NUCLEATION_SIGN_RULE_CORRECTED_BY_THE_SPINOR_PROBE"
   }
 }

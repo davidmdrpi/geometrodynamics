@@ -3381,18 +3381,34 @@ in its scale: the `2πσ` spacing is an imported closed-string relation
 that the network does not supply.
 
 **What selects the sector.** The two holonomy sectors differ in
-zero-point energy by exactly `π/(4C)` per degree of freedom, and the
-*sign* is the statistics of the field on the link — bosonic links favour
-the untwisted sector, fermionic links the twisted one. But the
-preference never drives a relaxation: changing `W` continuously requires
-the link amplitude to pass through zero, which severs the cycle and
-leaves the holonomy undefined — the same amplitude-zero gate that locks
-the winding number out of continuous evolution. The sector is chosen at
-nucleation and then frozen. That is why the program can carry two Möbius
-sectors with opposite selections side by side: the QCD flux-tube phonon
-is bosonic, so its Möbius states are excitations above the orientable
-ground; the throat's Pin⁻ modes are fermionic, so matter sits in the
-twisted sector.
+zero-point energy by exactly `π/(4C)` per degree of freedom. It is
+tempting to read the *sign* off the statistics of the field on the link —
+`+½Σω` for a boson, `−½Σω` for a fermion — and conclude that fermionic
+links favour the twisted sector. **That is wrong, and computing BAM's
+actual spinor shows why.** For a spinor the network holonomy composes
+with the *intrinsic* spin structure, and B2 fixes the non-trivial one
+(`T² = −I`, antiperiodic 4π-spinors), which reverses the spinor's moding
+relative to the scalar. The statistics flip and the spin-structure flip
+cancel, and energetics favour the **untwisted** sector for both.
+
+What puts matter in the twisted sector is not energy but the **index**.
+In the integer-moding sector the Dirac operator has an exact zero mode,
+and for the BAM spinor that is the twisted sector — its determinant
+vanishes there while the untwisted sector is gapped. A zero mode is
+topological and cannot be traded against a `π/(4C)` energy difference.
+This is the same index mechanism that pins the `k = 1` zero mode by
+Atiyah–Singer rather than by tuning, met here from the network side.
+
+So the program carries its two Möbius sectors for two *different*
+reasons: the QCD flux-tube phonon is selected energetically, which is why
+its Möbius states are excitations above the orientable ground; the
+throat's Pin⁻ modes are selected by the index, which is why matter sits
+in the twisted sector. Either way the preference never drives a
+relaxation: changing `W` continuously requires the link amplitude to pass
+through zero, which severs the cycle and leaves the holonomy undefined —
+the same amplitude-zero gate that locks the winding number out of
+continuous evolution. The sector is chosen at nucleation and then
+frozen.
 
 **What it does not do.** It does not derive the antipodal postulate — it
 classifies it, as a choice between the two flat Z₂ bundles that

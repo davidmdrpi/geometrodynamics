@@ -3,6 +3,26 @@
 > **Framing (to avoid a category error).** QFT on the *fixed classical*
 > throat geometry — geometry → fields, **not** quantum gravity.
 
+> ### ⚠️ PARTIALLY SUPERSEDED — same PR. Read this first.
+>
+> §1.1's rule "**the sign is the statistics of the link field**" and
+> §1.3's cross-check are **wrong**, corrected by
+> `docs/bam_spinor_spectrum_effective_action_research_plan.md`. That
+> computation takes BAM's actual Pin⁻ spinor instead of asserting its
+> statistics, and finds the network holonomy composes with the
+> **intrinsic B2 spin structure** (`T² = −I`, so `η = −1`), which **swaps
+> the spinor's moding** relative to the scalar. The statistics flip and
+> the spin-structure flip then cancel: `ΔE = +π/(4C)` for the BAM spinor
+> too — **untwisted favoured in both sectors**.
+>
+> Matter sits in the twisted sector because that is where the Pin⁻ Dirac
+> **zero mode** is (`dim ker D = 1`, `det D = 0`) — #195's index
+> mechanism, not an energetic preference.
+>
+> **What survives unchanged:** the magnitude `π/(4C)` (§1.1), and the
+> entire topological-freeze half — the amplitude-zero gate (§1.2) and the
+> deformation-invariance of `W`. Those never depended on statistics.
+
 ## 0. The last open item
 
 PR #227 promoted the ER-link orientation Z₂ to a gauge field over the
@@ -15,23 +35,30 @@ This closes it, and with it the arc.
 
 ## 1. The answer, in two halves acting at different times
 
-### 1.1 The twist costs (or pays) energy — and the sign is the statistics
+### 1.1 The twist costs energy — `π/(4C)` per degree of freedom
 
 The #229 Casimir computation, re-read as a selection rule. The two
 holonomy sectors differ in zero-point energy on a loop of circumference
 `C` by exactly `π/(4C)` per degree of freedom (verified to 1e-12 at every
-`C`). The **sign** depends on what lives on the link, because the zero
-point is `+½Σω` for a boson and `−½Σω` for a fermion:
+`C`). This plan originally argued the **sign** follows from the statistics
+alone — `+½Σω` for a boson, `−½Σω` for a fermion:
 
-| link field | `ΔE = E₀(W=−1) − E₀(W=+1)` | favoured sector |
-|---|---:|---|
-| **bosonic** | `+π/(4C)` | **untwisted** |
-| **fermionic** | `−π/(4C)` | **twisted** |
+~~| link field | `ΔE` | favoured |~~
+~~| **bosonic** | `+π/(4C)` | untwisted |~~
+~~| **fermionic** | `−π/(4C)` | twisted |~~
 
-Same magnitude, opposite sign. So there is **no universal answer** to
-"which sector is the ground state" — it is a property of the field on the
-link. That is precisely what makes §1.3's cross-check meaningful rather
-than circular: the sign is not tunable.
+**The magnitude `π/(4C)` is solid and is what survives.** The *sign* rule
+above is **withdrawn**: it flipped the zero-point sign while leaving the
+**moding** alone, but for a spinor the holonomy composes with the
+intrinsic spin structure. With the moding computed rather than assumed:
+
+| field | `η` | `ΔE = E₀(W=−1) − E₀(W=+1)` | favoured |
+|---|---:|---:|---|
+| scalar | `+1` | `+π/(4C)` | **untwisted** |
+| **BAM Pin⁻ spinor** | `−1` | `+π/(4C)` | **untwisted** |
+
+Energetics favour the untwisted sector **universally**. See
+`docs/bam_spinor_spectrum_effective_action_research_plan.md`.
 
 ### 1.2 But the sector cannot relax into the favoured one
 
@@ -66,11 +93,14 @@ spanning a factor of ~7:
 It sets which sector is cheaper *at nucleation*; after that the sector is
 frozen.
 
-### 1.3 The check that makes the sign non-trivial
+### 1.3 ~~The check that makes the sign non-trivial~~ — **superseded**
 
-The statistics-dependent sign is not a free parameter, and the program
-already contains **two Möbius sectors of opposite character**. One Casimir
-sign gets both right:
+> The table below was the original cross-check: it read the fermionic sign
+> as confirming that matter sits in the twisted sector. **The sign was
+> wrong, so the check does not stand.** Both sectors still come out right,
+> but by *two different mechanisms* — energy for the bosonic QCD sector,
+> the **zero-mode index** for the fermionic matter sector. Retained as the
+> superseded record.
 
 | sector | link field | statistics | predicted | what the repo already does |
 |---|---|---|---|---|
@@ -87,11 +117,21 @@ independent derivation of either sector's content.
 | # | test | outcome |
 |---|---|---|
 | T1 | goal: the last open item | stated |
-| T2 | the twist costs energy; sign = statistics | `π/(4C)` to 1e-12; signs opposite |
+| T2 | the twist costs energy | `π/(4C)` to 1e-12 (**sign rule withdrawn — see banner**) |
 | T3 | the sector cannot relax | gate at `s=½`: `b₁` 1→0, holonomy undefined |
 | T4 | `W` is deformation-invariant | 200 re-weightings/sector; gap never closes |
-| T5 | consistency with both Möbius sectors | both correct |
+| T5 | ~~consistency via the statistics sign~~ | **superseded** by the spinor computation |
 | T6 | assessment | 5/5 |
+
+## 2a. The corrected picture: two mechanisms, not one sign
+
+| sector | selected by | why |
+|---|---|---|
+| **QCD Möbius** (#100/#103) | **energy** | untwisted cheaper by `π/(4C)` ⟹ Möbius states are excitations *above* the ground, as #100/#103 present them |
+| **BAM matter** (#170/#195/#202) | **index** | energetics favour untwisted here too, so energy cannot explain it; matter is twisted because that sector carries the Pin⁻ Dirac zero mode (`dim ker D = 1`, `det D = 0`) |
+
+A zero mode is topological and cannot be traded against a `π/(4C)` energy
+difference — which is why the index wins where it applies.
 
 ## 3. What selection does **not** explain
 
@@ -102,7 +142,10 @@ independent derivation of either sector's content.
     preference, not a mechanism.
   - **The coefficient.** `π/(4C)` is per degree of freedom on a free loop;
     counting conventions (polarizations, spinor components) change the
-    coefficient. The **sign** — the part doing the work — does not.
+    coefficient.
+  - **And the sign was not safe either** — see the banner. Reading a
+    selection sign off "statistics" without computing the moding is
+    exactly the error this plan originally made.
 
 ## 4. Cross-references
 
