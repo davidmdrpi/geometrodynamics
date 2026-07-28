@@ -208,6 +208,12 @@ def test_T5_assessment(results: dict) -> dict:
     passed = sum(1 for k, v in results.items()
                  if k.startswith('T') and v.get('pass'))
     total = sum(1 for k in results if k.startswith('T'))
+    # This test is not yet in `results`, so `passed`/`total` cover only its
+    # predecessors.  Count it too, matching the repo convention (e.g.
+    # mouth_exchange_dynamics_probe tallies the full test list).
+    self_pass = passed >= total - 1
+    passed += int(self_pass)
+    total += 1
     return {
         'name': 'T5_assessment_and_the_probe_D_precondition',
         'description': (
@@ -241,7 +247,7 @@ def test_T5_assessment(results: dict) -> dict:
             'BOTH_SPIN_STRUCTURES_EXTEND_SO_INFLOW_DOES_NOT_SELECT_BUT_ABK_'
             'FORCES_THE_TWO_MOUTHS_OF_A_THROAT_TO_CARRY_OPPOSITE_PIN_MINUS_'
             'STRUCTURES'),
-        'pass': passed >= total - 1,
+        'pass': self_pass,
     }
 
 

@@ -162,7 +162,7 @@ exactly deformation-invariant. Those never depended on statistics.
 | T4 | the spectral asymmetry | `dim ker D` = 1 twisted / 0 untwisted; `det D` = 0 / 2 |
 | T5 | **the correction** | `ΔE = +π/(4C)` for both — untwisted favoured |
 | T6 | where selection stands | energy for QCD; matter **unexplained** |
-| T7 | assessment | 7/7 |
+| T7 | assessment | 8/8 |
 | T8 | **retraction** | the kernel is a BC zero mode, not an index (index = 0) |
 
 ## 7. Open
@@ -201,4 +201,4 @@ python -m experiments.closure_ledger.bam_spinor_spectrum_effective_action_probe
 ```
 
 Expected verdict:
-`THE_BAM_SPINOR_SWAPS_THE_MODING_SO_ENERGETICS_FAVOUR_UNTWISTED_IN_BOTH_SECTORS_AND_MATTER_IS_SELECTED_BY_THE_ZERO_MODE_INDEX_NOT_BY_ENERGY`, 6/6 PASS.
+`THE_BAM_SPINOR_SWAPS_THE_MODING_SO_ENERGETICS_FAVOUR_UNTWISTED_IN_BOTH_SECTORS_AND_MATTER_IS_SELECTED_BY_THE_ZERO_MODE_INDEX_NOT_BY_ENERGY`, 8/8 PASS.

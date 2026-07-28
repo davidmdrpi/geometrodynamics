@@ -380,6 +380,12 @@ def test_T6_assessment(results: dict) -> dict:
     passed = sum(1 for k, v in results.items()
                  if k.startswith('T') and v.get('pass'))
     total = sum(1 for k in results if k.startswith('T'))
+    # This test is not yet in `results`, so `passed`/`total` cover only its
+    # predecessors.  Count it too, matching the repo convention (e.g.
+    # mouth_exchange_dynamics_probe tallies the full test list).
+    self_pass = passed >= total - 1
+    passed += int(self_pass)
+    total += 1
     return {
         'name': 'T6_assessment_and_what_selection_does_not_explain',
         'description': (
@@ -425,7 +431,7 @@ def test_T6_assessment(results: dict) -> dict:
             'THE_TWIST_SECTOR_IS_SELECTED_ENERGETICALLY_AND_THEN_'
             'TOPOLOGICALLY_FROZEN_AT_NUCLEATION_SIGN_RULE_CORRECTED_BY_THE_'
             'SPINOR_PROBE'),
-        'pass': passed >= total - 1,
+        'pass': self_pass,
     }
 
 

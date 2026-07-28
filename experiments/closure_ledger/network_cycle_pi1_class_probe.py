@@ -300,6 +300,12 @@ def test_T6_assessment(results: dict) -> dict:
     passed = sum(1 for k, v in results.items()
                  if k.startswith('T') and v.get('pass'))
     total = sum(1 for k in results if k.startswith('T'))
+    # This test is not yet in `results`, so `passed`/`total` cover only its
+    # predecessors.  Count it too, matching the repo convention (e.g.
+    # mouth_exchange_dynamics_probe tallies the full test list).
+    self_pass = passed >= total - 1
+    passed += int(self_pass)
+    total += 1
     return {
         'name': 'T6_assessment',
         'description': (
@@ -339,7 +345,7 @@ def test_T6_assessment(results: dict) -> dict:
             'THE_224_CYCLE_DOES_NOT_GENERATE_PI1_RP3_ITS_DECK_CLASS_IS_'
             'TRIVIAL_AND_ITS_HOLONOMY_LIVES_ON_A_HANDLE_GENERATOR_SO_PROBES_'
             'B_TO_D_DO_NOT_BEAR_ON_IT'),
-        'pass': passed >= total - 1,
+        'pass': self_pass,
     }
 
 

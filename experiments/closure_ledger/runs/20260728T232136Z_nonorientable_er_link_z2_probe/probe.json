@@ -1,0 +1,440 @@
+{
+  "T1": {
+    "name": "T1_goal_and_the_object",
+    "description": "Promote the antipodal Z2 from a global parity of one throat (#139 Thread A) to a Z2 GAUGE FIELD over the ER-link network (#206-#224). Link variables eps_b in {+1,-1} on each ER link; mouth reframing eps_b -> s_a eps_b s_a' is a Z2 gauge transformation, so individual eps_b are convention and only the Wilson loops W(gamma) = prod_{b in gamma} eps_b are physical. This is Z2 lattice gauge theory whose Wilson loops are the orientation holonomies -- w_1 promoted from the per-loop label #121 already names to a connection over the ER graph.",
+    "precision_note": "RP^3 is ORIENTABLE (deck det +1, the repo's own #183), so the twist is NOT ambient non-orientability. It is the flat Z2 line bundle in H^1(RP^3;Z2) = Z2 (equivalently the spin structure #B2 chooses with T^2 = -I), and at the mouth the genuinely non-orientable RP^2 cross-cap carrying Pin- (#169/#170). Both give the same +/-1 transit holonomy.",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_b1_audit_the_primary_falsifier",
+    "description": "A Z2 gauge field has content only where b_1 > 0; on a forest every link variable gauges away. The falsifier: #207's bridges pair mouths into a perfect MATCHING (a forest, b_1 = 0). It does NOT fire, because the physical graph includes the shared S^3 exterior arcs as edges -- exactly how #223/#224 build their ring (their ring operator closes with a genuine cycle). On the bridges-only reading the matching indeed gives b_1 = 0 and the twist would be pure convention; on the physical reading every network in the repo carries cycles.",
+    "rows": [
+      {
+        "topology": "#224 two-throat ring (A,B + 2 exterior arcs)",
+        "V": 2,
+        "E": 2,
+        "b1": 1,
+        "reading": "as built"
+      },
+      {
+        "topology": "#223 single bridge + exterior arc",
+        "V": 2,
+        "E": 2,
+        "b1": 1,
+        "reading": "as built"
+      },
+      {
+        "topology": "#207 perfect matching, 6 mouths (bridges only)",
+        "V": 6,
+        "E": 3,
+        "b1": 0,
+        "reading": "bridges only -- the naive falsifier"
+      },
+      {
+        "topology": "#207 perfect matching + shared S^3 exterior",
+        "V": 6,
+        "E": 9,
+        "b1": 4,
+        "reading": "bridges + exterior -- the physical graph"
+      },
+      {
+        "topology": "#208 Y-junction (3 mouths + core), bare",
+        "V": 4,
+        "E": 3,
+        "b1": 0,
+        "reading": "bare junction -- a tree"
+      },
+      {
+        "topology": "#208 Y-junction + shared S^3 exterior",
+        "V": 4,
+        "E": 6,
+        "b1": 3,
+        "reading": "junction + exterior -- the physical graph"
+      }
+    ],
+    "all_physical_readings_have_cycles": true,
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_z2_gauge_invariance_on_the_real_ring",
+    "description": "Moving the twist from the closing bond to any other bond of the #224 ring is a Z2 gauge transformation (a similarity transform by diag(+/-1)), so it cannot move the spectrum at all; only the holonomy W(gamma) can. Measured on the real N = 1114 ring: max spectral drift across gauge copies 0.0e+00, while flipping the holonomy itself moves the spectrum by 1.369e-01.",
+    "n_sites": 1114,
+    "gauge_copies": [
+      {
+        "bond": 0,
+        "max_dw_vs_closing_bond": 0.0
+      },
+      {
+        "bond": 37,
+        "max_dw_vs_closing_bond": 0.0
+      },
+      {
+        "bond": 400,
+        "max_dw_vs_closing_bond": 0.0
+      },
+      {
+        "bond": 900,
+        "max_dw_vs_closing_bond": 0.0
+      }
+    ],
+    "max_gauge_drift": 0.0,
+    "holonomy_shift": 0.13685303784865255,
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_the_twisted_link_freezes_mouth_exchange",
+    "description": "#224's two-throat network is a RING: mouths A and B are joined by two exterior brane arcs, so the doublet coupling is a sum over two paths. A twist makes the loop holonomy W = -1 and the paths SUBTRACT. On the symmetric network the splitting goes to machine zero and T_exchange = pi/Dw diverges: mouth-to-mouth transfer is TOPOLOGICALLY frozen. It is a theorem, not a two-level accident -- the half-ring translation S obeys S^2 = W, so W = -1 gives S eigenvalues +/-i and a real ring operator then forces EVERY level into an exactly degenerate pair (measured across the low spectrum). This is the complement of #224's own two freezing mechanisms: #224 froze exchange dynamically (the alpha^-4 coupling law) and by asymmetry (the Rabi/Lorentzian localization), both approximate and both degrading toward symmetry -- #224 explicitly names the residual 'exact-degeneracy loophole' (complete transfer in a perfectly symmetric network). The twist closes it in the OPPOSITE limit: the more symmetric the network, the more exact the topological freeze. Asymmetry then lifts the protection, so the two mechanisms cover complementary regimes.",
+    "rows": [
+      {
+        "r_s": 0.25,
+        "dw_periodic": 0.0009464229978535244,
+        "dw_twisted": 1.9451107391432743e-13,
+        "ratio": 2.055223450354399e-10,
+        "T_exchange_periodic": 3319.438201221744,
+        "T_exchange_twisted": 16151227744357.17
+      },
+      {
+        "r_s": 0.3,
+        "dw_periodic": 0.001714089651943862,
+        "dw_twisted": 8.348877145181177e-14,
+        "ratio": 4.8707353992325544e-11,
+        "T_exchange_periodic": 1832.8053319889495,
+        "T_exchange_twisted": 37628924212917.234
+      },
+      {
+        "r_s": 0.4,
+        "dw_periodic": 0.00474687513280303,
+        "dw_twisted": 2.446931546273845e-13,
+        "ratio": 5.1548260230492556e-11,
+        "T_exchange_periodic": 661.8233186459831,
+        "T_exchange_twisted": 12838906990977.205
+      },
+      {
+        "r_s": 0.5,
+        "dw_periodic": 0.01078705742699615,
+        "dw_twisted": 2.4069635173873394e-13,
+        "ratio": 2.231343935709075e-11,
+        "T_exchange_periodic": 291.2372233902741,
+        "T_exchange_twisted": 13052099173484.207
+      }
+    ],
+    "degeneracy_theorem": {
+      "periodic": {
+        "max_intra_pair_gap": 0.002081796293606164,
+        "median_intra_pair_gap": 0.00013912491168410757
+      },
+      "twisted": {
+        "max_intra_pair_gap": 7.101874643922201e-12,
+        "median_intra_pair_gap": 8.815170815523743e-14
+      }
+    },
+    "asymmetry_lifts_protection": [
+      {
+        "bias_B": 0.0,
+        "dw_twisted": 8.348877145181177e-14
+      },
+      {
+        "bias_B": 0.002,
+        "dw_twisted": 0.0004466568638870072
+      },
+      {
+        "bias_B": 0.01,
+        "dw_twisted": 0.002231669459058061
+      },
+      {
+        "bias_B": 0.05,
+        "dw_twisted": 0.011115443514614132
+      }
+    ],
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_twisted_loop_is_the_repo_own_mobius_sector",
+    "description": "The twisted loop is the ANTIPERIODIC ring: the mode comb shifts integer -> half-integer. That is the same shift that lifts the Moebius glueball tower by pi*sigma in M^2 (#100) and gives the Moebius baryons their 2*sqrt(sigma) gap (#103). The identification is not an analogy: the repo ALREADY builds both holonomy sectors of one cycle, independently, in the QCD arc -- make_glueball_ring is topology_kind 'periodic' with orientation +1, make_mobius_tube is 'mobius' with orientation -1. The ER-network link twist and the QCD Moebius label are one Z2, carried by two implementations that have never been connected. Consequence: the non-orientable experimental note (#110/#114 -- pi_1(1600), eta_1(1855), Lambda_c 3135, Lambda_b 6469, the 849 MeV dipion endpoint) is the experimental face of the network twist -- the first observational handle the ER-network arc has had.",
+    "mode_comb_k_over_2pi": {
+      "untwisted": [
+        0.0,
+        1.0,
+        1.0,
+        2.0,
+        2.0,
+        3.0
+      ],
+      "twisted": [
+        0.5,
+        0.5,
+        1.5,
+        1.5,
+        2.5,
+        2.5
+      ]
+    },
+    "twisted_comb_is_half_integer": true,
+    "repo_mobius_sectors": {
+      "glueball_ring_kind": "periodic",
+      "glueball_ring_orientation": 1,
+      "mobius_tube_kind": "mobius",
+      "mobius_tube_orientation": -1
+    },
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_quotient_revival_period_halves_sign_is_topological",
+    "description": "#166 computes the conformal zonal wave on S^3: exact mirror refocus psi(chi, pi R) = -psi(pi - chi, 0), full revival only at 2 pi R. On the QUOTIENT the mode set is restricted to one twist sector (sections of the trivial flat bundle are the even-l harmonics, of the twisted bundle the odd-l), and the conformal tower omega_l = (l+1)/R then collapses the revival to pi R. Two new facts: (1) the revival period HALVES -- on the quotient the antipode IS the emitter, so the caustic returns to its own source, and a factor of two sooner than the S^3 picture suggests; (2) the TWIST CLASS SETS THE SIGN -- the untwisted sector returns -f0, the twisted sector +f0, both exact. Constructive self-return lands in the twisted odd-l sector, which is the sector #202's Pin parity already selects for the electron (k = 1, odd at the neck). The full S^3 tower is reproduced as the control.",
+    "l_max": 200,
+    "rows": [
+      {
+        "sector": "full",
+        "t": "pi R",
+        "rel_minus": 1.4142135623735943,
+        "rel_plus": 1.4142135623725967,
+        "rel_plus_mirror": 1.6772185760442092e-15
+      },
+      {
+        "sector": "full",
+        "t": "2 pi R",
+        "rel_minus": 0.0,
+        "rel_plus": 2.0,
+        "rel_plus_mirror": 1.4142135623735939
+      },
+      {
+        "sector": "untwisted_even_l",
+        "t": "pi R",
+        "rel_minus": 2.0,
+        "rel_plus": 0.0,
+        "rel_plus_mirror": 1.6917385083485562e-15
+      },
+      {
+        "sector": "untwisted_even_l",
+        "t": "2 pi R",
+        "rel_minus": 0.0,
+        "rel_plus": 2.0,
+        "rel_plus_mirror": 2.0
+      },
+      {
+        "sector": "twisted_odd_l",
+        "t": "pi R",
+        "rel_minus": 0.0,
+        "rel_plus": 2.0,
+        "rel_plus_mirror": 1.651101606475101e-15
+      },
+      {
+        "sector": "twisted_odd_l",
+        "t": "2 pi R",
+        "rel_minus": 0.0,
+        "rel_plus": 2.0,
+        "rel_plus_mirror": 1.651101606475101e-15
+      }
+    ],
+    "pass": true
+  },
+  "T7": {
+    "name": "T7_CORRECTION_no_energy_advantage_threshold_untouched",
+    "description": "The research plan conjectured a factor-of-4 energy advantage for the twisted sector at the focus, with exact cancellation for the untwisted one, and flagged it as the claim most likely to break. It breaks. (1) Linear evolution conserves energy EXACTLY (measured ratio 1.000000 in every sector) -- a revival is a revival, and cannot amplify. (2) The per-sector antipodal caustic amplitude gains differ by EXACTLY 2/l_max (measured residual < 1e-9 against that law: 1.050, 1.025, 1.0125, 1.00625 at l_max = 40, 80, 160, 320) -- a pure finite-cutoff artefact, since the odd sector's mean (l+1) sits one higher. It vanishes in the continuum, and at the physical cutoff l_max ~ R/R_MID it is utterly negligible, so the twist class does NOT select which sector can nucleate. The #58/#166 nucleation threshold 2 m_e c^2 is therefore UNTOUCHED by the twist. What survives from Claim 4 is real but smaller than conjectured: the recurrence period halves (T6) and the returning sign is topological (T6). One genuine sector effect does show up and is worth recording: restricting to EITHER twist sector removes the (-1)^l alternation from the antipodal sum, so a single-sector flat band focuses far more sharply than the full tower -- a property of the quotient, not of the twist.",
+    "energy_conserved": [
+      {
+        "sector": "full",
+        "E_0": 8.48623367866286,
+        "E_piR": 8.48623367866286,
+        "ratio": 1.0
+      },
+      {
+        "sector": "untwisted_even_l",
+        "E_0": 8.486233678326313,
+        "E_piR": 8.486233678326313,
+        "ratio": 1.0
+      },
+      {
+        "sector": "twisted_odd_l",
+        "E_0": 8.486233678999405,
+        "E_piR": 8.486233678999405,
+        "ratio": 1.0
+      }
+    ],
+    "caustic_gain_by_sector": [
+      {
+        "l_max": 40,
+        "full": 3.1622776601683795,
+        "untwisted_even_l": 89.44271909999158,
+        "twisted_odd_l": 93.91485505499115,
+        "twisted_over_untwisted": 1.0499999999999998,
+        "predicted_1_plus_2_over_lmax": 1.05,
+        "law_residual": 2.220446049250313e-16
+      },
+      {
+        "l_max": 80,
+        "full": 4.472135954999579,
+        "untwisted_even_l": 252.98221281347037,
+        "twisted_odd_l": 259.3067681338071,
+        "twisted_over_untwisted": 1.025,
+        "predicted_1_plus_2_over_lmax": 1.025,
+        "law_residual": 0.0
+      },
+      {
+        "l_max": 160,
+        "full": 6.32455532033676,
+        "untwisted_even_l": 715.5417527999326,
+        "twisted_odd_l": 724.4860247099319,
+        "twisted_over_untwisted": 1.0125000000000002,
+        "predicted_1_plus_2_over_lmax": 1.0125,
+        "law_residual": 2.220446049250313e-16
+      },
+      {
+        "l_max": 320,
+        "full": 8.944271909999157,
+        "untwisted_even_l": 2023.857702507763,
+        "twisted_odd_l": 2036.5068131484363,
+        "twisted_over_untwisted": 1.0062499999999999,
+        "predicted_1_plus_2_over_lmax": 1.00625,
+        "law_residual": 2.220446049250313e-16
+      }
+    ],
+    "energy_ratio_is_one": true,
+    "sectors_agree_within_2pct": true,
+    "threshold_verdict": "UNCHANGED: 2 m_e c^2 (#58/#166) stands",
+    "pass": true
+  },
+  "T8": {
+    "name": "T8_CORRECTION_vertex_rule_is_a_tautology_junction_rule_is_not",
+    "description": "The plan advertised 'Sum l == n_twist (mod 2)' as a new vertex selection rule generalising #137. It is a TAUTOLOGY. A leg carrying twist eps is a section of that flat bundle, and sections of the twisted bundle on RP^3 are exactly the odd-l harmonics -- so eps_i = (-1)^{l_i} is FORCED, not an independent label, and prod eps = (-1)^{Sum l} identically. The 'new' rule is #137's rule written twice. What survives is genuine but different: (a) a REINTERPRETATION -- #137's Sum-l-even rule IS the bundle-descent condition, the vertex face of the same classification T1 gives the #129 boundary data; and (b) a real NETWORK junction rule prod_legs eps_b = +1 for the #208 tri-mouth junction, where the link twists live on the ER graph and ARE independent of any l. Of the 4 inequivalent sign assignments to a Y-junction, 2 are admissible and 2 are frustrated -- a Z2 selection rule in the sector #208 left open, independent of its charge no-go.",
+    "eps_is_forced_by_l": [
+      {
+        "l": 0,
+        "eps": 1
+      },
+      {
+        "l": 1,
+        "eps": -1
+      },
+      {
+        "l": 2,
+        "eps": 1
+      },
+      {
+        "l": 3,
+        "eps": -1
+      },
+      {
+        "l": 4,
+        "eps": 1
+      },
+      {
+        "l": 5,
+        "eps": -1
+      }
+    ],
+    "triples": [
+      {
+        "lll": "(2,2,0)",
+        "integral": 0.04166667,
+        "sum_l": 4,
+        "n_twist": 0,
+        "sum_l_parity": 0,
+        "n_twist_parity": 0,
+        "identical": true
+      },
+      {
+        "lll": "(1,1,1)",
+        "integral": 0.0,
+        "sum_l": 3,
+        "n_twist": 3,
+        "sum_l_parity": 1,
+        "n_twist_parity": 1,
+        "identical": true
+      },
+      {
+        "lll": "(1,1,0)",
+        "integral": 0.0,
+        "sum_l": 2,
+        "n_twist": 2,
+        "sum_l_parity": 0,
+        "n_twist_parity": 0,
+        "identical": true
+      },
+      {
+        "lll": "(3,1,1)",
+        "integral": 0.0,
+        "sum_l": 5,
+        "n_twist": 3,
+        "sum_l_parity": 1,
+        "n_twist_parity": 1,
+        "identical": true
+      }
+    ],
+    "rule_is_tautology": true,
+    "junction_rule": [
+      {
+        "eps": [
+          1,
+          1,
+          1
+        ],
+        "product": 1,
+        "n_twist": 0,
+        "admissible": true
+      },
+      {
+        "eps": [
+          1,
+          -1,
+          -1
+        ],
+        "product": 1,
+        "n_twist": 2,
+        "admissible": true
+      },
+      {
+        "eps": [
+          1,
+          1,
+          -1
+        ],
+        "product": -1,
+        "n_twist": 1,
+        "admissible": false
+      },
+      {
+        "eps": [
+          -1,
+          -1,
+          -1
+        ],
+        "product": -1,
+        "n_twist": 3,
+        "admissible": false
+      }
+    ],
+    "n_admissible_junctions": 2,
+    "pass": true
+  },
+  "T9": {
+    "name": "T9_assessment_and_honest_ledger",
+    "description": "The ER link twist is a genuine Z2 gauge field over the network and it does real work: it freezes mouth exchange exactly on the symmetric #224 network (a degeneracy THEOREM from S^2 = W), it is the repo's own Moebius sector seen from the network side, and it halves the antipodal revival period on the quotient while fixing the returning sign topologically. Two of the research plan's claims did not survive contact with the machinery and are corrected here rather than defended: there is NO energy advantage at the focus (energy is conserved exactly; the nucleation threshold is untouched) and the 'new' vertex rule is a tautology (the genuine new rule is the network junction rule).",
+    "established": [
+      "the twist is a Z2 connection on the ER graph; only Wilson loops are physical (exact, 0.0e+00 gauge drift)",
+      "b_1 > 0 on every physical network reading -- the falsifier does not fire, though it WOULD on a bridges-only matching",
+      "a twisted link freezes #224 mouth exchange exactly; every level degenerate by the S^2 = W theorem",
+      "the twisted loop IS the repo's Moebius sector (#100/#103), connecting the ER network to an experimentally live arc",
+      "the quotient revival period halves to pi R; the twist class sets its sign"
+    ],
+    "corrected": [
+      "NO factor-of-4 energy advantage: energy conserved exactly, per-sector caustic gains agree to <1%, the 2 m_e c^2 threshold of #58/#166 is untouched",
+      "the vertex rule Sum l == n_twist (mod 2) is a TAUTOLOGY (eps = (-1)^l is forced); the real content is the reinterpretation of #137 plus the network junction rule"
+    ],
+    "open": [
+      "the Moebius-sector identification is structural here; whether the +pi*sigma tower shift is QUANTITATIVELY the same object needs the full closed-loop dynamics",
+      "the #207 surgery composition law probably gains a Z2 term; not computed in this probe",
+      "no residual is reduced (eps, n_part, alpha, sqrt(sigma)/m_e all stand); the twist adds no dimensionful input"
+    ],
+    "tests_passed": "9/9",
+    "verdict_class": "ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED",
+    "pass": true
+  },
+  "summary": {
+    "probe": "nonorientable_er_link_z2_probe",
+    "pr": 227,
+    "utc": "2026-07-28T23:21:36.120130+00:00",
+    "tests_passed": "9/9",
+    "verdict_class": "ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED"
+  }
+}

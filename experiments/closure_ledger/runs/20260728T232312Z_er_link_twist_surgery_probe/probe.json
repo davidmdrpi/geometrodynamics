@@ -1,0 +1,547 @@
+{
+  "T1": {
+    "name": "T1_goal_the_conjectured_z2_term",
+    "description": "PR #227 sec. 8.1 left one corollary uncomputed: whether the #207 bridge-surgery composition law phi_14 = phi_a + phi_b + phi_c acquires a Z2 term pi*[n_twist mod 2] when bridges carry the link twist -- i.e. whether surgery across an odd number of twisted bridges swaps the Bell outcome to its orthogonal partner. This probe computes it on #207's own 4-mouth surgery lattice, reusing its Hamiltonian, its mouths, its holonomies (s12 = s34 = 2) and its phase extraction unchanged.",
+    "conjecture": "phi_14 = phi_a + phi_b + phi_c + pi*[n_twist mod 2]",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_no_pi_term_the_refutation",
+    "description": "Sweeping all 8 sign assignments (eps_12, eps_34, eps_j) at every junction holonomy sj = 0..3: twisting EITHER outer bridge moves the pair phase by at most 2.3e-13 -- identically zero, not pi -- and leaves |c_pm| unchanged too. Twisting the junction bridge moves it by 4.68e-02 rad, which is neither 0 nor pi. Every odd-n_twist row misses the conjectured pi by at least 3.09 rad. THE CONJECTURED Z2 TERM DOES NOT EXIST.",
+    "rows": [
+      {
+        "sj": 0,
+        "eps": [
+          1,
+          1,
+          1
+        ],
+        "n_twist": 0,
+        "phase": 0.0,
+        "dphi_vs_untwisted": 0.0,
+        "abs_c_pm": 0.088681,
+        "junction_twisted": false
+      },
+      {
+        "sj": 0,
+        "eps": [
+          -1,
+          1,
+          1
+        ],
+        "n_twist": 1,
+        "phase": 0.0,
+        "dphi_vs_untwisted": 2.930988785010413e-14,
+        "abs_c_pm": 0.088681,
+        "junction_twisted": false
+      },
+      {
+        "sj": 0,
+        "eps": [
+          1,
+          -1,
+          1
+        ],
+        "n_twist": 1,
+        "phase": 0.0,
+        "dphi_vs_untwisted": 8.881784197001252e-15,
+        "abs_c_pm": 0.088681,
+        "junction_twisted": false
+      },
+      {
+        "sj": 0,
+        "eps": [
+          1,
+          1,
+          -1
+        ],
+        "n_twist": 1,
+        "phase": 6.283185,
+        "dphi_vs_untwisted": 3.197442310920451e-14,
+        "abs_c_pm": 0.09078,
+        "junction_twisted": true
+      },
+      {
+        "sj": 0,
+        "eps": [
+          -1,
+          -1,
+          1
+        ],
+        "n_twist": 2,
+        "phase": 0.0,
+        "dphi_vs_untwisted": 2.1760371282653068e-14,
+        "abs_c_pm": 0.088681,
+        "junction_twisted": false
+      },
+      {
+        "sj": 0,
+        "eps": [
+          -1,
+          1,
+          -1
+        ],
+        "n_twist": 2,
+        "phase": 0.0,
+        "dphi_vs_untwisted": 5.5067062021407764e-14,
+        "abs_c_pm": 0.09078,
+        "junction_twisted": true
+      },
+      {
+        "sj": 0,
+        "eps": [
+          1,
+          -1,
+          -1
+        ],
+        "n_twist": 2,
+        "phase": 6.283185,
+        "dphi_vs_untwisted": 3.375077994860476e-14,
+        "abs_c_pm": 0.09078,
+        "junction_twisted": true
+      },
+      {
+        "sj": 0,
+        "eps": [
+          -1,
+          -1,
+          -1
+        ],
+        "n_twist": 3,
+        "phase": 0.0,
+        "dphi_vs_untwisted": 8.570921750106208e-14,
+        "abs_c_pm": 0.09078,
+        "junction_twisted": true
+      },
+      {
+        "sj": 1,
+        "eps": [
+          1,
+          1,
+          1
+        ],
+        "n_twist": 0,
+        "phase": 1.587443,
+        "dphi_vs_untwisted": 0.0,
+        "abs_c_pm": 0.088636,
+        "junction_twisted": false
+      },
+      {
+        "sj": 1,
+        "eps": [
+          -1,
+          1,
+          1
+        ],
+        "n_twist": 1,
+        "phase": 1.587443,
+        "dphi_vs_untwisted": 1.1546319456101628e-13,
+        "abs_c_pm": 0.088636,
+        "junction_twisted": false
+      },
+      {
+        "sj": 1,
+        "eps": [
+          1,
+          -1,
+          1
+        ],
+        "n_twist": 1,
+        "phase": 1.587443,
+        "dphi_vs_untwisted": 1.305622276959184e-13,
+        "abs_c_pm": 0.088636,
+        "junction_twisted": false
+      },
+      {
+        "sj": 1,
+        "eps": [
+          1,
+          1,
+          -1
+        ],
+        "n_twist": 1,
+        "phase": 1.554362,
+        "dphi_vs_untwisted": 0.03308169451191656,
+        "abs_c_pm": 0.090824,
+        "junction_twisted": true
+      },
+      {
+        "sj": 1,
+        "eps": [
+          -1,
+          -1,
+          1
+        ],
+        "n_twist": 2,
+        "phase": 1.587443,
+        "dphi_vs_untwisted": 1.9984014443252818e-14,
+        "abs_c_pm": 0.088636,
+        "junction_twisted": false
+      },
+      {
+        "sj": 1,
+        "eps": [
+          -1,
+          1,
+          -1
+        ],
+        "n_twist": 2,
+        "phase": 1.554362,
+        "dphi_vs_untwisted": 0.03308169451207155,
+        "abs_c_pm": 0.090824,
+        "junction_twisted": true
+      },
+      {
+        "sj": 1,
+        "eps": [
+          1,
+          -1,
+          -1
+        ],
+        "n_twist": 2,
+        "phase": 1.554362,
+        "dphi_vs_untwisted": 0.03308169451190146,
+        "abs_c_pm": 0.090824,
+        "junction_twisted": true
+      },
+      {
+        "sj": 1,
+        "eps": [
+          -1,
+          -1,
+          -1
+        ],
+        "n_twist": 3,
+        "phase": 1.554362,
+        "dphi_vs_untwisted": 0.033081694511865045,
+        "abs_c_pm": 0.090824,
+        "junction_twisted": true
+      },
+      {
+        "sj": 2,
+        "eps": [
+          1,
+          1,
+          1
+        ],
+        "n_twist": 0,
+        "phase": 3.164984,
+        "dphi_vs_untwisted": 0.0,
+        "abs_c_pm": 0.089238,
+        "junction_twisted": false
+      },
+      {
+        "sj": 2,
+        "eps": [
+          -1,
+          1,
+          1
+        ],
+        "n_twist": 1,
+        "phase": 3.164984,
+        "dphi_vs_untwisted": 2.282618538629322e-13,
+        "abs_c_pm": 0.089238,
+        "junction_twisted": false
+      },
+      {
+        "sj": 2,
+        "eps": [
+          1,
+          -1,
+          1
+        ],
+        "n_twist": 1,
+        "phase": 3.164984,
+        "dphi_vs_untwisted": 9.769962616701378e-15,
+        "abs_c_pm": 0.089238,
+        "junction_twisted": false
+      },
+      {
+        "sj": 2,
+        "eps": [
+          1,
+          1,
+          -1
+        ],
+        "n_twist": 1,
+        "phase": 3.118201,
+        "dphi_vs_untwisted": 0.04678319079218696,
+        "abs_c_pm": 0.090233,
+        "junction_twisted": true
+      },
+      {
+        "sj": 2,
+        "eps": [
+          -1,
+          -1,
+          1
+        ],
+        "n_twist": 2,
+        "phase": 3.164984,
+        "dphi_vs_untwisted": 7.860379014346108e-14,
+        "abs_c_pm": 0.089238,
+        "junction_twisted": false
+      },
+      {
+        "sj": 2,
+        "eps": [
+          -1,
+          1,
+          -1
+        ],
+        "n_twist": 2,
+        "phase": 3.118201,
+        "dphi_vs_untwisted": 0.04678319079239124,
+        "abs_c_pm": 0.090233,
+        "junction_twisted": true
+      },
+      {
+        "sj": 2,
+        "eps": [
+          1,
+          -1,
+          -1
+        ],
+        "n_twist": 2,
+        "phase": 3.118201,
+        "dphi_vs_untwisted": 0.04678319079243565,
+        "abs_c_pm": 0.090233,
+        "junction_twisted": true
+      },
+      {
+        "sj": 2,
+        "eps": [
+          -1,
+          -1,
+          -1
+        ],
+        "n_twist": 3,
+        "phase": 3.118201,
+        "dphi_vs_untwisted": 0.04678319079243476,
+        "abs_c_pm": 0.090233,
+        "junction_twisted": true
+      },
+      {
+        "sj": 3,
+        "eps": [
+          1,
+          1,
+          1
+        ],
+        "n_twist": 0,
+        "phase": 4.728824,
+        "dphi_vs_untwisted": 0.0,
+        "abs_c_pm": 0.090126,
+        "junction_twisted": false
+      },
+      {
+        "sj": 3,
+        "eps": [
+          -1,
+          1,
+          1
+        ],
+        "n_twist": 1,
+        "phase": 4.728824,
+        "dphi_vs_untwisted": 8.881784197001252e-15,
+        "abs_c_pm": 0.090126,
+        "junction_twisted": false
+      },
+      {
+        "sj": 3,
+        "eps": [
+          1,
+          -1,
+          1
+        ],
+        "n_twist": 1,
+        "phase": 4.728824,
+        "dphi_vs_untwisted": 1.3944401189291966e-13,
+        "abs_c_pm": 0.090126,
+        "junction_twisted": false
+      },
+      {
+        "sj": 3,
+        "eps": [
+          1,
+          1,
+          -1
+        ],
+        "n_twist": 1,
+        "phase": 4.695742,
+        "dphi_vs_untwisted": 0.033081694512016924,
+        "abs_c_pm": 0.089346,
+        "junction_twisted": true
+      },
+      {
+        "sj": 3,
+        "eps": [
+          -1,
+          -1,
+          1
+        ],
+        "n_twist": 2,
+        "phase": 4.728824,
+        "dphi_vs_untwisted": 1.1368683772161603e-13,
+        "abs_c_pm": 0.090126,
+        "junction_twisted": false
+      },
+      {
+        "sj": 3,
+        "eps": [
+          -1,
+          1,
+          -1
+        ],
+        "n_twist": 2,
+        "phase": 4.695742,
+        "dphi_vs_untwisted": 0.03308169451203469,
+        "abs_c_pm": 0.089346,
+        "junction_twisted": true
+      },
+      {
+        "sj": 3,
+        "eps": [
+          1,
+          -1,
+          -1
+        ],
+        "n_twist": 2,
+        "phase": 4.695742,
+        "dphi_vs_untwisted": 0.03308169451182774,
+        "abs_c_pm": 0.089346,
+        "junction_twisted": true
+      },
+      {
+        "sj": 3,
+        "eps": [
+          -1,
+          -1,
+          -1
+        ],
+        "n_twist": 3,
+        "phase": 4.695742,
+        "dphi_vs_untwisted": 0.033081694512040904,
+        "abs_c_pm": 0.089346,
+        "junction_twisted": true
+      }
+    ],
+    "max_dphi_outer_twists": 2.282618538629322e-13,
+    "max_dphi_junction_twist": 0.04678319079243565,
+    "min_distance_from_pi_on_odd_rows": 3.0948094627973584,
+    "conjecture_refuted": true,
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_the_pair_phase_is_a_ratio_but_the_twist_is_physical",
+    "description": "The reason is algebraic, not numerical. #207 extracts the pair phase as arg(c_mp / c_pm) -- a RATIO of two branches that traverse the SAME links. A link-uniform sign multiplies both branches equally and cancels identically, and |c_pm| is a modulus so it cancels there too (measured: phase and amplitude both unchanged to <1e-9 under an outer-bridge twist). No choice of lattice parameters can change this. Crucially this is NOT because the twist is gaugeable: it moves the spectrum by ~2.2e-02 to 2.8e-02, so the Z2 is physical here -- it simply does not enter this observable.",
+    "spectrum_shifts": [
+      {
+        "eps": [
+          -1,
+          1,
+          1
+        ],
+        "max_dE_vs_untwisted": 0.02226052139414103
+      },
+      {
+        "eps": [
+          -1,
+          -1,
+          1
+        ],
+        "max_dE_vs_untwisted": 0.025976543277015263
+      },
+      {
+        "eps": [
+          -1,
+          -1,
+          -1
+        ],
+        "max_dE_vs_untwisted": 0.027501436739679086
+      }
+    ],
+    "twist_moves_spectrum": true,
+    "phase_unchanged": 2.282618538629322e-13,
+    "amplitude_unchanged": 1.9845236565174673e-15,
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_the_residual_is_cycle_interference_not_a_z2_phase",
+    "description": "The junction's 4.7e-02 residual is bridge-vs-exterior interference around the M2-M3 CYCLE: in #207's geometry those mouths sit only 8 lattice sites apart, so the short exterior hop competes with the junction bridge and the relative sign between the two paths is physical. It is an interference amplitude, not a topological phase, and behaves like one: it DIES with the cycle length (2.9e-01 -> 1.8e-13 as the gap goes 4 -> 48; machine zero once the competing path is long enough) and SCALES CONTINUOUSLY with the exterior hopping that carries the competing path (2.5e-05 -> 1.8e-01 as t_x goes 0.25 -> 2.0). A topological phase does neither. The outer-bridge twists, whose competing exterior path is 60 sites long, stay at ~1e-13 for every gap. So the twist acts ONLY through cycles -- exactly what the main probe's b_1 audit (T2) requires -- and in #207's geometry that cycle carries a tunable interference amplitude, not a Bell-outcome flip.",
+    "cycle_length_scan": [
+      {
+        "gap": 4,
+        "dphi_junction_twist": 0.2876980571682264,
+        "dphi_outer_twist": 1.2212453270876722e-13
+      },
+      {
+        "gap": 8,
+        "dphi_junction_twist": 0.04678319079218696,
+        "dphi_outer_twist": 2.282618538629322e-13
+      },
+      {
+        "gap": 16,
+        "dphi_junction_twist": 0.00021393620961029924,
+        "dphi_outer_twist": 2.984279490192421e-13
+      },
+      {
+        "gap": 32,
+        "dphi_junction_twist": 2.9753977059954195e-14,
+        "dphi_outer_twist": 1.7763568394002505e-13
+      },
+      {
+        "gap": 48,
+        "dphi_junction_twist": 1.7630341631047486e-13,
+        "dphi_outer_twist": 1.3367085216486885e-13
+      }
+    ],
+    "exterior_hopping_scan": [
+      {
+        "tx": 0.25,
+        "dphi_junction_twist": 2.4858453551157567e-05
+      },
+      {
+        "tx": 0.5,
+        "dphi_junction_twist": 0.0011540103594449569
+      },
+      {
+        "tx": 1.0,
+        "dphi_junction_twist": 0.04678319079218696
+      },
+      {
+        "tx": 2.0,
+        "dphi_junction_twist": 0.17695867311054458
+      }
+    ],
+    "dies_with_cycle_length": true,
+    "scales_with_exterior_hopping": true,
+    "outer_twist_never_acts": true,
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_assessment",
+    "description": "PR #227 sec. 8.1 is closed with a NEGATIVE result and a mechanism. The #207 composition law is unchanged: phi_14 = phi_a + phi_b + phi_c, with NO Z2 term. Surgery across twisted bridges does not swap the Bell outcome. The reason is structural (the pair phase is a ratio over branches sharing the same links), so this is not a null result waiting for a better lattice. What the twist does instead is act through cycles, as a tunable interference amplitude -- which independently confirms the b_1 principle the main probe's T2 established, now dynamically rather than combinatorially.",
+    "corrected_law": "phi_14 = phi_a + phi_b + phi_c   (unchanged)",
+    "established": [
+      "no Z2 term in the #207 composition law (outer twists 1e-13; odd-n_twist rows miss pi by > 3 rad)",
+      "the reason is algebraic: the pair phase is a ratio over branches traversing the same links",
+      "the twist is nonetheless physical here (spectrum moves ~2.5e-02)",
+      "its only effect is cycle interference: dies with cycle length, scales with the exterior hopping -- dynamical, not topological"
+    ],
+    "open": [
+      "whether any Bell-type observable IS twist-sensitive: it would have to compare two paths that traverse DIFFERENT link sets, which #207 geometry does not naturally provide",
+      "the remaining sec. 8 items: whether the Moebius identification is quantitative, and what selects the twist sector"
+    ],
+    "tests_passed": "5/5",
+    "verdict_class": "THE_SURGERY_COMPOSITION_LAW_HAS_NO_Z2_TERM_THE_PAIR_PHASE_IS_A_RATIO_AND_THE_TWIST_ACTS_ONLY_AS_CYCLE_INTERFERENCE",
+    "pass": true
+  },
+  "summary": {
+    "probe": "er_link_twist_surgery_probe",
+    "pr": 227,
+    "utc": "2026-07-28T23:23:12.951084+00:00",
+    "tests_passed": "5/5",
+    "verdict_class": "THE_SURGERY_COMPOSITION_LAW_HAS_NO_Z2_TERM_THE_PAIR_PHASE_IS_A_RATIO_AND_THE_TWIST_ACTS_ONLY_AS_CYCLE_INTERFERENCE"
+  }
+}

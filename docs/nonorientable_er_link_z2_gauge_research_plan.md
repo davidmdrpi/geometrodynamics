@@ -1,7 +1,7 @@
 # The Z₂ link twist: non-orientable ER links as a gauge field over the network, and what it does to the antipodal wave interaction (PR #227)
 
 > **STATUS — EXECUTED.** The probe
-> (`experiments/closure_ledger/nonorientable_er_link_z2_probe.py`, 8/8 PASS,
+> (`experiments/closure_ledger/nonorientable_er_link_z2_probe.py`, 9/9 PASS,
 > ~1 min) has been run on the repo's real machinery. Verdict:
 > `ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED`.
 >
@@ -319,7 +319,7 @@ Corollaries (the second is the one that survives):
     outcome to its orthogonal partner. Machine-checkable against the
     existing 16-dim QM swapping calculation; **left open by this probe**.
 
-## 3. The probe — as run (T1–T9, 8/8 PASS, ~1 min)
+## 3. The probe — as run (T1–T9, 9/9 PASS, ~1 min)
 
 `experiments/closure_ledger/nonorientable_er_link_z2_probe.py`. Every test
 runs on the **repo's real machinery**, not the reduced pre-flight models.
@@ -334,7 +334,7 @@ runs on the **repo's real machinery**, not the reduced pre-flight models.
 | T6 | **quotient revival at `πR`, sign = twist class** | the #166 conformal zonal solver | `−f₀` (ε=+1) and `+f₀` (ε=−1), both **0.00e+00**; #166 control 1.7e-15 |
 | T7 | caustic gain / threshold per sector | #166 caustic + #58 threshold | **CORRECTION**: energy ratio 1.000000; sector difference exactly `2/l_max` |
 | T8 | vertex rule; junction rule | `cubic_vertex_ledger_probe.angular_triple` | **CORRECTION**: vertex rule tautological; junction rule 2 of 4 admissible |
-| T9 | verdict + honest ledger | — | 8/8 |
+| T9 | verdict + honest ledger | — | 9/9 |
 
 **Verdict reached:**
 `ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED`
@@ -459,7 +459,7 @@ The claims are independent enough to land separately, in increasing risk:
 ## 7. Reproduce
 
 ```bash
-# the probe (T1-T9, 8/8 PASS, ~1 min) -- writes probe.json + probe.md under
+# the probe (T1-T9, 9/9 PASS, ~1 min) -- writes probe.json + probe.md under
 # experiments/closure_ledger/runs/<UTC timestamp>_nonorientable_er_link_z2_probe/
 python -m experiments.closure_ledger.nonorientable_er_link_z2_probe
 
@@ -468,7 +468,7 @@ python -m experiments.closure_ledger.nonorientable_er_link_z2_preflight
 ```
 
 Expected verdict:
-`ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED`, 8/8 PASS.
+`ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED`, 9/9 PASS.
 
 ## 8. What comes next
 

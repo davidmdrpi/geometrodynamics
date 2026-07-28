@@ -22,7 +22,7 @@ This arc replaces those constructions with the genuine objects.
 | **D** | `twist_sector_einstein_dirac_probe.py` | does back-reaction select? |
 | **E** | `network_cycle_pi1_class_probe.py` | does the #224 cycle generate `π₁(RP³)`? (decides whether B–D apply) |
 
-## 1. Probe A — the spin-lift ledger (5/5)
+## 1. Probe A — the spin-lift ledger (6/6)
 
 `J: S³ → S³`, `x ↦ −x`, is `−I₄` with `det = +1`: it lies in **SO(4)**, which
 is why RP³ is orientable (the repo's #183 deck determinant, recovered).
@@ -65,7 +65,7 @@ moding swap of `bam_spinor_spectrum_effective_action_probe` rests, is **not
 justified in general**. It is conditional on the network cycle generating
 `π₁(RP³)`, which this arc does **not** settle.
 
-## 2. Probe B — the genuine RP³ Dirac spectrum (7/7)
+## 2. Probe B — the genuine RP³ Dirac spectrum (8/8)
 
 Analytic input, no finite differencing anywhere (so no fermion doubling to
 manage): on the round unit S³, `λ = ±(3/2 + k)` with multiplicity
@@ -115,7 +115,7 @@ The instinct that the answer was index-theoretic was right; the object was
 wrong. The discriminator is a spectral **asymmetry** (`η`), not a kernel
 and not an index.
 
-## 3. Probe C — bulk extension and inflow (4/4)
+## 3. Probe C — bulk extension and inflow (5/5)
 
 **The objects, concretely.** `Y³ = RP³ = L(2,1)`. `X⁴` = the disk bundle
 over S² of Euler number `e = ±2`, whose boundary is `L(2,1)` and which is
@@ -151,7 +151,7 @@ Here it is *derived* from Z₈ bordism.
 mouths. It says nothing about which absolute sector a network occupies, so
 it does not answer the selection question either.
 
-## 4. Probe D — semiclassical back-reaction (5/5)
+## 4. Probe D — semiclassical back-reaction (6/6)
 
 Precondition met (Probe C). The result follows from Probe B without further
 computation:
@@ -282,10 +282,10 @@ is no.** See §4a.
 ## 7. Reproduce
 
 ```bash
-python -m experiments.closure_ledger.rp3_spin_lift_probe             # A, 5/5
-python -m experiments.closure_ledger.rp3_dirac_eta_probe             # B, 7/7
-python -m experiments.closure_ledger.bulk_aps_spin_structure_probe   # C, 4/4
-python -m experiments.closure_ledger.twist_sector_einstein_dirac_probe  # D, 5/5
+python -m experiments.closure_ledger.rp3_spin_lift_probe             # A, 6/6
+python -m experiments.closure_ledger.rp3_dirac_eta_probe             # B, 8/8
+python -m experiments.closure_ledger.bulk_aps_spin_structure_probe   # C, 5/5
+python -m experiments.closure_ledger.twist_sector_einstein_dirac_probe  # D, 6/6
 python -m experiments.closure_ledger.network_cycle_pi1_class_probe     # E, 6/6
 ```
 

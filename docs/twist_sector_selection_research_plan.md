@@ -133,7 +133,7 @@ independent derivation of either sector's content.
 | T3 | the sector cannot relax | gate at `s=½`: `b₁` 1→0, holonomy undefined |
 | T4 | `W` is deformation-invariant | 200 re-weightings/sector; gap never closes |
 | T5 | ~~consistency via the statistics sign~~ | **superseded** by the spinor computation |
-| T6 | assessment | 5/5 |
+| T6 | assessment | 6/6 |
 
 ## 2a. The corrected picture: two mechanisms, not one sign
 
@@ -182,4 +182,4 @@ python -m experiments.closure_ledger.twist_sector_selection_probe
 ```
 
 Expected verdict:
-`THE_TWIST_SECTOR_IS_SELECTED_ENERGETICALLY_WITH_A_SIGN_SET_BY_THE_LINK_FIELD_STATISTICS_AND_THEN_TOPOLOGICALLY_FROZEN_AT_NUCLEATION`, 5/5 PASS.
+`THE_TWIST_SECTOR_IS_SELECTED_ENERGETICALLY_WITH_A_SIGN_SET_BY_THE_LINK_FIELD_STATISTICS_AND_THEN_TOPOLOGICALLY_FROZEN_AT_NUCLEATION`, 6/6 PASS.

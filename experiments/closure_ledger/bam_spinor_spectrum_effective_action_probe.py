@@ -501,6 +501,12 @@ def test_T7_assessment(results: dict) -> dict:
     passed = sum(1 for k, v in results.items()
                  if k.startswith('T') and v.get('pass'))
     total = sum(1 for k in results if k.startswith('T'))
+    # This test is not yet in `results`, so `passed`/`total` cover only its
+    # predecessors.  Count it too, matching the repo convention (e.g.
+    # mouth_exchange_dynamics_probe tallies the full test list).
+    self_pass = passed >= total - 1
+    passed += int(self_pass)
+    total += 1
     return {
         'name': 'T7_assessment',
         'description': (
@@ -549,7 +555,7 @@ def test_T7_assessment(results: dict) -> dict:
             'THE_BAM_SPINOR_SWAPS_THE_MODING_SO_ENERGETICS_FAVOUR_UNTWISTED_'
             'IN_BOTH_SECTORS_AND_THE_KERNEL_IS_A_BOUNDARY_CONDITION_ZERO_'
             'MODE_NOT_AN_INDEX_SO_MATTERS_TWISTED_SECTOR_IS_OPEN'),
-        'pass': passed >= total - 1,
+        'pass': self_pass,
     }
 
 

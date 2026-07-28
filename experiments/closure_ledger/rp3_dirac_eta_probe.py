@@ -379,6 +379,12 @@ def test_T8_assessment(results: dict) -> dict:
     passed = sum(1 for k, v in results.items()
                  if k.startswith('T') and v.get('pass'))
     total = sum(1 for k in results if k.startswith('T'))
+    # This test is not yet in `results`, so `passed`/`total` cover only its
+    # predecessors.  Count it too, matching the repo convention (e.g.
+    # mouth_exchange_dynamics_probe tallies the full test list).
+    self_pass = passed >= total - 1
+    passed += int(self_pass)
+    total += 1
     return {
         'name': 'T8_assessment',
         'description': (
@@ -412,7 +418,7 @@ def test_T8_assessment(results: dict) -> dict:
             'THE_RP3_SPIN_STRUCTURES_HAVE_h_EQUALS_ZERO_AND_IDENTICAL_'
             'DETERMINANT_MODULUS_AND_ARE_DISTINGUISHED_ONLY_BY_ETA_EQUALS_'
             'PLUS_MINUS_ONE_QUARTER'),
-        'pass': passed >= total - 1,
+        'pass': self_pass,
     }
 
 

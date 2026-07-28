@@ -639,6 +639,12 @@ def test_T9_assessment(results: dict) -> dict:
     passed = sum(1 for k, v in results.items()
                  if k.startswith('T') and v.get('pass'))
     total = sum(1 for k in results if k.startswith('T'))
+    # This test is not yet in `results`, so `passed`/`total` cover only its
+    # predecessors.  Count it too, matching the repo convention (e.g.
+    # mouth_exchange_dynamics_probe tallies the full test list).
+    self_pass = passed >= total - 1
+    passed += int(self_pass)
+    total += 1
     return {
         'name': 'T9_assessment_and_honest_ledger',
         'description': (
@@ -689,7 +695,7 @@ def test_T9_assessment(results: dict) -> dict:
             'ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_'
             'AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_'
             'THRESHOLD_UNTOUCHED'),
-        'pass': passed >= total - 1,
+        'pass': self_pass,
     }
 
 
