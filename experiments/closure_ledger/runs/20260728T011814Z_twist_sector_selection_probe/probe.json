@@ -1,0 +1,216 @@
+{
+  "T1": {
+    "name": "T1_goal_the_last_open_item",
+    "description": "PR #227 made the ER-link orientation Z2 a gauge field over the network but took the link variables eps_b as FREE labels; #229 made the Moebius identification quantitative in its topological half. Both left #227 sec. 8.3 open: nothing says WHICH networks carry W = -1. This probe asks what selects the sector, and finds the answer has two halves acting at different times -- an energetic preference whose SIGN is set by the statistics of the field on the link, and a topological freeze that prevents the preference from ever driving a relaxation.",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_the_twist_costs_energy_and_the_sign_is_the_statistics",
+    "description": "The #229 Casimir computation, re-read as a selection rule. The two holonomy sectors differ in zero-point energy by exactly pi/(4C) per degree of freedom on a loop of circumference C (verified to 1e-12 at every C). The SIGN is set by the statistics of the field living on the link, because the zero point is +1/2 sum omega for a boson and -1/2 sum omega for a fermion: bosonic links give dE = +pi/(4C), so the UNTWISTED sector is favoured; fermionic links give dE = -pi/(4C), so the TWISTED sector is. Same magnitude, opposite sign. There is therefore no universal answer to which sector is the ground state -- it is a property of what lives on the link, which is what makes T5's cross-check meaningful rather than circular.",
+    "rows": [
+      {
+        "circumference": 1.0,
+        "statistics": "bosonic",
+        "E0_untwisted": -0.5235987755982988,
+        "E0_twisted": 0.2617993877991494,
+        "delta_E": 0.7853981633974483,
+        "magnitude_pi_over_4C": 0.7853981633974483,
+        "favoured_sector": "untwisted"
+      },
+      {
+        "circumference": 1.0,
+        "statistics": "fermionic",
+        "E0_untwisted": 0.5235987755982988,
+        "E0_twisted": -0.2617993877991494,
+        "delta_E": -0.7853981633974483,
+        "magnitude_pi_over_4C": 0.7853981633974483,
+        "favoured_sector": "twisted"
+      },
+      {
+        "circumference": 2.0,
+        "statistics": "bosonic",
+        "E0_untwisted": -0.2617993877991494,
+        "E0_twisted": 0.1308996938995747,
+        "delta_E": 0.39269908169872414,
+        "magnitude_pi_over_4C": 0.39269908169872414,
+        "favoured_sector": "untwisted"
+      },
+      {
+        "circumference": 2.0,
+        "statistics": "fermionic",
+        "E0_untwisted": 0.2617993877991494,
+        "E0_twisted": -0.1308996938995747,
+        "delta_E": -0.39269908169872414,
+        "magnitude_pi_over_4C": 0.39269908169872414,
+        "favoured_sector": "twisted"
+      },
+      {
+        "circumference": 3.5,
+        "statistics": "bosonic",
+        "E0_untwisted": -0.1495996501709425,
+        "E0_twisted": 0.07479982508547126,
+        "delta_E": 0.22439947525641377,
+        "magnitude_pi_over_4C": 0.2243994752564138,
+        "favoured_sector": "untwisted"
+      },
+      {
+        "circumference": 3.5,
+        "statistics": "fermionic",
+        "E0_untwisted": 0.1495996501709425,
+        "E0_twisted": -0.07479982508547126,
+        "delta_E": -0.22439947525641377,
+        "magnitude_pi_over_4C": 0.2243994752564138,
+        "favoured_sector": "twisted"
+      }
+    ],
+    "magnitude_is_pi_over_4C": true,
+    "signs_are_opposite": true,
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_the_sector_cannot_relax_the_gate_is_an_amplitude_zero",
+    "description": "Interpolating the closing-link amplitude t -> t(1-2s) from +t to -t is the only continuous path between the sectors, and it passes through EXACTLY ZERO at s = 1/2. There the cycle is cut: b_1 drops 1 -> 0, the ring becomes an open chain, and the holonomy is undefined -- there is no closed loop left to measure it on. So W cannot change by continuous deformation without a topology change. This is the same amplitude-zero gate #175 found for the winding number, now for the orientation Z2: the discrete sector is locked out of continuous evolution. The energetic preference of T2 therefore does NOT open a relaxation channel -- a network in the disfavoured sector stays there.",
+    "interpolation": [
+      {
+        "s": 0.0,
+        "closing_amplitude": 1.0,
+        "lowest_3": [
+          0.0,
+          39.47761,
+          39.47761
+        ],
+        "b1": 1,
+        "holonomy": "+1"
+      },
+      {
+        "s": 0.25,
+        "closing_amplitude": 0.5,
+        "lowest_3": [
+          9.72317,
+          39.41189,
+          87.50537
+        ],
+        "b1": 1,
+        "holonomy": "+1"
+      },
+      {
+        "s": 0.5,
+        "closing_amplitude": 0.0,
+        "lowest_3": [
+          9.82039,
+          39.28096,
+          88.3799
+        ],
+        "b1": 0,
+        "holonomy": "UNDEFINED"
+      },
+      {
+        "s": 0.75,
+        "closing_amplitude": -0.5,
+        "lowest_3": [
+          9.85312,
+          38.89214,
+          88.67448
+        ],
+        "b1": 1,
+        "holonomy": "-1"
+      },
+      {
+        "s": 1.0,
+        "closing_amplitude": -1.0,
+        "lowest_3": [
+          9.86955,
+          9.86955,
+          88.82233
+        ],
+        "b1": 1,
+        "holonomy": "-1"
+      }
+    ],
+    "gate_at_s_half": {
+      "s": 0.5,
+      "closing_amplitude": 0.0,
+      "lowest_3": [
+        9.82039,
+        39.28096,
+        88.3799
+      ],
+      "b1": 0,
+      "holonomy": "UNDEFINED"
+    },
+    "same_gate_as": "#175 (winding number, amplitude-zero node)",
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_the_holonomy_is_deformation_invariant",
+    "description": "A sharp diagnostic: the untwisted ring has the constant vector in its Laplacian kernel for ANY positive link weights, and the twisted (frustrated) ring has no zero mode at all. Across 200 random re-weightings per sector with link weights drawn over a factor of ~7, the untwisted ring's lowest eigenvalue stays at 1.6e-15 (machine zero) while the twisted ring's never falls below 4.82e-02. The gap between the two sectors never closes, so W is an exact invariant of any smooth deformation keeping the links nonzero -- the same standing the orientability class has in #183, reached here from the network side.",
+    "sectors": {
+      "untwisted": {
+        "min_lowest": -2.8212670041009324e-15,
+        "max_lowest": 1.6080886622212084e-15,
+        "trials": 200
+      },
+      "twisted": {
+        "min_lowest": 0.04820548788942199,
+        "max_lowest": 0.1371262116519261,
+        "trials": 200
+      }
+    },
+    "untwisted_always_has_zero_mode": true,
+    "twisted_never_has_zero_mode": true,
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_consistency_with_both_moebius_sectors",
+    "description": "The statistics-dependent sign of T2 is not tunable, so it is a real check: the program already contains two Moebius sectors with OPPOSITE character, and one Casimir sign gets both right. The QCD sector's link field is a flux-tube phonon (bosonic) -- untwisted favoured -- and #100/#103 do indeed present the Moebius states as an extra tower ABOVE the orientable ground (+pi*sigma, +2 sqrt(sigma)). The matter sector's link field is a Pin- spinor (fermionic) -- twisted favoured -- and #202/#227 do indeed put matter in the odd/twisted sector. Neither was arranged: both readings predate this probe. Honest limit: this is a consistency check on the SIGN, not an independent derivation of either sector's content.",
+    "cases": [
+      {
+        "sector": "QCD Moebius (#100/#103)",
+        "link_field": "flux-tube transverse displacement (phonon)",
+        "statistics": "bosonic",
+        "predicted_favoured": "untwisted",
+        "predicted_role_of_twisted_states": "excitations ABOVE the ground",
+        "what_the_repo_does": "presents the Moebius states as an extra tower above the orientable one: +pi*sigma for the glueball tower (#100), +2 sqrt(sigma) = 849 MeV for the heavy baryons (#103)",
+        "consistent": true
+      },
+      {
+        "sector": "BAM matter (#170/#195/#202)",
+        "link_field": "throat modes are Pin- spinors",
+        "statistics": "fermionic",
+        "predicted_favoured": "twisted",
+        "predicted_role_of_twisted_states": "the ground sector itself",
+        "what_the_repo_does": "#202's Pin parity selects the electron k = 1 mode ODD at the neck, and #227's T6 finds constructive antipodal self-return in the twisted odd-l sector",
+        "consistent": true
+      }
+    ],
+    "both_consistent": true,
+    "scope": "consistency of the sign, not a derivation of the sectors",
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_assessment_and_what_selection_does_not_explain",
+    "description": "#227 sec. 8.3 is answered, and the arc's last open item closes. Selection is energetic but not relaxational: the two sectors differ by pi/(4C) per degree of freedom, with the sign set by the statistics of the link field, and the sector is then topologically frozen because changing it requires severing the cycle. So the twist is chosen AT NUCLEATION and kept -- which is why the program can carry two Moebius sectors with opposite selections side by side without either relaxing into the other.",
+    "established": [
+      "the two holonomy sectors differ by exactly pi/(4C) per degree of freedom (verified to 1e-12)",
+      "the sign is the statistics of the link field: bosonic -> untwisted favoured, fermionic -> twisted favoured",
+      "W cannot change continuously: the gate is an amplitude zero that severs the cycle (b_1: 1 -> 0), the #175 gate again",
+      "W is exactly deformation-invariant (zero-mode diagnostic, 200 random re-weightings per sector, gap never closes)",
+      "the sign gets BOTH of the program's Moebius sectors right, and neither reading was arranged for it"
+    ],
+    "does_not_explain": [
+      "the ABSOLUTE population of each sector: that is set by the nucleation ensemble, which this probe does not compute -- energetics give the ordering, not the abundance",
+      "why any particular physical network nucleated with the holonomy it has; selection is a preference, not a mechanism",
+      "the magnitude pi/(4C) is per degree of freedom on a free loop; counting conventions (polarizations, components) change the coefficient, though not the sign"
+    ],
+    "tests_passed": "5/5",
+    "verdict_class": "THE_TWIST_SECTOR_IS_SELECTED_ENERGETICALLY_WITH_A_SIGN_SET_BY_THE_LINK_FIELD_STATISTICS_AND_THEN_TOPOLOGICALLY_FROZEN_AT_NUCLEATION",
+    "pass": true
+  },
+  "summary": {
+    "probe": "twist_sector_selection_probe",
+    "pr": 230,
+    "utc": "2026-07-28T01:18:14.934093+00:00",
+    "tests_passed": "5/5",
+    "verdict_class": "THE_TWIST_SECTOR_IS_SELECTED_ENERGETICALLY_WITH_A_SIGN_SET_BY_THE_LINK_FIELD_STATISTICS_AND_THEN_TOPOLOGICALLY_FROZEN_AT_NUCLEATION"
+  }
+}

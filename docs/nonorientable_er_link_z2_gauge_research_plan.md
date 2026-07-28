@@ -485,10 +485,22 @@ Expected verdict:
      `M₀² + πσ`. Scope: the glueball tower only — #103/#109/#114's search
      table is built from `Δ = 2√σ` and stands as published. See
      `docs/mobius_identification_quantitative_research_plan.md`.
-  3. **Where does the twist come from?** This probe takes `ε_b` as a free
-     Z₂ label. Nothing here says which networks carry `W = −1`. A
-     dynamical selection principle — or a demonstration that both sectors
-     are populated — is the obvious open.
+  3. ~~**Where does the twist come from?**~~ — **DONE (PR #230): energetics
+     select, topology freezes.** The sectors differ by `π/(4C)` per degree
+     of freedom, with the sign set by the **statistics of the link field**
+     (bosonic ⟹ untwisted favoured; fermionic ⟹ twisted favoured). But the
+     preference never drives a relaxation: changing `W` requires the link
+     amplitude to pass through zero, severing the cycle (`b₁`: 1 → 0) —
+     the #175 gate again — and `W` is exactly deformation-invariant
+     otherwise. So the sector is chosen at nucleation and frozen. One
+     Casimir sign gets **both** of the program's Möbius sectors right.
+     See `docs/twist_sector_selection_research_plan.md`.
+
+**With §8.1–§8.3 all closed, the #227 arc has no open roadmap items.**
+What remains is named in the individual plans: the corrected Möbius `M²`
+intercept (#229), whether the network can supply the `2πσ` spacing at all
+(#229), whether any Bell-type observable is twist-sensitive (#228), and
+absolute sector populations (#230).
 
 ## 9. §8.1 resolved — the surgery composition law has **no** Z₂ term
 
