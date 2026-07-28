@@ -1,4 +1,4 @@
-# The RP³ spin-structure selection arc: Probes A–D (PR #230)
+# The RP³ spin-structure selection arc: Probes A–E (PR #230)
 
 > **Framing (to avoid a category error).** QFT on the *fixed classical*
 > throat geometry — geometry → fields, **not** quantum gravity.
@@ -20,6 +20,7 @@ This arc replaces those constructions with the genuine objects.
 | **B** | `rp3_dirac_eta_probe.py` | the genuine first-order RP³ Dirac spectrum, `η`, `h`, `det` |
 | **C** | `bulk_aps_spin_structure_probe.py` | does inflow select? does the Pin⁻ mouth? |
 | **D** | `twist_sector_einstein_dirac_probe.py` | does back-reaction select? |
+| **E** | `network_cycle_pi1_class_probe.py` | does the #224 cycle generate `π₁(RP³)`? (decides whether B–D apply) |
 
 ## 1. Probe A — the spin-lift ledger (5/5)
 
@@ -184,10 +185,62 @@ attempted. What is established is the **baseline**: any back-reaction
 selection must come entirely from the inhomogeneity, as a correction on top
 of an exact zero.
 
+## 4a. Probe E — the #224 cycle does **not** generate π₁(RP³) (6/6)
+
+`network_cycle_pi1_class_probe.py`. A loop in `RP³ = S³/{±1}` is classified
+by lifting to `S³`: the lift either closes (class 0) or ends at the
+**antipode** (class 1, the generator). For geodesic exterior arcs on the
+unit sphere that is decided by total arc length mod 2π.
+
+Read from the constructions themselves, not the prose:
+
+| network | arcs | total exterior | `S³` lift | deck class | generator? |
+|---|---:|---:|---|---:|---|
+| **#224** `build_two_throat` | 2 | 1.999π | **closes** | **0** | no |
+| **#223** single-bridge ring | 1 | 1.000π | antipodal | 1 | **YES** |
+
+`#224` sets `Ltot = 2*_D_CH + 4*_SIG_M + 2*_LARC` with `_LARC = 3.14` —
+**two** π-arcs, total 2π, so the lift closes. `#223` has **one** π-arc to
+the antipodal source point.
+
+**And the ambient space is not RP³ anyway.** A wormhole is a 1-handle, and
+attaching `n` of them gives `π₁ = π₁(exterior) * Z * … * Z`, one free `Z`
+per handle. The #224 cycle passes through both throats, so its class lives
+in the **free (handle) part**, while its deck component — the only part B2
+grades — is trivial. `W` on that cycle is a character on a free `Z`
+generator; B2 is a character on the `Z₂` deck generator. Different
+generators of different groups.
+
+*Robust to the reading:* exterior as `S³` gives `π₁ = 0` so the deck
+component is trivially 0; exterior as `RP³` gives `generator² = 0`. Both 0.
+
+### What this does to Probes B–D
+
+| probe | labelled by | bears on the #224 twist? |
+|---|---|---|
+| B (`η = ±1/4`, `h`, `det`) | the deck `Z₂` | **no** |
+| C (inflow, ABK) | the deck `Z₂` (ABK: the mouth Pin⁻ structure) | **no** |
+| D (back-reaction) | the deck `Z₂` | **no** |
+
+**This is a scoping correction, not a refutation.** Nothing in B–D is
+withdrawn — every number stands — but their target narrows: they answer
+"how do the two RP³ **spin structures** differ?", and the #224 network
+twist is not that label.
+
+Two consequences follow, and both matter:
+
+  1. The composition rule `θ = 0 iff W·η = +1` is justified on the **#223**
+     ring and **not** on the **#224** ring — and #224 is exactly where the
+     arc's headline exchange-freeze result lives.
+  2. The "three selection mechanisms all fail" conclusion of §5 is a
+     statement about the **spin-structure** sectors. **The network twist
+     sector remains untested by any of them.**
+
 ## 5. Where the selection question now stands
 
 **Three independent selection mechanisms have been tested and none
-distinguishes the sectors:**
+distinguishes the SPIN-STRUCTURE sectors** (and per §4a, none of them bears
+on the *network twist* sector at all):
 
 | mechanism | verdict |
 |---|---|
@@ -207,13 +260,14 @@ Two candidate resolutions remain open, and they are different in kind:
      question at all and needs a different frame (e.g. a nucleation-history
      argument, per the topological freeze).
   2. **The relevant Z₂ is not the one being computed** — Probe A's
-     independence result means the network `W` and the RP³ spin structure
-     may simply be different data, in which case this whole arc constrains
-     B2 and leaves `W` untouched.
+     independence result, now **confirmed concretely by Probe E**: the
+     network `W` and the RP³ spin structure ARE different data on the #224
+     ring. This arc constrains B2 and leaves `W` untouched.
+     *This is the branch the evidence actually supports.*
 
-Settling (2) requires determining whether the #224 network cycle generates
-`π₁(RP³)`. **That is the single most valuable next computation**, because
-it decides whether Probes B–D bear on the selection question at all.
+Settling (2) required determining whether the #224 network cycle generates
+`π₁(RP³)`. **That computation has now been done — Probe E — and the answer
+is no.** See §4a.
 
 ## 6. What this arc overturns in the earlier probes
 
@@ -223,6 +277,7 @@ it decides whether Probes B–D bear on the selection question at all.
 | energetics favour untwisted by `π/(4C)` | **not a discriminator** — difference is exactly 0 in 3D |
 | the moding swap from `W·η` | **conditional** — the composition rule is unjustified (Probe A) |
 | paired mouths carry opposite orientation | **derived** — was an assertion, now forced by ABK/Z₈ |
+| the spin-structure results apply to the #224 twist | **scoped out** — Probe E: the #224 cycle has trivial deck class, so B–D target a different label |
 
 ## 7. Reproduce
 
@@ -231,6 +286,7 @@ python -m experiments.closure_ledger.rp3_spin_lift_probe             # A, 5/5
 python -m experiments.closure_ledger.rp3_dirac_eta_probe             # B, 7/7
 python -m experiments.closure_ledger.bulk_aps_spin_structure_probe   # C, 4/4
 python -m experiments.closure_ledger.twist_sector_einstein_dirac_probe  # D, 5/5
+python -m experiments.closure_ledger.network_cycle_pi1_class_probe     # E, 6/6
 ```
 
 ## 8. Cited inputs (not derived here)

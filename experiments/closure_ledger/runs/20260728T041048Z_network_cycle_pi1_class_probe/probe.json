@@ -1,0 +1,152 @@
+{
+  "T1": {
+    "name": "T1_goal_and_the_lifting_test",
+    "description": "Probe A showed B2 (in H^1(RP^3;Z2)) and the network W (in H^1(Gamma;Z2)) are independent unless the network cycle IS the pi_1(RP^3) generator. Probes B, C and D all compute properties of the two RP^3 SPIN STRUCTURES, so whether any of them bears on the network twist reduces to this single question. The test is the standard one: lift the loop to the double cover S^3; the lift either closes (class 0) or ends at the ANTIPODE (class 1, the generator). For geodesic exterior arcs on the unit sphere that is decided by total arc length mod 2 pi.",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_arc_counts_read_from_the_constructions",
+    "description": "Taken from the length formulae themselves rather than the prose. #224's build_two_throat sets Ltot = 2*_D_CH + 4*_SIG_M + 2*_LARC with _LARC = 3.14: TWO exterior arcs of ~pi, total ~2 pi. #223's ring has ONE arc of pi, to the antipodal source point. That single difference in arc count is what separates the two networks topologically.",
+    "rows": [
+      {
+        "network": "#224 two-throat ring (build_two_throat)",
+        "n_arcs": 2,
+        "arc_length": 3.14,
+        "total_exterior": 6.28,
+        "total_over_pi": 1.998986,
+        "read_from": "Ltot = 2*_D_CH + 4*_SIG_M + 2*_LARC, _LARC = 3.14"
+      },
+      {
+        "network": "#223 single two-mouth bridge ring",
+        "n_arcs": 1,
+        "arc_length": 3.141592653589793,
+        "total_exterior": 3.141592653589793,
+        "total_over_pi": 1.0,
+        "read_from": "neck -> bridge -> mouth -> S^3 arc (pi R_u to the antipodal source point)"
+      }
+    ],
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_the_S3_lift_224_is_trivial_223_is_the_generator",
+    "description": "Lifting each cycle's exterior path to S^3: #224's total ~2 pi brings the lift back to its STARTING point, so its deck class is 0 -- the cycle is NOT the pi_1(RP^3) generator. #223's total pi brings the lift to the ANTIPODE, so its deck class is 1 -- that cycle IS the generator. *** The composition rule theta = 0 iff W*eta = +1 is therefore justified on the #223 ring and NOT on the #224 ring -- and #224 is exactly where the arc's headline exchange-freeze result lives. ***",
+    "rows": [
+      {
+        "total_arc": 6.28,
+        "endpoint": [
+          0.999994926913,
+          -0.003185301793,
+          0.0,
+          0.0
+        ],
+        "lift_closes": true,
+        "lift_is_antipodal": false,
+        "deck_class": 0,
+        "is_generator": false,
+        "network": "#224 two-throat ring (build_two_throat)"
+      },
+      {
+        "total_arc": 3.141592653589793,
+        "endpoint": [
+          -1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lift_closes": false,
+        "lift_is_antipodal": true,
+        "deck_class": 1,
+        "is_generator": true,
+        "network": "#223 single two-mouth bridge ring"
+      }
+    ],
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_pi1_of_the_network_space_is_a_handle_free_product",
+    "description": "The ambient space is not RP^3. A wormhole IS a 1-handle, and attaching n 1-handles to a connected 3-manifold gives pi_1 = pi_1(exterior) * Z * ... * Z, one free Z per handle. The #224 cycle passes through BOTH throats, so its class lives in the FREE part, while its deck component -- the only part B2 grades -- is trivial by T3. W on that cycle is a character on a free Z generator; B2 is a character on the Z2 deck generator. Different generators of different groups. ROBUSTNESS: the conclusion is independent of whether the exterior is read as S^3 (pi_1 = 0, so the deck component is trivially 0) or as RP^3 (two pi-arcs give generator^2 = 0). Both give 0.",
+    "rows": [
+      {
+        "network": "#224 two-throat ring (build_two_throat)",
+        "n_handles_traversed": 2,
+        "pi1_of_ambient": "pi_1(exterior) * Z^2  (free product, one Z per 1-handle)",
+        "cycle_class_lives_in": "the FREE (handle) part"
+      },
+      {
+        "network": "#223 single two-mouth bridge ring",
+        "n_handles_traversed": 1,
+        "pi1_of_ambient": "pi_1(exterior) * Z^1  (free product, one Z per 1-handle)",
+        "cycle_class_lives_in": "the FREE (handle) part"
+      }
+    ],
+    "robustness": [
+      {
+        "exterior_read_as": "S^3",
+        "pi1_exterior": "0",
+        "deck_component_of_224_cycle": 0,
+        "why": "the exterior contributes nothing; the cycle is purely handle-generated"
+      },
+      {
+        "exterior_read_as": "RP^3",
+        "pi1_exterior": "Z2",
+        "deck_component_of_224_cycle": 0,
+        "why": "two arcs of pi give generator^2 = 0 in Z2"
+      }
+    ],
+    "conclusion_robust_to_exterior_reading": true,
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_probes_B_to_D_do_not_bear_on_the_224_twist",
+    "description": "Probes B, C and D are correct as computed, and they all answer the SAME question: how do the two RP^3 spin structures differ? That label is the deck Z2. T3/T4 show the #224 network twist is not that label -- its deck component is trivial and its holonomy lives on a handle generator. *** So B-D do NOT bear on the #224 twist sector, including the exchange-freeze result. The eta = +/-1/4 asymmetry is a statement about B2, not about W. *** This is a scoping correction, not a refutation: nothing in B-D is withdrawn, but its target is narrowed. It also means the 'three selection mechanisms all fail' conclusion is a statement about the SPIN STRUCTURE sectors, and the network twist sector remains untested by any of them.",
+    "items": [
+      {
+        "probe": "B (rp3_dirac_eta_probe)",
+        "computes": "eta = +/-1/4, h = 0, |det D| for the two RP^3 SPIN STRUCTURES",
+        "labelled_by": "the deck Z2",
+        "bears_on_224_twist": false
+      },
+      {
+        "probe": "C (bulk_aps_spin_structure_probe)",
+        "computes": "whether each boundary SPIN STRUCTURE extends; ABK of the Pin- mouth",
+        "labelled_by": "the deck Z2 (and, for ABK, the mouth Pin- structure)",
+        "bears_on_224_twist": false
+      },
+      {
+        "probe": "D (twist_sector_einstein_dirac_probe)",
+        "computes": "back-reaction difference between the two SPIN STRUCTURES",
+        "labelled_by": "the deck Z2",
+        "bears_on_224_twist": false
+      }
+    ],
+    "none_bear_on_the_network_twist": true,
+    "what_would_bear": "a cycle with nontrivial deck class -- e.g. the #223 single-bridge ring, whose single pi-arc IS the generator (T3)",
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_assessment",
+    "description": "The #224 network cycle does NOT generate pi_1(RP^3): its two pi-arcs close the S^3 lift, giving deck class 0, and its non-triviality comes from the throat handles instead. So the network twist W and the B2 spin structure are independent not just in principle (Probe A) but in this specific network. Probes B-D, which compute spin-structure properties, therefore do not bear on the #224 twist -- their target is narrowed, not their content withdrawn. The #223 ring, by contrast, DOES carry the generator, so it is where the spin-structure results and the network holonomy actually meet.",
+    "established": [
+      "#224's exterior total is ~2 pi (two pi-arcs), so the S^3 lift closes and the deck class is 0 -- not the generator",
+      "#223's exterior total is pi (one arc), lift ends antipodal, deck class 1 -- IS the generator",
+      "the ambient pi_1 is a handle free product; the #224 cycle lives in the free part",
+      "the conclusion is robust to reading the exterior as S^3 or RP^3",
+      "Probes B-D do not bear on the #224 twist sector"
+    ],
+    "open": [
+      "the network twist sector itself is now untested by ANY of the selection mechanisms tried so far -- energetics, inflow and back-reaction were all computed for the spin-structure label",
+      "the #223 ring is where the two labels do meet; the spin-structure results have not been pushed through there",
+      "the arc lengths are taken from the constructions as built (_LARC = 3.14 as a stand-in for pi); the geometry is a discretized model, not an embedded submanifold computation"
+    ],
+    "tests_passed": "5/5",
+    "verdict_class": "THE_224_CYCLE_DOES_NOT_GENERATE_PI1_RP3_ITS_DECK_CLASS_IS_TRIVIAL_AND_ITS_HOLONOMY_LIVES_ON_A_HANDLE_GENERATOR_SO_PROBES_B_TO_D_DO_NOT_BEAR_ON_IT",
+    "pass": true
+  },
+  "summary": {
+    "probe": "network_cycle_pi1_class_probe",
+    "pr": 230,
+    "utc": "2026-07-28T04:10:48.177905+00:00",
+    "tests_passed": "5/5",
+    "verdict_class": "THE_224_CYCLE_DOES_NOT_GENERATE_PI1_RP3_ITS_DECK_CLASS_IS_TRIVIAL_AND_ITS_HOLONOMY_LIVES_ON_A_HANDLE_GENERATOR_SO_PROBES_B_TO_D_DO_NOT_BEAR_ON_IT"
+  }
+}
