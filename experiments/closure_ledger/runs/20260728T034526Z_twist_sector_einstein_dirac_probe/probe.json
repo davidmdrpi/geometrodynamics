@@ -1,0 +1,127 @@
+{
+  "T1": {
+    "name": "T1_precondition_both_sectors_admissible",
+    "description": "Probe D was to run only if both sectors remain admissible. Probe C settles it: Omega_3^{Spin} = 0, so both spin structures on RP^3 bound a spin 4-manifold (with the explicit witness X^4 = the D^2-bundle over S^2 of even Euler number), and the APS index is integral for each. Anomaly inflow imposes no obstruction on either side. Precondition met.",
+    "omega_3_spin": "0",
+    "both_admissible": true,
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_delta_E_vac_is_exactly_zero",
+    "description": "For each level k exactly one sign survives the projection, with |lambda| = 3/2 + k and multiplicity (k+1)(k+2) -- identical for both spin structures (Probe B T5). The regularized vacuum energy depends only on |spec|, so it is the same number for both: E_vac = 0.0088541667 in units of 1/R. Delta E_vac = 0 EXACTLY -- not small, not exponentially suppressed, identically zero, because the two spectra agree term by term in absolute value.",
+    "abs_spectrum_first_levels": [
+      {
+        "k": 0,
+        "abs_lambda": 1.5,
+        "multiplicity": 2
+      },
+      {
+        "k": 1,
+        "abs_lambda": 2.5,
+        "multiplicity": 6
+      },
+      {
+        "k": 2,
+        "abs_lambda": 3.5,
+        "multiplicity": 12
+      },
+      {
+        "k": 3,
+        "abs_lambda": 4.5,
+        "multiplicity": 20
+      },
+      {
+        "k": 4,
+        "abs_lambda": 5.5,
+        "multiplicity": 30
+      },
+      {
+        "k": 5,
+        "abs_lambda": 6.5,
+        "multiplicity": 42
+      }
+    ],
+    "E_vac": 0.008854166666666666,
+    "delta_E_vac": 0.0,
+    "exactly_zero": true,
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_delta_T_AB_is_zero_pointwise_by_homogeneity",
+    "description": "RP^3 with the round metric is a HOMOGENEOUS space: its isometry group acts transitively, and the vacuum state (built from the full mode set in either spin structure) is invariant. A covariantly constant, isometry-invariant symmetric 2-tensor on a homogeneous 3-space is fixed up to overall normalization, and that normalization is set by the total energy. Since T2 gives equal total energy, and the two quotients have equal volume (both are S^3/Z2), the normalizations agree and therefore Delta <T_AB>_ren = 0 POINTWISE, not merely on integration. The homogeneity step is what upgrades an equal integral to an equal local source -- and it is also exactly the step that fails on a non-homogeneous background (T5).",
+    "exterior_is_homogeneous": true,
+    "equal_volume": true,
+    "delta_T_AB_pointwise": 0.0,
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_identical_sources_give_an_identical_radial_system",
+    "description": "With identical sources the two sectors solve the SAME radial semiclassical equations, so regularity, the action modulus and the negative-mode/stability structure coincide by construction -- there is nothing to compare. The single quantity that differs is the on-shell action PHASE, and a phase does not source the semiclassical Einstein equations: <T_AB> is built from the modulus. So the one surviving discriminator is invisible to gravity at this order.",
+    "items": [
+      {
+        "quantity": "radial semiclassical equations",
+        "differs_between_sectors": false,
+        "why": "identical source <T_AB>_ren (T3), identical background"
+      },
+      {
+        "quantity": "regularity of the solution",
+        "differs_between_sectors": false,
+        "why": "same equations, same boundary data"
+      },
+      {
+        "quantity": "on-shell action MODULUS",
+        "differs_between_sectors": false,
+        "why": "|det D| identical (Probe B T5, zeta'(0) = 0.2189594807)"
+      },
+      {
+        "quantity": "on-shell action PHASE",
+        "differs_between_sectors": true,
+        "why": "arg det D = -/+ pi/8 from eta = +/-1/4 (Probe B T6)"
+      },
+      {
+        "quantity": "negative-mode spectrum / stability",
+        "differs_between_sectors": false,
+        "why": "fluctuation operator built from the same real system"
+      }
+    ],
+    "only_difference": [
+      "on-shell action PHASE"
+    ],
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_the_honest_boundary_of_this_result",
+    "description": "The degeneracy is exact in the case that can be computed exactly, and that case leans on homogeneity. What this does NOT establish is degeneracy on BAM's actual throat geometry. What it does establish is the baseline: any back-reaction selection would have to come ENTIRELY from the inhomogeneity, as a correction on top of an exact zero, rather than as a leading effect. That is a meaningful constraint on where to look next, and it is weaker than 'gravity selects nothing'.",
+    "gaps": [
+      "the exterior used is the ROUND RP^3; BAM's actual exterior is the Tangherlini throat geometry, which is NOT homogeneous",
+      "on a non-homogeneous background, equal integrated energy does NOT force equal pointwise <T_AB> -- the T3 argument fails there",
+      "a genuine solve would need the mode functions on the actual radial background, the renormalized coincidence limit of the Green function DIFFERENCE between the two spin structures, and then the coupled radial system; none is attempted",
+      "the fermion is taken massless and free; a mass or a coupling would break the exact mode-by-mode |spec| coincidence that T2 rests on"
+    ],
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_assessment",
+    "description": "Back-reaction does not select the twist sector. On the round exterior the two sectors are exactly degenerate -- same vacuum energy, same pointwise <T_AB>, same radial system, same stability -- because their spectra agree in absolute value mode by mode. They differ only by the determinant phase, which does not source gravity. Combined with Probe C (inflow does not select) the position is: THREE independent selection mechanisms have now been tested -- energetics, anomaly inflow, and semiclassical back-reaction -- and none of them distinguishes the sectors. The only surviving distinction in the whole arc is eta = +/-1/4.",
+    "established": [
+      "Delta E_vac = 0 exactly (identical |spec| mode by mode)",
+      "Delta <T_AB>_ren = 0 pointwise on the homogeneous round exterior",
+      "identical radial system, regularity, action modulus and stability; only the action PHASE differs",
+      "a phase does not source the semiclassical Einstein equations"
+    ],
+    "open": [
+      "the non-homogeneous Tangherlini exterior -- any back-reaction selection must come entirely from the inhomogeneity, on top of an exact zero",
+      "what, if anything, the eta = +/-1/4 phase difference is physically FOR, given it selects nothing energetically"
+    ],
+    "tests_passed": "5/5",
+    "verdict_class": "BACK_REACTION_IS_EXACTLY_DEGENERATE_BETWEEN_THE_TWIST_SECTORS_SO_GRAVITY_DOES_NOT_SELECT_EITHER_AND_ONLY_THE_ETA_PHASE_DISTINGUISHES_THEM",
+    "pass": true
+  },
+  "summary": {
+    "probe": "twist_sector_einstein_dirac_probe",
+    "pr": 230,
+    "utc": "2026-07-28T03:45:26.811059+00:00",
+    "tests_passed": "5/5",
+    "verdict_class": "BACK_REACTION_IS_EXACTLY_DEGENERATE_BETWEEN_THE_TWIST_SECTORS_SO_GRAVITY_DOES_NOT_SELECT_EITHER_AND_ONLY_THE_ETA_PHASE_DISTINGUISHES_THEM"
+  }
+}

@@ -3,7 +3,17 @@
 > **Framing (to avoid a category error).** QFT on the *fixed classical*
 > throat geometry — geometry → fields, **not** quantum gravity.
 
-> ### ⚠️ PARTIALLY SUPERSEDED — same PR. Read this first.
+> ### ⚠️ THE ENERGETIC HALF IS RETIRED — see `docs/rp3_spin_structure_selection_research_plan.md`
+>
+> On the genuine first-order RP³ Dirac operator the two spin structures
+> have **identical `|spec|` mode by mode**, so their vacuum energies and
+> `|det|` agree **exactly**. §1.1's `π/(4C)` is therefore not a selection
+> criterion at all — the difference is identically zero, not mis-signed.
+> Probes C and D add that anomaly inflow and semiclassical back-reaction
+> cannot select either. **What survives is §1.2, the topological freeze**,
+> which never depended on any of this.
+
+> ### ⚠️ PARTIALLY SUPERSEDED (earlier, same PR)
 >
 > §1.1's rule "**the sign is the statistics of the link field**" and
 > §1.3's cross-check are **wrong**, corrected by

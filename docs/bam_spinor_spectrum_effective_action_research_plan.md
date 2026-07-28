@@ -3,6 +3,24 @@
 > **Framing (to avoid a category error).** QFT on the *fixed classical*
 > throat geometry — geometry → fields, **not** quantum gravity.
 
+> ### ⚠️ SUPERSEDED IN PART — see `docs/rp3_spin_structure_selection_research_plan.md`
+>
+> The Probe A–D arc replaces this 1D construction with the genuine
+> first-order RP³ Dirac operator, and it lands harder than the corrections
+> already recorded below:
+>
+>   - **`h = 0`** on the genuine 3D operator (`|λ| ≥ 3/2` for every mode) —
+>     confirming independently that §3's kernel was an artefact of the
+>     reduction;
+>   - the two spin structures have **identical `|spec|` mode by mode**, so
+>     §4's energetic comparison is **not a discriminator at all** — the
+>     difference is *exactly* zero in 3D, not merely mis-signed;
+>   - the real invariant is **`η = ±1/4`**, a spectral *asymmetry*, which no
+>     `|spec|`-based construction can produce;
+>   - and Probe A shows the composition rule `θ = 0 iff W·η = +1` — on which
+>     §1's moding swap rests — is **unjustified** unless the network cycle
+>     generates `π₁(RP³)`, which is unproven. §1 is therefore **conditional**.
+
 ## 0. Why this exists: it corrects its own PR
 
 `docs/twist_sector_selection_research_plan.md` (same PR) argued that the

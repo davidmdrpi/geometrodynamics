@@ -11,7 +11,17 @@ Moebius identification quantitative in its topological half.  Both left
 the same thing open (#227 sec. 8.3): nothing so far says WHICH networks
 carry W = -1.  This probe answers it.
 
-*** PARTIALLY SUPERSEDED, SAME PR -- READ THIS FIRST ***
+*** SUPERSEDED, SAME PR -- READ THIS FIRST ***
+The ENERGETIC half of this probe (T2's pi/(4C) as a selection criterion) is
+retired by the Probe A-D arc: on the genuine first-order RP^3 Dirac
+operator the two spin structures have IDENTICAL |spec| mode by mode, so
+their vacuum energies and |det| agree EXACTLY. The energetic difference is
+not merely sign-corrected -- it is identically zero, and energetics cannot
+select the sector at all. Probes C and D add that anomaly inflow and
+semiclassical back-reaction cannot either. What survives from this probe is
+the TOPOLOGICAL FREEZE (T3/T4), which is independent of all of it.
+
+*** AND PARTIALLY SUPERSEDED EARLIER, SAME PR ***
 The "the sign is the statistics of the link field" claim below (T2's
 reading and T5's cross-check) is WRONG, and is corrected by the companion
 ``bam_spinor_spectrum_effective_action_probe``.  That probe computes BAM's

@@ -3,6 +3,25 @@
 > Framing: QFT on the *fixed classical* throat geometry (geometry -> fields),
 > not quantum gravity.
 
+*** SUPERSEDED IN PART, SAME PR -- READ THIS FIRST ***
+This probe's 1D construction is superseded by the Probe A-D arc
+(rp3_spin_lift_probe, rp3_dirac_eta_probe, bulk_aps_spin_structure_probe,
+twist_sector_einstein_dirac_probe), which replaces the SUSY square root
+with the genuine first-order RP^3 Dirac operator:
+
+  * h = 0 on the genuine 3D operator (|lambda| >= 3/2 for every mode), so
+    T4's kernel is confirmed -- independently -- to be an artefact of the
+    1D reduction;
+  * the two spin structures have IDENTICAL |spec| mode by mode, hence
+    identical vacuum energy and |det D|, so T5's energetic comparison is
+    not merely corrected but is NOT A DISCRIMINATOR AT ALL: the difference
+    is exactly zero in 3D;
+  * the real invariant is eta = +/-1/4, a spectral ASYMMETRY, which no
+    |spec|-based construction can produce;
+  * and Probe A shows the composition rule theta = 0 iff W*eta = +1 -- on
+    which T3's moding swap rests -- is UNJUSTIFIED unless the network cycle
+    generates pi_1(RP^3), which is unproven. T3 is therefore CONDITIONAL.
+
 WHY THIS EXISTS: IT CORRECTS THIS PR'S OWN T5
 ----------------------------------------------
 `twist_sector_selection_probe` (T2/T5) argued that the sign of the twist
