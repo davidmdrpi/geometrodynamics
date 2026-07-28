@@ -3391,19 +3391,25 @@ with the *intrinsic* spin structure, and B2 fixes the non-trivial one
 relative to the scalar. The statistics flip and the spin-structure flip
 cancel, and energetics favour the **untwisted** sector for both.
 
-What puts matter in the twisted sector is not energy but the **index**.
-In the integer-moding sector the Dirac operator has an exact zero mode,
-and for the BAM spinor that is the twisted sector — its determinant
-vanishes there while the untwisted sector is gapped. A zero mode is
-topological and cannot be traded against a `π/(4C)` energy difference.
-This is the same index mechanism that pins the `k = 1` zero mode by
-Atiyah–Singer rather than by tuning, met here from the network side.
+The twisted sector *is* spectrally distinguished — in the integer-moding
+sector the operator has a zero eigenvalue, and for the BAM spinor that is
+the twisted one, its determinant vanishing there while the untwisted
+sector is gapped. It is tempting to call that the index mechanism that
+pins the `k = 1` zero mode by Atiyah–Singer rather than by tuning, met
+here from the network side. **That too fails on audit.** An
+index-protected mode survives deformation; this one is lifted by any mass
+or potential, the mode is simply the constant function, and the index is
+zero — the one-dimensional spectrum is symmetric about the origin, so the
+two chiralities balance. `dim ker` is not an index. The genuine `k = 1`
+modes are protected because they live on a sphere threaded by a monopole,
+where the index theorem counts modes of one chirality; a cycle has no
+monopole and no grading.
 
-So the program carries its two Möbius sectors for two *different*
-reasons: the QCD flux-tube phonon is selected energetically, which is why
-its Möbius states are excitations above the orientable ground; the
-throat's Pin⁻ modes are selected by the index, which is why matter sits
-in the twisted sector. Either way the preference never drives a
+So the honest position is asymmetric: the QCD flux-tube phonon is
+selected energetically, which is why its Möbius states are excitations
+above the orientable ground — while **why matter sits in the twisted
+sector remains open**, with two candidate explanations now tried and
+failed. Either way the preference never drives a
 relaxation: changing `W` continuously requires the link amplitude to pass
 through zero, which severs the cycle and leaves the holonomy undefined —
 the same amplitude-zero gate that locks the winding number out of

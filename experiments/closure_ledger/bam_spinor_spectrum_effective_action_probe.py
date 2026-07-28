@@ -36,29 +36,44 @@ the spin-structure flip CANCEL, and the corrected result is
 So there is no "sign = statistics" rule.  Energetics favour the untwisted
 sector in BOTH cases.
 
-WHAT ACTUALLY PUTS MATTER IN THE TWISTED SECTOR: THE INDEX
------------------------------------------------------------
-The swap has a much sharper consequence than a vacuum-energy sign.  In the
-sector with integer moding the Dirac operator has an exact ZERO MODE, and
-for the BAM spinor that is the TWISTED sector:
+THE SPECTRAL ASYMMETRY -- AND WHY IT IS *NOT* AN INDEX (T8)
+------------------------------------------------------------
+The swap makes the two sectors spectrally different.  In the integer-moding
+sector the operator has a zero eigenvalue; for the BAM spinor that is the
+TWISTED sector:
 
     W = -1  ->  theta = 0   ->  dim ker D = 1 ,  det D = 2 sin(theta/2) = 0
     W = +1  ->  theta = pi  ->  dim ker D = 0 ,  det D = 2
 
-The twisted sector is where the Pin- Dirac zero mode lives, and a zero
-mode is topological, not energetic -- it cannot be traded against a
-pi/(4C) vacuum-energy difference.  This is #195's index mechanism (Pin-
-Dirac zero modes pinned by Atiyah-Singer, "not by tuning") seen from the
-network side.
+An earlier draft of this probe read that as #195's Atiyah-Singer mechanism
+seen from the network side.  *** THAT READING IS WITHDRAWN; see T8. ***  An
+index-protected zero mode survives deformation, and this one does not:
 
-So the corrected selection picture is TWO mechanisms, not one sign:
+  * a mass lifts it exactly (lowest eigenvalue of D^2 = m^2 to 1e-6);
+  * any smooth potential lifts it (0.000 -> 1.949 as the amplitude goes
+    0 -> 2);
+  * the mode IS the constant function (overlap 1.000000000000) -- the
+    trivial kernel every periodic Laplacian has for ANY weights, i.e. the
+    same constant-mode diagnostic twist_sector_selection T4 already uses;
+  * decisively, the INDEX is 0, not 1: the 1D spectrum is symmetric about
+    zero, so any chirality grading gives n_+ = n_- .  dim ker is not an
+    index.
 
-  * the bosonic QCD Moebius sector is selected ENERGETICALLY (untwisted
-    favoured by pi/(4C)) -- which is why #100/#103 present the Moebius
-    states as excitations ABOVE the orientable ground;
-  * the fermionic matter sector is selected by the INDEX -- matter sits in
-    the twisted sector because that is where the zero mode is, matching
-    #202/#227, and NOT because it is energetically cheaper.
+#195's zero modes are genuinely protected because they live on S^2 coupled
+to a monopole of charge q = k/2, where Atiyah-Singer gives 2q = k modes OF
+ONE CHIRALITY.  The 1D cycle has no monopole, no chirality grading, and no
+index theorem.
+
+WHERE THAT LEAVES THE SELECTION QUESTION
+-----------------------------------------
+  * the bosonic QCD Moebius sector is still selected ENERGETICALLY
+    (untwisted favoured by pi/(4C)) -- which is why #100/#103 present the
+    Moebius states as excitations ABOVE the orientable ground;
+  * for the fermionic matter sector, energetics favour untwisted TOO, and
+    the index reading does not survive T8.  So why matter sits in the
+    twisted sector is OPEN again.  The spectral asymmetry between the
+    sectors is real, but it is boundary-condition data, not topological
+    protection, and it cannot carry that weight.
 
 The topological freeze established by the twist-selection probe (T3/T4) is
 untouched: changing W still requires severing the cycle.
@@ -72,21 +87,28 @@ with the SPINOR's boundary phase and the Dirac spectrum is
 +/- sqrt(spec(Laplacian_theta)).  A direct first-order central-difference
 Dirac operator was tried first and is UNUSABLE here: fermion doubling puts
 a spurious second zero mode at the Brillouin-zone edge, giving
-dim ker D = 2 at theta = 0 and destroying precisely the index statement
-this probe rests on.  The SUSY route is doubling-free.
+dim ker D = 2 at theta = 0 and destroying the kernel count of T4.  The
+SUSY route is doubling-free.  NOTE the separate, more serious caveat that
+the SUSY square root delivers only |spec(D)|: it discards the SIGN of the
+spectrum, so it cannot represent a chirality grading and therefore cannot
+express an index even in principle -- one reason T8's verdict is what it
+is.  It is also the FREE massless cycle mode (superpotential W = 0), not
+BAM's throat Dirac operator with its Tangherlini superpotential.
 
 Tests:
   T1. Goal: compute the spinor, do not assert its statistics.
   T2. The spectrum, converging to +/-|k_m| as O(1/n^2).
   T3. The moding: W composes with the intrinsic eta; the assignment swaps.
-  T4. The index: dim ker D and det D per sector.
+  T4. The spectral asymmetry: dim ker D and det D per sector.
   T5. The effective action / vacuum energy -- the T5 correction.
-  T6. The corrected selection picture: energy vs index.
+  T6. Where the selection question stands after T8.
   T7. Assessment.
+  T8. RETRACTION: the kernel is a BC zero mode, not an index.
 
 Verdict:
   THE_BAM_SPINOR_SWAPS_THE_MODING_SO_ENERGETICS_FAVOUR_UNTWISTED_IN_BOTH
-  _SECTORS_AND_MATTER_IS_SELECTED_BY_THE_ZERO_MODE_INDEX_NOT_BY_ENERGY
+  _SECTORS_AND_THE_KERNEL_IS_A_BOUNDARY_CONDITION_ZERO_MODE_NOT_AN_INDEX
+  _SO_MATTERS_TWISTED_SECTOR_IS_OPEN
 """
 
 from __future__ import annotations
@@ -272,18 +294,19 @@ def test_T4_index() -> dict:
           and abs(twisted['det_D_zeta']) < 1e-12
           and abs(untwisted['det_D_zeta'] - 2.0) < 1e-12)
     return {
-        'name': 'T4_the_zero_mode_sits_in_the_twisted_sector',
+        'name': 'T4_the_spectral_asymmetry_between_the_sectors',
         'description': (
             "The swap of T3 has a sharper consequence than any "
             "vacuum-energy sign. Integer moding carries an exact Dirac ZERO "
             "MODE, and for the BAM spinor that is the TWISTED sector: "
             "W = -1 gives dim ker D = 1 and a vanishing zeta-regularized "
             "determinant det D = 2 sin(theta/2) = 0, while W = +1 is gapped "
-            "at |k| = pi/C with det D = 2. A zero mode is topological, not "
-            "energetic -- it cannot be traded against a pi/(4C) vacuum-energy "
-            "difference. This is #195's index mechanism (Pin- Dirac zero "
-            "modes pinned by Atiyah-Singer, 'not by tuning') seen from the "
-            "network side."
+            "at |k| = pi/C with det D = 2. *** An earlier draft read this as "
+            "#195's Atiyah-Singer mechanism seen from the network side. THAT "
+            "READING IS WITHDRAWN -- see T8: the mode is the constant "
+            "function, a mass or any potential lifts it, and the index is 0. "
+            "The spectral asymmetry reported here is real, but it is "
+            "boundary-condition data, not topological protection. ***"
         ),
         'rows': rows,
         'pass': ok,
@@ -348,32 +371,109 @@ def test_T6_corrected_selection_picture() -> dict:
             'sector': 'BAM matter (#170/#195/#202)',
             'link_field': 'Pin- throat spinor',
             'eta': ETA_BAM_SPINOR,
-            'selected_by': 'INDEX',
+            'selected_by': 'UNEXPLAINED (the index reading is withdrawn)',
             'outcome': ('energetics favour untwisted here TOO, so energy does '
-                        'not explain matter; the twisted sector is selected '
-                        'because it carries the Dirac zero mode (dim ker D = 1, '
-                        'det D = 0) -- #195\'s Atiyah-Singer mechanism, '
-                        'matching #202/#227'),
+                        'not explain matter. The twisted sector does carry a '
+                        'zero eigenvalue, but T8 shows it is the constant '
+                        'mode -- lifted by any mass or potential, with index '
+                        '0 -- so it is NOT index-protected and cannot explain '
+                        'the selection either. Why matter sits in the twisted '
+                        'sector is OPEN'),
         },
     ]
-    ok = {c['selected_by'] for c in cases} == {'ENERGY', 'INDEX'}
+    ok = len({c['selected_by'] for c in cases}) == 2
     return {
-        'name': 'T6_two_mechanisms_not_one_sign',
+        'name': 'T6_where_the_selection_question_stands',
         'description': (
-            "The corrected picture is richer than the one it replaces. "
-            "Selection is NOT a single statistics-dependent sign; it is two "
-            "different mechanisms acting on the two sectors. The bosonic QCD "
-            "Moebius sector is selected ENERGETICALLY (untwisted cheaper by "
-            "pi/(4C)), which is why its Moebius states are excitations above "
-            "the ground. The fermionic matter sector cannot be selected "
-            "energetically -- energetics favour untwisted there as well -- so "
-            "matter sits in the twisted sector for a topological reason: that "
-            "is where the Pin- Dirac zero mode is. Both sectors still come "
-            "out right, but for different and now correctly identified "
-            "reasons. The topological freeze (twist-selection T3/T4) is "
-            "untouched: changing W still requires severing the cycle."
+            "Selection is NOT a single statistics-dependent sign. The "
+            "bosonic QCD Moebius sector is selected ENERGETICALLY (untwisted "
+            "cheaper by pi/(4C)), which is why its Moebius states are "
+            "excitations above the ground -- that half stands. The fermionic "
+            "matter sector cannot be selected energetically either, since "
+            "energetics favour untwisted there as well. An earlier draft "
+            "closed the gap with the zero mode; T8 withdraws that, because "
+            "the mode is the constant function and the index is 0. So the "
+            "honest state is: energy explains the QCD sector, and NOTHING "
+            "here explains why matter sits in the twisted sector -- that "
+            "question is reopened, not answered. The topological freeze "
+            "(twist-selection T3/T4) is untouched: changing W still requires "
+            "severing the cycle."
         ),
         'cases': cases,
+        'pass': ok,
+    }
+
+
+def test_T8_index_audit() -> dict:
+    """Is the T4 kernel index-PROTECTED, or just a boundary-condition zero
+    eigenvalue?  Answer: the latter.  This retracts T4/T6's index reading."""
+    n = 800
+
+    def lap(theta, mass2=0.0, pot=None, C=1.0):
+        a = C / n
+        L = np.zeros((n, n), dtype=complex)
+        xs = np.arange(n) * a
+        for j in range(n):
+            jp, jm = (j + 1) % n, (j - 1) % n
+            php = np.exp(1j * theta) if j + 1 == n else 1.0
+            phm = np.exp(-1j * theta) if j - 1 < 0 else 1.0
+            L[j, j] += 2.0 / a ** 2 + mass2
+            L[j, jp] += -php / a ** 2
+            L[j, jm] += -phm / a ** 2
+        if pot is not None:
+            L += np.diag(pot(xs).astype(complex))
+        return L
+
+    mass = [{'m2': m2,
+             'lowest': float(np.min(np.linalg.eigvalsh(lap(0.0, mass2=m2)).real))}
+            for m2 in (0.0, 0.01, 0.25, 1.0)]
+    potential = [{'V_amplitude': A,
+                  'lowest': float(np.min(np.linalg.eigvalsh(
+                      lap(0.0, pot=lambda x, a=A: a * (1 + np.cos(2 * PI * x)))
+                  ).real))}
+                 for A in (0.0, 0.05, 0.5, 2.0)]
+    ev, evec = np.linalg.eigh(lap(0.0))
+    overlap = float(abs(np.vdot(np.ones(n) / math.sqrt(n), evec[:, 0])))
+
+    lifted_by_mass = all(abs(r['lowest'] - r['m2']) < 1e-6 for r in mass)
+    lifted_by_potential = potential[-1]['lowest'] > 1.0
+    is_constant_mode = abs(overlap - 1.0) < 1e-9
+    ok = lifted_by_mass and lifted_by_potential and is_constant_mode
+    return {
+        'name': 'T8_RETRACTION_the_kernel_is_a_BC_zero_mode_not_an_index',
+        'description': (
+            "T4 reported dim ker D = 1 in the twisted sector and T6 read it "
+            "as #195's Atiyah-Singer mechanism seen from the network side. "
+            "*** THAT READING IS WITHDRAWN. *** An index-protected zero mode "
+            "survives deformation of the operator; this one does not. (a) A "
+            "mass lifts it exactly: the lowest eigenvalue of D^2 equals m^2 "
+            "to 1e-6 at every m^2 tested. (b) Any smooth potential lifts it "
+            "(0.000 -> 0.050 -> 0.497 -> 1.949 as the amplitude goes 0 -> "
+            "2). (c) The mode IS the constant function: overlap with the "
+            "normalized constant vector is "
+            f"{overlap:.12f} -- i.e. the trivial kernel every periodic "
+            "Laplacian has for ANY weights, which is exactly the diagnostic "
+            "twist_sector_selection T4 already uses for the holonomy. (d) "
+            "Decisively, the INDEX is zero, not one: the 1D spectrum is "
+            "symmetric about 0 (k_m and -k_m both present), so any chirality "
+            "grading gives n_+ = n_- and ind(D) = 0. dim ker is not an "
+            "index. #195's zero modes are genuinely index-protected because "
+            "they live on S^2 coupled to a monopole of charge q = k/2, where "
+            "Atiyah-Singer gives 2q = k modes OF ONE CHIRALITY; the 1D cycle "
+            "has no monopole, no chirality grading, and no index theorem. "
+            "CONSEQUENCE: the spectral asymmetry between the sectors is real "
+            "(zero eigenvalue vs a pi/C gap) but it is boundary-condition "
+            "data, not topological protection -- so it cannot carry the "
+            "weight T6 put on it, and why matter sits in the twisted sector "
+            "is OPEN again."
+        ),
+        'mass_scan': mass,
+        'potential_scan': potential,
+        'overlap_with_constant_mode': overlap,
+        'lifted_by_mass': lifted_by_mass,
+        'lifted_by_potential': lifted_by_potential,
+        'index_is_zero': True,
+        'retracts': 'T4/T6 index-protection reading',
         'pass': ok,
     }
 
@@ -399,31 +499,37 @@ def test_T7_assessment(results: dict) -> dict:
             'to +/-|k_m| via the repo SUSY square root',
             'the holonomy composes with eta = -1 (B2), so the spinor moding '
             'is swapped relative to the scalar',
-            'the twisted sector carries the Dirac zero mode: dim ker D = 1, '
-            'det D = 0; the untwisted sector is gapped at pi/C with det D = 2',
+            'the twisted sector carries a zero eigenvalue (dim ker D = 1, '
+            'det D = 0) and the untwisted sector is gapped at pi/C -- but T8 '
+            'shows this is the constant mode, NOT index-protected',
             'energetics favour UNTWISTED for both the scalar and the BAM '
             'spinor, dE = +pi/(4C) in both cases',
-            'selection is two mechanisms -- energy for the bosonic QCD '
-            'sector, index for the fermionic matter sector',
+            'energy explains the bosonic QCD sector; the fermionic matter '
+            'sector is left UNEXPLAINED once the index reading is withdrawn',
         ],
         'corrected': [
             "twist_sector_selection_probe T2/T5: 'fermionic -> twisted "
             "favoured' is WRONG; it assumed the spinor sees the scalar's "
             "moding. Its T3/T4 (the topological freeze) are unaffected.",
+            "this probe's OWN earlier index reading (T4/T6) is withdrawn by "
+            "T8: the kernel is a boundary-condition zero mode, not an index.",
         ],
         'open': [
             'this is the free massless cycle mode; the full throat spinor '
             'carries the radial/Dirac and SU(2) factors (a degeneracy, which '
             'scales the magnitude but not the sign or the index)',
-            'the index statement here is the 1D cycle zero mode; #195 derives '
-            'the k-dependent count on the monopole base -- relating the two '
-            'is not attempted',
+            'WHY MATTER SITS IN THE TWISTED SECTOR -- reopened by T8; neither '
+            'energetics nor the (withdrawn) index reading explains it',
+            'the SUSY square root gives only |spec(D)|, discarding the sign, '
+            'so it cannot represent a chirality grading or an index at all; '
+            'and it is the FREE cycle mode (superpotential W = 0), not BAM\'s '
+            'throat Dirac operator with its Tangherlini superpotential',
         ],
         'tests_passed': f'{passed}/{total}',
         'verdict_class': (
             'THE_BAM_SPINOR_SWAPS_THE_MODING_SO_ENERGETICS_FAVOUR_UNTWISTED_'
-            'IN_BOTH_SECTORS_AND_MATTER_IS_SELECTED_BY_THE_ZERO_MODE_INDEX_'
-            'NOT_BY_ENERGY'),
+            'IN_BOTH_SECTORS_AND_THE_KERNEL_IS_A_BOUNDARY_CONDITION_ZERO_'
+            'MODE_NOT_AN_INDEX_SO_MATTERS_TWISTED_SECTOR_IS_OPEN'),
         'pass': passed >= total - 1,
     }
 
@@ -436,6 +542,7 @@ def run_probe() -> dict:
     res['T4'] = test_T4_index()
     res['T5'] = test_T5_effective_action_correction()
     res['T6'] = test_T6_corrected_selection_picture()
+    res['T8'] = test_T8_index_audit()
     res['T7'] = test_T7_assessment(res)
     res['summary'] = {
         'probe': 'bam_spinor_spectrum_effective_action_probe',

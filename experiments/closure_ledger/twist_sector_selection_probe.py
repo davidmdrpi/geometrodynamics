@@ -71,12 +71,14 @@ DIFFERENT reasons (established by the companion spinor probe):
     orientable ground: exactly how #100/#103 present them (+pi*sigma,
     +2 sqrt(sigma)).
 
-  * BAM matter sector (#170/#195/#202) -- selected by the INDEX. Energetics
-    favour untwisted here TOO, so energy does not explain matter. Matter
-    sits in the twisted sector because that is where the Pin- Dirac ZERO
-    MODE lives (dim ker D = 1, det D = 0) -- #195's Atiyah-Singer
-    mechanism, matching #202/#227. A zero mode is topological and cannot
-    be traded against a pi/(4C) energy difference.
+  * BAM matter sector (#170/#195/#202) -- UNEXPLAINED. Energetics favour
+    untwisted here TOO, so energy does not explain matter. The twisted
+    sector does carry a zero eigenvalue (dim ker D = 1, det D = 0), and a
+    first draft read that as #195's index mechanism -- but the spinor
+    probe's T8 WITHDRAWS that: the mode is the constant function, any mass
+    or potential lifts it, and the index is 0. So why matter sits in the
+    twisted sector is OPEN; two candidate explanations have been tried and
+    both failed.
 
 Tests:
   T1. Goal: the last open item of #227.
@@ -348,10 +350,12 @@ def test_T5_consistency_with_both_sectors() -> dict:
             "QCD Moebius sector is selected energetically (untwisted "
             "cheaper, hence Moebius states as excitations above the ground, "
             "as #100/#103 present them), while the fermionic matter sector "
-            "is selected by the INDEX: the twisted sector is where the Pin- "
-            "Dirac zero mode lives (dim ker D = 1, det D = 0), which is "
-            "#195's Atiyah-Singer mechanism. Both sectors still come out "
-            "right, for different and now correctly identified reasons. The "
+            "is left UNEXPLAINED: the twisted sector does carry a zero "
+            "eigenvalue, but the spinor probe's T8 shows it is the constant "
+            "mode (index 0, lifted by any perturbation), not #195's "
+            "Atiyah-Singer mechanism. Energy explains the QCD sector; why "
+            "matter is twisted is reopened, with two candidate explanations "
+            "now tried and failed. The "
             "rows below are retained as the superseded record."
         ),
         'superseded_by': 'bam_spinor_spectrum_effective_action_probe (T3-T6)',

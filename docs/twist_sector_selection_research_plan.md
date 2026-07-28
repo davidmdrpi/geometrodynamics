@@ -15,9 +15,11 @@
 > the spin-structure flip then cancel: `ΔE = +π/(4C)` for the BAM spinor
 > too — **untwisted favoured in both sectors**.
 >
-> Matter sits in the twisted sector because that is where the Pin⁻ Dirac
-> **zero mode** is (`dim ker D = 1`, `det D = 0`) — #195's index
-> mechanism, not an energetic preference.
+> The twisted sector does carry a zero eigenvalue (`dim ker D = 1`,
+> `det D = 0`), but that is **not** an index: it is the constant mode,
+> lifted by any mass or potential, with index 0. So why matter sits in the
+> twisted sector is **open** — neither energetics nor the zero mode
+> explains it.
 >
 > **What survives unchanged:** the magnitude `π/(4C)` (§1.1), and the
 > entire topological-freeze half — the amplitude-zero gate (§1.2) and the
@@ -128,10 +130,11 @@ independent derivation of either sector's content.
 | sector | selected by | why |
 |---|---|---|
 | **QCD Möbius** (#100/#103) | **energy** | untwisted cheaper by `π/(4C)` ⟹ Möbius states are excitations *above* the ground, as #100/#103 present them |
-| **BAM matter** (#170/#195/#202) | **index** | energetics favour untwisted here too, so energy cannot explain it; matter is twisted because that sector carries the Pin⁻ Dirac zero mode (`dim ker D = 1`, `det D = 0`) |
+| **BAM matter** (#170/#195/#202) | **unexplained** | energetics favour untwisted here too, so energy cannot explain it — and the zero eigenvalue in that sector is the constant mode (index 0, lifted by any perturbation), so it cannot either |
 
-A zero mode is topological and cannot be traded against a `π/(4C)` energy
-difference — which is why the index wins where it applies.
+Two candidate explanations have been tried and both failed: the statistics
+sign (wrong moding) and the zero-mode index (not an index). The question is
+narrowed, not answered.
 
 ## 3. What selection does **not** explain
 
