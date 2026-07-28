@@ -1,0 +1,251 @@
+{
+  "T1": {
+    "name": "T1_goal_the_factorization_under_test",
+    "description": "PR #227 showed the ER-network link twist and the QCD Moebius label are the same Z2 structurally. This probe asks whether #100's +pi*sigma glueball tower shift is the same object QUANTITATIVELY. The shift factorizes as Delta M^2 = (1/2) x (2 pi sigma): a topological moding shift times the closed-string M^2 spacing. The two factors are tested separately, because they have different standing.",
+    "factorization": "Delta M^2 = (1/2) * (2 pi sigma)",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_the_half_from_three_implementations",
+    "description": "#100's T4 asserts the integer -> half-integer shift without computing it. Computed here, three independent ways, all agreeing on exactly 1/2: (a) the #227 twisted ring gives the comb [0.5, 0.5, 1.5, 1.5] against the periodic [0.0, 1.0, 1.0, 1.9999]; (b) the repo's own MobiusSpectrum gives omega_mob/pi = 0.5, 1.5, 2.5, 3.5 against omega_ord/pi = 1, 2, 3, 4, and its numerical solve confirms them; (c) a direct antiperiodic closed-loop solve gives 1/2, 1/2, 3/2, 3/2 independently of the circumference. The repo's two closed-loop constructors are the two holonomy sectors of one cycle.",
+    "network_ring_periodic": [
+      0.0,
+      0.99999,
+      0.99999,
+      1.99994,
+      1.99994,
+      2.99981
+    ],
+    "network_ring_antiperiodic": [
+      0.5,
+      0.5,
+      1.49998,
+      1.49998,
+      2.49989,
+      2.49989
+    ],
+    "repo_MobiusSpectrum_over_pi": {
+      "mobius": [
+        0.5,
+        1.5,
+        2.5,
+        3.5
+      ],
+      "ordinary": [
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ]
+    },
+    "repo_MobiusSpectrum_numerical_ok": true,
+    "direct_antiperiodic_solve": {
+      "C=1.0": [
+        0.4999991075658028,
+        0.4999991075675754,
+        1.4999759044032797,
+        1.4999759044042273
+      ],
+      "C=2.5": [
+        0.49999910756764104,
+        0.4999991075758689,
+        1.4999759044037564,
+        1.4999759044038206
+      ]
+    },
+    "repo_constructors": {
+      "glueball_ring": [
+        "periodic",
+        1
+      ],
+      "mobius_tube": [
+        "mobius",
+        -1
+      ]
+    },
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_the_half_is_topological_not_dynamical",
+    "description": "A topological invariant must not depend on the geometry or the discretization, and must converge to its exact value. Both hold, sharply. Scanning grid 120 -> 960 and circumference 0.7 -> 3.3, the antiperiodic ground mode sits at 1/2 with deviation falling 1.43e-05 -> 2.23e-07, in successive ratios [4.0, 4.0, 4.0] -- i.e. EXACTLY O(1/M^2), the finite-difference dispersion of the discrete Laplacian and nothing else. Across a factor-of-5 change in circumference at fixed grid the deviation moves by 1.4e-11 (bitwise identical): the shift does not depend on the geometry at all. So the 1/2 is exact in the continuum and geometry-independent -- which is what makes the identification with #100's Moebius sector quantitative rather than merely suggestive. (The deviation is measured on the antiperiodic ground mode directly rather than as a difference against the periodic zero mode: that mode's eigenvalue is ~1e-13 and the sqrt amplifies eigensolver noise into an erratic ~1e-6 unrelated to the shift.)",
+    "rows": [
+      {
+        "grid": 120,
+        "circumference": 0.7,
+        "antiperiodic_ground_n": 0.49998572118067797,
+        "dev_from_half": 1.4278819322033343e-05
+      },
+      {
+        "grid": 120,
+        "circumference": 1.0,
+        "antiperiodic_ground_n": 0.4999857211806596,
+        "dev_from_half": 1.4278819340407534e-05
+      },
+      {
+        "grid": 120,
+        "circumference": 3.3,
+        "antiperiodic_ground_n": 0.4999857211806025,
+        "dev_from_half": 1.4278819397472997e-05
+      },
+      {
+        "grid": 240,
+        "circumference": 0.7,
+        "antiperiodic_ground_n": 0.4999964302685994,
+        "dev_from_half": 3.5697314005878056e-06
+      },
+      {
+        "grid": 240,
+        "circumference": 1.0,
+        "antiperiodic_ground_n": 0.49999643027214846,
+        "dev_from_half": 3.5697278515378628e-06
+      },
+      {
+        "grid": 240,
+        "circumference": 3.3,
+        "antiperiodic_ground_n": 0.4999964302693144,
+        "dev_from_half": 3.5697306856041777e-06
+      },
+      {
+        "grid": 480,
+        "circumference": 0.7,
+        "antiperiodic_ground_n": 0.4999991075666194,
+        "dev_from_half": 8.92433380583757e-07
+      },
+      {
+        "grid": 480,
+        "circumference": 1.0,
+        "antiperiodic_ground_n": 0.4999991075658028,
+        "dev_from_half": 8.924341972083027e-07
+      },
+      {
+        "grid": 480,
+        "circumference": 3.3,
+        "antiperiodic_ground_n": 0.49999910756734334,
+        "dev_from_half": 8.924326566628338e-07
+      },
+      {
+        "grid": 960,
+        "circumference": 0.7,
+        "antiperiodic_ground_n": 0.4999997768849769,
+        "dev_from_half": 2.2311502312355458e-07
+      },
+      {
+        "grid": 960,
+        "circumference": 1.0,
+        "antiperiodic_ground_n": 0.4999997768853069,
+        "dev_from_half": 2.231146931097605e-07
+      },
+      {
+        "grid": 960,
+        "circumference": 3.3,
+        "antiperiodic_ground_n": 0.49999977687142383,
+        "dev_from_half": 2.231285761711277e-07
+      }
+    ],
+    "worst_deviation_by_grid": {
+      "120": 1.4278819397472997e-05,
+      "240": 3.5697314005878056e-06,
+      "480": 8.924341972083027e-07,
+      "960": 2.231285761711277e-07
+    },
+    "successive_ratios": [
+      3.999970248495949,
+      3.999993962305095,
+      3.9996409806507858
+    ],
+    "follows_inverse_M_squared": true,
+    "circumference_spread": 1.3883061367181426e-11,
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_the_pi_sigma_ledger",
+    "description": "The shift factorizes into a DERIVED topological factor and an INHERITED scale. The 1/2 is established by T2/T3 from the network itself. The M^2 spacing 2 pi sigma comes from the closed-string Regge slope 1/(4 pi sigma), a string-theoretic relation #100 imports; nothing in the ER network supplies it, and sigma itself is the lattice-calibrated QCD anchor. So Delta M^2 = 0.5 * 1.130973 = 0.565487 GeV^2 = pi*sigma is quantitative in its topological factor and inherited in its scale. The honest claim is therefore neither 'the network derives pi*sigma' nor 'the identification is only structural', but precisely: the topological half transfers exactly, the dimensionful half does not come from the network.",
+    "sigma_GeV2": 0.18,
+    "M2_spacing_2pisigma_GeV2": 1.1309733552923256,
+    "moding_shift": 0.5,
+    "delta_M2_GeV2": 0.5654866776461628,
+    "pi_sigma_GeV2": 0.5654866776461628,
+    "derived": "the 1/2 (topological, T2/T3)",
+    "inherited": "2 pi sigma (closed-string Regge slope + lattice sigma)",
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_the_intercept_gap_in_100",
+    "description": "#100 writes both towers with the SAME intercept M0^2 and shifts only the level. But antiperiodic moding changes the zero-point (Casimir) energy as well. Computed two independent ways -- zeta regularization using zeta(-1) = -1/12 and zeta(-1,1/2) = +1/24, and an exponential-cutoff extraction with the 1/eps^2 divergence removed analytically -- agreeing to 4.1e-07: per transverse polarization on a loop of circumference C, E0_periodic = -pi/(6C), E0_antiperiodic = +pi/(12C), so Delta E0 = +pi/(4C) exactly. The Moebius zero point is HIGHER, and it scales as 1/C (verified: halving C doubles it), so it cannot be absorbed into a common M0^2. #100's Moebius ground state is therefore not M0^2 + pi*sigma. Quantifying the resulting M^2 intercept needs the full closed-loop dynamics #100 itself defers, so this probe reports the gap and does NOT publish a corrected tower.",
+    "casimir_rows": [
+      {
+        "circumference": 1.0,
+        "E0_periodic_zeta": -0.5235987755982988,
+        "E0_antiperiodic_zeta": 0.2617993877991494,
+        "delta_E0": 0.7853981633974483,
+        "analytic_pi_over_4C": 0.7853981633974483,
+        "cutoff_method_periodic": -0.523598370142281,
+        "cutoff_method_antiperiodic": 0.2617993615567684,
+        "max_method_disagreement": 4.0545601776020845e-07
+      },
+      {
+        "circumference": 2.0,
+        "E0_periodic_zeta": -0.2617993877991494,
+        "E0_antiperiodic_zeta": 0.1308996938995747,
+        "delta_E0": 0.39269908169872414,
+        "analytic_pi_over_4C": 0.39269908169872414,
+        "cutoff_method_periodic": -0.2617991850711405,
+        "cutoff_method_antiperiodic": 0.1308996807783842,
+        "max_method_disagreement": 2.0272800888010423e-07
+      },
+      {
+        "circumference": 3.5,
+        "E0_periodic_zeta": -0.1495996501709425,
+        "E0_antiperiodic_zeta": 0.07479982508547126,
+        "delta_E0": 0.22439947525641377,
+        "analytic_pi_over_4C": 0.2243994752564138,
+        "cutoff_method_periodic": -0.14959953422658145,
+        "cutoff_method_antiperiodic": 0.07479981798678637,
+        "max_method_disagreement": 1.1594436105655248e-07
+      }
+    ],
+    "methods_agree": true,
+    "matches_analytic_pi_over_4C": true,
+    "scales_as_inverse_C": true,
+    "tower_100_orientable_GeV": [
+      1.504,
+      1.842,
+      2.1269,
+      2.378
+    ],
+    "tower_100_mobius_as_published_GeV": [
+      1.6815,
+      1.9896,
+      2.256,
+      2.4941
+    ],
+    "status_of_published_tower": "level shift +pi*sigma stands; the common intercept does not",
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_assessment_and_the_scope_of_the_correction",
+    "description": "PR #227 sec. 8.2 is answered: PARTIALLY quantitative. The topological factor (the 1/2) transfers exactly and is verified three independent ways and shown geometry-independent; the dimensionful factor (2 pi sigma) is an imported closed-string relation the network does not supply; and #100's common intercept is unjustified, because antiperiodic moding shifts the zero-point energy by pi/(4C) per polarization. The net effect on the program is to SHARPEN #100 rather than overturn it: its level shift stands, its ground state does not.",
+    "scope_of_the_correction": "This touches the GLUEBALL tower of #100 only. It does NOT touch the heavy Moebius BARYON predictions of #103/#109/#114 (Lambda_c 3135, Lambda_b 6469, the 849 MeV dipion endpoint), which are built from the flux-tube quantum Delta = 2 sqrt(sigma) rather than the closed-loop intercept. The search table stands as published. Glueballs are unobserved, so the corrected item is the one with no experimental exposure.",
+    "established": [
+      "the 1/2 is derived, shared across three implementations, and topological (grid-converging, circumference-independent)",
+      "pi*sigma = (1/2)*(2 pi sigma): quantitative in its topological factor, inherited in its scale",
+      "antiperiodic moding shifts the zero point by +pi/(4C) per transverse polarization (two independent regularizations)",
+      "#100's common intercept M0^2 across both towers is unjustified"
+    ],
+    "open": [
+      "the corrected Moebius M^2 intercept -- needs the full closed-loop dynamics that #100 itself defers; not published here",
+      "whether the ER network can supply the 2 pi sigma spacing at all, which would make the identification fully quantitative",
+      "PR #227 sec. 8.3: what selects the twist sector dynamically"
+    ],
+    "tests_passed": "5/5",
+    "verdict_class": "THE_MOEBIUS_IDENTIFICATION_IS_QUANTITATIVE_IN_ITS_TOPOLOGICAL_HALF_THE_SCALE_IS_INHERITED_AND_THE_MOEBIUS_INTERCEPT_IS_AN_OPEN_CORRECTION",
+    "pass": true
+  },
+  "summary": {
+    "probe": "mobius_identification_quantitative_probe",
+    "pr": 229,
+    "utc": "2026-07-27T22:26:16.022773+00:00",
+    "tests_passed": "5/5",
+    "verdict_class": "THE_MOEBIUS_IDENTIFICATION_IS_QUANTITATIVE_IN_ITS_TOPOLOGICAL_HALF_THE_SCALE_IS_INHERITED_AND_THE_MOEBIUS_INTERCEPT_IS_AN_OPEN_CORRECTION"
+  }
+}
