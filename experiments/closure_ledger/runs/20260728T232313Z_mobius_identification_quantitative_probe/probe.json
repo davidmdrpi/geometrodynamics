@@ -237,15 +237,15 @@
       "whether the ER network can supply the 2 pi sigma spacing at all, which would make the identification fully quantitative",
       "PR #227 sec. 8.3: what selects the twist sector dynamically"
     ],
-    "tests_passed": "5/5",
+    "tests_passed": "6/6",
     "verdict_class": "THE_MOEBIUS_IDENTIFICATION_IS_QUANTITATIVE_IN_ITS_TOPOLOGICAL_HALF_THE_SCALE_IS_INHERITED_AND_THE_MOEBIUS_INTERCEPT_IS_AN_OPEN_CORRECTION",
     "pass": true
   },
   "summary": {
     "probe": "mobius_identification_quantitative_probe",
     "pr": 229,
-    "utc": "2026-07-27T22:26:16.022773+00:00",
-    "tests_passed": "5/5",
+    "utc": "2026-07-28T23:23:13.833436+00:00",
+    "tests_passed": "6/6",
     "verdict_class": "THE_MOEBIUS_IDENTIFICATION_IS_QUANTITATIVE_IN_ITS_TOPOLOGICAL_HALF_THE_SCALE_IS_INHERITED_AND_THE_MOEBIUS_INTERCEPT_IS_AN_OPEN_CORRECTION"
   }
 }

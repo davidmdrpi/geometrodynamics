@@ -46,7 +46,11 @@ The Möbius (antiperiodic) boundary condition shifts the mode
 quantization from integer `n` to half-integer `n + ½`, so the
 non-orientable glueball tower is shifted by `πσ` in `M²`:
 
-| n | orientable (periodic) | Möbius (antiperiodic) |
+> ⚠️ **The Möbius column below is superseded — see the correction after
+> the table. The `½` and hence the `πσ` *level* shift stand; the absolute
+> masses do not, because both towers were given a common intercept.**
+
+| n | orientable (periodic) | Möbius (antiperiodic, **masses superseded**) |
 |---:|---:|---:|
 | 0 | 1.50 GeV | 1.68 GeV |
 | 1 | 1.84 GeV | 1.99 GeV |
@@ -56,6 +60,31 @@ non-orientable glueball tower is shifted by `πσ` in `M²`:
 So BAM predicts a non-orientable Möbius glueball tower **interleaving**
 the orientable one (~0.17 GeV above each), effectively **doubling** the
 glueball spectrum. Orientable-string lattice QCD has no such sector.
+
+> **CORRECTION (PR #229).** Two parts of the above have since been
+> checked and one does not survive.
+>
+>   - **The `½` is confirmed.** This document *asserts* the
+>     integer → half-integer shift; the probe's T4 returns `pass: True`
+>     with no computation. PR #229 computes it three independent ways
+>     (the #227 twisted ring, the repo's own `MobiusSpectrum`, a direct
+>     antiperiodic solve), all giving exactly ½, and shows it is
+>     topological: `O(1/M²)` convergence exactly, circumference-independent
+>     to 1.4e-11. The level shift `+πσ` stands.
+>   - **The common intercept does not.** The table above uses the *same*
+>     `M₀²` for both towers. Antiperiodic moding also shifts the
+>     zero-point (Casimir) energy — by `ΔE₀ = +π/(4C)` per transverse
+>     polarization, computed two independent ways agreeing to 4.1e-07 —
+>     and that scales as `1/C`, so it cannot be absorbed into a common
+>     `M₀²`. **The Möbius ground state is therefore not `M₀² + πσ`, and
+>     the absolute masses in the table above should not be used.** The
+>     corrected intercept needs the full closed-loop dynamics this
+>     document defers; #229 reports the gap rather than publishing a
+>     replacement tower.
+>
+> The interleaving *structure* and the doubling of the spectrum are
+> unaffected in kind, but their numerical placement is open.
+> See `docs/mobius_identification_quantitative_research_plan.md`.
 
 ## Why this is legitimate (the non-observable point)
 

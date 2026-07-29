@@ -426,15 +426,15 @@
       "the #207 surgery composition law probably gains a Z2 term; not computed in this probe",
       "no residual is reduced (eps, n_part, alpha, sqrt(sigma)/m_e all stand); the twist adds no dimensionful input"
     ],
-    "tests_passed": "8/8",
+    "tests_passed": "9/9",
     "verdict_class": "ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED",
     "pass": true
   },
   "summary": {
     "probe": "nonorientable_er_link_z2_probe",
     "pr": 227,
-    "utc": "2026-07-27T02:51:58.824787+00:00",
-    "tests_passed": "8/8",
+    "utc": "2026-07-28T23:21:36.120130+00:00",
+    "tests_passed": "9/9",
     "verdict_class": "ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED"
   }
 }

@@ -1,0 +1,308 @@
+{
+  "T1": {
+    "name": "T1_goal_compute_the_spinor_do_not_assert_its_statistics",
+    "description": "The twist-selection probe's T2/T5 asserted that the link field's statistics set the sign of the selection, and read 'fermionic' off the fact that BAM throat modes are Pin- spinors. It never computed the spinor. This probe computes the BAM Pin- spinor spectrum and effective action on the network cycle, through the repo's own SUSY square-root framing, and corrects the conclusion.",
+    "corrects": "twist_sector_selection_probe T2/T5 (same PR)",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_spinor_spectrum_converges_to_plus_minus_k",
+    "description": "The throat Dirac operator is the square root of the second-order operator, so on the cycle D^2 is the ring Laplacian at the spinor's boundary phase and spec(D) = +/- sqrt(spec(Laplacian)). Computed at n = 200...1600, the spectrum converges to the analytic |k_m| = |theta + 2 pi m|/C with successive error ratios ~4 -- second order, as the 3-point Laplacian requires. METHOD NOTE: a direct first-order central-difference Dirac operator was tried first and is unusable, because fermion doubling adds a spurious zero mode at the Brillouin-zone edge (dim ker = 2 at theta = 0) and destroys the index statement of T4. The SUSY route is doubling-free.",
+    "rows": [
+      {
+        "sector": "theta=0 (integer moding)",
+        "analytic_abs_k": [
+          0.0,
+          6.28319,
+          6.28319,
+          12.56637,
+          12.56637,
+          18.84956,
+          18.84956
+        ],
+        "numeric_abs_k_n1600": [
+          0.0,
+          6.28318,
+          6.28318,
+          12.56634,
+          12.56634,
+          18.84945,
+          18.84945
+        ],
+        "errors": [
+          {
+            "n": 200,
+            "max_err": 0.006975637682227642
+          },
+          {
+            "n": 400,
+            "max_err": 0.0017440546549636338
+          },
+          {
+            "n": 800,
+            "max_err": 0.0004360227391124738
+          },
+          {
+            "n": 1600,
+            "max_err": 0.00010900627087551129
+          }
+        ],
+        "successive_ratios": [
+          4.0,
+          4.0,
+          4.0
+        ]
+      },
+      {
+        "sector": "theta=pi (half-integer moding)",
+        "analytic_abs_k": [
+          3.14159,
+          3.14159,
+          9.42478,
+          9.42478,
+          15.70796,
+          15.70796,
+          21.99115
+        ],
+        "numeric_abs_k_n1600": [
+          3.14159,
+          3.14159,
+          9.42476,
+          9.42476,
+          15.7079,
+          15.7079,
+          21.99098
+        ],
+        "errors": [
+          {
+            "n": 200,
+            "max_err": 0.011076610150055899
+          },
+          {
+            "n": 400,
+            "max_err": 0.0027694664284538817
+          },
+          {
+            "n": 800,
+            "max_err": 0.0006923862475574083
+          },
+          {
+            "n": 1600,
+            "max_err": 0.000173097777000919
+          }
+        ],
+        "successive_ratios": [
+          4.0,
+          4.0,
+          4.0
+        ]
+      }
+    ],
+    "second_order_convergence": true,
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_the_spinor_moding_is_swapped_relative_to_the_scalar",
+    "description": "For a spinor the network holonomy W composes with the INTRINSIC spin structure eta, and BAM's B2 fixes the non-trivial one: T^2 = -I, 'antiperiodic 4pi-spinors', so eta = -1. The boundary phase is theta = 0 when W*eta = +1 and pi otherwise, so the scalar's assignment (W=+1 integer, W=-1 half-integer) is exactly REVERSED for the BAM spinor (W=+1 half-integer, W=-1 integer). The twist-selection probe missed this and implicitly gave the spinor the scalar's moding, which is what made its T5 sign wrong.",
+    "rows": [
+      {
+        "field": "scalar",
+        "eta": 1,
+        "W": 1,
+        "W_times_eta": 1,
+        "theta": 0.0,
+        "moding": "integer"
+      },
+      {
+        "field": "scalar",
+        "eta": 1,
+        "W": -1,
+        "W_times_eta": -1,
+        "theta": 3.141592653589793,
+        "moding": "half-integer"
+      },
+      {
+        "field": "BAM Pin- spinor",
+        "eta": -1,
+        "W": 1,
+        "W_times_eta": -1,
+        "theta": 3.141592653589793,
+        "moding": "half-integer"
+      },
+      {
+        "field": "BAM Pin- spinor",
+        "eta": -1,
+        "W": -1,
+        "W_times_eta": 1,
+        "theta": 0.0,
+        "moding": "integer"
+      }
+    ],
+    "assignment_is_swapped": true,
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_the_spectral_asymmetry_between_the_sectors",
+    "description": "The swap of T3 has a sharper consequence than any vacuum-energy sign. Integer moding carries an exact Dirac ZERO MODE, and for the BAM spinor that is the TWISTED sector: W = -1 gives dim ker D = 1 and a vanishing zeta-regularized determinant det D = 2 sin(theta/2) = 0, while W = +1 is gapped at |k| = pi/C with det D = 2. *** An earlier draft read this as #195's Atiyah-Singer mechanism seen from the network side. THAT READING IS WITHDRAWN -- see T8: the mode is the constant function, a mass or any potential lifts it, and the index is 0. The spectral asymmetry reported here is real, but it is boundary-condition data, not topological protection. ***",
+    "rows": [
+      {
+        "W": 1,
+        "theta": 3.141592653589793,
+        "dim_ker_D": 0,
+        "det_D_zeta": 2.0,
+        "lowest_abs_k": 3.1415921487974954
+      },
+      {
+        "W": -1,
+        "theta": 0.0,
+        "dim_ker_D": 1,
+        "det_D_zeta": 0.0,
+        "lowest_abs_k": 3.6058758679935735e-05
+      }
+    ],
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_CORRECTION_energetics_favour_untwisted_in_BOTH_sectors",
+    "description": "The correction. The twist-selection probe concluded that a fermionic link field gives dE = -pi/(4C) and so favours the TWISTED sector -- flipping the zero-point sign while leaving the moding alone. With the moding computed rather than assumed (T3), the statistics flip and the spin-structure flip CANCEL, and the BAM spinor gives dE = +pi/(4C): the UNTWISTED sector is favoured, exactly as for the scalar. Magnitude is still pi/(4C) per degree of freedom in both cases (verified to 1e-12). So there is no 'sign = statistics' rule, and the twist-selection probe's T5 cross-check -- which read the fermionic sign as confirming that matter sits in the twisted sector -- does not stand. What does the work instead is T4's zero mode.",
+    "rows": [
+      {
+        "field": "scalar (boson)",
+        "circumference": 1.0,
+        "E0_untwisted": -0.5235987755982988,
+        "E0_twisted": 0.2617993877991494,
+        "delta_E": 0.7853981633974483,
+        "pi_over_4C": 0.7853981633974483,
+        "favoured": "untwisted"
+      },
+      {
+        "field": "scalar (boson)",
+        "circumference": 2.0,
+        "E0_untwisted": -0.2617993877991494,
+        "E0_twisted": 0.1308996938995747,
+        "delta_E": 0.39269908169872414,
+        "pi_over_4C": 0.39269908169872414,
+        "favoured": "untwisted"
+      },
+      {
+        "field": "BAM Pin- spinor",
+        "circumference": 1.0,
+        "E0_untwisted": -0.2617993877991494,
+        "E0_twisted": 0.5235987755982988,
+        "delta_E": 0.7853981633974483,
+        "pi_over_4C": 0.7853981633974483,
+        "favoured": "untwisted"
+      },
+      {
+        "field": "BAM Pin- spinor",
+        "circumference": 2.0,
+        "E0_untwisted": -0.1308996938995747,
+        "E0_twisted": 0.2617993877991494,
+        "delta_E": 0.39269908169872414,
+        "pi_over_4C": 0.39269908169872414,
+        "favoured": "untwisted"
+      }
+    ],
+    "energetics_favour_untwisted_everywhere": true,
+    "magnitude_still_pi_over_4C": true,
+    "supersedes": "twist_sector_selection_probe T2/T5: 'the sign is the statistics of the link field'",
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_where_the_selection_question_stands",
+    "description": "Selection is NOT a single statistics-dependent sign. The bosonic QCD Moebius sector is selected ENERGETICALLY (untwisted cheaper by pi/(4C)), which is why its Moebius states are excitations above the ground -- that half stands. The fermionic matter sector cannot be selected energetically either, since energetics favour untwisted there as well. An earlier draft closed the gap with the zero mode; T8 withdraws that, because the mode is the constant function and the index is 0. So the honest state is: energy explains the QCD sector, and NOTHING here explains why matter sits in the twisted sector -- that question is reopened, not answered. The topological freeze (twist-selection T3/T4) is untouched: changing W still requires severing the cycle.",
+    "cases": [
+      {
+        "sector": "QCD Moebius (#100/#103)",
+        "link_field": "flux-tube transverse displacement (phonon)",
+        "eta": 1,
+        "selected_by": "ENERGY",
+        "outcome": "untwisted favoured by pi/(4C) -> the Moebius states are excitations ABOVE the orientable ground, which is how #100/#103 present them (+pi*sigma, +2 sqrt(sigma))"
+      },
+      {
+        "sector": "BAM matter (#170/#195/#202)",
+        "link_field": "Pin- throat spinor",
+        "eta": -1,
+        "selected_by": "UNEXPLAINED (the index reading is withdrawn)",
+        "outcome": "energetics favour untwisted here TOO, so energy does not explain matter. The twisted sector does carry a zero eigenvalue, but T8 shows it is the constant mode -- lifted by any mass or potential, with index 0 -- so it is NOT index-protected and cannot explain the selection either. Why matter sits in the twisted sector is OPEN"
+      }
+    ],
+    "pass": true
+  },
+  "T8": {
+    "name": "T8_RETRACTION_the_kernel_is_a_BC_zero_mode_not_an_index",
+    "description": "T4 reported dim ker D = 1 in the twisted sector and T6 read it as #195's Atiyah-Singer mechanism seen from the network side. *** THAT READING IS WITHDRAWN. *** An index-protected zero mode survives deformation of the operator; this one does not. (a) A mass lifts it exactly: the lowest eigenvalue of D^2 equals m^2 to 1e-6 at every m^2 tested. (b) Any smooth potential lifts it (0.000 -> 0.050 -> 0.497 -> 1.949 as the amplitude goes 0 -> 2). (c) The mode IS the constant function: overlap with the normalized constant vector is 1.000000000000 -- i.e. the trivial kernel every periodic Laplacian has for ANY weights, which is exactly the diagnostic twist_sector_selection T4 already uses for the holonomy. (d) Decisively, the INDEX is zero, not one: the 1D spectrum is symmetric about 0 (k_m and -k_m both present), so any chirality grading gives n_+ = n_- and ind(D) = 0. dim ker is not an index. #195's zero modes are genuinely index-protected because they live on S^2 coupled to a monopole of charge q = k/2, where Atiyah-Singer gives 2q = k modes OF ONE CHIRALITY; the 1D cycle has no monopole, no chirality grading, and no index theorem. CONSEQUENCE: the spectral asymmetry between the sectors is real (zero eigenvalue vs a pi/C gap) but it is boundary-condition data, not topological protection -- so it cannot carry the weight T6 put on it, and why matter sits in the twisted sector is OPEN again.",
+    "mass_scan": [
+      {
+        "m2": 0.0,
+        "lowest": 2.1788031753709923e-10
+      },
+      {
+        "m2": 0.01,
+        "lowest": 0.010000000282982464
+      },
+      {
+        "m2": 0.25,
+        "lowest": 0.24999999988159516
+      },
+      {
+        "m2": 1.0,
+        "lowest": 1.0000000005336154
+      }
+    ],
+    "potential_scan": [
+      {
+        "V_amplitude": 0.0,
+        "lowest": 2.1788031753709923e-10
+      },
+      {
+        "V_amplitude": 0.05,
+        "lowest": 0.049968335894683816
+      },
+      {
+        "V_amplitude": 0.5,
+        "lowest": 0.4968339192853665
+      },
+      {
+        "V_amplitude": 2.0,
+        "lowest": 1.9493958993836766
+      }
+    ],
+    "overlap_with_constant_mode": 1.0000000000000016,
+    "lifted_by_mass": true,
+    "lifted_by_potential": true,
+    "index_is_zero": true,
+    "retracts": "T4/T6 index-protection reading",
+    "pass": true
+  },
+  "T7": {
+    "name": "T7_assessment",
+    "description": "Computing BAM's actual spinor rather than asserting its statistics overturns one claim of this PR and strengthens the rest. The overturned claim: 'the sign of the twist selection is the statistics of the link field'. The replacement: the holonomy composes with the intrinsic B2 spin structure, the moding swaps, energetics favour the untwisted sector universally, and matter's twisted sector is selected by the Dirac zero mode instead.",
+    "established": [
+      "the BAM spinor spectrum on the cycle, second-order convergent to +/-|k_m| via the repo SUSY square root",
+      "the holonomy composes with eta = -1 (B2), so the spinor moding is swapped relative to the scalar",
+      "the twisted sector carries a zero eigenvalue (dim ker D = 1, det D = 0) and the untwisted sector is gapped at pi/C -- but T8 shows this is the constant mode, NOT index-protected",
+      "energetics favour UNTWISTED for both the scalar and the BAM spinor, dE = +pi/(4C) in both cases",
+      "energy explains the bosonic QCD sector; the fermionic matter sector is left UNEXPLAINED once the index reading is withdrawn"
+    ],
+    "corrected": [
+      "twist_sector_selection_probe T2/T5: 'fermionic -> twisted favoured' is WRONG; it assumed the spinor sees the scalar's moding. Its T3/T4 (the topological freeze) are unaffected.",
+      "this probe's OWN earlier index reading (T4/T6) is withdrawn by T8: the kernel is a boundary-condition zero mode, not an index."
+    ],
+    "open": [
+      "this is the free massless cycle mode; the full throat spinor carries the radial/Dirac and SU(2) factors (a degeneracy, which scales the magnitude but not the sign or the index)",
+      "WHY MATTER SITS IN THE TWISTED SECTOR -- reopened by T8; neither energetics nor the (withdrawn) index reading explains it",
+      "the SUSY square root gives only |spec(D)|, discarding the sign, so it cannot represent a chirality grading or an index at all; and it is the FREE cycle mode (superpotential W = 0), not BAM's throat Dirac operator with its Tangherlini superpotential"
+    ],
+    "tests_passed": "8/8",
+    "verdict_class": "THE_BAM_SPINOR_SWAPS_THE_MODING_SO_ENERGETICS_FAVOUR_UNTWISTED_IN_BOTH_SECTORS_AND_THE_KERNEL_IS_A_BOUNDARY_CONDITION_ZERO_MODE_NOT_AN_INDEX_SO_MATTERS_TWISTED_SECTOR_IS_OPEN",
+    "pass": true
+  },
+  "summary": {
+    "probe": "bam_spinor_spectrum_effective_action_probe",
+    "pr": 230,
+    "utc": "2026-07-28T23:23:19.942141+00:00",
+    "tests_passed": "8/8",
+    "verdict_class": "THE_BAM_SPINOR_SWAPS_THE_MODING_SO_ENERGETICS_FAVOUR_UNTWISTED_IN_BOTH_SECTORS_AND_THE_KERNEL_IS_A_BOUNDARY_CONDITION_ZERO_MODE_NOT_AN_INDEX_SO_MATTERS_TWISTED_SECTOR_IS_OPEN"
+  }
+}

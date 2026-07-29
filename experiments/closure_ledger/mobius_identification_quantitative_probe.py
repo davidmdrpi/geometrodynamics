@@ -379,6 +379,12 @@ def test_T6_assessment(results: dict) -> dict:
     passed = sum(1 for k, v in results.items()
                  if k.startswith('T') and v.get('pass'))
     total = sum(1 for k in results if k.startswith('T'))
+    # This test is not yet in `results`, so `passed`/`total` cover only its
+    # predecessors.  Count it too, matching the repo convention (e.g.
+    # mouth_exchange_dynamics_probe tallies the full test list).
+    self_pass = passed >= total - 1
+    passed += int(self_pass)
+    total += 1
     return {
         'name': 'T6_assessment_and_the_scope_of_the_correction',
         'description': (
@@ -422,7 +428,7 @@ def test_T6_assessment(results: dict) -> dict:
             'THE_MOEBIUS_IDENTIFICATION_IS_QUANTITATIVE_IN_ITS_TOPOLOGICAL_'
             'HALF_THE_SCALE_IS_INHERITED_AND_THE_MOEBIUS_INTERCEPT_IS_AN_'
             'OPEN_CORRECTION'),
-        'pass': passed >= total - 1,
+        'pass': self_pass,
     }
 
 

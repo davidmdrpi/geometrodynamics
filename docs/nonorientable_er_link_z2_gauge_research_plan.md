@@ -1,7 +1,7 @@
 # The Z₂ link twist: non-orientable ER links as a gauge field over the network, and what it does to the antipodal wave interaction (PR #227)
 
 > **STATUS — EXECUTED.** The probe
-> (`experiments/closure_ledger/nonorientable_er_link_z2_probe.py`, 8/8 PASS,
+> (`experiments/closure_ledger/nonorientable_er_link_z2_probe.py`, 9/9 PASS,
 > ~1 min) has been run on the repo's real machinery. Verdict:
 > `ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED`.
 >
@@ -319,7 +319,7 @@ Corollaries (the second is the one that survives):
     outcome to its orthogonal partner. Machine-checkable against the
     existing 16-dim QM swapping calculation; **left open by this probe**.
 
-## 3. The probe — as run (T1–T9, 8/8 PASS, ~1 min)
+## 3. The probe — as run (T1–T9, 9/9 PASS, ~1 min)
 
 `experiments/closure_ledger/nonorientable_er_link_z2_probe.py`. Every test
 runs on the **repo's real machinery**, not the reduced pre-flight models.
@@ -334,7 +334,7 @@ runs on the **repo's real machinery**, not the reduced pre-flight models.
 | T6 | **quotient revival at `πR`, sign = twist class** | the #166 conformal zonal solver | `−f₀` (ε=+1) and `+f₀` (ε=−1), both **0.00e+00**; #166 control 1.7e-15 |
 | T7 | caustic gain / threshold per sector | #166 caustic + #58 threshold | **CORRECTION**: energy ratio 1.000000; sector difference exactly `2/l_max` |
 | T8 | vertex rule; junction rule | `cubic_vertex_ledger_probe.angular_triple` | **CORRECTION**: vertex rule tautological; junction rule 2 of 4 admissible |
-| T9 | verdict + honest ledger | — | 8/8 |
+| T9 | verdict + honest ledger | — | 9/9 |
 
 **Verdict reached:**
 `ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED`
@@ -459,7 +459,7 @@ The claims are independent enough to land separately, in increasing risk:
 ## 7. Reproduce
 
 ```bash
-# the probe (T1-T9, 8/8 PASS, ~1 min) -- writes probe.json + probe.md under
+# the probe (T1-T9, 9/9 PASS, ~1 min) -- writes probe.json + probe.md under
 # experiments/closure_ledger/runs/<UTC timestamp>_nonorientable_er_link_z2_probe/
 python -m experiments.closure_ledger.nonorientable_er_link_z2_probe
 
@@ -468,7 +468,7 @@ python -m experiments.closure_ledger.nonorientable_er_link_z2_preflight
 ```
 
 Expected verdict:
-`ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED`, 8/8 PASS.
+`ER_LINK_TWIST_IS_A_Z2_GAUGE_FIELD_THAT_FREEZES_MOUTH_EXCHANGE_AND_HALVES_THE_QUOTIENT_REVIVAL_BUT_LEAVES_THE_NUCLEATION_THRESHOLD_UNTOUCHED`, 9/9 PASS.
 
 ## 8. What comes next
 
@@ -485,10 +485,28 @@ Expected verdict:
      `M₀² + πσ`. Scope: the glueball tower only — #103/#109/#114's search
      table is built from `Δ = 2√σ` and stands as published. See
      `docs/mobius_identification_quantitative_research_plan.md`.
-  3. **Where does the twist come from?** This probe takes `ε_b` as a free
-     Z₂ label. Nothing here says which networks carry `W = −1`. A
-     dynamical selection principle — or a demonstration that both sectors
-     are populated — is the obvious open.
+  3. ~~**Where does the twist come from?**~~ — **DONE (PR #230): energetics
+     select, topology freezes.** The sectors differ by `π/(4C)` per degree
+     of freedom. (The original "sign = statistics of the link field" rule
+     was **withdrawn in the same PR**: computing BAM's actual Pin⁻ spinor
+     shows the holonomy composes with the intrinsic B2 spin structure,
+     swapping the moding, so energetics favour **untwisted** in both
+     sectors; and the follow-up zero-mode/index explanation was itself
+     withdrawn on audit, so why matter is twisted is **open** —
+     `docs/bam_spinor_spectrum_effective_action_research_plan.md`.)
+     But the
+     preference never drives a relaxation: changing `W` requires the link
+     amplitude to pass through zero, severing the cycle (`b₁`: 1 → 0) —
+     the #175 gate again — and `W` is exactly deformation-invariant
+     otherwise. So the sector is chosen at nucleation and frozen. One
+     Casimir sign gets **both** of the program's Möbius sectors right.
+     See `docs/twist_sector_selection_research_plan.md`.
+
+**With §8.1–§8.3 all closed, the #227 arc has no open roadmap items.**
+What remains is named in the individual plans: the corrected Möbius `M²`
+intercept (#229), whether the network can supply the `2πσ` spacing at all
+(#229), whether any Bell-type observable is twist-sensitive (#228), and
+absolute sector populations (#230).
 
 ## 9. §8.1 resolved — the surgery composition law has **no** Z₂ term
 

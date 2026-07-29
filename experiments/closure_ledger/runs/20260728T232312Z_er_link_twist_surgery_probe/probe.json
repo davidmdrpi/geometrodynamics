@@ -533,15 +533,15 @@
       "whether any Bell-type observable IS twist-sensitive: it would have to compare two paths that traverse DIFFERENT link sets, which #207 geometry does not naturally provide",
       "the remaining sec. 8 items: whether the Moebius identification is quantitative, and what selects the twist sector"
     ],
-    "tests_passed": "4/4",
+    "tests_passed": "5/5",
     "verdict_class": "THE_SURGERY_COMPOSITION_LAW_HAS_NO_Z2_TERM_THE_PAIR_PHASE_IS_A_RATIO_AND_THE_TWIST_ACTS_ONLY_AS_CYCLE_INTERFERENCE",
     "pass": true
   },
   "summary": {
     "probe": "er_link_twist_surgery_probe",
     "pr": 227,
-    "utc": "2026-07-27T03:29:52.401458+00:00",
-    "tests_passed": "4/4",
+    "utc": "2026-07-28T23:23:12.951084+00:00",
+    "tests_passed": "5/5",
     "verdict_class": "THE_SURGERY_COMPOSITION_LAW_HAS_NO_Z2_TERM_THE_PAIR_PHASE_IS_A_RATIO_AND_THE_TWIST_ACTS_ONLY_AS_CYCLE_INTERFERENCE"
   }
 }

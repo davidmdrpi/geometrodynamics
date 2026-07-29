@@ -314,6 +314,12 @@ def test_T5_assessment(results: dict) -> dict:
     passed = sum(1 for k, v in results.items()
                  if k.startswith('T') and v.get('pass'))
     total = sum(1 for k in results if k.startswith('T'))
+    # This test is not yet in `results`, so `passed`/`total` cover only its
+    # predecessors.  Count it too, matching the repo convention (e.g.
+    # mouth_exchange_dynamics_probe tallies the full test list).
+    self_pass = passed >= total - 1
+    passed += int(self_pass)
+    total += 1
     return {
         'name': 'T5_assessment',
         'description': (
@@ -349,7 +355,7 @@ def test_T5_assessment(results: dict) -> dict:
         'verdict_class': (
             'THE_SURGERY_COMPOSITION_LAW_HAS_NO_Z2_TERM_THE_PAIR_PHASE_IS_A_'
             'RATIO_AND_THE_TWIST_ACTS_ONLY_AS_CYCLE_INTERFERENCE'),
-        'pass': passed >= total - 1,
+        'pass': self_pass,
     }
 
 

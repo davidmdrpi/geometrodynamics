@@ -1,6 +1,6 @@
 # The Z2 link twist as a gauge field over the ER network (PR #227)
 
-_Run 2026-07-27T02:51:58.824787+00:00 · 8/8 PASS_
+_Run 2026-07-28T23:21:36.120130+00:00 · 9/9 PASS_
 
 ## The headline: a twisted link freezes mouth exchange
 

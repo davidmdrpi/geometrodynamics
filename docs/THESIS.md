@@ -2738,7 +2738,13 @@ non-orientable (the Möbius tube, antiperiodic). The Möbius half-twist
 makes the modes antiperiodic — half-integer rather than integer — so the
 non-orientable glueball tower is shifted by `πσ` in `M²` and interleaves
 the orientable one, effectively doubling the glueball spectrum.
-Orientable-string lattice QCD has no such sector. Crucially, glueballs
+Orientable-string lattice QCD has no such sector. **(Corrected, PR #229:
+the `½` moding shift is confirmed — computed three independent ways and
+shown topological — so the `πσ` level shift stands; but the two towers
+were given a common intercept `M₀²`, and antiperiodic moding also shifts
+the zero point by `+π/(4C)` per polarization, which scales as `1/C` and
+cannot be absorbed into a common constant. The Möbius ground state is
+therefore not `M₀² + πσ`; the corrected intercept is open.)** Crucially, glueballs
 are *not experimentally observed* — they mix with ordinary qq̄ mesons of
 the same `J^PC` and have never been cleanly isolated — so the Möbius
 tower is a legitimate BAM-vs-lattice difference for a non-observable:
@@ -3331,6 +3337,95 @@ deriving `F² = K²·Q` from one `C × S³` functional and the tree-QED
 thread (PRs #36–#46) extending the same primitives to BW, annihilation,
 Bhabha and Møller, BAM's amplitude-level reach has extended from
 "reproduces Compton" to "derives QED tree amplitudes from geometry".
+
+## The orientation Z₂ as a gauge field over the ER network
+
+The antipodal Z₂ `(−1)^l` appears throughout this thesis as a **global
+parity of one throat** — it fixes the boundary condition, grades the
+exchange kernel, and selects the vertices (the "Thread A" of the
+antipodal matter-interaction synthesis). Separately, the bulk ER-link
+network carries an orientation label that does no work: a ±1 decoration
+on each mouth, multiplied into the transfer factor and never varied. And
+separately again, the non-orientable hadron sector uses an orientation
+Z₂ with real teeth — the Möbius flux tube's antiperiodic boundary
+condition.
+
+These are one object, and it is not a parity. **A Z₂ that lives on a
+network is a gauge field**: a link variable `ε_b` on each ER link, a
+gauge orbit `ε_b → s_a ε_b s_{a'}` under mouth reframing, and Wilson
+loops `W(γ) = ∏_{b∈γ} ε_b` as the only physical content. Written that
+way it does work that the global parity could not.
+
+**It freezes mouth exchange, as a theorem.** The two-throat network is a
+ring: two mouths joined by two exterior brane arcs. A twist makes the
+loop holonomy `W = −1`, the two paths subtract, and the exchange doublet
+becomes degenerate — but the result is stronger than two-path
+interference. The half-ring translation `S` that swaps the mouths obeys
+`S² = W`, so at `W = −1` its eigenvalues are `±i`, and because the ring
+operator is **real** every level must pair into an exactly degenerate
+doublet. The freeze covers the whole spectrum. This is the complement of
+the two freezing mechanisms the mouth-exchange analysis already had —
+both approximate, both weakening as the network becomes symmetric, which
+is why that analysis had to name an "exact-degeneracy loophole." The
+twist closes it in the opposite limit: the more symmetric the network,
+the more exact the topological freeze.
+
+**It is the Möbius sector, seen from the network side.** The twisted
+loop is the antiperiodic ring, and the repo's two closed-loop
+constructors — the periodic glueball ring and the antiperiodic Möbius
+tube — are the two holonomy sectors of one cycle, built independently in
+the QCD arc. The identification is quantitative in its *topological*
+factor: the `½` moding shift is exact, geometry-independent, and
+reproduced by three separate implementations. It is **not** quantitative
+in its scale: the `2πσ` spacing is an imported closed-string relation
+that the network does not supply.
+
+**What selects the sector.** The two holonomy sectors differ in
+zero-point energy by exactly `π/(4C)` per degree of freedom. It is
+tempting to read the *sign* off the statistics of the field on the link —
+`+½Σω` for a boson, `−½Σω` for a fermion — and conclude that fermionic
+links favour the twisted sector. **That is wrong, and computing BAM's
+actual spinor shows why.** For a spinor the network holonomy composes
+with the *intrinsic* spin structure, and B2 fixes the non-trivial one
+(`T² = −I`, antiperiodic 4π-spinors), which reverses the spinor's moding
+relative to the scalar. The statistics flip and the spin-structure flip
+cancel, and energetics favour the **untwisted** sector for both.
+
+The twisted sector *is* spectrally distinguished — in the integer-moding
+sector the operator has a zero eigenvalue, and for the BAM spinor that is
+the twisted one, its determinant vanishing there while the untwisted
+sector is gapped. It is tempting to call that the index mechanism that
+pins the `k = 1` zero mode by Atiyah–Singer rather than by tuning, met
+here from the network side. **That too fails on audit.** An
+index-protected mode survives deformation; this one is lifted by any mass
+or potential, the mode is simply the constant function, and the index is
+zero — the one-dimensional spectrum is symmetric about the origin, so the
+two chiralities balance. `dim ker` is not an index. The genuine `k = 1`
+modes are protected because they live on a sphere threaded by a monopole,
+where the index theorem counts modes of one chirality; a cycle has no
+monopole and no grading.
+
+So the honest position is asymmetric: the QCD flux-tube phonon is
+selected energetically, which is why its Möbius states are excitations
+above the orientable ground — while **why matter sits in the twisted
+sector remains open**, with two candidate explanations now tried and
+failed. Either way the preference never drives a
+relaxation: changing `W` continuously requires the link amplitude to pass
+through zero, which severs the cycle and leaves the holonomy undefined —
+the same amplitude-zero gate that locks the winding number out of
+continuous evolution. The sector is chosen at nucleation and then
+frozen.
+
+**What it does not do.** It does not derive the antipodal postulate — it
+classifies it, as a choice between the two flat Z₂ bundles that
+`H¹(RP³;Z₂) = Z₂` permits. It does not lower the pair-nucleation
+threshold: the conjecture that the twisted sector focuses more strongly
+at the antipodal caustic was tested and is false, because linear
+evolution conserves energy exactly. It adds no dimensionful input. And a
+precision that matters: **RP³ is orientable**. The twist is the flat
+bundle and the Pin⁻ RP² mouth, not ambient non-orientability of the
+exterior — a distinction the loose phrase "non-orientable ER link"
+elides.
 
 ## Open problems
 

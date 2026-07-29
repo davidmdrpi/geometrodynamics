@@ -1,6 +1,6 @@
 # Does the #207 surgery law acquire a Z2 term? (PR #227 follow-on)
 
-_Run 2026-07-27T03:29:52.401458+00:00 · 4/4 PASS_
+_Run 2026-07-28T23:23:12.951084+00:00 · 5/5 PASS_
 
 ## The answer: no
 

@@ -38,7 +38,7 @@ first-principles derivation:
 
 ## What survives the §8 audit
 
-The prior `quark_beta_subblock_stability_probe` established that across
+The prior `quark_beta_subblock_stability` established that across
 all 12 logged `docs/quark_axioms.md` §8 ablations, the closure integer
 takes values
 
@@ -222,7 +222,7 @@ of the dimensionful anchor `m_e`.
   - `docs/odd_k_closure_lemma.md` — the lepton-sector closure lemma.
   - `experiments/closure_ledger/quark_beta_origin_probe.py` — the
     prior catalog (S³/S²/SU(3)/torus-knot/Tangherlini).
-  - `experiments/closure_ledger/quark_beta_subblock_stability_probe.py`
+  - `experiments/closure_ledger/quark_beta_subblock_stability.py`
     — establishes the parity invariance.
   - `experiments/closure_ledger/quark_npart_origin_probe.py` — this
     probe.

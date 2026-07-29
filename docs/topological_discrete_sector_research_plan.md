@@ -139,6 +139,8 @@ separately imposing** the closure quantum or the antipodal symmetry.
 ## Cross-references
 
   - PR #49: `bam_effective_action_scaffold_probe` — the five-barrier map.
+    (**Note:** this module is not present in the repository; see the note in
+    `docs/bam_scaffold_status.md`.)
   - PR #41: `throat_action_derivation_probe` — closure quantum +
     antipodal symmetry as imposed constraints (now promoted).
   - PR #44: `mobius_exchange_sign_probe` — `T = iσ_y = ε`.

@@ -132,7 +132,7 @@ to **sharpen #100, not overturn it**.
 | T3 | the `1/2` is topological | `O(1/M²)` exactly; circumference spread 1.4e-11 |
 | T4 | the `πσ` ledger: derived factor vs inherited scale | `0.5 × 1.130973 = 0.565487 GeV²` |
 | T5 | the intercept gap in #100 | `ΔE₀ = +π/(4C)`, two methods to 4.1e-07 |
-| T6 | assessment and scope | 5/5 |
+| T6 | assessment and scope | 6/6 |
 
 ## 4. What this leaves open
 
@@ -164,4 +164,4 @@ python -m experiments.closure_ledger.mobius_identification_quantitative_probe
 ```
 
 Expected verdict:
-`THE_MOEBIUS_IDENTIFICATION_IS_QUANTITATIVE_IN_ITS_TOPOLOGICAL_HALF_THE_SCALE_IS_INHERITED_AND_THE_MOEBIUS_INTERCEPT_IS_AN_OPEN_CORRECTION`, 5/5 PASS.
+`THE_MOEBIUS_IDENTIFICATION_IS_QUANTITATIVE_IN_ITS_TOPOLOGICAL_HALF_THE_SCALE_IS_INHERITED_AND_THE_MOEBIUS_INTERCEPT_IS_AN_OPEN_CORRECTION`, 6/6 PASS.
