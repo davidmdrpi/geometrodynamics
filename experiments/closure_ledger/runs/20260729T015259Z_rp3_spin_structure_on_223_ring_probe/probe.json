@@ -1,0 +1,180 @@
+{
+  "T1": {
+    "name": "T1_goal_the_one_ring_where_the_labels_coincide",
+    "description": "Probe E (#230) showed the B2 spin structure and the network holonomy W coincide only on a cycle of nontrivial deck class, and found exactly one such network: the #223 single-bridge ring (ONE exterior pi-arc, deck class 1), as against the #224 two-throat ring (TWO pi-arcs, deck class 0). So #223 is the one place the composition rule theta = 0 iff W*eta = +1 is justified, and therefore the one place Probes B-D bear on the NETWORK TWIST rather than merely on the spin structure. This probe pushes the machinery through it.",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_W_on_this_ring_is_the_source_point_parity",
+    "description": "build_ring solves a HALF ring by shooting from the neck out to the source point at chi = pi, with a parity choice at each end. The source point IS the antipode, so closing the ring there with Neumann ('deriv') versus Dirichlet ('val') is precisely the two ways to complete the loop whose deck class Probe E measured as 1. Hence the `end` parameter is the network holonomy W on this ring. Half-ring length L = 5.1400, closure comb pi/L = 0.6112.",
+    "rows": [
+      {
+        "parity": "odd_neck",
+        "about": "the neck",
+        "meaning": "#202's Pin parity; selects the electron k = 1 mode"
+      },
+      {
+        "parity": "end ('deriv' | 'val')",
+        "about": "the SOURCE POINT (chi = pi)",
+        "meaning": "the two ways to close the deck-class-1 loop -- THIS is W"
+      }
+    ],
+    "deck_class_from_probe_E": 1,
+    "L_half": 5.14,
+    "closure_comb": 0.6112047964182478,
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_the_moding_shift_is_REAL_on_this_ring",
+    "description": "The composition rule predicts that flipping W shifts the mode comb by HALF a spacing. Measured on the real #223 construction at the electron (odd-neck) parity: the two W sectors INTERLEAVE, with each 'deriv' mode sitting at fractional position [0.529, 0.504, 0.499, 0.506, 0.498] between consecutive 'val' modes at r_s = 0.3 (and [0.531, 0.503, 0.499, 0.506, 0.498] at r_s = 0.4) -- converging to 0.5 as the modes climb out of the neck region, where the bridge potential distorts the low comb. *** The moding shift that the earlier arc could only assert CONDITIONALLY is realized here, on the network where Probe E showed the composition rule is justified. That is a genuine confirmation of a previously conditional claim -- and it is the first time in this whole investigation that W and the spin structure have been shown to be the same label on an actual construction. ***",
+    "rows": [
+      {
+        "rs": 0.3,
+        "W_val_modes": [
+          1.3892,
+          2.1127,
+          2.7359,
+          3.3655,
+          3.9781,
+          4.5815
+        ],
+        "W_deriv_modes": [
+          0.9374,
+          1.7722,
+          2.4268,
+          3.0498,
+          3.6753,
+          4.2787
+        ],
+        "interleave_fractions": [
+          0.529,
+          0.504,
+          0.499,
+          0.506,
+          0.498
+        ],
+        "asymptotic_fraction": 0.498
+      },
+      {
+        "rs": 0.4,
+        "W_val_modes": [
+          1.3846,
+          2.1004,
+          2.7152,
+          3.3369,
+          3.9383,
+          4.5337
+        ],
+        "W_deriv_modes": [
+          0.9347,
+          1.7644,
+          2.4099,
+          3.0257,
+          3.641,
+          4.2345
+        ],
+        "interleave_fractions": [
+          0.531,
+          0.503,
+          0.499,
+          0.506,
+          0.498
+        ],
+        "asymptotic_fraction": 0.498
+      }
+    ],
+    "converges_to_half_spacing": true,
+    "all_fractions_near_half": true,
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_probes_B_to_D_now_apply_and_still_nothing_selects",
+    "description": "With the labels genuinely identified on this ring (T2/T3), the Probe B-D results apply to the NETWORK TWIST and not merely to the spin structure. They give: h = 0 for both sectors, |det D| = 0.8963003229 identical, and eta = +/-1/4 -- so the two differ ONLY by a determinant phase, 0.785398 rad = pi/4 apart. Vacuum energies are equal exactly, inflow extends both, and back-reaction is degenerate. *** So the selection question is ANSWERED for the one network where it is well posed: NOTHING SELECTS THE TWIST. This is no longer a scoping caveat -- the three mechanisms are now being applied to the right label, and they still fail. ***",
+    "rows": [
+      {
+        "W": 1,
+        "eta_0": 0.25,
+        "h": 0,
+        "det_modulus": 0.8963003229,
+        "arg_det": -0.39269908169872414
+      },
+      {
+        "W": -1,
+        "eta_0": -0.25,
+        "h": 0,
+        "det_modulus": 0.8963003229,
+        "arg_det": 0.39269908169872414
+      }
+    ],
+    "phase_difference": 0.7853981633974483,
+    "identical_modulus": true,
+    "mechanisms": [
+      {
+        "mechanism": "energetics / vacuum energy",
+        "selects": false,
+        "why": "identical |spec| mode by mode -> Delta E_vac = 0 exactly (Probe B/D)"
+      },
+      {
+        "mechanism": "anomaly inflow / APS",
+        "selects": false,
+        "why": "Omega_3^{Spin} = 0, both spin structures extend (Probe C)"
+      },
+      {
+        "mechanism": "semiclassical back-reaction",
+        "selects": false,
+        "why": "Delta <T_AB> = 0 pointwise on the homogeneous exterior (Probe D)"
+      }
+    ],
+    "nothing_selects": true,
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_the_phenomenon_and_the_coupling_never_co_occur",
+    "description": "The two properties that would have to meet for the exchange-freeze result to be a statement about the spin structure are split across two different networks, and never coincide. #223 couples the labels (deck class 1) but has NO mouth doublet -- the repo says so in its own words: the exterior is one connected cavity, and the pure ultrastatic bridge has no interior state to exchange. #224 HAS the doublet and the exchange freeze, but its deck class is 0, so its W is a handle character the spin-structure results do not reach. *** This is why the selection question kept slipping: every mechanism was being computed on one ring and applied to the other. Naming the obstruction is the useful part -- a selection argument for the exchange-freeze sector cannot come from RP^3 spin-structure data at all, because the network that exhibits the phenomenon does not carry that label. ***",
+    "rows": [
+      {
+        "network": "#223 single-bridge ring",
+        "deck_class": 1,
+        "labels_coincide": true,
+        "has_mouth_doublet": false,
+        "has_exchange_freeze": false,
+        "why_no_doublet": "the exterior is ONE connected cavity (the two brane arcs join at the antipode) and the pure ultrastatic bridge has no interior state to exchange -- stated as a finding in #224"
+      },
+      {
+        "network": "#224 two-throat ring",
+        "deck_class": 0,
+        "labels_coincide": false,
+        "has_mouth_doublet": true,
+        "has_exchange_freeze": true,
+        "why_no_doublet": "n/a -- it HAS the doublet; but deck class 0, so its W is a handle character (Probe E)"
+      }
+    ],
+    "never_co_occur": true,
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_assessment",
+    "description": "Pushing the spin-structure machinery through the #223 ring does two things. It CONFIRMS what was conditional: the moding shift is real, measured, and the labels genuinely coincide there. And it CLOSES the selection question for that ring: with the three mechanisms now applied to the right label, they still all fail. The by-product is the sharper statement -- the phenomenon (exchange freeze, on #224) and the label coupling (on #223) never co-occur, so RP^3 spin-structure data cannot select the exchange-freeze sector even in principle.",
+    "established": [
+      "the #223 `end` parity IS the network holonomy W (deck class 1)",
+      "the moding shift is REAL here: the two W sectors interleave, fractions converging to 0.5 -- confirming a previously conditional claim on an actual construction",
+      "with the labels identified, B-D apply to W and STILL nothing selects: identical |det|, h = 0, only an eta phase apart",
+      "the phenomenon and the label coupling live on different networks and never coincide"
+    ],
+    "open": [
+      "why matter sits in the twisted sector -- still open, and now known to be unanswerable from RP^3 spin-structure data for the #224 exchange-freeze sector",
+      "what a selection argument for a HANDLE character would even look like: the #224 W is a free-Z label, not a torsion class, so bordism and eta invariants are the wrong tools",
+      "the #223 ring is the pure ultrastatic bridge (D = 0); whether an interior channel (D > 0) creates a doublet while KEEPING deck class 1 is untested -- that geometry, if it exists, is where the two properties could finally meet"
+    ],
+    "tests_passed": "6/6",
+    "verdict_class": "ON_THE_223_RING_THE_LABELS_COINCIDE_AND_THE_MODING_SHIFT_IS_REAL_BUT_NOTHING_SELECTS_THE_TWIST_AND_THE_EXCHANGE_FREEZE_LIVES_ON_THE_OTHER_RING",
+    "pass": true
+  },
+  "summary": {
+    "probe": "rp3_spin_structure_on_223_ring_probe",
+    "pr": 231,
+    "utc": "2026-07-29T01:52:59.573184+00:00",
+    "tests_passed": "6/6",
+    "verdict_class": "ON_THE_223_RING_THE_LABELS_COINCIDE_AND_THE_MODING_SHIFT_IS_REAL_BUT_NOTHING_SELECTS_THE_TWIST_AND_THE_EXCHANGE_FREEZE_LIVES_ON_THE_OTHER_RING"
+  }
+}
