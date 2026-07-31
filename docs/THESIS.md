@@ -1110,6 +1110,56 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**Tensor-product emergence: the 2^N state space from one field on the
+network (PR #232).** The program's decisive ontology problem — *can
+ordinary 2^N-dimensional quantum state structure emerge from a field
+and topology in physical space?* — answered constructively with two
+proven no-gos fencing it (`docs/tensor_product_emergence.md`). The
+committed beginnings (#206 two-mouth singlet, #207 pair distribution,
+#208 GHZ junction) are low-dimensional shared-variable slices; this PR
+builds the general object. **THE SECTOR:** the qubit is the MOUTH
+DOUBLET (which-mouth dual rail; the #224 pair re-read from its ledger:
+interior fraction 0.97, localization 0.98) — one scalar field supplies
+2N modes, and the N-excitation sector with one quantum per doublet has
+dimension EXACTLY 2^N (machine-checked N = 1–5): **the exponential
+space is the N-quantum coherence of ONE field on physical space.**
+**NO-GO 1 (classical counting):** a classical linear field carries 4N
+real dof vs the 2·2^N−2 pure manifold — it loses at N = 3 (12 < 14)
+and exponentially after; #206's LHV theorem (re-read: LHV max 2 vs
+Tsirelson 2√2) is the N = 2 correlation face of the same wall — the
+ontology CANNOT be classical-field-valued; what dilutes and refocuses
+(the #211–#219 transactional story) is the quantum state of the field.
+**THE TENSOR PRODUCT, DERIVED:** decoupled doublets under arbitrary
+random intra-pair Hamiltonians evolve as the EXACT Kronecker product
+of their 2×2 one-body unitaries (worst deviation 1e-15, zero leakage,
+N = 2–4): **locality IS the tensor product** — the "multiple frames
+reading one bulk object" framing made general. **NO-GO 2 (the measured
+KLM boundary):** bridging doublets with any beam splitter leaks the
+sector (Hong–Ou–Mandel); across the bridge family + 200 random 4-mode
+linear-optics evolutions, every sector-unitary map has ZERO entangling
+power and every entangling map (up to 1.000 ebit) rides on O(1)
+leakage — **a strictly linear field on ANY topology entangles only
+probabilistically.** **THE COMMITTED QUARTIC COMPLETES THE GATE SET:**
+the #210/#222 |φ|⁴ self-interaction, as a bridge-overlap cross-Kerr
+χn_an_b, gives an EXACT CZ at χt = π (deviation 1e-16, ZERO leakage,
+Bell entropy 1.000000) — **the same nonlinearity that makes the
+soliton makes the CZ**; {CZ, intra-pair SU(2)} is the standard
+universal set. **UNIVERSALITY DELIVERED:** explicit physical circuits
+build GHZ_N at fidelity 1−1e-12 with unit sector norm for N = 2–5;
+the N = 3 state reaches the algebraic Mermin maximum |M| = 4 LIVE
+(ledger #208: 4.0, LHV cap 2; the charged-GHZ superselection no-go
+re-read unchanged). **THE ONTOLOGY:** the pilot-wave
+configuration-space object is here DERIVED — Ψ(x₁…x_N) is one field's
+N-quantum sector read through N doublet frames; the exponential
+workspace of a quantum computation is physically carried multi-quantum
+coherence, never parallel worlds; and the two no-gos prove there is no
+classical and no linear-deterministic shortcut. Scope: graph-level
+network (the #207/#208 level); χ structural (overlap not calibrated on
+the PDE throat); bosonic scalar (fermion sectors = #227–#231);
+quantization imported, not derived — the claim is emergence of
+STRUCTURE from one quantized field + topology; measurement/Born = the
+#209/#219 sector (`tensor_product_emergence_probe`, PR #232).
+
 **Radion stabilization from the primordial EM-capped throat (PR
 #226).** The one dynamical problem #225 left — *derive ρ\* from the EM
 cap's own equations* — executed

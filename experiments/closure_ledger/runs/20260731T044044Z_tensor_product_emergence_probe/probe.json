@@ -1,0 +1,220 @@
+{
+  "timestamp_utc": "2026-07-31T04:40:44+00:00",
+  "identification": "Tensor-product emergence: the 2^N quantum state space is the N-quantum dual-rail sector of one field on the mouth-doublet network - locality gives the tensor product (machine zero), a classical field fails by counting at N = 3, a linear field fails the measured KLM boundary, and the committed quartic supplies the exact CZ that completes universality (GHZ_N to N = 5)",
+  "executes": "BAM's decisive ontology problem: whether ordinary 2^N quantum state structure emerges from a field and topology in physical space - answered constructively, with the no-gos that fence it",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "BAM's decisive ontology problem: can ordinary 2^N-dimensional quantum state structure emerge from a field and topology in physical space?  The committed beginnings (#206 two-mouth singlet, #207 pair distribution, #208 GHZ junction) are low-dimensional shared-variable embeddings; this probe builds the general object - N independent mouth-doublet qubits with full local unitaries, an entangling gate from the committed quartic, and explicit GHZ_N circuits - and fences it with two proven no-gos (classical counting; linear determinism).",
+      "pass": true
+    },
+    {
+      "name": "T2_sector_dimension",
+      "description": "THE QUBIT IS THE MOUTH DOUBLET (which-mouth dual rail): one scalar field on the network supplies 2N modes - the committed #224 doublet is the physical pair (ledger: interior fraction 0.97, basin localization 0.98) - and the N-excitation sector with one quantum per doublet has dimension EXACTLY 2^N for N = 1..5.  THE COUNTING NO-GO: a classical linear field carries 4N real dof; the pure-state manifold needs 2*2^N - 2 - the classical reading fails at N = 3 (12 < 14) and exponentially after; the #206 LHV/CHSH theorem (ledger: LHV max = 2 vs Tsirelson 2 sqrt 2) is the N = 2 correlation-level face of the same wall.  The exponential space is the N-QUANTUM COHERENCE OF ONE FIELD, or it is nothing",
+      "dimension_table": [
+        {
+          "N": 1,
+          "modes": 2,
+          "fock_dim": 2,
+          "dual_rail_sector": 2,
+          "is_2_to_N": true,
+          "classical_field_real_dof": 4,
+          "pure_state_manifold_real_dim": 2
+        },
+        {
+          "N": 2,
+          "modes": 4,
+          "fock_dim": 10,
+          "dual_rail_sector": 4,
+          "is_2_to_N": true,
+          "classical_field_real_dof": 8,
+          "pure_state_manifold_real_dim": 6
+        },
+        {
+          "N": 3,
+          "modes": 6,
+          "fock_dim": 56,
+          "dual_rail_sector": 8,
+          "is_2_to_N": true,
+          "classical_field_real_dof": 12,
+          "pure_state_manifold_real_dim": 14
+        },
+        {
+          "N": 4,
+          "modes": 8,
+          "fock_dim": 330,
+          "dual_rail_sector": 16,
+          "is_2_to_N": true,
+          "classical_field_real_dof": 16,
+          "pure_state_manifold_real_dim": 30
+        },
+        {
+          "N": 5,
+          "modes": 10,
+          "fock_dim": 2002,
+          "dual_rail_sector": 32,
+          "is_2_to_N": true,
+          "classical_field_real_dof": 20,
+          "pure_state_manifold_real_dim": 62
+        }
+      ],
+      "classical_counting_crossover_N": 3,
+      "doublet_interior_fraction_224": 0.9652110929438624,
+      "doublet_localization_224": 0.9768297418711014,
+      "lhv_max_206": 2.0,
+      "tsirelson_206": 2.828427124746,
+      "pass": true
+    },
+    {
+      "name": "T3_tensor_from_locality",
+      "description": "TENSOR STRUCTURE IS DERIVED, NOT POSTULATED: with the doublets decoupled (any random intra-pair one-body Hamiltonians), the field's sector evolution equals the Kronecker product of the N one-body 2x2 unitaries to machine zero, with zero sector leakage (N = 2, 3, 4).  The tensor product of quantum mechanics is the statement that DECOUPLED REGIONS OF ONE FIELD EVOLVE INDEPENDENTLY - network locality, nothing more.  This is the general-N form of the \"multiple frames reading one bulk object\" construction (#206/#208)",
+      "per_N": {
+        "2": {
+          "leakage": 1.0300344591690878e-16,
+          "tensor_deviation": 7.216449660063518e-16
+        },
+        "3": {
+          "leakage": 6.482187933985625e-16,
+          "tensor_deviation": 1.088499931918706e-15
+        },
+        "4": {
+          "leakage": 1.0856859424327161e-15,
+          "tensor_deviation": 1.1105699151271774e-15
+        }
+      },
+      "worst_tensor_deviation": 1.1105699151271774e-15,
+      "worst_leakage": 1.0856859424327161e-15,
+      "pass": true
+    },
+    {
+      "name": "T4_linear_no_go",
+      "description": "LINEARITY CANNOT ENTANGLE DETERMINISTICALLY: bridging two doublets with any beam splitter leaks the dual-rail sector (Hong-Ou-Mandel double occupation), and across the bridge family plus 200 random 4-mode linear-optics evolutions, EVERY map that stays unitary on the sector has zero entangling power, while every entangling map carries O(1) leakage - the KLM boundary, measured.  A strictly linear field on ANY network topology is postselection-probabilistic, exactly like linear optics: the ontology essay's \"richness of mode correlations\" is NOT available deterministically at linear order",
+      "bridge_scan": [
+        {
+          "g": 0.1,
+          "t": 0.5,
+          "unitarity_dev": 0.009966711079379298,
+          "entanglement": 8.751764302539665e-06
+        },
+        {
+          "g": 0.1,
+          "t": 1.0,
+          "unitarity_dev": 0.03946950299855745,
+          "entanglement": 0.00011516152067865884
+        },
+        {
+          "g": 0.1,
+          "t": 2.0,
+          "unitarity_dev": 0.15164664532641747,
+          "entanglement": 0.00156813282852815
+        },
+        {
+          "g": 0.1,
+          "t": 15.707963267948966,
+          "unitarity_dev": 1.0,
+          "entanglement": 0.9972933983442706
+        },
+        {
+          "g": 0.3,
+          "t": 0.5,
+          "unitarity_dev": 0.08733219254516045,
+          "entanglement": 0.0005270180909010944
+        },
+        {
+          "g": 0.3,
+          "t": 1.0,
+          "unitarity_dev": 0.3188211227616632,
+          "entanglement": 0.00726568273283386
+        },
+        {
+          "g": 0.3,
+          "t": 2.0,
+          "unitarity_dev": 0.868696857770623,
+          "entanglement": 0.15473717226849013
+        },
+        {
+          "g": 0.3,
+          "t": 5.235987755982989,
+          "unitarity_dev": 1.0,
+          "entanglement": 0.9968922327290878
+        }
+      ],
+      "n_random_linear_optics": 200,
+      "deterministic_entangling_found": 0.0,
+      "best_entanglement_seen": 0.9996949635308308,
+      "its_unitarity_deviation": 1.0,
+      "pass": true
+    },
+    {
+      "name": "T5_quartic_cz",
+      "description": "THE COMMITTED QUARTIC COMPLETES THE GATE SET: the program's scalar self-interaction (the #210/#222 |phi|^4 EKG term), acting as a cross-Kerr overlap chi n_a n_b between rails that share a bridge region, gives an EXACT CZ at chi t = pi - machine zero, ZERO sector leakage (the interaction is number-conserving per mode), Bell entropy exactly 1 from |++>.  With the intra-pair SU(2) of T3 this is the standard universal set {CZ, single-qubit unitaries}: the entangling resource of BAM is not decoration - it is the same nonlinearity that makes the soliton",
+      "cz_deviation": 1.2246467991473532e-16,
+      "sector_leakage": 0.0,
+      "bell_entropy_from_plus_plus": 1.0000000000000002,
+      "gate_time": "chi t = pi",
+      "pass": true
+    },
+    {
+      "name": "T6_ghz_circuits",
+      "description": "THE GENERAL CONSTRUCTION DELIVERS THE COMMITTED SECTORS AND EXTENDS THEM: explicit physical circuits (intra-pair rotations + the quartic CZ) build GHZ_N at fidelity 1 - 1e-12 with unit sector norm for N = 2, 3, 4, 5 - beyond the #208 Y-junction slice, on independent qubits with full local control.  The N = 3 state reaches the algebraic Mermin maximum |M| = 4 LIVE (matching the #208 ledger: extracted Mermin 4.0, LHV cap 2, junction fidelity 1.0): the genuinely multipartite sector emerges from the general construction, not only from the special junction",
+      "ghz_fidelity": {
+        "2": 1.0,
+        "3": 1.0000000000000018,
+        "4": 1.0000000000000044,
+        "5": 1.0
+      },
+      "sector_norm": {
+        "2": 1.0,
+        "3": 1.000000000000001,
+        "4": 1.0000000000000022,
+        "5": 1.0000000000000002
+      },
+      "mermin_live_N3": 4.000000000000009,
+      "mermin_ledger_208": 4.0,
+      "ghz_fidelity_ledger_208": 1.0,
+      "pass": true
+    },
+    {
+      "name": "T7_ontology_ledger",
+      "description": "the ontology accounting: where the exponential space lives, what carries it, and the committed-ledger re-reads that anchor the general construction to the arc (#206 singlet fidelity 1.0 and correlation law 3e-16; #208 charged-GHZ superselection no-go; #224 physical doublet)",
+      "committed_ledger_rereads": {
+        "singlet_fidelity_206": 1.0,
+        "correlation_law_error_206": 3.33e-16,
+        "charged_ghz_zero_sum_triples_208": 0
+      },
+      "the_answers": {
+        "boxed_question": "Can ordinary 2^N-dimensional quantum state structure emerge from a field and topology in physical space?",
+        "answer_yes": "YES - constructively: the 2^N space is the N-quantum dual-rail sector of ONE quantized field on the mouth-doublet network (T2); the tensor product is network locality (T3, machine zero); entanglement is topology + the committed quartic (T5); universality reaches GHZ_N (T6).  The configuration-space object of pilot-wave theory is, here, the multi-quantum coherence of one field on physical space - the \"multiple frames reading one bulk object\" framing made general.",
+        "answer_no_1": "NO for a classical field: 4N real dof cannot carry the 2*2^N - 2 pure manifold beyond N = 2 (T2), and the #206 LHV theorem already forbids the N = 2 correlations.  The essay's \"real diffuse field\" ontology therefore CANNOT be classical-field-valued; what dilutes and refocuses is the quantum state of the field (the #211-#219 transactional layer), not a classical amplitude.",
+        "answer_no_2": "NO for a strictly linear field, deterministically: the measured KLM boundary (T4).  The quartic self-interaction the program already owns (#210/#222) is exactly what crosses it (T5) - the soliton nonlinearity and the entangling resource are the same term.",
+        "quantum_computation_reading": "A quantum computation on this substrate is a real wave-processing event on one field: gates are intra-doublet rotations and bridge-overlap Kerr phases; the exponential workspace is the N-quantum coherence, physically carried, never N parallel worlds.  The demanding burden the essay names - finite local dof supporting the effective exponential space - is met by the excitation-number sector, and ONLY by it (the two no-gos close every classical shortcut)."
+      },
+      "pass": true
+    },
+    {
+      "name": "T8_honest_scope",
+      "description": "what this probe does and does not establish",
+      "scope": [
+        "The network is graph-level (modes = mouth-doublet rails, couplings = bridges), the same level as #207/#208; the physical doublet is anchored by the #224 ledger but the gates are not solved on the PDE throat background here.",
+        "The cross-Kerr coefficient chi is STRUCTURAL: it is the |phi|^4 overlap integral of two rail mode functions in a shared bridge region - the operator form is the committed #210/#222 self-interaction, but the coefficient is not calibrated to a throat geometry in this probe (gate TIME scales as 1/chi; the gate itself is exact for any chi > 0).",
+        "The field is the program's bosonic scalar.  Fermionic statistics and the spin-structure sectors are the #227-#231 arc and are not re-derived here; dual-rail qubits do not require them.",
+        "QUANTIZATION IS IMPORTED, NOT DERIVED: the program's framing is QFT on the fixed classical geometry, and this probe shows the 2^N STRUCTURE (tensor products, entanglement classes, universality) emerges from one quantized field plus topology.  The claim is emergence of structure from geometry - not a derivation of quantum mechanics from classical fields, which the T2/T4 no-gos show is impossible in exactly quantified senses.",
+        "Measurement, decoherence, and the Born rule remain the #209/#219 sector; nothing here adds or needs a collapse postulate.",
+        "The KLM boundary is measured on the bridge family and 200 random linear-optics samples and cited as the theorem it is; postselected linear entangling (the probabilistic KLM route) exists on this substrate too but is not the claim.",
+        "N = 5 is demonstrated explicitly (32-dim sector inside the 2002-dim Fock space); the construction is manifestly N-uniform, but no asymptotic resource claim beyond the demonstrated range is made."
+      ],
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
+      "description": "the ontology verdict",
+      "core_green": true,
+      "assessment": "The decisive ontology question has a constructive answer with honest fences.  The 2^N state space emerges from ONE field and topology in physical space - as the N-quantum dual-rail sector of the quantized field on the mouth-doublet network.  The tensor product is not an axiom here: it is network locality, derived at machine zero.  Entanglement is not a substance: it is bridge topology (#206/#208, re-read) plus the committed quartic, which turns out to be the entangling resource - the same nonlinearity that makes the soliton makes the CZ, exactly, with zero leakage.  Universality follows and GHZ_N is built through N = 5.  The two no-gos locate the ontology precisely: a CLASSICAL field fails by counting at N = 3 (and by Bell at N = 2), and a LINEAR field fails deterministically at the measured KLM boundary - so the essay's \"real diffuse field\" must be read as the quantum state of one field, its dilution and refocusing the #211-#219 transactional story, its exponential workspace the multi-quantum coherence and nothing else.  What remains open is exactly what the scope names: calibrating chi on the PDE throat, the fermionic sectors, and the measurement layer - the structure, which is what the question asked for, is delivered.",
+      "pass": true
+    }
+  ],
+  "n_passed": 9,
+  "n_total": 9,
+  "verdict_class": "THE_2_TO_N_STATE_SPACE_IS_THE_N_QUANTUM_SECTOR_OF_ONE_FIELD_ON_THE_MOUTH_DOUBLET_NETWORK_LOCALITY_MAKES_THE_TENSOR_PRODUCT_LINEARITY_ALONE_CANNOT_ENTANGLE_DETERMINISTICALLY_AND_THE_COMMITTED_QUARTIC_COMPLETES_THE_GATE_SET",
+  "verdict": "ESTABLISHED (the argument is in docs/tensor_product_emergence.md).\n\nTHE SECTOR. One field, 2N mouth-doublet modes, N quanta, one per doublet: dimension EXACTLY 2^N for N = 1..5.  The counting no-go: a classical field's 4N real dof lose to the 2*2^N - 2 manifold at N = 3 - and #206's LHV theorem already forbids N = 2.\n\nTHE TENSOR PRODUCT. Decoupled doublets evolve as the EXACT Kronecker product of their one-body unitaries (worst deviation 1e-15, leakage 1e-15): locality IS the tensor product.\n\nTHE LINEAR NO-GO. Bridge scan + 200 random linear-optics evolutions: deterministic entangling found = 0.0; the strongest entangling seen (1.000 ebit) rides on O(1) sector leakage - the KLM boundary, measured.\n\nTHE QUARTIC. The committed |phi|^4, as a bridge-overlap cross-Kerr, gives CZ EXACTLY at chi t = pi (deviation 1e-16, leakage 0e+00, Bell entropy 1.000000).\n\nUNIVERSALITY. GHZ_N by explicit circuit at fidelity 1 - 1e-12 for N = 2..5; Mermin = 4.0 live at N = 3 (ledger #208: 4.0).\n\nTHE ONTOLOGY. The exponential workspace is the N-quantum coherence of ONE field on physical space - not classical amplitude (counting/Bell), not linear mode-richness (KLM), not many worlds and not configuration-space substance: the pilot-wave configuration-space object is, here, one field's multi-quantum sector read through N doublet frames."
+}
