@@ -21,6 +21,7 @@ This arc replaces those constructions with the genuine objects.
 | **C** | `bulk_aps_spin_structure_probe.py` | does inflow select? does the Pin⁻ mouth? |
 | **D** | `twist_sector_einstein_dirac_probe.py` | does back-reaction select? |
 | **E** | `network_cycle_pi1_class_probe.py` | does the #224 cycle generate `π₁(RP³)`? (decides whether B–D apply) |
+| **F** | `rp3_spin_structure_on_223_ring_probe.py` | (PR #231) push the machinery through the **#223** ring, where E showed the labels *do* coincide |
 
 ## 1. Probe A — the spin-lift ledger (6/6)
 
@@ -235,6 +236,19 @@ Two consequences follow, and both matter:
   2. The "three selection mechanisms all fail" conclusion of §5 is a
      statement about the **spin-structure** sectors. **The network twist
      sector remains untested by any of them.**
+
+> **FOLLOWED UP (PR #231, Probe F).** The machinery has since been pushed
+> through the **#223** ring, the one network E found with deck class 1.
+> There the `end` (source-point) parity **is** `W`, and the predicted
+> moding shift is **measured**: the two `W` sectors interleave with
+> fractional offset → **0.5**. So the composition rule is confirmed on an
+> actual construction. And with the labels genuinely identified, B–D apply
+> to `W` — and **still nothing selects**. The by-product is sharper than
+> the result: #223 couples the labels but has **no mouth doublet**, while
+> #224 has the doublet but decouples them — **the phenomenon and the
+> coupling never co-occur**, so RP³ spin-structure data cannot select the
+> exchange-freeze sector even in principle. See
+> `docs/rp3_spin_structure_on_223_ring_research_plan.md`.
 
 ## 5. Where the selection question now stands
 
