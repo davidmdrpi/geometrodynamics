@@ -1,0 +1,243 @@
+{
+  "T1": {
+    "name": "T1_goal_is_the_non_co_occurrence_structural",
+    "description": "Probe F (#231) OBSERVED that the mouth doublet / exchange freeze (on #224, 2 throats) and deck class 1 (on #223, 1 throat) never occur together, and named a geometry carrying both as the obvious next construction. But an observation across the two networks the repo happens to contain is not an obstruction. This probe asks whether the non-co-occurrence is structural -- and finds that it is, for a parity reason that also rules out the construction #231 recommended.",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_deck_class_equals_N_mod_2",
+    "description": "A cyclic ring of N throats carries exactly N exterior pi-arcs (one between each consecutive pair of mouths), so its total exterior length is N*pi and the S^3 lift closes iff N is even. Hence deck class = N mod 2, and the cycle is the pi_1(RP^3) generator iff N is ODD. This reproduces Probe E's two data points as the N = 1 and N = 2 cases of one law: #223 (N = 1) class 1, #224 (N = 2) class 0.",
+    "rows": [
+      {
+        "N_throats": 1,
+        "n_exterior_arcs": 1,
+        "total_exterior_over_pi": 0.9995,
+        "deck_class": 1,
+        "is_generator": true
+      },
+      {
+        "N_throats": 2,
+        "n_exterior_arcs": 2,
+        "total_exterior_over_pi": 1.999,
+        "deck_class": 0,
+        "is_generator": false
+      },
+      {
+        "N_throats": 3,
+        "n_exterior_arcs": 3,
+        "total_exterior_over_pi": 2.9985,
+        "deck_class": 1,
+        "is_generator": true
+      },
+      {
+        "N_throats": 4,
+        "n_exterior_arcs": 4,
+        "total_exterior_over_pi": 3.998,
+        "deck_class": 0,
+        "is_generator": false
+      },
+      {
+        "N_throats": 5,
+        "n_exterior_arcs": 5,
+        "total_exterior_over_pi": 4.9975,
+        "deck_class": 1,
+        "is_generator": true
+      }
+    ],
+    "law_holds": true,
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_full_freeze_iff_N_is_even",
+    "description": "The cyclic translation S advancing the ring by one throat satisfies S^N = W. The freeze is the statement that EVERY level is forced into a degenerate multiplet, which happens iff S has NO real eigenvalue -- a real operator pairs complex eigenvalues and only those. For W = -1 the eigenvalues are the N-th roots of -1, e^{i pi (2k+1)/N}, and one is real iff (2k+1)/N is an integer for some k, possible iff N is ODD. So full freeze iff N EVEN. MEASURED on actual N-throat rings (#224's construction generalised), max intra-pair gap over the 16 lowest levels: N = 2 twisted 1.995e-11 (FROZEN), N = 3 twisted 3.953e-01 (NOT frozen), N = 4 twisted 5.664e-12 (FROZEN). N = 3 is the decisive case: the smallest ring with both several throats and deck class 1, and it does not freeze.",
+    "root_of_unity_argument": [
+      {
+        "N": 2,
+        "S_angles_over_pi_twisted": [
+          0.5,
+          1.5
+        ],
+        "twisted_has_real_eigenvalue": false,
+        "full_freeze_predicted": true,
+        "N_is_even": true
+      },
+      {
+        "N": 3,
+        "S_angles_over_pi_twisted": [
+          0.3333,
+          1.0,
+          1.6667
+        ],
+        "twisted_has_real_eigenvalue": true,
+        "full_freeze_predicted": false,
+        "N_is_even": false
+      },
+      {
+        "N": 4,
+        "S_angles_over_pi_twisted": [
+          0.25,
+          0.75,
+          1.25,
+          1.75
+        ],
+        "twisted_has_real_eigenvalue": false,
+        "full_freeze_predicted": true,
+        "N_is_even": true
+      },
+      {
+        "N": 5,
+        "S_angles_over_pi_twisted": [
+          0.2,
+          0.6,
+          1.0,
+          1.4,
+          1.8
+        ],
+        "twisted_has_real_eigenvalue": true,
+        "full_freeze_predicted": false,
+        "N_is_even": false
+      },
+      {
+        "N": 6,
+        "S_angles_over_pi_twisted": [
+          0.1667,
+          0.5,
+          0.8333,
+          1.1667,
+          1.5,
+          1.8333
+        ],
+        "twisted_has_real_eigenvalue": false,
+        "full_freeze_predicted": true,
+        "N_is_even": true
+      }
+    ],
+    "argument_matches_parity": true,
+    "measured_on_real_rings": [
+      {
+        "N": 2,
+        "gap_untwisted": 0.0020817962923636024,
+        "gap_twisted": 1.99461558381131e-11,
+        "frozen": true,
+        "N_is_even": true
+      },
+      {
+        "N": 3,
+        "gap_untwisted": 0.3958100164563194,
+        "gap_twisted": 0.3953427423111364,
+        "frozen": false,
+        "N_is_even": false
+      },
+      {
+        "N": 4,
+        "gap_untwisted": 4.5920229809315316e-05,
+        "gap_twisted": 5.663580715520311e-12,
+        "frozen": true,
+        "N_is_even": true
+      }
+    ],
+    "measurement_matches_parity": true,
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_freeze_and_deck_class_one_are_mutually_exclusive",
+    "description": "Both properties are governed by the SAME integer N with OPPOSITE parities: full freeze <=> N even (T3), deck class 1 <=> N odd (T2). No N satisfies both, for any ring size. *** So Probe F's observation is UPGRADED from an accident of the two networks the repo contains to a THEOREM about all cyclic throat rings: the exchange freeze and the spin-structure coupling cannot co-occur. *** The N = 3 ring is the sharpest illustration -- it has several throats AND deck class 1, exactly the combination #231 was looking for, and T3 measures that it simply does not freeze.",
+    "rows": [
+      {
+        "N_throats": 1,
+        "deck_class": 1,
+        "labels_coincide": true,
+        "has_doublet": false,
+        "full_freeze": false,
+        "both": false
+      },
+      {
+        "N_throats": 2,
+        "deck_class": 0,
+        "labels_coincide": false,
+        "has_doublet": true,
+        "full_freeze": true,
+        "both": false
+      },
+      {
+        "N_throats": 3,
+        "deck_class": 1,
+        "labels_coincide": true,
+        "has_doublet": true,
+        "full_freeze": false,
+        "both": false
+      },
+      {
+        "N_throats": 4,
+        "deck_class": 0,
+        "labels_coincide": false,
+        "has_doublet": true,
+        "full_freeze": true,
+        "both": false
+      },
+      {
+        "N_throats": 5,
+        "deck_class": 1,
+        "labels_coincide": true,
+        "has_doublet": true,
+        "full_freeze": false,
+        "both": false
+      },
+      {
+        "N_throats": 6,
+        "deck_class": 0,
+        "labels_coincide": false,
+        "has_doublet": true,
+        "full_freeze": true,
+        "both": false
+      }
+    ],
+    "no_N_has_both": true,
+    "mutually_exclusive": true,
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_consequences_for_231_and_for_the_selection_question",
+    "description": "One claim upgraded, one withdrawn, one strengthened. The withdrawal matters most: #231 ended by naming a construction as the obvious next step and this probe shows it cannot exist. Closing a line of attack is worth more than another inconclusive probe along it. What remains open is unchanged in content but sharper in direction: a selection argument for the freeze sector must address a FREE-Z handle character, and no torsion-flavoured invariant will reach it.",
+    "items": [
+      {
+        "claim": "Probe F: the phenomenon and the coupling never co-occur",
+        "status": "UPGRADED -- observed across two networks, now proven for all cyclic throat rings by the parity obstruction"
+      },
+      {
+        "claim": "#231's recommended next construction: an interior channel (D > 0) on the #223 ring, or some other geometry, carrying BOTH the doublet and deck class 1",
+        "status": "WITHDRAWN -- no such geometry exists. Adding an interior channel to the N = 1 ring does not add a throat, so it cannot create a mouth doublet; and any ring with enough throats to have a doublet AND deck class 1 has odd N, which T3 shows does not freeze. The construction cannot succeed, and the reason is parity, not effort."
+      },
+      {
+        "claim": "the exchange-freeze sector is cut off from RP^3 spin-structure data",
+        "status": "STRENGTHENED -- permanently, not contingently. Every freezing network has even N, hence deck class 0, hence a handle-character holonomy: eta, APS inflow and bordism are the wrong tools by construction, on every such network and not merely on #224."
+      }
+    ],
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_assessment",
+    "description": "The non-co-occurrence Probe F observed is a parity obstruction: the freeze needs N even, deck class 1 needs N odd, and both are the same N. Verified by the root-of-unity structure of S^N = W and measured on real N-throat rings, with N = 3 as the decisive case. #231's recommended next construction is thereby ruled out rather than attempted.",
+    "established": [
+      "deck class = N mod 2 for a cyclic N-throat ring (N exterior pi-arcs)",
+      "full freeze iff N even: S^N = W has no real eigenvalue only for even N -- argued and measured (N=2 frozen 2.0e-11, N=3 NOT frozen 4.0e-01, N=4 frozen 5.7e-12)",
+      "the two are mutually exclusive by parity, for every N",
+      "Probe F upgraded from observation to theorem; #231's recommended construction withdrawn as impossible"
+    ],
+    "open": [
+      "a selection argument for the freeze sector must address a free-Z handle character; no torsion invariant reaches it",
+      "the parity law is derived for CYCLIC rings of identical throats; non-cyclic or inhomogeneous networks (trees with multiple independent cycles, junctions) are not covered and could in principle evade it -- that, not the #231 construction, is where to look next",
+      "whether the freeze itself survives on a non-cyclic network is untested: the S^N = W argument needs the cyclic symmetry"
+    ],
+    "tests_passed": "6/6",
+    "verdict_class": "THE_FREEZE_REQUIRES_EVEN_N_AND_DECK_CLASS_ONE_REQUIRES_ODD_N_SO_THEY_ARE_MUTUALLY_EXCLUSIVE_BY_PARITY_AND_THE_231_RECOMMENDED_CONSTRUCTION_CANNOT_EXIST",
+    "pass": true
+  },
+  "summary": {
+    "probe": "freeze_deck_parity_obstruction_probe",
+    "pr": 233,
+    "utc": "2026-08-03T06:08:59.973803+00:00",
+    "tests_passed": "6/6",
+    "verdict_class": "THE_FREEZE_REQUIRES_EVEN_N_AND_DECK_CLASS_ONE_REQUIRES_ODD_N_SO_THEY_ARE_MUTUALLY_EXCLUSIVE_BY_PARITY_AND_THE_231_RECOMMENDED_CONSTRUCTION_CANNOT_EXIST"
+  }
+}

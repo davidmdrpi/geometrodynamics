@@ -1,0 +1,605 @@
+{
+  "T1": {
+    "name": "T1_goal_do_the_freeze_and_deck_class_one_exclude_each_other",
+    "description": "Probe F (#231) OBSERVED that the mouth doublet / exchange freeze (on #224, 2 throats) and deck class 1 (on #223, 1 throat) never occur together, and named a geometry carrying both as the obvious next construction. An observation across the two networks the repo happens to contain is not an obstruction, so this probe asks whether the non-co-occurrence is structural. The first version of this probe answered YES, on a parity argument. *** That answer was wrong. The parity argument assumed every exterior arc has length exactly pi, which forces all N throats to share one antipodal mouth pair. Mouth placement is free, and once it is freed the two properties co-occur. *** This version records the computation that refutes the earlier claim and checks the other evasion classes by calculation rather than by assertion.",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_full_freeze_iff_N_is_even_STANDS",
+    "description": "The cyclic translation S advancing the ring by one throat satisfies S^N = W. The freeze is the statement that EVERY level is forced into a degenerate multiplet, which happens iff S has NO real eigenvalue -- a real operator pairs complex eigenvalues and only those. For W = -1 the eigenvalues are the N-th roots of -1, e^{i pi (2k+1)/N}, and one is real iff N is ODD, so full freeze iff N EVEN. This law is UNCHANGED by the correction, and is checked three ways: the root-of-unity argument; the measured max intra-pair gap on real rings (N = 2 twisted 2.207e-12 FROZEN, N = 3 3.953e-01 NOT frozen, N = 4 1.747e-12 FROZEN); and at operator level, where ||[H,S]|| < 1e-8 and S^N = W hold exactly. The grids are chosen so each throat cell is the same integer number of points -- on an incommensurate grid S is not a symmetry of the discrete operator and the freeze spuriously appears to fail.",
+    "root_of_unity_argument": [
+      {
+        "N": 2,
+        "S_angles_over_pi_twisted": [
+          0.5,
+          1.5
+        ],
+        "twisted_has_real_eigenvalue": false,
+        "full_freeze_predicted": true,
+        "N_is_even": true
+      },
+      {
+        "N": 3,
+        "S_angles_over_pi_twisted": [
+          0.3333,
+          1.0,
+          1.6667
+        ],
+        "twisted_has_real_eigenvalue": true,
+        "full_freeze_predicted": false,
+        "N_is_even": false
+      },
+      {
+        "N": 4,
+        "S_angles_over_pi_twisted": [
+          0.25,
+          0.75,
+          1.25,
+          1.75
+        ],
+        "twisted_has_real_eigenvalue": false,
+        "full_freeze_predicted": true,
+        "N_is_even": true
+      },
+      {
+        "N": 5,
+        "S_angles_over_pi_twisted": [
+          0.2,
+          0.6,
+          1.0,
+          1.4,
+          1.8
+        ],
+        "twisted_has_real_eigenvalue": true,
+        "full_freeze_predicted": false,
+        "N_is_even": false
+      },
+      {
+        "N": 6,
+        "S_angles_over_pi_twisted": [
+          0.1667,
+          0.5,
+          0.8333,
+          1.1667,
+          1.5,
+          1.8333
+        ],
+        "twisted_has_real_eigenvalue": false,
+        "full_freeze_predicted": true,
+        "N_is_even": true
+      }
+    ],
+    "argument_matches_parity": true,
+    "measured_on_real_rings": [
+      {
+        "N": 2,
+        "arc_over_pi": 0.9995,
+        "gap_untwisted": 0.0020817962933703527,
+        "gap_twisted": 2.2071233729548112e-12,
+        "frozen": true,
+        "N_is_even": true
+      },
+      {
+        "N": 3,
+        "arc_over_pi": 0.9995,
+        "gap_untwisted": 0.3958100164573388,
+        "gap_twisted": 0.39534274230995115,
+        "frozen": false,
+        "N_is_even": false
+      },
+      {
+        "N": 4,
+        "arc_over_pi": 0.9995,
+        "gap_untwisted": 4.592022899885251e-05,
+        "gap_twisted": 1.7467138846427588e-12,
+        "frozen": true,
+        "N_is_even": true
+      }
+    ],
+    "measurement_matches_parity": true,
+    "operator_level_check": [
+      {
+        "N": 2,
+        "W": 1,
+        "commutator_norm": 9.094947017729282e-13,
+        "S_to_the_N_minus_W": 0.0
+      },
+      {
+        "N": 2,
+        "W": -1,
+        "commutator_norm": 9.094947017729282e-13,
+        "S_to_the_N_minus_W": 0.0
+      },
+      {
+        "N": 3,
+        "W": 1,
+        "commutator_norm": 9.094947017729282e-13,
+        "S_to_the_N_minus_W": 0.0
+      },
+      {
+        "N": 3,
+        "W": -1,
+        "commutator_norm": 9.094947017729282e-13,
+        "S_to_the_N_minus_W": 0.0
+      },
+      {
+        "N": 4,
+        "W": 1,
+        "commutator_norm": 9.094947017729282e-13,
+        "S_to_the_N_minus_W": 0.0
+      },
+      {
+        "N": 4,
+        "W": -1,
+        "commutator_norm": 9.094947017729282e-13,
+        "S_to_the_N_minus_W": 0.0
+      }
+    ],
+    "S_is_a_symmetry_and_S_to_the_N_equals_W": true,
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_deck_class_is_set_by_mouth_placement_not_by_N",
+    "description": "Probe E's criterion is that the S^3 lift closes iff the TOTAL EXTERIOR ARC LENGTH is an even multiple of pi, so deck class = (sum of arc lengths)/pi mod 2. That formula does not mention N. The earlier claim 'an N-throat ring carries N exterior pi-arcs, so deck class = N mod 2' silently assumed every arc has length pi -- and an arc of length pi joins a point to its ANTIPODE, so assuming it for every arc forces all N throats to share the same antipodal pair of mouth locations. That is #224's configuration, not the general one. Mouth placement is free geometric data. Verified here: the old law reproduces the deck class on all all-arcs-pi rings, and FAILS on 3 of the rings with other arc lengths -- e.g. two throats with quarter-circle arcs have N even but deck class 1.",
+    "rows": [
+      {
+        "label": "#223-like: 1 throat, arc pi",
+        "N": 1,
+        "arc_over_pi": 0.9995,
+        "total_exterior_over_pi": 0.9995,
+        "deck_class": 1,
+        "N_mod_2": 1,
+        "old_law_would_say": 1
+      },
+      {
+        "label": "#224: 2 throats, arcs pi (mouths coincide)",
+        "N": 2,
+        "arc_over_pi": 0.9995,
+        "total_exterior_over_pi": 1.999,
+        "deck_class": 0,
+        "N_mod_2": 0,
+        "old_law_would_say": 0
+      },
+      {
+        "label": "3 throats, arcs pi",
+        "N": 3,
+        "arc_over_pi": 0.9995,
+        "total_exterior_over_pi": 2.9985,
+        "deck_class": 1,
+        "N_mod_2": 1,
+        "old_law_would_say": 1
+      },
+      {
+        "label": "2 throats, arcs pi/2 (mouths a quarter circle apart)",
+        "N": 2,
+        "arc_over_pi": 0.5,
+        "total_exterior_over_pi": 1.0,
+        "deck_class": 1,
+        "N_mod_2": 0,
+        "old_law_would_say": 0
+      },
+      {
+        "label": "2 throats, arcs 3pi/2",
+        "N": 2,
+        "arc_over_pi": 1.5,
+        "total_exterior_over_pi": 3.0,
+        "deck_class": 1,
+        "N_mod_2": 0,
+        "old_law_would_say": 0
+      },
+      {
+        "label": "2 throats, arcs 2pi",
+        "N": 2,
+        "arc_over_pi": 2.0,
+        "total_exterior_over_pi": 4.0,
+        "deck_class": 0,
+        "N_mod_2": 0,
+        "old_law_would_say": 0
+      },
+      {
+        "label": "4 throats, arcs 3pi/4",
+        "N": 4,
+        "arc_over_pi": 0.75,
+        "total_exterior_over_pi": 3.0,
+        "deck_class": 1,
+        "N_mod_2": 0,
+        "old_law_would_say": 0
+      }
+    ],
+    "old_law_correct_when_every_arc_is_pi": true,
+    "rows_where_old_law_fails": [
+      {
+        "label": "2 throats, arcs pi/2 (mouths a quarter circle apart)",
+        "N": 2,
+        "arc_over_pi": 0.5,
+        "total_exterior_over_pi": 1.0,
+        "deck_class": 1,
+        "N_mod_2": 0,
+        "old_law_would_say": 0
+      },
+      {
+        "label": "2 throats, arcs 3pi/2",
+        "N": 2,
+        "arc_over_pi": 1.5,
+        "total_exterior_over_pi": 3.0,
+        "deck_class": 1,
+        "N_mod_2": 0,
+        "old_law_would_say": 0
+      },
+      {
+        "label": "4 throats, arcs 3pi/4",
+        "N": 4,
+        "arc_over_pi": 0.75,
+        "total_exterior_over_pi": 3.0,
+        "deck_class": 1,
+        "N_mod_2": 0,
+        "old_law_would_say": 0
+      }
+    ],
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_rings_carrying_the_freeze_AND_deck_class_one",
+    "description": "Take N even so the freeze law applies, then place the mouths so the arcs sum to an ODD multiple of pi. The simplest such ring is TWO throats whose mouth pairs are rotated a quarter circle apart: each exterior arc is pi/2, the total is pi, the deck class is 1, and the ring has two interior channels hence a mouth doublet. Measured max intra-pair gap over the 16 lowest levels in the twisted sector: 8.482e-13 -- FROZEN (untwisted 1.908e-02, not frozen). And the freeze there is the SAME mechanism as #224's, not a coincidence: ||[H,S]|| < 1e-8 and S^N = W exactly. *** So the geometry #231 asked for exists, the earlier version of this probe was wrong to rule it out, and Probe F's non-co-occurrence is an artifact of the two rings the repo contains. *** #224's own configuration (both arcs pi) is the degenerate case where the two throats share a single antipodal mouth pair.",
+    "cases": [
+      {
+        "note": "the simplest one: two throats whose mouth pairs are a quarter circle apart",
+        "N": 2,
+        "arc_over_pi": 0.5,
+        "total_exterior_over_pi": 1.0,
+        "deck_class": 1,
+        "shift_is_exact_on_the_grid": true,
+        "commutator_norm": 9.094947017729282e-13,
+        "S_to_the_N_minus_W": 0.0,
+        "gap_untwisted": 0.01908047469068963,
+        "gap_twisted": 8.482103908136196e-13,
+        "frozen": true,
+        "n_interior_localized_of_16": 8,
+        "has_mouth_doublet": true,
+        "w_lowest_twisted": [
+          0.727213,
+          0.727213,
+          0.972673,
+          0.972673,
+          1.453378,
+          1.453378
+        ]
+      },
+      {
+        "note": "the same ring taking the long way round",
+        "N": 2,
+        "arc_over_pi": 1.5,
+        "total_exterior_over_pi": 3.0,
+        "deck_class": 1,
+        "shift_is_exact_on_the_grid": true,
+        "commutator_norm": 9.094947017729282e-13,
+        "S_to_the_N_minus_W": 0.0,
+        "gap_untwisted": 0.008266411736407075,
+        "gap_twisted": 3.2974734054391774e-12,
+        "frozen": true,
+        "n_interior_localized_of_16": 6,
+        "has_mouth_doublet": true,
+        "w_lowest_twisted": [
+          0.507672,
+          0.507672,
+          0.726921,
+          0.726921,
+          0.779054,
+          0.779054
+        ]
+      },
+      {
+        "note": "four throats, arcs 3pi/4, total 3pi",
+        "N": 4,
+        "arc_over_pi": 0.75,
+        "total_exterior_over_pi": 3.0,
+        "deck_class": 1,
+        "shift_is_exact_on_the_grid": true,
+        "commutator_norm": 9.094947017729282e-13,
+        "S_to_the_N_minus_W": 0.0,
+        "gap_untwisted": 0.0004704597079943085,
+        "gap_twisted": 2.0931034683258076e-12,
+        "frozen": true,
+        "n_interior_localized_of_16": 8,
+        "has_mouth_doublet": true,
+        "w_lowest_twisted": [
+          0.678557,
+          0.678557,
+          0.67859,
+          0.67859,
+          0.726767,
+          0.726767
+        ]
+      }
+    ],
+    "all_carry_freeze_and_deck_class_one": true,
+    "freeze_mechanism_verified_at_operator_level": true,
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_the_remaining_evasion_classes_computed_not_asserted",
+    "description": "(a) ONE THROAT WITH A FINITE INTERIOR CHANNEL -- #231's own D > 0 item, which the earlier version of this probe dismissed by ASSERTION. Computed on the full ring operator at D = 0.5, 4, 8, 16: the interior modes form a NONDEGENERATE ladder (D = 8: 0.3785, 0.7568, 1.1350, 1.5131, 1.8910 -- successive box levels, not pairs), the twisted and untwisted spectra agree to five digits because the interior states do not reach the holonomy, and nothing freezes (gaps 1.9e-1 ... 8.5e-1). The assertion is upheld, now by calculation; it is also moot, since T4 supplies the co-occurring geometry a different way. (b) INHOMOGENEOUS / INTERNALLY STRUCTURED at even N: unequal arcs, unequal channels, and an internal bump in one throat each DESTROY the freeze (gaps 2.5e-1, 3.8e-1, 4.3e-1). The freeze needs the cyclic symmetry exactly, not approximately -- so it is a fragile phenomenon, which is itself a constraint on any physical reading of it. (c) NON-CYCLIC: a theta network of three throats between two tri-mouth junctions (b_1 = 2, so two independent Wilson loops) shows NO full freeze in any twist sector. Its degeneracies come from the S_3 edge-permutation symmetry and are present in the untwisted sector too, so they are not twist-induced; S^N = W has no analogue on a graph with no translation. This is one representative non-cyclic network, not a proof for all of them.",
+    "one_throat_finite_channel": [
+      {
+        "D_channel": 0.5,
+        "deck_class": 1,
+        "gap_untwisted": 0.8501781977917651,
+        "gap_twisted": 0.8501239113638224,
+        "frozen": false,
+        "n_interior_localized_of_16": 1,
+        "w_lowest_twisted": [
+          0.364658,
+          1.214782,
+          1.789523,
+          2.260862,
+          2.696698,
+          3.134658
+        ],
+        "interior_fraction_lowest": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.009
+        ]
+      },
+      {
+        "D_channel": 4.0,
+        "deck_class": 1,
+        "gap_untwisted": 0.43702413482970126,
+        "gap_twisted": 0.43132951257190877,
+        "frozen": false,
+        "n_interior_localized_of_16": 6,
+        "w_lowest_twisted": [
+          0.364647,
+          0.730281,
+          1.2148,
+          1.459511,
+          1.789525,
+          2.184867
+        ],
+        "interior_fraction_lowest": [
+          0.0,
+          0.999,
+          0.0,
+          0.996,
+          0.0,
+          0.965
+        ]
+      },
+      {
+        "D_channel": 8.0,
+        "deck_class": 1,
+        "gap_untwisted": 0.3782302249116104,
+        "gap_twisted": 0.37818470406292526,
+        "frozen": false,
+        "n_interior_localized_of_16": 9,
+        "w_lowest_twisted": [
+          0.364645,
+          0.378451,
+          0.756832,
+          1.135016,
+          1.21484,
+          1.513015
+        ],
+        "interior_fraction_lowest": [
+          0.0,
+          1.0,
+          0.999,
+          0.998,
+          0.001,
+          0.997
+        ]
+      },
+      {
+        "D_channel": 16.0,
+        "deck_class": 1,
+        "gap_untwisted": 0.19271016599509733,
+        "gap_twisted": 0.192696181738299,
+        "frozen": false,
+        "n_interior_localized_of_16": 12,
+        "w_lowest_twisted": [
+          0.192724,
+          0.364634,
+          0.385454,
+          0.578151,
+          0.770845,
+          0.963511
+        ],
+        "interior_fraction_lowest": [
+          1.0,
+          0.001,
+          0.999,
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ],
+    "one_throat_never_freezes": true,
+    "inhomogeneous_or_structured": [
+      {
+        "label": "unequal arcs (pi, 2pi): total 3pi, deck 1",
+        "N": 2,
+        "deck_class": 1,
+        "gap_twisted": 0.2456483601104632,
+        "frozen": false
+      },
+      {
+        "label": "unequal channels (4, 5), arcs 3pi/2",
+        "N": 2,
+        "deck_class": 1,
+        "gap_twisted": 0.3795370348218259,
+        "frozen": false
+      },
+      {
+        "label": "internal bump inside throat 0, arcs 3pi/2",
+        "N": 2,
+        "deck_class": 1,
+        "gap_twisted": 0.4324737780021938,
+        "frozen": false
+      }
+    ],
+    "inhomogeneity_destroys_the_freeze": true,
+    "non_cyclic_theta_network": [
+      {
+        "eps": [
+          1,
+          1,
+          1
+        ],
+        "wilson_e1e2": 1,
+        "wilson_e2e3": 1,
+        "max_intra_pair_gap": 0.09880540652096781,
+        "frozen": false,
+        "w_lowest": [
+          0.36463,
+          0.364663,
+          0.364663,
+          0.377974,
+          0.755243,
+          0.755243
+        ]
+      },
+      {
+        "eps": [
+          1,
+          1,
+          -1
+        ],
+        "wilson_e1e2": 1,
+        "wilson_e2e3": -1,
+        "max_intra_pair_gap": 0.09880573595330344,
+        "frozen": false,
+        "w_lowest": [
+          0.364641,
+          0.364652,
+          0.364663,
+          0.377974,
+          0.755243,
+          0.755243
+        ]
+      },
+      {
+        "eps": [
+          1,
+          -1,
+          -1
+        ],
+        "wilson_e1e2": -1,
+        "wilson_e2e3": 1,
+        "max_intra_pair_gap": 0.09880573595152309,
+        "frozen": false,
+        "w_lowest": [
+          0.364641,
+          0.364652,
+          0.364663,
+          0.377974,
+          0.755243,
+          0.755243
+        ]
+      },
+      {
+        "eps": [
+          1,
+          1,
+          1
+        ],
+        "wilson_e1e2": 1,
+        "wilson_e2e3": 1,
+        "max_intra_pair_gap": 0.3772819079708577,
+        "frozen": false,
+        "w_lowest": [
+          0.377958,
+          0.75524,
+          0.75524,
+          0.970346,
+          0.970393,
+          0.970393
+        ]
+      },
+      {
+        "eps": [
+          1,
+          1,
+          -1
+        ],
+        "wilson_e1e2": 1,
+        "wilson_e2e3": -1,
+        "max_intra_pair_gap": 0.37728190767251224,
+        "frozen": false,
+        "w_lowest": [
+          0.377958,
+          0.75524,
+          0.75524,
+          0.970354,
+          0.970384,
+          0.970393
+        ]
+      }
+    ],
+    "theta_never_freezes": true,
+    "theta_degeneracies_are_permutation_not_twist": true,
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_what_is_retracted_restored_and_still_standing",
+    "description": "The freeze law survives intact; the deck-class law and everything built on it does not. The net effect is to REOPEN rather than close: Probes B-D (eta = +/-1/4, equal |det D|, h = 0, Delta<T_AB> = 0) can now be applied to a network that actually freezes, which was the whole point of looking for such a network. They still find nothing selecting the twist -- but on the quarter-circle ring that null result is finally a statement ABOUT the freeze sector, which it never was before. The remaining honest caveat runs the other way from the earlier version's: the freeze is FRAGILE (T5(b)), so a physical reading of it has to explain why the exact cyclic symmetry it needs would hold.",
+    "items": [
+      {
+        "claim": "the freeze law: full freeze iff N even (S^N = W)",
+        "status": "STANDS -- argued, measured, and now verified at operator level (||[H,S]|| < 1e-8, S^N = W exactly)"
+      },
+      {
+        "claim": "the earlier probe's deck-class law, deck class = N mod 2",
+        "status": "CORRECTED -- true only when every exterior arc has length pi, i.e. when all N throats share one antipodal mouth pair. In general deck class = (total arc length)/pi mod 2, which does not depend on N."
+      },
+      {
+        "claim": "the earlier probe: freeze and deck class 1 are mutually exclusive by parity",
+        "status": "RETRACTED -- they are INDEPENDENT. T4 exhibits rings carrying both, with the freeze verified to be the same S^N = W mechanism as #224's."
+      },
+      {
+        "claim": "#231's recommended next construction (a geometry carrying both the doublet and deck class 1)",
+        "status": "RESTORED, in corrected form -- it exists. Not as #231 phrased it (an interior channel on the ONE-throat ring: T5(a) computes that this gives a nondegenerate interior ladder, no doublet, no freeze) but by MOVING THE MOUTHS: two throats with quarter-circle arcs."
+      },
+      {
+        "claim": "the freeze sector is cut off from RP^3 spin-structure data permanently, not contingently",
+        "status": "RETRACTED -- on the quarter-circle two-throat ring the cycle IS the pi_1(RP^3) generator, so Probe E's composition rule applies and the freeze sector carries the deck label. The line of attack the earlier version claimed to close is open."
+      },
+      {
+        "claim": "Probe F (#231): the phenomenon and the coupling never co-occur",
+        "status": "DEMOTED back to an observation about the two rings the repo contains -- correct as reported there, but not a theorem, and now known to fail on a third ring."
+      }
+    ],
+    "pass": true
+  },
+  "T7": {
+    "name": "T7_assessment",
+    "description": "The freeze needs N even; the deck class is set by where the mouths sit, not by N. The two are independent, and a ring of two throats whose mouth pairs are a quarter circle apart carries both. The earlier version of this probe claimed a parity obstruction ruling that out; the claim rested on an unstated assumption that every exterior arc has length pi, and is retracted here. The other evasion classes are settled by computation: the one-throat finite channel does not produce a doublet, inhomogeneity destroys the freeze, and a non-cyclic theta network does not freeze in any twist sector.",
+    "established": [
+      "full freeze iff N even: S^N = W has no real eigenvalue only for even N -- argued, measured (N=2 frozen 2.2e-12, N=3 NOT frozen 4.0e-01, N=4 frozen 1.7e-12), and verified at operator level",
+      "deck class = (total exterior arc length)/pi mod 2 (Probe E), a function of mouth placement and not of N",
+      "the two are INDEPENDENT: a 2-throat ring with quarter-circle arcs freezes (gap 8.5e-13) and has deck class 1",
+      "#231's recommended construction exists after all -- by moving the mouths, not by adding an interior channel to the one-throat ring (which T5(a) shows gives a nondegenerate ladder)",
+      "the freeze is fragile: unequal arcs, unequal channels or an internal bump each destroy it even at even N",
+      "a non-cyclic theta network does not freeze in any twist sector; its degeneracies are S_3 permutation degeneracies present untwisted too"
+    ],
+    "open": [
+      "the selection question itself is untouched: on the quarter-circle ring Probes B-D now apply to a network that freezes, and they still find nothing selecting the twist",
+      "why the exact cyclic symmetry the freeze requires would hold in any physical configuration -- T5(b) shows small departures destroy it",
+      "non-cyclic networks in general: one theta network was computed, which is a data point and not a classification",
+      "whether the quarter-circle ring is dynamically preferred, or merely permitted, over #224's coincident-mouth configuration"
+    ],
+    "tests_passed": "7/7",
+    "verdict_class": "THE_FREEZE_NEEDS_EVEN_N_BUT_THE_DECK_CLASS_IS_SET_BY_MOUTH_PLACEMENT_NOT_BY_N_SO_THEY_ARE_INDEPENDENT_AND_A_TWO_THROAT_RING_WITH_QUARTER_CIRCLE_ARCS_CARRIES_BOTH",
+    "pass": true
+  },
+  "summary": {
+    "probe": "freeze_deck_parity_obstruction_probe",
+    "pr": 233,
+    "utc": "2026-08-03T06:44:47.560325+00:00",
+    "tests_passed": "7/7",
+    "verdict_class": "THE_FREEZE_NEEDS_EVEN_N_BUT_THE_DECK_CLASS_IS_SET_BY_MOUTH_PLACEMENT_NOT_BY_N_SO_THEY_ARE_INDEPENDENT_AND_A_TWO_THROAT_RING_WITH_QUARTER_CIRCLE_ARCS_CARRIES_BOTH"
+  }
+}
