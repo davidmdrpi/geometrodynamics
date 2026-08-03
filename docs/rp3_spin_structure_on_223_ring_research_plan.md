@@ -121,11 +121,18 @@ because the network exhibiting the phenomenon does not carry that label.
     like.** The #224 `W` is a free-`Z` label, not a torsion class, so
     bordism invariants and `η` are the wrong tools. This is a genuine
     change in what to look for.
-  - **The one geometry that could join them.** The #223 ring is the pure
-    ultrastatic bridge (`D = 0`). Whether an interior channel (`D > 0`)
-    creates a mouth doublet *while keeping deck class 1* is untested — if
-    such a geometry exists, it is where the phenomenon and the label
-    coupling could finally meet, and it is the obvious next construction.
+  - ~~**The one geometry that could join them.**~~ **WITHDRAWN (PR #233,
+    Probe G): no such geometry exists.** A cyclic ring of `N` throats has
+    `N` exterior π-arcs, so deck class `= N mod 2`; and the freeze requires
+    the cyclic translation `S^N = W` to have no real eigenvalue, which for
+    `W = −1` happens iff `N` is **even**. So freeze ⟺ `N` even and deck
+    class 1 ⟺ `N` odd — **mutually exclusive by parity**, verified on real
+    `N = 2, 3, 4` rings (`N = 3` twisted gap 3.953e-01: does not freeze).
+    Adding an interior channel to the `N = 1` ring does not add a throat,
+    so it cannot create a doublet either. The construction recommended
+    above cannot succeed, and the reason is parity, not effort. §5's
+    "never co-occur" is thereby **upgraded from observation to theorem**.
+    See `docs/freeze_deck_parity_obstruction_research_plan.md`.
 
 ## 7. Reproduce
 
