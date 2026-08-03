@@ -96,10 +96,17 @@ they still fail.
     results do not reach (Probe E).
 
 **This is why the selection question kept slipping: every mechanism was
-being computed on one ring and applied to the other.** Naming the
-obstruction is the useful part — a selection argument for the
-exchange-freeze sector cannot come from RP³ spin-structure data *at all*,
-because the network exhibiting the phenomenon does not carry that label.
+being computed on one ring and applied to the other.**
+
+> **Scope (PR #233).** The table above is a statement about *these two
+> rings*, and only that. A third ring — two throats with quarter-circle
+> arcs — carries the doublet, the freeze **and** deck class 1
+> simultaneously, so the non-co-occurrence is not a property of throat
+> networks in general. On that ring a selection argument for the
+> exchange-freeze sector *can* draw on RP³ spin-structure data. It still
+> does not select: Probes B–D applied there find η = ±1/4, equal
+> `|det D|`, `h = 0`, `Δ⟨T_AB⟩ = 0`, exactly as on #223. See
+> `docs/freeze_deck_parity_obstruction_research_plan.md` §3.
 
 ## 5. Tests
 
@@ -121,17 +128,22 @@ because the network exhibiting the phenomenon does not carry that label.
     like.** The #224 `W` is a free-`Z` label, not a torsion class, so
     bordism invariants and `η` are the wrong tools. This is a genuine
     change in what to look for.
-  - ~~**The one geometry that could join them.**~~ **WITHDRAWN (PR #233,
-    Probe G): no such geometry exists.** A cyclic ring of `N` throats has
-    `N` exterior π-arcs, so deck class `= N mod 2`; and the freeze requires
-    the cyclic translation `S^N = W` to have no real eigenvalue, which for
-    `W = −1` happens iff `N` is **even**. So freeze ⟺ `N` even and deck
-    class 1 ⟺ `N` odd — **mutually exclusive by parity**, verified on real
-    `N = 2, 3, 4` rings (`N = 3` twisted gap 3.953e-01: does not freeze).
-    Adding an interior channel to the `N = 1` ring does not add a throat,
-    so it cannot create a doublet either. The construction recommended
-    above cannot succeed, and the reason is parity, not effort. §5's
-    "never co-occur" is thereby **upgraded from observation to theorem**.
+  - **The one geometry that could join them — it exists (PR #233, Probe
+    G).** Not in the form recommended here. Adding an interior channel
+    (`D > 0`) to the `N = 1` ring gives a **nondegenerate interior
+    ladder**, no doublet and no freeze (computed at `D = 0.5, 4, 8, 16`).
+    The construction that works instead **moves the mouths**: a ring of
+    **two** throats whose mouth pairs are rotated a quarter circle apart
+    has each exterior arc π/2, total exterior π, hence **deck class 1** —
+    while `N = 2` is even, so `S² = W` freezes every level (twisted gap
+    **8.5e-13**, with `‖[H,S]‖ < 1e-8` and `S² = W` exactly). #224's
+    configuration, with both arcs π, is the degenerate case in which the
+    two throats share a single antipodal mouth pair.
+
+    So §4's "never co-occur" is an **observation about the two rings this
+    repo contains**, not a theorem. PR #233 first claimed it was a parity
+    obstruction (deck class `= N mod 2` versus freeze ⟺ `N` even); that
+    claim assumed every exterior arc has length π, and is **retracted**.
     See `docs/freeze_deck_parity_obstruction_research_plan.md`.
 
 ## 7. Reproduce
