@@ -87,8 +87,10 @@ from typing import Optional
 
 import numpy as np
 
-import mouth_exchange_dynamics_probe as mx
-import tensor_product_emergence_probe as tp
+from experiments.closure_ledger import (
+    mouth_exchange_dynamics_probe as mx,
+    tensor_product_emergence_probe as tp,
+)
 
 _KAPPA = 0.5                     # = 2 KF, the #222/#223 convention
 _RS = 0.3
