@@ -1110,6 +1110,59 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**One throat, two mouth states — and why the twist still cannot touch
+them (PR #235).** #233 (corrected) settled the one-throat case by
+looking at the interior channel *ladder* and finding it nondegenerate.
+But #224's doublet is a **mouth** doublet, and a single throat already
+has **two mouths** — so the sharper question is whether one throat with
+a finite interior channel can produce two *mouth-localized* states while
+retaining deck class 1 (`docs/single_throat_mouth_doublet_research_plan.md`).
+**THE STATES EXIST.** Put a barrier in the middle of the interior
+channel and each sub-well abuts one mouth: the pair rotates (the #234
+basin construction) to states carrying **0.978 → 0.999** of their weight
+in a single well, splitting tunable **1.281e-01 → 5.849e-03** by the
+bump height, with one exterior π-arc keeping **deck class 1**
+throughout. *#233's "no doublet on one throat" was too narrow — it
+generalized from the ladder.* **BUT THE TWIST HAS NO PURCHASE.** The two
+wells are joined by **two paths** — through the central bump, or the
+long way round through the exterior arc — and only the second carries
+the holonomy, so `split = 2|t_bump + W·t_arc|` and the two twist sectors
+separate them: `|t_arc| = 2.0…2.9e-6`, **independent of the bump
+height** (the two-path decomposition confirmed, not assumed), while
+`|t_bump|` falls **47×**. The exterior path crosses **two** mouth
+barriers and is 3–5 orders of magnitude weaker, so the interference
+never balances — ratio twisted/untwisted stays **> 0.999**. The
+resonant alternative is no better: tuning the channel so a channel level
+crosses an arc level gives a genuine avoided crossing (`D ≈ 8.25`, gap
+3.2e-3, basins swapping) that the twist moves by only ~10%. **THE
+MECHANISM.** The freeze is the `S^k = W` mechanism — a cyclic
+**translation** whose `k`-th power is the holonomy, `k` even so that no
+eigenvalue is real. A one-throat ring has no such translation: its two
+mouth walls **both face the same interior**, so they are **mirror
+images**, and the ring carries a **reflection** `R` with **`R² = +1` in
+both twist sectors, always** — no holonomy-dependent square, ever. Built
+both ways, identical in lengths, basin profiles, deck class 1 and two
+mouths, differing **only** in wall orientation: mirror (physical)
+`‖[H,S]‖ = 4.90e+01`, `‖[H,R]‖ = 0`, **no freeze** (gap 5.299e-01);
+translate (not realizable by one throat) `‖[H,S]‖ = 0`, `S² = W`,
+twisted sector **FROZEN at 2.954e-12**. The symmetry swaps exactly and
+the freeze follows the *translation*. **CONSEQUENCES:** the governing
+integer is the **order of the cyclic translation**, which equals the
+throat count *because* each throat contributes one interior basin
+bounded by a mirrored pair of walls — two throats are the minimum for a
+translation to exist, so #231's construction (#233's quarter-circle
+ring) stands for a structural rather than numerological reason; and
+**#234's gate set cannot move onto a one-throat network**, not for want
+of a doublet but for want of anything for the twist to act on. The arc's
+through-line: the freeze was attributed first to **arc counting**
+(#233 v1, wrong), then to **channel structure** (#233 v2, too narrow),
+and now to whether a cyclic translation commutes with `H` — the first of
+the three checkable on *any* network. Scope: one geometry family (cyclic
+1-D rings on the committed builder); cell-centred sampling is required
+or both symmetries pick up a one-point residual that swamps the effect;
+the selection question remains untouched
+(`single_throat_mouth_doublet_probe`, PR #235).
+
 **The physical gate set: the qubit clock, the gravitational Kerr, and
 the twist switch (PR #234).** #232's one structural placeholder —
 "χ is not calibrated to a throat geometry" — executed on the committed

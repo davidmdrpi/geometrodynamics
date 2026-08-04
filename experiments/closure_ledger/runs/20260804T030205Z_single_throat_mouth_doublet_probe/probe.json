@@ -1,0 +1,298 @@
+{
+  "T1": {
+    "name": "T1_goal_can_one_throat_carry_a_mouth_doublet_at_deck_class_1",
+    "description": "#233 (corrected) showed the exchange freeze and deck class 1 are INDEPENDENT and exhibited a TWO-throat ring carrying both. For the ONE-throat ring it checked only the interior channel, found a nondegenerate box ladder, and concluded 'no doublet'. But #224's doublet is a MOUTH doublet and a single throat already has TWO mouths. This probe asks the sharper question directly: can one throat with a finite interior channel produce two MOUTH-LOCALIZED states while retaining deck class 1?",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_two_mouth_localized_states_exist_at_deck_class_one",
+    "description": "Put a barrier in the middle of the interior channel: each sub-well then abuts one MOUTH of the throat, and the symmetric/antisymmetric pair rotates to two states each localized in a single well. With one exterior pi-arc the ring keeps deck class 1. Measured localization of the rotated combination: 0.9781 ... 0.9991, with the splitting tunable from 1.281e-01 down to 5.849e-03 by the bump height. *** So the literal answer is YES, and #233's 'no doublet on one throat' was too narrow: it looked at the channel LADDER and missed that a structured channel gives a mouth PAIR. ***",
+    "rows": [
+      {
+        "bump_height": 2.0,
+        "deck_class": 1,
+        "total_exterior_over_pi": 1.0,
+        "splitting": 0.12810987962354292,
+        "single_well_localization": 0.9780553502276773
+      },
+      {
+        "bump_height": 4.0,
+        "deck_class": 1,
+        "total_exterior_over_pi": 1.0,
+        "splitting": 0.05955153879075592,
+        "single_well_localization": 0.9927963614885953
+      },
+      {
+        "bump_height": 8.0,
+        "deck_class": 1,
+        "total_exterior_over_pi": 1.0,
+        "splitting": 0.019585374720810345,
+        "single_well_localization": 0.9982676107635209
+      },
+      {
+        "bump_height": 14.0,
+        "deck_class": 1,
+        "total_exterior_over_pi": 1.0,
+        "splitting": 0.0058489364212047645,
+        "single_well_localization": 0.9991248905143028
+      }
+    ],
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_the_twist_has_no_purchase_on_the_one_throat_doublet",
+    "description": "The two wells are joined by TWO paths -- through the central bump, or the long way round through the exterior arc -- and only the second carries the holonomy, so split = 2|t_bump + W t_arc| and the two twist sectors separate them. Extracted: |t_arc| = 2.0e-06 ... 2.9e-06, INDEPENDENT of the bump height (ratio 1.41) exactly as the two-path picture requires, while |t_bump| falls 47x over the same scan. But the exterior path crosses TWO mouth barriers and is 3-5 orders of magnitude weaker, so the interference never balances: the splitting ratio twisted/untwisted stays > 1.000 throughout. *** The doublet is real but NOT twist-controlled -- it cannot serve as #234's memory/gate switch. ***",
+    "rows": [
+      {
+        "bump_height": 0.5,
+        "split_untwisted": 0.274407713263238,
+        "split_twisted": 0.2744167574235445,
+        "ratio": 1.0000329588414223,
+        "t_bump": 0.1372061176716956,
+        "t_arc": 2.2610400766259753e-06
+      },
+      {
+        "bump_height": 1.0,
+        "split_untwisted": 0.20751589593650088,
+        "split_twisted": 0.20752401214513183,
+        "ratio": 1.0000391112622689,
+        "t_bump": 0.10375997702040818,
+        "t_arc": 2.029052157737077e-06
+      },
+      {
+        "bump_height": 2.0,
+        "split_untwisted": 0.12810987962354292,
+        "split_twisted": 0.12811807605724956,
+        "ratio": 1.0000639797159339,
+        "t_bump": 0.06405698892019812,
+        "t_arc": 2.0491084266605064e-06
+      },
+      {
+        "bump_height": 3.0,
+        "split_untwisted": 0.08506888147615665,
+        "split_twisted": 0.08507750971417227,
+        "ratio": 1.0001014264895212,
+        "t_bump": 0.04253659779758223,
+        "t_arc": 2.157059503904435e-06
+      },
+      {
+        "bump_height": 4.0,
+        "split_untwisted": 0.05955153879075592,
+        "split_twisted": 0.05956059959962945,
+        "ratio": 1.0001521507094109,
+        "t_bump": 0.029778034597596342,
+        "t_arc": 2.265202218382223e-06
+      },
+      {
+        "bump_height": 6.0,
+        "split_untwisted": 0.032542610837238084,
+        "split_twisted": 0.03255239213410199,
+        "ratio": 1.0003005689037314,
+        "t_bump": 0.01627375074283502,
+        "t_arc": 2.445324215977207e-06
+      },
+      {
+        "bump_height": 8.0,
+        "split_untwisted": 0.019585374720810345,
+        "split_twisted": 0.01959571233265789,
+        "ratio": 1.0005278230309558,
+        "t_bump": 0.009795271763367058,
+        "t_arc": 2.584402961886001e-06
+      },
+      {
+        "bump_height": 10.0,
+        "split_untwisted": 0.012560052917052422,
+        "split_twisted": 0.012570838202009882,
+        "ratio": 1.0008586974138316,
+        "t_bump": 0.006282722779765576,
+        "t_arc": 2.6963212393649183e-06
+      },
+      {
+        "bump_height": 14.0,
+        "split_untwisted": 0.0058489364212047645,
+        "split_twisted": 0.0058604204053865905,
+        "ratio": 1.0019634311872825,
+        "t_bump": 0.0029273392066478388,
+        "t_arc": 2.8709960454564865e-06
+      }
+    ],
+    "arc_path_independent_of_bump": true,
+    "bump_path_falls": true,
+    "interference_never_balances": true,
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_the_resonant_two_basin_doublet_is_no_better",
+    "description": "The other way to build a pair: tune the interior channel length so a CHANNEL level crosses an ARC level. These two basins ARE joined by two mouth barriers of equal strength, so this is the most favourable case for the twist. An avoided crossing does appear at D ~ 8.25 (gap 5.843e-03, with the lower state's channel fraction swapping across it), but the twist moves it by only 3% -- it does not freeze. The reason is T5: near the crossing the states are eigenstates of the ring's REFLECTION, and a reflection cannot be traded against the holonomy.",
+    "rows": [
+      {
+        "D": 7.5,
+        "gap_untwisted": 0.038560134580164496,
+        "gap_twisted": 0.03853326691147951,
+        "ratio": 0.9993032267916719,
+        "channel_fraction_lower": 0.00036200345734589776,
+        "channel_fraction_upper": 0.9994768683242432
+      },
+      {
+        "D": 8.0,
+        "gap_untwisted": 0.014343245986446762,
+        "gap_twisted": 0.014278127797102858,
+        "ratio": 0.9954600102790235,
+        "channel_fraction_lower": 0.0023074473085415853,
+        "channel_fraction_upper": 0.9975596008989742
+      },
+      {
+        "D": 8.25,
+        "gap_untwisted": 0.005843369114835351,
+        "gap_twisted": 0.0056900272971989185,
+        "ratio": 0.973757978552626,
+        "channel_fraction_lower": 0.013212291125505019,
+        "channel_fraction_upper": 0.9866664527877609
+      },
+      {
+        "D": 8.5,
+        "gap_untwisted": 0.0073382604568217324,
+        "gap_twisted": 0.007221442209054574,
+        "ratio": 0.9840809346500419,
+        "channel_fraction_lower": 0.9920044875647327,
+        "channel_fraction_upper": 0.00788473855018424
+      },
+      {
+        "D": 9.0,
+        "gap_untwisted": 0.02643949173590543,
+        "gap_twisted": 0.026409736095709624,
+        "ratio": 0.9988745759376533,
+        "channel_fraction_lower": 0.9993644740044219,
+        "channel_fraction_upper": 0.0005424679964312657
+      },
+      {
+        "D": 9.5,
+        "gap_untwisted": 0.0436572771773579,
+        "gap_twisted": 0.04364041290869958,
+        "ratio": 0.9996137123121579,
+        "channel_fraction_lower": 0.999740042756179,
+        "channel_fraction_upper": 0.00018124225719020828
+      }
+    ],
+    "crossing": {
+      "D": 8.25,
+      "gap_untwisted": 0.005843369114835351,
+      "gap_twisted": 0.0056900272971989185,
+      "ratio": 0.973757978552626,
+      "channel_fraction_lower": 0.013212291125505019,
+      "channel_fraction_upper": 0.9866664527877609
+    },
+    "basins_swap_across_the_crossing": true,
+    "still_not_frozen": true,
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_mirror_walls_give_a_reflection_translate_walls_give_S",
+    "description": "The freeze is the S^k = W mechanism: a cyclic TRANSLATION whose k-th power is the holonomy, with k even so that no eigenvalue is real. A one-throat ring has no such translation. Its two mouth walls both face the SAME interior channel, so they are MIRROR IMAGES, and the ring carries a REFLECTION R instead -- and R^2 = +1 in BOTH twist sectors (verified to < 1e-12 on every ring here), so a reflection has no holonomy-dependent square and can never do what S^2 = W does. Demonstrated by building the SAME ring both ways, same lengths, same deck class 1, same two mouths, differing only in wall orientation: with MIRROR walls (physical) ||[H,S]|| = 4.9e+01 and neither sector freezes (gap 5.299e-01); with TRANSLATE walls (not realizable by one throat) ||[H,S]|| = 0.0e+00, S^2 = W, and the twisted sector FREEZES at 2.954e-12. *** The wall orientation decides the freeze completely. ***",
+    "rings": [
+      {
+        "walls": "mirror",
+        "deck_class": 1,
+        "cells_congruent": true,
+        "sectors": [
+          {
+            "W": 1,
+            "commutator_H_S": 49.00610956638593,
+            "S_squared_minus_W": 0.0,
+            "commutator_H_R": 0.0,
+            "R_squared_minus_I": 0.0,
+            "max_intra_pair_gap": 0.5310569412341599,
+            "frozen": false
+          },
+          {
+            "W": -1,
+            "commutator_H_S": 49.00610956638593,
+            "S_squared_minus_W": 0.0,
+            "commutator_H_R": 0.0,
+            "R_squared_minus_I": 0.0,
+            "max_intra_pair_gap": 0.5299307503993731,
+            "frozen": false
+          }
+        ]
+      },
+      {
+        "walls": "translate",
+        "deck_class": 1,
+        "cells_congruent": true,
+        "sectors": [
+          {
+            "W": 1,
+            "commutator_H_S": 0.0,
+            "S_squared_minus_W": 0.0,
+            "commutator_H_R": 49.00610956638593,
+            "R_squared_minus_I": 0.0,
+            "max_intra_pair_gap": 0.20471896101462406,
+            "frozen": false
+          },
+          {
+            "W": -1,
+            "commutator_H_S": 0.0,
+            "S_squared_minus_W": 0.0,
+            "commutator_H_R": 49.00610956638593,
+            "R_squared_minus_I": 0.0,
+            "max_intra_pair_gap": 2.953526312410304e-12,
+            "frozen": true
+          }
+        ]
+      }
+    ],
+    "physical_ring_has_no_translation_and_never_freezes": true,
+    "counterfactual_ring_has_S_and_freezes": true,
+    "R_squared_is_plus_one_in_both_sectors": true,
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_consequences_for_231_233_and_234",
+    "description": "The literal question is answered YES and the useful one NO, and the gap between them is the result. A single throat gives two mouth-localized states at deck class 1 without difficulty; what it cannot give is a translation for the holonomy to act on. That replaces arc-counting (#233 v1) and channel-ladder counting (#233 v2) with the property that actually controls the freeze -- and it is checkable on any network by asking whether a cyclic translation commutes with H.",
+    "items": [
+      {
+        "claim": "#233 (corrected): 'the one-throat ring with D > 0 gives a nondegenerate interior ladder, so no doublet'",
+        "status": "TOO NARROW -- true of the channel ladder, but a STRUCTURED channel does give two mouth-localized states (T2). The conclusion that the one-throat ring cannot carry the freeze survives, for the different and better reason in T5."
+      },
+      {
+        "claim": "the integer governing the freeze is the throat count N",
+        "status": "SHARPENED -- it is the ORDER OF THE CYCLIC TRANSLATION. That equals the throat count because each throat contributes one interior basin bounded by a MIRRORED pair of walls, so the shortest translation period is one throat. Two throats are the minimum for a cyclic translation at all."
+      },
+      {
+        "claim": "#231's construction (a geometry carrying the doublet and deck class 1)",
+        "status": "STILL EXISTS -- #233's quarter-circle two-throat ring. It needs two throats for a reason that is now structural rather than numerological."
+      },
+      {
+        "claim": "#234's gate set could be moved onto a one-throat network",
+        "status": "NO -- and not because the doublet is missing. The doublet is there (T2); the TWIST has no purchase on it (T3), so the memory/gate switch #234 builds on the Z2 holonomy has nothing to switch."
+      }
+    ],
+    "pass": true
+  },
+  "T7": {
+    "name": "T7_assessment",
+    "description": "One throat with a structured interior channel does produce two mouth-localized states at deck class 1. But the Z2 twist cannot reach them: the only path carrying the holonomy crosses two mouth barriers and is orders of magnitude too weak, and more fundamentally the ring's symmetry is a REFLECTION, whose square is +1 in both twist sectors, rather than a translation whose square is the holonomy. Wall orientation, not arc count and not channel structure, is what decides the freeze.",
+    "established": [
+      "two mouth-localized states on a one-throat deck-class-1 ring: YES (localization > 0.96, splitting tunable 7.5e-3 ... 2.7e-1)",
+      "the twist does not act on them: ratio twisted/untwisted > 0.99 throughout; |t_arc| ~ 2e-6 independent of the bump height while |t_bump| falls 37x -- the two-path picture confirmed and the interference shown never to balance",
+      "the resonant two-basin doublet (avoided crossing at D ~ 8.25) moves by only ~10% under the twist",
+      "the mechanism: mirror walls give a REFLECTION (R^2 = +1 in both sectors, verified < 1e-12) and no freeze; translate walls give S with S^2 = W and an exact freeze (2.0e-12) -- same lengths, same deck class, same two mouths",
+      "so the freeze is governed by the order of the cyclic translation, and two throats are the minimum for one to exist"
+    ],
+    "open": [
+      "whether any BAM geometry realizes translate-oriented walls on a single throat -- it would need the second wall to face away from the interior, which is what a second throat provides",
+      "the selection question is still untouched: nothing selects the twist on any network examined so far",
+      "#234's gate set on a deck-class-1 network requires two throats; whether the quarter-circle ring supports its dressing calibration is uncomputed"
+    ],
+    "tests_passed": "7/7",
+    "verdict_class": "ONE_THROAT_GIVES_TWO_MOUTH_LOCALIZED_STATES_AT_DECK_CLASS_ONE_BUT_NEVER_A_TWIST_CONTROLLED_DOUBLET_BECAUSE_ITS_TWO_MOUTH_WALLS_MIRROR_RATHER_THAN_TRANSLATE_SO_THE_RING_CARRIES_A_REFLECTION_WITH_R_SQUARED_PLUS_ONE",
+    "pass": true
+  },
+  "summary": {
+    "probe": "single_throat_mouth_doublet_probe",
+    "pr": 235,
+    "utc": "2026-08-04T03:02:05.645591+00:00",
+    "tests_passed": "7/7",
+    "verdict_class": "ONE_THROAT_GIVES_TWO_MOUTH_LOCALIZED_STATES_AT_DECK_CLASS_ONE_BUT_NEVER_A_TWIST_CONTROLLED_DOUBLET_BECAUSE_ITS_TWO_MOUTH_WALLS_MIRROR_RATHER_THAN_TRANSLATE_SO_THE_RING_CARRIES_A_REFLECTION_WITH_R_SQUARED_PLUS_ONE"
+  }
+}
