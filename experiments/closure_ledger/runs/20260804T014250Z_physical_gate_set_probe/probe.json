@@ -1,0 +1,154 @@
+{
+  "timestamp_utc": "2026-08-04T01:42:50+00:00",
+  "identification": "The physical gate set on the committed #224 network: the one-qubit clock is the doublet beat (1833), the memory/gate switch is the #227 twist (freeze 4.9e-11, Kerr channel spared), and the entangling coupling is the gravitational dressing per quantum - chi = 5.5e-2, t_CZ = 57, 32x faster than the clock, leading order in a strong coupling - with the dual-rail selection rule silencing all same-qubit Kerr terms",
+  "executes": "#232's named scope item (calibrate chi on the committed geometry) + the weld of both development arcs into one calibrated gate set",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "Execute #232's named scope item - calibrate the entangling coupling chi on the committed geometry - and weld in the #227/#233 twist: the full physical gate set (the one-qubit clock, the entangling Kerr, the memory/gate switch) with every rate measured in model units on the #224 network the ledger already owns.",
+      "pass": true
+    },
+    {
+      "name": "T2_clock",
+      "description": "THE QUBIT CLOCK: the #224 interior doublet IS the one-qubit sector - rails = the A/B mouth basins (localization 0.977), and the intra-doublet beat is the X rotation: dw = 1.714e-3, X period pi/dw = 1833 - the committed #224 ledger re-derived exactly on the same builder (machine agreement).  One-qubit gates run at the exchange beat: the qubit's clock is the network's own tunneling",
+      "dw": 0.001714089651943862,
+      "x_period": 1832.8053319889495,
+      "basin_localization_A": 0.9767254662148901,
+      "basin_localization_B": 0.9768645020725013,
+      "localized_combo_weight_224_construction": 0.9768297418713265,
+      "ledger_dw_rel_dev": 0.0,
+      "ledger_period_rel_dev": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T3_twist_switch",
+      "description": "THE TWIST SWITCH: flipping one exterior link (the #227 Z2 holonomy) freezes the SAME doublet's beat by 4.9e-11 - reproducing the #227 committed row at r_s = 0.3 to machine agreement - so one topological bit toggles the qubit between GATE mode (clock running) and MEMORY mode (leakage time 3.8e13; the #227 exact-pair theorem).  The properly localized twisted basins (the degenerate pair rotated to maximal localization, 0.977) leave the DRESSING INTEGRAL unchanged to < 1%: the twist kills the linear (leaky) channel and leaves the density-density (Kerr) channel intact - an error switch, not a gate hazard",
+      "dw_twisted": 8.348877145181177e-14,
+      "freeze_ratio": 4.8707353992325544e-11,
+      "memory_leakage_time": 37628924212917.234,
+      "ledger_227_frozen_rel_dev": 0.0,
+      "twisted_basin_localization": 0.9764416237130629,
+      "kerr_channel_shift_under_twist": 0.0019331420930157606,
+      "pass": true
+    },
+    {
+      "name": "T4_kerr_calibrated",
+      "description": "THE GRAVITATIONAL KERR, CALIBRATED: the committed nonlinearity is the EKG backreaction whose leading form is the #223 dressing law delta mu = c A^2 (ledger re-read: EXACTLY quadratic, ratio-4 at machine).  Per ONE QUANTUM of a rail mode on its throat: delta mu_q = 5.8e-2; the measured throat response dw/dmu = -0.95 (linear to 5% across step sizes); so chi_rail = |dw/dmu| delta mu_q = 5.5e-2 and t_CZ = pi/chi = 57 model units.  GRAVITY IS THE ENTANGLING RESOURCE - the #232 structural chi is now a number on the committed geometry.  THE HONESTY: delta mu_q/mu = 0.64 - one quantum dresses the throat at O(1) in model units, so the quoted chi is LEADING ORDER and the #223 perturbative window is exceeded per quantum: the beyond-leading Kerr is the named successor",
+      "dmu_per_quantum_on_throat": 0.058019964668326734,
+      "dmu_per_quantum_distant": 0.002311755314858094,
+      "dw_dmu_measured": -0.9467235221139569,
+      "response_linearity_dev": 0.01832138433789443,
+      "chi_rail": 0.05492886530372563,
+      "chi_distant": 0.0021885931339481143,
+      "cross_talk_suppression": 0.039844135170942076,
+      "t_CZ": 57.19383854406164,
+      "strong_coupling_dmu_over_mu": 0.6446662740925193,
+      "ledger_223_quadratic_max_dev": 0.0,
+      "pass": true
+    },
+    {
+      "name": "T5_selection_rule_cz",
+      "description": "THE DUAL-RAIL SELECTION RULE: within the sector (one quantum per doublet) every SAME-qubit Kerr term vanishes IDENTICALLY - n_a n_b = 0 on a shared quantum and n(n-1) = 0 for occupation <= 1 (Fock, machine zero).  The only active Kerr couples rails of DIFFERENT qubits: exactly the CZ generator - the encoding auto-silences the self-phases.  The CZ with the CALIBRATED chi under twist-frozen linear coupling is exact (machine zero, zero leakage) at t = pi/chi = 57 model units.  The measured residual: a distant-rail coherent ZZ phase of 0.12 rad per CZ (the 3.9e-2 basin tail) - known, calibrated, compensable by echo; reported, not hidden",
+      "same_qubit_kerr_on_sector": 0.0,
+      "self_kerr_on_sector": 0.0,
+      "cz_deviation_calibrated_chi": 1.2246467991473532e-16,
+      "sector_leakage": 0.0,
+      "distant_zz_phase_per_cz_rad": 0.12517404234167032,
+      "pass": true
+    },
+    {
+      "name": "T6_circuit_budget",
+      "description": "THE CIRCUIT BUDGET AT PHYSICAL RATES: GHZ_3 = 5 one-qubit gates (half X-periods at the beat, 916 each) + 2 CZs (57 each) = 4700 model units; the CZ is 32x FASTER than the one-qubit clock (the gravitational Kerr is strong).  The error ledger: twist-frozen leakage (T dw_frozen)^2 = 1.5e-19 - the topological switch makes linear leakage negligible over the whole circuit - and the coherent distant-rail ZZ total of 0.25 rad is the one calibrated correction the compiler owes",
+      "budget": {
+        "one_qubit_gate_time": 916.4026659944748,
+        "cz_gate_time": 57.19383854406164,
+        "ghz3_circuit_time": 4696.401007060497,
+        "cz_over_clock": 0.031205626449152254,
+        "twist_frozen_leakage_error": 1.557710475184697e-20,
+        "coherent_zz_phase_total_rad": 0.25034808468334063
+      },
+      "pass": true
+    },
+    {
+      "name": "T7_holdout",
+      "description": "the arc-weld holdout: the four committed ledgers this probe welds - #224 (the clock and basins), #227 (the frozen beat and ratio, from the OTHER arc), #223 (the exactly-quadratic dressing), #232 (the structural gate exactness) - re-read and re-derived on one machine, all at machine agreement: the two development arcs meet in one calibrated gate set without retuning anything",
+      "checks": [
+        {
+          "constant": "#224 dw (the clock)",
+          "ledger": 0.001714089651943862,
+          "rederived": 0.001714089651943862,
+          "rel_dev": 0.0,
+          "ok": true
+        },
+        {
+          "constant": "#224 basin localization",
+          "ledger": 0.9768297418711014,
+          "rederived": 0.9768297418713265,
+          "rel_dev": 2.3049383095425875e-13,
+          "ok": true
+        },
+        {
+          "constant": "#227 frozen dw (the switch)",
+          "ledger": 8.348877145181177e-14,
+          "rederived": 8.348877145181177e-14,
+          "rel_dev": 0.0,
+          "ok": true
+        },
+        {
+          "constant": "#227 freeze ratio",
+          "ledger": 4.8707353992325544e-11,
+          "rederived": 4.8707353992325544e-11,
+          "rel_dev": 0.0,
+          "ok": true
+        },
+        {
+          "constant": "#223 dressing quadratic (dmu(0.1)/dmu(0.05))",
+          "ledger": 4.0,
+          "rederived": 4.0,
+          "rel_dev": 0.0,
+          "ok": true
+        },
+        {
+          "constant": "#232 structural CZ exactness",
+          "ledger": 1.0000000000000002,
+          "rederived": 1.0,
+          "rel_dev": 2.220446049250313e-16,
+          "ok": true
+        },
+        {
+          "constant": "#232 tensor factorization",
+          "ledger": 1.000000000000001,
+          "rederived": 1.0,
+          "rel_dev": 1.1102230246251565e-15,
+          "ok": true
+        }
+      ],
+      "n_checks": 7,
+      "pass": true
+    },
+    {
+      "name": "T8_honest_scope",
+      "description": "what this probe does and does not establish",
+      "scope": [
+        "All rates are in MODEL UNITS on the committed #224 network (r_s = 0.3, the 1114-site ring); no claim converts them to laboratory units - that requires the anchor chain (#225/#226) and is deliberately out of scope here.",
+        "chi is LEADING ORDER: delta mu_q/mu = 0.64 means one quantum dresses the throat at O(1) at this network scale, so the #223 perturbative window is exceeded per quantum.  The beyond-leading (self-consistent) Kerr - resolving the dressed throat with the quantum in place - is the named successor, and the strong coupling itself is the finding: the gravitational entangler is not weak.",
+        "The per-quantum normalization is the standard flat-measure field quantization (amplitude^2 = 1/2w with int u^2 dx = 1); O(1) convention factors between this and #223's peak-amplitude convention are absorbed into the leading-order status of chi.",
+        "The two-qubit CZ presumes an architecture where rails of different qubits share a throat; this probe calibrates the on-throat Kerr scale chi_rail and the distant-rail tail on the ONE committed network - building the two-network shared-throat geometry is construction work, not new physics.",
+        "The Hadamard-at-the-beat clock is an order-of-magnitude physical rate (arbitrary one-qubit gates need controlled detuning, e.g. the #224 bias channel - committed machinery, not exercised here).",
+        "The twist switch statements re-derive #227 on its own numbers; the #233 correction (deck class set by mouth placement) does not touch the freeze mechanism used here."
+      ],
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
+      "description": "the physical-gate-set verdict",
+      "core_green": true,
+      "assessment": "The gate set is physical.  The one-qubit clock is the network's own tunneling beat (the #224 doublet, re-derived exactly); the memory/gate switch is one topological bit (the #227 twist, re-derived exactly, and shown to spare the Kerr channel); and the entangling coupling - #232's one structural placeholder - is now a calibrated number: the gravitational dressing of the throat by a single quantum gives chi = 5.5e-2, a CZ in 57 model units, 32x FASTER than the one-qubit clock.  The dual-rail encoding auto-silences every same-qubit Kerr term (machine zero), the twist freezes linear leakage to (T dw)^2 ~ 1e-19 over a GHZ_3 circuit, and the one calibrated residual is a coherent 0.12 rad ZZ phase per CZ.  The honest edge: the coupling is STRONG (one quantum dresses the throat by 64%), so chi is leading-order and the self-consistent dressed gate is the successor.  Ontologically this completes #232's sentence: entanglement on this substrate is generated by GRAVITY - the same backreaction that welds the soliton scales (#222) and dresses the bridge (#223) is, per quantum, the two-qubit gate.",
+      "pass": true
+    }
+  ],
+  "n_passed": 9,
+  "n_total": 9,
+  "verdict_class": "THE_GATE_SET_IS_PHYSICAL_THE_BEAT_IS_THE_CLOCK_THE_TWIST_IS_THE_SWITCH_AND_THE_GRAVITATIONAL_DRESSING_IS_THE_KERR_WITH_T_CZ_32X_FASTER_THAN_THE_CLOCK_AT_LEADING_ORDER_IN_A_STRONG_COUPLING",
+  "verdict": "ESTABLISHED (the argument is in docs/physical_gate_set.md).\n\nTHE CLOCK. The #224 doublet re-derived exactly (dw dev 0e+00): X period 1833, basins 0.9767.\n\nTHE SWITCH. One twisted link freezes the beat (ratio 4.9e-11; the #227 row re-derived to 0e+00); memory leakage time 3.8e+13; the Kerr channel shifts < 0.2% under the twist - an error switch, not a gate hazard.\n\nTHE KERR. delta mu per quantum 5.802e-02, response dw/dmu -0.947: chi = 5.493e-02, t_CZ = 57.2 - 32x faster than the clock.  GRAVITY IS THE ENTANGLING RESOURCE.  Honesty: delta mu_q/mu = 0.64 - leading order, strong coupling.\n\nTHE SELECTION RULE. Same-qubit Kerr terms vanish on the sector (0e+00); the calibrated CZ is exact (1e-16, leakage 0e+00); residual ZZ 0.13 rad per CZ, compensable.\n\nTHE BUDGET. GHZ_3 = 4696 model units; twist-frozen leakage error 1.6e-20.\n\nTHE WELD. 7 committed constants from FOUR ledgers spanning BOTH arcs (#224, #227, #223, #232) re-derived on one machine at machine agreement: the arcs meet in one calibrated gate set."
+}

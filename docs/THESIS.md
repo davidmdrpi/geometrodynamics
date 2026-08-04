@@ -1110,6 +1110,49 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The physical gate set: the qubit clock, the gravitational Kerr, and
+the twist switch (PR #234).** #232's one structural placeholder —
+"χ is not calibrated to a throat geometry" — executed on the committed
+#224 network, welding in the other arc's Z₂ twist (#227/#233) as the
+switch (`docs/physical_gate_set.md`). **THE CLOCK:** the #224 doublet
+IS the one-qubit sector — rails = the A/B basins (0.977), the beat is
+the X rotation (Δω = 1.714e-3, period 1833) — re-derived on the same
+builder at MACHINE agreement with the committed ledger. **THE
+SWITCH:** one twisted exterior link freezes the same beat by 4.9e-11
+(the #227 committed row re-derived exactly): a single topological bit
+toggles GATE mode ↔ MEMORY mode (leakage time 3.8e13); and the
+properly-rotated twisted basins (analytic degenerate-pair
+localization, 0.977) shift the dressing integral < 0.2% — **the twist
+kills the linear (leaky) channel and spares the density-density
+(Kerr) channel**: an error switch, not a gate hazard. **THE
+GRAVITATIONAL KERR, CALIBRATED:** the committed nonlinearity is the
+EKG backreaction — the #223 dressing law δμ = cA² (re-read: exactly
+quadratic) — and per ONE QUANTUM of a rail mode (amplitude² = 1/2ω):
+δμ_q = 5.80e-2, measured response dω/dμ = −0.947 (linear to 5%), so
+**χ = 5.49e-2 and t_CZ = π/χ = 57.2 — the CZ is 32× FASTER than the
+one-qubit clock. GRAVITY IS THE ENTANGLING RESOURCE** — the same
+backreaction that welds the soliton (#222) and dresses the bridge
+(#223) is, per quantum, the two-qubit gate. **THE HONEST EDGE:**
+δμ_q/μ = 0.64 — one quantum dresses the throat at O(1): χ is
+LEADING-ORDER in a strong coupling; the self-consistent dressed gate
+is the named successor. **THE SELECTION RULE:** within the dual-rail
+sector every same-qubit Kerr term vanishes IDENTICALLY (n_an_b = 0 on
+a shared quantum; n(n−1) = 0 — Fock, machine zero): the encoding
+auto-silences self-phases, the only active Kerr is the CZ generator;
+the calibrated CZ under twist-frozen linear coupling is exact (1e-16,
+zero leakage); the one residual is a coherent 0.13 rad distant-rail
+ZZ per CZ (the 3.9e-2 basin tail) — calibrated, compensable.
+**THE BUDGET:** GHZ₃ = 4700 model units; twist-frozen leakage error
+1.6e-20. **THE WELD:** seven committed constants from FOUR ledgers
+spanning BOTH development arcs (#224 clock/basins, #227 freeze —
+the other session's arc — #223 dressing, #232 gate exactness)
+re-derived on one machine at machine agreement: the arcs meet in one
+calibrated gate set with nothing retuned. Scope: model units (lab
+conversion = the #225/#226 anchor chain, out of scope); leading-order
+χ; shared-throat two-qubit geometry = construction work; the #233
+deck-class correction does not touch the freeze mechanism
+(`physical_gate_set_probe`, PR #234).
+
 **Tensor-product emergence: the 2^N state space from one field on the
 network (PR #232).** The program's decisive ontology problem — *can
 ordinary 2^N-dimensional quantum state structure emerge from a field
