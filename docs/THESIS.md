@@ -1110,6 +1110,77 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**What caps BAM's nonlocality at Tsirelson — and why the answer
+matters (PR #236).** #206 states the program's sharpest ontological
+constraint in its own words: a single classical field on 3-space with
+local dynamics and local readout is a local-hidden-variable model and
+cannot violate CHSH — that is Bell's theorem — so BAM spends its one
+legitimate nonlocal resource, the bridge, and reaches CHSH = 2√2. But
+**nonlocality is not a dial that stops where quantum mechanics stops**:
+Popescu–Rohrlich boxes are perfectly no-signaling and reach the
+algebraic maximum **4**. Tsirelson's number appears in eight documents
+of this repository, always as the value being *matched*, never as
+something the geometry *explains*
+(`docs/tsirelson_ceiling_research_plan.md`). **THE CEILING IS REAL.**
+Maximizing over every bridge the model has — all 8 gluing holonomies,
+all preparations (β, α) — the largest CHSH is **2.828427125**, excess
+over Tsirelson **+8.9e-16**. So BAM does not predict super-quantum
+correlations: on this axis it agrees with experiment *for a reason*,
+and is falsifiable in the other direction. **THE SETTINGS ARE EXACTLY
+SUFFICIENT.** BAM's local setting is a fiber-frame rotation, which on
+the `k = ±1` qubit is `diag(e^{iθ}, e^{−iθ})` — a **one-parameter
+U(1)**, not SU(2) — sweeping the x–y plane and nothing else. That is
+exactly enough, because **CHSH's optimum lies in a plane**: the
+lattice-derived state is the singlet at fidelity **1.000000000000**,
+its T-matrix x–y block has singular values **(1, 1)**, and the
+plane-restricted Horodecki value is 2√2, identical at grid resolutions
+n = 25, 49, 97, 193 — a saturation, not a discretization artifact.
+Neither a sub-quantum deficit nor any excess. **BUT LOCALITY IS NOT
+WHAT CAPS IT — this is the result.** The mouths' operations do act on
+commuting algebras, overwhelmingly (`‖[P_A,P_B]‖ = 4.7e-113`), because
+the committed bridge is a **link in `H` between distinct lattice
+sites, not an identification of degrees of freedom** — worth stating
+plainly, since #206's prose ("one object", "two frames of one bulk
+defect") reads like an identification and the implementation is not
+one. Yet dropping commutativity does not help: for **any** dichotomic
+Hermitian observables on **one** Hilbert space, with no tensor split
+at all, `(B₀+B₁)² + (B₀−B₁)² = 4I` identically (residual **5.3e-15**),
+and Cauchy–Schwarz then caps CHSH at 2√2 **without invoking locality
+anywhere** — measured, taking the optimal `A` for each `B`, the best
+attainable value is **2.828427095**. So the ceiling is supplied by the
+readout being a ±1-valued observable on a Hilbert space, not by the
+bridge, the mouths' separation, or anything else geometric. **WHAT
+THIS DOES TO "QUANTIZATION IS IMPORTED" (#232): it prices it.** Three
+of the four ingredients of a Bell test are genuinely geometric — the
+state, the nonlocality (raw B-side amplitude **3.747e-01** with the
+handle vs **4.140e-16** without; local strategies capped at 2), and
+the settings. The fourth, the ceiling, is not, and the *entire*
+missing ingredient is one algebraic identity: **`B² = I`**. Not
+Hilbert space in general, not the Born rule, not linearity — just the
+readout being two-valued. **Naming it is the progress; deriving it is
+not attempted and is not claimed.** An argument that a classical
+throat readout *must* be two-valued would close the gap; the Pin⁻ /
+`T² = −1` machinery (#195/#196, #227–#231) is where such an argument
+would have to come from, and none of it currently addresses the
+readout algebra. **THE NO-SIGNALING CATCH.** #206's T6 checks that
+Bob's reduced state is invariant under Alice-side unitaries — a
+partial-trace identity true of *every* bipartite state, so it tests
+nothing about the geometry. Tested on the lattice instead,
+no-signaling is an **equal-time** statement: exactly 0 at `dt = 0`
+(disjoint supports), but the committed handle is always on, so
+Alice's choice propagates — shifts **2.273e-02 / 1.019e-01 /
+2.315e-01** at `dt = 0.5 / 2 / 8`, scaling with the coupling and
+vanishing to ~1e-15 when cut. This substantiates with numbers the
+caveat #206 states only in prose ("the physical bridge is
+non-traversable; the lattice handle is a modeling stand-in") and
+converts it into a requirement: the bridge must be dynamically inert
+at measurement time, which the committed model is not — a constraint
+on the model, not a refutation of the program, but one to discharge
+rather than assert. Scope: one 2-outcome, 2-setting scenario on one
+lattice; nothing here bounds multipartite or higher-input scenarios,
+where the quantum set is not characterized by a single inequality
+(`tsirelson_ceiling_probe`, PR #236).
+
 **One throat, two mouth states — and why the twist still cannot touch
 them (PR #235).** #233 (corrected) settled the one-throat case by
 looking at the interior channel *ladder* and finding it nondegenerate.
