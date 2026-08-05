@@ -93,7 +93,7 @@ filling the body are different things.
 > neither optimizer does, and by the check that nothing it admits lies
 > outside the quantum body (min admitted TLM slack **+9.7e-03**).
 
-**An explicit unreachable quantum table:**
+**A table unreachable from a *single* preparation:**
 
 ```
 [[ 0.7424, -0.9971],
@@ -101,9 +101,38 @@ filling the body are different things.
 ```
 
 TLM slack **+0.740** (comfortably quantum) · `d = 3` Gram residual
-**4.3e-09** · BAM-family residual **4.6e-01**.
+**4.3e-09** · BAM single-shot residual **4.6e-01**. §3a decomposes it.
 
-## 4. And the marginals vanish identically
+## 3a. But convex mixing dissolves that gap entirely
+
+Shared randomness over preparations is an ordinary operational resource,
+and it makes the reachable set the **convex hull** of the `c = 1` cosine
+tables. Tested by linear programming — `min ‖Gᵀλ − E‖₁` over the simplex.
+
+| generators | coverage (ladder set) | max residual |
+|---:|---:|---:|
+| 2 000 | 99.2% | 1.2e-02 |
+| 8 000 | **100.0%** | 0.0e+00 |
+| 32 000 | **100.0%** | 0.0e+00 |
+
+On **300** fresh random TLM tables: **98.7%**, with support size at most
+**5** — exactly the Carathéodory bound for a 4-dimensional body. The
+residual failures are boundary resolution, not a gap: refining to 128 000
+generators *on those tables only* takes 4 failures → **1**, worst residual
+**7.2e-03 → 4.2e-03**. The PR box stays outside (residual **1.18**).
+
+**And the witness above decomposes into exactly 5 `c = 1` cosine tables**,
+residual **0.0e+00**, reconstruction error **4.4e-16**, weights
+`[0.2124, 0.3447, 0.0409, 0.0102, 0.3918]`.
+
+> **So this PR's own first framing was wrong.** "~45% of quantum
+> correlation tables are unreachable" is a **single-shot** statement
+> dressed as an operational one. With mixing there is no
+> correlation-table restriction to report at all. The hull is contained
+> in the quantum body by convexity and covers it to sampling resolution,
+> so the two coincide.
+
+## 4. The one restriction that survives
 
 A correlation table is only part of a behavior. Under BAM's own U(1)
 settings the marginal is
@@ -119,13 +148,20 @@ matching to 1e-6) which the U(1) settings simply cannot access, because
 they never leave the x–y plane. **The restriction is in the readout, not
 the state — the same place #236 found the ceiling.**
 
+And unlike the correlation gap, **this one survives convex mixing**: a
+mixture of zero-marginal behaviours has marginals `Σᵢ λᵢ·0 = 0`,
+identically. §3a dissolves one of the two restrictions and leaves this one
+completely intact, which makes it the whole of the probe's falsifiable
+content.
+
 ## 5. What this does to #236 — scope, not retraction
 
 | claim | status |
 |---|---|
 | #236's T3: the U(1) is "exactly sufficient — neither a sub-quantum deficit nor any excess" | **scoped** — correct for the CHSH *maximum*, which is what it measured. For the *set of tables* the U(1) alone reaches a measure-zero surface, and even with `β` free reaches ~55% |
 | the bridge preparation `β` is a state parameter | **promoted** — it is the one knob lifting the family from measure zero to full dimension |
-| BAM can represent quantum correlations | **qualified** — ~55% of the correlation-table body and 0% of biased-marginal behaviors |
+| BAM can represent quantum correlations | **qualified, then largely restored** — ~55% single-shot, but **100%** under mixing; 0% of biased-marginal behaviours either way |
+| this PR's own first framing: "~45% unreachable" | **corrected** — a single-shot statement, dissolved by §3a |
 
 Extremal saturation and full representational power are different claims,
 and only the first was established. The phrase "exactly sufficient"
@@ -133,10 +169,12 @@ invites over-reading and is scoped here.
 
 ## 6. Falsifiable content
 
-BAM's implemented encoding cannot reproduce quantum behaviors with **biased
-marginals**, nor the ~45% of correlation tables requiring **non-coplanar**
-measurement directions. Both are experimentally ordinary situations, so
-this is a prediction that can fail rather than a safe one.
+One restriction survives and one does not. The correlation-table gap is
+dissolved by mixing (§3a). The **zero-marginal** restriction is immune to
+it, so BAM's implemented encoding cannot reproduce **any** quantum
+behaviour with biased marginals. That is experimentally ordinary, so it is
+a prediction that can fail rather than a safe one — and it is the whole of
+what this probe claims.
 
 Whether the restriction is fundamental or an artifact of the committed
 readout is the open question. It would be lifted by any physical operation
@@ -151,16 +189,20 @@ whether the throat geometry supplies one.
 | T2 | Gram ⟺ TLM, both directions | 60/60; min slack +2.6e-04 |
 | T3 | the three bodies | 66.8% / 92.6% / 100%; PR box at −π |
 | T4 | the implemented family, from the lattice | x–y block `c·I₂` to 3.1e-15, `c = −sin 2β` |
-| T5 | coverage | 0.0% at `c = ±1`, 55.2% with `β` free, 100% at `d = 3` |
-| T6 | marginals vanish identically | 0.000e+00 |
-| T7 | consequences; #236 scoped | 1 scoped, 1 promoted, 1 qualified |
-| T8 | assessment | 8/8 |
+| T5 | **single-shot** coverage | 0.0% at `c = ±1`, 55.2% with `β` free, 100% at `d = 3` |
+| T6 | **convex hull by LP** | 100% coverage; witness = 5 generators; PR box excluded |
+| T7 | marginals vanish — and survive mixing | 0.000e+00 |
+| T8 | consequences; #236 and #237's own headline scoped | 1 scoped, 1 corrected, 1 promoted, 1 surviving |
+| T9 | assessment | 9/9 |
 
 ## 8. Open
 
   - Whether the throat geometry supplies **any** physical mouth operation
     that rotates out of the x–y plane — that, and only that, would lift
-    both restrictions.
+    the surviving zero-marginal restriction.
+  - Whether BAM actually has access to shared randomness over
+    preparations. §3a assumes it does, which is standard operationally but
+    is an assumption about the program rather than a result of it.
   - The multipartite and higher-input cases, where the quantum set has no
     single-inequality characterization and this analysis does not extend.
   - Whether the zero-marginal restriction is related to the #208
@@ -174,7 +216,7 @@ python -m experiments.closure_ledger.admissible_correlation_tables_probe
 ```
 
 Expected verdict:
-`THE_REPRESENTATION_ADMITS_EXACTLY_THE_UNIT_VECTOR_GRAM_TLM_BODY_BUT_BAM_IMPLEMENTS_ONLY_C_COS_THETA_MINUS_PHI_WHICH_IS_MEASURE_ZERO_AT_MAXIMAL_PREPARATION_AND_ABOUT_HALF_THE_BODY_WITH_BETA_FREE_AND_HAS_ZERO_MARGINALS`, 8/8 PASS (~2 min).
+`THE_REPRESENTATION_ADMITS_THE_GRAM_TLM_BODY_AND_SO_DOES_BAM_ONCE_MIXING_IS_ALLOWED_BECAUSE_THE_CONVEX_HULL_OF_THE_C_EQUALS_ONE_COSINE_TABLES_IS_THE_WHOLE_BODY_SO_THE_ONLY_SURVIVING_RESTRICTION_IS_IDENTICALLY_ZERO_MARGINALS`, 9/9 PASS (~3 min).
 
 ## 10. Cross-references
 

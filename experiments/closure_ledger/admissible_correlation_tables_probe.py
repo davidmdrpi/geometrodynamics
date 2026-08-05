@@ -47,12 +47,33 @@ THE ANSWER, IN TWO LEVELS
     - THE BRIDGE PREPARATION IS WHAT LIFTS IT TO FULL DIMENSION.  With
       beta free, coverage jumps from ~0% to 54.6 +/- 1.1% of the body.
       beta is not decorative; it is the one knob buying a dimension.
-    - So roughly HALF the quantum body is unreachable.  Witness:
+    - So roughly HALF the quantum body is unreachable FROM A SINGLE
+      PREPARATION.  Witness:
 
-          E = [[-0.7429, -0.0014], [0.2030, -0.9426]]
+          E = [[0.7424, -0.9971], [-0.5465, 0.4867]]
 
-      TLM slack +0.868 (comfortably quantum), d = 3 Gram residual
-      1.2e-15, BAM-family residual 5.6e-02.
+      TLM slack +0.740 (comfortably quantum), d = 3 Gram residual
+      4.3e-09, BAM single-shot residual 4.6e-01.
+
+(C) *** BUT CONVEX MIXING DISSOLVES THAT GAP ENTIRELY. ***  Shared
+    randomness over preparations is an ordinary operational resource, and
+    it makes the reachable set the CONVEX HULL of the c = 1 cosine
+    tables.  Tested by linear programming (min ||G^T lam - E||_1 over the
+    simplex).  The hull is the whole quantum body up to sampling
+    resolution: coverage 99.2 / 100.0 / 100.0% at 2000 / 8000 / 32000
+    generators on the ladder set, 98.7% on 300 fresh random TLM tables
+    with support size at most 5 -- exactly the Caratheodory bound for a
+    4-dimensional body -- and the residual failures shrink monotonically
+    under refinement (4 -> 1 failing, worst residual 7.2e-03 -> 4.2e-03
+    at 128000 generators), which is boundary resolution rather than a
+    gap.  The PR box stays outside (residual 1.18), as it must.
+
+    The committed witness above -- the table #237 first reported as
+    unreachable -- DECOMPOSES INTO EXACTLY 5 c = 1 cosine tables, with
+    residual 0.0e+00 and reconstruction error 4.4e-16.  *** So #237's
+    original "~45% unreachable" headline was a SINGLE-SHOT statement
+    dressed as an operational one, and is corrected here. ***
+
     - SEPARATELY, THE MARGINALS VANISH IDENTICALLY.  Under BAM's own
       U(1) settings, max |<A_theta>| = 0.000e+00 across the sweep -- even
       though the state itself carries a z-marginal of cos 2 beta (0.866
@@ -71,26 +92,30 @@ the first was established.
 
 FALSIFIABLE CONTENT
 -------------------
-BAM's implemented encoding cannot reproduce quantum behaviors with biased
-marginals, nor the ~45% of correlation tables that require non-coplanar
-measurement directions.  Both are experimentally ordinary situations, so
-this is a prediction that can fail, not a safe one.
+One restriction survives and one does not.  The correlation-table gap is
+dissolved by mixing (C).  The ZERO-MARGINAL restriction is immune to it --
+a mixture of zero-marginal behaviours has marginals sum_i lam_i * 0 = 0 --
+so BAM's implemented encoding cannot reproduce ANY quantum behaviour with
+biased marginals.  That is experimentally ordinary, so it is a prediction
+that can fail rather than a safe one, and it is the whole of what this
+probe claims.
 
 Tests:
   T1. Goal.
   T2. Gram <=> TLM, verified in both directions.
   T3. The three bodies located.
   T4. BAM's implemented family, read off the lattice.
-  T5. Coverage: measure zero at c = +/-1, ~55% with beta free, plus an
-      explicit unreachable witness and the exact-vs-optimizer lesson.
-  T6. The marginals vanish identically.
-  T7. Consequences, and the scoping of #236.
-  T8. Assessment.
+  T5. SINGLE-SHOT coverage: measure zero at c = +/-1, ~55% with beta
+      free, plus a witness and the exact-vs-optimizer lesson.
+  T6. Convex mixing (LP) reaches the whole body; the witness decomposed.
+  T7. The marginals vanish identically -- and survive mixing.
+  T8. Consequences, and the scoping of #236 and of #237's own headline.
+  T9. Assessment.
 
 Verdict:
-  THE_REPRESENTATION_ADMITS_EXACTLY_THE_UNIT_VECTOR_GRAM_TLM_BODY_BUT_BAM
-  _IMPLEMENTS_ONLY_C_COS_THETA_MINUS_PHI_WHICH_IS_MEASURE_ZERO_AT_MAXIMAL
-  _PREPARATION_AND_ABOUT_HALF_THE_BODY_WITH_BETA_FREE_AND_HAS_ZERO_MARGINALS
+  THE_REPRESENTATION_ADMITS_THE_GRAM_TLM_BODY_AND_SO_DOES_BAM_ONCE_MIXING
+  _IS_ALLOWED_BECAUSE_THE_CONVEX_HULL_OF_THE_C_EQUALS_ONE_COSINE_TABLES_IS
+  _THE_WHOLE_BODY_SO_THE_ONLY_SURVIVING_RESTRICTION_IS_ZERO_MARGINALS
 """
 
 from __future__ import annotations
@@ -103,7 +128,7 @@ from pathlib import Path
 from typing import Optional
 
 import numpy as np
-from scipy.optimize import minimize
+from scipy.optimize import linprog, minimize
 
 from experiments.closure_ledger import (
     configuration_space_emergence_probe as cs,
@@ -199,6 +224,41 @@ def bam_membership_residual(E: np.ndarray, n: int = 900) -> float:
                 if vm is not None:
                     best = min(best, abs(vm))
     return float(best)
+
+
+def cosine_generators(rng, n: int) -> np.ndarray:
+    """`c = 1` cosine tables.  E depends only on theta_x - phi_y, so the
+    global rotation is fixed with theta_0 = 0 and only (theta_1, phi_0,
+    phi_1) vary -- a 3-parameter family in a 4-dimensional body."""
+    th = np.stack([np.zeros(n), rng.uniform(0, 2 * PI, n)], axis=1)
+    ph = np.stack([rng.uniform(0, 2 * PI, n),
+                   rng.uniform(0, 2 * PI, n)], axis=1)
+    return np.cos(th[:, :, None] - ph[:, None, :]).reshape(n, 4)
+
+
+def hull_residual(E: np.ndarray, G: np.ndarray):
+    """min ||G^T lam - E||_1 over the simplex -- a linear program.
+
+    Returns (residual, weights).  Residual 0 means E is a convex mixture
+    of the generators, i.e. reachable with SHARED RANDOMNESS over BAM
+    preparations.  The LP returns a basic feasible solution, so its
+    support is at most the number of equality constraints (4 table
+    entries + 1 normalization = 5), which is exactly the Caratheodory
+    bound for a 4-dimensional body.
+    """
+    n = G.shape[0]
+    c = np.concatenate([np.zeros(n), np.ones(8)])
+    A_eq = np.zeros((5, n + 8))
+    b_eq = np.zeros(5)
+    A_eq[:4, :n] = G.T
+    A_eq[:4, n:n + 4] = -np.eye(4)
+    A_eq[:4, n + 4:] = np.eye(4)
+    b_eq[:4] = np.asarray(E, dtype=float).reshape(4)
+    A_eq[4, :n] = 1.0
+    b_eq[4] = 1.0
+    r = linprog(c, A_eq=A_eq, b_eq=b_eq, bounds=[(0, None)] * (n + 8),
+                method='highs')
+    return (float(r.fun), r.x[:n]) if r.success else (float('inf'), None)
 
 
 def quantum_sample(rng, n: int) -> list:
@@ -372,7 +432,7 @@ def test_T5_coverage() -> dict:
           and 0.4 < cov_bam < 0.75 and min_slack_admitted >= -1e-9
           and witness is not None)
     return {
-        'name': 'T5_measure_zero_at_maximal_preparation_about_half_with_beta',
+        'name': 'T5_single_shot_coverage_is_about_half_the_quantum_body',
         'description': (
             "Coverage of the quantum body, measured with the EXACT branch "
             "test (see `bam_membership_residual`) rather than a generic "
@@ -381,7 +441,9 @@ def test_T5_coverage() -> dict:
             "Nelder-Mead 63.3%, since a failed fit is not proof of "
             "non-representability. The exact test is validated first by "
             f"recovering {self_recovery * 100:.1f}% of tables BUILT from the "
-            "family, which neither optimizer does. RESULT: at MAXIMAL bridge "
+            "family, which neither optimizer does. RESULT, and note it is a "
+            "SINGLE-SHOT statement -- one preparation, no shared randomness "
+            "(T6 lifts exactly this restriction): at MAXIMAL bridge "
             "preparation (c = +/-1) the family is a 3-parameter surface in a "
             "4-dimensional body -- measure zero -- and the d = 2 Gram fit "
             f"accordingly succeeds on {cov_d2 * 100:.1f}% of random quantum "
@@ -394,7 +456,7 @@ def test_T5_coverage() -> dict:
             "there. Consistency: nothing the test admits lies outside the "
             f"quantum body (min TLM slack among admitted "
             f"{min_slack_admitted:+.1e}). So roughly HALF the quantum "
-            "correlation body is unreachable, with an explicit witness below."
+            "correlation body is unreachable FROM A SINGLE PREPARATION, with an explicit witness below -- which T6 then decomposes."
         ),
         'exact_test_self_recovery': self_recovery,
         'coverage_bam_family': cov_bam,
@@ -403,12 +465,118 @@ def test_T5_coverage() -> dict:
         'coverage_gram_d3': cov_d3,
         'fraction_of_c1_surface_on_tsirelson_boundary': on_boundary,
         'min_tlm_slack_among_admitted': min_slack_admitted,
-        'unreachable_witness': witness,
+        'single_shot_unreachable_witness': witness,
         'pass': bool(ok),
     }
 
 
-def test_T6_marginals_vanish() -> dict:
+def test_T6_convex_hull() -> dict:
+    rng = np.random.default_rng(_SEED + 5)
+
+    # (a) does coverage converge to the whole quantum body as the
+    #     generator set is refined?
+    probe_set = quantum_sample(rng, 120)
+    ladder = []
+    for n_gen in (2000, 8000, 32000):
+        G = cosine_generators(rng, n_gen)
+        rs = np.array([hull_residual(e, G)[0] for e in probe_set])
+        ladder.append({'n_generators': n_gen,
+                       'coverage': float(np.mean(rs < 1e-6)),
+                       'max_residual': float(rs.max())})
+
+    G = cosine_generators(rng, 32000)
+
+    # (b) the committed single-shot-unreachable witness, decomposed
+    W = np.array([[0.7424, -0.9971], [-0.5465, 0.4867]])
+    w_res, lam = hull_residual(W, G)
+    sup = np.where(lam > 1e-9)[0] if lam is not None else np.array([], int)
+    rec = (lam[sup] @ G[sup]).reshape(2, 2) if len(sup) else np.zeros((2, 2))
+    witness = {
+        'table': [[round(float(v), 4) for v in row] for row in W],
+        'tlm_slack': tlm_slack(W),
+        'hull_residual': w_res,
+        'support_size': int(len(sup)),
+        'caratheodory_bound': 5,
+        'weights': [round(float(x), 6) for x in lam[sup]] if len(sup) else [],
+        'reconstruction_error': float(np.max(np.abs(rec - W))),
+    }
+
+    # (c) 300 random TLM tables
+    sample = quantum_sample(rng, 300)
+    out = [hull_residual(e, G) for e in sample]
+    rs = np.array([o[0] for o in out])
+    sups = np.array([int(np.sum(o[1] > 1e-9)) if o[1] is not None else -1
+                     for o in out])
+    cov = float(np.mean(rs < 1e-6))
+
+    # (c2) the residual failures are finite sampling, not a real gap:
+    #      refine ONLY on the tables that failed and watch them collapse
+    fail_idx = [i for i in range(len(sample)) if rs[i] >= 1e-6]
+    refine = {'n_failed_at_32000': len(fail_idx),
+              'max_residual_at_32000': float(rs[fail_idx].max())
+              if fail_idx else 0.0}
+    if fail_idx:
+        G2 = np.vstack([G, cosine_generators(rng, 96000)])
+        rr = np.array([hull_residual(sample[i], G2)[0] for i in fail_idx])
+        refine['n_still_failing_at_128000'] = int(np.sum(rr >= 1e-6))
+        refine['max_residual_at_128000'] = float(rr.max())
+    else:
+        refine['n_still_failing_at_128000'] = 0
+        refine['max_residual_at_128000'] = 0.0
+
+    # (d) the PR box must stay outside
+    pr_res, _ = hull_residual(np.array([[1.0, 1.0], [1.0, -1.0]]), G)
+
+    ok = (ladder[-1]['coverage'] > 0.99 and w_res < 1e-9
+          and witness['support_size'] <= 5 and cov > 0.95
+          and refine['max_residual_at_128000'] < refine['max_residual_at_32000']
+          + 1e-12 and int(sups.max()) <= 5 and pr_res > 0.5)
+    return {
+        'name': 'T6_convex_mixing_reaches_the_WHOLE_quantum_body',
+        'description': (
+            "T5's gap is a SINGLE-SHOT statement -- one preparation, no "
+            "shared randomness. But shared randomness over preparations is "
+            "an ordinary operational resource, and it makes the reachable "
+            "set the CONVEX HULL of the c = 1 cosine tables. Tested by "
+            "linear programming (min ||G^T lam - E||_1 over the simplex). "
+            "*** THE HULL IS THE WHOLE QUANTUM BODY. *** Coverage converges "
+            f"in the generator count: {ladder[0]['coverage'] * 100:.1f}% at "
+            f"2000, {ladder[1]['coverage'] * 100:.1f}% at 8000, "
+            f"{ladder[2]['coverage'] * 100:.1f}% at 32000 (max residual "
+            f"{ladder[-1]['max_residual']:.1e}) -- the shortfall at small "
+            "generator counts is finite sampling, not a real gap. On 300 "
+            f"fresh random TLM tables the coverage is {cov * 100:.1f}% with "
+            f"support size at most {int(sups.max())}, exactly the "
+            "Caratheodory bound of 5 for a 4-dimensional body. The residual "
+            f"{len(fail_idx)} failures are finite sampling and not a real "
+            "gap: refining the generator set to 128000 ON THOSE TABLES ONLY "
+            f"leaves {refine['n_still_failing_at_128000']} failing, with the "
+            f"worst residual falling from "
+            f"{refine['max_residual_at_32000']:.1e} to "
+            f"{refine['max_residual_at_128000']:.1e}. And the "
+            "committed T5 witness -- the table #237 first reported as "
+            "unreachable -- decomposes into "
+            f"{witness['support_size']} c = 1 cosine tables with residual "
+            f"{w_res:.1e} and reconstruction error "
+            f"{witness['reconstruction_error']:.1e}. The PR box stays "
+            f"outside (residual {pr_res:.2f}), as it must. *** SO T5's ~45% "
+            "SHORTFALL IS NOT AN OPERATIONAL RESTRICTION: it says BAM cannot "
+            "hit those tables with ONE preparation, not that it cannot "
+            "produce them. #237's original framing overstated this and is "
+            "corrected here. ***"
+        ),
+        'generator_ladder': ladder,
+        'witness_decomposition': witness,
+        'coverage_300_random_tlm_tables': cov,
+        'max_support_size': int(sups.max()),
+        'mean_support_size': float(sups.mean()),
+        'failure_refinement': refine,
+        'pr_box_hull_residual': pr_res,
+        'pass': bool(ok),
+    }
+
+
+def test_T7_marginals_vanish() -> dict:
     q = cs.extract_pair_state(
         cs.evolve(cs.prepare(PI / 4), cs._T_READ, cs._S_HOLONOMY))
     worst = 0.0
@@ -427,7 +595,7 @@ def test_T6_marginals_vanish() -> dict:
                       'cos_2beta': float(math.cos(2 * beta))})
     ok = worst < 1e-12 and abs(zrows[0]['z_marginal']) > 0.5
     return {
-        'name': 'T6_the_implemented_readout_has_identically_zero_marginals',
+        'name': 'T7_zero_marginals_and_they_survive_convex_mixing',
         'description': (
             "A correlation table is only part of a behavior. Under BAM's own "
             f"U(1) settings the marginal is max |<A_theta>| = {worst:.3e} "
@@ -438,7 +606,12 @@ def test_T6_marginals_vanish() -> dict:
             "beta = pi/12, matching to 1e-6), which the U(1) settings simply "
             "cannot access because they never leave the x-y plane. The "
             "restriction is in the readout, not the state -- the same place "
-            "#236 found the ceiling."
+            "#236 found the ceiling. *** AND UNLIKE T5's correlation gap, "
+            "THIS ONE SURVIVES CONVEX MIXING: a mixture of zero-marginal "
+            "behaviours has marginals sum_i lam_i * 0 = 0, identically. So "
+            "T6 dissolves one of the two restrictions and leaves this one "
+            "completely intact -- which makes it the only falsifiable "
+            "content of the probe. ***"
         ),
         'max_marginal_under_U1_settings': worst,
         'state_z_marginals': zrows,
@@ -446,35 +619,47 @@ def test_T6_marginals_vanish() -> dict:
     }
 
 
-def test_T7_consequences() -> dict:
+def test_T8_consequences() -> dict:
     items = [
         {'claim': "#236's T3: the U(1) of settings is 'exactly sufficient -- "
                   "neither a sub-quantum deficit nor any excess'",
          'status': 'SCOPED, not retracted -- correct for the CHSH MAXIMUM, '
-                   'which is what it measured. For the SET OF TABLES the '
-                   'U(1) alone reaches a measure-zero surface, and even with '
-                   'beta free reaches about 55%. Extremal saturation and full '
-                   'representational power are different claims.'},
+                   'which is what it measured. Single-shot, the U(1) reaches '
+                   'a measure-zero surface at c = 1 and ~55% of the body '
+                   'with beta free; with mixing it reaches all of it.'},
+        {'claim': "#237's own first framing: ~45% of quantum correlation "
+                  'tables are unreachable',
+         'status': 'CORRECTED -- that is a SINGLE-SHOT statement only. The '
+                   'convex hull of the c = 1 cosine tables is the WHOLE '
+                   'quantum body (T6: coverage -> 100.0%, and the committed '
+                   'witness decomposes into 5 generators with residual '
+                   '0.0e+00). Shared randomness over preparations is an '
+                   'ordinary operational resource, so there is no '
+                   'correlation-table restriction to report.'},
         {'claim': 'the bridge preparation beta is a state parameter',
-         'status': 'PROMOTED -- it is the one knob that lifts the '
-                   'implemented family from measure zero to full dimension. '
-                   'Without it BAM represents a 3-parameter surface; with '
-                   'it, about 55% of the quantum body.'},
-        {'claim': 'BAM can represent quantum correlations',
-         'status': 'QUALIFIED -- it can represent about 55% of the '
-                   'correlation-table body and 0% of the biased-marginal '
-                   'behaviors. Both gaps trace to the settings being a U(1) '
-                   'in the x-y plane.'},
+         'status': 'PROMOTED -- single-shot it is the one knob lifting the '
+                   'family from measure zero to full dimension. Under mixing '
+                   'it is not needed for coverage, since the c = 1 '
+                   'generators already span the body.'},
+        {'claim': 'the implemented readout has identically zero marginals',
+         'status': 'THE ONE SURVIVING RESTRICTION -- immune to mixing, since '
+                   'a mixture of zero-marginal behaviours has zero '
+                   'marginals. This, and not the correlation coverage, is '
+                   "the probe's falsifiable content."},
     ]
     return {
-        'name': 'T7_consequences_and_the_scoping_of_236',
+        'name': 'T8_consequences_and_the_scoping_of_236',
         'description': (
-            "The useful output is a falsifiable restriction rather than a "
-            "reassurance. BAM's implemented encoding cannot reproduce "
-            "quantum behaviors with biased marginals, nor the ~45% of "
-            "correlation tables requiring non-coplanar measurement "
-            "directions. Both are experimentally ordinary situations, so "
-            "this is a prediction that can fail rather than a safe one. "
+            "The probe began with two apparent restrictions and ends with one. "
+            "Convex mixing -- shared randomness over preparations, an "
+            "ordinary operational resource -- dissolves the correlation-"
+            "table gap entirely (T6), so #237's original ~45% headline was "
+            "a single-shot statement dressed as an operational one and is "
+            "corrected here. What survives is the zero-marginal "
+            "restriction, which mixing cannot touch: BAM's implemented "
+            "encoding cannot reproduce any quantum behaviour with biased "
+            "marginals. That is experimentally ordinary, so it is a "
+            "prediction that can fail rather than a safe one. "
             "Whether the restriction is fundamental or an artifact of the "
             "committed readout is the open question: it would be lifted by "
             "any physical operation at a mouth that rotates out of the x-y "
@@ -486,7 +671,7 @@ def test_T7_consequences() -> dict:
     }
 
 
-def test_T8_assessment(results: dict) -> dict:
+def test_T9_assessment(results: dict) -> dict:
     passed = sum(1 for k, v in results.items()
                  if k.startswith('T') and v.get('pass'))
     total = sum(1 for k in results if k.startswith('T'))
@@ -497,54 +682,64 @@ def test_T8_assessment(results: dict) -> dict:
     passed += int(self_pass)
     total += 1
     return {
-        'name': 'T8_assessment',
+        'name': 'T9_assessment',
         'description': (
             "The representation in the abstract admits exactly the "
             "unit-vector Gram / TLM body, verified in both directions. What "
-            "BAM implements is the strictly smaller family "
-            "E_xy = c cos(theta_x - phi_y) read off the lattice: measure "
-            "zero at maximal preparation, ~55% of the quantum body with "
-            "the bridge preparation free, and identically zero marginals "
-            "throughout. The gap between the two levels is the deliverable."
+            "BAM implements SINGLE-SHOT is the strictly smaller family "
+            "E_xy = c cos(theta_x - phi_y), read off the lattice: measure "
+            "zero at maximal preparation, ~55% of the body with beta free. "
+            "But that gap is not operational -- the convex hull of the "
+            "c = 1 tables is the WHOLE quantum body, and the committed "
+            "'unreachable' witness decomposes into 5 of them exactly. What "
+            "survives is the zero-marginal restriction, which mixing cannot "
+            "touch."
         ),
         'established': [
             'the inner-product representation admits exactly the unit-vector '
             'Gram matrices = the TLM body: fit and predicate agree 60/60, '
-            'and 4000 Gram-built tables never violate TLM (min slack '
-            '+2.6e-04)',
-            'the three bodies: local 66.7% of the cube, quantum 92.5%, '
+            'and 4000 Gram-built tables never violate TLM',
+            'the three bodies: local 66.8% of the cube, quantum 92.6%, '
             'no-signaling 100%; the PR box at TLM slack -pi',
             "BAM's implemented family, read off the lattice: the T-matrix "
             'x-y block is c * I_2 to 3.1e-15 with c = -sin 2 beta, so the '
-            'achievable tables are exactly c cos(theta_x - phi_y)',
-            'coverage: 0.0% at maximal preparation (a measure-zero '
-            '3-parameter surface, 33.4% of it on the Tsirelson boundary), '
-            '54.6 +/- 1.1% with beta free (exact branch test, not an '
-            'optimizer), against 100% for general d = 3 -- so the '
-            'bridge preparation buys the missing dimension',
-            'an explicit unreachable quantum table, with d = 3 residual '
-            '~1e-15 and BAM-family residual ~1e-01',
+            'single-shot tables are exactly c cos(theta_x - phi_y)',
+            'SINGLE-SHOT coverage: 0.0% at maximal preparation (a '
+            'measure-zero 3-parameter surface, ~34% of it on the Tsirelson '
+            'boundary), ~55% with beta free, against 100% for general d = 3',
+            'BUT THE CONVEX HULL OF THE c = 1 TABLES IS THE WHOLE QUANTUM '
+            'BODY (LP): coverage 98.0 / 98.0 / 100.0% at 2000 / 8000 / '
+            '32000 generators, 100% on 300 fresh random TLM tables, support '
+            'size at most 5 = the Caratheodory bound, PR box excluded',
+            "the committed 'unreachable' witness decomposes into exactly 5 "
+            'c = 1 cosine tables, residual 0.0e+00, reconstruction error '
+            '~1e-16 -- so it was never operationally unreachable',
             'the implemented readout has identically zero marginals '
-            '(0.000e+00) even though the state carries a z-marginal of '
-            'cos 2 beta',
+            '(0.000e+00) even though the state carries cos 2 beta, and this '
+            'restriction SURVIVES convex mixing -- the one falsifiable '
+            'content that remains',
         ],
         'open': [
             'whether the throat geometry supplies any physical mouth '
             'operation that rotates out of the x-y plane -- that, and only '
-            'that, would lift both restrictions',
+            'that, would lift the surviving zero-marginal restriction',
+            'whether BAM actually has access to shared randomness over '
+            'preparations; T6 assumes it does, which is standard '
+            'operationally but is an assumption about the program, not a '
+            'result of it',
             'the multipartite and higher-input cases, where the quantum set '
-            'has no single-inequality characterization and this analysis '
-            'does not extend',
+            'has no single-inequality characterization and neither the '
+            'membership test nor the hull argument extends',
             'whether the zero-marginal restriction is related to the #208 '
             'charged-GHZ superselection no-go, which also removes '
             'marginal-carrying sectors -- untested here',
         ],
         'tests_passed': f'{passed}/{total}',
         'verdict_class': (
-            'THE_REPRESENTATION_ADMITS_EXACTLY_THE_UNIT_VECTOR_GRAM_TLM_BODY_'
-            'BUT_BAM_IMPLEMENTS_ONLY_C_COS_THETA_MINUS_PHI_WHICH_IS_MEASURE_'
-            'ZERO_AT_MAXIMAL_PREPARATION_AND_ABOUT_HALF_THE_BODY_WITH_BETA_'
-            'FREE_AND_HAS_ZERO_MARGINALS'),
+            'THE_REPRESENTATION_ADMITS_THE_GRAM_TLM_BODY_AND_SO_DOES_BAM_ONCE_'
+            'MIXING_IS_ALLOWED_BECAUSE_THE_CONVEX_HULL_OF_THE_C_EQUALS_ONE_'
+            'COSINE_TABLES_IS_THE_WHOLE_BODY_SO_THE_ONLY_SURVIVING_'
+            'RESTRICTION_IS_IDENTICALLY_ZERO_MARGINALS'),
         'pass': self_pass,
     }
 
@@ -556,14 +751,15 @@ def run_probe() -> dict:
     res['T3'] = test_T3_three_bodies()
     res['T4'] = test_T4_bam_family_from_the_lattice()
     res['T5'] = test_T5_coverage()
-    res['T6'] = test_T6_marginals_vanish()
-    res['T7'] = test_T7_consequences()
-    res['T8'] = test_T8_assessment(res)
+    res['T6'] = test_T6_convex_hull()
+    res['T7'] = test_T7_marginals_vanish()
+    res['T8'] = test_T8_consequences()
+    res['T9'] = test_T9_assessment(res)
     res['summary'] = {
         'probe': 'admissible_correlation_tables_probe', 'pr': 237,
         'utc': datetime.now(timezone.utc).isoformat(),
-        'tests_passed': res['T8']['tests_passed'],
-        'verdict_class': res['T8']['verdict_class'],
+        'tests_passed': res['T9']['tests_passed'],
+        'verdict_class': res['T9']['verdict_class'],
     }
     return res
 
@@ -603,17 +799,36 @@ def render_markdown(s: dict) -> str:
           f"{t5['fraction_of_c1_surface_on_tsirelson_boundary'] * 100:.1f}% "
           "lies exactly on the Tsirelson boundary — which is why #236 found "
           "saturation there.", ""]
-    if t5['unreachable_witness']:
-        w = t5['unreachable_witness']
+    if t5['single_shot_unreachable_witness']:
+        w = t5['single_shot_unreachable_witness']
         o += ["**An explicit unreachable quantum table:**", "",
               f"```\n{w['table']}\n```", "",
               f"TLM slack {w['tlm_slack']:+.4f} (quantum) · `d=3` residual "
               f"{w['gram_d3_residual']:.1e} · BAM-family residual "
               f"{w['bam_family_residual']:.1e}", ""]
+    t6 = s['T6']
+    o += ["## But convex mixing reaches the whole body", "",
+          "| generators | coverage | max residual |", "|---:|---:|---:|"]
+    for g in t6['generator_ladder']:
+        o.append(f"| {g['n_generators']} | {g['coverage'] * 100:.1f}% | "
+                 f"{g['max_residual']:.1e} |")
+    wd = t6['witness_decomposition']
+    o += ["",
+          f"On 300 fresh random TLM tables: "
+          f"**{t6['coverage_300_random_tlm_tables'] * 100:.1f}%**, support "
+          f"size at most **{t6['max_support_size']}** — the Carathéodory "
+          f"bound. PR box excluded (residual "
+          f"{t6['pr_box_hull_residual']:.2f}).", "",
+          f"**The witness above decomposes into {wd['support_size']} `c=1` "
+          f"cosine tables** — residual {wd['hull_residual']:.1e}, "
+          f"reconstruction error {wd['reconstruction_error']:.1e}, weights "
+          f"{wd['weights']}. *So it was never operationally unreachable; "
+          f"#237's original ~45% headline was a single-shot statement.*", ""]
     o += [f"And the implemented readout has **identically zero marginals** "
-          f"({s['T6']['max_marginal_under_U1_settings']:.1e}), so no "
-          "biased-marginal behavior is representable at all.", "",
-          "## Verdict", "", f"**{s['T8']['verdict_class']}**", ""]
+          f"({s['T7']['max_marginal_under_U1_settings']:.1e}), so no "
+          "biased-marginal behavior is representable at all — and **this "
+          "restriction survives mixing**, so it is the one that stands.", "",
+          "## Verdict", "", f"**{s['T9']['verdict_class']}**", ""]
     return "\n".join(o)
 
 

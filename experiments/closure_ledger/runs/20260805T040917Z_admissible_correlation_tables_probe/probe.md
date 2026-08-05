@@ -1,6 +1,6 @@
 # Probe J — which correlation tables does BAM's encoding admit? (PR #237)
 
-_Run 2026-08-05T03:14:56.752961+00:00 · 8/8 PASS_
+_Run 2026-08-05T04:09:17.612603+00:00 · 9/9 PASS_
 
 ## Level A — the representation in the abstract
 
@@ -39,8 +39,20 @@ Of the `c = 1` surface, 33.7% lies exactly on the Tsirelson boundary — which i
 
 TLM slack +0.7400 (quantum) · `d=3` residual 4.3e-09 · BAM-family residual 4.6e-01
 
-And the implemented readout has **identically zero marginals** (0.0e+00), so no biased-marginal behavior is representable at all.
+## But convex mixing reaches the whole body
+
+| generators | coverage | max residual |
+|---:|---:|---:|
+| 2000 | 99.2% | 1.2e-02 |
+| 8000 | 100.0% | 0.0e+00 |
+| 32000 | 100.0% | 0.0e+00 |
+
+On 300 fresh random TLM tables: **98.7%**, support size at most **5** — the Carathéodory bound. PR box excluded (residual 1.18).
+
+**The witness above decomposes into 5 `c=1` cosine tables** — residual 0.0e+00, reconstruction error 4.4e-16, weights [0.212356, 0.34472, 0.040881, 0.010237, 0.391806]. *So it was never operationally unreachable; #237's original ~45% headline was a single-shot statement.*
+
+And the implemented readout has **identically zero marginals** (0.0e+00), so no biased-marginal behavior is representable at all — and **this restriction survives mixing**, so it is the one that stands.
 
 ## Verdict
 
-**THE_REPRESENTATION_ADMITS_EXACTLY_THE_UNIT_VECTOR_GRAM_TLM_BODY_BUT_BAM_IMPLEMENTS_ONLY_C_COS_THETA_MINUS_PHI_WHICH_IS_MEASURE_ZERO_AT_MAXIMAL_PREPARATION_AND_ABOUT_HALF_THE_BODY_WITH_BETA_FREE_AND_HAS_ZERO_MARGINALS**
+**THE_REPRESENTATION_ADMITS_THE_GRAM_TLM_BODY_AND_SO_DOES_BAM_ONCE_MIXING_IS_ALLOWED_BECAUSE_THE_CONVEX_HULL_OF_THE_C_EQUALS_ONE_COSINE_TABLES_IS_THE_WHOLE_BODY_SO_THE_ONLY_SURVIVING_RESTRICTION_IS_IDENTICALLY_ZERO_MARGINALS**

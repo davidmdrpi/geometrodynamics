@@ -1110,64 +1110,66 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
-**Which correlation tables BAM's encoding actually admits
-(PR #237).** #236 located the Tsirelson ceiling at `B² = I` by probing
-the CHSH *maximum*. A maximum is one number; the encoding represents a
-whole table `E(x,y) = ⟨ψ|A_x ⊗ B_y|ψ⟩`, so the structural question is
-**which tables** the representation admits — and, separately, which the
-committed implementation can produce
+**Which correlation tables BAM's encoding actually admits — and why
+the first answer was wrong (PR #237).** #236 located the Tsirelson
+ceiling at `B² = I` by probing the CHSH *maximum*. A maximum is one
+number; the encoding represents a whole table, so the structural
+question is **which tables** it admits
 (`docs/admissible_correlation_tables_research_plan.md`). **LEVEL A —
 THE REPRESENTATION IN THE ABSTRACT** admits exactly the **unit-vector
 Gram matrices** `E_xy = ⟨u_x, v_y⟩`, equivalently the
-Tsirelson–Landau–Masanes body `max over the four sign variants of
-|Σ ± arcsin E_xy| ≤ π`. Verified in **both** directions rather than
-cited: an independent unit-vector fit agrees with the TLM predicate on
+Tsirelson–Landau–Masanes body. Verified in **both** directions rather
+than cited: an independent fit agrees with the TLM predicate on
 **60/60** random tables, and 4000 tables built *from* random unit
-vectors never violate TLM (min slack **+2.6e-04**). The three bodies,
-by Monte Carlo on the correlation cube: local **66.83%**, quantum
-**92.64%**, no-signaling **100%**; the PR box at slack **−π**.
-**LEVEL B — WHAT BAM IMPLEMENTS IS STRICTLY SMALLER.** Read off the
-committed lattice: the pair state's T-matrix x–y block is **exactly
-`c·I₂`** (deviation ≤ **3.1e-15**) with **`c = −sin 2β`**, so combined
-with #236's U(1) settings the achievable tables are **exactly
-`E_xy = c·cos(θ_x − φ_y)`** — a parametrization, not a bound.
-**COVERAGE:** at maximal preparation (`c = ±1`) this is a 3-parameter
-surface in a 4-dimensional body — **measure zero**, `d = 2` Gram fit
-succeeding on **0.0%** of random quantum tables against **100%** at
-`d = 3`. **The bridge preparation is the knob that buys the missing
-dimension:** with `β` free the coverage is **55.2% ± 2.0%**
-(2000-sample run 54.6% ± 1.1%). So `β` is not decorative. Of the
-`c = 1` surface, **33.7%** lies exactly *on* the Tsirelson boundary —
-why #236 saw saturation there; **saturating the boundary and filling
-the body are different things**. An explicit unreachable quantum table
-is recorded (TLM slack +0.740, `d=3` residual 4.3e-09, BAM residual
-4.6e-01). **A METHODOLOGICAL TRAP, RECORDED:** generic optimizers got
-membership wrong in **both** directions — L-BFGS-B 48.3%, multi-restart
-Nelder-Mead 63.3% — because *a failed fit is not proof of
-non-representability*. The probe uses an **exact** test instead: fixing
-the global rotation with `θ₀ = 0` leaves four unknowns for four
-equations, three solving in closed form, leaving `E₁₁` as one
-consistency condition in `c` alone — a 1-D root find on 8 sign
-branches, bracketed and bisected, validated by recovering **100%** of
-family-built tables (max residual 3.8e-14) and by the check that
-nothing admitted lies outside the quantum body (min admitted slack
-+9.7e-03). **AND THE MARGINALS VANISH IDENTICALLY:** under BAM's own
-U(1) settings `max |⟨A_θ⟩| = 0.000e+00`, so **no biased-marginal
-behavior is representable at all** — not for want of structure in the
-state (it carries a z-marginal `cos 2β`, 0.866 at `β = π/12`) but
-because the settings never leave the x–y plane. The restriction is in
-the **readout**, the same place #236 found the ceiling. **WHAT THIS
-DOES TO #236: scope, not retraction** — its T3 called the U(1)
-"exactly sufficient, neither a sub-quantum deficit nor any excess",
-correct for the CHSH maximum it measured but not for the set of
-tables. Extremal saturation and full representational power are
-different claims. **FALSIFIABLE:** BAM's implemented encoding cannot
-reproduce behaviors with biased marginals, nor the ~45% of correlation
-tables requiring non-coplanar directions — both experimentally
-ordinary, so a prediction that can fail. Open: whether the throat
-geometry supplies any mouth operation rotating out of the x–y plane;
-the multipartite and higher-input cases, where the quantum set has no
-single-inequality characterization
+vectors never violate TLM (min slack **+2.6e-04**). Bodies: local
+**66.83%** of the correlation cube, quantum **92.64%**, no-signaling
+**100%**; PR box at slack **−π**. **LEVEL B — WHAT BAM IMPLEMENTS
+SINGLE-SHOT IS STRICTLY SMALLER.** Read off the committed lattice: the
+pair state's T-matrix x–y block is **exactly `c·I₂`** (≤ **3.1e-15**)
+with **`c = −sin 2β`**, so with #236's U(1) settings the achievable
+tables are **exactly `E_xy = c·cos(θ_x − φ_y)`** — **0.0%** of the
+quantum body at maximal preparation (a measure-zero 3-parameter
+surface, **33.7%** of it exactly *on* the Tsirelson boundary, which is
+why #236 saw saturation: **saturating the boundary and filling the body
+are different things**), rising to **55.2% ± 2.0%** with `β` free, so
+`β` is the knob buying the missing dimension. **BUT THAT GAP IS NOT
+OPERATIONAL, AND THIS CORRECTS THE PR'S OWN FIRST FRAMING.** Shared
+randomness over preparations is an ordinary resource and makes the
+reachable set the **convex hull** of the `c = 1` tables. By **linear
+programming** (`min ‖Gᵀλ − E‖₁` over the simplex) that hull is the
+**whole quantum body**: coverage **99.2 / 100.0 / 100.0%** at 2k / 8k /
+32k generators, **98.7%** on **300** fresh random TLM tables, support
+size at most **5** — exactly the **Carathéodory bound** for a
+4-dimensional body — with the residual failures shrinking under
+refinement (4 → **1**, worst residual **7.2e-03 → 4.2e-03** at 128k),
+i.e. boundary resolution rather than a gap; the PR box stays outside
+(**1.18**). **The committed "unreachable" witness decomposes into
+exactly 5 `c = 1` cosine tables**, residual **0.0e+00**, reconstruction
+error **4.4e-16**. So *"~45% of quantum correlation tables are
+unreachable" was a **single-shot** statement dressed as an operational
+one*, and with mixing there is no correlation-table restriction to
+report. **THE ONE SURVIVING RESTRICTION:** under BAM's own U(1)
+settings `max |⟨A_θ⟩| = 0.000e+00`, so **no biased-marginal behaviour
+is representable at all** — not for want of structure in the state (it
+carries a z-marginal `cos 2β`) but because the settings never leave the
+x–y plane; and **unlike the correlation gap this one is immune to
+mixing**, since a mixture of zero-marginal behaviours has zero
+marginals. It is therefore the whole of the probe's falsifiable
+content, and it sits in the **readout** — the same place #236 found the
+ceiling. **A METHODOLOGICAL TRAP, RECORDED:** single-shot membership
+was first tested with generic optimizers, which got it wrong in
+**both** directions (L-BFGS-B 48.3%, Nelder-Mead 63.3%) — *a failed fit
+is not proof of non-representability*. Replaced by an **exact** test:
+fixing the global rotation leaves four unknowns for four equations,
+three solving in closed form, leaving `E₁₁` as one consistency
+condition in `c` alone — a 1-D root find on 8 sign branches, validated
+by recovering **100%** of family-built tables (max residual 3.8e-14).
+Scopes #236's "exactly sufficient" to the CHSH maximum: extremal
+saturation and full representational power are different claims. Open:
+whether the throat geometry supplies any mouth operation rotating out
+of the x–y plane; whether BAM has access to shared randomness at all
+(assumed operationally, not derived); the multipartite and higher-input
+cases, where the quantum set has no single-inequality characterization
 (`admissible_correlation_tables_probe`, PR #237).
 
 **What caps BAM's nonlocality at Tsirelson — and why the answer
