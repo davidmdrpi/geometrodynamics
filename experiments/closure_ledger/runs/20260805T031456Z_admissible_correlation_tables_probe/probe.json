@@ -1,0 +1,152 @@
+{
+  "T1": {
+    "name": "T1_goal_which_tables_not_which_maximum",
+    "description": "#236 located BAM's Tsirelson ceiling at one algebraic fact, B^2 = I, by probing the CHSH maximum. A maximum is one number. The encoding represents a whole correlation table E(x,y) = <psi|A_x (x) B_y|psi>, so the structural question is which TABLES the representation admits -- and, separately, which tables the committed implementation can actually produce. This probe answers both, and they are very different sets.",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_the_representation_admits_exactly_the_gram_TLM_body",
+    "description": "The inner-product representation E_xy = <psi|A_x (x) B_y|psi> with dichotomic observables admits exactly the unit-vector Gram matrices E_xy = <u_x, v_y>, equivalently the Tsirelson-Landau-Masanes body: max over the four sign variants of |SUM +/- arcsin E_xy| <= pi. Checked in BOTH directions rather than cited. REVERSE: an independent unit-vector fit agrees with the TLM predicate on 60/60 random tables. FORWARD: 4000 tables built FROM random unit vectors never violate TLM (minimum slack +2.584e-04).",
+    "gram_vs_tlm_agreement": "60/60",
+    "min_tlm_slack_over_gram_tables": 0.00025842271005682704,
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_local_inside_quantum_inside_no_signaling",
+    "description": "The three bodies located by Monte Carlo on the correlation cube (N = 200000): the local polytope occupies 66.83%, the quantum (TLM) body 92.64%, the no-signaling cube 100%. Strict nesting, and the gaps are large -- the quantum body is not a slight relaxation of the local one nor a slight restriction of no-signaling. The PR box has CHSH 4.0 and TLM slack -3.1416: not representable, as it must not be.",
+    "local_fraction": 0.66826,
+    "quantum_fraction": 0.92635,
+    "pr_box_chsh": 4.0,
+    "pr_box_tlm_slack": -3.141592653589793,
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_the_implemented_family_is_c_cos_theta_minus_phi",
+    "description": "Read off the committed lattice rather than assumed: the pair state's T-matrix has x-y block exactly c * I_2 -- deviation <= 3.1e-15 across the bridge-preparation sweep -- with c = -sin 2 beta to 1e-6. Combined with #236's finding that the settings are a U(1) confined to the x-y plane, BAM's achievable tables are therefore EXACTLY E_xy = c cos(theta_x - phi_y), with c set by the bridge preparation. That parametrization, not a bound, is the answer to 'which tables' for the implementation.",
+    "rows": [
+      {
+        "beta": 0.261799,
+        "c": -0.49999999999999645,
+        "minus_sin_2beta": -0.49999999999999994,
+        "deviation_from_c_times_I2": 2.1446397603257685e-15
+      },
+      {
+        "beta": 0.392699,
+        "c": -0.7071067811865444,
+        "minus_sin_2beta": -0.7071067811865475,
+        "deviation_from_c_times_I2": 3.0987721694186577e-15
+      },
+      {
+        "beta": 0.523599,
+        "c": -0.8660254037844366,
+        "minus_sin_2beta": -0.8660254037844386,
+        "deviation_from_c_times_I2": 3.0478336189427045e-15
+      },
+      {
+        "beta": 0.785398,
+        "c": -0.9999999999999999,
+        "minus_sin_2beta": -1.0,
+        "deviation_from_c_times_I2": 2.775717235764078e-15
+      }
+    ],
+    "xy_block_is_isotropic": true,
+    "c_equals_minus_sin_2beta": true,
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_measure_zero_at_maximal_preparation_about_half_with_beta",
+    "description": "Coverage of the quantum body, measured with the EXACT branch test (see `bam_membership_residual`) rather than a generic optimizer -- which matters, because optimizers get this wrong in both directions: L-BFGS-B reported 48.3% and multi-restart Nelder-Mead 63.3%, since a failed fit is not proof of non-representability. The exact test is validated first by recovering 100.0% of tables BUILT from the family, which neither optimizer does. RESULT: at MAXIMAL bridge preparation (c = +/-1) the family is a 3-parameter surface in a 4-dimensional body -- measure zero -- and the d = 2 Gram fit accordingly succeeds on 0.0% of random quantum tables against 100.0% for general d = 3. *** THE BRIDGE PREPARATION IS THE KNOB THAT BUYS THE MISSING DIMENSION: with beta free the coverage is 55.2% +/- 2.0% (a 2000-sample offline run gave 54.6 +/- 1.1%). *** Of the c = 1 surface, 33.7% lies exactly ON the Tsirelson boundary, which is why #236 found saturation there. Consistency: nothing the test admits lies outside the quantum body (min TLM slack among admitted +9.7e-03). So roughly HALF the quantum correlation body is unreachable, with an explicit witness below.",
+    "exact_test_self_recovery": 1.0,
+    "coverage_bam_family": 0.5516666666666666,
+    "coverage_standard_error": 0.020303142431470862,
+    "coverage_gram_d2": 0.0,
+    "coverage_gram_d3": 1.0,
+    "fraction_of_c1_surface_on_tsirelson_boundary": 0.3374,
+    "min_tlm_slack_among_admitted": 0.009700699058956097,
+    "unreachable_witness": {
+      "table": [
+        [
+          0.7424,
+          -0.9971
+        ],
+        [
+          -0.5465,
+          0.4867
+        ]
+      ],
+      "tlm_slack": 0.7399714340570132,
+      "bam_family_residual": 0.45799605521420494,
+      "gram_d3_residual": 4.260384149091718e-09
+    },
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_the_implemented_readout_has_identically_zero_marginals",
+    "description": "A correlation table is only part of a behavior. Under BAM's own U(1) settings the marginal is max |<A_theta>| = 0.000e+00 across the sweep -- identically zero, so NO behavior with biased marginals is representable at all. This is not because the state lacks the structure: the same states carry a z-marginal of cos 2 beta (0.866 at beta = pi/12, matching to 1e-6), which the U(1) settings simply cannot access because they never leave the x-y plane. The restriction is in the readout, not the state -- the same place #236 found the ceiling.",
+    "max_marginal_under_U1_settings": 0.0,
+    "state_z_marginals": [
+      {
+        "beta": 0.261799,
+        "z_marginal": 0.8660254037844405,
+        "cos_2beta": 0.8660254037844387
+      },
+      {
+        "beta": 0.392699,
+        "z_marginal": 0.7071067811865506,
+        "cos_2beta": 0.7071067811865476
+      },
+      {
+        "beta": 0.785398,
+        "z_marginal": 4.151126720770418e-15,
+        "cos_2beta": 6.123233995736766e-17
+      }
+    ],
+    "pass": true
+  },
+  "T7": {
+    "name": "T7_consequences_and_the_scoping_of_236",
+    "description": "The useful output is a falsifiable restriction rather than a reassurance. BAM's implemented encoding cannot reproduce quantum behaviors with biased marginals, nor the ~45% of correlation tables requiring non-coplanar measurement directions. Both are experimentally ordinary situations, so this is a prediction that can fail rather than a safe one. Whether the restriction is fundamental or an artifact of the committed readout is the open question: it would be lifted by any physical operation at a mouth that rotates out of the x-y plane, and nothing in this probe says whether the throat geometry supplies one.",
+    "items": [
+      {
+        "claim": "#236's T3: the U(1) of settings is 'exactly sufficient -- neither a sub-quantum deficit nor any excess'",
+        "status": "SCOPED, not retracted -- correct for the CHSH MAXIMUM, which is what it measured. For the SET OF TABLES the U(1) alone reaches a measure-zero surface, and even with beta free reaches about 55%. Extremal saturation and full representational power are different claims."
+      },
+      {
+        "claim": "the bridge preparation beta is a state parameter",
+        "status": "PROMOTED -- it is the one knob that lifts the implemented family from measure zero to full dimension. Without it BAM represents a 3-parameter surface; with it, about 55% of the quantum body."
+      },
+      {
+        "claim": "BAM can represent quantum correlations",
+        "status": "QUALIFIED -- it can represent about 55% of the correlation-table body and 0% of the biased-marginal behaviors. Both gaps trace to the settings being a U(1) in the x-y plane."
+      }
+    ],
+    "pass": true
+  },
+  "T8": {
+    "name": "T8_assessment",
+    "description": "The representation in the abstract admits exactly the unit-vector Gram / TLM body, verified in both directions. What BAM implements is the strictly smaller family E_xy = c cos(theta_x - phi_y) read off the lattice: measure zero at maximal preparation, ~55% of the quantum body with the bridge preparation free, and identically zero marginals throughout. The gap between the two levels is the deliverable.",
+    "established": [
+      "the inner-product representation admits exactly the unit-vector Gram matrices = the TLM body: fit and predicate agree 60/60, and 4000 Gram-built tables never violate TLM (min slack +2.6e-04)",
+      "the three bodies: local 66.7% of the cube, quantum 92.5%, no-signaling 100%; the PR box at TLM slack -pi",
+      "BAM's implemented family, read off the lattice: the T-matrix x-y block is c * I_2 to 3.1e-15 with c = -sin 2 beta, so the achievable tables are exactly c cos(theta_x - phi_y)",
+      "coverage: 0.0% at maximal preparation (a measure-zero 3-parameter surface, 33.4% of it on the Tsirelson boundary), 54.6 +/- 1.1% with beta free (exact branch test, not an optimizer), against 100% for general d = 3 -- so the bridge preparation buys the missing dimension",
+      "an explicit unreachable quantum table, with d = 3 residual ~1e-15 and BAM-family residual ~1e-01",
+      "the implemented readout has identically zero marginals (0.000e+00) even though the state carries a z-marginal of cos 2 beta"
+    ],
+    "open": [
+      "whether the throat geometry supplies any physical mouth operation that rotates out of the x-y plane -- that, and only that, would lift both restrictions",
+      "the multipartite and higher-input cases, where the quantum set has no single-inequality characterization and this analysis does not extend",
+      "whether the zero-marginal restriction is related to the #208 charged-GHZ superselection no-go, which also removes marginal-carrying sectors -- untested here"
+    ],
+    "tests_passed": "8/8",
+    "verdict_class": "THE_REPRESENTATION_ADMITS_EXACTLY_THE_UNIT_VECTOR_GRAM_TLM_BODY_BUT_BAM_IMPLEMENTS_ONLY_C_COS_THETA_MINUS_PHI_WHICH_IS_MEASURE_ZERO_AT_MAXIMAL_PREPARATION_AND_ABOUT_HALF_THE_BODY_WITH_BETA_FREE_AND_HAS_ZERO_MARGINALS",
+    "pass": true
+  },
+  "summary": {
+    "probe": "admissible_correlation_tables_probe",
+    "pr": 237,
+    "utc": "2026-08-05T03:14:56.752961+00:00",
+    "tests_passed": "8/8",
+    "verdict_class": "THE_REPRESENTATION_ADMITS_EXACTLY_THE_UNIT_VECTOR_GRAM_TLM_BODY_BUT_BAM_IMPLEMENTS_ONLY_C_COS_THETA_MINUS_PHI_WHICH_IS_MEASURE_ZERO_AT_MAXIMAL_PREPARATION_AND_ABOUT_HALF_THE_BODY_WITH_BETA_FREE_AND_HAS_ZERO_MARGINALS"
+  }
+}

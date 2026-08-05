@@ -1110,6 +1110,66 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**Which correlation tables BAM's encoding actually admits
+(PR #237).** #236 located the Tsirelson ceiling at `B² = I` by probing
+the CHSH *maximum*. A maximum is one number; the encoding represents a
+whole table `E(x,y) = ⟨ψ|A_x ⊗ B_y|ψ⟩`, so the structural question is
+**which tables** the representation admits — and, separately, which the
+committed implementation can produce
+(`docs/admissible_correlation_tables_research_plan.md`). **LEVEL A —
+THE REPRESENTATION IN THE ABSTRACT** admits exactly the **unit-vector
+Gram matrices** `E_xy = ⟨u_x, v_y⟩`, equivalently the
+Tsirelson–Landau–Masanes body `max over the four sign variants of
+|Σ ± arcsin E_xy| ≤ π`. Verified in **both** directions rather than
+cited: an independent unit-vector fit agrees with the TLM predicate on
+**60/60** random tables, and 4000 tables built *from* random unit
+vectors never violate TLM (min slack **+2.6e-04**). The three bodies,
+by Monte Carlo on the correlation cube: local **66.83%**, quantum
+**92.64%**, no-signaling **100%**; the PR box at slack **−π**.
+**LEVEL B — WHAT BAM IMPLEMENTS IS STRICTLY SMALLER.** Read off the
+committed lattice: the pair state's T-matrix x–y block is **exactly
+`c·I₂`** (deviation ≤ **3.1e-15**) with **`c = −sin 2β`**, so combined
+with #236's U(1) settings the achievable tables are **exactly
+`E_xy = c·cos(θ_x − φ_y)`** — a parametrization, not a bound.
+**COVERAGE:** at maximal preparation (`c = ±1`) this is a 3-parameter
+surface in a 4-dimensional body — **measure zero**, `d = 2` Gram fit
+succeeding on **0.0%** of random quantum tables against **100%** at
+`d = 3`. **The bridge preparation is the knob that buys the missing
+dimension:** with `β` free the coverage is **55.2% ± 2.0%**
+(2000-sample run 54.6% ± 1.1%). So `β` is not decorative. Of the
+`c = 1` surface, **33.7%** lies exactly *on* the Tsirelson boundary —
+why #236 saw saturation there; **saturating the boundary and filling
+the body are different things**. An explicit unreachable quantum table
+is recorded (TLM slack +0.740, `d=3` residual 4.3e-09, BAM residual
+4.6e-01). **A METHODOLOGICAL TRAP, RECORDED:** generic optimizers got
+membership wrong in **both** directions — L-BFGS-B 48.3%, multi-restart
+Nelder-Mead 63.3% — because *a failed fit is not proof of
+non-representability*. The probe uses an **exact** test instead: fixing
+the global rotation with `θ₀ = 0` leaves four unknowns for four
+equations, three solving in closed form, leaving `E₁₁` as one
+consistency condition in `c` alone — a 1-D root find on 8 sign
+branches, bracketed and bisected, validated by recovering **100%** of
+family-built tables (max residual 3.8e-14) and by the check that
+nothing admitted lies outside the quantum body (min admitted slack
++9.7e-03). **AND THE MARGINALS VANISH IDENTICALLY:** under BAM's own
+U(1) settings `max |⟨A_θ⟩| = 0.000e+00`, so **no biased-marginal
+behavior is representable at all** — not for want of structure in the
+state (it carries a z-marginal `cos 2β`, 0.866 at `β = π/12`) but
+because the settings never leave the x–y plane. The restriction is in
+the **readout**, the same place #236 found the ceiling. **WHAT THIS
+DOES TO #236: scope, not retraction** — its T3 called the U(1)
+"exactly sufficient, neither a sub-quantum deficit nor any excess",
+correct for the CHSH maximum it measured but not for the set of
+tables. Extremal saturation and full representational power are
+different claims. **FALSIFIABLE:** BAM's implemented encoding cannot
+reproduce behaviors with biased marginals, nor the ~45% of correlation
+tables requiring non-coplanar directions — both experimentally
+ordinary, so a prediction that can fail. Open: whether the throat
+geometry supplies any mouth operation rotating out of the x–y plane;
+the multipartite and higher-input cases, where the quantum set has no
+single-inequality characterization
+(`admissible_correlation_tables_probe`, PR #237).
+
 **What caps BAM's nonlocality at Tsirelson — and why the answer
 matters (PR #236).** #206 states the program's sharpest ontological
 constraint in its own words: a single classical field on 3-space with
