@@ -1,0 +1,208 @@
+{
+  "T1": {
+    "name": "T1_goal_what_stops_the_bridge_at_tsirelson",
+    "description": "#206 escapes Bell's theorem by spending the bridge as its one nonlocal resource, reaching CHSH = 2 sqrt 2. But nonlocality does not automatically stop where quantum mechanics stops: Popescu-Rohrlich boxes are perfectly no-signaling and reach the algebraic maximum 4. Tsirelson's number appears in eight documents of this repository, always as the value being matched, never as something the geometry explains. This probe asks whether the bridge can be driven past it, and -- since it cannot -- WHICH structure forbids it. The two possible answers are not equivalent: if the geometry forbids it, the conjecture has derived a quantum bound from classical ingredients; if the formalism forbids it, then #232's blanket 'quantization is imported' has a precise and much smaller residue, and that residue is what a classical-origin program still owes.",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_the_floor_is_bridge_carried_and_is_two_without_it",
+    "description": "The correlation is carried by the handle and by nothing else: the raw (unnormalized) B-side channel amplitude is 3.747e-01 with the committed coupling and 4.140e-16 -- machine zero -- with the handle cut, falling monotonically in between. And without it the model is a local-hidden-variable model: the 16 deterministic local strategies cap at CHSH = 2 exactly. This is #206's result, re-derived here as the baseline the rest of the probe measures against. NOTE a reporting trap: `extract_pair_state` normalizes, so the cut bridge yields a unit-norm pair state made entirely of numerical noise -- the raw amplitudes above are what actually shows the cut.",
+    "raw_amplitudes_vs_coupling": [
+      {
+        "bridge_coupling": 0.8,
+        "raw_c_pm": 0.3747218573305405,
+        "raw_c_mp": 0.37472185733053887
+      },
+      {
+        "bridge_coupling": 0.4,
+        "raw_c_pm": 0.19992721641111239,
+        "raw_c_mp": 0.19992721641111372
+      },
+      {
+        "bridge_coupling": 0.1,
+        "raw_c_pm": 0.05101350879021462,
+        "raw_c_mp": 0.05101350879021559
+      },
+      {
+        "bridge_coupling": 0.0,
+        "raw_c_pm": 4.14011250185408e-16,
+        "raw_c_mp": 4.671120016862306e-16
+      }
+    ],
+    "local_strategy_max_chsh": 2,
+    "correlation_is_bridge_carried": true,
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_the_geometry_supplies_a_U1_and_it_is_exactly_enough",
+    "description": "BAM's local setting is a fiber-frame rotation, so on the k = +/-1 qubit it is diag(e^{i th}, e^{-i th}) -- a z-rotation, a ONE-parameter U(1), not SU(2). Conjugating the fixed transverse readout therefore sweeps the x-y plane and nothing else. That is exactly enough, for a reason worth stating: CHSH's optimum lies in a plane. The lattice-derived state is the singlet at fidelity 1.000000000000, its T-matrix x-y block has singular values [1.0, 1.0], and the plane-restricted Horodecki value is 2.828427125 = 2 sqrt 2 -- attained at every grid resolution tested (n = 25, 49, 97, 193, all identical), so this is a saturation and not a discretization artifact. *** The geometry supplies neither a sub-quantum deficit nor any excess: precisely the one-parameter family needed to reach the quantum ceiling, and structurally incapable of going past it. ***",
+    "singlet_fidelity": 0.9999999999999998,
+    "xy_block_singular_values": [
+      0.9999999999999999,
+      0.9999999999999999
+    ],
+    "analytic_plane_restricted_chsh": 2.82842712474619,
+    "grid_convergence": [
+      {
+        "n": 25,
+        "max_chsh": 2.8284271247461907
+      },
+      {
+        "n": 49,
+        "max_chsh": 2.8284271247461907
+      },
+      {
+        "n": 97,
+        "max_chsh": 2.8284271247461907
+      },
+      {
+        "n": 193,
+        "max_chsh": 2.8284271247461907
+      }
+    ],
+    "saturates_tsirelson": true,
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_no_bridge_in_the_model_exceeds_tsirelson",
+    "description": "Maximizing the Horodecki CHSH over every bridge the committed model has -- all 8 gluing holonomies s (the pi-holonomy handle is only one of them), all preparations (beta, alpha) -- the largest value is 2.828427125, at {'holonomy_s': 3, 'beta': 0.7854, 'alpha': 0.0}, against Tsirelson 2.828427125: an excess of +8.9e-16, i.e. machine zero. The bridge saturates the quantum ceiling and cannot be driven past it by any preparation or any gluing. So BAM does not predict super-quantum correlations -- on this axis it agrees with experiment for a reason rather than by construction, and it is falsifiable in the other direction.",
+    "max_chsh": 2.828427124746191,
+    "argmax": {
+      "holonomy_s": 3,
+      "beta": 0.7854,
+      "alpha": 0.0
+    },
+    "tsirelson": 2.8284271247461903,
+    "excess": 8.881784197001252e-16,
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_the_cap_is_B_squared_equals_I_not_locality",
+    "description": "The obvious guess is that the two mouths' operations act on commuting algebras -- and they do, overwhelmingly: ||[P_A, P_B]|| = 4.7e-113, mode overlap 1.3e-111, because the committed bridge is a LINK IN H between distinct lattice sites, not an identification of degrees of freedom. (Worth stating plainly: #206's prose -- 'one object', 'two frames of one bulk defect' -- reads like an identification, and the implementation is not one.) BUT DROPPING COMMUTATIVITY DOES NOT HELP. For any dichotomic Hermitian observables on ONE Hilbert space, with no tensor split at all, (B0+B1)^2 + (B0-B1)^2 = 4I identically (residual 5.3e-15 over 800 random draws), and Cauchy-Schwarz then caps CHSH at 2 sqrt 2 without invoking locality anywhere. Measured, taking the optimal A for each B: the best attainable value is 2.828427095 -- Tsirelson again. *** So the ceiling is not supplied by the bridge, nor by the mouths being far apart, nor by anything else in the geometry. It is supplied by the readout being a +/-1-valued observable on a Hilbert space. ***",
+    "mouth_projector_commutator": 4.6660319627852074e-113,
+    "mouth_mode_overlap": 1.3232522113418967e-111,
+    "identity_residual_B_sq_eq_I": 5.329070518200751e-15,
+    "best_chsh_without_commutativity": 2.8284270950957278,
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_the_residue_of_imported_quantization_is_one_identity",
+    "description": "#232's honest scope says 'quantization is imported, not derived' without saying how much that costs. This probe prices it. Three of the four ingredients of a Bell test are genuinely supplied by the geometry -- the state, the nonlocality, the settings. The fourth, the ceiling, is not, and the entire missing ingredient is one algebraic identity: B^2 = I. Not Hilbert space in general, not the Born rule, not linearity -- just the readout being two-valued. *** That identity is what a classical-origin derivation still owes, and naming it is the progress here. Deriving it is not attempted and is not claimed. *** The narrowing is real but it is a narrowing, not a closure: an argument that a classical throat readout must be two-valued would finish this; the repo's Pin- / T^2 = -1 machinery (#195/#196, #227-#231) is where such an argument would have to come from, and none of it currently addresses the readout algebra.",
+    "ledger": [
+      {
+        "ingredient": "the pair state (the singlet)",
+        "supplied_by": "GEOMETRY -- field plus bulk gluing, fidelity 1.000000000000 (#206)"
+      },
+      {
+        "ingredient": "the nonlocality (violating Bell at all)",
+        "supplied_by": "GEOMETRY -- bridge-carried; raw B-side amplitude 3.7e-01 with the handle, 4.1e-16 without, local strategies capped at 2"
+      },
+      {
+        "ingredient": "the measurement settings",
+        "supplied_by": "GEOMETRY -- a U(1) of fiber-frame rotations, exactly sufficient to saturate and unable to exceed"
+      },
+      {
+        "ingredient": "THE CEILING (why not 4?)",
+        "supplied_by": "NOT THE GEOMETRY -- it follows from B^2 = I on a Hilbert space alone, with locality unused. This is the whole residue of \"quantization is imported\"."
+      }
+    ],
+    "pass": true
+  },
+  "T7": {
+    "name": "T7_no_signaling_holds_at_equal_time_only",
+    "description": "#206's T6 checks that Bob's reduced state is invariant under Alice-side unitaries. That is a partial-trace identity true of EVERY bipartite state, so it tests nothing about the geometry. Tested on the lattice instead -- applying Alice's physical setting as an operator supported at mouth A, then evolving, then reading Bob's channel populations -- no-signaling turns out to be an EQUAL-TIME statement. At dt = 0 the shift is exactly 0 (the supports are disjoint). But the committed handle is always on, so once any evolution separates the setting from the readout, Alice's choice propagates: shifts of 2.3e-02, 1.0e-01, 2.3e-01 at dt = 0.5, 2, 8 -- scaling with the bridge coupling and vanishing to ~1e-15 when the handle is cut. *** This substantiates with numbers the caveat #206 states only in prose ('the physical bridge is non-traversable; the lattice handle is a modeling stand-in') and converts it into a requirement: the bridge must be dynamically inert at measurement time, which the committed model is not. *** This is a constraint on the model, not a refutation of the program -- but it is the kind of thing that has to be discharged rather than asserted.",
+    "rows": [
+      {
+        "bridge_coupling": 0.8,
+        "dt": 0.0,
+        "marginal_shift": 0.0
+      },
+      {
+        "bridge_coupling": 0.8,
+        "dt": 0.5,
+        "marginal_shift": 0.022725056578133285
+      },
+      {
+        "bridge_coupling": 0.8,
+        "dt": 2.0,
+        "marginal_shift": 0.10191592595766691
+      },
+      {
+        "bridge_coupling": 0.8,
+        "dt": 8.0,
+        "marginal_shift": 0.23146091753855114
+      },
+      {
+        "bridge_coupling": 0.2,
+        "dt": 0.0,
+        "marginal_shift": 0.0
+      },
+      {
+        "bridge_coupling": 0.2,
+        "dt": 0.5,
+        "marginal_shift": 0.00526206447886346
+      },
+      {
+        "bridge_coupling": 0.2,
+        "dt": 2.0,
+        "marginal_shift": 0.013443998394054968
+      },
+      {
+        "bridge_coupling": 0.2,
+        "dt": 8.0,
+        "marginal_shift": 0.03599838330599481
+      },
+      {
+        "bridge_coupling": 0.0,
+        "dt": 0.0,
+        "marginal_shift": 0.0
+      },
+      {
+        "bridge_coupling": 0.0,
+        "dt": 0.5,
+        "marginal_shift": 1.4988010832439613e-15
+      },
+      {
+        "bridge_coupling": 0.0,
+        "dt": 2.0,
+        "marginal_shift": 1.1657341758564144e-15
+      },
+      {
+        "bridge_coupling": 0.0,
+        "dt": 8.0,
+        "marginal_shift": 1.4988010832439613e-15
+      }
+    ],
+    "equal_time_is_clean": true,
+    "cut_bridge_is_clean": true,
+    "live_bridge_signals": 0.23146091753855114,
+    "pass": true
+  },
+  "T8": {
+    "name": "T8_assessment",
+    "description": "BAM reaches Tsirelson exactly and cannot be driven past it, which is the right answer and a falsifiable one. But the bound is not geometric: it follows from the readout being two-valued, with locality unused, so it would hold for any Hilbert-space model whatever its geometry. The useful output is therefore a much sharper statement of what the classical-origin conjecture still owes: not 'quantization', but one identity.",
+    "established": [
+      "the bridge saturates Tsirelson and never exceeds it: max over all 8 gluing holonomies and all preparations = 2.828427125, excess +8.9e-16",
+      "the geometry's settings are a U(1) (fiber-frame rotations) and are exactly sufficient -- the x-y block of the singlet T-matrix has singular values (1,1), giving 2 sqrt 2 at every grid resolution: no sub-quantum deficit, no excess",
+      "the correlation is bridge-carried: raw B-side amplitude 3.747e-01 with the handle, 4.140e-16 without; local strategies cap at 2",
+      "LOCALITY IS NOT THE BINDING CONSTRAINT: the mouth projectors commute to 4.7e-113 because the bridge is a link between distinct sites rather than an identification, but dropping commutativity entirely still gives 2.828427041, because (B0+B1)^2 + (B0-B1)^2 = 4I for any dichotomic observables",
+      "so the residue of \"quantization is imported\" is exactly one identity, B^2 = I -- the geometry supplies the state, the nonlocality and the settings, but not the ceiling",
+      "no-signaling is equal-time only: the always-on handle shifts Bob's marginal by 2.3e-02 / 1.0e-01 / 2.3e-01 at dt = 0.5/2/8, scaling with the coupling and vanishing when cut"
+    ],
+    "open": [
+      "whether a classical throat readout can be argued to be two-valued -- that would close the gap this probe locates; the Pin- / T^2 = -1 machinery is where such an argument would come from and does not currently address the readout algebra",
+      "the committed handle must be made dynamically inert at measurement time, or the model signals (T7)",
+      "this is one 2-outcome, 2-setting scenario on one lattice; nothing here bounds multipartite or higher-input scenarios, where the quantum set is not characterized by a single inequality"
+    ],
+    "tests_passed": "8/8",
+    "verdict_class": "BAM_REACHES_TSIRELSON_EXACTLY_AND_NEVER_EXCEEDS_IT_BUT_THE_CEILING_IS_NOT_GEOMETRIC_IT_FOLLOWS_FROM_DICHOTOMIC_READOUT_ALONE_SO_THE_IMPORTED_QUANTIZATION_REDUCES_TO_B_SQUARED_EQUALS_I_AND_NO_SIGNALING_IS_EQUAL_TIME",
+    "pass": true
+  },
+  "summary": {
+    "probe": "tsirelson_ceiling_probe",
+    "pr": 236,
+    "utc": "2026-08-05T00:26:13.876618+00:00",
+    "tests_passed": "8/8",
+    "verdict_class": "BAM_REACHES_TSIRELSON_EXACTLY_AND_NEVER_EXCEEDS_IT_BUT_THE_CEILING_IS_NOT_GEOMETRIC_IT_FOLLOWS_FROM_DICHOTOMIC_READOUT_ALONE_SO_THE_IMPORTED_QUANTIZATION_REDUCES_TO_B_SQUARED_EQUALS_I_AND_NO_SIGNALING_IS_EQUAL_TIME"
+  }
+}
