@@ -5,42 +5,97 @@
     "pass": true
   },
   "T2": {
-    "name": "T2_the_algebra_is_full_only_the_dialable_set_is_restricted",
-    "description": "Conjugating a fixed detector by the setting group traces out a great circle of observables -- a 2-dimensional real span at best. But the *-algebra those observables GENERATE is all of M_2(C): the span of their products has dimension 4 of 4, because a product of two x-y observables already produces sigma_z. *** So nothing is missing algebraically, and 'the measurement algebra is too small' is the wrong diagnosis. The restriction is on WHICH SELF-ADJOINT ELEMENTS ARE DIALABLE as settings -- a different and much sharper question, and the one the rest of this probe answers. ***",
-    "generated_algebra_dimension": 4,
-    "dialable_span_by_pairing": {
-      "fiber U(1) [derived] x sigma_z winding SG [derived]": 1,
-      "fiber U(1) [derived] x sigma_x transverse [assumed by #236/#237]": 2,
-      "y-rotation [in #209 code] x sigma_z winding SG [derived]": 2
-    },
+    "name": "T2_the_derived_pairing_generates_only_span_I_sigma_z",
+    "description": "The generated *-algebra, computed SEPARATELY for each pairing rather than once and generalised. *** FOR THE FULLY DERIVED PAIRING -- the fiber U(1) setting with the sigma_z winding Stern-Gerlach -- the accessible observable set is a single point (real dim 1: a fiber rotation cannot move a winding-diagonal detector), and the *-algebra it generates is exactly span_C{I, sigma_z}: complex dimension 2, and ABELIAN. *** That is the real explanation of the CHSH = 2 in T4, and it is a theorem rather than an observation: a COMMUTATIVE algebra of observables admits a joint distribution over all of them at once, hence a local hidden-variable model, hence CHSH <= 2 necessarily. The other two pairings generate all of M_2(C) (complex dimension 4, non-abelian), which is what makes a violation possible at all. NOTE this corrects an overstatement in the first version of this probe, which computed the generated algebra only for the fiber x sigma_x pairing, found dimension 4, and concluded 'the algebra is not the restriction'. For the pairing that matters the algebra IS the restriction, and it is abelian.",
+    "rows": [
+      {
+        "setting": "fiber U(1) [derived]",
+        "detector": "sigma_z winding SG [derived]",
+        "both_derived": true,
+        "accessible_real_dim": 1,
+        "generated_algebra_complex_dim": 2,
+        "abelian": true,
+        "equals_span_I_sigma_z": true
+      },
+      {
+        "setting": "fiber U(1) [derived]",
+        "detector": "sigma_x transverse [assumed by #236/#237]",
+        "both_derived": false,
+        "accessible_real_dim": 2,
+        "generated_algebra_complex_dim": 4,
+        "abelian": false,
+        "equals_span_I_sigma_z": false
+      },
+      {
+        "setting": "y-rotation [in #209 code]",
+        "detector": "sigma_z winding SG [derived]",
+        "both_derived": false,
+        "accessible_real_dim": 2,
+        "generated_algebra_complex_dim": 4,
+        "abelian": false,
+        "equals_span_I_sigma_z": false
+      }
+    ],
+    "derived_algebra_is_span_I_sigma_z": true,
+    "derived_algebra_is_abelian": true,
     "pass": true
   },
   "T3": {
-    "name": "T3_the_docs_and_the_code_use_different_setting_operations",
-    "description": "The documents describe the setting as 'the fiber-frame rotation before the device'. A rotation of the chi fiber multiplies the winding-k channel by e^{2 pi i k delta / N}, so on the k = +/-1 qubit it is diag(e^{i th}, e^{-i th}) -- a Z-ROTATION. But the committed `measurement_sector_probe._rot` is [[c, -s], [s, c]], which is exp(-i th sigma_y / 2) -- a Y-ROTATION, verified identical to 0.0e+00. These are not the same operation, and the difference is exactly the one that matters: the fiber rotation COMMUTES EXACTLY with the winding detector (||[fiber, sigma_z]|| = 0.00e+00 at every angle tested) while the y-rotation does not (up to 1.95). A fiber rotation cannot move a winding-diagonal detector, so under the described setting the dial does nothing.",
+    "name": "T3_the_committed_rot_imported_directly_is_a_y_rotation",
+    "description": "`measurement_sector_probe._rot` is imported and tested DIRECTLY here -- not reimplemented -- so the comparison is against the code the repo actually runs. It is exp(-i th sigma_y / 2), a Y-ROTATION, identical to 0.0e+00 at every angle tested. The documents instead describe the setting as 'the fiber-frame rotation before the device', which on the k = +/-1 qubit is diag(e^{i th}, e^{-i th}) -- a z-rotation. The difference is the decisive one: the fiber rotation COMMUTES EXACTLY with the sigma_z winding detector (0.00e+00 at every angle) while the committed _rot does not (up to 1.95). A fiber rotation cannot move a winding-diagonal detector. METHOD CHECK: the committed code applies the setting by rotating the STATE, while this probe conjugates the OBSERVABLE; the two are verified to give identical correlators (max difference 3.3e-16), so nothing in the comparison turns on that choice.",
     "rows": [
       {
         "theta": 0.3,
-        "code_rot_minus_exp_minus_i_theta_sy_over_2": 0.0,
-        "commutator_fiber_with_sigma_z": 0.0,
-        "commutator_yrot_with_sigma_z": 0.29887626494719843
+        "ms_rot_minus_exp_minus_i_theta_sy_over_2": 0.0,
+        "commutator_ms_rot_with_sigma_z": 0.29887626494719843,
+        "commutator_fiber_with_sigma_z": 0.0
+      },
+      {
+        "theta": 0.7,
+        "ms_rot_minus_exp_minus_i_theta_sy_over_2": 0.0,
+        "commutator_ms_rot_with_sigma_z": 0.6857956149109027,
+        "commutator_fiber_with_sigma_z": 0.0
       },
       {
         "theta": 1.1,
-        "code_rot_minus_exp_minus_i_theta_sy_over_2": 0.0,
-        "commutator_fiber_with_sigma_z": 0.0,
-        "commutator_yrot_with_sigma_z": 1.0453744578613184
+        "ms_rot_minus_exp_minus_i_theta_sy_over_2": 0.0,
+        "commutator_ms_rot_with_sigma_z": 1.0453744578613184,
+        "commutator_fiber_with_sigma_z": 0.0
       },
       {
         "theta": 2.7,
-        "code_rot_minus_exp_minus_i_theta_sy_over_2": 0.0,
-        "commutator_fiber_with_sigma_z": 0.0,
-        "commutator_yrot_with_sigma_z": 1.9514467156533182
+        "ms_rot_minus_exp_minus_i_theta_sy_over_2": 0.0,
+        "commutator_ms_rot_with_sigma_z": 1.9514467156533182,
+        "commutator_fiber_with_sigma_z": 0.0
       }
     ],
-    "code_rot_is_a_y_rotation": true,
+    "state_rotation_vs_observable_conjugation": [
+      {
+        "a": 0.0,
+        "b": 0.7853981633974483,
+        "rotate_state": -0.7071067811865474,
+        "conjugate_observable": -0.7071067811865474,
+        "difference": 0.0
+      },
+      {
+        "a": 0.3,
+        "b": 1.1,
+        "rotate_state": -0.6967067093471648,
+        "conjugate_observable": -0.6967067093471652,
+        "difference": 3.3306690738754696e-16
+      },
+      {
+        "a": 2.0,
+        "b": 0.5,
+        "rotate_state": -0.07073720166770302,
+        "conjugate_observable": -0.07073720166770305,
+        "difference": 2.7755575615628914e-17
+      }
+    ],
+    "ms_rot_is_a_y_rotation": true,
     "fiber_commutes_with_winding_detector": true,
-    "yrot_does_not_commute": true,
+    "ms_rot_does_not_commute": true,
+    "two_conventions_agree": true,
     "pass": true
   },
   "T4": {
@@ -131,8 +186,8 @@
         "status": "RETRACTED as a general claim -- true only for the fiber x sigma_x pairing. Under the other two the marginals are |cos 2 beta|, up to 0.866."
       },
       {
-        "claim": "'the measurement algebra is too small'",
-        "status": "WRONG DIAGNOSIS -- the generated algebra is all of M_2(C). What is restricted is the dialable set of settings, which for the fully derived pairing is a single point."
+        "claim": "this probe's own first answer: 'the algebra is full, so the algebra is not the restriction'",
+        "status": "CORRECTED -- that was computed for the fiber x sigma_x pairing only. Per pairing, the DERIVED one generates span_C{I, sigma_z}: complex dimension 2 and ABELIAN. For the pairing that matters the algebra IS the restriction, and its commutativity is what forces CHSH = 2."
       },
       {
         "claim": "BAM's Bell violation (#206/#209)",
@@ -149,7 +204,9 @@
     "name": "T8_assessment",
     "description": "The measurement algebra is full; what is restricted is which self-adjoint elements can be dialed. The repo's documents and its committed code disagree about what a setting is, and the disagreement is decisive: with the fiber rotation the docs describe and the winding detector #209 derives, the setting commutes with the detector, the dialable set is a single point, and CHSH is exactly 2. Both ways of restoring the violation require coherence between distinct winding sectors, which winding superselection would forbid.",
     "established": [
-      "the generated measurement algebra is all of M_2(C) (dimension 4) -- 'the algebra is too small' is the wrong diagnosis; the dialable set is what is restricted",
+      "the generated *-algebra, computed PER PAIRING: the fully derived one (fiber U(1) x sigma_z) has accessible real dim 1 and generates exactly span_C{I, sigma_z} -- complex dim 2, ABELIAN -- while both violating pairings generate all of M_2(C) (complex dim 4, non-abelian)",
+      "so the CHSH = 2 of the derived pairing is forced by COMMUTATIVITY, not merely observed: a commutative observable algebra admits a joint distribution, hence an LHV model",
+      "`measurement_sector_probe._rot` imported and tested DIRECTLY (not reimplemented) is exp(-i th sigma_y/2) to 0.0e+00; and rotating the state (what the code does) equals conjugating the observable (what this probe does) to 0.0e+00",
       "the committed `_rot` is exp(-i th sigma_y/2), a y-rotation, not the fiber-frame rotation diag(e^{i th}, e^{-i th}) the docs describe (verified to 0.0e+00)",
       "the fiber rotation commutes EXACTLY with the sigma_z winding detector (0.0e+00), so under the described setting the dial does nothing: dialable span 1",
       "CHSH by pairing: fiber x sigma_z (both derived) = 2.000000; fiber x sigma_x = 2.828; y-rotation x sigma_z = 2.828 -- the violation requires exactly one non-derived ingredient",
@@ -163,14 +220,14 @@
       "this is the two-input two-output winding sector on one lattice; the multipartite chain (#207/#208) is not analysed"
     ],
     "tests_passed": "8/8",
-    "verdict_class": "THE_ALGEBRA_IS_FULL_BUT_THE_DIALABLE_SET_IS_NOT_AND_THE_ONLY_PAIRING_OF_A_DERIVED_SETTING_WITH_A_DERIVED_DETECTOR_GIVES_CHSH_EXACTLY_TWO_SO_THE_VIOLATION_RESTS_ON_WINDING_SECTOR_COHERENCE_THAT_IS_NOWHERE_DERIVED",
+    "verdict_class": "THE_DERIVED_PAIRING_GENERATES_ONLY_THE_ABELIAN_ALGEBRA_SPAN_I_SIGMA_Z_SO_ITS_CHSH_IS_EXACTLY_TWO_BY_COMMUTATIVITY_AND_BOTH_VIOLATING_PAIRINGS_NEED_A_NONABELIAN_ALGEBRA_REQUIRING_WINDING_SECTOR_COHERENCE",
     "pass": true
   },
   "summary": {
     "probe": "detector_algebra_probe",
     "pr": 238,
-    "utc": "2026-08-06T00:20:54.338786+00:00",
+    "utc": "2026-08-06T05:57:18.899949+00:00",
     "tests_passed": "8/8",
-    "verdict_class": "THE_ALGEBRA_IS_FULL_BUT_THE_DIALABLE_SET_IS_NOT_AND_THE_ONLY_PAIRING_OF_A_DERIVED_SETTING_WITH_A_DERIVED_DETECTOR_GIVES_CHSH_EXACTLY_TWO_SO_THE_VIOLATION_RESTS_ON_WINDING_SECTOR_COHERENCE_THAT_IS_NOWHERE_DERIVED"
+    "verdict_class": "THE_DERIVED_PAIRING_GENERATES_ONLY_THE_ABELIAN_ALGEBRA_SPAN_I_SIGMA_Z_SO_ITS_CHSH_IS_EXACTLY_TWO_BY_COMMUTATIVITY_AND_BOTH_VIOLATING_PAIRINGS_NEED_A_NONABELIAN_ALGEBRA_REQUIRING_WINDING_SECTOR_COHERENCE"
   }
 }

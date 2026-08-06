@@ -13,13 +13,29 @@ question with an uncomfortable answer.
 
 THE ANSWER
 ----------
-(1) THE ALGEBRA IS NOT THE RESTRICTION.  Conjugating a fixed detector by
-    the setting group traces out a great circle of observables -- a
-    2-dimensional span -- but the *-algebra those observables GENERATE is
-    all of M_2(C) (dimension 4, verified: products of two x-y observables
-    already produce sigma_z).  So nothing is missing algebraically.  The
-    restriction is on WHICH SELF-ADJOINT ELEMENTS ARE DIALABLE as
-    settings, which is a different and much sharper question.
+(1) *** THE DERIVED PAIRING GENERATES ONLY span_C{I, sigma_z} -- AN
+    ABELIAN ALGEBRA. ***  The generated *-algebra is computed SEPARATELY
+    for each pairing, not once and generalised:
+
+      setting x detector                        accessible  algebra  abelian
+      fiber U(1) x sigma_z   (both derived)          1         2      YES
+      fiber U(1) x sigma_x   (assumed)               2         4      no
+      _rot y-rotation x sigma_z (in code)            2         4      no
+
+    For the fully derived pairing the accessible observable set is a
+    single point -- a fiber rotation cannot move a winding-diagonal
+    detector -- and the algebra it generates is exactly span_C{I,
+    sigma_z}, complex dimension 2 and COMMUTATIVE.  That is the real
+    explanation of the CHSH = 2 in (3), and it is a theorem rather than an
+    observation: a commutative algebra of observables admits a joint
+    distribution over all of them at once, hence a local hidden-variable
+    model, hence CHSH <= 2 necessarily.  The other two pairings generate
+    all of M_2(C), which is what makes a violation possible at all.
+
+    (The first version of this probe computed the generated algebra only
+    for the fiber x sigma_x pairing, found dimension 4, and concluded "the
+    algebra is not the restriction".  For the pairing that matters the
+    algebra IS the restriction, and it is abelian.  Corrected here.)
 
 (2) THE REPO HAS TWO INCOMPATIBLE SETTING MODELS, AND THEY DISAGREE.
     The documents say the setting is "the fiber-frame rotation before the
@@ -81,8 +97,10 @@ is the deliverable.
 
 Tests:
   T1. Goal.
-  T2. The algebra is full; only the dialable set is restricted.
-  T3. Two incompatible setting models: docs vs committed code.
+  T2. The generated algebra, per pairing: the derived one is
+      span{I, sigma_z}, abelian.
+  T3. `measurement_sector_probe._rot` imported and tested
+      directly: docs vs committed code.
   T4. The trilemma: CHSH by (setting, detector).
   T5. The marginals follow the same fork; #237's claim corrected.
   T6. Both missing ingredients are winding-sector coherence; the
@@ -91,9 +109,9 @@ Tests:
   T8. Assessment.
 
 Verdict:
-  THE_ALGEBRA_IS_FULL_BUT_THE_DIALABLE_SET_IS_NOT_AND_THE_ONLY_PAIRING_OF
-  _A_DERIVED_SETTING_WITH_A_DERIVED_DETECTOR_GIVES_CHSH_EXACTLY_TWO_SO_THE
-  _VIOLATION_RESTS_ON_WINDING_SECTOR_COHERENCE_THAT_IS_NOWHERE_DERIVED
+  THE_DERIVED_PAIRING_GENERATES_ONLY_THE_ABELIAN_ALGEBRA_SPAN_I_SIGMA_Z_SO
+  _ITS_CHSH_IS_EXACTLY_TWO_BY_COMMUTATIVITY_AND_BOTH_VIOLATING_PAIRINGS_NEED
+  _A_NONABELIAN_ALGEBRA_REQUIRING_WINDING_SECTOR_COHERENCE
 """
 
 from __future__ import annotations
@@ -108,6 +126,7 @@ import numpy as np
 
 from experiments.closure_ledger import (
     configuration_space_emergence_probe as cs,
+    measurement_sector_probe as ms,
 )
 
 PI = math.pi
@@ -125,9 +144,10 @@ def fiber_rotation(th: float) -> np.ndarray:
 
 
 def y_rotation(th: float) -> np.ndarray:
-    """What `measurement_sector_probe._rot` actually implements."""
-    c, s = math.cos(th / 2), math.sin(th / 2)
-    return np.array([[c, -s], [s, c]], dtype=complex)
+    """THE COMMITTED SETTING, imported directly from
+    `measurement_sector_probe._rot` -- not a reimplementation, so the
+    comparison below is against the code the repo actually runs."""
+    return ms._rot(th).astype(complex)
 
 
 def observable(setting, detector: np.ndarray, th: float) -> np.ndarray:
@@ -148,6 +168,44 @@ def chsh_over_settings(state: np.ndarray, setting, detector: np.ndarray,
                  + E[ja][:, None] - E[ja][None, :])
             best = max(best, float(np.abs(M).max()))
     return best
+
+
+def real_span_dim(mats) -> int:
+    """Dimension of the REAL span (observables are Hermitian)."""
+    M = np.stack([m.reshape(4) for m in mats])
+    return int(np.linalg.matrix_rank(np.hstack([M.real, M.imag]), tol=1e-9))
+
+
+def complex_span_dim(mats) -> int:
+    """Dimension of the COMPLEX span -- the right notion for a *-algebra."""
+    M = np.stack([m.reshape(4) for m in mats])
+    return int(np.linalg.matrix_rank(M, tol=1e-9))
+
+
+def generated_star_algebra(seed, rounds: int = 4) -> list:
+    """Close the seed observables under products and adjoints, returning an
+    orthonormal basis of the generated *-algebra."""
+    cur = [_I2] + list(seed)
+    for _ in range(rounds):
+        new = (cur + [a @ b for a in cur for b in cur]
+               + [a.conj().T for a in cur])
+        M = np.stack([m.reshape(4) for m in new])
+        U, s, _ = np.linalg.svd(M.T, full_matrices=False)
+        k = int(np.sum(s > 1e-9))
+        basis = [U[:, i].reshape(2, 2) for i in range(k)]
+        if len(basis) == len(cur):
+            return basis
+        cur = basis
+    return cur
+
+
+def is_span_I_sigma_z(alg) -> bool:
+    """Is the generated algebra exactly span_C{I, sigma_z}?"""
+    if complex_span_dim(alg) != 2:
+        return False
+    ref = np.stack([_I2.reshape(4), _SZ.reshape(4)])
+    joint = np.vstack([ref, np.stack([m.reshape(4) for m in alg])])
+    return int(np.linalg.matrix_rank(joint, tol=1e-9)) == 2
 
 
 def dialable_span(setting, detector: np.ndarray, n: int = 60) -> int:
@@ -198,80 +256,122 @@ def test_T1_goal() -> dict:
     }
 
 
-def test_T2_the_algebra_is_full() -> dict:
-    gens = [observable(fiber_rotation, _SX, t)
-            for t in np.linspace(0.0, 2 * PI, 12)]
-    prods = [a @ b for a in gens for b in gens] + gens + [_I2]
-    A = np.stack([p.reshape(4) for p in prods])
-    gen_dim = int(np.linalg.matrix_rank(
-        np.vstack([A.real, A.imag]), tol=1e-9))
-    dial = {f'{s} x {d}': dialable_span(S, D)
-            for s, S, d, D, _, _ in _PAIRINGS}
-    ok = gen_dim == 4 and min(dial.values()) < 4
+def test_T2_generated_algebra_per_pairing() -> dict:
+    rows = []
+    for sname, S, dname, D, s_der, d_der in _PAIRINGS:
+        acc = [observable(S, D, t) for t in np.linspace(0.0, 2 * PI, 60)]
+        alg = generated_star_algebra(acc[:24])
+        comm = max(float(np.max(np.abs(a @ b - b @ a)))
+                   for a in acc for b in acc)
+        rows.append({
+            'setting': sname, 'detector': dname,
+            'both_derived': bool(s_der and d_der),
+            'accessible_real_dim': real_span_dim(acc),
+            'generated_algebra_complex_dim': complex_span_dim(alg),
+            'abelian': bool(comm < 1e-12),
+            'equals_span_I_sigma_z': is_span_I_sigma_z(alg),
+        })
+    derived = [r for r in rows if r['both_derived']][0]
+    others = [r for r in rows if not r['both_derived']]
+    ok = (derived['generated_algebra_complex_dim'] == 2
+          and derived['abelian'] and derived['equals_span_I_sigma_z']
+          and derived['accessible_real_dim'] == 1
+          and all(r['generated_algebra_complex_dim'] == 4
+                  and not r['abelian'] for r in others))
     return {
-        'name': 'T2_the_algebra_is_full_only_the_dialable_set_is_restricted',
+        'name': 'T2_the_derived_pairing_generates_only_span_I_sigma_z',
         'description': (
-            "Conjugating a fixed detector by the setting group traces out a "
-            "great circle of observables -- a 2-dimensional real span at "
-            "best. But the *-algebra those observables GENERATE is all of "
-            f"M_2(C): the span of their products has dimension {gen_dim} of "
-            "4, because a product of two x-y observables already produces "
-            "sigma_z. *** So nothing is missing algebraically, and 'the "
-            "measurement algebra is too small' is the wrong diagnosis. The "
-            "restriction is on WHICH SELF-ADJOINT ELEMENTS ARE DIALABLE as "
-            "settings -- a different and much sharper question, and the one "
-            "the rest of this probe answers. ***"
+            "The generated *-algebra, computed SEPARATELY for each pairing "
+            "rather than once and generalised. *** FOR THE FULLY DERIVED "
+            "PAIRING -- the fiber U(1) setting with the sigma_z winding "
+            "Stern-Gerlach -- the accessible observable set is a single "
+            "point (real dim 1: a fiber rotation cannot move a "
+            "winding-diagonal detector), and the *-algebra it generates is "
+            "exactly span_C{I, sigma_z}: complex dimension 2, and ABELIAN. "
+            "*** That is the real explanation of the CHSH = 2 in T4, and it "
+            "is a theorem rather than an observation: a COMMUTATIVE algebra "
+            "of observables admits a joint distribution over all of them at "
+            "once, hence a local hidden-variable model, hence CHSH <= 2 "
+            "necessarily. The other two pairings generate all of M_2(C) "
+            "(complex dimension 4, non-abelian), which is what makes a "
+            "violation possible at all. NOTE this corrects an overstatement "
+            "in the first version of this probe, which computed the "
+            "generated algebra only for the fiber x sigma_x pairing, found "
+            "dimension 4, and concluded 'the algebra is not the "
+            "restriction'. For the pairing that matters the algebra IS the "
+            "restriction, and it is abelian."
         ),
-        'generated_algebra_dimension': gen_dim,
-        'dialable_span_by_pairing': dial,
+        'rows': rows,
+        'derived_algebra_is_span_I_sigma_z': derived['equals_span_I_sigma_z'],
+        'derived_algebra_is_abelian': derived['abelian'],
         'pass': bool(ok),
     }
 
 
 def test_T3_two_setting_models() -> dict:
     rows = []
-    for th in (0.3, 1.1, 2.7):
-        R = y_rotation(th)
+    for th in (0.3, 0.7, 1.1, 2.7):
+        R = ms._rot(th).astype(complex)          # THE COMMITTED FUNCTION
         expy = (math.cos(th / 2) * _I2 - 1j * math.sin(th / 2) * _SY)
         rows.append({
             'theta': th,
-            'code_rot_minus_exp_minus_i_theta_sy_over_2':
+            'ms_rot_minus_exp_minus_i_theta_sy_over_2':
                 float(np.max(np.abs(R - expy))),
+            'commutator_ms_rot_with_sigma_z': float(np.max(np.abs(
+                R @ _SZ - _SZ @ R))),
             'commutator_fiber_with_sigma_z': float(np.max(np.abs(
                 fiber_rotation(th) @ _SZ - _SZ @ fiber_rotation(th)))),
-            'commutator_yrot_with_sigma_z': float(np.max(np.abs(
-                R @ _SZ - _SZ @ R))),
         })
-    is_yrot = all(r['code_rot_minus_exp_minus_i_theta_sy_over_2'] < 1e-12
+    # the code ROTATES THE STATE; this probe CONJUGATES THE OBSERVABLE.
+    # verify the two are the same computation before comparing anything.
+    psi = ms._SINGLET.astype(complex)
+    equiv = []
+    for a, b in ((0.0, PI / 4), (0.3, 1.1), (2.0, 0.5)):
+        rot = np.kron(ms._rot(a), ms._rot(b)).astype(complex) @ psi
+        e_state = float(np.real(np.vdot(rot, np.kron(_SZ, _SZ) @ rot)))
+        e_obs = float(np.real(np.vdot(psi, np.kron(
+            observable(y_rotation, _SZ, a),
+            observable(y_rotation, _SZ, b)) @ psi)))
+        equiv.append({'a': a, 'b': b, 'rotate_state': e_state,
+                      'conjugate_observable': e_obs,
+                      'difference': abs(e_state - e_obs)})
+    is_yrot = all(r['ms_rot_minus_exp_minus_i_theta_sy_over_2'] < 1e-12
                   for r in rows)
     fiber_commutes = all(r['commutator_fiber_with_sigma_z'] < 1e-12
                          for r in rows)
-    yrot_does_not = all(r['commutator_yrot_with_sigma_z'] > 1e-2
+    yrot_does_not = all(r['commutator_ms_rot_with_sigma_z'] > 1e-2
                         for r in rows)
+    equivalent = all(e['difference'] < 1e-12 for e in equiv)
     return {
-        'name': 'T3_the_docs_and_the_code_use_different_setting_operations',
+        'name': 'T3_the_committed_rot_imported_directly_is_a_y_rotation',
         'description': (
-            "The documents describe the setting as 'the fiber-frame "
-            "rotation before the device'. A rotation of the chi fiber "
-            "multiplies the winding-k channel by e^{2 pi i k delta / N}, so "
-            "on the k = +/-1 qubit it is diag(e^{i th}, e^{-i th}) -- a "
-            "Z-ROTATION. But the committed `measurement_sector_probe._rot` "
-            "is [[c, -s], [s, c]], which is exp(-i th sigma_y / 2) -- a "
-            "Y-ROTATION, verified identical to "
-            f"{max(r['code_rot_minus_exp_minus_i_theta_sy_over_2'] for r in rows):.1e}"
-            ". These are not the same operation, and the difference is "
-            "exactly the one that matters: the fiber rotation COMMUTES "
-            "EXACTLY with the winding detector (||[fiber, sigma_z]|| = "
-            "0.00e+00 at every angle tested) while the y-rotation does not "
-            f"(up to {max(r['commutator_yrot_with_sigma_z'] for r in rows):.2f}). "
-            "A fiber rotation cannot move a winding-diagonal detector, so "
-            "under the described setting the dial does nothing."
+            "`measurement_sector_probe._rot` is imported and tested DIRECTLY "
+            "here -- not reimplemented -- so the comparison is against the "
+            "code the repo actually runs. It is exp(-i th sigma_y / 2), a "
+            "Y-ROTATION, identical to "
+            f"{max(r['ms_rot_minus_exp_minus_i_theta_sy_over_2'] for r in rows):.1e} "
+            "at every angle tested. The documents instead describe the "
+            "setting as 'the fiber-frame rotation before the device', which "
+            "on the k = +/-1 qubit is diag(e^{i th}, e^{-i th}) -- a "
+            "z-rotation. The difference is the decisive one: the fiber "
+            "rotation COMMUTES EXACTLY with the sigma_z winding detector "
+            "(0.00e+00 at every angle) while the committed _rot does not "
+            f"(up to {max(r['commutator_ms_rot_with_sigma_z'] for r in rows):.2f}). "
+            "A fiber rotation cannot move a winding-diagonal detector. "
+            "METHOD CHECK: the committed code applies the setting by "
+            "rotating the STATE, while this probe conjugates the "
+            "OBSERVABLE; the two are verified to give identical correlators "
+            f"(max difference {max(e['difference'] for e in equiv):.1e}), so "
+            "nothing in the comparison turns on that choice."
         ),
         'rows': rows,
-        'code_rot_is_a_y_rotation': is_yrot,
+        'state_rotation_vs_observable_conjugation': equiv,
+        'ms_rot_is_a_y_rotation': is_yrot,
         'fiber_commutes_with_winding_detector': fiber_commutes,
-        'yrot_does_not_commute': yrot_does_not,
-        'pass': bool(is_yrot and fiber_commutes and yrot_does_not),
+        'ms_rot_does_not_commute': yrot_does_not,
+        'two_conventions_agree': equivalent,
+        'pass': bool(is_yrot and fiber_commutes and yrot_does_not
+                     and equivalent),
     }
 
 
@@ -400,11 +500,14 @@ def test_T7_consequences() -> dict:
          'status': 'RETRACTED as a general claim -- true only for the '
                    'fiber x sigma_x pairing. Under the other two the '
                    'marginals are |cos 2 beta|, up to 0.866.'},
-        {'claim': "'the measurement algebra is too small'",
-         'status': 'WRONG DIAGNOSIS -- the generated algebra is all of '
-                   'M_2(C). What is restricted is the dialable set of '
-                   'settings, which for the fully derived pairing is a '
-                   'single point.'},
+        {'claim': "this probe's own first answer: 'the algebra is full, so "
+                  "the algebra is not the restriction'",
+         'status': 'CORRECTED -- that was computed for the fiber x sigma_x '
+                   'pairing only. Per pairing, the DERIVED one generates '
+                   'span_C{I, sigma_z}: complex dimension 2 and ABELIAN. '
+                   'For the pairing that matters the algebra IS the '
+                   'restriction, and its commutativity is what forces '
+                   'CHSH = 2.'},
         {'claim': "BAM's Bell violation (#206/#209)",
          'status': 'NOT REFUTED, BUT LOCATED -- it requires exactly one '
                    'ingredient the repo has not derived. With the derived '
@@ -462,9 +565,18 @@ def test_T8_assessment(results: dict) -> dict:
             "which winding superselection would forbid."
         ),
         'established': [
-            'the generated measurement algebra is all of M_2(C) (dimension '
-            "4) -- 'the algebra is too small' is the wrong diagnosis; the "
-            'dialable set is what is restricted',
+            'the generated *-algebra, computed PER PAIRING: the fully '
+            'derived one (fiber U(1) x sigma_z) has accessible real dim 1 '
+            'and generates exactly span_C{I, sigma_z} -- complex dim 2, '
+            'ABELIAN -- while both violating pairings generate all of '
+            'M_2(C) (complex dim 4, non-abelian)',
+            'so the CHSH = 2 of the derived pairing is forced by '
+            'COMMUTATIVITY, not merely observed: a commutative observable '
+            'algebra admits a joint distribution, hence an LHV model',
+            '`measurement_sector_probe._rot` imported and tested DIRECTLY '
+            '(not reimplemented) is exp(-i th sigma_y/2) to 0.0e+00; and '
+            'rotating the state (what the code does) equals conjugating the '
+            'observable (what this probe does) to 0.0e+00',
             "the committed `_rot` is exp(-i th sigma_y/2), a y-rotation, not "
             'the fiber-frame rotation diag(e^{i th}, e^{-i th}) the docs '
             'describe (verified to 0.0e+00)',
@@ -496,10 +608,10 @@ def test_T8_assessment(results: dict) -> dict:
         ],
         'tests_passed': f'{passed}/{total}',
         'verdict_class': (
-            'THE_ALGEBRA_IS_FULL_BUT_THE_DIALABLE_SET_IS_NOT_AND_THE_ONLY_'
-            'PAIRING_OF_A_DERIVED_SETTING_WITH_A_DERIVED_DETECTOR_GIVES_CHSH_'
-            'EXACTLY_TWO_SO_THE_VIOLATION_RESTS_ON_WINDING_SECTOR_COHERENCE_'
-            'THAT_IS_NOWHERE_DERIVED'),
+            'THE_DERIVED_PAIRING_GENERATES_ONLY_THE_ABELIAN_ALGEBRA_SPAN_I_'
+            'SIGMA_Z_SO_ITS_CHSH_IS_EXACTLY_TWO_BY_COMMUTATIVITY_AND_BOTH_'
+            'VIOLATING_PAIRINGS_NEED_A_NONABELIAN_ALGEBRA_REQUIRING_WINDING_'
+            'SECTOR_COHERENCE'),
         'pass': self_pass,
     }
 
@@ -507,7 +619,7 @@ def test_T8_assessment(results: dict) -> dict:
 def run_probe() -> dict:
     res: dict = {}
     res['T1'] = test_T1_goal()
-    res['T2'] = test_T2_the_algebra_is_full()
+    res['T2'] = test_T2_generated_algebra_per_pairing()
     res['T3'] = test_T3_two_setting_models()
     res['T4'] = test_T4_trilemma()
     res['T5'] = test_T5_marginals_follow_the_same_fork()
@@ -539,10 +651,20 @@ def render_markdown(s: dict) -> str:
                  f"{r['dialable_span']} | "
                  f"{'**' if r['both_derived'] else ''}{r['max_chsh']:.6f}"
                  f"{'**' if r['both_derived'] else ''} |")
+    o += ["", "## The generated algebra, per pairing", "",
+          "| setting × detector | accessible | algebra | abelian | "
+          "`= span{I,σ_z}` |", "|---|---:|---:|---|---|"]
+    for r in s['T2']['rows']:
+        o.append(f"| {r['setting']} × {r['detector']} | "
+                 f"{r['accessible_real_dim']} | "
+                 f"{r['generated_algebra_complex_dim']} | "
+                 f"{'**yes**' if r['abelian'] else 'no'} | "
+                 f"{'**yes**' if r['equals_span_I_sigma_z'] else 'no'} |")
     o += ["",
-          f"The generated algebra is all of `M₂(C)` (dimension "
-          f"{s['T2']['generated_algebra_dimension']}), so *the algebra is not "
-          "the restriction* — the dialable set is.", "",
+          "The derived pairing generates the **abelian** algebra "
+          "`span{I, σ_z}` — and a commutative observable algebra admits a "
+          "joint distribution, hence an LHV model, hence `CHSH ≤ 2` "
+          "*necessarily*. That is why the 2.000000 above is exact.", "",
           "## The marginals follow the same fork", "",
           "| `β` | `\\|cos 2β\\|` | fiber×σ_z | fiber×σ_x | y-rot×σ_z |",
           "|---:|---:|---:|---:|---:|"]

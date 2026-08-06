@@ -1,6 +1,6 @@
 # Probe K — the detector algebra and the marginals (PR #238)
 
-_Run 2026-08-06T00:20:54.338786+00:00 · 8/8 PASS_
+_Run 2026-08-06T05:57:18.899949+00:00 · 8/8 PASS_
 
 **Q. After #237, correlator coverage is not the problem. What is?**
 
@@ -14,7 +14,15 @@ _Run 2026-08-06T00:20:54.338786+00:00 · 8/8 PASS_
 | fiber U(1) [derived] | sigma_x transverse [assumed by #236/#237] | no | 2 | 2.828427 |
 | y-rotation [in #209 code] | sigma_z winding SG [derived] | no | 2 | 2.828427 |
 
-The generated algebra is all of `M₂(C)` (dimension 4), so *the algebra is not the restriction* — the dialable set is.
+## The generated algebra, per pairing
+
+| setting × detector | accessible | algebra | abelian | `= span{I,σ_z}` |
+|---|---:|---:|---|---|
+| fiber U(1) [derived] × sigma_z winding SG [derived] | 1 | 2 | **yes** | **yes** |
+| fiber U(1) [derived] × sigma_x transverse [assumed by #236/#237] | 2 | 4 | no | no |
+| y-rotation [in #209 code] × sigma_z winding SG [derived] | 2 | 4 | no | no |
+
+The derived pairing generates the **abelian** algebra `span{I, σ_z}` — and a commutative observable algebra admits a joint distribution, hence an LHV model, hence `CHSH ≤ 2` *necessarily*. That is why the 2.000000 above is exact.
 
 ## The marginals follow the same fork
 
@@ -33,4 +41,4 @@ So #237's *identically zero marginals* holds only for the `fiber × σ_x` pairin
 
 ## Verdict
 
-**THE_ALGEBRA_IS_FULL_BUT_THE_DIALABLE_SET_IS_NOT_AND_THE_ONLY_PAIRING_OF_A_DERIVED_SETTING_WITH_A_DERIVED_DETECTOR_GIVES_CHSH_EXACTLY_TWO_SO_THE_VIOLATION_RESTS_ON_WINDING_SECTOR_COHERENCE_THAT_IS_NOWHERE_DERIVED**
+**THE_DERIVED_PAIRING_GENERATES_ONLY_THE_ABELIAN_ALGEBRA_SPAN_I_SIGMA_Z_SO_ITS_CHSH_IS_EXACTLY_TWO_BY_COMMUTATIVITY_AND_BOTH_VIOLATING_PAIRINGS_NEED_A_NONABELIAN_ALGEBRA_REQUIRING_WINDING_SECTOR_COHERENCE**

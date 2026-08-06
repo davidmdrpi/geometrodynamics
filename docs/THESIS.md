@@ -1116,19 +1116,27 @@ correlator coverage is **not** the remaining problem: with convex mixing
 the hull of BAM's tables is the whole quantum body. What remains is the
 **detector marginals** and the **measurement algebra**
 (`docs/detector_algebra_research_plan.md`) — and they are *one*
-question. **THE ALGEBRA IS THE WRONG DIAGNOSIS.** Conjugating a fixed
-detector by the setting group traces a great circle (2-dimensional
-span), but the `*`-algebra those observables **generate** is all of
-`M₂(C)` — dimension **4 of 4**, since a product of two x–y observables
-already produces `σ_z`. Nothing is missing algebraically; what is
-restricted is **which self-adjoint elements are dialable as settings**.
+question. **THE GENERATED ALGEBRA, COMPUTED PER PAIRING.** For the **fully
+derived** pairing — the fiber U(1) setting with the `σ_z` winding
+Stern–Gerlach — the accessible observable set is a **single point** (a
+fiber rotation cannot move a winding-diagonal detector) and the
+`*`-algebra it generates is exactly **`span_C{I, σ_z}`**: complex
+dimension **2**, and **abelian**. That is the real explanation of the
+`CHSH = 2.000000` below, and it is a **theorem rather than an
+observation** — a commutative algebra of observables admits a joint
+distribution, hence a local hidden-variable model, hence `CHSH ≤ 2`
+necessarily. Both violating pairings generate all of `M₂(C)` (complex
+dim 4, non-abelian). *(This corrects the probe's own first answer,
+which computed the algebra for one pairing only.)*
 **THE DOCS AND THE COMMITTED CODE DISAGREE ABOUT WHAT A SETTING IS.**
 The documents describe "the fiber-frame rotation before the device"; a
 rotation of the `χ` fiber multiplies the winding-`k` channel by
 `e^{2πikδ/N}`, so on the `k = ±1` qubit it is `diag(e^{iθ}, e^{−iθ})` —
 a **z-rotation**. But committed `measurement_sector_probe._rot` is
-`[[c,−s],[s,c]] = exp(−iθσ_y/2)` — a **y-rotation**, verified identical
-to **0.0e+00**. The difference is the decisive one: the fiber rotation
+`[[c,−s],[s,c]] = exp(−iθσ_y/2)` — a **y-rotation**, imported **directly**
+from that module and verified identical to **0.0e+00** (and the code's
+state-rotation equals this probe's observable-conjugation to
+**3.3e-16**). The difference is the decisive one: the fiber rotation
 **commutes exactly** with the `σ_z` winding Stern–Gerlach
 (`‖[fiber, σ_z]‖ = 0.00e+00` at every angle) while the y-rotation does
 not. A fiber rotation cannot move a winding-diagonal detector.
