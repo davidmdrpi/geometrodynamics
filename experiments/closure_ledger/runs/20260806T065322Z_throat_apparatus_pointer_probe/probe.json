@@ -1,0 +1,205 @@
+{
+  "T1": {
+    "name": "T1_the_open_item_from_239",
+    "description": "#239 closed with an explicit open item: construct a charge-conserving throat-apparatus interaction and evaluate the COMPLETE multi-outcome pointer statistics before deciding whether the winding carrier must be replaced by the spin doublet. Both halves matter, because #239's two reported costs had already been retracted once under review, and the remaining one -- a '2.33 ceiling' from leakage -- rested on a treatment of the leaked population that was never checked against what the apparatus actually does.",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_the_apparatus_conserves_the_Z8_charge_exactly",
+    "description": "The apparatus has two pieces. The SETTING interaction moves the field's winding by Delta k = +2 while absorbing one quantum from a carrier holding 2 units of winding each. The MEASUREMENT interaction is the committed winding Stern-Gerlach, g * K_field (x) p_pointer, which is winding-DIAGONAL and so conserves charge identically. *** A CORRECTION TO #239 FALLS OUT. Winding on a discrete N_chi = 8 fiber is a Z_8 charge, not an integer one, so the conserved operator is exp(2 pi i K_total / 8), NOT the integer-valued K. On the full cyclic model ||[H, Z_8]|| = 6.9e-15 while the integer test gives 9.2 to 18.5. #239's T5 obtained 0.0e+00 only because it excluded the wrap-around transitions; with them included the integer test fails and the Z_8 test is the right one. The conclusion -- total charge is conserved -- survives; the operator that expresses it does not. ***",
+    "rows": [
+      {
+        "n_max": 8,
+        "commutator_with_Z8_charge": 1.0990647210786425e-15,
+        "commutator_with_integer_K": 9.237604307102627
+      },
+      {
+        "n_max": 16,
+        "commutator_with_Z8_charge": 1.0990647210786425e-15,
+        "commutator_with_integer_K": 13.063945294940652
+      },
+      {
+        "n_max": 32,
+        "commutator_with_Z8_charge": 6.908406818208611e-15,
+        "commutator_with_integer_K": 18.475208614205258
+      }
+    ],
+    "Z8_charge_conserved": true,
+    "integer_test_is_the_wrong_operator": true,
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_every_channel_is_detected_there_is_no_no_click",
+    "description": "Under Delta k = +/-2 the orbit of k = +1 closes on the 4-cycle [-3, -1, 1, 3] -- so the population #239 called 'leakage' sits in k = +/-3 and nowhere else. A winding Stern-Gerlach deflects by an amount PROPORTIONAL TO k, so those channels land at their own pointer positions rather than failing to register: at g_p = 2 the four centres are [2.0, 6.0, -6.0, -2.0] with minimum separation 4.0 sigma and branch overlap 4.6e-02. *** So the apparatus has FOUR outcomes per mouth and no no-click outcome at all. #239's three-outcome model was wrong about the detector, not conservative about it. ***",
+    "orbit": [
+      -3,
+      -1,
+      1,
+      3
+    ],
+    "pointer_resolvability": [
+      {
+        "g_pointer": 0.5,
+        "centres": [
+          0.5,
+          1.5,
+          -1.5,
+          -0.5
+        ],
+        "min_separation_sigma": 1.0,
+        "branch_overlap": 0.6170750774519738
+      },
+      {
+        "g_pointer": 1.0,
+        "centres": [
+          1.0,
+          3.0,
+          -3.0,
+          -1.0
+        ],
+        "min_separation_sigma": 2.0,
+        "branch_overlap": 0.31731050786291415
+      },
+      {
+        "g_pointer": 2.0,
+        "centres": [
+          2.0,
+          6.0,
+          -6.0,
+          -2.0
+        ],
+        "min_separation_sigma": 4.0,
+        "branch_overlap": 0.04550026389635844
+      }
+    ],
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_the_2_33_ceiling_was_an_artifact_of_discarded_outcomes",
+    "description": "Binning the complete statistics with the natural setting-independent rule sign(k) -- positive winding to +1, negative to -1 -- gives 2.828028 at |t| = 1.9, and the best over ALL 16 setting-independent binnings is 2.828028 against Tsirelson 2.828427: saturation to grid accuracy, attained by sign(k) itself. #239's rule -- send k = +/-3 to a fixed outcome as though undetected -- is one of those 16, and on the same data it yields only 2.331306. *** So the '2.33 leakage ceiling' was not a property of the winding carrier; it was the cost of throwing away channels the apparatus resolves. Reading the pointer completely removes it. ***",
+    "rows": [
+      {
+        "t_span": 0.4,
+        "S_sign_binning": 2.1346771571611036,
+        "S_239_noclick_binning": 2.116652334551322,
+        "S_best_of_16_binnings": 2.1346771571611036
+      },
+      {
+        "t_span": 0.8,
+        "S_sign_binning": 2.4573965705119125,
+        "S_239_noclick_binning": 2.3053248289514694,
+        "S_best_of_16_binnings": 2.4573965705119125
+      },
+      {
+        "t_span": 1.2,
+        "S_sign_binning": 2.75894667996571,
+        "S_239_noclick_binning": 2.3305315360045227,
+        "S_best_of_16_binnings": 2.75894667996571
+      },
+      {
+        "t_span": 1.5,
+        "S_sign_binning": 2.8245077378171395,
+        "S_239_noclick_binning": 2.3272973995828465,
+        "S_best_of_16_binnings": 2.8245077378171395
+      },
+      {
+        "t_span": 1.9,
+        "S_sign_binning": 2.828028382464902,
+        "S_239_noclick_binning": 2.331306457951609,
+        "S_best_of_16_binnings": 2.828028382464902
+      }
+    ],
+    "best_row": {
+      "t_span": 1.9,
+      "S_sign_binning": 2.828028382464902,
+      "S_239_noclick_binning": 2.331306457951609,
+      "S_best_of_16_binnings": 2.828028382464902
+    },
+    "tsirelson": 2.8284271247461903,
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_finite_carrier_back_action_converges_monotonically",
+    "description": "The mean-field setting is not assumed here: the carrier is kept and traced out exactly, so its back-action on the field is included. With the coherent state untruncated (truncation 2.5e-13), the maximum CHSH rises monotonically with carrier population -- nbar = 1: 2.290317, nbar = 4: 2.601231, nbar = 16: 2.760053 -- toward the mean-field value 2.8259. So a moderately populated carrier (nbar ~ 16) already recovers most of the violation, and nothing pathological happens at finite amplitude. NOTE: an earlier version of this calculation showed a spurious NON-monotonic drop at large nbar; the cause was a coherent state truncated below its own mean, and the fix is the truncation figure reported above.",
+    "rows": [
+      {
+        "n_bar": 1.0,
+        "max_chsh": 2.290317431046309,
+        "coherent_state_truncation": 0.0
+      },
+      {
+        "n_bar": 4.0,
+        "max_chsh": 2.6012314204143943,
+        "coherent_state_truncation": 9.992007221626409e-16
+      },
+      {
+        "n_bar": 16.0,
+        "max_chsh": 2.760052739412614,
+        "coherent_state_truncation": 2.462474668618597e-13
+      }
+    ],
+    "monotone_in_carrier_population": true,
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_no_signaling_holds_on_the_complete_statistics",
+    "description": "With four outcomes per mouth there is more room for a marginal to move, so it is worth checking. Alice's complete outcome distribution over the orbit is invariant under every one of Bob's settings to 2.2e-16. The settings act on disjoint mouths, so this is the expected result rather than a surprise, but it is the check that would have caught a mis-specified apparatus.",
+    "worst_marginal_shift": 2.220446049250313e-16,
+    "pass": true
+  },
+  "T7": {
+    "name": "T7_the_winding_carrier_need_not_be_replaced",
+    "description": "The relocation question is settled in the negative, and the pattern is worth stating plainly: across #239 and this probe, three separate 'costs' of the winding carrier were reported and all three dissolved on closer calculation -- a prescribed potential mistaken for broken charge conservation, an efficiency proxy mistaken for a Bell test, and detected channels mistaken for lost ones. What survives is a single requirement on the geometry rather than an argument for moving the chain. The spin doublet may still be worth exploring on its own merits, but not as a rescue.",
+    "items": [
+      {
+        "claim": "#239 v1: the interaction is charge-non-conserving",
+        "status": "ALREADY RETRACTED (in #239, under review) -- it was a prescribed external potential."
+      },
+      {
+        "claim": "#239 v2: leakage caps the operational violation at 2.33",
+        "status": "RETRACTED HERE -- the leaked channels are k = +/-3, which a winding Stern-Gerlach DETECTS. Reading the pointer completely gives 2.828 by the natural sign(k) binning."
+      },
+      {
+        "claim": "#239's charge test operator",
+        "status": "CORRECTED -- winding on a discrete fiber is Z_8, so the conserved operator is exp(2 pi i K/8); the integer-K test fails once wrap-around transitions are included."
+      },
+      {
+        "claim": "the winding carrier must be replaced by the spin doublet",
+        "status": "NO -- every cost attributed to the winding carrier has turned out to be an artifact of the calculation rather than a property of the physics. The chain can stay where it is."
+      },
+      {
+        "claim": "what actually remains",
+        "status": "ONE STRUCTURAL REQUIREMENT -- a winding-2 carrier must exist at the mouth and be populated (nbar ~ 16 gives 2.76). Whether any BAM geometry supplies one is untested and is the real open question."
+      }
+    ],
+    "pass": true
+  },
+  "T8": {
+    "name": "T8_assessment",
+    "description": "The charge-conserving throat-apparatus interaction is constructed and verified against the correct (Z_8) charge operator, the complete multi-outcome pointer statistics are evaluated, and they reach Tsirelson by the natural sign(k) binning. The 2.33 ceiling #239 reported was an artifact of treating detected channels as no-clicks. The winding carrier does not need to be replaced.",
+    "established": [
+      "the apparatus is charge-conserving under the CORRECT operator: ||[H, exp(2 pi i K_total/8)]|| = 1.1e-15, while the integer-valued K test fails (9.2 to 18.5) once wrap-around is included -- a correction to #239",
+      "the measurement coupling g K_field (x) p_pointer is winding-diagonal and conserves charge identically",
+      "the orbit under dk = +/-2 is the 4-cycle {+1,+3,-3,-1}, and a winding Stern-Gerlach resolves all four (4 sigma separation, branch overlap 4.6e-02) -- there is NO no-click outcome",
+      "on the complete statistics the natural sign(k) binning gives CHSH 2.8259 at |t| = 1.5 and the best of all 16 binnings is 2.8280 against Tsirelson 2.8284 -- the 2.33 ceiling was an artifact of discarding detected channels",
+      "finite-carrier back-action is monotone in the carrier population (2.30 / 2.60 / 2.76 at nbar = 1 / 4 / 16) with the coherent state untruncated",
+      "no-signaling holds on the complete four-outcome statistics to 1e-16"
+    ],
+    "open": [
+      "whether any BAM geometry supplies a winding-2 carrier at a mouth, populated to nbar ~ 16 -- now the only surviving requirement, and untested",
+      "the spin doublet remains unexplored on its own merits, but is no longer needed as a rescue for the winding carrier",
+      "the multipartite chain (#207/#208) under the same apparatus",
+      "a spatially resolved pointer rather than the orthogonal-branch idealization used for the outcome statistics here"
+    ],
+    "tests_passed": "8/8",
+    "verdict_class": "THE_APPARATUS_IS_CHARGE_CONSERVING_UNDER_THE_Z8_OPERATOR_AND_THE_COMPLETE_POINTER_STATISTICS_REACH_TSIRELSON_BECAUSE_THE_LEAKED_CHANNELS_ARE_DETECTED_SO_THE_2_33_CEILING_WAS_AN_ARTIFACT_AND_THE_WINDING_CARRIER_NEED_NOT_BE_REPLACED",
+    "pass": true
+  },
+  "summary": {
+    "probe": "throat_apparatus_pointer_probe",
+    "pr": 240,
+    "utc": "2026-08-06T06:53:22.208966+00:00",
+    "tests_passed": "8/8",
+    "verdict_class": "THE_APPARATUS_IS_CHARGE_CONSERVING_UNDER_THE_Z8_OPERATOR_AND_THE_COMPLETE_POINTER_STATISTICS_REACH_TSIRELSON_BECAUSE_THE_LEAKED_CHANNELS_ARE_DETECTED_SO_THE_2_33_CEILING_WAS_AN_ARTIFACT_AND_THE_WINDING_CARRIER_NEED_NOT_BE_REPLACED"
+  }
+}

@@ -135,6 +135,19 @@ violation at **2.3309** against Tsirelson **2.8284**, conceding roughly
 half the available margin. That is the one cost of the two that review
 left standing.
 
+> **CORRECTION (PR #240).** This ceiling does **not** survive either.
+> The 'leaked' population sits in `k = ±3`, and a winding Stern–Gerlach
+> deflects **proportionally to `k`** — so those channels are *detected*
+> at their own pointer positions (4.0σ separation), not lost. Treating
+> them as no-click was wrong about the detector. On the complete
+> four-outcome statistics the natural `sign(k)` binning gives CHSH
+> **2.828028** — Tsirelson to grid accuracy — and the no-click binning
+> used above is simply one lossy choice among the 16. Also corrected
+> there: §4's charge test used the integer `K`, but winding on a discrete
+> fiber is **Z₈**; the right operator is `exp(2πiK/8)`, and §4's
+> `0.0e+00` held only because wrap-around transitions were excluded.
+> See `docs/throat_apparatus_pointer_research_plan.md`.
+
 ## 6. What this settles
 
 | claim | status |
