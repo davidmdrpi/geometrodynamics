@@ -1,0 +1,233 @@
+{
+  "T1": {
+    "name": "T1_goal_the_detector_marginals_and_the_measurement_algebra",
+    "description": "#237 established that correlator coverage is NOT the remaining problem: once convex mixing is allowed, the hull of BAM's tables is the whole quantum body. What remains is the detector marginals and the measurement algebra. This probe makes both precise -- and finds they are one question, whose answer is that the Bell violation rests on an ingredient the program has not derived.",
+    "pass": true
+  },
+  "T2": {
+    "name": "T2_the_derived_pairing_generates_only_span_I_sigma_z",
+    "description": "The generated *-algebra, computed SEPARATELY for each pairing rather than once and generalised. *** FOR THE FULLY DERIVED PAIRING -- the fiber U(1) setting with the sigma_z winding Stern-Gerlach -- the accessible observable set is a single point (real dim 1: a fiber rotation cannot move a winding-diagonal detector), and the *-algebra it generates is exactly span_C{I, sigma_z}: complex dimension 2, and ABELIAN. *** That is the real explanation of the CHSH = 2 in T4, and it is a theorem rather than an observation: a COMMUTATIVE algebra of observables admits a joint distribution over all of them at once, hence a local hidden-variable model, hence CHSH <= 2 necessarily. The other two pairings generate all of M_2(C) (complex dimension 4, non-abelian), which is what makes a violation possible at all. NOTE this corrects an overstatement in the first version of this probe, which computed the generated algebra only for the fiber x sigma_x pairing, found dimension 4, and concluded 'the algebra is not the restriction'. For the pairing that matters the algebra IS the restriction, and it is abelian.",
+    "rows": [
+      {
+        "setting": "fiber U(1) [derived]",
+        "detector": "sigma_z winding SG [derived]",
+        "both_derived": true,
+        "accessible_real_dim": 1,
+        "generated_algebra_complex_dim": 2,
+        "abelian": true,
+        "equals_span_I_sigma_z": true
+      },
+      {
+        "setting": "fiber U(1) [derived]",
+        "detector": "sigma_x transverse [assumed by #236/#237]",
+        "both_derived": false,
+        "accessible_real_dim": 2,
+        "generated_algebra_complex_dim": 4,
+        "abelian": false,
+        "equals_span_I_sigma_z": false
+      },
+      {
+        "setting": "y-rotation [in #209 code]",
+        "detector": "sigma_z winding SG [derived]",
+        "both_derived": false,
+        "accessible_real_dim": 2,
+        "generated_algebra_complex_dim": 4,
+        "abelian": false,
+        "equals_span_I_sigma_z": false
+      }
+    ],
+    "derived_algebra_is_span_I_sigma_z": true,
+    "derived_algebra_is_abelian": true,
+    "pass": true
+  },
+  "T3": {
+    "name": "T3_the_committed_rot_imported_directly_is_a_y_rotation",
+    "description": "`measurement_sector_probe._rot` is imported and tested DIRECTLY here -- not reimplemented -- so the comparison is against the code the repo actually runs. It is exp(-i th sigma_y / 2), a Y-ROTATION, identical to 0.0e+00 at every angle tested. The documents instead describe the setting as 'the fiber-frame rotation before the device', which on the k = +/-1 qubit is diag(e^{i th}, e^{-i th}) -- a z-rotation. The difference is the decisive one: the fiber rotation COMMUTES EXACTLY with the sigma_z winding detector (0.00e+00 at every angle) while the committed _rot does not (up to 1.95). A fiber rotation cannot move a winding-diagonal detector. METHOD CHECK: the committed code applies the setting by rotating the STATE, while this probe conjugates the OBSERVABLE; the two are verified to give identical correlators (max difference 3.3e-16), so nothing in the comparison turns on that choice.",
+    "rows": [
+      {
+        "theta": 0.3,
+        "ms_rot_minus_exp_minus_i_theta_sy_over_2": 0.0,
+        "commutator_ms_rot_with_sigma_z": 0.29887626494719843,
+        "commutator_fiber_with_sigma_z": 0.0
+      },
+      {
+        "theta": 0.7,
+        "ms_rot_minus_exp_minus_i_theta_sy_over_2": 0.0,
+        "commutator_ms_rot_with_sigma_z": 0.6857956149109027,
+        "commutator_fiber_with_sigma_z": 0.0
+      },
+      {
+        "theta": 1.1,
+        "ms_rot_minus_exp_minus_i_theta_sy_over_2": 0.0,
+        "commutator_ms_rot_with_sigma_z": 1.0453744578613184,
+        "commutator_fiber_with_sigma_z": 0.0
+      },
+      {
+        "theta": 2.7,
+        "ms_rot_minus_exp_minus_i_theta_sy_over_2": 0.0,
+        "commutator_ms_rot_with_sigma_z": 1.9514467156533182,
+        "commutator_fiber_with_sigma_z": 0.0
+      }
+    ],
+    "state_rotation_vs_observable_conjugation": [
+      {
+        "a": 0.0,
+        "b": 0.7853981633974483,
+        "rotate_state": -0.7071067811865474,
+        "conjugate_observable": -0.7071067811865474,
+        "difference": 0.0
+      },
+      {
+        "a": 0.3,
+        "b": 1.1,
+        "rotate_state": -0.6967067093471648,
+        "conjugate_observable": -0.6967067093471652,
+        "difference": 3.3306690738754696e-16
+      },
+      {
+        "a": 2.0,
+        "b": 0.5,
+        "rotate_state": -0.07073720166770302,
+        "conjugate_observable": -0.07073720166770305,
+        "difference": 2.7755575615628914e-17
+      }
+    ],
+    "ms_rot_is_a_y_rotation": true,
+    "fiber_commutes_with_winding_detector": true,
+    "ms_rot_does_not_commute": true,
+    "two_conventions_agree": true,
+    "pass": true
+  },
+  "T4": {
+    "name": "T4_the_only_fully_derived_pairing_gives_CHSH_exactly_two",
+    "description": "Maximum CHSH on the committed #206 singlet, by (setting, detector). *** THE ONLY PAIRING IN WHICH BOTH INGREDIENTS ARE PHYSICALLY DERIVED BY THIS REPOSITORY -- the fiber U(1) setting with the sigma_z winding Stern-Gerlach -- gives 2.000000, exactly the local bound. No Bell violation at all. *** And the reason is visible in the dialable span: it is 1, a single point, because a fiber rotation cannot move a winding-diagonal detector, so the setting does nothing. The other two pairings do violate (2.828, 2.828), and each contains exactly one ingredient the repo has not derived: a transverse detector, or a winding-mixing setting.",
+    "rows": [
+      {
+        "setting": "fiber U(1) [derived]",
+        "detector": "sigma_z winding SG [derived]",
+        "setting_derived": true,
+        "detector_derived": true,
+        "both_derived": true,
+        "max_chsh": 2.000000000000001,
+        "dialable_span": 1
+      },
+      {
+        "setting": "fiber U(1) [derived]",
+        "detector": "sigma_x transverse [assumed by #236/#237]",
+        "setting_derived": true,
+        "detector_derived": false,
+        "both_derived": false,
+        "max_chsh": 2.828427124746191,
+        "dialable_span": 2
+      },
+      {
+        "setting": "y-rotation [in #209 code]",
+        "detector": "sigma_z winding SG [derived]",
+        "setting_derived": false,
+        "detector_derived": true,
+        "both_derived": false,
+        "max_chsh": 2.8284271247461907,
+        "dialable_span": 2
+      }
+    ],
+    "pass": true
+  },
+  "T5": {
+    "name": "T5_the_zero_marginal_claim_of_237_is_model_dependent",
+    "description": "#237 reported 'identically zero marginals, immune to convex mixing' as its one surviving falsifiable content. That measurement was made with the fiber x sigma_x pairing, and it is correct there (max |<A>| < 1e-12 at every beta). But under the other two pairings the marginals are NOT zero: they are |cos 2 beta| exactly (0.866 at beta = pi/12, matching to 1e-6). *** So the zero-marginal restriction is an artifact of one of three modelling choices, and is RETRACTED as a general claim about BAM -- it holds only for the transverse-detector model. #237's falsifiable content was therefore contingent on the same undetermined choice that T4 shows the Bell violation itself hangs on. The marginals and the algebra are one question, not two. ***",
+    "rows": [
+      {
+        "beta": 0.261799,
+        "cos_2beta": 0.8660254037844387,
+        "fiber_x_sigma_z": 0.8660254037844407,
+        "fiber_x_sigma_x": 0.0,
+        "y-rotation_x_sigma_z": 0.8660254037844405
+      },
+      {
+        "beta": 0.392699,
+        "cos_2beta": 0.7071067811865476,
+        "fiber_x_sigma_z": 0.7071067811865507,
+        "fiber_x_sigma_x": 0.0,
+        "y-rotation_x_sigma_z": 0.7071067811865506
+      },
+      {
+        "beta": 0.523599,
+        "cos_2beta": 0.5000000000000001,
+        "fiber_x_sigma_z": 0.5000000000000039,
+        "fiber_x_sigma_x": 0.0,
+        "y-rotation_x_sigma_z": 0.5000000000000038
+      },
+      {
+        "beta": 0.785398,
+        "cos_2beta": 6.123233995736766e-17,
+        "fiber_x_sigma_z": 4.188333650162872e-15,
+        "fiber_x_sigma_x": 0.0,
+        "y-rotation_x_sigma_z": 4.172978366180842e-15
+      }
+    ],
+    "transverse_pairing_gives_zero": true,
+    "other_pairings_give_cos_2beta": true,
+    "pass": true
+  },
+  "T6": {
+    "name": "T6_both_missing_ingredients_are_winding_sector_coherence",
+    "description": "The two non-derived ingredients of T4 are the same physical requirement. sigma_x in the winding basis is purely off-diagonal between k = +1 and k = -1 (|<+1|sigma_x|-1>| = 1.0) -- a coherence between distinct topological charges -- and the y-rotation setting mixes those same sectors (off-diagonal element 0.479 at th = 1). So the one thing BAM must supply is an operation OR observable that coherently connects distinct winding sectors. *** And if winding is superselected that is unavailable: restricting both parties to k-diagonal dichotomic observables gives max CHSH = 2.000000, exactly the local bound, over 4000 random draws. The repo already carries a superselection structure in this sector -- #208's charged-GHZ zero-sum no-go -- and nothing in it has been reconciled with the Bell chain. *** This is not a proof that BAM's violation fails; it is the identification of the single unresolved requirement it rests on.",
+    "max_chsh_under_winding_superselection": 1.9999999999999998,
+    "sigma_x_offdiagonal": 1.0,
+    "y_rotation_offdiagonal_at_theta_1": 0.479425538604203,
+    "pass": true
+  },
+  "T7": {
+    "name": "T7_consequences",
+    "description": "The deliverable is a single well-posed requirement rather than another coverage number. BAM's Bell chain needs a mouth operation or observable that coherently connects distinct winding sectors; supply that and both the violation and the marginals follow, and the #208 superselection structure has to be reconciled with it. Until then the honest statement is that the violation is carried by a modelling choice rather than by the geometry, and that #237's falsifiable content was contingent on the same choice. The natural next step is to ask whether the transported-frame / spin doublet (#192/#197 Berger-squash, named in #209 as the analogous device for the OTHER carrier) supplies the missing operation for a carrier that is not winding -- which would relocate the whole Bell chain off the winding qubit.",
+    "items": [
+      {
+        "claim": "#237: 'the implemented readout has identically zero marginals, and this survives mixing -- the whole of the probe's falsifiable content'",
+        "status": "RETRACTED as a general claim -- true only for the fiber x sigma_x pairing. Under the other two the marginals are |cos 2 beta|, up to 0.866."
+      },
+      {
+        "claim": "this probe's own first answer: 'the algebra is full, so the algebra is not the restriction'",
+        "status": "CORRECTED -- that was computed for the fiber x sigma_x pairing only. Per pairing, the DERIVED one generates span_C{I, sigma_z}: complex dimension 2 and ABELIAN. For the pairing that matters the algebra IS the restriction, and its commutativity is what forces CHSH = 2."
+      },
+      {
+        "claim": "BAM's Bell violation (#206/#209)",
+        "status": "NOT REFUTED, BUT LOCATED -- it requires exactly one ingredient the repo has not derived. With the derived setting and the derived detector, CHSH = 2.000000."
+      },
+      {
+        "claim": "the docs and the code agree on what a setting is",
+        "status": "FALSE -- the docs say fiber-frame rotation (diag(e^{i th}, e^{-i th})), the code applies exp(-i th sigma_y / 2). For the winding carrier these differ, and only the second violates Bell."
+      }
+    ],
+    "pass": true
+  },
+  "T8": {
+    "name": "T8_assessment",
+    "description": "The measurement algebra is full; what is restricted is which self-adjoint elements can be dialed. The repo's documents and its committed code disagree about what a setting is, and the disagreement is decisive: with the fiber rotation the docs describe and the winding detector #209 derives, the setting commutes with the detector, the dialable set is a single point, and CHSH is exactly 2. Both ways of restoring the violation require coherence between distinct winding sectors, which winding superselection would forbid.",
+    "established": [
+      "the generated *-algebra, computed PER PAIRING: the fully derived one (fiber U(1) x sigma_z) has accessible real dim 1 and generates exactly span_C{I, sigma_z} -- complex dim 2, ABELIAN -- while both violating pairings generate all of M_2(C) (complex dim 4, non-abelian)",
+      "so the CHSH = 2 of the derived pairing is forced by COMMUTATIVITY, not merely observed: a commutative observable algebra admits a joint distribution, hence an LHV model",
+      "`measurement_sector_probe._rot` imported and tested DIRECTLY (not reimplemented) is exp(-i th sigma_y/2) to 0.0e+00; and rotating the state (what the code does) equals conjugating the observable (what this probe does) to 0.0e+00",
+      "the committed `_rot` is exp(-i th sigma_y/2), a y-rotation, not the fiber-frame rotation diag(e^{i th}, e^{-i th}) the docs describe (verified to 0.0e+00)",
+      "the fiber rotation commutes EXACTLY with the sigma_z winding detector (0.0e+00), so under the described setting the dial does nothing: dialable span 1",
+      "CHSH by pairing: fiber x sigma_z (both derived) = 2.000000; fiber x sigma_x = 2.828; y-rotation x sigma_z = 2.828 -- the violation requires exactly one non-derived ingredient",
+      "#237's zero-marginal claim holds only for the fiber x sigma_x pairing; under the others the marginals are |cos 2 beta| (up to 0.866), so it is retracted as a general claim",
+      "both missing ingredients are the same requirement -- coherence between distinct winding sectors -- and imposing winding superselection gives max CHSH = 2.000000 exactly"
+    ],
+    "open": [
+      "whether any mouth operation or observable in BAM coherently connects distinct winding sectors; supplying that settles both the violation and the marginals at once",
+      "how #208's charged-GHZ superselection structure is to be reconciled with a Bell chain that requires exactly the coherence it removes",
+      "whether relocating the Bell chain onto the transported-frame / spin doublet (#192/#197 Berger-squash, named in #209 as the device for that carrier) avoids the problem -- untested here",
+      "this is the two-input two-output winding sector on one lattice; the multipartite chain (#207/#208) is not analysed"
+    ],
+    "tests_passed": "8/8",
+    "verdict_class": "THE_DERIVED_PAIRING_GENERATES_ONLY_THE_ABELIAN_ALGEBRA_SPAN_I_SIGMA_Z_SO_ITS_CHSH_IS_EXACTLY_TWO_BY_COMMUTATIVITY_AND_BOTH_VIOLATING_PAIRINGS_NEED_A_NONABELIAN_ALGEBRA_REQUIRING_WINDING_SECTOR_COHERENCE",
+    "pass": true
+  },
+  "summary": {
+    "probe": "detector_algebra_probe",
+    "pr": 238,
+    "utc": "2026-08-06T05:57:18.899949+00:00",
+    "tests_passed": "8/8",
+    "verdict_class": "THE_DERIVED_PAIRING_GENERATES_ONLY_THE_ABELIAN_ALGEBRA_SPAN_I_SIGMA_Z_SO_ITS_CHSH_IS_EXACTLY_TWO_BY_COMMUTATIVITY_AND_BOTH_VIOLATING_PAIRINGS_NEED_A_NONABELIAN_ALGEBRA_REQUIRING_WINDING_SECTOR_COHERENCE"
+  }
+}

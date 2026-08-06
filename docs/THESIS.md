@@ -1110,6 +1110,75 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The detector algebra and the marginals — and why the fully derived
+pairing does not violate Bell (PR #238).** #237 established that
+correlator coverage is **not** the remaining problem: with convex mixing
+the hull of BAM's tables is the whole quantum body. What remains is the
+**detector marginals** and the **measurement algebra**
+(`docs/detector_algebra_research_plan.md`) — and they are *one*
+question. **THE GENERATED ALGEBRA, COMPUTED PER PAIRING.** For the **fully
+derived** pairing — the fiber U(1) setting with the `σ_z` winding
+Stern–Gerlach — the accessible observable set is a **single point** (a
+fiber rotation cannot move a winding-diagonal detector) and the
+`*`-algebra it generates is exactly **`span_C{I, σ_z}`**: complex
+dimension **2**, and **abelian**. That is the real explanation of the
+`CHSH = 2.000000` below, and it is a **theorem rather than an
+observation** — a commutative algebra of observables admits a joint
+distribution, hence a local hidden-variable model, hence `CHSH ≤ 2`
+necessarily. Both violating pairings generate all of `M₂(C)` (complex
+dim 4, non-abelian). *(This corrects the probe's own first answer,
+which computed the algebra for one pairing only.)*
+**THE DOCS AND THE COMMITTED CODE DISAGREE ABOUT WHAT A SETTING IS.**
+The documents describe "the fiber-frame rotation before the device"; a
+rotation of the `χ` fiber multiplies the winding-`k` channel by
+`e^{2πikδ/N}`, so on the `k = ±1` qubit it is `diag(e^{iθ}, e^{−iθ})` —
+a **z-rotation**. But committed `measurement_sector_probe._rot` is
+`[[c,−s],[s,c]] = exp(−iθσ_y/2)` — a **y-rotation**, imported **directly**
+from that module and verified identical to **0.0e+00** (and the code's
+state-rotation equals this probe's observable-conjugation to
+**3.3e-16**). The difference is the decisive one: the fiber rotation
+**commutes exactly** with the `σ_z` winding Stern–Gerlach
+(`‖[fiber, σ_z]‖ = 0.00e+00` at every angle) while the y-rotation does
+not. A fiber rotation cannot move a winding-diagonal detector.
+**THE TRILEMMA,** measured on the committed #206 singlet: fiber U(1) ×
+`σ_z` winding SG — *both derived* — **2.000000**, dialable span **1**;
+fiber U(1) × `σ_x` transverse *(assumed by #236/#237)* **2.828427**;
+y-rotation *(the code)* × `σ_z` **2.828427**. *The only pairing in which
+both the setting and the detector are physically derived by this
+repository gives exactly the local bound — no Bell violation at all* —
+because the setting commutes with the detector and the dial does
+nothing. The violation requires **exactly one** non-derived ingredient:
+a transverse detector, or a winding-mixing setting. **THE MARGINALS
+FOLLOW THE SAME FORK, AND THIS CORRECTS #237.** That PR reported
+"identically zero marginals, immune to convex mixing" as its one
+surviving falsifiable content; the measurement used the `fiber × σ_x`
+pairing and is correct **there**, but under the other two the marginals
+are **|cos 2β|** exactly — 0.8660 at `β = π/12`, matching to 1e-6. So
+the zero-marginal restriction is an artifact of one of three modelling
+choices and is **retracted as a general claim about BAM**; #237's
+falsifiable content was contingent on the same undetermined choice the
+violation itself hangs on. **BOTH MISSING INGREDIENTS ARE THE SAME
+REQUIREMENT.** `σ_x` in the winding basis is purely off-diagonal
+between `k = +1` and `k = −1` — a coherence between distinct
+**topological charges** — and the y-rotation mixes those same sectors.
+So BAM must supply *an operation or observable at a mouth that
+coherently connects distinct winding sectors*; and if winding is
+superselected that is unavailable, since restricting both parties to
+`k`-diagonal dichotomic observables gives max CHSH **2.000000** over
+4000 draws. The repo already carries a superselection structure here —
+**#208's charged-GHZ zero-sum no-go** — unreconciled with the Bell
+chain. **WHAT THIS DOES AND DOES NOT SAY:** it does *not* show BAM's
+Bell violation is wrong. It shows the violation rests on one ingredient
+the program has not derived, that the two candidate ingredients are the
+*same* requirement, and that the requirement is in tension with a
+superselection structure committed elsewhere. Naming which single thing
+must be supplied is the deliverable. Scope: the two-input two-output
+**winding** sector on one lattice; the multipartite chain (#207/#208)
+is not analysed. Open: reconciling #208 with the Bell chain; whether
+relocating onto the transported-frame / spin doublet (#192/#197
+Berger-squash, named in #209 as the device for *that* carrier) avoids
+the problem (`detector_algebra_probe`, PR #238).
+
 **Which correlation tables BAM's encoding actually admits — and why
 the first answer was wrong (PR #237).** #236 located the Tsirelson
 ceiling at `B² = I` by probing the CHSH *maximum*. A maximum is one
