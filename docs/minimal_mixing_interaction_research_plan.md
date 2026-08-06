@@ -17,7 +17,10 @@ The obvious next move is to relocate the chain onto the transported-frame
 that the missing interaction should be tested directly** — assuming it
 cannot be had would repeat the error #233 made about the one-throat ring.
 
-**It can be had. It is unique. It works. And it costs charge.**
+**It can be had. It is unique. It works.** And the two costs this document
+first reported were both **overstated** — review caught them, recomputing
+corrected them, and the corrections are §4 and §5 below rather than a
+footnote.
 
 ## 1. It is unique at first order
 
@@ -61,67 +64,94 @@ converts #238's abelian `span{I, σ_z}` into a non-abelian algebra and
 recovers Tsirelson. **So #238's gap is not a no-go.** The question becomes
 what filling it costs.
 
-## 4. Cost 1 — charge conservation
+## 4. Cost 1 — charge: **retracted**
 
-Winding **is** charge in this program (#42–#44, the KK gauge coupling),
-and the committed dynamics conserves it exactly:
+The first version of this document reported
 
 ```
-committed H (handle cut):   ‖[H, K]‖ = 6.6e-16
+committed H (handle cut):   ‖[H, K]‖  = 6.6e-16
 the minimal mixing term:    ‖[V₂, K]‖ = 1.414
 ```
 
-> **The interaction that rescues the Bell chain on the winding carrier is
-> a charge-non-conserving mouth term.**
+and concluded that the interaction is *"a charge-non-conserving mouth
+term"*. **That overstates what the number shows.** A *prescribed external
+potential* breaks the winding of the **throat subsystem treated as
+closed**; it does not show that **total** charge must be abandoned — any
+more than an external magnetic field means angular momentum is not
+conserved. The compensating charge sits in whatever sources the potential.
 
-This is not a technicality to be absorbed later. The fiber U(1) that
-protects winding is *exactly* the symmetry the mixing term must break —
-the same generator cannot both conserve the charge and rotate the qubit.
-They cannot both hold at the same mouth.
+Tested directly. Extend the model with a **carrier** mode holding 2 units
+of winding per quantum, and let the mixing move winding between field and
+carrier. Then `K_total = k_field + 2·n_carrier` is conserved **exactly**:
 
-## 5. Cost 2 — leakage, and the loophole-free window
+| truncation `n_max` | `‖[H_ext, K_total]‖` |
+|---:|---:|
+| 6 | **0.0e+00** |
+| 12 | **0.0e+00** |
+| 20 | **0.0e+00** |
 
-The term also drives population out of the encoded `k = ±1` sector (into
-`k = ±3`), so the settings that rotate the detector also deplete the
-qubit. Treating that leakage conservatively as detection inefficiency and
-applying the standard CHSH bound `S > 4/η − 2`:
+and in the large-amplitude (mean-field) limit the induced field operator
+reproduces the prescribed second harmonic with the **same coefficient
+0.408248** at every `n̄` tested.
 
-| `\|t\|` span | CHSH `S` | `η` | `4/η − 2` | margin |
-|---:|---:|---:|---:|---:|
-| 0.05 | 2.002219 | 0.9995 | 2.0019 | **+0.000350** |
-| 0.20 | 2.035079 | 0.9925 | 2.0300 | **+0.005031** |
-| **0.40** | **2.134938** | **0.9704** | **2.1220** | **+0.012973** |
-| 0.50 | 2.204661 | 0.9540 | 2.1927 | +0.011964 |
-| 0.70 | 2.369812 | 0.9113 | 2.3892 | −0.019371 |
-| 1.20 | 2.760876 | 0.7553 | 3.2958 | −0.534970 |
-| 1.90 | 2.828028 | 0.4697 | 6.5162 | −3.688143 |
+> **So the prescribed term is the mean-field limit of a charge-conserving
+> interaction.** The real cost is a *structural requirement* — a winding-2
+> carrier must exist at the mouth and be in a large-amplitude state — not
+> the loss of a conservation law.
 
-> **A loophole-free window exists** — so this is not a no-go either — **but
-> it is narrow**, positive only for `|t| ≲ 0.6` and peaking at
-> `S = 2.1349` with `η = 0.9704`. **Tsirelson saturation is not in it**: at
-> the span reaching `S = 2.828` the retention has fallen to `0.470` and
-> the threshold is `6.52`.
+## 5. Cost 2 — the Bell window: **retracted and replaced**
 
-**Honest caveat.** The leaked population sits in *other winding channels*
-and is in principle detectable there, so reading it as pure inefficiency
-is the conservative choice, not the only one. A detector resolving
-`k = ±3` would recover some of it — untested here.
+The first version combined an **ideal projected-qubit CHSH** (computed
+with no leakage in it at all) with a **separate leakage proxy**, fed the
+two into `S > 4/η − 2`, and reported *"a narrow loophole-free window
+peaking at S = 2.13"*. **Those are two different experiments, and the
+combination is not a Bell test.**
+
+Computed properly: each mouth has **three outcomes** — a click in `k=+1`,
+a click in `k=−1`, or **no click** when the excitation has left the
+encoded sector. The full winding space is evolved so the leakage is in the
+dynamics rather than bolted on; no-click is assigned to a fixed outcome
+(both assignments tested, and they agree exactly); probabilities are
+verified to normalize to **1.000000000000**.
+
+| `\|t\|` span | `S` **operational** | `S` post-selected | `P(both click)` |
+|---:|---:|---:|---:|
+| 0.2 | **2.032289** | 2.035101 | 0.986741 |
+| 0.4 | **2.117169** | 2.135025 | 0.947838 |
+| 0.6 | **2.222481** | 2.284225 | 0.885839 |
+| 0.8 | **2.306045** | 2.458690 | 0.804739 |
+| **1.0** | **2.330905** | 2.628578 | 0.709620 |
+| 1.2 | **2.330891** | 2.761508 | 0.606212 |
+| 1.5 | **2.328751** | 2.825902 | 0.448355 |
+| 1.9 | **2.326141** | 2.828028 | 0.259820 |
+
+> **The detection-loophole-free violation is real and broad** — above the
+> local bound at *every* span tested — **and stronger than first
+> reported**: 2.3309, not a marginal 2.13. The first version's "narrow
+> window" was an artifact of combining two different calculations.
+
+What survives is only a **ceiling**: leakage caps the operational
+violation at **2.3309** against Tsirelson **2.8284**, conceding roughly
+half the available margin. That is the one cost of the two that review
+left standing.
 
 ## 6. What this settles
 
 | claim | status |
 |---|---|
-| #238's gap is a no-go | **no** — the generator exists, is unique at first order, and restores Tsirelson |
-| the Bell chain can stay on the winding carrier | **only at the price of charge** — `‖[V₂, K]‖ = 1.414` against the committed 6.6e-16 |
-| granting the term, the violation is as strong as the formalism allows | **no** — loophole-free only to `S ≈ 2.13` |
-| relocate the chain to the spin doublet | **recommended, and now quantitatively** |
+| #238's gap is a no-go | **no** — unique generator, restores Tsirelson |
+| *this document's first claim:* "a charge-non-conserving mouth term" | **retracted** — total charge conserved exactly with a winding-2 carrier |
+| *this document's first claim:* "a narrow window peaking at S = 2.13" | **retracted** — the operational value is **2.3309**, and it violates everywhere tested |
+| leakage caps the violation below Tsirelson | **stands** — 2.3309 vs 2.8284, about half the margin |
+| relocate the chain to the spin doublet | **weakened but still reasonable** |
 
-Testing beat assuming: the interaction is real and it works. But both
-costs are structural rather than incidental, and the charge one is
-decisive — which is a clean argument for moving the chain to a carrier
-whose qubit is *not* the charge. That is what the transported-frame / spin
-doublet (#192/#197) offers, and the recommendation now carries numbers
-instead of a preference.
+Testing beat assuming — the interaction is real and does the whole job.
+But **neither cost is what this probe first claimed**: charge conservation
+is *relocated into a carrier* rather than lost, and the Bell violation is
+*broad* rather than marginal. The case for moving the chain to the spin
+doublet is correspondingly **weaker** than the first version argued: it
+now rests on a carrier requirement and a 2.33 ceiling, not on a broken
+conservation law.
 
 ## 7. Tests
 
@@ -131,15 +161,18 @@ instead of a preference.
 | T2 | uniqueness | only `m = 2`; 0.4082 vs exactly 0 |
 | T3 | it is the missing generator | pure `σ_x`, 0.408248, others 1e-16 |
 | T4 | it restores the violation | 2.000000 → **2.828427** |
-| T5 | cost 1: charge | `‖[V₂,K]‖ = 1.414` vs 6.6e-16 |
-| T6 | cost 2: leakage and the window | window exists, best margin +0.0130; Tsirelson outside |
-| T7 | consequences | 1 refuted, 1 priced, 1 bounded, 1 recommended |
+| T5 | **charge: retraction** | subsystem 1.414, but `‖[H_ext,K_total]‖ = 0.0e+00` |
+| T6 | **operational Bell test** | `S = 2.330905`, violates at every span |
+| T7 | consequences after both corrections | 2 retracted, 1 standing, 1 weakened |
 | T8 | assessment | 8/8 |
 
 ## 8. Open
 
-  - Whether a detector resolving `k = ±3` recovers the leaked population
-    and widens the window. The conservative reading is a choice.
+  - Whether a **winding-2 carrier** at a mouth is realizable in any BAM
+    geometry — that, not charge conservation, is what the construction
+    actually requires.
+  - Whether a detector resolving `k = ±3` raises the 2.33 ceiling by
+    recovering the leaked population.
   - **Whether the transported-frame / spin doublet supplies a rotation
     generator without breaking any conservation law** — the relocation
     this probe was run to inform, still untested and now the clear next
@@ -155,7 +188,7 @@ python -m experiments.closure_ledger.minimal_mixing_interaction_probe
 ```
 
 Expected verdict:
-`THE_MINIMAL_MISSING_INTERACTION_IS_THE_SECOND_CHI_HARMONIC_AT_A_MOUTH_WHICH_IS_EXACTLY_PURE_SIGMA_X_ON_THE_QUBIT_AND_RESTORES_CHSH_TO_2_83_BUT_IT_BREAKS_WINDING_CHARGE_CONSERVATION_AND_ONLY_S_2_13_SURVIVES_THE_LEAKAGE_LOOPHOLE_FREE`, 8/8 PASS.
+`THE_MINIMAL_MISSING_INTERACTION_IS_THE_SECOND_CHI_HARMONIC_AND_IT_WORKS_BUT_BOTH_COSTS_WERE_OVERSTATED_TOTAL_CHARGE_IS_CONSERVED_ONCE_THE_WINDING_TWO_CARRIER_IS_INCLUDED_AND_THE_OPERATIONAL_BELL_VALUE_IS_2_33_BROADLY_NOT_A_NARROW_2_13_WINDOW`, 8/8 PASS.
 
 ## 10. Cross-references
 
