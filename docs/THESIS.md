@@ -1110,6 +1110,55 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The minimal missing interaction, tested directly — it exists, and
+both costs first reported were overstated (PR #239).** #238 showed the
+Bell chain needs one undelivered thing: an operation at a mouth
+coherently connecting distinct winding sectors. Rather than relocate to
+the spin doublet on that basis — **assuming the interaction cannot be had
+would repeat the error #233 made about the one-throat ring** — it was
+tested directly
+(`docs/minimal_mixing_interaction_research_plan.md`). **IT IS UNIQUE AT
+FIRST ORDER:** among mouth-localized fiber-angle potentials
+`λ cos(2πmχ/N_χ + φ)` only **m = 2** connects the qubit
+(`|⟨+1|V|−1⟩| = 0.4082`, exactly 0 for m = 1, 3, 4), since the qubit is
+`k = ±1` and the m-th harmonic carries `Δk = m`. So the term is the
+**second χ-harmonic at a mouth** — a **fiber-angle anisotropy**.
+**IT IS EXACTLY THE MISSING GENERATOR:** restricted to the qubit it is
+**pure `σ_x`**, coefficient **0.408248**, `I`/`σ_y`/`σ_z` zero to 1e-16.
+**IT WORKS** — with the derived `σ_z` winding Stern–Gerlach and no
+transverse readout assumed, CHSH goes **2.000000 → 2.828427**. *So
+#238's gap is not a no-go.* **BUT BOTH COSTS THIS PROBE FIRST REPORTED
+WERE OVERSTATED, AND REVIEW CAUGHT THEM.** *Charge — retracted:* the
+first version read `‖[V₂, K]‖ = 1.414` as showing "a charge-non-conserving
+mouth term", but a **prescribed external potential** breaks the winding
+of the **throat subsystem treated as closed**, which is not the loss of
+*total* charge — the compensating charge sits in whatever sources the
+potential. Extend the model with a **winding-2 carrier** and
+`K_total = k_field + 2·n_carrier` is conserved **exactly**
+(`‖[H_ext, K_total]‖ = 0.0e+00`, every truncation), with the mean-field
+limit reproducing the prescribed coupling **0.408248**. The prescribed
+term is therefore the **mean-field limit of a charge-conserving
+interaction**, and the real cost is a **carrier requirement**.
+*The Bell window — retracted and replaced:* the first version combined an
+**ideal projected-qubit CHSH** with a **separate leakage proxy** via
+`S > 4/η − 2` — two different experiments, not a Bell test — and reported
+a narrow window peaking at `S = 2.13`. Computed operationally (three
+outcomes per mouth including **no-click**, full winding space evolved so
+leakage is in the dynamics, fixed assignment with **both** choices
+agreeing, probabilities normalizing to **1.000000000000**): `S = **2.032**`
+at `|t| = 0.2`, **2.117** at 0.4, **2.306** at 0.8, peaking at
+**2.330905** at `|t| = 1.0`, still **2.326** at 1.9 — **above the local
+bound at every span tested**, so the detection-loophole-free violation is
+**broad and stronger** than first claimed. **WHAT SURVIVES** is only a
+**ceiling**: 2.3309 against Tsirelson 2.8284, conceding about half the
+margin. **NET:** testing beat assuming, but neither cost is what was
+first claimed, so the case for relocating the chain to the spin doublet
+is **weakened** — it rests on a carrier requirement and a 2.33 ceiling,
+not on a broken conservation law. Open: whether a winding-2 carrier is
+realizable in any BAM geometry; whether a `k = ±3`-resolving detector
+raises the ceiling; whether the spin doublet avoids either
+(`minimal_mixing_interaction_probe`, PR #239).
+
 **The detector algebra and the marginals — and why the fully derived
 pairing does not violate Bell (PR #238).** #237 established that
 correlator coverage is **not** the remaining problem: with convex mixing
