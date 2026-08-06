@@ -154,6 +154,20 @@ identically. §3a dissolves one of the two restrictions and leaves this one
 completely intact, which makes it the whole of the probe's falsifiable
 content.
 
+> **CORRECTION (PR #238).** The zero-marginal result above is measured
+> with a **transverse** (`σ_x`) detector conjugated by the fiber U(1) —
+> one of three possible (setting, detector) pairings, and the one #236
+> assumed. Under the other two — fiber×`σ_z`, and the y-rotation×`σ_z`
+> that the committed `measurement_sector_probe._rot` actually implements
+> — the marginals are **`|cos 2β|`**, up to **0.866**. So "identically
+> zero marginals" is **not** a general property of BAM and is retracted
+> as one; it holds only for the transverse-detector model. Worse, #238
+> shows that the *fully derived* pairing (fiber U(1) setting with the
+> `σ_z` winding Stern–Gerlach) gives **CHSH = 2.000000** — no Bell
+> violation — so this probe's falsifiable content was contingent on the
+> same undetermined modelling choice the violation itself rests on. See
+> `docs/detector_algebra_research_plan.md`.
+
 ## 5. What this does to #236 — scope, not retraction
 
 | claim | status |
