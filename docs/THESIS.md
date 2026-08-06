@@ -1110,6 +1110,54 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The minimal missing interaction, tested directly — it exists, and it
+costs charge conservation (PR #239).** #238 showed the Bell chain needs
+one undelivered thing: an operation at a mouth coherently connecting
+distinct winding sectors. The obvious move was to relocate the chain onto
+the transported-frame / spin doublet — but **assuming the interaction
+cannot be had would repeat the error #233 made about the one-throat
+ring**, so it was tested directly first
+(`docs/minimal_mixing_interaction_research_plan.md`). **IT IS UNIQUE AT
+FIRST ORDER.** Among mouth-localized fiber-angle potentials
+`λ cos(2πmχ/N_χ + φ)`, only **m = 2** connects the qubit:
+`|⟨+1|V|−1⟩| = 0.4082` against **exactly 0** for m = 1, 3, 4 — the qubit
+is `k = ±1`, so the coupling must carry `Δk = 2` and the m-th harmonic
+carries `Δk = m`. The minimal missing interaction is therefore the
+**second χ-harmonic at a mouth**: physically a **fiber-angle
+anisotropy**, a mouth not round in the fiber direction. **IT IS EXACTLY
+THE MISSING GENERATOR.** Restricted to the qubit it is **pure `σ_x`**
+with coefficient **0.408248**, the `I`/`σ_y`/`σ_z` coefficients zero to
+**1e-16**, and it does not commute with the derived detector
+(`‖[V, σ_z]‖ = 0.4082`). **IT WORKS** — with the derived `σ_z` winding
+Stern–Gerlach and no transverse readout assumed anywhere, max CHSH goes
+**2.000000 → 2.828427**, Tsirelson. *So #238's gap is not a no-go; the
+question is what filling it costs.* **COST 1 — CHARGE.** Winding **is**
+charge (#42–#44), and the committed dynamics conserves it exactly
+(`‖[H, K]‖ = 6.6e-16` with the handle cut) while the mixing term does
+not (`‖[V₂, K]‖ = 1.414`). This is structural, not incidental: **the
+fiber U(1) protecting winding is precisely the symmetry the mixing term
+must break**, so the same generator cannot both conserve the charge and
+rotate the qubit. **COST 2 — LEAKAGE.** The term drives population into
+`k = ±3`, so the settings that rotate the detector deplete the qubit.
+Treating leakage conservatively as detection inefficiency and applying
+`S > 4/η − 2`, the margin is positive only for small spans, peaking at
+**`S = 2.1349`, `η = 0.9704`, margin `+0.0130`**, and turning negative
+beyond `|t| ≈ 0.6`. **A loophole-free window exists — but Tsirelson
+saturation is not in it** (`S = 2.828` needs `η = 0.470` against
+threshold `6.52`). *Caveat:* the leaked population sits in other winding
+channels and is in principle detectable there, so the inefficiency
+reading is conservative rather than forced. **NET.** Testing beat
+assuming: the interaction is real and does the whole job. But both costs
+are structural and the charge one is decisive, which converts *"relocate
+the Bell chain to the spin doublet"* from a hunch into a **quantitative
+recommendation** — on the winding carrier the price is a conservation
+law and the payoff is a margin of `+0.013`, whereas the spin doublet's
+qubit is not the charge and needs no fiber-U(1) breaking to rotate.
+Open: whether a `k = ±3`-resolving detector widens the window; whether
+the spin doublet supplies a rotation generator without breaking any
+conservation law — the relocation this probe was run to inform, still
+untested (`minimal_mixing_interaction_probe`, PR #239).
+
 **The detector algebra and the marginals — and why the fully derived
 pairing does not violate Bell (PR #238).** #237 established that
 correlator coverage is **not** the remaining problem: with convex mixing
