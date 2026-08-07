@@ -1110,6 +1110,56 @@ not screening; the orbitals are the rigid #180 throat-solitons (the
 self-consistent #189 SCF with the Coulomb kernel is the follow-up);
 weak-field, code units (`bam_coulomb_two_throat_hf_probe`, PR #190).
 
+**The charge-conserving apparatus and the complete pointer statistics
+— the winding carrier stands (PR #240).** #239 closed by asking for a
+**charge-conserving throat–apparatus interaction** and the **complete
+multi-outcome pointer statistics** before deciding whether the winding
+carrier must give way to the spin doublet
+(`docs/throat_apparatus_pointer_research_plan.md`). **THE APPARATUS.**
+The *setting* interaction moves the field's winding by `Δk = +2` while
+absorbing one quantum from a **carrier** holding 2 units of winding each;
+the *measurement* interaction is the committed winding Stern–Gerlach
+`g·K_field ⊗ p̂`, winding-**diagonal** and so charge-conserving
+identically. **A CORRECTION TO #239 FALLS OUT:** winding on a discrete
+`N_χ = 8` fiber is a **Z₈** charge, not an integer one, so the conserved
+operator is `exp(2πiK_total/8)` — `‖[H, Z₈]‖ = **1.1e-15**` while the
+integer-`K` test gives **9.24 / 13.06 / 18.48**. #239's T5 obtained
+`0.0e+00` only because it *excluded the wrap-around transitions*; with
+them included the integer test fails outright. The conclusion (total
+charge is conserved) survives; the operator that expresses it does not.
+**EVERY CHANNEL IS DETECTED.** Under `Δk = ±2` the orbit of `k = +1`
+closes on the **4-cycle {+1, +3, −3, −1}**, so the population #239 called
+*leakage* sits in `k = ±3` and nowhere else — and a winding SG deflects
+**∝ k**, so those land at their own pointer positions (at `g_p = 2`:
+centres 2, 6, −6, −2, minimum separation **4.0σ**, branch overlap
+**4.6e-02**). *The apparatus has four outcomes per mouth and no no-click
+outcome at all; #239's three-outcome model was wrong about the detector,
+not conservative about it.* **THE CEILING DISAPPEARS.** Binning the
+complete statistics by the natural setting-independent rule `sign(k)`:
+**2.1347** at `|t| = 0.4`, **2.4574** at 0.8, **2.7589** at 1.2,
+**2.8245** at 1.5, **2.828028** at 1.9 — Tsirelson (2.828427) to grid
+accuracy, and the best of **all 16** setting-independent binnings.
+#239's rule is one of those 16 and yields only **2.33** on the same data.
+*So the "2.33 leakage ceiling" was not a property of the winding carrier
+but the cost of throwing away channels the apparatus resolves.*
+**FINITE-CARRIER BACK-ACTION, EXACT** (carrier kept and traced out, no
+mean-field step): monotone **2.2903 / 2.6012 / 2.7601** at
+`n̄ = 1 / 4 / 16`, converging to the mean-field **2.8245**, coherent-state
+truncation ≤ 2.5e-13; an earlier spurious *non-monotonic* drop was a
+coherent state truncated below its own mean. **NO-SIGNALING** on the
+four-outcome statistics holds to **2.2e-16**. **THE DECISION: the winding
+carrier need NOT be replaced by the spin doublet.** Across #239 and this
+probe, **three separate costs were reported and all three dissolved on
+closer calculation** — a prescribed potential mistaken for broken charge
+conservation, an efficiency proxy mistaken for a Bell test, and detected
+channels mistaken for lost ones. What survives is a single requirement on
+the geometry: a **winding-2 carrier at the mouth, populated to
+`n̄ ≈ 16`**. The spin doublet may still be worth exploring on its own
+merits, but not as a rescue. Open: whether any BAM geometry supplies such
+a carrier; the multipartite chain (#207/#208) under the same apparatus; a
+spatially resolved pointer rather than the orthogonal-branch idealization
+(`throat_apparatus_pointer_probe`, PR #240).
+
 **The minimal missing interaction, tested directly — it exists, and
 both costs first reported were overstated (PR #239).** #238 showed the
 Bell chain needs one undelivered thing: an operation at a mouth
