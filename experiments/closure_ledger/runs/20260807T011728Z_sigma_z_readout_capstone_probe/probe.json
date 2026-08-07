@@ -1,0 +1,239 @@
+{
+  "timestamp_utc": "2026-08-07T01:17:28+00:00",
+  "identification": "The measurement-arc capstone: the geometric object behind sigma_z-sensitive readout is an elliptic mouth (the mean field of a winding-2 condensate), with closed-form coupling (2 - sqrt2) eps e^{i phi0}, an exact quadrupole selection rule, and a parity home in the even sector; classified as operator = derived geometry, occupation = detector structure, orientation = the measurement freedom reduced to one U(1) at the mouth",
+  "executes": "the requested capstone: identify the precise geometric object generating sigma_z-sensitive readout and classify it as derived geometry, additional detector structure, or imported measurement freedom - answered: it factors exactly across all three",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "description": "The measurement-arc capstone: identify the precise geometric object that would generate sigma_z-sensitive readout - readout whose statistics feel the derived fiber U(1) dial, which sigma_z GENERATES and which the derived sigma_z detector cannot feel (Probe K: the abelian trap, CHSH = 2 by commutativity) - and classify the answer as derived geometry, additional detector structure, or imported measurement freedom.  Probes L/M reduced the requirement to one open item: what geometry supplies the winding-2 carrier at the mouth.",
+      "pass": true
+    },
+    {
+      "name": "T2_requirement",
+      "description": "the requirement, imported from the committed K/L/M ledgers: winding superselection caps CHSH at exactly 2 (K); the unique Delta k = 2 mixer is pure sigma_x at coefficient 0.40824829 = 1/sqrt6 (L, machine agreement), taking the derived detector from 2.000000 to Tsirelson; the apparatus conserves the Z8 charge to 1e-15 and no-signaling holds to 2e-16 on the complete statistics (M).  What is left open is exactly the question this capstone answers: the geometry of the carrier",
+      "superselection_cap_K": 1.9999999999999998,
+      "sigma_x_coefficient_L": 0.40824829046689515,
+      "coefficient_vs_1_over_sqrt6": 3.0320745914025338e-12,
+      "chsh_without_with_L": [
+        1.9999999999999996,
+        2.828427124746189
+      ],
+      "z8_commutator_M": 6.908406818208611e-15,
+      "no_signaling_M": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "name": "T3_ellipse_mixer",
+      "description": "THE ELLIPSE IS THE MIXER, IN CLOSED FORM: deforming the mouth fiber circle R(chi) = R0(1 + eps cos(2 chi + phi0)) gives <+1|H|-1> = 2(1 - cos(2 pi/8)) eps e^{i phi0} = (2 - sqrt2) eps e^{i phi0} EXACTLY on the committed N_chi = 8 fiber - linear in the ellipticity, phase = orientation.  The m-pole selection rule is exact at O(eps): an m = 1 (dipole) or m = 3 deformation mixes Delta k = 2 only at O(eps^2); only the QUADRUPOLE connects the k = +-1 qubit.  The precise geometric object is an ELLIPTIC MOUTH - equivalently the mean field of a winding-2 condensate (the L/M carrier), which casts exactly this quadrupole",
+      "closed_form_coefficient": 0.5857864376269049,
+      "equals_2_minus_sqrt2": true,
+      "coefficient_dev": 7.884491729504006e-06,
+      "orientation_phase_dev": 1.9358403475777664e-06,
+      "rows": [
+        {
+          "eps": 0.001,
+          "phi0": 0.0,
+          "offdiag": 0.0005857870234138307,
+          "arg": -6.27401018372012e-14
+        },
+        {
+          "eps": 0.002,
+          "phi0": 0.0,
+          "offdiag": 0.0011715775615593893,
+          "arg": -5.509757759334271e-14
+        },
+        {
+          "eps": 0.001,
+          "phi0": 0.7,
+          "offdiag": 0.0005857875922787701,
+          "arg": 0.7000001674939679
+        },
+        {
+          "eps": 0.002,
+          "phi0": 0.7,
+          "offdiag": 0.0011715821125104554,
+          "arg": 0.7000006699751167
+        }
+      ],
+      "selection_rule": {
+        "1": {
+          "1": 4.443059973708341e-17,
+          "2": 1.7573710286941978e-06,
+          "3": 4.329605982342905e-09
+        },
+        "2": {
+          "1": 3.1031676915590914e-17,
+          "2": 0.0011715790556634969,
+          "3": 4.747174231750869e-17
+        },
+        "3": {
+          "1": 5.721958498152797e-17,
+          "2": 1.7573710285579066e-06,
+          "3": 0.0021647973893560426
+        }
+      },
+      "pass": true
+    },
+    {
+      "name": "T4_parity_home",
+      "description": "THE PARITY HOME: on the committed bridge barrier (v_bridge_half, r_s = 0.3) the #202 parity theorem's two branches, re-derived - odd modes have an EXACT node at the neck (amplitude ~ 1e-10, grid zero; the #221 committed near-neck law re-read), even modes have finite symmetric neck amplitude (2e-3 .. 2e-2, contrast > 1e4).  The winding-2 carrier lives in the EVEN sector - the sector the lepton ladder {1, 3, 5} is parity-EXCLUDED from (#183/#221): the Bell apparatus and the matter spectrum occupy complementary parity sectors of one throat field, so the carrier competes with nothing the matter sector uses",
+      "rows": [
+        {
+          "w2": 0.7275253507363475,
+          "parity": 0.9999999999999977,
+          "neck_amp_over_max": 0.0024626743613031478
+        },
+        {
+          "w2": 0.7275422548444657,
+          "parity": -0.9999999999999978,
+          "neck_amp_over_max": 8.287353415063435e-11
+        },
+        {
+          "w2": 1.9481157764485422,
+          "parity": 0.9999999999999991,
+          "neck_amp_over_max": 0.008818118716760238
+        },
+        {
+          "w2": 1.948319075289543,
+          "parity": -0.9999999999999991,
+          "neck_amp_over_max": 1.9532006165490498e-10
+        },
+        {
+          "w2": 3.7004428772945377,
+          "parity": 1.0000000000000002,
+          "neck_amp_over_max": 0.020820011208330057
+        },
+        {
+          "w2": 3.7015323288303024,
+          "parity": -1.0,
+          "neck_amp_over_max": 9.74691519857353e-12
+        }
+      ],
+      "even_min_neck_amp": 0.0024626743613031478,
+      "odd_max_neck_amp": 1.9532006165490498e-10,
+      "parity_contrast": 12608404.587001644,
+      "committed_odd_node_drift_221": 0.01989192200056955,
+      "pass": true
+    },
+    {
+      "name": "T5_population",
+      "description": "THE POPULATION SCAN (the honest negative): no committed mechanism populates the even winding-2 sector COHERENTLY - the lepton ladder is odd by parity protection, pair creation makes +-1 pairs, the dressing is phase-blind, and vacuum occupation has no phase.  The n_bar ~ 16 condensate M requires (back-action re-read: n_bar = 1 -> 2.29, 4 -> 2.60, 16 -> 2.76 against the infinite-carrier 2.82) is therefore APPARATUS - the Stern-Gerlach magnet of this substrate: physical, geometric, mouth-localized, but detector-supplied, not vacuum-supplied",
+      "committed_sources_scanned": {
+        "lepton_ladder": "odd k in {1, 3, 5} (#183 deck-determinant protection; #221 parity landing) - even sector EMPTY of matter modes",
+        "pair_creation_58": "Sigma c_1 = 0 makes +-1 winding PAIRS - no k = 2 coherent amplitude",
+        "dressing_223": "delta mu is |phi|^2-driven (the stress integral) - PHASE-BLIND, k-diagonal: populates no winding coherence",
+        "vacuum": "thermal/vacuum occupation of the even sector is INCOHERENT - a condensate needs a phase, and no committed dynamics selects one"
+      },
+      "back_action_ledger_M": {
+        "1.0": 2.290317431046309,
+        "4.0": 2.6012314204143943,
+        "16.0": 2.760052739412614
+      },
+      "pass": true
+    },
+    {
+      "name": "T6_phase_dial",
+      "description": "THE PHASE IS THE DIAL: the qubit restriction of the quadrupole at orientation phi is 0.408248 (cos phi sigma_x - sin phi sigma_y) - |coefficient| CONSTANT to 1e-9, angle = -phi exactly, I/sigma_z parts at machine zero - and CHSH with the DERIVED sigma_z detector is Tsirelson at every orientation tested: no orientation is preferred, so the ellipse orientation IS the measurement-basis freedom, physically located at the mouth.  The superselection reconciliation holds on the carrier model: [H, K_total] = 0 exactly, the total-charge distribution is frozen (1e-16) while the REDUCED field state carries winding coherence - the #208 charged no-go is untouched",
+      "rows": [
+        {
+          "phi": 0.0,
+          "c_mag": 0.4082482904668953,
+          "angle": 6.123233995736772e-17
+        },
+        {
+          "phi": 0.5,
+          "c_mag": 0.4082482904668953,
+          "angle": -0.5
+        },
+        {
+          "phi": 1.2,
+          "c_mag": 0.40824829046689515,
+          "angle": -1.2
+        },
+        {
+          "phi": 2.5,
+          "c_mag": 0.40824829046689537,
+          "angle": -2.5
+        },
+        {
+          "phi": 4.0,
+          "c_mag": 0.40824829046689537,
+          "angle": 2.2831853071795862
+        }
+      ],
+      "coefficient_constancy_dev": 3.032296636007459e-12,
+      "identity_sigma_z_parts": 1.1102230246251565e-16,
+      "angle_equals_minus_phi_dev": 0.0,
+      "chsh_at_orientations": [
+        2.8284271247461885,
+        2.8284271247461867,
+        2.8284271247461885
+      ],
+      "tsirelson_dev": 3.552713678800501e-15,
+      "carrier_commutator": 0.0,
+      "field_k_coherence": 0.027235350150519526,
+      "total_charge_drift": 2.7755575615628914e-16,
+      "pass": true
+    },
+    {
+      "name": "T7_classification",
+      "description": "the requested classification, assembled with machine anchors: the object factors EXACTLY across the three categories - operator = derived geometry, occupation = additional detector structure, orientation = the imported measurement freedom reduced to one U(1) and physically located at the mouth",
+      "classification": {
+        "derived_geometry": {
+          "content": "the OPERATOR: the even-parity winding-2 sector with mouth support (the #202 theorem, both branches re-derived); the Delta k = m selection rule making m = 2 unique; the coefficient (1/sqrt6 ledger; (2 - sqrt2) eps closed form); the Z8 bookkeeping with total charge frozen and the #208 no-go intact",
+          "anchors": {
+            "parity_contrast": 12608404.587001644,
+            "selection_rule_exact": true,
+            "closed_form": "(2 - sqrt2) eps e^{i phi0}",
+            "coefficient_1_over_sqrt6_dev": 3.0320745914025338e-12,
+            "total_charge_drift": 2.7755575615628914e-16
+          }
+        },
+        "additional_detector_structure": {
+          "content": "the OCCUPATION: a coherent n_bar ~ 16 condensate of the even winding-2 mode at the detector mouth.  No committed mechanism supplies it (T5 scan): it is the Stern-Gerlach magnet of this substrate - physical and geometric, but apparatus, not vacuum",
+          "anchors": {
+            "back_action_requirement": {
+              "1.0": 2.290317431046309,
+              "4.0": 2.6012314204143943,
+              "16.0": 2.760052739412614
+            },
+            "no_committed_source": true
+          }
+        },
+        "imported_measurement_freedom": {
+          "content": "the ORIENTATION: exactly one U(1) - the ellipse angle / condensate phase.  |coefficient| constant, angle = -phi, Tsirelson at every orientation: the Bloch-sphere freedom of textbook measurement reduces to one physical dial on one quadrupole at the mouth - LOCATED, not eliminated",
+          "anchors": {
+            "coefficient_constancy": 3.032296636007459e-12,
+            "tsirelson_at_all_orientations": 3.552713678800501e-15
+          }
+        }
+      },
+      "the_seam": "The #238 trilemma is factored, not evaded: the \"one non-derived ingredient\" splits exactly as operator (derived geometry) x occupation (detector structure) x orientation (the residual measurement freedom).  What the arc eliminated: all freedom in the OPERATOR content.  What it relocated: the basis choice, from an axiom to a physical angle.  What it left open: why any mouth carries the condensate - the same kind of question as why any lab carries a magnet.",
+      "pass": true
+    },
+    {
+      "name": "T8_honest_scope",
+      "description": "what this capstone does and does not establish",
+      "scope": [
+        "The models are the K/L/M qubit-level lattice models (the #206 (x, chi) lattice), re-used and re-read - not the full 5D throat solve.  The parity-home computation runs on the committed #223/#224 bridge barrier.",
+        "The ellipse-to-potential map is first order in the ellipticity eps; the closed form (2 - sqrt2) eps is the N_chi = 8 discrete-dispersion value (continuum limit: k^2-weighted, same selection rule).",
+        "The occupation n_bar ~ 16 is M's number, re-read, not re-derived; whether throat collisions, accretion of even-sector quanta, or an engineered mouth deformation could supply it is the open successor - this capstone classifies the requirement, it does not populate it.",
+        "The condensate's phase stability (why the dial holds still during a measurement) is the pointer-stability question of the #209/#219 sector, untouched here.",
+        "The classification is of the Bell-chain readout specifically; other observables (energy, position) never needed the quadrupole and are unaffected.",
+        "The #208 charged-GHZ superselection no-go is reconciled, not weakened: total charge is exactly conserved on the carrier model while the field subsystem carries the needed coherence."
+      ],
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
+      "description": "the capstone verdict",
+      "core_green": true,
+      "assessment": "The capstone question has a sharp answer.  The precise geometric object behind sigma_z-sensitive readout is an ELLIPTIC MOUTH - a quadrupole deformation of the mouth's fiber circle, equivalently the mean field of a winding-2 condensate - with a closed-form coupling (2 - sqrt2) eps e^{i phi0}, an exact multipole selection rule that makes the quadrupole unique, and a parity home in the even sector the matter ladder cannot occupy.  The classification is not a choice among the three categories but an exact factorization across them: the operator is DERIVED GEOMETRY, the occupation is ADDITIONAL DETECTOR STRUCTURE (the Stern-Gerlach magnet of this substrate, with M's n_bar ~ 16 as its size), and the orientation is the IMPORTED MEASUREMENT FREEDOM - reduced from a Bloch sphere of axioms to one physical U(1) angle at the detector mouth, with Tsirelson available at every setting of the dial and total charge exactly conserved.  The measurement arc closes with its books balanced: what the geometry gives, what the apparatus must add, and what freedom remains are now three labeled, machine-anchored lines rather than one imported axiom.",
+      "pass": true
+    }
+  ],
+  "n_passed": 9,
+  "n_total": 9,
+  "verdict_class": "THE_OBJECT_IS_AN_ELLIPTIC_MOUTH_THE_QUADRUPOLE_IS_DERIVED_GEOMETRY_ITS_OCCUPATION_IS_DETECTOR_STRUCTURE_AND_ITS_ORIENTATION_IS_THE_MEASUREMENT_FREEDOM_REDUCED_TO_ONE_U1_LOCATED_AT_THE_MOUTH",
+  "verdict": "ESTABLISHED (the argument is in docs/sigma_z_readout_capstone.md).\n\nTHE REQUIREMENT. K/L/M re-read at machine agreement: superselection cap 2.0, mixer coefficient = 1/sqrt6 to 3e-12, CHSH 2.000 -> 2.828427, Z8 conserved 7e-15.\n\nTHE OBJECT. An ELLIPTIC MOUTH: <+1|H|-1> = (2 - sqrt2) eps e^(i phi0) (dev 8e-06, phase 2e-06); the multipole selection rule is exact - only the quadrupole connects the qubit.\n\nTHE PARITY HOME. Odd modes: exact neck node (2e-10); even modes: finite neck amplitude (2e-03); contrast 1e+07 - the carrier lives in the sector the lepton ladder is parity-excluded from.\n\nTHE CLASSIFICATION. Operator = DERIVED GEOMETRY; occupation (n_bar ~ 16, M's back-action ledger) = ADDITIONAL DETECTOR STRUCTURE - no committed source populates the even sector coherently; orientation = the MEASUREMENT FREEDOM, reduced to one U(1): |coefficient| constant to 3e-12, angle = -phi to 0e+00, Tsirelson at every orientation (4e-15), total charge frozen (3e-16) with field coherence 0.027.  The measurement arc closes: what geometry gives, what the apparatus adds, and what freedom remains are three labeled lines, not one axiom."
+}
