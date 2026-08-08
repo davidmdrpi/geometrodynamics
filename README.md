@@ -460,7 +460,12 @@ geometrodynamics/
 │   │   ├── interior.py       # Hayward regular metric, geodesics, horizons
 │   │   ├── entropy.py        # Bekenstein-Hawking from throat counting
 │   │   └── derivation.py     # Condensate → metric via Einstein equations
-│   └── viz/                  # Visualisation (placeholder)
+│   └── viz/                  # Watchable classical wave studies
+│       ├── antipodal_focusing.py  # open disperses vs closed refocuses (#166)
+│       ├── antipodal_crossing.py  # antipodal crossing / absorption events
+│       ├── throat_wavefront.py    # ring wavefronts on a surface with a
+│       │                          #   catenoidal throat (#242)
+│       └── geometry_panels.py     # Hopf / throat / Green / handshake panels
 ├── tests/                    # pytest validation suite
 ├── notebooks/                # Jupyter notebooks (per-topic)
 ├── scripts/                  # Lepton-ladder calibration CLIs
@@ -1131,6 +1136,50 @@ pinned at the normal-ordering floor and sitting right at the DESI DR2 +
 CMB frontier (~60–64 meV) — so the two flagship neutrino observables,
 `m_ββ` (≲ 8 meV) and `Σm_ν` (~60 meV), are a joint, cross-checkable pair
 that current and near-term experiments are now testing.
+
+## Watch the geometry route a wave (PR #242)
+
+Most of the recent arc reached the throat through algebra. `viz/throat_wavefront.py`
+goes back the other way and asks what a classical wave does when the geometry
+alone is allowed to act on it — and every stage of it is watchable.
+
+The surface is a unit S² with both polar caps removed and the mouths joined
+by a catenoidal neck. A `C¹` join (circumference *and* slope continuous)
+fixes the neck from the mouth angle alone, `b = sin a/√(1+cos²a)`,
+`L = 2b·asinh(cos a)`; the neck then has constant `K = −1/b²` and the pieces
+cancel in Gauss–Bonnet, `4π cos a − 4π cos a = 0`, so the glued surface is a
+**torus** (azimuth-preserving gluing) or a **Klein bottle** (reversing). The
+controlled baseline is the same domain, same grid, mouths sealed by a mirror.
+
+With no fitted parameter anywhere, the wave reports the handle:
+
+| finding | measured |
+|---|---|
+| the ring never crosses itself in free flight | single connected front to `t = 1.07`, both topologies |
+| the open/sealed echo delay **is** the neck length | `0.579` vs `L = 0.571` (1.5%) |
+| the open mouth transmits rather than reflects | mirror echo suppressed **95.7%** |
+| a gluing twist aims where the bulk energy lands | antipodal precursor `0.39` ahead of the geodesic focus, `9.7×` the untwisted throat |
+| torus vs Klein bottle is hidden at `τ ∈ {0, π}` | difference `0.0000` there, `~18%` elsewhere |
+
+The last line is the sharpened inner/outer statement: intrinsic spherical
+symmetry and extrinsic orientation asymmetry coexist, and it takes a twist
+that breaks the source's meridian mirror to make the orientation observable.
+
+```bash
+python -m experiments.closure_ledger.geometric_wave_refocusing_probe
+# Verdict: GEOMETRY_ALONE_ROUTES_THE_WAVE  (8/8)
+```
+
+```python
+from geometrodynamics.viz import ThroatWaveSim, plot_wavefront_panel, run_throat_animation
+
+anim = run_throat_animation(ThroatWaveSim(mode="throat", twist_steps=96))
+
+sim = ThroatWaveSim(mode="throat", twist_steps=96); sim.advance_to(1.4)
+plot_wavefront_panel(sim)   # both hemispheres, the neck interior, the map
+```
+
+Full write-up: `docs/geometric_wave_refocusing_research_plan.md`.
 
 ## Quick Start
 
