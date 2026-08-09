@@ -466,6 +466,8 @@ geometrodynamics/
 │       ├── throat_wavefront.py    # bare S2 / sealed mouths / open catenoid
 │       │                          #   throat, on one clock (#242)
 │       ├── radial_caustic.py      # focal geometry: which fronts fold (#243)
+│       ├── warped_sphere.py       # one continuous S2 warped by the solved
+│       │                          #   wave, nested between two shells
 │       └── geometry_panels.py     # Hopf / throat / Green / handshake panels
 ├── tests/                    # pytest validation suite
 ├── notebooks/                # Jupyter notebooks (per-topic)
@@ -1249,6 +1251,50 @@ and refused otherwise — a photon sphere breaks the argument). Nothing here is
 dynamical; no throat is shown forming, which would need backreaction. A
 wavefront caustic is not yet a topological defect of the geometry. Full
 write-up: `docs/ring_caustic_defect_research_plan.md`.
+
+## The geometry itself, restored (one continuous S²)
+
+The archive rendered BAM as **one continuous surface** whose radius carried the
+field, nested between two fixed shells like Russian dolls
+(`archive/geometrodynamics_v39.py`). #242 and #243 replaced that with maps,
+strips and meridional sections — correct, measurable, and no longer the thing
+you could look at. `viz/warped_sphere.py` puts the object back, and this time
+the warp is **solved**:
+
+```
+r(θ, φ, t) = R_mid + Δ · tanh( g · u(θ, φ, t) / u_ref )
+R_inner = 0.74   R_mid = 1.00   R_outer = 1.26
+```
+
+The radii are deliberately the vacuole of `radial_caustic.py`, so the shell that
+module's ring caustic lands on is the same inner doll drawn here.
+
+- **One closed surface.** It carries its own poles and its `φ` seam matches to
+  `2.4e-16` — nothing cut out of it. That is what makes *"a pulse sweeps every
+  point once and fills its own void"* a statement about a closed manifold, and
+  therefore why a **ring** is what a throat needs.
+- **Nested, never touching.** Over a full return the radius stays in
+  `[0.7594, 1.2226]`, clearing the inner doll by `0.0194` and the outer by
+  `0.0374`. `tanh` cannot leave the gap.
+- **The focus is measured.** The deepest deformation sits at geodesic distance
+  `3.141593` from the source — the antipode, to `0.0e+00` — at `t = 2.9814`
+  against `π`. The shortfall is the pulse's own width and shrinks monotonically
+  as the pulse narrows. v39 grew its mound on the frame number instead.
+- **And it rings.** The arrival drives the surface `85.6%` of the way to the
+  outer shell, then inverts and pulls it `79.6%` of the way to the **inner**
+  one — toward the shell the ring caustic lands on.
+
+```bash
+python -m experiments.closure_ledger.warped_sphere_geometry_probe
+# Verdict: THE_SURFACE_ITSELF_CARRIES_THE_WAVE  (6/6)
+
+python scripts/geometrodynamics_v41_warped_sphere.py --still sheet.png
+```
+
+Scope: a *display* of a solved field as a radial displacement of a **fixed**
+surface — not backreaction, so no throat forms here. Sign and amplitude
+ordering survive the display; ratios do not, and the probe says so. Full
+write-up: `docs/warped_sphere_restoration.md`.
 
 ## Quick Start
 
