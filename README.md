@@ -1155,18 +1155,18 @@ fixes it from the mouth angle alone, `b = sin²a`, `L = sin 2a`, and its
 curvature genuinely **varies**: exactly `−1` at each mouth (the sphere's `+1`
 with its sign flipped) deepening to `−1/sin⁴a` at the waist. Each mouth is one
 finite-volume face shared by a sphere cell and a neck cell, so the coupled solve
-conserves its discrete energy to round-off (`~4e-16`).
+conserves its discrete energy to round-off (`~1e-15`).
 
 With no fitted parameter anywhere, the wave reports the handle:
 
 | finding | measured |
 |---|---|
 | the bare front sweeps each point once — a pulse cannot meet itself | 1.5% of the surface sees a second front, **0%** of the source side |
-| a sealed mouth sends a front back home; an open one does not | source-side second fronts: **9.5%** sealed vs **0%** open |
-| the open/sealed echo delay **is** the neck length | `1.0016` vs `L = 0.9975` (0.41%) |
-| of the energy that reaches the mouth, most crosses | transmission **91.9%** at `a = 0.75`, by integrated flux |
-| a gluing twist aims where the bulk energy lands | antipodal precursor `0.469` ahead of the geodesic focus, `9.9×` the untwisted throat |
-| torus vs Klein bottle is hidden at `τ ∈ {0, π}` | difference `0.0000` there, `~0.2` elsewhere |
+| a sealed mouth sends a front back home; an open one does not | source-side second fronts: **9.9%** sealed vs **0%** open |
+| the open/sealed echo delay **is** the neck length | `1.0024` vs `L = 0.9975` (0.49%) |
+| of the energy that reaches the mouth, most crosses | transmission **91.8%** at `a = 0.75`, by integrated flux |
+| a gluing twist aims where the bulk energy lands | antipodal precursor `0.468` ahead of the geodesic focus, `3.2×` the untwisted throat |
+| torus vs Klein bottle is hidden at `τ ∈ {0, π}` | difference `0.0000` there, `~0.3` elsewhere |
 
 Two things worth stating plainly. `∫K dA = −2π[r']` for any surface of
 revolution, so **`χ = 0` tests the `C¹` join and not the profile** — it is not

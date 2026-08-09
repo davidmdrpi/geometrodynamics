@@ -57,10 +57,13 @@ How the two pieces are coupled
 Each mouth is **one finite-volume face shared** by a sphere cell and a neck
 cell.  Its flux is evaluated once and handed to both with opposite signs,
 so the discrete divergence theorem holds across the mouth and the discrete
-energy is conserved to round-off (``energy_drift ~ 1e-16``).  The launch is
+energy is conserved to round-off (``energy_drift ~ 1e-15``).  The launch is
 a purely **outgoing** ring: a cap released from rest is d'Alembert data and
 splits into an outgoing *and* an ingoing front, which would put two fronts
-on the surface for reasons that have nothing to do with the geometry.
+on the surface for reasons that have nothing to do with the geometry.  Its
+zero mode is then pinned — a closed surface has no boundary, so
+``d²/dt² ∫u dA = 0`` and the mean field ramps linearly unless
+``∫u_t dA = 0``, and a one-way launch is a monopole as well as a ring.
 
 What is in here
 ───────────────
@@ -456,8 +459,29 @@ class ThroatWaveSim:
         self.u_prev = np.exp(-(((d + C * self.dt) / w) ** 2))
         self.v = np.zeros((self.n_s, self.n_phi))     # neck field
         self.v_prev = self.v.copy()
+        self._kill_monopole()
         self.t = 0.0
         self._e0 = self.energy()
+
+    def _kill_monopole(self) -> None:
+        """Remove the zero mode from the initial velocity.
+
+        A closed surface has no boundary, so ``d²/dt² ∫u dA = ∫Δu dA = 0``:
+        the mean of the field is a free mode that grows *linearly* whenever
+        ``∫u_t dA ≠ 0``.  A one-way launch has exactly that defect — it is
+        a monopole as well as a ring — and the resulting ramp lifts the
+        whole surface off zero, swamping the wake it is supposed to reveal.
+        Subtracting the area-weighted mean of ``u_t`` leaves the outgoing
+        ring untouched and pins the zero mode.
+        """
+        u_t = (self.u - self.u_prev) / self.dt
+        num = float(np.sum(u_t * self._r)) * self.dth * self.dphi
+        area = float(np.sum(self._r)) * self.n_phi * self.dth * self.dphi
+        if self.mode == "throat":
+            area += float(np.sum(self._q)) * self.n_phi * self.ds * self.dphi
+        m = num / area
+        self.u_prev = self.u_prev + self.dt * m
+        self.v_prev = self.v_prev + self.dt * m
 
     def _geodesic_distance_from_source(self) -> np.ndarray:
         th = self.theta[:, None]
@@ -759,6 +783,12 @@ class BareSphereSim:
         w = self.pulse_width
         s.u = np.exp(-((s.theta / w) ** 2))
         s.u_prev = np.exp(-(((s.theta + s.dt) / w) ** 2))
+        # pin the zero mode: on a closed surface a non-zero ∫u_t dA makes the
+        # mean field ramp linearly and lifts the whole sphere off zero
+        sin = np.sin(s.theta)
+        u_t = (s.u - s.u_prev) / s.dt
+        m = float(np.trapezoid(u_t * sin, s.theta) / np.trapezoid(sin, s.theta))
+        s.u_prev = s.u_prev + s.dt * m
         s.t = 0.0
         self._e0 = self.energy()
 

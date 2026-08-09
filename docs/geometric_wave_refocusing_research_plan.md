@@ -121,8 +121,15 @@ Two further corrections make the diagnostics mean what they say:
   ingoing front, which puts two fronts on the surface for reasons that have
   nothing to do with the geometry.
 
-With both in place the energy drift is `~4×10⁻¹⁶` — round-off — and the
-integrated mouth power closes against the neck's stored energy to 0.3%.
+A third correction belongs with them: a closed surface has no boundary, so
+`d²/dt² ∫u dA = ∫Δu dA = 0` and the field's mean is a free mode that ramps
+**linearly** whenever `∫u_t dA ≠ 0`. A one-way launch has exactly that
+defect — it is a monopole as well as a ring — and the ramp lifts the whole
+surface off zero and swamps the wake it is meant to reveal. Subtracting the
+area-weighted mean of `u_t` pins the zero mode and leaves the ring untouched.
+
+With all three in place the energy drift is `~10⁻¹⁵` — round-off — and the
+integrated mouth power closes against the neck's stored energy to 1.8%.
 
 ## The answer (measured)
 
@@ -143,17 +150,17 @@ Over `t < π`:
 | surface | max arrivals | area with ≥2 | of the source side |
 |---|---:|---:|---:|
 | **bare S²** | 2 | **0.015** | **0.000** |
-| plugged | 3 | 0.243 | **0.095** |
-| throat | 3 | 0.362 | **0.000** |
+| plugged | 4 | 0.312 | **0.099** |
+| throat | 3 | 0.443 | **0.000** |
 
 On a closed surface with no boundary the front is the geodesic circle of
 radius `t`: it sweeps each point exactly once, so it cannot meet itself —
 1.5% of the bare surface ever sees a second front, and that only at the
 antipodal caustic where the front converges and re-expands.
 
-Sealing the mouths puts a second front back toward the source over 9.5% of
+Sealing the mouths puts a second front back toward the source over 9.9% of
 that hemisphere. Opening the throat puts a second front over *more* of the
-surface (36%) but **none of it back home** — the mouth transmits instead of
+surface (44%) but **none of it back home** — the mouth transmits instead of
 reflecting. That is the echo result, resolved in space rather than in time.
 
 ### The echo delay is the neck length
@@ -162,11 +169,11 @@ The two routes share every segment except the crossing:
 
 | route | predicted | measured |
 |---|---:|---:|
-| sealed mirror echo `2(θ₀−a)` | 1.6416 | 1.6017 |
-| open bulk return `2(θ₀−a)+L` | 2.6391 | 2.6033 |
-| **delay = `L`** | **0.9975** | **1.0016** |
+| sealed mirror echo `2(θ₀−a)` | 1.6416 | 1.5956 |
+| open bulk return `2(θ₀−a)+L` | 2.6391 | 2.5980 |
+| **delay = `L`** | **0.9975** | **1.0024** |
 
-0.41%, and 0.4–0.8% across a 2.25× grid refinement. Both absolute times sit
+0.49%, and 0.09–0.49% across a 2.25× grid refinement. Both absolute times sit
 one pulse half-width early — the peak of a finite pulse is not its geodesic
 front — but the bias is common to both and cancels in the delay. **The wave
 measures the throat.**
@@ -182,24 +189,24 @@ the mouth, `through` across the mouth face itself:
 
 | mouth `a` | offered | through | transmission | reflection | peak stored |
 |---:|---:|---:|---:|---:|---:|
-| 0.40 | 0.4729 | 0.3752 | 0.793 | 0.207 | 0.243 |
-| 0.55 | 0.6102 | 0.5276 | 0.865 | 0.135 | 0.343 |
-| 0.75 | 0.7913 | 0.7274 | **0.919** | 0.081 | 0.474 |
-| 0.90 | 0.9283 | 0.8714 | 0.939 | 0.061 | 0.566 |
+| 0.40 | 0.4554 | 0.3596 | 0.790 | 0.210 | 0.236 |
+| 0.55 | 0.5891 | 0.5076 | 0.862 | 0.138 | 0.336 |
+| 0.75 | 0.7645 | 0.7018 | **0.918** | 0.082 | 0.467 |
+| 0.90 | 0.8968 | 0.8408 | 0.937 | 0.063 | 0.558 |
 
 On a closed surface only part of the wave ever reaches the mouth, so the
 total energy is the wrong denominator; `offered` is the right one.
 
 > **Mirror suppression and transmission are different measurements.** The
 > sealed echo's *amplitude* at one watched point and time is suppressed by
-> 72.7% when the throat is opened; the *energy* transmission at the mouth is
-> 91.9%. They are two views of the same fact and must not be quoted
+> 85.5% when the throat is opened; the *energy* transmission at the mouth is
+> 91.8%. They are two views of the same fact and must not be quoted
 > interchangeably — the earlier PR description conflated them.
 
 ### The twist aims the bulk arrival
 
 With `τ = π` the bulk route ends on the antipode at a predicted `2.6391`,
-measured `2.6094` — **0.469 ahead** of the geodesic focus, and **9.9×**
+measured `2.6094` — **0.468 ahead** of the geodesic focus, and **3.2×**
 stronger than the same neck at `τ = 0`, which sends the same energy back to
 the source instead. The geometry, not a coupling constant, decides where it
 lands.
@@ -216,9 +223,9 @@ R∘g = g∘R  ⟺  −(εφ + τ) = ε(−φ) + τ  ⟺  τ ≡ −τ  ⟺  τ 
 | `τ/π` | torus vs Klein difference | mirror broken? |
 |---:|---:|---|
 | 0.000 | 0.0000 | no |
-| 0.250 | 0.1864 | yes |
-| 0.500 | 0.2165 | yes |
-| 0.750 | 0.2051 | yes |
+| 0.250 | 0.2766 | yes |
+| 0.500 | 0.3377 | yes |
+| 0.750 | 0.3201 | yes |
 | 1.000 | 0.0000 | no |
 
 Measurement matches argument to machine precision. The asymmetry is present

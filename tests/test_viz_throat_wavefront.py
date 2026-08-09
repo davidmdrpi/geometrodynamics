@@ -277,7 +277,13 @@ def test_bare_front_crosses_each_point_once_and_never_returns_to_the_source():
 
 @pytest.mark.slow
 def test_a_sealed_mouth_sends_a_front_back_and_an_open_one_does_not():
-    kw = dict(mouth_angle=MOUTH, n_theta=64, n_phi=96, pulse_width=0.2)
+    """At the resolution the claim is made at — the mouth needs resolving.
+
+    On a coarser grid the numerically under-resolved mouth reflects enough
+    to put some second fronts back on the source side even when the throat
+    is open, and the separation degrades to a factor of two.
+    """
+    kw = dict(mouth_angle=MOUTH, n_theta=96, n_phi=128, pulse_width=0.18)
     plugged = measure_arrival_multiplicity(
         ThroatWaveSim(mode="plugged", **kw), math.pi)
     throat = measure_arrival_multiplicity(
