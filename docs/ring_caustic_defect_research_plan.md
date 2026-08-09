@@ -1,4 +1,4 @@
-# Why a throat needs a ring: front topology across the bulk (PR #242)
+# Why a throat needs a ring: front topology across the bulk (PR #243)
 
 > **Framing.** Ray and wavefront geometry on a *fixed classical* vacuole —
 > geometry → field, **not** quantum gravity. Nothing here is dynamical.

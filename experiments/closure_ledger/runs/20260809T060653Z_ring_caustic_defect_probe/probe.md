@@ -1,6 +1,6 @@
-# Why a throat needs a ring: front topology across the bulk (PR #242)
+# Why a throat needs a ring: front topology across the bulk (PR #243)
 
-**Run:** 2026-08-09T05:45:27+00:00
+**Run:** 2026-08-09T06:06:53+00:00
 
 **What kind of wavefront can make a throat?** Answered with the focal-set geometry of wavefronts, in closed form, checked against an independent numerical count — no wave solve. *(Fixed classical vacuole; nothing here is dynamical.)*
 

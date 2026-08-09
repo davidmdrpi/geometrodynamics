@@ -1198,7 +1198,7 @@ plot_wavefront_panel(sim)   # both hemispheres, the neck interior, the map
 
 Full write-up: `docs/geometric_wave_refocusing_research_plan.md`.
 
-## Why a throat needs a ring (PR #242)
+## Why a throat needs a ring (PR #243)
 
 The companion to the wave study above asks the *prior* question — not what a
 wave does on a surface that already has a throat, but **what kind of wavefront

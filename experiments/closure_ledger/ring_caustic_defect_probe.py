@@ -1,5 +1,5 @@
 """
-Why a throat needs a ring: front topology across the bulk (PR #242)
+Why a throat needs a ring: front topology across the bulk (PR #243)
 
 > Framing: ray and wavefront geometry on a *fixed classical* vacuole —
 > geometry → field, not quantum gravity.  Nothing here is dynamical.
@@ -369,7 +369,7 @@ def run_probe() -> dict:
 def render_markdown(s: dict) -> str:
     out: List[str] = []
     g = s["geometry"]
-    out.append("# Why a throat needs a ring: front topology across the bulk (PR #242)")
+    out.append("# Why a throat needs a ring: front topology across the bulk (PR #243)")
     out.append("")
     out.append(f"**Run:** {s['timestamp_utc']}")
     out.append("")
