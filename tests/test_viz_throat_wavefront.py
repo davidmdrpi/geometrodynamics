@@ -1,17 +1,28 @@
 """
 Geometry, physics and rendering tests for the throat-wavefront study.
 
-These pin the load-bearing claims of PR #242 — the catenoidal neck is fixed
-by a ``C¹`` join and closes Gauss–Bonnet at ``χ = 0``; the coupled
-sphere+neck solve conserves energy; a point pulse's front is a single ring
-through free flight; the open-versus-sealed echo delay is the neck
-arclength; and the throat's orientation is invisible exactly at the twist
-offsets that keep a point source's meridian mirror — and check that every
-``draw_*`` panel renders under ``Agg``.
+These pin the load-bearing claims of PR #242:
+
+* the neck is a genuine **catenoid** — ``r = b cosh(z/b)`` to machine
+  precision, with ``b = sin²a`` and ``L = sin 2a`` — whose curvature varies
+  from ``−1`` at each mouth to ``−1/sin⁴a`` at the waist;
+* ``∫K dA`` over a surface of revolution depends only on the boundary
+  slopes, so ``χ = 0`` tests the ``C¹`` join and *not* the profile;
+* the mouths are a single shared finite-volume face, so the coupled solve
+  conserves its discrete energy to round-off;
+* a front on a closed surface with no boundary crosses each point once,
+  while a sealed mouth sends a second front back toward the source and an
+  open one does not;
+* the open/sealed echo delay is the neck arclength;
+* the throat's orientation is invisible exactly where a point source's own
+  meridian mirror survives the gluing;
+
+and that every ``draw_*`` panel renders under ``Agg``.
 """
 
 from __future__ import annotations
 
+import base64
 import math
 
 import matplotlib
@@ -23,6 +34,7 @@ import matplotlib.pyplot as plt
 import pytest
 
 from geometrodynamics.viz import (
+    BareSphereSim,
     ThroatGeometry,
     ThroatWaveSim,
     draw_geometry,
@@ -30,19 +42,20 @@ from geometrodynamics.viz import (
     draw_map,
     draw_neck_strip,
     export_frames,
+    measure_arrival_multiplicity,
     measure_echo_delay,
-    measure_transmission,
+    measure_mouth_budget,
     mirror_symmetry_broken,
     orientation_parity,
     peak_in_window,
     plot_wavefront_panel,
     sphere_image,
     surface_name,
-    track_wavefront,
     watch_point,
-    wavefront_components,
 )
 from geometrodynamics.viz.throat_wavefront import ANTIPODAL_TIME
+
+MOUTH = 0.75
 
 
 @pytest.fixture(autouse=True)
@@ -51,48 +64,96 @@ def _cleanup_figs():
     plt.close("all")
 
 
-# ── geometry: the C¹ join fixes the neck ────────────────────────────────────
-@pytest.mark.parametrize("a", [0.2, 0.5, 0.9, 1.3])
-def test_neck_joins_the_sphere_to_first_order(a):
+# ── the neck is a real catenoid ─────────────────────────────────────────────
+@pytest.mark.parametrize("a", [0.2, 0.5, 0.75, 1.1, 1.4])
+def test_neck_is_exactly_a_catenoid(a):
+    """``r = b cosh(z/b)`` in the axial gauge, to machine precision."""
     g = ThroatGeometry(a)
+    b = g.neck_radius
+    s = np.linspace(0.0, g.length, 4001)
+    r = np.asarray(g.radius(s))
+    z = np.asarray(g.height(s))
+    assert np.max(np.abs(r - b * np.cosh(z / b))) < 1e-12
+
+
+@pytest.mark.parametrize("a", [0.2, 0.5, 0.75, 1.1, 1.4])
+def test_closed_forms_for_waist_and_length(a):
+    g = ThroatGeometry(a)
+    assert g.neck_radius == pytest.approx(math.sin(a) ** 2)
+    assert g.length == pytest.approx(math.sin(2.0 * a))
     assert g.radius(0.0) == pytest.approx(math.sin(a), abs=1e-13)
     assert g.radius_slope(0.0) == pytest.approx(-math.cos(a), abs=1e-13)
-    # and symmetrically at the far mouth
     assert g.radius(g.length) == pytest.approx(math.sin(a), abs=1e-12)
     assert g.radius_slope(g.length) == pytest.approx(math.cos(a), abs=1e-12)
 
 
-@pytest.mark.parametrize("a", [0.2, 0.5, 0.9, 1.3])
-def test_gauss_bonnet_closes_at_chi_zero(a):
-    """Sphere ``+4π cos a`` and neck ``−4π cos a`` cancel: a handle, χ = 0."""
+@pytest.mark.parametrize("a", [0.2, 0.5, 0.75, 1.1])
+def test_curvature_varies_and_is_minus_one_at_the_mouth(a):
+    """The sphere's ``+1`` flips to exactly ``−1``, then deepens to the waist."""
     g = ThroatGeometry(a)
-    assert g.sphere_area == pytest.approx(4.0 * math.pi * math.cos(a))
-    assert g.gauss_curvature * g.area == pytest.approx(-4.0 * math.pi * math.cos(a))
-    assert g.euler_characteristic() == pytest.approx(0.0, abs=1e-10)
-
-
-def test_neck_area_matches_the_numerical_surface_of_revolution():
-    g = ThroatGeometry(0.5)
-    s = np.linspace(0.0, g.length, 20001)
-    area = np.trapezoid(2.0 * math.pi * np.asarray(g.radius(s)), s)
-    assert area == pytest.approx(g.area, rel=1e-8)
-
-
-@pytest.mark.parametrize("a", [0.2, 0.5, 0.9, 1.3])
-def test_neck_is_embeddable_as_a_surface_of_revolution(a):
-    """``|r'| ≤ cos a ≤ 1`` everywhere, so ``z' = √(1−r'²)`` stays real."""
-    g = ThroatGeometry(a)
+    assert g.curvature_at_mouth == pytest.approx(-1.0, abs=1e-12)
+    assert g.curvature_at_waist == pytest.approx(-1.0 / math.sin(a) ** 4)
+    assert g.curvature_at_waist < g.curvature_at_mouth      # strictly deeper
     s = np.linspace(0.0, g.length, 501)
-    assert np.max(np.abs(g.radius_slope(s))) <= 1.0 + 1e-12
-    z = g.height(s)
-    assert np.all(np.isfinite(z))
-    assert np.all(np.diff(z) >= -1e-12)          # monotone along the neck
+    k = np.asarray(g.curvature(s))
+    assert k.min() == pytest.approx(g.curvature_at_waist, rel=1e-6)
+    assert np.ptp(k) > 0.1                                  # genuinely varying
+
+
+@pytest.mark.parametrize("a", [0.2, 0.5, 0.75, 1.1])
+def test_arclength_parametrisation_is_unit_speed(a):
+    g = ThroatGeometry(a)
+    s = np.linspace(0.0, g.length, 20001)
+    dr = np.gradient(np.asarray(g.radius(s)), s)
+    dz = np.gradient(np.asarray(g.height(s)), s)
+    assert np.max(np.abs(dr[5:-5] ** 2 + dz[5:-5] ** 2 - 1.0)) < 1e-5
+    assert np.max(np.abs(g.radius_slope(s))) <= 1.0         # embeddable
+
+
+@pytest.mark.parametrize("a", [0.2, 0.5, 0.75, 1.1])
+def test_neck_area_matches_the_closed_form(a):
+    g = ThroatGeometry(a)
+    s = np.linspace(0.0, g.length, 40001)
+    area = np.trapezoid(2.0 * math.pi * np.asarray(g.radius(s)), s)
+    assert area == pytest.approx(g.area, rel=1e-7)
+
+
+# ── Gauss–Bonnet closes on the join, not on the profile ─────────────────────
+@pytest.mark.parametrize("a", [0.2, 0.5, 0.75, 1.1, 1.4])
+def test_total_curvature_depends_only_on_the_boundary_slopes(a):
+    g = ThroatGeometry(a)
+    s = np.linspace(0.0, g.length, 40001)
+    r = np.asarray(g.radius(s))
+    numeric = np.trapezoid(np.asarray(g.curvature(s)) * 2.0 * math.pi * r, s)
+    assert numeric == pytest.approx(g.neck_total_curvature(), rel=1e-6)
+    assert g.neck_total_curvature() == pytest.approx(-4.0 * math.pi * math.cos(a))
+    assert g.euler_characteristic() == pytest.approx(0.0, abs=1e-12)
+
+
+def test_chi_zero_is_insensitive_to_the_profile():
+    """A different C¹-matched profile closes χ = 0 just as exactly.
+
+    Pins the honest reading of the closure: it constrains the join, so it
+    cannot be quoted as evidence for the catenoid in particular.
+    """
+    a = 0.75
+    g = ThroatGeometry(a)
+    s = np.linspace(0.0, g.length, 40001)
+    # a cubic Hermite profile matching r and r' at both ends
+    x = s / g.length
+    h = (2 * x ** 3 - 3 * x ** 2 + 1) * math.sin(a) + \
+        (x ** 3 - 2 * x ** 2 + x) * (-math.cos(a) * g.length) + \
+        (-2 * x ** 3 + 3 * x ** 2) * math.sin(a) + \
+        (x ** 3 - x ** 2) * (math.cos(a) * g.length)
+    d2 = np.gradient(np.gradient(h, s), s)
+    total = np.trapezoid((-d2 / h) * 2.0 * math.pi * h, s)
+    assert total == pytest.approx(-4.0 * math.pi * math.cos(a), rel=1e-3)
 
 
 def test_bulk_route_is_a_shortcut_and_the_loop_exceeds_the_echo_by_L():
-    g = ThroatGeometry(0.5)
+    g = ThroatGeometry(MOUTH)
     assert g.inner_route < g.outer_route
-    assert g.shortcut_ratio > 3.0
+    assert g.shortcut_ratio > 1.0
     th0 = 0.5 * math.pi
     assert g.throat_loop(th0) - g.mirror_echo(th0) == pytest.approx(g.length)
 
@@ -116,20 +177,34 @@ def test_orientation_parity_names_the_surface():
 
 def test_mirror_survives_exactly_at_tau_zero_and_pi():
     n = 128
-    assert not mirror_symmetry_broken(0, n)          # τ = 0
-    assert not mirror_symmetry_broken(n // 2, n)     # τ = π
+    assert not mirror_symmetry_broken(0, n)
+    assert not mirror_symmetry_broken(n // 2, n)
     assert mirror_symmetry_broken(n // 4, n)
     assert mirror_symmetry_broken(3 * n // 8, n)
 
 
-# ── the solve runs, stays finite, conserves energy ──────────────────────────
+# ── the shared mouth face makes the scheme conservative ─────────────────────
 @pytest.mark.parametrize("mode", ["plugged", "throat"])
-def test_sim_steps_and_conserves_energy(mode):
-    sim = ThroatWaveSim(mode=mode, n_theta=64, n_phi=96, pulse_width=0.2)
-    sim.advance_to(2.5)
-    assert sim.t >= 2.5
+def test_discrete_energy_is_conserved_to_round_off(mode):
+    sim = ThroatWaveSim(mode=mode, mouth_angle=MOUTH, n_theta=64, n_phi=96,
+                        pulse_width=0.22)
+    sim.advance_to(4.0)
     assert sim.is_finite()
-    assert sim.energy_drift() < 0.03
+    assert sim.energy_drift() < 1e-10
+
+
+def test_mouth_power_integrates_to_the_neck_energy():
+    """The coupling is conservative, not merely plausible."""
+    sim = ThroatWaveSim(mode="throat", mouth_angle=MOUTH, n_theta=64,
+                        n_phi=96, pulse_width=0.22)
+    acc = 0.0
+    for _ in range(900):
+        p_n, p_s = sim.mouth_power()
+        acc += (p_n + p_s) * sim.dt
+        sim.step()
+    stored = sim.neck_energy()
+    assert stored > 1e-3
+    assert acc == pytest.approx(stored, rel=0.05)
 
 
 def test_sim_rejects_bad_configuration():
@@ -140,55 +215,100 @@ def test_sim_rejects_bad_configuration():
 
 
 def test_plugged_run_keeps_no_energy_in_the_neck():
-    sim = ThroatWaveSim(mode="plugged", n_theta=64, n_phi=96)
+    sim = ThroatWaveSim(mode="plugged", mouth_angle=MOUTH, n_theta=64, n_phi=96)
     sim.advance_to(2.0)
     assert sim.neck_energy_fraction() == 0.0
 
 
-def test_open_throat_fills_the_neck_and_the_plugged_control_does_not():
-    kw = dict(n_theta=64, n_phi=96, pulse_width=0.2)
-    throat = ThroatWaveSim(mode="throat", **kw)
-    t = measure_transmission(throat, 2.5, n_samples=120)
-    assert t["transmitted"] > 0.1
-    assert t["energy_drift"] < 0.03
-    assert t["transmitted"] + t["reflected"] == pytest.approx(1.0)
+# ── the mouth budget is a flux, not a snapshot ──────────────────────────────
+def test_mouth_budget_is_a_transmission_coefficient():
+    sim = ThroatWaveSim(mode="throat", mouth_angle=MOUTH, n_theta=96,
+                        n_phi=128, pulse_width=0.18)
+    b = measure_mouth_budget(sim)
+    assert 0.0 < b["transmission"] <= 1.0
+    assert b["transmission"] + b["reflection"] == pytest.approx(1.0)
+    assert b["through"] <= b["offered"]
+    assert b["energy_drift"] < 1e-10
 
 
 def test_transmission_grows_with_the_mouth_aperture():
-    fracs = []
-    for a in (0.3, 0.6):
-        sim = ThroatWaveSim(mode="throat", mouth_angle=a, n_theta=64,
-                            n_phi=96, pulse_width=0.2)
-        fracs.append(measure_transmission(sim, 2.2, n_samples=100)["transmitted"])
-    assert fracs[0] < fracs[1]
+    vals = []
+    for a in (0.4, 0.8):
+        sim = ThroatWaveSim(mode="throat", mouth_angle=a, n_theta=96,
+                            n_phi=128, pulse_width=0.18)
+        vals.append(measure_mouth_budget(sim)["transmission"])
+    assert vals[0] < vals[1]
 
 
-# ── the wavefront is a single ring while it is in free flight ───────────────
-@pytest.mark.parametrize("mode", ["plugged", "throat"])
-def test_front_is_one_ring_until_it_reaches_a_mouth(mode):
-    sim = ThroatWaveSim(mode=mode, n_theta=96, n_phi=128, pulse_width=0.18)
-    free = sim.geom.free_flight(sim.source_theta)
-    r = track_wavefront(sim, 2.4, n_samples=96)
-    assert r["single_ring_until"] >= free
+def test_mouth_budget_needs_an_open_throat():
+    with pytest.raises(ValueError):
+        measure_mouth_budget(ThroatWaveSim(mode="plugged", n_theta=48, n_phi=64))
 
 
-def test_wavefront_components_counts_one_early():
-    sim = ThroatWaveSim(mode="throat", n_theta=96, n_phi=128, pulse_width=0.18)
-    sim.advance_to(0.8)                       # well inside free flight
-    assert wavefront_components(sim) == 1
+# ── the bare sphere ─────────────────────────────────────────────────────────
+def test_bare_sphere_field_depends_only_on_geodesic_distance():
+    sim = BareSphereSim(n_theta=64, n_phi=96, pulse_width=0.2)
+    sim.advance_to(1.1)
+    # two points equidistant from the source must carry the same value
+    assert sim.sample(0.5 * math.pi, 0.8) == pytest.approx(
+        sim.sample(0.5 * math.pi, -0.8), abs=1e-12)
+    assert sim.u.shape == (64, 96)
+    assert sim.energy_drift() < 1e-2
+    assert sim.neck_energy_fraction() == 0.0
+    assert sim.v.shape[0] == 0
+
+
+def test_bare_sphere_front_reaches_the_antipode_near_half_period():
+    sim = BareSphereSim(n_theta=48, n_phi=64, pulse_width=0.2)
+    ts, a = watch_point(sim, 0.5 * math.pi, math.pi, 3.6, n_samples=500)
+    p = peak_in_window(ts, a, 2.2, 3.6)
+    assert abs(p.time - ANTIPODAL_TIME) < 0.4
+
+
+# ── arrival multiplicity: the honest self-intersection diagnostic ───────────
+@pytest.mark.slow
+def test_bare_front_crosses_each_point_once_and_never_returns_to_the_source():
+    """No boundary, no second front: the ring cannot meet itself."""
+    sim = BareSphereSim(n_theta=64, n_phi=96, pulse_width=0.2, n_radial=500)
+    m = measure_arrival_multiplicity(sim, math.pi)
+    assert m.area_fraction_multi < 0.10
+    assert m.source_side_fraction < 1e-9
+
+
+@pytest.mark.slow
+def test_a_sealed_mouth_sends_a_front_back_and_an_open_one_does_not():
+    kw = dict(mouth_angle=MOUTH, n_theta=64, n_phi=96, pulse_width=0.2)
+    plugged = measure_arrival_multiplicity(
+        ThroatWaveSim(mode="plugged", **kw), math.pi)
+    throat = measure_arrival_multiplicity(
+        ThroatWaveSim(mode="throat", **kw), math.pi)
+    # both put a second front somewhere — only the mirror puts one back home
+    assert plugged.area_fraction_multi > 0.05
+    assert throat.area_fraction_multi > 0.05
+    assert plugged.source_side_fraction > 0.01
+    assert throat.source_side_fraction < plugged.source_side_fraction / 4.0
+
+
+def test_multiplicity_counts_have_the_grid_shape():
+    sim = ThroatWaveSim(mode="plugged", mouth_angle=MOUTH, n_theta=32,
+                        n_phi=48, pulse_width=0.25)
+    m = measure_arrival_multiplicity(sim, 1.4)
+    assert m.counts.shape == (32, 48)
+    assert m.max_arrivals >= 1
+    assert 0.0 <= m.area_fraction_multi <= 1.0
 
 
 # ── the echo delay reads the neck length ────────────────────────────────────
 @pytest.mark.slow
 def test_echo_delay_reproduces_the_neck_length():
-    d = measure_echo_delay(n_theta=96, n_phi=128, pulse_width=0.18)
-    assert d["delay_rel_error"] < 0.05
-    # and the open throat lets the pulse through instead of bouncing it
-    assert d["mirror_suppression"] > 0.7
+    d = measure_echo_delay(mouth_angle=MOUTH, n_theta=96, n_phi=128,
+                           pulse_width=0.18)
+    assert d["delay_rel_error"] < 0.03
+    assert d["mirror_suppression"] > 0.4
 
 
 # ── watched-point helpers ───────────────────────────────────────────────────
-def test_watch_point_and_peak_window_agree_on_a_synthetic_peak():
+def test_peak_window_finds_a_synthetic_peak_to_sub_sample_accuracy():
     t = np.linspace(0.0, 4.0, 801)
     a = np.exp(-((t - 2.3) / 0.15) ** 2)
     p = peak_in_window(t, a, 1.5, 3.0)
@@ -198,21 +318,11 @@ def test_watch_point_and_peak_window_agree_on_a_synthetic_peak():
 
 
 def test_watch_point_returns_a_series_at_the_source():
-    sim = ThroatWaveSim(mode="plugged", n_theta=48, n_phi=64)
+    sim = ThroatWaveSim(mode="plugged", mouth_angle=MOUTH, n_theta=48, n_phi=64)
     ts, a = watch_point(sim, 0.5 * math.pi, 0.0, 1.0, n_samples=40)
     assert ts.shape == a.shape == (40,)
     assert np.all(np.diff(ts) > 0)
-    assert abs(a[0]) > abs(a[-1])              # the cap leaves the source
-
-
-# ── the antipodal focus still lands where the bare sphere puts it ───────────
-@pytest.mark.slow
-def test_antipodal_focus_is_near_the_bare_sphere_half_period():
-    """The caps and the neck perturb, they do not relocate, the focus."""
-    sim = ThroatWaveSim(mode="plugged", n_theta=96, n_phi=128, pulse_width=0.22)
-    ts, a = watch_point(sim, 0.5 * math.pi, math.pi, 3.6, n_samples=600)
-    p = peak_in_window(ts, a, 2.4, 3.6)
-    assert abs(p.time - ANTIPODAL_TIME) < 0.35
+    assert abs(a[0]) > abs(a[-1])
 
 
 # ── orientation is hidden at τ ∈ {0, π} ─────────────────────────────────────
@@ -220,8 +330,8 @@ def test_antipodal_focus_is_near_the_bare_sphere_half_period():
 def test_orientation_visibility_matches_the_mirror_argument(steps, visible):
     fields = []
     for parity in (1, -1):
-        s = ThroatWaveSim(mode="throat", n_theta=64, n_phi=128,
-                          twist_parity=parity, twist_steps=steps,
+        s = ThroatWaveSim(mode="throat", mouth_angle=MOUTH, n_theta=64,
+                          n_phi=128, twist_parity=parity, twist_steps=steps,
                           pulse_width=0.2)
         s.advance_to(2.6)
         fields.append(s.u.copy())
@@ -235,8 +345,9 @@ def test_orientation_visibility_matches_the_mirror_argument(steps, visible):
 
 # ── rendering ───────────────────────────────────────────────────────────────
 def _small(mode="throat"):
-    s = ThroatWaveSim(mode=mode, n_theta=48, n_phi=64, pulse_width=0.22)
-    s.advance_to(1.3)
+    s = ThroatWaveSim(mode=mode, mouth_angle=MOUTH, n_theta=48, n_phi=64,
+                      pulse_width=0.22)
+    s.advance_to(1.1)
     return s
 
 
@@ -244,7 +355,7 @@ def test_sphere_image_masks_the_caps_and_the_disc_exterior():
     sim = _small()
     img, mask = sphere_image(sim, n_px=64)
     assert img.shape == (64, 64)
-    assert np.isnan(img[0, 0])                 # outside the disc
+    assert np.isnan(img[0, 0])
     assert np.any(mask)
     assert np.all(np.isfinite(img[mask]))
 
@@ -267,8 +378,8 @@ def test_draw_neck_strip_annotates_the_sealed_control():
 
 def test_draw_geometry_renders_both_pieces():
     fig, ax = plt.subplots()
-    draw_geometry(ax, ThroatGeometry(0.5))
-    assert len(ax.lines) >= 4                  # two sphere arcs, two neck arcs
+    draw_geometry(ax, ThroatGeometry(MOUTH))
+    assert len(ax.lines) >= 4
 
 
 def test_plot_wavefront_panel_builds_a_full_figure():
@@ -278,37 +389,40 @@ def test_plot_wavefront_panel_builds_a_full_figure():
 
 # ── export ──────────────────────────────────────────────────────────────────
 def test_export_frames_round_trips_to_the_declared_shape():
-    import base64
-
-    sim = ThroatWaveSim(mode="throat", n_theta=48, n_phi=64, pulse_width=0.22)
+    sim = ThroatWaveSim(mode="throat", mouth_angle=MOUTH, n_theta=48,
+                        n_phi=64, pulse_width=0.22)
     data = export_frames(sim, t_end=1.2, frames=6, rows=16, cols=24,
                          neck_rows=6)
     raw = base64.b64decode(data["sphere_b64"])
     assert len(raw) == 6 * 16 * 24
-    neck = base64.b64decode(data["neck_b64"])
-    assert len(neck) == 6 * 6 * 24
+    assert len(base64.b64decode(data["neck_b64"])) == 6 * 6 * 24
     assert data["scale"] > 0.0
     assert len(data["times"]) == 6
     assert data["surface"] == "torus"
-    arr = np.frombuffer(raw, dtype=np.uint8)
-    assert arr.min() >= 0 and arr.max() <= 255
     assert data["compand"] == "linear"
 
 
-def test_signed_sqrt_companding_preserves_sign_and_lifts_weak_structure():
-    import base64
+def test_export_frames_handles_a_sim_without_a_neck():
+    sim = BareSphereSim(n_theta=48, n_phi=64, pulse_width=0.22)
+    data = export_frames(sim, t_end=1.0, frames=4, rows=16, cols=24,
+                         neck_rows=6)
+    assert len(base64.b64decode(data["sphere_b64"])) == 4 * 16 * 24
+    assert data["mode"] == "bare"
+    assert data["neck_length"] == 0.0
+    assert all(f == 0.0 for f in data["neck_energy_fraction"])
 
-    sim = ThroatWaveSim(mode="throat", n_theta=48, n_phi=64, pulse_width=0.22)
+
+def test_signed_sqrt_companding_preserves_sign_and_lifts_weak_structure():
+    sim = ThroatWaveSim(mode="throat", mouth_angle=MOUTH, n_theta=48,
+                        n_phi=64, pulse_width=0.22)
     kw = dict(t_end=2.4, frames=10, rows=16, cols=24, neck_rows=6)
     lin = export_frames(sim, compand="linear", **kw)
     sqr = export_frames(sim, compand="signed_sqrt", **kw)
     a = np.frombuffer(base64.b64decode(lin["sphere_b64"]), dtype=np.uint8).astype(int) - 128
     b = np.frombuffer(base64.b64decode(sqr["sphere_b64"]), dtype=np.uint8).astype(int) - 128
     assert sqr["compand"] == "signed_sqrt"
-    # the sign is untouched wherever the linear encoding resolved one at all
     live = (a != 0) & (np.abs(a) < 127)
     assert np.all(np.sign(a[live]) == np.sign(b[live]))
-    # and the weak tail is lifted out of the floor
     assert np.mean(np.abs(b) > 8) > np.mean(np.abs(a) > 8)
 
 

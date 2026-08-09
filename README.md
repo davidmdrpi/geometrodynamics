@@ -463,8 +463,8 @@ geometrodynamics/
 │   └── viz/                  # Watchable classical wave studies
 │       ├── antipodal_focusing.py  # open disperses vs closed refocuses (#166)
 │       ├── antipodal_crossing.py  # antipodal crossing / absorption events
-│       ├── throat_wavefront.py    # ring wavefronts on a surface with a
-│       │                          #   catenoidal throat (#242)
+│       ├── throat_wavefront.py    # bare S2 / sealed mouths / open catenoid
+│       │                          #   throat, on one clock (#242)
 │       └── geometry_panels.py     # Hopf / throat / Green / handshake panels
 ├── tests/                    # pytest validation suite
 ├── notebooks/                # Jupyter notebooks (per-topic)
@@ -1143,25 +1143,38 @@ Most of the recent arc reached the throat through algebra. `viz/throat_wavefront
 goes back the other way and asks what a classical wave does when the geometry
 alone is allowed to act on it — and every stage of it is watchable.
 
-The surface is a unit S² with both polar caps removed and the mouths joined
-by a catenoidal neck. A `C¹` join (circumference *and* slope continuous)
-fixes the neck from the mouth angle alone, `b = sin a/√(1+cos²a)`,
-`L = 2b·asinh(cos a)`; the neck then has constant `K = −1/b²` and the pieces
-cancel in Gauss–Bonnet, `4π cos a − 4π cos a = 0`, so the glued surface is a
-**torus** (azimuth-preserving gluing) or a **Klein bottle** (reversing). The
-controlled baseline is the same domain, same grid, mouths sealed by a mirror.
+**Three surfaces on one clock**, because the comparison needs all three terms:
+the **bare S²** (the canonical picture: point → expanding ring → great circle →
+contracting ring → antipodal focus), the same sphere with both caps cut out and
+**sealed by a mirror** (what merely cutting holes does), and the same cut sphere
+with the mouths **joined by a neck** (what opening a second route does).
+
+The neck is a genuine **catenoid** — the minimal surface of revolution, `H = 0`,
+`r = b cosh(z/b)`. Matching circumference *and* arclength slope at the mouth
+fixes it from the mouth angle alone, `b = sin²a`, `L = sin 2a`, and its
+curvature genuinely **varies**: exactly `−1` at each mouth (the sphere's `+1`
+with its sign flipped) deepening to `−1/sin⁴a` at the waist. Each mouth is one
+finite-volume face shared by a sphere cell and a neck cell, so the coupled solve
+conserves its discrete energy to round-off (`~4e-16`).
 
 With no fitted parameter anywhere, the wave reports the handle:
 
 | finding | measured |
 |---|---|
-| the ring never crosses itself in free flight | single connected front to `t = 1.07`, both topologies |
-| the open/sealed echo delay **is** the neck length | `0.579` vs `L = 0.571` (1.5%) |
-| the open mouth transmits rather than reflects | mirror echo suppressed **95.7%** |
-| a gluing twist aims where the bulk energy lands | antipodal precursor `0.39` ahead of the geodesic focus, `9.7×` the untwisted throat |
-| torus vs Klein bottle is hidden at `τ ∈ {0, π}` | difference `0.0000` there, `~18%` elsewhere |
+| the bare front sweeps each point once — a pulse cannot meet itself | 1.5% of the surface sees a second front, **0%** of the source side |
+| a sealed mouth sends a front back home; an open one does not | source-side second fronts: **9.5%** sealed vs **0%** open |
+| the open/sealed echo delay **is** the neck length | `1.0016` vs `L = 0.9975` (0.41%) |
+| of the energy that reaches the mouth, most crosses | transmission **91.9%** at `a = 0.75`, by integrated flux |
+| a gluing twist aims where the bulk energy lands | antipodal precursor `0.469` ahead of the geodesic focus, `9.9×` the untwisted throat |
+| torus vs Klein bottle is hidden at `τ ∈ {0, π}` | difference `0.0000` there, `~0.2` elsewhere |
 
-The last line is the sharpened inner/outer statement: intrinsic spherical
+Two things worth stating plainly. `∫K dA = −2π[r']` for any surface of
+revolution, so **`χ = 0` tests the `C¹` join and not the profile** — it is not
+evidence for the catenoid. And **mirror suppression is an amplitude ratio at one
+point in time while transmission is an energy ratio at the mouth**; they are two
+views of one fact and are not interchangeable.
+
+The last row is the sharpened inner/outer statement: intrinsic spherical
 symmetry and extrinsic orientation asymmetry coexist, and it takes a twist
 that breaks the source's meridian mirror to make the orientation observable.
 
@@ -1171,11 +1184,14 @@ python -m experiments.closure_ledger.geometric_wave_refocusing_probe
 ```
 
 ```python
-from geometrodynamics.viz import ThroatWaveSim, plot_wavefront_panel, run_throat_animation
+from geometrodynamics.viz import (
+    BareSphereSim, ThroatWaveSim, plot_wavefront_panel, run_throat_animation)
 
-anim = run_throat_animation(ThroatWaveSim(mode="throat", twist_steps=96))
+anim = run_throat_animation(ThroatWaveSim(mode="throat", mouth_angle=0.75,
+                                          twist_steps=96))
 
-sim = ThroatWaveSim(mode="throat", twist_steps=96); sim.advance_to(1.4)
+sim = ThroatWaveSim(mode="throat", mouth_angle=0.75, twist_steps=96)
+sim.advance_to(1.4)
 plot_wavefront_panel(sim)   # both hemispheres, the neck interior, the map
 ```
 

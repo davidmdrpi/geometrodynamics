@@ -7,70 +7,72 @@ the wave does**.  Everything here is a live classical wave solve on a real
 Riemannian surface; nothing is fitted, and no quantum ingredient is
 inserted anywhere.
 
-The surface
-───────────
-A unit 2-sphere with both polar caps ``θ < a`` and ``θ > π − a`` removed,
-and the two mouth circles joined by a **catenoidal neck** — a surface of
-revolution ``r(s) = b·cosh((s − L/2)/b)`` in arclength gauge.  Requiring a
-``C¹`` join (the circumference *and* its slope continuous at both mouths)
-fixes the neck completely from the single parameter ``a``:
+Three surfaces, one clock
+─────────────────────────
+The point of the module is the comparison, and it needs all three terms:
+
+1. :class:`BareSphereSim` — the **uncut unit 2-sphere**.  The canonical
+   picture: point → expanding ring → great circle → contracting ring →
+   antipodal focus, with nothing to reflect from and nothing to fall
+   through.
+2. ``ThroatWaveSim(mode="plugged")`` — the same sphere with both polar caps
+   ``θ < a``, ``θ > π − a`` cut out and the mouths **sealed by a mirror**.
+   This isolates what merely cutting holes does.
+3. ``ThroatWaveSim(mode="throat")`` — the same cut sphere with the mouths
+   **joined by a neck**.  This isolates what opening a second geometric
+   route does.
+
+The neck is a genuine **catenoid** — the minimal surface of revolution,
+``H = 0``, ``r = b cosh(z/b)``.  Requiring the circumference *and* its
+arclength slope to match the sphere at the mouth fixes it completely from
+the single parameter ``a``:
 
 ```
-r(0) = sin a,  r'(0) = −cos a   ⟹   b = sin a / √(1 + cos²a),
-                                    L = 2b·asinh(cos a)
+r = sin a,  dr/ds = −cos a   ⟹   b = sin²a,   L = sin 2a
 ```
 
-The neck has constant Gauss curvature ``K = −1/b²`` (in arclength gauge
-``r'' = r/b²``), and the two pieces cancel exactly in Gauss–Bonnet:
+Its Gauss curvature ``K = −b²/r⁴`` **varies**: exactly ``−1`` at each
+mouth — the sphere's ``+1`` with its sign flipped, no jump in magnitude —
+deepening to ``−1/sin⁴a`` at the waist.  So the wave crosses a real
+minimal-surface neck of continuously changing negative curvature, not a
+manufactured constant-curvature strip.
 
-```
-∫_sphere K dA = 4π cos a,   ∫_neck K dA = −4π cos a   ⟹   χ = 0
-```
+On Gauss–Bonnet, honestly
+─────────────────────────
+For *any* surface of revolution ``K = −r''/r`` and ``dA = 2πr ds``, so
+``∫K dA = −2π[r']`` depends **only on the boundary slopes**.  The ``C¹``
+join pins those, so ``∫K dA = 4π cos a − 4π cos a = 0`` and ``χ = 0`` for
+the catenoid and for any other ``C¹``-matched profile alike.  The closure
+is a check on the *join*, never evidence for a particular neck.
 
-so the glued surface is a **torus** (azimuth-preserving gluing) or a
-**Klein bottle** (azimuth-reversing gluing) — the orientable and
-non-orientable throat, selected by :attr:`ThroatWaveSim.twist_parity`.
+The glued surface is a **torus** (azimuth-preserving gluing) or a **Klein
+bottle** (azimuth-reversing).  Gluing the neck frame ``(∂_s, ∂_ψ)`` to the
+sphere frame ``(∂_θ, ∂_φ)`` gives ``ds∧dψ = −dθ∧dφ`` at the north mouth and
+``−ε·dθ∧dφ`` at the south, so ``ε = +1`` is the orientable handle.  A twist
+offset ``τ = twist_steps · dφ`` rotates where the bulk route re-emerges,
+steering the refocus at no energy cost.
 
-Why the picture is not the sphere's picture
-───────────────────────────────────────────
-On the bare sphere a pulse launched from a point expands as a single ring,
-reaches the great circle, contracts, and refocuses at the antipode: it
-never crosses itself.  Open the throat and the geometry acquires a second,
-*shorter* closed path through the neck,
-
-```
-ℓ_throat = 2(π/2 − a) + L        vs.       ℓ_sphere = 2π
-```
-
-so a piece of the ring dives into the north mouth, crosses the bulk as an
-embedded shell, and re-emerges from the south mouth **while the exterior
-ring is still running**.  The two fronts then cross: the wavefront
-self-intersects on the surface, which is impossible without the handle.
-The re-emergent front also arrives back at its *own source* before the
-antipodal refocus — a precursor that exists only because the handle exists.
-
-The asymmetries are real
-────────────────────────
-The sphere is maximally symmetric intrinsically, but the glued surface is
-not: the inner (neck) route and the outer (sphere) route between the same
-two mouth circles have different lengths, different curvature sign, and —
-when ``twist_parity = −1`` — opposite induced orientations.  Gluing the
-tube frame ``(∂_s, ∂_ψ)`` to the sphere frame ``(∂_θ, ∂_φ)`` gives
-``ds∧dψ = −dθ∧dφ`` at the north mouth and ``−ε·dθ∧dφ`` at the south, so
-``ε = +1`` is the orientable handle and ``ε = −1`` reverses orientation on
-the throat loop.  A twist offset ``τ = twist_steps · dφ`` rotates where the
-re-emergent front lands, steering the refocus without changing any energy.
+How the two pieces are coupled
+──────────────────────────────
+Each mouth is **one finite-volume face shared** by a sphere cell and a neck
+cell.  Its flux is evaluated once and handed to both with opposite signs,
+so the discrete divergence theorem holds across the mouth and the discrete
+energy is conserved to round-off (``energy_drift ~ 1e-16``).  The launch is
+a purely **outgoing** ring: a cap released from rest is d'Alembert data and
+splits into an outgoing *and* an ingoing front, which would put two fronts
+on the surface for reasons that have nothing to do with the geometry.
 
 What is in here
 ───────────────
-* :class:`ThroatGeometry` — the closed-form neck, its curvature and area.
-* :class:`ThroatWaveSim` — the coupled solve.  ``mode="throat"`` opens the
-  neck; ``mode="plugged"`` seals both mouths with a perfect mirror and is
-  the *controlled* baseline: identical grid, identical domain, only the
-  handle removed.
-* diagnostics: :meth:`~ThroatWaveSim.energy`, :func:`wavefront_components`
-  (does the front cross itself?), :func:`measure_transmission`,
-  :func:`measure_arrivals`.
+* :class:`ThroatGeometry` — the catenoid in closed form, its varying
+  curvature, its area, and the two routes between the mouths.
+* :class:`ThroatWaveSim`, :class:`BareSphereSim` — the three solves.
+* :func:`measure_arrival_multiplicity` — how many times a front crosses
+  each point; the honest self-intersection diagnostic.
+* :func:`measure_mouth_budget` — transmission by **integrated flux**, not
+  by a snapshot of what happens to be stored in the neck.
+* :func:`measure_echo_delay`, :func:`measure_bulk_precursor`,
+  :func:`measure_orientation_visibility`.
 * renderers: :func:`draw_hemispheres` (near/far orthographic discs — the
   antipode is *visible*), :func:`draw_neck_strip`, :func:`draw_map`,
   :func:`plot_wavefront_panel`, :func:`run_animation`.
@@ -80,12 +82,12 @@ Honest scope
 ────────────
 A linear scalar wave on a *fixed* classical surface: geometry → field, with
 no backreaction, so a focus can be sharp but cannot nucleate a new throat
-here.  The join is ``C¹`` and not ``C²``, so the mouth carries a curvature
-ring which scatters a little on its own; :func:`measure_transmission`
-reports the mouth reflection so that effect is visible rather than hidden.
-The 2-surface is the *section* of the ``S³`` picture (point → ring → great
-circle → antipode is the section of point → shell → maximal shell →
-antipode), not the ``S³`` itself.
+here.  The join is ``C¹`` and not ``C²``, so each mouth carries a curvature
+ring which scatters on its own; that scattering is inside the reported
+mouth budget rather than removed from it.  The 2-surface is the *section*
+of the ``S³`` picture (point → ring → great circle → antipode is the
+section of point → shell → maximal shell → antipode), not the ``S³``
+itself.
 """
 
 from __future__ import annotations
@@ -130,15 +132,34 @@ _MODES: Tuple[str, ...] = ("throat", "plugged")
 
 
 # ════════════════════════════════════════════════════════════════════════════
-# GEOMETRY — the catenoidal neck fixed by the mouth angle alone
+# GEOMETRY — a true catenoid, fixed by the mouth angle alone
 # ════════════════════════════════════════════════════════════════════════════
 @dataclass(frozen=True)
 class ThroatGeometry:
-    """The neck joining the two mouth circles of a capped unit sphere.
+    """The catenoid joining the two mouth circles of a capped unit sphere.
 
     The mouths sit at polar angle ``a`` and ``π − a``; each is a circle of
-    circumference ``2π sin a``.  Continuity of the circumference and of its
-    arclength derivative across both mouths determines the neck uniquely.
+    circumference ``2π sin a``.  The neck is a genuine **catenoid** — the
+    minimal surface of revolution, ``H = 0`` — written ``r = b cosh(z/b)``
+    in its axial coordinate ``z``, so ``dr/ds = tanh(z/b)`` in arclength.
+
+    Requiring the circumference *and* its arclength slope to match the
+    sphere at the mouth,
+
+    ```
+    r = sin a,   dr/ds = −cos a   ⟹   tanh(z₀/b) = cos a,  b cosh(z₀/b) = sin a
+    ```
+
+    has the closed-form solution
+
+    ```
+    b = sin²a,        L = sin 2a,        z₀ = b·artanh(cos a)
+    ```
+
+    with ``L`` the arclength from mouth to mouth.  The Gauss curvature
+    ``K = −b²/r⁴`` is **not** constant: it is exactly ``−1`` at each mouth
+    — the sphere's ``+1`` flipped in sign, with no jump in magnitude — and
+    deepens to ``−1/sin⁴a`` at the waist.
 
     Parameters
     ----------
@@ -154,54 +175,67 @@ class ThroatGeometry:
         if not (0.0 < a < 0.5 * math.pi):
             raise ValueError("mouth_angle must lie in (0, π/2)")
 
-    # ── the two closed-form constants ───────────────────────────────────────
+    # ── the closed-form constants ───────────────────────────────────────────
     @property
     def neck_radius(self) -> float:
-        """Minimum radius ``b`` of the neck (the waist)."""
-        a = self.mouth_angle
-        return math.sin(a) / math.sqrt(1.0 + math.cos(a) ** 2)
+        """Waist radius ``b = sin²a`` — the narrowest circle of the catenoid."""
+        return math.sin(self.mouth_angle) ** 2
 
     @property
     def length(self) -> float:
-        """Arclength ``L`` of the neck from mouth to mouth."""
-        return 2.0 * self.neck_radius * math.asinh(math.cos(self.mouth_angle))
+        """Arclength ``L = sin 2a`` from mouth to mouth."""
+        return math.sin(2.0 * self.mouth_angle)
+
+    @property
+    def axial_half_height(self) -> float:
+        """``z₀ = b·artanh(cos a)`` — half the catenoid's axial extent."""
+        return self.neck_radius * math.atanh(math.cos(self.mouth_angle))
 
     @property
     def mouth_radius(self) -> float:
         """Circumference radius at either mouth, ``sin a``."""
         return math.sin(self.mouth_angle)
 
-    # ── profile ─────────────────────────────────────────────────────────────
+    # ── profile, in arclength ───────────────────────────────────────────────
+    def _sigma(self, s: np.ndarray | float) -> np.ndarray:
+        """``σ = sinh(z/b)``, the natural variable: ``σ = s/b − cot a``."""
+        s = np.asarray(s, dtype=float)
+        return s / self.neck_radius - 1.0 / math.tan(self.mouth_angle)
+
     def radius(self, s: np.ndarray | float) -> np.ndarray | float:
-        """Circumference radius ``r(s) = b cosh((s − L/2)/b)``."""
-        b = self.neck_radius
-        return b * np.cosh((np.asarray(s, dtype=float) - 0.5 * self.length) / b)
+        """``r(s) = b√(1+σ²)`` — the catenoid in arclength gauge."""
+        return self.neck_radius * np.sqrt(1.0 + self._sigma(s) ** 2)
 
     def radius_slope(self, s: np.ndarray | float) -> np.ndarray | float:
-        """``r'(s) = sinh((s − L/2)/b)`` — the flare of the neck."""
-        b = self.neck_radius
-        return np.sinh((np.asarray(s, dtype=float) - 0.5 * self.length) / b)
+        """``dr/ds = σ/√(1+σ²) = tanh(z/b)`` — always in ``(−1, 1)``."""
+        sig = self._sigma(s)
+        return sig / np.sqrt(1.0 + sig ** 2)
 
-    def height(self, s: np.ndarray) -> np.ndarray:
-        """Axial coordinate ``z(s)`` of the isometric surface of revolution.
+    def height(self, s: np.ndarray | float) -> np.ndarray | float:
+        """Axial coordinate ``z(s) = b·asinh(σ)``, exact (no quadrature)."""
+        return self.neck_radius * np.arcsinh(self._sigma(s))
 
-        ``z' = √(1 − r'²)``, real because ``|r'| ≤ cos a ≤ 1`` — the neck is
-        always embeddable as a surface of revolution in ``ℝ³``.
-        """
-        s = np.asarray(s, dtype=float)
-        dz = np.sqrt(np.clip(1.0 - self.radius_slope(s) ** 2, 0.0, None))
-        return np.concatenate([[0.0], np.cumsum(0.5 * (dz[1:] + dz[:-1]) * np.diff(s))])
+    # ── curvature / area ────────────────────────────────────────────────────
+    def curvature(self, s: np.ndarray | float) -> np.ndarray | float:
+        """Gauss curvature ``K(s) = −b²/r⁴`` — varying along the neck."""
+        r = np.asarray(self.radius(s), dtype=float)
+        return -self.neck_radius ** 2 / r ** 4
 
-    # ── curvature / area (closed form) ──────────────────────────────────────
     @property
-    def gauss_curvature(self) -> float:
-        """Constant Gauss curvature ``K = −1/b²`` of the neck."""
+    def curvature_at_mouth(self) -> float:
+        """``K = −1`` exactly: the sphere's ``+1`` with its sign flipped."""
+        return float(self.curvature(0.0))
+
+    @property
+    def curvature_at_waist(self) -> float:
+        """``K = −1/b² = −1/sin⁴a`` — the deepest curvature of the neck."""
         return -1.0 / self.neck_radius ** 2
 
     @property
     def area(self) -> float:
-        """Neck area ``4π b² cos a``."""
-        return 4.0 * math.pi * self.neck_radius ** 2 * math.cos(self.mouth_angle)
+        """Neck area ``π b² (2w + sinh 2w)``, with ``w = z₀/b = artanh(cos a)``."""
+        b, w = self.neck_radius, self.axial_half_height / self.neck_radius
+        return math.pi * b * b * (2.0 * w + math.sinh(2.0 * w))
 
     @property
     def sphere_area(self) -> float:
@@ -216,7 +250,7 @@ class ThroatGeometry:
 
     @property
     def inner_route(self) -> float:
-        """Mouth-to-mouth distance *through* the neck, ``L``."""
+        """Mouth-to-mouth distance *through* the neck, ``L = sin 2a``."""
         return self.length
 
     @property
@@ -252,9 +286,22 @@ class ThroatGeometry:
         """
         return self.mirror_echo(source_theta) + self.length
 
+    # ── Gauss–Bonnet ────────────────────────────────────────────────────────
+    def neck_total_curvature(self) -> float:
+        """``∫K dA`` over the neck — ``−4π cos a``, whatever the profile.
+
+        For *any* surface of revolution ``K = −r''/r`` and ``dA = 2πr ds``,
+        so ``∫K dA = −2π[r']`` depends only on the boundary slopes.  The
+        ``C¹`` join pins those to ``∓cos a``, so the neck's total curvature
+        is fixed by the join alone.  **The χ = 0 closure is therefore a
+        check on the join, not evidence for any particular neck** — the
+        catenoid and any other ``C¹``-matched profile close it equally.
+        """
+        return -4.0 * math.pi * math.cos(self.mouth_angle)
+
     def total_curvature(self) -> float:
         """``∫K dA`` over the whole glued surface — exactly ``0`` (χ = 0)."""
-        return self.sphere_area * 1.0 + self.gauss_curvature * self.area
+        return self.sphere_area + self.neck_total_curvature()
 
     def euler_characteristic(self) -> float:
         """``χ = ∫K dA / 2π`` — ``0`` for both the torus and the Klein bottle."""
@@ -371,25 +418,18 @@ class ThroatWaveSim:
         self.theta = a + (np.arange(self.n_theta) + 0.5) * self.dth
         self.phi = np.arange(self.n_phi) * self.dphi
 
-        # sphere metric: cell radii and face radii
+        # sphere metric: cell radii, and the n+1 face radii (both mouths at sin a)
         self._r = np.sin(self.theta)[:, None]
-        self._rp = np.sin(self.theta + 0.5 * self.dth)[:, None]   # upper face
-        self._rm = np.sin(self.theta - 0.5 * self.dth)[:, None]   # lower face
+        self._rf = np.sin(a + np.arange(self.n_theta + 1) * self.dth)[:, None]
 
         # neck grid (arclength), only used when the throat is open
         self.n_s = max(4, int(round(self.geom.length / self.dth)))
         self.ds = self.geom.length / self.n_s
         self.s = (np.arange(self.n_s) + 0.5) * self.ds
         self._q = np.asarray(self.geom.radius(self.s), dtype=float)[:, None]
-        self._qp = np.asarray(
-            self.geom.radius(self.s + 0.5 * self.ds), dtype=float)[:, None]
-        self._qm = np.asarray(
-            self.geom.radius(self.s - 0.5 * self.ds), dtype=float)[:, None]
-
-        # ghost interpolation weights (each domain's ghost sits at the other
-        # domain's first cell-centre offset, mirrored through the mouth)
-        self._w_sphere = (0.5 * self.ds - 0.5 * self.dth) / self.dth
-        self._w_neck = (0.5 * self.dth - 0.5 * self.ds) / self.ds
+        self._qf = np.asarray(
+            self.geom.radius(np.arange(self.n_s + 1) * self.ds),
+            dtype=float)[:, None]
 
         r_min = min(float(np.min(self._r)), self.geom.neck_radius)
         self.dt = cfl * min(self.dth, self.ds, self.dphi * r_min)
@@ -399,10 +439,21 @@ class ThroatWaveSim:
 
     # ── setup ───────────────────────────────────────────────────────────────
     def reset(self) -> None:
-        """Launch the Gaussian cap pulse; zero initial velocity."""
+        """Launch a purely **outgoing** Gaussian ring pulse.
+
+        Releasing a cap from rest is d'Alembert data: it splits into an
+        outgoing *and* an ingoing ring, and the ingoing one collapses
+        through the source and re-expands, so the surface carries two
+        fronts forever after.  That is a property of the launch, not of the
+        geometry, and it wrecks any honest count of how many times a front
+        crosses a point.  Setting the previous time level to the same
+        profile displaced *outward* by one step, ``u⁻ = f(d + c·dt)``, makes
+        the pulse one-way to leading order and leaves a single ring.
+        """
         d = self._geodesic_distance_from_source()
-        self.u = np.exp(-((d / self.pulse_width) ** 2))
-        self.u_prev = self.u.copy()
+        w = self.pulse_width
+        self.u = np.exp(-((d / w) ** 2))
+        self.u_prev = np.exp(-(((d + C * self.dt) / w) ** 2))
         self.v = np.zeros((self.n_s, self.n_phi))     # neck field
         self.v_prev = self.v.copy()
         self.t = 0.0
@@ -428,54 +479,70 @@ class ThroatWaveSim:
         m = np.arange(self.n_phi)
         return (self.twist_parity * (m - self.twist_steps)) % self.n_phi
 
-    def _ghosts(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-        """Ghost rings ``(sphere_north, sphere_south, neck_north, neck_south)``."""
-        if self.mode == "plugged":
-            return self.u[0], self.u[-1], self.v[0], self.v[-1]
-        w_s, w_n = self._w_sphere, self._w_neck
-        # sphere's ghost beyond the north mouth ← neck, azimuth identity
-        g_sn = (1.0 - w_s) * self.v[0] + w_s * self.v[1]
-        # sphere's ghost beyond the south mouth ← neck's far end, twisted
-        idx = self._south_index()
-        g_ss = ((1.0 - w_s) * self.v[-1] + w_s * self.v[-2])[idx]
-        # neck's ghost before s=0 ← sphere just inside the north mouth
-        g_nn = (1.0 - w_n) * self.u[0] + w_n * self.u[1]
-        # neck's ghost past s=L ← sphere just inside the south mouth, untwisted
-        inv = self._south_index_inverse()
-        g_ns = ((1.0 - w_n) * self.u[-1] + w_n * self.u[-2])[inv]
-        return g_sn, g_ss, g_nn, g_ns
+    def interface_flux(self) -> Tuple[np.ndarray, np.ndarray]:
+        """Shared mouth fluxes ``(north, south)``, as the **sphere** sees them.
+
+        Each mouth is one finite-volume face shared by a sphere cell and a
+        neck cell.  Its flux is evaluated once,
+
+        ```
+        F = r_mouth · (f_outer − f_inner) / h,     h = ½(dθ + ds)
+        ```
+
+        and handed to both cells with opposite signs, so whatever leaves one
+        domain enters the other exactly — the discrete divergence theorem
+        holds across the mouth and energy is conserved to round-off.  (The
+        earlier scheme gave each domain its own interpolated ghost ring;
+        those two ghosts disagreed at ``O(dθ)`` and leaked.)
+
+        A sealed mouth is the zero-flux face, which is the same statement as
+        a perfect mirror and is conservative for the same reason.
+        """
+        if self.mode != "throat":
+            z = np.zeros(self.n_phi)
+            return z, z
+        R = self.geom.mouth_radius
+        h = 0.5 * (self.dth + self.ds)
+        north = R * (self.u[0] - self.v[0]) / h
+        south = R * (self.v[-1][self._south_index()] - self.u[-1]) / h
+        return north, south
 
     # ── operators ───────────────────────────────────────────────────────────
     @staticmethod
-    def _lap(
-        f: np.ndarray, lo: np.ndarray, hi: np.ndarray,
-        r: np.ndarray, rp: np.ndarray, rm: np.ndarray,
-        dx: float, dphi: float,
+    def _radial(
+        f: np.ndarray, f_lo: np.ndarray, f_up: np.ndarray,
+        r: np.ndarray, rf: np.ndarray, dx: float,
     ) -> np.ndarray:
-        up = np.vstack([f[1:], hi[None, :]])
-        dn = np.vstack([lo[None, :], f[:-1]])
-        radial = (rp * (up - f) - rm * (f - dn)) / (r * dx * dx)
-        ang = (np.roll(f, -1, axis=1) - 2.0 * f + np.roll(f, 1, axis=1)) / (
-            r * r * dphi * dphi)
-        return radial + ang
+        """``(1/r)∂_x(r ∂_x f)`` with the two boundary face fluxes supplied."""
+        inner = rf[1:-1] * (f[1:] - f[:-1]) / dx
+        flux = np.concatenate([f_lo[None, :], inner, f_up[None, :]], axis=0)
+        return (flux[1:] - flux[:-1]) / (r * dx)
+
+    def _angular(self, f: np.ndarray, r: np.ndarray) -> np.ndarray:
+        return (np.roll(f, -1, axis=1) - 2.0 * f + np.roll(f, 1, axis=1)) / (
+            r * r * self.dphi * self.dphi)
 
     def laplacian_sphere(self) -> np.ndarray:
-        g_sn, g_ss, _, _ = self._ghosts()
-        return self._lap(self.u, g_sn, g_ss, self._r, self._rp, self._rm,
-                         self.dth, self.dphi)
+        north, south = self.interface_flux()
+        return (self._radial(self.u, north, south, self._r, self._rf, self.dth)
+                + self._angular(self.u, self._r))
 
     def laplacian_neck(self) -> np.ndarray:
-        _, _, g_nn, g_ns = self._ghosts()
-        return self._lap(self.v, g_nn, g_ns, self._q, self._qp, self._qm,
-                         self.ds, self.dphi)
+        north, south = self.interface_flux()
+        inv = self._south_index_inverse()
+        return (self._radial(self.v, -north, -south[inv], self._q, self._qf,
+                             self.ds)
+                + self._angular(self.v, self._q))
 
     # ── stepping ────────────────────────────────────────────────────────────
     def step(self) -> None:
         """Advance one leapfrog step of both pieces together."""
         k = (C * self.dt) ** 2
-        u_new = 2.0 * self.u - self.u_prev + k * self.laplacian_sphere()
-        if self.mode == "throat":
-            v_new = 2.0 * self.v - self.v_prev + k * self.laplacian_neck()
+        lap_u = self.laplacian_sphere()
+        lap_v = self.laplacian_neck() if self.mode == "throat" else None
+        u_new = 2.0 * self.u - self.u_prev + k * lap_u
+        if lap_v is not None:
+            v_new = 2.0 * self.v - self.v_prev + k * lap_v
             self.v_prev, self.v = self.v, v_new
         self.u_prev, self.u = self.u, u_new
         self.t += self.dt
@@ -489,55 +556,124 @@ class ThroatWaveSim:
             self.step()
 
     # ── diagnostics ─────────────────────────────────────────────────────────
+    def _piece_energy(
+        self, f: np.ndarray, f_prev: np.ndarray, r: np.ndarray,
+        rf: np.ndarray, dx: float,
+    ) -> float:
+        """Cell kinetic + interior-face gradient energy of one domain.
+
+        The gradient term is the **cross** product between the two stored
+        time levels, ``⟨∇fⁿ, ∇fⁿ⁻¹⟩``, not ``|∇fⁿ|²``.  That is the exact
+        invariant of the leapfrog step: the velocity ``(fⁿ − fⁿ⁻¹)/dt``
+        lives at the half step, so pairing it with a same-time gradient
+        leaves an ``O(dt²)`` wobble that peaks whenever a sharp front is
+        crossing something.  With the cross term the discrete energy is
+        conserved to round-off, which makes ``energy_drift`` a real check
+        on the scheme instead of a measure of its own staggering.
+        """
+        f_t = (f - f_prev) / self.dt
+        kinetic = 0.5 * np.sum(f_t ** 2 * r) * dx * self.dphi
+        d_x = (f[1:] - f[:-1]) / dx
+        d_x0 = (f_prev[1:] - f_prev[:-1]) / dx
+        grad = 0.5 * np.sum(d_x * d_x0 * rf[1:-1]) * dx * self.dphi
+        d_p = (np.roll(f, -1, axis=1) - f) / self.dphi
+        d_p0 = (np.roll(f_prev, -1, axis=1) - f_prev) / self.dphi
+        grad += 0.5 * np.sum(d_p * d_p0 / r) * dx * self.dphi
+        return float(kinetic + grad)
+
+    def _interface_energy(self) -> float:
+        """Gradient energy stored on the two shared mouth faces."""
+        if self.mode != "throat":
+            return 0.0
+        R = self.geom.mouth_radius
+        h = 0.5 * (self.dth + self.ds)
+        idx = self._south_index()
+        dn = (self.u[0] - self.v[0]) / h
+        dn0 = (self.u_prev[0] - self.v_prev[0]) / h
+        ds_ = (self.v[-1][idx] - self.u[-1]) / h
+        ds0 = (self.v_prev[-1][idx] - self.u_prev[-1]) / h
+        return float(0.5 * R * (np.sum(dn * dn0) + np.sum(ds_ * ds0))
+                     * h * self.dphi)
+
     def energy(self) -> float:
-        """Total energy ``½∫(u_t² + |∇u|²) dA`` over sphere **and** neck."""
-        g_sn, g_ss, g_nn, g_ns = self._ghosts()
-        e = self._piece_energy(self.u, self.u_prev, g_sn, g_ss, self._r,
-                               self._rp, self.dth)
+        """Total energy ``½∫(u_t² + |∇u|²) dA`` over sphere **and** neck.
+
+        Includes the gradient energy held on the two shared mouth faces, so
+        the sum is the exact discrete invariant of the coupled scheme.
+        """
+        e = self._piece_energy(self.u, self.u_prev, self._r, self._rf, self.dth)
         if self.mode == "throat":
-            e += self._piece_energy(self.v, self.v_prev, g_nn, g_ns, self._q,
-                                    self._qp, self.ds)
+            e += self._piece_energy(self.v, self.v_prev, self._q, self._qf,
+                                    self.ds)
+            e += self._interface_energy()
         return float(e)
 
-    def _piece_energy(
-        self, f: np.ndarray, f_prev: np.ndarray, lo: np.ndarray, hi: np.ndarray,
-        r: np.ndarray, rp: np.ndarray, dx: float,
-    ) -> float:
-        f_t = (f - f_prev) / self.dt
-        up = np.vstack([f[1:], hi[None, :]])
-        d_x = (up - f) / dx                       # on the upper faces
-        d_p = (np.roll(f, -1, axis=1) - f) / self.dphi
-        kinetic = 0.5 * np.sum(f_t ** 2 * r) * dx * self.dphi
-        grad = 0.5 * np.sum((d_x ** 2) * rp) * dx * self.dphi
-        grad += 0.5 * np.sum((d_p ** 2) / r) * dx * self.dphi
-        return float(kinetic + grad)
+    def neck_energy(self) -> float:
+        """Energy currently stored inside the neck."""
+        if self.mode != "throat":
+            return 0.0
+        return self._piece_energy(self.v, self.v_prev, self._q, self._qf, self.ds)
+
+    def neck_energy_fraction(self) -> float:
+        """Fraction of the total energy currently stored inside the neck.
+
+        A *storage* fraction, not a transmission coefficient — the wave is
+        still going in and out.  For the throughput see
+        :func:`measure_mouth_budget`.
+        """
+        if self.mode != "throat":
+            return 0.0
+        return float(self.neck_energy() / max(self.energy(), 1e-30))
+
+    def mouth_power(self) -> Tuple[float, float]:
+        """Instantaneous power ``(north, south)`` flowing sphere → neck.
+
+        Read off the same shared face flux the stepper uses.  Abel summation
+        on the discrete operator gives, for the neck alone,
+
+        ```
+        dE_neck/dt = dφ ( north·v_t[0] − south[inv]·v_t[−1] )
+        ```
+
+        so these two terms are exactly the neck's energy budget and they
+        integrate to its stored energy — the check that the mouth coupling
+        is conservative rather than merely plausible.
+        """
+        if self.mode != "throat":
+            return 0.0, 0.0
+        north, south = self.interface_flux()
+        inv = self._south_index_inverse()
+        v_t = (self.v - self.v_prev) / self.dt
+        p_n = float(np.sum(north * v_t[0]) * self.dphi)
+        p_s = float(-np.sum(south[inv] * v_t[-1]) * self.dphi)
+        return p_n, p_s
+
+    def inward_power_at(self, theta_face: float) -> float:
+        """Power crossing the sphere circle ``θ_face`` toward the north mouth.
+
+        Used to normalise the mouth budget: it is the energy actually
+        *offered* to the mouth, which on a closed surface is only a part of
+        the wave.
+        """
+        j = int(np.clip(round((theta_face - self.geom.mouth_angle) / self.dth),
+                        1, self.n_theta - 1))
+        f = self._rf[j, 0] * (self.u[j] - self.u[j - 1]) / self.dth
+        u_t = 0.5 * ((self.u[j] - self.u_prev[j])
+                     + (self.u[j - 1] - self.u_prev[j - 1])) / self.dt
+        return float(np.sum(f * u_t) * self.dphi)
+
+    def energy_density(self) -> np.ndarray:
+        """Local energy density ``u_t² + |∇u|²`` on the sphere piece."""
+        u_t = (self.u - self.u_prev) / self.dt
+        d_th = np.zeros_like(self.u)
+        d_th[:-1] = (self.u[1:] - self.u[:-1]) / self.dth
+        d_th[-1] = d_th[-2]
+        d_ph = (np.roll(self.u, -1, axis=1) - self.u) / (self.dphi * self._r)
+        return u_t ** 2 + d_th ** 2 + d_ph ** 2
 
     def energy_drift(self) -> float:
         """Relative departure of the total energy from its launch value."""
         return abs(self.energy() - self._e0) / max(self._e0, 1e-30)
-
-    def neck_energy_fraction(self) -> float:
-        """Fraction of the total energy currently inside the neck."""
-        if self.mode != "throat":
-            return 0.0
-        _, _, g_nn, g_ns = self._ghosts()
-        e_neck = self._piece_energy(self.v, self.v_prev, g_nn, g_ns, self._q,
-                                    self._qp, self.ds)
-        return float(e_neck / max(self.energy(), 1e-30))
-
-    def energy_density(self) -> np.ndarray:
-        """Local energy density ``u_t² + |∇u|²`` on the sphere piece.
-
-        Positive across a whole wavefront (unlike ``|u|``, which vanishes
-        between the crest and the trough of one pulse), so it is what the
-        front-counting in :func:`wavefront_components` uses.
-        """
-        _, g_ss, _, _ = self._ghosts()
-        u_t = (self.u - self.u_prev) / self.dt
-        up = np.vstack([self.u[1:], g_ss[None, :]])
-        d_th = (up - self.u) / self.dth
-        d_ph = (np.roll(self.u, -1, axis=1) - self.u) / (self.dphi * self._r)
-        return u_t ** 2 + d_th ** 2 + d_ph ** 2
 
     def sample(self, theta: float, phi: float) -> float:
         """Field on the sphere at ``(θ, φ)`` (nearest cell)."""
@@ -556,103 +692,233 @@ class ThroatWaveSim:
 
 
 # ════════════════════════════════════════════════════════════════════════════
+# THE BARE SPHERE — the canonical picture, no holes at all
+# ════════════════════════════════════════════════════════════════════════════
+class BareSphereSim:
+    """The uncut unit 2-sphere, presented on the same ``(θ, φ)`` grid.
+
+    This is the control the other two are *departures from*: point →
+    expanding ring → great circle → contracting ring → antipodal focus, with
+    nothing cut out and nothing to reflect from.
+
+    A point source on a sphere makes the field a function of the geodesic
+    distance from that source alone, so the solve is **exactly** the
+    axisymmetric one already in
+    :mod:`geometrodynamics.viz.antipodal_focusing` — no new physics and no
+    polar-grid pathology.  This class runs that 1-D solver and maps it onto
+    the 2-D grid through ``d(θ, φ)``, which is exact, not an interpolation
+    of a coarser 2-D run.
+
+    The public surface matches :class:`ThroatWaveSim` closely enough for the
+    renderers, the exporter and the diagnostics to take either.
+    """
+
+    mode = "bare"
+    has_neck = False
+
+    def __init__(
+        self,
+        n_theta: int = 96,
+        n_phi: int = 128,
+        source_theta: float = 0.5 * math.pi,
+        source_phi: float = 0.0,
+        pulse_width: float = 0.18,
+        n_radial: int = 900,
+        **_ignored,
+    ) -> None:
+        from geometrodynamics.viz.antipodal_focusing import SphereWaveSim
+
+        self.n_theta = int(n_theta)
+        self.n_phi = int(n_phi)
+        self.pulse_width = float(pulse_width)
+        self.source_theta = float(source_theta)
+        self.source_phi = float(source_phi)
+        self.geom = None
+        self.n_s = 0
+
+        self.dth = math.pi / self.n_theta
+        self.dphi = 2.0 * math.pi / self.n_phi
+        self.theta = (np.arange(self.n_theta) + 0.5) * self.dth
+        self.phi = np.arange(self.n_phi) * self.dphi
+        self.theta_min, self.theta_max = 0.0, math.pi
+
+        self._sim = SphereWaveSim(n=n_radial)
+        self.dt = self._sim.dt
+        th = self.theta[:, None]
+        ph = self.phi[None, :]
+        cos_d = (math.cos(self.source_theta) * np.cos(th)
+                 + math.sin(self.source_theta) * np.sin(th)
+                 * np.cos(ph - self.source_phi))
+        self._dist = np.arccos(np.clip(cos_d, -1.0, 1.0))
+        self.reset()
+
+    # ── setup / stepping ────────────────────────────────────────────────────
+    def reset(self) -> None:
+        """Launch a purely outgoing ring at the source, at this width."""
+        s = self._sim
+        w = self.pulse_width
+        s.u = np.exp(-((s.theta / w) ** 2))
+        s.u_prev = np.exp(-(((s.theta + s.dt) / w) ** 2))
+        s.t = 0.0
+        self._e0 = self.energy()
+
+    @property
+    def t(self) -> float:
+        return self._sim.t
+
+    def step(self) -> None:
+        self._sim.step()
+
+    def run(self, n_steps: int) -> None:
+        self._sim.run(int(n_steps))
+
+    def advance_to(self, t_target: float) -> None:
+        self._sim.advance_to(t_target)
+
+    # ── fields ──────────────────────────────────────────────────────────────
+    @property
+    def u(self) -> np.ndarray:
+        return self._sim.sample(self._dist)
+
+    @property
+    def u_prev(self) -> np.ndarray:
+        return np.interp(np.clip(self._dist, 0.0, math.pi),
+                         self._sim.theta, self._sim.u_prev)
+
+    @property
+    def v(self) -> np.ndarray:
+        """Empty neck field — there is no neck."""
+        return np.zeros((0, self.n_phi))
+
+    def sample(self, theta: float, phi: float) -> float:
+        cos_d = (math.cos(self.source_theta) * math.cos(theta)
+                 + math.sin(self.source_theta) * math.sin(theta)
+                 * math.cos(phi - self.source_phi))
+        d = math.acos(max(-1.0, min(1.0, cos_d)))
+        return float(self._sim.sample(np.array([d]))[0])
+
+    def energy_density(self) -> np.ndarray:
+        """``u_t² + |∇u|²``, evaluated in 1-D and mapped — no polar blow-up.
+
+        The field depends only on ``d``, so ``|∇u|² = (∂u/∂d)²`` exactly and
+        the ``1/sin θ`` factor that would wreck a polar grid never appears.
+        """
+        s = self._sim
+        u_t = (s.u - s.u_prev) / s.dt
+        u_d = np.gradient(s.u, s.dth)
+        dens = u_t ** 2 + u_d ** 2
+        return np.interp(np.clip(self._dist, 0.0, math.pi), s.theta, dens)
+
+    # ── diagnostics (same names, trivially satisfied) ───────────────────────
+    def energy(self) -> float:
+        return float(self._sim.energy())
+
+    def energy_drift(self) -> float:
+        return abs(self.energy() - self._e0) / max(self._e0, 1e-30)
+
+    def neck_energy_fraction(self) -> float:
+        return 0.0
+
+    def is_finite(self) -> bool:
+        return bool(np.all(np.isfinite(self._sim.u)))
+
+
+# ════════════════════════════════════════════════════════════════════════════
 # WAVEFRONT TOPOLOGY — does the front cross itself?
 # ════════════════════════════════════════════════════════════════════════════
-def _label_periodic_phi(mask: np.ndarray) -> int:
-    """Count connected components of ``mask`` with ``φ`` (axis 1) periodic."""
-    from scipy import ndimage
+@dataclass
+class Multiplicity:
+    """Outcome of :func:`measure_arrival_multiplicity`."""
 
-    lab, n = ndimage.label(mask)
-    if n == 0:
-        return 0
-    parent = list(range(n + 1))
-
-    def find(x: int) -> int:
-        while parent[x] != x:
-            parent[x] = parent[parent[x]]
-            x = parent[x]
-        return x
-
-    def union(x: int, y: int) -> None:
-        rx, ry = find(x), find(y)
-        if rx != ry:
-            parent[max(rx, ry)] = min(rx, ry)
-
-    left, right = lab[:, 0], lab[:, -1]
-    for lv, rv in zip(left, right):
-        if lv and rv:
-            union(int(lv), int(rv))
-    return len({find(i) for i in range(1, n + 1)})
+    counts: np.ndarray            # arrivals per grid cell over the window
+    max_arrivals: int
+    area_fraction_multi: float    # area-weighted fraction with ≥ 2 arrivals
+    source_side_fraction: float   # ...of that, within 60° of the source meridian
+    first_multi_time: Optional[float]
+    first_multi_theta: Optional[float]
+    t_window: float
 
 
-def wavefront_components(
-    sim: ThroatWaveSim, frac: float = 0.15, smooth: float = 2.0,
-) -> int:
-    """Number of separate wavefront pieces on the sphere.
-
-    The front is located by the **energy density**
-    ``u_t² + |∇u|²`` rather than by ``|u|``: the pulse has a crest and a
-    trough separated by a zero, so a ``|u|`` level set splits one physical
-    ring into concentric shards, while the energy density is positive
-    across the whole front.  A light Gaussian smoothing (``smooth`` cells,
-    periodic in ``φ``) removes grid speckle.
-
-    A single expanding ring on a closed surface returns ``1`` for its whole
-    free flight: it grows to the great circle and shrinks to the antipode
-    without ever meeting itself.  Counts above one mean the surface is
-    carrying more than one front, and on a closed surface those must cross.
-    """
-    from scipy import ndimage
-
-    e = sim.energy_density()
-    if smooth > 0.0:
-        e = ndimage.gaussian_filter(e, sigma=(smooth, smooth),
-                                    mode=("nearest", "wrap"))
-    peak = float(e.max())
-    if peak <= 0.0:
-        return 0
-    return _label_periodic_phi(e > frac * peak)
-
-
-def track_wavefront(
-    sim: ThroatWaveSim, t_end: float, n_samples: int = 120, frac: float = 0.15,
+def measure_arrival_multiplicity(
+    sim, t_window: float, hi: float = 0.35, lo: float = 0.12,
     t_min: Optional[float] = None,
-) -> Dict[str, object]:
-    """Component count of the wavefront sampled over a run.
+) -> Multiplicity:
+    """How many times a wavefront crosses each point of the surface.
 
-    Returns the sampled series plus the time at which a second front first
-    appears — the moment the surface stops carrying a single ring.
+    This replaces counting connected components of a level set, which could
+    not tell the two interesting cases apart: a hole *cutting* one ring into
+    arcs raises the component count without any front ever meeting another
+    front, and that is exactly what both the plugged and the open surface do
+    the moment the ring reaches a mouth.
 
-    Samples before ``t_min`` (default three launch-pulse widths) are
-    recorded but excluded from the split time.  A cap released from rest is
-    d'Alembert data: it splits into an outgoing *and* an ingoing ring, and
-    the ingoing one collapses through the source and re-expands within
-    about one pulse width.  That is a launch artefact of releasing from
-    rest, not a wavefront crossing, so the free-flight claim is scored
-    after it has resolved.
+    Arrival multiplicity asks the question directly.  Each cell runs a
+    **hysteresis trigger** on its own energy density ``u_t² + |∇u|²``: an
+    arrival is counted when the density rises past ``hi × (that cell's peak
+    over the window)``, and the cell cannot count another until it has
+    fallen back below ``lo ×`` the same peak.  Plain local-maximum counting
+    does not survive here — a wave in 2+1 dimensions violates Huygens'
+    principle, so every front drags a slowly decaying wake whose ripples are
+    local maxima too, and they get counted as arrivals that never happened.
+
+    On a closed surface with no boundary the front is the geodesic circle of
+    radius ``t``: it sweeps each point exactly once, so within a half period
+    the count is ``1`` everywhere and no two fronts ever meet.  A count of
+    ``2`` means two fronts crossed the same point — and on a closed surface
+    two fronts that coexist must cross.
+
+    Runs the sim twice: once to learn each cell's peak, once to trigger
+    against it.  ``t_min`` (default two pulse widths) skips the launch.
     """
-    t0 = 3.0 * sim.pulse_width if t_min is None else float(t_min)
+    t0 = 2.0 * sim.pulse_width if t_min is None else float(t_min)
+    shape = (sim.n_theta, sim.n_phi)
+
     sim.reset()
-    times: List[float] = []
-    counts: List[int] = []
-    t_split: Optional[float] = None
-    for i in range(n_samples):
-        sim.advance_to((i + 1) * t_end / n_samples)
-        n = wavefront_components(sim, frac=frac)
-        times.append(sim.t)
-        counts.append(n)
-        if t_split is None and n > 1 and sim.t >= t0:
-            t_split = sim.t
-    arr = np.asarray(counts)
-    scored = arr[np.asarray(times) >= t0]
-    return {
-        "t_min": t0,
-        "max_components": int(scored.max()) if scored.size else 0,
-        "t_split": t_split,
-        "single_ring_until": float(t_split) if t_split is not None else float(t_end),
-        "times": times,
-        "counts": counts,
-    }
+    peaks = np.zeros(shape)
+    while sim.t < t_window:
+        peaks = np.maximum(peaks, sim.energy_density())
+        sim.step()
+    peaks = np.maximum(peaks, peaks.max() * 1e-9)
+
+    sim.reset()
+    counts = np.zeros(shape, dtype=np.int32)
+    armed = np.ones(shape, dtype=bool)          # ready to register an arrival
+    first_t: Optional[float] = None
+    first_row: Optional[int] = None
+    while sim.t < t_window:
+        e = sim.energy_density()
+        if sim.t >= t0:
+            fire = armed & (e > hi * peaks)
+            if np.any(fire):
+                was = counts.copy()
+                counts[fire] += 1
+                armed[fire] = False
+                new_multi = (counts >= 2) & (was < 2)
+                if first_t is None and np.any(new_multi):
+                    first_t = sim.t
+                    first_row = int(np.argmax(new_multi.any(axis=1)))
+            armed |= e < lo * peaks
+        else:
+            armed &= e < lo * peaks             # let the launch settle
+        sim.step()
+
+    w = np.sin(sim.theta)[:, None] * np.ones((1, sim.n_phi))
+    multi = counts >= 2
+    frac_multi = float(np.sum(w * multi) / np.sum(w))
+    # the discriminating half: a reflection sends a second front back toward
+    # the source, a bulk crossing sends it out of the far mouth instead
+    dphi_src = np.abs((sim.phi - sim.source_phi + math.pi) % (2 * math.pi) - math.pi)
+    near = (dphi_src < math.pi / 3.0)[None, :] & np.ones((sim.n_theta, 1), bool)
+    frac_src = float(np.sum(w * multi * near) / np.sum(w * near))
+    return Multiplicity(
+        counts=counts,
+        max_arrivals=int(counts.max()),
+        area_fraction_multi=frac_multi,
+        source_side_fraction=frac_src,
+        first_multi_time=first_t,
+        first_multi_theta=(float(sim.theta[first_row])
+                           if first_row is not None else None),
+        t_window=float(t_window),
+    )
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -885,27 +1151,63 @@ def measure_orientation_visibility(
     return {"t_probe": float(t_probe), "rows": rows}
 
 
-def measure_transmission(
-    sim: ThroatWaveSim, t_end: float, n_samples: int = 400,
+def measure_mouth_budget(
+    sim: ThroatWaveSim, t_window: Optional[float] = None, n_steps: int = 4000,
+    reference_cells: int = 6,
 ) -> Dict[str, float]:
-    """Energy budget of the first encounter with the mouth.
+    """Energy budget of the first encounter with the mouth, by **flux**.
 
-    Returns the peak fraction of the total energy that is simultaneously
-    inside the neck (``transmitted``), the complement left outside
-    (``reflected``), the time of that peak, and the energy drift over the
-    run (the numerical honesty check).
+    The earlier version reported the peak *stored* energy fraction inside
+    the neck and called it "transmitted".  That is not a transmission
+    coefficient: it is a snapshot of what happens to be in the neck at one
+    instant, it depends on how long the neck is, and it ignores everything
+    that has already passed through.  This measures the throughput instead,
+    by integrating the actual power crossing surfaces:
+
+    * ``offered`` — the energy that crosses a reference circle a few cells
+      inside the mouth, heading for it.  On a closed surface only part of
+      the wave ever reaches the mouth at all, so this, not the total energy,
+      is the right denominator.
+    * ``through`` — the energy that crosses the mouth face itself into the
+      neck, from the same shared flux the stepper uses.
+    * ``transmission = through / offered``, and ``reflection = 1 −
+      transmission``.
+
+    Both are running maxima over the first encounter, before the wave can
+    come back and cross the same surfaces again.
     """
+    if sim.mode != "throat":
+        raise ValueError("mouth budget needs mode='throat'")
+    geom = sim.geom
+    if t_window is None:
+        t_window = geom.free_flight(sim.source_theta) + 1.2 * geom.length
+    theta_ref = geom.mouth_angle + reference_cells * sim.dth
+
     sim.reset()
-    best, t_best = 0.0, 0.0
-    for i in range(n_samples):
-        sim.advance_to((i + 1) * t_end / n_samples)
-        f = sim.neck_energy_fraction()
-        if f > best:
-            best, t_best = f, sim.t
+    q_in = q_ref = 0.0
+    best_in = best_ref = 0.0
+    stored = 0.0
+    t_best = 0.0
+    while sim.t < t_window:
+        p_n, _ = sim.mouth_power()
+        q_in += p_n * sim.dt
+        q_ref += sim.inward_power_at(theta_ref) * sim.dt
+        best_ref = max(best_ref, q_ref)
+        if q_in > best_in:
+            best_in, t_best = q_in, sim.t
+        stored = max(stored, sim.neck_energy_fraction())
+        sim.step()
+
+    trans = best_in / best_ref if best_ref > 0 else 0.0
     return {
-        "transmitted": float(best),
-        "reflected": float(1.0 - best),
-        "t_peak": float(t_best),
+        "offered": float(best_ref),
+        "through": float(best_in),
+        "transmission": float(trans),
+        "reflection": float(1.0 - trans),
+        "peak_stored_fraction": float(stored),
+        "t_through_peak": float(t_best),
+        "t_window": float(t_window),
+        "theta_reference": float(theta_ref),
         "energy_drift": float(sim.energy_drift()),
     }
 
@@ -1036,8 +1338,7 @@ def draw_map(ax: Axes, sim: ThroatWaveSim, vmax: Optional[float] = None) -> None
                       math.pi - sim.geom.mouth_angle))
     ax.set_xlabel("φ", color=_PAL["dim"], fontsize=8)
     ax.set_ylabel("θ", color=_PAL["dim"], fontsize=8)
-    n_front = wavefront_components(sim)
-    _style(ax, f"surface map — fronts: {n_front}")
+    _style(ax, "surface map")
 
 
 def draw_geometry(ax: Axes, geom: ThroatGeometry) -> None:
@@ -1151,6 +1452,7 @@ def export_frames(
     if compand not in ("linear", "signed_sqrt"):
         raise ValueError("compand must be 'linear' or 'signed_sqrt'")
     sim.reset()
+    has_neck = getattr(sim, "n_s", 0) > 0
     sph: List[np.ndarray] = []
     nek: List[np.ndarray] = []
     times: List[float] = []
@@ -1158,7 +1460,8 @@ def export_frames(
     for i in range(frames):
         sim.advance_to((i + 1) * t_end / frames)
         sph.append(_downsample(sim.u, rows, cols))
-        nek.append(_downsample(sim.v, neck_rows, cols))
+        nek.append(_downsample(sim.v, neck_rows, cols) if has_neck
+                   else np.zeros((neck_rows, cols)))
         times.append(sim.t)
         neck_frac.append(sim.neck_energy_fraction())
 
@@ -1172,15 +1475,19 @@ def export_frames(
         shape = lambda a: np.sign(a) * np.sqrt(np.abs(a) / scale)
     q = np.clip(np.round(shape(stack) * 127.0) + 128, 0, 255).astype(np.uint8)
     qn = np.clip(np.round(shape(neck) * 127.0) + 128, 0, 255).astype(np.uint8)
+    g = sim.geom
     return {
         "compand": compand,
         "mode": sim.mode,
-        "surface": surface_name(sim.twist_parity),
-        "mouth_angle": sim.geom.mouth_angle,
-        "neck_length": sim.geom.length,
-        "neck_radius": sim.geom.neck_radius,
-        "twist_parity": sim.twist_parity,
-        "twist_steps": sim.twist_steps,
+        "surface": surface_name(getattr(sim, "twist_parity", 1)),
+        "mouth_angle": g.mouth_angle if g else 0.0,
+        "neck_length": g.length if g else 0.0,
+        "neck_radius": g.neck_radius if g else 0.0,
+        "theta_min": float(sim.theta[0] - 0.5 * sim.dth),
+        "theta_max": float(sim.theta[-1] + 0.5 * sim.dth),
+        "has_neck": bool(has_neck),
+        "twist_parity": getattr(sim, "twist_parity", 1),
+        "twist_steps": getattr(sim, "twist_steps", 0),
         "rows": rows, "cols": cols, "neck_rows": neck_rows,
         "frames": frames, "t_end": t_end, "scale": scale,
         "times": times,

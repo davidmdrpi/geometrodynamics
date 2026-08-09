@@ -16,166 +16,228 @@ the question the pictures were originally asking:
 Nothing is fitted and no quantum ingredient is inserted. Every number below
 is read off a live wave solve, and every stage of it can be watched.
 
-## The surface
+## Three surfaces, one clock
 
-A unit 2-sphere with both polar caps `θ < a` and `θ > π − a` removed, and
-the two mouth circles joined by a **catenoidal neck**
-`r(s) = b·cosh((s − L/2)/b)` in arclength gauge. Demanding a `C¹` join —
-the circumference *and* its slope continuous at both mouths — fixes the
-neck completely from the single parameter `a`:
+The comparison needs all three terms, not two. Each isolates one change:
+
+| | surface | what it isolates |
+|---|---|---|
+| 1 | **bare S²** — uncut | the canonical picture: point → expanding ring → great circle → contracting ring → antipodal focus |
+| 2 | **plugged** — both caps cut out, mouths sealed by a mirror | what *cutting holes* does |
+| 3 | **throat** — the same cut sphere, mouths joined by a neck | what *opening a second route* does |
+
+The bare sphere is not decoration. A point source makes the field a function
+of geodesic distance alone, so it is solved **exactly** by the axisymmetric
+solver already in `viz/antipodal_focusing.py` and mapped onto the same
+`(θ, φ)` grid — no new physics, no polar-grid pathology, and it supplies the
+only case in which the front provably never meets another front.
+
+## The neck is a true catenoid
+
+The neck is the **minimal surface of revolution**, `H = 0`,
+`r = b·cosh(z/b)`. Matching the circumference *and* its arclength slope to
+the sphere at the mouth,
 
 ```
-r(0) = sin a,  r'(0) = −cos a   ⟹   b = sin a / √(1 + cos²a),
-                                    L = 2b·asinh(cos a)
+r = sin a,  dr/ds = −cos a   ⟹   tanh(z₀/b) = cos a,   b·cosh(z₀/b) = sin a
 ```
 
-In arclength gauge `r'' = r/b²`, so the neck carries **constant** Gauss
-curvature `K = −1/b²`, and the two pieces cancel exactly in Gauss–Bonnet:
+has the closed-form solution
 
-| piece | `∫K dA` |
-|---|---:|
-| capped sphere | `+4π cos a` |
-| catenoidal neck | `−4π cos a` |
-| **total** | **`0`** ⟹ `χ = 0` |
+```
+b = sin²a,        L = sin 2a,        z₀ = b·artanh(cos a)
+```
 
-so the glued surface is a **torus** (azimuth-preserving gluing, `ε = +1`)
-or a **Klein bottle** (azimuth-reversing, `ε = −1`). Gluing the neck frame
-`(∂_s, ∂_ψ)` to the sphere frame `(∂_θ, ∂_φ)` gives `ds∧dψ = −dθ∧dφ` at
-the north mouth and `−ε·dθ∧dφ` at the south, so a global orientation exists
-iff `ε = +1`.
+Its Gauss curvature `K = −b²/r⁴` **varies** — which is the point. It is
+exactly **−1** at each mouth (the sphere's `+1` with its sign flipped, no
+jump in magnitude) and deepens to `−1/sin⁴a` at the waist:
 
-This is the 2-surface **section** of the S³ picture — `point → ring →
-great circle → antipode` is the section of `point → shell → maximal shell →
-antipode` — which is exactly why the low-dimensional movie is not a cartoon
-of the high-dimensional one but a faithful slice of it.
+| `a` | `b = sin²a` | `L = sin 2a` | `\|r − b cosh(z/b)\|` | `K` mouth | `K` waist | `χ` |
+|---:|---:|---:|---:|---:|---:|---:|
+| 0.25 | 0.0612 | 0.4794 | 1.7e-16 | −1.000 | −266.92 | 0 |
+| 0.50 | 0.2298 | 0.8415 | 2.2e-16 | −1.000 | −18.93 | 0 |
+| 0.75 | 0.4646 | 0.9975 | 2.2e-16 | −1.000 | −4.63 | 0 |
+| 1.00 | 0.7081 | 0.9093 | 2.2e-16 | −1.000 | −1.99 | 0 |
+| 1.30 | 0.9284 | 0.5155 | 2.2e-16 | −1.000 | −1.16 | 0 |
 
-At `a = 0.5` the neck is short and the outer way round is long:
+So the wave crosses a real minimal-surface neck of continuously changing
+negative curvature, not a manufactured constant-curvature strip.
+
+### What χ = 0 actually tests
+
+For *any* surface of revolution `K = −r''/r` and `dA = 2πr ds`, so
+
+```
+∫K dA = −2π[r']
+```
+
+depends **only on the boundary slopes**. The `C¹` join pins those to
+`∓cos a`, so `4π cos a − 4π cos a = 0` closes for the catenoid and for every
+other `C¹`-matched profile alike. **The closure is a check on the join, not
+evidence for a particular neck** — a point the first version of this write-up
+overstated, and one the test suite now pins with a deliberately different
+(cubic Hermite) profile.
+
+The glued surface is a **torus** (azimuth-preserving gluing) or a **Klein
+bottle** (azimuth-reversing): `ds∧dψ = −dθ∧dφ` at the north mouth against
+`−ε·dθ∧dφ` at the south, so a global orientation exists iff `ε = +1`.
+
+At `a = 0.75` the geometry sets four times on one clock:
 
 | quantity | value |
 |---|---:|
-| neck waist `b` | 0.3603 |
-| neck length `L` (inner route) | 0.5709 |
-| `π − 2a` (outer route) | 2.1416 |
-| **shortcut ratio** | **3.75×** |
-| neck curvature `K = −1/b²` | −7.7014 |
-| `χ = ∫K dA / 2π` | 0.0 (exact) |
+| neck waist `b` | 0.4646 |
+| neck length `L` (inner route) | 0.9975 |
+| `π − 2a` (outer route) | 1.6416 |
+| **shortcut ratio** | **1.65×** |
+| ring reaches the mouths | 0.821 |
+| sealed echo returns `2(θ₀−a)` | 1.642 |
+| bulk crossing lands `2(θ₀−a)+L` | 2.639 |
+| antipodal focus `π` | 3.142 |
 
-## The controlled baseline
+## How the pieces are coupled
 
-The comparison run is the **same domain on the same grid** with both mouths
-sealed by a perfect mirror (`mode="plugged"`). Only the handle differs
-between the two runs — there is no other change to compare away. A sealed
-mouth is a filled-in throat, which is the physically meaningful control; a
-"sphere with no holes at all" would change the domain as well.
+Each mouth is **one finite-volume face shared** by a sphere cell and a neck
+cell. Its flux is evaluated once,
+
+```
+F = r_mouth · (f_outer − f_inner) / h,      h = ½(dθ + ds)
+```
+
+and handed to both cells with opposite signs, so the discrete divergence
+theorem holds across the mouth. (The first version gave each domain its own
+interpolated ghost ring; those two ghosts disagreed at `O(dθ)` and leaked.)
+A sealed mouth is the zero-flux face — the same statement as a perfect
+mirror, and conservative for the same reason.
+
+Two further corrections make the diagnostics mean what they say:
+
+* **the conserved quantity** is the exact leapfrog invariant, whose gradient
+  term is the *cross* product `⟨∇uⁿ, ∇uⁿ⁻¹⟩` — the velocity lives at the
+  half step, so pairing it with a same-time gradient leaves an `O(dt²)`
+  wobble that peaks whenever a sharp front crosses something;
+* **the launch** is a purely outgoing ring, `u⁻ = f(d + c·dt)`. A cap
+  released from rest is d'Alembert data: it splits into an outgoing *and* an
+  ingoing front, which puts two fronts on the surface for reasons that have
+  nothing to do with the geometry.
+
+With both in place the energy drift is `~4×10⁻¹⁶` — round-off — and the
+integrated mouth power closes against the neck's stored energy to 0.3%.
 
 ## The answer (measured)
 
-| finding | result |
-|---|---|
-| **the ring does not cross itself** | the front is a single connected circle from launch until it first reaches a mouth (`t = 1.071`); measured `1.104` plugged, `1.255` throat |
-| **the echo delay is the neck length** | sealed echo at `2(θ₀−a)`, open return at `2(θ₀−a)+L`; delay measured `0.579` against `L = 0.571` — **1.5%**, stable to 1.1–1.6% across a 3× grid refinement |
-| **the open mouth barely reflects** | opening the throat suppresses the mirror echo by **95.7%** |
-| **the twist aims the arrival** | with `τ = π` the bulk route lands on the antipode `0.391` **ahead** of the geodesic focus and **9.7×** stronger than with `τ = 0` |
-| **the orientation is real but hidden** | torus and Klein bottle are identical to a point source exactly at `τ ∈ {0, π}` (difference `0.0000`) and differ by ~18% elsewhere |
-| **energy** | drift `< 7×10⁻⁴` over the whole coupled run |
+### Does a front ever meet another front?
 
-### The ring is one circle in free flight
+Counting connected components of a level set could not answer this: a hole
+*cutting* one ring into arcs raises the component count without any front
+meeting another, and that is exactly what both the plugged and the open
+surface do the moment the ring reaches a mouth. So the diagnostic now counts
+**arrivals per point** — a per-cell hysteresis trigger on the energy density
+`u_t² + |∇u|²`, armed above 35% and re-armed below 12% of that cell's own
+peak. (Plain local-maximum counting also fails: a wave in 2+1 dimensions
+violates Huygens' principle, so every front drags a rippling wake whose
+ripples are local maxima too.)
 
-On a closed surface the front of a point pulse is the geodesic circle of
-radius `t`: it expands to the great circle and contracts to the antipode
-**without ever meeting itself**. Only the handle can put a second front on
-the same surface, and on a closed surface two fronts must cross. Measured
-by counting connected components of the smoothed energy density
-`u_t² + |∇u|²` (not `|u|`, which splits one physical ring into concentric
-shards at the crest/trough zero), the count is exactly `1` past the
-free-flight time in both topologies.
+Over `t < π`:
 
-The launch transient is excluded: a cap released from rest is d'Alembert
-data and splits into an outgoing *and* an ingoing ring, which collapses
-through the source and re-expands within about one pulse width. That is a
-property of releasing from rest, not a wavefront crossing.
+| surface | max arrivals | area with ≥2 | of the source side |
+|---|---:|---:|---:|
+| **bare S²** | 2 | **0.015** | **0.000** |
+| plugged | 3 | 0.243 | **0.095** |
+| throat | 3 | 0.362 | **0.000** |
+
+On a closed surface with no boundary the front is the geodesic circle of
+radius `t`: it sweeps each point exactly once, so it cannot meet itself —
+1.5% of the bare surface ever sees a second front, and that only at the
+antipodal caustic where the front converges and re-expands.
+
+Sealing the mouths puts a second front back toward the source over 9.5% of
+that hemisphere. Opening the throat puts a second front over *more* of the
+surface (36%) but **none of it back home** — the mouth transmits instead of
+reflecting. That is the echo result, resolved in space rather than in time.
 
 ### The echo delay is the neck length
 
-This is the load-bearing measurement, because the two routes share every
-segment except the crossing:
+The two routes share every segment except the crossing:
 
 | route | predicted | measured |
 |---|---:|---:|
-| sealed mirror echo `2(θ₀−a)` | 2.1416 | 2.0640 |
-| open bulk return `2(θ₀−a)+L` | 2.7125 | 2.6434 |
-| **delay = `L`** | **0.5709** | **0.5794** |
+| sealed mirror echo `2(θ₀−a)` | 1.6416 | 1.6017 |
+| open bulk return `2(θ₀−a)+L` | 2.6391 | 2.6033 |
+| **delay = `L`** | **0.9975** | **1.0016** |
 
-Both absolute times sit ≈ one pulse half-width early — the peak of a finite
-pulse is not its geodesic front — but the bias is common to both, so it
-cancels in the delay. **The wave measures the throat**: a classical scalar
-field on a fixed surface reports the neck's arclength to 1.5% with no
-fitted parameter anywhere.
+0.41%, and 0.4–0.8% across a 2.25× grid refinement. Both absolute times sit
+one pulse half-width early — the peak of a finite pulse is not its geodesic
+front — but the bias is common to both and cancels in the delay. **The wave
+measures the throat.**
 
-### The mouth transmits rather than reflects
+### The mouth budget, by integrated flux
 
-| mouth `a` | mouth radius | transmitted | reflected |
-|---:|---:|---:|---:|
-| 0.30 | 0.296 | 0.186 | 0.814 |
-| 0.50 | 0.479 | 0.286 | 0.714 |
-| 0.70 | 0.644 | 0.417 | 0.583 |
+The first version reported the peak *stored* energy fraction inside the neck
+and called it "transmitted". That is not a transmission coefficient: it is a
+snapshot, it depends on how long the neck is, and it ignores everything that
+has already passed through. The throughput is now measured by integrating
+power through two surfaces — `offered` across a reference circle just inside
+the mouth, `through` across the mouth face itself:
 
-and the mirror echo that the sealed run produces is suppressed by 95.7%
-when the throat is opened. The wave goes *through* the hole rather than
-bouncing off it, and what comes back comes back later, by the bulk.
+| mouth `a` | offered | through | transmission | reflection | peak stored |
+|---:|---:|---:|---:|---:|---:|
+| 0.40 | 0.4729 | 0.3752 | 0.793 | 0.207 | 0.243 |
+| 0.55 | 0.6102 | 0.5276 | 0.865 | 0.135 | 0.343 |
+| 0.75 | 0.7913 | 0.7274 | **0.919** | 0.081 | 0.474 |
+| 0.90 | 0.9283 | 0.8714 | 0.939 | 0.061 | 0.566 |
+
+On a closed surface only part of the wave ever reaches the mouth, so the
+total energy is the wrong denominator; `offered` is the right one.
+
+> **Mirror suppression and transmission are different measurements.** The
+> sealed echo's *amplitude* at one watched point and time is suppressed by
+> 72.7% when the throat is opened; the *energy* transmission at the mouth is
+> 91.9%. They are two views of the same fact and must not be quoted
+> interchangeably — the earlier PR description conflated them.
 
 ### The twist aims the bulk arrival
 
-The gluing offset `τ = twist_steps · dφ` rotates where the bulk route
-re-emerges, at no energy cost:
-
-* `τ = 0` — the route runs source → north mouth → neck → south mouth →
-  **back to the source**, a closed geodesic of length `2(θ₀−a)+L = 2.712`
-  that generates `π₁` and does not exist without the handle;
-* `τ = π` — the same route ends on the **antipode** instead, delivering a
-  precursor there at `2.644` (predicted `2.712`), **0.391 ahead** of the
-  geodesic focus at `3.035` (biased `π`), and 9.7× stronger than the
-  untwisted throat delivers to the same point.
-
-The geometry, not a coupling constant, decides where the energy lands.
+With `τ = π` the bulk route ends on the antipode at a predicted `2.6391`,
+measured `2.6094` — **0.469 ahead** of the geodesic focus, and **9.9×**
+stronger than the same neck at `τ = 0`, which sends the same energy back to
+the source instead. The geometry, not a coupling constant, decides where it
+lands.
 
 ### The orientation is real but hidden
 
-A point source is symmetric under the reflection `R: φ → −φ` through its
-own meridian. `R` survives the gluing `g: φ ↦ εφ + τ` iff
+A point source is symmetric under the reflection `R: φ → −φ` through its own
+meridian, and `R` survives the gluing `g: φ ↦ εφ + τ` iff
 
 ```
 R∘g = g∘R  ⟺  −(εφ + τ) = ε(−φ) + τ  ⟺  τ ≡ −τ  ⟺  τ ∈ {0, π}
 ```
 
-At those two offsets the mirror carries the torus gluing into the
-Klein-bottle gluing, so **no point source can tell them apart**:
-
 | `τ/π` | torus vs Klein difference | mirror broken? |
 |---:|---:|---|
 | 0.000 | 0.0000 | no |
-| 0.250 | 0.1907 | yes |
-| 0.500 | 0.1623 | yes |
-| 0.750 | 0.1834 | yes |
+| 0.250 | 0.1864 | yes |
+| 0.500 | 0.2165 | yes |
+| 0.750 | 0.2051 | yes |
 | 1.000 | 0.0000 | no |
 
-The measurement matches the argument to machine precision. This sharpens
-the inner/outer intuition: the asymmetry is present at *every* twist — the
-inner route is short and negatively curved, the outer route long and
-positively curved, and reversing the neck's normal flips the extrinsic
-sign — but **it takes a twist that breaks the source's mirror to make the
-orientation observable**. Intrinsic spherical symmetry and extrinsic
-orientation asymmetry coexist, and the observable consequences of the
-second are gated by how the source is placed.
+Measurement matches argument to machine precision. The asymmetry is present
+at *every* twist — the inner route is short and negatively curved, the outer
+long and positively curved, and reversing the neck's normal flips the
+extrinsic sign — but **it takes a twist that breaks the source's mirror to
+make the orientation observable**. Intrinsic spherical symmetry and extrinsic
+orientation asymmetry coexist, and the observable consequences of the second
+are gated by how the source is placed.
 
 ## Honest scope
 
-* **Linear, no backreaction.** A focus here can sharpen but cannot nucleate
-  a new throat, so this probe says nothing about the #175 threshold. It
-  establishes the kinematic stage on which that question would be asked.
+* **Linear, no backreaction.** A focus can sharpen but cannot nucleate, so
+  this probe says nothing about the #175 threshold. It establishes the
+  kinematic stage on which that question would be asked.
 * **The join is `C¹`, not `C²`.** Each mouth carries a curvature ring which
-  scatters a little on its own; that scattering is inside the reported
-  mouth budget rather than removed from it.
+  scatters a little on its own; that scattering is inside the reported mouth
+  budget rather than removed from it.
+* **`χ = 0` tests the join, not the profile.**
 * **Arrival-time bias.** Absolute times carry a common leading-edge bias of
   about the pulse's half width. Every load-bearing number is a *difference*
   of arrival times taken on one grid with one pulse.
@@ -193,14 +255,22 @@ python -m experiments.closure_ledger.geometric_wave_refocusing_probe
 Watch it (any interactive matplotlib backend):
 
 ```python
-from geometrodynamics.viz import ThroatWaveSim, run_throat_animation, plot_wavefront_panel
-anim = run_throat_animation(ThroatWaveSim(mode="throat", twist_steps=96))
+from geometrodynamics.viz import (
+    BareSphereSim, ThroatWaveSim, plot_wavefront_panel, run_throat_animation)
 
-sim = ThroatWaveSim(mode="throat", twist_steps=96); sim.advance_to(1.4)
+anim = run_throat_animation(ThroatWaveSim(mode="throat", mouth_angle=0.75,
+                                          twist_steps=96))
+
+sim = ThroatWaveSim(mode="throat", mouth_angle=0.75, twist_steps=96)
+sim.advance_to(1.4)
 plot_wavefront_panel(sim)      # both hemispheres, the neck interior, the map
 ```
 
 ## Where this could go
+
+This is meant as the beginning of a visual experimental platform rather than
+one result: instead of asking geometry to reproduce a known formula, let the
+geometry run and see what it produces.
 
 1. **Backreaction.** Let the wave's stress-energy move `b`, and ask whether
    the focus can deepen the neck — the point at which #175's threshold
@@ -210,6 +280,6 @@ plot_wavefront_panel(sim)      # both hemispheres, the neck interior, the map
 3. **Up to S³.** The same construction with `S³` and a 3-dimensional neck:
    expanding `S²` shells, an embedded shell inside the throat, and the
    antipodal caustic in its native dimension.
-4. **A moving object.** Replace the point source with a persistent
-   structure and measure the momentum a passing pulse imparts to it — the
-   reflection budget of T6 is the first term of that ledger.
+4. **A moving object.** Replace the point source with a persistent structure
+   and measure the momentum a passing pulse imparts to it — the reflection
+   column of the mouth budget is the first term of that ledger.
