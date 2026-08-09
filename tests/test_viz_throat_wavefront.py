@@ -292,3 +292,27 @@ def test_export_frames_round_trips_to_the_declared_shape():
     assert data["surface"] == "torus"
     arr = np.frombuffer(raw, dtype=np.uint8)
     assert arr.min() >= 0 and arr.max() <= 255
+    assert data["compand"] == "linear"
+
+
+def test_signed_sqrt_companding_preserves_sign_and_lifts_weak_structure():
+    import base64
+
+    sim = ThroatWaveSim(mode="throat", n_theta=48, n_phi=64, pulse_width=0.22)
+    kw = dict(t_end=2.4, frames=10, rows=16, cols=24, neck_rows=6)
+    lin = export_frames(sim, compand="linear", **kw)
+    sqr = export_frames(sim, compand="signed_sqrt", **kw)
+    a = np.frombuffer(base64.b64decode(lin["sphere_b64"]), dtype=np.uint8).astype(int) - 128
+    b = np.frombuffer(base64.b64decode(sqr["sphere_b64"]), dtype=np.uint8).astype(int) - 128
+    assert sqr["compand"] == "signed_sqrt"
+    # the sign is untouched wherever the linear encoding resolved one at all
+    live = (a != 0) & (np.abs(a) < 127)
+    assert np.all(np.sign(a[live]) == np.sign(b[live]))
+    # and the weak tail is lifted out of the floor
+    assert np.mean(np.abs(b) > 8) > np.mean(np.abs(a) > 8)
+
+
+def test_export_rejects_an_unknown_companding():
+    sim = ThroatWaveSim(mode="throat", n_theta=32, n_phi=48)
+    with pytest.raises(ValueError):
+        export_frames(sim, t_end=0.3, frames=2, compand="log")

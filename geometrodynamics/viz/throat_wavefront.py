@@ -1128,13 +1128,28 @@ def _downsample(a: np.ndarray, rows: int, cols: int) -> np.ndarray:
 def export_frames(
     sim: ThroatWaveSim, t_end: float = 6.0, frames: int = 160,
     rows: int = 72, cols: int = 120, neck_rows: int = 20,
+    compand: str = "linear",
 ) -> Dict[str, object]:
     """Run the sim and return a compact, base64 uint8 frame stack.
 
     The field is symmetrically quantised about zero against a single global
-    scale so that every frame shares one colour mapping; ``scale`` is
-    returned so a player can recover physical amplitudes.
+    scale so that every frame shares one colour mapping; ``scale`` and
+    ``compand`` are returned so a player can recover physical amplitudes.
+
+    Parameters
+    ----------
+    compand
+        ``"linear"`` — bytes are proportional to the amplitude.  The launch
+        pulse then sets the scale and everything the wave does afterwards
+        lands in the bottom few percent of the range, which is faithful but
+        unwatchable.  ``"signed_sqrt"`` stores
+        ``sign(u)·√(|u|/scale)`` instead, which keeps the sign and the
+        ordering of amplitudes exactly while lifting the late, weak
+        structure into view — the display convention, not a change to the
+        physics.
     """
+    if compand not in ("linear", "signed_sqrt"):
+        raise ValueError("compand must be 'linear' or 'signed_sqrt'")
     sim.reset()
     sph: List[np.ndarray] = []
     nek: List[np.ndarray] = []
@@ -1148,10 +1163,17 @@ def export_frames(
         neck_frac.append(sim.neck_energy_fraction())
 
     stack = np.stack(sph)
-    scale = float(np.percentile(np.abs(stack), 99.5)) or 1.0
-    q = np.clip(np.round(stack / scale * 127.0) + 128, 0, 255).astype(np.uint8)
-    qn = np.clip(np.round(np.stack(nek) / scale * 127.0) + 128, 0, 255).astype(np.uint8)
+    neck = np.stack(nek)
+    if compand == "linear":
+        scale = float(np.percentile(np.abs(stack), 99.5)) or 1.0
+        shape = lambda a: a / scale
+    else:
+        scale = float(np.max(np.abs(stack))) or 1.0
+        shape = lambda a: np.sign(a) * np.sqrt(np.abs(a) / scale)
+    q = np.clip(np.round(shape(stack) * 127.0) + 128, 0, 255).astype(np.uint8)
+    qn = np.clip(np.round(shape(neck) * 127.0) + 128, 0, 255).astype(np.uint8)
     return {
+        "compand": compand,
         "mode": sim.mode,
         "surface": surface_name(sim.twist_parity),
         "mouth_angle": sim.geom.mouth_angle,
