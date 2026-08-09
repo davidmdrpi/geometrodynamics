@@ -1,0 +1,196 @@
+{
+  "timestamp_utc": "2026-08-09T06:32:21+00:00",
+  "identification": "a pulse cannot make a wavefront defect and a ring must, because the focal set of a point is empty and the focal set of a circle is its centre",
+  "the_pulse": "front stays immersed in a flat bulk; fills its own void",
+  "the_ring": "whole ring arrives at its centre at t = \u03c1, then stays singular on the axis",
+  "the_coincidence": "the ring that focuses on the inner sphere grazes it (core result)",
+  "the_asymmetry": "solid-angle acceptance ~19% vs 100%; rays remain reversible",
+  "geometry": {
+    "r_inner": 0.74,
+    "r_outer": 1.26,
+    "gap": 0.52,
+    "critical_sin": 0.5873015873015873,
+    "critical_angle_deg": 35.96575356429952,
+    "ring_theta0_deg": 54.03424643570048,
+    "ring_radius": 1.0198039027185568,
+    "fold_time": 1.0198039027185568,
+    "pulse_crossing_time": 0.52
+  },
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "what kind of wavefront can make a throat?",
+      "vacuole": {
+        "r_inner": 0.74,
+        "r_outer": 1.26,
+        "gap": 0.52
+      },
+      "method": "focal-set geometry of wavefronts, in closed form, checked against an independent numerical count \u2014 no wave solve",
+      "sources": [
+        "a point on the outer sphere",
+        "a circle of latitude on it"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_point_does_not_fold_in_a_flat_bulk",
+      "claim": "the front of a point is the metric sphere |x\u2212P| = t, whose signed area element t\u00b2 sin \u03b8 is positive for every t > 0; it never folds and the swept region is the filled ball",
+      "scope_warning": "this is a property of the FLAT bulk, not of point sources.  On a closed manifold the same source folds: on S\u00b2/S\u00b3 a point's front converges on the antipode at t = \u03c0R, which throat_wavefront.py measures directly.  Curvature gives a point a focal set; a flat bulk denies it one.",
+      "detected_folds": false,
+      "scanned_to": 2.2,
+      "crossing_time": 0.52,
+      "crossing_time_closed_form": 0.52,
+      "pass": true
+    },
+    {
+      "name": "T3_ring_folds_detected_independently",
+      "claim": "the front of a circle is its offset tube, whose signed area element t(\u03c1 + t cos v) changes sign first at t = \u03c1",
+      "method": "the fold time is found by scanning the front's own area element for a sign change and bisecting \u2014 no radius of curvature is consulted, so the comparison with \u03c1 is a test and not a tautology.  The test is relative (min J < \u2212tol\u00b7max|J|) because a parametrisation whose area element merely vanishes, as the direction sphere's poles do, has no caustic; and the orientation is referenced at small t because (X_u \u00d7 X_v)\u00b7N carries the handedness of whatever (u,v) ordering a source happens to use.",
+      "detected_fold_time": 1.0198059423284014,
+      "closed_form_fold_time": 1.0198039027185568,
+      "detection_error": 2.039609844572965e-06,
+      "cross_check": [
+        {
+          "polar_angle": 0.3,
+          "rho": 0.3723554603932878,
+          "detected": 0.37235620510495304,
+          "error": 7.447116652237185e-07
+        },
+        {
+          "polar_angle": 0.7,
+          "rho": 0.8117142859194907,
+          "detected": 0.8117159093496853,
+          "error": 1.6234301946083107e-06
+        },
+        {
+          "polar_angle": 1.1,
+          "rho": 1.1229212736774086,
+          "detected": 1.122923519522201,
+          "error": 2.2458447923590086e-06
+        },
+        {
+          "polar_angle": 1.4,
+          "rho": 1.2416666597854598,
+          "detected": 1.2416691431212619,
+          "error": 2.4833358021059126e-06
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_first_caustic_degenerate_then_persists",
+      "claim": "at t = \u03c1 every point of the ring is equidistant from the centre, so the whole ring arrives simultaneously \u2014 an infinitely degenerate first caustic.  It is not an isolated event: for t > \u03c1 the tube stays singular at two axis points z = \u00b1\u221a(t\u00b2\u2212\u03c1\u00b2) which separate as the front grows.",
+      "ring_distance_spread": 4.440892098500626e-16,
+      "multiplicity_at_first_caustic": "degenerate (whole ring)",
+      "multiplicity_just_off": 2,
+      "singular_points_at_fold": 2,
+      "singular_points_coincide_at_fold": true,
+      "singular_separation_at_1p4_rho": 1.9983993594874874,
+      "separation_closed_form": 1.9983993594874871,
+      "pass": true
+    },
+    {
+      "name": "T5_critical_ring_grazes",
+      "claim": "the ring whose first caustic lands on the inner sphere is the ring whose rays graze it: cos \u03b8\u2080 = R_in/R_out puts the caustic at radius R_in, and the same ring launches at sin \u03b1 = R_in/R_out, the tangent ray.  One condition, not two.  This and t = \u221a(R_out\u00b2 \u2212 R_in\u00b2) are the core result.",
+      "polar_angle_deg": 54.03424643570048,
+      "ring_radius": 1.0198039027185568,
+      "caustic_radius": 0.74,
+      "r_inner": 0.74,
+      "caustic_on_inner_error": 0.0,
+      "fold_time": 1.0198039027185568,
+      "fold_time_closed_form": 1.019803902718557,
+      "launch_sin": 0.5873015873015873,
+      "critical_sin": 0.5873015873015873,
+      "grazing_error": 0.0,
+      "ray_turning_radius": 0.74,
+      "pulse_crossing_time": 0.52,
+      "pass": true
+    },
+    {
+      "name": "T6_solid_angle_acceptance_asymmetry",
+      "claim": "b = r sin \u03b1 is conserved and r decreases going in, so only launch directions with sin \u03b1 \u2264 R_in/R_out reach the inner sphere, while every direction from the inner sphere reaches the outer one",
+      "reading": "this is an ANGULAR (solid-angle) acceptance asymmetry, NOT nonreciprocal propagation.  Every individual ray is exactly reversible \u2014 b is unchanged under reversal, and the accepted inward rays all have b \u2264 R_in, so each one climbs back out along its own reverse.  What differs is the measure of launch directions that connect, because a hemisphere at R_out and a hemisphere at R_in are different sets of directions.  No symmetry of the sphere is broken; the ordering of the two radii is the whole of it.",
+      "critical_sin": 0.5873015873015873,
+      "critical_angle_deg": 35.96575356429952,
+      "inward_closed_form": 0.19063182323924055,
+      "inward_monte_carlo": 0.19265583007802745,
+      "outward_closed_form": 1.0,
+      "outward_monte_carlo": 1.0,
+      "solid_angle_ratio": 5.245713874041967,
+      "rays_reversible": true,
+      "pass": true
+    },
+    {
+      "name": "T7_scales_with_the_ratio",
+      "claim": "every statement is a function of R_in/R_out alone: the first caustic lands on the inner sphere at any ratio, always later than the pulse crosses, and the acceptance tightens as the inner sphere shrinks",
+      "rows": [
+        {
+          "r_inner": 0.2,
+          "critical_sin": 0.15873015873015875,
+          "theta0_deg": 80.8668022162962,
+          "ring_radius": 1.244025723206719,
+          "fold_time": 1.244025723206719,
+          "caustic_radius_error": 5.551115123125783e-17,
+          "inward_acceptance": 0.01267799745498499,
+          "asymmetry_ratio": 78.87681028101169,
+          "pulse_crossing_time": 1.06
+        },
+        {
+          "r_inner": 0.45,
+          "critical_sin": 0.35714285714285715,
+          "theta0_deg": 69.07516757236168,
+          "ring_radius": 1.1769027147559818,
+          "fold_time": 1.1769027147559818,
+          "caustic_radius_error": 5.551115123125783e-17,
+          "inward_acceptance": 0.06595022638414139,
+          "asymmetry_ratio": 15.16295022514833,
+          "pulse_crossing_time": 0.81
+        },
+        {
+          "r_inner": 0.74,
+          "critical_sin": 0.5873015873015873,
+          "theta0_deg": 54.03424643570048,
+          "ring_radius": 1.0198039027185568,
+          "fold_time": 1.0198039027185568,
+          "caustic_radius_error": 0.0,
+          "inward_acceptance": 0.19063182323924055,
+          "asymmetry_ratio": 5.245713874041967,
+          "pulse_crossing_time": 0.52
+        },
+        {
+          "r_inner": 0.95,
+          "critical_sin": 0.753968253968254,
+          "theta0_deg": 41.06470043466482,
+          "ring_radius": 0.8277076778670113,
+          "fold_time": 0.8277076778670113,
+          "caustic_radius_error": 0.0,
+          "inward_acceptance": 0.34308914454999107,
+          "asymmetry_ratio": 2.9146943757478496,
+          "pulse_crossing_time": 0.31000000000000005
+        },
+        {
+          "r_inner": 1.15,
+          "critical_sin": 0.9126984126984127,
+          "theta0_deg": 24.11904302270429,
+          "ring_radius": 0.5148786264742401,
+          "fold_time": 0.5148786264742401,
+          "caustic_radius_error": 0.0,
+          "inward_acceptance": 0.5913661694648888,
+          "asymmetry_ratio": 1.690999674372433,
+          "pulse_crossing_time": 0.1100000000000001
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "n_passed": 7,
+      "n_total": 7,
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "WHOLE_RING_FOCUSES_AT_ONE_POINT",
+  "verdict": "THE WHOLE RING FOCUSES AT ONE POINT. Not every source folds the same way, and the circle's distinction is coherence rather than the mere existence of a caustic \u2014 any curved extended source has a focal set. What the circle does is arrive all at once.\n\nIn this FLAT bulk a point source does not fold at all: its front is the metric sphere, whose signed area element stays positive, so it crosses at t = \u0394R = 0.520 and sweeps the filled ball behind it. That is a property of the flat bulk and not of point sources \u2014 on a closed manifold the same source converges on the antipode at t = \u03c0R, which the companion wave study measures directly.\n\nA circle's offset tube has area element t(\u03c1 + t cos v), and scanning that element for a sign change \u2014 with no radius of curvature consulted \u2014 locates the fold at 1.019806 against \u03c1 = 1.019804, an error of 2.0e-06, and reproduces \u03c1 on four unrelated rings to the same precision. At that first caustic the ring's points are equidistant from the centre to 4.4e-16: infinitely degenerate, the whole ring at once. And it does not end there \u2014 for t > \u03c1 the tube stays singular at two axis points that separate as \u221a(t\u00b2\u2212\u03c1\u00b2), measured 1.998399 against 1.998399 at t = 1.4\u03c1.\n\nTHE CORE RESULT. Requiring that first caustic to land on the inner sphere gives \u03b8\u2080 = 54.03\u00b0, and that same ring launches at sin \u03b1 = 0.587302 = R_in/R_out \u2014 the grazing ray, tangent to the inner sphere (turning radius 0.7400 against R_in = 0.7400). The ring that focuses on the throat and the ray that grazes it are the same ring, and it forms at t = \u221a(R_out\u00b2 \u2212 R_in\u00b2) = 1.0198.\n\nACCEPTANCE, NOT NONRECIPROCITY. Outer to inner, 19.1% of the hemisphere arrives (Monte-Carlo 19.3%); inner to outer, all of it. That is a 5.2\u00d7 difference in the *measure of launch directions that connect*, not in propagation: every ray is reversible and the probe verifies it (True). No symmetry is broken.\n\nSCOPE. Ray and front geometry in a flat bulk: exact, and independent of any wave solve. It says which fronts CAN fold, not what happens when one does \u2014 showing a throat actually form needs backreaction, which this programme does not have."
+}

@@ -465,7 +465,7 @@ geometrodynamics/
 │       ├── antipodal_crossing.py  # antipodal crossing / absorption events
 │       ├── throat_wavefront.py    # bare S2 / sealed mouths / open catenoid
 │       │                          #   throat, on one clock (#242)
-│       ├── radial_caustic.py      # focal sets: why only a ring folds (#242)
+│       ├── radial_caustic.py      # focal geometry: which fronts fold (#243)
 │       └── geometry_panels.py     # Hopf / throat / Green / handshake panels
 ├── tests/                    # pytest validation suite
 ├── notebooks/                # Jupyter notebooks (per-topic)
@@ -1198,49 +1198,56 @@ plot_wavefront_panel(sim)   # both hemispheres, the neck interior, the map
 
 Full write-up: `docs/geometric_wave_refocusing_research_plan.md`.
 
-## Why a throat needs a ring (PR #243)
+## What a wavefront has to be like to fold (PR #243)
 
 The companion to the wave study above asks the *prior* question — not what a
 wave does on a surface that already has a throat, but **what kind of wavefront
-could make one**. It is answered with focal sets, in closed form, with no wave
-solve at all.
+can fold at all**. It is answered with focal geometry; the closed forms are
+exact, and the topology is measured *independently of them*, from the front's
+own area element.
 
-Two concentric spheres with a bulk between them. Along a straight ray the impact
-parameter `b = r sin α` is conserved, so a ray launched inward reaches radius `b`
-and no deeper.
+Two concentric spheres with a **flat** bulk between them. Along a straight ray
+`b = r sin α` is conserved, so a ray launched inward reaches radius `b` and no
+deeper.
 
-- **A pulse cannot make a defect.** The front of a point source is the metric
-  sphere `|x − P| = t`, embedded at every `t`. The *focal set of a point is
-  empty*, so the front has nothing to fold on — it crosses the bulk at `t = ΔR`
-  and does nothing else. It fills its own void.
-- **A ring must.** The front of a circle is its offset tube, and a curve has a
-  focal set: its centres of curvature. Every point of a circle shares the *same*
-  centre, so the focal set is a single point that the **entire ring reaches at
-  once** at `t = ρ` (measured equidistant to `4.4e-16`). The front stops being
-  embedded — a codimension-2 defect made by geometry alone.
+- **A point source does not fold *here*.** Its front is the metric sphere, whose
+  signed area element `t² sin θ` never changes sign — it crosses at `t = ΔR` and
+  fills its own void. This is a fact about the *flat bulk*, not about point
+  sources: on `S²`/`S³` the same source focuses on the antipode at `t = πR`,
+  which the wave study measures directly.
+- **A circle folds *coherently*.** Any curved extended source has a focal set,
+  so a ring is not special for folding — it is special for folding all at once.
+  Its tube's area element `t(ρ + t cos v)` first changes sign at `t = ρ`, where
+  the *whole ring* arrives at the centre together (equidistant to `4.4e-16`);
+  for `t > ρ` it stays singular at two axis points separating as `√(t² − ρ²)`.
 
-**The two conditions coincide.** The ring whose defect lands on the inner sphere
+Detected from the area element alone — no radius of curvature consulted — the
+fold lands at `1.019806` against `ρ = 1.019804`, and reproduces `ρ` on four
+unrelated rings to ~`1e-6`.
+
+**The core result.** The ring whose caustic lands on the inner sphere
 (`cos θ₀ = R_in/R_out`) launches at exactly the grazing angle
 `sin α = R_in/R_out`, tangent to that sphere — both errors identically `0`. The
-ring that focuses on the throat and the ray that grazes it are the same ring, and
-the defect forms at `t = √(R_out² − R_in²)`.
+ring that focuses on the throat and the ray that grazes it are the same ring,
+and it forms at `t = √(R_out² − R_in²)`.
 
-**And the bulk is not symmetric between its faces:** outer → inner accepts only
-**19.1%** of the hemisphere (Monte-Carlo 19.3%), inner → outer accepts **100%** —
-a **5.2×** asymmetry. Nothing is broken; the sphere is as symmetric as ever. The
-asymmetry is the *ordering of the two radii*.
+**Acceptance is asymmetric; propagation is not.** Outer → inner accepts **19.1%**
+of the hemisphere (Monte-Carlo 19.3%), inner → outer **100%** — a **5.2×**
+difference in the *measure of launch directions that connect*. Every individual
+ray is reversible, and the probe asserts it. No symmetry is broken; the ordering
+of the two radii is the whole of it.
 
 ```bash
 python -m experiments.closure_ledger.ring_caustic_defect_probe
-# Verdict: ONLY_A_RING_FOLDS  (8/8)
+# Verdict: WHOLE_RING_FOCUSES_AT_ONE_POINT  (8/8)
 
 python scripts/geometrodynamics_v40_ring_defect.py --still ring_defect.png
 ```
 
-Scope, stated plainly: this says which fronts *can* fold, not what happens when
-one does. No throat is shown forming — that needs backreaction, which the
-programme does not have. A wavefront defect is not yet a topological defect of
-the geometry, and turning the first into the second is the open step. Full
+Scope: a flat bulk (a curved one is accepted only where `r/√f(r)` is monotone,
+and refused otherwise — a photon sphere breaks the argument). Nothing here is
+dynamical; no throat is shown forming, which would need backreaction. A
+wavefront caustic is not yet a topological defect of the geometry. Full
 write-up: `docs/ring_caustic_defect_research_plan.md`.
 
 ## Quick Start

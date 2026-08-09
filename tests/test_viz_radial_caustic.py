@@ -1,16 +1,19 @@
 """
-Front-topology tests for the ring-vs-pulse argument.
+Front-topology tests for the pulse-vs-ring argument.
 
-These pin the claim that a throat needs a *ring*:
+These pin what the module actually claims:
 
-* the focal set of a point is empty, so its front is an embedded sphere at
-  every time and never touches itself;
-* the focal set of a circle is a single point — its centre — which the whole
-  ring reaches simultaneously, so the front stops being embedded there;
-* the ring whose defect lands on the inner sphere is exactly the ring whose
-  rays graze it;
-* and the bulk accepts far less going in than coming out, from the ordering
-  of the two radii alone.
+* in a **flat** bulk a point's front never folds — a statement about the bulk,
+  not about point sources, since the same source folds on a closed manifold;
+* a circle's front folds at ``t = ρ``, **detected from the front's own area
+  element** rather than from a stored radius of curvature, and then *stays*
+  singular on the symmetry axis;
+* the first caustic is infinitely degenerate: the whole ring at once;
+* the ring whose caustic lands on the inner sphere is exactly the ring whose
+  rays graze it — the core result;
+* acceptance across the bulk is asymmetric in **solid angle** while individual
+  rays remain reversible;
+* and a curved bulk is refused unless its effective radius is monotone.
 """
 
 from __future__ import annotations
@@ -29,6 +32,7 @@ from geometrodynamics.viz.radial_caustic import (
     PointSource,
     RingSource,
     ShellGeometry,
+    detect_fold,
     draw_front,
     draw_shell,
     measure_acceptance_asymmetry,
@@ -36,6 +40,7 @@ from geometrodynamics.viz.radial_caustic import (
     measure_front_topology,
     plot_acceptance_cone,
     plot_pulse_vs_ring,
+    signed_area_element,
 )
 
 R_IN, R_OUT = 0.74, 1.26
@@ -72,7 +77,7 @@ def test_flat_bulk_turning_radius_is_the_impact_parameter(shell, b):
 
 
 def test_curved_bulk_uses_the_effective_radius():
-    """A metric factor rescales r; the structure is unchanged."""
+    """A monotone metric factor rescales r; the structure is unchanged."""
     flat = ShellGeometry(R_IN, R_OUT)
     curved = ShellGeometry(R_IN, R_OUT, f=lambda r: np.full_like(r, 0.25))
     # f = 1/4 doubles every effective radius, so the *ratio* is untouched
@@ -81,15 +86,42 @@ def test_curved_bulk_uses_the_effective_radius():
     assert curved.turning_radius(2.0 * 0.9) == pytest.approx(0.9, abs=1e-6)
 
 
+def test_non_monotone_effective_radius_is_refused():
+    """A photon sphere breaks every closed form here, so reject it loudly."""
+    # Schwarzschild-like: R_eff = r/sqrt(1 - rs/r) has a minimum at 1.5 rs,
+    # which for rs = 0.5 sits at 0.75 — inside this shell.
+    with pytest.raises(ValueError, match="monotone|increase"):
+        ShellGeometry(R_IN, R_OUT, f=lambda r: 1.0 - 0.5 / r)
+
+
+def test_monotone_curved_bulk_is_accepted():
+    sh = ShellGeometry(R_IN, R_OUT, f=lambda r: np.full_like(r, 0.64))
+    assert sh.critical_sin == pytest.approx(R_IN / R_OUT)
+
+
 # ── a point never folds ─────────────────────────────────────────────────────
-def test_point_focal_set_is_empty_and_front_never_self_intersects(shell):
+def test_point_front_does_not_fold_in_a_flat_bulk(shell):
+    """Scoped deliberately: this is a fact about the flat bulk.
+
+    The same point source folds on a closed manifold — ``S²``/``S³`` focus a
+    point's front on the antipode at ``t = πR``, which
+    ``test_viz_throat_wavefront`` measures.  Nothing here contradicts that.
+    """
     pulse = shell.point_source()
-    assert pulse.focal_set().shape == (0, 3)
-    assert pulse.self_intersection_time is None
-    top = measure_front_topology(pulse, np.linspace(0.05, 2.2, 40))
-    assert top["ever_self_intersects"] is False
-    assert top["degenerate_times"] == []
-    assert max(r["off_axis"] for r in top["rows"]) <= 1
+    assert pulse.first_caustic_point() is None
+    assert pulse.fold_time is None
+    assert pulse.singular_points(5.0).shape == (0, 3)
+    top = measure_front_topology(pulse, t_hi=2.2)
+    assert top["detected_folds"] is False
+    assert top["detected_fold_time"] is None
+
+
+def test_point_front_area_element_keeps_one_sign(shell):
+    """t² sin θ up to orientation — it never passes through zero."""
+    pulse = shell.point_source()
+    for t in (0.2, 0.8, 1.6):
+        j = signed_area_element(pulse, t)
+        assert np.min(j) * np.max(j) > 0.0        # no sign change anywhere
 
 
 def test_point_front_is_the_metric_sphere(shell):
@@ -106,12 +138,50 @@ def test_pulse_crosses_the_bulk_at_the_gap(shell):
 
 
 # ── a ring must fold ────────────────────────────────────────────────────────
-def test_ring_focal_set_is_its_centre(shell):
+def test_ring_first_caustic_is_its_centre(shell):
     ring = shell.critical_ring()
-    fs = ring.focal_set()
-    assert fs.shape == (1, 3)
-    assert np.allclose(fs[0], ring.centre)
-    assert ring.self_intersection_time == pytest.approx(ring.radius)
+    assert np.allclose(ring.first_caustic_point(), ring.centre)
+    assert ring.fold_time == pytest.approx(ring.radius)
+
+
+def test_ring_stays_singular_after_the_first_caustic(shell):
+    """The fold is not an isolated event — two axis points separate as √(t²−ρ²)."""
+    ring = shell.critical_ring()
+    assert ring.singular_points(0.9 * ring.radius).shape == (0, 3)
+    at = ring.singular_points(ring.radius)
+    assert at.shape == (2, 3)
+    assert at[0, 2] == pytest.approx(at[1, 2])            # coincide at the fold
+    t = 1.4 * ring.radius
+    after = ring.singular_points(t)
+    sep = abs(after[0, 2] - after[1, 2])
+    assert sep == pytest.approx(2.0 * math.sqrt(t ** 2 - ring.radius ** 2))
+    assert np.allclose(after[:, :2], 0.0)                 # on the axis
+
+
+@pytest.mark.parametrize("theta0", [0.3, 0.7, 1.1, 1.4])
+def test_fold_detected_from_the_area_element_alone(shell, theta0):
+    """The topology check must not be seeded by the answer it is testing."""
+    ring = RingSource(shell=shell, polar_angle=theta0)
+    det = detect_fold(ring, t_hi=1.6)
+    assert det["folds"] is True
+    assert det["fold_time"] == pytest.approx(ring.radius, abs=1e-4)
+
+
+def test_detector_is_relative_and_orientation_referenced(shell):
+    """Two ways the naive detector gets it wrong, both guarded.
+
+    An absolute ``min J <= 0`` test fires on the direction sphere's polar
+    degeneracy; and ``(X_u × X_v)·N`` is negative everywhere for the point
+    source purely from parameter ordering.
+    """
+    pulse = shell.point_source()
+    j = signed_area_element(pulse, 0.5)
+    # the element nearly vanishes at the trimmed poles (sin θ → 0 there), so an
+    # absolute "min <= 0" test would misfire; and it is negative everywhere,
+    # purely from the (u, v) ordering, so an unreferenced sign test would too
+    assert np.min(np.abs(j)) < 1e-2 * np.max(np.abs(j))
+    assert np.max(j) < 0.0
+    assert detect_fold(pulse, t_hi=2.0)["folds"] is False  # still no fold
 
 
 def test_the_whole_ring_reaches_its_centre_at_once(shell):
@@ -132,19 +202,19 @@ def test_ring_multiplicity_is_two_just_off_the_focus(shell):
     assert ring.arrival_multiplicity(far, ring.radius) == 0
 
 
-def test_front_topology_samples_the_fold_even_off_grid(shell):
-    """The fold is measure-zero in t, so the sampler must insert it."""
+def test_front_topology_compares_detection_to_the_closed_form(shell):
     ring = shell.critical_ring()
-    top = measure_front_topology(ring, np.array([0.1, 0.5, 1.4]))
-    assert len(top["degenerate_times"]) == 1
-    assert top["degenerate_times"][0] == pytest.approx(ring.radius)
+    top = measure_front_topology(ring, t_hi=1.6)
+    assert top["detected_folds"] is True
+    assert top["detection_error"] < 1e-4
+    assert top["singular_points_after"] == 2
 
 
 # ── the coincidence ─────────────────────────────────────────────────────────
 def test_critical_ring_puts_its_defect_on_the_inner_sphere(shell):
     r = measure_critical_ring(shell)
-    assert r["defect_radius"] == pytest.approx(shell.r_inner, abs=1e-12)
-    assert r["defect_time"] == pytest.approx(
+    assert r["caustic_radius"] == pytest.approx(shell.r_inner, abs=1e-12)
+    assert r["fold_time"] == pytest.approx(
         math.sqrt(R_OUT ** 2 - R_IN ** 2), abs=1e-12)
 
 
@@ -162,7 +232,7 @@ def test_the_coincidence_holds_at_every_ratio(r_in):
     assert ring.centre_radius == pytest.approx(r_in, abs=1e-12)
     assert ring.launch_sin == pytest.approx(sh.critical_sin, abs=1e-12)
     # and the ring always folds later than the pulse crosses
-    assert ring.self_intersection_time > sh.gap
+    assert ring.fold_time > sh.gap
 
 
 def test_critical_ring_needs_a_flat_bulk():
@@ -178,7 +248,9 @@ def test_acceptance_closed_form_matches_monte_carlo(shell):
                                                     abs=0.01)
     assert r["outward_closed_form"] == 1.0
     assert r["outward_monte_carlo"] == 1.0
-    assert r["asymmetry_ratio"] > 2.0
+    assert r["solid_angle_ratio"] > 2.0
+    # the asymmetry is in the measure of directions, not in propagation
+    assert r["rays_reversible"] is True
 
 
 def test_inward_acceptance_tightens_as_the_inner_sphere_shrinks():

@@ -1,51 +1,53 @@
 #!/usr/bin/env python3
 """
-Geometrodynamic QED — v40: the ring defect
-==========================================
+Geometrodynamic QED — v40: the ring caustic
+===========================================
 
 Successor to ``archive/geometrodynamics_v39.py``.  v39 rendered the vacuole,
 the Hopf structure and an exchange cycle, and drew the wormhole as a *given*
-object.  This one renders the step before that: **where a throat can come
-from**, and why a ring is needed to make one.
+object.  This one renders the step before that: **which wavefronts can fold**,
+and what is special about a ring.
 
-It is driven entirely by :mod:`geometrodynamics.viz.radial_caustic`, whose
-claims are closed-form and covered by
-``experiments/closure_ledger/ring_caustic_defect_probe.py`` (8/8) — so every
-line drawn here is a computed quantity, not an artist's impression.
+Driven entirely by :mod:`geometrodynamics.viz.radial_caustic`, whose claims are
+closed-form and covered by
+``experiments/closure_ledger/ring_caustic_defect_probe.py`` (8/8), with the
+fold measured from the front's own area element rather than assumed — so every
+line drawn here is a computed quantity.
 
 What you are looking at
 ───────────────────────
-Two fronts are launched into the same bulk at the same speed:
+Two fronts launched into the same **flat** bulk at the same speed:
 
 * a **pulse** from a point on the outer sphere.  Its front is the metric
-  sphere ``|x − P| = t``.  The focal set of a point is empty, so the front is
-  embedded at every ``t``: it never touches itself, and behind it is just the
-  filled ball.  It crosses the bulk at ``t = ΔR`` and does nothing else.  It
-  fills its own void.
+  sphere ``|x − P| = t``, whose signed area element never changes sign, so it
+  does not fold: it crosses at ``t = ΔR`` and fills its own void.  *That is a
+  property of the flat bulk, not of point sources* — on a closed manifold the
+  same source focuses on the antipode at ``t = πR``.
 
-* a **ring** — the circle of latitude ``cos θ₀ = R_in/R_out``.  Its front is
-  the offset tube of a circle, and a circle *does* have a focal set: every one
-  of its points shares the same centre of curvature.  So the focal set is a
-  single point, the entire ring arrives there at once at ``t = ρ``, and the
-  front stops being embedded.  That is a codimension-2 defect of the
-  wavefront, made by geometry alone.
+* a **ring** — the circle of latitude ``cos θ₀ = R_in/R_out``.  Any curved
+  extended source folds; what is special about a circle is that it folds
+  **coherently**.  Its tube's area element ``t(ρ + t cos v)`` first changes
+  sign at ``t = ρ``, where the whole ring arrives at its centre together.  For
+  ``t > ρ`` the tube stays singular at two axis points separating as
+  ``√(t² − ρ²)``.
 
-The ring is chosen so its defect lands on the inner sphere — and that same
-ring turns out to launch at exactly the grazing angle ``sin α = R_in/R_out``,
-tangent to the inner sphere.  The ring that focuses on the throat and the ray
-that grazes it are the same ring.
+The ring is chosen so that first caustic lands on the inner sphere — and that
+same ring launches at exactly the grazing angle ``sin α = R_in/R_out``, tangent
+to it.  The ring that focuses on the throat and the ray that grazes it are the
+same ring.  That coincidence, and ``t = √(R_out² − R_in²)``, are the result.
 
-The panel also shows the asymmetry the two surfaces have across the same
-bulk: outward from the inner sphere every ray escapes, inward from the outer
-sphere only ``1 − √(1 − (R_in/R_out)²)`` of the hemisphere arrives.
+The panel also reports the **solid-angle acceptance** asymmetry across the same
+bulk — inward from the outer sphere only ``1 − √(1 − (R_in/R_out)²)`` of the
+hemisphere arrives, outward from the inner sphere all of it does.  That is a
+difference in the measure of launch directions that connect, **not**
+nonreciprocal propagation: individual rays remain exactly reversible.
 
 Honest labelling
 ────────────────
-The **wavefront defect is computed**.  The throat that would nucleate there is
+The **wavefront caustic is computed**.  The throat that would nucleate there is
 **not**: this programme has no backreaction, so the geometry cannot respond to
-the focus.  Where the renderer marks a would-be throat it says ``schematic``,
-and the shell does not actually deform in any solved sense — the deformation
-drawn is a cue keyed to the computed defect time, nothing more.
+the focus.  The shell deformation drawn is a presentation cue keyed to the
+computed fold time, and the panel says so on screen.
 
 Usage
 ─────
@@ -139,7 +141,7 @@ def shell_deformation(ring: RingSource, t: float, amp: float = 0.055) -> float:
     backreaction in this programme, so this is presentation only and is
     labelled as such wherever it is drawn.
     """
-    tf = ring.self_intersection_time
+    tf = ring.fold_time
     if t <= tf:
         return 0.0
     return float(amp * (1.0 - math.exp(-(t - tf) / (0.25 * tf))))
@@ -157,7 +159,7 @@ class RingDefectFigure:
         self.pulse = shell.point_source()
         self.crit = measure_critical_ring(shell)
         self.acc = measure_acceptance_asymmetry(shell, n_samples=60000, seed=7)
-        self.t_max = T_MAX_FACTOR * self.ring.self_intersection_time
+        self.t_max = T_MAX_FACTOR * self.ring.fold_time
 
         self.fig = plt.figure(figsize=figsize, facecolor=_PAL["bg"])
         gs = self.fig.add_gridspec(1, 3, width_ratios=[1.15, 1.0, 0.95],
@@ -166,7 +168,7 @@ class RingDefectFigure:
         self.ax2d = self.fig.add_subplot(gs[0, 1])
         self.axtx = self.fig.add_subplot(gs[0, 2])
         self.fig.suptitle(
-            "Geometrodynamic QED  v40  —  the ring defect",
+            "Geometrodynamic QED  v40  —  the ring caustic",
             color=_PAL["text"], fontsize=13, y=0.97)
 
     # ── static furniture ────────────────────────────────────────────────────
@@ -197,7 +199,7 @@ class RingDefectFigure:
     # ── per-frame ───────────────────────────────────────────────────────────
     def draw(self, t: float) -> None:
         sh, ring, pulse = self.shell, self.ring, self.pulse
-        folded = t >= ring.self_intersection_time
+        folded = t >= ring.fold_time
         dent = shell_deformation(ring, t)
 
         # ---------------- 3-D ----------------
@@ -222,7 +224,7 @@ class RingDefectFigure:
 
         c = ring.centre
         if folded:
-            flare = max(0.0, 1.0 - (t - ring.self_intersection_time) / FLASH_WIDTH)
+            flare = max(0.0, 1.0 - (t - ring.fold_time) / FLASH_WIDTH)
             ax.scatter([c[0]], [c[1]], [c[2]], s=90 + 320 * flare,
                        color=_C["defect"], depthshade=False, zorder=10)
         ax.view_init(elev=18, azim=-58)
@@ -262,7 +264,7 @@ class RingDefectFigure:
         mono = dict(family="monospace", fontsize=8.3,
                     transform=ax.transAxes, va="top")
         y = 0.955
-        ax.text(0.5, y, "THE RING DEFECT", color=_PAL["text"], ha="center",
+        ax.text(0.5, y, "THE RING CAUSTIC", color=_PAL["text"], ha="center",
                 family="monospace", fontsize=10, transform=ax.transAxes,
                 va="top")
         y -= 0.050
@@ -272,49 +274,50 @@ class RingDefectFigure:
             ("", ""),
             ("PULSE  point source, outer sphere", _C["pulse"]),
             (f"  front  = sphere |x-P| = t", _PAL["dim"]),
-            (f"  focal set  = empty", _PAL["dim"]),
-            (f"  self-intersects  = never", _C["pulse"]),
+            (f"  area element keeps its sign", _PAL["dim"]),
+            (f"  folds  = never (flat bulk)", _C["pulse"]),
             (f"  crosses bulk at  dR = {sh.gap:.4f}", _PAL["dim"]),
             ("", ""),
             ("RING   circle of latitude", _C["ring"]),
             (f"  theta0 = {self.crit['polar_angle_deg']:.3f} deg", _PAL["dim"]),
             (f"  rho    = {ring.radius:.4f}", _PAL["dim"]),
-            (f"  focal set  = 1 point (its centre)", _PAL["dim"]),
-            (f"  folds at   t = rho = {ring.radius:.4f}", _C["ring"]),
+            (f"  whole ring arrives at once", _PAL["dim"]),
+            (f"  first caustic t = rho = {ring.radius:.4f}", _C["ring"]),
+            (f"  then singular on the axis", _PAL["dim"]),
             ("", ""),
             ("THE COINCIDENCE", _PAL["text"]),
-            (f"  defect radius  = {self.crit['defect_radius']:.6f}", _PAL["dim"]),
+            (f"  caustic radius = {self.crit['caustic_radius']:.6f}", _PAL["dim"]),
             (f"  R_inner        = {self.crit['r_inner']:.6f}", _PAL["dim"]),
-            (f"  error          = {self.crit['defect_on_inner_error']:.1e}",
+            (f"  error          = {self.crit['caustic_on_inner_error']:.1e}",
              _PAL["dim"]),
             (f"  launch sin a   = {self.crit['launch_sin']:.6f}", _PAL["dim"]),
             (f"  grazing sin a  = {self.crit['critical_sin']:.6f}", _PAL["dim"]),
             (f"  error          = {self.crit['grazing_error']:.1e}", _PAL["dim"]),
             ("  -> the focusing ring IS the grazing ring", _PAL["text"]),
             ("", ""),
-            ("ASYMMETRY across the same bulk", _PAL["text"]),
+            ("SOLID-ANGLE ACCEPTANCE (rays reversible)", _PAL["text"]),
             (f"  outer->inner  {100*self.acc['inward_closed_form']:5.1f}% "
              f"(MC {100*self.acc['inward_monte_carlo']:.1f}%)", _PAL["dim"]),
             (f"  inner->outer  {100*self.acc['outward_closed_form']:5.1f}%",
              _PAL["dim"]),
-            (f"  ratio         {self.acc['asymmetry_ratio']:.2f}x", _PAL["text"]),
+            (f"  ratio         {self.acc['solid_angle_ratio']:.2f}x", _PAL["text"]),
         ]
         for txt, col in lines:
             if txt:
                 ax.text(0.045, y, txt, color=col or _PAL["dim"], **mono)
-            y -= 0.0258
+            y -= 0.0246
 
-        state = ("FRONT EMBEDDED  —  no defect" if not folded
-                 else "FRONT FOLDED  —  defect on the inner sphere")
-        ax.text(0.045, y - 0.022, state,
+        state = ("FRONT IMMERSED  —  no caustic yet" if not folded
+                 else "FIRST CAUSTIC  —  whole ring, on the inner sphere")
+        ax.text(0.045, y - 0.026, state,
                 color=_C["defect"] if folded else _PAL["dim"],
                 family="monospace", fontsize=9, transform=ax.transAxes,
                 va="top")
-        ax.text(0.045, 0.030,
-                "the wavefront defect is computed; the throat\n"
+        ax.text(0.045, 0.022,
+                "the wavefront caustic is computed; the throat\n"
                 "that would form there is not — no backreaction\n"
                 "in this model.  the shell dimple is a schematic\n"
-                "cue keyed to the computed defect time.",
+                "cue keyed to the computed fold time.",
                 color=_PAL["dim"], family="monospace", fontsize=7.0,
                 transform=ax.transAxes, va="bottom")
 
@@ -333,7 +336,7 @@ def still(path: str, n: int = 4) -> None:
     times = np.linspace(0.35 * ring.radius, 1.25 * ring.radius, n)
     fig, axes = plt.subplots(1, n, figsize=(3.5 * n, 3.9), facecolor=_PAL["bg"])
     for ax, t in zip(np.atleast_1d(axes), times):
-        folded = t >= ring.self_intersection_time
+        folded = t >= ring.fold_time
         ax.set_facecolor(_PAL["panel"])
         draw_shell(ax, sh)
         draw_front(ax, sh.point_source(), t, lw=1.6)
@@ -348,11 +351,12 @@ def still(path: str, n: int = 4) -> None:
         ax.set_yticks([])
         for sp in ax.spines.values():
             sp.set_color(_PAL["border"])
-        ax.set_title(f"t = {t:.3f}" + ("   defect" if folded else ""),
+        ax.set_title(f"t = {t:.3f}" + ("   first caustic" if folded else ""),
                      color=_C["defect"] if folded else _PAL["text"], fontsize=9)
     fig.suptitle(
-        f"pulse never folds  ·  ring folds onto its centre at t = ρ = "
-        f"{ring.radius:.4f}, on r = {ring.centre_radius:.4f} = R_inner",
+        f"in a flat bulk the pulse never folds  ·  the whole ring arrives at "
+        f"its centre at t = ρ = {ring.radius:.4f}, on r = "
+        f"{ring.centre_radius:.4f} = R_inner",
         color=_PAL["text"], fontsize=11)
     fig.tight_layout()
     fig.savefig(path, dpi=120, facecolor=fig.get_facecolor())

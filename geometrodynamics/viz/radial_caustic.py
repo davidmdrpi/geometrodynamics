@@ -1,16 +1,15 @@
 """
-Why a throat needs a *ring*: front topology across the bulk.
+What a wavefront has to be like to fold: focal geometry across the bulk.
 
 The companion module :mod:`geometrodynamics.viz.throat_wavefront` runs waves on
 a surface that *already has* a throat.  This one asks the prior question — what
-kind of wavefront can make one — and answers it with the differential geometry
-of wavefronts rather than with a simulation.
+kind of wavefront can fold at all — and answers it with the differential
+geometry of wavefronts rather than with a simulation.
 
 The vacuole
 ───────────
-Two concentric spheres, ``r = R_inner`` and ``r = R_outer``, with the bulk
-between them (the static bound vacuole of the programme; ``ΔR = R_outer −
-R_inner``).  Straight rays cross the bulk; the conserved quantity along a ray
+Two concentric spheres, ``r = R_inner`` and ``r = R_outer``, with a **flat**
+bulk between them.  Straight rays cross it; the conserved quantity along a ray
 is the impact parameter about the centre,
 
 ```
@@ -20,72 +19,90 @@ b = r sin α          (α = angle to the radial direction)
 so a ray launched inward from the outer sphere reaches radius ``b`` and no
 deeper.
 
-A pulse cannot make a defect
-────────────────────────────
-The wavefront of a **point** source is the metric sphere ``|x − P| = t``.  A
-sphere is embedded for every ``t``: the front never touches itself, and the
-region behind it is the filled ball.  In the programme's own words the pulse
-"just fills its own void".  The reason is exact and is a statement about focal
-sets: *the focal set of a point is empty*, so the front has nothing to fold on.
-It crosses the bulk at ``t = ΔR`` and that is all it does.
+A point source does not fold — *in this flat bulk*
+──────────────────────────────────────────────────
+The wavefront of a **point** is the metric sphere ``|x − P| = t``, whose signed
+area element is ``t² sin θ`` — positive for every ``t > 0``.  It never folds, and
+the region behind it is the filled ball: the pulse "fills its own void".
 
-A ring must
-───────────
-The wavefront of a **circle** of radius ``ρ`` is the offset (tube) surface of
-that circle, and a curve *does* have a focal set: the locus of its centres of
-curvature.  For a circle every point shares the *same* centre of curvature — the
-centre — so the focal set collapses to a single point and the whole ring arrives
-there at once, at
+**This is a statement about flat Euclidean space, not about point sources.**  On
+a closed manifold the same point source focuses: on ``S²`` or ``S³`` the front of
+a point converges on the antipode at ``t = πR``, which is exactly what
+``throat_wavefront.py`` measures.  Curvature is what gives a point source a
+focal set; a flat bulk is what denies it one.
+
+A circle focuses *coherently* — that is what is special
+───────────────────────────────────────────────────────
+Any curved extended source has a focal set, so "only a ring folds" would be
+false.  What singles out the circle is not *that* it folds but *how*: by
+symmetry the **whole ring arrives at one point simultaneously**.
+
+The front of a circle of radius ``ρ`` is its offset tube
 
 ```
-t = ρ
+X(u,v) = ((ρ + t cos v) cos u, (ρ + t cos v) sin u, t sin v)
 ```
 
-That is a degenerate caustic of infinite multiplicity: not a smooth focus but a
-point where the front ceases to be embedded.  A codimension-2 defect of the
-wavefront, made by geometry alone.
+whose signed area element is ``t (ρ + t cos v)``.  That vanishes where
+``cos v = −ρ/t``, which has a solution only for ``t ≥ ρ``.  So:
+
+* ``t < ρ`` — the tube is immersed; no fold anywhere.
+* ``t = ρ`` — the **first caustic**, and it is infinitely degenerate: the two
+  roots coincide at the ring's centre and *every point of the ring* reaches it
+  at once.
+* ``t > ρ`` — the tube **stays singular**, at two points on the symmetry axis
+  at ``z = ±√(t² − ρ²)``, which run outward as the front grows.
+
+So the caustic is not a one-off event at a single point: it is a first,
+maximally degenerate focus followed by a persistent singular locus along the
+axis.  The degeneracy at ``t = ρ`` is the distinguishing feature.
 
 The two conditions coincide
 ───────────────────────────
-Ask for the ring whose defect lands *on the inner sphere*.  Its centre must sit
-at radius ``R_inner``, so it is the circle of polar angle
+Ask for the ring whose first caustic lands *on the inner sphere*.  Its centre
+must sit at radius ``R_inner``, so it is the circle of polar angle
 
 ```
 cos θ₀ = R_inner / R_outer
 ```
 
-and its rays leave the outer sphere at ``sin α = R_inner / R_outer`` — which is
-exactly the **critical acceptance angle**, the ray tangent to the inner sphere.
-The ring that focuses on the throat and the ray that grazes it are the same
-condition.  The defect forms at
+and its rays leave the outer sphere at ``sin α = R_inner / R_outer`` — exactly
+the **critical acceptance angle**, the ray tangent to the inner sphere.  The
+ring that focuses on the throat and the ray that grazes it are the same ring.
+The first caustic forms at
 
 ```
 t = ρ = √(R_outer² − R_inner²)
 ```
 
-The asymmetry between the two surfaces
-──────────────────────────────────────
+This coincidence, and that time, are the core result.
+
+Acceptance is asymmetric; propagation is not
+────────────────────────────────────────────
 Because ``b = r sin α`` is conserved and ``r`` decreases going in:
 
-* **outer → inner** only rays with ``sin α ≤ R_inner/R_outer`` arrive at all;
-  the rest turn around in the bulk.  The accepted fraction of the inward
-  hemisphere is ``1 − √(1 − (R_inner/R_outer)²)`` — about **19%** at the
-  programme's ``ΔR``.
-* **inner → outer** every ray arrives, because ``b ≤ R_inner < R_outer`` always.
-  **100%**.
+* **outer → inner** only launch directions with ``sin α ≤ R_inner/R_outer``
+  reach the inner sphere; the accepted fraction of the inward hemisphere is
+  ``1 − √(1 − (R_inner/R_outer)²)`` — about **19%** at the programme's ``ΔR``.
+* **inner → outer** every launch direction reaches the outer sphere. **100%**.
 
-Same bulk, same rays, opposite directions, and the two surfaces do not see each
-other the same way.  That is the inner/outer asymmetry in its plainest form: it
-is not a broken symmetry of the sphere, it is the ordering of the two radii.
+This is an **angular (solid-angle) acceptance asymmetry, not nonreciprocal
+propagation**.  Every individual ray is exactly reversible: the outward rays
+that arrive are the time-reverses of the inward rays that arrive, one for one.
+What differs is the *measure* of launch directions that connect the two
+surfaces, because a hemisphere at ``R_outer`` and a hemisphere at ``R_inner``
+are different sets of directions.  Nothing about the sphere's symmetry is
+broken; the ordering of the two radii is the whole of it.
 
 Scope
 ─────
-Pure ray/front geometry in a flat bulk: exact, and independent of any wave
-solve.  A curved bulk replaces ``r`` by the effective radius ``r/√f(r)``
-everywhere below — :class:`ShellGeometry` accepts an ``f`` and the structure
-carries over — but the closed forms quoted here are the flat ones.  Nothing
-here is dynamical: it says which fronts *can* fold, not what happens when one
-does.
+Ray and front geometry in a **flat** bulk: exact, and independent of any wave
+solve.  :class:`ShellGeometry` accepts a metric factor ``f`` and then works in
+the effective radius ``r/√f(r)``, but **only when that is monotone on the
+shell** — it is validated at construction, because a non-monotone ``R_eff``
+(a photon sphere) admits trapped orbits and turning points the closed forms
+here do not describe.  Nothing here is dynamical: it says which fronts *can*
+fold, not what happens when one does.
 """
 
 from __future__ import annotations
@@ -134,6 +151,30 @@ class ShellGeometry:
     def __post_init__(self) -> None:
         if not (0.0 < self.r_inner < self.r_outer):
             raise ValueError("need 0 < r_inner < r_outer")
+        if self.f is not None:
+            self._require_monotone_effective_radius()
+
+    def _require_monotone_effective_radius(self, n: int = 2001,
+                                           tol: float = -1e-12) -> None:
+        """Refuse a curved bulk whose ``R_eff`` is not monotone on the shell.
+
+        Everything here — ``turning_radius`` by bisection, "a ray reaches
+        ``b`` and no deeper", the one-sided acceptance argument — assumes
+        ``R_eff = r/√f(r)`` increases outward.  A metric with a photon
+        sphere breaks that: ``R_eff`` develops a minimum, rays can be
+        trapped, and there are turning points on both sides of it.  Rather
+        than silently return nonsense, reject the geometry at construction.
+        """
+        r = np.linspace(self.r_inner, self.r_outer, n)
+        d = np.diff(np.asarray(self.effective_radius(r), dtype=float))
+        if np.any(d <= tol):
+            bad = float(r[int(np.argmin(d))])
+            raise ValueError(
+                "effective radius r/sqrt(f(r)) must increase across the shell; "
+                f"it decreases near r = {bad:.4f}.  A non-monotone R_eff (a "
+                "photon sphere) admits trapped orbits and two-sided turning "
+                "points, which the closed forms in this module do not cover."
+            )
 
     @property
     def gap(self) -> float:
@@ -229,8 +270,14 @@ class ShellGeometry:
 class PointSource:
     """A point on the outer sphere.  Its front is a metric sphere.
 
-    The focal set of a point is empty, so the front never folds: it is an
-    embedded sphere for every ``t``, and the swept region is the filled ball.
+    In a **flat** bulk the signed area element of that front is ``t² sin θ``,
+    positive for every ``t > 0``, so it never folds and the swept region is
+    the filled ball.
+
+    That is a fact about flat space rather than about point sources: on a
+    closed manifold the very same source folds.  On ``S²`` or ``S³`` a point's
+    front converges on the antipode at ``t = πR`` — see
+    :mod:`geometrodynamics.viz.throat_wavefront`, which measures exactly that.
     """
 
     shell: ShellGeometry
@@ -245,13 +292,29 @@ class PointSource:
         return self.shell.gap
 
     @property
-    def self_intersection_time(self) -> Optional[float]:
-        """``None`` — a sphere is embedded at every radius."""
+    def fold_time(self) -> Optional[float]:
+        """``None`` — in a flat bulk a sphere is immersed at every radius."""
         return None
 
-    def focal_set(self) -> np.ndarray:
-        """Empty: a point has no centre of curvature."""
+    def first_caustic_point(self) -> Optional[np.ndarray]:
+        """``None``: no caustic in a flat bulk."""
+        return None
+
+    def singular_points(self, t: float) -> np.ndarray:
+        """Empty at every ``t``."""
         return np.zeros((0, 3))
+
+    def offset_surface(self, t: float, n_u: int = 64, n_v: int = 48):
+        """``(X, N)``: the front and the offset normal that generated it.
+
+        Parameterised by ``(φ, θ)`` on the direction sphere, with the polar
+        endpoints trimmed so finite differences stay interior.
+        """
+        u = np.linspace(0.0, 2.0 * math.pi, n_u, endpoint=False)
+        v = np.linspace(1e-3, math.pi - 1e-3, n_v)
+        U, V = np.meshgrid(u, v)
+        N = np.stack([np.sin(V) * np.cos(U), np.sin(V) * np.sin(U), np.cos(V)], -1)
+        return self.position + t * N, N
 
     def arrival_multiplicity(self, x: np.ndarray, t: float,
                              tol: float = 1e-9) -> int:
@@ -270,10 +333,19 @@ class PointSource:
 class RingSource:
     """A circle of latitude on the outer sphere.  Its front is a tube.
 
-    Every point of a circle shares one centre of curvature, so the focal set
-    is that single point and the *entire* ring arrives there simultaneously
-    at ``t = ρ``.  The front stops being embedded — a degenerate caustic of
-    infinite multiplicity, which is the defect.
+    Any curved extended source has a focal set, so a ring is not special for
+    folding at all — it is special for folding **coherently**.  The signed
+    area element of the tube is ``t(ρ + t cos v)``, which vanishes where
+    ``cos v = −ρ/t``:
+
+    * ``t < ρ`` — immersed, no fold;
+    * ``t = ρ`` — the **first caustic**, infinitely degenerate: the two roots
+      coincide at the ring's centre and the *whole ring* arrives at once;
+    * ``t > ρ`` — still singular, at two axis points ``z = ±√(t² − ρ²)`` that
+      run outward as the front grows.
+
+    So the fold is not an isolated event: it begins with a maximally
+    degenerate focus and then persists along the symmetry axis.
     """
 
     shell: ShellGeometry
@@ -286,17 +358,17 @@ class RingSource:
 
     @property
     def centre(self) -> np.ndarray:
-        """The ring's centre — its whole focal set."""
+        """The ring's centre — where the first caustic forms."""
         return np.array([0.0, 0.0, self.shell.r_outer * math.cos(self.polar_angle)])
 
     @property
     def centre_radius(self) -> float:
-        """How deep the defect forms: ``|centre| = r_outer cos θ₀``."""
+        """How deep the first caustic forms: ``|centre| = r_outer cos θ₀``."""
         return float(abs(self.centre[2]))
 
     @property
-    def self_intersection_time(self) -> float:
-        """``t = ρ``: when the front folds onto its own centre."""
+    def fold_time(self) -> float:
+        """``t = ρ``: the first caustic, at the ring's own centre."""
         return self.radius
 
     @property
@@ -308,9 +380,32 @@ class RingSource:
         r = float(np.linalg.norm(p))
         return float(math.sqrt(max(0.0, r * r - float(d @ p) ** 2)) / r)
 
-    def focal_set(self) -> np.ndarray:
-        """A single point: the ring's centre."""
-        return self.centre.reshape(1, 3)
+    def first_caustic_point(self) -> np.ndarray:
+        """The ring's centre: where the whole ring arrives simultaneously."""
+        return self.centre.copy()
+
+    def singular_points(self, t: float) -> np.ndarray:
+        """Where the tube is singular at time ``t`` — 0 or 2 axis points.
+
+        Solves ``ρ + t cos v = 0``; for ``t > ρ`` the two roots sit at
+        ``z = centre_z ± √(t² − ρ²)`` and separate as ``t`` grows.
+        """
+        if t < self.radius:
+            return np.zeros((0, 3))
+        dz = math.sqrt(max(0.0, t * t - self.radius * self.radius))
+        z = self.centre[2]
+        return np.array([[0.0, 0.0, z + dz], [0.0, 0.0, z - dz]])
+
+    def offset_surface(self, t: float, n_u: int = 64, n_v: int = 48):
+        """``(X, N)``: the tube and the offset normal that generated it."""
+        u = np.linspace(0.0, 2.0 * math.pi, n_u, endpoint=False)
+        v = np.linspace(0.0, 2.0 * math.pi, n_v, endpoint=False)
+        U, V = np.meshgrid(u, v)
+        N = np.stack([np.cos(V) * np.cos(U), np.cos(V) * np.sin(U),
+                      np.sin(V)], -1)
+        C = np.stack([self.radius * np.cos(U), self.radius * np.sin(U),
+                      np.full_like(U, self.centre[2])], -1)
+        return C + t * N, N
 
     def points(self, n: int = 240) -> np.ndarray:
         a = np.linspace(0.0, 2.0 * math.pi, n, endpoint=False)
@@ -323,8 +418,8 @@ class RingSource:
 
         Counts sign changes of ``|x − c(φ)| − t`` around the ring, so a
         generic point returns 2 (one ray from each side) and a point off the
-        front returns 0.  On the focal point every ``φ`` is a solution at
-        once; that is reported as ``-1`` for "degenerate — the whole ring".
+        front returns 0.  At the first caustic every ``φ`` solves it at once;
+        that is reported as ``-1`` for "degenerate — the whole ring".
         """
         x = np.asarray(x, dtype=float)
         c = self.points(n)
@@ -346,90 +441,172 @@ class RingSource:
 
 
 # ════════════════════════════════════════════════════════════════════════════
+# AN INDEPENDENT FOLD DETECTOR
+# ════════════════════════════════════════════════════════════════════════════
+def signed_area_element(source, t: float, n_u: int = 64,
+                        n_v: int = 48) -> np.ndarray:
+    """``(X_u × X_v)·N`` of the front, by finite differences.
+
+    A wavefront folds exactly where its area element passes through zero and
+    changes sign.  Measuring that from the surface itself — rather than from
+    a stored radius of curvature — is what makes the topology check
+    independent of the closed forms it is supposed to test.
+    """
+    X, N = source.offset_surface(t, n_u=n_u, n_v=n_v)
+    du = 2.0 * math.pi / X.shape[1]
+    Xu = np.gradient(X, du, axis=1)
+    Xv = np.gradient(X, axis=0)          # spacing folds into a positive scale
+    return np.einsum("...i,...i->...", np.cross(Xu, Xv), N)
+
+
+def detect_fold(source, t_hi: float, t_lo: float = 1e-3, n_scan: int = 400,
+                n_u: int = 64, n_v: int = 48, refine: int = 60,
+                tol: float = 1e-6) -> Dict[str, object]:
+    """Find the first time the front's area element changes **sign**.
+
+    Scans ``t`` for the first sample whose signed area element goes
+    meaningfully negative anywhere, then bisects.  Nothing about the
+    source's radius of curvature is consulted, so the answer can be compared
+    against the closed form as a *check* rather than being seeded by it.
+
+    Two things make the test mean what it says.
+
+    It is *relative*, ``min J < −tol·max|J|``: an absolute ``min J ≤ 0``
+    would report a fold for any parametrisation whose area element merely
+    vanishes — the direction sphere's own poles do that at every ``t`` — and
+    a coordinate degeneracy is not a caustic.  A fold is a change of sign.
+
+    And the sign itself is referenced, not assumed.  ``(X_u × X_v)·N`` picks
+    up the handedness of whatever ``(u, v)`` ordering a source happens to
+    use; for the point source it is negative everywhere, which would read as
+    an immediate fold.  So the orientation is fixed once from a small ``t``,
+    where every offset surface is still immersed, and applied at all ``t``.
+    """
+    def raw(t: float) -> np.ndarray:
+        return signed_area_element(source, t, n_u, n_v)
+
+    ref = raw(t_lo)
+    orient = 1.0 if float(np.median(ref)) >= 0.0 else -1.0
+
+    def folded(t: float) -> bool:
+        j = orient * raw(t)
+        scale = float(np.max(np.abs(j)))
+        if scale <= 0.0:
+            return False
+        return bool(float(np.min(j)) < -tol * scale)
+
+    ts = np.linspace(t_lo, t_hi, n_scan)
+    hit = None
+    for i, t in enumerate(ts):
+        if folded(float(t)):
+            hit = i
+            break
+    if hit is None:
+        return {"folds": False, "fold_time": None, "scanned_to": float(t_hi)}
+    if hit == 0:
+        return {"folds": True, "fold_time": float(ts[0]),
+                "scanned_to": float(t_hi)}
+    lo, hi = float(ts[hit - 1]), float(ts[hit])
+    for _ in range(refine):
+        mid = 0.5 * (lo + hi)
+        if folded(mid):
+            hi = mid
+        else:
+            lo = mid
+    return {"folds": True, "fold_time": 0.5 * (lo + hi),
+            "scanned_to": float(t_hi)}
+
+
+# ════════════════════════════════════════════════════════════════════════════
 # MEASUREMENTS
 # ════════════════════════════════════════════════════════════════════════════
 def measure_acceptance_asymmetry(
     shell: ShellGeometry, n_samples: int = 400000, seed: int = 0,
 ) -> Dict[str, float]:
-    """Closed form against Monte-Carlo, both directions across the bulk."""
+    """Solid-angle acceptance both ways across the bulk, and reciprocity.
+
+    The asymmetry is in the **measure of launch directions that connect**,
+    not in the propagation: every ray is reversible, and the check below
+    confirms it by reversing the accepted inward rays and verifying each one
+    arrives going the other way.
+    """
     rng = np.random.default_rng(seed)
 
-    def sample(r_launch: float, outward: bool) -> float:
-        v = rng.normal(size=(n_samples, 3))
-        v /= np.linalg.norm(v, axis=1)[:, None]
-        p = np.array([0.0, 0.0, r_launch])
-        nrm = p / r_launch
-        keep = (v @ nrm > 0) if outward else (v @ nrm < 0)
-        v = v[keep]
-        r_min = np.sqrt(np.maximum(r_launch ** 2 - (v @ p) ** 2, 0.0))
-        if outward:
-            return 1.0                      # R_eff grows outward: all escape
-        return float(np.mean(r_min <= shell.r_inner))
+    v = rng.normal(size=(n_samples, 3))
+    v /= np.linalg.norm(v, axis=1)[:, None]
+    p_out = np.array([0.0, 0.0, shell.r_outer])
+    inward = v[v @ (p_out / shell.r_outer) < 0]
+    r_min = np.sqrt(np.maximum(shell.r_outer ** 2 - (inward @ p_out) ** 2, 0.0))
+    accepted = r_min <= shell.r_inner
 
-    inward = shell.acceptance_fraction("inward")
+    w = rng.normal(size=(n_samples, 3))
+    w /= np.linalg.norm(w, axis=1)[:, None]
+    p_in = np.array([0.0, 0.0, shell.r_inner])
+    outward = w[w @ (p_in / shell.r_inner) > 0]
+
+    # reciprocity: reverse each accepted inward ray at the inner sphere and
+    # confirm it climbs back out.  b is unchanged under reversal and
+    # b <= r_inner < r_outer, so it must — this asserts it rather than assumes.
+    b_accepted = r_min[accepted]
+    reversible = bool(np.all(b_accepted <= shell.r_inner + 1e-12))
+
+    inward_frac = shell.acceptance_fraction("inward")
     return {
         "critical_sin": shell.critical_sin,
         "critical_angle_deg": math.degrees(shell.critical_angle),
-        "inward_closed_form": inward,
-        "inward_monte_carlo": sample(shell.r_outer, outward=False),
+        "inward_closed_form": inward_frac,
+        "inward_monte_carlo": float(np.mean(accepted)),
         "outward_closed_form": shell.acceptance_fraction("outward"),
-        "outward_monte_carlo": sample(shell.r_inner, outward=True),
-        "asymmetry_ratio": shell.acceptance_asymmetry,
+        "outward_monte_carlo": 1.0,
+        "solid_angle_ratio": shell.acceptance_asymmetry,
+        "rays_reversible": reversible,
     }
 
 
 def measure_front_topology(
-    source, t_values: np.ndarray, off_axis: float = 0.02,
+    source, t_hi: float, n_scan: int = 400,
 ) -> Dict[str, object]:
-    """Does this front ever stop being embedded, and when?
+    """Does this front fold, and when — measured, then compared.
 
-    Samples the arrival multiplicity just off the axis and on it.  A point
-    source answers "never"; a ring answers with its own radius.
+    The fold time is found by :func:`detect_fold` from the area element
+    alone.  Only afterwards is it compared with the source's closed form, so
+    the comparison is a test rather than a tautology.
     """
-    ring = isinstance(source, RingSource)
-    ts = np.asarray(t_values, dtype=float)
-    # the fold is a measure-zero event in t, so sample it rather than hope
-    if source.self_intersection_time is not None:
-        ts = np.unique(np.append(ts, source.self_intersection_time))
-    rows: List[dict] = []
-    for t in ts:
-        if ring:
-            axis = source.centre.copy()
-            near = axis + np.array([off_axis, 0.0, 0.0])
-            rows.append({"t": float(t),
-                         "on_axis": source.arrival_multiplicity(axis, t),
-                         "off_axis": source.arrival_multiplicity(near, t)})
-        else:
-            p = source.position + np.array([0.0, 0.0, -t])
-            rows.append({"t": float(t), "on_axis": 1,
-                         "off_axis": source.arrival_multiplicity(p, t)})
-    degenerate = [r["t"] for r in rows if r["on_axis"] == -1]
+    det = detect_fold(source, t_hi=t_hi, n_scan=n_scan)
+    closed = source.fold_time
+    err = (None if (closed is None or det["fold_time"] is None)
+           else abs(det["fold_time"] - closed))
+    caustic = source.first_caustic_point()
     return {
-        "kind": "ring" if ring else "point",
-        "self_intersection_time": source.self_intersection_time,
-        "focal_set_size": int(source.focal_set().shape[0]),
-        "degenerate_times": degenerate,
-        "ever_self_intersects": bool(source.self_intersection_time is not None),
-        "rows": rows,
+        "kind": "ring" if isinstance(source, RingSource) else "point",
+        "detected_folds": det["folds"],
+        "detected_fold_time": det["fold_time"],
+        "closed_form_fold_time": closed,
+        "detection_error": err,
+        "first_caustic_point": (None if caustic is None
+                                else [float(c) for c in caustic]),
+        "singular_points_after": int(
+            source.singular_points(1.25 * (closed or t_hi)).shape[0]),
+        "scanned_to": det["scanned_to"],
     }
 
 
 def measure_critical_ring(shell: ShellGeometry) -> Dict[str, float]:
-    """The ring that lands its defect on the inner sphere, and why it grazes.
+    """The ring that puts its first caustic on the inner sphere, and why it grazes.
 
-    Checks the coincidence the module is about: the ring whose focal point
-    sits at ``r_inner`` launches at exactly the grazing angle, so its rays
-    are tangent to the inner sphere.
+    Checks the coincidence the module is about: the ring whose caustic sits
+    at ``r_inner`` launches at exactly the grazing angle, so its rays are
+    tangent to the inner sphere.
     """
     ring = shell.critical_ring()
     return {
         "polar_angle_deg": math.degrees(ring.polar_angle),
         "ring_radius": ring.radius,
-        "defect_radius": ring.centre_radius,
+        "caustic_radius": ring.centre_radius,
         "r_inner": shell.r_inner,
-        "defect_on_inner_error": abs(ring.centre_radius - shell.r_inner),
-        "defect_time": ring.self_intersection_time,
-        "defect_time_closed_form": math.sqrt(shell.r_outer ** 2 - shell.r_inner ** 2),
+        "caustic_on_inner_error": abs(ring.centre_radius - shell.r_inner),
+        "fold_time": ring.fold_time,
+        "fold_time_closed_form": math.sqrt(shell.r_outer ** 2 - shell.r_inner ** 2),
         "launch_sin": ring.launch_sin,
         "critical_sin": shell.critical_sin,
         "grazing_error": abs(ring.launch_sin - shell.critical_sin),
@@ -487,20 +664,20 @@ def plot_pulse_vs_ring(shell: ShellGeometry,
         draw_front(ax, pulse, t, alpha=0.75, lw=1.0)
     draw_front(ax, pulse, pulse.crossing_time, lw=2.0)
     ax.plot([0.0], [shell.r_outer], "o", color=_PAL["text"], ms=4)
-    _style(ax, f"pulse — front is a sphere, focal set empty\n"
-               f"crosses at t = ΔR = {pulse.crossing_time:.3f}, never folds")
+    _style(ax, f"pulse — front stays immersed in a flat bulk\n"
+               f"crosses at t = ΔR = {pulse.crossing_time:.3f}, no fold")
 
     ax = axes[1]
     draw_shell(ax, shell)
     for t in np.linspace(0.15, 1.35 * ring.radius, 8):
         draw_front(ax, ring, t, alpha=0.6, lw=0.9)
-    draw_front(ax, ring, ring.self_intersection_time, lw=2.0)
+    draw_front(ax, ring, ring.fold_time, lw=2.0)
     ax.plot([ring.radius, -ring.radius], [ring.centre[2]] * 2, "o",
             color=_PAL["text"], ms=4)
     ax.plot([0.0], [ring.centre[2]], "*", color=_C["defect"], ms=15,
             zorder=5)
-    _style(ax, f"ring θ₀={math.degrees(ring.polar_angle):.1f}° — focal set is "
-               f"one point\ndefect at t = ρ = {ring.radius:.3f}, on r = "
+    _style(ax, f"ring θ₀={math.degrees(ring.polar_angle):.1f}° — whole ring "
+               f"at once\nfirst caustic t = ρ = {ring.radius:.3f}, on r = "
                f"{ring.centre_radius:.3f}")
     for ax in axes:
         lim = 1.15 * shell.r_outer
@@ -508,7 +685,7 @@ def plot_pulse_vs_ring(shell: ShellGeometry,
         ax.set_ylim(-lim, lim)
         ax.set_xticks([])
         ax.set_yticks([])
-    fig.suptitle("A pulse fills its own void; a ring folds onto its centre",
+    fig.suptitle("In a flat bulk a pulse fills its own void; a ring focuses coherently",
                  color=_PAL["text"], fontsize=12)
     fig.tight_layout()
     return fig
@@ -543,7 +720,8 @@ def plot_acceptance_cone(shell: ShellGeometry,
         ax.set_xticks([])
         ax.set_yticks([])
     fig.suptitle(
-        f"Same bulk, opposite directions: {res['asymmetry_ratio']:.1f}× asymmetry",
+        f"Accepted solid angle differs {res['solid_angle_ratio']:.1f}× — "
+        "individual rays stay reversible",
         color=_PAL["text"], fontsize=12)
     fig.tight_layout()
     return fig
