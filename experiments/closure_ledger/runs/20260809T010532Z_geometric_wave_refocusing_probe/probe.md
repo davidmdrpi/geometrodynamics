@@ -1,6 +1,6 @@
 # Ring wavefronts on a surface with a throat (PR #242)
 
-**Run:** 2026-08-09T00:47:08+00:00
+**Run:** 2026-08-09T01:05:32+00:00
 
 **If we just let a classical wave run on a closed surface that has a throat, what does the geometry itself do to it?** Three surfaces on one clock: the bare S², the same sphere with both caps cut out and sealed, and the same cut sphere with the mouths joined by a catenoid. *(Geometry → field on a fixed classical surface; no backreaction.)*
 
@@ -53,13 +53,13 @@ Four geometric times set the clock: the ring reaches the mouths at `0.821`, a se
 
 ## Does a front ever meet another front?
 
-Arrivals counted per grid point over `t < π`. a per-cell hysteresis trigger on the energy density u_t²+|∇u|², armed above 35% and re-armed below 12% of that cell's own peak; plain local-maximum counting fails because a 2+1-dimensional wave violates Huygens and every front drags a rippling wake.
+Arrivals counted per grid point over `t < π`. a per-cell hysteresis trigger on the energy density u_t²+|∇u|², armed above 50% and re-armed below 15% of that cell's own peak, calibrated on the bare sphere whose answer is known; plain local-maximum counting fails because a 2+1-dimensional wave violates Huygens and every front drags a rippling wake.
 
 | surface | max arrivals | area with ≥2 | of the source side |
 |---|---:|---:|---:|
-| bare | 2 | 0.015 | 0.000 |
-| plugged | 3 | 0.243 | 0.095 |
-| throat | 3 | 0.362 | 0.000 |
+| bare | 1 | 0.000 | 0.000 |
+| plugged | 4 | 0.137 | 0.127 |
+| throat | 4 | 0.077 | 0.000 |
 
 The bare sphere is the case with no second front at all. Sealing the mouths sends one back toward the source; opening them sends **none** back — the same fact the echo shows, resolved in space rather than in time.
 
@@ -67,21 +67,21 @@ The bare sphere is the case with no second front at all. Sealing the mouths send
 
 | route | predicted | measured |
 |---|---:|---:|
-| sealed mirror echo `2(θ₀−a)` | 1.6416 | 1.6017 |
-| open bulk return `2(θ₀−a)+L` | 2.6391 | 2.6033 |
-| **delay = neck length `L`** | **0.9975** | **1.0016** |
+| sealed mirror echo `2(θ₀−a)` | 1.6416 | 1.5333 |
+| open bulk return `2(θ₀−a)+L` | 2.6391 | 2.5357 |
+| **delay = neck length `L`** | **0.9975** | **1.0024** |
 
-Relative error 0.41%.
+Relative error 0.49%.
 
 ### Scheme and grid stability
 
-Energy drift 2.9e-16 (plugged) and 4.3e-16 (throat); the mouth flux closes against the neck's stored energy to 0.3%.
+Energy drift 1.2e-15 (plugged) and 6.2e-16 (throat); the mouth flux closes against the neck's stored energy to 0.8%.
 
 | grid | delay | rel. error |
 |---|---:|---:|
 | 96×128 | 1.0055 | 0.80% |
-| 144×192 | 1.0016 | 0.41% |
-| 216×288 | 1.0021 | 0.46% |
+| 144×192 | 1.0024 | 0.49% |
+| 216×288 | 1.0014 | 0.39% |
 
 ## The mouth budget, by integrated flux
 
@@ -89,16 +89,16 @@ integrated power through two surfaces: 'offered' is the energy crossing a refere
 
 | mouth `a` | offered | through | transmission | reflection | peak stored |
 |---:|---:|---:|---:|---:|---:|
-| 0.40 | 0.4729 | 0.3752 | 0.793 | 0.207 | 0.243 |
-| 0.55 | 0.6102 | 0.5276 | 0.865 | 0.135 | 0.343 |
-| 0.75 | 0.7913 | 0.7274 | 0.919 | 0.081 | 0.474 |
-| 0.90 | 0.9283 | 0.8714 | 0.939 | 0.061 | 0.566 |
+| 0.40 | 0.3249 | 0.2568 | 0.790 | 0.210 | 0.243 |
+| 0.55 | 0.4241 | 0.3652 | 0.861 | 0.139 | 0.343 |
+| 0.75 | 0.5540 | 0.5062 | 0.914 | 0.086 | 0.472 |
+| 0.90 | 0.6414 | 0.5981 | 0.932 | 0.068 | 0.560 |
 
-> **mirror suppression is an amplitude ratio at one watched point and one watched time; transmission is an energy ratio at the mouth.  They are different measurements of the same fact and must not be quoted interchangeably.** The sealed echo's amplitude is suppressed by 72.7% when the throat is opened; that is a different measurement from the transmission column and the two are not interchangeable.
+> **mirror suppression is an amplitude ratio at one watched point and one watched time; transmission is an energy ratio at the mouth.  They are different measurements of the same fact and must not be quoted interchangeably.** The sealed echo's amplitude is suppressed by 96.4% when the throat is opened; that is a different measurement from the transmission column and the two are not interchangeable.
 
 ## The twist aims the bulk arrival
 
-With `τ = π` the bulk route ends on the antipode at a predicted `2.6391`, measured `2.6094` — **0.469 ahead** of the geodesic focus there, and **9.9×** stronger than the same throat with `τ = 0`.
+With `τ = π` the bulk route ends on the antipode at a predicted `2.6391`, measured `2.5357` — **0.477 ahead** of the geodesic focus there, and **6.3×** stronger than the same throat with `τ = 0`.
 
 ## The orientation is real but hidden
 
@@ -107,15 +107,15 @@ With `τ = π` the bulk route ends on the antipode at a predicted `2.6391`, meas
 | `τ/π` | torus vs Klein difference | mirror broken? |
 |---:|---:|---|
 | 0.000 | 0.0000 | no |
-| 0.250 | 0.1864 | yes |
-| 0.500 | 0.2165 | yes |
-| 0.750 | 0.2051 | yes |
+| 0.250 | 0.2904 | yes |
+| 0.500 | 0.2718 | yes |
+| 0.750 | 0.2874 | yes |
 | 1.000 | 0.0000 | no |
 
 ## Verdict
 
-**GEOMETRY_ALONE_ROUTES_THE_WAVE.** GEOMETRY ALONE ROUTES THE WAVE. A linear classical wave on a fixed closed surface reports the handle's every property with no fitted parameter, and the three-surface comparison separates what each change of geometry is responsible for. On the bare sphere the front sweeps each point exactly once — 1.5% of the surface ever sees a second front and none of the source side does — so a pulse on a closed surface with no boundary cannot meet itself. Sealing the mouths puts a second front back toward the source over 9.5% of that hemisphere; opening the throat puts one downstream of the neck instead and 0.0% back home. The echoes say the same thing in time: the sealed mirror echo and the open bulk return differ by 1.0016 against a neck length of 0.9975 (0.41% error) — the wave measures the throat. Of the energy that actually reaches the mouth, 92% crosses into the neck, rising with the aperture. A gluing twist of π re-aims the bulk arrival onto the antipode, 0.469 ahead of the geodesic focus and 9.9× stronger than the untwisted throat. And the throat's orientation — torus against Klein bottle — is invisible to a point source at exactly τ ∈ {0, π} and visible elsewhere, the mirror argument confirmed to machine precision.
+**GEOMETRY_ALONE_ROUTES_THE_WAVE.** GEOMETRY ALONE ROUTES THE WAVE. A linear classical wave on a fixed closed surface reports the handle's every property with no fitted parameter, and the three-surface comparison separates what each change of geometry is responsible for. On the bare sphere the front sweeps each point exactly once — 0.0% of the surface ever sees a second front and none of the source side does — so a pulse on a closed surface with no boundary cannot meet itself. Sealing the mouths puts a second front back toward the source over 12.7% of that hemisphere; opening the throat puts one downstream of the neck instead and 0.0% back home. The echoes say the same thing in time: the sealed mirror echo and the open bulk return differ by 1.0024 against a neck length of 0.9975 (0.49% error) — the wave measures the throat. Of the energy that actually reaches the mouth, 91% crosses into the neck, rising with the aperture. A gluing twist of π re-aims the bulk arrival onto the antipode, 0.477 ahead of the geodesic focus and 6.3× stronger than the untwisted throat. And the throat's orientation — torus against Klein bottle — is invisible to a point source at exactly τ ∈ {0, π} and visible elsewhere, the mirror argument confirmed to machine precision.
 
-SCHEME. Each mouth is one shared finite-volume face, so the discrete energy is conserved to round-off (drift 4.3e-16) and the mouth flux closes against the neck's stored energy to 0.3%.
+SCHEME. Each mouth is one shared finite-volume face, so the discrete energy is conserved to round-off (drift 6.2e-16) and the mouth flux closes against the neck's stored energy to 0.8%.
 
 SCOPE. Linear and without backreaction, so a focus can sharpen but cannot nucleate — this says nothing about the #175 threshold. The C¹ join leaves a curvature ring at each mouth, inside the reported budget. χ = 0 checks the join and not the profile. Absolute arrival times carry a common pulse-width bias; every load-bearing number is a difference on one grid with one pulse. A 2-surface section of the S³ picture, not S³.

@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-08-09T00:47:08+00:00",
+  "timestamp_utc": "2026-08-09T01:05:32+00:00",
   "identification": "a classical wave on a closed surface with a catenoidal throat reads off the handle's length, aperture, twist and orientation with no fitted parameter",
   "the_bare_front": "sweeps each point once \u2014 a pulse cannot meet itself",
   "the_sealed_mouth": "sends a second front back toward the source",
@@ -148,17 +148,17 @@
         {
           "mode": "plugged",
           "t": 4.00366208292182,
-          "energy_drift": 2.8959107234600034e-16,
+          "energy_drift": 1.2422621976452932e-15,
           "finite": true
         },
         {
           "mode": "throat",
           "t": 4.00366208292182,
-          "energy_drift": 4.343866085190005e-16,
+          "energy_drift": 6.211310988226466e-16,
           "finite": true
         }
       ],
-      "mouth_flux_closes_to": 0.003027430144194951,
+      "mouth_flux_closes_to": 0.007522757863667669,
       "convergence": [
         {
           "n_theta": 96,
@@ -169,14 +169,14 @@
         {
           "n_theta": 144,
           "n_phi": 192,
-          "delay_measured": 1.0015992931357127,
-          "delay_rel_error": 0.004114613694081089
+          "delay_measured": 1.0023631764986558,
+          "delay_rel_error": 0.004880415400557536
         },
         {
           "n_theta": 216,
           "n_phi": 288,
-          "delay_measured": 1.002088460192903,
-          "delay_rel_error": 0.004605009198579434
+          "delay_measured": 1.0014124965313558,
+          "delay_rel_error": 0.0039273479866183516
         }
       ],
       "notes": "the conserved quantity is the exact leapfrog invariant \u2014 the gradient term is the cross product \u27e8\u2207u\u207f, \u2207u\u207f\u207b\u00b9\u27e9, since the velocity lives at the half step; the launch is a purely outgoing ring, because a cap released from rest splits into an outgoing and an ingoing front",
@@ -184,32 +184,63 @@
     },
     {
       "name": "T4_arrival_multiplicity",
-      "claim": "on a closed surface with no boundary the front is the geodesic circle of radius t and sweeps each point exactly once, so it never meets itself.  Sealing a mouth puts a second front back toward the source; opening it puts one downstream of the neck instead and none back home.",
-      "detector": "a per-cell hysteresis trigger on the energy density u_t\u00b2+|\u2207u|\u00b2, armed above 35% and re-armed below 12% of that cell's own peak; plain local-maximum counting fails because a 2+1-dimensional wave violates Huygens and every front drags a rippling wake",
+      "claim": "on a closed surface with no boundary the front is the geodesic circle of radius t and sweeps each point exactly once, so it never meets itself \u2014 the bare sphere returns a maximum arrival count of exactly 1.  Sealing a mouth puts a second front back toward the source; opening it puts one downstream of the neck instead and none back home.",
+      "detector": "a per-cell hysteresis trigger on the energy density u_t\u00b2+|\u2207u|\u00b2, armed above 50% and re-armed below 15% of that cell's own peak, calibrated on the bare sphere whose answer is known; plain local-maximum counting fails because a 2+1-dimensional wave violates Huygens and every front drags a rippling wake",
       "supersedes": "counting connected components of a level set, which could not distinguish a hole cutting one ring into arcs from a genuine second front",
+      "calibration": "the two thresholds are set on the case whose answer is known \u2014 the bare sphere, where the front provably passes once.  Any hi \u2265 0.5 returns exactly zero second arrivals there and the sealed/open contrast survives across that range, so the conclusion is not an artefact of the pair chosen",
+      "threshold_stability": [
+        {
+          "hi": 0.5,
+          "lo": 0.15,
+          "bare": 0.0,
+          "plugged": 0.12710921181242923,
+          "throat": 0.0
+        },
+        {
+          "hi": 0.6,
+          "lo": 0.2,
+          "bare": 0.0,
+          "plugged": 0.02732651613315425,
+          "throat": 0.0
+        },
+        {
+          "hi": 0.7,
+          "lo": 0.25,
+          "bare": 0.0,
+          "plugged": 0.010868350739662587,
+          "throat": 0.0
+        },
+        {
+          "hi": 0.8,
+          "lo": 0.3,
+          "bare": 0.0,
+          "plugged": 0.002173892624299795,
+          "throat": 0.0
+        }
+      ],
       "window": 3.141592653589793,
       "free_flight": 0.8207963267948966,
       "rows": [
         {
           "surface": "bare",
-          "max_arrivals": 2,
-          "area_fraction_multi": 0.014529801269881385,
+          "max_arrivals": 1,
+          "area_fraction_multi": 0.0,
           "source_side_fraction": 0.0,
-          "first_multi_time": 2.9389599274331384
+          "first_multi_time": null
         },
         {
           "surface": "plugged",
-          "max_arrivals": 3,
-          "area_fraction_multi": 0.2432626941186922,
-          "source_side_fraction": 0.09467838658717731,
-          "first_multi_time": 0.7113568165555763
+          "max_arrivals": 4,
+          "area_fraction_multi": 0.1374805322512987,
+          "source_side_fraction": 0.12710921181242923,
+          "first_multi_time": 0.902875959474385
         },
         {
           "surface": "throat",
-          "max_arrivals": 3,
-          "area_fraction_multi": 0.36239154331033574,
+          "max_arrivals": 4,
+          "area_fraction_multi": 0.07663238383596886,
           "source_side_fraction": 0.0,
-          "first_multi_time": 1.4363935718910668
+          "first_multi_time": 2.038310878207323
         }
       ],
       "pass": true
@@ -219,15 +250,15 @@
       "claim": "sealed, the pulse mirrors off the mouth and returns at 2(\u03b8\u2080\u2212a); open, it crosses the bulk and returns at 2(\u03b8\u2080\u2212a)+L.  Both paths share every segment except the crossing, so the delay between the echoes is the neck arclength and the pulse bias cancels.",
       "neck_length": 0.9974949866040544,
       "t_mirror_predicted": 1.6415926535897931,
-      "t_mirror_measured": 1.6016928321483679,
+      "t_mirror_measured": 1.5332931382487944,
       "t_bulk_predicted": 2.6390876401938477,
-      "t_bulk_measured": 2.6032921252840806,
-      "delay_measured": 1.0015992931357127,
-      "delay_error": 0.004104306531658275,
-      "delay_rel_error": 0.004114613694081089,
-      "mirror_amplitude": 0.5634462270070281,
-      "bulk_amplitude": 0.3599238698918664,
-      "mirror_suppression": 0.7270610252220027,
+      "t_bulk_measured": 2.5356563147474502,
+      "delay_measured": 1.0023631764986558,
+      "delay_error": 0.00486818989460136,
+      "delay_rel_error": 0.004880415400557536,
+      "mirror_amplitude": 0.19058104247219682,
+      "bulk_amplitude": 0.11900026155745388,
+      "mirror_suppression": 0.963572645358704,
       "pass": true
     },
     {
@@ -239,58 +270,58 @@
         {
           "mouth_angle": 0.4,
           "mouth_radius": 0.3894183423086505,
-          "offered": 0.47290839249821115,
-          "through": 0.3752458481795805,
-          "transmission": 0.7934852798811346,
-          "reflection": 0.2065147201188654,
-          "peak_stored_fraction": 0.2425372696316807,
-          "t_through_peak": 1.4709220095506932,
+          "offered": 0.32491345279368633,
+          "through": 0.25676189404734073,
+          "transmission": 0.7902470391411571,
+          "reflection": 0.20975296085884287,
+          "peak_stored_fraction": 0.24258125039459819,
+          "t_through_peak": 1.5384137076947215,
           "t_window": 2.031623635874324,
           "theta_reference": 0.49756636056624143,
-          "energy_drift": 1.7218589803752396e-15
+          "energy_drift": 6.288793341529667e-16
         },
         {
           "mouth_angle": 0.55,
           "mouth_radius": 0.5226872289306592,
-          "offered": 0.6101963687292934,
-          "through": 0.5275710940735853,
-          "transmission": 0.8645923199645197,
-          "reflection": 0.13540768003548032,
-          "peak_stored_fraction": 0.34287559972031134,
-          "t_through_peak": 1.4733964692891963,
+          "offered": 0.42410956453191345,
+          "through": 0.36524644542391305,
+          "transmission": 0.8612077537723838,
+          "reflection": 0.1387922462276162,
+          "peak_stored_fraction": 0.3425114449425065,
+          "t_through_peak": 1.5341919546724871,
           "t_window": 2.090245158868619,
           "theta_reference": 0.6350663605662414,
-          "energy_drift": 1.0100647526044557e-15
+          "energy_drift": 2.080382102164151e-16
         },
         {
           "mouth_angle": 0.75,
           "mouth_radius": 0.6816387600233341,
-          "offered": 0.7912861300672356,
-          "through": 0.7273734991506253,
-          "transmission": 0.9192294310641087,
-          "reflection": 0.0807705689358913,
-          "peak_stored_fraction": 0.47410413773234905,
-          "t_through_peak": 1.4774333882308095,
+          "offered": 0.553963281073865,
+          "through": 0.5062378560474291,
+          "transmission": 0.9138473132480557,
+          "reflection": 0.08615268675194432,
+          "peak_stored_fraction": 0.47224406970234345,
+          "t_through_peak": 1.495673306604029,
           "t_window": 2.0177903107197617,
           "theta_reference": 0.8183996938995747,
-          "energy_drift": 5.791821446920007e-16
+          "energy_drift": 6.211310988226466e-16
         },
         {
           "mouth_angle": 0.9,
           "mouth_radius": 0.7833269096274834,
-          "offered": 0.9283222690149688,
-          "through": 0.8713891182159286,
-          "transmission": 0.9386709198956831,
-          "reflection": 0.061329080104316924,
-          "peak_stored_fraction": 0.5660089351436329,
-          "t_through_peak": 1.3541119438877662,
+          "offered": 0.6414000029846461,
+          "through": 0.5980836979544424,
+          "transmission": 0.9324660043208004,
+          "reflection": 0.0675339956791996,
+          "peak_stored_fraction": 0.559755611867309,
+          "t_through_peak": 1.3615317353611238,
           "t_window": 1.8394134838487308,
           "theta_reference": 0.9558996938995747,
-          "energy_drift": 2.886657866571652e-16
+          "energy_drift": 4.1564885395573065e-16
         }
       ],
       "monotone_in_aperture": true,
-      "mirror_suppression": 0.7270610252220027,
+      "mirror_suppression": 0.963572645358704,
       "distinction": "mirror suppression is an amplitude ratio at one watched point and one watched time; transmission is an energy ratio at the mouth.  They are different measurements of the same fact and must not be quoted interchangeably.",
       "caveat": "the C\u00b9 (not C\u00b2) join leaves a curvature ring at each mouth which scatters on its own; that scattering is inside the reported budget, not removed from it",
       "pass": true
@@ -301,12 +332,12 @@
       "precursor": {
         "t_route_predicted": 2.6390876401938477,
         "t_geodesic_focus": 3.141592653589793,
-        "t_precursor_measured": 2.6094483222687797,
-        "t_focus_measured": 3.0782094409204612,
-        "lead_time": 0.4687611186516816,
-        "precursor_aimed": 0.28098955216555016,
-        "precursor_unaimed": 0.028400242562433065,
-        "aiming_contrast": 9.89391381245575
+        "t_precursor_measured": 2.535739503124178,
+        "t_focus_measured": 3.0130240288909604,
+        "lead_time": 0.4772845257667826,
+        "precursor_aimed": 0.12653583517367925,
+        "precursor_unaimed": 0.020224917255970254,
+        "aiming_contrast": 6.256432774098334
       },
       "orientation_visibility": {
         "t_probe": 3.4,
@@ -314,31 +345,31 @@
           {
             "twist_steps": 0,
             "tau_over_pi": 0.0,
-            "relative_difference": 5.435765580934999e-15,
+            "relative_difference": 2.889409870647225e-15,
             "mirror_broken": false
           },
           {
             "twist_steps": 16,
             "tau_over_pi": 0.25,
-            "relative_difference": 0.18635055037400494,
+            "relative_difference": 0.2903504130308817,
             "mirror_broken": true
           },
           {
             "twist_steps": 32,
             "tau_over_pi": 0.5,
-            "relative_difference": 0.21645943048632202,
+            "relative_difference": 0.27177898273993617,
             "mirror_broken": true
           },
           {
             "twist_steps": 48,
             "tau_over_pi": 0.75,
-            "relative_difference": 0.20508797990190955,
+            "relative_difference": 0.2873937247186965,
             "mirror_broken": true
           },
           {
             "twist_steps": 64,
             "tau_over_pi": 1.0,
-            "relative_difference": 4.395614422637339e-15,
+            "relative_difference": 2.733463560517725e-15,
             "mirror_broken": false
           }
         ]
@@ -357,5 +388,5 @@
   "n_passed": 8,
   "n_total": 8,
   "verdict_class": "GEOMETRY_ALONE_ROUTES_THE_WAVE",
-  "verdict": "GEOMETRY ALONE ROUTES THE WAVE. A linear classical wave on a fixed closed surface reports the handle's every property with no fitted parameter, and the three-surface comparison separates what each change of geometry is responsible for. On the bare sphere the front sweeps each point exactly once \u2014 1.5% of the surface ever sees a second front and none of the source side does \u2014 so a pulse on a closed surface with no boundary cannot meet itself. Sealing the mouths puts a second front back toward the source over 9.5% of that hemisphere; opening the throat puts one downstream of the neck instead and 0.0% back home. The echoes say the same thing in time: the sealed mirror echo and the open bulk return differ by 1.0016 against a neck length of 0.9975 (0.41% error) \u2014 the wave measures the throat. Of the energy that actually reaches the mouth, 92% crosses into the neck, rising with the aperture. A gluing twist of \u03c0 re-aims the bulk arrival onto the antipode, 0.469 ahead of the geodesic focus and 9.9\u00d7 stronger than the untwisted throat. And the throat's orientation \u2014 torus against Klein bottle \u2014 is invisible to a point source at exactly \u03c4 \u2208 {0, \u03c0} and visible elsewhere, the mirror argument confirmed to machine precision.\n\nSCHEME. Each mouth is one shared finite-volume face, so the discrete energy is conserved to round-off (drift 4.3e-16) and the mouth flux closes against the neck's stored energy to 0.3%.\n\nSCOPE. Linear and without backreaction, so a focus can sharpen but cannot nucleate \u2014 this says nothing about the #175 threshold. The C\u00b9 join leaves a curvature ring at each mouth, inside the reported budget. \u03c7 = 0 checks the join and not the profile. Absolute arrival times carry a common pulse-width bias; every load-bearing number is a difference on one grid with one pulse. A 2-surface section of the S\u00b3 picture, not S\u00b3."
+  "verdict": "GEOMETRY ALONE ROUTES THE WAVE. A linear classical wave on a fixed closed surface reports the handle's every property with no fitted parameter, and the three-surface comparison separates what each change of geometry is responsible for. On the bare sphere the front sweeps each point exactly once \u2014 0.0% of the surface ever sees a second front and none of the source side does \u2014 so a pulse on a closed surface with no boundary cannot meet itself. Sealing the mouths puts a second front back toward the source over 12.7% of that hemisphere; opening the throat puts one downstream of the neck instead and 0.0% back home. The echoes say the same thing in time: the sealed mirror echo and the open bulk return differ by 1.0024 against a neck length of 0.9975 (0.49% error) \u2014 the wave measures the throat. Of the energy that actually reaches the mouth, 91% crosses into the neck, rising with the aperture. A gluing twist of \u03c0 re-aims the bulk arrival onto the antipode, 0.477 ahead of the geodesic focus and 6.3\u00d7 stronger than the untwisted throat. And the throat's orientation \u2014 torus against Klein bottle \u2014 is invisible to a point source at exactly \u03c4 \u2208 {0, \u03c0} and visible elsewhere, the mirror argument confirmed to machine precision.\n\nSCHEME. Each mouth is one shared finite-volume face, so the discrete energy is conserved to round-off (drift 6.2e-16) and the mouth flux closes against the neck's stored energy to 0.8%.\n\nSCOPE. Linear and without backreaction, so a focus can sharpen but cannot nucleate \u2014 this says nothing about the #175 threshold. The C\u00b9 join leaves a curvature ring at each mouth, inside the reported budget. \u03c7 = 0 checks the join and not the profile. Absolute arrival times carry a common pulse-width bias; every load-bearing number is a difference on one grid with one pulse. A 2-surface section of the S\u00b3 picture, not S\u00b3."
 }

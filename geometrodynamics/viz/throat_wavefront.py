@@ -311,6 +311,41 @@ class ThroatGeometry:
         return self.total_curvature() / (2.0 * math.pi)
 
 
+def _outgoing_velocity(
+    f: np.ndarray, d: np.ndarray, w: float, weight: np.ndarray,
+) -> np.ndarray:
+    """Initial velocity for a purely outgoing ring with no monopole.
+
+    Two conditions have to hold at once, and the obvious launches each
+    violate one of them.
+
+    * A cap released from rest (``u_t = 0``) is d'Alembert data: it splits
+      into an outgoing *and* an ingoing ring, so the surface carries two
+      fronts for reasons that have nothing to do with the geometry.  The
+      one-way condition is ``u_t = −∂f/∂d``.
+    * A closed surface has no boundary, so ``d²/dt² ∫u dA = ∫Δu dA = 0``
+      and the mean field ramps **linearly** unless ``∫u_t dA = 0``.  The
+      one-way launch is a monopole as well as a ring and fails this.
+
+    Subtracting the *mean* of ``u_t`` fixes the second at the cost of
+    something worse: it gives every point of the surface — including
+    everywhere the front has not reached — a non-zero initial velocity, so
+    the far side starts moving before anything could have arrived.  The
+    correction has to stay inside the pulse.  Adding a multiple of the
+    profile itself does that:
+
+    ```
+    u_t = −∂f/∂d + c·f,      c = −∫(−∂f/∂d) dA / ∫f dA
+    ```
+
+    which is one-way, zero-monopole, and identically zero wherever ``f``
+    is, so the rest of the surface is left alone.
+    """
+    grad = 2.0 * d / (w * w) * f            # = −∂f/∂d for a Gaussian in d
+    c = -float(np.sum(grad * weight)) / float(np.sum(f * weight))
+    return grad + c * f
+
+
 def orientation_parity(twist_parity: int) -> int:
     """Orientation holonomy around the throat loop: ``+1`` keeps, ``−1`` flips.
 
@@ -455,33 +490,13 @@ class ThroatWaveSim:
         """
         d = self._geodesic_distance_from_source()
         w = self.pulse_width
-        self.u = np.exp(-((d / w) ** 2))
-        self.u_prev = np.exp(-(((d + C * self.dt) / w) ** 2))
+        f = np.exp(-((d / w) ** 2))
+        self.u = f
+        self.u_prev = f - self.dt * _outgoing_velocity(f, d, w, self._r)
         self.v = np.zeros((self.n_s, self.n_phi))     # neck field
         self.v_prev = self.v.copy()
-        self._kill_monopole()
         self.t = 0.0
         self._e0 = self.energy()
-
-    def _kill_monopole(self) -> None:
-        """Remove the zero mode from the initial velocity.
-
-        A closed surface has no boundary, so ``d²/dt² ∫u dA = ∫Δu dA = 0``:
-        the mean of the field is a free mode that grows *linearly* whenever
-        ``∫u_t dA ≠ 0``.  A one-way launch has exactly that defect — it is
-        a monopole as well as a ring — and the resulting ramp lifts the
-        whole surface off zero, swamping the wake it is supposed to reveal.
-        Subtracting the area-weighted mean of ``u_t`` leaves the outgoing
-        ring untouched and pins the zero mode.
-        """
-        u_t = (self.u - self.u_prev) / self.dt
-        num = float(np.sum(u_t * self._r)) * self.dth * self.dphi
-        area = float(np.sum(self._r)) * self.n_phi * self.dth * self.dphi
-        if self.mode == "throat":
-            area += float(np.sum(self._q)) * self.n_phi * self.ds * self.dphi
-        m = num / area
-        self.u_prev = self.u_prev + self.dt * m
-        self.v_prev = self.v_prev + self.dt * m
 
     def _geodesic_distance_from_source(self) -> np.ndarray:
         th = self.theta[:, None]
@@ -781,14 +796,9 @@ class BareSphereSim:
         """Launch a purely outgoing ring at the source, at this width."""
         s = self._sim
         w = self.pulse_width
-        s.u = np.exp(-((s.theta / w) ** 2))
-        s.u_prev = np.exp(-(((s.theta + s.dt) / w) ** 2))
-        # pin the zero mode: on a closed surface a non-zero ∫u_t dA makes the
-        # mean field ramp linearly and lifts the whole sphere off zero
-        sin = np.sin(s.theta)
-        u_t = (s.u - s.u_prev) / s.dt
-        m = float(np.trapezoid(u_t * sin, s.theta) / np.trapezoid(sin, s.theta))
-        s.u_prev = s.u_prev + s.dt * m
+        f = np.exp(-((s.theta / w) ** 2))
+        s.u = f
+        s.u_prev = f - s.dt * _outgoing_velocity(f, s.theta, w, np.sin(s.theta))
         s.t = 0.0
         self._e0 = self.energy()
 
@@ -870,7 +880,7 @@ class Multiplicity:
 
 
 def measure_arrival_multiplicity(
-    sim, t_window: float, hi: float = 0.35, lo: float = 0.12,
+    sim, t_window: float, hi: float = 0.50, lo: float = 0.15,
     t_min: Optional[float] = None,
 ) -> Multiplicity:
     """How many times a wavefront crosses each point of the surface.
@@ -889,6 +899,13 @@ def measure_arrival_multiplicity(
     does not survive here — a wave in 2+1 dimensions violates Huygens'
     principle, so every front drags a slowly decaying wake whose ripples are
     local maxima too, and they get counted as arrivals that never happened.
+
+    The thresholds are calibrated on the case whose answer is known: the
+    bare sphere, where the front provably passes once.  Any ``hi ≥ 0.5``
+    returns *exactly* zero second arrivals there, and the sealed-vs-open
+    contrast is stable across that whole range, so the conclusion is not an
+    artefact of the pair chosen.  Below it the wake starts tripping the
+    trigger and the bare sphere reports fronts that do not exist.
 
     On a closed surface with no boundary the front is the geodesic circle of
     radius ``t``: it sweeps each point exactly once, so within a half period

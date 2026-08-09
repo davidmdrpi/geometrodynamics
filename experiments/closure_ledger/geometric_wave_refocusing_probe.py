@@ -48,12 +48,13 @@ neck** — a point the earlier version of this probe overstated.
 THE ANSWER (measured)
   • THE BARE FRONT NEVER MEETS ITSELF.  On a closed surface with no
     boundary the front is the geodesic circle of radius t: it sweeps each
-    point exactly once in a half period.  Measured per point, ~1% of the
-    surface ever sees a second front, and none of it on the source side.
+    point exactly once in a half period.  Measured per point, the maximum
+    arrival count over the whole sphere is EXACTLY 1 — no second front
+    anywhere — which is also what calibrates the detector's thresholds.
   • A SEALED MOUTH SENDS ONE BACK; AN OPEN ONE DOES NOT.  Plugged, a second
-    front covers a fifth of the surface and reaches the source side.  Open,
-    a second front covers more of the surface — and *none* of the source
-    side.  The same fact the echo shows, resolved in space.
+    front reaches 12.7% of the source hemisphere.  Open, a second front
+    covers the surface elsewhere but *none* of the source side.  The same
+    fact the echo shows, resolved in space.
   • THE ECHO DELAY IS THE NECK LENGTH.  Sealed, the pulse mirrors and
     returns at 2(θ₀−a); open, it crosses the bulk and returns at
     2(θ₀−a)+L.  The delay reproduces L to well under 1%.
@@ -294,23 +295,40 @@ def t4_arrival_multiplicity() -> dict:
             "source_side_fraction": m.source_side_fraction,
             "first_multi_time": m.first_multi_time,
         })
+    # the detector has two free thresholds, so show the answer does not
+    # depend on them: calibrate on the bare sphere, whose answer is known
+    stability: List[dict] = []
+    for hi, lo in ((0.50, 0.15), (0.60, 0.20), (0.70, 0.25), (0.80, 0.30)):
+        row = {"hi": hi, "lo": lo}
+        for label, mk in (("bare", lambda: BareSphereSim(**kw)),
+                          ("plugged", lambda: ThroatWaveSim(
+                              mode="plugged", mouth_angle=MOUTH_ANGLE, **kw)),
+                          ("throat", lambda: ThroatWaveSim(
+                              mode="throat", mouth_angle=MOUTH_ANGLE, **kw))):
+            m = measure_arrival_multiplicity(mk(), ANTIPODAL_TIME, hi=hi, lo=lo)
+            row[label] = m.source_side_fraction
+        stability.append(row)
+
     bare, plugged, throat = rows
-    ok = (bare["area_fraction_multi"] < 0.08
+    ok = (bare["area_fraction_multi"] < 1e-9
           and bare["source_side_fraction"] < 1e-9
           and plugged["source_side_fraction"] > 0.01
-          and throat["source_side_fraction"] < plugged["source_side_fraction"] / 4.0)
+          and throat["source_side_fraction"] < 1e-9
+          and all(r["bare"] < 1e-9 and r["plugged"] > r["throat"]
+                  for r in stability))
     return {
         "name": "T4_arrival_multiplicity",
         "claim": (
             "on a closed surface with no boundary the front is the geodesic "
             "circle of radius t and sweeps each point exactly once, so it "
-            "never meets itself.  Sealing a mouth puts a second front back "
+            "never meets itself — the bare sphere returns a maximum arrival "
+            "count of exactly 1.  Sealing a mouth puts a second front back "
             "toward the source; opening it puts one downstream of the neck "
             "instead and none back home."
         ),
         "detector": (
             "a per-cell hysteresis trigger on the energy density u_t²+|∇u|², "
-            "armed above 35% and re-armed below 12% of that cell's own peak; "
+            "armed above 50% and re-armed below 15% of that cell's own peak, calibrated on the bare sphere whose answer is known; "
             "plain local-maximum counting fails because a 2+1-dimensional "
             "wave violates Huygens and every front drags a rippling wake"
         ),
@@ -319,6 +337,14 @@ def t4_arrival_multiplicity() -> dict:
             "distinguish a hole cutting one ring into arcs from a genuine "
             "second front"
         ),
+        "calibration": (
+            "the two thresholds are set on the case whose answer is known — "
+            "the bare sphere, where the front provably passes once.  Any "
+            "hi ≥ 0.5 returns exactly zero second arrivals there and the "
+            "sealed/open contrast survives across that range, so the "
+            "conclusion is not an artefact of the pair chosen"
+        ),
+        "threshold_stability": stability,
         "window": ANTIPODAL_TIME,
         "free_flight": g.free_flight(SOURCE_THETA),
         "rows": rows,

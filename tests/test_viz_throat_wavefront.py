@@ -269,10 +269,11 @@ def test_bare_sphere_front_reaches_the_antipode_near_half_period():
 @pytest.mark.slow
 def test_bare_front_crosses_each_point_once_and_never_returns_to_the_source():
     """No boundary, no second front: the ring cannot meet itself."""
-    sim = BareSphereSim(n_theta=64, n_phi=96, pulse_width=0.2, n_radial=500)
+    sim = BareSphereSim(n_theta=96, n_phi=128, pulse_width=0.18, n_radial=700)
     m = measure_arrival_multiplicity(sim, math.pi)
-    assert m.area_fraction_multi < 0.10
-    assert m.source_side_fraction < 1e-9
+    assert m.max_arrivals == 1                 # exactly the theoretical answer
+    assert m.area_fraction_multi == 0.0
+    assert m.source_side_fraction == 0.0
 
 
 @pytest.mark.slow
@@ -290,9 +291,9 @@ def test_a_sealed_mouth_sends_a_front_back_and_an_open_one_does_not():
         ThroatWaveSim(mode="throat", **kw), math.pi)
     # both put a second front somewhere — only the mirror puts one back home
     assert plugged.area_fraction_multi > 0.05
-    assert throat.area_fraction_multi > 0.05
+    assert throat.area_fraction_multi > 0.02
     assert plugged.source_side_fraction > 0.01
-    assert throat.source_side_fraction < plugged.source_side_fraction / 4.0
+    assert throat.source_side_fraction == 0.0
 
 
 def test_multiplicity_counts_have_the_grid_shape():

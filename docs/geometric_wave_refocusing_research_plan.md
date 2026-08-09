@@ -126,10 +126,15 @@ A third correction belongs with them: a closed surface has no boundary, so
 **linearly** whenever `∫u_t dA ≠ 0`. A one-way launch has exactly that
 defect — it is a monopole as well as a ring — and the ramp lifts the whole
 surface off zero and swamps the wake it is meant to reveal. Subtracting the
-area-weighted mean of `u_t` pins the zero mode and leaves the ring untouched.
+*mean* of `u_t` fixes that at the cost of something worse: it gives every
+point of the surface a non-zero initial velocity, so the far side starts
+moving before anything could have reached it. The correction has to stay
+inside the pulse, and adding a multiple of the profile itself does it:
+`u_t = −∂f/∂d + c·f` with `c` chosen so `∫u_t dA = 0`. That is one-way,
+zero-monopole, and identically zero wherever `f` is.
 
 With all three in place the energy drift is `~10⁻¹⁵` — round-off — and the
-integrated mouth power closes against the neck's stored energy to 1.8%.
+integrated mouth power closes against the neck's stored energy to 0.8%.
 
 ## The answer (measured)
 
@@ -140,28 +145,41 @@ Counting connected components of a level set could not answer this: a hole
 meeting another, and that is exactly what both the plugged and the open
 surface do the moment the ring reaches a mouth. So the diagnostic now counts
 **arrivals per point** — a per-cell hysteresis trigger on the energy density
-`u_t² + |∇u|²`, armed above 35% and re-armed below 12% of that cell's own
+`u_t² + |∇u|²`, armed above 50% and re-armed below 15% of that cell's own
 peak. (Plain local-maximum counting also fails: a wave in 2+1 dimensions
 violates Huygens' principle, so every front drags a rippling wake whose
 ripples are local maxima too.)
 
-Over `t < π`:
+The two thresholds are calibrated on the case whose answer is known — the
+bare sphere, where the front provably passes once. Over `t < π`:
 
 | surface | max arrivals | area with ≥2 | of the source side |
 |---|---:|---:|---:|
-| **bare S²** | 2 | **0.015** | **0.000** |
-| plugged | 4 | 0.312 | **0.099** |
-| throat | 3 | 0.443 | **0.000** |
+| **bare S²** | **1** | **0.000** | **0.000** |
+| plugged | 4 | 0.137 | **0.127** |
+| throat | 4 | 0.077 | **0.000** |
 
-On a closed surface with no boundary the front is the geodesic circle of
-radius `t`: it sweeps each point exactly once, so it cannot meet itself —
-1.5% of the bare surface ever sees a second front, and that only at the
-antipodal caustic where the front converges and re-expands.
+The bare sphere returns a maximum arrival count of **exactly 1** — the
+theoretical answer, with no second front anywhere. On a closed surface with
+no boundary the front is the geodesic circle of radius `t`: it sweeps each
+point once, so it cannot meet itself.
 
-Sealing the mouths puts a second front back toward the source over 9.9% of
-that hemisphere. Opening the throat puts a second front over *more* of the
-surface (44%) but **none of it back home** — the mouth transmits instead of
+Sealing the mouths puts a second front back toward the source over 12.7% of
+that hemisphere. Opening the throat puts second fronts elsewhere on the
+surface but **none at all back home** — the mouth transmits instead of
 reflecting. That is the echo result, resolved in space rather than in time.
+
+And the conclusion does not depend on the two thresholds:
+
+| `hi` | bare | plugged | throat |
+|---:|---:|---:|---:|
+| 0.50 | 0.0000 | 0.1271 | 0.0000 |
+| 0.60 | 0.0000 | 0.0273 | 0.0000 |
+| 0.70 | 0.0000 | 0.0109 | 0.0000 |
+| 0.80 | 0.0000 | 0.0022 | 0.0000 |
+
+(source-side fraction). Bare and open are identically zero throughout;
+only the sealed mouth ever sends anything home.
 
 ### The echo delay is the neck length
 
@@ -169,11 +187,11 @@ The two routes share every segment except the crossing:
 
 | route | predicted | measured |
 |---|---:|---:|
-| sealed mirror echo `2(θ₀−a)` | 1.6416 | 1.5956 |
-| open bulk return `2(θ₀−a)+L` | 2.6391 | 2.5980 |
+| sealed mirror echo `2(θ₀−a)` | 1.6416 | 1.5333 |
+| open bulk return `2(θ₀−a)+L` | 2.6391 | 2.5357 |
 | **delay = `L`** | **0.9975** | **1.0024** |
 
-0.49%, and 0.09–0.49% across a 2.25× grid refinement. Both absolute times sit
+0.49%, converging monotonically — 0.80%, 0.49%, 0.39% across a 2.25× grid refinement. Both absolute times sit
 one pulse half-width early — the peak of a finite pulse is not its geodesic
 front — but the bias is common to both and cancels in the delay. **The wave
 measures the throat.**
@@ -189,24 +207,24 @@ the mouth, `through` across the mouth face itself:
 
 | mouth `a` | offered | through | transmission | reflection | peak stored |
 |---:|---:|---:|---:|---:|---:|
-| 0.40 | 0.4554 | 0.3596 | 0.790 | 0.210 | 0.236 |
-| 0.55 | 0.5891 | 0.5076 | 0.862 | 0.138 | 0.336 |
-| 0.75 | 0.7645 | 0.7018 | **0.918** | 0.082 | 0.467 |
-| 0.90 | 0.8968 | 0.8408 | 0.937 | 0.063 | 0.558 |
+| 0.40 | 0.3249 | 0.2568 | 0.790 | 0.210 | 0.243 |
+| 0.55 | 0.4241 | 0.3652 | 0.861 | 0.139 | 0.343 |
+| 0.75 | 0.5540 | 0.5062 | **0.914** | 0.086 | 0.472 |
+| 0.90 | 0.6414 | 0.5981 | 0.932 | 0.068 | 0.560 |
 
 On a closed surface only part of the wave ever reaches the mouth, so the
 total energy is the wrong denominator; `offered` is the right one.
 
 > **Mirror suppression and transmission are different measurements.** The
 > sealed echo's *amplitude* at one watched point and time is suppressed by
-> 85.5% when the throat is opened; the *energy* transmission at the mouth is
-> 91.8%. They are two views of the same fact and must not be quoted
+> 96.4% when the throat is opened; the *energy* transmission at the mouth is
+> 91.4%. They are two views of the same fact and must not be quoted
 > interchangeably — the earlier PR description conflated them.
 
 ### The twist aims the bulk arrival
 
 With `τ = π` the bulk route ends on the antipode at a predicted `2.6391`,
-measured `2.6094` — **0.468 ahead** of the geodesic focus, and **3.2×**
+measured `2.5357` — **0.477 ahead** of the geodesic focus, and **6.3×**
 stronger than the same neck at `τ = 0`, which sends the same energy back to
 the source instead. The geometry, not a coupling constant, decides where it
 lands.
@@ -223,9 +241,9 @@ R∘g = g∘R  ⟺  −(εφ + τ) = ε(−φ) + τ  ⟺  τ ≡ −τ  ⟺  τ 
 | `τ/π` | torus vs Klein difference | mirror broken? |
 |---:|---:|---|
 | 0.000 | 0.0000 | no |
-| 0.250 | 0.2766 | yes |
-| 0.500 | 0.3377 | yes |
-| 0.750 | 0.3201 | yes |
+| 0.250 | 0.2904 | yes |
+| 0.500 | 0.2718 | yes |
+| 0.750 | 0.2874 | yes |
 | 1.000 | 0.0000 | no |
 
 Measurement matches argument to machine precision. The asymmetry is present
