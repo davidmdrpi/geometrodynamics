@@ -1,0 +1,167 @@
+{
+  "timestamp_utc": "2026-08-09T05:45:27+00:00",
+  "identification": "a pulse cannot make a wavefront defect and a ring must, because the focal set of a point is empty and the focal set of a circle is its centre",
+  "the_pulse": "front is an embedded sphere; fills its own void",
+  "the_ring": "front folds onto its centre at t = \u03c1 \u2014 a degenerate caustic",
+  "the_coincidence": "the ring that focuses on the inner sphere grazes it",
+  "the_asymmetry": "outer\u2192inner ~19% accepted, inner\u2192outer 100%",
+  "geometry": {
+    "r_inner": 0.74,
+    "r_outer": 1.26,
+    "gap": 0.52,
+    "critical_sin": 0.5873015873015873,
+    "critical_angle_deg": 35.96575356429952,
+    "ring_theta0_deg": 54.03424643570048,
+    "ring_radius": 1.0198039027185568,
+    "defect_time": 1.0198039027185568,
+    "pulse_crossing_time": 0.52
+  },
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "what kind of wavefront can make a throat?",
+      "vacuole": {
+        "r_inner": 0.74,
+        "r_outer": 1.26,
+        "gap": 0.52
+      },
+      "method": "focal-set geometry of wavefronts, in closed form, checked against an independent numerical count \u2014 no wave solve",
+      "sources": [
+        "a point on the outer sphere",
+        "a circle of latitude on it"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_point_never_folds",
+      "claim": "the front of a point is the metric sphere |x\u2212P| = t, embedded at every t; the focal set of a point is empty so there is nothing to fold on, and the swept region is the filled ball \u2014 the pulse fills its own void",
+      "focal_set_size": 0,
+      "ever_self_intersects": false,
+      "max_multiplicity": 1,
+      "crossing_time": 0.52,
+      "crossing_time_closed_form": 0.52,
+      "pass": true
+    },
+    {
+      "name": "T3_ring_must_fold",
+      "claim": "the front of a circle is its offset tube; a curve's focal set is its centres of curvature, and every point of a circle shares one centre, so the focal set is a single point reached at t = \u03c1",
+      "focal_set_size": 1,
+      "self_intersection_time": 1.0198039027185568,
+      "ring_radius": 1.0198039027185568,
+      "degenerate_times": [
+        1.0198039027185568
+      ],
+      "pass": true
+    },
+    {
+      "name": "T4_defect_is_degenerate",
+      "claim": "at the focal point every point of the ring is equidistant, so the entire ring arrives simultaneously: a degenerate caustic of infinite multiplicity, where the front ceases to be embedded \u2014 a codimension-2 defect, not a smooth focus",
+      "ring_distance_spread": 4.440892098500626e-16,
+      "multiplicity_at_focus": "degenerate (whole ring)",
+      "multiplicity_just_off_focus": 2,
+      "pass": true
+    },
+    {
+      "name": "T5_critical_ring_grazes",
+      "claim": "the ring whose defect lands on the inner sphere is the ring whose rays graze it: cos \u03b8\u2080 = R_in/R_out puts the focal point at radius R_in, and the same ring launches at sin \u03b1 = R_in/R_out, the tangent ray.  One condition, not two.",
+      "polar_angle_deg": 54.03424643570048,
+      "ring_radius": 1.0198039027185568,
+      "defect_radius": 0.74,
+      "r_inner": 0.74,
+      "defect_on_inner_error": 0.0,
+      "defect_time": 1.0198039027185568,
+      "defect_time_closed_form": 1.019803902718557,
+      "launch_sin": 0.5873015873015873,
+      "critical_sin": 0.5873015873015873,
+      "grazing_error": 0.0,
+      "ray_turning_radius": 0.74,
+      "pulse_crossing_time": 0.52,
+      "pass": true
+    },
+    {
+      "name": "T6_acceptance_asymmetry",
+      "claim": "b = r sin \u03b1 is conserved and r decreases going in, so only rays with sin \u03b1 \u2264 R_in/R_out reach the inner sphere while every ray from the inner sphere escapes.  Same bulk, opposite directions, different acceptance.",
+      "critical_sin": 0.5873015873015873,
+      "critical_angle_deg": 35.96575356429952,
+      "inward_closed_form": 0.19063182323924055,
+      "inward_monte_carlo": 0.19265583007802745,
+      "outward_closed_form": 1.0,
+      "outward_monte_carlo": 1.0,
+      "asymmetry_ratio": 5.245713874041967,
+      "reading": "not a broken symmetry of the sphere \u2014 the ordering of the two radii is the asymmetry",
+      "pass": true
+    },
+    {
+      "name": "T7_scales_with_the_ratio",
+      "claim": "every statement is a function of R_in/R_out alone: the defect lands on the inner sphere at any ratio, always later than the pulse crosses, and the acceptance tightens as the inner sphere shrinks",
+      "rows": [
+        {
+          "r_inner": 0.2,
+          "critical_sin": 0.15873015873015875,
+          "theta0_deg": 80.8668022162962,
+          "ring_radius": 1.244025723206719,
+          "defect_time": 1.244025723206719,
+          "defect_radius_error": 5.551115123125783e-17,
+          "inward_acceptance": 0.01267799745498499,
+          "asymmetry_ratio": 78.87681028101169,
+          "pulse_crossing_time": 1.06
+        },
+        {
+          "r_inner": 0.45,
+          "critical_sin": 0.35714285714285715,
+          "theta0_deg": 69.07516757236168,
+          "ring_radius": 1.1769027147559818,
+          "defect_time": 1.1769027147559818,
+          "defect_radius_error": 5.551115123125783e-17,
+          "inward_acceptance": 0.06595022638414139,
+          "asymmetry_ratio": 15.16295022514833,
+          "pulse_crossing_time": 0.81
+        },
+        {
+          "r_inner": 0.74,
+          "critical_sin": 0.5873015873015873,
+          "theta0_deg": 54.03424643570048,
+          "ring_radius": 1.0198039027185568,
+          "defect_time": 1.0198039027185568,
+          "defect_radius_error": 0.0,
+          "inward_acceptance": 0.19063182323924055,
+          "asymmetry_ratio": 5.245713874041967,
+          "pulse_crossing_time": 0.52
+        },
+        {
+          "r_inner": 0.95,
+          "critical_sin": 0.753968253968254,
+          "theta0_deg": 41.06470043466482,
+          "ring_radius": 0.8277076778670113,
+          "defect_time": 0.8277076778670113,
+          "defect_radius_error": 0.0,
+          "inward_acceptance": 0.34308914454999107,
+          "asymmetry_ratio": 2.9146943757478496,
+          "pulse_crossing_time": 0.31000000000000005
+        },
+        {
+          "r_inner": 1.15,
+          "critical_sin": 0.9126984126984127,
+          "theta0_deg": 24.11904302270429,
+          "ring_radius": 0.5148786264742401,
+          "defect_time": 0.5148786264742401,
+          "defect_radius_error": 0.0,
+          "inward_acceptance": 0.5913661694648888,
+          "asymmetry_ratio": 1.690999674372433,
+          "pulse_crossing_time": 0.1100000000000001
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "n_passed": 7,
+      "n_total": 7,
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "ONLY_A_RING_FOLDS",
+  "verdict": "ONLY A RING FOLDS. The difference between a pulse and a ring is not a matter of degree, it is the focal set. A point has none, so its front is the metric sphere \u2014 embedded at every t, never touching itself, sweeping the filled ball behind it. It crosses the bulk at t = \u0394R = 0.520 and does nothing else; it fills its own void. A circle's focal set is its centres of curvature, and because every point of a circle shares the same centre that set collapses to a single point which the entire ring reaches simultaneously at t = \u03c1. Measured, the ring's points are equidistant from it to 4.4e-16: a degenerate caustic of infinite multiplicity, where the front stops being embedded. That is a codimension-2 defect made by geometry alone.\n\nThe two conditions coincide. Requiring the defect to land on the inner sphere gives \u03b8\u2080 = 54.03\u00b0, and that same ring launches at sin \u03b1 = 0.587302 = R_in/R_out \u2014 the grazing ray, tangent to the inner sphere (turning radius 0.7400 against R_in = 0.7400). The ring that focuses on the throat and the ray that grazes it are the same ring.\n\nAnd the bulk is not symmetric between its two faces. Outer to inner, only 19.1% of the hemisphere arrives (Monte-Carlo 19.3%); inner to outer, all of it does \u2014 a 5.2\u00d7 asymmetry from the ordering of two radii, with no symmetry broken anywhere.\n\nSCOPE. Ray and front geometry in a flat bulk: exact, and independent of any wave solve. It says which fronts CAN fold, not what happens when one does \u2014 showing a throat actually form needs backreaction, which this programme does not yet have."
+}
