@@ -93,6 +93,25 @@ means, measured on the surface rather than inferred from the tensor.
 surface travels `74.8%` of the way to `R_outer` at `t = 3.085` and `44.3%`
 toward `R_inner`, touching neither.
 
+## The principal-axis bars
+
+At sparse points the renderer draws two short tangent vectors along the
+**eigenvectors** of `h_ab`: red for the positive eigenvalue (stretch), blue for
+the negative (squeeze), each of length proportional to `|λ|`.
+
+They are computed, not assumed, and two things follow that are worth stating:
+
+* **The two bars are always the same length.** For a trace-free 2×2 the
+  eigenvalues are `λ± = ±√(h₊² + h_ˣ²)`, equal in magnitude by construction —
+  an asymmetric cross would mean the tensor had a trace.
+* **The stretch axis swaps.** It sits at `β = ½ atan2(h_ˣ, h₊)`, so wherever
+  `h₊` changes sign the stretch jumps from `ê_d` to `ê_ψ` rather than staying
+  put. Around the antipodal focus this makes the bars read as red radial
+  spokes and blue arcs, and they exchange roles as the front passes.
+
+The bars lie in the *deformed* surface — the tangent basis is taken from the
+drawn embedding, not the round sphere, so they stay in the surface at any gain.
+
 ## Honest scope
 
 * **A representation, not backreaction.** The wave now has an extrinsic
@@ -104,6 +123,8 @@ toward `R_inner`, touching neither.
 * **The tangential slide is invisible as shape.** It is drawn as the material
   lattice, because a tangential displacement is a reparametrisation — that is
   the same fact as "shape carries only the trace", seen from the other side.
+* **The bar lengths are a display gain** like everything else here; what is
+  exact is their *directions* and their equality.
 
 ## Reproduce
 

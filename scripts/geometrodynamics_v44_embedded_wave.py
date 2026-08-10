@@ -34,6 +34,12 @@ What is on screen
   spaced before the wave arrives.  Where they bunch and spread is the tidal
   stretch and squeeze, continuously, with nothing sampled;
 * colour is the **shear** `h` itself: red stretched along `ê_d`, blue across it;
+* **principal-axis bars** at sparse points — two short tangent vectors along the
+  eigenvectors of `h_ab`, red for the positive eigenvalue and blue for the
+  negative, each of length proportional to `|λ|`.  They are always the same
+  length as each other, because trace-free in two dimensions means
+  `λ± = ±|h|`, and the stretch axis *swaps* between `ê_d` and `ê_ψ` wherever
+  `h` changes sign;
 * the two **shells** of the vacuole, so the reach into the bulk is legible;
 * the profiles panel: one potential, its two parts.
 
@@ -118,6 +124,22 @@ class EmbeddedFigure:
         self.ax_t = self.fig.add_subplot(gs[1, 1], facecolor=_PAL["bg"])
         self.doll = self.s.shells.unit_sphere(31, 49)
         self.scale = self.s.peak_radial_profile or 1.0
+        self.cross_samples = [
+            (d, psi)
+            for d in np.linspace(0.18, math.pi - 0.18, 14)
+            for psi in np.linspace(0.0, 2.0 * math.pi, 13, endpoint=False)
+        ]
+        self.scale_shear = self._calibrate_shear()
+
+    def _calibrate_shear(self, samples: int = 160) -> float:
+        """The run's own peak |λ|, so bar lengths mean the same thing all through."""
+        self.s.reset()
+        peak = 0.0
+        for i in range(samples):
+            self.s.advance_to((i + 1) * self.t_end / samples)
+            peak = max(peak, float(np.max(np.abs(self.s.profiles()["shear"]))))
+        self.s.reset()
+        return peak
 
     # ── pieces ──────────────────────────────────────────────────────────────
     def _doll(self, radius: float, colour: str, hot: str, heat: float) -> None:
@@ -148,6 +170,33 @@ class EmbeddedFigure:
             self.ax3d.plot(curve[:, 0], curve[:, 1], curve[:, 2],
                            color=_PAL["lattice"], alpha=0.13, linewidth=0.4,
                            zorder=30)
+
+    def _crosses(self, view: np.ndarray) -> None:
+        """Principal-axis bars at sparse points: ↔ stretch, ↕ squeeze.
+
+        Aligned with the eigenvectors of ``h_ab`` and scaled by ``|λ|``.  The
+        two bars are always the same length — trace-free means ``λ± = ±|h|``,
+        so an asymmetric cross would be a bug rather than a feature.
+        """
+        ref = float(np.max(np.abs(self.s.profiles()["shear"]))) or 1.0
+        run_peak = self.scale_shear or ref
+        for d0, psi in self.cross_samples:
+            lam = abs(float(self.s.principal_axes(np.array([d0]))["lambda_plus"][0]))
+            if lam < 0.02 * run_peak:
+                continue
+            centre = self.s.positions(np.array([[d0]]), np.array([[psi]]))[0, 0]
+            if float(centre @ view) < 0.06 * float(np.linalg.norm(centre)):
+                continue                       # far side
+            c = self.s.principal_cross(d0, psi, size=0.125, reference=run_peak,
+                                       lift=0.014)
+            a = float(np.clip(lam / run_peak, 0.0, 1.0))
+            for key, colour in (("stretch", _PAL["radial"]),
+                                ("squeeze", _PAL["transverse"])):
+                bar = c[key]
+                self.ax3d.plot(bar[:, 0], bar[:, 1], bar[:, 2], color=colour,
+                               alpha=float(np.clip(0.45 + 0.5 * a, 0.0, 1.0)),
+                               linewidth=1.0 + 1.9 * a,
+                               solid_capstyle="round", zorder=50)
 
     def _profiles(self) -> None:
         ax = self.ax_p
@@ -232,15 +281,17 @@ class EmbeddedFigure:
                    ex["inward_fraction"])
         self._surface()
         self._lattice()
+        az = ((75.0 + 360.0 * t / self.t_end) if azim is None else azim)
+        e, a = math.radians(13.0), math.radians(az)
+        self._crosses(np.array([math.cos(e) * math.cos(a),
+                                math.cos(e) * math.sin(a), math.sin(e)]))
         lim = 1.02 * self.s.shells.r_outer
         ax.set_xlim(-lim, lim)
         ax.set_ylim(-lim, lim)
         ax.set_zlim(-lim, lim)
         ax.set_box_aspect((1, 1, 1), zoom=1.5)
         ax.set_axis_off()
-        ax.view_init(elev=13.0,
-                     azim=(75.0 + 360.0 * t / self.t_end)
-                     if azim is None else azim)
+        ax.view_init(elev=13.0, azim=az)
         self._profiles()
         self._readout()
         for artist in list(self.fig.texts):
@@ -250,8 +301,8 @@ class EmbeddedFigure:
             "deformation of the embedded sphere",
             color=_PAL["text"], fontsize=12.0, fontweight="bold", y=0.968)
         self.fig.text(0.5, 0.936,
-                      "shape = −½ΔW      shear = trace-free Hessian of W      "
-                      "one potential, and the lattice shows the slide",
+                      "shape = −½ΔW    shear = trace-free Hessian of W    "
+                      "bars are the eigenvectors of h_ab, length ∝ |λ|",
                       color=_PAL["dim"], fontsize=9.0, family="monospace",
                       ha="center")
 

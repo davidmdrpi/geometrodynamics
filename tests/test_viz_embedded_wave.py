@@ -164,3 +164,72 @@ def test_the_deformation_scales_with_the_gain(surface):
     two = surface.positions(d, a, gain=2e-3)[0, 0] - base
     assert np.allclose(two, 2.0 * one, rtol=1e-9)
     assert np.linalg.norm(base) == pytest.approx(surface.shells.r_mid)
+
+
+# ── principal axes ──────────────────────────────────────────────────────────
+def test_the_two_eigenvalues_are_equal_and_opposite(surface):
+    """Trace-free in two dimensions means ``λ± = ±|h|`` — always.
+
+    So the two bars of a principal cross have the *same* length; an asymmetric
+    cross would mean the tensor had a trace.
+    """
+    surface.reset()
+    surface.advance_to(1.2)
+    a = surface.principal_axes(np.array([0.6, 1.0, 1.5, 2.0]))
+    assert np.allclose(a["lambda_plus"], -a["lambda_minus"])
+    assert np.all(a["lambda_plus"] >= 0.0)
+    assert np.allclose(a["lambda_plus"], np.abs(a["h_plus"]))
+
+
+def test_the_stretch_axis_follows_the_sign_of_h(surface):
+    """It swaps between ``ê_d`` and ``ê_ψ`` rather than staying put."""
+    surface.reset()
+    surface.advance_to(1.2)
+    p = surface.profiles()
+    d_pos = float(p["d"][int(np.argmax(p["shear"]))])
+    d_neg = float(p["d"][int(np.argmin(p["shear"]))])
+    assert float(np.interp(d_pos, p["d"], p["shear"])) > 0.0
+    assert float(np.interp(d_neg, p["d"], p["shear"])) < 0.0
+    assert surface.principal_axes(np.array([d_pos]))["angle"][0] == pytest.approx(0.0)
+    assert surface.principal_axes(np.array([d_neg]))["angle"][0] == pytest.approx(
+        0.5 * math.pi)
+    # ...and the drawn bar swaps with it
+    e1, _ = surface.tangent_basis(d_pos, 0.3)
+    c_pos = surface.principal_cross(d_pos, 0.3)
+    c_neg = surface.principal_cross(d_neg, 0.3)
+    assert abs(float(c_pos["stretch_direction"] @ e1)) == pytest.approx(1.0, abs=1e-9)
+    e1n, _ = surface.tangent_basis(d_neg, 0.3)
+    assert abs(float(c_neg["stretch_direction"] @ e1n)) == pytest.approx(0.0, abs=1e-9)
+
+
+def test_the_cross_is_orthogonal_tangent_and_centred(surface):
+    surface.reset()
+    surface.advance_to(1.2)
+    c = surface.principal_cross(1.3, 0.8, size=0.09)
+    u, v = c["stretch_direction"], c["squeeze_direction"]
+    assert float(u @ v) == pytest.approx(0.0, abs=1e-12)
+    assert np.linalg.norm(u) == pytest.approx(1.0)
+    assert np.linalg.norm(v) == pytest.approx(1.0)
+    e1, e2 = surface.tangent_basis(1.3, 0.8)
+    normal = np.cross(e1, e2)
+    assert float(u @ normal) == pytest.approx(0.0, abs=1e-9)   # lies in the surface
+    assert float(v @ normal) == pytest.approx(0.0, abs=1e-9)
+    for key in ("stretch", "squeeze"):
+        assert np.allclose(c[key].mean(axis=0), c["centre"])
+    assert np.linalg.norm(c["stretch"][1] - c["stretch"][0]) == pytest.approx(
+        np.linalg.norm(c["squeeze"][1] - c["squeeze"][0]))
+
+
+def test_bar_length_is_proportional_to_the_eigenvalue(surface):
+    surface.reset()
+    surface.advance_to(1.2)
+    p = surface.profiles()
+    ref = float(np.max(np.abs(p["shear"])))
+    rows = []
+    for d0 in (0.8, 1.2, 1.6):
+        c = surface.principal_cross(d0, 0.2, size=0.1, reference=ref)
+        rows.append((abs(c["lambda_plus"]), c["half_length"]))
+    for lam, half in rows:
+        assert half == pytest.approx(0.1 * lam / ref, rel=1e-9)
+    # a vanishing eigenvalue draws no bar at all
+    assert rows[0][1] < rows[-1][1]

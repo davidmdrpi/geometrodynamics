@@ -1377,6 +1377,11 @@ is minus half its Laplacian.
   trace-free means.
 - **It reaches the bulk**: `74.8%` of the way to `R_outer`, `44.3%` toward
   `R_inner`, touching neither.
+- **Principal-axis bars** at sparse points show the eigenvectors of `h_ab` —
+  red for the positive eigenvalue, blue for the negative, length `∝ |λ|`. For a
+  trace-free 2×2 the eigenvalues are `±√(h₊² + h_ˣ²)`, so the two bars are
+  always equal; the stretch axis sits at `β = ½ atan2(h_ˣ, h₊)` and *swaps*
+  between `ê_d` and `ê_ψ` wherever `h₊` changes sign.
 
 ```bash
 python -m experiments.closure_ledger.embedded_wave_probe

@@ -254,6 +254,91 @@ class EmbeddedTidalSurface:
             out.append(self.positions(d[None, :], A[None, :], gain=gain)[0])
         return out
 
+    # ── principal axes ──────────────────────────────────────────────────────
+    def principal_axes(self, d, h_cross: float = 0.0) -> Dict[str, np.ndarray]:
+        """Eigenvalues and eigen-directions of ``h_ab`` in the ``(ê_d, ê_ψ)`` dyad.
+
+        For the trace-free matrix ``[[h₊, h_ˣ], [h_ˣ, −h₊]]`` the eigenvalues
+        are ``±√(h₊² + h_ˣ²)`` — **equal in magnitude, always**, which is what
+        trace-free means and why the two bars of a principal cross are the
+        same length.  The stretch axis is at ``β = ½ atan2(h_ˣ, h₊)``, so it
+        swaps between ``ê_d`` and ``ê_ψ`` when ``h₊`` changes sign rather than
+        staying put — the axes are computed, never assumed.
+        """
+        p = self.profiles()
+        hp = np.interp(np.asarray(d, dtype=float), p["d"], p["shear"])
+        hx = np.full_like(hp, float(h_cross))
+        lam = np.hypot(hp, hx)
+        beta = 0.5 * np.arctan2(hx, hp)
+        return {"lambda_plus": lam, "lambda_minus": -lam, "angle": beta,
+                "h_plus": hp, "h_cross": hx}
+
+    def tangent_basis(self, d: float, psi: float,
+                      gain: Optional[float] = None,
+                      step: float = 1e-4) -> Tuple[np.ndarray, np.ndarray]:
+        """An orthonormal tangent basis **of the deformed surface** at a point.
+
+        To first order in ``ε`` this is the ``(ê_d, ê_ψ)`` dyad the tensor is
+        written in; taking it from the drawn surface keeps the bars lying in
+        the surface at any gain.
+        """
+        eps = self.gain if gain is None else float(gain)
+
+        def X(dd, aa):
+            return self.positions(np.array([[dd]]), np.array([[aa]]),
+                                  gain=eps)[0, 0]
+
+        x_d = (X(d + step, psi) - X(d - step, psi)) / (2.0 * step)
+        x_a = (X(d, psi + step) - X(d, psi - step)) / (2.0 * step)
+        e1 = x_d / max(float(np.linalg.norm(x_d)), 1e-30)
+        e2 = x_a - float(x_a @ e1) * e1
+        e2 = e2 / max(float(np.linalg.norm(e2)), 1e-30)
+        return e1, e2
+
+    def principal_cross(self, d: float, psi: float, size: float = 0.08,
+                        reference: Optional[float] = None,
+                        gain: Optional[float] = None,
+                        lift: float = 0.0) -> Dict[str, object]:
+        """Two short tangent bars along the eigen-directions of ``h_ab``.
+
+        The stretch bar (positive eigenvalue) and the squeeze bar (negative
+        one), each centred on the surface point, each with half-length
+        proportional to ``|λ|``.  ``reference`` is the ``|λ|`` that maps to
+        ``size``; it defaults to the current peak on the sphere.
+        """
+        axes = self.principal_axes(np.array([d]))
+        lam = float(axes["lambda_plus"][0])
+        beta = float(axes["angle"][0])
+        ref = reference if reference is not None else float(
+            np.max(np.abs(self.profiles()["shear"])))
+        scale = size * (lam / ref) if ref > 0.0 else 0.0
+        e1, e2 = self.tangent_basis(d, psi, gain=gain)
+        v_plus = math.cos(beta) * e1 + math.sin(beta) * e2
+        v_minus = -math.sin(beta) * e1 + math.cos(beta) * e2
+        centre = self.positions(np.array([[d]]), np.array([[psi]]),
+                                gain=gain)[0, 0]
+        if lift:
+            normal = np.cross(e1, e2)
+            n = float(np.linalg.norm(normal))
+            if n > 0.0:
+                normal = normal / n
+                if float(normal @ centre) < 0.0:
+                    normal = -normal          # outward
+                centre = centre + lift * normal
+        return {
+            "centre": centre,
+            "stretch": np.stack([centre - scale * v_plus,
+                                 centre + scale * v_plus]),
+            "squeeze": np.stack([centre - scale * v_minus,
+                                 centre + scale * v_minus]),
+            "lambda_plus": lam,
+            "lambda_minus": -lam,
+            "angle": beta,
+            "half_length": scale,
+            "stretch_direction": v_plus,
+            "squeeze_direction": v_minus,
+        }
+
     # ── what the deformation actually is ────────────────────────────────────
     def induced_metric_perturbation(self, d0: float, a0: float = 0.7,
                                     gain: Optional[float] = None,
