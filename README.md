@@ -468,6 +468,8 @@ geometrodynamics/
 │       ├── radial_caustic.py      # focal geometry: which fronts fold (#243)
 │       ├── warped_sphere.py       # one continuous S2 warped by the solved
 │       │                          #   wave, nested between two shells
+│       ├── spin2_tidal.py         # the tensor case: spin-2 wave as tidal
+│       │                          #   shear, ring at the focus, no l<2
 │       └── geometry_panels.py     # Hopf / throat / Green / handshake panels
 ├── tests/                    # pytest validation suite
 ├── notebooks/                # Jupyter notebooks (per-topic)
@@ -1295,6 +1297,52 @@ Scope: a *display* of a solved field as a radial displacement of a **fixed**
 surface — not backreaction, so no throat forms here. Sign and amplitude
 ordering survive the display; ratios do not, and the probe says so. Full
 write-up: `docs/warped_sphere_restoration.md`.
+
+## Spin 0 against spin 2 on the same S²
+
+The wave in the picture above is a **scalar**, displayed extrinsically as a
+radial height. A metric perturbation is not that kind of object: `h_ab` is
+symmetric and trace-free — spin 2 — and it does not push a surface outward at
+all. It *shears* it. `viz/spin2_tidal.py` carries the tensor case and
+`scripts/geometrodynamics_v43_tidal_sphere.py` runs both on one clock.
+
+| | scalar `u` | tensor `h_ab` |
+|---|---|---|
+| displayed as | radial height | tidal ellipses |
+| local effect | area changes — it breathes | area preserved to `O(h²)` |
+| at the focus | peaks **on** the antipode | a **ring** around it |
+| multipoles | all `ℓ ≥ 0` | **`ℓ ≥ 2` only** |
+| smallest source | a point | a **ring** |
+
+An axisymmetric spin-`s` field on the unit sphere obeys
+`∂²_t h = ∂²_d h + cot d ∂_d h − (s²/sin²d) h`, eigenvalue `−ℓ(ℓ+1)` on
+`ₛY_ℓ0` — the same dispersion as the scalar. Substituting `h = sin²d·q` removes
+the centrifugal term exactly, and the result is integrated in conservative form
+so the poles carry no flux. Three exact modes check it: `q = 1` is `ℓ = 2`,
+`q = cos d` is `ℓ = 3`, `q = 7cos²d − 1` is `ℓ = 4`, at `ω = √6, √12, √20`.
+
+- **A spin-2 field cannot sit on a pole.** `h = sin²d·q` vanishes there for
+  every `q`, so at the focus it is a ring of radius `0.198` about the antipode
+  with `2.2e-06` *on* it — exactly where the scalar peaks. The same fact at the
+  other end: **there is no point source of tidal shear.**
+- **Pure shear.** Trace `0.0e+00`, and the first-order area change vanishes
+  identically — measured `1.17e-08` against the `ε²h²/2` prediction `1.17e-08`.
+- **Spin weight 2, directly.** The strain pattern is identical after a 180°
+  rotation of the frame (`1.1e-15`) and inverted after 90° (2.00×).
+- **The caustic is a quarter turn, not a flip.** One passage does *not* swap
+  the stretch and compression axes: the outbound front is the Hilbert transform
+  of the inbound one (correlation `+0.82` against `−0.35` for an inversion) —
+  the Gouy shift, Maslov index 1, which the scalar shares. The axes do swap on
+  the **round trip**: at `t = 2π` the field is minus its start (`+0.9974`).
+
+```bash
+python -m experiments.closure_ledger.spin2_tidal_probe
+# Verdict: A_TENSOR_WAVE_CANNOT_SIT_ON_ITS_OWN_FOCUS  (7/7)
+```
+
+Scope: a spin-2 field on a **fixed** `S²`, not linearised GR on a spacetime —
+2+1 gravity has no propagating tensor modes at all. Full write-up:
+`docs/spin2_tidal_field.md`.
 
 ## Quick Start
 
