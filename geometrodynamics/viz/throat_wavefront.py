@@ -830,12 +830,30 @@ class BareSphereSim:
         """Empty neck field — there is no neck."""
         return np.zeros((0, self.n_phi))
 
+    def geodesic_distance(self, theta, phi) -> np.ndarray:
+        """Great-circle distance from the source to ``(θ, φ)``, elementwise."""
+        th = np.asarray(theta, dtype=float)
+        ph = np.asarray(phi, dtype=float)
+        cos_d = (math.cos(self.source_theta) * np.cos(th)
+                 + math.sin(self.source_theta) * np.sin(th)
+                 * np.cos(ph - self.source_phi))
+        return np.arccos(np.clip(cos_d, -1.0, 1.0))
+
+    def field_at(self, theta, phi) -> np.ndarray:
+        """The field at arbitrary ``(θ, φ)`` — any grid, not just this one.
+
+        A point source on a sphere makes the field a function of geodesic
+        distance alone, so this is the 1-D solve evaluated at ``d(θ, φ)``:
+        exact for any target grid, including one that carries the poles.
+        """
+        return self._sim.sample(self.geodesic_distance(theta, phi))
+
+    def field_at_distance(self, d) -> np.ndarray:
+        """The field at a given geodesic distance from the source."""
+        return self._sim.sample(np.asarray(d, dtype=float))
+
     def sample(self, theta: float, phi: float) -> float:
-        cos_d = (math.cos(self.source_theta) * math.cos(theta)
-                 + math.sin(self.source_theta) * math.sin(theta)
-                 * math.cos(phi - self.source_phi))
-        d = math.acos(max(-1.0, min(1.0, cos_d)))
-        return float(self._sim.sample(np.array([d]))[0])
+        return float(np.reshape(self.field_at(theta, phi), -1)[0])
 
     def energy_density(self) -> np.ndarray:
         """``u_t² + |∇u|²``, evaluated in 1-D and mapped — no polar blow-up.

@@ -1,0 +1,160 @@
+{
+  "timestamp_utc": "2026-08-10T03:32:14+00:00",
+  "identification": "a spin-2 field projected into a continuous \u211d\u00b3 surface deformation whose own induced metric is the field",
+  "the_obstruction": "a radial deformation is conformal at first order",
+  "the_construction": "X = (R + \u03b5\u03c1)n\u0302 + \u03b5\u2207W with \u03c1 = \u2212\u00bd\u0394W",
+  "the_theorem": "\u03b4g_ab of the drawn surface equals the solved h_ab",
+  "the_kernel": "\u2113 = 1 only \u2014 a rigid translation; \u2113 = 0 cannot appear",
+  "geometry": {
+    "n_radial": 1200,
+    "pulse_width": 0.18,
+    "small_gain": 0.0001,
+    "return_time": 6.283185307179586
+  },
+  "tests": [
+    {
+      "name": "T1_goal",
+      "claim": "draw a spin-2 field as a CONTINUOUS deformation of the embedded sphere, so tidal shear can meet a bulk",
+      "displacement": "X = (R + \u03b5\u03c1) n\u0302 + \u03b5\u2207W",
+      "radial_part": "\u03c1 = \u2212\u00bd\u0394W",
+      "shear_part": "h_ab = [2\u2207\u208d\u2090\u2207_b\u208eW]^TF",
+      "solution": "\u03c8 = W' = sin d [C + \u222b\u2080^d h/sin]",
+      "pass": true
+    },
+    {
+      "name": "T2_radial_alone_is_conformal",
+      "rows": [
+        {
+          "distance": 0.6,
+          "trace": 1.4498039915325764,
+          "trace_free_part": 0.00017367343270524582
+        },
+        {
+          "distance": 1.1,
+          "trace": -2.353674246871935,
+          "trace_free_part": 0.0001308053914049756
+        },
+        {
+          "distance": 1.9,
+          "trace": -3.1635965001078556,
+          "trace_free_part": 7.492675883558064e-05
+        },
+        {
+          "distance": 2.5,
+          "trace": 1.1350320949365718,
+          "trace_free_part": 0.0001840315333569431
+        }
+      ],
+      "worst_trace_free_part": 0.0001840315333569431,
+      "largest_trace": 3.1635965001078556,
+      "is_conformal": true,
+      "pass": true
+    },
+    {
+      "name": "T3_the_theorem",
+      "gain": 0.0001,
+      "rows": [
+        {
+          "distance": 0.4,
+          "trace": -6.359912699496077e-07,
+          "h_plus_measured": 2.3533274223370255e-05,
+          "h_plus_solved": 2.33588723650874e-05,
+          "off_diagonal": -1.10965724840528e-08,
+          "relative_error": 3.1905522880320077e-05,
+          "relative_trace": 0.00011634987272985874
+        },
+        {
+          "distance": 0.9,
+          "trace": 3.2375269454315266e-06,
+          "h_plus_measured": 0.0008016724856013627,
+          "h_plus_solved": 0.0007996133713522091,
+          "off_diagonal": 8.658306314006944e-09,
+          "relative_error": 0.00037669963747182986,
+          "relative_trace": 0.0005922814759553112
+        },
+        {
+          "distance": 1.5,
+          "trace": -6.159264038638548e-06,
+          "h_plus_measured": 0.0026222505987970922,
+          "h_plus_solved": 0.0026248366205547597,
+          "off_diagonal": 6.739261812825127e-08,
+          "relative_error": 0.00047309344734416513,
+          "relative_trace": 0.0011267915470946203
+        },
+        {
+          "distance": 2.2,
+          "trace": -6.511664065286733e-07,
+          "h_plus_measured": 2.663861115913233e-07,
+          "h_plus_solved": 2.992423040822281e-14,
+          "off_diagonal": -6.068749586978269e-08,
+          "relative_error": 4.873335242703535e-05,
+          "relative_trace": 0.00011912605110377322
+        },
+        {
+          "distance": 2.8,
+          "trace": -6.704123537880727e-07,
+          "h_plus_measured": 1.201559770241435e-07,
+          "h_plus_solved": 1.1009090432650705e-34,
+          "off_diagonal": -5.8053743309994925e-09,
+          "relative_error": 2.1981642351157798e-05,
+          "relative_trace": 0.00012264695401549732
+        }
+      ],
+      "worst_relative_error": 0.00047309344734416513,
+      "worst_relative_trace": 0.0011267915470946203,
+      "worst_off_diagonal": 6.739261812825127e-08,
+      "pass": true
+    },
+    {
+      "name": "T4_quadrupole_shape",
+      "amplitude_ratio": 0.9999997943831693,
+      "shape_error": 1.028084682080226e-07,
+      "is_legendre_p2": true,
+      "dipole_constant": -1.0000001028083858,
+      "residual_dipole": -4.163336342344337e-17,
+      "residual_monopole": 6.853901887704517e-08,
+      "pass": true
+    },
+    {
+      "name": "T5_the_kernel_is_a_translation",
+      "displacement_spread_over_the_sphere": 1.1102230246251565e-16,
+      "translation_length": 0.37,
+      "requested_length": 0.37,
+      "residual_dipole": -2.4126334926429387e-18,
+      "residual_monopole": 1.068771264177538e-09,
+      "pass": true
+    },
+    {
+      "name": "T6_area_is_unchanged",
+      "gain": 0.001,
+      "area": 12.566310566990763,
+      "round_area": 12.566370614359172,
+      "relative_area_change": 4.778417750987697e-06,
+      "area_is_first_order_unchanged": true,
+      "pass": true
+    },
+    {
+      "name": "T7_reaches_the_bulk",
+      "max_outward_fraction": 0.7483807445035143,
+      "at_time_outward": 3.084520387049407,
+      "max_inward_fraction": 0.44306334926101293,
+      "at_time_inward": 6.283185307183089,
+      "peak_distance": 0.001308996938995747,
+      "r_inner": 0.74,
+      "r_outer": 1.26,
+      "stays_between_the_dolls": true,
+      "display_gain": 7.869614393158918,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "n_passed": 7,
+      "n_total": 7,
+      "pass": true
+    }
+  ],
+  "n_passed": 7,
+  "n_total": 7,
+  "verdict_class": "ONE_POTENTIAL_CARRIES_SHAPE_AND_SHEAR",
+  "verdict": "ONE POTENTIAL CARRIES SHAPE AND SHEAR. A spin-2 field can be drawn as a continuous deformation of the embedded sphere, and the projection is forced rather than chosen.\n\nA HEIGHT FIELD ALONE CANNOT. For X = r n\u0302 the induced metric is g_ab = r\u00b2\u011d_ab + \u2202_a r \u2202_b r, whose gradient term is second order, so at first order the perturbation is purely conformal: measured trace-free part 1.8e-04 against a trace of 3.164. Shape carries the trace and nothing else \u2014 which is exactly why the tangential slide has to be there, and why discrete ellipses were the only option before it was.\n\nTHE THEOREM. Adding \u03be = \u2207W and demanding tracelessness fixes the radial part completely, \u03c1 = \u2212\u00bd\u0394W, and then the induced metric perturbation of the drawn surface IS the solved h_ab: measured against solved to 4.7e-04 of the peak amplitude, with a trace of 1.1e-03 and off-diagonal 6.7e-08. The surface is not an illustration of the tensor; it has the tensor as its own geometry.\n\nTHE QUADRUPOLE IS THE TEXTBOOK SHAPE. Feeding the exact \u2113 = 2 mode returns \u03c1 = P\u2082(cos d) to 1.0e-07, amplitude ratio 1.000000. The prolate\u2013oblate picture of a quadrupole gravitational wave is not assumed here; it comes out of the projection.\n\nTHE FREE CONSTANT IS A RIGID TRANSLATION. C is the whole kernel of the construction \u2014 an \u2113 = 1 displacement moves every point of the sphere by one vector, verified to 1.1e-16. Removing it leaves a residual dipole of -2.4e-18, and \u2113 = 0 cannot appear at all because \u222b\u0394W dA = 0: a spin-2 wave can never breathe the sphere's area.\n\nAND THE AREA HOLDS. The drawn surface keeps the round area to 4.8e-06 at gain 1e-03 \u2014 second order in \u03b5, which is what trace-free means, measured on the surface rather than inferred from the tensor.\n\nIT REACHES THE BULK. With the gain fixed from the run's own peak, the surface travels 74.8% of the way to R_outer at t = 3.085 and 44.3% toward R_inner, without touching either. The tensor wave now has an extrinsic amplitude \u2014 which is the whole reason to do this.\n\nSCOPE. The gain is a display choice and the theorem is a first-order statement, so its residuals shrink with \u03b5. This is a faithful representation of h_ab in the embedding; it does not make the wave act on the sphere it is deforming."
+}

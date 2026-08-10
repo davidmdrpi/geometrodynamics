@@ -1,0 +1,114 @@
+{
+  "timestamp_utc": "2026-08-09T22:10:11+00:00",
+  "identification": "one continuous S\u00b2 whose radius carries a solved wave, nested between the two shells of the ring-caustic vacuole",
+  "the_surface": "closed \u2014 its own poles, its seam matched, nothing cut out",
+  "the_dolls": "never touched; the display is bounded by construction",
+  "the_focus": "deepest warp at the antipode, at t just under \u03c0 by the pulse width",
+  "the_inversion": "mound first, then pulled inward past R_mid",
+  "geometry": {
+    "r_inner": 0.74,
+    "r_mid": 1.0,
+    "r_outer": 1.26,
+    "half_gap": 0.26,
+    "gain": 1.6,
+    "pulse_width": 0.18,
+    "mesh": [
+      61,
+      91
+    ],
+    "antipodal_time": 3.141592653589793,
+    "return_time": 6.283185307179586
+  },
+  "tests": [
+    {
+      "name": "T1_goal",
+      "claim": "restore the archive's geometry \u2014 one continuous S\u00b2 whose radius carries a SOLVED wave, nested between two shells",
+      "r_inner": 0.74,
+      "r_mid": 1.0,
+      "r_outer": 1.26,
+      "half_gap": 0.26,
+      "same_vacuole_as_ring_caustic_probe": true,
+      "pass": true
+    },
+    {
+      "name": "T2_one_closed_surface",
+      "seam_mismatch": 2.438336014997225e-16,
+      "pole_spread": 0.0,
+      "carries_poles": true,
+      "all_finite": true,
+      "is_closed": true,
+      "pass": true
+    },
+    {
+      "name": "T3_never_touches_a_doll",
+      "r_min": 0.7593554189794102,
+      "r_max": 1.222569236783311,
+      "r_inner": 0.74,
+      "r_outer": 1.26,
+      "contained": true,
+      "closest_approach_inner": 0.019355418979410177,
+      "closest_approach_outer": 0.037430763216689034,
+      "pass": true
+    },
+    {
+      "name": "T4_display_is_order_preserving",
+      "sign_preserved": true,
+      "worst_order_inversion": 0.0,
+      "gain_cannot_flip_a_sign": true,
+      "ratio_distortion_spread": 0.0053765575302518465,
+      "note": "tanh is strictly increasing: signs and orderings survive, ratios do not \u2014 the spread above is that distortion",
+      "pass": true
+    },
+    {
+      "name": "T5_deepest_warp_is_at_the_antipode",
+      "peak_distance": 3.141592653589793,
+      "distance_error": 0.0,
+      "peak_time": 2.981371428256598,
+      "antipodal_time": 3.141592653589793,
+      "time_error": 0.16022122533319516,
+      "pulse_width_scan": [
+        {
+          "pulse_width": 0.24,
+          "peak_time": 2.9452431127403176,
+          "time_error": 0.19634954084947553
+        },
+        {
+          "pulse_width": 0.18,
+          "peak_time": 2.981371428256598,
+          "time_error": 0.16022122533319516
+        },
+        {
+          "pulse_width": 0.12,
+          "peak_time": 3.036349299694416,
+          "time_error": 0.1052433538953772
+        },
+        {
+          "pulse_width": 0.08,
+          "peak_time": 3.0724776152106963,
+          "time_error": 0.06911503837909683
+        }
+      ],
+      "bias_shrinks_with_pulse_width": true,
+      "pass": true
+    },
+    {
+      "name": "T6_the_focus_rings",
+      "outward_peak_fraction": 0.8561967939498375,
+      "outward_peak_time": 2.987654613563777,
+      "inward_peak_fraction": 0.7960114112134403,
+      "inward_peak_time": 3.2107076919686386,
+      "inverts_after_the_mound": true,
+      "pass": true
+    },
+    {
+      "name": "T7_assessment",
+      "n_passed": 6,
+      "n_total": 6,
+      "pass": true
+    }
+  ],
+  "n_passed": 6,
+  "n_total": 6,
+  "verdict_class": "THE_SURFACE_ITSELF_CARRIES_THE_WAVE",
+  "verdict": "THE SURFACE ITSELF CARRIES THE WAVE. The archive's geometry is back, and this time the warp is solved rather than drawn.\n\nONE CLOSED SURFACE. The mesh carries its own poles and its \u03c6 seam matches to 2.4e-16, so it is a single manifold with nothing cut out of it. That is what makes 'a pulse sweeps every point once and fills its own void' a statement about a closed surface rather than about a patch \u2014 and it is exactly why a ring, not a pulse, is what a throat needs.\n\nNESTED, NEVER TOUCHING. Over a full return the radius stays within [0.7594, 1.2226], clearing the inner doll by 0.0194 and the outer by 0.0374. The bound is structural: tanh cannot leave the gap.\n\nAN HONEST DISPLAY. The displacement preserves the sign of the field everywhere and the ordering of every pair of amplitudes (worst inversion 0.0e+00), and no gain can flip a sign. It does NOT preserve ratios \u2014 the distortion spans 0.005 across the surface \u2014 which is the price of keeping the picture inside the vacuole, and is stated rather than hidden.\n\nTHE FOCUS IS MEASURED, NOT KEYED TO THE CLOCK. The deepest deformation over the run sits at geodesic distance 3.141593 from the source \u2014 the antipode, to 0.0e+00 \u2014 at t = 2.9814 against \u03c0 = 3.1416. The shortfall of 0.1602 is the pulse's own width, not solver error: narrowing the pulse from 0.24 to 0.08 shrinks it monotonically. This is the difference from the archive, which grew its mound on a growth function tied to the frame number.\n\nAND IT RINGS. The arrival is not one mound. The surface is driven 85.6% of the way to the outer doll at t = 2.988, then inverts and is pulled 79.6% of the way to the inner doll at t = 3.211. The focus ends up pulling the geometry INWARD \u2014 toward the inner shell, which is the one the ring caustic lands on.\n\nSCOPE. This is a display of a solved field as a radial displacement of a FIXED surface, not backreaction: the wave does not feel what it is deforming, so no throat forms here and nothing about nucleation follows. What it restores is the object the intuition was built on \u2014 and it now moves because a solver says so."
+}

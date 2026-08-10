@@ -1,0 +1,117 @@
+{
+  "timestamp_utc": "2026-08-10T00:31:51+00:00",
+  "identification": "a spin-2 wave on S\u00b2 displayed as tidal shear, against the scalar displayed as radial height, on one clock",
+  "the_poles": "h = sin\u00b2d\u00b7q vanishes there \u2014 no point source, no peak at the focus",
+  "the_shear": "symmetric, trace-free, area-preserving to first order",
+  "the_spin": "strain \u221d cos 2\u03b2 \u2014 identical after 180\u00b0, inverted after 90\u00b0",
+  "the_caustic": "a 90\u00b0 Gouy shift per passage, not a polarisation flip",
+  "the_round_trip": "two passages compose to \u22121: there the axes do swap",
+  "geometry": {
+    "n_radial": 1200,
+    "pulse_width": 0.18,
+    "antipodal_time": 3.141592653589793,
+    "return_time": 6.283185307179586,
+    "lowest_multipole": 2
+  },
+  "tests": [
+    {
+      "name": "T1_goal",
+      "claim": "show what changes when the field on S\u00b2 is a tensor rather than a scalar \u2014 spin 2, displayed as tidal shear",
+      "equation": "\u2202\u00b2_t h = \u2202\u00b2_d h + cot d \u2202_d h \u2212 4h/sin\u00b2d",
+      "substitution": "h = sin\u00b2d \u00b7 q  \u21d2  \u2202\u00b2_t q = (sin\u2075d q')'/sin\u2075d \u2212 6q",
+      "dispersion": "\u03c9_\u2113 = \u221a(\u2113(\u2113+1)), the same as the scalar",
+      "pass": true
+    },
+    {
+      "name": "T2_exact_modes",
+      "periods": 10.0,
+      "modes": [
+        {
+          "ell": 2,
+          "omega": 2.449489742783178,
+          "shape_error": 3.4877555954437867e-08,
+          "energy_drift": 3.831324540722451e-11
+        },
+        {
+          "ell": 3,
+          "omega": 3.4641016151377544,
+          "shape_error": 5.584568938363208e-05,
+          "energy_drift": 6.972550964226186e-13
+        },
+        {
+          "ell": 4,
+          "omega": 4.47213595499958,
+          "shape_error": 0.00013459044369361315,
+          "energy_drift": 1.1890511684318322e-13
+        }
+      ],
+      "worst_shape_error": 0.00013459044369361315,
+      "pass": true
+    },
+    {
+      "name": "T3_no_amplitude_at_a_pole",
+      "peak_distance": 2.943934115801435,
+      "peak_time": 3.0874001803151976,
+      "ring_radius_at_focus": 0.19765853778835796,
+      "amplitude_at_the_antipode": 2.1975120428459928e-06,
+      "is_a_ring_not_a_peak": true,
+      "scalar_peak_distance": 3.141592653589793,
+      "scalar_sits_on_the_antipode": true,
+      "lowest_multipole": 2,
+      "pass": true
+    },
+    {
+      "name": "T4_area_preserving_shear",
+      "trace": 0.0,
+      "symmetric": 0.0,
+      "amplitude": 0.003058048767204447,
+      "area_ratio": 1.0000000116895778,
+      "first_order_area_change": 1.168957775021795e-08,
+      "second_order_prediction": 1.16895778282508e-08,
+      "area_preserved_to_first_order": true,
+      "pass": true
+    },
+    {
+      "name": "T5_spin_weight",
+      "distance": 1.0,
+      "repeats_after_180_deg": 1.1345296350931814e-15,
+      "differs_after_90_deg": 2.0,
+      "consistent": true,
+      "pass": true
+    },
+    {
+      "name": "T6_caustic_is_a_quarter_turn",
+      "ring_radius": 0.55,
+      "correlations": {
+        "unchanged": 0.35417051977114383,
+        "inverted": -0.35417051977114383,
+        "phase_+90": -0.8164936604498931,
+        "phase_-90": 0.8164936604498931
+      },
+      "best_match": "phase_-90",
+      "best_correlation": 0.8164936604498931,
+      "is_a_quarter_turn_not_a_flip": true,
+      "maslov_index": 1,
+      "pass": true
+    },
+    {
+      "name": "T7_round_trip_inverts",
+      "corr_after_one_round_trip_with_minus_start": 0.9973727395299173,
+      "corr_after_one_round_trip_with_start": -0.9973727395299173,
+      "corr_after_two_round_trips_with_start": 0.9877055032352825,
+      "inversion_residual": 0.006376593980983684,
+      "inverts": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "n_passed": 7,
+      "n_total": 7,
+      "pass": true
+    }
+  ],
+  "n_passed": 7,
+  "n_total": 7,
+  "verdict_class": "A_TENSOR_WAVE_CANNOT_SIT_ON_ITS_OWN_FOCUS",
+  "verdict": "A TENSOR WAVE CANNOT SIT ON ITS OWN FOCUS. Replacing the scalar with a spin-2 field on the same sphere changes the picture structurally, not cosmetically, and the changes are measured rather than drawn.\n\nTHE SOLVER IS EXACT WHERE IT CAN BE CHECKED. Three closed-form modes \u2014 q = 1 at \u2113 = 2, q = cos d at \u2113 = 3, q = 7cos\u00b2d \u2212 1 at \u2113 = 4 \u2014 keep their shape to 1.3e-04 after 10 periods at \u03c9 = \u221a6, \u221a12, \u221a20, with the invariant conserved to round-off.\n\nNO AMPLITUDE AT A POLE. h = sin\u00b2d\u00b7q vanishes at both poles for every q, so a spin-2 field cannot be nonzero where the frame degenerates. At the focus it is therefore a RING of radius 0.198 about the antipode, with 2.2e-06 on the antipode itself \u2014 while the scalar, on the same clock, piles up exactly there at d = 3.1416. The same fact at the other end says the smallest source a spin-2 field admits is a ring: there is no such thing as a point source of tidal shear.\n\nPURE SHEAR, NOT BREATHING. The tensor is symmetric and trace-free (0.0e+00), so the ellipse it makes has semi-axes 1 \u00b1 \u03b5h and its first-order area change vanishes identically: measured 1.17e-08 against the second-order prediction 1.17e-08. A radial height perturbation changes area at first order \u2014 that is the difference you can see.\n\nSPIN WEIGHT 2, DIRECTLY. The strain pattern is identical after a 180\u00b0 rotation of the frame (1.1e-15) and inverted after 90\u00b0 (2.00\u00d7 the amplitude). That factor of two in the angle is the spin weight, visible without any decomposition.\n\nTHE CAUSTIC IS A QUARTER TURN, NOT A FLIP. The obvious guess \u2014 that passing the antipodal focus swaps the stretch and compression axes \u2014 is not what happens. Correlating the outbound waveform against all four candidates gives +0.816 for a \u221290\u00b0 phase shift against -0.354 for an inversion: the outbound front is the HILBERT TRANSFORM of the inbound one. That is the Gouy shift, Maslov index 1, and it is a property of passing through a focus rather than of the spin \u2014 the scalar has it too.\n\nTHE ROUND TRIP IS WHERE THE AXES SWAP. Two focal passages, the antipode and then home, compose to a half turn: at t = 2\u03c0 the field is minus what it started as, correlation 0.9974, and after two round trips it is itself again (0.9877). The residual 0.0064 is the dispersion left over because \u03c9_\u2113 = \u221a(\u2113(\u2113+1)) only approaches \u2113 + \u00bd.\n\nSCOPE. A spin-2 field on a FIXED S\u00b2, not a solution of the 4-D linearised Einstein equations \u2014 2+1 gravity has no propagating tensor modes at all. What is faithful is the polarisation structure: two components, spin weight 2, \u2113 \u2265 2 only, area-preserving shear, and the behaviour at a focus."
+}

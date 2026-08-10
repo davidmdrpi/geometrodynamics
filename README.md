@@ -466,6 +466,12 @@ geometrodynamics/
 │       ├── throat_wavefront.py    # bare S2 / sealed mouths / open catenoid
 │       │                          #   throat, on one clock (#242)
 │       ├── radial_caustic.py      # focal geometry: which fronts fold (#243)
+│       ├── warped_sphere.py       # one continuous S2 warped by the solved
+│       │                          #   wave, nested between two shells
+│       ├── spin2_tidal.py         # the tensor case: spin-2 wave as tidal
+│       │                          #   shear, ring at the focus, no l<2
+│       ├── embedded_wave.py       # h_ab as a continuous R^3 deformation:
+│       │                          #   shape = -Lap(W)/2, shear = TF Hess W
 │       └── geometry_panels.py     # Hopf / throat / Green / handshake panels
 ├── tests/                    # pytest validation suite
 ├── notebooks/                # Jupyter notebooks (per-topic)
@@ -1249,6 +1255,144 @@ and refused otherwise — a photon sphere breaks the argument). Nothing here is
 dynamical; no throat is shown forming, which would need backreaction. A
 wavefront caustic is not yet a topological defect of the geometry. Full
 write-up: `docs/ring_caustic_defect_research_plan.md`.
+
+## The geometry itself, restored (one continuous S²)
+
+The archive rendered BAM as **one continuous surface** whose radius carried the
+field, nested between two fixed shells like Russian dolls
+(`archive/geometrodynamics_v39.py`). #242 and #243 replaced that with maps,
+strips and meridional sections — correct, measurable, and no longer the thing
+you could look at. `viz/warped_sphere.py` puts the object back, and this time
+the warp is **solved**:
+
+```
+r(θ, φ, t) = R_mid + Δ · tanh( g · u(θ, φ, t) / u_ref )
+R_inner = 0.74   R_mid = 1.00   R_outer = 1.26
+```
+
+The radii are deliberately the vacuole of `radial_caustic.py`, so the shell that
+module's ring caustic lands on is the same inner doll drawn here.
+
+- **One closed surface.** It carries its own poles and its `φ` seam matches to
+  `2.4e-16` — nothing cut out of it. That is what makes *"a pulse sweeps every
+  point once and fills its own void"* a statement about a closed manifold, and
+  therefore why a **ring** is what a throat needs.
+- **Nested, never touching.** Over a full return the radius stays in
+  `[0.7594, 1.2226]`, clearing the inner doll by `0.0194` and the outer by
+  `0.0374`. `tanh` cannot leave the gap.
+- **The focus is measured.** The deepest deformation sits at geodesic distance
+  `3.141593` from the source — the antipode, to `0.0e+00` — at `t = 2.9814`
+  against `π`. The shortfall is the pulse's own width and shrinks monotonically
+  as the pulse narrows. v39 grew its mound on the frame number instead.
+- **And it rings.** The arrival drives the surface `85.6%` of the way to the
+  outer shell, then inverts and pulls it `79.6%` of the way to the **inner**
+  one — toward the shell the ring caustic lands on.
+
+```bash
+python -m experiments.closure_ledger.warped_sphere_geometry_probe
+# Verdict: THE_SURFACE_ITSELF_CARRIES_THE_WAVE  (6/6)
+
+python scripts/geometrodynamics_v41_warped_sphere.py --still sheet.png
+```
+
+Scope: a *display* of a solved field as a radial displacement of a **fixed**
+surface — not backreaction, so no throat forms here. Sign and amplitude
+ordering survive the display; ratios do not, and the probe says so. Full
+write-up: `docs/warped_sphere_restoration.md`.
+
+## Spin 0 against spin 2 on the same S²
+
+The wave in the picture above is a **scalar**, displayed extrinsically as a
+radial height. A metric perturbation is not that kind of object: `h_ab` is
+symmetric and trace-free — spin 2 — and it does not push a surface outward at
+all. It *shears* it. `viz/spin2_tidal.py` carries the tensor case and
+`scripts/geometrodynamics_v43_tidal_sphere.py` runs both on one clock.
+
+| | scalar `u` | tensor `h_ab` |
+|---|---|---|
+| displayed as | radial height | tidal ellipses |
+| local effect | area changes — it breathes | area preserved to `O(h²)` |
+| at the focus | peaks **on** the antipode | a **ring** around it |
+| multipoles | all `ℓ ≥ 0` | **`ℓ ≥ 2` only** |
+| smallest source | a point | a **ring** |
+
+An axisymmetric spin-`s` field on the unit sphere obeys
+`∂²_t h = ∂²_d h + cot d ∂_d h − (s²/sin²d) h`, eigenvalue `−ℓ(ℓ+1)` on
+`ₛY_ℓ0` — the same dispersion as the scalar. Substituting `h = sin²d·q` removes
+the centrifugal term exactly, and the result is integrated in conservative form
+so the poles carry no flux. Three exact modes check it: `q = 1` is `ℓ = 2`,
+`q = cos d` is `ℓ = 3`, `q = 7cos²d − 1` is `ℓ = 4`, at `ω = √6, √12, √20`.
+
+- **A spin-2 field cannot sit on a pole.** `h = sin²d·q` vanishes there for
+  every `q`, so at the focus it is a ring of radius `0.198` about the antipode
+  with `2.2e-06` *on* it — exactly where the scalar peaks. The same fact at the
+  other end: **there is no point source of tidal shear.**
+- **Pure shear.** Trace `0.0e+00`, and the first-order area change vanishes
+  identically — measured `1.17e-08` against the `ε²h²/2` prediction `1.17e-08`.
+- **Spin weight 2, directly.** The strain pattern is identical after a 180°
+  rotation of the frame (`1.1e-15`) and inverted after 90° (2.00×).
+- **The caustic is a quarter turn, not a flip.** One passage does *not* swap
+  the stretch and compression axes: the outbound front is the Hilbert transform
+  of the inbound one (correlation `+0.82` against `−0.35` for an inversion) —
+  the Gouy shift, Maslov index 1, which the scalar shares. The axes do swap on
+  the **round trip**: at `t = 2π` the field is minus its start (`+0.9974`).
+
+```bash
+python -m experiments.closure_ledger.spin2_tidal_probe
+# Verdict: A_TENSOR_WAVE_CANNOT_SIT_ON_ITS_OWN_FOCUS  (7/7)
+```
+
+Scope: a spin-2 field on a **fixed** `S²`, not linearised GR on a spacetime —
+2+1 gravity has no propagating tensor modes at all. Full write-up:
+`docs/spin2_tidal_field.md`.
+
+## Drawing the tensor wave in the embedding (continuous, not sampled)
+
+Tidal ellipses are faithful but flat — they never touch the embedding, so they
+say nothing about how shear meets a bulk. `viz/embedded_wave.py` projects
+`h_ab` into a **continuous** surface deformation instead, and the projection is
+forced rather than chosen.
+
+A height field alone cannot do it: for `X = r n̂` the induced metric is
+`g_ab = r²ĝ_ab + ∂_a r ∂_b r`, whose gradient term is *second* order, so at
+first order a radial deformation is purely conformal (measured trace-free part
+`1.8e-04` against a trace of `3.16`). Shape carries the trace and nothing else.
+Adding the tangential part and demanding tracelessness fixes the rest:
+
+```
+X = (R + ερ) n̂ + ε∇W       ρ = −½ΔW       h_ab = [2∇₍ₐ∇_b₎W]^TF
+```
+
+**One potential carries both** — the shear is its trace-free Hessian, the shape
+is minus half its Laplacian.
+
+- **The theorem.** The induced metric perturbation of the drawn surface *is*
+  the solved `h_ab`: component by component to `4.7e-04` of the peak, trace
+  `1.1e-03`, off-diagonal `6.7e-08`.
+- **The quadrupole is the textbook shape.** `ℓ = 2` returns `ρ = P₂(cos d)` to
+  `1.0e-07` — the prolate–oblate picture, derived rather than drawn.
+- **The free constant is a rigid translation** (`1.1e-16`), and `ℓ = 0` cannot
+  appear at all: a spin-2 wave can never breathe the sphere's area.
+- **Area holds** to `4.8e-06` at gain `1e-03` — second order, which is what
+  trace-free means.
+- **It reaches the bulk**: `74.8%` of the way to `R_outer`, `44.3%` toward
+  `R_inner`, touching neither.
+- **Principal-axis bars** at sparse points show the eigenvectors of `h_ab` —
+  red for the positive eigenvalue, blue for the negative, length `∝ |λ|`. For a
+  trace-free 2×2 the eigenvalues are `±√(h₊² + h_ˣ²)`, so the two bars are
+  always equal; the stretch axis sits at `β = ½ atan2(h_ˣ, h₊)` and *swaps*
+  between `ê_d` and `ê_ψ` wherever `h₊` changes sign.
+
+```bash
+python -m experiments.closure_ledger.embedded_wave_probe
+# Verdict: ONE_POTENTIAL_CARRIES_SHAPE_AND_SHEAR  (7/7)
+
+python scripts/geometrodynamics_v44_embedded_wave.py --still sheet.png
+```
+
+Scope: a representation of `h_ab` in the embedding, not backreaction — the wave
+gains an extrinsic amplitude, it still does not act on the sphere. Full
+write-up: `docs/embedded_tidal_wave.md`.
 
 ## Quick Start
 
