@@ -470,6 +470,8 @@ geometrodynamics/
 │       │                          #   wave, nested between two shells
 │       ├── spin2_tidal.py         # the tensor case: spin-2 wave as tidal
 │       │                          #   shear, ring at the focus, no l<2
+│       ├── embedded_wave.py       # h_ab as a continuous R^3 deformation:
+│       │                          #   shape = -Lap(W)/2, shear = TF Hess W
 │       └── geometry_panels.py     # Hopf / throat / Green / handshake panels
 ├── tests/                    # pytest validation suite
 ├── notebooks/                # Jupyter notebooks (per-topic)
@@ -1343,6 +1345,49 @@ python -m experiments.closure_ledger.spin2_tidal_probe
 Scope: a spin-2 field on a **fixed** `S²`, not linearised GR on a spacetime —
 2+1 gravity has no propagating tensor modes at all. Full write-up:
 `docs/spin2_tidal_field.md`.
+
+## Drawing the tensor wave in the embedding (continuous, not sampled)
+
+Tidal ellipses are faithful but flat — they never touch the embedding, so they
+say nothing about how shear meets a bulk. `viz/embedded_wave.py` projects
+`h_ab` into a **continuous** surface deformation instead, and the projection is
+forced rather than chosen.
+
+A height field alone cannot do it: for `X = r n̂` the induced metric is
+`g_ab = r²ĝ_ab + ∂_a r ∂_b r`, whose gradient term is *second* order, so at
+first order a radial deformation is purely conformal (measured trace-free part
+`1.8e-04` against a trace of `3.16`). Shape carries the trace and nothing else.
+Adding the tangential part and demanding tracelessness fixes the rest:
+
+```
+X = (R + ερ) n̂ + ε∇W       ρ = −½ΔW       h_ab = [2∇₍ₐ∇_b₎W]^TF
+```
+
+**One potential carries both** — the shear is its trace-free Hessian, the shape
+is minus half its Laplacian.
+
+- **The theorem.** The induced metric perturbation of the drawn surface *is*
+  the solved `h_ab`: component by component to `4.7e-04` of the peak, trace
+  `1.1e-03`, off-diagonal `6.7e-08`.
+- **The quadrupole is the textbook shape.** `ℓ = 2` returns `ρ = P₂(cos d)` to
+  `1.0e-07` — the prolate–oblate picture, derived rather than drawn.
+- **The free constant is a rigid translation** (`1.1e-16`), and `ℓ = 0` cannot
+  appear at all: a spin-2 wave can never breathe the sphere's area.
+- **Area holds** to `4.8e-06` at gain `1e-03` — second order, which is what
+  trace-free means.
+- **It reaches the bulk**: `74.8%` of the way to `R_outer`, `44.3%` toward
+  `R_inner`, touching neither.
+
+```bash
+python -m experiments.closure_ledger.embedded_wave_probe
+# Verdict: ONE_POTENTIAL_CARRIES_SHAPE_AND_SHEAR  (7/7)
+
+python scripts/geometrodynamics_v44_embedded_wave.py --still sheet.png
+```
+
+Scope: a representation of `h_ab` in the embedding, not backreaction — the wave
+gains an extrinsic amplitude, it still does not act on the sphere. Full
+write-up: `docs/embedded_tidal_wave.md`.
 
 ## Quick Start
 
