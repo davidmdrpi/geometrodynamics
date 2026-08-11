@@ -1439,6 +1439,57 @@ background, with no backreaction and no bulk crossing rule. This establishes
 the geometry such a rule would act on, and the amplitude at which the linear
 description stops being trustworthy. Full write-up: `docs/focal_refocus.md`.
 
+## A circle slice, and a bulk the wave can wrap through
+
+Cut the sphere with the great circle through the source and its antipode. Along
+it the geodesic distance is just `d = |σ|`, so **one circle carries both halves
+of the wave** — two lobes running opposite ways and meeting head-on at `σ = ±π`.
+Nothing is re-solved: the field is the 2-D solve sampled at `d(σ)`, verified
+against the full `(θ, φ)` route to `1.4e-14`, so the slice inherits the sphere's
+real caustic rather than the `2×` superposition a 1-D wave on a circle gives.
+
+The slice is drawn inside the vacuole, with the obvious crossing rule: **a
+radius past `R_outer` re-enters at `R_inner`**. So the wave that reaches up into
+the bulk comes back *inside* the circle. That glues the boundaries, makes the
+radial direction periodic, and turns the curve's home into a torus `S¹_σ × S¹_ρ`.
+The wrap threshold is exactly the half-gap over the run's peak (`0.220420`
+predicted, same to `3.8e-16` by bisection).
+
+**And then nothing accumulates.** Driving the gain up buys crossings and never
+buys charge:
+
+| gain / threshold | unsigned | signed | winding |
+|---:|---:|---:|---:|
+| 1.6 | 2 | `+0` | `+0` |
+| 3.6 | 4 | `+0` | `+0` |
+| 5.0 | 6 | `+0` | `+0` |
+
+The drawn curve is a **graph** `r = f(σ)` with `f` single-valued, so `f(π) =
+f(−π)` and its degree as a map `S¹ → S¹` is identically zero — every outward
+crossing of the seam is paid for by an inward one. **A height field cannot
+wind.** Checked two independent ways (a signed crossing ledger and a degree from
+unwrapped increments), agreeing at every gain and time.
+
+Different pulses driven at one common gain cross the seam the *same* number of
+times but put `0.155 → 0.033` of the circle on the far sheet — a `4.7×` spread
+that is `2.61 ×` the pulse width for all of them. The far-sheet arc *is* the
+pulse. None of them winds.
+
+```bash
+python -m experiments.closure_ledger.circle_slice_probe
+# Verdict: THE_SEAM_IS_CROSSED_IN_PAIRS  (7/7)
+
+python scripts/geometrodynamics_v46_circle_slice.py --still sheet.png
+python scripts/geometrodynamics_v46_circle_slice.py --waves waves.png
+```
+
+Scope: the crossing rule is a representation choice, not a derived boundary
+condition — nothing here makes the wave dynamically aware of the seam. What it
+rules out is general: any representation drawing the bulk excursion as a height
+over the slice inherits the same zero, so a stable topological object has to
+come from a curve free to stop being a graph. Full write-up:
+`docs/circle_slice_bulk.md`.
+
 ## Quick Start
 
 ### Verify charge quantisation from pure geometry
