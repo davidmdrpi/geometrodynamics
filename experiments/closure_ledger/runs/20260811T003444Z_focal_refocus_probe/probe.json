@@ -1,0 +1,223 @@
+{
+  "timestamp_utc": "2026-08-11T00:34:44+00:00",
+  "identification": "the antipodal refocus of a continuous trace-free deformation of the embedded sphere",
+  "the_node": "h = sin\u00b2d\u00b7q vanishes at both poles, so \u1e23 does too",
+  "the_ring": "focal radius \u2248 0.94 \u00d7 pulse width",
+  "the_caveat": "the O(1) amplification is shared with the scalar",
+  "the_boundary": "the O(\u03b5\u00b2) area residual is largest on the focal ring",
+  "geometry": {
+    "n_radial": 1200,
+    "pulse_width": 0.18,
+    "small_gain": 0.01,
+    "widths": [
+      0.24,
+      0.18,
+      0.12,
+      0.09,
+      0.06
+    ],
+    "antipodal_time": 3.141592653589793,
+    "return_time": 6.283185307179586
+  },
+  "tests": [
+    {
+      "name": "T1_goal",
+      "claim": "determine what a continuous trace-free deformation does where all of its principal-strain histories refocus",
+      "energy_density": "\u03c1_E \u221d \u1e23_ab \u1e23^ab = 2(\u1e23\u208a\u00b2 + \u1e23_\u02e3\u00b2)",
+      "why_a_node": "h = sin\u00b2d\u00b7q vanishes at both poles for every q",
+      "the_patch": "a disc of labelled particles, carried by the displacement",
+      "pass": true
+    },
+    {
+      "name": "T2_the_focus_is_a_node",
+      "launch_peak_density": 0.04232305560645392,
+      "focal_peak_density": 0.09645275187288334,
+      "amplification": 2.278964750791176,
+      "focal_time": 2.989749008666121,
+      "focal_distance": 2.975350042337333,
+      "ring_radius": 0.1662426112524602,
+      "density_on_the_antipode": 2.7950647842023665e-09,
+      "antipode_over_peak": 2.8978590345312574e-08,
+      "invariant_drift": 1.6584209712093472e-13,
+      "kinetic_swing": 0.9918100229314609,
+      "pass": true
+    },
+    {
+      "name": "T3_it_piles_into_a_ring",
+      "rows": [
+        {
+          "pulse_width": 0.24,
+          "ring_radius": 0.22383847656827305,
+          "ratio": 0.9326603190344711,
+          "amplification": 2.3201735742758394
+        },
+        {
+          "pulse_width": 0.18,
+          "ring_radius": 0.1662426112524602,
+          "ratio": 0.9235700625136678,
+          "amplification": 2.278964750791176
+        },
+        {
+          "pulse_width": 0.12,
+          "ring_radius": 0.11388273369263002,
+          "ratio": 0.9490227807719169,
+          "amplification": 2.2379609403052014
+        },
+        {
+          "pulse_width": 0.09,
+          "ring_radius": 0.08770279491271538,
+          "ratio": 0.9744754990301708,
+          "amplification": 2.2237323719679805
+        },
+        {
+          "pulse_width": 0.06,
+          "ring_radius": 0.058904862254808954,
+          "ratio": 0.9817477042468159,
+          "amplification": 2.1544890375628967
+        }
+      ],
+      "mean_ratio": 0.9522952731194085,
+      "ratio_spread": 0.0581776417331481,
+      "tracks_the_pulse_width": true,
+      "pass": true
+    },
+    {
+      "name": "T4_amplification_is_not_protection",
+      "rows": [
+        {
+          "pulse_width": 0.24,
+          "tensor_amplification": 2.3201735742758394,
+          "scalar_amplification": 2.06703114657928,
+          "tensor_ring_radius": 0.22383847656827305,
+          "tensor_antipode_over_peak": 9.377743956350284e-09
+        },
+        {
+          "pulse_width": 0.18,
+          "tensor_amplification": 2.268879124082659,
+          "scalar_amplification": 2.058829513631268,
+          "tensor_ring_radius": 0.1662426112524602,
+          "tensor_antipode_over_peak": 2.9156614748704413e-08
+        },
+        {
+          "pulse_width": 0.12,
+          "tensor_amplification": 2.252361675890729,
+          "scalar_amplification": 2.0340422905032916,
+          "tensor_ring_radius": 0.11388273369263002,
+          "tensor_antipode_over_peak": 1.4168453232130634e-07
+        },
+        {
+          "pulse_width": 0.09,
+          "tensor_amplification": 2.188481847603026,
+          "scalar_amplification": 1.9511451412606458,
+          "tensor_ring_radius": 0.08770279491271538,
+          "tensor_antipode_over_peak": 4.355066580453013e-07
+        },
+        {
+          "pulse_width": 0.06,
+          "tensor_amplification": 2.1757248883716533,
+          "scalar_amplification": 1.8632950585015173,
+          "tensor_ring_radius": 0.05628686837681718,
+          "tensor_antipode_over_peak": 2.0328026711061615e-06
+        }
+      ],
+      "tensor_amplification_range": [
+        2.1757248883716533,
+        2.3201735742758394
+      ],
+      "scalar_amplification_range": [
+        1.8632950585015173,
+        2.06703114657928
+      ],
+      "worst_antipode_over_peak": 2.0328026711061615e-06,
+      "ring_radius_over_pulse_width": 0.943568626859436,
+      "both_amplify_by_order_one": true,
+      "neither_runs_away_as_the_pulse_narrows": true,
+      "amplification_is_not_a_spin_2_effect": true,
+      "but_the_focal_node_is": true,
+      "pass": true
+    },
+    {
+      "name": "T5_the_patch_reports_the_eigenvector",
+      "focal_distance": 2.972392653589793,
+      "rows": [
+        {
+          "radius": 0.24,
+          "aspect_ratio": 1.1823997868990903,
+          "alignment": 0.9591050335821238
+        },
+        {
+          "radius": 0.18,
+          "aspect_ratio": 1.2888523977686133,
+          "alignment": 0.987364526678107
+        },
+        {
+          "radius": 0.12,
+          "aspect_ratio": 1.3944219309489971,
+          "alignment": 0.9980690191257363
+        },
+        {
+          "radius": 0.08,
+          "aspect_ratio": 1.4459822902066046,
+          "alignment": 0.9997429719459634
+        },
+        {
+          "radius": 0.05,
+          "aspect_ratio": 1.4710326187296983,
+          "alignment": 0.9999866288713128
+        }
+      ],
+      "smallest_patch_alignment": 0.9999866288713128,
+      "worst_alignment": 0.9591050335821238,
+      "improves_as_the_patch_shrinks": true,
+      "smooth_alignment": 1.0,
+      "smooth_max_aspect_ratio": 1.04662374877261,
+      "pass": true
+    },
+    {
+      "name": "T6_shape_without_size",
+      "gain": 0.01,
+      "reference_area": 0.1252453852297186,
+      "relative_area_swing": 1.9155257351827112e-07,
+      "max_aspect_ratio": 1.0000509239363775,
+      "max_aspect_ratio_at_display_gain": 1.0409520060925967,
+      "display_gain": 7.869614393158918,
+      "pass": true
+    },
+    {
+      "name": "T7_the_area_law_fails_first_at_the_focus",
+      "smooth_distance": 1.2,
+      "focal_distance": 2.972392653589793,
+      "display_gain": 7.869614393158918,
+      "smooth_worst_area_change": 0.019265401338972143,
+      "smooth_max_aspect_ratio": 1.0466816452966055,
+      "focal_worst_area_change": 0.2595386001988631,
+      "focal_max_aspect_ratio": 1.3974138410198744,
+      "gains": [
+        0.5,
+        1.0,
+        2.0,
+        4.0
+      ],
+      "focal_area_residuals": [
+        9.865910634010433e-05,
+        0.00039871768941845964,
+        0.0015995785932827467,
+        0.006371051946005846
+      ],
+      "residual_exponent": 2.004305907351787,
+      "focal_over_smooth_area_change": 13.471746351519824,
+      "focal_over_smooth_distortion": 8.513278366578334,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "n_passed": 7,
+      "n_total": 7,
+      "pass": true
+    }
+  ],
+  "n_passed": 7,
+  "n_total": 7,
+  "verdict_class": "THE_STRAINS_REFOCUS_ON_A_RING",
+  "verdict": "THE STRAINS REFOCUS ON A RING, NEVER ON THE POINT. Every principal-strain history on the sphere reconverges at the antipode, and what they build there is an annulus with a hole in the middle.\n\nTHE FOCUS IS A NODE. Because h = sin\u00b2d\u00b7q vanishes at both poles for every q, so does \u1e23, and the effective density \u221d \u1e23_ab \u1e23^ab measured ON the antipode is 2.9e-08 of the peak. There is nowhere for a spin-2 field to sit at its own focus \u2014 the same fact that forbids a spin-2 point SOURCE, seen at the other end of the trip.\n\nIT PILES INTO A RING WHOSE RADIUS IS THE PULSE. Across pulse widths 0.24 down to 0.06 the focal ring radius stays at 0.952 \u00d7 the width, spread 0.058. The hole is not a numerical floor; it is the wave's own length scale.\n\nAND THE AMPLIFICATION IS NOT A SPIN-2 EFFECT. The peak density grows by 2.18\u20132.32\u00d7 \u2014 finite, and tempting to read as the spin protecting itself from a singularity. It is not. A scalar pulse refocused the same way amplifies by 1.86\u20132.07\u00d7, and neither runs away as the pulse is narrowed, because launch and focus are geometrically the same situation on a sphere. What belongs to the spin is the node and the ring, not the factor.\n\nTHE PATCH IS THE PICTURE. A disc of labelled particles carried by the displacement reports the local stretch axis to 1.000 where the field is smooth, and to 1.0000 on the focal ring once it is small enough not to straddle the sign change there \u2014 the convergence being the check that the disagreement is the patch's size rather than the construction. At a gain where the first-order statement is the whole statement it changes shape without changing size, holding its area to 1.9e-07.\n\nTHE AREA LAW FAILS FIRST, AND HARDEST, AT THE FOCUS. Pushed to the display gain \u03b5 = 7.87, the same patch moves its area by 1.9% at mid-latitude and 26.0% on the focal ring \u2014 13\u00d7 more \u2014 while distorting 8.5\u00d7 harder. The residual scales as \u03b5^2.00, so this is the second-order term carrying the LOCAL GRADIENT of the field: away from the focus that scale is the wavelength, on the focal ring it is the pulse width. The linear description runs out exactly where the wave reconverges.\n\nSCOPE. No singularity forms here and none can: a linear field on a fixed round background, with no backreaction and no bulk crossing rule. What this establishes is the geometry such a rule would have to act on \u2014 an annulus of finite radius with a node at its centre \u2014 and the amplitude at which the linear description stops being trustworthy. It does not supply the rule."
+}

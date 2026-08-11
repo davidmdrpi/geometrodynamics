@@ -1394,6 +1394,51 @@ Scope: a representation of `h_ab` in the embedding, not backreaction — the wav
 gains an extrinsic amplitude, it still does not act on the sphere. Full
 write-up: `docs/embedded_tidal_wave.md`.
 
+## What the refocus does to a trace-free deformation
+
+Every point of the sphere runs its own principal-strain history, and on a
+compact `S²` they all reconverge at the antipode at `t = π`. Because
+`h = sin²d · q` vanishes at both poles for **every** `q`, so does `ḣ` — so the
+effective density `ρ_E ∝ ḣ_ab ḣ^ab` cannot pile onto the focal *point*.
+
+**The strains refocus on a ring, never on the point.** The density measured on
+the antipode itself is `2.9e-08` of the peak, and the ring around it has a
+radius that tracks the pulse width at `0.952 ×` across a factor of four in
+width. Same fact that forbids a spin-2 point *source*, seen at the far end of
+the trip.
+
+- **The amplification is *not* a spin-2 effect.** The peak grows by a finite
+  `2.18–2.32×`, which is tempting to read as the spin protecting itself from a
+  singularity. A **scalar** refocused the same way amplifies by `1.86–2.07×`,
+  and neither runs away as the pulse narrows — launch and focus are the same
+  situation on a sphere. What belongs to the spin is the node and the ring.
+- **A material patch changes shape without changing size**: area held to
+  `1.9e-07` at gain `1e-2`, while its long axis matches the local stretch
+  eigenvector to `1.000`. Near the focus that alignment is a question of patch
+  *size* — a patch straddling the focal ring averages a sign change, and
+  shrinking it recovers the eigenvector (`0.959 → 1.000`).
+- **The area law fails first, and hardest, at the focus.** At the display gain
+  the same patch moves its area by `1.93%` at mid-latitude and `25.95%` on the
+  focal ring, while distorting `8.5×` harder. The fitted residual exponent is
+  `ε^2.00`: the second-order term carries the *local gradient* of the field,
+  which is the wavelength away from the focus and the pulse width on it.
+
+```bash
+python -m experiments.closure_ledger.focal_refocus_probe
+# Verdict: THE_STRAINS_REFOCUS_ON_A_RING  (7/7)
+
+python scripts/geometrodynamics_v45_focal_patches.py --still sheet.png
+```
+
+The v45 renderer shows three things and nothing else: the continuous deformed
+surface, sparse principal-strain vectors, and two advected constant-area
+material patches. The camera follows the wave, so the refocus faces the viewer.
+
+Scope: no singularity forms here and none can — a linear field on a fixed round
+background, with no backreaction and no bulk crossing rule. This establishes
+the geometry such a rule would act on, and the amplitude at which the linear
+description stops being trustworthy. Full write-up: `docs/focal_refocus.md`.
+
 ## Quick Start
 
 ### Verify charge quantisation from pure geometry

@@ -67,7 +67,7 @@ into a bulk.
 from __future__ import annotations
 
 import math
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Sequence, Tuple
 
 import numpy as np
 
@@ -80,6 +80,9 @@ from geometrodynamics.viz.warped_sphere import NestedShells
 
 __all__ = [
     "EmbeddedTidalSurface",
+    "MaterialPatch",
+    "measure_patch_area_invariance",
+    "measure_patch_shape_history",
     "measure_induced_metric",
     "measure_quadrupole_shape",
     "measure_area_and_multipoles",
@@ -210,6 +213,12 @@ class EmbeddedTidalSurface:
         e_d = -s[..., None] * self.source_direction[None, None, :] + c[..., None] * u
         return n_hat, e_d
 
+    def point_at(self, d: float, psi: float) -> np.ndarray:
+        """The undeformed unit point at geodesic distance ``d``, azimuth ``psi``."""
+        return (math.cos(d) * self.source_direction
+                + math.sin(d) * (math.cos(psi) * self._e1
+                                 + math.sin(psi) * self._e2))
+
     def positions(self, D: np.ndarray, A: np.ndarray,
                   gain: Optional[float] = None) -> np.ndarray:
         """``X = (R + ερ) n̂ + ε ψ ê_d`` — the continuous deformed surface."""
@@ -253,6 +262,21 @@ class EmbeddedTidalSurface:
             A = np.full_like(d, a0)
             out.append(self.positions(d[None, :], A[None, :], gain=gain)[0])
         return out
+
+    # ── arbitrary points on the surface ─────────────────────────────────────
+    def coordinates_of(self, unit_points: np.ndarray
+                       ) -> Tuple[np.ndarray, np.ndarray]:
+        """``(d, ψ)`` of unit vectors, in the source's geodesic-polar frame."""
+        p = np.asarray(unit_points, dtype=float)
+        d = np.arccos(np.clip(p @ self.source_direction, -1.0, 1.0))
+        psi = np.arctan2(p @ self._e2, p @ self._e1)
+        return d, psi
+
+    def map_points(self, unit_points: np.ndarray,
+                   gain: Optional[float] = None) -> np.ndarray:
+        """Carry reference points of the round sphere to the deformed surface."""
+        d, psi = self.coordinates_of(unit_points)
+        return self.positions(d[None, :], psi[None, :], gain=gain)[0]
 
     # ── principal axes ──────────────────────────────────────────────────────
     def principal_axes(self, d, h_cross: float = 0.0) -> Dict[str, np.ndarray]:
@@ -513,3 +537,311 @@ def measure_bulk_reach(surface: Optional[EmbeddedTidalSurface] = None,
         "r_outer": s.shells.r_outer,
         "stays_between_the_dolls": bool(best["out"] < 1.0 and best["in"] < 1.0),
     }
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# A MATERIAL PATCH
+# ════════════════════════════════════════════════════════════════════════════
+class MaterialPatch:
+    """A disc of material points, carried by the displacement.
+
+    The patch is a geodesic disc of the *reference* sphere — a set of labelled
+    particles — drawn wherever the deformation puts them.  Because the
+    perturbation is trace-free, the patch **changes shape without changing
+    size**: that is the spin-2 identity made visible rather than numerical, and
+    it is checked here by measuring the drawn patch's own area.
+
+    Its shape is summarised by the eigenvalues of the area-weighted second
+    moment about its centroid, so the aspect ratio and the long axis are
+    measured from the drawn patch rather than read off the tensor.
+    """
+
+    def __init__(self, surface: EmbeddedTidalSurface, centre_distance: float,
+                 centre_azimuth: float = 0.0, radius: float = 0.20,
+                 n_rings: int = 6, n_spokes: int = 48) -> None:
+        if not 0.0 < radius < 0.5 * math.pi:
+            raise ValueError("patch radius must lie in (0, π/2)")
+        self.surface = surface
+        self.radius = float(radius)
+        self.centre_distance = float(centre_distance)
+        self.centre_azimuth = float(centre_azimuth)
+
+        c = surface.point_at(self.centre_distance, self.centre_azimuth)
+        tmp = np.array([0.0, 0.0, 1.0])
+        if abs(float(tmp @ c)) > 0.9:
+            tmp = np.array([1.0, 0.0, 0.0])
+        a = tmp - float(tmp @ c) * c
+        a = a / np.linalg.norm(a)
+        b = np.cross(c, a)
+        self.centre_direction = c
+
+        alpha = np.linspace(0.0, 2.0 * math.pi, n_spokes, endpoint=False)
+        rings = np.linspace(0.0, self.radius, n_rings + 1)[1:]
+        pts = [c]
+        for r in rings:
+            ring = (math.cos(r) * c[None, :]
+                    + math.sin(r) * (np.cos(alpha)[:, None] * a[None, :]
+                                     + np.sin(alpha)[:, None] * b[None, :]))
+            pts.append(ring)
+        self.reference = np.vstack([np.atleast_2d(p) for p in pts])
+        self.n_rings = int(n_rings)
+        self.n_spokes = int(n_spokes)
+        # the boundary is the last ring, closed
+        self.boundary_reference = np.vstack([self.reference[-n_spokes:],
+                                             self.reference[-n_spokes:][:1]])
+        self.reference_area = 2.0 * math.pi * (1.0 - math.cos(self.radius)) \
+            * surface.shells.r_mid ** 2
+
+    # ── drawn ───────────────────────────────────────────────────────────────
+    def points(self, gain: Optional[float] = None) -> np.ndarray:
+        return self.surface.map_points(self.reference, gain=gain)
+
+    def boundary(self, gain: Optional[float] = None) -> np.ndarray:
+        return self.surface.map_points(self.boundary_reference, gain=gain)
+
+    def triangles(self, gain: Optional[float] = None) -> np.ndarray:
+        """Triangles tiling the drawn patch, for area and for filling it in."""
+        p = self.points(gain=gain)
+        ns = self.n_spokes
+        tris = []
+        centre = p[0]
+        first = p[1:1 + ns]
+        for k in range(ns):
+            tris.append([centre, first[k], first[(k + 1) % ns]])
+        for r in range(self.n_rings - 1):
+            inner = p[1 + r * ns: 1 + (r + 1) * ns]
+            outer = p[1 + (r + 1) * ns: 1 + (r + 2) * ns]
+            for k in range(ns):
+                k2 = (k + 1) % ns
+                tris.append([inner[k], outer[k], outer[k2]])
+                tris.append([inner[k], outer[k2], inner[k2]])
+        return np.asarray(tris)
+
+    def area(self, gain: Optional[float] = None) -> float:
+        """Area of the drawn patch — the number that should not move."""
+        t = self.triangles(gain=gain)
+        cross = np.cross(t[:, 1] - t[:, 0], t[:, 2] - t[:, 0])
+        return 0.5 * float(np.sum(np.linalg.norm(cross, axis=1)))
+
+    def shape(self, gain: Optional[float] = None) -> Dict[str, object]:
+        """Aspect ratio and long axis, from the drawn patch's second moment.
+
+        The shape is read in the patch's **own** plane, which is the least
+        variance eigenvector of its full 3×3 second moment.  That matters: at
+        a display gain the surface tilts away from radial, so projecting
+        against the radial direction instead would leave part of the tilt in
+        the answer and rotate the measured long axis out of the surface.
+        """
+        p = self.points(gain=gain)
+        centroid = p.mean(axis=0)
+        rel = p - centroid
+        cov = rel.T @ rel / len(rel)
+        vals, vecs = np.linalg.eigh(cov)                # ascending
+        normal = vecs[:, 0]                             # thinnest direction
+        long_axis, short_axis = vecs[:, 2], vecs[:, 1]
+        ratio = math.sqrt(max(vals[2], 0.0) / max(vals[1], 1e-30))
+        return {"centroid": centroid, "aspect_ratio": ratio,
+                "long_axis": long_axis, "short_axis": short_axis,
+                "normal": normal, "flatness": float(vals[0] / max(vals[1], 1e-30)),
+                "moments": vals[:0:-1]}
+
+
+def measure_patch_area_invariance(surface: Optional[EmbeddedTidalSurface] = None,
+                                  centre_distance: float = 1.2,
+                                  gain: float = 1e-2, frames: int = 120,
+                                  t_end: float = RETURN_TIME
+                                  ) -> Dict[str, object]:
+    """The patch changes shape without changing size, all the way through.
+
+    Measured on the drawn patch itself.  The residual is second order in the
+    gain, which is exactly what trace-free buys.
+    """
+    s = surface or EmbeddedTidalSurface()
+    s.reset()
+    patch = MaterialPatch(s, centre_distance=centre_distance)
+    areas, ratios, shown = [], [], []
+    for i in range(frames):
+        s.advance_to((i + 1) * t_end / frames)
+        areas.append(patch.area(gain=gain))
+        ratios.append(patch.shape(gain=gain)["aspect_ratio"])
+        # the same patch at the *display* gain, where the distortion is visible
+        shown.append(patch.shape(gain=None)["aspect_ratio"])
+    a0 = patch.reference_area
+    swing = (max(areas) - min(areas)) / a0
+    return {
+        "reference_area": a0,
+        "min_area": min(areas),
+        "max_area": max(areas),
+        "relative_area_swing": swing,
+        "max_aspect_ratio": max(ratios),
+        "max_aspect_ratio_at_display_gain": max(shown),
+        "display_gain": s.gain,
+        "gain": gain,
+        "area_is_invariant": bool(swing < 50.0 * gain ** 2 + 1e-6),
+        "shape_does_change": bool(max(shown) > 1.05),
+    }
+
+
+def measure_patch_shape_history(surface: Optional[EmbeddedTidalSurface] = None,
+                                centre_distance: float = 1.2,
+                                gain: Optional[float] = None, frames: int = 200,
+                                radius: float = 0.12,
+                                t_end: float = RETURN_TIME) -> Dict[str, object]:
+    """When the patch is most distorted, and along which axis.
+
+    The patch's long axis is read from its own second moment, then compared
+    with the tensor's stretch eigenvector at the same place — so the picture
+    and the algebra are checked against each other rather than assumed equal.
+
+    Two things are reported honestly rather than hidden.  ``flatness`` is the
+    patch's out-of-plane moment as a fraction of its short in-plane one: the
+    drawn patch is a curved cap, not a disc, and its shape is only meaningful
+    in its own plane.  And the alignment degrades with patch *size* near the
+    focus, where the shear scale is the pulse width — a patch that straddles
+    the focal ring averages over a sign change, so it cannot report a single
+    eigenvector.  That is a statement about finite patches, not about the
+    field.
+    """
+    s = surface or EmbeddedTidalSurface()
+    s.reset()
+    patch = MaterialPatch(s, centre_distance=centre_distance, radius=radius)
+    best = {"ratio": 0.0, "time": 0.0, "alignment": 0.0, "flatness": 0.0,
+            "lambda": 0.0}
+    for i in range(frames):
+        s.advance_to((i + 1) * t_end / frames)
+        sh = patch.shape(gain=gain)
+        if sh["aspect_ratio"] > best["ratio"]:
+            axes = s.principal_axes(np.array([centre_distance]))
+            e1, e2 = s.tangent_basis(centre_distance, patch.centre_azimuth,
+                                     gain=gain)
+            beta = float(axes["angle"][0])
+            stretch = math.cos(beta) * e1 + math.sin(beta) * e2
+            best = {"ratio": float(sh["aspect_ratio"]), "time": s.t,
+                    "alignment": abs(float(sh["long_axis"] @ stretch)),
+                    "flatness": float(sh["flatness"]),
+                    "lambda": float(axes["lambda_plus"][0])}
+    return {
+        "centre_distance": centre_distance,
+        "patch_radius": float(radius),
+        "max_aspect_ratio": best["ratio"],
+        "at_time": best["time"],
+        "eigenvalue_there": best["lambda"],
+        "out_of_plane_fraction": best["flatness"],
+        "long_axis_alignment": best["alignment"],
+        "aligns_with_the_stretch_axis": bool(best["alignment"] > 0.98),
+    }
+
+
+def measure_patch_size_convergence(centre_distance: float = 2.97,
+                                   radii: Sequence[float] = (0.24, 0.18, 0.12,
+                                                             0.08, 0.05),
+                                   frames: int = 200) -> Dict[str, object]:
+    """The patch reports the point eigenvector only in the limit of a point.
+
+    Near the antipodal focus the shear turns over on the scale of the pulse,
+    so a patch wide enough to straddle the focal ring averages a sign change
+    and its long axis tilts away from the local stretch axis.  Shrinking it
+    recovers the eigenvector — which is the check that the disagreement is
+    the patch's size and not the construction.
+    """
+    surface = EmbeddedTidalSurface()
+    rows = []
+    for r in radii:
+        m = measure_patch_shape_history(surface, centre_distance=centre_distance,
+                                        radius=float(r), frames=frames)
+        rows.append({"radius": float(r),
+                     "aspect_ratio": m["max_aspect_ratio"],
+                     "alignment": m["long_axis_alignment"]})
+    align = [row["alignment"] for row in rows]
+    return {
+        "centre_distance": centre_distance,
+        "rows": rows,
+        "worst_alignment": min(align),
+        "best_alignment": max(align),
+        "smallest_patch_alignment": align[-1],
+        "converges_to_the_eigenvector": bool(align[-1] > 0.99),
+        "improves_as_the_patch_shrinks": bool(align[-1] > align[0]),
+    }
+
+
+def measure_where_the_area_law_fails(surface: Optional[EmbeddedTidalSurface] = None,
+                                     smooth_distance: float = 1.20,
+                                     focal_distance: Optional[float] = None,
+                                     radius: float = 0.12, frames: int = 200,
+                                     gains: Sequence[float] = (0.5, 1.0, 2.0, 4.0),
+                                     t_end: float = RETURN_TIME
+                                     ) -> Dict[str, object]:
+    """Trace-free preserves area at first order — and the focus is where that runs out.
+
+    Two identical patches are carried through a full return: one at mid-latitude
+    where the field is smooth, one on the focal ring.  Each is asked, at its own
+    worst moment, how much its drawn area moved.
+
+    The contrast is the point.  At the *display* gain the smooth patch moves its
+    area by about 2%, while the focal patch — same size, same gain — moves by
+    about 26%.  Nothing is wrong with either: the area law is first order in
+    ``ε``, and its residual is second order *times the local gradient of the
+    field*.  Away from the focus that gradient is the wavelength; on the focal
+    ring it is the pulse width, so the same term is an order of magnitude
+    larger there.  At a gain small enough for the linear statement to be the
+    whole statement both collapse — see ``measure_patch_area_invariance``,
+    which finds ``1.9e-07`` at ``ε = 1e-2``.
+
+    The residual is confirmed to scale as ``ε²`` (the fitted exponent is
+    returned), which is what makes this the boundary of the linear description
+    rather than a numerical defect.  Physically it is the honest statement of
+    where a refocusing wave stops being describable by ``h_ab`` alone.
+    """
+    s = surface or EmbeddedTidalSurface()
+    focal = (math.pi - 0.94 * s.sim.pulse_width if focal_distance is None
+             else float(focal_distance))
+    smooth = MaterialPatch(s, centre_distance=smooth_distance, radius=radius,
+                           n_rings=8, n_spokes=64)
+    focused = MaterialPatch(s, centre_distance=focal, radius=radius,
+                            n_rings=8, n_spokes=64)
+
+    s.reset()
+    worst = {"smooth": [0.0, 0.0], "focal": [0.0, 0.0]}   # [|dA|, aspect]
+    for i in range(frames):
+        s.advance_to((i + 1) * t_end / frames)
+        for key, patch in (("smooth", smooth), ("focal", focused)):
+            flat = patch.area(gain=0.0)
+            da = abs(patch.area() / flat - 1.0)
+            worst[key][0] = max(worst[key][0], da)
+            worst[key][1] = max(worst[key][1],
+                                float(patch.shape()["aspect_ratio"]))
+
+    # ...and the residual is second order in the gain, on the focal ring
+    s.reset()
+    s.advance_to(focal_time(s))
+    resid = [abs(focused.area(gain=g) / focused.area(gain=0.0) - 1.0)
+             for g in gains]
+    lg, lr = np.log(np.asarray(gains, dtype=float)), np.log(np.asarray(resid))
+    exponent = float(np.polyfit(lg, lr, 1)[0])
+
+    return {
+        "smooth_distance": float(smooth_distance),
+        "focal_distance": focal,
+        "display_gain": s.gain,
+        "smooth_worst_area_change": worst["smooth"][0],
+        "smooth_max_aspect_ratio": worst["smooth"][1],
+        "focal_worst_area_change": worst["focal"][0],
+        "focal_max_aspect_ratio": worst["focal"][1],
+        "gains": [float(g) for g in gains],
+        "focal_area_residuals": [float(r) for r in resid],
+        "residual_exponent": exponent,
+        "focal_over_smooth_area_change": worst["focal"][0] / max(worst["smooth"][0],
+                                                                1e-30),
+        "focal_over_smooth_distortion": (worst["focal"][1] - 1.0) / max(
+            worst["smooth"][1] - 1.0, 1e-30),
+        "the_focus_distorts_harder": bool(
+            worst["focal"][1] - 1.0 > 3.0 * (worst["smooth"][1] - 1.0)),
+        "the_area_law_fails_first_at_the_focus": bool(
+            worst["focal"][0] > 3.0 * worst["smooth"][0]),
+        "residual_is_second_order": bool(abs(exponent - 2.0) < 0.35),
+    }
+
+
+def focal_time(surface: EmbeddedTidalSurface) -> float:
+    """When the pulse reaches the focal ring: one antipodal transit, less its width."""
+    return float(ANTIPODAL_TIME - 0.94 * surface.sim.pulse_width)
