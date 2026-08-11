@@ -68,17 +68,42 @@ RETURN_TIME = 2.0 * math.pi
 class BulkAnnulus:
     """The vacuole, with its outer boundary glued to its inner one.
 
-    The gluing is the whole content: it makes the radial direction periodic
-    with period ``gap``, so ``(σ, ρ)`` is a torus rather than an annulus.  A
-    radius driven past ``R_outer`` reappears just inside ``R_inner`` — the wave
-    that reaches into the bulk wraps around and shows up *inside* the circle.
+    The gluing makes the radial direction periodic, so ``(σ, ρ)`` is a torus
+    rather than an annulus: a radius driven past ``R_outer`` reappears inside
+    ``R_inner``, and the wave that reaches into the bulk shows up *inside* the
+    circle.
+
+    **How** it is glued is a choice, and not a cosmetic one.
+
+    ``mode="translate"``
+        Shift the radius by ``gap``.  Radial *offsets* are carried across
+        unchanged.  But the two boundary circles have different circumferences,
+        so a feature emerging at ``R_inner`` keeps its radial height while
+        sitting on a shorter arc: its shape is distorted by ``R_outer/R_inner``.
+        Worse, the sheets are arithmetically spaced, so going inward they march
+        straight through ``r = 0`` into negative radius.
+
+    ``mode="conformal"``
+        Multiply the radius by ``R_inner/R_outer`` — a translation in
+        ``ln r`` instead of in ``r``.  Radial offsets scale with the boundary
+        they cross, so an emerging feature is a faithfully **scaled copy**:
+        aspect ratio preserved exactly.  The sheets are geometrically spaced,
+        accumulating at the origin without ever reaching it, so no radius is
+        ever negative.
+
+    The two agree to first order in the excursion and diverge as it grows.
+    ``translate`` is kept as the default so earlier results are reproducible;
+    ``conformal`` is the one that respects the geometry it is folding.
     """
 
     shells: NestedShells = None  # type: ignore[assignment]
+    mode: str = "translate"
 
     def __post_init__(self) -> None:
         if self.shells is None:
             self.shells = NestedShells()
+        if self.mode not in ("translate", "conformal"):
+            raise ValueError("mode must be 'translate' or 'conformal'")
 
     @property
     def r_inner(self) -> float:
@@ -96,6 +121,34 @@ class BulkAnnulus:
     def gap(self) -> float:
         return self.r_outer - self.r_inner
 
+    @property
+    def scale_per_crossing(self) -> float:
+        """Radius factor picked up crossing outward through ``R_outer``.
+
+        ``1`` for the translate rule — it shifts rather than scales — and
+        ``R_inner/R_outer`` for the conformal one.
+        """
+        return 1.0 if self.mode == "translate" else self.r_inner / self.r_outer
+
+    # ── the coordinate the seam translates in ───────────────────────────────
+    def to_w(self, r) -> np.ndarray:
+        a = np.asarray(r, dtype=float)
+        if self.mode == "translate":
+            return a
+        if np.any(a <= 0.0):
+            raise ValueError("the conformal seam needs a positive radius; "
+                             "pair it with the multiplicative radial law")
+        return np.log(a)
+
+    def from_w(self, w) -> np.ndarray:
+        a = np.asarray(w, dtype=float)
+        return a if self.mode == "translate" else np.exp(a)
+
+    @property
+    def period(self) -> float:
+        return (self.gap if self.mode == "translate"
+                else math.log(self.r_outer / self.r_inner))
+
     # ── the rule ────────────────────────────────────────────────────────────
     def wrap(self, r) -> Tuple[np.ndarray, np.ndarray]:
         """Fold a radius into the annulus; report how many times it wrapped.
@@ -104,10 +157,27 @@ class BulkAnnulus:
         where the point is painted and ``sheet`` is the integer count of
         boundary crossings it took to get there — positive outward.
         """
-        a = np.asarray(r, dtype=float)
-        offset = (a - self.r_inner) / self.gap
+        w0 = float(self.to_w(np.array([self.r_inner]))[0])
+        offset = (self.to_w(r) - w0) / self.period
         sheet = np.floor(offset)
-        return self.r_inner + (offset - sheet) * self.gap, sheet.astype(int)
+        return self.from_w(w0 + (offset - sheet) * self.period), sheet.astype(int)
+
+    def sheet_edges(self, n: int = 4) -> Dict[str, List[float]]:
+        """Where the boundaries of the neighbouring sheets sit, in real radius.
+
+        Arithmetic for the translate rule — which walks through ``r = 0`` — and
+        geometric for the conformal one, which cannot.
+        """
+        w0 = float(self.to_w(np.array([self.r_inner]))[0])
+        out = [float(self.from_w(np.array([w0 + (k + 1) * self.period]))[0])
+               for k in range(n)]
+        inward = []
+        for k in range(n):
+            w = w0 - (k + 1) * self.period
+            inward.append(float(self.from_w(np.array([w]))[0])
+                          if self.mode == "conformal"
+                          else self.r_inner - (k + 1) * self.period)
+        return {"outward": out, "inward": inward}
 
     def reaches_the_seam(self, r) -> bool:
         a = np.asarray(r, dtype=float)
@@ -137,10 +207,14 @@ class CircleSlice:
                  bulk: Optional[BulkAnnulus] = None,
                  n_sigma: int = 721, gain: Optional[float] = None,
                  fill: float = 0.72, pulse_width: float = 0.18,
-                 n_radial: int = 900) -> None:
+                 n_radial: int = 900,
+                 radial_law: str = "additive") -> None:
         self.sim = sim if sim is not None else BareSphereSim(
             n_theta=8, n_phi=8, pulse_width=pulse_width, n_radial=n_radial)
         self.bulk = bulk or BulkAnnulus()
+        if radial_law not in ("additive", "multiplicative"):
+            raise ValueError("radial_law must be 'additive' or 'multiplicative'")
+        self.radial_law = radial_law
         self.n_sigma = int(n_sigma)
         # closed: σ = −π and σ = +π are the same point, both kept so the drawn
         # curve closes and the winding count sees the whole loop
@@ -180,9 +254,18 @@ class CircleSlice:
         return self.sim.field_at_distance(self.distance())
 
     def radius(self, gain: Optional[float] = None) -> np.ndarray:
-        """The unwrapped radius — before the crossing rule is applied."""
+        """The unwrapped radius — before the crossing rule is applied.
+
+        ``additive`` is ``R_mid + εu``: the obvious reading, and the one that
+        can be driven to a **negative** radius.  ``multiplicative`` is
+        ``R_mid·exp(εu)``, which is manifestly positive and is the law that
+        pairs with a conformal seam — the two agree to first order in ``ε``.
+        """
         eps = self.gain if gain is None else float(gain)
-        return self.bulk.r_mid + eps * self.field()
+        u = self.field()
+        if self.radial_law == "additive":
+            return self.bulk.r_mid + eps * u
+        return self.bulk.r_mid * np.exp(eps * u)
 
     def points(self, gain: Optional[float] = None) -> np.ndarray:
         """The drawn curve in ℝ², after wrapping.  Breaks at the seam."""
@@ -237,8 +320,7 @@ class CircleSlice:
         steps around the loop — so the two are a cross-check rather than one
         number reported twice.
         """
-        drawn, _ = self.bulk.wrap(self.radius(gain=gain))
-        rho = (drawn - self.bulk.r_inner) / self.bulk.gap
+        _, rho = self.unrolled(gain=gain)
         step = np.diff(rho)
         step -= np.round(step)                       # shortest way round
         return int(round(float(np.sum(step))))
@@ -259,9 +341,15 @@ class CircleSlice:
     # ── the unrolled picture ────────────────────────────────────────────────
     def unrolled(self, gain: Optional[float] = None
                  ) -> Tuple[np.ndarray, np.ndarray]:
-        """``(σ, ρ)`` on the torus, with ``ρ ∈ [0, 1)`` in units of the gap."""
-        drawn, _ = self.bulk.wrap(self.radius(gain=gain))
-        return self.sigma, (drawn - self.bulk.r_inner) / self.bulk.gap
+        """``(σ, ρ)`` on the torus, ``ρ ∈ [0, 1)`` in units of the seam period.
+
+        The period is the gap for a translate seam and ``ln(R_outer/R_inner)``
+        for a conformal one, so the strip is the right flat picture either way.
+        """
+        b = self.bulk
+        drawn, _ = b.wrap(self.radius(gain=gain))
+        w0 = float(b.to_w(np.array([b.r_inner]))[0])
+        return self.sigma, (b.to_w(drawn) - w0) / b.period
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -528,3 +616,196 @@ def measure_the_curve_closes(slice_: Optional[CircleSlice] = None,
     out["closes_exactly"] = bool(out["below_endpoint_gap"] < 1e-12
                                  and out["above_endpoint_gap"] < 1e-12)
     return out
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# HOW THE SEAM IS GLUED — the scaling is a choice, and it shows
+# ════════════════════════════════════════════════════════════════════════════
+def measure_the_emerging_feature_keeps_its_shape(
+        shells: Optional[NestedShells] = None, height: float = 0.10,
+        half_width: float = 0.05) -> Dict[str, object]:
+    """A feature crossing the seam: does it come back a scaled copy, or squashed?
+
+    The two boundary circles have different circumferences, so carrying a
+    radial *offset* across unchanged — the translate rule — lands the feature
+    on a shorter arc with its full height intact.  Its aspect ratio is
+    multiplied by ``R_outer/R_inner``: the emerging wave is not the same wave.
+
+    The conformal rule scales the offset by the same factor as the boundary, so
+    height and arc length shrink together and the shape is preserved exactly.
+    That is the difference between folding the annulus and folding the geometry
+    the annulus has.
+    """
+    sh = shells or NestedShells()
+    ri, ro = sh.r_inner, sh.r_outer
+    before = height / (ro * half_width)
+    rows = []
+    for mode in ("translate", "conformal"):
+        b = BulkAnnulus(sh, mode=mode)
+        drawn, sheet = b.wrap(np.array([ro + height]))
+        emerged_height = float(drawn[0]) - ri
+        after = emerged_height / (ri * half_width)
+        rows.append({
+            "mode": mode,
+            "height_before": height,
+            "height_after": emerged_height,
+            "arc_before": ro * half_width,
+            "arc_after": ri * half_width,
+            "aspect_before": before,
+            "aspect_after": after,
+            "aspect_distortion": after / before,
+            "sheet": int(sheet[0]),
+        })
+    by = {r["mode"]: r for r in rows}
+    return {
+        "circumference_ratio": ro / ri,
+        "rows": rows,
+        "translate_distortion": by["translate"]["aspect_distortion"],
+        "conformal_distortion": by["conformal"]["aspect_distortion"],
+        "translate_squashes_the_feature": bool(
+            abs(by["translate"]["aspect_distortion"] - ro / ri) < 1e-9),
+        "conformal_preserves_the_shape": bool(
+            abs(by["conformal"]["aspect_distortion"] - 1.0) < 1e-9),
+    }
+
+
+def measure_the_translate_rule_runs_off_the_origin(
+        shells: Optional[NestedShells] = None, n: int = 4) -> Dict[str, object]:
+    """Going inward, arithmetic sheets reach ``r = 0`` and then go negative.
+
+    That is not a rounding problem, it is the rule: subtracting a fixed ``gap``
+    from a radius has nothing to stop it.  Geometric sheets accumulate at the
+    origin and never arrive, which is what a radius should do.
+    """
+    sh = shells or NestedShells()
+    out = {}
+    for mode in ("translate", "conformal"):
+        edges = BulkAnnulus(sh, mode=mode).sheet_edges(n=n)
+        out[mode] = edges
+        out[f"{mode}_min_inward"] = min(edges["inward"])
+        out[f"{mode}_goes_nonpositive"] = bool(min(edges["inward"]) <= 0.0)
+    return {
+        **out,
+        "translate_reaches_negative_radius": out["translate_goes_nonpositive"],
+        "conformal_stays_positive": bool(not out["conformal_goes_nonpositive"]),
+    }
+
+
+def measure_the_rule_does_not_rescue_the_winding(
+        gains: Sequence[float] = (0.4, 1.0, 3.0, 12.0, 60.0),
+        frames: int = 120) -> Dict[str, object]:
+    """The zero is not an artefact of how the seam was glued.
+
+    This is the check the scaling objection deserves: rebuild the whole thing on
+    a conformal seam with a multiplicative radial law — a genuinely different
+    identification, with a different sheet structure and a different notion of
+    size — and ask again.  The winding number is still identically zero, for
+    the same reason as before: ``ρ(σ)`` comes from a single-valued function on
+    the circle whichever coordinate the seam translates in.
+    """
+    rows = []
+    worst = 0
+    for mode, law in (("translate", "additive"), ("conformal", "multiplicative"),
+                      ("conformal", "additive")):
+        s = CircleSlice(bulk=BulkAnnulus(mode=mode), radial_law=law,
+                        n_sigma=721)
+        s.reset()
+        best = {"unsigned": 0, "signed": 0, "winding": 0}
+        blew_up = False
+        for i in range(frames):
+            s.advance_to((i + 1) * RETURN_TIME / frames)
+            for g in gains:
+                try:
+                    c = s.seam_crossings(gain=g)
+                    w = s.winding_number(gain=g)
+                except ValueError:
+                    blew_up = True          # a negative radius, honestly reported
+                    continue
+                worst = max(worst, abs(c["signed"]), abs(w))
+                if c["unsigned"] > best["unsigned"]:
+                    best = {"unsigned": c["unsigned"], "signed": c["signed"],
+                            "winding": w}
+        rows.append({"seam": mode, "radial_law": law, **best,
+                     "hit_a_nonpositive_radius": blew_up})
+    return {
+        "gains": [float(g) for g in gains],
+        "rows": rows,
+        "worst_signed_or_winding": worst,
+        "every_rule_gives_zero": bool(worst == 0),
+        "the_negative_result_survives_the_choice": bool(worst == 0),
+    }
+
+
+def winding_curve(bulk: BulkAnnulus, turns: int = 1, n: int = 1441,
+                  r_start: Optional[float] = None
+                  ) -> Tuple[np.ndarray, np.ndarray]:
+    """A curve that *does* wind — for comparison, since the wave never does.
+
+    In the seam's own coordinate it is a straight ramp advancing exactly
+    ``turns`` periods as ``σ`` goes once around.  On a conformal seam that is a
+    logarithmic spiral: it comes back to the same point of the quotient having
+    been **magnified** by ``(R_outer/R_inner)^turns``.  On a translate seam it
+    comes back shifted by ``turns × gap`` with no magnification at all.
+
+    This is what the winding number looks like when it is not zero, and it is
+    not a graph: no single-valued ``r = f(σ)`` can do it.
+    """
+    sigma = np.linspace(-math.pi, math.pi, int(n))
+    w0 = float(bulk.to_w(np.array([r_start or bulk.r_mid]))[0])
+    w = w0 + turns * bulk.period * (sigma + math.pi) / TWO_PI
+    return sigma, np.asarray(bulk.from_w(w), dtype=float)
+
+
+def measure_winding_is_a_magnification(turns: int = 1) -> Dict[str, object]:
+    """On a conformal seam the winding number is visible as a scale factor.
+
+    Which is the real answer to "the scaling is a choice": the choice decides
+    what a winding number would *look* like.  Glue by translation and a wound
+    curve returns displaced; glue conformally and it returns magnified by
+    ``(R_outer/R_inner)^w``.  Either way the physical wave has ``w = 0``, so it
+    returns to exactly itself — and that is not a coincidence, it is what lets a
+    scale-changing seam be consistent for a single-valued height at all.
+
+    Whether the factor is a genuine *scale* is decided by starting the curve at
+    several radii.  On a conformal seam the magnification is the same for all of
+    them; on a translate seam the ratio drifts with the starting radius, because
+    a fixed shift is not a scale.
+    """
+    starts = (0.80, 1.00, 1.20)
+    rows = []
+    for mode in ("translate", "conformal"):
+        b = BulkAnnulus(mode=mode)
+        mags = []
+        for r0 in starts:
+            _, r = winding_curve(b, turns=turns, r_start=r0)
+            _, sheet = b.wrap(r)
+            mags.append(float(r[-1] / r[0]))
+            climbed = int(sheet[-1] - sheet[0])
+        rows.append({
+            "seam": mode,
+            "start_radii": list(starts),
+            "magnifications": mags,
+            "magnification_spread": max(mags) - min(mags),
+            "displacement": float(b.period * turns) if mode == "translate" else None,
+            "sheets_climbed": climbed,
+            "predicted_magnification": (
+                None if mode == "translate"
+                else (b.r_outer / b.r_inner) ** turns),
+        })
+    by = {r["seam"]: r for r in rows}
+    conf, tran = by["conformal"], by["translate"]
+    return {
+        "turns": int(turns),
+        "rows": rows,
+        "conformal_magnification": conf["magnifications"][1],
+        "conformal_spread": conf["magnification_spread"],
+        "translate_spread": tran["magnification_spread"],
+        "a_wound_curve_climbs_the_sheets": bool(
+            all(r["sheets_climbed"] == turns for r in rows)),
+        "conformal_turns_winding_into_a_scale": bool(
+            conf["magnification_spread"] < 1e-9
+            and abs(conf["magnifications"][1]
+                    - conf["predicted_magnification"]) < 1e-9),
+        "translate_gives_no_scale_at_all": bool(
+            tran["magnification_spread"] > 0.1),
+    }

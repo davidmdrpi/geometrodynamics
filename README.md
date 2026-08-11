@@ -1490,6 +1490,49 @@ over the slice inherits the same zero, so a stable topological object has to
 come from a curve free to stop being a graph. Full write-up:
 `docs/circle_slice_bulk.md`.
 
+## The scaling at the seam is a choice
+
+That fold — `r → r − gap` — carries a radial *offset* across unchanged, and the
+two boundary circles do not have the same circumference. So a feature emerging
+at `R_inner` keeps its full height on an arc shorter by `R_outer/R_inner`:
+**the emerging wave was not the same wave**, and the scaling that made it so was
+never chosen deliberately. The alternative is to translate in `ln r` instead:
+
+| rule | map | aspect distortion | inward sheets |
+|---|---|---:|---|
+| `translate` | `r → r − gap` | **1.7027** | `0.22 → −0.30 → −0.82` |
+| `conformal` | `r → r·(R_inner/R_outer)` | **1.0000** | `0.435 → 0.255 → 0.150` |
+
+The conformal rule scales the offset with the boundary it crosses, so height and
+arc shrink together and the feature returns a **faithful scaled copy**. Its
+sheets are geometric, accumulating at the origin without reaching it — while
+arithmetic sheets march straight through `r = 0` into negative radius. It pairs
+with a multiplicative radial law `r = R_mid·exp(εu)`, positive by construction.
+
+**And the choice decides what winding would look like.** A curve that genuinely
+winds is a logarithmic spiral on the conformal seam: it returns to the same point
+of the quotient magnified by `1.7027`, by the same factor from every starting
+radius (spread `2.2e-16`). On the translate seam it returns *displaced*, with a
+ratio that drifts by `0.217` with where it started — not a scale at all.
+
+**What the choice does not change is the winding number.** Rebuilt conformally
+it is still identically zero, at gains driving `274` unsigned crossings —
+`ρ(σ)` comes from a single-valued function on the circle whichever coordinate
+the seam translates in. The earlier negative result was not an artefact of an
+arbitrary scaling; what the conformal rule adds is that the winding you cannot
+have would have been *visible*, as `1.703` per turn.
+
+```bash
+python -m experiments.closure_ledger.seam_scale_probe
+# Verdict: THE_GLUING_SETS_THE_SCALE_BUT_NOT_THE_TOPOLOGY  (6/6)
+
+python scripts/geometrodynamics_v47_seam_scale.py --still sheet.png
+```
+
+Scope: the conformal rule is preferred on grounds of consistency, not because
+any dynamics picks it out; `translate` stays the default so v46 is reproducible.
+Full write-up: `docs/seam_scale.md`.
+
 ## Quick Start
 
 ### Verify charge quantisation from pure geometry
