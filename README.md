@@ -1439,6 +1439,149 @@ background, with no backreaction and no bulk crossing rule. This establishes
 the geometry such a rule would act on, and the amplitude at which the linear
 description stops being trustworthy. Full write-up: `docs/focal_refocus.md`.
 
+## A circle slice, and a bulk the wave can wrap through
+
+Cut the sphere with the great circle through the source and its antipode. Along
+it the geodesic distance is just `d = |σ|`, so **one circle carries both halves
+of the wave** — two lobes running opposite ways and meeting head-on at `σ = ±π`.
+Nothing is re-solved: the field is the 2-D solve sampled at `d(σ)`, verified
+against the full `(θ, φ)` route to `1.4e-14`, so the slice inherits the sphere's
+real caustic rather than the `2×` superposition a 1-D wave on a circle gives.
+
+The slice is drawn inside the vacuole, with the obvious crossing rule: **a
+radius past `R_outer` re-enters at `R_inner`**. So the wave that reaches up into
+the bulk comes back *inside* the circle. That glues the boundaries, makes the
+radial direction periodic, and turns the curve's home into a torus `S¹_σ × S¹_ρ`.
+The wrap threshold is exactly the half-gap over the run's peak (`0.220420`
+predicted, same to `3.8e-16` by bisection).
+
+**And then nothing accumulates.** Driving the gain up buys crossings and never
+buys charge:
+
+| gain / threshold | unsigned | signed | winding |
+|---:|---:|---:|---:|
+| 1.6 | 2 | `+0` | `+0` |
+| 3.6 | 4 | `+0` | `+0` |
+| 5.0 | 6 | `+0` | `+0` |
+
+The drawn curve is a **graph** `r = f(σ)` with `f` single-valued, so `f(π) =
+f(−π)` and its degree as a map `S¹ → S¹` is identically zero — every outward
+crossing of the seam is paid for by an inward one. **A height field cannot
+wind.** Checked two independent ways (a signed crossing ledger and a degree from
+unwrapped increments), agreeing at every gain and time.
+
+Different pulses driven at one common gain cross the seam the *same* number of
+times but put `0.155 → 0.033` of the circle on the far sheet — a `4.7×` spread
+that is `2.61 ×` the pulse width for all of them. The far-sheet arc *is* the
+pulse. None of them winds.
+
+```bash
+python -m experiments.closure_ledger.circle_slice_probe
+# Verdict: THE_SEAM_IS_CROSSED_IN_PAIRS  (7/7)
+
+python scripts/geometrodynamics_v46_circle_slice.py --still sheet.png
+python scripts/geometrodynamics_v46_circle_slice.py --waves waves.png
+```
+
+Scope: the crossing rule is a representation choice, not a derived boundary
+condition — nothing here makes the wave dynamically aware of the seam. What it
+rules out is general: any representation drawing the bulk excursion as a height
+over the slice inherits the same zero, so a stable topological object has to
+come from a curve free to stop being a graph. Full write-up:
+`docs/circle_slice_bulk.md`.
+
+## The scaling at the seam is a choice
+
+That fold — `r → r − gap` — carries a radial *offset* across unchanged, and the
+two boundary circles do not have the same circumference. So a feature emerging
+at `R_inner` keeps its full height on an arc shorter by `R_outer/R_inner`:
+**the emerging wave was not the same wave**, and the scaling that made it so was
+never chosen deliberately. The alternative is to translate in `ln r` instead:
+
+| rule | map | aspect distortion | inward sheets |
+|---|---|---:|---|
+| `translate` | `r → r − gap` | **1.7027** | `0.22 → −0.30 → −0.82` |
+| `conformal` | `r → r·(R_inner/R_outer)` | **1.0000** | `0.435 → 0.255 → 0.150` |
+
+The conformal rule scales the offset with the boundary it crosses, so height and
+arc shrink together and the feature returns a **faithful scaled copy**. Its
+sheets are geometric, accumulating at the origin without reaching it — while
+arithmetic sheets march straight through `r = 0` into negative radius. It pairs
+with a multiplicative radial law `r = R_mid·exp(εu)`, positive by construction.
+
+**And the choice decides what winding would look like.** A curve that genuinely
+winds is a logarithmic spiral on the conformal seam: it returns to the same point
+of the quotient magnified by `1.7027`, by the same factor from every starting
+radius (spread `2.2e-16`). On the translate seam it returns *displaced*, with a
+ratio that drifts by `0.217` with where it started — not a scale at all.
+
+**What the choice does not change is the winding number.** Rebuilt conformally
+it is still identically zero, at gains driving `274` unsigned crossings —
+`ρ(σ)` comes from a single-valued function on the circle whichever coordinate
+the seam translates in. The earlier negative result was not an artefact of an
+arbitrary scaling; what the conformal rule adds is that the winding you cannot
+have would have been *visible*, as `1.703` per turn.
+
+```bash
+python -m experiments.closure_ledger.seam_scale_probe
+# Verdict: THE_GLUING_SETS_THE_SCALE_BUT_NOT_THE_TOPOLOGY  (6/6)
+
+python scripts/geometrodynamics_v47_seam_scale.py --still sheet.png
+```
+
+Scope: the conformal rule is preferred on grounds of consistency, not because
+any dynamics picks it out; `translate` stays the default so v46 is reproducible.
+Full write-up: `docs/seam_scale.md`.
+
+## The ring reaches across, but only a fold crosses
+
+The wave is not only its focal pulse. A ring leaves the source, thins to `0.156`
+at the equator, then **grows** to `0.933` at the focus — a factor of `5.97`,
+following `1/√(sin d)` to `1.034 ± 0.071`. So: can *that* reach across the
+vacuole, and can shrinking the gap or raising the energy make it intersect? Two
+questions, two different knobs.
+
+**Reaching across — yes, and the ring gets there first.** The threshold is
+exactly `δ/max|u|`, and shrinking the gap buys *lead* on the focal pulse:
+
+| δ | ε | dwell | spans from `d` | lead |
+|---:|---:|---:|---:|---:|
+| 0.26 | 0.40 | 0.062 | 3.142 | 0.209 |
+| 0.16 | 0.80 | 0.371 | 2.437 | 0.811 |
+| 0.09 | 0.80 | 1.000 | 1.832 | 1.413 |
+
+At the bottom the ring spans from just past the equator for the whole converging
+leg — a sustained state, not an instant at the focus.
+
+**Intersecting — no, at any gap and any energy.** Swept with a real segment
+test (validated against a limaçon, a lemniscate and a folded loop first):
+`0` self-intersections at up to `346` seam crossings. A graph `r = f(σ)` is
+*embedded* by construction — the winding obstruction seen from the side.
+
+**What crosses is a fold.** Give the material tangential freedom,
+`σ = σ₀ + λε ∂_σu`, and the map folds where `1 + λε ∂²_σu < 0`. Threshold
+`λε = 0.012692` predicted, matched by bisection to `1.8e-12`, converged under
+joint grid refinement — and it folds first **on the converging ring**, `0.0157`
+from the antipode. Folding is necessary but not sufficient: crossing-without-fold
+is `0` at every drive, fold-without-crossing happens.
+
+**And the two knobs are orthogonal.** The fold threshold is gap-independent
+(spread `0.0` across a fivefold range of `δ`) while the span threshold scales
+with `δ` directly. What the fold threshold scales with is the pulse:
+`λε ≈ 0.385 w²`, spread `3.7%`. **Reducing the shell separation changes when the
+wave arrives; it changes nothing about whether it can cross itself.**
+
+```bash
+python -m experiments.closure_ledger.ring_and_fold_probe
+# Verdict: THE_RING_REACHES_BUT_ONLY_A_FOLD_CROSSES  (8/8)
+
+python scripts/geometrodynamics_v48_ring_and_fold.py --still sheet.png
+```
+
+Scope: `λ` is a modelling choice, not derived from the scalar equation, and
+`λ = 0` is exactly the earlier height field. Full write-up:
+`docs/ring_and_fold.md`.
+
 ## Quick Start
 
 ### Verify charge quantisation from pure geometry

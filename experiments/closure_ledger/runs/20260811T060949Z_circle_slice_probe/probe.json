@@ -1,0 +1,212 @@
+{
+  "timestamp_utc": "2026-08-11T06:09:49+00:00",
+  "identification": "a great-circle slice of the scalar wave, drawn in an annulus whose boundaries are glued",
+  "the_slice": "d = |\u03c3|, both halves of the wave on one circle",
+  "the_rule": "R_outer is glued to R_inner; the radial direction is S\u00b9",
+  "the_result": "signed crossings and winding number are identically zero",
+  "the_reason": "the curve is a graph r = f(\u03c3) with f single-valued",
+  "geometry": {
+    "pulse_width": 0.18,
+    "n_sigma": 1441,
+    "n_radial": 900,
+    "common_gain": 0.8,
+    "widths": [
+      0.36,
+      0.24,
+      0.14,
+      0.08
+    ],
+    "antipodal_time": 3.141592653589793,
+    "return_time": 6.283185307179586
+  },
+  "tests": [
+    {
+      "name": "T1_goal",
+      "claim": "cut the scalar wave with one great circle, and give it a bulk whose outer boundary is glued to its inner one",
+      "slice": "d = |\u03c3| along the circle through source and antipode",
+      "crossing_rule": "a radius past R_outer re-enters at R_inner",
+      "resulting_space": "a torus S\u00b9_\u03c3 \u00d7 S\u00b9_\u03c1",
+      "pass": true
+    },
+    {
+      "name": "T2_the_slice_is_the_sphere",
+      "time": 1.40115032350103,
+      "peak": 0.15634941945397796,
+      "worst_mismatch_against_the_sphere": 1.4379341047234965e-14,
+      "worst_mirror_asymmetry": 6.302056878726435e-15,
+      "is_a_cut_of_the_sphere": true,
+      "both_arms_are_the_same": true,
+      "pass": true
+    },
+    {
+      "name": "T3_the_lobes_meet_at_the_antipode",
+      "launch_amplitude": 1.0,
+      "antipodal_amplitude": 0.9334893920589207,
+      "arrival_time": 2.9907962062173667,
+      "antipodal_gain": 0.9334893920589207,
+      "final_left_lobe": -2.6921703712012532,
+      "final_right_lobe": 2.6921703712012537,
+      "lobes_are_symmetric": true,
+      "arrives_on_time": true,
+      "pass": true
+    },
+    {
+      "name": "T4_the_wrap_threshold",
+      "run_peak": 1.1795682333884465,
+      "predicted_threshold": 0.22041963545688228,
+      "measured_threshold": 0.22041963545688237,
+      "relative_error": 3.7776456110315583e-16,
+      "display_gain": 0.15870213752895523,
+      "display_gain_is_below_threshold": true,
+      "threshold_is_the_half_gap_over_the_peak": true,
+      "pass": true
+    },
+    {
+      "name": "T5_the_curve_closes",
+      "below_endpoint_gap": 0.0,
+      "below_drawn_gap": 0.0,
+      "below_winding": 0,
+      "above_endpoint_gap": 0.0,
+      "above_drawn_gap": 0.0,
+      "above_winding": 0,
+      "closes_exactly": true,
+      "pass": true
+    },
+    {
+      "name": "T6_the_seam_is_crossed_in_pairs",
+      "threshold": 0.2189848063258687,
+      "rows": [
+        {
+          "gain_over_threshold": 1.0,
+          "gain": 0.2189848063258687,
+          "unsigned": 0,
+          "signed": 0,
+          "winding": 0,
+          "time": 0.0,
+          "sheets": 1
+        },
+        {
+          "gain_over_threshold": 1.6,
+          "gain": 0.3503756901213899,
+          "unsigned": 2,
+          "signed": 0,
+          "winding": 0,
+          "time": 2.9468139090671124,
+          "sheets": 2
+        },
+        {
+          "gain_over_threshold": 2.4,
+          "gain": 0.5255635351820849,
+          "unsigned": 2,
+          "signed": 0,
+          "winding": 0,
+          "time": 0.0408407044966673,
+          "sheets": 2
+        },
+        {
+          "gain_over_threshold": 3.6,
+          "gain": 0.7883453027731273,
+          "unsigned": 4,
+          "signed": 0,
+          "winding": 0,
+          "time": 0.08011061266653971,
+          "sheets": 2
+        },
+        {
+          "gain_over_threshold": 5.0,
+          "gain": 1.0949240316293434,
+          "unsigned": 6,
+          "signed": 0,
+          "winding": 0,
+          "time": 0.19634954084936265,
+          "sheets": 3
+        }
+      ],
+      "most_unsigned_crossings": 6,
+      "worst_signed_total": 0,
+      "worst_winding_number": 0,
+      "amplitude_buys_crossings": true,
+      "the_signed_count_is_always_zero": true,
+      "a_height_field_cannot_wind": true,
+      "pass": true
+    },
+    {
+      "name": "T7_different_waves_differ_in_arc",
+      "gain": 0.8,
+      "rows": [
+        {
+          "pulse_width": 0.36,
+          "max_crossings": 4,
+          "sheets": 3,
+          "arc_on_the_far_sheet": 0.1553398058252427,
+          "at_time": 2.5776767722703346,
+          "reach_in_gaps": 1.4880302393884068,
+          "winding": 0,
+          "signed": 0,
+          "arc_over_pulse_width": 2.7111910710591527
+        },
+        {
+          "pulse_width": 0.24,
+          "max_crossings": 4,
+          "sheets": 3,
+          "arc_on_the_far_sheet": 0.09986130374479889,
+          "at_time": 2.7661723314857105,
+          "reach_in_gaps": 1.4427429331336006,
+          "winding": 0,
+          "signed": 0,
+          "arc_over_pulse_width": 2.614362818521326
+        },
+        {
+          "pulse_width": 0.14,
+          "max_crossings": 4,
+          "sheets": 3,
+          "arc_on_the_far_sheet": 0.05825242718446602,
+          "at_time": 2.9232519641651904,
+          "reach_in_gaps": 1.4170594975285038,
+          "winding": 0,
+          "signed": 0,
+          "arc_over_pulse_width": 2.6143628185213257
+        },
+        {
+          "pulse_width": 0.08,
+          "max_crossings": 4,
+          "sheets": 3,
+          "arc_on_the_far_sheet": 0.033287101248266296,
+          "at_time": 3.0174997437728783,
+          "reach_in_gaps": 1.3573255843843561,
+          "winding": 0,
+          "signed": 0,
+          "arc_over_pulse_width": 2.6143628185213257
+        }
+      ],
+      "crossing_counts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "arc_range": [
+        0.033287101248266296,
+        0.1553398058252427
+      ],
+      "arc_ratio": 4.666666666666666,
+      "mean_arc_over_pulse_width": 2.6385698816557825,
+      "arc_over_pulse_width_spread": 0.09682825253782701,
+      "the_far_sheet_arc_is_the_pulse": true,
+      "wide_pulses_carry_a_broader_arc": true,
+      "they_differ_in_arc_not_in_count": true,
+      "none_of_them_winds": true,
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "n_passed": 7,
+      "n_total": 7,
+      "pass": true
+    }
+  ],
+  "n_passed": 7,
+  "n_total": 7,
+  "verdict_class": "THE_SEAM_IS_CROSSED_IN_PAIRS",
+  "verdict": "THE SEAM IS CROSSED IN PAIRS. Gluing the vacuole's outer boundary to its inner one lets the wave that reaches into the bulk come back inside the circle, and makes the space the curve lives on a torus \u2014 but it does not give the curve anywhere to wind.\n\nTHE SLICE IS THE SPHERE, NOT A NEW PROBLEM. The field on the circle matches the sphere's field at geodesic distance |\u03c3|, reached through the full (\u03b8, \u03c6) route, to 1.4e-14, and the two arms agree to 6.3e-15. So the slice inherits the real caustic rather than the 2\u00d7 superposition a 1-D wave on a circle would give. The lobes leave in opposite directions and arrive together at t = 2.991, symmetric to 4.4e-16.\n\nTHE WRAP THRESHOLD IS EXACTLY THE HALF-GAP OVER THE PEAK. \u03b5_crit = 0.220420 predicted, 0.220420 found by bisection \u2014 a relative error of 3.8e-16. Below it the slice stays in the annulus; above it, it wraps.\n\nAND THEN NOTHING ACCUMULATES. Driving the gain up buys unsigned crossings \u2014 6 of them at the hardest drive tested \u2014 while the SIGNED total stays at 0 and the winding number at 0, at every gain and every time, with the crossing ledger and an independently computed degree agreeing. The reason is not subtle and is worth stating plainly: the curve is a GRAPH r = f(\u03c3) over the circle with f single-valued, so every outward crossing of the seam is paid for by an inward one. A height field cannot wind.\n\nDIFFERENT WAVES DIFFER IN ARC, NOT IN TOPOLOGY. At one common gain, pulses from 0.36 down to 0.08 cross the seam the same number of times but put 0.155 down to 0.033 of the circle on the far sheet \u2014 a 4.7\u00d7 spread. Divided by the pulse width that is 2.64 for all of them, spread 0.10: the far-sheet arc simply IS the pulse. The winding column is zero all the way down.\n\nWHAT THIS RULES OUT. A crossing rule of this kind cannot manufacture topological charge from the amplitude of a scalar height, however hard it is driven and however many times the seam is crossed. A stable topological object would have to come from somewhere else \u2014 from a curve that is free to stop being a graph, which is a statement about what the next construction needs rather than a defect in this one.\n\nSCOPE. The crossing rule is a representation choice, not a derived boundary condition: nothing here makes the wave dynamically aware of the seam, and the field is a linear scalar on a fixed round background."
+}

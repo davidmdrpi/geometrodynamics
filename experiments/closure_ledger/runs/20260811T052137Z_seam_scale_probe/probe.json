@@ -1,0 +1,223 @@
+{
+  "timestamp_utc": "2026-08-11T05:21:37+00:00",
+  "identification": "two ways of gluing the vacuole's boundaries, and what each does to the wave that crosses",
+  "the_choice": "translate in r, or translate in ln r",
+  "what_it_changes": "the shape of the emerging feature, and the sheets",
+  "what_it_does_not": "the winding number, which is zero for any graph",
+  "geometry": {
+    "gains": [
+      0.4,
+      1.0,
+      3.0,
+      12.0,
+      60.0
+    ]
+  },
+  "tests": [
+    {
+      "name": "T1_goal",
+      "claim": "the gluing rule at the seam sets the scale of the emerging wave, and that scale was a free choice",
+      "translate": "r \u2192 r \u2212 gap  (a translation in r)",
+      "conformal": "r \u2192 r \u00b7 (R_inner/R_outer)  (a translation in ln r)",
+      "circumference_ratio": 1.7027027027027026,
+      "pass": true
+    },
+    {
+      "name": "T2_the_emerging_feature",
+      "circumference_ratio": 1.7027027027027026,
+      "rows": [
+        {
+          "mode": "translate",
+          "height_before": 0.1,
+          "height_after": 0.10000000000000009,
+          "arc_before": 0.063,
+          "arc_after": 0.037,
+          "aspect_before": 1.5873015873015874,
+          "aspect_after": 2.7027027027027053,
+          "aspect_distortion": 1.7027027027027042,
+          "sheet": 1
+        },
+        {
+          "mode": "conformal",
+          "height_before": 0.1,
+          "height_after": 0.058730158730158855,
+          "arc_before": 0.063,
+          "arc_after": 0.037,
+          "aspect_before": 1.5873015873015874,
+          "aspect_after": 1.5873015873015908,
+          "aspect_distortion": 1.000000000000002,
+          "sheet": 1
+        }
+      ],
+      "translate_distortion": 1.7027027027027042,
+      "conformal_distortion": 1.000000000000002,
+      "translate_squashes_the_feature": true,
+      "conformal_preserves_the_shape": true,
+      "pass": true
+    },
+    {
+      "name": "T3_whether_the_radius_survives",
+      "translate": {
+        "outward": [
+          1.26,
+          1.78,
+          2.3,
+          2.8200000000000003
+        ],
+        "inward": [
+          0.21999999999999997,
+          -0.30000000000000004,
+          -0.8200000000000001,
+          -1.34
+        ]
+      },
+      "translate_min_inward": -1.34,
+      "translate_goes_nonpositive": true,
+      "conformal": {
+        "outward": [
+          1.26,
+          2.1454054054054055,
+          3.652987582176771,
+          6.2199518291118
+        ],
+        "inward": [
+          0.4346031746031746,
+          0.25524313429075335,
+          0.14990469791679165,
+          0.08803926703049668
+        ]
+      },
+      "conformal_min_inward": 0.08803926703049668,
+      "conformal_goes_nonpositive": false,
+      "translate_reaches_negative_radius": true,
+      "conformal_stays_positive": true,
+      "pass": true
+    },
+    {
+      "name": "T4_winding_would_be_a_magnification",
+      "turns": 1,
+      "rows": [
+        {
+          "seam": "translate",
+          "start_radii": [
+            0.8,
+            1.0,
+            1.2
+          ],
+          "magnifications": [
+            1.65,
+            1.52,
+            1.4333333333333333
+          ],
+          "magnification_spread": 0.21666666666666656,
+          "displacement": 0.52,
+          "sheets_climbed": 1,
+          "predicted_magnification": null
+        },
+        {
+          "seam": "conformal",
+          "start_radii": [
+            0.8,
+            1.0,
+            1.2
+          ],
+          "magnifications": [
+            1.7027027027027026,
+            1.7027027027027026,
+            1.7027027027027029
+          ],
+          "magnification_spread": 2.220446049250313e-16,
+          "displacement": null,
+          "sheets_climbed": 1,
+          "predicted_magnification": 1.7027027027027026
+        }
+      ],
+      "conformal_magnification": 1.7027027027027026,
+      "conformal_spread": 2.220446049250313e-16,
+      "translate_spread": 0.21666666666666656,
+      "a_wound_curve_climbs_the_sheets": true,
+      "conformal_turns_winding_into_a_scale": true,
+      "translate_gives_no_scale_at_all": true,
+      "pass": true
+    },
+    {
+      "name": "T5_the_winding_is_still_zero",
+      "gains": [
+        0.4,
+        1.0,
+        3.0,
+        12.0,
+        60.0
+      ],
+      "rows": [
+        {
+          "seam": "translate",
+          "radial_law": "additive",
+          "unsigned": 274,
+          "signed": 0,
+          "winding": 0,
+          "hit_a_nonpositive_radius": false
+        },
+        {
+          "seam": "conformal",
+          "radial_law": "multiplicative",
+          "unsigned": 268,
+          "signed": 0,
+          "winding": 0,
+          "hit_a_nonpositive_radius": false
+        },
+        {
+          "seam": "conformal",
+          "radial_law": "additive",
+          "unsigned": 36,
+          "signed": 0,
+          "winding": 0,
+          "hit_a_nonpositive_radius": true
+        }
+      ],
+      "worst_signed_or_winding": 0,
+      "every_rule_gives_zero": true,
+      "the_negative_result_survives_the_choice": true,
+      "pass": true
+    },
+    {
+      "name": "T6_the_two_rules_agree_at_small_excursion",
+      "rows": [
+        {
+          "height": 0.001,
+          "translate": 0.7409999999999999,
+          "conformal": 0.7405873015873016,
+          "difference": 0.0004126984126983091,
+          "difference_over_height": 0.4126984126983091
+        },
+        {
+          "height": 0.01,
+          "translate": 0.75,
+          "conformal": 0.7458730158730159,
+          "difference": 0.00412698412698409,
+          "difference_over_height": 0.412698412698409
+        },
+        {
+          "height": 0.1,
+          "translate": 0.8400000000000001,
+          "conformal": 0.7987301587301588,
+          "difference": 0.041269841269841234,
+          "difference_over_height": 0.41269841269841234
+        }
+      ],
+      "difference_is_proportional_to_the_excursion": true,
+      "shared_first_order_slope": 0.4126984126983091,
+      "pass": true
+    },
+    {
+      "name": "T7_assessment",
+      "n_passed": 6,
+      "n_total": 6,
+      "pass": true
+    }
+  ],
+  "n_passed": 6,
+  "n_total": 6,
+  "verdict_class": "THE_GLUING_SETS_THE_SCALE_BUT_NOT_THE_TOPOLOGY",
+  "verdict": "THE GLUING SETS THE SCALE, BUT NOT THE TOPOLOGY. How the seam is glued was a free choice, and it decides what the emerging wave looks like \u2014 but not whether it can carry a winding number.\n\nTHE TRANSLATE RULE RETURNS A CARICATURE. Carrying a radial offset across unchanged lands the feature on an arc shorter by 1.7027, so its aspect ratio is multiplied by 1.7027 \u2014 the emerging wave is not the same wave. The conformal rule scales the offset with the boundary it crosses, so height and arc length shrink together and the distortion is 1.0000: a faithful scaled copy.\n\nAND THE TRANSLATE RULE RUNS OFF THE ORIGIN. Its inward sheets are arithmetic, so they march 0.22 \u2192 -0.30 \u2192 -0.82: straight through r = 0 into negative radius, because subtracting a fixed gap has nothing to stop it. Conformal sheets are geometric \u2014 0.435 \u2192 0.255 \u2192 0.150 \u2014 accumulating at the origin and never arriving, and they pair with a multiplicative radial law that is positive by construction.\n\nTHE CHOICE ALSO DECIDES WHAT WINDING WOULD LOOK LIKE. A curve that genuinely winds is a logarithmic spiral on the conformal seam: it returns to the same point of the quotient magnified by 1.7027, and by the same factor from every starting radius (spread 2.2e-16). On the translate seam the same curve returns displaced instead, with a ratio that drifts by 0.217 depending on where it started \u2014 not a scale at all. A conformal gluing makes topological charge observable as a magnification; a translate gluing hides it.\n\nBUT THE WINDING NUMBER IS STILL ZERO. Rebuilt on a conformal seam with a multiplicative radial law \u2014 a different identification, a different sheet structure, a different notion of size \u2014 the winding is identically zero at every gain tested, driving up to 274 unsigned crossings. \u03c1(\u03c3) comes from a single-valued function on the circle whichever coordinate the seam translates in, so its degree is zero either way. The earlier negative result was not an artefact of an arbitrary scaling.\n\nTHE TWO RULES ARE THE SAME RULE UNTIL THE WAVE REACHES THE SEAM. Their difference is proportional to the excursion, with slope 0.4127 \u2014 so the earlier pictures were not wrong where the wave was small. They part company exactly where it matters.\n\nSCOPE. The conformal rule is preferred on grounds of consistency \u2014 it returns a scaled copy and cannot produce a negative radius \u2014 not because any dynamics picks it out. Neither rule makes the seam something the wave can feel, and neither gives a height field anywhere to wind."
+}
