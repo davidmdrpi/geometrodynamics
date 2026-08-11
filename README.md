@@ -1582,6 +1582,56 @@ Scope: `λ` is a modelling choice, not derived from the scalar equation, and
 `λ = 0` is exactly the earlier height field. Full write-up:
 `docs/ring_and_fold.md`.
 
+## What a drawn wave has to obey
+
+An audit of the height-field representation against the physics it stands in
+for. Three objections, three different fates.
+
+**"The antipode moves before the front arrives" — not in the solve.** The
+amplitude there runs `5e-133 → 6e-40 → 7e-17 → 0.93`, climbing 130 orders of
+magnitude in step with `t → π`; signal ahead of the front sits at the scheme's
+`1e-07` noise floor.
+
+**But a constant never leaves — and that is a real defect.** A Gaussian carries
+a monopole `w²/4` (`0.008056` measured against `0.008100`), and `ℓ = 0` has
+`ω = 0`, so a closed surface can never shed it. Not an early response — ahead of
+the front the higher modes cancel it exactly — a **permanent** one: every point
+carries a time-averaged displacement of `w²/4`, and the quietest instant of a
+whole run still leaves `max|u| = 0.094`. *Nothing moves early, and nothing ever
+stops moving.* EM forbids monopole radiation and gravity forbids `ℓ = 0, 1`, so
+this mode is outside the analogy, not a blemish on it — the spin-2 field's DC is
+`2e-06` against the scalar's `8.3e-03`.
+
+**The fix has to stay inside the pulse.**
+
+| source | monopole | far side before arrival |
+|---|---:|---:|
+| gaussian | `+8.1e-03` | `1.5e-20` |
+| gaussian, monopole-free | `-4.3e-07` | `1.4e-05` |
+| compact, monopole-free | `-3.1e-07` | `3.8e-22` |
+
+Subtracting the mean leaves `−w²/4` at the antipode — exactly what it removed.
+A wider Gaussian corrector costs four orders of far-side quiet. Compactly
+supported bumps give both at once, with a far side that is *exactly* zero.
+
+**"Height should grow as the ring compresses" — right physics, hidden.**
+`A²·(circumference)` is conserved to `8.4%`, but `1/√(sin d)` is flat across the
+middle (`72%` of the trip shows nothing) and, because the launch is itself a
+focus on a compact surface, the focal height comes in at `0.935×` the *launch*
+height. Unbounded growth belongs to an open geometry.
+
+**"A deforming surface is the wrong representation" — right, and measurably
+so.** The energy density is `u̇² + |∇u|²`, so the constant offset displaces every
+point and carries exactly `0.000` energy against the pulse's `0.497`. The most
+global feature of the drawn shape is invisible to the physics.
+
+```bash
+python -m experiments.closure_ledger.wave_constraints_probe
+# Verdict: NOTHING_MOVES_EARLY_AND_NOTHING_EVER_SETTLES  (8/8)
+```
+
+Full write-up: `docs/wave_constraints.md`.
+
 ## Quick Start
 
 ### Verify charge quantisation from pure geometry
