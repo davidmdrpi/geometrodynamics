@@ -1,0 +1,502 @@
+{
+  "timestamp_utc": "2026-08-11T06:11:17+00:00",
+  "identification": "the converging ring against the vacuole gap, and the tangential freedom that finally folds the curve",
+  "reaching": "set by the gap",
+  "folding": "set by the front's curvature, independent of the gap",
+  "geometry": {
+    "pulse_width": 0.18,
+    "deltas": [
+      0.26,
+      0.16,
+      0.09,
+      0.05,
+      0.03
+    ],
+    "gains": [
+      0.1,
+      0.2,
+      0.4,
+      0.8
+    ]
+  },
+  "tests": [
+    {
+      "name": "T1_goal",
+      "claim": "determine whether the converging ring, not the focal pulse, can reach across the vacuole \u2014 and whether it can intersect",
+      "reaching": "\u03b5\u00b7max|u| \u2265 \u03b4",
+      "folding": "1 + \u03bb \u03b5 \u2202\u00b2_\u03c3u < 0",
+      "pass": true
+    },
+    {
+      "name": "T2_the_ring_grows",
+      "pulse_width": 0.18,
+      "equator_distance": 1.5068746617285265,
+      "equator_height": 0.15627138144516337,
+      "peak_height": 0.9330585410982422,
+      "peak_time": 2.9852984190735503,
+      "peak_distance": 3.141592653589793,
+      "growth_from_the_equator": 5.970757617098678,
+      "law_ratio_mean": 1.0336142137840953,
+      "law_ratio_spread": 0.07143333999451418,
+      "launch_height": 0.8901185271277209,
+      "the_ring_thins_then_grows": true,
+      "follows_one_over_root_sin": true,
+      "pass": true
+    },
+    {
+      "name": "T3_it_reaches_across",
+      "run_peak": 1.167148564280841,
+      "rows": [
+        {
+          "delta": 0.26,
+          "gain": 0.1,
+          "threshold_gain": 0.2227651285851545,
+          "spans": false,
+          "dwell_fraction": 0.0,
+          "first_spanning_time": null,
+          "first_spanning_distance": null,
+          "converging_span_time": null,
+          "converging_span_distance": null,
+          "lead_before_the_focus": null
+        },
+        {
+          "delta": 0.26,
+          "gain": 0.2,
+          "threshold_gain": 0.2227651285851545,
+          "spans": false,
+          "dwell_fraction": 0.0,
+          "first_spanning_time": null,
+          "first_spanning_distance": null,
+          "converging_span_time": null,
+          "converging_span_distance": null,
+          "lead_before_the_focus": null
+        },
+        {
+          "delta": 0.26,
+          "gain": 0.4,
+          "threshold_gain": 0.2227651285851545,
+          "spans": true,
+          "dwell_fraction": 0.0625,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 2.932284043044442,
+          "converging_span_distance": 3.141592653589793,
+          "lead_before_the_focus": 0.20930861054535121
+        },
+        {
+          "delta": 0.26,
+          "gain": 0.8,
+          "threshold_gain": 0.2227651285851545,
+          "spans": true,
+          "dwell_fraction": 0.15833333333333333,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 2.775597109446631,
+          "converging_span_distance": 2.892675804473004,
+          "lead_before_the_focus": 0.36599554414316193
+        },
+        {
+          "delta": 0.16,
+          "gain": 0.1,
+          "threshold_gain": 0.1370862329754797,
+          "spans": false,
+          "dwell_fraction": 0.0,
+          "first_spanning_time": null,
+          "first_spanning_distance": null,
+          "converging_span_time": null,
+          "converging_span_distance": null,
+          "lead_before_the_focus": null
+        },
+        {
+          "delta": 0.16,
+          "gain": 0.2,
+          "threshold_gain": 0.1370862329754797,
+          "spans": true,
+          "dwell_fraction": 0.029166666666666667,
+          "first_spanning_time": 2.9593802796816573,
+          "first_spanning_distance": 3.141592653589793,
+          "converging_span_time": 2.9593802796816573,
+          "converging_span_distance": 3.141592653589793,
+          "lead_before_the_focus": 0.18221237390813583
+        },
+        {
+          "delta": 0.16,
+          "gain": 0.4,
+          "threshold_gain": 0.1370862329754797,
+          "spans": true,
+          "dwell_fraction": 0.10833333333333334,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 2.8545296248680847,
+          "converging_span_distance": 2.9896223667605955,
+          "lead_before_the_focus": 0.2870630287217084
+        },
+        {
+          "delta": 0.16,
+          "gain": 0.8,
+          "threshold_gain": 0.1370862329754797,
+          "spans": true,
+          "dwell_fraction": 0.37083333333333335,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 2.3302763508002218,
+          "converging_span_distance": 2.436764943985411,
+          "lead_before_the_focus": 0.8113163027895713
+        },
+        {
+          "delta": 0.09,
+          "gain": 0.1,
+          "threshold_gain": 0.07711100604870733,
+          "spans": true,
+          "dwell_fraction": 0.020833333333333332,
+          "first_spanning_time": 2.9852984190737764,
+          "first_spanning_distance": 3.141592653589793,
+          "converging_span_time": 2.9852984190737764,
+          "converging_span_distance": 3.141592653589793,
+          "lead_before_the_focus": 0.15629423451601676
+        },
+        {
+          "delta": 0.09,
+          "gain": 0.2,
+          "threshold_gain": 0.07711100604870733,
+          "spans": true,
+          "dwell_fraction": 0.09583333333333334,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 2.8804477642602038,
+          "converging_span_distance": 3.036785559224829,
+          "lead_before_the_focus": 0.26114488932958935
+        },
+        {
+          "delta": 0.09,
+          "gain": 0.4,
+          "threshold_gain": 0.07711100604870733,
+          "spans": true,
+          "dwell_fraction": 0.29583333333333334,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 2.488141381643129,
+          "converging_span_distance": 2.596595762891981,
+          "lead_before_the_focus": 0.6534512719466643
+        },
+        {
+          "delta": 0.09,
+          "gain": 0.8,
+          "threshold_gain": 0.07711100604870733,
+          "spans": true,
+          "dwell_fraction": 1.0,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 1.7282686585560527,
+          "converging_span_distance": 1.8315039740277443,
+          "lead_before_the_focus": 1.4133239950337404
+        },
+        {
+          "delta": 0.05,
+          "gain": 0.1,
+          "threshold_gain": 0.04283944780483741,
+          "spans": true,
+          "dwell_fraction": 0.09583333333333334,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 2.8804477642602038,
+          "converging_span_distance": 3.036785559224829,
+          "lead_before_the_focus": 0.26114488932958935
+        },
+        {
+          "delta": 0.05,
+          "gain": 0.2,
+          "threshold_gain": 0.04283944780483741,
+          "spans": true,
+          "dwell_fraction": 0.25,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 2.591813939211605,
+          "converging_span_distance": 2.701402857256945,
+          "lead_before_the_focus": 0.549778714378188
+        },
+        {
+          "delta": 0.05,
+          "gain": 0.4,
+          "threshold_gain": 0.04283944780483741,
+          "spans": true,
+          "dwell_fraction": 1.0,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 1.7282686585560527,
+          "converging_span_distance": 1.8315039740277443,
+          "lead_before_the_focus": 1.4133239950337404
+        },
+        {
+          "delta": 0.05,
+          "gain": 0.8,
+          "threshold_gain": 0.04283944780483741,
+          "spans": true,
+          "dwell_fraction": 1.0,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 1.7282686585560527,
+          "converging_span_distance": 1.8315039740277443,
+          "lead_before_the_focus": 1.4133239950337404
+        },
+        {
+          "delta": 0.03,
+          "gain": 0.1,
+          "threshold_gain": 0.025703668682902442,
+          "spans": true,
+          "dwell_fraction": 0.17916666666666667,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 2.723760830662393,
+          "converging_span_distance": 2.837652079931398,
+          "lead_before_the_focus": 0.41783182292740007
+        },
+        {
+          "delta": 0.03,
+          "gain": 0.2,
+          "threshold_gain": 0.025703668682902442,
+          "spans": true,
+          "dwell_fraction": 0.7708333333333334,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 1.7282686585560527,
+          "converging_span_distance": 1.8315039740277443,
+          "lead_before_the_focus": 1.4133239950337404
+        },
+        {
+          "delta": 0.03,
+          "gain": 0.4,
+          "threshold_gain": 0.025703668682902442,
+          "spans": true,
+          "dwell_fraction": 1.0,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 1.7282686585560527,
+          "converging_span_distance": 1.8315039740277443,
+          "lead_before_the_focus": 1.4133239950337404
+        },
+        {
+          "delta": 0.03,
+          "gain": 0.8,
+          "threshold_gain": 0.025703668682902442,
+          "spans": true,
+          "dwell_fraction": 1.0,
+          "first_spanning_time": 0.02709623663721196,
+          "first_spanning_distance": 0.03144212830948917,
+          "converging_span_time": 1.7282686585560527,
+          "converging_span_distance": 1.8315039740277443,
+          "lead_before_the_focus": 1.4133239950337404
+        }
+      ],
+      "n_spanning": 17,
+      "max_dwell_fraction": 1.0,
+      "longest_lead_before_the_focus": 1.4133239950337404,
+      "threshold_is_delta_over_peak": true,
+      "shrinking_the_gap_buys_dwell": true,
+      "shrinking_the_gap_buys_lead": true,
+      "the_converging_ring_spans_well_before_the_pulse": true,
+      "pass": true
+    },
+    {
+      "name": "T4_it_never_intersects",
+      "rows": [
+        {
+          "delta": 0.26,
+          "gain": 0.5,
+          "self_intersections": 0,
+          "seam_crossings": 2
+        },
+        {
+          "delta": 0.26,
+          "gain": 2.0,
+          "self_intersections": 0,
+          "seam_crossings": 8
+        },
+        {
+          "delta": 0.26,
+          "gain": 10.0,
+          "self_intersections": 0,
+          "seam_crossings": 38
+        },
+        {
+          "delta": 0.09,
+          "gain": 0.5,
+          "self_intersections": 0,
+          "seam_crossings": 6
+        },
+        {
+          "delta": 0.09,
+          "gain": 2.0,
+          "self_intersections": 0,
+          "seam_crossings": 22
+        },
+        {
+          "delta": 0.09,
+          "gain": 10.0,
+          "self_intersections": 0,
+          "seam_crossings": 114
+        },
+        {
+          "delta": 0.03,
+          "gain": 0.5,
+          "self_intersections": 0,
+          "seam_crossings": 16
+        },
+        {
+          "delta": 0.03,
+          "gain": 2.0,
+          "self_intersections": 0,
+          "seam_crossings": 72
+        },
+        {
+          "delta": 0.03,
+          "gain": 10.0,
+          "self_intersections": 0,
+          "seam_crossings": 346
+        }
+      ],
+      "worst_self_intersections": 0,
+      "most_seam_crossings": 346,
+      "a_graph_is_embedded": true,
+      "and_it_was_genuinely_driven": true,
+      "pass": true
+    },
+    {
+      "name": "T5_the_detector_works",
+      "circle": 0,
+      "limacon_with_an_inner_loop": 1,
+      "figure_eight": 1,
+      "a_folded_loop": 2,
+      "the_detector_works": true,
+      "pass": true
+    },
+    {
+      "name": "T6_what_does_fold",
+      "mixing": 1.0,
+      "predicted_fold_product": 0.012097820349486817,
+      "predicted_gain": 0.012097820349486817,
+      "measured_gain": 0.012097820349508823,
+      "relative_error": 1.819063383361887e-12,
+      "folds_first_at_time": 3.0371346978577742,
+      "folds_first_at_distance": 3.141592653589793,
+      "distance_to_the_antipode": 0.0,
+      "self_intersections_above": 1,
+      "self_intersections_below": 0,
+      "the_threshold_is_front_curvature": true,
+      "past_it_the_curve_self_intersects": true,
+      "below_it_the_curve_does_not": true,
+      "it_folds_at_the_converging_ring": true,
+      "convergence": [
+        {
+          "n_sigma": 1001,
+          "n_radial": 1200,
+          "max_negative_curvature": 82.56297816458923,
+          "fold_product": 0.012111966189089024
+        },
+        {
+          "n_sigma": 2001,
+          "n_radial": 2400,
+          "max_negative_curvature": 82.65951808768754,
+          "fold_product": 0.012097820349486817
+        },
+        {
+          "n_sigma": 4001,
+          "n_radial": 4800,
+          "max_negative_curvature": 82.67205247066362,
+          "fold_product": 0.012095986129712365
+        }
+      ],
+      "last_step_drift": 0.0001516387134361649,
+      "pass": true
+    },
+    {
+      "name": "T7_folding_is_necessary_not_sufficient",
+      "threshold_product": 0.012614824313922959,
+      "rows": [
+        {
+          "multiple": 0.6,
+          "gain": 0.007568894588353775,
+          "folded_frames": 0,
+          "crossing_frames": 0
+        },
+        {
+          "multiple": 1.5,
+          "gain": 0.018922236470884438,
+          "folded_frames": 2,
+          "crossing_frames": 2
+        },
+        {
+          "multiple": 3.0,
+          "gain": 0.037844472941768875,
+          "folded_frames": 20,
+          "crossing_frames": 12
+        }
+      ],
+      "fold_without_crossing": 8,
+      "crossing_without_fold": 0,
+      "a_crossing_always_folds": true,
+      "a_fold_need_not_cross": true,
+      "nothing_crosses_below_threshold": true,
+      "pass": true
+    },
+    {
+      "name": "T8_the_knobs_are_orthogonal",
+      "mixing": 1.0,
+      "rows": [
+        {
+          "delta": 0.26,
+          "span_threshold_gain": 0.26,
+          "fold_threshold_product": 0.012361530324130893
+        },
+        {
+          "delta": 0.12,
+          "span_threshold_gain": 0.12,
+          "fold_threshold_product": 0.012361530324130893
+        },
+        {
+          "delta": 0.05,
+          "span_threshold_gain": 0.05,
+          "fold_threshold_product": 0.012361530324130893
+        }
+      ],
+      "fold_threshold_spread": 0.0,
+      "fold_threshold_is_gap_independent": true,
+      "span_threshold_scales_with_the_gap": true,
+      "width_rows": [
+        {
+          "pulse_width": 0.36,
+          "fold_product": 0.047028827667427345,
+          "product_over_width_squared": 0.36287675669311226
+        },
+        {
+          "pulse_width": 0.24,
+          "fold_product": 0.02102273663286498,
+          "product_over_width_squared": 0.3649780665427948
+        },
+        {
+          "pulse_width": 0.18,
+          "fold_product": 0.012009258954942701,
+          "product_over_width_squared": 0.3706561405846513
+        },
+        {
+          "pulse_width": 0.12,
+          "fold_product": 0.005743223305676542,
+          "product_over_width_squared": 0.3988349517830932
+        }
+      ],
+      "width_constant": 0.3743364789009129,
+      "width_spread": 0.03595819508998094,
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
+      "n_passed": 8,
+      "n_total": 8,
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "THE_RING_REACHES_BUT_ONLY_A_FOLD_CROSSES",
+  "verdict": "THE RING REACHES ACROSS, BUT ONLY A FOLD CROSSES. The converging ring really does get there first, and the gap really is a knob \u2014 but it is not the knob that buys an intersection, and no setting of it ever will be.\n\nTHE RING IS REAL AND IT GROWS. It thins to 0.156 at the equator and rises to 0.933 at the focus, a factor of 5.97, following the 1/\u221a(sin d) law for a closing ring to a mean ratio of 1.034 (spread 0.071). All of that is before the focal pulse.\n\nAND IT REACHES ACROSS EASILY. The threshold is exactly \u03b4/max|u|, so raising the energy and shrinking the gap both buy it. Shrinking the gap buys something extra \u2014 LEAD. At the tightest setting tested the ring spans from just past the equator for the whole converging leg, a lead of 1.41 on the pulse and a dwell of 1.00 of the run. The reaching stops being an instant at the focus and becomes a sustained state.\n\nAND IT STILL NEVER INTERSECTS. Swept over gap and gain with a real segment-intersection test \u2014 validated against a lima\u00e7on, a lemniscate and a folded loop so it is not a broken counter \u2014 the answer is 0, at up to 346 seam crossings. A curve r = f(\u03c3) with f single-valued puts exactly one radius at each direction, so it is embedded by construction and two of its points cannot occupy the same place. This is the winding obstruction seen from the side, and neither knob touches it.\n\nWHAT DOES FOLD IS TANGENTIAL FREEDOM. Let each material point move sideways as well as outward and the map \u03c3\u2080 \u21a6 \u03c3 can fold. The threshold \u03bb\u03b5 = 0.01210 is predicted from the front's curvature alone and found by bisection to a relative 1.8e-12; it converges under joint refinement of the angular and radial grids (last step 1.5e-04). Past it the curve self-intersects, below it it does not \u2014 and it folds first at 0.0000 from the antipode, ON the converging ring, at the moment of tightest focus. The intuition was right about where to look.\n\nFOLDING IS NECESSARY, NOT SUFFICIENT. A crossing always comes with a fold \u2014 crossing-without-fold is 0 at every drive tested, which is the embedded-graph theorem again \u2014 while fold-without-crossing happens 8 times, because the two branches of a folded map can stay radially apart and never meet in the plane.\n\nAND THE TWO KNOBS ARE ORTHOGONAL. The fold threshold does not know the gap exists: spread 0.0e+00 across a fivefold range of \u03b4, while the spanning threshold scales with \u03b4 directly. What the fold threshold does scale with is the pulse \u2014 \u03bb\u03b5 \u2248 0.374 w\u00b2, spread 0.036 \u2014 so narrow fronts fold sooner because folding is about how sharply the front turns, not how tall it is. Reducing the distance between the shells changes when the wave arrives at them; it changes nothing about whether it can cross itself.\n\nSCOPE. \u03bb is a modelling choice, not derived from the scalar equation, and \u03bb = 0 is exactly the height field of the earlier probes. What is derived is the threshold given \u03bb, its independence from the gap, and its w\u00b2 scaling."
+}
