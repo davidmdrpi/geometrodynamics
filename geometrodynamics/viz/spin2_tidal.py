@@ -63,7 +63,7 @@ area-preserving shear, and the behaviour at a caustic.
 from __future__ import annotations
 
 import math
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Sequence, Tuple
 
 import numpy as np
 
@@ -78,6 +78,7 @@ __all__ = [
     "measure_round_trip_inversion",
     "measure_node_at_the_focus",
     "measure_scalar_contrast",
+    "measure_focal_energy",
 ]
 
 SPIN = 2
@@ -180,6 +181,27 @@ class Spin2WaveSim:
         """``h`` at arbitrary geodesic distance, by interpolation."""
         x = np.clip(np.asarray(d, dtype=float), self.d[0], self.d[-1])
         return np.interp(x, self.d, self.h)
+
+    @property
+    def h_dot(self) -> np.ndarray:
+        """``∂_t h`` from the leapfrog pair — the field's own time derivative."""
+        return self.sin ** 2 * (self.q - self.q_prev) / self.dt
+
+    def energy_density(self) -> np.ndarray:
+        """Effective energy density of the wave, ``∝ ḣ_ab ḣ^ab``.
+
+        For the trace-free dyad ``[[h₊, h_ˣ], [h_ˣ, −h₊]]`` the contraction is
+        ``2(ḣ₊² + ḣ_ˣ²)``, so up to the Isaacson constant ``1/32πG`` — which
+        this model has no units for — the shape of the concentration is
+        ``2ḣ²``.  What is meaningful here is *where* it piles up and by how
+        much, not its absolute value.
+        """
+        return 2.0 * self.h_dot ** 2
+
+    def total_energy_measure(self) -> float:
+        """``∫ ρ_E dA`` on the unit sphere — the conserved bookkeeping total."""
+        return float(np.sum(self.energy_density() * self.sin) * self.dd
+                     * 2.0 * math.pi)
 
     def peak(self) -> Tuple[float, float]:
         """``(distance, signed amplitude)`` of the largest ``|h|``."""
@@ -598,4 +620,135 @@ def measure_round_trip_inversion(field: Optional[TidalField] = None
         "note": ("π/2 per focal passage, two passages per round trip; exact "
                  "antiperiodicity would need ω_ℓ = ℓ + ½ rather than "
                  "√(ℓ(ℓ+1))"),
+    }
+
+
+def measure_focal_energy(field: Optional[TidalField] = None,
+                         frames: int = 400,
+                         t_end: float = 1.15 * ANTIPODAL_TIME,
+                         ) -> Dict[str, object]:
+    """Where the wave's energy goes when every principal axis refocuses.
+
+    The effective density is ``∝ ḣ_ab ḣ^ab``.  Because ``h = sin²d·q`` vanishes
+    at the poles for every ``q``, so does ``ḣ`` — so the refocusing energy
+    cannot pile onto the focal *point*.  It piles into a **ring** around it, of
+    a radius set by the pulse width, and the peak amplifies by a finite factor.
+
+    Reported: the amplification, the ring's radius, the density on the antipode
+    itself, and the solver's own conserved invariant as the check that the
+    amplification is a redistribution rather than a solver artefact.
+
+    Two honesty notes.  ``∫ρ_E dA`` is the *kinetic* half of the energy and
+    oscillates against the gradient half, so it is not the conservation check
+    — ``energy_drift`` is.  And the modest amplification is **not** a spin-2
+    protection mechanism: a scalar pulse launched from a pole and refocused on
+    the antipode amplifies by the same ``O(1)`` factor, because launch and
+    focus are geometrically the same situation.  What belongs to the spin is
+    the node and the ring, not the factor.
+    """
+    f = field or TidalField()
+    f.reset()
+    sim = f.sim
+    launch_peak = float(np.max(sim.energy_density()))
+    total_0 = sim.total_energy_measure()
+
+    best = {"peak": -math.inf, "time": 0.0, "distance": 0.0}
+    at_pole = 0.0
+    totals = []
+    for i in range(frames):
+        sim.advance_to((i + 1) * t_end / frames)
+        dens = sim.energy_density()
+        j = int(np.argmax(dens))
+        at_pole = max(at_pole, float(dens[-1]))
+        totals.append(sim.total_energy_measure())
+        if float(dens[j]) > best["peak"] and sim.t > 0.6 * ANTIPODAL_TIME:
+            best = {"peak": float(dens[j]), "time": sim.t,
+                    "distance": float(sim.d[j])}
+    kinetic_swing = ((max(totals) - min(totals))
+                     / max(abs(max(totals)), 1e-30))
+    return {
+        "launch_peak_density": launch_peak,
+        "focal_peak_density": best["peak"],
+        "amplification": best["peak"] / max(launch_peak, 1e-30),
+        "focal_time": best["time"],
+        "focal_distance": best["distance"],
+        "ring_radius": ANTIPODAL_TIME - best["distance"],
+        "density_on_the_antipode": at_pole,
+        "antipode_over_peak": at_pole / max(best["peak"], 1e-30),
+        "invariant_drift": sim.energy_drift(),
+        "kinetic_swing": kinetic_swing,
+        "pulse_width": sim.pulse_width,
+        "concentrates_in_a_ring": bool(
+            ANTIPODAL_TIME - best["distance"] > 1e-3
+            and at_pole < 1e-3 * best["peak"]),
+    }
+
+
+def measure_amplification_is_not_protection(
+        widths: Sequence[float] = (0.24, 0.18, 0.12, 0.09, 0.06),
+        frames: int = 320) -> Dict[str, object]:
+    """The finite focal amplification is geometry, not spin — tested, not asserted.
+
+    It is tempting to read the modest ``~2×`` peak amplification at the
+    antipodal refocus as the spin-2 structure protecting itself from a
+    singularity.  It is not.  A **scalar** pulse launched from a pole and
+    refocused on the antipode amplifies by the same ``O(1)`` factor, and
+    neither number runs away as the pulse is narrowed — launch and focus are
+    geometrically the same situation on a sphere, so whatever happens at one
+    happens at the other.
+
+    What genuinely belongs to the spin is elsewhere: the tensor **vanishes on
+    the focal point** and piles into a ring, while the scalar sits right on it.
+    This measures both sides so the distinction survives contact with numbers.
+    """
+    from geometrodynamics.viz.throat_wavefront import BareSphereSim
+
+    rows = []
+    for w in widths:
+        tensor = measure_focal_energy(TidalField(sim=Spin2WaveSim(
+            n=1200, pulse_width=float(w))), frames=frames)
+
+        # The scalar's comparable quantity is its own *kinetic* density
+        # u̇², matching ḣ² on the tensor side; both are launched outgoing,
+        # so both have a non-zero launch value to normalise against.
+        scal = BareSphereSim(n_theta=8, n_phi=8, pulse_width=float(w),
+                             n_radial=1200)
+        scal.reset()
+        sim = scal._sim
+
+        def kinetic(s=sim):
+            return ((s.u - s.u_prev) / s.dt) ** 2
+
+        launch = float(np.max(kinetic()))
+        peak = 0.0
+        t_hi = 1.15 * ANTIPODAL_TIME
+        for i in range(frames):
+            sim.advance_to((i + 1) * t_hi / frames)
+            if sim.t > 0.6 * ANTIPODAL_TIME:
+                peak = max(peak, float(np.max(kinetic())))
+        rows.append({
+            "pulse_width": float(w),
+            "tensor_amplification": tensor["amplification"],
+            "scalar_amplification": peak / max(launch, 1e-30),
+            "tensor_ring_radius": tensor["ring_radius"],
+            "tensor_antipode_over_peak": tensor["antipode_over_peak"],
+        })
+
+    t_amp = [r["tensor_amplification"] for r in rows]
+    s_amp = [r["scalar_amplification"] for r in rows]
+    ratios = [r["tensor_ring_radius"] / r["pulse_width"] for r in rows]
+    return {
+        "rows": rows,
+        "tensor_amplification_range": (min(t_amp), max(t_amp)),
+        "scalar_amplification_range": (min(s_amp), max(s_amp)),
+        "worst_antipode_over_peak": max(r["tensor_antipode_over_peak"]
+                                        for r in rows),
+        "ring_radius_over_pulse_width": sum(ratios) / len(ratios),
+        "both_amplify_by_order_one": bool(max(t_amp) < 4.0 and max(s_amp) < 4.0),
+        "neither_runs_away_as_the_pulse_narrows": bool(
+            t_amp[-1] < 1.15 * t_amp[0] and s_amp[-1] < 1.15 * s_amp[0]),
+        "amplification_is_not_a_spin_2_effect": bool(
+            abs(max(t_amp) - max(s_amp)) < 1.0),
+        "but_the_focal_node_is": bool(
+            max(r["tensor_antipode_over_peak"] for r in rows) < 1e-4),
     }
