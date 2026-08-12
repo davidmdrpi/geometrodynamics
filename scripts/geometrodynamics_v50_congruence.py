@@ -297,10 +297,12 @@ class CongruenceFigure:
                       cmap=matplotlib.colors.ListedColormap([_PAL["pinch"]]),
                       vmin=0.0, vmax=1.0, shading="auto", alpha=0.32,
                       rasterized=True)
-        # nothing may move before the front
-        order = np.argsort(d["causal_bound"])
-        ax.plot(d["causal_bound"][order], d["sigma"][order], lw=1.0, ls="--",
-                color=_PAL["text"], alpha=0.55)
+        # Nothing may move before the front.  The bound t = |σ| − w has two
+        # branches meeting at σ = 0, so it has to be drawn in σ order: sorting
+        # by t instead makes one polyline zig-zag between ±σ and fill the panel
+        # with a triangular hatch that looks exactly like a light cone.
+        ax.plot(d["causal_bound"], d["sigma"], lw=1.1, ls="--",
+                color=_PAL["text"], alpha=0.6)
         ax.set_xlim(d["t"][0], d["t"][-1])
         ax.set_ylim(-math.pi, math.pi)
         ax.set_yticks([-math.pi, -math.pi / 2, 0, math.pi / 2, math.pi])
