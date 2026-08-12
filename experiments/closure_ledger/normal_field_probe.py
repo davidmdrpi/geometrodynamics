@@ -24,23 +24,23 @@ T2  THE SAME WAVE, DRAWN TWO WAYS.  At one instant the graph of the tips gives
     0 self-intersections and the normal field gives hundreds.  Nothing about
     the field changed; only which object was drawn.
 
-T3  THE THRESHOLD IS THE RADIUS OF CURVATURE.  ρ_min falls 0.0755 → 0.0338 as
+T3  THE THRESHOLD IS THE RADIUS OF CURVATURE.  ρ_min falls 0.1408 → 0.0540 as
     the ring converges — the wave sharpens its own surface — and the first
-    drawn crossing falls with it, 0.452 → 0.182.  The envelope bounds the
+    drawn crossing falls with it, 0.492 → 0.189.  The envelope bounds the
     drawn crossing from below at every time, as it must: a finite sampling
     stride can only ever lag the continuous envelope.
 
 T4  THE RESET IS A SECOND, SEPARABLE MECHANISM.  A normal leaving through
     R_outer re-enters at R_inner at the angle where it left, and that stub
     shoots outward from deep inside the annulus across vectors it could never
-    otherwise reach.  At the focus with L = 0.35: 304 crossings among the
-    normals, 402 with the reset.
+    otherwise reach.  At the focus with L = 0.35: 306 crossings among the
+    normals, 398 with the reset.
 
 T5  AND THE GAP MATTERS AGAIN.  slice_folding established that the fold
     threshold was independent of the gap, so shrinking the vacuole could never
     buy an intersection.  For normals the vector length IS what spans the gap,
     so the two are one knob — and at the tightest gap the reset dominates
-    completely: 0 crossings from the normals alone, 522 once they re-enter.
+    completely: 0 crossings from the normals alone, 472 once they re-enter.
 
 SCOPE
 ─────
@@ -62,6 +62,7 @@ import numpy as np
 
 from geometrodynamics.viz.normal_field import (
     measure_normals_intersect_where_a_graph_cannot,
+    measure_the_curvature_converges,
     measure_the_gap_matters_again,
     measure_the_reset_adds_intersections,
     measure_the_threshold_is_the_radius_of_curvature,
@@ -111,9 +112,23 @@ def t5_the_gap_matters_again() -> dict:
                          and r["every_gap_crosses"])}
 
 
-def t6_assessment(tests: List[dict]) -> dict:
+def t6_the_curvature_is_converged() -> dict:
+    """Quoted only after it is checked — a mismatched grid is 70% wrong.
+
+    ``κ`` needs a second derivative of the solved field, so the angular sampling
+    and the radial solve must be refined together.  This module's first draft
+    refined ``σ`` against the ``CircleSlice`` default radial grid and reported a
+    ``ρ_min`` that was mostly interpolation noise.
+    """
+    r = measure_the_curvature_converges()
+    return {"name": "T6_the_curvature_is_converged", **r,
+            "pass": bool(r["it_converges"]
+                         and r["a_mismatched_grid_gets_it_wrong"])}
+
+
+def t7_assessment(tests: List[dict]) -> dict:
     n = sum(1 for t in tests if t["pass"])
-    return {"name": "T6_assessment", "n_passed": n, "n_total": len(tests),
+    return {"name": "T7_assessment", "n_passed": n, "n_total": len(tests),
             "pass": n == len(tests)}
 
 
@@ -122,8 +137,8 @@ def run_probe() -> dict:
     tests = [t1_goal(), t2_the_same_wave_drawn_two_ways(),
              t3_the_threshold_is_the_radius_of_curvature(),
              t4_the_reset_is_a_second_mechanism(),
-             t5_the_gap_matters_again()]
-    tests.append(t6_assessment(tests))
+             t5_the_gap_matters_again(), t6_the_curvature_is_converged()]
+    tests.append(t7_assessment(tests))
     t2, t3, t4, t5 = tests[1], tests[2], tests[3], tests[4]
 
     if all(t["pass"] for t in tests):

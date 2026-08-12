@@ -163,3 +163,31 @@ def test_the_gap_changes_the_count_now():
     assert r["every_gap_crosses"] is True
     counts = {row["delta"]: row["with_reset"] for row in r["rows"]}
     assert counts[0.09] > 0
+
+
+# ── the grids have to be refined together ───────────────────────────────────
+def test_the_curvature_converges_on_matched_grids():
+    """``κ`` is a second derivative: refine ``σ`` alone and it is noise.
+
+    The first draft of this module refined the angular sampling against the
+    ``CircleSlice`` default radial grid and quoted a ``ρ_min`` that was mostly
+    interpolation error — the same trap ``slice_folding`` documents for the fold
+    threshold.
+    """
+    from geometrodynamics.viz.normal_field import measure_the_curvature_converges
+
+    # The strict convergence flag needs the 8001/4800 level, which the probe
+    # runs; here the cheaper sequence is asked only to be settling, and the
+    # mismatched grid is asked to be visibly wrong.
+    r = measure_the_curvature_converges(
+        grids=((1001, 900), (2001, 1200), (4001, 2400)))
+    assert r["last_step_drift"] < 0.15
+    assert r["a_mismatched_grid_gets_it_wrong"] is True
+    assert r["mismatched_error"] > 0.5
+    rhos = [row["rho_min"] for row in r["rows"]]
+    assert rhos[-1] < rhos[0]                     # refining lowers it
+
+
+def test_the_default_grids_are_matched():
+    nf = NormalField()
+    assert nf.slice.sim._sim.n >= 2000

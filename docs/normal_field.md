@@ -26,8 +26,8 @@ At one instant, at the focus:
 | object | self-intersections |
 |---|---:|
 | graph of the tips | **0** |
-| normal field, `L = 0.26` | 146 |
-| normal field, `L = 0.35` | 304 |
+| normal field, `L = 0.26` | 142 |
+| normal field, `L = 0.35` | 306 |
 | normal field, `L = 0.50` | 520 |
 
 Nothing about the field changed. Only which object was drawn.
@@ -36,12 +36,12 @@ Nothing about the field changed. Only which object was drawn.
 
 | t | `ρ_min` | first drawn crossing |
 |---:|---:|---:|
-| 1.2 | 0.0755 | 0.452 |
-| 2.0 | 0.0762 | 0.432 |
-| 2.6 | 0.0573 | 0.319 |
-| 3.0 | **0.0338** | **0.182** |
+| 1.2 | 0.1408 | 0.492 |
+| 2.0 | 0.1374 | 0.481 |
+| 2.6 | 0.1087 | 0.340 |
+| 3.0 | **0.0540** | **0.189** |
 
-The converging ring **sharpens its own surface** by `2.23×`, and the crossing
+The converging ring **sharpens its own surface** by `2.61×`, and the crossing
 threshold falls with it. This is the ring concentration finally showing up as
 something visible: not as height — which barely changes, and never beats the
 launch — but as curvature, which is what decides whether the normals meet.
@@ -60,10 +60,10 @@ vectors it could never otherwise have reached.
 
 | L | wrapped | without reset | with reset | added |
 |---:|---:|---:|---:|---:|
-| 0.20 | 22 | 30 | 36 | **6** |
-| 0.26 | 435 | 146 | 152 | **6** |
-| 0.35 | 501 | 304 | 402 | **98** |
-| 0.50 | 501 | 520 | 810 | **290** |
+| 0.20 | 22 | 30 | 34 | **4** |
+| 0.26 | 434 | 142 | 146 | **4** |
+| 0.35 | 500 | 306 | 398 | **92** |
+| 0.50 | 500 | 520 | 804 | **284** |
 
 Both mechanisms are real and they are counted separately, so neither is
 smuggled into the other.
@@ -79,10 +79,10 @@ Drawing each bundle at `L = δ`, the length that just reaches across:
 
 | δ | `L = δ` | normals alone | with reset |
 |---:|---:|---:|---:|
-| 0.40 | 0.40 | 386 | 386 |
-| 0.26 | 0.26 | 146 | 152 |
-| 0.16 | 0.16 | 0 | **206** |
-| 0.09 | 0.09 | 0 | **522** |
+| 0.40 | 0.40 | 382 | 382 |
+| 0.26 | 0.26 | 142 | 146 |
+| 0.16 | 0.16 | 0 | **180** |
+| 0.09 | 0.09 | 0 | **472** |
 
 At the tightest gap the normals alone are too short to reach each other — but
 almost all of them wrap, and the stubs re-entering at `R_inner` cross everything.
@@ -99,7 +99,7 @@ What changes is their reach:
 | self-intersects | never | above `L = ρ` |
 | gap is a knob on it | no | yes |
 | needs an invented `λ` | yes | no |
-| the focusing shows up as | height (`0.935×` the launch) | curvature (`2.23×` sharper) |
+| the focusing shows up as | height (`0.935×` the launch) | curvature (`2.61×` sharper) |
 
 ## Scope
 
@@ -108,7 +108,15 @@ directions and the curvature are the surface's own. What is derived is that the
 crossing threshold is the radius of curvature, that the focusing drives it down,
 and that the reset adds an independent mechanism on top.
 
-One bug worth recording: `CircleSlice.sigma` deliberately keeps both `σ = −π` and
+Two bugs worth recording. First, **the grids have to be refined together**:
+`κ` is a second derivative of the solved field, so refining the angular sampling
+against a coarse radial solve reports a `ρ_min` that is mostly interpolation
+noise — and reports it confidently. The first draft of this module did exactly
+that and a mismatched grid came out **70% wrong** (`0.0157` against a converged
+`0.0519`). It is the same trap `ring_and_fold.md` documents for the fold
+threshold, walked into again. `measure_the_curvature_converges` holds it down.
+
+Second: `CircleSlice.sigma` deliberately keeps both `σ = −π` and
 `σ = +π` so the drawn curve closes, but they are the *same point*. Sampling both
 puts two coincident normals in the bundle, and the orientation test scores that
 as a crossing at every length — including `1e-04`, at which nothing can possibly
@@ -118,7 +126,7 @@ have met. The sample excludes the duplicate, and a test holds it there.
 
 ```bash
 python -m experiments.closure_ledger.normal_field_probe
-# Verdict: THE_NORMALS_INTERSECT  (5/5)
+# Verdict: THE_NORMALS_INTERSECT  (6/6)
 
-python -m pytest tests/test_viz_normal_field.py -q       # 13 passed
+python -m pytest tests/test_viz_normal_field.py -q       # 15 passed
 ```

@@ -21,8 +21,8 @@ WHAT THAT BUYS
   the tips gives ``0`` self-intersections while the normal field gives
   hundreds.
 * **A threshold with meaning.**  It is the radius of curvature of the deformed
-  surface, and the converging ring drives it *down*: measured ``0.0755`` at
-  mid-flight, ``0.0573`` converging, ``0.0338`` at the focus.  The wave sharpens
+  surface, and the converging ring drives it *down*: measured ``0.1408`` at
+  mid-flight, ``0.1087`` converging, ``0.0540`` at the focus.  The wave sharpens
   its own surface until its normals cross.
 * **The gap matters again.**  ``slice_folding`` established that shrinking the
   vacuole could never buy an intersection, because the fold threshold did not
@@ -35,7 +35,7 @@ A normal long enough to leave through ``R_outer`` re-enters at ``R_inner`` — a
 the angle where it exited, continuing in the same direction.  That re-entered
 stub starts deep inside the annulus and shoots outward across everything, so it
 crosses vectors it could never have reached.  Measured at the focus with
-``L = 0.35``: ``177`` crossings among the normals themselves, ``402`` once the
+``L = 0.35``: ``306`` crossings among the normals themselves, ``398`` once the
 reset is included.  The two mechanisms are separable and both are real.
 """
 
@@ -92,14 +92,19 @@ class NormalField:
 
     def __init__(self, slice_: Optional[CircleSlice] = None,
                  delta: float = 0.26, pulse_width: float = 0.18,
-                 n_sigma: int = 4001, gain: float = 0.30,
-                 stride: int = 8) -> None:
+                 n_sigma: int = 4001, n_radial: int = 2400,
+                 gain: float = 0.30, stride: int = 8) -> None:
         shells = NestedShells(r_mid=1.0, delta=float(delta))
         self.shells = shells
+        # n_radial is matched to n_sigma deliberately.  κ needs a second
+        # derivative of the field, so refining the angular sampling against a
+        # coarse radial solve does not converge — it just samples interpolation
+        # noise, the same trap ``slice_folding`` documents for the fold
+        # threshold.  ``measure_the_curvature_converges`` holds this down.
         self.slice = slice_ or CircleSlice(
             bulk=BulkAnnulus(shells, mode="conformal"),
             radial_law="multiplicative", pulse_width=pulse_width,
-            n_sigma=n_sigma, gain=gain)
+            n_sigma=n_sigma, n_radial=n_radial, gain=gain)
         self.gain = float(gain)
         self.stride = int(stride)
 
@@ -348,4 +353,74 @@ def measure_the_gap_matters_again(
         "the_gap_changes_the_count": bool(
             len({r["with_reset"] for r in rows}) > 1),
         "every_gap_crosses": bool(all(r["with_reset"] > 0 for r in rows)),
+    }
+
+
+def segment_crossing_points(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    """Where the segments actually meet — the caustic, as points to draw.
+
+    Same predicate as ``segment_crossings``, but returning the intersections
+    rather than counting them, so a picture can show the envelope instead of
+    asserting it.
+    """
+    a = np.asarray(a, dtype=float)
+    b = np.asarray(b, dtype=float)
+    out: List[np.ndarray] = []
+    for i in range(len(a) - 1):
+        u = b[i] - a[i]
+        v = b[i + 1:] - a[i + 1:]
+        d1 = _cross(u, a[i + 1:] - a[i]) * _cross(u, b[i + 1:] - a[i])
+        d2 = _cross(v, a[i] - a[i + 1:]) * _cross(v, b[i] - a[i + 1:])
+        hit = np.nonzero((d1 < 0.0) & (d2 < 0.0))[0]
+        if not len(hit):
+            continue
+        j = i + 1 + hit
+        denom = _cross(u[None, :], b[j] - a[j])
+        ok = np.abs(denom) > 1e-14
+        if not np.any(ok):
+            continue
+        t = _cross(a[j][ok] - a[i], b[j][ok] - a[j]) / denom[ok]
+        out.append(a[i] + t[:, None] * u[None, :])
+    return np.vstack(out) if out else np.zeros((0, 2))
+
+
+def measure_the_curvature_converges(
+        t: float = 3.06, delta: float = 0.26, gain: float = 0.30,
+        grids: Sequence[Tuple[int, int]] = ((1001, 900), (2001, 1200),
+                                            (4001, 2400), (8001, 4800))
+        ) -> Dict[str, object]:
+    """``ρ_min`` is a number, not a resolution — checked before it is quoted.
+
+    The curvature needs a second derivative of the solved field, so the angular
+    sampling and the radial solve have to be refined **together**.  Refining
+    ``σ`` against a coarse solve reports a ``ρ_min`` that is mostly
+    interpolation noise, and reports it confidently.
+    """
+    rows = []
+    for n_sigma, n_radial in grids:
+        nf = NormalField(delta=delta, gain=gain, n_sigma=n_sigma,
+                         n_radial=n_radial, stride=8)
+        nf.reset()
+        nf.advance_to(t)
+        rows.append({"n_sigma": n_sigma, "n_radial": n_radial,
+                     "rho_min": nf.envelope_distance()})
+    rhos = [r["rho_min"] for r in rows]
+    drift = abs(rhos[-1] - rhos[-2]) / max(rhos[-1], 1e-30)
+
+    # ...and what a mismatched grid claims instead
+    bad = NormalField(delta=delta, gain=gain, n_sigma=8001, n_radial=900,
+                      stride=8)
+    bad.reset()
+    bad.advance_to(t)
+    return {
+        "time": t,
+        "rows": rows,
+        "converged_rho_min": rhos[-1],
+        "last_step_drift": drift,
+        "mismatched_grid_rho_min": bad.envelope_distance(),
+        "mismatched_error": abs(bad.envelope_distance() - rhos[-1])
+        / max(rhos[-1], 1e-30),
+        "it_converges": bool(drift < 0.06),
+        "a_mismatched_grid_gets_it_wrong": bool(
+            abs(bad.envelope_distance() - rhos[-1]) > 0.1 * rhos[-1]),
     }
