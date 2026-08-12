@@ -1,0 +1,377 @@
+{
+  "probe": "congruence",
+  "generated_utc": "2026-08-12T05:15:22.165410+00:00",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "claim": "visualise geodesic/tidal focusing all the way to the pinch threshold, and let the equations say what the threshold produces",
+      "object": "a congruence with a deforming cross-section, not a point",
+      "quantity": "J = det F, the cross-sectional area of the bundle",
+      "the_three_outcomes": [
+        "caustic -> passage",
+        "caustic -> singular termination",
+        "caustic -> finite-radius reconnection"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_raychaudhuri_is_exact",
+      "gain": 25.0,
+      "worst_raychaudhuri_residual": 6.661338147750939e-15,
+      "worst_ricci_term": 0.0,
+      "raychaudhuri_is_exact": true,
+      "the_ricci_term_vanishes": true,
+      "so_the_focusing_is_all_shear": true,
+      "pass": true
+    },
+    {
+      "name": "T3_the_operator_form_matters",
+      "rows": [
+        {
+          "gain": 25.0,
+          "n_radial": 600,
+          "operator_min_J": -13.055254670754243,
+          "seeded_difference_min_J": 0.6273305093621157
+        },
+        {
+          "gain": 25.0,
+          "n_radial": 1200,
+          "operator_min_J": -12.905491843437881,
+          "seeded_difference_min_J": 0.6279369406566987
+        },
+        {
+          "gain": 25.0,
+          "n_radial": 2400,
+          "operator_min_J": -12.83564922740509,
+          "seeded_difference_min_J": 0.628070141542999
+        }
+      ],
+      "operator_spread_over_the_ladder": 0.01682123013970016,
+      "seeded_spread_over_the_ladder": 0.001177626720267703,
+      "both_forms_converge": true,
+      "but_they_disagree": true,
+      "refinement_cannot_reveal_it": true,
+      "pass": true
+    },
+    {
+      "name": "T4_the_front_is_causal",
+      "rows": [
+        {
+          "n_radial": 800,
+          "gaussian_arrival": 1.9992310249280978,
+          "compact_arrival": 2.647577208813017,
+          "gaussian_early_by": 0.770668975071902,
+          "compact_early_by": 0.12232279118698264
+        },
+        {
+          "n_radial": 1600,
+          "gaussian_arrival": 2.0008018212554495,
+          "compact_arrival": 2.697646341730186,
+          "gaussian_early_by": 0.7690981787445503,
+          "compact_early_by": 0.07225365826981367
+        },
+        {
+          "n_radial": 3200,
+          "gaussian_arrival": 2.001096345567002,
+          "compact_arrival": 2.727785996250857,
+          "gaussian_early_by": 0.7688036544329977,
+          "compact_early_by": 0.04211400374914298
+        }
+      ],
+      "probe_distance": 2.9499,
+      "light_arrival": 2.9499,
+      "causal_bound": 2.7699,
+      "gaussian_spread_over_the_ladder": 0.001865320638904322,
+      "the_gaussian_arrival_is_grid_converged": true,
+      "the_gaussian_beats_the_bound": true,
+      "the_compact_launch_respects_it": true,
+      "compact_earliness_shrinks_with_refinement": true,
+      "pass": true
+    },
+    {
+      "name": "T5_the_three_cases_separate",
+      "rows": [
+        {
+          "gain": 1.0,
+          "peak_strain": 0.0010328022516822982,
+          "min_J_near_the_source": 0.9759006528676951,
+          "min_J_on_the_converging_ring": 0.9995160597408396,
+          "source_caustic": false,
+          "ring_caustic": false,
+          "case": "ordinary focus"
+        },
+        {
+          "gain": 4.0,
+          "peak_strain": 0.004131209006729193,
+          "min_J_near_the_source": 0.6145289712588008,
+          "min_J_on_the_converging_ring": 0.9922724294430538,
+          "source_caustic": false,
+          "ring_caustic": false,
+          "case": "ordinary focus"
+        },
+        {
+          "gain": 20.0,
+          "peak_strain": 0.02065604503364597,
+          "min_J_near_the_source": -8.560953409805077,
+          "min_J_on_the_converging_ring": 0.8166251985930737,
+          "source_caustic": true,
+          "ring_caustic": false,
+          "case": "caustic"
+        },
+        {
+          "gain": 80.0,
+          "peak_strain": 0.08262418013458388,
+          "min_J_near_the_source": -133.15527684697616,
+          "min_J_on_the_converging_ring": -0.0008496646864967754,
+          "source_caustic": true,
+          "ring_caustic": true,
+          "case": "caustic"
+        },
+        {
+          "gain": 150.0,
+          "peak_strain": 0.15492033775234476,
+          "min_J_near_the_source": -307.4381912600644,
+          "min_J_on_the_converging_ring": -0.002766568804239367,
+          "source_caustic": true,
+          "ring_caustic": true,
+          "case": "caustic"
+        }
+      ],
+      "n_ordinary_focus": 2,
+      "n_caustic": 3,
+      "both_cases_appear": true,
+      "a_weak_wave_only_dips": true,
+      "the_source_ring_closes_first": true,
+      "case_three_never_appears": true,
+      "pass": true
+    },
+    {
+      "name": "T6_two_rings_two_thresholds",
+      "window_in_units_of_pi": 1.2,
+      "unit_gain_peak_strain": 0.0038273878523883906,
+      "source_ring_threshold_gain": 6.66350194811821,
+      "source_ring_threshold_strain": 0.02550380641059401,
+      "converging_ring_threshold_gain": 64.52860072255135,
+      "converging_ring_threshold_strain": 0.24697598253711375,
+      "ratio": 9.683887124963533,
+      "the_source_ring_is_far_easier_to_close": true,
+      "closing_the_ring_needs_an_enormous_strain": true,
+      "pass": true
+    },
+    {
+      "name": "T7_the_neck_is_a_ring",
+      "rows": [
+        {
+          "pulse_width": 0.12,
+          "gain": 116.97538077023053,
+          "min_J": -0.00035859345160619714,
+          "at_time_over_pi": 1.2137500000004335,
+          "neck_ring_radius": 0.05668383691418022,
+          "radius_over_width": 0.47236530761816853,
+          "cells_from_the_pole": 12.999999999999853
+        },
+        {
+          "pulse_width": 0.18,
+          "gain": 52.35609911629304,
+          "min_J": 0.0010357053747213091,
+          "at_time_over_pi": 1.300000000000477,
+          "neck_ring_radius": 0.07848531265040393,
+          "radius_over_width": 0.43602951472446627,
+          "cells_from_the_pole": 17.999999999999922
+        },
+        {
+          "pulse_width": 0.24,
+          "gain": 29.55947368951101,
+          "min_J": 0.06866024142941578,
+          "at_time_over_pi": 1.300000000000477,
+          "neck_ring_radius": 0.1046470835338722,
+          "radius_over_width": 0.4360295147244675,
+          "cells_from_the_pole": 23.99999999999996
+        },
+        {
+          "pulse_width": 0.3,
+          "gain": 18.995811436120942,
+          "min_J": 0.1585848412639982,
+          "at_time_over_pi": 1.300000000000477,
+          "neck_ring_radius": 0.13080885441734047,
+          "radius_over_width": 0.43602951472446827,
+          "cells_from_the_pole": 30.000000000000004
+        },
+        {
+          "pulse_width": 0.4,
+          "gain": 10.776348306081013,
+          "min_J": 0.28498855345765856,
+          "at_time_over_pi": 1.300000000000477,
+          "neck_ring_radius": 0.174411805889787,
+          "radius_over_width": 0.4360295147244675,
+          "cells_from_the_pole": 39.999999999999936
+        }
+      ],
+      "strain": 0.2,
+      "mean_radius_over_width": 0.44329667330320766,
+      "relative_spread": 0.08196721311474668,
+      "one_cell_in_the_same_units": 0.08196721311475441,
+      "spread_is_at_the_resolution_floor": true,
+      "width_range": 3.3333333333333335,
+      "grid_ladder": [
+        [
+          721,
+          0.4357271364202214
+        ],
+        [
+          1441,
+          0.43602951472446627
+        ],
+        [
+          2881,
+          0.4482969963470332
+        ]
+      ],
+      "grid_drift": 0.02736463041806882,
+      "one_cell_at_the_finest_grid": 0.02733188802461208,
+      "the_ratio_converges": true,
+      "the_radius_scales_with_the_width": true,
+      "the_neck_is_resolved_off_the_pole": true,
+      "the_neck_is_never_at_the_antipode": true,
+      "because_h_vanishes_at_the_pole": true,
+      "pass": true
+    },
+    {
+      "name": "T8_the_caustic_is_a_passage",
+      "gain": 150.0,
+      "peak_strain": 0.12459968232609714,
+      "crossing_slope": -17.87683366101361,
+      "crossing_slope_at_half_the_timestep": -17.835558333282346,
+      "crossing_slope_drift": 0.002314215622520808,
+      "source_ring": {
+        "region": "near",
+        "tracked_distance": 0.09150269864824612,
+        "n_zero_crossings": 1,
+        "crossing_times": [
+          0.11938052083641301
+        ],
+        "crossing_slopes": [
+          -17.87683366101361
+        ],
+        "relative_slopes": [
+          0.19000265125585908
+        ],
+        "depth_past_zero": -471.4864448788927,
+        "samples_below_zero": 24992,
+        "final_J": -471.4864448788927,
+        "finite": true,
+        "peak_strain": 0.12459968232609714,
+        "invariant_drift": 2.4577212881804845e-14
+      },
+      "source_ring_at_half_the_timestep": {
+        "region": "near",
+        "tracked_distance": 0.09150269864824656,
+        "n_zero_crossings": 1,
+        "crossing_times": [
+          0.1195768703772584
+        ],
+        "crossing_slopes": [
+          -17.835558333282346
+        ],
+        "relative_slopes": [
+          0.19051018446322016
+        ],
+        "depth_past_zero": -469.1553103641328,
+        "samples_below_zero": 49983,
+        "final_J": -469.1553103641328,
+        "finite": true,
+        "peak_strain": 0.12429730076379586,
+        "invariant_drift": 3.807767821138567e-13
+      },
+      "converging_ring": {
+        "region": "far",
+        "tracked_distance": 3.0631617690341533,
+        "n_zero_crossings": 2,
+        "crossing_times": [
+          3.2311280442181713,
+          3.234858685494311
+        ],
+        "crossing_slopes": [
+          -0.13354492862767905,
+          0.12770128603769995
+        ],
+        "relative_slopes": [
+          0.35538789172742646,
+          0.3398368719964471
+        ],
+        "depth_past_zero": -0.00012170533604935536,
+        "samples_below_zero": 19,
+        "final_J": 109.03669176064473,
+        "finite": true,
+        "peak_strain": 0.12459968232609714,
+        "invariant_drift": 2.4577212881804845e-14
+      },
+      "source_depth_drift_under_refinement": 0.0049687906398216495,
+      "converging_ring_depth_drift": 3.064384277140245,
+      "crossings_are_transversal": true,
+      "the_source_excursion_is_resolved": true,
+      "the_converging_ring_only_grazes": true,
+      "sign_flipped": true,
+      "everything_stayed_finite": true,
+      "evolution_continued": true,
+      "solver_invariant_drift": 2.4577212881804845e-14,
+      "the_caustic_is_a_passage": true,
+      "not_a_termination": true,
+      "no_finite_radius_bounce": true,
+      "reconnection_was_never_available": "each material point's F is driven only by the external h and never by its neighbours, so the congruence cannot act back on anything; a finite-radius reconnection needs exactly that feedback, so this program could not have produced one, and 'we did not see it' would have been the wrong thing to say",
+      "pass": true
+    },
+    {
+      "name": "T9_case_three_is_out_of_scope",
+      "gain": 100.0,
+      "peak_strain": 0.09141701633153994,
+      "background_curvature": 1.0,
+      "background_curvature_range": 0.0,
+      "worst_invariant_drift": 1.230567394984812e-13,
+      "the_field_stayed_finite": true,
+      "evolution_terminated": false,
+      "the_geometry_never_moves": true,
+      "case_three_is_out_of_scope": true,
+      "reason": "the background is a fixed round S\u00b2 with curvature 1 at every time; there is no metric evolution, no Einstein equation and no backreaction, so nothing here can diverge or stop, and a caustic is the strongest thing available",
+      "pass": true
+    },
+    {
+      "name": "T10_every_threshold_carries_its_window",
+      "rows": [
+        {
+          "window_in_units_of_pi": 1.2,
+          "threshold_gain": 66.48436498641968,
+          "threshold_strain": 0.25523877256128713
+        },
+        {
+          "window_in_units_of_pi": 2.0,
+          "threshold_gain": 30.08592462539673,
+          "threshold_strain": 0.11550226093497652
+        },
+        {
+          "window_in_units_of_pi": 3.0,
+          "threshold_gain": 21.308454990386963,
+          "threshold_strain": 0.08180485589408484
+        },
+        {
+          "window_in_units_of_pi": 4.0,
+          "threshold_gain": 16.32499933242798,
+          "threshold_strain": 0.06267297269852645
+        }
+      ],
+      "threshold_falls_with_the_window": true,
+      "ratio_first_to_last": 4.072549323438877,
+      "so_a_threshold_without_a_window_is_meaningless": true,
+      "the_accumulation_is_a_hill_equation": true,
+      "pass": true
+    },
+    {
+      "name": "T11_assessment",
+      "n_passed": 10,
+      "n_total": 10,
+      "pass": true
+    }
+  ],
+  "verdict_class": "THE_CAUSTIC_IS_A_PASSAGE",
+  "verdict": "THE CAUSTIC IS A PASSAGE. Focusing was carried to the pinch threshold without assuming what the threshold would produce, and the equations chose the first of the three offered outcomes. J crosses zero transversally \u2014 slope -17.877, converged to -17.836 under a halved timestep, where a tangency would have driven it to zero \u2014 plunges to -471, and the evolution continues with the solver's invariant unmoved at 2.5e-14. Neither of the other two outcomes was available, and for different reasons worth keeping apart. Singular termination needs the geometry to fail, and the background here is a fixed round S\u00b2 with curvature 1 at every time. Finite-radius reconnection needs the congruence to act back on something, and each point's F is driven only by the external h and never by its neighbours. So this is not 'we looked and did not find them'; it is 'this program could not have produced them', which is a different and more useful statement. What the program CAN say is where the neck forms and what it costs: on a ring around the antipode, never at it, because spin weight forces h to vanish at the pole, at a radius of 0.44 w \u2014 the same ratio across a 3.3x range of pulse width, to within one grid cell; and at peak strain 0.247 for the converging ring against 0.026 for the source ring, a factor of ten apart. Even then the antipodal crossing only grazes zero and the depth of its excursion does not converge. A spin-2 focus has no centre, and closing its neck costs a strain nothing physical would reach."
+}

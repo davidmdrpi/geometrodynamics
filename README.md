@@ -1682,6 +1682,74 @@ python -m experiments.closure_ledger.normal_field_probe
 Scope: the vector length is a display choice; the directions and curvature are
 the surface's own. Full write-up: `docs/normal_field.md`.
 
+## Focus the congruence to the pinch, and let the equations decide
+
+A singularity is a failure of evolution, not a bright spot — so drawing one as a
+glowing dot assumes the answer. The object that does not is a **congruence with
+a deforming cross-section**: integrate `F̈ = ½ḧF` from `F(0) = I` and watch
+`J = det F`, the cross-sectional area of the bundle. `J → 0` is a caustic **of
+the map**, and says nothing about the metric.
+
+Every line the renderer draws is a principal axis of `F`, so the spin-2 tensor
+builds its own bulk structure — no normals and no invented vector length.
+
+**Three cases that were being conflated, now separated:** an ordinary focus
+where `J` dips and recovers; a caustic where `J` reaches zero and the geometry
+stays regular; and a curvature singularity, which **cannot occur in this
+program** — the background is a fixed round `S²` with curvature `1` at every
+time, with no Einstein equation and no backreaction.
+
+**Of passage, singular termination, and finite-radius reconnection, the
+equations give passage.** At the source ring `J` crosses zero with slope
+`−17.877`, converged to `−17.836` under a halved timestep — a tangency would
+have driven it to zero — plunges to `−471`, and the evolution continues with the
+solver's invariant unmoved at `2.5e-14`. The other two were never available, and
+for different reasons: termination needs the geometry to fail, and reconnection
+needs the congruence to act back on something, but each point's `F` is driven
+only by the external `h`, never by its neighbours. Not "we did not find them" —
+"this program could not have produced them".
+
+**Two rings, a factor of ten apart** (window `1.2π`):
+
+| ring | threshold peak strain |
+|---|---:|
+| source | **0.026** |
+| converging (`d > π/2`) | **0.247** |
+
+Even at `0.247` the antipodal crossing only *grazes* zero and the depth of that
+excursion does not converge. So "does focusing drive the neck radius to zero?"
+— barely, and only at a strain nothing physical would reach.
+
+**The neck is a ring, and spin weight is why.** `h = sin²d·q` vanishes at both
+poles, so the tidal field is identically zero *at* the antipode and the
+congruence there is never driven. The neck sits at radius `0.44 w`, the same
+ratio across a `3.3×` range of pulse width to within one grid cell. A spin-2
+focus has no centre.
+
+The transverse Raychaudhuri equation turns out to be *the same statement* as the
+deviation equation here — the residual is an algebraic identity, so its
+`6.7e-15` is round-off rather than a convergence result. The content is that the
+**Ricci term vanishes identically** for trace-free `h`, so none of the focusing
+is matter and all of it is shear-squared: second order in the amplitude, which
+is why a weak wave barely focuses and a strong one does so abruptly.
+
+**Two errors this round had to catch first.** Forming `ḧ` from a time difference
+seeded with `h(−dt) = h(0)` injects a spurious `½ḣ(0)` impulse whose `1/dt²`
+cancels against the update's `dt` — so **refinement reproduces it instead of
+exposing it**, and the two forms converge to `0.628` (no caustic at all) against
+`−12.84`. And a Gaussian launch deforms the far side at `t = 2.00` against a
+causal bound of `2.77`, *grid-converged*: an analytic tail, fixed only by the
+compact bump `(1−x²)⁴`.
+
+```bash
+python -m experiments.closure_ledger.congruence_probe
+# Verdict: THE_CAUSTIC_IS_A_PASSAGE  (10/10)
+```
+
+Scope: `gain` is a strength dial, reported as a peak strain throughout; the
+deviation equation is exact in `ξ` and linear in `h`. Full write-up:
+`docs/congruence.md`.
+
 ## Quick Start
 
 ### Verify charge quantisation from pure geometry
