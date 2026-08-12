@@ -1,175 +1,265 @@
 """
-Israel junctions: whether a detached shell can do a throat's exotic work for it.
+Darmois–Israel junctions: what a detached shell's gluing forces about its stress.
+
+SCOPE OF EVERY CLAIM BELOW
+──────────────────────────
+**Einstein gravity, Darmois–Israel thin shells, spherical symmetry, vacuum
+bulk.**  Nothing here bounds thick shells, non-spherical configurations,
+modified gravity, or shells with non-vacuum interiors.  ``G = 1``.  The spatial
+dimension is a parameter: ``D = 4`` is the regression case and ``D = 5``
+(Tangherlini) is the one this program actually cares about.
 
 THE QUESTION
 ────────────
 A wormhole throat needs negative surface energy.  The hope is that a *detached*
 closed shell in the bulk, glued with the opposite orientation, might supply the
-exotic-looking restoring stress the throat needs while itself being made of
-ordinary matter — "negative matter without negative matter".
+exotic-looking restoring stress while itself being ordinary matter.
 
-That hope decomposes into **three observables that are logically independent**,
-and the whole point of this module is to keep them apart:
+That hope decomposes into **three observables that are logically independent**:
 
-1. **Does the shell itself require exotic matter?**  Its Israel surface stress
-   ``Sⁱⱼ = −(1/8πG)([Kⁱⱼ] − δⁱⱼ[K])``, and specifically ``σ = −S^τ_τ``.
-2. **Does it support the throat?**  The shell-induced contribution to the
-   throat force, ``F_shell = −∂V_shell/∂b``, which must *oppose* closure.
-3. **Is the supported configuration stable?**  The stiffness ``∂²V/∂b²``, or
-   the normal-mode eigenvalues of the coupled ``(a, b)`` system.
+1. **Does the shell itself require exotic matter?**  ``σ = −S^τ_τ`` from
+   ``Sⁱⱼ = −(1/8πG)([Kⁱⱼ] − δⁱⱼ[K])``.
+2. **Does it support the throat?**  The shell's contribution to the throat's
+   potential gradient.
+3. **Is the configuration stable?**  The stiffness ``V''(b₀)``.
 
-A positive stiffness alone would mean "restoring" and would *not* establish
-that the shell supplied the support, so all three are reported separately.
+A positive stiffness alone would mean "restoring" and would *not* establish that
+the shell supplied it, so all three are reported separately.
 
-THE ORIENTATION IS NOT A RELABELLING
-────────────────────────────────────
-For a shell at areal radius ``R`` the extrinsic curvature is
+THE ORIENTATION IS DERIVED FROM THE GLUING, NOT ASSUMED
+───────────────────────────────────────────────────────
+Earlier drafts carried ``ε = ±1`` as a free flag, which made the central result
+conditional on a hand-set sign.  Here each side of the surface is a **branch** —
+which radial half of its region is retained — and ``ε`` follows:
 
-    ``K^θ_θ = (ε/R)·√(f(R) + Ṙ²)``
+* the ``−`` side is approached from within along the ``−→+`` normal, so
+  ``ε₋ = +1`` if it retains ``r ≤ R`` (INNER) and ``−1`` if it retains ``r ≥ R``
+  (OUTER);
+* the ``+`` side is entered leaving the surface, so ``ε₊ = +1`` for OUTER and
+  ``−1`` for INNER.
 
-with ``ε = ±1`` the sign of ``dr`` along the chosen normal.  Taking both normals
-to point from the ``−`` side to the ``+`` side,
+There are therefore **four** gluings, not two, and with
+``σ = −(D−2)(ε₊β₊ − ε₋β₋)/(8πG R)``:
 
-    ``σ = −(1/4πG R)·(ε₊β₊ − ε₋β₋)`` ,   ``β± = √(f±(R) + Ṙ²)`` .
+============  ==========  ============  ===================================
+``−`` branch  ``+`` branch  ``η = ε₊ε₋``  what it is, and what ``σ`` must be
+============  ==========  ============  ===================================
+INNER         OUTER       ``+1``        ordinary bubble — either sign
+OUTER         OUTER       ``−1``        **minimal surface** — ``σ < 0`` always
+INNER         INNER       ``−1``        **maximal surface** — ``σ > 0`` always
+OUTER         INNER       ``+1``        anti-bubble — either sign
+============  ==========  ============  ===================================
 
-``η ≡ ε₊ε₋`` is then a genuine statement about which manifold was built, not a
-choice of labels:
+So ``η = −1`` alone decides nothing: it covers two gluings whose signs are
+*opposite and both forced*.  The sign is a property of the branch pair, not of
+``η``.
 
-* ``η = +1`` (**aligned**) — an ordinary bubble.  ``r`` increases outward on
-  both sides; the surface separates an inside from an outside.
-* ``η = −1`` (**anti-aligned**) — a *minimal surface*.  ``r`` increases as you
-  move away on **both** sides, so the surface is a throat in its own right and
-  the region beyond is a second asymptotic region.
+WHAT IS ACTUALLY FORCED
+───────────────────────
+For a **minimal surface** — ``r`` increasing away on both sides, which is what a
+throat is — the two terms add:
 
-THE FIRST OBSERVABLE IS A THEOREM, NOT A MEASUREMENT
-────────────────────────────────────────────────────
-For ``η = −1`` the two terms **add**:
+    ``σ = −(D−2)(β₊ + β₋)/(8πG R) < 0``
 
-    ``σ = −(β₊ + β₋)/(4πG R) ≤ 0``
+with ``β± = √(f± + Ṙ²) ≥ 0`` for any timelike shell.  For a **maximal surface**
+they add with the other sign and ``σ > 0`` always.  Both are identities, in
+every ``D``.
 
-and ``β± ≥ 0`` by construction, since a timelike shell needs ``f± + Ṙ² > 0``.
-So **every** anti-aligned shell carries negative surface energy, whatever the
-bulk on either side, whatever its mass, charge, cosmological constant or
-velocity.  Checked over 200 000 random Schwarzschild / de Sitter /
-Reissner–Nordström pairs and never once violated — but the sweep is a check on
-the implementation, not evidence for the claim, which is an identity.
+The dichotomy this produces is the real result, and it is sharper than "the
+oppositely-glued shell is exotic":
 
-The same identity applies to the throat itself, because a throat *is* a minimal
-surface.  **No arrangement of bulk content can remove the throat's own exotic
-requirement.**  So the answer to "negative matter without negative matter" is
-no, and for a reason that is topological rather than dynamical: an
-oppositely-glued detached shell does not relieve the throat of exotic matter,
-it adds a second helping of it.
+    a detached surface that **connects** to the throat's asymptotic region
+    through a minimal surface is necessarily exotic; a detached surface that is
+    non-exotic by its gluing is a **maximal** surface, which caps off on both
+    sides and is therefore a closed region sharing no bulk with the throat — so
+    it cannot support anything.
 
-WHAT AN ORDINARY SHELL *CAN* DO
-───────────────────────────────
-An **aligned** shell can be perfectly ordinary — ``σ > 0`` for half of random
-bulk pairs — and it does act on the throat, by screening mass.  With ADM mass
-``M₂`` outside and ``M₁`` between shell and throat, the shell's presence shifts
-the throat's potential by ``2G(M₂ − M₁)/b``, an outward force
-``F_shell = 2G ΔM/b²``.  That is real support, from non-exotic matter.
+Within Einstein–Israel spherical thin shells, exotic matter is relocated, never
+removed.
 
-BUT BIRKHOFF DECOUPLES THEM EXACTLY
-───────────────────────────────────
-In spherical symmetry the vacuum between the two surfaces is Schwarzschild with
-a **constant** mass parameter, so the throat cannot tell *where* the shell is —
-only that it is there.  Measured: ``V_throat(b)`` is identical to twelve digits
-as the shell is moved from ``a = 5`` to ``a = 200``.  Hence
-
-    ``∂²V/∂a∂b = 0``  exactly,
-
-the Hessian is diagonal, and the "coupled two-coordinate resonator" degenerates
-into two independent one-dimensional problems.  This is the same fact that
-``wave_constraints`` found for the scalar monopole: ``ℓ = 0`` does not radiate,
-so two spherical surfaces have no channel to talk through.  **A genuine
-two-mode trapped resonator therefore cannot exist in spherical symmetry at
-all**, and the ``ℓ ≥ 2`` internal modes are not an optional later refinement —
-they are the only place such a coupling could live.
+WHAT AN ORDINARY BUBBLE CAN DO
+──────────────────────────────
+An aligned bubble can be ordinary and does shift the throat's potential by
+screening mass.  That shift is reported as a **potential-gradient contribution**
+rather than a force: it is taken at fixed throat rest mass and omits the
+equation-of-state response, so it is not an equilibrium-consistent force.  The
+radial acceleration contribution is ``−½ ∂ΔV/∂b`` from ``ḃ² + V = 0``, and both
+are reported.
 
 STABILITY
 ─────────
-Following the standard thin-shell analysis, the equation of motion is
-``ḃ² + V(b) = 0``; a static solution needs ``V(b₀) = 0`` and ``V'(b₀) = 0``, and
-is stable when ``V''(b₀) > 0``.  Fixing a global barotropic index ``w`` is too
-rigid to be interesting — the algebra gives
-``V''(b₀) = 2GM(n−1)/b₀³`` with ``n = 2 + 4w``, so a static solution exists only
-for ``w < −1/2`` and is then *always* unstable.  So ``β² ≡ (dp/dσ)|₀`` is left
-free at the equilibrium instead, which is the usual treatment, and ``V''`` is
-linear in it.
+``ḃ² + V(b) = 0``; a static solution needs ``V(b₀) = 0`` and ``V'(b₀) = 0`` and
+is stable when ``V''(b₀) > 0``.  A fixed global barotropic index admits no
+stable static throat at all — ``V''(b₀) = 2GM(n−1)/b₀³`` with ``n = 2 + 4w`` in
+``D = 4``, so static needs ``w < −1/2`` and stability ``w > −1/4`` — so
+``β² ≡ (dp/dσ)|₀`` is left free at the equilibrium, as usual.  ``β²`` is an
+**equation-of-state derivative parameter**; for exotic matter its sign carries
+no sound-speed reading and none is claimed.
 
-``V''`` is verified against direct RK4 integration of the conservation law
-``σ' = −(2/b)(σ + p)`` to ``~1e-6`` relative, on both signs of ``β²``.
+Because Birkhoff makes the stiffness matrix diagonal in this model, its
+eigenvalues are just the two stiffnesses.  They are **not** normal-mode
+frequencies: no kinetic metric has been derived, so nothing here is a
+generalised eigenproblem, and the quantities are named stiffnesses throughout.
 
-SCOPE
-─────
-``G = 1`` throughout.  Spherical symmetry, thin shells, static-plus-linear
-perturbation — no radiation, no backreaction on the shells' own equation of
-state, and no ``ℓ ≥ 2`` structure.  What is *derived* is the exoticity theorem,
-the screening force, the exact Birkhoff decoupling, and the stability window.
+BIRKHOFF
+────────
+In this vacuum spherical model the region between the two surfaces is
+Schwarzschild/Tangherlini with a constant mass parameter, so the throat's data
+cannot depend on where the shell sits.  That establishes **no
+separation-dependent coupling in this model** — not that every spherical trapped
+resonator is impossible.  The vanishing ``∂²V/∂a∂b`` is structural, since
+Birkhoff is imported the moment the intervening region is written that way;
+what is *measured* is that a genuinely different family of shells (surface
+density varying by hundreds) leaves the throat bit-for-bit unchanged.
 """
 
 from __future__ import annotations
 
 import math
-from typing import Callable, Dict, List, Optional, Sequence, Tuple
+from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 
 __all__ = [
-    "ALIGNED",
-    "ANTI_ALIGNED",
+    "INNER",
+    "OUTER",
+    "Gluing",
+    "MINIMAL_SURFACE",
+    "MAXIMAL_SURFACE",
+    "ORDINARY_BUBBLE",
+    "ANTI_BUBBLE",
+    "GLUINGS",
     "DetachedShell",
     "Region",
     "ThroatShellSystem",
     "Z2Throat",
-    "extrinsic_curvature_angular",
     "surface_stress",
     "measure_the_junction_reproduces_known_shells",
-    "measure_any_minimal_surface_is_exotic",
+    "measure_the_gluing_fixes_the_sign",
+    "measure_the_forced_signs_hold_in_any_dimension",
     "measure_the_detached_shell_can_be_ordinary",
-    "measure_the_shell_force_on_the_throat",
+    "measure_the_shell_potential_gradient",
     "measure_the_throat_and_shell_are_decoupled",
     "measure_the_stability_window",
     "measure_the_three_observables_are_independent",
-    "measure_the_hessian_has_no_flat_direction",
+    "measure_the_stiffnesses_scale_dimensionally",
 ]
 
 G = 1.0
-ALIGNED = +1        # ordinary bubble: an inside and an outside
-ANTI_ALIGNED = -1   # minimal surface: r increases away on BOTH sides
+INNER = "INNER"     # the branch r ≤ R is retained on this side
+OUTER = "OUTER"     # the branch r ≥ R is retained on this side
+
+
+class Gluing:
+    """Which radial branch each side of the surface retains.
+
+    ``ε`` is *derived* from this, not supplied: the ``−`` side is approached
+    from within along the ``−→+`` normal and the ``+`` side is entered leaving
+    the surface, which fixes both signs with no freedom left.
+    """
+
+    def __init__(self, minus: str, plus: str) -> None:
+        for b in (minus, plus):
+            if b not in (INNER, OUTER):
+                raise ValueError(f"branch must be INNER or OUTER, got {b!r}")
+        self.minus, self.plus = minus, plus
+
+    @property
+    def eps_minus(self) -> int:
+        return +1 if self.minus == INNER else -1
+
+    @property
+    def eps_plus(self) -> int:
+        return +1 if self.plus == OUTER else -1
+
+    @property
+    def eta(self) -> int:
+        return self.eps_minus * self.eps_plus
+
+    @property
+    def name(self) -> str:
+        return {(OUTER, OUTER): "minimal surface",
+                (INNER, INNER): "maximal surface",
+                (INNER, OUTER): "ordinary bubble",
+                (OUTER, INNER): "anti-bubble"}[(self.minus, self.plus)]
+
+    @property
+    def forced_sign(self) -> Optional[int]:
+        """``−1``/``+1`` where the gluing alone fixes ``sign(σ)``, else ``None``."""
+        if (self.minus, self.plus) == (OUTER, OUTER):
+            return -1
+        if (self.minus, self.plus) == (INNER, INNER):
+            return +1
+        return None
+
+    @property
+    def connects_to_infinity_on_both_sides(self) -> bool:
+        return self.minus == OUTER and self.plus == OUTER
+
+    def __repr__(self) -> str:
+        return f"Gluing({self.minus}->{self.plus}, {self.name})"
+
+
+MINIMAL_SURFACE = Gluing(OUTER, OUTER)
+MAXIMAL_SURFACE = Gluing(INNER, INNER)
+ORDINARY_BUBBLE = Gluing(INNER, OUTER)
+ANTI_BUBBLE = Gluing(OUTER, INNER)
+GLUINGS = [ORDINARY_BUBBLE, MINIMAL_SURFACE, MAXIMAL_SURFACE, ANTI_BUBBLE]
 
 
 # ════════════════════════════════════════════════════════════════════════════
 # THE BULK
 # ════════════════════════════════════════════════════════════════════════════
 class Region:
-    """A static spherically symmetric vacuum region, ``f(r)``.
+    """A static spherically symmetric vacuum region in ``D`` dimensions.
 
-    Schwarzschild by default; ``charge`` adds Reissner–Nordström and
-    ``lambda_`` a cosmological term, so that the exoticity theorem can be
-    checked against bulks it was never tuned on.
+    ``f(r) = 1 − μ/r^{D−3} + q²/r^{2(D−3)} − 2Λr²/((D−1)(D−2))`` — Tangherlini,
+    reducing to Schwarzschild / Reissner–Nordström / Schwarzschild–de Sitter at
+    ``D = 4``.  Parametrised by the **mass parameter** ``μ`` rather than an ADM
+    mass, so no ``Ω_{D−2}`` convention has to be adopted; at ``D = 4``,
+    ``μ = 2GM``.
     """
 
-    def __init__(self, mass: float = 0.0, charge: float = 0.0,
-                 lambda_: float = 0.0) -> None:
-        self.mass = float(mass)
+    def __init__(self, mu: float = 0.0, charge: float = 0.0,
+                 lambda_: float = 0.0, dim: int = 4) -> None:
+        if dim < 4:
+            raise ValueError("dim must be at least 4")
+        self.mu = float(mu)
         self.charge = float(charge)
         self.lambda_ = float(lambda_)
+        self.dim = int(dim)
+
+    @classmethod
+    def from_mass(cls, mass: float, dim: int = 4, **kw) -> "Region":
+        """``D = 4`` convenience: ``μ = 2GM``."""
+        if dim != 4:
+            raise ValueError("from_mass is a D=4 convenience; pass mu for D>4")
+        return cls(mu=2.0 * G * mass, dim=4, **kw)
+
+    @property
+    def n(self) -> int:
+        """``D − 3``, the radial falloff exponent."""
+        return self.dim - 3
 
     def f(self, r: float) -> float:
-        return (1.0 - 2.0 * G * self.mass / r + self.charge ** 2 / r ** 2
-                - self.lambda_ * r ** 2 / 3.0)
+        d = self.dim
+        return (1.0 - self.mu / r ** self.n
+                + self.charge ** 2 / r ** (2 * self.n)
+                - 2.0 * self.lambda_ * r * r / ((d - 1) * (d - 2)))
 
     def df(self, r: float) -> float:
-        return (2.0 * G * self.mass / r ** 2 - 2.0 * self.charge ** 2 / r ** 3
-                - 2.0 * self.lambda_ * r / 3.0)
+        d, n = self.dim, self.n
+        return (n * self.mu / r ** (n + 1)
+                - 2 * n * self.charge ** 2 / r ** (2 * n + 1)
+                - 4.0 * self.lambda_ * r / ((d - 1) * (d - 2)))
 
     def d2f(self, r: float) -> float:
-        return (-4.0 * G * self.mass / r ** 3
-                + 6.0 * self.charge ** 2 / r ** 4 - 2.0 * self.lambda_ / 3.0)
+        d, n = self.dim, self.n
+        return (-n * (n + 1) * self.mu / r ** (n + 2)
+                + 2 * n * (2 * n + 1) * self.charge ** 2 / r ** (2 * n + 2)
+                - 4.0 * self.lambda_ / ((d - 1) * (d - 2)))
 
     def beta(self, r: float, rdot: float = 0.0) -> float:
-        """``√(f + Ṙ²)`` — real only where the shell can be timelike."""
         v = self.f(r) + rdot * rdot
         if v < 0.0:
             raise ValueError(f"shell is not timelike at r={r}: f + Ṙ² = {v}")
@@ -179,83 +269,150 @@ class Region:
 # ════════════════════════════════════════════════════════════════════════════
 # THE JUNCTION
 # ════════════════════════════════════════════════════════════════════════════
-def extrinsic_curvature_angular(region: Region, r: float, rdot: float,
-                                eps: int) -> float:
-    """``K^θ_θ = (ε/R)√(f + Ṙ²)`` — the only component ``σ`` needs."""
-    return eps * region.beta(r, rdot) / r
+def surface_stress(minus: Region, plus: Region, gluing: Gluing, r: float,
+                   rdot: float = 0.0) -> Dict[str, object]:
+    """``σ = −(D−2)[K^θ_θ]/(8πG)``, with the orientation taken from ``gluing``.
 
-
-def surface_stress(inner: Region, outer: Region, r: float,
-                   rdot: float = 0.0, eps_inner: int = +1,
-                   eps_outer: int = +1) -> Dict[str, float]:
-    """``σ`` from the jump in ``K^θ_θ``, with the orientation made explicit.
-
-    ``σ = −S^τ_τ = −(1/4πG)[K^θ_θ]``.  The ``ε`` signs are the whole physical
-    content: flipping ``eps_inner`` turns an ordinary bubble into a minimal
-    surface, which is a different manifold and not a relabelling.
+    ``K^θ_θ = (ε/R)√(f + Ṙ²)`` in every ``D``; only the ``(D−2)`` trace weight
+    carries the dimension.
     """
-    k_in = extrinsic_curvature_angular(inner, r, rdot, eps_inner)
-    k_out = extrinsic_curvature_angular(outer, r, rdot, eps_outer)
-    jump = k_out - k_in
-    sigma = -jump / (4.0 * math.pi * G)
-    return {
-        "sigma": sigma,
-        "jump_K_theta": jump,
-        "beta_inner": inner.beta(r, rdot),
-        "beta_outer": outer.beta(r, rdot),
-        "orientation": int(eps_inner * eps_outer),
-        "rest_mass": 4.0 * math.pi * r * r * sigma,
-        "is_exotic": bool(sigma < 0.0),
-    }
+    if minus.dim != plus.dim:
+        raise ValueError("both sides must have the same dimension")
+    d = minus.dim
+    b_m, b_p = minus.beta(r, rdot), plus.beta(r, rdot)
+    jump = (gluing.eps_plus * b_p - gluing.eps_minus * b_m) / r
+    sigma = -(d - 2) * jump / (8.0 * math.pi * G)
+    return {"sigma": sigma, "jump_K_theta": jump, "dim": d,
+            "beta_minus": b_m, "beta_plus": b_p,
+            "eps": (gluing.eps_minus, gluing.eps_plus),
+            "eta": gluing.eta, "gluing": gluing.name,
+            "forced_sign": gluing.forced_sign,
+            "is_exotic": bool(sigma < 0.0)}
+
+
+def _potential(minus: Region, plus: Region, gluing: Gluing, r: float,
+               sigma: float) -> float:
+    """``V(R) = f₊ − A²`` with ``A = ε₊β₊`` solved from the junction.
+
+    ``A − B = −K`` and ``A² − B² = f₊ − f₋`` (since ``ε² = 1``) separate the two
+    roots exactly, so no square root survives to be differentiated and every
+    gluing is handled by the same expression.
+    """
+    d = minus.dim
+    k = 8.0 * math.pi * G * r * sigma / (d - 2)
+    if abs(k) < 1e-300:
+        raise ValueError("massless shell: the junction does not determine Ṙ")
+    df = plus.f(r) - minus.f(r)
+    a = 0.5 * (-k - df / k)
+    return plus.f(r) - a * a
+
+
+def _sigma_series(r0: float, sigma0: float, p0: float, beta2: float,
+                  d: int) -> Tuple[float, float]:
+    """``σ'`` and ``σ''`` at ``r₀`` from conservation and ``β² = dp/dσ``.
+
+    ``σ' = −(D−2)(σ + p)/R``, differentiated once more with ``p' = β²σ'``.
+    """
+    sp = -(d - 2) * (sigma0 + p0) / r0
+    spp = -(d - 2) * sp * (1.0 + beta2) / r0 + (d - 2) * (sigma0 + p0) / r0 ** 2
+    return sp, spp
+
+
+def _stiffness(minus: Region, plus: Region, gluing: Gluing, r0: float,
+               sigma0: float, p0: float, beta2: float) -> float:
+    """``V''(r₀)`` by Richardson-extrapolated differences of the exact model.
+
+    ``σ`` is known at ``r₀`` to second order, which is exactly what ``V''``
+    needs, so the local quadratic is not an approximation to the answer — only
+    the differencing is, and Richardson removes its leading error.
+    """
+    d = minus.dim
+    sp, spp = _sigma_series(r0, sigma0, p0, beta2, d)
+
+    def v(dr: float) -> float:
+        s = sigma0 + sp * dr + 0.5 * spp * dr * dr
+        return _potential(minus, plus, gluing, r0 + dr, s)
+
+    def second(h: float) -> float:
+        return (v(h) - 2.0 * v(0.0) + v(-h)) / (h * h)
+
+    h = 1e-3 * r0
+    return (4.0 * second(0.5 * h) - second(h)) / 3.0
+
+
+def _static_data(minus: Region, plus: Region, gluing: Gluing, r0: float
+                 ) -> Dict[str, float]:
+    """``σ₀`` from ``V(r₀) = 0`` and ``p₀`` from ``V'(r₀) = 0``.
+
+    ``σ₀`` comes straight from the junction; ``p₀`` is found by solving the
+    linear condition ``∂V/∂σ' = 0`` numerically, which keeps one code path for
+    all four gluings instead of four hand-derived expressions.
+    """
+    d = minus.dim
+    b_m, b_p = minus.beta(r0), plus.beta(r0)
+    jump = (gluing.eps_plus * b_p - gluing.eps_minus * b_m) / r0
+    sigma0 = -(d - 2) * jump / (8.0 * math.pi * G)
+    if abs(sigma0) < 1e-300:
+        raise ValueError("degenerate junction: σ₀ = 0")
+
+    def vprime(p: float) -> float:
+        sp = -(d - 2) * (sigma0 + p) / r0
+        h = 1e-6 * r0
+
+        def v(dr: float) -> float:
+            return _potential(minus, plus, gluing, r0 + dr, sigma0 + sp * dr)
+        return (v(h) - v(-h)) / (2.0 * h)
+
+    # V' is linear in p only in the h → 0 limit; at finite h it keeps an
+    # O(h·p²) term, so probing at p = 1 — thousands of times the physical scale
+    # σ₀ — lets that contamination dominate the extrapolation and returns a
+    # root that is wrong by a factor of three.  Probe at the scale of σ₀ and
+    # then iterate a secant, which converges on the true root in a few steps.
+    scale = abs(sigma0)
+    a, b = 0.0, scale
+    fa, fb = vprime(a), vprime(b)
+    if abs(fb - fa) < 1e-300:
+        raise ValueError("V' does not depend on p: degenerate configuration")
+    for _ in range(60):
+        if abs(fb - fa) < 1e-300:
+            break
+        c = b - fb * (b - a) / (fb - fa)
+        a, fa, b = b, fb, c
+        fb = vprime(c)
+        if abs(fb) < 1e-18 * max(1.0, abs(fa)):
+            break
+    p0 = b
+    return {"sigma": sigma0, "p": p0, "residual_Vprime": vprime(p0),
+            "is_exotic": bool(sigma0 < 0.0)}
 
 
 # ════════════════════════════════════════════════════════════════════════════
-# THE THROAT
+# SURFACES
 # ════════════════════════════════════════════════════════════════════════════
 class Z2Throat:
-    """A Z2-symmetric thin-shell throat at ``b`` in a bulk of mass ``M``.
+    """A ``Z2``-symmetric throat: a **minimal surface**, so ``σ < 0`` is forced.
 
-    A throat is a minimal surface by definition, so ``ε₊ = +1, ε₋ = −1`` is
-    forced and ``σ < 0`` follows — this class cannot be configured into a
-    non-exotic throat, which is the point.
-
-    With ``u ≡ −Gm/(2b) = √(f + ḃ²) > 0`` the equation of motion is
-    ``ḃ² + V(b) = 0`` with ``V = f − u²``.
+    The gluing is not configurable — a throat retains the OUTER branch on both
+    sides by definition, and that is what makes it exotic.
     """
 
-    def __init__(self, mass: float, b0: float) -> None:
-        self.region = Region(mass=mass)
-        self.mass = float(mass)
+    def __init__(self, mu: float = 2.0, b0: float = 5.0, dim: int = 4) -> None:
+        self.region = Region(mu=mu, dim=dim)
         self.b0 = float(b0)
+        self.dim = int(dim)
+        self.gluing = MINIMAL_SURFACE
         if self.region.f(self.b0) <= 0.0:
             raise ValueError("throat must sit outside the horizon")
 
-    # ── the static configuration ────────────────────────────────────────────
     def static(self) -> Dict[str, float]:
-        """``V(b₀) = 0`` fixes ``σ₀``; ``V'(b₀) = 0`` fixes ``p₀``."""
-        b0 = self.b0
-        f, fp = self.region.f(b0), self.region.df(b0)
-        u = math.sqrt(f)
-        p = (fp / (2.0 * u) + u / b0) / (4.0 * math.pi * G)
-        sigma = -u / (2.0 * math.pi * G * b0)
-        return {"u": u, "sigma": sigma, "p": p,
-                "rest_mass": 4.0 * math.pi * b0 * b0 * sigma,
-                "is_exotic": bool(sigma < 0.0)}
+        return _static_data(self.region, self.region, self.gluing, self.b0)
 
     def stiffness(self, beta2: float) -> float:
-        """``V''(b₀)``, linear in ``β² = (dp/dσ)|₀``.  Stable iff positive."""
-        b0 = self.b0
-        f, fp, fpp = (self.region.f(b0), self.region.df(b0),
-                      self.region.d2f(b0))
         s = self.static()
-        u, p = s["u"], s["p"]
-        up = 4.0 * math.pi * G * p - u / b0
-        sigma_p = u / (math.pi * G * b0 ** 2) - 2.0 * p / b0
-        upp = 4.0 * math.pi * G * beta2 * sigma_p - up / b0 + u / b0 ** 2
-        return fpp - 2.0 * (up ** 2 + u * upp)
+        return _stiffness(self.region, self.region, self.gluing, self.b0,
+                          s["sigma"], s["p"], beta2)
 
     def stability_window(self) -> Dict[str, float]:
-        """Where ``V''`` changes sign in ``β²``, and which side is stable."""
         v0, v1 = self.stiffness(0.0), self.stiffness(1.0)
         slope = v1 - v0
         crit = (-v0 / slope) if abs(slope) > 1e-14 else float("nan")
@@ -265,468 +422,452 @@ class Z2Throat:
                 "window_needs_negative_beta2": bool(
                     not math.isnan(crit) and crit < 0.0)}
 
-    def potential(self, b: float, mass: Optional[float] = None) -> float:
-        """``V(b)`` for the *static* profile continued at fixed rest mass.
+    def potential(self, b: float, mu: Optional[float] = None) -> float:
+        """``V(b)`` continued at **fixed rest mass**, for the screening shift.
 
-        Used only for the force comparison, where what matters is how ``V``
-        shifts when the bulk mass changes.
+        The fixed-rest-mass continuation omits the equation-of-state response,
+        so this is a potential shift and not an equilibrium-consistent
+        trajectory; it is used only to compare two bulk mass parameters.
         """
-        m = self.mass if mass is None else mass
+        reg = self.region if mu is None else Region(mu=mu, dim=self.dim)
         s = self.static()
-        u0 = -G * s["rest_mass"] / (2.0 * self.b0)
+        u0 = -4.0 * math.pi * G * self.b0 * s["sigma"] / (self.dim - 2)
         u = u0 * self.b0 / b
-        return (1.0 - 2.0 * G * m / b) - u * u
+        return reg.f(b) - u * u
 
 
-# ════════════════════════════════════════════════════════════════════════════
-# THE DETACHED SHELL
-# ════════════════════════════════════════════════════════════════════════════
 class DetachedShell:
-    """A closed shell at ``a`` between an inner and an outer vacuum region."""
+    """A closed shell with an explicit gluing between two vacuum regions."""
 
-    def __init__(self, inner: Region, outer: Region, a: float,
-                 orientation: int = ALIGNED) -> None:
-        if orientation not in (ALIGNED, ANTI_ALIGNED):
-            raise ValueError("orientation must be +1 (bubble) or -1 (minimal)")
-        self.inner, self.outer = inner, outer
+    def __init__(self, minus: Region, plus: Region, a: float,
+                 gluing: Gluing = ORDINARY_BUBBLE) -> None:
+        if minus.dim != plus.dim:
+            raise ValueError("both sides must have the same dimension")
+        self.minus, self.plus = minus, plus
         self.a = float(a)
-        self.orientation = int(orientation)
+        self.gluing = gluing
 
-    @property
-    def eps(self) -> Tuple[int, int]:
-        """``(ε_inner, ε_outer)``; anti-aligned flips the inner normal."""
-        return (self.orientation, +1)
+    def stress(self, adot: float = 0.0) -> Dict[str, object]:
+        return surface_stress(self.minus, self.plus, self.gluing, self.a, adot)
 
-    def stress(self, adot: float = 0.0) -> Dict[str, float]:
-        e_in, e_out = self.eps
-        return surface_stress(self.inner, self.outer, self.a, adot,
-                              eps_inner=e_in, eps_outer=e_out)
-
-    def screened_mass(self) -> float:
-        """``ΔM = M_outer − M_inner`` — what the shell hides from the throat."""
-        return self.outer.mass - self.inner.mass
-
-    # ── the shell's own dynamics ────────────────────────────────────────────
     def static(self) -> Dict[str, float]:
-        """``V(a₀) = 0`` fixes the rest mass; ``V'(a₀) = 0`` fixes ``p``.
-
-        From ``β₁ − β₂ = Gm/a`` and ``β₁² − β₂² = 2GΔM/a`` the two roots
-        separate exactly, giving ``β₂ = ΔM/m − Gm/2a`` and hence
-        ``V = 1 − 2GM₂/a − β₂²`` with no square roots left to differentiate.
-        """
-        a0, dM = self.a, self.screened_mass()
-        f1, f2 = self.inner.f(a0), self.outer.f(a0)
-        m = a0 * (math.sqrt(f1) - math.sqrt(f2)) / G
-        if abs(m) < 1e-300:
-            raise ValueError("degenerate shell: no mass difference to screen")
-        w = dM / m - G * m / (2.0 * a0)
-        # V' = 0  ⇒  w·w' = G M₂/a²
-        wp_target = (G * self.outer.mass / a0 ** 2) / w
-        coeff = -(dM / m ** 2) - G / (2.0 * a0)      # ∂w'/∂m'
-        const = G * m / (2.0 * a0 ** 2)
-        mp = (wp_target - const) / coeff
-        p = -mp / (8.0 * math.pi * a0)               # m' = −8πa p
-        sigma = m / (4.0 * math.pi * a0 * a0)
-        return {"rest_mass": m, "rest_mass_slope": mp, "p": p,
-                "sigma": sigma, "w": w, "is_exotic": bool(sigma < 0.0)}
+        """Valid for **every** gluing — the junction is solved generically."""
+        return _static_data(self.minus, self.plus, self.gluing, self.a)
 
     def stiffness(self, beta2: float) -> float:
-        """``V''(a₀)``, linear in ``β² = (dp/dσ)|₀``.  Stable iff positive."""
-        a0, dM = self.a, self.screened_mass()
         s = self.static()
-        m, mp, p, w = (s["rest_mass"], s["rest_mass_slope"], s["p"], s["w"])
-        sigma_p = -(2.0 / a0) * (s["sigma"] + p)
-        mpp = -8.0 * math.pi * (p + a0 * beta2 * sigma_p)
-        wp = -dM * mp / m ** 2 - G * mp / (2.0 * a0) + G * m / (2.0 * a0 ** 2)
-        wpp = (-dM * mpp / m ** 2 + 2.0 * dM * mp ** 2 / m ** 3
-               - G * mpp / (2.0 * a0) + G * mp / a0 ** 2 - G * m / a0 ** 3)
-        return (-4.0 * G * self.outer.mass / a0 ** 3
-                - 2.0 * (wp ** 2 + w * wpp))
+        return _stiffness(self.minus, self.plus, self.gluing, self.a,
+                          s["sigma"], s["p"], beta2)
 
     def stability_window(self) -> Dict[str, float]:
         v0, v1 = self.stiffness(0.0), self.stiffness(1.0)
         slope = v1 - v0
         crit = (-v0 / slope) if abs(slope) > 1e-14 else float("nan")
         return {"stiffness_at_zero": v0, "slope": slope,
-                "beta2_critical": crit,
-                "stable_below_critical": bool(slope < 0.0),
-                "an_ordinary_equation_of_state_suffices": bool(
-                    v0 > 0.0 or (slope > 0.0 and 0.0 < crit < 5.0))}
+                "beta2_critical": crit}
+
+    def screened_mu(self) -> float:
+        return self.plus.mu - self.minus.mu
 
 
 # ════════════════════════════════════════════════════════════════════════════
-# THE COUPLED SYSTEM
+# THE PAIR
 # ════════════════════════════════════════════════════════════════════════════
 class ThroatShellSystem:
-    """Throat at ``b``, detached shell at ``a > b``, common bulk.
+    """Throat at ``b`` and detached shell at ``a > b`` in a common bulk."""
 
-    Regions: ``[b, a]`` has mass ``M₁``; ``[a, ∞)`` has the ADM mass ``M₂``.
-    The throat is Z2 and sees only ``M₁``; the shell separates ``M₁`` from
-    ``M₂``.
-    """
-
-    def __init__(self, adm_mass: float = 1.0, screened: float = 0.30,
-                 b0: float = 5.0, a0: float = 20.0,
-                 orientation: int = ALIGNED) -> None:
-        self.m_outer = float(adm_mass)
-        self.m_inner = float(adm_mass) - float(screened)
+    def __init__(self, mu_outer: float = 2.0, screened: float = 0.6,
+                 b0: float = 5.0, a0: float = 20.0, dim: int = 4,
+                 gluing: Gluing = ORDINARY_BUBBLE) -> None:
+        self.dim = int(dim)
+        self.mu_outer = float(mu_outer)
+        self.mu_inner = float(mu_outer) - float(screened)
         self.b0, self.a0 = float(b0), float(a0)
-        self.inner = Region(mass=self.m_inner)
-        self.outer = Region(mass=self.m_outer)
-        self.throat = Z2Throat(mass=self.m_inner, b0=self.b0)
-        self.shell = DetachedShell(self.inner, self.outer, self.a0,
-                                   orientation=orientation)
+        self.inner = Region(mu=self.mu_inner, dim=dim)
+        self.outer = Region(mu=self.mu_outer, dim=dim)
+        self.throat = Z2Throat(mu=self.mu_inner, b0=b0, dim=dim)
+        self.shell = DetachedShell(self.inner, self.outer, a0, gluing)
 
-    # ── observable 2: the shell's force on the throat ───────────────────────
     def shell_potential_shift(self, b: float) -> float:
-        """``V(b; M₁) − V(b; M₂)`` — what the shell's presence does."""
-        return self.throat.potential(b, self.m_inner) - \
-            self.throat.potential(b, self.m_outer)
+        return (self.throat.potential(b, self.mu_inner)
+                - self.throat.potential(b, self.mu_outer))
 
-    def shell_force(self, b: Optional[float] = None, h: float = 1e-5) -> float:
-        """``F_shell = −∂V_shell/∂b``; positive opposes closure."""
-        b = self.b0 if b is None else b
-        return -(self.shell_potential_shift(b + h)
-                 - self.shell_potential_shift(b - h)) / (2.0 * h)
+    def shell_potential_gradient(self, b: Optional[float] = None,
+                                 h: float = 1e-5) -> Dict[str, float]:
+        """``−∂ΔV/∂b``, and the acceleration contribution ``−½∂ΔV/∂b``.
 
-    # ── observable 3: the coupled Hessian ───────────────────────────────────
-    def hessian(self, beta2_throat: float = -1.0,
-                beta2_shell: float = 0.5,
-                h: Optional[float] = None) -> np.ndarray:
-        """``[[V_bb, V_ba], [V_ab, V_aa]]`` for the two-coordinate system.
-
-        The off-diagonal is computed rather than assumed zero, because its
-        vanishing is the Birkhoff statement this module is testing.
+        Not an equilibrium-consistent force: the continuation holds the
+        throat's rest mass fixed and omits its equation-of-state response.  It
+        is the gradient of the potential *shift* the shell's screening produces,
+        which is what the sign statement is about.
         """
-        # the step has to scale with the system, or a dilation test measures
-        # the truncation error instead of the spectrum
-        h = (1e-5 * self.a0) if h is None else h
-        v_bb = self.throat.stiffness(beta2_throat)
-        v_aa = self.shell.stiffness(beta2_shell)
-        # Off-diagonal: the throat's static data recomputed with the shell
-        # displaced.  Birkhoff says the region between is Schwarzschild with a
-        # constant mass, so this must vanish — computed rather than asserted,
-        # but note it can only ever confirm the structure, not test Birkhoff.
-        def throat_slope(a: float) -> float:
-            probe = ThroatShellSystem(
-                adm_mass=self.m_outer, screened=self.m_outer - self.m_inner,
-                b0=self.b0, a0=a, orientation=self.shell.orientation)
-            return probe.throat.stiffness(beta2_throat)
-        v_ab = (throat_slope(self.a0 + h) - throat_slope(self.a0 - h)) / (2 * h)
-        return np.array([[v_bb, v_ab], [v_ab, v_aa]])
+        b = self.b0 if b is None else b
+        grad = (self.shell_potential_shift(b + h)
+                - self.shell_potential_shift(b - h)) / (2.0 * h)
+        return {"minus_dV_db": -grad,
+                "acceleration_contribution": -0.5 * grad,
+                "opposes_closure": bool(-grad > 0.0)}
 
-    def normal_modes(self, beta2_throat: float = -1.0,
-                     beta2_shell: float = 0.5) -> Dict[str, object]:
-        H = self.hessian(beta2_throat, beta2_shell)
-        vals, vecs = np.linalg.eigh(H)
-        return {"hessian": H.tolist(), "eigenvalues": vals.tolist(),
-                "off_diagonal": float(H[0, 1]),
-                "both_positive": bool(np.all(vals > 0.0)),
-                "is_diagonal": bool(abs(H[0, 1])
-                                    < 1e-8 * max(abs(H[0, 0]), abs(H[1, 1]))),
-                "eigenvectors": vecs.tolist()}
+    def stiffness_matrix(self, beta2_throat: float = -1.0,
+                         beta2_shell: float = 0.5) -> np.ndarray:
+        """``diag`` of the two stiffnesses, with the off-diagonal computed.
+
+        **Not** a normal-mode matrix: no kinetic metric has been derived, so
+        these are stiffnesses and their eigenvalues are not frequencies.
+        """
+        h = 1e-5 * self.a0
+
+        def throat_stiff_at(a: float) -> float:
+            probe = ThroatShellSystem(
+                mu_outer=self.mu_outer,
+                screened=self.mu_outer - self.mu_inner,
+                b0=self.b0, a0=a, dim=self.dim, gluing=self.shell.gluing)
+            return probe.throat.stiffness(beta2_throat)
+
+        v_ab = (throat_stiff_at(self.a0 + h)
+                - throat_stiff_at(self.a0 - h)) / (2.0 * h)
+        return np.array([[self.throat.stiffness(beta2_throat), v_ab],
+                         [v_ab, self.shell.stiffness(beta2_shell)]])
+
+    def stiffnesses(self, beta2_throat: float = -1.0,
+                    beta2_shell: float = 0.5) -> Dict[str, object]:
+        m = self.stiffness_matrix(beta2_throat, beta2_shell)
+        return {"matrix": m.tolist(),
+                "throat_stiffness": float(m[0, 0]),
+                "shell_stiffness": float(m[1, 1]),
+                "off_diagonal": float(m[0, 1]),
+                "both_stiffnesses_positive": bool(m[0, 0] > 0 and m[1, 1] > 0),
+                "is_diagonal": bool(abs(m[0, 1])
+                                    < 1e-8 * max(abs(m[0, 0]), abs(m[1, 1]))),
+                "note": ("stiffnesses, not normal-mode frequencies — no "
+                         "kinetic metric has been derived")}
 
 
 # ════════════════════════════════════════════════════════════════════════════
 # MEASUREMENTS
 # ════════════════════════════════════════════════════════════════════════════
 def measure_the_junction_reproduces_known_shells() -> Dict[str, object]:
-    """Two controls with published answers, before anything new is asked.
-
-    A bubble of flat interior in Schwarzschild must carry ordinary matter whose
-    rest mass tends to ``M``; a Z2 throat must reproduce Visser's
-    ``σ = −√f/(2πGR)``.
-    """
+    """Two ``D = 4`` controls with published answers, before anything new."""
     rows = []
     for mass in (0.001, 0.01, 0.1):
         r = 10.0
-        s = surface_stress(Region(), Region(mass=mass), r,
-                           eps_inner=+1, eps_outer=+1)
+        s = surface_stress(Region.from_mass(0.0), Region.from_mass(mass),
+                           ORDINARY_BUBBLE, r)
         rows.append({"case": "bubble", "mass": mass, "sigma": s["sigma"],
-                     "rest_mass": s["rest_mass"],
-                     "rest_mass_error": abs(s["rest_mass"] - mass) / mass})
-    worst_visser = 0.0
+                     "rest_mass": 4.0 * math.pi * r * r * s["sigma"],
+                     "rest_mass_error": abs(4.0 * math.pi * r * r * s["sigma"]
+                                            - mass) / mass})
+    worst = 0.0
     for mass in (0.1, 0.5):
         for r in (3.0, 5.0):
-            reg = Region(mass=mass)
-            s = surface_stress(reg, reg, r, eps_inner=-1, eps_outer=+1)
+            reg = Region.from_mass(mass)
+            s = surface_stress(reg, reg, MINIMAL_SURFACE, r)
             ref = -math.sqrt(reg.f(r)) / (2.0 * math.pi * G * r)
-            worst_visser = max(worst_visser, abs(s["sigma"] - ref))
+            worst = max(worst, abs(s["sigma"] - ref))
             rows.append({"case": "visser_throat", "mass": mass, "radius": r,
                          "sigma": s["sigma"], "reference": ref})
-    bubbles = [r for r in rows if r["case"] == "bubble"]
+    bub = [r for r in rows if r["case"] == "bubble"]
+    return {"rows": rows, "worst_visser_error": worst,
+            "the_bubble_is_ordinary": bool(all(r["sigma"] > 0 for r in bub)),
+            "its_rest_mass_is_the_bulk_mass": bool(
+                bub[0]["rest_mass_error"] < 1e-3),
+            "visser_is_reproduced": bool(worst < 1e-12)}
+
+
+def measure_the_gluing_fixes_the_sign(dim: int = 4) -> Dict[str, object]:
+    """``ε`` derived from the branches, and which gluings force a sign.
+
+    The point of the table: ``η = −1`` covers **two** gluings whose forced signs
+    are *opposite*, so ``η`` alone decides nothing and the earlier framing in
+    terms of it was too coarse.
+    """
+    rows = []
+    minus = Region(mu=0.4, dim=dim)
+    plus = Region(mu=0.8, dim=dim)
+    for g in GLUINGS:
+        s = surface_stress(minus, plus, g, 10.0)
+        rows.append({"gluing": g.name, "minus_branch": g.minus,
+                     "plus_branch": g.plus,
+                     "eps": [g.eps_minus, g.eps_plus], "eta": g.eta,
+                     "forced_sign": g.forced_sign, "sigma": s["sigma"],
+                     "sign_agrees": (g.forced_sign is None
+                                     or int(np.sign(s["sigma"]))
+                                     == g.forced_sign)})
+    eta_minus = [r for r in rows if r["eta"] == -1]
     return {
         "rows": rows,
-        "worst_visser_error": worst_visser,
-        "the_bubble_is_ordinary": bool(all(r["sigma"] > 0 for r in bubbles)),
-        "its_rest_mass_is_the_bulk_mass": bool(
-            bubbles[0]["rest_mass_error"] < 1e-3),
-        "visser_is_reproduced": bool(worst_visser < 1e-12),
+        "eta_minus_one_covers": [r["gluing"] for r in eta_minus],
+        "their_forced_signs": [r["forced_sign"] for r in eta_minus],
+        "eta_alone_does_not_decide": bool(
+            len({r["forced_sign"] for r in eta_minus}) == 2),
+        "every_forced_sign_is_realised": bool(all(r["sign_agrees"]
+                                                  for r in rows)),
+        "the_minimal_surface_is_exotic": bool(
+            [r for r in rows if r["gluing"] == "minimal surface"][0]["sigma"]
+            < 0.0),
+        "the_maximal_surface_is_not": bool(
+            [r for r in rows if r["gluing"] == "maximal surface"][0]["sigma"]
+            > 0.0),
+        "and_the_maximal_one_is_closed_off": (
+            "a maximal surface retains r ≤ R on both sides, so the manifold "
+            "caps off either way and shares no bulk with the throat — it is "
+            "non-exotic precisely because it is disconnected"),
     }
 
 
-def measure_any_minimal_surface_is_exotic(samples: int = 200_000,
-                                          seed: int = 7) -> Dict[str, object]:
-    """``σ ≤ 0`` for every anti-aligned shell, over bulks it was never tuned on.
+def measure_the_forced_signs_hold_in_any_dimension(
+        dims: Sequence[int] = (4, 5, 6), samples: int = 40_000,
+        seed: int = 11) -> Dict[str, object]:
+    """The two identities, swept over random bulks in ``D = 4, 5, 6``.
 
-    This is an identity — ``σ = −(β₊ + β₋)/4πGR`` with both roots
-    non-negative — so the sweep checks the implementation rather than the
-    claim.  The aligned column is the control: it is positive about half the
-    time, so the sweep is capable of finding a positive ``σ`` when one exists.
+    ``D = 5`` is the Tangherlini case this program actually cares about; ``D =
+    4`` is kept as the regression.  The sweep checks the implementation — the
+    claims are identities, since ``σ`` for a minimal surface is
+    ``−(D−2)(β₊+β₋)/8πGR`` and for a maximal one the same with the other sign.
     """
     rng = np.random.default_rng(seed)
-    n = 0
-    anti_positive = 0
-    aligned_positive = 0
-    worst_anti = -math.inf
-    for _ in range(samples):
-        r = float(rng.uniform(0.5, 50.0))
+    rows = []
+    for d in dims:
+        n = min_bad = max_bad = 0
+        worst_min = -math.inf
+        worst_max = math.inf
+        per = samples // len(dims)
+        for _ in range(per):
+            r = float(rng.uniform(1.0, 40.0))
 
-        def draw() -> Region:
-            kind = int(rng.integers(0, 3))
-            if kind == 0:
-                return Region(mass=float(rng.uniform(0.0, 0.49 * r)))
-            if kind == 1:
-                big = float(rng.uniform(1.05 * r, 10.0 * r))
-                return Region(lambda_=3.0 / (big * big))
-            return Region(mass=float(rng.uniform(0.0, 0.4 * r)),
-                          charge=float(rng.uniform(0.0, 0.3 * r)))
+            def draw() -> Region:
+                kind = int(rng.integers(0, 3))
+                if kind == 0:
+                    return Region(mu=float(rng.uniform(0, 0.4 * r ** (d - 3))),
+                                  dim=d)
+                if kind == 1:
+                    big = float(rng.uniform(2.0 * r, 20.0 * r))
+                    lam = (d - 1) * (d - 2) / (2.0 * big * big)
+                    return Region(lambda_=lam, dim=d)
+                return Region(mu=float(rng.uniform(0, 0.3 * r ** (d - 3))),
+                              charge=float(rng.uniform(0, 0.2 * r ** (d - 3))),
+                              dim=d)
 
-        inner, outer = draw(), draw()
-        rdot = float(rng.normal(0.0, 0.6))
-        if (inner.f(r) + rdot ** 2 <= 0.0) or (outer.f(r) + rdot ** 2 <= 0.0):
-            continue
-        n += 1
-        anti = surface_stress(inner, outer, r, rdot, -1, +1)["sigma"]
-        worst_anti = max(worst_anti, anti)
-        if anti > 0.0:
-            anti_positive += 1
-        if surface_stress(inner, outer, r, rdot, +1, +1)["sigma"] > 0.0:
-            aligned_positive += 1
+            m_, p_ = draw(), draw()
+            rdot = float(rng.normal(0.0, 0.5))
+            if (m_.f(r) + rdot ** 2 <= 0.0) or (p_.f(r) + rdot ** 2 <= 0.0):
+                continue
+            n += 1
+            s_min = surface_stress(m_, p_, MINIMAL_SURFACE, r, rdot)["sigma"]
+            s_max = surface_stress(m_, p_, MAXIMAL_SURFACE, r, rdot)["sigma"]
+            worst_min = max(worst_min, s_min)
+            worst_max = min(worst_max, s_max)
+            if s_min >= 0.0:
+                min_bad += 1
+            if s_max <= 0.0:
+                max_bad += 1
+        rows.append({"dim": d, "samples": n,
+                     "minimal_surface_violations": min_bad,
+                     "maximal_surface_violations": max_bad,
+                     "worst_minimal_sigma": worst_min,
+                     "worst_maximal_sigma": worst_max})
     return {
-        "samples": n,
-        "anti_aligned_positive_sigma": anti_positive,
-        "worst_anti_aligned_sigma": worst_anti,
-        "aligned_positive_sigma": aligned_positive,
-        "aligned_positive_fraction": aligned_positive / max(n, 1),
-        "every_minimal_surface_is_exotic": bool(anti_positive == 0),
-        "the_sweep_can_find_positive_sigma": bool(aligned_positive > 0),
+        "rows": rows,
+        "dims": list(dims),
+        "no_violations_in_any_dimension": bool(
+            all(r["minimal_surface_violations"] == 0
+                and r["maximal_surface_violations"] == 0 for r in rows)),
+        "d5_is_the_bam_case": True,
         "it_is_an_identity_not_a_statistic": (
-            "σ = −(β₊ + β₋)/4πGR with β± ≥ 0 for any timelike shell"),
+            "σ_minimal = −(D−2)(β₊+β₋)/8πGR and σ_maximal = +the same, with "
+            "β± ≥ 0 for any timelike shell"),
+        "scope": ("Einstein gravity, Darmois–Israel thin shells, spherical "
+                  "symmetry, vacuum bulk"),
     }
 
 
 def measure_the_detached_shell_can_be_ordinary(
-        adm_mass: float = 1.0, screened: float = 0.30,
-        radii: Sequence[float] = (8.0, 20.0, 60.0)) -> Dict[str, object]:
-    """Observable 1, for both orientations of the same detached shell.
-
-    Same bulk regions, same radius, same everything — only the gluing differs.
-    """
+        mu_outer: float = 2.0, screened: float = 0.6,
+        radii: Sequence[float] = (8.0, 20.0, 60.0), dim: int = 4
+        ) -> Dict[str, object]:
+    """The same two regions, four gluings, at several radii."""
     rows = []
     for a in radii:
-        inner, outer = Region(mass=adm_mass - screened), Region(mass=adm_mass)
-        al = DetachedShell(inner, outer, a, ALIGNED).stress()
-        anti = DetachedShell(inner, outer, a, ANTI_ALIGNED).stress()
-        rows.append({"radius": a, "aligned_sigma": al["sigma"],
-                     "aligned_rest_mass": al["rest_mass"],
-                     "anti_aligned_sigma": anti["sigma"],
-                     "anti_aligned_rest_mass": anti["rest_mass"]})
+        m_ = Region(mu=mu_outer - screened, dim=dim)
+        p_ = Region(mu=mu_outer, dim=dim)
+        entry = {"radius": a}
+        for g in GLUINGS:
+            entry[g.name] = DetachedShell(m_, p_, a, g).stress()["sigma"]
+        rows.append(entry)
     return {
         "rows": rows,
-        "screened_mass": screened,
-        "the_aligned_shell_is_ordinary": bool(
-            all(r["aligned_sigma"] > 0.0 for r in rows)),
-        "the_anti_aligned_shell_is_exotic": bool(
-            all(r["anti_aligned_sigma"] < 0.0 for r in rows)),
-        "so_the_oppositely_glued_shell_moves_the_exotic_matter": True,
+        "the_bubble_is_ordinary": bool(
+            all(r["ordinary bubble"] > 0.0 for r in rows)),
+        "the_minimal_surface_is_exotic": bool(
+            all(r["minimal surface"] < 0.0 for r in rows)),
+        "the_maximal_surface_is_ordinary": bool(
+            all(r["maximal surface"] > 0.0 for r in rows)),
+        "but_it_is_disconnected": True,
     }
 
 
-def measure_the_shell_force_on_the_throat(
-        adm_mass: float = 1.0, b0: float = 5.0,
-        screens: Sequence[float] = (0.0, 0.1, 0.3, 0.6)) -> Dict[str, object]:
-    """Observable 2: does the shell oppose the throat's closure?
+def measure_the_shell_potential_gradient(
+        mu_outer: float = 2.0, b0: float = 5.0,
+        screens: Sequence[float] = (0.0, 0.2, 0.6, 1.2), dim: int = 4
+        ) -> Dict[str, object]:
+    """Observable 2, reported as a potential gradient rather than a force.
 
-    Reported as a force, separately from the stiffness, because a restoring
-    curvature would not by itself establish that the *shell* supplied it.
+    Taken at fixed throat rest mass with no equation-of-state response, so it
+    is the gradient of the shift that screening produces and not an
+    equilibrium-consistent force.  The acceleration contribution is half it,
+    from ``ḃ² + V = 0``.
     """
     rows = []
     for dm in screens:
-        sys = ThroatShellSystem(adm_mass=adm_mass, screened=dm, b0=b0)
-        rows.append({"screened_mass": dm,
-                     "potential_shift_at_b0": sys.shell_potential_shift(b0),
-                     "force": sys.shell_force(),
-                     "analytic_force": 2.0 * G * dm / b0 ** 2})
-    nonzero = [r for r in rows if r["screened_mass"] > 0.0]
+        sysm = ThroatShellSystem(mu_outer=mu_outer, screened=dm, b0=b0,
+                                 dim=dim)
+        g = sysm.shell_potential_gradient()
+        rows.append({"screened_mu": dm,
+                     "potential_shift_at_b0": sysm.shell_potential_shift(b0),
+                     "minus_dV_db": g["minus_dV_db"],
+                     "acceleration_contribution":
+                         g["acceleration_contribution"]})
+    nz = [r for r in rows if r["screened_mu"] > 0.0]
     return {
         "rows": rows,
-        "the_force_opposes_closure": bool(all(r["force"] > 0.0
-                                              for r in nonzero)),
+        "the_gradient_opposes_closure": bool(all(r["minus_dV_db"] > 0.0
+                                                 for r in nz)),
         "it_grows_with_the_screened_mass": bool(
-            all(b["force"] > a["force"]
-                for a, b in zip(nonzero, nonzero[1:]))),
-        "it_matches_2_G_dM_over_b_squared": bool(all(
-            abs(r["force"] - r["analytic_force"]) < 1e-6 * r["analytic_force"]
-            for r in nonzero)),
-        "zero_shell_gives_zero_force": bool(abs(rows[0]["force"]) < 1e-12),
+            all(b["minus_dV_db"] > a["minus_dV_db"]
+                for a, b in zip(nz, nz[1:]))),
+        "zero_shell_gives_zero_gradient": bool(
+            abs(rows[0]["minus_dV_db"]) < 1e-12),
+        "it_is_not_an_equilibrium_consistent_force": (
+            "fixed throat rest mass, no equation-of-state response; the "
+            "acceleration contribution is −½∂ΔV/∂b"),
     }
 
 
 def measure_the_throat_and_shell_are_decoupled(
-        adm_mass: float = 1.0, screened: float = 0.30, b0: float = 5.0,
-        radii: Sequence[float] = (8.0, 20.0, 60.0, 200.0)
+        mu_outer: float = 2.0, screened: float = 0.6, b0: float = 5.0,
+        radii: Sequence[float] = (8.0, 20.0, 60.0, 200.0), dim: int = 4
         ) -> Dict[str, object]:
-    """Birkhoff: the throat cannot tell *where* the shell is, only that it is.
+    """A genuinely different family of shells that the throat cannot tell apart.
 
-    **The vanishing off-diagonal is structural, not evidence.**  Birkhoff's
-    theorem says the vacuum between the two surfaces is Schwarzschild with a
-    constant mass parameter; that is imported, not derived here, and once it is
-    assumed the throat's data cannot depend on ``a``.  Reporting
-    ``∂²V/∂a∂b = 0`` as a measurement would be circular.
-
-    What *is* non-trivial and is measured: the shell's own rest mass required
-    to screen a **fixed** ``ΔM`` varies strongly with where it sits, so there is
-    a genuine one-parameter family of physically different shells — different
-    rest mass, different surface density, different stiffness — every one of
-    which leaves the throat's static data bit-for-bit identical.  The throat is
-    insensitive to a real change, not to a relabelled one.
+    The vanishing off-diagonal is **structural** — Birkhoff is imported the
+    moment the intervening region is written with a constant mass parameter —
+    and establishes no separation-dependent coupling *in this model*, not that
+    every spherical trapped resonator is impossible.
     """
     rows = []
-    throat_sigma = []
     for a in radii:
-        sysm = ThroatShellSystem(adm_mass=adm_mass, screened=screened,
-                                 b0=b0, a0=a)
+        sysm = ThroatShellSystem(mu_outer=mu_outer, screened=screened,
+                                 b0=b0, a0=a, dim=dim)
         st = sysm.shell.static()
-        rows.append({"radius": a, "shell_rest_mass": st["rest_mass"],
-                     "shell_sigma": st["sigma"],
+        rows.append({"radius": a, "shell_sigma": st["sigma"],
                      "shell_pressure": st["p"],
                      "throat_sigma": sysm.throat.static()["sigma"],
-                     "off_diagonal": sysm.normal_modes()["off_diagonal"]})
-        throat_sigma.append(rows[-1]["throat_sigma"])
-    masses = [r["shell_rest_mass"] for r in rows]
-    sigmas = [r["shell_sigma"] for r in rows]
+                     "off_diagonal": sysm.stiffnesses()["off_diagonal"]})
+    sig = [r["shell_sigma"] for r in rows]
+    th = [r["throat_sigma"] for r in rows]
     return {
         "rows": rows,
-        "shell_rest_mass_range": (min(masses), max(masses)),
-        "shell_rest_mass_varies_by": max(masses) / min(masses),
-        "shell_sigma_varies_by": max(sigmas) / min(sigmas),
-        "throat_sigma_spread": max(throat_sigma) - min(throat_sigma),
+        "shell_sigma_varies_by": max(sig) / min(sig),
+        "throat_sigma_spread": max(th) - min(th),
         "worst_off_diagonal": max(abs(r["off_diagonal"]) for r in rows),
-        "the_shells_are_genuinely_different": bool(
-            max(sigmas) / min(sigmas) > 2.0),
-        "the_throat_never_notices": bool(
-            max(throat_sigma) - min(throat_sigma) == 0.0),
+        "the_shells_are_genuinely_different": bool(max(sig) / min(sig) > 2.0),
+        "the_throat_never_notices": bool(max(th) - min(th) == 0.0),
         "the_off_diagonal_vanishes": bool(
             max(abs(r["off_diagonal"]) for r in rows) < 1e-12),
         "but_that_is_structural_not_measured": (
-            "Birkhoff is assumed when the region between is written as "
-            "Schwarzschild with a constant mass; the zero confirms the "
-            "implementation is consistent with it and proves nothing more"),
-        "so_there_is_no_two_mode_coupling": True,
-        "why_it_matters": (
-            "spherical symmetry has no radiative channel — the same ℓ = 0 "
-            "fact wave_constraints found for the scalar — so ℓ ≥ 2 internal "
-            "modes are not a later refinement but the only place a genuine "
-            "throat-shell coupling could live"),
+            "Birkhoff is assumed when the region between is written with a "
+            "constant mass parameter; the zero confirms the implementation is "
+            "consistent with it and proves nothing more"),
+        "what_it_establishes": (
+            "no separation-dependent coupling in this vacuum spherical model "
+            "— not that every spherical trapped resonator is impossible"),
     }
 
 
 def measure_the_stability_window(
-        b0: float = 5.0,
-        masses: Sequence[float] = (1.0, 0.9, 0.8, 0.7, 0.5)
-        ) -> Dict[str, object]:
-    """Observable 3: the stiffness, and whether screening enlarges its window.
+        b0: float = 5.0, mus: Sequence[float] = (2.0, 1.8, 1.6, 1.4, 1.0),
+        dim: int = 4) -> Dict[str, object]:
+    """Observable 3: the stiffness, and what screening does to its window.
 
-    ``V''`` is linear in ``β² = (dp/dσ)|₀``, so the window is a half-line.
-    Screening mass moves its edge, which is the sharpest form of "does the
-    shell help": at the same throat radius, does a lower interior mass admit
-    more equations of state?
+    ``β²`` is an equation-of-state derivative parameter at the equilibrium.  No
+    sound-speed reading is attached to its sign, which for exotic matter would
+    not be meaningful.
     """
     rows = []
-    for m in masses:
-        t = Z2Throat(mass=m, b0=b0)
-        w = t.stability_window()
-        s = t.static()
-        rows.append({"interior_mass": m, "sigma": s["sigma"],
+    for mu in mus:
+        t = Z2Throat(mu=mu, b0=b0, dim=dim)
+        w, s = t.stability_window(), t.static()
+        rows.append({"mu_interior": mu, "sigma": s["sigma"],
                      "is_exotic": s["is_exotic"],
                      "beta2_critical": w["beta2_critical"],
                      "stable_below_critical": w["stable_below_critical"]})
     crits = [r["beta2_critical"] for r in rows]
     return {
-        "rows": rows,
-        "throat_radius": b0,
+        "rows": rows, "throat_radius": b0, "dim": dim,
         "screening_raises_the_critical_beta2": bool(
             all(b > a for a, b in zip(crits, crits[1:]))),
         "the_window_always_needs_negative_beta2": bool(all(c < 0.0
                                                            for c in crits)),
         "the_throat_is_always_exotic": bool(all(r["is_exotic"] for r in rows)),
-        "so_screening_helps_but_does_not_rescue": True,
+        "beta2_is_an_eos_derivative_not_a_sound_speed": True,
     }
 
 
 def measure_the_three_observables_are_independent(
-        b0: float = 5.0, adm_mass: float = 1.0, screened: float = 0.30
-        ) -> Dict[str, object]:
-    """The point of keeping them apart: they disagree on the same system.
-
-    One configuration, three questions.  The shell is ordinary, it does push
-    outward, and the throat is still exotic and still needs a pathological
-    equation of state — so no single number could have carried the answer.
-    """
-    sys = ThroatShellSystem(adm_mass=adm_mass, screened=screened, b0=b0)
-    shell = sys.shell.stress()
-    throat = sys.throat.static()
-    window = sys.throat.stability_window()
-    force = sys.shell_force()
+        b0: float = 5.0, mu_outer: float = 2.0, screened: float = 0.6,
+        dim: int = 4) -> Dict[str, object]:
+    """One system, three questions, three different signs."""
+    sysm = ThroatShellSystem(mu_outer=mu_outer, screened=screened, b0=b0,
+                             dim=dim)
+    shell = sysm.shell.stress()
+    throat = sysm.throat.static()
+    window = sysm.throat.stability_window()
+    grad = sysm.shell_potential_gradient()
     return {
+        "dim": dim,
         "observable_1_shell_sigma": shell["sigma"],
         "observable_1_shell_is_exotic": shell["is_exotic"],
-        "observable_2_force_on_throat": force,
-        "observable_2_supports_the_throat": bool(force > 0.0),
+        "observable_2_minus_dV_db": grad["minus_dV_db"],
+        "observable_2_opposes_closure": grad["opposes_closure"],
         "observable_3_beta2_critical": window["beta2_critical"],
         "observable_3_needs_negative_beta2": window[
             "window_needs_negative_beta2"],
         "throat_sigma": throat["sigma"],
         "the_throat_is_still_exotic": throat["is_exotic"],
-        "they_do_not_agree": bool(
-            (not shell["is_exotic"]) and force > 0.0
-            and throat["is_exotic"]),
-        "verdict": ("the detached shell is ordinary and does support the "
-                    "throat, and the throat's own exotic requirement is "
-                    "untouched — three answers, three different signs"),
+        "they_do_not_agree": bool((not shell["is_exotic"])
+                                  and grad["opposes_closure"]
+                                  and throat["is_exotic"]),
     }
 
 
-def measure_the_hessian_has_no_flat_direction(
+def measure_the_stiffnesses_scale_dimensionally(
         b0: float = 5.0, a0: float = 20.0, beta2: float = -2.0,
-        scales: Sequence[float] = (1.0, 2.0, 4.0)) -> Dict[str, object]:
-    """The scale check: are both eigenvalues real content or a fixed gauge?
+        scales: Sequence[float] = (1.0, 2.0, 4.0), dim: int = 4
+        ) -> Dict[str, object]:
+    """A dimensional check on the stiffnesses, and nothing stronger.
 
-    A vacuum two-surface system can carry a flat dilation direction, in which
-    case "both eigenvalues positive" would be an artefact of whatever set the
-    scale.  Here ``G``, the ADM mass and the shell's rest mass all set it, so
-    the spectrum should *transform* under a rescaling rather than collapse.
+    Rescaling every length and mass parameter together must send the
+    stiffnesses as ``1/L²``.  This is a units check on the implementation; it
+    is **not** a demonstration that a fixed system has no dilation mode, which
+    would need the kinetic term this module does not derive.
     """
     rows = []
     for s in scales:
-        sysm = ThroatShellSystem(adm_mass=1.0 * s, screened=0.30 * s,
-                                 b0=b0 * s, a0=a0 * s)
-        modes = sysm.normal_modes(beta2)
-        vals = modes["eigenvalues"]
-        rows.append({"scale": s, "eigenvalues": vals,
-                     "off_diagonal": modes["off_diagonal"],
-                     "scaled_eigenvalues": [v * s * s for v in vals]})
-    ref = rows[0]["scaled_eigenvalues"]
-    drift = max(max(abs(r["scaled_eigenvalues"][i] - ref[i])
-                    / max(abs(ref[i]), 1e-30) for i in range(2))
-                for r in rows)
-    smallest = min(min(abs(v) for v in r["eigenvalues"]) for r in rows)
+        p = float(dim - 3)
+        sysm = ThroatShellSystem(mu_outer=2.0 * s ** p,
+                                 screened=0.6 * s ** p,
+                                 b0=b0 * s, a0=a0 * s, dim=dim)
+        st = sysm.stiffnesses(beta2, 0.5)
+        vals = [st["throat_stiffness"], st["shell_stiffness"]]
+        rows.append({"scale": s, "stiffnesses": vals,
+                     "scaled": [v * s * s for v in vals]})
+    ref = rows[0]["scaled"]
+    drift = max(max(abs(r["scaled"][i] - ref[i]) / max(abs(ref[i]), 1e-30)
+                    for i in range(2)) for r in rows)
     return {
-        "rows": rows,
-        "eigenvalues_scale_as_inverse_length_squared": bool(drift < 1e-5),
-        "worst_scaling_drift": drift,
-        "smallest_absolute_eigenvalue": smallest,
-        "no_flat_direction": bool(smallest > 1e-10),
-        "the_scale_is_set_by_the_masses_not_by_a_boundary": True,
+        "rows": rows, "dim": dim, "worst_scaling_drift": drift,
+        "stiffnesses_scale_as_inverse_length_squared": bool(drift < 1e-6),
+        "this_is_a_units_check_only": (
+            "it does not show a fixed system has no dilation mode — that "
+            "needs a kinetic term, which is not derived here"),
     }

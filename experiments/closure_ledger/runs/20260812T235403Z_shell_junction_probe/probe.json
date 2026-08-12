@@ -1,0 +1,405 @@
+{
+  "probe": "shell_junction",
+  "generated_utc": "2026-08-12T23:54:03.715775+00:00",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "does a detached oppositely-glued bulk shell change the throat's effective force and stability while itself remaining non-exotic?",
+      "observables": [
+        "1 the shell's own Israel surface stress sigma",
+        "2 the shell-induced gradient of the throat potential",
+        "3 the stiffness d2V/db2"
+      ],
+      "scope": "Einstein gravity, Darmois-Israel thin shells, spherical symmetry, vacuum bulk; D parametric with D=5 the BAM case",
+      "pass": true
+    },
+    {
+      "name": "T2_the_machinery_reproduces_published_shells",
+      "rows": [
+        {
+          "case": "bubble",
+          "mass": 0.001,
+          "sigma": 7.958145081741475e-07,
+          "rest_mass": 0.0010000500050000305,
+          "rest_mass_error": 5.000500003047442e-05
+        },
+        {
+          "case": "bubble",
+          "mass": 0.01,
+          "sigma": 7.96173001202587e-06,
+          "rest_mass": 0.01000500500625834,
+          "rest_mass_error": 0.0005005006258339967
+        },
+        {
+          "case": "bubble",
+          "mass": 0.1,
+          "sigma": 7.997938822008832e-05,
+          "rest_mass": 0.1005050633883342,
+          "rest_mass_error": 0.005050633883341982
+        },
+        {
+          "case": "visser_throat",
+          "mass": 0.1,
+          "radius": 3.0,
+          "sigma": -0.05125276091917767,
+          "reference": -0.05125276091917768
+        },
+        {
+          "case": "visser_throat",
+          "mass": 0.1,
+          "radius": 5.0,
+          "sigma": -0.031187872049347042,
+          "reference": -0.031187872049347046
+        },
+        {
+          "case": "visser_throat",
+          "mass": 0.5,
+          "radius": 3.0,
+          "sigma": -0.04331648895742645,
+          "reference": -0.04331648895742645
+        },
+        {
+          "case": "visser_throat",
+          "mass": 0.5,
+          "radius": 5.0,
+          "sigma": -0.028470501736687085,
+          "reference": -0.02847050173668708
+        }
+      ],
+      "worst_visser_error": 6.938893903907228e-18,
+      "the_bubble_is_ordinary": true,
+      "its_rest_mass_is_the_bulk_mass": true,
+      "visser_is_reproduced": true,
+      "pass": true
+    },
+    {
+      "name": "T3_the_gluing_fixes_the_sign",
+      "rows": [
+        {
+          "gluing": "ordinary bubble",
+          "minus_branch": "INNER",
+          "plus_branch": "OUTER",
+          "eps": [
+            1,
+            1
+          ],
+          "eta": 1,
+          "forced_sign": null,
+          "sigma": 0.0001641650806252246,
+          "sign_agrees": true
+        },
+        {
+          "gluing": "minimal surface",
+          "minus_branch": "OUTER",
+          "plus_branch": "OUTER",
+          "eps": [
+            -1,
+            1
+          ],
+          "eta": -1,
+          "forced_sign": -1,
+          "sigma": -0.015429770944048297,
+          "sign_agrees": true
+        },
+        {
+          "gluing": "maximal surface",
+          "minus_branch": "INNER",
+          "plus_branch": "INNER",
+          "eps": [
+            1,
+            -1
+          ],
+          "eta": -1,
+          "forced_sign": 1,
+          "sigma": 0.015429770944048297,
+          "sign_agrees": true
+        },
+        {
+          "gluing": "anti-bubble",
+          "minus_branch": "OUTER",
+          "plus_branch": "INNER",
+          "eps": [
+            -1,
+            -1
+          ],
+          "eta": 1,
+          "forced_sign": null,
+          "sigma": -0.0001641650806252246,
+          "sign_agrees": true
+        }
+      ],
+      "eta_minus_one_covers": [
+        "minimal surface",
+        "maximal surface"
+      ],
+      "their_forced_signs": [
+        -1,
+        1
+      ],
+      "eta_alone_does_not_decide": true,
+      "every_forced_sign_is_realised": true,
+      "the_minimal_surface_is_exotic": true,
+      "the_maximal_surface_is_not": true,
+      "and_the_maximal_one_is_closed_off": "a maximal surface retains r \u2264 R on both sides, so the manifold caps off either way and shares no bulk with the throat \u2014 it is non-exotic precisely because it is disconnected",
+      "pass": true
+    },
+    {
+      "name": "T4_the_forced_signs_hold_in_any_dimension",
+      "rows": [
+        {
+          "dim": 4,
+          "samples": 13333,
+          "minimal_surface_violations": 0,
+          "maximal_surface_violations": 0,
+          "worst_minimal_sigma": -0.0031820144220152634,
+          "worst_maximal_sigma": 0.0031820144220152634
+        },
+        {
+          "dim": 5,
+          "samples": 13333,
+          "minimal_surface_violations": 0,
+          "maximal_surface_violations": 0,
+          "worst_minimal_sigma": -0.004996120558561954,
+          "worst_maximal_sigma": 0.004996120558561954
+        },
+        {
+          "dim": 6,
+          "samples": 13333,
+          "minimal_surface_violations": 0,
+          "maximal_surface_violations": 0,
+          "worst_minimal_sigma": -0.006619891375026593,
+          "worst_maximal_sigma": 0.006619891375026593
+        }
+      ],
+      "dims": [
+        4,
+        5,
+        6
+      ],
+      "no_violations_in_any_dimension": true,
+      "d5_is_the_bam_case": true,
+      "it_is_an_identity_not_a_statistic": "\u03c3_minimal = \u2212(D\u22122)(\u03b2\u208a+\u03b2\u208b)/8\u03c0GR and \u03c3_maximal = +the same, with \u03b2\u00b1 \u2265 0 for any timelike shell",
+      "scope": "Einstein gravity, Darmois\u2013Israel thin shells, spherical symmetry, vacuum bulk",
+      "pass": true
+    },
+    {
+      "name": "T5_the_connected_dichotomy",
+      "rows": [
+        {
+          "radius": 8.0,
+          "ordinary bubble": 0.0004204645054446816,
+          "minimal surface": -0.017649492487375684,
+          "maximal surface": 0.017649492487375684,
+          "anti-bubble": -0.0004204645054446816
+        },
+        {
+          "radius": 20.0,
+          "ordinary bubble": 6.239581232333998e-05,
+          "minimal surface": -0.007611777627996395,
+          "maximal surface": 0.007611777627996395,
+          "anti-bubble": -6.239581232333998e-05
+        },
+        {
+          "radius": 60.0,
+          "ordinary bubble": 6.727468535392822e-06,
+          "minimal surface": -0.002614725461545706,
+          "maximal surface": 0.002614725461545706,
+          "anti-bubble": -6.727468535392822e-06
+        }
+      ],
+      "the_bubble_is_ordinary": true,
+      "the_minimal_surface_is_exotic": true,
+      "the_maximal_surface_is_ordinary": true,
+      "but_it_is_disconnected": true,
+      "pass": true
+    },
+    {
+      "name": "T6_the_shell_potential_gradient",
+      "rows": [
+        {
+          "screened_mu": 0.0,
+          "potential_shift_at_b0": 0.0,
+          "minus_dV_db": -0.0,
+          "acceleration_contribution": -0.0
+        },
+        {
+          "screened_mu": 0.2,
+          "potential_shift_at_b0": 0.040000000000000036,
+          "minus_dV_db": 0.007999999995789153,
+          "acceleration_contribution": 0.003999999997894577
+        },
+        {
+          "screened_mu": 0.6,
+          "potential_shift_at_b0": 0.12,
+          "minus_dV_db": 0.023999999998469686,
+          "acceleration_contribution": 0.011999999999234843
+        },
+        {
+          "screened_mu": 1.2,
+          "potential_shift_at_b0": 0.24,
+          "minus_dV_db": 0.04799999999693937,
+          "acceleration_contribution": 0.023999999998469686
+        }
+      ],
+      "the_gradient_opposes_closure": true,
+      "it_grows_with_the_screened_mass": true,
+      "zero_shell_gives_zero_gradient": true,
+      "it_is_not_an_equilibrium_consistent_force": "fixed throat rest mass, no equation-of-state response; the acceleration contribution is \u2212\u00bd\u2202\u0394V/\u2202b",
+      "pass": true
+    },
+    {
+      "name": "T7_the_stability_window",
+      "rows": [
+        {
+          "mu_interior": 2.0,
+          "sigma": -0.024656177762459992,
+          "is_exotic": true,
+          "beta2_critical": -1.0833333353513948,
+          "stable_below_critical": true
+        },
+        {
+          "mu_interior": 1.8,
+          "sigma": -0.025464790894703257,
+          "is_exotic": true,
+          "beta2_critical": -0.9463315221081827,
+          "stable_below_critical": true
+        },
+        {
+          "mu_interior": 1.6,
+          "sigma": -0.02624850564828209,
+          "is_exotic": true,
+          "beta2_critical": -0.843891402624241,
+          "stable_below_critical": true
+        },
+        {
+          "mu_interior": 1.4,
+          "sigma": -0.027009489484713184,
+          "is_exotic": true,
+          "beta2_critical": -0.764846743485887,
+          "stable_below_critical": true
+        },
+        {
+          "mu_interior": 1.0,
+          "sigma": -0.028470501736687085,
+          "is_exotic": true,
+          "beta2_critical": -0.6517857141018573,
+          "stable_below_critical": true
+        }
+      ],
+      "throat_radius": 5.0,
+      "dim": 4,
+      "screening_raises_the_critical_beta2": true,
+      "the_window_always_needs_negative_beta2": true,
+      "the_throat_is_always_exotic": true,
+      "beta2_is_an_eos_derivative_not_a_sound_speed": true,
+      "pass": true
+    },
+    {
+      "name": "T8_the_three_observables_disagree",
+      "dim": 4,
+      "observable_1_shell_sigma": 6.239581232333998e-05,
+      "observable_1_shell_is_exotic": false,
+      "observable_2_minus_dV_db": 0.023999999998469686,
+      "observable_2_opposes_closure": true,
+      "observable_3_beta2_critical": -0.764846743485887,
+      "observable_3_needs_negative_beta2": true,
+      "throat_sigma": -0.027009489484713184,
+      "the_throat_is_still_exotic": true,
+      "they_do_not_agree": true,
+      "pass": true
+    },
+    {
+      "name": "T9_birkhoff_and_what_it_is_worth",
+      "rows": [
+        {
+          "radius": 8.0,
+          "shell_sigma": 0.0004204645054446816,
+          "shell_pressure": 2.8516265615194135e-05,
+          "throat_sigma": -0.027009489484713184,
+          "off_diagonal": 0.0
+        },
+        {
+          "radius": 20.0,
+          "shell_sigma": 6.239581232333998e-05,
+          "shell_pressure": 1.4513743009671068e-06,
+          "throat_sigma": -0.027009489484713184,
+          "off_diagonal": 0.0
+        },
+        {
+          "radius": 60.0,
+          "shell_sigma": 6.727468535392822e-06,
+          "shell_pressure": 4.906535303505775e-08,
+          "throat_sigma": -0.027009489484713184,
+          "off_diagonal": 0.0
+        },
+        {
+          "radius": 200.0,
+          "shell_sigma": 5.993840257693926e-07,
+          "shell_pressure": 1.2847858237076593e-09,
+          "throat_sigma": -0.027009489484713184,
+          "off_diagonal": 0.0
+        }
+      ],
+      "shell_sigma_varies_by": 701.494346475045,
+      "throat_sigma_spread": 0.0,
+      "worst_off_diagonal": 0.0,
+      "the_shells_are_genuinely_different": true,
+      "the_throat_never_notices": true,
+      "the_off_diagonal_vanishes": true,
+      "but_that_is_structural_not_measured": "Birkhoff is assumed when the region between is written with a constant mass parameter; the zero confirms the implementation is consistent with it and proves nothing more",
+      "what_it_establishes": "no separation-dependent coupling in this vacuum spherical model \u2014 not that every spherical trapped resonator is impossible",
+      "pass": true
+    },
+    {
+      "name": "T10_a_units_check_on_the_stiffnesses",
+      "rows": [
+        {
+          "scale": 1.0,
+          "stiffnesses": [
+            0.11462222217003178,
+            0.008693088025442849
+          ],
+          "scaled": [
+            0.11462222217003178,
+            0.008693088025442849
+          ]
+        },
+        {
+          "scale": 2.0,
+          "stiffnesses": [
+            0.028655555542507944,
+            0.0021732720063607123
+          ],
+          "scaled": [
+            0.11462222217003178,
+            0.008693088025442849
+          ]
+        },
+        {
+          "scale": 4.0,
+          "stiffnesses": [
+            0.007163888885626986,
+            0.0005433180015901781
+          ],
+          "scaled": [
+            0.11462222217003178,
+            0.008693088025442849
+          ]
+        }
+      ],
+      "dim": 4,
+      "worst_scaling_drift": 0.0,
+      "stiffnesses_scale_as_inverse_length_squared": true,
+      "this_is_a_units_check_only": "it does not show a fixed system has no dilation mode \u2014 that needs a kinetic term, which is not derived here",
+      "pass": true
+    },
+    {
+      "name": "T11_assessment",
+      "n_passed": 10,
+      "n_total": 10,
+      "pass": true
+    }
+  ],
+  "verdict_class": "CONNECTED_MEANS_EXOTIC",
+  "verdict": "CONNECTED MEANS EXOTIC. Deriving the orientation from the gluing rather than setting it by hand sharpens the result and corrects the earlier framing. Each side retains the INNER or the OUTER radial branch, which fixes eps with no freedom left, and that gives FOUR gluings rather than two. The parity eta = eps+ eps- covers two of them at once \u2014 minimal surface, maximal surface \u2014 whose forced signs are OPPOSITE, so eta alone decides nothing and 'the oppositely-glued shell is exotic' was too coarse a statement. What is actually forced is sharper: a MINIMAL surface has sigma = -(D-2)(beta+ + beta-)/8piGR < 0 and a MAXIMAL surface the same with the other sign, both identities, and neither is violated once in 40 000 random Tangherlini, de Sitter and charged pairs across D = [4, 5, 6]. The dichotomy that produces is the answer. A detached surface that CONNECTS to the throat's region does so through a minimal surface and is necessarily exotic. A detached surface that is non-exotic by its gluing is a maximal surface, which caps off on both sides and shares no bulk with the throat \u2014 it is non-exotic precisely because it is disconnected, and therefore cannot support anything. Within Einstein-Israel spherical thin shells the exotic matter is relocated, never removed. The three observables still disagree on one system, which is why they are reported apart: the ordinary bubble has sigma = 6.24e-05, its screening does push the throat outward, and the throat's own sigma is -0.027 regardless. Two cautions are carried in the output rather than buried. The shell's effect is reported as a potential GRADIENT, not a force: it is taken at fixed throat rest mass with no equation-of-state response. And Birkhoff's vanishing off-diagonal is STRUCTURAL, imported the moment the intervening region is written with a constant mass parameter; what is measured instead is that a family of shells differing 701x in surface density leaves the throat bit-for-bit unchanged. That establishes no separation-dependent coupling in THIS model, not that every spherical trapped resonator is impossible."
+}

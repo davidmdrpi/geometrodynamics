@@ -1,9 +1,15 @@
-"""Israel junction machinery for throats and detached shells."""
+"""Darmois-Israel junction machinery for throats and detached shells."""
 
 from geometrodynamics.shells.junction import (  # noqa: F401
-    ALIGNED,
-    ANTI_ALIGNED,
+    ANTI_BUBBLE,
+    GLUINGS,
+    INNER,
+    MAXIMAL_SURFACE,
+    MINIMAL_SURFACE,
+    ORDINARY_BUBBLE,
+    OUTER,
     DetachedShell,
+    Gluing,
     Region,
     ThroatShellSystem,
     Z2Throat,

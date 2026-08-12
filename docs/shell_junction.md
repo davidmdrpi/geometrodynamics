@@ -2,154 +2,156 @@
 
 `geometrodynamics/shells/junction.py` · probe `experiments/closure_ledger/shell_junction_probe.py`
 
+## Scope of every claim below
+
+**Einstein gravity, Darmois–Israel thin shells, spherical symmetry, vacuum
+bulk.** `G = 1`. Nothing here bounds thick shells, non-spherical
+configurations, modified gravity, or non-vacuum interiors. The dimension is a
+parameter: `D = 4` is the regression case and `D = 5` (Tangherlini) is the one
+this program actually cares about.
+
 ## The hope, and why it needs three answers
 
 A wormhole throat needs negative surface energy. The hope is that a *detached*
 closed shell in the bulk, glued with the opposite orientation, might supply the
-exotic-looking restoring stress while itself being ordinary matter — negative
-matter without negative matter.
+exotic-looking restoring stress while itself being ordinary matter.
 
 That is three questions wearing one coat, and they do not agree:
 
 | | observable | answer here |
 | --- | --- | --- |
-| 1 | does the shell itself require exotic matter? `σ = −S^τ_τ` | **yes**, if it is oppositely glued |
-| 2 | does it support the throat? `F = −∂V_shell/∂b` | **yes**, and from ordinary matter |
-| 3 | is the configuration stable? `V''(b₀)`, normal modes | **yes**, but only with a pathological equation of state at the throat |
+| 1 | does the shell itself require exotic matter? `σ = −S^τ_τ` | **yes**, if it connects |
+| 2 | does it support the throat? the gradient of `ΔV` | **yes**, and from ordinary matter |
+| 3 | is it stable? the stiffness `V''(b₀)` | **yes**, with a negative `β²` at the throat |
 
-A positive stiffness alone would mean "restoring" and would not establish that
-the *shell* supplied the support, so all three are reported separately.
+## The orientation is derived from the gluing, not assumed
 
-## The orientation is not a relabelling
+An earlier draft carried `ε = ±1` as a free flag, which made the central result
+conditional on a hand-set sign. Here each side of the surface is a **branch** —
+which radial half of its region is retained — and `ε` follows:
 
-For a shell at areal radius `R`, `K^θ_θ = (ε/R)√(f(R) + Ṙ²)` with `ε = ±1` the
-sign of `dr` along the chosen normal. Taking both normals to point from the `−`
-side to the `+` side,
+* the `−` side is approached from within along the `−→+` normal, so `ε₋ = +1`
+  for INNER (`r ≤ R`) and `−1` for OUTER (`r ≥ R`);
+* the `+` side is entered leaving the surface, so `ε₊ = +1` for OUTER and `−1`
+  for INNER.
 
-```
-σ = −(1/4πG R)·(ε₊β₊ − ε₋β₋) ,    β± = √(f±(R) + Ṙ²)
-```
+With `σ = −(D−2)(ε₊β₊ − ε₋β₋)/(8πG R)` there are therefore **four** gluings,
+not two:
 
-`η ≡ ε₊ε₋` is a statement about which manifold was built:
+| `−` branch | `+` branch | `η = ε₊ε₋` | what it is | `σ` |
+| --- | --- | ---: | --- | --- |
+| INNER | OUTER | `+1` | ordinary bubble | either sign |
+| OUTER | OUTER | `−1` | **minimal surface** | `< 0` always |
+| INNER | INNER | `−1` | **maximal surface** | `> 0` always |
+| OUTER | INNER | `+1` | anti-bubble | either sign |
 
-* **`η = +1`, aligned** — an ordinary bubble. `r` increases outward on both
-  sides; the surface separates an inside from an outside.
-* **`η = −1`, anti-aligned** — a *minimal surface*. `r` increases as you move
-  away on **both** sides, so the surface is a throat in its own right and the
-  region beyond is a second asymptotic region.
+**`η = −1` alone decides nothing.** It covers two gluings whose forced signs are
+*opposite*. The earlier framing of the result in terms of `η` was too coarse;
+the sign is a property of the branch pair.
 
-The machinery is checked against published answers before anything new is asked
-of it: a flat-interior bubble in Schwarzschild carries ordinary matter whose
-rest mass is the bulk mass to `1e-3`, and a `Z2` throat reproduces Visser's
-`σ = −√f/(2πGR)` to `6.9e-18`.
+The machinery is checked against published answers first: a flat-interior bubble
+in Schwarzschild carries ordinary matter whose rest mass is the bulk mass to
+`1e-3`, and a `Z2` throat reproduces Visser's `σ = −√f/(2πGR)` to `6.9e-18`.
 
-## Observable 1 is a theorem
+## What is actually forced
 
-For `η = −1` the two terms **add**:
-
-```
-σ = −(β₊ + β₋)/(4πG R) ≤ 0
-```
-
-and `β± ≥ 0` for any timelike shell. So **every** anti-aligned shell carries
-negative surface energy — whatever the bulk on either side, whatever its mass,
-charge, cosmological constant or velocity.
-
-Swept over 200,000 random Schwarzschild / de Sitter / Reissner–Nordström pairs:
-**zero counterexamples**, worst `σ = −6.7e-04`. The aligned control is positive
-`50.1%` of the time, so the sweep is capable of finding a positive `σ` when one
-exists. But the sweep checks the *implementation* — the claim itself is an
-identity, not a statistic.
-
-**The same identity applies to the throat**, because a throat *is* a minimal
-surface. No arrangement of bulk content can relieve it. So the answer to
-"negative matter without negative matter" is **no**, and for a reason that is
-topological rather than dynamical: an oppositely-glued detached shell does not
-take the exotic matter away from the throat, it adds a second helping.
-
-## What an ordinary shell can do
-
-An **aligned** shell can be perfectly ordinary. Same regions, same radius, only
-the gluing differs: `σ = +6.2e-05` aligned against `−9.5e-02` anti-aligned.
-
-And it does act on the throat, by **screening mass**. With ADM mass `M₂` outside
-and `M₁` between shell and throat, the shell's presence shifts the throat's
-potential by `2G(M₂ − M₁)/b`, an outward force
+For a **minimal surface** — `r` increasing away on both sides, which is what a
+throat is — the two terms add:
 
 ```
-F_shell = 2G ΔM / b²
+σ = −(D−2)(β₊ + β₋)/(8πG R) < 0
 ```
 
-matched to `1e-6`, growing with the screened mass, and exactly zero when there
-is no shell. That is real support, from non-exotic matter.
+with `β± = √(f± + Ṙ²) ≥ 0` for any timelike shell. For a **maximal surface**
+they add with the other sign and `σ > 0` always. Both are identities in every
+`D`, and neither is violated once in 40,000 random Tangherlini / de Sitter /
+charged pairs across `D = 4, 5, 6`. The sweep checks the implementation; the
+claims are identities.
 
-## Observable 3, and what screening buys
+### The dichotomy that follows
 
-Following the standard thin-shell analysis, `ḃ² + V(b) = 0`; a static solution
-needs `V(b₀) = 0` and `V'(b₀) = 0`, and is stable when `V''(b₀) > 0`.
+This is the real result, and it is sharper than "the oppositely-glued shell is
+exotic":
 
-Fixing a global barotropic index `w` turns out to be too rigid to be
-interesting. The algebra gives `V''(b₀) = 2GM(n−1)/b₀³` with `n = 2 + 4w`, so a
-static solution exists only for `w < −1/2` and is then *always* unstable — the
-existence and stability conditions are disjoint. So `β² ≡ (dp/dσ)|₀` is left
-free at the equilibrium instead, which is the usual treatment, and `V''` is
-linear in it.
+> A detached surface that **connects** to the throat's asymptotic region does so
+> through a minimal surface, and is necessarily exotic. A detached surface that
+> is non-exotic by its gluing is a **maximal** surface, which caps off on both
+> sides and therefore shares no bulk with the throat — it is non-exotic
+> precisely because it is disconnected, and so cannot support anything.
 
-Both stiffnesses — throat and shell — are verified against direct RK4
-integration of the conservation law `σ' = −(2/b)(σ + p)`, to `~1e-6` relative,
-on both signs of `β²`.
+Within Einstein–Israel spherical thin shells, exotic matter is relocated, never
+removed.
+
+## Observable 2, as a gradient rather than a force
+
+An ordinary bubble screens mass, shifting the throat's potential by `2GΔμ/b`,
+with `−∂ΔV/∂b = +0.024` at screened `μ = 0.6` and the acceleration contribution
+half that, from `ḃ² + V = 0`.
+
+**This is not an equilibrium-consistent force.** The continuation holds the
+throat's rest mass fixed and omits its equation-of-state response, so it is the
+gradient of the potential *shift* screening produces. It is reported and named
+that way.
+
+## Observable 3, as a stiffness
+
+`ḃ² + V(b) = 0`; a static solution needs `V(b₀) = 0` and `V'(b₀) = 0` and is
+stable when `V''(b₀) > 0`. A fixed global barotropic index admits no stable
+static throat at all — `V''(b₀) = 2GM(n−1)/b₀³` with `n = 2 + 4w` in `D = 4`, so
+static needs `w < −1/2` and stability `w > −1/4` — so `β² ≡ (dp/dσ)|₀` is left
+free at the equilibrium, as usual.
+
+`β²` is an **equation-of-state derivative parameter**. No sound-speed reading is
+attached to its sign, which for exotic matter would not be meaningful.
 
 Screening raises the critical `β²` monotonically:
 
-| interior mass | `β²_crit` |
+| interior `μ` | `β²_crit` |
 | --- | ---: |
-| 1.0 | −1.0833 |
-| 0.9 | −0.9463 |
-| 0.8 | −0.8439 |
-| 0.7 | −0.7648 |
-| 0.5 | −0.6518 |
+| 2.0 | −1.0833 |
+| 1.8 | −0.9463 |
+| 1.6 | −0.8439 |
+| 1.4 | −0.7648 |
+| 1.0 | −0.6518 |
 
-So the shell **does** enlarge the throat's stability window. It never reaches
-`β² ≥ 0`: the throat always needs `dp/dσ < 0`, an imaginary sound speed, on top
-of its negative energy density.
+So the shell **does** enlarge the window, and never reaches `β² ≥ 0`.
 
-Both normal modes can nevertheless be positive at once — `diag(0.151, 0.022)`
-for a throat at `β² = −2` and an ordinary shell at `β² = +0.5`. Under a dilation
-the spectrum scales as `1/L²` exactly and the smallest scaled eigenvalue stays
-at `5.4e-04`, so that is not an artefact of whatever fixed the scale.
+Both stiffnesses are verified against direct RK4 integration of
+`σ' = −(D−2)(σ + p)/R`, agreeing to 10 digits.
 
-## The finding that shapes what comes next
+**They are stiffnesses, not normal-mode frequencies.** No kinetic metric has
+been derived, so nothing here is a generalised eigenproblem, and the code names
+them accordingly.
 
-**Birkhoff decouples the two surfaces exactly.** The vacuum between them is
-Schwarzschild with a constant mass parameter, so the throat cannot tell *where*
-the shell is — only that it is there.
+## Birkhoff, and what it is worth
 
-The non-trivial version of that statement, which is what gets measured: at fixed
-screened mass, moving the shell from `a = 8` to `a = 200` changes its surface
-density by a factor of **701** — genuinely different shells, different rest
-mass, different pressure, different stiffness — and the throat's `σ` does not
-change in its last bit. Spread exactly `0.0`.
+The region between the two surfaces is Schwarzschild/Tangherlini with a constant
+mass parameter, so the throat's data cannot depend on where the shell sits.
 
-The off-diagonal Hessian entry `∂²V/∂a∂b` vanishes, but that is **structural,
-not measured**: Birkhoff is imported the moment the region between is written as
-Schwarzschild with a constant mass, and reporting the resulting zero as evidence
-would be circular. It is labelled as such in the module and in the probe.
+The measured version: at fixed screened mass, moving the shell from `a = 8` to
+`a = 200` changes its surface density by a factor of **701** — genuinely
+different shells — and the throat's `σ` does not change in its last bit. Spread
+exactly `0.0`.
 
-The consequence is what matters. Spherical symmetry has no radiative channel —
-the same `ℓ = 0` fact `wave_constraints` found for the scalar — so two spherical
-surfaces have nothing to talk through. **A genuine two-mode trapped resonator
-cannot exist in spherical symmetry at all.** The `ℓ ≥ 2` internal modes are not
-an optional later refinement; they are the only place such a coupling could
-live.
+The vanishing `∂²V/∂a∂b` is **structural, not measured**: Birkhoff is imported
+the moment the intervening region is written that way, and reporting the zero as
+evidence would be circular. What it establishes is **no separation-dependent
+coupling in this model** — not that every spherical trapped resonator is
+impossible.
 
-## Scope
+The consequence for what comes next: spherical symmetry has no radiative channel
+here, the same `ℓ = 0` fact `wave_constraints` found for the scalar, so `ℓ ≥ 2`
+internal modes are where a genuine throat–shell coupling would have to live.
 
-`G = 1`. Spherical symmetry, thin shells, static configuration plus linear
-perturbation. No radiation, no backreaction on the shells' equations of state,
-no `ℓ ≥ 2` structure. `β²` is a free parameter at the equilibrium in the
-standard way rather than a global equation of state.
+## The scaling check
 
-What is *derived*: the exoticity theorem for minimal surfaces, the screening
-force, the stability window and how screening moves it, and the exact
-decoupling. What is *imported*: Birkhoff's theorem, and the Israel junction
-formalism itself.
+Rescaling every length and mass parameter together sends the stiffnesses as
+`1/L²` (drift `0.0`). That is **dimensional bookkeeping only** — it does not
+show that a fixed system has no dilation mode, which would need the kinetic term
+this module does not derive.
+
+## What is imported rather than derived
+
+* Birkhoff's theorem.
+* The Darmois–Israel formalism itself.
+* `β²` as a free parameter at the equilibrium.
