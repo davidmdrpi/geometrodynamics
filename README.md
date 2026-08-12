@@ -1632,6 +1632,56 @@ python -m experiments.closure_ledger.wave_constraints_probe
 
 Full write-up: `docs/wave_constraints.md`.
 
+## Draw the wave as vectors, and they intersect
+
+Four rounds established that a height field cannot wind and cannot cross itself.
+All four were about the same object — **the graph of the displacement's tips**,
+`r = f(σ)`, which is embedded by construction. Draw the **vectors themselves**
+and the obstruction is gone, for a classical reason: *neighbouring normals to a
+curve meet at its centre of curvature*. A normal of length `L` crosses its
+neighbours as soon as `L` exceeds the local radius of curvature `ρ = 1/κ`.
+Nothing is added by hand.
+
+The same wave, the same instant, two objects: the graph gives **0**
+self-intersections, the normal field gives **520**.
+
+**And the threshold is the ring concentration, finally visible.**
+
+| t | `ρ_min` | first drawn crossing |
+|---:|---:|---:|
+| 1.2 | 0.0755 | 0.452 |
+| 2.6 | 0.0573 | 0.319 |
+| 3.0 | **0.0338** | **0.182** |
+
+The converging ring sharpens its own surface by `2.23×`. The focusing shows up
+not as height — which barely moves, and never beats the launch — but as
+*curvature*, which is what decides whether the normals meet.
+
+**The reset is a second, separable mechanism.** A normal leaving through
+`R_outer` re-enters at `R_inner` at the angle where it left, shooting outward
+from deep inside the annulus: at the focus, `304 → 402` crossings at `L = 0.35`.
+
+**And the gap matters again** — what `ring_and_fold.md` had severed. The vector
+length *is* what spans the gap, so they are one knob. At `L = δ`:
+
+| δ | normals alone | with reset |
+|---:|---:|---:|
+| 0.40 | 386 | 386 |
+| 0.16 | 0 | **206** |
+| 0.09 | 0 | **522** |
+
+At the tightest gap the normals are too short to reach each other, but almost all
+of them wrap and the stubs cross everything. **Reducing the shell separation now
+produces intersections rather than being unable to.**
+
+```bash
+python -m experiments.closure_ledger.normal_field_probe
+# Verdict: THE_NORMALS_INTERSECT  (5/5)
+```
+
+Scope: the vector length is a display choice; the directions and curvature are
+the surface's own. Full write-up: `docs/normal_field.md`.
+
 ## Quick Start
 
 ### Verify charge quantisation from pure geometry
