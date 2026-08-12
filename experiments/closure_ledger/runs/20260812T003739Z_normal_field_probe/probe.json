@@ -1,0 +1,206 @@
+{
+  "timestamp_utc": "2026-08-12T00:37:39+00:00",
+  "identification": "the slice's normal vectors drawn as vectors, and where they cross",
+  "the_object": "the displacement itself, not the graph of its tips",
+  "the_threshold": "the radius of curvature of the deformed surface",
+  "the_second_mechanism": "the stub that re-enters at R_inner",
+  "geometry": {
+    "focus_time": 3.0,
+    "gain": 0.3
+  },
+  "tests": [
+    {
+      "name": "T1_goal",
+      "claim": "draw the field as vectors normal to the surface rather than as the graph of their tips, and ask again whether anything intersects",
+      "why_it_can": "neighbouring normals meet at the centre of curvature",
+      "threshold": "L > \u03c1 = 1/\u03ba",
+      "pass": true
+    },
+    {
+      "name": "T2_the_same_wave_drawn_two_ways",
+      "time": 3.0,
+      "graph_self_intersections": 0,
+      "rows": [
+        {
+          "length": 0.1,
+          "normal_crossings": 0
+        },
+        {
+          "length": 0.2,
+          "normal_crossings": 26
+        },
+        {
+          "length": 0.26,
+          "normal_crossings": 142
+        },
+        {
+          "length": 0.35,
+          "normal_crossings": 306
+        },
+        {
+          "length": 0.5,
+          "normal_crossings": 520
+        }
+      ],
+      "most_normal_crossings": 520,
+      "envelope_distance": 0.054005287552421975,
+      "the_graph_never_crosses": true,
+      "the_normals_do": true,
+      "pass": true
+    },
+    {
+      "name": "T3_the_threshold_is_the_radius_of_curvature",
+      "rows": [
+        {
+          "t": 1.2,
+          "rho_min": 0.1408073412600794,
+          "first_drawn_crossing": 0.49233097293181327
+        },
+        {
+          "t": 2.0,
+          "rho_min": 0.1373849591507144,
+          "first_drawn_crossing": 0.48116375718964255
+        },
+        {
+          "t": 2.6,
+          "rho_min": 0.10872784141850704,
+          "first_drawn_crossing": 0.33955261126393455
+        },
+        {
+          "t": 3.0,
+          "rho_min": 0.054005287552421975,
+          "first_drawn_crossing": 0.18898327028146014
+        }
+      ],
+      "rho_at_the_start": 0.1408073412600794,
+      "rho_at_the_focus": 0.054005287552421975,
+      "sharpening_factor": 2.607288057181442,
+      "the_focus_sharpens_the_surface": true,
+      "the_envelope_bounds_the_drawn_crossing": true,
+      "pass": true
+    },
+    {
+      "name": "T4_the_reset_is_a_second_mechanism",
+      "time": 3.0,
+      "rows": [
+        {
+          "length": 0.2,
+          "wrapped": 19,
+          "without_reset": 26,
+          "with_reset": 30,
+          "added": 4
+        },
+        {
+          "length": 0.26,
+          "wrapped": 434,
+          "without_reset": 142,
+          "with_reset": 146,
+          "added": 4
+        },
+        {
+          "length": 0.35,
+          "wrapped": 500,
+          "without_reset": 306,
+          "with_reset": 398,
+          "added": 92
+        },
+        {
+          "length": 0.5,
+          "wrapped": 500,
+          "without_reset": 520,
+          "with_reset": 804,
+          "added": 284
+        }
+      ],
+      "most_added": 284,
+      "biggest_ratio": 1.5461538461538462,
+      "the_reset_adds_crossings": true,
+      "it_grows_with_the_stub": true,
+      "pass": true
+    },
+    {
+      "name": "T5_the_gap_matters_again",
+      "time": 3.0,
+      "rows": [
+        {
+          "delta": 0.4,
+          "length": 0.4,
+          "rho_min": 0.054005287552421975,
+          "wrapped": 426,
+          "crossings": 382,
+          "with_reset": 382
+        },
+        {
+          "delta": 0.26,
+          "length": 0.26,
+          "rho_min": 0.054005287552421975,
+          "wrapped": 434,
+          "crossings": 142,
+          "with_reset": 146
+        },
+        {
+          "delta": 0.16,
+          "length": 0.16,
+          "rho_min": 0.054005287552421975,
+          "wrapped": 440,
+          "crossings": 0,
+          "with_reset": 180
+        },
+        {
+          "delta": 0.09,
+          "length": 0.09,
+          "rho_min": 0.054005287552421975,
+          "wrapped": 446,
+          "crossings": 0,
+          "with_reset": 472
+        }
+      ],
+      "the_gap_changes_the_count": true,
+      "every_gap_crosses": true,
+      "pass": true
+    },
+    {
+      "name": "T6_the_curvature_is_converged",
+      "time": 3.06,
+      "rows": [
+        {
+          "n_sigma": 1001,
+          "n_radial": 900,
+          "rho_min": 0.06003146934597862
+        },
+        {
+          "n_sigma": 2001,
+          "n_radial": 1200,
+          "rho_min": 0.0591319239738788
+        },
+        {
+          "n_sigma": 4001,
+          "n_radial": 2400,
+          "rho_min": 0.053593618332938665
+        },
+        {
+          "n_sigma": 8001,
+          "n_radial": 4800,
+          "rho_min": 0.051881165174687265
+        }
+      ],
+      "converged_rho_min": 0.051881165174687265,
+      "last_step_drift": 0.03300722241849156,
+      "mismatched_grid_rho_min": 0.015689092545136233,
+      "mismatched_error": 0.6975956015577129,
+      "it_converges": true,
+      "a_mismatched_grid_gets_it_wrong": true,
+      "pass": true
+    },
+    {
+      "name": "T7_assessment",
+      "n_passed": 6,
+      "n_total": 6,
+      "pass": true
+    }
+  ],
+  "n_passed": 6,
+  "n_total": 6,
+  "verdict_class": "THE_NORMALS_INTERSECT",
+  "verdict": "THE NORMALS INTERSECT. Four rounds of this series established that a height field cannot wind and cannot cross itself. All four were about the same object \u2014 the graph of the displacement's tips \u2014 and drawing the displacement itself removes the obstruction entirely.\n\nTHE SAME WAVE, DRAWN TWO WAYS. At one instant the graph of the tips gives 0 self-intersections and the normal field gives 520. Nothing about the field changed and nothing was added by hand; only which object was drawn. The reason is classical: neighbouring normals to a curve meet at its centre of curvature, so the normal family has an envelope and a normal longer than the local radius of curvature has already crossed its neighbours.\n\nTHE THRESHOLD IS THE RADIUS OF CURVATURE, AND THE WAVE DRIVES IT DOWN. \u03c1_min falls from 0.1408 in mid-flight to 0.0540 at the focus, a factor of 2.61 \u2014 the converging ring sharpens its own surface \u2014 and the first drawn crossing falls with it, 0.492 to 0.189. The envelope bounds the drawn crossing from below at every time, as it must: a finite sampling stride can only lag the continuous envelope, never precede it.\n\nAND THE RESET IS A SECOND MECHANISM ON TOP. A normal long enough to leave through R_outer re-enters at R_inner at the angle where it left, and that stub shoots outward from deep inside the annulus across vectors it could never otherwise have reached. At the focus the count goes from 306 to 398 at L = 0.35, and the addition grows with the stub, reaching 284 at the longest length tested. The two mechanisms are separable and both are real.\n\nAND THE GAP MATTERS AGAIN. This is what the height representation had severed: slice_folding showed the fold threshold did not know the gap existed, so shrinking the vacuole could never buy an intersection. For normals the vector length IS what spans the gap, so they are one knob \u2014 and at the tightest gap the reset dominates completely: 0 crossings from the normals alone against 472 once they re-enter. Reducing the distance between the shells now produces intersections rather than being unable to.\n\nSCOPE. The vector length is a display choice like every gain in this series; the directions and the curvature are the surface's own. What is derived is that the crossing threshold is the radius of curvature, that the focusing drives it down, and that the reset adds an independent mechanism."
+}

@@ -1582,6 +1582,106 @@ Scope: `λ` is a modelling choice, not derived from the scalar equation, and
 `λ = 0` is exactly the earlier height field. Full write-up:
 `docs/ring_and_fold.md`.
 
+## What a drawn wave has to obey
+
+An audit of the height-field representation against the physics it stands in
+for. Three objections, three different fates.
+
+**"The antipode moves before the front arrives" — not in the solve.** The
+amplitude there runs `5e-133 → 6e-40 → 7e-17 → 0.93`, climbing 130 orders of
+magnitude in step with `t → π`; signal ahead of the front sits at the scheme's
+`1e-07` noise floor.
+
+**But a constant never leaves — and that is a real defect.** A Gaussian carries
+a monopole `w²/4` (`0.008056` measured against `0.008100`), and `ℓ = 0` has
+`ω = 0`, so a closed surface can never shed it. Not an early response — ahead of
+the front the higher modes cancel it exactly — a **permanent** one: every point
+carries a time-averaged displacement of `w²/4`, and the quietest instant of a
+whole run still leaves `max|u| = 0.094`. *Nothing moves early, and nothing ever
+stops moving.* EM forbids monopole radiation and gravity forbids `ℓ = 0, 1`, so
+this mode is outside the analogy, not a blemish on it — the spin-2 field's DC is
+`2e-06` against the scalar's `8.3e-03`.
+
+**The fix has to stay inside the pulse.**
+
+| source | monopole | far side before arrival |
+|---|---:|---:|
+| gaussian | `+8.1e-03` | `1.5e-20` |
+| gaussian, monopole-free | `-4.3e-07` | `1.4e-05` |
+| compact, monopole-free | `-3.1e-07` | `3.8e-22` |
+
+Subtracting the mean leaves `−w²/4` at the antipode — exactly what it removed.
+A wider Gaussian corrector costs four orders of far-side quiet. Compactly
+supported bumps give both at once, with a far side that is *exactly* zero.
+
+**"Height should grow as the ring compresses" — right physics, hidden.**
+`A²·(circumference)` is conserved to `8.4%`, but `1/√(sin d)` is flat across the
+middle (`72%` of the trip shows nothing) and, because the launch is itself a
+focus on a compact surface, the focal height comes in at `0.935×` the *launch*
+height. Unbounded growth belongs to an open geometry.
+
+**"A deforming surface is the wrong representation" — right, and measurably
+so.** The energy density is `u̇² + |∇u|²`, so the constant offset displaces every
+point and carries exactly `0.000` energy against the pulse's `0.497`. The most
+global feature of the drawn shape is invisible to the physics.
+
+```bash
+python -m experiments.closure_ledger.wave_constraints_probe
+# Verdict: NOTHING_MOVES_EARLY_AND_NOTHING_EVER_SETTLES  (8/8)
+```
+
+Full write-up: `docs/wave_constraints.md`.
+
+## Draw the wave as vectors, and they intersect
+
+Four rounds established that a height field cannot wind and cannot cross itself.
+All four were about the same object — **the graph of the displacement's tips**,
+`r = f(σ)`, which is embedded by construction. Draw the **vectors themselves**
+and the obstruction is gone, for a classical reason: *neighbouring normals to a
+curve meet at its centre of curvature*. A normal of length `L` crosses its
+neighbours as soon as `L` exceeds the local radius of curvature `ρ = 1/κ`.
+Nothing is added by hand.
+
+The same wave, the same instant, two objects: the graph gives **0**
+self-intersections, the normal field gives **520**.
+
+**And the threshold is the ring concentration, finally visible.**
+
+| t | `ρ_min` | first drawn crossing |
+|---:|---:|---:|
+| 1.2 | 0.1408 | 0.492 |
+| 2.6 | 0.1087 | 0.340 |
+| 3.0 | **0.0540** | **0.189** |
+
+The converging ring sharpens its own surface by `2.61×`. The focusing shows up
+not as height — which barely moves, and never beats the launch — but as
+*curvature*, which is what decides whether the normals meet.
+
+**The reset is a second, separable mechanism.** A normal leaving through
+`R_outer` re-enters at `R_inner` at the angle where it left, shooting outward
+from deep inside the annulus: at the focus, `306 → 398` crossings at `L = 0.35`.
+
+**And the gap matters again** — what `ring_and_fold.md` had severed. The vector
+length *is* what spans the gap, so they are one knob. At `L = δ`:
+
+| δ | normals alone | with reset |
+|---:|---:|---:|
+| 0.40 | 382 | 382 |
+| 0.16 | 0 | **180** |
+| 0.09 | 0 | **472** |
+
+At the tightest gap the normals are too short to reach each other, but almost all
+of them wrap and the stubs cross everything. **Reducing the shell separation now
+produces intersections rather than being unable to.**
+
+```bash
+python -m experiments.closure_ledger.normal_field_probe
+# Verdict: THE_NORMALS_INTERSECT  (6/6)
+```
+
+Scope: the vector length is a display choice; the directions and curvature are
+the surface's own. Full write-up: `docs/normal_field.md`.
+
 ## Quick Start
 
 ### Verify charge quantisation from pure geometry

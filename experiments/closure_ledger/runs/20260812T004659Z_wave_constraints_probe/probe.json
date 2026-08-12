@@ -1,0 +1,241 @@
+{
+  "timestamp_utc": "2026-08-12T00:46:59+00:00",
+  "identification": "an audit of the height-field representation against causality, mode content, ring bookkeeping and energy",
+  "the_front": "causal",
+  "the_defect": "a permanent \u2113 = 0 offset the closed geometry cannot shed",
+  "the_fix": "a compactly supported, monopole-free source",
+  "the_unfixable": "height is not energy",
+  "geometry": {
+    "pulse_width": 0.18
+  },
+  "tests": [
+    {
+      "name": "T1_goal",
+      "claim": "audit the height-field representation against the constraints the physics it stands in for imposes",
+      "complaints": [
+        "the antipode moves early",
+        "the ring's growth is not shown",
+        "a deforming surface is the wrong representation"
+      ],
+      "pass": true
+    },
+    {
+      "name": "T2_the_front_is_causal",
+      "rows": [
+        {
+          "t": 0.0,
+          "antipode": 5.085521503654646e-133,
+          "ahead_of_the_front": 1.090710329146323e-07
+        },
+        {
+          "t": 0.400553063332702,
+          "antipode": 4.4200054133118725e-100,
+          "ahead_of_the_front": 8.62408579685116e-08
+        },
+        {
+          "t": 0.800517078042837,
+          "antipode": 9.944664451861439e-73,
+          "ahead_of_the_front": 8.148100490318344e-08
+        },
+        {
+          "t": 1.400168575796827,
+          "antipode": 6.199755149097955e-40,
+          "ahead_of_the_front": 9.052397598206142e-08
+        },
+        {
+          "t": 2.0004091221734024,
+          "antipode": 6.889873884398014e-17,
+          "ahead_of_the_front": 1.3189810283611414e-07
+        },
+        {
+          "t": 2.4003731368834527,
+          "antipode": 5.550135661418877e-07,
+          "ahead_of_the_front": 6.762032112488179e-07
+        },
+        {
+          "t": 2.800337151593503,
+          "antipode": 0.14905239860336722,
+          "ahead_of_the_front": NaN
+        },
+        {
+          "t": 3.000024634637254,
+          "antipode": 0.925541921741139,
+          "ahead_of_the_front": NaN
+        }
+      ],
+      "worst_ahead_of_the_front": 6.762032112488179e-07,
+      "antipode_at_launch": 5.085521503654646e-133,
+      "antipode_at_two": 6.889873884398014e-17,
+      "antipode_at_pi": 0.925541921741139,
+      "nothing_outruns_the_front": true,
+      "the_antipode_stays_dark_until_the_front": true,
+      "pass": true
+    },
+    {
+      "name": "T3_a_constant_never_leaves",
+      "pulse_width": 0.18,
+      "monopole_at_launch": 0.00805644716776412,
+      "predicted_w_squared_over_four": 0.0081,
+      "relative_error_against_prediction": 0.005376892868627123,
+      "monopole_drift_over_a_full_return": 0.0008102808124462017,
+      "peak_amplitude": 1.0,
+      "offset_as_a_fraction_of_peak": 0.00805644716776412,
+      "the_monopole_is_w_squared_over_four": true,
+      "it_never_changes": true,
+      "time_averaged_displacement": [
+        0.005496656053115626,
+        0.007701462135028013,
+        0.00835505336782439,
+        0.00872942435621306,
+        0.008809656185494924
+      ],
+      "far_side_average": 0.008809656185494924,
+      "quietest_moment": 0.09364360882079618,
+      "pass": true
+    },
+    {
+      "name": "T4_the_mode_is_forbidden",
+      "em_forbids": "monopole radiation",
+      "gravity_forbids": "monopole and dipole radiation",
+      "probe_distances": [
+        0.6,
+        1.4,
+        2.2,
+        2.9
+      ],
+      "scalar_dc": [
+        0.0073675268454178435,
+        0.008216335899931558,
+        0.008310451997636128,
+        0.008301342733581796
+      ],
+      "spin2_dc": [
+        1.7582479923313112e-06,
+        1.9370658242011896e-06,
+        5.971323172495763e-07,
+        3.893044194246889e-08
+      ],
+      "spin2_peak": 0.01646143601326318,
+      "scalar_worst_dc": 0.008310451997636128,
+      "spin2_worst_dc": 1.9370658242011896e-06,
+      "ratio": 4290.226947276407,
+      "the_scalar_holds_a_dc_offset": true,
+      "the_spin_two_field_cannot": true,
+      "pass": true
+    },
+    {
+      "name": "T5_the_fix_stays_inside_the_pulse",
+      "rows": [
+        {
+          "source": "gaussian",
+          "monopole": 0.008056390147362959,
+          "antipode": 5.085521503654646e-133,
+          "peak": 1.0
+        },
+        {
+          "source": "gaussian minus its mean",
+          "monopole": 1.734723515622046e-18,
+          "antipode": -0.008056390147362959,
+          "peak": 0.9919436098526371
+        },
+        {
+          "source": "difference of two bumps",
+          "monopole": 1.9941784335887153e-18,
+          "antipode": -2.145556505448025e-34,
+          "peak": 0.7459284232138519,
+          "coefficient": 0.25407157678614806
+        }
+      ],
+      "gaussian_monopole": 0.008056390147362959,
+      "mean_subtracted_antipode": -0.008056390147362959,
+      "localised_monopole": 1.9941784335887153e-18,
+      "localised_antipode": -2.145556505448025e-34,
+      "subtracting_the_mean_just_moves_it": true,
+      "the_localised_source_is_clean": true,
+      "launch_rows": [
+        {
+          "source": "gaussian",
+          "antipode_before_arrival": 1.4640423542919918e-20,
+          "monopole": 0.008055431958217651
+        },
+        {
+          "source": "gaussian, monopole-free",
+          "antipode_before_arrival": 1.4279835973896842e-05,
+          "monopole": -4.2669110141683507e-07
+        },
+        {
+          "source": "compact, monopole-free",
+          "antipode_before_arrival": 3.7565479621532485e-22,
+          "monopole": -3.0700470420854634e-07
+        }
+      ],
+      "compact_monopole": -3.0700470420854634e-07,
+      "compact_far_side": 3.7565479621532485e-22,
+      "wide_gaussian_far_side": 1.4279835973896842e-05,
+      "pass": true
+    },
+    {
+      "name": "T6_the_ring_concentrates",
+      "n_samples": 98,
+      "mean_A2_sin_d": 0.025407684806534558,
+      "spread": 0.08437074197840194,
+      "first_front": 1.5794400284430925,
+      "last_front": 2.6009684050480777,
+      "energy_on_the_ring_is_conserved": true,
+      "pass": true
+    },
+    {
+      "name": "T7_but_you_cannot_see_it",
+      "equator_height": 0.1562432260577219,
+      "peak_height": 0.9326707414652741,
+      "growth_from_the_equator": 5.969351536051309,
+      "tolerance": 0.5,
+      "flat_fraction_of_the_trip": 0.7166666666666667,
+      "growth_happens_after_t": 3.1107657756762666,
+      "growth_window_fraction": 0.2833333333333333,
+      "most_of_the_trip_shows_nothing": true,
+      "launch_rows": [
+        {
+          "pulse_width": 0.3,
+          "launch_height": 1.0,
+          "focal_height": 0.9586008424268285,
+          "ratio": 0.9586008424268285
+        },
+        {
+          "pulse_width": 0.18,
+          "launch_height": 1.0,
+          "focal_height": 0.9326707414652741,
+          "ratio": 0.9326707414652741
+        },
+        {
+          "pulse_width": 0.1,
+          "launch_height": 1.0,
+          "focal_height": 0.9147483030034098,
+          "ratio": 0.9147483030034098
+        }
+      ],
+      "mean_focal_ratio": 0.9353399622985042,
+      "pass": true
+    },
+    {
+      "name": "T8_height_is_not_energy",
+      "offset": 0.0081,
+      "energy_of_the_offset": 0.0,
+      "energy_of_the_pulse": 0.4972811423860613,
+      "offset_energy_fraction": 0.0,
+      "offset_displaces_every_point": true,
+      "it_carries_no_energy": true,
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
+      "n_passed": 8,
+      "n_total": 8,
+      "pass": true
+    }
+  ],
+  "n_passed": 8,
+  "n_total": 8,
+  "verdict_class": "NOTHING_MOVES_EARLY_AND_NOTHING_EVER_SETTLES",
+  "verdict": "NOTHING MOVES EARLY, AND NOTHING EVER SETTLES. The causality objection is aimed one step away from a real defect, and the real defect is worse than the one that was suspected.\n\nTHE FRONT IS CAUSAL. The amplitude at the antipode is 5e-133 at launch and 7e-17 at t = 2.0, reaching 0.926 only at t \u2248 \u03c0; signal ahead of the front sits at 7e-07, the scheme's own noise floor. Nothing outruns the front, and the early motion is not in the solve.\n\nBUT A CONSTANT NEVER LEAVES. A Gaussian of width w carries a monopole of 0.008056 against a predicted w\u00b2/4 = 0.008100, and \u2113 = 0 has \u03c9 = 0, so it never propagates, radiates or decays. It is NOT an early response \u2014 ahead of the front the higher modes cancel it exactly \u2014 it is a permanent one. The time-averaged displacement is 0.008810 at the far side, and the quietest instant of a whole run still leaves max|u| = 0.094. The surface never returns home.\n\nAND THE MODE IS FORBIDDEN ANYWAY. Electromagnetism has no monopole radiation and gravity has none at \u2113 = 0 or \u2113 = 1, so the offending mode is precisely the one real radiation cannot have. That is not a blemish on the analogy, it is outside it. The checkable form is the spectrum: the spin-2 operator starts at \u2113 = 2, so it admits no zero-frequency mode and can hold no DC at all. Measured as the time-averaged value over four returns, 1.9e-06 against the scalar's 8.3e-03 \u2014 a factor of 4290.\n\nAND THE FIX HAS TO STAY INSIDE THE PULSE. Subtracting the mean moves the problem rather than removing it, leaving -0.00806 at the antipode \u2014 exactly the offset it was meant to remove. Cancelling with a wider Gaussian fixes the mean and costs four orders of far-side quiet, 1e-05 against 1e-20, because the corrector's tail is fatter than the pulse it corrects. Built from compactly supported bumps both conditions hold at once: monopole -3.1e-07 and a far side of 4e-22 \u2014 quieter than the original, because it is exactly zero rather than merely small.\n\nTHE RING DOES CONCENTRATE, CORRECTLY. A\u00b2\u00b7(circumference) is conserved along the converging front to 0.084, which is A \u221d 1/\u221a(sin d). The solve is right.\n\nYOU JUST CANNOT SEE IT, AND IT CANNOT WIN. 1/\u221a(sin d) is flat across the middle: 72% of the trip stays within 50% of the equatorial minimum and the growth is all after t = 3.11. Worse for the expectation, on a compact surface the launch is itself a focus \u2014 the focal height is 0.94\u00d7 the LAUNCH height, so the focus never beats the source. The 5.97\u00d7 growth is relative to the equator. Unbounded growth belongs to an open geometry, not this one.\n\nAND HEIGHT IS NOT ENERGY. The energy density is u\u0307\u00b2 + |\u2207u|\u00b2, so the constant offset displaces every point of the surface and carries exactly 0.0 energy against 0.497 for the pulse. The most global feature of the drawn shape is invisible to the physics. That is the measurable core of the objection to drawing a field as a displacement: the eye is on height, the physics is in the gradient.\n\nSCOPE. This audits one representation; it does not propose its replacement. What it establishes is which objections are about the solve \u2014 none \u2014 which are about the initial data, and which are about drawing a field as a displacement at all."
+}
