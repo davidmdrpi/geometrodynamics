@@ -1,0 +1,320 @@
+{
+  "probe": "shell_junction",
+  "generated_utc": "2026-08-12T06:12:44.229708+00:00",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "does a detached oppositely-glued bulk shell change the throat's effective force and stability while itself remaining non-exotic?",
+      "observables": [
+        "1 shell's own Israel surface stress sigma",
+        "2 shell-induced force on the throat, -dV_shell/db",
+        "3 stiffness d2V/db2 and the coupled normal modes"
+      ],
+      "why_three": "a positive stiffness alone would mean restoring and would not establish that the shell supplied it",
+      "pass": true
+    },
+    {
+      "name": "T2_the_machinery_reproduces_published_shells",
+      "rows": [
+        {
+          "case": "bubble",
+          "mass": 0.001,
+          "sigma": 7.95814508175031e-07,
+          "rest_mass": 0.0010000500050011407,
+          "rest_mass_error": 5.000500114069745e-05
+        },
+        {
+          "case": "bubble",
+          "mass": 0.01,
+          "sigma": 7.96173001202587e-06,
+          "rest_mass": 0.01000500500625834,
+          "rest_mass_error": 0.0005005006258339967
+        },
+        {
+          "case": "bubble",
+          "mass": 0.1,
+          "sigma": 7.997938822008832e-05,
+          "rest_mass": 0.1005050633883342,
+          "rest_mass_error": 0.005050633883341982
+        },
+        {
+          "case": "visser_throat",
+          "mass": 0.1,
+          "radius": 3.0,
+          "sigma": -0.05125276091917767,
+          "reference": -0.05125276091917768
+        },
+        {
+          "case": "visser_throat",
+          "mass": 0.1,
+          "radius": 5.0,
+          "sigma": -0.031187872049347042,
+          "reference": -0.031187872049347046
+        },
+        {
+          "case": "visser_throat",
+          "mass": 0.5,
+          "radius": 3.0,
+          "sigma": -0.04331648895742645,
+          "reference": -0.04331648895742645
+        },
+        {
+          "case": "visser_throat",
+          "mass": 0.5,
+          "radius": 5.0,
+          "sigma": -0.028470501736687085,
+          "reference": -0.02847050173668708
+        }
+      ],
+      "worst_visser_error": 6.938893903907228e-18,
+      "the_bubble_is_ordinary": true,
+      "its_rest_mass_is_the_bulk_mass": true,
+      "visser_is_reproduced": true,
+      "pass": true
+    },
+    {
+      "name": "T3_every_minimal_surface_is_exotic",
+      "samples": 200000,
+      "anti_aligned_positive_sigma": 0,
+      "worst_anti_aligned_sigma": -0.0006700717801656513,
+      "aligned_positive_sigma": 100170,
+      "aligned_positive_fraction": 0.50085,
+      "every_minimal_surface_is_exotic": true,
+      "the_sweep_can_find_positive_sigma": true,
+      "it_is_an_identity_not_a_statistic": "\u03c3 = \u2212(\u03b2\u208a + \u03b2\u208b)/4\u03c0GR with \u03b2\u00b1 \u2265 0 for any timelike shell",
+      "pass": true
+    },
+    {
+      "name": "T4_an_aligned_shell_can_be_ordinary",
+      "rows": [
+        {
+          "radius": 8.0,
+          "aligned_sigma": 0.0004204645054446816,
+          "aligned_rest_mass": 0.338157619558471,
+          "anti_aligned_sigma": -0.017649492487375684,
+          "anti_aligned_rest_mass": -14.19456408010949
+        },
+        {
+          "radius": 20.0,
+          "aligned_sigma": 6.23958123233401e-05,
+          "aligned_rest_mass": 0.31363556097563644,
+          "anti_aligned_sigma": -0.0076117776279963955,
+          "anti_aligned_rest_mass": -38.260967482996186
+        },
+        {
+          "radius": 60.0,
+          "aligned_sigma": 6.727468535392932e-06,
+          "aligned_rest_mass": 0.30434350648387565,
+          "anti_aligned_sigma": -0.002614725461545706,
+          "anti_aligned_rest_mass": -118.28739313650487
+        }
+      ],
+      "screened_mass": 0.3,
+      "the_aligned_shell_is_ordinary": true,
+      "the_anti_aligned_shell_is_exotic": true,
+      "so_the_oppositely_glued_shell_moves_the_exotic_matter": true,
+      "pass": true
+    },
+    {
+      "name": "T5_the_shell_supports_the_throat",
+      "rows": [
+        {
+          "screened_mass": 0.0,
+          "potential_shift_at_b0": 0.0,
+          "force": -0.0,
+          "analytic_force": 0.0
+        },
+        {
+          "screened_mass": 0.1,
+          "potential_shift_at_b0": 0.040000000000000036,
+          "force": 0.007999999995789153,
+          "analytic_force": 0.008
+        },
+        {
+          "screened_mass": 0.3,
+          "potential_shift_at_b0": 0.12,
+          "force": 0.023999999998469686,
+          "analytic_force": 0.024
+        },
+        {
+          "screened_mass": 0.6,
+          "potential_shift_at_b0": 0.24,
+          "force": 0.04799999999693937,
+          "analytic_force": 0.048
+        }
+      ],
+      "the_force_opposes_closure": true,
+      "it_grows_with_the_screened_mass": true,
+      "it_matches_2_G_dM_over_b_squared": true,
+      "zero_shell_gives_zero_force": true,
+      "pass": true
+    },
+    {
+      "name": "T6_the_stability_window_and_what_screening_does",
+      "rows": [
+        {
+          "interior_mass": 1.0,
+          "sigma": -0.024656177762459992,
+          "is_exotic": true,
+          "beta2_critical": -1.0833333333333337,
+          "stable_below_critical": true
+        },
+        {
+          "interior_mass": 0.9,
+          "sigma": -0.025464790894703257,
+          "is_exotic": true,
+          "beta2_critical": -0.9463315217391303,
+          "stable_below_critical": true
+        },
+        {
+          "interior_mass": 0.8,
+          "sigma": -0.02624850564828209,
+          "is_exotic": true,
+          "beta2_critical": -0.843891402714932,
+          "stable_below_critical": true
+        },
+        {
+          "interior_mass": 0.7,
+          "sigma": -0.027009489484713184,
+          "is_exotic": true,
+          "beta2_critical": -0.7648467432950194,
+          "stable_below_critical": true
+        },
+        {
+          "interior_mass": 0.5,
+          "sigma": -0.02847050173668708,
+          "is_exotic": true,
+          "beta2_critical": -0.6517857142857141,
+          "stable_below_critical": true
+        }
+      ],
+      "throat_radius": 5.0,
+      "screening_raises_the_critical_beta2": true,
+      "the_window_always_needs_negative_beta2": true,
+      "the_throat_is_always_exotic": true,
+      "so_screening_helps_but_does_not_rescue": true,
+      "pass": true
+    },
+    {
+      "name": "T7_the_three_observables_disagree",
+      "observable_1_shell_sigma": 6.23958123233401e-05,
+      "observable_1_shell_is_exotic": false,
+      "observable_2_force_on_throat": 0.023999999998469686,
+      "observable_2_supports_the_throat": true,
+      "observable_3_beta2_critical": -0.7648467432950194,
+      "observable_3_needs_negative_beta2": true,
+      "throat_sigma": -0.027009489484713184,
+      "the_throat_is_still_exotic": true,
+      "they_do_not_agree": true,
+      "verdict": "the detached shell is ordinary and does support the throat, and the throat's own exotic requirement is untouched \u2014 three answers, three different signs",
+      "pass": true
+    },
+    {
+      "name": "T8_birkhoff_decouples_them",
+      "rows": [
+        {
+          "radius": 8.0,
+          "shell_rest_mass": 0.338157619558471,
+          "shell_sigma": 0.0004204645054446816,
+          "shell_pressure": 2.8516265654547482e-05,
+          "throat_sigma": -0.027009489484713184,
+          "off_diagonal": 0.0
+        },
+        {
+          "radius": 20.0,
+          "shell_rest_mass": 0.31363556097563583,
+          "shell_sigma": 6.239581232333998e-05,
+          "shell_pressure": 1.4513743218204866e-06,
+          "throat_sigma": -0.027009489484713184,
+          "off_diagonal": 0.0
+        },
+        {
+          "radius": 60.0,
+          "shell_rest_mass": 0.30434350648387065,
+          "shell_sigma": 6.727468535392822e-06,
+          "shell_pressure": 4.906535489919539e-08,
+          "throat_sigma": -0.027009489484713184,
+          "off_diagonal": 0.0
+        },
+        {
+          "radius": 200.0,
+          "shell_rest_mass": 0.3012832723257919,
+          "shell_sigma": 5.993840257693926e-07,
+          "shell_pressure": 1.2847831917034278e-09,
+          "throat_sigma": -0.027009489484713184,
+          "off_diagonal": 0.0
+        }
+      ],
+      "shell_rest_mass_range": [
+        0.3012832723257919,
+        0.338157619558471
+      ],
+      "shell_rest_mass_varies_by": 1.1223909543600719,
+      "shell_sigma_varies_by": 701.494346475045,
+      "throat_sigma_spread": 0.0,
+      "worst_off_diagonal": 0.0,
+      "the_shells_are_genuinely_different": true,
+      "the_throat_never_notices": true,
+      "the_off_diagonal_vanishes": true,
+      "but_that_is_structural_not_measured": "Birkhoff is assumed when the region between is written as Schwarzschild with a constant mass; the zero confirms the implementation is consistent with it and proves nothing more",
+      "so_there_is_no_two_mode_coupling": true,
+      "why_it_matters": "spherical symmetry has no radiative channel \u2014 the same \u2113 = 0 fact wave_constraints found for the scalar \u2014 so \u2113 \u2265 2 internal modes are not a later refinement but the only place a genuine throat-shell coupling could live",
+      "pass": true
+    },
+    {
+      "name": "T9_no_flat_direction",
+      "rows": [
+        {
+          "scale": 1.0,
+          "eigenvalues": [
+            0.008693087975390134,
+            0.11462222222222218
+          ],
+          "off_diagonal": 0.0,
+          "scaled_eigenvalues": [
+            0.008693087975390134,
+            0.11462222222222218
+          ]
+        },
+        {
+          "scale": 2.0,
+          "eigenvalues": [
+            0.0021732719938475334,
+            0.028655555555555545
+          ],
+          "off_diagonal": 0.0,
+          "scaled_eigenvalues": [
+            0.008693087975390134,
+            0.11462222222222218
+          ]
+        },
+        {
+          "scale": 4.0,
+          "eigenvalues": [
+            0.0005433179984618834,
+            0.007163888888888886
+          ],
+          "off_diagonal": 0.0,
+          "scaled_eigenvalues": [
+            0.008693087975390134,
+            0.11462222222222218
+          ]
+        }
+      ],
+      "eigenvalues_scale_as_inverse_length_squared": true,
+      "worst_scaling_drift": 0.0,
+      "smallest_absolute_eigenvalue": 0.0005433179984618834,
+      "no_flat_direction": true,
+      "the_scale_is_set_by_the_masses_not_by_a_boundary": true,
+      "pass": true
+    },
+    {
+      "name": "T10_assessment",
+      "n_passed": 9,
+      "n_total": 9,
+      "pass": true
+    }
+  ],
+  "verdict_class": "THE_EXOTIC_MATTER_MOVES_BUT_DOES_NOT_LEAVE",
+  "verdict": "THE EXOTIC MATTER MOVES BUT DOES NOT LEAVE. Of the three observables the hope needed, two come back positive and the decisive one comes back negative. An ANTI-ALIGNED detached shell \u2014 the oppositely-glued one the proposal is about \u2014 is necessarily exotic: its two extrinsic-curvature terms add rather than cancel, so sigma = -(beta+ + beta-)/4piGR with both roots non-negative. Over 200000 random Schwarzschild, de Sitter and Reissner-Nordstrom pairs there is not one counterexample, and there cannot be, because it is an identity and not a statistic. The same identity applies to the throat, which IS a minimal surface, so no arrangement of bulk content can relieve it. What an ORDINARY aligned shell can do is real but different: it screens mass, pushing the throat outward with F = 2G dM/b^2, and it raises the critical beta2 monotonically as it screens more, enlarging the throat's stability window. Both normal modes can then be positive at once. But the window never reaches beta2 >= 0, and in exactly the configuration where the shell is ordinary and supporting, the throat's own sigma is -0.027 \u2014 still exotic. Three observables, three different signs, on one system: which is why they had to be reported separately rather than collapsed into a single stability verdict. The last finding is the one that shapes what comes next. Birkhoff decouples the two surfaces exactly: the shell's surface density varies 701x as it is moved at fixed screened mass, and the throat's sigma does not change in its last bit. Spherical symmetry has no radiative channel \u2014 the same l = 0 fact wave_constraints found for the scalar \u2014 so a genuine two-mode trapped resonator cannot exist here at all, and the l >= 2 internal modes are not a later refinement but the only place such a coupling could live."
+}

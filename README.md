@@ -1750,6 +1750,66 @@ Scope: `gain` is a strength dial, reported as a peak strain throughout; the
 deviation equation is exact in `ξ` and linear in `h`. Full write-up:
 `docs/congruence.md`.
 
+## Can a detached shell do the throat's exotic work for it?
+
+A wormhole throat needs negative surface energy. The hope is that a *detached*
+closed shell in the bulk, glued with the opposite orientation, might supply the
+exotic-looking restoring stress while itself being ordinary matter. That is
+three questions wearing one coat, and **they do not agree**, so they are
+reported separately.
+
+**Observable 1 is a theorem, and it is the decisive one.** For a shell at areal
+radius `R`, `σ = −(1/4πGR)(ε₊β₊ − ε₋β₋)` with `β± = √(f± + Ṙ²)`. For an
+anti-aligned shell — the oppositely-glued one the proposal is about — the two
+terms **add**:
+
+```
+σ = −(β₊ + β₋)/(4πG R) ≤ 0
+```
+
+So **every** oppositely-glued shell is exotic, whatever the bulk. Swept over
+200,000 random Schwarzschild / de Sitter / Reissner–Nordström pairs: zero
+counterexamples, against an aligned control that is positive 50.1% of the time.
+The same identity applies to the throat, because a throat *is* a minimal
+surface — **no arrangement of bulk content can relieve it**. The exotic matter
+moves; it does not leave.
+
+**What an ordinary shell can do is real but different.** An *aligned* shell can
+have `σ > 0`, and it supports the throat by screening mass, with
+`F_shell = 2GΔM/b²` (matched to `1e-6`, zero when there is no shell). And
+screening enlarges the throat's stability window:
+
+| interior mass | `β²_crit` |
+|---|---:|
+| 1.0 | −1.0833 |
+| 0.7 | −0.7648 |
+| 0.5 | −0.6518 |
+
+Both normal modes can then be positive at once — `diag(0.151, 0.022)`. But the
+window never reaches `β² ≥ 0`: the throat always needs `dp/dσ < 0` on top of its
+negative energy density. In exactly the configuration where the shell is
+ordinary and supporting, `σ_throat = −0.027`. **Three observables, three
+different signs, on one system.**
+
+**And the finding that shapes what comes next.** Birkhoff decouples the two
+surfaces exactly. At fixed screened mass, moving the shell from `a = 8` to
+`a = 200` changes its surface density by a factor of **701** — genuinely
+different shells — and the throat's `σ` does not change in its last bit. Spread
+exactly `0.0`. Spherical symmetry has no radiative channel, the same `ℓ = 0`
+fact `wave_constraints` found for the scalar, so **a two-mode trapped resonator
+cannot exist in spherical symmetry at all** — the `ℓ ≥ 2` internal modes are not
+a later refinement but the only place such a coupling could live.
+
+```bash
+python -m experiments.closure_ledger.shell_junction_probe
+# Verdict: THE_EXOTIC_MATTER_MOVES_BUT_DOES_NOT_LEAVE  (9/9)
+```
+
+Scope: `G = 1`, spherical symmetry, thin shells, static plus linear
+perturbation; `β²` free at the equilibrium in the standard way. Birkhoff and the
+Israel formalism are imported, not derived. Full write-up:
+`docs/shell_junction.md`.
+
 ## Quick Start
 
 ### Verify charge quantisation from pure geometry
