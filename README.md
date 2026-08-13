@@ -1750,6 +1750,68 @@ Scope: `gain` is a strength dial, reported as a peak strain throughout; the
 deviation equation is exact in `ξ` and linear in `h`. Full write-up:
 `docs/congruence.md`.
 
+## Can a detached shell do the throat's exotic work for it?
+
+**Scope: Einstein gravity, Darmois–Israel thin shells, spherical symmetry,
+vacuum bulk, `G = 1`.** The dimension is a parameter — `D = 4` is the regression
+case, `D = 5` (Tangherlini) the one this program cares about.
+
+A throat needs negative surface energy. Could a *detached* closed shell, glued
+with the opposite orientation, supply the exotic-looking restoring stress while
+itself being ordinary matter? That is three questions wearing one coat, and
+**they do not agree**, so they are reported separately.
+
+**The orientation is derived from the gluing, not set by hand.** Each side
+retains either the INNER (`r ≤ R`) or OUTER (`r ≥ R`) branch, and `ε` follows.
+With `σ = −(D−2)(ε₊β₊ − ε₋β₋)/(8πG R)` that gives **four** gluings:
+
+| `−` | `+` | `η` | what it is | `σ` |
+|---|---|---:|---|---|
+| INNER | OUTER | `+1` | ordinary bubble | either sign |
+| OUTER | OUTER | `−1` | **minimal surface** | `< 0` always |
+| INNER | INNER | `−1` | **maximal surface** | `> 0` always |
+| OUTER | INNER | `+1` | anti-bubble | either sign |
+
+So `η = −1` alone decides nothing — it covers two gluings whose forced signs are
+*opposite*. What is forced is sharper: a minimal surface has
+`σ = −(D−2)(β₊+β₋)/8πGR < 0` and a maximal one the same with the other sign,
+both identities, neither violated once in 40,000 random Tangherlini / de Sitter
+/ charged pairs across `D = 4, 5, 6`.
+
+**The dichotomy that follows is the answer.** A detached surface that
+*connects* to the throat's region does so through a minimal surface and is
+necessarily exotic. One that is non-exotic by its gluing is a **maximal**
+surface — it caps off on both sides, shares no bulk with the throat, and is
+non-exotic precisely *because* it is disconnected, so it cannot support
+anything. Within Einstein–Israel spherical thin shells the exotic matter is
+relocated, never removed.
+
+**The three observables still disagree on one system.** An ordinary bubble has
+`σ = +6.2e-05`, its screening does push the throat outward, and `σ_throat =
+−0.027` regardless. Screening raises the critical `β²` monotonically
+(`−1.083 → −0.652`), enlarging the stability window but never reaching
+`β² ≥ 0`.
+
+Two things are carried in the output rather than buried: the shell's effect is a
+potential **gradient**, not an equilibrium-consistent force (fixed throat rest
+mass, no equation-of-state response); and Birkhoff's vanishing `∂²V/∂a∂b` is
+**structural**, imported the moment the intervening region is written with a
+constant mass parameter. What *is* measured is that a family of shells differing
+**701×** in surface density leaves the throat bit-for-bit unchanged — which
+establishes no separation-dependent coupling *in this model*, not that every
+spherical trapped resonator is impossible. `ℓ ≥ 2` is where such a coupling
+would have to live.
+
+```bash
+python -m experiments.closure_ledger.shell_junction_probe
+# Verdict: CONNECTED_MEANS_EXOTIC  (10/10)
+```
+
+Imported rather than derived: Birkhoff, the Darmois–Israel formalism, and `β²`
+as a free parameter at the equilibrium. Stiffnesses are stiffnesses, not
+normal-mode frequencies — no kinetic metric is derived. Full write-up:
+`docs/shell_junction.md`.
+
 ## Quick Start
 
 ### Verify charge quantisation from pure geometry
