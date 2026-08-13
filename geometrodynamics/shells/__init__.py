@@ -15,3 +15,10 @@ from geometrodynamics.shells.junction import (  # noqa: F401
     Z2Throat,
     surface_stress,
 )
+from geometrodynamics.shells.multipole import (  # noqa: F401
+    ShellPair,
+    area_second_variation,
+    mutual_stiffness,
+    transfer_exponent,
+    translation_family,
+)
