@@ -1867,6 +1867,76 @@ python -m experiments.closure_ledger.multipole_coupling_probe
 Not Regge–Wheeler, no quasinormal frequencies, no claim that a trapped `ℓ ≥ 2`
 resonance exists. Full write-up: `docs/multipole_coupling.md`.
 
+## One conserved wave, seen in pieces
+
+**Scope: kinematics and bookkeeping on a fixed round `S³`.** The wormhole is an
+*identification map* — a pair of mouths and a time offset — not a solution; `κ`
+and the delay `Δ` are parameters. PR #249 priced such a throat (a minimal
+surface has `σ < 0` identically), and this round **inherits that bill without
+paying it**. No Einstein equation, no backreaction, no cross-section.
+
+An emitter fires a shell; while it expands, a *collapsing* shell sweeps past it
+and lands on a receiver, which recoils. Locally, two unrelated events. Globally,
+one object:
+
+```
+E ──expand──▶ M_future ──throat, Δt < 0──▶ M_past ──collapse──▶ R
+```
+
+**The staging is geometry, and the same fact places both ends.** A geodesic
+sphere at distance `χ` has area `4π sin²χ`, so a shell refocuses exactly at
+`χ = π` — checked against uniform sampling of `S³` through the enclosed volume
+and scored against the estimator's own binomial standard error (worst
+`z = 2.02`). That puts the future mouth at the emitter's antipode *and* the
+receiver at the past mouth's, which is the only place the arriving shell is
+genuinely **collapsing**: `dA/dχ = 4π sin 2χ < 0` all the way in. Against a
+receiver displaced to `χ = 1.2` the same wave is still *expanding* when it
+lands — so "collapse" is a measured sign, not a caption.
+
+**The content is the self-consistency.** A closed timelike loop carrying a
+**linear** wave has exactly one amplitude, `A = A_src/(1 − κ)`, matching brute
+iteration of 4000 round trips to `7.1e-13` even at `κ = 0.99` (amplification
+`×100`). It is unique for **every** `κ ≠ 1`, and exists even where `|κ| > 1` and
+the *iteration* diverges — divergence of a summation method is not absence of a
+solution. Nothing is tuned and no paradox is available.
+
+**That is a fact about linear equations, not about time travel**, and it is
+demonstrated rather than asserted: the same loop with a quadratic return
+`A = S + κA²` has two solutions below a source threshold of `1/4κ` and none
+above it.
+
+**The picture measures rather than illustrates.** Every drawn point sits at
+geodesic distance `χ` from its centre to `6.7e-15`, and the shadow's screen
+extent is proportional to `sin χ` with **one constant to `3.6e-16`** — that is
+`√(A/4π)`, so the apparent size in the figure *is* the area law.
+
+Getting there meant replacing the projection, which is this round's real
+correction. A stereographic chart is unbounded at its own pole, and a shell
+launched from a point sweeps **all** of `S³`, so whatever pole is chosen the
+shell crosses it once: the radius grows as `2/ε` across four decades and never
+converges. The first renderer projected from `q₃ = +1` — the emitter's own
+position — so the emitter was a division by zero and never got drawn. The
+orthographic **shadow** replaces it: bounded by the unit ball everywhere, with
+the discarded coordinate kept as brightness. It is **2-to-1**, so a crossing on
+screen is not a crossing on `S³`, and nothing here rests on one.
+
+**And what closing the ledger is not evidence for.** Flux conservation through
+the throat is *put in* when the mouths are identified, so the `1.1e-16` residual
+checks the arithmetic. What it does establish is the identification: neither
+local event conserves anything alone — the emitter loses flux, the receiver
+gains it — and the pair closes exactly. The delay decides the entire story and
+changes no conserved quantity: amplitude spread across `Δ` from `−2` to `−10⁴`
+is `0.0`.
+
+```bash
+python -m experiments.closure_ledger.wormhole_ledger_probe
+# Verdict: ONE_WAVE_AND_LINEARITY_IS_WHY  (10/10)
+
+python scripts/geometrodynamics_v51_wormhole_ledger.py --still v51.png
+```
+
+Full write-up: `docs/wormhole_ledger.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
@@ -1885,11 +1955,16 @@ be an identity no drawing choice can move.
 | congruence | does focusing reach a singularity? | **no** — a caustic, and it passes through |
 | shell junction | can a detached shell replace exotic matter? | **no** — connected implies exotic, by identity |
 | multipole | where does the two-shell coupling start? | **`ℓ = 2`**, screened as `(b/a)^ℓ` |
+| wormhole ledger | are the four apparent objects one wave? | **yes** — one balance, and linearity makes it free |
 
 The recurring methodological lesson: **a converged number is not a correct
 number.** Three of the nine errors the arc caught survived grid refinement and
 fell only to an independent construction — a closed form against brute force, an
 operator form against a difference, an exact surface against a truncated family.
+The tenth round sharpens it: both of its corrections were *representational* —
+a receiver placed where the caption said "collapse" but the geometry said
+"arrive", and a projection that sent the very point the scene is about to
+infinity. **An object drawn correctly can still be the wrong object.**
 
 Full write-up, including what is imported rather than derived and what each
 closing result names as its own missing ingredient:
