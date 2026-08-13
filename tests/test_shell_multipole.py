@@ -29,7 +29,9 @@ from geometrodynamics.shells.multipole import (
     ShellPair,
     area_second_variation,
     measure_a_fluid_shell_has_no_shear_modulus,
-    measure_birkhoff_is_the_ell_zero_case,
+    measure_the_ell_zero_decoupling_is_a_zero_eigenvalue,
+    measure_the_translation_mode_does_not_couple,
+    rigid_pair_mutual_energy,
     measure_the_area_cost_of_a_deformation,
     measure_the_coupling_is_screened_by_separation,
     measure_the_mutual_coupling_is_the_laplacian_eigenvalue,
@@ -68,13 +70,50 @@ def test_the_closed_form_matches_brute_force_integration():
     assert abs(zero["brute_force"]) < 1e-9
 
 
-def test_birkhoff_is_the_ell_zero_case():
-    r = measure_birkhoff_is_the_ell_zero_case()
+def test_the_ell_zero_decoupling_is_a_zero_eigenvalue():
+    r = measure_the_ell_zero_decoupling_is_a_zero_eigenvalue()
     assert r["ell_zero_is_exactly_zero_at_every_separation"] is True
     assert r["every_other_ell_couples"] is True
     for row in r["rows"]:
         assert row["ell_0"] == 0.0
         assert row["ell_2"] > 0.0
+
+
+def test_the_ell_zero_result_is_not_claimed_to_be_birkhoff():
+    """Birkhoff is a GR theorem; this is its static Newtonian analogue."""
+    r = measure_the_ell_zero_decoupling_is_a_zero_eigenvalue()
+    note = r["this_is_not_birkhoff"]
+    assert "GR theorem" in note
+    assert "Newtonian analogue" in note
+
+
+# ── the ℓ = 1 control, done on the energy ───────────────────────────────────
+def test_the_shell_theorem_holds_for_the_mutual_energy():
+    """A rigid displacement leaves the mutual energy at ``−G m_b m_a / a``."""
+    b, a = 2.0, 5.0
+    ref = rigid_pair_mutual_energy(b, a)
+    assert ref == pytest.approx(-1.0 / a, abs=1e-12)
+    for d in (0.1, 0.8, 2.5):
+        assert rigid_pair_mutual_energy(b, a, d_b=d) == pytest.approx(
+            ref, rel=1e-12)
+
+
+def test_the_translation_mode_does_not_couple_but_the_shape_mode_does():
+    """The correction: ``ℓ = 1`` couples as a *shape*, not as a translation."""
+    r = measure_the_translation_mode_does_not_couple()
+    assert r["shell_theorem_holds"] is True
+    assert abs(r["rigid_translation_cross_derivative"]) < 1e-9
+    assert r["pure_P1_shape_coupling"] == pytest.approx(1.7778e-02, rel=1e-3)
+    assert r["the_translation_mode_does_not_couple"] is True
+    assert r["the_shape_mode_does"] is True
+    assert r["so_coupling_starts_at_ell_two"] is True
+
+
+def test_the_area_test_is_recorded_as_insufficient():
+    r = measure_the_translation_mode_does_not_couple()
+    why = r["why_the_area_test_was_not_enough"]
+    assert "not about the mutual gravitational energy" in why
+    assert "it does not" in why
 
 
 def test_the_mutual_stiffness_scales_with_the_masses():
@@ -138,7 +177,7 @@ def test_the_family_error_falls_faster_than_the_dipole_error():
 # ── the second half of the answer ───────────────────────────────────────────
 def test_the_coupling_is_screened_geometrically():
     r = measure_the_coupling_is_screened_by_separation()
-    assert r["the_coupling_exists_for_every_ell_at_least_one"] is True
+    assert r["every_shape_mode_couples"] is True
     assert r["but_it_falls_geometrically"] is True
     assert r["suppression_from_ell_1_to_ell_8"] > 100.0
 

@@ -3,9 +3,10 @@
 > **Framing.** Every round below is a *representation* question first and a
 > physics question second: given a geometry and a field on it, which object
 > should be drawn, and what does the choice smuggle in? The arc began by asking
-> whether a wave could fold a surface through itself, and ended by deriving why
-> a spherical model could not couple two surfaces at all. Each step is
-> machine-checked by a probe in `experiments/closure_ledger/`.
+> whether a wave could fold a surface through itself, and ended by locating
+> exactly which angular modes let two concentric surfaces couple at all — and at
+> what geometric cost. Each step is machine-checked by a probe in
+> `experiments/closure_ledger/`.
 
 ## 0. The answer, stated first
 
@@ -19,7 +20,7 @@
 | 4 | does drawing the *vectors* rather than their tips change that? | **yes** — hundreds of crossings, threshold `ρ = 1/κ` |
 | 5 | does focusing reach a singularity? | **no** — it reaches a *caustic*, and passes through |
 | 6 | can a detached oppositely-glued shell replace exotic matter? | **no** — connected implies exotic, by identity |
-| 7 | does `ℓ ≥ 2` supply the coupling `ℓ = 0` forbade? | **yes**, and it is screened as `(b/a)^ℓ` |
+| 7 | where does the two-shell coupling start? | **`ℓ = 2`** — and it is screened as `(b/a)^ℓ` |
 
 The through-line: **almost every apparent obstruction turned out to be a
 property of the object being drawn, not of the physics** — until the last two,
@@ -97,14 +98,29 @@ bulk — non-exotic *precisely because* it is disconnected. Within
 Einstein–Israel spherical thin shells, exotic matter is relocated, never
 removed.
 
-## 8. Birkhoff is a vanishing eigenvalue (`docs/multipole_coupling.md`, PR #250)
+## 8. Where the coupling starts (`docs/multipole_coupling.md`, PR #250)
 
-The mutual stiffness of two concentric deformed shells is
-`G m_b m_a ℓ(ℓ+1)(b/a)^ℓ/(a(2ℓ+1)²)`, verified to `9e-06` against brute-force
-integration. The prefactor is the **Laplacian eigenvalue**, so the previous
-round's decoupling is the `ℓ = 0` case of a multipole fact, not an imported
-theorem. `ℓ ≥ 2` supplies the coupling — and the same formula screens it as
-`(b/a)^ℓ`, `544×` from `ℓ = 1` to `ℓ = 8` at `b/a = 0.4`.
+In the **static Newtonian two-shell model** the monopole mutual stiffness
+vanishes while higher angular multipoles couple, with the coupling suppressed
+geometrically by separation:
+
+```
+∂²U/∂α∂γ  =  G m_b m_a · ℓ(ℓ+1) · (b/a)^ℓ / (a (2ℓ+1)²)
+```
+
+verified to `9e-06` against brute-force integration that never expands in
+multipoles. The prefactor is the angular-Laplacian eigenvalue, so the `ℓ = 0`
+decoupling *is* that zero eigenvalue. **This is the Newtonian analogue of what
+`shell_junction` established in GR — Birkhoff remains a GR theorem, imported by
+that round and not replaced here.**
+
+The coupling **starts at `ℓ = 2`**, not `ℓ = 1`. A first draft claimed
+"everything `ℓ ≥ 1` couples", from checking translation invariance of the
+*area*; run on the mutual *energy*, a rigidly displaced sphere leaves it at
+exactly `−G m_b m_a / a` (Newton's shell theorem, `1e-15`), so the translation
+mode does not couple. The pure `P₁` *shape* mode is a different object and does,
+at `1.78e-02`. And the same formula screens the coupling as `(b/a)^ℓ` — `544×`
+from `ℓ = 1` to `ℓ = 8` at `b/a = 0.4`.
 
 ## 9. What the arc cost in errors, and what caught them
 
@@ -133,19 +149,23 @@ Worth recording, because the failure modes repeat:
 * **A probe scale far outside the physical one.** Extrapolating `V'(p)` from
   `p = 1` when `σ₀ ~ 3e-4` let an `O(h·p²)` term dominate — `p₀` wrong by
   `3.4×`.
-* **A zero mode that was not one.** A pure `P₁` deformation is not a translation
-  past linear order; its area cost is `4/3`.
+* **A zero mode that was not one, and then the wrong test for it.** A pure `P₁`
+  deformation is not a translation past linear order; its area cost is `4/3`.
+  Worse, the first repair checked translation invariance of the **area** when
+  the claim was about the **energy** — and the energy test reverses the
+  conclusion, moving the onset of coupling from `ℓ = 1` to `ℓ = 2`.
 
 The recurring lesson is narrow and practical: **a converged number is not a
-correct number.** Three of the nine errors above survived grid refinement, and
-were caught only by an independent construction — a closed form against brute
+correct number.** Three of the errors above survived grid refinement, and were caught only by
+an independent construction — a closed form against brute
 force, an operator form against a difference, an exact surface against a
 truncated family.
 
 ## 10. What is imported rather than derived
 
-* Birkhoff's theorem (`shell_junction`) — and then *not* needed in
-  `multipole_coupling`.
+* Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
+  `multipole_coupling` supplies its static Newtonian analogue, not a
+  replacement.
 * The Darmois–Israel formalism.
 * `β²` as a free parameter at the equilibrium.
 * The fixed round `S²` background of every wave round: curvature `1` everywhere,

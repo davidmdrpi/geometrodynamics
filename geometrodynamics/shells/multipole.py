@@ -1,82 +1,77 @@
 """
-ℓ ≥ 2: the coupling Birkhoff forbids at ℓ = 0, and what it costs to have it.
+Where the two-shell coupling starts, in a static Newtonian model.
 
-WHAT THIS CLOSES
-────────────────
-``shells.junction`` found that two concentric surfaces in a vacuum spherical
-model cannot talk: the region between them carries a constant mass parameter, so
-the throat's data does not depend on where the shell sits.  The natural reading
-was that ``ℓ ≥ 2`` internal modes are "the only place a coupling could live".
-This module makes that precise, and the answer is sharper than the guess.
+SCOPE, BECAUSE THE HEADLINE DEPENDS ON IT
+─────────────────────────────────────────
+This is the **static Newtonian (Laplace) two-shell model** — the weak-field
+analogue of the junction problem, with interior/exterior static solutions
+``r^ℓ`` and ``r^{−(ℓ+D−3)}``.  What it establishes is the **shell-theorem /
+multipole** structure of the coupling.  **Birkhoff's theorem is a GR result and
+remains what ``shells.junction`` (PR #249) relies on**; nothing here replaces
+it, and the ℓ = 0 statement below is its Newtonian analogue, not the theorem
+itself.  Not Regge–Wheeler/Zerilli; no quasinormal frequencies; no radiative
+dynamics.  ``G = 1``.
 
 THE RESULT, STATED FIRST
 ────────────────────────
-For two concentric shells at ``b < a``, each deformed by ``δR = α R P_ℓ``, the
-**mutual stiffness** of the gravitational interaction is
+In this model the **monopole mutual stiffness vanishes** while higher angular
+multipoles couple, with the coupling **suppressed geometrically by separation**.
+
+For two concentric shells at ``b < a``, each deformed by ``δR = α R P_ℓ``,
 
     ``∂²U/∂α∂γ  =  G m_b m_a · ℓ(ℓ+1) · (b/a)^ℓ / (a (2ℓ+1)²)``
 
 verified against brute-force double integration over both deformed surfaces to
-six digits for ``ℓ = 1…4``, and **exactly zero at ``ℓ = 0``**.
+six digits, and exactly zero at ``ℓ = 0``.  The prefactor is ``ℓ(ℓ+1)``, the
+eigenvalue of the angular Laplacian: **the ℓ = 0 Newtonian decoupling is that
+zero eigenvalue**.
 
-The prefactor is ``ℓ(ℓ+1)`` — the eigenvalue of the Laplacian on the sphere.  So
-the decoupling of the previous round is not a special fact about spheres or
-about Birkhoff's theorem as a separate ingredient: it is the ``ℓ = 0`` case of a
-one-line multipole statement, and it vanishes *because the constant mode has
-zero Laplacian eigenvalue*.  Everything ``ℓ ≥ 1`` couples, with a separation
-dependence ``(b/a)^ℓ`` that Birkhoff's ``ℓ = 0`` case lacks entirely.
+WHERE THE COUPLING ACTUALLY STARTS — AND IT IS NOT ℓ = 1
+───────────────────────────────────────────────────────
+An earlier draft of this module concluded that "everything ``ℓ ≥ 1`` couples".
+That is wrong as a statement about physical modes, and the error was checking
+translation invariance of the **area** instead of of the **mutual energy**.
+Done at the level of the energy the two disagree:
 
-Two consequences worth keeping apart:
+* a **rigid translation** of either sphere leaves the mutual energy exactly
+  ``−G m_b m_a / a`` — Newton's shell theorem, held to ``1e-15`` out to
+  ``d = 2.5`` — so the cross-derivative with respect to rigid displacements is
+  ``8.3e-13``.  **The translation mode does not couple.**
+* a pure ``P₁`` *shape* deformation is a different object, and it does couple,
+  at ``1.78e-02``.
 
-* the coupling **exists** for every ``ℓ ≥ 1``, so a two-mode problem is
-  available in principle;
-* it is **suppressed as ``(b/a)^ℓ``**, so the very multipoles that carry a
-  spin-2 signal are the ones most strongly screened by separation.  At
-  ``b/a = 0.4``, going from ``ℓ = 0`` to ``ℓ = 2`` buys a coupling, but one
-  already down by ``0.16`` relative to the geometric prefactor, and each further
-  ``ℓ`` costs another factor of ``b/a``.
+So the honest ordering is: ``ℓ = 0`` decouples by the vanishing eigenvalue, the
+``ℓ = 1`` **translation** mode decouples by the shell theorem, and genuine
+coupling **starts at ``ℓ = 2``** — which is what PR #249 guessed and this
+establishes.
 
-A TRAP THAT HAD TO BE CAUGHT FIRST
-──────────────────────────────────
-A pure ``P₁`` deformation is **not** a translation beyond linear order, and
-treating it as one manufactures a zero mode that is not there.  Measured: the
-second variation of the area of ``r = R(1 + αP_ℓ)`` is
+THE SAME TRAP, TWICE
+────────────────────
+Both errors above are the same mistake: **a pure ``P₁`` deformation is not a
+translation past linear order.**  The second variation of the area of
+``r = R(1 + αP_ℓ)`` is
 
     ``d²A/dα² / (4πR²)  =  [2 + ℓ(ℓ+1)] / (2ℓ+1)``
 
-exactly — ``2, 4/3, 8/5, 2, 22/9, 32/11`` for ``ℓ = 0…5`` — which does **not**
-vanish at ``ℓ = 1``.  The resolution is that a rigid displacement ``d`` is
+exactly — ``2, 4/3, 8/5, 2, 22/9, 32/11`` for ``ℓ = 0…5`` — which does not
+vanish at ``ℓ = 1``.  A rigid displacement is instead
 
     ``r = R + d P₁ − d²/(3R) + (d²/3R) P₂ + O(d³)``
 
-so the true translation direction carries induced ``ℓ = 0`` and ``ℓ = 2``
-pieces.  Along *that* family the area is constant: the exact translated sphere
-gives ``ΔA/A = 4e-16`` at every displacement, and the truncated family reduces
-the pure-``P₁`` error from ``2.7e-04`` to ``2.1e-08`` at ``d = 0.02``, i.e. by
-``O(d²)`` as it should.  Translation invariance is exact; the naive test was
-not testing it.
+carrying induced ``ℓ = 0`` and ``ℓ = 2`` pieces.  The exact translated sphere is
+area-preserving to ``4e-16`` at every displacement.  The lesson is that the
+zero-mode test has to be run on the quantity the claim is about: the area test
+does not decide whether ``ℓ = 1`` couples, and the energy test does.
 
 THE SHEAR RESPONSE IS AN INPUT, NOT A DERIVATION
 ────────────────────────────────────────────────
 A perfect-fluid shell has ``S_ij = diag(−σ, p, p)`` and therefore **no shear
-modulus at all**.  Its ``ℓ ≥ 2`` restoring force comes only from the area cost
-of the deformation and from gravity.  Making the shell resist *shape* change at
-fixed area requires an elastic modulus ``μ_s`` that no equation of state
-supplies, so it is carried here as an explicit parameter and never fitted.
-This is stated because the previous round's conclusion — that ``ℓ ≥ 2`` is
-where the coupling lives — is only half an answer: the coupling is there, but
-what the shell *does* with it depends on a constitutive choice that spherical
-symmetry never had to make.
-
-SCOPE
-─────
-This is the **static, Newtonian (Laplace) multipole** problem: the weak-field
-limit of the junction problem, in which the interior-regular and
-exterior-regular solutions are ``r^ℓ`` and ``r^{−(ℓ+D−3)}``.  It is *not* a
-Regge–Wheeler/Zerilli treatment on the Schwarzschild background, and no claim is
-made about ``ℓ ≥ 2`` quasinormal frequencies or about radiative dynamics.  What
-is established is the multipole structure of the coupling and where Birkhoff
-sits inside it.  ``G = 1``.
+modulus at all**: it resists area change and nothing else.  Making it resist
+*shape* change at fixed area requires an elastic modulus ``μ_s`` that no
+equation of state supplies, so it is carried as an explicit parameter and never
+fitted.  PR #249's conclusion that ``ℓ ≥ 2`` is where the coupling lives is
+therefore only half an answer — the coupling is there, but what a shell does
+with it is a constitutive choice spherical symmetry never had to make.
 """
 
 from __future__ import annotations
@@ -88,12 +83,14 @@ import numpy as np
 
 __all__ = [
     "mutual_stiffness",
+    "rigid_pair_mutual_energy",
+    "measure_the_translation_mode_does_not_couple",
     "area_second_variation",
     "translation_family",
     "transfer_exponent",
     "ShellPair",
     "measure_the_mutual_coupling_is_the_laplacian_eigenvalue",
-    "measure_birkhoff_is_the_ell_zero_case",
+    "measure_the_ell_zero_decoupling_is_a_zero_eigenvalue",
     "measure_the_pure_dipole_is_not_a_translation",
     "measure_translation_invariance_is_exact",
     "measure_the_area_cost_of_a_deformation",
@@ -296,16 +293,16 @@ def measure_the_mutual_coupling_is_the_laplacian_eigenvalue(
     }
 
 
-def measure_birkhoff_is_the_ell_zero_case(
+def measure_the_ell_zero_decoupling_is_a_zero_eigenvalue(
         b: float = 2.0, a: float = 5.0,
         separations: Sequence[float] = (5.0, 20.0, 100.0)
         ) -> Dict[str, object]:
-    """``ℓ = 0`` is not a special theorem, it is a vanishing eigenvalue.
+    """The ``ℓ = 0`` Newtonian decoupling is the zero eigenvalue of ``ℓ(ℓ+1)``.
 
-    The previous round measured the decoupling and imported Birkhoff to explain
-    it.  Here the same zero appears as ``ℓ(ℓ+1)`` at ``ℓ = 0``, alongside
-    non-zero couplings at every other ``ℓ`` — so the decoupling is a property of
-    the constant mode, not of spheres.
+    ``shells.junction`` measured a decoupling in GR and relies on Birkhoff's
+    theorem for it.  **This is the Newtonian analogue, not that theorem**: here
+    the same zero appears as the vanishing angular-Laplacian eigenvalue at
+    ``ℓ = 0``, alongside non-zero shape couplings at higher ``ℓ``.
     """
     rows = []
     for a_ in separations:
@@ -322,10 +319,13 @@ def measure_birkhoff_is_the_ell_zero_case(
             all(r["ell_1"] > 0.0 and r["ell_2"] > 0.0 and r["ell_3"] > 0.0
                 for r in rows)),
         "ell_zero_is_separation_independent": True,
-        "why": ("the mutual stiffness carries the Laplacian eigenvalue "
-                "ℓ(ℓ+1), which vanishes only for the constant mode — the "
-                "decoupling of the spherical model is that zero, not a "
-                "separate theorem about spheres"),
+        "why": ("the mutual stiffness carries the angular-Laplacian "
+                "eigenvalue ℓ(ℓ+1), which vanishes only for the constant "
+                "mode; in this Newtonian model that zero IS the ℓ = 0 "
+                "decoupling"),
+        "this_is_not_birkhoff": ("Birkhoff is a GR theorem and remains what "
+                                 "shells.junction relies on; this is its "
+                                 "static Newtonian analogue"),
     }
 
 
@@ -424,14 +424,17 @@ def measure_the_coupling_is_screened_by_separation(
     return {
         "rows": rows, "b_over_a": b / a,
         "suppression_from_ell_1_to_ell_8": ratio,
-        "the_coupling_exists_for_every_ell_at_least_one": bool(
+        "every_shape_mode_couples": bool(
             all(r["mutual_stiffness"] > 0.0 for r in rows)),
+        "but_the_ell_1_entry_is_a_shape_mode_not_a_translation": (
+            "the rigid translation has zero mutual coupling by the shell "
+            "theorem — see measure_the_translation_mode_does_not_couple"),
         "but_it_falls_geometrically": bool(
             all(x["mutual_stiffness"] > y["mutual_stiffness"]
                 for x, y in zip(rows, rows[1:]))),
         "so_the_answer_has_two_halves": (
-            "ℓ ≥ 2 restores the coupling ℓ = 0 forbade, and screens it by "
-            "(b/a)^ℓ — the modes that carry a spin-2 signal are the ones "
+            "genuine coupling starts at ℓ = 2, and the same formula screens it "
+            "by (b/a)^ℓ — the modes that carry a spin-2 signal are the ones "
             "separation suppresses hardest"),
     }
 
@@ -466,4 +469,88 @@ def measure_a_fluid_shell_has_no_shear_modulus(
             "lives is only half an answer: the coupling is there, but what the "
             "shell does with it depends on a constitutive choice spherical "
             "symmetry never had to make"),
+    }
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# THE ℓ = 1 CONTROL, AT THE LEVEL OF THE ENERGY
+# ════════════════════════════════════════════════════════════════════════════
+def rigid_pair_mutual_energy(b: float, a: float, d_b: float = 0.0,
+                             d_a: float = 0.0, n: int = 200,
+                             m: int = 120) -> float:
+    """Mutual energy of two spheres **rigidly displaced** along the axis.
+
+    Both surfaces are exact translated spheres — no Legendre truncation — so
+    this tests the energy, not a shape parametrisation of it.  Newton's shell
+    theorem says the result is ``−G m_b m_a / a`` for any displacements that
+    keep the inner sphere entirely inside the outer.
+    """
+    if not 0.0 < b < a:
+        raise ValueError("need 0 < b < a")
+    x, w = np.polynomial.legendre.leggauss(n)
+    theta = np.arccos(x)
+    n_b = np.stack([np.sin(theta), np.zeros_like(theta), np.cos(theta)], 1)
+    pts_b = b * n_b + np.array([0.0, 0.0, d_b])
+    phi = 2.0 * math.pi * (np.arange(m) + 0.5) / m
+    total = 0.0
+    for ph in phi:
+        n_a = np.stack([np.sin(theta) * np.cos(ph),
+                        np.sin(theta) * np.sin(ph), np.cos(theta)], 1)
+        pts_a = a * n_a + np.array([0.0, 0.0, d_a])
+        sep = np.linalg.norm(pts_b[:, None, :] - pts_a[None, :, :], axis=2)
+        total += -G * np.einsum("i,j,ij->", w, w, 1.0 / sep) \
+            * (2.0 * math.pi / m)
+    return float(total * (2.0 * math.pi) / (4.0 * math.pi) ** 2)
+
+
+def measure_the_translation_mode_does_not_couple(
+        b: float = 2.0, a: float = 5.0, eps: float = 1e-2,
+        displacements: Sequence[float] = (0.1, 0.8, 2.5)
+        ) -> Dict[str, object]:
+    """The ``ℓ = 1`` control the area test does not perform.
+
+    Checking translation invariance of the **area** says nothing about the
+    mutual gravitational energy, which is the quantity the coupling result is
+    about.  Done properly, the two disagree and the physics changes:
+
+    * a **rigid translation** of either sphere leaves the mutual energy exactly
+      ``−G m_b m_a / a`` — Newton's shell theorem — so the translation mode has
+      **zero** mutual coupling;
+    * a pure ``P₁`` *shape* deformation is a different object and does couple,
+      at ``1.78e-02``.
+
+    So "every ``ℓ ≥ 1`` couples" is wrong as a statement about physical modes.
+    Genuine coupling starts at ``ℓ = 2``.
+    """
+    ref = rigid_pair_mutual_energy(b, a)
+    rows = []
+    for d in displacements:
+        u = rigid_pair_mutual_energy(b, a, d_b=d)
+        rows.append({"displacement": d, "energy": u,
+                     "relative_drift": abs(u - ref) / abs(ref),
+                     "inner_stays_inside": bool(b + d < a)})
+
+    def cross(f) -> float:
+        return (f(eps, eps) - f(eps, -eps) - f(-eps, eps)
+                + f(-eps, -eps)) / (4.0 * eps * eps)
+
+    rigid = cross(lambda p, q: rigid_pair_mutual_energy(b, a, p, q))
+    shape = mutual_stiffness(1, b, a)
+    return {
+        "rows": rows,
+        "reference_energy": ref,
+        "newtonian_prediction": -G / a,
+        "shell_theorem_holds": bool(
+            abs(ref + G / a) < 1e-12
+            and all(r["relative_drift"] < 1e-12 for r in rows)),
+        "rigid_translation_cross_derivative": rigid,
+        "pure_P1_shape_coupling": shape,
+        "the_translation_mode_does_not_couple": bool(abs(rigid) < 1e-9),
+        "the_shape_mode_does": bool(shape > 1e-3),
+        "so_coupling_starts_at_ell_two": True,
+        "why_the_area_test_was_not_enough": (
+            "translation invariance of the area is a statement about the "
+            "surface, not about the mutual gravitational energy; the energy "
+            "control is the one that decides whether ℓ = 1 couples, and it "
+            "says it does not"),
     }

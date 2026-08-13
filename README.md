@@ -1812,21 +1812,23 @@ as a free parameter at the equilibrium. Stiffnesses are stiffnesses, not
 normal-mode frequencies — no kinetic metric is derived. Full write-up:
 `docs/shell_junction.md`.
 
-## ℓ ≥ 2: Birkhoff is a vanishing eigenvalue
+## Where the two-shell coupling starts
 
-The previous round found two concentric surfaces could not talk, and **imported
-Birkhoff's theorem** to say why. That import was not needed. For two concentric
-shells at `b < a`, each deformed by `δR = α R P_ℓ`, the mutual stiffness is
+**Scope: the static Newtonian (Laplace) two-shell model** — the weak-field
+analogue of the junction problem. It establishes the shell-theorem/multipole
+structure. **Birkhoff is a GR result and remains what PR #249 relies on**; the
+`ℓ = 0` statement here is its Newtonian analogue, not a replacement.
+
+In this model the **monopole mutual stiffness vanishes** while higher angular
+multipoles couple, with the coupling **suppressed geometrically by separation**:
 
 ```
 ∂²U/∂α∂γ  =  G m_b m_a · ℓ(ℓ+1) · (b/a)^ℓ / (a (2ℓ+1)²)
 ```
 
-The prefactor is `ℓ(ℓ+1)` — **the Laplacian eigenvalue on the sphere** — so the
-decoupling is the `ℓ = 0` case of a one-line multipole fact, vanishing because
-the constant mode has zero eigenvalue. Verified to `9e-06` against brute-force
-double integration over both deformed surfaces, which never expands in
-multipoles:
+The prefactor is the angular-Laplacian eigenvalue, so the `ℓ = 0` decoupling is
+that zero eigenvalue. Verified to `9e-06` against brute-force double integration
+over both deformed surfaces, which never expands in multipoles:
 
 | `ℓ` | closed form | brute force |
 |---:|---:|---:|
@@ -1834,32 +1836,31 @@ multipoles:
 | 2 | 0.007680000 | 0.007680044 |
 | 4 | 0.001264198 | 0.001264209 |
 
-**The answer has a second half.** The same formula screens the coupling as
-`(b/a)^ℓ` — a factor of **544** from `ℓ = 1` to `ℓ = 8` at `b/a = 0.4`. The
-multipoles that carry a spin-2 signal are the ones separation suppresses
-hardest, so having the channel and being able to use it are different
-statements.
+**Coupling starts at `ℓ = 2`, not `ℓ = 1`.** A first draft claimed "everything
+`ℓ ≥ 1` couples", having checked translation invariance of the **area** — the
+wrong quantity. Run on the mutual **energy**, a rigidly displaced inner sphere
+leaves it at exactly `−G m_b m_a / a` (Newton's shell theorem, held to `1e-15`),
+so the cross-derivative for rigid translations is `8.3e-13`: **the translation
+mode does not couple.** The pure `P₁` *shape* mode is a different object and
+does, at `1.78e-02`. So `ℓ = 0` decouples by the vanishing eigenvalue, the
+`ℓ = 1` translation mode by the shell theorem, and genuine coupling begins at
+`ℓ = 2` — which is what #249 guessed.
 
-**A trap caught first.** A pure `P₁` deformation is *not* a translation past
-linear order: the area second variation is `[2+ℓ(ℓ+1)]/(2ℓ+1)` exactly, which at
-`ℓ = 1` is `4/3` and not zero. A naive translation-invariance test would have
-reported a stiffness that is not there. Translation invariance does hold — the
-rigid displacement carries induced `ℓ = 0` and `ℓ = 2` pieces, and the exact
-displaced sphere is area-preserving to `4e-16` at every displacement.
+**And it is screened.** `(b/a)^ℓ` gives a factor of **544** from `ℓ = 1` to
+`ℓ = 8` at `b/a = 0.4`. The multipoles carrying a spin-2 signal are the ones
+separation suppresses hardest.
 
-**And the shear response is an input.** A perfect-fluid shell resists area
-change and nothing else; resisting *shape* change at fixed area needs an elastic
-modulus no equation of state supplies. It is carried explicitly and never
-fitted.
+**The shear response is an input.** A perfect-fluid shell resists area change
+and nothing else; resisting *shape* change at fixed area needs an elastic
+modulus no equation of state supplies. Carried explicitly, never fitted.
 
 ```bash
 python -m experiments.closure_ledger.multipole_coupling_probe
-# Verdict: BIRKHOFF_IS_A_VANISHING_EIGENVALUE  (8/8)
+# Verdict: COUPLING_STARTS_AT_ELL_TWO  (9/9)
 ```
 
-Scope: the static Newtonian (Laplace) multipole problem — not Regge–Wheeler,
-no quasinormal frequencies, no claim that a trapped `ℓ ≥ 2` resonance exists.
-Full write-up: `docs/multipole_coupling.md`.
+Not Regge–Wheeler, no quasinormal frequencies, no claim that a trapped `ℓ ≥ 2`
+resonance exists. Full write-up: `docs/multipole_coupling.md`.
 
 ## The geometric-visualization arc, end to end
 
@@ -1878,7 +1879,7 @@ be an identity no drawing choice can move.
 | normal field | does drawing the *vectors* change that? | **yes** — 520 crossings, threshold `ρ = 1/κ` |
 | congruence | does focusing reach a singularity? | **no** — a caustic, and it passes through |
 | shell junction | can a detached shell replace exotic matter? | **no** — connected implies exotic, by identity |
-| multipole | does `ℓ ≥ 2` supply the missing coupling? | **yes**, screened as `(b/a)^ℓ` |
+| multipole | where does the two-shell coupling start? | **`ℓ = 2`**, screened as `(b/a)^ℓ` |
 
 The recurring methodological lesson: **a converged number is not a correct
 number.** Three of the nine errors the arc caught survived grid refinement and
