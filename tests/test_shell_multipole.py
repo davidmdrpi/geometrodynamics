@@ -29,6 +29,9 @@ from geometrodynamics.shells.multipole import (
     ShellPair,
     area_second_variation,
     measure_a_fluid_shell_has_no_shear_modulus,
+    angular_normalisation,
+    harmonic_multiplicity,
+    measure_the_coupling_generalises_to_five_dimensions,
     measure_the_ell_zero_decoupling_is_a_zero_eigenvalue,
     measure_the_translation_mode_does_not_couple,
     rigid_pair_mutual_energy,
@@ -85,6 +88,57 @@ def test_the_ell_zero_result_is_not_claimed_to_be_birkhoff():
     note = r["this_is_not_birkhoff"]
     assert "GR theorem" in note
     assert "Newtonian analogue" in note
+
+
+# ── the dimension is derived, not assumed ───────────────────────────────────
+def test_the_prefactor_is_the_laplacian_eigenvalue_on_the_right_sphere():
+    """``ℓ(ℓ+D−3)`` — the eigenvalue on ``S^{D−2}``, not ``ℓ(ℓ+1)`` always."""
+    b, a = 2.0, 5.0
+    for dim, p in ((4, 1), (5, 2), (6, 3)):
+        for ell in (1, 2, 3):
+            expected = (ell * (ell + p) * b ** ell / a ** (ell + p)
+                        * angular_normalisation(ell, dim))
+            assert mutual_stiffness(ell, b, a, dim=dim) == pytest.approx(
+                expected, rel=1e-12)
+
+
+def test_the_angular_normalisation_reduces_correctly():
+    for ell in (1, 2, 3, 5):
+        assert angular_normalisation(ell, 4) == pytest.approx(
+            1.0 / (2 * ell + 1) ** 2, rel=1e-12)
+        assert angular_normalisation(ell, 5) == pytest.approx(
+            1.0 / (ell + 1), rel=1e-12)
+
+
+def test_the_harmonic_multiplicity_is_right_on_s2_and_s3():
+    for ell in (0, 1, 2, 4):
+        assert harmonic_multiplicity(ell, 4) == pytest.approx(2 * ell + 1)
+        assert harmonic_multiplicity(ell, 5) == pytest.approx((ell + 1) ** 2)
+
+
+def test_the_monopole_vanishes_in_every_dimension():
+    for dim in (4, 5, 6, 7):
+        assert mutual_stiffness(0, 2.0, 5.0, dim=dim) == 0.0
+
+
+def test_the_five_dimensional_form_is_checked_in_five_dimensions():
+    """Brute force over two ``S³`` shells with the ``1/r²`` kernel."""
+    r = measure_the_coupling_generalises_to_five_dimensions()
+    assert r["the_D5_closed_form_is_confirmed"] is True
+    assert r["ell_zero_vanishes_in_five_dimensions"] is True
+    assert r["worst_relative_error"] < 5e-4
+    for row in r["rows"]:
+        if row["ell"] == 0:
+            assert row["closed_form_D5"] == 0.0
+        else:
+            assert row["closed_form_D5"] > 0.0
+
+
+def test_the_d5_closed_form_is_the_stated_one():
+    b, a = 2.0, 5.0
+    for ell in (1, 2, 3):
+        assert mutual_stiffness(ell, b, a, dim=5) == pytest.approx(
+            ell * (ell + 2) / (ell + 1) * b ** ell / a ** (ell + 2), rel=1e-12)
 
 
 # ── the ℓ = 1 control, done on the energy ───────────────────────────────────

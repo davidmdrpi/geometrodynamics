@@ -105,12 +105,14 @@ vanishes while higher angular multipoles couple, with the coupling suppressed
 geometrically by separation:
 
 ```
-∂²U/∂α∂γ  =  G m_b m_a · ℓ(ℓ+1) · (b/a)^ℓ / (a (2ℓ+1)²)
+∂²U/∂α∂γ  =  G m_b m_a · ℓ(ℓ + D − 3) · b^ℓ / a^{ℓ+D−3} · κ_ℓ(D)
 ```
 
-verified to `9e-06` against brute-force integration that never expands in
-multipoles. The prefactor is the angular-Laplacian eigenvalue, so the `ℓ = 0`
-decoupling *is* that zero eigenvalue. **This is the Newtonian analogue of what
+The prefactor is the eigenvalue of the Laplacian on `S^{D−2}`, so the `ℓ = 0`
+decoupling *is* that zero eigenvalue — in every dimension. `D = 4` (`9e-06`) and
+`D = 5`, the BAM case (`3.3e-04`, `ℓ = 0` to `1.7e-12`), are each checked by
+brute force in their own dimension; at `D = 5` the closed form is
+`ℓ(ℓ+2)/(ℓ+1) · b^ℓ/a^{ℓ+2}`. **This is the Newtonian analogue of what
 `shell_junction` established in GR — Birkhoff remains a GR theorem, imported by
 that round and not replaced here.**
 

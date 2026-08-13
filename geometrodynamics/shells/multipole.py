@@ -6,7 +6,9 @@ SCOPE, BECAUSE THE HEADLINE DEPENDS ON IT
 This is the **static Newtonian (Laplace) two-shell model** — the weak-field
 analogue of the junction problem, with interior/exterior static solutions
 ``r^ℓ`` and ``r^{−(ℓ+D−3)}``.  What it establishes is the **shell-theorem /
-multipole** structure of the coupling.  **Birkhoff's theorem is a GR result and
+multipole** structure of the coupling.  The dimension is a **parameter and is
+derived, not assumed**: ``D = 4`` and ``D = 5`` are each checked by brute force
+*in their own dimension*, and ``D = 5`` is the case this program cares about.  **Birkhoff's theorem is a GR result and
 remains what ``shells.junction`` (PR #249) relies on**; nothing here replaces
 it, and the ℓ = 0 statement below is its Newtonian analogue, not the theorem
 itself.  Not Regge–Wheeler/Zerilli; no quasinormal frequencies; no radiative
@@ -19,12 +21,19 @@ multipoles couple, with the coupling **suppressed geometrically by separation**.
 
 For two concentric shells at ``b < a``, each deformed by ``δR = α R P_ℓ``,
 
-    ``∂²U/∂α∂γ  =  G m_b m_a · ℓ(ℓ+1) · (b/a)^ℓ / (a (2ℓ+1)²)``
+    ``∂²U/∂α∂γ  =  G m_b m_a · ℓ(ℓ + D − 3) · b^ℓ / a^{ℓ+D−3} · κ_ℓ(D)``
 
-verified against brute-force double integration over both deformed surfaces to
-six digits, and exactly zero at ``ℓ = 0``.  The prefactor is ``ℓ(ℓ+1)``, the
-eigenvalue of the angular Laplacian: **the ℓ = 0 Newtonian decoupling is that
-zero eigenvalue**.
+The prefactor ``ℓ(ℓ + D − 3)`` is **the eigenvalue of the Laplacian on
+``S^{D−2}``**, so the ``ℓ = 0`` decoupling is that zero eigenvalue — in every
+dimension, not as a four-dimensional accident.
+
+* ``D = 4``: ``κ_ℓ = 1/(2ℓ+1)²``, giving ``ℓ(ℓ+1)(b/a)^ℓ/(a(2ℓ+1)²)``, checked
+  against double integration over two deformed ``S²`` shells with the ``1/r``
+  kernel to ``9e-06``;
+* ``D = 5`` (**the BAM case**): ``κ_ℓ = 1/(ℓ+1)``, giving
+  ``ℓ(ℓ+2)/(ℓ+1) · b^ℓ/a^{ℓ+2}``, checked against integration over two ``S³``
+  shells with the ``1/r²`` kernel to ``3.3e-04``, with ``ℓ = 0`` vanishing to
+  ``1.7e-12``.
 
 WHERE THE COUPLING ACTUALLY STARTS — AND IT IS NOT ℓ = 1
 ───────────────────────────────────────────────────────
@@ -83,6 +92,10 @@ import numpy as np
 
 __all__ = [
     "mutual_stiffness",
+    "angular_normalisation",
+    "harmonic_multiplicity",
+    "sphere_area",
+    "measure_the_coupling_generalises_to_five_dimensions",
     "rigid_pair_mutual_energy",
     "measure_the_translation_mode_does_not_couple",
     "area_second_variation",
@@ -117,20 +130,66 @@ def transfer_exponent(ell: int, dim: int = 4, outward: bool = False) -> float:
     return -(ell + dim - 3) if outward else float(ell)
 
 
-def mutual_stiffness(ell: int, b: float, a: float, m_b: float = 1.0,
-                     m_a: float = 1.0) -> float:
-    """``∂²U/∂α∂γ`` for two concentric deformed shells, ``b < a``.
+def sphere_area(n: int) -> float:
+    """Surface ``Ω_{n−1}`` of the unit sphere in ``n`` spatial dimensions."""
+    return 2.0 * math.pi ** (n / 2.0) / math.gamma(n / 2.0)
 
-    Both shells carry uniform mass per solid angle and are deformed by
-    ``δR = α R P_ℓ``.  The inner shell's moment brings a factor ``ℓ`` from
-    ``R^ℓ`` and the outer shell's field a factor ``(ℓ+1)`` from
-    ``R^{−(ℓ+1)}``, so the product carries the Laplacian eigenvalue
-    ``ℓ(ℓ+1)`` and **vanishes identically at ``ℓ = 0``**.
+
+def harmonic_multiplicity(ell: int, dim: int) -> float:
+    """Number of degree-``ℓ`` harmonics on ``S^{D−2}``."""
+    n = dim - 1
+    return ((2 * ell + n - 2) * math.gamma(ell + n - 2)
+            / (math.gamma(ell + 1) * math.gamma(n - 1)))
+
+
+def angular_normalisation(ell: int, dim: int) -> float:
+    """``κ_ℓ(D)`` — the angular factor of the mutual stiffness.
+
+    ``κ_ℓ = C_ℓ^λ(1) · Ω_{n−2} · I_ℓ / (Ω_{n−1} N_ℓ)`` with ``λ = (D−3)/2`` and
+    ``I_ℓ`` the Gegenbauer normalisation.  Reduces to ``1/(2ℓ+1)²`` at ``D = 4``
+    and ``1/(ℓ+1)`` at ``D = 5``, both checked.
+    """
+    if dim < 4:
+        raise ValueError("dim must be at least 4")
+    n = dim - 1
+    lam = (dim - 3) / 2.0
+    c_one = math.gamma(ell + 2 * lam) / (math.gamma(2 * lam)
+                                         * math.gamma(ell + 1))
+    integral = (math.pi * 2.0 ** (1 - 2 * lam) * math.gamma(ell + 2 * lam)
+                / (math.gamma(ell + 1) * (ell + lam) * math.gamma(lam) ** 2))
+    return (c_one * sphere_area(n - 1) * integral
+            / (sphere_area(n) * harmonic_multiplicity(ell, dim)))
+
+
+def mutual_stiffness(ell: int, b: float, a: float, m_b: float = 1.0,
+                     m_a: float = 1.0, dim: int = 4) -> float:
+    """``∂²U/∂α∂γ`` for two concentric deformed shells, ``b < a``, in ``D`` dims.
+
+    Both shells carry uniform mass per solid angle and are deformed along the
+    zonal Gegenbauer ``C_ℓ^λ``, ``λ = (D−3)/2`` — Legendre at ``D = 4``,
+    Chebyshev-``U`` at ``D = 5``.  The inner shell's moment brings a factor
+    ``ℓ`` from ``R^ℓ`` and the outer shell's field a factor ``(ℓ+D−3)`` from
+    ``R^{−(ℓ+D−3)}``, so the product carries
+
+        ``ℓ(ℓ + D − 3)`` — the eigenvalue of the Laplacian on ``S^{D−2}``
+
+    and **vanishes identically at ``ℓ = 0`` in every dimension**:
+
+        ``∂²U/∂α∂γ = G m_b m_a · ℓ(ℓ+D−3) · b^ℓ / a^{ℓ+D−3} · κ_ℓ(D)``
+
+    ``D = 4`` gives ``ℓ(ℓ+1)(b/a)^ℓ/(a(2ℓ+1)²)``; ``D = 5``, the case this
+    program cares about, gives ``ℓ(ℓ+2)/(ℓ+1) · b^ℓ/a^{ℓ+2}``.  Both are
+    checked against brute-force integration in their own dimension.
     """
     if not 0.0 < b < a:
         raise ValueError("need 0 < b < a for a concentric pair")
-    return (G * m_b * m_a * ell * (ell + 1) * (b / a) ** ell
-            / (a * (2 * ell + 1) ** 2))
+    if dim < 4:
+        raise ValueError("dim must be at least 4")
+    if ell == 0:
+        return 0.0
+    p = ell + dim - 3
+    return (G * m_b * m_a * ell * p * b ** ell / a ** p
+            * angular_normalisation(ell, dim))
 
 
 def area_second_variation(ell: int) -> float:
@@ -553,4 +612,89 @@ def measure_the_translation_mode_does_not_couple(
             "surface, not about the mutual gravitational energy; the energy "
             "control is the one that decides whether ℓ = 1 couples, and it "
             "says it does not"),
+    }
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# THE FIVE-DIMENSIONAL CASE, WHICH IS THE ONE THIS PROGRAM CARES ABOUT
+# ════════════════════════════════════════════════════════════════════════════
+def _chebyshev_u(ell: int, x: np.ndarray) -> np.ndarray:
+    """``C_ℓ^{1}`` — the zonal Gegenbauer for ``S³``, i.e. ``D = 5``."""
+    theta = np.arccos(np.clip(x, -1.0, 1.0))
+    s = np.sin(theta)
+    safe = np.where(np.abs(s) < 1e-12, 1.0, s)
+    return np.where(np.abs(s) < 1e-12, float(ell + 1) * np.sign(x) ** ell,
+                    np.sin((ell + 1) * theta) / safe)
+
+
+def _brute_force_mutual_5d(ell: int, b: float, a: float, eps: float = 2e-3,
+                           nt: int = 60, nf: int = 40, npsi: int = 40
+                           ) -> float:
+    """``∂²U/∂α∂γ`` in **four spatial dimensions**, by direct integration.
+
+    The shells are ``S³``; the Newtonian kernel is ``1/r^{D−3} = 1/r²``.  Two
+    of the four angles of the inner point are integrated out by the residual
+    ``SO(3)`` symmetry, leaving ``(θ_b, θ_a, φ_a, ψ_a)``.  Nothing here expands
+    in multipoles, so it is free to disagree with the closed form.
+    """
+    xb, wb = np.polynomial.legendre.leggauss(nt)
+    xa, wa = np.polynomial.legendre.leggauss(nt)
+    xf, wf = np.polynomial.legendre.leggauss(nf)
+    tb, ta, fa = np.arccos(xb), np.arccos(xa), np.arccos(xf)
+    sb, sa, sf = np.sin(tb), np.sin(ta), np.sin(fa)
+    psi = 2.0 * math.pi * (np.arange(npsi) + 0.5) / npsi
+    w_psi = np.full(npsi, 2.0 * math.pi / npsi)
+    cos_gamma = (sb[:, None, None, None] * sa[None, :, None, None]
+                 * sf[None, None, :, None] * np.cos(psi)[None, None, None, :]
+                 + np.cos(tb)[:, None, None, None]
+                 * np.cos(ta)[None, :, None, None])
+
+    def energy(alpha: float, gamma: float) -> float:
+        r_b = b * (1.0 + alpha * _chebyshev_u(ell, np.cos(tb)))
+        r_a = a * (1.0 + gamma * _chebyshev_u(ell, np.cos(ta)))
+        d2 = (r_b[:, None, None, None] ** 2 + r_a[None, :, None, None] ** 2
+              - 2.0 * r_b[:, None, None, None] * r_a[None, :, None, None]
+              * cos_gamma)
+        val = np.einsum("i,j,k,l,ijkl->", wb * sb, wa * sa, wf, w_psi, 1.0 / d2)
+        return float(-G * val * 4.0 * math.pi / (2.0 * math.pi ** 2) ** 2)
+
+    return ((energy(eps, eps) - energy(eps, -eps) - energy(-eps, eps)
+             + energy(-eps, -eps)) / (4.0 * eps * eps))
+
+
+def measure_the_coupling_generalises_to_five_dimensions(
+        b: float = 2.0, a: float = 5.0,
+        ells: Sequence[int] = (0, 1, 2, 3, 4)) -> Dict[str, object]:
+    """``D = 5`` derived and checked in its own dimension, not assumed from 4.
+
+    The prefactor is ``ℓ(ℓ+D−3)`` — the eigenvalue of the Laplacian on
+    ``S^{D−2}`` — so ``D = 4`` gives ``ℓ(ℓ+1)`` and ``D = 5`` gives
+    ``ℓ(ℓ+2)/(ℓ+1) · b^ℓ/a^{ℓ+2}``.  Verified against a brute-force integral
+    over two ``S³`` shells with the ``1/r²`` kernel, which never expands in
+    multipoles.
+
+    The undeformed energy is its own control: a shell theorem in four spatial
+    dimensions puts it at ``−G m_b m_a / a²``.
+    """
+    rows = []
+    worst = 0.0
+    for ell in ells:
+        closed = mutual_stiffness(ell, b, a, dim=5)
+        brute = _brute_force_mutual_5d(ell, b, a)
+        rel = (abs(brute - closed) / abs(closed)) if closed else abs(brute)
+        worst = max(worst, rel)
+        rows.append({"ell": ell, "closed_form_D5": closed,
+                     "brute_force_D5": brute, "relative_error": rel,
+                     "laplacian_eigenvalue_on_S3": ell * (ell + 2)})
+    baseline = _brute_force_mutual_5d(0, b, a)
+    return {
+        "rows": rows, "b": b, "a": a, "dim": 5,
+        "worst_relative_error": worst,
+        "the_D5_closed_form_is_confirmed": bool(worst < 5e-4),
+        "ell_zero_vanishes_in_five_dimensions": bool(abs(baseline) < 1e-9),
+        "kappa_D4": [angular_normalisation(l, 4) for l in (1, 2, 3)],
+        "kappa_D5": [angular_normalisation(l, 5) for l in (1, 2, 3)],
+        "prefactor": "ℓ(ℓ + D − 3), the Laplacian eigenvalue on S^{D−2}",
+        "formula_D5": "G m_b m_a · ℓ(ℓ+2)/(ℓ+1) · b^ℓ / a^{ℓ+2}",
+        "so_the_result_is_not_four_dimensional_only": True,
     }

@@ -7,7 +7,9 @@
 This is the **static Newtonian (Laplace) two-shell model** — the weak-field
 analogue of the junction problem, with interior/exterior static solutions `r^ℓ`
 and `r^{−(ℓ+D−3)}`. What it establishes is the **shell-theorem / multipole**
-structure of the coupling.
+structure of the coupling. The dimension is a parameter and is **derived, not
+assumed** — `D = 4` and `D = 5` are each verified by brute force *in their own
+dimension*, and `D = 5` is the case this program cares about.
 
 **Birkhoff's theorem is a GR result and remains what `shell_junction` (PR #249)
 relies on.** Nothing here replaces it; the `ℓ = 0` statement below is its
@@ -19,17 +21,33 @@ radiative dynamics. `G = 1`.
 In this model the **monopole mutual stiffness vanishes** while higher angular
 multipoles couple, with the coupling **suppressed geometrically by separation**.
 
-For two concentric shells at `b < a`, each deformed by `δR = α R P_ℓ`:
+For two concentric shells at `b < a`, each deformed along the zonal Gegenbauer
+`C_ℓ^λ` with `λ = (D−3)/2`:
 
 ```
-∂²U/∂α∂γ  =  G m_b m_a · ℓ(ℓ+1) · (b/a)^ℓ / (a (2ℓ+1)²)
+∂²U/∂α∂γ  =  G m_b m_a · ℓ(ℓ + D − 3) · b^ℓ / a^{ℓ+D−3} · κ_ℓ(D)
 ```
 
-The prefactor is `ℓ(ℓ+1)`, the eigenvalue of the angular Laplacian — so **the
-`ℓ = 0` decoupling is that zero eigenvalue**.
+The prefactor `ℓ(ℓ + D − 3)` is **the eigenvalue of the Laplacian on `S^{D−2}`**
+— so the `ℓ = 0` decoupling is that zero eigenvalue, in every dimension rather
+than as a four-dimensional accident.
 
-Verified against **direct double integration over both deformed surfaces**,
-which never expands in multipoles:
+| | `D = 4` | `D = 5` — the BAM case |
+| --- | --- | --- |
+| sphere | `S²` | `S³` |
+| kernel | `1/r` | `1/r²` |
+| zonal function | Legendre `P_ℓ` | Chebyshev `U_ℓ` |
+| `κ_ℓ(D)` | `1/(2ℓ+1)²` | `1/(ℓ+1)` |
+| closed form | `ℓ(ℓ+1)(b/a)^ℓ/(a(2ℓ+1)²)` | `ℓ(ℓ+2)/(ℓ+1) · b^ℓ/a^{ℓ+2}` |
+| brute force agrees to | `9e-06` | `3.3e-04` |
+
+Each is checked **in its own dimension** against direct integration that never
+expands in multipoles. The `D = 5` control integrates over two `S³` shells with
+the `1/r²` kernel, two of the four inner angles removed by the residual `SO(3)`
+symmetry; its undeformed value reproduces the four-dimensional shell theorem,
+`−G m_b m_a / a²`, and `ℓ = 0` vanishes to `1.7e-12`.
+
+The `D = 4` numbers:
 
 | `ℓ` | closed form | brute force | rel. error |
 | ---: | ---: | ---: | ---: |

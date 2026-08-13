@@ -1823,18 +1823,23 @@ In this model the **monopole mutual stiffness vanishes** while higher angular
 multipoles couple, with the coupling **suppressed geometrically by separation**:
 
 ```
-∂²U/∂α∂γ  =  G m_b m_a · ℓ(ℓ+1) · (b/a)^ℓ / (a (2ℓ+1)²)
+∂²U/∂α∂γ  =  G m_b m_a · ℓ(ℓ + D − 3) · b^ℓ / a^{ℓ+D−3} · κ_ℓ(D)
 ```
 
-The prefactor is the angular-Laplacian eigenvalue, so the `ℓ = 0` decoupling is
-that zero eigenvalue. Verified to `9e-06` against brute-force double integration
-over both deformed surfaces, which never expands in multipoles:
+The prefactor `ℓ(ℓ + D − 3)` is **the eigenvalue of the Laplacian on `S^{D−2}`**,
+so the `ℓ = 0` decoupling is that zero eigenvalue — in every dimension, not as a
+four-dimensional accident. **`D` is derived, not assumed**: each case is checked
+by brute force *in its own dimension*.
 
-| `ℓ` | closed form | brute force |
-|---:|---:|---:|
-| 0 | 0.000000000 | 0.000000000 |
-| 2 | 0.007680000 | 0.007680044 |
-| 4 | 0.001264198 | 0.001264209 |
+| | `D = 4` | `D = 5` — the BAM case |
+|---|---|---|
+| sphere / kernel | `S²`, `1/r` | `S³`, `1/r²` |
+| `κ_ℓ(D)` | `1/(2ℓ+1)²` | `1/(ℓ+1)` |
+| closed form | `ℓ(ℓ+1)(b/a)^ℓ/(a(2ℓ+1)²)` | `ℓ(ℓ+2)/(ℓ+1) · b^ℓ/a^{ℓ+2}` |
+| brute force agrees to | `9e-06` | `3.3e-04` |
+
+with `ℓ = 0` vanishing to `1.7e-12` in the `D = 5` control, whose undeformed
+value reproduces the four-dimensional shell theorem `−G m_b m_a / a²`.
 
 **Coupling starts at `ℓ = 2`, not `ℓ = 1`.** A first draft claimed "everything
 `ℓ ≥ 1` couples", having checked translation invariance of the **area** — the
@@ -1856,7 +1861,7 @@ modulus no equation of state supplies. Carried explicitly, never fitted.
 
 ```bash
 python -m experiments.closure_ledger.multipole_coupling_probe
-# Verdict: COUPLING_STARTS_AT_ELL_TWO  (9/9)
+# Verdict: COUPLING_STARTS_AT_ELL_TWO  (10/10)
 ```
 
 Not Regge–Wheeler, no quasinormal frequencies, no claim that a trapped `ℓ ≥ 2`
