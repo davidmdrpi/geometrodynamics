@@ -1,0 +1,386 @@
+{
+  "probe": "multipole_coupling",
+  "generated_utc": "2026-08-13T02:44:32.201628+00:00",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "shell_junction found no throat-shell coupling at l = 0 in GR; in the static Newtonian analogue, where does the coupling start and on what terms?",
+      "scope": "static Newtonian (Laplace) two-shell model; establishes the shell-theorem/multipole structure. Birkhoff is a GR result and remains what shell_junction relies on \u2014 this is its Newtonian analogue, not that theorem. Not Regge-Wheeler/Zerilli, no quasinormal frequencies.",
+      "pass": true
+    },
+    {
+      "name": "T2_the_closed_form_against_brute_force",
+      "rows": [
+        {
+          "ell": 0,
+          "closed_form": 0.0,
+          "brute_force": 1.734723475976807e-12,
+          "relative_error": 1.734723475976807e-12,
+          "laplacian_eigenvalue": 0
+        },
+        {
+          "ell": 1,
+          "closed_form": 0.01777777777777778,
+          "brute_force": 0.017777863096576918,
+          "relative_error": 4.799182451442618e-06,
+          "laplacian_eigenvalue": 2
+        },
+        {
+          "ell": 2,
+          "closed_form": 0.00768,
+          "brute_force": 0.007680043890775923,
+          "relative_error": 5.7149447815833506e-06,
+          "laplacian_eigenvalue": 6
+        },
+        {
+          "ell": 3,
+          "closed_form": 0.0031346938775510206,
+          "brute_force": 0.0031347164222012003,
+          "relative_error": 7.191978247426258e-06,
+          "laplacian_eigenvalue": 12
+        },
+        {
+          "ell": 4,
+          "closed_form": 0.0012641975308641978,
+          "brute_force": 0.0012642088591252598,
+          "relative_error": 8.960831504168983e-06,
+          "laplacian_eigenvalue": 20
+        }
+      ],
+      "b": 2.0,
+      "a": 5.0,
+      "worst_relative_error": 8.960831504168983e-06,
+      "the_closed_form_is_confirmed": true,
+      "the_prefactor_is_ell_times_ell_plus_one": true,
+      "formula": "G m_b m_a \u2113(\u2113+1) (b/a)^\u2113 / (a (2\u2113+1)\u00b2)",
+      "pass": true
+    },
+    {
+      "name": "T3_the_ell_zero_decoupling_is_a_zero_eigenvalue",
+      "rows": [
+        {
+          "a": 5.0,
+          "ell_0": 0.0,
+          "ell_1": 0.01777777777777778,
+          "ell_2": 0.00768,
+          "ell_3": 0.0031346938775510206
+        },
+        {
+          "a": 20.0,
+          "ell_0": 0.0,
+          "ell_1": 0.0011111111111111113,
+          "ell_2": 0.00012,
+          "ell_3": 1.2244897959183674e-05
+        },
+        {
+          "a": 100.0,
+          "ell_0": 0.0,
+          "ell_1": 4.444444444444445e-05,
+          "ell_2": 9.600000000000001e-07,
+          "ell_3": 1.9591836734693877e-08
+        }
+      ],
+      "b": 2.0,
+      "ell_zero_is_exactly_zero_at_every_separation": true,
+      "every_other_ell_couples": true,
+      "ell_zero_is_separation_independent": true,
+      "why": "the mutual stiffness carries the angular-Laplacian eigenvalue \u2113(\u2113+1), which vanishes only for the constant mode; in this Newtonian model that zero IS the \u2113 = 0 decoupling",
+      "this_is_not_birkhoff": "Birkhoff is a GR theorem and remains what shells.junction relies on; this is its static Newtonian analogue",
+      "pass": true
+    },
+    {
+      "name": "T4_the_coupling_generalises_to_five_dimensions",
+      "rows": [
+        {
+          "ell": 0,
+          "closed_form_D5": 0.0,
+          "brute_force_D5": 1.734723475976807e-12,
+          "relative_error": 1.734723475976807e-12,
+          "laplacian_eigenvalue_on_S3": 0
+        },
+        {
+          "ell": 1,
+          "closed_form_D5": 0.024,
+          "brute_force_D5": 0.024001095188120464,
+          "relative_error": 4.563283835263415e-05,
+          "laplacian_eigenvalue_on_S3": 3
+        },
+        {
+          "ell": 2,
+          "closed_form_D5": 0.017066666666666667,
+          "brute_force_D5": 0.0170684201412398,
+          "relative_error": 0.00010274265076939243,
+          "laplacian_eigenvalue_on_S3": 8
+        },
+        {
+          "ell": 3,
+          "closed_form_D5": 0.0096,
+          "brute_force_D5": 0.009601857636244715,
+          "relative_error": 0.0001935037754912334,
+          "laplacian_eigenvalue_on_S3": 15
+        },
+        {
+          "ell": 4,
+          "closed_form_D5": 0.004915199999999999,
+          "brute_force_D5": 0.004916802729716674,
+          "relative_error": 0.0003260761956125814,
+          "laplacian_eigenvalue_on_S3": 24
+        }
+      ],
+      "b": 2.0,
+      "a": 5.0,
+      "dim": 5,
+      "worst_relative_error": 0.0003260761956125814,
+      "the_D5_closed_form_is_confirmed": true,
+      "ell_zero_vanishes_in_five_dimensions": true,
+      "kappa_D4": [
+        0.11111111111111113,
+        0.04,
+        0.020408163265306124
+      ],
+      "kappa_D5": [
+        0.5,
+        0.3333333333333333,
+        0.25
+      ],
+      "prefactor": "\u2113(\u2113 + D \u2212 3), the Laplacian eigenvalue on S^{D\u22122}",
+      "formula_D5": "G m_b m_a \u00b7 \u2113(\u2113+2)/(\u2113+1) \u00b7 b^\u2113 / a^{\u2113+2}",
+      "so_the_result_is_not_four_dimensional_only": true,
+      "pass": true
+    },
+    {
+      "name": "T5_the_translation_mode_does_not_couple",
+      "rows": [
+        {
+          "displacement": 0.1,
+          "energy": -0.19999999999999996,
+          "relative_drift": 0.0,
+          "inner_stays_inside": true
+        },
+        {
+          "displacement": 0.8,
+          "energy": -0.2,
+          "relative_drift": 2.775557561562892e-16,
+          "inner_stays_inside": true
+        },
+        {
+          "displacement": 2.5,
+          "energy": -0.19999999999999962,
+          "relative_drift": 1.6653345369377352e-15,
+          "inner_stays_inside": true
+        }
+      ],
+      "reference_energy": -0.19999999999999996,
+      "newtonian_prediction": -0.2,
+      "shell_theorem_holds": true,
+      "rigid_translation_cross_derivative": 8.326672684688674e-13,
+      "pure_P1_shape_coupling": 0.01777777777777778,
+      "the_translation_mode_does_not_couple": true,
+      "the_shape_mode_does": true,
+      "so_coupling_starts_at_ell_two": true,
+      "why_the_area_test_was_not_enough": "translation invariance of the area is a statement about the surface, not about the mutual gravitational energy; the energy control is the one that decides whether \u2113 = 1 couples, and it says it does not",
+      "pass": true
+    },
+    {
+      "name": "T6_the_pure_dipole_is_not_a_translation",
+      "rows": [
+        {
+          "ell": 0,
+          "numeric": 1.9999999994265276,
+          "closed_form": 2.0,
+          "relative_error": 2.8673619034691455e-10
+        },
+        {
+          "ell": 1,
+          "numeric": 1.3333333329510184,
+          "closed_form": 1.3333333333333333,
+          "relative_error": 2.867361348357633e-10
+        },
+        {
+          "ell": 2,
+          "numeric": 1.5999999429980278,
+          "closed_form": 1.6,
+          "relative_error": 3.562623265840337e-08
+        },
+        {
+          "ell": 3,
+          "numeric": 1.999999985290729,
+          "closed_form": 2.0,
+          "relative_error": 7.3546354562026295e-09
+        },
+        {
+          "ell": 4,
+          "numeric": 2.4444443919122723,
+          "closed_form": 2.4444444444444446,
+          "relative_error": 2.149043415949398e-08
+        },
+        {
+          "ell": 5,
+          "numeric": 2.909090890265751,
+          "closed_form": 2.909090909090909,
+          "relative_error": 6.471148172870755e-09
+        }
+      ],
+      "worst_relative_error": 3.562623265840337e-08,
+      "the_closed_form_is_confirmed": true,
+      "the_dipole_area_cost_is_not_zero": true,
+      "dipole_second_variation": 1.3333333329510184,
+      "so_a_pure_P1_test_would_be_wrong": true,
+      "pass": true
+    },
+    {
+      "name": "T7_translation_invariance_is_exact",
+      "rows": [
+        {
+          "displacement": 0.02,
+          "exact_sphere": 4.240739575284689e-16,
+          "second_order_family": 2.1330895326034463e-08,
+          "pure_P1": 0.00026665600000001473,
+          "family_beats_pure_by": 12500.928626027233
+        },
+        {
+          "displacement": 0.05,
+          "exact_sphere": 4.240739575284689e-16,
+          "second_order_family": 8.327380953956263e-07,
+          "pure_P1": 0.0016662499999999451,
+          "family_beats_pure_by": 2000.9292347893906
+        },
+        {
+          "displacement": 0.1,
+          "exact_sphere": 2.0214191975523684e-14,
+          "second_order_family": 1.3295238095727191e-05,
+          "pure_P1": 0.006660000000000366,
+          "family_beats_pure_by": 500.9312320732902
+        }
+      ],
+      "the_exact_sphere_is_area_preserving": true,
+      "the_truncated_family_is_preserving_to_order_d4": true,
+      "the_pure_dipole_is_not": true,
+      "translation_invariance_holds": true,
+      "the_naive_test_does_not_test_it": true,
+      "pass": true
+    },
+    {
+      "name": "T8_the_area_cost_is_the_exact_rational",
+      "rows": [
+        {
+          "ell": 0,
+          "value": 2.0,
+          "rational": 2.0,
+          "matches": true
+        },
+        {
+          "ell": 1,
+          "value": 1.3333333333333333,
+          "rational": 1.3333333333333333,
+          "matches": true
+        },
+        {
+          "ell": 2,
+          "value": 1.6,
+          "rational": 1.6,
+          "matches": true
+        },
+        {
+          "ell": 3,
+          "value": 2.0,
+          "rational": 2.0,
+          "matches": true
+        },
+        {
+          "ell": 4,
+          "value": 2.4444444444444446,
+          "rational": 2.4444444444444446,
+          "matches": true
+        },
+        {
+          "ell": 5,
+          "value": 2.909090909090909,
+          "rational": 2.909090909090909,
+          "matches": true
+        }
+      ],
+      "every_value_is_the_exact_rational": true,
+      "it_grows_without_bound": true,
+      "pass": true
+    },
+    {
+      "name": "T9_the_coupling_is_screened_by_separation",
+      "rows": [
+        {
+          "ell": 1,
+          "mutual_stiffness": 0.01777777777777778,
+          "geometric_suppression": 0.4
+        },
+        {
+          "ell": 2,
+          "mutual_stiffness": 0.00768,
+          "geometric_suppression": 0.16000000000000003
+        },
+        {
+          "ell": 3,
+          "mutual_stiffness": 0.0031346938775510206,
+          "geometric_suppression": 0.06400000000000002
+        },
+        {
+          "ell": 4,
+          "mutual_stiffness": 0.0012641975308641978,
+          "geometric_suppression": 0.025600000000000005
+        },
+        {
+          "ell": 6,
+          "mutual_stiffness": 0.00020358816568047334,
+          "geometric_suppression": 0.0040960000000000015
+        },
+        {
+          "ell": 8,
+          "mutual_stiffness": 3.265461591695502e-05,
+          "geometric_suppression": 0.0006553600000000003
+        }
+      ],
+      "b_over_a": 0.4,
+      "suppression_from_ell_1_to_ell_8": 544.4185233410494,
+      "every_shape_mode_couples": true,
+      "but_the_ell_1_entry_is_a_shape_mode_not_a_translation": "the rigid translation has zero mutual coupling by the shell theorem \u2014 see measure_the_translation_mode_does_not_couple",
+      "but_it_falls_geometrically": true,
+      "so_the_answer_has_two_halves": "genuine coupling starts at \u2113 = 2, and the same formula screens it by (b/a)^\u2113 \u2014 the modes that carry a spin-2 signal are the ones separation suppresses hardest",
+      "pass": true
+    },
+    {
+      "name": "T10_the_shear_response_is_an_input",
+      "rows": [
+        {
+          "ell": 2,
+          "fluid_shear_stiffness": 0.0,
+          "elastic_shear_stiffness": 10.053096491487338,
+          "tension_stiffness": 20.106192982974676
+        },
+        {
+          "ell": 3,
+          "fluid_shear_stiffness": 0.0,
+          "elastic_shear_stiffness": 17.951958020513104,
+          "tension_stiffness": 25.132741228718345
+        },
+        {
+          "ell": 4,
+          "fluid_shear_stiffness": 0.0,
+          "elastic_shear_stiffness": 25.132741228718345,
+          "tension_stiffness": 30.7177948351002
+        }
+      ],
+      "a_fluid_shell_has_no_shear_response": true,
+      "an_elastic_one_needs_an_extra_input": true,
+      "the_shear_modulus_is_never_fitted": true,
+      "what_this_costs": "the previous round's conclusion that \u2113 \u2265 2 is where the coupling lives is only half an answer: the coupling is there, but what the shell does with it depends on a constitutive choice spherical symmetry never had to make",
+      "pass": true
+    },
+    {
+      "name": "T11_assessment",
+      "n_passed": 10,
+      "n_total": 10,
+      "pass": true
+    }
+  ],
+  "verdict_class": "COUPLING_STARTS_AT_ELL_TWO",
+  "verdict": "COUPLING STARTS AT L = 2. In the static Newtonian two-shell model the monopole mutual stiffness vanishes while higher angular multipoles couple, with the coupling suppressed geometrically by separation. The closed form is G m_b m_a l(l+1) (b/a)^l / (a (2l+1)^2), agreeing with brute-force double integration over both deformed surfaces \u2014 which never expands in multipoles \u2014 to 9.0e-06, and exactly zero at l = 0. The prefactor is the angular-Laplacian eigenvalue on S^(D-2), l(l+D-3), so the l = 0 decoupling IS that zero eigenvalue -- and it is NOT a four-dimensional accident: D = 5, the case this program cares about, is derived and checked in its own dimension against a brute-force integral over two S^3 shells with the 1/r^2 kernel, agreeing to 3.3e-04 with l = 0 vanishing to 1.7e-12. There the closed form is G m_b m_a l(l+2)/(l+1) b^l/a^(l+2). This is the Newtonian analogue of what shell_junction established in GR; BIRKHOFF IS A GR THEOREM AND REMAINS WHAT THAT ROUND RELIES ON, and nothing here replaces it. Where the coupling starts is the part an earlier draft got wrong, and the correction matters. That draft concluded 'everything l >= 1 couples', having checked translation invariance of the AREA \u2014 the wrong quantity. Run on the mutual ENERGY the two disagree: a rigidly translated inner sphere leaves the mutual energy at exactly -G m_b m_a / a, Newton's shell theorem, held to 1e-15 out to d = 2.5, so the cross-derivative with respect to rigid displacements is 8.3e-13. THE TRANSLATION MODE DOES NOT COUPLE. The pure P1 SHAPE mode is a different object and does, at 1.78e-02. So the honest ordering is that l = 0 decouples by the vanishing eigenvalue, the l = 1 translation mode decouples by the shell theorem, and genuine coupling starts at l = 2 \u2014 which is what PR #249 guessed and this establishes. Both of this round's errors are the same mistake: a pure P1 deformation is not a translation past linear order, its area second variation being 1.3333 and not zero, and a zero-mode test has to be run on the quantity the claim is about. The second half of the answer is that the same formula screens the coupling as (b/a)^l \u2014 a factor of 544 from l = 1 to l = 8 at b/a = 0.4 \u2014 so the modes carrying a spin-2 signal are the ones separation suppresses hardest. And the shear response is an INPUT: a perfect-fluid shell resists area change and nothing else, so resisting shape change at fixed area needs an elastic modulus no equation of state supplies. It is carried explicitly and never fitted."
+}

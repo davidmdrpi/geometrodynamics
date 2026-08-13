@@ -1812,6 +1812,89 @@ as a free parameter at the equilibrium. Stiffnesses are stiffnesses, not
 normal-mode frequencies — no kinetic metric is derived. Full write-up:
 `docs/shell_junction.md`.
 
+## Where the two-shell coupling starts
+
+**Scope: the static Newtonian (Laplace) two-shell model** — the weak-field
+analogue of the junction problem. It establishes the shell-theorem/multipole
+structure. **Birkhoff is a GR result and remains what PR #249 relies on**; the
+`ℓ = 0` statement here is its Newtonian analogue, not a replacement.
+
+In this model the **monopole mutual stiffness vanishes** while higher angular
+multipoles couple, with the coupling **suppressed geometrically by separation**:
+
+```
+∂²U/∂α∂γ  =  G m_b m_a · ℓ(ℓ + D − 3) · b^ℓ / a^{ℓ+D−3} · κ_ℓ(D)
+```
+
+The prefactor `ℓ(ℓ + D − 3)` is **the eigenvalue of the Laplacian on `S^{D−2}`**,
+so the `ℓ = 0` decoupling is that zero eigenvalue — in every dimension, not as a
+four-dimensional accident. **`D` is derived, not assumed**: each case is checked
+by brute force *in its own dimension*.
+
+| | `D = 4` | `D = 5` — the BAM case |
+|---|---|---|
+| sphere / kernel | `S²`, `1/r` | `S³`, `1/r²` |
+| `κ_ℓ(D)` | `1/(2ℓ+1)²` | `1/(ℓ+1)` |
+| closed form | `ℓ(ℓ+1)(b/a)^ℓ/(a(2ℓ+1)²)` | `ℓ(ℓ+2)/(ℓ+1) · b^ℓ/a^{ℓ+2}` |
+| brute force agrees to | `9e-06` | `3.3e-04` |
+
+with `ℓ = 0` vanishing to `1.7e-12` in the `D = 5` control, whose undeformed
+value reproduces the four-dimensional shell theorem `−G m_b m_a / a²`.
+
+**Coupling starts at `ℓ = 2`, not `ℓ = 1`.** A first draft claimed "everything
+`ℓ ≥ 1` couples", having checked translation invariance of the **area** — the
+wrong quantity. Run on the mutual **energy**, a rigidly displaced inner sphere
+leaves it at exactly `−G m_b m_a / a` (Newton's shell theorem, held to `1e-15`),
+so the cross-derivative for rigid translations is `8.3e-13`: **the translation
+mode does not couple.** The pure `P₁` *shape* mode is a different object and
+does, at `1.78e-02`. So `ℓ = 0` decouples by the vanishing eigenvalue, the
+`ℓ = 1` translation mode by the shell theorem, and genuine coupling begins at
+`ℓ = 2` — which is what #249 guessed.
+
+**And it is screened.** `(b/a)^ℓ` gives a factor of **544** from `ℓ = 1` to
+`ℓ = 8` at `b/a = 0.4`. The multipoles carrying a spin-2 signal are the ones
+separation suppresses hardest.
+
+**The shear response is an input.** A perfect-fluid shell resists area change
+and nothing else; resisting *shape* change at fixed area needs an elastic
+modulus no equation of state supplies. Carried explicitly, never fitted.
+
+```bash
+python -m experiments.closure_ledger.multipole_coupling_probe
+# Verdict: COUPLING_STARTS_AT_ELL_TWO  (10/10)
+```
+
+Not Regge–Wheeler, no quasinormal frequencies, no claim that a trapped `ℓ ≥ 2`
+resonance exists. Full write-up: `docs/multipole_coupling.md`.
+
+## The geometric-visualization arc, end to end
+
+Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
+a field on it, which object should be drawn, and what does the choice smuggle
+in?* **Four negative results and three positive ones, and the negatives are the
+load-bearing half** — almost every apparent obstruction turned out to be a
+property of the object being drawn, until the last two, where it turned out to
+be an identity no drawing choice can move.
+
+| round | question | answer |
+|---|---|---|
+| circle slice | can a height field wind through a glued bulk? | **no** — a graph has degree 0 identically |
+| seam scale | does the gluing scale rescue it? | **no** — it sets shape, not winding |
+| ring & fold | can the ring reach across and intersect? | **no** — it reaches, never crosses |
+| normal field | does drawing the *vectors* change that? | **yes** — 520 crossings, threshold `ρ = 1/κ` |
+| congruence | does focusing reach a singularity? | **no** — a caustic, and it passes through |
+| shell junction | can a detached shell replace exotic matter? | **no** — connected implies exotic, by identity |
+| multipole | where does the two-shell coupling start? | **`ℓ = 2`**, screened as `(b/a)^ℓ` |
+
+The recurring methodological lesson: **a converged number is not a correct
+number.** Three of the nine errors the arc caught survived grid refinement and
+fell only to an independent construction — a closed form against brute force, an
+operator form against a difference, an exact surface against a truncated family.
+
+Full write-up, including what is imported rather than derived and what each
+closing result names as its own missing ingredient:
+`docs/geometric_visualization_capstone.md`.
+
 ## Quick Start
 
 ### Verify charge quantisation from pure geometry
