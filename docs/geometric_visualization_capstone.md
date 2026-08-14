@@ -25,7 +25,7 @@
 | 7 | where does the two-shell coupling start? | **`ℓ = 2`** — and it is screened as `(b/a)^ℓ` |
 | 8 | are the emitted shell, the passing collapsing shell, the receiver's recoil and a past mouth one wave? | **yes** — one conserved balance, and *linearity* is why it costs nothing |
 | 9 | is the antipodal caustic a particle-creation event? | **no** — a caustic is a *venue*; the threshold is on an invariant, needs two waves, and then **forces** a second antipodal interaction |
-| 10 | do two closed histories *select* the event they share? | **yes** — five equations, five unknowns, rank 5; and removing a wave costs **isolation**, not existence |
+| 10 | do two closed histories *constrain* the event they share? | **yes, discretely** — five equations, five unknowns, rank 5 on a fixed branch; removing *any* one equation costs a dimension |
 
 The through-line: **almost every apparent obstruction turned out to be a
 property of the object being drawn, not of the physics** — until the closing
@@ -175,24 +175,31 @@ the far one is a collision of waves that have actually propagated
 independently, by a factor of `9.6` in path length. **The second interaction
 has to be antipodal, and that is derived rather than staged.**
 
-## 11. Two closed histories select their shared event (`docs/pair_history.md`, current round)
+## 11. Two closed histories constrain their shared event (`docs/pair_history.md`, current round)
 
 Sewing two `#251` histories at one interaction is a *determinate* condition, not
-a picture. Every leg is null, so a history closes on a **geodesic ellipsoid**
-with its mouths as foci, and the global system is five equations in five
-unknowns. Solved blind, every event found is isolated at **full rank 5**, and
-about half of random configurations are forbidden outright.
+a picture. Every leg is null, so a history closes — on the **principal branch** —
+on a geodesic ellipsoid with its mouths as foci, and the global system is five
+equations in five unknowns. Solved blind, every root found is locally isolated at
+**full rank 5**.
 
-The falsification is the interesting part, and it lands differently from the
-expectation: removing a wave does **not** delete the solution. The rank falls to
-4 and the isolated events become a **one-parameter family**. The two-wave
-requirement shows up as loss of *isolation*, which is weaker than nonexistence —
-and it is the weaker statement that is true.
+**The scope is the result here.** `d` is the principal geodesic distance, and the
+prior draws `|Δ|` inside the band where that is the only feasible branch — so the
+rest is principal-branch by construction. Off it a mixed branch fixes the
+*difference* of distances, a hyperboloid rather than an ellipsoid; discreteness
+survives per branch, and what branching changes is the candidate count.
 
-Two things fall out that were not assumed: a conjugate pair **cannot ride one
-shared throat** (infeasible one way, rank-deficient the other), and the entire
-result rests on the throat delays being **given** — with them free, 100% of
-sampled events close, and the selection is vacuous.
+What looked like a falsification is a **dimensionality control**: deleting any
+one scalar equation from a square nondegenerate system drops the rank by one, and
+deleting a *closure* gives the identical result. It is not evidence about
+photons. What survives is the direction — solutions do not vanish, they stop
+being isolated.
+
+Two things fall out that were not assumed: in this model a conjugate pair
+**cannot ride one shared throat** (infeasible on every branch one way,
+rank-deficient the other, scanned rather than argued), and the entire result
+rests on the throat delays being **given** — with them free the measured nullity
+is 2 and 100% of sampled events close.
 
 ## 12. What the arc cost in errors, and what caught them
 

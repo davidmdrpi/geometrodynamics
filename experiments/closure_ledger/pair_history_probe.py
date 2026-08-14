@@ -26,73 +26,100 @@ checked. The prior question can be:
     if two closed histories must SHARE their interaction event, is that event
     SELECTED by the closure conditions, or still put in by hand?
 
-THE SYSTEM
-──────────
+THE SYSTEM, AND ITS BRANCH SCOPE
+────────────────────────────────
 Unknown: the event C = (c, t_C), c on S3. Given: two sources with launch times,
 two throats with mouths and delays. Every leg is null, so a history closes in
-coordinate time iff d(c,M+) + d(M-,c) + Delta = 0 — a GEODESIC ELLIPSOID with the
-mouths as foci. Five equations, five unknowns:
+coordinate time iff l_1 + l_2 + Delta = 0. Five equations, five unknowns:
 
     |c|^2 = 1                                  normalisation
     d(S_A,c) = t_C - tau_A                     C lies on front A
     d(S_B,c) = t_C - tau_B                     C lies on front B
-    d(c,M_A+) + d(M_A-,c) + Delta_A = 0        history A closes
-    d(c,M_B+) + d(M_B-,c) + Delta_B = 0        history B closes
+    l_1 + l_2 + Delta_A = 0                    history A closes
+    l_1 + l_2 + Delta_B = 0                    history B closes
+
+d is the PRINCIPAL geodesic distance. On the principal branch (short-way, no
+winding) the closure locus is a geodesic ellipsoid, but a null leg on a closed
+S3 may also take the long way (2pi - d) or wind (+2pi k), and a MIXED branch
+fixes the DIFFERENCE of the two distances — a hyperboloid, not an ellipsoid. So
+the branch is part of every statement below, and is stated first rather than
+discovered later.
 
 WHAT IS CHECKED
 ───────────────
-T2  CLOSURE IS AN ELLIPSOID CONDITION, AND IT IS BOUNDED. d(x,M+) + d(x,M-)
-    ranges over exactly [d, 2pi - d], checked against 40,000 uniform samples of
-    S3 per configuration rather than asserted. An out-of-band delay is rejected,
-    so infeasible throats cannot silently contribute empty constraints.
+T2  CLOSURE IS AN ELLIPSOID CONDITION ON THE PRINCIPAL BRANCH, AND IT IS
+    BOUNDED. d(x,M+) + d(x,M-) ranges over exactly [d, 2pi - d], checked against
+    40,000 uniform samples of S3 per configuration. An out-of-band delay is
+    rejected, so infeasible throats cannot silently contribute empty
+    constraints.
 
-T3  THE EVENT IS SELECTED, NOT INSERTED. Solved BLIND from random starts. Every
-    event found sits at full Jacobian rank 5 — isolation is a property of the
-    system, not of the solver stopping early. And existence is RESTRICTIVE:
-    only about half of random feasible configurations admit a closed
-    pair-history at all, so the closure conditions can forbid a configuration
-    outright rather than merely locate an event inside it.
+T3  AND THE BRANCH SCOPE IS LOAD-BEARING. Inside the principal delay band the
+    principal branch is the ONLY feasible one — which means every other
+    measurement here is principal-branch BY CONSTRUCTION OF ITS PRIOR, not by
+    argument. Sampling the whole delay axis opens up to four branches, of both
+    sum and DIFFERENCE type. What survives branching is that discreteness is a
+    PER-BRANCH property: on any fixed branch the system is still 5x5 and its
+    roots are still isolated at full rank. Branching multiplies the number of
+    candidate events and changes the existence rate, not the local structure.
 
-T4  REMOVING A WAVE REMOVES THE SELECTION — WHICH IS NOT WHAT WAS EXPECTED. The
-    natural guess is that the pair-history solution disappears. It does not. The
-    system becomes four equations in five unknowns, the Jacobian drops to rank
-    4, and the solutions become a ONE-PARAMETER FAMILY of ~159 sampled points
-    spanning the sphere. There is still a locus closing both histories; there is
-    no longer a SELECTED one. Dropping the constraint can even CREATE solutions
-    where two waves admitted none. So the Breit-Wheeler two-wave requirement
-    shows up here as loss of ISOLATION, which is sharper than nonexistence.
+T4  THE ALLOWED EVENTS ARE DISCRETE AND LOCALLY ISOLATED. Solved BLIND from
+    random starts; every root found sits at full Jacobian rank 5. Stated
+    carefully: multi-start root-finding plus full rank shows each root FOUND is
+    locally isolated — NOT that all roots were found, and NOT that the event is
+    unique. "The event is selected" was an overstatement and has been withdrawn.
 
-T5  AND THE CONJUGATE PAIR NEEDS TWO DISTINCT THROATS. Not assumed by the
-    two-history picture — it falls out of the rank. One shared throat fails in
-    both senses of traversal: traversed OPPOSITELY, history B sees
-    Delta_B = -Delta_A > 0 and its closure demands a sum of geodesic distances
-    that is NEGATIVE (infeasible identically); traversed the SAME way, the two
-    closure equations become the same equation, the rank drops to 4, and the
-    event stops being selected.
+T5  REMOVING AN EQUATION IS A DIMENSIONALITY CONTROL, NOT PHYSICS. Dropping
+    wave B removes one scalar equation from a square nondegenerate system, so
+    rank 5 -> 4 and a one-parameter family is exactly the implicit-function
+    result — for ANY deleted equation. The probe therefore also deletes a
+    CLOSURE equation instead and gets the identical drop. This establishes
+    nondegeneracy and is NOT evidence that pair creation needs two photons;
+    that content lives in the invariant s, which needs two independent momenta.
+    What survives as interesting is only the direction: the solutions do not
+    vanish, they stop being isolated.
 
-T6  THE NON-CIRCULARITY CHECK, WHICH IS THE ONE THAT MATTERS. If the delays were
-    unknowns rather than data, the system would be five equations in seven
-    unknowns with nullity 2, and EVERY event lying on both fronts could be
-    closed by choosing Delta afterwards — measured at 100% of 345 sampled
-    events. So the result depends entirely on the throat being GIVEN, and that
-    is stated rather than hoped for: a version of this calculation that solved
-    for the delays would select nothing and would look identical from outside.
+T6  IN THIS MODEL THE CONJUGATE PAIR NEEDS TWO DISTINCT THROATS. Traversed
+    OPPOSITELY, history B's closure demands a NEGATIVE sum of leg lengths, which
+    is infeasible on EVERY branch — the one conclusion here independent of the
+    branch scope. Traversed the SAME way on the SAME branch, the two closure
+    equations coincide and the rank drops to 4. That second half is scoped to
+    the minimal single-pass model and is SCANNED rather than argued: at winding
+    <= 1 every distinct branch pair either reduces to the identical constraint
+    or is jointly inconsistent, and no counterexample was found. Not found is
+    not impossible, and a different gluing is not excluded.
 
-T7  CLOSURE SELECTS WHERE; THE INVARIANT DECIDES WHETHER. Kept strictly
-    separate, because conflating amplitude with invariant is the error PR #252
-    unwound. NOT ONE selected event clears s >= 4m^2 at E = m — median 2.48,
-    maximum 3.97, just under — while E = 1.5m clears 78% and E = 3m clears all.
-    The geometry picks the event; the event still has to be paid for in energy.
+T7  THE NON-CIRCULARITY CHECK, WHICH IS THE ONE THAT MATTERS. With the delays as
+    unknowns the system is five equations in seven, and the nullity is MEASURED
+    on the actual 5x7 Jacobian (rank 5, nullity 2) rather than counted. Every
+    event lying on both fronts can then be closed by choosing Delta afterwards —
+    100% of 345 sampled events, with feasibility checked for BOTH throats. So
+    the result depends entirely on the throat being GIVEN; a version that solved
+    for the delays would select nothing and look identical from outside.
 
-T8  THE CONJUGACY IS BOOKKEEPING. Labels cancel, a same-sign pair is refused at
+T8  CLOSURE CONSTRAINS WHERE; THE INVARIANT DECIDES WHETHER. Kept strictly
+    separate. But the numbers carry two warnings: that no event clears
+    s >= 4m^2 at E = m is FORCED, not measured — s = 2E^2(1-cos theta) <= 4E^2
+    with equality only at exactly head-on, a measure-zero set — and every
+    fraction reported is conditioned on this module's arbitrary prior over
+    mouths, delays and launch times. They are regression diagnostics, NOT
+    predictions.
+
+T9  THE CONJUGACY IS BOOKKEEPING. Labels cancel, a same-sign pair is refused at
     construction, and the kinematics is blind to the sign.
+
+THE SURVIVING CLAIM
+───────────────────
+With fixed mouth data and delays, and on a fixed propagation branch,
+intersecting two null fronts with two independent closure hypersurfaces
+generically produces locally isolated candidate events; removing one front
+constraint restores a continuous degree of freedom. That is useful without
+promoting the control into pair-production dynamics.
 
 THE LESSON
 ──────────
-The result is a rank, and the interesting part is what happens when a constraint
-is removed. "The solution disappears" would have been the satisfying answer and
-is the wrong one: it survives and stops being isolated. Reporting the weaker,
-truer statement is the whole discipline this arc keeps rediscovering.
+Every correction this round needed was a SCOPE correction, not an arithmetic
+one: which branch, which prior, which equation, and what a rank actually proves.
+The numbers never changed.
 """
 
 from __future__ import annotations
@@ -106,6 +133,7 @@ import numpy as np
 
 from geometrodynamics.waves.pair_history import (
     measure_a_shared_throat_cannot_carry_the_pair,
+    measure_the_results_are_scoped_to_the_principal_branch,
     measure_closure_is_a_geodesic_ellipsoid,
     measure_removing_a_wave_removes_the_selection,
     measure_the_conjugacy_is_carried_not_derived,
@@ -141,55 +169,71 @@ def t2_closure_is_a_geodesic_ellipsoid() -> dict:
                          and r["an_infeasible_delay_is_rejected"])}
 
 
+def t2b_the_results_are_scoped_to_the_principal_branch() -> dict:
+    """Which branch everything else is about — stated first, not last."""
+    r = measure_the_results_are_scoped_to_the_principal_branch()
+    return {"name": "T3_the_results_are_scoped_to_the_principal_branch", **r,
+            "pass": bool(
+                r["inside_the_band_only_the_principal_branch_is_feasible"]
+                and r["outside_it_more_branches_open"]
+                and r["off_branch_loci_are_difference_type"]
+                and r["discreteness_survives_on_a_fixed_off_branch"])}
+
+
 def t3_the_event_is_selected_not_inserted() -> dict:
     r = measure_the_event_is_selected_not_inserted()
-    return {"name": "T3_the_event_is_selected_not_inserted", **r,
-            "pass": bool(r["the_event_is_selected_not_inserted"]
+    return {"name": "T4_the_events_are_discrete_and_locally_isolated", **r,
+            "pass": bool(r["events_are_discrete_and_locally_isolated"]
                          and r["every_event_is_nondegenerate"])}
 
 
 def t4_removing_a_wave_removes_the_selection() -> dict:
     """The falsification the reviewer named — and it lands differently."""
     r = measure_removing_a_wave_removes_the_selection()
-    return {"name": "T4_removing_a_wave_removes_the_selection", **r,
+    return {"name": "T5_removing_an_equation_is_a_dimensionality_control", **r,
             "pass": bool(r["two_waves_give_isolated_events"]
                          and r["one_wave_gives_a_one_parameter_family"]
-                         and r["the_selection_requires_both_waves"])}
+                         and r["deleting_a_closure_instead_drops_the_rank"
+                               "_the_same_way"]
+                         and r["the_square_system_behaves_nondegenerately"])}
 
 
 def t5_a_shared_throat_cannot_carry_the_pair() -> dict:
     r = measure_a_shared_throat_cannot_carry_the_pair()
-    return {"name": "T5_a_shared_throat_cannot_carry_the_pair", **r,
+    return {"name": "T6_a_shared_throat_cannot_carry_the_pair", **r,
             "pass": bool(r["opposite_traversal_is_infeasible"]
                          and r["same_traversal_loses_a_rank"]
+                         and r["no_branch_pair_rescues_a_shared_throat"]
                          and r["same_traversal_gives_a_family_not_a_selection"])}
 
 
 def t6_the_delays_must_be_given_not_solved_for() -> dict:
     """The non-circularity check: a version that solved for Δ selects nothing."""
     r = measure_the_delays_must_be_given_not_solved_for()
-    return {"name": "T6_the_delays_must_be_given_not_solved_for", **r,
+    return {"name": "T7_the_delays_must_be_given_not_solved_for", **r,
             "pass": bool(r["with_free_delays_almost_any_event_closes"]
+                         and r["the_nullity_is_measured_not_counted"]
                          and r["so_the_content_is_in_the_throat_being_given"])}
 
 
 def t7_the_threshold_is_a_separate_condition() -> dict:
     r = measure_the_threshold_is_a_separate_condition()
-    return {"name": "T7_the_threshold_is_a_separate_condition", **r,
+    return {"name": "T8_the_threshold_is_a_separate_condition", **r,
             "pass": bool(r["none_clear_threshold_at_energy_equal_mass"]
-                         and r["most_clear_it_by_one_and_a_half_masses"])}
+                         and r["zero_percent_at_E_equals_m_is_forced_not"
+                               "_measured"])}
 
 
 def t8_the_conjugacy_is_carried_not_derived() -> dict:
     r = measure_the_conjugacy_is_carried_not_derived()
-    return {"name": "T8_the_conjugacy_is_carried_not_derived", **r,
+    return {"name": "T9_the_conjugacy_is_carried_not_derived", **r,
             "pass": bool(r["the_labels_cancel"]
                          and r["a_same_sign_pair_is_refused"])}
 
 
 def t9_assessment(tests: List[dict]) -> dict:
     n = sum(1 for t in tests if t["pass"])
-    return {"name": "T9_assessment", "n_passed": n, "n_total": len(tests),
+    return {"name": "T10_assessment", "n_passed": n, "n_total": len(tests),
             "pass": n == len(tests)}
 
 
@@ -197,6 +241,7 @@ def t9_assessment(tests: List[dict]) -> dict:
 def run_probe() -> dict:
     tests = [t1_goal(),
              t2_closure_is_a_geodesic_ellipsoid(),
+             t2b_the_results_are_scoped_to_the_principal_branch(),
              t3_the_event_is_selected_not_inserted(),
              t4_removing_a_wave_removes_the_selection(),
              t5_a_shared_throat_cannot_carry_the_pair(),
@@ -204,68 +249,76 @@ def run_probe() -> dict:
              t7_the_threshold_is_a_separate_condition(),
              t8_the_conjugacy_is_carried_not_derived()]
     tests.append(t9_assessment(tests))
-    t3, t4, t6, t7 = tests[2], tests[3], tests[5], tests[6]
+    t2b, t3, t4 = tests[2], tests[3], tests[4]
+    t6, t7 = tests[6], tests[7]
 
     if all(t["pass"] for t in tests):
-        verdict_class = "THE_EVENT_IS_SELECTED_AND_LOSING_A_WAVE_LOSES_ISOLATION"
+        verdict_class = "DISCRETE_ON_A_FIXED_BRANCH_WITH_GIVEN_THROAT_DATA"
         verdict = (
-            "THE INTERACTION EVENT IS SELECTED, NOT INSERTED — AND REMOVING A "
-            "WAVE COSTS ISOLATION RATHER THAN EXISTENCE. Requiring two closed "
-            "wormhole-wave histories to share one interaction event gives five "
-            "equations in five unknowns: normalisation, the event lying on each "
-            "of the two null fronts, and each history closing in coordinate "
-            "time. Closure is a GEODESIC ELLIPSOID condition — the locus whose "
-            "summed distance to the two mouths is |Delta| — feasible exactly on "
-            "[d, 2pi - d], verified against 40,000 uniform samples of S3 per "
-            "configuration rather than asserted. Solved BLIND from random "
-            "starts, every event found sits at FULL JACOBIAN RANK 5 "
+            "WITH FIXED THROAT DATA AND ON A FIXED PROPAGATION BRANCH, TWO "
+            "CLOSED HISTORIES SHARING AN EVENT LEAVE THE ALLOWED EVENTS "
+            "DISCRETE. Requiring two closed wormhole-wave histories to share "
+            "one interaction event gives five equations in five unknowns: "
+            "normalisation, the event lying on each of the two null fronts, and "
+            "each history closing in coordinate time. Solved BLIND from random "
+            "starts, every root found sits at FULL JACOBIAN RANK 5 "
             f"({t3.get('events_at_full_rank_5', 0)} of "
-            f"{t3.get('total_events_found', 0)}), so isolation is a property of "
-            "the system and not of the solver stopping early. Existence is also "
-            "RESTRICTIVE: only about half of random feasible configurations "
-            f"({t3.get('configurations_with_a_selected_event', 0)} of "
-            f"{t3.get('configurations', 0)}) admit a closed pair-history at "
-            "all, so the closure conditions can forbid a configuration outright "
-            "rather than merely locate an event inside it. THE FALSIFICATION "
-            "LANDS DIFFERENTLY FROM THE EXPECTATION. Removing the second "
-            "incoming wave does NOT delete the pair-history solution. The "
-            "system becomes four equations in five unknowns, the Jacobian drops "
-            "to RANK 4, and the solutions become a ONE-PARAMETER FAMILY — "
-            f"typically {t4.get('typical_family_size_with_one_wave', 0)} "
-            "distinct sampled points spanning the sphere. There is still a "
-            "locus of events closing both histories; there is no longer a "
-            "SELECTED one, and dropping the constraint can even CREATE "
-            "solutions where two waves admitted none. So the Breit-Wheeler "
-            "two-wave requirement appears here as loss of ISOLATION, which is a "
-            "sharper and weaker statement than nonexistence, and it is the "
-            "weaker one that is true. AND THE CONJUGATE PAIR NEEDS TWO DISTINCT "
-            "THROATS, which the two-history picture did not assume — it falls "
-            "out of the rank. A single shared throat fails in both senses: "
-            "traversed oppositely, history B sees Delta_B = -Delta_A > 0 and "
-            "its closure demands a sum of geodesic distances that is NEGATIVE, "
-            "infeasible identically; traversed the same way, the two closure "
-            "equations coincide, the rank drops to 4, and the event stops being "
-            "selected. THE NON-CIRCULARITY CHECK IS THE ONE THAT MATTERS. If "
-            "the delays were unknowns rather than given data the system would "
-            "be five equations in seven unknowns with nullity 2, and every "
-            "event on both fronts could be closed by choosing Delta afterwards "
-            f"— measured at {100 * t6.get('fraction_closable_by_choosing_a_delay', 0):.0f}% "
-            f"of {t6.get('sampled_events_on_both_fronts', 0)} sampled events. "
-            "The entire result therefore rests on the throat being GIVEN, and a "
-            "version that solved for the delays would select nothing while "
-            "looking identical from outside. FINALLY, CLOSURE SELECTS WHERE AND "
-            "THE INVARIANT DECIDES WHETHER — kept strictly apart, because "
-            "conflating amplitude with invariant is the error PR #252 unwound. "
-            "NOT ONE selected event clears s >= 4m^2 at E = m (median "
-            f"{t7.get('median_s_at_energy_equal_mass', 0):.2f}, maximum "
-            f"{t7.get('max_s_at_energy_equal_mass', 0):.2f}, just under), while "
-            "E = 1.5m clears 78% and E = 3m clears all of them. WHAT THIS IS "
-            "NOT: a counting result on a kinematic skeleton. No action "
-            "principle, no field equations, no topology change, no dynamics, no "
-            "rate, no worldline, and no claim that such a configuration is "
-            "realisable. The conjugacy Q_A + Q_B = 0 is a label carried and "
-            "checked, never derived, and two throats now sit on the books with "
-            "PR #249's exotic-matter bill unpaid for both.")
+            f"{t3.get('total_events_found', 0)}). Said precisely: multi-start "
+            "root-finding plus full rank shows each root FOUND is locally "
+            "isolated — not that all roots were found, and not that the event "
+            "is unique. An earlier draft called this 'the event is selected'; "
+            "that was an overstatement and is withdrawn. THE BRANCH SCOPE IS "
+            "LOAD-BEARING AND IS STATED FIRST. d is the PRINCIPAL geodesic "
+            "distance, and inside the principal delay band it is the only "
+            "feasible branch — so every other measurement here is "
+            "principal-branch BY CONSTRUCTION OF ITS PRIOR rather than by "
+            "argument. Sampling the whole delay axis opens up to four branches, "
+            "of both sum and DIFFERENCE type, and a mixed branch fixes the "
+            "difference of the two distances: a hyperboloid, not an ellipsoid. "
+            "What survives is that discreteness is a PER-BRANCH property — on "
+            "any fixed branch the system is still 5x5 with isolated full-rank "
+            "roots — so branching multiplies the candidate count and shifts the "
+            "existence rate without touching the local structure. REMOVING A "
+            "WAVE IS A DIMENSIONALITY CONTROL, NOT PHYSICS. Dropping wave B "
+            "deletes one scalar equation from a square nondegenerate system, so "
+            "rank 5 -> 4 and a one-parameter family is exactly what the "
+            "implicit function theorem gives for ANY deleted equation. The "
+            "probe therefore deletes a CLOSURE equation instead and gets the "
+            "identical drop. This is evidence of nondegeneracy and NOT evidence "
+            "that pair creation needs two photons; that content lives in the "
+            "invariant s, which needs two independent momenta. What survives as "
+            "interesting is only the direction of the surprise: the solutions "
+            "do not vanish, they stop being isolated. IN THIS MODEL THE "
+            "CONJUGATE PAIR NEEDS TWO DISTINCT THROATS. Traversed oppositely, "
+            "history B's closure demands a NEGATIVE sum of leg lengths, "
+            "infeasible on EVERY branch — the one conclusion here independent "
+            "of branch scope. Traversed the same way on the same branch, the "
+            "two closure equations coincide and the rank drops to 4; that half "
+            "is scoped to the minimal single-pass model and SCANNED rather than "
+            "argued, with every distinct branch pair at winding <= 1 either "
+            "reducing to the identical constraint or jointly inconsistent, and "
+            "no counterexample found. Not found is not impossible, and a "
+            "different gluing is not excluded. THE NON-CIRCULARITY CHECK IS THE "
+            "ONE THAT MATTERS: with the delays as unknowns the nullity is "
+            f"MEASURED on the actual 5x7 Jacobian as "
+            f"{t6.get('nullity_with_delays_free', 0)}, and "
+            f"{100 * t6.get('fraction_closable_by_choosing_a_delay', 0):.0f}% "
+            f"of {t6.get('sampled_events_on_both_fronts', 0)} sampled events on "
+            "both fronts can then be closed by choosing Delta afterwards, with "
+            "feasibility checked for BOTH throats. The entire result therefore "
+            "rests on the throat being GIVEN. FINALLY, CLOSURE CONSTRAINS WHERE "
+            "AND THE INVARIANT DECIDES WHETHER, and the numbers carry two "
+            "warnings: that no event clears s >= 4m^2 at E = m is FORCED rather "
+            "than measured, since s = 2E^2(1 - cos theta) <= 4E^2 with equality "
+            "only at exactly head-on, a measure-zero set; and every fraction "
+            "reported is conditioned on an arbitrary prior over mouths, delays "
+            "and launch times, so they are regression diagnostics and NOT "
+            "predictions. WHAT THIS IS NOT: a counting result on a kinematic "
+            "skeleton. No action principle, no field equations, no topology "
+            "change, no dynamics, no rate, no worldline, and no claim of "
+            "realisability. Conjugacy is a label carried and checked, never "
+            "derived, and two throats sit on the books with PR #249's "
+            "exotic-matter bill unpaid for both.")
     else:
         verdict_class = "INCONCLUSIVE"
         failed = [t["name"] for t in tests if not t["pass"]]

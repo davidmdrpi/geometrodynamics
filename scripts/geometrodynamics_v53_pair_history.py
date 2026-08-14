@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Geometrodynamic QED — v53: the interaction event is selected, not inserted
-==========================================================================
+Geometrodynamic QED — v53: the shared event is discrete, on a fixed branch
+=========================================================================
 
 v51 built one closed history — expanding leg, throat backwards in coordinate
 time, collapsing leg. v52 established that pair creation is a threshold on an
@@ -9,14 +9,15 @@ invariant and needs **two** independently propagated waves. This round sews two
 closed histories at one shared interaction and asks the question that comes
 before any attempt at topology change:
 
-    **is that event selected by the closure conditions, or still put in by hand?**
+    **is that event constrained by the closure conditions, or still put in by hand?**
 
 The system
 ──────────
 Unknown: the event `C = (c, t_C)`. Given: two sources with launch times, two
 throats with mouths and delays. Every leg is null, so a history closes in
-coordinate time exactly on a **geodesic ellipsoid** — the locus whose summed
-distance to the two mouths is `|Δ|`. Five equations, five unknowns:
+coordinate time — on the **principal branch**, exactly on a geodesic ellipsoid,
+the locus whose summed distance to the two mouths is `|Δ|`. Five equations, five
+unknowns:
 
 ```
 |c|² = 1                                normalisation
@@ -28,23 +29,27 @@ d(c, M_B⁺) + d(M_B⁻, c) + Δ_B = 0       history B closes
 
 What the two panels show
 ────────────────────────
-**Left, both waves:** the two closure ellipsoids and the two null fronts, and
-where all four meet — a small number of **isolated** events, each at full
-Jacobian rank 5.
+**Left, both waves:** the two closure loci and the two null fronts, and where
+all four meet — a small number of **locally isolated** events, each at full
+Jacobian rank 5. That shows each root *found* is isolated; it does not show all
+roots were found.
 
-**Right, one wave removed:** the same scene with front B dropped. The solutions
-do **not** disappear. The rank falls to 4 and they become a **one-parameter
-family** — a curve threading the sphere. There is still a locus closing both
-histories; there is no longer a *selected* one.
-
-That difference is the whole result, and it is the reason the figure is two
-panels rather than one.
+**Right, one wave removed:** the same scene with front B dropped. The rank falls
+to 4 and the events become a **one-parameter family** — a curve threading the
+sphere. Note what this is: deleting *any* one scalar equation does this, and the
+module gets the identical drop by deleting a **closure** instead. The panel is a
+dimensionality control, not evidence about photons.
 
 What is put in
 ──────────────
 The mouths and the delays: throat data, **given**, not solved for. That is where
 the content lives — with `Δ` free, every event on both fronts closes and nothing
 is selected. The conjugacy `Q_A + Q_B = 0` is a label, carried and checked.
+
+Everything here is scoped to the **principal branch** (short-way, no winding).
+Off it a mixed leg assignment fixes the *difference* of distances — a hyperboloid
+rather than an ellipsoid — and the prior used here draws `|Δ|` inside the band
+where the principal branch is the only feasible one.
 
 **Not done:** no action principle, no field equations, no topology change, no
 dynamics, no rate, and no worldline. The throats are identification maps on a
@@ -241,16 +246,16 @@ class SelectionFigure:
         rows = [
             ("unknowns  (c ∈ S³, t)", "5"),
             ("equations  with both waves", "5"),
-            ("selected events", f"{len(self.both)}"),
+            ("locally isolated events", f"{len(self.both)}"),
             ("Jacobian rank at each", f"{sorted({e['rank'] for e in self.both})}"
              if self.both else "—"),
             ("worst residual", f"{max((e['worst_residual'] for e in self.both), default=0):.1e}"),
-            ("— with wave B removed —", ""),
+            ("— with any one equation removed —", ""),
             ("equations", "4"),
             ("Jacobian rank", f"{sorted({e['rank'] for e in self.family})}"
              if self.family else "—"),
             ("solutions sampled on the family", f"{len(self.family)}"),
-            ("s at first selected event (E = m)", f"{inv['s']:.4f}"),
+            ("s at first event (E = m)  [≤ 4]", f"{inv['s']:.4f}"),
             ("threshold (2m)²", "4.0000"),
             ("net orientation  ↑ + ↓", f"{S.net_orientation():+d}"),
         ]
@@ -268,21 +273,21 @@ class SelectionFigure:
     def draw(self) -> None:
         self._scene(self.ax_both, True, 10.0)
         self.ax_both.set_title(
-            f"both waves  —  {len(self.both)} isolated events, Jacobian rank 5",
+            f"both waves  —  {len(self.both)} locally isolated events, rank 5",
             color=_PAL["sel"], fontsize=9.6, pad=6)
         self._scene(self.ax_one, False, 3.2)
         self.ax_one.set_title(
-            f"wave B removed  —  rank 4: a one-parameter family "
+            f"any one equation removed  —  rank 4: a one-parameter family "
             f"({len(self.family)} sampled)",
             color=_PAL["fam"], fontsize=8.6, pad=6)
         self._draw_book()
 
-        keys = [(_PAL["ell_a"], "closure locus of history A  (geodesic ellipsoid)"),
+        keys = [(_PAL["ell_a"], "closure locus A  (ellipsoid, principal branch)"),
                 (_PAL["ell_b"], "closure locus of history B"),
                 (_PAL["front_a"], "null front of wave A"),
                 (_PAL["front_b"], "null front of wave B"),
-                (_PAL["sel"], "selected event  —  isolated"),
-                (_PAL["fam"], "family  —  not selected")]
+                (_PAL["sel"], "event  —  locally isolated, rank 5"),
+                (_PAL["fam"], "family  —  rank 4")]
         for i, (col, lab) in enumerate(keys):
             y = 0.055 - i * 0.030 + 0.16
             self.ax_both.plot([0.02, 0.062], [y, y],
@@ -292,27 +297,26 @@ class SelectionFigure:
                               color=_PAL["dim"], fontsize=6.6,
                               family="monospace", va="center", zorder=9)
 
-        self.fig.suptitle("v53 — THE INTERACTION EVENT IS SELECTED, "
-                          "NOT INSERTED", color=_PAL["text"], fontsize=13.2,
+        self.fig.suptitle("v53 — THE SHARED EVENT IS DISCRETE, ON A FIXED "
+                          "BRANCH", color=_PAL["text"], fontsize=13.2,
                           y=0.962, family="monospace")
         self.fig.text(0.5, 0.908,
                       "two closed histories sharing one event   ·   each closes "
-                      "on a geodesic ellipsoid with its mouths as foci   ·   "
+                      "on a geodesic ellipsoid — on the principal branch   ·   "
                       "the event is where both ellipsoids meet both null fronts",
                       color=_PAL["dim"], fontsize=8.4, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.042,
-                      "removing a wave does not delete the solution — it drops "
-                      "the rank from 5 to 4, and the isolated events become a "
-                      "one-parameter family",
+                      "deleting ANY one scalar equation drops the rank 5 → 4 "
+                      "and restores a degree of freedom — a dimensionality "
+                      "control, not evidence about photons",
                       color=_PAL["dim"], fontsize=7.8, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.017,
-                      "put in: the mouths and delays are given, not solved for "
-                      "— with Δ free every event on both fronts closes   ·   "
-                      "the shadow of S³ is 2-to-1, so an event may sit on a "
-                      "locus's far sheet: the ranks are the evidence, not the "
-                      "apparent coincidences",
+                      "scoped to the principal branch   ·   mouths and delays "
+                      "are given, not solved for — with Δ free every event "
+                      "closes   ·   the shadow of S³ is 2-to-1, so the ranks "
+                      "are the evidence, not the apparent coincidences",
                       color="#3d5570", fontsize=7.0, ha="center",
                       family="monospace")
 

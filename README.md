@@ -2023,12 +2023,17 @@ expanding and collapsing components stay consistent is untouched. Conjugacy
 PR #251 built one closed history; PR #252 showed pair creation needs two
 independently propagated waves. Sewing two closed histories at one shared
 interaction asks the question that comes *before* attempting topology change:
-**is that event selected by the closure conditions, or still put in by hand?**
+**is that event constrained by the closure conditions, or still put in by hand?**
 
-Every leg is null, so a history closes in coordinate time exactly on a
-**geodesic ellipsoid** — the locus whose summed distance to its two mouths is
-`|Δ|`, feasible on `[d, 2π − d]` and checked against 40,000 uniform samples of
-`S³`. The global system is then
+Every leg is null, so a history closes in coordinate time — **on the principal
+branch** exactly on a geodesic ellipsoid, the locus whose summed distance to its
+two mouths is `|Δ|`, feasible on `[d, 2π − d]` and checked against 40,000
+uniform samples of `S³`. That branch scope is load-bearing: `d` is the
+*principal* geodesic distance, and off the principal branch a mixed leg
+assignment fixes the **difference** of distances — a hyperboloid, not an
+ellipsoid. Inside the band the principal branch is the only feasible one, so the
+rest is principal-branch **by construction of its prior**. Discreteness survives
+per branch. The global system is then
 
 ```
 |c|² = 1                                normalisation
@@ -2038,43 +2043,55 @@ d(c, M_A⁺) + d(M_A⁻, c) + Δ_A = 0       history A closes
 d(c, M_B⁺) + d(M_B⁻, c) + Δ_B = 0       history B closes
 ```
 
-**Five equations, five unknowns.** Solved blind from random starts, every event
-found sits at **full Jacobian rank 5** (12 of 12) — isolation is a property of
-the system, not of the solver. Existence is also restrictive: only about **half**
-of random feasible configurations admit a closed pair-history at all.
+**Five equations, five unknowns.** Solved blind from random starts, every root
+found sits at **full Jacobian rank 5** (12 of 12). Precisely: that shows each
+root *found* is locally isolated — not that all roots were found, nor that the
+event is unique. Existence is restrictive too: only about half of configurations
+*drawn from this module's prior* admit a closed pair-history.
 
-**The falsification lands differently from the expectation.** Removing the second
-wave does *not* delete the solution:
+**Removing a wave is a dimensionality control, not physics.** Deleting one
+scalar equation from a square nondegenerate system drops the rank by one, for
+*any* equation — deleting a **closure** instead gives the identical result:
 
 | | equations | rank | solutions |
 | --- | ---: | ---: | --- |
 | both waves | 5 | **5** | isolated events |
 | wave B removed | 4 | **4** | a **one-parameter family** (~159 sampled) |
 
-There is still a locus closing both histories; there is no longer a *selected*
-one — and dropping the constraint can even **create** solutions where two waves
-admitted none. So the two-wave requirement appears as **loss of isolation**,
-which is sharper and weaker than nonexistence.
+So this establishes nondegeneracy, and is **not** evidence that pair creation
+needs two photons — that content lives in the invariant `s`, which needs two
+independent momenta. What survives as interesting is only the direction: the
+solutions do not vanish, they stop being isolated, and dropping the constraint
+can even **create** solutions where two waves admitted none.
 
-**And the conjugate pair needs two distinct throats** — not assumed, but falling
-out of the rank. One shared throat fails both ways: traversed oppositely,
-history B's closure demands a *negative* sum of geodesic distances (infeasible
-identically); traversed the same way, the two closure equations coincide, the
-rank drops to 4, and the event stops being selected.
+**And in this model the conjugate pair needs two distinct throats.** One shared
+throat fails both ways: traversed oppositely, history B's closure demands a
+*negative* sum of leg lengths — infeasible on **every** branch, the one
+conclusion here independent of branch scope; traversed the same way on the same
+branch, the two closure equations coincide and the rank drops to 4. That second
+half is scoped to the minimal single-pass model and **scanned** over branches
+rather than argued: no counterexample at winding ≤ 1.
 
-**The non-circularity check is the one that matters.** With the delays free
-rather than given, the system is five equations in seven unknowns and **100% of
-345 sampled** events on both fronts can be closed by choosing `Δ` afterwards. The
-whole result rests on the throat being data — a version that solved for the
-delays would select nothing while looking identical from outside.
+**The non-circularity check is the one that matters.** With the delays free the
+nullity is **measured on the actual 5×7 Jacobian** (rank 5, nullity 2), and
+**100% of 345 sampled** events on both fronts close by choosing `Δ` afterwards.
+The whole result rests on the throat being data — a version that solved for the
+delays would constrain nothing while looking identical from outside.
 
-**Closure selects where; the invariant decides whether.** Not one selected event
-clears `s ≥ 4m²` at `E = m` (median `2.48`, max `3.97`); `E = 1.5m` clears 78%,
-`E = 3m` all of them.
+**Closure constrains where; the invariant decides whether** — with two warnings.
+That no event clears `s ≥ 4m²` at `E = m` is **forced, not measured**
+(`s ≤ 4E²`, equality only at exactly head-on, measure zero); and every fraction
+reported is conditioned on an arbitrary prior, so they are **regression
+diagnostics, not predictions**.
+
+**The surviving claim:** *with fixed mouth data and delays, and on a fixed
+propagation branch, intersecting two null fronts with two independent closure
+hypersurfaces generically produces locally isolated candidate events; removing
+one front constraint restores a continuous degree of freedom.*
 
 ```bash
 python -m experiments.closure_ledger.pair_history_probe
-# Verdict: THE_EVENT_IS_SELECTED_AND_LOSING_A_WAVE_LOSES_ISOLATION  (8/8)
+# Verdict: DISCRETE_ON_A_FIXED_BRANCH_WITH_GIVEN_THROAT_DATA  (10/10)
 
 python scripts/geometrodynamics_v53_pair_history.py --still v53.png
 ```
@@ -2101,7 +2118,7 @@ be an identity no drawing choice can move.
 | multipole | where does the two-shell coupling start? | **`ℓ = 2`**, screened as `(b/a)^ℓ` |
 | wormhole ledger | are the four apparent objects one wave? | **yes** — one balance, and linearity makes it free |
 | pair creation | is the antipodal caustic a creation event? | **no** — it is a venue; the threshold needs two waves, and then *forces* a second antipodal interaction |
-| pair history | do two closed histories select their shared event? | **yes** — 5 equations, 5 unknowns, rank 5; removing a wave costs *isolation*, not existence |
+| pair history | do two closed histories constrain their shared event? | **yes, discretely** — 5 equations, 5 unknowns, rank 5 on a fixed branch; removing *any* one equation costs a dimension |
 
 The recurring methodological lesson: **a converged number is not a correct
 number.** Three of the nine errors the arc caught survived grid refinement and

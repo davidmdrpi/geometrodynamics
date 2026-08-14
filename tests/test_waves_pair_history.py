@@ -1,15 +1,22 @@
 """
 Tests for two closed histories sewn at one interaction.
 
-The load-bearing claims are ranks, so the tests are about ranks:
+The load-bearing claims are ranks, so the tests are about ranks — and about the
+scope those ranks are stated in:
 
-* five equations in five unknowns — the interaction event is **isolated**, with
-  the Jacobian at full rank, so isolation is a property of the system and not of
-  the solver;
-* remove one incoming wave and the rank drops to 4: the solutions become a
-  **one-parameter family**. They do not vanish, which is the point;
-* a single shared throat cannot carry the conjugate pair — infeasible when
-  traversed oppositely, rank-deficient when traversed the same way.
+* five equations in five unknowns, so on a **fixed branch** the allowed events
+  are discrete and locally isolated. Not that all roots were found, and not that
+  the event is unique;
+* the **branch scope is load-bearing**: `d` is the principal geodesic distance,
+  and inside the principal delay band it is the only feasible branch, so every
+  other test here is principal-branch by construction. Off it a mixed branch
+  fixes the *difference* of distances — a hyperboloid, not an ellipsoid — and
+  discreteness still survives per branch;
+* removing a wave drops the rank to 4, but so does removing a **closure**, so
+  that test is a dimensionality control and not a statement about photons;
+* a shared throat fails both ways in this model — infeasible on **every** branch
+  when traversed oppositely, rank-deficient on the same branch — with the
+  same-traversal half scanned over branches rather than argued.
 
 And the non-circularity check is tested as hard as the result: with the throat
 delays free rather than given, *every* event on both fronts closes, so the whole
@@ -24,8 +31,12 @@ import numpy as np
 import pytest
 
 from geometrodynamics.waves.pair_history import (
+    PRINCIPAL,
     PairHistorySystem,
     Throat,
+    all_branches,
+    leg_length,
+    measure_the_results_are_scoped_to_the_principal_branch,
     feasible_delay_band,
     geodesic_distance,
     measure_a_shared_throat_cannot_carry_the_pair,
@@ -182,22 +193,29 @@ def test_measure_closure_is_a_geodesic_ellipsoid():
     assert r["an_infeasible_delay_is_rejected"]
 
 
-def test_measure_the_event_is_selected_not_inserted():
+def test_measure_the_events_are_discrete_and_locally_isolated():
     r = measure_the_event_is_selected_not_inserted(n_configs=4, n_starts=150)
-    assert r["the_event_is_selected_not_inserted"]
+    assert r["events_are_discrete_and_locally_isolated"]
     assert r["every_event_is_nondegenerate"]
     assert r["equations"] == r["unknowns"] == 5
+    # and the claim is scoped, not universal
+    assert r["branch_scope"].startswith("principal")
+    assert "does not show all roots" in r["but_not_proved_exhaustive"]
 
 
-def test_measure_removing_a_wave_removes_the_selection():
-    """The falsification: isolation is lost, existence is not."""
-    r = measure_removing_a_wave_removes_the_selection(n_configs=4,
-                                                      n_starts=150)
-    assert r["the_selection_requires_both_waves"]
+def test_removing_a_wave_is_a_dimensionality_control_not_physics():
+    """Deleting ANY one equation drops the rank — including a closure."""
+    r = measure_removing_a_wave_removes_the_selection(n_configs=5,
+                                                      n_starts=180)
+    assert r["the_square_system_behaves_nondegenerately"]
     assert r["two_waves_give_isolated_events"]
     assert r["one_wave_gives_a_one_parameter_family"]
+    assert r["deleting_a_closure_instead_drops_the_rank_the_same_way"]
     assert r["nullity_with_one_wave"] == 1
-    assert r["the_solutions_do_not_vanish_they_stop_being_isolated"]
+    assert "not a statement about waves" in \
+        r["this_is_a_dimensionality_control_not_a_physics_result"] or \
+        "nothing here singles out the wave" in \
+        r["this_is_a_dimensionality_control_not_a_physics_result"]
 
 
 def test_measure_a_shared_throat_cannot_carry_the_pair():
@@ -205,7 +223,10 @@ def test_measure_a_shared_throat_cannot_carry_the_pair():
                                                       n_starts=140)
     assert r["opposite_traversal_is_infeasible"]
     assert r["same_traversal_loses_a_rank"]
-    assert r["so_the_pair_needs_two_distinct_throats"]
+    assert r["so_in_this_model_the_pair_needs_two_distinct_throats"]
+    # the same-traversal half is scanned over branches, not argued
+    assert r["no_branch_pair_rescues_a_shared_throat"]
+    assert "not excluded" in r["the_same_traversal_result_is_scoped"]
 
 
 def test_measure_the_delays_must_be_given_not_solved_for():
@@ -233,3 +254,51 @@ def test_measure_the_conjugacy_is_carried_not_derived():
     assert r["the_labels_cancel"]
     assert r["a_same_sign_pair_is_refused"]
     assert "bookkeeping" in r["but_nothing_here_derives_charge"]
+
+
+# ── the branch scope, which every other claim depends on ────────────────────
+def test_leg_length_covers_short_long_and_winding():
+    d = 1.0
+    assert leg_length(d, 0, 0) == pytest.approx(d)
+    assert leg_length(d, 1, 0) == pytest.approx(2 * math.pi - d)
+    assert leg_length(d, 0, 1) == pytest.approx(d + 2 * math.pi)
+    assert leg_length(d, 1, 1) == pytest.approx(4 * math.pi - d)
+
+
+def test_all_branches_enumerates_the_labels():
+    assert PRINCIPAL in all_branches(0)
+    assert len(all_branches(0)) == 4
+    assert len(all_branches(1)) == 16
+
+
+def test_inside_the_principal_band_only_one_branch_is_feasible():
+    rng = np.random.default_rng(2)
+    th = _throat(rng)                    # drawn inside [D, 2pi - D]
+    assert th.feasible_branches(1) == [PRINCIPAL]
+
+
+def test_off_the_principal_branch_the_locus_changes_kind():
+    """A mixed branch fixes the DIFFERENCE of distances, not the sum."""
+    rng = np.random.default_rng(2)
+    mp, mm = _nrm(rng.normal(size=4)), _nrm(rng.normal(size=4))
+    d = geodesic_distance(mp, mm)
+    th = Throat(mp, mm, -(2 * math.pi))          # the difference window
+    mixed = [b for b in th.feasible_branches(1) if b[0] != b[2]]
+    assert mixed, "no mixed branch feasible at |delta| = 2pi"
+    # a mixed branch really is a difference condition
+    b = mixed[0]
+    c = _nrm(rng.normal(size=4))
+    d1, d2 = geodesic_distance(c, mp), geodesic_distance(mm, c)
+    got = th.closure_residual(c, b)
+    expect = leg_length(d1, b[0], b[1]) + leg_length(d2, b[2], b[3]) + th.delay
+    assert got == pytest.approx(expect)
+
+
+def test_measure_the_results_are_scoped_to_the_principal_branch():
+    r = measure_the_results_are_scoped_to_the_principal_branch(n_configs=3,
+                                                               n_starts=140)
+    assert r["inside_the_band_only_the_principal_branch_is_feasible"]
+    assert r["outside_it_more_branches_open"]
+    assert r["off_branch_loci_are_difference_type"]
+    assert "difference" in r["locus_kinds_off_the_principal_branch"]
+    assert r["discreteness_survives_on_a_fixed_off_branch"]
