@@ -1,16 +1,17 @@
-# The geometric-visualization capstone: what nine rounds of drawing settled (PRs #242–#250)
+# The geometric-visualization capstone: what ten rounds of drawing settled (PRs #242–#250, plus the current round)
 
 > **Framing.** Every round below is a *representation* question first and a
 > physics question second: given a geometry and a field on it, which object
 > should be drawn, and what does the choice smuggle in? The arc began by asking
-> whether a wave could fold a surface through itself, and ended by locating
-> exactly which angular modes let two concentric surfaces couple at all — and at
-> what geometric cost. Each step is machine-checked by a probe in
+> whether a wave could fold a surface through itself, passed through locating
+> exactly which angular modes let two concentric surfaces couple at all, and
+> ended by drawing four apparently separate objects as one conserved wave. Each
+> step is machine-checked by a probe in
 > `experiments/closure_ledger/`.
 
 ## 0. The answer, stated first
 
-**Four negative results and three positive ones, and the negatives are the load-bearing half.**
+**Four negative results and four positive ones, and the negatives are the load-bearing half.**
 
 | | question | answer |
 | --- | --- | --- |
@@ -21,6 +22,7 @@
 | 5 | does focusing reach a singularity? | **no** — it reaches a *caustic*, and passes through |
 | 6 | can a detached oppositely-glued shell replace exotic matter? | **no** — connected implies exotic, by identity |
 | 7 | where does the two-shell coupling start? | **`ℓ = 2`** — and it is screened as `(b/a)^ℓ` |
+| 8 | are the emitted shell, the passing collapsing shell, the receiver's recoil and a past mouth one wave? | **yes** — one conserved balance, and *linearity* is why it costs nothing |
 
 The through-line: **almost every apparent obstruction turned out to be a
 property of the object being drawn, not of the physics** — until the last two,
@@ -124,7 +126,30 @@ mode does not couple. The pure `P₁` *shape* mode is a different object and doe
 at `1.78e-02`. And the same formula screens the coupling as `(b/a)^ℓ` — `544×`
 from `ℓ = 1` to `ℓ = 8` at `b/a = 0.4`.
 
-## 9. What the arc cost in errors, and what caught them
+## 9. One conserved wave, seen in pieces (`docs/wormhole_ledger.md`, current round)
+
+Back to drawing, on `S³`, and the question is whether four apparent objects —
+an emitted expanding shell, a passing collapsing one, a receiver's recoil, and a
+time-displaced past mouth — can be exhibited as **one wave**. They can, and the
+measurable version is that neither local event conserves anything alone while
+the pair closes to `1.1e-16`.
+
+The staging is geometry and the **same fact is used twice**: `4π sin²χ` puts the
+future mouth at the emitter's antipode *and* the receiver at the past mouth's,
+which is the only place `dA/dχ = 4π sin 2χ` is negative all the way in. A first
+draft placed the receiver generically and kept the word "collapse"; against a
+receiver at `χ = 1.2` the same wave is still expanding when it lands.
+
+The actual content is that a **linear** wave on a closed timelike loop has
+exactly one amplitude, `A = A_src/(1 − κ)`, unique for every `κ ≠ 1` — so nothing
+is tuned and no paradox is available. That is a fact about linear equations, and
+it is fenced as one: a quadratic return gives two solutions or none.
+
+Two things are **put in** and labelled: the throat is an identification map, and
+flux conservation through it is an assumption, so the closing ledger checks the
+arithmetic. The exotic-matter bill from §7 is inherited, not paid.
+
+## 10. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -156,6 +181,13 @@ Worth recording, because the failure modes repeat:
   Worse, the first repair checked translation invariance of the **area** when
   the claim was about the **energy** — and the energy test reverses the
   conclusion, moving the onset of coupling from `ℓ = 1` to `ℓ = 2`.
+* **A caption standing in for a sign.** A receiver placed at a generic point was
+  described as being *collapsed onto*; `dA/dχ` says the shell arriving there is
+  still expanding. Nothing numerical was wrong.
+* **A chart that removes the subject.** Stereographic projection is unbounded at
+  its own pole, and a shell launched from a point sweeps all of `S³`, so no pole
+  is safe. The pole chosen was the emitter's own position — the emitter was a
+  division by zero and never appeared in the figure at all.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -163,17 +195,27 @@ an independent construction — a closed form against brute
 force, an operator form against a difference, an exact surface against a
 truncated family.
 
-## 10. What is imported rather than derived
+The last round sharpens it in a different direction. Neither of its two errors
+was numerical, and refining anything would have caught neither: **an object
+drawn correctly can still be the wrong object, and only an independent
+construction says which.** The repair in both cases was to make the picture
+carry a measurement — the sign of `dA/dχ`, and a screen extent proportional to
+`sin χ` with one constant to `3.6e-16`, which is `√(A/4π)`.
+
+## 11. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
   replacement.
 * The Darmois–Israel formalism.
 * `β²` as a free parameter at the equilibrium.
-* The fixed round `S²` background of every wave round: curvature `1` everywhere,
-  at every time, with no Einstein equation and no backreaction.
+* The fixed round `S²` background of every wave round — and the fixed round `S³`
+  of the last one: curvature `1` everywhere, at every time, with no Einstein
+  equation and no backreaction.
+* The wormhole identification itself: a pair of mouths, a time offset `Δ`, a
+  loop transfer `κ`, and flux conservation through the throat. All inputs.
 
-## 11. What would come next
+## 12. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
