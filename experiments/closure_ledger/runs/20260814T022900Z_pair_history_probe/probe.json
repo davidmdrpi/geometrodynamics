@@ -1,0 +1,396 @@
+{
+  "probe": "pair_history",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "if two closed wormhole-wave histories must share their interaction event, is that event selected by the closure conditions, or is it still being inserted by hand?",
+      "scope": "a counting result on a kinematic skeleton. Fixed round S3; throats are identification maps with GIVEN mouths and delays; two of them, with PR #249's exotic-matter bill inherited and unpaid. No action principle, no field equations, no topology change, no dynamics, no rate, no worldline, and no claim of realisability. Conjugacy is a label, not a derivation of charge.",
+      "pass": true
+    },
+    {
+      "name": "T2_closure_is_a_geodesic_ellipsoid",
+      "rows": [
+        {
+          "mouth_separation": 1.6944147666652507,
+          "band": [
+            1.6944147666652507,
+            4.588770540514336
+          ],
+          "sampled_min": 1.6947580529481634,
+          "sampled_max": 4.588713830593765
+        },
+        {
+          "mouth_separation": 1.3620839518573977,
+          "band": [
+            1.3620839518573977,
+            4.921101355322189
+          ],
+          "sampled_min": 1.3620867161521593,
+          "sampled_max": 4.920814577141943
+        },
+        {
+          "mouth_separation": 1.9019634656870652,
+          "band": [
+            1.9019634656870652,
+            4.381221841492521
+          ],
+          "sampled_min": 1.9019703872766467,
+          "sampled_max": 4.381145095260031
+        },
+        {
+          "mouth_separation": 1.8632964678571309,
+          "band": [
+            1.8632964678571309,
+            4.419888839322455
+          ],
+          "sampled_min": 1.8636465243659897,
+          "sampled_max": 4.419844703096979
+        }
+      ],
+      "sampling_never_goes_below_the_band": true,
+      "sampling_never_goes_above_the_band": true,
+      "the_band_is_mouth_separation_to_two_pi_minus_it": true,
+      "an_infeasible_delay_is_rejected": true,
+      "so_closure_is_an_ellipsoid_condition": "the locus of points whose summed distance to the two mouths is |\u0394| \u2014 a geodesic ellipsoid with the mouths as foci",
+      "pass": true
+    },
+    {
+      "name": "T3_the_event_is_selected_not_inserted",
+      "rows": [
+        {
+          "n_events": 2,
+          "ranks": [
+            5,
+            5
+          ],
+          "worst_residual": 2.6327384716751112e-11
+        },
+        {
+          "n_events": 2,
+          "ranks": [
+            5,
+            5
+          ],
+          "worst_residual": 3.750333377183779e-11
+        },
+        {
+          "n_events": 0,
+          "ranks": [],
+          "worst_residual": null
+        },
+        {
+          "n_events": 0,
+          "ranks": [],
+          "worst_residual": null
+        },
+        {
+          "n_events": 2,
+          "ranks": [
+            5,
+            5
+          ],
+          "worst_residual": 4.026112776500668e-12
+        },
+        {
+          "n_events": 2,
+          "ranks": [
+            5,
+            5
+          ],
+          "worst_residual": 9.764189456973327e-12
+        },
+        {
+          "n_events": 2,
+          "ranks": [
+            5,
+            5
+          ],
+          "worst_residual": 9.231282405153252e-12
+        },
+        {
+          "n_events": 0,
+          "ranks": [],
+          "worst_residual": null
+        },
+        {
+          "n_events": 0,
+          "ranks": [],
+          "worst_residual": null
+        },
+        {
+          "n_events": 2,
+          "ranks": [
+            5,
+            5
+          ],
+          "worst_residual": 2.0555557256329848e-11
+        },
+        {
+          "n_events": 0,
+          "ranks": [],
+          "worst_residual": null
+        },
+        {
+          "n_events": 0,
+          "ranks": [],
+          "worst_residual": null
+        }
+      ],
+      "configurations": 12,
+      "configurations_with_a_selected_event": 6,
+      "total_events_found": 12,
+      "events_at_full_rank_5": 12,
+      "every_event_is_nondegenerate": true,
+      "the_counts_are_small_and_finite": true,
+      "unknowns": 5,
+      "equations": 5,
+      "the_event_is_selected_not_inserted": true,
+      "what_this_is_and_is_not": "a counting result on a kinematic skeleton: the closure conditions leave the interaction event isolated. No action principle, no field equations, no topology change, and no claim the configuration is realisable",
+      "pass": true
+    },
+    {
+      "name": "T4_removing_a_wave_removes_the_selection",
+      "rows": [
+        {
+          "with_both_waves": 0,
+          "ranks_both": [],
+          "with_one_wave": 0,
+          "ranks_one": [],
+          "solution_spread_one_wave": 0.0
+        },
+        {
+          "with_both_waves": 0,
+          "ranks_both": [],
+          "with_one_wave": 0,
+          "ranks_one": [],
+          "solution_spread_one_wave": 0.0
+        },
+        {
+          "with_both_waves": 2,
+          "ranks_both": [
+            5,
+            5
+          ],
+          "with_one_wave": 182,
+          "ranks_one": [
+            4
+          ],
+          "solution_spread_one_wave": 1.9888343814778775
+        },
+        {
+          "with_both_waves": 2,
+          "ranks_both": [
+            5,
+            5
+          ],
+          "with_one_wave": 147,
+          "ranks_one": [
+            4
+          ],
+          "solution_spread_one_wave": 1.7277614885940695
+        },
+        {
+          "with_both_waves": 2,
+          "ranks_both": [
+            5,
+            5
+          ],
+          "with_one_wave": 170,
+          "ranks_one": [
+            4
+          ],
+          "solution_spread_one_wave": 1.770607831030325
+        },
+        {
+          "with_both_waves": 2,
+          "ranks_both": [
+            5,
+            5
+          ],
+          "with_one_wave": 159,
+          "ranks_one": [
+            4
+          ],
+          "solution_spread_one_wave": 1.719183522085718
+        },
+        {
+          "with_both_waves": 0,
+          "ranks_both": [],
+          "with_one_wave": 74,
+          "ranks_one": [
+            4
+          ],
+          "solution_spread_one_wave": 1.0129347024188728
+        },
+        {
+          "with_both_waves": 0,
+          "ranks_both": [],
+          "with_one_wave": 0,
+          "ranks_one": [],
+          "solution_spread_one_wave": 0.0
+        }
+      ],
+      "configurations": 8,
+      "configurations_admitting_a_pair_history": 4,
+      "two_waves_give_isolated_events": true,
+      "one_wave_gives_a_one_parameter_family": true,
+      "typical_family_size_with_one_wave": 159,
+      "nullity_with_one_wave": 1,
+      "the_solutions_do_not_vanish_they_stop_being_isolated": true,
+      "dropping_a_constraint_can_even_create_solutions": true,
+      "and_the_invariant_is_undefined_with_one_wave": "s = 2E\u2081E\u2082(1 \u2212 cos \u03b8) needs two momenta; with a single front there is no second independent history to form an opening angle with",
+      "the_selection_requires_both_waves": true,
+      "pass": true
+    },
+    {
+      "name": "T5_a_shared_throat_cannot_carry_the_pair",
+      "opposite_traversal_rows": [
+        {
+          "delay_a": -3.238236828831289,
+          "delay_b": 3.238236828831289,
+          "b_requires_negative_path_length": true,
+          "b_throat_is_feasible": false
+        },
+        {
+          "delay_a": -1.5878529176443705,
+          "delay_b": 1.5878529176443705,
+          "b_requires_negative_path_length": true,
+          "b_throat_is_feasible": false
+        },
+        {
+          "delay_a": -2.287304242347541,
+          "delay_b": 2.287304242347541,
+          "b_requires_negative_path_length": true,
+          "b_throat_is_feasible": false
+        },
+        {
+          "delay_a": -1.9600079717099492,
+          "delay_b": 1.9600079717099492,
+          "b_requires_negative_path_length": true,
+          "b_throat_is_feasible": false
+        },
+        {
+          "delay_a": -4.607964734329227,
+          "delay_b": 4.607964734329227,
+          "b_requires_negative_path_length": true,
+          "b_throat_is_feasible": false
+        },
+        {
+          "delay_a": -5.260123073054136,
+          "delay_b": 5.260123073054136,
+          "b_requires_negative_path_length": true,
+          "b_throat_is_feasible": false
+        }
+      ],
+      "same_traversal_rows": [
+        {
+          "n_solutions": 93,
+          "ranks": [
+            4
+          ]
+        },
+        {
+          "n_solutions": 0,
+          "ranks": []
+        },
+        {
+          "n_solutions": 106,
+          "ranks": [
+            4
+          ]
+        },
+        {
+          "n_solutions": 167,
+          "ranks": [
+            4
+          ]
+        },
+        {
+          "n_solutions": 116,
+          "ranks": [
+            4
+          ]
+        },
+        {
+          "n_solutions": 105,
+          "ranks": [
+            4
+          ]
+        }
+      ],
+      "opposite_traversal_is_infeasible": true,
+      "configurations_admitting_a_solution": 5,
+      "same_traversal_loses_a_rank": true,
+      "same_traversal_gives_a_family_not_a_selection": true,
+      "so_the_pair_needs_two_distinct_throats": true,
+      "and_that_was_not_assumed": "the two-history picture does not require it; it follows from the rank of the system",
+      "pass": true
+    },
+    {
+      "name": "T6_the_delays_must_be_given_not_solved_for",
+      "events_with_delays_given": 2,
+      "unknowns_with_delays_given": 5,
+      "equations": 5,
+      "unknowns_with_delays_free": 7,
+      "nullity_with_delays_free": 2,
+      "sampled_events_on_both_fronts": 345,
+      "fraction_closable_by_choosing_a_delay": 1.0,
+      "with_free_delays_almost_any_event_closes": true,
+      "so_the_content_is_in_the_throat_being_given": true,
+      "which_is_where_a_circular_version_of_this_would_hide": "solving for \u0394 after choosing the event would make every event a solution and the selection meaningless",
+      "pass": true
+    },
+    {
+      "name": "T7_the_threshold_is_a_separate_condition",
+      "configurations": 14,
+      "configurations_with_a_selected_event": 9,
+      "selected_events": 18,
+      "rows": [
+        {
+          "energy_over_mass": 1.0,
+          "fraction_clearing_threshold": 0.0
+        },
+        {
+          "energy_over_mass": 1.5,
+          "fraction_clearing_threshold": 0.7777777777777778
+        },
+        {
+          "energy_over_mass": 2.0,
+          "fraction_clearing_threshold": 0.9444444444444444
+        },
+        {
+          "energy_over_mass": 3.0,
+          "fraction_clearing_threshold": 1.0
+        }
+      ],
+      "median_s_at_energy_equal_mass": 2.4787036368081896,
+      "max_s_at_energy_equal_mass": 3.971978811867463,
+      "none_clear_threshold_at_energy_equal_mass": true,
+      "most_clear_it_by_one_and_a_half_masses": true,
+      "closure_selects_where_the_invariant_decides_whether": true,
+      "pass": true
+    },
+    {
+      "name": "T8_the_conjugacy_is_carried_not_derived",
+      "orientations": [
+        1,
+        -1
+      ],
+      "net_orientation": 0,
+      "the_labels_cancel": true,
+      "a_same_sign_pair_is_refused": true,
+      "but_nothing_here_derives_charge": "the kinematics is blind to the sign; the label is carried through the system and checked at the end, which is bookkeeping",
+      "and_the_throat_bill_is_still_inherited": "shells.junction priced a connected throat as necessarily exotic; this round adds two of them and pays for neither",
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
+      "n_passed": 8,
+      "n_total": 8,
+      "pass": true
+    }
+  ],
+  "verdict_class": "THE_EVENT_IS_SELECTED_AND_LOSING_A_WAVE_LOSES_ISOLATION",
+  "verdict": "THE INTERACTION EVENT IS SELECTED, NOT INSERTED \u2014 AND REMOVING A WAVE COSTS ISOLATION RATHER THAN EXISTENCE. Requiring two closed wormhole-wave histories to share one interaction event gives five equations in five unknowns: normalisation, the event lying on each of the two null fronts, and each history closing in coordinate time. Closure is a GEODESIC ELLIPSOID condition \u2014 the locus whose summed distance to the two mouths is |Delta| \u2014 feasible exactly on [d, 2pi - d], verified against 40,000 uniform samples of S3 per configuration rather than asserted. Solved BLIND from random starts, every event found sits at FULL JACOBIAN RANK 5 (12 of 12), so isolation is a property of the system and not of the solver stopping early. Existence is also RESTRICTIVE: only about half of random feasible configurations (6 of 12) admit a closed pair-history at all, so the closure conditions can forbid a configuration outright rather than merely locate an event inside it. THE FALSIFICATION LANDS DIFFERENTLY FROM THE EXPECTATION. Removing the second incoming wave does NOT delete the pair-history solution. The system becomes four equations in five unknowns, the Jacobian drops to RANK 4, and the solutions become a ONE-PARAMETER FAMILY \u2014 typically 159 distinct sampled points spanning the sphere. There is still a locus of events closing both histories; there is no longer a SELECTED one, and dropping the constraint can even CREATE solutions where two waves admitted none. So the Breit-Wheeler two-wave requirement appears here as loss of ISOLATION, which is a sharper and weaker statement than nonexistence, and it is the weaker one that is true. AND THE CONJUGATE PAIR NEEDS TWO DISTINCT THROATS, which the two-history picture did not assume \u2014 it falls out of the rank. A single shared throat fails in both senses: traversed oppositely, history B sees Delta_B = -Delta_A > 0 and its closure demands a sum of geodesic distances that is NEGATIVE, infeasible identically; traversed the same way, the two closure equations coincide, the rank drops to 4, and the event stops being selected. THE NON-CIRCULARITY CHECK IS THE ONE THAT MATTERS. If the delays were unknowns rather than given data the system would be five equations in seven unknowns with nullity 2, and every event on both fronts could be closed by choosing Delta afterwards \u2014 measured at 100% of 345 sampled events. The entire result therefore rests on the throat being GIVEN, and a version that solved for the delays would select nothing while looking identical from outside. FINALLY, CLOSURE SELECTS WHERE AND THE INVARIANT DECIDES WHETHER \u2014 kept strictly apart, because conflating amplitude with invariant is the error PR #252 unwound. NOT ONE selected event clears s >= 4m^2 at E = m (median 2.48, maximum 3.97, just under), while E = 1.5m clears 78% and E = 3m clears all of them. WHAT THIS IS NOT: a counting result on a kinematic skeleton. No action principle, no field equations, no topology change, no dynamics, no rate, no worldline, and no claim that such a configuration is realisable. The conjugacy Q_A + Q_B = 0 is a label carried and checked, never derived, and two throats now sit on the books with PR #249's exotic-matter bill unpaid for both.",
+  "generated_utc": "2026-08-14T02:29:00.589031+00:00"
+}
