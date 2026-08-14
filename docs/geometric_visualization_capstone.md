@@ -1,17 +1,18 @@
-# The geometric-visualization capstone: what ten rounds of drawing settled (PRs #242–#250, plus the current round)
+# The geometric-visualization capstone: what eleven rounds of drawing settled (PRs #242–#251, plus the current round)
 
 > **Framing.** Every round below is a *representation* question first and a
 > physics question second: given a geometry and a field on it, which object
 > should be drawn, and what does the choice smuggle in? The arc began by asking
 > whether a wave could fold a surface through itself, passed through locating
-> exactly which angular modes let two concentric surfaces couple at all, and
-> ended by drawing four apparently separate objects as one conserved wave. Each
+> exactly which angular modes let two concentric surfaces couple at all, drew
+> four apparently separate objects as one conserved wave, and ended by finding
+> that the event it had been drawing all along was not the event at all. Each
 > step is machine-checked by a probe in
 > `experiments/closure_ledger/`.
 
 ## 0. The answer, stated first
 
-**Four negative results and four positive ones, and the negatives are the load-bearing half.**
+**Five negative results and four positive ones, and the negatives are the load-bearing half.**
 
 | | question | answer |
 | --- | --- | --- |
@@ -23,11 +24,13 @@
 | 6 | can a detached oppositely-glued shell replace exotic matter? | **no** — connected implies exotic, by identity |
 | 7 | where does the two-shell coupling start? | **`ℓ = 2`** — and it is screened as `(b/a)^ℓ` |
 | 8 | are the emitted shell, the passing collapsing shell, the receiver's recoil and a past mouth one wave? | **yes** — one conserved balance, and *linearity* is why it costs nothing |
+| 9 | is the antipodal caustic a particle-creation event? | **no** — a caustic is a *venue*; the threshold is on an invariant, needs two waves, and then **forces** a second antipodal interaction |
 
 The through-line: **almost every apparent obstruction turned out to be a
-property of the object being drawn, not of the physics** — until the last two,
-where the obstruction turned out to be an identity that no drawing choice can
-move.
+property of the object being drawn, not of the physics** — until the closing
+rounds, where it turned out to be an identity no drawing choice can move, and
+finally something sharper still: the arc had been drawing the right object and
+measuring the *wrong quantity*.
 
 ## 1. The graph cannot wind (`docs/circle_slice_bulk.md`, PR #246)
 
@@ -126,7 +129,7 @@ mode does not couple. The pure `P₁` *shape* mode is a different object and doe
 at `1.78e-02`. And the same formula screens the coupling as `(b/a)^ℓ` — `544×`
 from `ℓ = 1` to `ℓ = 8` at `b/a = 0.4`.
 
-## 9. One conserved wave, seen in pieces (`docs/wormhole_ledger.md`, current round)
+## 9. One conserved wave, seen in pieces (`docs/wormhole_ledger.md`, PR #251)
 
 Back to drawing, on `S³`, and the question is whether four apparent objects —
 an emitted expanding shell, a passing collapsing one, a receiver's recoil, and a
@@ -149,7 +152,29 @@ Two things are **put in** and labelled: the throat is an identification map, and
 flux conservation through it is an assumption, so the closing ledger checks the
 arithmetic. The exotic-matter bill from §7 is inherited, not paid.
 
-## 10. What the arc cost in errors, and what caught them
+## 10. Pair creation is a collision, not a focus (`docs/pair_creation.md`, current round)
+
+The arc had been drawing one wavefront refocusing at its antipode and calling
+the caustic a creation event. The correction is not that the drawing was
+inaccurate — it is that **the quantity was wrong**. A caustic is where the
+*amplitude* gets large; Breit–Wheeler is a threshold on an *invariant*,
+`s = 2E₁E₂(1 − cos θ) ≥ (2m)²`, and `θ` is not something focusing supplies.
+
+So focusing is **neither sufficient** (collinear momenta have `s = 0` after
+amplifying by `10¹²`) **nor necessary** (crossed beams need no focus at all).
+The honest complication is kept: a converging front does contain opposed rays,
+so the distinction is *independence of the sources*, not brightness.
+
+Two sources `δ` apart give `1 − cos θ = (1 − cos δ)/sin²t` — an identity of
+geodesic triangles, so the same on `S²` and `S³`, verified to `2.0e-14` against
+embedded tangent vectors. The consequence is the round's result: `s(t)` is
+**U-shaped**, head-on at *both* ends of the crossing window and minimal at the
+equator, so a threshold cuts **two disjoint windows and never one** — and only
+the far one is a collision of waves that have actually propagated
+independently, by a factor of `9.6` in path length. **The second interaction
+has to be antipodal, and that is derived rather than staged.**
+
+## 11. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -188,6 +213,17 @@ Worth recording, because the failure modes repeat:
   its own pole, and a shell launched from a point sweeps all of `S³`, so no pole
   is safe. The pole chosen was the emitter's own position — the emitter was a
   division by zero and never appeared in the figure at all.
+* **The wrong quantity entirely.** Nine rounds drew a caustic and called it a
+  particle-creation event. The drawings were accurate and the object was right;
+  amplitude simply is not an invariant, and only asking what the threshold is a
+  threshold *on* surfaces that.
+* **An angle destroyed by its own projection.** The momenta at a crossing are
+  exact to `1e-15`, but measured off the *picture* the opening angle is wrong by
+  up to `67°` — and by up to `56°` differently at two crossing points whose true
+  angle is identical.
+* **An exact identity tested through `arccos`.** `1 − cos θ = 2` at the head-on
+  ends is exact; converting it to an angle costs eight digits to the square-root
+  singularity at `−1`, turning the statement into a tolerance argument.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -202,7 +238,7 @@ construction says which.** The repair in both cases was to make the picture
 carry a measurement — the sign of `dA/dχ`, and a screen extent proportional to
 `sin χ` with one constant to `3.6e-16`, which is `√(A/4π)`.
 
-## 11. What is imported rather than derived
+## 12. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -214,8 +250,11 @@ carry a measurement — the sign of `dA/dχ`, and a screen extent proportional t
   equation and no backreaction.
 * The wormhole identification itself: a pair of mouths, a time offset `Δ`, a
   loop transfer `κ`, and flux conservation through the throat. All inputs.
+* The Breit–Wheeler threshold and cross-section — QED, checked against the
+  textbook peak but not derived. Rays-as-photons is a correspondence, and no
+  rate is computed anywhere in the arc.
 
-## 12. What would come next
+## 13. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:

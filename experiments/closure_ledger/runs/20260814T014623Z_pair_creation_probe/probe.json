@@ -1,0 +1,368 @@
+{
+  "probe": "pair_creation",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "earlier rounds drew a single wavefront refocusing at its antipode and treated the caustic as a particle-creation event; is it one, and if not, what does the geometry actually require?",
+      "scope": "kinematics on a fixed round sphere. The Breit-Wheeler threshold and cross-section are imported QED; rays-as-photons is a correspondence; no rate is computed; the crossing chord as a throat is interpretation, and PR #249 priced that throat without this round paying it.",
+      "pass": true
+    },
+    {
+      "name": "T2_focusing_is_neither_sufficient_nor_necessary",
+      "collinear_rows": [
+        {
+          "amplification": 1.0,
+          "energy": 1.0,
+          "s_collinear": 0.0
+        },
+        {
+          "amplification": 10.0,
+          "energy": 10.0,
+          "s_collinear": 0.0
+        },
+        {
+          "amplification": 1000.0,
+          "energy": 1000.0,
+          "s_collinear": 0.0
+        },
+        {
+          "amplification": 1000000.0,
+          "energy": 1000000.0,
+          "s_collinear": 0.0
+        },
+        {
+          "amplification": 1000000000000.0,
+          "energy": 1000000000000.0,
+          "s_collinear": 0.0
+        }
+      ],
+      "crossed_rows": [
+        {
+          "energy": 0.5,
+          "theta": "\u03c0",
+          "s_head_on": 1.0,
+          "above_threshold": false
+        },
+        {
+          "energy": 0.999,
+          "theta": "\u03c0",
+          "s_head_on": 3.992004,
+          "above_threshold": false
+        },
+        {
+          "energy": 1.0,
+          "theta": "\u03c0",
+          "s_head_on": 4.0,
+          "above_threshold": true
+        },
+        {
+          "energy": 1.5,
+          "theta": "\u03c0",
+          "s_head_on": 9.0,
+          "above_threshold": true
+        },
+        {
+          "energy": 4.0,
+          "theta": "\u03c0",
+          "s_head_on": 64.0,
+          "above_threshold": true
+        }
+      ],
+      "focusing_is_not_sufficient": true,
+      "largest_amplification_tried": 1000000000000.0,
+      "focusing_is_not_necessary": true,
+      "threshold_is_at_energy_equal_mass": true,
+      "a_converging_shell_does_contain_opposed_rays": true,
+      "so_the_distinction_is_independence_not_brightness": "a spherically converging front has diametrically opposed rays, so its self-invariant is not zero; what a single front cannot supply is two INDEPENDENTLY propagated waves, and that is a statement about the source topology rather than about the amplitude",
+      "what_this_corrects": "earlier rounds drew one caustic and called it a creation event; s depends on the opening angle, which focusing does not create",
+      "pass": true
+    },
+    {
+      "name": "T3_the_invariant_is_a_triangle_identity",
+      "rows": [
+        {
+          "dim": 3,
+          "sphere": "S\u00b2",
+          "samples_used": 297,
+          "worst_abs_error": 2.042810365310288e-14
+        },
+        {
+          "dim": 4,
+          "sphere": "S\u00b3",
+          "samples_used": 300,
+          "worst_abs_error": 7.105427357601002e-15
+        }
+      ],
+      "worst_over_all_dimensions": 2.042810365310288e-14,
+      "the_closed_form_is_confirmed": true,
+      "and_it_is_dimension_independent": true,
+      "the_control_never_uses_the_law_of_cosines": "the crossing point is solved as a linear system and the momenta are great-circle tangents in the embedding",
+      "pass": true
+    },
+    {
+      "name": "T4_the_collision_is_head_on_twice",
+      "rows": [
+        {
+          "delta": 0.15,
+          "t_near": 0.075,
+          "theta_near": 3.141592653589793,
+          "s_near": 4.0,
+          "t_equator": 1.5707963267948966,
+          "theta_equator": 0.1500000000000003,
+          "s_equator": 0.022457844127915426,
+          "t_far": 3.066592653589793,
+          "theta_far": 3.1415925236844817,
+          "s_far": 3.999999999999967,
+          "equator_angle_equals_delta": true,
+          "near_and_far_are_mirror": true
+        },
+        {
+          "delta": 0.42,
+          "t_near": 0.21,
+          "theta_near": 3.141592653589793,
+          "s_near": 4.0,
+          "t_equator": 1.5707963267948966,
+          "theta_equator": 0.42000000000000004,
+          "s_equator": 0.17382211937538344,
+          "t_far": 2.931592653589793,
+          "theta_far": 3.1415926019706566,
+          "s_far": 3.999999999999996,
+          "equator_angle_equals_delta": true,
+          "near_and_far_are_mirror": true
+        },
+        {
+          "delta": 1.0,
+          "t_near": 0.5,
+          "theta_near": 3.1415926325163688,
+          "s_near": 4.0,
+          "t_equator": 1.5707963267948966,
+          "theta_equator": 0.9999999999999999,
+          "s_equator": 0.9193953882637206,
+          "t_far": 2.641592653589793,
+          "theta_far": 3.1415926064681843,
+          "s_far": 3.9999999999999982,
+          "equator_angle_equals_delta": true,
+          "near_and_far_are_mirror": true
+        },
+        {
+          "delta": 2.0,
+          "t_near": 1.0,
+          "theta_near": 3.141592653589793,
+          "s_near": 4.0,
+          "t_equator": 1.5707963267948966,
+          "theta_equator": 2.0,
+          "s_equator": 2.8322936730942847,
+          "t_far": 2.141592653589793,
+          "theta_far": 3.1415926170895516,
+          "s_far": 3.9999999999999987,
+          "equator_angle_equals_delta": true,
+          "near_and_far_are_mirror": true
+        }
+      ],
+      "head_on_invariant": 4.0,
+      "worst_head_on_error": 3.2862601528904634e-14,
+      "both_ends_are_head_on": true,
+      "the_equator_angle_is_exactly_the_separation": true,
+      "the_minimum_is_at_the_equator": true,
+      "so_the_invariant_is_u_shaped_in_t": true,
+      "which_is_why_a_threshold_cuts_two_windows": true,
+      "pass": true
+    },
+    {
+      "name": "T5_the_threshold_opens_two_windows",
+      "delta": 0.42,
+      "rows": [
+        {
+          "energy_over_mass": 0.6,
+          "closed_form_windows": [],
+          "n_windows_closed_form": 0,
+          "n_windows_scanned": 0,
+          "scan_agrees": true
+        },
+        {
+          "energy_over_mass": 1.0,
+          "closed_form_windows": [],
+          "n_windows_closed_form": 0,
+          "n_windows_scanned": 0,
+          "scan_agrees": true
+        },
+        {
+          "energy_over_mass": 1.4,
+          "closed_form_windows": [
+            [
+              0.21,
+              0.29615405627503927
+            ],
+            [
+              2.845438597314754,
+              2.931592653589793
+            ]
+          ],
+          "n_windows_closed_form": 2,
+          "n_windows_scanned": 2,
+          "scan_agrees": true
+        },
+        {
+          "energy_over_mass": 3.0,
+          "closed_form_windows": [
+            [
+              0.21,
+              0.6756180323932854
+            ],
+            [
+              2.4659746211965077,
+              2.931592653589793
+            ]
+          ],
+          "n_windows_closed_form": 2,
+          "n_windows_scanned": 2,
+          "scan_agrees": true
+        },
+        {
+          "energy_over_mass": 6.0,
+          "closed_form_windows": [
+            [
+              0.21,
+              2.931592653589793
+            ]
+          ],
+          "n_windows_closed_form": 1,
+          "n_windows_scanned": 1,
+          "scan_agrees": true
+        }
+      ],
+      "merge_energy_over_mass": 4.797085678052583,
+      "the_scan_agrees_with_the_closed_form": true,
+      "below_E_equals_m_there_is_no_window": true,
+      "at_E_equals_m_the_window_has_zero_width": true,
+      "and_that_is_the_head_on_threshold_touched_exactly": true,
+      "there_are_exactly_two_windows_in_between": true,
+      "and_they_merge_above": true,
+      "so_a_second_interaction_at_the_antipode_is_forced": true,
+      "pass": true
+    },
+    {
+      "name": "T6_only_the_far_window_is_independent",
+      "delta": 0.42,
+      "energy_over_mass": 1.4,
+      "near_window": [
+        0.21,
+        0.29615405627503927
+      ],
+      "far_window": [
+        2.845438597314754,
+        2.931592653589793
+      ],
+      "path_before_near_collision": 0.29615405627503927,
+      "path_before_far_collision": 2.845438597314754,
+      "separation_of_the_sources": 0.42,
+      "near_collision_is_within_the_source_region": true,
+      "far_collision_is_past_a_quarter_turn": true,
+      "ratio_of_path_lengths": 9.607967667585095,
+      "both_windows_are_head_on_at_their_outer_edge": true,
+      "only_the_far_window_is_a_collision_of_independent_waves": true,
+      "why": "the near window is the emission region \u2014 the fronts have not separated yet; the far one is reached after each has crossed a half-circumference, which is the only place on a round space where two independently propagated fronts meet head-on again",
+      "pass": true
+    },
+    {
+      "name": "T7_the_projected_angle_is_not_the_opening_angle",
+      "worst_projected_error_deg": 67.39777731465902,
+      "worst_disagreement_between_the_two_crossings_deg": 56.40261477014102,
+      "momenta_are_perpendicular_to_the_sphere": true,
+      "the_projection_misreads_the_angle": true,
+      "and_it_misreads_the_two_crossings_differently": true,
+      "though_their_true_opening_angle_is_identical": true,
+      "so_the_arrows_cannot_carry_the_claim": "the renderer draws the opening angle in the plane the two momenta span, where it is undistorted; the arrows on the sphere are decoration and are labelled as projected",
+      "sample_rows": [
+        {
+          "t": 0.211,
+          "true_deg": 168.92197580364768,
+          "projected_deg": [
+            175.242159631056,
+            175.84149842047555
+          ]
+        },
+        {
+          "t": 0.25709479073881003,
+          "true_deg": 110.13568796535783,
+          "projected_deg": [
+            121.15078843725887,
+            154.06473921750037
+          ]
+        },
+        {
+          "t": 0.3031895814776201,
+          "true_deg": 88.56620152054013,
+          "projected_deg": [
+            83.90517225685522,
+            115.80847535295638
+          ]
+        },
+        {
+          "t": 0.34928437221643016,
+          "true_deg": 75.05328544564927,
+          "projected_deg": [
+            64.05812290113126,
+            7.6555081309902375
+          ]
+        },
+        {
+          "t": 0.3953791629552402,
+          "true_deg": 65.53509042928131,
+          "projected_deg": [
+            52.93573957895036,
+            9.12322926286116
+          ]
+        },
+        {
+          "t": 0.4414739536940503,
+          "true_deg": 58.403334286470084,
+          "projected_deg": [
+            45.83355019395443,
+            14.656204714818688
+          ]
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "T8_the_cross_section_is_imported_and_checked",
+      "peak_sqrt_s_over_2m": 1.4028245765018665,
+      "peak_beta": 0.7013190671271503,
+      "peak_sigma_over_pi_re2": 0.6817055054750576,
+      "peak_sigma_over_thomson": 0.2556395645531466,
+      "zero_at_threshold": true,
+      "zero_below_threshold": true,
+      "falls_at_large_s": true,
+      "matches_the_textbook_peak": true,
+      "this_is_imported_not_derived": "the threshold and the cross-section are QED; this round supplies only where on the sphere s clears the threshold",
+      "pass": true
+    },
+    {
+      "name": "T9_the_pair_conserves_orientation",
+      "orientations": [
+        1,
+        -1
+      ],
+      "net_orientation": 0,
+      "the_labels_cancel": true,
+      "crossing_locus_size_on_S2": 2,
+      "separation_of_the_two_crossing_points": 0.2845831284202727,
+      "evaluated_at_t": 2.8885156254522735,
+      "s_there": 5.43434781559932,
+      "above_threshold_there": true,
+      "on_S3_the_locus_is_a_circle": 16,
+      "but_the_throat_is_interpretation": "the kinematics says where the fronts cross, at what angle, and whether s clears (2m)\u00b2; calling the two crossing points the mouths of one throat is this program's reading, and shells.junction priced that throat \u2014 the bill is inherited, not paid",
+      "pass": true
+    },
+    {
+      "name": "T10_assessment",
+      "n_passed": 9,
+      "n_total": 9,
+      "pass": true
+    }
+  ],
+  "verdict_class": "THE_SECOND_INTERACTION_MUST_BE_ANTIPODAL",
+  "verdict": "PAIR CREATION IS A COLLISION, NOT A FOCUS \u2014 AND THE GEOMETRY THEN FORCES A SECOND INTERACTION AT THE ANTIPODE. A caustic is where the AMPLITUDE gets large; Breit-Wheeler is a threshold on an INVARIANT, s = 2 E1E2 (1 - cos theta) >= (2m)^2, and those are different quantities. E is what focusing raises; theta is what a collision supplies. Focusing is therefore NEITHER SUFFICIENT \u2014 collinear momenta have s = 0 identically, still zero after amplifying by 1e+12 \u2014 NOR NECESSARY, since two beams crossed head-on with no focusing anywhere clear threshold as soon as E >= m. The honest complication is recorded rather than buried: a spherically converging front DOES contain diametrically opposed rays, so its self-invariant is not zero, and the real distinction is INDEPENDENCE of the sources rather than brightness. Put two sources a geodesic distance delta apart and the crossing obeys 1 - cos theta = (1 - cos delta)/sin^2 t, an identity of geodesic triangles verified against embedded tangent vectors that never use the law of cosines \u2014 to 2.0e-14, on S2 AND on S3, because a geodesic triangle lies in a great 2-sphere whatever it is embedded in. So s(t) = 4 E1E2 sin^2(delta/2)/sin^2 t, which is U-SHAPED: head-on at BOTH ends of the crossing window and minimal at the equator, where the opening angle is exactly delta. The moment the wavefronts are largest is the moment the invariant is smallest, which is the opposite of the intuition the single-caustic pictures encouraged. A threshold therefore cuts TWO DISJOINT WINDOWS AND NEVER ONE, confirmed against a 40,000-point scan; below E = m there is none, at E = m the window has zero width, and they merge only above E = m/sin(delta/2) = 4.797 m. AND ONLY THE FAR WINDOW IS A COLLISION OF INDEPENDENT WAVES: the near one sits on top of the sources, the fronts having travelled 0.296 against a separation of 0.42, while the far one is reached only after each front has crossed a half-circumference \u2014 a factor of 9.6 in path length. That is why the second interaction has to be antipodal, and it is derived rather than staged. ONE FURTHER TRAP, CAUGHT: the momenta are exact, perpendicular to their own wavefront to 1e-15 and matching the closed form to 2e-13, but a FIGURE shows their projection, and projection does not preserve angles. Measured off the picture the opening angle is wrong by up to 67.4 degrees and differs by up to 56.4 degrees between the two crossing points, whose true opening angle is IDENTICAL \u2014 so the renderer draws the angle in the plane the two momenta span and labels the arrows on the sphere as decoration. WHAT IS IMPORTED, PLAINLY: the Breit-Wheeler threshold and cross-section are QED. The cross-section is the textbook closed form and is checked against its known peak \u2014 beta = 0.701, sqrt(s) = 1.40 (2m), sigma = 0.256 sigma_T \u2014 and it FALLS at large s, so the most violent part of the crossing is not the most productive. Rays-as-photons is a correspondence, no rate is computed, the orientation labels are carried rather than derived, and calling the crossing chord a throat through the bulk is this program's reading, whose exotic-matter bill was priced in PR #249 and is inherited here unpaid.",
+  "generated_utc": "2026-08-14T01:46:23.422500+00:00"
+}
