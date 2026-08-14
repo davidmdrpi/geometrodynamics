@@ -1937,6 +1937,79 @@ python scripts/geometrodynamics_v51_wormhole_ledger.py --still v51.png
 
 Full write-up: `docs/wormhole_ledger.md`.
 
+## Pair creation is a collision, not a focus
+
+**Scope: kinematics on a fixed round sphere.** The Breit–Wheeler threshold and
+cross-section are **imported QED**; rays-as-photons is a correspondence; **no
+rate is computed** (a rate needs a photon number density a classical amplitude
+does not supply); and calling the crossing chord a throat is this program's
+reading, with PR #249's exotic-matter bill inherited, not paid.
+
+Every earlier wave round drew **one** wavefront converging on its antipode and
+treated the caustic as the interesting event. That was the wrong *quantity*. A
+caustic is where the amplitude gets large; pair creation is a threshold on an
+invariant:
+
+```
+γ γ → e⁺ e⁻      s = 2 E₁E₂ (1 − cos θ) ≥ (2m)²
+```
+
+`E` is what focusing raises; `θ` is what a collision supplies. So focusing is
+**neither sufficient** — collinear momenta have `s = 0` identically, still
+exactly zero after amplifying by `10¹²` — **nor necessary**, since two beams
+crossed head-on with no focusing anywhere clear threshold as soon as `E ≥ m`.
+The honest complication is recorded rather than buried: a spherically converging
+front *does* contain diametrically opposed rays, so the real distinction is
+**independence of the sources**, not brightness.
+
+**The invariant is an identity of geodesic triangles.** Two sources a geodesic
+distance `δ` apart, both firing:
+
+```
+1 − cos θ = (1 − cos δ)/sin²t     ⟹     s(t) = 4 E₁E₂ sin²(δ/2)/sin²t
+```
+
+verified to `2.0e-14` against a control that never uses the law of cosines — the
+crossing point solved as a linear system, the momenta built as great-circle
+tangents in the embedding — and checked on `S²` **and** `S³`, because a geodesic
+triangle lies in a great 2-sphere whatever it is embedded in.
+
+**Which makes the collision head-on twice.** `s(t)` is **U-shaped**: maximal at
+*both* ends of the crossing window and minimal at the equator, where the opening
+angle is exactly `δ`. The moment the wavefronts are largest is the moment the
+invariant is smallest. So the threshold cuts **two disjoint windows, never one**:
+
+| `E/m` | windows | where |
+| ---: | ---: | --- |
+| 0.6 | **0** | even head-on, `s_max = 4E² < 4m²` |
+| 1.0 | **0** | zero width — touched only at the two head-on instants |
+| 1.4 | **2** | `[0.210, 0.296]` and `[2.845, 2.932]` |
+| 6.0 | **1** | merged, above `E = m/sin(δ/2) = 4.797 m` |
+
+**And only the far window is a collision of independent waves.** The near one
+sits on top of the sources — the fronts have travelled `0.296` against a
+separation of `0.42`, so nothing there has propagated independently. The far one
+is reached only after each front has crossed a half-circumference: a factor of
+**9.6** in path length. *That* is why the second interaction has to be
+antipodal, and it is measured rather than staged.
+
+**One further trap, caught.** The momenta are exact — perpendicular to their own
+front to `1e-15`, matching the closed form to `2e-13` — but a figure shows their
+**projection**, and projection does not preserve angles. Measured off the
+picture the opening angle is wrong by up to **67.4°**, and differs by up to
+**56.4°** between the two crossing points, whose true opening angle is
+*identical*. The renderer therefore draws the angle in the plane the two momenta
+span, and labels the arrows on the sphere as projections.
+
+```bash
+python -m experiments.closure_ledger.pair_creation_probe
+# Verdict: THE_SECOND_INTERACTION_MUST_BE_ANTIPODAL  (9/9)
+
+python scripts/geometrodynamics_v52_pair_creation.py --still v52.png
+```
+
+Full write-up: `docs/pair_creation.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
@@ -1956,6 +2029,7 @@ be an identity no drawing choice can move.
 | shell junction | can a detached shell replace exotic matter? | **no** — connected implies exotic, by identity |
 | multipole | where does the two-shell coupling start? | **`ℓ = 2`**, screened as `(b/a)^ℓ` |
 | wormhole ledger | are the four apparent objects one wave? | **yes** — one balance, and linearity makes it free |
+| pair creation | is the antipodal caustic a creation event? | **no** — it is a venue; the threshold needs two waves, and then *forces* a second antipodal interaction |
 
 The recurring methodological lesson: **a converged number is not a correct
 number.** Three of the nine errors the arc caught survived grid refinement and
