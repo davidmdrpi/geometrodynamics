@@ -1,4 +1,4 @@
-# The geometric-visualization capstone: what eleven rounds of drawing settled (PRs #242–#251, plus the current round)
+# The geometric-visualization capstone: what twelve rounds settled (PRs #242–#252, plus the current round)
 
 > **Framing.** Every round below is a *representation* question first and a
 > physics question second: given a geometry and a field on it, which object
@@ -12,7 +12,7 @@
 
 ## 0. The answer, stated first
 
-**Five negative results and four positive ones, and the negatives are the load-bearing half.**
+**Five negative results and five positive ones, and the negatives are the load-bearing half.**
 
 | | question | answer |
 | --- | --- | --- |
@@ -25,6 +25,7 @@
 | 7 | where does the two-shell coupling start? | **`ℓ = 2`** — and it is screened as `(b/a)^ℓ` |
 | 8 | are the emitted shell, the passing collapsing shell, the receiver's recoil and a past mouth one wave? | **yes** — one conserved balance, and *linearity* is why it costs nothing |
 | 9 | is the antipodal caustic a particle-creation event? | **no** — a caustic is a *venue*; the threshold is on an invariant, needs two waves, and then **forces** a second antipodal interaction |
+| 10 | do two closed histories *constrain* the event they share? | **yes, discretely** — five equations, five unknowns, rank 5 on a fixed branch; removing *any* one equation costs a dimension |
 
 The through-line: **almost every apparent obstruction turned out to be a
 property of the object being drawn, not of the physics** — until the closing
@@ -152,7 +153,7 @@ Two things are **put in** and labelled: the throat is an identification map, and
 flux conservation through it is an assumption, so the closing ledger checks the
 arithmetic. The exotic-matter bill from §7 is inherited, not paid.
 
-## 10. Pair creation is a collision, not a focus (`docs/pair_creation.md`, current round)
+## 10. Pair creation is a collision, not a focus (`docs/pair_creation.md`, PR #252)
 
 The arc had been drawing one wavefront refocusing at its antipode and calling
 the caustic a creation event. The correction is not that the drawing was
@@ -174,7 +175,33 @@ the far one is a collision of waves that have actually propagated
 independently, by a factor of `9.6` in path length. **The second interaction
 has to be antipodal, and that is derived rather than staged.**
 
-## 11. What the arc cost in errors, and what caught them
+## 11. Two closed histories constrain their shared event (`docs/pair_history.md`, current round)
+
+Sewing two `#251` histories at one interaction is a *determinate* condition, not
+a picture. Every leg is null, so a history closes — on the **principal branch** —
+on a geodesic ellipsoid with its mouths as foci, and the global system is five
+equations in five unknowns. Solved blind, every root found is locally isolated at
+**full rank 5**.
+
+**The scope is the result here.** `d` is the principal geodesic distance, and the
+prior draws `|Δ|` inside the band where that is the only feasible branch — so the
+rest is principal-branch by construction. Off it a mixed branch fixes the
+*difference* of distances, a hyperboloid rather than an ellipsoid; discreteness
+survives per branch, and what branching changes is the candidate count.
+
+What looked like a falsification is a **dimensionality control**: deleting any
+one scalar equation from a square nondegenerate system drops the rank by one, and
+deleting a *closure* gives the identical result. It is not evidence about
+photons. What survives is the direction — solutions do not vanish, they stop
+being isolated.
+
+Two things fall out that were not assumed: in this model a conjugate pair
+**cannot ride one shared throat** (infeasible on every branch one way,
+rank-deficient the other, scanned rather than argued), and the entire result
+rests on the throat delays being **given** — with them free the measured nullity
+is 2 and 100% of sampled events close.
+
+## 12. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -238,7 +265,7 @@ construction says which.** The repair in both cases was to make the picture
 carry a measurement — the sign of `dA/dχ`, and a screen extent proportional to
 `sin χ` with one constant to `3.6e-16`, which is `√(A/4π)`.
 
-## 12. What is imported rather than derived
+## 13. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -253,8 +280,11 @@ carry a measurement — the sign of `dA/dχ`, and a screen extent proportional t
 * The Breit–Wheeler threshold and cross-section — QED, checked against the
   textbook peak but not derived. Rays-as-photons is a correspondence, and no
   rate is computed anywhere in the arc.
+* In the closing round, the throat *data* — mouth positions and delays — which
+  is where its entire result lives: with the delays free instead of given,
+  every event closes and nothing is selected.
 
-## 13. What would come next
+## 14. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
@@ -267,3 +297,10 @@ their own missing ingredient:
   supplies and which this round carries as an explicit input.
 
 Each is a construction, not a visualization.
+
+The closing round adds two more, and names them precisely because it stopped
+short of them: **topology change** — nothing here shows a two-wave encounter
+*creating* a two-mouth sector, only that a shared event is determinate once the
+sector is assumed — and an **action principle**, without which "the whole
+history is jointly stationary" stays a description rather than a computation.
+A worldline would follow from the second, not the first.
