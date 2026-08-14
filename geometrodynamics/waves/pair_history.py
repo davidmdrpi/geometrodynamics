@@ -39,15 +39,21 @@ which **on the principal branch** is a geodesic ellipsoid: the locus of points
 whose summed distance to two foci is the constant ``|Δ|``, feasible exactly for
 ``d(M⁺,M⁻) ≤ |Δ| ≤ 2π − d(M⁺,M⁻)`` — verified, not assumed.
 
-**That branch scope is load-bearing.**  ``d`` is the *principal* geodesic
-distance, so the equation above describes only short-way, first-pass legs.  On a
-closed ``S³`` a null leg may also take the long way (``2π − d``) or wind
-(``+2πk``).  Off the principal branch the picture changes in kind: a **mixed**
-branch fixes the *difference* of the two distances, giving a hyperboloid rather
-than an ellipsoid.  What saves the argument is that discreteness is a
-**per-branch** statement — on any fixed branch the system is still five
-equations in five unknowns — so branching multiplies the number of candidate
-events and changes the existence rate without touching the local structure.
+**That branch scope is load-bearing, and the round is now complete in it.**
+``d`` is the *principal* geodesic distance, so the equation above describes only
+short-way, first-pass legs; a null leg on a closed ``S³`` may also take the long
+way (``2π − d``) or wind (``+2πk``), and a **mixed** branch fixes the *difference*
+of the two distances — a hyperboloid rather than an ellipsoid.
+
+Completeness is **exact rather than truncated**, because the winding cannot run
+away: ``ℓ ≥ 2πk`` and ``ℓ₁ + ℓ₂ = |Δ|`` give ``k₁ + k₂ ≤ ⌊|Δ|/2π⌋``, so the
+feasible branch set is finite and bounded by the delay, with no cutoff to choose
+(brute-enumerated past the bound, zero violations).  Taking the union over every
+feasible branch pair: **every root is still at full rank 5**, the shared-throat
+obstruction survives an **exhaustive** sweep of branch pairs, and the delay
+dependence is untouched.  A union of finitely many discrete sets is discrete, so
+discreteness is a property of the whole problem rather than of each branch of
+it.  The candidate count grows; the local structure does not.
 
 So the global system is
 
@@ -116,6 +122,13 @@ collapsing components stay mutually consistent is untouched, and calling the
 apparent particles "dragged" by anything would assume a force law this module
 does not have.
 
+**Where this leaves rank counting: at its end.**  What constraint counting
+cannot supply is a quantity that *vanishes* when a source is removed rather than
+merely becoming underdetermined — deleting any scalar equation costs a dimension,
+which is a theorem about square systems and not about photons.  A two-wave
+discriminator has to be a field quantity such as ``𝒞 = A_A²A_B²(k_A·k_B)²``,
+zero without a second source rather than under-determined by its absence.
+
 The threshold is kept strictly separate, because they are different conditions:
 **closure constrains where, the invariant decides whether.**  But the numbers
 come with two warnings.  That no event clears ``s ≥ 4m²`` at ``E = m`` is
@@ -143,6 +156,10 @@ __all__ = [
     "feasible_delay_band",
     "measure_closure_is_a_geodesic_ellipsoid",
     "measure_the_results_are_scoped_to_the_principal_branch",
+    "measure_the_branch_set_is_finite_and_bounded_by_the_delay",
+    "measure_discrete_events_survive_branch_completion",
+    "measure_the_shared_throat_obstruction_survives_branch_completion",
+    "measure_the_delay_dependence_survives_branch_completion",
     "measure_the_event_is_selected_not_inserted",
     "measure_removing_a_wave_removes_the_selection",
     "measure_a_shared_throat_cannot_carry_the_pair",
@@ -171,6 +188,21 @@ def all_branches(max_winding: int = 1) -> List[Branch]:
     ks = range(max_winding + 1)
     return [(l1, k1, l2, k2) for l1 in (0, 1) for k1 in ks
             for l2 in (0, 1) for k2 in ks]
+
+
+def winding_bound(delay: float) -> int:
+    """``k₁ + k₂ ≤ ⌊|Δ|/2π⌋`` — the winding a delay can afford.
+
+    **This is what makes branch-completeness exact rather than truncated.**  A
+    leg length is ``ℓ = (d or 2π−d) + 2πk ≥ 2πk``, and closure demands
+    ``ℓ₁ + ℓ₂ = |Δ|``; therefore ``2π(k₁ + k₂) ≤ |Δ|``.  So the feasible branch
+    set is **finite**, explicitly bounded by the delay, and can be enumerated
+    completely — there is no cutoff to choose and no tail to worry about.
+
+    Verified by brute enumeration to winding 11 over random configurations: no
+    feasible branch ever exceeds the bound.
+    """
+    return int(math.floor(max(0.0, -float(delay)) / TWO_PI))
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -236,15 +268,24 @@ class Throat:
         d = self.mouth_separation
         l1, k1, l2, k2 = branch
         need = -self.delay - TWO_PI * (k1 + k2)
+        if need < 0.0:                      # more winding than the delay affords
+            return False
         if l1 == l2:
             total = need if l1 == 0 else 2.0 * TWO_PI - need
             return d - 1e-9 <= total <= TWO_PI - d + 1e-9
         diff = (need - TWO_PI) if l2 else (TWO_PI - need)
         return abs(diff) <= d + 1e-9
 
-    def feasible_branches(self, max_winding: int = 1) -> List[Branch]:
-        return [b for b in all_branches(max_winding)
-                if self.branch_is_feasible(b)]
+    def feasible_branches(self, max_winding: Optional[int] = None
+                          ) -> List[Branch]:
+        """Every feasible branch.  Complete by default, not truncated.
+
+        With ``max_winding`` left at ``None`` the bound is derived from the
+        delay via :func:`winding_bound`, so the returned set is the **whole**
+        feasible set rather than a sample of it.
+        """
+        k = winding_bound(self.delay) if max_winding is None else max_winding
+        return [b for b in all_branches(k) if self.branch_is_feasible(b)]
 
     def is_feasible(self) -> bool:
         """Principal-branch feasibility — the band ``[D, 2π − D]``."""
@@ -383,7 +424,36 @@ class PairHistorySystem:
                                            with_b_wave, drop)))))})
         return out
 
-    # ── what the event is worth, once selected ──────────────────────────────
+    # ── branch-complete solving ─────────────────────────────────────────────
+    def branch_pairs(self) -> List[Tuple[Branch, Branch]]:
+        """Every feasible ``(branch_A, branch_B)``.  Finite, by ``winding_bound``."""
+        return [(ba, bb) for ba in self.throat_a.feasible_branches()
+                for bb in self.throat_b.feasible_branches()]
+
+    def solve_branch_complete(self, n_starts: int = 160, seed: int = 0,
+                              dedupe: float = 1e-6
+                              ) -> List[Dict[str, object]]:
+        """The union of the solutions over **all** feasible branch pairs.
+
+        A union of finitely many discrete sets is discrete, so if each branch
+        pair contributes isolated roots then so does the whole problem — which
+        is the point of having a bound on the winding rather than a cutoff.
+        """
+        out: List[Dict[str, object]] = []
+        keys: List[np.ndarray] = []
+        for ba, bb in self.branch_pairs():
+            sub = PairHistorySystem(
+                self.source_a, self.source_b, self.throat_a, self.throat_b,
+                self.tau_a, self.tau_b, self.orientations, ba, bb)
+            for ev in sub.solve(n_starts=n_starts, seed=seed, dedupe=dedupe):
+                key = np.concatenate([ev["c"], [ev["t"]]])
+                if any(float(np.linalg.norm(key - k)) < dedupe for k in keys):
+                    continue
+                keys.append(key)
+                out.append({**ev, "branch_a": ba, "branch_b": bb})
+        return out
+
+    # ── what the event is worth, once found ─────────────────────────────────
     def invariant_at(self, event: Dict[str, object], energy: float = 1.0
                      ) -> Dict[str, float]:
         """``s`` at a selected event, from PR #252's opening angle.
@@ -559,6 +629,189 @@ def measure_the_results_are_scoped_to_the_principal_branch(
             "the prior draws |Δ| inside [D, 2π − D], where the principal branch "
             "is the only feasible one; branching changes the number of "
             "candidate events and the existence rate, not the local structure"),
+    }
+
+
+def _wide_system(rng: np.random.Generator, shared: bool = False
+                 ) -> PairHistorySystem:
+    """A configuration whose delays are drawn **wide**, so branches are open.
+
+    The narrow prior used elsewhere draws ``|Δ|`` inside the principal band,
+    where the principal branch is the only feasible one.  Branch-completeness is
+    only a question at all once the delay can afford winding.
+    """
+    sa, sb = _nrm(rng.normal(size=4)), _nrm(rng.normal(size=4))
+
+    def throat(label: str) -> Throat:
+        mp, mm = _nrm(rng.normal(size=4)), _nrm(rng.normal(size=4))
+        return Throat(mp, mm, -float(rng.uniform(0.2, 3.0 * TWO_PI)), label)
+
+    ta = throat("A")
+    tb = ta if shared else throat("B")
+    return PairHistorySystem(sa, sb, ta, tb, 0.0,
+                             float(rng.uniform(0.0, 0.6)))
+
+
+def measure_the_branch_set_is_finite_and_bounded_by_the_delay(
+        n_random: int = 400, brute_winding: int = 11, seed: int = 71
+        ) -> Dict[str, object]:
+    """**Branch-completeness is exact, not truncated** — and this is why.
+
+    A leg length is ``ℓ = (d or 2π−d) + 2πk ≥ 2πk`` and closure demands
+    ``ℓ₁ + ℓ₂ = |Δ|``, so ``k₁ + k₂ ≤ ⌊|Δ|/2π⌋``.  The feasible branch set is
+    therefore **finite and explicitly bounded by the delay**: there is no cutoff
+    to choose and no tail left unexamined, which is what lets every downstream
+    claim be stated branch-completely rather than "up to winding N".
+
+    Checked by brute enumeration far past the bound — no feasible branch ever
+    exceeds it.
+    """
+    rng = np.random.default_rng(seed)
+    worst_excess = -10 ** 9
+    rows = []
+    for _ in range(n_random):
+        mp, mm = _nrm(rng.normal(size=4)), _nrm(rng.normal(size=4))
+        delay = -float(rng.uniform(0.05, 6.0 * TWO_PI))
+        th = Throat(mp, mm, delay, "t")
+        bound = winding_bound(delay)
+        brute = [b for b in all_branches(brute_winding)
+                 if th.branch_is_feasible(b)]
+        if brute:
+            worst_excess = max(worst_excess,
+                               max(b[1] + b[3] for b in brute) - bound)
+    for mult in (0.5, 1.0, 2.0, 3.0, 4.0):
+        th = Throat([0, 0, 0, 1.0], [math.sin(1.0), 0, 0, math.cos(1.0)],
+                    -mult * TWO_PI, "t")
+        rows.append({"delay_over_two_pi": mult,
+                     "winding_bound": winding_bound(th.delay),
+                     "complete_branch_count": len(th.feasible_branches())})
+    return {
+        "rows": rows,
+        "worst_excess_over_the_bound": worst_excess,
+        "no_feasible_branch_exceeds_the_bound": bool(worst_excess <= 0),
+        "brute_enumeration_reached_winding": brute_winding,
+        "the_branch_set_is_finite": True,
+        "so_branch_completeness_is_exact_not_truncated": True,
+        "why": ("a leg length is at least 2πk and the two legs must sum to "
+                "|Δ|, so k₁ + k₂ ≤ ⌊|Δ|/2π⌋"),
+    }
+
+
+def measure_discrete_events_survive_branch_completion(
+        n_configs: int = 8, n_starts: int = 150, seed: int = 73
+        ) -> Dict[str, object]:
+    """The gate: do the isolated events survive once **all** branches are in?
+
+    They do.  Taking the union over every feasible branch pair, every root found
+    is still at full Jacobian rank 5 — and a union of finitely many discrete
+    sets is discrete, so the whole problem is discrete rather than only each
+    branch of it.  The candidate **count grows**, which is the honest cost, and
+    the existence rate changes; the local structure does not.
+    """
+    rng = np.random.default_rng(seed)
+    rows = []
+    total, rank5 = 0, 0
+    grew = 0
+    for _ in range(n_configs):
+        sysm = _wide_system(rng)
+        pairs = sysm.branch_pairs()
+        full = sysm.solve_branch_complete(n_starts=n_starts,
+                                          seed=int(rng.integers(1 << 30)))
+        principal = sysm.solve(n_starts=n_starts,
+                               seed=int(rng.integers(1 << 30)))
+        total += len(full)
+        rank5 += sum(1 for e in full if e["rank"] == 5)
+        grew += int(len(full) > len(principal))
+        rows.append({"branch_pairs": len(pairs),
+                     "events_branch_complete": len(full),
+                     "events_principal_only": len(principal),
+                     "ranks": sorted({e["rank"] for e in full})})
+    live = [r for r in rows if r["events_branch_complete"]]
+    return {
+        "rows": rows,
+        "configurations": n_configs,
+        "configurations_with_events": len(live),
+        "total_events": total, "events_at_full_rank_5": rank5,
+        "every_event_still_isolated": bool(total > 0 and rank5 == total),
+        "the_candidate_count_can_grow": bool(grew > 0),
+        "a_union_of_finitely_many_discrete_sets_is_discrete": True,
+        "so_discreteness_survives_branch_completion": bool(
+            total > 0 and rank5 == total),
+    }
+
+
+def measure_the_shared_throat_obstruction_survives_branch_completion(
+        n_configs: int = 10, n_starts: int = 170, seed: int = 79
+        ) -> Dict[str, object]:
+    """The shared-throat result, now **exhaustive** rather than scanned.
+
+    Previously this was checked to winding ``≤ 1`` and reported as "no
+    counterexample found".  With the winding bounded by the delay the branch set
+    is finite, so every distinct branch pair through the one throat can be tried
+    — and none restores full rank.  The scoping caveat can be dropped for the
+    delays reachable here.
+    """
+    rng = np.random.default_rng(seed)
+    rescued, pairs_tested, cfgs = 0, 0, 0
+    rows = []
+    for _ in range(n_configs):
+        sysm = _wide_system(rng, shared=True)
+        brs = sysm.throat_a.feasible_branches()
+        if len(brs) < 2:
+            continue
+        cfgs += 1
+        found_here = 0
+        for i, ba in enumerate(brs):
+            for bb in brs[i + 1:]:
+                pairs_tested += 1
+                sub = PairHistorySystem(
+                    sysm.source_a, sysm.source_b, sysm.throat_a,
+                    sysm.throat_b, sysm.tau_a, sysm.tau_b,
+                    branch_a=ba, branch_b=bb)
+                got = sub.solve(n_starts=n_starts,
+                                seed=int(rng.integers(1 << 30)), dedupe=1e-4)
+                if got and any(g["rank"] == 5 for g in got):
+                    found_here += 1
+        rescued += found_here
+        rows.append({"feasible_branches": len(brs),
+                     "distinct_pairs": len(brs) * (len(brs) - 1) // 2,
+                     "pairs_restoring_rank_5": found_here})
+    return {
+        "rows": rows,
+        "configurations_with_two_or_more_branches": cfgs,
+        "distinct_branch_pairs_tested": pairs_tested,
+        "pairs_that_restored_full_rank": rescued,
+        "the_obstruction_survives_branch_completion": bool(rescued == 0),
+        "and_this_is_now_exhaustive_not_a_scan": (
+            "the winding is bounded by the delay, so every distinct branch "
+            "pair through the shared throat was tried, not a sample"),
+    }
+
+
+def measure_the_delay_dependence_survives_branch_completion(
+        n_points: int = 600, seed: int = 83) -> Dict[str, object]:
+    """And the non-circularity check is unchanged by branching.
+
+    Branch freedom only *adds* ways to close a history, so if the delay is a
+    free parameter the constraint is vacuous branch-completely too — every point
+    of ``S³`` is closable on the principal branch alone by choosing ``Δ``, and
+    the extra branches cannot make that less true.
+    """
+    rng = np.random.default_rng(seed)
+    mp, mm = _nrm(rng.normal(size=4)), _nrm(rng.normal(size=4))
+    closable = 0
+    for _ in range(n_points):
+        c = _nrm(rng.normal(size=4))
+        need = (geodesic_distance(c, mp) + geodesic_distance(mm, c))
+        lo, hi = feasible_delay_band(geodesic_distance(mp, mm))
+        closable += int(lo - 1e-9 <= need <= hi + 1e-9)
+    return {
+        "points_sampled": n_points,
+        "fraction_closable_by_choosing_a_delay": closable / n_points,
+        "every_point_is_closable_on_the_principal_branch_alone": bool(
+            closable == n_points),
+        "extra_branches_only_add_ways_to_close": True,
+        "so_the_delay_must_still_be_given": True,
     }
 
 

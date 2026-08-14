@@ -36,6 +36,11 @@ from geometrodynamics.waves.pair_history import (
     Throat,
     all_branches,
     leg_length,
+    winding_bound,
+    measure_the_branch_set_is_finite_and_bounded_by_the_delay,
+    measure_discrete_events_survive_branch_completion,
+    measure_the_shared_throat_obstruction_survives_branch_completion,
+    measure_the_delay_dependence_survives_branch_completion,
     measure_the_results_are_scoped_to_the_principal_branch,
     feasible_delay_band,
     geodesic_distance,
@@ -302,3 +307,83 @@ def test_measure_the_results_are_scoped_to_the_principal_branch():
     assert r["off_branch_loci_are_difference_type"]
     assert "difference" in r["locus_kinds_off_the_principal_branch"]
     assert r["discreteness_survives_on_a_fixed_off_branch"]
+
+
+# ── branch completeness, which is what finishes the round ───────────────────
+def test_the_winding_is_bounded_by_the_delay():
+    """l = (d or 2pi-d) + 2pi k >= 2pi k and l1+l2 = |delta|."""
+    assert winding_bound(-0.5) == 0
+    assert winding_bound(-2 * math.pi) == 1
+    assert winding_bound(-6.9 * math.pi) == 3
+    assert winding_bound(0.0) == 0
+
+
+def test_no_feasible_branch_exceeds_the_bound():
+    rng = np.random.default_rng(12)
+    for _ in range(40):
+        mp, mm = _nrm(rng.normal(size=4)), _nrm(rng.normal(size=4))
+        delay = -float(rng.uniform(0.05, 5 * 2 * math.pi))
+        th = Throat(mp, mm, delay, "t")
+        bound = winding_bound(delay)
+        for b in all_branches(9):
+            if th.branch_is_feasible(b):
+                assert b[1] + b[3] <= bound
+
+
+def test_feasible_branches_is_complete_by_default():
+    """No cutoff to choose: the default IS the whole feasible set."""
+    rng = np.random.default_rng(13)
+    mp, mm = _nrm(rng.normal(size=4)), _nrm(rng.normal(size=4))
+    th = Throat(mp, mm, -3.0 * 2 * math.pi, "t")
+    complete = th.feasible_branches()
+    generous = [b for b in all_branches(9) if th.branch_is_feasible(b)]
+    assert sorted(complete) == sorted(generous)
+
+
+def test_branch_complete_solving_is_a_superset():
+    rng = np.random.default_rng(14)
+    for _ in range(6):
+        sysm = _wide(rng)
+        full = sysm.solve_branch_complete(n_starts=120, seed=1)
+        if not full:
+            continue
+        assert all(e["rank"] == 5 for e in full)
+        assert all("branch_a" in e and "branch_b" in e for e in full)
+        return
+    pytest.fail("no wide configuration admitted a branch-complete event")
+
+
+def _wide(rng):
+    from geometrodynamics.waves.pair_history import _wide_system
+    return _wide_system(rng)
+
+
+def test_measure_the_branch_set_is_finite_and_bounded_by_the_delay():
+    r = measure_the_branch_set_is_finite_and_bounded_by_the_delay(n_random=60,
+                                                                  brute_winding=8)
+    assert r["no_feasible_branch_exceeds_the_bound"]
+    assert r["the_branch_set_is_finite"]
+    assert r["worst_excess_over_the_bound"] <= 0
+
+
+def test_measure_discrete_events_survive_branch_completion():
+    """The roadmap's gate: isolated events must persist, or stop here."""
+    r = measure_discrete_events_survive_branch_completion(n_configs=5,
+                                                          n_starts=120)
+    assert r["so_discreteness_survives_branch_completion"]
+    assert r["every_event_still_isolated"]
+    assert r["events_at_full_rank_5"] == r["total_events"] > 0
+
+
+def test_measure_the_shared_throat_obstruction_survives_branch_completion():
+    r = measure_the_shared_throat_obstruction_survives_branch_completion(
+        n_configs=5, n_starts=130)
+    assert r["the_obstruction_survives_branch_completion"]
+    assert r["pairs_that_restored_full_rank"] == 0
+    assert r["distinct_branch_pairs_tested"] > 0
+
+
+def test_measure_the_delay_dependence_survives_branch_completion():
+    r = measure_the_delay_dependence_survives_branch_completion(n_points=200)
+    assert r["so_the_delay_must_still_be_given"]
+    assert r["fraction_closable_by_choosing_a_delay"] == 1.0

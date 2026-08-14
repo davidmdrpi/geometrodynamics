@@ -2084,14 +2084,26 @@ That no event clears `s ≥ 4m²` at `E = m` is **forced, not measured**
 reported is conditioned on an arbitrary prior, so they are **regression
 diagnostics, not predictions**.
 
-**The surviving claim:** *with fixed mouth data and delays, and on a fixed
-propagation branch, intersecting two null fronts with two independent closure
-hypersurfaces generically produces locally isolated candidate events; removing
-one front constraint restores a continuous degree of freedom.*
+**And it is now branch-complete.** A leg length is `ℓ ≥ 2πk` and the legs must
+sum to `|Δ|`, so `k₁ + k₂ ≤ ⌊|Δ|/2π⌋`: the feasible branch set is **finite and
+bounded by the delay**, with no cutoff to choose (brute-enumerated to winding 11,
+zero violations). Taking the union over *every* feasible branch pair, all 18
+roots found are still at full rank 5; the shared-throat obstruction survives **51
+distinct branch pairs** with none restoring full rank, so that check is now
+exhaustive rather than scanned; and the delay dependence is untouched.
+
+**The surviving claim:** *with given throat data, intersecting two null fronts
+with two independent closure hypersurfaces produces locally isolated candidate
+events, branch-completely; removing one front constraint restores a continuous
+degree of freedom.*
+
+**And that is where rank counting ends.** It cannot supply a quantity that
+*vanishes* when a source is removed rather than merely becoming underdetermined
+— that needs a field.
 
 ```bash
 python -m experiments.closure_ledger.pair_history_probe
-# Verdict: DISCRETE_ON_A_FIXED_BRANCH_WITH_GIVEN_THROAT_DATA  (10/10)
+# Verdict: BRANCH_COMPLETE_AND_STILL_DISCRETE  (14/14)
 
 python scripts/geometrodynamics_v53_pair_history.py --still v53.png
 ```

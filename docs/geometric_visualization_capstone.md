@@ -304,3 +304,48 @@ short of them: **topology change** — nothing here shows a two-wave encounter
 sector is assumed — and an **action principle**, without which "the whole
 history is jointly stationary" stays a description rather than a computation.
 A worldline would follow from the second, not the first.
+
+### And rank counting has now reached its end
+
+The closing round was pushed to **branch-completeness** — the winding is bounded
+by the delay (`k₁ + k₂ ≤ ⌊|Δ|/2π⌋`), so the feasible branch set is finite and the
+union over all of it is still discrete. That is as much as constraint counting
+can give.
+
+What it structurally *cannot* give is a quantity that **vanishes** when a source
+is removed rather than merely becoming underdetermined: deleting any scalar
+equation costs a dimension, which is a theorem about square systems, not about
+photons. The next discriminator has to be a field quantity, e.g.
+
+```
+𝒞(x) = A_A² A_B² (k_A · k_B)²
+```
+
+zero without a second source rather than under-determined by its absence.
+
+The staged order that follows from this, and the reason it is that order:
+
+```
+ray closure → field solution → two-wave invariant
+            → stationary action → backreaction → topological branch
+```
+
+* **field solution** — a real wave action on fixed `S³` with the throat imposed
+  as the still-assumed identification `φ(M⁺,t) = η φ(M⁻,t+Δ)` plus flux
+  matching. A spectral implementation is attractive because the winding
+  histories enumerated by hand in this round would emerge from the Green
+  function instead. The test: do the closed histories reappear as
+  stationary-phase contributions of the *solved* field?
+* **two-wave invariant** — `𝒞` above, which is the sharp two-source falsifier
+  this round could not supply;
+* **stationary action** — evaluate the on-shell action and ask whether the
+  candidate events are stationary. *Not* with Lagrange multipliers imposing this
+  round's five equations, which would only rename them. This is where the
+  retrocausal language earns its keep or fails: the backward-in-time throat
+  contribution should fall out of one stationary solution rather than be
+  narrated afterwards;
+* **backreaction** — and the first GR question is not "does spacetime pinch
+  off?" but whether `A + B` produces a collapse response not reproducible by
+  rescaling `A` or `B` alone;
+* **topological branch** — the detached resonator, last, and only if
+  backreaction produces a finite-radius neck.
