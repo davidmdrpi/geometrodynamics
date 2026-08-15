@@ -1,58 +1,61 @@
 #!/usr/bin/env python3
 """
-Geometrodynamic QED — v56: a conserving throat cannot ring up
-=============================================================
+Geometrodynamic QED — v56: conservation is not stability
+========================================================
 
 v55 solved a mouth relation self-consistently and said plainly what it was not:
 a relation between field **values** carried by the free Green function, with no
-normal-derivative matching, no reflected channel, a `1×1` mouth object where a
-conserving junction needs `2×2` unitary, and `κ²` power throughput. It also
-found its poles **off** the real axis and had to separate three thresholds to
-say what that meant.
+normal-derivative matching, no reflected channel, a `1×1` mouth object, and `κ²`
+power throughput.
 
-This round replaces the relation with the real object. A point-supported throat
-is a **self-adjoint extension** of the Laplacian on `S³ ∖ {M⁺, M⁻}`, and von
-Neumann's theorem parametrizes those by a unitary between the deficiency spaces
-— `U(2)` — equivalently, by Krein's formula, a Hermitian `2×2` boundary matrix:
+A point-supported throat is a **self-adjoint extension** of the Laplacian on
+`S³ ∖ {M⁺, M⁻}`, parametrized by `U(2)`. Writing the boundary condition as the
+*pair* `B φ^reg = C q` — general enough to hold v55's relation, which is not of
+the form `φ^reg = A q` — the mouth-active spectrum is `det(C − BΓ) = 0`, with
 
 ```
-M(ω) q = φ_in|_mouths ,   M = A − Γ(ω) ,   Γ = [[g, G_d], [G_d, g]]
-
 G(χ,ω) = sin(ω(π−χ)) / (4π sin χ sin(πω)) ,     g(ω) = −(ω/4π) cot(πω)
 ```
 
+**Self-adjointness buys conservation and a real `λ = ω²`. It does not buy
+`λ ≥ 0`.** A first version of this round claimed it did; the panels below are
+what replaced that claim.
+
 What the panels show
 ────────────────────
-**Top left — the secular function.** `det M(ω)`, with the free spectrum as its
-poles (dotted, `ω = n+1`) and the coupled spectrum as its zeros. In the
-exchange-symmetric case it factorizes into `g ± G_d = α ± β`, both monotone from
-`−∞` to `+∞` across every gap, so there are **exactly two** coupled frequencies
-strictly between consecutive free ones. Interlacing, not merely shifting.
+**Top left — the mouth-active sector, in `λ`.** The two channel functions
+`g ± G_d` against the free eigenvalues `λ = (n+1)²`. Three regions matter and
+the first two are invisible to an `ω`-scan that starts above `1`: `λ < 0`, where
+a root means a **growing** mode; `0 ≤ λ < 1`, stable modes below the free ground
+state; and the interlacing gaps. Note the antisymmetric channel's endpoint at
+`λ = 1` is *finite* — the `n = 0` constant mode is equal at both mouths, so it
+does not couple — which is why a root in the first gap is conditional.
 
-**Top right — the headline.** Newton from a grid of *complex* seeds, the same
-method v55 used to find its poles. For a Hermitian `A` every converged root
-lands on the real axis to `10⁻¹⁸`. For v55's directional relation, **every**
-root is off it, several in the lower half plane where the mode grows — and that
-is still true at `κ = 1`, so it is the **directionality**, not the loss.
+**Top right — the correction.** The stability wedge of the exchange-symmetric
+family. Along the imaginary axis both channels fall monotonically from their
+`λ = 0` values, so a growing mode exists iff `α + β < g₀ + G₀` or
+`α − β < g₀ − G₀`. Every grid point is *also* scanned for a negative-`λ` root:
+0 mismatches, and only 56 of 221 sampled points are stable. Two of the three
+boundary matrices this round originally advertised are marked — both outside.
 
-**Bottom left — the channels v55 did not have.** `|r|²` and `|t|²` from the
-Cayley transform `S = (A−ic)(A+ic)⁻¹`, summing to `1` at every reference scale.
-v55's model sits off the unit circle at `(0, κ²)` — outside `U(2)` unless
-`κ = 1`.
+**Bottom left — what conservation does buy.** Net boundary flux `Im(q†Aq)`
+against the anti-Hermitian part of `A`, over random draws. Hermitian data sits
+on zero identically; anything else does not. This, and not the Cayley entries,
+is the physical conservation statement — the Cayley magnitudes depend on an
+arbitrary reference scale, shown inset.
 
-**Bottom right — switching the throat off.** The shift to the nearest free
-frequency against `1/‖A‖`, slope `1`. Off is `‖A‖ → ∞`, not `A → 0`: the
-diagonal of `A` is an *inverse* scattering length, so `α = 0` is a resonant
-throat rather than no throat.
+**Bottom right — where v55 sits.** Its relation embeds *exactly* as
+`B = [[0,0],[gain,0]]`, `C = I`, giving `det(C − BΓ) = 1 − gain·G_d`, matched to
+its own `1 − L` to `10⁻¹⁸`. Maximal, but `BC† = B` is not Hermitian. The earlier
+version of this control used `A = [[0,0],[1/gain,0]]`, which is a different
+function — plotted alongside so the difference is visible rather than asserted.
 
 What is put in
 ──────────────
-A linear scalar field on a fixed background, and the boundary matrix itself —
-four real numbers chosen, not derived. `shells.junction` is what would fix them
-from a matter model, and nothing here computes the exotic-matter bill. The
+A linear scalar field on a fixed background, and the boundary data itself — four
+real numbers chosen, not derived. `shells.junction` is what would fix them. The
 throat is **point-supported**: no interior, no proper length, and therefore no
-delay — the `Δ` of v51–v55 is not a parameter of a point extension and does not
-survive into one, which is a real loss of structure relative to those rounds.
+delay — the `Δ` of v51–v55 does not survive into a point extension.
 
 **Not done:** no backreaction, no stress tensor, no topology change, no rate,
 and no two-source invariant.
@@ -65,20 +68,24 @@ Usage
 from __future__ import annotations
 
 import argparse
+import cmath
 import math
 from typing import Optional
 
 import matplotlib
 import numpy as np
 from matplotlib import pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 
 from geometrodynamics.waves.throat_operator import (
     DirectionalThroat,
     MouthPair,
-    _krein_complex,
-    complex_root_search,
-    coupled_spectrum,
-    spectrum_by_channel,
+    boundary_mixing,
+    channel_endpoints,
+    is_stable,
+    mouth_active_spectrum,
+    mouth_flux,
+    stability_thresholds,
 )
 
 _PAL = {
@@ -90,236 +97,275 @@ _PAL = {
     "dim": "#6a8aad",
     "faint": "#1b2d42",
     "free": "#63798f",         # the uncoupled ESU spectrum
-    "sym": "#7cff9e",          # symmetric channel
+    "sym": "#7cff9e",          # symmetric channel / stable
     "anti": "#ffb347",         # antisymmetric channel
-    "hot": "#ff6b8a",          # the non-conserving control
+    "hot": "#ff6b8a",          # growing modes, non-conserving control
     "cool": "#5cc8ff",
 }
 
 SEP = 1.3
 ALPHA, BETA = 0.05, 0.03
-N_GAPS = 6
+N_GAPS = 4
 
 
 # ════════════════════════════════════════════════════════════════════════════
 class OperatorFigure:
-    """The spectrum, the roots, the channels, and the decoupling limit."""
+    """The sector, the stability wedge, the flux identity, and where v55 sits."""
 
-    def __init__(self, figsize=(13.8, 8.4)) -> None:
+    def __init__(self, figsize=(13.8, 8.6)) -> None:
         self.pair = MouthPair(SEP, ALPHA, ALPHA, BETA)
         self.fig = plt.figure(figsize=figsize, facecolor=_PAL["bg"])
         gs = self.fig.add_gridspec(
             2, 2, width_ratios=[1.25, 1.0], height_ratios=[1.0, 0.9],
             left=0.058, right=0.975, top=0.845, bottom=0.135,
-            wspace=0.22, hspace=0.40)
+            wspace=0.22, hspace=0.42)
         self.ax_sec = self.fig.add_subplot(gs[0, 0], facecolor=_PAL["panel"])
-        self.ax_cpx = self.fig.add_subplot(gs[0, 1], facecolor=_PAL["panel"])
-        self.ax_uni = self.fig.add_subplot(gs[1, 0], facecolor=_PAL["panel"])
-        self.ax_dec = self.fig.add_subplot(gs[1, 1], facecolor=_PAL["panel"])
+        self.ax_stb = self.fig.add_subplot(gs[0, 1], facecolor=_PAL["panel"])
+        self.ax_flx = self.fig.add_subplot(gs[1, 0], facecolor=_PAL["panel"])
+        self.ax_emb = self.fig.add_subplot(gs[1, 1], facecolor=_PAL["panel"])
 
-    # ── the secular function ────────────────────────────────────────────────
-    def _draw_secular(self) -> None:
+    # ── the sector, in lambda ───────────────────────────────────────────────
+    def _draw_sector(self) -> None:
         ax = self.ax_sec
         a, b = ALPHA, BETA
-        for m in range(1, N_GAPS + 1):
-            t = np.linspace(0.0, 1.0, 900)[1:-1]
-            ws = m + 0.5 * (1.0 - np.cos(math.pi * t))
-            sym = np.array([self.pair.channel_functions(float(w))[0]
-                            for w in ws])
-            anti = np.array([self.pair.channel_functions(float(w))[1]
-                             for w in ws])
-            ax.plot(ws, sym, lw=1.4, color=_PAL["sym"], alpha=0.95, zorder=4,
-                    label="g + G_d   (symmetric)" if m == 1 else None)
-            ax.plot(ws, anti, lw=1.4, color=_PAL["anti"], alpha=0.95, zorder=4,
-                    label="g − G_d   (antisymmetric)" if m == 1 else None)
+        lam_hi = float(N_GAPS + 1) ** 2
+
+        # plotted against sign(λ)·√|λ| so the three regions get equal width:
+        # to the right that variable is ω, to the left it is the growth rate σ
+        ax.axvspan(-3.0, 0.0, color=_PAL["hot"], alpha=0.08, zorder=0)
+        ax.axvspan(0.0, 1.0, color=_PAL["cool"], alpha=0.07, zorder=0)
+
+        def band(lo, hi):
+            t = np.linspace(0.0, 1.0, 700)[1:-1]
+            return lo + (hi - lo) * 0.5 * (1.0 - np.cos(math.pi * t))
+
+        segments = [(-3.0, -1e-4), (1e-4, 1.0)]
+        segments += [(float(m), float(m + 1)) for m in range(1, N_GAPS + 1)]
+        for k, (lo, hi) in enumerate(segments):
+            us = band(lo, hi)
+            lams = np.sign(us) * us ** 2
+            sym = np.array([self.pair.channel_functions(float(x))[0]
+                            for x in lams])
+            anti = np.array([self.pair.channel_functions(float(x))[1]
+                             for x in lams])
+            ax.plot(us, sym, lw=1.4, color=_PAL["sym"], alpha=0.95, zorder=4,
+                    label="g + G_d  (symmetric)" if k == 0 else None)
+            ax.plot(us, anti, lw=1.4, color=_PAL["anti"], alpha=0.95, zorder=4,
+                    label="g − G_d  (antisymmetric)" if k == 0 else None)
         ax.axhline(a + b, color=_PAL["sym"], lw=0.9, ls=(0, (4, 3)),
                    alpha=0.7, zorder=3)
         ax.axhline(a - b, color=_PAL["anti"], lw=0.9, ls=(0, (4, 3)),
                    alpha=0.7, zorder=3)
         for n in range(1, N_GAPS + 2):
             ax.axvline(float(n), color=_PAL["free"], lw=0.9, ls=":", zorder=2)
-        for r in coupled_spectrum(self.pair, N_GAPS):
-            ax.plot([r["omega"]], [a + b if r["omega"] else 0], ".", ms=0)
-        rows = spectrum_by_channel(self.pair, N_GAPS)["rows"]
-        for r in rows:
-            for k, col in (("symmetric", _PAL["sym"]),
-                           ("antisymmetric", _PAL["anti"])):
-                if r[k] is None:
-                    continue
-                ax.plot([r[k]], [a + b if k == "symmetric" else a - b], "o",
-                        ms=4.6, color=col, mec=_PAL["bg"], mew=0.6, zorder=6)
-        ax.annotate("dotted verticals: free spectrum ω = n+1 (the poles)   ·   "
-                    "dots: coupled spectrum (the zeros)",
-                    xy=(0.5, -0.20), xycoords="axes fraction",
-                    color=_PAL["dim"], fontsize=6.6, ha="center",
-                    family="monospace")
-        ax.set_ylim(-0.35, 0.35)
-        ax.set_xlim(1.0, N_GAPS + 1.0)
-        ax.set_xlabel("ω", color=_PAL["dim"], fontsize=8.2)
+        ax.axvline(0.0, color=_PAL["text"], lw=0.8, alpha=0.5, zorder=2)
+        for r in mouth_active_spectrum(self.pair, N_GAPS):
+            if r["sector"] == "growing":
+                continue
+            u = math.sqrt(max(r["lmbda"], 0.0))
+            ax.plot([u], [a + b], "o", ms=4.4, color=_PAL["text"],
+                    mec=_PAL["bg"], mew=0.6, zorder=6)
+
+        ends = channel_endpoints(self.pair, 1)
+        ax.annotate(f"finite: {ends['antisymmetric_at_lower']:+.4f}\n"
+                    f"(the n=0 mode is equal at both mouths,\n"
+                    f"so it does not couple to this channel)",
+                    xy=(1.0, ends["antisymmetric_at_lower"]),
+                    xytext=(58, 92), textcoords="offset points",
+                    color=_PAL["anti"], fontsize=6.0, family="monospace",
+                    linespacing=1.5,
+                    arrowprops=dict(arrowstyle="-", color=_PAL["anti"],
+                                    lw=0.7, alpha=0.7))
+        ax.annotate("λ < 0\nGROWING", xy=(-2.85, 0.29), color=_PAL["hot"],
+                    fontsize=6.8, family="monospace", linespacing=1.5)
+        ax.annotate("0<λ<1\nbelow the\nground state", xy=(0.06, 0.20),
+                    color=_PAL["cool"], fontsize=6.0, family="monospace",
+                    linespacing=1.5)
+        ax.set_ylim(-0.35, 0.38)
+        ax.set_xlim(-3.0, float(N_GAPS + 1))
+        ax.set_xlabel("sign(λ)·√|λ|   —   ω to the right, growth rate σ to "
+                      "the left", color=_PAL["dim"], fontsize=8.0)
         ax.set_ylabel("the two channel functions", color=_PAL["dim"],
                       fontsize=8.2)
         ax.tick_params(colors=_PAL["dim"], labelsize=7)
         for sp in ax.spines.values():
             sp.set_color(_PAL["rule"])
-        leg = ax.legend(loc="upper left", fontsize=6.8, framealpha=0.0,
+        leg = ax.legend(loc="lower right", fontsize=6.8, framealpha=0.0,
                         labelcolor=_PAL["dim"])
         leg.get_frame().set_edgecolor(_PAL["rule"])
         ax.grid(alpha=0.08, color=_PAL["grid"])
-        ax.set_title("each channel is monotone across every gap — so exactly "
-                     "two coupled frequencies per gap",
-                     color=_PAL["text"], fontsize=9.0, pad=6)
+        ax.set_title("the mouth-active sector has three regions — and two of "
+                     "them are below ω = 1",
+                     color=_PAL["text"], fontsize=8.8, pad=6)
 
-    # ── the headline ────────────────────────────────────────────────────────
-    def _draw_complex(self) -> None:
-        ax = self.ax_cpx
-        lo, hi = 1.1, N_GAPS + 0.9
-        ax.axhspan(-0.8, 0.0, color=_PAL["hot"], alpha=0.06, zorder=0)
-        ax.annotate("Im ω < 0 — the mode grows",
-                    xy=(0.98, -0.70), xycoords=("axes fraction", "data"),
-                    color=_PAL["hot"], fontsize=6.6, ha="right",
-                    family="monospace")
-        ax.axhline(0.0, color=_PAL["free"], lw=1.0, zorder=2)
-
-        herm = MouthPair(SEP, 0.2, -0.13, 0.15 + 0.07j)
-        hr = complex_root_search(
-            lambda z: complex(np.linalg.det(_krein_complex(z, herm))),
-            (lo, hi))
-        for r in coupled_spectrum(herm, N_GAPS):
-            ax.plot([r["omega"]], [0.0], "o", ms=6.0, color=_PAL["sym"],
-                    mec=_PAL["bg"], mew=0.7, zorder=5)
-        ax.plot([], [], "o", ms=6.0, color=_PAL["sym"], mec=_PAL["bg"],
-                label="self-adjoint A — every root on the axis")
-
-        for kap, mk, alp in ((0.3, "s", 0.95), (1.0, "^", 0.8)):
-            ctl = DirectionalThroat(SEP, 1.0, +1, kap)
-            got = complex_root_search(ctl.secular, (lo, hi))
-            xs = [r.real for r in got["off_axis"]]
-            ys = [r.imag for r in got["off_axis"]]
-            ax.plot(xs, ys, mk, ms=5.4, color=_PAL["hot"], mec=_PAL["bg"],
-                    mew=0.6, alpha=alp, zorder=6,
-                    label=f"v55 directional, κ = {kap} — {got['n_off_axis']}"
-                          f"/{got['n_roots']} off the axis")
-
-        ax.set_xlim(lo, hi)
-        ax.set_ylim(-0.8, 0.8)
-        ax.set_xlabel("Re ω", color=_PAL["dim"], fontsize=8)
-        ax.set_ylabel("Im ω", color=_PAL["dim"], fontsize=8)
-        ax.tick_params(colors=_PAL["dim"], labelsize=7)
-        for sp in ax.spines.values():
-            sp.set_color(_PAL["rule"])
-        leg = ax.legend(loc="upper left", fontsize=6.4, framealpha=0.0,
-                        labelcolor=_PAL["dim"])
-        leg.get_frame().set_edgecolor(_PAL["rule"])
-        ax.grid(alpha=0.08, color=_PAL["grid"])
-        ax.set_title(f"roots of det M in the complex plane — self-adjoint: "
-                     f"{hr['n_off_axis']} off the axis",
-                     color=_PAL["text"], fontsize=8.6, pad=6)
-
-    # ── the channels ────────────────────────────────────────────────────────
-    def _draw_unitary(self) -> None:
-        ax = self.ax_uni
-        th = np.linspace(0, math.pi / 2, 300)
-        ax.plot(np.cos(th) ** 2, np.sin(th) ** 2, lw=1.0, ls=(0, (4, 3)),
-                color=_PAL["free"], zorder=2, label="|r|² + |t|² = 1")
-        scales = np.geomspace(0.01, 2.0, 60)
-        for (a1, a2, b), col, lab, ms, z in (
-                ((0.2, 0.2, 0.15), _PAL["sym"], "α = 0.2, β = 0.15", 6.4, 4),
-                ((-0.4, 0.07, -0.09 + 0.31j), _PAL["cool"],
-                 "α = (−0.4, 0.07), β = −0.09+0.31i", 2.4, 5)):
-            p = MouthPair(SEP, a1, a2, b)
-            rr, tt = [], []
-            for c in scales:
-                ch = p.channels(float(c))
-                rr.append(abs(ch["reflection_1"]) ** 2)
-                tt.append(abs(ch["transmission_21"]) ** 2)
-            ax.plot(rr, tt, "o", ms=ms, lw=0, color=col, alpha=0.9,
-                    zorder=z, label=lab)
-        for kap, col in ((0.3, _PAL["hot"]), (0.6, _PAL["hot"]),
-                         (1.0, _PAL["anti"])):
-            ax.plot([0.0], [kap ** 2], "x", ms=7.0, mew=1.8, color=col,
-                    zorder=6)
-            ax.annotate(f"v55, κ={kap}", xy=(0.0, kap ** 2),
-                        xytext=(6, -2), textcoords="offset points",
-                        color=col, fontsize=6.2, family="monospace")
-        ax.set_xlim(-0.04, 1.04)
-        ax.set_ylim(-0.04, 1.09)
-        ax.set_xlabel("|r|²  — reflection", color=_PAL["dim"], fontsize=8)
-        ax.set_ylabel("|t|²  — transmission", color=_PAL["dim"], fontsize=8)
+    # ── the correction ──────────────────────────────────────────────────────
+    def _draw_stability(self) -> None:
+        ax = self.ax_stb
+        th = stability_thresholds(SEP)
+        s_th, a_th = th["symmetric_threshold"], th["antisymmetric_threshold"]
+        alphas = np.linspace(-0.15, 0.15, 61)
+        betas = np.linspace(-0.2, 0.2, 81)
+        AA, BB = np.meshgrid(alphas, betas, indexing="ij")
+        ok = ((AA + BB >= s_th) & (AA - BB >= a_th)).astype(float)
+        ax.imshow(ok.T, origin="lower", aspect="auto",
+                  extent=[alphas[0], alphas[-1], betas[0], betas[-1]],
+                  cmap=LinearSegmentedColormap.from_list(
+                      "stab", ["#1a0a12", "#123a2a", _PAL["sym"]]),
+                  vmin=0.0, vmax=1.6, interpolation="nearest", zorder=1)
+        ax.plot(alphas, s_th - alphas, lw=1.2, color=_PAL["text"], alpha=0.8,
+                zorder=4, label="α + β = g₀ + G₀")
+        ax.plot(alphas, alphas - a_th, lw=1.2, ls=(0, (4, 3)),
+                color=_PAL["text"], alpha=0.8, zorder=4,
+                label="α − β = g₀ − G₀")
+        for (a, b, lab) in ((ALPHA, BETA, "the stable default"),
+                            (0.0, 0.0, "α = β = 0"),
+                            (0.05, 0.18, "β = 0.18")):
+            st = is_stable(MouthPair(SEP, a, a, b))
+            col = _PAL["sym"] if st["stable"] else _PAL["hot"]
+            ax.plot([a], [b], "o" if st["stable"] else "X", ms=7.0, color=col,
+                    mec=_PAL["bg"], mew=0.8, zorder=6)
+            ax.annotate(lab, xy=(a, b), xytext=(7, 5),
+                        textcoords="offset points", color=col, fontsize=6.2,
+                        family="monospace")
+        ax.set_xlim(alphas[0], alphas[-1])
+        ax.set_ylim(betas[0], betas[-1])
+        ax.set_xlabel("α  (both mouths)", color=_PAL["dim"], fontsize=8)
+        ax.set_ylabel("β", color=_PAL["dim"], fontsize=8)
         ax.tick_params(colors=_PAL["dim"], labelsize=7)
         for sp in ax.spines.values():
             sp.set_color(_PAL["rule"])
         leg = ax.legend(loc="upper right", fontsize=6.4, framealpha=0.0,
                         labelcolor=_PAL["dim"])
         leg.get_frame().set_edgecolor(_PAL["rule"])
-        ax.grid(alpha=0.08, color=_PAL["grid"])
-        ax.set_title("the boundary operator is a unitary 2×2 — v55's model is "
-                     "off the circle",
-                     color=_PAL["text"], fontsize=8.6, pad=6)
+        ax.set_title("green = λ_min ≥ 0 — self-adjoint everywhere, stable only "
+                     "in the wedge",
+                     color=_PAL["text"], fontsize=8.4, pad=6)
 
-    # ── switching it off ────────────────────────────────────────────────────
-    def _draw_decoupling(self) -> None:
-        ax = self.ax_dec
-        ts = np.geomspace(1.0, 1e4, 9)
-        shifts = []
-        for t in ts:
-            p = MouthPair(SEP, ALPHA * t, ALPHA * t, BETA * t)
-            got = [w for r in spectrum_by_channel(p, 4)["rows"]
-                   for w in (r["symmetric"], r["antisymmetric"])
-                   if w is not None]
-            shifts.append(max(abs(w - round(w)) for w in got))
-        inv = 1.0 / ts
-        ax.loglog(inv, shifts, "o-", lw=1.4, ms=4.6, color=_PAL["sym"],
-                  alpha=0.95, zorder=4, label="worst shift from ω = n+1")
-        ref = shifts[-1] * (inv / inv[-1])
-        ax.loglog(inv, ref, lw=1.0, ls=(0, (4, 3)), color=_PAL["free"],
-                  zorder=3, label="slope 1")
-        sl = float(np.polyfit(np.log(inv[-4:]), np.log(shifts[-4:]), 1)[0])
-        ax.annotate(f"asymptotic slope  {sl:.4f}", xy=(0.05, 0.88),
-                    xycoords="axes fraction", color=_PAL["anti"],
-                    fontsize=7.2, family="monospace")
-        ax.annotate("off is ‖A‖ → ∞, not A → 0:\nthe diagonal is an INVERSE\n"
-                    "scattering length",
-                    xy=(0.05, 0.62), xycoords="axes fraction",
-                    color=_PAL["dim"], fontsize=6.4, family="monospace",
-                    linespacing=1.5)
-        ax.set_xlabel("1 / ‖A‖", color=_PAL["dim"], fontsize=8)
-        ax.set_ylabel("distance to the nearest free frequency",
-                      color=_PAL["dim"], fontsize=8)
+    # ── what conservation does buy ──────────────────────────────────────────
+    def _draw_flux(self) -> None:
+        ax = self.ax_flx
+        rng = np.random.default_rng(20260815)
+        xs, ys = [], []
+        for _ in range(700):
+            a1, a2 = rng.normal(0, 0.3, 2)
+            b = complex(*rng.normal(0, 0.3, 2))
+            herm = rng.random() < 0.5
+            if herm:
+                A = np.array([[a1, b], [b.conjugate(), a2]], dtype=complex)
+            else:
+                c = complex(*rng.normal(0, 0.3, 2))
+                A = np.array([[a1, b], [c, a2]], dtype=complex)
+            q = rng.normal(0, 1, 2) + 1j * rng.normal(0, 1, 2)
+            f = mouth_flux(q, A)
+            xs.append(float(np.abs(0.5 * (A - A.conjugate().T)).max()))
+            ys.append(abs(f["net"]) / f["scale"] + 1e-18)
+        xs, ys = np.array(xs), np.array(ys)
+        m = xs < 1e-15
+        ax.loglog(np.maximum(xs[m], 1e-18), ys[m], ".", ms=3.0,
+                  color=_PAL["sym"], alpha=0.8, zorder=4,
+                  label="A = A†  — net flux is zero identically")
+        ax.loglog(xs[~m], ys[~m], ".", ms=3.0, color=_PAL["hot"], alpha=0.7,
+                  zorder=3, label="A ≠ A†  — it is not")
+        ax.set_xlim(1e-18, 3.0)
+        ax.set_ylim(1e-18, 3.0)
+        ax.set_xlabel("‖(A − A†)/2‖", color=_PAL["dim"], fontsize=8)
+        ax.set_ylabel("|Im(q†Aq)| / scale", color=_PAL["dim"], fontsize=8)
         ax.tick_params(colors=_PAL["dim"], labelsize=7)
         for sp in ax.spines.values():
             sp.set_color(_PAL["rule"])
-        leg = ax.legend(loc="lower right", fontsize=6.6, framealpha=0.0,
+        leg = ax.legend(loc="upper left", fontsize=6.4, framealpha=0.0,
                         labelcolor=_PAL["dim"])
         leg.get_frame().set_edgecolor(_PAL["rule"])
         ax.grid(alpha=0.08, color=_PAL["grid"], which="both")
-        ax.set_title("switch the throat off and the ESU spectrum comes back",
-                     color=_PAL["text"], fontsize=8.6, pad=6)
+
+        ins = ax.inset_axes([0.58, 0.10, 0.38, 0.34])
+        ins.set_facecolor("#050510")
+        A = MouthPair(SEP, 0.2, -0.13, 0.15 + 0.07j).boundary_matrix()
+        cs = np.geomspace(0.02, 1.0, 40)
+        ins.semilogx(cs, [boundary_mixing(A, float(c))["diagonal_mixing"][0]
+                          for c in cs], lw=1.2, color=_PAL["anti"])
+        ins.semilogx(cs, [boundary_mixing(A, float(c))["off_diagonal_mixing"][0]
+                          for c in cs], lw=1.2, color=_PAL["cool"])
+        ins.set_title("the same A, different reference scale c",
+                      color=_PAL["dim"], fontsize=5.8, pad=3)
+        ins.tick_params(colors=_PAL["dim"], labelsize=5)
+        for sp in ins.spines.values():
+            sp.set_color(_PAL["rule"])
+        ins.annotate("|S| entries are NOT r and t",
+                     xy=(0.04, 0.80), xycoords="axes fraction",
+                     color=_PAL["dim"], fontsize=5.4, family="monospace")
+        ax.set_title("Hermiticity IS zero net boundary flux — the physical "
+                     "conservation statement",
+                     color=_PAL["text"], fontsize=8.4, pad=6)
+
+    # ── where v55 sits ──────────────────────────────────────────────────────
+    def _draw_embedding(self) -> None:
+        ax = self.ax_emb
+        ctl = DirectionalThroat(SEP, 1.0, +1, 0.3)
+        ws = np.linspace(1.05, 5.95, 1400)
+        ws = ws[np.abs(ws - np.round(ws)) > 0.02]
+        embed = np.array([abs(ctl.secular(complex(w))) for w in ws])
+        own = np.array([abs(ctl.pr255_pole_condition(complex(w))) for w in ws])
+        old = []
+        for w in ws:
+            wz = complex(w)
+            sp = cmath.sin(math.pi * wz)
+            g = -wz * cmath.cos(math.pi * wz) / (4.0 * math.pi * sp)
+            gd = (cmath.sin(wz * (math.pi - SEP))
+                  / (4.0 * math.pi * math.sin(SEP) * sp))
+            A = np.array([[0.0, 0.0], [1.0 / ctl.gain(wz), 0.0]],
+                         dtype=complex)
+            old.append(abs(complex(np.linalg.det(
+                A - np.array([[g, gd], [gd, g]], dtype=complex)))))
+        ax.semilogy(ws, own, lw=3.0, color=_PAL["free"], alpha=0.9, zorder=3,
+                    label="v55's own |1 − L|")
+        ax.semilogy(ws, embed, lw=1.1, color=_PAL["sym"], alpha=0.95, zorder=5,
+                    label="|det(C − BΓ)| — the exact embedding")
+        ax.semilogy(ws, np.array(old), lw=1.2, ls=(0, (4, 3)),
+                    color=_PAL["hot"], alpha=0.9, zorder=4,
+                    label="the earlier control — a different function")
+        ax.annotate(f"embedding matches to {np.abs(embed - own).max():.1e}",
+                    xy=(0.04, 0.06), xycoords="axes fraction",
+                    color=_PAL["sym"], fontsize=6.6, family="monospace")
+        ax.set_xlabel("ω", color=_PAL["dim"], fontsize=8)
+        ax.set_ylabel("|secular function|", color=_PAL["dim"], fontsize=8)
+        ax.tick_params(colors=_PAL["dim"], labelsize=7)
+        for sp in ax.spines.values():
+            sp.set_color(_PAL["rule"])
+        leg = ax.legend(loc="upper left", fontsize=6.4, framealpha=0.0,
+                        labelcolor=_PAL["dim"])
+        leg.get_frame().set_edgecolor(_PAL["rule"])
+        ax.grid(alpha=0.08, color=_PAL["grid"], which="both")
+        ax.set_title("v55 embeds exactly — as a maximal, NON-self-adjoint "
+                     "boundary condition",
+                     color=_PAL["text"], fontsize=8.4, pad=6)
 
     # ── frame ───────────────────────────────────────────────────────────────
     def draw(self) -> None:
-        self._draw_secular()
-        self._draw_complex()
-        self._draw_unitary()
-        self._draw_decoupling()
-        self.fig.suptitle("v56 — A CONSERVING THROAT CANNOT RING UP",
+        self._draw_sector()
+        self._draw_stability()
+        self._draw_flux()
+        self._draw_embedding()
+        self.fig.suptitle("v56 — CONSERVATION IS NOT STABILITY",
                           color=_PAL["text"], fontsize=13.2, y=0.962,
                           family="monospace")
         self.fig.text(0.5, 0.908,
-                      "a point-supported throat is a SELF-ADJOINT EXTENSION: "
-                      "M(ω) = A − Γ(ω) with A Hermitian   ·   flux "
-                      "conservation IS A = A†",
+                      "a self-adjoint extension makes λ = ω² REAL   ·   it "
+                      "does not make λ ≥ 0, and positivity is a separate "
+                      "condition on the boundary data",
                       color=_PAL["dim"], fontsize=8.4, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.062,
-                      "v55's off-axis poles were its own directionality — it "
-                      "is unstable even at κ = 1, where nothing is lost",
+                      "the first version of this round claimed a conserving "
+                      "throat cannot ring up — two of its own three examples "
+                      "have growing modes at σ = 2.4705 and 7.0910",
                       color=_PAL["dim"], fontsize=7.8, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.030,
                       "put in: a linear field on a fixed background and the "
-                      "boundary matrix itself — four numbers chosen, not "
-                      "derived   ·   the throat is POINT-supported, so it has "
-                      "no interior and no delay",
+                      "boundary data itself — four numbers chosen, not derived "
+                      "  ·   the throat is POINT-supported, so no interior and "
+                      "no delay",
                       color="#3d5570", fontsize=7.0, ha="center",
                       family="monospace")
 

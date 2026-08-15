@@ -1,0 +1,882 @@
+{
+  "probe": "throat_operator",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "what does making the throat a genuine self-adjoint extension buy -- and what does it not? in particular, does flux conservation imply stability?",
+      "scope": "a linear scalar field on a fixed Einstein static universe. The throat is POINT-SUPPORTED: no interior, no proper length, and no delay -- Delta is not a parameter of a point extension. The boundary data is a choice of four real parameters, not a derivation; PR #249 is what would fix it. No backreaction, no stress tensor, no topology change, no rate, no two-source invariant.",
+      "pass": true
+    },
+    {
+      "name": "T2_the_green_function_has_a_finite_part",
+      "rows": [
+        {
+          "omega": 0.37,
+          "chi": 0.4,
+          "closed_form": 0.1890757103389738,
+          "branch_series_limit": 0.18907571033884016,
+          "abs_error": 1.3364309658925322e-13
+        },
+        {
+          "omega": 0.37,
+          "chi": 1.3,
+          "closed_form": 0.05668111483651457,
+          "branch_series_limit": 0.05668111483640119,
+          "abs_error": 1.1338152638984411e-13
+        },
+        {
+          "omega": 0.37,
+          "chi": 2.6,
+          "closed_form": 0.03348094739036324,
+          "branch_series_limit": 0.033480947390262424,
+          "abs_error": 1.0081518952986812e-13
+        },
+        {
+          "omega": 1.63,
+          "chi": 0.4,
+          "closed_form": 0.2160890146736374,
+          "branch_series_limit": 0.2160890146727835,
+          "abs_error": 8.539002838148235e-13
+        },
+        {
+          "omega": 1.63,
+          "chi": 1.3,
+          "closed_form": -0.01253911271593916,
+          "branch_series_limit": -0.012539112716098463,
+          "abs_error": 1.5930312624590215e-13
+        },
+        {
+          "omega": 1.63,
+          "chi": 2.6,
+          "closed_form": -0.12993973393034855,
+          "branch_series_limit": -0.1299397339294076,
+          "abs_error": 9.409417689454358e-13
+        },
+        {
+          "omega": 2.4,
+          "chi": 0.4,
+          "closed_form": 0.06280653655775288,
+          "branch_series_limit": 0.0628065365581885,
+          "abs_error": 4.356237592872958e-13
+        },
+        {
+          "omega": 2.4,
+          "chi": 1.3,
+          "closed_form": -0.08314721908453131,
+          "branch_series_limit": -0.08314721908422246,
+          "abs_error": 3.0885016766291074e-13
+        },
+        {
+          "omega": 2.4,
+          "chi": 2.6,
+          "closed_form": 0.1563905497604535,
+          "branch_series_limit": 0.15639054975956576,
+          "abs_error": 8.877343304902752e-13
+        },
+        {
+          "omega": 5.21,
+          "chi": 0.4,
+          "closed_form": -0.32983740480891977,
+          "branch_series_limit": -0.32983740480258084,
+          "abs_error": 6.338929381399794e-12
+        },
+        {
+          "omega": 5.21,
+          "chi": 1.3,
+          "closed_form": 0.022786077810176757,
+          "branch_series_limit": 0.022786077810719677,
+          "abs_error": 5.429198757234133e-13
+        },
+        {
+          "omega": 5.21,
+          "chi": 2.6,
+          "closed_form": -0.07920279755490432,
+          "branch_series_limit": -0.07920279755270145,
+          "abs_error": 2.20287676988562e-12
+        }
+      ],
+      "worst_abs_error": 6.338929381399794e-12,
+      "the_closed_form_is_the_branch_series": true,
+      "finite_part": [
+        {
+          "omega": 0.37,
+          "chi": 0.01,
+          "finite_part": -0.012663435632005893,
+          "g": -0.01274141138640233,
+          "error": 7.79757543964369e-05
+        },
+        {
+          "omega": 0.37,
+          "chi": 0.001,
+          "finite_part": -0.012733597384553264,
+          "g": -0.01274141138640233,
+          "error": 7.814001849066124e-06
+        },
+        {
+          "omega": 0.37,
+          "chi": 0.0001,
+          "finite_part": -0.012740629821564653,
+          "g": -0.01274141138640233,
+          "error": 7.815648376766765e-07
+        },
+        {
+          "omega": 1.63,
+          "chi": 0.01,
+          "finite_part": 0.05520502206963229,
+          "g": 0.05613108259415068,
+          "error": 0.0009260605245183864
+        },
+        {
+          "omega": 1.63,
+          "chi": 0.001,
+          "finite_part": 0.0560386153207304,
+          "g": 0.05613108259415068,
+          "error": 9.246727342027833e-05
+        },
+        {
+          "omega": 1.63,
+          "chi": 0.0001,
+          "finite_part": 0.05612183726123021,
+          "g": 0.05613108259415068,
+          "error": 9.245332920466975e-06
+        },
+        {
+          "omega": 2.4,
+          "chi": 0.01,
+          "finite_part": -0.06420929666713437,
+          "g": -0.06205509091606102,
+          "error": 0.0021542057510733556
+        },
+        {
+          "omega": 2.4,
+          "chi": 0.001,
+          "finite_part": -0.06227096181847003,
+          "g": -0.06205509091606102,
+          "error": 0.00021587090240900858
+        },
+        {
+          "omega": 2.4,
+          "chi": 0.0001,
+          "finite_part": -0.062076682444626385,
+          "g": -0.06205509091606102,
+          "error": 2.1591528565366447e-05
+        }
+      ],
+      "convergence_ratios_per_decade": [
+        9.978978237093203,
+        9.99789329352951,
+        10.015008448549093,
+        10.00150824375158,
+        9.979139045760794,
+        9.9979444139621
+      ],
+      "the_remainder_is_first_order_in_chi": true,
+      "antipode": [
+        {
+          "omega": 0.7,
+          "limit": 0.06885421501584262,
+          "at_pi_minus_1e-5": 0.06885421501558465,
+          "relative_error": 3.746470999811721e-12
+        },
+        {
+          "omega": 2.3,
+          "limit": 0.22623527790919734,
+          "at_pi_minus_1e-5": 0.22623527789025094,
+          "relative_error": 8.37464438770798e-11
+        },
+        {
+          "omega": 4.4,
+          "limit": 0.368159903016222,
+          "at_pi_minus_1e-5": 0.3681599028990563,
+          "relative_error": 3.18246677865311e-10
+        }
+      ],
+      "the_antipodal_focus_is_finite": true,
+      "what_this_shows": "the coincidence divergence is the universal 1/(4\u03c0\u03c7), so g(\u03c9) exists and a point interaction is definable",
+      "pass": true
+    },
+    {
+      "name": "T3_hermiticity_is_flux_conservation",
+      "n_draws": 200,
+      "worst_relative_net_flux": 1.8330460832549965e-16,
+      "flux_is_conserved_identically": true,
+      "worst_pairwise_imbalance": 1.7237876479002335e-16,
+      "what_one_mouth_absorbs_the_other_emits": true,
+      "control_median_net_flux": 0.538982070192972,
+      "the_control_does_not_conserve": true,
+      "cayley": [
+        {
+          "scale": 0.05,
+          "diagonal": 0.9553308713847318,
+          "off_diagonal": 0.29553836667899636,
+          "unitarity_defect": 2.226169518938412e-16,
+          "column_norm": 0.9999999999999999
+        },
+        {
+          "scale": 0.1,
+          "diagonal": 0.8547614993873379,
+          "off_diagonal": 0.5190209814305294,
+          "unitarity_defect": 2.2218654583894667e-16,
+          "column_norm": 1.0
+        },
+        {
+          "scale": 0.2,
+          "diagonal": 0.7130890090143389,
+          "off_diagonal": 0.7010735091436191,
+          "unitarity_defect": 2.220718681296384e-16,
+          "column_norm": 1.0000000000000002
+        }
+      ],
+      "the_cayley_transform_is_unitary": true,
+      "cayley_diagonal_spread_over_the_reference_scale": 0.2422418623703929,
+      "the_cayley_entries_are_not_physical_amplitudes": true,
+      "the_correction": "an earlier version of this module read the Cayley entries as reflection and transmission; their magnitudes depend on the arbitrary scale c, so they are boundary-mixing coefficients and the physical conservation result is the flux identity",
+      "the_identity": "Im(q\u2020 A q) = 0 for all q  \u27fa  A = A\u2020",
+      "pass": true
+    },
+    {
+      "name": "T4_self_adjointness_makes_lambda_real_not_omega",
+      "rows": [
+        {
+          "alpha1": 0.05,
+          "alpha2": 0.05,
+          "beta": 0.03,
+          "hermitian": true,
+          "worst_relative_imaginary_part_of_det": 0.0,
+          "n_growing_modes": 0,
+          "lambda_of_the_growing_modes": [],
+          "growth_rates": [],
+          "stable": true
+        },
+        {
+          "alpha1": 0.2,
+          "alpha2": -0.13,
+          "beta": {
+            "re": 0.15,
+            "im": 0.07
+          },
+          "hermitian": true,
+          "worst_relative_imaginary_part_of_det": 2.1371793224034263e-15,
+          "n_growing_modes": 1,
+          "lambda_of_the_growing_modes": [
+            -6.103528770975182
+          ],
+          "growth_rates": [
+            2.4705320825634267
+          ],
+          "stable": false
+        },
+        {
+          "alpha1": -0.4,
+          "alpha2": 0.07,
+          "beta": {
+            "re": -0.09,
+            "im": 0.31
+          },
+          "hermitian": true,
+          "worst_relative_imaginary_part_of_det": 2.886579864025407e-15,
+          "n_growing_modes": 1,
+          "lambda_of_the_growing_modes": [
+            -50.28203136814663
+          ],
+          "growth_rates": [
+            7.09098239795775
+          ],
+          "stable": false
+        }
+      ],
+      "worst_relative_imaginary_part": 2.886579864025407e-15,
+      "the_secular_function_is_real_in_lambda": true,
+      "hermiticity_gives_real_lambda": true,
+      "n_unstable_examples": 2,
+      "hermiticity_does_not_give_positivity": true,
+      "the_withdrawn_claim": "'the spectrum is real for every coupling, so a conserving throat cannot ring up' \u2014 false: \u03bb is real, \u03c9 need not be",
+      "why_it_was_missed": "the earlier complex-root search seeded only Re \u03c9 in [1.1, 6.9] and discarded roots leaving that window, so a root on the imaginary axis was outside its reach by construction",
+      "what_replaces_it": "a positivity audit: solve in \u03bb, and map the region of boundary data with \u03bb_min \u2265 0",
+      "pass": true
+    },
+    {
+      "name": "T5_the_stability_region_in_the_boundary_family",
+      "thresholds": {
+        "g_at_zero": -0.025330295910584444,
+        "G_d_at_zero": 0.048412319637957946,
+        "symmetric_threshold": 0.023082023727373502,
+        "antisymmetric_threshold": -0.07374261554854239,
+        "the_rule": "a negative-\u03bb mode exists iff \u03b1+\u03b2 < symmetric threshold or \u03b1\u2212\u03b2 < antisymmetric threshold"
+      },
+      "probes": [
+        {
+          "alpha": 0.05,
+          "beta": 0.03,
+          "stable": true,
+          "closed_form_stable": true,
+          "agrees": true,
+          "n_growing_modes": 0,
+          "worst_growth_rate": 0.0
+        },
+        {
+          "alpha": 0.0,
+          "beta": 0.0,
+          "stable": false,
+          "closed_form_stable": false,
+          "agrees": true,
+          "n_growing_modes": 1,
+          "worst_growth_rate": 0.44202080986186515
+        },
+        {
+          "alpha": -0.05,
+          "beta": 0.0,
+          "stable": false,
+          "closed_form_stable": false,
+          "agrees": true,
+          "n_growing_modes": 1,
+          "worst_growth_rate": 0.9251074149913707
+        },
+        {
+          "alpha": 0.05,
+          "beta": 0.3,
+          "stable": false,
+          "closed_form_stable": false,
+          "agrees": true,
+          "n_growing_modes": 1,
+          "worst_growth_rate": 3.1237060727388184
+        },
+        {
+          "alpha": 0.2,
+          "beta": 0.0,
+          "stable": true,
+          "closed_form_stable": true,
+          "agrees": true,
+          "n_growing_modes": 0,
+          "worst_growth_rate": 0.0
+        }
+      ],
+      "the_channel_functions_are_monotone_on_the_imaginary_axis": true,
+      "channel_run_along_the_imaginary_axis": {
+        "symmetric": [
+          0.023081888123841668,
+          -3.183098861837907
+        ],
+        "antisymmetric": [
+          -0.07374264661156756,
+          -3.183098861837907
+        ]
+      },
+      "the_closed_form_agrees_with_every_probe": true,
+      "grid_points": 221,
+      "grid_stable": 56,
+      "grid_mismatches": 0,
+      "the_closed_form_matches_everywhere": true,
+      "both_signs_are_represented": true,
+      "what_this_shows": "positivity is a condition on the boundary data, separate from self-adjointness, and it has a closed form for the exchange-symmetric family",
+      "pass": true
+    },
+    {
+      "name": "T6_the_mouth_active_sector_is_rank_two",
+      "sector_counts": {
+        "below the free ground state": 1,
+        "interlacing": 12
+      },
+      "roots_per_interlacing_gap": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2,
+        "5": 2,
+        "6": 2
+      },
+      "two_per_interlacing_gap": true,
+      "n_below_the_free_ground_state": 1,
+      "there_is_a_sector_below_the_ground_state": true,
+      "level_bookkeeping": [
+        {
+          "level": 0,
+          "degeneracy": 1,
+          "mouth_active": 1,
+          "untouched": 0
+        },
+        {
+          "level": 1,
+          "degeneracy": 4,
+          "mouth_active": 2,
+          "untouched": 2
+        },
+        {
+          "level": 2,
+          "degeneracy": 9,
+          "mouth_active": 2,
+          "untouched": 7
+        },
+        {
+          "level": 3,
+          "degeneracy": 16,
+          "mouth_active": 2,
+          "untouched": 14
+        },
+        {
+          "level": 4,
+          "degeneracy": 25,
+          "mouth_active": 2,
+          "untouched": 23
+        }
+      ],
+      "at_most_two_modes_move_per_level": true,
+      "untouched_modes_at_level_4": 23,
+      "channel_endpoints": [
+        {
+          "gap": 1,
+          "lambda_range": [
+            1.0,
+            4.0
+          ],
+          "symmetric_at_lower": -101321188.00247855,
+          "symmetric_at_upper": 64212233.46692322,
+          "antisymmetric_at_lower": -0.03828053176403046,
+          "antisymmetric_at_upper": 37108938.67382042,
+          "symmetric_spans_the_whole_line": true,
+          "antisymmetric_spans_the_whole_line": false
+        },
+        {
+          "gap": 2,
+          "lambda_range": [
+            4.0,
+            9.0
+          ],
+          "symmetric_at_lower": -64212243.61296499,
+          "symmetric_at_upper": 38607127.39575428,
+          "antisymmetric_at_lower": -37108944.4277941,
+          "antisymmetric_at_upper": 62714054.2933604,
+          "symmetric_spans_the_whole_line": true,
+          "antisymmetric_spans_the_whole_line": true
+        },
+        {
+          "gap": 3,
+          "lambda_range": [
+            9.0,
+            16.0
+          ],
+          "symmetric_at_lower": -38607133.53659253,
+          "symmetric_at_upper": 39048331.81378018,
+          "antisymmetric_at_lower": -62714064.052540585,
+          "antisymmetric_at_upper": 62272840.32696346,
+          "symmetric_spans_the_whole_line": true,
+          "antisymmetric_spans_the_whole_line": true
+        },
+        {
+          "gap": 4,
+          "lambda_range": [
+            16.0,
+            25.0
+          ],
+          "symmetric_at_lower": -39048337.907761365,
+          "symmetric_at_upper": 52922637.42405574,
+          "antisymmetric_at_lower": -62272850.13299772,
+          "antisymmetric_at_upper": 48398528.987666145,
+          "symmetric_spans_the_whole_line": true,
+          "antisymmetric_spans_the_whole_line": true
+        },
+        {
+          "gap": 5,
+          "lambda_range": [
+            25.0,
+            36.0
+          ],
+          "symmetric_at_lower": -52922645.63221985,
+          "symmetric_at_upper": 59410589.31663899,
+          "antisymmetric_at_lower": -48398536.67951569,
+          "antisymmetric_at_upper": 41910592.37247568,
+          "symmetric_spans_the_whole_line": true,
+          "antisymmetric_spans_the_whole_line": true
+        },
+        {
+          "gap": 6,
+          "lambda_range": [
+            36.0,
+            49.0
+          ],
+          "symmetric_at_lower": -59410598.625784084,
+          "symmetric_at_upper": 53057316.44616688,
+          "antisymmetric_at_lower": -41910598.96334903,
+          "antisymmetric_at_upper": 48263859.78673554,
+          "symmetric_spans_the_whole_line": true,
+          "antisymmetric_spans_the_whole_line": true
+        }
+      ],
+      "the_first_gap_antisymmetric_endpoints_are_finite": true,
+      "the_symmetric_channel_does_span_it": true,
+      "first_gap_root_depends_on_alpha_minus_beta": [
+        {
+          "alpha_minus_beta": 0.02,
+          "antisymmetric_root_in_gap_1": true
+        },
+        {
+          "alpha_minus_beta": -0.05,
+          "antisymmetric_root_in_gap_1": false
+        },
+        {
+          "alpha_minus_beta": -0.09,
+          "antisymmetric_root_in_gap_1": false
+        }
+      ],
+      "existence_in_the_first_gap_is_conditional": true,
+      "by_channel": [
+        {
+          "gap": 1,
+          "symmetric": 2.8216668286757187,
+          "antisymmetric": 2.106940136079783,
+          "n_roots": 2
+        },
+        {
+          "gap": 2,
+          "symmetric": 7.416897510759599,
+          "antisymmetric": 5.751250408979091,
+          "n_roots": 2
+        },
+        {
+          "gap": 3,
+          "symmetric": 13.097607485796662,
+          "antisymmetric": 12.295345884413678,
+          "n_roots": 2
+        },
+        {
+          "gap": 4,
+          "symmetric": 20.29268146104159,
+          "antisymmetric": 20.95992168034453,
+          "n_roots": 2
+        },
+        {
+          "gap": 5,
+          "symmetric": 30.444974260263272,
+          "antisymmetric": 30.88605520548041,
+          "n_roots": 2
+        },
+        {
+          "gap": 6,
+          "symmetric": 43.17369571197453,
+          "antisymmetric": 42.02086914240971,
+          "n_roots": 2
+        }
+      ],
+      "the_scope": "det(C \u2212 B\u0393) = 0 is the rank-two mouth-active sector; (n+1)\u00b2 \u2212 2 modes per level are untouched and are not in it",
+      "pass": true
+    },
+    {
+      "name": "T7_the_pr255_embedding",
+      "rows": [
+        {
+          "kappa": 0.3,
+          "omega": {
+            "re": 1.3,
+            "im": 0.2
+          },
+          "det_of_the_embedding": {
+            "re": 0.9897216412803393,
+            "im": -0.019884681659228024
+          },
+          "pr255_one_minus_L": {
+            "re": 0.9897216412803393,
+            "im": -0.019884681659228028
+          },
+          "embedding_error": 3.469446951953614e-18,
+          "old_wrong_control": {
+            "re": -0.14379724583959272,
+            "im": -0.09145213662083418
+          },
+          "old_control_error": 1.1357759321570828,
+          "maximal": true,
+          "self_adjointness_defect": 0.366420827448051
+        },
+        {
+          "kappa": 0.3,
+          "omega": {
+            "re": 2.77,
+            "im": -0.4
+          },
+          "det_of_the_embedding": {
+            "re": 0.9884452311748224,
+            "im": 0.0016772770189775266
+          },
+          "pr255_one_minus_L": {
+            "re": 0.9884452311748224,
+            "im": 0.0016772770189775266
+          },
+          "embedding_error": 0.0,
+          "old_wrong_control": {
+            "re": 0.12897667317112008,
+            "im": -0.2227358626418412
+          },
+          "old_control_error": 0.8882834341860651,
+          "maximal": true,
+          "self_adjointness_defect": 0.2010960138106918
+        },
+        {
+          "kappa": 0.3,
+          "omega": {
+            "re": 4.11,
+            "im": 0.05
+          },
+          "det_of_the_embedding": {
+            "re": 1.0147224350607427,
+            "im": -0.06556946987880302
+          },
+          "pr255_one_minus_L": {
+            "re": 1.0147224350607427,
+            "im": -0.06556946987880302
+          },
+          "embedding_error": 0.0,
+          "old_wrong_control": {
+            "re": -0.16438317013550352,
+            "im": -0.8910362620441087
+          },
+          "old_control_error": 1.4393350732796328,
+          "maximal": true,
+          "self_adjointness_defect": 0.31538132891280724
+        },
+        {
+          "kappa": 1.0,
+          "omega": {
+            "re": 1.3,
+            "im": 0.2
+          },
+          "det_of_the_embedding": {
+            "re": 0.965738804267798,
+            "im": -0.06628227219742676
+          },
+          "pr255_one_minus_L": {
+            "re": 0.965738804267798,
+            "im": -0.06628227219742676
+          },
+          "embedding_error": 0.0,
+          "old_wrong_control": {
+            "re": -0.04443649889238369,
+            "im": -0.03024211156722551
+          },
+          "old_control_error": 1.0108180035461456,
+          "maximal": true,
+          "self_adjointness_defect": 1.2214027581601699
+        },
+        {
+          "kappa": 1.0,
+          "omega": {
+            "re": 2.77,
+            "im": -0.4
+          },
+          "det_of_the_embedding": {
+            "re": 0.9614841039160749,
+            "im": 0.005590923396591756
+          },
+          "pr255_one_minus_L": {
+            "re": 0.9614841039160749,
+            "im": 0.005590923396591755
+          },
+          "embedding_error": 8.673617379884035e-19,
+          "old_wrong_control": {
+            "re": 0.001350658572221687,
+            "im": -0.06602385277004773
+          },
+          "old_control_error": 0.9628005551687513,
+          "maximal": true,
+          "self_adjointness_defect": 0.6703200460356393
+        },
+        {
+          "kappa": 1.0,
+          "omega": {
+            "re": 4.11,
+            "im": 0.05
+          },
+          "det_of_the_embedding": {
+            "re": 1.0490747835358092,
+            "im": -0.21856489959601008
+          },
+          "pr255_one_minus_L": {
+            "re": 1.0490747835358092,
+            "im": -0.21856489959601008
+          },
+          "embedding_error": 0.0,
+          "old_wrong_control": {
+            "re": 0.22942095107886157,
+            "im": -0.6291341933739076
+          },
+          "old_control_error": 0.9167330855023416,
+          "maximal": true,
+          "self_adjointness_defect": 1.0512710963760243
+        }
+      ],
+      "worst_embedding_error": 3.469446951953614e-18,
+      "the_embedding_is_exact": true,
+      "worst_old_control_error": 1.4393350732796328,
+      "the_old_control_was_a_different_model": true,
+      "every_embedding_is_maximal": true,
+      "none_is_self_adjoint": true,
+      "it_needs_a_singular_B": "q\u2081 = 0 is not of the form \u03c6^reg = A q for any finite Hermitian A",
+      "what_is_not_concluded": "that PR #255's off-axis poles were *caused* by non-self-adjointness \u2014 a self-adjoint throat can also have growing modes, as the stability measurement shows, so this is a classification, not a diagnosis",
+      "pass": true
+    },
+    {
+      "name": "T8_the_phase_of_beta",
+      "rows": [
+        {
+          "arg_beta": 0.0,
+          "det": -0.06510791155275564,
+          "det_conjugate": -0.06510791155275564,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 0.13659098493868665,
+          "det": -0.06482908485902251,
+          "det_conjugate": -0.06482908485902251,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 0.2731819698773733,
+          "det": -0.06399779879156711,
+          "det_conjugate": -0.06399779879156711,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 0.40977295481605996,
+          "det": -0.06262953863697245,
+          "det_conjugate": -0.06262953863697245,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 0.5463639397547466,
+          "det": -0.06074979249307096,
+          "det_conjugate": -0.06074979249307096,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 0.6829549246934332,
+          "det": -0.05839357647390728,
+          "det_conjugate": -0.05839357647390728,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 0.8195459096321199,
+          "det": -0.05560478242578648,
+          "det_conjugate": -0.05560478242578648,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 0.9561368945708066,
+          "det": -0.0524353603052241,
+          "det_conjugate": -0.0524353603052241,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 1.0927278795094932,
+          "det": -0.04894435044954929,
+          "det_conjugate": -0.04894435044954929,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 1.2293188644481798,
+          "det": -0.04519678376712893,
+          "det_conjugate": -0.04519678376712893,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 1.3659098493868664,
+          "det": -0.041262470334588026,
+          "det_conjugate": -0.041262470334588026,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 1.5025008343255533,
+          "det": -0.03721469896716797,
+          "det_conjugate": -0.03721469896716797,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 1.6390918192642399,
+          "det": -0.03312887198676623,
+          "det_conjugate": -0.03312887198676623,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 1.7756828042029265,
+          "det": -0.029081100619346177,
+          "det_conjugate": -0.029081100619346177,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 1.9122737891416133,
+          "det": -0.02514678718680529,
+          "det_conjugate": -0.02514678718680529,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 2.0488647740803,
+          "det": -0.02139922050438492,
+          "det_conjugate": -0.02139922050438492,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 2.1854557590189865,
+          "det": -0.01790821064871009,
+          "det_conjugate": -0.01790821064871009,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 2.322046743957673,
+          "det": -0.014738788528147726,
+          "det_conjugate": -0.014738788528147726,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 2.4586377288963597,
+          "det": -0.01194999448002694,
+          "det_conjugate": -0.01194999448002694,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 2.5952287138350463,
+          "det": -0.009593778460863256,
+          "det_conjugate": -0.009593778460863256,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 2.731819698773733,
+          "det": -0.007714032316961769,
+          "det_conjugate": -0.007714032316961769,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 2.86841068371242,
+          "det": -0.006345772162367083,
+          "det_conjugate": -0.006345772162367083,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 3.0050016686511065,
+          "det": -0.005514486094911663,
+          "det_conjugate": -0.005514486094911663,
+          "conjugation_defect": 0.0
+        },
+        {
+          "arg_beta": 3.141592653589793,
+          "det": -0.005235659401178564,
+          "det_conjugate": -0.005235659401178564,
+          "conjugation_defect": 0.0
+        }
+      ],
+      "modulus": 0.1655,
+      "spread_over_the_phase": 0.05987225215157707,
+      "the_phase_of_beta_is_physical": true,
+      "worst_conjugation_defect": 0.0,
+      "the_spectrum_is_conjugation_symmetric": true,
+      "why_the_phase_survives": "\u0393 is not diagonal \u2014 the mouths are joined through the bulk as well as through the throat, and that fixes the relative phase",
+      "the_withdrawn_claim": "that a complex \u03b2 makes the throat non-reciprocal; that read the Cayley entries, which depend on an arbitrary scale, as physical amplitudes",
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
+      "n_passed": 8,
+      "n_total": 8,
+      "pass": true
+    }
+  ],
+  "verdict_class": "SELF_ADJOINTNESS_IS_CONSERVATION_NOT_STABILITY",
+  "verdict": "SELF-ADJOINTNESS BUYS CONSERVATION AND A REAL lambda; POSITIVITY IS A SEPARATE CONDITION, AND IT IS THE ONE THAT DECIDES STABILITY. A point-supported throat is a self-adjoint extension of the Laplacian on S3 minus two points, parametrized by U(2), and writing the boundary condition as the PAIR B phi^reg = C q makes the mouth-active spectrum det(C - B Gamma) = 0. FIRST, IT IS DEFINABLE AT ALL: G(chi,omega) = sin(omega(pi-chi))/(4 pi sin chi sin(pi omega)), real on the axis, poles exactly at omega = n+1, finite at the antipode because the numerator's zero cancels sin chi, and agreeing with PR #255's branch series to 6.3e-12; its short-distance split is 1/(4 pi chi) + g(omega) + O(chi), remainder first order in chi, so the subtraction a point interaction needs is forced rather than chosen. SECOND, HERMITICITY IS EXACTLY FLUX CONSERVATION: the current through a small sphere at mouth j is Im(q_j* phi_j^reg), so the total absorbed is Im(q^dag A q), zero for EVERY q when A = A^dag -- 1.8e-16 over 200 random draws, against a median 0.54 for a non-Hermitian control. THIRD -- AND THIS IS A CORRECTION -- THE CAYLEY ENTRIES ARE NOT AMPLITUDES. The transform is unitary for every reference scale c, which is a real fact about the parametrization, but the same A gives entry magnitudes spread by 0.242 across c, so they are boundary-mixing coefficients; a closed universe has no asymptotic region to normalize a scattering matrix against. FOURTH -- AND THIS IS THE MAIN CORRECTION -- SELF-ADJOINTNESS MAKES lambda = omega^2 REAL AND NOTHING MORE. Gamma is real symmetric for real lambda of either sign, so the secular function is real; but lambda can be NEGATIVE, and then omega = +/- i sqrt|lambda| with one member of the pair growing. 2 of the three boundary matrices this module previously advertised do exactly that -- sigma = 2.470532 and 7.090982 -- and they were missed because the earlier search seeded only Re omega in [1.1, 6.9] and discarded roots leaving that window, so a root on the imaginary axis was outside its reach by construction. The claim 'real spectrum for every coupling, so a conserving throat cannot ring up' is WITHDRAWN. FIFTH, WHAT REPLACES IT IS A STABILITY REGION WITH A CLOSED FORM: both channel functions fall monotonically along the imaginary axis from their lambda = 0 values, so a growing mode exists iff alpha + beta < +0.02308202 or alpha - beta < -0.07374262, verified against a negative-lambda scan at all 221 grid points with 0 mismatches and only 56 of them stable. SIXTH, SCOPE: det(C - B Gamma) = 0 is the RANK-TWO MOUTH-ACTIVE SECTOR, not the spectrum -- level n has degeneracy (n+1)^2 and only two combinations can move, so 23 of 25 modes at level 4 never leave the free eigenvalue. Inside the sector there is a mode below the free ground state that an omega-scan starting above 1 cannot see, then two per interlacing gap; and the convenient claim that both channels run -infinity to +infinity across every gap is false, since the m = 1 pole cancels in the antisymmetric channel and a first-gap root is conditional on alpha - beta. SEVENTH, PR #255's RELATION EMBEDS EXACTLY, as q_1 = 0 with q_2 = gain . phi_1^reg, i.e. B = [[0,0],[gain,0]], C = I, giving det(C - B Gamma) = 1 - gain . G_d to 3.5e-18 against that round's own expression. It is maximal but not self-adjoint, and needs the singular B -- no finite Hermitian A reproduces it. The previous version of this control was a different function entirely, off by 1.44, so nothing is concluded from it: this is a classification of PR #255's boundary condition, NOT a diagnosis of its off-axis poles, because a self-adjoint throat can have growing modes too. EIGHTH, the phase of beta is physical because Gamma is not diagonal -- the mouths are joined through the bulk as well as the throat -- while the spectrum is invariant under beta -> conj(beta), which is time reversal; the earlier 'non-reciprocal' reading is withdrawn. WHAT IS STILL PUT IN: the boundary data, four real numbers chosen and not derived, with PR #249 still the thing that would fix them. The throat is POINT-supported, so it has no interior and no proper length, and the delay Delta of PRs #251-#255 does not survive into a point extension -- a real loss of structure, stated rather than hidden. No backreaction, no stress tensor, no topology change, no rate, and no two-source invariant.",
+  "generated_utc": "2026-08-15T07:07:32.384108+00:00"
+}

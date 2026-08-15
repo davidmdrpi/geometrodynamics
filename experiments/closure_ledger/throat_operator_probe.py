@@ -1,96 +1,120 @@
 """
-Does a flux-conserving two-mouth throat behave differently from PR #255's model?
+A flux-conserving two-mouth throat: what self-adjointness buys, and what it does not.
 
 > Scope: a LINEAR scalar field on a FIXED round background (the Einstein static
-> universe S3 x R). The throat is a POINT-SUPPORTED self-adjoint extension: it
-> has no interior, no proper length, and therefore no delay -- the Delta of PRs
+> universe S3 x R). The throat is a POINT-SUPPORTED self-adjoint extension: no
+> interior, no proper length, and therefore no delay -- the Delta of PRs
 > #251-#255 is not a parameter of a point extension and does not survive into
-> one. The boundary matrix A is a CHOICE (four real parameters), not a
-> derivation; shells.junction (PR #249) is what would fix it from a matter
-> model, and nothing here computes the exotic-matter bill. NOT DONE: no
-> backreaction, no stress tensor, no topology change, no rate, no two-source
-> invariant.
+> one. The boundary data is a CHOICE (four real parameters), not a derivation;
+> shells.junction (PR #249) is what would fix it from a matter model, and
+> nothing here computes the exotic-matter bill. NOT DONE: no backreaction, no
+> stress tensor, no topology change, no rate, no two-source invariant.
 
 THE GAP THIS CLOSES
 ───────────────────
 PR #255 solved a mouth relation self-consistently and said plainly what it was
 not: a relation between field VALUES carried by the free Green function, with no
-normal-derivative matching, no reflected channel, a 1x1 mouth object where a
-conserving junction needs 2x2 unitary, and kappa^2 power throughput. It also
-found its poles OFF the real axis and had to separate three thresholds --
-existence, convergence, stability -- to say what that meant.
+normal-derivative matching, no reflected channel, a 1x1 mouth object, and
+kappa^2 power throughput.
 
-This round replaces the relation with the real object. A point-supported throat
-is a SELF-ADJOINT EXTENSION of the Laplacian on S3 minus two points, and von
-Neumann's theorem says those are parametrized by a unitary matrix between the
-deficiency spaces -- here U(2) -- equivalently, by Krein's formula, a Hermitian
-2x2 matrix A:
+A point-supported throat is a SELF-ADJOINT EXTENSION of the Laplacian on S3
+minus two points. Von Neumann parametrizes the extensions by a unitary between
+the deficiency spaces -- U(2) -- equivalently, by Krein's formula, a Hermitian
+2x2 matrix. Writing phi = phi_in + sum_j G(chi_j) q_j, the regular part at mouth
+j is phi_j^reg = (phi_in)_j + (Gamma q)_j, and a linear boundary condition is a
+PAIR of matrices:
 
-    M(omega) q = phi_in|_mouths,     M = A - Gamma(omega)
-    Gamma = [[g(omega), G_d(omega)], [G_d(omega), g(omega)]]
+    B phi^reg = C q     =>     (C - B Gamma) q = B phi_in|_mouths
+
+so the mouth-active spectrum is det(C - B Gamma) = 0. The extension is
+self-adjoint iff rank[B|C] = 2 and B C^dag is Hermitian. The general (B,C) form
+is needed because PR #255's relation is NOT of the form phi^reg = A q.
 
 WHAT IS CHECKED
 ───────────────
-T2  THE GREEN FUNCTION HAS A CLOSED FORM AND A FINITE PART. Fourier-transforming
-    PR #254's image sum gives G(chi,omega) = sin(omega(pi-chi))/(4 pi sin chi
-    sin(pi omega)) -- REAL on the real axis, poles exactly at omega = n+1 --
-    checked against PR #255's branch series to 6.3e-12, an independent
-    construction. Its short-distance split is 1/(4 pi chi) + g(omega) + O(chi)
-    with g = -(omega/4pi) cot(pi omega), and the remainder is first order in chi
-    (ratio 10.0 per decade). That is what makes a point interaction definable:
-    the divergence is the universal Coulomb one.
+T2  THE GREEN FUNCTION HAS A CLOSED FORM AND A FINITE PART.
+    G(chi,omega) = sin(omega(pi-chi))/(4 pi sin chi sin(pi omega)) -- real on the
+    real axis, poles exactly at omega = n+1, and FINITE at the antipode because
+    the numerator's zero cancels sin chi. Checked against PR #255's branch series
+    to 6.3e-12, an independent construction. Short-distance split is
+    1/(4 pi chi) + g(omega) + O(chi) with g = -(omega/4pi) cot(pi omega),
+    remainder first order in chi (ratio 10.0 per decade). The divergence is the
+    universal Coulomb one, so the subtraction is forced rather than chosen.
 
-T3  THE BOUNDARY OPERATOR IS UNITARY, WITH BOTH CHANNELS. The Cayley transform
-    S = (A - ic)(A + ic)^-1 of any Hermitian A is unitary to 4.4e-16 and inverts
-    back to 2.0e-16, so the self-adjoint two-mouth conditions ARE U(2): four real
-    parameters. Diagonal is REFLECTION, off-diagonal TRANSMISSION, and
-    |r|^2 + |t|^2 = 1 at each mouth to 4.4e-16. A real beta is reciprocal; a
-    complex one is not. PR #255's model in the same language has r = 0 and
-    |t| = kappa, column norm kappa^2 -- outside U(2) unless kappa = 1.
+T3  HERMITICITY IS FLUX CONSERVATION -- AND THE CAYLEY ENTRIES ARE NOT
+    AMPLITUDES. The current through a small sphere at mouth j is
+    Im(q_j* phi_j^reg), independent of the sphere, so the total absorbed is
+    Im(q^dag A q): zero for EVERY q when A = A^dag (1.8e-16 over 200 draws), with
+    a purely off-diagonal throat moving flux from one mouth to the other exactly.
+    A non-Hermitian control has median net flux 0.54. The Cayley transform
+    S = (A - ic)(A + ic)^-1 is unitary to 2.2e-16 for every reference scale c --
+    a real fact about the PARAMETRIZATION -- but its entry magnitudes swing from
+    0.955 to 0.713 as c goes 0.05 -> 0.2 for the SAME A, so they are
+    boundary-mixing coefficients, not reflection and transmission. An earlier
+    version of this module read them as amplitudes; that is corrected here.
 
-T4  FLUX CONSERVATION IS EXACTLY HERMITICITY. The radial current through a small
-    sphere at mouth j is Im(q_j* phi_j^reg), independent of the sphere, so the
-    total absorbed is Im(q^dag A q). For Hermitian A that is zero for EVERY q --
-    1.8e-16 over 200 random draws, not on average and not to leading order -- and
-    for a purely off-diagonal A what one mouth absorbs the other emits to
-    1.7e-16. The directional control's median net flux is 0.54.
+T4  SELF-ADJOINTNESS MAKES lambda REAL, NOT omega. Gamma is real symmetric for
+    real lambda = omega^2 of EITHER sign, so the secular function is real
+    (2.9e-15) and the eigenvalues of the spatial operator are real. They are not
+    thereby POSITIVE. Two of the three boundary matrices this module previously
+    advertised have lambda < 0: (0.2,-0.13,0.15+0.07i) gives sigma = 2.470532
+    and (-0.4,0.07,-0.09+0.31i) gives sigma = 7.090982, i.e. omega = +/- i sigma
+    with one member of each pair growing like e^{sigma t}. They were missed
+    because the earlier search seeded only Re omega in [1.1,6.9] and discarded
+    roots leaving that window -- a search that structurally could not see a root
+    on the imaginary axis. THE CLAIM "real spectrum for every coupling, so a
+    conserving throat cannot ring up" IS WITHDRAWN.
 
-T5  AND THEREFORE THE SPECTRUM IS REAL, FOR EVERY COUPLING. Gamma is real
-    symmetric on the axis, so M is Hermitian there and det M is a real function
-    (imaginary part 1.5e-15 relative). Newton from a grid of COMPLEX seeds --
-    the same method PR #255 used to find its poles -- converges only onto the
-    real axis: 0 off-axis roots, worst |Im omega| = 4.5e-18. The directional
-    control gives 9 roots, ALL 9 off-axis, 2 of them growing, worst
-    |Im omega| = 0.68 -- and it is unstable even at kappa = 1, so it is the
-    DIRECTIONALITY and not the loss that does it. PR #255's instability was the
-    non-conservation, not a throat.
+T5  AND THIS IS WHAT REPLACES IT: THE STABILITY REGION, IN CLOSED FORM. Along
+    the imaginary axis both channel functions fall monotonically from their
+    lambda = 0 values to -infinity, so a growing mode exists iff alpha +/- beta
+    drops below the threshold. The stable set is the wedge
 
-T6  THE COUPLED SPECTRUM INTERLACES THE FREE ONE. For an exchange-symmetric pair
-    the secular equation factorizes into g + G_d = alpha + beta and
-    g - G_d = alpha - beta; both left-hand sides run monotonically from -infinity
-    to +infinity across every unit gap, so each contributes exactly one root:
-    EXACTLY TWO coupled frequencies strictly between consecutive free ones, over
-    8 gaps.
+        alpha + beta >= g0 + G0 = +0.02308202
+        alpha - beta >= g0 - G0 = -0.07374262
+        g0 = -1/(4 pi^2),  G0 = (pi - d)/(4 pi^2 sin d)
 
-T7  AND THE FREE SPECTRUM RETURNS WHEN THE THROAT IS SWITCHED OFF -- which is
-    ||A|| -> infinity, not A -> 0, because the diagonal of A is an INVERSE
-    scattering length. Shift to the nearest free frequency falls like 1/||A||,
-    measured exponent 0.999, down to 6.2e-04.
+    verified against a negative-lambda scan at every one of 221 grid points, 0
+    mismatches, with 56 stable and 165 not. Positivity is a condition on the
+    boundary data, separate from self-adjointness.
 
-T8  WHERE PR #255 SITS. Its relation is exactly the strictly lower-triangular
-    boundary matrix A(omega) = [[0,0],[1/(eta kappa e^{-i omega Delta}),0]]: no
-    self-energy hence no reflection; one direction only hence anti-Hermitian with
-    the anti-Hermitian part equal to the whole matrix; and frequency-dependent,
-    which a boundary condition is not allowed to be. Three defects, each with a
-    number, and none of them touches that round's resolvent -- which was exact
-    for the model it posed.
+T6  det(C - B Gamma) = 0 IS THE RANK-TWO MOUTH-ACTIVE SECTOR, NOT THE SPECTRUM.
+    Level n has degeneracy (n+1)^2 and only two combinations can move, so
+    (n+1)^2 - 2 modes per level stay exactly at the free eigenvalue -- 23 of 25
+    at level 4. Within the sector there is also a mode BELOW the free ground
+    state (0 < lambda < 1) that an omega-scan starting above 1 cannot see, and
+    then two per interlacing gap. And the convenient claim that both channel
+    functions run -infinity -> +infinity across EVERY gap is false: the m = 1
+    pole cancels in the antisymmetric channel, because the constant mode is
+    equal at both mouths, so its first-gap endpoint is finite (-0.0383) and a
+    root there is conditional on alpha - beta. Scanned.
+
+T7  PR #255's RELATION EMBEDS EXACTLY -- AS A NON-SELF-ADJOINT CONDITION. That
+    round set q_1 = 0 and q_2 = gain . phi_1^reg, which is B = [[0,0],[gain,0]],
+    C = I, giving det(C - B Gamma) = 1 - gain . G_d: EXACTLY its own 1 - L,
+    matched to 3.5e-18. It is maximal (rank[B|C] = 2) but B C^dag = B is not
+    Hermitian, and no finite Hermitian A reproduces it -- it needs the singular
+    B. An earlier version of this module used A = [[0,0],[1/gain,0]] as the
+    control; that gives g^2 - G_d^2 + G_d/gain, a DIFFERENT function (off by
+    1.44), so the old control was not PR #255's model and nothing was concluded
+    from comparing against it.
+
+T8  AND THE PHASE OF beta IS PHYSICAL, BUT THERE IS NO PREFERRED DIRECTION. The
+    secular function is (a1-g)(a2-g) - |beta - G_d|^2 with G_d real, so it
+    depends on Re beta: the mouths are joined through the bulk as well as
+    through the throat, and that fixes the relative phase. It is invariant under
+    beta -> conj(beta), which is time reversal. An earlier version called a
+    complex beta "non-reciprocal", reading the Cayley entries as amplitudes;
+    withdrawn.
 
 THE ANSWER
 ──────────
-Yes, and the difference is the one that mattered. A flux-conserving throat has a
-real spectrum for every coupling, interlacing the ESU spectrum two per gap and
-returning it on decoupling. The instability PR #255 measured was its own
-non-conservation. What is still put in is the boundary matrix itself.
+What survives: two point removals on S3 admit a U(2) self-adjoint-extension
+family; the regularized Green/Krein matrix is well defined; Hermitian boundary
+data conserve the point-boundary flux exactly; and the rank-two mouth-active
+sector is described by det(C - B Gamma) = 0. What does NOT survive: that
+self-adjointness implies stability. Positivity is separate, it has a closed form
+here, and most of the sampled boundary family is outside it.
 """
 
 from __future__ import annotations
@@ -103,12 +127,13 @@ from typing import List, Optional
 import numpy as np
 
 from geometrodynamics.waves.throat_operator import (
-    measure_self_adjointness_makes_the_spectrum_real,
-    measure_the_boundary_operator_is_unitary_with_both_channels,
-    measure_the_coupled_spectrum_interlaces_the_free_one,
-    measure_the_directional_model_is_what_pr255_solved,
-    measure_the_flux_balance_is_exactly_hermiticity,
+    measure_hermiticity_is_flux_conservation,
+    measure_self_adjointness_makes_lambda_real_not_omega,
     measure_the_green_function_has_a_finite_part,
+    measure_the_mouth_active_sector_is_rank_two,
+    measure_the_pr255_boundary_condition_is_not_self_adjoint,
+    measure_the_spectrum_is_conjugation_symmetric_in_beta,
+    measure_the_stability_region_in_the_boundary_family,
 )
 
 
@@ -116,15 +141,13 @@ from geometrodynamics.waves.throat_operator import (
 def t1_goal() -> dict:
     return {
         "name": "T1_goal",
-        "question": ("does a genuinely flux-conserving two-mouth throat -- a "
-                     "self-adjoint extension, with reflection, transmission "
-                     "and a unitary boundary operator -- behave differently "
-                     "from PR #255's directional mouth relation? and what is "
-                     "its spectrum?"),
+        "question": ("what does making the throat a genuine self-adjoint "
+                     "extension buy -- and what does it not? in particular, "
+                     "does flux conservation imply stability?"),
         "scope": ("a linear scalar field on a fixed Einstein static universe. "
                   "The throat is POINT-SUPPORTED: no interior, no proper "
                   "length, and no delay -- Delta is not a parameter of a point "
-                  "extension. The boundary matrix A is a choice of four real "
+                  "extension. The boundary data is a choice of four real "
                   "parameters, not a derivation; PR #249 is what would fix it. "
                   "No backreaction, no stress tensor, no topology change, no "
                   "rate, no two-source invariant."),
@@ -136,66 +159,67 @@ def t2_the_green_function_has_a_finite_part() -> dict:
     r = measure_the_green_function_has_a_finite_part()
     return {"name": "T2_the_green_function_has_a_finite_part", **r,
             "pass": bool(r["the_closed_form_is_the_branch_series"]
-                         and r["the_remainder_is_first_order_in_chi"])}
+                         and r["the_remainder_is_first_order_in_chi"]
+                         and r["the_antipodal_focus_is_finite"])}
 
 
-def t3_the_boundary_operator_is_unitary_with_both_channels() -> dict:
-    r = measure_the_boundary_operator_is_unitary_with_both_channels()
-    return {"name": "T3_the_boundary_operator_is_unitary_with_both_channels",
-            **r,
-            "pass": bool(r["the_cayley_transform_is_unitary"]
-                         and r["every_mouth_conserves"]
-                         and r["both_channels_are_present"]
-                         and r["pr255_is_outside_U2_unless_kappa_is_one"])}
-
-
-def t4_flux_conservation_is_exactly_hermiticity() -> dict:
-    r = measure_the_flux_balance_is_exactly_hermiticity()
-    return {"name": "T4_flux_conservation_is_exactly_hermiticity", **r,
+def t3_hermiticity_is_flux_conservation() -> dict:
+    """And the Cayley entries are not amplitudes -- a correction."""
+    r = measure_hermiticity_is_flux_conservation()
+    return {"name": "T3_hermiticity_is_flux_conservation", **r,
             "pass": bool(r["flux_is_conserved_identically"]
                          and r["what_one_mouth_absorbs_the_other_emits"]
-                         and r["the_control_does_not_conserve"])}
+                         and r["the_control_does_not_conserve"]
+                         and r["the_cayley_transform_is_unitary"]
+                         and r["the_cayley_entries_are_not_physical"
+                               "_amplitudes"])}
 
 
-def t5_self_adjointness_makes_the_spectrum_real() -> dict:
-    """The result this round exists for."""
-    r = measure_self_adjointness_makes_the_spectrum_real()
-    return {"name": "T5_self_adjointness_makes_the_spectrum_real", **r,
-            "pass": bool(r["the_secular_function_is_real_on_the_axis"]
-                         and r["nothing_off_the_axis"]
-                         and r["the_control_fails_both_tests"]
-                         and r["and_the_control_is_unstable_even_at_unit"
-                               "_transmission"])}
+def t4_self_adjointness_makes_lambda_real_not_omega() -> dict:
+    """The withdrawn claim, and why the earlier search could not see it."""
+    r = measure_self_adjointness_makes_lambda_real_not_omega()
+    return {"name": "T4_self_adjointness_makes_lambda_real_not_omega", **r,
+            "pass": bool(r["the_secular_function_is_real_in_lambda"]
+                         and r["hermiticity_gives_real_lambda"]
+                         and r["hermiticity_does_not_give_positivity"])}
 
 
-def t6_the_coupled_spectrum_interlaces_the_free_one() -> dict:
-    r = measure_the_coupled_spectrum_interlaces_the_free_one()
-    return {"name": "T6_the_coupled_spectrum_interlaces_the_free_one", **r,
-            "pass": bool(r["exactly_two_per_gap"]
-                         and r["every_root_strictly_between_free_ones"]
-                         and r["both_channel_functions_are_monotone"])}
+def t5_the_stability_region_in_the_boundary_family() -> dict:
+    """What replaces it: positivity, mapped."""
+    r = measure_the_stability_region_in_the_boundary_family()
+    return {"name": "T5_the_stability_region_in_the_boundary_family", **r,
+            "pass": bool(
+                r["the_channel_functions_are_monotone_on_the_imaginary_axis"]
+                and r["the_closed_form_agrees_with_every_probe"]
+                and r["the_closed_form_matches_everywhere"]
+                and r["both_signs_are_represented"])}
 
 
-def t7_the_free_spectrum_returns_on_decoupling() -> dict:
-    r = measure_the_coupled_spectrum_interlaces_the_free_one()
-    return {"name": "T7_the_free_spectrum_returns_on_decoupling",
-            "decoupling": r["decoupling"],
-            "asymptotic_exponents": r["asymptotic_exponents"],
-            "the_shift_goes_like_one_over_the_boundary_norm":
-                r["the_shift_goes_like_one_over_the_boundary_norm"],
-            "free_spectrum_recovered": r["free_spectrum_recovered"],
-            "off_is_large_A_not_small_A": r["off_is_large_A_not_small_A"],
-            "pass": bool(r["the_shift_goes_like_one_over_the_boundary_norm"]
-                         and r["free_spectrum_recovered"])}
+def t6_the_mouth_active_sector_is_rank_two() -> dict:
+    r = measure_the_mouth_active_sector_is_rank_two()
+    return {"name": "T6_the_mouth_active_sector_is_rank_two", **r,
+            "pass": bool(r["at_most_two_modes_move_per_level"]
+                         and r["there_is_a_sector_below_the_ground_state"]
+                         and r["two_per_interlacing_gap"]
+                         and r["the_first_gap_antisymmetric_endpoints"
+                               "_are_finite"]
+                         and r["existence_in_the_first_gap_is_conditional"])}
 
 
-def t8_where_pr255_sits() -> dict:
-    r = measure_the_directional_model_is_what_pr255_solved()
-    return {"name": "T8_where_pr255_sits", **r,
-            "pass": bool(r["no_reflection_channel"]
-                         and r["not_hermitian_at_any_frequency"]
-                         and r["anti_hermitian_part_is_the_whole_matrix"]
-                         and r["the_boundary_matrix_depends_on_frequency"])}
+def t7_the_pr255_embedding() -> dict:
+    r = measure_the_pr255_boundary_condition_is_not_self_adjoint()
+    return {"name": "T7_the_pr255_embedding", **r,
+            "pass": bool(r["the_embedding_is_exact"]
+                         and r["the_old_control_was_a_different_model"]
+                         and r["every_embedding_is_maximal"]
+                         and r["none_is_self_adjoint"])}
+
+
+def t8_the_phase_of_beta() -> dict:
+    r = measure_the_spectrum_is_conjugation_symmetric_in_beta()
+    return {"name": "T8_the_phase_of_beta", **r,
+            "pass": bool(r["the_phase_of_beta_is_physical"]
+                         and r["the_spectrum_is_conjugation_symmetric"])}
 
 
 def t9_assessment(tests: List[dict]) -> dict:
@@ -208,83 +232,96 @@ def t9_assessment(tests: List[dict]) -> dict:
 def run_probe() -> dict:
     tests = [t1_goal(),
              t2_the_green_function_has_a_finite_part(),
-             t3_the_boundary_operator_is_unitary_with_both_channels(),
-             t4_flux_conservation_is_exactly_hermiticity(),
-             t5_self_adjointness_makes_the_spectrum_real(),
-             t6_the_coupled_spectrum_interlaces_the_free_one(),
-             t7_the_free_spectrum_returns_on_decoupling(),
-             t8_where_pr255_sits()]
+             t3_hermiticity_is_flux_conservation(),
+             t4_self_adjointness_makes_lambda_real_not_omega(),
+             t5_the_stability_region_in_the_boundary_family(),
+             t6_the_mouth_active_sector_is_rank_two(),
+             t7_the_pr255_embedding(),
+             t8_the_phase_of_beta()]
     tests.append(t9_assessment(tests))
     t2, t3, t4, t5, t6, t7, t8 = tests[1:8]
 
     if all(t["pass"] for t in tests):
-        verdict_class = "A_CONSERVING_THROAT_HAS_A_REAL_SPECTRUM"
-        ctl = t5.get("control_directional", {})
+        verdict_class = "SELF_ADJOINTNESS_IS_CONSERVATION_NOT_STABILITY"
+        th = t5.get("thresholds", {})
         verdict = (
-            "YES -- AND THE DIFFERENCE IS THE ONE THAT MATTERED. PR #255 owed a "
-            "boundary operator and this is it: a point-supported throat is a "
-            "SELF-ADJOINT EXTENSION of the Laplacian on S3 minus two points, "
-            "and von Neumann's theorem parametrizes those by a unitary between "
-            "the deficiency spaces -- U(2) -- equivalently, by Krein's formula, "
-            "a Hermitian 2x2 boundary matrix A. Everything below follows from "
-            "that one substitution. FIRST, IT IS DEFINABLE AT ALL: the free "
-            "Green function has the closed form sin(omega(pi-chi))/(4 pi sin "
-            "chi sin(pi omega)), real on the real axis with poles exactly at "
-            "the free spectrum omega = n+1, agreeing with PR #255's branch "
-            f"series to {t2.get('worst_abs_error', 0):.1e}; and its "
-            "short-distance split is 1/(4 pi chi) + g(omega) + O(chi) with "
-            "g = -(omega/4 pi) cot(pi omega), the remainder first order in chi. "
-            "The divergence is the universal Coulomb one, so the subtraction is "
-            "not a choice. SECOND, THE BOUNDARY OPERATOR IS UNITARY AND HAS "
-            "BOTH CHANNELS: the Cayley transform of any Hermitian A is unitary "
-            f"to {t3.get('worst_unitarity_defect', 0):.1e} and inverts back, "
-            "with reflection on the diagonal, transmission off it, and "
-            f"|r|^2 + |t|^2 = 1 at each mouth to "
-            f"{t3.get('worst_sum_of_squares_defect', 0):.1e}. PR #255's model "
-            "in the same language has r = 0 and |t| = kappa: outside U(2) "
-            "unless kappa = 1. THIRD, FLUX CONSERVATION IS EXACTLY HERMITICITY. "
-            "The current through a small sphere at mouth j is Im(q_j* "
-            "phi_j^reg), independent of the sphere, so the total absorbed is "
-            "Im(q^dag A q) -- zero for every q when A = A^dag, measured at "
-            f"{t4.get('worst_relative_net_flux', 0):.1e} over "
-            f"{t4.get('n_draws')} random draws, with a purely off-diagonal "
-            "throat moving flux from one mouth to the other exactly. FOURTH -- "
-            "AND THIS IS WHAT THE ROUND EXISTS FOR -- THE SPECTRUM IS REAL FOR "
-            "EVERY COUPLING. Gamma is real symmetric on the axis, so M = A - "
-            "Gamma is Hermitian there and det M is a real function; Newton from "
-            "a grid of complex seeds, the same method PR #255 used to find its "
-            f"poles, converges only onto the axis: 0 off-axis roots, worst "
-            f"|Im omega| = "
-            f"{t5.get('worst_abs_imaginary_over_all_seeds', 0):.1e}. The "
-            f"directional control gives {ctl.get('n_roots')} roots of which "
-            f"{ctl.get('n_off_axis')} are off-axis and {ctl.get('n_growing')} "
-            f"growing, worst |Im omega| = "
-            f"{ctl.get('worst_abs_imaginary', 0):.3f} -- and it is unstable "
-            "even at unit transmission, so it is the DIRECTIONALITY and not the "
-            "loss. PR #255's instability was its own non-conservation, and the "
-            "three thresholds that round had to separate collapse here to one "
-            "statement: a conserving throat cannot ring up. FIFTH, THE COUPLED "
-            "SPECTRUM INTERLACES THE FREE ONE. For an exchange-symmetric pair "
-            "the secular equation splits into g + G_d = alpha + beta and "
-            "g - G_d = alpha - beta, both monotone from -infinity to +infinity "
-            "across every unit gap, so there are EXACTLY TWO coupled "
-            "frequencies strictly between consecutive free ones -- verified "
-            f"over {len(t6.get('roots_per_gap', {}))} gaps. SIXTH, THE FREE "
-            "SPECTRUM RETURNS WHEN THE THROAT IS SWITCHED OFF, and off is "
-            "||A|| -> infinity rather than A -> 0, because the diagonal of A is "
-            "an INVERSE scattering length and alpha = 0 is a resonant throat "
-            "rather than no throat. The shift to the nearest free frequency "
-            f"falls like 1/||A||, exponent "
-            f"{(t7.get('asymptotic_exponents') or [0])[-1]:.4f}. WHAT IS STILL "
-            "PUT IN: the boundary matrix. A is four real numbers chosen, not "
-            "derived, and PR #249 is what would fix them from a matter model; "
-            "nothing here computes the exotic-matter bill. The throat is "
-            "POINT-SUPPORTED, so it has no interior and no proper length, and "
-            "the delay Delta of PRs #251-#255 is not a parameter of a point "
-            "extension and does not survive into one -- a real loss of "
-            "structure relative to those rounds, stated rather than hidden. No "
-            "backreaction, no stress tensor, no topology change, no rate, and "
-            "no two-source invariant, which is the next step.")
+            "SELF-ADJOINTNESS BUYS CONSERVATION AND A REAL lambda; POSITIVITY "
+            "IS A SEPARATE CONDITION, AND IT IS THE ONE THAT DECIDES "
+            "STABILITY. A point-supported throat is a self-adjoint extension of "
+            "the Laplacian on S3 minus two points, parametrized by U(2), and "
+            "writing the boundary condition as the PAIR B phi^reg = C q makes "
+            "the mouth-active spectrum det(C - B Gamma) = 0. FIRST, IT IS "
+            "DEFINABLE AT ALL: G(chi,omega) = sin(omega(pi-chi))/(4 pi sin chi "
+            "sin(pi omega)), real on the axis, poles exactly at omega = n+1, "
+            "finite at the antipode because the numerator's zero cancels sin "
+            f"chi, and agreeing with PR #255's branch series to "
+            f"{t2.get('worst_abs_error', 0):.1e}; its short-distance split is "
+            "1/(4 pi chi) + g(omega) + O(chi), remainder first order in chi, so "
+            "the subtraction a point interaction needs is forced rather than "
+            "chosen. SECOND, HERMITICITY IS EXACTLY FLUX CONSERVATION: the "
+            "current through a small sphere at mouth j is Im(q_j* phi_j^reg), "
+            "so the total absorbed is Im(q^dag A q), zero for EVERY q when "
+            f"A = A^dag -- {t3.get('worst_relative_net_flux', 0):.1e} over "
+            f"{t3.get('n_draws')} random draws, against a median "
+            f"{t3.get('control_median_net_flux', 0):.2f} for a non-Hermitian "
+            "control. THIRD -- AND THIS IS A CORRECTION -- THE CAYLEY ENTRIES "
+            "ARE NOT AMPLITUDES. The transform is unitary for every reference "
+            "scale c, which is a real fact about the parametrization, but the "
+            "same A gives entry magnitudes spread by "
+            f"{t3.get('cayley_diagonal_spread_over_the_reference_scale', 0):.3f} "
+            "across c, so they are boundary-mixing coefficients; a closed "
+            "universe has no asymptotic region to normalize a scattering matrix "
+            "against. FOURTH -- AND THIS IS THE MAIN CORRECTION -- "
+            "SELF-ADJOINTNESS MAKES lambda = omega^2 REAL AND NOTHING MORE. "
+            "Gamma is real symmetric for real lambda of either sign, so the "
+            "secular function is real; but lambda can be NEGATIVE, and then "
+            "omega = +/- i sqrt|lambda| with one member of the pair growing. "
+            f"{t4.get('n_unstable_examples')} of the three boundary matrices "
+            "this module previously advertised do exactly that -- sigma = "
+            "2.470532 and 7.090982 -- and they were missed because the earlier "
+            "search seeded only Re omega in [1.1, 6.9] and discarded roots "
+            "leaving that window, so a root on the imaginary axis was outside "
+            "its reach by construction. The claim 'real spectrum for every "
+            "coupling, so a conserving throat cannot ring up' is WITHDRAWN. "
+            "FIFTH, WHAT REPLACES IT IS A STABILITY REGION WITH A CLOSED FORM: "
+            "both channel functions fall monotonically along the imaginary axis "
+            "from their lambda = 0 values, so a growing mode exists iff alpha + "
+            f"beta < {th.get('symmetric_threshold', 0):+.8f} or alpha - beta < "
+            f"{th.get('antisymmetric_threshold', 0):+.8f}, verified against a "
+            f"negative-lambda scan at all {t5.get('grid_points')} grid points "
+            f"with {t5.get('grid_mismatches')} mismatches and only "
+            f"{t5.get('grid_stable')} of them stable. SIXTH, SCOPE: det(C - B "
+            "Gamma) = 0 is the RANK-TWO MOUTH-ACTIVE SECTOR, not the spectrum "
+            "-- level n has degeneracy (n+1)^2 and only two combinations can "
+            f"move, so {t6.get('untouched_modes_at_level_4')} of 25 modes at "
+            "level 4 never leave the free eigenvalue. Inside the sector there "
+            "is a mode below the free ground state that an omega-scan starting "
+            "above 1 cannot see, then two per interlacing gap; and the "
+            "convenient claim that both channels run -infinity to +infinity "
+            "across every gap is false, since the m = 1 pole cancels in the "
+            "antisymmetric channel and a first-gap root is conditional on alpha "
+            "- beta. SEVENTH, PR #255's RELATION EMBEDS EXACTLY, as q_1 = 0 "
+            "with q_2 = gain . phi_1^reg, i.e. B = [[0,0],[gain,0]], C = I, "
+            f"giving det(C - B Gamma) = 1 - gain . G_d to "
+            f"{t7.get('worst_embedding_error', 0):.1e} against that round's own "
+            "expression. It is maximal but not self-adjoint, and needs the "
+            "singular B -- no finite Hermitian A reproduces it. The previous "
+            "version of this control was a different function entirely, off by "
+            f"{t7.get('worst_old_control_error', 0):.2f}, so nothing is "
+            "concluded from it: this is a classification of PR #255's boundary "
+            "condition, NOT a diagnosis of its off-axis poles, because a "
+            "self-adjoint throat can have growing modes too. EIGHTH, the phase "
+            "of beta is physical because Gamma is not diagonal -- the mouths "
+            "are joined through the bulk as well as the throat -- while the "
+            "spectrum is invariant under beta -> conj(beta), which is time "
+            "reversal; the earlier 'non-reciprocal' reading is withdrawn. WHAT "
+            "IS STILL PUT IN: the boundary data, four real numbers chosen and "
+            "not derived, with PR #249 still the thing that would fix them. The "
+            "throat is POINT-supported, so it has no interior and no proper "
+            "length, and the delay Delta of PRs #251-#255 does not survive into "
+            "a point extension -- a real loss of structure, stated rather than "
+            "hidden. No backreaction, no stress tensor, no topology change, no "
+            "rate, and no two-source invariant.")
     else:
         verdict_class = "INCONCLUSIVE"
         failed = [t["name"] for t in tests if not t["pass"]]
@@ -306,7 +343,7 @@ def render_markdown(s: dict) -> str:
                 continue
             if isinstance(v, list):
                 lines.append(f"- **{k}**:")
-                for row in v:
+                for row in v[:40]:
                     if isinstance(row, dict):
                         lines.append("    - " + ", ".join(
                             f"{a}={_fmt(b)}" for a, b in row.items()))
@@ -330,6 +367,8 @@ def _fmt(v) -> str:
         return np.array2string(v, precision=5)
     if isinstance(v, dict):
         return ", ".join(f"{a}={_fmt(b)}" for a, b in v.items())
+    if isinstance(v, (list, tuple)):
+        return "[" + ", ".join(_fmt(x) for x in v[:12]) + "]"
     return str(v)
 
 
