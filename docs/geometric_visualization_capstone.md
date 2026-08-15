@@ -202,7 +202,7 @@ rank-deficient the other, scanned rather than argued), and the entire result
 rests on the throat delays being **given** — with them free the measured nullity
 is 2 and 100% of sampled events close.
 
-## 12. A solved field reproduces the ledger and signs it (`docs/field_solve.md`, current round)
+## 12. A solved field reproduces the ledger and signs it (`docs/field_solve.md`)
 
 The move off rays, and it pays immediately. On the Einstein static universe the
 **conformally** coupled massless scalar has `ω = n+1` — integer — so its retarded
@@ -224,7 +224,66 @@ minimally coupled one has irrational frequencies and no images — `63%` of the
 peak sits between the arrivals against `4.0e-08`. Rays cannot tell the two
 apart, because both have the same geodesics.
 
-## 13. What the arc cost in errors, and what caught them
+## 13. The mouth transfer solved for, not applied (`docs/branch_coupling.md`, current round)
+
+The previous round solved the field but kept the mouth relation on the
+**outside**: `φ(M⁺,t) = η φ(M⁻,t+Δ)` was applied *to the free branches after
+they were computed*, which gives one traversal by construction. Written into the
+field problem instead, the amplitude re-emitted at `M⁻` is driven by everything
+reaching `M⁺` including its own return, and the solution carries a resolvent
+`1/(1−L)` with `L = ηκ e^{−iωΔ} T_d(ω)` the round-trip gain.
+
+Scope first, because the resolvent being exact for a model says nothing about
+which model: this is a **rank-one mouth-transfer model**, not a throat boundary
+operator and not a quotient. No flux matching, no reflected channel, a `1×1`
+mouth scattering object where a conserving junction needs `2×2` unitary, and
+power out over power in is `κ²` — lossy, so not an identification.
+
+**Within that, it is not a rearrangement.** The resolvent equals an explicit walk
+over 400 traversals to `3.5e-18`, `#254`'s answer is its `n = 0` term, and the
+relative error of that term is *exactly* `|L|` — an identity, not a fit.
+
+**The branch series sums in closed form.** Short-way images all carry Maslov
+factor `+1` and long-way images `−1`, so the winding sum is two geometric series
+equal to `(e^{−uχ} − e^{−u(2π−χ)})/(1 − e^{−2πu})`, checked term-by-term to
+`2.7e-15`. Its poles, as the regulator goes, are the conformal ESU
+eigenfrequencies `ω = n+1`, with residues equal to the mode functions over `2ω`.
+**The image and mode representations are one function** — the strongest
+statement in the arc that the branch labels are a representation rather than an
+approximation.
+
+**And the solve adds events, not amplitudes.** The solved waveform *is* the sum
+over history words `(a, c₁…c_n, b)` to `5.4e-06`; at echo times
+`ℓ_a + Δ + n(ℓ_c+Δ) + ℓ_b` the control is at numerical zero and the solved field
+is not (`3.3e+12`), on a `κⁿ` ladder, each echo signed by every Maslov factor in
+its word. Those are arrivals at times `#254`'s ledger does not contain.
+
+**The primitive is indexed by a pair of branches**, one per leg, and for a
+reason that is not bookkeeping taste. `K_ab` carries the phase
+`e^{−iω(ℓ_a + Δ + ℓ_b)}`, so `#253`'s closure condition is exactly the statement
+that it is `ω`-independent — closed pairs have band coherence `1.000`, all
+others below `0.091`. The **amplitude factorizes** over that index and the
+**condition does not**: three pairs close inside the nine any single-index rule
+would admit.
+
+**Rank counts separable transfer channels, not histories** — a distinction this
+round had to be corrected on. One throat carries `144` distinct `(a,b)` histories
+at rank one; a second throat adds a second channel, in a shared topological
+branch-label basis rather than by leg length, and the interference between the
+two is a full fringe that is bilinear and therefore identically zero without
+either.
+
+**Finally, existence, convergence and stability came apart.** `1/(1−L)` exists
+for any `L ≠ 1`; `|L| < 1` is only the radius of `Σ Lⁿ` and does not depend on
+the delay; stability is `Im ω > 0` for every root of `D = 1 − L` in complex `ω`.
+The coupling *displaces* the bare poles `ω = m + iγ` by
+`δ_m = −ηκ e^{−imΔ} sin(md)/(4π² sin d)` — matched to `2.2e-04` — whose imaginary
+part goes like `sin(md) sin(mΔ)` and changes sign with the mode. So `κ_series` is
+`0.762` for every delay while `κ_stability` is `0.771` at `Δ = 1` and `3.034` at
+`Δ = π`; at `κ = 1.520` in that gap the series diverges to `1.3e+119` while the
+solve is finite and stable. **Solving and summing are not the same operation.**
+
+## 14. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -274,6 +333,27 @@ Worth recording, because the failure modes repeat:
 * **An exact identity tested through `arccos`.** `1 − cos θ = 2` at the head-on
   ends is exact; converting it to an angle costs eight digits to the square-root
   singularity at `−1`, turning the statement into a tolerance argument.
+* **Three conditions run together as one.** `|L| < 1` was called the condition
+  for the coupled system to have a unique solution. It is the radius of
+  convergence of `Σ Lⁿ` and nothing else: the solution exists for any `L ≠ 1`,
+  and stability is `Im ω > 0` for every root of `1 − L(ω)` in complex `ω`. The
+  three thresholds differ — at `Δ = π` by a factor of `3.98` — and the number
+  originally quoted was blind to the delay while the real one is not.
+* **A regulator artefact promoted to physics.** `κ_c ∝ γ` was read as "every
+  coupling is critical as the damping is removed". `γ` is an Abel regulator and
+  `T_d` carries the *bare* poles, so `1/max|T_d| → 0` is what a shrinking radius
+  of convergence looks like, not an instability. A finite coupling *moves* the
+  poles; the honest claim is about where the expansion fails.
+* **A rank read as a count of the wrong thing.** `K` being rank one was called
+  the number of independent histories the geometry supports. One throat carries
+  `144` distinct `(a,b)` histories at rank one — an outer product counts
+  separable *channels*. Worse, the two-throat sum was taken over matrices built
+  from different leg lengths; it needed an explicit common branch-label basis
+  before the rank meant anything at all.
+* **A model named for what it was meant to be.** "The throat as a boundary
+  condition" described a relation between field *values* with no flux matching,
+  no reflected channel and `κ² < 1` power throughput. The solve was exact; the
+  name promised a boundary operator the model does not contain.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -281,14 +361,22 @@ an independent construction — a closed form against brute
 force, an operator form against a difference, an exact surface against a
 truncated family.
 
-The last round sharpens it in a different direction. Neither of its two errors
-was numerical, and refining anything would have caught neither: **an object
-drawn correctly can still be the wrong object, and only an independent
-construction says which.** The repair in both cases was to make the picture
-carry a measurement — the sign of `dA/dχ`, and a screen extent proportional to
-`sin χ` with one constant to `3.6e-16`, which is `√(A/4π)`.
+The last rounds sharpen it in a different direction. Neither of the wave rounds'
+errors was numerical, and refining anything would have caught none of them: **an
+object drawn correctly can still be the wrong object, and only an independent
+construction says which.** The repair was to make the picture carry a
+measurement — the sign of `dA/dχ`, and a screen extent proportional to `sin χ`
+with one constant to `3.6e-16`, which is `√(A/4π)`.
 
-## 14. What is imported rather than derived
+The coupling round pushes it one step further, and it is worth naming: **every
+one of its four errors was a statement about a correct calculation.** The
+resolvent, the pole displacement, the rank and the power ratio were all right to
+machine precision *before* the corrections; what was wrong was which condition
+the number was a condition for, which limit the scaling described, what the rank
+counted, and what the model was called. No amount of numerical care reaches any
+of that. What reached it was being asked to name the object precisely.
+
+## 15. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -310,8 +398,19 @@ carry a measurement — the sign of `dA/dχ`, and a screen extent proportional t
   and the branch structure sharp; the minimally coupled field has no images at
   all. That the ledger belongs to one and not the other is a *result*, but
   choosing the conformal field is an input.
+* **The whole mouth-transfer model**, in the coupling round — not just its
+  coupling `κ`. It relates field *values* through the free Green function, with
+  no normal-derivative matching, no reflected channel, a `1×1` mouth scattering
+  object where a conserving junction needs `2×2` unitary, and `κ²` power
+  throughput. Solving it self-consistently fixes what a given `κ` *does*; it
+  does not make the relation a boundary operator or a quotient.
+* **The regulator `γ`**, likewise. A damping per unit path length is what makes
+  the winding series converge. Every result is either `γ`-independent or reported
+  as a `γ`-scaling, but that the physical answer is the `γ → 0` limit of this
+  family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
+  where stability is decided.
 
-## 15. What would come next
+## 16. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
@@ -357,14 +456,28 @@ ray closure → field solution → two-wave invariant
             → stationary action → backreaction → topological branch
 ```
 
-* **field solution** — a real wave action on fixed `S³` with the throat imposed
-  as the still-assumed identification `φ(M⁺,t) = η φ(M⁻,t+Δ)` plus flux
-  matching. A spectral implementation is attractive because the winding
-  histories enumerated by hand in this round would emerge from the Green
-  function instead. The test: do the closed histories reappear as
-  stationary-phase contributions of the *solved* field?
+* **field solution** — ~~done~~, in two stages, with one piece still owed. The
+  first (`docs/field_solve.md`) solved the field with the mouth relation applied
+  afterwards, and found the branches to be *exact support* rather than
+  stationary-phase contributions, with a Maslov phase rays could not carry. The
+  second (`docs/branch_coupling.md`) put the relation inside the equation, which
+  turned out not to be a rearrangement: it adds arrivals the free-branch ledger
+  does not contain, and it names the index the next step has to be written in —
+  a **pair of branches**, the index on which the theory's *conditions* live even
+  though its *amplitudes* factorize over it. **Still owed:** a genuine
+  flux-conserving throat operator. What is solved so far is a rank-one
+  *mouth-transfer* model — field values only, no normal-derivative matching, no
+  reflected channel, `1×1` where a conserving junction needs `2×2` unitary, and
+  lossy for `κ < 1`. That operator, not another visualization, is the immediate
+  next construction;
 * **two-wave invariant** — `𝒞` above, which is the sharp two-source falsifier
-  this round could not supply;
+  the ray round could not supply. It now has both an index and a caution. The
+  index: it should be a matrix in `(a,b)` in the same sense `K_ab` is, with the
+  rank counting independent histories and the off-diagonal carrying the part
+  that vanishes when a source is removed. The caution: anything built from a
+  resummed field inherits the throat's resonances, and `κ_c ∝ γ` means those are
+  unbounded as the regulator goes — so the test must be stated at fixed
+  sub-critical gain, or it will be measuring the pole rather than the source;
 * **stationary action** — evaluate the on-shell action and ask whether the
   candidate events are stationary. *Not* with Lagrange multipliers imposing this
   round's five equations, which would only rename them. This is where the
