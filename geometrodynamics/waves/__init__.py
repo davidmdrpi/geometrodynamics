@@ -51,3 +51,10 @@ from geometrodynamics.waves.throat_operator import (  # noqa: F401
     spectrum_by_channel,
     stability_thresholds,
 )
+from geometrodynamics.waves.throat_positivity import (  # noqa: F401
+    apex,
+    cone_coordinates,
+    inertia_below,
+    is_non_negative,
+    threshold_matrix,
+)

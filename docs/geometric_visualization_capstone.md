@@ -283,7 +283,7 @@ part goes like `sin(md) sin(mΔ)` and changes sign with the mode. So `κ_series`
 `Δ = π`; at `κ = 1.520` in that gap the series diverges to `1.3e+119` while the
 solve is finite and stable. **Solving and summing are not the same operation.**
 
-## 14. Conservation is not stability (`docs/throat_operator.md`, current round)
+## 14. Conservation is not stability (`docs/throat_operator.md`)
 
 The previous round owed a boundary operator. A point-supported throat is a
 **self-adjoint extension** of the Laplacian on `S³ ∖ {M⁺, M⁻}`, parametrized by
@@ -333,7 +333,53 @@ self-adjoint throat can be unstable too.
 and therefore **no delay**. The `Δ` that carried `#251`–`#255` is not a parameter
 of a point extension.
 
-## 15. What the arc cost in errors, and what caught them
+## 15. The positive sector is a light cone (`docs/throat_positivity.md`, current round)
+
+The previous round left three of the boundary matrix's four parameters open: it
+showed that flux conservation does not give stability, and mapped the stable
+region on the exchange-symmetric slice by scanning. The general answer is one
+inequality.
+
+```
+non-negative  ⟺  A ⪰ Γ(0),   Γ(0) = [[g₀,G₀],[G₀,g₀]],
+g₀ = −1/(4π²),  G₀ = (π−d)/(4π² sin d)
+```
+
+**Why**: `dΓ/dλ ≻ 0` below threshold, so every eigenvalue of `A − Γ(λ)` falls
+with `λ` while both run to `+∞` as `λ → −∞` — one crosses zero below threshold
+iff it is already negative at it. Checked against a negative-`λ` root scan on
+200 random Hermitian `A`, all with complex `β` and unequal mouths: **0
+mismatches**, with both verdicts occurring.
+
+**And the same argument counts.** `#{eigenvalues < λ*} = #{negative eigenvalues
+of A − Γ(λ*)}` for any `λ*` below the free ground state — a Krein-type inertia
+theorem, 0 mismatches in 160 tests. Stability is its `λ* = 0` case, and the
+*number* of growing modes comes out of it.
+
+**The geometry is a forward light cone.** Hermitian `2×2` is `ℝ⁴` under
+`A − Γ(0) = x₀I + x·σ`, and PSD is `x₀ ≥ |x|`: apex at `Γ(0)` with a doubly
+degenerate zero mode, null boundary carrying exactly one, interior strictly
+positive. Tested as a cone — convex, and closed under positive scaling *from the
+apex*.
+
+**The boundary is detectable rather than conventional**: the secular function
+vanishes there to `1.8e-17` and the marginal mode is located by independent
+root-finding at `1.4e-14`. Outside it the instability is continuous — `λ` linear
+in the distance `ε`, so `σ` rises with exponent `0.50001`, with the coefficient
+predicted from the eigenvalue slope rather than fitted.
+
+**And the previous round's wedge is the `x₂ = x₃ = 0` slice** — exact there, and
+wrong on 65 of 400 general draws when reused by averaging the mouths and
+dropping `Im β`. Those two dimensions are exactly what a two-parameter scan
+cannot see, which is the round's methodological point: the earlier result was
+not wrong, it was *lower-dimensional*, and only the closed form showed which.
+
+**Where the apex sits.** `tr Γ(0) = −1/(2π²)` at every mouth separation, its
+eigenvalues are the previous round's two channel thresholds, and `det Γ(0) < 0`
+everywhere — so `Γ(0)` is indefinite and **`A = 0` is unstable at every
+separation**, which no placement of the mouths repairs.
+
+## 16. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -445,7 +491,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 16. What is imported rather than derived
+## 17. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -479,16 +525,17 @@ of that. What reached it was being asked to name the object precisely.
   *form* — a maximal pair `(B, C)` with `BC†` Hermitian, four real parameters —
   and nothing else. Which four numbers is a choice, `shells/junction.py` is
   still what would derive them from matter, and the exotic-matter bill remains
-  unpaid. **Stability is also not fixed by the form**: most of the sampled
-  family has a growing mode, so choosing data inside the wedge is a further
-  input, not a consequence.
+  unpaid. **Stability is also not fixed by the form**, though the positivity
+  round narrowed the input sharply: the admissible set is now the closed-form
+  cone `A ⪰ Γ(0)` rather than an unmapped region, and only `0.083` of a stated
+  box lies inside it. *Which* point in the cone is still an input.
 * **The regulator `γ`**, likewise. A damping per unit path length is what makes
   the winding series converge. Every result is either `γ`-independent or reported
   as a `γ`-scaling, but that the physical answer is the `γ → 0` limit of this
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 17. What would come next
+## 18. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
