@@ -333,7 +333,7 @@ self-adjoint throat can be unstable too.
 and therefore **no delay**. The `Δ` that carried `#251`–`#255` is not a parameter
 of a point extension.
 
-## 15. The positive sector is a light cone (`docs/throat_positivity.md`, current round)
+## 15. The positive sector is a light cone (`docs/throat_positivity.md`)
 
 The previous round left three of the boundary matrix's four parameters open: it
 showed that flux conservation does not give stability, and mapped the stable
@@ -411,7 +411,70 @@ against the cone on 60 chart draws and against a root scan on 60 stratum draws,
 with the reduction's own assumptions (Hermiticity of `A_eff`, the row-space
 condition) checked rather than asserted.
 
-## 16. What the arc cost in errors, and what caught them
+## 16. The two-source invariant (`docs/two_source_invariant.md`, current round)
+
+§10 ended rank counting by naming what it could not supply: a quantity that
+**vanishes** when a source is removed rather than merely becoming
+underdetermined. Deleting a scalar equation costs a dimension whatever was
+deleted. The replacement has to be a field quantity, and superposition decides
+its shape — every *linear* functional of a linear field is additive, so the
+object has to be **quadratic**, and what carries the two-source information is
+its cross term:
+
+```
+𝒞(y_A, y_B) = G(y_A,y_B) + Re Σ_ij G(y_A,c_i) R_ij G(c_j,y_B),  R = (A − Γ(λ))⁻¹
+```
+
+identically zero when either source is switched off, and not vacuous. Written
+out it is §13's requested index: **a matrix in a pair of branches**, the branch
+being which mouth the field entered and which it left, plus one channel that used
+neither. Its `N × N` table has rank two at every source count — the entire
+multi-source signature of a point throat is two-dimensional.
+
+**Two things that look like the signature and are not**, and separating them is
+most of the round. The cross term being nonzero is interference. And the
+interaction being **anisotropic** — depending on more than the geodesic
+separation, which no free field on this background can do at all — is a real
+effect, `66%` of the mean, that **two disconnected scatterers reproduce at
+`69%`**. It detects structure at the mouths, not a connection between them. The
+same trap one level down: the response matrix has off-diagonal entries even for
+diagonal boundary data, because `Γ` couples the mouths through the ambient field.
+
+**What discriminates is a parameter count.** The static invariant determines
+three numbers — the entries of `S = Re R` — and two independent scatterers have
+two knobs, so their image is a surface with the exact equation `S₁₂ = G₀ det S`.
+The defect `𝒲 = S₁₂/det S − G₀` is its defining function, and on the
+time-reversal-invariant slice it is not merely nonzero but **equal to the
+coupling**:
+
+```
+𝒲 = −β        exactly,  to 5e-16
+```
+
+independent of the self-energies, the separation, and the **Löwner margin** —
+which is the answer to §13's caution that a resummed field measures the pole
+rather than the source. Driven toward the cone's boundary the invariant grows
+`3.8×` and `𝒲` drifts `2e-17`. And it is a **protocol**: recovered by least
+squares from measured interaction energies by an observer who is never told the
+boundary data.
+
+**Against the round.** `𝒲 = 0` has solutions away from `β = 0` on two branches.
+§15's gate excludes one and **leaves the other**: connected throats with `|β|`
+larger than their own self-energies, strictly inside the stable cone, that a
+single-frequency two-source test cannot distinguish from two disconnected
+scatterers. So the test **can confirm a throat and cannot falsify one** — until a
+second frequency is added, at which point six equations over-determine the four
+boundary parameters and reconstruct `A` outright, blind family included, with
+only the *sign* of `Im β` left unobservable (§14's time reversal).
+
+**And the antipodal endpoint, tested as itself.** At `d = π` the static response
+is singular as `A → 0`, so the invariant **diverges like `1/ε`** — while `𝒲`
+stays exactly zero through four decades of it. The loudest available two-source
+signal carries no information about whether the mouths are connected. That is
+the arc's recurring lesson in its most extreme form: **size is not evidence**,
+and here the size is unbounded.
+
+## 17. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -534,7 +597,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 17. What is imported rather than derived
+## 18. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -578,7 +641,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 18. What would come next
+## 19. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
@@ -638,20 +701,27 @@ ray closure → field solution → two-wave invariant
   reflected channel, `1×1` where a conserving junction needs `2×2` unitary, and
   lossy for `κ < 1`. That operator, not another visualization, is the immediate
   next construction;
-* **two-wave invariant** — `𝒞` above, which is the sharp two-source falsifier
-  the ray round could not supply. It now has both an index and a caution. The
-  index: it should be a matrix in `(a,b)` in the same sense `K_ab` is, with the
-  rank counting independent histories and the off-diagonal carrying the part
-  that vanishes when a source is removed. The caution: anything built from a
-  resummed field inherits the throat's resonances, and `κ_c ∝ γ` means those are
-  unbounded as the regulator goes — so the test must be stated at fixed
-  sub-critical gain, or it will be measuring the pole rather than the source;
+* **two-wave invariant** — ~~done~~, with one half of it a negative result. `𝒞`
+  is built (§16): the cross term of a quadratic functional, identically zero
+  without a second source, written in the requested branch-pair index and rank
+  two at any source count. The caution about resonances is **answered rather
+  than managed** — the discriminator `𝒲 = S₁₂/det S − G₀` is exactly `−β` and
+  does not move at all as the cone's boundary is approached, so it measures the
+  source and not the pole. **Still owed:** the test as built confirms a throat
+  and cannot falsify one. A one-parameter family of connected throats, stable
+  and not fine-tuned, is invisible to it at a single frequency; two frequencies
+  repair that and over-determine the boundary matrix, which is a stronger
+  experimental demand than "a two-source coincidence" and should be quoted as
+  one. Everything is static-source, so it is an interaction-energy statement and
+  not yet a scattering one;
 * **stationary action** — evaluate the on-shell action and ask whether the
-  candidate events are stationary. *Not* with Lagrange multipliers imposing this
-  round's five equations, which would only rename them. This is where the
+  candidate events are stationary. *Not* with Lagrange multipliers imposing the
+  ray round's five equations, which would only rename them. This is where the
   retrocausal language earns its keep or fails: the backward-in-time throat
   contribution should fall out of one stationary solution rather than be
-  narrated afterwards;
+  narrated afterwards. It now has a target rather than a description — `𝒞` *is*
+  a cross term of a quadratic functional, which is what an on-shell action is
+  made of, and `𝒲 = −β` is a measured number the action round has to reproduce;
 * **backreaction** — and the first GR question is not "does spacetime pinch
   off?" but whether `A + B` produces a collapse response not reproducible by
   rescaling `A` or `B` alone;

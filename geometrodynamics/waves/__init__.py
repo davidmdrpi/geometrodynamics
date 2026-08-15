@@ -58,3 +58,14 @@ from geometrodynamics.waves.throat_positivity import (  # noqa: F401
     is_non_negative,
     threshold_matrix,
 )
+from geometrodynamics.waves.two_source import (  # noqa: F401
+    branch_pair_invariant,
+    defect_of_pair,
+    disconnection_defect,
+    interaction_energy,
+    invisible_partner,
+    recover_boundary,
+    recover_response,
+    response_matrix,
+    static_response,
+)
