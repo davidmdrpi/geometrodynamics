@@ -224,7 +224,7 @@ minimally coupled one has irrational frequencies and no images — `63%` of the
 peak sits between the arrivals against `4.0e-08`. Rays cannot tell the two
 apart, because both have the same geodesics.
 
-## 13. The mouth transfer solved for, not applied (`docs/branch_coupling.md`, current round)
+## 13. The mouth transfer solved for, not applied (`docs/branch_coupling.md`)
 
 The previous round solved the field but kept the mouth relation on the
 **outside**: `φ(M⁺,t) = η φ(M⁻,t+Δ)` was applied *to the free branches after
@@ -283,7 +283,57 @@ part goes like `sin(md) sin(mΔ)` and changes sign with the mode. So `κ_series`
 `Δ = π`; at `κ = 1.520` in that gap the series diverges to `1.3e+119` while the
 solve is finite and stable. **Solving and summing are not the same operation.**
 
-## 14. What the arc cost in errors, and what caught them
+## 14. Conservation is not stability (`docs/throat_operator.md`, current round)
+
+The previous round owed a boundary operator. A point-supported throat is a
+**self-adjoint extension** of the Laplacian on `S³ ∖ {M⁺, M⁻}`, parametrized by
+`U(2)`; written as the *pair* `B φ^reg = C q` — general enough to hold `#255`'s
+relation, which is not of the form `φ^reg = A q` — the mouth-active spectrum is
+`det(C − BΓ) = 0`.
+
+**It is definable at all.** `G(χ,ω) = sin(ω(π−χ))/(4π sin χ sin(πω))`, real on
+the axis, poles at `ω = n+1`, finite at the antipode, matching `#255`'s branch
+series to `6.3e-12`; short-distance split `1/(4πχ) + g(ω) + O(χ)` with remainder
+first order in `χ`, so the subtraction is forced.
+
+**Hermiticity is exactly flux conservation** — `Im(q†Aq) = 0` for every `q`, at
+`1.8e-16` over 200 draws, against `0.54` for a non-Hermitian control.
+
+**And that is all it buys.** This is where the round's first version went wrong,
+and the correction is its main content. `Γ` is real symmetric for real `λ = ω²`
+of *either* sign, so `λ` is real — but nothing forces it positive, and `λ < 0`
+means `ω = ±i√|λ|` with a growing mode. Two of the round's own three advertised
+boundary matrices have exactly that, at `σ = 2.470532` and `σ = 7.090982`. They
+were missed because the root search seeded only `Re ω ∈ [1.1, 6.9]` and
+discarded roots leaving that window — a search that by construction could not
+find a root on the imaginary axis. **The claim that a conserving throat cannot
+ring up is withdrawn.**
+
+**What replaces it is a stability region in closed form.** Both channel
+functions fall monotonically along the imaginary axis, so stability is
+`α + β ≥ g₀ + G₀` and `α − β ≥ g₀ − G₀` with `g₀ = −1/(4π²)` and
+`G₀ = (π−d)/(4π² sin d)` — verified against a negative-`λ` scan at all 221 grid
+points with 0 mismatches, and only 56 of them stable. Positivity is a genuine
+restriction on the boundary data, separate from self-adjointness.
+
+**Scope.** `det(C − BΓ) = 0` is the **rank-two mouth-active sector**, not the
+spectrum: level `n` has degeneracy `(n+1)²` and only two combinations move, so
+23 of 25 modes at level 4 never leave the free eigenvalue. Inside the sector
+there is a mode *below* the free ground state that an `ω`-scan starting above 1
+cannot see; and the antisymmetric channel does not span the first gap, because
+the `n = 0` constant mode is equal at both mouths and its pole cancels.
+
+**`#255` embeds exactly** as `B = [[0,0],[gain,0]]`, `C = I`, giving
+`det(C − BΓ) = 1 − gain·G_d` — its own `1 − L` to `3.5e-18`. Maximal, not
+self-adjoint, and unreachable by any finite Hermitian `A`. That is a
+classification of its boundary condition and **not** a diagnosis of its poles: a
+self-adjoint throat can be unstable too.
+
+**What it costs.** The throat is point-supported: no interior, no proper length,
+and therefore **no delay**. The `Δ` that carried `#251`–`#255` is not a parameter
+of a point extension.
+
+## 15. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -354,6 +404,25 @@ Worth recording, because the failure modes repeat:
   condition" described a relation between field *values* with no flux matching,
   no reflected channel and `κ² < 1` power throughput. The solve was exact; the
   name promised a boundary operator the model does not contain.
+* **A theorem's conclusion widened past what it says.** Self-adjointness makes
+  the *spatial* eigenvalue `λ = ω²` real. It was reported as "the spectrum is
+  real, so a conserving throat cannot ring up" — but `λ < 0` is real and means
+  `ω = ±i√|λ|`, one member growing. Two of the round's own three examples were
+  unstable, at `σ = 2.4705` and `7.0910`.
+* **An instrument that could not see the answer.** The search for those roots
+  seeded `Re ω ∈ [1.1, 6.9]` and discarded anything leaving the window, so a
+  root on the imaginary axis was outside its reach *by construction*. The
+  numbers it returned were all correct.
+* **A control that was a different model.** PR #255's relation was represented
+  as `A = [[0,0],[1/gain,0]]` with `B = I`, giving `g² − G_d² + G_d/gain`,
+  where its actual pole condition is `1 − gain·G_d`. Everything concluded by
+  comparing against it was unsupported. The true embedding needs a singular `B`:
+  `q₁ = 0` is not of the form `φ^reg = A q` at all.
+* **A parametrization read as a measurement.** The Cayley entries
+  `(A − ic)(A + ic)⁻¹` were called reflection and transmission. Their magnitudes
+  depend on the arbitrary reference scale `c` — the same `A` gives `0.955` and
+  `0.713` — so they are boundary-mixing coefficients, and the physical
+  conservation statement is the flux identity instead.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -376,7 +445,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 15. What is imported rather than derived
+## 16. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -403,14 +472,23 @@ of that. What reached it was being asked to name the object precisely.
   no normal-derivative matching, no reflected channel, a `1×1` mouth scattering
   object where a conserving junction needs `2×2` unitary, and `κ²` power
   throughput. Solving it self-consistently fixes what a given `κ` *does*; it
-  does not make the relation a boundary operator or a quotient.
+  does not make the relation a boundary operator or a quotient. **Replaced** in
+  the operator round by a self-adjoint extension — which promptly showed that
+  the model's instability was its own.
+* **The boundary data**, in the operator round. Self-adjointness fixes the
+  *form* — a maximal pair `(B, C)` with `BC†` Hermitian, four real parameters —
+  and nothing else. Which four numbers is a choice, `shells/junction.py` is
+  still what would derive them from matter, and the exotic-matter bill remains
+  unpaid. **Stability is also not fixed by the form**: most of the sampled
+  family has a growing mode, so choosing data inside the wedge is a further
+  input, not a consequence.
 * **The regulator `γ`**, likewise. A damping per unit path length is what makes
   the winding series converge. Every result is either `γ`-independent or reported
   as a `γ`-scaling, but that the physical answer is the `γ → 0` limit of this
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 16. What would come next
+## 17. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:

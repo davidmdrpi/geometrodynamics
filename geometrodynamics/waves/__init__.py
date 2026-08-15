@@ -40,3 +40,14 @@ from geometrodynamics.waves.branch_coupling import (  # noqa: F401
     leg_branches,
     mouth_transfer,
 )
+from geometrodynamics.waves.throat_operator import (  # noqa: F401
+    BoundaryCondition,
+    DirectionalThroat,
+    MouthPair,
+    free_green,
+    is_stable,
+    mouth_active_spectrum,
+    regularized_green,
+    spectrum_by_channel,
+    stability_thresholds,
+)

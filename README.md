@@ -2290,6 +2290,81 @@ python scripts/geometrodynamics_v55_branch_coupling.py --still v55.png
 
 Full write-up: `docs/branch_coupling.md`.
 
+## Conservation is not stability
+
+PR #255 owed a boundary operator. A point-supported throat is a **self-adjoint
+extension** of the Laplacian on `S³ ∖ {M⁺, M⁻}`, parametrized by `U(2)`; writing
+the boundary condition as the *pair* `B φ^reg = C q` — general enough to hold
+#255's relation, which is not of the form `φ^reg = A q` — the mouth-active
+spectrum is `det(C − BΓ) = 0`.
+
+**It is definable at all.** `G(χ,ω) = sin(ω(π−χ))/(4π sin χ sin(πω))` in closed
+form: real on the axis, poles exactly at `ω = n+1`, and *finite* at the antipode
+where the numerator's zero cancels `sin χ`. It matches #255's branch series to
+`6.3e-12`, and its short-distance split `1/(4πχ) + g(ω) + O(χ)` has remainder
+first order in `χ`, so the subtraction a point interaction needs is forced.
+
+**Hermiticity is exactly flux conservation.** The current through a small sphere
+at mouth `j` is `Im(q_j* φ_j^reg)`, so the total absorbed is `Im(q† A q)` — zero
+for *every* `q` when `A = A†`, at `1.8e-16` over 200 draws, against a median
+`0.54` for a non-Hermitian control.
+
+**And that is all it buys.** `Γ` is real symmetric for real `λ = ω²` of *either*
+sign, so `λ` is real — but nothing forces it positive, and `λ < 0` means
+`ω = ±i√|λ|` with one member of the pair growing. A first version of this round
+claimed "real spectrum for every coupling, so a conserving throat cannot ring
+up"; that is **false**, and two of its own three examples are the counterexample:
+
+| `(α₁, α₂, β)` | `σ` | `λ` | growing? |
+| --- | ---: | ---: | :---: |
+| `(0.05, 0.05, 0.03)` | — | — | no |
+| `(0.2, −0.13, 0.15+0.07i)` | **`2.470532`** | `−6.104` | **yes** |
+| `(−0.4, 0.07, −0.09+0.31i)` | **`7.090982`** | `−50.28` | **yes** |
+
+They were missed because the earlier root search seeded only `Re ω ∈ [1.1, 6.9]`
+and discarded roots leaving that window — a search that by construction could not
+find a root on the imaginary axis.
+
+**What replaces it is a stability region with a closed form.** Both channel
+functions fall monotonically along the imaginary axis from their `λ = 0` values,
+so
+
+```
+stable  ⟺  α + β ≥ g₀ + G₀ = +0.02308202   and   α − β ≥ g₀ − G₀ = −0.07374262
+g₀ = −1/(4π²),   G₀ = (π−d)/(4π² sin d)
+```
+
+verified against a negative-`λ` scan at all **221** grid points with **0**
+mismatches — and only **56** of them stable, so positivity is a real restriction.
+
+**Scope: `det(C − BΓ) = 0` is the rank-two mouth-active sector**, not the
+spectrum. Level `n` has degeneracy `(n+1)²` and only two combinations can move,
+so **23 of 25** modes at level 4 never leave the free eigenvalue. Inside the
+sector there is also a mode *below* the free ground state (`λ = 0.311`) that an
+`ω`-scan starting above 1 cannot see, then two per interlacing gap. And the
+convenient claim that both channels run `−∞ → +∞` across every gap is false: the
+`n = 0` constant mode is equal at both mouths, so the antisymmetric channel's
+pole at `ω = 1` cancels and a first-gap root is conditional on `α − β`.
+
+**#255's relation embeds exactly** as `B = [[0,0],[gain,0]]`, `C = I`, giving
+`det(C − BΓ) = 1 − gain·G_d` — its own `1 − L`, matched to `3.5e-18`. Maximal,
+but `BC† = B` is not Hermitian, and no finite Hermitian `A` reproduces it. This
+is a *classification* of that boundary condition, **not** a diagnosis of its
+off-axis poles: a self-adjoint throat can be unstable too.
+
+Still put in: the boundary data — four real numbers chosen, not derived. The
+throat is **point-supported**, so no interior, no proper length and **no delay**:
+the `Δ` that carried #251–#255 does not survive into a point extension.
+
+```bash
+python -m experiments.closure_ledger.throat_operator_probe
+# Verdict: SELF_ADJOINTNESS_IS_CONSERVATION_NOT_STABILITY  (8/8)
+
+python scripts/geometrodynamics_v56_throat_operator.py --still v56.png
+```
+
+Full write-up: `docs/throat_operator.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
