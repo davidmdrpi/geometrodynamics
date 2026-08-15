@@ -1,0 +1,693 @@
+{
+  "probe": "branch_coupling",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "is the throat identification part of the field problem, or a shift applied to the free branches after they are computed? and what is the primitive object -- is it indexed by a pair of branches?",
+      "scope": "a linear scalar field on a fixed Einstein static universe. The throat is still an identification map with a coupling kappa put in by hand, and PR #249's exotic-matter bill is inherited and unpaid. No backreaction, no stress tensor, no topology change, no rate. The two-throat cross term in T7 is a throat-throat interference, not roadmap step 3's two-source invariant.",
+      "pass": true
+    },
+    {
+      "name": "T2_the_closed_form_transfer_is_the_branch_sum",
+      "rows": [
+        {
+          "chi": 0.5,
+          "omega": 0.4,
+          "series": {
+            "re": 0.15159738657618368,
+            "im": -0.003556674686264586
+          },
+          "closed": {
+            "re": 0.1515973865761837,
+            "im": -0.003556674686264644
+          },
+          "abs_error": 6.440124399336781e-17
+        },
+        {
+          "chi": 0.5,
+          "omega": 1.7,
+          "series": {
+            "re": 0.1962483147194148,
+            "im": -0.028116988349714364
+          },
+          "closed": {
+            "re": 0.19624831471941534,
+            "im": -0.028116988349714083
+          },
+          "abs_error": 5.97561251045904e-16
+        },
+        {
+          "chi": 0.5,
+          "omega": 3.3,
+          "series": {
+            "re": -0.1289110585896952,
+            "im": -0.03499413767115138
+          },
+          "closed": {
+            "re": -0.12891105858969457,
+            "im": -0.03499413767115111
+          },
+          "abs_error": 6.93368778045034e-16
+        },
+        {
+          "chi": 0.5,
+          "omega": 6.1,
+          "series": {
+            "re": -0.1969380440269012,
+            "im": -0.029856444309355648
+          },
+          "closed": {
+            "re": -0.19693804402690124,
+            "im": -0.029856444309356564
+          },
+          "abs_error": 9.163544378420584e-16
+        },
+        {
+          "chi": 1.3,
+          "omega": 0.4,
+          "series": {
+            "re": 0.058017288342978826,
+            "im": -0.002921806001214259
+          },
+          "closed": {
+            "re": 0.058017288342978736,
+            "im": -0.002921806001214269
+          },
+          "abs_error": 9.075542880119994e-17
+        },
+        {
+          "chi": 1.3,
+          "omega": 1.7,
+          "series": {
+            "re": -0.0021274417490333383,
+            "im": -0.009056763021866806
+          },
+          "closed": {
+            "re": -0.0021274417490331882,
+            "im": -0.009056763021866678
+          },
+          "abs_error": 1.9747104891388469e-16
+        },
+        {
+          "chi": 1.3,
+          "omega": 3.3,
+          "series": {
+            "re": 0.019427076805937214,
+            "im": 0.011300732688815865
+          },
+          "closed": {
+            "re": 0.01942707680593683,
+            "im": 0.01130073268881573
+          },
+          "abs_error": 4.0818747446951475e-16
+        },
+        {
+          "chi": 1.3,
+          "omega": 6.1,
+          "series": {
+            "re": -0.2072309210782075,
+            "im": -0.10511046227870846
+          },
+          "closed": {
+            "re": -0.2072309210782084,
+            "im": -0.10511046227870796
+          },
+          "abs_error": 1.0190492755571723e-15
+        },
+        {
+          "chi": 2.2,
+          "omega": 0.4,
+          "series": {
+            "re": 0.03777049817408888,
+            "im": -0.0025651192924257093
+          },
+          "closed": {
+            "re": 0.03777049817408891,
+            "im": -0.002565119292425749
+          },
+          "abs_error": 4.824784941135089e-17
+        },
+        {
+          "chi": 2.2,
+          "omega": 1.7,
+          "series": {
+            "re": -0.11875312306827496,
+            "im": 0.01327305658043963
+          },
+          "closed": {
+            "re": -0.11875312306827478,
+            "im": 0.013273056580439696
+          },
+          "abs_error": 1.920770561445796e-16
+        },
+        {
+          "chi": 2.2,
+          "omega": 3.3,
+          "series": {
+            "re": -0.0034457851623975306,
+            "im": -0.0060466520657661655
+          },
+          "closed": {
+            "re": -0.003445785162398075,
+            "im": -0.00604665206576555
+          },
+          "abs_error": 8.218710165374549e-16
+        },
+        {
+          "chi": 2.2,
+          "omega": 6.1,
+          "series": {
+            "re": -0.12659329990110318,
+            "im": -0.07341549869915731
+          },
+          "closed": {
+            "re": -0.1265932999011059,
+            "im": -0.07341549869915727
+          },
+          "abs_error": 2.720365014351558e-15
+        }
+      ],
+      "worst_abs_error": 2.720365014351558e-15,
+      "the_series_is_the_closed_form": true,
+      "poles": [
+        {
+          "omega": 1,
+          "scaling": [
+            {
+              "damping": 0.01,
+              "abs_T": 2.533075544560594,
+              "ratio_to_previous": null
+            },
+            {
+              "damping": 0.001,
+              "abs_T": 25.330300507723564,
+              "ratio_to_previous": 9.99982040098119
+            },
+            {
+              "damping": 0.0001,
+              "abs_T": 253.3029595655644,
+              "ratio_to_previous": 9.999998203271563
+            }
+          ],
+          "residue": {
+            "re": -0.025330216333280847,
+            "im": -1.2950198109681127e-08
+          },
+          "residue_real": -0.025330216333280847,
+          "predicted_mode_over_2omega": -0.025330295910584447,
+          "matches": true
+        },
+        {
+          "omega": 2,
+          "scaling": [
+            {
+              "damping": 0.01,
+              "abs_T": 1.3558064348636607,
+              "ratio_to_previous": null
+            },
+            {
+              "damping": 0.001,
+              "abs_T": 13.551713152542943,
+              "ratio_to_previous": 9.995315558378875
+            },
+            {
+              "damping": 0.0001,
+              "abs_T": 135.5164961142369,
+              "ratio_to_previous": 9.999953112113179
+            }
+          ],
+          "residue": {
+            "re": -0.013551606395920037,
+            "im": 4.148384189710915e-08
+          },
+          "residue_real": -0.013551606395920037,
+          "predicted_mode_over_2omega": -0.01355164896959103,
+          "matches": true
+        },
+        {
+          "omega": 3,
+          "scaling": [
+            {
+              "damping": 0.01,
+              "abs_T": 1.8083701781508013,
+              "ratio_to_previous": null
+            },
+            {
+              "damping": 0.001,
+              "abs_T": 18.08023053461427,
+              "ratio_to_previous": 9.998080455575035
+            },
+            {
+              "damping": 0.0001,
+              "abs_T": 180.80195810737732,
+              "ratio_to_previous": 9.999980794560958
+            }
+          ],
+          "residue": {
+            "re": 0.018080138659500696,
+            "im": 3.5143956327697314e-08
+          },
+          "residue_real": 0.018080138659500696,
+          "predicted_mode_over_2omega": 0.018080195459990057,
+          "matches": true
+        }
+      ],
+      "the_poles_are_the_esu_spectrum": true,
+      "the_residues_are_the_mode_functions": true,
+      "what_this_shows": "the image sum and the mode sum are the same function; the branch labels are a representation, not an approximation",
+      "pass": true
+    },
+    {
+      "name": "T3_solving_the_throat_resums_every_traversal",
+      "rows": [
+        {
+          "kappa": 0.05,
+          "omega": 0.4,
+          "loop_gain": 0.0029045407111026474,
+          "solved": {
+            "re": 0.00023088449918662847,
+            "im": -0.00012232988706889773
+          },
+          "walked_series": {
+            "re": 0.00023088449918662847,
+            "im": -0.00012232988706889773
+          },
+          "abs_error": 0.0,
+          "post_processed_one_traversal": {
+            "re": 0.0002304353905959722,
+            "im": -0.00012171811051025896
+          },
+          "relative_miss_of_one_traversal": 0.0029045407111027897
+        },
+        {
+          "kappa": 0.05,
+          "omega": 1.1,
+          "loop_gain": 0.010747632979641401,
+          "solved": {
+            "re": 0.001929771529509586,
+            "im": -1.9462567708626743e-07
+          },
+          "walked_series": {
+            "re": 0.0019297715295095862,
+            "im": -1.9462567708626743e-07
+          },
+          "abs_error": 2.168404344971009e-19,
+          "post_processed_one_traversal": {
+            "re": 0.0019467939952656417,
+            "im": -1.2043803463465674e-05
+          },
+          "relative_miss_of_one_traversal": 0.010747632979641389
+        },
+        {
+          "kappa": 0.05,
+          "omega": 2.7,
+          "loop_gain": 0.004863562350947876,
+          "solved": {
+            "re": -0.00010692313497222484,
+            "im": -9.33559625203163e-05
+          },
+          "walked_series": {
+            "re": -0.00010692313497222481,
+            "im": -9.335596252031627e-05
+          },
+          "abs_error": 3.8332335417084355e-20,
+          "post_processed_one_traversal": {
+            "re": -0.00010659231704419556,
+            "im": -9.275003962212926e-05
+          },
+          "relative_miss_of_one_traversal": 0.004863562350948075
+        },
+        {
+          "kappa": 0.05,
+          "omega": 5.3,
+          "loop_gain": 0.00171365779915076,
+          "solved": {
+            "re": 9.55447411210187e-05,
+            "im": 0.00030079623679548403
+          },
+          "walked_series": {
+            "re": 9.554474112101871e-05,
+            "im": 0.0003007962367954841
+          },
+          "abs_error": 5.587850095852341e-20,
+          "post_processed_one_traversal": {
+            "re": 9.581861147881333e-05,
+            "im": 0.00030032986382307297
+          },
+          "relative_miss_of_one_traversal": 0.0017136577991507748
+        },
+        {
+          "kappa": 0.2,
+          "omega": 0.4,
+          "loop_gain": 0.01161816284441059,
+          "solved": {
+            "re": 0.0009289462134215783,
+            "im": -0.000496766105901079
+          },
+          "walked_series": {
+            "re": 0.0009289462134215783,
+            "im": -0.000496766105901079
+          },
+          "abs_error": 0.0,
+          "post_processed_one_traversal": {
+            "re": 0.0009217415623838888,
+            "im": -0.00048687244204103584
+          },
+          "relative_miss_of_one_traversal": 0.011618162844410529
+        },
+        {
+          "kappa": 0.2,
+          "omega": 1.1,
+          "loop_gain": 0.042990531918565604,
+          "solved": {
+            "re": 0.007518633748104149,
+            "im": 0.00013181049076518495
+          },
+          "walked_series": {
+            "re": 0.007518633748104149,
+            "im": 0.0001318104907651849
+          },
+          "abs_error": 5.421010862427522e-20,
+          "post_processed_one_traversal": {
+            "re": 0.007787175981062567,
+            "im": -4.81752138538627e-05
+          },
+          "relative_miss_of_one_traversal": 0.04299053191856562
+        },
+        {
+          "kappa": 0.2,
+          "omega": 2.7,
+          "loop_gain": 0.019454249403791504,
+          "solved": {
+            "re": -0.00043168519696920013,
+            "im": -0.000380857483264187
+          },
+          "walked_series": {
+            "re": -0.00043168519696919997,
+            "im": -0.0003808574832641868
+          },
+          "abs_error": 2.299940125025061e-19,
+          "post_processed_one_traversal": {
+            "re": -0.0004263692681767822,
+            "im": -0.00037100015848851703
+          },
+          "relative_miss_of_one_traversal": 0.01945424940379164
+        },
+        {
+          "kappa": 0.2,
+          "omega": 5.3,
+          "loop_gain": 0.00685463119660304,
+          "solved": {
+            "re": 0.0003788486858347733,
+            "im": 0.0012087901331605995
+          },
+          "walked_series": {
+            "re": 0.0003788486858347733,
+            "im": 0.0012087901331605995
+          },
+          "abs_error": 0.0,
+          "post_processed_one_traversal": {
+            "re": 0.0003832744459152533,
+            "im": 0.0012013194552922919
+          },
+          "relative_miss_of_one_traversal": 0.006854631196603068
+        },
+        {
+          "kappa": 0.45,
+          "omega": 0.4,
+          "loop_gain": 0.026140866399923822,
+          "solved": {
+            "re": 0.00211054562654404,
+            "im": -0.0011464582276162307
+          },
+          "walked_series": {
+            "re": 0.002110545626544039,
+            "im": -0.0011464582276162305
+          },
+          "abs_error": 8.940560153363745e-19,
+          "post_processed_one_traversal": {
+            "re": 0.0020739185153637496,
+            "im": -0.0010954629945923308
+          },
+          "relative_miss_of_one_traversal": 0.026140866399923923
+        },
+        {
+          "kappa": 0.45,
+          "omega": 1.1,
+          "loop_gain": 0.09672869681677261,
+          "solved": {
+            "re": 0.016195089602250176,
+            "im": 0.0007285988595285782
+          },
+          "walked_series": {
+            "re": 0.016195089602250173,
+            "im": 0.0007285988595285783
+          },
+          "abs_error": 3.471140604459642e-18,
+          "post_processed_one_traversal": {
+            "re": 0.017521145957390773,
+            "im": -0.00010839423117119107
+          },
+          "relative_miss_of_one_traversal": 0.09672869681677253
+        },
+        {
+          "kappa": 0.45,
+          "omega": 2.7,
+          "loop_gain": 0.0437720611585309,
+          "solved": {
+            "re": -0.0009864226898337414,
+            "im": -0.0008860793683843162
+          },
+          "walked_series": {
+            "re": -0.0009864226898337414,
+            "im": -0.0008860793683843162
+          },
+          "abs_error": 0.0,
+          "post_processed_one_traversal": {
+            "re": -0.0009593308533977598,
+            "im": -0.0008347503565991632
+          },
+          "relative_miss_of_one_traversal": 0.04377206115853098
+        },
+        {
+          "kappa": 0.45,
+          "omega": 5.3,
+          "loop_gain": 0.015422920192356842,
+          "solved": {
+            "re": 0.000839588095138923,
+            "im": 0.0027408593969374707
+          },
+          "walked_series": {
+            "re": 0.0008395880951389229,
+            "im": 0.0027408593969374703
+          },
+          "abs_error": 4.4702800766818725e-19,
+          "post_processed_one_traversal": {
+            "re": 0.0008623675033093197,
+            "im": 0.0027029687744076565
+          },
+          "relative_miss_of_one_traversal": 0.015422920192356982
+        }
+      ],
+      "worst_abs_error": 3.471140604459642e-18,
+      "the_resolvent_is_the_traversal_sum": true,
+      "worst_relative_miss_of_post_processing": 0.09672869681677253,
+      "post_processing_is_the_n_equals_zero_term": true,
+      "what_this_shows": "writing the identification into the field problem is not a rearrangement of PR #254 \u2014 it adds every history that returns to the mouth",
+      "pass": true
+    },
+    {
+      "name": "T4_the_solve_adds_arrivals_post_processing_cannot",
+      "n_words_one_traversal": 10,
+      "n_words_multi": 25,
+      "reconstruction_relative_error": 5.364863442422675e-06,
+      "the_waveform_is_the_sum_over_history_words": true,
+      "isolated_echoes": [
+        {
+          "t": 5.4,
+          "traversals": 2,
+          "isolation": 1.583185307179586,
+          "word_sign": 1,
+          "solved_level": 0.0019019679036161366,
+          "control_level": 3.9125240019058846e-16,
+          "contrast": 4861229995495.599,
+          "field_sign": 1,
+          "sign_agrees": true
+        },
+        {
+          "t": 9.883185307179586,
+          "traversals": 2,
+          "isolation": 0.5,
+          "word_sign": -1,
+          "solved_level": 0.0017342388711234311,
+          "control_level": 5.248356968120562e-16,
+          "contrast": 3304346258567.207,
+          "field_sign": -1,
+          "sign_agrees": true
+        }
+      ],
+      "worst_echo_contrast": 3304346258567.207,
+      "every_isolated_echo_stands_above_the_control": true,
+      "every_echo_carries_its_maslov_word_sign": true,
+      "amplitude_ladder": [
+        {
+          "traversals": 1,
+          "largest_amplitude": 0.004990154392879608,
+          "over_first": 1.0
+        },
+        {
+          "traversals": 2,
+          "largest_amplitude": 0.00024092716341097737,
+          "over_first": 0.048280502854732
+        },
+        {
+          "traversals": 3,
+          "largest_amplitude": 1.1632084600846177e-05,
+          "over_first": 0.002331006955905785
+        },
+        {
+          "traversals": 4,
+          "largest_amplitude": 5.616028937776379e-07,
+          "over_first": 0.00011254218798900939
+        }
+      ],
+      "kappa": 0.6,
+      "what_this_shows": "the extra arrivals are not a correction to the amplitudes of PR #254's ledger; they are events at times that ledger does not contain",
+      "pass": true
+    },
+    {
+      "name": "T5_closure_is_broadband_coherence",
+      "delay": -14.666370614359172,
+      "n_pairs": 64,
+      "n_closed": 3,
+      "worst_closed_coherence": 1.0,
+      "best_other_coherence": 0.09085308356334613,
+      "closed_pairs_are_broadband_coherent": true,
+      "every_other_pair_dephases": true,
+      "contrast": 11.006781066520025,
+      "pairs_a_single_index_rule_would_select": 9,
+      "the_condition_does_not_factorize": true,
+      "the_amplitude_does_factorize": true,
+      "what_this_shows": "the amplitude is an outer product over the pair index and the closure condition is not; that is why the pair is the primitive",
+      "pass": true
+    },
+    {
+      "name": "T6_the_condition_does_not_factorize",
+      "n_closed": 3,
+      "pairs_a_single_index_rule_would_select": 9,
+      "the_condition_does_not_factorize": true,
+      "the_amplitude_does_factorize": true,
+      "delay": -14.666370614359172,
+      "pass": true
+    },
+    {
+      "name": "T7_one_throat_is_rank_one_and_two_are_rank_two",
+      "cross_visibility_max": 0.9999725380097735,
+      "cross_visibility_min": -0.9999999545199589,
+      "the_cross_term_is_a_full_fringe": true,
+      "singular_values_throat_A": [
+        1.0,
+        1.3198223088599768e-16,
+        4.6343913046628416e-17,
+        3.306497850045354e-17
+      ],
+      "singular_values_throat_B": [
+        1.0,
+        9.441764832442189e-17,
+        5.1872315722590384e-17,
+        3.439860441384879e-17
+      ],
+      "singular_values_both": [
+        1.0,
+        0.5417447130968615,
+        1.0471098641825821e-16,
+        7.132956077674743e-17
+      ],
+      "rank_one_throat": 1,
+      "rank_two_throats": 2,
+      "one_throat_is_rank_one": true,
+      "two_throats_are_rank_two": true,
+      "cross_term": 4.7228715724533455e-06,
+      "cross_term_direct": 4.7228715724533455e-06,
+      "cross_term_agrees": true,
+      "why_it_vanishes_without_a_second_throat": "it is bilinear \u2014 one factor from each throat's pair sum \u2014 so removing either sets it to zero identically, not merely underdetermined; that is structural, not measured",
+      "scope": "a throat\u2013throat interference term, not the two-source invariant of roadmap step 3",
+      "pass": true
+    },
+    {
+      "name": "T8_the_expansion_fails_at_the_eigenfrequencies",
+      "rows": [
+        {
+          "kappa_critical": 3.0465004485122296,
+          "omega_of_the_peak": 5.9992002501,
+          "peak_transfer": 0.32824547932968595,
+          "damping": 0.08,
+          "kappa_c_ratio_to_previous": null,
+          "damping_ratio": null,
+          "exponent": null
+        },
+        {
+          "kappa_critical": 1.5236755531095385,
+          "omega_of_the_peak": 6.00000025,
+          "peak_transfer": 0.6563077014389225,
+          "damping": 0.04,
+          "kappa_c_ratio_to_previous": 1.9994417067957075,
+          "damping_ratio": 2.0,
+          "exponent": 0.9995972203615031
+        },
+        {
+          "kappa_critical": 0.7618879621813858,
+          "omega_of_the_peak": 6.00000025,
+          "peak_transfer": 1.312528940786606,
+          "damping": 0.02,
+          "kappa_c_ratio_to_previous": 1.9998682598253086,
+          "damping_ratio": 2.0,
+          "exponent": 0.999904966421674
+        },
+        {
+          "kappa_critical": 0.38095032790553773,
+          "omega_of_the_peak": 6.00000025,
+          "peak_transfer": 2.625014146852145,
+          "damping": 0.01,
+          "kappa_c_ratio_to_previous": 1.9999666790424897,
+          "damping_ratio": 2.0,
+          "exponent": 0.9999759638096933
+        }
+      ],
+      "exponents": [
+        0.9995972203615031,
+        0.999904966421674,
+        0.9999759638096933
+      ],
+      "kappa_critical_scales_like_damping": true,
+      "mean_exponent": 0.9998260501976235,
+      "the_peak_sits_on_an_esu_eigenfrequency": true,
+      "the_relative_miss_is_the_loop_gain": "|1/(1\u2212L) \u2212 1| / |1/(1\u2212L)| = |L| exactly, so the error of post-processing IS the round-trip gain",
+      "on_and_off_resonance": [
+        {
+          "omega": 6.00000025,
+          "loop_gain": 0.5000000000000001,
+          "relative_miss_of_one_traversal": 0.5000000000000001
+        },
+        {
+          "omega": 6.50000025,
+          "loop_gain": 0.017663822501626566,
+          "relative_miss_of_one_traversal": 0.01766382250162651
+        }
+      ],
+      "resonance_is_where_post_processing_is_worst": true,
+      "kappa_used": 0.3809439810906929,
+      "what_this_shows": "the free-branch answer is an expansion in the loop gain, and the loop gain has no bound as the regulator is removed",
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
+      "n_passed": 8,
+      "n_total": 8,
+      "pass": true
+    }
+  ],
+  "verdict_class": "THE_THROAT_IS_SOLVED_FOR_AND_THE_PRIMITIVE_IS_A_PAIR",
+  "verdict": "YES -- AND IT WAS NOT A REARRANGEMENT OF PR #254. That round applied the identification phi(M+,t) = eta phi(M-,t+Delta) to the free branches after computing them, which gives one traversal by construction: a post-processing step cannot notice that what it re-emits will come back. Written into the field problem instead, the amplitude re-emitted at M- is driven by everything reaching M+ including its own return, and the solution carries a resolvent 1/(1 - L). FIRST, THE BRANCH SERIES SUMS IN CLOSED FORM: the short-way images all carry the Maslov factor +1 and the long-way images all carry -1, so the winding sum is two geometric series and equals (e^{-u chi} - e^{-u(2pi-chi)})/(1 - e^{-2pi u}), verified against the term-by-term sum to 2.7e-15. Its poles, as the regulator is removed, sit at omega = 1, 2, 3, ... -- the conformal ESU eigenfrequencies -- with residues equal to the mode functions over 2 omega. The image representation and the mode representation are the same function seen from two sides, which is the strongest statement so far that the branch labels are a REPRESENTATION rather than an approximation. SECOND, THE SOLVE IS THE SUM OVER EVERY TRAVERSAL: the resolvent agrees with an explicit walk over 400 traversals to 3.5e-18, and PR #254's answer is the n = 0 term, whose relative error is exactly the round-trip gain |L|. THIRD -- AND THIS IS THE SHARPEST PART -- THE SOLVE ADDS EVENTS, NOT AMPLITUDES. The solved waveform is the sum over history words to 5.4e-06, so the word enumeration is checked rather than asserted; at echo times ell_a + Delta + n(ell_c + Delta) + ell_b that no one-traversal word can reach, the solved field stands 3.3e+12 above the control, with amplitudes on the kappa^n ladder and signs equal to the product of every Maslov factor in the word. Those are arrivals at times PR #254's ledger does not contain. FOURTH, THE PRIMITIVE IS INDEXED BY A PAIR OF BRANCHES, AND FOR A GOOD REASON: K_ab carries the phase e^{-i omega (l_a + Delta + l_b)}, so PR #253's closure condition is EXACTLY the statement that K_ab is independent of omega -- closed pairs have band coherence 1.000 while every other pair dephases below 0.091. The amplitude factorizes over that index (K is rank one) and the CONDITION DOES NOT: 3 pairs close where any rule phrased on a alone and b alone would admit 9. FIFTH, the rank counts histories -- one throat rank one, two throats rank two -- and the throat-throat cross term is a full fringe, visibility -1.000 to 1.000, bilinear and therefore identically zero without either throat. That is the same shape as roadmap step 3's invariant and is explicitly NOT that invariant: these are throats, not sources. SIXTH, THERE IS A REGIME WHERE POST-PROCESSING IS NOT AN APPROXIMATION AT ALL: |T_d| peaks where 1 - e^{-2pi u} = 2 pi gamma, so the critical coupling falls linearly in the regulator -- measured exponent 0.9998 -- and the peak sits exactly on an ESU eigenfrequency. As the regulator is removed every coupling is critical somewhere, and there the one-traversal answer is the first term of a divergent series. WHAT IS STILL PUT IN: the throat remains an identification map with kappa by hand, the background is fixed, the field is linear, and when Delta + ell_c < 0 the loop is closed in time and 1/(1 - L) is a self-consistency condition rather than a history sum -- it has a unique solution exactly when the branch-resolved loop gain is subcritical, which is a bound on kappa and not a derivation of it. No backreaction, no stress tensor, no topology change, no rate, and no two-source invariant.",
+  "generated_utc": "2026-08-15T03:51:37.455049+00:00"
+}

@@ -26,3 +26,14 @@ from geometrodynamics.waves.field_solve import (  # noqa: F401
     spectral_field,
     through_throat_arrivals,
 )
+from geometrodynamics.waves.branch_coupling import (  # noqa: F401
+    CoupledThroat,
+    branch_pair_matrix,
+    coupled_arrivals,
+    coupled_propagator,
+    coupled_waveform,
+    critical_coupling,
+    free_branch_propagator,
+    leg_branches,
+    mouth_transfer,
+)

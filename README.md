@@ -2184,6 +2184,84 @@ python scripts/geometrodynamics_v54_field_solve.py --still v54.png
 
 Full write-up: `docs/field_solve.md`.
 
+## The throat solved for, not applied
+
+PR #254 solved the field but kept the throat on the **outside**:
+`φ(M⁺,t) = η φ(M⁻,t+Δ)` was applied *to the free branches after they were
+computed*. One traversal, by construction — a post-processing step cannot notice
+that what it re-emits will come back. Here the identification enters the equation
+that is solved:
+
+```
+a(ω) = ηκ e^{−iωΔ}[ S(ω) + T_d(ω) a(ω) ]   ⟹   a = ηκ e^{−iωΔ} S / (1 − L)
+```
+
+**The resolvent is the sum over every traversal** — against an explicit walk over
+400 of them, `3.5e-18` — and PR #254's answer is its `n = 0` term, whose relative
+error is *exactly* the round-trip gain `|L|`, as an identity rather than a fit.
+
+**The branch series sums in closed form, and its poles are the spectrum.** The
+short-way images all carry Maslov factor `+1` and the long-way images all carry
+`−1`, so the winding sum is two geometric series:
+
+```
+Σ_b s_b e^{−u ℓ_b} = (e^{−uχ} − e^{−u(2π−χ)}) / (1 − e^{−2πu}),   u = γ + iω
+```
+
+verified term-by-term to `2.7e-15`. As the regulator goes, its poles sit at
+`ω = 1, 2, 3, …` — the conformal ESU eigenfrequencies — with residues equal to
+the mode functions over `2ω`. **The image representation and the mode
+representation are one function**, which is the strongest statement in the arc
+that the branch labels are a representation rather than an approximation.
+
+**The solve adds events, not amplitudes.** The solved waveform equals the sum
+over history words `(a, c₁…c_n, b)` to `5.4e-06`; at echo times
+`ℓ_a + Δ + n(ℓ_c + Δ) + ℓ_b` that no one-traversal word reaches, the solved field
+stands `3.3e+12` above the control, on a `κⁿ` ladder, each echo signed by every
+Maslov factor in its word. Those are arrivals at times PR #254's ledger does not
+contain.
+
+**The primitive is indexed by a pair of branches.**
+
+```
+K_ab(ω) = ηκ · s_a A₁ e^{−u ℓ_a} · e^{−iωΔ} · s_b A₂ e^{−u ℓ_b}
+```
+
+`K_ab` carries the phase `e^{−iω(ℓ_a + Δ + ℓ_b)}`, so PR #253's closure condition
+is *exactly* the statement that it does not depend on `ω`: closed pairs have band
+coherence `1.000`, every other pair below `0.091`. And the reason the **pair** is
+the primitive is that the amplitude factorizes over that index — `K` is rank one
+— while the condition does not: at `Δ = −(χ₁+χ₂+4π)` **three** pairs close inside
+the **nine** any single-index rule would have to admit. An anti-diagonal, not a
+rectangle.
+
+| configuration | singular values of `K` (normalised) |
+| --- | --- |
+| one throat | `1`, `1.3e-16`, `4.6e-17` |
+| two throats | `1`, `0.542`, `1.0e-16` |
+
+**And there is a regime where post-processing is not an approximation at all.**
+`|T_d|` peaks where `1 − e^{−2πu} ≈ 2πγ`, so the critical coupling
+`κ_c = 1/max|T_d|` falls linearly in the regulator — fitted exponent **`0.9998`**
+— with the peak sitting exactly on an ESU eigenfrequency. As `γ → 0`, *every*
+coupling is critical somewhere.
+
+Still put in: a linear field on a fixed background, and the throat still an
+identification map with `κ` by hand. When `Δ + ℓ_c < 0` the loop is closed in
+time and `1/(1−L)` is a self-consistency condition rather than a history sum,
+unique exactly when the branch-resolved loop gain is subcritical — a bound on
+`κ`, not a derivation of it. The two-throat fringe is a *throat–throat*
+interference, **not** roadmap step 3's two-source invariant.
+
+```bash
+python -m experiments.closure_ledger.branch_coupling_probe
+# Verdict: THE_THROAT_IS_SOLVED_FOR_AND_THE_PRIMITIVE_IS_A_PAIR  (8/8)
+
+python scripts/geometrodynamics_v55_branch_coupling.py --still v55.png
+```
+
+Full write-up: `docs/branch_coupling.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
