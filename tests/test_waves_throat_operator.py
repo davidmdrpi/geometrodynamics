@@ -83,10 +83,12 @@ def test_the_green_function_is_finite_at_the_antipode():
         assert errs[0] > errs[1]
 
 
-@pytest.mark.parametrize("bad", [0.0, math.pi])
-def test_the_green_function_is_singular_at_the_poles(bad):
+@pytest.mark.parametrize("bad", [0.0, -0.4, 4.0])
+def test_the_green_function_is_singular_only_at_the_source_point(bad):
+    """``χ = 0`` is the genuine singularity; ``χ = π`` is removable."""
     with pytest.raises(ValueError):
         free_green(bad, 1.3)
+    assert math.isfinite(free_green(math.pi, 1.3))
 
 
 @pytest.mark.parametrize("m", [1, 2, 3])

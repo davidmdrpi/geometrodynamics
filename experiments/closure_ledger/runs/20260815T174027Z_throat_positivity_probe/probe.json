@@ -1,0 +1,1183 @@
+{
+  "probe": "throat_positivity",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "for which Hermitian A is the self-adjoint point-throat operator non-negative? PR #256 showed flux conservation does not give stability and mapped a two-parameter slice by scanning; what is the answer on all four parameters?",
+      "scope": "a linear scalar field on a fixed Einstein static universe. The throat is point-supported: no interior, no proper length, no delay. The boundary data is four real numbers chosen, not derived; PR #249 is what would fix them. No backreaction, no stress tensor, no topology change, no rate, no two-source invariant.",
+      "pass": true
+    },
+    {
+      "name": "T2_the_positive_sector_is_a_shifted_psd_cone",
+      "n_draws": 200,
+      "n_mismatches": 0,
+      "the_criterion_is_exact": true,
+      "n_stable": 19,
+      "both_verdicts_occur": true,
+      "n_with_complex_beta": 200,
+      "the_light_cone_form_agrees": true,
+      "rows": [
+        {
+          "alpha1": 0.04173284797358741,
+          "alpha2": -0.047118007060948895,
+          "beta": {
+            "re": 0.1925100385311483,
+            "im": 0.21147791724910028
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.0226377163669037,
+          "norm_x": 0.25973194005422257,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.05714510443408859,
+          "alpha2": 0.22821065078254926,
+          "beta": {
+            "re": 0.04042906600604827,
+            "im": -0.07219006414448252
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.11086306908481477,
+          "norm_x": 0.16010032622874426,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.1209678861315956,
+          "alpha2": -0.14744067340086414,
+          "beta": {
+            "re": 0.0476876682655253,
+            "im": 0.062448976795686804
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": -0.10887398385564542,
+          "norm_x": 0.06384044124918611,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": 0.2008349525602218,
+          "alpha2": 0.18039978655571473,
+          "beta": {
+            "re": 0.07640641160242047,
+            "im": -0.1245276246731556
+          },
+          "predicted_non_negative": true,
+          "scan_says_stable": true,
+          "agrees": true,
+          "x0": 0.2159476654685527,
+          "norm_x": 0.12804373274026745,
+          "inside_the_cone": true
+        },
+        {
+          "alpha1": 0.17588244339159703,
+          "alpha2": -0.11046829265597659,
+          "beta": {
+            "re": -0.09940493038602356,
+            "im": -0.07113568041148177
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.058037371278394666,
+          "norm_x": 0.21773702129174893,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.07755963839351927,
+          "alpha2": 0.08600726879095533,
+          "beta": {
+            "re": -0.1207610126568307,
+            "im": -0.040637834862976674
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.02955411110930247,
+          "norm_x": 0.19224875360726576,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.011327863491833571,
+          "alpha2": 0.04720961061586323,
+          "beta": {
+            "re": -0.12704883401173794,
+            "im": 0.2038849941884289
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.04327116947259928,
+          "norm_x": 0.27057783771777244,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.17979136694118372,
+          "alpha2": -0.0875452192719641,
+          "beta": {
+            "re": 0.04702476423926696,
+            "im": 0.08455347278530345
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": -0.10833799719598947,
+          "norm_x": 0.09632524596383005,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": 0.0058071584500187495,
+          "alpha2": -0.11024827301352634,
+          "beta": {
+            "re": -0.3018502013560925,
+            "im": -0.3021384319479378
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": -0.02689026137116935,
+          "norm_x": 0.46619596895094845,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": 0.04176140671902036,
+          "alpha2": -0.12723348586293023,
+          "beta": {
+            "re": 0.07218102382469663,
+            "im": 0.13693130312515406
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": -0.017405743661370494,
+          "norm_x": 0.16264978175197706,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.12459667893618294,
+          "alpha2": 0.12079027456912657,
+          "beta": {
+            "re": -0.1555958207440253,
+            "im": 0.0061129615220031335
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.02342709372705625,
+          "norm_x": 0.23813941059458998,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": 0.006241451569291157,
+          "alpha2": 0.002452596381581375,
+          "beta": {
+            "re": -0.2293259119407995,
+            "im": 0.07670999477467665
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.02967731988602071,
+          "norm_x": 0.2881432585273075,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": 0.20415018386786443,
+          "alpha2": -0.07671678250928525,
+          "beta": {
+            "re": 0.08394987239200462,
+            "im": 0.3438706038907216
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.08904699658987403,
+          "norm_x": 0.3731373380893313,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.03973579472052279,
+          "alpha2": 0.3033698865969316,
+          "beta": {
+            "re": 0.01229951846054414,
+            "im": -0.3073780315236414
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.15714734184878884,
+          "norm_x": 0.35385839796492996,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": 0.2295641317672668,
+          "alpha2": 0.10038217703355067,
+          "beta": {
+            "re": 0.13676731616117319,
+            "im": -0.2529369184466246
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.1903034503109932,
+          "norm_x": 0.27560058868060816,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.01075095410665501,
+          "alpha2": -0.05240335114094388,
+          "beta": {
+            "re": 0.1917243090341057,
+            "im": 0.08004951378193474
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": -0.006246856713215002,
+          "norm_x": 0.16546897445165132,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.15336378787001037,
+          "alpha2": 0.08034908149390847,
+          "beta": {
+            "re": 0.024866732955437995,
+            "im": -0.059756886771145185
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": -0.011177057277466505,
+          "norm_x": 0.13334431557206544,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.02247852359791274,
+          "alpha2": -0.13378291203943746,
+          "beta": {
+            "re": 0.1471756872350492,
+            "im": 0.006148007854211511
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": -0.05280042190809066,
+          "norm_x": 0.11353046948409522,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": 0.17096804292215192,
+          "alpha2": -0.010090591750036884,
+          "beta": {
+            "re": 0.06989712661206833,
+            "im": -0.05482693932573005
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.10576902149664197,
+          "norm_x": 0.10799605318659265,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.11702666323295549,
+          "alpha2": 0.1121908403544393,
+          "beta": {
+            "re": 0.12623471519152532,
+            "im": 0.21144767934213998
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.022912384471326347,
+          "norm_x": 0.25278768232764365,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.15643602022180333,
+          "alpha2": -0.04867808664382103,
+          "beta": {
+            "re": -0.1278653429913707,
+            "im": 0.09566066152093462
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": -0.07722675752222774,
+          "norm_x": 0.20767214441742407,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.1539762634951472,
+          "alpha2": 0.10025080925305564,
+          "beta": {
+            "re": -0.08930989010576736,
+            "im": 0.14250548328808715
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": -0.0015324312104613436,
+          "norm_x": 0.23544228794631594,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": 0.08212373419237709,
+          "alpha2": 0.0004639621190050408,
+          "beta": {
+            "re": -0.07020329872840175,
+            "im": 0.19070545881341963
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.06662414406627551,
+          "norm_x": 0.22826588999550404,
+          "inside_the_cone": false
+        },
+        {
+          "alpha1": -0.08101179417369271,
+          "alpha2": 0.09321993096669562,
+          "beta": {
+            "re": 0.19023403655118318,
+            "im": 0.06345044727776881
+          },
+          "predicted_non_negative": false,
+          "scan_says_stable": false,
+          "agrees": true,
+          "x0": 0.0314343643070859,
+          "norm_x": 0.17812504641210025,
+          "inside_the_cone": false
+        }
+      ],
+      "the_criterion": "A \u2ab0 \u0393(0) in the L\u00f6wner order",
+      "the_geometry": "A \u2212 \u0393(0) = x\u2080I + x\u00b7\u03c3 is PSD iff x\u2080 \u2265 |x| \u2014 the stable set is a forward light cone in the four dimensions of Hermitian boundary data",
+      "why": "d\u0393/d\u03bb \u227b 0 below threshold, so every eigenvalue of A \u2212 \u0393(\u03bb) is decreasing in \u03bb and both run to +\u221e as \u03bb \u2192 \u2212\u221e; one crosses zero below \u03bb* iff it is already negative at \u03bb*",
+      "pass": true
+    },
+    {
+      "name": "T3_the_inertia_theorem",
+      "rows": [
+        {
+          "lambda_star": -2.0,
+          "n_draws": 40,
+          "mismatches": 0
+        },
+        {
+          "lambda_star": 0.0,
+          "n_draws": 40,
+          "mismatches": 0
+        },
+        {
+          "lambda_star": 0.5,
+          "n_draws": 40,
+          "mismatches": 0
+        },
+        {
+          "lambda_star": 0.9,
+          "n_draws": 40,
+          "mismatches": 0
+        }
+      ],
+      "n_tested": 160,
+      "n_mismatches": 0,
+      "the_inertia_theorem_holds": true,
+      "gamma_derivative": [
+        {
+          "lmbda": -100.0,
+          "eigenvalues": [
+            0.003978861443524573,
+            0.003978885711149771
+          ]
+        },
+        {
+          "lmbda": -9.0,
+          "eigenvalues": [
+            0.012900724750613261,
+            0.013625092931567426
+          ]
+        },
+        {
+          "lmbda": -1.0,
+          "eigenvalues": [
+            0.02562651433453411,
+            0.052374289017873
+          ]
+        },
+        {
+          "lmbda": -0.05,
+          "eigenvalues": [
+            0.030717302954702534,
+            0.1257083473739373
+          ]
+        },
+        {
+          "lmbda": -0.001,
+          "eigenvalues": [
+            0.03105601539821201,
+            0.1353916354029927
+          ]
+        }
+      ],
+      "d_gamma_d_lambda_is_positive_definite": true,
+      "the_theorem": "#{eigenvalues < \u03bb*} = #{negative eigenvalues of A \u2212 \u0393(\u03bb*)} for every \u03bb* below the free ground state",
+      "stability_is_the_lambda_star_zero_case": true,
+      "pass": true
+    },
+    {
+      "name": "T4_the_boundary_is_a_zero_mode",
+      "rows": [
+        {
+          "direction": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "x0": 0.02,
+          "lightlike_defect": -3.469446951953614e-18,
+          "smallest_eigenvalue": -3.469446951953614e-18,
+          "is_a_zero_mode": true,
+          "secular_at_zero": -1.3877787807814457e-19,
+          "marginal_lambda_found_by_root_finding": -1.4305114746093752e-14,
+          "n_strictly_growing": 0,
+          "q": [
+            {
+              "re": -0.7071067811865475,
+              "im": 0.0
+            },
+            {
+              "re": 0.7071067811865475,
+              "im": 0.0
+            }
+          ]
+        },
+        {
+          "direction": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "x0": 0.1,
+          "lightlike_defect": 0.0,
+          "smallest_eigenvalue": 0.0,
+          "is_a_zero_mode": true,
+          "secular_at_zero": 0.0,
+          "marginal_lambda_found_by_root_finding": -1.4305114746093752e-14,
+          "n_strictly_growing": 0,
+          "q": [
+            {
+              "re": -0.7071067811865475,
+              "im": 0.0
+            },
+            {
+              "re": 0.7071067811865475,
+              "im": 0.0
+            }
+          ]
+        },
+        {
+          "direction": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "x0": 0.4,
+          "lightlike_defect": 0.0,
+          "smallest_eigenvalue": 0.0,
+          "is_a_zero_mode": true,
+          "secular_at_zero": 0.0,
+          "marginal_lambda_found_by_root_finding": -1.4305114746093752e-14,
+          "n_strictly_growing": 0,
+          "q": [
+            {
+              "re": -0.7071067811865475,
+              "im": 0.0
+            },
+            {
+              "re": 0.7071067811865475,
+              "im": 0.0
+            }
+          ]
+        },
+        {
+          "direction": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "x0": 0.02,
+          "lightlike_defect": 0.0,
+          "smallest_eigenvalue": 0.0,
+          "is_a_zero_mode": true,
+          "secular_at_zero": 0.0,
+          "marginal_lambda_found_by_root_finding": -1.4305114746093752e-14,
+          "n_strictly_growing": 0,
+          "q": [
+            {
+              "re": -0.7071067811865475,
+              "im": 0.0
+            },
+            {
+              "re": 0.0,
+              "im": 0.7071067811865475
+            }
+          ]
+        },
+        {
+          "direction": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "x0": 0.1,
+          "lightlike_defect": 0.0,
+          "smallest_eigenvalue": 0.0,
+          "is_a_zero_mode": true,
+          "secular_at_zero": 0.0,
+          "marginal_lambda_found_by_root_finding": -1.4305114746093752e-14,
+          "n_strictly_growing": 0,
+          "q": [
+            {
+              "re": -0.7071067811865475,
+              "im": 0.0
+            },
+            {
+              "re": 0.0,
+              "im": 0.7071067811865475
+            }
+          ]
+        },
+        {
+          "direction": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "x0": 0.4,
+          "lightlike_defect": 0.0,
+          "smallest_eigenvalue": 0.0,
+          "is_a_zero_mode": true,
+          "secular_at_zero": 0.0,
+          "marginal_lambda_found_by_root_finding": -1.4305114746093752e-14,
+          "n_strictly_growing": 0,
+          "q": [
+            {
+              "re": -0.7071067811865475,
+              "im": 0.0
+            },
+            {
+              "re": 0.0,
+              "im": 0.7071067811865475
+            }
+          ]
+        },
+        {
+          "direction": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "x0": 0.02,
+          "lightlike_defect": 0.0,
+          "smallest_eigenvalue": 0.0,
+          "is_a_zero_mode": true,
+          "secular_at_zero": 0.0,
+          "marginal_lambda_found_by_root_finding": -1.4305114746093752e-14,
+          "n_strictly_growing": 0,
+          "q": [
+            {
+              "re": 0.0,
+              "im": 0.0
+            },
+            {
+              "re": 1.0,
+              "im": 0.0
+            }
+          ]
+        },
+        {
+          "direction": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "x0": 0.1,
+          "lightlike_defect": 0.0,
+          "smallest_eigenvalue": 0.0,
+          "is_a_zero_mode": true,
+          "secular_at_zero": 0.0,
+          "marginal_lambda_found_by_root_finding": -1.4305114746093752e-14,
+          "n_strictly_growing": 0,
+          "q": [
+            {
+              "re": 0.0,
+              "im": 0.0
+            },
+            {
+              "re": 1.0,
+              "im": 0.0
+            }
+          ]
+        },
+        {
+          "direction": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "x0": 0.4,
+          "lightlike_defect": 0.0,
+          "smallest_eigenvalue": 0.0,
+          "is_a_zero_mode": true,
+          "secular_at_zero": 0.0,
+          "marginal_lambda_found_by_root_finding": -1.4305114746093752e-14,
+          "n_strictly_growing": 0,
+          "q": [
+            {
+              "re": 0.0,
+              "im": 0.0
+            },
+            {
+              "re": 1.0,
+              "im": 0.0
+            }
+          ]
+        },
+        {
+          "direction": [
+            0.6,
+            -0.5,
+            0.62
+          ],
+          "x0": 0.02,
+          "lightlike_defect": 3.469446951953614e-18,
+          "smallest_eigenvalue": 2.6020852139652106e-18,
+          "is_a_zero_mode": true,
+          "secular_at_zero": 1.1253104874272932e-19,
+          "marginal_lambda_found_by_root_finding": 0.0,
+          "n_strictly_growing": 0,
+          "q": [
+            {
+              "re": -0.43488887925930564,
+              "im": 0.0
+            },
+            {
+              "re": 0.6917710681806193,
+              "im": -0.5764758901505163
+            }
+          ]
+        },
+        {
+          "direction": [
+            0.6,
+            -0.5,
+            0.62
+          ],
+          "x0": 0.1,
+          "lightlike_defect": 0.0,
+          "smallest_eigenvalue": 0.0,
+          "is_a_zero_mode": true,
+          "secular_at_zero": 1.1253104874272926e-18,
+          "marginal_lambda_found_by_root_finding": 0.0,
+          "n_strictly_growing": 0,
+          "q": [
+            {
+              "re": -0.43488887925930575,
+              "im": 0.0
+            },
+            {
+              "re": 0.6917710681806192,
+              "im": -0.576475890150516
+            }
+          ]
+        },
+        {
+          "direction": [
+            0.6,
+            -0.5,
+            0.62
+          ],
+          "x0": 0.4,
+          "lightlike_defect": 0.0,
+          "smallest_eigenvalue": 0.0,
+          "is_a_zero_mode": true,
+          "secular_at_zero": 1.8004967798836688e-17,
+          "marginal_lambda_found_by_root_finding": 0.0,
+          "n_strictly_growing": 0,
+          "q": [
+            {
+              "re": -0.43488887925930575,
+              "im": 0.0
+            },
+            {
+              "re": 0.6917710681806192,
+              "im": -0.576475890150516
+            }
+          ]
+        }
+      ],
+      "every_boundary_point_has_a_zero_mode": true,
+      "worst_secular_at_zero": 1.8004967798836688e-17,
+      "the_secular_function_vanishes_there": true,
+      "the_marginal_mode_sits_at_lambda_zero": true,
+      "worst_marginal_lambda": 1.4305114746093752e-14,
+      "no_boundary_point_is_strictly_unstable": true,
+      "apex_degeneracy": 2,
+      "the_apex_carries_two_zero_modes": true,
+      "what_this_shows": "the cone's boundary is where \u03bb = 0 enters the spectrum \u2014 located independently by root-finding, not read off the eigenvalue \u2014 so it is detectable rather than conventional",
+      "pass": true
+    },
+    {
+      "name": "T5_the_growth_rate_turns_on_with_a_square_root",
+      "rows": [
+        {
+          "epsilon": 0.01,
+          "lmbda": -0.07819596631761391,
+          "sigma": 0.27963541677980264,
+          "lambda_over_epsilon": -7.819596631761391,
+          "sigma_over_sqrt_epsilon": 2.796354167798026
+        },
+        {
+          "epsilon": 0.001,
+          "lmbda": -0.0074171946677544735,
+          "sigma": 0.08612313665766287,
+          "lambda_over_epsilon": -7.417194667754473,
+          "sigma_over_sqrt_epsilon": 2.7234527107615576
+        },
+        {
+          "epsilon": 0.0001,
+          "lmbda": -0.0007378692505924422,
+          "sigma": 0.027163748831713973,
+          "lambda_over_epsilon": -7.378692505924422,
+          "sigma_over_sqrt_epsilon": 2.7163748831713974
+        },
+        {
+          "epsilon": 1e-05,
+          "lmbda": -7.374859159857032e-05,
+          "sigma": 0.00858770001796583,
+          "lambda_over_epsilon": -7.3748591598570306,
+          "sigma_over_sqrt_epsilon": 2.7156691919040936
+        },
+        {
+          "epsilon": 1e-06,
+          "lmbda": -7.37447599267738e-06,
+          "sigma": 0.0027155986435181065,
+          "lambda_over_epsilon": -7.374475992677381,
+          "sigma_over_sqrt_epsilon": 2.7155986435181063
+        }
+      ],
+      "exponents": [
+        0.5114723367234777,
+        0.5011301325815077,
+        0.500112840698936,
+        0.5000112823656175
+      ],
+      "asymptotic_exponent": 0.5000112823656175,
+      "lambda_over_epsilon_limit": -7.374475992677381,
+      "predicted_from_the_eigenvalue_slope": -7.37443342171603,
+      "mu_prime": 0.13560363797647523,
+      "exponent_is_one_half": true,
+      "lambda_is_linear_in_epsilon": true,
+      "the_coefficient_matches_the_eigenvalue_slope": true,
+      "what_this_shows": "the boundary is a genuine threshold, not a numerical artefact: the growth rate is continuous and rises like \u221a\u03b5",
+      "pass": true
+    },
+    {
+      "name": "T6_the_wedge_is_a_slice",
+      "n_slice_points": 143,
+      "slice_mismatches": 0,
+      "the_wedge_is_exactly_the_slice": true,
+      "worst_off_slice_coordinate": 0.0,
+      "the_slice_really_is_x2_equals_x3_equals_zero": true,
+      "n_general_draws": 400,
+      "n_the_wedge_rule_gets_wrong": 65,
+      "the_slice_rule_is_not_enough_in_general": true,
+      "why": "Im \u03b2 and the mouth asymmetry are the two dimensions the wedge does not see; both push A out of the cone without changing \u03b1 \u00b1 Re \u03b2",
+      "pass": true
+    },
+    {
+      "name": "T7_where_the_apex_sits",
+      "rows": [
+        {
+          "separation": 0.2,
+          "trace": -0.05066059182116889,
+          "zero_A_margin": -0.34972211940506104,
+          "determinant": -0.14002269034318168,
+          "eigenvalues": [
+            -0.4003827112262299,
+            0.34972211940506104
+          ],
+          "indefinite": true,
+          "negative_semidefinite": false,
+          "zero_matrix_is_stable": false,
+          "channel_thresholds": [
+            -0.4003827112262299,
+            0.34972211940506104
+          ]
+        },
+        {
+          "separation": 0.5,
+          "trace": -0.05066059182116889,
+          "zero_A_margin": -0.11423741211236242,
+          "determinant": -0.018837521231860777,
+          "eigenvalues": [
+            -0.1648980039335313,
+            0.11423741211236242
+          ],
+          "indefinite": true,
+          "negative_semidefinite": false,
+          "zero_matrix_is_stable": false,
+          "channel_thresholds": [
+            -0.1648980039335313,
+            0.11423741211236241
+          ]
+        },
+        {
+          "separation": 0.8,
+          "trace": -0.05066059182116889,
+          "zero_A_margin": -0.057352817218217174,
+          "determinant": -0.006194873305752435,
+          "eigenvalues": [
+            -0.10801340903938605,
+            0.057352817218217174
+          ],
+          "indefinite": true,
+          "negative_semidefinite": false,
+          "zero_matrix_is_stable": false,
+          "channel_thresholds": [
+            -0.10801340903938605,
+            0.05735281721821717
+          ]
+        },
+        {
+          "separation": 1.3,
+          "trace": -0.05066059182116889,
+          "zero_A_margin": -0.0230820237273735,
+          "determinant": -0.0017021288018100379,
+          "eigenvalues": [
+            -0.07374261554854239,
+            0.0230820237273735
+          ],
+          "indefinite": true,
+          "negative_semidefinite": false,
+          "zero_matrix_is_stable": false,
+          "channel_thresholds": [
+            -0.07374261554854239,
+            0.023082023727373502
+          ]
+        },
+        {
+          "separation": 2.0,
+          "trace": -0.05066059182116889,
+          "zero_A_margin": -0.006471047491129964,
+          "determinant": -0.00036970155123599316,
+          "eigenvalues": [
+            -0.05713163931229885,
+            0.006471047491129964
+          ],
+          "indefinite": true,
+          "negative_semidefinite": false,
+          "zero_matrix_is_stable": false,
+          "channel_thresholds": [
+            -0.05713163931229885,
+            0.006471047491129964
+          ]
+        },
+        {
+          "separation": 2.8,
+          "trace": -0.05066059182116889,
+          "zero_A_margin": -0.0004994028184131336,
+          "determinant": -2.5549445513008133e-05,
+          "eigenvalues": [
+            -0.05115999463958203,
+            0.0004994028184131336
+          ],
+          "indefinite": true,
+          "negative_semidefinite": false,
+          "zero_matrix_is_stable": false,
+          "channel_thresholds": [
+            -0.05115999463958203,
+            0.0004994028184131354
+          ]
+        },
+        {
+          "separation": 3.0,
+          "trace": -0.05066059182116889,
+          "zero_A_margin": -8.48373756382019e-05,
+          "determinant": -4.305109038691278e-06,
+          "eigenvalues": [
+            -0.05074542919680709,
+            8.48373756382019e-05
+          ],
+          "indefinite": true,
+          "negative_semidefinite": false,
+          "zero_matrix_is_stable": false,
+          "channel_thresholds": [
+            -0.05074542919680709,
+            8.48373756382019e-05
+          ]
+        },
+        {
+          "separation": 3.141592653589793,
+          "trace": -0.05066059182116889,
+          "zero_A_margin": 0.0,
+          "determinant": 0.0,
+          "eigenvalues": [
+            -0.05066059182116889,
+            0.0
+          ],
+          "indefinite": false,
+          "negative_semidefinite": true,
+          "zero_matrix_is_stable": true,
+          "channel_thresholds": [
+            -0.05066059182116889,
+            0.0
+          ]
+        }
+      ],
+      "trace_is_separation_independent": true,
+      "trace_value": -0.05066059182116889,
+      "predicted_trace": -0.05066059182116889,
+      "trace_matches_minus_one_over_two_pi_squared": true,
+      "the_apex_is_indefinite_away_from_the_antipode": true,
+      "the_apex_is_negative_semidefinite_at_the_antipode": true,
+      "the_zero_matrix_is_unstable_away_from_the_antipode": true,
+      "antipodal": {
+        "Gamma_0": [
+          "[-0.025330295910584444, 0.025330295910584444]",
+          "[0.025330295910584444, -0.025330295910584444]"
+        ],
+        "eigenvalues": [
+          -0.05066059182116889,
+          0.0
+        ],
+        "trace": -0.05066059182116889,
+        "determinant": 0.0,
+        "trace_is_two_g0": -0.05066059182116889,
+        "channel_thresholds": [
+          -0.05066059182116889,
+          0.0
+        ],
+        "indefinite": false,
+        "negative_semidefinite": true,
+        "zero_matrix_is_stable": true,
+        "zero_A_margin": 0.0,
+        "G_pi_at_zero": 0.025330295910584444,
+        "minus_g0": 0.025330295910584444,
+        "marginal_channel": "symmetric"
+      },
+      "the_antipodal_endpoint_is_marginal": true,
+      "at_the_antipode_A_zero_sits_on_the_boundary": true,
+      "the_marginal_channel_is_symmetric": "symmetric",
+      "eigenvalues_are_the_channel_thresholds": true,
+      "the_symmetric_threshold_closes_at_the_antipode": true,
+      "pass": true
+    },
+    {
+      "name": "T8_how_big_is_it",
+      "half_width": 0.2,
+      "n_draws": 4000,
+      "n_stable": 332,
+      "fraction": 0.083,
+      "the_box": "|\u03b1_j| \u2264 w and |Re \u03b2|, |Im \u03b2| \u2264 w",
+      "caveat": "a cone is unbounded; the fraction is box-dependent",
+      "pass": true
+    },
+    {
+      "name": "T9_the_monotonicity_is_a_gram_matrix",
+      "rows": [
+        {
+          "separation": 1.3,
+          "lmbda": -9.0,
+          "abs_error": 6.708331806715151e-13,
+          "eigenvalues": [
+            0.012900724751055664,
+            0.013625092931942126
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 1.3,
+          "lmbda": -1.0,
+          "abs_error": 3.663907718887138e-12,
+          "eigenvalues": [
+            0.0256265143348259,
+            0.05237428901785982
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 1.3,
+          "lmbda": -0.05,
+          "abs_error": 3.5599995173996035e-12,
+          "eigenvalues": [
+            0.030717302952189104,
+            0.12570834736969297
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 1.3,
+          "lmbda": 0.0,
+          "abs_error": 2.86287660244966e-12,
+          "eigenvalues": [
+            0.031063028687589953,
+            0.13560363798034322
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 1.3,
+          "lmbda": 0.5,
+          "abs_error": 8.112871485721485e-12,
+          "eigenvalues": [
+            0.03517689577690017,
+            0.4453558427538412
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 2.6,
+          "lmbda": -9.0,
+          "abs_error": 6.708331806715151e-13,
+          "eigenvalues": [
+            0.013237006490723067,
+            0.013288811192274723
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 2.6,
+          "lmbda": -1.0,
+          "abs_error": 2.63625232754805e-12,
+          "eigenvalues": [
+            0.03118372772406527,
+            0.046817075628620454
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 2.6,
+          "lmbda": -0.05,
+          "abs_error": 3.5599995173996035e-12,
+          "eigenvalues": [
+            0.04021530787408782,
+            0.11621034244779425
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 2.6,
+          "lmbda": 0.0,
+          "abs_error": 2.938177479094861e-12,
+          "eigenvalues": [
+            0.04085877518086276,
+            0.12580789148707042
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 2.6,
+          "lmbda": 0.5,
+          "abs_error": 6.813549724427048e-12,
+          "eigenvalues": [
+            0.048762298562953985,
+            0.4317704399677874
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 3.141592653589793,
+          "lmbda": -9.0,
+          "abs_error": 6.708331806715151e-13,
+          "eigenvalues": [
+            0.013244874583547095,
+            0.013280943099450696
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 3.141592653589793,
+          "lmbda": -1.0,
+          "abs_error": 2.63625232754805e-12,
+          "eigenvalues": [
+            0.03158149683150077,
+            0.04641930652118495
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 3.141592653589793,
+          "lmbda": -0.05,
+          "abs_error": 3.5599995173996035e-12,
+          "eigenvalues": [
+            0.04099316132339931,
+            0.11543248899848277
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 3.141592653589793,
+          "lmbda": 0.0,
+          "abs_error": 2.9878807761285486e-12,
+          "eigenvalues": [
+            0.041666666667933165,
+            0.125
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 3.141592653589793,
+          "lmbda": 0.5,
+          "abs_error": 6.813549724427048e-12,
+          "eigenvalues": [
+            0.0499635880871879,
+            0.4305691504435535
+          ],
+          "positive_definite": true
+        }
+      ],
+      "worst_abs_error": 8.112871485721485e-12,
+      "the_gram_sum_is_the_closed_form_derivative": true,
+      "positive_definite_everywhere": true,
+      "including_at_the_antipode": true,
+      "the_identity": "d\u0393_ij/d\u03bb = \u27e8\u03b4_i, (H\u2080\u2212\u03bb)^{-2} \u03b4_j\u27e9 \u2014 a Gram matrix",
+      "what_this_upgrades": "L\u00f6wner monotonicity of \u0393 from a fact sampled at a few \u03bb to an analytic consequence; the root scans elsewhere are regression checks",
+      "pass": true
+    },
+    {
+      "name": "T10_the_criterion_extends_beyond_the_chart",
+      "chart_draws": 60,
+      "chart_mismatches": 0,
+      "the_general_form_agrees_with_the_cone_on_the_chart": true,
+      "stratum_draws": 60,
+      "stratum_mismatches": 0,
+      "the_general_form_agrees_with_the_scan_on_the_strata": true,
+      "every_stratum_has_one_dirichlet_direction": true,
+      "worst_hermitian_defect": 1.7673624272237138e-12,
+      "worst_row_space_defect": 9.609327085357664e-16,
+      "the_reduction_is_legitimate": true,
+      "free_stratum": {
+        "k": 0,
+        "non_negative": true,
+        "stratum": "free (q = 0): no mouth-active spectrum"
+      },
+      "the_free_stratum_is_non_negative": true,
+      "the_scope": "A \u2ab0 \u0393(0) is the criterion in the finite-A chart; the general one is A_eff \u2ab0 P\u2020\u0393(0)P on the allowed-charge subspace, and the chart is its k = 2 case",
+      "pass": true
+    },
+    {
+      "name": "T11_assessment",
+      "n_passed": 10,
+      "n_total": 10,
+      "pass": true
+    }
+  ],
+  "verdict_class": "THE_POSITIVE_SECTOR_IS_A_LIGHT_CONE_AT_GAMMA_ZERO",
+  "verdict": "NON-NEGATIVE IF AND ONLY IF A >= Gamma(0), IN THE LOEWNER ORDER -- in the finite-A chart, with the general form on the whole U(2) family got by restricting to the allowed-charge subspace. PR #256 left the question open on three of its four parameters and answered the fourth by scanning; the general answer is a single inequality, and the reason is one line. Gamma(lambda) has dGamma/dlambda POSITIVE DEFINITE below threshold, so every eigenvalue of M(lambda) = A - Gamma(lambda) is strictly decreasing in lambda, while as lambda -> -infinity Gamma -> -(sigma/4pi) I and both eigenvalues run to +infinity. An eigenvalue therefore crosses zero somewhere below threshold if and only if it is already negative AT threshold. Checked against an actual negative-lambda root scan on 200 random Hermitian A -- every one with complex beta and unequal mouths, so all four parameters are exercised -- with 0 mismatches and 19 of them stable, so both verdicts occur. THE GEOMETRY IS A LIGHT CONE: Hermitian 2x2 matrices are R^4 under A - Gamma(0) = x0 I + x.sigma, and positive semidefiniteness is x0 >= |x|, so the stable set is the forward light cone with apex at A = Gamma(0) -- convex, closed under positive scaling from the apex, and four-dimensional. AND THE SAME ARGUMENT COUNTS: #{mouth-active eigenvalues < lambda*} = #{negative eigenvalues of A - Gamma(lambda*)} for any lambda* below the free ground state, 0 mismatches in 160 tests at lambda* = -2, 0, 0.5 and 0.9. That is a Krein-type inertia theorem, and stability is its lambda* = 0 case. THE BOUNDARY IS DETECTABLE, NOT CONVENTIONAL: on the null surface A - Gamma(0) is rank one, so lambda = 0 enters the spectrum as a genuine ZERO MODE -- a static solution supported by the throat, below the free ground state -- located independently by root-finding at 1.4e-14 with the secular function vanishing to 1.8e-17. At the apex there are TWO. AND THE INSTABILITY OUTSIDE TURNS ON LIKE A SQUARE ROOT: lambda is linear in the distance eps past the boundary (-7.374476, against -7.374433 predicted from the eigenvalue slope rather than fitted), so the growth rate rises with exponent 0.50001. PR #256's WEDGE IS THE x2 = x3 = 0 SLICE, reproduced exactly at all 143 sampled points -- and applied to general boundary data by averaging the mouths and dropping Im beta it gets 65 of 400 draws wrong, which is why the general form was needed rather than a wider scan. FINALLY, WHERE THE APEX SITS: tr Gamma(0) = 2 g0 = -1/(2 pi^2) at EVERY mouth separation, its eigenvalues are exactly PR #256's two channel thresholds, and and its determinant g0^2 - G0^2 is negative for 0 < d < pi -- so Gamma(0) is indefinite there and A = 0 is unstable. THE EXACT ANTIPODE IS A DIFFERENT STATEMENT, and for this geometry it is the load-bearing one: G_d has a REMOVABLE singularity at d = pi, with G_pi(0) = +1/(4 pi^2) = -g0, so Gamma(0) = g0[[1,-1],[-1,1]] has eigenvalues (2 g0, 0) -- negative SEMIdefinite, not indefinite -- and A = 0 is MARGINALLY non-negative there, sitting on the cone's boundary with a zero mode in the symmetric channel. TWO FURTHER TIGHTENINGS. First, the monotonicity everything rests on is not a sampled fact: Gamma_ij(lambda) = <delta_i,(H0-lambda)^-1 delta_j> up to a lambda-independent subtraction, so dGamma/dlambda is the GRAM MATRIX of (H0-lambda)^-1 delta_j -- PSD for free, positive definite for distinct mouths -- computed independently from the S3 addition theorem and agreeing with the closed form to 8.1e-12, antipode included. Second, A >= Gamma(0) is the criterion IN A CHART: phi_reg = A q needs B invertible, and the strata it misses are Dirichlet directions, reached as ||A|| -> infinity and not represented by any finite Hermitian A. The general criterion is A_eff >= P^dag Gamma(0) P on the allowed-charge subspace, agreeing with the cone on 60 chart draws and with a root scan on 60 stratum draws, with the reduction's own assumptions checked rather than assumed. HOW BIG THE REGION IS depends on the box, and the box is stated: 0.083 of a uniform draw over |alpha_j|, |Re beta|, |Im beta| <= 0.2. WHAT IS STILL PUT IN: the boundary data itself, four real numbers chosen and not derived, with PR #249 still the thing that would fix them from matter. The throat is point-supported -- no interior, no proper length, no delay. No backreaction, no stress tensor, no topology change, no rate, and no two-source invariant; what this round buys the next one is a stated region to work inside and a count of what goes wrong outside it.",
+  "generated_utc": "2026-08-15T17:40:27.230390+00:00"
+}

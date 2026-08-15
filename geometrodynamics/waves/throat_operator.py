@@ -151,14 +151,26 @@ def free_green(chi: float, omega: float) -> float:
     massless scalar on the ESU, in closed form — the Fourier transform of PR
     #254's image sum and the ``γ → 0`` limit of PR #255's branch series, checked
     against the latter rather than asserted.  Real for real ``ω``.
+
+    Written in ``e = π − χ`` rather than ``χ``, because the antipode is a
+    **removable** singularity, not a real one: both ``sin(ω(π−χ))`` and
+    ``sin χ`` vanish there and the ratio tends to ``ω``, giving
+    ``G(π,ω) = ω/(4π sin πω)``.  Forming ``π − χ`` from a float ``χ`` near
+    ``π`` also loses all its digits, so the substitution is numerical hygiene
+    as well as a limit.  ``χ = 0`` is the genuine singularity.
     """
-    s = math.sin(chi)
-    if abs(s) < 1e-13:
-        raise ValueError("the Green function is singular at χ = 0 and χ = π")
+    if not 0.0 < chi <= math.pi + 1e-12:
+        raise ValueError("the Green function needs 0 < χ ≤ π")
     sp = math.sin(math.pi * omega)
     if abs(sp) < 1e-13:
         raise ValueError("ω is a free eigenfrequency; G has a pole there")
-    return math.sin(omega * (math.pi - chi)) / (4.0 * math.pi * s * sp)
+    e = math.pi - chi
+    se = math.sin(e)
+    if abs(se) < 1e-12:                      # the antipode, by the limit
+        return omega / (4.0 * math.pi * sp)
+    if abs(math.sin(chi)) < 1e-13:
+        raise ValueError("the Green function is singular at χ = 0")
+    return math.sin(omega * e) / (4.0 * math.pi * se * sp)
 
 
 def regularized_green(omega: float) -> float:
@@ -198,6 +210,13 @@ def gamma_at(lmbda: float, separation: float) -> np.ndarray:
     """``Γ(λ)`` — the free propagator between the mouths, for real ``λ`` of
     either sign.
 
+    Written in the antipodal deficit ``e = π − d`` throughout, because ``d = π``
+    is a **removable** singularity of ``G_d``: the numerator vanishes with
+    ``sin d`` and the ratio tends to ``ω``.  At exact antipodes
+    ``G_π(λ=0) = +1/(4π²) = −g₀``, so ``Γ(0)`` becomes ``g₀[[1,−1],[−1,1]]``
+    with eigenvalues ``(2g₀, 0)`` — **negative semidefinite**, not indefinite,
+    which changes the physics at that endpoint.
+
     For ``λ > 0`` this is ``ω = √λ`` and the trigonometric forms.  For ``λ < 0``
     it is ``ω = iσ``, where
 
@@ -211,25 +230,30 @@ def gamma_at(lmbda: float, separation: float) -> np.ndarray:
     ``ω``-scan over an interval of the positive real axis cannot see it.
     """
     d = float(separation)
-    sd = math.sin(d)
-    if abs(sd) < 1e-13:
-        raise ValueError("the mouths must be a nondegenerate distance apart")
+    if not 0.0 < d <= math.pi + 1e-12:
+        raise ValueError("the mouths need 0 < d ≤ π")
+    e = math.pi - d                       # the antipodal deficit
+    se = math.sin(e)
+    antipodal = abs(se) < 1e-12
     lam = float(lmbda)
     if abs(lam) < 1e-14:
         g = -1.0 / (4.0 * math.pi ** 2)
-        gd = (math.pi - d) / (4.0 * math.pi ** 2 * sd)
+        gd = (1.0 / (4.0 * math.pi ** 2) if antipodal
+              else e / (4.0 * math.pi ** 2 * se))
     elif lam < 0.0:
         s = math.sqrt(-lam)
         g = -s / math.tanh(math.pi * s) / (4.0 * math.pi)
-        gd = (math.sinh(s * (math.pi - d))
-              / (4.0 * math.pi * sd * math.sinh(math.pi * s)))
+        gd = (s / (4.0 * math.pi * math.sinh(math.pi * s)) if antipodal
+              else math.sinh(s * e) / (4.0 * math.pi * se
+                                       * math.sinh(math.pi * s)))
     else:
         w = math.sqrt(lam)
         sp = math.sin(math.pi * w)
         if abs(sp) < 1e-13:
             raise ValueError("λ is a free eigenvalue; Γ has a pole there")
         g = -w * math.cos(math.pi * w) / (4.0 * math.pi * sp)
-        gd = math.sin(w * (math.pi - d)) / (4.0 * math.pi * sd * sp)
+        gd = (w / (4.0 * math.pi * sp) if antipodal
+              else math.sin(w * e) / (4.0 * math.pi * se * sp))
     return np.array([[g, gd], [gd, g]], dtype=complex)
 
 
@@ -241,9 +265,8 @@ def stability_thresholds(separation: float) -> Dict[str, float]:
     **iff** the right-hand side falls below the threshold.  That makes stability
     of an exchange-symmetric throat a closed-form condition rather than a scan.
     """
-    d = float(separation)
-    g0 = -1.0 / (4.0 * math.pi ** 2)
-    gd0 = (math.pi - d) / (4.0 * math.pi ** 2 * math.sin(d))
+    g = gamma_at(0.0, float(separation)).real
+    g0, gd0 = float(g[0, 0]), float(g[0, 1])
     return {"g_at_zero": g0, "G_d_at_zero": gd0,
             "symmetric_threshold": g0 + gd0,
             "antisymmetric_threshold": g0 - gd0,
