@@ -805,57 +805,65 @@
         {
           "separation": 0.2,
           "trace": -0.05066059182116889,
-          "determinant": -0.1400226903431821,
+          "zero_A_margin": -0.34972211940506104,
+          "determinant": -0.14002269034318168,
           "eigenvalues": [
-            -0.40038271122623054,
-            0.34972211940506165
+            -0.4003827112262299,
+            0.34972211940506104
           ],
           "indefinite": true,
+          "negative_semidefinite": false,
           "zero_matrix_is_stable": false,
           "channel_thresholds": [
-            -0.40038271122623054,
-            0.34972211940506165
+            -0.4003827112262299,
+            0.34972211940506104
           ]
         },
         {
           "separation": 0.5,
           "trace": -0.05066059182116889,
+          "zero_A_margin": -0.11423741211236242,
           "determinant": -0.018837521231860777,
           "eigenvalues": [
-            -0.16489800393353132,
-            0.11423741211236244
+            -0.1648980039335313,
+            0.11423741211236242
           ],
           "indefinite": true,
+          "negative_semidefinite": false,
           "zero_matrix_is_stable": false,
           "channel_thresholds": [
-            -0.16489800393353132,
-            0.11423741211236244
+            -0.1648980039335313,
+            0.11423741211236241
           ]
         },
         {
           "separation": 0.8,
           "trace": -0.05066059182116889,
-          "determinant": -0.0061948733057524295,
+          "zero_A_margin": -0.057352817218217174,
+          "determinant": -0.006194873305752435,
           "eigenvalues": [
-            -0.10801340903938603,
-            0.05735281721821713
+            -0.10801340903938605,
+            0.057352817218217174
           ],
           "indefinite": true,
+          "negative_semidefinite": false,
           "zero_matrix_is_stable": false,
           "channel_thresholds": [
-            -0.10801340903938603,
-            0.05735281721821714
+            -0.10801340903938605,
+            0.05735281721821717
           ]
         },
         {
           "separation": 1.3,
           "trace": -0.05066059182116889,
+          "zero_A_margin": -0.0230820237273735,
           "determinant": -0.0017021288018100379,
           "eigenvalues": [
             -0.07374261554854239,
             0.0230820237273735
           ],
           "indefinite": true,
+          "negative_semidefinite": false,
           "zero_matrix_is_stable": false,
           "channel_thresholds": [
             -0.07374261554854239,
@@ -865,12 +873,14 @@
         {
           "separation": 2.0,
           "trace": -0.05066059182116889,
+          "zero_A_margin": -0.006471047491129964,
           "determinant": -0.00036970155123599316,
           "eigenvalues": [
             -0.05713163931229885,
             0.006471047491129964
           ],
           "indefinite": true,
+          "negative_semidefinite": false,
           "zero_matrix_is_stable": false,
           "channel_thresholds": [
             -0.05713163931229885,
@@ -880,31 +890,52 @@
         {
           "separation": 2.8,
           "trace": -0.05066059182116889,
-          "determinant": -2.5549445513007815e-05,
+          "zero_A_margin": -0.0004994028184131336,
+          "determinant": -2.5549445513008133e-05,
           "eigenvalues": [
-            -0.05115999463958201,
-            0.0004994028184131267
+            -0.05115999463958203,
+            0.0004994028184131336
           ],
           "indefinite": true,
+          "negative_semidefinite": false,
           "zero_matrix_is_stable": false,
           "channel_thresholds": [
-            -0.05115999463958201,
-            0.0004994028184131284
+            -0.05115999463958203,
+            0.0004994028184131354
           ]
         },
         {
           "separation": 3.0,
           "trace": -0.05066059182116889,
-          "determinant": -4.305109038690207e-06,
+          "zero_A_margin": -8.48373756382019e-05,
+          "determinant": -4.305109038691278e-06,
           "eigenvalues": [
-            -0.050745429196807065,
-            8.483737563818282e-05
+            -0.05074542919680709,
+            8.48373756382019e-05
           ],
           "indefinite": true,
+          "negative_semidefinite": false,
           "zero_matrix_is_stable": false,
           "channel_thresholds": [
-            -0.050745429196807065,
-            8.483737563818108e-05
+            -0.05074542919680709,
+            8.48373756382019e-05
+          ]
+        },
+        {
+          "separation": 3.141592653589793,
+          "trace": -0.05066059182116889,
+          "zero_A_margin": 0.0,
+          "determinant": 0.0,
+          "eigenvalues": [
+            -0.05066059182116889,
+            0.0
+          ],
+          "indefinite": false,
+          "negative_semidefinite": true,
+          "zero_matrix_is_stable": true,
+          "channel_thresholds": [
+            -0.05066059182116889,
+            0.0
           ]
         }
       ],
@@ -912,8 +943,36 @@
       "trace_value": -0.05066059182116889,
       "predicted_trace": -0.05066059182116889,
       "trace_matches_minus_one_over_two_pi_squared": true,
-      "the_apex_is_always_indefinite": true,
-      "the_zero_matrix_is_never_stable": true,
+      "the_apex_is_indefinite_away_from_the_antipode": true,
+      "the_apex_is_negative_semidefinite_at_the_antipode": true,
+      "the_zero_matrix_is_unstable_away_from_the_antipode": true,
+      "antipodal": {
+        "Gamma_0": [
+          "[-0.025330295910584444, 0.025330295910584444]",
+          "[0.025330295910584444, -0.025330295910584444]"
+        ],
+        "eigenvalues": [
+          -0.05066059182116889,
+          0.0
+        ],
+        "trace": -0.05066059182116889,
+        "determinant": 0.0,
+        "trace_is_two_g0": -0.05066059182116889,
+        "channel_thresholds": [
+          -0.05066059182116889,
+          0.0
+        ],
+        "indefinite": false,
+        "negative_semidefinite": true,
+        "zero_matrix_is_stable": true,
+        "zero_A_margin": 0.0,
+        "G_pi_at_zero": 0.025330295910584444,
+        "minus_g0": 0.025330295910584444,
+        "marginal_channel": "symmetric"
+      },
+      "the_antipodal_endpoint_is_marginal": true,
+      "at_the_antipode_A_zero_sits_on_the_boundary": true,
+      "the_marginal_channel_is_symmetric": "symmetric",
       "eigenvalues_are_the_channel_thresholds": true,
       "the_symmetric_threshold_closes_at_the_antipode": true,
       "pass": true
@@ -929,13 +988,196 @@
       "pass": true
     },
     {
-      "name": "T9_assessment",
-      "n_passed": 8,
-      "n_total": 8,
+      "name": "T9_the_monotonicity_is_a_gram_matrix",
+      "rows": [
+        {
+          "separation": 1.3,
+          "lmbda": -9.0,
+          "abs_error": 6.708331806715151e-13,
+          "eigenvalues": [
+            0.012900724751055664,
+            0.013625092931942126
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 1.3,
+          "lmbda": -1.0,
+          "abs_error": 3.663907718887138e-12,
+          "eigenvalues": [
+            0.0256265143348259,
+            0.05237428901785982
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 1.3,
+          "lmbda": -0.05,
+          "abs_error": 3.5599995173996035e-12,
+          "eigenvalues": [
+            0.030717302952189104,
+            0.12570834736969297
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 1.3,
+          "lmbda": 0.0,
+          "abs_error": 2.86287660244966e-12,
+          "eigenvalues": [
+            0.031063028687589953,
+            0.13560363798034322
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 1.3,
+          "lmbda": 0.5,
+          "abs_error": 8.112871485721485e-12,
+          "eigenvalues": [
+            0.03517689577690017,
+            0.4453558427538412
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 2.6,
+          "lmbda": -9.0,
+          "abs_error": 6.708331806715151e-13,
+          "eigenvalues": [
+            0.013237006490723067,
+            0.013288811192274723
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 2.6,
+          "lmbda": -1.0,
+          "abs_error": 2.63625232754805e-12,
+          "eigenvalues": [
+            0.03118372772406527,
+            0.046817075628620454
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 2.6,
+          "lmbda": -0.05,
+          "abs_error": 3.5599995173996035e-12,
+          "eigenvalues": [
+            0.04021530787408782,
+            0.11621034244779425
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 2.6,
+          "lmbda": 0.0,
+          "abs_error": 2.938177479094861e-12,
+          "eigenvalues": [
+            0.04085877518086276,
+            0.12580789148707042
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 2.6,
+          "lmbda": 0.5,
+          "abs_error": 6.813549724427048e-12,
+          "eigenvalues": [
+            0.048762298562953985,
+            0.4317704399677874
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 3.141592653589793,
+          "lmbda": -9.0,
+          "abs_error": 6.708331806715151e-13,
+          "eigenvalues": [
+            0.013244874583547095,
+            0.013280943099450696
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 3.141592653589793,
+          "lmbda": -1.0,
+          "abs_error": 2.63625232754805e-12,
+          "eigenvalues": [
+            0.03158149683150077,
+            0.04641930652118495
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 3.141592653589793,
+          "lmbda": -0.05,
+          "abs_error": 3.5599995173996035e-12,
+          "eigenvalues": [
+            0.04099316132339931,
+            0.11543248899848277
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 3.141592653589793,
+          "lmbda": 0.0,
+          "abs_error": 2.9878807761285486e-12,
+          "eigenvalues": [
+            0.041666666667933165,
+            0.125
+          ],
+          "positive_definite": true
+        },
+        {
+          "separation": 3.141592653589793,
+          "lmbda": 0.5,
+          "abs_error": 6.813549724427048e-12,
+          "eigenvalues": [
+            0.0499635880871879,
+            0.4305691504435535
+          ],
+          "positive_definite": true
+        }
+      ],
+      "worst_abs_error": 8.112871485721485e-12,
+      "the_gram_sum_is_the_closed_form_derivative": true,
+      "positive_definite_everywhere": true,
+      "including_at_the_antipode": true,
+      "the_identity": "d\u0393_ij/d\u03bb = \u27e8\u03b4_i, (H\u2080\u2212\u03bb)^{-2} \u03b4_j\u27e9 \u2014 a Gram matrix",
+      "what_this_upgrades": "L\u00f6wner monotonicity of \u0393 from a fact sampled at a few \u03bb to an analytic consequence; the root scans elsewhere are regression checks",
+      "pass": true
+    },
+    {
+      "name": "T10_the_criterion_extends_beyond_the_chart",
+      "chart_draws": 60,
+      "chart_mismatches": 0,
+      "the_general_form_agrees_with_the_cone_on_the_chart": true,
+      "stratum_draws": 60,
+      "stratum_mismatches": 0,
+      "the_general_form_agrees_with_the_scan_on_the_strata": true,
+      "every_stratum_has_one_dirichlet_direction": true,
+      "worst_hermitian_defect": 1.7673624272237138e-12,
+      "worst_row_space_defect": 9.609327085357664e-16,
+      "the_reduction_is_legitimate": true,
+      "free_stratum": {
+        "k": 0,
+        "non_negative": true,
+        "stratum": "free (q = 0): no mouth-active spectrum"
+      },
+      "the_free_stratum_is_non_negative": true,
+      "the_scope": "A \u2ab0 \u0393(0) is the criterion in the finite-A chart; the general one is A_eff \u2ab0 P\u2020\u0393(0)P on the allowed-charge subspace, and the chart is its k = 2 case",
+      "pass": true
+    },
+    {
+      "name": "T11_assessment",
+      "n_passed": 10,
+      "n_total": 10,
       "pass": true
     }
   ],
   "verdict_class": "THE_POSITIVE_SECTOR_IS_A_LIGHT_CONE_AT_GAMMA_ZERO",
-  "verdict": "NON-NEGATIVE IF AND ONLY IF A >= Gamma(0), IN THE LOEWNER ORDER. PR #256 left the question open on three of its four parameters and answered the fourth by scanning; the general answer is a single inequality, and the reason is one line. Gamma(lambda) has dGamma/dlambda POSITIVE DEFINITE below threshold, so every eigenvalue of M(lambda) = A - Gamma(lambda) is strictly decreasing in lambda, while as lambda -> -infinity Gamma -> -(sigma/4pi) I and both eigenvalues run to +infinity. An eigenvalue therefore crosses zero somewhere below threshold if and only if it is already negative AT threshold. Checked against an actual negative-lambda root scan on 200 random Hermitian A -- every one with complex beta and unequal mouths, so all four parameters are exercised -- with 0 mismatches and 19 of them stable, so both verdicts occur. THE GEOMETRY IS A LIGHT CONE: Hermitian 2x2 matrices are R^4 under A - Gamma(0) = x0 I + x.sigma, and positive semidefiniteness is x0 >= |x|, so the stable set is the forward light cone with apex at A = Gamma(0) -- convex, closed under positive scaling from the apex, and four-dimensional. AND THE SAME ARGUMENT COUNTS: #{mouth-active eigenvalues < lambda*} = #{negative eigenvalues of A - Gamma(lambda*)} for any lambda* below the free ground state, 0 mismatches in 160 tests at lambda* = -2, 0, 0.5 and 0.9. That is a Krein-type inertia theorem, and stability is its lambda* = 0 case. THE BOUNDARY IS DETECTABLE, NOT CONVENTIONAL: on the null surface A - Gamma(0) is rank one, so lambda = 0 enters the spectrum as a genuine ZERO MODE -- a static solution supported by the throat, below the free ground state -- located independently by root-finding at 1.4e-14 with the secular function vanishing to 1.8e-17. At the apex there are TWO. AND THE INSTABILITY OUTSIDE TURNS ON LIKE A SQUARE ROOT: lambda is linear in the distance eps past the boundary (-7.374476, against -7.374433 predicted from the eigenvalue slope rather than fitted), so the growth rate rises with exponent 0.50001. PR #256's WEDGE IS THE x2 = x3 = 0 SLICE, reproduced exactly at all 143 sampled points -- and applied to general boundary data by averaging the mouths and dropping Im beta it gets 65 of 400 draws wrong, which is why the general form was needed rather than a wider scan. FINALLY, WHERE THE APEX SITS: tr Gamma(0) = 2 g0 = -1/(2 pi^2) at EVERY mouth separation, its eigenvalues are exactly PR #256's two channel thresholds, and its determinant g0^2 - G0^2 is negative everywhere -- so Gamma(0) is indefinite and A = 0 is unstable at every separation, which moving the mouths does not fix. As d -> pi the positive threshold closes toward zero. HOW BIG THE REGION IS depends on the box, and the box is stated: 0.083 of a uniform draw over |alpha_j|, |Re beta|, |Im beta| <= 0.2. WHAT IS STILL PUT IN: the boundary data itself, four real numbers chosen and not derived, with PR #249 still the thing that would fix them from matter. The throat is point-supported -- no interior, no proper length, no delay. No backreaction, no stress tensor, no topology change, no rate, and no two-source invariant; what this round buys the next one is a stated region to work inside and a count of what goes wrong outside it.",
-  "generated_utc": "2026-08-15T16:16:13.554090+00:00"
+  "verdict": "NON-NEGATIVE IF AND ONLY IF A >= Gamma(0), IN THE LOEWNER ORDER -- in the finite-A chart, with the general form on the whole U(2) family got by restricting to the allowed-charge subspace. PR #256 left the question open on three of its four parameters and answered the fourth by scanning; the general answer is a single inequality, and the reason is one line. Gamma(lambda) has dGamma/dlambda POSITIVE DEFINITE below threshold, so every eigenvalue of M(lambda) = A - Gamma(lambda) is strictly decreasing in lambda, while as lambda -> -infinity Gamma -> -(sigma/4pi) I and both eigenvalues run to +infinity. An eigenvalue therefore crosses zero somewhere below threshold if and only if it is already negative AT threshold. Checked against an actual negative-lambda root scan on 200 random Hermitian A -- every one with complex beta and unequal mouths, so all four parameters are exercised -- with 0 mismatches and 19 of them stable, so both verdicts occur. THE GEOMETRY IS A LIGHT CONE: Hermitian 2x2 matrices are R^4 under A - Gamma(0) = x0 I + x.sigma, and positive semidefiniteness is x0 >= |x|, so the stable set is the forward light cone with apex at A = Gamma(0) -- convex, closed under positive scaling from the apex, and four-dimensional. AND THE SAME ARGUMENT COUNTS: #{mouth-active eigenvalues < lambda*} = #{negative eigenvalues of A - Gamma(lambda*)} for any lambda* below the free ground state, 0 mismatches in 160 tests at lambda* = -2, 0, 0.5 and 0.9. That is a Krein-type inertia theorem, and stability is its lambda* = 0 case. THE BOUNDARY IS DETECTABLE, NOT CONVENTIONAL: on the null surface A - Gamma(0) is rank one, so lambda = 0 enters the spectrum as a genuine ZERO MODE -- a static solution supported by the throat, below the free ground state -- located independently by root-finding at 1.4e-14 with the secular function vanishing to 1.8e-17. At the apex there are TWO. AND THE INSTABILITY OUTSIDE TURNS ON LIKE A SQUARE ROOT: lambda is linear in the distance eps past the boundary (-7.374476, against -7.374433 predicted from the eigenvalue slope rather than fitted), so the growth rate rises with exponent 0.50001. PR #256's WEDGE IS THE x2 = x3 = 0 SLICE, reproduced exactly at all 143 sampled points -- and applied to general boundary data by averaging the mouths and dropping Im beta it gets 65 of 400 draws wrong, which is why the general form was needed rather than a wider scan. FINALLY, WHERE THE APEX SITS: tr Gamma(0) = 2 g0 = -1/(2 pi^2) at EVERY mouth separation, its eigenvalues are exactly PR #256's two channel thresholds, and and its determinant g0^2 - G0^2 is negative for 0 < d < pi -- so Gamma(0) is indefinite there and A = 0 is unstable. THE EXACT ANTIPODE IS A DIFFERENT STATEMENT, and for this geometry it is the load-bearing one: G_d has a REMOVABLE singularity at d = pi, with G_pi(0) = +1/(4 pi^2) = -g0, so Gamma(0) = g0[[1,-1],[-1,1]] has eigenvalues (2 g0, 0) -- negative SEMIdefinite, not indefinite -- and A = 0 is MARGINALLY non-negative there, sitting on the cone's boundary with a zero mode in the symmetric channel. TWO FURTHER TIGHTENINGS. First, the monotonicity everything rests on is not a sampled fact: Gamma_ij(lambda) = <delta_i,(H0-lambda)^-1 delta_j> up to a lambda-independent subtraction, so dGamma/dlambda is the GRAM MATRIX of (H0-lambda)^-1 delta_j -- PSD for free, positive definite for distinct mouths -- computed independently from the S3 addition theorem and agreeing with the closed form to 8.1e-12, antipode included. Second, A >= Gamma(0) is the criterion IN A CHART: phi_reg = A q needs B invertible, and the strata it misses are Dirichlet directions, reached as ||A|| -> infinity and not represented by any finite Hermitian A. The general criterion is A_eff >= P^dag Gamma(0) P on the allowed-charge subspace, agreeing with the cone on 60 chart draws and with a root scan on 60 stratum draws, with the reduction's own assumptions checked rather than assumed. HOW BIG THE REGION IS depends on the box, and the box is stated: 0.083 of a uniform draw over |alpha_j|, |Re beta|, |Im beta| <= 0.2. WHAT IS STILL PUT IN: the boundary data itself, four real numbers chosen and not derived, with PR #249 still the thing that would fix them from matter. The throat is point-supported -- no interior, no proper length, no delay. No backreaction, no stress tensor, no topology change, no rate, and no two-source invariant; what this round buys the next one is a stated region to work inside and a count of what goes wrong outside it.",
+  "generated_utc": "2026-08-15T17:40:27.230390+00:00"
 }

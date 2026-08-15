@@ -1,6 +1,6 @@
 # probe — throat_positivity
 
-_2026-08-15T16:16:13.554090+00:00_
+_2026-08-15T17:40:27.230390+00:00_
 
 ## T1_goal — PASS
 
@@ -127,19 +127,26 @@ _2026-08-15T16:16:13.554090+00:00_
 ## T7_where_the_apex_sits — PASS
 
 - **rows**:
-    - separation=0.2, trace=-0.0506606, determinant=-0.140023, eigenvalues=[-0.400383, 0.349722], indefinite=True, zero_matrix_is_stable=False, channel_thresholds=[-0.400383, 0.349722]
-    - separation=0.5, trace=-0.0506606, determinant=-0.0188375, eigenvalues=[-0.164898, 0.114237], indefinite=True, zero_matrix_is_stable=False, channel_thresholds=[-0.164898, 0.114237]
-    - separation=0.8, trace=-0.0506606, determinant=-0.00619487, eigenvalues=[-0.108013, 0.0573528], indefinite=True, zero_matrix_is_stable=False, channel_thresholds=[-0.108013, 0.0573528]
-    - separation=1.3, trace=-0.0506606, determinant=-0.00170213, eigenvalues=[-0.0737426, 0.023082], indefinite=True, zero_matrix_is_stable=False, channel_thresholds=[-0.0737426, 0.023082]
-    - separation=2, trace=-0.0506606, determinant=-0.000369702, eigenvalues=[-0.0571316, 0.00647105], indefinite=True, zero_matrix_is_stable=False, channel_thresholds=[-0.0571316, 0.00647105]
-    - separation=2.8, trace=-0.0506606, determinant=-2.55494e-05, eigenvalues=[-0.05116, 0.000499403], indefinite=True, zero_matrix_is_stable=False, channel_thresholds=[-0.05116, 0.000499403]
-    - separation=3, trace=-0.0506606, determinant=-4.30511e-06, eigenvalues=[-0.0507454, 8.48374e-05], indefinite=True, zero_matrix_is_stable=False, channel_thresholds=[-0.0507454, 8.48374e-05]
+    - separation=0.2, trace=-0.0506606, zero_A_margin=-0.349722, determinant=-0.140023, eigenvalues=[-0.400383, 0.349722], indefinite=True, negative_semidefinite=False, zero_matrix_is_stable=False, channel_thresholds=[-0.400383, 0.349722]
+    - separation=0.5, trace=-0.0506606, zero_A_margin=-0.114237, determinant=-0.0188375, eigenvalues=[-0.164898, 0.114237], indefinite=True, negative_semidefinite=False, zero_matrix_is_stable=False, channel_thresholds=[-0.164898, 0.114237]
+    - separation=0.8, trace=-0.0506606, zero_A_margin=-0.0573528, determinant=-0.00619487, eigenvalues=[-0.108013, 0.0573528], indefinite=True, negative_semidefinite=False, zero_matrix_is_stable=False, channel_thresholds=[-0.108013, 0.0573528]
+    - separation=1.3, trace=-0.0506606, zero_A_margin=-0.023082, determinant=-0.00170213, eigenvalues=[-0.0737426, 0.023082], indefinite=True, negative_semidefinite=False, zero_matrix_is_stable=False, channel_thresholds=[-0.0737426, 0.023082]
+    - separation=2, trace=-0.0506606, zero_A_margin=-0.00647105, determinant=-0.000369702, eigenvalues=[-0.0571316, 0.00647105], indefinite=True, negative_semidefinite=False, zero_matrix_is_stable=False, channel_thresholds=[-0.0571316, 0.00647105]
+    - separation=2.8, trace=-0.0506606, zero_A_margin=-0.000499403, determinant=-2.55494e-05, eigenvalues=[-0.05116, 0.000499403], indefinite=True, negative_semidefinite=False, zero_matrix_is_stable=False, channel_thresholds=[-0.05116, 0.000499403]
+    - separation=3, trace=-0.0506606, zero_A_margin=-8.48374e-05, determinant=-4.30511e-06, eigenvalues=[-0.0507454, 8.48374e-05], indefinite=True, negative_semidefinite=False, zero_matrix_is_stable=False, channel_thresholds=[-0.0507454, 8.48374e-05]
+    - separation=3.14159, trace=-0.0506606, zero_A_margin=0, determinant=0, eigenvalues=[-0.0506606, 0], indefinite=False, negative_semidefinite=True, zero_matrix_is_stable=True, channel_thresholds=[-0.0506606, 0]
 - **trace_is_separation_independent**: True
 - **trace_value**: -0.0506606
 - **predicted_trace**: -0.0506606
 - **trace_matches_minus_one_over_two_pi_squared**: True
-- **the_apex_is_always_indefinite**: True
-- **the_zero_matrix_is_never_stable**: True
+- **the_apex_is_indefinite_away_from_the_antipode**: True
+- **the_apex_is_negative_semidefinite_at_the_antipode**: True
+- **the_zero_matrix_is_unstable_away_from_the_antipode**: True
+- **antipodal**: Gamma_0=[[-0.02533  0.02533]
+ [ 0.02533 -0.02533]], eigenvalues=[-0.0506606, 0], trace=-0.0506606, determinant=0, trace_is_two_g0=-0.0506606, channel_thresholds=[-0.0506606, 0], indefinite=False, negative_semidefinite=True, zero_matrix_is_stable=True, zero_A_margin=0, G_pi_at_zero=0.0253303, minus_g0=0.0253303, marginal_channel=symmetric
+- **the_antipodal_endpoint_is_marginal**: True
+- **at_the_antipode_A_zero_sits_on_the_boundary**: True
+- **the_marginal_channel_is_symmetric**: symmetric
 - **eigenvalues_are_the_channel_thresholds**: True
 - **the_symmetric_threshold_closes_at_the_antipode**: True
 
@@ -152,11 +159,52 @@ _2026-08-15T16:16:13.554090+00:00_
 - **the_box**: |α_j| ≤ w and |Re β|, |Im β| ≤ w
 - **caveat**: a cone is unbounded; the fraction is box-dependent
 
-## T9_assessment — PASS
+## T9_the_monotonicity_is_a_gram_matrix — PASS
 
-- **n_passed**: 8
-- **n_total**: 8
+- **rows**:
+    - separation=1.3, lmbda=-9, abs_error=6.70833e-13, eigenvalues=[0.0129007, 0.0136251], positive_definite=True
+    - separation=1.3, lmbda=-1, abs_error=3.66391e-12, eigenvalues=[0.0256265, 0.0523743], positive_definite=True
+    - separation=1.3, lmbda=-0.05, abs_error=3.56e-12, eigenvalues=[0.0307173, 0.125708], positive_definite=True
+    - separation=1.3, lmbda=0, abs_error=2.86288e-12, eigenvalues=[0.031063, 0.135604], positive_definite=True
+    - separation=1.3, lmbda=0.5, abs_error=8.11287e-12, eigenvalues=[0.0351769, 0.445356], positive_definite=True
+    - separation=2.6, lmbda=-9, abs_error=6.70833e-13, eigenvalues=[0.013237, 0.0132888], positive_definite=True
+    - separation=2.6, lmbda=-1, abs_error=2.63625e-12, eigenvalues=[0.0311837, 0.0468171], positive_definite=True
+    - separation=2.6, lmbda=-0.05, abs_error=3.56e-12, eigenvalues=[0.0402153, 0.11621], positive_definite=True
+    - separation=2.6, lmbda=0, abs_error=2.93818e-12, eigenvalues=[0.0408588, 0.125808], positive_definite=True
+    - separation=2.6, lmbda=0.5, abs_error=6.81355e-12, eigenvalues=[0.0487623, 0.43177], positive_definite=True
+    - separation=3.14159, lmbda=-9, abs_error=6.70833e-13, eigenvalues=[0.0132449, 0.0132809], positive_definite=True
+    - separation=3.14159, lmbda=-1, abs_error=2.63625e-12, eigenvalues=[0.0315815, 0.0464193], positive_definite=True
+    - separation=3.14159, lmbda=-0.05, abs_error=3.56e-12, eigenvalues=[0.0409932, 0.115432], positive_definite=True
+    - separation=3.14159, lmbda=0, abs_error=2.98788e-12, eigenvalues=[0.0416667, 0.125], positive_definite=True
+    - separation=3.14159, lmbda=0.5, abs_error=6.81355e-12, eigenvalues=[0.0499636, 0.430569], positive_definite=True
+- **worst_abs_error**: 8.11287e-12
+- **the_gram_sum_is_the_closed_form_derivative**: True
+- **positive_definite_everywhere**: True
+- **including_at_the_antipode**: True
+- **the_identity**: dΓ_ij/dλ = ⟨δ_i, (H₀−λ)^{-2} δ_j⟩ — a Gram matrix
+- **what_this_upgrades**: Löwner monotonicity of Γ from a fact sampled at a few λ to an analytic consequence; the root scans elsewhere are regression checks
+
+## T10_the_criterion_extends_beyond_the_chart — PASS
+
+- **chart_draws**: 60
+- **chart_mismatches**: 0
+- **the_general_form_agrees_with_the_cone_on_the_chart**: True
+- **stratum_draws**: 60
+- **stratum_mismatches**: 0
+- **the_general_form_agrees_with_the_scan_on_the_strata**: True
+- **every_stratum_has_one_dirichlet_direction**: True
+- **worst_hermitian_defect**: 1.76736e-12
+- **worst_row_space_defect**: 9.60933e-16
+- **the_reduction_is_legitimate**: True
+- **free_stratum**: k=0, non_negative=True, stratum=free (q = 0): no mouth-active spectrum
+- **the_free_stratum_is_non_negative**: True
+- **the_scope**: A ⪰ Γ(0) is the criterion in the finite-A chart; the general one is A_eff ⪰ P†Γ(0)P on the allowed-charge subspace, and the chart is its k = 2 case
+
+## T11_assessment — PASS
+
+- **n_passed**: 10
+- **n_total**: 10
 
 ## verdict — THE_POSITIVE_SECTOR_IS_A_LIGHT_CONE_AT_GAMMA_ZERO
 
-NON-NEGATIVE IF AND ONLY IF A >= Gamma(0), IN THE LOEWNER ORDER. PR #256 left the question open on three of its four parameters and answered the fourth by scanning; the general answer is a single inequality, and the reason is one line. Gamma(lambda) has dGamma/dlambda POSITIVE DEFINITE below threshold, so every eigenvalue of M(lambda) = A - Gamma(lambda) is strictly decreasing in lambda, while as lambda -> -infinity Gamma -> -(sigma/4pi) I and both eigenvalues run to +infinity. An eigenvalue therefore crosses zero somewhere below threshold if and only if it is already negative AT threshold. Checked against an actual negative-lambda root scan on 200 random Hermitian A -- every one with complex beta and unequal mouths, so all four parameters are exercised -- with 0 mismatches and 19 of them stable, so both verdicts occur. THE GEOMETRY IS A LIGHT CONE: Hermitian 2x2 matrices are R^4 under A - Gamma(0) = x0 I + x.sigma, and positive semidefiniteness is x0 >= |x|, so the stable set is the forward light cone with apex at A = Gamma(0) -- convex, closed under positive scaling from the apex, and four-dimensional. AND THE SAME ARGUMENT COUNTS: #{mouth-active eigenvalues < lambda*} = #{negative eigenvalues of A - Gamma(lambda*)} for any lambda* below the free ground state, 0 mismatches in 160 tests at lambda* = -2, 0, 0.5 and 0.9. That is a Krein-type inertia theorem, and stability is its lambda* = 0 case. THE BOUNDARY IS DETECTABLE, NOT CONVENTIONAL: on the null surface A - Gamma(0) is rank one, so lambda = 0 enters the spectrum as a genuine ZERO MODE -- a static solution supported by the throat, below the free ground state -- located independently by root-finding at 1.4e-14 with the secular function vanishing to 1.8e-17. At the apex there are TWO. AND THE INSTABILITY OUTSIDE TURNS ON LIKE A SQUARE ROOT: lambda is linear in the distance eps past the boundary (-7.374476, against -7.374433 predicted from the eigenvalue slope rather than fitted), so the growth rate rises with exponent 0.50001. PR #256's WEDGE IS THE x2 = x3 = 0 SLICE, reproduced exactly at all 143 sampled points -- and applied to general boundary data by averaging the mouths and dropping Im beta it gets 65 of 400 draws wrong, which is why the general form was needed rather than a wider scan. FINALLY, WHERE THE APEX SITS: tr Gamma(0) = 2 g0 = -1/(2 pi^2) at EVERY mouth separation, its eigenvalues are exactly PR #256's two channel thresholds, and its determinant g0^2 - G0^2 is negative everywhere -- so Gamma(0) is indefinite and A = 0 is unstable at every separation, which moving the mouths does not fix. As d -> pi the positive threshold closes toward zero. HOW BIG THE REGION IS depends on the box, and the box is stated: 0.083 of a uniform draw over |alpha_j|, |Re beta|, |Im beta| <= 0.2. WHAT IS STILL PUT IN: the boundary data itself, four real numbers chosen and not derived, with PR #249 still the thing that would fix them from matter. The throat is point-supported -- no interior, no proper length, no delay. No backreaction, no stress tensor, no topology change, no rate, and no two-source invariant; what this round buys the next one is a stated region to work inside and a count of what goes wrong outside it.
+NON-NEGATIVE IF AND ONLY IF A >= Gamma(0), IN THE LOEWNER ORDER -- in the finite-A chart, with the general form on the whole U(2) family got by restricting to the allowed-charge subspace. PR #256 left the question open on three of its four parameters and answered the fourth by scanning; the general answer is a single inequality, and the reason is one line. Gamma(lambda) has dGamma/dlambda POSITIVE DEFINITE below threshold, so every eigenvalue of M(lambda) = A - Gamma(lambda) is strictly decreasing in lambda, while as lambda -> -infinity Gamma -> -(sigma/4pi) I and both eigenvalues run to +infinity. An eigenvalue therefore crosses zero somewhere below threshold if and only if it is already negative AT threshold. Checked against an actual negative-lambda root scan on 200 random Hermitian A -- every one with complex beta and unequal mouths, so all four parameters are exercised -- with 0 mismatches and 19 of them stable, so both verdicts occur. THE GEOMETRY IS A LIGHT CONE: Hermitian 2x2 matrices are R^4 under A - Gamma(0) = x0 I + x.sigma, and positive semidefiniteness is x0 >= |x|, so the stable set is the forward light cone with apex at A = Gamma(0) -- convex, closed under positive scaling from the apex, and four-dimensional. AND THE SAME ARGUMENT COUNTS: #{mouth-active eigenvalues < lambda*} = #{negative eigenvalues of A - Gamma(lambda*)} for any lambda* below the free ground state, 0 mismatches in 160 tests at lambda* = -2, 0, 0.5 and 0.9. That is a Krein-type inertia theorem, and stability is its lambda* = 0 case. THE BOUNDARY IS DETECTABLE, NOT CONVENTIONAL: on the null surface A - Gamma(0) is rank one, so lambda = 0 enters the spectrum as a genuine ZERO MODE -- a static solution supported by the throat, below the free ground state -- located independently by root-finding at 1.4e-14 with the secular function vanishing to 1.8e-17. At the apex there are TWO. AND THE INSTABILITY OUTSIDE TURNS ON LIKE A SQUARE ROOT: lambda is linear in the distance eps past the boundary (-7.374476, against -7.374433 predicted from the eigenvalue slope rather than fitted), so the growth rate rises with exponent 0.50001. PR #256's WEDGE IS THE x2 = x3 = 0 SLICE, reproduced exactly at all 143 sampled points -- and applied to general boundary data by averaging the mouths and dropping Im beta it gets 65 of 400 draws wrong, which is why the general form was needed rather than a wider scan. FINALLY, WHERE THE APEX SITS: tr Gamma(0) = 2 g0 = -1/(2 pi^2) at EVERY mouth separation, its eigenvalues are exactly PR #256's two channel thresholds, and and its determinant g0^2 - G0^2 is negative for 0 < d < pi -- so Gamma(0) is indefinite there and A = 0 is unstable. THE EXACT ANTIPODE IS A DIFFERENT STATEMENT, and for this geometry it is the load-bearing one: G_d has a REMOVABLE singularity at d = pi, with G_pi(0) = +1/(4 pi^2) = -g0, so Gamma(0) = g0[[1,-1],[-1,1]] has eigenvalues (2 g0, 0) -- negative SEMIdefinite, not indefinite -- and A = 0 is MARGINALLY non-negative there, sitting on the cone's boundary with a zero mode in the symmetric channel. TWO FURTHER TIGHTENINGS. First, the monotonicity everything rests on is not a sampled fact: Gamma_ij(lambda) = <delta_i,(H0-lambda)^-1 delta_j> up to a lambda-independent subtraction, so dGamma/dlambda is the GRAM MATRIX of (H0-lambda)^-1 delta_j -- PSD for free, positive definite for distinct mouths -- computed independently from the S3 addition theorem and agreeing with the closed form to 8.1e-12, antipode included. Second, A >= Gamma(0) is the criterion IN A CHART: phi_reg = A q needs B invertible, and the strata it misses are Dirichlet directions, reached as ||A|| -> infinity and not represented by any finite Hermitian A. The general criterion is A_eff >= P^dag Gamma(0) P on the allowed-charge subspace, agreeing with the cone on 60 chart draws and with a root scan on 60 stratum draws, with the reduction's own assumptions checked rather than assumed. HOW BIG THE REGION IS depends on the box, and the box is stated: 0.083 of a uniform draw over |alpha_j|, |Re beta|, |Im beta| <= 0.2. WHAT IS STILL PUT IN: the boundary data itself, four real numbers chosen and not derived, with PR #249 still the thing that would fix them from matter. The throat is point-supported -- no interior, no proper length, no delay. No backreaction, no stress tensor, no topology change, no rate, and no two-source invariant; what this round buys the next one is a stated region to work inside and a count of what goes wrong outside it.

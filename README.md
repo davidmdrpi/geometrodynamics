@@ -2377,11 +2377,19 @@ non-negative   ⟺   A ⪰ Γ(0)          (Löwner order)
 Γ(0) = [[g₀, G₀], [G₀, g₀]] ,  g₀ = −1/(4π²) ,  G₀ = (π−d)/(4π² sin d)
 ```
 
+— for **distinct non-antipodal mouths in the finite-`A` self-adjoint chart**.
+
 **Why**, in one line: `dΓ/dλ ≻ 0` below threshold, so every eigenvalue of
 `A − Γ(λ)` is strictly decreasing in `λ` while both run to `+∞` as `λ → −∞`; one
 crosses zero below threshold **iff** it is already negative at it. Checked
 against an actual negative-`λ` root scan on 200 random Hermitian `A` — all with
 complex `β` and unequal mouths — **0 mismatches**, 19 stable and 181 not.
+
+**And the monotonicity is a theorem, not a sample.** `dΓ_ij/dλ =
+⟨δ_i, (H₀−λ)⁻² δ_j⟩` is a **Gram matrix** — PSD for free, positive definite
+whenever the two mouths are distinct. Rebuilt mode by mode from the `S³`
+addition theorem and agreeing with the closed form to **`8.1e-12`**, antipode
+included.
 
 **And the same argument counts.** For any `λ*` below the free ground state,
 `#{eigenvalues < λ*} = #{negative eigenvalues of A − Γ(λ*)}` — a Krein-type
@@ -2411,8 +2419,21 @@ mouths and dropping `Im β`. Those are precisely the two dimensions it cannot se
 
 **Where the apex sits.** `tr Γ(0) = 2g₀ = −1/(2π²)` at *every* mouth separation;
 its eigenvalues are exactly #256's two channel thresholds; and `det Γ(0) < 0`
-everywhere, so `Γ(0)` is indefinite — **`A = 0` is unstable at every separation**,
-which no placement of the mouths fixes.
+for `0 < d < π`, so `Γ(0)` is indefinite there — **`A = 0` is unstable wherever
+the mouths are actually apart**, which no placement short of the antipode fixes.
+
+**The exact antipode is a different statement.** `G_d` has a *removable*
+singularity at `d = π` — not a pole — with `G_π(0) = +1/(4π²) = −g₀`. So
+`Γ(0) = g₀[[1,−1],[−1,1]]` has eigenvalues `(2g₀, 0)`: **negative
+semidefinite**, and `A = 0` is **marginally non-negative** there, sitting on the
+cone's boundary with a zero mode in the symmetric channel. For a through-throat
+geodesic on `S³` that is the natural configuration, so it gets its own test.
+
+**And `A ⪰ Γ(0)` is the criterion in a chart.** `φ^reg = A q` needs `B`
+invertible; the strata it misses are Dirichlet directions, reached only as
+`‖A‖ → ∞`. The general criterion is `A_eff ⪰ P†Γ(0)P` on the allowed-charge
+subspace — agreeing with the cone on 60 chart draws and with a root scan on 60
+`k = 1` stratum draws, **0 mismatches** either way.
 
 Within the stated box `|α_j|, |Re β|, |Im β| ≤ 0.2`, the stable fraction is
 **`0.083`** — a genuine restriction, not a formality.
@@ -2423,7 +2444,7 @@ exactly as open as before.
 
 ```bash
 python -m experiments.closure_ledger.throat_positivity_probe
-# Verdict: THE_POSITIVE_SECTOR_IS_A_LIGHT_CONE_AT_GAMMA_ZERO  (8/8)
+# Verdict: THE_POSITIVE_SECTOR_IS_A_LIGHT_CONE_AT_GAMMA_ZERO  (10/10)
 
 python scripts/geometrodynamics_v57_throat_positivity.py --still v57.png
 ```

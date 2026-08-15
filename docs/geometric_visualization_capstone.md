@@ -345,11 +345,22 @@ non-negative  ⟺  A ⪰ Γ(0),   Γ(0) = [[g₀,G₀],[G₀,g₀]],
 g₀ = −1/(4π²),  G₀ = (π−d)/(4π² sin d)
 ```
 
+for **distinct non-antipodal mouths in the finite-`A` chart** — the scope
+carries weight, and the two paragraphs before the last one are why.
+
 **Why**: `dΓ/dλ ≻ 0` below threshold, so every eigenvalue of `A − Γ(λ)` falls
 with `λ` while both run to `+∞` as `λ → −∞` — one crosses zero below threshold
 iff it is already negative at it. Checked against a negative-`λ` root scan on
 200 random Hermitian `A`, all with complex `β` and unequal mouths: **0
 mismatches**, with both verdicts occurring.
+
+**The monotonicity is an identity, not a sample.** `dΓ_ij/dλ =
+⟨δ_i,(H₀−λ)⁻²δ_j⟩` is a **Gram matrix** — positive semidefinite for free,
+positive definite exactly when the two mouths are distinct points. Rebuilt mode
+by mode from the `S³` addition theorem and matching the closed form to
+`8.1e-12` at every sampled `(d, λ)`, antipode included. This matters for what
+the rest of the section is allowed to claim: a criterion advertised as exact
+cannot rest on eigenvalues spot-checked at a handful of `λ`.
 
 **And the same argument counts.** `#{eigenvalues < λ*} = #{negative eigenvalues
 of A − Γ(λ*)}` for any `λ*` below the free ground state — a Krein-type inertia
@@ -376,8 +387,29 @@ not wrong, it was *lower-dimensional*, and only the closed form showed which.
 
 **Where the apex sits.** `tr Γ(0) = −1/(2π²)` at every mouth separation, its
 eigenvalues are the previous round's two channel thresholds, and `det Γ(0) < 0`
-everywhere — so `Γ(0)` is indefinite and **`A = 0` is unstable at every
-separation**, which no placement of the mouths repairs.
+for `0 < d < π` — so `Γ(0)` is indefinite there and **`A = 0` is unstable
+wherever the mouths are actually apart**, which no placement short of the
+antipode repairs.
+
+**The exact antipode is a separate case, and for this geometry the interesting
+one.** `G_d` has a *removable* singularity at `d = π`, not a pole:
+`G_π(0) = +1/(4π²) = −g₀`, so `Γ(0) = g₀[[1,−1],[−1,1]]` has eigenvalues
+`(2g₀, 0)` — negative *semi*definite — and `A = 0` there is **marginally
+non-negative**, sitting on the cone's boundary with a static mode in the
+symmetric channel. The earlier code raised on `χ = π` as a singularity; it is
+one only in the formula, not in the function. This is the arc's recurring
+lesson in a new dress: a limit rejected as a pole, where taking it changes the
+verdict at the one configuration a through-throat geodesic on `S³` actually
+picks out.
+
+**And the inequality is stated on a chart.** `φ^reg = A q` requires `B`
+invertible in the general pair `Bφ^reg = Cq`; the `U(2)` strata it misses are
+Dirichlet directions, reached only as `‖A‖ → ∞`, so "the positive sector is
+`A ⪰ Γ(0)`" is true of the chart and false of the whole family. The general
+criterion is `A_eff ⪰ P†Γ(0)P` on the allowed-charge subspace — 0 mismatches
+against the cone on 60 chart draws and against a root scan on 60 stratum draws,
+with the reduction's own assumptions (Hermiticity of `A_eff`, the row-space
+condition) checked rather than asserted.
 
 ## 16. What the arc cost in errors, and what caught them
 
@@ -469,6 +501,17 @@ Worth recording, because the failure modes repeat:
   depend on the arbitrary reference scale `c` — the same `A` gives `0.955` and
   `0.713` — so they are boundary-mixing coefficients, and the physical
   conservation statement is the flux identity instead.
+* **A removable singularity rejected as a pole.** `G(χ,ω)` was guarded against
+  `χ = π` because `sin χ` vanishes there — but so does the numerator, and the
+  limit is finite. The guard changed a verdict rather than a formatting detail:
+  at the antipode `Γ(0)` is negative *semi*definite, not indefinite, so `A = 0`
+  is marginally stable rather than unstable — and the antipode is the one
+  configuration a through-throat geodesic on `S³` actually picks out.
+* **A theorem on a chart, stated globally.** `A ⪰ Γ(0)` was presented as the
+  positive sector of the `U(2)` throat family. It is the positive sector of the
+  `B`-invertible *chart*; the Dirichlet strata are not reached by any finite
+  Hermitian `A`, and on them the criterion is `A_eff ⪰ P†Γ(0)P` instead. The
+  inequality was right, its quantifier was not.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by

@@ -29,7 +29,16 @@ from geometrodynamics.waves.throat_operator import (
     stability_thresholds,
 )
 from geometrodynamics.waves.throat_positivity import (
+    allowed_charge_basis,
     apex,
+    boundary_pair_from_unitary,
+    finite_boundary_from_unitary,
+    gram_derivative,
+    is_maximal_self_adjoint,
+    is_non_negative_pair,
+    measure_the_criterion_extends_to_the_boundary_strata,
+    measure_the_monotonicity_is_a_gram_matrix,
+    reduced_boundary_form,
     boundary_point,
     cone_coordinates,
     cone_fraction,
@@ -258,7 +267,7 @@ def test_the_apex_trace_does_not_depend_on_the_mouth_separation(sep):
 
 
 @pytest.mark.parametrize("sep", [0.2, 0.8, 1.3, 2.0, 3.0])
-def test_the_apex_is_indefinite_so_a_zero_boundary_matrix_never_works(sep):
+def test_away_from_the_antipode_a_zero_boundary_matrix_never_works(sep):
     ap = apex(sep)
     assert ap["indefinite"]
     assert not ap["zero_matrix_is_stable"]
@@ -269,6 +278,143 @@ def test_the_symmetric_threshold_closes_as_the_mouths_go_antipodal():
     near = apex(1.0)["eigenvalues"][1]
     far = apex(3.05)["eigenvalues"][1]
     assert 0.0 < far < near / 100.0
+
+
+# ── the antipodal endpoint, which is a different statement ──────────────────
+def test_the_green_function_is_finite_at_antipodal_mouth_separation():
+    """``G_d`` has a removable singularity at ``d = π``, not a pole."""
+    g = threshold_matrix(math.pi)
+    assert g[0, 1] == pytest.approx(1.0 / (4.0 * math.pi ** 2), abs=1e-15)
+    assert g[0, 0] == pytest.approx(-1.0 / (4.0 * math.pi ** 2), abs=1e-15)
+
+
+def test_the_antipodal_apex_is_negative_semidefinite_not_indefinite():
+    ap = apex(math.pi)
+    assert ap["eigenvalues"][0] == pytest.approx(-1.0 / (2.0 * math.pi ** 2),
+                                                 abs=1e-15)
+    assert ap["eigenvalues"][1] == pytest.approx(0.0, abs=1e-15)
+    assert ap["negative_semidefinite"]
+    assert not ap["indefinite"]
+
+
+def test_at_the_antipode_a_zero_boundary_matrix_is_marginally_stable():
+    """The correction: ``A = 0`` is on the cone's boundary there, not outside."""
+    zero = np.zeros((2, 2), dtype=complex)
+    assert is_non_negative(zero, math.pi)
+    assert positivity_defect(zero, math.pi)["min_eigenvalue"] == (
+        pytest.approx(0.0, abs=1e-15))
+    zm = zero_mode(zero, math.pi)
+    assert zm["is_a_zero_mode"]
+    q = np.abs(zm["q"])
+    assert q[0] == pytest.approx(q[1], abs=1e-9)      # the symmetric channel
+
+
+def test_the_antipodal_limit_is_continuous_from_below():
+    """``G₀(d)`` falls to ``1/(4π²)`` from above, and the symmetric threshold
+    ``g₀ + G₀`` closes to zero — no jump at the endpoint."""
+    gpi = threshold_matrix(math.pi)[0, 1]
+    gaps = []
+    for d in (3.0, 3.10, 3.14, 3.1415):
+        gaps.append(threshold_matrix(d)[0, 1] - gpi)
+    assert all(g > 0 for g in gaps)
+    assert gaps == sorted(gaps, reverse=True)
+    assert apex(math.pi - 1e-9)["eigenvalues"][1] == pytest.approx(
+        0.0, abs=1e-12)
+
+
+# ── the monotonicity is a Gram matrix ───────────────────────────────────────
+@pytest.mark.parametrize("sep", [1.3, 2.6, math.pi])
+@pytest.mark.parametrize("lam", [-9.0, -1.0, 0.0, 0.5])
+def test_the_gram_sum_is_the_closed_form_derivative(sep, lam):
+    h = max(abs(lam), 1.0) * 1e-6
+    fd = (threshold_matrix(sep, lam + h) - threshold_matrix(sep, lam - h)) \
+        / (2.0 * h)
+    gm = gram_derivative(lam, sep)
+    assert np.abs(fd - gm).max() < 1e-9
+    assert (np.linalg.eigvalsh(gm) > 0).all()
+
+
+def test_the_gram_matrix_is_positive_definite_for_distinct_mouths():
+    """PSD for free; PD because the two resolvent vectors are independent."""
+    for sep in (0.3, 1.3, 2.9, math.pi):
+        for lam in (-50.0, -1.0, 0.0, 0.8):
+            assert (np.linalg.eigvalsh(gram_derivative(lam, sep)) > 0).all()
+
+
+# ── beyond the finite-A chart ───────────────────────────────────────────────
+def _haar(rng):
+    x = rng.normal(size=(2, 2)) + 1j * rng.normal(size=(2, 2))
+    q, r = np.linalg.qr(x)
+    return q @ np.diag(np.diag(r) / np.abs(np.diag(r)))
+
+
+def test_every_unitary_gives_a_maximal_self_adjoint_pair():
+    rng = np.random.default_rng(31)
+    for _ in range(30):
+        b, c = boundary_pair_from_unitary(_haar(rng))
+        info = is_maximal_self_adjoint(b, c)
+        assert info["maximal"] and info["self_adjoint"]
+
+
+def test_the_chart_covers_exactly_the_unitaries_without_eigenvalue_one():
+    rng = np.random.default_rng(5)
+    v = _haar(rng)
+    u_bad = v @ np.diag([1.0, np.exp(1j * 1.1)]) @ v.conjugate().T
+    with pytest.raises(ValueError):
+        finite_boundary_from_unitary(u_bad)
+    u_ok = v @ np.diag([np.exp(1j * 2.2), np.exp(1j * 1.1)]) @ v.conjugate().T
+    a = finite_boundary_from_unitary(u_ok)
+    assert np.abs(a - a.conjugate().T).max() < 1e-10
+
+
+def test_the_general_criterion_reduces_to_the_cone_on_the_chart():
+    rng = np.random.default_rng(77)
+    for _ in range(40):
+        u = _haar(rng)
+        b, c = boundary_pair_from_unitary(u)
+        if abs(np.linalg.det(b)) < 1e-6:
+            continue
+        a = finite_boundary_from_unitary(u)
+        gen = is_non_negative_pair(b, c, D)
+        assert gen["k"] == 2
+        assert gen["non_negative"] is is_non_negative(a, D)
+
+
+def test_a_dirichlet_stratum_drops_one_direction():
+    rng = np.random.default_rng(13)
+    v = _haar(rng)
+    u = v @ np.diag([1.0, np.exp(1j * 2.0)]) @ v.conjugate().T
+    b, c = boundary_pair_from_unitary(u)
+    info = allowed_charge_basis(b, c)
+    assert info["k"] == 1 and info["n_dirichlet"] == 1
+    red = reduced_boundary_form(b, c)
+    assert red["hermitian_defect"] < 1e-9
+    assert red["row_space_defect"] < 1e-9
+
+
+def test_the_free_stratum_has_no_mouth_active_spectrum():
+    b = np.zeros((2, 2), dtype=complex)
+    c = np.eye(2, dtype=complex)
+    assert is_maximal_self_adjoint(b, c)["maximal"]
+    got = is_non_negative_pair(b, c, D)
+    assert got["k"] == 0 and got["non_negative"]
+    assert "free" in got["stratum"]
+
+
+def test_the_dirichlet_criterion_matches_a_root_scan():
+    from geometrodynamics.waves.throat_operator import gamma_at
+    rng = np.random.default_rng(101)
+    for _ in range(12):
+        th = float(rng.uniform(0.2, 6.0))
+        v = _haar(rng)
+        u = v @ np.diag([1.0, np.exp(1j * th)]) @ v.conjugate().T
+        b, c = boundary_pair_from_unitary(u)
+        lams = -np.geomspace(1e-8, 4000.0, 4000)[::-1]
+        vals = [float(np.linalg.det(c - b @ gamma_at(float(x), D)).real)
+                for x in lams]
+        roots = sum(1 for i in range(len(vals) - 1)
+                    if vals[i] * vals[i + 1] < 0.0)
+        assert is_non_negative_pair(b, c, D)["non_negative"] is (roots == 0)
 
 
 # ── the box fraction ────────────────────────────────────────────────────────
@@ -325,9 +471,31 @@ def test_measure_where_the_apex_sits_as_the_mouths_separate():
     r = measure_where_the_apex_sits_as_the_mouths_separate()
     assert r["trace_is_separation_independent"]
     assert r["trace_matches_minus_one_over_two_pi_squared"]
-    assert r["the_apex_is_always_indefinite"]
-    assert r["the_zero_matrix_is_never_stable"]
+    assert r["the_apex_is_indefinite_away_from_the_antipode"]
+    assert r["the_zero_matrix_is_unstable_away_from_the_antipode"]
     assert r["eigenvalues_are_the_channel_thresholds"]
+    assert r["the_apex_is_negative_semidefinite_at_the_antipode"]
+    assert r["the_antipodal_endpoint_is_marginal"]
+    assert r["at_the_antipode_A_zero_sits_on_the_boundary"]
+    assert r["the_marginal_channel_is_symmetric"] == "symmetric"
+
+
+def test_measure_the_monotonicity_is_a_gram_matrix():
+    r = measure_the_monotonicity_is_a_gram_matrix()
+    assert r["the_gram_sum_is_the_closed_form_derivative"]
+    assert r["positive_definite_everywhere"]
+    assert r["including_at_the_antipode"]
+    assert "Gram matrix" in r["the_identity"]
+
+
+def test_measure_the_criterion_extends_to_the_boundary_strata():
+    r = measure_the_criterion_extends_to_the_boundary_strata()
+    assert r["the_general_form_agrees_with_the_cone_on_the_chart"]
+    assert r["the_general_form_agrees_with_the_scan_on_the_strata"]
+    assert r["every_stratum_has_one_dirichlet_direction"]
+    assert r["the_reduction_is_legitimate"]
+    assert r["the_free_stratum_is_non_negative"]
+    assert r["chart_mismatches"] == 0 and r["stratum_mismatches"] == 0
 
 
 def test_the_module_says_what_is_still_put_in():

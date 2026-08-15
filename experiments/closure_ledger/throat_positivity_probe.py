@@ -20,10 +20,14 @@ two-parameter exchange-symmetric slice, by scanning.
 
 The full four-parameter answer is not a scan. It is one inequality.
 
+    IN THE FINITE-A CHART:
     THE OPERATOR IS NON-NEGATIVE  <=>  A >= Gamma(0)   (Loewner order)
 
     Gamma(0) = [[g0, G0],[G0, g0]],  g0 = -1/(4 pi^2),
                                      G0 = (pi - d)/(4 pi^2 sin d)
+
+and in general, on the whole U(2) family, by restriction to the allowed-charge
+subspace:  A_eff >= P^dag Gamma(0) P.
 
 WHAT IS CHECKED
 ───────────────
@@ -70,12 +74,40 @@ T6  PR #256's WEDGE IS THE x2 = x3 = 0 SLICE. Setting alpha1 = alpha2 and beta
     Im beta, the same rule gets 65 of 400 draws wrong -- which is the practical
     reason the general form was needed.
 
-T7  WHERE THE APEX SITS. tr Gamma(0) = 2 g0 = -1/(2 pi^2), INDEPENDENT of the
-    mouth separation; its eigenvalues are exactly PR #256's two channel
-    thresholds; and det Gamma(0) = g0^2 - G0^2 < 0 at every separation, so
-    Gamma(0) is indefinite. One corollary is immediate and not obvious: A = 0 is
-    unstable at every separation, which no amount of moving the mouths fixes.
-    As d -> pi the positive threshold g0 + G0 falls toward zero.
+T7  WHERE THE APEX SITS -- AND WHAT HAPPENS AT THE ANTIPODE. tr Gamma(0) =
+    2 g0 = -1/(2 pi^2), INDEPENDENT of the mouth separation; its eigenvalues are
+    exactly PR #256's two channel thresholds. For 0 < d < pi,
+    det Gamma(0) = g0^2 - G0^2 < 0, so Gamma(0) is indefinite and A = 0 is
+    unstable. THE EXACT ANTIPODAL ENDPOINT IS A DIFFERENT STATEMENT: G_d has a
+    REMOVABLE singularity at d = pi, with G_pi(w) = w/(4 pi sin pi w) and
+    G_pi(0) = +1/(4 pi^2) = -g0, so Gamma(0) = g0[[1,-1],[-1,1]] has eigenvalues
+    (2 g0, 0) -- negative SEMIdefinite, not indefinite. At antipodes A = 0 is
+    therefore MARGINALLY non-negative, sitting on the cone's boundary with a
+    zero mode in the symmetric channel. Measured at d = pi exactly.
+
+T9  THE MONOTONICITY IS A GRAM MATRIX, NOT A SAMPLE. Gamma_ij(lambda) =
+    <delta_i, (H0-lambda)^-1 delta_j> up to a lambda-independent coincidence
+    subtraction, so dGamma_ij/dlambda = <delta_i, (H0-lambda)^-2 delta_j> is the
+    Gram matrix of (H0-lambda)^-1 delta_j: PSD for free, positive definite for
+    distinct mouths. That is the proof. Computed independently from the S3
+    addition theorem with its analytic tail and compared with the closed form's
+    own derivative: 8.1e-12, positive definite at every sampled lambda and
+    separation INCLUDING the antipode. The random root scans elsewhere are
+    regression checks, not the argument.
+
+T10 AND THE CRITERION EXTENDS BEYOND THE CHART. phi_reg = A q is the pair
+    B = I, C = A, so a finite Hermitian A needs B invertible; in
+    B = i(U-I), C = U+I that is 1 not in spec U, and on an eigenvector with
+    U v = e^{i theta} v the A-eigenvalue is -cot(theta/2), which runs to
+    -/+ infinity as theta -> 0. The missing strata are DIRICHLET DIRECTIONS
+    (q = 0 in a subspace), not reachable by any finite A. The criterion extends
+    by restriction: A_eff >= P^dag Gamma(0) P on the allowed-charge subspace.
+    k = 2 is the chart, k = 1 drops one direction and leaves a scalar
+    inequality, k = 0 is the free operator with no mouth-active spectrum. Agreed
+    with the cone on 60/60 chart draws and with a root scan on 60/60 stratum
+    draws; the reduction's own assumptions -- that the row space of B is the
+    allowed subspace and that A_eff is Hermitian -- checked at 9.6e-16 and
+    1.8e-12.
 
 THE ANSWER
 ──────────
@@ -97,6 +129,8 @@ import numpy as np
 
 from geometrodynamics.waves.throat_positivity import (
     cone_fraction,
+    measure_the_criterion_extends_to_the_boundary_strata,
+    measure_the_monotonicity_is_a_gram_matrix,
     measure_the_boundary_of_the_cone_is_a_zero_mode,
     measure_the_exchange_symmetric_wedge_is_a_slice,
     measure_the_growth_rate_turns_on_with_a_square_root,
@@ -172,8 +206,13 @@ def t7_where_the_apex_sits() -> dict:
     return {"name": "T7_where_the_apex_sits", **r,
             "pass": bool(r["trace_is_separation_independent"]
                          and r["trace_matches_minus_one_over_two_pi_squared"]
-                         and r["the_apex_is_always_indefinite"]
-                         and r["the_zero_matrix_is_never_stable"]
+                         and r["the_apex_is_indefinite_away_from_the_antipode"]
+                         and r["the_zero_matrix_is_unstable_away_from"
+                               "_the_antipode"]
+                         and r["the_apex_is_negative_semidefinite_at"
+                               "_the_antipode"]
+                         and r["the_antipodal_endpoint_is_marginal"]
+                         and r["at_the_antipode_A_zero_sits_on_the_boundary"]
                          and r["eigenvalues_are_the_channel_thresholds"])}
 
 
@@ -184,9 +223,29 @@ def t8_how_big_is_it() -> dict:
             "pass": bool(0.0 < r["fraction"] < 1.0)}
 
 
-def t9_assessment(tests: List[dict]) -> dict:
+def t9_the_monotonicity_is_a_gram_matrix() -> dict:
+    """The proof, not a sample of it."""
+    r = measure_the_monotonicity_is_a_gram_matrix()
+    return {"name": "T9_the_monotonicity_is_a_gram_matrix", **r,
+            "pass": bool(r["the_gram_sum_is_the_closed_form_derivative"]
+                         and r["positive_definite_everywhere"]
+                         and r["including_at_the_antipode"])}
+
+
+def t10_the_criterion_extends_beyond_the_chart() -> dict:
+    """phi_reg = A q is a chart of U(2); here is the rest of it."""
+    r = measure_the_criterion_extends_to_the_boundary_strata()
+    return {"name": "T10_the_criterion_extends_beyond_the_chart", **r,
+            "pass": bool(r["the_general_form_agrees_with_the_cone_on_the_chart"]
+                         and r["the_general_form_agrees_with_the_scan_on_the"
+                               "_strata"]
+                         and r["the_reduction_is_legitimate"]
+                         and r["the_free_stratum_is_non_negative"])}
+
+
+def t11_assessment(tests: List[dict]) -> dict:
     n = sum(1 for t in tests if t["pass"])
-    return {"name": "T9_assessment", "n_passed": n, "n_total": len(tests),
+    return {"name": "T11_assessment", "n_passed": n, "n_total": len(tests),
             "pass": n == len(tests)}
 
 
@@ -199,14 +258,18 @@ def run_probe() -> dict:
              t5_the_growth_rate_turns_on_with_a_square_root(),
              t6_the_wedge_is_a_slice(),
              t7_where_the_apex_sits(),
-             t8_how_big_is_it()]
-    tests.append(t9_assessment(tests))
-    t2, t3, t4, t5, t6, t7, t8 = tests[1:8]
+             t8_how_big_is_it(),
+             t9_the_monotonicity_is_a_gram_matrix(),
+             t10_the_criterion_extends_beyond_the_chart()]
+    tests.append(t11_assessment(tests))
+    t2, t3, t4, t5, t6, t7, t8, t9, t10 = tests[1:10]
 
     if all(t["pass"] for t in tests):
         verdict_class = "THE_POSITIVE_SECTOR_IS_A_LIGHT_CONE_AT_GAMMA_ZERO"
         verdict = (
-            "NON-NEGATIVE IF AND ONLY IF A >= Gamma(0), IN THE LOEWNER ORDER. "
+            "NON-NEGATIVE IF AND ONLY IF A >= Gamma(0), IN THE LOEWNER ORDER -- "
+            "in the finite-A chart, with the general form on the whole U(2) "
+            "family got by restricting to the allowed-charge subspace. "
             "PR #256 left the question open on three of its four parameters and "
             "answered the fourth by scanning; the general answer is a single "
             "inequality, and the reason is one line. Gamma(lambda) has "
@@ -251,10 +314,30 @@ def run_probe() -> dict:
             "form was needed rather than a wider scan. FINALLY, WHERE THE APEX "
             "SITS: tr Gamma(0) = 2 g0 = -1/(2 pi^2) at EVERY mouth separation, "
             "its eigenvalues are exactly PR #256's two channel thresholds, and "
-            "its determinant g0^2 - G0^2 is negative everywhere -- so Gamma(0) "
-            "is indefinite and A = 0 is unstable at every separation, which "
-            "moving the mouths does not fix. As d -> pi the positive threshold "
-            "closes toward zero. HOW BIG THE REGION IS depends on the box, and "
+            "and its determinant g0^2 - G0^2 is negative for 0 < d < pi -- so "
+            "Gamma(0) is indefinite there and A = 0 is unstable. THE EXACT "
+            "ANTIPODE IS A DIFFERENT STATEMENT, and for this geometry it is the "
+            "load-bearing one: G_d has a REMOVABLE singularity at d = pi, with "
+            "G_pi(0) = +1/(4 pi^2) = -g0, so Gamma(0) = g0[[1,-1],[-1,1]] has "
+            "eigenvalues (2 g0, 0) -- negative SEMIdefinite, not indefinite -- "
+            "and A = 0 is MARGINALLY non-negative there, sitting on the cone's "
+            "boundary with a zero mode in the symmetric channel. TWO FURTHER "
+            "TIGHTENINGS. First, the monotonicity everything rests on is not a "
+            "sampled fact: Gamma_ij(lambda) = <delta_i,(H0-lambda)^-1 delta_j> "
+            "up to a lambda-independent subtraction, so dGamma/dlambda is the "
+            "GRAM MATRIX of (H0-lambda)^-1 delta_j -- PSD for free, positive "
+            "definite for distinct mouths -- computed independently from the S3 "
+            f"addition theorem and agreeing with the closed form to "
+            f"{t9.get('worst_abs_error', 0):.1e}, antipode included. Second, "
+            "A >= Gamma(0) is the criterion IN A CHART: phi_reg = A q needs B "
+            "invertible, and the strata it misses are Dirichlet directions, "
+            "reached as ||A|| -> infinity and not represented by any finite "
+            "Hermitian A. The general criterion is A_eff >= P^dag Gamma(0) P on "
+            "the allowed-charge subspace, agreeing with the cone on "
+            f"{t10.get('chart_draws')} chart draws and with a root scan on "
+            f"{t10.get('stratum_draws')} stratum draws, with the reduction's own "
+            "assumptions checked rather than assumed. HOW BIG THE REGION IS "
+            "depends on the box, and "
             f"the box is stated: {t8.get('fraction', 0):.3f} of a uniform draw "
             f"over |alpha_j|, |Re beta|, |Im beta| <= {t8.get('half_width')}. "
             "WHAT IS STILL PUT IN: the boundary data itself, four real numbers "

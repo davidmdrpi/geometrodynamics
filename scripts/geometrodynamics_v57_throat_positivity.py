@@ -19,7 +19,14 @@ non-negative   ⟺   A ⪰ Γ(0)      (Löwner order)
 
 because `dΓ/dλ ≻ 0` below threshold, so every eigenvalue of `A − Γ(λ)` falls
 with `λ` while both run to `+∞` as `λ → −∞`: one crosses zero below threshold
-**iff** it is already negative at it.
+**iff** it is already negative at it. That monotonicity is not sampled — it is
+the statement that `dΓ_ij/dλ = ⟨δ_i, (H₀−λ)⁻² δ_j⟩` is a **Gram matrix**,
+positive definite whenever the two mouths are distinct.
+
+`φ^reg = A q` is a **chart** of the `U(2)` family, the one with `B` invertible.
+The strata it misses are Dirichlet directions, reached only as `‖A‖ → ∞`; there
+the criterion reads `A_eff ⪰ P†Γ(0)P` on the allowed-charge subspace, and the
+chart is its two-dimensional case.
 
 What the panels show
 ────────────────────
@@ -41,9 +48,13 @@ ray: the smallest eigenvalue of `A − Γ(0)` crosses zero, and *at that point*
 fitted.
 
 **Bottom right — where the apex sits.** `Γ(0)`'s eigenvalues against the mouth
-separation. Its **trace is `−1/(2π²)` at every `d`**; it is indefinite at every
-`d`; and so `A = 0` is unstable no matter how the mouths are placed. As `d → π`
-the positive threshold closes.
+separation. Its **trace is `−1/(2π²)` at every `d`**; for `0 < d < π` it is
+indefinite, so `A = 0` is unstable wherever the mouths are actually apart. The
+**exact antipode is the exception, not a limit of the rule**: `G_d` has a
+*removable* singularity at `d = π`, with `G_π(0) = +1/(4π²) = −g₀`, so `Γ(0)`
+has eigenvalues `(2g₀, 0)` — negative *semi*definite — and `A = 0` sits **on**
+the cone's boundary, marginally non-negative, with a zero mode in the symmetric
+channel.
 
 What is put in
 ──────────────
@@ -250,7 +261,7 @@ class PositivityFigure:
                     xy=(0.44, 0.10), xycoords="axes fraction",
                     color=_PAL["sym"], fontsize=6.6, family="monospace",
                     linespacing=1.6)
-        ax.set_xlabel("ε — distance outside the cone, in λ_min(A − Γ(0))",
+        ax.set_xlabel("ε — Löwner margin past the boundary, −λ_min(A − Γ(0))",
                       color=_PAL["dim"], fontsize=8)
         ax.set_ylabel("σ", color=_PAL["dim"], fontsize=8)
         ax.tick_params(colors=_PAL["dim"], labelsize=7)
@@ -266,7 +277,7 @@ class PositivityFigure:
     # ── the apex ────────────────────────────────────────────────────────────
     def _draw_apex(self) -> None:
         ax = self.ax_apx
-        ds = np.linspace(0.12, math.pi - 0.02, 400)
+        ds = np.linspace(0.12, math.pi, 400)
         lo, hi, tr = [], [], []
         for d in ds:
             ap = apex(float(d))
@@ -285,13 +296,21 @@ class PositivityFigure:
                 color=_PAL["sym"], mec=_PAL["bg"], mew=0.6, zorder=6)
         ax.plot([SEP], [apex(SEP)["eigenvalues"][0]], "o", ms=5.0,
                 color=_PAL["anti"], mec=_PAL["bg"], mew=0.6, zorder=6)
-        ax.annotate("Γ(0) straddles zero at every d,\n"
-                    "so A = 0 is never stable",
-                    xy=(0.30, 0.12), xycoords="axes fraction",
-                    color=_PAL["hot"], fontsize=6.6, family="monospace",
+        ax.plot([math.pi], [0.0], "o", ms=6.0, mfc="none",
+                color=_PAL["free"], mew=1.2, zorder=7)
+        ax.annotate("Γ(0) straddles zero for 0 < d < π,\n"
+                    "so A = 0 is unstable there —\n"
+                    "but at the exact antipode the symmetric\n"
+                    "threshold closes, Γ(0) is negative\n"
+                    "semidefinite, and A = 0 is marginal",
+                    xy=(0.24, 0.09), xycoords="axes fraction",
+                    color=_PAL["hot"], fontsize=6.2, family="monospace",
                     linespacing=1.6)
         ax.set_ylim(-0.34, 0.30)
-        ax.set_xlim(ds[0], ds[-1])
+        ax.set_xlim(ds[0], math.pi + 0.10)
+        ax.annotate("d = π: g₀ + G₀ = 0 exactly", xy=(math.pi, 0.0),
+                    xytext=(-6, 14), textcoords="offset points", ha="right",
+                    color=_PAL["free"], fontsize=6.2, family="monospace")
         ax.set_xlabel("d — geodesic mouth separation", color=_PAL["dim"],
                       fontsize=8)
         ax.set_ylabel("eigenvalues of Γ(0)", color=_PAL["dim"], fontsize=8)
@@ -317,17 +336,23 @@ class PositivityFigure:
                           family="monospace")
         self.fig.text(0.5, 0.908,
                       "non-negative if and only if  A - Γ(0) is positive "
-                      "semidefinite   ·   one inequality in four "
-                      "parameters, because dΓ/dλ ≻ 0 below threshold",
+                      "semidefinite   ·   one inequality in four parameters, "
+                      "because dΓ/dλ is a GRAM matrix below threshold",
                       color=_PAL["dim"], fontsize=8.4, ha="center",
                       family="monospace")
-        self.fig.text(0.5, 0.062,
+        self.fig.text(0.5, 0.070,
                       "v56 mapped the two-parameter slice by scanning — the "
                       "same rule applied to general boundary data misclassifies "
                       "65 of 400 draws",
                       color=_PAL["dim"], fontsize=7.8, ha="center",
                       family="monospace")
-        self.fig.text(0.5, 0.030,
+        self.fig.text(0.5, 0.047,
+                      "φ_reg = A q is the B-invertible CHART of U(2) — off it "
+                      "the criterion reads A_eff - P†Γ(0)P ≥ 0 on the "
+                      "allowed-charge subspace",
+                      color=_PAL["dim"], fontsize=7.4, ha="center",
+                      family="monospace")
+        self.fig.text(0.5, 0.022,
                       "put in: a linear field on a fixed background and the "
                       "boundary data itself — four numbers chosen, not derived "
                       "  ·   the throat is POINT-supported, so no interior and "
