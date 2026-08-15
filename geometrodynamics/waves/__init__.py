@@ -18,3 +18,11 @@ from geometrodynamics.waves.pair_history import (  # noqa: F401
     feasible_delay_band,
     geodesic_distance,
 )
+from geometrodynamics.waves.field_solve import (  # noqa: F401
+    branch_arrivals,
+    esu_frequency,
+    field_peaks,
+    image_field,
+    spectral_field,
+    through_throat_arrivals,
+)

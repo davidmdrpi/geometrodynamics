@@ -2084,19 +2084,105 @@ That no event clears `s ≥ 4m²` at `E = m` is **forced, not measured**
 reported is conditioned on an arbitrary prior, so they are **regression
 diagnostics, not predictions**.
 
-**The surviving claim:** *with fixed mouth data and delays, and on a fixed
-propagation branch, intersecting two null fronts with two independent closure
-hypersurfaces generically produces locally isolated candidate events; removing
-one front constraint restores a continuous degree of freedom.*
+**And it is now branch-complete.** A leg length is `ℓ ≥ 2πk` and the legs must
+sum to `|Δ|`, so `k₁ + k₂ ≤ ⌊|Δ|/2π⌋`: the feasible branch set is **finite and
+bounded by the delay**, with no cutoff to choose (brute-enumerated to winding 11,
+zero violations). Taking the union over *every* feasible branch pair, all 18
+roots found are still at full rank 5; the shared-throat obstruction survives **51
+distinct branch pairs** with none restoring full rank, so that check is now
+exhaustive rather than scanned; and the delay dependence is untouched.
+
+**The surviving claim:** *with given throat data, intersecting two null fronts
+with two independent closure hypersurfaces produces locally isolated candidate
+events, branch-completely; removing one front constraint restores a continuous
+degree of freedom.*
+
+**And that is where rank counting ends.** It cannot supply a quantity that
+*vanishes* when a source is removed rather than merely becoming underdetermined
+— that needs a field.
 
 ```bash
 python -m experiments.closure_ledger.pair_history_probe
-# Verdict: DISCRETE_ON_A_FIXED_BRANCH_WITH_GIVEN_THROAT_DATA  (10/10)
+# Verdict: BRANCH_COMPLETE_AND_STILL_DISCRETE  (14/14)
 
 python scripts/geometrodynamics_v53_pair_history.py --still v53.png
 ```
 
 Full write-up: `docs/pair_history.md`.
+
+## A solved field reproduces the branch ledger — and signs it
+
+**Scope: a linear scalar field on a fixed background.** The throat is still an
+**identification map**, not a solution, with PR #249's exotic-matter bill
+inherited and unpaid. **No backreaction, no topology change, no rate, and no
+two-source invariant yet.** Repeated throat traversals are PR #251's fixed point
+and are not redone here.
+
+PR #253 ended by conceding that rank counting had reached its limit. Before
+building the quantity that replaces it, the ray ledger has to survive contact
+with a solved field. It does — and the branches turn out to be **exact support**
+rather than stationary-phase contributions.
+
+On the Einstein static universe the scalar Laplacian has eigenvalues `−n(n+2)`
+and `R = 6`, so the **conformally** coupled massless field has
+
+```
+ω² = n(n+2) + 1 = (n+1)²        ⟹        ω_n = n + 1
+```
+
+**Integer frequencies**, so the retarded Green function is exactly periodic and
+is a sum of images:
+
+```
+G(χ,t) = 1/(4π sin χ) [ Σ_k δ(t − χ − 2πk) − Σ_k δ(t + χ − 2πk) ]
+```
+
+A truncated **mode** sum (which never sees an image) against the closed-form
+**image** sum (which never sees a mode): **`8.3e-13`**.
+
+**The field's support is the ray ledger.** Peaks read off the solved field land
+on PR #253's branch times to `3.0e-04` — half a grid cell, so grid-limited —
+with every branch matched and no peak spurious.
+
+**The amplitude is PR #251's shell law, derived rather than imposed.** That round
+set `A ∝ 1/sin χ` by conserving energy across a shell of area `4π sin²χ`; here
+`peak × sin χ` is the same constant at every `χ` to **`7.0e-16`**.
+
+**And the field supplies phases the ray ledger could not.** Every arrival carries
+a sign, and it is `(−1)^m` with `m` the number of focal crossings — the antipode
+at `t = π`, the source point again at `t = 2π`, and so on. That is the **Maslov
+index**, and **12 of 12** signs agree:
+
+| `t` | branch | crossings | field sign | Maslov |
+| ---: | --- | ---: | :---: | :---: |
+| `0.700` | short, `k=0` | 0 | `+` | `+` |
+| `5.583` | long, `k=0` | 1 | `−` | `−` |
+| `6.983` | short, `k=1` | 2 | `+` | `+` |
+| `11.866` | long, `k=1` | 3 | `−` | `−` |
+
+A path-length ledger gives arrival times and has no way to produce a sign. This
+is the first quantity in the arc the ray picture could not in principle have
+carried.
+
+**And the ledger belongs to the *conformal* field specifically.** The minimally
+coupled field has `ω = √(n(n+2))`, irrational, so no images and no sharp
+branches — **63%** of the peak amplitude sits *between* the arrivals, against
+`4.0e-08` for the conformal field. PR #253 never said which field its ledger
+described, because rays cannot tell the two apart.
+
+**The throat reproduces the closure condition.** A through-throat contribution
+lands at `ℓ₁ + Δ + ℓ₂`; setting `Δ` to minus a branch-pair sum — exactly PR
+#253's closure condition — puts an arrival back on the emission event, **9 of
+9**, with the field adding the sign as `η` times the two Maslov factors.
+
+```bash
+python -m experiments.closure_ledger.field_solve_probe
+# Verdict: THE_FIELD_REPRODUCES_THE_LEDGER_AND_ADDS_ITS_PHASES  (7/7)
+
+python scripts/geometrodynamics_v54_field_solve.py --still v54.png
+```
+
+Full write-up: `docs/field_solve.md`.
 
 ## The geometric-visualization arc, end to end
 
@@ -2118,7 +2204,8 @@ be an identity no drawing choice can move.
 | multipole | where does the two-shell coupling start? | **`ℓ = 2`**, screened as `(b/a)^ℓ` |
 | wormhole ledger | are the four apparent objects one wave? | **yes** — one balance, and linearity makes it free |
 | pair creation | is the antipodal caustic a creation event? | **no** — it is a venue; the threshold needs two waves, and then *forces* a second antipodal interaction |
-| pair history | do two closed histories constrain their shared event? | **yes, discretely** — 5 equations, 5 unknowns, rank 5 on a fixed branch; removing *any* one equation costs a dimension |
+| pair history | do two closed histories constrain their shared event? | **yes, discretely** — 5 equations, 5 unknowns, rank 5, branch-completely |
+| field solve | does a solved field reproduce that ledger? | **yes, exactly** — and it adds the Maslov phase rays could not carry |
 
 The recurring methodological lesson: **a converged number is not a correct
 number.** Three of the nine errors the arc caught survived grid refinement and

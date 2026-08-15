@@ -1,4 +1,4 @@
-# The geometric-visualization capstone: what twelve rounds settled (PRs #242–#252, plus the current round)
+# The geometric-visualization capstone: what thirteen rounds settled (PRs #242–#253, plus the current round)
 
 > **Framing.** Every round below is a *representation* question first and a
 > physics question second: given a geometry and a field on it, which object
@@ -12,7 +12,7 @@
 
 ## 0. The answer, stated first
 
-**Five negative results and five positive ones, and the negatives are the load-bearing half.**
+**Five negative results and six positive ones, and the negatives are the load-bearing half.**
 
 | | question | answer |
 | --- | --- | --- |
@@ -25,7 +25,8 @@
 | 7 | where does the two-shell coupling start? | **`ℓ = 2`** — and it is screened as `(b/a)^ℓ` |
 | 8 | are the emitted shell, the passing collapsing shell, the receiver's recoil and a past mouth one wave? | **yes** — one conserved balance, and *linearity* is why it costs nothing |
 | 9 | is the antipodal caustic a particle-creation event? | **no** — a caustic is a *venue*; the threshold is on an invariant, needs two waves, and then **forces** a second antipodal interaction |
-| 10 | do two closed histories *constrain* the event they share? | **yes, discretely** — five equations, five unknowns, rank 5 on a fixed branch; removing *any* one equation costs a dimension |
+| 10 | do two closed histories *constrain* the event they share? | **yes, discretely** — five equations, five unknowns, rank 5, branch-completely |
+| 11 | does a solved *field* reproduce that ray ledger? | **yes, exactly** — the branches are its exact support, and it carries a Maslov phase the rays could not |
 
 The through-line: **almost every apparent obstruction turned out to be a
 property of the object being drawn, not of the physics** — until the closing
@@ -175,7 +176,7 @@ the far one is a collision of waves that have actually propagated
 independently, by a factor of `9.6` in path length. **The second interaction
 has to be antipodal, and that is derived rather than staged.**
 
-## 11. Two closed histories constrain their shared event (`docs/pair_history.md`, current round)
+## 11. Two closed histories constrain their shared event (`docs/pair_history.md`, PR #253)
 
 Sewing two `#251` histories at one interaction is a *determinate* condition, not
 a picture. Every leg is null, so a history closes — on the **principal branch** —
@@ -201,7 +202,29 @@ rank-deficient the other, scanned rather than argued), and the entire result
 rests on the throat delays being **given** — with them free the measured nullity
 is 2 and 100% of sampled events close.
 
-## 12. What the arc cost in errors, and what caught them
+## 12. A solved field reproduces the ledger and signs it (`docs/field_solve.md`, current round)
+
+The move off rays, and it pays immediately. On the Einstein static universe the
+**conformally** coupled massless scalar has `ω = n+1` — integer — so its retarded
+Green function is exactly periodic and is a sum of images. The geometric-optics
+branches are the field's **exact support**, not a stationary-phase
+approximation, and a mode sum matches the image sum to `8.3e-13`.
+
+Two earlier rounds fall out of it rather than being modelling choices: the
+branch arrival times of `#253` (peaks land on them, grid-limited at `3.0e-04`)
+and the shell law `A ∝ 1/sin χ` of `#251` (`peak × sin χ` constant to `7.0e-16`).
+
+**And one thing appears that rays could not have carried.** Every arrival has a
+sign, `(−1)^m` with `m` the number of focal crossings — the Maslov index, 12 of
+12. Path lengths give times; only a field gives a phase.
+
+A scope fact also surfaces that the ray picture was structurally unable to
+notice: the sharp ledger belongs to the **conformally** coupled field. The
+minimally coupled one has irrational frequencies and no images — `63%` of the
+peak sits between the arrivals against `4.0e-08`. Rays cannot tell the two
+apart, because both have the same geodesics.
+
+## 13. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -265,7 +288,7 @@ construction says which.** The repair in both cases was to make the picture
 carry a measurement — the sign of `dA/dχ`, and a screen extent proportional to
 `sin χ` with one constant to `3.6e-16`, which is `√(A/4π)`.
 
-## 13. What is imported rather than derived
+## 14. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -280,11 +303,15 @@ carry a measurement — the sign of `dA/dχ`, and a screen extent proportional t
 * The Breit–Wheeler threshold and cross-section — QED, checked against the
   textbook peak but not derived. Rays-as-photons is a correspondence, and no
   rate is computed anywhere in the arc.
-* In the closing round, the throat *data* — mouth positions and delays — which
-  is where its entire result lives: with the delays free instead of given,
+* In the ray-closure round, the throat *data* — mouth positions and delays —
+  which is where its entire result lives: with the delays free instead of given,
   every event closes and nothing is selected.
+* **Conformal coupling**, in the field round. `ξ = 1/6` is what makes `ω = n+1`
+  and the branch structure sharp; the minimally coupled field has no images at
+  all. That the ledger belongs to one and not the other is a *result*, but
+  choosing the conformal field is an input.
 
-## 14. What would come next
+## 15. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
@@ -304,3 +331,48 @@ short of them: **topology change** — nothing here shows a two-wave encounter
 sector is assumed — and an **action principle**, without which "the whole
 history is jointly stationary" stays a description rather than a computation.
 A worldline would follow from the second, not the first.
+
+### And rank counting has now reached its end
+
+The closing round was pushed to **branch-completeness** — the winding is bounded
+by the delay (`k₁ + k₂ ≤ ⌊|Δ|/2π⌋`), so the feasible branch set is finite and the
+union over all of it is still discrete. That is as much as constraint counting
+can give.
+
+What it structurally *cannot* give is a quantity that **vanishes** when a source
+is removed rather than merely becoming underdetermined: deleting any scalar
+equation costs a dimension, which is a theorem about square systems, not about
+photons. The next discriminator has to be a field quantity, e.g.
+
+```
+𝒞(x) = A_A² A_B² (k_A · k_B)²
+```
+
+zero without a second source rather than under-determined by its absence.
+
+The staged order that follows from this, and the reason it is that order:
+
+```
+ray closure → field solution → two-wave invariant
+            → stationary action → backreaction → topological branch
+```
+
+* **field solution** — a real wave action on fixed `S³` with the throat imposed
+  as the still-assumed identification `φ(M⁺,t) = η φ(M⁻,t+Δ)` plus flux
+  matching. A spectral implementation is attractive because the winding
+  histories enumerated by hand in this round would emerge from the Green
+  function instead. The test: do the closed histories reappear as
+  stationary-phase contributions of the *solved* field?
+* **two-wave invariant** — `𝒞` above, which is the sharp two-source falsifier
+  this round could not supply;
+* **stationary action** — evaluate the on-shell action and ask whether the
+  candidate events are stationary. *Not* with Lagrange multipliers imposing this
+  round's five equations, which would only rename them. This is where the
+  retrocausal language earns its keep or fails: the backward-in-time throat
+  contribution should fall out of one stationary solution rather than be
+  narrated afterwards;
+* **backreaction** — and the first GR question is not "does spacetime pinch
+  off?" but whether `A + B` produces a collapse response not reproducible by
+  rescaling `A` or `B` alone;
+* **topological branch** — the detached resonator, last, and only if
+  backreaction produces a finite-radius neck.

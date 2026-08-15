@@ -98,9 +98,50 @@ the two distances rather than their sum: a hyperboloid, not an ellipsoid. So
 
 **Discreteness survives per branch.** On any *fixed* branch pair the system is
 still five equations in five unknowns, and the roots found are still locally
-isolated at full rank — checked on difference-type branches specifically. What
-branching changes is the **number** of candidate events (a union over branch
-pairs) and the existence rate, not the local structure.
+isolated at full rank — checked on difference-type branches specifically.
+
+That was the state after review. The round is now **branch-complete**; see the
+next section.
+
+## 3b. Branch-completeness is exact, not truncated
+
+The winding cannot run away, and that is what makes completeness achievable
+rather than a chosen cutoff. A leg length is `ℓ = (d or 2π−d) + 2πk ≥ 2πk`, and
+closure demands `ℓ₁ + ℓ₂ = |Δ|`, so
+
+```
+k₁ + k₂  ≤  ⌊ |Δ| / 2π ⌋
+```
+
+The feasible branch set is therefore **finite and explicitly bounded by the
+delay**. Verified by brute enumeration to winding 11 over 400 random
+configurations: **no feasible branch ever exceeds the bound** (worst excess `0`).
+
+| `\|Δ\| / 2π` | winding bound | complete branch count |
+| ---: | ---: | ---: |
+| 0.5 | 0 | 1 |
+| 1.0 | 1 | 2 |
+| 2.0 | 2 | 4 |
+| 3.0 | 3 | 6 |
+| 4.0 | 4 | 8 |
+
+**And the three results survive completion.**
+
+| | branch-complete result |
+| --- | --- |
+| discrete events | **survive** — 18 of 18 roots at full rank 5 |
+| shared-throat obstruction | **survives** — 51 distinct branch pairs, **0** restore full rank |
+| delay dependence | **survives** — every point closable by choosing `Δ` |
+
+A union of finitely many discrete sets is discrete, so discreteness is now a
+property of the **whole problem** rather than of each branch of it. The candidate
+**count grows** — that is the honest cost — and the existence rate shifts; the
+local structure does not.
+
+The shared-throat check is now **exhaustive rather than scanned**: with the
+winding bounded, every distinct branch pair through the one throat can be tried,
+so the earlier "no counterexample at winding ≤ 1" caveat is withdrawn for the
+delays reachable here.
 
 ## 4. The allowed events are discrete, and existence is restrictive
 
@@ -231,7 +272,26 @@ jointly stationary" remains a description rather than a computation. No
 worldline emerges. And the throats remain identification maps whose
 exotic-matter bill is inherited twice over.
 
-## 10. The lesson
+## 10. Where this leaves rank counting
+
+At its end. The surviving statement — with given throat data, intersecting two
+null fronts with two independent closure hypersurfaces produces locally isolated
+candidate events, branch-completely — is as much as constraint counting can
+supply.
+
+What it **cannot** supply is a quantity that *vanishes* when a source is removed
+rather than merely becoming underdetermined. Deleting any scalar equation costs
+a dimension; that is a theorem about square systems, not about photons. A
+two-wave discriminator has to be something like
+
+```
+𝒞(x) = A_A² A_B² (k_A · k_B)²
+```
+
+which is zero without a second source rather than under-determined by its
+absence. That is a **field** quantity, and it is the next thing to build.
+
+## 11. The lesson
 
 Every correction this round needed was a **scope** correction, not an arithmetic
 one: which branch, which prior, which equation was deleted, and what a rank

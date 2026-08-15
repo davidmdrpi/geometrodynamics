@@ -134,6 +134,10 @@ import numpy as np
 from geometrodynamics.waves.pair_history import (
     measure_a_shared_throat_cannot_carry_the_pair,
     measure_the_results_are_scoped_to_the_principal_branch,
+    measure_the_branch_set_is_finite_and_bounded_by_the_delay,
+    measure_discrete_events_survive_branch_completion,
+    measure_the_shared_throat_obstruction_survives_branch_completion,
+    measure_the_delay_dependence_survives_branch_completion,
     measure_closure_is_a_geodesic_ellipsoid,
     measure_removing_a_wave_removes_the_selection,
     measure_the_conjugacy_is_carried_not_derived,
@@ -180,9 +184,35 @@ def t2b_the_results_are_scoped_to_the_principal_branch() -> dict:
                 and r["discreteness_survives_on_a_fixed_off_branch"])}
 
 
+def t2c_the_branch_set_is_finite() -> dict:
+    """Why branch-completeness is exact rather than a chosen cutoff."""
+    r = measure_the_branch_set_is_finite_and_bounded_by_the_delay()
+    return {"name": "T4_the_branch_set_is_finite_and_bounded_by_the_delay", **r,
+            "pass": bool(r["no_feasible_branch_exceeds_the_bound"])}
+
+
+def t2d_discrete_events_survive_branch_completion() -> dict:
+    """The gate the roadmap set: do isolated events survive all branches?"""
+    r = measure_discrete_events_survive_branch_completion()
+    return {"name": "T5_discrete_events_survive_branch_completion", **r,
+            "pass": bool(r["so_discreteness_survives_branch_completion"])}
+
+
+def t2e_the_shared_throat_obstruction_survives() -> dict:
+    r = measure_the_shared_throat_obstruction_survives_branch_completion()
+    return {"name": "T6_the_shared_throat_obstruction_survives_completion",
+            **r, "pass": bool(r["the_obstruction_survives_branch_completion"])}
+
+
+def t2f_the_delay_dependence_survives() -> dict:
+    r = measure_the_delay_dependence_survives_branch_completion()
+    return {"name": "T7_the_delay_dependence_survives_branch_completion", **r,
+            "pass": bool(r["so_the_delay_must_still_be_given"])}
+
+
 def t3_the_event_is_selected_not_inserted() -> dict:
     r = measure_the_event_is_selected_not_inserted()
-    return {"name": "T4_the_events_are_discrete_and_locally_isolated", **r,
+    return {"name": "T8_the_events_are_discrete_and_locally_isolated", **r,
             "pass": bool(r["events_are_discrete_and_locally_isolated"]
                          and r["every_event_is_nondegenerate"])}
 
@@ -190,7 +220,7 @@ def t3_the_event_is_selected_not_inserted() -> dict:
 def t4_removing_a_wave_removes_the_selection() -> dict:
     """The falsification the reviewer named — and it lands differently."""
     r = measure_removing_a_wave_removes_the_selection()
-    return {"name": "T5_removing_an_equation_is_a_dimensionality_control", **r,
+    return {"name": "T9_removing_an_equation_is_a_dimensionality_control", **r,
             "pass": bool(r["two_waves_give_isolated_events"]
                          and r["one_wave_gives_a_one_parameter_family"]
                          and r["deleting_a_closure_instead_drops_the_rank"
@@ -200,7 +230,7 @@ def t4_removing_a_wave_removes_the_selection() -> dict:
 
 def t5_a_shared_throat_cannot_carry_the_pair() -> dict:
     r = measure_a_shared_throat_cannot_carry_the_pair()
-    return {"name": "T6_a_shared_throat_cannot_carry_the_pair", **r,
+    return {"name": "T10_a_shared_throat_cannot_carry_the_pair", **r,
             "pass": bool(r["opposite_traversal_is_infeasible"]
                          and r["same_traversal_loses_a_rank"]
                          and r["no_branch_pair_rescues_a_shared_throat"]
@@ -210,7 +240,7 @@ def t5_a_shared_throat_cannot_carry_the_pair() -> dict:
 def t6_the_delays_must_be_given_not_solved_for() -> dict:
     """The non-circularity check: a version that solved for Δ selects nothing."""
     r = measure_the_delays_must_be_given_not_solved_for()
-    return {"name": "T7_the_delays_must_be_given_not_solved_for", **r,
+    return {"name": "T11_the_delays_must_be_given_not_solved_for", **r,
             "pass": bool(r["with_free_delays_almost_any_event_closes"]
                          and r["the_nullity_is_measured_not_counted"]
                          and r["so_the_content_is_in_the_throat_being_given"])}
@@ -218,7 +248,7 @@ def t6_the_delays_must_be_given_not_solved_for() -> dict:
 
 def t7_the_threshold_is_a_separate_condition() -> dict:
     r = measure_the_threshold_is_a_separate_condition()
-    return {"name": "T8_the_threshold_is_a_separate_condition", **r,
+    return {"name": "T12_the_threshold_is_a_separate_condition", **r,
             "pass": bool(r["none_clear_threshold_at_energy_equal_mass"]
                          and r["zero_percent_at_E_equals_m_is_forced_not"
                                "_measured"])}
@@ -226,14 +256,14 @@ def t7_the_threshold_is_a_separate_condition() -> dict:
 
 def t8_the_conjugacy_is_carried_not_derived() -> dict:
     r = measure_the_conjugacy_is_carried_not_derived()
-    return {"name": "T9_the_conjugacy_is_carried_not_derived", **r,
+    return {"name": "T13_the_conjugacy_is_carried_not_derived", **r,
             "pass": bool(r["the_labels_cancel"]
                          and r["a_same_sign_pair_is_refused"])}
 
 
 def t9_assessment(tests: List[dict]) -> dict:
     n = sum(1 for t in tests if t["pass"])
-    return {"name": "T10_assessment", "n_passed": n, "n_total": len(tests),
+    return {"name": "T14_assessment", "n_passed": n, "n_total": len(tests),
             "pass": n == len(tests)}
 
 
@@ -242,6 +272,10 @@ def run_probe() -> dict:
     tests = [t1_goal(),
              t2_closure_is_a_geodesic_ellipsoid(),
              t2b_the_results_are_scoped_to_the_principal_branch(),
+             t2c_the_branch_set_is_finite(),
+             t2d_discrete_events_survive_branch_completion(),
+             t2e_the_shared_throat_obstruction_survives(),
+             t2f_the_delay_dependence_survives(),
              t3_the_event_is_selected_not_inserted(),
              t4_removing_a_wave_removes_the_selection(),
              t5_a_shared_throat_cannot_carry_the_pair(),
@@ -249,15 +283,34 @@ def run_probe() -> dict:
              t7_the_threshold_is_a_separate_condition(),
              t8_the_conjugacy_is_carried_not_derived()]
     tests.append(t9_assessment(tests))
-    t2b, t3, t4 = tests[2], tests[3], tests[4]
-    t6, t7 = tests[6], tests[7]
+    t2b, tbf, tbc = tests[2], tests[3], tests[4]
+    t3, t4 = tests[7], tests[8]
+    t6, t7 = tests[10], tests[11]
 
     if all(t["pass"] for t in tests):
-        verdict_class = "DISCRETE_ON_A_FIXED_BRANCH_WITH_GIVEN_THROAT_DATA"
+        verdict_class = "BRANCH_COMPLETE_AND_STILL_DISCRETE"
         verdict = (
-            "WITH FIXED THROAT DATA AND ON A FIXED PROPAGATION BRANCH, TWO "
-            "CLOSED HISTORIES SHARING AN EVENT LEAVE THE ALLOWED EVENTS "
-            "DISCRETE. Requiring two closed wormhole-wave histories to share "
+            "WITH FIXED THROAT DATA, AND NOW BRANCH-COMPLETELY, TWO CLOSED "
+            "HISTORIES SHARING AN EVENT LEAVE THE ALLOWED EVENTS DISCRETE. "
+            "BRANCH-COMPLETENESS IS EXACT RATHER THAN TRUNCATED, because a leg "
+            "length is at least 2*pi*k and the two legs must sum to |Delta|, so "
+            "k_1 + k_2 <= floor(|Delta|/2pi): the feasible branch set is FINITE "
+            "and bounded by the delay, with no cutoff to choose. Brute "
+            "enumeration to winding 11 finds no feasible branch above the "
+            "bound. Taking the union over EVERY feasible branch pair, every "
+            f"root found is still at full rank 5 "
+            f"({tbc.get('events_at_full_rank_5', 0)} of "
+            f"{tbc.get('total_events', 0)}), and a union of finitely many "
+            "discrete sets is discrete — so the discreteness is a property of "
+            "the whole problem, not only of each branch of it. The candidate "
+            "count grows, which is the honest cost. The shared-throat "
+            "obstruction also survives, and is now EXHAUSTIVE rather than "
+            f"scanned: "
+            f"{tests[5].get('distinct_branch_pairs_tested', 0)} distinct branch "
+            "pairs through one throat were tried and none restored full rank, "
+            "so the winding-1 caveat is withdrawn for the delays reachable "
+            "here. And the delay dependence is untouched: branch freedom only "
+            "adds ways to close a history. Requiring two closed wormhole-wave histories to share "
             "one interaction event gives five equations in five unknowns: "
             "normalisation, the event lying on each of the two null fronts, and "
             "each history closing in coordinate time. Solved BLIND from random "
