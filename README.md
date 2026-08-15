@@ -2290,6 +2290,72 @@ python scripts/geometrodynamics_v55_branch_coupling.py --still v55.png
 
 Full write-up: `docs/branch_coupling.md`.
 
+## A flux-conserving throat cannot ring up
+
+PR #255 owed a boundary operator. A point-supported throat is a **self-adjoint
+extension** of the Laplacian on `S³ ∖ {M⁺, M⁻}`, and von Neumann's theorem
+parametrizes those by a unitary between the deficiency spaces — `U(2)` —
+equivalently, by Krein's formula, a Hermitian `2×2` boundary matrix `A`:
+
+```
+M(ω) q = φ_in|_mouths ,   M = A − Γ(ω) ,   Γ = [[g, G_d], [G_d, g]]
+```
+
+**It is definable at all.** The free Green function has the closed form
+`G(χ,ω) = sin(ω(π−χ))/(4π sin χ sin(πω))` — real on the real axis, poles exactly
+at `ω = n+1` — agreeing with #255's branch series to `6.3e-12`. Its
+short-distance split is `1/(4πχ) + g(ω) + O(χ)` with `g(ω) = −(ω/4π)cot(πω)`,
+remainder first order in `χ`. The divergence is the universal Coulomb one, so
+the subtraction is forced rather than chosen.
+
+**The operator is a unitary `2×2`, with both channels.** The Cayley transform
+`S = (A−ic)(A+ic)⁻¹` is unitary to `4.4e-16` and inverts back; diagonal is
+**reflection**, off-diagonal **transmission**, `|r|²+|t|² = 1` at each mouth.
+#255's model has `r = 0` and `|t| = κ`: outside `U(2)` unless `κ = 1`.
+
+**Flux conservation is exactly Hermiticity.** The current through a small sphere
+at mouth `j` is `Im(q_j* φ_j^reg)`, independent of the sphere, so the total
+absorbed is `Im(q† A q)` — zero for *every* `q` when `A = A†`, measured at
+`1.8e-16` over 200 random draws, against a median `0.54` for #255's directional
+relation.
+
+**And therefore the spectrum is real, for every coupling.** Newton from a grid of
+complex seeds — the same method #255 used to find its poles:
+
+| boundary data | roots | off the axis | worst `\|Im ω\|` | growing |
+| --- | ---: | ---: | ---: | ---: |
+| Hermitian `α=(0.2,−0.13)`, `β=0.15+0.07i` | 11 | **0** | `3.9e-18` | 0 |
+| #255 directional, `κ = 0.3` | 9 | **9** | `0.684` | 2 |
+| #255 directional, `κ = 1.0` | 11 | **11** | `0.357` | 3 |
+
+**#255's instability was its own non-conservation** — and it is unstable at
+`κ = 1` too, where nothing is lost, so the culprit is the *directionality*. The
+three thresholds that round had to separate collapse into one statement: a
+conserving throat cannot ring up.
+
+**The coupled spectrum interlaces the free one.** In the exchange-symmetric case
+the secular equation splits into `g ± G_d = α ± β`, both monotone from `−∞` to
+`+∞` across every gap, so there are **exactly two** coupled frequencies strictly
+between consecutive free ones, over 8 gaps. And switching the throat off returns
+`ω = n+1` — off being `‖A‖ → ∞`, not `A → 0`, because the diagonal of `A` is an
+*inverse* scattering length. Shift falls like `1/‖A‖`, exponent `0.999`.
+
+Still put in: the boundary matrix itself — four real numbers chosen, not
+derived. The throat is **point-supported**, so it has no interior, no proper
+length and therefore **no delay**: the `Δ` that carried #251–#255 is not a
+parameter of a point extension and does not survive into one. That is a real
+loss of structure relative to those rounds, and recovering it needs a throat of
+finite size.
+
+```bash
+python -m experiments.closure_ledger.throat_operator_probe
+# Verdict: A_CONSERVING_THROAT_HAS_A_REAL_SPECTRUM  (8/8)
+
+python scripts/geometrodynamics_v56_throat_operator.py --still v56.png
+```
+
+Full write-up: `docs/throat_operator.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and

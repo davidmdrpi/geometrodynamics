@@ -224,7 +224,7 @@ minimally coupled one has irrational frequencies and no images — `63%` of the
 peak sits between the arrivals against `4.0e-08`. Rays cannot tell the two
 apart, because both have the same geodesics.
 
-## 13. The mouth transfer solved for, not applied (`docs/branch_coupling.md`, current round)
+## 13. The mouth transfer solved for, not applied (`docs/branch_coupling.md`)
 
 The previous round solved the field but kept the mouth relation on the
 **outside**: `φ(M⁺,t) = η φ(M⁻,t+Δ)` was applied *to the free branches after
@@ -283,7 +283,53 @@ part goes like `sin(md) sin(mΔ)` and changes sign with the mode. So `κ_series`
 `Δ = π`; at `κ = 1.520` in that gap the series diverges to `1.3e+119` while the
 solve is finite and stable. **Solving and summing are not the same operation.**
 
-## 14. What the arc cost in errors, and what caught them
+## 14. A flux-conserving throat cannot ring up (`docs/throat_operator.md`, current round)
+
+The previous round owed a boundary operator and named it as the next
+construction. A point-supported throat is a **self-adjoint extension** of the
+Laplacian on `S³ ∖ {M⁺, M⁻}`; von Neumann parametrizes those by a unitary
+between the deficiency spaces — `U(2)` — equivalently, by Krein's formula, a
+Hermitian `2×2` matrix `A`, with `M(ω) = A − Γ(ω)`. Everything follows from that
+one substitution.
+
+**It is definable at all.** The free Green function is
+`G(χ,ω) = sin(ω(π−χ))/(4π sin χ sin(πω))` — real on the axis, poles exactly at
+`ω = n+1`, matching `#255`'s branch series to `6.3e-12` — and its short-distance
+split is `1/(4πχ) + g(ω) + O(χ)` with `g = −(ω/4π)cot(πω)`, remainder first
+order in `χ`. The divergence is the universal Coulomb one, so the subtraction is
+forced.
+
+**The operator is a unitary `2×2` with both channels**, by Cayley transform, to
+`4.4e-16`, with `|r|²+|t|² = 1` at each mouth. `#255`'s model has `r = 0` and
+`|t| = κ`: outside `U(2)` unless `κ = 1`.
+
+**Flux conservation is exactly Hermiticity.** The current through a small sphere
+at a mouth is `Im(q_j* φ_j^reg)`, so the total absorbed is `Im(q† A q)` — zero
+for *every* `q` when `A = A†`, at `1.8e-16` over 200 draws, against a median
+`0.54` for the directional control.
+
+**And therefore the spectrum is real, for every coupling.** Newton from complex
+seeds — the same method `#255` used — converges only onto the axis: `0` off-axis
+roots, worst `|Im ω| = 4.5e-18`. The directional control gives every root off
+the axis, several growing, and **is unstable at `κ = 1` too**, where nothing is
+lost. So the culprit was the *directionality*. `#255`'s three thresholds
+collapse into one statement, and its instability is retired as an artefact of
+its own non-conservation.
+
+**The coupled spectrum interlaces the free one**, exactly two per gap over eight
+gaps, because each channel function `g ± G_d` is monotone from `−∞` to `+∞`
+across a gap. Switching the throat off returns `ω = n+1` — off being
+`‖A‖ → ∞`, since the diagonal of `A` is an *inverse* scattering length — with
+the shift falling like `1/‖A‖`, exponent `0.999`.
+
+**What it costs.** The throat is point-supported: no interior, no proper length,
+and therefore **no delay**. The `Δ` that carried `#251`–`#255` is not a
+parameter of a self-adjoint point extension and does not survive into one. That
+is a real loss of structure, not a simplification, and any statement from those
+rounds that leaned on `Δ` has to be restated in terms of the mouth separation
+and the boundary matrix.
+
+## 15. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -376,7 +422,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 15. What is imported rather than derived
+## 16. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -403,14 +449,21 @@ of that. What reached it was being asked to name the object precisely.
   no normal-derivative matching, no reflected channel, a `1×1` mouth scattering
   object where a conserving junction needs `2×2` unitary, and `κ²` power
   throughput. Solving it self-consistently fixes what a given `κ` *does*; it
-  does not make the relation a boundary operator or a quotient.
+  does not make the relation a boundary operator or a quotient. **Replaced** in
+  the operator round by a self-adjoint extension — which promptly showed that
+  the model's instability was its own.
+* **The boundary matrix `A`**, in the operator round. Self-adjointness fixes the
+  *form* — Hermitian `2×2`, four real parameters, a unitary by Cayley — and
+  nothing else. Which four numbers is a choice, and `shells/junction.py` is
+  still what would derive them from matter. The exotic-matter bill remains
+  unpaid; what changed is that the thing being priced is now the right object.
 * **The regulator `γ`**, likewise. A damping per unit path length is what makes
   the winding series converge. Every result is either `γ`-independent or reported
   as a `γ`-scaling, but that the physical answer is the `γ → 0` limit of this
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 16. What would come next
+## 17. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
