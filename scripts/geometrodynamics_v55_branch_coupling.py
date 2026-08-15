@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """
-Geometrodynamic QED — v55: the throat solved for, not applied
-=============================================================
+Geometrodynamic QED — v55: the mouth transfer solved for, not applied
+=====================================================================
 
 v54 solved the field and got the strong result: on the Einstein static universe
 the conformally coupled retarded Green function has **exact** image support, so
 v53's ray branches are the field's branches, with the `1/(4π sin χ)` shell law
 and a Maslov sign no path-length ledger could carry.
 
-It did that with the throat on the outside. `φ(M⁺,t) = η φ(M⁻,t+Δ)` was applied
-**to the free branches after they were computed** — one traversal, by
+It did that with the mouth relation on the outside. `φ(M⁺,t) = η φ(M⁻,t+Δ)` was
+applied **to the free branches after they were computed** — one traversal, by
 construction, because a post-processing step cannot notice that what it re-emits
-will come back. Here the identification enters the equation that is solved:
+will come back. Here the relation enters the equation that is solved:
 
 ```
 a(ω) = ηκ e^{−iωΔ} [ S(ω) + T_d(ω) a(ω) ]   ⟹   a = ηκ e^{−iωΔ} S / (1 − L)
@@ -45,21 +45,31 @@ resolvent `|1/(1−L)|`. The peaks sit on the conformal ESU eigenfrequencies
 sums to `(e^{−uχ} − e^{−u(2π−χ)})/(1 − e^{−2πu})`, whose poles are the spectrum.
 `|L|` is also exactly the relative error of the one-traversal answer.
 
-**Bottom right — and where post-processing stops working.** `κ_c = 1/max|T_d|`
-against the regulator, log-log, slope `1.000`. As the damping is removed every
-coupling is critical at some frequency, and there the one-traversal answer is
-the first term of a divergent series rather than a leading term.
+**Bottom right — three conditions that are not the same condition.** `Im ω` of
+the least-damped root of `D(ω) = 1 − L(ω)` against `κ`, for two delays.
+*Existence* is `L ≠ 1`. *Convergence* of `Σ Lⁿ` is `|L| < 1`, whose radius
+`κ_series = 1/max|T_d|` is the vertical line — the same line for **every** `Δ`,
+because `T_d` does not contain the delay. *Stability* is `Im ω > 0`, the
+horizontal line, and it plainly **does** know the delay: the crossing is at
+`0.771` for `Δ = 1` and `3.034` for `Δ = π`. In between, the solve is finite and
+stable while the series diverges by `10^119`.
 
 What is put in
 ──────────────
-A linear scalar field on a fixed background, with the throat still an
-**identification map** carrying a coupling `κ` by hand — `shells.junction`
-priced it and the bill is inherited, unpaid. When `Δ + ℓ_c < 0` the loop is
-closed in time and `1/(1−L)` is a self-consistency condition rather than a
-history sum; it is unique exactly when the branch-resolved loop gain is
-subcritical. **Not done:** no backreaction, no topology change, no rate, and no
-two-source invariant — the two-throat fringe measured in the module is a
-*throat–throat* interference, not that.
+A linear scalar field on a fixed background, and — stated plainly, because the
+resolvent being exact says nothing about it — a **rank-one mouth-transfer
+model**, not a throat boundary operator and not a quotient of the manifold. It
+relates field *values* through the free Green function: no normal-derivative
+(flux) matching, no reflected channel (the mouth scattering object is `1×1`
+where a flux-conserving two-mouth junction needs at least `2×2` unitary), and
+power out over power in is `κ²`, so for `κ < 1` it is lossy and not an
+identification of anything. `shells.junction` is what would fix `κ` and supply
+the missing channels.
+
+**Not done:** no backreaction, no topology change, no rate, and no two-source
+invariant — the two-throat fringe measured in the module is a *throat–throat*
+interference, not that. And the rank of `K` counts **separable transfer
+channels**, not histories: one throat carries 144 `(a,b)` histories at rank one.
 
 Usage
 ─────
@@ -69,6 +79,7 @@ Usage
 from __future__ import annotations
 
 import argparse
+import math
 from typing import List, Optional
 
 import matplotlib
@@ -81,8 +92,9 @@ from geometrodynamics.waves.branch_coupling import (
     CoupledThroat,
     coupled_arrivals,
     coupled_waveform,
-    critical_coupling,
     leg_branches,
+    least_damped_pole,
+    series_radius,
 )
 
 _PAL = {
@@ -146,7 +158,7 @@ class CouplingFigure:
         ax.plot(ts, c, lw=2.0, color=_PAL["control"], alpha=0.9, zorder=2,
                 ls=(0, (5, 2)), label="control — one traversal (v54)")
         ax.plot(ts, s, lw=1.1, color=_PAL["text"], alpha=0.95, zorder=4,
-                label="solved — the throat as a boundary condition")
+                label="solved — the transfer relation, self-consistently")
         ax.fill_between(ts, 1e-30, s, where=s > 0, color=_PAL["pos"],
                         alpha=0.30, zorder=3)
         ax.fill_between(ts, -1e-30, s, where=s < 0, color=_PAL["neg"],
@@ -247,8 +259,8 @@ class CouplingFigure:
                         for w in ws])
         ax.axhline(1.0, color=_PAL["hot"], lw=0.9, ls=(0, (4, 3)), alpha=0.8,
                    zorder=2)
-        ax.annotate("|L| = 1 — the throat goes critical",
-                    xy=(0.34, 1.0), xycoords=("axes fraction", "data"),
+        ax.annotate("|L| = 1 — the SERIES radius, not stability",
+                    xy=(0.30, 1.0), xycoords=("axes fraction", "data"),
                     xytext=(0, -16), textcoords="offset points",
                     color=_PAL["hot"], fontsize=6.6, family="monospace")
         ax.semilogy(ws, gain, lw=1.4, color=_PAL["branch"], alpha=0.95,
@@ -274,32 +286,51 @@ class CouplingFigure:
                      "of one traversal",
                      color=_PAL["text"], fontsize=8.4, pad=6)
 
-    # ── and its limit ───────────────────────────────────────────────────────
+    # ── and where it stops being an approximation ───────────────────────────
     def _draw_scal(self) -> None:
+        """The correction: ``max|L| = 1`` is the series radius, not stability.
+
+        ``Im ω`` of the least-damped root of ``D(ω) = 1 − L(ω)`` against ``κ``,
+        for two delays.  Stability is the axis ``Im ω = 0``; the series radius
+        is a vertical line that does not sit on either crossing, and does not
+        move when the delay does.
+        """
         ax = self.ax_scal
-        gs = np.array([0.16, 0.08, 0.04, 0.02, 0.01, 0.005])
-        kc = np.array([critical_coupling(SEP, float(g))["kappa_critical"]
-                       for g in gs])
-        ax.loglog(gs, kc, "o-", lw=1.4, ms=4.6, color=_PAL["branch"],
-                  alpha=0.95, zorder=4, label="κ_c = 1 / max|T_d|")
-        ref = kc[0] * (gs / gs[0])
-        ax.loglog(gs, ref, lw=1.0, ls=(0, (4, 3)), color=_PAL["control"],
-                  zorder=3, label="slope 1")
-        slope = float(np.polyfit(np.log(gs), np.log(kc), 1)[0])
-        ax.annotate(f"fitted slope  {slope:.4f}",
-                    xy=(0.05, 0.10), xycoords="axes fraction",
-                    color=_PAL["pos"], fontsize=7.4, family="monospace")
-        ax.set_xlabel("γ — the regulator", color=_PAL["dim"], fontsize=8)
-        ax.set_ylabel("critical coupling κ_c", color=_PAL["dim"], fontsize=8)
+        g, d = DAMPING, SEP
+        ks = series_radius(d, g, omega_max=40.5, n_grid=40001)["kappa_series"]
+        kaps = np.linspace(0.02, 4.2, 42)
+        for dl, col, lab in ((1.0, _PAL["branch"], "Δ = 1"),
+                             (math.pi, _PAL["pos"], "Δ = π")):
+            ims = []
+            for k in kaps:
+                p = least_damped_pole(CoupledThroat(d, dl, +1, float(k)), g, 40)
+                ims.append(p["im"] if p else np.nan)
+            ax.plot(kaps, ims, lw=1.5, color=col, alpha=0.95, zorder=4,
+                    label=f"least-damped Im ω,  {lab}")
+        ax.axhline(0.0, color=_PAL["hot"], lw=1.0, ls=(0, (4, 3)), zorder=3)
+        ax.annotate("Im ω = 0 — stability", xy=(0.03, 0.0),
+                    xycoords=("axes fraction", "data"),
+                    xytext=(0, 4), textcoords="offset points",
+                    color=_PAL["hot"], fontsize=6.6, family="monospace")
+        ax.axvline(ks, color=_PAL["control"], lw=1.0, ls=":", zorder=2)
+        ax.annotate(f"κ_series = {ks:.3f}\n(same for every Δ)",
+                    xy=(ks, 0.97), xycoords=("data", "axes fraction"),
+                    xytext=(6, 0), textcoords="offset points",
+                    color=_PAL["control"], fontsize=6.4, family="monospace",
+                    va="top")
+        ax.set_xlim(0, 4.2)
+        ax.set_xlabel("κ", color=_PAL["dim"], fontsize=8)
+        ax.set_ylabel("Im ω of the least-damped pole", color=_PAL["dim"],
+                      fontsize=8)
         ax.tick_params(colors=_PAL["dim"], labelsize=7)
         for sp in ax.spines.values():
             sp.set_color(_PAL["rule"])
-        leg = ax.legend(loc="upper left", fontsize=6.6, framealpha=0.0,
-                        labelcolor=_PAL["dim"])
+        leg = ax.legend(loc="lower left", fontsize=6.6, framealpha=0.0,
+                        labelcolor=_PAL["dim"], bbox_to_anchor=(0.30, 0.0))
         leg.get_frame().set_edgecolor(_PAL["rule"])
-        ax.grid(alpha=0.08, color=_PAL["grid"], which="both")
-        ax.set_title("as the regulator goes, every coupling is critical "
-                     "somewhere",
+        ax.grid(alpha=0.08, color=_PAL["grid"])
+        ax.set_title("the series radius is not the stability threshold — "
+                     "and stability knows the delay",
                      color=_PAL["text"], fontsize=8.4, pad=6)
 
     # ── frame ───────────────────────────────────────────────────────────────
@@ -308,7 +339,7 @@ class CouplingFigure:
         self._draw_pair()
         self._draw_gain()
         self._draw_scal()
-        self.fig.suptitle("v55 — THE THROAT SOLVED FOR, NOT APPLIED",
+        self.fig.suptitle("v55 — THE MOUTH TRANSFER SOLVED FOR, NOT APPLIED",
                           color=_PAL["text"], fontsize=13.2, y=0.962,
                           family="monospace")
         self.fig.text(0.5, 0.908,
@@ -324,10 +355,10 @@ class CouplingFigure:
                       color=_PAL["dim"], fontsize=7.8, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.030,
-                      "put in: a linear field on a fixed background, the throat "
-                      "still an identification map with κ by hand   ·   not "
-                      "done: backreaction, topology change, and the two-source "
-                      "invariant",
+                      "put in: a linear field on a fixed background, and a "
+                      "rank-one MOUTH-TRANSFER model — no flux matching, no "
+                      "reflected channel, lossy for κ<1 — not a boundary "
+                      "operator and not a quotient",
                       color="#3d5570", fontsize=7.0, ha="center",
                       family="monospace")
 

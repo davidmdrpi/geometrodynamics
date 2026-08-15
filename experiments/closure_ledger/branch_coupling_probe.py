@@ -1,14 +1,19 @@
 """
-Is the throat part of the field problem, or a shift applied to its free branches?
+Is the mouth transfer part of the field problem, or applied to its free branches?
 
 > Scope: a LINEAR scalar field on a FIXED round background (the Einstein static
-> universe S3 x R). The throat is still an IDENTIFICATION MAP with a coupling
-> kappa put in by hand -- shells.junction (PR #249) priced that throat and the
-> bill is inherited, unpaid. What is new is that the identification is now
-> SOLVED FOR rather than applied after the fact. NOT DONE: no backreaction, no
-> stress tensor, no topology change, no rate. The two-throat cross term measured
-> in T7 is a THROAT-THROAT interference, NOT the two-source invariant of
-> roadmap step 3.
+> universe S3 x R), and -- stated plainly, because the resolvent being exact says
+> nothing about this -- a SELF-CONSISTENT RANK-ONE MOUTH-TRANSFER MODEL, NOT a
+> throat boundary operator and NOT a quotient of the manifold. It relates field
+> VALUES through the free Green function: no normal-derivative (flux) matching,
+> no reflected channel (the mouth scattering object is 1x1 where a
+> flux-conserving two-mouth junction needs at least 2x2 unitary), and with
+> kappa < 1 it is lossy by construction -- power out over power in is kappa^2,
+> measured in T10. So it is not literally an identification. shells.junction
+> (PR #249) is what would fix kappa and supply the missing channels.
+> NOT DONE: no backreaction, no stress tensor, no topology change, no rate. The
+> two-throat cross term in T7 is a THROAT-THROAT interference, NOT the two-source
+> invariant of roadmap step 3.
 
 THE GAP THIS CLOSES
 ───────────────────
@@ -17,12 +22,12 @@ coupled retarded Green function has EXACT image support, so PR #253's ray
 branches are the field's branches, with the 1/(4 pi sin chi) shell law and a
 Maslov sign the ray ledger could not carry.
 
-But it did that with the throat on the outside. phi(M+,t) = eta phi(M-,t+Delta)
-was applied TO THE FREE BRANCHES AFTER THEY WERE COMPUTED -- one traversal, by
-construction, because a post-processing step cannot notice that what it re-emits
-will come back.
+But it did that with the mouth relation on the outside. phi(M+,t) =
+eta phi(M-,t+Delta) was applied TO THE FREE BRANCHES AFTER THEY WERE COMPUTED --
+one traversal, by construction, because a post-processing step cannot notice
+that what it re-emits will come back.
 
-Here the identification enters the equation that is solved:
+Here the relation enters the equation that is solved:
 
     a(omega) = eta kappa e^{-i omega Delta} [ S(omega) + T_d(omega) a(omega) ]
     a(omega) = eta kappa e^{-i omega Delta} S / (1 - L),  L = eta kappa
@@ -44,9 +49,9 @@ T2  THE BRANCH SERIES HAS A CLOSED FORM, AND ITS POLES ARE THE SPECTRUM. The
     eigenfrequencies -- with residues equal to the mode functions over 2 omega.
     The image representation and the mode representation are one function.
 
-T3  SOLVING THE THROAT RESUMS EVERY TRAVERSAL. 1/(1-L) against an explicit walk
-    over 400 traversals: 3.5e-18. PR #254's answer is the n = 0 term, and its
-    relative error is exactly the round-trip gain |L|.
+T3  SOLVING THE RELATION RESUMS EVERY TRAVERSAL. 1/(1-L) against an explicit
+    walk over 400 traversals: 3.5e-18. PR #254's answer is the n = 0 term, and
+    its relative error is exactly the round-trip gain |L|.
 
 T4  THE COUPLED FIELD HAS ARRIVALS THE FREE BRANCHES DO NOT. The solved waveform
     IS the sum over history words to 5.4e-06 -- so the words are not a story
@@ -67,27 +72,49 @@ T6  AND THE CONDITION DOES NOT FACTORIZE OVER THE INDEX THE AMPLITUDE
     alone and b alone would have to admit. Meanwhile K_ab is rank one. That is
     why the PAIR is the primitive.
 
-T7  ONE THROAT IS RANK ONE; TWO THROATS ARE RANK TWO. The second throat adds a
-    second outer product, and the interference between them is a full fringe
-    (visibility -1.000 to +1.000) that is bilinear -- one factor from each
-    throat -- so it is identically zero without either. Same shape as roadmap
-    step 3's invariant; NOT that invariant, because these are throats, not
-    sources.
+T7  RANK COUNTS TRANSFER CHANNELS, NOT HISTORIES. One throat already carries
+    144 distinct (a,b) histories and K is still RANK ONE: what the rank counts
+    is independent separable transfer channels -- outer products -- and one
+    value-feedback throat supplies exactly one. A second throat adds a second,
+    in a shared topological branch-label basis (checked, since the two throats
+    have different chi on every leg), and the interference between the two
+    channels is a full fringe (visibility -1.000 to +1.000) that is bilinear and
+    therefore identically zero without either. Same shape as roadmap step 3's
+    invariant; NOT that invariant, because these are throats, not sources.
 
-T8  AND THE POST-PROCESSED ANSWER FAILS OUTRIGHT AT THE EIGENFREQUENCIES.
-    |T_d| peaks where 1 - e^{-2pi u} = 2 pi gamma, so the critical coupling
-    kappa_c = 1/max|T_d| falls LINEARLY in the regulator: measured exponent
-    1.0000. As gamma is removed, every coupling is critical at some frequency,
-    and the peak sits exactly on an ESU eigenfrequency. A one-traversal answer
-    is not the leading term of a convergent expansion there.
+T8  THE ONE-TRAVERSAL ANSWER FAILS NEAR THE BARE RESONANCES. |T_d| peaks where
+    1 - e^{-2pi u} = 2 pi gamma, so the SERIES RADIUS kappa_series = 1/max|T_d|
+    falls linearly in the regulator: measured exponent 1.0000, peak exactly on a
+    bare ESU resonance. That is a statement about the EXPANSION and only that --
+    gamma is an Abel regulator and T_d carries the bare poles.
+
+T9  AND THE SERIES RADIUS IS NOT THE STABILITY THRESHOLD. Three conditions were
+    being conflated: existence (L != 1, so 1/(1-L) is fine for |L| > 1),
+    convergence (|L| < 1, the radius of sum L^n, which does not even depend on
+    the delay), and stability (Im omega > 0 for every root of D = 1 - L in
+    complex omega). The coupling DISPLACES the bare poles omega = m + i gamma by
+    delta_m = -eta kappa e^{-i m Delta} sin(m d)/(4 pi^2 sin d), matched to
+    2.2e-04, whose imaginary part goes like sin(m d) sin(m Delta) and CHANGES
+    SIGN WITH THE MODE. So stability is phase-sensitive and no bound on |L| can
+    decide it: kappa_series = 0.762 for every delay, while kappa_stability is
+    0.771 at Delta = 1 and 3.034 at Delta = pi, a factor 3.98. At kappa = 1.520
+    in that gap the traversal series diverges to 1.3e+119 while the solve is
+    finite and the least-damped pole is still at Im omega = +0.0145.
+
+T10 AND WHAT THE MODEL LEAVES OUT, AS NUMBERS. Power out over power in is
+    kappa^2 exactly; the mouth scattering object is 1x1 and unitary only at
+    kappa = 1; there is no flux matching and no reflected channel. The resolvent
+    is exact for the model as posed -- the scope statement is about WHICH MODEL,
+    not about the solve.
 
 THE ANSWER
 ──────────
-The throat is now solved for, and it was not a rearrangement. The resolvent adds
-histories -- arrivals at times the free-branch ledger does not contain -- the
-pair index is the right primitive because closure is a condition on the pair
-while the amplitude is a product over it, and the expansion PR #254 implicitly
-truncated has an unbounded expansion parameter at the eigenfrequencies.
+The mouth relation is now solved for, and it was not a rearrangement. The
+resolvent adds histories -- arrivals at times the free-branch ledger does not
+contain -- and the pair index is the right primitive because closure is a
+condition on the pair while the amplitude is a product over it. What this is NOT
+is a throat boundary operator: that needs flux matching, a reflected channel and
+a unitary two-mouth S-matrix, and is the next PR rather than this one.
 """
 
 from __future__ import annotations
@@ -104,8 +131,10 @@ from geometrodynamics.waves.branch_coupling import (
     measure_solving_the_throat_resums_every_traversal,
     measure_the_closed_form_transfer_is_the_branch_sum,
     measure_the_coupled_field_has_arrivals_the_free_branches_do_not,
-    measure_the_expansion_fails_at_the_eigenfrequencies,
-    measure_the_primitive_is_rank_one_for_one_throat_and_not_for_two,
+    measure_the_one_traversal_expansion_fails_near_the_bare_resonances,
+    measure_the_rank_counts_transfer_channels_not_histories,
+    measure_the_series_radius_is_not_the_stability_threshold,
+    measure_what_the_transfer_model_leaves_out,
 )
 
 
@@ -113,17 +142,19 @@ from geometrodynamics.waves.branch_coupling import (
 def t1_goal() -> dict:
     return {
         "name": "T1_goal",
-        "question": ("is the throat identification part of the field problem, "
-                     "or a shift applied to the free branches after they are "
+        "question": ("is the mouth relation part of the field problem, or a "
+                     "shift applied to the free branches after they are "
                      "computed? and what is the primitive object -- is it "
                      "indexed by a pair of branches?"),
-        "scope": ("a linear scalar field on a fixed Einstein static universe. "
-                  "The throat is still an identification map with a coupling "
-                  "kappa put in by hand, and PR #249's exotic-matter bill is "
-                  "inherited and unpaid. No backreaction, no stress tensor, no "
-                  "topology change, no rate. The two-throat cross term in T7 is "
-                  "a throat-throat interference, not roadmap step 3's "
-                  "two-source invariant."),
+        "scope": ("a linear scalar field on a fixed Einstein static universe, "
+                  "and a self-consistent RANK-ONE MOUTH-TRANSFER MODEL rather "
+                  "than a throat boundary operator: no flux matching, no "
+                  "reflected channel, a 1x1 mouth scattering object, and lossy "
+                  "for kappa < 1, so not literally an identification. PR #249's "
+                  "exotic-matter bill is inherited and unpaid. No backreaction, "
+                  "no stress tensor, no topology change, no rate. The "
+                  "two-throat cross term in T7 is a throat-throat interference, "
+                  "not roadmap step 3's two-source invariant."),
         "pass": True,
     }
 
@@ -174,25 +205,51 @@ def t6_the_condition_does_not_factorize() -> dict:
                          and r["the_amplitude_does_factorize"])}
 
 
-def t7_one_throat_is_rank_one_and_two_are_rank_two() -> dict:
-    r = measure_the_primitive_is_rank_one_for_one_throat_and_not_for_two()
-    return {"name": "T7_one_throat_is_rank_one_and_two_are_rank_two", **r,
-            "pass": bool(r["one_throat_is_rank_one"]
-                         and r["two_throats_are_rank_two"]
+def t7_the_rank_counts_transfer_channels_not_histories() -> dict:
+    """Rank is not a history count -- one throat, 144 histories, rank one."""
+    r = measure_the_rank_counts_transfer_channels_not_histories()
+    return {"name": "T7_the_rank_counts_transfer_channels_not_histories", **r,
+            "pass": bool(r["one_throat_is_one_channel"]
+                         and r["two_throats_are_two_channels"]
+                         and r["both_matrices_in_the_common_label_basis"]
                          and r["the_cross_term_is_a_full_fringe"])}
 
 
-def t8_the_expansion_fails_at_the_eigenfrequencies() -> dict:
-    r = measure_the_expansion_fails_at_the_eigenfrequencies()
-    return {"name": "T8_the_expansion_fails_at_the_eigenfrequencies", **r,
-            "pass": bool(r["kappa_critical_scales_like_damping"]
-                         and r["the_peak_sits_on_an_esu_eigenfrequency"]
+def t8_the_one_traversal_expansion_fails_near_the_bare_resonances() -> dict:
+    r = measure_the_one_traversal_expansion_fails_near_the_bare_resonances()
+    return {"name": "T8_the_one_traversal_expansion_fails_near_resonances",
+            **r,
+            "pass": bool(r["the_series_radius_scales_like_the_regulator"]
+                         and r["the_peak_sits_on_a_bare_esu_resonance"]
                          and r["resonance_is_where_post_processing_is_worst"])}
 
 
-def t9_assessment(tests: List[dict]) -> dict:
+def t9_the_series_radius_is_not_the_stability_threshold() -> dict:
+    """Existence, convergence and stability are three different conditions."""
+    r = measure_the_series_radius_is_not_the_stability_threshold()
+    d = r["a_coupling_between_them"]
+    return {"name": "T9_the_series_radius_is_not_the_stability_threshold", **r,
+            "pass": bool(r["kappa_stability_depends_on_the_delay"]
+                         and r["the_two_thresholds_are_different_numbers"]
+                         and r["every_pole_matches_its_first_order_"
+                               "displacement"]
+                         and d.get("the_series_diverges")
+                         and d.get("the_solve_is_finite")
+                         and d.get("and_it_is_still_stable"))}
+
+
+def t10_what_the_transfer_model_leaves_out() -> dict:
+    """Which model this is -- as numbers, not as a disclaimer."""
+    r = measure_what_the_transfer_model_leaves_out()
+    return {"name": "T10_what_the_transfer_model_leaves_out", **r,
+            "pass": bool(r["the_power_ratio_is_kappa_squared"]
+                         and r["lossy_below_unit_coupling"]
+                         and r["scattering_object_shape"] == "1x1")}
+
+
+def t11_assessment(tests: List[dict]) -> dict:
     n = sum(1 for t in tests if t["pass"])
-    return {"name": "T9_assessment", "n_passed": n, "n_total": len(tests),
+    return {"name": "T11_assessment", "n_passed": n, "n_total": len(tests),
             "pass": n == len(tests)}
 
 
@@ -204,16 +261,18 @@ def run_probe() -> dict:
              t4_the_solve_adds_arrivals_post_processing_cannot(),
              t5_closure_is_broadband_coherence(),
              t6_the_condition_does_not_factorize(),
-             t7_one_throat_is_rank_one_and_two_are_rank_two(),
-             t8_the_expansion_fails_at_the_eigenfrequencies()]
-    tests.append(t9_assessment(tests))
-    t2, t3, t4, t5, t6, t7, t8 = tests[1:8]
+             t7_the_rank_counts_transfer_channels_not_histories(),
+             t8_the_one_traversal_expansion_fails_near_the_bare_resonances(),
+             t9_the_series_radius_is_not_the_stability_threshold(),
+             t10_what_the_transfer_model_leaves_out()]
+    tests.append(t11_assessment(tests))
+    t2, t3, t4, t5, t6, t7, t8, t9 = tests[1:9]
 
     if all(t["pass"] for t in tests):
-        verdict_class = "THE_THROAT_IS_SOLVED_FOR_AND_THE_PRIMITIVE_IS_A_PAIR"
+        verdict_class = "THE_TRANSFER_IS_SOLVED_FOR_AND_THE_PRIMITIVE_IS_A_PAIR"
         verdict = (
             "YES -- AND IT WAS NOT A REARRANGEMENT OF PR #254. That round "
-            "applied the identification phi(M+,t) = eta phi(M-,t+Delta) to the "
+            "applied the mouth relation phi(M+,t) = eta phi(M-,t+Delta) to the "
             "free branches after computing them, which gives one traversal by "
             "construction: a post-processing step cannot notice that what it "
             "re-emits will come back. Written into the field problem instead, "
@@ -251,32 +310,55 @@ def run_probe() -> dict:
             "independent of omega -- closed pairs have band coherence "
             f"{t5.get('worst_closed_coherence', 0):.3f} while every other pair "
             f"dephases below {t5.get('best_other_coherence', 0):.3f}. The "
-            "amplitude factorizes over that index (K is rank one) and the "
-            f"CONDITION DOES NOT: {t6.get('n_closed')} pairs close where any "
-            f"rule phrased on a alone and b alone would admit "
-            f"{t6.get('pairs_a_single_index_rule_would_select')}. FIFTH, the "
-            "rank counts histories -- one throat rank one, two throats rank "
-            "two -- and the throat-throat cross term is a full fringe, "
+            "amplitude factorizes over that index and the CONDITION DOES NOT: "
+            f"{t6.get('n_closed')} pairs close where any rule phrased on a "
+            f"alone and b alone would admit "
+            f"{t6.get('pairs_a_single_index_rule_would_select')}. FIFTH, THE "
+            "RANK COUNTS TRANSFER CHANNELS AND NOT HISTORIES -- one throat "
+            f"already carries {t7.get('n_histories_one_throat')} distinct "
+            "(a,b) histories while K is rank one, because what an outer "
+            "product counts is separable channels, and one value-feedback "
+            "throat supplies one. A second throat adds a second, in a shared "
+            "topological branch-label basis rather than by leg length, and the "
+            "interference between the two channels is a full fringe, "
             f"visibility {t7.get('cross_visibility_min', 0):.3f} to "
             f"{t7.get('cross_visibility_max', 0):.3f}, bilinear and therefore "
-            "identically zero without either throat. That is the same shape as "
+            "identically zero without either. That is the same shape as "
             "roadmap step 3's invariant and is explicitly NOT that invariant: "
-            "these are throats, not sources. SIXTH, THERE IS A REGIME WHERE "
-            "POST-PROCESSING IS NOT AN APPROXIMATION AT ALL: |T_d| peaks where "
-            "1 - e^{-2pi u} = 2 pi gamma, so the critical coupling falls "
-            f"linearly in the regulator -- measured exponent "
-            f"{t8.get('mean_exponent', 0):.4f} -- and the peak sits exactly on "
-            "an ESU eigenfrequency. As the regulator is removed every coupling "
-            "is critical somewhere, and there the one-traversal answer is the "
-            "first term of a divergent series. WHAT IS STILL PUT IN: the "
-            "throat remains an identification map with kappa by hand, the "
+            "these are throats, not sources. SIXTH, THE ONE-TRAVERSAL ANSWER "
+            "FAILS NEAR THE BARE RESONANCES: |T_d| peaks where 1 - e^{-2pi u} "
+            "= 2 pi gamma, so the SERIES RADIUS falls linearly in the "
+            f"regulator -- measured exponent {t8.get('mean_exponent', 0):.4f} "
+            "-- with the peak on a bare ESU resonance. SEVENTH, AND THIS IS "
+            "THE CORRECTION THAT MATTERS MOST, THE SERIES RADIUS IS NOT THE "
+            "STABILITY THRESHOLD. Existence (L != 1), convergence (|L| < 1) "
+            "and stability (Im omega > 0 for every root of D = 1 - L in "
+            "complex omega) are three different conditions. The coupling "
+            "DISPLACES the bare poles omega = m + i gamma by delta_m = -eta "
+            "kappa e^{-i m Delta} sin(m d)/(4 pi^2 sin d), matched to "
+            f"{t9.get('worst_pole_vs_first_order', 0):.1e}, and its imaginary "
+            "part goes like sin(m d) sin(m Delta), which CHANGES SIGN WITH THE "
+            "MODE -- so stability is phase-sensitive and no bound on |L| can "
+            "see it. kappa_series is the same number for every delay while "
+            f"kappa_stability is not, differing by a factor "
+            f"{t9.get('largest_ratio', 0):.2f} at Delta = pi where every "
+            "first-order displacement is real; and at a coupling in that gap "
+            "the traversal series diverges while the solve stays finite and "
+            "the least-damped pole stays in the upper half plane. WHAT THIS IS "
+            "NOT: a throat boundary operator. The model relates field VALUES "
+            "through the free Green function -- no normal-derivative (flux) "
+            "matching, no reflected channel (the mouth scattering object is "
+            "1x1 where a flux-conserving two-mouth junction needs at least 2x2 "
+            "unitary), and power out over power in is kappa^2 exactly, so for "
+            "kappa < 1 it is lossy and cannot be a quotient of the manifold. "
+            "The resolvent is exact for the model as posed; the scope "
+            "statement is about which model. kappa is still by hand, the "
             "background is fixed, the field is linear, and when Delta + ell_c "
             "< 0 the loop is closed in time and 1/(1 - L) is a "
-            "self-consistency condition rather than a history sum -- it has a "
-            "unique solution exactly when the branch-resolved loop gain is "
-            "subcritical, which is a bound on kappa and not a derivation of "
-            "it. No backreaction, no stress tensor, no topology change, no "
-            "rate, and no two-source invariant.")
+            "self-consistency condition rather than a history sum. No "
+            "backreaction, no stress tensor, no topology change, no rate, and "
+            "no two-source invariant. The flux-conserving boundary operator is "
+            "the next step, not this one.")
     else:
         verdict_class = "INCONCLUSIVE"
         failed = [t["name"] for t in tests if not t["pass"]]

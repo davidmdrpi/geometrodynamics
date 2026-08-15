@@ -33,17 +33,24 @@ from geometrodynamics.waves.branch_coupling import (
     coupled_arrivals,
     coupled_propagator,
     coupled_waveform,
-    critical_coupling,
+    branch_labels,
+    dispersion,
     esu_mode_weight,
     free_branch_propagator,
     leg_branches,
+    least_damped_pole,
     measure_closure_is_broadband_coherence,
     measure_solving_the_throat_resums_every_traversal,
     measure_the_closed_form_transfer_is_the_branch_sum,
     measure_the_coupled_field_has_arrivals_the_free_branches_do_not,
-    measure_the_expansion_fails_at_the_eigenfrequencies,
-    measure_the_primitive_is_rank_one_for_one_throat_and_not_for_two,
+    measure_the_one_traversal_expansion_fails_near_the_bare_resonances,
+    measure_the_rank_counts_transfer_channels_not_histories,
+    measure_the_series_radius_is_not_the_stability_threshold,
+    measure_what_the_transfer_model_leaves_out,
     mouth_transfer,
+    resonance_poles,
+    series_radius,
+    stability_threshold,
     traversal_series,
 )
 
@@ -276,24 +283,110 @@ def test_the_waveform_is_real_and_causal_before_the_first_arrival():
     assert np.abs(early).max() < 1e-4 * np.abs(phi).max()
 
 
-# ── the critical coupling ───────────────────────────────────────────────────
-def test_the_critical_coupling_is_where_the_loop_gain_reaches_one():
-    c = critical_coupling(1.3, 0.03)
-    th = CoupledThroat(1.3, 1.0, +1, c["kappa_critical"])
+# ── the series radius, and what it is not ───────────────────────────────────
+def test_the_series_radius_is_where_the_loop_gain_reaches_one():
+    c = series_radius(1.3, 0.03)
+    th = CoupledThroat(1.3, 1.0, +1, c["kappa_series"])
     assert abs(th.loop_transfer(c["omega_of_the_peak"], 0.03)) == (
         pytest.approx(1.0, rel=1e-9))
 
 
-def test_the_critical_coupling_falls_linearly_with_the_regulator():
-    a = critical_coupling(1.3, 0.04)["kappa_critical"]
-    b = critical_coupling(1.3, 0.02)["kappa_critical"]
+def test_the_series_radius_falls_linearly_with_the_regulator():
+    a = series_radius(1.3, 0.04)["kappa_series"]
+    b = series_radius(1.3, 0.02)["kappa_series"]
     assert a / b == pytest.approx(2.0, rel=1e-3)
 
 
-def test_the_gain_peaks_on_an_esu_eigenfrequency():
-    w = critical_coupling(1.3, 0.02)["omega_of_the_peak"]
+def test_the_gain_peaks_on_a_bare_esu_resonance():
+    w = series_radius(1.3, 0.02)["omega_of_the_peak"]
     assert abs(w - round(w)) < 1e-3
     assert round(w) >= 1
+
+
+def test_the_series_radius_does_not_know_about_the_delay():
+    """Which is the whole reason it cannot be a stability bound."""
+    a = series_radius(1.3, 0.02)["kappa_series"]
+    for _ in (1.0, math.pi, -4.7):
+        assert series_radius(1.3, 0.02)["kappa_series"] == a
+
+
+def test_the_resolvent_exists_above_the_series_radius():
+    """``|L| > 1`` breaks the sum, not the solve."""
+    kap = 4.0 * series_radius(1.3, 0.02)["kappa_series"]
+    th = CoupledThroat(1.3, math.pi, +1, kap)
+    w = series_radius(1.3, 0.02)["omega_of_the_peak"]
+    assert abs(th.loop_transfer(w, 0.02)) > 1.0
+    got = coupled_propagator(w, 1.2, 0.9, th, 0.02)
+    assert math.isfinite(abs(got))
+    walked = traversal_series(w, 1.2, 0.9, th, 0.02, 400)
+    assert abs(walked) > 1e6 * abs(got)
+
+
+# ── the poles, which is where stability actually lives ──────────────────────
+def test_the_uncoupled_poles_sit_at_the_spectrum_plus_the_regulator():
+    th = CoupledThroat(1.3, 1.0, +1, 0.0)
+    for p in resonance_poles(th, 0.02, 6):
+        assert p["re"] == pytest.approx(p["mode"], abs=1e-9)
+        assert p["im"] == pytest.approx(0.02, abs=1e-9)
+
+
+def test_every_pole_is_a_root_of_the_dispersion_relation():
+    th = CoupledThroat(1.3, 1.0, +1, 0.3)
+    poles = resonance_poles(th, 0.02, 10)
+    assert len(poles) == 10
+    for p in poles:
+        assert abs(dispersion(p["omega"], th, 0.02)) < 1e-9
+
+
+def test_the_poles_match_their_first_order_displacement():
+    """``δ_m = −ηκ e^{−imΔ} sin(md)/(4π² sin d)``."""
+    th = CoupledThroat(1.3, 1.0, +1, 0.1)
+    for p in resonance_poles(th, 0.02, 10):
+        assert abs(p["omega"] - p["seed"]) < 2e-3
+
+
+def test_the_displacement_changes_sign_with_the_mode():
+    """Why stability is phase-sensitive and |L| cannot decide it."""
+    th = CoupledThroat(1.3, 1.0, +1, 0.3)
+    ims = [p["im"] - 0.02 for p in resonance_poles(th, 0.02, 12)]
+    assert max(ims) > 0.0 and min(ims) < 0.0
+
+
+def test_a_delay_of_pi_leaves_the_poles_on_their_line_to_first_order():
+    """``sin(mπ) = 0``, so the first-order displacement is real."""
+    th = CoupledThroat(1.3, math.pi, +1, 0.3)
+    for p in resonance_poles(th, 0.02, 10):
+        assert p["im"] == pytest.approx(0.02, abs=2e-3)
+        assert p["decaying"]
+
+
+def test_stability_threshold_is_delay_dependent_and_above_the_series_radius():
+    ks = series_radius(1.3, 0.02, omega_max=40.5, n_grid=40001)["kappa_series"]
+    near = stability_threshold(1.3, 1.0, +1, 0.02, 40)["kappa_stability"]
+    at_pi = stability_threshold(1.3, math.pi, +1, 0.02, 40)["kappa_stability"]
+    assert near == pytest.approx(ks, rel=0.1)
+    assert at_pi > 3.0 * ks
+
+
+def test_at_the_stability_threshold_a_pole_is_on_the_real_axis():
+    st = stability_threshold(1.3, 1.0, +1, 0.02, 40)
+    th = CoupledThroat(1.3, 1.0, +1, st["kappa_stability"])
+    assert abs(least_damped_pole(th, 0.02, 40)["im"]) < 2e-4
+
+
+# ── the common branch-label basis ───────────────────────────────────────────
+def test_the_branch_label_order_is_the_same_for_every_leg_length():
+    want = branch_labels(5)
+    for chi in (0.05, 0.7, 1.2, 2.4, 3.05):
+        got = [(r["long_way"], r["winding"]) for r in leg_branches(chi, 5)]
+        assert got == want
+
+
+def test_the_pair_matrix_reports_the_basis_it_is_in():
+    th = CoupledThroat(1.3, 1.0, +1, 0.3)
+    a = branch_pair_matrix(2.3, 1.2, 0.9, th, n_k=4)
+    b = branch_pair_matrix(2.3, 0.7, 1.6, th, n_k=4)
+    assert a["labels"] == b["labels"] == branch_labels(4)
 
 
 # ── the measurements ────────────────────────────────────────────────────────
@@ -343,28 +436,59 @@ def test_the_closure_condition_does_not_factorize_but_the_amplitude_does():
     assert r["the_amplitude_does_factorize"]
 
 
-def test_measure_the_primitive_is_rank_one_for_one_throat_and_not_for_two():
-    r = measure_the_primitive_is_rank_one_for_one_throat_and_not_for_two()
-    assert r["one_throat_is_rank_one"]
-    assert r["two_throats_are_rank_two"]
-    assert r["rank_one_throat"] == 1 and r["rank_two_throats"] == 2
+def test_measure_the_rank_counts_transfer_channels_not_histories():
+    r = measure_the_rank_counts_transfer_channels_not_histories()
+    assert r["one_throat_is_one_channel"]
+    assert r["two_throats_are_two_channels"]
+    assert r["rank_two_throats"] == 2
     assert r["cross_term_agrees"]
     assert r["the_cross_term_is_a_full_fringe"]
     assert "not the two-source invariant" in r["scope"]
 
 
-def test_measure_the_expansion_fails_at_the_eigenfrequencies():
-    r = measure_the_expansion_fails_at_the_eigenfrequencies()
-    assert r["kappa_critical_scales_like_damping"]
-    assert r["the_peak_sits_on_an_esu_eigenfrequency"]
+def test_one_throat_is_rank_one_while_carrying_many_histories():
+    """Rank is not a history count — the correction this measurement exists for."""
+    r = measure_the_rank_counts_transfer_channels_not_histories()
+    assert r["n_histories_one_throat"] == 144
+    assert r["rank_one_throat_despite_that"] == 1
+    assert r["both_matrices_in_the_common_label_basis"]
+
+
+def test_measure_the_one_traversal_expansion_fails_near_the_bare_resonances():
+    r = measure_the_one_traversal_expansion_fails_near_the_bare_resonances()
+    assert r["the_series_radius_scales_like_the_regulator"]
+    assert r["the_peak_sits_on_a_bare_esu_resonance"]
     assert r["resonance_is_where_post_processing_is_worst"]
     assert r["mean_exponent"] == pytest.approx(1.0, abs=1e-2)
+    assert "regulator" in r["what_this_does_not_show"]
 
 
-def test_the_module_says_what_it_still_puts_in():
-    r = measure_the_primitive_is_rank_one_for_one_throat_and_not_for_two()
-    assert "throat" in r["why_it_vanishes_without_a_second_throat"]
+def test_measure_the_series_radius_is_not_the_stability_threshold():
+    r = measure_the_series_radius_is_not_the_stability_threshold()
+    assert r["kappa_stability_depends_on_the_delay"]
+    assert r["the_two_thresholds_are_different_numbers"]
+    assert r["largest_ratio"] > 3.0
+    assert r["every_pole_matches_its_first_order_displacement"]
+    d = r["a_coupling_between_them"]
+    assert d["the_series_diverges"] and d["the_solve_is_finite"]
+    assert d["and_it_is_still_stable"]
+    assert d["loop_gain_at_the_peak"] > 1.0
+
+
+def test_measure_what_the_transfer_model_leaves_out():
+    r = measure_what_the_transfer_model_leaves_out()
+    assert r["the_power_ratio_is_kappa_squared"]
+    assert r["lossy_below_unit_coupling"]
+    assert r["scattering_object_shape"] == "1x1"
+    assert len(r["what_is_missing"]) >= 4
+    assert "mouth-transfer model" in r["honest_name"]
+
+
+def test_the_module_says_which_model_it_is():
+    r = measure_what_the_transfer_model_leaves_out()
+    assert "not a throat boundary operator" in r["honest_name"]
     from geometrodynamics.waves import branch_coupling
     doc = branch_coupling.__doc__ or ""
-    assert "identification map" in doc
+    assert "mouth-transfer model" in doc
+    assert "no normal-derivative" in doc
     assert "no backreaction" in doc.lower()

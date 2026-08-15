@@ -1,4 +1,4 @@
-# Is the throat part of the field problem, or a shift applied to its free branches?
+# Is the mouth transfer part of the field problem, or applied to its free branches?
 
 `geometrodynamics/waves/branch_coupling.py` · renderer
 `scripts/geometrodynamics_v55_branch_coupling.py` · probe
@@ -11,7 +11,7 @@ conformally coupled retarded Green function has **exact** image support, so PR
 #253's ray branches are the field's branches, carrying the `1/(4π sin χ)` shell
 law and a Maslov sign the ray ledger structurally could not.
 
-It got that result with the throat on the **outside**. The identification
+It got that result with the mouth relation on the **outside**. The relation
 
 ```
 φ(M⁺, t) = η · φ(M⁻, t + Δ)
@@ -22,17 +22,27 @@ arrivals at `M⁺`, shift them by `Δ`, re-emit from `M⁻`, enumerate again. On
 traversal, by construction — a post-processing step has no way to notice that
 what it re-emits will come back.
 
-> **Does writing the identification into the field problem change the answer,
-> and what is the primitive object once it is?**
+> **Does writing the relation into the field problem change the answer, and what
+> is the primitive object once it is?**
 
 **Yes**, and the primitive is indexed by a **pair of branches**.
 
-## 1. Scope, stated before the result
+## 1. Scope — which model this is
+
+Stated first and plainly, because the resolvent being exact for a model says
+nothing about which model it is. What is solved here is a **self-consistent
+rank-one mouth-transfer model**:
 
 * a **linear scalar field** on a **fixed** background (`S³ × R`), `c = 1`;
-* the throat is still an **identification map** with a transmission `κ` put in
-  by hand. `shells/junction.py` (PR #249) priced it and the bill is inherited,
-  unpaid. What is new is that it enters an equation that is *solved*;
+* the mouth relation carries field **values** through the free Green function.
+  It is **not a boundary operator and not a quotient of the manifold.** It has
+  **no normal-derivative (flux) matching**; **no reflected channel**, so the
+  mouth scattering object is `1×1` where a flux-conserving two-mouth junction
+  needs at least a `2×2` unitary; and with `κ < 1` it is **lossy** — power out
+  over power in is `κ²` exactly, measured in §8. So it is not literally an
+  identification. `shells/junction.py` (PR #249) is what would fix `κ` and
+  supply the missing channels, and the flux-conserving boundary operator is the
+  next step rather than this one;
 * **no backreaction, no stress tensor, no topology change, no rate**;
 * the two-throat cross term in §6 is a **throat–throat** interference. It is
   **not** the two-source invariant of roadmap step 3, and is measured here only
@@ -41,7 +51,10 @@ what it re-emits will come back.
   throughout — the Abel factor that makes the image series converge — and every
   result is either `γ`-independent or reported *as* a `γ`-scaling.
 
-## 2. The throat as a boundary condition
+What *is* claimed is narrow and holds: the relation is solved self-consistently
+rather than applied to already-computed branches, and that changes the answer.
+
+## 2. The relation, solved rather than applied
 
 In frequency space, the amplitude re-emitted at `M⁻` is driven by everything
 that reaches `M⁺`, including its own earlier emission after a trip around the
@@ -145,15 +158,28 @@ short-way branches: **three** pairs, sitting inside the **nine** that any rule
 phrased on `a` alone and `b` alone would have to admit. An anti-diagonal, not a
 rectangle. No single-index bookkeeping reproduces it.
 
-## 6. Rank counts histories
+## 6. Rank counts transfer channels, not histories
 
 | configuration | singular values of `K` (normalised) |
 | --- | --- |
 | one throat | `1`, `1.3e-16`, `4.6e-17`, … |
 | two throats | `1`, `0.542`, `1.0e-16`, … |
 
-One throat is rank one; a second throat adds a second outer product and the rank
-goes to two. The interference between them is a **full fringe** — visibility
+Rank is **not** a history count. A single throat with `n = 12` branches per leg
+already carries `144` distinct `(a,b)` histories, each with its own arrival time,
+and `K` is still rank one. What an outer product counts is independent
+**separable transfer channels**, and one value-feedback throat supplies exactly
+one.
+
+A second throat adds a second channel, so the rank goes to two. For that sum to
+mean anything the two matrices must be in the **same basis**, and they are: both
+indices are the topological branch label `(long_way, winding)` in `branch_labels`
+order, not the leg length — a label that is shared by legs of different `χ`,
+which the two throats certainly have. That is checked in the measurement rather
+than left to the coincidence that `χ < 2π−χ < χ+2π < …` holds for every
+`χ ∈ (0,π)`.
+
+The interference between the two channels is a **full fringe** — visibility
 `−1.000` to `+1.000` across the band — and it is bilinear, one factor from each
 throat's pair sum, so it is identically zero without either.
 
@@ -161,53 +187,105 @@ That is the same shape as roadmap step 3's invariant and is **not** that
 invariant: these are throats, not sources. What it does show is that the object
 carrying a "vanishes when one is removed" quantity is `K`, not either leg.
 
-## 7. Where post-processing stops being an approximation
+## 7. Existence, convergence and stability are three different conditions
 
-`|T_d|` peaks where `1 − e^{−2πu} ≈ 2πγ`, so the critical coupling
-`κ_c = 1/max|T_d|` falls **linearly** in the regulator:
+This is the correction that matters most, and the one the round originally got
+wrong. Three statements were being run together:
 
-| `γ` | `κ_c` | ratio |
-| ---: | ---: | ---: |
-| `0.08` | `3.0465` | — |
-| `0.04` | `1.5237` | `1.99944` |
-| `0.02` | `0.76189` | `1.99987` |
-| `0.01` | `0.38095` | `1.99997` |
+| | condition | |
+| --- | --- | --- |
+| **existence** | `L ≠ 1` | `1/(1−L)` is fine for `\|L\| > 1` |
+| **convergence** | `\|L\| < 1` | the radius of `Σ Lⁿ`, and it is delay-blind |
+| **stability** | `Im ω > 0` for every root of `D(ω) = 1 − L(ω)` | phase-sensitive |
 
-Fitted exponent **`0.9998`**, and the peak sits exactly on an ESU
-eigenfrequency (`ω = 6` for `d = 1.3`, where `sin(6d)` is near its maximum). As
-the regulator is removed, **every** coupling is critical at some frequency, and
-there the one-traversal answer is the first term of a divergent series rather
-than the leading term of a convergent one.
+`|T_d|` peaks where `1 − e^{−2πu} ≈ 2πγ`, so the **series radius**
+`κ_series = 1/max|T_d|` falls linearly in the regulator — fitted exponent
+**`0.9998`**, peak exactly on a bare resonance. That says the traversal
+expansion's radius of convergence shrinks as the bare poles approach the real
+axis. It does *not* say the coupled system becomes unstable, because `γ` is an
+Abel regulator, `T_d` carries the *bare* poles, and a finite coupling **moves**
+those poles rather than inflating a gain.
 
-At fixed `κ = κ_c/2`:
+Where they move is computable. With `e^{+iωt}` a root at `ω = ω_r + iω_i` rings
+as `e^{iω_r t}e^{−ω_i t}`, so `Im ω > 0` is decay. The uncoupled poles sit at
+`ω = m + iγ` and the coupling displaces the `m`-th by
 
-| `ω` | round-trip gain | relative miss of one traversal |
-| ---: | ---: | ---: |
-| `6.000` (on resonance) | `0.500` | `0.500` |
-| `6.500` (off) | `0.0177` | `0.0177` |
+```
+δ_m = −ηκ e^{−imΔ} sin(md) / (4π² sin d) ,   Im δ_m ∝ sin(md) sin(mΔ)
+```
 
-## 8. What this closes, and what it does not
+which **changes sign with the mode** — measured against the actual roots to
+`2.2e-04`. Stability is therefore phase-sensitive, and no bound on `|L|` can
+decide it. Scanning the delay makes the separation concrete, since `T_d` does not
+contain `Δ` at all:
 
-**Closes:** that the throat identification can be imposed *inside* the field
-problem rather than applied to its output, and that doing so is not a
-rearrangement — it adds arrivals at times the free-branch ledger does not
-contain; that the branch (image) representation and the mode representation are
-the same function, poles and residues included; that the primitive object of a
-through-throat history is indexed by a pair of branches, because the amplitude
-factorizes over that index and PR #253's closure condition does not; and that
-the one-traversal treatment has an expansion parameter with no bound as the
-regulator is removed.
+| `Δ` | `κ_series` | `κ_stability` | ratio | first mode to go |
+| ---: | ---: | ---: | ---: | ---: |
+| `1.0` | `0.7619` | `0.7710` | `1.012` | 11 |
+| `0.5` | `0.7619` | `0.7798` | `1.024` | 35 |
+| `π` | `0.7619` | **`3.0336`** | **`3.98`** | 11 |
 
-**Does not close:** the coupling `κ` is still put in by hand and the background
-is still fixed and unbackreacted. When `Δ + ℓ_c < 0` the loop is **closed in
-time**, and `1/(1−L)` is then a self-consistency condition rather than a
-convergent history sum — it has a unique solution exactly when the
-branch-resolved loop gain is subcritical. That is a *bound* on `κ`, and PR #251's
-fixed point is where it came from; it is not a derivation of `κ`. No stress
+At `Δ = π` every first-order displacement is real (`sin(mπ) = 0`), the poles
+slide *along* their line instead of off it, and the threshold rises four-fold. In
+the gap, at `κ = 1.520`:
+
+| | |
+| --- | ---: |
+| round-trip gain at the peak | `1.995` |
+| the traversal series | `1.3e+119` — diverges |
+| the solve | `0.00450 − 0.13033j` — finite |
+| least-damped pole | `Im ω = +0.0145` — still stable |
+
+Solving and summing are not the same operation, and this is the coupling that
+shows it.
+
+## 8. What the model leaves out, as numbers
+
+| `κ` | power out / power in | `1×1` scattering magnitude | unitary |
+| ---: | ---: | ---: | :---: |
+| `0.3` | `0.09` | `0.3` | no |
+| `0.6` | `0.36` | `0.6` | no |
+| `1.0` | `1.00` | `1.0` | yes |
+
+The ratio is `κ²` exactly. Below `κ = 1` the relation is lossy and cannot be an
+identification of anything; at `κ = 1` the *value* relation would be one and the
+normal derivative would still be unmatched. The missing pieces, each with what it
+would cost:
+
+* **no normal-derivative (flux) matching.** A Darmois–Israel junction matches
+  both value and derivative; the mismatch is what `shells/junction.py` (PR #249)
+  prices.
+* **no reflected channel.** Each mouth has one outgoing amplitude, so the
+  scattering object is `1×1`. A flux-conserving two-mouth junction needs at least
+  a `2×2` unitary — transmit *and* reflect.
+* **no self-adjointness**, and therefore no claim that this is a quotient of the
+  manifold.
+
+None of this is a defect of the resolvent, which is exact for the model as posed.
+It is a statement of *which model*, and the flux-conserving boundary operator is
+the next step.
+
+## 9. What this closes, and what it does not
+
+**Closes:** that the mouth relation can be imposed *inside* the field problem
+rather than applied to its output, and that doing so is not a rearrangement — it
+adds arrivals at times the free-branch ledger does not contain; that the branch
+(image) representation and the mode representation are the same function, poles
+and residues included; that the primitive object of a through-throat history is
+indexed by a pair of branches, because the amplitude factorizes over that index
+and PR #253's closure condition does not; and that existence, convergence and
+stability are three separate conditions with three different thresholds.
+
+**Does not close:** everything in §1 and §8. This is a **rank-one mouth-transfer
+model**, not a throat boundary operator — no flux matching, no reflected channel,
+no unitary two-mouth `S`-matrix, and lossy for `κ < 1`. `κ` is put in by hand and
+the background is fixed and unbackreacted. When `Δ + ℓ_c < 0` the loop is
+**closed in time** and `1/(1−L)` is a self-consistency condition rather than a
+convergent history sum; PR #251's fixed point is where that came from. No stress
 tensor, no topology change, no rate, and **no two-source invariant** — roadmap
 step 3 is still ahead.
 
-## 9. What this changes for the next step
+## 10. What this changes for the next step
 
 PR #254 flagged that a two-source invariant `𝒞 = A_A² A_B² (k_A · k_B)²` would
 need a branch-resolved definition, because `k = ∇S` is multivalued once the
@@ -220,7 +298,9 @@ therefore be a matrix in the same sense `K` is — and §6 says what to expect f
 it, that the rank counts independent histories and the off-diagonal is the part
 that vanishes when a source is removed.
 
-The one caution the `κ_c ∝ γ` scaling raises for that step: any quantity built
-from a resummed field inherits the resonances, so a "vanishes when a source is
-removed" test must be stated at fixed sub-critical gain, or it will be measuring
-the pole rather than the source.
+Two cautions for that step. Any quantity built from a resummed field inherits
+the poles, so a "vanishes when a source is removed" test must be stated at a
+fixed, explicitly *stable* coupling — and stable means `Im ω > 0` for every root
+of `D`, not `|L| < 1`, which §7 shows can differ by a factor of four. And rank,
+if it is used as evidence again, counts separable channels rather than histories;
+that is a real distinction and it cost this round a claim.

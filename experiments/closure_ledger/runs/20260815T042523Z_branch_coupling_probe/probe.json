@@ -3,8 +3,8 @@
   "tests": [
     {
       "name": "T1_goal",
-      "question": "is the throat identification part of the field problem, or a shift applied to the free branches after they are computed? and what is the primitive object -- is it indexed by a pair of branches?",
-      "scope": "a linear scalar field on a fixed Einstein static universe. The throat is still an identification map with a coupling kappa put in by hand, and PR #249's exotic-matter bill is inherited and unpaid. No backreaction, no stress tensor, no topology change, no rate. The two-throat cross term in T7 is a throat-throat interference, not roadmap step 3's two-source invariant.",
+      "question": "is the mouth relation part of the field problem, or a shift applied to the free branches after they are computed? and what is the primitive object -- is it indexed by a pair of branches?",
+      "scope": "a linear scalar field on a fixed Einstein static universe, and a self-consistent RANK-ONE MOUTH-TRANSFER MODEL rather than a throat boundary operator: no flux matching, no reflected channel, a 1x1 mouth scattering object, and lossy for kappa < 1, so not literally an identification. PR #249's exotic-matter bill is inherited and unpaid. No backreaction, no stress tensor, no topology change, no rate. The two-throat cross term in T7 is a throat-throat interference, not roadmap step 3's two-source invariant.",
       "pass": true
     },
     {
@@ -581,7 +581,12 @@
       "pass": true
     },
     {
-      "name": "T7_one_throat_is_rank_one_and_two_are_rank_two",
+      "name": "T7_the_rank_counts_transfer_channels_not_histories",
+      "n_histories_one_throat": 144,
+      "rank_one_throat_despite_that": 1,
+      "rank_is_not_a_history_count": true,
+      "what_the_rank_counts": "independent separable transfer channels \u2014 outer products \u2014 not histories; one value-feedback throat supplies exactly one while carrying 144 (a,b) histories",
+      "both_matrices_in_the_common_label_basis": true,
       "cross_visibility_max": 0.9999725380097735,
       "cross_visibility_min": -0.9999999545199589,
       "the_cross_term_is_a_full_fringe": true,
@@ -603,10 +608,9 @@
         1.0471098641825821e-16,
         7.132956077674743e-17
       ],
-      "rank_one_throat": 1,
       "rank_two_throats": 2,
-      "one_throat_is_rank_one": true,
-      "two_throats_are_rank_two": true,
+      "one_throat_is_one_channel": true,
+      "two_throats_are_two_channels": true,
       "cross_term": 4.7228715724533455e-06,
       "cross_term_direct": 4.7228715724533455e-06,
       "cross_term_agrees": true,
@@ -615,41 +619,49 @@
       "pass": true
     },
     {
-      "name": "T8_the_expansion_fails_at_the_eigenfrequencies",
+      "name": "T8_the_one_traversal_expansion_fails_near_resonances",
       "rows": [
         {
-          "kappa_critical": 3.0465004485122296,
+          "kappa_series": 3.0465004485122296,
           "omega_of_the_peak": 5.9992002501,
           "peak_transfer": 0.32824547932968595,
           "damping": 0.08,
-          "kappa_c_ratio_to_previous": null,
+          "omega_max": 8.0,
+          "what_it_is": "the radius of convergence of \u03a3 L\u207f, independent of the delay and therefore not a stability bound",
+          "kappa_series_ratio_to_previous": null,
           "damping_ratio": null,
           "exponent": null
         },
         {
-          "kappa_critical": 1.5236755531095385,
+          "kappa_series": 1.5236755531095385,
           "omega_of_the_peak": 6.00000025,
           "peak_transfer": 0.6563077014389225,
           "damping": 0.04,
-          "kappa_c_ratio_to_previous": 1.9994417067957075,
+          "omega_max": 8.0,
+          "what_it_is": "the radius of convergence of \u03a3 L\u207f, independent of the delay and therefore not a stability bound",
+          "kappa_series_ratio_to_previous": 1.9994417067957075,
           "damping_ratio": 2.0,
           "exponent": 0.9995972203615031
         },
         {
-          "kappa_critical": 0.7618879621813858,
+          "kappa_series": 0.7618879621813858,
           "omega_of_the_peak": 6.00000025,
           "peak_transfer": 1.312528940786606,
           "damping": 0.02,
-          "kappa_c_ratio_to_previous": 1.9998682598253086,
+          "omega_max": 8.0,
+          "what_it_is": "the radius of convergence of \u03a3 L\u207f, independent of the delay and therefore not a stability bound",
+          "kappa_series_ratio_to_previous": 1.9998682598253086,
           "damping_ratio": 2.0,
           "exponent": 0.999904966421674
         },
         {
-          "kappa_critical": 0.38095032790553773,
+          "kappa_series": 0.38095032790553773,
           "omega_of_the_peak": 6.00000025,
           "peak_transfer": 2.625014146852145,
           "damping": 0.01,
-          "kappa_c_ratio_to_previous": 1.9999666790424897,
+          "omega_max": 8.0,
+          "what_it_is": "the radius of convergence of \u03a3 L\u207f, independent of the delay and therefore not a stability bound",
+          "kappa_series_ratio_to_previous": 1.9999666790424897,
           "damping_ratio": 2.0,
           "exponent": 0.9999759638096933
         }
@@ -659,9 +671,9 @@
         0.999904966421674,
         0.9999759638096933
       ],
-      "kappa_critical_scales_like_damping": true,
+      "the_series_radius_scales_like_the_regulator": true,
       "mean_exponent": 0.9998260501976235,
-      "the_peak_sits_on_an_esu_eigenfrequency": true,
+      "the_peak_sits_on_a_bare_esu_resonance": true,
       "the_relative_miss_is_the_loop_gain": "|1/(1\u2212L) \u2212 1| / |1/(1\u2212L)| = |L| exactly, so the error of post-processing IS the round-trip gain",
       "on_and_off_resonance": [
         {
@@ -677,17 +689,111 @@
       ],
       "resonance_is_where_post_processing_is_worst": true,
       "kappa_used": 0.3809439810906929,
-      "what_this_shows": "the free-branch answer is an expansion in the loop gain, and the loop gain has no bound as the regulator is removed",
+      "what_this_shows": "the one-traversal answer is an expansion in the round-trip gain and it fails near the bare resonances",
+      "what_this_does_not_show": "that the coupled system is unstable there; \u03b3 is an Abel regulator, T_d carries the bare poles, and a finite coupling moves those poles rather than simply inflating a gain",
       "pass": true
     },
     {
-      "name": "T9_assessment",
-      "n_passed": 8,
-      "n_total": 8,
+      "name": "T9_the_series_radius_is_not_the_stability_threshold",
+      "rows": [
+        {
+          "delay": 1.0,
+          "kappa_series": 0.761868736732276,
+          "kappa_stability": 0.771026611328125,
+          "mode_that_goes_first": 11,
+          "ratio": 1.01202027876236
+        },
+        {
+          "delay": 0.5,
+          "kappa_series": 0.761868736732276,
+          "kappa_stability": 0.779815673828125,
+          "mode_that_goes_first": 35,
+          "ratio": 1.0235564687597303
+        },
+        {
+          "delay": 3.141592653589793,
+          "kappa_series": 0.761868736732276,
+          "kappa_stability": 3.0335693359375,
+          "mode_that_goes_first": 11,
+          "ratio": 3.981748022564561
+        }
+      ],
+      "kappa_series_is_delay_independent": true,
+      "kappa_stability_depends_on_the_delay": true,
+      "largest_ratio": 3.981748022564561,
+      "delay_of_the_largest_ratio": 3.141592653589793,
+      "the_two_thresholds_are_different_numbers": true,
+      "a_coupling_between_them": {
+        "delay": 3.141592653589793,
+        "kappa": 1.5202570959414965,
+        "loop_gain_at_the_peak": 1.9954317885020676,
+        "the_series_diverges": true,
+        "the_solve_is_finite": true,
+        "solved": {
+          "re": 0.004495425745574662,
+          "im": -0.13033010076111454
+        },
+        "walked_series": {
+          "re": 1.3039966241933188e+119,
+          "im": 3.460865281911684e+118
+        },
+        "least_damped_pole_im": 0.014508981204161147,
+        "and_it_is_still_stable": true
+      },
+      "n_poles_found": 12,
+      "every_pole_matches_its_first_order_displacement": true,
+      "worst_pole_vs_first_order": 0.00022170723627666435,
+      "n_modes_searched": 40,
+      "what_this_corrects": "|L| < 1 is the convergence radius of \u03a3 L\u207f, not the existence condition (that is L \u2260 1) and not the stability condition (that is Im \u03c9 > 0 for every root of D)",
+      "pass": true
+    },
+    {
+      "name": "T10_what_the_transfer_model_leaves_out",
+      "rows": [
+        {
+          "kappa": 0.3,
+          "power_out_over_power_in": 0.09000000000000001,
+          "equals_kappa_squared": true,
+          "scattering_magnitude": 0.3,
+          "unitary_1x1": false
+        },
+        {
+          "kappa": 0.6,
+          "power_out_over_power_in": 0.36000000000000004,
+          "equals_kappa_squared": true,
+          "scattering_magnitude": 0.6,
+          "unitary_1x1": false
+        },
+        {
+          "kappa": 1.0,
+          "power_out_over_power_in": 1.0,
+          "equals_kappa_squared": true,
+          "scattering_magnitude": 1.0,
+          "unitary_1x1": true
+        }
+      ],
+      "the_power_ratio_is_kappa_squared": true,
+      "lossy_below_unit_coupling": true,
+      "scattering_object_shape": "1x1",
+      "shape_a_flux_conserving_junction_would_need": "at least 2x2 unitary",
+      "what_is_missing": [
+        "normal-derivative (flux) matching at the mouths",
+        "a reflected channel, so the mouth S-matrix is 1x1 not 2x2",
+        "self-adjointness / unitarity of the two-mouth scattering object",
+        "and therefore any claim that this is a quotient of the manifold"
+      ],
+      "what_is_not_missing": "the resolvent is exact for the model as posed; the scope statement is about which model, not about the solve",
+      "honest_name": "a self-consistent rank-one mouth-transfer model, not a throat boundary operator",
+      "pass": true
+    },
+    {
+      "name": "T11_assessment",
+      "n_passed": 10,
+      "n_total": 10,
       "pass": true
     }
   ],
-  "verdict_class": "THE_THROAT_IS_SOLVED_FOR_AND_THE_PRIMITIVE_IS_A_PAIR",
-  "verdict": "YES -- AND IT WAS NOT A REARRANGEMENT OF PR #254. That round applied the identification phi(M+,t) = eta phi(M-,t+Delta) to the free branches after computing them, which gives one traversal by construction: a post-processing step cannot notice that what it re-emits will come back. Written into the field problem instead, the amplitude re-emitted at M- is driven by everything reaching M+ including its own return, and the solution carries a resolvent 1/(1 - L). FIRST, THE BRANCH SERIES SUMS IN CLOSED FORM: the short-way images all carry the Maslov factor +1 and the long-way images all carry -1, so the winding sum is two geometric series and equals (e^{-u chi} - e^{-u(2pi-chi)})/(1 - e^{-2pi u}), verified against the term-by-term sum to 2.7e-15. Its poles, as the regulator is removed, sit at omega = 1, 2, 3, ... -- the conformal ESU eigenfrequencies -- with residues equal to the mode functions over 2 omega. The image representation and the mode representation are the same function seen from two sides, which is the strongest statement so far that the branch labels are a REPRESENTATION rather than an approximation. SECOND, THE SOLVE IS THE SUM OVER EVERY TRAVERSAL: the resolvent agrees with an explicit walk over 400 traversals to 3.5e-18, and PR #254's answer is the n = 0 term, whose relative error is exactly the round-trip gain |L|. THIRD -- AND THIS IS THE SHARPEST PART -- THE SOLVE ADDS EVENTS, NOT AMPLITUDES. The solved waveform is the sum over history words to 5.4e-06, so the word enumeration is checked rather than asserted; at echo times ell_a + Delta + n(ell_c + Delta) + ell_b that no one-traversal word can reach, the solved field stands 3.3e+12 above the control, with amplitudes on the kappa^n ladder and signs equal to the product of every Maslov factor in the word. Those are arrivals at times PR #254's ledger does not contain. FOURTH, THE PRIMITIVE IS INDEXED BY A PAIR OF BRANCHES, AND FOR A GOOD REASON: K_ab carries the phase e^{-i omega (l_a + Delta + l_b)}, so PR #253's closure condition is EXACTLY the statement that K_ab is independent of omega -- closed pairs have band coherence 1.000 while every other pair dephases below 0.091. The amplitude factorizes over that index (K is rank one) and the CONDITION DOES NOT: 3 pairs close where any rule phrased on a alone and b alone would admit 9. FIFTH, the rank counts histories -- one throat rank one, two throats rank two -- and the throat-throat cross term is a full fringe, visibility -1.000 to 1.000, bilinear and therefore identically zero without either throat. That is the same shape as roadmap step 3's invariant and is explicitly NOT that invariant: these are throats, not sources. SIXTH, THERE IS A REGIME WHERE POST-PROCESSING IS NOT AN APPROXIMATION AT ALL: |T_d| peaks where 1 - e^{-2pi u} = 2 pi gamma, so the critical coupling falls linearly in the regulator -- measured exponent 0.9998 -- and the peak sits exactly on an ESU eigenfrequency. As the regulator is removed every coupling is critical somewhere, and there the one-traversal answer is the first term of a divergent series. WHAT IS STILL PUT IN: the throat remains an identification map with kappa by hand, the background is fixed, the field is linear, and when Delta + ell_c < 0 the loop is closed in time and 1/(1 - L) is a self-consistency condition rather than a history sum -- it has a unique solution exactly when the branch-resolved loop gain is subcritical, which is a bound on kappa and not a derivation of it. No backreaction, no stress tensor, no topology change, no rate, and no two-source invariant.",
-  "generated_utc": "2026-08-15T03:51:37.455049+00:00"
+  "verdict_class": "THE_TRANSFER_IS_SOLVED_FOR_AND_THE_PRIMITIVE_IS_A_PAIR",
+  "verdict": "YES -- AND IT WAS NOT A REARRANGEMENT OF PR #254. That round applied the mouth relation phi(M+,t) = eta phi(M-,t+Delta) to the free branches after computing them, which gives one traversal by construction: a post-processing step cannot notice that what it re-emits will come back. Written into the field problem instead, the amplitude re-emitted at M- is driven by everything reaching M+ including its own return, and the solution carries a resolvent 1/(1 - L). FIRST, THE BRANCH SERIES SUMS IN CLOSED FORM: the short-way images all carry the Maslov factor +1 and the long-way images all carry -1, so the winding sum is two geometric series and equals (e^{-u chi} - e^{-u(2pi-chi)})/(1 - e^{-2pi u}), verified against the term-by-term sum to 2.7e-15. Its poles, as the regulator is removed, sit at omega = 1, 2, 3, ... -- the conformal ESU eigenfrequencies -- with residues equal to the mode functions over 2 omega. The image representation and the mode representation are the same function seen from two sides, which is the strongest statement so far that the branch labels are a REPRESENTATION rather than an approximation. SECOND, THE SOLVE IS THE SUM OVER EVERY TRAVERSAL: the resolvent agrees with an explicit walk over 400 traversals to 3.5e-18, and PR #254's answer is the n = 0 term, whose relative error is exactly the round-trip gain |L|. THIRD -- AND THIS IS THE SHARPEST PART -- THE SOLVE ADDS EVENTS, NOT AMPLITUDES. The solved waveform is the sum over history words to 5.4e-06, so the word enumeration is checked rather than asserted; at echo times ell_a + Delta + n(ell_c + Delta) + ell_b that no one-traversal word can reach, the solved field stands 3.3e+12 above the control, with amplitudes on the kappa^n ladder and signs equal to the product of every Maslov factor in the word. Those are arrivals at times PR #254's ledger does not contain. FOURTH, THE PRIMITIVE IS INDEXED BY A PAIR OF BRANCHES, AND FOR A GOOD REASON: K_ab carries the phase e^{-i omega (l_a + Delta + l_b)}, so PR #253's closure condition is EXACTLY the statement that K_ab is independent of omega -- closed pairs have band coherence 1.000 while every other pair dephases below 0.091. The amplitude factorizes over that index and the CONDITION DOES NOT: 3 pairs close where any rule phrased on a alone and b alone would admit 9. FIFTH, THE RANK COUNTS TRANSFER CHANNELS AND NOT HISTORIES -- one throat already carries 144 distinct (a,b) histories while K is rank one, because what an outer product counts is separable channels, and one value-feedback throat supplies one. A second throat adds a second, in a shared topological branch-label basis rather than by leg length, and the interference between the two channels is a full fringe, visibility -1.000 to 1.000, bilinear and therefore identically zero without either. That is the same shape as roadmap step 3's invariant and is explicitly NOT that invariant: these are throats, not sources. SIXTH, THE ONE-TRAVERSAL ANSWER FAILS NEAR THE BARE RESONANCES: |T_d| peaks where 1 - e^{-2pi u} = 2 pi gamma, so the SERIES RADIUS falls linearly in the regulator -- measured exponent 0.9998 -- with the peak on a bare ESU resonance. SEVENTH, AND THIS IS THE CORRECTION THAT MATTERS MOST, THE SERIES RADIUS IS NOT THE STABILITY THRESHOLD. Existence (L != 1), convergence (|L| < 1) and stability (Im omega > 0 for every root of D = 1 - L in complex omega) are three different conditions. The coupling DISPLACES the bare poles omega = m + i gamma by delta_m = -eta kappa e^{-i m Delta} sin(m d)/(4 pi^2 sin d), matched to 2.2e-04, and its imaginary part goes like sin(m d) sin(m Delta), which CHANGES SIGN WITH THE MODE -- so stability is phase-sensitive and no bound on |L| can see it. kappa_series is the same number for every delay while kappa_stability is not, differing by a factor 3.98 at Delta = pi where every first-order displacement is real; and at a coupling in that gap the traversal series diverges while the solve stays finite and the least-damped pole stays in the upper half plane. WHAT THIS IS NOT: a throat boundary operator. The model relates field VALUES through the free Green function -- no normal-derivative (flux) matching, no reflected channel (the mouth scattering object is 1x1 where a flux-conserving two-mouth junction needs at least 2x2 unitary), and power out over power in is kappa^2 exactly, so for kappa < 1 it is lossy and cannot be a quotient of the manifold. The resolvent is exact for the model as posed; the scope statement is about which model. kappa is still by hand, the background is fixed, the field is linear, and when Delta + ell_c < 0 the loop is closed in time and 1/(1 - L) is a self-consistency condition rather than a history sum. No backreaction, no stress tensor, no topology change, no rate, and no two-source invariant. The flux-conserving boundary operator is the next step, not this one.",
+  "generated_utc": "2026-08-15T04:25:23.670961+00:00"
 }

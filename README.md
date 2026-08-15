@@ -2184,17 +2184,27 @@ python scripts/geometrodynamics_v54_field_solve.py --still v54.png
 
 Full write-up: `docs/field_solve.md`.
 
-## The throat solved for, not applied
+## The mouth transfer solved for, not applied
 
-PR #254 solved the field but kept the throat on the **outside**:
+PR #254 solved the field but kept the mouth relation on the **outside**:
 `φ(M⁺,t) = η φ(M⁻,t+Δ)` was applied *to the free branches after they were
 computed*. One traversal, by construction — a post-processing step cannot notice
-that what it re-emits will come back. Here the identification enters the equation
-that is solved:
+that what it re-emits will come back. Here the relation enters the equation that
+is solved:
 
 ```
 a(ω) = ηκ e^{−iωΔ}[ S(ω) + T_d(ω) a(ω) ]   ⟹   a = ηκ e^{−iωΔ} S / (1 − L)
 ```
+
+**Scope first**, because the resolvent being exact for a model says nothing about
+which model: this is a **self-consistent rank-one mouth-transfer model**, *not* a
+throat boundary operator and *not* a quotient of the manifold. It relates field
+values through the free Green function — no normal-derivative (flux) matching, no
+reflected channel (the mouth scattering object is `1×1` where a flux-conserving
+two-mouth junction needs at least `2×2` unitary), and power out over power in is
+`κ²` exactly, so for `κ < 1` it is lossy and not an identification of anything.
+
+What *is* claimed is narrow and holds.
 
 **The resolvent is the sum over every traversal** — against an explicit walk over
 400 of them, `3.5e-18` — and PR #254's answer is its `n = 0` term, whose relative
@@ -2230,32 +2240,50 @@ K_ab(ω) = ηκ · s_a A₁ e^{−u ℓ_a} · e^{−iωΔ} · s_b A₂ e^{−u �
 `K_ab` carries the phase `e^{−iω(ℓ_a + Δ + ℓ_b)}`, so PR #253's closure condition
 is *exactly* the statement that it does not depend on `ω`: closed pairs have band
 coherence `1.000`, every other pair below `0.091`. And the reason the **pair** is
-the primitive is that the amplitude factorizes over that index — `K` is rank one
-— while the condition does not: at `Δ = −(χ₁+χ₂+4π)` **three** pairs close inside
-the **nine** any single-index rule would have to admit. An anti-diagonal, not a
-rectangle.
+the primitive is that the amplitude factorizes over that index while the
+condition does not: at `Δ = −(χ₁+χ₂+4π)` **three** pairs close inside the **nine**
+any single-index rule would have to admit. An anti-diagonal, not a rectangle.
+
+**Rank counts transfer channels, not histories.** One throat already carries
+`144` distinct `(a,b)` histories and `K` is still rank one — an outer product
+counts independent *separable channels*, and one value-feedback throat supplies
+one. A second throat adds a second, in a shared topological branch-label basis
+(checked, since the two throats have different `χ` on every leg), and the
+interference between the channels is a full fringe, bilinear, identically zero
+without either.
 
 | configuration | singular values of `K` (normalised) |
 | --- | --- |
 | one throat | `1`, `1.3e-16`, `4.6e-17` |
 | two throats | `1`, `0.542`, `1.0e-16` |
 
-**And there is a regime where post-processing is not an approximation at all.**
-`|T_d|` peaks where `1 − e^{−2πu} ≈ 2πγ`, so the critical coupling
-`κ_c = 1/max|T_d|` falls linearly in the regulator — fitted exponent **`0.9998`**
-— with the peak sitting exactly on an ESU eigenfrequency. As `γ → 0`, *every*
-coupling is critical somewhere.
+**And existence, convergence and stability are three different conditions.**
+`1/(1−L)` exists for any `L ≠ 1`, `|L| > 1` included; `|L| < 1` is only the radius
+of `Σ Lⁿ`, and that radius does not depend on the delay at all. Stability is
+`Im ω > 0` for every root of `D(ω) = 1 − L(ω)` in complex `ω`, and the coupling
+*displaces* the bare poles `ω = m + iγ` by
+`δ_m = −ηκ e^{−imΔ} sin(md)/(4π² sin d)` — matched to `2.2e-04` — whose imaginary
+part goes like `sin(md) sin(mΔ)` and **changes sign with the mode**. Stability is
+phase-sensitive; no bound on `|L|` can see it:
 
-Still put in: a linear field on a fixed background, and the throat still an
-identification map with `κ` by hand. When `Δ + ℓ_c < 0` the loop is closed in
-time and `1/(1−L)` is a self-consistency condition rather than a history sum,
-unique exactly when the branch-resolved loop gain is subcritical — a bound on
-`κ`, not a derivation of it. The two-throat fringe is a *throat–throat*
-interference, **not** roadmap step 3's two-source invariant.
+| `Δ` | `κ_series` | `κ_stability` | ratio |
+| ---: | ---: | ---: | ---: |
+| `1.0` | `0.7619` | `0.7710` | `1.012` |
+| `π` | `0.7619` | **`3.0336`** | **`3.98`** |
+
+At `κ = 1.520` in that gap the traversal series diverges to `1.3e+119` while the
+solve is finite and the least-damped pole is still at `Im ω = +0.0145`. Solving
+and summing are not the same operation.
+
+Still put in: a linear field on a fixed background and `κ` by hand. When
+`Δ + ℓ_c < 0` the loop is closed in time and `1/(1−L)` is a self-consistency
+condition rather than a history sum. The two-throat fringe is a *throat–throat*
+interference, **not** roadmap step 3's two-source invariant, and the
+flux-conserving boundary operator is the next step, not this one.
 
 ```bash
 python -m experiments.closure_ledger.branch_coupling_probe
-# Verdict: THE_THROAT_IS_SOLVED_FOR_AND_THE_PRIMITIVE_IS_A_PAIR  (8/8)
+# Verdict: THE_TRANSFER_IS_SOLVED_FOR_AND_THE_PRIMITIVE_IS_A_PAIR  (10/10)
 
 python scripts/geometrodynamics_v55_branch_coupling.py --still v55.png
 ```

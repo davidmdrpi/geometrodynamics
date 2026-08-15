@@ -1,5 +1,5 @@
 """
-Branch-resolved field coupling: the throat solved for, not post-processed.
+Branch-resolved field coupling: the mouth transfer solved for, not applied.
 
 THE GAP THIS CLOSES
 ───────────────────
@@ -8,13 +8,13 @@ Einstein static universe the conformally coupled retarded Green function has
 *exact* image support, so PR #253's ray branches are the field's branches, with
 the ``1/(4π sin χ)`` shell law and a Maslov sign the ray ledger could not carry.
 
-But it got that result with the throat still on the outside.  ``φ(M⁺,t) =
+But it got that result with the mouth relation on the outside.  ``φ(M⁺,t) =
 η φ(M⁻,t+Δ)`` was applied **to the free branches after they were computed**:
 enumerate the arrivals at ``M⁺``, shift them by ``Δ``, re-emit from ``M⁻``,
 enumerate again.  One traversal, by construction, because a post-processing step
 has no way to notice that what it re-emits will come back.
 
-Here the identification is imposed **as part of the field problem**.  In
+Here the relation is imposed **as part of the field problem**.  In
 frequency space the amplitude re-emitted at ``M⁻`` is driven by everything that
 reaches ``M⁺`` — including its own earlier emission, which has gone round the
 sphere and returned — so it satisfies
@@ -40,9 +40,11 @@ factor of PR #254.  The solved propagator is ``Σ_ab K_ab / (1 − L)``.
 Two facts about this pair index, and they pull in opposite directions:
 
 * **the amplitude factorizes over it.**  ``K_ab`` is an outer product, so as a
-  matrix it is rank one — for one throat.  Two throats give rank two, and the
-  rank is the honest count of how many independent histories the geometry
-  supports.  Measured.
+  matrix it is rank one — for one throat, *and that is not a history count*:
+  the same matrix carries ``n²`` distinct ``(a,b)`` histories.  Rank counts
+  independent **separable transfer channels**, and one value-feedback throat
+  supplies one.  Two throats give two, in a shared topological branch-label
+  basis so the sum means something.  Measured.
 * **the closure condition does not factorize over it.**  PR #253's
   ``ℓ_a + Δ + ℓ_b = 0`` is a condition on the *pair*; no condition on ``a``
   alone and none on ``b`` alone implies it.  That is why the pair is the
@@ -62,28 +64,51 @@ WHAT THE SOLVE BUYS THAT POST-PROCESSING DID NOT
   ``ℓ_a + Δ + n(ℓ_c + Δ) + ℓ_b`` with amplitude ``∝ κⁿ⁺¹`` and sign the product
   of every Maslov factor in the word.  Post-processing the free branches
   produces the ``n = 0`` arrivals and nothing else.
-* **a place where post-processing fails outright.**  ``|L| → 1`` is the loop
-  going critical, and because ``T_d`` has poles at the eigenfrequencies the
-  critical coupling scales as ``κ_c ∝ γ``: as the damping is removed, *any*
-  coupling is critical at some frequency.  A one-traversal answer is the first
-  term of a series that diverges exactly where the throat matters most.
-* **PR #251's fixed point, frequency-resolved.**  When ``Δ + ℓ_c < 0`` the loop
-  is closed in time, and ``1/(1−L)`` is then a self-consistency condition rather
-  than a convergent history sum: it has a unique solution precisely when the
-  branch-resolved loop gain is subcritical.  That bound is a statement about
-  ``κ``, and it is measured.
+* **a place where the one-traversal answer stops working.**  ``|T_d|`` peaks at
+  the bare resonances, so the traversal series' **radius of convergence**
+  ``κ_series = 1/max|T_d|`` falls linearly in the regulator.  That is a
+  statement about the *expansion*, and only that.
+* **and the poles themselves.**  Existence, convergence and stability are three
+  different conditions and this module keeps them apart:
 
-SCOPE
-─────
-Still a **linear field on a fixed round background**.  The throat is still an
-identification map with a coupling ``κ`` put in by hand — `shells.junction`
-(PR #249) priced it and the bill is still unpaid — but it is no longer applied
-after the fact: it enters the equation that is solved.
+      existence    ``L ≠ 1``          — ``1/(1−L)`` is fine for ``|L| > 1``
+      convergence  ``|L| < 1``        — the radius of ``Σ Lⁿ``, delay-blind
+      stability    ``Im ω > 0`` for every root of ``D(ω) = 1 − L(ω)``
+
+  The coupling *displaces* the bare poles ``ω = m + iγ`` by
+  ``δ_m = −ηκ e^{−imΔ} sin(md)/(4π² sin d)``, whose imaginary part goes like
+  ``sin(md) sin(mΔ)`` and **changes sign with the mode** — so stability is
+  phase-sensitive, and no bound on ``|L|`` can decide it.  At ``Δ = π`` every
+  first-order displacement is real and the stability threshold sits ``4×`` above
+  the series radius; in between, the solve is finite and stable while the series
+  diverges by ``10^119``.  Measured.
+* **PR #251's fixed point, frequency-resolved.**  When ``Δ + ℓ_c < 0`` the loop
+  is closed in time and ``1/(1−L)`` is a self-consistency condition rather than
+  a convergent history sum.
+
+SCOPE — WHICH MODEL THIS IS
+───────────────────────────
+A **linear field on a fixed round background**, and — stated plainly, because
+the resolvent being exact says nothing about this — a **self-consistent
+rank-one mouth-transfer model**, not a throat boundary operator and not a
+quotient of the manifold.  It relates field *values* through the free Green
+function.  It has **no normal-derivative (flux) matching**, **no reflected
+channel** (the mouth scattering object is ``1×1`` where a flux-conserving
+two-mouth junction needs at least ``2×2`` unitary), and with ``κ < 1`` it is
+lossy by construction — power out over power in is ``κ²``, measured.  So it is
+not literally an identification.  `shells.junction` (PR #249) is what would fix
+``κ`` and supply the missing channels, and a genuine flux-conserving boundary
+operator is the next step, not this one.
+
+What *is* claimed is narrow and holds: the relation is **solved
+self-consistently** rather than applied to already-computed branches, and that
+changes the answer.
 
 **Not done:** no backreaction, no stress tensor, no topology change, no rate.
 The two-throat cross term measured here is a *throat* interference term and is
-**not** the two-source invariant of roadmap step 3; it is included because it is
-the same bilinear structure and it shows which object carries it.
+**not** the two-source invariant of roadmap step 3.  And the rank of ``K``
+counts **separable transfer channels**, not histories — one throat carries 144
+``(a,b)`` histories at rank one.
 """
 
 from __future__ import annotations
@@ -106,15 +131,22 @@ __all__ = [
     "free_branch_propagator",
     "coupled_propagator",
     "traversal_series",
-    "critical_coupling",
+    "series_radius",
+    "stability_threshold",
+    "dispersion",
+    "resonance_poles",
+    "least_damped_pole",
+    "branch_labels",
     "coupled_arrivals",
     "coupled_waveform",
     "measure_the_closed_form_transfer_is_the_branch_sum",
     "measure_solving_the_throat_resums_every_traversal",
     "measure_the_coupled_field_has_arrivals_the_free_branches_do_not",
     "measure_closure_is_broadband_coherence",
-    "measure_the_primitive_is_rank_one_for_one_throat_and_not_for_two",
-    "measure_the_expansion_fails_at_the_eigenfrequencies",
+    "measure_the_rank_counts_transfer_channels_not_histories",
+    "measure_the_one_traversal_expansion_fails_near_the_bare_resonances",
+    "measure_the_series_radius_is_not_the_stability_threshold",
+    "measure_what_the_transfer_model_leaves_out",
 ]
 
 TWO_PI = 2.0 * math.pi
@@ -141,6 +173,19 @@ def leg_branches(chi: float, n_k: int = 8) -> List[Dict[str, object]]:
         out.append({"ell": TWO_PI * (k + 1) - chi, "long_way": 1,
                     "winding": k, "crossings": 2 * k + 1, "sign": -1})
     return sorted(out, key=lambda r: r["ell"])
+
+
+def branch_labels(n_k: int = 8) -> List[Tuple[int, int]]:
+    """The canonical ``(long_way, winding)`` order — the **common basis**.
+
+    For every ``χ ∈ (0,π)``, ``χ < 2π−χ < χ+2π < 4π−χ < …``, so ordering a leg's
+    branches by length always produces this same label sequence.  The label is
+    topological — which way round, how many windings — and is therefore shared
+    by legs of *different* lengths.  That is what makes it legitimate to add two
+    throats' `branch_pair_matrix` results, and `leg_branches` is checked against
+    it rather than the coincidence being relied on.
+    """
+    return [lab for k in range(int(n_k)) for lab in ((0, k), (1, k))]
 
 
 def branch_transfer(omega: float, chi: float, damping: float = 0.02,
@@ -195,12 +240,19 @@ def esu_mode_weight(m: int, chi: float) -> float:
 # ════════════════════════════════════════════════════════════════════════════
 @dataclass(frozen=True)
 class CoupledThroat:
-    """An identification ``φ(M⁺,t) = η κ φ(M⁻, t+Δ)`` with the mouths a geodesic
-    distance ``separation`` apart.
+    """A **mouth-transfer model**: what arrives at ``M⁺`` drives what leaves
+    ``M⁻``, as ``ηκ`` times the value, delayed by ``Δ``, with the mouths a
+    geodesic distance ``separation`` apart.
 
-    ``kappa`` is the transmission put in by hand — PR #249 is what would fix it —
-    and ``eta = ±1`` is the orientation of the identification.  What is new is
-    that these enter an equation that gets solved, not a shift applied to a list.
+    **This is not a boundary operator and not an identification.**  It relates
+    field *values* through the free Green function and nothing else: there is no
+    normal-derivative (flux) matching, no reflected channel, and no
+    self-adjoint two-mouth ``S``-matrix.  With ``κ < 1`` it is manifestly lossy,
+    so it cannot be a quotient of the manifold; ``κ = 1`` would make the *value*
+    relation an identification and still leave the derivative unmatched.  What
+    this module claims is only that the relation is **solved self-consistently**
+    instead of applied to already-computed branches.  `shells.junction`
+    (PR #249) is what would fix ``κ`` and supply the missing channels.
     """
 
     separation: float
@@ -212,20 +264,116 @@ class CoupledThroat:
         """``L(ω) = η κ e^{−iωΔ} T_d(ω)`` — the gain of one round trip.
 
         Emit at ``M⁻``, cross the sphere on every branch at once, arrive at
-        ``M⁺``, be re-emitted.  ``|L| < 1`` is the condition for the throat to
-        have a unique solution.
+        ``M⁺``, be re-emitted.  ``|L| < 1`` is the **radius of convergence of the
+        traversal series** ``Σ Lⁿ`` — it is *not* the condition for the solution
+        to exist, which is only ``L ≠ 1``, and it is *not* the stability
+        condition, which is phase-sensitive and lives in `resonance_poles`.
         """
         phase = cmath.exp(-1j * float(omega) * self.delay)
         return (self.eta * self.kappa * phase
                 * mouth_transfer(omega, self.separation, damping))
 
     def resolvent(self, omega: float, damping: float = 0.02) -> complex:
-        """``1/(1 − L)`` — **the solve**, every traversal at once."""
+        """``1/(1 − L)`` — **the solve**, every traversal at once.
+
+        Well defined for *any* ``L ≠ 1``, including ``|L| > 1`` where the
+        traversal series diverges.  Solving and summing are not the same
+        operation, and `measure_the_series_radius_is_not_the_stability_threshold`
+        exhibits a coupling where the first works and the second does not.
+        """
         return 1.0 / (1.0 - self.loop_transfer(omega, damping))
 
     def loop_branches(self, n_k: int = 8) -> List[Dict[str, object]]:
         """The branches of the round trip, for enumerating echo words."""
         return leg_branches(self.separation, n_k)
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# WHERE THE SOLUTION ACTUALLY LIVES: THE COMPLEX POLES
+# ════════════════════════════════════════════════════════════════════════════
+def dispersion(omega: complex, throat: CoupledThroat,
+               damping: float = 0.02) -> complex:
+    """``D(ω) = 1 − L(ω)``, continued to **complex** ``ω``.
+
+    ``u = γ + iω`` continues without modification, so this is the same function
+    off the real axis.  The physical content of the coupled system is where
+    ``D = 0``, not where ``|L| = 1``.
+    """
+    w = complex(omega)
+    u = float(damping) + 1j * w
+    d = throat.separation
+    num = cmath.exp(-u * d) - cmath.exp(-u * (TWO_PI - d))
+    den = 1.0 - cmath.exp(-u * TWO_PI)
+    t = num / den / (4.0 * math.pi * math.sin(d))
+    return 1.0 - throat.eta * throat.kappa * cmath.exp(-1j * w * throat.delay) * t
+
+
+def _pole_seed(m: int, throat: CoupledThroat, damping: float) -> complex:
+    """First-order displacement of the ``m``-th bare pole.
+
+    Near ``ω = m`` the denominator is ``1 − e^{−2πu} ≈ 2πi(ω − m − iγ)`` and the
+    numerator is ``−2i sin(md)``, so ``T_d ≈ −sin(md)/(4π²(ω−m−iγ) sin d)`` and
+    ``D = 0`` moves the pole by
+
+        ``δ = −ηκ e^{−imΔ} sin(md) / (4π² sin d)``
+
+    whose imaginary part is ``ηκ sin(md) sin(mΔ)/(4π² sin d)``.  **The sign
+    depends on ``m``**, which is why stability is phase-sensitive and a bound on
+    ``|L|`` alone cannot decide it.
+    """
+    d = throat.separation
+    delta = (-throat.eta * throat.kappa * cmath.exp(-1j * m * throat.delay)
+             * math.sin(m * d) / (4.0 * math.pi ** 2 * math.sin(d)))
+    return m + 1j * float(damping) + delta
+
+
+def resonance_poles(throat: CoupledThroat, damping: float = 0.02,
+                    n_modes: int = 24, tol: float = 1e-13,
+                    max_iter: int = 400) -> List[Dict[str, object]]:
+    """Roots of ``D(ω) = 0`` in the complex plane, one per bare resonance.
+
+    With the ``e^{+iωt}`` convention a root at ``ω = ω_r + iω_i`` rings as
+    ``e^{iω_r t} e^{−ω_i t}``, so ``Im ω > 0`` is a **decaying** mode and the
+    system is stable exactly when every root has ``Im ω > 0``.  The uncoupled
+    poles sit at ``ω = m + iγ``; the coupling displaces them, and `_pole_seed`
+    is where each search starts.
+
+    Band-limited by construction: only the first ``n_modes`` resonances are
+    found, and the least-damped root can move to a higher ``m`` as the band
+    widens.  Reported, not hidden.
+    """
+    out: List[Dict[str, object]] = []
+    for m in range(1, int(n_modes) + 1):
+        w = _pole_seed(m, throat, damping)
+        ok = False
+        for _ in range(int(max_iter)):
+            h = 1e-6
+            fp = (dispersion(w + h, throat, damping)
+                  - dispersion(w - h, throat, damping)) / (2.0 * h)
+            if abs(fp) < 1e-300:
+                break
+            step = dispersion(w, throat, damping) / fp
+            if abs(step) > 0.5:
+                step *= 0.5 / abs(step)
+            w -= step
+            if abs(step) < tol:
+                ok = True
+                break
+        if not ok:
+            continue
+        out.append({"mode": m, "omega": complex(w),
+                    "re": float(w.real), "im": float(w.imag),
+                    "residual": float(abs(dispersion(w, throat, damping))),
+                    "decaying": bool(w.imag > 0.0),
+                    "seed": complex(_pole_seed(m, throat, damping))})
+    return out
+
+
+def least_damped_pole(throat: CoupledThroat, damping: float = 0.02,
+                      n_modes: int = 24) -> Optional[Dict[str, object]]:
+    """The root with the smallest ``Im ω`` — the one that decides stability."""
+    poles = resonance_poles(throat, damping, n_modes)
+    return min(poles, key=lambda p: p["im"]) if poles else None
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -240,12 +388,20 @@ def branch_pair_matrix(omega: float, chi_in: float, chi_out: float,
 
     Row ``a`` is a branch of the leg ``source → M⁺``; column ``b`` a branch of
     ``M⁻ → observer``.  One traversal of the throat, resolved on both legs at
-    once.  Returns the matrix together with the branch labels and the pair sum,
-    which is exactly PR #254's post-processed answer.
+    once.
+
+    Both indices are the **topological branch label** ``(long_way, winding)`` in
+    `branch_labels` order, not the leg length, so matrices built for different
+    ``χ`` — different throats — are in the same basis and may legitimately be
+    added.  The labels are returned so a caller can check rather than assume it.
     """
     u = complex(float(damping), float(omega))
     rows = leg_branches(chi_in, n_k)
     cols = leg_branches(chi_out, n_k)
+    labels = branch_labels(n_k)
+    if ([(r["long_way"], r["winding"]) for r in rows] != labels
+            or [(c["long_way"], c["winding"]) for c in cols] != labels):
+        raise ValueError("legs are not in the canonical branch-label basis")
     a1 = 1.0 / (4.0 * math.pi * math.sin(chi_in))
     a2 = 1.0 / (4.0 * math.pi * math.sin(chi_out))
     pre = (throat.eta * throat.kappa * a1 * a2
@@ -253,6 +409,7 @@ def branch_pair_matrix(omega: float, chi_in: float, chi_out: float,
     va = np.array([r["sign"] * cmath.exp(-u * r["ell"]) for r in rows])
     vb = np.array([c["sign"] * cmath.exp(-u * c["ell"]) for c in cols])
     return {"K": pre * np.outer(va, vb), "rows": rows, "cols": cols,
+            "labels": labels,
             "pair_sum": complex(pre * va.sum() * vb.sum())}
 
 
@@ -300,24 +457,67 @@ def traversal_series(omega: float, chi_in: float, chi_out: float,
                                   damping) * tot
 
 
-def critical_coupling(separation: float, damping: float = 0.02,
-                      omega_max: float = 8.0,
-                      n_grid: int = 20001) -> Dict[str, float]:
-    """The ``κ`` at which the loop gain first reaches one.
+def series_radius(separation: float, damping: float = 0.02,
+                  omega_max: float = 8.0,
+                  n_grid: int = 20001) -> Dict[str, float]:
+    """``κ_series = 1 / max_ω |T_d(ω)|`` — the **radius of convergence** of the
+    traversal series, and nothing more.
 
-    ``κ_c = 1 / max_ω |T_d(ω)|``, and since ``|T_d|`` peaks at the
-    eigenfrequencies where ``1 − e^{−2πu} ≈ 2πγ``, the peak grows like ``1/γ``
-    and ``κ_c`` falls like ``γ``.  Below ``κ_c`` the throat has one solution;
-    above it the geometric series does not converge and the identification is
-    self-exciting.
+    Above it ``Σ Lⁿ`` diverges somewhere in the band.  It is *not* a stability
+    bound and *not* an existence condition: it takes no account of the phase of
+    ``L`` and does not even depend on the delay ``Δ``, while stability depends
+    on ``Δ`` strongly (see `stability_threshold`).  Band-limited by
+    ``omega_max``, which is reported.
     """
     ws = np.linspace(1e-6, float(omega_max), int(n_grid))
     mags = np.array([abs(mouth_transfer(float(w), separation, damping))
                      for w in ws])
     i = int(np.argmax(mags))
-    return {"kappa_critical": float(1.0 / mags[i]),
+    return {"kappa_series": float(1.0 / mags[i]),
             "omega_of_the_peak": float(ws[i]),
-            "peak_transfer": float(mags[i]), "damping": float(damping)}
+            "peak_transfer": float(mags[i]), "damping": float(damping),
+            "omega_max": float(omega_max),
+            "what_it_is": ("the radius of convergence of Σ Lⁿ, independent of "
+                           "the delay and therefore not a stability bound")}
+
+
+def stability_threshold(separation: float, delay: float, eta: int = 1,
+                        damping: float = 0.02, n_modes: int = 24,
+                        kappa_max: float = 64.0,
+                        tol: float = 1e-4) -> Dict[str, object]:
+    """The ``κ`` at which the least-damped root of ``D(ω) = 0`` reaches the real
+    axis — the threshold that actually decides stability.
+
+    Found by bisection on ``Im ω_least(κ)``.  Unlike `series_radius` this is
+    **phase-sensitive**: at ``Δ = π`` the first-order displacement is real for
+    every mode (``sin(mπ) = 0``), the poles slide along the axis instead of off
+    it, and the threshold moves far above the series radius.
+    """
+    def im_least(k: float) -> float:
+        th = CoupledThroat(separation, delay, eta, k)
+        p = least_damped_pole(th, damping, n_modes)
+        return p["im"] if p else float("nan")
+
+    lo = 0.0
+    hi = float(kappa_max)
+    if im_least(hi) > 0.0:
+        return {"kappa_stability": None, "bracketed": False,
+                "kappa_max_scanned": hi, "n_modes": int(n_modes),
+                "why": "no root reached the real axis inside the scanned range"}
+    while hi - lo > tol * max(1.0, hi):
+        mid = 0.5 * (lo + hi)
+        if im_least(mid) > 0.0:
+            lo = mid
+        else:
+            hi = mid
+    th = CoupledThroat(separation, delay, eta, lo)
+    p = least_damped_pole(th, damping, n_modes)
+    return {"kappa_stability": float(0.5 * (lo + hi)), "bracketed": True,
+            "mode_that_goes_first": (p["mode"] if p else None),
+            "n_modes": int(n_modes), "damping": float(damping),
+            "delay": float(delay),
+            "what_it_is": ("where Im ω of the least-damped root of D = 0 "
+                           "crosses zero; band-limited to the first n_modes")}
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -699,27 +899,36 @@ def measure_closure_is_broadband_coherence(
     }
 
 
-def measure_the_primitive_is_rank_one_for_one_throat_and_not_for_two(
+def measure_the_rank_counts_transfer_channels_not_histories(
         chi_in: float = 1.2, chi_out: float = 0.9, omega: float = 2.3,
         damping: float = 0.05, n_k: int = 6) -> Dict[str, object]:
-    """How many independent histories the branch-pair matrix actually carries.
+    """What the rank of ``K_ab`` counts — and what it does **not**.
 
-    One throat: ``K_ab`` is an outer product, so **rank one** — the two legs are
-    independent and the pair index adds no amplitude information beyond the
-    product.  A second throat, with its own mouths and its own delay, adds a
-    second outer product and the rank goes to **two**, and the interference
-    between them is a term that vanishes identically if either throat is
-    removed.
+    It does not count histories.  A single throat with ``n`` branches per leg
+    already carries ``n²`` distinct ``(a,b)`` histories, every one of them with
+    its own arrival time, and ``K`` is still **rank one**.  What the rank counts
+    is the number of independent **separable transfer channels** — outer
+    products — and a single value-feedback throat supplies exactly one.  Both
+    numbers are reported side by side so the distinction is visible.
 
-    That cross term is a *throat* interference, not the two-source invariant of
-    roadmap step 3.  It is measured here because it has the same bilinear shape
-    and it shows which object carries it: ``K``, not either leg.
+    A second throat adds a second outer product, so the rank goes to two.  For
+    that sum to mean anything the two matrices must share a basis: both are
+    built in the topological `branch_labels` order rather than by leg length,
+    which is checked here rather than assumed, since the two throats have
+    different ``χ`` on every leg.
+
+    The interference between the two channels is bilinear and therefore
+    identically zero without either.  It is a *throat–throat* term, not the
+    two-source invariant of roadmap step 3; it is measured because it has the
+    same shape and shows which object carries it.
     """
     A = CoupledThroat(1.3, 1.0, +1, 0.30)
     B = CoupledThroat(2.0, -0.4, -1, 0.22)
     ka = branch_pair_matrix(omega, chi_in, chi_out, A, damping, n_k)
     kb = branch_pair_matrix(omega, 0.7, 1.6, B, damping, n_k)
+    same_basis = ka["labels"] == kb["labels"] == branch_labels(n_k)
     both = ka["K"] + kb["K"]
+    n_histories = ka["K"].size
 
     def spectrum(M: np.ndarray) -> List[float]:
         s = np.linalg.svd(M, compute_uv=False)
@@ -744,6 +953,16 @@ def measure_the_primitive_is_rank_one_for_one_throat_and_not_for_two(
                    / (2.0 * abs(pa) * abs(pb)))
     vis_arr = np.array(vis)
     return {
+        "n_histories_one_throat": int(n_histories),
+        "rank_one_throat_despite_that": int(np.linalg.matrix_rank(
+            ka["K"], tol=1e-11 * float(np.abs(ka["K"]).max()))),
+        "rank_is_not_a_history_count": bool(n_histories > 1),
+        "what_the_rank_counts": ("independent separable transfer channels — "
+                                 "outer products — not histories; one "
+                                 "value-feedback throat supplies exactly one "
+                                 f"while carrying {int(n_histories)} (a,b) "
+                                 "histories"),
+        "both_matrices_in_the_common_label_basis": bool(same_basis),
         "cross_visibility_max": float(vis_arr.max()),
         "cross_visibility_min": float(vis_arr.min()),
         "the_cross_term_is_a_full_fringe": bool(vis_arr.max() > 0.9
@@ -751,12 +970,11 @@ def measure_the_primitive_is_rank_one_for_one_throat_and_not_for_two(
         "singular_values_throat_A": sa,
         "singular_values_throat_B": sb,
         "singular_values_both": sab,
-        "rank_one_throat": int(np.linalg.matrix_rank(
-            ka["K"], tol=1e-11 * float(np.abs(ka["K"]).max()))),
         "rank_two_throats": int(np.linalg.matrix_rank(
             both, tol=1e-11 * float(np.abs(both).max()))),
-        "one_throat_is_rank_one": bool(sa[1] < 1e-12),
-        "two_throats_are_rank_two": bool(sab[1] > 1e-3 and sab[2] < 1e-12),
+        "one_throat_is_one_channel": bool(sa[1] < 1e-12),
+        "two_throats_are_two_channels": bool(sab[1] > 1e-3
+                                             and sab[2] < 1e-12),
         "cross_term": cross, "cross_term_direct": cross_direct,
         "cross_term_agrees": bool(abs(cross - cross_direct)
                                   < 1e-9 * max(abs(cross), 1e-30)),
@@ -769,60 +987,61 @@ def measure_the_primitive_is_rank_one_for_one_throat_and_not_for_two(
     }
 
 
-def measure_the_expansion_fails_at_the_eigenfrequencies(
+def measure_the_one_traversal_expansion_fails_near_the_bare_resonances(
         separation: float = 1.3, delay: float = 1.0,
         dampings: Sequence[float] = (0.08, 0.04, 0.02, 0.01),
         chi_in: float = 1.2, chi_out: float = 0.9) -> Dict[str, object]:
-    """Where post-processing the free branches stops being an approximation.
+    """Where the one-traversal answer stops being a useful approximation.
 
-    ``|T_d|`` peaks at the ESU eigenfrequencies, where the denominator
-    ``1 − e^{−2πu}`` is ``≈ 2πγ``.  So the critical coupling
-    ``κ_c = 1/max|T_d|`` falls **linearly in γ**: halve the damping and halve the
-    coupling at which the throat goes critical.  As the regulator is removed,
-    every coupling is critical at some frequency, and there the one-traversal
-    answer is not a leading term — it is the first term of a divergent series.
+    ``|T_d|`` peaks at the bare ESU resonances, where ``1 − e^{−2πu} ≈ 2πγ``, so
+    the **series radius** ``κ_series = 1/max|T_d|`` falls linearly in the
+    regulator.  What that says, and all it says, is that the traversal
+    expansion's radius of convergence shrinks as the bare poles approach the
+    real axis — the ``γ → 0`` limit is singular for *the expansion*.
 
-    Also reported: the loop gain and the miss of the one-traversal answer, at a
-    fixed sub-critical ``κ``, on and off resonance.
+    It does **not** say that every non-zero ``κ`` is physically unstable: the
+    coupling shifts the poles rather than merely inflating a gain, and where
+    they go is `measure_the_series_radius_is_not_the_stability_threshold`.
+
+    Also reported: the relative miss of the one-traversal answer on and off
+    resonance.  That miss is ``|L|`` identically, so the two rows are the same
+    statement measured twice.
     """
     rows = []
     prev: Optional[Dict[str, float]] = None
     for g in dampings:
-        c = critical_coupling(separation, g)
-        ratio = (prev["kappa_critical"] / c["kappa_critical"] if prev
-                 else None)
-        halving = (prev["damping"] / g if prev else None)
-        rows.append({**c, "kappa_c_ratio_to_previous": ratio,
-                     "damping_ratio": halving,
-                     "exponent": (math.log(prev["kappa_critical"]
-                                           / c["kappa_critical"])
+        c = series_radius(separation, g)
+        ratio = (prev["kappa_series"] / c["kappa_series"] if prev else None)
+        rows.append({**c, "kappa_series_ratio_to_previous": ratio,
+                     "damping_ratio": (prev["damping"] / g if prev else None),
+                     "exponent": (math.log(prev["kappa_series"]
+                                           / c["kappa_series"])
                                   / math.log(prev["damping"] / g)
                                   if prev else None)})
         prev = c
 
     exps = [r["exponent"] for r in rows if r["exponent"] is not None]
     g = 0.02
-    th = CoupledThroat(separation, delay, +1, 0.5 * critical_coupling(
-        separation, g)["kappa_critical"])
-    on = critical_coupling(separation, g)["omega_of_the_peak"]
-    off = on + 0.5
+    base = series_radius(separation, g)
+    th = CoupledThroat(separation, delay, +1, 0.5 * base["kappa_series"])
+    on = base["omega_of_the_peak"]
     probe = []
-    for w in (on, off):
+    for w in (on, on + 0.5):
         L = th.loop_transfer(w, g)
-        s = coupled_propagator(w, chi_in, chi_out, th, g)
+        sv = coupled_propagator(w, chi_in, chi_out, th, g)
         f = free_branch_propagator(w, chi_in, chi_out, th, g)
         probe.append({"omega": w, "loop_gain": abs(L),
-                      "relative_miss_of_one_traversal": abs(s - f) / abs(s)})
+                      "relative_miss_of_one_traversal": abs(sv - f) / abs(sv)})
 
     peaks_are_integers = all(
         abs(r["omega_of_the_peak"] - round(r["omega_of_the_peak"])) < 1e-3
         for r in rows)
     return {
         "rows": rows, "exponents": exps,
-        "kappa_critical_scales_like_damping": bool(
+        "the_series_radius_scales_like_the_regulator": bool(
             exps and all(abs(e - 1.0) < 0.15 for e in exps)),
         "mean_exponent": (float(np.mean(exps)) if exps else None),
-        "the_peak_sits_on_an_esu_eigenfrequency": bool(peaks_are_integers),
+        "the_peak_sits_on_a_bare_esu_resonance": bool(peaks_are_integers),
         "the_relative_miss_is_the_loop_gain": (
             "|1/(1−L) − 1| / |1/(1−L)| = |L| exactly, so the error of "
             "post-processing IS the round-trip gain"),
@@ -831,7 +1050,165 @@ def measure_the_expansion_fails_at_the_eigenfrequencies(
             probe[0]["relative_miss_of_one_traversal"]
             > 3.0 * probe[1]["relative_miss_of_one_traversal"]),
         "kappa_used": th.kappa,
-        "what_this_shows": ("the free-branch answer is an expansion in the "
-                            "loop gain, and the loop gain has no bound as the "
-                            "regulator is removed"),
+        "what_this_shows": ("the one-traversal answer is an expansion in the "
+                            "round-trip gain and it fails near the bare "
+                            "resonances"),
+        "what_this_does_not_show": ("that the coupled system is unstable "
+                                    "there; γ is an Abel regulator, T_d "
+                                    "carries the bare poles, and a finite "
+                                    "coupling moves those poles rather than "
+                                    "simply inflating a gain"),
+    }
+
+
+def measure_the_series_radius_is_not_the_stability_threshold(
+        separation: float = 1.3, damping: float = 0.02,
+        delays: Sequence[float] = (1.0, 0.5, math.pi),
+        n_modes: int = 40, chi_in: float = 1.2,
+        chi_out: float = 0.9) -> Dict[str, object]:
+    """**The correction that matters most.**  ``max|L| = 1`` is not stability.
+
+    Three separate things were being conflated:
+
+    * **existence.**  ``1/(1−L)`` is defined for any ``L ≠ 1``, ``|L| > 1``
+      included.  Solving and summing are different operations.
+    * **convergence.**  ``|L| < 1`` is the radius of the traversal series, and
+      ``κ_series = 1/max|T_d|`` does not depend on the delay at all.
+    * **stability.**  Decided by the roots of ``D(ω) = 1 − L(ω) = 0`` in
+      complex ``ω``: with ``e^{+iωt}``, ``Im ω > 0`` decays.  The uncoupled
+      poles sit at ``ω = m + iγ``; the coupling displaces the ``m``-th by
+      ``δ_m = −ηκ e^{−imΔ} sin(md)/(4π² sin d)``, whose imaginary part
+      ``∝ sin(md) sin(mΔ)`` **changes sign with the mode**.  Phase-sensitive,
+      and no bound on ``|L|`` can see it.
+
+    The separation is made concrete by scanning the delay.  ``κ_series`` is the
+    same number for every ``Δ``.  ``κ_stability`` is not: at ``Δ = π`` every
+    first-order displacement is real (``sin(mπ) = 0``), the poles slide along
+    the axis instead of off it, and the threshold rises far above the series
+    radius.  In the gap between the two the solve is finite and stable while the
+    series diverges — which is measured directly, not argued.
+
+    Band-limited: only the first ``n_modes`` resonances are searched, and the
+    least-damped root migrates to higher ``m`` as the band widens.
+    """
+    ks = series_radius(separation, damping, omega_max=float(n_modes) + 0.5,
+                       n_grid=40001)
+    rows = []
+    for dl in delays:
+        st = stability_threshold(separation, float(dl), +1, damping, n_modes)
+        rows.append({"delay": float(dl),
+                     "kappa_series": ks["kappa_series"],
+                     "kappa_stability": st["kappa_stability"],
+                     "mode_that_goes_first": st["mode_that_goes_first"],
+                     "ratio": ((st["kappa_stability"] / ks["kappa_series"])
+                               if st["kappa_stability"] else None)})
+
+    # the gap: a coupling where the solve works and the series does not
+    gap = max(rows, key=lambda r: (r["ratio"] or 0.0))
+    demo: Dict[str, object] = {"delay": gap["delay"]}
+    if gap["ratio"] and gap["ratio"] > 1.3:
+        kap = math.sqrt(ks["kappa_series"] * gap["kappa_stability"])
+        th = CoupledThroat(separation, gap["delay"], +1, kap)
+        w_peak = ks["omega_of_the_peak"]
+        L = th.loop_transfer(w_peak, damping)
+        solved = coupled_propagator(w_peak, chi_in, chi_out, th, damping)
+        walked = traversal_series(w_peak, chi_in, chi_out, th, damping, 400)
+        pole = least_damped_pole(th, damping, n_modes)
+        demo = {
+            "delay": gap["delay"], "kappa": kap,
+            "loop_gain_at_the_peak": abs(L),
+            "the_series_diverges": bool(abs(L) > 1.0
+                                        and abs(walked) > 1e3 * abs(solved)),
+            "the_solve_is_finite": bool(math.isfinite(abs(solved))),
+            "solved": solved, "walked_series": walked,
+            "least_damped_pole_im": (pole["im"] if pole else None),
+            "and_it_is_still_stable": bool(pole is not None
+                                           and pole["im"] > 0.0),
+        }
+
+    # the first-order pole displacement, against the roots actually found
+    th = CoupledThroat(separation, 1.0, +1, 0.3)
+    poles = resonance_poles(th, damping, 12)
+    worst = max((abs(p["omega"] - p["seed"]) for p in poles), default=0.0)
+    return {
+        "rows": rows, "kappa_series_is_delay_independent": True,
+        "kappa_stability_depends_on_the_delay": bool(
+            len({r["kappa_stability"] for r in rows
+                 if r["kappa_stability"]}) > 1),
+        "largest_ratio": gap["ratio"], "delay_of_the_largest_ratio":
+            gap["delay"],
+        "the_two_thresholds_are_different_numbers": bool(
+            gap["ratio"] is not None and gap["ratio"] > 1.3),
+        "a_coupling_between_them": demo,
+        "n_poles_found": len(poles),
+        "every_pole_matches_its_first_order_displacement": bool(
+            poles and worst < 5e-3),
+        "worst_pole_vs_first_order": float(worst),
+        "n_modes_searched": int(n_modes),
+        "what_this_corrects": ("|L| < 1 is the convergence radius of Σ Lⁿ, not "
+                               "the existence condition (that is L ≠ 1) and "
+                               "not the stability condition (that is Im ω > 0 "
+                               "for every root of D)"),
+    }
+
+
+def measure_what_the_transfer_model_leaves_out(
+        separation: float = 1.3, delay: float = 1.0,
+        kappas: Sequence[float] = (0.3, 0.6, 1.0),
+        omega: float = 2.3, damping: float = 0.02) -> Dict[str, object]:
+    """The scope of the model, as numbers rather than a disclaimer.
+
+    ``φ(M⁺) → ηκ φ(M⁻)`` is a relation between field **values** carried by the
+    free Green function.  A throat that was a quotient of the manifold would
+    need more, and each missing piece is stated here with what it would cost:
+
+    * **no flux matching.**  Only the value is related; the normal derivative is
+      not.  A Darmois–Israel junction matches both, and the mismatch is what
+      `shells.junction` (PR #249) prices.
+    * **no reflected channel.**  Each mouth has one outgoing amplitude, so the
+      scattering object is ``1×1``.  A flux-conserving two-mouth junction needs
+      at least a ``2×2`` unitary (transmit **and** reflect); ``|S| = κ``, and it
+      is unitary only at ``κ = 1`` where it is still only half a junction.
+    * **lossy by construction.**  Power out over power in is ``κ²`` per
+      traversal, measured below, so for ``κ < 1`` the relation is not an
+      identification of anything.
+
+    None of this is a defect of the resolvent — that is exact for the model as
+    posed.  It is a statement of which model.
+    """
+    rows = []
+    for kap in kappas:
+        th = CoupledThroat(separation, delay, +1, kap)
+        # amplitude delivered to M⁺ by a unit mouth source, and re-emitted
+        arrived = mouth_transfer(omega, separation, damping)
+        emitted = th.eta * th.kappa * cmath.exp(-1j * omega * th.delay) * arrived
+        rows.append({
+            "kappa": kap,
+            "power_out_over_power_in": float(abs(emitted) ** 2
+                                             / abs(arrived) ** 2),
+            "equals_kappa_squared": bool(
+                abs(abs(emitted) ** 2 / abs(arrived) ** 2 - kap ** 2)
+                < 1e-12 * max(1.0, kap ** 2)),
+            "scattering_magnitude": float(abs(kap)),
+            "unitary_1x1": bool(abs(abs(kap) - 1.0) < 1e-12)})
+    return {
+        "rows": rows,
+        "the_power_ratio_is_kappa_squared": bool(
+            all(r["equals_kappa_squared"] for r in rows)),
+        "lossy_below_unit_coupling": bool(
+            all(r["power_out_over_power_in"] < 1.0 for r in rows
+                if r["kappa"] < 1.0)),
+        "scattering_object_shape": "1x1",
+        "shape_a_flux_conserving_junction_would_need": "at least 2x2 unitary",
+        "what_is_missing": [
+            "normal-derivative (flux) matching at the mouths",
+            "a reflected channel, so the mouth S-matrix is 1x1 not 2x2",
+            "self-adjointness / unitarity of the two-mouth scattering object",
+            "and therefore any claim that this is a quotient of the manifold",
+        ],
+        "what_is_not_missing": ("the resolvent is exact for the model as posed;"
+                                " the scope statement is about which model, not"
+                                " about the solve"),
+        "honest_name": ("a self-consistent rank-one mouth-transfer model, not a"
+                        " throat boundary operator"),
     }
