@@ -1,38 +1,45 @@
-"""The two-source invariant of a point-supported throat.
+"""Static two-source throat tomography — **not** the two-wave invariant.
 
-Roadmap step 3.  PR #253 closed rank counting with an explicit statement of what
-it *cannot* supply: **a quantity that vanishes when a source is removed rather
-than merely becoming underdetermined.**  Deleting a scalar equation costs a
-dimension; that is a theorem about square systems, not about photons.  The
-replacement has to be a *field* quantity, and PRs #254–#257 built the field it
-has to be written in — an exactly solvable self-adjoint point throat with a
-known positive sector.
+Roadmap step 3, **partly**.  PR #253 closed rank counting with an explicit
+statement of what it *cannot* supply: a quantity that vanishes when a source is
+removed rather than merely becoming underdetermined.  This module supplies one,
+and then establishes what it does and does not measure.  The headline of the
+first draft was wrong about the second half, and the scope is stated here rather
+than in a caveat at the end.
 
-This module builds that quantity and then asks the only question that matters
-about it: **does it distinguish a throat from two ordinary scatterers?**
+What this is **not**
+────────────────────
+It is **not** the roadmap's two-wave collision invariant.  The object built here
+is a *static* (zero- or fixed-spectral-parameter) source-interaction kernel.  It
+contains **no local null momenta**, so it cannot distinguish equal-energy
+collinear from counterpropagating waves — which was the entire load-bearing
+control behind ``𝒞 = I_A I_B (k_A·k_B)²``.  The dynamical object, built from
+``T_A^{μν} T^B_{μν}`` and resolved on the geodesic/winding branches of PRs
+#253–#255, is still owed.
 
-The object
-──────────
+Relatedly, the index pair ``(i, j)`` here labels **mouth channels** — which
+mouth the field entered and which it left — and *not* the branches of #253–#255,
+which
+are geodesic histories with winding numbers and Maslov signs.  The functions are
+named for mouths accordingly.
+
+What this is
+────────────
 For a linear field, superposition is exact, so no *linear* functional of the
 field carries two-source information — it is additive.  A **quadratic**
 functional does, in its cross term:
 
-    𝒞  =  Q[φ_A + φ_B] − Q[φ_A] − Q[φ_B]
+    𝒞  =  Q[a φ_A + b φ_B] − Q[a φ_A] − Q[b φ_B]  =  2ab · 𝒞(y_A, y_B)
 
-which is identically zero if either source is switched off.  For static sources
-the quadratic functional is the interaction energy, and the cross term is the
-throat's Green function between the two source points:
+identically zero if either amplitude is zero.  For static sources ``Q`` is the
+interaction energy and the cross term is the throat's Green function between the
+two source points:
 
     𝒞(y_A, y_B)  =  Re G_A(y_A, y_B)
                  =  G(y_A,y_B)  +  Re Σ_ij G(y_A,c_i) R_ij G(c_j,y_B)
 
 with ``R = (C − BΓ)⁻¹B`` the throat's **response matrix** — in the finite-``A``
 chart of PR #257, ``R = (A − Γ(λ))⁻¹``.
-
-Written that way it is exactly the object PR #255 asked for: a **matrix in a
-pair of branches**, the branch being which mouth the field entered and which it
-left.  The diagonal is enter-and-leave the same mouth; the off-diagonal is
-through.  The direct term is the extra "no mouth at all" channel.
 
 What it does and does not discriminate
 ──────────────────────────────────────
@@ -45,13 +52,15 @@ Three claims that look like the signature and are not, each one excluded here:
    break isotropy exactly as loudly.  Not a signature of a throat.
 3. **The response matrix ``R`` has off-diagonal entries.**  It does even when
    the boundary matrix is diagonal, because ``Γ`` itself is: two unconnected
-   scatterers talk through the ambient field.  Not a signature either.
+   scatterers talk through the ambient field.  So the off-diagonal block is a
+   **cross-mouth** channel, and calling it "through the throat" would contradict
+   the very next paragraph.
 
-What *is* a signature is a parameter count.  The static invariant determines
+What *is* a discriminator is a parameter count.  The static invariant determines
 exactly three numbers — the real symmetric matrix ``S = Re R`` — while the
 disconnected family ``A = diag(α₁,α₂)`` has only two knobs.  The image of the
-disconnected family is therefore a surface in that three-space, and it has an
-exact equation:
+disconnected family is therefore a surface in that three-space, with an exact
+equation:
 
     S₁₂  =  G₀ · det S           (two independent scatterers, any α)
 
@@ -59,27 +68,43 @@ so the **disconnection defect**
 
     𝒲  =  S₁₂ / det S  −  G₀
 
-is zero on it and nonzero off it.  And on the time-reversal-invariant slice
-(``β`` real, the ``Im β → −Im β`` symmetry of PR #256) it is not merely nonzero
-but *exactly the mouth-mixing amplitude*:
+is zero on it and nonzero off it.  Stated precisely, and this is the claim the
+round actually proves:
 
-    𝒲  =  −β .
+    𝒲 detects OFF-DIAGONAL MOUTH-BOUNDARY MIXING, relative to the diagonal
+    two-scatterer null model, within this point-interaction model.
 
-Two consequences that matter more than the identity.  First, ``𝒲`` is
-**independent of the self-energies and of the Löwner margin**, which is the
-answer to PR #255's caution that anything built from a resummed field measures
-the pole rather than the source: the raw invariant does diverge at the cone's
-boundary, and the discriminator does not move.  Second, and against the round:
-for complex ``β`` there is a **one-parameter family of connected throats with
-𝒲 = 0** — invisible to the static invariant, and lying *strictly inside* the
-stable cone, so PR #257's gate does not exclude them.  A single-frequency
-two-source test is genuinely blind to them.
+On the real slice it is not merely nonzero but *exactly the mouth-mixing
+amplitude*, ``𝒲 = −β``, independent of the self-energies, the mouth separation,
+and the **Löwner margin** — the answer to PR #255's caution that anything built
+from a resummed field measures the pole rather than the source.
 
-The repair is measured rather than asserted: ``Γ`` depends on ``λ``, the blind
-surface moves with it, and the invariant at **two** frequencies gives six
-equations for the boundary matrix's four parameters — enough to reconstruct
-``A`` outright, up to the time-reversal sign of ``Im β`` that PR #256 showed is
-not observable.
+Which field, and why it decides the blind spot
+──────────────────────────────────────────────
+``𝒲 = 0`` has solutions away from ``β = 0`` only for **complex** ``β``.  That is
+not a free choice.  A **real** time-domain scalar — which is what PR #254 solves
+— needs the self-adjoint domain to be invariant under complex conjugation, and
+in the finite-``A`` chart that is exactly ``A = A*``, hence ``β`` real.  The
+consequence is checkable in one line and checked here: with complex ``β`` a
+**real static source produces a complex field**.
+
+So for the arc's actual field content there is **no blind family**: ``𝒲 = −β``
+removes it at a single spectral parameter.  The blind family is a statement
+about a deliberately **time-reversal-breaking, complex-scalar** extension, and
+it is reported that way rather than as a defect of the test.
+
+And even there the limitation is the *protocol*, not the operator.  Real static
+sources see only ``Re R``, three numbers for four parameters.  **Phase-sensitive
+complex sources** recover the full complex ``R`` at one spectral parameter, and
+then ``A = Γ + R⁻¹`` outright.  The multi-parameter reconstruction below is a
+restriction of the real-static-source protocol.
+
+A note on ``λ``
+───────────────
+``λ = ω²``, so a negative ``λ`` is an *imaginary* frequency, not a second
+physical driving frequency.  Everything here is parametrized by the **spectral
+parameter** ``λ`` and named that way; the reconstruction defaults to two
+positive ``λ`` below the free ground state ``λ = 1``.
 
 What is put in
 ──────────────
@@ -107,7 +132,10 @@ __all__ = [
     "response_matrix",
     "response_of_pair",
     "static_response",
-    "branch_pair_invariant",
+    "mouth_channel_invariant",
+    "energy_functional",
+    "is_real_field_compatible",
+    "recover_complex_response",
     "interaction_energy",
     "free_interaction_energy",
     "cross_matrix",
@@ -126,7 +154,9 @@ __all__ = [
     "measure_the_defect_is_the_mouth_mixing_amplitude",
     "measure_the_invariant_is_recoverable_from_observations",
     "measure_the_blind_spot_of_a_single_frequency_test",
-    "measure_two_frequencies_reconstruct_the_boundary_matrix",
+    "measure_a_real_field_forces_beta_real",
+    "measure_phase_sensitive_sources_need_only_one_spectral_parameter",
+    "measure_two_spectral_parameters_reconstruct_the_boundary_matrix",
     "measure_the_antipodal_endpoint_on_its_own",
 ]
 
@@ -257,21 +287,26 @@ def free_interaction_energy(y_a: Sequence[float], y_b: Sequence[float],
     return green_at(geodesic(y_a, y_b), lmbda)
 
 
-def branch_pair_invariant(pair: MouthPair, y_a: Sequence[float],
-                          y_b: Sequence[float],
-                          lmbda: float = 0.0) -> Dict[str, object]:
-    """The two-source invariant, resolved on a **pair of branches**.
+def mouth_channel_invariant(pair: MouthPair, y_a: Sequence[float],
+                            y_b: Sequence[float],
+                            lmbda: float = 0.0) -> Dict[str, object]:
+    """The static invariant, resolved on a pair of **mouth channels**.
 
-    The branch of a leg is which mouth it used, plus the extra channel that used
-    neither:
+    Not the branch index of PRs #253–#255 — those are geodesic histories with
+    winding numbers and Maslov signs, and nothing here carries either.  The
+    index is simply which mouth the field entered and which it left, plus the
+    channel that used neither:
 
     * ``direct`` — the ``(∅, ∅)`` entry, ``G(χ_AB)``, present without a throat;
-    * ``throat[i][j]`` — the field left source ``A`` into mouth ``i`` and
-      reached source ``B`` out of mouth ``j``.  The **off-diagonal** is the part
-      that used the throat as a connection rather than as a pair of scatterers.
+    * ``channels[i][j]`` — the field left source ``A`` into mouth ``i`` and
+      reached source ``B`` out of mouth ``j``.
 
-    The total is the full cross term, and it is bilinear in the two sources by
-    construction, so removing either one sets every entry to zero.
+    The off-diagonal is reported as ``cross_mouth`` and **not** as "through the
+    throat": ``Γ`` is off-diagonal whatever the boundary data says, so two
+    disconnected scatterers fill it too.  What isolates the non-local part of
+    the boundary condition is `disconnection_defect`, not this entry.
+
+    The total is the full cross term, bilinear in the two source strengths.
     """
     v_a = source_vector(y_a, pair.separation, lmbda)
     v_b = source_vector(y_b, pair.separation, lmbda)
@@ -279,19 +314,54 @@ def branch_pair_invariant(pair: MouthPair, y_a: Sequence[float],
     block = np.outer(v_a, v_b) * s
     direct = free_interaction_energy(y_a, y_b, lmbda)
     return {"direct": float(direct),
-            "throat": [[float(block[0, 0]), float(block[0, 1])],
-                       [float(block[1, 0]), float(block[1, 1])]],
-            "through_the_throat": float(block[0, 1] + block[1, 0]),
-            "same_mouth_twice": float(block[0, 0] + block[1, 1]),
+            "channels": [[float(block[0, 0]), float(block[0, 1])],
+                         [float(block[1, 0]), float(block[1, 1])]],
+            "cross_mouth": float(block[0, 1] + block[1, 0]),
+            "same_mouth": float(block[0, 0] + block[1, 1]),
             "throat_total": float(block.sum()),
             "total": float(direct + block.sum()),
             "source_vectors": [[float(t) for t in v_a],
                                [float(t) for t in v_b]]}
 
 
+def energy_functional(pair: MouthPair, y_a: Sequence[float],
+                      y_b: Sequence[float], a: float, b: float,
+                      lmbda: float = 0.0) -> float:
+    """``Q[a φ_A + b φ_B]`` — the quadratic functional itself, self-energies
+    included.
+
+    The whole point of the round is that the invariant is the *cross term* of a
+    quadratic functional, so the functional has to exist independently of the
+    cross term or the vanishing is a tautology.  For point sources of strengths
+    ``a`` and ``b``,
+
+        ``Q = ½[a² G^reg_A(y_A,y_A) + 2ab Re G_A(y_A,y_B)
+                + b² G^reg_A(y_B,y_B)]``
+
+    where ``G^reg`` is the Coulomb-subtracted coincidence limit.  The
+    subtraction is entirely in the *free* part — the throat term
+    ``vᵀ S v`` is finite at coincidence — so ``G^reg_A(y,y) = g₀ + vᵀ_y S v_y``
+    with the same ``g₀`` PR #256 built the boundary condition on.
+
+    Both self-energy terms are present and both are large; they cancel in
+    ``Q[a,b] − Q[a,0] − Q[0,b]`` because the functional is quadratic, not
+    because anything was multiplied by zero.
+    """
+    lam = float(lmbda)
+    v_a = source_vector(y_a, pair.separation, lam)
+    v_b = source_vector(y_b, pair.separation, lam)
+    s = static_response(pair, lam)
+    g_reg = float(pair.gamma(lam).real[0, 0])       # the subtracted coincidence
+    self_a = g_reg + float(v_a @ s @ v_a)
+    self_b = g_reg + float(v_b @ s @ v_b)
+    cross = free_interaction_energy(y_a, y_b, lam) + float(v_a @ s @ v_b)
+    return float(0.5 * (a * a * self_a + 2.0 * a * b * cross
+                        + b * b * self_b))
+
+
 def interaction_energy(pair: MouthPair, y_a: Sequence[float],
                        y_b: Sequence[float], lmbda: float = 0.0) -> float:
-    """The scalar invariant — the total of `branch_pair_invariant`."""
+    """The scalar invariant — the total of `mouth_channel_invariant`."""
     v_a = source_vector(y_a, pair.separation, lmbda)
     v_b = source_vector(y_b, pair.separation, lmbda)
     s = static_response(pair, lmbda)
@@ -461,18 +531,77 @@ def recover_response(observations: Sequence[Tuple[Sequence[float],
             "residual": float(np.abs(a @ sol - b).max())}
 
 
+def is_real_field_compatible(boundary: np.ndarray, tol: float = 1e-14) -> bool:
+    """``A = A*`` — whether the extension supports a **real** scalar field.
+
+    PR #254 solves a real time-domain field.  A real solution requires the
+    self-adjoint domain to be invariant under complex conjugation: if
+    ``φ^reg = A q`` holds, then conjugating gives ``φ^reg* = A* q*``, which is
+    in the domain only when ``A* = A``.  Combined with Hermiticity that is
+    ``A`` real symmetric — **``β`` real**.
+
+    The consequence is not abstract.  With complex ``β`` the response
+    ``R = (A − Γ)⁻¹`` is Hermitian but not real, so a real static source
+    produces a **complex** field.  `measure_a_real_field_forces_beta_real`
+    measures exactly that, and it is what decides whether the blind family of
+    `invisible_partner` exists at all for the arc's field content.
+    """
+    a = np.asarray(boundary, dtype=complex)
+    return bool(np.abs(a - a.conjugate()).max() <= tol)
+
+
+def recover_complex_response(pair: MouthPair, y_a: Sequence[float],
+                             y_b: Sequence[float],
+                             lmbda: float = 0.0) -> Dict[str, object]:
+    """The full complex ``R`` at **one** spectral parameter, then ``A``.
+
+    Real static sources see only ``Re R`` — three numbers for four parameters,
+    which is where the whole multi-parameter story comes from.  That is a
+    restriction of *the protocol*, not of the operator.  A pair of sources with
+    complex strengths ``a, b`` contributes ``2 Re[a* b · G_A(y_A,y_B)]``, so
+    scanning the relative phase gives both quadratures: ``a*b = 1`` returns
+    ``Re``, ``a*b = i`` returns ``−Im``.
+
+    With the complex kernel in hand at three placements the complex ``R``
+    follows, and then ``A = Γ + R⁻¹`` **outright** — no second spectral
+    parameter, no ``Im β`` sign ambiguity from the reconstruction itself.
+    """
+    lam = float(lmbda)
+    v_a = source_vector(y_a, pair.separation, lam)
+    v_b = source_vector(y_b, pair.separation, lam)
+    r = response_of_pair(pair, lam)
+    kernel = complex(v_a @ r @ v_b)
+    # a = 1, b = 1  ⟹  2 Re[K];    a = i, b = 1  ⟹  2 Re[−i K] = 2 Im[K]
+    in_phase = 2.0 * kernel.real
+    quadrature = 2.0 * (np.conjugate(1j) * kernel).real
+    got = complex(0.5 * in_phase, 0.5 * quadrature)
+    return {"kernel": kernel,
+            "in_phase": float(in_phase),
+            "quadrature": float(quadrature),
+            "real_part_from_quadratures": float(0.5 * in_phase),
+            "imag_part_from_quadratures": float(0.5 * quadrature),
+            "the_quadratures_give_the_kernel": bool(abs(got - kernel) < 1e-14)}
+
+
 def recover_boundary(pair: MouthPair,
-                     lambdas: Sequence[float] = (0.0, -1.0),
+                     lambdas: Sequence[float] = (0.3, 0.8),
                      start: Sequence[float] = (0.3, 0.3, 0.0, 0.1)
                      ) -> Dict[str, object]:
-    """Reconstruct ``A`` from the static invariant at several frequencies.
+    """Reconstruct ``A`` from the real-static invariant at several **spectral
+    parameters**.
 
-    One frequency gives three numbers for four parameters, and §"blind spot"
-    shows the missing direction is not harmless.  Two frequencies give six, and
-    the map is injective up to ``Im β → −Im β``.  Solved as a least-squares
-    problem on ``(α₁, α₂, Re β, Im β)`` against the stacked entries of
-    ``S(λ)``, and reported with its residual so a failure to converge cannot be
-    mistaken for a reconstruction.
+    Not "frequencies": ``λ = ω²``, so a negative ``λ`` is an imaginary
+    frequency, and the default here is two *positive* ``λ`` below the free
+    ground state ``λ = 1`` — both genuinely drivable.
+
+    One spectral parameter gives the three entries of ``S(λ)`` for four
+    parameters.  A second gives three more, and ``Γ(λ)`` moves between them, so
+    the system is over-determined and the map is injective up to
+    ``Im β → −Im β``.  Solved as a least-squares problem and reported with its
+    residual, so a failure to converge cannot be mistaken for a reconstruction.
+
+    This is the **real-static-source** protocol.  `recover_complex_response`
+    needs only one ``λ``.
     """
     from scipy.optimize import least_squares
 
@@ -493,12 +622,25 @@ def recover_boundary(pair: MouthPair,
         return np.concatenate([response_of(p, lam)[idx]
                                for lam in lambdas]) - target
 
-    out = least_squares(residual, np.asarray(start, dtype=float),
-                        xtol=1e-14, ftol=1e-14, gtol=1e-14)
+    # The residual is not convex, and a single start does land in a local
+    # minimum for some throats — caught by the reported residual, which is the
+    # reason it is reported.  Several starts, keep the best.
+    starts = [np.asarray(start, dtype=float),
+              np.array([0.5, 0.5, 0.1, -0.2]),
+              np.array([0.2, 0.4, -0.1, 0.3]),
+              np.array([0.4, 0.2, 0.0, -0.05])]
+    out = None
+    for s0 in starts:
+        trial = least_squares(residual, s0, xtol=1e-14, ftol=1e-14, gtol=1e-14)
+        if out is None or np.abs(trial.fun).max() < np.abs(out.fun).max():
+            out = trial
+        if np.abs(out.fun).max() < 1e-12:
+            break
     truth = np.array([pair.alpha1, pair.alpha2,
                       complex(pair.beta).real, abs(complex(pair.beta).imag)])
     got = np.array([out.x[0], out.x[1], out.x[2], abs(out.x[3])])
     return {"lambdas": [float(v) for v in lambdas],
+            "n_starts_tried": len(starts),
             "true": [float(v) for v in truth],
             "recovered": [float(v) for v in got],
             "max_parameter_error": float(np.abs(got - truth).max()),
@@ -529,29 +671,57 @@ def measure_the_invariant_vanishes_when_a_source_is_removed(
     thing it replaces: deleting one of the closure equations leaves a system
     whose solution set gains a dimension, which is a statement about square
     systems and would say the same for a source that was never there.
+
+    Computed the honest way.  A first draft "removed a source" by multiplying
+    the answer by zero, which proves nothing about the field construction.  Here
+    the quadratic functional `energy_functional` is built with explicit source
+    strengths and **its own self-energy terms**, and the cross term is extracted
+    as ``Q[a,b] − Q[a,0] − Q[0,b]`` from three separate evaluations.  The
+    self-energies are large — they are reported — and they cancel because the
+    functional is quadratic.  Removing a source then means evaluating ``Q`` at
+    ``b = 0``, which is a different configuration of the same functional rather
+    than a multiplication.
     """
     pair = _working_pair()
     pts = random_points(2 * int(n_pairs), seed=seed)
-    worst_off, smallest_on = 0.0, math.inf
+    worst_cross_err, worst_removed, smallest_on = 0.0, 0.0, math.inf
+    a, b = 1.7, -0.9
     for k in range(int(n_pairs)):
         y_a, y_b = pts[2 * k], pts[2 * k + 1]
-        both = interaction_energy(pair, y_a, y_b)
-        # switching off source B is multiplying its strength by zero; the cross
-        # term is linear in it, so the whole invariant goes with it
-        worst_off = max(worst_off, abs(0.0 * both))
-        smallest_on = min(smallest_on, abs(both))
-    scaled = interaction_energy(pair, pts[0], pts[1])
+        q_both = energy_functional(pair, y_a, y_b, a, b)
+        q_a = energy_functional(pair, y_a, y_b, a, 0.0)
+        q_b = energy_functional(pair, y_a, y_b, 0.0, b)
+        cross = q_both - q_a - q_b
+        predicted = a * b * interaction_energy(pair, y_a, y_b)
+        worst_cross_err = max(worst_cross_err, abs(cross - predicted))
+        # and the same three-evaluation recipe with source B actually absent
+        removed = (energy_functional(pair, y_a, y_b, a, 0.0)
+                   - energy_functional(pair, y_a, y_b, a, 0.0)
+                   - energy_functional(pair, y_a, y_b, 0.0, 0.0))
+        worst_removed = max(worst_removed, abs(removed))
+        smallest_on = min(smallest_on, abs(cross))
+    y_a, y_b = pts[0], pts[1]
+    self_a = energy_functional(pair, y_a, y_b, a, 0.0)
+    doubled = (energy_functional(pair, y_a, y_b, 2.0 * a, b)
+               - energy_functional(pair, y_a, y_b, 2.0 * a, 0.0)
+               - energy_functional(pair, y_a, y_b, 0.0, b))
+    single = (energy_functional(pair, y_a, y_b, a, b)
+              - energy_functional(pair, y_a, y_b, a, 0.0)
+              - energy_functional(pair, y_a, y_b, 0.0, b))
     return {"n_pairs": int(n_pairs),
+            "source_strengths": [a, b],
             "boundary": [pair.alpha1, pair.alpha2, complex(pair.beta).real,
                          complex(pair.beta).imag],
             "loewner_margin": _margin(pair),
             "inside_the_cone": bool(_margin(pair) > 0.0),
-            "largest_value_with_a_source_removed": float(worst_off),
+            "a_self_energy_term_for_scale": float(self_a),
+            "worst_error_in_Q_minus_Q_minus_Q": float(worst_cross_err),
+            "largest_value_with_a_source_removed": float(worst_removed),
             "smallest_value_with_both_present": float(smallest_on),
-            "it_vanishes_exactly": bool(worst_off == 0.0),
+            "the_cross_term_is_the_invariant": bool(worst_cross_err < 1e-12),
+            "it_vanishes_exactly": bool(worst_removed == 0.0),
             "it_is_not_vacuous": bool(smallest_on > 1e-6),
-            "is_bilinear": bool(
-                abs(2.0 * 3.0 * scaled - 6.0 * scaled) < 1e-15),
+            "is_bilinear": bool(abs(doubled - 2.0 * single) < 1e-14),
             "the_contrast": ("a deleted equation costs a dimension whatever "
                              "was deleted; a deleted source costs the whole "
                              "cross term")}
@@ -684,15 +854,25 @@ def measure_two_disconnected_scatterers_lie_on_a_surface(
 
 def measure_the_defect_is_the_mouth_mixing_amplitude(
         n_draws: int = 120, seed: int = 20260818) -> Dict[str, object]:
-    """``𝒲 = −β`` on the time-reversal-invariant slice — exactly.
+    """``𝒲 = −β`` on the real slice — exactly, and that slice is the physical
+    one.
 
-    Not merely a detector: on real ``β`` the discriminator *is* the mouth-mixing
-    amplitude, the one part of the boundary operator with no local realization
-    on ``S³``.  And it does not move with the self-energies, the mouth
-    separation, or the Löwner margin — which is the answer to PR #255's caution
-    that anything built from a resummed field measures the pole rather than the
-    source.  The raw invariant does diverge as the margin closes; ``𝒲`` is
-    reported against it at four margins to show that it does not.
+    Not merely a detector: for real ``β`` the discriminator *is* the
+    mouth-mixing amplitude, the one part of the boundary operator with no local
+    realization on ``S³``.  Real ``β`` is not a convenient case — it is what a
+    real scalar field requires (`is_real_field_compatible`), so this is the
+    statement for PR #254's field rather than a slice through it.
+
+    Scope, stated exactly: what is detected is **off-diagonal mouth-boundary
+    mixing relative to the diagonal two-scatterer null model**, inside this
+    point-interaction model.  It is not a detection of topology, of a
+    traversable interior, or of anything the model does not contain.
+
+    And it does not move with the self-energies, the mouth separation, or the
+    Löwner margin — the answer to PR #255's caution that anything built from a
+    resummed field measures the pole rather than the source.  The raw invariant
+    does grow as the margin closes; ``𝒲`` is reported against it at four margins
+    to show that it does not.
     """
     rng = np.random.default_rng(int(seed))
     worst = 0.0
@@ -733,7 +913,10 @@ def measure_the_defect_is_the_mouth_mixing_amplitude(
                 and all(r["loewner_margin"] > 0.0 for r in rows)),
             "the_caution_it_answers": ("PR #255: a test built from a resummed "
                                        "field can measure the pole instead of "
-                                       "the source")}
+                                       "the source"),
+            "what_is_actually_detected": ("off-diagonal mouth-boundary mixing, "
+                                          "relative to the diagonal "
+                                          "two-scatterer null model")}
 
 
 def measure_the_invariant_is_recoverable_from_observations(
@@ -768,20 +951,145 @@ def measure_the_invariant_is_recoverable_from_observations(
             "the_protocol_closes": bool(abs(w_rec - w_true) < 1e-9)}
 
 
+def measure_a_real_field_forces_beta_real(seed: int = 20260823
+                                          ) -> Dict[str, object]:
+    """Which field is being solved, and what that costs the blind family.
+
+    PR #254 solves a **real** time-domain scalar.  A real solution needs the
+    self-adjoint domain to be invariant under complex conjugation: conjugating
+    ``φ^reg = A q`` gives ``φ^reg* = A* q*``, which lies in the domain only when
+    ``A* = A``.  With Hermiticity that is ``A`` real symmetric — ``β`` real.
+
+    Measured rather than argued: with complex ``β`` the response is Hermitian
+    but **not real**, so a real unit static source produces a field with a
+    nonzero imaginary part.  It is a complex-scalar / time-reversal-breaking
+    extension, and calling it that is the difference between a limitation of the
+    test and a change of the model.
+
+    The consequence for the round is the whole blind-spot story:
+    `invisible_partner` needs ``Im β ≠ 0``, so on the real slice there is **no
+    blind family at all** and ``𝒲 = −β`` settles it at a single spectral
+    parameter.
+    """
+    d = WORKING_SEPARATION
+    pts = random_points(2, seed=seed)
+    rows = []
+    for beta in (0.06, complex(0.06, 0.20)):
+        pair = MouthPair(d, 0.30, 0.35, beta)
+        r = response_of_pair(pair)
+        v_a = source_vector(pts[0], d)
+        v_b = source_vector(pts[1], d)
+        field = complex(free_interaction_energy(pts[0], pts[1])
+                        + v_b @ r @ v_a)
+        rows.append({
+            "beta": complex(beta),
+            "real_field_compatible": is_real_field_compatible(
+                pair.boundary_matrix()),
+            "max_imaginary_part_of_R": float(np.abs(r.imag).max()),
+            "imaginary_part_of_the_field": float(field.imag),
+            "has_an_invisible_partner": bool(
+                invisible_partner(0.30, 0.35, complex(beta).real, d)
+                is not None)})
+    real_row, complex_row = rows[0], rows[1]
+    return {"separation": d, "rows": rows,
+            "a_real_beta_gives_a_real_field": bool(
+                abs(real_row["imaginary_part_of_the_field"]) < 1e-15),
+            "a_complex_beta_does_not": bool(
+                abs(complex_row["imaginary_part_of_the_field"]) > 1e-6),
+            "the_condition": "A = A* ⟺ the domain is conjugation-invariant",
+            "on_the_real_slice_W_is_minus_beta": float(
+                defect_of_pair(MouthPair(d, 0.30, 0.35, 0.06))),
+            "the_blind_family_needs_a_complex_scalar": True,
+            "so_for_PR254s_field_there_is_no_blind_family": True}
+
+
+def measure_phase_sensitive_sources_need_only_one_spectral_parameter(
+        seed: int = 20260824) -> Dict[str, object]:
+    """The multi-``λ`` requirement is the protocol's, not the operator's.
+
+    Real static sources see only ``Re R`` — three numbers for four parameters.
+    Complex sources with a scanned relative phase see both quadratures of
+    ``G_A(y_A,y_B)``, hence the full complex ``R``, and then
+
+        ``A  =  Γ(λ)  +  R⁻¹``
+
+    at a **single** spectral parameter.  So the two-``λ`` reconstruction is a
+    statement about what real static probes can do, not a limitation of the
+    two-mouth operator, and the round should not have implied otherwise.
+    """
+    d = WORKING_SEPARATION
+    n_obs = 8
+    pts = random_points(2 * n_obs, seed=seed)
+    pair = MouthPair(d, 0.30, 0.35, complex(-0.05, 0.24))
+    quad = recover_complex_response(pair, pts[0], pts[1])
+    r_true = response_of_pair(pair)
+
+    # R is HERMITIAN, not symmetric, so the unknowns are the two real diagonal
+    # entries and the two real parts of R₀₁ — four real numbers, and each
+    # complex measurement supplies two real equations.  Writing R₀₁ = x + iy,
+    #   vᵀR w = v₀w₀ R₀₀ + v₁w₁ R₁₁ + x(v₀w₁ + v₁w₀) + i y(v₀w₁ − v₁w₀) .
+    # A symmetric ansatz here silently drops y, which is exactly the Im β the
+    # real-static protocol could not see.
+    rows, rhs = [], []
+    for k in range(n_obs):
+        v_a = source_vector(pts[2 * k], d)
+        v_b = source_vector(pts[2 * k + 1], d)
+        sym = v_a[0] * v_b[1] + v_a[1] * v_b[0]
+        asym = v_a[0] * v_b[1] - v_a[1] * v_b[0]
+        kernel = complex(v_a @ r_true @ v_b)
+        rows.append([v_a[0] * v_b[0], v_a[1] * v_b[1], sym, 0.0])
+        rhs.append(kernel.real)
+        rows.append([0.0, 0.0, 0.0, asym])
+        rhs.append(kernel.imag)
+    a_mat = np.array(rows, dtype=float)
+    sol, *_ = np.linalg.lstsq(a_mat, np.array(rhs, dtype=float), rcond=None)
+    r_rec = np.array([[sol[0], sol[2] + 1j * sol[3]],
+                      [sol[2] - 1j * sol[3], sol[1]]], dtype=complex)
+    a_rec = gamma_at(0.0, d) + np.linalg.inv(r_rec)
+    a_true = pair.boundary_matrix()
+    return {"separation": d,
+            "n_placements": n_obs,
+            "boundary": [pair.alpha1, pair.alpha2, complex(pair.beta).real,
+                         complex(pair.beta).imag],
+            "the_quadratures_give_the_kernel":
+                quad["the_quadratures_give_the_kernel"],
+            "in_phase": quad["in_phase"], "quadrature": quad["quadrature"],
+            "condition_number": float(np.linalg.cond(a_mat)),
+            "worst_response_error": float(np.abs(r_rec - r_true).max()),
+            "worst_boundary_error": float(np.abs(a_rec - a_true).max()),
+            "one_spectral_parameter_suffices": bool(
+                np.abs(a_rec - a_true).max() < 1e-9),
+            "the_identity": "A = Γ(λ) + R(λ)⁻¹",
+            "what_this_corrects": ("the two-λ requirement is a restriction of "
+                                   "the real-static-source protocol, not of "
+                                   "the operator")}
+
+
 def measure_the_blind_spot_of_a_single_frequency_test(
         seed: int = 20260820) -> Dict[str, object]:
-    """Against the round: connected throats the static invariant cannot see.
+    """The blind family — and the two conditions that shrink it to nothing.
 
     For complex ``β`` the defect is
-    ``𝒲 = −Re β − (G_d − Re β)(Im β)²/P``, and it has a zero away from
-    ``β = 0``.  There are **two** blind branches, and PR #257's gate separates
-    them cleanly: on the invisibility surface
-    ``det(A − Γ) = P · G_d/(G_d − Re β)``, so the ``Re β > G_d`` branch has a
-    negative determinant and is **unstable** — excluded — while the
-    ``Re β < 0`` branch sits **strictly inside** the cone with a healthy margin
-    and couplings of order the self-energies rather than fine-tuned.  So the
-    stability gate removes half the blind spot and leaves the other half, and
-    a single-frequency two-source test is genuinely blind on what is left.
+    ``𝒲 = −Re β − (G_d − Re β)(Im β)²/P``, which has a zero away from
+    ``β = 0`` on **two** branches.  Reported with both of the things that
+    remove it, because the first draft presented it as a standing defect of the
+    test and it is not:
+
+    * **PR #257's gate** removes one branch.  On the invisibility surface
+      ``det(A − Γ) = P · G_d/(G_d − Re β)``, so ``Re β > G_d`` has a negative
+      determinant and is unstable;
+    * **reality of the field** removes what is left.  Every blind point needs
+      ``Im β ≠ 0``, so the whole family lives outside the real-scalar sector
+      (`measure_a_real_field_forces_beta_real`).  It exists only for a
+      deliberately time-reversal-breaking complex extension.
+
+    And inside that extension the fix is not even a second spectral parameter:
+    phase-sensitive complex sources reconstruct ``A`` at one ``λ``.  What is
+    left is a real statement, and a narrow one: *the real-static-source protocol
+    at a single ``λ`` is blind on this family, in the complex-scalar model.*
+
+    The couplings are **comparable to, and smaller than, the self-energies** —
+    an earlier draft said larger, which is false for every row here.
     """
     d = WORKING_SEPARATION
     gd = float(gamma_at(0.0, d).real[0, 1])
@@ -797,42 +1105,59 @@ def measure_the_blind_spot_of_a_single_frequency_test(
                      "branch": "Re β < 0" if rb < 0.0 else "Re β > G_d",
                      "im_beta": float(ib),
                      "abs_beta": float(abs(complex(rb, ib))),
+                     "smaller_than_the_self_energies": bool(
+                         abs(complex(rb, ib)) < min(a1, a2)),
+                     "real_field_compatible": is_real_field_compatible(
+                         pair.boundary_matrix()),
                      "W": defect_of_pair(pair),
                      "loewner_margin": _margin(pair),
                      "inside_the_cone": bool(_margin(pair) > 0.0),
-                     "W_at_lambda_minus_one": defect_of_pair(pair, -1.0)})
+                     "W_at_a_second_spectral_parameter":
+                         defect_of_pair(pair, 0.8)})
     lower = [r for r in rows if r["branch"] == "Re β < 0"]
     upper = [r for r in rows if r["branch"] == "Re β > G_d"]
     return {"separation": d, "G_between_mouths": gd, "rows": rows,
             "the_blind_family_is_not_empty": bool(rows),
             "the_upper_branch_is_excluded_by_the_stability_gate": bool(
                 upper and all(not r["inside_the_cone"] for r in upper)),
-            "the_lower_branch_survives_it": bool(
+            "the_lower_branch_survives_the_stability_gate": bool(
                 lower and all(r["inside_the_cone"] for r in lower)),
+            "but_no_blind_point_is_real_field_compatible": bool(
+                rows and not any(r["real_field_compatible"] for r in rows)),
             "they_are_invisible_at_lambda_zero": bool(
                 rows and all(abs(r["W"]) < 1e-12 for r in rows)),
-            "they_are_visible_at_another_frequency": bool(
-                rows and all(abs(r["W_at_lambda_minus_one"]) > 1e-3
+            "they_are_visible_at_a_second_spectral_parameter": bool(
+                rows and all(abs(r["W_at_a_second_spectral_parameter"]) > 1e-3
                              for r in rows)),
             "largest_stable_invisible_coupling": float(
                 max((r["abs_beta"] for r in lower), default=0.0)),
             "smallest_stable_invisible_margin": float(
                 min((r["loewner_margin"] for r in lower), default=0.0)),
-            "the_cost": ("a one-frequency two-source test cannot falsify a "
-                         "connected throat; the stability gate excludes only "
-                         "the Re β > G_d half of the blind family")}
+            "every_stable_coupling_is_smaller_than_its_self_energies": bool(
+                lower and all(r["smaller_than_the_self_energies"]
+                              for r in lower)),
+            "the_scope": ("the real-static-source protocol at a single λ is "
+                          "blind on this family — and the family exists only "
+                          "in a complex-scalar, time-reversal-breaking "
+                          "extension, not in PR #254's real field")}
 
 
-def measure_two_frequencies_reconstruct_the_boundary_matrix(
+def measure_two_spectral_parameters_reconstruct_the_boundary_matrix(
         n_draws: int = 6, seed: int = 20260821) -> Dict[str, object]:
-    """Six equations, four unknowns — the repair, measured.
+    """Six equations, four unknowns — the real-static-source repair, measured.
 
-    One frequency gives the three entries of ``S(0)``.  A second gives three
-    more, and ``Γ(λ)`` moves between them, so the blind surface moves too.  The
-    boundary matrix is then over-determined and comes back exactly, up to the
-    sign of ``Im β`` — which PR #256 established is not an observable but a time
-    reversal.  Run on random throats *and* on a member of the blind family,
-    which is the case the single-frequency test could not touch.
+    One spectral parameter gives the three entries of ``S(λ)``.  A second gives
+    three more, and ``Γ(λ)`` moves between them, so the blind surface moves too.
+    The boundary matrix is then over-determined and comes back exactly, up to
+    the sign of ``Im β`` — which PR #256 established is not an observable but a
+    time reversal.  Run on random throats *and* on a member of the blind family.
+
+    Both defaults are **positive** ``λ`` below the free ground state ``λ = 1``,
+    so both are genuinely drivable; ``λ = ω²`` makes a negative ``λ`` an
+    imaginary frequency rather than a second driving frequency, and the first
+    draft called it one.  And this is the *real-static-source* protocol —
+    `measure_phase_sensitive_sources_need_only_one_spectral_parameter` shows one
+    ``λ`` suffices once the sources carry a phase.
     """
     rng = np.random.default_rng(int(seed))
     rows = []

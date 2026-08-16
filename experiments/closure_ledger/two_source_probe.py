@@ -1,109 +1,112 @@
-"""Does a two-source invariant distinguish a throat from two scatterers?
+"""Static two-source throat tomography -- NOT yet the two-wave invariant.
 
 > Scope: a LINEAR scalar field on a FIXED round background (the Einstein static
 > universe S3 x R). The throat is a POINT-SUPPORTED self-adjoint extension: no
 > interior, no proper length, no delay. The boundary data is four real numbers
-> CHOSEN, not derived; shells.junction (PR #249) is what would fix them from a
-> matter model. Everything below is evaluated at a boundary matrix STRICTLY
-> INSIDE PR #257's positive cone, with its Loewner margin quoted, and the exact
-> antipodal endpoint is tested SEPARATELY rather than approached. NOT DONE: no
-> backreaction, no stress tensor, no topology change, no rate.
+> CHOSEN, not derived. Everything is evaluated at a boundary matrix STRICTLY
+> INSIDE PR #257's positive cone with its Loewner margin quoted, and the exact
+> antipodal endpoint is tested SEPARATELY. NOT DONE: no backreaction, no stress
+> tensor, no topology change, no rate, and NOT the two-wave collision invariant.
 
-THE QUESTION PR #253 LEFT
-─────────────────────────
-Rank counting ended with an explicit statement of what it could not supply: a
-quantity that VANISHES when a source is removed rather than merely becoming
-underdetermined. Deleting a scalar equation costs a dimension whatever was
-deleted -- a theorem about square systems, not about photons. The replacement
-has to be a FIELD quantity, and PRs #254-#257 built the field it has to be
-written in: an exactly solvable point throat with a known positive sector.
+WHAT THIS IS NOT
+────────────────
+This is NOT the roadmap's two-wave invariant. The object built here is a STATIC
+source-interaction kernel at a fixed spectral parameter. It carries NO local
+null momenta, so it cannot distinguish equal-energy collinear from
+counterpropagating waves -- which was the entire load-bearing control behind
+C = I_A I_B (k_A . k_B)^2. The dynamical object, built from T_A^{mu nu}
+T^B_{mu nu} and resolved on the geodesic/winding branches of PRs #253-#255, is
+still owed and is the next PR.
 
-THE OBJECT
-──────────
-Superposition is exact for a linear field, so no LINEAR functional carries
-two-source information. A QUADRATIC one does, in its cross term:
+The index pair (i,j) here labels MOUTH CHANNELS -- which mouth the field entered
+and which it left -- and NOT the branches of #253-#255, which are geodesic
+histories with winding numbers and Maslov signs.
 
-    C  =  Q[phi_A + phi_B] - Q[phi_A] - Q[phi_B]
+WHAT IS BUILT
+─────────────
+PR #253 ended rank counting by naming what it could not supply: a quantity that
+VANISHES when a source is removed rather than merely becoming underdetermined.
+Superposition makes every linear functional additive, so the object has to be
+quadratic, and its cross term is the throat's Green function between the two
+source points:
 
-identically zero if either source is switched off. For static sources Q is the
-interaction energy and C is the throat's Green function between the two source
-points:
-
-    C(y_A, y_B) = G(y_A,y_B) + Re sum_ij G(y_A,c_i) R_ij G(c_j,y_B),
-    R = (C - B Gamma)^-1 B          (= (A - Gamma)^-1 in the finite-A chart)
-
-which is exactly PR #255's requested index: a MATRIX IN A PAIR OF BRANCHES, the
-branch being which mouth the field entered and which it left, plus the extra
-"neither mouth" channel.
+    C(y_A,y_B) = G(y_A,y_B) + Re sum_ij G(y_A,c_i) R_ij G(c_j,y_B),
+    R = (C - B Gamma)^-1 B      (= (A - Gamma)^-1 in the finite-A chart)
 
 WHAT IS CHECKED
 ───────────────
-T2  IT VANISHES WHEN A SOURCE IS REMOVED. Bilinear in the two source strengths,
-    so switching one off gives exactly zero -- not an underdetermined system.
-    Non-vacuous: with both present the smallest sampled value is 3.7e-2.
+T2  IT VANISHES WHEN A SOURCE IS REMOVED -- computed the honest way. The
+    quadratic functional is built with explicit source strengths and its own
+    self-energy terms, and the cross term is Q[a,b] - Q[a,0] - Q[0,b] from three
+    separate evaluations, matching a*b*C to 2.8e-17. Removing a source is
+    evaluating the same functional at b = 0, not multiplying the answer by zero.
 
-T3  THE THROAT CHANNEL IS RANK TWO AT ANY SOURCE COUNT. The N x N table of
-    throat-mediated cross terms is V^T S V with V of shape 2 x N, so its rank is
-    at most two however many sources are placed, while the direct table has full
-    rank N. Off the chart the statement needs care: rank R = rank B, so PR
-    #257's Dirichlet strata are rank one -- but static sources see only Re R,
+T3  THE THROAT CHANNEL IS RANK TWO AT ANY SOURCE COUNT. The N x N table is
+    V^T S V with V of shape 2 x N -- rank 2 against a direct table of rank 12 at
+    12 sources. Off the chart rank R = rank B, but static sources see only Re R,
     and the real part of a rank-one COMPLEX Hermitian matrix is generically rank
-    two. Complex and real Dirichlet directions are drawn separately; they give 2
-    and 1.
+    two: complex and real Dirichlet directions give 2 and 1, drawn separately.
 
-T4  ANISOTROPY IS NOT THE SIGNATURE. Holding the geodesic separation fixed and
-    moving one source over the sphere of that radius, the free interaction is
-    constant to 8e-17 and the throat's varies by 66% of its mean. Real effect,
-    real measurement -- and TWO DISCONNECTED SCATTERERS produce a 69% variation,
-    so it detects structure at the mouths, not a connection between them.
+T4  ANISOTROPY IS NOT THE SIGNATURE. Free interaction constant to 8e-17 on a
+    fixed-separation sphere, throat varies 66% -- and TWO DISCONNECTED
+    SCATTERERS vary 69%. It detects structure at the mouths, not a connection.
+    The off-diagonal response block is the same trap: Gamma fills it for
+    diagonal boundary data too, so it is a CROSS-MOUTH channel, not "through the
+    throat".
 
-T5  THE DISCONNECTED FAMILY IS A SURFACE. The static invariant determines the
-    three entries of S = Re R; two independent scatterers have only two knobs.
-    Their image satisfies S12 = G0 det S EXACTLY, so
+T5  THE DISCONNECTED FAMILY IS A SURFACE. Three observables (the entries of
+    S = Re R), two knobs, so the image satisfies S12 = G0 det S exactly -- 0 to
+    1.4e-16 on 200 draws. W = S12/det S - G0 is its defining function.
 
-        W  =  S12 / det S  -  G0
+T6  AND ON REAL BETA, W = -beta to 5.0e-16, independent of the self-energies,
+    the separation and the LOEWNER MARGIN: driven from margin 0.4 to 0.004 the
+    invariant grows 3.8x and W drifts 2.1e-17, answering PR #255's caution.
+    SCOPE, exactly: W detects OFF-DIAGONAL MOUTH-BOUNDARY MIXING relative to the
+    diagonal two-scatterer null model, inside this point-interaction model.
 
-    is zero on it and nonzero off it. 0 defect on 200 disconnected draws.
+T7  AND IT IS A PROTOCOL. An observer who measures interaction energies and
+    knows the background and the mouth positions, but not the boundary data,
+    recovers S by least squares and gets W to 1.1e-16 from 24 placements.
 
-T6  AND ON REAL BETA THE DEFECT IS THE COUPLING ITSELF: W = -beta, to 5.0e-16
-    over 120 random draws, independent of the self-energies, the mouth
-    separation and the LOEWNER MARGIN. That last one answers PR #255's caution
-    that a test built from a resummed field measures the pole rather than the
-    source: driven from margin 0.4 to 0.004 the invariant grows 3.8x and W does
-    not move at all (drift 2.1e-17).
+T8  THE BLIND FAMILY, AND THE TWO THINGS THAT REMOVE IT. For complex beta,
+    W = -Re beta - (G_d - Re beta)(Im beta)^2/P vanishes away from beta = 0 on
+    two branches. PR #257's gate removes one (Re beta > G_d has
+    det(A - Gamma) < 0). Reality of the field removes the rest: every blind
+    point needs Im beta != 0. The stable half has couplings COMPARABLE TO AND
+    SMALLER THAN the self-energies (0.215-0.254 against 0.25-0.40), which an
+    earlier draft had backwards.
 
-T7  AND IT IS A PROTOCOL, NOT A FORMULA. An observer who measures interaction
-    energies, knows the background and knows where the mouths are -- but is not
-    told the boundary data -- recovers S by least squares from source placements
-    and then forms W. Three placements suffice; 24 give W to 1.1e-16.
+T9  WHICH FIELD IS BEING SOLVED. PR #254's is a REAL scalar, and a real solution
+    needs the self-adjoint domain to be conjugation-invariant: A = A*, hence
+    beta real. Measured, not argued -- with complex beta a real unit static
+    source produces a field with Im = -2.4e-03. So the blind family belongs to a
+    deliberately time-reversal-breaking COMPLEX-scalar extension, and for the
+    arc's actual field content W = -beta settles the question at one spectral
+    parameter.
 
-T8  AGAINST THE ROUND: A ONE-FREQUENCY TEST HAS A BLIND SPOT. For complex beta,
-    W = -Re beta - (G_d - Re beta)(Im beta)^2 / P, which vanishes away from
-    beta = 0 on two branches. PR #257's gate excludes one of them -- Re beta >
-    G_d has det(A - Gamma) < 0 and is unstable -- and does NOT exclude the
-    other: Re beta < 0 gives INVISIBLE CONNECTED THROATS with |beta| up to 0.25
-    sitting strictly inside the cone at margin 0.034. A single-frequency
-    two-source test cannot falsify those.
+T10 AND EVEN THERE, THE LIMITATION IS THE PROTOCOL. Real static sources see only
+    Re R -- three numbers for four parameters. PHASE-SENSITIVE COMPLEX SOURCES
+    see both quadratures, hence the full complex R, and then A = Gamma + R^-1 at
+    ONE spectral parameter: reconstructed to 3.9e-15. The multi-parameter
+    requirement is a restriction of the real-static-source protocol, not of the
+    operator.
 
-T9  THE REPAIR, MEASURED. Gamma depends on lambda, so the blind surface moves
-    with it: two frequencies give six equations for four parameters and the
-    boundary matrix comes back exactly (1.2e-15), the blind family included. The
-    only thing left unobservable is the SIGN of Im beta, which PR #256 already
-    established is a time reversal rather than a gap.
+T11 THE REAL-STATIC-SOURCE RECONSTRUCTION, at two POSITIVE spectral parameters
+    below the free ground state (lambda = omega^2, so a negative lambda is an
+    imaginary frequency, not a second driving frequency). Six equations, four
+    unknowns, boundary matrix back to 1.1e-16 -- with several starts, because a
+    single start does land in a local minimum and the reported residual is what
+    catches it.
 
-T10 THE ANTIPODAL ENDPOINT, ON ITS OWN. At d = pi, Gamma(0) is negative
-    semidefinite with a zero in the symmetric channel, so (A - Gamma(0))^-1 is
-    singular as A -> 0 and the invariant DIVERGES like 1/eps. The discriminator
-    does not move: W stays 0 to 3.6e-15 across four decades of divergence, and
-    W = -beta still holds exactly for a connected antipodal throat. The loudest
-    possible two-source signal, carrying no information about whether the mouths
-    are connected.
+T12 THE ANTIPODAL ENDPOINT, ON ITS OWN. At d = pi the static response is
+    singular as A -> 0 and the invariant DIVERGES like 1/eps (residue 0.003375,
+    flat across four decades) while W stays 0 to 3.6e-15. The loudest available
+    signal carries no information about whether the mouths are connected.
 
 WHAT IS PUT IN
 ──────────────
-The background, the boundary data, and the mouth positions -- the observer is
-assumed to know where the mouths are, and G0 enters W explicitly. Nothing here
-derives A from matter.
+The background, the mouth positions, and the boundary data. Nothing here derives
+A from matter.
 """
 
 from __future__ import annotations
@@ -124,7 +127,9 @@ from geometrodynamics.waves.two_source import (
     measure_the_invariant_vanishes_when_a_source_is_removed,
     measure_the_throat_channel_has_the_rank_of_the_boundary_condition,
     measure_two_disconnected_scatterers_lie_on_a_surface,
-    measure_two_frequencies_reconstruct_the_boundary_matrix,
+    measure_a_real_field_forces_beta_real,
+    measure_phase_sensitive_sources_need_only_one_spectral_parameter,
+    measure_two_spectral_parameters_reconstruct_the_boundary_matrix,
 )
 
 
@@ -137,6 +142,12 @@ def t1_goal() -> dict:
                      "removed rather than becoming underdetermined. Build it "
                      "as a field quantity, and ask whether it distinguishes a "
                      "throat from two ordinary scatterers."),
+        "what_this_is_not": ("NOT the roadmap's two-wave collision invariant. "
+                             "This is a static source-interaction kernel with "
+                             "no local null momenta, so it cannot separate "
+                             "collinear from counterpropagating waves. The "
+                             "index (i,j) labels mouth channels, not the "
+                             "geodesic/winding branches of PRs #253-#255."),
         "scope": ("a linear scalar field on a fixed Einstein static universe. "
                   "The throat is point-supported: no interior, no proper "
                   "length, no delay. Everything is evaluated at a boundary "
@@ -203,37 +214,58 @@ def t7_it_is_a_protocol() -> dict:
 
 
 def t8_the_blind_spot() -> dict:
-    """Against the round, and the half of it the stability gate does remove."""
+    """The blind family, and the two conditions that shrink it to nothing."""
     r = measure_the_blind_spot_of_a_single_frequency_test()
     return {"name": "T8_the_blind_spot", **r,
             "pass": bool(r["the_blind_family_is_not_empty"]
                          and r["the_upper_branch_is_excluded_by_the"
                                "_stability_gate"]
-                         and r["the_lower_branch_survives_it"]
+                         and r["the_lower_branch_survives_the_stability_gate"]
+                         and r["but_no_blind_point_is_real_field_compatible"]
                          and r["they_are_invisible_at_lambda_zero"]
-                         and r["they_are_visible_at_another_frequency"])}
+                         and r["they_are_visible_at_a_second_spectral"
+                               "_parameter"]
+                         and r["every_stable_coupling_is_smaller_than_its"
+                               "_self_energies"])}
 
 
-def t9_two_frequencies_reconstruct_the_throat() -> dict:
-    r = measure_two_frequencies_reconstruct_the_boundary_matrix()
-    return {"name": "T9_two_frequencies_reconstruct_the_throat", **r,
+def t9_a_real_field_forces_beta_real() -> dict:
+    """Which field is being solved, and what it costs the blind family."""
+    r = measure_a_real_field_forces_beta_real()
+    return {"name": "T9_a_real_field_forces_beta_real", **r,
+            "pass": bool(r["a_real_beta_gives_a_real_field"]
+                         and r["a_complex_beta_does_not"]
+                         and r["so_for_PR254s_field_there_is_no_blind_family"])}
+
+
+def t10_one_spectral_parameter_suffices_with_phase() -> dict:
+    """The multi-lambda requirement is the protocol's, not the operator's."""
+    r = measure_phase_sensitive_sources_need_only_one_spectral_parameter()
+    return {"name": "T10_one_spectral_parameter_suffices_with_phase", **r,
+            "pass": bool(r["the_quadratures_give_the_kernel"]
+                         and r["one_spectral_parameter_suffices"])}
+
+
+def t11_two_spectral_parameters_reconstruct_the_throat() -> dict:
+    r = measure_two_spectral_parameters_reconstruct_the_boundary_matrix()
+    return {"name": "T11_two_spectral_parameters_reconstruct_the_throat", **r,
             "pass": bool(r["the_boundary_matrix_is_reconstructed"]
                          and r["even_the_blind_family_is_reconstructed"])}
 
 
-def t10_the_antipodal_endpoint() -> dict:
+def t12_the_antipodal_endpoint() -> dict:
     """d = pi tested as itself, not as a limit."""
     r = measure_the_antipodal_endpoint_on_its_own()
-    return {"name": "T10_the_antipodal_endpoint", **r,
+    return {"name": "T12_the_antipodal_endpoint", **r,
             "pass": bool(r["the_antipodal_value_is_minus_g0"]
                          and r["the_invariant_diverges_like_one_over_epsilon"]
                          and r["the_defect_stays_zero"]
                          and r["the_identity_survives_the_endpoint"])}
 
 
-def t11_assessment(tests: List[dict]) -> dict:
+def t13_assessment(tests: List[dict]) -> dict:
     n = sum(1 for t in tests if t["pass"])
-    return {"name": "T11_assessment", "n_passed": n, "n_total": len(tests),
+    return {"name": "T13_assessment", "n_passed": n, "n_total": len(tests),
             "pass": n == len(tests)}
 
 
@@ -247,96 +279,120 @@ def run_probe() -> dict:
              t6_the_defect_is_the_coupling(),
              t7_it_is_a_protocol(),
              t8_the_blind_spot(),
-             t9_two_frequencies_reconstruct_the_throat(),
-             t10_the_antipodal_endpoint()]
-    tests.append(t11_assessment(tests))
-    t2, t3, t4, t5, t6, t7, t8, t9, t10 = tests[1:10]
+             t9_a_real_field_forces_beta_real(),
+             t10_one_spectral_parameter_suffices_with_phase(),
+             t11_two_spectral_parameters_reconstruct_the_throat(),
+             t12_the_antipodal_endpoint()]
+    tests.append(t13_assessment(tests))
+    t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12 = tests[1:12]
 
     if all(t["pass"] for t in tests):
-        verdict_class = "THE_TWO_SOURCE_INVARIANT_MEASURES_THE_MOUTH_MIXING"
+        verdict_class = "STATIC_THROAT_TOMOGRAPHY_MEASURES_THE_MOUTH_MIXING"
         verdict = (
-            "THE INVARIANT IS THE CROSS TERM OF A QUADRATIC FUNCTIONAL, AND ITS "
-            "DISCONNECTION DEFECT IS MINUS THE MOUTH-MIXING AMPLITUDE. PR #253 "
-            "ended rank counting by naming what it could not give: something "
-            "that VANISHES when a source is removed rather than becoming "
-            "underdetermined. Superposition makes every linear functional "
-            "additive, so the object has to be quadratic, and its cross term is "
-            "the throat's Green function between the two source points -- "
-            "bilinear in the sources, exactly zero when either is switched off, "
-            f"and not vacuous ({t2.get('smallest_value_with_both_present', 0):.3g} "
-            "at its smallest with both present). Written out it is PR #255's "
-            "requested index, A MATRIX IN A PAIR OF BRANCHES: which mouth the "
-            "field entered, which it left, plus the channel that used neither. "
-            "THE THROAT CHANNEL IS RANK TWO AT ANY SOURCE COUNT -- the N x N "
-            "table of throat-mediated cross terms is V^T S V with V of shape "
-            f"2 x N, rank {t3.get('chart_throat_rank')} against a direct table "
-            f"of rank {t3.get('chart_direct_rank')} for "
-            f"{t3.get('n_sources')} sources -- and off the chart rank R = "
-            "rank B, though static sources see only Re R, whose rank is two "
-            "even for a COMPLEX rank-one boundary condition and one for a real "
-            "one. TWO THINGS THAT LOOK LIKE THE SIGNATURE AND ARE NOT. The "
-            "cross term being nonzero is interference. And the interaction "
-            "being ANISOTROPIC -- depending on more than the geodesic "
-            "separation, which the free field on this background cannot do at "
-            f"all ({t4.get('free_spread', 0):.1e} spread) -- is real, "
-            f"{t4.get('throat_relative_spread', 0):.2f} of the mean, and two "
-            "DISCONNECTED scatterers produce "
+            "THIS IS STATIC TWO-SOURCE THROAT TOMOGRAPHY, AND ITS DISCONNECTION "
+            "DEFECT IS MINUS THE MOUTH-MIXING AMPLITUDE. FIRST, WHAT IT IS NOT: "
+            "not the roadmap's two-wave collision invariant. The object is a "
+            "STATIC source-interaction kernel at a fixed spectral parameter, it "
+            "carries NO local null momenta, and it therefore cannot distinguish "
+            "equal-energy collinear from counterpropagating waves -- the "
+            "load-bearing control behind I_A I_B (k_A.k_B)^2. The index (i,j) "
+            "labels MOUTH CHANNELS, not the geodesic/winding branches of PRs "
+            "#253-#255. The dynamical object built from T_A^{mu nu} T^B_{mu nu} "
+            "is still owed and is the next PR; the roadmap entry stays open. "
+            "WHAT IS BUILT: PR #253 ended rank counting by naming what it could "
+            "not give, something that VANISHES when a source is removed rather "
+            "than becoming underdetermined. Superposition makes every linear "
+            "functional additive, so the object has to be quadratic, and its "
+            "cross term is the throat's Green function between the two source "
+            "points. Computed the honest way -- the quadratic functional carries "
+            "its own self-energy terms and the cross term is "
+            "Q[a,b] - Q[a,0] - Q[0,b] from three separate evaluations, matching "
+            f"a*b*C to {t2.get('worst_error_in_Q_minus_Q_minus_Q', 0):.1e}; "
+            "removing a source is evaluating the same functional at b = 0, not "
+            "multiplying the answer by zero. THE THROAT CHANNEL IS RANK TWO AT "
+            f"ANY SOURCE COUNT: rank {t3.get('chart_throat_rank')} against a "
+            f"direct table of rank {t3.get('chart_direct_rank')} at "
+            f"{t3.get('n_sources')} sources, because the table is V^T S V with V "
+            "of shape 2 x N. Off the chart rank R = rank B, but static sources "
+            "see only Re R, whose rank is two even for a COMPLEX rank-one "
+            "boundary condition and one for a real one. TWO THINGS THAT LOOK "
+            "LIKE THE SIGNATURE AND ARE NOT. The cross term being nonzero is "
+            "interference. And ANISOTROPY -- the interaction depending on more "
+            "than the geodesic separation, which the free field on this "
+            f"background cannot do at all ({t4.get('free_spread', 0):.1e}) -- is "
+            f"real at {t4.get('throat_relative_spread', 0):.2f} of the mean, and "
+            "two DISCONNECTED scatterers give "
             f"{t4.get('disconnected_relative_spread', 0):.2f}. It detects "
-            "structure at the mouths, not a connection between them. WHAT DOES "
-            "DISCRIMINATE IS A PARAMETER COUNT. The static invariant determines "
-            "three numbers, the entries of S = Re R; two independent scatterers "
-            "have two knobs, so their image is a SURFACE with the exact "
-            "equation S12 = G0 det S, satisfied to "
+            "structure at the mouths, not a connection between them, and the "
+            "off-diagonal response block is the same trap one level down: Gamma "
+            "fills it for diagonal boundary data too, so it is a CROSS-MOUTH "
+            "channel and not 'through the throat'. WHAT DOES DISCRIMINATE IS A "
+            "PARAMETER COUNT. The static invariant determines three numbers, the "
+            "entries of S = Re R; two independent scatterers have two knobs, so "
+            "their image is a SURFACE with the exact equation S12 = G0 det S, "
+            f"satisfied to "
             f"{t5.get('worst_defect_on_the_disconnected_family', 0):.1e} on "
-            f"{t5.get('n_draws')} draws. The defect W = S12/det S - G0 is "
-            "therefore the discriminator -- and on real beta it is not merely "
-            "nonzero but EQUAL TO THE COUPLING: W = -beta to "
-            f"{t6.get('worst_error_in_W_plus_beta', 0):.1e}, independent of the "
-            "self-energies, the separation, and the Loewner margin. That last "
-            "independence answers PR #255's caution that a resummed field "
-            "measures the pole instead of the source: driven from margin 0.4 to "
-            f"0.004 the invariant grows "
+            f"{t5.get('n_draws')} draws. The defect W = S12/det S - G0 is its "
+            "defining function, and on real beta it EQUALS THE COUPLING: "
+            f"W = -beta to {t6.get('worst_error_in_W_plus_beta', 0):.1e}, "
+            "independent of the self-energies, the separation and the Loewner "
+            f"margin -- driven from margin 0.4 to 0.004 the invariant grows "
             f"{t6.get('invariant_growth_toward_the_boundary', 0):.1f}x while W "
-            f"drifts {t6.get('worst_defect_drift_across_margins', 0):.1e}. AND "
-            "IT IS A PROTOCOL: an observer who measures interaction energies "
-            "and knows the background and the mouth positions, but is not told "
-            "the boundary data, recovers S by least squares from source "
-            f"placements and gets W to {t7.get('W_error', 0):.1e} at "
-            f"{t7.get('n_observations')} observations, condition number "
-            f"{t7.get('condition_number', 0):.1f}. AGAINST THE ROUND: A ONE-"
-            "FREQUENCY TEST IS BLIND ON A ONE-PARAMETER FAMILY. For complex "
-            "beta, W = -Re beta - (G_d - Re beta)(Im beta)^2/P vanishes away "
-            "from beta = 0 on two branches. PR #257's gate excludes one of them "
-            "-- Re beta > G_d has det(A - Gamma) < 0 -- and leaves the other: "
-            f"connected throats with |beta| up to "
-            f"{t8.get('largest_stable_invisible_coupling', 0):.3f}, strictly "
-            f"inside the cone at margin "
-            f"{t8.get('smallest_stable_invisible_margin', 0):.3f}, that the "
-            "static invariant cannot see at all. Not fine-tuned and not "
-            "unstable. THE REPAIR IS MEASURED RATHER THAN ASSERTED: Gamma "
-            "depends on lambda so the blind surface moves, two frequencies give "
-            "six equations for four parameters, and the boundary matrix comes "
-            f"back to {t9.get('worst_parameter_error', 0):.1e} -- the blind "
-            "family included. What is still not observable is the SIGN of "
-            "Im beta, which PR #256 established is a time reversal. FINALLY, "
-            "THE ANTIPODAL ENDPOINT ON ITS OWN, because PR #257 showed it is a "
-            "different statement rather than a limit: at d = pi, Gamma(0) is "
-            "negative semidefinite with a zero in the symmetric channel, so the "
-            "static response is singular as A -> 0 and the invariant DIVERGES "
-            f"like 1/eps (residue {t10.get('residue_of_the_divergence', 0):.3g}, "
-            "flat across four decades). W stays exactly zero through all of it, "
-            "and W = -beta still holds for a connected antipodal throat. The "
+            f"drifts {t6.get('worst_defect_drift_across_margins', 0):.1e}, which "
+            "answers PR #255's caution that a resummed field measures the pole "
+            "instead of the source. STATED EXACTLY, and this is the claim the "
+            "round proves: W DETECTS OFF-DIAGONAL MOUTH-BOUNDARY MIXING RELATIVE "
+            "TO THE DIAGONAL TWO-SCATTERER NULL MODEL, inside this "
+            "point-interaction model -- not topology, not a traversable "
+            "interior. AND IT IS A PROTOCOL: an observer who measures "
+            "interaction energies and knows the background and the mouth "
+            "positions, but not the boundary data, recovers S by least squares "
+            f"and gets W to {t7.get('W_error', 0):.1e} at "
+            f"{t7.get('n_observations')} placements. THE BLIND FAMILY, AND THE "
+            "TWO THINGS THAT REMOVE IT. For complex beta, "
+            "W = -Re beta - (G_d - Re beta)(Im beta)^2/P vanishes away from "
+            "beta = 0 on two branches. PR #257's gate removes one, Re beta > "
+            "G_d, where det(A - Gamma) < 0. REALITY OF THE FIELD REMOVES THE "
+            "REST: PR #254 solves a REAL scalar, a real solution needs the "
+            "self-adjoint domain conjugation-invariant, and that is exactly "
+            "A = A*, hence beta real -- measured rather than argued, since with "
+            "complex beta a real unit static source produces a field with "
+            f"Im = {t9.get('rows', [{}, {}])[1].get('imaginary_part_of_the_field', 0):.2e}. "
+            "Every blind point needs Im beta != 0, so the family belongs to a "
+            "deliberately time-reversal-breaking COMPLEX-scalar extension and "
+            "not to the arc's field. Its stable couplings are COMPARABLE TO AND "
+            f"SMALLER THAN the self-energies (largest "
+            f"{t8.get('largest_stable_invisible_coupling', 0):.3f} at margin "
+            f"{t8.get('smallest_stable_invisible_margin', 0):.3f}); an earlier "
+            "draft said larger, which is false. AND EVEN INSIDE THAT EXTENSION "
+            "THE LIMITATION IS THE PROTOCOL, NOT THE OPERATOR: real static "
+            "sources see only Re R, three numbers for four parameters, while "
+            "PHASE-SENSITIVE COMPLEX SOURCES see both quadratures and give the "
+            "full complex R, whence A = Gamma + R^-1 at ONE spectral parameter, "
+            f"reconstructed to {t10.get('worst_boundary_error', 0):.1e}. The "
+            "real-static-source reconstruction needs two spectral parameters -- "
+            f"both POSITIVE and below the free ground state, since lambda = "
+            "omega^2 makes a negative lambda an imaginary frequency rather than "
+            "a second driving frequency -- and returns the boundary matrix to "
+            f"{t11.get('worst_parameter_error', 0):.1e}, blind family included, "
+            "using several starts because a single start does land in a local "
+            "minimum and the reported residual is what catches it. FINALLY, THE "
+            "ANTIPODAL ENDPOINT ON ITS OWN, because PR #257 showed it is a "
+            "different statement rather than a limit: at d = pi the static "
+            "response is singular as A -> 0 and the invariant DIVERGES like "
+            f"1/eps (residue {t12.get('residue_of_the_divergence', 0):.3g}, flat "
+            "across four decades) while W stays exactly zero throughout. The "
             "loudest available two-source signal carries no information about "
             "whether the mouths are connected -- size is not evidence. WHAT IS "
-            "STILL PUT IN: the background, the mouth positions, and the "
-            "boundary data itself, four real numbers chosen and not derived, "
-            "with PR #249 still the thing that would fix them from matter. The "
-            "throat is point-supported -- no interior, no proper length, no "
-            "delay. No backreaction, no stress tensor, no topology change, no "
-            "rate. What this round hands the next one is a quantity that is "
-            "zero without a second source, equal to the non-local part of the "
-            "operator when the throat is time-reversal invariant, and a stated "
-            "blind spot with a stated repair.")
+            "STILL PUT IN: the background, the mouth positions, and the boundary "
+            "data itself, four real numbers chosen and not derived, with PR #249 "
+            "still the thing that would fix them from matter. Everything is "
+            "STATIC-SOURCE, so this is an interaction-energy statement and not a "
+            "scattering one. The throat is point-supported -- no interior, no "
+            "proper length, no delay. No backreaction, no stress tensor, no "
+            "topology change, no rate, AND NOT THE TWO-WAVE INVARIANT: what this "
+            "round hands the next one is a measured non-locality, W = -beta, and "
+            "a stated reason the dynamical object still has to be built.")
     else:
         verdict_class = "INCONCLUSIVE"
         failed = [t["name"] for t in tests if not t["pass"]]

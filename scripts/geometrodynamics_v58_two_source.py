@@ -1,30 +1,33 @@
 #!/usr/bin/env python3
 """
-Geometrodynamic QED — v58: the two-source invariant
-===================================================
+Geometrodynamic QED — v58: static two-source throat tomography
+=============================================================
 
-PR #253 closed rank counting by naming what it could not supply: a quantity that
-**vanishes** when a source is removed rather than merely becoming
-underdetermined.  Superposition makes every linear functional additive, so the
-object has to be quadratic, and its cross term is the throat's Green function
-between the two source points:
+**Not** the roadmap's two-wave collision invariant.  The object here is a
+*static* source-interaction kernel at a fixed spectral parameter: it carries no
+local null momenta, so it cannot distinguish equal-energy collinear from
+counterpropagating waves — the load-bearing control behind
+`𝒞 = I_A I_B (k_A·k_B)²`.  The index `(i, j)` labels **mouth channels**, not the
+geodesic/winding branches of PRs #253–#255.  The dynamical object is still owed.
+
+What it *is*: PR #253 closed rank counting by naming what it could not supply —
+a quantity that **vanishes** when a source is removed rather than merely
+becoming underdetermined.  Superposition makes every linear functional additive,
+so the object has to be quadratic, and its cross term is
 
 ```
 𝒞(y_A, y_B) = G(y_A,y_B) + Re Σ_ij G(y_A,c_i) R_ij G(c_j,y_B) ,
 R = (A − Γ(λ))⁻¹
 ```
 
-bilinear in the two sources, exactly zero when either is switched off — and
-written in PR #255's requested index, a **matrix in a pair of branches**: which
-mouth the field entered, which it left, plus the channel that used neither.
+bilinear in the two source strengths, exactly zero when either is switched off.
 
 What the panels show
 ────────────────────
-**Top left — the branch-pair matrix.** The invariant split into its four throat
-channels plus the direct one, for the working boundary matrix.  The
-*off-diagonal* is the part that used the throat as a connection rather than as a
-pair of scatterers — and it is **not** by itself the signature, because `Γ`
-couples the mouths through the ambient field whatever the boundary data says.
+**Top left — the mouth-channel matrix**, beside the same matrix for two
+*disconnected* scatterers.  They look alike, and that is the point: `Γ` couples
+the mouths through the ambient field whatever the boundary data says, so the
+off-diagonal is a **cross-mouth** channel and not "through the throat".
 
 **Top right — anisotropy is not the signature.**  Hold the geodesic separation
 fixed and move one source over the sphere of that radius.  The free interaction
@@ -32,29 +35,28 @@ cannot move at all; the throat's varies by 66% of its mean — and two
 **disconnected** scatterers vary by 69%.  A real effect that decides nothing.
 
 **Bottom left — what does discriminate is a parameter count.**  The static
-invariant determines three numbers, the entries of `S = Re R`.  Two independent
+invariant determines three numbers, the entries of `S = Re R`; two independent
 scatterers have two knobs, so their image is a *surface* with the exact equation
 `S₁₂ = G₀ det S`.  The defect `𝒲 = S₁₂/det S − G₀` is zero on it, and on real
-`β` it equals **`−β`** — the discriminator is the coupling itself.  Plotted
-against the Löwner margin: the invariant diverges as the cone's boundary is
-approached and `𝒲` does not move, which is the answer to PR #255's caution that
-a resummed field measures the pole rather than the source.
+`β` equals **`−β`**.  Plotted against the Löwner margin: the invariant grows as
+the cone's boundary is approached and `𝒲` does not move — the answer to PR
+#255's caution that a resummed field measures the pole rather than the source.
 
-**Bottom right — the blind spot, and the two-frequency repair.**  For complex
-`β` the defect vanishes away from `β = 0` on two branches.  PR #257's stability
-gate excludes one (`Re β > G_d`, determinant negative) and leaves the other:
-connected throats with `|β|` up to `0.25`, strictly inside the cone, invisible
-to a single-frequency test.  `Γ` moves with `λ`, so the blind curve moves too —
-two frequencies over-determine the boundary matrix and reconstruct it to
-`1.2e-15`.
+**Bottom right — the blind family, and the two things that remove it.**  `𝒲 = 0`
+has solutions away from `β = 0` only for **complex** `β`.  PR #257's gate
+excludes the `Re β > G_d` branch (determinant negative).  And **reality of the
+field** excludes the rest: a real scalar needs the self-adjoint domain to be
+conjugation-invariant, `A = A*`, hence `β` real — with complex `β` a real static
+source produces a *complex* field.  Inside a deliberately time-reversal-breaking
+complex extension the family is real, and even there the limitation is the
+*protocol*: phase-sensitive complex sources give the full complex `R` and hence
+`A = Γ + R⁻¹` at **one** spectral parameter.
 
 The one to remember
 ───────────────────
 At the exact antipode `Γ(0)` is negative semidefinite, so the static response is
 singular as `A → 0` and the invariant **diverges** like `1/ε` — while `𝒲` stays
-exactly zero through four decades of it.  The loudest available two-source
-signal carries no information about whether the mouths are connected.  Size is
-not evidence.
+exactly zero through four decades of it.  Size is not evidence.
 
 What is put in
 ──────────────
@@ -83,11 +85,11 @@ from geometrodynamics.waves.throat_positivity import positivity_defect
 from geometrodynamics.waves.two_source import (
     WORKING_BOUNDARY,
     WORKING_SEPARATION,
-    branch_pair_invariant,
     defect_of_pair,
     free_interaction_energy,
     interaction_energy,
     invisible_partner,
+    mouth_channel_invariant,
     random_points,
     recover_boundary,
     ring_points,
@@ -123,7 +125,8 @@ def _margin(pair: MouthPair) -> float:
 
 # ════════════════════════════════════════════════════════════════════════════
 class TwoSourceFigure:
-    """The branch-pair matrix, the false signature, the true one, the repair."""
+    """The mouth-channel matrix, the false signature, the true one, the
+    scope."""
 
     def __init__(self, figsize=(13.8, 8.6)) -> None:
         self.fig = plt.figure(figsize=figsize, facecolor=_PAL["bg"])
@@ -136,24 +139,25 @@ class TwoSourceFigure:
         self.ax_w = self.fig.add_subplot(gs[1, 0], facecolor=_PAL["panel"])
         self.ax_bl = self.fig.add_subplot(gs[1, 1], facecolor=_PAL["panel"])
 
-    # ── the branch-pair matrix ──────────────────────────────────────────────
-    def _draw_branches(self) -> None:
+    # ── the mouth-channel matrix ────────────────────────────────────────────
+    def _draw_channels(self) -> None:
         ax = self.ax_br
         pair = _pair()
         pts = random_points(2, seed=101)
-        parts = branch_pair_invariant(pair, pts[0], pts[1])
-        block = np.array(parts["throat"], dtype=float)
+        parts = mouth_channel_invariant(pair, pts[0], pts[1])
+        block = np.array(parts["channels"], dtype=float)
 
         disc = MouthPair(SEP, pair.alpha1, pair.alpha2, 0.0)
-        dblock = np.array(branch_pair_invariant(disc, pts[0], pts[1])["throat"],
-                          dtype=float)
+        dblock = np.array(
+            mouth_channel_invariant(disc, pts[0], pts[1])["channels"],
+            dtype=float)
         scale = float(np.abs(np.vstack([block, dblock])).max())
 
         for k, (mat, name) in enumerate(((block, f"throat  β = "
                                           f"{complex(pair.beta).real:.2f}"),
                                          (dblock, "two DISCONNECTED "
                                           "scatterers  β = 0"))):
-            sub = ax.inset_axes([0.06 + 0.50 * k, 0.46, 0.36, 0.38])
+            sub = ax.inset_axes([0.06 + 0.50 * k, 0.50, 0.36, 0.32])
             sub.imshow(mat, cmap="magma", vmin=0.0, vmax=scale,
                        interpolation="nearest")
             for i in range(2):
@@ -179,17 +183,18 @@ class TwoSourceFigure:
                     xy=(0.03, 0.995), xycoords="axes fraction", va="top",
                     color=_PAL["dim"], fontsize=6.4, family="monospace",
                     linespacing=1.8)
-        ax.annotate("off-diagonal = through the throat, in one mouth and "
-                    "out the other.\n"
+        ax.annotate("off-diagonal = CROSS-MOUTH: in one mouth, out the "
+                    "other.\n"
                     "The two blocks look alike, and that is the point:\n"
                     "Γ already couples the mouths through the ambient\n"
                     "field, so an off-diagonal entry is NOT evidence of a\n"
                     "connection.  What separates them is a parameter count —\n"
-                    "see the panel below.",
-                    xy=(0.045, 0.045), xycoords="axes fraction",
+                    "see the panel below.  (These are mouth channels, NOT\n"
+                    "the geodesic branches of PRs #253–255.)",
+                    xy=(0.045, 0.40), xycoords="axes fraction", va="top",
                     color=_PAL["hot"], fontsize=6.4, family="monospace",
                     linespacing=1.8)
-        ax.set_title("the invariant, resolved on a pair of branches",
+        ax.set_title("the invariant, resolved on a pair of MOUTH CHANNELS",
                      color=_PAL["text"], fontsize=8.6, pad=6)
 
     # ── anisotropy ──────────────────────────────────────────────────────────
@@ -224,8 +229,9 @@ class TwoSourceFigure:
                     color=_PAL["hot"], fontsize=6.4, family="monospace",
                     linespacing=1.8)
         ax.set_ylim(free[0] - 0.026, max(thr.max(), dis.max()) * 1.10)
-        ax.set_xlabel("χ(y_B, mouth 1) — the sphere χ_AB = 1.0 is 2-dimensional,"
-                      " so this is a band", color=_PAL["dim"], fontsize=8)
+        ax.set_xlabel("χ(y_B, mouth 1) — the sphere χ_AB = 1.0 is "
+                      "2-dimensional, so this is a band",
+                      color=_PAL["dim"], fontsize=8)
         ax.set_ylabel("C", color=_PAL["dim"], fontsize=8)
         ax.tick_params(colors=_PAL["dim"], labelsize=7)
         for sp in ax.spines.values():
@@ -309,28 +315,32 @@ class TwoSourceFigure:
         # what a second frequency does to the same curve
         moved = []
         for rb in rbs:
-            ib = invisible_partner(a1, a2, float(rb), SEP, -1.0)
+            ib = invisible_partner(a1, a2, float(rb), SEP, 0.3)
             moved.append(ib if ib is not None else np.nan)
         ax.plot(rbs, moved, lw=1.5, ls=(0, (4, 3)), color=_PAL["cool"],
-                zorder=6, label="W = 0 at λ = −1 — a different curve")
+                zorder=6, label="W = 0 at λ = 0.3 — a different curve")
+        # …and at λ = 0.8 the invisibility equation has no real root at all
+        # here, so the blind set is not merely moved but empty
+        gone = all(invisible_partner(a1, a2, float(rb), SEP, 0.8) is None
+                   for rb in rbs)
         blind = MouthPair(SEP, a1, a2,
                           complex(-0.05, invisible_partner(a1, a2, -0.05, SEP)))
         rec = recover_boundary(blind)
-        ax.annotate("a one-frequency test cannot tell the red curve from\n"
-                    "two disconnected scatterers — |β| up to "
-                    f"{float(np.nanmax(np.hypot(rbs, ibs))):.2f}, margin "
-                    f"≥ {float(margins[stable].min()):.3f}\n"
-                    "\n"
-                    f"PR #257 removes only the OTHER branch, Re β > G_d = "
-                    f"{gd:.4f},\nwhere det(A − Γ) < 0.  This half is stable.\n"
-                    "\n"
-                    "the two curves do not coincide, so two frequencies\n"
-                    f"over-determine A — reconstructed to "
-                    f"{rec['max_parameter_error']:.0e}",
-                    xy=(0.035, 0.02), xycoords="axes fraction",
-                    color=_PAL["dim"], fontsize=6.1, family="monospace",
-                    linespacing=1.7)
-        ax.set_ylim(-0.32, 0.48)
+        ax.annotate("every point here has Im β ≠ 0, so NONE of it is\n"
+                    "compatible with a REAL scalar — a real source there\n"
+                    "produces a complex field, and A = A* is exactly what\n"
+                    "a conjugation-invariant domain means.\n"
+                    f"PR #257 removes the other branch (Re β > G_d = "
+                    f"{gd:.4f},\n"
+                    "det(A − Γ) < 0);  reality removes this one.\n"
+                    "and in a complex extension the limit is the PROTOCOL:\n"
+                    "phase-sensitive sources give the full complex R at ONE\n"
+                    f"λ, so A = Γ + R⁻¹ to {rec['max_parameter_error']:.0e}."
+                    + ("  At λ = 0.8 the set is EMPTY." if gone else ""),
+                    xy=(0.035, 0.55), xycoords="axes fraction", va="top",
+                    color=_PAL["dim"], fontsize=5.9, family="monospace",
+                    linespacing=1.55)
+        ax.set_ylim(-0.62, 0.42)
         ax.set_xlabel("Re β", color=_PAL["dim"], fontsize=8)
         ax.set_ylabel("Im β", color=_PAL["dim"], fontsize=8)
         ax.tick_params(colors=_PAL["dim"], labelsize=7)
@@ -340,23 +350,24 @@ class TwoSourceFigure:
                         labelcolor=_PAL["dim"])
         leg.get_frame().set_edgecolor(_PAL["rule"])
         ax.grid(alpha=0.08, color=_PAL["grid"])
-        ax.set_title("against the round — the blind family, and it is stable",
+        ax.set_title("the blind family — stable, and outside the real-field "
+                     "sector",
                      color=_PAL["text"], fontsize=8.6, pad=6)
 
     # ── frame ───────────────────────────────────────────────────────────────
     def draw(self) -> None:
-        self._draw_branches()
+        self._draw_channels()
         self._draw_isotropy()
         self._draw_defect()
         self._draw_blind()
         pair = _pair()
-        self.fig.suptitle("v58 — THE TWO-SOURCE INVARIANT",
+        self.fig.suptitle("v58 — STATIC TWO-SOURCE THROAT TOMOGRAPHY",
                           color=_PAL["text"], fontsize=13.2, y=0.962,
                           family="monospace")
         self.fig.text(0.5, 0.908,
-                      "zero without a second source   ·   and its "
-                      "DISCONNECTION DEFECT is minus the mouth-mixing "
-                      "amplitude, W = −β",
+                      "zero without a second source   ·   its DISCONNECTION "
+                      "DEFECT is minus the mouth-mixing amplitude, W = −β"
+                      "   ·   NOT yet the two-wave invariant",
                       color=_PAL["dim"], fontsize=8.4, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.070,

@@ -11,10 +11,12 @@ from geometrodynamics.waves.throat_operator import MouthPair, gamma_at
 from geometrodynamics.waves.throat_positivity import (
     boundary_pair_from_unitary, positivity_defect)
 from geometrodynamics.waves.two_source import (
-    WORKING_BOUNDARY, WORKING_SEPARATION, branch_pair_invariant, cross_matrix,
-    defect_of_pair, disconnection_defect, free_interaction_energy, geodesic,
-    green_at, interaction_energy, invisible_partner, isotropy_profile,
+    WORKING_BOUNDARY, WORKING_SEPARATION, cross_matrix, defect_of_pair,
+    disconnection_defect, energy_functional, free_interaction_energy, geodesic,
+    green_at, interaction_energy, invisible_partner, is_real_field_compatible,
+    isotropy_profile, measure_a_real_field_forces_beta_real,
     measure_anisotropy_is_not_the_signature,
+    measure_phase_sensitive_sources_need_only_one_spectral_parameter,
     measure_the_antipodal_endpoint_on_its_own,
     measure_the_blind_spot_of_a_single_frequency_test,
     measure_the_defect_is_the_mouth_mixing_amplitude,
@@ -22,8 +24,9 @@ from geometrodynamics.waves.two_source import (
     measure_the_invariant_vanishes_when_a_source_is_removed,
     measure_the_throat_channel_has_the_rank_of_the_boundary_condition,
     measure_two_disconnected_scatterers_lie_on_a_surface,
-    measure_two_frequencies_reconstruct_the_boundary_matrix, mouth_positions,
-    random_points, recover_boundary, recover_response, response_matrix,
+    measure_two_spectral_parameters_reconstruct_the_boundary_matrix,
+    mouth_channel_invariant, mouth_positions, random_points, recover_boundary,
+    recover_complex_response, recover_response, response_matrix,
     response_of_pair, ring_points, source_vector, static_response)
 
 
@@ -81,7 +84,7 @@ def test_the_invariant_is_the_krein_resolvent():
         v_b = source_vector(y_b, pair.separation)
         direct = free_interaction_energy(y_a, y_b)
         expect = float(direct + (v_a @ r @ v_b).real)
-        parts = branch_pair_invariant(pair, y_a, y_b)
+        parts = mouth_channel_invariant(pair, y_a, y_b)
         assert parts["total"] == pytest.approx(expect, rel=1e-12)
         assert interaction_energy(pair, y_a, y_b) == pytest.approx(expect,
                                                                    rel=1e-12)
@@ -224,12 +227,12 @@ def test_the_blind_family_is_inside_the_stable_cone():
     assert margin > 0.05
 
 
-def test_the_blind_family_is_visible_at_another_frequency():
+def test_the_blind_family_is_visible_at_a_second_spectral_parameter():
     a1, a2, rb = 0.30, 0.35, -0.05
     ib = invisible_partner(a1, a2, rb, WORKING_SEPARATION)
     pair = MouthPair(WORKING_SEPARATION, a1, a2, complex(rb, ib))
-    assert abs(defect_of_pair(pair, -1.0)) > 1e-3
-    assert abs(defect_of_pair(pair, -4.0)) > 1e-3
+    assert abs(defect_of_pair(pair, 0.8)) > 1e-3
+    assert abs(defect_of_pair(pair, 0.3)) > 1e-3
 
 
 def test_invisible_partner_returns_none_where_there_is_no_root():
@@ -252,7 +255,7 @@ def test_the_other_blind_branch_is_excluded_by_the_stability_gate():
     assert margin < 0.0
 
 
-def test_two_frequencies_reconstruct_the_boundary_matrix():
+def test_two_spectral_parameters_reconstruct_the_boundary_matrix():
     rng = np.random.default_rng(37)
     for _ in range(3):
         a1, a2 = rng.uniform(0.2, 0.5, size=2)
@@ -369,14 +372,16 @@ def test_measure_the_blind_spot_of_a_single_frequency_test():
     r = measure_the_blind_spot_of_a_single_frequency_test()
     assert r["the_blind_family_is_not_empty"]
     assert r["the_upper_branch_is_excluded_by_the_stability_gate"]
-    assert r["the_lower_branch_survives_it"]
+    assert r["the_lower_branch_survives_the_stability_gate"]
+    assert r["but_no_blind_point_is_real_field_compatible"]
     assert r["they_are_invisible_at_lambda_zero"]
-    assert r["they_are_visible_at_another_frequency"]
+    assert r["they_are_visible_at_a_second_spectral_parameter"]
     assert r["largest_stable_invisible_coupling"] > 0.2
+    assert r["every_stable_coupling_is_smaller_than_its_self_energies"]
 
 
-def test_measure_two_frequencies_reconstruct_the_boundary_matrix():
-    r = measure_two_frequencies_reconstruct_the_boundary_matrix()
+def test_measure_two_spectral_parameters_reconstruct_the_boundary_matrix():
+    r = measure_two_spectral_parameters_reconstruct_the_boundary_matrix()
     assert r["the_boundary_matrix_is_reconstructed"]
     assert r["even_the_blind_family_is_reconstructed"]
 
@@ -387,3 +392,110 @@ def test_measure_the_antipodal_endpoint_on_its_own():
     assert r["the_invariant_diverges_like_one_over_epsilon"]
     assert r["the_defect_stays_zero"]
     assert r["the_identity_survives_the_endpoint"]
+
+
+# ── the corrections from the #258 review ────────────────────────────────────
+def test_the_cross_term_comes_from_a_real_quadratic_functional():
+    """Not a multiplication by zero: three evaluations of a functional that
+    carries its own self-energy terms."""
+    pair = _working()
+    pts = random_points(6, seed=53)
+    a, b = 1.7, -0.9
+    for k in range(3):
+        y_a, y_b = pts[2 * k], pts[2 * k + 1]
+        cross = (energy_functional(pair, y_a, y_b, a, b)
+                 - energy_functional(pair, y_a, y_b, a, 0.0)
+                 - energy_functional(pair, y_a, y_b, 0.0, b))
+        assert cross == pytest.approx(a * b * interaction_energy(pair, y_a,
+                                                                 y_b),
+                                      abs=1e-14)
+        # the self-energies are actually there and are not small
+        assert abs(energy_functional(pair, y_a, y_b, a, 0.0)) > 1e-3
+    y_a, y_b = pts[0], pts[1]
+    assert energy_functional(pair, y_a, y_b, 0.0, 0.0) == 0.0
+
+
+def test_a_real_field_needs_a_real_boundary_matrix():
+    """Conjugation-invariance of the domain is ``A = A*``, and a complex ``β``
+    makes a real static source produce a complex field."""
+    d = WORKING_SEPARATION
+    pts = random_points(2, seed=59)
+    v_a = source_vector(pts[0], d)
+    v_b = source_vector(pts[1], d)
+    for beta, real_ok in ((0.06, True), (complex(0.06, 0.20), False)):
+        pair = MouthPair(d, 0.30, 0.35, beta)
+        assert is_real_field_compatible(pair.boundary_matrix()) is real_ok
+        field = complex(free_interaction_energy(pts[0], pts[1])
+                        + v_b @ response_of_pair(pair) @ v_a)
+        assert (abs(field.imag) < 1e-15) is real_ok
+
+
+def test_the_blind_family_is_outside_the_real_field_sector():
+    """Every invisible point needs Im β != 0, so there is no blind family for a
+    real scalar."""
+    d = WORKING_SEPARATION
+    for a1, a2, rb in ((0.30, 0.35, -0.05), (0.50, 0.40, -0.02),
+                       (0.25, 0.25, -0.10)):
+        ib = invisible_partner(a1, a2, rb, d)
+        assert ib is not None and ib > 1e-3
+        pair = MouthPair(d, a1, a2, complex(rb, ib))
+        assert not is_real_field_compatible(pair.boundary_matrix())
+        assert abs(complex(pair.beta)) < min(a1, a2)      # comparable, smaller
+
+
+def test_phase_sensitive_sources_need_only_one_spectral_parameter():
+    """``A = Γ + R⁻¹`` once both quadratures are measured."""
+    d = WORKING_SEPARATION
+    pair = MouthPair(d, 0.30, 0.35, complex(-0.05, 0.24))
+    quad = recover_complex_response(pair, *random_points(2, seed=61))
+    assert quad["the_quadratures_give_the_kernel"]
+    r = response_of_pair(pair)
+    assert np.abs(gamma_at(0.0, d) + np.linalg.inv(r)
+                  - pair.boundary_matrix()).max() < 1e-12
+
+
+def test_the_reconstruction_uses_positive_spectral_parameters():
+    """λ = ω², so a negative λ is an imaginary frequency; the default pair is
+    positive and below the free ground state."""
+    pair = MouthPair(WORKING_SEPARATION, 0.3, 0.4, complex(0.05, 0.12))
+    out = recover_boundary(pair)
+    assert all(0.0 < lam < 1.0 for lam in out["lambdas"])
+    assert out["max_parameter_error"] < 1e-9
+    assert out["residual"] < 1e-9
+
+
+def test_the_reconstruction_reports_a_failure_to_converge():
+    """A single bad start does land in a local minimum; the residual is what
+    catches it, so it has to be reported and small."""
+    rng = np.random.default_rng(20260821)
+    for _ in range(6):
+        a1, a2 = rng.uniform(0.15, 0.6, size=2)
+        rb, ib = rng.uniform(-0.2, 0.2), rng.uniform(-0.3, 0.3)
+        out = recover_boundary(MouthPair(WORKING_SEPARATION, float(a1),
+                                         float(a2), complex(rb, ib)))
+        assert out["residual"] < 1e-9
+        assert out["max_parameter_error"] < 1e-9
+
+
+def test_the_off_diagonal_block_is_not_a_throat_signature():
+    """A disconnected pair fills the cross-mouth channel too."""
+    d = WORKING_SEPARATION
+    pts = random_points(2, seed=67)
+    disc = MouthPair(d, 0.30, 0.35, 0.0)
+    parts = mouth_channel_invariant(disc, pts[0], pts[1])
+    assert abs(parts["cross_mouth"]) > 1e-6
+    assert abs(defect_of_pair(disc)) < 1e-12       # …and W still says "no"
+
+
+def test_measure_a_real_field_forces_beta_real():
+    r = measure_a_real_field_forces_beta_real()
+    assert r["a_real_beta_gives_a_real_field"]
+    assert r["a_complex_beta_does_not"]
+    assert r["so_for_PR254s_field_there_is_no_blind_family"]
+
+
+def test_measure_phase_sensitive_sources_need_only_one_spectral_parameter():
+    r = measure_phase_sensitive_sources_need_only_one_spectral_parameter()
+    assert r["the_quadratures_give_the_kernel"]
+    assert r["one_spectral_parameter_suffices"]
+    assert r["worst_boundary_error"] < 1e-9

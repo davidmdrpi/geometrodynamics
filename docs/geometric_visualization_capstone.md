@@ -411,68 +411,75 @@ against the cone on 60 chart draws and against a root scan on 60 stratum draws,
 with the reduction's own assumptions (Hermiticity of `A_eff`, the row-space
 condition) checked rather than asserted.
 
-## 16. The two-source invariant (`docs/two_source_invariant.md`, current round)
+## 16. Static two-source throat tomography (`docs/static_throat_tomography.md`, current round)
 
-§10 ended rank counting by naming what it could not supply: a quantity that
+**Not the two-wave invariant**, and the round is filed under what it actually
+is. §10 ended rank counting by naming what it could not supply: a quantity that
 **vanishes** when a source is removed rather than merely becoming
-underdetermined. Deleting a scalar equation costs a dimension whatever was
-deleted. The replacement has to be a field quantity, and superposition decides
-its shape — every *linear* functional of a linear field is additive, so the
-object has to be **quadratic**, and what carries the two-source information is
-its cross term:
+underdetermined. This round supplies one — for *static* probes — and then
+establishes carefully what it does and does not measure.
+
+Superposition decides the shape: every linear functional of a linear field is
+additive, so the object has to be **quadratic**, and what carries the two-source
+information is its cross term,
 
 ```
 𝒞(y_A, y_B) = G(y_A,y_B) + Re Σ_ij G(y_A,c_i) R_ij G(c_j,y_B),  R = (A − Γ(λ))⁻¹
 ```
 
-identically zero when either source is switched off, and not vacuous. Written
-out it is §13's requested index: **a matrix in a pair of branches**, the branch
-being which mouth the field entered and which it left, plus one channel that used
-neither. Its `N × N` table has rank two at every source count — the entire
-multi-source signature of a point throat is two-dimensional.
+built from a functional that carries its own self-energy terms, so
+`Q[a,b] − Q[a,0] − Q[0,b]` is a regression on the field construction rather than
+a multiplication by zero. Its `N × N` table has rank two at every source count.
 
-**Two things that look like the signature and are not**, and separating them is
-most of the round. The cross term being nonzero is interference. And the
+**What it is not** matters as much. It is a *static* kernel at a fixed spectral
+parameter, with **no local null momenta**, so it cannot distinguish equal-energy
+collinear from counterpropagating waves — the control the whole two-wave idea
+rests on. And its index `(i,j)` labels **mouth channels**, not §11's geodesic
+branches with their winding numbers and Maslov signs. The dynamical object built
+from `T_A^{μν} T^B_{μν}` is still owed.
+
+**Three things that look like the signature and are not**, and separating them
+is most of the round. The cross term being nonzero is interference. The
 interaction being **anisotropic** — depending on more than the geodesic
 separation, which no free field on this background can do at all — is a real
-effect, `66%` of the mean, that **two disconnected scatterers reproduce at
-`69%`**. It detects structure at the mouths, not a connection between them. The
-same trap one level down: the response matrix has off-diagonal entries even for
-diagonal boundary data, because `Γ` couples the mouths through the ambient field.
+`66%` effect that **two disconnected scatterers reproduce at `69%`**. And the
+off-diagonal response block is nonzero for diagonal boundary data too, because
+`Γ` couples the mouths through the ambient field; it is a *cross-mouth* channel.
 
 **What discriminates is a parameter count.** The static invariant determines
 three numbers — the entries of `S = Re R` — and two independent scatterers have
-two knobs, so their image is a surface with the exact equation `S₁₂ = G₀ det S`.
-The defect `𝒲 = S₁₂/det S − G₀` is its defining function, and on the
-time-reversal-invariant slice it is not merely nonzero but **equal to the
-coupling**:
+two knobs, so their image is a surface with the exact equation
+`S₁₂ = G₀ det S`. The defect `𝒲 = S₁₂/det S − G₀` is its defining function, and
+on the real sector
 
 ```
 𝒲 = −β        exactly,  to 5e-16
 ```
 
 independent of the self-energies, the separation, and the **Löwner margin** —
-which is the answer to §13's caution that a resummed field measures the pole
-rather than the source. Driven toward the cone's boundary the invariant grows
-`3.8×` and `𝒲` drifts `2e-17`. And it is a **protocol**: recovered by least
-squares from measured interaction energies by an observer who is never told the
-boundary data.
+which is §13's resonance caution answered rather than managed. Scoped exactly,
+`𝒲` detects **off-diagonal mouth-boundary mixing relative to the diagonal
+two-scatterer null model**, inside this point-interaction model. It is also a
+**protocol**: recovered by least squares from measured interaction energies by
+an observer never told the boundary data.
 
-**Against the round.** `𝒲 = 0` has solutions away from `β = 0` on two branches.
-§15's gate excludes one and **leaves the other**: connected throats with `|β|`
-larger than their own self-energies, strictly inside the stable cone, that a
-single-frequency two-source test cannot distinguish from two disconnected
-scatterers. So the test **can confirm a throat and cannot falsify one** — until a
-second frequency is added, at which point six equations over-determine the four
-boundary parameters and reconstruct `A` outright, blind family included, with
-only the *sign* of `Im β` left unobservable (§14's time reversal).
+**Which field is being solved turned out to decide the round's negative half.**
+The first draft advertised a one-parameter family of connected throats invisible
+to the test. Every such point needs `Im β ≠ 0` — and a **real** scalar, which is
+what §12 solves, requires the self-adjoint domain to be conjugation-invariant,
+`A = A*`, hence `β` real. Measured, not argued: with complex `β` a real static
+source produces a **complex field**. So the blind family belongs to a
+deliberately time-reversal-breaking complex extension, not to the arc's field,
+and for the arc's field `𝒲 = −β` settles the question at one spectral parameter.
+Inside the complex extension §15's gate removes one branch, and even the
+remainder is a limit of the **probe** rather than the operator: phase-sensitive
+complex sources give the full complex `R`, hence `A = Γ + R⁻¹` at a single `λ`.
 
 **And the antipodal endpoint, tested as itself.** At `d = π` the static response
 is singular as `A → 0`, so the invariant **diverges like `1/ε`** — while `𝒲`
 stays exactly zero through four decades of it. The loudest available two-source
-signal carries no information about whether the mouths are connected. That is
-the arc's recurring lesson in its most extreme form: **size is not evidence**,
-and here the size is unbounded.
+signal carries no information about whether the mouths are connected: **size is
+not evidence**, in its most extreme form, because the size is unbounded.
 
 ## 17. What the arc cost in errors, and what caught them
 
@@ -570,6 +577,26 @@ Worth recording, because the failure modes repeat:
   at the antipode `Γ(0)` is negative *semi*definite, not indefinite, so `A = 0`
   is marginally stable rather than unstable — and the antipode is the one
   configuration a through-throat geodesic on `S³` actually picks out.
+* **A vanishing proved by multiplying by zero.** The two-source cross term was
+  advertised as "identically zero when a source is removed" and demonstrated by
+  computing `0.0 * answer`. That is a tautology, not a regression on the field
+  construction. The honest version builds the quadratic functional with its own
+  self-energy terms and takes `Q[a,b] − Q[a,0] − Q[0,b]` from three separate
+  evaluations, where the large self-energies have to cancel.
+* **A result named for the goal instead of for itself.** A static
+  source-interaction kernel was presented as the roadmap's two-wave collision
+  invariant. It has no local null momenta, so it cannot distinguish collinear
+  from counterpropagating waves — the one control the two-wave idea exists to
+  apply — and its index labels mouth channels rather than geodesic branches.
+  Nothing computed was wrong; the label was, and a label decides which roadmap
+  entry gets crossed off.
+* **A negative result that depended on an undeclared change of model.** The
+  "blind family" of undetectable throats needs `Im β ≠ 0`, and a *real* scalar
+  field requires the self-adjoint domain to be conjugation-invariant — `A = A*`,
+  hence `β` real. With complex `β` a real static source produces a *complex*
+  field. So the round's headline caveat silently assumed a complex,
+  time-reversal-breaking scalar it had never adopted.
+
 * **A theorem on a chart, stated globally.** `A ⪰ Γ(0)` was presented as the
   positive sector of the `U(2)` throat family. It is the positive sector of the
   `B`-invertible *chart*; the Dirichlet strata are not reached by any finite
@@ -701,19 +728,20 @@ ray closure → field solution → two-wave invariant
   reflected channel, `1×1` where a conserving junction needs `2×2` unitary, and
   lossy for `κ < 1`. That operator, not another visualization, is the immediate
   next construction;
-* **two-wave invariant** — ~~done~~, with one half of it a negative result. `𝒞`
-  is built (§16): the cross term of a quadratic functional, identically zero
-  without a second source, written in the requested branch-pair index and rank
-  two at any source count. The caution about resonances is **answered rather
-  than managed** — the discriminator `𝒲 = S₁₂/det S − G₀` is exactly `−β` and
-  does not move at all as the cone's boundary is approached, so it measures the
-  source and not the pole. **Still owed:** the test as built confirms a throat
-  and cannot falsify one. A one-parameter family of connected throats, stable
-  and not fine-tuned, is invisible to it at a single frequency; two frequencies
-  repair that and over-determine the boundary matrix, which is a stronger
-  experimental demand than "a two-source coincidence" and should be quoted as
-  one. Everything is static-source, so it is an interaction-energy statement and
-  not yet a scattering one;
+* **two-wave invariant** — **still open**, and the current round is filed under
+  what it actually is rather than what it was aimed at. §16 builds a *static*
+  two-source kernel: identically zero without a second source, rank two at any
+  source count, with an exact discriminator `𝒲 = −β` that is margin-independent
+  and recoverable from measurements. What it is **not** is the collision
+  invariant. It carries no local null momenta, so it cannot separate
+  equal-energy collinear from counterpropagating waves — the control the whole
+  idea rests on — and its `(i,j)` index labels mouth channels rather than the
+  geodesic branches of §11. The dynamical object, built from
+  `T_A^{μν} T^B_{μν}` and resolved on those branches, is the next construction.
+  What §16 hands it: a control it must pass (collinear versus head-on), a number
+  its static limit must reproduce (`𝒲 = −β`), and a habit — name the null model
+  that reproduces your effect before quoting the effect, which is how two false
+  signatures were excluded there;
 * **stationary action** — evaluate the on-shell action and ask whether the
   candidate events are stationary. *Not* with Lagrange multipliers imposing the
   ray round's five equations, which would only rename them. This is where the
