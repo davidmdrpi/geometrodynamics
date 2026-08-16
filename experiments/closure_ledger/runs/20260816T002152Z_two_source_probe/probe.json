@@ -1,0 +1,539 @@
+{
+  "probe": "two_source",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "PR #253 ended rank counting by naming what it could not supply: a quantity that vanishes when a source is removed rather than becoming underdetermined. Build it as a field quantity, and ask whether it distinguishes a throat from two ordinary scatterers.",
+      "what_this_is_not": "NOT the roadmap's two-wave collision invariant. This is a static source-interaction kernel with no local null momenta, so it cannot separate collinear from counterpropagating waves. The index (i,j) labels mouth channels, not the geodesic/winding branches of PRs #253-#255.",
+      "scope": "a linear scalar field on a fixed Einstein static universe. The throat is point-supported: no interior, no proper length, no delay. Everything is evaluated at a boundary matrix strictly inside PR #257's cone with its Loewner margin quoted, and the exact antipodal endpoint is tested separately. No backreaction, no stress tensor, no topology change, no rate.",
+      "pass": true
+    },
+    {
+      "name": "T2_it_vanishes_when_a_source_is_removed",
+      "n_pairs": 40,
+      "source_strengths": [
+        1.7,
+        -0.9
+      ],
+      "boundary": [
+        0.3,
+        0.35,
+        0.06,
+        0.0
+      ],
+      "loewner_margin": 0.3227753628463788,
+      "inside_the_cone": true,
+      "a_self_energy_term_for_scale": -0.023197726893762954,
+      "worst_error_in_Q_minus_Q_minus_Q": 2.7755575615628914e-17,
+      "largest_value_with_a_source_removed": 0.0,
+      "smallest_value_with_both_present": 0.0560241515184599,
+      "the_cross_term_is_the_invariant": true,
+      "it_vanishes_exactly": true,
+      "it_is_not_vacuous": true,
+      "is_bilinear": true,
+      "the_contrast": "a deleted equation costs a dimension whatever was deleted; a deleted source costs the whole cross term",
+      "pass": true
+    },
+    {
+      "name": "T3_the_throat_channel_is_rank_two",
+      "n_sources": 12,
+      "loewner_margin": 0.3227753628463788,
+      "chart_n_sources": 12,
+      "chart_direct_rank": 12,
+      "chart_throat_rank": 2,
+      "chart_response_rank": 2,
+      "chart_throat_norm": 0.03867778490573039,
+      "chart_direct_norm": 0.2633411486548691,
+      "complex_strata": [
+        {
+          "det_B": 1.439736557724664e-16,
+          "rank_B": 1,
+          "rank_R": 1,
+          "hermitian_defect": 2.3624757999547966e-16,
+          "table_rank": 2
+        },
+        {
+          "det_B": 3.3703051489750554e-17,
+          "rank_B": 1,
+          "rank_R": 1,
+          "hermitian_defect": 1.2412670766236366e-16,
+          "table_rank": 2
+        },
+        {
+          "det_B": 1.8321222545327271e-16,
+          "rank_B": 1,
+          "rank_R": 1,
+          "hermitian_defect": 1.7340384614483389e-16,
+          "table_rank": 2
+        },
+        {
+          "det_B": 2.4916457881040836e-16,
+          "rank_B": 1,
+          "rank_R": 1,
+          "hermitian_defect": 2.739473012918655e-16,
+          "table_rank": 2
+        }
+      ],
+      "real_strata": [
+        {
+          "det_B": 3.8256995860921596e-17,
+          "rank_B": 1,
+          "rank_R": 1,
+          "hermitian_defect": 1.8754006496204953e-16,
+          "table_rank": 1
+        },
+        {
+          "det_B": 9.573353198108744e-17,
+          "rank_B": 1,
+          "rank_R": 1,
+          "hermitian_defect": 1.0425624197334081e-16,
+          "table_rank": 1
+        },
+        {
+          "det_B": 7.281411048078264e-16,
+          "rank_B": 1,
+          "rank_R": 1,
+          "hermitian_defect": 8.757715526714836e-15,
+          "table_rank": 1
+        },
+        {
+          "det_B": 2.6774582907698812e-17,
+          "rank_B": 1,
+          "rank_R": 1,
+          "hermitian_defect": 1.1675855957509125e-16,
+          "table_rank": 1
+        }
+      ],
+      "the_throat_table_is_rank_two_in_the_chart": true,
+      "the_direct_table_has_full_rank": true,
+      "the_complex_response_has_the_rank_of_B": true,
+      "a_complex_dirichlet_direction_still_fills_both_channels": true,
+      "a_real_dirichlet_direction_drops_the_table_to_one": true,
+      "the_response_is_hermitian_off_the_chart": true,
+      "the_bound_is_two_at_every_source_count": true,
+      "pass": true
+    },
+    {
+      "name": "T4_anisotropy_is_not_the_signature",
+      "loewner_margin": 0.3227753628463788,
+      "chi": 1.0,
+      "n_points": 240,
+      "free_value": 0.0644670780273518,
+      "free_spread": 8.326672684688674e-17,
+      "throat_spread": 0.060030893121821666,
+      "throat_relative_spread": 0.6585940035404358,
+      "disconnected_spread": 0.0663907847223092,
+      "disconnected_relative_spread": 0.6920507658056169,
+      "the_free_field_is_isotropic": true,
+      "both_break_it": true,
+      "disconnected_over_connected": 1.0508002837640882,
+      "anisotropy_does_not_discriminate": true,
+      "what_it_does_show": "the interaction depends on more than the geodesic separation, which no free field on this background can do",
+      "pass": true
+    },
+    {
+      "name": "T5_the_disconnected_family_is_a_surface",
+      "n_draws": 200,
+      "worst_defect_on_the_disconnected_family": 1.3877787807814457e-16,
+      "smallest_defect_off_it": 0.005009115516205531,
+      "n_connected_draws_detected": 199,
+      "the_disconnected_family_is_a_surface": true,
+      "connected_throats_are_off_it": true,
+      "the_equation": "S\u2081\u2082 = G\u2080 \u00b7 det S,  two knobs and three observables",
+      "pass": true
+    },
+    {
+      "name": "T6_the_defect_is_the_coupling",
+      "n_draws": 120,
+      "worst_error_in_W_plus_beta": 4.996003610813204e-16,
+      "W_is_minus_beta": true,
+      "margin_rows": [
+        {
+          "loewner_margin": 0.4,
+          "invariant": 0.05096497814898755,
+          "defect": -0.06
+        },
+        {
+          "loewner_margin": 0.1,
+          "invariant": 0.07910693235527576,
+          "defect": -0.06
+        },
+        {
+          "loewner_margin": 0.02,
+          "invariant": 0.1503118500935529,
+          "defect": -0.06
+        },
+        {
+          "loewner_margin": 0.003999999999999999,
+          "invariant": 0.19600205213144264,
+          "defect": -0.06000000000000002
+        }
+      ],
+      "invariant_growth_toward_the_boundary": 3.845818427675247,
+      "worst_defect_drift_across_margins": 2.0816681711721685e-17,
+      "every_row_is_inside_the_cone": true,
+      "the_discriminator_does_not_see_the_resonance": true,
+      "the_caution_it_answers": "PR #255: a test built from a resummed field can measure the pole instead of the source",
+      "what_is_actually_detected": "off-diagonal mouth-boundary mixing, relative to the diagonal two-scatterer null model",
+      "pass": true
+    },
+    {
+      "name": "T7_it_is_a_protocol",
+      "n_observations": 24,
+      "loewner_margin": 0.3227753628463788,
+      "condition_number": 9.853190626110838,
+      "fit_residual": 6.938893903907228e-18,
+      "worst_entry_error": 1.3322676295501878e-15,
+      "W_from_the_boundary_data": -0.06,
+      "W_from_the_observations": -0.05999999999999989,
+      "W_error": 1.1102230246251565e-16,
+      "minus_beta": -0.06,
+      "the_protocol_closes": true,
+      "pass": true
+    },
+    {
+      "name": "T8_the_blind_spot",
+      "separation": 1.3,
+      "G_between_mouths": 0.048412319637957946,
+      "rows": [
+        {
+          "alpha": [
+            0.3,
+            0.35
+          ],
+          "re_beta": -0.05,
+          "branch": "Re \u03b2 < 0",
+          "im_beta": 0.23899269709771787,
+          "abs_beta": 0.24416697005541418,
+          "smaller_than_the_self_energies": true,
+          "real_field_compatible": false,
+          "W": -2.0816681711721685e-17,
+          "loewner_margin": 0.09066225027815562,
+          "inside_the_cone": true,
+          "W_at_a_second_spectral_parameter": 0.2707605710890286
+        },
+        {
+          "alpha": [
+            0.5,
+            0.4
+          ],
+          "re_beta": -0.02,
+          "branch": "Re \u03b2 < 0",
+          "im_beta": 0.25288929855308184,
+          "abs_beta": 0.25367892565735484,
+          "smaller_than_the_self_energies": true,
+          "real_field_compatible": false,
+          "W": 0.0,
+          "loewner_margin": 0.2086221355537707,
+          "inside_the_cone": true,
+          "W_at_a_second_spectral_parameter": 1.0025376384498061
+        },
+        {
+          "alpha": [
+            0.25,
+            0.25
+          ],
+          "re_beta": -0.1,
+          "branch": "Re \u03b2 < 0",
+          "im_beta": 0.1903608626713772,
+          "abs_beta": 0.21502850517313032,
+          "smaller_than_the_self_energies": true,
+          "real_field_compatible": false,
+          "W": 6.938893903907228e-18,
+          "loewner_margin": 0.033952014664507285,
+          "inside_the_cone": true,
+          "W_at_a_second_spectral_parameter": 0.20425822051093878
+        },
+        {
+          "alpha": [
+            0.3,
+            0.35
+          ],
+          "re_beta": 0.06841231963795795,
+          "branch": "Re \u03b2 > G_d",
+          "im_beta": 0.6452213344301528,
+          "abs_beta": 0.6488380505812473,
+          "smaller_than_the_self_energies": false,
+          "real_field_compatible": false,
+          "W": 1.3877787807814457e-17,
+          "loewner_margin": -0.2956848512832155,
+          "inside_the_cone": false,
+          "W_at_a_second_spectral_parameter": 3.649556882558497
+        },
+        {
+          "alpha": [
+            0.5,
+            0.4
+          ],
+          "re_beta": 0.09841231963795795,
+          "branch": "Re \u03b2 > G_d",
+          "im_beta": 0.6594408037700714,
+          "abs_beta": 0.666743697633087,
+          "smaller_than_the_self_energies": false,
+          "real_field_compatible": false,
+          "W": 6.938893903907228e-18,
+          "loewner_margin": -0.1878907635235364,
+          "inside_the_cone": false,
+          "W_at_a_second_spectral_parameter": -2.1437801942203185
+        }
+      ],
+      "the_blind_family_is_not_empty": true,
+      "the_upper_branch_is_excluded_by_the_stability_gate": true,
+      "the_lower_branch_survives_the_stability_gate": true,
+      "but_no_blind_point_is_real_field_compatible": true,
+      "they_are_invisible_at_lambda_zero": true,
+      "they_are_visible_at_a_second_spectral_parameter": true,
+      "largest_stable_invisible_coupling": 0.25367892565735484,
+      "smallest_stable_invisible_margin": 0.033952014664507285,
+      "every_stable_coupling_is_smaller_than_its_self_energies": true,
+      "the_scope": "the real-static-source protocol at a single \u03bb is blind on this family \u2014 and the family exists only in a complex-scalar, time-reversal-breaking extension, not in PR #254's real field",
+      "pass": true
+    },
+    {
+      "name": "T9_a_real_field_forces_beta_real",
+      "separation": 1.3,
+      "rows": [
+        {
+          "beta": {
+            "re": 0.06,
+            "im": 0.0
+          },
+          "real_field_compatible": true,
+          "max_imaginary_part_of_R": 0.0,
+          "imaginary_part_of_the_field": 0.0,
+          "has_an_invisible_partner": true
+        },
+        {
+          "beta": {
+            "re": 0.06,
+            "im": 0.2
+          },
+          "real_field_compatible": false,
+          "max_imaginary_part_of_R": 2.439856265288849,
+          "imaginary_part_of_the_field": 0.00038530952595567785,
+          "has_an_invisible_partner": true
+        }
+      ],
+      "a_real_beta_gives_a_real_field": true,
+      "a_complex_beta_does_not": true,
+      "the_condition": "A = A* \u27fa the domain is conjugation-invariant",
+      "on_the_real_slice_W_is_minus_beta": -0.06,
+      "the_blind_family_needs_a_complex_scalar": true,
+      "so_for_PR254s_field_there_is_no_blind_family": true,
+      "pass": true
+    },
+    {
+      "name": "T10_one_spectral_parameter_suffices_with_phase",
+      "separation": 1.3,
+      "n_placements": 8,
+      "boundary": [
+        0.3,
+        0.35,
+        -0.05,
+        0.24
+      ],
+      "the_quadratures_give_the_kernel": true,
+      "in_phase": 0.05694416778473381,
+      "quadrature": 0.001772621957914555,
+      "condition_number": 43.17108222865547,
+      "worst_response_error": 1.777208069921025e-14,
+      "worst_boundary_error": 3.885826667082044e-15,
+      "one_spectral_parameter_suffices": true,
+      "the_identity": "A = \u0393(\u03bb) + R(\u03bb)\u207b\u00b9",
+      "what_this_corrects": "the two-\u03bb requirement is a restriction of the real-static-source protocol, not of the operator",
+      "pass": true
+    },
+    {
+      "name": "T11_two_spectral_parameters_reconstruct_the_throat",
+      "n_draws": 6,
+      "rows": [
+        {
+          "true": [
+            0.20077041288005826,
+            0.5029794736488805,
+            0.04463686569900355,
+            0.12546345375527448
+          ],
+          "recovered": [
+            0.20077041288005829,
+            0.5029794736488805,
+            0.04463686569900354,
+            0.1254634537552745
+          ],
+          "max_parameter_error": 2.7755575615628914e-17,
+          "residual": 8.881784197001252e-16,
+          "loewner_margin": 0.18076717925961766
+        },
+        {
+          "true": [
+            0.4003468402681193,
+            0.42325763581729114,
+            0.1943806792067917,
+            0.14896325949642075
+          ],
+          "recovered": [
+            0.4003468402681193,
+            0.4232576358172911,
+            0.19438067920679172,
+            0.14896325949642072
+          ],
+          "max_parameter_error": 5.551115123125783e-17,
+          "residual": 3.552713678800501e-15,
+          "loewner_margin": 0.22825926899774693
+        },
+        {
+          "true": [
+            0.4195087082170449,
+            0.35684648837446153,
+            0.0438167592157826,
+            0.16869385948414753
+          ],
+          "recovered": [
+            0.41950870821704495,
+            0.35684648837446153,
+            0.043816759215782576,
+            0.16869385948414756
+          ],
+          "max_parameter_error": 5.551115123125783e-17,
+          "residual": 8.881784197001252e-16,
+          "loewner_margin": 0.24186764294763308
+        },
+        {
+          "true": [
+            0.29365423054388395,
+            0.46574680058692164,
+            -0.14927351713702178,
+            0.1265534626303222
+          ],
+          "recovered": [
+            0.293654230543884,
+            0.46574680058692175,
+            -0.14927351713702186,
+            0.1265534626303222
+          ],
+          "max_parameter_error": 1.1102230246251565e-16,
+          "residual": 8.881784197001252e-16,
+          "loewner_margin": 0.15503194721626157
+        },
+        {
+          "true": [
+            0.5186255335333507,
+            0.4101203358746456,
+            -0.004159379178722666,
+            0.2847364161395118
+          ],
+          "recovered": [
+            0.5186255335333508,
+            0.4101203358746457,
+            -0.004159379178722768,
+            0.28473641613951184
+          ],
+          "max_parameter_error": 1.1102230246251565e-16,
+          "residual": 1.7763568394002505e-15,
+          "loewner_margin": 0.19511545987013423
+        },
+        {
+          "true": [
+            0.35864905088328014,
+            0.39827205038147206,
+            0.06707230399645986,
+            0.28254861748298216
+          ],
+          "recovered": [
+            0.3586490508832801,
+            0.398272050381472,
+            0.06707230399645986,
+            0.2825486174829821
+          ],
+          "max_parameter_error": 5.551115123125783e-17,
+          "residual": 8.881784197001252e-16,
+          "loewner_margin": 0.11993452411889946
+        }
+      ],
+      "worst_parameter_error": 1.1102230246251565e-16,
+      "worst_residual": 3.552713678800501e-15,
+      "the_boundary_matrix_is_reconstructed": true,
+      "blind_family_member": {
+        "lambdas": [
+          0.3,
+          0.8
+        ],
+        "n_starts_tried": 4,
+        "true": [
+          0.3,
+          0.35,
+          -0.05,
+          0.23899269709771787
+        ],
+        "recovered": [
+          0.30000000000000004,
+          0.3500000000000001,
+          -0.05000000000000015,
+          0.23899269709771784
+        ],
+        "max_parameter_error": 1.457167719820518e-16,
+        "residual": 7.105427357601002e-15,
+        "sign_of_im_beta_is_not_observable": true
+      },
+      "even_the_blind_family_is_reconstructed": true,
+      "what_is_still_not_observable": "the sign of Im \u03b2 \u2014 PR #256's time reversal, not a gap in the measurement",
+      "pass": true
+    },
+    {
+      "name": "T12_the_antipodal_endpoint",
+      "separation": 3.141592653589793,
+      "G_between_mouths_at_zero": 0.025330295910584444,
+      "minus_g0": 0.025330295910584444,
+      "the_antipodal_value_is_minus_g0": true,
+      "rows": [
+        {
+          "epsilon": 0.01,
+          "loewner_margin": 0.010000000000000004,
+          "invariant": 0.39129969646866597,
+          "W": 3.469446951953614e-18
+        },
+        {
+          "epsilon": 0.001,
+          "loewner_margin": 0.0010000000000000026,
+          "invariant": 3.428178165538245,
+          "W": -3.469446951953614e-17
+        },
+        {
+          "epsilon": 0.0001,
+          "loewner_margin": 9.999999999999766e-05,
+          "invariant": 33.79616269826395,
+          "W": 2.5326962749261384e-16
+        },
+        {
+          "epsilon": 1e-05,
+          "loewner_margin": 1.0000000000001327e-05,
+          "invariant": 337.4759122341149,
+          "W": 3.590877595271991e-15
+        }
+      ],
+      "invariant_times_epsilon": [
+        0.00391299696468666,
+        0.003428178165538245,
+        0.003379616269826395,
+        0.003374759122341149
+      ],
+      "residue_of_the_divergence": 0.003374759122341149,
+      "the_invariant_diverges_like_one_over_epsilon": true,
+      "the_defect_stays_zero": true,
+      "W_of_a_connected_antipodal_throat": -0.06000000000000001,
+      "minus_beta": -0.06,
+      "the_identity_survives_the_endpoint": true,
+      "the_lesson": "at the marginal endpoint the signal is unbounded and the discriminator is exactly zero \u2014 size is not evidence",
+      "pass": true
+    },
+    {
+      "name": "T13_assessment",
+      "n_passed": 12,
+      "n_total": 12,
+      "pass": true
+    }
+  ],
+  "verdict_class": "STATIC_THROAT_TOMOGRAPHY_MEASURES_THE_MOUTH_MIXING",
+  "verdict": "THIS IS STATIC TWO-SOURCE THROAT TOMOGRAPHY, AND ITS DISCONNECTION DEFECT IS MINUS THE MOUTH-MIXING AMPLITUDE. FIRST, WHAT IT IS NOT: not the roadmap's two-wave collision invariant. The object is a STATIC source-interaction kernel at a fixed spectral parameter, it carries NO local null momenta, and it therefore cannot distinguish equal-energy collinear from counterpropagating waves -- the load-bearing control behind I_A I_B (k_A.k_B)^2. The index (i,j) labels MOUTH CHANNELS, not the geodesic/winding branches of PRs #253-#255. The dynamical object built from T_A^{mu nu} T^B_{mu nu} is still owed and is the next PR; the roadmap entry stays open. WHAT IS BUILT: PR #253 ended rank counting by naming what it could not give, something that VANISHES when a source is removed rather than becoming underdetermined. Superposition makes every linear functional additive, so the object has to be quadratic, and its cross term is the throat's Green function between the two source points. Computed the honest way -- the quadratic functional carries its own self-energy terms and the cross term is Q[a,b] - Q[a,0] - Q[0,b] from three separate evaluations, matching a*b*C to 2.8e-17; removing a source is evaluating the same functional at b = 0, not multiplying the answer by zero. THE THROAT CHANNEL IS RANK TWO AT ANY SOURCE COUNT: rank 2 against a direct table of rank 12 at 12 sources, because the table is V^T S V with V of shape 2 x N. Off the chart rank R = rank B, but static sources see only Re R, whose rank is two even for a COMPLEX rank-one boundary condition and one for a real one. TWO THINGS THAT LOOK LIKE THE SIGNATURE AND ARE NOT. The cross term being nonzero is interference. And ANISOTROPY -- the interaction depending on more than the geodesic separation, which the free field on this background cannot do at all (8.3e-17) -- is real at 0.66 of the mean, and two DISCONNECTED scatterers give 0.69. It detects structure at the mouths, not a connection between them, and the off-diagonal response block is the same trap one level down: Gamma fills it for diagonal boundary data too, so it is a CROSS-MOUTH channel and not 'through the throat'. WHAT DOES DISCRIMINATE IS A PARAMETER COUNT. The static invariant determines three numbers, the entries of S = Re R; two independent scatterers have two knobs, so their image is a SURFACE with the exact equation S12 = G0 det S, satisfied to 1.4e-16 on 200 draws. The defect W = S12/det S - G0 is its defining function, and on real beta it EQUALS THE COUPLING: W = -beta to 5.0e-16, independent of the self-energies, the separation and the Loewner margin -- driven from margin 0.4 to 0.004 the invariant grows 3.8x while W drifts 2.1e-17, which answers PR #255's caution that a resummed field measures the pole instead of the source. STATED EXACTLY, and this is the claim the round proves: W DETECTS OFF-DIAGONAL MOUTH-BOUNDARY MIXING RELATIVE TO THE DIAGONAL TWO-SCATTERER NULL MODEL, inside this point-interaction model -- not topology, not a traversable interior. AND IT IS A PROTOCOL: an observer who measures interaction energies and knows the background and the mouth positions, but not the boundary data, recovers S by least squares and gets W to 1.1e-16 at 24 placements. THE BLIND FAMILY, AND THE TWO THINGS THAT REMOVE IT. For complex beta, W = -Re beta - (G_d - Re beta)(Im beta)^2/P vanishes away from beta = 0 on two branches. PR #257's gate removes one, Re beta > G_d, where det(A - Gamma) < 0. REALITY OF THE FIELD REMOVES THE REST: PR #254 solves a REAL scalar, a real solution needs the self-adjoint domain conjugation-invariant, and that is exactly A = A*, hence beta real -- measured rather than argued, since with complex beta a real unit static source produces a field with Im = 3.85e-04. Every blind point needs Im beta != 0, so the family belongs to a deliberately time-reversal-breaking COMPLEX-scalar extension and not to the arc's field. Its stable couplings are COMPARABLE TO AND SMALLER THAN the self-energies (largest 0.254 at margin 0.034); an earlier draft said larger, which is false. AND EVEN INSIDE THAT EXTENSION THE LIMITATION IS THE PROTOCOL, NOT THE OPERATOR: real static sources see only Re R, three numbers for four parameters, while PHASE-SENSITIVE COMPLEX SOURCES see both quadratures and give the full complex R, whence A = Gamma + R^-1 at ONE spectral parameter, reconstructed to 3.9e-15. The real-static-source reconstruction needs two spectral parameters -- both POSITIVE and below the free ground state, since lambda = omega^2 makes a negative lambda an imaginary frequency rather than a second driving frequency -- and returns the boundary matrix to 1.1e-16, blind family included, using several starts because a single start does land in a local minimum and the reported residual is what catches it. FINALLY, THE ANTIPODAL ENDPOINT ON ITS OWN, because PR #257 showed it is a different statement rather than a limit: at d = pi the static response is singular as A -> 0 and the invariant DIVERGES like 1/eps (residue 0.00337, flat across four decades) while W stays exactly zero throughout. The loudest available two-source signal carries no information about whether the mouths are connected -- size is not evidence. WHAT IS STILL PUT IN: the background, the mouth positions, and the boundary data itself, four real numbers chosen and not derived, with PR #249 still the thing that would fix them from matter. Everything is STATIC-SOURCE, so this is an interaction-energy statement and not a scattering one. The throat is point-supported -- no interior, no proper length, no delay. No backreaction, no stress tensor, no topology change, no rate, AND NOT THE TWO-WAVE INVARIANT: what this round hands the next one is a measured non-locality, W = -beta, and a stated reason the dynamical object still has to be built.",
+  "generated_utc": "2026-08-16T00:21:52.247904+00:00"
+}

@@ -2451,6 +2451,89 @@ python scripts/geometrodynamics_v57_throat_positivity.py --still v57.png
 
 Full write-up: `docs/throat_positivity.md`.
 
+## Static two-source throat tomography
+
+**Not the roadmap's two-wave invariant** — that step stays open. The object here
+is a *static* source-interaction kernel at a fixed spectral parameter: it carries
+no local null momenta, so it cannot distinguish equal-energy collinear from
+counterpropagating waves, which was the whole control behind
+`𝒞 = I_A I_B (k_A·k_B)²`. The index `(i,j)` labels **mouth channels**, not the
+geodesic/winding branches of #253–#255. What it *is* is an exact static inverse
+result.
+
+PR #253 ended rank counting by naming what it could not supply: a quantity that
+**vanishes** when a source is removed rather than merely becoming
+underdetermined. Superposition makes every linear functional additive, so the
+object has to be quadratic, and its cross term is
+
+```
+𝒞(y_A, y_B) = G(y_A,y_B) + Re Σ_ij G(y_A,c_i) R_ij G(c_j,y_B) ,  R = (A − Γ(λ))⁻¹
+```
+
+Computed from a functional that carries its own self-energy terms:
+`Q[a,b] − Q[a,0] − Q[0,b]` matches `ab·𝒞` to `2.8e-17`, and removing a source
+means evaluating the same functional at `b = 0` — not multiplying by zero.
+
+**The throat channel is rank two at any source count** — `Vᵀ S V` with `V` of
+shape `2 × N`, rank **2** against a direct table of rank **12** for 12 sources.
+Off the chart `rank R = rank B`, but static sources see only `Re R`, whose rank
+is two even for a *complex* rank-one boundary condition and one for a real one.
+
+**Three things that look like the signature and are not.** The cross term being
+nonzero is interference. **Anisotropy** — the interaction depending on more than
+the geodesic separation, which no free field here can do (`8e-17`) — is real at
+`66%` of the mean, and two **disconnected** scatterers give `69%`. And the
+**off-diagonal response block** is nonzero for `β = 0` too, because `Γ` couples
+the mouths through the ambient field: it is a *cross-mouth* channel, not
+"through the throat".
+
+**What discriminates is a parameter count.** The static invariant determines
+three numbers, the entries of `S = Re R`; two independent scatterers have two
+knobs, so their image is a surface with the exact equation `S₁₂ = G₀ det S`
+(`1.4e-16` on 200 draws). The **disconnection defect** `𝒲 = S₁₂/det S − G₀` is
+zero on it, and on real `β` equals **`−β`** to `5.0e-16` — independent of the
+self-energies, the separation, and the **Löwner margin**: driven from margin
+`0.4` to `0.004` the invariant grows `3.8×` and `𝒲` drifts `2e-17`, which
+answers #255's caution that a resummed field measures the pole rather than the
+source. Stated exactly, `𝒲` detects **off-diagonal mouth-boundary mixing
+relative to the diagonal two-scatterer null model** — not topology, not an
+interior.
+
+**And it is a protocol.** An observer who measures interaction energies and knows
+the background and the mouth positions, but is not told the boundary data,
+recovers `S` by least squares and gets `𝒲` to `1.1e-16` from 24 placements.
+
+**Which field is being solved decides the blind spot.** `𝒲 = 0` off `β = 0`
+needs complex `β` — and a **real** scalar (what #254 solves) requires the
+self-adjoint domain to be conjugation-invariant, `A = A*`, hence `β` real.
+Measured: with complex `β` a real unit static source produces a field with
+`Im = −2.4e-3`. So for the arc's field content **there is no blind family**;
+it belongs to a deliberately time-reversal-breaking complex extension. Inside
+that extension #257's gate removes the `Re β > G_d` branch, the surviving
+couplings are *smaller* than their own self-energies (`0.215–0.254` against
+`0.25–0.40`), and even there the limit is the **protocol**: phase-sensitive
+complex sources give the full complex `R` and hence `A = Γ + R⁻¹` at **one**
+spectral parameter (`3.9e-15`). The real-static-source reconstruction needs two
+spectral parameters — both positive and below `λ = 1`, since `λ = ω²` makes a
+negative `λ` an imaginary frequency — and returns `A` to `1.1e-16`.
+
+**The antipodal endpoint, on its own.** At `d = π`, `Γ(0)` is negative
+semidefinite, so the static response is singular as `A → 0` and the invariant
+**diverges** like `1/ε` — while `𝒲` stays exactly zero through four decades.
+**Size is not evidence.**
+
+Everything is evaluated at `A = (0.30, 0.35, β = 0.06)` with `d = 1.3` —
+strictly inside #257's cone, Löwner margin `0.323`.
+
+```bash
+python -m experiments.closure_ledger.two_source_probe
+# Verdict: STATIC_THROAT_TOMOGRAPHY_MEASURES_THE_MOUTH_MIXING  (12/12)
+
+python scripts/geometrodynamics_v58_two_source.py --still v58.png
+```
+
+Full write-up: `docs/static_throat_tomography.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
