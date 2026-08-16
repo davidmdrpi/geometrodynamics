@@ -1,0 +1,461 @@
+{
+  "probe": "two_wave",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "build the time-dependent two-wave invariant on the stable point-throat background and measure it against the known WKB collinear/head-on result -- not to re-derive that identity, but to quantify how the exact multipath throat-coupled field differs from it.",
+      "scope": "a linear conformally coupled scalar on a fixed Einstein static universe. The throat is point-supported and taken strictly inside PR #257's cone with its Loewner margin quoted. No backreaction: the stress tensor is computed from the field and never fed back. No topology change, no rate, and the boundary data is chosen rather than derived.",
+      "pass": true
+    },
+    {
+      "name": "T2_the_solver_is_the_image_sum",
+      "chi": 1.7,
+      "rows": [
+        {
+          "t": 1.702880859375,
+          "solver": 0.5329462897831055,
+          "image_sum": 0.5329462897831053,
+          "difference": 2.220446049250313e-16,
+          "maslov_sign": 1
+        },
+        {
+          "t": 4.5867919921875,
+          "solver": -0.5325978549357266,
+          "image_sum": -0.5325978549357264,
+          "difference": -2.220446049250313e-16,
+          "maslov_sign": -1
+        },
+        {
+          "t": 7.9833984375,
+          "solver": 0.533557598354358,
+          "image_sum": 0.5335575983543577,
+          "difference": 3.3306690738754696e-16,
+          "maslov_sign": 1
+        },
+        {
+          "t": 10.8673095703125,
+          "solver": -0.533495634147224,
+          "image_sum": -0.533495634147224,
+          "difference": 0.0,
+          "maslov_sign": -1
+        }
+      ],
+      "worst_difference": 3.3306690738754696e-16,
+      "peak_scale": 0.5335575983543577,
+      "the_two_constructions_agree": true,
+      "the_signs_alternate": true,
+      "what_this_licenses": "the frequency-domain solve, on which every stress tensor below is built",
+      "pass": true
+    },
+    {
+      "name": "T3_the_wave_equation_holds",
+      "free": {
+        "worst_residual": 4.263256414560601e-14,
+        "scale": 41.93583307475328,
+        "relative": 1.016614217955579e-15
+      },
+      "with_throat": {
+        "worst_residual": 4.263256414560601e-14,
+        "scale": 41.943312102489934,
+        "relative": 1.0164329426687112e-15
+      },
+      "loewner_margin": 0.3227753628463788,
+      "the_equation_holds": true,
+      "nothing_is_differenced": true,
+      "pass": true
+    },
+    {
+      "name": "T4_the_stress_tensor_is_traceless",
+      "rows": [
+        {
+          "throat": false,
+          "T00": 1.6502701453007769,
+          "trace": -3.0808688933348094e-15,
+          "relative": 1.8668876135872246e-15
+        },
+        {
+          "throat": true,
+          "T00": 1.65027022080712,
+          "trace": -2.831068712794149e-15,
+          "relative": 1.7155182691289915e-15
+        }
+      ],
+      "worst_relative_trace": 1.8668876135872246e-15,
+      "the_tensor_is_traceless": true,
+      "why_it_is_not_vacuous": "\u25a1\u03c6 is taken from the solve, not substituted on shell; the trace then equals \u03c6(\u25a1\u03c6 \u2212 \u03c6)",
+      "pass": true
+    },
+    {
+      "name": "T5_the_wkb_limit_is_recovered",
+      "rows": [
+        {
+          "carrier": 6.0,
+          "collinear": 0.00019944054081815429,
+          "collinear_wkb": 1.9721522630525295e-31,
+          "collinear_dot": 1.0000000000000004,
+          "head_on": 3.9529126460427513,
+          "head_on_wkb": 4.0,
+          "head_on_dot": -1.0000000000000002
+        },
+        {
+          "carrier": 8.0,
+          "collinear": 0.00011264923867022898,
+          "collinear_wkb": 1.9721522630525295e-31,
+          "collinear_dot": 1.0000000000000004,
+          "head_on": 3.962517530307334,
+          "head_on_wkb": 4.0,
+          "head_on_dot": -1.0000000000000002,
+          "collinear_slope": -1.9856546413750953
+        },
+        {
+          "carrier": 12.0,
+          "collinear": 2.859559810881949e-05,
+          "collinear_wkb": 1.9721522630525295e-31,
+          "collinear_dot": 1.0000000000000004,
+          "head_on": 3.981711099967332,
+          "head_on_wkb": 4.0,
+          "head_on_dot": -1.0000000000000002,
+          "collinear_slope": -3.3813664539145116
+        },
+        {
+          "carrier": 16.0,
+          "collinear": 5.626246419577855e-06,
+          "collinear_wkb": 1.9721522630525295e-31,
+          "collinear_dot": 1.0000000000000004,
+          "head_on": 3.990831532327251,
+          "head_on_wkb": 4.0,
+          "head_on_dot": -1.0000000000000002,
+          "collinear_slope": -5.651413279243656
+        },
+        {
+          "carrier": 24.0,
+          "collinear": 1.9047969528943696e-07,
+          "collinear_wkb": 1.9721522630525295e-31,
+          "collinear_dot": 1.0000000000000004,
+          "head_on": 3.998171331220898,
+          "head_on_wkb": 4.0,
+          "head_on_dot": -1.0000000000000002,
+          "collinear_slope": -8.350045708117557
+        },
+        {
+          "carrier": 32.0,
+          "collinear": 1.3823910057296925e-08,
+          "collinear_wkb": 1.9721522630525295e-31,
+          "collinear_dot": 1.0000000000000004,
+          "head_on": 3.9995595887989617,
+          "head_on_wkb": 4.0,
+          "head_on_dot": -1.0000000000000002,
+          "collinear_slope": -9.118211205704965
+        },
+        {
+          "carrier": 48.0,
+          "collinear": 1.788956139190403e-10,
+          "collinear_wkb": 1.9721522630525295e-31,
+          "collinear_dot": 1.0000000000000004,
+          "head_on": 3.999949717162264,
+          "head_on_wkb": 4.0,
+          "head_on_dot": -1.0000000000000002,
+          "collinear_slope": -10.721890551231088
+        }
+      ],
+      "width": 0.1,
+      "head_on_at_the_largest_carrier": 3.999949717162264,
+      "head_on_target": 4.0,
+      "head_on_error": 5.028283773578224e-05,
+      "collinear_at_the_largest_carrier": 1.788956139190403e-10,
+      "the_directions_are_exactly_parallel": true,
+      "the_directions_are_exactly_antiparallel": true,
+      "head_on_converges_to_four": true,
+      "collinear_converges_to_zero": true,
+      "the_collinear_exponent_steepens": true,
+      "under_resolved_contour_value": -0.0006733576518502773,
+      "converged_value_there": 1.3823910057296925e-08,
+      "the_contour_needs_eps_above_the_spacing": true,
+      "pass": true
+    },
+    {
+      "name": "T6_multipath_destroys_the_collinear_null",
+      "carrier": 24.0,
+      "observer_reach": 0.8,
+      "loewner_margin": 0.3227753628463788,
+      "rows": [
+        {
+          "branch_pair": "A direct + B direct",
+          "invariant": 1.9047969528943696e-07,
+          "geometric_prediction": 1.9721522630525295e-31,
+          "energy_product": 16.527421477791208
+        },
+        {
+          "branch_pair": "A long-way image + B direct",
+          "invariant": 3.9980557423742553,
+          "geometric_prediction": 4.000000000000002,
+          "energy_product": 16.885781569455524
+        },
+        {
+          "branch_pair": "A direct + B through the throat",
+          "invariant": 0.5650103424105009,
+          "geometric_prediction": 0.5636692518549847,
+          "energy_product": 0.01249550516727076
+        }
+      ],
+      "throat_delay": 3.0008744394780065,
+      "throat_exit_mouth": 2,
+      "collinear_floor": 1.9047969528943696e-07,
+      "long_way_value": 3.9980557423742553,
+      "through_the_throat_value": 0.5650103424105009,
+      "through_the_throat_prediction": 0.5636692518549847,
+      "throat_relative_error": 0.002379215384026562,
+      "free_control_energy_product": 4.1488984249385844e-29,
+      "throat_energy_product": 0.01249550516727076,
+      "the_control_has_no_second_arrival": true,
+      "the_direct_pair_is_null": true,
+      "the_winding_image_reads_head_on": true,
+      "the_throat_matches_its_geometry": true,
+      "the_lesson": "the two-wave invariant is branch-resolved: the same sources at the same event give 0, 4 or the mouth's angle depending on which branch arrived",
+      "pass": true
+    },
+    {
+      "name": "T7_the_arrivals_are_the_branch_ledger",
+      "free_arrivals": [
+        2.4000000000000004,
+        3.883185307179586,
+        8.683185307179587
+      ],
+      "two_leg_times": [
+        2.844513446518535,
+        2.978220969934906,
+        3.0805155488920137,
+        3.2142230723083847
+      ],
+      "rows": [
+        {
+          "branch": "free",
+          "predicted_t": 2.4000000000000004,
+          "found_t": 2.398681640625,
+          "offset": -0.0013183593750003553,
+          "value": 0.7831454563771683
+        },
+        {
+          "branch": "free",
+          "predicted_t": 3.883185307179586,
+          "found_t": 3.8818359375,
+          "offset": -0.0013493696795858767,
+          "value": -0.7831364581864914
+        },
+        {
+          "branch": "free",
+          "predicted_t": 8.683185307179587,
+          "found_t": 8.68377685546875,
+          "offset": 0.0005915482891634127,
+          "value": 0.7832964594262111
+        }
+      ],
+      "worst_free_offset": 0.0013493696795858767,
+      "free_signs": [
+        1,
+        -1,
+        1
+      ],
+      "the_free_signs_alternate": true,
+      "the_free_arrivals_are_sharp": true,
+      "throat_onset_measured": 2.8839111328125,
+      "throat_onset_predicted": 2.844513446518535,
+      "onset_offset": 0.039397686293964895,
+      "the_throat_onset_is_causal": true,
+      "the_throat_arrivals_are_new": true,
+      "why_onsets_and_not_peaks": "R(\u03c9) has poles, so a throat arrival rings up rather than pulsing; the onset is the sharp part",
+      "pass": true
+    },
+    {
+      "name": "T8_the_only_tail_is_the_throats",
+      "free": {
+        "peak": 0.11777526431491096,
+        "between_arrivals": 1.6600744879595886e-09,
+        "ratio": 1.4095272870887665e-08
+      },
+      "with_throat": {
+        "peak": 0.1177752641019898,
+        "between_arrivals": 0.009521930459382176,
+        "ratio": 0.08084830487950742
+      },
+      "free_ratio": 1.4095272870887665e-08,
+      "throat_ratio": 0.08084830487950742,
+      "amplification": 5735845.316374916,
+      "the_free_field_has_no_tail": true,
+      "the_throat_has_one": true,
+      "why": "S\u00b3 \u00d7 R is conformally flat, so the conformal scalar obeys Huygens exactly; R(\u03c9) has poles, so the mouths ring",
+      "pass": true
+    },
+    {
+      "name": "T9_the_caustic_is_where_wkb_stops",
+      "rows": [
+        {
+          "carrier": 8.5,
+          "omega_times_e": 2.0,
+          "e": 0.23529411764705882,
+          "exact": 0.310384324969262,
+          "wkb": 0.3413452142417256,
+          "ratio": 0.9092974268256814
+        },
+        {
+          "carrier": 8.5,
+          "omega_times_e": 1.0,
+          "e": 0.11764705882352941,
+          "exact": 0.5704932397400111,
+          "wkb": 0.6779713739865336,
+          "ratio": 0.8414709848078964
+        },
+        {
+          "carrier": 8.5,
+          "omega_times_e": 0.5,
+          "e": 0.058823529411764705,
+          "exact": 0.6489492117534983,
+          "wkb": 1.3535975026337674,
+          "ratio": 0.47942553860420317
+        },
+        {
+          "carrier": 8.5,
+          "omega_times_e": 0.0,
+          "e": 0.0,
+          "exact": 0.6764085081405552,
+          "wkb": Infinity,
+          "ratio": 0.0
+        },
+        {
+          "carrier": 16.5,
+          "omega_times_e": 2.0,
+          "e": 0.12121212121212122,
+          "exact": 0.598430937900737,
+          "wkb": 0.6581245258659013,
+          "ratio": 0.9092974268256834
+        },
+        {
+          "carrier": 16.5,
+          "omega_times_e": 1.0,
+          "e": 0.06060606060606061,
+          "exact": 1.105551875427247,
+          "wkb": 1.313832437941563,
+          "ratio": 0.841470984807897
+        },
+        {
+          "carrier": 16.5,
+          "omega_times_e": 0.5,
+          "e": 0.030303030303030304,
+          "exact": 1.2591912860177679,
+          "wkb": 2.6264585104994005,
+          "ratio": 0.479425538604203
+        },
+        {
+          "carrier": 16.5,
+          "omega_times_e": 0.0,
+          "e": 0.0,
+          "exact": 1.3130282805081366,
+          "wkb": Infinity,
+          "ratio": 0.0
+        },
+        {
+          "carrier": 32.5,
+          "omega_times_e": 2.0,
+          "e": 0.06153846153846154,
+          "exact": 1.176585816953579,
+          "wkb": 1.29395045256092,
+          "ratio": 0.9092974268256879
+        },
+        {
+          "carrier": 32.5,
+          "omega_times_e": 1.0,
+          "e": 0.03076923076923077,
+          "exact": 2.17661276737318,
+          "wkb": 2.586675959920456,
+          "ratio": 0.8414709848078976
+        },
+        {
+          "carrier": 32.5,
+          "omega_times_e": 0.5,
+          "e": 0.015384615384615385,
+          "exact": 2.4799435171728907,
+          "wkb": 5.172739700919948,
+          "ratio": 0.47942553860420317
+        },
+        {
+          "carrier": 32.5,
+          "omega_times_e": 0.0,
+          "e": 0.0,
+          "exact": 2.5862678252432993,
+          "wkb": Infinity,
+          "ratio": 0.0
+        }
+      ],
+      "saturation_amplitudes": [
+        0.6764085081405552,
+        1.3130282805081366,
+        2.5862678252432993
+      ],
+      "carrier_ratios": [
+        1.9411764705882353,
+        1.9696969696969697
+      ],
+      "saturation_ratios": [
+        1.9411764705882353,
+        1.9696969696969697
+      ],
+      "worst_collapse_spread": 6.5503158452884236e-15,
+      "the_saturation_is_linear_in_omega": true,
+      "the_ratio_collapses_in_omega_times_e": true,
+      "the_caustic_scale": "e* ~ 1/\u03c9",
+      "what_wkb_gets_wrong": "a divergence where the exact amplitude is finite and proportional to \u03c9",
+      "pass": true
+    },
+    {
+      "name": "T10_the_low_frequency_limit_recovers_the_tomography",
+      "n_observations": 12,
+      "rows": [
+        {
+          "raw_eps_0p08": 0.05643124754572103,
+          "raw_eps_0p04": 0.056802518313849366,
+          "richardson": 0.05692627523655882,
+          "exact": 0.056927294469651106,
+          "error": -1.0192330922864645e-06
+        },
+        {
+          "raw_eps_0p08": 0.05982841229204073,
+          "raw_eps_0p04": 0.060185254556434496,
+          "richardson": 0.06030420197789909,
+          "exact": 0.06030515410421279,
+          "error": -9.521263137010627e-07
+        },
+        {
+          "raw_eps_0p08": 0.03952060830291642,
+          "raw_eps_0p04": 0.03984702763099433,
+          "richardson": 0.03995583407368697,
+          "exact": 0.03995679172602308,
+          "error": -9.576523361115585e-07
+        },
+        {
+          "raw_eps_0p08": 0.046618857435967116,
+          "raw_eps_0p04": 0.04696719953949963,
+          "richardson": 0.047083313574010466,
+          "exact": 0.04708430476132262,
+          "error": -9.911873121576376e-07
+        }
+      ],
+      "worst_kernel_error": 1.5418524001234446e-06,
+      "worst_response_error": 0.0002766749425355819,
+      "W_from_the_time_dependent_solve": -0.06001001359328076,
+      "minus_beta": -0.06,
+      "W_error": 1.0013593280761013e-05,
+      "the_bridge_closes": true,
+      "what_it_checks": "the DC content of the contour integral, the least-squares recovery, and PR #258's defect, end to end",
+      "pass": true
+    },
+    {
+      "name": "T11_assessment",
+      "n_passed": 10,
+      "n_total": 10,
+      "pass": true
+    }
+  ],
+  "verdict_class": "THE_TWO_WAVE_INVARIANT_IS_BRANCH_RESOLVED",
+  "verdict": "THE EXACT TWO-WAVE INVARIANT IS BRANCH-RESOLVED, AND THAT IS WHERE IT DEPARTS FROM WKB. The known limit is not re-derived here; it is used as the control. Two sources and an observer on one great circle give arriving directions that are exactly parallel or exactly antiparallel -- to 1e-12, by construction rather than by fitting -- so WKB's N = (1 - cos theta)^2 predicts 0 and 4, and the exact field returns 3.999950 head-on (error 5.0e-05) and 1.8e-10 collinear. THE COLLINEAR NULL IS STRONGER THAN LEADING ORDER: on this geometry the two wavefronts share their normal exactly, so amplitude gradients cannot tilt either k, the residue falls faster than any fixed power, and the measured exponent steepens with omega. *** AND THAT IS WHAT MAKES THE MULTIPATH RESULT LARGE. *** Holding the sources and the observation point fixed and changing only WHICH BRANCH has arrived, the same pair gives 1.9e-07 on the direct branches, 3.9981 when A arrives on its LONG-WAY WINDING IMAGE -- that branch runs the other way round the sphere, so its arrival direction is reversed and a collinear pair reads head-on -- and 0.5650 when B arrives THROUGH THE THROAT, against 0.5637 predicted from the mouth's position alone, a 0.24% agreement with a number that was never fitted. The free-propagation control at the same instant has no second arrival at all -- energy product 4.1e-29 against 1.2e-02 -- so the throat is CREATING the second arrival, not merely bending one. THE CONCLUSION: the collinear null is not spoiled by curvature corrections, which are 1e-7 here; it is spoiled by MULTIPATH, at O(1). The invariant has to carry the branch index PR #255 named, and a single-branch WKB formula is not merely approximate on this background -- it is answering a different question. THE SOLVER EARNS THAT. Its free part reproduces PR #254's closed-form winding-image sum to 3.3e-16 including the alternating Maslov signs, two constructions sharing no code; the solved field satisfies the conformal wave equation to 4e-16 relative with and without the throat, with nothing finite-differenced; and the improved stress tensor is traceless to 1.9e-15 -- which is a real test because box phi is taken from the solve rather than substituted on shell, so the trace equals phi(box phi - phi) instead of vanishing algebraically. Convergence is measured too: with the contour offset at the frequency spacing the collinear value comes out -6.7e-04 instead of 1.4e-08, four orders wrong, so eps must sit well above 2pi/span. THE OTHER CORRECTIONS, QUANTIFIED. Arrivals: the free ones land at chi, 2pi-chi, 2pi+chi to 1.3e-03 with signs + - +, and the throat adds two-leg arrivals the free ledger does not contain, checked at the causal onset because R(w) has poles and a throat arrival rings up rather than pulsing. TAIL: S3 x R is conformally flat, so the conformal scalar obeys Huygens exactly -- between geometric arrivals the free field is 1.4e-08 of its peak against 8.1e-02 with the throat, a factor of 5.7e+06. Every bit of tail in this model is the throat's. CAUSTIC: geometric optics gives 1/(4 pi sin chi), divergent at the antipode, where the exact kernel is finite and LINEAR in omega; in between the exact/WKB ratio is |sin(omega e)|, a function of omega*e alone, identical across carriers to 6.6e-15, so the caustic is cut off at e* ~ 1/omega. AND THE ROUND CLOSES BACK ON PR #258: the DC content of the solved time series is exactly the static kernel that round did its tomography on, and running that protocol on numbers from the dynamic solver returns W = -0.060010 against -beta = -0.06, error 1.0e-05, through the whole contour integral with the O(eps^2) contour bias Richardson-extrapolated and both numbers reported. WHAT IS STILL PUT IN: the background, the mouth positions, and the boundary data -- four real numbers chosen and not derived, with PR #249 still the thing that would fix them from matter. NO BACKREACTION: the stress tensor is computed from the field and never fed back, which is the next step, and it now has a concrete object to feed.",
+  "generated_utc": "2026-08-16T03:41:13.046920+00:00"
+}
