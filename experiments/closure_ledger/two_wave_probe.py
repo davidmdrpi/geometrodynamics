@@ -59,41 +59,79 @@ T6  *** MULTIPATH DESTROYS THE COLLINEAR NULL. *** Same two sources, same
 
         A direct     + B direct              N = 1.9e-07   (WKB 0)
         A long-way   + B direct              N = 3.998     (WKB 4)
-        A direct     + B through the throat  N = 0.5650    (geometry 0.5637)
+        A direct     + B via a mouth         N = 0.5650    (geometry 0.5637)
 
     The winding image propagates the other way round the sphere, so its arrival
-    direction is REVERSED and a collinear pair reads head-on. The throat's leg
-    emerges from a mouth, at an angle set by the mouth's position, and the exact
-    field agrees with that prediction to 0.24% -- a prediction from positions,
-    not a fit. The free-propagation control at the same instant has NO second
-    arrival at all (energy product 4e-29 against 1.2e-02), which is why the
-    comparison is stated as amplitudes and not as a ratio there.
+    direction is REVERSED and a collinear pair reads head-on. The cross-mouth
+    leg emerges from a mouth, at an angle set by that mouth's position, and the
+    exact field agrees with that prediction to 0.24% -- a prediction from
+    positions, not a fit. The free-propagation control at the same instant has
+    NO second arrival at all (energy product 4e-29 against 1.2e-02), which is
+    why the comparison is stated as amplitudes and not as a ratio there. That
+    control says the MOUTHS create the branch; T7's beta = 0 control says their
+    CONNECTION does not.
 
     So the collinear null is not destroyed by curvature corrections, which are
     1e-7 here. It is destroyed by MULTIPATH, at O(1). That is the
     branch-resolved invariant PR #255 said was needed.
 
-T7  THE ARRIVALS ARE THE BRANCH LEDGER. Free arrivals land at chi, 2pi-chi,
+T7  THE CROSS-MOUTH CHANNELS, AUDITED EXPLICITLY -- AND THE beta = 0 CONTROL.
+    All four two-leg paths (i,j) are enumerated rather than minimised over: j is
+    the mouth the source drives, i the mouth the signal leaves from, and the
+    predicted invariant depends ONLY ON i. That gives two distinct predictions,
+    0.651935 and 0.563669, so the test discriminates rather than matching one
+    number; the field picks the right one at both resolvable delays, to 8.1e-04
+    relative.
+
+    And then the control PR #258's review taught this arc to run first: the same
+    measurement with beta = 0, two DISCONNECTED mouths. The invariant does not
+    move -- swept over beta in [0, 0.26], all inside PR #257's cone, N shifts by
+    6.2e-07, a part in 10^6 and FIVE ORDERS BELOW the 0.088 that separates the
+    two exit mouths, while the channel's weight moves by 0.6%.
+
+    So the honest scope is the dynamical version of #258's: THIS OBSERVABLE SEES
+    STRUCTURE AT THE MOUTHS, NOT THE CONNECTION BETWEEN THEM. What sees the
+    connection is still W = -beta, from the low-frequency limit of the same
+    solve (T12). The multipath result stands -- a second arrival direction
+    destroys the collinear null -- but the throat's non-locality is not what
+    supplies it.
+
+T8  T[phi_A + phi_B] AND THE INTERFERENCE TENSOR. T is quadratic, so the
+    two-wave content of the TOTAL stress tensor is the bilinear cross term
+    dT = T[phi_A+phi_B] - T[phi_A] - T[phi_B], obtained from three evaluations
+    of the same functional. It is traceless (1.8e-15) and EXACTLY zero when
+    either source is switched off -- PR #253's missing property, now at tensor
+    level.
+
+    And it disagrees with T_A:T_B completely. Normalised,
+    dT^00/sqrt(T_A^00 T_B^00) reaches its MAXIMUM 2.000 in the COLLINEAR
+    configuration -- two parallel waves add coherently -- which is precisely
+    where T_A:T_B vanishes. Head-on, where the invariant is maximal, the
+    interference energy is 1.044, roughly half. A backreaction estimate driven
+    by C = T_A:T_B would look at the collinear case, see nothing, and be wrong
+    about its own source by the size of the whole effect.
+
+T9  THE ARRIVALS ARE THE BRANCH LEDGER. Free arrivals land at chi, 2pi-chi,
     2pi+chi to 1.3e-03 with signs + - +, out of a solve that never saw the
     ledger. The throat adds arrivals the free ledger does not contain, at the
     two-leg times chi(y,c_j) + chi(c_i,x); checked at the CAUSAL ONSET rather
     than at a peak, because R(w) has poles and a throat arrival rings up instead
     of pulsing.
 
-T8  AND THAT RINGING IS THE ONLY TAIL. S3 x R is conformally flat, so the
+T10 AND THAT RINGING IS THE ONLY TAIL. S3 x R is conformally flat, so the
     conformal scalar obeys Huygens EXACTLY: between geometric arrivals the free
     field is 1.4e-08 of its peak, which is the Gaussian source's own wing. With
     the throat it is 8.1e-02 -- a factor of 5.7e+06. Every bit of tail in this
     model belongs to the throat.
 
-T9  THE CAUSTIC IS WHERE WKB STOPS, WITH A SCALE. Geometric optics gives
+T11 THE CAUSTIC IS WHERE WKB STOPS, WITH A SCALE. Geometric optics gives
     1/(4 pi sin chi), divergent at the antipode; the exact kernel is finite,
     G(pi,w) = w/(4 pi sin pi w), and LINEAR IN w. In between everything depends
     on the single combination w*e with e = pi - chi: the exact/WKB ratio is
     |sin(w e)|, identical across carriers to 6.6e-15. The caustic is cut off at
     e* ~ 1/w.
 
-T10 AND THE LOW-FREQUENCY LIMIT RECOVERS PR #258. int dt phi(t) = phihat(0), so
+T12 AND THE LOW-FREQUENCY LIMIT RECOVERS PR #258. int dt phi(t) = phihat(0), so
     the DC content of the solved time series IS the static kernel #258 did its
     tomography on. Running that protocol on numbers produced by the dynamic
     solver -- least squares for S = Re R, then W = S12/det S - G0 -- returns
@@ -126,6 +164,8 @@ from geometrodynamics.waves.two_wave import (
     measure_the_solved_field_satisfies_the_conformal_wave_equation,
     measure_the_solver_reproduces_the_closed_form_free_field,
     measure_the_wkb_collinear_head_on_result_is_recovered,
+    measure_the_cross_mouth_channels_are_labelled_by_the_exit_mouth,
+    measure_the_interference_tensor_is_largest_where_the_invariant_is_null,
 )
 
 
@@ -187,38 +227,59 @@ def t6_multipath_destroys_the_collinear_null() -> dict:
                          and r["the_control_has_no_second_arrival"])}
 
 
-def t7_the_arrivals_are_the_branch_ledger() -> dict:
+def t7_the_cross_mouth_audit() -> dict:
+    """All four (i,j), and the beta = 0 control that scopes the claim."""
+    r = measure_the_cross_mouth_channels_are_labelled_by_the_exit_mouth()
+    return {"name": "T7_the_cross_mouth_audit", **r,
+            "pass": bool(r["the_prediction_depends_only_on_the_exit_mouth"]
+                         and r["the_field_picks_the_right_one"]
+                         and r["the_invariant_is_beta_independent"]
+                         and r["every_sweep_point_is_inside_the_cone"])}
+
+
+def t8_the_interference_tensor() -> dict:
+    """T[phi_A + phi_B], and where it disagrees with T_A:T_B."""
+    r = measure_the_interference_tensor_is_largest_where_the_invariant_is_null()
+    return {"name": "T8_the_interference_tensor", **r,
+            "pass": bool(r["delta_T_is_traceless"]
+                         and r["delta_T_vanishes_when_a_source_is_removed"]
+                         and r["the_interference_is_maximal_where_the"
+                               "_invariant_is_null"])}
+
+
+def t9_the_arrivals_are_the_branch_ledger() -> dict:
     r = measure_the_arrivals_are_the_branch_ledger_with_maslov_signs()
-    return {"name": "T7_the_arrivals_are_the_branch_ledger", **r,
+    return {"name": "T9_the_arrivals_are_the_branch_ledger", **r,
             "pass": bool(r["the_free_signs_alternate"]
                          and r["the_free_arrivals_are_sharp"]
                          and r["the_throat_onset_is_causal"]
                          and r["the_throat_arrivals_are_new"])}
 
 
-def t8_the_only_tail_is_the_throats() -> dict:
+def t10_the_only_tail_is_the_throats() -> dict:
     r = measure_the_only_tail_is_the_throats()
-    return {"name": "T8_the_only_tail_is_the_throats", **r,
+    return {"name": "T10_the_only_tail_is_the_throats", **r,
             "pass": bool(r["the_free_field_has_no_tail"]
                          and r["the_throat_has_one"])}
 
 
-def t9_the_caustic_is_where_wkb_stops() -> dict:
+def t11_the_caustic_is_where_wkb_stops() -> dict:
     r = measure_the_caustic_is_where_wkb_stops()
-    return {"name": "T9_the_caustic_is_where_wkb_stops", **r,
+    return {"name": "T11_the_caustic_is_where_wkb_stops", **r,
             "pass": bool(r["the_saturation_is_linear_in_omega"]
                          and r["the_ratio_collapses_in_omega_times_e"])}
 
 
-def t10_the_low_frequency_limit_recovers_the_tomography() -> dict:
+def t12_the_low_frequency_limit_recovers_the_tomography() -> dict:
     r = measure_the_low_frequency_limit_recovers_the_tomography()
-    return {"name": "T10_the_low_frequency_limit_recovers_the_tomography", **r,
+    return {"name": "T12_the_low_frequency_limit_recovers_the_tomography",
+            **r,
             "pass": bool(r["the_bridge_closes"])}
 
 
-def t11_assessment(tests: List[dict]) -> dict:
+def t13_assessment(tests: List[dict]) -> dict:
     n = sum(1 for t in tests if t["pass"])
-    return {"name": "T11_assessment", "n_passed": n, "n_total": len(tests),
+    return {"name": "T13_assessment", "n_passed": n, "n_total": len(tests),
             "pass": n == len(tests)}
 
 
@@ -230,12 +291,14 @@ def run_probe() -> dict:
              t4_the_stress_tensor_is_traceless(),
              t5_the_wkb_limit_is_recovered(),
              t6_multipath_destroys_the_collinear_null(),
-             t7_the_arrivals_are_the_branch_ledger(),
-             t8_the_only_tail_is_the_throats(),
-             t9_the_caustic_is_where_wkb_stops(),
-             t10_the_low_frequency_limit_recovers_the_tomography()]
-    tests.append(t11_assessment(tests))
-    t2, t3, t4, t5, t6, t7, t8, t9, t10 = tests[1:10]
+             t7_the_cross_mouth_audit(),
+             t8_the_interference_tensor(),
+             t9_the_arrivals_are_the_branch_ledger(),
+             t10_the_only_tail_is_the_throats(),
+             t11_the_caustic_is_where_wkb_stops(),
+             t12_the_low_frequency_limit_recovers_the_tomography()]
+    tests.append(t13_assessment(tests))
+    t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12 = tests[1:12]
 
     if all(t["pass"] for t in tests):
         verdict_class = "THE_TWO_WAVE_INVARIANT_IS_BRANCH_RESOLVED"
@@ -261,17 +324,50 @@ def run_probe() -> dict:
             "WINDING IMAGE -- that branch runs the other way round the sphere, "
             "so its arrival direction is reversed and a collinear pair reads "
             f"head-on -- and {t6.get('through_the_throat_value', 0):.4f} when B "
-            "arrives THROUGH THE THROAT, against "
+            "arrives VIA A MOUTH, against "
             f"{t6.get('through_the_throat_prediction', 0):.4f} predicted from "
             "the mouth's position alone, a "
             f"{100 * t6.get('throat_relative_error', 0):.2f}% agreement with a "
             "number that was never fitted. The free-propagation control at the "
             "same instant has no second arrival at all -- energy product "
             f"{t6.get('free_control_energy_product', 0):.1e} against "
-            f"{t6.get('throat_energy_product', 0):.1e} -- so the throat is "
-            "CREATING the second arrival, not merely bending one. THE "
-            "CONCLUSION: the collinear null is not spoiled by curvature "
-            "corrections, which are 1e-7 here; it is spoiled by MULTIPATH, at "
+            f"{t6.get('throat_energy_product', 0):.1e} -- so the mouths are "
+            "CREATING the second arrival, not merely bending one. "
+            "AND THE (i,j) AUDIT SCOPES THAT. All four two-leg paths are "
+            "enumerated rather than minimised over -- j the mouth the source "
+            "drives, i the mouth the signal leaves from -- and the predicted "
+            "invariant depends ONLY ON i, giving two distinct predictions "
+            f"{t7.get('distinct_predictions', [0, 0])[0]:.6f} and "
+            f"{t7.get('distinct_predictions', [0, 0])[-1]:.6f}, both matched by "
+            f"the field to {t7.get('worst_relative_error', 0):.1e} relative. "
+            "Then the control PR #258's review taught this arc to run first: "
+            "beta = 0, two DISCONNECTED mouths. The invariant does not move -- "
+            f"swept over beta in [0, 0.26], all inside the cone, N shifts by "
+            f"{t7.get('beta_sweep_spread', 0):.1e}, which is "
+            f"{t7.get('beta_spread_over_the_signal', 0):.1e} of the "
+            f"{t7.get('exit_mouth_separation', 0):.4f} that separates the two "
+            "exit mouths, while the channel's WEIGHT moves by "
+            f"{100 * t7.get('the_weight_moves_instead', 0):.1f}%. So the honest "
+            "scope is the dynamical version of #258's: THIS OBSERVABLE SEES "
+            "STRUCTURE AT THE MOUTHS, NOT THE CONNECTION BETWEEN THEM. What "
+            "sees the connection is W = -beta, from the low-frequency limit of "
+            "the same solve. AND T[phi_A + phi_B] IS A DIFFERENT DIAGNOSTIC "
+            "ENTIRELY. T is quadratic, so the two-wave content of the TOTAL "
+            "stress tensor is the bilinear cross term dT = T[phi_A+phi_B] - "
+            "T[phi_A] - T[phi_B], built from three evaluations of the same "
+            f"functional: traceless to {t8.get('worst_trace', 0):.1e} and "
+            "EXACTLY zero when either source is switched off, which is PR "
+            "#253's missing property at tensor level. Normalised, "
+            "dT^00/sqrt(T_A^00 T_B^00) reaches its MAXIMUM "
+            f"{t8.get('collinear_interference', 0):.3f} in the COLLINEAR "
+            "configuration -- two parallel waves add coherently -- precisely "
+            f"where T_A:T_B vanishes; head-on it is only "
+            f"{t8.get('head_on_interference', 0):.3f}. A backreaction estimate "
+            "driven by C = T_A:T_B would look at the collinear case, see "
+            "nothing, and be wrong about its own source by the size of the "
+            "whole effect. THE CONCLUSION: the collinear null is not spoiled "
+            "by curvature corrections, which are 1e-7 here; it is spoiled by "
+            "MULTIPATH, at "
             "O(1). The invariant has to carry the branch index PR #255 named, "
             "and a single-branch WKB formula is not merely approximate on this "
             "background -- it is answering a different question. THE SOLVER "
@@ -290,26 +386,26 @@ def run_probe() -> dict:
             f"{t5.get('converged_value_there', 0):.1e}, four orders wrong, so "
             "eps must sit well above 2pi/span. THE OTHER CORRECTIONS, "
             "QUANTIFIED. Arrivals: the free ones land at chi, 2pi-chi, 2pi+chi "
-            f"to {t7.get('worst_free_offset', 0):.1e} with signs + - +, and the "
+            f"to {t9.get('worst_free_offset', 0):.1e} with signs + - +, and the "
             "throat adds two-leg arrivals the free ledger does not contain, "
             "checked at the causal onset because R(w) has poles and a throat "
             "arrival rings up rather than pulsing. TAIL: S3 x R is conformally "
             "flat, so the conformal scalar obeys Huygens exactly -- between "
-            f"geometric arrivals the free field is {t8.get('free_ratio', 0):.1e} "
-            f"of its peak against {t8.get('throat_ratio', 0):.1e} with the "
-            f"throat, a factor of {t8.get('amplification', 0):.1e}. Every bit of "
+            f"geometric arrivals the free field is {t10.get('free_ratio', 0):.1e} "
+            f"of its peak against {t10.get('throat_ratio', 0):.1e} with the "
+            f"throat, a factor of {t10.get('amplification', 0):.1e}. Every bit of "
             "tail in this model is the throat's. CAUSTIC: geometric optics gives "
             "1/(4 pi sin chi), divergent at the antipode, where the exact kernel "
             "is finite and LINEAR in omega; in between the exact/WKB ratio is "
             "|sin(omega e)|, a function of omega*e alone, identical across "
-            f"carriers to {t9.get('worst_collapse_spread', 0):.1e}, so the "
+            f"carriers to {t11.get('worst_collapse_spread', 0):.1e}, so the "
             "caustic is cut off at e* ~ 1/omega. AND THE ROUND CLOSES BACK ON "
             "PR #258: the DC content of the solved time series is exactly the "
             "static kernel that round did its tomography on, and running that "
             "protocol on numbers from the dynamic solver returns W = "
-            f"{t10.get('W_from_the_time_dependent_solve', 0):.6f} against "
-            f"-beta = {t10.get('minus_beta', 0):.2f}, error "
-            f"{t10.get('W_error', 0):.1e}, through the whole contour integral "
+            f"{t12.get('W_from_the_time_dependent_solve', 0):.6f} against "
+            f"-beta = {t12.get('minus_beta', 0):.2f}, error "
+            f"{t12.get('W_error', 0):.1e}, through the whole contour integral "
             "with the O(eps^2) contour bias Richardson-extrapolated and both "
             "numbers reported. WHAT IS STILL PUT IN: the background, the mouth "
             "positions, and the boundary data -- four real numbers chosen and "

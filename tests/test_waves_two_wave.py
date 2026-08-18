@@ -23,8 +23,12 @@ from geometrodynamics.waves.two_wave import (
     measure_the_solved_field_satisfies_the_conformal_wave_equation,
     measure_the_solver_reproduces_the_closed_form_free_field,
     measure_the_wkb_collinear_head_on_result_is_recovered,
+    cross_stress_tensor,
+    measure_the_cross_mouth_channels_are_labelled_by_the_exit_mouth,
+    measure_the_interference_tensor_is_largest_where_the_invariant_is_null,
     normalized_invariant, orthonormal_frame, radial_frame_data, solve_field,
-    stress_tensor, trace_of, wkb_invariant, working_pair)
+    stress_tensor, superpose, trace_of, two_leg_channels, wkb_invariant,
+    working_pair, zero_like)
 
 
 def _grid() -> RetardedGrid:
@@ -385,3 +389,137 @@ def test_measure_the_low_frequency_limit_recovers_the_tomography():
     r = measure_the_low_frequency_limit_recovers_the_tomography()
     assert r["the_bridge_closes"]
     assert r["W_error"] < 1e-3
+
+
+# ── the (i,j) audit and the β = 0 control ───────────────────────────────────
+def test_the_two_leg_channels_are_labelled_by_the_exit_mouth():
+    """All four ``(i,j)`` paths, and the predicted invariant depending only on
+    the exit mouth ``i``."""
+    obs = circle_point(SOURCE_GAP + OBSERVER_REACH)
+    src = circle_point(SOURCE_GAP)
+    chans = two_leg_channels(obs, src, 1.3)
+    assert len(chans) == 4
+    assert sorted(c["delay"] for c in chans) == [c["delay"] for c in chans]
+    by_exit = {}
+    for c in chans:
+        by_exit.setdefault(c["exit_mouth"], set()).add(
+            round(c["predicted_invariant"], 12))
+    assert set(by_exit) == {1, 2}
+    for vals in by_exit.values():
+        assert len(vals) == 1           # depends only on the exit mouth
+    assert len({next(iter(v)) for v in by_exit.values()}) == 2
+
+
+def test_the_field_picks_the_predicted_exit_mouth():
+    """Two channels with *different* predicted values, both matched."""
+    grid = RetardedGrid(n=1 << 17, span=600.0, eps=0.05)
+    obs = circle_point(SOURCE_GAP + OBSERVER_REACH)
+    a, b = circle_point(0.0), circle_point(SOURCE_GAP)
+    chans = two_leg_channels(obs, b, 1.3)
+    width, carrier, t_star = 0.035, 60.0, 3.0
+    for ch in (chans[0], chans[-1]):
+        setup = TwoWaveSetup(
+            pair=working_pair(), source_a=a, source_b=b, observer=obs,
+            pulse_a=GaussianPulse(carrier=carrier, width=width,
+                                  t0=t_star - geodesic(obs, a)),
+            pulse_b=GaussianPulse(carrier=carrier, width=width,
+                                  t0=t_star - ch["delay"]),
+            grid=grid, with_throat=True)
+        got = normalized_invariant(setup, t_star, 2.0 * width)["invariant"]
+        assert got == pytest.approx(ch["predicted_invariant"], rel=3e-3)
+
+
+def test_disconnected_mouths_give_the_same_invariant():
+    """``β = 0`` is the control PR #258's review taught this arc to run: the
+    invariant is set by the exit mouth, not by whether the mouths are joined."""
+    grid = RetardedGrid(n=1 << 17, span=600.0, eps=0.05)
+    obs = circle_point(SOURCE_GAP + OBSERVER_REACH)
+    a, b = circle_point(0.0), circle_point(SOURCE_GAP)
+    ch = two_leg_channels(obs, b, 1.3)[0]
+    width, carrier, t_star = 0.035, 60.0, 3.0
+    vals = []
+    for beta in (0.0, 0.06, 0.26):
+        setup = TwoWaveSetup(
+            pair=MouthPair(1.3, 0.30, 0.35, beta), source_a=a, source_b=b,
+            observer=obs,
+            pulse_a=GaussianPulse(carrier=carrier, width=width,
+                                  t0=t_star - geodesic(obs, a)),
+            pulse_b=GaussianPulse(carrier=carrier, width=width,
+                                  t0=t_star - ch["delay"]),
+            grid=grid, with_throat=True)
+        vals.append(normalized_invariant(setup, t_star,
+                                         2.0 * width)["invariant"])
+    spread = max(vals) - min(vals)
+    assert spread < 1e-5
+    # …and five orders below what separates the two exit mouths
+    chans = two_leg_channels(obs, b, 1.3)
+    sep = (max(c["predicted_invariant"] for c in chans)
+           - min(c["predicted_invariant"] for c in chans))
+    assert spread < 1e-4 * sep
+
+
+# ── the interference stress tensor ──────────────────────────────────────────
+def test_superposition_is_exact():
+    grid = _grid()
+    obs = circle_point(SOURCE_GAP + OBSERVER_REACH)
+    a, b = circle_point(0.0), circle_point(SOURCE_GAP)
+    pulse = GaussianPulse(carrier=8.0, width=0.12)
+    setup = TwoWaveSetup(pair=working_pair(), source_a=a, source_b=b,
+                         observer=obs, pulse_a=pulse, pulse_b=pulse, grid=grid,
+                         with_throat=True)
+    sa = solve_field(setup, a, pulse)
+    sb = solve_field(setup, b, pulse)
+    tot = superpose(sa, sb)
+    for k in ("phi", "dt", "dtt", "grad", "hess"):
+        assert np.abs(tot[k] - (sa[k] + sb[k])).max() == 0.0
+
+
+def test_the_cross_stress_tensor_is_bilinear_and_traceless():
+    grid = RetardedGrid(n=1 << 16, span=400.0, eps=0.05)
+    obs = circle_point(SOURCE_GAP - OBSERVER_REACH)
+    a, b = circle_point(0.0), circle_point(SOURCE_GAP)
+    t_star = 3.0
+    setup = TwoWaveSetup(
+        pair=working_pair(), source_a=a, source_b=b, observer=obs,
+        pulse_a=GaussianPulse(carrier=24.0, width=0.10,
+                              t0=t_star - geodesic(obs, a)),
+        pulse_b=GaussianPulse(carrier=24.0, width=0.10,
+                              t0=t_star - geodesic(obs, b)),
+        grid=grid, with_throat=False)
+    sa = solve_field(setup, a, setup.pulse_a)
+    sb = solve_field(setup, b, setup.pulse_b)
+    i = int(round(t_star / grid.dt))
+    dt = cross_stress_tensor(sa, sb, i)
+    assert np.abs(dt).max() > 1e-3
+    assert abs(trace_of(dt)) < 1e-12 * np.abs(dt).max()
+    # switching a source off kills it exactly
+    assert np.abs(cross_stress_tensor(sa, zero_like(sb), i)).max() == 0.0
+    assert np.abs(cross_stress_tensor(zero_like(sa), sb, i)).max() == 0.0
+    # and it is the cross term of the same functional
+    total = stress_tensor(superpose(sa, sb), i)
+    assert np.abs(total - stress_tensor(sa, i) - stress_tensor(sb, i)
+                  - dt).max() < 1e-12
+
+
+def test_the_interference_is_maximal_where_the_invariant_is_null():
+    """The collinear configuration nulls ``T_A:T_B`` and *maximises* ``ΔT``."""
+    r = measure_the_interference_tensor_is_largest_where_the_invariant_is_null()
+    assert abs(r["collinear_invariant"]) < 1e-5
+    assert r["collinear_interference"] == pytest.approx(2.0, abs=1e-2)
+    assert r["head_on_invariant"] == pytest.approx(4.0, abs=1e-2)
+    assert r["head_on_interference"] < 0.7 * r["collinear_interference"]
+
+
+def test_measure_the_cross_mouth_channels_are_labelled_by_the_exit_mouth():
+    r = measure_the_cross_mouth_channels_are_labelled_by_the_exit_mouth()
+    assert r["the_prediction_depends_only_on_the_exit_mouth"]
+    assert r["the_field_picks_the_right_one"]
+    assert r["the_invariant_is_beta_independent"]
+    assert r["every_sweep_point_is_inside_the_cone"]
+
+
+def test_measure_the_interference_tensor_is_largest_where_the_invariant_is_null():
+    r = measure_the_interference_tensor_is_largest_where_the_invariant_is_null()
+    assert r["delta_T_is_traceless"]
+    assert r["delta_T_vanishes_when_a_source_is_removed"]
+    assert r["the_interference_is_maximal_where_the_invariant_is_null"]

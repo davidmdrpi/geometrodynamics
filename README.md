@@ -2576,15 +2576,44 @@ observation point fixed, only the branch changes:
 | --- | ---: | ---: |
 | `A` direct + `B` direct | **`1.905e-07`** | `0` |
 | `A` **long-way winding image** + `B` direct | **`3.99806`** | `4` |
-| `A` direct + `B` **through the throat** | **`0.56501`** | `0.56367` |
+| `A` direct + `B` **via a mouth** | **`0.56501`** | `0.56367` |
 
 The winding image runs the other way round the sphere, so its arrival direction
-reverses and a collinear pair reads head-on. The throat's leg emerges from a
-mouth, at an angle predicted from positions alone and matched to **0.24%**. The
-free control at the same instant has *no* second arrival (energy product
-`4e-29` vs `1.2e-02`), so the throat **creates** the branch rather than bending
-one. **The collinear null is not spoiled by curvature corrections — those are
-`1e-7` here — but by multipath, at `O(1)`.**
+reverses and a collinear pair reads head-on. The free control at the same instant
+has *no* second arrival (energy product `4e-29` vs `1.2e-02`), so the mouths
+**create** the branch rather than bending one. **The collinear null is not
+spoiled by curvature corrections — those are `1e-7` here — but by multipath, at
+`O(1)`.**
+
+**The `(i,j)` audit, and the control that scopes it.** Writing `j` for the mouth
+the source drives and `i` for the mouth the signal leaves from, all four two-leg
+paths are enumerated rather than minimised over. The prediction depends on `i`
+alone, so the four carry **two** values (`0.563669`, `0.651935`) and the field
+has to pick, not merely match a number — it does, to `8.1e-04`.
+
+Then the control PR #258's review taught this arc to run first: the same
+channels with **`β = 0`**, the mouths *disconnected*. Swept over `β ∈ [0, 0.26]`,
+all inside #257's cone, `𝒩` moves by `6.2e-07` — `7e-06` of the `0.0883` that
+separates the two exit mouths — while the channel's weight moves `0.6%`. It has
+to: `𝒩` is amplitude-normalized, and a single channel is a single arrival
+direction. **This observable sees structure at the mouths, not the connection
+between them.** The multipath result stands; the throat's *non-locality* is not
+what supplies it. What sees the connection is `𝒲 = −β`, below.
+
+**`ΔT_{μν}` disagrees with `T_A:T_B` completely.** The bilinear cross term
+`ΔT = T[φ_A+φ_B] − T[φ_A] − T[φ_B]`, built from three evaluations of the same
+functional, is traceless to `1.8e-15` and vanishes **exactly** when either
+source is switched off:
+
+| configuration | `T_A:T_B/(T_A⁰⁰T_B⁰⁰)` | `ΔT⁰⁰/√(T_A⁰⁰T_B⁰⁰)` |
+| --- | ---: | ---: |
+| collinear | `1.9e-07` | **`2.000`** |
+| head-on | `3.998` | `1.044` |
+
+The interference energy hits its **maximum possible value, 2** — two parallel
+waves adding coherently — exactly where the invariant is null. **A backreaction
+estimate driven by `𝒞 = T_A:T_B` would look at the collinear case, see nothing,
+and be wrong about its own source by the size of the whole effect.**
 
 **The other corrections, quantified.** Free arrivals land on #253's ledger to
 `1.3e-03` with Maslov signs `+ − +`; the throat adds two-leg arrivals, checked at
@@ -2607,7 +2636,7 @@ back. That is the next step, and it now has a concrete object to feed.
 
 ```bash
 python -m experiments.closure_ledger.two_wave_probe
-# Verdict: THE_TWO_WAVE_INVARIANT_IS_BRANCH_RESOLVED  (10/10)
+# Verdict: THE_TWO_WAVE_INVARIANT_IS_BRANCH_RESOLVED  (12/12)
 
 python scripts/geometrodynamics_v59_two_wave.py --still v59.png
 ```

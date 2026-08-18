@@ -123,7 +123,7 @@ arrived changes.**
 | --- | ---: | ---: |
 | `A` direct + `B` direct | **`1.905e-07`** | `0` |
 | `A` **long-way winding image** + `B` direct | **`3.99806`** | `4` |
-| `A` direct + `B` **through the throat** | **`0.56501`** | `0.56367` |
+| `A` direct + `B` **via a mouth** | **`0.56501`** | `0.56367` |
 
 Three different values of the two-wave invariant for the same pair of sources at
 the same event.
@@ -131,21 +131,116 @@ the same event.
 * the **winding image** propagates the other way round the sphere — its phase is
   `t + χ`, so the front moves toward the source and its arrival direction is
   *reversed*. A collinear pair reads head-on;
-* the **throat** leg emerges from a mouth, so its direction is set by the
+* the **cross-mouth** leg emerges from a mouth, so its direction is set by that
   mouth's position. The exact field agrees with that prediction to **0.24%**,
   and the prediction comes from positions alone — it was never fitted.
 
 The free-propagation control at the same instant is reported with it, because
 there `B` has **no arrival at all**: energy product `4.1e-29` against `1.2e-02`.
-The throat is *creating* the second branch, not bending an existing one, so the
-comparison is stated as amplitudes and not as a ratio there.
+The **mouths** are *creating* the second branch, not bending an existing one, so
+the comparison is stated as amplitudes and not as a ratio there. Whether their
+*connection* has anything to do with it is a separate question, and §5 answers
+it — no.
 
 **So the collinear null is not spoiled by curvature corrections, which are
 `1e-7` here. It is spoiled by multipath, at `O(1)`.** The invariant has to carry
 the branch index PR #255 named; a single-branch WKB formula is not merely
 approximate on this background, it is answering a different question.
 
-## 5. The other corrections, quantified
+## 5. The `(i,j)` audit, and the `β = 0` control
+
+The row above used the shortest of four two-leg paths. Enumerating them properly
+is a stronger test, because the four paths do not all predict the same thing.
+
+Writing `j` for the mouth the source drives and `i` for the mouth the signal
+leaves from, the delay is `χ(y,c_j) + χ(c_i,x)` and **the predicted invariant
+depends only on `i`** — the entry leg contributes a delay and a weight, the exit
+leg sets the direction.
+
+| exit `i` | entry `j` | delay | predicted `𝒩` |
+| :---: | :---: | ---: | ---: |
+| 2 | 2 | `3.0009` | `0.563669` |
+| 2 | 1 | `3.2092` | `0.563669` |
+| 1 | 2 | `3.2369` | `0.651935` |
+| 1 | 1 | `3.4452` | `0.651935` |
+
+Two distinct predictions, so the field has to *pick*, not merely match a number.
+With a short enough pulse the two extreme channels are clean of neighbours
+carrying a *different* exit mouth (neighbours sharing one are harmless — they
+arrive from the same direction):
+
+| channel | predicted | measured | `β = 0` control | relative error |
+| --- | ---: | ---: | ---: | ---: |
+| `out 2, in 2` | `0.563669` | `0.563951` | `0.563951` | `5.0e-04` |
+| `out 1, in 1` | `0.651935` | `0.651408` | `0.651332` | `8.1e-04` |
+
+### And the control changes what the round is allowed to claim
+
+`β = 0` is two **disconnected** mouths, and it gives the same invariant. Not
+approximately — swept across the cone:
+
+| `β` | Löwner margin | `𝒩` | channel weight |
+| ---: | ---: | ---: | ---: |
+| `0.00` | `+0.2958` | `0.56395149` | `1.0000` |
+| `0.06` | `+0.3228` | `0.56395145` | `0.9997` |
+| `0.12` | `+0.2745` | `0.56395135` | `0.9987` |
+| `0.20` | `+0.1967` | `0.56395112` | `0.9964` |
+| `0.26` | `+0.1373` | `0.56395086` | `0.9939` |
+
+`𝒩` moves by `6.2e-07` — a part in `10⁶`, and `7e-06` of the `0.0883` that
+separates the two exit mouths. It has to: `𝒩` is amplitude-normalized, a single
+channel is a single direction, and `β` rescales the channel's weight without
+touching its geometry. The residual is not exactly zero because neighbouring
+channels leak into the window and *their* weights do depend on `β`; that is
+quoted rather than rounded away.
+
+**So this observable sees structure at the mouths, not the connection between
+them** — the dynamical version of §3's lesson about anisotropy, and of PR #258's
+about the off-diagonal block. The multipath result stands: a second arrival
+direction destroys the collinear null. But the throat's *non-locality* is not
+what supplies it. What sees the connection is still `𝒲 = −β`, and §8 recovers it
+from this same solve.
+
+## 6. `T[φ_A + φ_B]` and the interference tensor
+
+`T` is quadratic, so the two-wave content of the **total** stress tensor is its
+bilinear cross term
+
+```
+ΔT_{μν} = T[φ_A + φ_B] − T[φ_A] − T[φ_B]
+```
+
+built from three evaluations of the same functional rather than from a
+hand-derived form — the discipline PR #258's review imposed on the static cross
+term, applied at tensor level.
+
+| | |
+| --- | ---: |
+| trace of `ΔT` | `1.8e-15` |
+| `ΔT` with either source switched off | **`0.0`** exactly |
+| `T[φ_A+φ_B] − T_A − T_B − ΔT` | `< 1e-12` |
+
+That is PR #253's missing property — vanishing when a source is removed rather
+than becoming underdetermined — now carried by a tensor.
+
+### And it disagrees with `T_A:T_B` completely
+
+| configuration | `T_A:T_B / (T_A⁰⁰T_B⁰⁰)` | `ΔT⁰⁰/√(T_A⁰⁰T_B⁰⁰)` |
+| --- | ---: | ---: |
+| **collinear** | `1.9e-07` | **`2.000`** |
+| **head-on** | `3.998` | `1.044` |
+
+The interference energy density reaches its **maximum possible value, 2**, in
+the collinear configuration — two parallel waves add coherently, `(A+B)² − A² −
+B² = 2AB` — which is precisely where the two-wave invariant vanishes. Head-on,
+where the invariant is maximal, the interference is roughly half.
+
+So the two are not interchangeable diagnostics. **A backreaction estimate driven
+by `𝒞 = T_A:T_B` would look at the collinear case, see nothing, and be wrong
+about its own source by the size of the whole effect.** `ΔT` is what
+backreaction integrates; `T_A:T_B` is what the collision invariant measures.
+
+## 7. The other corrections, quantified
 
 ### Arrivals
 
@@ -183,7 +278,7 @@ Measured as a **collapse** — at half-integer carriers the ratio is exactly
 `|sin(ωe)|`, identical across `ω = 8.5, 16.5, 32.5` to **`6.6e-15`**. The
 caustic is cut off at `e* ∼ 1/ω`, and the saturation amplitude is `ω/4π`.
 
-## 6. And the round closes back on PR #258
+## 8. And the round closes back on PR #258
 
 `∫dt φ(t) = φ̂(ω = 0)`, so the DC content of the *solved time series* is exactly
 the static kernel PR #258 did its tomography on. Running that protocol on
@@ -202,7 +297,7 @@ accessible integral is `φ̂(iε)` rather than `φ̂(0)`; `Γ` is **even** in `�
 the bias is `O(ε²)` and two contours Richardson-extrapolate it — both the raw
 and corrected numbers are reported so the correction is visible.
 
-## 7. What this closes, and what it does not
+## 9. What this closes, and what it does not
 
 **Closes:** roadmap step 3, properly. There is now a time-dependent two-wave
 invariant built from improved conformal stress tensors on the stable
@@ -224,7 +319,7 @@ from the same solve.
 * everything is a **linear scalar** on a **fixed** background. No topology
   change, no rate, no gravitational radiation.
 
-## 8. What this changes for the next step
+## 10. What this changes for the next step
 
 The stationary-action and backreaction rounds inherit three things:
 
@@ -235,4 +330,7 @@ The stationary-action and backreaction rounds inherit three things:
   it can be off by the full range `0 → 4` — measured here, not argued;
 * **a scale where geometric optics stops.** `e* ∼ 1/ω` at the caustic, and
   `𝒩` collapsing in `ωe`. Backreaction near the antipodal focus is precisely
-  where a WKB estimate would be worst, and now there is a number for how much.
+  where a WKB estimate would be worst, and now there is a number for how much;
+* **and a warning about which object to integrate.** `ΔT` and `T_A:T_B` are
+  maximally *anti*-correlated between the two configurations tested here. The
+  backreaction source is `ΔT`.

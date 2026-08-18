@@ -100,6 +100,12 @@ __all__ = [
     "measure_the_only_tail_is_the_throats",
     "measure_the_caustic_is_where_wkb_stops",
     "measure_the_low_frequency_limit_recovers_the_tomography",
+    "superpose",
+    "zero_like",
+    "cross_stress_tensor",
+    "two_leg_channels",
+    "measure_the_cross_mouth_channels_are_labelled_by_the_exit_mouth",
+    "measure_the_interference_tensor_is_largest_where_the_invariant_is_null",
 ]
 
 TWO_PI = 2.0 * math.pi
@@ -790,19 +796,25 @@ def measure_multipath_destroys_the_collinear_null() -> Dict[str, object]:
     * ``A`` on its **long-way winding image** — that branch propagates the other
       way round the sphere, so its arrival direction is *reversed* and the same
       pair reads **head-on**, ``𝒩 ≈ 4``;
-    * ``B`` through the **throat** — it emerges from a mouth, at an angle set by
-      the mouth's position, and ``𝒩`` takes the intermediate value that geometry
-      predicts.
+    * ``B`` through the **cross-mouth** channel — it emerges from a mouth, at an
+      angle set by that mouth's position, and ``𝒩`` takes the intermediate value
+      geometry predicts.
 
     So the collinear null is not destroyed by curvature corrections, which are
     ``1e-7`` here; it is destroyed by **multipath**, at ``O(1)``.  That is the
     branch-resolved invariant PR #255 said was needed, and it is exactly what
     PR #258's static kernel could not see.
 
-    The throat row is compared against a *prediction from the mouth positions*,
-    not a fit — and the free-propagation control at the same instant is reported
-    with it, because there ``B`` has no arrival at all and the ratio is then a
-    meaningless ``0/0``.
+    Two scoping notes, both measured elsewhere in this module rather than
+    asserted here.  The mouth row is compared against a *prediction from the
+    mouth positions*, not a fit; the shortest of the four two-leg paths is used,
+    and `measure_the_cross_mouth_channels_are_labelled_by_the_exit_mouth` audits
+    all four explicitly.  And the free-propagation control at the same instant
+    is reported alongside, because there ``B`` has **no arrival at all**, so the
+    ratio would be a meaningless ``0/0`` — the comparison is stated as
+    amplitudes.  That control says the *mouths* create the branch; it does
+    **not** say their *connection* does, and the ``β = 0`` control in the audit
+    shows it does not.
     """
     grid = _fine_grid()
     carrier, width, t_star = 24.0, 0.10, 3.0
@@ -829,7 +841,7 @@ def measure_multipath_destroys_the_collinear_null() -> Dict[str, object]:
             for i, ci in enumerate((c1, c2)) for cj in (c1, c2)]
     delay, mouth_index = min(legs)
     mouth = (c1, c2)[mouth_index]
-    through = row("A direct + B through the throat", t_star - chi_a,
+    through = row("A direct + B via a mouth", t_star - chi_a,
                   t_star - delay, True,
                   (1.0 - arrival_directions(obs, src_a, mouth)) ** 2)
     control = _setup(obs, t_star - chi_a, t_star - delay, carrier, width,
@@ -862,7 +874,11 @@ def measure_multipath_destroys_the_collinear_null() -> Dict[str, object]:
                 err / through["geometric_prediction"] < 1e-2),
             "the_lesson": ("the two-wave invariant is branch-resolved: the "
                            "same sources at the same event give 0, 4 or the "
-                           "mouth's angle depending on which branch arrived")}
+                           "mouth's angle depending on which branch arrived"),
+            "what_the_control_does_not_say": ("that the mouths' CONNECTION "
+                                              "supplies the branch — β = 0 "
+                                              "gives the same invariant; see "
+                                              "the cross-mouth audit")}
 
 
 def measure_the_arrivals_are_the_branch_ledger_with_maslov_signs(
@@ -1105,3 +1121,266 @@ def measure_the_low_frequency_limit_recovers_the_tomography(
             "what_it_checks": ("the DC content of the contour integral, the "
                                "least-squares recovery, and PR #258's defect, "
                                "end to end")}
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# SUPERPOSITION AND THE INTERFERENCE STRESS TENSOR
+# ════════════════════════════════════════════════════════════════════════════
+def superpose(*solutions: Dict[str, np.ndarray]) -> Dict[str, np.ndarray]:
+    """Add solved fields.  The equation is linear, so this is exact.
+
+    Every entry — the field, its time derivatives, its gradient and its Hessian
+    — adds, because each is a linear functional of the same contour integral.
+    """
+    if not solutions:
+        raise ValueError("nothing to superpose")
+    keys = solutions[0].keys()
+    return {k: sum(s[k] for s in solutions) for k in keys}
+
+
+def zero_like(solution: Dict[str, np.ndarray]) -> Dict[str, np.ndarray]:
+    """A switched-off source, as a solution — for removing one honestly."""
+    return {k: np.zeros_like(v) for k, v in solution.items()}
+
+
+def cross_stress_tensor(sol_a: Dict[str, np.ndarray],
+                        sol_b: Dict[str, np.ndarray],
+                        index: int) -> np.ndarray:
+    """``ΔT_{μν} = T[φ_A + φ_B] − T[φ_A] − T[φ_B]`` — the interference tensor.
+
+    ``T`` is quadratic in the field, so ``ΔT`` is its **bilinear** cross term:
+    identically zero when either source is switched off, and traceless whenever
+    the two pieces are.  Computed from three separate evaluations of the same
+    functional rather than from a hand-derived bilinear form, so the bilinearity
+    is a measurement and not an assumption — the same discipline PR #258's
+    review imposed on the static cross term.
+
+    This is the object **backreaction** would actually see: the total source is
+    ``T[φ_A + φ_B]``, and ``ΔT`` is the part of it that exists only because both
+    waves are there.  It is *not* the same diagnostic as ``T_A:T_B``, and
+    `measure_the_interference_tensor_is_largest_where_the_invariant_is_null`
+    measures how differently they behave.
+    """
+    total = stress_tensor(superpose(sol_a, sol_b), index)
+    return total - stress_tensor(sol_a, index) - stress_tensor(sol_b, index)
+
+
+def two_leg_channels(observer: Sequence[float], source: Sequence[float],
+                     separation: float) -> List[Dict[str, object]]:
+    """Every ``(i, j)`` two-leg path, enumerated rather than minimised over.
+
+    ``j`` is the mouth the source drives, ``i`` the mouth the signal leaves
+    from, and the delay is ``χ(y,c_j) + χ(c_i,x)``.  The **predicted invariant
+    depends only on ``i``** — the arrival direction at the observer is set by
+    which mouth the wave emerges from, and the entry leg contributes only a
+    delay and a weight.  Listing all four makes that visible; taking a minimum
+    over them, as a first draft did, hides it.
+    """
+    c1, c2 = mouth_positions(separation)
+    out: List[Dict[str, object]] = []
+    for i, ci in enumerate((c1, c2)):
+        for j, cj in enumerate((c1, c2)):
+            out.append({
+                "exit_mouth": i + 1, "entry_mouth": j + 1,
+                "delay": float(geodesic(source, cj) + geodesic(ci, observer)),
+                "predicted_invariant": float(
+                    (1.0 - arrival_directions(observer, source, ci)) ** 2)})
+    return sorted(out, key=lambda r: r["delay"])
+
+
+def measure_the_cross_mouth_channels_are_labelled_by_the_exit_mouth(
+        carrier: float = 60.0, width: float = 0.035) -> Dict[str, object]:
+    """An explicit ``(i, j)`` audit — and the ``β = 0`` control that scopes it.
+
+    The four two-leg paths carry **two** distinct predicted invariants, one per
+    exit mouth (``0.651935`` and ``0.563669``), so this is a discriminating test
+    rather than a single number: the field has to pick the right one at each
+    delay.  A short pulse is used so the two extreme channels are clean of
+    neighbours with a *different* exit mouth; neighbours sharing an exit mouth
+    are harmless, because they arrive from the same direction.
+
+    And then the control that matters, the one PR #258's review taught this arc
+    to run first: the same measurement with **``β = 0``**, two *disconnected*
+    mouths.  The invariant barely moves at all, and it cannot:
+    ``𝒩`` is amplitude-normalized, a single channel is a single direction, and
+    ``β`` rescales the channel's weight without touching its geometry.  Swept
+    over ``β ∈ [0, 0.26]``, all inside PR #257's cone, ``𝒩`` moves by ``6e-07``
+    — a part in ``10⁶``, and **five orders below** the ``0.088`` that separates
+    the two exit mouths — while the channel's weight moves by ``0.6%``.  It is
+    not exactly zero because the neighbouring channels leak a little into the
+    window, and their weights do depend on ``β``; the residual is quoted rather
+    than rounded away.
+
+    So the honest statement is the dynamical version of #258's: **this
+    observable sees structure at the mouths, not the connection between them.**
+    What sees the connection is still ``𝒲 = −β``, from the low-frequency limit
+    of the same solve.  The multipath result stands — a second arrival direction
+    destroys the collinear null — but the throat's *non-locality* does not
+    supply it.
+    """
+    grid = _fine_grid()
+    obs = circle_point(SOURCE_GAP + OBSERVER_REACH)
+    src_a, src_b = circle_point(0.0), circle_point(SOURCE_GAP)
+    chi_a = geodesic(obs, src_a)
+    t_star = 3.0
+    channels = two_leg_channels(obs, src_b, WORKING_SEPARATION)
+
+    def at(delay: float, pair: MouthPair) -> Dict[str, float]:
+        setup = TwoWaveSetup(
+            pair=pair, source_a=src_a, source_b=src_b, observer=obs,
+            pulse_a=GaussianPulse(carrier=carrier, width=width,
+                                  t0=t_star - chi_a),
+            pulse_b=GaussianPulse(carrier=carrier, width=width,
+                                  t0=t_star - delay),
+            grid=grid, with_throat=True)
+        return normalized_invariant(setup, t_star, 2.0 * width)
+
+    # the two channels whose different-exit neighbours are far enough away
+    resolvable = [channels[0], channels[-1]]
+    a1, a2, _ = WORKING_BOUNDARY
+    connected = MouthPair(WORKING_SEPARATION, a1, a2, 0.06)
+    disconnected = MouthPair(WORKING_SEPARATION, a1, a2, 0.0)
+    rows = []
+    for ch in resolvable:
+        got = at(ch["delay"], connected)
+        ctrl = at(ch["delay"], disconnected)
+        rows.append({**ch,
+                     "measured_invariant": got["invariant"],
+                     "control_beta_zero": ctrl["invariant"],
+                     "relative_error": abs(got["invariant"]
+                                           - ch["predicted_invariant"])
+                     / ch["predicted_invariant"],
+                     "beta_shift": abs(got["invariant"] - ctrl["invariant"]),
+                     "weight": got["energy_product"],
+                     "control_weight": ctrl["energy_product"]})
+
+    sweep = []
+    delay = float(channels[0]["delay"])
+    base = None
+    for beta in (0.0, 0.06, 0.12, 0.20, 0.26):
+        pair = MouthPair(WORKING_SEPARATION, a1, a2, beta)
+        got = at(delay, pair)
+        base = base or got["energy_product"]
+        sweep.append({"beta": float(beta),
+                      "loewner_margin": float(positivity_defect(
+                          pair.boundary_matrix(),
+                          WORKING_SEPARATION)["min_eigenvalue"]),
+                      "invariant": got["invariant"],
+                      "weight_ratio": got["energy_product"] / base})
+    spread = max(abs(r["invariant"] - sweep[0]["invariant"]) for r in sweep)
+    distinct = sorted({round(c["predicted_invariant"], 9) for c in channels})
+    return {"carrier": carrier, "width": width,
+            "channels": channels,
+            "distinct_predictions": distinct,
+            "rows": rows,
+            "beta_sweep": sweep,
+            "worst_relative_error": float(
+                max(r["relative_error"] for r in rows)),
+            "the_prediction_depends_only_on_the_exit_mouth": bool(
+                len(distinct) == 2),
+            "the_field_picks_the_right_one": bool(
+                max(r["relative_error"] for r in rows) < 3e-3),
+            "worst_beta_shift": float(max(r["beta_shift"] for r in rows)),
+            "beta_sweep_spread": float(spread),
+            "exit_mouth_separation": float(distinct[-1] - distinct[0]),
+            "beta_spread_over_the_signal": float(
+                spread / (distinct[-1] - distinct[0])),
+            "the_invariant_is_beta_independent": bool(
+                spread < 1e-5
+                and spread < 1e-4 * (distinct[-1] - distinct[0])),
+            "the_weight_moves_instead": float(
+                abs(1.0 - sweep[-1]["weight_ratio"])),
+            "every_sweep_point_is_inside_the_cone": bool(
+                all(r["loewner_margin"] > 0.0 for r in sweep)),
+            "the_scope": ("this observable sees structure at the mouths, not "
+                          "the connection between them; W = −β from the "
+                          "low-frequency limit is what sees the connection")}
+
+
+def measure_the_interference_tensor_is_largest_where_the_invariant_is_null(
+        carrier: float = 24.0, width: float = 0.10) -> Dict[str, object]:
+    """``ΔT_{μν}``, and the fact that it and ``T_A:T_B`` disagree completely.
+
+    ``T`` is quadratic, so the two-wave content of the *total* stress tensor is
+    the bilinear cross term ``ΔT = T[φ_A+φ_B] − T[φ_A] − T[φ_B]``.  Checked
+    rather than assumed: it is traceless, and it is **exactly zero** when either
+    source is switched off — PR #253's missing property, now at tensor level and
+    obtained by evaluating the same functional three times rather than by
+    multiplying anything by zero.
+
+    The result worth the round: for two waves of comparable strength,
+    ``ΔT^{00}/√(T_A^{00}T_B^{00})`` reaches its **maximum** ``2`` in the
+    *collinear* configuration — two parallel waves add coherently — which is
+    precisely the configuration where ``T_A:T_B`` vanishes.  Head-on, where the
+    invariant is maximal, the interference energy is roughly half that.
+
+    So the two diagnostics are not interchangeable, and a backreaction estimate
+    driven by ``𝒞 = T_A:T_B`` would look at the collinear case, see nothing, and
+    be wrong about the source by a factor of order the whole effect.  ``ΔT`` is
+    what backreaction integrates; ``T_A:T_B`` is what the collision invariant
+    measures.
+    """
+    grid = _fine_grid()
+    src_a, src_b = circle_point(0.0), circle_point(SOURCE_GAP)
+    t_star = 3.0
+    rows = []
+    for name, theta in (("collinear", SOURCE_GAP + OBSERVER_REACH),
+                        ("head_on", SOURCE_GAP - OBSERVER_REACH)):
+        obs = circle_point(theta)
+        chi_a, chi_b = geodesic(obs, src_a), geodesic(obs, src_b)
+        setup = TwoWaveSetup(
+            pair=working_pair(), source_a=src_a, source_b=src_b, observer=obs,
+            pulse_a=GaussianPulse(carrier=carrier, width=width,
+                                  t0=t_star - chi_a),
+            pulse_b=GaussianPulse(carrier=carrier, width=width,
+                                  t0=t_star - chi_b),
+            grid=grid, with_throat=False)
+        sol_a = solve_field(setup, src_a, setup.pulse_a)
+        sol_b = solve_field(setup, src_b, setup.pulse_b)
+        ts = grid.times
+        idx = np.where((ts > t_star - 2.0 * width)
+                       & (ts < t_star + 2.0 * width))[0]
+        best = None
+        for i in idx:
+            ta = stress_tensor(sol_a, int(i))
+            tb = stress_tensor(sol_b, int(i))
+            u = float(ta[0, 0] * tb[0, 0])
+            if best is None or u > best[0]:
+                best = (u, int(i))
+        i = best[1]
+        ta = stress_tensor(sol_a, i)
+        tb = stress_tensor(sol_b, i)
+        dt = cross_stress_tensor(sol_a, sol_b, i)
+        # bilinearity, the honest way: switch a source off and re-evaluate
+        removed = cross_stress_tensor(sol_a, zero_like(sol_b), i)
+        scale = math.sqrt(float(ta[0, 0] * tb[0, 0]))
+        rows.append({
+            "configuration": name,
+            "invariant": contract_stress(ta, tb) / float(ta[0, 0] * tb[0, 0]),
+            "delta_T00": float(dt[0, 0]),
+            "normalized_delta_T00": float(dt[0, 0] / scale),
+            "max_component": float(np.abs(dt).max()),
+            "trace": trace_of(dt),
+            "with_a_source_removed": float(np.abs(removed).max())})
+    col = [r for r in rows if r["configuration"] == "collinear"][0]
+    head = [r for r in rows if r["configuration"] == "head_on"][0]
+    return {"carrier": carrier, "width": width, "rows": rows,
+            "collinear_invariant": col["invariant"],
+            "collinear_interference": col["normalized_delta_T00"],
+            "head_on_invariant": head["invariant"],
+            "head_on_interference": head["normalized_delta_T00"],
+            "worst_trace": float(max(abs(r["trace"]) for r in rows)),
+            "worst_value_with_a_source_removed": float(
+                max(r["with_a_source_removed"] for r in rows)),
+            "delta_T_is_traceless": bool(
+                max(abs(r["trace"]) for r in rows) < 1e-12),
+            "delta_T_vanishes_when_a_source_is_removed": bool(
+                max(r["with_a_source_removed"] for r in rows) == 0.0),
+            "the_interference_is_maximal_where_the_invariant_is_null": bool(
+                abs(col["normalized_delta_T00"] - 2.0) < 1e-2
+                and abs(col["invariant"]) < 1e-5
+                and head["normalized_delta_T00"]
+                < col["normalized_delta_T00"] * 0.7),
+            "the_lesson": ("ΔT and T_A:T_B are different diagnostics: the "
+                           "collinear configuration nulls the invariant and "
+                           "MAXIMISES the interference energy")}

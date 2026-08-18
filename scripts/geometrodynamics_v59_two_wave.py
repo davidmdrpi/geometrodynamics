@@ -23,9 +23,18 @@ What the panels show
 **Top left - the branch-resolved invariant.** Sources and observer fixed on one
 great circle. Direct branches: collinear, N at its numerical floor. A on its
 long-way winding image: that branch runs the other way round the sphere, its
-arrival direction is reversed, and the same pair reads head-on, N = 4. B through
-the throat: it emerges from a mouth, at an angle set by the mouth's position,
-and the exact field agrees with that geometric prediction to 0.24%.
+arrival direction is reversed, and the same pair reads head-on, N = 4. Then the
+explicit `(i, j)` audit: all four two-leg paths, `j` the mouth the source drives
+and `i` the mouth the signal leaves from. The prediction depends on `i` alone,
+so the four paths carry two values, and the field picks the right one at each
+delay to 0.08% - not fitted.
+
+The hollow rings are the control that scopes the whole panel: the same channels
+with **`beta = 0`**, the mouths *disconnected*. They land on the connected
+values to a part in 1e6. They have to: N is amplitude-normalized, and a single
+channel is a single arrival direction, so the connection cannot enter. It is the
+*mouths* that create the branch. What sees the connection is still `W = -beta`,
+from the low-frequency limit of the same solve.
 
 **Top right - the solved waveform.** The field at the observer, free and with
 the throat. The free field lives strictly on the light cones - S3 x R is
@@ -39,6 +48,14 @@ order because the two wavefronts share their normal exactly; that is what makes
 the multipath effect above a large one rather than a competition between small
 ones. The under-resolved contour is drawn too, because it is wrong by four
 orders and looks plausible.
+
+The same panel carries the interference tensor `dT = T[phi_A + phi_B] - T[phi_A]
+- T[phi_B]`, and it says something the invariant does not: `dT^00` normalized by
+`sqrt(T_A^00 T_B^00)` is 2.000 collinear - the coherent maximum - against 1.044
+head-on. The interference energy is *largest* exactly where `T_A:T_B` is null,
+so the invariant is not a proxy for it. A backreaction estimate driven by
+`T_A:T_B` would look at the collinear case, see nothing, and be wrong about its
+own source by the size of the whole effect.
 
 **Bottom right - the caustic, and where geometric optics stops.** Exact
 amplitude against the WKB `1/(4 pi sin chi)` near the antipode, for three
@@ -80,6 +97,8 @@ from geometrodynamics.waves.two_wave import (
     circle_point,
     green_omega,
     measure_multipath_destroys_the_collinear_null,
+    measure_the_cross_mouth_channels_are_labelled_by_the_exit_mouth,
+    measure_the_interference_tensor_is_largest_where_the_invariant_is_null,
     measure_the_wkb_collinear_head_on_result_is_recovered,
     solve_field,
     working_pair,
@@ -115,13 +134,17 @@ class TwoWaveFigure:
         self.ax_ca = self.fig.add_subplot(gs[1, 1], facecolor=_PAL["panel"])
         self._multipath = measure_multipath_destroys_the_collinear_null()
         self._limit = measure_the_wkb_collinear_head_on_result_is_recovered()
+        self._audit = (
+            measure_the_cross_mouth_channels_are_labelled_by_the_exit_mouth())
+        self._cross = (
+            measure_the_interference_tensor_is_largest_where_the_invariant_is_null())
 
     # -- the branch-resolved invariant ---------------------------------------
     def _draw_branches(self) -> None:
         ax = self.ax_br
         rows = self._multipath["rows"]
         labels = ["A direct\n+ B direct", "A LONG-WAY\nimage + B direct",
-                  "A direct\n+ B via throat"]
+                  "A direct\n+ B via a mouth"]
         vals = [max(abs(r["invariant"]), 1e-11) for r in rows]
         preds = [max(r["geometric_prediction"], 1e-11) for r in rows]
         cols = [_PAL["sym"], _PAL["hot"], _PAL["anti"]]
@@ -136,22 +159,46 @@ class TwoWaveFigure:
                         xytext=(13, 2), textcoords="offset points",
                         ha="left", va="center", color=c, fontsize=7.2,
                         family="monospace")
+        # the (i, j) audit: two resolvable channels, each with its β = 0 control
+        audit = self._audit["rows"]
+        for k, r in enumerate(audit):
+            x = 3.0 + k
+            v = max(abs(r["measured_invariant"]), 1e-11)
+            ax.vlines(x, 1e-11, v, color=_PAL["cool"], lw=1.2, alpha=0.55,
+                      zorder=3)
+            ax.plot([x], [v], "o", ms=11.0, color=_PAL["cool"],
+                    mec=_PAL["bg"], mew=0.8, zorder=6)
+            ax.plot([x], [max(r["predicted_invariant"], 1e-11)], "_", ms=22.0,
+                    mew=2.4, color=_PAL["text"], alpha=0.85, zorder=7)
+            ax.plot([x], [max(abs(r["control_beta_zero"]), 1e-11)], "o",
+                    ms=17.0, mfc="none", mec=_PAL["dim"], mew=1.3, zorder=8)
+            ax.annotate(f"{r['measured_invariant']:.4g}", xy=(x, v),
+                        xytext=(13, 2), textcoords="offset points",
+                        ha="left", va="center", color=_PAL["cool"],
+                        fontsize=7.2, family="monospace")
+        labels += [f"(i={int(r['exit_mouth'])},\nj={int(r['entry_mouth'])})"
+                   for r in audit]
+        xs = np.arange(3.0 + len(audit))
         ax.plot([], [], "o", ms=8, color=_PAL["dim"],
                 label="exact solved field")
         ax.plot([], [], "_", ms=14, mew=2.2, color=_PAL["text"],
                 label="geometry:  (1 − n̂_A·n̂_B)²")
+        ax.plot([], [], "o", ms=9, mfc="none", mec=_PAL["dim"], mew=1.3,
+                label="β = 0 control  (mouths disconnected)")
         ax.set_yscale("log")
-        ax.set_ylim(1e-11, 3e2)
-        ax.set_xlim(-0.55, 2.75)
+        ax.set_ylim(1e-11, 1e5)
+        ax.set_xlim(-0.55, 4.75)
         ax.set_xticks(xs)
         ax.set_xticklabels(labels, color=_PAL["dim"], fontsize=6.8)
         ax.axhline(4.0, color=_PAL["dim"], lw=0.9, ls=(0, (3, 3)), zorder=2)
         ax.annotate("WKB head-on = 4", xy=(-0.45, 6.5), color=_PAL["dim"],
                     fontsize=6.4, family="monospace", ha="left")
         ax.annotate("same two sources, same observation point.\n"
-                    "only the BRANCH changes.",
-                    xy=(0.03, 0.055), xycoords="axes fraction",
-                    color=_PAL["text"], fontsize=7.0, family="monospace",
+                    "only the BRANCH changes.  each (i,j) channel is\n"
+                    "predicted by its EXIT mouth i alone — and the\n"
+                    "β = 0 control lands on it, to a part in 1e6.",
+                    xy=(0.30, 0.03), xycoords="axes fraction", va="bottom",
+                    color=_PAL["text"], fontsize=6.5, family="monospace",
                     linespacing=1.7)
         ax.set_ylabel("N = (T_A:T_B)/(T_A⁰⁰ T_B⁰⁰)", color=_PAL["dim"],
                       fontsize=8)
@@ -238,14 +285,21 @@ class TwoWaveFigure:
         ax.annotate(f"ε ≈ 2π/span:  {bad:.1e}\n"
                     f"converged:    {good:.1e}\n"
                     "→ four orders, and it looks plausible",
-                    xy=(32.0, bad), xytext=(-10, -34),
+                    xy=(32.0, bad), xytext=(-10, -16),
                     textcoords="offset points", ha="right", va="top",
                     color=_PAL["anti"], fontsize=6.3, family="monospace",
                     linespacing=1.7)
+        x = self._cross
         ax.annotate("the collinear null is stronger than leading order:\n"
                     "the two wavefronts share their normal EXACTLY,\n"
-                    "so amplitude gradients cannot tilt either k",
-                    xy=(0.03, 0.185), xycoords="axes fraction", va="top",
+                    "so amplitude gradients cannot tilt either k.\n"
+                    "but it is NOT an absence of interference —\n"
+                    f"ΔT⁰⁰/√(T_A⁰⁰T_B⁰⁰) = "
+                    f"{x['collinear_interference']:.3f} collinear, "
+                    f"{x['head_on_interference']:.3f} head-on.\n"
+                    "T_A:T_B is smallest where the interference energy\n"
+                    "is LARGEST, so it is the wrong proxy for it.",
+                    xy=(0.03, 0.44), xycoords="axes fraction", va="top",
                     color=_PAL["dim"], fontsize=6.3, family="monospace",
                     linespacing=1.75)
         ax.set_xlabel("carrier ω₀", color=_PAL["dim"], fontsize=8)
@@ -315,20 +369,23 @@ class TwoWaveFigure:
                       "it at O(1)",
                       color=_PAL["dim"], fontsize=8.4, ha="center",
                       family="monospace")
+        a = self._audit
         self.fig.text(0.5, 0.070,
-                      f"throat exit mouth {m['throat_exit_mouth']}, two-leg "
-                      f"delay {m['throat_delay']:.4f} — exact "
-                      f"{m['through_the_throat_value']:.4f} against "
-                      f"{m['through_the_throat_prediction']:.4f} from the "
-                      f"mouth position alone "
-                      f"({100 * m['throat_relative_error']:.2f}%, not fitted)",
-                      color=_PAL["dim"], fontsize=7.4, ha="center",
+                      f"all four (i,j) channels carry just TWO predicted "
+                      f"invariants, one per EXIT mouth "
+                      f"({a['distinct_predictions'][0]:.6f}, "
+                      f"{a['distinct_predictions'][1]:.6f}) — the field picks "
+                      f"the right one to "
+                      f"{100 * a['worst_relative_error']:.2f}%, not fitted",
+                      color=_PAL["dim"], fontsize=7.0, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.047,
-                      "the free control at the same instant has NO second "
-                      "arrival (energy product 4e-29 vs 1.2e-02): the throat "
-                      "CREATES the branch, it does not bend one",
-                      color=_PAL["dim"], fontsize=7.4, ha="center",
+                      f"the MOUTHS create the branch; the connection between "
+                      f"them does not — N moves {a['beta_sweep_spread']:.1e} "
+                      f"over β ∈ [0, 0.26], while its weight moves "
+                      f"{100 * a['the_weight_moves_instead']:.1f}%.  "
+                      f"W = −β still sees it",
+                      color=_PAL["dim"], fontsize=7.0, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.022,
                       f"conformally coupled scalar on a fixed ESU, throat "

@@ -518,19 +518,47 @@ observation point fixed and changing only *which branch has arrived*:
 | --- | ---: | ---: |
 | direct + direct | `1.905e-07` | `0` |
 | long-way winding image + direct | `3.99806` | `4` |
-| direct + through the throat | `0.56501` | `0.56367` |
+| direct + via a mouth | `0.56501` | `0.56367` |
 
 The winding image propagates the other way round the sphere — its phase is
 `t + χ`, so the front moves *toward* the source and the arrival direction
-reverses. A collinear pair reads head-on. The throat's leg emerges from a mouth,
-at an angle predicted from positions alone and matched to `0.24%`, and the free
-control at the same instant has **no second arrival at all** (`4e-29` against
-`1.2e-02`): the throat *creates* the branch rather than bending one.
+reverses. A collinear pair reads head-on. The free control at the same instant
+has **no second arrival at all** (`4e-29` against `1.2e-02`): the mouths *create*
+the branch rather than bending one.
 
 So the collinear null is not spoiled by curvature corrections, which are `1e-7`
 here. It is spoiled by **multipath**, at `O(1)`. The invariant carries the branch
 index §13 said it had to, and a single-branch WKB formula is not merely
 approximate on this background — it answers a different question.
+
+**The third row, audited.** Writing `j` for the mouth the source drives and `i`
+for the mouth the signal leaves from, all four two-leg paths are enumerated
+instead of minimised over. The prediction depends on `i` alone, so the four paths
+carry **two** values — `0.563669` and `0.651935` — and the field must *pick*
+rather than match a number. It picks correctly at each delay, to `8.1e-04`.
+
+**And the control that scopes the whole row.** Re-run with `β = 0`, two
+*disconnected* mouths: the invariant does not move. Swept over `β ∈ [0, 0.26]`,
+every point inside §15's cone, `𝒩` shifts by `6.2e-07` — `7e-06` of the `0.0883`
+separating the two exit mouths — while the channel's weight shifts `0.6%`. It has
+to: `𝒩` is amplitude-normalized and a single channel is a single arrival
+direction, so `β` rescales the weight without touching the geometry. **This
+observable sees structure at the mouths, not the connection between them** — the
+dynamical restatement of §16's lesson about the off-diagonal block. What sees the
+connection is `𝒲 = −β`, recovered below from this same solve.
+
+**`ΔT_{μν}`, and what it says the invariant does not.** `T` is quadratic, so the
+two-wave content of the total stress tensor is the bilinear cross term
+`ΔT = T[φ_A+φ_B] − T[φ_A] − T[φ_B]`, built from three evaluations of the same
+functional rather than a hand-derived form. It is traceless to `1.8e-15` and
+vanishes **exactly** when either source is switched off — §13's missing property,
+now carried by a tensor. And it disagrees with the invariant completely:
+`ΔT⁰⁰/√(T_A⁰⁰T_B⁰⁰)` is `2.000` collinear, the coherent maximum, against `1.044`
+head-on. The interference energy is *largest* precisely where `T_A:T_B` is null.
+**A backreaction estimate driven by `𝒞 = T_A:T_B` would look at the collinear
+case, see nothing, and be wrong about its own source by the size of the whole
+effect.** `ΔT` is what backreaction integrates; `T_A:T_B` is what the collision
+invariant measures.
 
 **And the smaller corrections have numbers.** *Tail:* `S³ × R` is conformally
 flat, so the conformal scalar obeys Huygens **exactly** — between geometric
@@ -667,6 +695,14 @@ Worth recording, because the failure modes repeat:
   `B`-invertible *chart*; the Dirichlet strata are not reached by any finite
   Hermitian `A`, and on them the criterion is `A_eff ⪰ P†Γ(0)P` instead. The
   inequality was right, its quantifier was not.
+* **An effect attributed to the wrong feature, for want of its null control.**
+  §17's third branch was first described as arriving "through the throat", which
+  credits the *connection* between the mouths for it. Running the obvious control
+  — `β = 0`, the mouths disconnected — moves the invariant by `6.2e-07`, five
+  orders below the signal it was supposed to explain. The branch is real and the
+  number is right; what creates it is the presence of the mouths, and the free
+  control alone could never have shown the difference, because it removes both.
+  **A control that removes everything cannot tell you which part mattered.**
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -802,8 +838,13 @@ ray closure → field solution → two-wave invariant
   rests on. The known WKB limit is recovered as a limit, with rates; the
   departure that matters is **multipath**, `O(1)` where every other correction is
   `1e-7`; and the invariant is **branch-resolved** in exactly §13's index, giving
-  0, 4 or the mouth's angle for the same sources at the same event. Tail, caustic
-  and low-frequency closure all have numbers. What is *not* done is backreaction;
+  0, 4 or the mouth's angle for the same sources at the same event — the last of
+  those audited over all four `(i,j)` channels, whose prediction depends on the
+  **exit** mouth alone. Its `β = 0` control scopes the claim: the invariant sees
+  the mouths, not the connection between them, which only `𝒲 = −β` sees. Tail,
+  caustic and low-frequency closure all have numbers. What is *not* done is
+  backreaction — and §17 hands that step a warning as well as an object, since
+  the interference tensor `ΔT` peaks exactly where `T_A:T_B` is null;
 * **stationary action** — evaluate the on-shell action and ask whether the
   candidate events are stationary. *Not* with Lagrange multipliers imposing the
   ray round's five equations, which would only rename them. This is where the
