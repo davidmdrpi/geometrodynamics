@@ -411,7 +411,7 @@ against the cone on 60 chart draws and against a root scan on 60 stratum draws,
 with the reduction's own assumptions (Hermiticity of `A_eff`, the row-space
 condition) checked rather than asserted.
 
-## 16. Static two-source throat tomography (`docs/static_throat_tomography.md`, current round)
+## 16. Static two-source throat tomography (`docs/static_throat_tomography.md`)
 
 **Not the two-wave invariant**, and the round is filed under what it actually
 is. §10 ended rank counting by naming what it could not supply: a quantity that
@@ -481,7 +481,100 @@ stays exactly zero through four decades of it. The loudest available two-source
 signal carries no information about whether the mouths are connected: **size is
 not evidence**, in its most extreme form, because the size is unbounded.
 
-## 17. What the arc cost in errors, and what caught them
+## 17. The two-wave invariant is branch-resolved (`docs/two_wave_invariant.md`, current round)
+
+§16 built a *static* kernel and said plainly it was not the two-wave invariant:
+no local null momenta, so it could not tell equal-energy collinear from
+counterpropagating waves. This round solves the **time-dependent** field on the
+throated background, builds the improved conformal stress tensors, and applies
+that control.
+
+The known WKB result is the **control, not the result**. What the round is about
+is the difference between the exact multipath throat-coupled field and that
+limit.
+
+**The solver earns it.** The retarded field comes from Krein's resolvent formula
+inverted along the contour `Im ω = ε`, which is exact rather than approximate;
+every derivative is analytic, closing in form from `∇χ = −(y−(x·y)x)/sin χ` and
+`∇∇χ = cot χ(δ_ab − n̂_an̂_b)`. Its free part reproduces §12's closed-form
+winding-image sum to `3.3e-16` *including the Maslov signs* — two constructions
+sharing no code. The conformal wave equation holds to `4e-16` relative with and
+without the throat, and the improved stress tensor is traceless to `1.9e-15`,
+which is a real test because `□φ` is taken from the solve rather than substituted
+on shell: computed honestly the trace equals `φ(□φ − φ)`.
+
+**The limit is recovered, with rates.** Sources and observer on one great circle
+make the arriving directions exactly parallel or antiparallel to `1e-12`, so
+WKB's `𝒩 = (1 − n̂_A·n̂_B)²` predicts 0 and 4 by geometry rather than by fitting.
+The exact field gives `3.99995` head-on and `1.8e-10` collinear. And the
+collinear null turns out to be *stronger* than a leading-order statement: on this
+geometry the two wavefronts share their normal exactly, so amplitude gradients
+cannot tilt either `k`, and the residue falls faster than any fixed power.
+
+**Which is what makes the result large.** Holding the sources and the
+observation point fixed and changing only *which branch has arrived*:
+
+| branch pair | `𝒩` exact | geometry |
+| --- | ---: | ---: |
+| direct + direct | `1.905e-07` | `0` |
+| long-way winding image + direct | `3.99806` | `4` |
+| direct + via a mouth | `0.56501` | `0.56367` |
+
+The winding image propagates the other way round the sphere — its phase is
+`t + χ`, so the front moves *toward* the source and the arrival direction
+reverses. A collinear pair reads head-on. The free control at the same instant
+has **no second arrival at all** (`4e-29` against `1.2e-02`): the mouths *create*
+the branch rather than bending one.
+
+So the collinear null is not spoiled by curvature corrections, which are `1e-7`
+here. It is spoiled by **multipath**, at `O(1)`. The invariant carries the branch
+index §13 said it had to, and a single-branch WKB formula is not merely
+approximate on this background — it answers a different question.
+
+**The third row, audited.** Writing `j` for the mouth the source drives and `i`
+for the mouth the signal leaves from, all four two-leg paths are enumerated
+instead of minimised over. The prediction depends on `i` alone, so the four paths
+carry **two** values — `0.563669` and `0.651935` — and the field must *pick*
+rather than match a number. It picks correctly at each delay, to `8.1e-04`.
+
+**And the control that scopes the whole row.** Re-run with `β = 0`, two
+*disconnected* mouths: the invariant does not move. Swept over `β ∈ [0, 0.26]`,
+every point inside §15's cone, `𝒩` shifts by `6.2e-07` — `7e-06` of the `0.0883`
+separating the two exit mouths — while the channel's weight shifts `0.6%`. It has
+to: `𝒩` is amplitude-normalized and a single channel is a single arrival
+direction, so `β` rescales the weight without touching the geometry. **This
+observable sees structure at the mouths, not the connection between them** — the
+dynamical restatement of §16's lesson about the off-diagonal block. What sees the
+connection is `𝒲 = −β`, recovered below from this same solve.
+
+**`ΔT_{μν}`, and what it says the invariant does not.** `T` is quadratic, so the
+two-wave content of the total stress tensor is the bilinear cross term
+`ΔT = T[φ_A+φ_B] − T[φ_A] − T[φ_B]`, built from three evaluations of the same
+functional rather than a hand-derived form. It is traceless to `1.8e-15` and
+vanishes **exactly** when either source is switched off — §13's missing property,
+now carried by a tensor. And it disagrees with the invariant completely:
+`ΔT⁰⁰/√(T_A⁰⁰T_B⁰⁰)` is `2.000` collinear, the coherent maximum, against `1.044`
+head-on. The interference energy is *largest* precisely where `T_A:T_B` is null.
+**A backreaction estimate driven by `𝒞 = T_A:T_B` would look at the collinear
+case, see nothing, and be wrong about its own source by the size of the whole
+effect.** `ΔT` is what backreaction integrates; `T_A:T_B` is what the collision
+invariant measures.
+
+**And the smaller corrections have numbers.** *Tail:* `S³ × R` is conformally
+flat, so the conformal scalar obeys Huygens **exactly** — between geometric
+arrivals the free field is `1.4e-08` of its peak against `8.1e-02` with the
+throat, a factor of `5.7e+06`. Every tail in this model is the throat's ringing.
+*Caustic:* geometric optics diverges at the antipode where the exact kernel is
+finite and *linear in* `ω`; the exact/WKB ratio is `|sin(ωe)|`, a function of
+`ωe` alone, collapsing across three carriers to `6.6e-15`, so the caustic is cut
+off at `e* ∼ 1/ω`. *Closure:* the DC content of the solved time series is exactly
+§16's static kernel, and running that round's tomography on numbers from the
+dynamic solver returns `𝒲 = −0.060010` against `−β = −0.06`.
+
+**No backreaction**: the stress tensor is computed *from* the field and never fed
+back. That is the next step, and it now has a concrete object to feed.
+
+## 18. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -602,6 +695,14 @@ Worth recording, because the failure modes repeat:
   `B`-invertible *chart*; the Dirichlet strata are not reached by any finite
   Hermitian `A`, and on them the criterion is `A_eff ⪰ P†Γ(0)P` instead. The
   inequality was right, its quantifier was not.
+* **An effect attributed to the wrong feature, for want of its null control.**
+  §17's third branch was first described as arriving "through the throat", which
+  credits the *connection* between the mouths for it. Running the obvious control
+  — `β = 0`, the mouths disconnected — moves the invariant by `6.2e-07`, five
+  orders below the signal it was supposed to explain. The branch is real and the
+  number is right; what creates it is the presence of the mouths, and the free
+  control alone could never have shown the difference, because it removes both.
+  **A control that removes everything cannot tell you which part mattered.**
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -624,7 +725,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 18. What is imported rather than derived
+## 19. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -668,7 +769,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 19. What would come next
+## 20. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
@@ -728,28 +829,33 @@ ray closure → field solution → two-wave invariant
   reflected channel, `1×1` where a conserving junction needs `2×2` unitary, and
   lossy for `κ < 1`. That operator, not another visualization, is the immediate
   next construction;
-* **two-wave invariant** — **still open**, and the current round is filed under
-  what it actually is rather than what it was aimed at. §16 builds a *static*
-  two-source kernel: identically zero without a second source, rank two at any
-  source count, with an exact discriminator `𝒲 = −β` that is margin-independent
-  and recoverable from measurements. What it is **not** is the collision
-  invariant. It carries no local null momenta, so it cannot separate
-  equal-energy collinear from counterpropagating waves — the control the whole
-  idea rests on — and its `(i,j)` index labels mouth channels rather than the
-  geodesic branches of §11. The dynamical object, built from
-  `T_A^{μν} T^B_{μν}` and resolved on those branches, is the next construction.
-  What §16 hands it: a control it must pass (collinear versus head-on), a number
-  its static limit must reproduce (`𝒲 = −β`), and a habit — name the null model
-  that reproduces your effect before quoting the effect, which is how two false
-  signatures were excluded there;
+* **two-wave invariant** — ~~done~~, in two rounds and with the second correcting
+  the first's scope. §16 built the *static* kernel: zero without a second source,
+  rank two at any source count, discriminator `𝒲 = −β`. §17 built the
+  **dynamical** object it was explicitly not — time-dependent fields on the
+  stable throat background, improved conformal stress tensors, exact
+  `T_A^{μν}T^B_{μν}` — and applied the collinear/head-on control the whole idea
+  rests on. The known WKB limit is recovered as a limit, with rates; the
+  departure that matters is **multipath**, `O(1)` where every other correction is
+  `1e-7`; and the invariant is **branch-resolved** in exactly §13's index, giving
+  0, 4 or the mouth's angle for the same sources at the same event — the last of
+  those audited over all four `(i,j)` channels, whose prediction depends on the
+  **exit** mouth alone. Its `β = 0` control scopes the claim: the invariant sees
+  the mouths, not the connection between them, which only `𝒲 = −β` sees. Tail,
+  caustic and low-frequency closure all have numbers. What is *not* done is
+  backreaction — and §17 hands that step a warning as well as an object, since
+  the interference tensor `ΔT` peaks exactly where `T_A:T_B` is null;
 * **stationary action** — evaluate the on-shell action and ask whether the
   candidate events are stationary. *Not* with Lagrange multipliers imposing the
   ray round's five equations, which would only rename them. This is where the
   retrocausal language earns its keep or fails: the backward-in-time throat
   contribution should fall out of one stationary solution rather than be
-  narrated afterwards. It now has a target rather than a description — `𝒞` *is*
-  a cross term of a quadratic functional, which is what an on-shell action is
-  made of, and `𝒲 = −β` is a measured number the action round has to reproduce;
+  narrated afterwards. It now has an object rather than a description — §17's
+  `T_{μν}` is built from a solved field and traceless to `1.9e-15`, which is what
+  an on-shell action is made of, and `𝒲 = −β` is a measured number the action
+  round has to reproduce. It also inherits a warning: any quantity built by
+  integrating over the field has to state which branches were present, because
+  §17 measured the same configuration giving anything from 0 to 4;
 * **backreaction** — and the first GR question is not "does spacetime pinch
   off?" but whether `A + B` produces a collapse response not reproducible by
   rescaling `A` or `B` alone;

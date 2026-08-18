@@ -72,3 +72,16 @@ from geometrodynamics.waves.two_source import (  # noqa: F401
     response_matrix,
     static_response,
 )
+from geometrodynamics.waves.two_wave import (  # noqa: F401
+    GaussianPulse,
+    RetardedGrid,
+    TwoWaveSetup,
+    arrival_directions,
+    contract_stress,
+    gamma_omega,
+    green_omega,
+    normalized_invariant,
+    solve_field,
+    stress_tensor,
+    wkb_invariant,
+)

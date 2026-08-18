@@ -2534,6 +2534,115 @@ python scripts/geometrodynamics_v58_two_source.py --still v58.png
 
 Full write-up: `docs/static_throat_tomography.md`.
 
+## The two-wave invariant is branch-resolved
+
+**Roadmap step 3, properly.** #258 built a static kernel and said plainly it was
+not this: no local null momenta, so it could not tell equal-energy collinear from
+counterpropagating waves. This round solves the time-dependent field on the
+throated ESU, builds the improved conformal stress tensors, and applies exactly
+that control.
+
+The known WKB result is the **control, not the result**. The research content is
+the difference between the exact multipath throat-coupled field and that limit.
+
+**What is solved.** The retarded field of a pulsed point source, exactly, by
+Krein's resolvent formula in the frequency domain, inverted along the retarded
+contour `Im ω = ε` — which is exact, since `φ(t) = e^{εt}(1/2π)∫du e^{−iut}
+φ̂(u+iε)`. Derivatives are analytic, not differenced: the four-gradient and
+Hessian close in form from `∇χ = −(y−(x·y)x)/sin χ` and
+`∇∇χ = cot χ (δ_ab − n̂_an̂_b)`.
+
+| | |
+| --- | ---: |
+| free field vs #254's closed-form image sum | **`3.3e-16`** |
+| conformal wave equation, with and without the throat | `4e-16` relative |
+| trace of the improved stress tensor | **`1.9e-15`** relative |
+
+The trace is a real test: `□φ` comes from the solve rather than its on-shell
+value, so `T^μ_μ = φ(□φ − φ)` instead of vanishing algebraically.
+
+**The known limit, as a limit.** With the arriving directions exactly parallel
+or antiparallel by construction (`1e-12`), the pointwise
+`𝒩 = (T_A:T_B)/(T_A⁰⁰T_B⁰⁰)` converges to WKB's `(1 − n̂_A·n̂_B)²`: head-on
+`3.99995`, collinear `1.8e-10` at `ω₀ = 48`. The collinear null is *stronger*
+than leading order — the two wavefronts share their normal exactly, so amplitude
+gradients cannot tilt either `k`. Convergence is measured too: with `ε` at the
+frequency spacing the answer is four orders wrong and looks plausible.
+
+**The result — multipath destroys the collinear null.** Sources fixed,
+observation point fixed, only the branch changes:
+
+| branch pair | `𝒩` exact | geometry |
+| --- | ---: | ---: |
+| `A` direct + `B` direct | **`1.905e-07`** | `0` |
+| `A` **long-way winding image** + `B` direct | **`3.99806`** | `4` |
+| `A` direct + `B` **via a mouth** | **`0.56501`** | `0.56367` |
+
+The winding image runs the other way round the sphere, so its arrival direction
+reverses and a collinear pair reads head-on. The free control at the same instant
+has *no* second arrival (energy product `4e-29` vs `1.2e-02`), so the mouths
+**create** the branch rather than bending one. **The collinear null is not
+spoiled by curvature corrections — those are `1e-7` here — but by multipath, at
+`O(1)`.**
+
+**The `(i,j)` audit, and the control that scopes it.** Writing `j` for the mouth
+the source drives and `i` for the mouth the signal leaves from, all four two-leg
+paths are enumerated rather than minimised over. The prediction depends on `i`
+alone, so the four carry **two** values (`0.563669`, `0.651935`) and the field
+has to pick, not merely match a number — it does, to `8.1e-04`.
+
+Then the control PR #258's review taught this arc to run first: the same
+channels with **`β = 0`**, the mouths *disconnected*. Swept over `β ∈ [0, 0.26]`,
+all inside #257's cone, `𝒩` moves by `6.2e-07` — `7e-06` of the `0.0883` that
+separates the two exit mouths — while the channel's weight moves `0.6%`. It has
+to: `𝒩` is amplitude-normalized, and a single channel is a single arrival
+direction. **This observable sees structure at the mouths, not the connection
+between them.** The multipath result stands; the throat's *non-locality* is not
+what supplies it. What sees the connection is `𝒲 = −β`, below.
+
+**`ΔT_{μν}` disagrees with `T_A:T_B` completely.** The bilinear cross term
+`ΔT = T[φ_A+φ_B] − T[φ_A] − T[φ_B]`, built from three evaluations of the same
+functional, is traceless to `1.8e-15` and vanishes **exactly** when either
+source is switched off:
+
+| configuration | `T_A:T_B/(T_A⁰⁰T_B⁰⁰)` | `ΔT⁰⁰/√(T_A⁰⁰T_B⁰⁰)` |
+| --- | ---: | ---: |
+| collinear | `1.9e-07` | **`2.000`** |
+| head-on | `3.998` | `1.044` |
+
+The interference energy hits its **maximum possible value, 2** — two parallel
+waves adding coherently — exactly where the invariant is null. **A backreaction
+estimate driven by `𝒞 = T_A:T_B` would look at the collinear case, see nothing,
+and be wrong about its own source by the size of the whole effect.**
+
+**The other corrections, quantified.** Free arrivals land on #253's ledger to
+`1.3e-03` with Maslov signs `+ − +`; the throat adds two-leg arrivals, checked at
+the causal onset because `R(ω)` has poles and a throat arrival rings up. **Tail:**
+`S³ × R` is conformally flat, so Huygens is exact — between arrivals the free
+field is `1.4e-08` of its peak against `8.1e-02` with the throat, a factor of
+`5.7e+06`. Every tail here is the throat's. **Caustic:** WKB's `1/(4π sin χ)`
+diverges at the antipode where the exact kernel is finite and *linear in* `ω`;
+the exact/WKB ratio is `|sin(ωe)|`, a function of `ωe` alone, collapsing across
+three carriers to `6.6e-15`, so the caustic is cut off at `e* ∼ 1/ω`.
+
+**And it closes back on #258.** `∫dt φ = φ̂(0)`, so the DC content of the solved
+time series *is* the static kernel that round did its tomography on. Running the
+protocol on numbers from the dynamic solver returns `𝒲 = −0.060010` against
+`−β = −0.06`, with the `O(ε²)` contour bias Richardson-extrapolated and both
+numbers reported.
+
+**No backreaction:** the stress tensor is computed from the field and never fed
+back. That is the next step, and it now has a concrete object to feed.
+
+```bash
+python -m experiments.closure_ledger.two_wave_probe
+# Verdict: THE_TWO_WAVE_INVARIANT_IS_BRANCH_RESOLVED  (12/12)
+
+python scripts/geometrodynamics_v59_two_wave.py --still v59.png
+```
+
+Full write-up: `docs/two_wave_invariant.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
