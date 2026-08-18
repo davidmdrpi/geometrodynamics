@@ -481,7 +481,7 @@ stays exactly zero through four decades of it. The loudest available two-source
 signal carries no information about whether the mouths are connected: **size is
 not evidence**, in its most extreme form, because the size is unbounded.
 
-## 17. The two-wave invariant is branch-resolved (`docs/two_wave_invariant.md`, current round)
+## 17. The two-wave invariant is branch-resolved (`docs/two_wave_invariant.md`)
 
 §16 built a *static* kernel and said plainly it was not the two-wave invariant:
 no local null momenta, so it could not tell equal-energy collinear from
@@ -574,7 +574,101 @@ dynamic solver returns `𝒲 = −0.060010` against `−β = −0.06`.
 **No backreaction**: the stress tensor is computed *from* the field and never fed
 back. That is the next step, and it now has a concrete object to feed.
 
-## 18. What the arc cost in errors, and what caught them
+## 18. The throat has an interior, and the interior is the delay (`docs/finite_conservative_throat.md`, current round)
+
+Every round from §13 to §17 carried the same disclaimer — *point-supported, no
+interior, no proper length, no delay* — and §19's ledger was more specific about
+what stood in for one: a rank-one **mouth-transfer** model, field values only,
+no normal-derivative matching, no reflected channel, `1×1` where a conserving
+junction needs `2×2`, and lossy for `κ < 1`. This round replaces it.
+
+**Two lines are put in.** A tube of length `L`, cross-section `𝒜` and interior
+mass `m` joins the mouths; its Dirichlet-to-Neumann map is
+`N(λ) = 𝒜k[[cot kL, −csc kL],[−csc kL, cot kL]]` with `k² = λ − m²`, and the
+matching is value and flux continuity, `q = −NΦ`. Everything else follows.
+Both entries are **even in `k`**, so the square root needs no branch choice, and
+`det N = −(𝒜k)²` makes the chart closed-form: `A(λ) = −N(λ)⁻¹`, transmission
+`β(λ) = csc(kL)/(𝒜k)`, self-energy `α(λ) = cot(kL)/(𝒜k)`.
+
+**The one structural change is that the boundary condition is now
+frequency-dependent, and that dependence is the interior.** A point throat is a
+fixed Hermitian `A`; a finite throat is `A(λ)`. Every result below is a
+consequence of that sentence.
+
+**It conserves flux as an operator property.** `rank[B|C] = 2` and `BC† = CB†`
+to `0.0` at seven values of `λ` on both sides of zero, with the DtN map checked
+against the interior it summarizes by Green's identity to `1.5e-07` — against
+itself would prove nothing. §15's `DirectionalThroat`, the control, has defect
+`0.30`: the size of the coupling itself, which is what "lossy for `κ < 1`" was.
+
+**The result: the throat transmits at the traversal time.** The measured object
+is the throat operator's *own* impulse response — `R(ω) = (A(ω) − Γ(ω))⁻¹`
+inverted along the retarded contour — so no source or observer geometry enters
+the answer at all. Two different predictions, both met: `r₁₁`, same mouth in and
+out, starts at **`t = 0`**, because a wave that reaches a mouth is partly
+reflected *instantly*; and `r₁₂`, opposite mouths, starts at **`min(L, d)`**,
+with `d(onset)/dL = 1.0071` against a predicted `1` and a spread of `0.0` once
+`L` exceeds `d`.
+
+That second number is the round's sharpest connection backwards. **The ambient
+also connects the two mouths**, along a geodesic of length `d`, whether or not
+they are joined — §16's cross-mouth channel and §17's `β = 0` control, which
+those rounds could separate only by rank counting and by a sweep. Here they are
+**separated in time**, and which arrives first is decided by `min(L, d)`. A
+point throat transmits at `0.0`, which is what a point throat is.
+
+The delay ledger is a derivation: on the contour `cot x = −i − 2iΣe^{2ikx}` and
+`csc x = −2iΣe^{i(2k+1)x}`, verified to `4.5e-16` and `1.7e-15`, so the
+same-mouth entry carries `0, 2L, 4L…` and the cross-mouth entry `L, 3L, 5L…`.
+**The parities are the physics** — an even number of traversals returns to the
+mouth it entered — and the reflected channel is the one the rank-one model does
+not have at all.
+
+**There is no point limit; there is a band, of width `1/L`.** Freezing `A` at
+`A(λ₀)` is exact at `λ₀` and `121%` wrong at `3λ₀`. The channels fail
+differently, and that is the interesting part: the antisymmetric one *has* a
+limit, `−L/(2𝒜)` with an `O(L²)` error over a decade in `L`; the symmetric one
+**diverges** like `2/(𝒜λL)`, because a massless tube holds a zero mode and a
+point has nowhere to put it. So §15–§17's constant-`A` family is this object
+read at one frequency.
+
+**And the same zero mode breaks §16's tomography.** At `λ = 0` the static
+response collapses onto `[[1,−1],[−1,1]]` to `4e-05` and `det S → 0` *linearly*
+in `λ`, coefficient `149.08` constant to `1e-3` over four decades, so `𝒲`
+diverges like `1/λ`. **A point throat is statically rank two; a massless finite
+throat is rank one** — a falsifiable difference between the two models from a
+*static* measurement, which is the sharpest thing this round says about what the
+point idealization was hiding. An interior mass restores the rank, and off the
+collapse **`𝒲 = −β(λ)` exactly**, to `3.1e-13`: §16's theorem survives the
+generalization and returns the interior's own amplitude rather than a constant.
+
+**The price of point mouths, measured rather than waved at.** `A(λ)` decreases
+and `Γ(λ)` increases (§15's Gram identity), so `A − Γ` is strictly monotone
+between poles and each channel has at most one root — a count, not a scan. The
+symmetric channel always has exactly one, at `λ < 0`. Three facts identify it,
+all limits with their convergence measured: its rate matches `σ* = 2√(π/𝒜)` to
+`1.5e-03` with **no `L` in it**; two mouth separations agree to `3.9e-09`; and
+the channel splitting is `1.04·e^{−σ*d}`, the Euclidean propagator between the
+mouths, which is the mechanism and not a bound on it. A mode that ignores the
+tube's length and the mouths' separation, and does not distinguish the channels,
+is a **single-mouth object** — its scale `√(𝒜/4π)` is the mouth's own radius,
+exactly where "point mouth" stops being an approximation. Every statement in the
+round is therefore made at `|λ| ≪ σ*²`, and that band is quoted.
+
+Which has a numerical edge: the retarded contour must clear `σ*`. Placed `0.03`
+below it, the inversion returns a field with support **before its own light
+cone** — a pedestal at 99% of the peak for an event that cannot begin until
+`t = 0.6` — against `1.0e-16` placed above. Same species as §17's under-resolved
+contour, and reported the same way; the difference is that `σ*` has a closed
+form, so this time the contour is placed before the solve rather than diagnosed
+after it.
+
+**Still open:** the mouths are points, the interior is one-dimensional (so `𝒜`
+is a coupling and not a geometry, and a real tube's transverse modes above
+`ω ∼ 1/√𝒜` are inside the working band), and `L, 𝒜, m` are chosen rather than
+derived. **No backreaction.**
+
+## 19. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -703,6 +797,17 @@ Worth recording, because the failure modes repeat:
   number is right; what creates it is the presence of the mouths, and the free
   control alone could never have shown the difference, because it removes both.
   **A control that removes everything cannot tell you which part mattered.**
+* **A limit written down as a fact.** §18's three identifying properties of the
+  growing mode — the closed form `2√(π/𝒜)`, the blindness to the mouth
+  separation, the degeneracy of the two channels — were first asserted with
+  thresholds, and all three failed at the working point: `15%`, `0.18` and
+  `0.87` against tolerances of `2%`, `1e-6` and `1e-2`. They are true *as
+  limits*, in `σ*L` and `σ*d`, and the failures were the measurement pointing
+  at the parameter it was being taken in. Restated with the convergence
+  measured, the third one improved from a bound into a mechanism: the channel
+  splitting is not merely small, it **is** `1.04·e^{−σ*d}`, the Euclidean
+  propagator between the mouths. **A threshold that fails is often a limit
+  asking to be named.**
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -725,7 +830,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 19. What is imported rather than derived
+## 20. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -769,7 +874,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 20. What would come next
+## 21. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
@@ -823,12 +928,12 @@ ray closure → field solution → two-wave invariant
   turned out not to be a rearrangement: it adds arrivals the free-branch ledger
   does not contain, and it names the index the next step has to be written in —
   a **pair of branches**, the index on which the theory's *conditions* live even
-  though its *amplitudes* factorize over it. **Still owed:** a genuine
-  flux-conserving throat operator. What is solved so far is a rank-one
-  *mouth-transfer* model — field values only, no normal-derivative matching, no
-  reflected channel, `1×1` where a conserving junction needs `2×2` unitary, and
-  lossy for `κ < 1`. That operator, not another visualization, is the immediate
-  next construction;
+  though its *amplitudes* factorize over it. **The flux-conserving operator that
+  round listed as owed is now built** (§18): a tube with an exact
+  Dirichlet-to-Neumann map, self-adjoint at every frequency to `0.0` against the
+  transfer model's `0.30`, with the reflected channel, the normal-derivative
+  matching and a proper length. What it costs is a frequency-dependent boundary
+  condition — and what it buys is a traversal delay, measured at slope `1.0071`;
 * **two-wave invariant** — ~~done~~, in two rounds and with the second correcting
   the first's scope. §16 built the *static* kernel: zero without a second source,
   rank two at any source count, discriminator `𝒲 = −β`. §17 built the
@@ -855,9 +960,16 @@ ray closure → field solution → two-wave invariant
   an on-shell action is made of, and `𝒲 = −β` is a measured number the action
   round has to reproduce. It also inherits a warning: any quantity built by
   integrating over the field has to state which branches were present, because
-  §17 measured the same configuration giving anything from 0 to 4;
+  §17 measured the same configuration giving anything from 0 to 4 — and §18
+  widens that warning, since the arrival ledger now contains `min(L, d)` and the
+  throat contributes an echo series at every even multiple of the traversal
+  time. The action round also inherits §18's conservation law, which is what
+  makes a common action possible at all;
 * **backreaction** — and the first GR question is not "does spacetime pinch
   off?" but whether `A + B` produces a collapse response not reproducible by
-  rescaling `A` or `B` alone;
+  rescaling `A` or `B` alone. It inherits §17's warning about *which* diagnostic
+  to integrate — `ΔT`, not `T_A:T_B` — and §18's source with a finite size, a
+  delay and a growing mode whose scale says where the model's own resolution
+  ends;
 * **topological branch** — the detached resonator, last, and only if
   backreaction produces a finite-radius neck.

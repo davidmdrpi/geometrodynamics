@@ -2643,6 +2643,93 @@ python scripts/geometrodynamics_v59_two_wave.py --still v59.png
 
 Full write-up: `docs/two_wave_invariant.md`.
 
+## The throat has an interior, and the interior is the delay
+
+**The flux-conserving throat operator, finally.** Every round from #253 to #259
+carried the same disclaimer — *point-supported, no interior, no proper length,
+no delay* — and what stood in for one was a rank-one **mouth-transfer** model:
+field values only, no normal-derivative matching, no reflected channel, `1×1`
+where a conserving junction needs `2×2`, and lossy for `κ < 1`.
+
+**Two lines are put in.** A tube of length `L`, cross-section `𝒜` and interior
+mass `m` joins the mouths; its Dirichlet-to-Neumann map is exact,
+
+```
+N(λ) = 𝒜k [[cot kL, −csc kL], [−csc kL, cot kL]],    k² = λ − m²
+```
+
+and the matching is value and flux continuity, `q = −NΦ`. Everything follows.
+Since `det N = −(𝒜k)²`, the chart is closed-form: `A(λ) = −N(λ)⁻¹`, so the
+transmission amplitude is `β(λ) = csc(kL)/(𝒜k)` and the self-energy is
+`α(λ) = cot(kL)/(𝒜k)`. **The boundary condition is now frequency-dependent, and
+that dependence *is* the interior.**
+
+| | |
+| --- | ---: |
+| `‖BC† − CB†‖`, seven `λ` on both sides of zero | **`0.0`** |
+| DtN vs its own interior, Green's identity under quadrature | `1.5e-07` |
+| **control** — #255's rank-one transfer model | **`0.30`** |
+
+**The result — the throat transmits at the traversal time.** The measured object
+is the throat operator's *own* impulse response, so no source or observer
+geometry enters. `r₁₁` (same mouth in and out) starts at **`t = 0`** — a wave
+that reaches a mouth is partly reflected instantaneously — and `r₁₂` (opposite
+mouths) starts at **`min(L, d)`**, with `d(onset)/dL = **1.0071**` against a
+predicted `1` below the ambient path and a spread of `0.0` above it. The ambient
+*also* connects the two mouths, along a geodesic of length `d`, whether or not
+they are joined: #258's cross-mouth channel and #259's `β = 0` control, now
+**separated in time** instead of by rank counting. A point throat transmits at
+`0.0`, which is what a point throat is.
+
+The ledger is a derivation, not a fit: on the contour `cot x = −i − 2iΣe^{2ikx}`
+and `csc x = −2iΣe^{i(2k+1)x}` to `4.5e-16` and `1.7e-15`, so the same-mouth
+entry carries `0, 2L, 4L…` and the cross-mouth entry `L, 3L, 5L…`. **The
+parities are the physics**, and the reflected channel is the one the rank-one
+model does not have at all.
+
+**There is no point limit — there is a band, of width `1/L`.** Freezing `A` at
+`A(λ₀)` is exact at `λ₀` and `4.3%`, `17%`, `73%`, `121%` wrong at
+`1.05, 1.2, 2, 3 λ₀`. The channels fail differently: the antisymmetric one *has*
+a limit, `−L/(2𝒜)` with an `O(L²)` error over a decade in `L`; the symmetric one
+**diverges** like `2/(𝒜λL)`, because a massless tube holds a zero mode and a
+point has nowhere to put it.
+
+**And that zero mode breaks #258's tomography.** At `λ = 0` the static response
+collapses onto `[[1,−1],[−1,1]]` to `4e-05`, `det S → 0` **linearly** in `λ`
+(coefficient `149.08`, constant to `1e-3` over four decades), so
+`𝒲 = S₁₂/det S − G₀` diverges like `1/λ`. **A point throat is statically rank
+two; a massless finite throat is rank one** — a falsifiable difference from a
+*static* measurement. An interior mass restores it (`det S ∝ −148.7 m²`), and
+off the collapse **`𝒲 = −β(λ)` exactly**, to `3.1e-13`: #258's theorem survives
+the generalization and returns the interior's own amplitude.
+
+**The price of point mouths, measured.** `A(λ)` decreases and `Γ(λ)` increases
+(#257's Gram identity), so `A − Γ` is strictly monotone between poles and each
+channel has **at most one root** — a count, not a scan. The symmetric channel
+always has exactly one, at `λ < 0`. Three facts say what it is, all limits with
+their convergence measured: its rate matches **`σ* = 2√(π/𝒜)`** to `1.5e-03`
+with **no `L` in it**; two mouth separations agree to `3.9e-09`; and the channel
+splitting is `1.04·e^{−σ*d}`, the Euclidean propagator between the mouths. A
+mode that ignores the tube's length and the mouths' separation and does not
+distinguish the channels is a **single-mouth object**, at the scale `√(𝒜/4π)` —
+exactly where "point mouth" stops being an approximation. Every statement is
+made at `|λ| ≪ σ*²`.
+
+So the contour must clear it. Placed `0.03` *below* `σ*`, the inversion returns
+a field with support before its own light cone — a pedestal at 99% of the peak
+for an event that cannot begin until `t = 0.6` — against `1.0e-16` when placed
+above. Same species as #259's under-resolved contour, and this time the rule is
+checkable in advance, because `σ*` has a closed form.
+
+```bash
+python -m experiments.closure_ledger.finite_throat_probe
+# Verdict: THE_THROAT_HAS_AN_INTERIOR_AND_A_TRAVERSAL_TIME  (10/10)
+
+python scripts/geometrodynamics_v60_finite_throat.py --still v60.png
+```
+
+Full write-up: `docs/finite_conservative_throat.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
