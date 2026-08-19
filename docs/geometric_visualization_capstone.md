@@ -952,9 +952,27 @@ zero without a second source rather than under-determined by its absence.
 The staged order that follows from this, and the reason it is that order:
 
 ```
-ray closure → field solution → two-wave invariant
-            → stationary action → backreaction → topological branch
+ray closure → field solution → two-wave invariant → finite throat
+            → ** RESOLVE THE MOUTH ** → stationary action → backreaction
+            → topological branch
 ```
+
+**The order now has a gate in it, and it is not optional.** §18 built the
+conservative finite throat the arc had owed since §11 — and found that with
+point mouths it carries an exponentially growing mode for *every* choice of
+parameters, at a rate that knows neither the tube's length nor the mouths'
+separation. Stationary action and backreaction are both integrals over a solved
+field on this background. Run on a background with a growing mode, each would be
+measuring the mode: an on-shell action evaluated on a solution whose amplitude
+diverges is not stationary in any useful sense, and an `A`/`B`/`A+B` collapse
+comparison would report the instability's response rather than the waves'. So
+the next construction is **a finite-radius mouth or neck** — the ambient solved
+outside two small balls rather than a point interaction with a radius parameter
+— and the question it has to answer is single and sharp: *does the negative mode
+survive?* If it does, the point-interaction throat family of §15–§18 is the wrong
+model of a wormhole mouth and the arc has to say so. If it does not, the mode was
+an artifact of the matching, the delay and the conservation law carry over, and
+the two steps below resume with an object that has a proper length.
 
 * **field solution** — ~~done~~, in two stages, with one piece still owed. The
   first (`docs/field_solve.md`) solved the field with the mouth relation applied
@@ -990,8 +1008,8 @@ ray closure → field solution → two-wave invariant
   caustic and low-frequency closure all have numbers. What is *not* done is
   backreaction — and §17 hands that step a warning as well as an object, since
   the interference tensor `ΔT` peaks exactly where `T_A:T_B` is null;
-* **stationary action** — evaluate the on-shell action and ask whether the
-  candidate events are stationary. *Not* with Lagrange multipliers imposing the
+* **stationary action** — *gated on the mouth above.* Evaluate the on-shell
+  action and ask whether the candidate events are stationary. *Not* with Lagrange multipliers imposing the
   ray round's five equations, which would only rename them. This is where the
   retrocausal language earns its keep or fails: the backward-in-time throat
   contribution should fall out of one stationary solution rather than be
@@ -1005,9 +1023,9 @@ ray closure → field solution → two-wave invariant
   throat contributes an echo series at every even multiple of the traversal
   time. The action round also inherits §18's conservation law, which is what
   makes a common action possible at all;
-* **backreaction** — and the first GR question is not "does spacetime pinch
-  off?" but whether `A + B` produces a collapse response not reproducible by
-  rescaling `A` or `B` alone. It inherits §17's warning about *which* diagnostic
+* **backreaction** — *gated on the mouth above.* The first GR question is not
+  "does spacetime pinch off?" but whether `A + B` produces a collapse response
+  not reproducible by rescaling `A` or `B` alone. It inherits §17's warning about *which* diagnostic
   to integrate — `ΔT`, not `T_A:T_B` — and §18's source with a finite size and a
   delay. It also inherits §18's **blocker**: computed on a background with a
   growing mode, a backreaction estimate measures the mode. The mouth has to be

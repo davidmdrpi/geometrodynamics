@@ -2743,8 +2743,13 @@ mode that ignores the tube's length and the mouths' separation and does not
 distinguish the channels is a **single-mouth object**: the instability belongs to
 the **point-mouth matching**, not to the interior.
 
-**That is the round's closure result, and nothing here cures it.** The contour
-must clear `σ*` — placed `0.03` below it the inversion returns a field with
+**That is the round's closure result, and it gates the roadmap.** An action or a
+backreaction computed on a background with a growing mode inherits the mode, so
+the next construction is not #261 but a **finite-radius mouth or neck** — the
+ambient solved outside two small balls rather than a point interaction with a
+radius parameter — with one question to answer: *does the negative mode survive?*
+If it does, the point-interaction throat family of #255–#260 is the wrong model
+of a wormhole mouth. Meanwhile the contour must clear `σ*` — placed `0.03` below it the inversion returns a field with
 support before its own light cone, a pedestal at 99% of the peak for an event
 that cannot begin until `t = 0.6`, against `1.0e-16` placed above — but clearing
 the contour evaluates the correct retarded solution *of an unstable system* and

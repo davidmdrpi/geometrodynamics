@@ -381,9 +381,19 @@ class FiniteThroat:
         """``(A−Γ)`` in the symmetric and antisymmetric channels, real ``λ``.
 
         Both matrices are ``pI + q·swap``, so they commute and the ``2×2``
-        problem is two scalar ones.  ``A_sym = −tan(kL/2)/(𝒜k)`` and
-        ``A_anti = cot(kL/2)/(𝒜k)`` — the half-angle is the tube folded about
-        its middle, which is what the symmetric and antisymmetric modes are.
+        problem is two scalar ones.  Since ``cot x + csc x = cot(x/2)`` and
+        ``cot x − csc x = −tan(x/2)``,
+
+            ``A_sym  = α + β =  cot(kL/2)/(𝒜k)``
+            ``A_anti = α − β = −tan(kL/2)/(𝒜k)``
+
+        — the half-angle is the tube folded about its middle, which is what the
+        symmetric and antisymmetric modes are.  The symmetric one carries the
+        pole at ``k → 0``: a constant field on a massless tube costs nothing, so
+        that channel decouples statically (§ the rank collapse), and it is the
+        one that always produces a growing mode.  The continuations at
+        ``λ = −σ²`` in `negative_lambda_channels` are these two functions and
+        agree with them where both are finite, which is checked.
         """
         lam = float(lmbda)
         a = self.boundary_matrix(complex(lam))

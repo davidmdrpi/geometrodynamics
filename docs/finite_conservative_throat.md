@@ -426,10 +426,18 @@ forward.
   fix them from matter;
 * **no backreaction.** The throat is a fixed background.
 
-**The next two steps, and the order.** The instability comes first: an action or
-a backreaction computed on a background with a growing mode inherits the mode,
-and #261 and #262 would both be measuring it rather than the physics they are
-after. Once it is resolved — #261, the common action and stationary history, now
+**The next step is not #261.** The roadmap has a gate in it now, and it is not
+optional: an action or a backreaction computed on a background with a growing
+mode inherits the mode, so #261 and #262 would both be measuring it rather than
+the physics they are after. The next construction is **a finite-radius mouth or
+neck** — the ambient solved outside two small balls rather than a point
+interaction with a radius parameter — and it has one question to answer: *does
+the negative mode survive?* If it does, the point-interaction throat family of
+#255–#260 is the wrong model of a wormhole mouth and the arc should say so. If it
+does not, the mode was an artifact of the matching, the delay and the
+conservation law carry over unchanged, and the two steps below resume.
+
+Once that is resolved — #261, the common action and stationary history, now
 has an object with a conservation law, a proper length and a delay, which is
 what an on-shell action is made of, and it inherits §4's warning that any
 quantity integrated over the field has to state which arrivals were present,

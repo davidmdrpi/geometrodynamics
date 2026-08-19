@@ -153,8 +153,13 @@ another way of saying the same thing.
 WHAT IS NOT CLOSED
 ──────────────────
 The point-mouth matching is UNSTABLE (T8), and that is the round's closure
-result: it should be resolved before PR #261's common action or PR #262's A/B/
-A+B metric backreaction. The mouths are points, the interior is
+result. It GATES the roadmap: an action or a backreaction computed on a
+background with a growing mode inherits the mode, so PR #261's common action and
+PR #262's A/B/A+B metric backreaction both wait. The next construction is a
+FINITE-RADIUS MOUTH OR NECK -- the ambient solved outside two small balls rather
+than a point interaction with a radius parameter -- and it has one question to
+answer: DOES THE NEGATIVE MODE SURVIVE? If it does, the point-interaction throat
+family of PRs #255-#260 is the wrong model of a wormhole mouth. The mouths are points, the interior is
 one-dimensional so A is a coupling and not a geometry, and L, A, m are chosen.
 What this round does hand the next two is an object with a proper length, a
 delay, a conservation law -- and a stated failure mode.
@@ -414,10 +419,16 @@ def run_probe() -> dict:
             "WHAT IS STILL PUT IN: the background, the mouth positions, and "
             "L, A, m -- three numbers with dimensions where the real-field "
             "point sector has three without them. NO BACKREACTION: the throat "
-            "is a fixed background, and PR #261's common action and PR #262's "
-            "A/B/A+B metric backreaction are the next two steps. They get an "
-            "object with a proper length, a delay, a conservation law -- and a "
-            "stated failure mode to resolve first.")
+            "is a fixed background. AND THE INSTABILITY GATES WHAT COMES "
+            "NEXT: an action or a backreaction computed on a background with a "
+            "growing mode inherits the mode, so PR #261's common action and PR "
+            "#262's A/B/A+B metric backreaction both wait on a FINITE-RADIUS "
+            "MOUTH OR NECK -- the ambient solved outside two small balls "
+            "rather than a point interaction with a radius parameter -- whose "
+            "single question is whether the negative mode survives. If it "
+            "does, the point-interaction throat family of PRs #255-#260 is the "
+            "wrong model of a wormhole mouth. If it does not, the delay and "
+            "the conservation law carry over unchanged.")
     else:
         verdict_class = "INCONCLUSIVE"
         failed = [t["name"] for t in tests if not t["pass"]]

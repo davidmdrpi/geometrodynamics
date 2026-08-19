@@ -110,6 +110,45 @@ def test_the_channel_functions_diagonalize_the_two_by_two():
     assert complex(v_a @ m @ v_a).real == pytest.approx(a, rel=1e-12)
 
 
+def test_the_channel_closed_forms_are_the_half_angle_ones():
+    """``A_sym = cot(kL/2)/(𝒜k)`` and ``A_anti = −tan(kL/2)/(𝒜k)``.
+
+    Pinned because the two are easy to write down the wrong way round: the
+    docstring of `channel_functions` had them swapped while every formula in
+    the module had them right.
+    """
+    t = FiniteThroat(separation=1.3, length=0.9, area=FOUR_PI)
+    for lam in (0.3, 1.7, 6.0):
+        k = math.sqrt(lam)
+        a = t.boundary_matrix(complex(lam))
+        sym = float((a[0, 0] + a[0, 1]).real)
+        anti = float((a[0, 0] - a[0, 1]).real)
+        assert sym == pytest.approx(
+            1.0 / (math.tan(k * t.length / 2.0) * t.area * k), rel=1e-12)
+        assert anti == pytest.approx(
+            -math.tan(k * t.length / 2.0) / (t.area * k), rel=1e-12)
+    # and the symmetric channel is the one that carries the k → 0 pole, while
+    # the antisymmetric one goes to the finite −L/(2𝒜)
+    small = t.boundary_matrix(complex(1e-6))
+    assert float((small[0, 0] + small[0, 1]).real) == pytest.approx(
+        2.0 / (t.area * 1e-6 * t.length), rel=1e-6)
+    assert float((small[0, 0] - small[0, 1]).real) == pytest.approx(
+        -t.length / (2.0 * t.area), rel=1e-6)
+
+
+def test_the_negative_lambda_channels_are_the_same_two_functions():
+    """The continuations ``−coth(κL/2)/(𝒜κ)`` and ``−tanh(κL/2)/(𝒜κ)``."""
+    t = FiniteThroat(separation=1.3, length=0.9, area=FOUR_PI)
+    for sigma in (0.4, 2.0):
+        g = gamma_at(-sigma ** 2, t.separation).real
+        sym, anti = t.negative_lambda_channels(sigma)
+        scale = t.area * sigma
+        assert sym + float(g[0, 0] + g[0, 1]) == pytest.approx(
+            -1.0 / (math.tanh(sigma * t.length / 2.0) * scale), rel=1e-12)
+        assert anti + float(g[0, 0] - g[0, 1]) == pytest.approx(
+            -math.tanh(sigma * t.length / 2.0) / scale, rel=1e-12)
+
+
 def test_the_transmission_amplitude_is_the_off_diagonal():
     t = WORKING_THROAT
     for lam in (0.4, 2.2, 6.1):
