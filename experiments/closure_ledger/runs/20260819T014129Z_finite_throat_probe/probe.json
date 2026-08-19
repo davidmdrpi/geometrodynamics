@@ -1,0 +1,681 @@
+{
+  "probe": "finite_throat",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "replace the point-supported throat of PRs #253-#259 with a FINITE conservative one -- a tube with a Dirichlet-to-Neumann map -- and measure what the point idealization was throwing away: a traversal delay, a reflected channel, and the rank of the static response.",
+      "scope": "a linear conformally coupled scalar on a fixed Einstein static universe. The tube's interior is one-dimensional and its mouths are still points in the ambient, which is the one approximation the round then measures the cost of. No backreaction, no topology change, and L, A and m are chosen rather than derived.",
+      "pass": true
+    },
+    {
+      "name": "T2_the_enlarged_system_is_conservative",
+      "rows": [
+        {
+          "lambda": -4.0,
+          "hermiticity_defect": 0.0,
+          "rank": 2,
+          "imaginary_part": 0.0
+        },
+        {
+          "lambda": -0.7,
+          "hermiticity_defect": 0.0,
+          "rank": 2,
+          "imaginary_part": 0.0
+        },
+        {
+          "lambda": 0.15,
+          "hermiticity_defect": 0.0,
+          "rank": 2,
+          "imaginary_part": 0.0
+        },
+        {
+          "lambda": 0.9,
+          "hermiticity_defect": 0.0,
+          "rank": 2,
+          "imaginary_part": 0.0
+        },
+        {
+          "lambda": 2.5,
+          "hermiticity_defect": 0.0,
+          "rank": 2,
+          "imaginary_part": 0.0
+        },
+        {
+          "lambda": 7.0,
+          "hermiticity_defect": 0.0,
+          "rank": 2,
+          "imaginary_part": 0.0
+        },
+        {
+          "lambda": 19.0,
+          "hermiticity_defect": 0.0,
+          "rank": 2,
+          "imaginary_part": 0.0
+        }
+      ],
+      "worst_hermiticity_defect": 0.0,
+      "every_condition_is_maximal": true,
+      "worst_imaginary_part": 0.0,
+      "worst_green_identity_residual": 1.53066153529835e-07,
+      "the_rank_one_control_defect": 0.3,
+      "the_finite_throat_is_conservative": true,
+      "the_control_is_not": true,
+      "what_it_checks": "maximality and BC\u2020 = CB\u2020 at every \u03bb, the DtN against its own interior, and the rank-one transfer model as the failing control",
+      "pass": true
+    },
+    {
+      "name": "T3_the_throat_transmits_at_the_traversal_time",
+      "rows": [
+        {
+          "length": 0.4,
+          "sigma_star": 1.768579813429834,
+          "contour": 2.5685798134298343,
+          "onset_same_mouth": 0.0,
+          "onset_opposite": 0.258636474609375,
+          "prediction": 0.4
+        },
+        {
+          "length": 0.6,
+          "sigma_star": 1.5752330633900846,
+          "contour": 2.375233063390085,
+          "onset_same_mouth": 0.0,
+          "onset_opposite": 0.460052490234375,
+          "prediction": 0.6
+        },
+        {
+          "length": 0.9,
+          "sigma_star": 1.4166597760120085,
+          "contour": 2.2166597760120084,
+          "onset_same_mouth": 0.0,
+          "onset_opposite": 0.762176513671875,
+          "prediction": 0.9
+        },
+        {
+          "length": 1.2,
+          "sigma_star": 1.3249059333346223,
+          "contour": 2.124905933334622,
+          "onset_same_mouth": 0.0,
+          "onset_opposite": 1.064300537109375,
+          "prediction": 1.2
+        },
+        {
+          "length": 2.0,
+          "sigma_star": 1.2056683824184842,
+          "contour": 2.0056683824184844,
+          "onset_same_mouth": 0.0,
+          "onset_opposite": 1.137542724609375,
+          "prediction": 1.3
+        },
+        {
+          "length": 3.0,
+          "sigma_star": 1.1519661925776297,
+          "contour": 1.9519661925776297,
+          "onset_same_mouth": 0.0,
+          "onset_opposite": 1.137542724609375,
+          "prediction": 1.3
+        }
+      ],
+      "slope_below_the_ambient_path": 1.007080078125,
+      "onset_spread_above_it": 0.0,
+      "point_throat_onset_same_mouth": 0.0,
+      "point_throat_onset_opposite": 0.0,
+      "reflection_is_instantaneous": true,
+      "the_delay_is_the_traversal_time": true,
+      "the_ambient_path_takes_over": true,
+      "the_point_throat_transmits_instantly": true,
+      "the_two_channels": "the tube arrives at L, the ambient at d; a point throat arrives at 0, which is what a point throat is",
+      "pass": true
+    },
+    {
+      "name": "T4_the_delay_ledger_is_the_bounce_series",
+      "contour": 1.6,
+      "order": 400,
+      "cot_series_error": 4.518280359883027e-16,
+      "csc_series_error": 1.6653345369377348e-15,
+      "delays": {
+        "same_mouth": [
+          0.0,
+          2.0,
+          4.0,
+          6.0
+        ],
+        "opposite_mouths": [
+          1.0,
+          3.0,
+          5.0,
+          7.0
+        ]
+      },
+      "the_series_converge_on_the_contour": true,
+      "the_parity_rule": "even multiples of L return to the mouth they entered; odd multiples cross",
+      "pass": true
+    },
+    {
+      "name": "T5_the_short_tube_limit_is_a_mixed_stratum",
+      "lambda_0": 1.0,
+      "band": [
+        {
+          "lambda": 1.0,
+          "beta_exact": 0.10158909462690524,
+          "beta_frozen": 0.10158909462690524,
+          "relative_error": 0.0
+        },
+        {
+          "lambda": 1.05,
+          "beta_exact": 0.09744634007965132,
+          "beta_frozen": 0.10158909462690524,
+          "relative_error": 0.042513187707898414
+        },
+        {
+          "lambda": 1.2,
+          "beta_exact": 0.08712713309769778,
+          "beta_frozen": 0.10158909462690524,
+          "relative_error": 0.1659868862319952
+        },
+        {
+          "lambda": 1.5,
+          "beta_exact": 0.07282245231055866,
+          "beta_frozen": 0.10158909462690524,
+          "relative_error": 0.39502435586305645
+        },
+        {
+          "lambda": 2.0,
+          "beta_exact": 0.05886424622435046,
+          "beta_frozen": 0.10158909462690524,
+          "relative_error": 0.7258200205217397
+        },
+        {
+          "lambda": 3.0,
+          "beta_exact": 0.04594735560750001,
+          "beta_frozen": 0.10158909462690524,
+          "relative_error": 1.210988930347121
+        }
+      ],
+      "short_tubes": [
+        {
+          "length": 0.4,
+          "anti": -0.01613115208276944,
+          "anti_limit": -0.015915494309189534,
+          "anti_error": 0.00021565777357990604,
+          "anti_error_over_L_squared": 0.0013478610848744125,
+          "sym": 0.39256799174376905,
+          "sym_prediction": 0.3978873577297384,
+          "distance_to_the_stratum": 2.54732943345189,
+          "rank": 2,
+          "distance_over_L": 6.368323583629724
+        },
+        {
+          "length": 0.2,
+          "anti": -0.007984379512951945,
+          "anti_limit": -0.007957747154594767,
+          "anti_error": 2.6632358357177657e-05,
+          "anti_error_over_L_squared": 0.0006658089589294413,
+          "sym": 0.79312036300049,
+          "sym_prediction": 0.7957747154594768,
+          "distance_to_the_stratum": 1.2608426748959694,
+          "rank": 2,
+          "distance_over_L": 6.304213374479846
+        },
+        {
+          "length": 0.1,
+          "anti": -0.003982192624365055,
+          "anti_limit": -0.0039788735772973835,
+          "anti_error": 3.3190470676717e-06,
+          "anti_error_over_L_squared": 0.00033190470676716996,
+          "sym": 1.5902229186253451,
+          "sym_prediction": 1.5915494309189535,
+          "distance_to_the_stratum": 0.6288426536226936,
+          "rank": 2,
+          "distance_over_L": 6.288426536226936
+        },
+        {
+          "length": 0.05,
+          "anti": -0.0019898513582887745,
+          "anti_limit": -0.0019894367886486917,
+          "anti_error": 4.145696400827299e-07,
+          "anti_error_over_L_squared": 0.00016582785603309194,
+          "sym": 3.1824356886089795,
+          "sym_prediction": 3.183098861837907,
+          "distance_to_the_stratum": 0.3142247315724939,
+          "rank": 2,
+          "distance_over_L": 6.284494631449878
+        },
+        {
+          "length": 0.02,
+          "anti": -0.0007958012423450178,
+          "anti_limit": -0.0007957747154594768,
+          "anti_error": 2.6526885541031803e-08,
+          "anti_error_over_L_squared": 6.631721385257951e-05,
+          "sym": 7.957481894587875,
+          "sym_prediction": 7.957747154594767,
+          "distance_to_the_stratum": 0.12566789510140322,
+          "rank": 2,
+          "distance_over_L": 6.2833947550701605
+        }
+      ],
+      "the_stratum": {
+        "B": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "C": [
+          [
+            -1.0,
+            -0.0
+          ],
+          [
+            -0.0,
+            -0.0
+          ]
+        ],
+        "condition": "Phi_anti = 0 and q_sym = 0"
+      },
+      "the_band_error_reaches_one": true,
+      "the_antisymmetric_channel_has_a_limit": true,
+      "the_chart_matrix_diverges": true,
+      "worst_symmetric_prediction_error": 0.013550177543362478,
+      "distance_to_the_stratum": 0.12566789510140322,
+      "convergence_is_linear_in_L": true,
+      "every_pair_is_maximal": true,
+      "the_limit_exists_and_is_not_a_finite_A": true,
+      "the_scope": "the limit is a mixed Dirichlet-Neumann stratum, not a finite A; the chart matrix diverges because the limit leaves the chart, not because it is absent",
+      "pass": true
+    },
+    {
+      "name": "T6_the_static_limit_is_rank_one",
+      "rows": [
+        {
+          "lambda": 1e-08,
+          "det_S": 1.4907610425274484e-06,
+          "det_S_over_lambda": 149.07610425274484,
+          "antisymmetry": 4.2900930568791696e-09,
+          "defect": -8841941.400054524,
+          "minus_beta": -8841941.294819696
+        },
+        {
+          "lambda": 1e-06,
+          "det_S": 0.00014907625705927338,
+          "det_S_over_lambda": 149.0762570592734,
+          "antisymmetry": 4.290089475433351e-07,
+          "defect": -88419.42475031309,
+          "minus_beta": -88419.42476545258
+        },
+        {
+          "lambda": 0.0001,
+          "det_S": 0.014909220850873702,
+          "det_S_over_lambda": 149.092208508737,
+          "antisymmetry": 4.289707649303923e-05,
+          "defect": -884.2060597947415,
+          "minus_beta": -884.206065021841
+        },
+        {
+          "lambda": 0.01,
+          "det_S": 1.5071518913793966,
+          "det_S_over_lambda": 150.71518913793966,
+          "antisymmetry": 0.004251895090040664,
+          "defect": -8.853361306631376,
+          "minus_beta": -8.85388919336369
+        }
+      ],
+      "massive": [
+        {
+          "mass": 0.05,
+          "det_S": -0.3724465065396255,
+          "det_S_over_mass_squared": -148.97860261585018,
+          "defect": 35.35583133022535,
+          "minus_beta": 35.355831330225044,
+          "defect_error": 3.055333763768431e-13
+        },
+        {
+          "mass": 0.1,
+          "det_S": -1.4868681366530878,
+          "det_S_over_mass_squared": -148.68681366530876,
+          "defect": 8.830015932631754,
+          "minus_beta": 8.830015932631627,
+          "defect_error": 1.2789769243681803e-13
+        },
+        {
+          "mass": 0.2,
+          "det_S": -5.901197170836809,
+          "det_S_over_mass_squared": -147.5299292709202,
+          "defect": 2.1985936667789754,
+          "minus_beta": 2.1985936667789714,
+          "defect_error": 3.9968028886505635e-15
+        },
+        {
+          "mass": 0.4,
+          "det_S": -22.889781431065277,
+          "det_S_over_mass_squared": -143.06113394415794,
+          "defect": 0.5408627571275682,
+          "minus_beta": 0.5408627571275677,
+          "defect_error": 4.440892098500626e-16
+        }
+      ],
+      "stratum_response": [
+        [
+          6.780339919878025,
+          -6.780339919878025
+        ],
+        [
+          -6.780339919878025,
+          6.780339919878025
+        ]
+      ],
+      "stratum_rank": 1,
+      "approach_to_the_stratum": [
+        {
+          "length": 0.4,
+          "distance_to_the_stratum_response": 1.8661228941622872,
+          "det_S": 4.346187630062307e-08
+        },
+        {
+          "length": 0.1,
+          "distance_to_the_stratum_response": 0.3866907112329043,
+          "det_S": 9.006352807836917e-09
+        },
+        {
+          "length": 0.02,
+          "distance_to_the_stratum_response": 0.07397157733894044,
+          "det_S": 1.72267935415914e-09
+        }
+      ],
+      "the_stratum_is_rank_one_too": true,
+      "it_falsifies_the_finite_A_family_not_point_ness": true,
+      "det_S_is_linear_in_lambda": true,
+      "linear_coefficient": 149.08152327358508,
+      "departure_at_the_largest_lambda": 0.010958204802862002,
+      "worst_antisymmetry": 4.289707649303923e-05,
+      "worst_defect_error_over_lambda": 5.962201703516426e-05,
+      "the_static_response_is_rank_one": true,
+      "the_defect_diverges": true,
+      "worst_defect_error": 3.055333763768431e-13,
+      "the_defect_is_still_minus_beta": true,
+      "the_falsifiable_difference": "a generic finite-A throat is statically rank two; this tube is rank one and \ud835\udcb2 diverges \u2014 but so is its own point limit, so rank one falsifies the chart, not point-ness",
+      "pass": true
+    },
+    {
+      "name": "T7_the_interior_mass_is_a_cutoff",
+      "mass": 2.0,
+      "cutoff": 4.0,
+      "length": 3.0,
+      "rows": [
+        {
+          "lambda": 0.0,
+          "propagating": false,
+          "beta": -0.0001972540427788494,
+          "imaginary_part": 0.0,
+          "kappa": 2.0,
+          "exponential_asymptote": -0.000197252830808123
+        },
+        {
+          "lambda": 0.5,
+          "propagating": false,
+          "beta": -0.00031068491519347567,
+          "imaginary_part": 0.0,
+          "kappa": 1.8708286933869707,
+          "exponential_asymptote": -0.00031068077160421734
+        },
+        {
+          "lambda": 1.5,
+          "propagating": false,
+          "beta": -0.0008766847662157767,
+          "imaginary_part": 0.0,
+          "kappa": 1.5811388300841898,
+          "exponential_asymptote": -0.0008766182750043028
+        },
+        {
+          "lambda": 3.0,
+          "propagating": false,
+          "beta": -0.007943548119992573,
+          "imaginary_part": 0.0,
+          "kappa": 1.0,
+          "exponential_asymptote": -0.007923858032799689
+        },
+        {
+          "lambda": 3.9,
+          "propagating": false,
+          "beta": -0.2292843364419641,
+          "imaginary_part": 0.0,
+          "kappa": 0.31622776601683805,
+          "exponential_asymptote": -0.1949001665432486
+        },
+        {
+          "lambda": 4.1,
+          "propagating": true,
+          "beta": 0.3096614805757662,
+          "imaginary_part": 0.0,
+          "kappa": 0.0,
+          "exponential_asymptote": NaN
+        },
+        {
+          "lambda": 6.0,
+          "propagating": true,
+          "beta": -0.06310518065956236,
+          "imaginary_part": 0.0,
+          "kappa": 0.0,
+          "exponential_asymptote": NaN
+        },
+        {
+          "lambda": 12.0,
+          "propagating": true,
+          "beta": 0.03485227418819487,
+          "imaginary_part": 0.0,
+          "kappa": 0.0,
+          "exponential_asymptote": NaN
+        }
+      ],
+      "worst_imaginary_part": 0.0,
+      "asymptote_error": 7.584392250924349e-05,
+      "deepest_kappa_L": 6.0,
+      "suppression_ratio": 0.0031257979252605054,
+      "sign_changes_below": 0,
+      "sign_changes_above": 7,
+      "below_is_monotone": true,
+      "the_evanescent_side_does_not_oscillate": true,
+      "the_transmission_is_suppressed_below_cutoff": true,
+      "everything_stays_real": true,
+      "what_it_means": "a massive interior gives the channel a mass gap; below m\u00b2 transmission is evanescent and the mouths look like two ordinary scatterers with a tunnelling term",
+      "pass": true
+    },
+    {
+      "name": "T8_the_growing_mode_belongs_to_the_mouth",
+      "rows": [
+        {
+          "area": 0.2,
+          "length": 1.5,
+          "sigma_star": 7.92672632664558,
+          "closed_form": 7.926654595212022,
+          "relative_error": 9.049395643106235e-06,
+          "channel_split": 0.00014347739699260842,
+          "split_over_exponential": 4.286245509841187,
+          "sigma_times_L": 11.890089489968371
+        },
+        {
+          "area": 0.2,
+          "length": 3.0,
+          "sigma_star": 7.9266719667789385,
+          "closed_form": 7.926654595212022,
+          "relative_error": 2.1915382722737823e-06,
+          "channel_split": 3.474388042512544e-05,
+          "split_over_exponential": 1.037865761788154,
+          "sigma_times_L": 23.780015900336814
+        },
+        {
+          "area": 0.2,
+          "length": 6.0,
+          "sigma_star": 7.926671966406074,
+          "closed_form": 7.926654595212022,
+          "relative_error": 2.191491232958326e-06,
+          "channel_split": 3.474313464124634e-05,
+          "split_over_exponential": 1.0378434833027679,
+          "sigma_times_L": 47.56003179843644
+        },
+        {
+          "area": 0.5,
+          "length": 1.5,
+          "sigma_star": 5.016724766200813,
+          "closed_form": 5.0132565492620005,
+          "relative_error": 0.0006918091872483667,
+          "channel_split": 0.006970211303787721,
+          "split_over_exponential": 4.7380822137175285,
+          "sigma_times_L": 7.5250871493012195
+        },
+        {
+          "area": 0.5,
+          "length": 3.0,
+          "sigma_star": 5.014024133503957,
+          "closed_form": 5.0132565492620005,
+          "relative_error": 0.0001531109039432206,
+          "channel_split": 0.0015365897613435209,
+          "split_over_exponential": 1.040854088239408,
+          "sigma_times_L": 15.042072400511872
+        },
+        {
+          "area": 0.5,
+          "length": 6.0,
+          "sigma_star": 5.0140226645828605,
+          "closed_form": 5.0132565492620005,
+          "relative_error": 0.0001528178965771852,
+          "channel_split": 0.0015336421874589945,
+          "split_over_exponential": 1.0388554789238307,
+          "sigma_times_L": 30.084135987497163
+        },
+        {
+          "area": 1.0,
+          "length": 1.5,
+          "sigma_star": 3.5668068822204866,
+          "closed_form": 3.5449077018110318,
+          "relative_error": 0.00617764473762375,
+          "channel_split": 0.04518955956611048,
+          "split_over_exponential": 4.664402501738989,
+          "sigma_times_L": 5.35021032333073
+        },
+        {
+          "area": 1.0,
+          "length": 3.0,
+          "sigma_star": 3.5501328526091465,
+          "closed_form": 3.5449077018110318,
+          "relative_error": 0.001473987826381279,
+          "channel_split": 0.010516160123775542,
+          "split_over_exponential": 1.0621876082730144,
+          "sigma_times_L": 10.65039855782744
+        },
+        {
+          "area": 1.0,
+          "length": 6.0,
+          "sigma_star": 3.550049427877278,
+          "closed_form": 3.5449077018110318,
+          "relative_error": 0.0014504541440160715,
+          "channel_split": 0.01034547313289469,
+          "split_over_exponential": 1.0448340017800757,
+          "sigma_times_L": 21.30029656726367
+        }
+      ],
+      "by_separation": [
+        {
+          "separation": 0.8,
+          "sigma_star": 7.927881584508855,
+          "sigma_times_d": 6.342305267607085
+        },
+        {
+          "separation": 1.3,
+          "sigma_star": 7.9266719667789385,
+          "sigma_times_d": 10.30467355681262
+        },
+        {
+          "separation": 2.4,
+          "sigma_star": 7.92665459963402,
+          "sigma_times_d": 19.023971039121648
+        },
+        {
+          "separation": 3.0,
+          "sigma_star": 7.926654595733929,
+          "sigma_times_d": 23.779963787201787
+        }
+      ],
+      "separation_spread": 0.0012269887749258857,
+      "separation_spread_far": 3.900090916886256e-09,
+      "worst_closed_form_error": 0.001473987826381279,
+      "worst_channel_split": 0.010516160123775542,
+      "split_over_exponential": [
+        1.037865761788154,
+        1.0378434833027679,
+        1.040854088239408,
+        1.0388554789238307,
+        1.0448340017800757
+      ],
+      "every_throat_has_one": true,
+      "it_stops_knowing_the_separation": true,
+      "the_closed_form_holds_once_sigma_L_is_large": true,
+      "the_split_is_the_euclidean_propagator": true,
+      "the_working_band": 2.0069249209703943,
+      "the_diagnosis": "a mode that ignores L and d and does not split the channels is a single-mouth object, so the instability belongs to the point-mouth matching and not to the interior",
+      "the_open_question": "whether a finite-radius mouth or neck geometry removes it \u2014 unresolved here, and the thing to settle before stationary action or backreaction",
+      "pass": true
+    },
+    {
+      "name": "T9_the_contour_must_clear_it",
+      "sigma_star": 1.5752330633900846,
+      "true_onset": 0.6,
+      "rows": [
+        {
+          "clearance": -0.03,
+          "contour": 1.5452330633900846,
+          "above_the_mode": false,
+          "onset": 0.0,
+          "pedestal": 0.9919058209236534
+        },
+        {
+          "clearance": 0.02,
+          "contour": 1.5952330633900846,
+          "above_the_mode": true,
+          "onset": 0.0,
+          "pedestal": 0.002614549700696304
+        },
+        {
+          "clearance": 0.3,
+          "contour": 1.8752330633900847,
+          "above_the_mode": true,
+          "onset": 0.464630126953125,
+          "pedestal": 1.0258795062742874e-16
+        },
+        {
+          "clearance": 0.8,
+          "contour": 2.375233063390085,
+          "above_the_mode": true,
+          "onset": 0.460052490234375,
+          "pedestal": 7.586501833773715e-17
+        }
+      ],
+      "pedestal_below": 0.9919058209236534,
+      "pedestal_above": 1.0258795062742874e-16,
+      "onset_below": 0.0,
+      "onset_above": 0.460052490234375,
+      "a_contour_below_the_mode_breaks_causality": true,
+      "the_rule": "\u03b5 must exceed \u03c3*, which has a closed form, so the contour can be placed before the solve rather than diagnosed after it",
+      "what_it_does_not_do": "clearing the contour evaluates the correct retarded solution of an unstable system; it does not cure the instability",
+      "pass": true
+    },
+    {
+      "name": "T10_assessment",
+      "n_passed": 9,
+      "n_total": 9,
+      "pass": true
+    }
+  ],
+  "verdict_class": "THE_INTERIOR_GIVES_A_DELAY_AND_THE_POINT_MOUTH_IS_UNSTABLE",
+  "verdict": "THE THROAT NOW HAS AN INTERIOR, AND THE INTERIOR IS THE DELAY. PRs #253-#259 all carried the same disclaimer -- point-supported, no proper length, no delay, a rank-one mouth-transfer model that is lossy for kappa < 1 -- and this round replaces it with a tube of length L and cross-section A whose Dirichlet-to-Neumann map is exact. Two lines are put in: N(lam) = A k [[cot kL, -csc kL], [-csc kL, cot kL]] and the matching q = -N Phi. Everything else follows. THE CONSERVATIVE OBJECT IS THE ENLARGED SYSTEM, ambient (+) tube, with lam-independent matching; eliminating the tube leaves a lam-DEPENDENT boundary condition -- the Weyl function of that elimination, which is a Nevanlinna function and not itself a self-adjoint operator on the ambient space. What is checked is that the elimination is faithful at each lam: rank[B|C] = 2 and BC^dag - CB^dag = 0.0e+00 at seven values of lam on both sides of zero, with the DtN map checked against the interior it summarizes by the SESQUILINEAR Green's identity to 1.5e-07 rather than against itself; PR #255's rank-one transfer model, the control, has defect 0.30 -- the size of the coupling itself, which is what the kappa < 1 loss was. *** AND THE THROAT TRANSMITS AT THE TRAVERSAL TIME. *** The measured object is the TWO-MOUTH BLOCK's impulse response -- the source and observer legs are gone, but Gamma, the ambient's own mouth-to-mouth propagator, stays in, so it is the coupled ambient+tube response and not the throat alone: r_11, same mouth in and out, starts at 0.0 -- a wave that reaches a mouth is partly reflected INSTANTLY -- and r_12, opposite mouths, starts at min(L, d) with d(onset)/dL = 1.0071 against a predicted 1, saturating above the ambient path to 0.0e+00. THE AMBIENT ALSO CONNECTS THE TWO MOUTHS, along a geodesic of length d, whether or not they are joined: PR #258's cross-mouth channel and PR #259's beta = 0 control, now SEPARATED IN TIME instead of by rank counting. A point throat transmits at 0.0, which is what a point throat is. THE LEDGER IS A DERIVATION, NOT A FIT: on the contour cot x = -i - 2i sum e^{2ikx} and csc x = -2i sum e^{i(2k+1)x}, to 4.5e-16 and 1.7e-15, so the same-mouth entry carries 0, 2L, 4L and the cross-mouth entry L, 3L, 5L. The parities are the physics, and the reflected channel is the one the rank-one model does not have at all. THERE IS A POINT LIMIT, AND IT IS NOT A FINITE A. Freezing A at A(lam_0) is exact at lam_0 and 121% wrong at 3 lam_0 -- a band of width ~1/L in omega -- and as L -> 0 the antisymmetric channel converges to -L/(2A) while the symmetric one diverges like 2/(A lam L). A first draft concluded that the limit does not exist. It does: a boundary pair is defined up to (B,C) -> (MB,MC), so a diverging chart matrix means the limit has LEFT THE CHART, and row-scaled the pair converges to (P_anti, -P_sym) -- Phi_anti = 0, q_sym = 0, a MIXED DIRICHLET-NEUMANN stratum, maximal throughout and 0.13 away at L = 0.02, linearly in L. No finite Hermitian A reaches it, which is exactly the stratum PR #257's review said the chart does not cover. THE SAME ZERO MODE BREAKS PR #258's TOMOGRAPHY. At lam = 0 the static response collapses onto [[1,-1],[-1,1]] to 4.3e-05, det S goes to zero LINEARLY in lam with coefficient 149.08, and W = S_12/det S - G_0 diverges like 1/lam. WHAT THAT FALSIFIES is the generic finite-A family, every member of which is rank two -- and NOT point-ness: the tube's own short-tube stratum is rank one as well, and the tube converges to it. The first draft claimed the stronger and wrong version. Give the tube an interior mass and the rank returns; and off the collapse W = -beta(lam) exactly, to 3.1e-13, with beta the tube's own transmission amplitude. PR #258's theorem survives the generalization and returns the interior's amplitude instead of a constant. AN INTERIOR MASS IS A TRANSMISSION CUTOFF: below lam = m^2 the tube is evanescent, beta matches its exponential asymptote to 7.6e-05, is suppressed by 3.1e-03, and has 0 sign changes against 7 above -- monotone decay against oscillation, which is the discriminator rather than the sign itself; the interior has a MASS GAP and the channel below it is evanescent, which is the opposite of a low-pass filter. *** AND THE MODEL FAILS THE STABILITY GATE, WITH A GROWING MODE THAT IS THE MOUTH'S AND NOT THE TUBE'S. *** A(lam) decreases and Gamma(lam) increases -- PR #257's Gram identity -- so A - Gamma is strictly monotone between poles and each channel has at most one root, a count rather than a scan. The symmetric channel always has exactly one, at lam < 0. Three facts identify what it is, all limits with their convergence measured: its rate matches sigma* = 2 sqrt(pi/A) to 1.5e-03 with NO L in it; two mouth separations agree to 3.9e-09; and the channel splitting is 1.04 e^{-sigma* d}, the Euclidean propagator between the mouths. A mode that ignores the tube's length and the mouths' separation and does not distinguish the channels is a SINGLE-MOUTH object: the instability belongs to the POINT-MOUTH MATCHING and not to the interior. THIS IS THE ROUND'S FALSIFICATION RESULT, and nothing here cures it -- whether a finite-radius mouth or neck geometry removes the mode is open, and is the thing to settle before stationary-action or backreaction work. SO THE CONTOUR MUST CLEAR IT: placed 0.03 below sigma*, the inversion returns a field with support before its own light cone -- a pedestal at 99% of the peak and an onset of 0.0 for an event that cannot begin until 0.6 -- against 1.0e-16 when it is placed above. Same species as PR #259's under-resolved contour, reported the same way, and this time the rule is checkable in advance because sigma* has a closed form -- but clearing the contour STABILIZES NOTHING: above sigma* the inversion returns the correct retarded solution OF AN UNSTABLE SYSTEM, and the delay is read from the causal onset, which is immune to what happens afterwards. WHICH FREQUENCIES: the delay and the ledger are statements about the exact model's analytic structure at ALL frequencies -- a causal onset is a UV object and the probe pulse carries content to w ~ 30, far above sigma* -- so they are exact results about this model rather than predictions about a resolved physical mouth; the static and low-frequency results sit inside the band. A is a ONE-DIMENSIONAL COUPLING, not an area with a radius attached. WHAT IS STILL PUT IN: the background, the mouth positions, and L, A, m -- three numbers with dimensions where the real-field point sector has three without them. NO BACKREACTION: the throat is a fixed background. AND THE INSTABILITY GATES WHAT COMES NEXT: an action or a backreaction computed on a background with a growing mode inherits the mode, so PR #261's common action and PR #262's A/B/A+B metric backreaction both wait on a FINITE-RADIUS MOUTH OR NECK -- the ambient solved outside two small balls rather than a point interaction with a radius parameter -- whose single question is whether the negative mode survives. If it does, the point-interaction throat family of PRs #255-#260 is the wrong model of a wormhole mouth. If it does not, the delay and the conservation law carry over unchanged.",
+  "working_throat": {
+    "separation": 1.3,
+    "length": 0.9,
+    "area": 12.566370614359172,
+    "interior_mass": 0.0
+  },
+  "generated_utc": "2026-08-19T01:41:29.846335+00:00"
+}

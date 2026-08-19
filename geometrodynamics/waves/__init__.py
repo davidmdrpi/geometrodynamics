@@ -85,3 +85,13 @@ from geometrodynamics.waves.two_wave import (  # noqa: F401
     stress_tensor,
     wkb_invariant,
 )
+from geometrodynamics.waves.finite_throat import (  # noqa: F401
+    FiniteThroat,
+    bounce_delays,
+    causal_onset,
+    dtn_matrix,
+    green_identity_residual,
+    impulse_response,
+    interior_profile,
+    response_spectrum,
+)
