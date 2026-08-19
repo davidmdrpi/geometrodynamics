@@ -33,6 +33,15 @@ in ``λ`` between its poles, and that monotonicity is the enlarged system's
 self-adjointness showing through after the elimination.  It is measured, not
 assumed.
 
+**A sign convention, since the word cuts both ways.**  ``A(λ)`` here *decreases*
+with ``λ``, so with the standard Herglotz/Nevanlinna convention — a map of the
+upper half-plane to itself — it is ``−A`` that is Nevanlinna and ``A`` that is
+anti-Nevanlinna.  (Read the small-``L`` symmetric channel, ``A_sym(z) ∼
+2/(𝒜Lz)``, which sends the upper half-plane to the lower one.)  The boundary-
+triple convention used throughout this module puts the sign on ``A``; nothing
+below depends on which is chosen, but the monotonicity direction does, so it is
+stated rather than left to the reader.
+
 That ``λ``-dependence *is* the interior.  Four consequences, each measured:
 
 1. **A traversal time.**  Expanding on the retarded contour,
@@ -77,11 +86,12 @@ That ``λ``-dependence *is* the interior.  Four consequences, each measured:
 
        ``σ*  =  ½[ 1/a + √(1/a² + 16π/𝒜) ]``   →  ``2√(π/𝒜)``  for point mouths
 
-   contains **neither ``L`` nor the mouth separation ``d``**, and the two
-   channels split by ``1.04·e^{−σ*d}`` — the Euclidean propagator between the
-   mouths.  A mode blind to the tube's length and to the separation, and
-   degenerate between the channels, is a **single-mouth object**: the growing
-   mode is the *point-mouth matching's*, not the tube's.
+   holds **asymptotically**, in ``σL, σd ≫ 1``, where the rate stops containing
+   ``L`` or ``d`` and the two channels split by ``1.04·e^{−σ*d}``.  So the mode
+   is generated at the **mouth/tube interface** and becomes *mouth-localized in
+   that limit*.  The working throat is **not** in it — ``σ*`` runs ``1.769 …
+   1.152`` across ``L = 0.4 … 3`` at fixed ``𝒜`` — so the honest statement is
+   the interface one, not "the mouth's alone".
 
    This is the round's falsification result, and it is not cured anywhere below.
    Placing the retarded contour above ``σ*`` evaluates the correct retarded
@@ -124,7 +134,7 @@ import numpy as np
 
 from .throat_operator import DirectionalThroat, MouthPair, gamma_at
 from .throat_positivity import positivity_defect
-from .two_wave import GaussianPulse, RetardedGrid, gamma_omega
+from .two_wave import TWO_PI, GaussianPulse, RetardedGrid, gamma_omega
 
 __all__ = [
     "FiniteThroat",
@@ -144,7 +154,7 @@ __all__ = [
     "measure_the_short_tube_limit_is_a_mixed_stratum",
     "measure_the_static_limit_is_rank_one_and_the_defect_diverges",
     "measure_the_interior_mass_is_a_transmission_cutoff",
-    "measure_the_growing_mode_belongs_to_the_mouth",
+    "measure_the_growing_mode_is_interface_localized",
     "measure_the_contour_must_clear_the_growing_mode",
 ]
 
@@ -616,8 +626,9 @@ def measure_the_enlarged_system_is_conservative(
     space, which an energy-dependent boundary condition never is.
 
     The fingerprint of the enlarged system's self-adjointness, on the ambient
-    side, is that ``A(λ)`` is a matrix **Nevanlinna function** — monotone in
-    ``λ`` between its poles.  That is measured in
+    side, is that ``A(λ)`` is a matrix **Nevanlinna function up to the sign
+    convention** — monotone in ``λ`` between its poles, decreasing here, so
+    ``−A`` is Nevanlinna in the standard upper-half-plane convention.  That is measured in
     `the_boundary_matrix_decreases_in_lambda` and is what makes the mode count
     below a count rather than a scan.
 
@@ -747,7 +758,7 @@ def measure_the_throat_transmits_at_the_traversal_time(
 def measure_the_delay_ledger_is_the_bounce_series(
         throat: FiniteThroat = WORKING_THROAT, order: int = 400,
         eps: float = 1.6) -> Dict[str, object]:
-    """The delays are a derivation, not a fit.
+    """The **massless** tube's delays are a derivation, not a fit.
 
     On the retarded contour ``Im x > 0``, so the geometric series converge:
 
@@ -760,6 +771,17 @@ def measure_the_delay_ledger_is_the_bounce_series(
     transfer model does not have at all.
 
     Checked against the closed forms on the actual contour, not asserted.
+
+    **Two scopes.**  First, this is the ``m = 0`` ledger: there ``k = ω`` and
+    ``e^{ikL}`` is a pure translation, so the interior really does return a
+    sequence of shifted copies.  With ``m ≠ 0``, ``k = √(ω²−m²)`` and ``e^{ikL}``
+    is **dispersive** — the causal *front* still starts at ``L``, but the
+    echoes are no longer translated copies of one shape, which is the same
+    physics `the_interior_mass_is_a_transmission_cutoff` measures from the other
+    side.  Second, this is the ledger of the **tube kernel** ``A(ω)``, not of
+    the coupled response ``R = (A − Γ)⁻¹``: that one additionally carries the
+    ambient's ``d``-paths, which is why the arrival measurement reads
+    ``min(L, d)``.
     """
     grid = RetardedGrid(n=1 << 12, span=60.0, eps=float(eps))
     om = grid.omegas
@@ -774,7 +796,11 @@ def measure_the_delay_ledger_is_the_bounce_series(
                 max(float(np.abs(1.0 / np.tan(x) - cot_s).max()),
                     float(np.abs(1.0 / np.sin(x) - csc_s).max())) < 1e-11),
             "the_parity_rule": ("even multiples of L return to the mouth they "
-                                "entered; odd multiples cross")}
+                                "entered; odd multiples cross"),
+            "the_scope": ("the massless (m = 0) tube kernel: with m ≠ 0 the "
+                          "front is still at L but e^{ikL} is dispersive, and "
+                          "the coupled R = (A − Γ)⁻¹ additionally carries the "
+                          "ambient's d-paths")}
 
 
 def measure_the_short_tube_limit_is_a_mixed_stratum(
@@ -801,9 +827,14 @@ def measure_the_short_tube_limit_is_a_mixed_stratum(
     chart does not reach.  Convergence is linear in ``L``, measured.
 
     So the correct statement is **"no finite-``A`` point limit"**, and the
-    constant-``A`` family of PRs #257–#259 is this throat read at one frequency
-    — a band whose width in ``ω`` is ``∼ 1/L`` (in ``λ``, ``∼ 2√λ/L``; the two
-    are not the same and the first draft mixed them).
+    constant-``A`` family of PRs #257–#259 is this throat read at one frequency.
+    Everything in ``A`` varies through the combination ``kL``, so the spectral
+    range over which freezing it is defensible is an ``O(1/L)`` **frequency**
+    scale.  (A first draft quoted a universal ``Δλ ∼ 2√λ/L``; that is only the
+    local linearization ``Δλ ≈ 2ωΔω``, it drops the ``(Δω)²`` term that matters
+    at low frequency, and this measurement does not sweep ``L`` to extract a
+    fixed-error bandwidth anyway.  The ``kL`` statement is what the data
+    support.)
     """
     frozen = throat.boundary_matrix(complex(lam0))
     band = []
@@ -866,7 +897,10 @@ def measure_the_short_tube_limit_is_a_mixed_stratum(
             "the_scope": ("the limit is a mixed Dirichlet-Neumann stratum, "
                           "not a finite A; the chart matrix diverges because "
                           "the limit leaves the chart, not because it is "
-                          "absent")}
+                          "absent"),
+            "the_band": ("A varies through kL, so freezing it is defensible "
+                         "over an O(1/L) FREQUENCY range; the λ-width is the "
+                         "local linearization of that and not a separate law")}
 
 
 def measure_the_static_limit_is_rank_one_and_the_defect_diverges(
@@ -1053,13 +1087,12 @@ def measure_the_interior_mass_is_a_transmission_cutoff(
                               "with a tunnelling term")}
 
 
-def measure_the_growing_mode_belongs_to_the_mouth(
+def measure_the_growing_mode_is_interface_localized(
         areas: Sequence[float] = (0.2, 0.5, 1.0),
         lengths: Sequence[float] = (1.5, 3.0, 6.0),
         separations: Sequence[float] = (0.8, 1.3, 2.4, 3.0)
         ) -> Dict[str, object]:
-    """**The model fails the stability gate** — and the failure is the
-    *mouth's*, not the tube's.
+    """**The model fails the stability gate** — at the mouth/tube *interface*.
 
     ``A(λ)`` decreases in ``λ`` and ``Γ(λ)`` increases (PR #257's Gram
     identity), so ``A − Γ`` is strictly monotone and each channel has at most
@@ -1109,6 +1142,14 @@ def measure_the_growing_mode_belongs_to_the_mouth(
                              / math.exp(-float(m["symmetric"]) * 1.3)
                              if m["channel_split"] is not None else None),
                          "sigma_times_L": float(m["symmetric"]) * length})
+    by_length = []
+    for length in (0.4, 0.9, 1.8, 3.0):
+        t = FiniteThroat(separation=1.3, length=length, area=FOUR_PI)
+        by_length.append({"length": float(length),
+                          "sigma_star": float(t.growing_modes()["symmetric"]),
+                          "closed_form": t.sigma_star_closed_form(),
+                          "sigma_times_L": float(
+                              t.growing_modes()["symmetric"]) * length})
     by_sep = []
     for d in separations:
         t = FiniteThroat(separation=d, length=3.0, area=min(areas))
@@ -1130,7 +1171,12 @@ def measure_the_growing_mode_belongs_to_the_mouth(
     ratios = [r["split_over_exponential"] for r in deep
               if r["split_over_exponential"] is not None]
     work = WORKING_THROAT.growing_modes()
-    return {"rows": rows, "by_separation": by_sep,
+    length_spread = float(max(r["sigma_star"] for r in by_length)
+                          - min(r["sigma_star"] for r in by_length))
+    return {"rows": rows, "by_separation": by_sep, "by_length": by_length,
+            "length_spread_at_the_working_area": length_spread,
+            "the_working_throat_is_not_asymptotic": bool(
+                length_spread > 0.1 * min(r["sigma_star"] for r in by_length)),
             "separation_spread": spread,
             "separation_spread_far": far_spread,
             "worst_closed_form_error": float(max(r["relative_error"]
@@ -1145,10 +1191,12 @@ def measure_the_growing_mode_belongs_to_the_mouth(
             "the_split_is_the_euclidean_propagator": bool(
                 max(ratios) / min(ratios) < 1.1 if ratios else False),
             "the_working_band": float(work["symmetric"]) ** 2,
-            "the_diagnosis": ("a mode that ignores L and d and does not split "
-                              "the channels is a single-mouth object, so the "
-                              "instability belongs to the point-mouth matching "
-                              "and not to the interior"),
+            "the_diagnosis": ("the mode is generated at the point-mouth/tube "
+                              "INTERFACE; only in the σL, σd ≫ 1 limit does it "
+                              "localize to a single mouth and stop knowing L "
+                              "and d — and the working throat is not in that "
+                              "limit, where σ* still runs 1.769…1.152 over "
+                              "L = 0.4…3"),
             "the_open_question": ("whether a finite-radius mouth or neck "
                                   "geometry removes it — unresolved here, and "
                                   "the thing to settle before stationary "
@@ -1158,8 +1206,9 @@ def measure_the_growing_mode_belongs_to_the_mouth(
 def measure_the_contour_must_clear_the_growing_mode(
         throat: FiniteThroat = FiniteThroat(separation=1.3, length=0.6,
                                             area=FOUR_PI),
-        clearances: Sequence[float] = (-0.03, 0.02, 0.3, 0.8),
-        width: float = 0.03) -> Dict[str, object]:
+        clearances: Sequence[float] = (-0.03, 0.02, 0.3, 0.8, 1.5),
+        width: float = 0.03, span: float = 300.0,
+        resolved_multiple: float = 4.0) -> Dict[str, object]:
     """The numerical edge, with its failure mode shown rather than described.
 
     The retarded contour ``Im ω = ε`` must lie **above every singularity of the
@@ -1169,10 +1218,22 @@ def measure_the_contour_must_clear_the_growing_mode(
     by the frequency span, arriving at ``t = 0`` for an event that cannot begin
     until ``t = L``.
 
-    It is the same species of error as PR #259's under-resolved contour — a
-    plausible-looking number produced by a contour in the wrong place — and it
-    is reported the same way: both values, and the rule.  ``σ*`` has a closed
-    form, so the rule is checkable before the solve rather than after it.
+    **And clearing it is necessary, not sufficient.**  A first draft of this
+    round stated the rule as ``ε > σ*`` and its own table contradicted it: at
+    clearance ``+0.02`` the contour *is* above the mode and the pedestal is still
+    ``2.6e-03`` with the onset at ``0``.  The reason is PR #259's lesson
+    arriving a second time — that clearance is ``0.95`` of the frequency spacing
+    ``2π/span``, so the pole is above the contour but **unresolved by the grid**.
+    The rule has two parts:
+
+        ``ε > σ*``            (analytic: the Bromwich contour clears the pole)
+        ``ε − σ* ≫ 2π/span``  (numerical: the grid resolves the clearance)
+
+    Both sides have closed forms, so both are checkable before the solve.  The
+    measurement now separates *below the mode*, *above but under-resolved*, and
+    *resolved*, and requires of the resolved contours both a pedestal below
+    ``1e-10`` and an onset that has **converged** — two well-separated
+    clearances agreeing to within a few time steps.
 
     **What clearing the contour does not do is stabilize anything.**  Above
     ``σ*`` the inversion returns the correct retarded solution *of an unstable
@@ -1184,30 +1245,47 @@ def measure_the_contour_must_clear_the_growing_mode(
     """
     sig = float(throat.growing_modes()["symmetric"])
     onset_true = min(throat.length, throat.separation)
+    spacing = TWO_PI / float(span)
     rows = []
     for c in clearances:
-        grid = RetardedGrid(n=1 << 17, span=300.0, eps=sig + float(c))
+        grid = RetardedGrid(n=1 << 17, span=float(span), eps=sig + float(c))
         imp = impulse_response(throat, grid, width=width)
         series = imp["opposite_mouths"]
         early = series[imp["times"] < 0.5 * onset_true]
         rows.append({
             "clearance": float(c), "contour": float(grid.eps),
             "above_the_mode": bool(c > 0.0),
+            "clearance_over_spacing": float(c) / spacing,
+            "resolved": bool(float(c) > resolved_multiple * spacing),
             "onset": causal_onset(series, imp["times"]),
             "pedestal": float(np.abs(early).max() / np.abs(series).max())})
     below = [r for r in rows if not r["above_the_mode"]]
-    above = [r for r in rows if r["above_the_mode"] and r["clearance"] > 0.1]
-    return {"sigma_star": sig, "true_onset": float(onset_true), "rows": rows,
+    resolved = [r for r in rows if r["resolved"]]
+    unresolved = [r for r in rows if r["above_the_mode"] and not r["resolved"]]
+    onsets = [r["onset"] for r in resolved]
+    return {"sigma_star": sig, "true_onset": float(onset_true),
+            "frequency_spacing": float(spacing), "rows": rows,
             "pedestal_below": float(max(r["pedestal"] for r in below)),
-            "pedestal_above": float(max(r["pedestal"] for r in above)),
+            "pedestal_above_but_unresolved": float(
+                max(r["pedestal"] for r in unresolved)) if unresolved else None,
+            "pedestal_resolved": float(max(r["pedestal"] for r in resolved)),
             "onset_below": float(min(r["onset"] for r in below)),
-            "onset_above": float(min(r["onset"] for r in above)),
+            "onset_resolved": float(min(onsets)),
+            "onset_spread_across_resolved": float(max(onsets) - min(onsets)),
             "a_contour_below_the_mode_breaks_causality": bool(
-                max(r["pedestal"] for r in below)
-                > 1e4 * max(r["pedestal"] for r in above)),
-            "the_rule": ("ε must exceed σ*, which has a closed form, so the "
-                         "contour can be placed before the solve rather than "
-                         "diagnosed after it"),
+                max(r["pedestal"] for r in below) > 1e-2),
+            "clearing_the_mode_is_not_enough": bool(
+                unresolved is not None and bool(unresolved)
+                and max(r["pedestal"] for r in unresolved) > 1e3
+                * max(r["pedestal"] for r in resolved)),
+            "the_resolved_contours_are_clean": bool(
+                max(r["pedestal"] for r in resolved) < 1e-10),
+            "the_recovered_onset_converges": bool(
+                max(onsets) - min(onsets) < 5.0 * float(span) / (1 << 17)),
+            "the_rule": ("TWO conditions, not one: ε > σ* is the analytic "
+                         "Bromwich requirement, and ε − σ* ≫ 2π/span is the "
+                         "numerical one. Both have closed forms, so the "
+                         "contour is placed before the solve"),
             "what_it_does_not_do": ("clearing the contour evaluates the "
                                     "correct retarded solution of an unstable "
                                     "system; it does not cure the instability")}

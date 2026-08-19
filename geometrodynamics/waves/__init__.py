@@ -95,3 +95,11 @@ from geometrodynamics.waves.finite_throat import (  # noqa: F401
     interior_profile,
     response_spectrum,
 )
+from geometrodynamics.waves.finite_mouth import (  # noqa: F401
+    FiniteMouthThroat,
+    mouth_green,
+    regular_radial,
+    screened_products,
+    shell_average_cross,
+    shell_average_self,
+)

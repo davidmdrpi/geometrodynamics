@@ -2701,7 +2701,8 @@ model does not have at all.
 
 **There *is* a point limit — and it is not a finite `A`.** Freezing `A` at
 `A(λ₀)` is exact at `λ₀` and `4.3%`, `17%`, `73%`, `121%` wrong at
-`1.05, 1.2, 2, 3 λ₀` — a band of width `Δω ∼ 1/L` in *frequency* (`Δλ ∼ 2√λ/L`).
+`1.05, 1.2, 2, 3 λ₀`. Everything in `A` varies through `kL`, so the range over
+which freezing it is defensible is an `O(1/L)` **frequency** scale.
 As `L → 0` the antisymmetric channel converges to `−L/(2𝒜)` while the symmetric
 one **diverges** like `2/(𝒜λL)`. A first draft concluded from that that the
 limit does not exist. It does: a boundary pair is defined up to
@@ -2735,25 +2736,37 @@ own amplitude.
 increases (#257's Gram identity), so `A − Γ` is strictly monotone between poles
 and each channel has **at most one root** — a count, not a scan. The symmetric
 channel always has exactly one, and it is at `λ < 0`: **an exponentially growing
-mode, for every choice of parameters.** Three facts say whose it is, all limits
-with their convergence measured: its rate matches **`σ* = 2√(π/𝒜)`** to `1.5e-03`
-with **no `L` in it**; two mouth separations agree to `3.9e-09`; and the channel
-splitting is `1.04·e^{−σ*d}`, the Euclidean propagator between the mouths. A
-mode that ignores the tube's length and the mouths' separation and does not
-distinguish the channels is a **single-mouth object**: the instability belongs to
-the **point-mouth matching**, not to the interior.
+mode, for every choice of parameters.** In the `σL, σd ≫ 1` limit its rate
+matches **`σ* = 2√(π/𝒜)`** to `1.5e-03` with **no `L` in it**, two mouth
+separations agree to `3.9e-09`, and the channel splitting is `1.04·e^{−σ*d}` —
+so there the mode **localizes to a single mouth**. It is generated at the
+**point-mouth/tube interface**.
+
+The working throat is *not* in that limit, and the qualification matters: at
+`𝒜 = 4π` the asymptotic form gives `σ* = 1` while `L = 0.9` gives `1.417`, and
+`σ*` runs `1.769 → 1.152` across `L = 0.4 → 3`, a spread of `54%`. An earlier
+draft said the mode "belongs to the mouth and not the interior"; the interface
+statement plus asymptotic localization is what the data support, and it is what
+makes a finite-radius mouth the right discriminator.
 
 **That is the round's closure result, and it gates the roadmap.** An action or a
 backreaction computed on a background with a growing mode inherits the mode, so
 the next construction is not #261 but a **finite-radius mouth or neck** — the
 ambient solved outside two small balls rather than a point interaction with a
 radius parameter — with one question to answer: *does the negative mode survive?*
-If it does, the point-interaction throat family of #255–#260 is the wrong model
-of a wormhole mouth. Meanwhile the contour must clear `σ*` — placed `0.03` below it the inversion returns a field with
-support before its own light cone, a pedestal at 99% of the peak for an event
-that cannot begin until `t = 0.6`, against `1.0e-16` placed above — but clearing
-the contour evaluates the correct retarded solution *of an unstable system* and
-stabilizes nothing. Whether a finite-radius mouth or neck geometry removes the
+
+**And the contour rule has two parts, not one.** `ε > σ*` is the analytic
+Bromwich condition; at `0.03` *below* `σ*` the inversion returns a field with
+support before its own light cone, a pedestal at 99% of the peak. But at a
+clearance of `+0.02` the contour is *above* the mode and the pedestal is still
+`2.6e-03` — that clearance is `0.95` of the frequency spacing `2π/span`, so the
+pole is cleared but **unresolved by the grid**, #259's lesson a second time. Both
+`ε > σ*` and `ε − σ* ≫ 2π/span` are needed; at `14–72` spacings the pedestal is
+`1.0e-16` and the recovered onset converges to `0.0092`, four time steps. Neither
+condition stabilizes anything: above `σ*` the inversion returns the correct
+retarded solution *of an unstable system*. Whether a finite-radius mouth or neck
+geometry removes the mode is open, and should be settled **before**
+stationary-action or backreaction work. Whether a finite-radius mouth or neck geometry removes the
 mode is open, and should be settled **before** stationary-action or backreaction
 work.
 
@@ -2767,11 +2780,97 @@ physical mouth. The static and low-frequency results sit inside the band. And
 ```bash
 python -m experiments.closure_ledger.finite_throat_probe
 # Verdict: THE_INTERIOR_GIVES_A_DELAY_AND_THE_POINT_MOUTH_IS_UNSTABLE  (10/10)
+#   (the mode is interface-generated; mouth-localized only for σL, σd ≫ 1)
 
 python scripts/geometrodynamics_v60_finite_throat.py --still v60.png
 ```
 
 Full write-up: `docs/finite_conservative_throat.md`.
+
+## The negative mode does not survive a finite mouth
+
+**PR #261 — the gate #260 set, answered.** That round found its conservative
+throat carried an exponentially growing mode for *every* choice of parameters and
+stopped the roadmap on one question: **does it survive a finite-radius mouth?**
+
+**No — and the statement is structural, not parametric.**
+
+**What a resolved mouth changes.** A point interaction must subtract the
+`1/(4πχ)` divergence and keeps the **renormalized** self-energy `g(λ)`, which is
+*negative* — a leftover of an infinite subtraction, and what the mode fed on. A
+sphere needs no subtraction. Smearing the coupling over `∂B_a` — the same
+operator on both sides, so the composite stays manifestly self-adjoint — gives
+
+```
+𝒢_self(λ) = f(a,λ)·G(a,λ)        𝒢_cross(λ) = f(a,λ)²·G(d,λ)
+```
+
+with `G` the **unsubtracted** Green function and `f(χ,λ) = sin(ωχ)/(ω sin χ)` the
+regular radial solution. Both are **mean-value identities**, checked against
+direct quadrature on `S³`: the cross one to **`1.0e-10`**, the self one to
+`4.1e-04` (grid-limited by the singularity at coincidence, and reported as such).
+
+**The signs decide it.** At `λ = −σ²` the tube gives `−coth(κL/2)/(𝒜κ)` and
+`−tanh(κL/2)/(𝒜κ)` — strictly **negative**, a passive interior has no restoring
+force — while the ambient gives `f·G(a) ± f²·G(d)`, strictly **positive**, every
+bracket in `(0,1]` once `a < d/2`, which disjoint mouths require anyway. A
+difference of a negative and a positive number has no zero. **3078 samples** over
+`(a, d, L, 𝒜, m, σ)`: **0 roots**, worst approach `−5.1e-04`.
+
+**And #260's mode was the linearization.** That round froze the mouth at the
+*constant* `1/(4πa)` — the leading term of `G(a,λ) = 1/(4πa) + g(λ) + O(a)`. The
+exact `G(a,−κ²)` is **screened**, `≈ e^{−κa}/(4πa)`; the constant is not, so it
+eventually beats the tube's `−1/(𝒜κ)` and crosses:
+
+| `a` | linearized root `κ*` | `κ*·a` | exact |
+| ---: | ---: | ---: | :---: |
+| `0.02` | `50.02` | **`1.0004`** | none |
+| `0.05` | `20.05` | **`1.0025`** | none |
+| `0.15` | `6.814` | **`1.0221`** | none |
+| `0.35` | `3.220` | **`1.1269`** | none |
+
+**The root sits at `κa ≈ 1` — the edge of its own approximation.** The two models
+agree to `0.8%` for `κa ≤ 0.1` and differ by `1000%` at `κa = 3`, disagreeing not
+in magnitude but in **sign**. #260 suspected exactly this and could only record
+the suspicion; this is the demonstration.
+
+**Where the mode went: soft, and positive.** Exactly one state below the free gap
+`λ = 1`, in the symmetric channel, with
+
+```
+λ₀  ⟶  8πa/(𝒜L)
+```
+
+two mouth capacitances `4πa` restoring a tube of volume `𝒜L` — ratio `0.998` at
+`a = 0.005`. **The point limit drives the mode to zero from *above*.** #260 did
+not get a rate slightly wrong; it took a mode approaching `0⁺` like `a` and put
+it on the other side of zero, at `λ ≈ −1/a²`.
+
+**The good results survive.** The traversal delay keeps slope **`1.0010`** in `L`
+and saturates at the ambient path to `0.0`, the mouth adding only a sub-leading
+`O(a)` shift (a first draft predicted `−2a` from an ambient block missing the
+shell form factor; the measured slope is quoted and the prediction recorded as
+wrong). The static response is still rank one and #258's `𝒲 = −β(λ)` still holds
+to `3.6e-12` — all of which came from the *tube's* zero mode, which the mouth
+does not touch. The contour is easier too: `ε = 0.4` where #260 needed `ε > 2`.
+
+**What is still put in.** One channel per mouth, so only `ℓ = 0` couples; the
+dropped multipoles obey #250's screening law, dipole/monopole `= 0.934·(a/d)`
+across a decade in `a`, dropped power `6.9e-05` at the working radius. The mouths
+are **spheres in a fixed ambient, not a solved neck**. No backreaction.
+
+**This ungates the roadmap.** #260 blocked stationary action and backreaction
+because an integral over a field on a growing background measures the mode. That
+reason is gone.
+
+```bash
+python -m experiments.closure_ledger.finite_mouth_probe
+# Verdict: THE_NEGATIVE_MODE_DOES_NOT_SURVIVE_A_FINITE_MOUTH  (9/9)
+
+python scripts/geometrodynamics_v61_finite_mouth.py --still v61.png
+```
+
+Full write-up: `docs/finite_radius_mouth.md`.
 
 ## The geometric-visualization arc, end to end
 

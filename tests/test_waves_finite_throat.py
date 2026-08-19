@@ -15,7 +15,7 @@ from geometrodynamics.waves.finite_throat import (
     measure_the_contour_must_clear_the_growing_mode,
     measure_the_enlarged_system_is_conservative,
     measure_the_delay_ledger_is_the_bounce_series,
-    measure_the_growing_mode_belongs_to_the_mouth,
+    measure_the_growing_mode_is_interface_localized,
     measure_the_interior_mass_is_a_transmission_cutoff,
     measure_the_short_tube_limit_is_a_mixed_stratum,
     measure_the_static_limit_is_rank_one_and_the_defect_diverges,
@@ -410,16 +410,36 @@ def test_measure_the_interior_mass_is_a_transmission_cutoff():
     assert r["asymptote_error"] < 1e-3
 
 
-def test_measure_the_growing_mode_belongs_to_the_mouth():
-    r = measure_the_growing_mode_belongs_to_the_mouth()
+def test_measure_the_growing_mode_is_interface_localized():
+    r = measure_the_growing_mode_is_interface_localized()
     assert r["every_throat_has_one"]
+    # the localization is asymptotic, and the working throat is not there
+    assert r["the_working_throat_is_not_asymptotic"]
     assert r["it_stops_knowing_the_separation"]
     assert r["the_closed_form_holds_once_sigma_L_is_large"]
     assert r["the_split_is_the_euclidean_propagator"]
 
 
 def test_measure_the_contour_must_clear_the_growing_mode():
+    """Two conditions, not one — clearing the mode is necessary, not enough."""
     r = measure_the_contour_must_clear_the_growing_mode()
     assert r["a_contour_below_the_mode_breaks_causality"]
-    assert r["pedestal_above"] < 1e-12
     assert r["pedestal_below"] > 0.1
+    # above the mode but under-resolved by the grid: still broken
+    assert r["clearing_the_mode_is_not_enough"]
+    assert r["pedestal_above_but_unresolved"] > 1e-4
+    # and resolved: clean, with a converged onset
+    assert r["the_resolved_contours_are_clean"]
+    assert r["the_recovered_onset_converges"]
+    assert r["pedestal_resolved"] < 1e-10
+
+
+def test_the_failing_clearance_is_under_one_grid_spacing():
+    """The diagnosis, pinned: the clearance that fails is 0.95 of 2π/span."""
+    r = measure_the_contour_must_clear_the_growing_mode()
+    bad = [row for row in r["rows"]
+           if row["above_the_mode"] and not row["resolved"]]
+    assert bad, "the sweep must include an above-but-under-resolved contour"
+    for row in bad:
+        assert abs(row["clearance_over_spacing"]) < 4.0
+        assert row["pedestal"] > 1e-4

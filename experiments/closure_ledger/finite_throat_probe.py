@@ -65,19 +65,28 @@ T3  *** THE THROAT TRANSMITS AT THE TRAVERSAL TIME. *** The measured object is
     control, now SEPARATED IN TIME rather than by rank counting. The point
     throat transmits at t = 0, which is what a point throat is.
 
-T4  AND THE DELAY LEDGER IS A DERIVATION. On the contour cot x = -i - 2i sum
-    e^{2ikx} and csc x = -2i sum e^{i(2k+1)x}, verified to 4.5e-16 and 1.7e-15:
-    the same-mouth entry carries delays 0, 2L, 4L (an instantaneous reflection
-    and its echoes) and the cross-mouth entry L, 3L, 5L. The parities are the
-    physics, and the reflected channel is the one the rank-one model does not
-    have at all.
+T4  AND THE MASSLESS TUBE'S DELAY LEDGER IS A DERIVATION. On the contour
+    cot x = -i - 2i sum e^{2ikx} and csc x = -2i sum e^{i(2k+1)x}, verified to
+    4.5e-16 and 1.7e-15: the same-mouth entry carries delays 0, 2L, 4L (an
+    instantaneous reflection and its echoes) and the cross-mouth entry L, 3L,
+    5L. The parities are the physics, and the reflected channel is the one the
+    rank-one model does not have at all. TWO SCOPES: this is the m = 0 kernel,
+    where k = w makes e^{ikL} a pure translation -- with m /= 0 the front is
+    still at L but e^{ikL} is DISPERSIVE and the echoes are not translated
+    copies (T7 is the same physics from the other side) -- and it is the ledger
+    of the TUBE KERNEL A(w), not of the coupled R = (A - Gamma)^-1, which also
+    carries the ambient's d-paths. That is why T3 reads min(L,d).
 
 T5  THERE IS A POINT LIMIT, AND IT IS NOT A FINITE A. Freezing A at A(lam_0) is
     exact at lam_0 and nowhere else -- 4% out at 1.05 lam_0, 121% out at 3
-    lam_0, a band of width ~1/L in OMEGA (~2 sqrt(lam)/L in lam) -- and as
+    lam_0 -- everything in A varies through kL, so the range over which
+    freezing it is defensible is an O(1/L) FREQUENCY scale -- and as
     L -> 0 the antisymmetric channel converges to -L/(2A) while the symmetric
-    one DIVERGES like 2/(A lam L). A first draft concluded from that that the
-    limit does not exist. It does. A boundary pair is defined up to
+    one DIVERGES like 2/(A lam L). (An earlier draft also quoted a universal
+    Dlam ~ 2 sqrt(lam)/L; that is only the local linearization Dlam = 2 w Dw,
+    it drops the (Dw)^2 term that matters at low frequency, and this test does
+    not sweep L to extract a fixed-error bandwidth anyway.) A first draft
+    concluded from the divergence that the limit does not exist. It does. A boundary pair is defined up to
     (B,C) -> (MB,MC), so a diverging chart matrix means the limit has LEFT THE
     CHART. Row-scaled, the pair converges to the projector pair
 
@@ -120,23 +129,38 @@ T8  *** THE MODEL FAILS THE STABILITY GATE, AND THE FAILURE IS THE MOUTH'S. ***
     two mouth separations agree to 3.9e-09; and the channel splitting is
     1.04 e^{-sigma* d}, the Euclidean propagator between the mouths, so at that
     scale the mouths do not know about each other. Its length scale is
-    sqrt(A/4pi). A mode blind to the tube's length and to the mouth separation,
-    and degenerate between the channels, belongs to the POINT-MOUTH MATCHING and
-    not to the interior. THIS IS THE ROUND'S FALSIFICATION RESULT and nothing
+    sqrt(A/4pi). So the mode is generated at the POINT-MOUTH/TUBE INTERFACE
+    and, in the sigma L, sigma d >> 1 limit, LOCALIZES to a single mouth and
+    stops knowing L and the other mouth. THE WORKING THROAT IS NOT IN THAT
+    LIMIT, and saying so matters: at A = 4 pi the asymptotic form gives
+    sigma* = 1 while L = 0.9 gives 1.417, and sigma* runs 1.769 ... 1.152 across
+    L = 0.4 ... 3 -- a spread of 0.617, 54% of the smallest value. An earlier
+    draft claimed the mode "belongs to the mouth and not the interior", which is
+    stronger than the data support. THIS IS THE ROUND'S FALSIFICATION RESULT and nothing
     here cures it: whether a finite-radius mouth or neck geometry removes the
     mode is open, and is the thing to settle before stationary-action or
     backreaction work.
 
-T9  SO THE CONTOUR MUST CLEAR IT. Placed 0.03 BELOW sigma*, the inversion
-    returns a field with support before its own light cone: a pedestal at 99%
-    of the peak, onset 0.0 for an event that cannot begin until t = 0.6. Placed
-    above, the pedestal is 1.0e-16. Same species as PR #259's under-resolved
-    contour, and reported the same way -- both values and the rule. sigma* has
-    a closed form, so the contour can be placed BEFORE the solve. What clearing
-    the contour does NOT do is stabilize anything: above sigma* the inversion
-    returns the correct retarded solution OF AN UNSTABLE SYSTEM. The delay is
-    read from the causal ONSET, which is immune to what the solution does
-    afterwards.
+T9  SO THE CONTOUR MUST CLEAR IT -- AND BE RESOLVED, WHICH ARE TWO CONDITIONS.
+    Placed 0.03 BELOW sigma*, the inversion returns a field with support before
+    its own light cone: pedestal 99% of the peak, onset 0.0 for an event that
+    cannot begin until t = 0.6. But an earlier draft stated the rule as
+    "eps > sigma*" and its own table contradicted it: at clearance +0.02 the
+    contour IS above the mode and the pedestal is still 2.6e-03 with the onset
+    at 0. That clearance is 0.95 of the frequency spacing 2 pi/span = 0.0209 --
+    the pole is above the contour but UNRESOLVED BY THE GRID, PR #259's lesson
+    arriving a second time. The rule has two parts:
+
+        eps > sigma*              analytic:  the contour clears the pole
+        eps - sigma* >> 2pi/span  numerical: the grid resolves the clearance
+
+    Both have closed forms, so both are checkable before the solve. At
+    clearances of 14.3, 38.2 and 71.6 spacings the pedestal is 1.0e-16 and the
+    recovered onset converges -- 0.4646, 0.4601, 0.4555, a spread of 0.0092,
+    four time steps. What clearing the contour does NOT do is stabilize
+    anything: above sigma* the inversion returns the correct retarded solution
+    OF AN UNSTABLE SYSTEM. The delay is read from the causal ONSET, which is
+    immune to what the solution does afterwards.
 
 WHICH FREQUENCIES EACH RESULT USES
 ─────────────────────────────────
@@ -181,7 +205,7 @@ from geometrodynamics.waves.finite_throat import (
     measure_the_contour_must_clear_the_growing_mode,
     measure_the_enlarged_system_is_conservative,
     measure_the_delay_ledger_is_the_bounce_series,
-    measure_the_growing_mode_belongs_to_the_mouth,
+    measure_the_growing_mode_is_interface_localized,
     measure_the_interior_mass_is_a_transmission_cutoff,
     measure_the_short_tube_limit_is_a_mixed_stratum,
     measure_the_static_limit_is_rank_one_and_the_defect_diverges,
@@ -258,9 +282,9 @@ def t7_the_interior_mass_is_a_cutoff() -> dict:
                          and r["everything_stays_real"])}
 
 
-def t8_the_growing_mode_belongs_to_the_mouth() -> dict:
-    r = measure_the_growing_mode_belongs_to_the_mouth()
-    return {"name": "T8_the_growing_mode_belongs_to_the_mouth", **r,
+def t8_the_growing_mode_is_interface_localized() -> dict:
+    r = measure_the_growing_mode_is_interface_localized()
+    return {"name": "T8_the_growing_mode_is_interface_localized", **r,
             "pass": bool(r["every_throat_has_one"]
                          and r["it_stops_knowing_the_separation"]
                          and r["the_closed_form_holds_once_sigma_L_is_large"]
@@ -270,7 +294,10 @@ def t8_the_growing_mode_belongs_to_the_mouth() -> dict:
 def t9_the_contour_must_clear_it() -> dict:
     r = measure_the_contour_must_clear_the_growing_mode()
     return {"name": "T9_the_contour_must_clear_it", **r,
-            "pass": bool(r["a_contour_below_the_mode_breaks_causality"])}
+            "pass": bool(r["a_contour_below_the_mode_breaks_causality"]
+                         and r["clearing_the_mode_is_not_enough"]
+                         and r["the_resolved_contours_are_clean"]
+                         and r["the_recovered_onset_converges"])}
 
 
 def t10_assessment(tests: List[dict]) -> dict:
@@ -288,7 +315,7 @@ def run_probe() -> dict:
              t5_the_short_tube_limit_is_a_mixed_stratum(),
              t6_the_static_limit_is_rank_one(),
              t7_the_interior_mass_is_a_cutoff(),
-             t8_the_growing_mode_belongs_to_the_mouth(),
+             t8_the_growing_mode_is_interface_localized(),
              t9_the_contour_must_clear_it()]
     tests.append(t10_assessment(tests))
     t2, t3, t4, t5, t6, t7, t8, t9 = tests[1:9]
@@ -391,8 +418,13 @@ def run_probe() -> dict:
             "splitting is 1.04 e^{-sigma* d}, the Euclidean propagator between "
             "the mouths. A mode that ignores the tube's length and the mouths' "
             "separation and does not distinguish the channels is a SINGLE-MOUTH "
-            "object: the instability belongs to the POINT-MOUTH MATCHING and "
-            "not to the interior. THIS IS THE ROUND'S FALSIFICATION RESULT, and "
+            "object IN THAT LIMIT: the mode is generated at the point-mouth/"
+            "tube INTERFACE and localizes to one mouth only for sigma L, "
+            "sigma d >> 1. The working throat is NOT there -- sigma* runs "
+            "1.769...1.152 across L = 0.4...3 at fixed A, a spread of "
+            f"{t8.get('length_spread_at_the_working_area', 0):.3f} -- so the "
+            "honest statement is the interface one, not 'the mouth's alone'. "
+            "THIS IS THE ROUND'S FALSIFICATION RESULT, and "
             "nothing here cures it -- whether a finite-radius mouth or neck "
             "geometry removes the mode is open, and is the thing to settle "
             "before stationary-action or backreaction work. SO THE CONTOUR "
@@ -402,10 +434,16 @@ def run_probe() -> dict:
             f"{100 * t9.get('pedestal_below', 0):.0f}% of the peak and an onset "
             f"of {t9.get('onset_below', 0):.1f} for an event that cannot begin "
             f"until {t9.get('true_onset', 0):.1f} -- against "
-            f"{t9.get('pedestal_above', 0):.1e} when it is placed above. Same "
-            "species as PR #259's under-resolved contour, reported the same "
-            "way, and this time the rule is checkable in advance because "
-            "sigma* has a closed form -- but clearing the contour STABILIZES "
+            f"{t9.get('pedestal_resolved', 0):.1e} when it is placed above AND "
+            "RESOLVED. Same species as PR #259's under-resolved contour, and "
+            "the rule turns out to have TWO parts, which an earlier draft got "
+            "wrong: eps > sigma* is the analytic Bromwich condition, but at a "
+            "clearance of 0.95 frequency spacings the pedestal is still "
+            "2.6e-03 because the grid does not RESOLVE the clearance. Both "
+            "eps > sigma* and eps - sigma* >> 2 pi/span are needed, both have "
+            "closed forms, and at 14-72 spacings the onset converges to "
+            f"{t9.get('onset_spread_across_resolved', 0):.4f}. Clearing the "
+            "contour STABILIZES "
             "NOTHING: above sigma* the inversion returns the correct retarded "
             "solution OF AN UNSTABLE SYSTEM, and the delay is read from the "
             "causal onset, which is immune to what happens afterwards. WHICH "

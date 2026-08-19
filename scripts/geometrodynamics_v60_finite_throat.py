@@ -13,9 +13,10 @@ tube leaves a lam-DEPENDENT boundary condition, the Weyl function of that
 elimination. That dependence is the interior.
 
 AND THE CANDIDATE FAILS THE STABILITY GATE. The symmetric channel always has a
-negative-lambda mode, whose rate contains neither L nor the mouth separation:
-the point-mouth matching is unstable, not the interior. That is this round's
-closure result, and nothing here cures it.
+negative-lambda mode, generated at the point-mouth/tube INTERFACE; only in the
+sigma L, sigma d >> 1 limit does its rate lose L and the mouth separation and
+localize to one mouth, and the working throat is not in that limit. That is this
+round's closure result, and nothing here cures it.
 
 What the panels show
 --------------------
@@ -70,7 +71,7 @@ from geometrodynamics.waves.finite_throat import (
     FiniteThroat,
     causal_onset,
     impulse_response,
-    measure_the_growing_mode_belongs_to_the_mouth,
+    measure_the_growing_mode_is_interface_localized,
     measure_the_short_tube_limit_is_a_mixed_stratum,
     measure_the_static_limit_is_rank_one_and_the_defect_diverges,
     measure_the_throat_transmits_at_the_traversal_time,
@@ -108,7 +109,7 @@ class FiniteThroatFigure:
         self._delay = measure_the_throat_transmits_at_the_traversal_time()
         self._band = measure_the_short_tube_limit_is_a_mixed_stratum()
         self._rank = measure_the_static_limit_is_rank_one_and_the_defect_diverges()
-        self._mode = measure_the_growing_mode_belongs_to_the_mouth()
+        self._mode = measure_the_growing_mode_is_interface_localized()
 
     # -- the delay -----------------------------------------------------------
     def _draw_delay(self) -> None:
@@ -327,12 +328,14 @@ class FiniteThroatFigure:
                       family="monospace")
         mode = self._mode
         self.fig.text(0.5, 0.047,
-                      f"AND IT FAILS THE STABILITY GATE: a growing mode at "
-                      f"σ* = 2√(π/A), matched to "
+                      f"AND IT FAILS THE STABILITY GATE: a growing mode "
+                      f"generated at the MOUTH/TUBE INTERFACE — for σL, σd ≫ 1 "
+                      f"its rate matches σ* = 2√(π/A) to "
                       f"{mode['worst_closed_form_error']:.1e} with NO L in it "
-                      f"and blind to the mouth separation to "
-                      f"{mode['separation_spread_far']:.0e} — the POINT-MOUTH "
-                      f"matching is unstable, not the interior",
+                      f"and forgets the separation to "
+                      f"{mode['separation_spread_far']:.0e}, but the working "
+                      f"throat is not there (σ* spreads "
+                      f"{mode['length_spread_at_the_working_area']:.2f} over L)",
                       color=_PAL["dim"], fontsize=7.0, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.022,
