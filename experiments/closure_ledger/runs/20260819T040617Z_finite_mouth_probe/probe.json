@@ -1,0 +1,603 @@
+{
+  "probe": "finite_mouth",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "PR #260 gated the roadmap on one question: does its negative mode survive a finite-radius mouth? Replace the point mouths by spheres of radius a, coupled through one channel each, and settle it.",
+      "scope": "a linear conformally coupled scalar on a fixed Einstein static universe. The mouths are spheres in a FIXED ambient with MONOPOLE coupling -- not a solved neck geometry -- so the l >= 1 content on each sphere is dropped, quantified in T8. No backreaction.",
+      "pass": true
+    },
+    {
+      "name": "T2_the_mean_value_identities",
+      "cross": [
+        {
+          "radius": 0.05,
+          "separation": 0.8,
+          "lambda": 0.16,
+          "quadrature": 0.09399492061072112,
+          "prediction": 0.09399492061266111,
+          "relative_error": 2.063930500496507e-11
+        },
+        {
+          "radius": 0.05,
+          "separation": 1.3,
+          "lambda": 0.16,
+          "quadrature": 0.05835772075844883,
+          "prediction": 0.058357720759650206,
+          "relative_error": 2.058634777555495e-11
+        },
+        {
+          "radius": 0.05,
+          "separation": 2.2,
+          "lambda": 0.16,
+          "quadrature": 0.0380771077583929,
+          "prediction": 0.038077107759175964,
+          "relative_error": 2.0565141683092503e-11
+        },
+        {
+          "radius": 0.05,
+          "separation": 0.8,
+          "lambda": 2.89,
+          "quadrature": 0.10194334706944813,
+          "prediction": 0.10194334707155374,
+          "relative_error": 2.0654681405180163e-11
+        },
+        {
+          "radius": 0.05,
+          "separation": 1.3,
+          "lambda": 2.89,
+          "quadrature": -0.0011102939426292087,
+          "prediction": -0.0011102939426495084,
+          "relative_error": 1.828320711850331e-11
+        },
+        {
+          "radius": 0.05,
+          "separation": 2.2,
+          "lambda": 2.89,
+          "quadrature": -0.1215116659026497,
+          "prediction": -0.1215116659051478,
+          "relative_error": 2.0558511245095407e-11
+        },
+        {
+          "radius": 0.15,
+          "separation": 0.8,
+          "lambda": 0.16,
+          "quadrature": 0.09425873069650337,
+          "prediction": 0.0942587306985097,
+          "relative_error": 2.1285303189376233e-11
+        },
+        {
+          "radius": 0.15,
+          "separation": 1.3,
+          "lambda": 0.16,
+          "quadrature": 0.05852150998473644,
+          "prediction": 0.058521509985952895,
+          "relative_error": 2.078650210129517e-11
+        },
+        {
+          "radius": 0.15,
+          "separation": 2.2,
+          "lambda": 0.16,
+          "quadrature": 0.03818397656578189,
+          "prediction": 0.038183976566568315,
+          "relative_error": 2.0595719728724622e-11
+        },
+        {
+          "radius": 0.15,
+          "separation": 0.8,
+          "lambda": 2.89,
+          "quadrature": 0.10130104451305368,
+          "prediction": 0.101301044515224,
+          "relative_error": 2.142445312459065e-11
+        },
+        {
+          "radius": 0.15,
+          "separation": 1.3,
+          "lambda": 2.89,
+          "quadrature": -0.001103298443108699,
+          "prediction": -0.0011032984431085659,
+          "relative_error": 1.20674535174812e-13
+        },
+        {
+          "radius": 0.15,
+          "separation": 2.2,
+          "lambda": 2.89,
+          "quadrature": -0.12074607152229204,
+          "prediction": -0.12074607152477121,
+          "relative_error": 2.053209364118147e-11
+        },
+        {
+          "radius": 0.35,
+          "separation": 0.8,
+          "lambda": 0.16,
+          "quadrature": 0.095595198750306,
+          "prediction": 0.09559519875272095,
+          "relative_error": 2.5262181332178e-11
+        },
+        {
+          "radius": 0.35,
+          "separation": 1.3,
+          "lambda": 0.16,
+          "quadrature": 0.059351270029171385,
+          "prediction": 0.05935127003046905,
+          "relative_error": 2.186412127297737e-11
+        },
+        {
+          "radius": 0.35,
+          "separation": 2.2,
+          "lambda": 0.16,
+          "quadrature": 0.03872537643913234,
+          "prediction": 0.03872537643993598,
+          "relative_error": 2.07523321694572e-11
+        },
+        {
+          "radius": 0.35,
+          "separation": 0.8,
+          "lambda": 2.89,
+          "quadrature": 0.09810017383482432,
+          "prediction": 0.09810017383739537,
+          "relative_error": 2.6208459983858484e-11
+        },
+        {
+          "radius": 0.35,
+          "separation": 1.3,
+          "lambda": 2.89,
+          "quadrature": -0.0010684368516865866,
+          "prediction": -0.0010684368515786835,
+          "relative_error": 1.0099151171437153e-10
+        },
+        {
+          "radius": 0.35,
+          "separation": 2.2,
+          "lambda": 2.89,
+          "quadrature": -0.11693078450677688,
+          "prediction": -0.11693078450916149,
+          "relative_error": 2.039331568020154e-11
+        }
+      ],
+      "self": [
+        {
+          "radius": 0.05,
+          "lambda": 0.16,
+          "quadrature": 1.581476615537836,
+          "prediction": 1.5821018943159186,
+          "relative_error": 0.0003952202954368366
+        },
+        {
+          "radius": 0.05,
+          "lambda": 2.89,
+          "quadrature": 1.6827229867815485,
+          "prediction": 1.6833482876086847,
+          "relative_error": 0.0003714625379305623
+        },
+        {
+          "radius": 0.15,
+          "lambda": 0.16,
+          "quadrature": 0.522718910519449,
+          "prediction": 0.5228234751786512,
+          "relative_error": 0.00019999993146166073
+        },
+        {
+          "radius": 0.15,
+          "lambda": 2.89,
+          "quadrature": 0.6084375601265025,
+          "prediction": 0.6085421294707379,
+          "relative_error": 0.00017183583382528165
+        },
+        {
+          "radius": 0.35,
+          "lambda": 0.16,
+          "quadrature": 0.22300077115711897,
+          "prediction": 0.223091907083441,
+          "relative_error": 0.0004085129196907726
+        },
+        {
+          "radius": 0.35,
+          "lambda": 2.89,
+          "quadrature": 0.2755826160260998,
+          "prediction": 0.27567377204739135,
+          "relative_error": 0.0003306662821586452
+        }
+      ],
+      "worst_cross_error": 1.0099151171437153e-10,
+      "worst_self_error": 0.0004085129196907726,
+      "the_cross_identity_is_exact": true,
+      "the_self_identity_is_grid_limited": true,
+      "what_it_justifies": "the smeared mouth's ambient block, and with it every result in this module",
+      "pass": true
+    },
+    {
+      "name": "T3_the_negative_mode_does_not_survive",
+      "samples": 3078,
+      "positives": 0,
+      "worst_approach_to_zero": -0.0005109411795363083,
+      "the_tube_side_is_always_negative": true,
+      "the_ambient_side_is_always_positive": true,
+      "there_is_no_growing_mode": true,
+      "the_answer": "no: a finite-radius mouth removes the negative mode, and the sign structure says no parameter choice can bring it back",
+      "pass": true
+    },
+    {
+      "name": "T4_the_instability_was_the_linearization",
+      "rows": [
+        {
+          "radius": 0.02,
+          "linearized_root": 50.01999200639361,
+          "root_times_radius": 1.0003998401278722,
+          "exact_has_a_root": false,
+          "agreement": [
+            {
+              "kappa_a": 0.02,
+              "exact": -4.111174820522646,
+              "linearized": -4.109598442322224,
+              "relative_gap": 0.0003834374039636949
+            },
+            {
+              "kappa_a": 0.1,
+              "exact": -3.62311562761097,
+              "linearized": -3.5973834612789126,
+              "relative_gap": 0.007102220568385493
+            },
+            {
+              "kappa_a": 1.0,
+              "exact": -1.7220167245960725,
+              "linearized": -0.0015915494309189533,
+              "relative_gap": 0.9990757642430609
+            },
+            {
+              "kappa_a": 3.0,
+              "exact": -0.6621205464026202,
+              "linearized": 7.957216638117794,
+              "relative_gap": 13.017776342012494
+            }
+          ]
+        },
+        {
+          "radius": 0.05,
+          "linearized_root": 20.049875622574767,
+          "root_times_radius": 1.0024937811287384,
+          "exact_has_a_root": false,
+          "agreement": [
+            {
+              "kappa_a": 0.02,
+              "exact": -2.7141993804875524,
+              "linearized": -2.7124440065672033,
+              "relative_gap": 0.0006467372783917448
+            },
+            {
+              "kappa_a": 0.1,
+              "exact": -1.5053999226476282,
+              "linearized": -1.4940713115851263,
+              "relative_gap": 0.007525316623225074
+            },
+            {
+              "kappa_a": 1.0,
+              "exact": -0.6926308780615446,
+              "linearized": -0.003978873698915658,
+              "relative_gap": 0.9942554196976443
+            },
+            {
+              "kappa_a": 3.0,
+              "exact": -0.26614763114450884,
+              "linearized": 3.1817725706454745,
+              "relative_gap": 12.954915987653045
+            }
+          ]
+        },
+        {
+          "radius": 0.15,
+          "linearized_root": 6.814204926351062,
+          "root_times_radius": 1.0221307389526593,
+          "exact_has_a_root": false,
+          "agreement": [
+            {
+              "kappa_a": 0.02,
+              "exact": -10.514636610013277,
+              "linearized": -10.510338454200873,
+              "relative_gap": 0.0004087783507715451
+            },
+            {
+              "kappa_a": 0.1,
+              "exact": -0.9251314233559167,
+              "linearized": -0.9178087743209918,
+              "relative_gap": 0.007915252741455832
+            },
+            {
+              "kappa_a": 1.0,
+              "exact": -0.243103140651458,
+              "linearized": -0.012010167789603461,
+              "relative_gap": 0.950596410406632
+            },
+            {
+              "kappa_a": 3.0,
+              "exact": -0.09284360596574986,
+              "linearized": 1.0570540802470534,
+              "relative_gap": 12.385319099271113
+            }
+          ]
+        },
+        {
+          "radius": 0.35,
+          "linearized_root": 3.2197646686927577,
+          "root_times_radius": 1.1269176340424651,
+          "exact_has_a_root": false,
+          "agreement": [
+            {
+              "kappa_a": 0.02,
+              "exact": -54.42936091623276,
+              "linearized": -54.41883102128114,
+              "relative_gap": 0.00019345983076711888
+            },
+            {
+              "kappa_a": 0.1,
+              "exact": -2.429904138590833,
+              "linearized": -2.41823151575979,
+              "relative_gap": 0.004803737993471774
+            },
+            {
+              "kappa_a": 1.0,
+              "exact": -0.1377689017387291,
+              "linearized": -0.034474495003238306,
+              "relative_gap": 0.7497657702997645
+            },
+            {
+              "kappa_a": 3.0,
+              "exact": -0.04868839470174333,
+              "linearized": 0.44543488219384464,
+              "relative_gap": 10.148686969913499
+            }
+          ]
+        }
+      ],
+      "worst_gap_below_kappa_a_of_0p1": 0.007915252741455832,
+      "worst_gap_at_kappa_a_of_3": 10.148686969913499,
+      "linearized_roots_times_radius": [
+        1.0003998401278722,
+        1.0024937811287384,
+        1.0221307389526593,
+        1.1269176340424651
+      ],
+      "every_linearized_model_has_a_root": true,
+      "no_exact_model_has_one": true,
+      "the_root_sits_at_kappa_a_of_order_one": true,
+      "the_diagnosis": "the linearization is excellent for \u03baa \u226a 1 and wrong in SIGN beyond it; the mode it produces sits at \u03baa \u2248 1, the edge of its own validity",
+      "pass": true
+    },
+    {
+      "name": "T5_the_mode_became_soft_and_positive",
+      "rows": [
+        {
+          "radius": 0.4,
+          "lambda_0": 0.4964624738728264,
+          "omega_0": 0.7046009323530777,
+          "closed_form": 0.8888888888888888,
+          "ratio": 0.5585202831069297,
+          "antisymmetric": null
+        },
+        {
+          "radius": 0.2,
+          "lambda_0": 0.3515884056447238,
+          "omega_0": 0.5929489064369069,
+          "closed_form": 0.4444444444444444,
+          "ratio": 0.7910739127006287,
+          "antisymmetric": null
+        },
+        {
+          "radius": 0.1,
+          "lambda_0": 0.20425647179751122,
+          "omega_0": 0.4519474214966949,
+          "closed_form": 0.2222222222222222,
+          "ratio": 0.9191541230888005,
+          "antisymmetric": null
+        },
+        {
+          "radius": 0.05,
+          "lambda_0": 0.10759124758415581,
+          "omega_0": 0.32801104796051583,
+          "closed_form": 0.1111111111111111,
+          "ratio": 0.9683212282574023,
+          "antisymmetric": null
+        },
+        {
+          "radius": 0.02,
+          "lambda_0": 0.04398356782927676,
+          "omega_0": 0.2097225973262699,
+          "closed_form": 0.044444444444444446,
+          "ratio": 0.989630276158727,
+          "antisymmetric": null
+        },
+        {
+          "radius": 0.01,
+          "lambda_0": 0.022115701596760233,
+          "omega_0": 0.14871348828119202,
+          "closed_form": 0.022222222222222223,
+          "ratio": 0.9952065718542105,
+          "antisymmetric": null
+        },
+        {
+          "radius": 0.005,
+          "lambda_0": 0.011085571726891657,
+          "omega_0": 0.10528804170888381,
+          "closed_form": 0.011111111111111112,
+          "ratio": 0.9977014554202491,
+          "antisymmetric": null
+        }
+      ],
+      "every_one_is_positive": true,
+      "every_one_is_below_the_gap": true,
+      "no_antisymmetric_bound_state": true,
+      "worst_closed_form_error": 0.010369723841272993,
+      "the_capacitance_formula_holds": true,
+      "the_point_limit_approaches_zero_from_above": true,
+      "what_it_means": "the mode is soft, not unstable; PR #260 put it on the wrong side of zero",
+      "pass": true
+    },
+    {
+      "name": "T6_the_delay_survives",
+      "rows": [
+        {
+          "length": 0.4,
+          "onset_same_mouth": 0.0,
+          "onset_opposite": 0.208282470703125,
+          "prediction": 0.36000000000000004
+        },
+        {
+          "length": 0.6,
+          "onset_same_mouth": 0.0,
+          "onset_opposite": 0.409698486328125,
+          "prediction": 0.5599999999999999
+        },
+        {
+          "length": 0.9,
+          "onset_same_mouth": 0.0,
+          "onset_opposite": 0.70953369140625,
+          "prediction": 0.86
+        },
+        {
+          "length": 1.2,
+          "onset_same_mouth": 0.0,
+          "onset_opposite": 1.009368896484375,
+          "prediction": 1.16
+        },
+        {
+          "length": 2.0,
+          "onset_same_mouth": 0.0,
+          "onset_opposite": 1.06658935546875,
+          "prediction": 1.26
+        },
+        {
+          "length": 3.0,
+          "onset_same_mouth": 0.0,
+          "onset_opposite": 1.06658935546875,
+          "prediction": 1.26
+        }
+      ],
+      "by_radius": [
+        {
+          "radius": 0.01,
+          "onset": 0.716400146484375
+        },
+        {
+          "radius": 0.02,
+          "onset": 0.70953369140625
+        },
+        {
+          "radius": 0.03,
+          "onset": 0.7049560546875
+        },
+        {
+          "radius": 0.04,
+          "onset": 0.7049560546875
+        }
+      ],
+      "slope_in_length": 1.0010077028858417,
+      "slope_in_radius": -0.38909912109375594,
+      "onset_spread_above_d": 0.0,
+      "contour": 0.4,
+      "the_traversal_time_survives": true,
+      "the_ambient_path_still_takes_over": true,
+      "the_mouth_shift_is_subleading": true,
+      "the_correction": "the mouth shifts the onset earlier by O(a), well below the leading min(L,d); a first draft predicted \u22122a from an ambient block missing the shell form factor",
+      "pass": true
+    },
+    {
+      "name": "T7_the_static_results_survive",
+      "rows": [
+        {
+          "lambda": 1e-08,
+          "det_S": -3.6368462359005e-08,
+          "det_S_over_lambda": -3.6368462359005003,
+          "antisymmetry": 1.7585305994447076e-07,
+          "defect": -8841941.294812353,
+          "minus_beta": -8841941.294819696,
+          "defect_error": 8.304225207387742e-13
+        },
+        {
+          "lambda": 1e-06,
+          "det_S": -3.636879311942478e-06,
+          "det_S_over_lambda": -3.6368793119424785,
+          "antisymmetry": 1.7585619674999568e-05,
+          "defect": -88419.42476576692,
+          "minus_beta": -88419.42476545258,
+          "defect_error": 3.5550550309706417e-12
+        },
+        {
+          "lambda": 0.0001,
+          "det_S": -0.0003640189728396545,
+          "det_S_over_lambda": -3.6401897283965448,
+          "antisymmetry": 0.0017617045608837039,
+          "defect": -884.2060650218166,
+          "minus_beta": -884.206065021841,
+          "defect_error": 2.7643635434171875e-14
+        }
+      ],
+      "linear_coefficient": -3.6379717587465077,
+      "det_S_is_linear_in_lambda": true,
+      "worst_antisymmetry": 1.7585619674999568e-05,
+      "the_static_response_is_still_rank_one": true,
+      "worst_defect_error": 3.5550550309706417e-12,
+      "the_defect_is_still_minus_beta": true,
+      "why": "both came from the tube's zero mode, which the mouth does not touch",
+      "pass": true
+    },
+    {
+      "name": "T8_monopole_matching_is_what_is_left",
+      "lambda": 0.16,
+      "separation": 1.3,
+      "rows": [
+        {
+          "radius": 0.02,
+          "monopole": 0.05834056406797866,
+          "dipole": 0.0008385646054052814,
+          "dipole_over_monopole": 0.014373611548016274,
+          "ratio_over_a_over_d": 0.9342847506210579,
+          "dropped_power_fraction": 6.887157557908236e-05
+        },
+        {
+          "radius": 0.05,
+          "monopole": 0.0583577206395129,
+          "dipole": 0.0020973686612140354,
+          "dipole_over_monopole": 0.03593986602338178,
+          "ratio_over_a_over_d": 0.9344365166079261,
+          "dropped_power_fraction": 0.00043066236424671846
+        },
+        {
+          "radius": 0.15,
+          "monopole": 0.058521509864307035,
+          "dipole": 0.0063195466876825295,
+          "dipole_over_monopole": 0.1079867334649357,
+          "ratio_over_a_over_d": 0.9358850233627761,
+          "dropped_power_fraction": 0.0038954268380838155
+        },
+        {
+          "radius": 0.35,
+          "monopole": 0.05935126990070187,
+          "dipole": 0.015071781334438605,
+          "dipole_over_monopole": 0.25394201943201167,
+          "ratio_over_a_over_d": 0.9432132150331862,
+          "dropped_power_fraction": 0.02175835479367417
+        }
+      ],
+      "dipole_scales_like_a_over_d": true,
+      "worst_dropped_fraction": 0.02175835479367417,
+      "smallest_dropped_fraction": 6.887157557908236e-05,
+      "the_scope": "one channel per mouth couples only \u2113 = 0; the dropped multipoles are screened as (a/d)^\u2113, PR #250's law, so the leading omission is the dipole",
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
+      "n_passed": 8,
+      "n_total": 8,
+      "pass": true
+    }
+  ],
+  "verdict_class": "THE_NEGATIVE_MODE_DOES_NOT_SURVIVE_A_FINITE_MOUTH",
+  "verdict": "*** THE ANSWER IS NO. *** PR #260 gated the roadmap on whether its growing mode survives a finite-radius mouth. It does not, and the statement is STRUCTURAL rather than parametric. Smearing the coupling over a sphere of radius a -- the same operator on both sides, so the composite stays manifestly self-adjoint -- replaces the renormalized self-energy g(lam), which is negative, by the UNSUBTRACTED Green function G(a,lam), which is positive. The mean-value identities that give it, G_self = f(a)G(a) and G_cross = f(a)^2 G(d), are checked against direct quadrature on S^3 to 1.0e-10 for the cross term and 4.1e-04 for the self term, the latter grid-limited by the integrable singularity at coincidence. THEN THE SIGNS DECIDE IT: at lam < 0 the tube's channel functions are strictly NEGATIVE -- a passive interior supplies no restoring force -- and the ambient's are strictly POSITIVE, because f and G are positive on the imaginary axis and G(a) > f(a)G(d) whenever a < d/2, which disjoint mouths require anyway. A difference of a negative and a positive number has no zero, so no parameter choice can produce a growing mode: 3078 samples over (a, d, L, A, m, sigma) give 0 positives, worst approach -5.1e-04. *** AND PR #260's MODE WAS THE LINEARIZATION. *** That round modelled the mouth as a CONSTANT shift 1/(4 pi a) -- the leading term of G(a,lam) = 1/(4 pi a) + g(lam) + O(a). The exact G(a,-k^2) is SCREENED, ~ e^{-k a}/(4 pi a), and dies; the constant does not, so it eventually beats the tube's -1/(A k) and crosses. The two agree to 0.8% for k a <= 0.1 and differ by 1015% at k a = 3, and the linearized root sits at k a = 1.000, 1.002, 1.022, 1.127 -- AT THE EDGE OF ITS OWN VALIDITY. A mode that lives at the scale where its derivation fails is an artifact, and that is now shown rather than suspected. WHERE THE MODE WENT: SOFT AND POSITIVE. The composite has exactly one state below the free gap lam = 1, in the symmetric channel, and as a -> 0 it goes to 8 pi a/(A L) -- two mouth capacitances 4 pi a restoring a tube of volume A L -- matched to 1.0%. So the point limit drives the mode to zero FROM ABOVE. PR #260 did not get a rate slightly wrong; it took a mode approaching 0+ and put it on the other side of zero, at lam ~ -1/a^2. THE GOOD RESULTS SURVIVE: the traversal delay has slope 1.0010 in L against a predicted 1, saturating at the ambient path to 0.0e+00, with the mouth adding only a sub-leading O(a) shift (slope -0.39; a first draft predicted -2a from an ambient block missing the shell form factor, and that prediction is recorded as wrong). The static response is still rank one, det S linear in lam, and PR #258's W = -beta(lam) holds to 3.6e-12 -- all three came from the TUBE's zero mode, which the mouth does not touch. The contour is easier too: with nothing to clear, eps = 0.4 suffices where PR #260 needed eps > 2. WHAT IS STILL PUT IN: one channel per mouth, so only l = 0 couples; the dropped multipoles obey PR #250's screening law, dipole/monopole = 0.934 (a/d) across a decade in a, and the dropped power fraction is 6.9e-05 at a = 0.02. THE MOUTHS ARE SPHERES IN A FIXED AMBIENT, NOT A SOLVED NECK, AND THERE IS NO BACKREACTION. But the gate PR #260 set is answered: with the mouth resolved there is no growing mode, so the stationary-action and backreaction rounds can proceed on this background and measure the physics rather than an artifact.",
+  "working_mouth": {
+    "separation": 1.3,
+    "length": 0.9,
+    "area": 12.566370614359172,
+    "radius": 0.05
+  },
+  "generated_utc": "2026-08-19T04:06:17.123864+00:00"
+}

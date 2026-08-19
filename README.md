@@ -2773,6 +2773,91 @@ python scripts/geometrodynamics_v60_finite_throat.py --still v60.png
 
 Full write-up: `docs/finite_conservative_throat.md`.
 
+## The negative mode does not survive a finite mouth
+
+**PR #261 — the gate #260 set, answered.** That round found its conservative
+throat carried an exponentially growing mode for *every* choice of parameters and
+stopped the roadmap on one question: **does it survive a finite-radius mouth?**
+
+**No — and the statement is structural, not parametric.**
+
+**What a resolved mouth changes.** A point interaction must subtract the
+`1/(4πχ)` divergence and keeps the **renormalized** self-energy `g(λ)`, which is
+*negative* — a leftover of an infinite subtraction, and what the mode fed on. A
+sphere needs no subtraction. Smearing the coupling over `∂B_a` — the same
+operator on both sides, so the composite stays manifestly self-adjoint — gives
+
+```
+𝒢_self(λ) = f(a,λ)·G(a,λ)        𝒢_cross(λ) = f(a,λ)²·G(d,λ)
+```
+
+with `G` the **unsubtracted** Green function and `f(χ,λ) = sin(ωχ)/(ω sin χ)` the
+regular radial solution. Both are **mean-value identities**, checked against
+direct quadrature on `S³`: the cross one to **`1.0e-10`**, the self one to
+`4.1e-04` (grid-limited by the singularity at coincidence, and reported as such).
+
+**The signs decide it.** At `λ = −σ²` the tube gives `−coth(κL/2)/(𝒜κ)` and
+`−tanh(κL/2)/(𝒜κ)` — strictly **negative**, a passive interior has no restoring
+force — while the ambient gives `f·G(a) ± f²·G(d)`, strictly **positive**, every
+bracket in `(0,1]` once `a < d/2`, which disjoint mouths require anyway. A
+difference of a negative and a positive number has no zero. **3078 samples** over
+`(a, d, L, 𝒜, m, σ)`: **0 roots**, worst approach `−5.1e-04`.
+
+**And #260's mode was the linearization.** That round froze the mouth at the
+*constant* `1/(4πa)` — the leading term of `G(a,λ) = 1/(4πa) + g(λ) + O(a)`. The
+exact `G(a,−κ²)` is **screened**, `≈ e^{−κa}/(4πa)`; the constant is not, so it
+eventually beats the tube's `−1/(𝒜κ)` and crosses:
+
+| `a` | linearized root `κ*` | `κ*·a` | exact |
+| ---: | ---: | ---: | :---: |
+| `0.02` | `50.02` | **`1.0004`** | none |
+| `0.05` | `20.05` | **`1.0025`** | none |
+| `0.15` | `6.814` | **`1.0221`** | none |
+| `0.35` | `3.220` | **`1.1269`** | none |
+
+**The root sits at `κa ≈ 1` — the edge of its own approximation.** The two models
+agree to `0.8%` for `κa ≤ 0.1` and differ by `1000%` at `κa = 3`, disagreeing not
+in magnitude but in **sign**. #260 suspected exactly this and could only record
+the suspicion; this is the demonstration.
+
+**Where the mode went: soft, and positive.** Exactly one state below the free gap
+`λ = 1`, in the symmetric channel, with
+
+```
+λ₀  ⟶  8πa/(𝒜L)
+```
+
+two mouth capacitances `4πa` restoring a tube of volume `𝒜L` — ratio `0.998` at
+`a = 0.005`. **The point limit drives the mode to zero from *above*.** #260 did
+not get a rate slightly wrong; it took a mode approaching `0⁺` like `a` and put
+it on the other side of zero, at `λ ≈ −1/a²`.
+
+**The good results survive.** The traversal delay keeps slope **`1.0010`** in `L`
+and saturates at the ambient path to `0.0`, the mouth adding only a sub-leading
+`O(a)` shift (a first draft predicted `−2a` from an ambient block missing the
+shell form factor; the measured slope is quoted and the prediction recorded as
+wrong). The static response is still rank one and #258's `𝒲 = −β(λ)` still holds
+to `3.6e-12` — all of which came from the *tube's* zero mode, which the mouth
+does not touch. The contour is easier too: `ε = 0.4` where #260 needed `ε > 2`.
+
+**What is still put in.** One channel per mouth, so only `ℓ = 0` couples; the
+dropped multipoles obey #250's screening law, dipole/monopole `= 0.934·(a/d)`
+across a decade in `a`, dropped power `6.9e-05` at the working radius. The mouths
+are **spheres in a fixed ambient, not a solved neck**. No backreaction.
+
+**This ungates the roadmap.** #260 blocked stationary action and backreaction
+because an integral over a field on a growing background measures the mode. That
+reason is gone.
+
+```bash
+python -m experiments.closure_ledger.finite_mouth_probe
+# Verdict: THE_NEGATIVE_MODE_DOES_NOT_SURVIVE_A_FINITE_MOUTH  (9/9)
+
+python scripts/geometrodynamics_v61_finite_mouth.py --still v61.png
+```
+
+Full write-up: `docs/finite_radius_mouth.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and

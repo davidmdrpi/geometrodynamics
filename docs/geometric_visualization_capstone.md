@@ -574,7 +574,7 @@ dynamic solver returns `𝒲 = −0.060010` against `−β = −0.06`.
 **No backreaction**: the stress tensor is computed *from* the field and never fed
 back. That is the next step, and it now has a concrete object to feed.
 
-## 18. The throat has an interior, and the interior is the delay — and the point mouth is unstable (`docs/finite_conservative_throat.md`, current round)
+## 18. The throat has an interior, and the interior is the delay — and the point mouth is unstable (`docs/finite_conservative_throat.md`)
 
 Every round from §13 to §17 carried the same disclaimer — *point-supported, no
 interior, no proper length, no delay* — and §19's ledger was more specific about
@@ -692,7 +692,60 @@ mode — the interior is one-dimensional (so `𝒜` is a coupling and not a radi
 and a real tube's transverse modes above `ω ∼ 1/√𝒜` are inside the working
 band), and `L, 𝒜, m` are chosen rather than derived. **No backreaction.**
 
-## 19. What the arc cost in errors, and what caught them
+## 19. The negative mode does not survive a finite mouth (`docs/finite_radius_mouth.md`, current round)
+
+§18 ended by gating the roadmap on one question: does its growing mode survive a
+finite-radius mouth? **No — and the statement is structural rather than
+parametric.**
+
+**What a resolved mouth changes.** A point interaction has to subtract the
+`1/(4πχ)` divergence and keeps the *renormalized* self-energy `g(λ)`, which is
+**negative** — the finite part left after an infinite subtraction, and what the
+mode fed on. A sphere needs no subtraction. Smearing the coupling over `∂B_a`
+with the same operator on both sides — so the composite stays manifestly
+self-adjoint — replaces `g` by the **unsubtracted** `𝒢_self = f(a)G(a)`,
+`𝒢_cross = f(a)²G(d)`, with `f(χ,λ) = sin(ωχ)/(ω sin χ)` the regular radial
+solution. Both are mean-value identities, and both are checked against direct
+quadrature on `S³` — the cross one to `1.0e-10`, the self one to `4.1e-04`,
+grid-limited by the singularity at coincidence and reported as such rather than
+as a model error.
+
+**The signs settle it.** At `λ = −σ²` the tube's channel functions are strictly
+**negative** — a passive interior supplies no restoring force — and the resolved
+mouth's are strictly **positive**, once written so the positivity is visible:
+every bracket in `(0,1]`, and `2κa − κd < 0` because disjoint mouths need
+`a < d/2`. A difference of a negative and a positive number has no zero, so **no
+parameter choice can produce a growing mode**; a sweep of `3078` points finds `0`,
+worst approach `−5.1e-04`.
+
+**And §18's mode was the linearization.** That round froze the mouth at the
+*constant* `1/(4πa)`, the leading term of `G(a,λ) = 1/(4πa) + g(λ) + O(a)`. The
+exact `G(a,−κ²)` is **screened**, `≈ e^{−κa}/(4πa)`; the constant is not, so it
+eventually beats the tube's `−1/(𝒜κ)` and crosses — at `κa = 1.0004, 1.0025,
+1.0221, 1.1269` for `a = 0.02, 0.05, 0.15, 0.35`. **The root sits at the edge of
+its own approximation.** The two models agree to `0.8%` for `κa ≤ 0.1` and differ
+by `1000%` at `κa = 3`, disagreeing not in magnitude but in *sign*. §18 measured
+that its mode knew only the mouth's scale and suspected exactly this; this is the
+demonstration.
+
+**Where the mode went: soft, and positive.** Exactly one state below the free gap
+`λ = 1`, in the symmetric channel, at `λ₀ → 8πa/(𝒜L)` — two mouth capacitances
+`4πa` restoring a tube of volume `𝒜L`, ratio `0.998` at `a = 0.005`. So the point
+limit drives it to zero **from above**, and §18 took a mode approaching `0⁺` like
+`a` and put it on the other side, at `λ ≈ −1/a²`.
+
+**The good results survive.** The traversal delay keeps slope `1.0010` in `L` and
+saturates at the ambient path to `0.0`; the static rank-one collapse and §16's
+`𝒲 = −β(λ)` hold to `3.6e-12` — all of them properties of the *tube's* zero mode,
+which the mouth does not touch. And the contour is easier: `ε = 0.4` where §18
+needed `ε > σ* ≈ 2`.
+
+**Still put in:** one channel per mouth, so only `ℓ = 0` couples — the dropped
+multipoles obey §8's screening law, dipole/monopole `= 0.934·(a/d)` across a
+decade — and the mouths are spheres in a *fixed* ambient, not a solved neck.
+**No backreaction.**
+
+## 20. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -844,6 +897,19 @@ Worth recording, because the failure modes repeat:
   one. It does not: the limiting stratum is rank one too, so what rank one
   falsifies is the finite-`A` chart. **§15's own lesson, arriving from the other
   direction: a quantity blowing up in a chart is a fact about the chart.**
+* **An instability manufactured by a linearization.** §18 reported that its
+  throat carries a growing mode for every choice of parameters, and correctly
+  identified the mode's scale as the mouth's own. What it did not see is that
+  the mode was *produced* by how the mouth had been written: a **constant**
+  `1/(4πa)` standing in for the screened `G(a,λ)`. The exact self-energy decays
+  like `e^{−κa}` and the constant does not, so the approximation fails exactly
+  where the mode lives — `κa ≈ 1`, measured to `1.0004` — and the two versions
+  disagree in **sign** rather than in magnitude. §19 shows the resolved mouth has
+  no such mode at all, and that the true one is soft and *positive*,
+  `λ₀ → 8πa/(𝒜L)`. **A quantity frozen at its leading term is a model, not a
+  limit, and its failures can have the wrong sign — which is why §18's own rule,
+  that a result living at the edge of its derivation is suspect, was the right
+  instinct and needed one more round to cash.**
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -866,7 +932,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 20. What is imported rather than derived
+## 21. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -910,7 +976,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 21. What would come next
+## 22. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
@@ -953,11 +1019,11 @@ The staged order that follows from this, and the reason it is that order:
 
 ```
 ray closure → field solution → two-wave invariant → finite throat
-            → ** RESOLVE THE MOUTH ** → stationary action → backreaction
+            → mouth resolved ✓ → stationary action → backreaction
             → topological branch
 ```
 
-**The order now has a gate in it, and it is not optional.** §18 built the
+**The gate is answered, and the reason it was there is worth keeping.** §18 built the
 conservative finite throat the arc had owed since §11 — and found that with
 point mouths it carries an exponentially growing mode for *every* choice of
 parameters, at a rate that knows neither the tube's length nor the mouths'
@@ -965,14 +1031,12 @@ separation. Stationary action and backreaction are both integrals over a solved
 field on this background. Run on a background with a growing mode, each would be
 measuring the mode: an on-shell action evaluated on a solution whose amplitude
 diverges is not stationary in any useful sense, and an `A`/`B`/`A+B` collapse
-comparison would report the instability's response rather than the waves'. So
-the next construction is **a finite-radius mouth or neck** — the ambient solved
-outside two small balls rather than a point interaction with a radius parameter
-— and the question it has to answer is single and sharp: *does the negative mode
-survive?* If it does, the point-interaction throat family of §15–§18 is the wrong
-model of a wormhole mouth and the arc has to say so. If it does not, the mode was
-an artifact of the matching, the delay and the conservation law carry over, and
-the two steps below resume with an object that has a proper length.
+comparison would report the instability's response rather than the waves'. §19 answered it: **the mode does not survive**, it was an artifact of
+linearizing a screened self-energy, and the delay and conservation law carry
+over. So the two steps below resume, with an object that has a proper length, a
+delay, a conservation law and no growing mode. What is still owed to them is the
+neck geometry itself — §19's mouths are spheres in a fixed ambient with monopole
+coupling, which is a limitation with a number attached rather than a gate.
 
 * **field solution** — ~~done~~, in two stages, with one piece still owed. The
   first (`docs/field_solve.md`) solved the field with the mouth relation applied
@@ -1008,7 +1072,7 @@ the two steps below resume with an object that has a proper length.
   caustic and low-frequency closure all have numbers. What is *not* done is
   backreaction — and §17 hands that step a warning as well as an object, since
   the interference tensor `ΔT` peaks exactly where `T_A:T_B` is null;
-* **stationary action** — *gated on the mouth above.* Evaluate the on-shell
+* **stationary action** — *ungated by §19.* Evaluate the on-shell
   action and ask whether the candidate events are stationary. *Not* with Lagrange multipliers imposing the
   ray round's five equations, which would only rename them. This is where the
   retrocausal language earns its keep or fails: the backward-in-time throat
@@ -1023,7 +1087,7 @@ the two steps below resume with an object that has a proper length.
   throat contributes an echo series at every even multiple of the traversal
   time. The action round also inherits §18's conservation law, which is what
   makes a common action possible at all;
-* **backreaction** — *gated on the mouth above.* The first GR question is not
+* **backreaction** — *ungated by §19.* The first GR question is not
   "does spacetime pinch off?" but whether `A + B` produces a collapse response
   not reproducible by rescaling `A` or `B` alone. It inherits §17's warning about *which* diagnostic
   to integrate — `ΔT`, not `T_A:T_B` — and §18's source with a finite size and a
