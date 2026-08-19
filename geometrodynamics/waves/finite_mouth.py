@@ -5,9 +5,11 @@ The question
 PR #260 built the conservative finite throat the arc had owed since #253: a tube
 with an exact Dirichlet-to-Neumann map, a reflected channel, and a real traversal
 delay.  It also found that with **point** mouths the composite carries an
-exponentially growing mode for *every* choice of parameters, at a rate
-``σ* = 2√(π/𝒜)`` that knows neither the tube's length nor the mouths'
-separation.  That gated the roadmap, with one question to settle first:
+exponentially growing mode for *every* choice of parameters, generated at the
+point-mouth/tube **interface** — and localizing, in the ``σL, σd ≫ 1`` limit, to
+a single mouth at a rate ``σ* = 2√(π/𝒜)`` that knows neither the tube's length
+nor the mouths' separation.  That gated the roadmap, with one question to settle
+first:
 
     **does the negative mode survive a finite-radius mouth?**
 

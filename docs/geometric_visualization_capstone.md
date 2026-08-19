@@ -661,22 +661,31 @@ interior's own amplitude rather than a constant.
 increases (§15's Gram identity), so `A − Γ` is strictly monotone between poles
 and each channel has at most one root — a count, not a scan. The symmetric
 channel always has exactly one, and it is at `λ < 0`: **an exponentially growing
-mode, for every choice of parameters.** Three facts say whose it is, all limits
-with their convergence measured: its rate matches `σ* = 2√(π/𝒜)` to `1.5e-03`
-with **no `L` in it**; two mouth separations agree to `3.9e-09`; and the channel
-splitting is `1.04·e^{−σ*d}`, the Euclidean propagator between the mouths, which
-is the mechanism and not a bound on it. A mode that ignores the tube's length and
-the mouths' separation, and does not distinguish the channels, is a
-**single-mouth object**: the instability is the **point-mouth matching's**, not
-the interior's.
+mode, for every choice of parameters.** In the `σL, σd ≫ 1` limit its rate
+matches `σ* = 2√(π/𝒜)` to `1.5e-03` with **no `L` in it**, two separations agree
+to `3.9e-09`, and the channel splitting is `1.04·e^{−σ*d}` — the Euclidean
+propagator between the mouths, the mechanism rather than a bound on it. So the
+mode is generated at the **point-mouth/tube interface** and *localizes to a
+single mouth in that limit*.
+
+The working throat is **not** in it: at `𝒜 = 4π` the asymptotic form gives
+`σ* = 1` while `L = 0.9` gives `1.417`, and `σ*` runs `1.769 → 1.152` across
+`L = 0.4 → 3`, a spread of `54%`. A first draft claimed the mode "belongs to the
+mouth and not the interior"; the interface statement plus an asymptotic
+localization is what the data support, and it is also what makes §19's
+finite-radius mouth exactly the right discriminator.
 
 **That is the round's closure result.** The retarded contour must clear `σ*` —
 placed `0.03` below it the inversion returns a field with support *before its own
 light cone*, a pedestal at 99% of the peak for an event that cannot begin until
-`t = 0.6`, against `1.0e-16` placed above, and `σ*`'s closed form means the
-contour is placed before the solve rather than diagnosed after it. But clearing
-the contour evaluates the correct retarded solution **of an unstable system** and
-cures nothing. Whether a finite-radius mouth or neck geometry removes the mode is
+`t = 0.6`. **And clearing it is necessary, not sufficient**: at a clearance of
+`+0.02` the contour is above the mode and the pedestal is still `2.6e-03`,
+because that clearance is `0.95` of the frequency spacing `2π/span` and the grid
+does not resolve it — §17's lesson arriving a second time. The rule is
+`ε > σ*` *and* `ε − σ* ≫ 2π/span`; both have closed forms, so both are checkable
+before the solve, and at `14–72` spacings the pedestal is `1.0e-16` with the
+onset converged to four time steps. Neither condition cures anything: above `σ*`
+the inversion returns the correct retarded solution **of an unstable system**. Whether a finite-radius mouth or neck geometry removes the mode is
 open, and it should be settled before §21's stationary action or backreaction —
 either of those computed on this background would inherit the mode and measure
 it rather than the physics they are after.

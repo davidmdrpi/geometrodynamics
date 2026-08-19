@@ -23,9 +23,10 @@
 #260 built the conservative finite throat: a tube with an exact
 Dirichlet-to-Neumann map, a reflected channel and a real traversal delay. It also
 found that with **point** mouths the composite carries an exponentially growing
-mode for every choice of parameters, at a rate `σ* = 2√(π/𝒜)` containing neither
-the tube's length nor the mouths' separation. Three facts said the mode was the
-*mouth's*, not the tube's — and one question followed:
+mode for every choice of parameters, generated at the point-mouth/tube
+**interface** and localizing — in the `σL, σd ≫ 1` limit — to a single mouth, at
+a rate `σ* = 2√(π/𝒜)` containing neither the tube's length nor the mouths'
+separation. One question followed:
 
 > does the negative mode survive a finite-radius mouth?
 
@@ -125,8 +126,11 @@ invalid.** The two models agree to `0.8%` for `κa ≤ 0.1` and differ by `1000%
 `κa = 3`; they disagree not in magnitude but in **sign**.
 
 A mode that lives at the scale where its own derivation fails is an artifact.
-#260 suspected exactly this — it measured that `σ*` knows only the mouth's scale
-— but could only record the suspicion. This is the demonstration.
+#260 measured that `σ*` loses `L` and `d` asymptotically and located the mode at
+the mouth/tube interface, which pointed here — but it could only record the
+suspicion. This is the demonstration, and it names the culprit precisely: not the
+interface as such, but the *constant* standing in for a screened function
+across it.
 
 ## 5. Where the mode went: soft, and positive
 

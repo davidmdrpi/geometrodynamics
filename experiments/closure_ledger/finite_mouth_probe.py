@@ -9,9 +9,11 @@
 THE QUESTION
 ────────────
 PR #260 built the conservative finite throat and found that with POINT mouths it
-carries an exponentially growing mode for every choice of parameters, at a rate
-sigma* = 2 sqrt(pi/A) that knows neither the tube's length nor the mouths'
-separation. That gated the roadmap on one question:
+carries an exponentially growing mode for every choice of parameters,
+generated at the point-mouth/tube INTERFACE -- and, in the sigma L, sigma d >> 1
+limit, localizing to a single mouth at a rate sigma* = 2 sqrt(pi/A) that knows
+neither the tube's length nor the mouths' separation. That gated the roadmap on
+one question:
 
     DOES THE NEGATIVE MODE SURVIVE A FINITE-RADIUS MOUTH?
 

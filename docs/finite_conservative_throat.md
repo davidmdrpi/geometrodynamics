@@ -85,6 +85,14 @@ is. What it is, is a matrix **Nevanlinna** function, monotone in `λ` between it
 poles, and that monotonicity is the enlarged system's self-adjointness showing
 through after the elimination. It is measured (§8), not assumed.
 
+**A sign convention, since the word cuts both ways.** `A(λ)` here *decreases*
+with `λ`, so in the standard Herglotz/Nevanlinna convention — a map of the upper
+half-plane to itself — it is `−A` that is Nevanlinna and `A` that is
+anti-Nevanlinna. (Read the small-`L` symmetric channel, `A_sym(z) ∼ 2/(𝒜Lz)`,
+which sends the upper half-plane to the lower one.) The boundary-triple
+convention used here puts the sign on `A`; nothing depends on the choice, but the
+monotonicity direction does, so it is stated rather than left to the reader.
+
 What *can* be checked pointwise is that the elimination is faithful: at each
 `λ`, the eliminated problem is a maximal self-adjoint boundary condition for the
 ambient problem **at that `λ`** — `rank[B|C] = 2` with `BC†` Hermitian. Here
@@ -156,7 +164,7 @@ contributions arrive at *different times*, and which one is first is decided by
 The point-throat control, `A` frozen at `A(λ₀)`: `r₁₂` starts at **`0.0000`**.
 A point throat transmits instantaneously, which is what a point throat is.
 
-### The ledger is a derivation
+### The massless tube's ledger is a derivation
 
 On the retarded contour `Im x > 0`, so both geometric series converge:
 
@@ -175,6 +183,14 @@ with `x = kL`, checked against the closed forms **on the actual contour** to
 **The parities are the physics** — an even number of traversals returns to the
 mouth it came from — and the reflected channel is the one the rank-one transfer
 model does not have at all.
+
+Two scopes belong on this. It is the **`m = 0`** ledger: there `k = ω`, so
+`e^{ikL}` is a pure translation and the interior really does return shifted
+copies. With `m ≠ 0`, `k = √(ω²−m²)` and `e^{ikL}` is **dispersive** — the causal
+*front* is still at `L`, but the echoes are no longer translates of one shape,
+which is §7's evanescent physics seen from the other side. And it is the ledger
+of the **tube kernel `A(ω)`**, not of the coupled `R = (A − Γ)⁻¹`, which also
+carries the ambient's `d`-paths — which is precisely why §4 reads `min(L, d)`.
 
 ## 5. There *is* a point limit — and it is not a finite `A`
 
@@ -298,7 +314,7 @@ statement read at `λ = m²`.
 
 Both regimes stay real and self-adjoint: worst imaginary part `0.0`.
 
-## 8. The model fails the stability gate — and the failure is the mouth's
+## 8. The model fails the stability gate — at the mouth/tube interface
 
 `A(λ)` is decreasing in `λ` and `Γ(λ)` increasing (#257's Gram identity), so
 `A − Γ` is strictly monotone between poles and each channel has **at most one
@@ -324,10 +340,25 @@ is what is measured:
   across the five rows with `σ*L > 14` — which is the Euclidean mouth-to-mouth
   propagator itself, not a bound on it.
 
-**A mode that ignores the tube's length and the mouths' separation, and does not
-distinguish the two channels, is a single-mouth object.** Its length scale is
-`1/σ* = √(𝒜/4π)` — the mouth's own radius, which is exactly where "point mouth"
-stops being an approximation. With a finite mouth radius the closed form
+**So the mode is generated at the point-mouth/tube interface, and in the
+`σL, σd ≫ 1` limit it localizes to a single mouth** and stops knowing the tube's
+length or the other mouth. Its length scale there is `1/σ* = √(𝒜/4π)` — the
+mouth's own radius, which is exactly where "point mouth" stops being an
+approximation.
+
+**But the working throat is not in that limit**, and that qualification is
+load-bearing. At `𝒜 = 4π` the asymptotic form gives `σ* = 1` while `L = 0.9`
+gives `1.417`, and across the lengths this round uses:
+
+| `L` | `0.4` | `0.9` | `1.8` | `3.0` |
+| --- | ---: | ---: | ---: | ---: |
+| `σ*` | `1.769` | `1.417` | `1.226` | `1.152` |
+
+a spread of `0.617`, **54% of the smallest value**. A first draft wrote "the
+mode belongs to the mouth and not the interior"; that is stronger than the data
+support. The interface statement plus an asymptotic localization is both correct
+and more informative — and it is what makes a finite-radius mouth exactly the
+right discriminator. With a finite mouth radius the closed form
 generalizes to `σ* = ½[1/a + √(1/a² + 16π/𝒜)]`, which is the same statement with
 the mouth's other scale in it.
 
@@ -345,21 +376,39 @@ Both approximations fail in the same direction and for the same reason: at
 `σ*L ≲ 2` the tube is shorter than the mode, `coth(σL/2)` is not yet `1`, and
 the closed form is `15%` out. That row is kept in the table.
 
-## 9. So the contour must clear it
+## 9. So the contour must clear it — and be resolved
 
 The retarded contour `Im ω = ε` must lie above **every** singularity of the
 response, and a finite throat puts one at `ω = iσ*`.
 
-| clearance | contour | onset | pedestal before the light cone |
-| ---: | ---: | ---: | ---: |
-| `−0.03` | `1.5452` | `0.0000` | **`0.992`** |
-| `+0.02` | `1.5952` | `0.0000` | `2.6e-03` |
-| `+0.30` | `1.8752` | `0.4646` | **`0.0`** |
-| `+0.80` | `2.3752` | `0.4601` | **`0.0`** |
+| clearance | contour | `÷ 2π/span` | resolved? | onset | pedestal |
+| ---: | ---: | ---: | :---: | ---: | ---: |
+| `−0.03` | `1.5452` | `−1.43` | no | `0.0000` | **`0.992`** |
+| `+0.02` | `1.5952` | `+0.95` | **no** | `0.0000` | **`2.6e-03`** |
+| `+0.30` | `1.8752` | `+14.32` | yes | `0.4646` | `1.0e-16` |
+| `+0.80` | `2.3752` | `+38.20` | yes | `0.4601` | `1.0e-16` |
+| `+1.50` | `3.0752` | `+71.62` | yes | `0.4555` | `1.0e-16` |
 
 Placed just below `σ*`, the inversion returns a field with support **before its
 own light cone**: a pedestal at 99% of the peak, arriving at `t = 0` for an
 event that cannot begin until `t = 0.6`.
+
+**And clearing the mode is necessary, not sufficient.** A first draft of this
+section stated the rule as `ε > σ*`, and the table above contradicts it: the
+`+0.02` row *is* above the mode and still has a pedestal of `2.6e-03` with the
+onset at `0`. That clearance is `0.95` of the frequency spacing
+`2π/span = 0.0209` — the pole is above the contour but **unresolved by the
+grid**, which is #259's lesson arriving a second time. The rule has two parts:
+
+```
+ε > σ*                 analytic:  the Bromwich contour clears the pole
+ε − σ* ≫ 2π/span       numerical: the grid resolves the clearance
+```
+
+Both sides have closed forms, so both are checkable before the solve. At
+clearances of `14.3`, `38.2` and `71.6` spacings the pedestal is `1.0e-16` and
+the recovered onset **converges** — `0.4646`, `0.4601`, `0.4555`, a spread of
+`0.0092`, four time steps.
 
 **Clearing the contour stabilizes nothing.** Above `σ*` the inversion returns the
 correct retarded solution *of an unstable system*; the growing mode is still
