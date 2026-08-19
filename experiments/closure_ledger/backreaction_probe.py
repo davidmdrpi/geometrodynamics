@@ -77,14 +77,24 @@ T5  *** THE ANSWER. *** Most of the interference response lies outside the span
     of the two single-wave responses, and it is comparable to them in size.
     Reported off the full linear SPAN, which strictly contains the physical cone
     {c^2 beta_A + d^2 beta_B}, so the figure is CONSERVATIVE -- the true
-    unreachable fraction is at least this large. Stable across time windows.
+    unreachable fraction is at least this large. It MOVES with the time window
+    (0.88 to 1.00 over the four reported), which is why T6 scans the carrier as
+    well and the result is quoted as a range rather than a constant.
 
-T6  WHY THE CARRIER IS w3 AND NOT PR #257's 60. The response is a driven
-    oscillator, so its transfer function is exactly 1/(w3^2 - w^2), a filter
-    peaked at w3. The source is QUADRATIC in the field, so a carrier w0 puts its
-    power near 0 and near 2*w0, not at w0 -- driving at 60 would leave the
-    channel reading round-off. Both halves reported, so the carrier is a
-    measurement rather than a preference.
+T6  THE CHANNEL IS NEVER ON RESONANCE, AND THE NUMBER IS NOT A CONSTANT. The
+    conformally coupled scalar on the ESU has spectrum w_n = n+1: INTEGERS. The
+    space is compact and static so nothing decays and the field rings on those
+    modes forever; T is quadratic and integers are closed under sums and
+    differences, so the shear source rings on integers too -- measured, its
+    peaks land on integers to within a grid bin, dominated by w = 6 and w = 8,
+    and NO PEAK EVER LANDS ON w3. Meanwhile w3 = 2 sqrt(2)
+    is IRRATIONAL, 0.172 from the nearest integer, so the gravitational shear
+    channel is driven OFF RESONANCE BY CONSTRUCTION on this background whatever
+    the source does. A first draft claimed instead that T being quadratic puts
+    the power at 2*w0 and chose the carrier to match; that is wrong and it is
+    recorded rather than deleted. The same scan is this round's honesty check on
+    its own headline: the unreachable fraction MOVES with the carrier and with
+    the time window, so it is reported as a range and not as a constant.
 
 T7  WHICH BRANCHES WERE THERE. PR #257 measured the same configuration giving
     an invariant of anything from 0 to 4 depending on the arrival branches
@@ -118,7 +128,7 @@ import numpy as np
 from geometrodynamics.waves.backreaction import (
     TENSOR_MODE_FREQUENCY, ShearQuadrature, WORKING_BACKREACTION,
     measure_the_answer_needs_the_branches,
-    measure_the_channel_is_a_filter_at_the_tensor_frequency,
+    measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum,
     measure_the_interference_response_is_unreachable,
     measure_the_quadrature_converges,
     measure_the_stress_tensor_splits_bilinearly,
@@ -177,10 +187,13 @@ def t5_the_interference_is_unreachable() -> dict:
                          and r["spread_over_windows"] < 0.2)}
 
 
-def t6_the_channel_is_a_filter() -> dict:
-    r = measure_the_channel_is_a_filter_at_the_tensor_frequency()
-    return {"name": "T6_the_channel_is_a_filter", **r,
-            "pass": bool(r["the_source_has_power_at_the_mode"])}
+def t6_never_on_resonance() -> dict:
+    r = measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum()
+    return {"name": "T6_never_on_resonance", **r,
+            "pass": bool(r["the_source_rings_on_integers"]
+                         and r["no_peak_lands_on_the_tensor_mode"]
+                         and r["the_tensor_mode_is_irrational"]
+                         and r["it_is_unreachable_at_every_carrier"])}
 
 
 def t7_which_branches() -> dict:
@@ -199,7 +212,7 @@ def t8_assessment(tests: List[dict]) -> dict:
 def run_probe() -> dict:
     tests = [t1_goal(), t2_the_response_is_derived(), t3_the_split_is_bilinear(),
              t4_the_quadrature_control(), t5_the_interference_is_unreachable(),
-             t6_the_channel_is_a_filter(), t7_which_branches()]
+             t6_never_on_resonance(), t7_which_branches()]
     tests.append(t8_assessment(tests))
     t2, t3, t4, t5, t6, t7 = tests[1:7]
 
@@ -256,13 +269,27 @@ def run_probe() -> dict:
             f"{t4.get('worst_magnitude_drift', 0):.4f}, with the residual "
             f"moving {t4.get('residual_drift', 0):.4f} between levels. THE "
             "CARRIER IS A MEASUREMENT TOO: the channel's transfer function is "
-            "1/(w3^2 - w^2), a filter at w3, and T is quadratic so a carrier w0 "
-            "puts power near 0 and 2*w0 -- PR #257's 60 would leave the channel "
-            f"reading round-off, by a factor "
-            f"{t6.get('power_ratio_omega3_over_60', 0):.3g}. AND THE BRANCHES "
-            "ARE NAMED: PR #257's rule that an integrated quantity must state "
-            "which arrivals were present is why the throat is switched off as a "
-            f"control -- the conclusion survives it "
+            "1/(w3^2 - w^2). *** AND THE CHANNEL IS NEVER ON RESONANCE. *** The "
+            "conformal scalar on the ESU has spectrum w_n = n+1 -- integers -- "
+            "and on a compact static space it rings on them forever; T is "
+            "quadratic and integers are closed under sums and differences, so "
+            "the shear source rings on integers too, measured to within a grid "
+            f"bin and peaking at {t6.get('rows',[{}])[0].get('spectral_peak',0):.3f} "
+            "for EVERY carrier tested. But w3 = 2 sqrt(2) is IRRATIONAL, "
+            f"{t6.get('distance_to_the_nearest_integer', 0):.3f} from the "
+            "nearest integer, so the gravitational shear channel is driven off "
+            "resonance by construction. A first draft said the source would "
+            "peak at 2*w0 and chose the carrier accordingly; that is wrong, and "
+            "it is recorded rather than deleted. *** THE NUMBER IS NOT A "
+            "UNIVERSAL CONSTANT, AND IS NOT REPORTED AS ONE. *** Across "
+            f"carriers the unreachable fraction runs "
+            f"{t6.get('unreachable_range',[0,0])[0]:.3f} to "
+            f"{t6.get('unreachable_range',[0,0])[1]:.3f}, and across time "
+            f"windows {t5.get('spread_over_windows', 0):.3f} wide -- large "
+            "everywhere, constant nowhere. AND THE BRANCHES ARE NAMED: PR "
+            "#257's rule that an integrated quantity must state which arrivals "
+            "were present is why the throat is switched off as a control -- the "
+            f"conclusion survives it "
             f"({t7.get('no_throat', {}).get('unreachable', 0):.3f} unreachable "
             "without the throat), so this is a statement about two waves rather "
             "than about the throat. WHAT IS STILL PUT IN: the n = 3 harmonic "

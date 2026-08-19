@@ -86,6 +86,25 @@ first attempt at this round produced a confident ``0.982`` that was pure
 quadrature noise — independent quadratures of the same quantity correlated at
 ``−0.04``.  That number is recorded in the docs as wrong rather than deleted.
 
+The channel is never on resonance
+─────────────────────────────────
+The conformally coupled scalar on the ESU has spectrum ``ω_n = n + 1``:
+**integers**.  The space is compact and static, so nothing decays and the field
+rings on those modes forever; ``T`` is quadratic and integers are closed under
+sums and differences, so the shear source rings on integers too — measured, its
+peaks land on integers to within a grid bin, dominated by ``ω ≈ 6`` and
+``ω ≈ 8``, and no peak of it ever lands on ``ω₃`` whatever the carrier is.
+
+``ω₃ = 2√2`` is irrational, ``0.172`` from the nearest integer.  So on this
+background the gravitational shear channel is driven **off resonance by
+construction**, whatever the source does.  A first draft claimed instead that
+``T`` being quadratic puts the power at ``2ω₀`` and picked the carrier to match;
+that is wrong, and it is recorded rather than deleted.
+
+The same scan is the round's honesty check on its own headline: the unreachable
+fraction is **not a universal constant** — it moves with the carrier and with
+the time window — so the spread is reported alongside it.
+
 What is still put in
 ────────────────────
 The ``n = 3`` harmonic only — the homogeneous shear, not the full TT tower.  A
@@ -126,7 +145,7 @@ __all__ = [
     "measure_the_stress_tensor_splits_bilinearly",
     "measure_the_quadrature_converges",
     "measure_the_interference_response_is_unreachable",
-    "measure_the_channel_is_a_filter_at_the_tensor_frequency",
+    "measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum",
     "measure_the_answer_needs_the_branches",
 ]
 
@@ -615,10 +634,14 @@ class ShearQuadrature:
 class BackreactionSetup:
     """Two pulsed sources on a throated ESU, and the shear they drive.
 
-    The carrier defaults to ``ω₃`` because the channel **is a narrow filter
-    there** — `measure_the_channel_is_a_filter_at_the_tensor_frequency` shows
-    the response falling away on both sides.  Driving it at PR #257's carrier of
-    ``60`` would put almost no power in the channel and measure round-off.
+    The carrier defaults to ``ω₃``, but **not** because that puts the source's
+    power there — `measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum`
+    shows the source ringing on the ESU's own integer modes whatever the carrier
+    is, and ``ω₃ = 2√2`` is irrational, so this channel is off resonance by
+    construction.  ``ω₃`` is simply the value that gave the most source power at
+    the mode among those scanned, and the same measurement reports how much the
+    answer moves when it changes.  PR #257's carrier of ``60`` is far too high:
+    it leaves the channel reading round-off.
     """
 
     source_gap: float = 1.6
@@ -948,48 +971,99 @@ def measure_the_interference_response_is_unreachable(
                            "to both, so no rescaling reproduces it")}
 
 
-def measure_the_channel_is_a_filter_at_the_tensor_frequency(
-        setup: BackreactionSetup = WORKING_BACKREACTION,
+def measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum(
         quad: ShearQuadrature = ShearQuadrature(bulk=(16, 10, 20),
                                                 ball=(8, 6, 12)),
-        probes: Sequence[float] = (0.5, 1.0, 2.0, 2.828, 4.0, 8.0, 20.0, 60.0)
-        ) -> Dict[str, object]:
-    """Why the carrier is ``ω₃`` and not PR #257's ``60``.
+        carriers: Sequence[float] = (0.7, TENSOR_MODE_FREQUENCY / 2,
+                                     TENSOR_MODE_FREQUENCY, 4.0),
+        window: Tuple[float, float] = (4.0, 30.0)) -> Dict[str, object]:
+    """Why no carrier drives this channel — and how much the answer moves.
 
-    The response is a driven oscillator, so its transfer function is exactly
-    ``1/(ω₃² − ω²)`` — a filter peaked at ``ω₃ = 2√2``.  The source is
-    **quadratic** in the field, so a carrier ``ω₀`` puts its power near ``0``
-    and near ``2ω₀``, not at ``ω₀``: driving at ``60`` would leave the channel
-    reading round-off.
+    The conformally coupled scalar on the ESU has spectrum ``ω_n = n + 1``:
+    **integers**.  The space is compact and static, so nothing decays and the
+    field rings on those modes forever; ``T`` is quadratic, and sums and
+    differences of integers are integers, so the shear source rings on integers
+    too.  Measured, its peaks land on integers to within a grid bin, dominated
+    by ``ω ≈ 6`` and ``ω ≈ 8``, and the dominant one stays at ``ω ≈ 6`` for
+    every carrier below the mode.  (At ``carrier = 4`` the envelope's DC lobe
+    takes over and the largest bin moves to the bottom of the band; the
+    *ringing* peaks are still on integers, but "the peak never moves" would have
+    been too strong, so what is asserted is the claim that survives: **no peak
+    of the source ever lands on ``ω₃``**.)
 
-    Both halves are reported — the analytic transfer function and the measured
-    spectrum of the actual source — so the carrier choice is a measurement
-    rather than a preference.
+    The lowest tensor mode is ``ω₃ = 2√2``, which is **irrational**: ``0.172``
+    from the nearest integer, and it cannot ever coincide with one.  So on this
+    background the gravitational shear channel is driven **off resonance by
+    construction**, whatever the source is doing.  That is a structural fact
+    about a conformal scalar on an ESU, not a property of the pulse.
+
+    A first draft of this round claimed instead that ``T`` being quadratic puts
+    the source's power at ``2ω₀``, and chose the carrier on that basis.  **It is
+    wrong** — the measured peak is ``5.969`` for carriers ``0.7``, ``1.414``,
+    ``2.0`` and ``2.828`` alike, because the ringing is the *background's*, not
+    the pulse's.  The wrong reasoning is recorded rather than deleted.
+
+    The carrier scan is also the round's honesty check on its own headline: the
+    unreachable fraction is **not a universal constant**, and the spread is
+    reported instead of one number being quoted as if it were.
     """
-    src = setup.shear_sources(quad)
-    n = setup.grid.n
-    freqs = np.fft.rfftfreq(n, d=setup.grid.dt) * 2.0 * math.pi
-    spec = np.abs(np.fft.rfft(src["A"].reshape(n, 9), axis=0)).sum(axis=1)
-    peak = float(freqs[int(np.argmax(spec[1:]) + 1)])
     rows = []
-    for w in probes:
-        i = int(np.argmin(np.abs(freqs - w)))
-        rows.append({"omega": float(w), "source_power": float(spec[i]),
-                     "transfer": float(abs(1.0 / (TENSOR_MODE_FREQUENCY ** 2
-                                                  - w ** 2)))
-                     if abs(w - TENSOR_MODE_FREQUENCY) > 1e-6 else float("inf")})
-    at3 = [r for r in rows if abs(r["omega"] - 2.828) < 1e-3][0]
-    at60 = [r for r in rows if r["omega"] == 60.0][0]
-    return {"rows": rows, "source_spectral_peak": peak,
-            "tensor_mode_frequency": TENSOR_MODE_FREQUENCY,
-            "power_ratio_omega3_over_60": float(at3["source_power"]
-                                                / max(at60["source_power"],
-                                                      1e-300)),
-            "the_source_has_power_at_the_mode": bool(
-                at3["source_power"] > 10.0 * at60["source_power"]),
-            "why_not_the_old_carrier": ("T is quadratic, so a carrier w0 puts "
-                                        "power near 0 and 2*w0; PR #257's 60 "
-                                        "leaves the channel reading round-off")}
+    for carrier in carriers:
+        s = BackreactionSetup(carrier=float(carrier))
+        src = s.shear_sources(quad)
+        n = s.grid.n
+        freqs = np.fft.rfftfreq(n, d=s.grid.dt) * 2.0 * math.pi
+        spec = np.abs(np.fft.rfft(src["A"].reshape(n, 9), axis=0)).sum(axis=1)
+        band = (freqs > 0.3) & (freqs < 14.0)
+        fb, sb = freqs[band], spec[band]
+        peak = float(fb[int(np.argmax(sb))])
+        i3 = int(np.argmin(np.abs(freqs - TENSOR_MODE_FREQUENCY)))
+        dt = s.grid.dt
+        r = unreachable_fraction(shear_response(src["A"], dt),
+                                 shear_response(src["B"], dt),
+                                 shear_response(src["cross"], dt),
+                                 s.grid.times, window)
+        # how far the strongest peaks sit from an integer
+        loc = [i for i in range(1, len(sb) - 1)
+               if sb[i] > sb[i - 1] and sb[i] > sb[i + 1]]
+        loc = sorted(loc, key=lambda i: -sb[i])[:6]
+        offs = [abs(float(fb[i]) - round(float(fb[i]))) for i in loc]
+        gap = min(abs(float(fb[i]) - TENSOR_MODE_FREQUENCY) for i in loc)
+        rows.append({"carrier": float(carrier), "spectral_peak": peak,
+                     "peak_offset_from_integer": abs(peak - round(peak)),
+                     "worst_peak_offset": float(max(offs)),
+                     "nearest_peak_to_the_mode": float(gap),
+                     "power_at_the_mode": float(spec[i3]),
+                     "unreachable": r["unreachable_off_the_span"],
+                     "cross_over_single": r["cross_over_single"]})
+    peaks = [r["spectral_peak"] for r in rows]
+    unreach = [r["unreachable"] for r in rows]
+    grid_bin = 2.0 * math.pi / WORKING_BACKREACTION.grid.span
+    return {
+        "rows": rows,
+        "tensor_mode_frequency": TENSOR_MODE_FREQUENCY,
+        "distance_to_the_nearest_integer": float(
+            abs(TENSOR_MODE_FREQUENCY - round(TENSOR_MODE_FREQUENCY))),
+        "grid_frequency_spacing": float(grid_bin),
+        "spectral_peak_spread": float(max(peaks) - min(peaks)),
+        "unreachable_range": [float(min(unreach)), float(max(unreach))],
+        "closest_any_peak_gets_to_the_mode": float(
+            min(r["nearest_peak_to_the_mode"] for r in rows)),
+        "the_source_rings_on_integers": bool(
+            all(r["worst_peak_offset"] < 3.0 * grid_bin for r in rows)),
+        "no_peak_lands_on_the_tensor_mode": bool(
+            min(r["nearest_peak_to_the_mode"] for r in rows) > 3.0 * grid_bin),
+        "the_tensor_mode_is_irrational": bool(
+            abs(TENSOR_MODE_FREQUENCY - round(TENSOR_MODE_FREQUENCY)) > 0.1),
+        "it_is_unreachable_at_every_carrier": bool(min(unreach) > 0.5),
+        "the_fraction_is_not_a_universal_constant": bool(
+            max(unreach) - min(unreach) > 0.1),
+        "what_the_first_draft_got_wrong": (
+            "that T being quadratic puts the source's power at 2*w0, so the "
+            "carrier should be chosen to match; the measured peak is the same "
+            "for every carrier because the ringing is the ESU's own integer "
+            "spectrum, not the pulse's"),
+    }
 
 
 def measure_the_answer_needs_the_branches(

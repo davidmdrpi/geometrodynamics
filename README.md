@@ -2963,6 +2963,79 @@ python scripts/geometrodynamics_v62_neck.py --still v62.png
 
 Full write-up: `docs/finite_radius_neck.md`.
 
+## A + B does what rescaling A or B cannot
+
+**PR #263 — the gate #260 set is closed, so this is the roadmap's first GR
+question.** And deliberately *not* "does spacetime pinch off?":
+
+> does `A + B` produce a metric response that rescaling `A` or `B` alone cannot?
+
+**Yes.** At the working point **`0.921`** of the interference response lies
+outside everything rescaling can reach, and the interference term is
+**comparable in size** to the single-wave responses (`‖β_ΔT‖/‖β_A‖ = 1.02`)
+rather than a correction to them.
+
+**Why it is a linear-algebra question.** The field equation is linear so the
+fields add; `T` is quadratic so `T[A+B] = T[A] + T[B] + ΔT` with `ΔT` bilinear;
+linearized Einstein is linear so the responses add. Rescaling `A → cA` sends
+`β_A → c²β_A`, so **everything reachable is the two-parameter family
+`{c²β_A + d²β_B}`** and the question is a projection residual. Measured off the
+full linear *span*, which strictly contains that cone — so the figure is
+conservative.
+
+**The channel is forced, not chosen.** The ESU is held static by a fluid this
+arc never specifies. A perfect fluid carries no anisotropic stress — in an
+orthonormal frame `T_ab = diag(ρ,p,p,p)` whatever the anisotropy — so neither it
+nor `Λ` touches the traceless spatial part. The **transverse-traceless** sector
+is the only channel whose answer does not depend on what was never put in.
+
+**The response, derived.** Cartan about the ESU in the homogeneous anisotropy:
+
+```
+δG^TT_ij = β̈_ij + (8/a²) β_ij        ⟹    ω₃ = 2√2,   ω₃² > 0
+```
+
+so the tensor sector is **stable** — #260's gate, applied to this round's own
+background. The connection comes from *solving* the torsion-free condition after
+a first draft's remembered formula produced a `G₀₀` containing `ä`. Three
+validations pass (round `S³`; ESU, independently reproducing `two_wave`'s
+`_EINSTEIN`; closed FRW), the first-order piece is automatically traceless, and
+`δG_{0i} = 0` identically.
+
+**It is not a universal constant.** `0.88–1.00` across time windows, `0.56–0.99`
+across carriers, `0.929` with the throat and `0.986` without. Large everywhere,
+constant nowhere — so the range is the headline.
+
+**The control is the round's real content.** A first attempt reported `0.982`
+unreachable and it was **pure quadrature noise**: independent rules for the same
+quantity correlated at `−0.04`, and nothing about the run looked wrong. Two
+uncorrelated noise vectors give a residual of `≈1`, so the failure mode and the
+desired result are *the same number*. The cause was the singular set missing the
+two **mouths** — and `two_source` puts the first at `(1,0,0,0)`, exactly the
+natural quadrature axis, so the rule's own pole sat on a `1/χ⁴` divergence and
+refining made it worse. With all eight singular points under a smooth partition
+of unity, two refinement levels now agree to correlation `0.970`–`0.999` and
+magnitude drift `0.009`, residual moving `0.008`.
+
+**And the channel is never on resonance.** The conformal scalar on the ESU has
+integer spectrum `ω_n = n+1` and rings on it forever; `T` is quadratic, so the
+shear source rings on integers too (measured peaks `5.969`, `7.959`, all within
+a grid bin of an integer). But `ω₃ = 2√2` is **irrational** — `0.172` from the
+nearest integer. On this background the gravitational shear channel is driven
+**off resonance by construction**.
+
+**What is still put in.** The `n = 3` harmonic only; a **fixed** ESU; **point**
+sources and #257's **point** throat rather than #261/#262's resolved mouths; and
+a **linear** response, not a solved coupled system.
+
+```bash
+python -m experiments.closure_ledger.backreaction_probe
+
+python scripts/geometrodynamics_v63_backreaction.py --still v63.png
+```
+
+Full write-up: `docs/metric_backreaction.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
