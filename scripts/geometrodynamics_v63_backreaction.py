@@ -128,7 +128,7 @@ class BackreactionFigure:
             ax.axvline(m, color=_PAL["dim"], lw=0.5, alpha=0.35, zorder=2)
         ax.axvline(TENSOR_MODE_FREQUENCY, color=_PAL["hot"], lw=1.2,
                    ls=(0, (2, 3)), zorder=4)
-        ax.annotate(f"w3 = 2*sqrt(2) = {TENSOR_MODE_FREQUENCY:.4f}",
+        ax.annotate("w3 = 2*sqrt(2)",
                     xy=(TENSOR_MODE_FREQUENCY * 1.06, 4.5e-2),
                     color=_PAL["hot"], fontsize=6.2, family="monospace",
                     rotation=90, va="bottom")
