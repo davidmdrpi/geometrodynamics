@@ -129,8 +129,9 @@ class BackreactionFigure:
         ax.axvline(TENSOR_MODE_FREQUENCY, color=_PAL["hot"], lw=1.2,
                    ls=(0, (2, 3)), zorder=4)
         ax.annotate(f"w3 = 2*sqrt(2) = {TENSOR_MODE_FREQUENCY:.4f}",
-                    xy=(TENSOR_MODE_FREQUENCY * 1.07, 2.6),
-                    color=_PAL["hot"], fontsize=6.2, family="monospace")
+                    xy=(TENSOR_MODE_FREQUENCY * 1.06, 4.5e-2),
+                    color=_PAL["hot"], fontsize=6.2, family="monospace",
+                    rotation=90, va="bottom")
         ax.annotate("faint lines: the integers.  the conformal scalar on the\n"
                     "ESU has spectrum w_n = n+1 and rings on it forever, and T\n"
                     "is quadratic, so the source rings on integers too.  but\n"
