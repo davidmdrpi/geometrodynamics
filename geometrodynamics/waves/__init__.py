@@ -103,3 +103,11 @@ from geometrodynamics.waves.finite_mouth import (  # noqa: F401
     shell_average_cross,
     shell_average_self,
 )
+from geometrodynamics.waves.neck import (  # noqa: F401
+    WORKING_NECK,
+    NeckThroat,
+    exterior_dtn,
+    exterior_dtn_monopole,
+    exterior_log_derivative,
+    rayleigh_quotient,
+)

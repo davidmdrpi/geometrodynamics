@@ -685,10 +685,12 @@ does not resolve it — §17's lesson arriving a second time. The rule is
 `ε > σ*` *and* `ε − σ* ≫ 2π/span`; both have closed forms, so both are checkable
 before the solve, and at `14–72` spacings the pedestal is `1.0e-16` with the
 onset converged to four time steps. Neither condition cures anything: above `σ*`
-the inversion returns the correct retarded solution **of an unstable system**. Whether a finite-radius mouth or neck geometry removes the mode is
-open, and it should be settled before §21's stationary action or backreaction —
+the inversion returns the correct retarded solution **of an unstable system**.
+Whether a finite-radius mouth or neck geometry removes the mode was left open
+here, and it had to be settled before §23's stationary action or backreaction —
 either of those computed on this background would inherit the mode and measure
-it rather than the physics they are after.
+it rather than the physics they are after. §19 settles the mouth and §20 the
+neck; the answer is no, twice, from two constructions.
 
 **Which frequencies.** The delay and the ledger are statements about the model's
 analytic structure at **all** frequencies: a causal onset is a UV object, and
@@ -701,7 +703,7 @@ mode — the interior is one-dimensional (so `𝒜` is a coupling and not a radi
 and a real tube's transverse modes above `ω ∼ 1/√𝒜` are inside the working
 band), and `L, 𝒜, m` are chosen rather than derived. **No backreaction.**
 
-## 19. The negative mode does not survive a finite mouth (`docs/finite_radius_mouth.md`, current round)
+## 19. The negative mode does not survive a finite mouth (`docs/finite_radius_mouth.md`)
 
 §18 ended by gating the roadmap on one question: does its growing mode survive a
 finite-radius mouth? **No — and the statement is structural rather than
@@ -737,7 +739,7 @@ by `1000%` at `κa = 3`, disagreeing not in magnitude but in *sign*. §18 measur
 that its mode knew only the mouth's scale and suspected exactly this; this is the
 demonstration.
 
-**Where the mode went: soft, and positive.** Exactly one state below the free gap
+**Where the mode went: soft, and positive.** One state below the free gap
 `λ = 1`, in the symmetric channel, at `λ₀ → 8πa/(𝒜L)` — two mouth capacitances
 `4πa` restoring a tube of volume `𝒜L`, ratio `0.998` at `a = 0.005`. So the point
 limit drives it to zero **from above**, and §18 took a mode approaching `0⁺` like
@@ -752,9 +754,84 @@ needed `ε > σ* ≈ 2`.
 **Still put in:** one channel per mouth, so only `ℓ = 0` couples — the dropped
 multipoles obey §8's screening law, dipole/monopole `= 0.934·(a/d)` across a
 decade — and the mouths are spheres in a *fixed* ambient, not a solved neck.
-**No backreaction.**
+**No backreaction.** §20 closes the first two of those.
 
-## 20. What the arc cost in errors, and what caught them
+## 20. The balls removed, and the answer made a theorem (`docs/finite_radius_neck.md`, current round)
+
+§19 answered §18's gate and named its own weakest point in doing so: its mouths
+were **spheres in a fixed ambient**. The balls were never removed — it smeared
+the coupling over `∂B_a` while still using the *whole sphere's* Green function —
+and only `ℓ = 0` coupled to the tube. This round removes them:
+`Ω = S³ ∖ (B_a(c₁) ∪ B_a(c₂))`, tube glued along the boundary spheres.
+
+**The answer is still no, and it is now a theorem.** With the balls removed there
+is **no subtraction anywhere**, so
+
+```
+E[φ,u] = ∫_Ω (|∇φ|² + φ²) dV  +  𝒜 ∫₀^L (|u'|² + m²|u|²) ds
+```
+
+is a sum of non-negative terms. `E = 0` forces `φ ≡ 0` on `Ω`; matching then
+gives `u(0) = u(L) = 0`, and Poincaré gives `𝒜∫|u'|² ≥ (π/L)²𝒜∫|u|²`. Hence
+`λ > 0` for **every** configuration — all multipoles, no truncation, no sweep.
+
+This is a change of footing rather than a refinement, and §21 records it as its
+own error species: **§19 had to establish a sign on a reduced `2×2` and support
+it with a `3078`-sample sweep; this round has positivity of the form itself.**
+The first is an argument about a model, the second about the problem.
+The renormalized `g(λ) < 0` that §18's mode fed on has nowhere to enter, because
+nothing is renormalized.
+
+**The object the theorem is about, checked.** The exterior DtN
+`N_ℓ(λ) = −4π sin²a·ψ'(a)/ψ(a)` comes from shooting
+`v'' + [λ − ℓ(ℓ+2)/sin²χ]v = 0` from the far pole (regularity picks the `e^{ℓ+1}`
+branch), and matches an independent `ℓ = 0` closed form to `1.7e-14` — which is
+the check the `ℓ ≥ 1` channels, which have no closed form, inherit. It is
+positive in every channel and **increasing in `ℓ`**, so the monopole is the
+softest; and `N₀ → 4πa`, the capacitance of a sphere, which fixes the
+normalization as physical. Explicit trial configurations give Rayleigh quotients
+from `0.359` up, all above the computed lowest mode `0.1075`, and the degenerate
+purely interior case lands on `π²/L²` to `2e-07`. A `1197`-sample sweep finds `0`
+roots, worst approach `−1.6e-03`.
+
+**The monopole truncation was never a stability limitation.** A one-channel tube
+presents a single number at each mouth, so it drives `ℓ = 0` and nothing else;
+the `ℓ ≥ 1` sectors are the exterior's own modes, `1.62×` stiffer or more, and
+can neither be driven nor go unstable. §8's `(a/d)^ℓ` screening law bounds missed
+**amplitude**, not the answer — §19 listed this as its main open approximation,
+and it turns out to have been open in a direction that did not matter.
+
+**What the fixed ambient cost, priced.** `f(a)G(a)` against `1/N₀`: `1.3e-04` at
+`a = 0.02, λ = 0`; `3.8e-03` at the working radius; `11%` at `a = 0.35, λ = −4`.
+The error tracks the fraction of the sphere wrongly left in. And the one
+approximation this round has *not* removed is priced in the same place: the
+reduced `2×2` keeps a **single-scattering** cross term, whose neglected series
+expands in `cross/self = 0.8·(a/d)` — `9.5e-04` at the working point, at worst
+`0.16` anywhere sampled. Too small to flip a sign, and outside the theorem,
+which does not go through the reduced model.
+
+**The soft mode is forced, not found.** The same style of argument that kills the
+growing mode produces this one, from the two ends of the gap: `F_sym → +∞` as
+`λ → 0⁺`, and `→ −∞` as `λ → 1⁻` because the exterior stiffness **vanishes** at
+the free ESU threshold, `N₀ → 2π(π − a + sin a cos a)(1 − λ)`, reproduced to
+`3.1e-05` and first order exactly (error `×0.1` per decade). A continuous
+function running `+∞ → −∞` has a zero.
+
+**And one correction to §19.** Its "exactly one state below the gap" is a
+statement about `L < π`, not a structural one. The channel functions have
+**poles** at `λ = (2πj/L)²` and `(π(2j−1)/L)²`; above `L = π` these enter the gap
+and each brings a genuine extra state just above it — three at `L = 8`. A pole is
+a *sign change with no zero*, so crossing-counting alone reports states that are
+not there; the residual separates roots (`~1e-15`) from poles (`~1e+15`) by
+fifteen orders of magnitude, so the discrimination is not a tuned threshold. None
+of it touches the stability answer: every one of those states is positive, as the
+form requires.
+
+**Still put in:** the tube has **one transverse channel**, so `𝒜` is a coupling
+and the neck is a quantum-graph edge, not a solved cross-section; the ambient
+metric is **fixed**; **no backreaction**.
+
+## 21. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -919,6 +996,26 @@ Worth recording, because the failure modes repeat:
   limit, and its failures can have the wrong sign — which is why §18's own rule,
   that a result living at the edge of its derivation is suspect, was the right
   instinct and needed one more round to cash.**
+* **A parameter-range fact written down as a structural one.** §19 reported that
+  the composite has **exactly one** state below the free gap, in the symmetric
+  channel. True at every length that round used, and not structural: the channel
+  functions have poles at `λ = (2πj/L)²` and `(π(2j−1)/L)²`, the first entering
+  the gap at exactly `L = π`, and each tube harmonic that falls in brings
+  another state — three at `L = 8`. The mechanism that hid it is worth naming on
+  its own, because it is a counting trap rather than a physics one: **a pole is
+  a sign change with no zero**, so bracketing sign changes reports states that do
+  not exist. Classifying by the residual separates the two by fifteen orders of
+  magnitude (`1e-15` against `1e+15`), which is a discrimination rather than a
+  threshold. The same shape as the entry three above — a claim true in a regime,
+  stated without the regime — but reached by counting rather than by asserting.
+* **A sign on a model, mistaken for the strength of the claim.** Not an error in
+  §19's *answer* — that answer survives — but in what kind of statement it was.
+  That round established a sign on a reduced `2×2` and swept `3078` samples to
+  support it. §20 removes the balls and the same conclusion becomes a two-line
+  theorem: with nothing subtracted the energy is a sum of non-negative terms, so
+  `λ > 0` for every configuration, all multipoles, no sweep. **When a sweep is
+  doing the work of an argument, the model usually still contains the thing that
+  made the argument unavailable** — here, the balls that were never removed.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -941,7 +1038,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 21. What is imported rather than derived
+## 22. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -985,7 +1082,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 22. What would come next
+## 23. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
@@ -1028,8 +1125,8 @@ The staged order that follows from this, and the reason it is that order:
 
 ```
 ray closure → field solution → two-wave invariant → finite throat
-            → mouth resolved ✓ → stationary action → backreaction
-            → topological branch
+            → mouth resolved ✓ → neck resolved ✓ → stationary action
+            → backreaction → topological branch
 ```
 
 **The gate is answered, and the reason it was there is worth keeping.** §18 built the
@@ -1042,10 +1139,16 @@ measuring the mode: an on-shell action evaluated on a solution whose amplitude
 diverges is not stationary in any useful sense, and an `A`/`B`/`A+B` collapse
 comparison would report the instability's response rather than the waves'. §19 answered it: **the mode does not survive**, it was an artifact of
 linearizing a screened self-energy, and the delay and conservation law carry
-over. So the two steps below resume, with an object that has a proper length, a
-delay, a conservation law and no growing mode. What is still owed to them is the
-neck geometry itself — §19's mouths are spheres in a fixed ambient with monopole
-coupling, which is a limitation with a number attached rather than a gate.
+over. §20 then closed the gap that answer stood on — §19's mouths were spheres
+in a *fixed* ambient with monopole coupling, so the balls were never removed —
+and with them removed the same conclusion becomes a **theorem**: nothing is
+subtracted, so the energy is a sum of non-negative terms and `λ > 0` for every
+configuration, all multipoles, no sweep. So the two steps below resume, with an
+object that has a proper length, a delay, a conservation law and positivity
+that is proved rather than sampled. What is still owed to them is the neck's
+**cross-section** — the tube carries one transverse channel, so `𝒜` is a
+coupling rather than a solved geometry — and the ambient metric, which is fixed.
+Both are limitations with numbers attached rather than gates.
 
 * **field solution** — ~~done~~, in two stages, with one piece still owed. The
   first (`docs/field_solve.md`) solved the field with the mouth relation applied
@@ -1081,7 +1184,7 @@ coupling, which is a limitation with a number attached rather than a gate.
   caustic and low-frequency closure all have numbers. What is *not* done is
   backreaction — and §17 hands that step a warning as well as an object, since
   the interference tensor `ΔT` peaks exactly where `T_A:T_B` is null;
-* **stationary action** — *ungated by §19.* Evaluate the on-shell
+* **stationary action** — *ungated by §19, and secured by §20.* Evaluate the on-shell
   action and ask whether the candidate events are stationary. *Not* with Lagrange multipliers imposing the
   ray round's five equations, which would only rename them. This is where the
   retrocausal language earns its keep or fails: the backward-in-time throat
@@ -1096,12 +1199,13 @@ coupling, which is a limitation with a number attached rather than a gate.
   throat contributes an echo series at every even multiple of the traversal
   time. The action round also inherits §18's conservation law, which is what
   makes a common action possible at all;
-* **backreaction** — *ungated by §19.* The first GR question is not
+* **backreaction** — *ungated by §19, and secured by §20.* The first GR question is not
   "does spacetime pinch off?" but whether `A + B` produces a collapse response
   not reproducible by rescaling `A` or `B` alone. It inherits §17's warning about *which* diagnostic
   to integrate — `ΔT`, not `T_A:T_B` — and §18's source with a finite size and a
-  delay. It also inherits §18's **blocker**: computed on a background with a
-  growing mode, a backreaction estimate measures the mode. The mouth has to be
-  resolved first;
+  delay. It also inherited §18's **blocker**: computed on a background with a
+  growing mode, a backreaction estimate measures the mode. That blocker is
+  cleared — §19 resolved the mouth and §20 removed the balls, and the second
+  proves positivity rather than sampling it;
 * **topological branch** — the detached resonator, last, and only if
   backreaction produces a finite-radius neck.
