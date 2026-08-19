@@ -128,16 +128,15 @@ class BackreactionFigure:
             ax.axvline(m, color=_PAL["dim"], lw=0.5, alpha=0.35, zorder=2)
         ax.axvline(TENSOR_MODE_FREQUENCY, color=_PAL["hot"], lw=1.2,
                    ls=(0, (2, 3)), zorder=4)
-        ax.annotate(f"w3 = 2*sqrt(2)\n= {TENSOR_MODE_FREQUENCY:.4f}",
-                    xy=(TENSOR_MODE_FREQUENCY * 1.06, 1.5e-5),
-                    color=_PAL["hot"], fontsize=6.2, family="monospace",
-                    linespacing=1.6)
+        ax.annotate(f"w3 = 2*sqrt(2) = {TENSOR_MODE_FREQUENCY:.4f}",
+                    xy=(TENSOR_MODE_FREQUENCY * 1.07, 2.6),
+                    color=_PAL["hot"], fontsize=6.2, family="monospace")
         ax.annotate("faint lines: the integers.  the conformal scalar on the\n"
                     "ESU has spectrum w_n = n+1 and rings on it forever, and T\n"
                     "is quadratic, so the source rings on integers too.  but\n"
                     "w3 = 2*sqrt(2) is IRRATIONAL -- 0.172 from the nearest --\n"
                     "so this channel is off resonance BY CONSTRUCTION.",
-                    xy=(0.035, 0.235), xycoords="axes fraction", va="top",
+                    xy=(0.035, 0.335), xycoords="axes fraction", va="top",
                     color=_PAL["text"], fontsize=6.0, family="monospace",
                     linespacing=1.75)
         ax.set_ylim(3e-6, 8.0)
@@ -177,7 +176,7 @@ class BackreactionFigure:
                     linespacing=1.75)
         ax.set_ylabel("agreement", color=_PAL["dim"], fontsize=8)
         self._style(ax, "the control - without which none of this is quotable",
-                    "center right")
+                    "upper right")
 
     # -- the responses -------------------------------------------------------
     def _draw_betas(self) -> None:
@@ -221,7 +220,7 @@ class BackreactionFigure:
         ax.plot(t, vx[:, 1] - fit, lw=1.1, color=_PAL["hot"], zorder=7,
                 label="what no rescaling can reach")
         ax.axhline(0.0, color=_PAL["dim"], lw=0.8, zorder=3)
-        lim = 2.0 * float(np.max(np.abs(vx[:, 1])))
+        lim = 2.5 * float(np.max(np.abs(vx[:, 1])))
         ax.set_ylim(-lim, lim)
         ax.annotate(f"UNREACHABLE FRACTION = "
                     f"{self.res['unreachable_off_the_span']:.3f}\n"
