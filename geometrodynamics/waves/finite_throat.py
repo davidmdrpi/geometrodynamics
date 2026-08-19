@@ -18,11 +18,22 @@ and the matching to the ambient ``S³`` is value continuity and flux continuity
 at the mouths.  Everything below follows from those two lines; nothing else is
 put in.
 
-What changes, and it is not cosmetic
-────────────────────────────────────
-The boundary condition is now **frequency-dependent**.  A point throat is a
-fixed Hermitian ``A``; a finite throat is ``A(λ) = −N(λ)⁻¹``, and that
-dependence *is* the interior.  Three consequences, each measured here:
+Where the self-adjointness lives
+───────────────────────────────
+The conservative object is the **enlarged system** — ambient ``⊕`` tube — with
+the *fixed*, ``λ``-independent matching above.  That is one self-adjoint
+operator on ``L²(S³) ⊕ L²([0,L])``, and it is what conserves flux.
+
+Eliminating the tube leaves an ambient-only problem with a **``λ``-dependent**
+boundary condition, ``A(λ) = −N(λ)⁻¹``: the Weyl (``M``-) function of that
+elimination.  ``A(λ)`` is *not* itself a self-adjoint operator on the ambient
+space, and this module does not claim it is — an energy-dependent boundary
+condition never is.  What it is, is a matrix **Nevanlinna** function, monotone
+in ``λ`` between its poles, and that monotonicity is the enlarged system's
+self-adjointness showing through after the elimination.  It is measured, not
+assumed.
+
+That ``λ``-dependence *is* the interior.  Four consequences, each measured:
 
 1. **A traversal time.**  Expanding on the retarded contour,
 
@@ -31,45 +42,76 @@ dependence *is* the interior.  Three consequences, each measured here:
    so the same-mouth entry carries delays ``0, 2L, 4L, …`` — an instantaneous
    reflection and its echoes — and the cross-mouth entry carries
    ``L, 3L, 5L, …``.  **The throat transmits at ``t = L``, not at ``t = 0``.**
-   The point throat transmits instantaneously, which is what a point throat is.
+   A frozen ``A`` transmits instantaneously.
 
-2. **The static response collapses to rank one.**  A massless tube holds a zero
-   mode: a constant field on it costs nothing, carries no current, and makes the
-   symmetric channel decouple.  So ``det S → 0`` linearly in ``λ − m²``, and PR
-   #258's disconnection defect ``𝒲 = S₁₂/det S − G₀`` *diverges* there.  Off
-   that point ``𝒲 = −β(λ)`` exactly, with ``β(λ) = csc(kL)/(𝒜k)`` the tube's own
-   transmission amplitude — PR #258's theorem survives the generalization and
-   returns the interior's amplitude rather than a constant.
+2. **The short-tube limit exists — and it leaves the chart.**  As ``L → 0`` the
+   boundary pair does *not* approach a generic finite ``A``; rescaled, it
+   approaches the projector pair ``(B, C) → (P_a, −P_s)``, i.e. the stratum
 
-3. **The model always has a growing mode, and it is the mouth's, not the
-   tube's.**  ``A(λ)`` is decreasing in ``λ`` and ``Γ(λ)`` increasing (PR #257's
-   Gram identity), so ``A − Γ`` is strictly monotone and each channel has at
-   most one root per pole-interval — a count, not a scan.  In the symmetric
-   channel that root is always at ``λ < 0``.  Its closed form,
+       ``q_sym = 0``   and   ``Φ_anti = 0``
+
+   — a **mixed Dirichlet–Neumann** point extension, maximal and self-adjoint
+   (``rank[B|C] = 2`` throughout), and reachable by no finite Hermitian ``A``
+   because both ``B`` and ``C`` are singular there.  It is exactly the kind of
+   stratum PR #257's review insisted the finite-``A`` chart does not cover.  So
+   the honest statement is *not* "there is no point limit" but **"no finite-``A``
+   point limit"**.
+
+3. **The static response is rank one — which falsifies the finite-``A`` chart,
+   not point-ness.**  A massless tube holds a zero mode: a constant field on it
+   costs nothing, carries no current, and the symmetric channel decouples.  So
+   ``det S → 0`` linearly in ``λ − m²`` and PR #258's defect
+   ``𝒲 = S₁₂/det S − G₀`` diverges.  But the limiting stratum in (2) is rank one
+   *too* — ``R → diag(0, −1/Γ_a)`` in the channel basis — so what rank one
+   distinguishes is this tube **from the generic rank-two finite-``A`` family**,
+   and not a finite throat from a point one.  Off the collapse ``𝒲 = −β(λ)``
+   exactly, with ``β(λ) = csc(kL)/(𝒜k)``: PR #258's theorem survives the
+   generalization and returns the interior's amplitude rather than a constant.
+
+4. **The model fails the stability gate, and the failure is the point mouth's.**
+   ``A(λ)`` decreases and ``Γ(λ)`` increases (PR #257's Gram identity), so
+   ``A − Γ`` is strictly monotone between poles and each channel has at most one
+   root — a count, not a scan.  The symmetric channel always has exactly one,
+   and it is at ``λ < 0``: **an exponentially growing mode, for every choice of
+   parameters.**  Its rate,
 
        ``σ*  =  ½[ 1/a + √(1/a² + 16π/𝒜) ]``   →  ``2√(π/𝒜)``  for point mouths
 
-   depends on the mouth's own scale and on **neither ``L`` nor the mouth
-   separation ``d``**; the two channels split by ``1.04·e^{−σ*d}``, the
-   Euclidean propagator between the mouths, so at that scale the two mouths do
-   not know about each other.
-   It is a single-mouth object.  Gluing a tube of finite area to a *point* is
-   what produces it, so every statement here is made at ``|λ| ≪ σ*²``, and the
-   band is quoted rather than assumed.
+   contains **neither ``L`` nor the mouth separation ``d``**, and the two
+   channels split by ``1.04·e^{−σ*d}`` — the Euclidean propagator between the
+   mouths.  A mode blind to the tube's length and to the separation, and
+   degenerate between the channels, is a **single-mouth object**: the growing
+   mode is the *point-mouth matching's*, not the tube's.
 
-Consequence 3 has a numerical edge with teeth: the retarded contour must be
-placed **above** ``σ*``, or the inversion silently returns a field with support
-before its own light cone.  PR #259 had to keep ``ε`` well above the frequency
-spacing; here it must clear the growing mode, and ``σ*`` says where.
+   This is the round's falsification result, and it is not cured anywhere below.
+   Placing the retarded contour above ``σ*`` evaluates the correct retarded
+   solution **of an unstable system**; it does not stabilize it.  Whether a
+   finite-radius mouth or neck geometry removes the mode is open, and is the
+   thing to settle before any stationary-action or backreaction work.
+
+Which frequencies each result uses
+──────────────────────────────────
+Worth stating plainly, because the band is not uniform across the round.  The
+delay and the bounce ledger are statements about the **analytic structure of the
+exact model at all frequencies**: a causal onset is a UV object, and the probe
+pulse used to resolve it (width ``0.03``) carries content out to ``ω ∼ 30``, far
+above ``σ* ∼ 1.4``.  They are exact results *about this model*, not predictions
+about a resolved physical mouth.  The static rank collapse, the defect and the
+Weyl-function monotonicity are low-frequency statements and sit inside the band.
+
+Relatedly, ``𝒜`` is a **one-dimensional coupling strength**, not an area with a
+mouth radius attached: the interior has a single transverse channel and no
+higher modes.  Reading ``√(𝒜/4π)`` as a mouth radius at the working point would
+give a radius of order the whole unit ``S³``, which is another way of saying the
+same thing.
 
 What is put in
 ──────────────
-The background, the mouth positions, and now three numbers with dimensions —
-``L``, ``𝒜``, ``m`` — instead of the four dimensionless numbers of the point
-family.  The tube's interior is one-dimensional: a single transverse channel,
-no higher modes, so ``𝒜`` enters only as a coupling strength.  **No
-backreaction**: the throat is still a fixed background, and nothing here solves
-for the geometry that would produce it.
+The background, the mouth positions, and three numbers with dimensions —
+``L``, ``𝒜``, ``m`` — where the *real*-field point sector of PRs #257–#259 has
+three real numbers without them (``α₁, α₂, β`` with ``β`` real, because a real
+scalar forces ``A = A*``).  **No backreaction**: the throat is still a fixed
+background, and nothing here solves for the geometry that would produce it.
 """
 
 from __future__ import annotations
@@ -94,10 +136,12 @@ __all__ = [
     "response_spectrum",
     "impulse_response",
     "causal_onset",
-    "measure_the_boundary_condition_is_self_adjoint_at_every_frequency",
+    "channel_basis",
+    "short_tube_stratum",
+    "measure_the_enlarged_system_is_conservative",
     "measure_the_throat_transmits_at_the_traversal_time",
     "measure_the_delay_ledger_is_the_bounce_series",
-    "measure_the_point_throat_is_a_single_frequency_match",
+    "measure_the_short_tube_limit_is_a_mixed_stratum",
     "measure_the_static_limit_is_rank_one_and_the_defect_diverges",
     "measure_the_interior_mass_is_a_transmission_cutoff",
     "measure_the_growing_mode_belongs_to_the_mouth",
@@ -155,7 +199,7 @@ def interior_profile(k: complex, length: float, ends: Sequence[complex],
     return s, u, du
 
 
-def green_identity_residual(k: complex, length: float, area: float,
+def green_identity_residual(k: float, length: float, area: float,
                             ends: Sequence[complex], n: int = 40001) -> float:
     """``|Φ†NΦ − 𝒜∫(|u'|² − k²|u|²)ds|`` — the DtN's defining identity.
 
@@ -163,12 +207,51 @@ def green_identity_residual(k: complex, length: float, area: float,
     outward fluxes equals the interior energy.  Checking it by quadrature is the
     one test that the matrix above really is the tube's map and not a plausible
     matrix: an error in a sign or in a ``cot``/``csc`` fails it immediately.
+
+    The form is **sesquilinear** — ``Φ†NΦ`` and ``|u'|²``, not ``ΦᵀNΦ`` and
+    ``u'²``.  For real ``k`` and real end values the two agree, which is exactly
+    why the bilinear version passed while saying something weaker: it is the
+    sesquilinear identity that expresses *energy*, and only that one fails when
+    the data is complex.  ``k`` is required real here for the same reason —
+    below the cutoff the identity is the one for ``κ² = −k²``.
     """
-    s, u, du = interior_profile(k, length, ends, n)
-    bulk = float(area) * np.trapezoid(du ** 2 - (k ** 2) * u ** 2, s)
+    kk = float(np.real(k))
+    if abs(np.imag(k)) > 1e-14:
+        raise ValueError("the energy identity is stated for real k; below the "
+                         "cutoff use kappa² = −k²")
+    s, u, du = interior_profile(complex(kk), length, ends, n)
+    bulk = float(area) * float(np.trapezoid(
+        np.abs(du) ** 2 - (kk ** 2) * np.abs(u) ** 2, s).real)
     phi = np.array([complex(ends[0]), complex(ends[1])], dtype=complex)
-    form = complex(phi @ dtn_matrix(k, length, area) @ phi)
+    form = complex(phi.conjugate() @ dtn_matrix(kk, length, area) @ phi)
     return float(abs(form - bulk))
+
+
+_CHANNEL_BASIS = np.array([[1.0, 1.0], [1.0, -1.0]]) / math.sqrt(2.0)
+_P_SYM = np.diag([1.0, 0.0])
+_P_ANTI = np.diag([0.0, 1.0])
+
+
+def channel_basis() -> np.ndarray:
+    """``V = [v_sym | v_anti]`` — the basis both ``N`` and ``Γ`` diagonalize."""
+    return _CHANNEL_BASIS.copy()
+
+
+def short_tube_stratum() -> Tuple[np.ndarray, np.ndarray]:
+    """The boundary pair the tube approaches as ``L → 0``, in the channel basis.
+
+    ``(B, C) = (P_anti, −P_sym)``, i.e. ``Φ_anti = 0`` and ``q_sym = 0``: a
+    **mixed Dirichlet–Neumann** point extension.  Maximal and self-adjoint —
+    ``rank[B|C] = 2``, ``BC† = 0`` — and reached by no finite Hermitian ``A``,
+    since both blocks are singular.
+
+    A tube shorter than every other scale is therefore not "no throat" and not a
+    weakly coupled one: it is a *specific* self-adjoint extension, the one that
+    forbids net charge in the symmetric channel and forces the antisymmetric
+    mouth values to agree.  Which is what a very short pipe does — it shorts the
+    two mouths together and stores nothing.
+    """
+    return _P_ANTI.copy(), -_P_SYM.copy()
 
 
 def bounce_delays(order: int = 3) -> Dict[str, List[float]]:
@@ -221,6 +304,24 @@ class FiniteThroat:
         return 1.0 / (FOUR_PI * float(self.mouth_radius))
 
     # -- the boundary condition ----------------------------------------------
+    def normalized_pair(self, lmbda: float) -> Tuple[np.ndarray, np.ndarray]:
+        """``(B, C)`` in the channel basis, row-scaled so ``L → 0`` is finite.
+
+        A boundary pair is defined only up to ``(B, C) → (MB, MC)`` for
+        invertible ``M``, so a limit that looks singular in one normalization
+        can be perfectly finite in another — which is exactly what happens here.
+        Scaling the symmetric row by 1 and the antisymmetric row by ``1/N_anti``
+        gives ``B = diag(N_sym, 1)`` and ``C = −diag(1, 1/N_anti)``, both of
+        which converge as ``L → 0``, to `short_tube_stratum`.
+        """
+        lam = float(lmbda)
+        n = self.dtn(complex(lam))
+        v = _CHANNEL_BASIS
+        diag = np.real(v.T @ n @ v)
+        n_sym, n_anti = float(diag[0, 0]), float(diag[1, 1])
+        return (np.diag([n_sym, 1.0]),
+                -np.diag([1.0, 1.0 / n_anti]))
+
     def boundary_pair(self, lmbda) -> Tuple[np.ndarray, np.ndarray]:
         """``(B, C)`` with ``B φ^reg = C q`` — valid where ``A`` is not.
 
@@ -435,7 +536,14 @@ def impulse_response(throat: FiniteThroat, grid: RetardedGrid,
                      width: float = 0.03,
                      constant: Optional[np.ndarray] = None
                      ) -> Dict[str, np.ndarray]:
-    """``r_ij(t)`` — the throat's response to a short pulse *at a mouth*.
+    """``r_ij(t)`` — the **coupled** mouth-to-mouth response to a short pulse.
+
+    ``R = (A − Γ)⁻¹`` is the ambient *and* tube together: ``Γ`` carries the
+    ambient's own mouth-to-mouth propagation, so this is not the throat in
+    isolation.  That is exactly why the cross-mouth onset below is ``min(L, d)``
+    and not ``L``.  What the construction does remove is the *source and
+    observer* geometry — the legs from a source to a mouth and from a mouth to
+    an observer — leaving the two-mouth block on its own.
 
     Probed with a narrow Gaussian rather than a delta, because ``R(ω)`` decays
     only like ``1/ω`` and an unsmoothed inversion is all Gibbs.  The pulse width
@@ -484,14 +592,24 @@ def _grid_for(throat: FiniteThroat, clearance: float = 0.8,
 # ════════════════════════════════════════════════════════════════════════════
 # MEASUREMENTS
 # ════════════════════════════════════════════════════════════════════════════
-def measure_the_boundary_condition_is_self_adjoint_at_every_frequency(
+def measure_the_enlarged_system_is_conservative(
         throat: FiniteThroat = WORKING_THROAT) -> Dict[str, object]:
-    """Conservation, in the form that can actually fail.
+    """Conservation, stated where it actually lives.
 
-    A maximal self-adjoint boundary condition is ``rank[B|C] = 2`` with ``BC†``
-    Hermitian.  Both hold here at every real ``λ`` — ``N`` is real symmetric, so
-    ``BC† = −N − N²/(4πa)`` is too — and that is the whole content of "the
-    throat conserves flux".
+    The self-adjoint object is the **enlarged system**, ambient ``⊕`` tube, with
+    the ``λ``-independent matching ``q = −NΦ``, ``Φ = φ^reg + q/(4πa)``.  What is
+    checked here is that eliminating the tube leaves, at each ``λ``, a *maximal
+    self-adjoint boundary condition* for the ambient problem at that ``λ``:
+    ``rank[B|C] = 2`` with ``BC†`` Hermitian, both exactly, since ``N`` is real
+    symmetric.  That is a statement about the elimination being faithful — it is
+    **not** the claim that ``A(λ)`` is one self-adjoint operator on the ambient
+    space, which an energy-dependent boundary condition never is.
+
+    The fingerprint of the enlarged system's self-adjointness, on the ambient
+    side, is that ``A(λ)`` is a matrix **Nevanlinna function** — monotone in
+    ``λ`` between its poles.  That is measured in
+    `the_boundary_matrix_decreases_in_lambda` and is what makes the mode count
+    below a count rather than a scan.
 
     The control is PR #255's `DirectionalThroat`, the rank-one mouth-transfer
     model this module replaces: it drives ``M⁻`` from ``M⁺`` and not the
@@ -499,8 +617,9 @@ def measure_the_boundary_condition_is_self_adjoint_at_every_frequency(
     the coupling itself.  That is the ``κ < 1`` loss, stated as an operator
     property rather than as a bookkeeping slip.
 
-    The DtN map is also checked against the interior it summarizes, by Green's
-    identity under quadrature, rather than against itself.
+    The DtN map is also checked against the interior it summarizes — by the
+    **sesquilinear** Green's identity under quadrature, the one that expresses
+    energy — rather than against itself.
     """
     lams = [-4.0, -0.7, 0.15, 0.9, 2.5, 7.0, 19.0]
     rows = []
@@ -546,10 +665,12 @@ def measure_the_throat_transmits_at_the_traversal_time(
         width: float = 0.03) -> Dict[str, object]:
     """**The result.**  The throat's transmission is delayed by ``L``.
 
-    The measured object is the throat operator's own impulse response, not a
+    The measured object is the **two-mouth block's** impulse response, not a
     field at some observer: ``r_ij(t)``, the inverse transform of
     ``R(ω) = (A(ω) − Γ(ω))⁻¹``.  That removes the source and observer geometry
-    from the answer entirely — what is left is the throat's causal structure.
+    from the answer entirely.  It does *not* isolate the throat: ``Γ`` is the
+    ambient's own mouth-to-mouth propagator and stays in, which is the whole
+    reason the second prediction below reads ``min(L, d)`` rather than ``L``.
 
     Two predictions, and they are different:
 
@@ -646,27 +767,33 @@ def measure_the_delay_ledger_is_the_bounce_series(
                                 "entered; odd multiples cross")}
 
 
-def measure_the_point_throat_is_a_single_frequency_match(
+def measure_the_short_tube_limit_is_a_mixed_stratum(
         throat: FiniteThroat = WORKING_THROAT, lam0: float = 1.0,
         factors: Sequence[float] = (1.0, 1.05, 1.2, 1.5, 2.0, 3.0)
         ) -> Dict[str, object]:
-    """There is no point limit — there is a **band**, and its width is ``1/L``.
+    """There **is** a point limit.  It is not a finite ``A``.
 
-    Freezing ``A`` at ``A(λ₀)`` reproduces the finite throat exactly at ``λ₀``
-    and nowhere else.  Two separate failures, and they are not the same size:
+    A first draft of this round called the limit non-existent, on the evidence
+    below: freezing ``A`` at ``A(λ₀)`` is exact at ``λ₀`` and nowhere else, and
+    as ``L → 0`` the antisymmetric channel converges to ``−L/(2𝒜)`` while the
+    symmetric one *diverges* like ``2/(𝒜λL)``.  Both facts are true and both are
+    re-measured here.  The conclusion drawn from them was not.
 
-    * the **antisymmetric** channel does have a limit.  As ``L → 0`` at fixed
-      ``𝒜``, ``A_anti = −tan(kL/2)/(𝒜k) → −L/(2𝒜)`` with an ``O(L²)`` error,
-      measured here;
-    * the **symmetric** channel does not.  ``A_sym = cot(kL/2)/(𝒜k)`` diverges
-      like ``2/(𝒜λL)``, because a massless tube holds a zero mode and a point
-      cannot.  No rescaling of ``𝒜`` and ``L`` removes it while keeping the
-      other channel finite.
+    A boundary pair is defined up to ``(B, C) → (MB, MC)``, so a chart matrix
+    running off to infinity means the limit has **left the chart**, not that it
+    is absent.  Row-scaled — `normalized_pair` — the pair converges cleanly:
 
-    So the constant-``A`` family of PRs #257–#259 is the finite throat *read at
-    one frequency*.  The relative error in the transmission amplitude is
-    reported across a band, and it reaches ``O(1)`` once ``λ`` has moved by
-    ``O(1/L²)``.
+        ``(B, C)  ⟶  (P_anti, −P_sym)`` ,   i.e.   ``Φ_anti = 0`` , ``q_sym = 0``
+
+    a **mixed Dirichlet–Neumann** stratum, maximal (``rank[B|C] = 2`` all the
+    way) and self-adjoint, and reachable by no finite Hermitian ``A`` because
+    both blocks are singular.  Exactly the stratum PR #257's review said the
+    chart does not reach.  Convergence is linear in ``L``, measured.
+
+    So the correct statement is **"no finite-``A`` point limit"**, and the
+    constant-``A`` family of PRs #257–#259 is this throat read at one frequency
+    — a band whose width in ``ω`` is ``∼ 1/L`` (in ``λ``, ``∼ 2√λ/L``; the two
+    are not the same and the first draft mixed them).
     """
     frozen = throat.boundary_matrix(complex(lam0))
     band = []
@@ -680,36 +807,56 @@ def measure_the_point_throat_is_a_single_frequency_match(
             "relative_error": float(abs(exact[0, 1] - frozen[0, 1])
                                     / abs(exact[0, 1]))})
     short = []
-    prev = None
-    for length in (0.4, 0.2, 0.1, 0.05):
+    b_star, c_star = short_tube_stratum()
+    for length in (0.4, 0.2, 0.1, 0.05, 0.02):
         t = FiniteThroat(separation=throat.separation, length=length,
                          area=throat.area)
-        anti = float((t.boundary_matrix(complex(lam0))[0, 0]
-                      - t.boundary_matrix(complex(lam0))[0, 1]).real)
+        a = t.boundary_matrix(complex(lam0))
+        anti = float((a[0, 0] - a[0, 1]).real)
+        sym = float((a[0, 0] + a[0, 1]).real)
         limit = -length / (2.0 * t.area)
-        sym = float((t.boundary_matrix(complex(lam0))[0, 0]
-                     + t.boundary_matrix(complex(lam0))[0, 1]).real)
+        b, c = t.normalized_pair(lam0)
         short.append({"length": float(length), "anti": anti,
                       "anti_limit": limit,
                       "anti_error": abs(anti - limit),
                       "anti_error_over_L_squared": abs(anti - limit)
                       / length ** 2,
                       "sym": sym,
-                      "sym_prediction": 2.0 / (t.area * lam0 * length)})
-        prev = length
+                      "sym_prediction": 2.0 / (t.area * lam0 * length),
+                      "distance_to_the_stratum": float(
+                          max(np.abs(b - b_star).max(),
+                              np.abs(c - c_star).max())),
+                      "rank": int(np.linalg.matrix_rank(np.hstack([b, c]),
+                                                        tol=1e-12))})
+    for row in short:
+        row["distance_over_L"] = row["distance_to_the_stratum"] / row["length"]
+    rates = [r["distance_over_L"] for r in short]
     return {"lambda_0": float(lam0), "band": band, "short_tubes": short,
+            "the_stratum": {"B": b_star.tolist(), "C": c_star.tolist(),
+                            "condition": "Phi_anti = 0 and q_sym = 0"},
             "the_band_error_reaches_one": bool(
                 band[-1]["relative_error"] > 0.5),
             "the_antisymmetric_channel_has_a_limit": bool(
                 max(r["anti_error"] for r in short) < 1e-2
                 and max(r["anti_error_over_L_squared"] for r in short) < 1.0),
-            "the_symmetric_channel_diverges": bool(
+            "the_chart_matrix_diverges": bool(
                 short[-1]["sym"] > 4.0 * short[0]["sym"]),
             "worst_symmetric_prediction_error": float(max(
                 abs(r["sym"] - r["sym_prediction"]) / abs(r["sym"])
                 for r in short)),
-            "the_scope": ("a point throat is a finite throat read at one λ; "
-                          "the width of the band it is right on is set by 1/L")}
+            "distance_to_the_stratum": float(
+                short[-1]["distance_to_the_stratum"]),
+            "convergence_is_linear_in_L": bool(
+                (max(rates) - min(rates)) / abs(np.mean(rates)) < 0.05),
+            "every_pair_is_maximal": bool(all(r["rank"] == 2 for r in short)),
+            "the_limit_exists_and_is_not_a_finite_A": bool(
+                short[-1]["distance_to_the_stratum"] < 0.2
+                and all(r["rank"] == 2 for r in short)
+                and short[-1]["sym"] > 4.0 * short[0]["sym"]),
+            "the_scope": ("the limit is a mixed Dirichlet-Neumann stratum, "
+                          "not a finite A; the chart matrix diverges because "
+                          "the limit leaves the chart, not because it is "
+                          "absent")}
 
 
 def measure_the_static_limit_is_rank_one_and_the_defect_diverges(
@@ -724,9 +871,14 @@ def measure_the_static_limit_is_rank_one_and_the_defect_diverges(
     ``S ∝ [[1,−1],[−1,1]]`` and ``det S → 0`` **linearly in ``λ``**, so PR
     #258's defect ``𝒲 = S₁₂/det S − G₀`` diverges like ``1/λ``.
 
-    That is a falsifiable difference between a point throat and a finite one,
-    from a *static* measurement: a point throat has ``rank S = 2`` and a finite
-    massless throat has ``rank S = 1``.
+    **What that does and does not falsify.**  It is a falsifiable statement
+    against the **generic finite-``A`` family** — every one of those has
+    ``rank S = 2`` — and it is *not* a way to tell a finite throat from a point
+    one.  The tube's own short-tube limit, the mixed stratum
+    ``(P_anti, −P_sym)``, gives ``R → diag(0, −1/Γ_anti)`` in the channel basis:
+    **rank one as well**, and the tube converges to it.  Both facts are measured
+    here, because the first draft of this round claimed the stronger and wrong
+    version.
 
     Give the tube an interior mass and the rank comes back, with
     ``det S ∝ (λ − m²)`` and the same coefficient.  And then the closure: off
@@ -764,7 +916,30 @@ def measure_the_static_limit_is_rank_one_and_the_defect_diverges(
     # largest λ is carried as the row that shows the correction turning on
     small = [r for r in rows if r["lambda"] <= 1e-4]
     coeff = [r["det_S_over_lambda"] for r in small]
+    # the limiting stratum's own static response, for the scope statement
+    gam = gamma_at(0.0, throat.separation).real
+    gamma_anti = float(gam[0, 0] - gam[0, 1])
+    stratum_r = _CHANNEL_BASIS @ np.diag([0.0, -1.0 / gamma_anti]) \
+        @ _CHANNEL_BASIS.T
+    approach = []
+    for length in (0.4, 0.1, 0.02):
+        t = FiniteThroat(separation=throat.separation, length=length,
+                         area=throat.area, interior_mass=throat.interior_mass)
+        s = np.linalg.inv(t.krein_matrix(complex(1e-9))).real
+        approach.append({"length": float(length),
+                         "distance_to_the_stratum_response": float(
+                             np.abs(s - stratum_r).max()),
+                         "det_S": float(np.linalg.det(s))})
     return {"rows": rows, "massive": massive,
+            "stratum_response": stratum_r.tolist(),
+            "stratum_rank": int(np.linalg.matrix_rank(stratum_r, tol=1e-12)),
+            "approach_to_the_stratum": approach,
+            "the_stratum_is_rank_one_too": bool(
+                np.linalg.matrix_rank(stratum_r, tol=1e-12) == 1),
+            "it_falsifies_the_finite_A_family_not_point_ness": bool(
+                np.linalg.matrix_rank(stratum_r, tol=1e-12) == 1
+                and approach[-1]["distance_to_the_stratum_response"]
+                < approach[0]["distance_to_the_stratum_response"]),
             "det_S_is_linear_in_lambda": bool(
                 (max(coeff) - min(coeff)) / abs(np.mean(coeff)) < 1e-3),
             "linear_coefficient": float(np.mean(coeff)),
@@ -783,9 +958,12 @@ def measure_the_static_limit_is_rank_one_and_the_defect_diverges(
                                             for r in massive)),
             "the_defect_is_still_minus_beta": bool(
                 max(r["defect_error"] for r in massive) < 1e-6),
-            "the_falsifiable_difference": ("a point throat is statically rank "
-                                           "two; a massless finite throat is "
-                                           "rank one, and 𝒲 diverges")}
+            "the_falsifiable_difference": ("a generic finite-A throat is "
+                                           "statically rank two; this tube is "
+                                           "rank one and 𝒲 diverges — but so "
+                                           "is its own point limit, so rank "
+                                           "one falsifies the chart, not "
+                                           "point-ness")}
 
 
 def measure_the_interior_mass_is_a_transmission_cutoff(
@@ -800,10 +978,12 @@ def measure_the_interior_mass_is_a_transmission_cutoff(
 
         ``β(λ)  =  csc(kL)/(𝒜k)  →  −csch(κL)/(𝒜κ)  ≈  −2e^{−κL}/(𝒜κ)``
 
-    — **negative**, and exponentially suppressed rather than oscillating.  A
-    throat with a massive interior is a low-pass barrier: below the cutoff the
+    — **negative**, and exponentially suppressed rather than oscillating.  The
+    interior has a **mass gap**, and below it the channel is *evanescent*: the
     two mouths look like two ordinary scatterers with a tunnelling correction,
-    and the same throat above it is fully connected.  The sign flip is not
+    while the same throat above the gap is fully connected.  (An earlier draft
+    called this "low-pass", which is backwards — it is the *low* frequencies
+    that are suppressed.  It is an evanescent cutoff, not a filter passband.)  The sign flip is not
     cosmetic — it is the difference between a propagating and a tunnelling
     channel, and PR #258's defect reads it as ``𝒲 = −β`` either way.
 
@@ -857,9 +1037,10 @@ def measure_the_interior_mass_is_a_transmission_cutoff(
                 suppression < 0.05),
             "everything_stays_real": bool(
                 max(r["imaginary_part"] for r in rows) < 1e-14),
-            "what_it_means": ("a massive interior makes the throat a low-pass "
-                              "barrier; below m² the mouths look like two "
-                              "ordinary scatterers with a tunnelling term")}
+            "what_it_means": ("a massive interior gives the channel a mass "
+                              "gap; below m² transmission is evanescent and "
+                              "the mouths look like two ordinary scatterers "
+                              "with a tunnelling term")}
 
 
 def measure_the_growing_mode_belongs_to_the_mouth(
@@ -867,8 +1048,8 @@ def measure_the_growing_mode_belongs_to_the_mouth(
         lengths: Sequence[float] = (1.5, 3.0, 6.0),
         separations: Sequence[float] = (0.8, 1.3, 2.4, 3.0)
         ) -> Dict[str, object]:
-    """The model always grows — and the growth is the **mouth's**, not the
-    tube's.
+    """**The model fails the stability gate** — and the failure is the
+    *mouth's*, not the tube's.
 
     ``A(λ)`` decreases in ``λ`` and ``Γ(λ)`` increases (PR #257's Gram
     identity), so ``A − Γ`` is strictly monotone and each channel has at most
@@ -955,8 +1136,13 @@ def measure_the_growing_mode_belongs_to_the_mouth(
                 max(ratios) / min(ratios) < 1.1 if ratios else False),
             "the_working_band": float(work["symmetric"]) ** 2,
             "the_diagnosis": ("a mode that ignores L and d and does not split "
-                              "the channels is a single-mouth object; its "
-                              "scale is the mouth radius √(𝒜/4π)")}
+                              "the channels is a single-mouth object, so the "
+                              "instability belongs to the point-mouth matching "
+                              "and not to the interior"),
+            "the_open_question": ("whether a finite-radius mouth or neck "
+                                  "geometry removes it — unresolved here, and "
+                                  "the thing to settle before stationary "
+                                  "action or backreaction")}
 
 
 def measure_the_contour_must_clear_the_growing_mode(
@@ -977,6 +1163,14 @@ def measure_the_contour_must_clear_the_growing_mode(
     plausible-looking number produced by a contour in the wrong place — and it
     is reported the same way: both values, and the rule.  ``σ*`` has a closed
     form, so the rule is checkable before the solve rather than after it.
+
+    **What clearing the contour does not do is stabilize anything.**  Above
+    ``σ*`` the inversion returns the correct retarded solution *of an unstable
+    system*; the growing mode is still there, and every time series in this
+    module is dominated by it at late times.  The delay is read from the causal
+    **onset**, which is a statement about the analytic structure and is immune
+    to what the solution does afterwards — but the instability is a property of
+    the model, not of the contour, and moving the contour never touches it.
     """
     sig = float(throat.growing_modes()["symmetric"])
     onset_true = min(throat.length, throat.separation)
@@ -1003,4 +1197,7 @@ def measure_the_contour_must_clear_the_growing_mode(
                 > 1e4 * max(r["pedestal"] for r in above)),
             "the_rule": ("ε must exceed σ*, which has a closed form, so the "
                          "contour can be placed before the solve rather than "
-                         "diagnosed after it")}
+                         "diagnosed after it"),
+            "what_it_does_not_do": ("clearing the contour evaluates the "
+                                    "correct retarded solution of an unstable "
+                                    "system; it does not cure the instability")}

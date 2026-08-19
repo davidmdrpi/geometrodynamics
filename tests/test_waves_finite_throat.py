@@ -11,15 +11,17 @@ from geometrodynamics.waves.throat_operator import gamma_at
 from geometrodynamics.waves.finite_throat import (
     FOUR_PI, FiniteThroat, WORKING_THROAT, bounce_delays, causal_onset,
     dtn_matrix, green_identity_residual, impulse_response, interior_profile,
-    measure_the_boundary_condition_is_self_adjoint_at_every_frequency,
+    channel_basis,
     measure_the_contour_must_clear_the_growing_mode,
+    measure_the_enlarged_system_is_conservative,
     measure_the_delay_ledger_is_the_bounce_series,
     measure_the_growing_mode_belongs_to_the_mouth,
     measure_the_interior_mass_is_a_transmission_cutoff,
-    measure_the_point_throat_is_a_single_frequency_match,
+    measure_the_short_tube_limit_is_a_mixed_stratum,
     measure_the_static_limit_is_rank_one_and_the_defect_diverges,
     measure_the_throat_transmits_at_the_traversal_time,
     response_spectrum,
+    short_tube_stratum,
 )
 from geometrodynamics.waves.two_wave import RetardedGrid, gamma_omega
 
@@ -42,7 +44,7 @@ def test_the_dtn_map_is_even_in_k():
 def test_the_dtn_map_satisfies_greens_identity():
     """The matrix really is the tube's map, checked against the interior."""
     for k in (0.7, 1.9, 3.3):
-        r = green_identity_residual(complex(k), 0.9, FOUR_PI, (1.0, -0.4))
+        r = green_identity_residual(k, 0.9, FOUR_PI, (1.0, -0.4))
         assert r < 1e-6
 
 
@@ -270,8 +272,8 @@ def test_the_resonances_are_the_interior_spectrum():
 
 
 # ── the measurements ───────────────────────────────────────────────────────
-def test_measure_the_boundary_condition_is_self_adjoint_at_every_frequency():
-    r = measure_the_boundary_condition_is_self_adjoint_at_every_frequency()
+def test_measure_the_enlarged_system_is_conservative():
+    r = measure_the_enlarged_system_is_conservative()
     assert r["the_finite_throat_is_conservative"]
     assert r["the_control_is_not"]
     assert r["worst_green_identity_residual"] < 1e-5
@@ -293,20 +295,72 @@ def test_measure_the_delay_ledger_is_the_bounce_series():
     assert r["csc_series_error"] < 1e-11
 
 
-def test_measure_the_point_throat_is_a_single_frequency_match():
-    r = measure_the_point_throat_is_a_single_frequency_match()
+def test_measure_the_short_tube_limit_is_a_mixed_stratum():
+    r = measure_the_short_tube_limit_is_a_mixed_stratum()
+    assert r["the_limit_exists_and_is_not_a_finite_A"]
     assert r["the_band_error_reaches_one"]
     assert r["the_antisymmetric_channel_has_a_limit"]
-    assert r["the_symmetric_channel_diverges"]
+    assert r["the_chart_matrix_diverges"]
+    assert r["convergence_is_linear_in_L"]
+    assert r["every_pair_is_maximal"]
     assert r["band"][0]["relative_error"] == 0.0
 
 
 def test_measure_the_static_limit_is_rank_one_and_the_defect_diverges():
     r = measure_the_static_limit_is_rank_one_and_the_defect_diverges()
     assert r["the_static_response_is_rank_one"]
+    assert r["the_stratum_is_rank_one_too"]
+    assert r["it_falsifies_the_finite_A_family_not_point_ness"]
     assert r["det_S_is_linear_in_lambda"]
     assert r["the_defect_diverges"]
     assert r["the_defect_is_still_minus_beta"]
+
+
+def test_the_short_tube_pair_converges_to_the_mixed_stratum():
+    """``(B, C) → (P_anti, −P_sym)``: Φ_anti = 0 and q_sym = 0, linearly in L."""
+    b_star, c_star = short_tube_stratum()
+    rates = []
+    for length in (0.2, 0.1, 0.05, 0.02):
+        t = FiniteThroat(separation=1.3, length=length, area=FOUR_PI)
+        b, c = t.normalized_pair(1.0)
+        gap = max(np.abs(b - b_star).max(), np.abs(c - c_star).max())
+        assert np.linalg.matrix_rank(np.hstack([b, c]), tol=1e-12) == 2
+        rates.append(gap / length)
+    # the rate is 𝒜λ/2 = 2π for the working area
+    assert rates[-1] == pytest.approx(2.0 * math.pi, rel=2e-3)
+    assert max(rates) / min(rates) < 1.02
+
+
+def test_the_stratum_is_reached_by_no_finite_boundary_matrix():
+    b_star, c_star = short_tube_stratum()
+    assert abs(np.linalg.det(b_star)) < 1e-15
+    assert abs(np.linalg.det(c_star)) < 1e-15
+    assert np.linalg.matrix_rank(np.hstack([b_star, c_star]), tol=1e-12) == 2
+    prod = b_star @ c_star.conjugate().T
+    assert np.abs(prod - prod.conjugate().T).max() == 0.0
+
+
+def test_the_channel_basis_diagonalizes_the_dtn():
+    v = channel_basis()
+    n = dtn_matrix(1.4, 0.9, FOUR_PI)
+    diag = v.T @ n @ v
+    assert abs(diag[0, 1]) < 1e-14 and abs(diag[1, 0]) < 1e-14
+
+
+def test_the_green_identity_is_sesquilinear():
+    """Complex end values: the bilinear form is wrong, the sesquilinear is not."""
+    k, length, area, ends = 1.9, 0.9, FOUR_PI, (1.0 + 0.7j, -0.4 + 0.2j)
+    assert green_identity_residual(k, length, area, ends) < 1e-6
+    s, u, du = interior_profile(complex(k), length, ends, 40001)
+    bilinear = area * np.trapezoid(du ** 2 - k ** 2 * u ** 2, s)
+    phi = np.array(ends, dtype=complex)
+    assert abs(complex(phi @ dtn_matrix(k, length, area) @ phi)
+               - bilinear) < 1e-6            # the bilinear identity also holds
+    # but it is not the energy: the two forms disagree on complex data
+    assert abs(bilinear - area * np.trapezoid(
+        np.abs(du) ** 2 - k ** 2 * np.abs(u) ** 2, s)) > 1e-3
+    with pytest.raises(ValueError):
+        green_identity_residual(1.0 + 0.3j, length, area, ends)
 
 
 def test_measure_the_interior_mass_is_a_transmission_cutoff():

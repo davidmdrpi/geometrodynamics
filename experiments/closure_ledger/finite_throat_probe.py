@@ -24,23 +24,34 @@ Two lines. The tube's Dirichlet-to-Neumann map,
 and the matching to the ambient: value continuity and flux continuity at the
 mouths, q = -N Phi. Everything below follows.
 
-The consequence that organizes the round is that the boundary condition is now
-FREQUENCY-DEPENDENT. A point throat is a fixed Hermitian A; a finite throat is
-A(lam) = -N(lam)^-1, and that dependence IS the interior.
+WHERE THE SELF-ADJOINTNESS LIVES. The conservative object is the ENLARGED
+system, ambient (+) tube, with the lam-INDEPENDENT matching above: one
+self-adjoint operator on L2(S3) (+) L2([0,L]). Eliminating the tube leaves an
+ambient-only problem with a lam-DEPENDENT boundary condition A(lam) = -N(lam)^-1
+-- the Weyl (M-) function of that elimination. A(lam) is NOT itself a
+self-adjoint operator on the ambient space and is not claimed to be; an
+energy-dependent boundary condition never is. What it is, is a matrix Nevanlinna
+function, monotone in lam between its poles, and that monotonicity is the
+enlarged system's self-adjointness showing through. That lam-dependence IS the
+interior.
 
 WHAT IS CHECKED
 ───────────────
-T2  THE BOUNDARY CONDITION IS SELF-ADJOINT AT EVERY FREQUENCY. rank[B|C] = 2
-    and BC^dag = CB^dag to 0.0 at seven values of lam on both sides of zero.
-    The DtN map is checked against the interior it summarizes, by Green's
-    identity under quadrature, rather than against itself. The control is PR
-    #255's rank-one transfer model, whose defect is 0.3 -- the size of the
-    coupling itself. That is the kappa < 1 loss, as an operator property.
+T2  THE ELIMINATION IS FAITHFUL, AND THE ENLARGED SYSTEM IS CONSERVATIVE. At
+    each lam the eliminated problem is a maximal self-adjoint boundary condition
+    for the ambient problem AT THAT lam: rank[B|C] = 2 and BC^dag = CB^dag to
+    0.0, at seven values on both sides of zero. The DtN map is checked against
+    the interior it summarizes, by the SESQUILINEAR Green's identity under
+    quadrature -- the one that expresses energy -- rather than against itself.
+    The control is PR #255's rank-one transfer model, whose defect is 0.3: the
+    size of the coupling itself, which is what the kappa < 1 loss was.
 
 T3  *** THE THROAT TRANSMITS AT THE TRAVERSAL TIME. *** The measured object is
-    the throat operator's OWN impulse response, R(w) = (A(w) - Gamma(w))^-1
-    inverted along the retarded contour, so no source or observer geometry
-    enters the answer. Two different predictions, both met:
+    the TWO-MOUTH BLOCK's impulse response, R(w) = (A(w) - Gamma(w))^-1 inverted
+    along the retarded contour: the source and observer legs are gone, but Gamma
+    is the AMBIENT's own mouth-to-mouth propagator and stays in, so this is the
+    coupled ambient+tube response and not the throat alone. That is exactly why
+    the second prediction reads min(L,d). Two different predictions, both met:
 
       r_11 (same mouth in and out)  starts at t = 0    -- a wave that reaches a
                                                           mouth is partly
@@ -61,32 +72,46 @@ T4  AND THE DELAY LEDGER IS A DERIVATION. On the contour cot x = -i - 2i sum
     physics, and the reflected channel is the one the rank-one model does not
     have at all.
 
-T5  THERE IS NO POINT LIMIT -- THERE IS A BAND, AND ITS WIDTH IS 1/L. Freezing
-    A at A(lam_0) is exact at lam_0 and nowhere else: the transmission
-    amplitude is 4% out at lam = 1.05 lam_0 and 121% out at 3 lam_0. The two
-    channels fail differently. The antisymmetric one HAS a limit,
-    A_anti -> -L/(2A) with an O(L^2) error measured over a decade in L; the
-    symmetric one DIVERGES like 2/(A lam L), because a massless tube holds a
-    zero mode and a point cannot.
+T5  THERE IS A POINT LIMIT, AND IT IS NOT A FINITE A. Freezing A at A(lam_0) is
+    exact at lam_0 and nowhere else -- 4% out at 1.05 lam_0, 121% out at 3
+    lam_0, a band of width ~1/L in OMEGA (~2 sqrt(lam)/L in lam) -- and as
+    L -> 0 the antisymmetric channel converges to -L/(2A) while the symmetric
+    one DIVERGES like 2/(A lam L). A first draft concluded from that that the
+    limit does not exist. It does. A boundary pair is defined up to
+    (B,C) -> (MB,MC), so a diverging chart matrix means the limit has LEFT THE
+    CHART. Row-scaled, the pair converges to the projector pair
+
+        (B, C) -> (P_anti, -P_sym),   i.e.  Phi_anti = 0 and q_sym = 0
+
+    a MIXED DIRICHLET-NEUMANN stratum: maximal (rank[B|C] = 2 throughout),
+    self-adjoint, and reached by no finite Hermitian A because both blocks are
+    singular. Convergence is linear in L at rate A lam/2 = 2pi, measured. So the
+    correct statement is "no finite-A point limit", and it is exactly the kind
+    of stratum PR #257's review said the chart does not cover.
 
 T6  THE STATIC LIMIT IS RANK ONE, AND PR #258's TOMOGRAPHY BREAKS ON IT. The
     same zero mode empties the symmetric channel at lam = 0: S = Re R collapses
     onto [[1,-1],[-1,1]] to 4e-5, det S -> 0 LINEARLY in lam with coefficient
     149.08, and the disconnection defect W = S_12/det S - G_0 diverges like
-    1/lam. A point throat is statically rank two; a massless finite throat is
-    rank one. That is a FALSIFIABLE difference from a static measurement.
+    1/lam. WHAT THAT FALSIFIES is the generic finite-A family, every member of
+    which is rank two -- and NOT point-ness: the tube's own short-tube stratum
+    from T5 gives R -> diag(0, -1/Gamma_anti), rank one as well, and the tube
+    converges to it. Both are measured here, because the first draft claimed the
+    stronger and wrong version.
     Give the tube an interior mass and the rank returns with det S ~ -148.7 m^2,
     and then the closure: off the collapse W = -beta(lam) EXACTLY, to 3.1e-13,
     with beta the tube's own transmission amplitude. PR #258's theorem survives
     the generalization; what it returns is no longer a constant.
 
-T7  AN INTERIOR MASS IS A TRANSMISSION CUTOFF. Below lam = m^2 the tube is
-    evanescent: beta -> -csch(kappa L)/(A kappa), matched by its exponential
+T7  AN INTERIOR MASS GIVES THE CHANNEL A MASS GAP. Below lam = m^2 the channel
+    is EVANESCENT: beta -> -csch(kappa L)/(A kappa), matched by its exponential
     asymptote to 7.6e-05, monotone, and with ZERO sign changes against 7 above
-    the cutoff. Suppression 3.1e-03. The cutoff is also where the rank
-    collapses -- the two statements are one statement read at lam = m^2.
+    the cutoff. Suppression 3.1e-03. (An earlier draft called this "low-pass",
+    which is backwards -- it is the LOW frequencies that are suppressed.) The
+    cutoff is also where the rank collapses: one statement read at lam = m^2.
 
-T8  THE MODEL ALWAYS HAS A GROWING MODE, AND IT IS THE MOUTH'S. A(lam)
+T8  *** THE MODEL FAILS THE STABILITY GATE, AND THE FAILURE IS THE MOUTH'S. ***
+    A(lam)
     decreases and Gamma(lam) increases (PR #257's Gram identity), so A - Gamma
     is strictly monotone between poles and each channel has AT MOST ONE root --
     a count, not a scan. The symmetric channel always has exactly one, at
@@ -95,23 +120,44 @@ T8  THE MODEL ALWAYS HAS A GROWING MODE, AND IT IS THE MOUTH'S. A(lam)
     two mouth separations agree to 3.9e-09; and the channel splitting is
     1.04 e^{-sigma* d}, the Euclidean propagator between the mouths, so at that
     scale the mouths do not know about each other. Its length scale is
-    sqrt(A/4pi) -- the mouth's own radius, exactly where "point mouth" stops
-    being an approximation.
+    sqrt(A/4pi). A mode blind to the tube's length and to the mouth separation,
+    and degenerate between the channels, belongs to the POINT-MOUTH MATCHING and
+    not to the interior. THIS IS THE ROUND'S FALSIFICATION RESULT and nothing
+    here cures it: whether a finite-radius mouth or neck geometry removes the
+    mode is open, and is the thing to settle before stationary-action or
+    backreaction work.
 
 T9  SO THE CONTOUR MUST CLEAR IT. Placed 0.03 BELOW sigma*, the inversion
     returns a field with support before its own light cone: a pedestal at 99%
     of the peak, onset 0.0 for an event that cannot begin until t = 0.6. Placed
     above, the pedestal is 1.0e-16. Same species as PR #259's under-resolved
     contour, and reported the same way -- both values and the rule. sigma* has
-    a closed form, so the contour can be placed BEFORE the solve.
+    a closed form, so the contour can be placed BEFORE the solve. What clearing
+    the contour does NOT do is stabilize anything: above sigma* the inversion
+    returns the correct retarded solution OF AN UNSTABLE SYSTEM. The delay is
+    read from the causal ONSET, which is immune to what the solution does
+    afterwards.
+
+WHICH FREQUENCIES EACH RESULT USES
+─────────────────────────────────
+The band is not uniform across the round, so: T3 and T4 are statements about the
+ANALYTIC STRUCTURE OF THE EXACT MODEL AT ALL FREQUENCIES. A causal onset is a UV
+object, and the probe pulse that resolves it (width 0.03) carries content out to
+w ~ 30, far above sigma* ~ 1.4. They are exact results ABOUT THIS MODEL, not
+predictions about a resolved physical mouth. T2, T5, T6 and T7 are low-frequency
+statements and sit inside the band. Relatedly, A is a ONE-DIMENSIONAL COUPLING
+STRENGTH and not an area with a mouth radius attached -- reading sqrt(A/4pi) as a
+radius at the working point would give one of order the whole unit S3, which is
+another way of saying the same thing.
 
 WHAT IS NOT CLOSED
 ──────────────────
-The mouths are still points, and T8 says exactly what that costs. The interior
-is one-dimensional, so A enters as a coupling and not as a geometry. And the
-throat is still a fixed background: PR #261's common action and PR #262's A/B/
-A+B metric backreaction are the next two steps, and this round hands them an
-object with a proper length, a delay, and a conservation law.
+The point-mouth matching is UNSTABLE (T8), and that is the round's closure
+result: it should be resolved before PR #261's common action or PR #262's A/B/
+A+B metric backreaction. The mouths are points, the interior is
+one-dimensional so A is a coupling and not a geometry, and L, A, m are chosen.
+What this round does hand the next two is an object with a proper length, a
+delay, a conservation law -- and a stated failure mode.
 
     python -m experiments.closure_ledger.finite_throat_probe
 """
@@ -127,12 +173,12 @@ import numpy as np
 
 from geometrodynamics.waves.finite_throat import (
     WORKING_THROAT,
-    measure_the_boundary_condition_is_self_adjoint_at_every_frequency,
     measure_the_contour_must_clear_the_growing_mode,
+    measure_the_enlarged_system_is_conservative,
     measure_the_delay_ledger_is_the_bounce_series,
     measure_the_growing_mode_belongs_to_the_mouth,
     measure_the_interior_mass_is_a_transmission_cutoff,
-    measure_the_point_throat_is_a_single_frequency_match,
+    measure_the_short_tube_limit_is_a_mixed_stratum,
     measure_the_static_limit_is_rank_one_and_the_defect_diverges,
     measure_the_throat_transmits_at_the_traversal_time,
 )
@@ -157,9 +203,9 @@ def t1_goal() -> dict:
     }
 
 
-def t2_the_boundary_condition_is_self_adjoint() -> dict:
-    r = measure_the_boundary_condition_is_self_adjoint_at_every_frequency()
-    return {"name": "T2_the_boundary_condition_is_self_adjoint", **r,
+def t2_the_enlarged_system_is_conservative() -> dict:
+    r = measure_the_enlarged_system_is_conservative()
+    return {"name": "T2_the_enlarged_system_is_conservative", **r,
             "pass": bool(r["the_finite_throat_is_conservative"]
                          and r["the_control_is_not"]
                          and r["worst_green_identity_residual"] < 1e-5)}
@@ -180,18 +226,20 @@ def t4_the_delay_ledger_is_the_bounce_series() -> dict:
             "pass": bool(r["the_series_converge_on_the_contour"])}
 
 
-def t5_the_point_throat_is_a_single_frequency_match() -> dict:
-    r = measure_the_point_throat_is_a_single_frequency_match()
-    return {"name": "T5_the_point_throat_is_a_single_frequency_match", **r,
-            "pass": bool(r["the_band_error_reaches_one"]
-                         and r["the_antisymmetric_channel_has_a_limit"]
-                         and r["the_symmetric_channel_diverges"])}
+def t5_the_short_tube_limit_is_a_mixed_stratum() -> dict:
+    r = measure_the_short_tube_limit_is_a_mixed_stratum()
+    return {"name": "T5_the_short_tube_limit_is_a_mixed_stratum", **r,
+            "pass": bool(r["the_limit_exists_and_is_not_a_finite_A"]
+                         and r["the_band_error_reaches_one"]
+                         and r["convergence_is_linear_in_L"]
+                         and r["every_pair_is_maximal"])}
 
 
 def t6_the_static_limit_is_rank_one() -> dict:
     r = measure_the_static_limit_is_rank_one_and_the_defect_diverges()
     return {"name": "T6_the_static_limit_is_rank_one", **r,
             "pass": bool(r["the_static_response_is_rank_one"]
+                         and r["it_falsifies_the_finite_A_family_not_point_ness"]
                          and r["det_S_is_linear_in_lambda"]
                          and r["the_defect_diverges"]
                          and r["the_defect_is_still_minus_beta"])}
@@ -229,10 +277,10 @@ def t10_assessment(tests: List[dict]) -> dict:
 # ════════════════════════════════════════════════════════════════════════════
 def run_probe() -> dict:
     tests = [t1_goal(),
-             t2_the_boundary_condition_is_self_adjoint(),
+             t2_the_enlarged_system_is_conservative(),
              t3_the_throat_transmits_at_the_traversal_time(),
              t4_the_delay_ledger_is_the_bounce_series(),
-             t5_the_point_throat_is_a_single_frequency_match(),
+             t5_the_short_tube_limit_is_a_mixed_stratum(),
              t6_the_static_limit_is_rank_one(),
              t7_the_interior_mass_is_a_cutoff(),
              t8_the_growing_mode_belongs_to_the_mouth(),
@@ -241,7 +289,8 @@ def run_probe() -> dict:
     t2, t3, t4, t5, t6, t7, t8, t9 = tests[1:9]
 
     if all(t["pass"] for t in tests):
-        verdict_class = "THE_THROAT_HAS_AN_INTERIOR_AND_A_TRAVERSAL_TIME"
+        verdict_class = ("THE_INTERIOR_GIVES_A_DELAY_AND_THE_POINT_MOUTH_IS_"
+                         "UNSTABLE")
         verdict = (
             "THE THROAT NOW HAS AN INTERIOR, AND THE INTERIOR IS THE DELAY. "
             "PRs #253-#259 all carried the same disclaimer -- point-supported, "
@@ -250,18 +299,25 @@ def run_probe() -> dict:
             "of length L and cross-section A whose Dirichlet-to-Neumann map is "
             "exact. Two lines are put in: N(lam) = A k [[cot kL, -csc kL], "
             "[-csc kL, cot kL]] and the matching q = -N Phi. Everything else "
-            "follows. THE BOUNDARY CONDITION IS SELF-ADJOINT AT EVERY "
-            f"FREQUENCY: rank[B|C] = 2 and BC^dag - CB^dag = "
+            "follows. THE CONSERVATIVE OBJECT IS THE ENLARGED SYSTEM, ambient "
+            "(+) tube, with lam-independent matching; eliminating the tube "
+            "leaves a lam-DEPENDENT boundary condition -- the Weyl function of "
+            "that elimination, which is a Nevanlinna function and not itself a "
+            "self-adjoint operator on the ambient space. What is checked is "
+            "that the elimination is faithful at each lam: rank[B|C] = 2 and "
+            f"BC^dag - CB^dag = "
             f"{t2.get('worst_hermiticity_defect', 0):.1e} at seven values of "
             "lam on both sides of zero, with the DtN map checked against the "
-            "interior it summarizes by Green's identity to "
+            "interior it summarizes by the SESQUILINEAR Green's identity to "
             f"{t2.get('worst_green_identity_residual', 0):.1e} rather than "
             "against itself; PR #255's rank-one transfer model, the control, "
             f"has defect {t2.get('the_rank_one_control_defect', 0):.2f} -- the "
             "size of the coupling itself, which is what the kappa < 1 loss was. "
             "*** AND THE THROAT TRANSMITS AT THE TRAVERSAL TIME. *** The "
-            "measured object is the throat operator's own impulse response, so "
-            "no source or observer geometry enters: r_11, same mouth in and "
+            "measured object is the TWO-MOUTH BLOCK's impulse response -- the "
+            "source and observer legs are gone, but Gamma, the ambient's own "
+            "mouth-to-mouth propagator, stays in, so it is the coupled "
+            "ambient+tube response and not the throat alone: r_11, same mouth in and "
             f"out, starts at {t3.get('rows', [{}])[0].get('onset_same_mouth', 0):.1f} "
             "-- a wave that reaches a mouth is partly reflected INSTANTLY -- "
             "and r_12, opposite mouths, starts at min(L, d) with "
@@ -279,21 +335,31 @@ def run_probe() -> dict:
             f"{t4.get('csc_series_error', 0):.1e}, so the same-mouth entry "
             "carries 0, 2L, 4L and the cross-mouth entry L, 3L, 5L. The "
             "parities are the physics, and the reflected channel is the one "
-            "the rank-one model does not have at all. THERE IS NO POINT LIMIT "
-            "-- THERE IS A BAND. Freezing A at A(lam_0) is exact at lam_0 and "
+            "the rank-one model does not have at all. THERE IS A POINT LIMIT, "
+            "AND IT IS NOT A FINITE A. Freezing A at A(lam_0) is exact at "
+            f"lam_0 and "
             f"{100 * t5.get('band', [{}])[-1].get('relative_error', 0):.0f}% "
-            "wrong at 3 lam_0, and the two channels fail differently: the "
-            "antisymmetric one has a limit, -L/(2A) with an O(L^2) error over a "
-            "decade in L, and the symmetric one DIVERGES like 2/(A lam L), "
-            "because a massless tube holds a zero mode and a point cannot. "
+            "wrong at 3 lam_0 -- a band of width ~1/L in omega -- and as L -> 0 "
+            "the antisymmetric channel converges to -L/(2A) while the symmetric "
+            "one diverges like 2/(A lam L). A first draft concluded that the "
+            "limit does not exist. It does: a boundary pair is defined up to "
+            "(B,C) -> (MB,MC), so a diverging chart matrix means the limit has "
+            "LEFT THE CHART, and row-scaled the pair converges to (P_anti, "
+            "-P_sym) -- Phi_anti = 0, q_sym = 0, a MIXED DIRICHLET-NEUMANN "
+            f"stratum, maximal throughout and "
+            f"{t5.get('distance_to_the_stratum', 0):.2f} away at L = 0.02, "
+            "linearly in L. No finite Hermitian A reaches it, which is exactly "
+            "the stratum PR #257's review said the chart does not cover. "
             "THE SAME ZERO MODE BREAKS PR #258's TOMOGRAPHY. At lam = 0 the "
             "static response collapses onto [[1,-1],[-1,1]] to "
             f"{t6.get('worst_antisymmetry', 0):.1e}, det S goes to zero "
             f"LINEARLY in lam with coefficient "
             f"{t6.get('linear_coefficient', 0):.2f}, and W = S_12/det S - G_0 "
-            "diverges like 1/lam. A point throat is statically RANK TWO and a "
-            "massless finite throat RANK ONE -- a falsifiable difference from a "
-            "static measurement. Give the tube an interior mass and the rank "
+            "diverges like 1/lam. WHAT THAT FALSIFIES is the generic finite-A "
+            "family, every member of which is rank two -- and NOT point-ness: "
+            "the tube's own short-tube stratum is rank one as well, and the "
+            "tube converges to it. The first draft claimed the stronger and "
+            "wrong version. Give the tube an interior mass and the rank "
             "returns; and off the collapse W = -beta(lam) exactly, to "
             f"{t6.get('worst_defect_error', 0):.1e}, with beta the tube's own "
             "transmission amplitude. PR #258's theorem survives the "
@@ -305,8 +371,10 @@ def run_probe() -> dict:
             f"{t7.get('sign_changes_below', 0)} sign changes against "
             f"{t7.get('sign_changes_above', 0)} above -- monotone decay against "
             "oscillation, which is the discriminator rather than the sign "
-            "itself. *** AND THE MODEL ALWAYS HAS A GROWING MODE, WHICH IS THE "
-            "MOUTH'S AND NOT THE TUBE'S. *** A(lam) decreases and Gamma(lam) "
+            "itself; the interior has a MASS GAP and the channel below it is "
+            "evanescent, which is the opposite of a low-pass filter. *** AND "
+            "THE MODEL FAILS THE STABILITY GATE, WITH A GROWING MODE THAT IS "
+            "THE MOUTH'S AND NOT THE TUBE'S. *** A(lam) decreases and Gamma(lam) "
             "increases -- PR #257's Gram identity -- so A - Gamma is strictly "
             "monotone between poles and each channel has at most one root, a "
             "count rather than a scan. The symmetric channel always has exactly "
@@ -318,11 +386,12 @@ def run_probe() -> dict:
             "splitting is 1.04 e^{-sigma* d}, the Euclidean propagator between "
             "the mouths. A mode that ignores the tube's length and the mouths' "
             "separation and does not distinguish the channels is a SINGLE-MOUTH "
-            "object, and its scale sqrt(A/4pi) is the mouth's own radius -- "
-            "exactly where 'point mouth' stops being an approximation. Every "
-            "statement here is therefore made at |lam| << sigma*^2, and that "
-            f"band ({t8.get('the_working_band', 0):.2f} at the working point) "
-            "is quoted rather than assumed. SO THE CONTOUR MUST CLEAR IT: "
+            "object: the instability belongs to the POINT-MOUTH MATCHING and "
+            "not to the interior. THIS IS THE ROUND'S FALSIFICATION RESULT, and "
+            "nothing here cures it -- whether a finite-radius mouth or neck "
+            "geometry removes the mode is open, and is the thing to settle "
+            "before stationary-action or backreaction work. SO THE CONTOUR "
+            "MUST CLEAR IT: "
             "placed 0.03 below sigma*, the inversion returns a field with "
             "support before its own light cone -- a pedestal at "
             f"{100 * t9.get('pedestal_below', 0):.0f}% of the peak and an onset "
@@ -331,12 +400,24 @@ def run_probe() -> dict:
             f"{t9.get('pedestal_above', 0):.1e} when it is placed above. Same "
             "species as PR #259's under-resolved contour, reported the same "
             "way, and this time the rule is checkable in advance because "
-            "sigma* has a closed form. WHAT IS STILL PUT IN: the background, "
-            "the mouth positions, and L, A, m -- three numbers with dimensions "
-            "instead of four without. NO BACKREACTION: the throat is a fixed "
-            "background, and PR #261's common action and PR #262's A/B/A+B "
-            "metric backreaction are the next two steps. They now have an "
-            "object with a proper length, a delay, and a conservation law.")
+            "sigma* has a closed form -- but clearing the contour STABILIZES "
+            "NOTHING: above sigma* the inversion returns the correct retarded "
+            "solution OF AN UNSTABLE SYSTEM, and the delay is read from the "
+            "causal onset, which is immune to what happens afterwards. WHICH "
+            "FREQUENCIES: the delay and the ledger are statements about the "
+            "exact model's analytic structure at ALL frequencies -- a causal "
+            "onset is a UV object and the probe pulse carries content to "
+            "w ~ 30, far above sigma* -- so they are exact results about this "
+            "model rather than predictions about a resolved physical mouth; "
+            "the static and low-frequency results sit inside the band. A is a "
+            "ONE-DIMENSIONAL COUPLING, not an area with a radius attached. "
+            "WHAT IS STILL PUT IN: the background, the mouth positions, and "
+            "L, A, m -- three numbers with dimensions where the real-field "
+            "point sector has three without them. NO BACKREACTION: the throat "
+            "is a fixed background, and PR #261's common action and PR #262's "
+            "A/B/A+B metric backreaction are the next two steps. They get an "
+            "object with a proper length, a delay, a conservation law -- and a "
+            "stated failure mode to resolve first.")
     else:
         verdict_class = "INCONCLUSIVE"
         failed = [t["name"] for t in tests if not t["pass"]]

@@ -3,11 +3,20 @@
 **PR #260.** Roadmap: the flux-conserving throat operator that PRs #253–#259 all
 listed as still owed.
 
+> **The closure result, stated first.** The tube is conservative and has a real
+> traversal delay — but **point-mouth matching makes it dynamically unstable**,
+> for every choice of parameters, with a growing mode that belongs to the mouth
+> and not to the interior (§8). Nothing here cures it; moving the retarded
+> contour above the mode evaluates the correct retarded solution *of an unstable
+> system*. Whether a finite-radius mouth or neck geometry removes the mode is
+> the open question, and it should be settled before PR #261's stationary action
+> or PR #262's backreaction.
+
 > **Scope.** A linear conformally coupled scalar on a **fixed** Einstein static
 > universe. The throat now has an interior — a tube of proper length `L`,
 > cross-section `𝒜` and interior mass `m` — but that interior is
 > **one-dimensional** (one transverse channel), and the mouths are still
-> **points** in the ambient. §7 measures exactly what the second approximation
+> **points** in the ambient. §8 measures exactly what the second approximation
 > costs. **No backreaction**, no topology change, and `L`, `𝒜`, `m` are chosen
 > rather than derived.
 
@@ -62,11 +71,25 @@ interior, read at two arguments.
 the interior.** A point throat is a fixed Hermitian `A`; a finite throat is
 `A(λ)`. Everything in this round is a consequence of that one sentence.
 
-## 3. It conserves flux — as an operator property
+## 3. Where the self-adjointness lives
 
-A maximal self-adjoint boundary condition is `rank[B|C] = 2` with `BC†`
-Hermitian. Here `B = N` and `C = −(I + N/(4πa))`, so `BC† = −N − N²/(4πa)`,
-Hermitian because `N` is real symmetric.
+The conservative object is the **enlarged system** — ambient `⊕` tube — with the
+*fixed*, `λ`-independent matching of §2. That is one self-adjoint operator on
+`L²(S³) ⊕ L²([0,L])`, and it is what conserves flux.
+
+Eliminating the tube leaves an ambient-only problem with a **`λ`-dependent**
+boundary condition: `A(λ) = −N(λ)⁻¹` is the **Weyl (`M`-) function** of that
+elimination. `A(λ)` is *not* itself a self-adjoint operator on the ambient space
+— an energy-dependent boundary condition never is — and nothing here claims it
+is. What it is, is a matrix **Nevanlinna** function, monotone in `λ` between its
+poles, and that monotonicity is the enlarged system's self-adjointness showing
+through after the elimination. It is measured (§8), not assumed.
+
+What *can* be checked pointwise is that the elimination is faithful: at each
+`λ`, the eliminated problem is a maximal self-adjoint boundary condition for the
+ambient problem **at that `λ`** — `rank[B|C] = 2` with `BC†` Hermitian. Here
+`B = N` and `C = −(I + N/(4πa))`, so `BC† = −N − N²/(4πa)`, Hermitian because
+`N` is real symmetric.
 
 | | |
 | --- | ---: |
@@ -81,16 +104,21 @@ The control's defect is the size of the coupling itself. That is what "lossy for
 
 The Green's-identity check matters because it tests the matrix against the
 *interior it claims to summarize* rather than against itself: a wrong sign or a
-`cot`/`csc` swap fails it immediately. The interior derivative is analytic —
+`cot`/`csc` swap fails it immediately. It is the **sesquilinear** form — `Φ†NΦ`
+and `|u'|²` — because that is the one that expresses energy; the bilinear
+version agrees for real `k` and real end values, which is why a first draft
+passed while checking something weaker. The interior derivative is analytic —
 #248's lesson about `np.gradient`'s one-sided end differences applies with
 particular force to a boundary-value identity.
 
 ## 4. The result: the throat transmits at the traversal time
 
-The measured object is the throat operator's **own impulse response** — the
-inverse transform of `R(ω) = (A(ω) − Γ(ω))⁻¹` along the retarded contour. No
-source and no observer enter, so what is left is the throat's causal structure
-and nothing else.
+The measured object is the **two-mouth block's** impulse response — the inverse
+transform of `R(ω) = (A(ω) − Γ(ω))⁻¹` along the retarded contour. The source and
+observer legs are gone. But `Γ` is the *ambient's* own mouth-to-mouth
+propagator and stays in, so this is the **coupled** ambient+tube response and
+not the throat in isolation — which is exactly why the second prediction below
+reads `min(L, d)` rather than `L`.
 
 Two predictions, and they are different:
 
@@ -148,10 +176,11 @@ with `x = kL`, checked against the closed forms **on the actual contour** to
 mouth it came from — and the reflected channel is the one the rank-one transfer
 model does not have at all.
 
-## 5. There is no point limit — there is a band, and its width is `1/L`
+## 5. There *is* a point limit — and it is not a finite `A`
 
 Freezing `A` at `A(λ₀)` reproduces the finite throat exactly at `λ₀` and nowhere
-else:
+else. The band it is right on has width `Δω ∼ 1/L` in **frequency** — in `λ`
+that is `Δλ ∼ 2√λ/L`, and the two are not the same:
 
 | `λ/λ₀` | `β` exact | `β` frozen | relative error |
 | ---: | ---: | ---: | ---: |
@@ -170,11 +199,38 @@ And the two channels fail **differently**, which is the part that matters:
   `2/(𝒜λL)`, matched to `1.4%` at `L = 0.4` and better below, because **a
   massless tube holds a zero mode and a point cannot**.
 
-No rescaling of `𝒜` and `L` removes the divergence while keeping the other
-channel finite. So the constant-`A` family of #257–#259 is the finite throat
-*read at one frequency*, and the width of the band it is right on is set by
-`1/L` — the traversal time is exactly what a frequency-independent boundary
-condition cannot carry.
+A first draft concluded from those two facts that **the limit does not exist**.
+That was wrong, and the correction is the more interesting statement.
+
+A boundary pair is defined only up to `(B, C) → (MB, MC)` for invertible `M`, so
+a chart matrix running off to infinity means the limit has **left the chart**,
+not that it is absent. Row-scaled — the symmetric row by `1`, the antisymmetric
+row by `1/N_anti` — the pair converges cleanly:
+
+| `L` | `‖B − P_anti‖`, `‖C + P_sym‖` | rate `/L` | `rank[B\|C]` |
+| ---: | ---: | ---: | ---: |
+| `0.40` | `2.5473` | `6.3683` | `2` |
+| `0.20` | `1.2608` | `6.3042` | `2` |
+| `0.10` | `0.6288` | `6.2884` | `2` |
+| `0.05` | `0.3142` | `6.2845` | `2` |
+| `0.02` | `0.1257` | `6.2834` | `2` |
+
+```
+(B, C)  ⟶  (P_anti, −P_sym)  ,   i.e.   Φ_anti = 0   and   q_sym = 0
+```
+
+linearly in `L`, at the rate `𝒜λ/2 = 2π` for the working parameters. That is a
+**mixed Dirichlet–Neumann** point extension: maximal (`rank[B|C] = 2` the whole
+way), self-adjoint (`BC† = 0`), and reachable by **no finite Hermitian `A`**,
+since both blocks are singular there. It is exactly the kind of stratum #257's
+review insisted the finite-`A` chart does not reach.
+
+Which is also physically what a very short pipe should do: short the two mouths
+together (`Φ_anti = 0`) and store nothing (`q_sym = 0`).
+
+So the honest statement is **"no finite-`A` point limit"**, and the constant-`A`
+family of #257–#259 is this throat *read at one frequency* — the traversal time
+being exactly what a frequency-independent boundary condition cannot carry.
 
 ## 6. The static limit is rank one, and #258's tomography breaks on it
 
@@ -193,10 +249,12 @@ four decades (the last row is kept because it shows the correction turning on,
 `1.1%`). So #258's disconnection defect `𝒲 = S₁₂/det S − G₀` **diverges like
 `1/λ`**.
 
-**A point throat is statically rank two; a massless finite throat is rank one.**
-That is a falsifiable difference between the two models from a *static*
-measurement — and it is the sharpest thing this round produces about what the
-point idealization was hiding.
+**What that falsifies is the generic finite-`A` family** — every member of which
+has `rank S = 2` — and **not point-ness.** The tube's own short-tube limit, the
+mixed stratum of §5, gives `R → diag(0, −1/Γ_anti)` in the channel basis: rank
+one as well, and the tube converges to it. A first draft of this round claimed
+the stronger version, that rank one distinguishes a finite throat from a point
+one. It does not; it distinguishes both from the chart.
 
 Give the tube an interior mass and the rank comes back:
 
@@ -213,7 +271,7 @@ the tube's own transmission amplitude. #258's theorem survives the
 generalization to a frequency-dependent conservative throat; what it returns is
 no longer a constant but the interior's amplitude at that frequency.
 
-## 7. An interior mass is a transmission cutoff
+## 7. An interior mass gives the channel a mass gap
 
 Below `λ = m²` the wavenumber turns imaginary and
 
@@ -230,15 +288,17 @@ the cutoff `β` changes sign every time `kL` passes a multiple of `π`, so a
 single high-`λ` sample proves nothing. Measured across a sweep: **`0` sign
 changes below the cutoff, `7` above**, and `|β|` monotone below.
 
-So a throat with a massive interior is a **low-pass barrier**: below the cutoff
-the mouths look like two ordinary scatterers with a tunnelling correction, and
-the same throat above it is fully connected. And the cutoff is where the rank
-collapses — `k → 0` makes `β → 1/(𝒜k²L)` diverge — so §6 and §7 are one
+So a throat with a massive interior has a **mass gap**, and below it the channel
+is *evanescent*: the mouths look like two ordinary scatterers with a tunnelling
+correction, and the same throat above the gap is fully connected. (An earlier
+draft called this "low-pass", which is backwards — it is the *low* frequencies
+that are suppressed. It is an evanescent cutoff, not a filter passband.) And the
+cutoff is where the rank collapses — `k → 0` makes `β → 1/(𝒜k²L)` diverge — so §6 and §7 are one
 statement read at `λ = m²`.
 
 Both regimes stay real and self-adjoint: worst imaginary part `0.0`.
 
-## 8. The model always has a growing mode — and it is the mouth's
+## 8. The model fails the stability gate — and the failure is the mouth's
 
 `A(λ)` is decreasing in `λ` and `Γ(λ)` increasing (#257's Gram identity), so
 `A − Γ` is strictly monotone between poles and each channel has **at most one
@@ -272,9 +332,14 @@ generalizes to `σ* = ½[1/a + √(1/a² + 16π/𝒜)]`, which is the same state
 the mouth's other scale in it.
 
 So the growing mode is the price of gluing a tube of finite area to a *point*,
-and it lives entirely in the regime where the gluing is invalid. Every statement
-in this round is made at `|λ| ≪ σ*²`, and that band — `2.007` at the working
-point — is quoted rather than assumed.
+and it lives entirely in the regime where the gluing is invalid.
+
+**This is the round's closure result.** The candidate throat does not pass the
+stability gate #257 set up: it is conservative and it grows. The safe conclusion
+is that a 1-D tube is conservative and has a real traversal delay, but that
+point-mouth matching makes it dynamically unstable, and the open question is
+whether finite-radius mouth or neck geometry removes the mode. That question
+should be settled before stationary-action or backreaction work, not after.
 
 Both approximations fail in the same direction and for the same reason: at
 `σ*L ≲ 2` the tube is shorter than the mode, `coth(σL/2)` is not yet `1`, and
@@ -296,26 +361,64 @@ Placed just below `σ*`, the inversion returns a field with support **before its
 own light cone**: a pedestal at 99% of the peak, arriving at `t = 0` for an
 event that cannot begin until `t = 0.6`.
 
+**Clearing the contour stabilizes nothing.** Above `σ*` the inversion returns the
+correct retarded solution *of an unstable system*; the growing mode is still
+there and dominates every time series at late times. The delay is read from the
+causal **onset**, which is a statement about analytic structure and is immune to
+what the solution does afterwards — but the instability is a property of the
+model, and no contour touches it.
+
 It is the same species of error as #259's under-resolved contour — a
 plausible-looking number produced by a contour in the wrong place — and it is
 reported the same way: both values and the rule. The difference is that `σ*` has
 a closed form, so this time the contour can be placed **before** the solve
 rather than diagnosed after it.
 
-## 10. What this closes, and what it does not
+## 10. Which frequencies each result uses
+
+The band is not uniform across the round, so it is worth saying which result
+lives where.
+
+| result | frequencies | inside `|λ| ≪ σ*²`? |
+| --- | --- | :---: |
+| the delay (§4), the bounce ledger (§4) | **all** — a causal onset is a UV object | no |
+| the short-tube stratum (§5) | fixed `λ₀`, and `L → 0` | yes |
+| rank collapse, `𝒲 = −β` (§6) | `λ → 0` | yes |
+| the mass gap (§7) | around `λ = m²` | yes |
+| monotonicity and the mode count (§8) | all, by construction | — |
+
+The delay is an exact statement about **the analytic structure of this model**,
+not a prediction about a resolved physical mouth: the probe pulse that resolves
+the onset has width `0.03` and carries content out to `ω ∼ 30`, far above
+`σ* ∼ 1.4`. A causal onset cannot be measured any other way — sharpness is a
+high-frequency property — so the honest framing is that §4 is a theorem about
+the model and §8 is the statement of where the model stops describing a mouth.
+
+Relatedly `𝒜` is a **one-dimensional coupling strength**, not an area with a
+radius attached: the interior has one transverse channel and no higher modes.
+At the working point `√(𝒜/4π) = 1`, a "mouth radius" of order the whole unit
+`S³`, which is the same observation in different words.
+
+## 11. What this closes, and what it does not
 
 **Closed.** The throat operator is now genuinely flux-conserving, `2×2`, with a
 reflected channel, a normal-derivative matching and a proper length. The delay
 is measured and equals the traversal time. The point family of #257–#259 is
 located inside the new one — as a single-frequency reading, with the band
-quantified. #258's `𝒲 = −β` survives, generalized. And the price of the
-remaining idealization is measured rather than waved at.
+quantified — and the short-tube limit is identified as a *specific* mixed
+Dirichlet–Neumann stratum rather than as a failure. #258's `𝒲 = −β` survives,
+generalized.
+
+**Falsified.** The point-mouth matching. It is unstable, always, and the
+instability is the mouth's rather than the tube's. That is the result to carry
+forward.
 
 **Not closed.**
 
-* the mouths are still **points**. §8 says exactly what that costs and where it
-  costs it, but a genuinely finite mouth means solving the ambient outside two
-  small balls, not a point interaction with a radius parameter;
+* the mouths are still **points**, and §8 says that costs a growing mode. A
+  genuinely finite mouth means solving the ambient outside two small balls, not
+  a point interaction with a radius parameter — and whether that removes the
+  mode is **the** open question of this round;
 * the interior is **one-dimensional** — one transverse channel, so `𝒜` enters as
   a coupling strength and not as a geometry. A real tube has higher transverse
   modes above `ω ∼ 1/√𝒜`, and those are inside the band this round works in;
@@ -323,10 +426,14 @@ remaining idealization is measured rather than waved at.
   fix them from matter;
 * **no backreaction.** The throat is a fixed background.
 
-**The next two steps.** #261 — the common action and stationary history — now
+**The next two steps, and the order.** The instability comes first: an action or
+a backreaction computed on a background with a growing mode inherits the mode,
+and #261 and #262 would both be measuring it rather than the physics they are
+after. Once it is resolved — #261, the common action and stationary history, now
 has an object with a conservation law, a proper length and a delay, which is
-what an on-shell action is made of; and it inherits §4's warning that any
+what an on-shell action is made of, and it inherits §4's warning that any
 quantity integrated over the field has to state which arrivals were present,
-because the ledger now has `min(L, d)` in it. #262 — `A`/`B`/`A+B` metric
-backreaction — inherits #259's warning about *which* diagnostic to feed, and now
-also a source with a finite size to feed it through.
+because the ledger now has `min(L, d)` and an echo at every `2L`. #262 —
+`A`/`B`/`A+B` metric backreaction — inherits #259's warning about *which*
+diagnostic to feed (`ΔT`, not `T_A:T_B`), and now also a source with a finite
+size and a stated resolution limit.

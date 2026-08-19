@@ -8,7 +8,7 @@
       "pass": true
     },
     {
-      "name": "T2_the_boundary_condition_is_self_adjoint",
+      "name": "T2_the_enlarged_system_is_conservative",
       "rows": [
         {
           "lambda": -4.0,
@@ -56,7 +56,7 @@
       "worst_hermiticity_defect": 0.0,
       "every_condition_is_maximal": true,
       "worst_imaginary_part": 0.0,
-      "worst_green_identity_residual": 1.5306619616239914e-07,
+      "worst_green_identity_residual": 1.53066153529835e-07,
       "the_rank_one_control_defect": 0.3,
       "the_finite_throat_is_conservative": true,
       "the_control_is_not": true,
@@ -151,7 +151,7 @@
       "pass": true
     },
     {
-      "name": "T5_the_point_throat_is_a_single_frequency_match",
+      "name": "T5_the_short_tube_limit_is_a_mixed_stratum",
       "lambda_0": 1.0,
       "band": [
         {
@@ -199,7 +199,10 @@
           "anti_error": 0.00021565777357990604,
           "anti_error_over_L_squared": 0.0013478610848744125,
           "sym": 0.39256799174376905,
-          "sym_prediction": 0.3978873577297384
+          "sym_prediction": 0.3978873577297384,
+          "distance_to_the_stratum": 2.54732943345189,
+          "rank": 2,
+          "distance_over_L": 6.368323583629724
         },
         {
           "length": 0.2,
@@ -208,7 +211,10 @@
           "anti_error": 2.6632358357177657e-05,
           "anti_error_over_L_squared": 0.0006658089589294413,
           "sym": 0.79312036300049,
-          "sym_prediction": 0.7957747154594768
+          "sym_prediction": 0.7957747154594768,
+          "distance_to_the_stratum": 1.2608426748959694,
+          "rank": 2,
+          "distance_over_L": 6.304213374479846
         },
         {
           "length": 0.1,
@@ -217,7 +223,10 @@
           "anti_error": 3.3190470676717e-06,
           "anti_error_over_L_squared": 0.00033190470676716996,
           "sym": 1.5902229186253451,
-          "sym_prediction": 1.5915494309189535
+          "sym_prediction": 1.5915494309189535,
+          "distance_to_the_stratum": 0.6288426536226936,
+          "rank": 2,
+          "distance_over_L": 6.288426536226936
         },
         {
           "length": 0.05,
@@ -226,14 +235,56 @@
           "anti_error": 4.145696400827299e-07,
           "anti_error_over_L_squared": 0.00016582785603309194,
           "sym": 3.1824356886089795,
-          "sym_prediction": 3.183098861837907
+          "sym_prediction": 3.183098861837907,
+          "distance_to_the_stratum": 0.3142247315724939,
+          "rank": 2,
+          "distance_over_L": 6.284494631449878
+        },
+        {
+          "length": 0.02,
+          "anti": -0.0007958012423450178,
+          "anti_limit": -0.0007957747154594768,
+          "anti_error": 2.6526885541031803e-08,
+          "anti_error_over_L_squared": 6.631721385257951e-05,
+          "sym": 7.957481894587875,
+          "sym_prediction": 7.957747154594767,
+          "distance_to_the_stratum": 0.12566789510140322,
+          "rank": 2,
+          "distance_over_L": 6.2833947550701605
         }
       ],
+      "the_stratum": {
+        "B": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "C": [
+          [
+            -1.0,
+            -0.0
+          ],
+          [
+            -0.0,
+            -0.0
+          ]
+        ],
+        "condition": "Phi_anti = 0 and q_sym = 0"
+      },
       "the_band_error_reaches_one": true,
       "the_antisymmetric_channel_has_a_limit": true,
-      "the_symmetric_channel_diverges": true,
+      "the_chart_matrix_diverges": true,
       "worst_symmetric_prediction_error": 0.013550177543362478,
-      "the_scope": "a point throat is a finite throat read at one \u03bb; the width of the band it is right on is set by 1/L",
+      "distance_to_the_stratum": 0.12566789510140322,
+      "convergence_is_linear_in_L": true,
+      "every_pair_is_maximal": true,
+      "the_limit_exists_and_is_not_a_finite_A": true,
+      "the_scope": "the limit is a mixed Dirichlet-Neumann stratum, not a finite A; the chart matrix diverges because the limit leaves the chart, not because it is absent",
       "pass": true
     },
     {
@@ -306,6 +357,36 @@
           "defect_error": 4.440892098500626e-16
         }
       ],
+      "stratum_response": [
+        [
+          6.780339919878025,
+          -6.780339919878025
+        ],
+        [
+          -6.780339919878025,
+          6.780339919878025
+        ]
+      ],
+      "stratum_rank": 1,
+      "approach_to_the_stratum": [
+        {
+          "length": 0.4,
+          "distance_to_the_stratum_response": 1.8661228941622872,
+          "det_S": 4.346187630062307e-08
+        },
+        {
+          "length": 0.1,
+          "distance_to_the_stratum_response": 0.3866907112329043,
+          "det_S": 9.006352807836917e-09
+        },
+        {
+          "length": 0.02,
+          "distance_to_the_stratum_response": 0.07397157733894044,
+          "det_S": 1.72267935415914e-09
+        }
+      ],
+      "the_stratum_is_rank_one_too": true,
+      "it_falsifies_the_finite_A_family_not_point_ness": true,
       "det_S_is_linear_in_lambda": true,
       "linear_coefficient": 149.08152327358508,
       "departure_at_the_largest_lambda": 0.010958204802862002,
@@ -315,7 +396,7 @@
       "the_defect_diverges": true,
       "worst_defect_error": 3.055333763768431e-13,
       "the_defect_is_still_minus_beta": true,
-      "the_falsifiable_difference": "a point throat is statically rank two; a massless finite throat is rank one, and \ud835\udcb2 diverges",
+      "the_falsifiable_difference": "a generic finite-A throat is statically rank two; this tube is rank one and \ud835\udcb2 diverges \u2014 but so is its own point limit, so rank one falsifies the chart, not point-ness",
       "pass": true
     },
     {
@@ -399,7 +480,7 @@
       "the_evanescent_side_does_not_oscillate": true,
       "the_transmission_is_suppressed_below_cutoff": true,
       "everything_stays_real": true,
-      "what_it_means": "a massive interior makes the throat a low-pass barrier; below m\u00b2 the mouths look like two ordinary scatterers with a tunnelling term",
+      "what_it_means": "a massive interior gives the channel a mass gap; below m\u00b2 transmission is evanescent and the mouths look like two ordinary scatterers with a tunnelling term",
       "pass": true
     },
     {
@@ -534,7 +615,8 @@
       "the_closed_form_holds_once_sigma_L_is_large": true,
       "the_split_is_the_euclidean_propagator": true,
       "the_working_band": 2.0069249209703943,
-      "the_diagnosis": "a mode that ignores L and d and does not split the channels is a single-mouth object; its scale is the mouth radius \u221a(\ud835\udc9c/4\u03c0)",
+      "the_diagnosis": "a mode that ignores L and d and does not split the channels is a single-mouth object, so the instability belongs to the point-mouth matching and not to the interior",
+      "the_open_question": "whether a finite-radius mouth or neck geometry removes it \u2014 unresolved here, and the thing to settle before stationary action or backreaction",
       "pass": true
     },
     {
@@ -577,6 +659,7 @@
       "onset_above": 0.460052490234375,
       "a_contour_below_the_mode_breaks_causality": true,
       "the_rule": "\u03b5 must exceed \u03c3*, which has a closed form, so the contour can be placed before the solve rather than diagnosed after it",
+      "what_it_does_not_do": "clearing the contour evaluates the correct retarded solution of an unstable system; it does not cure the instability",
       "pass": true
     },
     {
@@ -586,13 +669,13 @@
       "pass": true
     }
   ],
-  "verdict_class": "THE_THROAT_HAS_AN_INTERIOR_AND_A_TRAVERSAL_TIME",
-  "verdict": "THE THROAT NOW HAS AN INTERIOR, AND THE INTERIOR IS THE DELAY. PRs #253-#259 all carried the same disclaimer -- point-supported, no proper length, no delay, a rank-one mouth-transfer model that is lossy for kappa < 1 -- and this round replaces it with a tube of length L and cross-section A whose Dirichlet-to-Neumann map is exact. Two lines are put in: N(lam) = A k [[cot kL, -csc kL], [-csc kL, cot kL]] and the matching q = -N Phi. Everything else follows. THE BOUNDARY CONDITION IS SELF-ADJOINT AT EVERY FREQUENCY: rank[B|C] = 2 and BC^dag - CB^dag = 0.0e+00 at seven values of lam on both sides of zero, with the DtN map checked against the interior it summarizes by Green's identity to 1.5e-07 rather than against itself; PR #255's rank-one transfer model, the control, has defect 0.30 -- the size of the coupling itself, which is what the kappa < 1 loss was. *** AND THE THROAT TRANSMITS AT THE TRAVERSAL TIME. *** The measured object is the throat operator's own impulse response, so no source or observer geometry enters: r_11, same mouth in and out, starts at 0.0 -- a wave that reaches a mouth is partly reflected INSTANTLY -- and r_12, opposite mouths, starts at min(L, d) with d(onset)/dL = 1.0071 against a predicted 1, saturating above the ambient path to 0.0e+00. THE AMBIENT ALSO CONNECTS THE TWO MOUTHS, along a geodesic of length d, whether or not they are joined: PR #258's cross-mouth channel and PR #259's beta = 0 control, now SEPARATED IN TIME instead of by rank counting. A point throat transmits at 0.0, which is what a point throat is. THE LEDGER IS A DERIVATION, NOT A FIT: on the contour cot x = -i - 2i sum e^{2ikx} and csc x = -2i sum e^{i(2k+1)x}, to 4.5e-16 and 1.7e-15, so the same-mouth entry carries 0, 2L, 4L and the cross-mouth entry L, 3L, 5L. The parities are the physics, and the reflected channel is the one the rank-one model does not have at all. THERE IS NO POINT LIMIT -- THERE IS A BAND. Freezing A at A(lam_0) is exact at lam_0 and 121% wrong at 3 lam_0, and the two channels fail differently: the antisymmetric one has a limit, -L/(2A) with an O(L^2) error over a decade in L, and the symmetric one DIVERGES like 2/(A lam L), because a massless tube holds a zero mode and a point cannot. THE SAME ZERO MODE BREAKS PR #258's TOMOGRAPHY. At lam = 0 the static response collapses onto [[1,-1],[-1,1]] to 4.3e-05, det S goes to zero LINEARLY in lam with coefficient 149.08, and W = S_12/det S - G_0 diverges like 1/lam. A point throat is statically RANK TWO and a massless finite throat RANK ONE -- a falsifiable difference from a static measurement. Give the tube an interior mass and the rank returns; and off the collapse W = -beta(lam) exactly, to 3.1e-13, with beta the tube's own transmission amplitude. PR #258's theorem survives the generalization and returns the interior's amplitude instead of a constant. AN INTERIOR MASS IS A TRANSMISSION CUTOFF: below lam = m^2 the tube is evanescent, beta matches its exponential asymptote to 7.6e-05, is suppressed by 3.1e-03, and has 0 sign changes against 7 above -- monotone decay against oscillation, which is the discriminator rather than the sign itself. *** AND THE MODEL ALWAYS HAS A GROWING MODE, WHICH IS THE MOUTH'S AND NOT THE TUBE'S. *** A(lam) decreases and Gamma(lam) increases -- PR #257's Gram identity -- so A - Gamma is strictly monotone between poles and each channel has at most one root, a count rather than a scan. The symmetric channel always has exactly one, at lam < 0. Three facts identify what it is, all limits with their convergence measured: its rate matches sigma* = 2 sqrt(pi/A) to 1.5e-03 with NO L in it; two mouth separations agree to 3.9e-09; and the channel splitting is 1.04 e^{-sigma* d}, the Euclidean propagator between the mouths. A mode that ignores the tube's length and the mouths' separation and does not distinguish the channels is a SINGLE-MOUTH object, and its scale sqrt(A/4pi) is the mouth's own radius -- exactly where 'point mouth' stops being an approximation. Every statement here is therefore made at |lam| << sigma*^2, and that band (2.01 at the working point) is quoted rather than assumed. SO THE CONTOUR MUST CLEAR IT: placed 0.03 below sigma*, the inversion returns a field with support before its own light cone -- a pedestal at 99% of the peak and an onset of 0.0 for an event that cannot begin until 0.6 -- against 1.0e-16 when it is placed above. Same species as PR #259's under-resolved contour, reported the same way, and this time the rule is checkable in advance because sigma* has a closed form. WHAT IS STILL PUT IN: the background, the mouth positions, and L, A, m -- three numbers with dimensions instead of four without. NO BACKREACTION: the throat is a fixed background, and PR #261's common action and PR #262's A/B/A+B metric backreaction are the next two steps. They now have an object with a proper length, a delay, and a conservation law.",
+  "verdict_class": "THE_INTERIOR_GIVES_A_DELAY_AND_THE_POINT_MOUTH_IS_UNSTABLE",
+  "verdict": "THE THROAT NOW HAS AN INTERIOR, AND THE INTERIOR IS THE DELAY. PRs #253-#259 all carried the same disclaimer -- point-supported, no proper length, no delay, a rank-one mouth-transfer model that is lossy for kappa < 1 -- and this round replaces it with a tube of length L and cross-section A whose Dirichlet-to-Neumann map is exact. Two lines are put in: N(lam) = A k [[cot kL, -csc kL], [-csc kL, cot kL]] and the matching q = -N Phi. Everything else follows. THE CONSERVATIVE OBJECT IS THE ENLARGED SYSTEM, ambient (+) tube, with lam-independent matching; eliminating the tube leaves a lam-DEPENDENT boundary condition -- the Weyl function of that elimination, which is a Nevanlinna function and not itself a self-adjoint operator on the ambient space. What is checked is that the elimination is faithful at each lam: rank[B|C] = 2 and BC^dag - CB^dag = 0.0e+00 at seven values of lam on both sides of zero, with the DtN map checked against the interior it summarizes by the SESQUILINEAR Green's identity to 1.5e-07 rather than against itself; PR #255's rank-one transfer model, the control, has defect 0.30 -- the size of the coupling itself, which is what the kappa < 1 loss was. *** AND THE THROAT TRANSMITS AT THE TRAVERSAL TIME. *** The measured object is the TWO-MOUTH BLOCK's impulse response -- the source and observer legs are gone, but Gamma, the ambient's own mouth-to-mouth propagator, stays in, so it is the coupled ambient+tube response and not the throat alone: r_11, same mouth in and out, starts at 0.0 -- a wave that reaches a mouth is partly reflected INSTANTLY -- and r_12, opposite mouths, starts at min(L, d) with d(onset)/dL = 1.0071 against a predicted 1, saturating above the ambient path to 0.0e+00. THE AMBIENT ALSO CONNECTS THE TWO MOUTHS, along a geodesic of length d, whether or not they are joined: PR #258's cross-mouth channel and PR #259's beta = 0 control, now SEPARATED IN TIME instead of by rank counting. A point throat transmits at 0.0, which is what a point throat is. THE LEDGER IS A DERIVATION, NOT A FIT: on the contour cot x = -i - 2i sum e^{2ikx} and csc x = -2i sum e^{i(2k+1)x}, to 4.5e-16 and 1.7e-15, so the same-mouth entry carries 0, 2L, 4L and the cross-mouth entry L, 3L, 5L. The parities are the physics, and the reflected channel is the one the rank-one model does not have at all. THERE IS A POINT LIMIT, AND IT IS NOT A FINITE A. Freezing A at A(lam_0) is exact at lam_0 and 121% wrong at 3 lam_0 -- a band of width ~1/L in omega -- and as L -> 0 the antisymmetric channel converges to -L/(2A) while the symmetric one diverges like 2/(A lam L). A first draft concluded that the limit does not exist. It does: a boundary pair is defined up to (B,C) -> (MB,MC), so a diverging chart matrix means the limit has LEFT THE CHART, and row-scaled the pair converges to (P_anti, -P_sym) -- Phi_anti = 0, q_sym = 0, a MIXED DIRICHLET-NEUMANN stratum, maximal throughout and 0.13 away at L = 0.02, linearly in L. No finite Hermitian A reaches it, which is exactly the stratum PR #257's review said the chart does not cover. THE SAME ZERO MODE BREAKS PR #258's TOMOGRAPHY. At lam = 0 the static response collapses onto [[1,-1],[-1,1]] to 4.3e-05, det S goes to zero LINEARLY in lam with coefficient 149.08, and W = S_12/det S - G_0 diverges like 1/lam. WHAT THAT FALSIFIES is the generic finite-A family, every member of which is rank two -- and NOT point-ness: the tube's own short-tube stratum is rank one as well, and the tube converges to it. The first draft claimed the stronger and wrong version. Give the tube an interior mass and the rank returns; and off the collapse W = -beta(lam) exactly, to 3.1e-13, with beta the tube's own transmission amplitude. PR #258's theorem survives the generalization and returns the interior's amplitude instead of a constant. AN INTERIOR MASS IS A TRANSMISSION CUTOFF: below lam = m^2 the tube is evanescent, beta matches its exponential asymptote to 7.6e-05, is suppressed by 3.1e-03, and has 0 sign changes against 7 above -- monotone decay against oscillation, which is the discriminator rather than the sign itself; the interior has a MASS GAP and the channel below it is evanescent, which is the opposite of a low-pass filter. *** AND THE MODEL FAILS THE STABILITY GATE, WITH A GROWING MODE THAT IS THE MOUTH'S AND NOT THE TUBE'S. *** A(lam) decreases and Gamma(lam) increases -- PR #257's Gram identity -- so A - Gamma is strictly monotone between poles and each channel has at most one root, a count rather than a scan. The symmetric channel always has exactly one, at lam < 0. Three facts identify what it is, all limits with their convergence measured: its rate matches sigma* = 2 sqrt(pi/A) to 1.5e-03 with NO L in it; two mouth separations agree to 3.9e-09; and the channel splitting is 1.04 e^{-sigma* d}, the Euclidean propagator between the mouths. A mode that ignores the tube's length and the mouths' separation and does not distinguish the channels is a SINGLE-MOUTH object: the instability belongs to the POINT-MOUTH MATCHING and not to the interior. THIS IS THE ROUND'S FALSIFICATION RESULT, and nothing here cures it -- whether a finite-radius mouth or neck geometry removes the mode is open, and is the thing to settle before stationary-action or backreaction work. SO THE CONTOUR MUST CLEAR IT: placed 0.03 below sigma*, the inversion returns a field with support before its own light cone -- a pedestal at 99% of the peak and an onset of 0.0 for an event that cannot begin until 0.6 -- against 1.0e-16 when it is placed above. Same species as PR #259's under-resolved contour, reported the same way, and this time the rule is checkable in advance because sigma* has a closed form -- but clearing the contour STABILIZES NOTHING: above sigma* the inversion returns the correct retarded solution OF AN UNSTABLE SYSTEM, and the delay is read from the causal onset, which is immune to what happens afterwards. WHICH FREQUENCIES: the delay and the ledger are statements about the exact model's analytic structure at ALL frequencies -- a causal onset is a UV object and the probe pulse carries content to w ~ 30, far above sigma* -- so they are exact results about this model rather than predictions about a resolved physical mouth; the static and low-frequency results sit inside the band. A is a ONE-DIMENSIONAL COUPLING, not an area with a radius attached. WHAT IS STILL PUT IN: the background, the mouth positions, and L, A, m -- three numbers with dimensions where the real-field point sector has three without them. NO BACKREACTION: the throat is a fixed background, and PR #261's common action and PR #262's A/B/A+B metric backreaction are the next two steps. They get an object with a proper length, a delay, a conservation law -- and a stated failure mode to resolve first.",
   "working_throat": {
     "separation": 1.3,
     "length": 0.9,
     "area": 12.566370614359172,
     "interior_mass": 0.0
   },
-  "generated_utc": "2026-08-18T04:09:28.018010+00:00"
+  "generated_utc": "2026-08-19T01:05:51.746089+00:00"
 }

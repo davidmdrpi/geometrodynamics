@@ -7,8 +7,15 @@ the delay
 PRs #253-#259 all carried the same disclaimer: the throat is point-supported --
 no interior, no proper length, no delay -- and what stood in for one was a
 rank-one mouth-transfer model, lossy for kappa < 1. This round replaces it with
-a tube whose Dirichlet-to-Neumann map is exact, and the boundary condition
-becomes FREQUENCY-DEPENDENT. That dependence is the interior.
+a tube whose Dirichlet-to-Neumann map is exact. The conservative object is the
+ENLARGED system, ambient + tube, with lam-independent matching; eliminating the
+tube leaves a lam-DEPENDENT boundary condition, the Weyl function of that
+elimination. That dependence is the interior.
+
+AND THE CANDIDATE FAILS THE STABILITY GATE. The symmetric channel always has a
+negative-lambda mode, whose rate contains neither L nor the mouth separation:
+the point-mouth matching is unstable, not the interior. That is this round's
+closure result, and nothing here cures it.
 
 What the panels show
 --------------------
@@ -17,27 +24,30 @@ against tube length. Slope 1 below the ambient path and flat above it: the tube
 takes L to traverse, the ambient takes d, and `min(L, d)` decides which arrives
 first. The point throat sits at zero, because that is what a point throat is.
 
-**Top right - the impulse response itself.** The throat operator's own response
-to a pulse at a mouth, source and observer removed from the problem. Same mouth
-in and out starts instantly - a mouth reflects - and opposite mouths starts at
-the traversal time.
+**Top right - the impulse response itself.** The TWO-MOUTH BLOCK's response to a
+pulse at a mouth: the source and observer legs are gone, but the ambient's own
+mouth-to-mouth propagator stays in, which is why the cross-mouth onset is
+min(L,d). Same mouth in and out starts instantly - a mouth reflects.
 
-**Bottom left - there is no point limit, there is a band.** Freezing A at one
-frequency is exact there and 121% wrong at 3 lam_0. The two channels fail
-differently: the antisymmetric one converges to -L/2A like L^2, the symmetric
-one diverges like 2/(A lam L), because a massless tube holds a zero mode and a
-point cannot.
+**Bottom left - there is a point limit, and it is not a finite A.** Freezing A
+at one frequency is exact there and 121% wrong at 3 lam_0, a band of width ~1/L
+in omega. As L -> 0 the chart matrix diverges - but only because the limit
+LEAVES the chart: row-scaled, the boundary pair converges to (P_anti, -P_sym),
+a mixed Dirichlet-Neumann stratum no finite Hermitian A reaches.
 
-**Bottom right - and that zero mode breaks PR #258's tomography.** det S goes
-to zero linearly in lam, so the static response is rank one and the
-disconnection defect diverges. Give the tube an interior mass and the rank
-returns -- with W = -beta(lam) exact to 1e-13.
+**Bottom right - and the tube's zero mode breaks PR #258's tomography.** det S
+goes to zero linearly in lam, so the static response is rank one and the
+disconnection defect diverges. That falsifies the generic finite-A family, not
+point-ness: the short-tube stratum is rank one too. Give the tube an interior
+mass and the rank returns -- with W = -beta(lam) exact to 1e-13.
 
 What is put in
 --------------
 Two lines: the tube's DtN map and the value/flux matching at the mouths. The
-interior is one-dimensional and the mouths are still points; the growing mode
-at sigma* = 2 sqrt(pi/A) is what that costs, and it is a single-mouth object.
+interior is one-dimensional and A is a 1-D coupling, not an area with a radius
+attached; the mouths are still points, and the growing mode at
+sigma* = 2 sqrt(pi/A) is what that costs. The delay is a statement about the
+model's analytic structure at all frequencies, not about a resolved mouth.
 **No backreaction.**
 
 Usage
@@ -61,7 +71,7 @@ from geometrodynamics.waves.finite_throat import (
     causal_onset,
     impulse_response,
     measure_the_growing_mode_belongs_to_the_mouth,
-    measure_the_point_throat_is_a_single_frequency_match,
+    measure_the_short_tube_limit_is_a_mixed_stratum,
     measure_the_static_limit_is_rank_one_and_the_defect_diverges,
     measure_the_throat_transmits_at_the_traversal_time,
 )
@@ -96,7 +106,7 @@ class FiniteThroatFigure:
         self.ax_bnd = self.fig.add_subplot(gs[1, 0], facecolor=_PAL["panel"])
         self.ax_rnk = self.fig.add_subplot(gs[1, 1], facecolor=_PAL["panel"])
         self._delay = measure_the_throat_transmits_at_the_traversal_time()
-        self._band = measure_the_point_throat_is_a_single_frequency_match()
+        self._band = measure_the_short_tube_limit_is_a_mixed_stratum()
         self._rank = measure_the_static_limit_is_rank_one_and_the_defect_diverges()
         self._mode = measure_the_growing_mode_belongs_to_the_mouth()
 
@@ -176,9 +186,10 @@ class FiniteThroatFigure:
             ax.axvline(x, color=c, lw=0.8, ls=(0, (2, 4)), zorder=2)
             ax.annotate(lab, xy=(x + 0.03, 1.02), color=c, fontsize=6.6,
                         family="monospace")
-        ax.annotate("the operator's own response — no source,\n"
-                    "no observer, so this is the throat's\n"
-                    "causal structure and nothing else",
+        ax.annotate("the TWO-MOUTH block, not the throat alone:\n"
+                    "the source and observer legs are gone but\n"
+                    "Γ, the ambient's own mouth-to-mouth path,\n"
+                    "stays in — hence min(L, d)",
                     xy=(0.28, 0.44), xycoords="axes fraction", va="top",
                     color=_PAL["dim"], fontsize=6.2, family="monospace",
                     linespacing=1.75)
@@ -221,9 +232,10 @@ class FiniteThroatFigure:
         for sp in ax2.spines.values():
             sp.set_color(_PAL["rule"])
         ax.annotate("a point throat is a finite throat read at ONE λ.\n"
-                    "the antisymmetric channel has a limit; the\n"
-                    "symmetric one cannot — a massless tube holds a\n"
-                    "zero mode and a point has nowhere to put it.",
+                    "the CHART matrix diverges as L → 0 — but the\n"
+                    "limit does not: row-scaled, the pair converges\n"
+                    "to (P_anti, −P_sym), a mixed D/N stratum that\n"
+                    "no finite Hermitian A reaches.",
                     xy=(0.30, 0.70), xycoords="axes fraction", va="top",
                     color=_PAL["dim"], fontsize=6.3, family="monospace",
                     linespacing=1.75)
@@ -240,7 +252,7 @@ class FiniteThroatFigure:
                         framealpha=0.0, labelcolor=_PAL["dim"])
         leg.get_frame().set_edgecolor(_PAL["rule"])
         ax.grid(alpha=0.08, color=_PAL["grid"], which="both")
-        ax.set_title("there is no point limit — there is a band",
+        ax.set_title("a point limit — but not a finite A",
                      color=_PAL["text"], fontsize=8.6, pad=30)
 
     # -- the rank collapse ---------------------------------------------------
@@ -263,9 +275,10 @@ class FiniteThroatFigure:
                     "so PR #258's defect W = S₁₂/det S − G₀\n"
                     f"diverges like 1/λ:  {rows[0]['defect']:.2e} at λ = 1e-08\n"
                     "\n"
-                    "a POINT throat is statically rank 2.\n"
-                    "that is a falsifiable difference, from a\n"
-                    "STATIC measurement.",
+                    "that falsifies the generic finite-A family,\n"
+                    "every member of which is rank 2 — NOT\n"
+                    "point-ness: the short-tube stratum is rank 1\n"
+                    "too, and the tube converges to it.",
                     xy=(0.035, 0.97), xycoords="axes fraction", va="top",
                     color=_PAL["text"], fontsize=6.4, family="monospace",
                     linespacing=1.8)
@@ -306,26 +319,26 @@ class FiniteThroatFigure:
                       color=_PAL["dim"], fontsize=8.4, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.070,
-                      "the boundary condition is now FREQUENCY-DEPENDENT, and "
-                      "that dependence is the interior:  A(λ) = −N(λ)⁻¹,  "
-                      "self-adjoint at every λ (defect 0.0) against 0.30 for "
-                      "the rank-one transfer model it replaces",
+                      "the conservative object is the ENLARGED system, ambient "
+                      "+ tube; eliminating the tube leaves A(λ) = −N(λ)⁻¹, its "
+                      "Weyl function — faithful at every λ (defect 0.0) "
+                      "against 0.30 for the rank-one transfer model",
                       color=_PAL["dim"], fontsize=7.0, ha="center",
                       family="monospace")
         mode = self._mode
         self.fig.text(0.5, 0.047,
-                      f"the price of point mouths: one growing mode per "
-                      f"channel at σ* = 2√(π/A), matched to "
+                      f"AND IT FAILS THE STABILITY GATE: a growing mode at "
+                      f"σ* = 2√(π/A), matched to "
                       f"{mode['worst_closed_form_error']:.1e} with NO L in it "
                       f"and blind to the mouth separation to "
-                      f"{mode['separation_spread_far']:.0e} — a SINGLE-MOUTH "
-                      f"object, at the scale √(A/4π)",
+                      f"{mode['separation_spread_far']:.0e} — the POINT-MOUTH "
+                      f"matching is unstable, not the interior",
                       color=_PAL["dim"], fontsize=7.0, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.022,
                       "conformally coupled scalar on a fixed ESU   ·   the "
-                      "interior is one-dimensional and L, A, m are chosen, not "
-                      "derived   ·   NO backreaction",
+                      "interior is one-dimensional, A is a coupling and not a "
+                      "radius, and L, A, m are chosen   ·   NO backreaction",
                       color="#3d5570", fontsize=7.0, ha="center",
                       family="monospace")
 
