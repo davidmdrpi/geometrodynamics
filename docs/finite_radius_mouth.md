@@ -230,10 +230,20 @@ the physics.
 
 ```
 ray closure → field solution → two-wave invariant → finite throat
-            → mouth resolved ✓ → stationary action → backreaction
-            → topological branch
+            → mouth resolved ✓ → neck resolved ✓ → stationary action
+            → backreaction → topological branch
 ```
 
-What is *not* settled: the neck geometry, the multipole content above `ℓ = 0`,
-and backreaction. Those are limitations of this round, not gates on the next one
-— and each has a number attached rather than a caveat.
+What is *not* settled here: the neck geometry, the multipole content above
+`ℓ = 0`, and backreaction. Those are limitations of this round, not gates on the
+next one — and each has a number attached rather than a caveat.
+
+**Two of them are closed by #262** (`docs/finite_radius_neck.md`), which removes
+the balls from the ambient and re-asks the question. The answer does not move,
+and it becomes a *theorem* rather than a sign on a `2×2`: with nothing
+subtracted the energy is a sum of non-negative terms, so `λ > 0` for every
+configuration, all multipoles, no sweep. That round also shows the `ℓ ≥ 1`
+sectors decouple from a one-channel tube — so the monopole truncation flagged in
+§8 was never a *stability* limitation — and it prices the fixed ambient at
+`3.8e-03` at the working radius. It corrects one claim above: **§5's "exactly
+one state below the gap" holds for `L < π`, not structurally.**

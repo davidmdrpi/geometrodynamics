@@ -1,0 +1,778 @@
+{
+  "probe": "neck",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "PR #261 answered PR #260's gate with spheres in a FIXED ambient -- the balls were never removed, and only l = 0 coupled. Remove them: solve on S^3 minus two balls, glue the tube along the boundary spheres, and re-ask whether the negative mode survives.",
+      "scope": "a linear conformally coupled scalar on a FIXED round S^3 with two balls cut out. The tube has ONE transverse channel, so A is a coupling and the neck is a quantum-graph edge rather than a solved geometry. No backreaction.",
+      "pass": true
+    },
+    {
+      "name": "T2_the_exterior_map",
+      "ells": [
+        0,
+        1,
+        2,
+        5,
+        10
+      ],
+      "rows": [
+        {
+          "radius": 0.02,
+          "sigma": 0.05,
+          "by_ell": [
+            0.25288348626372437,
+            0.5787026702465662,
+            0.8474718821748636,
+            1.6177071269732979,
+            2.8814679778228514
+          ],
+          "min_over_ell": 0.25288348626372437
+        },
+        {
+          "radius": 0.02,
+          "sigma": 1.0,
+          "by_ell": [
+            0.2563058502690404,
+            0.5787647456415447,
+            0.8474986483315182,
+            1.6177172799247919,
+            2.881473007856406
+          ],
+          "min_over_ell": 0.2563058502690404
+        },
+        {
+          "radius": 0.02,
+          "sigma": 5.0,
+          "by_ell": [
+            0.2763897873806266,
+            0.5802257755519309,
+            0.8481416865958074,
+            1.6179615300731358,
+            2.8815940278320036
+          ],
+          "min_over_ell": 0.2763897873806266
+        },
+        {
+          "radius": 0.02,
+          "sigma": 30.0,
+          "by_ell": [
+            0.40203673925698086,
+            0.6229664619750925,
+            0.8705921891871129,
+            1.6268258230470363,
+            2.88600178635097
+          ],
+          "min_over_ell": 0.40203673925698086
+        },
+        {
+          "radius": 0.02,
+          "sigma": 150.0,
+          "by_ell": [
+            1.005142108263488,
+            1.0981978303130395,
+            1.239213925552018,
+            1.8258553165444198,
+            2.9922212519184517
+          ],
+          "min_over_ell": 1.005142108263488
+        },
+        {
+          "radius": 0.2,
+          "sigma": 0.05,
+          "by_ell": [
+            2.6166138846885105,
+            5.738031433877364,
+            8.400696195010083,
+            16.04835945643582,
+            28.601474112131203
+          ],
+          "min_over_ell": 2.6166138846885105
+        },
+        {
+          "radius": 0.2,
+          "sigma": 1.0,
+          "by_ell": [
+            2.9455472752391336,
+            5.791211974622251,
+            8.426230089035139,
+            16.058256398513734,
+            28.606393784118776
+          ],
+          "min_over_ell": 2.9455472752391336
+        },
+        {
+          "radius": 0.2,
+          "sigma": 5.0,
+          "by_ell": [
+            4.926729619962943,
+            6.740242258047423,
+            8.987694080674327,
+            16.293516440672946,
+            28.72443965263146
+          ],
+          "min_over_ell": 4.926729619962943
+        },
+        {
+          "radius": 0.2,
+          "sigma": 30.0,
+          "by_ell": [
+            17.326439686072952,
+            17.86355906953997,
+            18.727386585826054,
+            22.86384983276589,
+            32.677939139606266
+          ],
+          "min_over_ell": 17.326439686072952
+        },
+        {
+          "radius": 0.2,
+          "sigma": 150.0,
+          "by_ell": [
+            76.845048003405,
+            76.96667938268655,
+            77.16898455601307,
+            78.25264700621614,
+            81.5726091352983
+          ],
+          "min_over_ell": 76.845048003405
+        },
+        {
+          "radius": 0.5,
+          "sigma": 0.05,
+          "by_ell": [
+            6.386887302534082,
+            13.662269257887331,
+            20.0319234973842,
+            38.4472194423751,
+            68.72618897139846
+          ],
+          "min_over_ell": 6.386887302534082
+        },
+        {
+          "radius": 0.5,
+          "sigma": 1.0,
+          "by_ell": [
+            8.204957591775337,
+            14.243512903458349,
+            20.356365364947454,
+            38.58247103668142,
+            68.79450220381487
+          ],
+          "min_over_ell": 8.204957591775337
+        },
+        {
+          "radius": 0.5,
+          "sigma": 5.0,
+          "by_ell": [
+            19.72894711582847,
+            22.436745725539083,
+            26.37280077565521,
+            41.65202401065448,
+            70.41374759011747
+          ],
+          "min_over_ell": 19.72894711582847
+        },
+        {
+          "radius": 0.5,
+          "sigma": 30.0,
+          "by_ell": [
+            91.9380920535721,
+            92.52967543678547,
+            93.50771070717485,
+            98.62846037699809,
+            113.29138879543149
+          ],
+          "min_over_ell": 91.9380920535721
+        },
+        {
+          "radius": 0.5,
+          "sigma": 150.0,
+          "by_ell": [
+            438.5419877552089,
+            438.66613065531556,
+            438.8729583532113,
+            439.988167147456,
+            443.4809049517653
+          ],
+          "min_over_ell": 438.5419877552089
+        }
+      ],
+      "capacitance": [
+        {
+          "radius": 0.02,
+          "N0_at_zero": 0.25287043349402744,
+          "four_pi_a": 0.25132741228718347,
+          "ratio": 1.0061394863091209
+        },
+        {
+          "radius": 0.01,
+          "N0_at_zero": 0.1260565926603342,
+          "four_pi_a": 0.12566370614359174,
+          "ratio": 1.003126491560686
+        },
+        {
+          "radius": 0.005,
+          "N0_at_zero": 0.06293096445347152,
+          "four_pi_a": 0.06283185307179587,
+          "ratio": 1.0015774066310348
+        }
+      ],
+      "worst_shooting_vs_closed_form": 1.7319839324272666e-14,
+      "smallest_dtn_seen": 0.25288348626372437,
+      "it_is_positive_everywhere": true,
+      "it_increases_with_ell": true,
+      "the_capacitance_normalization_holds": true,
+      "what_it_replaces": "PR #261's f(a)G(a), which averaged over a sphere while keeping the ball in the ambient",
+      "pass": true
+    },
+    {
+      "name": "T3_the_quadratic_form_is_positive",
+      "trials": 40,
+      "rows": [
+        {
+          "quotient": 49.1265379572921,
+          "ambient_fraction": 0.19492311762482747
+        },
+        {
+          "quotient": 0.35909320781969356,
+          "ambient_fraction": 0.1773752421198902
+        },
+        {
+          "quotient": 8.647871367935968,
+          "ambient_fraction": 0.8490475263392254
+        },
+        {
+          "quotient": 1.572267879965684,
+          "ambient_fraction": 0.953338790499692
+        },
+        {
+          "quotient": 0.7781993759641851,
+          "ambient_fraction": 0.5262724314836935
+        },
+        {
+          "quotient": 18.45815462431638,
+          "ambient_fraction": 0.46558717589825754
+        },
+        {
+          "quotient": 5.8325878286210395,
+          "ambient_fraction": 0.3356025501667804
+        },
+        {
+          "quotient": 0.4446935415087473,
+          "ambient_fraction": 0.24716821570085257
+        }
+      ],
+      "smallest_quotient": 0.35909320781969356,
+      "largest_quotient": 49.1265379572921,
+      "lowest_computed_mode": 0.10751601617286202,
+      "interior_only_quotient": 12.184694289848775,
+      "poincare_floor": 12.184696791468344,
+      "every_quotient_is_positive": true,
+      "no_trial_beats_the_lowest_mode": true,
+      "the_interior_only_case_hits_the_poincare_floor": true,
+      "the_theorem": "every term is non-negative and the degenerate case is floored by \u03c0\u00b2/L\u00b2, so \u03bb > 0 for all multipoles with no truncation and no sweep",
+      "pass": true
+    },
+    {
+      "name": "T4_the_negative_mode_does_not_survive",
+      "samples": 1197,
+      "positives": 0,
+      "worst_approach_to_zero": -0.0016368281817384736,
+      "the_tube_side_is_always_negative": true,
+      "the_exterior_side_is_always_positive": true,
+      "there_is_no_growing_mode": true,
+      "the_answer": "no, with the balls removed as well \u2014 and here the quadratic form settles it without any sweep",
+      "pass": true
+    },
+    {
+      "name": "T5_the_higher_multipoles_decouple",
+      "rows": [
+        {
+          "ell": 1,
+          "sigma": 0.1,
+          "dtn": 1.446131341027484,
+          "monopole_dtn": 0.6377465587932006,
+          "stiffer_than_monopole": true
+        },
+        {
+          "ell": 1,
+          "sigma": 1.0,
+          "dtn": 1.4470772225590147,
+          "monopole_dtn": 0.6587914470008694,
+          "stiffer_than_monopole": true
+        },
+        {
+          "ell": 1,
+          "sigma": 10.0,
+          "dtn": 1.5261414419348176,
+          "monopole_dtn": 0.9411694098629498,
+          "stiffer_than_monopole": true
+        },
+        {
+          "ell": 2,
+          "sigma": 0.1,
+          "dtn": 2.1177004080190303,
+          "monopole_dtn": 0.6377465587932006,
+          "stiffer_than_monopole": true
+        },
+        {
+          "ell": 2,
+          "sigma": 1.0,
+          "dtn": 2.118114366432829,
+          "monopole_dtn": 0.6587914470008694,
+          "stiffer_than_monopole": true
+        },
+        {
+          "ell": 2,
+          "sigma": 10.0,
+          "dtn": 2.1582333637567794,
+          "monopole_dtn": 0.9411694098629498,
+          "stiffer_than_monopole": true
+        },
+        {
+          "ell": 3,
+          "sigma": 0.1,
+          "dtn": 2.7663461522389072,
+          "monopole_dtn": 0.6377465587932006,
+          "stiffer_than_monopole": true
+        },
+        {
+          "ell": 3,
+          "sigma": 1.0,
+          "dtn": 2.7666132432983033,
+          "monopole_dtn": 0.6587914470008694,
+          "stiffer_than_monopole": true
+        },
+        {
+          "ell": 3,
+          "sigma": 10.0,
+          "dtn": 2.793034498422347,
+          "monopole_dtn": 0.9411694098629498,
+          "stiffer_than_monopole": true
+        },
+        {
+          "ell": 5,
+          "sigma": 0.1,
+          "dtn": 4.042557656854796,
+          "monopole_dtn": 0.6377465587932006,
+          "stiffer_than_monopole": true
+        },
+        {
+          "ell": 5,
+          "sigma": 1.0,
+          "dtn": 4.042714890384728,
+          "monopole_dtn": 0.6587914470008694,
+          "stiffer_than_monopole": true
+        },
+        {
+          "ell": 5,
+          "sigma": 10.0,
+          "dtn": 4.058388237081852,
+          "monopole_dtn": 0.9411694098629498,
+          "stiffer_than_monopole": true
+        }
+      ],
+      "every_channel_is_positive": true,
+      "every_channel_is_stiffer_than_the_monopole": true,
+      "smallest_ratio_to_the_monopole": 1.6215374468630994,
+      "why_it_matters": "a one-channel tube drives only \u2113 = 0, so the higher sectors are spectators; the (a/d)^\u2113 screening bounds missed amplitude, not the stability answer",
+      "pass": true
+    },
+    {
+      "name": "T6_what_the_fixed_ambient_cost",
+      "rows": [
+        {
+          "radius": 0.02,
+          "lambda": 0.0,
+          "fixed_ambient": 3.9540704626647902,
+          "balls_removed": 3.9545943991258237,
+          "ratio": 0.9998675119599751,
+          "relative_error": 0.00013248804002485165
+        },
+        {
+          "radius": 0.02,
+          "lambda": -4.0,
+          "fixed_ambient": 3.8243880041578473,
+          "balls_removed": 3.8268396524494688,
+          "ratio": 0.9993593543199407,
+          "relative_error": 0.0006406456800593242
+        },
+        {
+          "radius": 0.05,
+          "lambda": 0.0,
+          "fixed_ambient": 1.5675249704712377,
+          "balls_removed": 1.5688117210341648,
+          "ratio": 0.9991797928676369,
+          "relative_error": 0.0008202071323630933
+        },
+        {
+          "radius": 0.05,
+          "lambda": -4.0,
+          "fixed_ambient": 1.4436963995224328,
+          "balls_removed": 1.4491663553957288,
+          "ratio": 0.9962254465452296,
+          "relative_error": 0.0037745534547704274
+        },
+        {
+          "radius": 0.15,
+          "lambda": 0.0,
+          "fixed_ambient": 0.5089921885393309,
+          "balls_removed": 0.512659052770571,
+          "ratio": 0.9928473627620088,
+          "relative_error": 0.007152637237991186
+        },
+        {
+          "radius": 0.15,
+          "lambda": -4.0,
+          "fixed_ambient": 0.401942497902335,
+          "balls_removed": 0.4135523445734392,
+          "ratio": 0.971926536450714,
+          "relative_error": 0.028073463549285995
+        },
+        {
+          "radius": 0.35,
+          "lambda": 0.0,
+          "fixed_ambient": 0.21048974308989712,
+          "balls_removed": 0.21848270907681577,
+          "ratio": 0.9634160249079097,
+          "relative_error": 0.03658397509209034
+        },
+        {
+          "radius": 0.35,
+          "lambda": -4.0,
+          "fixed_ambient": 0.12747454398688463,
+          "balls_removed": 0.14279792422282736,
+          "ratio": 0.892691855856171,
+          "relative_error": 0.10730814414382904
+        }
+      ],
+      "single_scattering": [
+        {
+          "radius": 0.02,
+          "separation": 1.3,
+          "lambda": 0.0,
+          "cross_over_self": 0.012243676656459049,
+          "over_a_over_d": 0.7958389826698382,
+          "neglected_order": 0.00014990761806792024
+        },
+        {
+          "radius": 0.02,
+          "separation": 1.3,
+          "lambda": -4.0,
+          "cross_over_self": 0.001602959964356552,
+          "over_a_over_d": 0.10419239768317588,
+          "neglected_order": 2.5694806473299586e-06
+        },
+        {
+          "radius": 0.05,
+          "separation": 1.3,
+          "lambda": 0.0,
+          "cross_over_self": 0.03088495755597966,
+          "over_a_over_d": 0.8030088964554711,
+          "neglected_order": 0.0009538806032346651
+        },
+        {
+          "radius": 0.05,
+          "separation": 1.3,
+          "lambda": -4.0,
+          "cross_over_self": 0.00424780222792394,
+          "over_a_over_d": 0.11044285792602244,
+          "neglected_order": 1.804382376755559e-05
+        },
+        {
+          "radius": 0.15,
+          "separation": 1.3,
+          "lambda": 0.0,
+          "cross_over_self": 0.09514520721183561,
+          "over_a_over_d": 0.8245917958359087,
+          "neglected_order": 0.009052610455383137
+        },
+        {
+          "radius": 0.15,
+          "separation": 1.3,
+          "lambda": -4.0,
+          "cross_over_self": 0.015388367883552492,
+          "over_a_over_d": 0.13336585499078826,
+          "neglected_order": 0.00023680186611954978
+        },
+        {
+          "radius": 0.35,
+          "separation": 1.3,
+          "lambda": 0.0,
+          "cross_over_self": 0.23085829941607564,
+          "over_a_over_d": 0.8574736835454239,
+          "neglected_order": 0.05329555440928243
+        },
+        {
+          "radius": 0.35,
+          "separation": 1.3,
+          "lambda": -4.0,
+          "cross_over_self": 0.05252537189629657,
+          "over_a_over_d": 0.1950942384719587,
+          "neglected_order": 0.002758914692844262
+        },
+        {
+          "radius": 0.35,
+          "separation": 0.8,
+          "lambda": 0.0,
+          "cross_over_self": 0.3942815182186811,
+          "over_a_over_d": 0.9012148987855569,
+          "neglected_order": 0.15545791560882818
+        },
+        {
+          "radius": 0.35,
+          "separation": 0.8,
+          "lambda": -4.0,
+          "cross_over_self": 0.19188642233864753,
+          "over_a_over_d": 0.43859753677405156,
+          "neglected_order": 0.03682039907792581
+        }
+      ],
+      "worst_error_at_the_working_radius": 0.0037745534547704274,
+      "worst_error_overall": 0.10730814414382904,
+      "the_error_grows_with_the_radius": true,
+      "pr_261_was_right_where_it_looked": true,
+      "cross_over_self_scales_like_a_over_d": true,
+      "neglected_scattering_at_the_working_point": 0.0009538806032346651,
+      "neglected_scattering_worst": 0.15545791560882818,
+      "the_neglected_series_cannot_reach_the_sign": true,
+      "pass": true
+    },
+    {
+      "name": "T7_the_soft_mode_is_forced",
+      "rows": [
+        {
+          "length": 0.3,
+          "f_sym_at_zero": 530516475.3517413,
+          "f_sym_at_the_gap": -101322522.2009468,
+          "f_anti_at_zero": -1.5322956128183736,
+          "symmetric_roots": [
+            0.3161120938415549
+          ],
+          "antisymmetric_roots": [],
+          "spurious_pole_crossings": 0,
+          "tube_harmonics_in_the_gap": 0,
+          "states": 1
+        },
+        {
+          "length": 0.9,
+          "f_sym_at_zero": 176838824.02846044,
+          "f_sym_at_the_gap": -101322522.56274052,
+          "f_anti_at_zero": -1.5561688823763264,
+          "symmetric_roots": [
+            0.10751601617286202
+          ],
+          "antisymmetric_roots": [],
+          "spurious_pole_crossings": 0,
+          "tube_harmonics_in_the_gap": 0,
+          "states": 1
+        },
+        {
+          "length": 2.0,
+          "f_sym_at_zero": 79577469.90215744,
+          "f_sym_at_the_gap": -101322522.6763823,
+          "f_anti_at_zero": -1.5999365059796704,
+          "symmetric_roots": [
+            0.04821435186655787
+          ],
+          "antisymmetric_roots": [],
+          "spurious_pole_crossings": 0,
+          "tube_harmonics_in_the_gap": 0,
+          "states": 1
+        },
+        {
+          "length": 3.0,
+          "f_sym_at_zero": 53051646.040245295,
+          "f_sym_at_the_gap": -101322522.7218352,
+          "f_anti_at_zero": -1.6397252513233556,
+          "symmetric_roots": [
+            0.03192867228313674
+          ],
+          "antisymmetric_roots": [],
+          "spurious_pole_crossings": 0,
+          "tube_harmonics_in_the_gap": 0,
+          "states": 1
+        },
+        {
+          "length": 4.0,
+          "f_sym_at_zero": 39788734.10265778,
+          "f_sym_at_the_gap": -101322522.76389764,
+          "f_anti_at_zero": -1.6795139780405892,
+          "symmetric_roots": [
+            0.02377076320552631
+          ],
+          "antisymmetric_roots": [
+            0.667445437978273
+          ],
+          "spurious_pole_crossings": 1,
+          "tube_harmonics_in_the_gap": 1,
+          "states": 2
+        },
+        {
+          "length": 6.0,
+          "f_sym_at_zero": 26525822.151807338,
+          "f_sym_at_the_gap": -101322523.28573447,
+          "f_anti_at_zero": -1.7590914519641532,
+          "symmetric_roots": [
+            0.01560634826865994
+          ],
+          "antisymmetric_roots": [
+            0.30777661075885643
+          ],
+          "spurious_pole_crossings": 1,
+          "tube_harmonics_in_the_gap": 1,
+          "states": 2
+        },
+        {
+          "length": 8.0,
+          "f_sym_at_zero": 19894366.16311921,
+          "f_sym_at_the_gap": -101322522.65874806,
+          "f_anti_at_zero": -1.8386689258877171,
+          "symmetric_roots": [
+            0.011524751951031916,
+            0.6385268394202903
+          ],
+          "antisymmetric_roots": [
+            0.1792267138904161
+          ],
+          "spurious_pole_crossings": 2,
+          "tube_harmonics_in_the_gap": 2,
+          "states": 3
+        }
+      ],
+      "gap_edge": [
+        {
+          "lmbda": 0.9,
+          "N0": 0.48662729456924264,
+          "N0_over_one_minus_lambda": 4.866272945692428,
+          "closed_form_slope": 19.738685465140183,
+          "relative": 0.7534651963380953
+        },
+        {
+          "lmbda": 0.99,
+          "N0": 0.15109992787299278,
+          "N0_over_one_minus_lambda": 15.109992787299266,
+          "closed_form_slope": 19.738685465140183,
+          "relative": 0.23449852757497416
+        },
+        {
+          "lmbda": 0.999,
+          "N0": 0.01915186132818289,
+          "N0_over_one_minus_lambda": 19.15186132818287,
+          "closed_form_slope": 19.738685465140183,
+          "relative": 0.02972964628235661
+        },
+        {
+          "lmbda": 0.9999,
+          "N0": 0.0019678388310894546,
+          "N0_over_one_minus_lambda": 19.678388310896715,
+          "closed_form_slope": 19.738685465140183,
+          "relative": 0.003054770508905306
+        },
+        {
+          "lmbda": 0.99999,
+          "N0": 0.0001973263911227139,
+          "N0_over_one_minus_lambda": 19.73263911236119,
+          "closed_form_slope": 19.738685465140183,
+          "relative": 0.00030631993147008725
+        },
+        {
+          "lmbda": 0.999999,
+          "N0": 1.9738080662909853e-05,
+          "N0_over_one_minus_lambda": 19.738080662342274,
+          "closed_form_slope": 19.738685465140183,
+          "relative": 3.0640480034863975e-05
+        }
+      ],
+      "the_symmetric_channel_starts_positive": true,
+      "and_ends_negative": true,
+      "so_a_symmetric_state_is_forced": true,
+      "the_antisymmetric_channel_starts_negative": true,
+      "gap_edge_slope_error": 3.0640480034863975e-05,
+      "gap_edge_error_ratio_per_decade": 0.10002770596028315,
+      "the_exterior_stiffness_vanishes_linearly_at_the_gap_edge": true,
+      "short_tubes_hold_exactly_one_state": true,
+      "long_tubes_hold_more": true,
+      "every_extra_state_follows_a_tube_harmonic": true,
+      "pole_crossings_that_would_have_been_miscounted": 4,
+      "what_pr_261_got_wrong": "'exactly one state below the gap' is a statement about L < \u03c0, not a structural one; it holds for every length that round used and fails above L = \u03c0",
+      "pass": true
+    },
+    {
+      "name": "T8_the_soft_mode_survives_the_removal",
+      "rows": [
+        {
+          "radius": 0.2,
+          "lambda_0_neck": 0.3494087145851805,
+          "lambda_0_fixed_ambient": 0.3515884056447238,
+          "closed_form": 0.4444444444444444,
+          "shift_from_removal": 0.006199553297402679,
+          "ratio_to_closed_form": 0.7861696078166562
+        },
+        {
+          "radius": 0.1,
+          "lambda_0_neck": 0.20378546206107412,
+          "lambda_0_fixed_ambient": 0.20425647179751122,
+          "closed_form": 0.2222222222222222,
+          "shift_from_removal": 0.00230597215496816,
+          "ratio_to_closed_form": 0.9170345792748336
+        },
+        {
+          "radius": 0.05,
+          "lambda_0_neck": 0.10751601617286202,
+          "lambda_0_fixed_ambient": 0.10759124758415581,
+          "closed_form": 0.1111111111111111,
+          "shift_from_removal": 0.0006992335620510505,
+          "ratio_to_closed_form": 0.9676441455557583
+        },
+        {
+          "radius": 0.02,
+          "lambda_0_neck": 0.043978087259090595,
+          "lambda_0_fixed_ambient": 0.04398356782927676,
+          "closed_form": 0.044444444444444446,
+          "shift_from_removal": 0.00012460494808964304,
+          "ratio_to_closed_form": 0.9895069633295384
+        },
+        {
+          "radius": 0.01,
+          "lambda_0_neck": 0.022114988638536198,
+          "lambda_0_fixed_ambient": 0.022115701596760233,
+          "closed_form": 0.022222222222222223,
+          "shift_from_removal": 3.223764893532561e-05,
+          "ratio_to_closed_form": 0.9951744887341288
+        },
+        {
+          "radius": 0.005,
+          "lambda_0_neck": 0.011085480868266048,
+          "lambda_0_fixed_ambient": 0.011085571726891657,
+          "closed_form": 0.011111111111111112,
+          "shift_from_removal": 8.196115441561435e-06,
+          "ratio_to_closed_form": 0.9976932781439443
+        }
+      ],
+      "every_one_is_positive_and_below_the_gap": true,
+      "worst_shift_from_removal": 0.006199553297402679,
+      "shift_at_the_working_radius": 0.0006992335620510505,
+      "worst_closed_form_error": 0.010493036670461642,
+      "the_capacitance_formula_survives": true,
+      "removing_the_balls_barely_moves_it": true,
+      "pass": true
+    },
+    {
+      "name": "T9_assessment",
+      "n_passed": 8,
+      "n_total": 8,
+      "pass": true
+    }
+  ],
+  "verdict_class": "THE_NEGATIVE_MODE_DOES_NOT_SURVIVE_THE_NECK",
+  "verdict": "*** THE ANSWER IS STILL NO, AND IT IS NOW A THEOREM. *** PR #261 answered PR #260's gate with spheres in a FIXED ambient: the balls were never removed, and only l = 0 coupled. That was its own stated limitation and the strongest remaining doubt. This round removes them -- the ambient is S^3 minus two balls, the tube is glued along the boundary spheres -- and the answer does not move. WITH THE BALLS REMOVED THERE IS NO SUBTRACTION ANYWHERE, so the energy E = Int_Omega (|grad phi|^2 + phi^2) + A Int (|u'|^2 + m^2 |u|^2) is a sum of manifestly non-negative terms, and E = 0 forces phi = 0, whence matching gives u(0) = u(L) = 0 and Poincare gives A Int |u'|^2 >= (pi/L)^2 A Int |u|^2. Hence lam > 0 for EVERY configuration, ALL MULTIPOLES, NO TRUNCATION, NO SWEEP. That is a change of footing rather than a refinement: PR #261 had to establish a SIGN on a reduced 2x2, this round has POSITIVITY OF THE FORM ITSELF, and the renormalized g(lam) < 0 that PR #260's mode fed on has nowhere to enter because nothing is renormalized. The object the theorem is about is checked rather than asserted: the exterior DtN is computed by shooting the radial equation from the far pole and agrees with an independent closed form to 1.7e-14; it is positive in every channel and INCREASES with l, so the monopole is the softest and the higher channels cannot be the first to go soft; and N_0 -> 4 pi a, the capacitance of a sphere, which fixes the normalization as physical. Explicit trial configurations give Rayleigh quotients from 0.3591 up, all positive and all above the computed lowest mode 0.107516, and the degenerate purely-interior case lands on the Poincare floor pi^2/L^2 exactly. The sweep agrees with the theorem: 1197 samples give 0 positives, worst approach -1.6e-03, with the tube side negative and the exterior side positive at every one. *** AND PR #261's MONOPOLE TRUNCATION WAS NEVER A STABILITY LIMITATION. *** A one-channel tube presents a single number at each mouth, so it drives only l = 0; the higher sectors are the exterior's own modes with positive DtN, at least 1.62x stiffer than the monopole, and can neither be driven nor go unstable. PR #250's (a/d)^l screening bounds missed AMPLITUDE, not the answer. WHAT THE FIXED AMBIENT COST, PRICED: PR #261's f(a)G(a) against this round's 1/N_0 agrees to 3.8e-03 at the working radius and departs to 10.7% at a = 0.35, lam = -4, growing with the fraction of the sphere wrongly left in -- so that round was right where it looked, and now by a measured margin rather than a caveat. THE ONE APPROXIMATION LEFT IN THE REDUCED 2x2 IS ALSO PRICED: its cross term f(a)^2 G(d) is SINGLE-SCATTERING, and the neglected series expands in cross/self = 0.8 (a/d), which is 9.5e-04 at the working point and at worst 0.16 anywhere sampled -- too small to flip the sign the reduced model is asked to decide, and irrelevant to the theorem, which does not go through it. THE SOFT MODE IS FORCED, NOT FOUND: the same style of argument that kills the growing mode produces this one from the two ends of the gap, F_sym -> +inf as lam -> 0+ and -> -inf as lam -> 1-, the latter because the exterior stiffness VANISHES at the free ESU threshold, N_0 -> 2 pi (pi - a + sin a cos a)(1 - lam), reproduced to 3.1e-05 with first-order convergence (error ratio 0.1000 per decade). *** ONE CORRECTION TO PR #261: *** its 'exactly one state below the gap' is a statement about L < pi, not a structural one. The channel functions have POLES at lam = (2 pi j/L)^2 and (pi(2j-1)/L)^2; above L = pi these enter the gap and each brings a genuine extra state just above it -- three states at L = 8. A pole is a sign change with NO ZERO, so crossing-counting alone reports states that are not there (4 of them across the lengths swept here); classifying by the residual separates roots from poles by fifteen orders of magnitude. None of it touches the stability answer -- every one of those states is positive, as the form requires. AND THE SOFT MODE SURVIVES THE REMOVAL: lam_0 moves by 7.0e-04 at the working radius and still tends to 8 pi a/(A L), matched to 1.0%. WHAT IS STILL PUT IN: the tube has ONE transverse channel, so A is a coupling rather than a solved neck cross-section; the ambient metric is FIXED; and there is NO BACKREACTION. PR #260's gate is now closed from both sides -- resolved mouths and removed balls -- so stationary action and backreaction can proceed on a background whose positivity is proved rather than sampled.",
+  "working_neck": {
+    "separation": 1.3,
+    "length": 0.9,
+    "area": 12.566370614359172,
+    "radius": 0.05
+  },
+  "generated_utc": "2026-08-19T06:13:09.934242+00:00"
+}

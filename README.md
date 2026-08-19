@@ -2766,9 +2766,7 @@ pole is cleared but **unresolved by the grid**, #259's lesson a second time. Bot
 condition stabilizes anything: above `σ*` the inversion returns the correct
 retarded solution *of an unstable system*. Whether a finite-radius mouth or neck
 geometry removes the mode is open, and should be settled **before**
-stationary-action or backreaction work. Whether a finite-radius mouth or neck geometry removes the
-mode is open, and should be settled **before** stationary-action or backreaction
-work.
+stationary-action or backreaction work.
 
 **Which frequencies.** The delay and the bounce ledger are statements about the
 model's **analytic structure at all frequencies** — a causal onset is a UV
@@ -2834,7 +2832,7 @@ agree to `0.8%` for `κa ≤ 0.1` and differ by `1000%` at `κa = 3`, disagreein
 in magnitude but in **sign**. #260 suspected exactly this and could only record
 the suspicion; this is the demonstration.
 
-**Where the mode went: soft, and positive.** Exactly one state below the free gap
+**Where the mode went: soft, and positive.** One state below the free gap
 `λ = 1`, in the symmetric channel, with
 
 ```
@@ -2863,6 +2861,11 @@ are **spheres in a fixed ambient, not a solved neck**. No backreaction.
 because an integral over a field on a growing background measures the mode. That
 reason is gone.
 
+*(#262 removes the balls and finds the same answer as a theorem. It also
+corrects one claim here: "one state below the gap" holds for `L < π`, not
+structurally — above that the tube's own harmonics enter the gap and each brings
+another.)*
+
 ```bash
 python -m experiments.closure_ledger.finite_mouth_probe
 # Verdict: THE_NEGATIVE_MODE_DOES_NOT_SURVIVE_A_FINITE_MOUTH  (9/9)
@@ -2871,6 +2874,94 @@ python scripts/geometrodynamics_v61_finite_mouth.py --still v61.png
 ```
 
 Full write-up: `docs/finite_radius_mouth.md`.
+
+## The balls removed, and the answer made a theorem
+
+**PR #262 — the one limitation #261 named about itself, closed.** That round
+answered the gate, and said plainly where it was weakest: its mouths were
+**spheres in a fixed ambient**. The balls were never removed — it smeared the
+coupling over `∂B_a` while still using the *whole sphere's* Green function — and
+only `ℓ = 0` coupled. Two things could have hidden there: a self-energy wrong
+because the ball is still in, and a multipole that goes soft where the monopole
+does not.
+
+This round removes them: `Ω = S³ ∖ (B_a(c₁) ∪ B_a(c₂))`, tube glued along the
+boundary spheres. **The answer is still no — and it is now a theorem.**
+
+**The theorem.** With the balls removed there is **no subtraction anywhere**, so
+
+```
+E[φ,u] = ∫_Ω (|∇φ|² + φ²) dV  +  𝒜 ∫₀^L (|u'|² + m²|u|²) ds
+```
+
+is a sum of non-negative terms. `E = 0` forces `φ ≡ 0` on `Ω`; matching then
+gives `u(0) = u(L) = 0`, and Poincaré gives `𝒜∫|u'|² ≥ (π/L)²𝒜∫|u|²`. Hence
+**`λ > 0` for every configuration — all multipoles, no truncation, no sweep.**
+That is a change of footing rather than a refinement: #261 established a *sign*
+on a reduced `2×2`; this is positivity of the form itself, and the renormalized
+`g(λ) < 0` that #260's mode fed on has nowhere to enter.
+
+**The object it is about, checked.** The exterior DtN `N_ℓ(λ) = −4π sin²a·ψ'/ψ`
+comes from shooting `v'' + [λ − ℓ(ℓ+2)/sin²χ]v = 0` from the far pole, and
+matches an independent `ℓ=0` closed form to **`1.7e-14`**. It is positive in
+every channel and **increasing in `ℓ`** — the monopole is the softest, so the
+higher channels cannot be the first to go soft — and `N₀ → 4πa`, the capacitance
+of a sphere. Explicit trial configurations give Rayleigh quotients from `0.359`
+up, all above the computed lowest mode `0.1075`, and the degenerate purely
+interior case lands on the Poincaré floor `π²/L²` to `2e-07`. A **1197-sample**
+sweep agrees: `0` roots, worst approach `−1.6e-03`, reaching #261's conclusion
+from a different construction (`1/N₀` on the diagonal, not `f(a)G(a)`).
+
+**And the monopole truncation was never a stability limitation.** A one-channel
+tube presents a single number at each mouth, so it drives `ℓ = 0` and nothing
+else; the `ℓ ≥ 1` sectors are the exterior's own modes, `1.62×` stiffer or more.
+#250's `(a/d)^ℓ` screening bounds missed **amplitude**, not the answer.
+
+**What the fixed ambient cost, priced.** `f(a)G(a)` against `1/N₀`: `1.3e-04` at
+`a = 0.02, λ = 0`, `3.8e-03` at the working radius, `11%` at `a = 0.35, λ = −4`
+— the fraction of the sphere wrongly left in. A limitation with a measured size
+is a different object from one with a caveat. The same measurement prices the
+approximation this round has *not* removed: the reduced `2×2`'s cross term is
+**single-scattering**, its neglected series expands in `cross/self = 0.8·(a/d)`
+= `9.5e-04` at the working point and at worst `0.16` anywhere sampled — too
+small to flip a sign, and irrelevant to the theorem, which does not go through
+the reduced model.
+
+**The soft mode is forced, not found.** The same style of argument that kills the
+growing mode produces this one, from the two ends of the gap: `F_sym → +∞` as
+`λ → 0⁺` (the tube's `2/(𝒜λL)`), and `→ −∞` as `λ → 1⁻`, because the exterior
+stiffness **vanishes** at the free ESU threshold —
+
+```
+N₀(λ)  ⟶  2π (π − a + sin a cos a) · (1 − λ)
+```
+
+reproduced to `3.1e-05`, first order exactly (error `×0.1` per decade). A
+continuous function running `+∞ → −∞` has a zero.
+
+**One correction to #261.** Its "exactly one state below the gap" is a statement
+about `L < π`, not a structural one. The channel functions have **poles** at
+`λ = (2πj/L)²` and `(π(2j−1)/L)²`; above `L = π` these enter the gap and each
+brings a genuine extra state just above it — three at `L = 8`. A pole is a *sign
+change with no zero*, so crossing-counting alone reports states that are not
+there; the residual separates roots from poles by fifteen orders of magnitude
+(`1e-15` against `1e+15`), so the discrimination is not a tuned threshold. None
+of it touches the stability answer — every one of those states is positive, as
+the form requires.
+
+**What is still put in.** The tube has **one transverse channel**, so `𝒜` is a
+coupling and the neck is a quantum-graph edge, not a solved cross-section. The
+ambient metric is **fixed**. **No backreaction.** Those are the next round's
+subject, not gates on it.
+
+```bash
+python -m experiments.closure_ledger.neck_probe
+# Verdict: THE_NEGATIVE_MODE_DOES_NOT_SURVIVE_THE_NECK  (9/9)
+
+python scripts/geometrodynamics_v62_neck.py --still v62.png
+```
+
+Full write-up: `docs/finite_radius_neck.md`.
 
 ## The geometric-visualization arc, end to end
 
