@@ -876,8 +876,9 @@ that the interference response is *generically* unreachable.
 **The channel is never on resonance.** The conformal scalar on the ESU has
 integer spectrum `ω_n = n+1`, and on a compact static space it rings on those
 modes forever; `T` is quadratic and integers are closed under sums and
-differences, so the shear source rings on integers too — measured peaks at
-`5.969`, `7.959`, `2.094`, `3.142`, all within a grid bin of an integer. But
+differences, so the shear source rings on integers too — the two dominant
+peaks measured at `5.969` and `7.959`, within `0.031` and `0.041` of `6` and
+`8`. But
 `ω₃ = 2√2` is **irrational**, `0.172` from the nearest integer. **On this
 background the gravitational shear channel is driven off resonance by
 construction.**
@@ -1102,6 +1103,14 @@ Worth recording, because the failure modes repeat:
   `ω₃ = 2√2` is irrational, so the gravitational channel is off resonance by
   construction. **A reasonable-sounding mechanism is a hypothesis, and this arc's
   own rule is that hypotheses get measured.**
+* **And the threshold-for-a-limit species, a fourth time.** The replacement
+  check demanded that the nearest source peak sit more than `3` grid bins from
+  `ω₃`; the measurement is `2.99` bins, so it failed by `0.4%`. The exact
+  statement was never the bin count — it is that `2√2` is **irrational** and can
+  never equal an integer, which needs no tolerance at all. §18 learned this with
+  its three identifying properties, §20 with its "exactly one state", and it
+  recurred here: **when a check fails narrowly, look for the exact statement it
+  is a numerical shadow of** rather than retuning the number.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by

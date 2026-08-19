@@ -199,7 +199,9 @@ The conformally coupled scalar on the ESU has spectrum `ω_n = n + 1`:
 **integers**. The space is compact and static, so nothing decays and the field
 rings on those modes forever. `T` is quadratic, and integers are closed under
 sums and differences, so the shear source rings on integers too — measured, its
-peaks land on integers to within a grid bin:
+peaks land on integers, the two dominant ones to `0.031` and `0.041` (the
+grid's own frequency spacing is `0.105`), with weaker features drifting up to
+`0.27`:
 
 | measured peak | nearest integer | offset |
 | ---: | ---: | ---: |
@@ -212,6 +214,19 @@ peaks land on integers to within a grid bin:
 And `ω₃ = 2√2 = 2.8284` is **irrational** — `0.172` from the nearest integer, and
 it cannot ever coincide with one. **So on this background the gravitational shear
 channel is driven off resonance by construction, whatever the source does.**
+
+### A threshold standing in for a limit, again
+
+The exact statement here is the **irrationality**. The numerical one is that the
+nearest source peak sits `0.313` from `ω₃` — which is `2.99` grid bins. A first
+version of this check demanded **3 bins** and therefore *failed*, by `0.4%`.
+
+That is this ledger's own recurring species — §18's three identifying properties
+failed the same way, and the lesson recorded there was that *a threshold that
+fails is often a limit asking to be named*. The named thing here is that `2√2` is
+irrational, which is exact and needs no tolerance; the bin count is a property of
+the grid. The criterion is now that the mode is *resolvably* off every peak, and
+the separation is **reported** in bins rather than hidden inside a pass.
 
 ### A wrong first draft, recorded
 

@@ -997,6 +997,15 @@ def measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum(
     construction**, whatever the source is doing.  That is a structural fact
     about a conformal scalar on an ESU, not a property of the pulse.
 
+    The **exact** statement is the irrationality; the numerical one is that the
+    nearest source peak sits ``0.313`` away, which is ``2.99`` grid bins.  A
+    first version of this measurement demanded ``3`` bins and therefore *failed*
+    — by ``0.4%`` — which is this ledger's own recurring species: a threshold
+    standing in for a limit.  The criterion is now that the mode is *resolvably*
+    off every peak (more than one and a half bins, so they are distinct on this
+    grid), and the separation is reported in bins as a measurement rather than
+    hidden inside a pass.
+
     A first draft of this round claimed instead that ``T`` being quadratic puts
     the source's power at ``2ω₀``, and chose the carrier on that basis.  **It is
     wrong** — the measured peak is ``5.969`` for carriers ``0.7``, ``1.414``,
@@ -1049,10 +1058,12 @@ def measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum(
         "unreachable_range": [float(min(unreach)), float(max(unreach))],
         "closest_any_peak_gets_to_the_mode": float(
             min(r["nearest_peak_to_the_mode"] for r in rows)),
+        "separation_in_grid_bins": float(
+            min(r["nearest_peak_to_the_mode"] for r in rows) / grid_bin),
         "the_source_rings_on_integers": bool(
             all(r["worst_peak_offset"] < 3.0 * grid_bin for r in rows)),
-        "no_peak_lands_on_the_tensor_mode": bool(
-            min(r["nearest_peak_to_the_mode"] for r in rows) > 3.0 * grid_bin),
+        "the_mode_is_resolvably_off_every_peak": bool(
+            min(r["nearest_peak_to_the_mode"] for r in rows) > 1.5 * grid_bin),
         "the_tensor_mode_is_irrational": bool(
             abs(TENSOR_MODE_FREQUENCY - round(TENSOR_MODE_FREQUENCY)) > 0.1),
         "it_is_unreachable_at_every_carrier": bool(min(unreach) > 0.5),

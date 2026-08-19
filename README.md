@@ -3019,8 +3019,8 @@ magnitude drift `0.009`, residual moving `0.008`.
 
 **And the channel is never on resonance.** The conformal scalar on the ESU has
 integer spectrum `ω_n = n+1` and rings on it forever; `T` is quadratic, so the
-shear source rings on integers too (measured peaks `5.969`, `7.959`, all within
-a grid bin of an integer). But `ω₃ = 2√2` is **irrational** — `0.172` from the
+shear source rings on integers too — the two dominant peaks measured at
+`5.969` and `7.959`, within `0.031` and `0.041` of `6` and `8`. But `ω₃ = 2√2` is **irrational** — `0.172` from the
 nearest integer. On this background the gravitational shear channel is driven
 **off resonance by construction**.
 

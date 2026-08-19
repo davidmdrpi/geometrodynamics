@@ -1,0 +1,291 @@
+{
+  "probe": "backreaction",
+  "tests": [
+    {
+      "name": "T1_goal",
+      "question": "PR #260's gate is closed by #261 and #262, so ask the roadmap's first GR question: does A + B produce a metric response that rescaling A or B alone cannot reproduce? Everything reachable by rescaling is the two-parameter family {c^2 beta_A + d^2 beta_B}, so the question is a projection residual.",
+      "scope": "a linear conformally coupled scalar on a FIXED ESU with PR #257's POINT throat; the metric response to FIRST ORDER in the lowest (n=3, homogeneous) transverse-traceless harmonic. Linear response, not a solved coupled system.",
+      "pass": true
+    },
+    {
+      "name": "T2_the_response_is_derived",
+      "omega_squared_times_a_squared": "8",
+      "tensor_mode_frequency": 2.8284271247461903,
+      "s3_ricci": "2/a**2",
+      "s3_scalar": "6/a**2",
+      "esu_einstein_diagonal": [
+        "3/a**2",
+        "-1/a**2",
+        "-1/a**2",
+        "-1/a**2"
+      ],
+      "frw_g00": "3*(Derivative(a(t), t)**2 + 1)/a(t)**2",
+      "delta_g_tt": "Derivative(b1(t), (t, 2)) + 8*b1(t)/a**2",
+      "the_validations_pass": true,
+      "the_first_order_piece_is_traceless": true,
+      "the_momentum_constraint_holds": true,
+      "the_frequency_is_eight_over_a_squared": true,
+      "the_sector_is_stable": true,
+      "why_this_channel": "a perfect fluid has T_ab = diag(rho,p,p,p) in an orthonormal frame whatever the anisotropy, so it and \u039b contribute nothing traceless \u2014 the only channel whose answer does not depend on the matter this arc never specified",
+      "pass": true
+    },
+    {
+      "name": "T3_the_split_is_bilinear",
+      "rows": [
+        {
+          "scale": 0.5,
+          "self_norm": 0.030886555438598876,
+          "cross_norm": 0.06995800253952893,
+          "self_over_c_squared": 1.0,
+          "cross_over_c": 1.0
+        },
+        {
+          "scale": 1.0,
+          "self_norm": 0.1235462217543955,
+          "cross_norm": 0.13991600507905785,
+          "self_over_c_squared": 1.0,
+          "cross_over_c": 1.0
+        },
+        {
+          "scale": 2.0,
+          "self_norm": 0.494184887017582,
+          "cross_norm": 0.27983201015811565,
+          "self_over_c_squared": 1.0,
+          "cross_over_c": 0.9999999999999998
+        },
+        {
+          "scale": 3.0,
+          "self_norm": 1.1119159957895595,
+          "cross_norm": 0.41974801523717353,
+          "self_over_c_squared": 1.0,
+          "cross_over_c": 1.0
+        }
+      ],
+      "cross_with_one_source_off": 0.0,
+      "the_self_term_is_quadratic": true,
+      "the_cross_term_is_linear": true,
+      "it_vanishes_with_one_source_off": true,
+      "why_it_matters": "beta_A scales as c^2 and beta_cross as c, so the set reachable by rescaling is the two-parameter cone {c^2 beta_A + d^2 beta_B} and the question is whether beta_cross is in it",
+      "pass": true
+    },
+    {
+      "name": "T4_the_quadrature_control",
+      "points": [
+        7802,
+        15990
+      ],
+      "volume_errors": [
+        0.0008785157518216616,
+        0.0006308155741489596
+      ],
+      "rows": [
+        {
+          "component": "A",
+          "from": 7802,
+          "to": 15990,
+          "correlation": 0.9942221291786879,
+          "magnitude_ratio": 0.9926839705102671
+        },
+        {
+          "component": "B",
+          "from": 7802,
+          "to": 15990,
+          "correlation": 0.9704145121579142,
+          "magnitude_ratio": 1.0094446431913517
+        },
+        {
+          "component": "cross",
+          "from": 7802,
+          "to": 15990,
+          "correlation": 0.9991068299239727,
+          "magnitude_ratio": 0.9937365251154829
+        }
+      ],
+      "residual_by_level": [
+        0.9290716040973992,
+        0.9215087954527136
+      ],
+      "worst_correlation": 0.9704145121579142,
+      "worst_magnitude_drift": 0.009444643191351743,
+      "residual_drift": 0.007562808644685615,
+      "every_component_is_converged": true,
+      "the_residual_is_stable": true,
+      "what_it_caught": "a first draft's 0.982 was pure quadrature noise \u2014 independent rules for the same quantity correlated at -0.04",
+      "pass": true
+    },
+    {
+      "name": "T5_the_interference_is_unreachable",
+      "rows": [
+        {
+          "window": [
+            4.0,
+            12.0
+          ],
+          "unreachable_off_the_span": 0.9964045501150715,
+          "cross_over_single": 2.199432787015803,
+          "norm_a": 0.03439340949586321,
+          "norm_b": 0.03489241194246461,
+          "norm_cross": 0.0756459925024622,
+          "best_fit": [
+            0.19029635065325973,
+            -0.009998282897914252
+          ],
+          "cos_between_the_singles": 0.4124130618864598
+        },
+        {
+          "window": [
+            4.0,
+            20.0
+          ],
+          "unreachable_off_the_span": 0.963523215913961,
+          "cross_over_single": 1.2809413153374967,
+          "norm_a": 0.07754753548442557,
+          "norm_b": 0.07376211772286806,
+          "norm_cross": 0.09933384210460128,
+          "best_fit": [
+            0.14948194833917688,
+            0.27934800348581995
+          ],
+          "cos_between_the_singles": 0.3093239334667797
+        },
+        {
+          "window": [
+            4.0,
+            30.0
+          ],
+          "unreachable_off_the_span": 0.9215087954527136,
+          "cross_over_single": 1.0214742734101228,
+          "norm_a": 0.11805155510249755,
+          "norm_b": 0.10306967039234471,
+          "norm_cross": 0.12058662647325877,
+          "best_fit": [
+            0.21402491165427634,
+            0.3425986302638241
+          ],
+          "cos_between_the_singles": 0.17252282148029782
+        },
+        {
+          "window": [
+            8.0,
+            45.0
+          ],
+          "unreachable_off_the_span": 0.8787403069754972,
+          "cross_over_single": 0.9635217672529505,
+          "norm_a": 0.15169229614155272,
+          "norm_b": 0.14483103365276576,
+          "norm_cross": 0.1461588292569668,
+          "best_fit": [
+            0.2956557167210392,
+            0.32885079992288163
+          ],
+          "cos_between_the_singles": 0.13737380296062676
+        }
+      ],
+      "points": 15990,
+      "volume_error": 0.0006308155741489596,
+      "unreachable_fraction": 0.9215087954527136,
+      "cross_over_single": 1.0214742734101228,
+      "cos_between_the_singles": 0.17252282148029782,
+      "spread_over_windows": 0.11766424313957424,
+      "most_of_it_is_unreachable": true,
+      "the_two_singles_are_independent": true,
+      "the_answer": "yes \u2014 the interference response is comparable in size to the single-wave ones and almost orthogonal to both, so no rescaling reproduces it",
+      "pass": true
+    },
+    {
+      "name": "T6_never_on_resonance",
+      "rows": [
+        {
+          "carrier": 0.7,
+          "spectral_peak": 5.969026041820607,
+          "peak_offset_from_integer": 0.03097395817939308,
+          "worst_peak_offset": 0.14159265358979312,
+          "nearest_peak_to_the_mode": 0.3131655288436028,
+          "power_at_the_mode": 0.8015852058194988,
+          "unreachable": 0.9355877326840635,
+          "cross_over_single": 2.8785387931761472
+        },
+        {
+          "carrier": 1.4142135623730951,
+          "spectral_peak": 5.969026041820607,
+          "peak_offset_from_integer": 0.03097395817939308,
+          "worst_peak_offset": 0.14159265358979312,
+          "nearest_peak_to_the_mode": 0.3131655288436028,
+          "power_at_the_mode": 0.7253445684169904,
+          "unreachable": 0.9764519600848452,
+          "cross_over_single": 2.291685487114882
+        },
+        {
+          "carrier": 2.8284271247461903,
+          "spectral_peak": 5.969026041820607,
+          "peak_offset_from_integer": 0.03097395817939308,
+          "worst_peak_offset": 0.26106277387164134,
+          "nearest_peak_to_the_mode": 0.734032022352995,
+          "power_at_the_mode": 1.5910637130883785,
+          "unreachable": 0.9290716040973992,
+          "cross_over_single": 1.0203923392923622
+        },
+        {
+          "carrier": 4.0,
+          "spectral_peak": 0.3141592653589793,
+          "peak_offset_from_integer": 0.3141592653589793,
+          "worst_peak_offset": 0.2713874265981051,
+          "nearest_peak_to_the_mode": 3.1405989170744166,
+          "power_at_the_mode": 2.8773235958062133,
+          "unreachable": 0.5649315650666794,
+          "cross_over_single": 1.5944440388918448
+        }
+      ],
+      "tensor_mode_frequency": 2.8284271247461903,
+      "distance_to_the_nearest_integer": 0.1715728752538097,
+      "grid_frequency_spacing": 0.10471975511965977,
+      "spectral_peak_spread": 5.654866776461628,
+      "unreachable_range": [
+        0.5649315650666794,
+        0.9764519600848452
+      ],
+      "closest_any_peak_gets_to_the_mode": 0.3131655288436028,
+      "the_source_rings_on_integers": true,
+      "no_peak_lands_on_the_tensor_mode": false,
+      "the_tensor_mode_is_irrational": true,
+      "it_is_unreachable_at_every_carrier": true,
+      "the_fraction_is_not_a_universal_constant": true,
+      "what_the_first_draft_got_wrong": "that T being quadratic puts the source's power at 2*w0, so the carrier should be chosen to match; the measured peak is the same for every carrier because the ringing is the ESU's own integer spectrum, not the pulse's",
+      "pass": false
+    },
+    {
+      "name": "T7_which_branches",
+      "with_throat": {
+        "unreachable": 0.9290716040973992,
+        "cross_over_single": 1.0203923392923622,
+        "norm_cross": 0.12134667834539471,
+        "points": 7802
+      },
+      "no_throat": {
+        "unreachable": 0.9860192632693273,
+        "cross_over_single": 9.458555511894094,
+        "norm_cross": 0.10256313239713576,
+        "points": 7802
+      },
+      "unreachable_both_ways": true,
+      "the_throat_changes_the_size": 0.18314130535256076,
+      "what_it_scopes": "the conclusion survives switching the throat off, so it is a statement about two waves rather than about the throat; the throat changes the amplitude, and PR #257's rule that an integrated quantity must name its branches is why this control exists",
+      "pass": true
+    },
+    {
+      "name": "T8_assessment",
+      "n_passed": 6,
+      "n_total": 7,
+      "pass": false
+    }
+  ],
+  "verdict_class": "INCONCLUSIVE",
+  "verdict": "INCONCLUSIVE. Failed checks: T6_never_on_resonance, T8_assessment",
+  "working_setup": {
+    "source_gap": 1.6,
+    "carrier": 2.8284271247461903,
+    "width": 0.5,
+    "tensor_mode_frequency": 2.8284271247461903
+  },
+  "generated_utc": "2026-08-19T09:32:00.280520+00:00"
+}

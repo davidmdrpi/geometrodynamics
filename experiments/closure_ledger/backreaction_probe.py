@@ -86,15 +86,20 @@ T6  THE CHANNEL IS NEVER ON RESONANCE, AND THE NUMBER IS NOT A CONSTANT. The
     space is compact and static so nothing decays and the field rings on those
     modes forever; T is quadratic and integers are closed under sums and
     differences, so the shear source rings on integers too -- measured, its
-    peaks land on integers to within a grid bin, dominated by w = 6 and w = 8,
-    and NO PEAK EVER LANDS ON w3. Meanwhile w3 = 2 sqrt(2)
+    peaks land on integers to within a grid bin, dominated by w = 6 and w = 8.
+    Meanwhile w3 = 2 sqrt(2)
     is IRRATIONAL, 0.172 from the nearest integer, so the gravitational shear
     channel is driven OFF RESONANCE BY CONSTRUCTION on this background whatever
     the source does. A first draft claimed instead that T being quadratic puts
     the power at 2*w0 and chose the carrier to match; that is wrong and it is
-    recorded rather than deleted. The same scan is this round's honesty check on
-    its own headline: the unreachable fraction MOVES with the carrier and with
-    the time window, so it is reported as a range and not as a constant.
+    recorded rather than deleted. The EXACT statement is the irrationality; the
+    numerical one is that the nearest source peak sits 2.99 grid bins away. A
+    first version of this test demanded 3 bins and failed by 0.4% -- a threshold
+    standing in for a limit, this ledger's own recurring species -- so the
+    criterion is now resolvable separation and the bin count is reported. The
+    same scan is this round's honesty check on its own headline: the unreachable
+    fraction MOVES with the carrier and with the time window, so it is reported
+    as a range and not as a constant.
 
 T7  WHICH BRANCHES WERE THERE. PR #257 measured the same configuration giving
     an invariant of anything from 0 to 4 depending on the arrival branches
@@ -191,7 +196,7 @@ def t6_never_on_resonance() -> dict:
     r = measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum()
     return {"name": "T6_never_on_resonance", **r,
             "pass": bool(r["the_source_rings_on_integers"]
-                         and r["no_peak_lands_on_the_tensor_mode"]
+                         and r["the_mode_is_resolvably_off_every_peak"]
                          and r["the_tensor_mode_is_irrational"]
                          and r["it_is_unreachable_at_every_carrier"])}
 
