@@ -17,13 +17,19 @@ sends beta_A -> c^2 beta_A, so everything reachable is the two-parameter family
 
 What the panels show
 --------------------
-**Top left - the channel, and what drives it.** The response is a driven
+**Top left - the channel is never on resonance.** The response is a driven
 oscillator, so its transfer function is exactly 1/(w3^2 - w^2), a filter at
 w3 = 2 sqrt(2). That number is DERIVED here, not quoted: Cartan about the ESU
 in the homogeneous anisotropy gives dG^TT = beta'' + (8/a^2) beta. The measured
-source spectrum is drawn against it -- and T is quadratic, so a carrier w0 puts
-the source's power near 2*w0, which is the whole reason the carrier is what it
-is.
+source spectrum is drawn against it, with the integers marked -- the conformal
+scalar on the ESU has spectrum w_n = n+1 and, on a compact static space, rings
+on it forever; T is quadratic and integers are closed under sums and
+differences, so the source rings on integers too. But 2 sqrt(2) is IRRATIONAL,
+0.172 from the nearest integer, so this channel is off resonance BY
+CONSTRUCTION. (A first draft of this round said instead that T being quadratic
+puts the power at 2*w0 and chose the carrier to match. That is wrong: the
+dominant peak sits at w = 6 whatever the carrier is, because the ringing is the
+background's, not the pulse's.)
 
 **Top right - the control, which is the point.** A first attempt at this round
 reported 0.982 unreachable and it was PURE QUADRATURE NOISE: independent rules
@@ -118,24 +124,26 @@ class BackreactionFigure:
         ax.loglog(w, tr / tr.max(), lw=1.3, color=_PAL["cool"],
                   ls=(0, (4, 2)), zorder=5,
                   label="transfer function  1/(w3^2 - w^2)")
-        ax.axvline(TENSOR_MODE_FREQUENCY, color=_PAL["hot"], lw=1.0,
-                   ls=(0, (2, 3)), zorder=3)
-        ax.annotate(f"w3 = 2*sqrt(2) = {TENSOR_MODE_FREQUENCY:.3f}\n"
-                    "derived: dG^TT = beta'' + (8/a^2) beta",
-                    xy=(TENSOR_MODE_FREQUENCY * 1.12, 4e-4),
-                    color=_PAL["hot"], fontsize=6.4, family="monospace",
-                    linespacing=1.7)
-        ax.annotate("T is quadratic, so a carrier w0 puts the\n"
-                    "source's power near 0 and near 2*w0 --\n"
-                    "which is what sets the carrier, and what a\n"
-                    "first draft of this round got wrong.",
-                    xy=(0.045, 0.30), xycoords="axes fraction", va="top",
-                    color=_PAL["text"], fontsize=6.4, family="monospace",
-                    linespacing=1.8)
+        for m in range(1, 14):
+            ax.axvline(m, color=_PAL["dim"], lw=0.5, alpha=0.35, zorder=2)
+        ax.axvline(TENSOR_MODE_FREQUENCY, color=_PAL["hot"], lw=1.2,
+                   ls=(0, (2, 3)), zorder=4)
+        ax.annotate(f"w3 = 2*sqrt(2)\n= {TENSOR_MODE_FREQUENCY:.4f}",
+                    xy=(TENSOR_MODE_FREQUENCY * 1.06, 1.5e-5),
+                    color=_PAL["hot"], fontsize=6.2, family="monospace",
+                    linespacing=1.6)
+        ax.annotate("faint lines: the integers.  the conformal scalar on the\n"
+                    "ESU has spectrum w_n = n+1 and rings on it forever, and T\n"
+                    "is quadratic, so the source rings on integers too.  but\n"
+                    "w3 = 2*sqrt(2) is IRRATIONAL -- 0.172 from the nearest --\n"
+                    "so this channel is off resonance BY CONSTRUCTION.",
+                    xy=(0.035, 0.235), xycoords="axes fraction", va="top",
+                    color=_PAL["text"], fontsize=6.0, family="monospace",
+                    linespacing=1.75)
+        ax.set_ylim(3e-6, 8.0)
         ax.set_xlabel("w", color=_PAL["dim"], fontsize=8)
         ax.set_ylabel("normalised", color=_PAL["dim"], fontsize=8)
-        self._style(ax, "the channel is a filter at w3 - and what drives it",
-                    "lower left")
+        self._style(ax, "the channel is never on resonance", "upper right")
 
     # -- the control ---------------------------------------------------------
     def _draw_control(self) -> None:
@@ -159,17 +167,17 @@ class BackreactionFigure:
                    label="the first draft's correlation:  -0.04")
         ax.set_xticks(xs)
         ax.set_xticklabels([f"beta_{n}" for n in names])
-        ax.set_ylim(-0.25, 1.35)
-        ax.annotate("a first attempt reported 0.982 unreachable\n"
-                    "and it was PURE QUADRATURE NOISE. nothing\n"
-                    "about the run looked wrong -- the tell only\n"
-                    "appeared on recomputing with another rule.",
-                    xy=(0.045, 0.30), xycoords="axes fraction", va="top",
-                    color=_PAL["text"], fontsize=6.4, family="monospace",
-                    linespacing=1.8)
+        ax.set_ylim(-0.25, 2.05)
+        ax.annotate("a first attempt reported 0.982 unreachable and it was\n"
+                    "PURE QUADRATURE NOISE.  nothing about the run looked\n"
+                    "wrong -- the tell only appeared on recomputing the same\n"
+                    "quantity with an independent rule.",
+                    xy=(0.035, 0.985), xycoords="axes fraction", va="top",
+                    color=_PAL["text"], fontsize=6.0, family="monospace",
+                    linespacing=1.75)
         ax.set_ylabel("agreement", color=_PAL["dim"], fontsize=8)
         self._style(ax, "the control - without which none of this is quotable",
-                    "upper right")
+                    "center right")
 
     # -- the responses -------------------------------------------------------
     def _draw_betas(self) -> None:
@@ -182,16 +190,18 @@ class BackreactionFigure:
             ax.plot(t, self.b_fine[key][k, 0, 1], lw=1.4, color=col, zorder=6,
                     label=lab)
         ax.axhline(0.0, color=_PAL["dim"], lw=0.8, zorder=3)
-        ax.annotate("the interference response is COMPARABLE to\n"
-                    f"the single-wave ones -- |beta_x|/|beta_A| = "
-                    f"{self.res['cross_over_single']:.2f} --\n"
-                    "not a small correction to them.",
-                    xy=(0.045, 0.97), xycoords="axes fraction", va="top",
-                    color=_PAL["text"], fontsize=6.4, family="monospace",
-                    linespacing=1.8)
+        lim = 1.9 * float(np.max(np.abs(self.b_fine["cross"][k, 0, 1])))
+        ax.set_ylim(-lim, lim)
+        ax.annotate("the interference response is COMPARABLE to the\n"
+                    f"single-wave ones -- |beta_x|/|beta_A| = "
+                    f"{self.res['cross_over_single']:.2f} -- not a\n"
+                    "small correction to them.",
+                    xy=(0.035, 0.985), xycoords="axes fraction", va="top",
+                    color=_PAL["text"], fontsize=6.0, family="monospace",
+                    linespacing=1.75)
         ax.set_xlabel("t", color=_PAL["dim"], fontsize=8)
         ax.set_ylabel("shear response  beta_12", color=_PAL["dim"], fontsize=8)
-        self._style(ax, "the three responses", "lower right")
+        self._style(ax, "the three responses", "lower left")
 
     # -- the residual --------------------------------------------------------
     def _draw_residual(self) -> None:
@@ -211,17 +221,20 @@ class BackreactionFigure:
         ax.plot(t, vx[:, 1] - fit, lw=1.1, color=_PAL["hot"], zorder=7,
                 label="what no rescaling can reach")
         ax.axhline(0.0, color=_PAL["dim"], lw=0.8, zorder=3)
+        lim = 2.0 * float(np.max(np.abs(vx[:, 1])))
+        ax.set_ylim(-lim, lim)
         ax.annotate(f"UNREACHABLE FRACTION = "
                     f"{self.res['unreachable_off_the_span']:.3f}\n"
-                    "measured off the full linear SPAN, which\n"
-                    "strictly contains the physical cone -- so\n"
-                    "this is the conservative figure.",
-                    xy=(0.045, 0.97), xycoords="axes fraction", va="top",
-                    color=_PAL["text"], fontsize=6.4, family="monospace",
-                    linespacing=1.8)
+                    "measured off the full linear SPAN, which strictly\n"
+                    "contains the physical cone -- so this is the\n"
+                    "conservative figure.  it is not a constant: 0.88-1.00\n"
+                    "over windows, 0.56-0.99 over carriers.",
+                    xy=(0.035, 0.985), xycoords="axes fraction", va="top",
+                    color=_PAL["text"], fontsize=6.0, family="monospace",
+                    linespacing=1.75)
         ax.set_xlabel("t", color=_PAL["dim"], fontsize=8)
         ax.set_ylabel("shear response  beta_12", color=_PAL["dim"], fontsize=8)
-        self._style(ax, "what is left over is the answer", "lower right")
+        self._style(ax, "what is left over is the answer", "lower left")
 
     # -- shared --------------------------------------------------------------
     def _style(self, ax, title: str, legend: str) -> None:
