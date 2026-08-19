@@ -1071,9 +1071,12 @@ def measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum(
             max(unreach) - min(unreach) > 0.1),
         "what_the_first_draft_got_wrong": (
             "that T being quadratic puts the source's power at 2*w0, so the "
-            "carrier should be chosen to match; the measured peak is the same "
-            "for every carrier because the ringing is the ESU's own integer "
-            "spectrum, not the pulse's"),
+            "carrier should be chosen to match; in fact the dominant peak stays "
+            "at w = 6 for every carrier below the mode, because the ringing is "
+            "the ESU's own integer spectrum rather than the pulse's (at carrier "
+            "4 the envelope's DC lobe takes over instead, which is why the "
+            "claim asserted is the weaker and true one: the mode is resolvably "
+            "off every peak, and exactly so, since 2*sqrt(2) is irrational)"),
     }
 
 
