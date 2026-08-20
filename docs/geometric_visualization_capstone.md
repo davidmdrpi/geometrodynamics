@@ -687,7 +687,7 @@ before the solve, and at `14–72` spacings the pedestal is `1.0e-16` with the
 onset converged to four time steps. Neither condition cures anything: above `σ*`
 the inversion returns the correct retarded solution **of an unstable system**.
 Whether a finite-radius mouth or neck geometry removes the mode was left open
-here, and it had to be settled before §23's stationary action or backreaction —
+here, and it had to be settled before §24's stationary action or backreaction —
 either of those computed on this background would inherit the mode and measure
 it rather than the physics they are after. §19 settles the mouth and §20 the
 neck; the answer is no, twice, from two constructions.
@@ -756,7 +756,7 @@ multipoles obey §8's screening law, dipole/monopole `= 0.934·(a/d)` across a
 decade — and the mouths are spheres in a *fixed* ambient, not a solved neck.
 **No backreaction.** §20 closes the first two of those.
 
-## 20. The balls removed, and the answer made a theorem (`docs/finite_radius_neck.md`, current round)
+## 20. The balls removed, and the answer made a theorem (`docs/finite_radius_neck.md`)
 
 §19 answered §18's gate and named its own weakest point in doing so: its mouths
 were **spheres in a fixed ambient**. The balls were never removed — it smeared
@@ -775,7 +775,7 @@ is a sum of non-negative terms. `E = 0` forces `φ ≡ 0` on `Ω`; matching then
 gives `u(0) = u(L) = 0`, and Poincaré gives `𝒜∫|u'|² ≥ (π/L)²𝒜∫|u|²`. Hence
 `λ > 0` for **every** configuration — all multipoles, no truncation, no sweep.
 
-This is a change of footing rather than a refinement, and §21 records it as its
+This is a change of footing rather than a refinement, and §22 records it as its
 own error species: **§19 had to establish a sign on a reduced `2×2` and support
 it with a `3078`-sample sweep; this round has positivity of the form itself.**
 The first is an argument about a model, the second about the problem.
@@ -796,7 +796,7 @@ roots, worst approach `−1.6e-03`.
 
 **The monopole truncation was never a stability limitation.** A one-channel tube
 presents a single number at each mouth, so it drives `ℓ = 0` and nothing else;
-the `ℓ ≥ 1` sectors are the exterior's own modes, `1.62×` stiffer or more, and
+the `ℓ ≥ 1` sectors are the exterior's own modes, `1.45×` stiffer or more, and
 can neither be driven nor go unstable. §8's `(a/d)^ℓ` screening law bounds missed
 **amplitude**, not the answer — §19 listed this as its main open approximation,
 and it turns out to have been open in a direction that did not matter.
@@ -831,7 +831,85 @@ form requires.
 and the neck is a quantum-graph edge, not a solved cross-section; the ambient
 metric is **fixed**; **no backreaction**.
 
-## 21. What the arc cost in errors, and what caught them
+## 21. `A + B` does what rescaling `A` or `B` cannot (`docs/metric_backreaction.md`, current round)
+
+§18 gated backreaction on a growing mode; §19 and §20 closed that gate. So this
+round asks the roadmap's first GR question — and deliberately *not* "does
+spacetime pinch off?":
+
+> does `A + B` produce a metric response that rescaling `A` or `B` alone cannot?
+
+**Yes.** At the working point `0.921` of the interference response lies outside
+everything rescaling can reach, and the interference term is **comparable in
+size** to the single-wave responses rather than a correction to them.
+
+**Why it is a linear-algebra question.** The field equation is linear so the
+fields add; `T` is quadratic so `T[A+B] = T[A] + T[B] + ΔT` with `ΔT` bilinear
+(measured: self term `∝ c²`, cross term `∝ c`, exactly zero with one source
+off); linearized Einstein is linear so the responses add. Rescaling `A → cA`
+sends `β_A → c²β_A`, so everything reachable is the two-parameter family
+`{c²β_A + d²β_B}` and the question is a projection residual. Reported off the
+full linear **span**, which strictly contains that cone — so the figure is
+conservative.
+
+**The channel is forced, not chosen.** The ESU is held static by a fluid this
+arc never specifies. A perfect fluid carries no anisotropic stress — in an
+orthonormal frame `T_ab = diag(ρ,p,p,p)` whatever the anisotropy — so neither it
+nor `Λ` touches the traceless spatial part. **The transverse-traceless sector is
+the only channel whose answer does not depend on what was never put in.** The
+scalar sector depends on the sound speed and carries the Eddington mode.
+
+**The response, derived.** Cartan about the ESU in the homogeneous anisotropy
+gives `δG^TT_{ij} = β̈_{ij} + (8/a²)β_{ij}`, so `ω₃ = 2√2` and `ω₃² > 0` — the
+tensor sector is **stable**, which is §18's gate applied to this round's own
+background. The connection comes from *solving* the torsion-free condition, after
+a first draft's remembered formula produced a `G₀₀` containing `ä`. Three
+validations pass — round `S³`, ESU (independently reproducing `two_wave`'s
+`_EINSTEIN`), closed FRW — the first-order piece is automatically traceless, and
+`δG_{0i} = 0` identically.
+
+**And it is not a universal constant.** `0.88–1.00` across time windows,
+`0.56–0.99` across carriers, `0.929` with the throat and `0.986` without. Large
+everywhere, constant nowhere — so the range is the headline and the claim is
+that the interference response is *generically* unreachable.
+
+**The resonance test reverses itself when done on the coupled system.** A first
+version argued the channel was off resonance *by construction*: the conformal
+scalar on the ESU has integer spectrum `ω_n = n+1`, so a free-field source rings
+on integers, and `ω₃ = 2√2` is irrational. True — **of the uncoupled ambient**.
+The throat rings where `det(A − Γ(ω))` vanishes, and those zeros are not
+integers; the nearest sits `0.050` from `ω₃`, with a local spacing of `0.17`.
+Across sixteen configurations it is always within `0.086` and at `d = 0.9` it is
+`0.001`. **Off resonance with the free ambient, generically near-resonant with
+the coupled one** — which is also the mechanism the first version lacked for the
+carrier sensitivity.
+
+**And the whole TT sector is areal-blind, not just the homogeneous mode.** A
+traceless shear preserves volume *exactly* and mouth area *to first order*
+(second-order coefficient `0.403`, positive). The natural next move — build the
+inhomogeneous harmonics — does not help: `δA/A = −½⟨h_nn⟩`, and that average
+vanishes **identically** for any transverse-traceless field, because
+`⟨n_in_jf(k·n̂)⟩` can only be `Aδ_ij + Bk̂_ik̂_j` and tracelessness kills the
+first while transversality kills the second. Measured to `4.5e-15` against a
+transversality-dropped control of `1.5e-01`, and it survives curvature because
+`S³` is maximally symmetric — the normal's moments are isotropic to `6e-16`. So
+§21 cannot say whether the interaction metric moves toward a neck or away, and
+**neither can any refinement of it**: a signed areal response has to come from
+the scalar sector, where the fluid enters. The price of choosing the only
+fluid-free channel, now measured, is that it cannot answer a question about
+area.
+
+**The superseded phrasing.** A traceless shear preserves volume *exactly*
+and mouth area *to first order*; the second-order coefficient is `0.403` and
+**positive**. So §21 cannot say whether the interaction metric moves toward a
+neck or away — it distorts the mouth into an equal-area ellipse. That question
+needs the areal sector on a resolved neck, which §21 is not.
+
+**Still put in:** the `n = 3` harmonic only; a **fixed** ESU; **point** sources
+and §18's **point** throat rather than §19/§20's resolved mouths; and a
+**linear** response, not a solved coupled system.
+
+## 22. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -1017,6 +1095,80 @@ Worth recording, because the failure modes repeat:
   doing the work of an argument, the model usually still contains the thing that
   made the argument unavailable** — here, the balls that were never removed.
 
+* **A number produced by noise that looked exactly like signal.** §21's first
+  answer was that `0.982` of the interference response was unreachable. It was
+  **pure quadrature noise** — recomputing the same quantity with an independent
+  rule gave `corr(β_A) = −0.04`. Nothing about the run looked wrong: the
+  measurement ran, the figures were plausible, the residual was in the range one
+  would expect a real answer to occupy. That is the point. Two uncorrelated
+  noise vectors give a residual of `≈ 1`, so **the failure mode and the desired
+  result are the same number**, and only an independent recomputation
+  distinguishes them. Every other error in this ledger announced itself as a
+  wrong value; this one announced itself as a right one. **When a measurement's
+  failure mode is indistinguishable from its success, the control is not
+  optional and it is not a formality.**
+* **A quadrature whose own grid sat on a singularity.** The reason the above
+  failed: the singular set was missing the two **mouths** and their antipodes,
+  and `two_source.mouth_positions` puts the first at `(1,0,0,0)` — exactly the
+  axis a product rule naturally uses. So the rule's own pole coincided with a
+  `1/χ⁴` divergence, and **refining the grid made the answer worse** (magnitude
+  ratios `1.44`, `1.50` between levels, growing instead of settling). The tell
+  was there in the convergence table before it was understood, which is an
+  argument for tabulating the ratio rather than eyeballing the result.
+* **A mechanism asserted from a plausible argument rather than measured.** §21's
+  first draft explained its carrier choice by "`T` is quadratic, so a carrier
+  `ω₀` puts the source's power at `2ω₀`". The argument is fine in flat space and
+  **wrong here**: the measured spectral peak is `5.969` for carriers `0.7`,
+  `1.414`, `2.0` and `2.828` alike, because on a compact static space the field
+  rings on the *background's* integer spectrum rather than on the pulse's
+  carrier. Correcting it produced a better result than the one it replaced —
+  `ω₃ = 2√2` is irrational, so the gravitational channel is off resonance by
+  construction. **A reasonable-sounding mechanism is a hypothesis, and this arc's
+  own rule is that hypotheses get measured.**
+* **An argument carried across the very boundary it was about.** §21 proved the
+  tensor mode `ω₃ = 2√2` incommensurate with the ESU's integer scalar spectrum
+  and concluded the channel was off resonance **by construction**. Every step
+  was true — *of the uncoupled ambient*. The coupled system rings where
+  `det(A − Γ(ω))` vanishes, and those zeros are not integers: the nearest sits
+  `0.050` from `ω₃`, `0.001` at one configuration, and never more than `0.086`
+  across sixteen. **The conclusion is reversed** — generically *near*-resonant —
+  and it supplies the mechanism §21 was missing for its own carrier
+  sensitivity. The species: an argument established for one system and carried
+  over to a system that differs **precisely in the thing being argued about**.
+  Coupling is what this whole arc is about, and the spectrum is the first thing
+  it moves. **Not a wrong number — an unnoticed scope on a premise**, which no
+  amount of numerical care reaches.
+* **A channel that cannot answer the question asked of it.** §21 measures the
+  homogeneous transverse-traceless mode, and a traceless shear preserves volume
+  *exactly* and area *to first order* — second-order coefficient `0.403`, and
+  positive. So it distorts the mouth into an equal-area ellipse and can say
+  nothing about pinching. Reading a shear amplitude as evidence about necks
+  would have been a **category error rather than a measurement error**, and the
+  only defence against that species is asking what the instrument is *able* to
+  register before asking what it registered.
+* **A check stronger than the claim it defends — three times in one round.**
+  Distinct from the threshold-for-a-limit species above, and it kept recurring
+  because the stronger proposition was always the more convenient one to code.
+  §21 asserted that the nearest source peak sits more than `3` grid bins from
+  `ω₃` (measured `2.99`); that the spectral peak *never moves* with the carrier
+  (it does, at `carrier = 4`, where the envelope's DC lobe takes over); and that
+  *no* coupled resonance lands near an integer (one sits `0.018` from one, while
+  the mean offset is `0.264`). **In all three cases the prose claim was true and
+  the assertion was not.** The load-bearing statements were narrower: that the
+  mode is resolvably off every peak; that the dominant peak is the background's
+  rather than the pulse's; and that the coupled resonance is *closer to `ω₃`
+  than the nearest integer is* — `0.086` against `0.172`, which is the entire
+  point. **Assert the proposition being defended, not a stronger one that
+  happens to be easier to write.**
+* **And the threshold-for-a-limit species, a fourth time.** The replacement
+  check demanded that the nearest source peak sit more than `3` grid bins from
+  `ω₃`; the measurement is `2.99` bins, so it failed by `0.4%`. The exact
+  statement was never the bin count — it is that `2√2` is **irrational** and can
+  never equal an integer, which needs no tolerance at all. §18 learned this with
+  its three identifying properties, §20 with its "exactly one state", and it
+  recurred here: **when a check fails narrowly, look for the exact statement it
+  is a numerical shadow of** rather than retuning the number.
+
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
 an independent construction — a closed form against brute
@@ -1038,7 +1190,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 22. What is imported rather than derived
+## 23. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -1082,7 +1234,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 23. What would come next
+## 24. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
@@ -1125,8 +1277,8 @@ The staged order that follows from this, and the reason it is that order:
 
 ```
 ray closure → field solution → two-wave invariant → finite throat
-            → mouth resolved ✓ → neck resolved ✓ → stationary action
-            → backreaction → topological branch
+            → mouth resolved ✓ → neck resolved ✓ → backreaction ✓
+            → stationary action → topological branch
 ```
 
 **The gate is answered, and the reason it was there is worth keeping.** §18 built the
@@ -1184,7 +1336,7 @@ Both are limitations with numbers attached rather than gates.
   caustic and low-frequency closure all have numbers. What is *not* done is
   backreaction — and §17 hands that step a warning as well as an object, since
   the interference tensor `ΔT` peaks exactly where `T_A:T_B` is null;
-* **stationary action** — *ungated by §19, and secured by §20.* Evaluate the on-shell
+* **stationary action** — *ungated by §19, secured by §20, and now the next step.* Evaluate the on-shell
   action and ask whether the candidate events are stationary. *Not* with Lagrange multipliers imposing the
   ray round's five equations, which would only rename them. This is where the
   retrocausal language earns its keep or fails: the backward-in-time throat
@@ -1199,13 +1351,18 @@ Both are limitations with numbers attached rather than gates.
   throat contributes an echo series at every even multiple of the traversal
   time. The action round also inherits §18's conservation law, which is what
   makes a common action possible at all;
-* **backreaction** — *ungated by §19, and secured by §20.* The first GR question is not
-  "does spacetime pinch off?" but whether `A + B` produces a collapse response
-  not reproducible by rescaling `A` or `B` alone. It inherits §17's warning about *which* diagnostic
-  to integrate — `ΔT`, not `T_A:T_B` — and §18's source with a finite size and a
-  delay. It also inherited §18's **blocker**: computed on a background with a
-  growing mode, a backreaction estimate measures the mode. That blocker is
-  cleared — §19 resolved the mouth and §20 removed the balls, and the second
-  proves positivity rather than sampling it;
+* **backreaction** — ~~done~~ (§21), to first order and in one channel. The
+  first GR question is not "does spacetime pinch off?" but whether `A + B`
+  produces a response not reproducible by rescaling `A` or `B` alone, and the
+  answer is **yes**: `0.921` of the interference response is unreachable at the
+  working point, with the interference term *comparable in size* to the
+  single-wave ones. §17's warning about *which* diagnostic to integrate — `ΔT`,
+  not `T_A:T_B` — turned out to be the whole structure of the measurement, since
+  `β[ΔT]` is exactly the object the reachable family fails to contain. The
+  §18 **blocker** was cleared first: §19 resolved the mouth and §20 removed the
+  balls, and the second proves positivity rather than sampling it. What §21 does
+  *not* do is close the loop — it is a linear response on a fixed background in
+  the lowest TT harmonic, with point sources and §18's point throat, so a
+  **solved coupled system** is still owed;
 * **topological branch** — the detached resonator, last, and only if
   backreaction produces a finite-radius neck.

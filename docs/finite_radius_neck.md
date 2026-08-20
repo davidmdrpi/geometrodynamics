@@ -72,7 +72,7 @@ Substituting `ψ = v/sin χ` turns the `S³` radial equation for `−∇² + 1` 
 Schrödinger problem with no first derivative,
 
 ```
-v''  +  [λ − ℓ(ℓ+2)/sin²χ] v  =  0
+v''  +  [λ − ℓ(ℓ+1)/sin²χ] v  =  0
 ```
 
 which is also the clearest statement of the physics: at `λ < 0` the bracket is
@@ -146,12 +146,12 @@ with the exterior's own boundary condition, and their DtN is positive:
 
 | `ℓ` | `N_ℓ/N₀` at `σ = 0.1` | at `σ = 10` |
 | ---: | ---: | ---: |
-| `1` | `2.268` | `1.622` |
-| `2` | `3.321` | `2.293` |
-| `3` | `4.338` | `2.968` |
-| `5` | `6.339` | `4.312` |
+| `1` | `1.970` | `1.445` |
+| `2` | `2.954` | `2.054` |
+| `3` | `3.939` | `2.702` |
+| `5` | `5.908` | `4.022` |
 
-Every higher channel is **stiffer**, by at least `1.62×`. They can neither be
+Every higher channel is **stiffer**, by at least `1.45×`. They can neither be
 driven nor go unstable. #250's `(a/d)^ℓ` screening law bounds how much
 **response** is missed; for the question this arc gated the roadmap on, the
 higher channels were never in play.

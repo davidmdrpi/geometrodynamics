@@ -111,3 +111,16 @@ from geometrodynamics.waves.neck import (  # noqa: F401
     exterior_log_derivative,
     rayleigh_quotient,
 )
+from geometrodynamics.waves.backreaction import (  # noqa: F401
+    TENSOR_MODE_FREQUENCY,
+    WORKING_BACKREACTION,
+    BackreactionSetup,
+    ShearQuadrature,
+    derive_the_tensor_mode_equation,
+    left_invariant_frame,
+    shear_projection,
+    shear_response,
+    solve_batch,
+    stress_series,
+    unreachable_fraction,
+)

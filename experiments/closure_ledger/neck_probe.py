@@ -46,7 +46,7 @@ WHAT IS CHECKED
 ───────────────
 T2  THE EXTERIOR MAP, AND THE INTEGRATOR THAT COMPUTES IT. The exterior
     Dirichlet-to-Neumann map N_l(lam) = -4 pi sin^2 a psi'(a)/psi(a) is obtained
-    by shooting v'' + [lam - l(l+2)/sin^2 chi] v = 0 from the far pole, where
+    by shooting v'' + [lam - l(l+1)/sin^2 chi] v = 0 from the far pole, where
     regularity picks the e^{l+1} branch. In the l = 0 channel it agrees with an
     INDEPENDENT closed form to 1.7e-14, which is the check the l >= 1 channels
     inherit. N_l > 0 for every l and every lam < 0, and INCREASES with l, so the
@@ -70,7 +70,7 @@ T5  PR #261's MONOPOLE TRUNCATION WAS NEVER A STABILITY LIMITATION. A tube with
     one transverse channel presents a single number at each mouth, so it drives
     the l = 0 projection and nothing else. The l >= 1 sectors are the exterior's
     own modes with its own boundary condition, their DtN is positive, and they
-    are at least 1.62x stiffer than the monopole. They can neither be driven nor
+    are at least 1.45x stiffer than the monopole. They can neither be driven nor
     go unstable. PR #250's (a/d)^l screening bounds missed AMPLITUDE, not the
     stability answer.
 
