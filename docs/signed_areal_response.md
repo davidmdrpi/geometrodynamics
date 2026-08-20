@@ -1,8 +1,8 @@
 # The signed `ΔA/A`: the interference metric deforms toward a neck
 
 **Module:** `geometrodynamics/waves/areal.py`
-**Probe:** `python -m experiments.closure_ledger.areal_probe` (8/8)
-**Tests:** `tests/test_waves_areal.py` (32)
+**Probe:** `python -m experiments.closure_ledger.areal_probe` (9/9)
+**Tests:** `tests/test_waves_areal.py` (36)
 **Renderer:** `python scripts/geometrodynamics_v64_areal.py --still v64.png`
 
 ---
@@ -39,8 +39,14 @@ with no time derivatives in it. A constraint does not have a sound speed.
 
     ΔA/A = ( −2.06 × 10⁻³ ,  −1.88 × 10⁻³ )     in units of 2πG
 
-**Toward a neck. Both mouths close.** Negative in all eight control
-combinations — two quadrature levels, two mouth radii, two gluings.
+**Toward a neck — at the wide working throat, off resonance. Both mouths
+close.** Negative in all eight control combinations — two quadrature levels,
+two mouth radii, two gluings.
+
+The qualifier is load-bearing, and it is tested rather than hedged: matching the
+tube's area to the mouths' **flips the sign**. See *[The sign does not survive a
+matched tube](#the-sign-does-not-survive-a-matched-tube)* below. This is a
+statement about a throat, not about the interference source.
 
 And the mechanism is not the obvious one. The interference energy *alone* would
 **open** the mouths: `U(c_j) > 0` at both. What inverts it is the throat. The
@@ -87,8 +93,10 @@ interference source is not orthogonal to them.
     u = U + Σ_j [ A_j G_⊥(χ_j) + D_j·𝒟_j ] + c·x
 
 with `U = −G_⊥[σ 1_Ω]`, `σ = −2πG δρ`, `𝒟_j` the dipole layer at mouth `j`,
-`D_j ⊥ c_j`, and `c ∈ R⁴` free. Twelve unknowns: two monopole strengths, six
-dipole components, four kernel coefficients.
+`D_j ⊥ c_j`, and `c ∈ R⁴` free. Twelve field unknowns: two monopole strengths,
+six dipole components, four kernel coefficients. (`solve_matching` actually
+solves `18×18`; the extra six are the tube's end amplitudes, carried rather than
+eliminated purely for conditioning — see below.)
 
 The pseudo-inverse Green function satisfies
 
@@ -103,7 +111,7 @@ condition into an identity:
 
     Σ_j A_j c_j + Σ_j D_j = S_σ ,      S_σ = ∫_Ω y σ(y) dV .
 
-Four equations. The remaining eight are the throat.
+Four equations. The remaining fourteen are the throat.
 
 ## The throat is a cavity
 
@@ -124,13 +132,72 @@ within one grid cell. Past the first pole the two mouths can even move in
 
 The working throat (`𝒜 = 4π`, `L = 0.9`, so `k = 1` and `kL = 0.9`) is well
 inside the first cell. **A signed answer here is a statement about a throat,
-not about the sphere.**
+not about the sphere** — and the next section is what that costs.
+
+## The sign does not survive a matched tube
+
+`WORKING_TUBE` carries `𝒜 = 4π` while a mouth sphere has area `4π sin²a` — the
+tube is wider than its own mouths by a factor of **400** at `a = 0.05`. That is
+a deliberate idealisation (a wide throat entered through small mouths), and it
+is the one `neck` has used since PR #261. The obvious alternative is to set the
+two equal.
+
+Then `k = √(4π/𝒜) = 1/sin a`, and the *same* length `0.9` lands somewhere else
+entirely:
+
+| `a` | `kL/π` | `𝒜 = 4π` | matched `𝒜 = 4π sin²a` | nearest pole | distance | cond |
+|-----|--------|----------|------------------------|--------------|----------|------|
+| 0.05 | 5.732 | closes / closes | **opens / opens** | `n = 6` | `0.268 π` (`4.68%` of `L`) | `5.5e+07` |
+| 0.10 | 2.870 | closes / closes | **closes / opens** | `n = 3` | `0.130 π` (`4.55%` of `L`) | `4.6e+05` |
+
+(The `𝒜 = 4π` column sits at `kL/π = 0.286`, with conditioning `1.5e+04` and
+`9.8e+02`.)
+
+At `a = 0.05` **both mouths open**. At `a = 0.10` the two mouths **disagree** —
+mouth 1 closes, mouth 2 opens. The matched throat is past five poles and past
+two respectively, and sits under `5%` of its own length from the next one.
+
+So the headline should be read as *at the wide working throat, off resonance,
+both mouths close* — and not as a property of the interference source. Which
+throat is physical is a question this round poses and does not answer.
+
+### The bug that check found
+
+Getting a trustworthy number out of the matched case required a fix, and the
+first run did not produce one — it produced a **condition number of `2.9e+15`
+and an answer anyway.**
+
+The `ℓ = 1` rows were a `cosh`/`sinh` transfer matrix across the tube, which
+costs a condition number of `e^{2κL}`. At `𝒜 = 4π` that is `e^{1.8} = 6` and
+invisible. At the matched area, `κ = 1/sin a = 20` and `L = 0.9` give
+`e^{36} = 4.4 × 10¹⁵` — the system is singular to double precision, and every
+digit it returns is noise.
+
+The repair is to write the tube mode as `P e^{−κs} + Q e^{κ(s−L)}` and carry
+`P`, `Q` as unknowns rather than eliminating them. That never forms `e^{+κL}`:
+every coefficient is bounded by one, the system grows from `12×12` to `18×18`,
+and the physical limit — a long tube whose two mouths are decoupled in this
+channel — becomes the *well*-conditioned case instead of the singular one.
+
+| | old (`cosh`/`sinh`) | new (end amplitudes) |
+|--|--------------------|----------------------|
+| `𝒜 = 4π`, `a = 0.05` | `2.1e+05` | `1.5e+04` |
+| `𝒜 = 4π`, `a = 0.10` | `1.0e+04` | `9.8e+02` |
+| matched, `a = 0.05` | `2.9e+15` | `5.5e+07` |
+| matched, `a = 0.10` | `4.0e+09` | `4.6e+05` |
+
+The reference solves reproduce to the **same** `4e−10`, digit for digit, so it
+is a change of form and not of content — and the headline numbers at `𝒜 = 4π`
+are unchanged.
+
+> **A model parameter moved by a factor of four hundred is not a perturbation
+> of a formulation. It is a test of one.**
 
 ## Four things that were checked, one that was corrected
 
 ### The assembly, against exact solves, in both sectors
 
-The 12×12 matching is checked against one-dimensional boundary-value solves on
+The matching system is checked against one-dimensional boundary-value solves on
 the punctured sphere that share no code with it. Both sectors, on purpose:
 every closed-form check in PR #262 was `ℓ = 0`, which is exactly how an
 `ℓ(ℓ+2)` error survived that round's entire suite. A suite that cannot see a
@@ -249,7 +316,10 @@ stationary action`. This round adds the geometric verdict that PR #263 could
 not give: **the interference deforms the neck toward closing, at the working
 throat, off resonance.**
 
-What it opens is the resonance structure. The sign is not universal — it is a
-property of the throat's aspect ratio, with poles at `kL = nπ`. Whether a
-physical throat can be driven onto one of those poles, and what happens there,
-is a question this round can pose precisely and does not answer.
+What it opens is the resonance structure, and rather more sharply than
+expected. The sign is not universal: it is a property of the throat, and the
+single most natural alternative model — a tube as narrow as its own mouths —
+reverses it. **Which throat is physical is now the load-bearing question.** The
+neck's cross-sectional area has been a free parameter since PR #261, carried
+along because nothing measured had ever depended on its value. Something does
+now.

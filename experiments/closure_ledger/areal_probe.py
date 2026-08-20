@@ -25,7 +25,7 @@ for. On a maximal slice the K terms in the Hamiltonian constraint are quadratic,
 so at the order the field's stress enters, dR3 = 16 pi G drho with no time
 derivatives at all.
 
-THE ANSWER IS: TOWARD A NECK. BOTH MOUTHS CLOSE.
+THE ANSWER IS: TOWARD A NECK -- AT THE WIDE WORKING THROAT, OFF RESONANCE.
 
     dA/A = (-2.06e-03, -1.88e-03)   in units of 2 pi G
 
@@ -34,6 +34,14 @@ is not the obvious one: the interference energy ALONE would open the mouths --
 U(c_j) > 0 at both -- and the throat's own monopole layers overshoot that and
 invert it. The neck closes because the throat cannot support the conformal
 factor the energy piles up around its mouths.
+
+THE QUALIFIER IS NOT DECORATION. The working tube has area 4 pi against a mouth
+sphere of area 4 pi sin^2 a -- wider than its own mouths by 400x at a = 0.05.
+Matching the two, so the tube is exactly as narrow as the mouths it joins,
+gives k = 1/sin a and puts the SAME length 0.9 at kL/pi = 5.73 and 2.87, past
+five poles and past two. THE SIGN DOES NOT SURVIVE: at a = 0.05 both mouths
+OPEN, at a = 0.10 they DISAGREE. T9 is that calculation. So this round's result
+is a statement about a throat and not about the interference source.
 
 WHAT IS CHECKED
 ───────────────
@@ -57,8 +65,8 @@ T3  THE PROJECTOR IS THE GREEN FUNCTION'S OWN TAIL. L G_perp = -delta +
     condition sum_j A_j c_j + sum_j D_j = S_sigma an IDENTITY rather than a
     modelling choice, so it is checked rather than asserted.
 
-T4  *** THE ASSEMBLY AGAINST EXACT SOLVES, IN BOTH SECTORS. *** The 12x12
-    matching is checked against one-dimensional boundary-value solves on the
+T4  *** THE ASSEMBLY AGAINST EXACT SOLVES, IN BOTH SECTORS. *** The matching
+    system is checked against one-dimensional boundary-value solves on the
     punctured sphere that share no code with it. Agreement is 4e-10 or better
     at every radius in both sectors. GETTING THERE TOOK ONE CORRECTION WORTH
     RECORDING: the first assembly agreed at 1e-06 and no better, at every
@@ -100,11 +108,25 @@ T7  THE CONTROLS. Two quadrature levels, two mouth radii, two gluings, plus a
     the answer by a factor 1.75, almost exactly the factor by which the source's
     own mouth-weighted moment moves.
 
-T8  THE SIGN IS A STATEMENT ABOUT A THROAT. The tube's l=0 constraint channel is
+T8  THE CAVITY. The tube's l=0 constraint channel is
     d_s^2 + 4 pi / area -- a CAVITY. At kL = n pi the response has a pole and the
     sign flips; the scan finds flips at 3.133 and 6.260 against closed-form poles
     at pi and 2 pi. The working throat is at kL = 0.9, inside the first cell.
     Beyond the first pole the mouths can even move in OPPOSITE directions.
+
+T9  *** THE COUNTEREXAMPLE, AND THE BUG IT FOUND. *** Setting A = 4 pi sin^2 a
+    flips the sign, as above. Getting a trustworthy number out of that case
+    required a fix: the l=1 rows were a cosh/sinh transfer matrix, which costs
+    a condition number of e^{2 kL}. At A = 4 pi that is e^{1.8} = 6 and
+    invisible; at the matched area it is e^{36} = 4.4e+15, and THE FIRST RUN
+    REPORTED cond = 2.9e+15 AND AN ANSWER ANYWAY -- a singular system read out
+    as though it meant something. Carrying the tube's two end amplitudes as
+    unknowns instead never forms e^{+kL}: 18x18, every coefficient bounded by
+    one, conditioning 5.5e+07 at the matched area and 1.5e+04 (from 2.1e+05)
+    at the wide one. The reference solves reproduce to the SAME 4e-10, digit
+    for digit, so it is a change of form and not of content. A MODEL PARAMETER
+    MOVED BY A FACTOR OF FOUR HUNDRED IS NOT A PERTURBATION OF A FORMULATION,
+    IT IS A TEST OF ONE.
 
 WHAT IS STILL PUT IN
 ────────────────────
@@ -137,6 +159,7 @@ from geometrodynamics.waves.areal import (
     measure_the_kernel_projector_is_the_green_functions_own_tail,
     measure_the_matching_reproduces_an_exact_radial_solve,
     measure_the_obstruction_carries_the_answer,
+    measure_the_sign_does_not_survive_a_matched_tube,
     measure_the_signed_areal_response,
     measure_the_throat_is_a_resonant_cavity,
 )
@@ -211,17 +234,26 @@ def run_probe() -> dict:
 
     cav = measure_the_throat_is_a_resonant_cavity()
     checks.append({
-        "id": "T8", "name": "the sign is a statement about a throat",
+        "id": "T8", "name": "the throat is a resonant cavity",
         "detail": cav,
         "pass": bool(cav["flips_land_on_the_poles"]
                      and cav["the_working_throat_is_off_resonance"]),
+    })
+
+    matched = measure_the_sign_does_not_survive_a_matched_tube()
+    checks.append({
+        "id": "T9", "name": "*** the sign does not survive a matched tube ***",
+        "detail": matched,
+        "pass": bool(matched["the_sign_is_a_property_of_the_throat"]),
     })
 
     return {
         "probe": "areal",
         "question": "does the interaction metric deform toward a neck, away "
                     "from one, or merely oscillate?",
-        "answer": "toward a neck: dA/A < 0 at both mouths",
+        "answer": "toward a neck at the wide working throat: dA/A < 0 at "
+                  "both mouths -- but the sign is a property of the throat, "
+                  "and matching the tube's area to the mouths' flips it",
         "areal_response": head["areal_response"],
         "units": "2 pi G, with the source being PR #263's interference dT00",
         "mouths": [list(c) for c in MOUTHS],
@@ -241,8 +273,10 @@ def render_markdown(summary: dict) -> str:
         "",
         f"**Question.** {summary['question']}",
         "",
-        f"**Answer.** {summary['answer']} — "
-        f"ΔA/A = ({summary['areal_response'][0]:+.4e}, "
+        f"**Answer.** {summary['answer']}",
+        "",
+        f"ΔA/A = "
+        f"({summary['areal_response'][0]:+.4e}, "
         f"{summary['areal_response'][1]:+.4e}) in units of {summary['units']}.",
         "",
         f"Throat: area {summary['tube']['area']:.4f}, length "

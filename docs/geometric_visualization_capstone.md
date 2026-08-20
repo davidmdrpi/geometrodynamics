@@ -925,7 +925,8 @@ Hamiltonian constraint are quadratic, so `δR⁽³⁾ = 16πG δρ` has no time
 derivatives in it, and a constraint has neither a sound speed nor an Eddington
 mode.
 
-**Toward a neck. Both mouths close.**
+**Toward a neck — at the wide working throat, off resonance. Both mouths
+close.**
 
     ΔA/A = ( −2.06e−03 , −1.88e−03 )     in units of 2πG
 
@@ -963,12 +964,25 @@ drift `41%` between quadrature levels, against `1.5%` for the obstruction —
 and scaling them by three, by zero, or replacing them with noise moves the answer
 by `5e−04`.
 
-**The sign is a statement about a throat, not about the sphere.** The tube's
-`ℓ = 0` constraint channel is `∂_s² + 4π/𝒜`: a **cavity**. At `kL = nπ` the
-response has a pole and the sign flips — the scan finds flips at `3.133` and
-`6.260` against closed forms `π` and `2π`. Past the first pole the two mouths can
-move in *opposite* directions. The working throat sits at `kL = 0.9`, inside the
-first cell.
+**The sign is a statement about a throat, not about the sphere** — and that was
+put to the test rather than left as a caveat. The tube's `ℓ = 0` constraint
+channel is `∂_s² + 4π/𝒜`: a **cavity**, with poles at `kL = nπ` (the scan finds
+flips at `3.133` and `6.260` against closed forms `π` and `2π`). The working
+tube carries `𝒜 = 4π` against a mouth sphere of area `4π sin²a` — wider than its
+own mouths by `400×` at `a = 0.05`, which is what puts it at `kL = 0.9`, inside
+the first cell. **Set the two equal and the sign does not survive:**
+
+| `a` | `kL/π` | `𝒜 = 4π` | matched `𝒜 = 4π sin²a` |
+|-----|--------|----------|------------------------|
+| 0.05 | 5.732 | closes / closes | **opens / opens** |
+| 0.10 | 2.870 | closes / closes | **closes / opens** |
+
+At `a = 0.05` both mouths open; at `a = 0.10` they disagree. The matched throat
+is past five poles and past two, under `5%` of its own length from the next one.
+The neck's cross-sectional area has been a free parameter since §19, carried
+along because nothing measured had ever depended on its value. Something does
+now, and **which throat is physical is the load-bearing open question this round
+leaves.**
 
 **What is still put in.** The ESU's fluid is held rigid — consistent because the
 scalar's stress tensor is separately conserved, but a responsive fluid is the
@@ -1264,6 +1278,22 @@ Worth recording, because the failure modes repeat:
   order — a claim the data could no longer support, since a flat residual has no
   order. Replaced by a tolerance assertion plus an explicit statement that the
   flatness *is* the finding.
+
+* **A singular system read out as though it meant something.** The `ℓ = 1`
+  rows of the matching were a `cosh`/`sinh` transfer matrix across the tube,
+  which costs a condition number of `e^{2κL}`. At the working area that is
+  `e^{1.8} = 6`, so nothing about it was visible for the whole round. Asked
+  for the matched-area case — the same model with **one parameter moved** — it
+  becomes `e^{36} = 4.4e+15`, and the first run duly reported a condition
+  number of `2.9e+15` **and an answer**, in a format indistinguishable from
+  the good ones. Every digit was noise. The repair was to carry the tube's two
+  end amplitudes as unknowns instead of eliminating them, which never forms
+  `e^{+κL}`; the reference solves then reproduce to the *same* `4e-10`,
+  digit for digit, so it was a change of form and not of content. Two things
+  are worth keeping. **A model parameter moved by a factor of four hundred is
+  not a perturbation of a formulation, it is a test of one** — and a condition
+  number is not a diagnostic unless something actually reads it, which is why
+  it is now asserted in the tests rather than merely reported.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by

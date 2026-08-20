@@ -17,7 +17,10 @@ are quadratic, so dR3 = 16 pi G drho with no time derivatives: a constraint has
 no sound speed and no Eddington mode, which is exactly why #263 avoided the
 scalar sector as an evolution.
 
-The answer is TOWARD A NECK. Both mouths close.
+The answer is TOWARD A NECK -- AT THE WIDE WORKING THROAT. Both mouths close.
+The qualifier is not decoration: the working tube is 400x wider than its own
+mouths, and matching the two areas FLIPS THE SIGN. This is a statement about a
+throat, not about the interference source.
 
 What the panels show
 --------------------
@@ -41,8 +44,10 @@ best-converged number available and not on the worst.
 
 **Bottom right - the sign is a statement about a THROAT.** The tube's l=0
 constraint channel is d_s^2 + 4 pi / area, a CAVITY. At kL = n pi the response
-has a pole and the sign flips. The working throat sits at kL = 0.9, inside the
-first cell; past the first pole the two mouths can move in opposite directions.
+has a pole and the sign flips. The working throat (area 4 pi) sits at kL = 0.9,
+inside the first cell. The MATCHED throat (area 4 pi sin^2 a, i.e. as narrow as
+its own mouths) sits at kL/pi = 5.73 -- past five poles, and both mouths OPEN.
+Both are marked.
 
 What is put in
 --------------
@@ -98,7 +103,7 @@ class ArealFigure:
     def __init__(self, figsize=(13.8, 8.6)) -> None:
         self.fig = plt.figure(figsize=figsize, facecolor=_PAL["bg"])
         gs = self.fig.add_gridspec(
-            2, 2, left=0.075, right=0.975, top=0.840, bottom=0.135,
+            2, 2, left=0.075, right=0.975, top=0.820, bottom=0.135,
             wspace=0.26, hspace=0.52)
         self.ax_sign = self.fig.add_subplot(gs[0, 0], facecolor=_PAL["panel"])
         self.ax_ctrl = self.fig.add_subplot(gs[0, 1], facecolor=_PAL["panel"])
@@ -243,36 +248,55 @@ class ArealFigure:
                 fontsize=6.4, family="monospace")
 
     def _cavity(self) -> None:
+        """dA/A against the cavity phase kL/pi, for both tube areas at once.
+
+        Plotted against PHASE rather than length so the wide and the matched
+        throat land on the same axis: they differ only in where k puts them.
+        """
         ax = self.ax_cav
         m = self.head
-        s = m.signed_obstruction()
+        obs = m.signed_obstruction()
         src = m.as_source()
-        ls = np.linspace(0.25, 7.2, 320)
-        vals = []
-        for length in ls:
-            got = solve_matching(MOUTHS, m.radius,
-                                 TubeModel(area=WORKING_TUBE.area,
-                                           length=float(length)),
-                                 src, s, basis=self.basis)
-            vals.append(np.asarray(got["areal_response"]))
-        vals = np.array(vals)
-        clip = np.clip(vals * 1e3, -12.0, 12.0)
-        ax.plot(ls, clip[:, 0], lw=1.5, color=_PAL["close"], label="mouth 1")
-        ax.plot(ls, clip[:, 1], lw=1.2, ls="--", color=_PAL["x"],
-                label="mouth 2")
+        for area, col, lab, mark in (
+                (4 * math.pi, _PAL["close"], "wide  (A = 4pi)", "-"),
+                (4 * math.pi * math.sin(m.radius) ** 2, _PAL["cool"],
+                 "matched  (A = 4pi sin^2 a)", "-")):
+            k = math.sqrt(4 * math.pi / area)
+            phases = np.linspace(0.05, 6.6, 420)
+            vals = []
+            for ph in phases:
+                got = solve_matching(MOUTHS, m.radius,
+                                     TubeModel(area=area,
+                                               length=float(ph * math.pi / k)),
+                                     src, obs, basis=self.basis)
+                vals.append(float(np.asarray(got["areal_response"])[0]))
+            ax.plot(phases, np.array(vals) * 1e3, mark, lw=1.4, color=col,
+                    label=lab, alpha=0.95)
+            here = k * WORKING_TUBE.length / math.pi
+            if here <= phases[-1]:
+                ax.plot([here], [4.0e-2 * 1e3 if area < 1 else -2.06],
+                        "*", ms=14, color=col, mec=_PAL["text"], mew=0.6,
+                        zorder=5)
         ax.axhline(0.0, color=_PAL["dim"], lw=0.9)
-        for n in (1, 2):
-            ax.axvline(n * math.pi, color=_PAL["kern"], lw=1.0, ls=":")
-            ax.text(n * math.pi, 10.6, f" kL = {n}pi", color=_PAL["kern"],
-                    fontsize=6.6, family="monospace")
-        ax.axvline(WORKING_TUBE.length, color=_PAL["open"], lw=1.4)
-        ax.text(WORKING_TUBE.length + 0.1, -10.6, "working throat",
-                color=_PAL["open"], fontsize=6.8, family="monospace")
-        ax.set_ylim(-12.5, 12.5)
+        for n in (1, 2, 3, 4, 5, 6):
+            ax.axvline(n, color=_PAL["kern"], lw=0.8, ls=":")
+        ax.set_yscale("symlog", linthresh=1.0, linscale=0.6)
+        ax.set_ylim(-400, 400)
+        ax.set_xlim(0.0, 6.6)
         _style(ax, "the sign is a statement about a THROAT",
-               "tube length L   (k = 1, so kL = L)", "dA/A  [10^-3, clipped]")
+               "cavity phase  kL / pi   (dotted: the poles at n pi)",
+               "dA/A mouth 1  [10^-3, symlog]")
+        ax.text(0.985, 0.035,
+                "stars: the SAME tube, L = 0.9, in each model\n"
+                "wide     kL/pi = 0.29   dA/A < 0   closes\n"
+                "matched  kL/pi = 5.73   dA/A > 0   OPENS",
+                transform=ax.transAxes, color=_PAL["text"], fontsize=6.4,
+                family="monospace", va="bottom", ha="right",
+                bbox=dict(facecolor=_PAL["panel"], edgecolor=_PAL["rule"],
+                          alpha=0.92, pad=3.0))
         ax.legend(facecolor=_PAL["panel"], edgecolor=_PAL["rule"],
-                  labelcolor=_PAL["text"], fontsize=7.2, loc="lower right")
+                  labelcolor=_PAL["text"], fontsize=6.8, loc="upper left",
+                  framealpha=0.92)
 
     # ── assembly ────────────────────────────────────────────────────────────
     def draw(self) -> None:
@@ -284,12 +308,18 @@ class ArealFigure:
                       "v64  -  the interference metric deforms TOWARD a neck",
                       color=_PAL["text"], fontsize=15.5, ha="center",
                       family="monospace")
+        self.fig.text(0.5, 0.884,
+                      "-- at the WIDE working throat, off resonance.  matching "
+                      "the tube's area to the mouths' flips the sign (lower "
+                      "right), so this is a statement about a THROAT",
+                      color=_PAL["close"], fontsize=7.4, ha="center",
+                      family="monospace")
         self.fig.text(0.5, 0.915,
                       "initial-data constraint solve on the resolved neck:  "
                       "nabla^2 u + 3u = -2 pi G drho,   dA/A = 4u",
                       color=_PAL["dim"], fontsize=8.6, ha="center",
                       family="monospace")
-        self.fig.text(0.5, 0.884,
+        self.fig.text(0.5, 0.858,
                       "#263 proved the TT sector cannot give a geometric "
                       "verdict -- <h_nn> vanishes identically -- so this is "
                       "the scalar sector, as a CONSTRAINT and not an evolution",

@@ -3066,14 +3066,28 @@ are quadratic, so `δR⁽³⁾ = 16πG δρ` with no time derivatives in it: a c
 has no sound speed and no Eddington mode, which is exactly what made #263 avoid
 the scalar sector.
 
-**Toward a neck. Both mouths close.**
+**Toward a neck — at the wide working throat, off resonance. Both mouths
+close.**
 
 ```
 ΔA/A = ( −2.06e−03 ,  −1.88e−03 )      in units of 2πG
 ```
 
 Negative in all eight controls — two quadrature levels, two mouth radii, two
-gluings. **And the mechanism is not the obvious one:** the interference energy
+gluings.
+
+**And the qualifier is load-bearing.** The working tube carries `𝒜 = 4π` against
+a mouth sphere of area `4π sin²a` — wider than its own mouths by `400×` at
+`a = 0.05`. Set them equal, so the tube is as narrow as the mouths it joins, and
+`k = 1/sin a` puts the *same* length `0.9` at `kL/π = 5.73` and `2.87` — past
+five poles and past two. **The sign does not survive:**
+
+| `a` | `kL/π` | `𝒜 = 4π` | matched `𝒜 = 4π sin²a` |
+|-----|--------|----------|------------------------|
+| 0.05 | 5.732 | closes / closes | **opens / opens** |
+| 0.10 | 2.870 | closes / closes | **closes / opens** |
+
+So this is a statement about a throat, not about the interference source. **And the mechanism is not the obvious one:** the interference energy
 *alone* would **open** the mouths (`U(c_j) > 0` at both). The throat's own
 monopole layers overshoot that and invert it.
 
@@ -3095,10 +3109,19 @@ off-plane response is `6e−17`. `ΔA/A` is, to `0.09%`, a linear functional of 
 obstruction alone — which is lucky, because the `ℓ = 1` source moments drift
 `41%` between quadrature levels where the obstruction drifts `1.5%`.
 
-**The sign is a statement about a throat.** The tube's `ℓ = 0` constraint channel
-is `∂_s² + 4π/𝒜` — a **cavity**. At `kL = nπ` the response has a pole and the
-sign flips; the scan finds flips at `3.133` and `6.260` against `π` and `2π`. The
-working throat sits at `kL = 0.9`, inside the first cell.
+**Why.** The tube's `ℓ = 0` constraint channel is `∂_s² + 4π/𝒜` — a **cavity**.
+At `kL = nπ` the response has a pole and the sign flips; the scan finds flips at
+`3.133` and `6.260` against `π` and `2π`. The working throat sits at `kL = 0.9`,
+inside the first cell; the matched throat does not.
+
+**One bug that check found.** The `ℓ = 1` rows were a `cosh`/`sinh` transfer
+matrix, which costs a condition number of `e^{2κL}` — invisible at `𝒜 = 4π`
+(`e^{1.8} = 6`), fatal at the matched area (`e^{36} = 4.4e+15`). The first
+matched-tube run reported `cond = 2.9e+15` **and an answer anyway**. Carrying
+the tube's end amplitudes as unknowns never forms `e^{+κL}`: `18×18`, every
+coefficient bounded by one, `5.5e+07` at the matched area and `1.5e+04` (from
+`2.1e+05`) at the wide one. The reference solves reproduce to the *same*
+`4e−10`, so it is a change of form and not of content.
 
 **What is still put in.** The ESU's fluid is held **rigid**; the source is #263's,
 on a **fixed** background with **point** sources; the response is **linear** in

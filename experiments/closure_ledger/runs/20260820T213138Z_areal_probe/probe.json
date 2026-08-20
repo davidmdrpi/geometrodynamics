@@ -1,0 +1,676 @@
+{
+  "probe": "areal",
+  "question": "does the interaction metric deform toward a neck, away from one, or merely oscillate?",
+  "answer": "toward a neck at the wide working throat: dA/A < 0 at both mouths -- but the sign is a property of the throat, and matching the tube's area to the mouths' flips it",
+  "areal_response": [
+    -0.0020575251690558155,
+    -0.0018817752694185556
+  ],
+  "units": "2 pi G, with the source being PR #263's interference dT00",
+  "mouths": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.2674988286245874,
+      0.9635581854171928,
+      0.0,
+      0.0
+    ]
+  ],
+  "tube": {
+    "area": 12.566370614359172,
+    "length": 0.9,
+    "wavenumber": 1.0
+  },
+  "moment_levels": [
+    {
+      "radius": 0.05,
+      "points": 5158
+    },
+    {
+      "radius": 0.05,
+      "points": 12630
+    },
+    {
+      "radius": 0.1,
+      "points": 5158
+    },
+    {
+      "radius": 0.1,
+      "points": 12630
+    }
+  ],
+  "checks": [
+    {
+      "id": "T1",
+      "name": "the constraint and the areal response",
+      "detail": {
+        "operator": "nabla^2 u + 3u = -2 pi G drho",
+        "eigenvalue": 4.0,
+        "areal_response_is_four_u": 1.0
+      },
+      "pass": true
+    },
+    {
+      "id": "T2",
+      "name": "the degeneracy, and both sectors of it",
+      "detail": {
+        "on_the_sphere": {
+          "rows": [
+            {
+              "k": 0,
+              "laplacian_eigenvalue": 0.0,
+              "operator_eigenvalue": 3.0,
+              "free_esu_lambda": 1.0
+            },
+            {
+              "k": 1,
+              "laplacian_eigenvalue": -3.0,
+              "operator_eigenvalue": 0.0,
+              "free_esu_lambda": 4.0
+            },
+            {
+              "k": 2,
+              "laplacian_eigenvalue": -8.0,
+              "operator_eigenvalue": -5.0,
+              "free_esu_lambda": 9.0
+            },
+            {
+              "k": 3,
+              "laplacian_eigenvalue": -15.0,
+              "operator_eigenvalue": -12.0,
+              "free_esu_lambda": 16.0
+            },
+            {
+              "k": 4,
+              "laplacian_eigenvalue": -24.0,
+              "operator_eigenvalue": -21.0,
+              "free_esu_lambda": 25.0
+            },
+            {
+              "k": 5,
+              "laplacian_eigenvalue": -35.0,
+              "operator_eigenvalue": -32.0,
+              "free_esu_lambda": 36.0
+            },
+            {
+              "k": 6,
+              "laplacian_eigenvalue": -48.0,
+              "operator_eigenvalue": -45.0,
+              "free_esu_lambda": 49.0
+            }
+          ],
+          "constraint_eigenvalue": 4.0,
+          "derived_eigenvalue": 4.0,
+          "kernel_modes": [
+            1
+          ],
+          "negative_modes": [
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "the_operator_has_a_kernel": true,
+          "the_operator_is_indefinite": true,
+          "it_sits_on_the_esu_dipole_level": true,
+          "why_it_matters": "the kernel imposes a solvability condition on the source, and the fixed-ambient Green function has a literal pole at this eigenvalue -- the point-mouth model is not inaccurate here, it is undefined"
+        },
+        "lifted_by_the_balls": {
+          "four_pi": 12.566370614359172,
+          "coefficient_spread": 0.013086958918764324,
+          "worst_shooting_vs_closed_form": 2.2509399847167704e-06,
+          "it_is_nonzero_everywhere": true,
+          "it_is_four_pi_a_cubed": true,
+          "it_vanishes_in_the_point_limit": true,
+          "the_dipole_partners_are_also_degenerate": true,
+          "worst_dipole_closed_form_error": 4.709270431880716e-06,
+          "dipole_error_falls_with_radius": true,
+          "the_dipole_closed_form_holds": true,
+          "only_ell_two_and_above_is_free": true,
+          "what_it_settles": "the resolved neck makes the constraint operator invertible and the point limit makes it singular again, so this is a requirement rather than a refinement"
+        }
+      },
+      "pass": true
+    },
+    {
+      "id": "T3",
+      "name": "the projector is the Green function's own tail",
+      "detail": {
+        "residual_matches_the_tail": 2.1174463460393866e-07,
+        "kernel_norm_squared": 4.934802200544679,
+        "closed_form_norm": 4.934802200544679,
+        "projector_constant": 0.20264236728467555,
+        "one_over_the_norm": 0.20264236728467555,
+        "unit_source_normalisation": 0.9999996816882805,
+        "it_is_the_projector": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T4",
+      "name": "the assembly against exact solves, both sectors",
+      "detail": {
+        "rows": [
+          {
+            "sector": "l=0",
+            "radius": 0.2,
+            "exact": [
+              -0.1591736133094099,
+              -0.05390621611289356
+            ],
+            "matched": [
+              -0.1591736133064046,
+              -0.0539062161109124
+            ],
+            "relative_error": 3.6752045851073945e-11
+          },
+          {
+            "sector": "l=0",
+            "radius": 0.1,
+            "exact": [
+              -0.0857910402012499,
+              0.018260514134790646
+            ],
+            "matched": [
+              -0.08579104019853756,
+              0.01826051413619395
+            ],
+            "relative_error": 7.684919367534349e-11
+          },
+          {
+            "sector": "l=0",
+            "radius": 0.05,
+            "exact": [
+              -0.06646376585610445,
+              0.037242043979857045
+            ],
+            "matched": [
+              -0.06646376585554553,
+              0.03724204398003367
+            ],
+            "relative_error": 8.409273277720786e-12
+          },
+          {
+            "sector": "l=1",
+            "radius": 0.2,
+            "exact": [
+              -5.585997127312899,
+              -5.5771023384081495
+            ],
+            "matched": [
+              -5.585997127287507,
+              -5.57710233837991
+            ],
+            "relative_error": 5.063505170710414e-12
+          },
+          {
+            "sector": "l=1",
+            "radius": 0.1,
+            "exact": [
+              -7.8244239087615455,
+              -7.821924826242188
+            ],
+            "matched": [
+              -7.824423909060145,
+              -7.8219248265321895
+            ],
+            "relative_error": 3.816236215925528e-11
+          },
+          {
+            "sector": "l=1",
+            "radius": 0.05,
+            "exact": [
+              -13.551100106994747,
+              -13.550442110049355
+            ],
+            "matched": [
+              -13.551100112233906,
+              -13.550442115295837
+            ],
+            "relative_error": 3.8718162009843127e-10
+          }
+        ],
+        "worst_l0": 7.684919367534349e-11,
+        "worst_l1": 3.8718162009843127e-10,
+        "worst_overall": 3.8718162009843127e-10,
+        "radii": [
+          0.2,
+          0.1,
+          0.05
+        ],
+        "both_sectors_agree": true,
+        "the_error_is_flat_in_the_radius": true,
+        "what_flat_means": "the residual no longer falls with a, so it is the assembly's numerical floor and not a truncation error \u2014 an order of convergence would be a claim this data cannot support",
+        "what_it_defends": "PR #262's suite checked only l=0, so an l=1 error in the centrifugal term survived it intact"
+      },
+      "pass": true
+    },
+    {
+      "id": "T5",
+      "name": "the dipole layers: required, then invisible",
+      "detail": {
+        "monopole_span_dimension": 2,
+        "equations": 4,
+        "with_dipoles_dimension": 4,
+        "obstruction": [
+          -0.003365052052516453,
+          -0.003428094097091135,
+          0.0029247941051175202,
+          0.0024988541762218553
+        ],
+        "norm": 0.006154193465110426,
+        "off_plane_fraction": 0.6250870936766231,
+        "monopole_only_shortfall": 0.6250870936766231,
+        "response_to_the_whole": [
+          -0.0020556174412769577,
+          -0.0018800116969023874
+        ],
+        "response_to_the_in_plane_part": [
+          -0.0020556174412768957,
+          -0.0018800116969023284
+        ],
+        "response_to_the_off_plane_part": [
+          -5.871461800097407e-17,
+          -5.838892299762132e-17
+        ],
+        "monopoles_alone_cannot_close_it": true,
+        "the_dipoles_close_it": true,
+        "and_then_they_do_not_move_the_answer": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T6",
+      "name": "what the answer is made of",
+      "detail": {
+        "full": [
+          -0.0020575251690558155,
+          -0.0018817752694185556
+        ],
+        "variants": {
+          "obstruction_only": [
+            -0.0020556174412769577,
+            -0.0018800116969023874
+          ],
+          "local_data_only": [
+            -1.907727778860391e-06,
+            -1.7635725161682658e-06
+          ],
+          "dipole_moments_zeroed": [
+            -0.002057895399042123,
+            -0.0018822215414621632
+          ],
+          "dipole_moments_randomised": [
+            -0.002057497934513059,
+            -0.0018819245151188019
+          ],
+          "obstruction_doubled": [
+            -0.0041112348825539154,
+            -0.0037600233938047747
+          ]
+        },
+        "obstruction_alone_reproduces_it": 0.000937185510315075,
+        "without_the_obstruction": 0.0009271953546676827,
+        "worst_drift_from_the_dipole_moments": 0.00023715480315855686,
+        "linear_in_the_obstruction": 0.0,
+        "the_obstruction_is_the_answer": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T7",
+      "name": "*** the signed areal response ***",
+      "detail": {
+        "rows": [
+          {
+            "radius": 0.05,
+            "points": 5158,
+            "gluing": "transported",
+            "areal_response": [
+              -0.0021014239560897263,
+              -0.0019147829976097989
+            ],
+            "monopoles": [
+              -0.0024366312561879817,
+              -0.003649024146055986
+            ],
+            "dipole_norms": [
+              0.0019358359766300443,
+              0.0019364002445315344
+            ],
+            "kernel_norm": 1.735313051993522,
+            "condition_number": 14494.114989440535,
+            "residual": 4.313749512308474e-16
+          },
+          {
+            "radius": 0.05,
+            "points": 5158,
+            "gluing": "reflected",
+            "areal_response": [
+              -0.0021014239560897263,
+              -0.001914782997609792
+            ],
+            "monopoles": [
+              -0.002436631256187982,
+              -0.0036490241460559857
+            ],
+            "dipole_norms": [
+              0.0019359148453694107,
+              0.0019363213379928195
+            ],
+            "kernel_norm": 1.5782919297562548,
+            "condition_number": 14494.114989440044,
+            "residual": 2.7035765499207047e-16
+          },
+          {
+            "radius": 0.05,
+            "points": 12630,
+            "gluing": "transported",
+            "areal_response": [
+              -0.0020575251690558155,
+              -0.0018817752694185556
+            ],
+            "monopoles": [
+              -0.0024137375961375217,
+              -0.0035553835772862735
+            ],
+            "dipole_norms": [
+              0.0019231999010508461,
+              0.0019237085770213986
+            ],
+            "kernel_norm": 1.7238659470561422,
+            "condition_number": 14494.114989440535,
+            "residual": 3.3485088958415345e-16
+          },
+          {
+            "radius": 0.05,
+            "points": 12630,
+            "gluing": "reflected",
+            "areal_response": [
+              -0.002057525169055812,
+              -0.0018817752694185522
+            ],
+            "monopoles": [
+              -0.0024137375961375217,
+              -0.003555383577286273
+            ],
+            "dipole_norms": [
+              0.0019232835383770621,
+              0.0019236248951453123
+            ],
+            "kernel_norm": 1.5622755862575515,
+            "condition_number": 14494.114989440044,
+            "residual": 2.7544332266581224e-16
+          },
+          {
+            "radius": 0.1,
+            "points": 5158,
+            "gluing": "transported",
+            "areal_response": [
+              -0.0012247497403136479,
+              -0.0010898542995437556
+            ],
+            "monopoles": [
+              -0.0013072476685776848,
+              -0.0021805893492405086
+            ],
+            "dipole_norms": [
+              0.0019340042665865716,
+              0.0019383177087315105
+            ],
+            "kernel_norm": 0.3000551481747064,
+            "condition_number": 980.0775833408185,
+            "residual": 1.3161299701324086e-16
+          },
+          {
+            "radius": 0.1,
+            "points": 5158,
+            "gluing": "reflected",
+            "areal_response": [
+              -0.0012247497403136357,
+              -0.0010898542995437417
+            ],
+            "monopoles": [
+              -0.0013072476685776844,
+              -0.002180589349240508
+            ],
+            "dipole_norms": [
+              0.001934966111289752,
+              0.001937352987224648
+            ],
+            "kernel_norm": 0.25701017880271615,
+            "condition_number": 980.0775833408123,
+            "residual": 1.2860752181995722e-16
+          },
+          {
+            "radius": 0.1,
+            "points": 12630,
+            "gluing": "transported",
+            "areal_response": [
+              -0.0011783119898162858,
+              -0.0010546861496955615
+            ],
+            "monopoles": [
+              -0.0012822496320437611,
+              -0.00208262411289537
+            ],
+            "dipole_norms": [
+              0.0019215529850577183,
+              0.0019254503935613536
+            ],
+            "kernel_norm": 0.29799664731645986,
+            "condition_number": 980.0775833408185,
+            "residual": 1.5478853177266821e-16
+          },
+          {
+            "radius": 0.1,
+            "points": 12630,
+            "gluing": "reflected",
+            "areal_response": [
+              -0.0011783119898162754,
+              -0.0010546861496955494
+            ],
+            "monopoles": [
+              -0.0012822496320437611,
+              -0.00208262411289537
+            ],
+            "dipole_norms": [
+              0.001922574424312202,
+              0.0019244254930096555
+            ],
+            "kernel_norm": 0.2536200609084298,
+            "condition_number": 980.0775833408123,
+            "residual": 1.1175595388944278e-16
+          }
+        ],
+        "headline": {
+          "radius": 0.05,
+          "points": 12630,
+          "gluing": "transported",
+          "areal_response": [
+            -0.0020575251690558155,
+            -0.0018817752694185556
+          ],
+          "monopoles": [
+            -0.0024137375961375217,
+            -0.0035553835772862735
+          ],
+          "dipole_norms": [
+            0.0019231999010508461,
+            0.0019237085770213986
+          ],
+          "kernel_norm": 1.7238659470561422,
+          "condition_number": 14494.114989440535,
+          "residual": 3.3485088958415345e-16
+        },
+        "areal_response": [
+          -0.0020575251690558155,
+          -0.0018817752694185556
+        ],
+        "sign": [
+          "closes",
+          "closes"
+        ],
+        "every_variant_agrees_in_sign": true,
+        "quadrature_spread_at_fixed_radius": 0.02133572298124342,
+        "spread_over_the_radius": 0.43952598015520006,
+        "worst_condition_number": 14494.114989440535,
+        "worst_residual": 4.313749512308474e-16,
+        "the_answer": "toward a neck AT THIS THROAT \u2014 the conformal factor falls at both mouths, so both mouth areas contract.  The interference energy alone would open them (U(c_j) > 0 at both); the throat's monopole layers overshoot that and invert it.  Matching the tube's area to the mouths' flips the sign, so this is a property of the throat and not of the source.",
+        "the_qualifier": "wide tube, area 4 pi against a mouth area of 4 pi sin^2 a; kL = 0.9, inside the first cavity cell"
+      },
+      "pass": true
+    },
+    {
+      "id": "T8",
+      "name": "the throat is a resonant cavity",
+      "detail": {
+        "wavenumber": 1.0,
+        "closed_form_poles": [
+          3.141592653589793,
+          6.283185307179586,
+          9.42477796076938
+        ],
+        "sign_flips_at": [
+          3.1334021967300125,
+          6.259791380086999
+        ],
+        "distance_to_the_closed_form": [
+          0.008190456859780593,
+          0.02339392709258714,
+          3.1649865806823803
+        ],
+        "grid_spacing": 0.03859739732539491,
+        "flips_land_on_the_poles": true,
+        "working_length": 0.9,
+        "working_phase": 0.9,
+        "the_working_throat_is_off_resonance": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T9",
+      "name": "*** the sign does not survive a matched tube ***",
+      "detail": {
+        "rows": [
+          {
+            "radius": 0.05,
+            "model": "wide",
+            "area": 12.566370614359172,
+            "wavenumber": 1.0,
+            "phase_over_pi": 0.2864788975654116,
+            "areal_response": [
+              -0.0020575251690558155,
+              -0.0018817752694185556
+            ],
+            "sign": [
+              "closes",
+              "closes"
+            ],
+            "nearest_pole": 1,
+            "distance_to_the_pole_over_pi": 0.7135211024345884,
+            "distance_as_a_fraction_of_the_length": 2.490658503988659,
+            "condition_number": 14494.114989440535,
+            "residual": 3.3485088958415345e-16
+          },
+          {
+            "radius": 0.05,
+            "model": "matched",
+            "area": 0.03138975532220612,
+            "wavenumber": 20.00833576452976,
+            "phase_over_pi": 5.731965971941083,
+            "areal_response": [
+              0.043914344940615385,
+              0.04064281059401825
+            ],
+            "sign": [
+              "opens",
+              "opens"
+            ],
+            "nearest_pole": 6,
+            "distance_to_the_pole_over_pi": 0.2680340280589171,
+            "distance_as_a_fraction_of_the_length": 0.04676127342189177,
+            "condition_number": 54671165.82430257,
+            "residual": 4.713395413854433e-12
+          },
+          {
+            "radius": 0.1,
+            "model": "wide",
+            "area": 12.566370614359172,
+            "wavenumber": 1.0,
+            "phase_over_pi": 0.2864788975654116,
+            "areal_response": [
+              -0.0011783119898162858,
+              -0.0010546861496955615
+            ],
+            "sign": [
+              "closes",
+              "closes"
+            ],
+            "nearest_pole": 1,
+            "distance_to_the_pole_over_pi": 0.7135211024345884,
+            "distance_as_a_fraction_of_the_length": 2.490658503988659,
+            "condition_number": 980.0775833408185,
+            "residual": 1.5478853177266821e-16
+          },
+          {
+            "radius": 0.1,
+            "model": "matched",
+            "area": 0.1252453852297186,
+            "wavenumber": 10.016686131634776,
+            "phase_over_pi": 2.869569200249478,
+            "areal_response": [
+              -0.007059016435674519,
+              0.00481706034563792
+            ],
+            "sign": [
+              "closes",
+              "opens"
+            ],
+            "nearest_pole": 3,
+            "distance_to_the_pole_over_pi": 0.13043079975052185,
+            "distance_as_a_fraction_of_the_length": 0.045453094401480945,
+            "condition_number": 458648.77136361774,
+            "residual": 9.276850115427763e-13
+          }
+        ],
+        "length": 0.9,
+        "wide_signs": [
+          [
+            "closes",
+            "closes"
+          ],
+          [
+            "closes",
+            "closes"
+          ]
+        ],
+        "matched_signs": [
+          [
+            "opens",
+            "opens"
+          ],
+          [
+            "closes",
+            "opens"
+          ]
+        ],
+        "the_wide_throat_always_closes": true,
+        "the_matched_throat_does_not": true,
+        "the_matched_mouths_can_disagree": true,
+        "worst_condition_number": 54671165.82430257,
+        "worst_residual": 4.713395413854433e-12,
+        "the_sign_is_a_property_of_the_throat": true
+      },
+      "pass": true
+    }
+  ],
+  "passed": 9,
+  "total": 9
+}

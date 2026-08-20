@@ -167,7 +167,7 @@ def test_the_stencil_is_fourth_order_because_two_point_was_not_enough():
     assert "(-2, -1, 1, 2)" in body
 
 
-# ── the twelve-by-twelve system ─────────────────────────────────────────────
+# ── the matching system ─────────────────────────────────────────────────────
 def test_the_system_is_square_and_solved_cleanly():
     m = areal.INTERFERENCE_MOMENTS[1]
     got = areal.solve_matching(areal.MOUTHS, m.radius, areal.WORKING_TUBE,
@@ -311,3 +311,59 @@ def test_the_sign_flips_at_the_throats_own_standing_waves():
     assert abs(got["working_phase"] - 0.9) < 1e-12
     for d in got["distance_to_the_closed_form"][:2]:
         assert d <= 2 * got["grid_spacing"]
+
+
+# ── the headline is a statement about a wide tube ───────────────────────────
+def test_the_matched_tube_wavenumber_is_one_over_sin_a():
+    """`A = 4 pi sin^2 a` makes the tube as narrow as its own mouths."""
+    for a in (0.05, 0.10, 0.2):
+        t = areal.TubeModel(area=4 * math.pi * math.sin(a) ** 2)
+        assert abs(t.wavenumber() - 1.0 / math.sin(a)) < 1e-12
+
+
+def test_the_sign_does_not_survive_a_matched_tube():
+    """The result is conditional on the throat, and this is the counterexample."""
+    got = areal.measure_the_sign_does_not_survive_a_matched_tube()
+    assert got["the_wide_throat_always_closes"]
+    assert got["the_matched_throat_does_not"]
+    assert got["the_matched_mouths_can_disagree"]
+    assert got["the_sign_is_a_property_of_the_throat"]
+    assert got["worst_residual"] < 1e-9
+    # and it must be a real answer, not a singular system read out anyway
+    assert got["worst_condition_number"] < 1e10
+    phases = {r["radius"]: r["phase_over_pi"]
+              for r in got["rows"] if r["model"] == "matched"}
+    assert abs(phases[0.05] - 5.732) < 5e-3
+    assert abs(phases[0.10] - 2.870) < 5e-3
+
+
+def test_the_evanescent_channel_is_written_without_forming_a_growing_exponential():
+    """A `cosh`/`sinh` transfer matrix costs a condition number of `e^{2 kL}`.
+
+    At the matched area and `a = 0.05` that is `4.4e+15` — the system goes
+    singular to double precision, and no answer can be read out of it. Carrying
+    the tube's two end amplitudes as unknowns instead keeps every coefficient
+    bounded by one.
+    """
+    t = areal.TubeModel(area=4 * math.pi * math.sin(0.05) ** 2, length=0.9)
+    k, x = t.dipole_attenuation()
+    assert 0.0 < x <= 1.0
+    assert abs(x - math.exp(-k * 0.9)) < 1e-300 + 1e-15 * x
+    m = areal.INTERFERENCE_MOMENTS[1]
+    got = areal.solve_matching(areal.MOUTHS, 0.05, t, m.as_source(),
+                               m.signed_obstruction())
+    assert got["condition_number"] < 1e10, "the stable form must stay solvable"
+    assert got["residual"] < 1e-9
+    assert np.asarray(got["tube_amplitudes"]).shape == (6,)
+
+
+def test_the_stable_form_agrees_with_the_transfer_matrix_where_both_work():
+    """Where `cosh kL` is not yet enormous, the two formulations must agree.
+
+    `dipole_transfer` is kept precisely so this comparison exists: the
+    reformulation was made for conditioning, so it has to be shown to be a
+    change of form and not of content.
+    """
+    got = areal.measure_the_matching_reproduces_an_exact_radial_solve()
+    assert got["both_sectors_agree"]
+    assert got["worst_overall"] < 1e-8

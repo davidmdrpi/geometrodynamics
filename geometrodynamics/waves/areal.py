@@ -25,8 +25,11 @@ With ``σ = −2πG δρ`` and ``G_⊥`` the pseudo-inverse Green function of
 
 where ``U = −G_⊥[σ 1_Ω]``, ``𝒟_j`` is the dipole layer at mouth ``j`` (the
 derivative of ``G_⊥`` as its source point is moved along a tangent direction),
-``D_j ⊥ c_j``, and ``c ∈ R⁴`` is a free kernel element.  Twelve unknowns:
-two monopole strengths, six dipole components, four kernel coefficients.
+``D_j ⊥ c_j``, and ``c ∈ R⁴`` is a free kernel element.  Twelve field
+unknowns: two monopole strengths, six dipole components, four kernel
+coefficients.  (`solve_matching` solves an ``18×18`` system: the extra six are
+the tube's end amplitudes, carried rather than eliminated purely for
+conditioning — see below.)
 
 The solvability condition is not an extra assumption — it is what makes the
 representation consistent.  ``G_⊥`` satisfies
@@ -40,7 +43,7 @@ that the leftover ``k = 1`` pieces cancel on ``Ω`` gives, exactly,
 
     ``Σ_j A_j c_j + Σ_j D_j = S_σ`` ,     ``S_σ = ∫_Ω y σ(y) dV`` .
 
-Four equations.  **Two monopoles cannot satisfy them.**  ``A_1 c_1 + A_2 c_2``
+Four equations, and the remaining fourteen are the throat.  **Two monopoles cannot satisfy these four.**  ``A_1 c_1 + A_2 c_2``
 sweeps out only the plane spanned by the two mouth positions, so any component
 of ``S_σ`` off that plane has to be carried by the dipole layers.  For the
 two-wave interference source, measured, the monopole-only condition fails by
@@ -59,7 +62,7 @@ they drift ``41%`` between quadrature levels where the obstruction drifts
 ``1.5%`` — and the signed answer does not depend on them.  Scaling them by
 three, or replacing them with noise, moves ``ΔA/A`` by ``5e-04``.
 
-The remaining eight equations are the throat.  A tube of cross-sectional area
+A tube of cross-sectional area
 ``𝒜`` is a round ``S²`` of radius ``r = √(𝒜/4π)`` crossed with a line, so
 ``R̂ = 2/r² = 8π/𝒜`` and the same constraint reduction gives ``∇² + R̂/2``:
 
@@ -68,8 +71,19 @@ The remaining eight equations are the throat.  A tube of cross-sectional area
 
 Continuity of ``u`` and of flux at each end closes it.  Note what the first
 line means: **the tube is a resonant cavity for the constraint**, and at
-``kL = π`` the response has a pole and the sign of ``ΔA/A`` flips.  A signed
-answer is a statement about a throat, not about the sphere.
+``kL = nπ`` the response has a pole and the sign of ``ΔA/A`` flips.
+
+That is not a remark.  It is the boundary of the result, and it was tested
+rather than left as one.  The working throat carries ``𝒜 = 4π`` against a mouth
+sphere of area ``4π sin²a`` — wider than its own mouths by a factor of ``400``
+at ``a = 0.05``.  Set the two **equal**, so the tube is exactly as narrow as
+the mouths it joins, and ``k = 1/sin a``: the same length ``0.9`` becomes
+``kL/π = 5.73`` at ``a = 0.05`` and ``2.87`` at ``a = 0.10``, past five poles
+and past two, ``4.6%`` of its own length from the next.  **The sign does not
+survive.** At ``a = 0.05`` both mouths open; at ``a = 0.10`` they disagree.
+`measure_the_sign_does_not_survive_a_matched_tube` is that calculation, and it
+is the reason the headline is stated as *at the wide working throat, off
+resonance* rather than as a property of the interference source.
 
 What is checked and what is assumed
 ───────────────────────────────────
@@ -80,15 +94,31 @@ full test suite.  Agreement is ``4e-10`` or better at every radius in both
 sectors, and **flat** in the radius: it is the assembly's numerical floor, not
 a truncation error, so no order of convergence is claimed from it.
 
-Getting there took one correction worth recording.  The first assembly agreed
-with the reference at ``1e-06`` and no better, at every radius — and that
-number did not move when the reference's own quadrature, stencil and
-boundary-value tolerances were each tightened by four orders.  It was
-therefore not the reference's floor but a systematic error of the assembly:
-the two-point stencil for the mouth-sphere radial derivative, whose *relative*
-truncation error on a ``1/χ`` field is exactly ``step²``.  A five-point rule
-removed four orders of magnitude.  A discrepancy that refuses to move when you
-refine the *other* side is the other side telling you it is not the problem.
+Getting there took two corrections worth recording.
+
+The first assembly agreed with the reference at ``1e-06`` and no better, at
+every radius — and that number did not move when the reference's own
+quadrature, stencil and boundary-value tolerances were each tightened by four
+orders.  It was therefore not the reference's floor but a systematic error of
+the assembly: the two-point stencil for the mouth-sphere radial derivative,
+whose *relative* truncation error on a ``1/χ`` field is exactly ``step²``.  A
+five-point rule removed four orders of magnitude.  **A discrepancy that refuses
+to move when you refine the other side is the other side telling you it is not
+the problem.**
+
+The second was found only because the matched-tube check was asked for.  The
+``ℓ = 1`` rows were originally a ``cosh``/``sinh`` transfer matrix, which costs
+a condition number of ``e^{2κL}``.  At ``𝒜 = 4π`` that is ``e^{1.8} = 6``, and
+invisible.  At the matched area it is ``e^{36} = 4.4e+15`` — the system is
+singular to double precision, and the first matched-tube run reported a
+condition number of ``2.9e+15`` and an answer anyway.  Carrying the tube's two
+end amplitudes as unknowns instead of eliminating them never forms ``e^{+κL}``;
+the system grows from ``12×12`` to ``18×18``, every coefficient is bounded by
+one, and the conditioning falls to ``5.5e+07`` — and by ``1.5e+04`` from
+``2.1e+05`` at the wide working throat too.  The reference solves reproduce to
+the *same* ``4e-10``, digit for digit, so it is a change of form and not of
+content.  **A model parameter moved by a factor of four hundred is not a
+perturbation of a formulation, it is a test of one.**
 
 Two things are modelled rather than derived.  The **gluing map** identifying
 the two mouths' transverse frames through the tube is taken to be parallel
@@ -129,6 +159,9 @@ __all__ = [
     "TubeModel",
     "WORKING_TUBE",
     "regularised_green_derivative",
+    "SourceMoments",
+    "INTERFERENCE_MOMENTS",
+    "MOUTHS",
     "tangent_frame",
     "direction_rule",
     "mouth_sphere",
@@ -143,6 +176,7 @@ __all__ = [
     "measure_the_dipole_layers_are_required_not_optional",
     "measure_the_obstruction_carries_the_answer",
     "measure_the_signed_areal_response",
+    "measure_the_sign_does_not_survive_a_matched_tube",
     "measure_the_throat_is_a_resonant_cavity",
 ]
 
@@ -157,7 +191,7 @@ def regularised_green_derivative(chi) -> np.ndarray:
     """``dG_⊥/dχ`` in closed form.
 
     Kept exact rather than differenced: the dipole layer *is* this function,
-    and the dipole layers are what make the twelve-by-twelve system solvable
+    and the dipole layers are what make the matching system solvable
     at all.
     """
     x = np.asarray(chi, dtype=float)
@@ -205,9 +239,31 @@ class TubeModel:
         return float(k), math.cos(k * self.length), math.sin(k * self.length)
 
     def dipole_transfer(self) -> Tuple[float, float, float]:
-        """``(κ, cosh κL, sinh κL)`` — the evanescent channel."""
+        """``(κ, cosh κL, sinh κL)`` — the evanescent channel.
+
+        Kept for reference and for the one-dimensional checks.  `solve_matching`
+        does **not** use it: see `dipole_attenuation`.
+        """
         k = self.dipole_rate()
         return k, math.cosh(k * self.length), math.sinh(k * self.length)
+
+    def dipole_attenuation(self) -> Tuple[float, float]:
+        """``(κ, e^{−κL})`` — the evanescent channel written stably.
+
+        A transfer matrix in ``cosh``/``sinh`` costs a condition number of
+        ``e^{2κL}``, which is not a numerical detail: with the tube's area
+        matched to the mouth's, ``κ = 1/sin a`` and a length of ``0.9`` gives
+        ``e^{2κL} = 4.4e+15`` at ``a = 0.05`` — an eliminated system goes
+        singular to double precision and no answer can be read out of it at all.
+
+        Writing the tube mode as ``P e^{−κs} + Q e^{κ(s−L)}`` instead never
+        forms ``e^{+κL}``: every coefficient is bounded by one, the two end
+        amplitudes enter as their own unknowns, and the physical limit — a tube
+        many e-foldings long, whose two mouths are decoupled in this channel —
+        is the well-conditioned case rather than the singular one.
+        """
+        k = self.dipole_rate()
+        return k, math.exp(-k * self.length)
 
     def monopole_resonances(self, count: int = 4) -> np.ndarray:
         """Lengths at which the ``ℓ = 0`` channel has a standing wave.
@@ -407,11 +463,18 @@ def solve_matching(mouths: Sequence[Sequence[float]], radius: float,
                    obstruction: Sequence[float], reflect: bool = False,
                    basis: Dict[str, np.ndarray] | None = None
                    ) -> Dict[str, object]:
-    """Close the twelve-by-twelve system and read off ``ΔA/A`` at each mouth.
+    """Close the matching system and read off ``ΔA/A`` at each mouth.
 
-    Rows 0–1 are the tube's oscillatory channel, rows 2–7 its three evanescent
-    ones, rows 8–11 the kernel solvability condition.  Columns are
-    ``[A₁, D₁, A₂, D₂, c]``.
+    Rows 0–1 are the tube's oscillatory channel, rows 2–13 its three evanescent
+    ones, rows 14–17 the kernel solvability condition.  Columns are
+    ``[A₁, D₁, A₂, D₂, c]`` followed by the tube's two end amplitudes in each
+    transverse direction.
+
+    The twelve field unknowns are the physics; the six tube amplitudes are
+    carried rather than eliminated purely for conditioning.  Eliminating them
+    gives a twelve-by-twelve system with ``cosh κL`` and ``sinh κL`` in it, and
+    a condition number of ``e^{2κL}`` — fine for a wide tube, fatal for a narrow
+    one.  See `TubeModel.dipole_attenuation`.
     """
     cs = [np.asarray(c, float) / np.linalg.norm(c) for c in mouths]
     a = float(radius)
@@ -428,35 +491,57 @@ def solve_matching(mouths: Sequence[Sequence[float]], radius: float,
     v1, sv1 = rows("value_1")
     d1, sd1 = rows("slope_1")
 
-    m = np.zeros((12, 12))
-    rhs = np.zeros(12)
+    m = np.zeros((18, 18))
+    rhs = np.zeros(18)
 
     k, cc, ss = tube.monopole_transfer()
     scale = area_mouth / (at * k)
-    m[0] = v0[1] - cc * v0[0] + scale * ss * d0[0]
+    m[0, :12] = v0[1] - cc * v0[0] + scale * ss * d0[0]
     rhs[0] = -(sv0[1] - cc * sv0[0] + scale * ss * sd0[0])
-    m[1] = at * k * ss * v0[0] + area_mouth * (cc * d0[0] + d0[1])
+    m[1, :12] = at * k * ss * v0[0] + area_mouth * (cc * d0[0] + d0[1])
     rhs[1] = -(at * k * ss * sv0[0] + area_mouth * (cc * sd0[0] + sd0[1]))
 
-    kd, ch, sh = tube.dipole_transfer()
+    kd, x = tube.dipole_attenuation()
     scd = area_mouth / (at * kd)
     g1, sg1 = r @ v1[1], r @ sv1[1]
     h1, sh1 = r @ d1[1], r @ sd1[1]
-    m[2:5] = g1 - ch * v1[0] + scd * sh * d1[0]
-    rhs[2:5] = -(sg1 - ch * sv1[0] + scd * sh * sd1[0])
-    m[5:8] = at * kd * sh * v1[0] - area_mouth * (ch * d1[0] + h1)
-    rhs[5:8] = -(at * kd * sh * sv1[0] - area_mouth * (ch * sd1[0] + sh1))
+    # w(s) = P e^{-k s} + Q e^{k(s-L)}: four conditions per transverse
+    # direction, with P and Q carried as unknowns rather than eliminated.
+    # Rows 2..13, columns 12..17.  The flux rows are divided through by
+    # (area * k) so every entry is bounded by one.
+    for i in range(3):
+        m[2 + 4 * i, :12] = -v1[0][i]
+        m[2 + 4 * i, 12 + i] = 1.0
+        m[2 + 4 * i, 15 + i] = x
+        rhs[2 + 4 * i] = sv1[0][i]
+
+        m[3 + 4 * i, :12] = scd * d1[0][i]
+        m[3 + 4 * i, 12 + i] = -1.0
+        m[3 + 4 * i, 15 + i] = x
+        rhs[3 + 4 * i] = -scd * sd1[0][i]
+
+        m[4 + 4 * i, :12] = -g1[i]
+        m[4 + 4 * i, 12 + i] = x
+        m[4 + 4 * i, 15 + i] = 1.0
+        rhs[4 + 4 * i] = sg1[i]
+
+        m[5 + 4 * i, :12] = -scd * h1[i]
+        m[5 + 4 * i, 12 + i] = -x
+        m[5 + 4 * i, 15 + i] = 1.0
+        rhs[5 + 4 * i] = scd * sh1[i]
 
     frames = [tangent_frame(c) for c in cs]
     for i, c in enumerate(cs):
-        m[8:12, i * 4] = c
-        m[8:12, i * 4 + 1: i * 4 + 4] = frames[i].T
-    rhs[8:12] = np.asarray(obstruction, float)
+        m[14:18, i * 4] = c
+        m[14:18, i * 4 + 1: i * 4 + 4] = frames[i].T
+    rhs[14:18] = np.asarray(obstruction, float)
 
-    coef = np.linalg.solve(m, rhs)
+    full = np.linalg.solve(m, rhs)
+    coef = full[:12]
     u_mouth = v0 @ coef + sv0
     return {
         "coefficients": coef,
+        "tube_amplitudes": full[12:].copy(),
         "monopoles": coef[[0, 4]].copy(),
         "dipoles": np.stack([frames[0].T @ coef[1:4],
                              frames[1].T @ coef[5:8]]),
@@ -465,7 +550,7 @@ def solve_matching(mouths: Sequence[Sequence[float]], radius: float,
         "dipole_at_mouth": v1 @ coef + sv1,
         "areal_response": 4.0 * u_mouth,
         "condition_number": float(np.linalg.cond(m)),
-        "residual": float(np.linalg.norm(m @ coef - rhs)
+        "residual": float(np.linalg.norm(m @ full - rhs)
                           / max(np.linalg.norm(rhs), 1e-300)),
     }
 
@@ -479,7 +564,7 @@ def _radial_reference(radius: float, tube: TubeModel, ell: int,
     """Exact solve on ``a < χ < π − a`` with the mouths at the two poles.
 
     A boundary-value problem in one variable, integrated to ``1e-09``, with the
-    *same* throat conditions the twelve-by-twelve system imposes.  It is the
+    *same* throat conditions the matching system imposes.  It is the
     only check here that does not share code with the thing it checks.
     """
     from scipy.integrate import solve_bvp
@@ -611,7 +696,7 @@ def measure_the_kernel_projector_is_the_green_functions_own_tail(
 def measure_the_matching_reproduces_an_exact_radial_solve(
         radii: Sequence[float] = (0.2, 0.1, 0.05),
         tube: TubeModel = WORKING_TUBE) -> Dict[str, object]:
-    """The twelve-by-twelve system against exact one-dimensional solves.
+    """The matching system against exact one-dimensional solves.
 
     Antipodal mouths, a radial source, and the same throat conditions — but the
     reference is a boundary-value solve that shares no code with the assembly.
@@ -883,11 +968,18 @@ def measure_the_signed_areal_response(
         moments: Sequence[SourceMoments] | None = None,
         tube: TubeModel = WORKING_TUBE,
         coupling: float = 1.0) -> Dict[str, object]:
-    """**The answer.**  ``ΔA/A`` at each mouth, with its sign.
+    """**The answer** — at the wide working throat, off resonance.
 
-    Reported in units of ``2πG``, in which the whole problem is linear — the
-    response scales with ``G`` and with the square of the wave amplitude, and
-    neither can change a sign.
+    ``ΔA/A`` at each mouth, with its sign, reported in units of ``2πG``, in
+    which the whole problem is linear: the response scales with ``G`` and with
+    the square of the wave amplitude, and neither can change a sign.
+
+    The qualifier in the first line is load-bearing.  This throat has
+    ``𝒜 = 4π``, four hundred times its own mouth area, which puts it at
+    ``kL = 0.9`` — inside the first cavity cell.  Matching the tube's area to
+    the mouths' instead flips the sign, and
+    `measure_the_sign_does_not_survive_a_matched_tube` is that calculation.
+    What follows is a statement about a throat, not about the source.
 
     Four controls travel with it, because on this problem a number with no
     control attached has twice turned out to be noise:
@@ -899,7 +991,7 @@ def measure_the_signed_areal_response(
       throat, the source goes as ``1/χ⁴`` there, and there is no ``a → 0``
       limit to converge to.  That is the singular point PR #262 removed;
     * the gluing of the two transverse frames, transported or reflected;
-    * the conditioning of the twelve-by-twelve system and its residual.
+    * the conditioning of the matching system and its residual.
 
     The sign is the same in all eight combinations.  The magnitude at fixed
     ``a`` is stable to ``2.2%`` across quadrature levels, and moves by a
@@ -948,10 +1040,96 @@ def measure_the_signed_areal_response(
         "worst_condition_number": float(max(r["condition_number"]
                                             for r in rows)),
         "worst_residual": float(max(r["residual"] for r in rows)),
-        "the_answer": "toward a neck — the conformal factor falls at both "
-                      "mouths, so both mouth areas contract.  The interference "
-                      "energy alone would open them (U(c_j) > 0 at both); the "
-                      "throat's monopole layers overshoot that and invert it.",
+        "the_answer": "toward a neck AT THIS THROAT — the conformal factor "
+                      "falls at both mouths, so both mouth areas contract.  The "
+                      "interference energy alone would open them (U(c_j) > 0 at "
+                      "both); the throat's monopole layers overshoot that and "
+                      "invert it.  Matching the tube's area to the mouths' "
+                      "flips the sign, so this is a property of the throat and "
+                      "not of the source.",
+        "the_qualifier": "wide tube, area 4 pi against a mouth area of "
+                         "4 pi sin^2 a; kL = 0.9, inside the first cavity cell",
+    }
+
+
+def measure_the_sign_does_not_survive_a_matched_tube(
+        moments: Sequence[SourceMoments] | None = None,
+        length: float | None = None) -> Dict[str, object]:
+    """**The headline is a statement about a wide tube, and here is the proof.**
+
+    `WORKING_TUBE` carries area ``4π`` while a mouth sphere has area
+    ``4π sin²a`` — a factor of ``400`` at ``a = 0.05``.  That is a deliberate
+    idealisation, a wide throat entered through small mouths, and it is the one
+    `neck` has used since PR #261.  The obvious alternative is to set the two
+    equal, which makes the tube exactly as narrow as its own mouths.
+
+    Then ``k = √(4π/𝒜) = 1/sin a``, and the *same* length ``0.9`` becomes
+    ``kL/π = 5.73`` at ``a = 0.05`` and ``2.87`` at ``a = 0.10``.  The throat is
+    no longer inside the first cavity cell; it is past five poles and past two,
+    and it sits ``4.6%`` of its own length from the next one.
+
+    **The sign does not survive.**  At ``a = 0.05`` both mouths *open*; at
+    ``a = 0.10`` they disagree — mouth 1 closes and mouth 2 opens.  Neither is a
+    numerical artefact: the conditioning is reported alongside, and it is what
+    made this check necessary in the first place (see
+    `TubeModel.dipole_attenuation`).
+
+    So `measure_the_signed_areal_response` should be read as: *at the wide
+    working throat, off resonance, both mouths close.*  Not as a property of the
+    interference source.
+    """
+    ms = [m for m in (moments or INTERFERENCE_MOMENTS)
+          if m.points == max(x.points for x in (moments or INTERFERENCE_MOMENTS)
+                             if x.radius == m.radius)]
+    seen: Dict[float, SourceMoments] = {}
+    for m in ms:
+        seen.setdefault(m.radius, m)
+    lng = float(WORKING_TUBE.length if length is None else length)
+    rows = []
+    for radius, m in sorted(seen.items()):
+        basis = basis_channels(MOUTHS, radius)
+        for name, area in (("wide", WORKING_TUBE.area),
+                           ("matched", FOUR_PI * math.sin(radius) ** 2)):
+            tube = TubeModel(area=area, length=lng)
+            k = tube.wavenumber()
+            got = solve_matching(MOUTHS, radius, tube, m.as_source(),
+                                 m.signed_obstruction(), basis=basis)
+            response = np.asarray(got["areal_response"], float)
+            phase = k * lng / math.pi
+            # n = 0 is not a pole: a tube of zero length is not a cavity.
+            near = min((max(1, math.floor(phase)), max(1, math.ceil(phase))),
+                       key=lambda n: abs(phase - n))
+            rows.append({
+                "radius": radius, "model": name, "area": float(area),
+                "wavenumber": float(k), "phase_over_pi": float(phase),
+                "areal_response": response.tolist(),
+                "sign": ["closes" if v < 0 else "opens" for v in response],
+                "nearest_pole": int(near),
+                "distance_to_the_pole_over_pi": float(abs(phase - near)),
+                "distance_as_a_fraction_of_the_length": float(
+                    abs(near * math.pi / k - lng) / lng),
+                "condition_number": got["condition_number"],
+                "residual": got["residual"],
+            })
+    wide = [r for r in rows if r["model"] == "wide"]
+    matched = [r for r in rows if r["model"] == "matched"]
+    return {
+        "rows": rows,
+        "length": lng,
+        "wide_signs": [r["sign"] for r in wide],
+        "matched_signs": [r["sign"] for r in matched],
+        "the_wide_throat_always_closes": bool(
+            all(v == "closes" for r in wide for v in r["sign"])),
+        "the_matched_throat_does_not": bool(
+            any(v == "opens" for r in matched for v in r["sign"])),
+        "the_matched_mouths_can_disagree": bool(
+            any(len(set(r["sign"])) == 2 for r in matched)),
+        "worst_condition_number": float(max(r["condition_number"]
+                                            for r in rows)),
+        "worst_residual": float(max(r["residual"] for r in rows)),
+        "the_sign_is_a_property_of_the_throat": bool(
+            all(v == "closes" for r in wide for v in r["sign"])
+            and any(v == "opens" for r in matched for v in r["sign"])),
     }
 
 
