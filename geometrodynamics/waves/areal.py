@@ -27,9 +27,8 @@ where ``U = −G_⊥[σ 1_Ω]``, ``𝒟_j`` is the dipole layer at mouth ``j`` (
 derivative of ``G_⊥`` as its source point is moved along a tangent direction),
 ``D_j ⊥ c_j``, and ``c ∈ R⁴`` is a free kernel element.  Twelve field
 unknowns: two monopole strengths, six dipole components, four kernel
-coefficients.  (`solve_matching` solves an ``18×18`` system: the extra six are
-the tube's end amplitudes, carried rather than eliminated purely for
-conditioning — see below.)
+coefficients.  The throat contributes eight more equations and no unknowns,
+entering only through a ``2×2`` **admittance** per channel — see below.
 
 The solvability condition is not an extra assumption — it is what makes the
 representation consistent.  ``G_⊥`` satisfies
@@ -43,7 +42,8 @@ that the leftover ``k = 1`` pieces cancel on ``Ω`` gives, exactly,
 
     ``Σ_j A_j c_j + Σ_j D_j = S_σ`` ,     ``S_σ = ∫_Ω y σ(y) dV`` .
 
-Four equations, and the remaining fourteen are the throat.  **Two monopoles cannot satisfy these four.**  ``A_1 c_1 + A_2 c_2``
+Four equations, and the remaining eight are the throat.  **Two monopoles
+cannot satisfy these four.**  ``A_1 c_1 + A_2 c_2``
 sweeps out only the plane spanned by the two mouth positions, so any component
 of ``S_σ`` off that plane has to be carried by the dipole layers.  For the
 two-wave interference source, measured, the monopole-only condition fails by
@@ -111,14 +111,18 @@ The second was found only because the matched-tube check was asked for.  The
 a condition number of ``e^{2κL}``.  At ``𝒜 = 4π`` that is ``e^{1.8} = 6``, and
 invisible.  At the matched area it is ``e^{36} = 4.4e+15`` — the system is
 singular to double precision, and the first matched-tube run reported a
-condition number of ``2.9e+15`` and an answer anyway.  Carrying the tube's two
-end amplitudes as unknowns instead of eliminating them never forms ``e^{+κL}``;
-the system grows from ``12×12`` to ``18×18``, every coefficient is bounded by
-one, and the conditioning falls to ``5.5e+07`` — and by ``1.5e+04`` from
-``2.1e+05`` at the wide working throat too.  The reference solves reproduce to
-the *same* ``4e-10``, digit for digit, so it is a change of form and not of
-content.  **A model parameter moved by a factor of four hundred is not a
-perturbation of a formulation, it is a test of one.**
+condition number of ``2.9e+15`` and an answer anyway.
+
+The repair was to stop describing the throat by a transfer matrix at all and
+describe it by its **admittance**: ``−A_mouth d_j = Σ_k Y_{jk} v_k``.  Every
+entry is bounded (``Y₁₁ → −𝒜κ`` and ``Y₁₂ → 0`` however long the tube), the
+system stays ``12×12``, and — the reason it was worth doing twice — the throat
+now enters through two matrices and nothing else, so a *different* throat can
+be substituted and compared.  `physical_throat` is that substitution, and it
+reverses this module's headline.  The reference solves reproduce to the same
+``4e-10`` digit for digit, so it is a change of form and not of content.
+**A model parameter moved by a factor of four hundred is not a perturbation of
+a formulation, it is a test of one.**
 
 Two things are modelled rather than derived.  The **gluing map** identifying
 the two mouths' transverse frames through the tube is taken to be parallel
@@ -264,6 +268,37 @@ class TubeModel:
         """
         k = self.dipole_rate()
         return k, math.exp(-k * self.length)
+
+    def admittance(self, ell: int) -> np.ndarray:
+        """``Y`` with ``Φ_j = Σ_k Y_{jk} v_k``, fluxes counted **into** the tube.
+
+        The admittance is the right two-port description for a throat, for two
+        reasons that only became visible once a second throat existed.  Its
+        entries stay bounded when the channel is evanescent, where a
+        ``cosh``/``sinh`` transfer matrix costs ``e^{2κL}``.  And its action on
+        ``(1, 1)`` — the **shunt** — is exactly the flux a *uniform* potential
+        drives into the tube, which is zero if and only if the tube is empty.
+        That number turns out to decide the sign of ``ΔA/A``.
+        """
+        at = float(self.area)
+        m2 = float(self.interior_mass) ** 2
+        rate2 = (self.wavenumber() ** 2 - m2 if int(ell) == 0
+                 else -(self.wavenumber() ** 2 + m2))
+        if rate2 > 0.0:
+            k = math.sqrt(rate2)
+            c, sn = math.cos(k * self.length), math.sin(k * self.length)
+        else:
+            k = math.sqrt(-rate2)
+            c, sn = (math.cosh(k * self.length), math.sinh(k * self.length))
+        return (at * k / sn) * np.array([[-c, 1.0], [1.0, -c]])
+
+    def shunt(self) -> float:
+        """``Y·(1,1)`` — the flux a uniform potential drives into the tube.
+
+        Zero exactly when the tube is empty.  A product tube of area ``𝒜`` has
+        ``R̂ = 8π/𝒜``, so it holds matter unless ``𝒜 = ∞``, and it shunts.
+        """
+        return float((self.admittance(0) @ np.ones(2))[0])
 
     def monopole_resonances(self, count: int = 4) -> np.ndarray:
         """Lengths at which the ``ℓ = 0`` channel has a standing wave.
@@ -459,89 +494,64 @@ def source_channels(mouths: Sequence[Sequence[float]], radius: float,
 
 
 def solve_matching(mouths: Sequence[Sequence[float]], radius: float,
-                   tube: TubeModel, source: Dict[str, np.ndarray],
+                   tube, source: Dict[str, np.ndarray],
                    obstruction: Sequence[float], reflect: bool = False,
                    basis: Dict[str, np.ndarray] | None = None
                    ) -> Dict[str, object]:
-    """Close the matching system and read off ``ΔA/A`` at each mouth.
+    """Close the twelve-by-twelve system and read off ``ΔA/A`` at each mouth.
 
-    Rows 0–1 are the tube's oscillatory channel, rows 2–13 its three evanescent
-    ones, rows 14–17 the kernel solvability condition.  Columns are
-    ``[A₁, D₁, A₂, D₂, c]`` followed by the tube's two end amplitudes in each
-    transverse direction.
+    Rows 0–1 are the throat's ``ℓ = 0`` channel, rows 2–7 its three ``ℓ = 1``
+    ones, rows 8–11 the kernel solvability condition.  Columns are
+    ``[A₁, D₁, A₂, D₂, c]``.
 
-    The twelve field unknowns are the physics; the six tube amplitudes are
-    carried rather than eliminated purely for conditioning.  Eliminating them
-    gives a twelve-by-twelve system with ``cosh κL`` and ``sinh κL`` in it, and
-    a condition number of ``e^{2κL}`` — fine for a wide tube, fatal for a narrow
-    one.  See `TubeModel.dipole_attenuation`.
+    The throat enters *only* through ``tube.admittance(ell)``, a ``2×2`` matrix
+    per channel with fluxes counted into the tube:
+
+        ``−A_mouth d_j  =  Σ_k Y_{jk} v_k`` ,
+
+    which is flux continuity at mouth ``j`` written so that nothing about the
+    tube's interior leaks into the assembly.  Any throat that can state those
+    two matrices plugs in — a product cylinder, a vacuum throat, or anything
+    else — and that is what makes the two comparable at all.
     """
     cs = [np.asarray(c, float) / np.linalg.norm(c) for c in mouths]
     a = float(radius)
     area_mouth = FOUR_PI * math.sin(a) ** 2
-    at = float(tube.area)
     b = basis_channels(cs, a) if basis is None else basis
     r = gluing_matrix(cs[0], cs[1], reflect=reflect)
 
-    def rows(key: str) -> Tuple[np.ndarray, np.ndarray]:
-        return b[key], source[key]
+    v0, sv0 = b["value_0"], source["value_0"]
+    d0, sd0 = b["slope_0"], source["slope_0"]
+    v1, sv1 = b["value_1"], source["value_1"]
+    d1, sd1 = b["slope_1"], source["slope_1"]
 
-    v0, sv0 = rows("value_0")
-    d0, sd0 = rows("slope_0")
-    v1, sv1 = rows("value_1")
-    d1, sd1 = rows("slope_1")
+    m = np.zeros((12, 12))
+    rhs = np.zeros(12)
 
-    m = np.zeros((18, 18))
-    rhs = np.zeros(18)
+    y0 = np.asarray(tube.admittance(0), float)
+    for j in (0, 1):
+        m[j] = area_mouth * d0[j] + y0[j, 0] * v0[0] + y0[j, 1] * v0[1]
+        rhs[j] = -(area_mouth * sd0[j]
+                   + y0[j, 0] * sv0[0] + y0[j, 1] * sv0[1])
 
-    k, cc, ss = tube.monopole_transfer()
-    scale = area_mouth / (at * k)
-    m[0, :12] = v0[1] - cc * v0[0] + scale * ss * d0[0]
-    rhs[0] = -(sv0[1] - cc * sv0[0] + scale * ss * sd0[0])
-    m[1, :12] = at * k * ss * v0[0] + area_mouth * (cc * d0[0] + d0[1])
-    rhs[1] = -(at * k * ss * sv0[0] + area_mouth * (cc * sd0[0] + sd0[1]))
-
-    kd, x = tube.dipole_attenuation()
-    scd = area_mouth / (at * kd)
+    y1 = np.asarray(tube.admittance(1), float)
     g1, sg1 = r @ v1[1], r @ sv1[1]
     h1, sh1 = r @ d1[1], r @ sd1[1]
-    # w(s) = P e^{-k s} + Q e^{k(s-L)}: four conditions per transverse
-    # direction, with P and Q carried as unknowns rather than eliminated.
-    # Rows 2..13, columns 12..17.  The flux rows are divided through by
-    # (area * k) so every entry is bounded by one.
-    for i in range(3):
-        m[2 + 4 * i, :12] = -v1[0][i]
-        m[2 + 4 * i, 12 + i] = 1.0
-        m[2 + 4 * i, 15 + i] = x
-        rhs[2 + 4 * i] = sv1[0][i]
-
-        m[3 + 4 * i, :12] = scd * d1[0][i]
-        m[3 + 4 * i, 12 + i] = -1.0
-        m[3 + 4 * i, 15 + i] = x
-        rhs[3 + 4 * i] = -scd * sd1[0][i]
-
-        m[4 + 4 * i, :12] = -g1[i]
-        m[4 + 4 * i, 12 + i] = x
-        m[4 + 4 * i, 15 + i] = 1.0
-        rhs[4 + 4 * i] = sg1[i]
-
-        m[5 + 4 * i, :12] = -scd * h1[i]
-        m[5 + 4 * i, 12 + i] = -x
-        m[5 + 4 * i, 15 + i] = 1.0
-        rhs[5 + 4 * i] = scd * sh1[i]
+    m[2:5] = area_mouth * d1[0] + y1[0, 0] * v1[0] + y1[0, 1] * g1
+    rhs[2:5] = -(area_mouth * sd1[0] + y1[0, 0] * sv1[0] + y1[0, 1] * sg1)
+    m[5:8] = area_mouth * h1 + y1[1, 0] * v1[0] + y1[1, 1] * g1
+    rhs[5:8] = -(area_mouth * sh1 + y1[1, 0] * sv1[0] + y1[1, 1] * sg1)
 
     frames = [tangent_frame(c) for c in cs]
     for i, c in enumerate(cs):
-        m[14:18, i * 4] = c
-        m[14:18, i * 4 + 1: i * 4 + 4] = frames[i].T
-    rhs[14:18] = np.asarray(obstruction, float)
+        m[8:12, i * 4] = c
+        m[8:12, i * 4 + 1: i * 4 + 4] = frames[i].T
+    rhs[8:12] = np.asarray(obstruction, float)
 
-    full = np.linalg.solve(m, rhs)
-    coef = full[:12]
+    coef = np.linalg.solve(m, rhs)
     u_mouth = v0 @ coef + sv0
     return {
         "coefficients": coef,
-        "tube_amplitudes": full[12:].copy(),
         "monopoles": coef[[0, 4]].copy(),
         "dipoles": np.stack([frames[0].T @ coef[1:4],
                              frames[1].T @ coef[5:8]]),
@@ -550,7 +560,7 @@ def solve_matching(mouths: Sequence[Sequence[float]], radius: float,
         "dipole_at_mouth": v1 @ coef + sv1,
         "areal_response": 4.0 * u_mouth,
         "condition_number": float(np.linalg.cond(m)),
-        "residual": float(np.linalg.norm(m @ full - rhs)
+        "residual": float(np.linalg.norm(m @ coef - rhs)
                           / max(np.linalg.norm(rhs), 1e-300)),
     }
 

@@ -909,7 +909,7 @@ needs the areal sector on a resolved neck, which §21 is not.
 and §18's **point** throat rather than §19/§20's resolved mouths; and a
 **linear** response, not a solved coupled system.
 
-## 22. The interference metric deforms toward a neck (`docs/signed_areal_response.md`, current round)
+## 22. The interference metric deforms toward a neck (`docs/signed_areal_response.md`)
 
 §21 answered *does `A + B` do something rescaling cannot* with a large yes, and
 then proved that its own channel could not answer the question actually asked:
@@ -981,8 +981,8 @@ At `a = 0.05` both mouths open; at `a = 0.10` they disagree. The matched throat
 is past five poles and past two, under `5%` of its own length from the next one.
 The neck's cross-sectional area has been a free parameter since §19, carried
 along because nothing measured had ever depended on its value. Something does
-now, and **which throat is physical is the load-bearing open question this round
-leaves.**
+now — and §23 answers it, by showing the area and length were never free at
+all, and that the sign reverses on the throat the constraint forces.
 
 **What is still put in.** The ESU's fluid is held rigid — consistent because the
 scalar's stress tensor is separately conserved, but a responsive fluid is the
@@ -990,7 +990,50 @@ next refinement. The source is §21's, on a fixed background with point sources.
 And the solution is dominated by a nearly-zero mode with `|c| ≈ 1.7` against a
 mouth response of `2e−03`, so the perturbative window is set far from the throat.
 
-## 23. What the arc cost in errors, and what caught them
+## 23. Which throat is physical, and the sign reverses (`docs/which_throat_is_physical.md`, current round)
+
+§22 ended by finding that matching the tube's area to its own mouths flips the
+sign of `ΔA/A`. The throat's geometry had been a free parameter since §19,
+carried because nothing measured had ever depended on its value. Something did
+now, so the question could not be deferred.
+
+**They were never free.** On a maximal slice the background constraint is
+`R̂ = 16πGρ̄`, so a profile does not choose its matter — the matter is whatever
+the profile implies. A product tube of area `𝒜` is `S²(r) × R` with `R̂ = 8π/𝒜`,
+so §19–§22's `𝒜 = 4π` implies `ρ_tube = ρ̄/3`, and the matched tube implies
+`133 ρ̄`. Neither is the ambient's own fluid, and neither was chosen for a
+reason.
+
+**The throat that is forced.** Ask for one needing no matter (`R̂ = 0`) and
+gluing on with no surface layer. `R̂ = 0` integrates once to `f'² = 1 − f₀/f`,
+and smooth gluing to the round `S³` at mouth radius `a` forces `f₀ = sin³a`.
+Two conditions, two unknowns, **nothing left over**. Length and resistance
+follow in closed form — `L = 2[sin³a·arccosh(1/sin a) + sin a cos a] ≈ 2a` and
+`I = 4 cos a/sin³a` — each checked against quadrature to `1e-12`, and the
+conductance comes out exactly `N₀(a,4)/4` at every radius.
+
+**There is no cavity.** The constraint operator is `∇² + R̂/2`, so `R̂ = 0`
+leaves the plain Laplacian: `(f²u')' = 0`, solutions `A + B∫ds/f²`, monotone.
+§22's resonances at `kL = nπ` and the sign flips across them were **properties
+of matter in the tube**. On the physical throat there is no resonance to be off.
+
+**And the sign reverses.** `ΔA/A = (+6.64, +8.58)` in units of `2πG`: both
+mouths **open**. The mechanism is a single number. Split a symmetric two-port
+as `Y = G·[[−1,1],[1,−1]] + shunt·I`; the shunt is the flux a *uniform*
+potential drives into the throat, and `(f²u')' = 0` makes it vanish
+**identically** for a vacuum tube. Scanned over eight orders the conductance
+never changes the sign; the shunt passes through a pole near `2e−03` and flips
+it. §22's tube sat at `6.07`, three orders past.
+
+**What it costs, said out loud.** The response is `3000×` §22's and grows as
+`a⁻³`, with the condition number rising alongside. That is the physics of a
+throat with zero shunt by identity: it barely lifts the constraint's exact
+degeneracy — the `k = 1` kernel at `4 = (n+1)²` — so the linear response sits
+close to a mode the operator nearly annihilates. **The sign is robust; the
+amplitude at which linearising was legitimate is now the binding question**, and
+this round does not answer it.
+
+## 24. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -1295,6 +1338,30 @@ Worth recording, because the failure modes repeat:
   number is not a diagnostic unless something actually reads it, which is why
   it is now asserted in the tests rather than merely reported.
 
+* **A refactor validated against itself.** Rewriting the throat as an
+  *admittance* was a change of form, so the test is that it reproduces the
+  previous round's numbers — and the first version agreed to `1e-04` at
+  `a = 0.05` and `2e-03` at `a = 0.10`. That looks like agreement, and it was
+  nearly written up as one. It is not: two algebraically identical
+  formulations of a well-conditioned linear system must agree to *machine
+  precision*, and anything else is a bug. It was one — a sign in the
+  evanescent channel's admittance. Fixed, the agreement is `1e-15`. **For a
+  refactor, "close" is a failing result; only exact is passing.**
+* **A tolerance that was absolute where the claim was relative, again.** The
+  vacuum throat's monopole admittance is singular by an identity, and the test
+  asserted `|det Y| < 1e-20`. That passes at `a = 0.05`, where `‖Y‖ ~ 4e-04`,
+  and fails at `a = 0.20`, where `‖Y‖ ~ 2.5e-02` and machine precision on the
+  determinant is `9e-20`. The claim was never about an absolute size; it was
+  that `det` vanishes *relative to the matrix*. Third occurrence of this
+  species in three rounds.
+* **A label that named the wrong object.** A row of the mechanism table was
+  called "the wide tube (PR #264)" while actually holding the `ℓ = 1`
+  admittance fixed at the vacuum throat's — the controlled experiment, but not
+  that tube. It differed from #264 by `4e-04`, which a test caught only
+  because the test demanded machine precision. The controlled comparison and
+  the reproduction of the earlier round are two different rows and are now
+  reported as two.
+
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
 an independent construction — a closed form against brute
@@ -1316,7 +1383,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 24. What is imported rather than derived
+## 25. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -1360,7 +1427,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 25. What would come next
+## 26. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
@@ -1404,7 +1471,8 @@ The staged order that follows from this, and the reason it is that order:
 ```
 ray closure → field solution → two-wave invariant → finite throat
             → mouth resolved ✓ → neck resolved ✓ → backreaction ✓
-            → signed ΔA/A ✓ → stationary action → topological branch
+            → signed ΔA/A ✓ → which throat ✓
+            → stationary action → topological branch
 ```
 
 **The gate is answered, and the reason it was there is worth keeping.** §18 built the

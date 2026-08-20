@@ -43,6 +43,11 @@ with no time derivatives in it. A constraint does not have a sound speed.
 close.** Negative in all eight control combinations — two quadrature levels,
 two mouth radii, two gluings.
 
+> **Superseded in part by PR #265.** That throat is not the physical one, and on
+> the throat the constraint forces the sign is the *other* way. The measurement
+> below stands; what it is a measurement *of* is a tube with matter in it. See
+> `docs/which_throat_is_physical.md`.
+
 The qualifier is load-bearing, and it is tested rather than hedged: matching the
 tube's area to the mouths' **flips the sign**. See *[The sign does not survive a
 matched tube](#the-sign-does-not-survive-a-matched-tube)* below. This is a
@@ -323,3 +328,13 @@ reverses it. **Which throat is physical is now the load-bearing question.** The
 neck's cross-sectional area has been a free parameter since PR #261, carried
 along because nothing measured had ever depended on its value. Something does
 now.
+
+**PR #265 answers it, and reverses this page's sign.** The area and length were
+never free: on a maximal slice a profile does not choose its matter, and a
+product tube of area `𝒜` implies `ρ_tube = 4π/(3𝒜) · ρ̄` — `ρ̄/3` for the tube
+above. Asking instead for a throat that needs *no* matter and glues on with *no*
+surface layer uses up both freedoms and forces `f₀ = sin³a`. That throat has
+`R̂ = 0`, so its constraint operator is the plain Laplacian: **no cavity, no
+resonances, nothing for a sign to flip across** — the structure this page
+qualified its headline against was a property of matter in the tube. And on it
+the mouths **open**. See `docs/which_throat_is_physical.md`.
