@@ -16,8 +16,9 @@ import pytest
 
 from geometrodynamics.waves.finite_mouth import FOUR_PI
 from geometrodynamics.waves.initial_data import (
-    CONSTRAINT_EIGENVALUE, areal_response_from_conformal_factor,
-    constraint_operator_eigenvalue,
+    CONSTRAINT_EIGENVALUE, KERNEL_PROJECTOR,
+    areal_response_from_conformal_factor,
+    constraint_operator_eigenvalue, kernel_component, regularised_green,
     measure_removing_the_balls_lifts_the_degeneracy,
     measure_the_constraint_operator_is_degenerate_on_the_sphere,
 )
@@ -126,3 +127,68 @@ def test_the_closed_form_comes_from_the_cos_chi_mode():
         predicted = FOUR_PI * math.sin(a) ** 2 * math.tan(a)
         assert exterior_dtn_monopole(a, CONSTRAINT_EIGENVALUE) == pytest.approx(
             predicted, rel=1e-9)
+
+
+# ── the regularised Green function ─────────────────────────────────────────
+def test_the_regularised_green_function_inverts_on_the_complement():
+    """``(∇² + 3)G_⊥ = −δ³ + (2/π²)cos χ`` — the identity, checked away from
+    the origin.
+
+    The residual must be **exactly** the normalised kernel projector: the
+    ``k = 1`` harmonics are ``x^A`` with ``‖x^A‖² = π²/2`` and
+    ``Σ_A x^Ay^A = cos χ``, so the projector kernel is ``2cos χ/π²``.  A
+    constant ratio is what says the leftover is the kernel and nothing else.
+    """
+    h = 1e-5
+    for chi in (0.3, 0.8, 1.5, 2.2, 2.9):
+        second = (regularised_green(chi + h) - 2 * regularised_green(chi)
+                  + regularised_green(chi - h)) / h ** 2
+        first = (regularised_green(chi + h)
+                 - regularised_green(chi - h)) / (2 * h)
+        lhs = float(second + 2.0 / math.tan(chi) * first
+                    + 3.0 * regularised_green(chi))
+        assert lhs / math.cos(chi) == pytest.approx(KERNEL_PROJECTOR, rel=1e-4)
+
+
+def test_the_green_function_has_the_right_short_distance_normalisation():
+    """``G_⊥ · 4πχ → 1`` — otherwise it is not a Green function in 3D."""
+    for chi in (1e-3, 1e-4, 1e-5):
+        assert float(regularised_green(chi)) * 4.0 * math.pi * chi == \
+            pytest.approx(1.0, rel=1e-3)
+
+
+def test_the_green_function_is_finite_at_the_antipode():
+    """``G_⊥(π) = 1/(4π²)`` exactly — this is the ``k = 1`` removal working.
+
+    The unregularised ``G`` diverges there; removing the degenerate mode is
+    what makes the antipode finite.
+    """
+    for eps in (1e-5, 1e-7, 1e-9):
+        assert float(regularised_green(math.pi - eps)) == pytest.approx(
+            1.0 / (4.0 * math.pi ** 2), rel=1e-6)
+
+
+def test_the_kernel_projector_is_two_over_pi_squared():
+    assert KERNEL_PROJECTOR == pytest.approx(2.0 / math.pi ** 2, rel=1e-15)
+    # normalisation of the k=1 harmonics on the unit S^3: ||x^A||^2 = pi^2/2
+    rng = np.random.default_rng(3)
+    pts = rng.normal(size=(200000, 4))
+    pts /= np.linalg.norm(pts, axis=1)[:, None]
+    mean_sq = float(np.mean(pts[:, 0] ** 2))
+    volume = 2.0 * math.pi ** 2
+    assert mean_sq * volume == pytest.approx(math.pi ** 2 / 2.0, rel=0.02)
+
+
+def test_the_kernel_component_detects_a_dipole_source():
+    """The obstruction has to be *measurable*, or the solvability condition is
+    decoration."""
+    rng = np.random.default_rng(11)
+    pts = rng.normal(size=(40000, 4))
+    pts /= np.linalg.norm(pts, axis=1)[:, None]
+    w = np.full(len(pts), 2.0 * math.pi ** 2 / len(pts))
+    # a pure dipole source: overlap must be nonzero
+    dipole = kernel_component(pts[:, 2], w, pts)
+    assert abs(dipole[2]) > 0.5 * math.pi ** 2 / 2.0
+    # an even (monopole-like) source: overlap must vanish
+    even = kernel_component(np.ones(len(pts)), w, pts)
+    assert np.max(np.abs(even)) < 0.05 * math.pi ** 2 / 2.0

@@ -108,7 +108,10 @@ from .two_wave import orthonormal_frame
 
 __all__ = [
     "CONSTRAINT_EIGENVALUE",
+    "KERNEL_PROJECTOR",
     "areal_response_from_conformal_factor",
+    "kernel_component",
+    "regularised_green",
     "constraint_operator_eigenvalue",
     "measure_the_constraint_operator_is_degenerate_on_the_sphere",
     "measure_removing_the_balls_lifts_the_degeneracy",
@@ -140,6 +143,55 @@ def areal_response_from_conformal_factor(u) -> np.ndarray:
     **toward** a neck.  ``u > 0`` moves away from one.
     """
     return 4.0 * np.asarray(u, dtype=float)
+
+
+KERNEL_PROJECTOR = 2.0 / math.pi ** 2
+
+
+def regularised_green(chi) -> np.ndarray:
+    """The constraint operator's Green function, with the ``k = 1`` pole removed.
+
+    ``G(χ,ω) = sin(ω(π−χ))/(4π sin χ sin πω)`` has a **literal pole** at
+    ``ω = 2`` — that is the degeneracy, not a numerical difficulty.  Expanding
+    about it with ``ω = 2 + ε`` and ``u = π − χ``:
+
+        ``sin(ωu) ≈ −sin 2χ + ε u cos 2χ`` ,   ``sin πω = sin πε ≈ πε``
+
+    so the pole part is ``−cos χ / (2π²ε)`` — residue exactly the ``k = 1``
+    harmonic about the source point, as it has to be — and the finite remainder
+    is
+
+        ``G_⊥(χ) = (π − χ) cos(2χ) / (4π² sin χ)``
+
+    which satisfies
+
+        ``(∇² + 3) G_⊥ = −δ³(x−y) + (2/π²) cos χ`` .
+
+    The inhomogeneous term is the **normalised kernel projector**: the ``k = 1``
+    harmonics are ``x^A`` with ``‖x^A‖² = π²/2`` and ``Σ_A x^A y^A = cos χ``, so
+    the projector kernel is ``2 cos χ/π²`` — measured as a constant ``0.202642``
+    across ``χ ∈ [0.3, 2.9]``.  So ``G_⊥`` inverts the operator on the kernel's
+    orthogonal complement, which is the most that can be asked of it.
+
+    Two limits check the construction: ``G_⊥ · 4πχ → 1`` at short distance, the
+    correct three-dimensional normalisation; and ``G_⊥(π) = 1/(4π²)`` exactly,
+    finite at the antipode, which is the ``k = 1`` removal doing its work.
+    """
+    x = np.asarray(chi, dtype=float)
+    return (math.pi - x) * np.cos(2.0 * x) / (4.0 * math.pi ** 2 * np.sin(x))
+
+
+def kernel_component(values, weights, points) -> np.ndarray:
+    """``∫ f x^A dV`` — the source's overlap with the operator's kernel.
+
+    Nonzero means the free problem is **unsolvable**: the four numbers here are
+    the obstruction that the mouths have to absorb.  Reported rather than
+    assumed away, because a solvability condition that is quietly violated
+    produces a plausible answer to a question that was never well posed.
+    """
+    f = np.asarray(values, dtype=float)
+    w = np.asarray(weights, dtype=float)
+    return np.einsum("p,p,pA->A", w, f, np.asarray(points, dtype=float))
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -323,26 +375,35 @@ def measure_the_interference_source_needs_the_resolved_neck(
     at_source = radial_energy_profile(s.source_a, setup=s)
     at_mouth = radial_energy_profile(c1, setup=s)
 
-    def growth(rows, key):
-        return float(rows[0][key] / max(rows[-1][key], 1e-300))
+    def inward_growth(rows, key):
+        """How much the radial integrand grows going **inward** from its
+        minimum.
+
+        Comparing the innermost radius to the outermost is the wrong
+        statistic and it passed for the wrong reason in a first draft: the
+        outermost shell is large simply because its volume is, so a divergent
+        integrand can still look smaller there.  What divergence means is that
+        the integrand **turns around and grows as the singularity is
+        approached**, so the comparison has to be against the minimum.
+        """
+        vals = [r[key] for r in rows]
+        return float(vals[0] / max(min(vals), 1e-300))
 
     return {
         "at_the_source": at_source,
         "at_the_mouth": at_mouth,
-        "cross_integrand_growth_at_the_source": growth(at_source,
-                                                       "cross_integrand"),
-        "cross_integrand_growth_at_the_mouth": growth(at_mouth,
-                                                      "cross_integrand"),
-        "single_integrand_growth_at_the_source": growth(at_source,
-                                                        "single_integrand"),
+        "cross_inward_growth_at_the_source": inward_growth(at_source,
+                                                           "cross_integrand"),
+        "cross_inward_growth_at_the_mouth": inward_growth(at_mouth,
+                                                          "cross_integrand"),
+        "single_inward_growth_at_the_source": inward_growth(at_source,
+                                                            "single_integrand"),
         "the_cross_term_converges_at_the_source": bool(
-            at_source[0]["cross_integrand"] < at_source[-1]["cross_integrand"]),
+            inward_growth(at_source, "cross_integrand") < 1.5),
         "the_cross_term_diverges_at_the_mouth": bool(
-            at_mouth[0]["cross_integrand"]
-            > 10.0 * at_mouth[-1]["cross_integrand"]),
+            inward_growth(at_mouth, "cross_integrand") > 10.0),
         "the_single_wave_term_diverges_at_its_own_source": bool(
-            at_source[0]["single_integrand"]
-            > at_source[-1]["single_integrand"] * 0.1),
+            inward_growth(at_source, "single_integrand") > 3.0),
         "why_the_neck_is_required": ("both waves drive the same mouths, so "
                                      "their mouth terms multiply in the cross "
                                      "term and the angular cancellation that "
