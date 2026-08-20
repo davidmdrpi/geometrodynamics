@@ -3050,6 +3050,68 @@ python scripts/geometrodynamics_v63_backreaction.py --still v63.png
 
 Full write-up: `docs/metric_backreaction.md`.
 
+## The interference metric deforms toward a neck
+
+**PR #264 — the geometric verdict #263 could not give.** #263 answered *does
+`A + B` do something rescaling cannot* with a large yes, and then proved its own
+channel could not answer the question actually asked: `δA/A = −½⟨h_nn⟩` vanishes
+**identically** for any transverse-traceless field. So the question —
+
+> does the interaction metric deform **toward** a neck, **away** from one, or
+> merely **oscillate**?
+
+— moves to the scalar sector, posed as an **initial-data constraint solve** and
+not an evolution. On a maximal slice the `K` terms in the Hamiltonian constraint
+are quadratic, so `δR⁽³⁾ = 16πG δρ` with no time derivatives in it: a constraint
+has no sound speed and no Eddington mode, which is exactly what made #263 avoid
+the scalar sector.
+
+**Toward a neck. Both mouths close.**
+
+```
+ΔA/A = ( −2.06e−03 ,  −1.88e−03 )      in units of 2πG
+```
+
+Negative in all eight controls — two quadrature levels, two mouth radii, two
+gluings. **And the mechanism is not the obvious one:** the interference energy
+*alone* would **open** the mouths (`U(c_j) > 0` at both). The throat's own
+monopole layers overshoot that and invert it.
+
+**The problem, and why it is hard.** With `g = ψ⁴ĝ`, `ψ = 1+u`, the constraint
+is `∇²u + 3u = −2πG δρ` and `ΔA/A = 4u`. That operator is **exactly degenerate**
+on `S³` — `4 = (n+1)²` at `n = 1`, the ESU's dipole level — so it has no
+solution on the closed sphere. Removing the two mouth balls is what makes it
+solvable, and the field is then a source term plus monopole and dipole layers on
+the two mouth spheres plus a free kernel element: **twelve unknowns, twelve
+equations.** The solvability condition `Σ_j A_j c_j + Σ_j D_j = S_σ` is an
+*identity*, not a modelling choice, because `(2/π²) cos χ` is exactly the
+projector onto the kernel.
+
+**Two results that came out the other way from expectation.** The dipole layers
+are **required** — two monopoles sweep only the plane of the two mouths, and the
+monopole-only condition fails by **62.5%** of the obstruction, so without them
+there is no solution at all. And then they **do not move the answer**: the
+off-plane response is `6e−17`. `ΔA/A` is, to `0.09%`, a linear functional of the
+obstruction alone — which is lucky, because the `ℓ = 1` source moments drift
+`41%` between quadrature levels where the obstruction drifts `1.5%`.
+
+**The sign is a statement about a throat.** The tube's `ℓ = 0` constraint channel
+is `∂_s² + 4π/𝒜` — a **cavity**. At `kL = nπ` the response has a pole and the
+sign flips; the scan finds flips at `3.133` and `6.260` against `π` and `2π`. The
+working throat sits at `kL = 0.9`, inside the first cell.
+
+**What is still put in.** The ESU's fluid is held **rigid**; the source is #263's,
+on a **fixed** background with **point** sources; the response is **linear** in
+`G` and quadratic in the wave amplitude.
+
+```bash
+python -m experiments.closure_ledger.areal_probe
+
+python scripts/geometrodynamics_v64_areal.py --still v64.png
+```
+
+Full write-up: `docs/signed_areal_response.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
