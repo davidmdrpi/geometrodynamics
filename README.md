@@ -3015,7 +3015,7 @@ two **mouths** — and `two_source` puts the first at `(1,0,0,0)`, exactly the
 natural quadrature axis, so the rule's own pole sat on a `1/χ⁴` divergence and
 refining made it worse. With all eight singular points under a smooth partition
 of unity, two refinement levels now agree to correlation `0.970`–`0.999` and
-magnitude drift `0.009`, residual moving `0.008`.
+magnitude drift `0.027`, residual moving `0.0029` — under a **deterministic** Householder basis, after an `svd`-derived one made the whole rule platform-dependent.
 
 **And the resonance test, done properly, reverses itself.** A first version
 argued the channel was off resonance *by construction*: the conformal scalar on

@@ -142,12 +142,27 @@ same check now reads:
 
 | refinement | `β_A` | `β_B` | `β_ΔT` |
 | --- | ---: | ---: | ---: |
-| correlation `7802 → 15990` | `0.9942` | `0.9704` | `0.9991` |
-| magnitude ratio | `0.9927` | `1.0094` | `0.9937` |
+| correlation `7802 → 15988` | `0.9961` | `0.9895` | `0.9992` |
+| magnitude ratio | `1.0009` | `0.9728` | `0.9946` |
 
-with the residual moving `0.9291 → 0.9215` — a drift of `0.008`. A third level
-at `32 496` points gives `0.9173`, and correlations that *rise* toward `1`
-(`0.9988`, `0.9979`, `0.9995`).
+with the residual moving `0.9186 → 0.9215` — a drift of `0.0029`.
+
+These are the numbers under a **deterministic** quadrature basis, and that
+mattered. A first version took the tangent basis from `np.linalg.svd`, which
+returns *a* valid null-space basis but not a canonical one, so the whole rule
+was platform-dependent — CI on another Python read the refined level as *less*
+accurate than the coarse one. Replaced by a Householder reflection, the rule is
+bit-identical everywhere, and the headline moved by `2.0e-05`: `0.921509` to
+`0.921529`. The control came out **cleaner** rather than worse (worst
+correlation `0.9704 → 0.9895`, drift `0.0076 → 0.0029`).
+
+The volume check, separately, does **not** descend: the rule reaches `~1e-04`
+and wanders there (`1.02e-02, 6.24e-05, 3.32e-04, 9.83e-05` down the ladder). A
+`C^∞` partition bump was tried and does not help, so smoothness is not the
+cause; the bulk grid spacing `π/26 ≈ 0.12` barely resolves the partition's
+`0.267`-wide transition. The operative control is the one above — agreement
+between *responses*, which does descend — and the plateau is stated rather than
+papered over.
 
 **The rule this round adopts: two refinement levels must agree in correlation
 *and* in magnitude before any residual is quoted.**
@@ -157,13 +172,13 @@ at `32 496` points gives `0.9173`, and correlations that *rise* toward `1`
 | | |
 | --- | ---: |
 | unreachable fraction, window `(4,30)` | **`0.9215`** |
-| `‖β_ΔT‖ / ‖β_A‖` | `1.021` |
-| `|cos(β_A, β_B)|` | `0.173` |
+| `‖β_ΔT‖ / ‖β_A‖` | `1.026` |
+| `|cos(β_A, β_B)|` | `0.171` |
 | quadrature points | `15 990` |
 
 The interference response is **comparable in size** to the single-wave ones and
 nearly orthogonal to both. The two single-wave responses are themselves
-independent (`|cos| = 0.17`), so the span is genuinely two-dimensional and the
+independent (`|cos| = 0.171`), so the span is genuinely two-dimensional and the
 residual is not large for a trivial reason.
 
 The residual is reported off the full linear **span**, which strictly contains
