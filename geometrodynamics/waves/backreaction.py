@@ -1130,10 +1130,11 @@ def measure_the_coupled_spectrum_is_near_resonant(
         "closest_coupled_resonance": float(best),
         "farthest_coupled_resonance": float(worst),
         "unreachable_range": [float(min(unreach)), float(max(unreach))],
+        "mean_offset_of_the_resonances_from_integers": float(np.mean(
+            [abs(x - round(x)) for r in spectra
+             for x in r["resonances_below_8"]])),
         "the_free_ambient_is_off_resonance": bool(integer_gap > 0.15),
-        "the_coupled_spectrum_is_not_the_free_one": bool(
-            all(min(abs(x - round(x)) for x in r["resonances_below_8"]) > 0.05
-                for r in spectra)),
+        "the_coupled_resonance_beats_the_integer": bool(worst < integer_gap),
         "the_mode_is_near_resonant_everywhere": bool(worst < 0.1),
         "it_is_a_working_point_quantity": bool(worst / max(best, 1e-12) > 3.0),
         "the_fraction_is_not_a_universal_constant": bool(

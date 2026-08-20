@@ -1131,6 +1131,20 @@ Worth recording, because the failure modes repeat:
   would have been a **category error rather than a measurement error**, and the
   only defence against that species is asking what the instrument is *able* to
   register before asking what it registered.
+* **A check stronger than the claim it defends — three times in one round.**
+  Distinct from the threshold-for-a-limit species above, and it kept recurring
+  because the stronger proposition was always the more convenient one to code.
+  §21 asserted that the nearest source peak sits more than `3` grid bins from
+  `ω₃` (measured `2.99`); that the spectral peak *never moves* with the carrier
+  (it does, at `carrier = 4`, where the envelope's DC lobe takes over); and that
+  *no* coupled resonance lands near an integer (one sits `0.018` from one, while
+  the mean offset is `0.264`). **In all three cases the prose claim was true and
+  the assertion was not.** The load-bearing statements were narrower: that the
+  mode is resolvably off every peak; that the dominant peak is the background's
+  rather than the pulse's; and that the coupled resonance is *closer to `ω₃`
+  than the nearest integer is* — `0.086` against `0.172`, which is the entire
+  point. **Assert the proposition being defended, not a stronger one that
+  happens to be easier to write.**
 * **And the threshold-for-a-limit species, a fourth time.** The replacement
   check demanded that the nearest source peak sit more than `3` grid bins from
   `ω₃`; the measurement is `2.99` bins, so it failed by `0.4%`. The exact

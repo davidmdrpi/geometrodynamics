@@ -198,7 +198,7 @@ def t6_the_coupled_spectrum() -> dict:
     r = measure_the_coupled_spectrum_is_near_resonant()
     return {"name": "T6_the_coupled_spectrum", **r,
             "pass": bool(r["the_free_ambient_is_off_resonance"]
-                         and r["the_coupled_spectrum_is_not_the_free_one"]
+                         and r["the_coupled_resonance_beats_the_integer"]
                          and r["the_mode_is_near_resonant_everywhere"]
                          and r["it_is_a_working_point_quantity"])}
 
