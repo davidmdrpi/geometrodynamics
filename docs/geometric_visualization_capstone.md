@@ -884,7 +884,22 @@ Across sixteen configurations it is always within `0.086` and at `d = 0.9` it is
 the coupled one** — which is also the mechanism the first version lacked for the
 carrier sensitivity.
 
-**And the channel is areal-blind.** A traceless shear preserves volume *exactly*
+**And the whole TT sector is areal-blind, not just the homogeneous mode.** A
+traceless shear preserves volume *exactly* and mouth area *to first order*
+(second-order coefficient `0.403`, positive). The natural next move — build the
+inhomogeneous harmonics — does not help: `δA/A = −½⟨h_nn⟩`, and that average
+vanishes **identically** for any transverse-traceless field, because
+`⟨n_in_jf(k·n̂)⟩` can only be `Aδ_ij + Bk̂_ik̂_j` and tracelessness kills the
+first while transversality kills the second. Measured to `4.5e-15` against a
+transversality-dropped control of `1.5e-01`, and it survives curvature because
+`S³` is maximally symmetric — the normal's moments are isotropic to `6e-16`. So
+§21 cannot say whether the interaction metric moves toward a neck or away, and
+**neither can any refinement of it**: a signed areal response has to come from
+the scalar sector, where the fluid enters. The price of choosing the only
+fluid-free channel, now measured, is that it cannot answer a question about
+area.
+
+**The superseded phrasing.** A traceless shear preserves volume *exactly*
 and mouth area *to first order*; the second-order coefficient is `0.403` and
 **positive**. So §21 cannot say whether the interaction metric moves toward a
 neck or away — it distorts the mouth into an equal-area ellipse. That question

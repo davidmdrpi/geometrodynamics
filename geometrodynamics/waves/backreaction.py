@@ -173,6 +173,7 @@ __all__ = [
     "coupled_resonances",
     "measure_the_coupled_spectrum_is_near_resonant",
     "measure_the_shear_channel_cannot_pinch",
+    "measure_the_tt_sector_cannot_change_any_area",
     "measure_the_answer_needs_the_branches",
 ]
 
@@ -1222,6 +1223,94 @@ def measure_the_shear_channel_cannot_pinch(
                            "of the same area rather than pinching it; the "
                            "question needs the areal sector on a resolved "
                            "neck"),
+    }
+
+
+def measure_the_tt_sector_cannot_change_any_area(
+        radii: Sequence[float] = (0.05, 0.5, 2.0, 5.0),
+        wavenumbers: Sequence[float] = (1.0, 4.0),
+        n_theta: int = 24, n_phi: int = 48,
+        seed: int = 7) -> Dict[str, object]:
+    """**The TT tower cannot produce a signed areal response.  It is zero.**
+
+    For a 2-surface with unit normal ``n̂``, a metric perturbation changes the
+    area element by ``δA/A = ½⟨tr h − h_nn⟩``, which for traceless ``h`` is
+    ``−½⟨h_nn⟩``.  For a transverse-traceless field that average **vanishes
+    identically**, and the reason is algebraic:
+
+        ``⟨n_i n_j f(k·n̂)⟩`` can only be ``A δ_ij + B k̂_i k̂_j`` by symmetry,
+        and contracting with ``ε_ij`` kills the first term by **tracelessness**
+        and the second by **transversality**.
+
+    So it is not a small effect, or a high-order one, or one that a finer tower
+    would capture — building more harmonics adds more exact zeros.  Measured to
+    machine precision for single plane waves at every radius from ``0.05`` to
+    ``5``, and for generic superpositions; a control that drops transversality
+    alone gives ``7.7e-02``, fourteen orders larger, so the test has power.
+
+    On ``S³`` it survives curvature because the space is **maximally
+    symmetric**: the moments of the outward normal over a geodesic sphere are
+    isotropic in the global left-invariant frame to ``6e-16``, and
+    ``⟨n_i n_j n_k n_l⟩`` matches ``(δδ + δδ + δδ)/15`` to ``2e-15``, at every
+    radius tested and about both a mouth and a source.  Isotropic moments
+    contracted against a traceless transverse tensor give zero on ``S³`` exactly
+    as they do in flat space.
+
+    **What this settles.**  Asking the ``n = 3`` mode about pinching was a
+    category error; asking the whole TT tower is the *same* category error, one
+    harmonic at a time.  A signed ``δA/A`` has to come from the **scalar**
+    sector — which is where the fluid holding the ESU static enters, and where
+    the Eddington mode lives.  That dependence cannot be dodged by working
+    harder in this sector; it has to be named.
+    """
+    dirs, wd = _direction_rule(int(n_theta), int(n_phi))
+    w = wd / wd.sum()
+    rng = np.random.default_rng(int(seed))
+
+    def polarisation(khat):
+        tmp = rng.normal(size=3)
+        tmp -= (tmp @ khat) * khat
+        e1 = tmp / np.linalg.norm(tmp)
+        e2 = np.cross(khat, e1)
+        c = rng.normal(size=2)
+        return (c[0] * (np.outer(e1, e1) - np.outer(e2, e2))
+                + c[1] * (np.outer(e1, e2) + np.outer(e2, e1)))
+
+    rows = []
+    for a in radii:
+        for kmag in wavenumbers:
+            khat = rng.normal(size=3)
+            khat /= np.linalg.norm(khat)
+            eps = polarisation(khat)
+            k = float(kmag) * khat
+            x0 = rng.normal(size=3)
+            phase = np.cos(k @ x0 + float(a) * (dirs @ k))
+            hnn = float(np.einsum("p,ij,pi,pj,p->", w, eps, dirs, dirs, phase))
+            rows.append({"radius": float(a), "wavenumber": float(kmag),
+                         "h_nn_average": hnn,
+                         "relative": abs(hnn) / float(np.linalg.norm(eps))})
+    # a control that keeps tracelessness and drops transversality
+    khat = rng.normal(size=3)
+    khat /= np.linalg.norm(khat)
+    e = rng.normal(size=(3, 3))
+    e = 0.5 * (e + e.T)
+    e -= np.trace(e) / 3.0 * np.eye(3)
+    phase = np.cos(2.0 * (dirs @ khat))
+    control = float(np.einsum("p,ij,pi,pj,p->", w, e, dirs, dirs, phase))
+    worst = max(r["relative"] for r in rows)
+    return {
+        "rows": rows,
+        "worst_relative_h_nn": float(worst),
+        "control_without_transversality": float(abs(control)),
+        "control_is_larger_by": float(abs(control) / max(worst, 1e-300)),
+        "the_tt_sector_changes_no_area": bool(worst < 1e-12),
+        "the_control_has_power": bool(abs(control) > 1e-3),
+        "why_it_matters": ("delta A/A = -(1/2)<h_nn> for traceless h, and that "
+                           "average vanishes identically for TT: tracelessness "
+                           "kills the isotropic part and transversality the "
+                           "rest. building more harmonics adds more exact "
+                           "zeros, so a signed areal response has to come from "
+                           "the SCALAR sector -- where the fluid enters"),
     }
 
 

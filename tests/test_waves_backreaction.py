@@ -30,6 +30,7 @@ from geometrodynamics.waves.backreaction import (
 from geometrodynamics.waves.backreaction import (
     _direction_rule, _tangent_basis, coupled_resonances,
     measure_the_shear_channel_cannot_pinch,
+    measure_the_tt_sector_cannot_change_any_area,
 )
 from geometrodynamics.waves.throat_operator import MouthPair
 from geometrodynamics.waves.two_wave import (
@@ -434,3 +435,52 @@ def test_the_areal_change_is_second_order_and_opening():
     assert m["second_order_coefficient"] == pytest.approx(0.403, abs=0.01)
     ratios = [r["over_epsilon_squared"] for r in m["rows"]]
     assert abs(ratios[-1] - ratios[-2]) < abs(ratios[1] - ratios[0])
+
+
+def test_the_tt_sector_changes_no_area():
+    """The theorem that settles what the TT tower can be asked.
+
+    ``δA/A = −½⟨h_nn⟩`` for traceless ``h``, and that average vanishes
+    identically for a transverse-traceless field: ``⟨n_i n_j f(k·n̂)⟩`` can only
+    be ``Aδ_ij + Bk̂_ik̂_j``, and tracelessness kills the first term while
+    transversality kills the second.  Building more harmonics adds more exact
+    zeros, so a signed areal response cannot come from this sector at all.
+    """
+    m = measure_the_tt_sector_cannot_change_any_area()
+    assert m["the_tt_sector_changes_no_area"]
+    assert m["worst_relative_h_nn"] < 1e-12
+    # and the check has power: dropping transversality alone is 1e13 larger
+    assert m["the_control_has_power"]
+    assert m["control_is_larger_by"] > 1e9
+
+
+def test_the_normal_moments_on_s3_are_isotropic():
+    """Why the flat-space cancellation survives curvature.
+
+    ``S³`` is maximally symmetric, so the moments of the outward normal over a
+    geodesic sphere are isotropic **in the global left-invariant frame** — and
+    isotropic moments contracted against a traceless transverse tensor vanish
+    on ``S³`` exactly as they do in flat space.
+    """
+    from geometrodynamics.waves.two_source import mouth_positions
+    from geometrodynamics.waves.two_wave import WORKING_SEPARATION
+    dirs, wd = _direction_rule(20, 40)
+    w = wd / wd.sum()
+    c1, _ = mouth_positions(WORKING_SEPARATION)
+    d3 = np.eye(3)
+    predicted = (np.einsum("ij,kl->ijkl", d3, d3)
+                 + np.einsum("ik,jl->ijkl", d3, d3)
+                 + np.einsum("il,jk->ijkl", d3, d3)) / 15.0
+    for centre in (np.asarray(c1, dtype=float), circle_point(0.0)):
+        basis = _tangent_basis(centre)
+        for a in (0.05, 0.6):
+            pts = (math.cos(a) * centre[None, :]
+                   + math.sin(a) * (dirs @ basis))
+            dots = pts @ centre
+            g = -(centre[None, :] - dots[:, None] * pts) / math.sin(a)
+            frames = np.array([left_invariant_frame(p) for p in pts])
+            n = np.einsum("pa,pia->pi", g, frames)
+            m2 = np.einsum("p,pi,pj->ij", w, n, n)
+            assert np.allclose(m2, np.trace(m2) / 3.0 * d3, atol=1e-13)
+            m4 = np.einsum("p,pi,pj,pk,pl->ijkl", w, n, n, n, n)
+            assert np.allclose(m4, predicted, atol=1e-13)

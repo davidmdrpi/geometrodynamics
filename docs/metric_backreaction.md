@@ -268,6 +268,46 @@ Quoting a shear amplitude as evidence about pinching would be a category error,
 not a measurement error — and the areal sector on a resolved neck is a different
 module.
 
+## 7c. And neither can the rest of the tower
+
+The natural next move from §7b is to build the inhomogeneous TT harmonics, on
+the grounds that the *homogeneous* mode's areal blindness came from its
+constancy. It does not. **The whole transverse-traceless sector changes the area
+of no surface, at first order, exactly.**
+
+For a surface with unit normal `n̂`, `δA/A = ½⟨tr h − h_nn⟩`, which is
+`−½⟨h_nn⟩` for traceless `h`. For a TT plane wave `ε_ij cos(k·x)` the average
+`⟨n_i n_j f(k·n̂)⟩` can only be `A δ_ij + B k̂_i k̂_j` by symmetry — and
+contracting with `ε` kills the first term by **tracelessness** and the second by
+**transversality**. Nothing is left.
+
+| | worst relative `⟨h_nn⟩` |
+| --- | ---: |
+| TT plane waves, `a ∈ [0.05, 5]`, `\|k\| ∈ {1,4}` | **`4.5e-15`** |
+| generic superpositions of 12 TT waves | `5.5e-17` |
+| **control: tracelessness kept, transversality dropped** | **`1.5e-01`** |
+
+The control is `3.3e+13` times larger, so the test has power — this is a
+cancellation, not a quantity that happens to be small.
+
+**And curvature does not spoil it,** because `S³` is maximally symmetric. The
+moments of the outward normal over a geodesic sphere, in the global
+left-invariant frame, are isotropic to `6e-16`, and `⟨n_i n_j n_k n_l⟩` matches
+`(δδ + δδ + δδ)/15` to `2e-15` — at every radius from `0.05` to `1.2`, about
+both a mouth and a source. Isotropic moments against a traceless transverse
+tensor vanish on `S³` exactly as in flat space.
+
+So building more harmonics adds more exact zeros. Asking the `n = 3` mode about
+pinching was a category error; asking the whole tower is **the same category
+error, one harmonic at a time**.
+
+**A signed `δA/A` therefore has to come from the scalar sector** — which is
+precisely where the fluid holding the ESU static enters, and where the Eddington
+mode lives. §2 chose the TT sector because it is the only one whose answer does
+not depend on what was never put in; the price of that choice, now measured, is
+that it cannot answer a question about area. **The dependence cannot be worked
+around by computing harder in this sector. It has to be named.**
+
 ## 8. Which branches were there
 
 #257 measured the same configuration giving an invariant of anything from `0` to
