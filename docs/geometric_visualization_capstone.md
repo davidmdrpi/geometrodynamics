@@ -831,7 +831,7 @@ form requires.
 and the neck is a quantum-graph edge, not a solved cross-section; the ambient
 metric is **fixed**; **no backreaction**.
 
-## 21. `A + B` does what rescaling `A` or `B` cannot (`docs/metric_backreaction.md`, current round)
+## 21. `A + B` does what rescaling `A` or `B` cannot (`docs/metric_backreaction.md`)
 
 §18 gated backreaction on a growing mode; §19 and §20 closed that gate. So this
 round asks the roadmap's first GR question — and deliberately *not* "does
@@ -909,7 +909,88 @@ needs the areal sector on a resolved neck, which §21 is not.
 and §18's **point** throat rather than §19/§20's resolved mouths; and a
 **linear** response, not a solved coupled system.
 
-## 22. What the arc cost in errors, and what caught them
+## 22. The interference metric deforms toward a neck (`docs/signed_areal_response.md`, current round)
+
+§21 answered *does `A + B` do something rescaling cannot* with a large yes, and
+then proved that its own channel could not answer the question actually asked:
+
+> `δA/A = −½⟨h_nn⟩`, and that average vanishes **identically** for any
+> transverse-traceless field. Tracelessness kills the isotropic part of
+> `⟨n_i n_j f(k·n̂)⟩` and transversality kills the rest.
+
+So the geometric question moved to the **scalar** sector, posed as an
+**initial-data constraint solve** rather than an evolution. That is what removes
+the two reasons §21 avoided that sector: on a maximal slice the `K` terms in the
+Hamiltonian constraint are quadratic, so `δR⁽³⁾ = 16πG δρ` has no time
+derivatives in it, and a constraint has neither a sound speed nor an Eddington
+mode.
+
+**Toward a neck — at the wide working throat, off resonance. Both mouths
+close.**
+
+    ΔA/A = ( −2.06e−03 , −1.88e−03 )     in units of 2πG
+
+Negative in all eight controls. **The mechanism is not the obvious one:** the
+interference energy alone would *open* the mouths — `U(c_j) > 0` at both — and
+the throat's own monopole layers overshoot that and invert it. The throat is a
+low-impedance load for the constraint; it cannot support the conformal factor
+the energy piles up around its mouths.
+
+**The structure.** With `g = ψ⁴ĝ` and `ψ = 1+u`, the constraint is
+`∇²u + 3u = −2πG δρ` and `ΔA/A = 4u`. That operator is exactly degenerate on
+`S³` (`4 = (n+1)²` at `n = 1`), so it has no solution on the closed sphere at
+all; removing the two mouth balls is what makes it solvable. The field is a
+source term plus monopole and dipole layers on the two mouth spheres plus a free
+kernel element — twelve unknowns, twelve equations — and the solvability
+condition `Σ_j A_j c_j + Σ_j D_j = S_σ` is an **identity**, because
+`(2/π²) cos χ` is exactly the projector onto `span{x^A}`.
+
+**Two things came out the other way from expectation, and both are recorded as
+such.**
+
+*The dipole layers are required, and then invisible.* Two monopoles sweep only
+the plane of the two mouths, and the monopole-only solvability condition fails
+by `62.5%` of the obstruction — without the `ℓ = 1` layers there is no solution.
+That was expected to be the heart of the round. It is not: the response to the
+off-plane obstruction is `6e−17`. The layers deposit it in the kernel elements
+`x²` and `x³`, which vanish at both mouths because both mouths lie in the
+`(x⁰, x¹)` plane. A first draft of the module docstring said the `ℓ = 1` sector
+*is* the calculation. It is required for the calculation to **exist** and
+contributes nothing to its **value**.
+
+*The answer rests on the best-converged input, not the worst.* `ΔA/A` is, to
+`0.09%`, a linear functional of the obstruction alone. The `ℓ = 1` source moments
+drift `41%` between quadrature levels, against `1.5%` for the obstruction —
+and scaling them by three, by zero, or replacing them with noise moves the answer
+by `5e−04`.
+
+**The sign is a statement about a throat, not about the sphere** — and that was
+put to the test rather than left as a caveat. The tube's `ℓ = 0` constraint
+channel is `∂_s² + 4π/𝒜`: a **cavity**, with poles at `kL = nπ` (the scan finds
+flips at `3.133` and `6.260` against closed forms `π` and `2π`). The working
+tube carries `𝒜 = 4π` against a mouth sphere of area `4π sin²a` — wider than its
+own mouths by `400×` at `a = 0.05`, which is what puts it at `kL = 0.9`, inside
+the first cell. **Set the two equal and the sign does not survive:**
+
+| `a` | `kL/π` | `𝒜 = 4π` | matched `𝒜 = 4π sin²a` |
+|-----|--------|----------|------------------------|
+| 0.05 | 5.732 | closes / closes | **opens / opens** |
+| 0.10 | 2.870 | closes / closes | **closes / opens** |
+
+At `a = 0.05` both mouths open; at `a = 0.10` they disagree. The matched throat
+is past five poles and past two, under `5%` of its own length from the next one.
+The neck's cross-sectional area has been a free parameter since §19, carried
+along because nothing measured had ever depended on its value. Something does
+now, and **which throat is physical is the load-bearing open question this round
+leaves.**
+
+**What is still put in.** The ESU's fluid is held rigid — consistent because the
+scalar's stress tensor is separately conserved, but a responsive fluid is the
+next refinement. The source is §21's, on a fixed background with point sources.
+And the solution is dominated by a nearly-zero mode with `|c| ≈ 1.7` against a
+mouth response of `2e−03`, so the perturbative window is set far from the throat.
+
+## 23. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -1169,6 +1250,51 @@ Worth recording, because the failure modes repeat:
   recurred here: **when a check fails narrowly, look for the exact statement it
   is a numerical shadow of** rather than retuning the number.
 
+* **A discrepancy blamed on the wrong side.** The mouth-matching assembly agreed
+  with its independent reference solve at `1e-06` and no better, at every radius
+  and in both angular sectors. Flat error against a *reference* reads as the
+  reference's own floor, and it was written up that way in a first draft. It was
+  not: tightening the reference's quadrature tolerance, its finite-difference
+  step and its boundary-value tolerance by four orders each moved the number by
+  **zero**. The fault was the assembly's two-point radial stencil, whose
+  *relative* truncation error on a `1/χ` field is exactly `step²` — `1e-06` at
+  the step in use, which is precisely what was measured. A five-point rule
+  removed four orders. **A discrepancy that refuses to move when you refine the
+  other side is the other side telling you it is not the problem.**
+* **A prose claim that ran ahead of its own measurement, again.** The module
+  docstring asserted that the `ℓ = 1` sector "is not a refinement of this
+  calculation; without it there is no calculation" — written before the
+  measurement that would have tested it. Half of it is right and quantified
+  (`62.5%` shortfall in the monopole-only solvability condition). The other half
+  is false: the off-plane obstruction those layers carry produces an areal
+  response of `6e−17`. This is the same species as §21's carrier rationale and
+  §21's incommensurability argument — **a mechanism asserted from a plausible
+  argument rather than measured** — and it is now three rounds running, which
+  suggests the fix is procedural: *write the docstring after the control, not
+  before it.*
+* **An order of convergence claimed from a floor.** Once the stencil was fixed
+  the reference agreement sat at `4e−10` and stopped falling with `a`. The
+  measurement's summary key still asserted `both_sectors_converge` from a fitted
+  order — a claim the data could no longer support, since a flat residual has no
+  order. Replaced by a tolerance assertion plus an explicit statement that the
+  flatness *is* the finding.
+
+* **A singular system read out as though it meant something.** The `ℓ = 1`
+  rows of the matching were a `cosh`/`sinh` transfer matrix across the tube,
+  which costs a condition number of `e^{2κL}`. At the working area that is
+  `e^{1.8} = 6`, so nothing about it was visible for the whole round. Asked
+  for the matched-area case — the same model with **one parameter moved** — it
+  becomes `e^{36} = 4.4e+15`, and the first run duly reported a condition
+  number of `2.9e+15` **and an answer**, in a format indistinguishable from
+  the good ones. Every digit was noise. The repair was to carry the tube's two
+  end amplitudes as unknowns instead of eliminating them, which never forms
+  `e^{+κL}`; the reference solves then reproduce to the *same* `4e-10`,
+  digit for digit, so it was a change of form and not of content. Two things
+  are worth keeping. **A model parameter moved by a factor of four hundred is
+  not a perturbation of a formulation, it is a test of one** — and a condition
+  number is not a diagnostic unless something actually reads it, which is why
+  it is now asserted in the tests rather than merely reported.
+
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
 an independent construction — a closed form against brute
@@ -1190,7 +1316,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 23. What is imported rather than derived
+## 24. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -1234,7 +1360,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 24. What would come next
+## 25. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
@@ -1278,7 +1404,7 @@ The staged order that follows from this, and the reason it is that order:
 ```
 ray closure → field solution → two-wave invariant → finite throat
             → mouth resolved ✓ → neck resolved ✓ → backreaction ✓
-            → stationary action → topological branch
+            → signed ΔA/A ✓ → stationary action → topological branch
 ```
 
 **The gate is answered, and the reason it was there is worth keeping.** §18 built the
