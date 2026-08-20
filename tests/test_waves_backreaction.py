@@ -208,26 +208,85 @@ def test_the_tangent_basis_is_orthonormal_and_orthogonal_to_its_centre():
         assert np.allclose(b @ c, 0.0, atol=1e-12)
 
 
-def test_the_quadrature_converges_on_known_integrals():
-    """Refinement, not a magic tolerance.
+def test_the_quadrature_reaches_its_plateau_and_stays_there():
+    """What the rule actually does, which is not what a first version claimed.
 
-    ``TINY`` is deliberately far too coarse to quote, so the claim worth
-    testing is that refining it *helps* — which is what the partition of unity
-    bought and what plain excision did not.
+    That version asserted each refinement improves the error fourfold.  It is
+    **false**, and CI on another Python caught it: the rule reaches ``~1e-04``
+    and then *wanders* there rather than descending, so a refined level can
+    legitimately read worse than a coarse one (`3.96e-04` against `6.42e-04` in
+    the failing run).
+
+    Two causes, and the basis was only one of them.  `_tangent_basis` took its
+    null space from ``np.linalg.svd``, which returns *a* valid basis but not a
+    canonical one, so the rule was platform-dependent; that is fixed by a
+    Householder reflection.  The remainder is a genuine plateau: the bulk grid
+    spacing at ``n_χ = 26`` is ``π/26 ≈ 0.12`` against a partition transition of
+    width ``0.267``, so the global grid barely resolves the feature the
+    partition introduces.  A ``C^∞`` bump was tried and does **not** help
+    (``2.1e-04`` against ``9.8e-05``), which is what rules smoothness out as the
+    cause.
+
+    So what is asserted is what holds: the first refinement buys two orders,
+    and every rule at or above the coarse level stays under ``1e-03``.  The
+    operative convergence control for the physics is
+    `measure_the_quadrature_converges`, which compares the *responses* between
+    levels and does descend.
     """
     setup = WORKING_BACKREACTION
     a = setup.source_a
     exact_vol = 2.0 * math.pi ** 2
+    ladder = [TINY,
+              ShearQuadrature(bulk=(16, 10, 20), ball=(8, 6, 12)),
+              ShearQuadrature(bulk=(20, 12, 24), ball=(10, 8, 16))]
     errors = []
-    for rule in (TINY, ShearQuadrature(bulk=(16, 10, 20), ball=(8, 6, 12))):
+    for rule in ladder:
         pts, wts = rule.build(setup)
         vol = abs(float(wts.sum()) - exact_vol) / exact_vol
         got = float((wts * (pts @ a) ** 2).sum())
         moment = abs(got - exact_vol * 0.25) / (exact_vol * 0.25)
         errors.append((vol, moment))
-    assert errors[0][0] < 2e-2 and errors[0][1] < 5e-2
-    assert errors[1][0] < 0.25 * errors[0][0]
-    assert errors[1][1] < 0.25 * errors[0][1]
+    # the first refinement buys two orders on the volume
+    assert errors[1][0] < 0.05 * errors[0][0]
+    # and everything at or above the coarse level sits on the plateau
+    for vol, moment in errors[1:]:
+        assert vol < 1e-3
+        assert moment < 1e-2
+
+
+def test_the_tangent_basis_is_deterministic_and_not_svd_derived():
+    """The guard against the CI failure recurring.
+
+    A rule whose answer depends on which LAPACK build it runs on is not
+    acceptable at any accuracy, least of all in a round whose whole lesson is
+    quadrature noise masquerading as signal.  The Householder construction is
+    canonical, so the same centre gives bit-identical vectors — including for
+    the centres that made the old construction ambiguous, where ``c`` is a
+    coordinate axis and the null space is maximally degenerate.
+    """
+    rng = np.random.default_rng(0)
+    for _ in range(200):
+        c = rng.normal(size=4)
+        c /= np.linalg.norm(c)
+        b = _tangent_basis(c)
+        assert np.allclose(b @ b.T, np.eye(3), atol=1e-13)
+        assert np.allclose(b @ c, 0.0, atol=1e-13)
+        assert np.array_equal(b, _tangent_basis(c.copy(order="F")))
+    for axis in ([1.0, 0, 0, 0], [-1.0, 0, 0, 0], [0.0, 1, 0, 0],
+                 [0.0, 0, 0, -1]):
+        c = np.array(axis)
+        b = _tangent_basis(c)
+        assert np.allclose(b @ b.T, np.eye(3), atol=1e-13)
+        assert np.allclose(b @ c, 0.0, atol=1e-13)
+
+
+def test_the_quadrature_is_reproducible_point_for_point():
+    """Two builds of the same rule must agree exactly, not merely closely."""
+    rule = ShearQuadrature(bulk=(10, 6, 12), ball=(5, 4, 8))
+    p1, w1 = rule.build(WORKING_BACKREACTION)
+    p2, w2 = rule.build(WORKING_BACKREACTION)
+    assert np.array_equal(p1, p2)
+    assert np.array_equal(w1, w2)
 
 
 def test_the_quadrature_covers_all_eight_singular_points():

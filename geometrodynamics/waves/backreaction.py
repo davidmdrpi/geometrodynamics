@@ -529,10 +529,35 @@ def shear_projection(stress: np.ndarray, points: np.ndarray,
 # THE QUADRATURE
 # ════════════════════════════════════════════════════════════════════════════
 def _tangent_basis(centre: Sequence[float]) -> np.ndarray:
+    """Three orthonormal vectors spanning ``c^⊥`` — **deterministically**.
+
+    A first version took the null space from ``np.linalg.svd``, which returns
+    *a* valid basis but not a canonical one: LAPACK is free to hand back any
+    rotation of it, and different builds do.  That made every quadrature rule
+    built on this basis platform-dependent, and the failure it produced was the
+    worst possible kind for this round — CI on another Python reported the
+    refined rule as *less* accurate than the coarse one (``3.96e-04`` against
+    ``6.42e-04``), which reads exactly like a broken convergence rather than a
+    rotated basis.
+
+    Given that this round's whole lesson is quadrature noise masquerading as
+    signal, a rule whose answer depends on which machine it runs on is not
+    acceptable at any accuracy.  A **Householder reflection** taking ``e₀`` to
+    ``−c`` is canonical, needs no decomposition, and gives the same basis
+    everywhere; the sign branch is chosen for numerical stability so the
+    reflection vector never becomes small.
+    """
     c = np.asarray(centre, dtype=float)
     c = c / np.linalg.norm(c)
-    u, _, _ = np.linalg.svd(np.eye(4) - np.outer(c, c))
-    return u[:, :3].T
+    e0 = np.zeros(4)
+    e0[0] = 1.0
+    v = c + (1.0 if c[0] >= 0.0 else -1.0) * e0
+    nv2 = float(v @ v)
+    if nv2 < 1e-24:                       # c = ∓e₀ exactly; already aligned
+        h = np.eye(4)
+    else:
+        h = np.eye(4) - 2.0 * np.outer(v, v) / nv2
+    return h[:, 1:].T
 
 
 def _direction_rule(n_theta: int, n_phi: int) -> Tuple[np.ndarray, np.ndarray]:

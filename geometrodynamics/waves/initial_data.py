@@ -64,19 +64,33 @@ the four harmonics ``x^A`` — and PR #261's fixed-ambient Green function has a
 literal pole there, which is not a numerical difficulty but the statement that
 the problem is unsolvable as posed.
 
-Removing the balls lifts it, and the lifting has an **exact** closed form.  The
-monopole member of the ``k = 1`` multiplet about the mouth's centre is
-``ψ = cos χ``, whose logarithmic derivative at ``χ = a`` is ``−tan a``, so
+Removing the balls lifts it, and the lifting has **exact closed forms — four of
+them**, because the ``k = 1`` multiplet has four members.  About a mouth's
+centre it splits into one ``ℓ = 0`` member ``ψ = cos χ`` and three ``ℓ = 1``
+members ``ψ = sin χ``, and both are degenerate at ``λ = 4``:
 
-    ``N₀(a, λ=4)  =  4π sin²a · tan a  ⟶  4π a³``
+    ``N₀(a, 4)  =  +4π sin²a · tan a  ⟶  +4π a³``
+    ``N₁(a, 4)  =  −4π sin²a · cot a  =  −2π sin 2a  ⟶  −4π a``
 
-verified against the closed-form map to ``1e-09`` and against ``4πa³`` as a
-constant ``12.56637`` across ``a ∈ [0.01, 0.35]`` — compared with ``4πa`` at
-``λ = 0``, so the ratio is ``a²`` and *that extra ``a²`` is the degeneracy*.  It
-vanishes as ``a → 0``, recovering the singular problem in the point limit — so
-the point-mouth model cannot do this calculation at all, and the resolved neck
-can.  The higher multipoles are not degenerate and stay ``O(1)``, so the
-softness is confined to the one channel the coincidence produces.
+verified against the shooting solve to ``1e-09`` and ``2e-10`` respectively.
+**The signs differ and so do the orders.**  The monopole stiffness is positive
+and ``O(a³)``; the three dipole stiffnesses are **negative** and ``O(a)`` — in
+those channels the exterior *assists* rather than resists.  Only ``ℓ ≥ 2`` is
+genuinely non-degenerate, staying ``O(1)`` and positive.
+
+A first version of this module reported the ``ℓ = 1`` channels as positive and
+``O(1)``, i.e. not degenerate at all.  That was an artefact of a bug in
+`neck`: the radial equation carried ``ℓ(ℓ+2)`` — the ``S³`` harmonic eigenvalue
+— where the angular Laplacian on the **two**-sphere of directions gives
+``ℓ(ℓ+1)``.  ``ℓ = 0`` is untouched by it, which is why every closed-form check
+passed and the error survived a merge.  **The three dipole partners of the
+degeneracy were hidden by the wrong centrifugal term.**
+
+This matters for the solve rather than only for bookkeeping.  The solvability
+condition ``∫δρ Y₁ dV = 0`` has **four** components, one per kernel member, and
+a reduced monopole model addresses exactly one of them.  The other three have to
+be absorbed by the ``ℓ = 1`` channels at the mouths — whose stiffness is
+negative, so they absorb with the opposite sign.
 
 What is still put in
 ────────────────────
@@ -258,7 +272,14 @@ def measure_removing_the_balls_lifts_the_degeneracy(
     radius including where the ``4πa³`` form has started to drift.  The small-``a``
     coefficient is a constant ``12.56637 = 4π`` across a decade and a half in
     ``a``, against ``4πa`` at ``λ = 0`` — so the ratio is ``a²``, and that extra
-    ``a²`` is the degeneracy itself.  It vanishes as ``a → 0``: **the
+    ``a²`` is the degeneracy itself.
+
+    **The multiplet has four members and they do not behave alike.**  The three
+    ``ℓ = 1`` partners are ``ψ = sin χ``, giving
+    ``N₁ = −4π sin²a · cot a = −2π sin 2a ⟶ −4π a``: **negative**, and only
+    ``O(a)``.  So the dipole channels are softer than the monopole by two orders
+    in ``a`` *and* of the opposite sign — the exterior assists there instead of
+    resisting.  Only ``ℓ ≥ 2`` is genuinely non-degenerate.  It vanishes as ``a → 0``: **the
     degeneracy returns in the point limit**, which is the precise sense in which
     this calculation needs a resolved neck rather than merely preferring one.
 
@@ -280,6 +301,15 @@ def measure_removing_the_balls_lifts_the_degeneracy(
             "by_ell": [float(exterior_dtn(float(a), CONSTRAINT_EIGENVALUE,
                                           int(l))) for l in ells]})
     coeffs = [r["over_a_cubed"] for r in rows]
+    # the closed form is exact; what is measured is the integrator converging to
+    # it, and the dipole is the harder solve -- v = sin^2 chi starts as e^2 at
+    # the antipode against a singular centrifugal term, so the error grows as the
+    # ball shrinks.  Reported as a trend rather than pinned to a magic tolerance.
+    dipole_errors = []
+    for a in radii:
+        exact = -2.0 * math.pi * math.sin(2.0 * float(a))
+        got = exterior_dtn(float(a), CONSTRAINT_EIGENVALUE, 1)
+        dipole_errors.append(abs(got - exact) / abs(exact))
     shot = [-(FOUR_PI * math.sin(a) ** 2)
             * exterior_log_derivative(a, CONSTRAINT_EIGENVALUE, 0)
             for a in radii]
@@ -298,8 +328,15 @@ def measure_removing_the_balls_lifts_the_degeneracy(
             all(abs(c - FOUR_PI) / FOUR_PI < 2e-3 for c in coeffs)),
         "it_vanishes_in_the_point_limit": bool(
             rows[0]["N0_at_the_eigenvalue"] < 1e-4),
-        "the_higher_multipoles_are_not_degenerate": bool(
-            all(m["by_ell"][1] > 0.5 for m in multipoles)),
+        "the_dipole_partners_are_also_degenerate": bool(
+            all(m["by_ell"][1] < 0.0 for m in multipoles)),
+        "worst_dipole_closed_form_error": float(max(dipole_errors)),
+        "dipole_error_falls_with_radius": bool(
+            dipole_errors[0] > 10.0 * dipole_errors[-1]),
+        "the_dipole_closed_form_holds": bool(max(dipole_errors) < 1e-5),
+        "only_ell_two_and_above_is_free": bool(
+            all(m["by_ell"][2] > 0.5 and m["by_ell"][3] > 0.5
+                for m in multipoles)),
         "what_it_settles": ("the resolved neck makes the constraint operator "
                             "invertible and the point limit makes it singular "
                             "again, so this is a requirement rather than a "

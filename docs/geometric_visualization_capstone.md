@@ -796,7 +796,7 @@ roots, worst approach `−1.6e-03`.
 
 **The monopole truncation was never a stability limitation.** A one-channel tube
 presents a single number at each mouth, so it drives `ℓ = 0` and nothing else;
-the `ℓ ≥ 1` sectors are the exterior's own modes, `1.62×` stiffer or more, and
+the `ℓ ≥ 1` sectors are the exterior's own modes, `1.45×` stiffer or more, and
 can neither be driven nor go unstable. §8's `(a/d)^ℓ` screening law bounds missed
 **amplitude**, not the answer — §19 listed this as its main open approximation,
 and it turns out to have been open in a direction that did not matter.

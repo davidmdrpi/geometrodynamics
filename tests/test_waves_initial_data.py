@@ -89,15 +89,64 @@ def test_the_stiffness_is_positive_and_far_smaller_than_at_zero():
         assert n4 / n0 == pytest.approx(a ** 2, rel=0.15)
 
 
-def test_the_higher_multipoles_are_not_degenerate():
-    """The softness is confined to the one channel the coincidence produces —
-    the ``cos χ`` member of the ``k = 1`` multiplet about the mouth."""
+def test_the_dipole_partners_are_degenerate_too():
+    """The ``k = 1`` multiplet has **four** members, and they do not match.
+
+    About a mouth it splits into one ``ℓ = 0`` member ``cos χ`` and three
+    ``ℓ = 1`` members ``sin χ``.  Both are degenerate at ``λ = 4``, but
+
+        ``N₀ = +4π sin²a·tan a ~ +4πa³`` ,   ``N₁ = −2π sin 2a ~ −4πa``
+
+    — opposite signs and two orders apart in ``a``.  A first version of this
+    test asserted the ``ℓ ≥ 1`` channels were positive and ``O(1)``, i.e. not
+    degenerate at all.  That was `neck` solving ``v'' + [λ − ℓ(ℓ+2)/sin²χ]v = 0``
+    with the ``S³`` harmonic eigenvalue where the angular Laplacian on the
+    two-sphere of directions gives ``ℓ(ℓ+1)`` — so **the test was validating the
+    wrong differential equation**, and the three dipole partners of the
+    degeneracy were hidden by it.
+    """
     for a in (0.05, 0.2):
         values = [exterior_dtn(a, CONSTRAINT_EIGENVALUE, l)
                   for l in (0, 1, 2, 3)]
-        assert values[0] < 0.2 * values[1]
-        assert all(v > 0.5 for v in values[1:])
-        assert all(b > c for c, b in zip(values, values[1:]))
+        assert values[0] > 0.0                     # monopole: positive, tiny
+        assert values[1] < 0.0                     # dipoles: NEGATIVE
+        assert values[2] > 0.5 and values[3] > 0.5  # l >= 2: genuinely free
+        assert abs(values[0]) < abs(values[1])      # and two orders softer
+
+
+def test_the_dipole_closed_form_is_minus_two_pi_sin_two_a():
+    """``ψ = sin χ`` gives ``N₁ = −4π sin²a·cot a = −2π sin 2a``, exactly.
+
+    This closed form did not exist before the ``ℓ(ℓ+1)`` correction, and it is
+    the check that would have caught the bug: with ``ℓ(ℓ+2)`` the shooting solve
+    misses it outright rather than by a tolerance.
+    """
+    for a in (0.02, 0.05, 0.15, 0.35):
+        predicted = -2.0 * math.pi * math.sin(2.0 * a)
+        assert exterior_dtn(a, CONSTRAINT_EIGENVALUE, 1) == pytest.approx(
+            predicted, rel=1e-5)
+
+
+def test_the_radial_equation_carries_the_two_sphere_eigenvalue():
+    """The bug itself, pinned by exhibiting solutions rather than re-deriving.
+
+    At ``λ = 4`` the ``S³`` harmonics ``x^A`` split about a point into
+    ``ψ = cos χ`` (``ℓ = 0``) and ``ψ = sin χ`` (``ℓ = 1``), so ``v = ψ sin χ``
+    must solve ``v'' + [4 − L²/sin²χ]v = 0``.  With ``L² = ℓ(ℓ+1)`` both do;
+    with ``L² = ℓ(ℓ+2)`` the dipole leaves a residual of exactly ``−1``.
+    """
+    h = 1e-6
+
+    def residual(v, l2, chi):
+        return ((v(chi + h) - 2 * v(chi) + v(chi - h)) / h ** 2
+                + (4.0 - l2 / math.sin(chi) ** 2) * v(chi))
+
+    for chi in (0.4, 1.0, 1.9, 2.7):
+        assert abs(residual(lambda x: math.cos(x) * math.sin(x), 0.0,
+                            chi)) < 1e-3
+        assert abs(residual(lambda x: math.sin(x) ** 2, 2.0, chi)) < 1e-3
+        assert abs(residual(lambda x: math.sin(x) ** 2, 3.0, chi)) \
+            == pytest.approx(1.0, rel=1e-3)
 
 
 def test_the_shooting_integrator_still_agrees_at_the_eigenvalue():

@@ -39,7 +39,7 @@ What is measured anyway
 A theorem with no numbers attached is a claim, so:
 
 * the **exterior Dirichlet-to-Neumann map** ``N_ℓ(λ)`` is computed by shooting
-  the radial equation ``v'' + [λ − ℓ(ℓ+2)/sin²χ]v = 0`` from the far pole, and
+  the radial equation ``v'' + [λ − ℓ(ℓ+1)/sin²χ]v = 0`` from the far pole, and
   agrees with the closed form in the ``ℓ = 0`` channel to ``1e-13``.  It is
   **positive for every ``ℓ`` and every ``λ < 0``**, and *increasing* in ``ℓ`` —
   higher multipoles are stiffer, so they cannot be the ones to go soft;
@@ -125,11 +125,28 @@ def exterior_log_derivative(radius: float, lmbda: float, ell: int,
     ``−∇² + 1`` into a one-dimensional Schrödinger problem with **no first
     derivative**,
 
-        ``v'' + [λ − ℓ(ℓ+2)/sin²χ] v = 0`` ,
+        ``v'' + [λ − ℓ(ℓ+1)/sin²χ] v = 0`` ,
 
-    which is both the cleanest thing to integrate and the clearest statement of
-    the physics: at ``λ < 0`` the bracket is negative everywhere, so ``v`` cannot
-    oscillate and the exterior map has a sign.
+    where the centrifugal term carries ``ℓ(ℓ+1)`` — the eigenvalue of the
+    angular Laplacian on the **two**-sphere of directions.  A first version of
+    this module wrote ``ℓ(ℓ+2)``, which is the eigenvalue of the ``S³``
+    Laplacian on *its* harmonics, and is the wrong operator here.  ``ℓ = 0`` is
+    unaffected, which is exactly why every closed-form check passed and the
+    error survived: the whole ``ℓ = 0`` sector — the capacitance, the soft mode,
+    the stability answer — never touched it.  Every ``ℓ ≥ 1`` number that round
+    reported was wrong.
+
+    The correction is checkable by exhibiting solutions rather than by
+    re-deriving: at ``λ = 4`` the ``S³`` harmonics ``x^A`` split about a point
+    into one ``ℓ = 0`` member ``cos χ`` and three ``ℓ = 1`` members ``sin χ``,
+    so ``v = cos χ sin χ`` and ``v = sin²χ`` must both solve it.  With
+    ``ℓ(ℓ+1)`` they do, to finite-difference noise; with ``ℓ(ℓ+2)`` the second
+    leaves a residual of exactly ``−1``.
+
+    The form with no first derivative is both the cleanest thing to integrate
+    and the clearest statement of the physics: at ``λ < 0`` the bracket is
+    negative everywhere, so ``v`` cannot oscillate and the exterior map has a
+    sign.
 
     Regularity at the antipode ``χ = π`` fixes the branch: with ``e = π − χ`` the
     two behaviours are ``e^{ℓ+1}`` and ``e^{−ℓ}``, and only the first leaves
@@ -140,7 +157,7 @@ def exterior_log_derivative(radius: float, lmbda: float, ell: int,
         raise ValueError("the removed ball needs 0 < a < π")
 
     def rhs(chi, y):
-        return [y[1], -(lam - l * (l + 2) / math.sin(chi) ** 2) * y[0]]
+        return [y[1], -(lam - l * (l + 1) / math.sin(chi) ** 2) * y[0]]
 
     start = math.pi - eps
     y0 = [eps ** (l + 1), -(l + 1) * eps ** l]

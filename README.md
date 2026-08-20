@@ -2914,7 +2914,7 @@ from a different construction (`1/N₀` on the diagonal, not `f(a)G(a)`).
 
 **And the monopole truncation was never a stability limitation.** A one-channel
 tube presents a single number at each mouth, so it drives `ℓ = 0` and nothing
-else; the `ℓ ≥ 1` sectors are the exterior's own modes, `1.62×` stiffer or more.
+else; the `ℓ ≥ 1` sectors are the exterior's own modes, `1.45×` stiffer or more.
 #250's `(a/d)^ℓ` screening bounds missed **amplitude**, not the answer.
 
 **What the fixed ambient cost, priced.** `f(a)G(a)` against `1/N₀`: `1.3e-04` at
