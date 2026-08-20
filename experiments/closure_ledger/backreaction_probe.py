@@ -81,25 +81,27 @@ T5  *** THE ANSWER. *** Most of the interference response lies outside the span
     (0.88 to 1.00 over the four reported), which is why T6 scans the carrier as
     well and the result is quoted as a range rather than a constant.
 
-T6  THE CHANNEL IS NEVER ON RESONANCE, AND THE NUMBER IS NOT A CONSTANT. The
-    conformally coupled scalar on the ESU has spectrum w_n = n+1: INTEGERS. The
-    space is compact and static so nothing decays and the field rings on those
-    modes forever; T is quadratic and integers are closed under sums and
-    differences, so the shear source rings on integers too -- measured, its
-    peaks land on integers to within a grid bin, dominated by w = 6 and w = 8.
-    Meanwhile w3 = 2 sqrt(2)
-    is IRRATIONAL, 0.172 from the nearest integer, so the gravitational shear
-    channel is driven OFF RESONANCE BY CONSTRUCTION on this background whatever
-    the source does. A first draft claimed instead that T being quadratic puts
-    the power at 2*w0 and chose the carrier to match; that is wrong and it is
-    recorded rather than deleted. The EXACT statement is the irrationality; the
-    numerical one is that the nearest source peak sits 2.99 grid bins away. A
-    first version of this test demanded 3 bins and failed by 0.4% -- a threshold
-    standing in for a limit, this ledger's own recurring species -- so the
-    criterion is now resolvable separation and the bin count is reported. The
-    same scan is this round's honesty check on its own headline: the unreachable
-    fraction MOVES with the carrier and with the time window, so it is reported
-    as a range and not as a constant.
+T6  *** THE RESONANCE TEST, DONE ON THE COUPLED SYSTEM -- WHICH REVERSES IT. ***
+    An earlier version of this probe argued the tensor channel was off resonance
+    BY CONSTRUCTION: the conformal scalar on the ESU has spectrum w_n = n+1,
+    INTEGERS; T is quadratic and integers are closed under sums and differences,
+    so a source built from the FREE field rings on integers; and w3 = 2 sqrt(2)
+    is irrational, 0.172 from the nearest. All of that is true -- OF THE
+    UNCOUPLED AMBIENT -- and the conclusion does not survive coupling. The
+    throat rings where det(A - Gamma(w)) vanishes, and those zeros are NOT
+    integers: at the working point 0.875, 1.854, 1.872, 2.706, 2.878, 3.698.
+    The nearest sits 0.050 from w3, and near w3 they are spaced only ~0.17
+    apart, so the mode cannot be far from one. Across SIXTEEN throat
+    configurations the nearest is always within 0.086, and at d = 0.9 it is
+    0.001 -- resonant to the width of the scan. So the corrected statement is a
+    WORKING-POINT one and it points the other way: off resonance with the free
+    ambient, generically NEAR-RESONANT with the coupled system. That is also the
+    mechanism the earlier version lacked for the headline's carrier sensitivity.
+    The species of error is worth naming: an argument established for one system
+    carried over to a system that differs precisely in the thing being argued
+    about. The same scan is this round's honesty check on its own headline: the
+    unreachable fraction MOVES with the carrier and with the time window, so it
+    is reported as a range and not as a constant.
 
 T7  WHICH BRANCHES WERE THERE. PR #257 measured the same configuration giving
     an invariant of anything from 0 to 4 depending on the arrival branches
@@ -133,7 +135,7 @@ import numpy as np
 from geometrodynamics.waves.backreaction import (
     TENSOR_MODE_FREQUENCY, ShearQuadrature, WORKING_BACKREACTION,
     measure_the_answer_needs_the_branches,
-    measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum,
+    measure_the_coupled_spectrum_is_near_resonant,
     measure_the_interference_response_is_unreachable,
     measure_the_quadrature_converges,
     measure_the_stress_tensor_splits_bilinearly,
@@ -192,13 +194,13 @@ def t5_the_interference_is_unreachable() -> dict:
                          and r["spread_over_windows"] < 0.2)}
 
 
-def t6_never_on_resonance() -> dict:
-    r = measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum()
-    return {"name": "T6_never_on_resonance", **r,
-            "pass": bool(r["the_source_rings_on_integers"]
-                         and r["the_mode_is_resolvably_off_every_peak"]
-                         and r["the_tensor_mode_is_irrational"]
-                         and r["it_is_unreachable_at_every_carrier"])}
+def t6_the_coupled_spectrum() -> dict:
+    r = measure_the_coupled_spectrum_is_near_resonant()
+    return {"name": "T6_the_coupled_spectrum", **r,
+            "pass": bool(r["the_free_ambient_is_off_resonance"]
+                         and r["the_coupled_spectrum_is_not_the_free_one"]
+                         and r["the_mode_is_near_resonant_everywhere"]
+                         and r["it_is_a_working_point_quantity"])}
 
 
 def t7_which_branches() -> dict:
@@ -217,7 +219,7 @@ def t8_assessment(tests: List[dict]) -> dict:
 def run_probe() -> dict:
     tests = [t1_goal(), t2_the_response_is_derived(), t3_the_split_is_bilinear(),
              t4_the_quadrature_control(), t5_the_interference_is_unreachable(),
-             t6_never_on_resonance(), t7_which_branches()]
+             t6_the_coupled_spectrum(), t7_which_branches()]
     tests.append(t8_assessment(tests))
     t2, t3, t4, t5, t6, t7 = tests[1:7]
 
@@ -274,20 +276,24 @@ def run_probe() -> dict:
             f"{t4.get('worst_magnitude_drift', 0):.4f}, with the residual "
             f"moving {t4.get('residual_drift', 0):.4f} between levels. THE "
             "CARRIER IS A MEASUREMENT TOO: the channel's transfer function is "
-            "1/(w3^2 - w^2). *** AND THE CHANNEL IS NEVER ON RESONANCE. *** The "
-            "conformal scalar on the ESU has spectrum w_n = n+1 -- integers -- "
-            "and on a compact static space it rings on them forever; T is "
-            "quadratic and integers are closed under sums and differences, so "
-            "the shear source rings on integers too, measured to within a grid "
-            f"bin and peaking at {t6.get('rows',[{}])[0].get('spectral_peak',0):.3f} "
-            "for EVERY carrier tested. But w3 = 2 sqrt(2) is IRRATIONAL, "
-            f"{t6.get('distance_to_the_nearest_integer', 0):.3f} from the "
-            "nearest integer, so the gravitational shear channel is driven off "
-            "resonance by construction. A first draft said the source would "
-            "peak at 2*w0 and chose the carrier accordingly; that is wrong, and "
-            "it is recorded rather than deleted. *** THE NUMBER IS NOT A "
-            "UNIVERSAL CONSTANT, AND IS NOT REPORTED AS ONE. *** Across "
-            f"carriers the unreachable fraction runs "
+            "1/(w3^2 - w^2). *** AND THE RESONANCE TEST, DONE PROPERLY, "
+            "REVERSES ITSELF. *** An earlier version of this probe proved the "
+            "tensor mode incommensurate with the FREE ambient's integer "
+            "spectrum -- w_n = n+1, and w3 = 2 sqrt(2) irrational, "
+            f"{t6.get('free_ambient_gap_to_an_integer', 0):.3f} from the "
+            "nearest -- and concluded the channel was off resonance BY "
+            "CONSTRUCTION. That is true of the UNCOUPLED ambient and false of "
+            "the coupled system: the throat rings where det(A - Gamma(w)) "
+            "vanishes, and those zeros are not integers. Across sixteen throat "
+            "configurations the nearest coupled resonance to w3 is always "
+            f"within {t6.get('farthest_coupled_resonance', 0):.3f}, and at best "
+            f"{t6.get('closest_coupled_resonance', 0):.4f} -- resonant to the "
+            "width of the scan. So the channel is off resonance with the free "
+            "ambient and generically NEAR-RESONANT with the coupled one, which "
+            "is also the mechanism the earlier version lacked for the "
+            "headline's carrier sensitivity. *** THE NUMBER IS NOT A UNIVERSAL "
+            "CONSTANT, AND IS NOT REPORTED AS ONE. *** Across carriers the "
+            f"unreachable fraction runs "
             f"{t6.get('unreachable_range',[0,0])[0]:.3f} to "
             f"{t6.get('unreachable_range',[0,0])[1]:.3f}, and across time "
             f"windows {t5.get('spread_over_windows', 0):.3f} wide -- large "

@@ -190,55 +190,83 @@ Large everywhere, constant nowhere. The honest headline is the **range**, and
 the claim that survives it is that the interference response is *generically*
 outside the reachable family — not that `0.92` is a property of nature.
 
-## 7. The channel is never on resonance
+## 7. The resonance test, done on the coupled system — which reverses it
 
-A second-order fact that came out of trying to justify the carrier, and is more
-interesting than the justification was.
+A first version of this section argued the channel was off resonance **by
+construction**. The argument: the conformally coupled scalar on the ESU has
+spectrum `ω_n = n + 1`, **integers**; the space is compact and static so nothing
+decays and the field rings on those modes forever; `T` is quadratic and integers
+are closed under sums and differences, so a source built from the free field
+rings on integers too — measured peaks at `5.969` and `7.959`, within `0.031`
+and `0.041` of `6` and `8`. And `ω₃ = 2√2` is **irrational**, `0.172` from the
+nearest integer.
 
-The conformally coupled scalar on the ESU has spectrum `ω_n = n + 1`:
-**integers**. The space is compact and static, so nothing decays and the field
-rings on those modes forever. `T` is quadratic, and integers are closed under
-sums and differences, so the shear source rings on integers too — measured, its
-peaks land on integers, the two dominant ones to `0.031` and `0.041` (the
-grid's own frequency spacing is `0.105`), with weaker features drifting up to
-`0.27`:
+**Every step of that is true, and the conclusion is false**, because all of it
+is a statement about the *uncoupled ambient*.
 
-| measured peak | nearest integer | offset |
-| ---: | ---: | ---: |
-| `2.094` | `2` | `0.094` |
-| `3.142` | `3` | `0.142` |
-| **`5.969`** | `6` | `0.031` |
-| `6.912` | `7` | `0.088` |
-| **`7.959`** | `8` | `0.041` |
+The throat rings where `det(A − Γ(ω))` **vanishes**, and those zeros are not
+integers. At the working point:
 
-And `ω₃ = 2√2 = 2.8284` is **irrational** — `0.172` from the nearest integer, and
-it cannot ever coincide with one. **So on this background the gravitational shear
-channel is driven off resonance by construction, whatever the source does.**
+```
+0.875   1.854   1.872   2.706   2.878   3.698   3.825   4.713   4.739 …
+```
 
-### A threshold standing in for a limit, again
+`ω₃ = 2.8284` sits **`0.050`** from the resonance at `2.878`. Near `ω₃` the
+coupled resonances are spaced only about `0.17` apart, so the mode *cannot* be
+far from one:
 
-The exact statement here is the **irrationality**. The numerical one is that the
-nearest source peak sits `0.313` from `ω₃` — which is `2.99` grid bins. A first
-version of this check demanded **3 bins** and therefore *failed*, by `0.4%`.
+| `d` | boundary condition | nearest coupled resonance | distance to `ω₃` |
+| ---: | :--- | ---: | ---: |
+| `0.9` | `(0.30, 0.35, 0.06)` | `2.829473` | **`0.00105`** |
+| `0.9` | `(0.10, 0.15, 0.06)` | `2.742287` | `0.08614` |
+| `1.3` | `(0.30, 0.35, 0.06)` | `2.878498` | `0.05007` |
+| `1.3` | `(0.60, 0.70, 0.06)` | `2.845978` | `0.01755` |
+| `2.4` | `(0.30, 0.35, 0.20)` | `2.819321` | `0.00911` |
 
-That is this ledger's own recurring species — §18's three identifying properties
-failed the same way, and the lesson recorded there was that *a threshold that
-fails is often a limit asking to be named*. The named thing here is that `2√2` is
-irrational, which is exact and needs no tolerance; the bin count is a property of
-the grid. The criterion is now that the mode is *resolvably* off every peak, and
-the separation is **reported** in bins rather than hidden inside a pass.
+Across sixteen configurations the nearest is **always within `0.086`**, and at
+`d = 0.9` with the working boundary condition it is `0.001` — resonant to the
+width of the scan. `ω₄ = 3.873` is likewise `0.048` from one.
 
-### A wrong first draft, recorded
+**So the corrected statement is a working-point one, and it points the other
+way:** off resonance with the free ambient, **generically near-resonant with the
+coupled system**. That is also the mechanism the first version lacked for §6's
+carrier sensitivity — a response driven near a pole is sensitive, and it changes
+*sign* across the pole.
 
-That draft said: `T` is quadratic, so a carrier `ω₀` puts the source's power at
-`2ω₀`; therefore pick the carrier to put `2ω₀` at `ω₃`. **It is wrong.** The
-measured spectral peak is `5.969` for carriers `0.7`, `1.414`, `2.0` and `2.828`
-alike — it does not follow the carrier at all, because the ringing is the
-*background's*, not the pulse's. (At `carrier = 4` the envelope's DC lobe takes
-over and the largest bin moves to the bottom of the band; the ringing peaks are
-still on integers. So "the peak never moves" would also have been too strong, and
-what is asserted is the claim that survives: no peak of the source ever lands on
-`ω₃`.)
+### The species of error
+
+An argument was established for one system and carried over to a system that
+differs **precisely in the thing being argued about**. Coupling is what this
+whole arc is about, and the spectrum is the first thing it moves. The earlier
+draft's mistake was not a wrong number; it was not noticing that its premise had
+a scope.
+
+*(A still earlier draft said `T` being quadratic puts the source's power at
+`2ω₀` and chose the carrier to match. Also wrong, and for a related reason — the
+measured peak sits at `5.969` whatever the carrier is, because the ringing is
+the background's rather than the pulse's.)*
+
+## 7b. What this channel cannot say
+
+A traceless shear preserves volume **exactly** — `det e^{β} = 1` when `Σβ_i = 0`,
+at every amplitude, not just to first order — and the area of a geodesic sphere
+**to first order**:
+
+| `ε` | volume ratio | `δA/A` | `÷ ε²` |
+| ---: | ---: | ---: | ---: |
+| `0.200` | `1.0` | `+1.551e-02` | `0.3876` |
+| `0.100` | `1.0` | `+3.963e-03` | `0.3963` |
+| `0.050` | `1.0` | `+1.002e-03` | `0.4007` |
+| `0.025` | `1.0` | `+2.518e-04` | **`0.4029`** |
+
+The areal change is `O(ε²)` with the coefficient converging to `0.403`, and it
+is **positive** — what second-order effect exists *opens* rather than pinches.
+
+**So this channel cannot answer whether the interaction metric moves toward a
+neck or away from one.** It distorts the mouth into an ellipse of the same area.
+Quoting a shear amplitude as evidence about pinching would be a category error,
+not a measurement error — and the areal sector on a resolved neck is a different
+module.
 
 ## 8. Which branches were there
 

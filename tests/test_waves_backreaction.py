@@ -27,7 +27,11 @@ from geometrodynamics.waves.backreaction import (
     quaternion_product, shear_projection, shear_response, solve_batch,
     stress_series, unreachable_fraction,
 )
-from geometrodynamics.waves.backreaction import _direction_rule, _tangent_basis
+from geometrodynamics.waves.backreaction import (
+    _direction_rule, _tangent_basis, coupled_resonances,
+    measure_the_shear_channel_cannot_pinch,
+)
+from geometrodynamics.waves.throat_operator import MouthPair
 from geometrodynamics.waves.two_wave import (
     circle_point, orthonormal_frame, solve_field, stress_tensor,
 )
@@ -375,3 +379,58 @@ def test_the_shear_sources_are_symmetric():
     for key in ("A", "B", "cross"):
         s = src[key]
         assert np.allclose(s, np.transpose(s, (0, 2, 1)), atol=1e-12)
+
+
+# ── the coupled spectrum ───────────────────────────────────────────────────
+def test_the_coupled_resonances_are_not_the_free_ambients():
+    """The correction that reversed this round's resonance claim.
+
+    ``G(χ,ω)`` has poles at integer ``ω`` — the ESU's own spectrum — but the
+    throat rings where ``det(A − Γ(ω))`` **vanishes**, and those zeros sit
+    between the integers.  An earlier version proved the tensor mode
+    incommensurate with the *free* spectrum and concluded the channel was off
+    resonance "by construction"; the coupled zeros are what that argument
+    needed to be about.
+    """
+    res = coupled_resonances(MouthPair(1.3, 0.30, 0.35, 0.06 + 0j),
+                             omega_max=6.0, samples=40000)
+    assert len(res) >= 4
+    for w in res:
+        assert abs(w - round(w)) > 0.05, f"{w} is on an integer"
+
+
+def test_the_tensor_mode_is_near_a_coupled_resonance():
+    """``ω₃ = 2√2`` is ``0.172`` from an integer but ``0.050`` from a coupled
+    resonance — and never more than ``0.086`` away across configurations."""
+    worst = 0.0
+    for d, a1, a2, b in ((0.9, 0.30, 0.35, 0.06), (1.3, 0.30, 0.35, 0.06),
+                         (1.8, 0.60, 0.70, 0.06), (2.4, 0.30, 0.35, 0.20)):
+        res = coupled_resonances(MouthPair(d, a1, a2, complex(b)),
+                                 omega_max=6.0, samples=40000)
+        gap = min(abs(w - TENSOR_MODE_FREQUENCY) for w in res)
+        worst = max(worst, gap)
+    assert worst < 0.1
+    assert abs(TENSOR_MODE_FREQUENCY - round(TENSOR_MODE_FREQUENCY)) > 0.15
+
+
+# ── the channel's areal blindness ──────────────────────────────────────────
+def test_traceless_shear_preserves_volume_exactly():
+    m = measure_the_shear_channel_cannot_pinch()
+    assert m["volume_is_preserved_exactly"]
+    for row in m["rows"]:
+        assert row["volume_ratio"] == pytest.approx(1.0, abs=1e-13)
+
+
+def test_the_areal_change_is_second_order_and_opening():
+    """Why §21's channel cannot answer 'toward a neck or away'.
+
+    The areal change goes as ``ε²`` with the coefficient converging, and its
+    sign is positive — so the mode distorts the mouth into an equal-area
+    ellipse and any second-order effect *opens*.
+    """
+    m = measure_the_shear_channel_cannot_pinch()
+    assert m["area_is_preserved_to_first_order"]
+    assert m["the_second_order_effect_opens_rather_than_pinches"]
+    assert m["second_order_coefficient"] == pytest.approx(0.403, abs=0.01)
+    ratios = [r["over_epsilon_squared"] for r in m["rows"]]
+    assert abs(ratios[-1] - ratios[-2]) < abs(ratios[1] - ratios[0])

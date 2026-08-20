@@ -3017,12 +3017,26 @@ refining made it worse. With all eight singular points under a smooth partition
 of unity, two refinement levels now agree to correlation `0.970`–`0.999` and
 magnitude drift `0.009`, residual moving `0.008`.
 
-**And the channel is never on resonance.** The conformal scalar on the ESU has
-integer spectrum `ω_n = n+1` and rings on it forever; `T` is quadratic, so the
-shear source rings on integers too — the two dominant peaks measured at
-`5.969` and `7.959`, within `0.031` and `0.041` of `6` and `8`. But `ω₃ = 2√2` is **irrational** — `0.172` from the
-nearest integer. On this background the gravitational shear channel is driven
-**off resonance by construction**.
+**And the resonance test, done properly, reverses itself.** A first version
+argued the channel was off resonance *by construction*: the conformal scalar on
+the ESU has integer spectrum `ω_n = n+1`, so a source built from the free field
+rings on integers, and `ω₃ = 2√2` is irrational — `0.172` from the nearest. All
+true, **of the uncoupled ambient**. The throat rings where `det(A − Γ(ω))`
+vanishes, and those zeros are *not* integers: `0.875, 1.854, 1.872, 2.706,
+2.878, …`, the nearest sitting **`0.050`** from `ω₃`, with a local spacing of
+only `0.17`. Across sixteen throat configurations the nearest is always within
+`0.086`, and at `d = 0.9` it is **`0.001`**. So the corrected statement is a
+working-point one pointing the other way — off resonance with the free ambient,
+**generically near-resonant with the coupled system** — and that is the
+mechanism the first version lacked for the carrier sensitivity.
+
+**And what this channel cannot say.** A traceless shear preserves volume
+*exactly* (`det e^β = 1`) and mouth area *to first order* — the measured areal
+change is `0.403 ε²`, and **positive**, so what second-order effect exists opens
+rather than pinches. **The `n = 3` channel therefore cannot answer whether the
+interaction metric moves toward a neck or away from one**; it distorts the mouth
+into an equal-area ellipse. That question needs the areal sector on a resolved
+neck.
 
 **What is still put in.** The `n = 3` harmonic only; a **fixed** ESU; **point**
 sources and #257's **point** throat rather than #261/#262's resolved mouths; and

@@ -86,24 +86,48 @@ first attempt at this round produced a confident ``0.982`` that was pure
 quadrature noise — independent quadratures of the same quantity correlated at
 ``−0.04``.  That number is recorded in the docs as wrong rather than deleted.
 
-The channel is never on resonance
-─────────────────────────────────
-The conformally coupled scalar on the ESU has spectrum ``ω_n = n + 1``:
-**integers**.  The space is compact and static, so nothing decays and the field
-rings on those modes forever; ``T`` is quadratic and integers are closed under
-sums and differences, so the shear source rings on integers too — measured, its
-peaks land on integers to within a grid bin, dominated by ``ω ≈ 6`` and
-``ω ≈ 8``, and no peak of it ever lands on ``ω₃`` whatever the carrier is.
+The channel is near-resonant, not off resonance
+───────────────────────────────────────────────
+An earlier version of this module argued the opposite, and it is worth stating
+what it got right before what it got wrong.  The conformally coupled scalar on
+the ESU has spectrum ``ω_n = n + 1``: **integers**.  The space is compact and
+static, so nothing decays and the field rings on those modes forever; ``T`` is
+quadratic and integers are closed under sums and differences, so a source built
+from the *free* field rings on integers too.  ``ω₃ = 2√2`` is irrational,
+``0.172`` from the nearest one.  All of that is true.
 
-``ω₃ = 2√2`` is irrational, ``0.172`` from the nearest integer.  So on this
-background the gravitational shear channel is driven **off resonance by
-construction**, whatever the source does.  A first draft claimed instead that
-``T`` being quadratic puts the power at ``2ω₀`` and picked the carrier to match;
-that is wrong, and it is recorded rather than deleted.
+**The conclusion drawn from it — that the channel is off resonance "by
+construction" — is false**, because it is a statement about the *uncoupled*
+ambient.  The throat rings where ``det(A − Γ(ω))`` vanishes, and those zeros are
+not integers: at the working point they are ``0.875, 1.854, 1.872, 2.706,
+2.878, …``.  The nearest sits **``0.050``** from ``ω₃``, and near ``ω₃`` they
+are spaced only about ``0.17`` apart, so the mode cannot be far from one.
+Across sixteen throat configurations the nearest is always within ``0.086``, and
+at ``d = 0.9`` it is ``0.001``.
+
+So the corrected statement is a **working-point** one and it points the other
+way: off resonance with the free ambient, **generically near-resonant with the
+coupled system** — which is also the mechanism the earlier version lacked for
+the headline's carrier sensitivity.  `measure_the_coupled_spectrum_is_near_resonant`
+does that test; the earlier claim is recorded rather than deleted.  (A still
+earlier draft said ``T`` being quadratic puts the power at ``2ω₀`` and picked
+the carrier to match; that was wrong too, and for a related reason — an argument
+about one system carried across to a different one.)
 
 The same scan is the round's honesty check on its own headline: the unreachable
 fraction is **not a universal constant** — it moves with the carrier and with
 the time window — so the spread is reported alongside it.
+
+What this channel cannot say
+────────────────────────────
+A traceless shear preserves volume **exactly** (``det e^{β} = 1`` when
+``Σβ_i = 0``) and the area of a geodesic sphere **to first order** — the
+measured areal change goes as ``0.403 ε²``, and it is *positive*, so what
+second-order effect there is opens rather than pinches.
+
+**So this channel cannot answer whether the interaction metric moves toward a
+neck or away from one.**  It distorts; it does not pinch.  Asking that question
+needs the *areal* sector on a resolved neck, which is a different module.
 
 What is still put in
 ────────────────────
@@ -121,6 +145,7 @@ from typing import Callable, Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 
+from .throat_operator import MouthPair
 from .two_source import geodesic, mouth_positions
 from .two_wave import (
     GaussianPulse, RetardedGrid, TwoWaveSetup, WORKING_SEPARATION,
@@ -145,7 +170,9 @@ __all__ = [
     "measure_the_stress_tensor_splits_bilinearly",
     "measure_the_quadrature_converges",
     "measure_the_interference_response_is_unreachable",
-    "measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum",
+    "coupled_resonances",
+    "measure_the_coupled_spectrum_is_near_resonant",
+    "measure_the_shear_channel_cannot_pinch",
     "measure_the_answer_needs_the_branches",
 ]
 
@@ -971,50 +998,89 @@ def measure_the_interference_response_is_unreachable(
                            "to both, so no rescaling reproduces it")}
 
 
-def measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum(
+def coupled_resonances(pair, omega_max: float = 14.0,
+                       samples: int = 120000) -> List[float]:
+    """Where the **coupled** system rings: zeros of ``det(A − Γ(ω))``.
+
+    Not the free ambient's poles.  ``G(χ,ω)`` has poles at integer ``ω`` — the
+    ESU's own spectrum ``ω_n = n+1`` — but the throat's response
+    ``R(ω) = (A − Γ(ω))⁻¹`` rings where its **determinant vanishes**, and those
+    zeros sit between the integers, at positions set by the boundary condition
+    and the mouth separation.
+
+    Integer poles are skipped explicitly: ``det`` changes sign across each one
+    without vanishing there, so a bare sign-change scan would report the
+    ambient's modes as if they were the coupled system's.
+    """
+    a = pair.boundary_matrix()
+
+    def det_at(w: float) -> float:
+        g = gamma_omega(np.array([complex(w)]), pair.separation)[0]
+        m = a - g
+        return float((m[0, 0] * m[1, 1] - m[0, 1] * m[1, 0]).real)
+
+    ws = np.linspace(0.01, float(omega_max), int(samples))
+    vals = np.array([det_at(float(w)) for w in ws])
+    poles = np.arange(1, int(omega_max) + 2)
+    out: List[float] = []
+    for i in np.where(np.sign(vals[:-1]) * np.sign(vals[1:]) < 0.0)[0]:
+        lo, hi = float(ws[i]), float(ws[i + 1])
+        if min(abs(0.5 * (lo + hi) - p) for p in poles) < 3e-3:
+            continue
+        for _ in range(70):
+            mid = 0.5 * (lo + hi)
+            if det_at(lo) * det_at(mid) <= 0.0:
+                hi = mid
+            else:
+                lo = mid
+        out.append(0.5 * (lo + hi))
+    return out
+
+
+def measure_the_coupled_spectrum_is_near_resonant(
         quad: ShearQuadrature = ShearQuadrature(bulk=(16, 10, 20),
                                                 ball=(8, 6, 12)),
         carriers: Sequence[float] = (0.7, TENSOR_MODE_FREQUENCY / 2,
                                      TENSOR_MODE_FREQUENCY, 4.0),
+        configurations: Sequence[Tuple[float, float, float, float]] = (
+            (0.9, 0.30, 0.35, 0.06), (0.9, 0.10, 0.15, 0.06),
+            (0.9, 0.60, 0.70, 0.06), (0.9, 0.30, 0.35, 0.20),
+            (1.3, 0.30, 0.35, 0.06), (1.3, 0.10, 0.15, 0.06),
+            (1.3, 0.60, 0.70, 0.06), (1.3, 0.30, 0.35, 0.20),
+            (1.8, 0.30, 0.35, 0.06), (1.8, 0.10, 0.15, 0.06),
+            (1.8, 0.60, 0.70, 0.06), (1.8, 0.30, 0.35, 0.20),
+            (2.4, 0.30, 0.35, 0.06), (2.4, 0.10, 0.15, 0.06),
+            (2.4, 0.60, 0.70, 0.06), (2.4, 0.30, 0.35, 0.20)),
         window: Tuple[float, float] = (4.0, 30.0)) -> Dict[str, object]:
-    """Why no carrier drives this channel — and how much the answer moves.
+    """The resonance test done on the **coupled** system — which reverses it.
 
-    The conformally coupled scalar on the ESU has spectrum ``ω_n = n + 1``:
-    **integers**.  The space is compact and static, so nothing decays and the
-    field rings on those modes forever; ``T`` is quadratic, and sums and
-    differences of integers are integers, so the shear source rings on integers
-    too.  Measured, its peaks land on integers to within a grid bin, dominated
-    by ``ω ≈ 6`` and ``ω ≈ 8``, and the dominant one stays at ``ω ≈ 6`` for
-    every carrier below the mode.  (At ``carrier = 4`` the envelope's DC lobe
-    takes over and the largest bin moves to the bottom of the band; the
-    *ringing* peaks are still on integers, but "the peak never moves" would have
-    been too strong, so what is asserted is the claim that survives: **no peak
-    of the source ever lands on ``ω₃``**.)
+    An earlier version of this measurement claimed the tensor channel was "off
+    resonance **by construction**".  The argument was: the conformally coupled
+    scalar on the ESU has spectrum ``ω_n = n+1``, integers; ``T`` is quadratic
+    and integers are closed under sums and differences, so the shear source
+    rings on integers; and ``ω₃ = 2√2`` is irrational, ``0.172`` from the
+    nearest one.
 
-    The lowest tensor mode is ``ω₃ = 2√2``, which is **irrational**: ``0.172``
-    from the nearest integer, and it cannot ever coincide with one.  So on this
-    background the gravitational shear channel is driven **off resonance by
-    construction**, whatever the source is doing.  That is a structural fact
-    about a conformal scalar on an ESU, not a property of the pulse.
+    **Every step of that is true of the *uncoupled ambient*, and the conclusion
+    does not survive coupling.**  The throat's response rings where
+    ``det(A − Γ(ω))`` vanishes, and those zeros are *not* integers — at the
+    working point they are ``0.875, 1.854, 1.872, 2.706, 2.878, 3.698, …``.
+    The nearest sits ``0.050`` from ``ω₃``, and near ``ω₃`` they are spaced only
+    about ``0.17`` apart, so the mode cannot be far from one.  Across sixteen
+    throat configurations the nearest is **always within ``0.086``**, and at
+    ``d = 0.9`` with the working boundary condition it is ``0.001`` — resonant
+    to the width of the scan.
 
-    The **exact** statement is the irrationality; the numerical one is that the
-    nearest source peak sits ``0.313`` away, which is ``2.99`` grid bins.  A
-    first version of this measurement demanded ``3`` bins and therefore *failed*
-    — by ``0.4%`` — which is this ledger's own recurring species: a threshold
-    standing in for a limit.  The criterion is now that the mode is *resolvably*
-    off every peak (more than one and a half bins, so they are distinct on this
-    grid), and the separation is reported in bins as a measurement rather than
-    hidden inside a pass.
+    So the corrected statement is a **working-point** one, and it is the
+    opposite of the original: the tensor channel is off resonance with the free
+    ambient and *generically near-resonant with the coupled system*.  That is
+    also the natural explanation for the headline's carrier sensitivity, which
+    the earlier version reported without a mechanism.
 
-    A first draft of this round claimed instead that ``T`` being quadratic puts
-    the source's power at ``2ω₀``, and chose the carrier on that basis.  **It is
-    wrong** — the measured peak is ``5.969`` for carriers ``0.7``, ``1.414``,
-    ``2.0`` and ``2.828`` alike, because the ringing is the *background's*, not
-    the pulse's.  The wrong reasoning is recorded rather than deleted.
-
-    The carrier scan is also the round's honesty check on its own headline: the
-    unreachable fraction is **not a universal constant**, and the spread is
-    reported instead of one number being quoted as if it were.
+    The error is worth naming: an argument established for one system was
+    carried over to a system that differs precisely in the thing being argued
+    about.  Coupling is what the whole arc is about, and the spectrum is the
+    first thing it moves.
     """
     rows = []
     for carrier in carriers:
@@ -1025,58 +1091,136 @@ def measure_the_tensor_mode_is_incommensurate_with_the_matter_spectrum(
         spec = np.abs(np.fft.rfft(src["A"].reshape(n, 9), axis=0)).sum(axis=1)
         band = (freqs > 0.3) & (freqs < 14.0)
         fb, sb = freqs[band], spec[band]
-        peak = float(fb[int(np.argmax(sb))])
-        i3 = int(np.argmin(np.abs(freqs - TENSOR_MODE_FREQUENCY)))
         dt = s.grid.dt
         r = unreachable_fraction(shear_response(src["A"], dt),
                                  shear_response(src["B"], dt),
                                  shear_response(src["cross"], dt),
                                  s.grid.times, window)
-        # how far the strongest peaks sit from an integer
-        loc = [i for i in range(1, len(sb) - 1)
-               if sb[i] > sb[i - 1] and sb[i] > sb[i + 1]]
-        loc = sorted(loc, key=lambda i: -sb[i])[:6]
-        offs = [abs(float(fb[i]) - round(float(fb[i]))) for i in loc]
-        gap = min(abs(float(fb[i]) - TENSOR_MODE_FREQUENCY) for i in loc)
-        rows.append({"carrier": float(carrier), "spectral_peak": peak,
-                     "peak_offset_from_integer": abs(peak - round(peak)),
-                     "worst_peak_offset": float(max(offs)),
-                     "nearest_peak_to_the_mode": float(gap),
-                     "power_at_the_mode": float(spec[i3]),
+        rows.append({"carrier": float(carrier),
+                     "spectral_peak": float(fb[int(np.argmax(sb))]),
                      "unreachable": r["unreachable_off_the_span"],
                      "cross_over_single": r["cross_over_single"]})
-    peaks = [r["spectral_peak"] for r in rows]
+
+    spectra = []
+    for d, a1, a2, b in configurations:
+        pair = MouthPair(float(d), float(a1), float(a2), complex(b))
+        res = coupled_resonances(pair, omega_max=8.0, samples=60000)
+        if not res:
+            continue
+        near = min(res, key=lambda x: abs(x - TENSOR_MODE_FREQUENCY))
+        local = sorted(res, key=lambda x: abs(x - TENSOR_MODE_FREQUENCY))[:3]
+        spacing = (max(local) - min(local)) / 2.0 if len(local) > 2 else None
+        spectra.append({
+            "separation": float(d), "boundary": [float(a1), float(a2),
+                                                 float(b)],
+            "nearest_resonance": float(near),
+            "distance_to_the_mode": float(abs(near - TENSOR_MODE_FREQUENCY)),
+            "local_spacing": None if spacing is None else float(spacing),
+            "resonances_below_8": [float(x) for x in res],
+        })
+    worst = max(r["distance_to_the_mode"] for r in spectra)
+    best = min(r["distance_to_the_mode"] for r in spectra)
     unreach = [r["unreachable"] for r in rows]
-    grid_bin = 2.0 * math.pi / WORKING_BACKREACTION.grid.span
+    integer_gap = abs(TENSOR_MODE_FREQUENCY - round(TENSOR_MODE_FREQUENCY))
     return {
         "rows": rows,
+        "coupled_spectra": spectra,
         "tensor_mode_frequency": TENSOR_MODE_FREQUENCY,
-        "distance_to_the_nearest_integer": float(
-            abs(TENSOR_MODE_FREQUENCY - round(TENSOR_MODE_FREQUENCY))),
-        "grid_frequency_spacing": float(grid_bin),
-        "spectral_peak_spread": float(max(peaks) - min(peaks)),
+        "free_ambient_gap_to_an_integer": float(integer_gap),
+        "closest_coupled_resonance": float(best),
+        "farthest_coupled_resonance": float(worst),
         "unreachable_range": [float(min(unreach)), float(max(unreach))],
-        "closest_any_peak_gets_to_the_mode": float(
-            min(r["nearest_peak_to_the_mode"] for r in rows)),
-        "separation_in_grid_bins": float(
-            min(r["nearest_peak_to_the_mode"] for r in rows) / grid_bin),
-        "the_source_rings_on_integers": bool(
-            all(r["worst_peak_offset"] < 3.0 * grid_bin for r in rows)),
-        "the_mode_is_resolvably_off_every_peak": bool(
-            min(r["nearest_peak_to_the_mode"] for r in rows) > 1.5 * grid_bin),
-        "the_tensor_mode_is_irrational": bool(
-            abs(TENSOR_MODE_FREQUENCY - round(TENSOR_MODE_FREQUENCY)) > 0.1),
-        "it_is_unreachable_at_every_carrier": bool(min(unreach) > 0.5),
+        "the_free_ambient_is_off_resonance": bool(integer_gap > 0.15),
+        "the_coupled_spectrum_is_not_the_free_one": bool(
+            all(min(abs(x - round(x)) for x in r["resonances_below_8"]) > 0.05
+                for r in spectra)),
+        "the_mode_is_near_resonant_everywhere": bool(worst < 0.1),
+        "it_is_a_working_point_quantity": bool(worst / max(best, 1e-12) > 3.0),
         "the_fraction_is_not_a_universal_constant": bool(
             max(unreach) - min(unreach) > 0.1),
-        "what_the_first_draft_got_wrong": (
-            "that T being quadratic puts the source's power at 2*w0, so the "
-            "carrier should be chosen to match; in fact the dominant peak stays "
-            "at w = 6 for every carrier below the mode, because the ringing is "
-            "the ESU's own integer spectrum rather than the pulse's (at carrier "
-            "4 the envelope's DC lobe takes over instead, which is why the "
-            "claim asserted is the weaker and true one: the mode is resolvably "
-            "off every peak, and exactly so, since 2*sqrt(2) is irrational)"),
+        "what_the_earlier_version_got_wrong": (
+            "it proved the tensor mode incommensurate with the FREE ambient's "
+            "integer spectrum and concluded the channel was off resonance BY "
+            "CONSTRUCTION. the coupled system's resonances are not integers, "
+            "and near w3 they are ~0.17 apart, so the mode is generically "
+            "NEAR-resonant: 0.050 at the working point and 0.001 at d=0.9"),
+    }
+
+
+def measure_the_shear_channel_cannot_pinch(
+        epsilons: Sequence[float] = (0.2, 0.1, 0.05, 0.025),
+        direction: Sequence[float] = (1.0, -0.4, -0.6),
+        n: int = 400) -> Dict[str, object]:
+    """Why this channel cannot say *toward a neck* or *away from one*.
+
+    A neck is an areal statement: the throat pinches when the area of its
+    minimal cross-section falls.  The homogeneous transverse-traceless mode
+    cannot make that statement, and the reason is exact rather than numerical.
+
+    * **Volume is preserved identically.**  The spatial metric is
+      ``a² diag(e^{2β₁}, e^{2β₂}, e^{2β₃})``, so ``√det g = a³ e^{Σβ}`` and
+      ``Σβ = 0`` by tracelessness.  Not to first order — *exactly*, at every
+      amplitude.
+    * **Areas are preserved to first order.**  The area of the ellipsoid with
+      semi-axes ``e^{β_i}`` differs from the sphere's at ``O(β²)``, measured
+      here as ``0.403 ε²`` with the ratio converging as ``ε`` falls.  And the
+      coefficient is **positive**: what second-order effect exists *opens*, it
+      never pinches.
+
+    So the ``n = 3`` shear distorts the mouth into an ellipse of the same area.
+    It is the wrong instrument for the question, and reporting a shear amplitude
+    as evidence about pinching would be a category error rather than a
+    measurement error.
+
+    The areal sector on a resolved neck is what that question needs, and it is
+    not this module.
+    """
+    d = np.asarray(direction, dtype=float)
+    d = d - d.mean()
+
+    def area(beta: np.ndarray) -> float:
+        th = np.linspace(0.0, math.pi, int(n))
+        ph = np.linspace(0.0, 2.0 * math.pi, 2 * int(n))
+        t, q = np.meshgrid(th, ph, indexing="ij")
+        a = np.exp(beta)
+        x = a[0] * np.sin(t) * np.cos(q)
+        y = a[1] * np.sin(t) * np.sin(q)
+        z = a[2] * np.cos(t)
+        xt, yt, zt = (np.gradient(v, th, axis=0) for v in (x, y, z))
+        xp, yp, zp = (np.gradient(v, ph, axis=1) for v in (x, y, z))
+        cx = yt * zp - zt * yp
+        cy = zt * xp - xt * zp
+        cz = xt * yp - yt * xp
+        return float(np.trapezoid(
+            np.trapezoid(np.sqrt(cx ** 2 + cy ** 2 + cz ** 2), ph, axis=1), th))
+
+    base = area(np.zeros(3))
+    rows = []
+    for e in epsilons:
+        b = float(e) * d
+        rows.append({"epsilon": float(e),
+                     "volume_ratio": float(np.exp(b.sum())),
+                     "area_change": (area(b) - base) / base,
+                     "over_epsilon_squared": ((area(b) - base) / base
+                                              / float(e) ** 2)})
+    ratios = [r["over_epsilon_squared"] for r in rows]
+    return {
+        "rows": rows,
+        "traceless_direction": [float(x) for x in d],
+        "second_order_coefficient": float(ratios[-1]),
+        "coefficient_drift": float(abs(ratios[-1] - ratios[-2])),
+        "volume_is_preserved_exactly": bool(
+            all(abs(r["volume_ratio"] - 1.0) < 1e-12 for r in rows)),
+        "area_is_preserved_to_first_order": bool(
+            abs(ratios[-1] - ratios[-2]) < 0.02),
+        "the_second_order_effect_opens_rather_than_pinches": bool(
+            all(r["area_change"] > 0.0 for r in rows)),
+        "why_it_matters": ("a neck is an areal statement, and this channel is "
+                           "areal-blind at first order and sign-definite at "
+                           "second, so it distorts the mouth into an ellipse "
+                           "of the same area rather than pinching it; the "
+                           "question needs the areal sector on a resolved "
+                           "neck"),
     }
 
 

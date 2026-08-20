@@ -873,15 +873,22 @@ validations pass — round `S³`, ESU (independently reproducing `two_wave`'s
 everywhere, constant nowhere — so the range is the headline and the claim is
 that the interference response is *generically* unreachable.
 
-**The channel is never on resonance.** The conformal scalar on the ESU has
-integer spectrum `ω_n = n+1`, and on a compact static space it rings on those
-modes forever; `T` is quadratic and integers are closed under sums and
-differences, so the shear source rings on integers too — the two dominant
-peaks measured at `5.969` and `7.959`, within `0.031` and `0.041` of `6` and
-`8`. But
-`ω₃ = 2√2` is **irrational**, `0.172` from the nearest integer. **On this
-background the gravitational shear channel is driven off resonance by
-construction.**
+**The resonance test reverses itself when done on the coupled system.** A first
+version argued the channel was off resonance *by construction*: the conformal
+scalar on the ESU has integer spectrum `ω_n = n+1`, so a free-field source rings
+on integers, and `ω₃ = 2√2` is irrational. True — **of the uncoupled ambient**.
+The throat rings where `det(A − Γ(ω))` vanishes, and those zeros are not
+integers; the nearest sits `0.050` from `ω₃`, with a local spacing of `0.17`.
+Across sixteen configurations it is always within `0.086` and at `d = 0.9` it is
+`0.001`. **Off resonance with the free ambient, generically near-resonant with
+the coupled one** — which is also the mechanism the first version lacked for the
+carrier sensitivity.
+
+**And the channel is areal-blind.** A traceless shear preserves volume *exactly*
+and mouth area *to first order*; the second-order coefficient is `0.403` and
+**positive**. So §21 cannot say whether the interaction metric moves toward a
+neck or away — it distorts the mouth into an equal-area ellipse. That question
+needs the areal sector on a resolved neck, which §21 is not.
 
 **Still put in:** the `n = 3` harmonic only; a **fixed** ESU; **point** sources
 and §18's **point** throat rather than §19/§20's resolved mouths; and a
@@ -1103,6 +1110,27 @@ Worth recording, because the failure modes repeat:
   `ω₃ = 2√2` is irrational, so the gravitational channel is off resonance by
   construction. **A reasonable-sounding mechanism is a hypothesis, and this arc's
   own rule is that hypotheses get measured.**
+* **An argument carried across the very boundary it was about.** §21 proved the
+  tensor mode `ω₃ = 2√2` incommensurate with the ESU's integer scalar spectrum
+  and concluded the channel was off resonance **by construction**. Every step
+  was true — *of the uncoupled ambient*. The coupled system rings where
+  `det(A − Γ(ω))` vanishes, and those zeros are not integers: the nearest sits
+  `0.050` from `ω₃`, `0.001` at one configuration, and never more than `0.086`
+  across sixteen. **The conclusion is reversed** — generically *near*-resonant —
+  and it supplies the mechanism §21 was missing for its own carrier
+  sensitivity. The species: an argument established for one system and carried
+  over to a system that differs **precisely in the thing being argued about**.
+  Coupling is what this whole arc is about, and the spectrum is the first thing
+  it moves. **Not a wrong number — an unnoticed scope on a premise**, which no
+  amount of numerical care reaches.
+* **A channel that cannot answer the question asked of it.** §21 measures the
+  homogeneous transverse-traceless mode, and a traceless shear preserves volume
+  *exactly* and area *to first order* — second-order coefficient `0.403`, and
+  positive. So it distorts the mouth into an equal-area ellipse and can say
+  nothing about pinching. Reading a shear amplitude as evidence about necks
+  would have been a **category error rather than a measurement error**, and the
+  only defence against that species is asking what the instrument is *able* to
+  register before asking what it registered.
 * **And the threshold-for-a-limit species, a fourth time.** The replacement
   check demanded that the nearest source peak sit more than `3` grid bins from
   `ω₃`; the measurement is `2.99` bins, so it failed by `0.4%`. The exact
