@@ -3164,6 +3164,29 @@ f₀ = sin³a          L = 2[sin³a·arccosh(1/sin a) + sin a cos a] ≈ 2a
 **No free parameter is left.** The closed forms check against quadrature to
 `1e-12`, and the conductance is exactly `N₀(a,4)/4` at every radius.
 
+**And it is an Einstein–Rosen bridge, which derives its mass.** `R̂ = 0`, `K = 0`
+and a spherical neck don't merely *permit* one — they are one. The
+time-symmetric Schwarzschild slice `ds² = dr²/(1−2M/r) + r²dΩ²` in proper radial
+distance is exactly `f'² = 1 − 2M/f`, so **`f₀ = 2M`** and
+
+```
+M = sin³a / 2          the throat's mass, from the size of the excised mouth
+```
+
+Three quasi-local masses agree exactly — the Schwarzschild parameter, the
+irreducible mass `√(A/16π)` (the neck area is `16πM²`), and the Hawking mass,
+which is *constant* along the vacuum piece. And the gluing condition **is** a
+mass statement: `(f/2)(1−f'²)` is `f₀/2` on the throat and `sin³χ/2` on the
+ambient, so *the seam is smooth exactly when the Hawking mass doesn't jump.*
+
+Four things it does not say, each asserted in the tests: no asymptotic region so
+**no ADM mass** (the derived mass is quasi-local, unambiguous only because the
+Hawking mass is constant); it is **dimensionless**, `M/R`, which is all PR #52's
+scale-modulus theorem allows; both ends sew into the *same* `S³`, so it is a
+handle of Misner's kind; and the neck is a minimal surface, hence on a `K = 0`
+slice an **apparent horizon** — so this is the *non-traversable* throat, which is
+the vacuum face of the arc's earlier "connected implies exotic".
+
 **There is no cavity.** `∇² + R̂/2` with `R̂ = 0` is the plain Laplacian:
 `(f²u')' = 0`, solutions monotone. #264's resonances at `kL = nπ` and its sign
 flips were properties of **matter in the tube**, not of a throat.

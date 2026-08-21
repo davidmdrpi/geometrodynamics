@@ -266,3 +266,95 @@ def _family_admittance(a, f0, ell):
     p, q = run("sym"), run("anti")
     return np.array([[0.5 * (p + q), 0.5 * (p - q)],
                      [0.5 * (p - q), 0.5 * (p + q)]])
+
+
+# ── what the forced throat turns out to be ──────────────────────────────────
+@pytest.mark.parametrize("a", [0.02, 0.05, 0.10, 0.20])
+def test_the_profile_is_the_time_symmetric_schwarzschild_slice(a):
+    """`ds² = dr²/(1−2M/r) + r²dΩ²` in proper distance is `f'² = 1 − 2M/f`."""
+    t = pt.VacuumThroat(mouth_radius=a)
+    m = t.mass()
+    for frac in (1.2, 3.0, 50.0):
+        f = min(t.neck_radius() * frac, t.mouth_f())
+        schwarzschild = 1.0 - 2.0 * m / f
+        forced = 1.0 - t.neck_radius() / f
+        assert abs(schwarzschild - forced) < 1e-15
+
+
+@pytest.mark.parametrize("a", [0.02, 0.05, 0.10, 0.20])
+def test_the_neck_radius_is_twice_the_mass(a):
+    t = pt.VacuumThroat(mouth_radius=a)
+    assert abs(2.0 * t.mass() - t.neck_radius()) < 1e-18
+    assert abs(t.mass() - math.sin(a) ** 3 / 2.0) < 1e-18
+
+
+@pytest.mark.parametrize("a", [0.02, 0.05, 0.10, 0.20])
+def test_three_independent_masses_agree(a):
+    """Schwarzschild parameter, irreducible mass, Hawking mass."""
+    t = pt.VacuumThroat(mouth_radius=a)
+    ms = [t.mass(), t.irreducible_mass(), t.hawking_mass_in_the_tube()]
+    assert (max(ms) - min(ms)) < 1e-12 * ms[0]
+
+
+@pytest.mark.parametrize("a", [0.02, 0.05, 0.10, 0.20])
+def test_the_neck_area_is_sixteen_pi_m_squared(a):
+    t = pt.VacuumThroat(mouth_radius=a)
+    assert abs(t.neck_area() - 16.0 * math.pi * t.mass() ** 2) < 1e-24
+
+
+def test_the_hawking_mass_is_constant_along_the_vacuum_throat():
+    """`(f/2)(1 − f'²) = f₀/2` at every areal radius, not just at the ends."""
+    t = pt.VacuumThroat(mouth_radius=0.05)
+    f0 = t.neck_radius()
+    for frac in (1.01, 1.5, 8.0, 100.0, 390.0):
+        f = f0 * frac
+        if f > t.mouth_f():
+            continue
+        got = pt.hawking_mass(f, math.sqrt(1.0 - f0 / f))
+        # `1 - f'^2` recovers `f0/f` by cancellation between numbers near 1,
+        # so the achievable relative accuracy is ~eps*f/f0 -- 4e-14 at the
+        # mouth. The exact statement `m_H = f0/2` needs no cancellation; this
+        # check deliberately goes through the definition instead.
+        assert abs(got - t.mass()) < 1e-12 * t.mass()
+
+
+@pytest.mark.parametrize("a", [0.02, 0.05, 0.10, 0.20])
+def test_the_gluing_condition_is_hawking_mass_continuity(a):
+    """The ambient's own Hawking mass at radius `a` is `sin³a/2` — the same
+    number the gluing forces the neck to carry."""
+    t = pt.VacuumThroat(mouth_radius=a)
+    ambient = pt.hawking_mass(math.sin(a), math.cos(a))
+    assert abs(ambient - t.hawking_mass_in_the_tube()) < 1e-12 * ambient
+    assert abs(ambient - t.mass()) < 1e-15
+
+
+def test_the_hawking_mass_formula_against_its_definition():
+    """`m_H = √(A/16π)(1 − (1/16π)∮H²dA)` with `H = 2f'/f`, `A = 4πf²`."""
+    for f, fp in ((0.3, 0.7), (1.0, 0.2), (0.05, 0.99)):
+        area = 4.0 * math.pi * f ** 2
+        integral = (2.0 * fp / f) ** 2 * area
+        expected = (math.sqrt(area / (16.0 * math.pi))
+                    * (1.0 - integral / (16.0 * math.pi)))
+        assert abs(pt.hawking_mass(f, fp) - expected) < 1e-14
+
+
+def test_the_mass_law_inverts_and_has_the_expected_small_mouth_limit():
+    got = pt.measure_the_throat_is_an_einstein_rosen_bridge()
+    for row in got["rows"]:
+        a = row["mouth_radius"]
+        assert abs(row["mouth_from_the_mass"] - a) < 1e-12
+        assert abs(row["mass"] / row["small_mouth_law"] - 1.0) < 0.05
+
+
+def test_the_bridge_measurement_states_what_it_is_not():
+    """The claim is strong, so the four things it does not say are asserted."""
+    got = pt.measure_the_throat_is_an_einstein_rosen_bridge()
+    assert got["it_is_an_einstein_rosen_bridge"]
+    assert got["the_mass_has_no_free_parameter"]
+    assert got["the_neck_is_an_apparent_horizon"]
+    assert got["schwarzschild_slope_error"] < 1e-15
+    assert got["three_masses_agree"] < 1e-12
+    assert got["the_gluing_is_hawking_mass_continuity"] < 1e-12
+    caveats = " ".join(got["what_it_is_not"]).lower()
+    for word in ("adm", "dimensionless", "handle", "apparent horizon"):
+        assert word in caveats

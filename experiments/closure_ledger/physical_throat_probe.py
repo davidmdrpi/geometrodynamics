@@ -39,6 +39,17 @@ Length and resistance then follow in closed form, checked against quadrature:
 and the conductance is EXACTLY a quarter of the exterior's own monopole
 stiffness, 4 pi / I = N0(a,4)/4, at every mouth radius.
 
+AND THE THROAT HAS A NAME. R_hat = 0, K = 0 and a spherical neck do not merely
+permit an Einstein-Rosen bridge -- they ARE one: f'^2 = 1 - f0/f is exactly the
+time-symmetric Schwarzschild slice with f0 = 2M. So the forced neck radius is
+twice a mass, and
+
+    M = sin^3(a) / 2
+
+is the throat's MASS DERIVED FROM THE SIZE OF THE EXCISED MOUTH, with nothing
+left to choose. Three quasi-local masses agree on it exactly, and the gluing
+condition turns out to BE the continuity of the Hawking mass across the seam.
+
 AND THE SIGN REVERSES.  dA/A = (+6.64, +8.58) in units of 2 pi G: on the throat
 that is forced rather than chosen, the interference OPENS both mouths.
 
@@ -75,7 +86,23 @@ T5  *** THE MECHANISM: ONE NUMBER DECIDES THE SIGN. *** Decompose a symmetric
     answer over EIGHT ORDERS and never changes its sign; the shunt passes
     through a pole near 2e-03 and flips it. PR #264's tube sat at 6.07.
 
-T6  *** THE ANSWER, WITH ITS CONTROLS. *** Both mouths open, in all eight
+T6  *** THE THROAT IS AN EINSTEIN-ROSEN BRIDGE, AND ITS MASS IS DERIVED. ***
+    f0 = 2M, so M = sin^3(a)/2. The Schwarzschild parameter, the irreducible
+    mass sqrt(A/16pi) and the Hawking mass agree to 1e-13, the neck area is
+    16 pi M^2 exactly, and the gluing condition IS Hawking-mass continuity --
+    (f/2)(1 - f'^2) is f0/2 on the throat and sin^3(chi)/2 on the ambient.
+    FOUR THINGS IT DOES NOT SAY, asserted in the tests because the claim is
+    strong enough to be worth not overstating: there is no asymptotic region,
+    so no ADM mass -- the derived mass is quasi-local, unambiguous only because
+    the Hawking mass is constant on the vacuum piece; it is DIMENSIONLESS, M/R
+    against the ESU curvature radius, which is the only kind the scale-modulus
+    theorem of #52 allows; both ends sew into the SAME S^3, so it is a handle
+    of Misner's kind; and the neck is a minimal surface, which on a K = 0 slice
+    is an APPARENT HORIZON. That last is the vacuum face of #7's result that a
+    traversable connection needs exotic matter: the throat with none in it is
+    the one that is not traversable.
+
+T7  *** THE ANSWER, WITH ITS CONTROLS. *** Both mouths open, in all eight
     combinations of two quadrature levels, two mouth radii and two gluings, and
     across the whole vacuum family -- four orders in the neck radius, with the
     smooth-gluing point in the middle of it, so the answer does not depend on
@@ -122,6 +149,7 @@ from geometrodynamics.waves.physical_throat import (
     measure_the_product_tubes_need_anomalous_matter,
     measure_the_shunt_decides_the_sign,
     measure_the_signed_response_on_the_physical_throat,
+    measure_the_throat_is_an_einstein_rosen_bridge,
     measure_the_vacuum_throat_has_no_cavity,
 )
 
@@ -163,9 +191,18 @@ def run_probe() -> dict:
                      and mech["the_shunt_does"]
                      and mech["the_shunt_is_the_tubes_matter"])})
 
+    bridge = measure_the_throat_is_an_einstein_rosen_bridge()
+    checks.append({
+        "id": "T6",
+        "name": "*** it is an Einstein-Rosen bridge, and M is derived ***",
+        "detail": bridge,
+        "pass": bool(bridge["it_is_an_einstein_rosen_bridge"]
+                     and bridge["three_masses_agree"] < 1e-12
+                     and bridge["the_gluing_is_hawking_mass_continuity"] < 1e-12)})
+
     head = measure_the_signed_response_on_the_physical_throat()
     checks.append({
-        "id": "T6", "name": "*** the answer, and it reverses ***",
+        "id": "T7", "name": "*** the answer, and it reverses ***",
         "detail": head,
         "pass": bool(head["every_variant_agrees_in_sign"]
                      and head["sign"] == ["opens", "opens"])})
@@ -175,8 +212,11 @@ def run_probe() -> dict:
         "probe": "physical_throat",
         "question": "the throat's area and length were free parameters. "
                     "which values are physical?",
-        "answer": "the vacuum throat, glued with no surface layer -- and it "
-                  "has no free parameter at all: f0 = sin^3 a is forced",
+        "answer": "the vacuum throat, glued with no surface layer -- an "
+                  "Einstein-Rosen bridge with no free parameter at all: "
+                  "f0 = sin^3 a is forced, and f0 = 2M, so M = sin^3(a)/2",
+        "mass_law": bridge["mass_law"],
+        "mass": WORKING_VACUUM_THROAT.mass(),
         "areal_response": head["areal_response"],
         "previous_round": wide["areal_response"],
         "sign": head["sign"],
@@ -186,7 +226,8 @@ def run_probe() -> dict:
                    "neck_radius": WORKING_VACUUM_THROAT.neck_radius(),
                    "length": WORKING_VACUUM_THROAT.length(),
                    "resistance": WORKING_VACUUM_THROAT.resistance(),
-                   "shunt": WORKING_VACUUM_THROAT.shunt()},
+                   "shunt": WORKING_VACUUM_THROAT.shunt(),
+                   "mass": WORKING_VACUUM_THROAT.mass()},
         "previous_throat": {"area": WORKING_TUBE.area,
                             "length": WORKING_TUBE.length,
                             "shunt": WORKING_TUBE.shunt()},
@@ -210,6 +251,7 @@ def render_markdown(summary: dict) -> str:
         f"| neck / area | `f₀ = {t['neck_radius']:.5e}` | `𝒜 = {p['area']:.4f}` |",
         f"| length | `{t['length']:.5f}` (forced) | `{p['length']}` (chosen) |",
         f"| shunt | `{t['shunt']:.1f}` — zero by identity | `{p['shunt']:.4f}` |",
+        f"| mass | `M = {t['mass']:.5e}` — **derived** | not defined |",
         f"| `ΔA/A` | `({summary['areal_response'][0]:+.4e}, "
         f"{summary['areal_response'][1]:+.4e})` | "
         f"`({summary['previous_round'][0]:+.4e}, "
@@ -217,7 +259,7 @@ def render_markdown(summary: dict) -> str:
         f"| verdict | **{' / '.join(summary['sign'])}** | "
         f"{' / '.join(summary['previous_sign'])} |",
         "",
-        f"In units of {summary['units']}.",
+        f"In units of {summary['units']}.  Mass law: `{summary['mass_law']}`.",
         "",
         f"**{summary['passed']}/{summary['total']} checks pass.**",
         "",
@@ -241,7 +283,7 @@ def render_markdown(summary: dict) -> str:
         "A vacuum tube has zero shunt **by identity** — `(f²u')' = 0` — so "
         "there is nowhere for monopole flux to go.",
         "",
-        f"**What it costs.** {next(c for c in summary['checks'] if c['id'] == 'T6')['detail']['what_it_costs']}.",
+        f"**What it costs.** {next(c for c in summary['checks'] if c['id'] == 'T7')['detail']['what_it_costs']}.",
         "",
     ]
     return "\n".join(lines)

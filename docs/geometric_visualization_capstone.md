@@ -1012,6 +1012,33 @@ follow in closed form — `L = 2[sin³a·arccosh(1/sin a) + sin a cos a] ≈ 2a`
 `I = 4 cos a/sin³a` — each checked against quadrature to `1e-12`, and the
 conductance comes out exactly `N₀(a,4)/4` at every radius.
 
+**And the throat has a name, which derives its mass.** `R̂ = 0`, `K = 0` and a
+spherical neck do not merely permit an Einstein–Rosen bridge — they are one.
+`f'² = 1 − f₀/f` is the time-symmetric Schwarzschild slice written in proper
+radial distance, with `f₀ = 2M`. So the forced neck radius is twice a mass:
+
+    M = sin³a / 2
+
+the throat's mass derived from the size of the excised mouth, with nothing left
+to choose. The Schwarzschild parameter, the irreducible mass `√(A_neck/16π)` and
+the Hawking mass agree to `1.3e−13`, and the neck area is `16πM²` exactly. Better
+still, **the gluing condition *is* a mass statement**: the Hawking mass
+`(f/2)(1 − f'²)` is `f₀/2` on the throat and `sin³χ/2` on the round `S³`, so the
+seam is smooth exactly when it does not jump. The mouth radius and the throat
+mass were never two parameters — the ambient already assigns a mass to every
+sphere it contains, and the throat has to carry the one at the cut.
+
+Four things it does not say, each asserted in the tests because the claim is
+strong enough to be worth not overstating: there is **no asymptotic region**, so
+no ADM mass — what is derived is quasi-local, and unambiguous only because the
+Hawking mass is constant on the vacuum piece; it is **dimensionless**, `M/R`
+against the ESU curvature radius, which is all §52's scale-modulus theorem
+allows; both ends sew into the **same** `S³`, a handle of Misner's kind rather
+than a bridge between universes; and the neck is a minimal surface, hence on a
+`K = 0` slice an **apparent horizon**. That last is the vacuum face of §7's
+"connected implies exotic": the throat with no exotic matter in it is precisely
+the one you cannot get through.
+
 **There is no cavity.** The constraint operator is `∇² + R̂/2`, so `R̂ = 0`
 leaves the plain Laplacian: `(f²u')' = 0`, solutions `A + B∫ds/f²`, monotone.
 §22's resonances at `kL = nπ` and the sign flips across them were **properties
@@ -1031,7 +1058,11 @@ throat with zero shunt by identity: it barely lifts the constraint's exact
 degeneracy — the `k = 1` kernel at `4 = (n+1)²` — so the linear response sits
 close to a mode the operator nearly annihilates. **The sign is robust; the
 amplitude at which linearising was legitimate is now the binding question**, and
-this round does not answer it.
+this round does not answer it. Nor does it discharge the other one the mass law
+opens: whether a throat that is an Einstein–Rosen bridge — carrying an apparent
+horizon, and so not traversable — is one this arc's larger framework can accept.
+That is what decides whether `M = sin³a/2` is a result about the model or only
+about this slice.
 
 ## 24. What the arc cost in errors, and what caught them
 

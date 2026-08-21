@@ -21,8 +21,9 @@ On that throat the interference OPENS both mouths.
 What the panels show
 --------------------
 **Top left - the profile, and what each throat holds.** The forced vacuum
-profile f'^2 = 1 - f0/f against the round sphere it gluesu to, with the neck
-marked. The bar inset is the matter each candidate tube would have to contain:
+profile f'^2 = 1 - f0/f against the round sphere it glues to, with the neck
+marked. That profile IS the time-symmetric Schwarzschild slice, so f0 = 2M and
+the mass is derived: M = sin^3(a)/2. The bar inset is the matter each candidate tube would have to contain:
 rho/3 for #261-#264's, 133 rho for the matched one, and ZERO for this one.
 
 **Top right - there is no cavity.** The l=0 tube operator is nabla^2 + R_hat/2.
@@ -133,8 +134,9 @@ class ThroatFigure:
                     lw=1.6, ls="--", color=_PAL["cool"],
                     label="ambient S^3" if side == 1 else None)
         ax.plot([0.0], [f0 / mouth], "o", ms=7, color=_PAL["x"], zorder=5)
-        ax.annotate(f"neck   f0 = sin^3 a = {f0:.2e}", xy=(0.0, f0 / mouth),
-                    xytext=(0.018, 0.42), color=_PAL["x"], fontsize=6.8,
+        ax.annotate(f"neck   f0 = sin^3 a = {f0:.2e}\n"
+                    f"       = 2M,  so M = {f0/2:.2e}", xy=(0.0, f0 / mouth),
+                    xytext=(0.016, 0.40), color=_PAL["x"], fontsize=6.8,
                     family="monospace",
                     arrowprops=dict(arrowstyle="-", color=_PAL["x"], lw=0.7))
         ax.axhline(1.0, color=_PAL["dim"], lw=0.8, ls=":")
@@ -302,15 +304,16 @@ class ThroatFigure:
                       color=_PAL["dim"], fontsize=8.4, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.884,
-                      "R_hat = 0 and a gluing with no surface layer use up "
-                      "both conditions:  f0 = sin^3 a is FORCED, and so are "
-                      "L and I.  nothing is left to choose.",
+                      "R_hat = 0 + K = 0 + a spherical neck IS the "
+                      "time-symmetric Schwarzschild slice, so f0 = 2M and "
+                      "M = sin^3(a)/2 -- the mass from the mouth, nothing "
+                      "left to choose",
                       color=_PAL["open"], fontsize=7.4, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.856,
-                      "#264's cavity, its resonances at kL = n pi and its sign "
-                      "flips were properties of MATTER IN THE TUBE, not of a "
-                      "throat",
+                      "quasi-local (no asymptotic region, so no ADM mass), "
+                      "dimensionless M/R, a handle in ONE S^3 -- and the neck "
+                      "is a minimal surface, hence an APPARENT HORIZON",
                       color=_PAL["dim"], fontsize=7.0, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.022,

@@ -1,8 +1,8 @@
 # Which throat is physical — and the sign reverses on the one that is forced
 
 **Module:** `geometrodynamics/waves/physical_throat.py`
-**Probe:** `python -m experiments.closure_ledger.physical_throat_probe` (6/6)
-**Tests:** `tests/test_waves_physical_throat.py` (31)
+**Probe:** `python -m experiments.closure_ledger.physical_throat_probe` (7/7)
+**Tests:** `tests/test_waves_physical_throat.py` (45)
 **Renderer:** `python scripts/geometrodynamics_v65_throat.py --still v65.png`
 
 ---
@@ -77,6 +77,70 @@ working radius, not the `0.9` carried since PR #261. And the conductance is
 *exactly* a quarter of the exterior's own monopole stiffness,
 `4π/I = N₀(a,4)/4`, at every mouth radius, with no free parameter in the
 relation.
+
+## It is an Einstein–Rosen bridge, and that derives its mass
+
+`R̂ = 0`, `K = 0` and a spherical neck do not merely *permit* an Einstein–Rosen
+bridge. They are one.
+
+Write the time-symmetric Schwarzschild slice in proper radial distance:
+
+    ds² = dr²/(1 − 2M/r) + r²dΩ²   ⟹   df/ds = √(1 − 2M/f) ,  f = r .
+
+That is `f'² = 1 − f₀/f` with **`f₀ = 2M`**. The forced neck radius *is* twice a
+mass, so the gluing condition `f₀ = sin³a` reads
+
+    **M = sin³a / 2** ,
+
+the throat's mass derived from the size of the excised mouth, with nothing left
+to choose. Small mouths give `M ≈ a³/2`; inverting, `a = arcsin((2M)^{1/3})`.
+
+**Three independent quasi-local masses agree on it exactly** (to `1.3e−13`, the
+cancellation floor):
+
+| quantity | value |
+|----------|-------|
+| Schwarzschild parameter `f₀/2` | `M` |
+| irreducible mass `√(A_neck/16π)` | `M`, since `A_neck = 16πM²` exactly |
+| Hawking mass `(f/2)(1 − f'²)` | `M`, **constant** along the whole vacuum piece |
+
+### And the gluing condition *is* a mass statement
+
+The Hawking mass of a round sphere in `ds² + f²dΩ²` is `(f/2)(1 − f'²)`. On the
+throat that is `f₀/2` at every radius. On the round `S³` at geodesic radius `χ`
+it is `sin³χ / 2`. Setting them equal at `χ = a` is, term for term, the equation
+`f₀ = sin³a`.
+
+> The seam is smooth exactly when the Hawking mass does not jump across it.
+
+That is a much better way to see the result than "solve for `f₀`": the mouth
+radius `a` and the throat mass `M` were never two parameters, because the
+ambient already assigns a mass to every sphere it contains, and the throat has
+to carry the one at the cut.
+
+### Four things this does not say
+
+The claim is strong enough to be worth not overstating, so each of these is
+asserted in the tests rather than left as prose.
+
+1. **It is a truncated bridge.** The geometry is Schwarzschild only between `f₀`
+   and `sin a`; past that it is the ESU. There is no asymptotic region, so the
+   **ADM mass is not defined here.** What is derived is quasi-local — and it is
+   unambiguous only because the Hawking mass happens to be *constant* on the
+   vacuum piece, so there is no question of where to evaluate it.
+2. **The mass is dimensionless.** It is `M/R` against the ESU's curvature
+   radius. No absolute unit is claimed, which is what PR #52's scale-modulus
+   theorem requires of anything derived in this framework — a ratio is
+   available; a unit is not.
+3. **It is a handle, not a bridge between universes.** Both ends sew into the
+   *same* `S³`, which is Misner's construction rather than the two-sheeted
+   Einstein–Rosen picture.
+4. **The neck is an apparent horizon.** It is a minimal surface, and on a
+   `K = 0` slice `θ_± = ±H`, so `H = 0` makes both null expansions vanish. The
+   forced throat carries a horizon and is therefore **not traversable** — which
+   is the vacuum face of §7's result that a traversable connection requires
+   exotic matter. The throat with no exotic matter in it is precisely the one
+   you cannot get through.
 
 ## There is no cavity
 
@@ -181,8 +245,19 @@ has been a free parameter since PR #261, carried because nothing measured had
 ever depended on its value. PR #264 made something depend on it; this round
 removes it.
 
-What it opens is sharper than what it closed. The physical throat barely lifts
-the constraint's degeneracy, so **the next obstruction is not geometric but
-perturbative**: at what amplitude is the linearised Lichnerowicz problem still
-the right problem? That question has a definite answer and this arc has not
-asked it.
+What it opens is sharper than what it closed, in two directions.
+
+**The perturbative one.** The physical throat barely lifts the constraint's
+degeneracy, so the next obstruction is not geometric: at what amplitude is the
+linearised Lichnerowicz problem still the right problem? That question has a
+definite answer and this arc has not asked it.
+
+**And the one the mass law opens.** `M = sin³a / 2` ties the throat's mass to
+the mouth's angular size with no free parameter — a *dimensionless* relation
+between the throat and the cosmological radius, which is the only kind PR #52's
+scale-modulus theorem permits. Whether this arc's larger framework can accept a
+throat that is an Einstein–Rosen bridge — carrying an apparent horizon, and so
+not traversable — is a separate question, and it is the one that decides whether
+the mass law is a result about the model or only about this slice. Discharging
+it means checking the horizon against whatever the framework requires of a
+throat that carries signal, and that check has not been done here.
