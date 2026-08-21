@@ -990,7 +990,7 @@ next refinement. The source is §21's, on a fixed background with point sources.
 And the solution is dominated by a nearly-zero mode with `|c| ≈ 1.7` against a
 mouth response of `2e−03`, so the perturbative window is set far from the throat.
 
-## 23. Which throat is physical, and the sign reverses (`docs/which_throat_is_physical.md`, current round)
+## 23. Which throat is physical, and the sign reverses (`docs/which_throat_is_physical.md`)
 
 §22 ended by finding that matching the tube's area to its own mouths flips the
 sign of `ΔA/A`. The throat's geometry had been a free parameter since §19,
@@ -1064,7 +1064,59 @@ horizon, and so not traversable — is one this arc's larger framework can accep
 That is what decides whether `M = sin³a/2` is a result about the model or only
 about this slice.
 
-## 24. What the arc cost in errors, and what caught them
+## 24. Two waves connect where one could not (`docs/two_wave_slice.md`, current round)
+
+A revisit rather than a new result, taken before the nonlinear arc starts,
+because §4's picture was doing work the rest of the arc had outgrown.
+
+v46 put **one** scalar wave on the great circle through a source and its
+antipode, drew it as a radial height in the vacuole, and glued `R_outer` to
+`R_inner`. Its finding was negative and sharp: the curve is a **graph**
+`r = f(σ)`, so its radial winding number is identically zero — every outward
+crossing of the seam is paid for by an inward one. **A height field cannot
+wind**, and one wave running to its antipode never meets itself.
+
+Everything since has needed **two**. So: one wave driven outward, one driven
+inward, both refocusing at the antipode — do they connect, inner to outer?
+
+**Yes, at the antipode, on the seam, at the refocus.** At threshold one curve
+sits at exactly `R_inner` and the other at exactly `R_outer`, which after gluing
+is one point.
+
+**And the threshold is not a new number.** A single wave crosses the seam when
+`εu = gap/2`; the pair spans `2ε|u|` of the radial circle and touches through it
+when that reaches `gap`. The same inequality, so the same gain — `0.220059`
+against `0.220059`, differing by zero. v46's *"the wave comes back inside the
+circle"* and this round's *"the two pulses connect inner to outer"* are **one
+event described twice**, and the check asserts it at zero rather than at a
+tolerance, because that is what an identity means.
+
+**What two waves can do that one cannot.** Below threshold nothing connects; at
+threshold there is a single tangency; above it that point opens into one arc,
+bounded by two genuine crossings, on which the band between the two curves
+covers the *entire* radial circle — no radius at those `σ` is outside the pair.
+A single wave past its own wrap threshold does nothing of the kind, and the v46
+winding result is re-checked here at four gains and still holds. **Two graphs
+bound a band, and a band can be radially surjective.** That is the whole
+difference, and it is why the question was worth asking twice.
+
+Two details went the other way from the guess. The antipodal refocus is a
+**rarefaction**, so it is the *inward*-driven wave that bulges out to `R_outer`
+— naming a wave "outward" says which way it is driven, not which way it goes.
+And meeting **mid-flight**, the two travelling pulses crossing at the quarter
+points, looks like the natural place for a connection and is the **worst** one:
+they partially cancel, and it costs `7–9×` more than a refocus.
+
+**What is still put in**, restated because this round is more positive than v46
+and therefore easier to overread: the crossing rule is a *representation* choice
+and not a derived boundary condition; the field is linear on a fixed background,
+so **the two waves do not interact at all** — they are drawn on the same torus
+and the question is only whether their images meet; and the gain is a *display*
+amplitude. This is not a claim that two physical waves reconnect a throat. It is
+that v46's obstruction does not apply to two of them, at an amplitude v46 had
+already reported.
+
+## 25. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -1414,7 +1466,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 25. What is imported rather than derived
+## 26. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -1458,7 +1510,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 26. What would come next
+## 27. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:

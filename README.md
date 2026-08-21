@@ -3217,6 +3217,58 @@ python scripts/geometrodynamics_v65_throat.py --still v65.png
 
 Full write-up: `docs/which_throat_is_physical.md`.
 
+## Two waves, and where they connect inner to outer
+
+**PR #266 — revisiting v46 before the nonlinear arc.** v46 put one scalar wave
+on the great circle through a source and its antipode and found a negative
+result: the curve is a **graph** `r = f(σ)`, so its radial winding is identically
+zero — **a height field cannot wind**, and one wave never meets itself.
+
+Everything since has needed *two* waves. So: one pulsing **outward**, one
+pulsing **inward**, both refocusing at the antipode — do they connect?
+
+**Yes. At the antipode, on the seam, at the refocus.** One curve reaches exactly
+`R_inner` and the other exactly `R_outer`, and glued those are one point.
+
+**And the threshold is not a new number.** A single wave crosses the seam when
+`εu = gap/2`; the pair spans `2ε|u|` of the radial circle and touches through it
+when that reaches `gap` — the same inequality:
+
+| | |
+|--|--|
+| single-wave wrap gain | `0.220059` |
+| pair-contact gain | `0.220059` |
+| difference | `0.0` |
+
+v46's *"the wave comes back inside the circle"* and this round's *"the two
+pulses connect inner to outer"* are one event described twice.
+
+**What two waves can do that one cannot.** Above threshold the tangency opens
+into an arc, bounded by two crossings, on which the band between the two curves
+covers the *whole* radial circle — no radius is left outside the pair. A single
+wave past its own wrap threshold still leaves every radius outside itself,
+because it is a graph. **Two graphs bound a band, and a band can be radially
+surjective.**
+
+Two details worth having: the antipodal refocus is a **rarefaction**, so it is
+the *inward*-driven wave that reaches `R_outer`; and meeting mid-flight — the
+two travelling pulses crossing at the quarter points — is the *worst* place, not
+the best, costing `7–9×` more because they partially cancel.
+
+**What is still put in.** The crossing rule is a **representation** choice, the
+field is **linear** on a **fixed** background so the two waves do **not
+interact**, and the gain is a **display** amplitude. This is not a claim that two
+physical waves reconnect a throat — it is that v46's obstruction does not apply
+to two of them.
+
+```bash
+python -m experiments.closure_ledger.two_wave_slice_probe
+
+python scripts/geometrodynamics_v66_two_wave_slice.py --still v66.png
+```
+
+Full write-up: `docs/two_wave_slice.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
