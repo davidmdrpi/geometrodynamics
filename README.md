@@ -3135,6 +3135,88 @@ python scripts/geometrodynamics_v64_areal.py --still v64.png
 
 Full write-up: `docs/signed_areal_response.md`.
 
+## Which throat is physical — and the sign reverses
+
+**PR #265 — the geometry stops being decoration.** #264 found that matching the
+tube's area to its own mouths *flips* the sign of `ΔA/A`. So the question could
+not be deferred: `𝒜` and `L` were free parameters, and which values are physical?
+
+**They were never free.** On a maximal slice the background constraint is
+`R̂ = 16πGρ̄`, so a profile does not choose its matter — the matter is whatever
+the profile implies. A product tube of area `𝒜` has `R̂ = 8π/𝒜`:
+
+| throat | `ρ_tube/ρ̄` |
+|--------|-------------|
+| #261–#264, `𝒜 = 4π` | **`1/3`** |
+| matched, `𝒜 = 4π sin²a` | **`133`** |
+
+Neither is the ambient's own fluid.
+
+**The throat that is forced.** Ask for one needing *no* matter (`R̂ = 0`) and
+gluing on with *no* surface layer. `R̂ = 0` integrates to `f'² = 1 − f₀/f`, and
+smooth gluing at mouth radius `a` forces
+
+```
+f₀ = sin³a          L = 2[sin³a·arccosh(1/sin a) + sin a cos a] ≈ 2a
+                    I = ∫ds/f² = 4 cos a / sin³a
+```
+
+**No free parameter is left.** The closed forms check against quadrature to
+`1e-12`, and the conductance is exactly `N₀(a,4)/4` at every radius.
+
+**And it is an Einstein–Rosen bridge, which derives its mass.** `R̂ = 0`, `K = 0`
+and a spherical neck don't merely *permit* one — they are one. The
+time-symmetric Schwarzschild slice `ds² = dr²/(1−2M/r) + r²dΩ²` in proper radial
+distance is exactly `f'² = 1 − 2M/f`, so **`f₀ = 2M`** and
+
+```
+M = sin³a / 2          the throat's mass, from the size of the excised mouth
+```
+
+Three quasi-local masses agree exactly — the Schwarzschild parameter, the
+irreducible mass `√(A/16π)` (the neck area is `16πM²`), and the Hawking mass,
+which is *constant* along the vacuum piece. And the gluing condition **is** a
+mass statement: `(f/2)(1−f'²)` is `f₀/2` on the throat and `sin³χ/2` on the
+ambient, so *the seam is smooth exactly when the Hawking mass doesn't jump.*
+
+Four things it does not say, each asserted in the tests: no asymptotic region so
+**no ADM mass** (the derived mass is quasi-local, unambiguous only because the
+Hawking mass is constant); it is **dimensionless**, `M/R`, which is all PR #52's
+scale-modulus theorem allows; both ends sew into the *same* `S³`, so it is a
+handle of Misner's kind; and the neck is a minimal surface, hence on a `K = 0`
+slice an **apparent horizon** — so this is the *non-traversable* throat, which is
+the vacuum face of the arc's earlier "connected implies exotic".
+
+**There is no cavity.** `∇² + R̂/2` with `R̂ = 0` is the plain Laplacian:
+`(f²u')' = 0`, solutions monotone. #264's resonances at `kL = nπ` and its sign
+flips were properties of **matter in the tube**, not of a throat.
+
+**And the sign reverses.**
+
+```
+ΔA/A = ( +6.64 , +8.58 )      in units of 2πG      — both mouths OPEN
+```
+
+**The mechanism is one number.** Split any symmetric two-port as
+`Y = G·[[−1,1],[1,−1]] + shunt·I`. The shunt is the flux a *uniform* potential
+drives into the throat, and `(f²u')' = 0` makes it vanish **identically** for a
+vacuum tube. Scanned over eight orders, the conductance never changes the sign;
+the shunt passes through a pole near `2e−03` and flips it. #264's tube sat at
+`6.07`.
+
+**What it costs.** The response is `3000×` larger and grows as `a⁻³`, because a
+throat with zero shunt barely lifts the constraint's exact degeneracy. The sign
+is robust; **the amplitude at which linearising is legitimate is now the binding
+question**, and this round does not answer it.
+
+```bash
+python -m experiments.closure_ledger.physical_throat_probe
+
+python scripts/geometrodynamics_v65_throat.py --still v65.png
+```
+
+Full write-up: `docs/which_throat_is_physical.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and

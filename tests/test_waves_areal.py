@@ -341,20 +341,41 @@ def test_the_evanescent_channel_is_written_without_forming_a_growing_exponential
     """A `cosh`/`sinh` transfer matrix costs a condition number of `e^{2 kL}`.
 
     At the matched area and `a = 0.05` that is `4.4e+15` — the system goes
-    singular to double precision, and no answer can be read out of it. Carrying
-    the tube's two end amplitudes as unknowns instead keeps every coefficient
-    bounded by one.
+    singular to double precision, and no answer can be read out of it. The
+    admittance stays bounded however long the tube: `Y11 -> -A k`, `Y12 -> 0`.
     """
     t = areal.TubeModel(area=4 * math.pi * math.sin(0.05) ** 2, length=0.9)
     k, x = t.dipole_attenuation()
     assert 0.0 < x <= 1.0
     assert abs(x - math.exp(-k * 0.9)) < 1e-300 + 1e-15 * x
+    y = t.admittance(1)
+    scale = t.area * t.dipole_rate()
+    assert abs(y[0, 0] + scale) < 1e-9 * scale        # Y11 -> -A k
+    assert abs(y[0, 1]) < 1e-6 * scale                # Y12 ~ A k / sinh(kL)
     m = areal.INTERFERENCE_MOMENTS[1]
     got = areal.solve_matching(areal.MOUTHS, 0.05, t, m.as_source(),
                                m.signed_obstruction())
     assert got["condition_number"] < 1e10, "the stable form must stay solvable"
     assert got["residual"] < 1e-9
-    assert np.asarray(got["tube_amplitudes"]).shape == (6,)
+
+
+def test_the_throat_enters_only_through_its_admittance():
+    """Two matrices, and nothing about the tube's interior, so throats compare."""
+    import inspect
+    body = inspect.getsource(areal.solve_matching)
+    assert "tube.admittance(0)" in body and "tube.admittance(1)" in body
+    for name in ("monopole_transfer", "dipole_transfer", "dipole_attenuation",
+                 "length", "area"):
+        assert f"tube.{name}" not in body
+
+
+def test_a_product_tubes_shunt_is_never_zero_because_it_holds_matter():
+    """`Y (1,1)` is the flux a uniform potential drives into the tube."""
+    for area in (math.pi, 4 * math.pi, 16 * math.pi):
+        t = areal.TubeModel(area=area, length=0.9)
+        assert abs(t.shunt()) > 1e-6
+        y = t.admittance(0)
+        assert np.max(np.abs(y - y.T)) < 1e-12, "admittance must be symmetric"
 
 
 def test_the_stable_form_agrees_with_the_transfer_matrix_where_both_work():

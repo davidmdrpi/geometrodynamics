@@ -1,0 +1,563 @@
+{
+  "probe": "physical_throat",
+  "question": "the throat's area and length were free parameters. which values are physical?",
+  "answer": "the vacuum throat, glued with no surface layer -- and it has no free parameter at all: f0 = sin^3 a is forced",
+  "areal_response": [
+    6.637503334434512,
+    8.581295814243866
+  ],
+  "previous_round": [
+    -0.002057525169055812,
+    -0.0018817752694185452
+  ],
+  "sign": [
+    "opens",
+    "opens"
+  ],
+  "previous_sign": [
+    "closes",
+    "closes"
+  ],
+  "units": "2 pi G, with the source being PR #263's interference dT00",
+  "throat": {
+    "mouth_radius": 0.05,
+    "neck_radius": 0.00012484383460894123,
+    "length": 0.10075443233389984,
+    "resistance": 31999.986656079098,
+    "shunt": 0.0
+  },
+  "previous_throat": {
+    "area": 12.566370614359172,
+    "length": 0.9,
+    "shunt": 6.070248981681514
+  },
+  "checks": [
+    {
+      "id": "T1",
+      "name": "the curvature, derived from the metric",
+      "detail": {
+        "round_sphere": [
+          6.0,
+          6.0,
+          6.0,
+          6.0
+        ],
+        "worst_sphere_error": 0.0,
+        "vacuum_profile": [
+          -7.450580596923828e-09,
+          0.0,
+          0.0,
+          -1.3642420526593924e-12,
+          2.842170943040401e-14,
+          0.0,
+          -1.3322676295501878e-15,
+          0.0,
+          8.881784197001252e-16
+        ],
+        "worst_vacuum_error": 7.450580596923828e-09,
+        "both_are_exact": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T2",
+      "name": "the gluing forces the neck radius, L and I",
+      "detail": {
+        "rows": [
+          {
+            "mouth_radius": 0.02,
+            "neck_radius": 7.998400138659727e-06,
+            "forced_value": 7.998400138659727e-06,
+            "neck_area": 8.039260802747848e-10,
+            "length": 0.04006300164110336,
+            "length_by_quadrature": 0.04006300164115158,
+            "length_over_a": 2.0031500820551678,
+            "resistance": 499999.99466598924,
+            "resistance_by_quadrature": 499999.9946659893,
+            "conductance": 2.513274149683497e-05,
+            "exterior_monopole_stiffness": 0.00010053096598733986
+          },
+          {
+            "mouth_radius": 0.05,
+            "neck_radius": 0.00012484383460894123,
+            "forced_value": 0.00012484383460894123,
+            "neck_area": 1.9585923926805586e-07,
+            "length": 0.10075443233389984,
+            "length_by_quadrature": 0.10075443233438137,
+            "length_over_a": 2.015088646677997,
+            "resistance": 31999.986656079098,
+            "resistance_by_quadrature": 31999.986656079098,
+            "conductance": 0.0003926992454533388,
+            "exterior_monopole_stiffness": 0.0015707969818133554
+          },
+          {
+            "mouth_radius": 0.1,
+            "neck_radius": 0.0009950108197862206,
+            "forced_value": 0.0009950108197862206,
+            "neck_area": 1.2441291640184855e-05,
+            "length": 0.20462924352638076,
+            "length_by_quadrature": 0.2046292435263809,
+            "length_over_a": 2.0462924352638074,
+            "resistance": 3999.9732484991623,
+            "resistance_by_quadrature": 3999.973248499162,
+            "conductance": 0.003141613664309936,
+            "exterior_monopole_stiffness": 0.012566454657239746
+          },
+          {
+            "mouth_radius": 0.2,
+            "neck_radius": 0.007841379747537073,
+            "forced_value": 0.007841379747537073,
+            "neck_area": 0.000772671399965028,
+            "length": 0.42547683235298595,
+            "length_by_quadrature": 0.4254768323529878,
+            "length_over_a": 2.1273841617649296,
+            "resistance": 499.94598368945174,
+            "resistance_by_quadrature": 499.9459836894516,
+            "conductance": 0.025135456677985727,
+            "exterior_monopole_stiffness": 0.10054182671194291
+          }
+        ],
+        "closed_form_length": "2[sin^3 a . arccosh(1/sin a) + sin a cos a]",
+        "closed_form_resistance": "4 cos a / sin^3 a",
+        "worst_length_drift": 4.779288076406374e-12,
+        "worst_resistance_drift": 2.220446049250313e-16,
+        "length_is_about_twice_the_mouth_radius": true,
+        "conductance_over_stiffness": [
+          0.25000000000000006,
+          0.24999999999999997,
+          0.24999999999999997,
+          0.25
+        ],
+        "the_conductance_is_a_quarter_of_the_exteriors": true,
+        "there_is_no_free_parameter": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T3",
+      "name": "what the other throats would need",
+      "detail": {
+        "rows": [
+          {
+            "throat": "wide (PR #261-#264)",
+            "area": 12.566370614359172,
+            "tube_radius": 1.0,
+            "scalar_curvature": 2.0,
+            "density_ratio": 0.3333333333333333
+          },
+          {
+            "throat": "matched to the mouths",
+            "area": 0.03138975532220612,
+            "tube_radius": 0.04997916927067833,
+            "scalar_curvature": 800.6670001323214,
+            "density_ratio": 133.44450002205357
+          },
+          {
+            "throat": "uniform-fluid area",
+            "area": 4.1887902047863905,
+            "tube_radius": 0.5773502691896257,
+            "scalar_curvature": 6.0,
+            "density_ratio": 1.0
+          }
+        ],
+        "ambient_scalar_curvature": 6.0,
+        "vacuum_throat_density_ratio": 0.0,
+        "vacuum_throat_neck_area": 1.9585923926805586e-07,
+        "neither_used_area_is_the_ambient_fluid": true,
+        "why_the_uniform_fluid_area_is_not_the_answer": "two regions of equal constant R-hat joined without a surface layer are one region of that R-hat, and the only rotationally symmetric one is the round sphere -- which has no neck"
+      },
+      "pass": true
+    },
+    {
+      "id": "T4",
+      "name": "*** there is no cavity ***",
+      "detail": {
+        "tube_scalar_curvature": 0.0,
+        "tube_operator": "nabla^2  (no +R/2 term, so no oscillation)",
+        "admittance_numeric": [
+          [
+            -0.0003926992454533682,
+            0.0003926992454533682
+          ],
+          [
+            0.0003926992454533682,
+            -0.0003926992454533682
+          ]
+        ],
+        "admittance_closed_form": [
+          [
+            -0.0003926992454533388,
+            0.0003926992454533388
+          ],
+          [
+            0.0003926992454533388,
+            -0.0003926992454533388
+          ]
+        ],
+        "closed_form_error": 7.482030896300354e-14,
+        "determinant": 0.0,
+        "symmetric_channel_admittance": -0.0,
+        "wide_tube_has_resonances_at": [
+          3.141592653589793,
+          6.283185307179586,
+          9.42477796076938
+        ],
+        "vacuum_throat_has_resonances": false,
+        "it_matches_the_closed_form": true,
+        "the_symmetric_channel_is_exactly_dead": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T5",
+      "name": "*** the shunt decides the sign ***",
+      "detail": {
+        "corners": [
+          {
+            "label": "vacuum throat",
+            "conductance": 0.0003926992454533388,
+            "shunt": 0.0,
+            "areal_response": [
+              6.637503334434484,
+              8.581295814243889
+            ],
+            "sign": [
+              "opens",
+              "opens"
+            ]
+          },
+          {
+            "label": "wide conductance, no shunt",
+            "conductance": 16.042306806918198,
+            "shunt": 0.0,
+            "areal_response": [
+              7.609328153290317,
+              7.609470995399362
+            ],
+            "sign": [
+              "opens",
+              "opens"
+            ]
+          },
+          {
+            "label": "vacuum conductance, wide shunt",
+            "conductance": 0.0003926992454533388,
+            "shunt": 6.070248981681514,
+            "areal_response": [
+              -0.0015926393330819525,
+              -0.002347969056329186
+            ],
+            "sign": [
+              "closes",
+              "closes"
+            ]
+          },
+          {
+            "label": "wide conductance and wide shunt",
+            "conductance": 16.042306806918198,
+            "shunt": 6.070248981681514,
+            "areal_response": [
+              -0.002058389787635881,
+              -0.0018822186017752318
+            ],
+            "sign": [
+              "closes",
+              "closes"
+            ]
+          }
+        ],
+        "the_actual_wide_tube": [
+          -0.002057525169055812,
+          -0.0018817752694185452
+        ],
+        "why_that_is_separate": "the four corners hold the l=1 admittance fixed at the vacuum throat's, so that only the l=0 decomposition varies; swapping l=1 too is what reproduces PR #264 exactly",
+        "conductance_scan": [
+          {
+            "multiplier": 0.001,
+            "areal_response": [
+              6.152807915851357,
+              9.065991232828779
+            ],
+            "sign": "opens"
+          },
+          {
+            "multiplier": 0.1,
+            "areal_response": [
+              6.221405125236418,
+              8.997394023443468
+            ],
+            "sign": "opens"
+          },
+          {
+            "multiplier": 1.0,
+            "areal_response": [
+              6.637503334434484,
+              8.581295814243889
+            ],
+            "sign": "opens"
+          },
+          {
+            "multiplier": 100.0,
+            "areal_response": [
+              7.580794379575906,
+              7.638004769099036
+            ],
+            "sign": "opens"
+          },
+          {
+            "multiplier": 10000.0,
+            "areal_response": [
+              7.609107853568574,
+              7.609691295106658
+            ],
+            "sign": "opens"
+          },
+          {
+            "multiplier": 100000.0,
+            "areal_response": [
+              7.609370397007682,
+              7.609428751674591
+            ],
+            "sign": "opens"
+          }
+        ],
+        "shunt_scan": [
+          {
+            "shunt": 0.0,
+            "areal_response": [
+              6.637503334434484,
+              8.581295814243889
+            ],
+            "sign": "opens"
+          },
+          {
+            "shunt": 1e-05,
+            "areal_response": [
+              6.682099469707672,
+              8.634170822768652
+            ],
+            "sign": "opens"
+          },
+          {
+            "shunt": 0.0001,
+            "areal_response": [
+              7.111625134750289,
+              9.141506317203342
+            ],
+            "sign": "opens"
+          },
+          {
+            "shunt": 0.001,
+            "areal_response": [
+              19.239706579493493,
+              22.614973904000987
+            ],
+            "sign": "opens"
+          },
+          {
+            "shunt": 0.003,
+            "areal_response": [
+              -4.800691719472042,
+              -11.938555812697194
+            ],
+            "sign": "closes"
+          },
+          {
+            "shunt": 0.01,
+            "areal_response": [
+              -1.1187642229949852,
+              -1.7185019225430525
+            ],
+            "sign": "closes"
+          },
+          {
+            "shunt": 0.1,
+            "areal_response": [
+              -0.09801062523935267,
+              -0.14494999113524443
+            ],
+            "sign": "closes"
+          },
+          {
+            "shunt": 6.070248981681514,
+            "areal_response": [
+              -0.0015926393330819525,
+              -0.002347969056329186
+            ],
+            "sign": "closes"
+          }
+        ],
+        "vacuum_shunt": 0.0,
+        "wide_shunt": 6.070248981681514,
+        "sign_flips_between": [
+          0.001
+        ],
+        "conductance_never_changes_the_sign": true,
+        "the_shunt_does": true,
+        "the_shunt_is_the_tubes_matter": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T6",
+      "name": "*** the answer, and it reverses ***",
+      "detail": {
+        "rows": [
+          {
+            "radius": 0.05,
+            "points": 5158,
+            "gluing": "transported",
+            "areal_response": [
+              6.726418681162567,
+              8.790026217032826
+            ],
+            "sign": [
+              "opens",
+              "opens"
+            ],
+            "condition_number": 30670514.156214457,
+            "residual": 3.5696817449477906e-15
+          },
+          {
+            "radius": 0.05,
+            "points": 5158,
+            "gluing": "reflected",
+            "areal_response": [
+              6.726418681162567,
+              8.790026217032826
+            ],
+            "sign": [
+              "opens",
+              "opens"
+            ],
+            "condition_number": 30670514.171198945,
+            "residual": 8.095833526728795e-16
+          },
+          {
+            "radius": 0.05,
+            "points": 12630,
+            "gluing": "transported",
+            "areal_response": [
+              6.637503334434512,
+              8.581295814243866
+            ],
+            "sign": [
+              "opens",
+              "opens"
+            ],
+            "condition_number": 30670514.156214457,
+            "residual": 2.2072734300575993e-15
+          },
+          {
+            "radius": 0.05,
+            "points": 12630,
+            "gluing": "reflected",
+            "areal_response": [
+              6.637503334434512,
+              8.581295814243866
+            ],
+            "sign": [
+              "opens",
+              "opens"
+            ],
+            "condition_number": 30670514.171198945,
+            "residual": 2.7371508690610486e-15
+          },
+          {
+            "radius": 0.1,
+            "points": 5158,
+            "gluing": "transported",
+            "areal_response": [
+              0.46306623812583275,
+              0.6498790303952986
+            ],
+            "sign": [
+              "opens",
+              "opens"
+            ],
+            "condition_number": 484565.37780836597,
+            "residual": 1.1245810663386193e-15
+          },
+          {
+            "radius": 0.1,
+            "points": 5158,
+            "gluing": "reflected",
+            "areal_response": [
+              0.4630662381258327,
+              0.6498790303952986
+            ],
+            "sign": [
+              "opens",
+              "opens"
+            ],
+            "condition_number": 484565.3931642984,
+            "residual": 1.5274762362053992e-15
+          },
+          {
+            "radius": 0.1,
+            "points": 12630,
+            "gluing": "transported",
+            "areal_response": [
+              0.45081762376110984,
+              0.6225031492160322
+            ],
+            "sign": [
+              "opens",
+              "opens"
+            ],
+            "condition_number": 484565.37780836597,
+            "residual": 1.1225575940459397e-15
+          },
+          {
+            "radius": 0.1,
+            "points": 12630,
+            "gluing": "reflected",
+            "areal_response": [
+              0.4508176237611098,
+              0.6225031492160322
+            ],
+            "sign": [
+              "opens",
+              "opens"
+            ],
+            "condition_number": 484565.3931642984,
+            "residual": 1.116274894300061e-15
+          }
+        ],
+        "headline": {
+          "radius": 0.05,
+          "points": 12630,
+          "gluing": "transported",
+          "areal_response": [
+            6.637503334434512,
+            8.581295814243866
+          ],
+          "sign": [
+            "opens",
+            "opens"
+          ],
+          "condition_number": 30670514.156214457,
+          "residual": 2.2072734300575993e-15
+        },
+        "areal_response": [
+          6.637503334434512,
+          8.581295814243866
+        ],
+        "sign": [
+          "opens",
+          "opens"
+        ],
+        "every_variant_agrees_in_sign": true,
+        "quadrature_spread_at_fixed_radius": 0.024323879202776677,
+        "worst_condition_number": 30670514.171198945,
+        "worst_residual": 3.5696817449477906e-15,
+        "it_reverses_the_wide_tube": true,
+        "the_answer": "away from a neck: on the throat that is forced rather than chosen, the interference OPENS both mouths.  PR #264's closing sign belonged to matter in its tube.",
+        "what_it_costs": "the response is 3000x larger and scales as a^-3, because a vacuum throat has zero shunt by identity and so barely lifts the constraint's degeneracy"
+      },
+      "pass": true
+    }
+  ],
+  "passed": 6,
+  "total": 6
+}
