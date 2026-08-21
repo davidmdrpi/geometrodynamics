@@ -184,3 +184,167 @@ def test_the_drawn_segments_stay_inside_the_annulus(pair):
             r = np.hypot(p[:, 0], p[:, 1])
             assert r.min() > b.r_inner - 1e-9
             assert r.max() < b.r_outer + 1e-9
+
+
+# ── the offset and the signs ────────────────────────────────────────────────
+def test_the_signs_must_be_plus_or_minus_one():
+    with pytest.raises(ValueError):
+        tw.TwoWaveSlice(signs=(1.0, 0.0))
+    with pytest.raises(ValueError):
+        tw.TwoWaveSlice(signs=(2.0, -1.0))
+
+
+def test_the_default_pair_is_the_opposed_one():
+    p = tw.TwoWaveSlice()
+    assert p.signs == tw.OUTWARD_INWARD
+    assert p.opposed
+    assert not tw.TwoWaveSlice(signs=tw.BOTH_OUTWARD).opposed
+    assert not tw.TwoWaveSlice(signs=tw.BOTH_INWARD).opposed
+
+
+def test_the_offset_places_the_second_source():
+    """`d_B` has to vanish at `σ = α`, whatever `α` is."""
+    for f in (0.0, 0.13, 0.5, 0.87, 1.0):
+        p = tw.TwoWaveSlice(offset=f * math.pi)
+        d_a, d_b = p._distances(np.array([f * math.pi]))
+        assert abs(float(d_b[0])) < 1e-12
+        assert abs(float(d_a[0]) - f * math.pi) < 1e-12
+
+
+def test_both_bisectors_are_equidistant_from_both_sources():
+    """Which is the whole reason they are special."""
+    for f in (0.0, 0.15, 0.5, 0.85, 1.0):
+        p = tw.TwoWaveSlice(offset=f * math.pi)
+        for axis in (p.bisector, p.far_bisector):
+            d_a, d_b = p._distances(np.array([axis]))
+            assert abs(float(d_a[0]) - float(d_b[0])) < 1e-14
+
+
+def test_there_are_two_cases_not_four():
+    """`(out,out) ≡ (in,in)` and `(out,in) ≡ (in,out)` — as fields, exactly."""
+    got = tw.measure_like_signs_are_one_case_not_two()
+    assert got["out_out_is_in_in"]
+    assert got["the_two_opposed_orderings_agree"]
+    assert got["worst_as_fields"] == 0.0
+    # ...and through the drawn radii it is one ulp of R_mid, not zero
+    assert got["the_drawn_residue_is_one_ulp_of_r_mid"]
+    assert got["drawn_residue_in_ulps"] <= 2.0
+
+
+def test_the_drawn_residue_is_the_mid_radius_not_the_field():
+    """The ulp is where it is because `R_mid` is added and taken away again."""
+    p_oo = tw.TwoWaveSlice(offset=0.5 * math.pi, signs=tw.BOTH_OUTWARD)
+    p_ii = tw.TwoWaveSlice(offset=0.5 * math.pi, signs=tw.BOTH_INWARD)
+    p_ii.slice_ = p_oo.slice_
+    p_oo.slice_.reset()
+    p_oo.slice_.advance_to(ANTIPODAL_TIME)
+    d_oo = np.abs(p_oo.separation(gain=1.0, closed=True))
+    d_ii = np.abs(p_ii.separation(gain=1.0, closed=True))
+    assert np.max(np.abs(d_oo - d_ii)) <= 2.0 * np.spacing(
+        p_oo.slice_.bulk.r_mid)
+
+
+# ── the bisector ────────────────────────────────────────────────────────────
+def test_a_like_signed_pair_is_identically_coincident_on_a_bisector():
+    """`u_A = u_B` there, so `δ ≡ 0` — at every time, at every gain."""
+    got = tw.measure_the_bisector_is_degenerate_for_like_signs()
+    assert got["the_like_signed_pair_never_separates_on_a_bisector"]
+    assert got["worst_relative_residue"] < 1e-13
+    assert got["the_opposed_pair_always_does"]
+
+
+def test_no_gain_carries_a_like_signed_pair_through_the_seam_there():
+    """The threshold is infinite because the separation is zero, not small."""
+    for f in (0.2, 0.5, 0.9):
+        alpha = f * math.pi
+        like = tw.TwoWaveSlice(offset=alpha, signs=tw.BOTH_OUTWARD)
+        opp = tw.TwoWaveSlice(offset=alpha, signs=tw.OUTWARD_INWARD)
+        opp.slice_ = like.slice_
+        like.slice_.reset()
+        like.slice_.advance_to(0.5 * alpha)
+        assert like.contact_gain_at(like.bisector) > 1e12
+        assert math.isfinite(opp.contact_gain_at(opp.bisector))
+
+
+def test_the_far_bisector_is_the_cheaper_of_the_two():
+    got = tw.measure_the_bisector_is_degenerate_for_like_signs()
+    assert got["the_far_bisector_is_the_cheaper_one"]
+
+
+def test_the_bisector_is_off_the_grid_and_is_evaluated_there():
+    """A first pass snapped it to the nearest sample and invented a turn-over.
+
+    At `α = 0.958π` the bisector falls exactly halfway between two samples, so
+    the snap is worst precisely where the artefact showed up.
+    """
+    p = tw.TwoWaveSlice(offset=0.9583333333333334 * math.pi)
+    grid = p.sigma_closed
+    step = float(grid[1] - grid[0])
+    nearest = float(np.min(np.abs(grid - p.bisector)))
+    assert nearest > 0.4 * step, "this offset must put the bisector off-grid"
+    # and evaluating there is still exactly degenerate for a like-signed pair
+    like = tw.TwoWaveSlice(offset=p.offset, signs=tw.BOTH_OUTWARD)
+    like.slice_.reset()
+    like.slice_.advance_to(0.5 * p.offset)
+    assert abs(float(like.separation_at(like.bisector, gain=1.0)[0])) < 1e-13
+
+
+# ── the answer the offset was added for ─────────────────────────────────────
+def test_only_the_opposed_pair_connects_on_the_bisector():
+    """An off-antipodal connection one pair has and the other cannot have."""
+    got = tw.measure_only_the_opposed_pair_connects_on_the_bisector()
+    assert got["every_offset_opens_an_arc"]
+    assert got["the_like_signed_pair_reaches_none_of_it"]
+    assert got["it_is_off_both_axes"]
+
+
+def test_the_exclusive_arc_is_centred_on_the_bisector():
+    got = tw.measure_only_the_opposed_pair_connects_on_the_bisector()
+    assert got["the_arc_is_centred_on_the_bisector"]
+    assert got["worst_centre_offset"] == 0.0
+
+
+def test_the_arc_is_off_both_the_sources_and_their_antipodes():
+    got = tw.measure_only_the_opposed_pair_connects_on_the_bisector()
+    for r in got["rows"]:
+        assert r["distance_to_the_nearest_source"] > 0.0
+        assert r["distance_to_the_nearest_antipode"] > 0.0
+        assert r["like_signed_samples_on_that_arc"] == 0
+
+
+# ── the slider ──────────────────────────────────────────────────────────────
+def test_the_offset_slides_the_connection_and_raises_its_price():
+    got = tw.measure_the_offset_slides_the_connection()
+    assert got["the_timing_is_the_pulse_crossing"]
+    assert got["it_rises_monotonically_except_at_the_endpoint"]
+    assert got["exclusive_is_not_cheap"]
+    assert got["threshold_range"] > 7.0
+
+
+def test_the_cheapest_connection_is_on_an_axis_and_is_not_the_exclusive_one():
+    """It is available to both pairs, and it costs 1.7-3.7x less."""
+    got = tw.measure_the_offset_slides_the_connection()
+    assert got["the_cheapest_connection_sits_on_one_of_the_four_axes"]
+    assert got["it_drifts_off_axis_only_at_small_offset"]
+    assert got["the_drift_is_small"]
+    lo, hi = got["price_of_exclusivity_range"]
+    assert 1.5 < lo and hi < 4.0
+
+
+def test_at_zero_offset_the_bisector_is_the_source_axis():
+    """Which is the degeneracy, stated as a coordinate fact."""
+    p = tw.TwoWaveSlice(offset=tw.CO_LOCATED)
+    assert p.bisector == 0.0
+    assert p.far_bisector == pytest.approx(-math.pi)
+    got = tw.measure_the_offset_slides_the_connection()
+    assert got["rows"][0]["bisector_over_pi"] == 0.0
+    assert got["rows"][0]["price_of_exclusivity"] == pytest.approx(1.0, abs=1e-9)
+
+
+def test_the_co_located_results_are_unchanged_by_the_new_parameters():
+    """Every earlier number has to survive: the defaults are the old case."""
+    ident = tw.measure_the_pair_touches_exactly_where_one_wave_wraps()
+    assert ident["relative_difference"] == 0.0
+    where = tw.measure_where_the_two_pulses_connect()
+    assert where["the_contact_is_on_the_seam"]
+    assert where["the_contact_is_at_the_antipode"]

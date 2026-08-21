@@ -1116,6 +1116,51 @@ amplitude. This is not a claim that two physical waves reconnect a throat. It is
 that v46's obstruction does not apply to two of them, at an amplitude v46 had
 already reported.
 
+### Off the degenerate axis (the offset and the signs)
+
+The co-located pair is the most degenerate configuration available, and saying
+so is not a caveat — it is the next experiment. Both wave histories hang off one
+antipodal axis, so bringing them to the same pole encourages exact overlap or
+exact cancellation and tests neither. What it does not test is whether an
+inner-going branch from one axis can meet an outer-going branch that has crossed
+the identification and re-entered on another.
+
+Two knobs answer it: the source separation `α`, and the radial sense each wave
+is driven in, giving `δ = ε(s_A u_A − s_B u_B)`. **Opposed** signs sum the two
+fields; **like** signs difference them.
+
+The first thing measurement said was that the framing needed correcting.
+Inner–inner and outer–outer are **one case, not two** — `|δ|` agrees to the bit
+as a difference of fields — because flipping both signs is a reflection about
+`R_mid`, an isometry of the glued radial circle. The picture cannot tell them
+apart, and the reason belongs in the open: *the radial direction carries the
+field's amplitude, not its direction of propagation.* A construction in which
+those differ has to encode propagation in the curve, and this one does not. A
+limitation, stated.
+
+What the picture *can* distinguish carries the answer. `σ = α/2` is equidistant
+from both sources, so `u_A = u_B` there identically, at every time and every
+amplitude. For a like-signed pair that makes `δ ≡ 0`: the two curves are the
+same curve on that axis and no gain however large carries them through the seam.
+For an opposed pair the same equality makes `δ = 2εu(α/2)`, the largest it can
+be. **The bisector is where one pair is maximally connected and the other is
+identically not** — and there are two of them, `α/2` and `α/2 − π`, the far one
+cheaper because it sits nearer the antipodal caustic.
+
+So the answer is yes. Driven above threshold, the opposed pair's contact opens
+into an arc centred on the bisector **to machine zero**, off both sources and
+both antipodes, on which the like-signed pair's contact set is empty at every
+offset tested. At `α = 0` the bisector collapses onto the source axis and there
+is nothing off-axis to find — the degeneracy, recovered by measurement as a
+coordinate fact rather than assumed.
+
+The slider slides it: `α` moves the exclusive connection continuously from the
+source axis to the quarter point and raises its price from `0.220` to `1.66`,
+reached at the pulse-crossing time `t = α/2` to `0.0031π`. And **exclusive is
+not cheap** — from `α = 0.125π` up, the globally cheapest connection sits exactly
+on one of the four axes, is available to *both* pairs, and costs `1.7–3.7×` less.
+Both numbers are reported, because the interesting one is not the cheapest.
+
 ## 25. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
@@ -1444,6 +1489,36 @@ Worth recording, because the failure modes repeat:
   because the test demanded machine precision. The controlled comparison and
   the reproduction of the earlier round are two different rows and are now
   reported as two.
+
+* **Refining the wrong axis, and calling the survival evidence.** The
+  bisector-threshold sweep showed a small turn-over at the symmetric endpoint
+  `α = π`. To test whether it was sampling, the *time* grid was refined
+  fourfold; the dip did not shrink, and it went into a draft as measured
+  structure. It did not shrink because time was never the axis it lived on. The
+  bisector was being evaluated at the nearest point of the **`σ`** grid, and at
+  `α = 0.958π` the bisector falls exactly halfway between two samples. Evaluated
+  off-grid at the angle it actually has, the dip is one fifth the size — and
+  still real, which is the part that makes this an error rather than an
+  artefact. **Refining an axis a discrepancy does not live on will always leave
+  it standing, and leaving it standing is not evidence.** This is the mirror
+  image of the earlier "a discrepancy that refuses to move when you refine the
+  other side is the other side telling you it is not the problem": the same
+  observation, and the opposite conclusion, decided entirely by which axis was
+  refined.
+* **An exactness asserted about the wrong quantity.** `(out,out)` and `(in,in)`
+  give the same `|δ|` by an isometry, so the test asserted it at zero — and
+  failed, by `2.2e-16`. The identity was never in doubt. What was in doubt was
+  which quantity carried it: as a difference of *fields* the agreement is
+  bit-exact, but through the *drawn radii* `(R_mid + εu_A) − (R_mid + εu_B)` and
+  `(R_mid − εu_A) − (R_mid − εu_B)` round differently, and one ulp of `R_mid` is
+  exactly what comes out. Both are now reported, because they are two different
+  claims and only one of them is exact.
+* **A claim that named too few objects.** "The cheapest connection stays on a
+  source axis" was written against `A`'s axis alone and the sweep falsified it
+  immediately: above `α = 0.66π` the winner alternates between `A`'s axis and
+  `B`'s, the two being degenerate by symmetry and separated only by which grid
+  index `argmax` reaches first. There are **four** axes in this configuration,
+  not one, and the claim is true of the set and false of any member.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by

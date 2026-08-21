@@ -3261,6 +3261,52 @@ interact**, and the gain is a **display** amplitude. This is not a claim that tw
 physical waves reconnect a throat — it is that v46's obstruction does not apply
 to two of them.
 
+
+### Off the degenerate axis: the offset, and the signs
+
+The co-located pair is the **most degenerate** configuration the construction
+has: both wave histories hang off one antipodal axis, so bringing them together
+at one pole invites either exact overlap or exact cancellation and tests
+neither. Two knobs move off it — the source separation `α`, and the radial sense
+each wave is driven in:
+
+    δ = r_A − r_B = ε (s_A u_A − s_B u_B)
+
+**Opposed** signs give the *sum* of the two fields; **like** signs give the
+*difference*. That one line is the whole asymmetry.
+
+**A correction to the framing first.** Inner–inner and outer–outer are not two
+cases, they are **one** — `|δ|` agrees exactly, as a difference of fields, to the
+bit. Flipping both signs is a reflection about `R_mid`, an isometry of the glued
+radial circle. So the picture cannot distinguish them, and the reason is worth
+being blunt about: *the radial direction here carries the field's amplitude, not
+its direction of propagation.* That is a limitation of the representation, stated
+rather than worked around.
+
+**The bisector.** `σ = α/2` is equidistant from both sources, so `u_A = u_B` on
+it identically. A **like-signed** pair therefore has `δ ≡ 0` there — the two
+curves are the *same curve*, never separated by a hair, so no gain however large
+carries them through the seam. An **opposed** pair has `δ = 2εu(α/2)`, as large
+as it can be. There are two such axes, `α/2` and `α/2 − π`, and the far one is
+the cheaper because it sits nearer the antipodal caustic.
+
+**So yes — and the offset is what produces it.** Above threshold the opposed
+pair's contact opens into an arc **centred on the bisector to machine zero**,
+off both the sources and their antipodes, on which the like-signed pair's contact
+set is **empty at every offset tested**. At `α = 0` the bisector collapses onto
+the source axis and there is nothing off-axis to find: the degeneracy, recovered
+as a coordinate fact.
+
+| | |
+|--|--|
+| threshold at `α = 0` → `α = π` | `0.2201` → `1.6639` (`7.56×`) |
+| timing, against the pulse crossing `t = α/2` | `0.0031π` |
+| price of exclusivity | `1.68–3.74×` |
+| cheapest point pins to one of the four axes from | `α = 0.125π` |
+
+**Exclusive is not cheap.** The globally cheapest connection stays on a source
+axis or an antipode and is available to *both* pairs. Both numbers are reported.
+
 ```bash
 python -m experiments.closure_ledger.two_wave_slice_probe
 

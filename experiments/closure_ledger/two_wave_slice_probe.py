@@ -86,8 +86,12 @@ from typing import List, Optional
 import numpy as np
 
 from geometrodynamics.viz.two_wave_slice import (
+    measure_like_signs_are_one_case_not_two,
     measure_meeting_mid_flight_is_harder,
+    measure_only_the_opposed_pair_connects_on_the_bisector,
+    measure_the_bisector_is_degenerate_for_like_signs,
     measure_the_contact_is_an_arc_the_band_covers,
+    measure_the_offset_slides_the_connection,
     measure_the_pair_touches_exactly_where_one_wave_wraps,
     measure_where_the_two_pulses_connect,
 )
@@ -122,6 +126,38 @@ def run_probe() -> dict:
                    "pass": bool(mid["mid_flight_is_harder"]
                                 and mid["both_are_cheapest_at_a_refocus"])})
 
+    signs = measure_like_signs_are_one_case_not_two()
+    checks.append({"id": "T5", "name": "two cases, not four (a limitation)",
+                   "detail": signs,
+                   "pass": bool(signs["there_are_two_cases_not_four"]
+                                and signs["the_drawn_residue_is_one_ulp_of_r_mid"])})
+
+    bis = measure_the_bisector_is_degenerate_for_like_signs()
+    checks.append({"id": "T6",
+                   "name": "*** the bisector is degenerate for like signs ***",
+                   "detail": bis,
+                   "pass": bool(
+                       bis["the_like_signed_pair_never_separates_on_a_bisector"]
+                       and bis["the_opposed_pair_always_does"]
+                       and bis["the_far_bisector_is_the_cheaper_one"])})
+
+    excl = measure_only_the_opposed_pair_connects_on_the_bisector()
+    checks.append({"id": "T7",
+                   "name": "*** an off-antipodal connection only one pair has ***",
+                   "detail": excl,
+                   "pass": bool(excl["every_offset_opens_an_arc"]
+                                and excl["the_like_signed_pair_reaches_none_of_it"]
+                                and excl["the_arc_is_centred_on_the_bisector"]
+                                and excl["it_is_off_both_axes"])})
+
+    slide = measure_the_offset_slides_the_connection()
+    checks.append({"id": "T8", "name": "the slider: it moves, and it costs",
+                   "detail": slide,
+                   "pass": bool(slide["the_timing_is_the_pulse_crossing"]
+                                and slide["it_rises_monotonically_except_at_the_endpoint"]
+                                and slide["the_cheapest_connection_sits_on_one_of_the_four_axes"]
+                                and slide["exclusive_is_not_cheap"])})
+
     return {
         "probe": "two_wave_slice",
         "question": "one wave pulsing outward and one pulsing inward, both "
@@ -132,6 +168,10 @@ def run_probe() -> dict:
         "contact_gain": where["contact_gain"],
         "single_wave_wrap_gain": ident["single_wave_wrap_gain"],
         "sigma_over_pi": where["sigma_over_pi"],
+        "off_antipodal_question": "does an inner-outer pair possess "
+                                  "off-antipodal intersections that neither "
+                                  "inner-inner nor outer-outer pairs possess?",
+        "off_antipodal_answer": excl["answer"],
         "checks": checks,
         "passed": sum(1 for c in checks if c["pass"]),
         "total": len(checks),
@@ -143,6 +183,10 @@ def render_markdown(summary: dict) -> str:
     ident = next(c for c in summary["checks"] if c["id"] == "T1")["detail"]
     arc = next(c for c in summary["checks"] if c["id"] == "T3")["detail"]
     mid = next(c for c in summary["checks"] if c["id"] == "T4")["detail"]
+    signs = next(c for c in summary["checks"] if c["id"] == "T5")["detail"]
+    bis = next(c for c in summary["checks"] if c["id"] == "T6")["detail"]
+    excl = next(c for c in summary["checks"] if c["id"] == "T7")["detail"]
+    slide = next(c for c in summary["checks"] if c["id"] == "T8")["detail"]
     lines = [
         "# Two-wave slice probe — do the antipodal pulses connect?",
         "",
@@ -196,6 +240,85 @@ def render_markdown(summary: dict) -> str:
                   "co-located pair reaches it at "
                   f"`{mid['antipodal_over_co_located']:.2f}×` less gain than an "
                   "antipodal one.", ""]
+
+    lines += [
+        "## Off the degenerate axis",
+        "",
+        f"**Question.** {summary['off_antipodal_question']}",
+        "",
+        f"**Answer.** {summary['off_antipodal_answer']}",
+        "",
+        "### There are two configurations, not four",
+        "",
+        "| | |",
+        "|--|--|",
+        f"| `(out,out)` vs `(in,in)`, as fields | `{signs['worst_as_fields']:.1e}` |",
+        f"| the same, through the drawn radii | "
+        f"`{signs['drawn_residue_in_ulps']:.1f}` ulp of `R_mid` |",
+        "",
+        f"> {signs['the_limitation']}",
+        "",
+        "### The bisector",
+        "",
+        "| offset `α/π` | bisector `σ/π` | like-signed `|δ|` | opposed threshold |"
+        " far bisector | its threshold |",
+        "|--|--|--|--|--|--|",
+    ]
+    for r in bis["rows"]:
+        lines.append(
+            f"| `{r['offset_over_pi']:.2f}` | `{r['near_bisector_over_pi']:+.4f}` | "
+            f"`{r['near_like_signed_separation']:.1e}` | "
+            f"`{r['near_opposed_threshold']:.4f}` | "
+            f"`{r['far_bisector_over_pi']:+.4f}` | "
+            f"`{r['far_opposed_threshold']:.4f}` |")
+    lines += [
+        "",
+        f"> {bis['why']}",
+        "",
+        "### The exclusive arc",
+        "",
+        f"Driven to `{excl['drive_over_threshold']:.2f}×` the opposed pair's own "
+        "bisector threshold:",
+        "",
+        "| offset `α/π` | bisector `σ/π` | arc (rad) | centre − bisector |"
+        " like-signed samples on it | to nearest source | to nearest antipode |",
+        "|--|--|--|--|--|--|--|",
+    ]
+    for r in excl["rows"]:
+        lines.append(
+            f"| `{r['offset_over_pi']:.2f}` | `{r['bisector_over_pi']:+.4f}` | "
+            f"`{r['opposed_arc']:.4f}` | "
+            f"`{r['centre_minus_bisector']:.1e}` | "
+            f"**{r['like_signed_samples_on_that_arc']}** | "
+            f"`{r['distance_to_the_nearest_source']:.3f}π` | "
+            f"`{r['distance_to_the_nearest_antipode']:.3f}π` |")
+    lines += [
+        "",
+        "### What the slider does",
+        "",
+        "| | |",
+        "|--|--|",
+        f"| threshold at `α = 0` | `{slide['threshold_at_zero_offset']:.4f}` |",
+        f"| threshold at `α = π` | `{slide['threshold_at_pi']:.4f}` |",
+        f"| over the sweep | `{slide['threshold_range']:.2f}×` |",
+        f"| timing vs `t = α/2` | `{slide['worst_timing_error_over_pi']:.4f}π` |",
+        f"| price of exclusivity | "
+        f"`{slide['price_of_exclusivity_range'][0]:.2f}–"
+        f"{slide['price_of_exclusivity_range'][1]:.2f}×` |",
+        f"| cheapest point pins to an axis from | "
+        f"`α = {slide['it_pins_to_an_axis_from_offset_over_pi']:.3f}π` |",
+        "",
+    ]
+    if slide["non_monotone_steps"]:
+        d = slide["non_monotone_steps"][0]
+        lines += [
+            f"It rises monotonically but for a turn-over of "
+            f"`{100 * d['relative']:.3f}%` into the symmetric endpoint "
+            f"`α = {d['offset_over_pi']:.2f}π`. A first pass put that at "
+            "`0.08%` and confirmed it by refining the *time* grid — the wrong "
+            "axis. The bisector is evaluated off-grid here.",
+            "",
+        ]
     return "\n".join(lines)
 
 

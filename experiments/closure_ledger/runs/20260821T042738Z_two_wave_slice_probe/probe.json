@@ -1,0 +1,961 @@
+{
+  "probe": "two_wave_slice",
+  "question": "one wave pulsing outward and one pulsing inward, both refocusing at the antipode -- do they connect, inner to outer, and where?",
+  "answer": "yes: at the antipode, on the seam, at the refocus -- and at exactly the amplitude where one wave would have wrapped",
+  "contact_gain": 0.49971560416520394,
+  "single_wave_wrap_gain": 0.22005908554143158,
+  "sigma_over_pi": -1.0,
+  "off_antipodal_question": "does an inner-outer pair possess off-antipodal intersections that neither inner-inner nor outer-outer pairs possess?",
+  "off_antipodal_answer": "yes -- an opposed (inner-outer) pair connects through the seam on an arc centred on the bisector between the two source axes, which is off both the sources and their antipodes, and on which a like-signed pair is identically coincident and so connects at no amplitude at all",
+  "checks": [
+    {
+      "id": "T1",
+      "name": "*** one wave wrapping IS two touching ***",
+      "detail": {
+        "run_peak": 1.1815008653712167,
+        "at_time": 6.23606141737574,
+        "at_sigma": 0.0,
+        "single_wave_wrap_gain": 0.22005908554143158,
+        "pair_contact_gain": 0.22005908554143158,
+        "relative_difference": 0.0,
+        "they_are_the_same_threshold": true,
+        "why": "both are eps*u = gap/2 -- crossing the seam and spanning the radial period are the same inequality"
+      },
+      "pass": true
+    },
+    {
+      "id": "T2",
+      "name": "*** where: antipode, seam, refocus ***",
+      "detail": {
+        "time": 3.141592653589793,
+        "contact_gain": 0.49971560416520394,
+        "sigma": -3.141592653589793,
+        "sigma_over_pi": -1.0,
+        "refocus_amplitude": -0.5202959399963926,
+        "it_is_a_rarefaction": true,
+        "radius_of_the_outward_wave": 0.74,
+        "radius_of_the_inward_wave": 1.26,
+        "r_inner": 0.74,
+        "r_outer": 1.26,
+        "distance_to_the_seam": 0.0,
+        "connected": true,
+        "the_contact_is_on_the_seam": true,
+        "the_contact_is_at_the_antipode": true,
+        "the_inward_wave_is_the_one_that_reaches_r_outer": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T3",
+      "name": "*** the band covers what one graph cannot ***",
+      "detail": {
+        "rows": [
+          {
+            "gain_over_threshold": 0.98,
+            "covered_fraction": 0.9799999999999999,
+            "connected": false,
+            "arcs": 0,
+            "crossings": 0
+          },
+          {
+            "gain_over_threshold": 0.999,
+            "covered_fraction": 0.9989999999999997,
+            "connected": false,
+            "arcs": 0,
+            "crossings": 0
+          },
+          {
+            "gain_over_threshold": 1.0,
+            "covered_fraction": 1.0,
+            "connected": true,
+            "arcs": 1,
+            "crossings": 2
+          },
+          {
+            "gain_over_threshold": 1.001,
+            "covered_fraction": 1.0009999999999997,
+            "connected": true,
+            "arcs": 1,
+            "crossings": 2
+          },
+          {
+            "gain_over_threshold": 1.05,
+            "covered_fraction": 1.0500000000000003,
+            "connected": true,
+            "arcs": 1,
+            "crossings": 2
+          },
+          {
+            "gain_over_threshold": 1.3,
+            "covered_fraction": 1.3000000000000003,
+            "connected": true,
+            "arcs": 1,
+            "crossings": 2
+          }
+        ],
+        "nothing_connects_below_threshold": true,
+        "it_touches_at_threshold": true,
+        "one_arc_above": true,
+        "the_covered_fraction_tracks_the_gain": 3.3306690738754696e-16,
+        "what_one_wave_cannot_do": "a single wave is a graph, so its radial winding is zero and every radius stays outside it however hard it is driven; two graphs bound a band, and past threshold that band leaves no radius out"
+      },
+      "pass": true
+    },
+    {
+      "id": "T4",
+      "name": "meeting mid-flight is harder",
+      "detail": {
+        "co_located": {
+          "cheapest_contact_gain": 0.22260654124516274,
+          "at_time": 6.257005368399671,
+          "at_time_over_pi": 1.9916666666666667,
+          "at_sigma_over_pi": 0.0,
+          "mid_flight_contact_gain": 1.6506520080432467,
+          "mid_flight_penalty": 7.415110080818955
+        },
+        "antipodal_sources": {
+          "cheapest_contact_gain": 0.45058972581457263,
+          "at_time": 6.257005368399671,
+          "at_time_over_pi": 1.9916666666666667,
+          "at_sigma_over_pi": -1.0,
+          "mid_flight_contact_gain": 4.06278816086809,
+          "mid_flight_penalty": 9.016601862200503
+        },
+        "both_are_cheapest_at_a_refocus": true,
+        "mid_flight_is_harder": true,
+        "worst_penalty": 9.016601862200503,
+        "antipodal_over_co_located": 2.0241531236870784,
+        "co_located_is_about_twice_as_cheap": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T5",
+      "name": "two cases, not four (a limitation)",
+      "detail": {
+        "rows": [
+          {
+            "offset_over_pi": 0.0,
+            "out_out_vs_in_in": 0.0,
+            "out_in_vs_in_out": 0.0,
+            "out_out_vs_in_in_as_fields": 0.0,
+            "out_in_vs_in_out_as_fields": 0.0
+          },
+          {
+            "offset_over_pi": 0.15,
+            "out_out_vs_in_in": 2.220446049250313e-16,
+            "out_in_vs_in_out": 2.220446049250313e-16,
+            "out_out_vs_in_in_as_fields": 0.0,
+            "out_in_vs_in_out_as_fields": 0.0
+          },
+          {
+            "offset_over_pi": 0.3,
+            "out_out_vs_in_in": 2.220446049250313e-16,
+            "out_in_vs_in_out": 2.220446049250313e-16,
+            "out_out_vs_in_in_as_fields": 0.0,
+            "out_in_vs_in_out_as_fields": 0.0
+          },
+          {
+            "offset_over_pi": 0.5,
+            "out_out_vs_in_in": 2.220446049250313e-16,
+            "out_in_vs_in_out": 2.220446049250313e-16,
+            "out_out_vs_in_in_as_fields": 0.0,
+            "out_in_vs_in_out_as_fields": 0.0
+          },
+          {
+            "offset_over_pi": 0.7,
+            "out_out_vs_in_in": 2.220446049250313e-16,
+            "out_in_vs_in_out": 2.220446049250313e-16,
+            "out_out_vs_in_in_as_fields": 0.0,
+            "out_in_vs_in_out_as_fields": 0.0
+          },
+          {
+            "offset_over_pi": 0.85,
+            "out_out_vs_in_in": 2.220446049250313e-16,
+            "out_in_vs_in_out": 2.220446049250313e-16,
+            "out_out_vs_in_in_as_fields": 0.0,
+            "out_in_vs_in_out_as_fields": 0.0
+          },
+          {
+            "offset_over_pi": 1.0,
+            "out_out_vs_in_in": 2.220446049250313e-16,
+            "out_in_vs_in_out": 2.220446049250313e-16,
+            "out_out_vs_in_in_as_fields": 0.0,
+            "out_in_vs_in_out_as_fields": 0.0
+          }
+        ],
+        "worst_out_out_vs_in_in": 2.220446049250313e-16,
+        "worst_out_in_vs_in_out": 2.220446049250313e-16,
+        "worst_as_fields": 0.0,
+        "one_ulp_of_r_mid": 2.220446049250313e-16,
+        "drawn_residue_in_ulps": 1.0,
+        "out_out_is_in_in": true,
+        "the_two_opposed_orderings_agree": true,
+        "there_are_two_cases_not_four": true,
+        "the_drawn_residue_is_one_ulp_of_r_mid": true,
+        "why": "flipping both signs reflects the picture about R_mid, an isometry of the glued radial circle",
+        "the_limitation": "the radial direction carries field amplitude, not direction of propagation, so this representation cannot distinguish inner-inner from outer-outer"
+      },
+      "pass": true
+    },
+    {
+      "id": "T6",
+      "name": "*** the bisector is degenerate for like signs ***",
+      "detail": {
+        "rows": [
+          {
+            "offset_over_pi": 0.0,
+            "near_bisector_over_pi": 0.0,
+            "near_like_signed_separation": 0.0,
+            "near_opposed_threshold": 0.22260654124516274,
+            "near_at_time_over_pi": 1.9916666666666667,
+            "far_bisector_over_pi": -1.0,
+            "far_like_signed_separation": 0.0,
+            "far_opposed_threshold": 0.2786247973564381,
+            "far_at_time_over_pi": 0.95
+          },
+          {
+            "offset_over_pi": 0.15,
+            "near_bisector_over_pi": 0.075,
+            "near_like_signed_separation": 0.0,
+            "near_opposed_threshold": 0.8605426494945196,
+            "near_at_time_over_pi": 0.041666666666666664,
+            "far_bisector_over_pi": -0.925,
+            "far_like_signed_separation": 1.609823385706477e-15,
+            "far_opposed_threshold": 0.7222942593627528,
+            "far_at_time_over_pi": 0.8916666666666666
+          },
+          {
+            "offset_over_pi": 0.3,
+            "near_bisector_over_pi": 0.15,
+            "near_like_signed_separation": 0.0,
+            "near_opposed_threshold": 1.17348680300714,
+            "near_at_time_over_pi": 0.11666666666666667,
+            "far_bisector_over_pi": -0.85,
+            "far_like_signed_separation": 0.0,
+            "far_opposed_threshold": 1.0622945671538189,
+            "far_at_time_over_pi": 0.8166666666666667
+          },
+          {
+            "offset_over_pi": 0.5,
+            "near_bisector_over_pi": 0.25,
+            "near_like_signed_separation": 0.0,
+            "near_opposed_threshold": 1.4366764791252506,
+            "near_at_time_over_pi": 0.2166666666666667,
+            "far_bisector_over_pi": -0.75,
+            "far_like_signed_separation": 0.0,
+            "far_opposed_threshold": 1.356222071476779,
+            "far_at_time_over_pi": 0.7166666666666667
+          },
+          {
+            "offset_over_pi": 0.7,
+            "near_bisector_over_pi": 0.35,
+            "near_like_signed_separation": 0.0,
+            "near_opposed_threshold": 1.5925175787016388,
+            "near_at_time_over_pi": 0.31666666666666665,
+            "far_bisector_over_pi": -0.65,
+            "far_like_signed_separation": 0.0,
+            "far_opposed_threshold": 1.5429922836612793,
+            "far_at_time_over_pi": 0.6166666666666667
+          },
+          {
+            "offset_over_pi": 0.85,
+            "near_bisector_over_pi": 0.425,
+            "near_like_signed_separation": 6.591949208711867e-16,
+            "near_opposed_threshold": 1.6506179497849975,
+            "near_at_time_over_pi": 0.39166666666666666,
+            "far_bisector_over_pi": -0.575,
+            "far_like_signed_separation": 6.661338147750939e-16,
+            "far_opposed_threshold": 1.625528672390009,
+            "far_at_time_over_pi": 0.5416666666666666
+          },
+          {
+            "offset_over_pi": 1.0,
+            "near_bisector_over_pi": 0.5,
+            "near_like_signed_separation": 0.0,
+            "near_opposed_threshold": 1.6608981636867954,
+            "near_at_time_over_pi": 0.4666666666666667,
+            "far_bisector_over_pi": -0.5,
+            "far_like_signed_separation": 0.0,
+            "far_opposed_threshold": 1.6608981636867954,
+            "far_at_time_over_pi": 0.4666666666666667
+          }
+        ],
+        "worst_like_signed_separation": 1.609823385706477e-15,
+        "worst_relative_residue": 4.472177654168074e-15,
+        "the_like_signed_pair_never_separates_on_a_bisector": true,
+        "the_opposed_pair_always_does": true,
+        "the_far_bisector_is_the_cheaper_one": true,
+        "why_the_far_one_is_cheaper": "it sits nearer the antipodal caustic, where the field is amplified",
+        "why": "sigma = alpha/2 is equidistant from both sources, so u_A = u_B there identically; like signs subtract that to zero and opposed signs add it to twice one field"
+      },
+      "pass": true
+    },
+    {
+      "id": "T7",
+      "name": "*** an off-antipodal connection only one pair has ***",
+      "detail": {
+        "drive_over_threshold": 1.15,
+        "rows": [
+          {
+            "offset_over_pi": 0.15,
+            "bisector_over_pi": 0.075,
+            "threshold": 0.8585735993568737,
+            "at_time_over_pi": 0.04,
+            "opposed_arc": 0.09599310885968812,
+            "arc_centre_over_pi": 0.075,
+            "centre_minus_bisector": 0.0,
+            "like_signed_samples_on_that_arc": 0,
+            "distance_to_the_nearest_source": 0.075,
+            "distance_to_the_nearest_antipode": 0.925
+          },
+          {
+            "offset_over_pi": 0.3,
+            "bisector_over_pi": 0.15,
+            "threshold": 1.1743052612757485,
+            "at_time_over_pi": 0.11499999999999999,
+            "opposed_arc": 0.09599310885968812,
+            "arc_centre_over_pi": 0.15,
+            "centre_minus_bisector": 0.0,
+            "like_signed_samples_on_that_arc": 0,
+            "distance_to_the_nearest_source": 0.15,
+            "distance_to_the_nearest_antipode": 0.85
+          },
+          {
+            "offset_over_pi": 0.5,
+            "bisector_over_pi": 0.25,
+            "threshold": 1.4389505487860985,
+            "at_time_over_pi": 0.215,
+            "opposed_arc": 0.09599310885968812,
+            "arc_centre_over_pi": 0.25,
+            "centre_minus_bisector": 0.0,
+            "like_signed_samples_on_that_arc": 0,
+            "distance_to_the_nearest_source": 0.25,
+            "distance_to_the_nearest_antipode": 0.75
+          },
+          {
+            "offset_over_pi": 0.7,
+            "bisector_over_pi": 0.35,
+            "threshold": 1.5959892525021946,
+            "at_time_over_pi": 0.315,
+            "opposed_arc": 0.09599310885968812,
+            "arc_centre_over_pi": 0.35,
+            "centre_minus_bisector": 0.0,
+            "like_signed_samples_on_that_arc": 0,
+            "distance_to_the_nearest_source": 0.35,
+            "distance_to_the_nearest_antipode": 0.65
+          },
+          {
+            "offset_over_pi": 1.0,
+            "bisector_over_pi": 0.5,
+            "threshold": 1.663866981940498,
+            "at_time_over_pi": 0.46499999999999997,
+            "opposed_arc": 0.09599310885968812,
+            "arc_centre_over_pi": 0.5,
+            "centre_minus_bisector": 0.0,
+            "like_signed_samples_on_that_arc": 0,
+            "distance_to_the_nearest_source": 0.5,
+            "distance_to_the_nearest_antipode": 0.5
+          }
+        ],
+        "worst_centre_offset": 0.0,
+        "the_arc_is_centred_on_the_bisector": true,
+        "every_offset_opens_an_arc": true,
+        "the_like_signed_pair_reaches_none_of_it": true,
+        "it_is_off_both_axes": true,
+        "answer": "yes -- an opposed (inner-outer) pair connects through the seam on an arc centred on the bisector between the two source axes, which is off both the sources and their antipodes, and on which a like-signed pair is identically coincident and so connects at no amplitude at all"
+      },
+      "pass": true
+    },
+    {
+      "id": "T8",
+      "name": "the slider: it moves, and it costs",
+      "detail": {
+        "rows": [
+          {
+            "offset_over_pi": 0.0,
+            "bisector_over_pi": 0.0,
+            "bisector_threshold": 0.22005908554143158,
+            "at_time_over_pi": 1.985,
+            "predicted_time_over_pi": -0.03389790894703257,
+            "cheapest_threshold_anywhere": 0.22005908554143158,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 1.0,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.020833333333333332,
+            "bisector_over_pi": 0.010416666666666666,
+            "bisector_threshold": 0.23089157300948648,
+            "at_time_over_pi": 1.985,
+            "predicted_time_over_pi": -0.023481242280365897,
+            "cheapest_threshold_anywhere": 0.23092068906682864,
+            "cheapest_at_sigma_over_pi": 0.011111111111111127,
+            "price_of_exclusivity": 0.9998739131714017,
+            "cheapest_is_off_axis_by_over_pi": 0.009722222222222182
+          },
+          {
+            "offset_over_pi": 0.041666666666666664,
+            "bisector_over_pi": 0.020833333333333332,
+            "bisector_threshold": 0.2666556015275387,
+            "at_time_over_pi": 1.985,
+            "predicted_time_over_pi": -0.013064575613699234,
+            "cheapest_threshold_anywhere": 0.26677192330229166,
+            "cheapest_at_sigma_over_pi": 0.019444444444444507,
+            "price_of_exclusivity": 0.9995639654529118,
+            "cheapest_is_off_axis_by_over_pi": 0.019444444444444507
+          },
+          {
+            "offset_over_pi": 0.0625,
+            "bisector_over_pi": 0.03125,
+            "bisector_threshold": 0.3335586027177666,
+            "at_time_over_pi": 1.99,
+            "predicted_time_over_pi": -0.0026479089470325665,
+            "cheapest_threshold_anywhere": 0.3335609789860851,
+            "cheapest_at_sigma_over_pi": 0.030555555555555634,
+            "price_of_exclusivity": 0.9999928760602462,
+            "cheapest_is_off_axis_by_over_pi": 0.030555555555555634
+          },
+          {
+            "offset_over_pi": 0.08333333333333333,
+            "bisector_over_pi": 0.041666666666666664,
+            "bisector_threshold": 0.44279415217201284,
+            "at_time_over_pi": 1.995,
+            "predicted_time_over_pi": 0.007768757719634097,
+            "cheapest_threshold_anywhere": 0.40586985320071395,
+            "cheapest_at_sigma_over_pi": 0.00833333333333338,
+            "price_of_exclusivity": 1.090975712239063,
+            "cheapest_is_off_axis_by_over_pi": 0.00833333333333338
+          },
+          {
+            "offset_over_pi": 0.10416666666666667,
+            "bisector_over_pi": 0.052083333333333336,
+            "bisector_threshold": 0.5936931918638576,
+            "at_time_over_pi": 0.005,
+            "predicted_time_over_pi": 0.01818542438630077,
+            "cheapest_threshold_anywhere": 0.4368263856977191,
+            "cheapest_at_sigma_over_pi": 0.10277777777777775,
+            "price_of_exclusivity": 1.3591056110669315,
+            "cheapest_is_off_axis_by_over_pi": 0.0013888888888889438
+          },
+          {
+            "offset_over_pi": 0.125,
+            "bisector_over_pi": 0.0625,
+            "bisector_threshold": 0.749408217385683,
+            "at_time_over_pi": 0.025,
+            "predicted_time_over_pi": 0.028602091052967432,
+            "cheapest_threshold_anywhere": 0.44571105070249134,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 1.6813767937872088,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.14583333333333334,
+            "bisector_over_pi": 0.07291666666666667,
+            "bisector_threshold": 0.8457527811378149,
+            "at_time_over_pi": 0.035,
+            "predicted_time_over_pi": 0.0390187577196341,
+            "cheapest_threshold_anywhere": 0.44749511587203167,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 1.8899709765316666,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.16666666666666666,
+            "bisector_over_pi": 0.08333333333333333,
+            "bisector_threshold": 0.907461481252479,
+            "at_time_over_pi": 0.05,
+            "predicted_time_over_pi": 0.04943542438630077,
+            "cheapest_threshold_anywhere": 0.4476291651439734,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 2.027261742341135,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.1875,
+            "bisector_over_pi": 0.09375,
+            "bisector_threshold": 0.9574603532668964,
+            "at_time_over_pi": 0.06,
+            "predicted_time_over_pi": 0.05985209105296744,
+            "cheapest_threshold_anywhere": 0.4474699046335218,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 2.139720109335749,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.20833333333333334,
+            "bisector_over_pi": 0.10416666666666667,
+            "bisector_threshold": 1.002763541626812,
+            "at_time_over_pi": 0.07,
+            "predicted_time_over_pi": 0.07026875771963412,
+            "cheapest_threshold_anywhere": 0.4472875503608899,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 2.24187670955237,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.22916666666666666,
+            "bisector_over_pi": 0.11458333333333333,
+            "bisector_threshold": 1.045420139146223,
+            "at_time_over_pi": 0.08,
+            "predicted_time_over_pi": 0.08068542438630076,
+            "cheapest_threshold_anywhere": 0.4471216875707917,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 2.3381110069296387,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.25,
+            "bisector_over_pi": 0.125,
+            "bisector_threshold": 1.0861912551124444,
+            "at_time_over_pi": 0.09,
+            "predicted_time_over_pi": 0.09110209105296743,
+            "cheapest_threshold_anywhere": 0.4469728529498941,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 2.4301056494681728,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.2708333333333333,
+            "bisector_over_pi": 0.13541666666666666,
+            "bisector_threshold": 1.1249791514512761,
+            "at_time_over_pi": 0.1,
+            "predicted_time_over_pi": 0.10151875771963409,
+            "cheapest_threshold_anywhere": 0.44683684003703456,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 2.5176508529557142,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.2916666666666667,
+            "bisector_over_pi": 0.14583333333333334,
+            "bisector_threshold": 1.1623384975452127,
+            "at_time_over_pi": 0.11,
+            "predicted_time_over_pi": 0.11193542438630079,
+            "cheapest_threshold_anywhere": 0.44671280518566164,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 2.6019815954506265,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.3125,
+            "bisector_over_pi": 0.15625,
+            "bisector_threshold": 1.1978097305291044,
+            "at_time_over_pi": 0.125,
+            "predicted_time_over_pi": 0.12235209105296743,
+            "cheapest_threshold_anywhere": 0.4466004174640234,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 2.682061376768856,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.3333333333333333,
+            "bisector_over_pi": 0.16666666666666666,
+            "bisector_threshold": 1.228854589870082,
+            "at_time_over_pi": 0.135,
+            "predicted_time_over_pi": 0.1327687577196341,
+            "cheapest_threshold_anywhere": 0.44649672261918555,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 2.752214131968366,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.3541666666666667,
+            "bisector_over_pi": 0.17708333333333334,
+            "bisector_threshold": 1.2590233378290578,
+            "at_time_over_pi": 0.14500000000000002,
+            "predicted_time_over_pi": 0.14318542438630077,
+            "cheapest_threshold_anywhere": 0.4464006523529773,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 2.820388660260121,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.375,
+            "bisector_over_pi": 0.1875,
+            "bisector_threshold": 1.2877360476931128,
+            "at_time_over_pi": 0.155,
+            "predicted_time_over_pi": 0.15360209105296743,
+            "cheapest_threshold_anywhere": 0.4463121584724272,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 2.885281127228507,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.3958333333333333,
+            "bisector_over_pi": 0.19791666666666666,
+            "bisector_threshold": 1.3152997790289942,
+            "at_time_over_pi": 0.165,
+            "predicted_time_over_pi": 0.16401875771963406,
+            "cheapest_threshold_anywhere": 0.44623029532832476,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 2.9475806389640815,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.4166666666666667,
+            "bisector_over_pi": 0.20833333333333334,
+            "bisector_threshold": 1.342030058167817,
+            "at_time_over_pi": 0.175,
+            "predicted_time_over_pi": 0.17443542438630077,
+            "cheapest_threshold_anywhere": 0.4461545423538634,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.0079937124194918,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.4375,
+            "bisector_over_pi": 0.21875,
+            "bisector_threshold": 1.3675182535629626,
+            "at_time_over_pi": 0.18500000000000003,
+            "predicted_time_over_pi": 0.18485209105296743,
+            "cheapest_threshold_anywhere": 0.44608405006653773,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.0656067020530866,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.4583333333333333,
+            "bisector_over_pi": 0.22916666666666666,
+            "bisector_threshold": 1.3922922940720108,
+            "at_time_over_pi": 0.195,
+            "predicted_time_over_pi": 0.19526875771963406,
+            "cheapest_threshold_anywhere": 0.446017972487075,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.1216058095335106,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.4791666666666667,
+            "bisector_over_pi": 0.23958333333333334,
+            "bisector_threshold": 1.4161710113906105,
+            "at_time_over_pi": 0.20499999999999996,
+            "predicted_time_over_pi": 0.20568542438630077,
+            "cheapest_threshold_anywhere": 0.44595691326908404,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.175578109125787,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.5,
+            "bisector_over_pi": 0.25,
+            "bisector_threshold": 1.4389505487860985,
+            "at_time_over_pi": 0.215,
+            "predicted_time_over_pi": 0.21610209105296743,
+            "cheapest_threshold_anywhere": 0.44589959924194666,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.227072980627011,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.5208333333333334,
+            "bisector_over_pi": 0.2604166666666667,
+            "bisector_threshold": 1.461396671462367,
+            "at_time_over_pi": 0.225,
+            "predicted_time_over_pi": 0.22651875771963412,
+            "cheapest_threshold_anywhere": 0.4458466735877903,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.2778009975992517,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.5416666666666666,
+            "bisector_over_pi": 0.2708333333333333,
+            "bisector_threshold": 1.4822092287676356,
+            "at_time_over_pi": 0.24,
+            "predicted_time_over_pi": 0.23693542438630072,
+            "cheapest_threshold_anywhere": 0.44579694145039767,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.3248528443135497,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.5625,
+            "bisector_over_pi": 0.28125,
+            "bisector_threshold": 1.499064400329531,
+            "at_time_over_pi": 0.25,
+            "predicted_time_over_pi": 0.24735209105296743,
+            "cheapest_threshold_anywhere": 0.44575058023920544,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.3630116634398552,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.5833333333333334,
+            "bisector_over_pi": 0.2916666666666667,
+            "bisector_threshold": 1.5154224556335034,
+            "at_time_over_pi": 0.26,
+            "predicted_time_over_pi": 0.2577687577196341,
+            "cheapest_threshold_anywhere": 0.4457074611616619,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.4000383383392516,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.6041666666666666,
+            "bisector_over_pi": 0.3020833333333333,
+            "bisector_threshold": 1.5307600615108283,
+            "at_time_over_pi": 0.27,
+            "predicted_time_over_pi": 0.2681854243863007,
+            "cheapest_threshold_anywhere": 0.44566737777725984,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.434759055386565,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.625,
+            "bisector_over_pi": 0.3125,
+            "bisector_threshold": 1.5456488313295065,
+            "at_time_over_pi": 0.28,
+            "predicted_time_over_pi": 0.2786020910529674,
+            "cheapest_threshold_anywhere": 0.44563011379997064,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.4684568736826877,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.6458333333333334,
+            "bisector_over_pi": 0.32291666666666663,
+            "bisector_threshold": 1.5598411646999175,
+            "at_time_over_pi": 0.29000000000000004,
+            "predicted_time_over_pi": 0.2890187577196341,
+            "cheapest_threshold_anywhere": 0.44559561332374065,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.5005756745783736,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.6666666666666666,
+            "bisector_over_pi": 0.3333333333333333,
+            "bisector_threshold": 1.5730778973898223,
+            "at_time_over_pi": 0.3,
+            "predicted_time_over_pi": 0.2994354243863007,
+            "cheapest_threshold_anywhere": 0.44556353422762196,
+            "cheapest_at_sigma_over_pi": 0.6666666666666667,
+            "price_of_exclusivity": 3.5305355500349247,
+            "cheapest_is_off_axis_by_over_pi": 1.4135798584282297e-16
+          },
+          {
+            "offset_over_pi": 0.6875,
+            "bisector_over_pi": 0.34374999999999994,
+            "bisector_threshold": 1.58619845247763,
+            "at_time_over_pi": 0.31,
+            "predicted_time_over_pi": 0.3098520910529674,
+            "cheapest_threshold_anywhere": 0.44553372246467693,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.5602208598326426,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.7083333333333334,
+            "bisector_over_pi": 0.3541666666666667,
+            "bisector_threshold": 1.5983995614656592,
+            "at_time_over_pi": 0.32,
+            "predicted_time_over_pi": 0.3202687577196341,
+            "cheapest_threshold_anywhere": 0.44550653618006564,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.5878251645215262,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.7291666666666666,
+            "bisector_over_pi": 0.36458333333333337,
+            "bisector_threshold": 1.6099621559295771,
+            "at_time_over_pi": 0.33,
+            "predicted_time_over_pi": 0.3306854243863008,
+            "cheapest_threshold_anywhere": 0.44548133446862176,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.6139834182951107,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.75,
+            "bisector_over_pi": 0.375,
+            "bisector_threshold": 1.6211734789114178,
+            "at_time_over_pi": 0.3400000000000001,
+            "predicted_time_over_pi": 0.3411020910529674,
+            "cheapest_threshold_anywhere": 0.4454585283228714,
+            "cheapest_at_sigma_over_pi": 0.75,
+            "price_of_exclusivity": 3.639336494499394,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.7708333333333334,
+            "bisector_over_pi": 0.38541666666666663,
+            "bisector_threshold": 1.6314995866560693,
+            "at_time_over_pi": 0.35,
+            "predicted_time_over_pi": 0.3515187577196341,
+            "cheapest_threshold_anywhere": 0.4454375545231105,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.6626897981306663,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.7916666666666666,
+            "bisector_over_pi": 0.3958333333333333,
+            "bisector_threshold": 1.6390786816221479,
+            "at_time_over_pi": 0.36,
+            "predicted_time_over_pi": 0.3619354243863007,
+            "cheapest_threshold_anywhere": 0.44541866386260376,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.679860801988636,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.8125,
+            "bisector_over_pi": 0.40625000000000006,
+            "bisector_threshold": 1.644969613148892,
+            "at_time_over_pi": 0.375,
+            "predicted_time_over_pi": 0.37235209105296746,
+            "cheapest_threshold_anywhere": 0.44540183067457867,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.6932259812617305,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.8333333333333334,
+            "bisector_over_pi": 0.4166666666666667,
+            "bisector_threshold": 1.6489796416890086,
+            "at_time_over_pi": 0.385,
+            "predicted_time_over_pi": 0.3827687577196341,
+            "cheapest_threshold_anywhere": 0.44538691660880486,
+            "cheapest_at_sigma_over_pi": 0.8333333333333333,
+            "price_of_exclusivity": 3.7023531230876974,
+            "cheapest_is_off_axis_by_over_pi": 1.4135798584282297e-16
+          },
+          {
+            "offset_over_pi": 0.8541666666666666,
+            "bisector_over_pi": 0.42708333333333337,
+            "bisector_threshold": 1.653000678921392,
+            "at_time_over_pi": 0.395,
+            "predicted_time_over_pi": 0.3931854243863008,
+            "cheapest_threshold_anywhere": 0.44537375464092616,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.711490993119007,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.875,
+            "bisector_over_pi": 0.4375,
+            "bisector_threshold": 1.656148173516378,
+            "at_time_over_pi": 0.40499999999999997,
+            "predicted_time_over_pi": 0.4036020910529674,
+            "cheapest_threshold_anywhere": 0.4453624254003766,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.7186526726575924,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.8958333333333334,
+            "bisector_over_pi": 0.44791666666666663,
+            "bisector_threshold": 1.6587190823497484,
+            "at_time_over_pi": 0.41500000000000004,
+            "predicted_time_over_pi": 0.4140187577196341,
+            "cheapest_threshold_anywhere": 0.4453528455759276,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.724505409199088,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.9166666666666666,
+            "bisector_over_pi": 0.4583333333333333,
+            "bisector_threshold": 1.6610095543025718,
+            "at_time_over_pi": 0.425,
+            "predicted_time_over_pi": 0.4244354243863007,
+            "cheapest_threshold_anywhere": 0.4453449588580722,
+            "cheapest_at_sigma_over_pi": 0.9166666666666667,
+            "price_of_exclusivity": 3.7297145084153116,
+            "cheapest_is_off_axis_by_over_pi": 1.4135798584282297e-16
+          },
+          {
+            "offset_over_pi": 0.9375,
+            "bisector_over_pi": 0.46874999999999994,
+            "bisector_threshold": 1.6624400775448964,
+            "at_time_over_pi": 0.43499999999999994,
+            "predicted_time_over_pi": 0.4348520910529674,
+            "cheapest_threshold_anywhere": 0.44533914202603486,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.732975435264365,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.9583333333333334,
+            "bisector_over_pi": 0.4791666666666667,
+            "bisector_threshold": 1.6635823899490971,
+            "at_time_over_pi": 0.445,
+            "predicted_time_over_pi": 0.4452687577196341,
+            "cheapest_threshold_anywhere": 0.44533494360329695,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.735575691610249,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 0.9791666666666666,
+            "bisector_over_pi": 0.48958333333333337,
+            "bisector_threshold": 1.6641529001069397,
+            "at_time_over_pi": 0.45499999999999996,
+            "predicted_time_over_pi": 0.4556854243863008,
+            "cheapest_threshold_anywhere": 0.4453320761992236,
+            "cheapest_at_sigma_over_pi": 0.0,
+            "price_of_exclusivity": 3.7368808335343555,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          },
+          {
+            "offset_over_pi": 1.0,
+            "bisector_over_pi": 0.5,
+            "bisector_threshold": 1.663866981940498,
+            "at_time_over_pi": 0.46499999999999997,
+            "predicted_time_over_pi": 0.4661020910529674,
+            "cheapest_threshold_anywhere": 0.44533384251213987,
+            "cheapest_at_sigma_over_pi": -1.0,
+            "price_of_exclusivity": 3.736223980990488,
+            "cheapest_is_off_axis_by_over_pi": 0.0
+          }
+        ],
+        "pulse_lead": -0.10649342172005323,
+        "pulse_width": 0.18,
+        "pulse_lead_spread": 0.003982236861550276,
+        "threshold_at_zero_offset": 0.22005908554143158,
+        "threshold_at_pi": 1.663866981940498,
+        "threshold_range": 7.561001073174204,
+        "worst_timing_error_over_pi": 0.003064575613699272,
+        "offsets_whose_crossing_is_inside_the_launch": [
+          0.10416666666666667,
+          0.125,
+          0.14583333333333334,
+          0.16666666666666666
+        ],
+        "the_timing_is_the_pulse_crossing": true,
+        "non_monotone_steps": [
+          {
+            "offset_over_pi": 1.0,
+            "drop": 0.00028591816644163437,
+            "relative": 0.00017181003405592182
+          }
+        ],
+        "it_rises_monotonically_except_at_the_endpoint": true,
+        "price_of_exclusivity_range": [
+          1.6813767937872088,
+          3.7368808335343555
+        ],
+        "it_pins_to_an_axis_from_offset_over_pi": 0.125,
+        "offsets_at_or_above_that": 43,
+        "worst_drift_below_it": 0.030555555555555634,
+        "offsets_where_it_drifts": [
+          0.020833333333333332,
+          0.041666666666666664,
+          0.0625,
+          0.08333333333333333,
+          0.10416666666666667
+        ],
+        "the_cheapest_connection_sits_on_one_of_the_four_axes": true,
+        "it_drifts_off_axis_only_at_small_offset": true,
+        "the_drift_is_small": true,
+        "exclusive_is_not_cheap": true
+      },
+      "pass": true
+    }
+  ],
+  "passed": 8,
+  "total": 8
+}

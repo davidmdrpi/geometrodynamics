@@ -76,8 +76,9 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from geometrodynamics.viz.circle_slice import ANTIPODAL_TIME, RETURN_TIME
-from geometrodynamics.viz.two_wave_slice import (ANTIPODAL_SOURCES, CO_LOCATED,
-                                                 TwoWaveSlice)
+from geometrodynamics.viz.two_wave_slice import (
+    ANTIPODAL_SOURCES, BOTH_OUTWARD, CO_LOCATED, OUTWARD_INWARD, TwoWaveSlice,
+    measure_the_offset_slides_the_connection)
 
 _PAL = {
     "bg": "#010106", "panel": "#02020a", "grid": "#0e1a2a", "rule": "#1a2838",
@@ -100,22 +101,44 @@ def _style(ax, title, xlabel="", ylabel=""):
 class TwoWaveFigure:
     """The lens, the antipode, the connection, the band, and the threshold."""
 
-    def __init__(self, figsize=(14.4, 9.0)) -> None:
+    def __init__(self, figsize=(14.4, 13.0)) -> None:
         self.fig = plt.figure(figsize=figsize, facecolor=_PAL["bg"])
         gs = self.fig.add_gridspec(
-            2, 3, left=0.055, right=0.975, top=0.815, bottom=0.095,
-            wspace=0.28, hspace=0.40, height_ratios=[1.0, 0.85])
+            3, 3, left=0.055, right=0.975, top=0.855, bottom=0.062,
+            wspace=0.28, hspace=0.40, height_ratios=[1.0, 0.85, 0.92])
         self.ax_slice = self.fig.add_subplot(gs[0, 0], facecolor=_PAL["panel"])
         self.ax_zoom = self.fig.add_subplot(gs[0, 1], facecolor=_PAL["panel"])
         self.ax_conn = self.fig.add_subplot(gs[0, 2], facecolor=_PAL["panel"])
         self.ax_thr = self.fig.add_subplot(gs[1, 0], facecolor=_PAL["panel"])
         self.ax_roll = self.fig.add_subplot(gs[1, 1:], facecolor=_PAL["panel"])
+        self.ax_off = self.fig.add_subplot(gs[2, 0], facecolor=_PAL["panel"])
+        self.ax_excl = self.fig.add_subplot(gs[2, 1], facecolor=_PAL["panel"])
+        self.ax_slide = self.fig.add_subplot(gs[2, 2], facecolor=_PAL["panel"])
 
         self.pair = TwoWaveSlice(offset=CO_LOCATED)
         self.pair.slice_.reset()
         self.pair.slice_.advance_to(ANTIPODAL_TIME)
         self.threshold = self.pair.contact_gain()
         self.below = 0.86 * self.threshold
+
+        # the offset round: a genuinely off-axis configuration
+        self.alpha = 0.5 * math.pi
+        self.opp = TwoWaveSlice(offset=self.alpha, signs=OUTWARD_INWARD)
+        self.like = TwoWaveSlice(offset=self.alpha, signs=BOTH_OUTWARD)
+        self.like.slice_ = self.opp.slice_
+        self.opp.slice_.reset()
+        best, at = 0.0, 0.0
+        for i in range(400):
+            t = (i + 1) * RETURN_TIME / 400
+            self.opp.slice_.advance_to(t)
+            v = float(np.max(np.abs(
+                self.opp.separation_at(self.opp.bisector, gain=1.0))))
+            if v > best:
+                best, at = v, t
+        self.bis_threshold = self.opp.gap / best
+        self.bis_time = at
+        self.opp.slice_.reset()
+        self.opp.slice_.advance_to(at)
 
     # ── helpers ─────────────────────────────────────────────────────────────
     def _rings(self, ax, zoom=False):
@@ -306,6 +329,135 @@ class TwoWaveFigure:
                 transform=ax.transAxes, ha="center", color=_PAL["text"],
                 fontsize=6.6, family="monospace")
 
+    # ── the offset round ────────────────────────────────────────────────────
+    def _offset_slice(self):
+        """The same picture with the sources 90 degrees apart, driven to the
+        bisector threshold.  The connection is nowhere near an antipode."""
+        ax = self.ax_off
+        save, self.pair = self.pair, self.opp
+        self._rings(ax)
+        self._curves(ax, 1.15 * self.bis_threshold, lw=2.0)
+        self.pair = save
+        b = self.opp.slice_.bulk
+        for ang, col, lab in ((0.0, _PAL["ok"], "A"),
+                              (self.alpha, _PAL["ok"], "B")):
+            ax.plot([b.r_outer * 1.04 * math.cos(ang)],
+                    [b.r_outer * 1.04 * math.sin(ang)], "o", ms=5,
+                    color=col)
+            ax.text(b.r_outer * 1.16 * math.cos(ang),
+                    b.r_outer * 1.16 * math.sin(ang), lab, color=col,
+                    fontsize=7.4, family="monospace", ha="center",
+                    va="center")
+        got = self.opp.contact(gain=1.15 * self.bis_threshold)
+        sg = got["sigma_of_closest_approach"]
+        for r, col in ((got["radius_a"], _PAL["out"]),
+                       (got["radius_b"], _PAL["inn"])):
+            ax.plot([r * math.cos(sg)], [r * math.sin(sg)], "o", ms=8,
+                    color=col, mec=_PAL["text"], mew=0.8, zorder=7)
+        bs = self.opp.bisector
+        ax.plot([0, b.r_outer * 1.26 * math.cos(bs)],
+                [0, b.r_outer * 1.26 * math.sin(bs)], lw=1.0,
+                color=_PAL["band"], ls="--")
+        ax.text(b.r_outer * 1.34 * math.cos(bs),
+                b.r_outer * 1.34 * math.sin(bs), "bisector",
+                color=_PAL["band"], fontsize=6.6, family="monospace",
+                ha="center", va="center")
+        ax.set_xlim(-b.r_outer * 1.5, b.r_outer * 1.5)
+        ax.set_ylim(-b.r_outer * 1.5, b.r_outer * 1.5)
+        _style(ax, "sources 90 deg apart — it connects OFF the antipode")
+        ax.text(0.5, 0.015,
+                f"offset {self.alpha / math.pi:.2f} pi   "
+                f"gain {1.15 * self.bis_threshold:.3f}   "
+                f"t = {self.bis_time / math.pi:.3f} pi",
+                transform=ax.transAxes, ha="center", color=_PAL["dim"],
+                fontsize=6.6, family="monospace")
+
+    def _exclusive(self):
+        """Why the like-signed pair cannot follow it there."""
+        ax = self.ax_excl
+        gain = 1.15 * self.bis_threshold
+        x = self.opp.sigma_closed / math.pi
+        d_o = np.abs(self.opp.separation(gain=gain, closed=True))
+        d_l = np.abs(self.like.separation(gain=gain, closed=True))
+        gap = self.opp.gap
+        ax.axhline(gap, color=_PAL["hot"], lw=1.2)
+        ax.text(0.985, gap, " connects ", color=_PAL["hot"], fontsize=6.4,
+                family="monospace", va="bottom", ha="right",
+                transform=ax.get_yaxis_transform())
+        ax.plot(x, d_o, lw=1.9, color=_PAL["band"],
+                label="opposed  (inner-outer)")
+        ax.plot(x, d_l, lw=1.7, color=_PAL["inn"], ls=(0, (5, 3)),
+                label="like-signed  (in-in = out-out)", zorder=6)
+        kb = int(np.argmin(np.abs(self.opp.sigma_closed - self.opp.bisector)))
+        ax.plot([x[kb]], [d_l[kb]], "o", ms=7, color=_PAL["inn"],
+                mec=_PAL["text"], mew=0.8, zorder=8)
+        ax.plot([x[kb]], [d_o[kb]], "o", ms=7, color=_PAL["band"],
+                mec=_PAL["text"], mew=0.8, zorder=8)
+        ax.annotate("identically 0\nhere, always",
+                    xy=(x[kb], d_l[kb]), xytext=(x[kb] + 0.26, 0.62 * gap),
+                    color=_PAL["inn"], fontsize=6.4, family="monospace",
+                    ha="left", va="center",
+                    arrowprops=dict(arrowstyle="->", color=_PAL["inn"],
+                                    lw=0.9, connectionstyle="arc3,rad=-0.25"))
+        ax.fill_between(x, gap, d_o, where=d_o >= gap, color=_PAL["ok"],
+                        alpha=0.6, lw=0, zorder=4)
+        for ang, col, ls in ((0.0, _PAL["ok"], ":"),
+                             (self.alpha / math.pi, _PAL["ok"], ":"),
+                             (self.opp.bisector / math.pi, _PAL["band"], "--")):
+            ax.axvline(ang, color=col, lw=0.9, ls=ls)
+        ax.text(self.opp.bisector / math.pi, 0.94, " bisector",
+                transform=ax.get_xaxis_transform(), color=_PAL["band"],
+                fontsize=6.4, family="monospace")
+        ax.set_xlim(-0.25, 1.0)
+        _style(ax, "the separation, and where it spans the gap",
+               "sigma / pi", "|delta|")
+        ax.grid(True, color=_PAL["grid"], lw=0.5, alpha=0.7)
+        ax.legend(facecolor=_PAL["panel"], edgecolor=_PAL["rule"],
+                  labelcolor=_PAL["text"], fontsize=6.2, loc="upper right",
+                  framealpha=0.92)
+        ax.text(0.5, 0.045,
+                "on the bisector the like-signed pair is IDENTICALLY ZERO:\n"
+                "u_A = u_B there, so no gain ever carries it through the seam",
+                transform=ax.transAxes, ha="center", color=_PAL["text"],
+                fontsize=6.4, family="monospace",
+                bbox=dict(facecolor=_PAL["panel"], edgecolor="none",
+                          alpha=0.9, pad=2.0))
+
+    def _slider(self):
+        """What the offset knob does to the price and the place."""
+        ax = self.ax_slide
+        got = measure_the_offset_slides_the_connection(n=33, samples=240)
+        a = np.array([r["offset_over_pi"] for r in got["rows"]])
+        thr = np.array([r["bisector_threshold"] for r in got["rows"]])
+        cheap = np.array([r["cheapest_threshold_anywhere"] for r in got["rows"]])
+        ax.plot(a, thr, lw=2.0, color=_PAL["band"],
+                label="on the bisector (exclusive)")
+        ax.plot(a, cheap, lw=1.7, color=_PAL["ok"], ls=(0, (4, 3)),
+                label="cheapest anywhere (shared)")
+        ax.fill_between(a, cheap, thr, color=_PAL["band"], alpha=0.16, lw=0)
+        ax.axvline(0.0, color=_PAL["hot"], lw=0.9, ls=":")
+        ax.text(0.012, 0.55, "alpha=0:\nthe bisector IS\nthe source axis",
+                transform=ax.get_xaxis_transform(), color=_PAL["hot"],
+                fontsize=6.2, family="monospace")
+        ax2 = ax.twinx()
+        ax2.plot(a, a / 2.0, lw=1.2, color=_PAL["dim"], ls=":")
+        ax2.set_ylabel("bisector sigma / pi", color=_PAL["dim"], fontsize=7.0,
+                       family="monospace")
+        ax2.tick_params(colors=_PAL["dim"], labelsize=6.6)
+        for sp in ax2.spines.values():
+            sp.set_color(_PAL["rule"])
+        ax.grid(True, color=_PAL["grid"], lw=0.5, alpha=0.7)
+        _style(ax, "the slider: it moves, and it costs",
+               "source offset alpha / pi", "contact gain")
+        ax.legend(facecolor=_PAL["panel"], edgecolor=_PAL["rule"],
+                  labelcolor=_PAL["text"], fontsize=6.2, loc="lower right",
+                  framealpha=0.92)
+        lo, hi = got["price_of_exclusivity_range"]
+        ax.text(0.5, 0.955,
+                f"exclusive costs {lo:.1f}-{hi:.1f}x the shared connection",
+                transform=ax.transAxes, ha="center", va="top",
+                color=_PAL["text"], fontsize=6.6, family="monospace")
+
     # ── assembly ────────────────────────────────────────────────────────────
     def draw(self):
         self._slice()
@@ -313,28 +465,38 @@ class TwoWaveFigure:
         self._connection()
         self._threshold()
         self._unrolled()
-        self.fig.text(0.5, 0.955,
+        self._offset_slice()
+        self._exclusive()
+        self._slider()
+        self.fig.text(0.5, 0.968,
                       "v66  -  two waves, and where they connect inner to outer",
                       color=_PAL["text"], fontsize=15.0, ha="center",
                       family="monospace")
-        self.fig.text(0.5, 0.917,
+        self.fig.text(0.5, 0.943,
                       "v46: one wave is a GRAPH, so it cannot wind and never "
                       "meets itself.  two graphs bound a BAND, and a band can "
                       "cover the radial circle.",
                       color=_PAL["dim"], fontsize=8.2, ha="center",
                       family="monospace")
-        self.fig.text(0.5, 0.886,
+        self.fig.text(0.5, 0.923,
                       "they connect AT THE ANTIPODE, ON THE SEAM, AT THE "
                       "REFOCUS  --  and at exactly the amplitude where one "
                       "wave would have wrapped: both are eps u = gap/2",
                       color=_PAL["ok"], fontsize=7.6, ha="center",
                       family="monospace")
-        self.fig.text(0.5, 0.858,
+        self.fig.text(0.5, 0.905,
                       "the antipodal refocus is a RAREFACTION, so it is the "
                       "inward-driven wave that reaches R_outer",
                       color=_PAL["dim"], fontsize=7.0, ha="center",
                       family="monospace")
-        self.fig.text(0.5, 0.021,
+        self.fig.text(0.5, 0.887,
+                      "BOTTOM ROW  -  offset the sources and an OFF-ANTIPODAL "
+                      "connection appears that only the opposed pair has: on "
+                      "the bisector a like-signed pair is identically "
+                      "coincident",
+                      color=_PAL["band"], fontsize=7.6, ha="center",
+                      family="monospace")
+        self.fig.text(0.5, 0.014,
                       "the crossing rule is a REPRESENTATION choice, not a "
                       "derived boundary condition   -   LINEAR scalar on a "
                       "FIXED round background: the two waves do not interact   "
