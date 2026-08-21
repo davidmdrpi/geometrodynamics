@@ -1064,7 +1064,13 @@ horizon, and so not traversable — is one this arc's larger framework can accep
 That is what decides whether `M = sin³a/2` is a result about the model or only
 about this slice.
 
-## 24. Two waves connect where one could not (`docs/two_wave_slice.md`, current round)
+## 24. Two waves connect where one could not (`docs/two_wave_slice.md`)
+
+> **Superseded reading.** §25 shows this section's *construction* was
+> ambiguous — it drew two curves and read their overlap as a connection.
+> Every number below survives, because the quantity it plots is the
+> one-surface deformation; but the two configurations swap names, which
+> inverts the headline. Read §25 alongside it.
 
 A revisit rather than a new result, taken before the nonlinear arc starts,
 because §4's picture was doing work the rest of the arc had outgrown.
@@ -1161,7 +1167,82 @@ not cheap** — from `α = 0.125π` up, the globally cheapest connection sits ex
 on one of the four axes, is available to *both* pairs, and costs `1.7–3.7×` less.
 Both numbers are reported, because the interesting one is not the cheapest.
 
-## 25. What the arc cost in errors, and what caught them
+## 25. One field on one surface, and the parity of the antipode (`docs/one_surface.md`)
+
+§24 has a construction problem, and naming it is the round.
+
+v66 drew **two** curves over the circle and asked whether their images meet
+through the glued seam. Its own scope note said the two waves do not interact —
+but that labels the problem rather than repairing it. Two curves in one frame
+are two surfaces, and reading their overlap as a connection is a statement about
+a picture, not about a field. The right object is one scalar deformation of one
+surface, `u = s_A u_A + s_B u_B`, drawn as the single curve
+`r = R_mid + ε u`, and the right question is whether *that* curve reaches
+`R_outer` at one `θ` and `R_inner` at another — so the surface passes through the
+identification.
+
+**The repair costs nothing numerically and the headline everything.**
+`δ = r_A − r_B = ε(s_A u_A − s_B u_B)`, the quantity v66 plotted as a separation,
+*is* the one-surface deformation with the second sign flipped — the same array,
+to two ulps of `R_mid`, which is the mid-radius's rounding and not the fields'.
+So every v66 number survives, with the two configurations swapping names. That
+inverts what §24 concluded: its cheapest-when-co-located result belongs to the
+**like** pair, and its identically-zero bisector is the **node of the opposed
+field**, which is both where it belongs and why it is exact.
+
+With that fixed, the monochromatic reduction is clean and closed-form:
+`u = −2A sin(mα/2) sin(mθ − ωt)`, so `B = 2A|sin(mα/2)|`. Three things follow,
+all checked rather than asserted. Coincident foci with opposite orientation
+cancel **exactly** — `u ≡ 0`, so no amplitude connects them and the required gain
+is infinite rather than large. The optimum is `α* = π/m`, **half a wavelength**,
+and the antipode is simply the `m = 1` member of that family. And `sin(mπ/2)` is
+`±1` for odd `m` and `0` for even `m`, so **the antipode is parity-dependent**:
+maximal for odd modes, exactly cancelling for even ones. That last is not an
+artefact of the plane-wave reduction — on `S³` it appears as `Z_n(π) = (−1)ⁿ`,
+and the antipodal difference field measures `2.0000` for odd `n` and `0.0000`
+for even `n`.
+
+Then the measurement disagrees with the derivation about one thing, and the
+disagreement is the most useful part. A zonal harmonic is **centred**:
+`Z_n(0) = 1` is a global maximum and `|Z_n| ≤ 1`, so `|Z_A − Z_B| ≤ 2` with
+equality only where one focus sees `+1` and the other `−1` at the same point —
+which is exactly the antipode with odd `n`. So for the real spectrum `α* = π`
+for **every** odd `n`, saturating the bound, while half a wavelength reaches only
+`1.41` at `n = 1` and `1.10` by `n = 5`; for even `n` the antipode cancels and
+nothing reaches the bound at all. A plane wave has no distinguished centre, so
+only its wavelength sets a scale; a zonal mode has one. **The parity carries
+across the two models exactly. The location of the optimum does not.** The kernel
+this programme cares about is `n = 1`, which is odd, so for it the antipode is
+both optimal and saturating.
+
+A second departure, and the same species: v46's field is a launched *pulse*, not
+a mode — power-weighted mean `n ≈ 10`, fifteen modes for 90% of the power. Two
+localized pulses cancel only while they overlap, so the `1/|sin(mα/2)|`
+divergence is confined to about one pulse width and past it the threshold
+**saturates** at `0.2163` rather than falling to `0.13`. The coincident
+cancellation is real for a pulse too; the law governing its approach is not.
+
+Finally the geometry, which is what the round was for. At the optimum the outward
+and inward extrema sit `π/m` apart, so the chord between them is
+`L = √(D² + 4 R_out R_in sin²(π/2m))` — the law of cosines regrouped so the
+purely radial gap is the `Δθ → 0` limit — falling from `2.000` at `m = 1` to
+`0.553` at `m = 16`, with limit `D = 0.520`. At fixed display amplitude the span
+is flat at `2.0000` across the whole half-wavelength family: **the same
+deformation on a progressively shorter connection.** But `E ∝ ω²A²`, so at fixed
+*energy* `A ∝ 1/ω` and the span falls exactly as fast as the chord; the highest
+mode that still spans the gap is `m = 6`. No favourable frequency is claimed —
+that needs an energy normalisation and a packet focusing law this model does not
+contain. The narrower claim is the one the visualisation has to respect: a
+frequency slider cannot hold displacement fixed and then be read as
+constant-energy physics.
+
+**What is still put in** is what was always put in: the crossing rule is a
+representation choice, the field is linear on a fixed background, and the gain is
+a display amplitude. What changed is not the physics but the *object* — v66 asked
+whether two drawn curves meet, which was never a well-posed question about a
+field; this asks whether one surface reaches both boundaries, which is.
+
+## 26. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -1520,6 +1601,56 @@ Worth recording, because the failure modes repeat:
   index `argmax` reaches first. There are **four** axes in this configuration,
   not one, and the claim is true of the set and false of any member.
 
+* **A caveat mistaken for a repair.** v66's scope note said plainly that the two
+  waves do not interact and that the question was only whether their *images*
+  meet. That is accurate, and it is not a defence: naming an ambiguity does not
+  remove it, and a reader is entitled to take a picture's central object
+  seriously. The fix was not a better caveat but a different object — one field
+  on one surface, where "do they meet" becomes "does it reach both boundaries",
+  which is well posed. **A scope note can only bound a claim, never repair a
+  construction.**
+* **A factor of two in a closed form, caught by hand-checked values.** The span
+  is `4A|sin(mα/2)| = 2A·(amplitude factor)`, so the required amplitude is
+  `gap/(2·factor)`; the first draft wrote `gap/factor` and was exactly twice too
+  large everywhere. Nothing internal to the module could catch it — every
+  consumer used the same wrong function. What caught it was a test pinning four
+  values (`0.130`, `0.184`, `0.260`, `0.502`) computed independently by
+  bisection on the measured amplitude. **A closed form needs at least one value
+  checked against something that does not use it.**
+* **A dropped factor of two in the *test*, this time.** The `S³` zonal Laplacian
+  is `f'' + 2 cot(χ) f'`, and the eigenvalue check wrote `cot(χ) f'` once. It
+  failed cleanly with ratio exactly `1.000000` against `−n(n+2)` — the residue
+  `−(n²+2n−1)` versus `−n(n+2)` — which is what an *exactly* wrong constant
+  looks like as opposed to a noisy one. Worth pairing with the entry above: the
+  same slip landed in module and test on the same day, and only the one in the
+  module would have reached a reader.
+* **A guard that fired at the wrong endpoint.** `Z_n(χ) = sin[(n+1)χ]/[(n+1)sinχ]`
+  needs limits taken at `χ = 0` *and* `χ = π`, because `sin χ` vanishes at both.
+  A first pass guarded only the small-χ series, so at the antipode it returned
+  the Taylor polynomial: `|Z_8| ≈ 131` against a true bound of `1`, and the
+  parity result it was written to test came out as "the even orders do not
+  cancel". The failure was loud enough to catch immediately; the lesson is that
+  it destroyed *exactly* the finding it was instrumenting, which is the way an
+  endpoint bug usually presents.
+* **A stall diagnosed from an instrument, not a system.** A redirected `pytest`
+  run appeared frozen at `53%` for minutes at a time, so it was killed and
+  restarted — three times. It was never frozen: the output was block-buffered,
+  so the log only showed what had last flushed while the process ran on at
+  `130%` CPU. The one genuinely slow file (`test_waves_backreaction.py`)
+  dominates the suite and always had. Two of the kills also used
+  `pkill -f "pytest tests/"`, whose pattern matches the killing shell's own
+  command line, so a run survived and competed with its replacement for four
+  cores — which then made the *next* run look slow for real. Same species as
+  refining the wrong axis: **the reading came from the instrument's artefact
+  rather than the system, and every action taken on it made the measurement
+  worse.** The suite was finally verified in three chunks covering all 49 files.
+* **A "first optimum" finder that returned the left edge.** Searching for the
+  first grid point exceeding `2 − 1e-9` on a grid that never reaches it makes
+  `argmax` return index `0`, so the measured optimum was the smallest sampled
+  `α` and the error read `2.09`. Fixed by searching one period of
+  `|sin(mα/2)|` rather than thresholding. **`argmax` on an all-false mask is a
+  silent zero, and it looks like an answer.**
+
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
 an independent construction — a closed form against brute
@@ -1541,7 +1672,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 26. What is imported rather than derived
+## 27. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -1585,7 +1716,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 27. What would come next
+## 28. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:

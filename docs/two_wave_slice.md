@@ -4,8 +4,22 @@
 **Probe:** `python -m experiments.closure_ledger.two_wave_slice_probe` (8/8)
 **Tests:** `tests/test_viz_two_wave_slice.py` (36)
 **Renderer:** `python scripts/geometrodynamics_v66_two_wave_slice.py --still v66.png`
+**Superseded reading:** `docs/one_surface.md` (v67)
 
 ---
+
+> **The construction here is ambiguous, and v67 says why.** This page draws
+> **two** curves and reads their overlap through the seam as a connection. Two
+> curves in one frame are two surfaces. If the two contributions are two pieces
+> of *one* scalar deformation of *one* surface there is only ever one curve, and
+> the question becomes whether it reaches both boundaries.
+>
+> **Every number below survives**, because the quantity plotted here as a
+> "separation between two curves" *is* the one-surface deformation — the same
+> array, to two ulps of `R_mid`. But the two configurations **swap names**, which
+> inverts the headline: the cheapest-when-co-located result belongs to the
+> *like* pair, and the identically-zero bisector is the **node of the opposed
+> field**. Read `docs/one_surface.md` alongside this.
 
 ## What v46 left open
 

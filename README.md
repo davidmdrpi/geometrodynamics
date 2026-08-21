@@ -3315,6 +3315,70 @@ python scripts/geometrodynamics_v66_two_wave_slice.py --still v66.png
 
 Full write-up: `docs/two_wave_slice.md`.
 
+## One field on one surface — and the antipode is parity-dependent
+
+**The objection lands.** v66 drew **two** curves and asked whether their images
+meet through the glued seam. Two curves in one frame are two surfaces, and
+reading their overlap as a connection is a statement about a picture, not about
+a field. If the two contributions are two pieces of one scalar deformation of
+one surface there is only ever **one** curve, `r = R_mid + ε(s_A u_A + s_B u_B)`,
+and the question is whether *it* reaches `R_outer` at one `θ` and `R_inner` at
+another.
+
+**The repair costs nothing, which is the surprise.** `δ = r_A − r_B` — the
+quantity v66 plotted as a separation between two curves — **is** the one-surface
+deformation with the second sign flipped, the same array to `2` ulp of `R_mid`.
+Every v66 number survives, with the two configurations **swapping names**:
+
+    v66 "like-signed"  ==  one surface OPPOSED
+    v66 "opposed"      ==  one surface LIKE-signed
+
+which inverts v66's headline: its cheapest-when-co-located result belongs to the
+*like* pair, and its identically-zero bisector is the **node of the opposed
+field**, which is where it belongs.
+
+**Coincidence cancels exactly.** `α = 0` with opposite orientation gives `u ≡ 0`
+at every time — zero, not small — so no amplitude connects it.
+
+**The monochromatic law.** `u = −2A sin(mα/2) sin(mθ − ωt)`, verified
+symbolically and on a grid, so `B = 2A|sin(mα/2)|` and the optimum is
+`α* = π/m` — **half a wavelength**, with the antipode simply the `m = 1` member.
+And `sin(mπ/2)` is `±1` for odd `m` and `0` for even `m`:
+
+> **the antipode is parity-dependent** — maximal for odd modes, exactly
+> cancelling for even ones. Not a visualization effect: on `S³` the same parity
+> is `Z_n(π) = (−1)ⁿ`, checked at `2.0000` and `0.0000`.
+
+**Where the two models part company.** A zonal harmonic is *centred*
+(`Z_n(0) = 1`, `|Z_n| ≤ 1`), so `|Z_A − Z_B| ≤ 2` with equality only where one
+focus sees `+1` and the other `−1` — exactly the antipode with odd `n`. For
+zonal modes `α* = π` for **every** odd `n` and it *saturates* the bound; half a
+wavelength reaches only `1.10–1.41`. For even `n` the antipode cancels and
+nothing reaches the bound at all. **The parity carries across the two models
+exactly; the location of the optimum does not.** (The kernel here is `n = 1`,
+odd — so for it the antipode is optimal *and* saturating.)
+
+**A pulse is not a mode.** v46's field carries a power-weighted mean `n ≈ 10`
+with fifteen modes holding 90% of the power. For it the `1/|sin|` divergence is
+confined to about one pulse width; past that the pulses stop overlapping and the
+threshold **saturates** at `0.2163` instead of falling to `0.13`.
+
+**The chord, and what it costs.** At the optimum the two extrema sit `π/m` apart,
+so `L = √(D² + 4 R_out R_in sin²(π/2m))` falls from `2.000` to the purely radial
+gap `0.520`. At fixed *display amplitude* the span is flat at `2.0000` across the
+whole family — same deformation, shorter connection. But `E ∝ ω²A²`, so at fixed
+**energy** `A ∝ 1/ω` and the span falls as fast as the chord: the highest mode
+that still spans the gap is `m = 7`. No favourable frequency is claimed — that
+needs an energy normalisation and a packet focusing law this model lacks. What is
+claimed is narrower: **a frequency slider cannot hold displacement fixed and then
+be read as constant-energy physics.**
+
+```bash
+python -m experiments.closure_ledger.one_surface_probe
+```
+
+Full write-up: `docs/one_surface.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
