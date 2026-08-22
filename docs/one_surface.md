@@ -2,7 +2,7 @@
 
 **Module:** `geometrodynamics/viz/one_surface.py`
 **Probe:** `python -m experiments.closure_ledger.one_surface_probe` (8/8)
-**Tests:** `tests/test_viz_one_surface.py` (29)
+**Tests:** `tests/test_viz_one_surface.py` (30)
 **Supersedes the reading of:** `docs/two_wave_slice.md` (v66)
 
 ---
