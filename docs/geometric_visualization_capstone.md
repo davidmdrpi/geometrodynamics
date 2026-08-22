@@ -1242,6 +1242,31 @@ a display amplitude. What changed is not the physics but the *object* — v66 as
 whether two drawn curves meet, which was never a well-posed question about a
 field; this asks whether one surface reaches both boundaries, which is.
 
+### Where each front sits on that surface (v68)
+
+The offset question, asked inside the one-surface object rather than alongside
+it. Only the **surface** is ever a closed curve in the annulus; the two
+contributions are components of its deformation and appear on graphs of field
+against `σ`. The annulus panels colour the single curve by which front owns each
+arc — and since an inward dent is a negative contribution and an outward one
+positive, each front's sign is read straight off the surface. That is the whole
+answer to "where do A and B individually lie, and what are their signs".
+
+The sweep says two things. At `α = 0` the surface is a **perfect circle** — not
+a small deformation, a circle — because the contributions cancel identically.
+And past one pulse width they stop overlapping *at all*: the overlap arc is
+`0.000` by `α = 0.25π` and the amplification `max|u| / max|c_A|` sits at
+`1.012–1.017` across the rest of the sweep, with the total peaking exactly where
+a single contribution peaks.
+
+So the honest reading is less flattering than §24's: **the offset does not turn
+interference on, it turns the cancellation off.** What is left at wide offset is
+two nearly independent dents in one surface. Interference here is confined to
+the arc where both fronts are actually present, and for a localized pulse that
+arc closes as soon as the foci clear each other — which is the same pulse-versus-
+mode split that §25 found in the threshold law, seen now in the geometry rather
+than in a number.
+
 ## 26. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:

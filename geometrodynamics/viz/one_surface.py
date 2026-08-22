@@ -865,3 +865,121 @@ def measure_fixed_energy_reverses_the_preference(
                                "energy normalisation and a packet focusing law "
                                "that this model does not contain",
     }
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# HOW ONE SURFACE ANSWERS TO TWO FRONTS
+# ════════════════════════════════════════════════════════════════════════════
+def decompose(surf: "OneSurfaceSlice") -> Dict[str, object]:
+    """The two signed contributions, the field they sum to, and where they meet.
+
+    The point of keeping these three arrays together is that only the third is
+    a *surface*.  ``c_A`` and ``c_B`` are components of one deformation, and
+    the moment they are drawn as closed curves in the annulus the picture is
+    back to v66's error — so they belong on a graph of field values against
+    ``σ``, where nothing invites reading them as separate objects.
+
+    ``reinforcing`` is where the two contributions share a sign and therefore
+    add.  For an opposed pair that means the two *fields* are anti-correlated,
+    which is the configuration the whole question is about.
+    """
+    c_a, c_b = surf.contributions()
+    u = c_a + c_b
+    s = surf.sigma
+    reinforcing = np.sign(c_a) * np.sign(c_b) > 0
+    live = (np.abs(c_a) > 0.02 * max(float(np.max(np.abs(c_a))), 1e-30)) & \
+           (np.abs(c_b) > 0.02 * max(float(np.max(np.abs(c_b))), 1e-30))
+    d_sigma = TWO_PI / len(s)
+    peak_a = float(np.max(np.abs(c_a)))
+    peak_u = float(np.max(np.abs(u)))
+    return {
+        "sigma": s,
+        "contribution_a": c_a,
+        "contribution_b": c_b,
+        "field": u,
+        "reinforcing": reinforcing,
+        "both_present": live,
+        "overlap_arc": float(np.count_nonzero(live) * d_sigma),
+        "reinforcing_fraction": float(np.mean(reinforcing)),
+        "peak_contribution": peak_a,
+        "peak_field": peak_u,
+        "amplification": peak_u / max(peak_a, 1e-30),
+        "sigma_of_peak_a": float(s[int(np.argmax(np.abs(c_a)))]),
+        "sigma_of_peak_b": float(s[int(np.argmax(np.abs(c_b)))]),
+        "sigma_of_peak_field": float(s[int(np.argmax(np.abs(u)))]),
+    }
+
+
+def measure_how_one_surface_answers_two_fronts(
+        offsets: Sequence[float] = (0.0, 0.15, 0.25, 0.5, 0.75, 1.0),
+        samples: int = 200) -> Dict[str, object]:
+    """What the offset actually buys, decomposed on the one surface.
+
+    Two things the totals alone hide, and the picture has to show:
+
+    **The contributions barely overlap.**  v46's field is a localized pulse, so
+    at any offset wider than the pulse the two contributions occupy *disjoint*
+    arcs of the circle.  The surface then carries two separate deformations,
+    one per front, and the amplification ``max|u| / max|c_A|`` is about
+    ``1.01`` — the total is one contribution plus almost nothing.  Interference
+    is confined to the narrow arc where both are present.
+
+    **``α = 0`` is the only configuration where the overlap is total** — and it
+    is exactly the one that cancels.  So the offset does not "turn interference
+    on"; it turns the *cancellation* off by pulling the two fronts apart, and
+    what is left is two nearly independent dents.
+
+    Reported at the time of the largest deformation in a run, per offset.
+    """
+    probe = OneSurfaceSlice()
+    rows = []
+    for f in offsets:
+        alpha = float(f) * math.pi
+        q = OneSurfaceSlice(offset=alpha, signs=OPPOSED)
+        q.slice_ = probe.slice_
+        sl = q.slice_
+        sl.reset()
+        best, at = -1.0, 0.0
+        for i in range(int(samples)):
+            t = (i + 1) * RETURN_TIME / int(samples)
+            sl.advance_to(t)
+            v = float(np.max(np.abs(q.field())))
+            if v > best:
+                best, at = v, t
+        sl.reset()
+        sl.advance_to(at)
+        d = decompose(q)
+        sl.reset()
+        rows.append({
+            "offset_over_pi": float(f),
+            "at_time_over_pi": at / math.pi,
+            "peak_contribution": d["peak_contribution"],
+            "peak_field": d["peak_field"],
+            "amplification": d["amplification"],
+            "overlap_arc": d["overlap_arc"],
+            "reinforcing_fraction": d["reinforcing_fraction"],
+            "sigma_of_peak_a_over_pi": d["sigma_of_peak_a"] / math.pi,
+            "sigma_of_peak_b_over_pi": d["sigma_of_peak_b"] / math.pi,
+            "sigma_of_peak_field_over_pi": d["sigma_of_peak_field"] / math.pi,
+        })
+    apart = [r for r in rows if r["offset_over_pi"] > 0.1]
+    zero = rows[0]
+    return {
+        "rows": rows,
+        "amplification_when_apart": (min(r["amplification"] for r in apart),
+                                     max(r["amplification"] for r in apart)),
+        "the_contributions_barely_overlap": bool(
+            all(r["amplification"] < 1.05 for r in apart)),
+        "the_field_peak_sits_on_a_contribution_peak": bool(
+            all(min(abs(r["sigma_of_peak_field_over_pi"]
+                        - r["sigma_of_peak_a_over_pi"]),
+                    abs(r["sigma_of_peak_field_over_pi"]
+                        - r["sigma_of_peak_b_over_pi"])) < 0.01
+                for r in apart)),
+        "coincidence_is_the_only_total_overlap": bool(
+            zero["peak_field"] == 0.0),
+        "what_the_offset_buys": "not interference -- the offset turns the "
+                                "CANCELLATION off by pulling the two fronts "
+                                "apart, and what is left is two nearly "
+                                "independent dents in one surface",
+    }

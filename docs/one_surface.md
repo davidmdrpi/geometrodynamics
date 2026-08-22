@@ -1,8 +1,9 @@
 # One field on one surface
 
 **Module:** `geometrodynamics/viz/one_surface.py`
-**Probe:** `python -m experiments.closure_ledger.one_surface_probe` (8/8)
-**Tests:** `tests/test_viz_one_surface.py` (30)
+**Probe:** `python -m experiments.closure_ledger.one_surface_probe` (9/9)
+**Tests:** `tests/test_viz_one_surface.py` (35)
+**Renderers:** `geometrodynamics_v67_one_surface.py`, `geometrodynamics_v68_two_fronts.py`
 **Supersedes the reading of:** `docs/two_wave_slice.md` (v66)
 
 ---
@@ -222,6 +223,69 @@ That is a real bound and it is worth having, but it is *not* an optimum:
 normalisation and a packet focusing law this model does not contain. The point
 that matters for the visualisation is narrower and sharper: **a frequency slider
 cannot hold displacement fixed and then be read as constant-energy physics.**
+
+## Where each front sits on the one surface
+
+The offset question, asked *inside* the one-surface object. As the two axes move
+apart, where do `A` and `B` individually sit on that same surface, what are
+their signs, where do they interfere, and how does the surface answer?
+
+**Renderer:** `python scripts/geometrodynamics_v68_two_fronts.py --still v68.png`
+
+### The rule the figure obeys
+
+Only one thing is ever drawn as a closed curve in the annulus: **the surface**.
+`c_A = s_A u_A` and `c_B = s_B u_B` are *components* of its deformation, so they
+appear only on graphs of field against `σ`, where nothing invites reading them
+as separate objects. Drawing them as closed curves is exactly the v66 error and
+it is not repeated. What the annulus panels do instead is **colour the single
+surface** by which front is live along each arc — and because an inward dent is
+a negative contribution and an outward one positive, each front's sign is read
+straight off the surface.
+
+### What the sweep shows
+
+| offset `α/π` | at `t/π` | peak `c_A` | peak `u` | amplification | overlap arc | `σ` of `c_A` | `σ` of `c_B` | `σ` of `u` |
+|--|--|--|--|--|--|--|--|--|
+| `0.00` | `0.01` | `0.6710` | `0.0000` | `0.0000` | `0.794` | `−0.01π` | `−0.01π` | `−1.00π` |
+| `0.15` | `1.99` | `1.1796` | `1.1994` | `1.0168` | `0.148` | `+0.00π` | `+0.15π` | `+0.00π` |
+| `0.25` | `1.99` | `1.1796` | `1.1978` | `1.0155` | `0.000` | `+0.00π` | `+0.25π` | `+0.00π` |
+| `0.50` | `1.99` | `1.1796` | `1.1950` | `1.0131` | `0.000` | `+0.00π` | `+0.50π` | `+0.00π` |
+| `0.75` | `1.99` | `1.1796` | `1.1938` | `1.0121` | `0.000` | `+0.00π` | `+0.75π` | `+0.00π` |
+| `1.00` | `1.99` | `1.1796` | `1.1935` | `1.0118` | `0.000` | `+0.00π` | `−1.00π` | `−1.00π` |
+
+Two things fall out, and the second was not what I expected to be writing.
+
+**At `α = 0` the surface is a perfect circle.** Not a small deformation — a
+circle. The two contributions are the same function of the same distance with
+opposite sign, so they cancel identically, and there is nothing for the bulk to
+connect at any amplitude.
+
+**Past one pulse width the two contributions stop overlapping at all.** The
+overlap arc goes to `0.000` by `α = 0.25π`, and the amplification
+`max|u| / max|c_A|` sits at `1.012–1.017` across the whole rest of the sweep.
+The total is one contribution plus almost nothing, and it peaks exactly where a
+single contribution peaks.
+
+> So the offset does **not** turn interference on. It turns the *cancellation*
+> off, by pulling the two fronts apart — and what is left is two nearly
+> independent dents in one surface, not a reinforced one.
+
+That is a sharper and less flattering statement than "the offset produces an
+off-antipodal connection", and it is what the decomposition says. Interference
+in this construction is confined to the narrow arc where both fronts are
+actually present, and for a localized pulse that arc closes as soon as the foci
+clear each other. The monochromatic case is the opposite extreme — a mode fills
+the whole circle, so it cancels everywhere and the `1/|sin(mα/2)|` law holds all
+the way out.
+
+### And in time
+
+The right-hand panel of v68 is `σ` against `t` at `α = π/2`: each source
+launches **two** arms, they cross at the quarter points, cross again, and the
+surface answers wherever a front is — most strongly at a refocus. The crossings
+are visible as the bright cells; they are where the overlap arc is briefly
+nonzero even at large offset.
 
 ## Scope
 

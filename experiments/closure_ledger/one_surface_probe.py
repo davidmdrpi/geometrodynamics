@@ -87,6 +87,7 @@ import numpy as np
 
 from geometrodynamics.viz.one_surface import (
     measure_a_pulse_saturates_where_a_mode_diverges,
+    measure_how_one_surface_answers_two_fronts,
     measure_coincident_foci_cancel_exactly,
     measure_fixed_energy_reverses_the_preference,
     measure_the_antipode_is_parity_dependent,
@@ -157,6 +158,15 @@ def run_probe() -> dict:
                    "pass": bool(en["span_is_flat_at_fixed_amplitude"]
                                 and en["span_falls_like_one_over_omega"]
                                 and en["the_chord_and_the_span_both_shrink"])})
+
+    two = measure_how_one_surface_answers_two_fronts()
+    checks.append({"id": "T9",
+                   "name": "*** the offset turns cancellation OFF, not "
+                           "interference on ***",
+                   "detail": two,
+                   "pass": bool(two["the_contributions_barely_overlap"]
+                                and two["the_field_peak_sits_on_a_contribution_peak"]
+                                and two["coincidence_is_the_only_total_overlap"])})
 
     return {
         "probe": "one_surface",
@@ -290,6 +300,28 @@ def render_markdown(summary: dict) -> str:
         f"`m = {d['T8']['highest_mode_that_still_spans_at_fixed_energy']}`.",
         "",
         f"**Not claimed:** {d['T8']['what_is_not_claimed']}",
+        "",
+        "## Where each front sits on the one surface",
+        "",
+        "| offset `α/π` | at `t/π` | peak `c_A` | peak `u` | amplification |"
+        " overlap arc | `σ` of `c_A` | `σ` of `c_B` | `σ` of `u` |",
+        "|--|--|--|--|--|--|--|--|--|",
+    ]
+    for r in d["T9"]["rows"]:
+        lines.append(
+            f"| `{r['offset_over_pi']:.2f}` | `{r['at_time_over_pi']:.2f}` | "
+            f"`{r['peak_contribution']:.4f}` | `{r['peak_field']:.4f}` | "
+            f"`{r['amplification']:.4f}` | `{r['overlap_arc']:.3f}` | "
+            f"`{r['sigma_of_peak_a_over_pi']:+.2f}π` | "
+            f"`{r['sigma_of_peak_b_over_pi']:+.2f}π` | "
+            f"`{r['sigma_of_peak_field_over_pi']:+.2f}π` |")
+    lo, hi = d["T9"]["amplification_when_apart"]
+    lines += [
+        "",
+        f"Apart, the total is `{lo:.3f}–{hi:.3f}×` **one** contribution, and it "
+        "peaks exactly where a single contribution does.",
+        "",
+        f"> {d['T9']['what_the_offset_buys']}",
         "",
     ]
     return "\n".join(lines)

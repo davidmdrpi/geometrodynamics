@@ -291,3 +291,39 @@ def test_a_one_signed_field_can_never_span(surf):
     p.slice_.reset()
     p.slice_.advance_to(ANTIPODAL_TIME)
     assert not math.isfinite(p.span_gain())
+
+
+# ── the decomposition: what sits where on the one surface ───────────────────
+def test_the_decomposition_sums_to_the_field(surf):
+    d = osf.decompose(surf)
+    assert np.max(np.abs(d["contribution_a"] + d["contribution_b"]
+                         - d["field"])) == 0.0
+    assert len(d["sigma"]) == len(surf.sigma)
+
+
+def test_reinforcing_means_the_contributions_share_a_sign(surf):
+    d = osf.decompose(surf)
+    prod = d["contribution_a"] * d["contribution_b"]
+    assert np.all(prod[d["reinforcing"]] > 0)
+    assert np.all(prod[~d["reinforcing"]] <= 0)
+
+
+def test_the_contributions_barely_overlap_once_the_foci_are_apart():
+    """The offset does not turn interference on -- it turns cancellation off."""
+    got = osf.measure_how_one_surface_answers_two_fronts()
+    assert got["the_contributions_barely_overlap"]
+    lo, hi = got["amplification_when_apart"]
+    assert 1.0 < lo and hi < 1.05
+
+
+def test_the_field_peak_sits_on_one_contributions_peak():
+    """Two near-independent dents, so the total peaks where a single one does."""
+    got = osf.measure_how_one_surface_answers_two_fronts()
+    assert got["the_field_peak_sits_on_a_contribution_peak"]
+
+
+def test_only_coincidence_gives_a_total_overlap_and_it_cancels():
+    got = osf.measure_how_one_surface_answers_two_fronts()
+    assert got["coincidence_is_the_only_total_overlap"]
+    assert got["rows"][0]["peak_field"] == 0.0
+    assert got["rows"][0]["amplification"] == 0.0

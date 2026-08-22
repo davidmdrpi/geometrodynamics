@@ -3379,6 +3379,34 @@ python -m experiments.closure_ledger.one_surface_probe
 
 Full write-up: `docs/one_surface.md`.
 
+### Where each front sits on that surface
+
+Asked inside the one-surface object: as the two axes move apart, where do `A`
+and `B` individually sit, what are their signs, and how does the surface answer?
+Only the **surface** is ever a closed curve in the annulus; the two
+contributions appear on graphs of field against `σ`, and the annulus panels
+colour the single curve by which front owns each arc. An inward dent is a
+negative contribution and an outward one positive, so each front's sign reads
+straight off the surface.
+
+| offset `α/π` | peak `c_A` | peak `u` | amplification | overlap arc |
+|--|--|--|--|--|
+| `0.00` | `0.6710` | `0.0000` | `0.0000` | `0.794` |
+| `0.15` | `1.1796` | `1.1994` | `1.0168` | `0.148` |
+| `0.25` | `1.1796` | `1.1978` | `1.0155` | `0.000` |
+| `1.00` | `1.1796` | `1.1935` | `1.0118` | `0.000` |
+
+At `α = 0` the surface is a **perfect circle** — the contributions cancel
+identically. Past one pulse width they stop overlapping at all, and the total is
+`1.012–1.017×` **one** contribution, peaking exactly where a single one does.
+
+> The offset does not turn interference on. It turns the **cancellation** off,
+> and what is left is two nearly independent dents in one surface.
+
+```bash
+python scripts/geometrodynamics_v68_two_fronts.py --still v68.png
+```
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
