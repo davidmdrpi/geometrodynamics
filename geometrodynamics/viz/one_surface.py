@@ -983,3 +983,120 @@ def measure_how_one_surface_answers_two_fronts(
                                 "apart, and what is left is two nearly "
                                 "independent dents in one surface",
     }
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# THE CROSSING RULE, ON THE ONE SURFACE
+# ════════════════════════════════════════════════════════════════════════════
+def measure_the_drawn_surface_needs_the_crossing_rule(
+        gains: Sequence[float] = (0.10, 0.20, 0.30, 0.40, 0.60),
+        offset: float = 0.5 * math.pi) -> Dict[str, object]:
+    """Two rendering faults, both visible and both mine.
+
+    **The surface leaves the annulus, and the crossing rule has to bring it
+    back.**  v46 glued ``R_outer`` to ``R_inner`` so the radial direction is a
+    circle; a radius driven past one boundary re-enters at the other.  A
+    one-surface rig that plots ``r`` raw drops that rule, and then an excursion
+    just sticks out past the boundary instead of reappearing — so two features
+    on opposite sides of the gap can never meet, and the picture answers "no"
+    to a question it never asked.  Restoring the rule does **not** reintroduce
+    v66's error: it acts on one curve, which is exactly v46's construction.
+
+    **The additive law is not symmetric in polar.**  The field is exactly
+    antisymmetric here — ``max u = −min u`` to the last bit — but
+    ``r = R_mid + εu`` drawn in polar gives ``out/mid ≠ mid/in``, so the inward
+    excursion is squeezed onto a shorter arc and comes to a sharp tip while the
+    outward one stays round.  The multiplicative law ``r = R_mid·exp(εu)`` is a
+    translation in ``ln r``, so the two ratios are *equal by construction* and
+    the picture is symmetric.  The two agree to first order in ``ε``.
+
+    And the thing that must survive both repairs: **the winding is still zero**.
+    One height field on a circle cannot wind whichever rule glues the seam —
+    v46's load-bearing negative result — so restoring the crossing rule buys a
+    visible reappearance and no topological charge.
+    """
+    from .circle_slice import BulkAnnulus, CircleSlice
+
+    q = OneSurfaceSlice(offset=float(offset), signs=OPPOSED)
+    sl = q.slice_
+    b = sl.bulk
+    sl.reset()
+    sl.advance_to(1.9875 * math.pi)
+    u = q.field()
+    hi, lo = float(np.max(u)), float(np.min(u))
+
+    rows = []
+    for g in gains:
+        add_hi, add_lo = b.r_mid + g * hi, b.r_mid + g * lo
+        mul_hi, mul_lo = b.r_mid * math.exp(g * hi), b.r_mid * math.exp(g * lo)
+        rows.append({
+            "gain": float(g),
+            "additive_outer": add_hi,
+            "additive_inner": add_lo,
+            "additive_asymmetry": (add_hi / b.r_mid) / (b.r_mid / add_lo),
+            "multiplicative_outer": mul_hi,
+            "multiplicative_inner": mul_lo,
+            "multiplicative_asymmetry": (mul_hi / b.r_mid)
+                                        / (b.r_mid / mul_lo),
+            "leaves_the_annulus": bool(add_hi > b.r_outer
+                                       or add_lo < b.r_inner),
+        })
+    sl.reset()
+
+    # the winding, under both gluing rules, on the ONE surface
+    wind = []
+    for mode, law in (("translate", "additive"),
+                      ("conformal", "multiplicative")):
+        s2 = CircleSlice(bulk=BulkAnnulus(mode=mode), radial_law=law)
+        s2.reset()
+        s2.advance_to(1.9875 * math.pi)
+        for g in gains:
+            c = s2.seam_crossings(gain=float(g))
+            wind.append({"seam": mode, "radial_law": law, "gain": float(g),
+                         "unsigned": c["unsigned"], "signed": c["signed"],
+                         "winding": s2.winding_number(gain=float(g)),
+                         "sheets": c["sheets_visited"]})
+        s2.reset()
+
+    leaves = [r for r in rows if r["leaves_the_annulus"]]
+    return {
+        "field_is_antisymmetric": bool(abs(hi + lo) < 1e-12),
+        "rows": rows,
+        "winding_rows": wind,
+        "the_surface_leaves_the_annulus": bool(len(leaves) > 0),
+        "smallest_gain_that_leaves": (min(r["gain"] for r in leaves)
+                                      if leaves else None),
+        # the asymmetry GROWS with the excursion -- at a tenth gain it is a
+        # 1.5% effect and invisible, at the drawing gain it is 13% and is the
+        # sharp inner tip.  Asserting it at every gain was wrong: the small-eps
+        # limit is exactly where the two laws agree.
+        "additive_asymmetry_range": (min(r["additive_asymmetry"] for r in rows),
+                                     max(r["additive_asymmetry"] for r in rows)),
+        "the_additive_asymmetry_grows_with_gain": bool(
+            all(rows[i + 1]["additive_asymmetry"] < rows[i]["additive_asymmetry"]
+                for i in range(len(rows) - 1))),
+        "the_additive_law_is_asymmetric_where_it_shows": bool(
+            any(abs(r["additive_asymmetry"] - 1.0) > 0.10
+                for r in rows if r["leaves_the_annulus"])),
+        "the_two_laws_agree_at_small_gain": bool(
+            abs(rows[0]["additive_asymmetry"] - 1.0) < 0.02),
+        "the_multiplicative_law_is_symmetric": bool(
+            all(abs(r["multiplicative_asymmetry"] - 1.0) < 1e-12
+                for r in rows)),
+        "crossings_appear_once_it_leaves": bool(
+            all(w["unsigned"] > 0 for w in wind
+                if w["gain"] >= (min(r["gain"] for r in leaves) if leaves
+                                 else 1e30))),
+        "the_winding_is_still_zero": bool(all(w["winding"] == 0
+                                              and w["signed"] == 0
+                                              for w in wind)),
+        "why_the_asymmetry": "r = R_mid + eps u drawn in polar gives "
+                             "out/mid != mid/in, so an inward excursion is "
+                             "squeezed onto a shorter arc; r = R_mid exp(eps u) "
+                             "is a translation in ln r and the two ratios are "
+                             "equal by construction",
+        "why_the_rule": "the seam gluing is what makes the radial direction a "
+                        "circle; without it an excursion sticks out instead of "
+                        "reappearing, and two features across the gap can "
+                        "never meet",
+    }

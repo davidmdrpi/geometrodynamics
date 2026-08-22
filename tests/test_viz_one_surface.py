@@ -327,3 +327,43 @@ def test_only_coincidence_gives_a_total_overlap_and_it_cancels():
     assert got["coincidence_is_the_only_total_overlap"]
     assert got["rows"][0]["peak_field"] == 0.0
     assert got["rows"][0]["amplification"] == 0.0
+
+
+# ── the crossing rule, and the radial law ───────────────────────────────────
+def test_the_field_is_antisymmetric_but_the_additive_drawing_is_not():
+    """The sharp inner tip is the radial law, not the field."""
+    got = osf.measure_the_drawn_surface_needs_the_crossing_rule()
+    assert got["field_is_antisymmetric"]
+    assert got["the_additive_law_is_asymmetric_where_it_shows"]
+    assert got["the_additive_asymmetry_grows_with_gain"]
+
+
+def test_the_multiplicative_law_is_symmetric_by_construction():
+    """`r = R_mid exp(eps u)` translates in `ln r`, so both ratios agree."""
+    got = osf.measure_the_drawn_surface_needs_the_crossing_rule()
+    assert got["the_multiplicative_law_is_symmetric"]
+    for r in got["rows"]:
+        assert abs(r["multiplicative_asymmetry"] - 1.0) < 1e-12
+
+
+def test_the_two_radial_laws_agree_at_small_gain():
+    """They differ at first order in nothing — the split is an eps^2 effect."""
+    got = osf.measure_the_drawn_surface_needs_the_crossing_rule()
+    assert got["the_two_laws_agree_at_small_gain"]
+
+
+def test_the_surface_leaves_the_annulus_so_it_needs_the_crossing_rule():
+    got = osf.measure_the_drawn_surface_needs_the_crossing_rule()
+    assert got["the_surface_leaves_the_annulus"]
+    assert got["smallest_gain_that_leaves"] is not None
+    assert got["crossings_appear_once_it_leaves"]
+
+
+def test_restoring_the_crossing_rule_buys_no_winding():
+    """v46's negative result has to survive: a height field cannot wind."""
+    got = osf.measure_the_drawn_surface_needs_the_crossing_rule()
+    assert got["the_winding_is_still_zero"]
+    for w in got["winding_rows"]:
+        assert w["winding"] == 0 and w["signed"] == 0
+    # ...and it is not vacuous: the crossings are there to be paid for
+    assert any(w["unsigned"] > 0 for w in got["winding_rows"])

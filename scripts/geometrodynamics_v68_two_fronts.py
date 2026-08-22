@@ -118,7 +118,7 @@ class TwoFrontsFigure:
         # back on their own axes and the deformation is largest
         self.host = OneSurfaceSlice(offset=0.0, signs=OPPOSED)
         self.t_focus = 1.99 * math.pi
-        self.gain = 0.34
+        self.gain = 0.34          # past the seam, so the crossings are visible
 
     def _surf(self, alpha):
         q = OneSurfaceSlice(offset=alpha, signs=OPPOSED)
@@ -135,7 +135,11 @@ class TwoFrontsFigure:
         d = decompose(q)
         b = sl.bulk
         s = q.sigma
-        r = q.radius(gain=self.gain)
+        # the MULTIPLICATIVE radial law: r = R_mid exp(eps u) is a translation
+        # in ln r, so out/mid and mid/in are equal by construction.  The
+        # additive law drawn in polar is not symmetric -- it squeezes an inward
+        # excursion onto a shorter arc and gives it a sharp tip.
+        r = b.r_mid * np.exp(self.gain * q.field())
 
         th = np.linspace(0, TWO_PI, 721)
         for rr in (b.r_inner, b.r_outer):
@@ -152,11 +156,31 @@ class TwoFrontsFigure:
         cols = np.where(live_a & live_b, _PAL["both"],
                         np.where(live_a, _PAL["a"],
                                  np.where(live_b, _PAL["b"], _PAL["quiet"])))
-        xy = np.stack([r * np.cos(s), r * np.sin(s)], axis=-1)
+        # the CROSSING RULE: R_outer is glued to R_inner, so a radius past one
+        # boundary re-enters at the other.  Without it an excursion just sticks
+        # out and two features across the gap can never meet.  It acts on ONE
+        # curve, so this is v46's construction, not v66's.
+        w0 = math.log(b.r_inner)
+        period = math.log(b.r_outer / b.r_inner)
+        off = (np.log(r) - w0) / period
+        sheet = np.floor(off).astype(int)
+        folded = np.exp(w0 + (off - sheet) * period)
+
+        xy = np.stack([folded * np.cos(s), folded * np.sin(s)], axis=-1)
         xy = np.concatenate([xy, xy[:1]])
+        sh = np.concatenate([sheet, sheet[:1]])
         segs = np.stack([xy[:-1], xy[1:]], axis=1)
-        ax.add_collection(LineCollection(segs, colors=list(cols), linewidths=2.6,
-                                         capstyle="round", zorder=5))
+        keep = sh[:-1] == sh[1:]          # break the stroke at every crossing
+        alphas = np.where(sh[:-1] == 0, 1.0, 0.6)[keep]
+        ax.add_collection(LineCollection(
+            segs[keep], colors=list(np.asarray(cols)[keep]), linewidths=2.6,
+            alpha=None, capstyle="round", zorder=5))
+        # mark the crossings, so the reappearance is unmissable
+        cross = np.nonzero(~keep)[0]
+        for k in cross:
+            rr = b.r_outer if sh[k + 1] > sh[k] else b.r_inner
+            ax.plot([rr * math.cos(s[k])], [rr * math.sin(s[k])], "o", ms=4.5,
+                    color=_PAL["hot"], zorder=7)
 
         # the two source axes and the bisector
         coincident = abs(alpha) < 1e-9
@@ -185,7 +209,8 @@ class TwoFrontsFigure:
                else f"alpha = {f:.2f} pi")
         _style(ax, tag, size=8.6)
         ax.text(0.5, 0.02, f"max|u| {d['peak_field']:.3f}   "
-                           f"overlap {d['overlap_arc']:.3f} rad",
+                           f"overlap {d['overlap_arc']:.3f} rad   "
+                           f"crossings {int(np.count_nonzero(~keep))}",
                 transform=ax.transAxes, ha="center", color=_PAL["dim"],
                 fontsize=6.2, family="monospace")
         sl.reset()
@@ -393,8 +418,9 @@ class TwoFrontsFigure:
                       family="monospace")
         self.fig.text(0.5, 0.594,
                       "ROW 1: an INWARD dent is a negative contribution and an "
-                      "OUTWARD one positive -- so the sign of each front is "
-                      "read straight off the surface",
+                      "OUTWARD one positive.  where the surface passes a "
+                      "boundary the stroke BREAKS (dot) and the same surface "
+                      "reappears at the other one -- the radial winding stays 0",
                       color=_PAL["dim"], fontsize=7.2, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.877,

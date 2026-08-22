@@ -2,7 +2,7 @@
 
 **Module:** `geometrodynamics/viz/one_surface.py`
 **Probe:** `python -m experiments.closure_ledger.one_surface_probe` (9/9)
-**Tests:** `tests/test_viz_one_surface.py` (35)
+**Tests:** `tests/test_viz_one_surface.py` (40)
 **Renderers:** `geometrodynamics_v67_one_surface.py`, `geometrodynamics_v68_two_fronts.py`
 **Supersedes the reading of:** `docs/two_wave_slice.md` (v66)
 
@@ -286,6 +286,65 @@ launches **two** arms, they cross at the quarter points, cross again, and the
 surface answers wherever a front is — most strongly at a refocus. The crossings
 are visible as the bright cells; they are where the overlap arc is briefly
 nonzero even at large offset.
+
+## Two rendering faults, both mine
+
+The one-surface rig had two bugs that the picture made obvious as soon as it was
+driven, and they are worth recording because neither was a physics error — both
+were the drawing dropping something the construction supplies.
+
+### The additive law is not symmetric in polar
+
+The field is exactly antisymmetric here: `max u = −min u` to the last bit. But
+`r = R_mid + εu` drawn in polar gives `out/mid ≠ mid/in`, so the inward
+excursion is squeezed onto a shorter arc, comes to a sharp tip, and can knot on
+itself, while the outward one stays round.
+
+| gain | additive out/in ratio-asymmetry | multiplicative |
+|--|--|--|
+| `0.10` | `0.9855` | `1.0000` |
+| `0.20` | `0.9421` | `1.0000` |
+| `0.30` | `0.8698` | `1.0000` |
+| `0.40` | `0.7686` | `1.0000` |
+| `0.60` | `0.4793` | `1.0000` |
+
+`r = R_mid·exp(εu)` is a translation in `ln r`, so the two ratios are **equal by
+construction**. The laws agree to first order — the split is `1.5%` at a tenth
+gain and `13%` at the drawing gain, growing monotonically. The repository
+already carried this: it is the same distinction as the `translate` versus
+`conformal` seam, and `circle_slice` has both.
+
+### The crossing rule was dropped
+
+v46 glued `R_outer` to `R_inner` so the radial direction is a circle: a radius
+past one boundary re-enters at the other. The one-surface rig plotted `r` raw,
+so an excursion just stuck out past the dashed ring instead of reappearing —
+and then **two features on opposite sides of the gap can never meet**, which is
+the picture answering "no" to a question it was never asked.
+
+At the drawing gain the surface does leave the annulus (`0.30` is the smallest
+gain tested that does), so this was not hypothetical.
+
+Restoring the rule does **not** reintroduce the v66 error: it acts on *one*
+curve, which is exactly v46's construction. And the thing that had to survive,
+did:
+
+| law / seam | gain | crossings | signed | winding |
+|--|--|--|--|--|
+| additive / translate | `0.30` | `2` | `0` | `0` |
+| additive / translate | `0.60` | `2` | `0` | `0` |
+| multiplicative / conformal | `0.30` | `2` | `0` | `0` |
+| multiplicative / conformal | `0.60` | `2` | `0` | `0` |
+
+> **The radial winding is still zero**, at every gain, under either rule. Every
+> outward crossing of the seam is paid for by an inward one, because the surface
+> is a single-valued height over the circle. Restoring the crossing rule buys a
+> visible reappearance and no topological charge — v46's load-bearing negative
+> result, intact.
+
+In the rig the count runs `4 → 8 → 16` as the gain is driven up, with the
+winding pinned at `0` throughout, and `0` crossings at `α = 0` where the surface
+is a perfect circle and has nothing to cross with.
 
 ## Scope
 

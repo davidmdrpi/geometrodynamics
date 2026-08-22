@@ -1626,6 +1626,29 @@ Worth recording, because the failure modes repeat:
   index `argmax` reaches first. There are **four** axes in this configuration,
   not one, and the claim is true of the set and false of any member.
 
+* **A drawing that dropped a rule the construction supplies.** The one-surface
+  rig plotted the radius raw, without v46's crossing rule, so an excursion past
+  a boundary stuck out past the dashed ring instead of re-entering at the other
+  one. That is not a cosmetic loss: with the rule gone, two features on opposite
+  sides of the gap can never meet, and the picture silently answers "no" to a
+  question it was never asked. Caught by a reader driving the slider, not by any
+  test — the module's numbers were all correct, because the fault was entirely
+  in the renderer. **A measurement can be right while the picture of it is
+  answering a different question.**
+* **A symmetric field drawn asymmetrically.** `max u = −min u` to the last bit,
+  but `r = R_mid + εu` in polar gives `out/mid ≠ mid/in`, so the inward
+  excursion is squeezed onto a shorter arc and comes to a sharp tip while the
+  outward one stays round — a `13%` effect at the drawing gain and growing.
+  The repository already contained the fix and had tested it a dozen rounds
+  earlier, as the `translate` versus `conformal` seam; the one-surface rig
+  simply did not reach for it. **The asymmetry looked like a result and was a
+  coordinate.**
+* **A readout computed in the wrong place.** The seam-crossing count was
+  computed inside the draw call while the readout re-derived the state from a
+  fresh call that never received it, so it printed `0` at every gain — a plain
+  `undefined || 0`. It looked exactly like the correct answer for a surface that
+  never crosses, which is what made it worth catching rather than shrugging at.
+
 * **A caveat mistaken for a repair.** v66's scope note said plainly that the two
   waves do not interact and that the question was only whether their *images*
   meet. That is accurate, and it is not a defence: naming an ambiguity does not
