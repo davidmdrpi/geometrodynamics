@@ -364,17 +364,53 @@ def test_the_mass_law_inverts_and_has_the_expected_small_mouth_limit():
 
 
 def test_the_bridge_measurement_states_what_it_is_not():
-    """The claim is strong, so the four things it does not say are asserted."""
+    """The claim is strong, so the things it does not say are asserted."""
     got = pt.measure_the_throat_is_an_einstein_rosen_bridge()
     assert got["it_is_an_einstein_rosen_bridge"]
     assert got["the_mass_has_no_free_parameter"]
-    assert got["the_neck_is_an_apparent_horizon"]
+    assert got["the_neck_is_a_marginal_sphere"]
     assert got["schwarzschild_slope_error"] < 1e-15
     assert got["three_masses_agree"] < 1e-12
     assert got["the_gluing_is_hawking_mass_continuity"] < 1e-12
     caveats = " ".join(got["what_it_is_not"]).lower()
-    for word in ("adm", "dimensionless", "handle", "apparent horizon"):
+    for word in ("adm", "dimensionless", "handle", "apparent horizon",
+                 "traversab"):
         assert word in caveats
+
+
+def test_the_marginal_sphere_claim_is_the_identity_and_not_the_horizon():
+    """`H = 0` with `K_ij = 0` gives `θ_± = 0`.  That is a statement about one
+    surface in one slice.
+
+    *An apparent horizon is the **outermost** MOTS*, which needs a global
+    condition on the slice that nothing here evaluates; and *non-traversability
+    is a property of the Lorentzian development*, which needs a lapse that
+    nothing here chooses.  The measurement has to disclaim both itself rather
+    than leave it to a reader — the earlier prose asserted the stronger
+    conclusion directly, which is what this pins.
+    """
+    got = pt.measure_the_throat_is_an_einstein_rosen_bridge()
+    identity = got["the_marginal_sphere_identity"].lower()
+    assert "h = 0" in identity and "k_ij = 0" in identity
+    assert "theta_+ = theta_- = 0" in identity
+    assert "mots" in identity
+
+    caveats = " ".join(got["what_it_is_not"]).lower()
+    assert "not an apparent horizon" in caveats
+    assert "outermost" in caveats
+    assert "not shown to be non-traversable" in caveats
+    assert "no lapse" in caveats
+    # and the one condition under which the stronger claim does follow
+    assert "schwarzschild" in caveats and "added assumption" in caveats
+    # the key that used to assert the horizon outright is gone, not renamed
+    assert "the_neck_is_an_apparent_horizon" not in got
+
+
+def test_the_marginal_sphere_predicate_keeps_its_old_name_working():
+    t = pt.VacuumThroat(mouth_radius=0.05)
+    assert t.neck_is_a_marginal_sphere()
+    assert t.neck_is_a_minimal_surface(), "the old name still resolves"
+    assert abs(t.mouth_f() ** 3 - t.neck_radius()) < 1e-18
 
 
 # ════════════════════════════════════════════════════════════════════════════

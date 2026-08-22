@@ -64,10 +64,27 @@ requiring the Hawking mass not to jump.  `measure_the_throat_is_an_einstein_rose
 carries this together with the four things it does not say — no asymptotic
 region and so no ADM mass, a dimensionless ``M/R`` and not an absolute unit, a
 handle in one ``S³`` rather than a bridge between universes, and a neck that is
-a minimal surface and therefore, on a ``K = 0`` slice, an **apparent horizon**.
-That last is the vacuum face of this arc's earlier result that a *traversable*
-connection needs exotic matter: the throat with none in it is the one that is
-not traversable.
+a **marginal sphere on this slice**.
+
+That last one is stated narrowly on purpose.  What is proved here is an
+identity: ``H = 0`` at the neck and ``K_ij = 0`` on the slice give
+``θ_± = ±H − (tr K − K_nn) = 0``, so **both** null expansions vanish and the
+neck is a minimal, marginally trapped sphere of the initial data.  That is a
+statement about one surface in one slice, and it is the whole of what the
+geometry here establishes.
+
+It is *not* the statement that the neck is an apparent horizon, and it is not
+the statement that the throat cannot be traversed.  "Apparent horizon" is the
+**outermost** MOTS of the slice, which requires checking every enclosing
+surface and is a global condition this module never evaluates.
+Non-traversability is a claim about the **Lorentzian development**, and this
+module supplies spatial initial data only — no lapse, no evolution.  It does
+follow if one additionally takes the development to be the standard vacuum
+Schwarzschild/Einstein–Rosen one, which is the natural reading given that the
+slice *is* the time-symmetric Schwarzschild slice; but that is an added
+assumption about the evolution, not a consequence of the data, and it is
+recorded as one.  Earlier prose in this arc asserted the stronger conclusion
+directly, and that was too strong.
 
 Both the length and the tube's resistance follow in closed form, and both are
 verified against quadrature to ``1e-12``:
@@ -286,10 +303,28 @@ class VacuumThroat:
         a = float(self.mouth_radius)
         return hawking_mass(math.sin(a), math.cos(a))
 
-    def neck_is_a_minimal_surface(self) -> bool:
-        """``f'(f₀) = 0``, so ``H = 0``.  On a ``K = 0`` slice that is an
-        apparent horizon: ``θ_± = ±H`` both vanish."""
+    def neck_is_a_marginal_sphere(self) -> bool:
+        """``f'(f₀) = 0`` gives ``H = 0``; with ``K_ij = 0``, ``θ_± = ±H = 0``.
+
+        Both null expansions vanish, so the neck is a minimal surface and a
+        **marginally trapped sphere of this slice** — a MOTS.  That identity
+        is the whole claim.
+
+        It is deliberately *not* called an apparent horizon.  An apparent
+        horizon is the **outermost** MOTS of a slice; deciding that requires
+        examining every surface enclosing this one, which is a global
+        condition on the slice and is never evaluated here.  Nor does
+        non-traversability follow: that is a statement about the Lorentzian
+        development, and this module supplies spatial initial data with no
+        lapse chosen.  It *does* follow if the development is additionally
+        taken to be the standard vacuum Schwarzschild/Einstein–Rosen one —
+        an assumption about the evolution, not a consequence of the data.
+        """
         return True
+
+    # retained so nothing that imported the older name breaks; the name was
+    # accurate, the docstring attached to it was not
+    neck_is_a_minimal_surface = neck_is_a_marginal_sphere
 
     # ── the two-port ────────────────────────────────────────────────────────
     def _half(self, ell: int, parity: str, rtol: float = 1e-12) -> float:
@@ -917,11 +952,20 @@ def measure_the_throat_is_an_einstein_rosen_bridge(
       scale-modulus theorem of PR #52 requires of anything derived here.
     * Both ends are sewn into the *same* ``S³``, so this is a handle of
       Misner's kind, not a two-sheeted bridge between separate universes.
-    * The neck is a minimal surface, and on a ``K = 0`` slice ``θ_± = ±H``, so
-      a minimal surface is an **apparent horizon**.  The forced throat carries
-      one.  That is consistent with — and is the vacuum face of — this arc's
-      earlier result that a *traversable* connection requires exotic matter:
-      the throat with no exotic matter in it is the one that is not traversable.
+    * The neck is a **marginal sphere of this slice**, and no more than that.
+      ``H = 0`` at the neck together with ``K_ij = 0`` gives ``θ_± = ±H = 0``,
+      so both null expansions vanish and the neck is a MOTS.  That identity is
+      what is proved.  Calling it an **apparent horizon** would be a stronger
+      claim — an apparent horizon is the *outermost* MOTS, a global condition
+      on the slice that is not checked anywhere here — and calling the throat
+      **non-traversable** would be stronger still, since traversability is a
+      property of the Lorentzian development and this is spatial initial data
+      with no lapse chosen.  Non-traversability *does* follow if one
+      additionally takes the development to be the standard vacuum
+      Schwarzschild/Einstein–Rosen one; that is an added assumption about the
+      evolution, and it is the assumption under which this connects to the
+      arc's earlier result that a *traversable* connection requires exotic
+      matter.  Earlier prose in this arc asserted the conclusion directly.
     """
     rows = []
     for a in radii:
@@ -969,7 +1013,11 @@ def measure_the_throat_is_an_einstein_rosen_bridge(
             "hawking_mass_in_the_tube", "hawking_mass_of_the_ambient_mouth"),
         "neck_area_is_sixteen_pi_m_squared": spread("neck_area",
                                                     "sixteen_pi_m_squared"),
-        "the_neck_is_an_apparent_horizon": True,
+        "the_neck_is_a_marginal_sphere": True,
+        "the_marginal_sphere_identity": "H = 0 at the neck and K_ij = 0 on the "
+                                        "slice give theta_+ = theta_- = 0, so "
+                                        "the neck is a minimal surface and a "
+                                        "MOTS of this slice",
         "it_is_an_einstein_rosen_bridge": bool(
             max(slope) < 1e-15
             and spread("mass", "irreducible_mass",
@@ -980,7 +1028,15 @@ def measure_the_throat_is_an_einstein_rosen_bridge(
                            "the Hawking mass is constant on the vacuum piece",
                            "dimensionless: M/R, not an absolute unit",
                            "a handle in one S^3, not a bridge between universes",
-                           "the neck is an apparent horizon, so this is the "
-                           "non-traversable throat -- which is what having no "
-                           "exotic matter in it buys"],
+                           "NOT an apparent horizon: that is the outermost "
+                           "MOTS of the slice, a global condition never "
+                           "checked here -- what is proved is theta_+ = "
+                           "theta_- = 0 at this one surface",
+                           "NOT shown to be non-traversable: traversability "
+                           "is a property of the Lorentzian development and "
+                           "this is spatial initial data with no lapse "
+                           "chosen; it does follow if the development is "
+                           "additionally taken to be the standard vacuum "
+                           "Schwarzschild / Einstein-Rosen one, which is an "
+                           "added assumption about the evolution"],
     }

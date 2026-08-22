@@ -135,12 +135,35 @@ asserted in the tests rather than left as prose.
 3. **It is a handle, not a bridge between universes.** Both ends sew into the
    *same* `S³`, which is Misner's construction rather than the two-sheeted
    Einstein–Rosen picture.
-4. **The neck is an apparent horizon.** It is a minimal surface, and on a
-   `K = 0` slice `θ_± = ±H`, so `H = 0` makes both null expansions vanish. The
-   forced throat carries a horizon and is therefore **not traversable** — which
-   is the vacuum face of §7's result that a traversable connection requires
-   exotic matter. The throat with no exotic matter in it is precisely the one
-   you cannot get through.
+4. **The neck is a marginal sphere of this slice — and that is all.** The
+   result is an identity:
+
+   > `H = 0` at the neck, `K_ij = 0` on the slice  ⟹  `θ_+ = θ_− = 0` .
+
+   Both null expansions vanish, so the neck is a minimal surface and a
+   marginally outer trapped sphere (a MOTS) **of the initial data**. That is a
+   statement about one surface in one slice, and it is the whole of what is
+   established here.
+
+   Two stronger things are *not* established, and earlier drafts of this
+   document asserted them directly.
+
+   - **It is not shown to be an apparent horizon.** An apparent horizon is the
+     **outermost** MOTS of a slice. Deciding that means examining every
+     surface enclosing this one — a global condition on the slice, which
+     nothing in this round evaluates.
+   - **It is not shown to be non-traversable.** Traversability is a property
+     of the **Lorentzian development**, and everything here is spatial initial
+     data with no lapse chosen. Non-traversability *does* follow if one
+     additionally takes the development to be the standard vacuum
+     Schwarzschild / Einstein–Rosen one — the natural reading, since the slice
+     *is* the time-symmetric Schwarzschild slice — and it is under that added
+     assumption, not from the data alone, that this connects to §7's result
+     that a traversable connection requires exotic matter.
+
+   The identity is exact and needs no qualification. The conclusions drawn
+   from it need the conditions named above, and the difference between the two
+   is the correction.
 
 ## There is no cavity
 
@@ -361,8 +384,17 @@ definite answer and this arc has not asked it.
 the mouth's angular size with no free parameter — a *dimensionless* relation
 between the throat and the cosmological radius, which is the only kind PR #52's
 scale-modulus theorem permits. Whether this arc's larger framework can accept a
-throat that is an Einstein–Rosen bridge — carrying an apparent horizon, and so
-not traversable — is a separate question, and it is the one that decides whether
-the mass law is a result about the model or only about this slice. Discharging
-it means checking the horizon against whatever the framework requires of a
-throat that carries signal, and that check has not been done here.
+throat that is an Einstein–Rosen bridge — one whose neck is a marginal sphere
+already on the initial slice — is a separate question, and it is the one that
+decides whether the mass law is a result about the model or only about this
+slice.
+
+Discharging it takes two steps, and only the second is about the framework.
+First the geometric question this round left open: **is this MOTS the outermost
+one, and what is the Lorentzian development?** Neither is settled by the data —
+the first is a global condition on the slice, the second needs a lapse. If the
+development is the standard vacuum Schwarzschild/Einstein–Rosen one then the
+throat does not carry signal and the framework has to accept that; if it is
+not, the question stays open. Only then does the second step — checking the
+answer against whatever the framework requires of a throat that carries signal
+— have something definite to check. Neither step has been done here.

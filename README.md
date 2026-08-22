@@ -3179,13 +3179,27 @@ which is *constant* along the vacuum piece. And the gluing condition **is** a
 mass statement: `(f/2)(1−f'²)` is `f₀/2` on the throat and `sin³χ/2` on the
 ambient, so *the seam is smooth exactly when the Hawking mass doesn't jump.*
 
-Four things it does not say, each asserted in the tests: no asymptotic region so
-**no ADM mass** (the derived mass is quasi-local, unambiguous only because the
+What it does not say, each asserted in the tests: no asymptotic region so **no
+ADM mass** (the derived mass is quasi-local, unambiguous only because the
 Hawking mass is constant); it is **dimensionless**, `M/R`, which is all PR #52's
-scale-modulus theorem allows; both ends sew into the *same* `S³`, so it is a
-handle of Misner's kind; and the neck is a minimal surface, hence on a `K = 0`
-slice an **apparent horizon** — so this is the *non-traversable* throat, which is
-the vacuum face of the arc's earlier "connected implies exotic".
+scale-modulus theorem allows; and both ends sew into the *same* `S³`, so it is a
+handle of Misner's kind.
+
+**And the neck — narrowly.** What is proved is an identity:
+
+```
+H = 0 at the neck ,  K_ij = 0 on the slice   ⟹   θ₊ = θ₋ = 0
+```
+
+so the neck is a minimal surface and a **marginal sphere (MOTS) of this slice**.
+That is a statement about one surface in one slice, and it is all of it. It is
+**not** shown to be an *apparent horizon* — that is the **outermost** MOTS, a
+global condition on the slice nothing here evaluates — and it is **not** shown
+to be *non-traversable*, which is a property of the Lorentzian development,
+while this is spatial initial data with no lapse chosen. Non-traversability
+*does* follow if the development is additionally taken to be the standard vacuum
+Schwarzschild/Einstein–Rosen one, and it is under **that** added assumption that
+this becomes the vacuum face of the arc's earlier "connected implies exotic".
 
 **There is no cavity.** `∇² + R̂/2` with `R̂ = 0` is the plain Laplacian:
 `(f²u')' = 0`, solutions monotone. #264's resonances at `kL = nπ` and its sign

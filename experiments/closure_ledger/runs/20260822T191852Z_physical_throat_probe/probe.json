@@ -466,14 +466,16 @@
         "three_masses_agree": 1.311045672286833e-13,
         "the_gluing_is_hawking_mass_continuity": 1.0060528179905718e-13,
         "neck_area_is_sixteen_pi_m_squared": 0.0,
-        "the_neck_is_an_apparent_horizon": true,
+        "the_neck_is_a_marginal_sphere": true,
+        "the_marginal_sphere_identity": "H = 0 at the neck and K_ij = 0 on the slice give theta_+ = theta_- = 0, so the neck is a minimal surface and a MOTS of this slice",
         "it_is_an_einstein_rosen_bridge": true,
         "the_mass_has_no_free_parameter": true,
         "what_it_is_not": [
           "no asymptotic region, so no ADM mass -- the derived mass is quasi-local, and unambiguous only because the Hawking mass is constant on the vacuum piece",
           "dimensionless: M/R, not an absolute unit",
           "a handle in one S^3, not a bridge between universes",
-          "the neck is an apparent horizon, so this is the non-traversable throat -- which is what having no exotic matter in it buys"
+          "NOT an apparent horizon: that is the outermost MOTS of the slice, a global condition never checked here -- what is proved is theta_+ = theta_- = 0 at this one surface",
+          "NOT shown to be non-traversable: traversability is a property of the Lorentzian development and this is spatial initial data with no lapse chosen; it does follow if the development is additionally taken to be the standard vacuum Schwarzschild / Einstein-Rosen one, which is an added assumption about the evolution"
         ]
       },
       "pass": true

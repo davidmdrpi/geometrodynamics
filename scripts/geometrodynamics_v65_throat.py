@@ -105,7 +105,7 @@ class ThroatFigure:
     def __init__(self, figsize=(13.8, 8.6)) -> None:
         self.fig = plt.figure(figsize=figsize, facecolor=_PAL["bg"])
         gs = self.fig.add_gridspec(
-            2, 2, left=0.075, right=0.975, top=0.820, bottom=0.135,
+            2, 2, left=0.075, right=0.975, top=0.800, bottom=0.135,
             wspace=0.26, hspace=0.52)
         self.ax_prof = self.fig.add_subplot(gs[0, 0], facecolor=_PAL["panel"])
         self.ax_cav = self.fig.add_subplot(gs[0, 1], facecolor=_PAL["panel"])
@@ -310,10 +310,18 @@ class ThroatFigure:
                       "left to choose",
                       color=_PAL["open"], fontsize=7.4, ha="center",
                       family="monospace")
-        self.fig.text(0.5, 0.856,
+        self.fig.text(0.5, 0.852,
                       "quasi-local (no asymptotic region, so no ADM mass), "
-                      "dimensionless M/R, a handle in ONE S^3 -- and the neck "
-                      "is a minimal surface, hence an APPARENT HORIZON",
+                      "dimensionless M/R, a handle in ONE S^3   -   and the "
+                      "neck is a MARGINAL SPHERE of this slice: H = 0 with "
+                      "K_ij = 0 gives theta_+ = theta_- = 0",
+                      color=_PAL["dim"], fontsize=7.0, ha="center",
+                      family="monospace")
+        self.fig.text(0.5, 0.828,
+                      "NOT shown to be an apparent horizon (that is the "
+                      "OUTERMOST MOTS, a global condition), NOT shown to be "
+                      "non-traversable (that needs a LAPSE, and this is "
+                      "initial data)",
                       color=_PAL["dim"], fontsize=7.0, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.022,

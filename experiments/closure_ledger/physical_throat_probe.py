@@ -91,16 +91,28 @@ T6  *** THE THROAT IS AN EINSTEIN-ROSEN BRIDGE, AND ITS MASS IS DERIVED. ***
     mass sqrt(A/16pi) and the Hawking mass agree to 1e-13, the neck area is
     16 pi M^2 exactly, and the gluing condition IS Hawking-mass continuity --
     (f/2)(1 - f'^2) is f0/2 on the throat and sin^3(chi)/2 on the ambient.
-    FOUR THINGS IT DOES NOT SAY, asserted in the tests because the claim is
-    strong enough to be worth not overstating: there is no asymptotic region,
-    so no ADM mass -- the derived mass is quasi-local, unambiguous only because
-    the Hawking mass is constant on the vacuum piece; it is DIMENSIONLESS, M/R
+    WHAT IT DOES NOT SAY, asserted in the tests because the claim is strong
+    enough to be worth not overstating: there is no asymptotic region, so no
+    ADM mass -- the derived mass is quasi-local, unambiguous only because the
+    Hawking mass is constant on the vacuum piece; it is DIMENSIONLESS, M/R
     against the ESU curvature radius, which is the only kind the scale-modulus
-    theorem of #52 allows; both ends sew into the SAME S^3, so it is a handle
-    of Misner's kind; and the neck is a minimal surface, which on a K = 0 slice
-    is an APPARENT HORIZON. That last is the vacuum face of #7's result that a
-    traversable connection needs exotic matter: the throat with none in it is
-    the one that is not traversable.
+    theorem of #52 allows; and both ends sew into the SAME S^3, so it is a
+    handle of Misner's kind.
+    AND THE NECK. What is proved is an IDENTITY: H = 0 at the neck together
+    with K_ij = 0 on the slice gives theta_+ = theta_- = 0, so the neck is a
+    minimal surface and a MARGINAL SPHERE (a MOTS) OF THIS SLICE. That is the
+    whole of it. It is NOT the claim that the neck is an APPARENT HORIZON --
+    an apparent horizon is the OUTERMOST MOTS, a global condition on the slice
+    that nothing here evaluates. And it is NOT the claim that the throat is
+    NON-TRAVERSABLE: traversability is a property of the Lorentzian
+    development, and this probe carries spatial initial data with no lapse
+    chosen. Non-traversability DOES follow if one additionally takes the
+    development to be the standard vacuum Schwarzschild / Einstein-Rosen one,
+    which is the natural reading since the slice IS the time-symmetric
+    Schwarzschild slice -- but that is an ASSUMPTION ABOUT THE EVOLUTION, not
+    a consequence of the data, and it is the assumption under which this
+    connects to #7's result that a traversable connection needs exotic matter.
+    Earlier prose in this arc asserted the stronger conclusion directly.
 
 T7  *** THE ANSWER, WITH ITS CONTROLS. *** Both mouths open, in all eight
     combinations of two quadrature levels, two mouth radii and two gluings, and
