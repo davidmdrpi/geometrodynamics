@@ -1034,10 +1034,20 @@ no ADM mass — what is derived is quasi-local, and unambiguous only because the
 Hawking mass is constant on the vacuum piece; it is **dimensionless**, `M/R`
 against the ESU curvature radius, which is all §52's scale-modulus theorem
 allows; both ends sew into the **same** `S³`, a handle of Misner's kind rather
-than a bridge between universes; and the neck is a minimal surface, hence on a
-`K = 0` slice an **apparent horizon**. That last is the vacuum face of §7's
-"connected implies exotic": the throat with no exotic matter in it is precisely
-the one you cannot get through.
+than a bridge between universes; and the neck is a **marginal sphere of this
+slice**.
+
+That last one is narrower than it first read here. What is proved is an
+identity — `H = 0` at the neck with `K_ij = 0` on the slice gives
+`θ_+ = θ_− = 0`, so the neck is a minimal surface and a MOTS of the initial
+data. It is **not** shown to be an *apparent horizon*, which is the
+**outermost** MOTS and needs a global condition on the slice that nothing here
+evaluates; and it is **not** shown to be *non-traversable*, which is a property
+of the Lorentzian development and needs a lapse that nothing here chooses.
+Non-traversability does follow if the development is additionally taken to be
+the standard vacuum Schwarzschild/Einstein–Rosen one, and it is under **that**
+added assumption — not from the data — that this becomes the vacuum face of
+§7's "connected implies exotic".
 
 **There is no cavity.** The constraint operator is `∇² + R̂/2`, so `R̂ = 0`
 leaves the plain Laplacian: `(f²u')' = 0`, solutions `A + B∫ds/f²`, monotone.
@@ -1059,10 +1069,12 @@ degeneracy — the `k = 1` kernel at `4 = (n+1)²` — so the linear response si
 close to a mode the operator nearly annihilates. **The sign is robust; the
 amplitude at which linearising was legitimate is now the binding question**, and
 this round does not answer it. Nor does it discharge the other one the mass law
-opens: whether a throat that is an Einstein–Rosen bridge — carrying an apparent
-horizon, and so not traversable — is one this arc's larger framework can accept.
-That is what decides whether `M = sin³a/2` is a result about the model or only
-about this slice.
+opens: whether a throat that is an Einstein–Rosen bridge — one whose neck is a
+marginal sphere already on the initial slice — is one this arc's larger
+framework can accept. That question now has a geometric step in front of it,
+which this round also leaves open: whether that MOTS is the outermost one, and
+what the Lorentzian development actually is. Together they decide whether
+`M = sin³a/2` is a result about the model or only about this slice.
 
 ## 24. Two waves connect where one could not (`docs/two_wave_slice.md`)
 
@@ -1698,6 +1710,53 @@ Worth recording, because the failure modes repeat:
   `α` and the error read `2.09`. Fixed by searching one period of
   `|sin(mα/2)|` rather than thresholding. **`argmax` on an all-false mask is a
   silent zero, and it looks like an answer.**
+
+* **A production quantity built out of a cancellation.** `VacuumThroat.
+  admittance` formed the mouth-to-mouth cross term as `½(s − t)` from the two
+  eigenchannel values of a Riccati solve. Both are `O(1)` once `ℓ ≥ 1` and they
+  agree to more and more digits as the neck closes, so the answer was made
+  entirely of the cancelling tail. It survived every check it had, because the
+  only channels anything consumed — `ℓ = 0` and `ℓ = 1` — happen to sit above
+  the solver's floor. At `ℓ = 2, a = 0.05` it returns `−1.17e-14` for a true
+  `+3.00e-16`: **wrong sign, and larger than the answer.** Caught by deriving
+  the closed form, which reaches the same number as a *product* of small
+  factors. **A difference of two numbers cannot carry information the numbers
+  have already lost** — and a formulation with no cancellation in it is not a
+  refinement of one that has, it is a different instrument.
+* **The same failure mode, in the verification of the repair.** Checking the
+  closed form, the first pass computed `C₂` as `½(ν_s − ν_a)` from two `O(1.26)`
+  values and got `3.4879e−16` against the `sinh`-form's `3.0011e−16` — `14%`
+  out. That is the *original* bug, reproduced by hand while auditing it, and it
+  is worth recording because the wrong route looked like the natural one both
+  times.
+* **A retraction that never reached the repo.** An interpretation offered in
+  discussion — that the low modes carry a `400×` WKB amplitude enhancement —
+  was wrong and is withdrawn. It was never committed, so there is nothing in
+  the code or docs to correct; it is recorded here because a claim made out
+  loud and then quietly dropped is the one that comes back. The `400×` that
+  *does* appear in §22 is unrelated and stands: it is the working tube's area
+  against its own mouths', `1/sin²a` at `a = 0.05`.
+* **An identity and its two corollaries, run together as one claim.** `H = 0`
+  with `K_ij = 0` gives `θ_± = 0`, so the neck is a marginal sphere of the
+  slice. That much is exact. §23 then wrote it as *"the neck is an apparent
+  horizon, and therefore the throat is not traversable"* — two further steps,
+  neither of them checked. An apparent horizon is the **outermost** MOTS, a
+  global condition on the slice; non-traversability is a property of the
+  **Lorentzian development**, which needs a lapse the round never chose. The
+  second does follow if the development is taken to be the standard vacuum
+  Schwarzschild/ER one, which is a natural reading and still an *assumption*.
+  Nothing numerical was wrong — the identity holds to the last bit — and that
+  is what let it pass: **an exact result carried two unexamined inferences
+  downstream because they were written in the same sentence as the thing that
+  was proved.**
+* **Two claims stated wider than what was shown.** `f_min > 0` was written as
+  though forced by Einstein's equations; it is forced within the class actually
+  worked in — spherically symmetric, scalar-flat, `K_ij = 0`, `C¹`-matched.
+  And `physical_throat` was discussed as if it posed a dynamical problem; it
+  supplies **spatial initial data only**, and the dynamic problem is not
+  well-posed until a lapse is chosen. Both were corrected in review, and the
+  pattern is the same one §26 keeps finding: **the calculation was right and
+  the sentence around it was not.**
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by

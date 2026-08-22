@@ -91,22 +91,73 @@ T6  *** THE THROAT IS AN EINSTEIN-ROSEN BRIDGE, AND ITS MASS IS DERIVED. ***
     mass sqrt(A/16pi) and the Hawking mass agree to 1e-13, the neck area is
     16 pi M^2 exactly, and the gluing condition IS Hawking-mass continuity --
     (f/2)(1 - f'^2) is f0/2 on the throat and sin^3(chi)/2 on the ambient.
-    FOUR THINGS IT DOES NOT SAY, asserted in the tests because the claim is
-    strong enough to be worth not overstating: there is no asymptotic region,
-    so no ADM mass -- the derived mass is quasi-local, unambiguous only because
-    the Hawking mass is constant on the vacuum piece; it is DIMENSIONLESS, M/R
+    WHAT IT DOES NOT SAY, asserted in the tests because the claim is strong
+    enough to be worth not overstating: there is no asymptotic region, so no
+    ADM mass -- the derived mass is quasi-local, unambiguous only because the
+    Hawking mass is constant on the vacuum piece; it is DIMENSIONLESS, M/R
     against the ESU curvature radius, which is the only kind the scale-modulus
-    theorem of #52 allows; both ends sew into the SAME S^3, so it is a handle
-    of Misner's kind; and the neck is a minimal surface, which on a K = 0 slice
-    is an APPARENT HORIZON. That last is the vacuum face of #7's result that a
-    traversable connection needs exotic matter: the throat with none in it is
-    the one that is not traversable.
+    theorem of #52 allows; and both ends sew into the SAME S^3, so it is a
+    handle of Misner's kind.
+    AND THE NECK. What is proved is an IDENTITY: H = 0 at the neck together
+    with K_ij = 0 on the slice gives theta_+ = theta_- = 0, so the neck is a
+    minimal surface and a MARGINAL SPHERE (a MOTS) OF THIS SLICE. That is the
+    whole of it. It is NOT the claim that the neck is an APPARENT HORIZON --
+    an apparent horizon is the OUTERMOST MOTS, a global condition on the slice
+    that nothing here evaluates. And it is NOT the claim that the throat is
+    NON-TRAVERSABLE: traversability is a property of the Lorentzian
+    development, and this probe carries spatial initial data with no lapse
+    chosen. Non-traversability DOES follow if one additionally takes the
+    development to be the standard vacuum Schwarzschild / Einstein-Rosen one,
+    which is the natural reading since the slice IS the time-symmetric
+    Schwarzschild slice -- but that is an ASSUMPTION ABOUT THE EVOLUTION, not
+    a consequence of the data, and it is the assumption under which this
+    connects to #7's result that a traversable connection needs exotic matter.
+    Earlier prose in this arc asserted the stronger conclusion directly.
 
 T7  *** THE ANSWER, WITH ITS CONTROLS. *** Both mouths open, in all eight
     combinations of two quadrature levels, two mouth radii and two gluings, and
     across the whole vacuum family -- four orders in the neck radius, with the
     smooth-gluing point in the middle of it, so the answer does not depend on
     hitting the gluing condition exactly.
+
+T8  *** WHERE THE RICCATI SOLVE STOPS RESOLVING. *** (PR #267, release
+    hardening.) The static problem on this profile has a CLOSED FORM:
+    f = f0 cosh^2 x with ds = 2f dx turns (f^2 u')' = l(l+1)u into
+    y'' = (2l+1)^2 y, a constant-coefficient equation, and the half-length
+    X = arcosh(1/sin a) has e^-X = tan(a/2) exactly. So with k = 2l+1 and
+    q = tan^2k(a/2),
+        D_l = -2pi sin(a) [ k(1+q^2)/(1-q^2) - cos a ]
+        C_l = +4pi sin(a) k q / (1-q^2)  .
+    That is now the PRODUCTION admittance. The Riccati solve is RETAINED, as
+    an independent validator, and demoted -- because its last step forms
+    Y12 = (s - t)/2 from two eigenchannel values that agree to more digits than
+    the solver carries. At a = 0.05 it is right to 1e-13 at l = 0, to four
+    figures at l = 1, and at l = 2 it returns -1.17e-14 for a true +3.00e-16:
+    wrong sign, and larger than the answer. The DIAGONAL was never affected --
+    the two routes agree to 1e-14 in every channel. The floor is around 1e-12
+    in |Y12|. This probe does NOT pin the 39x factor: that is one solver's step
+    sequence in one build of SciPy. It pins the boundary.
+    The l = 0 channel is special-cased to (pi sin^3 a / cos a) [[-1,1],[1,-1]],
+    which avoids a DIFFERENT near-cancellation -- k coth(2kX) - tanh X is a
+    difference of two quantities both tending to 1 as a -> 0 -- and makes the
+    zero-shunt identity Y(1,1)^T = 0 exact to the last bit rather than to a
+    tolerance. #265's answer is UNCHANGED: solve_matching uses only l = 0 and
+    l = 1, both above the floor, and moves in the 13th digit.
+
+T9  *** THE MOUTH-TO-MOUTH HIERARCHY: C_l ~ a^(4l+3). *** From the closed
+    form, C_l -> 4pi(2l+1) sin(a) tan^(4l+2)(a/2) as a -> 0 -- verified to
+    2e-16 relative at a = 0.05, and the fitted exponents are 3.000, 7.000,
+    11.000, 15.000. Each unit of angular momentum costs FOUR powers of the
+    mouth radius. The ESU kernel is the four n = 1 harmonics x^A, degenerate
+    on the round S^3; a throat cut at one point splits them by LOCAL angular
+    momentum about that point, 1 (X^0 = cos chi) + 3 (X^i = sin chi n^i), and
+    the two pieces cross with C0/C1 = 8.5e+05 at a = 0.05.
+    THE STATEMENT THIS SUPPORTS, and the only one: the static scalar Laplacian
+    on this scalar-flat spatial throat suppresses the local l = 1 mouth-to-
+    mouth channel by ~1e-09 at a = 0.05, while preserving a much stronger
+    monopole channel. It is NOT a statement that orientation cannot cross the
+    throat. One operator, one slice, no lapse chosen, and the l = 1 channel is
+    SMALL rather than zero.
 
 WHAT IT COSTS, AND WHY IT IS SAID OUT LOUD
 ──────────────────────────────────────────
@@ -149,8 +200,10 @@ from geometrodynamics.waves.physical_throat import (
     measure_the_product_tubes_need_anomalous_matter,
     measure_the_shunt_decides_the_sign,
     measure_the_signed_response_on_the_physical_throat,
+    measure_the_mouth_to_mouth_hierarchy,
     measure_the_throat_is_an_einstein_rosen_bridge,
     measure_the_vacuum_throat_has_no_cavity,
+    measure_where_the_riccati_solve_stops_resolving,
 )
 
 
@@ -206,6 +259,23 @@ def run_probe() -> dict:
         "detail": head,
         "pass": bool(head["every_variant_agrees_in_sign"]
                      and head["sign"] == ["opens", "opens"])})
+
+    floor = measure_where_the_riccati_solve_stops_resolving()
+    checks.append({
+        "id": "T8",
+        "name": "*** where the Riccati solve stops resolving (PR #267) ***",
+        "detail": floor,
+        "pass": bool(floor["the_cross_term_fails_at_ell_two"]
+                     and floor["the_diagonal_was_never_affected"]
+                     and floor["riccati_is_trustworthy_through_ell"] == 1)})
+
+    hier = measure_the_mouth_to_mouth_hierarchy()
+    checks.append({
+        "id": "T9",
+        "name": "*** the mouth-to-mouth hierarchy C_l ~ a^(4l+3) ***",
+        "detail": hier,
+        "pass": bool(hier["the_exponent_law_holds"]
+                     and hier["the_asymptotic_is_the_leading_term"])})
 
     wide = measure_the_signed_areal_response()
     return {
@@ -284,6 +354,70 @@ def render_markdown(summary: dict) -> str:
         "there is nowhere for monopole flux to go.",
         "",
         f"**What it costs.** {next(c for c in summary['checks'] if c['id'] == 'T7')['detail']['what_it_costs']}.",
+        "",
+    ]
+
+    floor = next(c for c in summary["checks"] if c["id"] == "T8")["detail"]
+    lines += [
+        "## The two-port in closed form, and where the solve stopped resolving",
+        "",
+        "`f = f₀cosh²x` with `ds = 2f dx` turns `(f²u')' = ℓ(ℓ+1)u` into "
+        "`y'' = (2ℓ+1)²y`, and `e^{−X} = tan(a/2)` exactly.  With `k = 2ℓ+1` "
+        "and `q = tan^{2k}(a/2)`:",
+        "",
+        "> `D_ℓ = −2π sin a [ k(1+q²)/(1−q²) − cos a ]`  ,  "
+        "`C_ℓ = +4π sin a · kq/(1−q²)`",
+        "",
+        f"That is now the production admittance at `a = {floor['mouth_radius']}`.  "
+        "The Riccati solve is kept as an independent validator, not deleted.",
+        "",
+        "| `ℓ` | `C_ℓ` closed form | `C_ℓ` Riccati | rel. error | signs | diagonal rel. error |",
+        "|--|--|--|--|--|--|",
+    ]
+    for r in floor["rows"]:
+        lines.append(
+            f"| {r['ell']} | `{r['cross_closed_form']:+.5e}` | "
+            f"`{r['cross_riccati']:+.5e}` | `{r['cross_relative_error']:.2e}` | "
+            f"{'agree' if r['signs_agree'] else '**opposite**'} | "
+            f"`{r['diagonal_relative_error']:.1e}` |")
+    lines += [
+        "",
+        "The cross term is a *difference* of two eigenchannel values in the "
+        "solve and a *product* of small factors in the closed form.  The "
+        f"floor is around `{floor['the_floor_is_about']:.0e}`; the diagonal "
+        "was never affected.",
+        "",
+        "The `39×` factor is deliberately **not** pinned: it is one solver's "
+        "step sequence in one build of SciPy and would move under any of "
+        "them.  What is pinned is the boundary — that the sign is wrong and "
+        "the magnitude is more than an order of magnitude out, in a channel "
+        "whose honest size is below the solver's floor.",
+        "",
+    ]
+
+    hier = next(c for c in summary["checks"] if c["id"] == "T9")["detail"]
+    lines += [
+        "## The hierarchy",
+        "",
+        f"`{hier['law']}` — fitted exponents "
+        + ", ".join(f"`{f['fitted_exponent']:.6f}`" for f in hier["fits"])
+        + " against `3, 7, 11, 15`.",
+        "",
+        "| `a` | `C₀` | `C₁` | `C₀/C₁` | `C₁/D₁` |",
+        "|--|--|--|--|--|",
+    ]
+    for r in hier["rows"]:
+        lines.append(f"| `{r['mouth_radius']:.2f}` | `{r['C0']:.6e}` | "
+                     f"`{r['C1']:.6e}` | `{r['C0_over_C1']:.4e}` | "
+                     f"`{r['ell_one_transmission']:.3e}` |")
+    lines += [
+        "",
+        f"{hier['kernel_split']}, so the ESU kernel splits `1 ⊕ 3` and the "
+        "two pieces cross four powers of `a` apart.",
+        "",
+        f"**The statement this supports:** {hier['the_narrow_statement']}.",
+        "",
+        f"**What is not claimed:** {hier['what_is_not_claimed']}.",
         "",
     ]
     return "\n".join(lines)

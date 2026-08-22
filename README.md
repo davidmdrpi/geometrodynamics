@@ -3179,13 +3179,27 @@ which is *constant* along the vacuum piece. And the gluing condition **is** a
 mass statement: `(f/2)(1−f'²)` is `f₀/2` on the throat and `sin³χ/2` on the
 ambient, so *the seam is smooth exactly when the Hawking mass doesn't jump.*
 
-Four things it does not say, each asserted in the tests: no asymptotic region so
-**no ADM mass** (the derived mass is quasi-local, unambiguous only because the
+What it does not say, each asserted in the tests: no asymptotic region so **no
+ADM mass** (the derived mass is quasi-local, unambiguous only because the
 Hawking mass is constant); it is **dimensionless**, `M/R`, which is all PR #52's
-scale-modulus theorem allows; both ends sew into the *same* `S³`, so it is a
-handle of Misner's kind; and the neck is a minimal surface, hence on a `K = 0`
-slice an **apparent horizon** — so this is the *non-traversable* throat, which is
-the vacuum face of the arc's earlier "connected implies exotic".
+scale-modulus theorem allows; and both ends sew into the *same* `S³`, so it is a
+handle of Misner's kind.
+
+**And the neck — narrowly.** What is proved is an identity:
+
+```
+H = 0 at the neck ,  K_ij = 0 on the slice   ⟹   θ₊ = θ₋ = 0
+```
+
+so the neck is a minimal surface and a **marginal sphere (MOTS) of this slice**.
+That is a statement about one surface in one slice, and it is all of it. It is
+**not** shown to be an *apparent horizon* — that is the **outermost** MOTS, a
+global condition on the slice nothing here evaluates — and it is **not** shown
+to be *non-traversable*, which is a property of the Lorentzian development,
+while this is spatial initial data with no lapse chosen. Non-traversability
+*does* follow if the development is additionally taken to be the standard vacuum
+Schwarzschild/Einstein–Rosen one, and it is under **that** added assumption that
+this becomes the vacuum face of the arc's earlier "connected implies exotic".
 
 **There is no cavity.** `∇² + R̂/2` with `R̂ = 0` is the plain Laplacian:
 `(f²u')' = 0`, solutions monotone. #264's resonances at `kL = nπ` and its sign
@@ -3208,6 +3222,59 @@ the shunt passes through a pole near `2e−03` and flips it. #264's tube sat at
 throat with zero shunt barely lifts the constraint's exact degeneracy. The sign
 is robust; **the amplitude at which linearising is legitimate is now the binding
 question**, and this round does not answer it.
+
+### Release hardening — the two-port in closed form
+
+*A correctness repair to what #265 shipped, not a new result. The geometry and
+the answer above are unchanged.*
+
+`f'² = 1 − f₀/f` is `f = f₀cosh²x` with `ds = 2f dx`, which turns
+`(f²u')' = ℓ(ℓ+1)u` into `y'' = (2ℓ+1)²y` under `R = y/cosh x` — constant
+coefficients. The half-length has `e^{−X} = tan(a/2)` **exactly**, so with
+`k = 2ℓ+1` and `q = tan^{2k}(a/2)` the whole two-port is rational in `q`:
+
+```
+D_ℓ = −2π sin a [ k(1+q²)/(1−q²) − cos a ]      C_ℓ = +4π sin a · kq/(1−q²)
+```
+
+That is now the production `admittance`. The Riccati solve is **kept as a
+validator** (`admittance_riccati`), not deleted — because the closed form needs
+something independent to be checked against.
+
+**What was wrong with it.** It formed the cross term as `½(s − t)` from two
+eigenchannel values that agree to more digits than the solver carries. At
+`a = 0.05` it is right to `1e-13` at `ℓ = 0` and to four figures at `ℓ = 1`, but
+at `ℓ = 2` it returns **`−1.17e-14` for a true `+3.00e-16`** — wrong sign, and
+larger than the answer. The diagonal was never affected (`1e-14` in every
+channel); the floor is `~1e-12` in `|Y₁₂|`. The tests pin **the boundary, not
+the `39×` factor** — that factor is one solver's step sequence in one build.
+
+**#265's answer is unchanged**: `solve_matching` uses only `ℓ = 0` and `ℓ = 1`,
+both above the floor, and `ΔA/A` moves in the *thirteenth* digit.
+
+**And the closed form gives the hierarchy for free.**
+
+```
+C_ℓ → 4π(2ℓ+1) sin a · tan^{4ℓ+2}(a/2)  ~  a^{4ℓ+3}
+```
+
+— fitted exponents `3.000000 / 7.000004 / 11.000009 / 15.000013`. Each unit of
+angular momentum costs **four powers of the mouth radius**, and `C₀/C₁ = 8.5e5`
+at `a = 0.05`. The four `n = 1` ESU harmonics split locally as `1 ⊕ 3`
+(`X⁰ = cos χ` is `ℓ = 0` at the mouth, the three `Xⁱ = sin χ n̂ⁱ` are `ℓ = 1`),
+so the kernel's two pieces cross four powers of `a` apart.
+
+> The statement this supports, and the only one: **the static scalar Laplacian
+> on this scalar-flat spatial throat suppresses the local `ℓ = 1`
+> mouth-to-mouth channel by `~10⁻⁹` at `a = 0.05`, while preserving a much
+> stronger monopole channel.**
+
+It is **not** a claim that orientation information cannot cross the throat —
+one operator, one slice, **no lapse chosen**, and the `ℓ = 1` channel is small
+rather than zero. Two scope corrections go with it: `f_min > 0` is forced
+within #265's class (spherical, scalar-flat, `K_ij = 0`, `C¹`-matched), not by
+Einstein's equations generally; and `physical_throat` supplies **spatial initial
+data only**.
 
 ```bash
 python -m experiments.closure_ledger.physical_throat_probe

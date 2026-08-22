@@ -64,10 +64,27 @@ requiring the Hawking mass not to jump.  `measure_the_throat_is_an_einstein_rose
 carries this together with the four things it does not say — no asymptotic
 region and so no ADM mass, a dimensionless ``M/R`` and not an absolute unit, a
 handle in one ``S³`` rather than a bridge between universes, and a neck that is
-a minimal surface and therefore, on a ``K = 0`` slice, an **apparent horizon**.
-That last is the vacuum face of this arc's earlier result that a *traversable*
-connection needs exotic matter: the throat with none in it is the one that is
-not traversable.
+a **marginal sphere on this slice**.
+
+That last one is stated narrowly on purpose.  What is proved here is an
+identity: ``H = 0`` at the neck and ``K_ij = 0`` on the slice give
+``θ_± = ±H − (tr K − K_nn) = 0``, so **both** null expansions vanish and the
+neck is a minimal, marginally trapped sphere of the initial data.  That is a
+statement about one surface in one slice, and it is the whole of what the
+geometry here establishes.
+
+It is *not* the statement that the neck is an apparent horizon, and it is not
+the statement that the throat cannot be traversed.  "Apparent horizon" is the
+**outermost** MOTS of the slice, which requires checking every enclosing
+surface and is a global condition this module never evaluates.
+Non-traversability is a claim about the **Lorentzian development**, and this
+module supplies spatial initial data only — no lapse, no evolution.  It does
+follow if one additionally takes the development to be the standard vacuum
+Schwarzschild/Einstein–Rosen one, which is the natural reading given that the
+slice *is* the time-symmetric Schwarzschild slice; but that is an added
+assumption about the evolution, not a consequence of the data, and it is
+recorded as one.  Earlier prose in this arc asserted the stronger conclusion
+directly, and that was too strong.
 
 Both the length and the tube's resistance follow in closed form, and both are
 verified against quadrature to ``1e-12``:
@@ -117,6 +134,41 @@ tube has zero shunt *by identity*, so it does almost nothing to separate the
 operator nearly annihilates.  The sign is robust.  **The window in which
 linearising was legitimate is now the binding question**, and this module does
 not answer it.
+
+Release hardening: the two-port is a closed form
+────────────────────────────────────────────────
+*A correctness repair to what this module shipped, not a new result about the
+geometry.  The answer above is unchanged.*
+
+``f'² = 1 − f₀/f`` is ``f = f₀cosh²x`` with ``ds = 2f dx``, which turns
+``(f²u')' = ℓ(ℓ+1)u`` into ``y'' = (2ℓ+1)²y`` under ``R = y/cosh x`` — constant
+coefficients.  The half-length ``X = arcosh(1/sin a)`` has ``e^{−X} =
+tan(a/2)`` *exactly*, so with ``k = 2ℓ+1`` and ``q = tan^{2k}(a/2)`` the whole
+two-port is rational in ``q``:
+
+    ``D_ℓ = −2π sin a [ k(1+q²)/(1−q²) − cos a ]``
+    ``C_ℓ = +4π sin a · kq/(1−q²)``
+
+`admittance` is now that, and the Riccati solve is retained as
+`admittance_riccati` — an independent validator, demoted rather than deleted.
+It formed the cross term as a *difference* of two eigenchannel values that
+agree to more digits than the solver carries, and at ``ℓ = 2, a = 0.05`` it
+returns ``-1.17e-14`` for a true ``+3.00e-16``.  The diagonal was never
+affected, and the two channels anything downstream consumes — ``ℓ = 0`` and
+``ℓ = 1`` — sit above the floor, so `areal.solve_matching` moves in the
+thirteenth digit.  See `measure_where_the_riccati_solve_stops_resolving`.
+
+The closed form then gives ``C_ℓ ~ a^{4ℓ+3}`` for free: each unit of angular
+momentum costs four powers of the mouth radius, and the ESU kernel's four
+``n = 1`` harmonics split locally as ``1 ⊕ 3`` with the pieces crossing
+``8.5e+05`` apart at ``a = 0.05``.  See `measure_the_mouth_to_mouth_hierarchy`
+— including the narrow statement that supports, and the wider one it does not.
+
+Two scope notes belong with all of the above: ``f_min > 0`` is forced *within
+the class worked in here* — spherically symmetric, scalar-flat, ``K_ij = 0``,
+``C¹``-matched — and not by Einstein's equations in general; and everything in
+this module is **spatial initial data**.  The dynamic problem is not well-posed
+until a lapse is chosen, and none is chosen here.
 """
 
 from __future__ import annotations
@@ -143,6 +195,8 @@ __all__ = [
     "measure_the_shunt_decides_the_sign",
     "measure_the_signed_response_on_the_physical_throat",
     "measure_the_throat_is_an_einstein_rosen_bridge",
+    "measure_where_the_riccati_solve_stops_resolving",
+    "measure_the_mouth_to_mouth_hierarchy",
     "hawking_mass",
 ]
 
@@ -249,10 +303,28 @@ class VacuumThroat:
         a = float(self.mouth_radius)
         return hawking_mass(math.sin(a), math.cos(a))
 
-    def neck_is_a_minimal_surface(self) -> bool:
-        """``f'(f₀) = 0``, so ``H = 0``.  On a ``K = 0`` slice that is an
-        apparent horizon: ``θ_± = ±H`` both vanish."""
+    def neck_is_a_marginal_sphere(self) -> bool:
+        """``f'(f₀) = 0`` gives ``H = 0``; with ``K_ij = 0``, ``θ_± = ±H = 0``.
+
+        Both null expansions vanish, so the neck is a minimal surface and a
+        **marginally trapped sphere of this slice** — a MOTS.  That identity
+        is the whole claim.
+
+        It is deliberately *not* called an apparent horizon.  An apparent
+        horizon is the **outermost** MOTS of a slice; deciding that requires
+        examining every surface enclosing this one, which is a global
+        condition on the slice and is never evaluated here.  Nor does
+        non-traversability follow: that is a statement about the Lorentzian
+        development, and this module supplies spatial initial data with no
+        lapse chosen.  It *does* follow if the development is additionally
+        taken to be the standard vacuum Schwarzschild/Einstein–Rosen one —
+        an assumption about the evolution, not a consequence of the data.
+        """
         return True
+
+    # retained so nothing that imported the older name breaks; the name was
+    # accurate, the docstring attached to it was not
+    neck_is_a_minimal_surface = neck_is_a_marginal_sphere
 
     # ── the two-port ────────────────────────────────────────────────────────
     def _half(self, ell: int, parity: str, rtol: float = 1e-12) -> float:
@@ -281,12 +353,81 @@ class VacuumThroat:
                         method="DOP853")
         return -FOUR_PI / float(sol.y[0, -1])
 
-    def admittance(self, ell: int) -> np.ndarray:
-        """``Y`` in the same convention `areal.solve_matching` expects."""
+    def admittance_riccati(self, ell: int) -> np.ndarray:
+        """``Y`` by the two half-tube Riccati solves.  **Reference, not production.**
+
+        This is the original implementation, kept as an independent check on
+        `admittance_closed_form` — but it is *not* what `admittance` returns,
+        because the last step here,
+
+            ``Y₁₂ = ½(s − t)`` ,
+
+        is a difference of two eigenchannel values that become equal to many
+        digits as soon as the neck is opaque.  The cross term is then built
+        entirely out of the cancelling tail, and the solver's own tolerance is
+        larger than the answer.  At ``a = 0.05, ℓ = 2`` this route returns
+        ``1.17e-14`` for a true ``3.00e-16`` — 39× too large, and with the
+        wrong sign.  See `measure_where_the_riccati_solve_stops_resolving`.
+
+        It remains trustworthy wherever ``|Y₁₂|`` is above roughly ``1e-12``,
+        which covers ``ℓ = 0`` and ``ℓ = 1`` at the working point.
+        """
         s = self._half(int(ell), "symmetric")
         t = self._half(int(ell), "antisymmetric")
         return np.array([[0.5 * (s + t), 0.5 * (s - t)],
                          [0.5 * (s - t), 0.5 * (s + t)]])
+
+    def admittance_closed_form(self, ell: int) -> np.ndarray:
+        """``Y`` in closed form.  Exact, and free of the cancellation above.
+
+        The vacuum profile ``f'² = 1 − f₀/f`` is ``f = f₀cosh²x`` with
+        ``ds = 2f dx``, so the static equation ``(f²u')' = ℓ(ℓ+1)u`` becomes
+
+            ``R_xx + 2 tanh x · R_x − 4ℓ(ℓ+1) R = 0`` ,
+
+        and the substitution ``R = y/cosh x`` reduces it to ``y'' = k²y`` with
+        ``k = 2ℓ+1`` — a *constant-coefficient* equation.  The half-length is
+        ``X = arcosh(1/sin a)``, whose exponential is exactly ``e^{−X} =
+        tan(a/2)``, so with
+
+            ``q = e^{−2kX} = tan^{2k}(a/2)``   and   ``f_m = sin a``
+
+        every hyperbolic function collapses to a rational function of ``q``:
+        ``coth(2kX) = (1+q²)/(1−q²)``, ``csch(2kX) = 2q/(1−q²)``, and
+        ``tanh X = cos a``.  The two-port is then
+
+            ``D_ℓ = −2π sin a [ k(1+q²)/(1−q²) − cos a ]``   (diagonal)
+            ``C_ℓ = +4π sin a · k q/(1−q²)``                 (cross)
+
+        with ``Y = [[D, C], [C, D]]`` by the reflection symmetry of the tube.
+        ``C_ℓ`` is a *product* of small factors, never a difference, which is
+        exactly what the Riccati route cannot offer.
+
+        ``ℓ = 0`` is special-cased to ``(π sin³a / cos a)·[[−1,1],[1,−1]]``.
+        That is the same number — ``q = tan²(a/2)`` reproduces it to ``1e-17``
+        relative — but the diagonal formula gets there as ``k coth(2kX) −
+        tanh X``, a difference of two ``O(1)`` quantities that both tend to
+        ``1`` as ``a → 0``.  Written directly, the zero-shunt identity
+        ``Y·(1,1)ᵀ = 0`` holds to the last bit rather than to a tolerance.
+        """
+        ell = int(ell)
+        a = float(self.mouth_radius)
+        if ell == 0:
+            return self.conductance() * np.array([[-1.0, 1.0], [1.0, -1.0]])
+        k = 2.0 * ell + 1.0
+        q = math.tan(0.5 * a) ** (2.0 * k)
+        w = 1.0 - q * q
+        d = -2.0 * math.pi * math.sin(a) * (k * (1.0 + q * q) / w - math.cos(a))
+        c = FOUR_PI * math.sin(a) * k * q / w
+        return np.array([[d, c], [c, d]])
+
+    def admittance(self, ell: int) -> np.ndarray:
+        """``Y`` in the same convention `areal.solve_matching` expects.
+
+        The closed form — see `admittance_closed_form` for why, and
+        `admittance_riccati` for the solve it replaced.
+        """
+        return self.admittance_closed_form(ell)
 
     def monopole_admittance_closed_form(self) -> np.ndarray:
         """``(4π/I)[[−1,1],[1,−1]]`` — singular, because ``(f²u')' = 0``."""
@@ -426,6 +567,159 @@ def measure_the_product_tubes_need_anomalous_matter(
     }
 
 
+def measure_where_the_riccati_solve_stops_resolving(
+        radius: float = 0.05) -> Dict[str, object]:
+    """**Where the old production path ceases to resolve the physics.**
+
+    `admittance_riccati` forms the cross term as ``½(s − t)`` from the two
+    eigenchannel values.  Both are ``O(1)`` once ``ℓ ≥ 1``, and they agree to
+    more and more digits as the neck closes, so the answer is made entirely of
+    the cancelling tail.  `admittance_closed_form` forms the same number as
+    ``4π sin a · k q/(1−q²)`` — a product, with nothing to cancel.
+
+    The diagonal is unaffected: it is dominated by the mouth term and the two
+    routes agree there to ``1e-14`` in every case below.  It is only ``Y₁₂``
+    that fails, and it fails where the honest answer drops below the solver's
+    own floor — around ``1e-12`` in absolute terms.
+
+    At ``a = 0.05`` the crossover is between ``ℓ = 1`` (``1.3e-04`` relative,
+    already visible) and ``ℓ = 2``, where the Riccati route returns
+    ``-1.17e-14`` for a true ``+3.00e-16``: 39× too large **and the wrong
+    sign**.  At ``ℓ = 3`` the reported value is seven orders out.
+
+    This is stated as a resolution boundary, not as a fixed error factor.  The
+    exact ratio at ``ℓ = 2`` is a property of one solver's step sequence in
+    one build of SciPy and would move under any of them; what does not move is
+    that a difference of two numbers cannot carry information the numbers
+    themselves have already lost.
+    """
+    a = float(radius)
+    t = VacuumThroat(mouth_radius=a)
+    rows = []
+    for ell in (0, 1, 2, 3):
+        cf, ric = t.admittance_closed_form(ell), t.admittance_riccati(ell)
+        rows.append({
+            "ell": ell,
+            "cross_closed_form": float(cf[0, 1]),
+            "cross_riccati": float(ric[0, 1]),
+            "cross_relative_error": float(abs(ric[0, 1] - cf[0, 1])
+                                          / abs(cf[0, 1])),
+            "signs_agree": bool(cf[0, 1] * ric[0, 1] > 0.0),
+            "diagonal_closed_form": float(cf[0, 0]),
+            "diagonal_relative_error": float(abs(ric[0, 0] - cf[0, 0])
+                                             / abs(cf[0, 0])),
+        })
+    resolved = [r for r in rows if r["cross_relative_error"] < 1e-3]
+    return {
+        "mouth_radius": a,
+        "rows": rows,
+        "riccati_is_trustworthy_through_ell": max(r["ell"] for r in resolved),
+        "the_floor_is_about": 1e-12,
+        "why": "Y12 = (s - t)/2 is a difference of two eigenchannel values "
+               "that agree to more digits than the solver carries; the closed "
+               "form is a product of small factors instead",
+        "the_diagonal_was_never_affected": bool(
+            all(r["diagonal_relative_error"] < 1e-13 for r in rows)),
+        "the_cross_term_fails_at_ell_two": bool(
+            rows[2]["cross_relative_error"] > 1.0
+            and not rows[2]["signs_agree"]),
+        "the_closed_form_needs_no_cancellation": True,
+        "what_is_not_claimed": "that the error is 39x -- that number is one "
+                               "solver's step sequence in one build and is "
+                               "not reproducible across them; the claim is "
+                               "the boundary, not the factor",
+    }
+
+
+def measure_the_mouth_to_mouth_hierarchy() -> Dict[str, object]:
+    """``C_ℓ ~ a^{4ℓ+3}``: a small scalar-flat mouth taxes angular momentum.
+
+    From the closed form, ``C_ℓ = 4π sin a · k q/(1−q²)`` with ``k = 2ℓ+1``
+    and ``q = tan^{2k}(a/2)``, so as ``a → 0``
+
+        ``C_ℓ ≃ 4π(2ℓ+1) sin a · tan^{4ℓ+2}(a/2)  ~  a^{4ℓ+3}`` .
+
+    Each unit of ``ℓ`` costs four powers of the mouth radius.  Fitting the
+    exponent numerically over ``a ∈ [1e-3, 5e-3]`` returns ``3.000000``,
+    ``7.000004``, ``11.000009``, ``15.000013`` — the residue is the ``O(a²)``
+    in ``sin a`` and ``tan(a/2)``, which is why the *sharp* check here is not
+    the fit but ``leading_asymptotics``: the closed form agrees with
+    ``4π(2ℓ+1) sin a tan^{4ℓ+2}(a/2)`` to ``2e-16`` relative already at
+    ``a = 0.05``.
+
+    What that means for the ESU kernel: the four ``n = 1`` harmonics ``x^A``
+    are degenerate on the round ``S³``, but a throat cut at one point breaks
+    them up by *local* angular momentum about that point — ``X⁰ = cos χ`` is
+    ``ℓ = 0`` there and the three ``Xⁱ = sin χ n̂ⁱ`` are ``ℓ = 1``.  The
+    kernel therefore splits ``1 ⊕ 3``, and the two pieces cross the throat
+    with conductances four powers of ``a`` apart: ``C₀/C₁ = 8.5e+05`` at the
+    working radius ``a = 0.05``.
+
+    The narrow statement this supports — and the only one it supports — is:
+
+        *the static scalar Laplacian on the #265 scalar-flat spatial throat
+        suppresses the local ``ℓ = 1`` mouth-to-mouth channel by ``~1e-09``
+        at ``a = 0.05``, while preserving a much stronger monopole channel.*
+
+    It is **not** a statement that orientation cannot cross the throat.  This
+    is one operator (the static scalar Laplacian) on one slice (spatial
+    initial data, with no lapse chosen yet — see PR #265's scope note), and
+    the ``ℓ = 1`` channel is small, not zero.
+    """
+    radii = (0.05, 0.10, 0.20, 0.30)
+    rows = []
+    for a in radii:
+        t = VacuumThroat(mouth_radius=a)
+        c0 = float(t.admittance(0)[0, 1])
+        y1 = t.admittance(1)
+        rows.append({
+            "mouth_radius": a,
+            "C0": c0,
+            "C1": float(y1[0, 1]),
+            "C0_over_C1": c0 / float(y1[0, 1]),
+            "ell_one_transmission": float(abs(y1[0, 1] / y1[0, 0])),
+        })
+    fits = []
+    grid = np.geomspace(1e-3, 5e-3, 24)
+    for ell in (0, 1, 2, 3):
+        vals = np.array([VacuumThroat(mouth_radius=float(a)).admittance(ell)[0, 1]
+                         for a in grid])
+        p = np.polyfit(np.log(grid), np.log(vals), 1)
+        fits.append({"ell": ell, "fitted_exponent": float(p[0]),
+                     "expected": 4 * ell + 3})
+    asym = []
+    for ell in (1, 2, 3):
+        k = 2 * ell + 1
+        for a in (0.01, 0.02, 0.05):
+            exact = float(VacuumThroat(mouth_radius=a).admittance(ell)[0, 1])
+            lead = FOUR_PI * k * math.sin(a) * math.tan(0.5 * a) ** (4 * ell + 2)
+            asym.append({"ell": ell, "mouth_radius": a, "exact": exact,
+                         "leading": lead,
+                         "relative": abs(exact / lead - 1.0)})
+    return {
+        "rows": rows,
+        "fits": fits,
+        "leading_asymptotics": asym,
+        "law": "C_l ~ 4 pi (2l+1) sin(a) tan^(4l+2)(a/2) ~ a^(4l+3)",
+        "kernel_split": "the four n=1 harmonics x^A split locally as "
+                        "1 (X^0 = cos chi) + 3 (X^i = sin chi n^i)",
+        "the_exponent_law_holds": bool(
+            all(abs(f["fitted_exponent"] - f["expected"]) < 1e-3 for f in fits)),
+        "the_asymptotic_is_the_leading_term": bool(
+            all(r["relative"] < 1e-3 for r in asym)),
+        "monopole_beats_dipole_by": rows[0]["C0_over_C1"],
+        "the_narrow_statement": "the static scalar Laplacian on this "
+                                "scalar-flat spatial throat suppresses the "
+                                "local l=1 mouth-to-mouth channel by ~1e-09 "
+                                "at a = 0.05, while preserving a much "
+                                "stronger monopole channel",
+        "what_is_not_claimed": "that orientation information cannot cross "
+                               "the throat -- one operator, one slice, no "
+                               "lapse chosen, and the l=1 channel is small "
+                               "rather than zero",
+    }
+
+
 def measure_the_vacuum_throat_has_no_cavity(
         radius: float = 0.05) -> Dict[str, object]:
     """``R̂ = 0`` makes the tube operator the plain Laplacian.
@@ -436,7 +730,11 @@ def measure_the_vacuum_throat_has_no_cavity(
     PR #264's poles at ``kL = nπ`` were a property of matter in the tube.
     """
     t = VacuumThroat(mouth_radius=radius)
-    numeric = t.admittance(0)
+    # the Riccati solve deliberately, not `admittance` -- since PR #267 the
+    # production path *is* the closed form, so comparing it against itself
+    # would check nothing.  ``ℓ = 0`` is the one channel where the solve is
+    # fully resolved, which is what makes it a check on the closed form here.
+    numeric = t.admittance_riccati(0)
     closed = t.monopole_admittance_closed_form()
     wide = TubeModel()
     return {
@@ -654,11 +952,20 @@ def measure_the_throat_is_an_einstein_rosen_bridge(
       scale-modulus theorem of PR #52 requires of anything derived here.
     * Both ends are sewn into the *same* ``S³``, so this is a handle of
       Misner's kind, not a two-sheeted bridge between separate universes.
-    * The neck is a minimal surface, and on a ``K = 0`` slice ``θ_± = ±H``, so
-      a minimal surface is an **apparent horizon**.  The forced throat carries
-      one.  That is consistent with — and is the vacuum face of — this arc's
-      earlier result that a *traversable* connection requires exotic matter:
-      the throat with no exotic matter in it is the one that is not traversable.
+    * The neck is a **marginal sphere of this slice**, and no more than that.
+      ``H = 0`` at the neck together with ``K_ij = 0`` gives ``θ_± = ±H = 0``,
+      so both null expansions vanish and the neck is a MOTS.  That identity is
+      what is proved.  Calling it an **apparent horizon** would be a stronger
+      claim — an apparent horizon is the *outermost* MOTS, a global condition
+      on the slice that is not checked anywhere here — and calling the throat
+      **non-traversable** would be stronger still, since traversability is a
+      property of the Lorentzian development and this is spatial initial data
+      with no lapse chosen.  Non-traversability *does* follow if one
+      additionally takes the development to be the standard vacuum
+      Schwarzschild/Einstein–Rosen one; that is an added assumption about the
+      evolution, and it is the assumption under which this connects to the
+      arc's earlier result that a *traversable* connection requires exotic
+      matter.  Earlier prose in this arc asserted the conclusion directly.
     """
     rows = []
     for a in radii:
@@ -706,7 +1013,11 @@ def measure_the_throat_is_an_einstein_rosen_bridge(
             "hawking_mass_in_the_tube", "hawking_mass_of_the_ambient_mouth"),
         "neck_area_is_sixteen_pi_m_squared": spread("neck_area",
                                                     "sixteen_pi_m_squared"),
-        "the_neck_is_an_apparent_horizon": True,
+        "the_neck_is_a_marginal_sphere": True,
+        "the_marginal_sphere_identity": "H = 0 at the neck and K_ij = 0 on the "
+                                        "slice give theta_+ = theta_- = 0, so "
+                                        "the neck is a minimal surface and a "
+                                        "MOTS of this slice",
         "it_is_an_einstein_rosen_bridge": bool(
             max(slope) < 1e-15
             and spread("mass", "irreducible_mass",
@@ -717,7 +1028,15 @@ def measure_the_throat_is_an_einstein_rosen_bridge(
                            "the Hawking mass is constant on the vacuum piece",
                            "dimensionless: M/R, not an absolute unit",
                            "a handle in one S^3, not a bridge between universes",
-                           "the neck is an apparent horizon, so this is the "
-                           "non-traversable throat -- which is what having no "
-                           "exotic matter in it buys"],
+                           "NOT an apparent horizon: that is the outermost "
+                           "MOTS of the slice, a global condition never "
+                           "checked here -- what is proved is theta_+ = "
+                           "theta_- = 0 at this one surface",
+                           "NOT shown to be non-traversable: traversability "
+                           "is a property of the Lorentzian development and "
+                           "this is spatial initial data with no lapse "
+                           "chosen; it does follow if the development is "
+                           "additionally taken to be the standard vacuum "
+                           "Schwarzschild / Einstein-Rosen one, which is an "
+                           "added assumption about the evolution"],
     }
