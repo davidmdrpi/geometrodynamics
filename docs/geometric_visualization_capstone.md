@@ -1699,6 +1699,40 @@ Worth recording, because the failure modes repeat:
   `|sin(mα/2)|` rather than thresholding. **`argmax` on an all-false mask is a
   silent zero, and it looks like an answer.**
 
+* **A production quantity built out of a cancellation.** `VacuumThroat.
+  admittance` formed the mouth-to-mouth cross term as `½(s − t)` from the two
+  eigenchannel values of a Riccati solve. Both are `O(1)` once `ℓ ≥ 1` and they
+  agree to more and more digits as the neck closes, so the answer was made
+  entirely of the cancelling tail. It survived every check it had, because the
+  only channels anything consumed — `ℓ = 0` and `ℓ = 1` — happen to sit above
+  the solver's floor. At `ℓ = 2, a = 0.05` it returns `−1.17e-14` for a true
+  `+3.00e-16`: **wrong sign, and larger than the answer.** Caught by deriving
+  the closed form, which reaches the same number as a *product* of small
+  factors. **A difference of two numbers cannot carry information the numbers
+  have already lost** — and a formulation with no cancellation in it is not a
+  refinement of one that has, it is a different instrument.
+* **The same failure mode, in the verification of the repair.** Checking the
+  closed form, the first pass computed `C₂` as `½(ν_s − ν_a)` from two `O(1.26)`
+  values and got `3.4879e−16` against the `sinh`-form's `3.0011e−16` — `14%`
+  out. That is the *original* bug, reproduced by hand while auditing it, and it
+  is worth recording because the wrong route looked like the natural one both
+  times.
+* **A retraction that never reached the repo.** An interpretation offered in
+  discussion — that the low modes carry a `400×` WKB amplitude enhancement —
+  was wrong and is withdrawn. It was never committed, so there is nothing in
+  the code or docs to correct; it is recorded here because a claim made out
+  loud and then quietly dropped is the one that comes back. The `400×` that
+  *does* appear in §22 is unrelated and stands: it is the working tube's area
+  against its own mouths', `1/sin²a` at `a = 0.05`.
+* **Two claims stated wider than what was shown.** `f_min > 0` was written as
+  though forced by Einstein's equations; it is forced within the class actually
+  worked in — spherically symmetric, scalar-flat, `K_ij = 0`, `C¹`-matched.
+  And `physical_throat` was discussed as if it posed a dynamical problem; it
+  supplies **spatial initial data only**, and the dynamic problem is not
+  well-posed until a lapse is chosen. Both were corrected in review, and the
+  pattern is the same one §26 keeps finding: **the calculation was right and
+  the sentence around it was not.**
+
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
 an independent construction — a closed form against brute

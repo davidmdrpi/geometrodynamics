@@ -224,6 +224,111 @@ coefficient, not about a geometry that has moved by that much — but it does me
 the amplitude at which the linearisation can be trusted is set far from the
 throat, in the region where the near-zero mode is large.
 
+## Release hardening: the two-port in closed form, and where the solve stopped
+
+*Added after the round closed. This is a correctness repair to an implementation
+this round shipped, not a new result about the geometry — the geometry is
+unchanged and so is the answer above.*
+
+**The static problem on this profile has a closed form.** `f'² = 1 − f₀/f` is
+`f = f₀cosh²x` with `ds = 2f dx`, which turns
+
+    (f²u')' = ℓ(ℓ+1) u    into    R_xx + 2 tanh x · R_x − 4ℓ(ℓ+1) R = 0 ,
+
+and the substitution `R = y/cosh x` reduces *that* to `y'' = (2ℓ+1)² y` — a
+constant-coefficient equation. The half-length is `X = arcosh(1/sin a)`, whose
+exponential is exactly `e^{−X} = tan(a/2)`, so with
+
+    k = 2ℓ+1 ,   q = e^{−2kX} = tan^{2k}(a/2) ,   f_m = sin a
+
+every hyperbolic function collapses to a rational function of `q`
+(`coth 2kX = (1+q²)/(1−q²)`, `csch 2kX = 2q/(1−q²)`, `tanh X = cos a`), and the
+two-port is
+
+> `D_ℓ = −2π sin a [ k(1+q²)/(1−q²) − cos a ]` ,
+> `C_ℓ = +4π sin a · kq/(1−q²)` ,   `Y_ℓ = [[D, C], [C, D]]` .
+
+That is now `VacuumThroat.admittance`. `ℓ = 0` is special-cased to
+`(π sin³a / cos a)·[[−1,1],[1,−1]]` — the same number to `1e-17` relative, but
+written that way the zero-shunt identity `Y·(1,1)ᵀ = 0` holds **to the last
+bit** instead of to a tolerance, and the general diagonal's own near-cancellation
+(`k coth 2kX − tanh X`, two quantities both tending to `1` as `a → 0`) is
+avoided.
+
+**Where the Riccati solve stopped resolving.** The solve is retained, as
+`admittance_riccati`, and demoted to a validator rather than deleted — the
+closed form needs something independent to be checked against. What is wrong
+with it is its last step: it forms
+
+    Y₁₂ = ½(s − t)
+
+from the two eigenchannel values. Both are `O(1)` once `ℓ ≥ 1`, and they agree
+to more and more digits as the neck closes, so the cross term ends up made
+entirely of the cancelling tail. At `a = 0.05`:
+
+| `ℓ` | `C_ℓ` closed form | `C_ℓ` Riccati | rel. error | signs | diagonal |
+|--|--|--|--|--|--|
+| 0 | `+3.92699e-04` | `+3.92699e-04` | `7.5e-14` | agree | `7.5e-14` |
+| 1 | `+4.60578e-10` | `+4.60517e-10` | `1.3e-04` | agree | `9.7e-14` |
+| 2 | `+3.00105e-16` | `−1.16573e-14` | `3.98e+01` | **opposite** | `9.4e-15` |
+| 3 | `+1.64257e-22` | `−7.54952e-15` | `4.60e+07` | **opposite** | `4.0e-15` |
+
+The **diagonal was never affected** — it is dominated by the mouth term and the
+two routes agree to `1e-14` in every channel. The floor is around `1e-12` in
+`|Y₁₂|`.
+
+The `39×` at `ℓ = 2` is deliberately **not** pinned by a test. That factor is
+one solver's step sequence in one build of SciPy and would move under any of
+them. What the tests pin is the boundary: the sign is wrong, the magnitude is
+more than an order of magnitude out, and the honest answer lies below the
+solver's floor. A difference of two numbers cannot carry information the
+numbers have already lost.
+
+**The answer above is unchanged.** `solve_matching` consumes only `ℓ = 0` and
+`ℓ = 1`, both above the floor; swapping the closed form in moves `ΔA/A` in the
+**thirteenth digit** (`6.637503334434484 → 6.637503334434201`). That is checked
+directly rather than asserted — if it had moved, the old number would have been
+carried by the broken term.
+
+**What the closed form then shows, for free.** As `a → 0`,
+
+    C_ℓ  →  4π(2ℓ+1) sin a · tan^{4ℓ+2}(a/2)   ~   a^{4ℓ+3} ,
+
+verified to `2e-16` relative already at `a = 0.05`, with fitted exponents
+`3.000000`, `7.000004`, `11.000009`, `15.000013`. **Each unit of angular
+momentum costs four powers of the mouth radius.**
+
+| `a` | `C₀` | `C₁` | `C₀/C₁` | `C₁/D₁` |
+|--|--|--|--|--|
+| `0.05` | `3.926992e-04` | `4.605780e-10` | `8.5262e+05` | `7.33e-10` |
+| `0.10` | `3.141614e-03` | `5.910168e-08` | `5.3156e+04` | `4.70e-08` |
+| `0.20` | `2.513546e-02` | `7.641316e-06` | `3.2894e+03` | `3.03e-06` |
+| `0.30` | `8.487017e-02` | `1.327738e-04` | `6.3921e+02` | `3.50e-05` |
+
+That connects to the ESU kernel. The four `n = 1` harmonics `x^A` are degenerate
+on the round `S³`, but a throat cut at one point splits them by *local* angular
+momentum about that point: `X⁰ = cos χ` is `ℓ = 0` there and the three
+`Xⁱ = sin χ n̂ⁱ` are `ℓ = 1`. The kernel therefore splits `1 ⊕ 3`, and the two
+pieces cross the throat four powers of `a` apart.
+
+**The statement this supports, and the only one:**
+
+> The static scalar Laplacian on this scalar-flat spatial throat suppresses the
+> local `ℓ = 1` mouth-to-mouth channel by `~10⁻⁹` at `a = 0.05`, while
+> preserving a much stronger monopole channel.
+
+It is **not** a statement that orientation information cannot cross the throat.
+This is one operator (the static scalar Laplacian) on one slice — and, per the
+scope note below, `physical_throat` supplies spatial initial data only, with no
+lapse chosen, so there is no dynamical problem here to make such a claim about.
+The `ℓ = 1` channel is **small, not zero**.
+
+**Two scope corrections to this round's own prose, while here.** `f_min > 0` is
+forced *within the class this round works in* — spherically symmetric,
+scalar-flat, `K_ij = 0`, `C¹`-matched — not by Einstein's equations in general;
+and everything in this file is **spatial initial data**. The dynamic problem is
+not well-posed until a lapse is chosen, and none is.
+
 ## What is still put in
 
 * The **source** is PR #263's: a linear conformally coupled scalar on a *fixed*

@@ -95,25 +95,42 @@ def test_only_one_product_area_carries_the_ambient_fluid():
 
 # ── no cavity ───────────────────────────────────────────────────────────────
 def test_the_vacuum_throats_monopole_admittance_is_the_closed_form():
+    """Deliberately the *Riccati* solve, not `admittance`.
+
+    Since the closed form became production, `admittance(0)` and
+    `monopole_admittance_closed_form` are the same expression, and comparing
+    them would check nothing.  The solve is fully resolved at ``ℓ = 0``, so it
+    is the independent number here.
+    """
     for a in (0.05, 0.10):
         t = pt.VacuumThroat(mouth_radius=a)
-        num = t.admittance(0)
+        num = t.admittance_riccati(0)
         closed = t.monopole_admittance_closed_form()
         assert np.max(np.abs(num - closed)) < 1e-10 * np.max(np.abs(closed))
 
 
 def test_the_monopole_admittance_is_singular_because_flux_is_conserved():
-    """``(f²u')' = 0`` makes ``Y·(1,1) = 0`` an identity, not a cancellation."""
+    """``(f²u')' = 0`` makes ``Y·(1,1) = 0`` an identity, not a cancellation.
+
+    With the closed form as production the *matrix* identities are now exact
+    to the last bit — which is the reason ``ℓ = 0`` is special-cased as
+    ``G·[[−1,1],[1,−1]]`` rather than evaluated through the general
+    ``k coth(2kX) − tanh X``.
+
+    The determinant is the exception, and deliberately not asserted exact:
+    `np.linalg.det` is an LU factorisation with pivoting and carries its own
+    rounding, so it returns ``1.4e-21`` on a matrix whose rows are bitwise
+    negatives of each other.  That is the routine's error, not the throat's,
+    and the relative tolerance is where it belongs.
+    """
     for a in (0.02, 0.05, 0.10, 0.20):
         t = pt.VacuumThroat(mouth_radius=a)
         y = t.admittance(0)
         scale = float(np.max(np.abs(y)))
-        # the claim is that det vanishes *relative to the matrix*, so the
-        # tolerance has to scale with it -- an absolute one is a different,
-        # stronger claim that happens to hold only at small a
+        assert np.max(np.abs(y @ np.ones(2))) == 0.0
+        assert t.shunt() == 0.0
+        assert y[0, 0] == -y[0, 1] and y[1, 1] == -y[1, 0]
         assert abs(float(np.linalg.det(y))) < 1e-14 * scale ** 2
-        assert np.max(np.abs(y @ np.ones(2))) < 1e-14 * scale
-        assert abs(t.shunt()) < 1e-14 * scale
 
 
 def test_a_tube_with_matter_in_it_shunts_and_a_vacuum_one_does_not():
@@ -358,3 +375,241 @@ def test_the_bridge_measurement_states_what_it_is_not():
     caveats = " ".join(got["what_it_is_not"]).lower()
     for word in ("adm", "dimensionless", "handle", "apparent horizon"):
         assert word in caveats
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# THE CLOSED-FORM TWO-PORT  (PR #267)
+#
+# Three kinds of check, deliberately separated:
+#
+#   1. agreement with the Riccati solve *in the regime the solve resolves* --
+#      that is what says the closed form is the same object, not a new one;
+#   2. exact structural identities, which hold to the last bit and do not
+#      depend on any solver at all;
+#   3. the resolution boundary itself -- pinned as a boundary, not as an
+#      error factor, because the factor is floating-point dependent and the
+#      boundary is not.
+# ════════════════════════════════════════════════════════════════════════════
+
+# ── 1. the two routes agree where the solve is resolved ─────────────────────
+@pytest.mark.parametrize("a", [0.05, 0.10, 0.20, 0.30])
+@pytest.mark.parametrize("ell", [0, 1])
+def test_the_closed_form_reproduces_the_riccati_solve_where_it_resolves(a, ell):
+    """``ℓ = 0`` and ``ℓ = 1`` are above the solver's floor at every radius here.
+
+    The diagonal is the sharp comparison -- it is ``O(1)`` and carries no
+    cancellation, so it must agree to ``1e-10`` relative.  The cross term is
+    checked more loosely because the *solve* loses digits to the ``½(s − t)``
+    subtraction long before the closed form does; ``ℓ = 1`` at ``a = 0.05`` is
+    already down to four figures.
+    """
+    t = pt.VacuumThroat(mouth_radius=a)
+    cf, ric = t.admittance_closed_form(ell), t.admittance_riccati(ell)
+    assert abs(cf[0, 0] / ric[0, 0] - 1.0) < 1e-10
+    assert abs(cf[0, 1] / ric[0, 1] - 1.0) < 1e-3
+    assert cf[0, 1] * ric[0, 1] > 0.0, "and they agree in sign"
+
+
+def test_the_monopole_channel_agrees_to_ten_digits_by_both_routes():
+    """The one channel where nothing cancels in either route."""
+    for a in (0.02, 0.05, 0.10, 0.20, 0.50):
+        t = pt.VacuumThroat(mouth_radius=a)
+        cf, ric = t.admittance_closed_form(0), t.admittance_riccati(0)
+        assert np.max(np.abs(cf / ric - 1.0)) < 1e-10
+
+
+def test_production_admittance_is_the_closed_form_not_the_solve():
+    for a in (0.05, 0.20):
+        t = pt.VacuumThroat(mouth_radius=a)
+        for ell in (0, 1, 2):
+            assert np.array_equal(t.admittance(ell),
+                                  t.admittance_closed_form(ell))
+
+
+def test_the_riccati_solve_is_retained_as_a_validator():
+    """It is demoted, not deleted -- the check above needs something to check
+    *against*, and an implementation with no second opinion is not verified."""
+    assert hasattr(pt.VacuumThroat, "admittance_riccati")
+    assert hasattr(pt.VacuumThroat, "admittance_closed_form")
+    y = pt.VacuumThroat(mouth_radius=0.05).admittance_riccati(0)
+    assert np.all(np.isfinite(y))
+
+
+# ── 2. exact structural identities ──────────────────────────────────────────
+@pytest.mark.parametrize("a", [0.01, 0.02, 0.05, 0.10, 0.20, 0.50, 1.0])
+def test_the_zero_shunt_identity_is_exact_in_the_closed_form(a):
+    """``Y₀·(1,1)ᵀ = 0`` to the last bit, because ``ℓ = 0`` is written as
+    ``G·[[−1,1],[1,−1]]`` rather than assembled from ``D₀`` and ``C₀``."""
+    y = pt.VacuumThroat(mouth_radius=a).admittance_closed_form(0)
+    assert np.array_equal(y @ np.ones(2), np.zeros(2))
+    assert y[0, 0] == -y[0, 1]
+    assert y[0, 1] == y[1, 0]
+
+
+@pytest.mark.parametrize("a", [0.01, 0.02, 0.05, 0.10, 0.20, 0.50, 1.0])
+def test_the_monopole_cross_term_is_four_pi_over_the_resistance(a):
+    """``C₀ = 4π/I`` with ``I = ∫ds/f² = 4cos a/sin³a`` -- the DC conductance
+    of the tube, arrived at from the wave equation rather than assumed."""
+    t = pt.VacuumThroat(mouth_radius=a)
+    assert t.admittance_closed_form(0)[0, 1] == 4.0 * math.pi / t.resistance()
+    assert abs(t.admittance_closed_form(0)[0, 1]
+               - math.pi * math.sin(a) ** 3 / math.cos(a)) < 1e-18
+
+
+@pytest.mark.parametrize("a", [0.005, 0.01, 0.02, 0.05, 0.10, 0.50])
+def test_the_general_formula_reproduces_the_monopole_special_case(a):
+    """The special case is a *stability* choice, not a different answer.
+
+    The general ``q``-form's cross term is exact — it is the same product.
+    Its *diagonal* is not: ``k coth(2kX) − tanh X`` is a difference of two
+    quantities that both tend to ``1`` as ``a → 0``, so the answer is built
+    out of the cancelling tail.  It still agrees to ``1e-11``, which is why
+    this is a stability choice rather than a correction, but the error grows
+    as the mouth closes — ``3e-14`` at ``a = 0.02``, ``6e-12`` at
+    ``a = 0.005`` — and that is the near-cancellation the special case exists
+    to avoid.  The next test shows what it buys.
+    """
+    k, q = 1.0, math.tan(0.5 * a) ** 2
+    w = 1.0 - q * q
+    d = -2.0 * math.pi * math.sin(a) * (k * (1.0 + q * q) / w - math.cos(a))
+    c = 4.0 * math.pi * math.sin(a) * k * q / w
+    y = pt.VacuumThroat(mouth_radius=a).admittance_closed_form(0)
+    assert abs(c / y[0, 1] - 1.0) < 1e-15
+    assert abs(d / y[0, 0] - 1.0) < 1e-11
+
+
+def test_the_special_case_is_what_makes_the_zero_shunt_identity_exact():
+    """Side by side: the general form's shunt residue against the special
+    case's, which is exactly zero at every radius."""
+    worst_general = 0.0
+    for a in (0.005, 0.01, 0.02, 0.05, 0.10, 0.20, 0.50):
+        q = math.tan(0.5 * a) ** 2
+        w = 1.0 - q * q
+        d = -2.0 * math.pi * math.sin(a) * ((1.0 + q * q) / w - math.cos(a))
+        c = 4.0 * math.pi * math.sin(a) * q / w
+        worst_general = max(worst_general, abs(d + c) / abs(c))
+        assert pt.VacuumThroat(mouth_radius=a).shunt() == 0.0
+    assert worst_general > 1e-13, "the general form really does leave a residue"
+    assert worst_general < 1e-10, "and it is small -- a stability choice, not a fix"
+
+
+@pytest.mark.parametrize("ell", [1, 2, 3, 4])
+@pytest.mark.parametrize("a", [0.01, 0.02, 0.05])
+def test_the_small_mouth_asymptotic_is_the_leading_term(ell, a):
+    """``C_ℓ → 4π(2ℓ+1) sin a · tan^{4ℓ+2}(a/2)``.
+
+    The correction is ``O(q²) = O(a^{8ℓ+4})``, so at these radii the leading
+    term *is* the answer to machine precision.
+    """
+    exact = pt.VacuumThroat(mouth_radius=a).admittance_closed_form(ell)[0, 1]
+    lead = (4.0 * math.pi * (2 * ell + 1) * math.sin(a)
+            * math.tan(0.5 * a) ** (4 * ell + 2))
+    assert abs(exact / lead - 1.0) < 1e-12
+
+
+@pytest.mark.parametrize("a", [0.05, 0.20, 0.50])
+@pytest.mark.parametrize("ell", [0, 1, 2, 3])
+def test_the_closed_form_two_port_is_symmetric_and_the_cross_term_positive(a, ell):
+    y = pt.VacuumThroat(mouth_radius=a).admittance_closed_form(ell)
+    assert y[0, 1] == y[1, 0]
+    assert y[0, 0] == y[1, 1]
+    assert y[0, 1] > 0.0 and y[0, 0] < 0.0
+
+
+def test_the_exponent_hierarchy_is_four_powers_per_unit_of_angular_momentum():
+    got = pt.measure_the_mouth_to_mouth_hierarchy()
+    assert got["the_exponent_law_holds"]
+    assert got["the_asymptotic_is_the_leading_term"]
+    assert [f["expected"] for f in got["fits"]] == [3, 7, 11, 15]
+    assert 8.0e5 < got["monopole_beats_dipole_by"] < 9.0e5
+    row = got["rows"][0]
+    assert row["mouth_radius"] == 0.05
+    assert 5e-10 < row["ell_one_transmission"] < 1e-9
+
+
+def test_the_hierarchy_states_the_narrow_claim_and_not_the_wide_one():
+    """The proved statement is about one operator on one slice.  It is *not*
+    that BAM cannot transmit orientation through the throat, and the
+    measurement has to say so itself rather than leaving it to a reader."""
+    got = pt.measure_the_mouth_to_mouth_hierarchy()
+    narrow = got["the_narrow_statement"].lower()
+    assert "static scalar laplacian" in narrow
+    assert "l=1" in narrow and "monopole" in narrow
+    assert "a = 0.05" in narrow
+    disclaimer = got["what_is_not_claimed"].lower()
+    assert "orientation" in disclaimer
+    assert "lapse" in disclaimer
+    assert "small rather than zero" in disclaimer
+
+
+# ── 3. the resolution boundary ──────────────────────────────────────────────
+def test_the_closed_form_still_produces_a_dipole_scale_answer_at_ell_two():
+    """``C₂ ≈ 3.00105e-16`` at ``a = 0.05`` -- and, crucially, **not** built
+    as a difference of the two eigenchannels.
+
+    ``3e-16`` is roughly ``eps`` times the diagonal ``1.2565``, which is
+    exactly why no subtraction of two ``O(1)`` numbers can produce it.  The
+    closed form reaches it as a product, ``4π sin a · 5q/(1−q²)``, and every
+    factor there is representable.
+    """
+    t = pt.VacuumThroat(mouth_radius=0.05)
+    c2 = float(t.admittance_closed_form(2)[0, 1])
+    assert abs(c2 / 3.001054624604e-16 - 1.0) < 1e-9
+    # a product, not a difference: the same number from the raw factors
+    q = math.tan(0.025) ** 10
+    by_hand = 4.0 * math.pi * math.sin(0.05) * 5.0 * q / (1.0 - q * q)
+    assert c2 == by_hand
+    # and it is far below what a subtraction on this diagonal could carry
+    assert c2 < 1e-15 * abs(float(t.admittance_closed_form(2)[0, 0]))
+
+
+def test_the_riccati_solve_stops_resolving_the_cross_term_at_ell_two():
+    got = pt.measure_where_the_riccati_solve_stops_resolving()
+    assert got["riccati_is_trustworthy_through_ell"] == 1
+    assert got["the_cross_term_fails_at_ell_two"]
+    assert got["the_diagonal_was_never_affected"]
+    rows = {r["ell"]: r for r in got["rows"]}
+    assert rows[0]["cross_relative_error"] < 1e-12
+    assert rows[1]["cross_relative_error"] < 1e-3
+    assert rows[2]["cross_relative_error"] > 1.0
+    assert not rows[2]["signs_agree"]
+
+
+def test_the_boundary_is_pinned_and_the_error_factor_is_not():
+    """A test asserting *39x* would be a test of one build of SciPy.
+
+    What is asserted is the pair of statements that survive a change of
+    solver: the sign is wrong, and the magnitude is above the true value by
+    more than an order of magnitude, at a channel whose honest size is below
+    the solver's floor.
+    """
+    got = pt.measure_where_the_riccati_solve_stops_resolving()
+    row = {r["ell"]: r for r in got["rows"]}[2]
+    assert row["cross_closed_form"] > 0.0
+    assert row["cross_riccati"] < 0.0
+    assert abs(row["cross_riccati"]) > 10.0 * row["cross_closed_form"]
+    assert row["cross_closed_form"] < got["the_floor_is_about"]
+    assert "not reproducible" in got["what_is_not_claimed"]
+
+
+def test_the_downstream_matching_is_unchanged_by_the_repair():
+    """`areal.solve_matching` consumes only ``ℓ = 0`` and ``ℓ = 1``, both of
+    which the solve did resolve -- so the repair must *not* move the #265
+    answer.  If it did, the old number was being carried by the broken term."""
+    m = areal.INTERFERENCE_MOMENTS[1]
+    a = m.radius
+    basis = areal.basis_channels(areal.MOUTHS, a)
+    throat = pt.VacuumThroat(mouth_radius=a)
+
+    class _Riccati:
+        def admittance(self, ell):
+            return throat.admittance_riccati(int(ell))
+
+    new = np.asarray(areal.solve_matching(
+        areal.MOUTHS, a, throat, m.as_source(), m.signed_obstruction(),
+        basis=basis)["areal_response"], float)
+    old = np.asarray(areal.solve_matching(
+        areal.MOUTHS, a, _Riccati(), m.as_source(), m.signed_obstruction(),
+        basis=basis)["areal_response"], float)
+    assert np.max(np.abs(new / old - 1.0)) < 1e-8
+    assert np.all(new > 0.0), "both mouths still open"
