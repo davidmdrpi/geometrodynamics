@@ -3217,6 +3217,196 @@ python scripts/geometrodynamics_v65_throat.py --still v65.png
 
 Full write-up: `docs/which_throat_is_physical.md`.
 
+## Two waves, and where they connect inner to outer
+
+**PR #266 — revisiting v46 before the nonlinear arc.** v46 put one scalar wave
+on the great circle through a source and its antipode and found a negative
+result: the curve is a **graph** `r = f(σ)`, so its radial winding is identically
+zero — **a height field cannot wind**, and one wave never meets itself.
+
+Everything since has needed *two* waves. So: one pulsing **outward**, one
+pulsing **inward**, both refocusing at the antipode — do they connect?
+
+**Yes. At the antipode, on the seam, at the refocus.** One curve reaches exactly
+`R_inner` and the other exactly `R_outer`, and glued those are one point.
+
+**And the threshold is not a new number.** A single wave crosses the seam when
+`εu = gap/2`; the pair spans `2ε|u|` of the radial circle and touches through it
+when that reaches `gap` — the same inequality:
+
+| | |
+|--|--|
+| single-wave wrap gain | `0.220059` |
+| pair-contact gain | `0.220059` |
+| difference | `0.0` |
+
+v46's *"the wave comes back inside the circle"* and this round's *"the two
+pulses connect inner to outer"* are one event described twice.
+
+**What two waves can do that one cannot.** Above threshold the tangency opens
+into an arc, bounded by two crossings, on which the band between the two curves
+covers the *whole* radial circle — no radius is left outside the pair. A single
+wave past its own wrap threshold still leaves every radius outside itself,
+because it is a graph. **Two graphs bound a band, and a band can be radially
+surjective.**
+
+Two details worth having: the antipodal refocus is a **rarefaction**, so it is
+the *inward*-driven wave that reaches `R_outer`; and meeting mid-flight — the
+two travelling pulses crossing at the quarter points — is the *worst* place, not
+the best, costing `7–9×` more because they partially cancel.
+
+**What is still put in.** The crossing rule is a **representation** choice, the
+field is **linear** on a **fixed** background so the two waves do **not
+interact**, and the gain is a **display** amplitude. This is not a claim that two
+physical waves reconnect a throat — it is that v46's obstruction does not apply
+to two of them.
+
+
+### Off the degenerate axis: the offset, and the signs
+
+The co-located pair is the **most degenerate** configuration the construction
+has: both wave histories hang off one antipodal axis, so bringing them together
+at one pole invites either exact overlap or exact cancellation and tests
+neither. Two knobs move off it — the source separation `α`, and the radial sense
+each wave is driven in:
+
+    δ = r_A − r_B = ε (s_A u_A − s_B u_B)
+
+**Opposed** signs give the *sum* of the two fields; **like** signs give the
+*difference*. That one line is the whole asymmetry.
+
+**A correction to the framing first.** Inner–inner and outer–outer are not two
+cases, they are **one** — `|δ|` agrees exactly, as a difference of fields, to the
+bit. Flipping both signs is a reflection about `R_mid`, an isometry of the glued
+radial circle. So the picture cannot distinguish them, and the reason is worth
+being blunt about: *the radial direction here carries the field's amplitude, not
+its direction of propagation.* That is a limitation of the representation, stated
+rather than worked around.
+
+**The bisector.** `σ = α/2` is equidistant from both sources, so `u_A = u_B` on
+it identically. A **like-signed** pair therefore has `δ ≡ 0` there — the two
+curves are the *same curve*, never separated by a hair, so no gain however large
+carries them through the seam. An **opposed** pair has `δ = 2εu(α/2)`, as large
+as it can be. There are two such axes, `α/2` and `α/2 − π`, and the far one is
+the cheaper because it sits nearer the antipodal caustic.
+
+**So yes — and the offset is what produces it.** Above threshold the opposed
+pair's contact opens into an arc **centred on the bisector to machine zero**,
+off both the sources and their antipodes, on which the like-signed pair's contact
+set is **empty at every offset tested**. At `α = 0` the bisector collapses onto
+the source axis and there is nothing off-axis to find: the degeneracy, recovered
+as a coordinate fact.
+
+| | |
+|--|--|
+| threshold at `α = 0` → `α = π` | `0.2201` → `1.6639` (`7.56×`) |
+| timing, against the pulse crossing `t = α/2` | `0.0031π` |
+| price of exclusivity | `1.68–3.74×` |
+| cheapest point pins to one of the four axes from | `α = 0.125π` |
+
+**Exclusive is not cheap.** The globally cheapest connection stays on a source
+axis or an antipode and is available to *both* pairs. Both numbers are reported.
+
+```bash
+python -m experiments.closure_ledger.two_wave_slice_probe
+
+python scripts/geometrodynamics_v66_two_wave_slice.py --still v66.png
+```
+
+Full write-up: `docs/two_wave_slice.md`.
+
+## One field on one surface — and the antipode is parity-dependent
+
+**The objection lands.** v66 drew **two** curves and asked whether their images
+meet through the glued seam. Two curves in one frame are two surfaces, and
+reading their overlap as a connection is a statement about a picture, not about
+a field. If the two contributions are two pieces of one scalar deformation of
+one surface there is only ever **one** curve, `r = R_mid + ε(s_A u_A + s_B u_B)`,
+and the question is whether *it* reaches `R_outer` at one `θ` and `R_inner` at
+another.
+
+**The repair costs nothing, which is the surprise.** `δ = r_A − r_B` — the
+quantity v66 plotted as a separation between two curves — **is** the one-surface
+deformation with the second sign flipped, the same array to `2` ulp of `R_mid`.
+Every v66 number survives, with the two configurations **swapping names**:
+
+    v66 "like-signed"  ==  one surface OPPOSED
+    v66 "opposed"      ==  one surface LIKE-signed
+
+which inverts v66's headline: its cheapest-when-co-located result belongs to the
+*like* pair, and its identically-zero bisector is the **node of the opposed
+field**, which is where it belongs.
+
+**Coincidence cancels exactly.** `α = 0` with opposite orientation gives `u ≡ 0`
+at every time — zero, not small — so no amplitude connects it.
+
+**The monochromatic law.** `u = −2A sin(mα/2) sin(mθ − ωt)`, verified
+symbolically and on a grid, so `B = 2A|sin(mα/2)|` and the optimum is
+`α* = π/m` — **half a wavelength**, with the antipode simply the `m = 1` member.
+And `sin(mπ/2)` is `±1` for odd `m` and `0` for even `m`:
+
+> **the antipode is parity-dependent** — maximal for odd modes, exactly
+> cancelling for even ones. Not a visualization effect: on `S³` the same parity
+> is `Z_n(π) = (−1)ⁿ`, checked at `2.0000` and `0.0000`.
+
+**Where the two models part company.** A zonal harmonic is *centred*
+(`Z_n(0) = 1`, `|Z_n| ≤ 1`), so `|Z_A − Z_B| ≤ 2` with equality only where one
+focus sees `+1` and the other `−1` — exactly the antipode with odd `n`. For
+zonal modes `α* = π` for **every** odd `n` and it *saturates* the bound; half a
+wavelength reaches only `1.10–1.41`. For even `n` the antipode cancels and
+nothing reaches the bound at all. **The parity carries across the two models
+exactly; the location of the optimum does not.** (The kernel here is `n = 1`,
+odd — so for it the antipode is optimal *and* saturating.)
+
+**A pulse is not a mode.** v46's field carries a power-weighted mean `n ≈ 10`
+with fifteen modes holding 90% of the power. For it the `1/|sin|` divergence is
+confined to about one pulse width; past that the pulses stop overlapping and the
+threshold **saturates** at `0.2163` instead of falling to `0.13`.
+
+**The chord, and what it costs.** At the optimum the two extrema sit `π/m` apart,
+so `L = √(D² + 4 R_out R_in sin²(π/2m))` falls from `2.000` to the purely radial
+gap `0.520`. At fixed *display amplitude* the span is flat at `2.0000` across the
+whole family — same deformation, shorter connection. But `E ∝ ω²A²`, so at fixed
+**energy** `A ∝ 1/ω` and the span falls as fast as the chord: the highest mode
+that still spans the gap is `m = 7`. No favourable frequency is claimed — that
+needs an energy normalisation and a packet focusing law this model lacks. What is
+claimed is narrower: **a frequency slider cannot hold displacement fixed and then
+be read as constant-energy physics.**
+
+```bash
+python -m experiments.closure_ledger.one_surface_probe
+```
+
+Full write-up: `docs/one_surface.md`.
+
+### Where each front sits on that surface
+
+Asked inside the one-surface object: as the two axes move apart, where do `A`
+and `B` individually sit, what are their signs, and how does the surface answer?
+Only the **surface** is ever a closed curve in the annulus; the two
+contributions appear on graphs of field against `σ`, and the annulus panels
+colour the single curve by which front owns each arc. An inward dent is a
+negative contribution and an outward one positive, so each front's sign reads
+straight off the surface.
+
+| offset `α/π` | peak `c_A` | peak `u` | amplification | overlap arc |
+|--|--|--|--|--|
+| `0.00` | `0.6710` | `0.0000` | `0.0000` | `0.794` |
+| `0.15` | `1.1796` | `1.1994` | `1.0168` | `0.148` |
+| `0.25` | `1.1796` | `1.1978` | `1.0155` | `0.000` |
+| `1.00` | `1.1796` | `1.1935` | `1.0118` | `0.000` |
+
+At `α = 0` the surface is a **perfect circle** — the contributions cancel
+identically. Past one pulse width they stop overlapping at all, and the total is
+`1.012–1.017×` **one** contribution, peaking exactly where a single one does.
+
+> The offset does not turn interference on. It turns the **cancellation** off,
+> and what is left is two nearly independent dents in one surface.
+
+```bash
+python scripts/geometrodynamics_v68_two_fronts.py --still v68.png
+```
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and

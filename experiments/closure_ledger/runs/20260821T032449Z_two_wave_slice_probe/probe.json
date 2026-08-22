@@ -1,0 +1,133 @@
+{
+  "probe": "two_wave_slice",
+  "question": "one wave pulsing outward and one pulsing inward, both refocusing at the antipode -- do they connect, inner to outer, and where?",
+  "answer": "yes: at the antipode, on the seam, at the refocus -- and at exactly the amplitude where one wave would have wrapped",
+  "contact_gain": 0.49971560416520394,
+  "single_wave_wrap_gain": 0.22005908554143158,
+  "sigma_over_pi": -1.0,
+  "checks": [
+    {
+      "id": "T1",
+      "name": "*** one wave wrapping IS two touching ***",
+      "detail": {
+        "run_peak": 1.1815008653712167,
+        "at_time": 6.23606141737574,
+        "at_sigma": 0.0,
+        "single_wave_wrap_gain": 0.22005908554143158,
+        "pair_contact_gain": 0.22005908554143158,
+        "relative_difference": 0.0,
+        "they_are_the_same_threshold": true,
+        "why": "both are eps*u = gap/2 -- crossing the seam and spanning the radial period are the same inequality"
+      },
+      "pass": true
+    },
+    {
+      "id": "T2",
+      "name": "*** where: antipode, seam, refocus ***",
+      "detail": {
+        "time": 3.141592653589793,
+        "contact_gain": 0.49971560416520394,
+        "sigma": -3.141592653589793,
+        "sigma_over_pi": -1.0,
+        "refocus_amplitude": -0.5202959399963926,
+        "it_is_a_rarefaction": true,
+        "radius_of_the_outward_wave": 0.74,
+        "radius_of_the_inward_wave": 1.26,
+        "r_inner": 0.74,
+        "r_outer": 1.26,
+        "distance_to_the_seam": 0.0,
+        "connected": true,
+        "the_contact_is_on_the_seam": true,
+        "the_contact_is_at_the_antipode": true,
+        "the_inward_wave_is_the_one_that_reaches_r_outer": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T3",
+      "name": "*** the band covers what one graph cannot ***",
+      "detail": {
+        "rows": [
+          {
+            "gain_over_threshold": 0.98,
+            "covered_fraction": 0.9799999999999999,
+            "connected": false,
+            "arcs": 0,
+            "crossings": 0
+          },
+          {
+            "gain_over_threshold": 0.999,
+            "covered_fraction": 0.9989999999999997,
+            "connected": false,
+            "arcs": 0,
+            "crossings": 0
+          },
+          {
+            "gain_over_threshold": 1.0,
+            "covered_fraction": 1.0,
+            "connected": true,
+            "arcs": 1,
+            "crossings": 2
+          },
+          {
+            "gain_over_threshold": 1.001,
+            "covered_fraction": 1.0009999999999997,
+            "connected": true,
+            "arcs": 1,
+            "crossings": 2
+          },
+          {
+            "gain_over_threshold": 1.05,
+            "covered_fraction": 1.0500000000000003,
+            "connected": true,
+            "arcs": 1,
+            "crossings": 2
+          },
+          {
+            "gain_over_threshold": 1.3,
+            "covered_fraction": 1.3000000000000003,
+            "connected": true,
+            "arcs": 1,
+            "crossings": 2
+          }
+        ],
+        "nothing_connects_below_threshold": true,
+        "it_touches_at_threshold": true,
+        "one_arc_above": true,
+        "the_covered_fraction_tracks_the_gain": 3.3306690738754696e-16,
+        "what_one_wave_cannot_do": "a single wave is a graph, so its radial winding is zero and every radius stays outside it however hard it is driven; two graphs bound a band, and past threshold that band leaves no radius out"
+      },
+      "pass": true
+    },
+    {
+      "id": "T4",
+      "name": "meeting mid-flight is harder",
+      "detail": {
+        "co_located": {
+          "cheapest_contact_gain": 0.22260654124516274,
+          "at_time": 6.257005368399671,
+          "at_time_over_pi": 1.9916666666666667,
+          "at_sigma_over_pi": 0.0,
+          "mid_flight_contact_gain": 1.6506520080432467,
+          "mid_flight_penalty": 7.415110080818955
+        },
+        "antipodal_sources": {
+          "cheapest_contact_gain": 0.45058972581457263,
+          "at_time": 6.257005368399671,
+          "at_time_over_pi": 1.9916666666666667,
+          "at_sigma_over_pi": -1.0,
+          "mid_flight_contact_gain": 4.06278816086809,
+          "mid_flight_penalty": 9.016601862200503
+        },
+        "both_are_cheapest_at_a_refocus": true,
+        "mid_flight_is_harder": true,
+        "worst_penalty": 9.016601862200503,
+        "antipodal_over_co_located": 2.0241531236870784,
+        "co_located_is_about_twice_as_cheap": true
+      },
+      "pass": true
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

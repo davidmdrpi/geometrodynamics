@@ -1,0 +1,594 @@
+{
+  "probe": "one_surface",
+  "question": "read as ONE scalar field on ONE surface rather than two overlaid curves, where do two oppositely-oriented refocusing contributions best span the bulk gap?",
+  "answer": "not at 'the antipode' in general -- at half a wavelength for a travelling mode, and at the antipode for every ODD zonal mode, which is where the two models disagree; coincident foci cancel exactly in both",
+  "checks": [
+    {
+      "id": "T1",
+      "name": "*** the repair costs nothing ***",
+      "detail": {
+        "rows": [
+          {
+            "offset_over_pi": 0.0,
+            "v66_like_vs_one_surface_opposed": 0.0,
+            "v66_opposed_vs_one_surface_like": 4.440892098500626e-16
+          },
+          {
+            "offset_over_pi": 0.25,
+            "v66_like_vs_one_surface_opposed": 2.220446049250313e-16,
+            "v66_opposed_vs_one_surface_like": 2.220446049250313e-16
+          },
+          {
+            "offset_over_pi": 0.5,
+            "v66_like_vs_one_surface_opposed": 2.220446049250313e-16,
+            "v66_opposed_vs_one_surface_like": 3.3306690738754696e-16
+          },
+          {
+            "offset_over_pi": 0.75,
+            "v66_like_vs_one_surface_opposed": 2.220446049250313e-16,
+            "v66_opposed_vs_one_surface_like": 2.220446049250313e-16
+          },
+          {
+            "offset_over_pi": 1.0,
+            "v66_like_vs_one_surface_opposed": 2.220446049250313e-16,
+            "v66_opposed_vs_one_surface_like": 2.220446049250313e-16
+          }
+        ],
+        "worst_opposed": 2.220446049250313e-16,
+        "worst_like": 4.440892098500626e-16,
+        "one_ulp_of_r_mid": 2.220446049250313e-16,
+        "residue_in_ulps": 2.0,
+        "they_are_the_same_array": true,
+        "the_residue_is_the_mid_radius_not_the_fields": true,
+        "the_labels_swap": "v66's 'like-signed' separation is the one-surface OPPOSED deformation, and v66's 'opposed' separation is the one-surface LIKE-signed one",
+        "what_that_costs": "nothing numerically and the headline everything: v66's cheapest-when-co-located result belongs to the like pair, and its identically-zero bisector belongs to the opposed field, where it is a node"
+      },
+      "pass": true
+    },
+    {
+      "id": "T2",
+      "name": "*** coincidence cancels exactly ***",
+      "detail": {
+        "worst_absolute_field": 0.0,
+        "opposed_span_gain": Infinity,
+        "like_signed_cheapest_span_gain": 0.4908277782757372,
+        "the_opposed_field_is_identically_zero": true,
+        "no_gain_connects_it": true,
+        "the_like_pair_is_unaffected": true,
+        "why": "the two contributions are the same function of the same distance, so opposite orientation subtracts them to nothing"
+      },
+      "pass": true
+    },
+    {
+      "id": "T3",
+      "name": "the optimum is half a wavelength",
+      "detail": {
+        "rows": [
+          {
+            "mode": 1,
+            "wavelength_over_pi": 2.0,
+            "first_optimum_over_pi": 1.0,
+            "measured_first_optimum_over_pi": 1.0,
+            "half_wavelength_over_pi": 1.0,
+            "measured_amplitude_factor": 1.9999998458645105,
+            "closed_form_amplitude_factor": 2.0,
+            "all_optima_over_pi": [
+              1.0
+            ]
+          },
+          {
+            "mode": 2,
+            "wavelength_over_pi": 1.0,
+            "first_optimum_over_pi": 0.5,
+            "measured_first_optimum_over_pi": 0.500000159154943,
+            "half_wavelength_over_pi": 0.5,
+            "measured_amplitude_factor": 1.9999998458645105,
+            "closed_form_amplitude_factor": 2.0,
+            "all_optima_over_pi": [
+              0.5
+            ]
+          },
+          {
+            "mode": 3,
+            "wavelength_over_pi": 0.6666666666666666,
+            "first_optimum_over_pi": 0.3333333333333333,
+            "measured_first_optimum_over_pi": 0.33325021223311657,
+            "half_wavelength_over_pi": 0.3333333333333333,
+            "measured_amplitude_factor": 1.9999998458645105,
+            "closed_form_amplitude_factor": 2.0,
+            "all_optima_over_pi": [
+              0.3333333333333333,
+              1.0
+            ]
+          },
+          {
+            "mode": 4,
+            "wavelength_over_pi": 0.5,
+            "first_optimum_over_pi": 0.25,
+            "measured_first_optimum_over_pi": 0.2500002387324146,
+            "half_wavelength_over_pi": 0.25,
+            "measured_amplitude_factor": 1.9999998458645105,
+            "closed_form_amplitude_factor": 2.0,
+            "all_optima_over_pi": [
+              0.25,
+              0.75
+            ]
+          },
+          {
+            "mode": 5,
+            "wavelength_over_pi": 0.4,
+            "first_optimum_over_pi": 0.2,
+            "measured_first_optimum_over_pi": 0.20000025464790896,
+            "half_wavelength_over_pi": 0.2,
+            "measured_amplitude_factor": 1.9999998458645105,
+            "closed_form_amplitude_factor": 2.0,
+            "all_optima_over_pi": [
+              0.2,
+              0.6,
+              1.0
+            ]
+          },
+          {
+            "mode": 6,
+            "wavelength_over_pi": 0.3333333333333333,
+            "first_optimum_over_pi": 0.16666666666666666,
+            "measured_first_optimum_over_pi": 0.16675026523171269,
+            "half_wavelength_over_pi": 0.16666666666666666,
+            "measured_amplitude_factor": 1.9999998458645105,
+            "closed_form_amplitude_factor": 2.0,
+            "all_optima_over_pi": [
+              0.16666666666666666,
+              0.5,
+              0.8333333333333334
+            ]
+          },
+          {
+            "mode": 8,
+            "wavelength_over_pi": 0.25,
+            "first_optimum_over_pi": 0.125,
+            "measured_first_optimum_over_pi": 0.1250002785211504,
+            "half_wavelength_over_pi": 0.125,
+            "measured_amplitude_factor": 1.9999998458645105,
+            "closed_form_amplitude_factor": 2.0,
+            "all_optima_over_pi": [
+              0.125,
+              0.375,
+              0.625,
+              0.875
+            ]
+          }
+        ],
+        "worst_amplitude_error": 7.706774474147693e-08,
+        "worst_optimum_error": 0.00026263263779924273,
+        "the_closed_form_is_the_measured_amplitude": true,
+        "the_first_optimum_is_half_a_wavelength": true,
+        "the_optimum_is_a_half_wavelength_not_an_antipode": true,
+        "why": "alpha* = pi/m is half a surface wavelength; the antipode is simply the m = 1 member of that family"
+      },
+      "pass": true
+    },
+    {
+      "id": "T4",
+      "name": "*** the antipode is parity-dependent ***",
+      "detail": {
+        "rows": [
+          {
+            "mode": 1,
+            "odd": true,
+            "plane_wave_factor_at_pi": 2.0,
+            "measured_at_pi": 1.999999993832114,
+            "zonal_Z_n_at_pi": -1.0,
+            "expected_minus_one_to_the_n": -1.0,
+            "zonal_pair_strength_at_pi": 1.9999999753259892,
+            "verdict": "maximal"
+          },
+          {
+            "mode": 2,
+            "odd": false,
+            "plane_wave_factor_at_pi": 2.4492935982947064e-16,
+            "measured_at_pi": 1.1379786002407855e-15,
+            "zonal_Z_n_at_pi": 1.0,
+            "expected_minus_one_to_the_n": 1.0,
+            "zonal_pair_strength_at_pi": 1.8847146066036657e-12,
+            "verdict": "cancels"
+          },
+          {
+            "mode": 3,
+            "odd": true,
+            "plane_wave_factor_at_pi": 2.0,
+            "measured_at_pi": 1.9999999444890266,
+            "zonal_Z_n_at_pi": -1.0,
+            "expected_minus_one_to_the_n": -1.0,
+            "zonal_pair_strength_at_pi": 1.9999998766299472,
+            "verdict": "maximal"
+          },
+          {
+            "mode": 4,
+            "odd": false,
+            "plane_wave_factor_at_pi": 4.898587196589413e-16,
+            "measured_at_pi": 2.26554885962571e-15,
+            "zonal_Z_n_at_pi": 1.0,
+            "expected_minus_one_to_the_n": 1.0,
+            "zonal_pair_strength_at_pi": 1.1308731728831845e-12,
+            "verdict": "cancels"
+          },
+          {
+            "mode": 5,
+            "odd": true,
+            "plane_wave_factor_at_pi": 2.0,
+            "measured_at_pi": 1.999999993832114,
+            "zonal_Z_n_at_pi": -1.0,
+            "expected_minus_one_to_the_n": -1.0,
+            "zonal_pair_strength_at_pi": 1.9999997121384352,
+            "verdict": "maximal"
+          },
+          {
+            "mode": 6,
+            "odd": false,
+            "plane_wave_factor_at_pi": 7.347880794884119e-16,
+            "measured_at_pi": 4.246603069191224e-15,
+            "zonal_Z_n_at_pi": 1.0,
+            "expected_minus_one_to_the_n": 1.0,
+            "zonal_pair_strength_at_pi": 8.077982727172639e-13,
+            "verdict": "cancels"
+          },
+          {
+            "mode": 7,
+            "odd": true,
+            "plane_wave_factor_at_pi": 2.0,
+            "measured_at_pi": 1.999999993832114,
+            "zonal_Z_n_at_pi": -1.0,
+            "expected_minus_one_to_the_n": -1.0,
+            "zonal_pair_strength_at_pi": 1.9999994818458084,
+            "verdict": "maximal"
+          },
+          {
+            "mode": 8,
+            "odd": false,
+            "plane_wave_factor_at_pi": 9.797174393178826e-16,
+            "measured_at_pi": 4.532832442727397e-15,
+            "zonal_Z_n_at_pi": 1.0,
+            "expected_minus_one_to_the_n": 1.0,
+            "zonal_pair_strength_at_pi": 6.281641873329136e-13,
+            "verdict": "cancels"
+          }
+        ],
+        "worst_plane_wave_error": 5.551097337352928e-08,
+        "odd_modes_are_maximal_at_the_antipode": true,
+        "even_modes_cancel_at_the_antipode": true,
+        "the_zonal_spectrum_agrees": true,
+        "zonal_odd_doubles": true,
+        "zonal_even_cancels": true,
+        "why": "sin(m pi/2) is +-1 for odd m and 0 for even m; on S^3 the same parity appears as Z_n(pi) = (-1)^n, so it is a property of the spectrum and not of the plane-wave reduction"
+      },
+      "pass": true
+    },
+    {
+      "id": "T5",
+      "name": "*** the zonal optimum IS the antipode ***",
+      "detail": {
+        "rows": [
+          {
+            "order": 1,
+            "omega": 2,
+            "odd": true,
+            "measured_optimum_over_pi": 1.0,
+            "peak_strength": 1.9999999753259892,
+            "strength_at_the_antipode": 1.9999999753259892,
+            "half_wavelength_over_pi": 0.5,
+            "strength_at_half_wavelength": 1.4142135449259348
+          },
+          {
+            "order": 2,
+            "omega": 3,
+            "odd": false,
+            "measured_optimum_over_pi": 0.5001591549430918,
+            "peak_strength": 1.3333331436430962,
+            "strength_at_the_antipode": 1.8847146066036657e-12,
+            "half_wavelength_over_pi": 0.3333333333333333,
+            "strength_at_half_wavelength": 1.1547005320478978
+          },
+          {
+            "order": 3,
+            "omega": 4,
+            "odd": true,
+            "measured_optimum_over_pi": 1.0,
+            "peak_strength": 1.9999998766299472,
+            "strength_at_the_antipode": 1.9999998766299472,
+            "half_wavelength_over_pi": 0.25,
+            "strength_at_half_wavelength": 1.1216812668224874
+          },
+          {
+            "order": 4,
+            "omega": 5,
+            "odd": false,
+            "measured_optimum_over_pi": 0.29022600001919047,
+            "peak_strength": 1.2499999416346865,
+            "strength_at_the_antipode": 1.1308731728831845e-12,
+            "half_wavelength_over_pi": 0.2,
+            "strength_at_half_wavelength": 1.1097172863794764
+          },
+          {
+            "order": 5,
+            "omega": 6,
+            "odd": true,
+            "measured_optimum_over_pi": 1.0,
+            "peak_strength": 1.9999997121384352,
+            "strength_at_the_antipode": 1.9999997121384352,
+            "half_wavelength_over_pi": 0.16666666666666666,
+            "strength_at_half_wavelength": 1.1038914432574392
+          },
+          {
+            "order": 6,
+            "omega": 7,
+            "odd": false,
+            "measured_optimum_over_pi": 0.7940655718365538,
+            "peak_strength": 1.233017796504999,
+            "strength_at_the_antipode": 8.077982727172639e-13,
+            "half_wavelength_over_pi": 0.14285714285714285,
+            "strength_at_half_wavelength": 1.1005810345796272
+          },
+          {
+            "order": 8,
+            "omega": 9,
+            "odd": false,
+            "measured_optimum_over_pi": 0.1596009258443185,
+            "peak_strength": 1.226567933622047,
+            "strength_at_the_antipode": 6.281641873329136e-13,
+            "half_wavelength_over_pi": 0.1111111111111111,
+            "strength_at_half_wavelength": 1.097121118602712
+          },
+          {
+            "order": 10,
+            "omega": 11,
+            "odd": false,
+            "measured_optimum_over_pi": 0.1302769296009799,
+            "peak_strength": 1.2234113602829157,
+            "strength_at_the_antipode": 2.055910997000865e-12,
+            "half_wavelength_over_pi": 0.09090909090909091,
+            "strength_at_half_wavelength": 1.0954307353972457
+          }
+        ],
+        "the_bound_is_two": true,
+        "odd_orders_peak_at_the_antipode": true,
+        "and_they_saturate_the_bound": true,
+        "half_a_wavelength_does_not_reproduce_it": true,
+        "even_orders_cancel_at_the_antipode": true,
+        "and_never_reach_the_bound": true,
+        "best_even_strength": 1.3333331436430962,
+        "why": "a zonal harmonic is centred, so the antipode is where two centres coincide with opposite sign; a plane wave has no centre, so only its wavelength sets a scale",
+        "the_kernel_is_odd": "this programme's kernel is n = 1, which is odd, so for it the antipode is both optimal and saturating"
+      },
+      "pass": true
+    },
+    {
+      "id": "T6",
+      "name": "a pulse saturates where a mode diverges",
+      "detail": {
+        "pulse_width": 0.18,
+        "rows": [
+          {
+            "offset_over_pi": 0.02,
+            "offset_in_pulse_widths": 0.34906585039886595,
+            "monochromatic_required_amplitude": 4.138709277182691,
+            "pulse_threshold": 0.6832673779613727,
+            "ratio": 6.057232367116853
+          },
+          {
+            "offset_over_pi": 0.04,
+            "offset_in_pulse_widths": 0.6981317007977319,
+            "monochromatic_required_amplitude": 2.0703762442881253,
+            "pulse_threshold": 0.36548900229249065,
+            "ratio": 5.664674535490567
+          },
+          {
+            "offset_over_pi": 0.06,
+            "offset_in_pulse_widths": 1.0471975511965976,
+            "monochromatic_required_amplitude": 1.3813869935168053,
+            "pulse_threshold": 0.27249597194637926,
+            "ratio": 5.069385002830902
+          },
+          {
+            "offset_over_pi": 0.1,
+            "offset_in_pulse_widths": 1.7453292519943295,
+            "monochromatic_required_amplitude": 0.831018918794956,
+            "pulse_threshold": 0.22172870663197017,
+            "ratio": 3.74790856546283
+          },
+          {
+            "offset_over_pi": 0.2,
+            "offset_in_pulse_widths": 3.490658503988659,
+            "monochromatic_required_amplitude": 0.42068883707497273,
+            "pulse_threshold": 0.21559801470445605,
+            "ratio": 1.95126489291498
+          },
+          {
+            "offset_over_pi": 0.4,
+            "offset_in_pulse_widths": 6.981317007977318,
+            "monochromatic_required_amplitude": 0.22116921017153038,
+            "pulse_threshold": 0.21613329197970235,
+            "ratio": 1.023300057782403
+          },
+          {
+            "offset_over_pi": 0.6,
+            "offset_in_pulse_widths": 10.471975511965978,
+            "monochromatic_required_amplitude": 0.16068883707497267,
+            "pulse_threshold": 0.21638751611591758,
+            "ratio": 0.7425975396329821
+          },
+          {
+            "offset_over_pi": 0.8,
+            "offset_in_pulse_widths": 13.962634015954636,
+            "monochromatic_required_amplitude": 0.13669008915097475,
+            "pulse_threshold": 0.2165121785662019,
+            "ratio": 0.6313274849302746
+          },
+          {
+            "offset_over_pi": 1.0,
+            "offset_in_pulse_widths": 17.453292519943297,
+            "monochromatic_required_amplitude": 0.13,
+            "pulse_threshold": 0.21655080152542652,
+            "ratio": 0.6003210289883685
+          }
+        ],
+        "plateau_threshold": 0.21634204675256444,
+        "plateau_spread": 0.00041750954572417065,
+        "the_pulse_threshold_saturates": true,
+        "the_monochromatic_law_keeps_falling": true,
+        "it_still_cancels_at_coincidence": true,
+        "cancellation_window_in_pulse_widths": 1.0471975511965976,
+        "why": "two localized pulses cancel only while they overlap; a mode fills the whole circle and cancels everywhere"
+      },
+      "pass": true
+    },
+    {
+      "id": "T7",
+      "name": "the chord shrinks with frequency",
+      "detail": {
+        "gap": 0.52,
+        "rows": [
+          {
+            "mode": 1,
+            "optimal_separation_over_pi": 1.0,
+            "radial_span_over_A": 1.999999993832114,
+            "bulk_chord": 2.0,
+            "chord_over_gap": 3.846153846153846
+          },
+          {
+            "mode": 2,
+            "optimal_separation_over_pi": 0.5,
+            "radial_span_over_A": 1.999999993832114,
+            "bulk_chord": 1.4612323566086263,
+            "chord_over_gap": 2.8100622242473583
+          },
+          {
+            "mode": 3,
+            "optimal_separation_over_pi": 0.3333333333333333,
+            "radial_span_over_A": 1.9999999444890266,
+            "bulk_chord": 1.0967223896684155,
+            "chord_over_gap": 2.109081518593107
+          },
+          {
+            "mode": 4,
+            "optimal_separation_over_pi": 0.25,
+            "radial_span_over_A": 1.999999993832114,
+            "bulk_chord": 0.9036521866533197,
+            "chord_over_gap": 1.7377926666409993
+          },
+          {
+            "mode": 5,
+            "optimal_separation_over_pi": 0.2,
+            "radial_span_over_A": 1.999999993832114,
+            "bulk_chord": 0.791546024492321,
+            "chord_over_gap": 1.5222038932544635
+          },
+          {
+            "mode": 6,
+            "optimal_separation_over_pi": 0.16666666666666666,
+            "radial_span_over_A": 1.9999999444890268,
+            "bulk_chord": 0.721273753177515,
+            "chord_over_gap": 1.3870649099567596
+          },
+          {
+            "mode": 8,
+            "optimal_separation_over_pi": 0.125,
+            "radial_span_over_A": 1.999999993832114,
+            "bulk_chord": 0.6421444134873031,
+            "chord_over_gap": 1.2348931028601982
+          },
+          {
+            "mode": 16,
+            "optimal_separation_over_pi": 0.0625,
+            "radial_span_over_A": 1.999999993832114,
+            "bulk_chord": 0.5533819739601714,
+            "chord_over_gap": 1.0641961037695604
+          }
+        ],
+        "worst_closed_form_error": 2.220446049250313e-16,
+        "worst_span_error": 5.551097337352928e-08,
+        "the_span_is_the_same_at_every_mode": true,
+        "the_closed_form_is_the_law_of_cosines": true,
+        "the_chord_shrinks_monotonically": true,
+        "chord_at_the_fundamental": 2.0,
+        "chord_at_the_highest_mode": 0.5533819739601714,
+        "limit_is_the_radial_gap": 0.52,
+        "why": "the two extrema are half a wavelength apart, so raising the mode brings them together and the chord tends to the purely radial gap"
+      },
+      "pass": true
+    },
+    {
+      "id": "T8",
+      "name": "fixed energy is not fixed amplitude",
+      "detail": {
+        "gap": 0.52,
+        "rows": [
+          {
+            "mode": 1,
+            "omega": 1.0,
+            "span_at_fixed_amplitude": 4.0,
+            "span_at_fixed_energy": 4.0,
+            "bulk_chord": 2.0,
+            "spans_the_gap_at_fixed_energy": true
+          },
+          {
+            "mode": 2,
+            "omega": 2.0,
+            "span_at_fixed_amplitude": 4.0,
+            "span_at_fixed_energy": 2.0,
+            "bulk_chord": 1.4612323566086263,
+            "spans_the_gap_at_fixed_energy": true
+          },
+          {
+            "mode": 3,
+            "omega": 3.0,
+            "span_at_fixed_amplitude": 4.0,
+            "span_at_fixed_energy": 1.3333333333333333,
+            "bulk_chord": 1.0967223896684155,
+            "spans_the_gap_at_fixed_energy": true
+          },
+          {
+            "mode": 4,
+            "omega": 4.0,
+            "span_at_fixed_amplitude": 4.0,
+            "span_at_fixed_energy": 1.0,
+            "bulk_chord": 0.9036521866533197,
+            "spans_the_gap_at_fixed_energy": true
+          },
+          {
+            "mode": 6,
+            "omega": 6.0,
+            "span_at_fixed_amplitude": 4.0,
+            "span_at_fixed_energy": 0.6666666666666666,
+            "bulk_chord": 0.721273753177515,
+            "spans_the_gap_at_fixed_energy": true
+          },
+          {
+            "mode": 8,
+            "omega": 8.0,
+            "span_at_fixed_amplitude": 4.0,
+            "span_at_fixed_energy": 0.5,
+            "bulk_chord": 0.6421444134873031,
+            "spans_the_gap_at_fixed_energy": false
+          },
+          {
+            "mode": 16,
+            "omega": 16.0,
+            "span_at_fixed_amplitude": 4.0,
+            "span_at_fixed_energy": 0.25,
+            "bulk_chord": 0.5533819739601714,
+            "spans_the_gap_at_fixed_energy": false
+          }
+        ],
+        "highest_mode_that_still_spans_at_fixed_energy": 6,
+        "span_is_flat_at_fixed_amplitude": true,
+        "span_falls_like_one_over_omega": true,
+        "the_chord_and_the_span_both_shrink": true,
+        "the_tradeoff": "low frequency buys a large deformation on a long connection; high frequency buys a short connection with a small deformation",
+        "what_is_not_claimed": "no favourable frequency, because that needs an energy normalisation and a packet focusing law that this model does not contain"
+      },
+      "pass": true
+    }
+  ],
+  "passed": 8,
+  "total": 8
+}

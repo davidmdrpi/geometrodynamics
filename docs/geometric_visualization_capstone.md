@@ -990,7 +990,7 @@ next refinement. The source is §21's, on a fixed background with point sources.
 And the solution is dominated by a nearly-zero mode with `|c| ≈ 1.7` against a
 mouth response of `2e−03`, so the perturbative window is set far from the throat.
 
-## 23. Which throat is physical, and the sign reverses (`docs/which_throat_is_physical.md`, current round)
+## 23. Which throat is physical, and the sign reverses (`docs/which_throat_is_physical.md`)
 
 §22 ended by finding that matching the tube's area to its own mouths flips the
 sign of `ΔA/A`. The throat's geometry had been a free parameter since §19,
@@ -1064,7 +1064,210 @@ horizon, and so not traversable — is one this arc's larger framework can accep
 That is what decides whether `M = sin³a/2` is a result about the model or only
 about this slice.
 
-## 24. What the arc cost in errors, and what caught them
+## 24. Two waves connect where one could not (`docs/two_wave_slice.md`)
+
+> **Superseded reading.** §25 shows this section's *construction* was
+> ambiguous — it drew two curves and read their overlap as a connection.
+> Every number below survives, because the quantity it plots is the
+> one-surface deformation; but the two configurations swap names, which
+> inverts the headline. Read §25 alongside it.
+
+A revisit rather than a new result, taken before the nonlinear arc starts,
+because §4's picture was doing work the rest of the arc had outgrown.
+
+v46 put **one** scalar wave on the great circle through a source and its
+antipode, drew it as a radial height in the vacuole, and glued `R_outer` to
+`R_inner`. Its finding was negative and sharp: the curve is a **graph**
+`r = f(σ)`, so its radial winding number is identically zero — every outward
+crossing of the seam is paid for by an inward one. **A height field cannot
+wind**, and one wave running to its antipode never meets itself.
+
+Everything since has needed **two**. So: one wave driven outward, one driven
+inward, both refocusing at the antipode — do they connect, inner to outer?
+
+**Yes, at the antipode, on the seam, at the refocus.** At threshold one curve
+sits at exactly `R_inner` and the other at exactly `R_outer`, which after gluing
+is one point.
+
+**And the threshold is not a new number.** A single wave crosses the seam when
+`εu = gap/2`; the pair spans `2ε|u|` of the radial circle and touches through it
+when that reaches `gap`. The same inequality, so the same gain — `0.220059`
+against `0.220059`, differing by zero. v46's *"the wave comes back inside the
+circle"* and this round's *"the two pulses connect inner to outer"* are **one
+event described twice**, and the check asserts it at zero rather than at a
+tolerance, because that is what an identity means.
+
+**What two waves can do that one cannot.** Below threshold nothing connects; at
+threshold there is a single tangency; above it that point opens into one arc,
+bounded by two genuine crossings, on which the band between the two curves
+covers the *entire* radial circle — no radius at those `σ` is outside the pair.
+A single wave past its own wrap threshold does nothing of the kind, and the v46
+winding result is re-checked here at four gains and still holds. **Two graphs
+bound a band, and a band can be radially surjective.** That is the whole
+difference, and it is why the question was worth asking twice.
+
+Two details went the other way from the guess. The antipodal refocus is a
+**rarefaction**, so it is the *inward*-driven wave that bulges out to `R_outer`
+— naming a wave "outward" says which way it is driven, not which way it goes.
+And meeting **mid-flight**, the two travelling pulses crossing at the quarter
+points, looks like the natural place for a connection and is the **worst** one:
+they partially cancel, and it costs `7–9×` more than a refocus.
+
+**What is still put in**, restated because this round is more positive than v46
+and therefore easier to overread: the crossing rule is a *representation* choice
+and not a derived boundary condition; the field is linear on a fixed background,
+so **the two waves do not interact at all** — they are drawn on the same torus
+and the question is only whether their images meet; and the gain is a *display*
+amplitude. This is not a claim that two physical waves reconnect a throat. It is
+that v46's obstruction does not apply to two of them, at an amplitude v46 had
+already reported.
+
+### Off the degenerate axis (the offset and the signs)
+
+The co-located pair is the most degenerate configuration available, and saying
+so is not a caveat — it is the next experiment. Both wave histories hang off one
+antipodal axis, so bringing them to the same pole encourages exact overlap or
+exact cancellation and tests neither. What it does not test is whether an
+inner-going branch from one axis can meet an outer-going branch that has crossed
+the identification and re-entered on another.
+
+Two knobs answer it: the source separation `α`, and the radial sense each wave
+is driven in, giving `δ = ε(s_A u_A − s_B u_B)`. **Opposed** signs sum the two
+fields; **like** signs difference them.
+
+The first thing measurement said was that the framing needed correcting.
+Inner–inner and outer–outer are **one case, not two** — `|δ|` agrees to the bit
+as a difference of fields — because flipping both signs is a reflection about
+`R_mid`, an isometry of the glued radial circle. The picture cannot tell them
+apart, and the reason belongs in the open: *the radial direction carries the
+field's amplitude, not its direction of propagation.* A construction in which
+those differ has to encode propagation in the curve, and this one does not. A
+limitation, stated.
+
+What the picture *can* distinguish carries the answer. `σ = α/2` is equidistant
+from both sources, so `u_A = u_B` there identically, at every time and every
+amplitude. For a like-signed pair that makes `δ ≡ 0`: the two curves are the
+same curve on that axis and no gain however large carries them through the seam.
+For an opposed pair the same equality makes `δ = 2εu(α/2)`, the largest it can
+be. **The bisector is where one pair is maximally connected and the other is
+identically not** — and there are two of them, `α/2` and `α/2 − π`, the far one
+cheaper because it sits nearer the antipodal caustic.
+
+So the answer is yes. Driven above threshold, the opposed pair's contact opens
+into an arc centred on the bisector **to machine zero**, off both sources and
+both antipodes, on which the like-signed pair's contact set is empty at every
+offset tested. At `α = 0` the bisector collapses onto the source axis and there
+is nothing off-axis to find — the degeneracy, recovered by measurement as a
+coordinate fact rather than assumed.
+
+The slider slides it: `α` moves the exclusive connection continuously from the
+source axis to the quarter point and raises its price from `0.220` to `1.66`,
+reached at the pulse-crossing time `t = α/2` to `0.0031π`. And **exclusive is
+not cheap** — from `α = 0.125π` up, the globally cheapest connection sits exactly
+on one of the four axes, is available to *both* pairs, and costs `1.7–3.7×` less.
+Both numbers are reported, because the interesting one is not the cheapest.
+
+## 25. One field on one surface, and the parity of the antipode (`docs/one_surface.md`)
+
+§24 has a construction problem, and naming it is the round.
+
+v66 drew **two** curves over the circle and asked whether their images meet
+through the glued seam. Its own scope note said the two waves do not interact —
+but that labels the problem rather than repairing it. Two curves in one frame
+are two surfaces, and reading their overlap as a connection is a statement about
+a picture, not about a field. The right object is one scalar deformation of one
+surface, `u = s_A u_A + s_B u_B`, drawn as the single curve
+`r = R_mid + ε u`, and the right question is whether *that* curve reaches
+`R_outer` at one `θ` and `R_inner` at another — so the surface passes through the
+identification.
+
+**The repair costs nothing numerically and the headline everything.**
+`δ = r_A − r_B = ε(s_A u_A − s_B u_B)`, the quantity v66 plotted as a separation,
+*is* the one-surface deformation with the second sign flipped — the same array,
+to two ulps of `R_mid`, which is the mid-radius's rounding and not the fields'.
+So every v66 number survives, with the two configurations swapping names. That
+inverts what §24 concluded: its cheapest-when-co-located result belongs to the
+**like** pair, and its identically-zero bisector is the **node of the opposed
+field**, which is both where it belongs and why it is exact.
+
+With that fixed, the monochromatic reduction is clean and closed-form:
+`u = −2A sin(mα/2) sin(mθ − ωt)`, so `B = 2A|sin(mα/2)|`. Three things follow,
+all checked rather than asserted. Coincident foci with opposite orientation
+cancel **exactly** — `u ≡ 0`, so no amplitude connects them and the required gain
+is infinite rather than large. The optimum is `α* = π/m`, **half a wavelength**,
+and the antipode is simply the `m = 1` member of that family. And `sin(mπ/2)` is
+`±1` for odd `m` and `0` for even `m`, so **the antipode is parity-dependent**:
+maximal for odd modes, exactly cancelling for even ones. That last is not an
+artefact of the plane-wave reduction — on `S³` it appears as `Z_n(π) = (−1)ⁿ`,
+and the antipodal difference field measures `2.0000` for odd `n` and `0.0000`
+for even `n`.
+
+Then the measurement disagrees with the derivation about one thing, and the
+disagreement is the most useful part. A zonal harmonic is **centred**:
+`Z_n(0) = 1` is a global maximum and `|Z_n| ≤ 1`, so `|Z_A − Z_B| ≤ 2` with
+equality only where one focus sees `+1` and the other `−1` at the same point —
+which is exactly the antipode with odd `n`. So for the real spectrum `α* = π`
+for **every** odd `n`, saturating the bound, while half a wavelength reaches only
+`1.41` at `n = 1` and `1.10` by `n = 5`; for even `n` the antipode cancels and
+nothing reaches the bound at all. A plane wave has no distinguished centre, so
+only its wavelength sets a scale; a zonal mode has one. **The parity carries
+across the two models exactly. The location of the optimum does not.** The kernel
+this programme cares about is `n = 1`, which is odd, so for it the antipode is
+both optimal and saturating.
+
+A second departure, and the same species: v46's field is a launched *pulse*, not
+a mode — power-weighted mean `n ≈ 10`, fifteen modes for 90% of the power. Two
+localized pulses cancel only while they overlap, so the `1/|sin(mα/2)|`
+divergence is confined to about one pulse width and past it the threshold
+**saturates** at `0.2163` rather than falling to `0.13`. The coincident
+cancellation is real for a pulse too; the law governing its approach is not.
+
+Finally the geometry, which is what the round was for. At the optimum the outward
+and inward extrema sit `π/m` apart, so the chord between them is
+`L = √(D² + 4 R_out R_in sin²(π/2m))` — the law of cosines regrouped so the
+purely radial gap is the `Δθ → 0` limit — falling from `2.000` at `m = 1` to
+`0.553` at `m = 16`, with limit `D = 0.520`. At fixed display amplitude the span
+is flat at `2.0000` across the whole half-wavelength family: **the same
+deformation on a progressively shorter connection.** But `E ∝ ω²A²`, so at fixed
+*energy* `A ∝ 1/ω` and the span falls exactly as fast as the chord; the highest
+mode that still spans the gap is `m = 6`. No favourable frequency is claimed —
+that needs an energy normalisation and a packet focusing law this model does not
+contain. The narrower claim is the one the visualisation has to respect: a
+frequency slider cannot hold displacement fixed and then be read as
+constant-energy physics.
+
+**What is still put in** is what was always put in: the crossing rule is a
+representation choice, the field is linear on a fixed background, and the gain is
+a display amplitude. What changed is not the physics but the *object* — v66 asked
+whether two drawn curves meet, which was never a well-posed question about a
+field; this asks whether one surface reaches both boundaries, which is.
+
+### Where each front sits on that surface (v68)
+
+The offset question, asked inside the one-surface object rather than alongside
+it. Only the **surface** is ever a closed curve in the annulus; the two
+contributions are components of its deformation and appear on graphs of field
+against `σ`. The annulus panels colour the single curve by which front owns each
+arc — and since an inward dent is a negative contribution and an outward one
+positive, each front's sign is read straight off the surface. That is the whole
+answer to "where do A and B individually lie, and what are their signs".
+
+The sweep says two things. At `α = 0` the surface is a **perfect circle** — not
+a small deformation, a circle — because the contributions cancel identically.
+And past one pulse width they stop overlapping *at all*: the overlap arc is
+`0.000` by `α = 0.25π` and the amplification `max|u| / max|c_A|` sits at
+`1.012–1.017` across the rest of the sweep, with the total peaking exactly where
+a single contribution peaks.
+
+So the honest reading is less flattering than §24's: **the offset does not turn
+interference on, it turns the cancellation off.** What is left at wide offset is
+two nearly independent dents in one surface. Interference here is confined to
+the arc where both fronts are actually present, and for a localized pulse that
+arc closes as soon as the foci clear each other — which is the same pulse-versus-
+mode split that §25 found in the threshold law, seen now in the geometry rather
+than in a number.
+
+## 26. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -1393,6 +1596,109 @@ Worth recording, because the failure modes repeat:
   the reproduction of the earlier round are two different rows and are now
   reported as two.
 
+* **Refining the wrong axis, and calling the survival evidence.** The
+  bisector-threshold sweep showed a small turn-over at the symmetric endpoint
+  `α = π`. To test whether it was sampling, the *time* grid was refined
+  fourfold; the dip did not shrink, and it went into a draft as measured
+  structure. It did not shrink because time was never the axis it lived on. The
+  bisector was being evaluated at the nearest point of the **`σ`** grid, and at
+  `α = 0.958π` the bisector falls exactly halfway between two samples. Evaluated
+  off-grid at the angle it actually has, the dip is one fifth the size — and
+  still real, which is the part that makes this an error rather than an
+  artefact. **Refining an axis a discrepancy does not live on will always leave
+  it standing, and leaving it standing is not evidence.** This is the mirror
+  image of the earlier "a discrepancy that refuses to move when you refine the
+  other side is the other side telling you it is not the problem": the same
+  observation, and the opposite conclusion, decided entirely by which axis was
+  refined.
+* **An exactness asserted about the wrong quantity.** `(out,out)` and `(in,in)`
+  give the same `|δ|` by an isometry, so the test asserted it at zero — and
+  failed, by `2.2e-16`. The identity was never in doubt. What was in doubt was
+  which quantity carried it: as a difference of *fields* the agreement is
+  bit-exact, but through the *drawn radii* `(R_mid + εu_A) − (R_mid + εu_B)` and
+  `(R_mid − εu_A) − (R_mid − εu_B)` round differently, and one ulp of `R_mid` is
+  exactly what comes out. Both are now reported, because they are two different
+  claims and only one of them is exact.
+* **A claim that named too few objects.** "The cheapest connection stays on a
+  source axis" was written against `A`'s axis alone and the sweep falsified it
+  immediately: above `α = 0.66π` the winner alternates between `A`'s axis and
+  `B`'s, the two being degenerate by symmetry and separated only by which grid
+  index `argmax` reaches first. There are **four** axes in this configuration,
+  not one, and the claim is true of the set and false of any member.
+
+* **A drawing that dropped a rule the construction supplies.** The one-surface
+  rig plotted the radius raw, without v46's crossing rule, so an excursion past
+  a boundary stuck out past the dashed ring instead of re-entering at the other
+  one. That is not a cosmetic loss: with the rule gone, two features on opposite
+  sides of the gap can never meet, and the picture silently answers "no" to a
+  question it was never asked. Caught by a reader driving the slider, not by any
+  test — the module's numbers were all correct, because the fault was entirely
+  in the renderer. **A measurement can be right while the picture of it is
+  answering a different question.**
+* **A symmetric field drawn asymmetrically.** `max u = −min u` to the last bit,
+  but `r = R_mid + εu` in polar gives `out/mid ≠ mid/in`, so the inward
+  excursion is squeezed onto a shorter arc and comes to a sharp tip while the
+  outward one stays round — a `13%` effect at the drawing gain and growing.
+  The repository already contained the fix and had tested it a dozen rounds
+  earlier, as the `translate` versus `conformal` seam; the one-surface rig
+  simply did not reach for it. **The asymmetry looked like a result and was a
+  coordinate.**
+* **A readout computed in the wrong place.** The seam-crossing count was
+  computed inside the draw call while the readout re-derived the state from a
+  fresh call that never received it, so it printed `0` at every gain — a plain
+  `undefined || 0`. It looked exactly like the correct answer for a surface that
+  never crosses, which is what made it worth catching rather than shrugging at.
+
+* **A caveat mistaken for a repair.** v66's scope note said plainly that the two
+  waves do not interact and that the question was only whether their *images*
+  meet. That is accurate, and it is not a defence: naming an ambiguity does not
+  remove it, and a reader is entitled to take a picture's central object
+  seriously. The fix was not a better caveat but a different object — one field
+  on one surface, where "do they meet" becomes "does it reach both boundaries",
+  which is well posed. **A scope note can only bound a claim, never repair a
+  construction.**
+* **A factor of two in a closed form, caught by hand-checked values.** The span
+  is `4A|sin(mα/2)| = 2A·(amplitude factor)`, so the required amplitude is
+  `gap/(2·factor)`; the first draft wrote `gap/factor` and was exactly twice too
+  large everywhere. Nothing internal to the module could catch it — every
+  consumer used the same wrong function. What caught it was a test pinning four
+  values (`0.130`, `0.184`, `0.260`, `0.502`) computed independently by
+  bisection on the measured amplitude. **A closed form needs at least one value
+  checked against something that does not use it.**
+* **A dropped factor of two in the *test*, this time.** The `S³` zonal Laplacian
+  is `f'' + 2 cot(χ) f'`, and the eigenvalue check wrote `cot(χ) f'` once. It
+  failed cleanly with ratio exactly `1.000000` against `−n(n+2)` — the residue
+  `−(n²+2n−1)` versus `−n(n+2)` — which is what an *exactly* wrong constant
+  looks like as opposed to a noisy one. Worth pairing with the entry above: the
+  same slip landed in module and test on the same day, and only the one in the
+  module would have reached a reader.
+* **A guard that fired at the wrong endpoint.** `Z_n(χ) = sin[(n+1)χ]/[(n+1)sinχ]`
+  needs limits taken at `χ = 0` *and* `χ = π`, because `sin χ` vanishes at both.
+  A first pass guarded only the small-χ series, so at the antipode it returned
+  the Taylor polynomial: `|Z_8| ≈ 131` against a true bound of `1`, and the
+  parity result it was written to test came out as "the even orders do not
+  cancel". The failure was loud enough to catch immediately; the lesson is that
+  it destroyed *exactly* the finding it was instrumenting, which is the way an
+  endpoint bug usually presents.
+* **A stall diagnosed from an instrument, not a system.** A redirected `pytest`
+  run appeared frozen at `53%` for minutes at a time, so it was killed and
+  restarted — three times. It was never frozen: the output was block-buffered,
+  so the log only showed what had last flushed while the process ran on at
+  `130%` CPU. The one genuinely slow file (`test_waves_backreaction.py`)
+  dominates the suite and always had. Two of the kills also used
+  `pkill -f "pytest tests/"`, whose pattern matches the killing shell's own
+  command line, so a run survived and competed with its replacement for four
+  cores — which then made the *next* run look slow for real. Same species as
+  refining the wrong axis: **the reading came from the instrument's artefact
+  rather than the system, and every action taken on it made the measurement
+  worse.** The suite was finally verified in three chunks covering all 49 files.
+* **A "first optimum" finder that returned the left edge.** Searching for the
+  first grid point exceeding `2 − 1e-9` on a grid that never reaches it makes
+  `argmax` return index `0`, so the measured optimum was the smallest sampled
+  `α` and the error read `2.09`. Fixed by searching one period of
+  `|sin(mα/2)|` rather than thresholding. **`argmax` on an all-false mask is a
+  silent zero, and it looks like an answer.**
+
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
 an independent construction — a closed form against brute
@@ -1414,7 +1720,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 25. What is imported rather than derived
+## 27. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -1458,7 +1764,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 26. What would come next
+## 28. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
