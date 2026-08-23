@@ -198,7 +198,7 @@
     },
     {
       "id": "T2",
-      "name": "*** the two arms are independent ***",
+      "name": "*** the arms are independent INTRINSICALLY (attachment caveat) ***",
       "detail": {
         "rows": [
           {
@@ -255,7 +255,30 @@
         "largest_arm_ratio": 437.2069472201274,
         "the_arms_can_be_very_unequal": true,
         "and_nothing_about_the_hinge_changes": true,
-        "why_it_matters": "the old vacuole picture had to give the inner and outer boundaries one shared arbitrary radial gap; a finite bearing with two arms has no such constraint, and the R_inner/R_outer ratio stops carrying any physical significance"
+        "why_it_matters": "the old vacuole picture had to give the inner and outer boundaries one shared arbitrary radial gap; a finite bearing with two arms has no such constraint",
+        "what_loses_significance": "the vacuole's ARBITRARY DRAWING ratio, which was never identified with the endpoint scales -- NOT the endpoint scale ratio itself, which is load-bearing: w_i/w_o = f_i/f_o",
+        "matched_mouths_would_be_equal": {
+          "why": "C1 matching to a unit round S^3 forces f0 = sin^3 a_j = F_j^3 at each end, so one common f0 fixes F = f0^(1/3) uniquely",
+          "rows": [
+            {
+              "neck": 1e-06,
+              "forced_scale": 0.010000000000000002,
+              "forced_mouth_angle": 0.010000166674167116
+            },
+            {
+              "neck": 0.000125,
+              "forced_scale": 0.05000000000000001,
+              "forced_mouth_angle": 0.05002085680577002
+            },
+            {
+              "neck": 0.001,
+              "forced_scale": 0.10000000000000002,
+              "forced_mouth_angle": 0.10016742116155981
+            }
+          ]
+        },
+        "so_asymmetric_arms_need_asymmetric_attachments": true,
+        "this_is_an_intrinsic_statement_not_a_matched_one": "unequal arms are honest truncations of one scalar-flat profile; they are NOT a fully matched #265 throat with the symmetry removed, because that matching forces F_o = F_i"
       },
       "pass": true
     },
@@ -464,8 +487,9 @@
             "fraction_of_the_linear_guess": 0.3632375061765702
           }
         ],
-        "law": "T(alpha) = alpha^2 / (2I),  I = int ds/f^2",
-        "conductance_form": "T(alpha) = alpha^2 * conductance / (8 pi)",
+        "law": "T(alpha) = alpha^2/(2 I2) + O(alpha^4),  I2 = int ds/f^2",
+        "the_law_is_leading_order": "the exact object is the Clairaut-integrated turn_cost; the quadratic is its leading term, and the next one is -alpha^4 I4/(8 I2^4)",
+        "conductance_form": "T(alpha) = alpha^2 * conductance / (8 pi) + O(alpha^4), at angular dimension q = 2",
         "long_arm_limit": "I -> 4/f0, so T -> f0 alpha^2 / 8",
         "long_arm_prefactor": 0.1250012053759251,
         "the_same_I_as_physical_throat": {
@@ -482,7 +506,7 @@
         "the_prefactor_is_one_eighth": true,
         "the_resistance_is_the_repos": true,
         "what_was_proposed": "L_turn ~ f0 alpha, the bearing's arc length",
-        "what_is_measured": "T(alpha) = alpha^2/(2I), quadratic in the angle and much smaller -- the geodesic cuts the corner rather than walking the arc"
+        "what_is_measured": "T(alpha) = alpha^2/(2 I2) + O(alpha^4), quadratic in the angle and much smaller -- the geodesic spreads the turn instead of paying it as pure transverse motion, so the cost is second order rather than first"
       },
       "pass": true
     },
@@ -592,26 +616,29 @@
             "arm_length_sum": 1.3945194376363101,
             "turn_cost_at_pi": 0.011499706358570429,
             "turn_over_arms": 0.008246357883732522,
-            "alpha_at_which_turning_costs_as_much_as_travelling": 33.23842766956405
+            "break_even_angle_of_the_extrapolated_law": 33.23842766956405
           },
           {
             "neck": 0.001,
             "arm_length_sum": 1.3567676907152997,
             "turn_cost_at_pi": 0.001142009615154357,
             "turn_over_arms": 0.0008417134509978489,
-            "alpha_at_which_turning_costs_as_much_as_travelling": 104.13293814942712
+            "break_even_angle_of_the_extrapolated_law": 104.13293814942712
           },
           {
             "neck": 0.0001,
             "arm_length_sum": 1.350907157901367,
             "turn_cost_at_pi": 0.00011412228640283476,
             "turn_over_arms": 8.447826020858726e-05,
-            "alpha_at_which_turning_costs_as_much_as_travelling": 328.7280802263501
+            "break_even_angle_of_the_extrapolated_law": 328.7280802263501
           }
         ],
+        "pi_is_the_largest_separation": "bearing_distance reduces any pair of directions to [0, pi], so the alpha = pi row is the worst case over the whole configuration space",
         "the_hinge_is_always_cheap": true,
-        "and_the_break_even_angle_is_far_past_pi": true,
+        "worst_case_turn_over_arms": 0.008246357883732522,
+        "no_reachable_orientation_breaks_even": true,
         "so_the_clock_hand_picture_survives": true,
+        "the_break_even_angle_is_withdrawn": "sqrt(2 I2 L) lands past pi, but it extrapolates the small-angle quadratic law outside its domain AND outside the bearing's configuration space, so it is not a physical angle; only the fact that it exceeds pi carries any content",
         "what_this_does_not_say": "that the cost is zero -- it is finite, and linear in f0, which is exactly the difference between a bearing and a point"
       },
       "pass": true
@@ -772,7 +799,24 @@
         ],
         "criterion": "they meet iff the angular extents overlap: |separation| < (w_a + w_b)/2",
         "whether_is_an_angular_question": "f0 does not appear in the criterion",
-        "how_big_is_a_length_question": "the overlap is f0 x (overlap angle)",
+        "how_big_depends_on_the_bearing_dimension": "on the drawn S^1 cross-section the overlap is a LENGTH, f0 x (overlap angle); on an S^2 bearing an AREA ~ f0^2 x (angular area); on S^3 a VOLUME ~ f0^3 x (angular volume). The yes/no criterion is dimension-free; the size law is not",
+        "overlap_size_by_dimension": [
+          {
+            "angular_dimension": 1,
+            "scales_as": "f0^1 x (angular measure)",
+            "example_at_neck_1e-3_overlap_0p225": 0.00022500000000000002
+          },
+          {
+            "angular_dimension": 2,
+            "scales_as": "f0^2 x (angular measure)",
+            "example_at_neck_1e-3_overlap_0p225": 5.0625e-08
+          },
+          {
+            "angular_dimension": 3,
+            "scales_as": "f0^3 x (angular measure)",
+            "example_at_neck_1e-3_overlap_0p225": 1.1390625000000003e-11
+          }
+        ],
         "the_verdict_does_not_depend_on_the_neck": true,
         "both_the_overlap_and_the_gap_scale_with_the_neck": true,
         "the_point_limit_correctly_stated": "as f0 -> 0 the ANGULAR INCIDENCE SURVIVES and the PHYSICAL INTERACTION REGION COLLAPSES: which directions the fronts come in at, and whether their extents overlap, are untouched by f0; the region in which they actually share space is f0 x (overlap angle) and goes to zero. So f0 -> 0 does NOT make every route meet -- it shrinks the overlap AND the gap together, and the distinction survives as a yes/no while disappearing as a length",
@@ -1018,7 +1062,7 @@
     },
     {
       "id": "T11",
-      "name": "*** I2 is the universal hinge; I4 first remembers the shape ***",
+      "name": "*** the leading form is universal; I4 is the first extra moment ***",
       "detail": {
         "rows": [
           {
@@ -1093,6 +1137,34 @@
             "shape_predicted": 0.8749997612672814
           }
         ],
+        "shape_difference": [
+          {
+            "alpha": 0.1,
+            "scalar_flat": 0.9999166744776568,
+            "hyperbolic": 0.9998733643182326,
+            "difference": 4.331015942415917e-05,
+            "predicted": 4.3318146219588894e-05
+          },
+          {
+            "alpha": 1.0,
+            "scalar_flat": 0.9917454695845838,
+            "hyperbolic": 0.9874942125973362,
+            "difference": 0.004251256987247598,
+            "predicted": 0.004331814621958889
+          },
+          {
+            "alpha": 3.141592653589793,
+            "scalar_flat": 0.9249695418192991,
+            "hyperbolic": 0.8895973449333908,
+            "difference": 0.035372196885908314,
+            "predicted": 0.04275329665758868
+          }
+        ],
+        "how_far_apart_at_alpha_0p1": 4.331015942415917e-05,
+        "the_two_profiles_do_not_agree_to_eight_digits": true,
+        "eight_digits_is_a_different_quantity": "how well EACH profile matches its OWN quartic law (7.9e-09 at alpha = 0.1), not how well the two match each other (4.3e-05)",
+        "the_separation_grows_as_alpha_squared": true,
+        "i4_is_not_the_entire_profile_dependence": "I6 and beyond enter at O(alpha^6); at alpha = pi the quartic prediction misses by 7.2e-03",
         "expansion": "T = alpha^2/(2 I2) - alpha^4 I4/(8 I2^4) + O(alpha^6)",
         "shape_law": "T/(alpha^2/2 I2) = 1 - alpha^2 I4/(4 I2^3)",
         "scalar_flat": {
@@ -1110,16 +1182,39 @@
         "the_shape_law_holds_at_small_angle": true,
         "the_fourth_order_beats_the_second": true,
         "the_second_moment_is_shared_the_fourth_is_not": true,
-        "the_division_of_labour": "I2 controls the universal quadratic hinge and is the same integral as the monopole conductance; I4 is the first moment that remembers the neck's shape"
+        "the_division_of_labour": "the LEADING FUNCTIONAL FORM alpha^2/(2 I2) is universal -- every neck obeys it with its own I2, which is NOT itself universal (4/f0 here, pi/f0 there); at q = 2 that I2 is also the monopole resistance; I4 is the first ADDITIONAL INDEPENDENT MOMENT to enter, and the first place the neck's shape is felt"
       },
       "pass": true
     },
     {
       "id": "T12",
-      "name": "*** monopole flux and infinitesimal rotation are ONE form ***",
+      "name": "*** one Dirichlet form -- and it is a q = 2 statement ***",
       "detail": {
-        "form": "E[phi] = int f^2 phi'^2 ds, minimised at fixed increment",
-        "euler_lagrange": "(f^2 phi')' = 0, so f^2 phi' is conserved",
+        "form": "E[phi] = int w phi'^2 ds, minimised at fixed increment",
+        "euler_lagrange": "(w phi')' = 0, so w phi' is conserved",
+        "the_weights_are_not_automatically_the_same": "the azimuth's weight is the METRIC coefficient f^2 for every bearing dimension; the monopole's is the VOLUME element f^q for an S^q cross-section, so its resistance is int ds/f^q",
+        "by_angular_dimension": [
+          {
+            "angular_dimension": 1,
+            "monopole_resistance": 14.754684361573272,
+            "geodesic_I2": 31999.986656079098,
+            "they_coincide": false
+          },
+          {
+            "angular_dimension": 2,
+            "monopole_resistance": 31999.986656079098,
+            "geodesic_I2": 31999.986656079098,
+            "they_coincide": true
+          },
+          {
+            "angular_dimension": 3,
+            "monopole_resistance": 171093502.09430477,
+            "geodesic_I2": 31999.986656079098,
+            "they_coincide": false
+          }
+        ],
+        "the_identity_is_a_q_equals_two_statement": true,
+        "and_q_equals_two_is_the_physical_case": "a three-dimensional spatial throat with S^2 cross-sections, which is what physical_throat carries -- so the identity holds where it is used, but it is not dimension-free, unlike the great-circle reduction of the hinge itself",
         "as_a_potential": "phi = u: the current is the flux 4 pi f^2 u', the drop is Phi I2 / 4 pi, the conductance is 4 pi / I2",
         "as_an_azimuth": "phi = theta: the current is Clairaut's h = f^2 theta', the sweep is h I2, the cost is h^2 I2 / 2",
         "profile_convergence": [
@@ -1166,8 +1261,55 @@
         "what_is_not_claimed": "that the two remain the same beyond leading order -- at finite alpha the geodesic picks up I4 and the static potential does not"
       },
       "pass": true
+    },
+    {
+      "id": "T13",
+      "name": "*** the turn sits AT the neck -- a corrected explanation ***",
+      "detail": {
+        "rows": [
+          {
+            "x": 0.5,
+            "f_over_neck": 1.2715403174076216,
+            "fraction_of_the_arms_turn_done": 0.4621884180344991
+          },
+          {
+            "x": 1.0,
+            "f_over_neck": 2.3810978455418157,
+            "fraction_of_the_arms_turn_done": 0.7616672835735715
+          },
+          {
+            "x": 1.5,
+            "f_over_neck": 5.533830997888883,
+            "fraction_of_the_arms_turn_done": 0.9052089850034163
+          },
+          {
+            "x": 2.0,
+            "f_over_neck": 14.154116418008243,
+            "fraction_of_the_arms_turn_done": 0.964081753612709
+          },
+          {
+            "x": 3.0,
+            "f_over_neck": 101.35781806122793,
+            "fraction_of_the_arms_turn_done": 0.9951053260267726
+          },
+          {
+            "x": 5.298292365610484,
+            "f_over_neck": 9999.99999999999,
+            "fraction_of_the_arms_turn_done": 1.0
+          }
+        ],
+        "clairaut": "theta' = h/f^2, so the angular RATE is highest where f is SMALLEST",
+        "fraction_done_by_2p4_necks": 0.7616672835735715,
+        "the_turn_is_concentrated_at_the_neck": true,
+        "the_corrected_reason": "Pythagoras, not leverage: the corner pays the angle as PURE transverse motion (f0 alpha, first order) while the geodesic TILTS motion that is already radial (half f^2 theta'^2 ds, second order)",
+        "what_the_first_draft_said": "that the geodesic turns where the lever arm f is longer and a given angle costs less arc -- backwards on both counts",
+        "corner_cost": 1e-05,
+        "geodesic_cost": 1.249958327109424e-07,
+        "the_geodesic_is_cheaper": true
+      },
+      "pass": true
     }
   ],
-  "passed": 12,
-  "total": 12
+  "passed": 13,
+  "total": 13
 }

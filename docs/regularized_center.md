@@ -1,8 +1,8 @@
 # The centre as a finite bearing, not a point
 
 **Module:** `geometrodynamics/viz/regularized_center.py`
-**Probe:** `python -m experiments.closure_ledger.regularized_center_probe` (12/12)
-**Tests:** `tests/test_viz_regularized_center.py` (98)
+**Probe:** `python -m experiments.closure_ledger.regularized_center_probe` (13/13)
+**Tests:** `tests/test_viz_regularized_center.py` (110)
 **Renderer:** `scripts/geometrodynamics_v69_regularized_center.py`
 
 ---
@@ -51,7 +51,17 @@ Both check against quadrature to `1e-9`. The check that matters more is the
 other one: setting `f_o = f_i = sin a` with `f₀ = sin³a` reproduces
 `VacuumThroat.length()` and `.resistance()` **bit for bit** — difference
 `0.0e+00`. The regularised centre is not a new geometry. It is the forced
-throat with the two arms allowed to differ.
+throat's own profile, with the two arms allowed to differ.
+
+**That is an *intrinsic* statement, and it needs a caveat the first draft did
+not carry.** Unequal arms are honest truncations of one scalar-flat profile —
+nothing about the interior objects. But PR #265's mouths are `C¹`-matched to a
+**unit round `S³`**, giving `F_j = sin a_j` and `|f′_j| = cos a_j`; with
+`f′² = 1 − f₀/F_j` that forces `f₀ = sin³a_j = F_j³` at each end. One common
+`f₀` then fixes `F = f₀^{1/3}` uniquely, so **both matched mouths have the same
+scale**. Asymmetric arms therefore require asymmetric ambient attachments —
+different curvature scales, a shell or junction, nonzero `K` — and are *not* a
+fully matched #265 throat with the symmetry merely removed.
 
 **And they can differ.** There is no requirement that `f_o = f_i` or that the
 two proper distances match:
@@ -65,8 +75,13 @@ two proper distances match:
 
 Nothing pathological happens at a ratio of 437. The old vacuole picture had to
 give the inner and outer boundaries **one shared arbitrary radial gap**; a
-bearing with two arms has no such constraint, so the `R_inner/R_outer` ratio
-stops carrying any physical significance.
+bearing with two arms has no such constraint.
+
+One correction to how that was first put. `R_inner/R_outer` does *not* stop
+carrying physical significance — the next section derives `w_i/w_o = f_i/f_o`,
+so the **endpoint scale ratio is load-bearing** for scale transport. What loses
+its significance is the vacuole's **arbitrary drawing ratio**, which was never
+identified with the endpoint scales at all.
 
 ## Scale transport becomes explicit
 
@@ -95,22 +110,39 @@ right for one route** — hold direction all the way down, turn on the bearing,
 hold it all the way up — and `corner_route_length` computes it. But that route
 is not the geodesic.
 
-Clairaut's relation for a surface of revolution, `f sin ψ = h`, makes the
-shortest path **cut the corner**: it starts turning while it is still
-descending, where the lever arm `f` is longer and a given angle costs less
-arc. Solving for the `h` that sweeps a given `α` and integrating gives
+**Why the corner loses is Pythagoras, not leverage.** The corner pays its
+angular displacement as *pure transverse motion* at the neck — `f₀α`, first
+order in `α`. The geodesic instead **tilts** motion that is already happening
+radially, and a tilt costs `√(ds² + f²dθ²) − ds ≈ ½f²θ′²ds` — *second* order.
+Converting a first-order cost into a second-order one is the whole of the
+saving.
 
-> **`T(α) = α²/(2I)`**,  with  `I = ∫ ds/f²` .
+*Where* the turn goes then follows from minimising `∫½f²θ′²ds`, which gives
+Clairaut's `θ′ = h/f²` — and that puts the angular rate **highest where `f` is
+smallest**. The geodesic hugs the neck: `46%` of the turn is done by
+`f = 1.27 f₀`, `76%` by `f = 2.4 f₀`.
 
-Quadratic in the angle — and `I` is **not a new quantity**. It is the same
-resistance integral `physical_throat.VacuumThroat.resistance` already computes,
-whose reciprocal is the throat's monopole conductance `4π/I`. So
+> An earlier draft of this page said the geodesic turns "where the lever arm
+> `f` is longer and a given angle costs less arc". That is **backwards on both
+> counts** — an angular increment at larger `f` costs *more* transverse arc,
+> `f dθ` — and it is withdrawn.
 
-    T(α) = α² · (4π/I) / (8π) ,
+Integrating for the `h` that sweeps a given `α`:
+
+> **`T(α) = α²/(2I₂) + O(α⁴)`**,  with  `I₂ = ∫ ds/f²` .
+
+**Leading order, not an exact law** — the exact object is the
+Clairaut-integrated `turn_cost`, which comes to `0.9248` of the quadratic value
+at `α = π`. Quadratic in the angle, and `I₂` is **not a new quantity**: it is
+the resistance `physical_throat.VacuumThroat.resistance` already computes, so
+at angular dimension `q = 2`
+
+    T(α) = α² · (4π/I₂) / (8π) + O(α⁴) ,
 
 and the geometric cost of swinging the clock hands is the electrical cost of
-pushing monopole flux through the same tube. With two long arms `I → 4/f₀` and
-the law reads `T → f₀α²/8`.
+pushing monopole flux through the same tube. (That coincidence is specific to
+`q = 2` — see below.) With two long arms `I₂ → 4/f₀` and the law reads
+`T → f₀α²/8`.
 
 Checked against the *integrated geodesic*, not against the expansion that
 predicts it:
@@ -134,14 +166,23 @@ The reason for a point in the middle was that the link's cost then did not care
 where the mouths were. A finite bearing charges *something*, so the question is
 whether it charges enough to matter. It does not:
 
-| `f₀` | `L_o + L_i` | `T(π)` | `T(π)/(L_o+L_i)` | `α` where turning = travelling |
-|--|--|--|--|--|
-| `1e-02` | `1.394519` | `1.99e-02` | `1.43e-02` | `33.1` rad |
-| `1e-03` | `1.356768` | `1.14e-03` | `8.42e-04` | `104.1` rad |
-| `1e-04` | `1.350907` | `1.14e-04` | `8.45e-05` | `329.1` rad |
+| `f₀` | `L_o + L_i` | `T(π)` | `T(π)/(L_o+L_i)` |
+|--|--|--|--|
+| `1e-02` | `1.394519` | `1.150e-02` | `8.25e-03` |
+| `1e-03` | `1.356768` | `1.142e-03` | `8.42e-04` |
+| `1e-04` | `1.350907` | `1.141e-04` | `8.45e-05` |
 
-A full half-turn costs `8e-04` of the arms, and you would need `104` radians —
-thirty-three times around — before the hinge cost as much as the journey.
+And `π` is **the largest separation there is** — `bearing_distance` reduces any
+pair of directions to `[0, π]` — so that row is the worst case over the entire
+configuration space, not a sample of one.
+
+> **There is no reachable orientation at which the hinge costs as much as the
+> journey.**
+
+An earlier draft instead quoted a "break-even angle" of `104` radians, from
+`√(2I₂·L)`. That is **withdrawn**: it extrapolates the small-angle quadratic
+law far outside its own domain *and* outside the bearing's configuration space,
+so it describes nothing. Only the fact that it exceeds `π` carries content.
 
 **The conclusion the point-centre picture was wanted for survives the
 regularisation, and survives it more strongly than proposed.** This is a
@@ -160,9 +201,11 @@ completely differently:
 
 - **Whether** they meet is a statement about angles — their angular extents
   overlap, or they do not — and `f₀` does not enter it at all.
-- **How big** the meeting is does depend on `f₀`: the overlap is
-  `f₀ × (overlap angle)` across, and two fronts that miss are separated by
-  `f₀ × (gap angle)`.
+- **How big** the meeting is depends on `f₀` — *and on the bearing's
+  dimension*. In the drawn 2-D cross-section the overlap is a **length**,
+  `f₀ × (overlap angle)`. On an `S²` bearing it is an **area**,
+  `~f₀² × (angular area)`; on `S³` a **volume**. The first draft quoted only
+  the 2-D length. The yes/no criterion is dimension-free; the size law is not.
 
 That is how the point limit is recovered, and it is not the way it is usually
 described:
@@ -222,20 +265,33 @@ Same law, different `O(α⁴)` term. So the quadratic law is a statement about
 coincidence of two calculations. They are **one variational problem** on the
 tube:
 
-> minimise `E[φ] = ∫ f² φ'² ds` at fixed total increment `Δφ`.
+> minimise `E[φ] = ∫ w(s) φ′² ds` at fixed total increment `Δφ`.
 
-The Euler–Lagrange equation is `(f²φ')' = 0`, so the current `f²φ'` is
-conserved, `Δφ = c·I₂`, and the minimum is `Δφ²/I₂`. **The weight is the
-transverse area element**, which is why the resistance is `∫ds/f²` and nothing
-else. Read it twice:
+The Euler–Lagrange equation is `(wφ′)′ = 0`, so the current `wφ′` is conserved,
+`Δφ = c·∫ds/w`, and the minimum is `Δφ²/∫ds/w`. Read it twice:
 
 | | `φ` | the conserved current | what `I₂` gives |
 |--|--|--|--|
 | static monopole | the potential `u` | the flux `Φ = 4πf²u'` | conductance `4π/I₂` |
 | infinitesimal rotation | the azimuth `θ` | Clairaut's `h = f²θ'` | cost `α²/(2I₂)` |
 
-Same equation, same measure, different field. So `T(α) = α²·(4π/I₂)/(8π)` is an
-identity, not a fit.
+Same equation, different field — but **not automatically the same weight, and
+an earlier draft of this page said it was.** The azimuth's weight is the
+*metric* coefficient on the angular direction, `w = f²`, for every bearing
+dimension. The monopole's weight is the *volume* element, `w = f^q` for an
+`S^q` cross-section, so its resistance is `∫ds/f^q`:
+
+| angular dimension | monopole resistance | same as the hinge's `∫ds/f²`? |
+|--|--|--|
+| `q = 1` (2-D slice, `S¹`) | `∫ds/f` | no |
+| **`q = 2`** (3-D slice, `S²`) | **`∫ds/f²`** | **yes** |
+| `q = 3` (4-D slice, `S³`) | `∫ds/f³` | no |
+
+They coincide **exactly at `q = 2`** — the case in play, a three-dimensional
+spatial throat with `S²` cross-sections, and what `physical_throat` carries. So
+`T(α) = α²·(4π/I₂)/(8π)` is an identity where it is used, but it is a fact
+about *that dimension* rather than about the construction. Unlike the
+great-circle reduction of the hinge, it is **not** dimension-free.
 
 **The sharpest form of it is not about the numbers but about the profiles.**
 Normalised each to its own total, the monopole potential and the geodesic's
@@ -269,21 +325,37 @@ and eliminating `h` leaves
 The correction is **negative**, which is why every measured shape sits below
 one. And the division of labour is exact:
 
-- **`I₂` is the only moment in the leading term**, and it is the same `I₂` the
-  monopole channel already had. The quadratic hinge is universal in the strong
-  sense — a quantity the throat was already carrying fixes it completely.
-- **`I₄` is the first moment shared with nothing else**, and it is where the
-  neck's *shape* is first felt.
+- **What is universal is the leading functional form** `α²/(2I₂)`: every
+  rotationally symmetric neck obeys it, each with its own `I₂`. `I₂` itself is
+  *not* universal as a number — `4/f₀` here, `π/f₀` on the hyperbolic neck.
+  What `I₂` does have is a second job: at `q = 2` it is also the monopole
+  resistance, so the leading term is fixed by a quantity the throat already
+  carried.
+- **`I₄` is the first *additional independent* moment to enter**, and the first
+  place the neck's shape shows up. It is **not** the entire profile dependence
+  at large angle: `I₆` and beyond enter at `O(α⁶)`, and by `α = π` they matter
+  — the quartic prediction misses the measured shape by `7.2e-03` there,
+  against `7.9e-09` at `α = 0.1`.
 
 | profile | `I₂` | `I₄` | shape |
 |--|--|--|--|
 | scalar-flat, `f'² = 1 − f₀/f` | `4/f₀` | `32/(15f₀³)` | `1 − α²/120` |
 | hyperbolic, `f = √(f₀²+s²)` | `π/f₀` | `π/(2f₀³)` | `1 − α²/(8π²)` |
 
-`1/120 = 0.00833` against `1/(8π²) = 0.01267` is *exactly* why the two shapes
-agree to eight digits at `α = 0.1` and part company at `α = π` (`0.9250`
-against `0.8886`). The whole profile-dependence of the earlier section is this
-one coefficient.
+`1/120 = 0.00833` against `1/(8π²) = 0.01267` sets **how fast** the two
+separate: the shape difference is `α²(1/79 − 1/120) = α² × 4.33e-03`.
+
+| `α` | scalar-flat | hyperbolic | difference |
+|--|--|--|--|
+| `0.1` | `0.99991667` | `0.99987336` | `4.33e-05` |
+| `1.0` | `0.99174547` | `0.98749421` | `4.25e-03` |
+| `π` | `0.92496954` | `0.88959734` | `3.54e-02` |
+
+> An earlier draft said the two "agree to eight digits at `α = 0.1`". **That is
+> wrong and is withdrawn.** Eight digits is how well *each profile matches its
+> own quartic law* (`7.9e-09`); the two profiles match *each other* only to
+> `4.3e-05`. Two different quantities, and the smaller was reported for the
+> larger.
 
 The moments have closed forms of their own. Substituting `t = f' = √(1 − f₀/f)`
 — the profile's own slope — turns all of them into polynomials:

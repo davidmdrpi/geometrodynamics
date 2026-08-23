@@ -212,12 +212,24 @@ def test_how_loose_the_bound_is_depends_on_the_angle_and_not_the_neck():
 
 # ── the hinge stays cheap ───────────────────────────────────────────────────
 def test_turning_is_never_the_expensive_part_of_the_route():
+    """And `α = π` is the worst case, not a sample of one.
+
+    `bearing_distance` reduces any pair of directions to `[0, π]`, so there is
+    no separation past it to check. The withdrawn "break-even angle" of 104 rad
+    extrapolated the small-angle law outside both its domain and the bearing's
+    configuration space.
+    """
     got = rc.measure_the_hinge_is_never_the_expensive_part()
     assert got["the_hinge_is_always_cheap"]
-    assert got["and_the_break_even_angle_is_far_past_pi"]
+    assert got["no_reachable_orientation_breaks_even"]
+    assert got["worst_case_turn_over_arms"] < 1e-2
+    assert "withdrawn" in " ".join(got.keys())
+    assert "not a physical angle" in got["the_break_even_angle_is_withdrawn"]
     for row in got["rows"]:
         assert row["turn_over_arms"] < 1e-2
-        assert row["alpha_at_which_turning_costs_as_much_as_travelling"] > 30.0
+    # pi really is the ceiling the measurement claims it is
+    for alpha in (3.5, 5.0, 2.0 * math.pi + 1.0):
+        assert rc.bearing_distance(alpha) <= math.pi + 1e-12
 
 
 def test_the_cheapness_is_stated_without_claiming_it_is_free():
@@ -530,6 +542,56 @@ def test_the_shape_coefficient_is_one_over_one_hundred_and_twenty():
     assert max(misses) / min(misses) - 1.0 < 0.05, "the residual is O(alpha^4)"
 
 
+def test_the_two_shapes_do_not_agree_to_eight_digits():
+    """A withdrawn claim, pinned so it cannot come back.
+
+    `8` digits is how well each profile matches *its own* quartic law; the two
+    profiles match *each other* only to `4.3e-05` at `α = 0.1`. The separation
+    is `α²(1/79 − 1/120)` and grows quadratically.
+    """
+    got = rc.measure_the_fourth_moment_is_where_the_neck_shape_enters()
+    assert got["the_two_profiles_do_not_agree_to_eight_digits"]
+    assert got["the_separation_grows_as_alpha_squared"]
+    d = got["how_far_apart_at_alpha_0p1"]
+    assert 4.0e-5 < d < 5.0e-5, "not eight digits, and not nothing either"
+    coeff = 1.0 / (8.0 * math.pi ** 2) - 1.0 / 120.0
+    for row in got["shape_difference"]:
+        assert row["difference"] > 0.0, "the hyperbolic neck is always lower"
+        if row["alpha"] <= 1.0:
+            assert abs(row["difference"] / (row["alpha"] ** 2 * coeff)
+                       - 1.0) < 0.05
+    # and the thing that *is* good to eight digits is a different quantity
+    flat = rc.RegularizedCenter(neck=1e-6, outer=1.0, inner=1.0)
+    own = abs(flat.turn_cost(0.1) / flat.turn_cost_small_angle(0.1)
+              - (1.0 - 0.01 / 120.0))
+    assert own < 1e-8
+    assert own < 1e-3 * d, "the two must not be confusable"
+
+
+def test_i4_is_not_the_entire_profile_dependence():
+    """`I₆` and beyond enter at `O(α⁶)` and matter by `α = π`."""
+    got = rc.measure_the_fourth_moment_is_where_the_neck_shape_enters()
+    assert "I6" in got["i4_is_not_the_entire_profile_dependence"]
+    c = rc.RegularizedCenter(neck=1e-6, outer=1.0, inner=1.0)
+    near = abs(c.turn_cost(0.1) / c.turn_cost_to_fourth_order(0.1) - 1.0)
+    far = abs(c.turn_cost(math.pi) / c.turn_cost_to_fourth_order(math.pi) - 1.0)
+    assert near < 1e-8
+    assert far > 1e-3, "the quartic truncation visibly fails at pi"
+
+
+def test_the_universality_claim_is_about_the_form_not_the_number():
+    """`I₂` itself is profile-dependent; the functional form is what is shared."""
+    got = rc.measure_the_fourth_moment_is_where_the_neck_shape_enters()
+    text = got["the_division_of_labour"]
+    assert "LEADING FUNCTIONAL FORM" in text
+    assert "NOT itself universal" in text
+    flat = rc.RegularizedCenter(neck=1e-6, outer=1.0, inner=1.0).resistance()
+    hyper = rc.hyperbolic_neck(1e-6, 1.0, 1.0, 0.1)["resistance"]
+    assert abs(flat * 1e-6 - 4.0) < 1e-4
+    assert abs(hyper * 1e-6 - math.pi) < 1e-4
+    assert abs(flat / hyper - 4.0 / math.pi) < 1e-4, "different numbers"
+
+
 def test_the_two_profiles_differ_first_at_the_fourth_moment():
     got = rc.measure_the_fourth_moment_is_where_the_neck_shape_enters()
     assert got["the_shape_law_holds_at_small_angle"]
@@ -548,6 +610,86 @@ def test_the_two_profiles_differ_first_at_the_fourth_moment():
 
 
 # ── the identity underneath ─────────────────────────────────────────────────
+def test_the_dirichlet_identity_is_a_two_dimensional_cross_section_statement():
+    """The two weights are not automatically the same.
+
+    The azimuth's weight is the metric coefficient `f²` for every bearing
+    dimension; the monopole's is the volume element `f^q`. They coincide at
+    `q = 2` and nowhere else — which is the physical case here, but is a fact
+    about that dimension rather than about the construction.
+    """
+    got = rc.measure_the_hinge_and_the_monopole_are_one_dirichlet_form()
+    assert got["the_identity_is_a_q_equals_two_statement"]
+    by_dim = {d["angular_dimension"]: d for d in got["by_angular_dimension"]}
+    assert by_dim[2]["they_coincide"]
+    assert not by_dim[1]["they_coincide"]
+    assert not by_dim[3]["they_coincide"]
+    assert by_dim[1]["monopole_resistance"] < by_dim[2]["monopole_resistance"]
+    assert by_dim[3]["monopole_resistance"] > by_dim[2]["monopole_resistance"]
+    assert "not dimension-free" in got["and_q_equals_two_is_the_physical_case"]
+
+
+@pytest.mark.parametrize("q", [1, 2, 3, 4])
+def test_the_monopole_resistance_is_the_integral_of_ds_over_f_to_the_q(q):
+    from scipy.integrate import quad
+    f0, F = 1e-3, 0.5
+    closed = rc.monopole_resistance(F, f0, q)
+    got = quad(lambda t: 2.0 * math.sqrt(f0 + t * t) / (f0 + t * t) ** q,
+               0.0, math.sqrt(F - f0), limit=600)[0]
+    assert abs(closed / got - 1.0) < 1e-8
+
+
+def test_a_zero_dimensional_cross_section_is_refused():
+    with pytest.raises(ValueError):
+        rc.monopole_resistance(0.5, 1e-3, 0)
+
+
+def test_the_overlap_size_law_is_scoped_by_dimension():
+    got = rc.measure_the_bearing_replaces_collision_with_overlap()
+    text = got["how_big_depends_on_the_bearing_dimension"]
+    assert "LENGTH" in text and "AREA" in text and "VOLUME" in text
+    assert "criterion is dimension-free" in text
+    sizes = {r["angular_dimension"]: r for r in got["overlap_size_by_dimension"]}
+    assert sizes[1]["example_at_neck_1e-3_overlap_0p225"] > \
+        sizes[2]["example_at_neck_1e-3_overlap_0p225"] > \
+        sizes[3]["example_at_neck_1e-3_overlap_0p225"]
+    # the yes/no verdict is unaffected by any of this
+    assert got["the_verdict_does_not_depend_on_the_neck"]
+
+
+# ── where the turning actually happens ──────────────────────────────────────
+def test_the_turn_is_concentrated_at_the_neck_not_up_the_arm():
+    """Correcting this module's own first explanation.
+
+    `θ′ = h/f²` puts the angular rate highest where `f` is smallest, so the
+    geodesic hugs the neck — it does not turn "up the arm where the lever is
+    longer", and an angular increment at larger `f` costs *more* arc, not less.
+    """
+    got = rc.measure_where_the_turning_happens()
+    assert got["the_turn_is_concentrated_at_the_neck"]
+    assert got["the_geodesic_is_cheaper"]
+    assert got["fraction_done_by_2p4_necks"] > 0.7
+    rows = got["rows"]
+    assert all(b["fraction_of_the_arms_turn_done"]
+               >= a["fraction_of_the_arms_turn_done"]
+               for a, b in zip(rows, rows[1:])), "monotone outward"
+    assert rows[0]["fraction_of_the_arms_turn_done"] > 0.4, \
+        "nearly half the turn is done within 1.3 neck radii"
+
+
+def test_the_stated_reason_is_pythagoras_not_leverage():
+    got = rc.measure_where_the_turning_happens()
+    assert "Pythagoras" in got["the_corrected_reason"]
+    assert "PURE transverse" in got["the_corrected_reason"]
+    assert "backwards" in got["what_the_first_draft_said"]
+    # and the arithmetic behind it: the corner is first order, the tilt second
+    c = rc.RegularizedCenter(neck=1e-5, outer=1.0, inner=1.0)
+    corner = [c.neck * a for a in (0.05, 0.1)]
+    tilt = [c.turn_cost(a) for a in (0.05, 0.1)]
+    assert abs(corner[1] / corner[0] - 2.0) < 1e-9, "the arc is linear"
+    assert abs(tilt[1] / tilt[0] - 4.0) < 1e-3, "the tilt is quadratic"
+
+
 def test_the_monopole_and_the_azimuth_are_one_dirichlet_form():
     """Normalised, the static potential and the geodesic azimuth coincide."""
     got = rc.measure_the_hinge_and_the_monopole_are_one_dirichlet_form()

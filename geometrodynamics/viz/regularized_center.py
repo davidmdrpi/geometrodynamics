@@ -37,8 +37,18 @@ from the neck out to an end of scale ``F`` is exactly
 So ``L_o = L(f_o)`` and ``L_i = L(f_i)`` are independently whatever the two
 ends are, and ``L_o/L_i`` runs to 437 in `measure_the_two_arms_are_independent`
 without anything breaking.  Setting ``f_o = f_i = sin a`` and ``f₀ = sin³a``
-recovers `physical_throat.VacuumThroat.length()` **to the last bit** — the
-asymmetric arm is the symmetric throat's own formula with the symmetry dropped.
+recovers `physical_throat.VacuumThroat.length()` **to the last bit**.
+
+That last sentence is an *intrinsic* statement, and it needs a caveat it did
+not originally carry.  Unequal arms are genuine truncations of one and the
+same scalar-flat profile — nothing about the interior objects to it.  But PR
+#265's mouths are ``C¹``-matched to a **unit round S³**, and that matching
+forces ``f₀ = sin³a_j = F_j³`` at each end; one common ``f₀`` then fixes
+``F = f₀^{1/3}`` uniquely, so **both matched mouths have the same scale**.
+Asymmetric arms therefore need asymmetric ambient attachments — different
+curvature scales, a shell or junction, nonzero ``K`` — and are *not* a fully
+matched #265 throat with the symmetry merely removed.  See
+`measure_the_two_arms_are_independent`.
 
 **Scale transport becomes explicit.**  A feature of angular width ``Δθ`` has
 physical width ``w(s) = f(s)Δθ``, so along the route it goes
@@ -60,34 +70,60 @@ route** — go down the outer arm at fixed direction, turn on the bearing, go up
 the inner arm — and `corner_route_length` computes it.  But that route is not
 the geodesic, and the geodesic is much cheaper.
 
-Clairaut's relation for a surface of revolution, ``f sin ψ = h``, makes the
-shortest path cut the corner: it starts turning while it is still descending,
-where the lever arm ``f`` is longer.  Solving for the ``h`` that sweeps a
-given ``α`` and integrating (`turn_cost`) gives, in the small-angle limit,
+**Why the corner route loses is Pythagoras, not leverage.**  The corner pays
+its angular displacement as *pure transverse motion* at the neck: cost
+``f₀α``, first order in ``α``.  The geodesic instead **tilts** motion that is
+already happening radially, and a tilt costs
+``√(ds² + f²dθ²) − ds ≈ ½f²θ'²ds`` — *second* order.  That is the whole of the
+saving, and it is why the answer is quadratic.
 
-    ``T(α) = α² / (2I)`` ,   ``I = ∫ ds/f²`` ,
+An earlier draft of this module explained it as "turning where the lever arm
+``f`` is longer, so a given angle costs less arc".  That is **backwards**: an
+angular increment at larger ``f`` costs *more* transverse arc, ``f dθ``.  And
+the optimal distribution, ``θ' = h/f²`` from Clairaut's ``f sin ψ = h``, puts
+the turning where ``f`` is *smallest* — `measure_where_the_turning_happens`
+finds ``76%`` of it inside ``f < 2.4 f₀``.  The geodesic does not avoid the
+neck; it spreads the turn over a finite neighbourhood of it instead of
+concentrating it at one point.
 
-and ``I`` is **not a new quantity** — it is the same resistance integral
+Solving for the ``h`` that sweeps a given ``α`` and integrating (`turn_cost`)
+gives, to leading order in the angle,
+
+    ``T(α) = α²/(2I₂) + O(α⁴)`` ,   ``I₂ = ∫ ds/f²`` ,
+
+and ``I₂`` is **not a new quantity** — it is the same resistance integral
 `physical_throat.VacuumThroat.resistance` already computes, whose reciprocal
-sets the throat's monopole conductance ``4π/I``.  Per arm it is
+sets the throat's monopole conductance ``4π/I₂``.  Per arm it is
 
-    ``I(F) = (2/f₀)√(1 − f₀/F)`` ,
+    ``I₂(F) = (2/f₀)√(1 − f₀/F)`` ,
 
-exact, and ``2I(sin a)`` reproduces the repo's ``4cos a / sin³a`` bit for bit.
+exact, and ``2I₂(sin a)`` reproduces the repo's ``4cos a / sin³a`` bit for bit.
 So the geometric cost of swinging the clock hands and the electrical cost of
 pushing monopole flux through the throat are set by *one* integral:
 
     ``T(α) = α² · conductance / (8π)`` .
 
-For two long arms ``I → 4/f₀`` and the law reads ``T(α) → f₀α²/8``.
+**That coincidence is specific to a two-dimensional cross-section.**  The
+geodesic's weight is the *metric* coefficient on the angular direction, which
+is ``f²`` whatever the bearing's dimension.  The monopole's weight is the
+*volume* element, ``f^q`` for an ``S^q`` cross-section, so its resistance is
+``∫ds/f^q`` — see `monopole_resistance`.  The two agree at ``q = 2`` and
+nowhere else.  ``q = 2`` is the physical case here (a three-dimensional
+spatial throat, which is what `physical_throat` carries), so the identity
+holds where it is used; it is not a dimension-free statement, unlike the
+great-circle reduction of the hinge itself.
+
+For two long arms ``I₂ → 4/f₀`` and the law reads ``T(α) → f₀α²/8``.
 
 This matters, because it is a correction that runs the *helpful* way.  The
 linear guess overstates the cost badly: at ``α = 0.1`` the geodesic spends
-``1.25%`` of ``f₀α``, and even at ``α = π`` only ``36%``.  Turning is never
-expensive compared with travelling — ``T(π)/(L_o + L_i) = 8.4e-04`` at
-``f₀ = 1e-03``, and you would need ``α ≈ 104`` radians before the hinge cost as
-much as the arms.  **The conclusion the point-center picture was wanted for
-survives the regularisation, and survives it more strongly than proposed.**
+``1.25%`` of ``f₀α``, and even at ``α = π`` only ``36%``.  And ``π`` is the
+largest separation there is — `bearing_distance` reduces any pair of
+directions to ``[0, π]`` — so ``T(π)/(L_o + L_i) = 8.4e-04`` at
+``f₀ = 1e-03`` is the *worst case*, not a sample of one.  **There is no
+reachable orientation at which the hinge costs as much as the journey.**  The
+conclusion the point-center picture was wanted for survives the
+regularisation, and survives it more strongly than proposed.
 
 Both costs still vanish with the bearing: ``T`` is linear in ``f₀`` at fixed
 ``α``, so ``f₀ → 0`` returns ``L_o + L_i``, independent of where the mouths
@@ -148,6 +184,8 @@ __all__ = [
     "measure_the_law_does_not_depend_on_the_profile",
     "measure_the_fourth_moment_is_where_the_neck_shape_enters",
     "measure_the_hinge_and_the_monopole_are_one_dirichlet_form",
+    "measure_where_the_turning_happens",
+    "monopole_resistance",
     "hyperbolic_neck",
 ]
 
@@ -212,6 +250,33 @@ def arm_moment(scale: float, neck: float, order: int) -> float:
         total += (math.comb(m, k) * (-1.0) ** k * t ** (2 * k + 1)
                   / (2 * k + 1))
     return (2.0 / f0 ** (n - 1)) * total
+
+
+def monopole_resistance(scale: float, neck: float, angular_dim: int = 2) -> float:
+    """``∫ds/f^q`` over one arm — the ℓ=0 resistance for an ``S^q`` cross-section.
+
+    The static monopole problem weights by the **volume** element, ``f^q``, so
+    its equation is ``(f^q u')' = 0`` and its resistance is ``∫ds/f^q``.  The
+    geodesic hinge weights by the **metric** coefficient on the angular
+    direction, which is ``f²`` for every ``q``.
+
+    So the two coincide **only at ``q = 2``**.  That is the physical case here
+    — a three-dimensional spatial throat with ``S²`` cross-sections, which is
+    what `physical_throat` carries — but the agreement is a property of that
+    dimension and not of the construction.  Provided so the scoping is
+    checkable rather than asserted.
+    """
+    q = int(angular_dim)
+    if q < 1:
+        raise ValueError("the angular cross-section needs at least one dimension")
+    return arm_moment(scale, neck, q) if q % 2 == 0 else _odd_moment(scale, neck, q)
+
+
+def _odd_moment(scale: float, neck: float, order: int) -> float:
+    """``∫ds/f^n`` for odd ``n``, by quadrature — no polynomial closed form."""
+    f0, end = float(neck), float(scale)
+    return quad(lambda t: 2.0 * math.sqrt(f0 + t * t) / (f0 + t * t) ** order,
+                0.0, math.sqrt(end - f0), limit=600)[0]
 
 
 def bearing_distance(alpha: float, projective: bool = False) -> float:
@@ -549,6 +614,23 @@ def measure_the_two_arms_are_independent() -> Dict[str, object]:
     separated by one arbitrary radial gap.  Here the two ends are separately
     whatever they are, and the ratio is scanned to ``437`` without the
     resistance, the turn cost or the small-angle law changing character.
+
+    **Intrinsically** that is all true: unequal arms are honest truncations of
+    one scalar-flat profile.  What it does *not* buy is a fully matched #265
+    throat with the symmetry merely removed.  ``C¹`` matching to a unit round
+    ``S³`` gives ``F_j = sin a_j`` and ``|f'_j| = cos a_j``, and with
+    ``f'² = 1 − f₀/F_j`` that forces ``f₀ = sin³a_j = F_j³`` at each end.  One
+    common ``f₀`` then fixes ``F = f₀^{1/3}`` uniquely, so **both matched
+    mouths have the same scale**.  Asymmetric arms need asymmetric ambient
+    attachments — different curvature scales, a shell or junction, nonzero
+    ``K`` — and the interior below says nothing about whether those exist.
+
+    The related over-claim is also corrected here.  ``R_inner/R_outer`` does
+    not "stop carrying physical significance": the very next measurement
+    derives ``w_i/w_o = f_i/f_o``, so the *endpoint scale ratio* is
+    load-bearing for scale transport.  What loses its significance is the old
+    vacuole's **arbitrary drawing ratio**, which was never identified with the
+    endpoint scales at all.
     """
     f0 = 1e-3
     rows = []
@@ -574,8 +656,25 @@ def measure_the_two_arms_are_independent() -> Dict[str, object]:
         "why_it_matters": "the old vacuole picture had to give the inner and "
                           "outer boundaries one shared arbitrary radial gap; "
                           "a finite bearing with two arms has no such "
-                          "constraint, and the R_inner/R_outer ratio stops "
-                          "carrying any physical significance",
+                          "constraint",
+        "what_loses_significance": "the vacuole's ARBITRARY DRAWING ratio, "
+                                   "which was never identified with the "
+                                   "endpoint scales -- NOT the endpoint scale "
+                                   "ratio itself, which is load-bearing: "
+                                   "w_i/w_o = f_i/f_o",
+        "matched_mouths_would_be_equal": {
+            "why": "C1 matching to a unit round S^3 forces f0 = sin^3 a_j = "
+                   "F_j^3 at each end, so one common f0 fixes F = f0^(1/3) "
+                   "uniquely",
+            "rows": [{"neck": f, "forced_scale": f ** (1.0 / 3.0),
+                      "forced_mouth_angle": math.asin(f ** (1.0 / 3.0))}
+                     for f in (1e-6, 1.25e-4, 1e-3)],
+        },
+        "so_asymmetric_arms_need_asymmetric_attachments": True,
+        "this_is_an_intrinsic_statement_not_a_matched_one":
+            "unequal arms are honest truncations of one scalar-flat profile; "
+            "they are NOT a fully matched #265 throat with the symmetry "
+            "removed, because that matching forces F_o = F_i",
     }
 
 
@@ -631,16 +730,18 @@ def measure_the_width_rescales_with_the_profile() -> Dict[str, object]:
 
 
 def measure_the_turn_cost_is_quadratic_not_linear() -> Dict[str, object]:
-    """**The result.**  ``T(α) = α²/(2I)``, and ``I`` is the repo's resistance.
+    """**The result.**  ``T(α) = α²/(2I₂) + O(α⁴)``, with ``I₂`` the repo's
+    resistance.
 
     The linear guess ``f₀α`` measures the bearing's arc.  The geodesic does not
-    walk the arc: Clairaut's ``f sin ψ = h`` makes it start turning while it is
-    still high up the arm, where the lever arm is longer, so the cost is
-    *quadratic* in the angle and set by ``I = ∫ds/f²`` rather than by ``f₀``
-    alone.  ``I`` is the same integral whose reciprocal is the throat's
-    monopole conductance, so
+    walk the arc: it *spreads* the turn, tilting motion that is already radial.
+    By Pythagoras a tilt costs second order in the angle where a pure sideways
+    move costs first order, so the cost is *quadratic* and set by
+    ``I₂ = ∫ds/f²`` rather than by ``f₀`` alone.  At angular dimension
+    ``q = 2`` — the physical case — ``I₂`` is also the integral whose
+    reciprocal is the throat's monopole conductance, so
 
-        ``T(α) = α² · (4π/I) / (8π)`` ,
+        ``T(α) = α² · (4π/I₂) / (8π) + O(α⁴)`` ,
 
     and the geometric cost of swinging the clock hands is the electrical cost
     of pushing flux through the same tube.  With two long arms ``I → 4/f₀`` and
@@ -672,8 +773,13 @@ def measure_the_turn_cost_is_quadratic_not_linear() -> Dict[str, object]:
     small = [r for r in rows if r["alpha"] <= 0.3]
     return {
         "rows": rows,
-        "law": "T(alpha) = alpha^2 / (2I),  I = int ds/f^2",
-        "conductance_form": "T(alpha) = alpha^2 * conductance / (8 pi)",
+        "law": "T(alpha) = alpha^2/(2 I2) + O(alpha^4),  I2 = int ds/f^2",
+        "the_law_is_leading_order": "the exact object is the Clairaut-"
+                                    "integrated turn_cost; the quadratic is "
+                                    "its leading term, and the next one is "
+                                    "-alpha^4 I4/(8 I2^4)",
+        "conductance_form": "T(alpha) = alpha^2 * conductance / (8 pi) + "
+                            "O(alpha^4), at angular dimension q = 2",
         "long_arm_limit": "I -> 4/f0, so T -> f0 alpha^2 / 8",
         "long_arm_prefactor": float(1.0 / (2.0 * c.resistance() * c.neck)),
         "the_same_I_as_physical_throat": {
@@ -696,9 +802,11 @@ def measure_the_turn_cost_is_quadratic_not_linear() -> Dict[str, object]:
         "the_resistance_is_the_repos": bool(
             abs(sym.resistance() - t.resistance()) < 1e-8),
         "what_was_proposed": "L_turn ~ f0 alpha, the bearing's arc length",
-        "what_is_measured": "T(alpha) = alpha^2/(2I), quadratic in the angle "
-                            "and much smaller -- the geodesic cuts the corner "
-                            "rather than walking the arc",
+        "what_is_measured": "T(alpha) = alpha^2/(2 I2) + O(alpha^4), "
+                            "quadratic in the angle and much smaller -- the "
+                            "geodesic spreads the turn instead of paying it "
+                            "as pure transverse motion, so the cost is second "
+                            "order rather than first",
     }
 
 
@@ -751,9 +859,20 @@ def measure_the_hinge_is_never_the_expensive_part() -> Dict[str, object]:
     The reason for putting a point in the middle was that the link's cost then
     did not care where the mouths were.  A finite bearing charges *something*,
     so the question is whether it charges enough to matter — and it does not:
-    at the working point the whole half-turn costs ``8e-04`` of the arms, and
-    the angle at which the hinge would cost as much as the journey is ``104``
-    radians, thirty-three times around.
+    at the working point the whole half-turn costs ``8e-04`` of the arms.
+
+    ``π`` is the *largest separation there is*: `bearing_distance` reduces any
+    pair of directions to ``[0, π]``.  So the ``α = π`` row is the worst case
+    over the entire configuration space, not a sample of one, and the honest
+    statement is that **no reachable orientation makes the hinge cost as much
+    as the journey.**
+
+    An earlier draft instead reported a "break-even angle" of ``104`` radians,
+    from ``√(2I₂·L)``.  That number is withdrawn: it extrapolates the
+    small-angle quadratic law far outside its own domain *and* outside the
+    bearing's configuration space, so it describes nothing.  The quantity is
+    still computed below, as `break_even_angle_of_the_extrapolated_law`, only
+    to record that it lands past ``π`` — which is the whole of its content.
     """
     rows = []
     for f0 in (1e-2, 1e-3, 1e-4):
@@ -765,17 +884,27 @@ def measure_the_hinge_is_never_the_expensive_part() -> Dict[str, object]:
             "arm_length_sum": base,
             "turn_cost_at_pi": full,
             "turn_over_arms": full / base,
-            "alpha_at_which_turning_costs_as_much_as_travelling":
+            "break_even_angle_of_the_extrapolated_law":
                 math.sqrt(2.0 * c.resistance() * base),
         })
     return {
         "rows": rows,
+        "pi_is_the_largest_separation": "bearing_distance reduces any pair of "
+                                        "directions to [0, pi], so the alpha "
+                                        "= pi row is the worst case over the "
+                                        "whole configuration space",
         "the_hinge_is_always_cheap": bool(
             all(r["turn_over_arms"] < 1e-2 for r in rows)),
-        "and_the_break_even_angle_is_far_past_pi": bool(
-            all(r["alpha_at_which_turning_costs_as_much_as_travelling"]
-                > 10.0 * math.pi for r in rows)),
+        "worst_case_turn_over_arms": float(
+            max(r["turn_over_arms"] for r in rows)),
+        "no_reachable_orientation_breaks_even": bool(
+            all(r["turn_over_arms"] < 1.0 for r in rows)),
         "so_the_clock_hand_picture_survives": True,
+        "the_break_even_angle_is_withdrawn":
+            "sqrt(2 I2 L) lands past pi, but it extrapolates the small-angle "
+            "quadratic law outside its domain AND outside the bearing's "
+            "configuration space, so it is not a physical angle; only the "
+            "fact that it exceeds pi carries any content",
         "what_this_does_not_say": "that the cost is zero -- it is finite, and "
                                   "linear in f0, which is exactly the "
                                   "difference between a bearing and a point",
@@ -830,9 +959,12 @@ def measure_the_bearing_replaces_collision_with_overlap() -> Dict[str, object]:
 
     * **Whether** they meet is a statement about angles — their angular
       extents overlap, or they do not — and ``f₀`` does not enter it at all.
-    * **How big** the meeting is does depend on ``f₀``: the overlap is
-      ``f₀ × (overlap angle)`` across, and two fronts that miss are separated
-      by ``f₀ × (gap angle)``.
+    * **How big** the meeting is does depend on ``f₀`` — and on the bearing's
+      dimension.  In the drawn 2-D cross-section the overlap is a *length*,
+      ``f₀ × (overlap angle)``.  On an ``S²`` bearing it is an *area*,
+      ``~f₀² × (angular area)``; on ``S³`` a *volume*, ``~f₀³ × …``.  The
+      earlier draft quoted only the 2-D length; the scaling below is reported
+      per dimension.
 
     That is how the point limit is recovered, and it is not the way it is
     usually described.  ``f₀ → 0`` does not make everything meet.  It makes the
@@ -870,7 +1002,17 @@ def measure_the_bearing_replaces_collision_with_overlap() -> Dict[str, object]:
         "criterion": "they meet iff the angular extents overlap: "
                      "|separation| < (w_a + w_b)/2",
         "whether_is_an_angular_question": "f0 does not appear in the criterion",
-        "how_big_is_a_length_question": "the overlap is f0 x (overlap angle)",
+        "how_big_depends_on_the_bearing_dimension":
+            "on the drawn S^1 cross-section the overlap is a LENGTH, f0 x "
+            "(overlap angle); on an S^2 bearing an AREA ~ f0^2 x (angular "
+            "area); on S^3 a VOLUME ~ f0^3 x (angular volume). The yes/no "
+            "criterion is dimension-free; the size law is not",
+        "overlap_size_by_dimension": [
+            {"angular_dimension": q,
+             "scales_as": "f0^%d x (angular measure)" % q,
+             "example_at_neck_1e-3_overlap_0p225":
+                 (1e-3) ** q * 0.225 ** q}
+            for q in (1, 2, 3)],
         "the_verdict_does_not_depend_on_the_neck": bool(consistent),
         "both_the_overlap_and_the_gap_scale_with_the_neck": bool(
             all(abs(r["overlap_length_on_the_bearing"]
@@ -1101,23 +1243,40 @@ def measure_the_fourth_moment_is_where_the_neck_shape_enters(
 
     equivalently a shape ``T/(α²/2I₂) = 1 − α²I₄/(4I₂³)``.
 
-    **That is the division of labour.**  ``I₂`` is the only moment in the
-    leading term, and it is the *same* ``I₂`` that sets the monopole
-    conductance — so the quadratic hinge is universal in the strong sense that
-    it is fixed by a quantity the throat already had.  ``I₄`` is the first
-    moment that is not shared with anything, and it is where the neck's shape
-    is first felt.  The two profiles differ there and nowhere earlier:
+    **The division of labour, stated carefully.**  What is universal is the
+    *leading functional form* ``α²/(2I₂)`` — every rotationally symmetric neck
+    obeys it, each with its own ``I₂``.  ``I₂`` itself is **not** universal as
+    a number: it is ``4/f₀`` here and ``π/f₀`` on the hyperbolic neck.  What
+    ``I₂`` does have is a second job — at ``q = 2`` it is also the monopole
+    resistance — so the leading term is fixed by a quantity the throat already
+    carried.
+
+    ``I₄`` is then the first **additional independent moment** to enter, and
+    the first place the neck's shape shows up.  It is *not* the entire profile
+    dependence at large angle: ``I₆`` and beyond enter at ``O(α⁶)``, and at
+    ``α = π`` they matter — the quartic prediction misses the measured shape
+    by ``7.2e-03`` there against ``7.9e-09`` at ``α = 0.1``.
+
+    The two profiles differ at ``I₄`` and nowhere earlier:
 
     * scalar-flat, long arms — ``I₂ = 4/f₀``, ``I₄ = 32/(15f₀³)``, so the
       shape is ``1 − α²/120`` ;
     * hyperbolic ``f = √(f₀²+s²)`` — ``I₂ = π/f₀``, ``I₄ = π/(2f₀³)``, so the
       shape is ``1 − α²/(8π²)`` .
 
-    ``1/120`` against ``1/(8π²) = 1/79`` is exactly why the two shapes part
-    company at large angle (``0.9250`` against ``0.8886`` at ``α = π``) while
-    agreeing to eight digits at ``α = 0.1``.  The moments below are closed
-    forms and are checked against quadrature; the shapes are checked against
-    the integrated geodesic.
+    ``1/120`` against ``1/(8π²) = 1/79`` sets how fast they separate: the
+    difference of the two shapes is ``α²(1/79 − 1/120) = α² × 4.33e-03``, so
+    ``4.3e-05`` at ``α = 0.1`` growing to ``3.5e-02`` at ``α = π``.
+
+    An earlier draft said the two "agree to eight digits at ``α = 0.1``".
+    **That is wrong and is withdrawn.**  ``8`` digits is how well each profile
+    matches *its own* quartic law (``7.9e-09``); the two profiles match *each
+    other* only to ``4.3e-05`` there.  Two different quantities, and the
+    smaller one was reported for the larger.  `shape_difference` below carries
+    the correct number.
+
+    The moments are closed forms checked against quadrature; the shapes are
+    checked against the integrated geodesic.
     """
     long_arm = RegularizedCenter(neck=1e-6, outer=1.0, inner=1.0)
     i2, i4 = long_arm.resistance(), long_arm.fourth_moment()
@@ -1146,9 +1305,32 @@ def measure_the_fourth_moment_is_where_the_neck_shape_enters(
         hyper.append({"alpha": alpha, "shape_measured": got["shape"],
                       "shape_predicted": 1.0 - alpha ** 2 * j4 / (4.0 * j2 ** 3)})
     small = [r for r in rows if r["alpha"] <= 0.3]
+    sep = []
+    for alpha in (0.1, 1.0, math.pi):
+        a_sf = long_arm.turn_cost(alpha) / long_arm.turn_cost_small_angle(alpha)
+        a_hy = hyperbolic_neck(f0, 1.0, 1.0, alpha)["shape"]
+        sep.append({"alpha": alpha, "scalar_flat": a_sf, "hyperbolic": a_hy,
+                    "difference": a_sf - a_hy,
+                    "predicted": alpha ** 2 * (1.0 / (8.0 * math.pi ** 2)
+                                               - 1.0 / 120.0)})
     return {
         "rows": rows,
         "hyperbolic_rows": hyper,
+        "shape_difference": sep,
+        "how_far_apart_at_alpha_0p1": float(abs(sep[0]["difference"])),
+        "the_two_profiles_do_not_agree_to_eight_digits": bool(
+            abs(sep[0]["difference"]) > 1e-5),
+        "eight_digits_is_a_different_quantity": "how well EACH profile matches "
+                                                "its OWN quartic law (7.9e-09 "
+                                                "at alpha = 0.1), not how well "
+                                                "the two match each other "
+                                                "(4.3e-05)",
+        "the_separation_grows_as_alpha_squared": bool(
+            all(abs(r["difference"] / r["predicted"] - 1.0) < 0.25 for r in sep)),
+        "i4_is_not_the_entire_profile_dependence": "I6 and beyond enter at "
+                                                   "O(alpha^6); at alpha = pi "
+                                                   "the quartic prediction "
+                                                   "misses by 7.2e-03",
         "expansion": "T = alpha^2/(2 I2) - alpha^4 I4/(8 I2^4) + O(alpha^6)",
         "shape_law": "T/(alpha^2/2 I2) = 1 - alpha^2 I4/(4 I2^3)",
         "scalar_flat": {"I2_times_neck": i2 * long_arm.neck,
@@ -1172,10 +1354,14 @@ def measure_the_fourth_moment_is_where_the_neck_shape_enters(
             abs(i2 * long_arm.neck / (j2 * f0) - 4.0 / math.pi) < 1e-4
             and abs(i4 / (4.0 * i2 ** 3) - 1.0 / 120.0) < 1e-6
             and abs(j4 / (4.0 * j2 ** 3) - 1.0 / (8.0 * math.pi ** 2)) < 1e-6),
-        "the_division_of_labour": "I2 controls the universal quadratic hinge "
-                                  "and is the same integral as the monopole "
-                                  "conductance; I4 is the first moment that "
-                                  "remembers the neck's shape",
+        "the_division_of_labour": "the LEADING FUNCTIONAL FORM alpha^2/(2 I2) "
+                                  "is universal -- every neck obeys it with "
+                                  "its own I2, which is NOT itself universal "
+                                  "(4/f0 here, pi/f0 there); at q = 2 that I2 "
+                                  "is also the monopole resistance; I4 is the "
+                                  "first ADDITIONAL INDEPENDENT MOMENT to "
+                                  "enter, and the first place the neck's "
+                                  "shape is felt",
     }
 
 
@@ -1187,17 +1373,27 @@ def measure_the_hinge_and_the_monopole_are_one_dirichlet_form(
     problems that happen to share a number.  They are *one* variational problem
     on the tube,
 
-        minimise  ``E[φ] = ∫ f² φ'² ds``  at fixed total increment ``Δφ`` ,
+        minimise  ``E[φ] = ∫ w(s) φ'² ds``  at fixed total increment ``Δφ`` ,
 
-    whose Euler–Lagrange equation is ``(f²φ') ' = 0``: the current ``f²φ'`` is
-    conserved, ``Δφ = c·I₂``, and the minimum is ``Δφ²/I₂``.  The weight is the
-    transverse area element, which is why ``I₂ = ∫ds/f²`` and nothing else.
+    whose Euler–Lagrange equation is ``(wφ')' = 0``: the current ``wφ'`` is
+    conserved, ``Δφ = c·∫ds/w``, and the minimum is ``Δφ²/∫ds/w``.
+
+    **The two readings do not automatically share a weight, and the earlier
+    draft said they did.**  The azimuth's weight is the *metric* coefficient
+    on the angular direction, ``w = f²``, for every bearing dimension.  The
+    monopole's weight is the *volume* element, ``w = f^q`` for an ``S^q``
+    cross-section — see `monopole_resistance`.  They coincide **exactly when
+    ``q = 2``**, and that is the case in play: a three-dimensional spatial
+    throat with ``S²`` cross-sections, which is what `physical_throat`
+    carries.  So the identity holds where it is used, and is a statement about
+    that dimension rather than about the construction.
 
     Reading it twice:
 
-    * ``φ = u``, the ℓ=0 potential.  The conserved current **is** the flux,
-      ``Φ = 4πf²u'``; the drop is ``ΦI₂/4π``; the conductance is ``4π/I₂``.
-      That is `physical_throat.VacuumThroat.conductance`.
+    * ``φ = u``, the ℓ=0 potential, on an ``S²`` cross-section.  The
+      conserved current **is** the flux, ``Φ = 4πf²u'``; the drop is
+      ``ΦI₂/4π``; the conductance is ``4π/I₂``.  That is
+      `physical_throat.VacuumThroat.conductance`.
     * ``φ = θ``, the azimuth.  The conserved current **is** Clairaut's
       constant, ``h = f²θ'``; the sweep is ``hI₂``; the excess length is
       ``½h²I₂ = α²/(2I₂)``.  That is `turn_cost`.
@@ -1232,9 +1428,28 @@ def measure_the_hinge_and_the_monopole_are_one_dirichlet_form(
                             inner=t.mouth_f())
     alpha = 0.05
     ratios = sorted(r["over_alpha_squared"] for r in convergence)
+    by_dim = []
+    for q in (1, 2, 3):
+        mono = 2.0 * monopole_resistance(t.mouth_f(), t.neck_radius(), q)
+        by_dim.append({"angular_dimension": q, "monopole_resistance": mono,
+                       "geodesic_I2": sym.resistance(),
+                       "they_coincide": bool(abs(mono / sym.resistance() - 1.0)
+                                             < 1e-9)})
     return {
-        "form": "E[phi] = int f^2 phi'^2 ds, minimised at fixed increment",
-        "euler_lagrange": "(f^2 phi')' = 0, so f^2 phi' is conserved",
+        "form": "E[phi] = int w phi'^2 ds, minimised at fixed increment",
+        "euler_lagrange": "(w phi')' = 0, so w phi' is conserved",
+        "the_weights_are_not_automatically_the_same":
+            "the azimuth's weight is the METRIC coefficient f^2 for every "
+            "bearing dimension; the monopole's is the VOLUME element f^q for "
+            "an S^q cross-section, so its resistance is int ds/f^q",
+        "by_angular_dimension": by_dim,
+        "the_identity_is_a_q_equals_two_statement": bool(
+            [d["they_coincide"] for d in by_dim] == [False, True, False]),
+        "and_q_equals_two_is_the_physical_case":
+            "a three-dimensional spatial throat with S^2 cross-sections, "
+            "which is what physical_throat carries -- so the identity holds "
+            "where it is used, but it is not dimension-free, unlike the "
+            "great-circle reduction of the hinge itself",
         "as_a_potential": "phi = u: the current is the flux 4 pi f^2 u', the "
                           "drop is Phi I2 / 4 pi, the conductance is 4 pi / I2",
         "as_an_azimuth": "phi = theta: the current is Clairaut's h = f^2 "
@@ -1265,4 +1480,64 @@ def measure_the_hinge_and_the_monopole_are_one_dirichlet_form(
         "what_is_not_claimed": "that the two remain the same beyond leading "
                                "order -- at finite alpha the geodesic picks "
                                "up I4 and the static potential does not",
+    }
+
+
+def measure_where_the_turning_happens() -> Dict[str, object]:
+    """The turn is concentrated **at** the neck — correcting this module's own
+    first explanation of why the geodesic beats the corner.
+
+    The original prose said the geodesic "starts turning while it is still
+    descending, where the lever arm ``f`` is longer and a given angle costs
+    less arc".  Both halves are wrong.  An angular increment at larger ``f``
+    costs *more* transverse arc, ``f dθ``; and Clairaut's ``θ' = h/f²`` puts
+    the angular rate *highest* where ``f`` is smallest.  Measured below: on a
+    long scalar-flat arm, ``46%`` of the turn is done by ``f = 1.27 f₀`` and
+    ``76%`` by ``f = 2.4 f₀``.  The geodesic hugs the neck.
+
+    **The real reason the corner route loses is Pythagoras.**  The corner pays
+    its angle as pure transverse motion at the neck — ``f₀α``, first order.
+    The geodesic tilts motion that is already radial, and a tilt costs
+    ``√(ds² + f²dθ²) − ds ≈ ½f²θ'²ds`` — second order.  Spreading the same
+    total angle over a finite stretch is what converts a first-order cost into
+    a second-order one; *where* it is spread then follows from minimising
+    ``∫½f²θ'²ds``, which is what gives ``θ' = h/f²`` and puts it at the neck.
+    """
+    c = RegularizedCenter(neck=1e-4, outer=1.0, inner=1.0)
+    alpha = 0.1
+    kappa = c.clairaut_constant(alpha)
+    x_end = c.half_length_in_x(c.outer)
+    total = c.azimuth_profile(x_end, kappa)
+    rows = []
+    for x in (0.5, 1.0, 1.5, 2.0, 3.0, x_end):
+        rows.append({
+            "x": x,
+            "f_over_neck": math.cosh(x) ** 2,
+            "fraction_of_the_arms_turn_done":
+                c.azimuth_profile(x, kappa) / total,
+        })
+    # the cost density, to make the Pythagorean point quantitative
+    corner = c.neck * alpha
+    geodesic = c.turn_cost(alpha)
+    return {
+        "rows": rows,
+        "clairaut": "theta' = h/f^2, so the angular RATE is highest where f "
+                    "is SMALLEST",
+        "fraction_done_by_2p4_necks": float(
+            [r for r in rows if abs(r["x"] - 1.0) < 1e-9][0]
+            ["fraction_of_the_arms_turn_done"]),
+        "the_turn_is_concentrated_at_the_neck": bool(
+            [r for r in rows if abs(r["x"] - 1.0) < 1e-9][0]
+            ["fraction_of_the_arms_turn_done"] > 0.7),
+        "the_corrected_reason": "Pythagoras, not leverage: the corner pays the "
+                                "angle as PURE transverse motion (f0 alpha, "
+                                "first order) while the geodesic TILTS motion "
+                                "that is already radial (half f^2 theta'^2 ds, "
+                                "second order)",
+        "what_the_first_draft_said": "that the geodesic turns where the lever "
+                                     "arm f is longer and a given angle costs "
+                                     "less arc -- backwards on both counts",
+        "corner_cost": corner,
+        "geodesic_cost": geodesic,
+        "the_geodesic_is_cheaper": bool(geodesic < corner),
     }

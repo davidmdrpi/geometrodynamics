@@ -1294,27 +1294,36 @@ had to force become free.
 
 **The arms are this repo's own geometry with the symmetry dropped.** The proper
 distance to an end of scale `F` is `L(F) = √(F(F−f₀)) + f₀ arcosh√(F/f₀)` and
-one arm's resistance is `I(F) = (2/f₀)√(1−f₀/F)`; at `f_o = f_i = sin a`,
+one arm's resistance is `I₂(F) = (2/f₀)√(1−f₀/F)`; at `f_o = f_i = sin a`,
 `f₀ = sin³a` they reproduce §23's `length()` and `resistance()` **bit for bit**.
 So `L_o ≠ L_i` is ordinary — scanned to `437` — and the vacuole's one shared
-arbitrary radial gap, along with any meaning for `R_inner/R_outer`, is gone. A
+arbitrary radial gap is gone. Two caveats the first draft missed: that is an
+*intrinsic* statement, since `C¹` matching to a unit round `S³` forces
+`f₀ = sin³a_j = F_j³` and so `F_o = F_i` for two genuinely matched mouths; and
+`R_inner/R_outer` keeps its significance as an *endpoint scale ratio* (the very
+next line uses it), what it loses is the vacuole's arbitrary drawing ratio. A
 feature of angular width `Δθ` has physical width `f(s)Δθ`, so it is squeezed
 into the bearing and let out, `w_i/w_o = f_i/f_o`, with `f₀` nowhere in it.
 
 **The result is a correction to the proposal that prompted it.** Turning through
 `α` looks like it should cost the bearing's arc `f₀α` — exact for the
-down-turn-up route, and an honest upper bound. But Clairaut's `f sin ψ = h`
-makes the geodesic cut the corner, and
+down-turn-up route, and an honest upper bound. But the geodesic spreads the
+turn, and **the reason it wins is Pythagoras, not leverage**: the corner pays
+its angle as pure transverse motion (first order), the geodesic tilts motion
+already radial (second order). So
 
-> `T(α) = α²/(2I)` , `I = ∫ds/f²` — **quadratic**, and `I` is §23's own
-> resistance, so `T(α) = α²(4π/I)/(8π)`.
+> `T(α) = α²/(2I₂) + O(α⁴)` , `I₂ = ∫ds/f²` — **quadratic**, leading order, with
+> the exact object the integrated `turn_cost` (`0.9248` of the quadratic at `π`).
 
-The geometric cost of swinging the clock hands and the electrical cost of
-pushing monopole flux through the tube are **one integral**. The geodesic spends
-`1.25%` of the arc at `α = 0.1` and `36%` at `π`; a half turn costs `8.4e-04` of
-the arms; turning would not match travelling until `α ≈ 104` radians. **The
-property the point was wanted for survives, and survives more strongly than
-proposed** — and the point model is the `f₀ → 0` limit, not a rival.
+At angular dimension `q = 2` that `I₂` is also §23's resistance, so
+`T(α) = α²(4π/I₂)/(8π)`: the geometric cost of swinging the clock hands and the
+electrical cost of pushing monopole flux through the tube are **one integral**
+— in that dimension. The geodesic spends `1.25%` of the arc at `α = 0.1` and
+`36%` at `π`; a half turn costs `8.4e-04` of the arms, and `π` is the largest
+separation there is, so **no reachable orientation makes the hinge cost as much
+as the journey**. **The property the point was wanted for survives, and survives
+more strongly than proposed** — and the point model is the `f₀ → 0` limit, not
+a rival.
 
 **Intersection becomes overlap.** *Whether* two fronts meet on the bearing is a
 question about angles with `f₀` nowhere in it; *how big* the meeting is, is
@@ -1323,26 +1332,30 @@ the overlap and the gap together, and the distinction survives as a yes/no while
 vanishing as a length — or, sharper: **as `f₀ → 0` the angular incidence
 survives and the physical interaction region collapses.**
 
-**Underneath it is one Dirichlet form.** `I₂` turning up in both places is not
-a coincidence: minimising `E[φ] = ∫f²φ'²ds` at fixed increment gives
-`(f²φ')' = 0`, and the weight is the transverse area element. At `φ = u` the
-conserved current is the monopole flux and the answer is the conductance
-`4π/I₂`; at `φ = θ` it is Clairaut's `h` and the answer is `α²/(2I₂)`. **Static
-monopole flux and infinitesimal throat rotation follow the same spatial
-weighting** — and normalised to their own totals the two *profiles* are the same
-function of position, with the deviation falling as `α²`.
+**Underneath it is one Dirichlet form.** Minimising `E[φ] = ∫wφ′²ds` at fixed
+increment gives `(wφ′)′ = 0`. At `φ = u` the conserved current is the monopole
+flux and the answer is the conductance; at `φ = θ` it is Clairaut's `h` and the
+answer is `α²/(2I₂)`. **Static monopole flux and infinitesimal throat rotation
+follow the same spatial weighting** — and normalised to their own totals the two
+*profiles* are the same function of position, with the deviation falling as
+`α²`. But the weights are not automatically equal, and the first draft said they
+were: the azimuth's is the metric coefficient `f²` in any dimension, the
+monopole's is the volume element `f^q`, so they coincide **only at `q = 2`** —
+the physical case here, but a fact about that dimension.
 
-**The moment hierarchy then says exactly what is universal.**
-`T(α) = α²/(2I₂) − α⁴I₄/(8I₂⁴)`, so **`I₂` controls the universal quadratic
-hinge** — the moment the throat already had — while **`I₄` is the first that
-remembers the neck's shape**: `1 − α²/120` scalar-flat against `1 − α²/(8π²)`
-hyperbolic, which is the whole of the profile dependence.
+**The moment hierarchy then says what is universal, carefully.**
+`T(α) = α²/(2I₂) − α⁴I₄/(8I₂⁴)`, so the **leading functional form** is
+universal — `I₂` itself is not (`4/f₀` against `π/f₀`) — while **`I₄` is the
+first additional independent moment**, and where the neck's shape first shows:
+`1 − α²/120` scalar-flat against `1 − α²/(8π²)` hyperbolic. Not the *whole*
+profile dependence: `I₆` and beyond enter at `O(α⁶)` and matter by `π`.
 
 **And the generality is measured rather than asserted.** The law never used the
 profile and holds to `1.3e-04` on an unrelated one; the `O(α⁴)` correction does
-not carry over (`0.9250` scalar-flat against `0.8886` hyperbolic at `α = π`).
-The quadratic law is about necks; the deficit at a half turn is about a
-particular neck.
+not carry over (`0.9250` scalar-flat against `0.8886` hyperbolic at `α = π`,
+separating as `α² × 4.33e-03` — `4.3e-05` at `α = 0.1`, *not* the "eight
+digits" the first draft claimed). The quadratic law is about necks; the deficit
+at a half turn is about a particular neck.
 
 **Scope.** Geometry only — no field equation, nothing evolving — and it does not
 choose between the three candidate bulks. It works the finite bearing out far
@@ -1847,6 +1860,34 @@ Worth recording, because the failure modes repeat:
   form, after which the result is stable over seven decades. **"Remove the
   cancellation" is not the lesson; "check the answer is independent of
   something it must be independent of" is.**
+
+* **Six overstatements in one round, none of them numerical.** §26 shipped with
+  a correct set of geodesics and a prose layer that outran them, and review
+  caught all of it: an `O(α⁴)` law written as an equality; a "break-even angle"
+  of `104` rad extrapolated outside both its domain and the configuration space
+  (`π` is the largest separation there is); asymmetric arms called a matched
+  #265 throat when matching to a unit round `S³` forces `F_o = F_i`; a scale
+  ratio declared meaningless one paragraph before being used; a Dirichlet
+  identity stated dimension-free when the monopole weight is `f^q` and only
+  `q = 2` matches the hinge's `f²`; and `I₂` called universal when it is the
+  *functional form* that is. **The calculations were right in every case.**
+  What the round lacked was a pass asking, of each sentence, whether the
+  measurement underneath it actually says that.
+* **And one that was backwards rather than merely wide.** The explanation of
+  *why* the geodesic beats the corner — "it turns where the lever arm `f` is
+  longer, so a given angle costs less arc" — is wrong twice over: an angular
+  increment at larger `f` costs *more* arc (`f dθ`), and `θ' = h/f²` puts the
+  turn where `f` is *smallest* (76% of it inside `f < 2.4 f₀`). The real reason
+  is Pythagoras: the corner pays its angle as pure transverse motion, first
+  order; the geodesic tilts motion already radial, second order. **A correct
+  number with a fabricated mechanism attached is the failure mode that survives
+  every numerical check there is** — the tests all passed, because none of them
+  tested the sentence.
+* **A number reported for the wrong quantity.** "The two profiles agree to eight
+  digits at `α = 0.1`" — `8` digits is how well *each profile matches its own
+  quartic law* (`7.9e-09`); the two match *each other* only to `4.3e-05`. Two
+  quantities computed in adjacent lines, and the smaller was quoted for the
+  larger. It propagated to six files before review caught it.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by

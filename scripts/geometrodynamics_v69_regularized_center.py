@@ -40,13 +40,17 @@ alpha^2/(2 I2), the same law with its I4 correction, and the linear guess the
 corner route would charge. The geodesic is QUADRATIC and far below the arc:
 1.25% of it at alpha = 0.1 and 36% at pi.
 
-THE MOMENT HIERARCHY. I2 = int ds/f^2 is physical_throat's own resistance, so
-the geometric hinge and the monopole channel are ONE integral -- and one
-DIRICHLET FORM, int f^2 phi'^2 ds, read once with phi the potential and once
-with phi the azimuth. I2 alone fixes the leading quadratic term, which is
-therefore universal. I4 = int ds/f^4 is the first moment shared with nothing,
-and it is where the neck's SHAPE is first felt: shape = 1 - alpha^2 I4/(4 I2^3),
-which is 1 - alpha^2/120 here and 1 - alpha^2/(8 pi^2) on a hyperbolic neck.
+THE MOMENT HIERARCHY. At angular dimension q = 2 -- the physical case, an S^2
+cross-section -- I2 = int ds/f^2 is ALSO physical_throat's resistance, so the
+geometric hinge and the monopole channel are one integral there. They are one
+DIRICHLET FORM int w phi'^2 ds read twice, but the WEIGHTS differ in general:
+the azimuth's is the metric coefficient f^2 in any dimension, the monopole's is
+the volume element f^q. They match at q = 2 and nowhere else.
+What is universal is the LEADING FUNCTIONAL FORM alpha^2/(2 I2); I2 itself is
+not (4/f0 here, pi/f0 on a hyperbolic neck). I4 = int ds/f^4 is the first
+ADDITIONAL INDEPENDENT moment, and where the neck's SHAPE is first felt:
+shape = 1 - alpha^2 I4/(4 I2^3), i.e. 1 - alpha^2/120 here against
+1 - alpha^2/(8 pi^2) hyperbolic. I6 and beyond enter at O(alpha^6).
 
 What is put in
 --------------
@@ -248,7 +252,8 @@ class BearingFigure:
                 f"I2 = {c.resistance():.4e} = physical_throat's resistance\n"
                 f"the geodesic spends {f_small*100:.2f}% of the arc at "
                 f"alpha = 0.1,\n{f_pi*100:.0f}% at pi;  T(pi)/(L_o+L_i) = "
-                f"{c.turn_cost(math.pi)/c.arm_length_sum():.2e}",
+                f"{c.turn_cost(math.pi)/c.arm_length_sum():.2e}\n"
+                f"and pi is the LARGEST separation there is",
                 transform=ax.transAxes, ha="left", va="top",
                 color=_PAL["dim"], fontsize=6.6, family="monospace")
 
@@ -308,21 +313,21 @@ class BearingFigure:
         self.fig.text(0.5, 0.890,
                       "THE HINGE SURVIVES REGULARISATION, AND IS CHEAPER THAN "
                       "PROPOSED: the geodesic turn cost is QUADRATIC, "
-                      "T(alpha) = alpha^2/(2I), not the arc f0 alpha",
+                      "T(alpha) = alpha^2/(2 I2) + O(alpha^4), not the arc "
+                      "f0 alpha -- the saving is PYTHAGORAS, not leverage",
                       color=_PAL["neck"], fontsize=7.6, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.862,
-                      "I2 = int ds/f^2 is physical_throat's own resistance: "
                       "monopole flux and infinitesimal rotation are ONE "
-                      "Dirichlet form int f^2 phi'^2 ds, read at phi = u and "
-                      "phi = theta",
+                      "Dirichlet form int w phi'^2 ds -- but the weights match "
+                      "only at q = 2 (metric f^2 vs volume f^q), which is the "
+                      "physical case and where I2 is also the resistance",
                       color=_PAL["dim"], fontsize=7.0, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.838,
-                      "I2 fixes the UNIVERSAL quadratic hinge; I4 is the "
-                      "first moment that remembers the neck's shape.  "
-                      "GEOMETRY ONLY -- no field equation is solved, and the "
-                      "scalar-flat profile is a checkable example, not a claim.",
+                      "the LEADING FORM alpha^2/(2 I2) is universal (I2 is "
+                      "not); I4 is the first extra moment, where the shape "
+                      "shows.  GEOMETRY ONLY -- no field equation is solved.",
                       color=_PAL["dim"], fontsize=7.0, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.018,

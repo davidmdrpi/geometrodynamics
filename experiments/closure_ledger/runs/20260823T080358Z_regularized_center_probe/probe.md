@@ -17,12 +17,12 @@
 
 At a half turn (`α = π`): geodesic hinge cost `1.1420e-03` against the linear guess `3.1416e-03` — and `8.42e-04` of the arms' own `1.356768`.
 
-**12/12 checks pass.**
+**13/13 checks pass.**
 
 | id | check | result |
 |----|-------|--------|
 | T1 | the arms are the repo's geometry, symmetry dropped | PASS |
-| T2 | *** the two arms are independent *** | PASS |
+| T2 | *** the arms are independent INTRINSICALLY (attachment caveat) *** | PASS |
 | T3 | scale transport is explicit | PASS |
 | T4 | *** the turn cost is quadratic, not linear *** | PASS |
 | T5 | the linear guess is an upper bound, and loose | PASS |
@@ -31,12 +31,13 @@ At a half turn (`α = π`): geodesic hinge cost `1.1420e-03` against the linear 
 | T8 | *** intersection becomes overlap on the bearing *** | PASS |
 | T9 | the drawn circle is honest; the identification bites | PASS |
 | T10 | the law is about necks; the large-angle deficit is not | PASS |
-| T11 | *** I2 is the universal hinge; I4 first remembers the shape *** | PASS |
-| T12 | *** monopole flux and infinitesimal rotation are ONE form *** | PASS |
+| T11 | *** the leading form is universal; I4 is the first extra moment *** | PASS |
+| T12 | *** one Dirichlet form -- and it is a q = 2 statement *** | PASS |
+| T13 | *** the turn sits AT the neck -- a corrected explanation *** | PASS |
 
 ## The turn cost, against the integrated geodesic
 
-`T(alpha) = alpha^2 / (2I),  I = int ds/f^2` — and `T(alpha) = alpha^2 * conductance / (8 pi)`, so the geometric hinge and the monopole channel are one integral.  `I -> 4/f0, so T -> f0 alpha^2 / 8`
+`T(alpha) = alpha^2/(2 I2) + O(alpha^4),  I2 = int ds/f^2` — and `T(alpha) = alpha^2 * conductance / (8 pi) + O(alpha^4), at angular dimension q = 2`, so the geometric hinge and the monopole channel are one integral.  `I -> 4/f0, so T -> f0 alpha^2 / 8`
 
 | `f₀` | `α` | `T(α)` | `α²/(2I)` | ratio | `f₀α` | `T/(f₀α)` |
 |--|--|--|--|--|--|--|
@@ -59,7 +60,7 @@ At a half turn (`α = π`): geodesic hinge cost `1.1420e-03` against the linear 
 
 **Proposed:** L_turn ~ f0 alpha, the bearing's arc length.
 
-**Measured:** T(alpha) = alpha^2/(2I), quadratic in the angle and much smaller -- the geodesic cuts the corner rather than walking the arc.
+**Measured:** T(alpha) = alpha^2/(2 I2) + O(alpha^4), quadratic in the angle and much smaller -- the geodesic spreads the turn instead of paying it as pure transverse motion, so the cost is second order rather than first.
 
 The resistance is not a new quantity: at `a = 0.05` this module gives `3.1999986656e+04` and `physical_throat.resistance()` gives `3.1999986656e+04` — difference `0.0e+00`.
 
@@ -73,7 +74,7 @@ The resistance is not a new quantity: at `a = 0.05` this module gives `3.1999986
 | `0.5` | `1.003647` | `0.503300` | `1.99` | `1.2406e-04` | `1.2509e-04` |
 | `1` | `1.003647` | `1.003647` | `1.00` | `1.2403e-04` | `1.2506e-04` |
 
-The old vacuole picture had to give the inner and outer boundaries one shared arbitrary radial gap; a finite bearing with two arms has no such constraint, and the r_inner/r_outer ratio stops carrying any physical significance.
+The old vacuole picture had to give the inner and outer boundaries one shared arbitrary radial gap; a finite bearing with two arms has no such constraint.
 
 ## What intersection becomes
 
