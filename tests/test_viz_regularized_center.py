@@ -464,3 +464,139 @@ def test_the_second_profile_has_its_own_resistance():
     flat = rc.RegularizedCenter(neck=1e-6, outer=1.0, inner=1.0)
     assert abs(flat.resistance() * 1e-6 - 4.0) < 1e-4
     assert abs(got["resistance"] / flat.resistance() - math.pi / 4.0) < 1e-3
+
+
+# ── the moment hierarchy ────────────────────────────────────────────────────
+@pytest.mark.parametrize("neck", [1e-2, 1e-4])
+@pytest.mark.parametrize("scale", [0.5, 1.0])
+@pytest.mark.parametrize("order", [2, 4, 6])
+def test_the_moments_are_the_integrals(neck, scale, order):
+    """`I_n = (2/f₀^{n−1})∫₀^T(1−t²)^{n−2}dt` against direct quadrature."""
+    from scipy.integrate import quad
+    closed = rc.arm_moment(scale, neck, order)
+    got = quad(lambda t: 2.0 * math.sqrt(neck + t * t)
+               / (neck + t * t) ** order,
+               0.0, math.sqrt(scale - neck), limit=600)[0]
+    assert abs(closed / got - 1.0) < 1e-9
+
+
+def test_the_second_moment_is_the_resistance():
+    c = rc.RegularizedCenter(neck=1e-3, outer=1.0, inner=0.35)
+    assert c.moment(2) == c.resistance()
+    assert rc.arm_moment(1.0, 1e-3, 2) == rc.arm_resistance(1.0, 1e-3)
+
+
+def test_odd_and_degenerate_moment_orders_are_refused():
+    for bad in (0, 1, 3, -2):
+        with pytest.raises(ValueError):
+            rc.arm_moment(1.0, 1e-3, bad)
+
+
+def test_the_long_arm_moments_have_their_closed_forms():
+    """`I₂ → 4/f₀` and `I₄ → 32/(15f₀³)` for two long scalar-flat arms."""
+    c = rc.RegularizedCenter(neck=1e-6, outer=1.0, inner=1.0)
+    assert abs(c.resistance() * c.neck - 4.0) < 1e-5
+    assert abs(c.fourth_moment() * c.neck ** 3 - 32.0 / 15.0) < 1e-9
+
+
+@pytest.mark.parametrize("alpha", [0.1, 0.3, 0.6])
+def test_the_fourth_order_expansion_beats_the_second(alpha):
+    """`α²/(2I₂) − α⁴I₄/(8I₂⁴)` must be closer to the geodesic than `α²/(2I₂)`."""
+    c = rc.RegularizedCenter(neck=1e-6, outer=1.0, inner=1.0)
+    exact = c.turn_cost(alpha)
+    second = abs(exact / c.turn_cost_small_angle(alpha) - 1.0)
+    fourth = abs(exact / c.turn_cost_to_fourth_order(alpha) - 1.0)
+    assert fourth < second
+    assert fourth < 1e-4
+
+
+def test_the_shape_coefficient_is_one_over_one_hundred_and_twenty():
+    """Scalar-flat long arms: shape `= 1 − α²/120`, an exact rational.
+
+    The residual is not asserted against a flat tolerance but against its own
+    scaling: `shape = 1 − α²/120 + O(α⁴)`, so the miss must grow as `α⁴` — a
+    factor of 16 between `α = 0.3` and `α = 0.6`. A flat bound would pass for
+    the wrong reason at small angle and fail for the right one at large.
+    """
+    c = rc.RegularizedCenter(neck=1e-6, outer=1.0, inner=1.0)
+    coeff = c.fourth_moment() / (4.0 * c.resistance() ** 3)
+    assert abs(coeff - 1.0 / 120.0) < 1e-7
+    misses = []
+    for alpha in (0.15, 0.3, 0.6):
+        miss = abs(c.turn_cost(alpha) / c.turn_cost_small_angle(alpha)
+                   - (1.0 - alpha ** 2 / 120.0))
+        assert miss < 2e-5
+        misses.append(miss / alpha ** 4)
+    assert max(misses) / min(misses) - 1.0 < 0.05, "the residual is O(alpha^4)"
+
+
+def test_the_two_profiles_differ_first_at_the_fourth_moment():
+    got = rc.measure_the_fourth_moment_is_where_the_neck_shape_enters()
+    assert got["the_shape_law_holds_at_small_angle"]
+    assert got["the_fourth_order_beats_the_second"]
+    assert got["the_second_moment_is_shared_the_fourth_is_not"]
+    # I2 differs only by the profile's overall scale (4/f0 vs pi/f0);
+    # the SHAPE coefficient is where they part company
+    flat = got["scalar_flat"]["shape_coefficient"]
+    hyper = got["hyperbolic"]["shape_coefficient"]
+    assert abs(flat - 1.0 / 120.0) < 1e-6
+    assert abs(hyper - 1.0 / (8.0 * math.pi ** 2)) < 1e-6
+    assert hyper > 1.4 * flat, "and they are not close"
+    for row in got["hyperbolic_rows"]:
+        if row["alpha"] <= 0.1:
+            assert abs(row["shape_measured"] - row["shape_predicted"]) < 1e-6
+
+
+# ── the identity underneath ─────────────────────────────────────────────────
+def test_the_monopole_and_the_azimuth_are_one_dirichlet_form():
+    """Normalised, the static potential and the geodesic azimuth coincide."""
+    got = rc.measure_the_hinge_and_the_monopole_are_one_dirichlet_form()
+    assert got["the_profiles_coincide_as_alpha_vanishes"]
+    assert got["the_deviation_is_second_order_in_alpha"]
+    assert got["the_two_readings_agree"]
+    assert got["conductance_difference"] < 1e-12
+    rows = got["profile_convergence"]
+    assert all(b["worst_profile_deviation"] < a["worst_profile_deviation"]
+               for a, b in zip(rows, rows[1:])), "monotone in alpha"
+    assert rows[-1]["worst_profile_deviation"] < 1e-7
+
+
+def test_the_deviation_between_the_two_profiles_falls_as_alpha_squared():
+    """A clean factor of 100 per decade — which is what makes it `O(α²)`."""
+    got = rc.measure_the_hinge_and_the_monopole_are_one_dirichlet_form()
+    ratios = [r["over_alpha_squared"] for r in got["profile_convergence"]]
+    assert max(ratios) / min(ratios) - 1.0 < 1e-2
+
+
+def test_the_hinge_can_be_read_off_the_conductance_alone():
+    """`T(α) = α²·(4π/I₂)/(8π)` — the same number by two routes."""
+    t = pt.VacuumThroat(mouth_radius=0.05)
+    c = rc.RegularizedCenter(neck=t.neck_radius(), outer=t.mouth_f(),
+                             inner=t.mouth_f())
+    for alpha in (0.01, 0.05, 0.2):
+        via_conductance = alpha ** 2 * t.conductance() / (8.0 * math.pi)
+        assert abs(via_conductance / c.turn_cost_small_angle(alpha)
+                   - 1.0) < 1e-12
+
+
+def test_the_identity_says_what_it_does_not_cover():
+    got = rc.measure_the_hinge_and_the_monopole_are_one_dirichlet_form()
+    caveat = got["what_is_not_claimed"].lower()
+    assert "beyond leading order" in caveat
+    assert "i4" in caveat and "static potential does not" in caveat
+
+
+# ── the point limit, in the sharper words ───────────────────────────────────
+def test_the_point_limit_separates_incidence_from_interaction_region():
+    got = rc.measure_the_bearing_replaces_collision_with_overlap()
+    assert "angular incidence" in got["what_survives_the_limit"]
+    assert "f0" in got["what_survives_the_limit"]
+    assert "interaction region" in got["what_collapses"]
+    text = got["the_point_limit_correctly_stated"].lower()
+    assert "angular incidence survives" in text
+    assert "interaction region collapses" in text
+    # and the arithmetic behind the words
+    for row in got["rows"]:
+        reach = 0.5 * (row["angular_width_a"] + row["angular_width_b"])
+        assert row["they_meet"] == (row["angular_separation"] < reach)
+        assert row["overlap_length_on_the_bearing"] <= row["neck"] * math.pi

@@ -17,7 +17,7 @@
 
 At a half turn (`α = π`): geodesic hinge cost `1.1420e-03` against the linear guess `3.1416e-03` — and `8.42e-04` of the arms' own `1.356768`.
 
-**10/10 checks pass.**
+**12/12 checks pass.**
 
 | id | check | result |
 |----|-------|--------|
@@ -31,6 +31,8 @@ At a half turn (`α = π`): geodesic hinge cost `1.1420e-03` against the linear 
 | T8 | *** intersection becomes overlap on the bearing *** | PASS |
 | T9 | the drawn circle is honest; the identification bites | PASS |
 | T10 | the law is about necks; the large-angle deficit is not | PASS |
+| T11 | *** I2 is the universal hinge; I4 first remembers the shape *** | PASS |
+| T12 | *** monopole flux and infinitesimal rotation are ONE form *** | PASS |
 
 ## The turn cost, against the integrated geodesic
 
@@ -88,4 +90,4 @@ The old vacuole picture had to give the inner and outer boundaries one shared ar
 | `1e-03` | `0.30` | `0.40` | `0.30` | **yes** | `5.00e-05` | `0.00e+00` |
 | `1e-03` | `1.20` | `0.20` | `0.20` | no | `0.00e+00` | `1.00e-03` |
 
-**The point limit, correctly stated.** f0 -> 0 does NOT make every route meet; it shrinks the overlap AND the gap to zero together, so the distinction survives as a yes/no and disappears as a length.
+**The point limit, correctly stated.** as f0 -> 0 the ANGULAR INCIDENCE SURVIVES and the PHYSICAL INTERACTION REGION COLLAPSES: which directions the fronts come in at, and whether their extents overlap, are untouched by f0; the region in which they actually share space is f0 x (overlap angle) and goes to zero. So f0 -> 0 does NOT make every route meet -- it shrinks the overlap AND the gap together, and the distinction survives as a yes/no while disappearing as a length.

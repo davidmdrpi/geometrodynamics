@@ -33,12 +33,20 @@ angular extents overlap -- a question about ANGLES, with f0 nowhere in it. What
 f0 sets is how BIG the meeting is: f0 x (overlap angle). Two configurations are
 drawn, one that meets and one that misses.
 
-**Bottom right - the hinge cost, and the correction.** T(alpha) against alpha,
-with the geodesic (integrated), the small-angle law alpha^2/(2I), and the
-linear guess f0*alpha that the corner route would charge. The geodesic is
-QUADRATIC and far below the arc: 1.25% of it at alpha = 0.1 and 36% at pi. The
-same I is physical_throat's resistance, so the geometric hinge and the monopole
-channel are one integral.
+**Bottom right - the hinge cost, and the correction.** T(alpha) against alpha
+on log-log, so the claim is a SLOPE: the arc f0*alpha has slope 1, the geodesic
+has slope 2. Four curves -- the integrated geodesic, the leading law
+alpha^2/(2 I2), the same law with its I4 correction, and the linear guess the
+corner route would charge. The geodesic is QUADRATIC and far below the arc:
+1.25% of it at alpha = 0.1 and 36% at pi.
+
+THE MOMENT HIERARCHY. I2 = int ds/f^2 is physical_throat's own resistance, so
+the geometric hinge and the monopole channel are ONE integral -- and one
+DIRICHLET FORM, int f^2 phi'^2 ds, read once with phi the potential and once
+with phi the azimuth. I2 alone fixes the leading quadratic term, which is
+therefore universal. I4 = int ds/f^4 is the first moment shared with nothing,
+and it is where the neck's SHAPE is first felt: shape = 1 - alpha^2 I4/(4 I2^3),
+which is 1 - alpha^2/120 here and 1 - alpha^2/(8 pi^2) on a hyperbolic neck.
 
 What is put in
 --------------
@@ -64,7 +72,7 @@ from matplotlib import pyplot as plt
 from matplotlib.patches import Circle, Wedge
 
 from geometrodynamics.viz.regularized_center import (RegularizedCenter,
-                                                     arm_resistance)
+                                                     hyperbolic_neck)
 
 _PAL = {
     "bg": "#010106", "panel": "#02020a", "grid": "#0e1a2a", "rule": "#1a2838",
@@ -221,14 +229,11 @@ class BearingFigure:
         ax, c = self.ax_cost, self.c
         alphas = np.geomspace(0.02, math.pi, 42)
         geo = np.array([c.turn_cost(float(a)) for a in alphas])
-        law = np.array([c.turn_cost_small_angle(float(a)) for a in alphas])
         arc = c.neck * alphas
         # log-log, so the whole claim is a SLOPE: the arc is 1, the hinge is 2
         ax.plot(alphas, arc, lw=1.9, ls="--", color=_PAL["warn"],
                 label="the arc  f0 alpha   (corner route, slope 1)")
-        ax.plot(alphas, law, lw=3.4, color=_PAL["kern"], alpha=0.45,
-                label="alpha^2 / (2I)   (small-angle law)")
-        ax.plot(alphas, geo, lw=2.0, color=_PAL["neck"],
+        ax.plot(alphas, geo, lw=2.1, color=_PAL["neck"],
                 label="the GEODESIC turn cost   (slope 2)")
         ax.set_xscale("log")
         ax.set_yscale("log")
@@ -239,16 +244,49 @@ class BearingFigure:
                   framealpha=0.93)
         f_small = c.turn_cost(0.1) / (c.neck * 0.1)
         f_pi = c.turn_cost(math.pi) / (c.neck * math.pi)
-        ax.text(0.975, 0.055,
-                f"I = {c.resistance():.4e} = physical_throat's resistance\n"
-                f"T = alpha^2 (4 pi / I) / (8 pi);  long arms: f0 alpha^2/8\n"
+        ax.text(0.028, 0.545,
+                f"I2 = {c.resistance():.4e} = physical_throat's resistance\n"
                 f"the geodesic spends {f_small*100:.2f}% of the arc at "
-                f"alpha = 0.1, {f_pi*100:.0f}% at pi\n"
-                f"T(pi)/(L_o+L_i) = "
-                f"{c.turn_cost(math.pi)/c.arm_length_sum():.2e}  -- the hinge "
-                f"is never the cost",
-                transform=ax.transAxes, ha="right", va="bottom",
-                color=_PAL["dim"], fontsize=6.8, family="monospace")
+                f"alpha = 0.1,\n{f_pi*100:.0f}% at pi;  T(pi)/(L_o+L_i) = "
+                f"{c.turn_cost(math.pi)/c.arm_length_sum():.2e}",
+                transform=ax.transAxes, ha="left", va="top",
+                color=_PAL["dim"], fontsize=6.6, family="monospace")
+
+        # The I4 correction is ~1% and invisible against the leading term on
+        # a log axis, so it gets its own linear SHAPE axis, where it is the
+        # whole signal.  Both profiles are evaluated at the SAME small neck --
+        # 1/120 and 1/(8 pi^2) are LONG-ARM limits, and at the drawing's own
+        # fat f0 the scalar-flat coefficient is 1/85, which would make the two
+        # look alike for the wrong reason.
+        ins = ax.inset_axes([0.455, 0.075, 0.520, 0.375])
+        ins.set_facecolor("#04040e")
+        thin = RegularizedCenter(neck=1e-4, outer=1.0, inner=1.0)
+        lin = np.linspace(0.02, math.pi, 22)
+        shape = np.array([thin.turn_cost(float(a))
+                          / thin.turn_cost_small_angle(float(a)) for a in lin])
+        ins.plot(lin, shape, lw=1.9, color=_PAL["neck"],
+                 label="scalar-flat:  1 - a^2/120")
+        ins.plot(lin, 1.0 - lin ** 2 / 120.0, lw=0.9, ls=":",
+                 color=_PAL["kern"])
+        coarse = np.linspace(0.02, math.pi, 9)
+        hyp = np.array([hyperbolic_neck(1e-4, 1.0, 1.0, float(a))["shape"]
+                        for a in coarse])
+        ins.plot(coarse, hyp, lw=1.6, ls="--", color=_PAL["inner"],
+                 label="hyperbolic:   1 - a^2/79")
+        ins.plot(lin, 1.0 - lin ** 2 / (8.0 * math.pi ** 2), lw=0.9, ls=":",
+                 color=_PAL["kern"])
+        ins.axhline(1.0, color=_PAL["rule"], lw=0.8, ls=":")
+        ins.set_ylim(0.815, 1.025)
+        ins.tick_params(colors=_PAL["dim"], labelsize=5.6)
+        for sp in ins.spines.values():
+            sp.set_color(_PAL["rule"])
+        ins.text(0.5, 0.055, "shape T/(a^2/2 I2), f0 = 1e-04:  I4 is the "
+                             "whole signal",
+                 transform=ins.transAxes, ha="center", va="bottom",
+                 color=_PAL["text"], fontsize=5.9, family="monospace")
+        ins.legend(facecolor="#04040e", edgecolor=_PAL["rule"],
+                   labelcolor=_PAL["text"], fontsize=5.5, loc="upper right",
+                   framealpha=0.9)
 
     # ── assembly ────────────────────────────────────────────────────────────
     def draw(self) -> "BearingFigure":
@@ -274,16 +312,17 @@ class BearingFigure:
                       color=_PAL["neck"], fontsize=7.6, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.862,
-                      "and I = int ds/f^2 is physical_throat's own resistance, "
-                      "so the geometric hinge and the monopole channel are ONE "
-                      "integral:  T = alpha^2 (4 pi / I) / (8 pi)",
+                      "I2 = int ds/f^2 is physical_throat's own resistance: "
+                      "monopole flux and infinitesimal rotation are ONE "
+                      "Dirichlet form int f^2 phi'^2 ds, read at phi = u and "
+                      "phi = theta",
                       color=_PAL["dim"], fontsize=7.0, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.838,
-                      "GEOMETRY ONLY -- a metric, its geodesics, and an "
-                      "angular width carried along them.  No field equation is "
-                      "solved; the scalar-flat profile is a checkable worked "
-                      "example, not a claim.",
+                      "I2 fixes the UNIVERSAL quadratic hinge; I4 is the "
+                      "first moment that remembers the neck's shape.  "
+                      "GEOMETRY ONLY -- no field equation is solved, and the "
+                      "scalar-flat profile is a checkable example, not a claim.",
                       color=_PAL["dim"], fontsize=7.0, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.018,

@@ -134,6 +134,7 @@ __all__ = [
     "WORKING_CENTER",
     "arm_length",
     "arm_resistance",
+    "arm_moment",
     "bearing_distance",
     "measure_the_arm_length_is_the_repos_own_formula",
     "measure_the_two_arms_are_independent",
@@ -145,6 +146,8 @@ __all__ = [
     "measure_the_bearing_replaces_collision_with_overlap",
     "measure_the_turn_cost_does_not_care_which_sphere",
     "measure_the_law_does_not_depend_on_the_profile",
+    "measure_the_fourth_moment_is_where_the_neck_shape_enters",
+    "measure_the_hinge_and_the_monopole_are_one_dirichlet_form",
     "hyperbolic_neck",
 ]
 
@@ -179,6 +182,36 @@ def arm_resistance(scale: float, neck: float) -> float:
     if f < f0:
         raise ValueError("an arm cannot be narrower than the neck")
     return (2.0 / f0) * math.sqrt(1.0 - f0 / f)
+
+
+def arm_moment(scale: float, neck: float, order: int) -> float:
+    """``I_n(F) = ∫ ds/fⁿ`` over one arm, in closed form for even ``n``.
+
+    Substituting ``t = f' = √(1 − f₀/f)`` — the profile's own slope — turns
+    every one of these into a polynomial.  ``f = f₀/(1−t²)`` gives
+    ``ds = 2f₀dt/(1−t²)²``, so
+
+        ``I_n = (2/f₀^{n−1}) ∫₀^T (1−t²)^{n−2} dt`` ,  ``T = √(1 − f₀/F)`` ,
+
+    and the integral is a finite binomial sum.  ``n = 2`` recovers
+    `arm_resistance`, ``(2/f₀)T``; ``n = 4`` gives
+    ``(2/f₀³)[T − ⅔T³ + ⅕T⁵]``, which tends to ``16/(15f₀³)`` for a long arm.
+
+    Only even orders appear in the turn-cost expansion, because
+    ``(1 − h²/f²)^{−1/2}`` is a series in ``h²/f²``.
+    """
+    f, f0, n = float(scale), float(neck), int(order)
+    if n < 2 or n % 2:
+        raise ValueError("only even orders n >= 2 are defined here")
+    if f < f0:
+        raise ValueError("an arm cannot be narrower than the neck")
+    t = math.sqrt(1.0 - f0 / f)
+    m = n - 2
+    total = 0.0
+    for k in range(m + 1):
+        total += (math.comb(m, k) * (-1.0) ** k * t ** (2 * k + 1)
+                  / (2 * k + 1))
+    return (2.0 / f0 ** (n - 1)) * total
 
 
 def bearing_distance(alpha: float, projective: bool = False) -> float:
@@ -274,6 +307,46 @@ class RegularizedCenter:
         """
         return self.arm_length_sum() + \
             self.neck * bearing_distance(alpha, projective)
+
+    def moment(self, order: int) -> float:
+        """``I_n = ∫ds/fⁿ`` over both arms.  ``moment(2)`` is `resistance`."""
+        return (arm_moment(self.outer, self.neck, order)
+                + arm_moment(self.inner, self.neck, order))
+
+    def fourth_moment(self) -> float:
+        """``I₄`` — the first moment that remembers the neck's *shape*."""
+        return self.moment(4)
+
+    def turn_cost_to_fourth_order(self, alpha: float,
+                                  projective: bool = False) -> float:
+        """``α²/(2I₂) − α⁴I₄/(8I₂⁴)`` — the hinge cost with its first correction.
+
+        Expanding ``dℓ/ds − 1 = (1 − h²/f²)^{−1/2} − 1`` gives
+        ``T = ½h²I₂ + ⅜h⁴I₄``, and the sweep ``α = hI₂ + ½h³I₄``; eliminating
+        ``h`` leaves the above.  The correction is **negative**, which is why
+        the measured shape ``T/(α²/2I₂)`` sits below one at every angle.
+        """
+        a = bearing_distance(alpha, projective)
+        i2, i4 = self.resistance(), self.fourth_moment()
+        return a * a / (2.0 * i2) - a ** 4 * i4 / (8.0 * i2 ** 4)
+
+    def monopole_profile(self, x: float) -> float:
+        """``∫ds/f²`` from the neck out to ``x`` — the static ℓ=0 potential.
+
+        ``(f²u')' = 0`` gives ``u' = c/f²``, so the potential's shape is this
+        partial moment.  In the good variable it is ``(2/f₀)tanh x``, exactly.
+        """
+        return (2.0 / self.neck) * math.tanh(float(x))
+
+    def azimuth_profile(self, x: float, kappa: float) -> float:
+        """``θ(x)`` swept by the geodesic with Clairaut constant ``κ``.
+
+        The same object as `monopole_profile` once ``κ → 0``: see
+        `measure_the_hinge_and_the_monopole_are_one_dirichlet_form`.
+        """
+        return quad(lambda y: 2.0 * kappa
+                    / math.sqrt(max(math.cosh(y) ** 4 - kappa * kappa, 1e-300)),
+                    0.0, float(x), limit=200)[0]
 
     def half_length_in_x(self, scale: float) -> float:
         """``X = arcosh√(F/f₀)`` — the arm's extent in the good variable.
@@ -803,9 +876,19 @@ def measure_the_bearing_replaces_collision_with_overlap() -> Dict[str, object]:
             all(abs(r["overlap_length_on_the_bearing"]
                     - r["neck"] * r["overlap_angle"]) < 1e-18 for r in rows)),
         "the_point_limit_correctly_stated":
-            "f0 -> 0 does NOT make every route meet; it shrinks the overlap "
-            "AND the gap to zero together, so the distinction survives as a "
-            "yes/no and disappears as a length",
+            "as f0 -> 0 the ANGULAR INCIDENCE SURVIVES and the PHYSICAL "
+            "INTERACTION REGION COLLAPSES: which directions the fronts come "
+            "in at, and whether their extents overlap, are untouched by f0; "
+            "the region in which they actually share space is f0 x (overlap "
+            "angle) and goes to zero. So f0 -> 0 does NOT make every route "
+            "meet -- it shrinks the overlap AND the gap together, and the "
+            "distinction survives as a yes/no while disappearing as a length",
+        "what_survives_the_limit": "angular incidence -- direction of arrival "
+                                   "and angular overlap, neither of which "
+                                   "involves f0",
+        "what_collapses": "the physical interaction region, f0 x (overlap "
+                          "angle), and equally the physical separation of "
+                          "fronts that miss",
         "no_route_passes_through_a_singular_point": True,
     }
 
@@ -998,4 +1081,188 @@ def measure_the_law_does_not_depend_on_the_profile() -> Dict[str, object]:
         "so_what_is_general": "the quadratic law T = alpha^2/(2I) is a "
                               "statement about necks; the ~8-11% deficit at a "
                               "half turn is a statement about a particular one",
+    }
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# THE MOMENT HIERARCHY, AND THE IDENTITY UNDERNEATH IT
+# ════════════════════════════════════════════════════════════════════════════
+def measure_the_fourth_moment_is_where_the_neck_shape_enters(
+) -> Dict[str, object]:
+    """``I₂`` sets the universal hinge; ``I₄`` is the first term that is local.
+
+    Expand the geodesic exactly.  ``dℓ/ds − 1 = (1 − h²/f²)^{−1/2} − 1``, so
+
+        ``T = ½h²I₂ + ⅜h⁴I₄ + …`` ,   ``α = hI₂ + ½h³I₄ + …`` ,
+
+    with ``I_n = ∫ds/fⁿ``.  Eliminating ``h`` gives
+
+        ``T(α) = α²/(2I₂) − α⁴I₄/(8I₂⁴) + O(α⁶)`` ,
+
+    equivalently a shape ``T/(α²/2I₂) = 1 − α²I₄/(4I₂³)``.
+
+    **That is the division of labour.**  ``I₂`` is the only moment in the
+    leading term, and it is the *same* ``I₂`` that sets the monopole
+    conductance — so the quadratic hinge is universal in the strong sense that
+    it is fixed by a quantity the throat already had.  ``I₄`` is the first
+    moment that is not shared with anything, and it is where the neck's shape
+    is first felt.  The two profiles differ there and nowhere earlier:
+
+    * scalar-flat, long arms — ``I₂ = 4/f₀``, ``I₄ = 32/(15f₀³)``, so the
+      shape is ``1 − α²/120`` ;
+    * hyperbolic ``f = √(f₀²+s²)`` — ``I₂ = π/f₀``, ``I₄ = π/(2f₀³)``, so the
+      shape is ``1 − α²/(8π²)`` .
+
+    ``1/120`` against ``1/(8π²) = 1/79`` is exactly why the two shapes part
+    company at large angle (``0.9250`` against ``0.8886`` at ``α = π``) while
+    agreeing to eight digits at ``α = 0.1``.  The moments below are closed
+    forms and are checked against quadrature; the shapes are checked against
+    the integrated geodesic.
+    """
+    long_arm = RegularizedCenter(neck=1e-6, outer=1.0, inner=1.0)
+    i2, i4 = long_arm.resistance(), long_arm.fourth_moment()
+    rows = []
+    for alpha in (0.1, 0.3, 0.6, 1.0, 2.0, math.pi):
+        exact = long_arm.turn_cost(alpha)
+        rows.append({
+            "alpha": alpha,
+            "turn_cost": exact,
+            "second_order": long_arm.turn_cost_small_angle(alpha),
+            "fourth_order": long_arm.turn_cost_to_fourth_order(alpha),
+            "shape_measured": exact / long_arm.turn_cost_small_angle(alpha),
+            "shape_predicted": 1.0 - alpha ** 2 * i4 / (4.0 * i2 ** 3),
+            "fourth_order_relative_error": abs(
+                exact / long_arm.turn_cost_to_fourth_order(alpha) - 1.0),
+        })
+    # the same expansion on the unrelated profile
+    hyper = []
+    f0 = 1e-6
+    j2 = 2.0 * quad(lambda x: 1.0 / (f0 * math.cosh(x)), 0.0,
+                    math.asinh(1.0 / f0), limit=200)[0]
+    j4 = 2.0 * quad(lambda x: 1.0 / (f0 ** 3 * math.cosh(x) ** 3), 0.0,
+                    math.asinh(1.0 / f0), limit=200)[0]
+    for alpha in (0.1, 1.0, math.pi):
+        got = hyperbolic_neck(f0, 1.0, 1.0, alpha)
+        hyper.append({"alpha": alpha, "shape_measured": got["shape"],
+                      "shape_predicted": 1.0 - alpha ** 2 * j4 / (4.0 * j2 ** 3)})
+    small = [r for r in rows if r["alpha"] <= 0.3]
+    return {
+        "rows": rows,
+        "hyperbolic_rows": hyper,
+        "expansion": "T = alpha^2/(2 I2) - alpha^4 I4/(8 I2^4) + O(alpha^6)",
+        "shape_law": "T/(alpha^2/2 I2) = 1 - alpha^2 I4/(4 I2^3)",
+        "scalar_flat": {"I2_times_neck": i2 * long_arm.neck,
+                        "I4_times_neck_cubed": i4 * long_arm.neck ** 3,
+                        "shape_coefficient": i4 / (4.0 * i2 ** 3),
+                        "closed_form": "I2 = 4/f0, I4 = 32/(15 f0^3), "
+                                       "shape = 1 - alpha^2/120"},
+        "hyperbolic": {"I2_times_neck": j2 * f0,
+                       "I4_times_neck_cubed": j4 * f0 ** 3,
+                       "shape_coefficient": j4 / (4.0 * j2 ** 3),
+                       "closed_form": "I2 = pi/f0, I4 = pi/(2 f0^3), "
+                                      "shape = 1 - alpha^2/(8 pi^2)"},
+        "the_shape_law_holds_at_small_angle": bool(
+            all(abs(r["shape_measured"] - r["shape_predicted"]) < 1e-6
+                for r in small)),
+        "the_fourth_order_beats_the_second": bool(
+            all(r["fourth_order_relative_error"]
+                < abs(r["shape_measured"] - 1.0) for r in rows
+                if r["alpha"] >= 0.3)),
+        "the_second_moment_is_shared_the_fourth_is_not": bool(
+            abs(i2 * long_arm.neck / (j2 * f0) - 4.0 / math.pi) < 1e-4
+            and abs(i4 / (4.0 * i2 ** 3) - 1.0 / 120.0) < 1e-6
+            and abs(j4 / (4.0 * j2 ** 3) - 1.0 / (8.0 * math.pi ** 2)) < 1e-6),
+        "the_division_of_labour": "I2 controls the universal quadratic hinge "
+                                  "and is the same integral as the monopole "
+                                  "conductance; I4 is the first moment that "
+                                  "remembers the neck's shape",
+    }
+
+
+def measure_the_hinge_and_the_monopole_are_one_dirichlet_form(
+) -> Dict[str, object]:
+    """**The identity underneath.**  Both are ``∫f²φ'²ds``, with different ``φ``.
+
+    Static monopole flux and infinitesimal rotation of the throat are not two
+    problems that happen to share a number.  They are *one* variational problem
+    on the tube,
+
+        minimise  ``E[φ] = ∫ f² φ'² ds``  at fixed total increment ``Δφ`` ,
+
+    whose Euler–Lagrange equation is ``(f²φ') ' = 0``: the current ``f²φ'`` is
+    conserved, ``Δφ = c·I₂``, and the minimum is ``Δφ²/I₂``.  The weight is the
+    transverse area element, which is why ``I₂ = ∫ds/f²`` and nothing else.
+
+    Reading it twice:
+
+    * ``φ = u``, the ℓ=0 potential.  The conserved current **is** the flux,
+      ``Φ = 4πf²u'``; the drop is ``ΦI₂/4π``; the conductance is ``4π/I₂``.
+      That is `physical_throat.VacuumThroat.conductance`.
+    * ``φ = θ``, the azimuth.  The conserved current **is** Clairaut's
+      constant, ``h = f²θ'``; the sweep is ``hI₂``; the excess length is
+      ``½h²I₂ = α²/(2I₂)``.  That is `turn_cost`.
+
+    So the sharpest form of the statement is not about the two numbers but
+    about the two *profiles*: normalised to their own total, the monopole
+    potential and the geodesic's azimuth are **the same function of position
+    along the tube**.  Checked below, and the deviation falls as ``α²`` —
+    ``4.9e-03`` at ``α = 1`` down to ``4.9e-07`` at ``α = 0.01``, a clean
+    factor of 100 per decade.  Which is exactly why "infinitesimal" is the
+    right word: at finite ``α`` the geodesic feels ``I₄`` and the potential
+    does not.
+    """
+    c = RegularizedCenter(neck=1e-3, outer=1.0, inner=0.35)
+    x_end = c.half_length_in_x(c.outer)
+    sample = [x_end * k / 8.0 for k in range(1, 9)]
+
+    convergence = []
+    for alpha in (1.0, 0.3, 0.1, 0.03, 0.01, 0.003):
+        kappa = c.clairaut_constant(alpha)
+        theta_end = c.azimuth_profile(x_end, kappa)
+        worst = max(abs(c.azimuth_profile(x, kappa) / theta_end
+                        - c.monopole_profile(x) / c.monopole_profile(x_end))
+                    for x in sample)
+        convergence.append({"alpha": alpha, "worst_profile_deviation": worst,
+                            "over_alpha_squared": worst / alpha ** 2})
+
+    from geometrodynamics.waves.physical_throat import VacuumThroat
+    a = 0.05
+    t = VacuumThroat(mouth_radius=a)
+    sym = RegularizedCenter(neck=t.neck_radius(), outer=t.mouth_f(),
+                            inner=t.mouth_f())
+    alpha = 0.05
+    ratios = sorted(r["over_alpha_squared"] for r in convergence)
+    return {
+        "form": "E[phi] = int f^2 phi'^2 ds, minimised at fixed increment",
+        "euler_lagrange": "(f^2 phi')' = 0, so f^2 phi' is conserved",
+        "as_a_potential": "phi = u: the current is the flux 4 pi f^2 u', the "
+                          "drop is Phi I2 / 4 pi, the conductance is 4 pi / I2",
+        "as_an_azimuth": "phi = theta: the current is Clairaut's h = f^2 "
+                         "theta', the sweep is h I2, the cost is h^2 I2 / 2",
+        "profile_convergence": convergence,
+        "the_profiles_coincide_as_alpha_vanishes": bool(
+            convergence[0]["worst_profile_deviation"]
+            > 1e4 * convergence[-1]["worst_profile_deviation"]),
+        "the_deviation_is_second_order_in_alpha": bool(
+            ratios[-1] / ratios[0] - 1.0 < 1e-2),
+        "conductance_here": sym.conductance(),
+        "conductance_physical_throat": t.conductance(),
+        "conductance_difference": abs(sym.conductance() - t.conductance()),
+        "hinge_from_the_conductance": alpha ** 2 * t.conductance()
+        / (8.0 * math.pi),
+        "hinge_from_the_geometry": sym.turn_cost_small_angle(alpha),
+        "the_two_readings_agree": bool(
+            abs(alpha ** 2 * t.conductance() / (8.0 * math.pi)
+                / sym.turn_cost_small_angle(alpha) - 1.0) < 1e-12),
+        "why_it_is_not_a_coincidence": "the weight in the Dirichlet form is "
+                                       "the transverse area element f^2, and "
+                                       "both the monopole potential and the "
+                                       "azimuth are functions on the tube "
+                                       "with no angular dependence -- so they "
+                                       "solve the same equation with the same "
+                                       "measure, and I2 is the resistance to "
+                                       "either",
+        "what_is_not_claimed": "that the two remain the same beyond leading "
+                               "order -- at finite alpha the geodesic picks "
+                               "up I4 and the static potential does not",
     }

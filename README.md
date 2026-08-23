@@ -3524,8 +3524,54 @@ as much as travelling until `α ≈ 104` radians. And the point model is the
 **Intersection becomes overlap.** Two fronts land on the bearing at angular
 positions. *Whether* they meet is a question about angles with `f₀` nowhere in
 it; *how big* the meeting is, is `f₀ × (overlap angle)`. So `f₀ → 0` does **not**
-make every route meet — it shrinks the overlap **and** the gap together, and the
-distinction survives as a yes/no while disappearing as a length.
+make every route meet. **As `f₀ → 0` the angular incidence survives and the
+physical interaction region collapses:** direction of arrival and angular
+overlap never involved `f₀`, while the region where the fronts actually share
+space is `f₀ ×` (overlap angle) and goes to zero — as does the separation of two
+that miss. The distinction survives as a yes/no and disappears as a length.
+
+**The deeper identity.** `I₂` appearing in both the monopole conductance and
+the hinge is not two calculations sharing a number. They are **one Dirichlet
+form** on the tube:
+
+```
+minimise  E[φ] = ∫ f² φ'² ds   at fixed increment   ⟹   (f²φ')' = 0
+```
+
+The weight is the transverse area element, so the resistance is `∫ds/f²` and
+nothing else. Read it at `φ = u` and the conserved current *is* the monopole
+flux `4πf²u'`, giving conductance `4π/I₂`; read it at `φ = θ` and the current
+*is* Clairaut's `h = f²θ'`, giving cost `α²/(2I₂)`. **Static monopole flux and
+infinitesimal throat rotation follow the same spatial weighting.**
+
+The sharpest form is about the *profiles*, not the numbers: normalised to their
+own total, the monopole potential and the geodesic azimuth are the **same
+function of position** along the tube, with the deviation falling as `α²`
+(`4.9e-03` at `α = 1` → `4.9e-07` at `α = 0.01`, a clean 100× per decade).
+That is why *infinitesimal* is the operative word.
+
+**And the moment hierarchy says what is universal.** Expanding exactly,
+
+```
+T(α) = α²/(2I₂) − α⁴I₄/(8I₂⁴) + O(α⁶)      I_n = ∫ds/fⁿ
+shape = T/(α²/2I₂) = 1 − α²I₄/(4I₂³)
+```
+
+- **`I₂` controls the universal quadratic hinge** — and it is the moment the
+  throat already had, so a quantity from the monopole channel fixes the leading
+  term completely.
+- **`I₄` first remembers the neck shape** — the first moment shared with
+  nothing else.
+
+| profile | `I₂` | `I₄` | shape |
+|--|--|--|--|
+| scalar-flat | `4/f₀` | `32/(15f₀³)` | `1 − α²/120` |
+| hyperbolic `√(f₀²+s²)` | `π/f₀` | `π/(2f₀³)` | `1 − α²/(8π²)` |
+
+`1/120` against `1/79` is *exactly* why the two agree to eight digits at
+`α = 0.1` and part at `α = π` (`0.9250` vs `0.8886`). All the profile
+dependence is that one coefficient. Every moment has a closed form: substitute
+`t = f'` and `I_n = (2/f₀^{n−1})∫₀^T(1−t²)^{n−2}dt`.
 
 **How far it generalises, measured.** `T = α²/(2I)` never used the profile, and
 holds to `1.3e-04` on an unrelated one (`f = √(f₀²+s²)`, `I → π/f₀`). The

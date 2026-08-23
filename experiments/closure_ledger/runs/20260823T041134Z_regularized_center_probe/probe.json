@@ -775,7 +775,9 @@
         "how_big_is_a_length_question": "the overlap is f0 x (overlap angle)",
         "the_verdict_does_not_depend_on_the_neck": true,
         "both_the_overlap_and_the_gap_scale_with_the_neck": true,
-        "the_point_limit_correctly_stated": "f0 -> 0 does NOT make every route meet; it shrinks the overlap AND the gap to zero together, so the distinction survives as a yes/no and disappears as a length",
+        "the_point_limit_correctly_stated": "as f0 -> 0 the ANGULAR INCIDENCE SURVIVES and the PHYSICAL INTERACTION REGION COLLAPSES: which directions the fronts come in at, and whether their extents overlap, are untouched by f0; the region in which they actually share space is f0 x (overlap angle) and goes to zero. So f0 -> 0 does NOT make every route meet -- it shrinks the overlap AND the gap together, and the distinction survives as a yes/no while disappearing as a length",
+        "what_survives_the_limit": "angular incidence -- direction of arrival and angular overlap, neither of which involves f0",
+        "what_collapses": "the physical interaction region, f0 x (overlap angle), and equally the physical separation of fronts that miss",
         "no_route_passes_through_a_singular_point": true
       },
       "pass": true
@@ -1013,8 +1015,159 @@
         "so_what_is_general": "the quadratic law T = alpha^2/(2I) is a statement about necks; the ~8-11% deficit at a half turn is a statement about a particular one"
       },
       "pass": true
+    },
+    {
+      "id": "T11",
+      "name": "*** I2 is the universal hinge; I4 first remembers the shape ***",
+      "detail": {
+        "rows": [
+          {
+            "alpha": 0.1,
+            "turn_cost": 1.2498964680454613e-09,
+            "second_order": 1.2500006250004688e-09,
+            "fourth_order": 1.2498964581254685e-09,
+            "shape_measured": 0.9999166744776568,
+            "shape_predicted": 0.9999166665416666,
+            "fourth_order_relative_error": 7.936651780227066e-09
+          },
+          {
+            "alpha": 0.3,
+            "turn_cost": 1.124157533578423e-08,
+            "second_order": 1.1250005625004217e-08,
+            "fourth_order": 1.1241568108129192e-08,
+            "shape_measured": 0.999250641332903,
+            "shape_predicted": 0.9992499988749985,
+            "fourth_order_relative_error": 6.42940110040513e-07
+          },
+          {
+            "alpha": 0.6,
+            "turn_cost": 4.48654839325493e-08,
+            "second_order": 4.500002250001687e-08,
+            "fourth_order": 4.486502223001647e-08,
+            "shape_measured": 0.9970102555511495,
+            "shape_predicted": 0.9969999954999944,
+            "fourth_order_relative_error": 1.0290923973421684e-05
+          },
+          {
+            "alpha": 1.0,
+            "turn_cost": 1.239682456822113e-07,
+            "second_order": 1.2500006250004686e-07,
+            "fourth_order": 1.2395839375004373e-07,
+            "shape_measured": 0.9917454695845838,
+            "shape_predicted": 0.991666654166651,
+            "fourth_order_relative_error": 7.947773337102504e-05
+          },
+          {
+            "alpha": 2.0,
+            "turn_cost": 4.83951026675459e-07,
+            "second_order": 5.000002500001874e-07,
+            "fourth_order": 4.833335500001375e-07,
+            "shape_measured": 0.9679015693997703,
+            "shape_predicted": 0.9666666166666041,
+            "fourth_order_relative_error": 0.0012775373762514697
+          },
+          {
+            "alpha": 3.141592653589793,
+            "turn_cost": 1.1411360031698145e-06,
+            "second_order": 1.2337011669869075e-06,
+            "fourth_order": 1.1322331608905776e-06,
+            "shape_measured": 0.9249695418192991,
+            "shape_predicted": 0.9177531732873795,
+            "fourth_order_relative_error": 0.007863082081286388
+          }
+        ],
+        "hyperbolic_rows": [
+          {
+            "alpha": 0.1,
+            "shape_measured": 0.9998733643182326,
+            "shape_predicted": 0.9998733482785602
+          },
+          {
+            "alpha": 1.0,
+            "shape_measured": 0.9874942125973362,
+            "shape_predicted": 0.9873348278560261
+          },
+          {
+            "alpha": 3.141592653589793,
+            "shape_measured": 0.8895973449333908,
+            "shape_predicted": 0.8749997612672814
+          }
+        ],
+        "expansion": "T = alpha^2/(2 I2) - alpha^4 I4/(8 I2^4) + O(alpha^6)",
+        "shape_law": "T/(alpha^2/2 I2) = 1 - alpha^2 I4/(4 I2^3)",
+        "scalar_flat": {
+          "I2_times_neck": 3.9999979999995,
+          "I4_times_neck_cubed": 2.1333333333333333,
+          "shape_coefficient": 0.008333345833348956,
+          "closed_form": "I2 = 4/f0, I4 = 32/(15 f0^3), shape = 1 - alpha^2/120"
+        },
+        "hyperbolic": {
+          "I2_times_neck": 3.1415906535897933,
+          "I4_times_neck_cubed": 1.570796326794897,
+          "shape_coefficient": 0.012665172143973846,
+          "closed_form": "I2 = pi/f0, I4 = pi/(2 f0^3), shape = 1 - alpha^2/(8 pi^2)"
+        },
+        "the_shape_law_holds_at_small_angle": true,
+        "the_fourth_order_beats_the_second": true,
+        "the_second_moment_is_shared_the_fourth_is_not": true,
+        "the_division_of_labour": "I2 controls the universal quadratic hinge and is the same integral as the monopole conductance; I4 is the first moment that remembers the neck's shape"
+      },
+      "pass": true
+    },
+    {
+      "id": "T12",
+      "name": "*** monopole flux and infinitesimal rotation are ONE form ***",
+      "detail": {
+        "form": "E[phi] = int f^2 phi'^2 ds, minimised at fixed increment",
+        "euler_lagrange": "(f^2 phi')' = 0, so f^2 phi' is conserved",
+        "as_a_potential": "phi = u: the current is the flux 4 pi f^2 u', the drop is Phi I2 / 4 pi, the conductance is 4 pi / I2",
+        "as_an_azimuth": "phi = theta: the current is Clairaut's h = f^2 theta', the sweep is h I2, the cost is h^2 I2 / 2",
+        "profile_convergence": [
+          {
+            "alpha": 1.0,
+            "worst_profile_deviation": 0.004854765580603493,
+            "over_alpha_squared": 0.004854765580603493
+          },
+          {
+            "alpha": 0.3,
+            "worst_profile_deviation": 0.000437049894658037,
+            "over_alpha_squared": 0.004856109940644856
+          },
+          {
+            "alpha": 0.1,
+            "worst_profile_deviation": 4.856177483847368e-05,
+            "over_alpha_squared": 0.004856177483847367
+          },
+          {
+            "alpha": 0.03,
+            "worst_profile_deviation": 4.370566149380917e-06,
+            "over_alpha_squared": 0.004856184610423241
+          },
+          {
+            "alpha": 0.01,
+            "worst_profile_deviation": 4.856184938617503e-07,
+            "over_alpha_squared": 0.004856184938617503
+          },
+          {
+            "alpha": 0.003,
+            "worst_profile_deviation": 4.370563461142396e-08,
+            "over_alpha_squared": 0.004856181623491551
+          }
+        ],
+        "the_profiles_coincide_as_alpha_vanishes": true,
+        "the_deviation_is_second_order_in_alpha": true,
+        "conductance_here": 0.0003926992454533388,
+        "conductance_physical_throat": 0.0003926992454533388,
+        "conductance_difference": 0.0,
+        "hinge_from_the_conductance": 3.906251628897275e-08,
+        "hinge_from_the_geometry": 3.906251628897274e-08,
+        "the_two_readings_agree": true,
+        "why_it_is_not_a_coincidence": "the weight in the Dirichlet form is the transverse area element f^2, and both the monopole potential and the azimuth are functions on the tube with no angular dependence -- so they solve the same equation with the same measure, and I2 is the resistance to either",
+        "what_is_not_claimed": "that the two remain the same beyond leading order -- at finite alpha the geodesic picks up I4 and the static potential does not"
+      },
+      "pass": true
     }
   ],
-  "passed": 10,
-  "total": 10
+  "passed": 12,
+  "total": 12
 }

@@ -1,8 +1,8 @@
 # The centre as a finite bearing, not a point
 
 **Module:** `geometrodynamics/viz/regularized_center.py`
-**Probe:** `python -m experiments.closure_ledger.regularized_center_probe` (10/10)
-**Tests:** `tests/test_viz_regularized_center.py` (73)
+**Probe:** `python -m experiments.closure_ledger.regularized_center_probe` (12/12)
+**Tests:** `tests/test_viz_regularized_center.py` (98)
 **Renderer:** `scripts/geometrodynamics_v69_regularized_center.py`
 
 ---
@@ -167,9 +167,15 @@ completely differently:
 That is how the point limit is recovered, and it is not the way it is usually
 described:
 
-> `f₀ → 0` does **not** make every route meet. It shrinks the overlap **and**
-> the gap to zero together, so the distinction between meeting and missing
-> survives as a yes/no and disappears as a length.
+> **As `f₀ → 0` the angular incidence survives and the physical interaction
+> region collapses.** Which directions the fronts arrive from, and whether
+> their angular extents overlap, are untouched by `f₀`. The region in which
+> they actually share space is `f₀ × (overlap angle)` and goes to zero — as
+> does the physical separation of two fronts that miss.
+
+So `f₀ → 0` does **not** make every route meet. It shrinks the overlap **and**
+the gap together, and the distinction between meeting and missing survives as a
+yes/no while disappearing as a length.
 
 ## The drawn circle is honest
 
@@ -209,6 +215,86 @@ against the scalar-flat neck's `4/f₀`.
 Same law, different `O(α⁴)` term. So the quadratic law is a statement about
 **necks**; the `8–11%` deficit at a half turn is a statement about a
 **particular** neck.
+
+## The identity underneath: one Dirichlet form
+
+`I₂` turning up in both the monopole conductance and the hinge cost is not a
+coincidence of two calculations. They are **one variational problem** on the
+tube:
+
+> minimise `E[φ] = ∫ f² φ'² ds` at fixed total increment `Δφ`.
+
+The Euler–Lagrange equation is `(f²φ')' = 0`, so the current `f²φ'` is
+conserved, `Δφ = c·I₂`, and the minimum is `Δφ²/I₂`. **The weight is the
+transverse area element**, which is why the resistance is `∫ds/f²` and nothing
+else. Read it twice:
+
+| | `φ` | the conserved current | what `I₂` gives |
+|--|--|--|--|
+| static monopole | the potential `u` | the flux `Φ = 4πf²u'` | conductance `4π/I₂` |
+| infinitesimal rotation | the azimuth `θ` | Clairaut's `h = f²θ'` | cost `α²/(2I₂)` |
+
+Same equation, same measure, different field. So `T(α) = α²·(4π/I₂)/(8π)` is an
+identity, not a fit.
+
+**The sharpest form of it is not about the numbers but about the profiles.**
+Normalised each to its own total, the monopole potential and the geodesic's
+azimuth are *the same function of position along the tube*:
+
+| `α` | worst deviation of the two normalised profiles | `/α²` |
+|--|--|--|
+| `1.0` | `4.855e-03` | `4.855e-03` |
+| `0.1` | `4.856e-05` | `4.856e-03` |
+| `0.01` | `4.856e-07` | `4.856e-03` |
+
+A clean factor of 100 per decade — the deviation is `O(α²)`, and the ratio
+column is flat to `1e-3`. **That is why "infinitesimal" is the right word**: at
+finite `α` the geodesic starts to feel `I₄` and the static potential never
+does.
+
+## `I₂` is universal; `I₄` is where the neck shape enters
+
+Expanding the geodesic exactly rather than to leading order —
+`dℓ/ds − 1 = (1 − h²/f²)^{−1/2} − 1` — gives
+
+```
+T = ½h²I₂ + ⅜h⁴I₄ + …          α = hI₂ + ½h³I₄ + …          I_n = ∫ds/fⁿ
+```
+
+and eliminating `h` leaves
+
+> **`T(α) = α²/(2I₂) − α⁴I₄/(8I₂⁴) + O(α⁶)`** ,
+> equivalently `shape = T/(α²/2I₂) = 1 − α²I₄/(4I₂³)` .
+
+The correction is **negative**, which is why every measured shape sits below
+one. And the division of labour is exact:
+
+- **`I₂` is the only moment in the leading term**, and it is the same `I₂` the
+  monopole channel already had. The quadratic hinge is universal in the strong
+  sense — a quantity the throat was already carrying fixes it completely.
+- **`I₄` is the first moment shared with nothing else**, and it is where the
+  neck's *shape* is first felt.
+
+| profile | `I₂` | `I₄` | shape |
+|--|--|--|--|
+| scalar-flat, `f'² = 1 − f₀/f` | `4/f₀` | `32/(15f₀³)` | `1 − α²/120` |
+| hyperbolic, `f = √(f₀²+s²)` | `π/f₀` | `π/(2f₀³)` | `1 − α²/(8π²)` |
+
+`1/120 = 0.00833` against `1/(8π²) = 0.01267` is *exactly* why the two shapes
+agree to eight digits at `α = 0.1` and part company at `α = π` (`0.9250`
+against `0.8886`). The whole profile-dependence of the earlier section is this
+one coefficient.
+
+The moments have closed forms of their own. Substituting `t = f' = √(1 − f₀/f)`
+— the profile's own slope — turns all of them into polynomials:
+
+```
+I_n(F) = (2/f₀^{n−1}) ∫₀^T (1−t²)^{n−2} dt ,   T = √(1 − f₀/F)
+```
+
+so `I₂ = (2/f₀)T` and `I₄ = (2/f₀³)[T − ⅔T³ + ⅕T⁵]`, both checked against
+quadrature to `1e-9`. Only even orders appear, because `(1 − h²/f²)^{−1/2}` is
+a series in `h²/f²`.
 
 ## A formulation trap, recorded
 

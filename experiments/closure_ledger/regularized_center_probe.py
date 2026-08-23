@@ -109,6 +109,44 @@ T10 WHAT IS GENERAL, AND WHAT IS ONLY ABOUT THIS NECK. The derivation of
     NECKS; THE ~8-11% DEFICIT AT A HALF TURN IS A STATEMENT ABOUT A PARTICULAR
     ONE.
 
+T11 *** THE MOMENT HIERARCHY: I2 IS UNIVERSAL, I4 IS LOCAL. *** Expanding the
+    geodesic exactly, dl/ds - 1 = (1 - h^2/f^2)^(-1/2) - 1, gives
+    T = h^2 I2/2 + 3 h^4 I4/8 and alpha = h I2 + h^3 I4/2 with I_n = int ds/f^n.
+    Eliminating h:
+
+        T(alpha) = alpha^2/(2 I2)  -  alpha^4 I4/(8 I2^4)  +  O(alpha^6) ,
+        shape = T/(alpha^2/2 I2) = 1 - alpha^2 I4/(4 I2^3) .
+
+    THAT IS THE DIVISION OF LABOUR. I2 is the only moment in the leading term,
+    and it is the SAME I2 that sets the monopole conductance -- so the
+    quadratic hinge is universal in the strong sense that a quantity the
+    throat already had fixes it. I4 is the first moment shared with nothing,
+    and it is where the neck's SHAPE is first felt:
+        scalar-flat  I2 = 4/f0,   I4 = 32/(15 f0^3)  ->  shape = 1 - a^2/120
+        hyperbolic   I2 = pi/f0,  I4 = pi/(2 f0^3)   ->  shape = 1 - a^2/(8 pi^2)
+    1/120 against 1/79 is exactly why the two part company at large angle
+    (0.9250 vs 0.8886 at pi) while agreeing to eight digits at alpha = 0.1.
+    The moments are closed forms checked against quadrature; the shapes are
+    checked against the integrated geodesic.
+
+T12 *** THE IDENTITY UNDERNEATH: ONE DIRICHLET FORM. *** Static monopole flux
+    and infinitesimal rotation of the throat are not two problems sharing a
+    number. They are ONE variational problem on the tube,
+
+        minimise  E[phi] = int f^2 phi'^2 ds  at fixed increment ,
+
+    with Euler-Lagrange (f^2 phi')' = 0: the current f^2 phi' is conserved, the
+    increment is c I2, the minimum is (increment)^2 / I2. The weight is the
+    TRANSVERSE AREA ELEMENT, which is why I2 = int ds/f^2 and nothing else.
+        phi = u     : the current IS the flux 4 pi f^2 u'; conductance 4 pi/I2.
+        phi = theta : the current IS Clairaut's h = f^2 theta'; cost a^2/(2 I2).
+    The sharpest form is not about the two numbers but the two PROFILES:
+    normalised to their own total, the monopole potential and the geodesic
+    azimuth are THE SAME FUNCTION of position along the tube. The deviation
+    falls as alpha^2 -- 4.9e-03 at alpha = 1 down to 4.9e-07 at alpha = 0.01,
+    a clean factor of 100 per decade. Which is why "INFINITESIMAL" is the right
+    word: at finite alpha the geodesic feels I4 and the potential does not.
+
 WHAT IS PUT IN, AND WHAT IS NOT CLAIMED
 ───────────────────────────────────────
 This is GEOMETRY: a metric, its geodesics, and the transport of an angular
@@ -138,6 +176,8 @@ from geometrodynamics.viz.regularized_center import (
     measure_the_bearing_replaces_collision_with_overlap,
     measure_the_bearing_shrinks_back_to_the_point,
     measure_the_corner_route_is_only_an_upper_bound,
+    measure_the_fourth_moment_is_where_the_neck_shape_enters,
+    measure_the_hinge_and_the_monopole_are_one_dirichlet_form,
     measure_the_law_does_not_depend_on_the_profile,
     measure_the_hinge_is_never_the_expensive_part,
     measure_the_turn_cost_does_not_care_which_sphere,
@@ -221,6 +261,24 @@ def run_probe() -> dict:
         "detail": general,
         "pass": bool(general["the_law_holds_on_the_second_profile"]
                      and general["the_correction_is_profile_dependent"])})
+
+    moments = measure_the_fourth_moment_is_where_the_neck_shape_enters()
+    checks.append({
+        "id": "T11",
+        "name": "*** I2 is the universal hinge; I4 first remembers the shape ***",
+        "detail": moments,
+        "pass": bool(moments["the_shape_law_holds_at_small_angle"]
+                     and moments["the_fourth_order_beats_the_second"]
+                     and moments["the_second_moment_is_shared_the_fourth_is_not"])})
+
+    identity = measure_the_hinge_and_the_monopole_are_one_dirichlet_form()
+    checks.append({
+        "id": "T12",
+        "name": "*** monopole flux and infinitesimal rotation are ONE form ***",
+        "detail": identity,
+        "pass": bool(identity["the_profiles_coincide_as_alpha_vanishes"]
+                     and identity["the_deviation_is_second_order_in_alpha"]
+                     and identity["the_two_readings_agree"])})
 
     c = WORKING_CENTER
     return {

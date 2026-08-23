@@ -1320,7 +1320,23 @@ proposed** — and the point model is the `f₀ → 0` limit, not a rival.
 question about angles with `f₀` nowhere in it; *how big* the meeting is, is
 `f₀ ×` that angle. So `f₀ → 0` does **not** make everything meet — it shrinks
 the overlap and the gap together, and the distinction survives as a yes/no while
-vanishing as a length.
+vanishing as a length — or, sharper: **as `f₀ → 0` the angular incidence
+survives and the physical interaction region collapses.**
+
+**Underneath it is one Dirichlet form.** `I₂` turning up in both places is not
+a coincidence: minimising `E[φ] = ∫f²φ'²ds` at fixed increment gives
+`(f²φ')' = 0`, and the weight is the transverse area element. At `φ = u` the
+conserved current is the monopole flux and the answer is the conductance
+`4π/I₂`; at `φ = θ` it is Clairaut's `h` and the answer is `α²/(2I₂)`. **Static
+monopole flux and infinitesimal throat rotation follow the same spatial
+weighting** — and normalised to their own totals the two *profiles* are the same
+function of position, with the deviation falling as `α²`.
+
+**The moment hierarchy then says exactly what is universal.**
+`T(α) = α²/(2I₂) − α⁴I₄/(8I₂⁴)`, so **`I₂` controls the universal quadratic
+hinge** — the moment the throat already had — while **`I₄` is the first that
+remembers the neck's shape**: `1 − α²/120` scalar-flat against `1 − α²/(8π²)`
+hyperbolic, which is the whole of the profile dependence.
 
 **And the generality is measured rather than asserted.** The law never used the
 profile and holds to `1.3e-04` on an unrelated one; the `O(α⁴)` correction does
