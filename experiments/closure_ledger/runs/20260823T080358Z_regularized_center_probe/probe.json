@@ -1,0 +1,1315 @@
+{
+  "probe": "regularized_center",
+  "question": "can the centre keep its special role -- the clock-hand hinge whose cost does not care where the mouths are -- without being a point?",
+  "answer": "yes, and the hinge is cheaper than the proposal assumed: the geodesic turn cost is quadratic, T(alpha) = alpha^2/(2I), not the bearing's arc f0*alpha",
+  "bearing": {
+    "neck": 0.001,
+    "outer_scale": 1.0,
+    "inner_scale": 0.35,
+    "outer_length": 1.0036466496637098,
+    "inner_length": 0.35312104105159003,
+    "arm_ratio": 2.842217067198439,
+    "resistance": 3996.140563280784,
+    "conductance": 0.0031446267756012895
+  },
+  "turn_cost_law": "T(alpha) = alpha^2 / (2I) = alpha^2 * conductance / (8 pi);  I -> 4/f0 gives f0 alpha^2/8",
+  "at_a_half_turn": {
+    "alpha": 3.141592653589793,
+    "geodesic_turn_cost": 0.001142009615154357,
+    "linear_guess": 0.0031415926535897933,
+    "arm_length_sum": 1.3567676907152997,
+    "turn_over_arms": 0.0008417134509978489
+  },
+  "checks": [
+    {
+      "id": "T1",
+      "name": "the arms are the repo's geometry, symmetry dropped",
+      "detail": {
+        "quadrature": [
+          {
+            "neck": 0.0001,
+            "scale": 0.00013000000000000002,
+            "length_closed": 0.00011479837573414345,
+            "length_quadrature": 0.00011479837573414345,
+            "length_relative": 0.0,
+            "resistance_closed": 9607.68922830523,
+            "resistance_quadrature": 9607.689228305228,
+            "resistance_relative": 2.220446049250313e-16
+          },
+          {
+            "neck": 0.0001,
+            "scale": 0.0005,
+            "length_closed": 0.000591577143017839,
+            "length_quadrature": 0.000591577143017839,
+            "length_relative": 0.0,
+            "resistance_closed": 17888.54381999832,
+            "resistance_quadrature": 17888.543819998315,
+            "resistance_relative": 2.220446049250313e-16
+          },
+          {
+            "neck": 0.0001,
+            "scale": 0.5,
+            "length_closed": 0.5004451668770018,
+            "length_quadrature": 0.5004451668770276,
+            "length_relative": 5.1514348342607263e-14,
+            "resistance_closed": 19997.99989999,
+            "resistance_quadrature": 19997.99989998999,
+            "resistance_relative": 4.440892098500626e-16
+          },
+          {
+            "neck": 0.0001,
+            "scale": 1.0,
+            "length_closed": 1.0004798279864986,
+            "length_quadrature": 1.0004798279867992,
+            "length_relative": 3.005373727660299e-13,
+            "resistance_closed": 19998.99997499875,
+            "resistance_quadrature": 19998.99997499875,
+            "resistance_relative": 0.0
+          },
+          {
+            "neck": 0.01,
+            "scale": 0.013000000000000001,
+            "length_closed": 0.011479837573414343,
+            "length_quadrature": 0.011479837573414342,
+            "length_relative": 2.220446049250313e-16,
+            "resistance_closed": 96.0768922830523,
+            "resistance_quadrature": 96.07689228305229,
+            "resistance_relative": 2.220446049250313e-16
+          },
+          {
+            "neck": 0.01,
+            "scale": 0.05,
+            "length_closed": 0.0591577143017839,
+            "length_quadrature": 0.059157714301783904,
+            "length_relative": 1.1102230246251565e-16,
+            "resistance_closed": 178.88543819998318,
+            "resistance_quadrature": 178.88543819998318,
+            "resistance_relative": 0.0
+          },
+          {
+            "neck": 0.01,
+            "scale": 0.5,
+            "length_closed": 0.5214159544411696,
+            "length_quadrature": 0.5214159544411694,
+            "length_relative": 4.440892098500626e-16,
+            "resistance_closed": 197.9898987322333,
+            "resistance_quadrature": 197.9898987322333,
+            "resistance_relative": 0.0
+          },
+          {
+            "neck": 0.01,
+            "scale": 1.0,
+            "length_closed": 1.0249196655678838,
+            "length_quadrature": 1.024919665567885,
+            "length_relative": 1.1102230246251565e-15,
+            "resistance_closed": 198.997487421324,
+            "resistance_quadrature": 198.997487421324,
+            "resistance_relative": 0.0
+          },
+          {
+            "neck": 0.1,
+            "scale": 0.13,
+            "length_closed": 0.11479837573414342,
+            "length_quadrature": 0.11479837573414339,
+            "length_relative": 2.220446049250313e-16,
+            "resistance_closed": 9.607689228305228,
+            "resistance_quadrature": 9.607689228305228,
+            "resistance_relative": 0.0
+          },
+          {
+            "neck": 0.1,
+            "scale": 0.5,
+            "length_closed": 0.5915771430178389,
+            "length_quadrature": 0.591577143017839,
+            "length_relative": 2.220446049250313e-16,
+            "resistance_closed": 17.88854381999832,
+            "resistance_quadrature": 17.888543819998315,
+            "resistance_relative": 2.220446049250313e-16
+          },
+          {
+            "neck": 0.1,
+            "scale": 0.5,
+            "length_closed": 0.5915771430178389,
+            "length_quadrature": 0.591577143017839,
+            "length_relative": 2.220446049250313e-16,
+            "resistance_closed": 17.88854381999832,
+            "resistance_quadrature": 17.888543819998315,
+            "resistance_relative": 2.220446049250313e-16
+          },
+          {
+            "neck": 0.1,
+            "scale": 1.0,
+            "length_closed": 1.1305279439737204,
+            "length_quadrature": 1.1305279439737204,
+            "length_relative": 0.0,
+            "resistance_closed": 18.973665961010276,
+            "resistance_quadrature": 18.973665961010905,
+            "resistance_relative": 3.319566843629218e-14
+          }
+        ],
+        "against_physical_throat": [
+          {
+            "mouth_radius": 0.02,
+            "length_here": 0.04006300164110336,
+            "length_physical_throat": 0.04006300164110336,
+            "length_difference": 0.0,
+            "resistance_here": 499999.99466598924,
+            "resistance_physical_throat": 499999.99466598924,
+            "resistance_difference": 0.0
+          },
+          {
+            "mouth_radius": 0.05,
+            "length_here": 0.10075443233389984,
+            "length_physical_throat": 0.10075443233389984,
+            "length_difference": 0.0,
+            "resistance_here": 31999.986656079098,
+            "resistance_physical_throat": 31999.986656079098,
+            "resistance_difference": 0.0
+          },
+          {
+            "mouth_radius": 0.1,
+            "length_here": 0.20462924352638073,
+            "length_physical_throat": 0.20462924352638076,
+            "length_difference": 2.7755575615628914e-17,
+            "resistance_here": 3999.9732484991614,
+            "resistance_physical_throat": 3999.9732484991623,
+            "resistance_difference": 9.094947017729282e-13
+          },
+          {
+            "mouth_radius": 0.2,
+            "length_here": 0.425476832352986,
+            "length_physical_throat": 0.42547683235298595,
+            "length_difference": 5.551115123125783e-17,
+            "resistance_here": 499.9459836894517,
+            "resistance_physical_throat": 499.94598368945174,
+            "resistance_difference": 5.684341886080802e-14
+          }
+        ],
+        "closed_forms": [
+          "L(F) = sqrt(F(F-f0)) + f0 arcosh sqrt(F/f0)",
+          "I(F) = (2/f0) sqrt(1 - f0/F)"
+        ],
+        "worst_length_quadrature_error": 3.005373727660299e-13,
+        "worst_resistance_quadrature_error": 3.319566843629218e-14,
+        "the_closed_forms_are_the_integrals": true,
+        "it_contains_the_symmetric_throat_exactly": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T2",
+      "name": "*** the arms are independent INTRINSICALLY (attachment caveat) ***",
+      "detail": {
+        "rows": [
+          {
+            "inner_scale": 0.002,
+            "outer_length": 1.0036466496637098,
+            "inner_length": 0.002295587149392638,
+            "length_ratio": 437.2069472201274,
+            "resistance": 3413.2133122480172,
+            "turn_cost_one_radian": 0.0001446092819682112,
+            "small_angle_law": 0.0001464895259273113,
+            "law_ratio": 0.9871646525770512
+          },
+          {
+            "inner_scale": 0.01,
+            "outer_length": 1.0036466496637098,
+            "inner_length": 0.011305279439737205,
+            "length_ratio": 88.77681042858326,
+            "resistance": 3896.366345975949,
+            "turn_cost_one_radian": 0.00012718044990247737,
+            "small_angle_law": 0.00012832468910845232,
+            "law_ratio": 0.991083249732186
+          },
+          {
+            "inner_scale": 0.1,
+            "outer_length": 1.0036466496637098,
+            "inner_length": 0.10249196655678838,
+            "length_ratio": 9.792442114061815,
+            "resistance": 3988.974624088162,
+            "turn_cost_one_radian": 0.00012430237526200896,
+            "small_angle_law": 0.00012534549530113766,
+            "law_ratio": 0.9916780412680756
+          },
+          {
+            "inner_scale": 0.5,
+            "outer_length": 1.0036466496637098,
+            "inner_length": 0.503299700604041,
+            "length_ratio": 1.994133214184653,
+            "resistance": 3996.99874887367,
+            "turn_cost_one_radian": 0.0001240589823827327,
+            "small_angle_law": 0.0001250938595216966,
+            "law_ratio": 0.9917271947406465
+          },
+          {
+            "inner_scale": 1.0,
+            "outer_length": 1.0036466496637098,
+            "inner_length": 1.0036466496637098,
+            "length_ratio": 1.0,
+            "resistance": 3997.999499749844,
+            "turn_cost_one_radian": 0.00012402869215274027,
+            "small_angle_law": 0.0001250625469140967,
+            "law_ratio": 0.9917332983625661
+          }
+        ],
+        "largest_arm_ratio": 437.2069472201274,
+        "the_arms_can_be_very_unequal": true,
+        "and_nothing_about_the_hinge_changes": true,
+        "why_it_matters": "the old vacuole picture had to give the inner and outer boundaries one shared arbitrary radial gap; a finite bearing with two arms has no such constraint",
+        "what_loses_significance": "the vacuole's ARBITRARY DRAWING ratio, which was never identified with the endpoint scales -- NOT the endpoint scale ratio itself, which is load-bearing: w_i/w_o = f_i/f_o",
+        "matched_mouths_would_be_equal": {
+          "why": "C1 matching to a unit round S^3 forces f0 = sin^3 a_j = F_j^3 at each end, so one common f0 fixes F = f0^(1/3) uniquely",
+          "rows": [
+            {
+              "neck": 1e-06,
+              "forced_scale": 0.010000000000000002,
+              "forced_mouth_angle": 0.010000166674167116
+            },
+            {
+              "neck": 0.000125,
+              "forced_scale": 0.05000000000000001,
+              "forced_mouth_angle": 0.05002085680577002
+            },
+            {
+              "neck": 0.001,
+              "forced_scale": 0.10000000000000002,
+              "forced_mouth_angle": 0.10016742116155981
+            }
+          ]
+        },
+        "so_asymmetric_arms_need_asymmetric_attachments": true,
+        "this_is_an_intrinsic_statement_not_a_matched_one": "unequal arms are honest truncations of one scalar-flat profile; they are NOT a fully matched #265 throat with the symmetry removed, because that matching forces F_o = F_i"
+      },
+      "pass": true
+    },
+    {
+      "id": "T3",
+      "name": "scale transport is explicit",
+      "detail": {
+        "rows": [
+          {
+            "neck": 0.001,
+            "outer_scale": 1.0,
+            "inner_scale": 0.35,
+            "angular_width": 0.2,
+            "width_outer": 0.2,
+            "width_at_the_bearing": 0.0002,
+            "width_inner": 0.06999999999999999,
+            "contraction_into_the_bearing": 1000.0,
+            "end_to_end_ratio": 0.3499999999999999,
+            "scale_ratio": 0.35,
+            "residue_in_ulps": 1.0
+          },
+          {
+            "neck": 0.01,
+            "outer_scale": 0.8,
+            "inner_scale": 0.05,
+            "angular_width": 0.05,
+            "width_outer": 0.04000000000000001,
+            "width_at_the_bearing": 0.0005,
+            "width_inner": 0.0025000000000000005,
+            "contraction_into_the_bearing": 80.00000000000001,
+            "end_to_end_ratio": 0.0625,
+            "scale_ratio": 0.0625,
+            "residue_in_ulps": 0.0
+          },
+          {
+            "neck": 0.0001,
+            "outer_scale": 1.0,
+            "inner_scale": 1.0,
+            "angular_width": 0.1,
+            "width_outer": 0.1,
+            "width_at_the_bearing": 1e-05,
+            "width_inner": 0.1,
+            "contraction_into_the_bearing": 10000.0,
+            "end_to_end_ratio": 1.0,
+            "scale_ratio": 1.0,
+            "residue_in_ulps": 0.0
+          }
+        ],
+        "law": "w(s) = f(s) dtheta ; w_i/w_o = f_i/f_o",
+        "what_is_transported": "the ANGULAR width, which is constant along the route; the physical width is not",
+        "worst_residue_in_ulps": 1.0,
+        "the_ratio_is_the_scale_ratio_to_the_last_ulp": true,
+        "why_not_bitwise": "the drawn ratio is (f_i dtheta)/(f_o dtheta), and the two products round separately -- the identity is exact, the two multiplications are not",
+        "the_end_ratio_does_not_involve_the_neck": true,
+        "so_a_packet_does_not_teleport_unchanged": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T4",
+      "name": "*** the turn cost is quadratic, not linear ***",
+      "detail": {
+        "rows": [
+          {
+            "neck": 0.001,
+            "alpha": 0.02,
+            "turn_cost": 5.004812224078806e-08,
+            "small_angle_law": 5.004828955160736e-08,
+            "law_ratio": 0.9999966570122416,
+            "linear_guess": 2e-05,
+            "fraction_of_the_linear_guess": 0.002502406112039403
+          },
+          {
+            "neck": 0.001,
+            "alpha": 0.05,
+            "turn_cost": 3.1279527425007166e-07,
+            "small_angle_law": 3.12801809697546e-07,
+            "law_ratio": 0.9999791067465988,
+            "linear_guess": 5e-05,
+            "fraction_of_the_linear_guess": 0.006255905485001433
+          },
+          {
+            "neck": 0.001,
+            "alpha": 0.1,
+            "turn_cost": 1.2511026791389251e-06,
+            "small_angle_law": 1.251207238790184e-06,
+            "law_ratio": 0.9999164329872643,
+            "linear_guess": 0.0001,
+            "fraction_of_the_linear_guess": 0.01251102679138925
+          },
+          {
+            "neck": 0.001,
+            "alpha": 0.3,
+            "turn_cost": 1.1252402300566002e-05,
+            "small_angle_law": 1.1260865149111655e-05,
+            "law_ratio": 0.9992484726143515,
+            "linear_guess": 0.0003,
+            "fraction_of_the_linear_guess": 0.03750800766855334
+          },
+          {
+            "neck": 0.001,
+            "alpha": 0.6,
+            "turn_cost": 4.490840425130294e-05,
+            "small_angle_law": 4.504346059644662e-05,
+            "law_ratio": 0.9970016436713495,
+            "linear_guess": 0.0006,
+            "fraction_of_the_linear_guess": 0.07484734041883824
+          },
+          {
+            "neck": 0.001,
+            "alpha": 1.0,
+            "turn_cost": 0.00012408496901088504,
+            "small_angle_law": 0.00012512072387901838,
+            "law_ratio": 0.9917219559156737,
+            "linear_guess": 0.001,
+            "fraction_of_the_linear_guess": 0.12408496901088503
+          },
+          {
+            "neck": 0.001,
+            "alpha": 1.5707963267948966,
+            "turn_cost": 0.00030250454505941757,
+            "small_angle_law": 0.00030872301176596153,
+            "law_ratio": 0.9798574564591962,
+            "linear_guess": 0.0015707963267948967,
+            "fraction_of_the_linear_guess": 0.19258037461588515
+          },
+          {
+            "neck": 0.001,
+            "alpha": 3.141592653589793,
+            "turn_cost": 0.001142009615154357,
+            "small_angle_law": 0.0012348920470638461,
+            "law_ratio": 0.9247849784680919,
+            "linear_guess": 0.0031415926535897933,
+            "fraction_of_the_linear_guess": 0.3635129506205779
+          },
+          {
+            "neck": 1e-05,
+            "alpha": 0.02,
+            "turn_cost": 5.000031547790961e-10,
+            "small_angle_law": 5.000048215037005e-10,
+            "law_ratio": 0.9999966665829353,
+            "linear_guess": 2.0000000000000002e-07,
+            "fraction_of_the_linear_guess": 0.00250001577389548
+          },
+          {
+            "neck": 1e-05,
+            "alpha": 0.05,
+            "turn_cost": 3.12496502927044e-09,
+            "small_angle_law": 3.1250301343981287e-09,
+            "law_ratio": 0.9999791665600367,
+            "linear_guess": 5.000000000000001e-07,
+            "fraction_of_the_linear_guess": 0.0062499300585408795
+          },
+          {
+            "neck": 1e-05,
+            "alpha": 0.1,
+            "turn_cost": 1.249907892995461e-08,
+            "small_angle_law": 1.2500120537592515e-08,
+            "law_ratio": 0.9999166721924984,
+            "linear_guess": 1.0000000000000002e-06,
+            "fraction_of_the_linear_guess": 0.012499078929954608
+          },
+          {
+            "neck": 1e-05,
+            "alpha": 0.3,
+            "turn_cost": 1.1241677886659362e-07,
+            "small_angle_law": 1.125010848383326e-07,
+            "law_ratio": 0.9992506208108114,
+            "linear_guess": 3e-06,
+            "fraction_of_the_linear_guess": 0.03747225962219787
+          },
+          {
+            "neck": 1e-05,
+            "alpha": 0.6,
+            "turn_cost": 4.4865890470535095e-07,
+            "small_angle_law": 4.500043393533304e-07,
+            "law_ratio": 0.997010174057626,
+            "linear_guess": 6e-06,
+            "fraction_of_the_linear_guess": 0.0747764841175585
+          },
+          {
+            "neck": 1e-05,
+            "alpha": 1.0,
+            "turn_cost": 1.2396935130942344e-06,
+            "small_angle_law": 1.2500120537592512e-06,
+            "law_ratio": 0.9917452470686301,
+            "linear_guess": 1e-05,
+            "fraction_of_the_linear_guess": 0.12396935130942342
+          },
+          {
+            "neck": 1e-05,
+            "alpha": 1.5707963267948966,
+            "turn_cost": 3.0223262988193288e-06,
+            "small_angle_law": 3.084281116799263e-06,
+            "law_ratio": 0.9799127201335562,
+            "linear_guess": 1.5707963267948967e-05,
+            "fraction_of_the_linear_guess": 0.19240726803749156
+          },
+          {
+            "neck": 1e-05,
+            "alpha": 3.141592653589793,
+            "turn_cost": 1.14114428091259e-05,
+            "small_angle_law": 1.2337124467197053e-05,
+            "law_ratio": 0.924967794518696,
+            "linear_guess": 3.1415926535897935e-05,
+            "fraction_of_the_linear_guess": 0.3632375061765702
+          }
+        ],
+        "law": "T(alpha) = alpha^2/(2 I2) + O(alpha^4),  I2 = int ds/f^2",
+        "the_law_is_leading_order": "the exact object is the Clairaut-integrated turn_cost; the quadratic is its leading term, and the next one is -alpha^4 I4/(8 I2^4)",
+        "conductance_form": "T(alpha) = alpha^2 * conductance / (8 pi) + O(alpha^4), at angular dimension q = 2",
+        "long_arm_limit": "I -> 4/f0, so T -> f0 alpha^2 / 8",
+        "long_arm_prefactor": 0.1250012053759251,
+        "the_same_I_as_physical_throat": {
+          "mouth_radius": 0.05,
+          "here": 31999.986656079098,
+          "physical_throat": 31999.986656079098,
+          "difference": 0.0,
+          "conductance_here": 0.0003926992454533388,
+          "conductance_physical_throat": 0.0003926992454533388
+        },
+        "worst_small_angle_error": 0.0007515273856485427,
+        "the_small_angle_law_holds": true,
+        "it_is_still_close_at_pi": true,
+        "the_prefactor_is_one_eighth": true,
+        "the_resistance_is_the_repos": true,
+        "what_was_proposed": "L_turn ~ f0 alpha, the bearing's arc length",
+        "what_is_measured": "T(alpha) = alpha^2/(2 I2) + O(alpha^4), quadratic in the angle and much smaller -- the geodesic spreads the turn instead of paying it as pure transverse motion, so the cost is second order rather than first"
+      },
+      "pass": true
+    },
+    {
+      "id": "T5",
+      "name": "the linear guess is an upper bound, and loose",
+      "detail": {
+        "rows": [
+          {
+            "neck": 0.001,
+            "alpha": 0.1,
+            "geodesic": 1.356768941817979,
+            "corner_route": 1.3568676907152997,
+            "corner_is_longer_by": 9.874889732075509e-05,
+            "geodesic_uses_this_fraction_of_the_arc": 0.012511026792338953
+          },
+          {
+            "neck": 0.001,
+            "alpha": 0.5,
+            "geodesic": 1.3567989056963927,
+            "corner_route": 1.3572676907152996,
+            "corner_is_longer_by": 0.00046878501890690316,
+            "geodesic_uses_this_fraction_of_the_arc": 0.06242996218608354
+          },
+          {
+            "neck": 0.001,
+            "alpha": 1.0,
+            "geodesic": 1.3568917756843106,
+            "corner_route": 1.3577676907152996,
+            "corner_is_longer_by": 0.0008759150309889385,
+            "geodesic_uses_this_fraction_of_the_arc": 0.12408496901095134
+          },
+          {
+            "neck": 0.001,
+            "alpha": 1.5707963267948966,
+            "geodesic": 1.357070195260359,
+            "corner_route": 1.3583384870420945,
+            "corner_is_longer_by": 0.0012682917817354866,
+            "geodesic_uses_this_fraction_of_the_arc": 0.19258037461581812
+          },
+          {
+            "neck": 0.001,
+            "alpha": 3.141592653589793,
+            "geodesic": 1.357909700330454,
+            "corner_route": 1.3599092833688895,
+            "corner_is_longer_by": 0.001999583038435393,
+            "geodesic_uses_this_fraction_of_the_arc": 0.3635129506206002
+          },
+          {
+            "neck": 1e-05,
+            "alpha": 0.1,
+            "geodesic": 1.350113755442073,
+            "corner_route": 1.350114742942994,
+            "corner_is_longer_by": 9.87500921034723e-07,
+            "geodesic_uses_this_fraction_of_the_arc": 0.012499078883010382
+          },
+          {
+            "neck": 1e-05,
+            "alpha": 0.5,
+            "geodesic": 1.3501140547964883,
+            "corner_route": 1.3501187429429942,
+            "corner_is_longer_by": 4.688146505893442e-06,
+            "geodesic_uses_this_fraction_of_the_arc": 0.06237069882786272
+          },
+          {
+            "neck": 1e-05,
+            "alpha": 1.0,
+            "geodesic": 1.3501149826365073,
+            "corner_route": 1.3501237429429942,
+            "corner_is_longer_by": 8.76030648688797e-06,
+            "geodesic_uses_this_fraction_of_the_arc": 0.1239693513177542
+          },
+          {
+            "neck": 1e-05,
+            "alpha": 1.5707963267948966,
+            "geodesic": 1.350116765269293,
+            "corner_route": 1.350129450906262,
+            "corner_is_longer_by": 1.2685636969100855e-05,
+            "geodesic_uses_this_fraction_of_the_arc": 0.1924072680353036
+          },
+          {
+            "neck": 1e-05,
+            "alpha": 3.141592653589793,
+            "geodesic": 1.3501251543858033,
+            "corner_route": 1.3501451588695301,
+            "corner_is_longer_by": 2.000448372685426e-05,
+            "geodesic_uses_this_fraction_of_the_arc": 0.36323750617700035
+          }
+        ],
+        "the_corner_route_is_exact_for_its_own_route": true,
+        "and_is_an_upper_bound_on_the_geodesic": true,
+        "fraction_of_the_arc_actually_spent_at_alpha_0p1": 0.012511026792338953,
+        "fraction_at_pi": 0.3635129506206002,
+        "the_fraction_is_a_function_of_alpha_alone": true,
+        "fraction_drift_between_two_decades_of_neck": 0.0009559031861787748,
+        "why": "the geodesic starts turning while it is still descending, where f is larger and a given angle costs less arc"
+      },
+      "pass": true
+    },
+    {
+      "id": "T6",
+      "name": "*** the hinge is never the expensive part ***",
+      "detail": {
+        "rows": [
+          {
+            "neck": 0.01,
+            "arm_length_sum": 1.3945194376363101,
+            "turn_cost_at_pi": 0.011499706358570429,
+            "turn_over_arms": 0.008246357883732522,
+            "break_even_angle_of_the_extrapolated_law": 33.23842766956405
+          },
+          {
+            "neck": 0.001,
+            "arm_length_sum": 1.3567676907152997,
+            "turn_cost_at_pi": 0.001142009615154357,
+            "turn_over_arms": 0.0008417134509978489,
+            "break_even_angle_of_the_extrapolated_law": 104.13293814942712
+          },
+          {
+            "neck": 0.0001,
+            "arm_length_sum": 1.350907157901367,
+            "turn_cost_at_pi": 0.00011412228640283476,
+            "turn_over_arms": 8.447826020858726e-05,
+            "break_even_angle_of_the_extrapolated_law": 328.7280802263501
+          }
+        ],
+        "pi_is_the_largest_separation": "bearing_distance reduces any pair of directions to [0, pi], so the alpha = pi row is the worst case over the whole configuration space",
+        "the_hinge_is_always_cheap": true,
+        "worst_case_turn_over_arms": 0.008246357883732522,
+        "no_reachable_orientation_breaks_even": true,
+        "so_the_clock_hand_picture_survives": true,
+        "the_break_even_angle_is_withdrawn": "sqrt(2 I2 L) lands past pi, but it extrapolates the small-angle quadratic law outside its domain AND outside the bearing's configuration space, so it is not a physical angle; only the fact that it exceeds pi carries any content",
+        "what_this_does_not_say": "that the cost is zero -- it is finite, and linear in f0, which is exactly the difference between a bearing and a point"
+      },
+      "pass": true
+    },
+    {
+      "id": "T7",
+      "name": "the point model is the limit, not a rival",
+      "detail": {
+        "rows": [
+          {
+            "neck": 0.1,
+            "arm_length_sum": 1.5502263696431249,
+            "turn_cost": 0.03344903950601824,
+            "turn_cost_over_neck": 0.3344903950601824,
+            "outer_arm_excess": 0.13052794397372036,
+            "excess_asymptotic": 0.13444397270569683,
+            "excess_ratio": 0.9708724113609108
+          },
+          {
+            "neck": 0.01,
+            "arm_length_sum": 1.3945194376363101,
+            "turn_cost": 0.0030501286030485777,
+            "turn_cost_over_neck": 0.30501286030485775,
+            "outer_arm_excess": 0.02491966556788383,
+            "excess_asymptotic": 0.02495732273553991,
+            "excess_ratio": 0.9984911375288482
+          },
+          {
+            "neck": 0.001,
+            "arm_length_sum": 1.3567676907152997,
+            "turn_cost": 0.00030250454505941757,
+            "turn_cost_over_neck": 0.30250454505941754,
+            "outer_arm_excess": 0.0036466496637097556,
+            "excess_asymptotic": 0.003647024820051014,
+            "excess_ratio": 0.999897133592512
+          },
+          {
+            "neck": 0.0001,
+            "arm_length_sum": 1.350907157901367,
+            "turn_cost": 3.0225731725771828e-05,
+            "turn_cost_over_neck": 0.30225731725771826,
+            "outer_arm_excess": 0.00047982798649859326,
+            "excess_asymptotic": 0.0004798317366548037,
+            "excess_ratio": 0.999992184434826
+          },
+          {
+            "neck": 1e-05,
+            "arm_length_sum": 1.3501137429429941,
+            "turn_cost": 3.0223262988193288e-06,
+            "turn_cost_over_neck": 0.30223262988193283,
+            "outer_arm_excess": 5.9496061630248676e-05,
+            "excess_asymptotic": 5.94960991304506e-05,
+            "excess_ratio": 0.9999993697031827
+          }
+        ],
+        "alpha": 1.5707963267948966,
+        "limit": "L_o + L_i, independent of where the mouths are",
+        "turn_cost_is_linear_in_the_neck": true,
+        "arm_excess_asymptotic": "L(F) - F  ~  (f0/2)[ln(4F/f0) - 1]",
+        "the_arm_asymptotic_holds": true,
+        "the_singular_model_is_the_limit_not_a_rival": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T8",
+      "name": "*** intersection becomes overlap on the bearing ***",
+      "detail": {
+        "rows": [
+          {
+            "neck": 0.01,
+            "angular_separation": 0.05,
+            "angular_width_a": 0.2,
+            "angular_width_b": 0.2,
+            "they_meet": true,
+            "overlap_angle": 0.15000000000000002,
+            "gap_angle": 0.0,
+            "overlap_length_on_the_bearing": 0.0015000000000000002,
+            "gap_length_on_the_bearing": 0.0
+          },
+          {
+            "neck": 0.01,
+            "angular_separation": 0.3,
+            "angular_width_a": 0.2,
+            "angular_width_b": 0.2,
+            "they_meet": false,
+            "overlap_angle": 0.0,
+            "gap_angle": 0.09999999999999998,
+            "overlap_length_on_the_bearing": 0.0,
+            "gap_length_on_the_bearing": 0.0009999999999999998
+          },
+          {
+            "neck": 0.01,
+            "angular_separation": 0.3,
+            "angular_width_a": 0.4,
+            "angular_width_b": 0.3,
+            "they_meet": true,
+            "overlap_angle": 0.04999999999999999,
+            "gap_angle": 0.0,
+            "overlap_length_on_the_bearing": 0.0004999999999999999,
+            "gap_length_on_the_bearing": 0.0
+          },
+          {
+            "neck": 0.01,
+            "angular_separation": 1.2,
+            "angular_width_a": 0.2,
+            "angular_width_b": 0.2,
+            "they_meet": false,
+            "overlap_angle": 0.0,
+            "gap_angle": 1.0,
+            "overlap_length_on_the_bearing": 0.0,
+            "gap_length_on_the_bearing": 0.01
+          },
+          {
+            "neck": 0.001,
+            "angular_separation": 0.05,
+            "angular_width_a": 0.2,
+            "angular_width_b": 0.2,
+            "they_meet": true,
+            "overlap_angle": 0.15000000000000002,
+            "gap_angle": 0.0,
+            "overlap_length_on_the_bearing": 0.00015000000000000001,
+            "gap_length_on_the_bearing": 0.0
+          },
+          {
+            "neck": 0.001,
+            "angular_separation": 0.3,
+            "angular_width_a": 0.2,
+            "angular_width_b": 0.2,
+            "they_meet": false,
+            "overlap_angle": 0.0,
+            "gap_angle": 0.09999999999999998,
+            "overlap_length_on_the_bearing": 0.0,
+            "gap_length_on_the_bearing": 9.999999999999998e-05
+          },
+          {
+            "neck": 0.001,
+            "angular_separation": 0.3,
+            "angular_width_a": 0.4,
+            "angular_width_b": 0.3,
+            "they_meet": true,
+            "overlap_angle": 0.04999999999999999,
+            "gap_angle": 0.0,
+            "overlap_length_on_the_bearing": 4.999999999999999e-05,
+            "gap_length_on_the_bearing": 0.0
+          },
+          {
+            "neck": 0.001,
+            "angular_separation": 1.2,
+            "angular_width_a": 0.2,
+            "angular_width_b": 0.2,
+            "they_meet": false,
+            "overlap_angle": 0.0,
+            "gap_angle": 1.0,
+            "overlap_length_on_the_bearing": 0.0,
+            "gap_length_on_the_bearing": 0.001
+          }
+        ],
+        "criterion": "they meet iff the angular extents overlap: |separation| < (w_a + w_b)/2",
+        "whether_is_an_angular_question": "f0 does not appear in the criterion",
+        "how_big_depends_on_the_bearing_dimension": "on the drawn S^1 cross-section the overlap is a LENGTH, f0 x (overlap angle); on an S^2 bearing an AREA ~ f0^2 x (angular area); on S^3 a VOLUME ~ f0^3 x (angular volume). The yes/no criterion is dimension-free; the size law is not",
+        "overlap_size_by_dimension": [
+          {
+            "angular_dimension": 1,
+            "scales_as": "f0^1 x (angular measure)",
+            "example_at_neck_1e-3_overlap_0p225": 0.00022500000000000002
+          },
+          {
+            "angular_dimension": 2,
+            "scales_as": "f0^2 x (angular measure)",
+            "example_at_neck_1e-3_overlap_0p225": 5.0625e-08
+          },
+          {
+            "angular_dimension": 3,
+            "scales_as": "f0^3 x (angular measure)",
+            "example_at_neck_1e-3_overlap_0p225": 1.1390625000000003e-11
+          }
+        ],
+        "the_verdict_does_not_depend_on_the_neck": true,
+        "both_the_overlap_and_the_gap_scale_with_the_neck": true,
+        "the_point_limit_correctly_stated": "as f0 -> 0 the ANGULAR INCIDENCE SURVIVES and the PHYSICAL INTERACTION REGION COLLAPSES: which directions the fronts come in at, and whether their extents overlap, are untouched by f0; the region in which they actually share space is f0 x (overlap angle) and goes to zero. So f0 -> 0 does NOT make every route meet -- it shrinks the overlap AND the gap together, and the distinction survives as a yes/no while disappearing as a length",
+        "what_survives_the_limit": "angular incidence -- direction of arrival and angular overlap, neither of which involves f0",
+        "what_collapses": "the physical interaction region, f0 x (overlap angle), and equally the physical separation of fronts that miss",
+        "no_route_passes_through_a_singular_point": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T9",
+      "name": "the drawn circle is honest; the identification bites",
+      "detail": {
+        "rows": [
+          {
+            "alpha": 0.3,
+            "projective_angle": 0.3,
+            "turn_cost_oriented": 1.1252402300566002e-05,
+            "turn_cost_projective": 1.1252402300566002e-05,
+            "saving": 1.0
+          },
+          {
+            "alpha": 1.0,
+            "projective_angle": 1.0,
+            "turn_cost_oriented": 0.00012408496901088504,
+            "turn_cost_projective": 0.00012408496901088504,
+            "saving": 1.0
+          },
+          {
+            "alpha": 1.5707963267948966,
+            "projective_angle": 1.5707963267948966,
+            "turn_cost_oriented": 0.00030250454505941757,
+            "turn_cost_projective": 0.00030250454505941757,
+            "saving": 1.0
+          },
+          {
+            "alpha": 2.5,
+            "projective_angle": 0.6415926535897931,
+            "turn_cost_oriented": 0.0007434959259648473,
+            "turn_cost_projective": 5.1328341248931694e-05,
+            "saving": 14.485095521771255
+          },
+          {
+            "alpha": 3.0,
+            "projective_angle": 0.14159265358979312,
+            "turn_cost_oriented": 0.0010482347647345776,
+            "turn_cost_projective": 2.5080600458091274e-06,
+            "saving": 417.9464389164597
+          }
+        ],
+        "great_circle_reduction": [
+          {
+            "angle_from_the_dot_product": 1.5707963267948966,
+            "angle_drawn_on_the_2d_circle": 1.5707963267948966,
+            "angle_difference": 0.0,
+            "cost_from_the_sphere": 0.00030250454505941757,
+            "cost_from_the_drawn_circle": 0.00030250454505941757,
+            "cost_relative_difference": 0.0
+          },
+          {
+            "angle_from_the_dot_product": 0.9272952180016123,
+            "angle_drawn_on_the_2d_circle": 0.9272952180016123,
+            "angle_difference": 0.0,
+            "cost_from_the_sphere": 0.00010682151234088686,
+            "cost_from_the_drawn_circle": 0.00010682151234088686,
+            "cost_relative_difference": 0.0
+          },
+          {
+            "angle_from_the_dot_product": 0.7853981633974483,
+            "angle_drawn_on_the_2d_circle": 0.7853981633974483,
+            "angle_difference": 0.0,
+            "cost_from_the_sphere": 7.678520069450925e-05,
+            "cost_from_the_drawn_circle": 7.678520069450925e-05,
+            "cost_relative_difference": 0.0
+          },
+          {
+            "angle_from_the_dot_product": 1.3261707903144762,
+            "angle_drawn_on_the_2d_circle": 1.3261707903144762,
+            "angle_difference": 0.0,
+            "cost_from_the_sphere": 0.00021687276270575425,
+            "cost_from_the_drawn_circle": 0.00021687276270575425,
+            "cost_relative_difference": 0.0
+          }
+        ],
+        "why_dimension_free": "two directions span a totally geodesic 2-plane, so the walk is a great-circle arc on S^1, S^2 or S^3 alike",
+        "worst_great_circle_cost_difference": 0.0,
+        "the_sphere_and_the_drawn_circle_agree": true,
+        "the_projective_saving_near_pi": 417.9464389164597,
+        "the_projective_identification_matters": true,
+        "and_it_is_the_only_thing_that_does": true,
+        "so_the_2d_cross_section_is_honest": true
+      },
+      "pass": true
+    },
+    {
+      "id": "T10",
+      "name": "the law is about necks; the large-angle deficit is not",
+      "detail": {
+        "rows": [
+          {
+            "neck": 0.01,
+            "outer": 1.0,
+            "inner": 0.4,
+            "alpha": 0.02,
+            "resistance": 310.6598193284208,
+            "kappa": 0.006437842678801508,
+            "turn_cost": 6.43787640778848e-07,
+            "small_angle_law": 6.437910136958061e-07,
+            "shape": 0.9999947608511359
+          },
+          {
+            "neck": 0.01,
+            "outer": 1.0,
+            "inner": 0.4,
+            "alpha": 0.1,
+            "resistance": 310.6598193284208,
+            "kappa": 0.032181120058581765,
+            "turn_cost": 1.6092667543197102e-05,
+            "small_angle_law": 1.6094775342395158e-05,
+            "shape": 0.9998690382963903
+          },
+          {
+            "neck": 0.01,
+            "outer": 1.0,
+            "inner": 0.4,
+            "alpha": 1.0,
+            "resistance": 310.6598193284208,
+            "kappa": 0.3136325638904639,
+            "turn_cost": 0.0015886797676594718,
+            "small_angle_law": 0.0016094775342395153,
+            "shape": 0.9870779391836181
+          },
+          {
+            "neck": 0.01,
+            "outer": 1.0,
+            "inner": 0.4,
+            "alpha": 3.141592653589793,
+            "resistance": 310.6598193284208,
+            "kappa": 0.796735376629562,
+            "turn_cost": 0.014084280430901092,
+            "small_angle_law": 0.015884906555384767,
+            "shape": 0.8866454695087087
+          },
+          {
+            "neck": 0.0001,
+            "outer": 2.0,
+            "inner": 0.3,
+            "alpha": 0.02,
+            "resistance": 31412.093202688477,
+            "kappa": 0.0063669100801171516,
+            "turn_cost": 6.366942347070387e-09,
+            "small_angle_law": 6.366974614187206e-09,
+            "shape": 0.9999949321115955
+          },
+          {
+            "neck": 0.0001,
+            "outer": 2.0,
+            "inner": 0.3,
+            "alpha": 0.1,
+            "resistance": 31412.093202688477,
+            "kappa": 0.031826807784338496,
+            "turn_cost": 1.5915420086031996e-07,
+            "small_angle_law": 1.5917436535468016e-07,
+            "shape": 0.9998733182047544
+          },
+          {
+            "neck": 0.0001,
+            "outer": 2.0,
+            "inner": 0.3,
+            "alpha": 1.0,
+            "resistance": 31412.093202688477,
+            "kappa": 0.3104339656505221,
+            "turn_cost": 1.5718305760005037e-05,
+            "small_angle_law": 1.5917436535468015e-05,
+            "shape": 0.9874897710432666
+          },
+          {
+            "neck": 0.0001,
+            "outer": 2.0,
+            "inner": 0.3,
+            "alpha": 3.141592653589793,
+            "resistance": 31412.093202688477,
+            "kappa": 0.7927702446847901,
+            "turn_cost": 0.000139749695580039,
+            "small_angle_law": 0.00015709880168451564,
+            "shape": 0.8895656369211717
+          },
+          {
+            "neck": 1e-06,
+            "outer": 1.0,
+            "inner": 1.0,
+            "alpha": 0.02,
+            "resistance": 3141590.653589793,
+            "kappa": 0.006366137273782783,
+            "turn_cost": 6.366169525072565e-11,
+            "small_angle_law": 6.36620177652574e-11,
+            "shape": 0.9999949339568069
+          },
+          {
+            "neck": 1e-06,
+            "outer": 1.0,
+            "inner": 1.0,
+            "alpha": 0.1,
+            "resistance": 3141590.653589793,
+            "kappa": 0.031822947510133,
+            "turn_cost": 1.5913488970558756e-09,
+            "small_angle_law": 1.5915504441314353e-09,
+            "shape": 0.9998733643182326
+          },
+          {
+            "neck": 1e-06,
+            "outer": 1.0,
+            "inner": 1.0,
+            "alpha": 1.0,
+            "resistance": 3141590.653589793,
+            "kappa": 0.3103990586459931,
+            "turn_cost": 1.571646852636512e-07,
+            "small_angle_law": 1.591550444131435e-07,
+            "shape": 0.9874942125973362
+          },
+          {
+            "neck": 1e-06,
+            "outer": 1.0,
+            "inner": 1.0,
+            "alpha": 3.141592653589793,
+            "resistance": 3141590.653589793,
+            "kappa": 0.7927264643323602,
+            "turn_cost": 1.3973771313457742e-06,
+            "small_angle_law": 1.5707973267955332e-06,
+            "shape": 0.8895973449333908
+          }
+        ],
+        "second_profile": "f(s) = sqrt(f0^2 + s^2)",
+        "why_the_law_is_general": "minimising int f^2 theta'^2/2 ds at fixed int theta' ds = alpha gives theta' = h/f^2, so alpha = h I and the excess is h^2 I/2 = alpha^2/(2I) -- the profile enters only through I",
+        "worst_small_angle_error": 0.00013096170360971104,
+        "the_law_holds_on_the_second_profile": true,
+        "shape_at_pi_here": 0.8886028171210905,
+        "shape_at_pi_scalar_flat": 0.924967794518696,
+        "the_correction_is_profile_dependent": true,
+        "so_what_is_general": "the quadratic law T = alpha^2/(2I) is a statement about necks; the ~8-11% deficit at a half turn is a statement about a particular one"
+      },
+      "pass": true
+    },
+    {
+      "id": "T11",
+      "name": "*** the leading form is universal; I4 is the first extra moment ***",
+      "detail": {
+        "rows": [
+          {
+            "alpha": 0.1,
+            "turn_cost": 1.2498964680454613e-09,
+            "second_order": 1.2500006250004688e-09,
+            "fourth_order": 1.2498964581254685e-09,
+            "shape_measured": 0.9999166744776568,
+            "shape_predicted": 0.9999166665416666,
+            "fourth_order_relative_error": 7.936651780227066e-09
+          },
+          {
+            "alpha": 0.3,
+            "turn_cost": 1.124157533578423e-08,
+            "second_order": 1.1250005625004217e-08,
+            "fourth_order": 1.1241568108129192e-08,
+            "shape_measured": 0.999250641332903,
+            "shape_predicted": 0.9992499988749985,
+            "fourth_order_relative_error": 6.42940110040513e-07
+          },
+          {
+            "alpha": 0.6,
+            "turn_cost": 4.48654839325493e-08,
+            "second_order": 4.500002250001687e-08,
+            "fourth_order": 4.486502223001647e-08,
+            "shape_measured": 0.9970102555511495,
+            "shape_predicted": 0.9969999954999944,
+            "fourth_order_relative_error": 1.0290923973421684e-05
+          },
+          {
+            "alpha": 1.0,
+            "turn_cost": 1.239682456822113e-07,
+            "second_order": 1.2500006250004686e-07,
+            "fourth_order": 1.2395839375004373e-07,
+            "shape_measured": 0.9917454695845838,
+            "shape_predicted": 0.991666654166651,
+            "fourth_order_relative_error": 7.947773337102504e-05
+          },
+          {
+            "alpha": 2.0,
+            "turn_cost": 4.83951026675459e-07,
+            "second_order": 5.000002500001874e-07,
+            "fourth_order": 4.833335500001375e-07,
+            "shape_measured": 0.9679015693997703,
+            "shape_predicted": 0.9666666166666041,
+            "fourth_order_relative_error": 0.0012775373762514697
+          },
+          {
+            "alpha": 3.141592653589793,
+            "turn_cost": 1.1411360031698145e-06,
+            "second_order": 1.2337011669869075e-06,
+            "fourth_order": 1.1322331608905776e-06,
+            "shape_measured": 0.9249695418192991,
+            "shape_predicted": 0.9177531732873795,
+            "fourth_order_relative_error": 0.007863082081286388
+          }
+        ],
+        "hyperbolic_rows": [
+          {
+            "alpha": 0.1,
+            "shape_measured": 0.9998733643182326,
+            "shape_predicted": 0.9998733482785602
+          },
+          {
+            "alpha": 1.0,
+            "shape_measured": 0.9874942125973362,
+            "shape_predicted": 0.9873348278560261
+          },
+          {
+            "alpha": 3.141592653589793,
+            "shape_measured": 0.8895973449333908,
+            "shape_predicted": 0.8749997612672814
+          }
+        ],
+        "shape_difference": [
+          {
+            "alpha": 0.1,
+            "scalar_flat": 0.9999166744776568,
+            "hyperbolic": 0.9998733643182326,
+            "difference": 4.331015942415917e-05,
+            "predicted": 4.3318146219588894e-05
+          },
+          {
+            "alpha": 1.0,
+            "scalar_flat": 0.9917454695845838,
+            "hyperbolic": 0.9874942125973362,
+            "difference": 0.004251256987247598,
+            "predicted": 0.004331814621958889
+          },
+          {
+            "alpha": 3.141592653589793,
+            "scalar_flat": 0.9249695418192991,
+            "hyperbolic": 0.8895973449333908,
+            "difference": 0.035372196885908314,
+            "predicted": 0.04275329665758868
+          }
+        ],
+        "how_far_apart_at_alpha_0p1": 4.331015942415917e-05,
+        "the_two_profiles_do_not_agree_to_eight_digits": true,
+        "eight_digits_is_a_different_quantity": "how well EACH profile matches its OWN quartic law (7.9e-09 at alpha = 0.1), not how well the two match each other (4.3e-05)",
+        "the_separation_grows_as_alpha_squared": true,
+        "i4_is_not_the_entire_profile_dependence": "I6 and beyond enter at O(alpha^6); at alpha = pi the quartic prediction misses by 7.2e-03",
+        "expansion": "T = alpha^2/(2 I2) - alpha^4 I4/(8 I2^4) + O(alpha^6)",
+        "shape_law": "T/(alpha^2/2 I2) = 1 - alpha^2 I4/(4 I2^3)",
+        "scalar_flat": {
+          "I2_times_neck": 3.9999979999995,
+          "I4_times_neck_cubed": 2.1333333333333333,
+          "shape_coefficient": 0.008333345833348956,
+          "closed_form": "I2 = 4/f0, I4 = 32/(15 f0^3), shape = 1 - alpha^2/120"
+        },
+        "hyperbolic": {
+          "I2_times_neck": 3.1415906535897933,
+          "I4_times_neck_cubed": 1.570796326794897,
+          "shape_coefficient": 0.012665172143973846,
+          "closed_form": "I2 = pi/f0, I4 = pi/(2 f0^3), shape = 1 - alpha^2/(8 pi^2)"
+        },
+        "the_shape_law_holds_at_small_angle": true,
+        "the_fourth_order_beats_the_second": true,
+        "the_second_moment_is_shared_the_fourth_is_not": true,
+        "the_division_of_labour": "the LEADING FUNCTIONAL FORM alpha^2/(2 I2) is universal -- every neck obeys it with its own I2, which is NOT itself universal (4/f0 here, pi/f0 there); at q = 2 that I2 is also the monopole resistance; I4 is the first ADDITIONAL INDEPENDENT MOMENT to enter, and the first place the neck's shape is felt"
+      },
+      "pass": true
+    },
+    {
+      "id": "T12",
+      "name": "*** one Dirichlet form -- and it is a q = 2 statement ***",
+      "detail": {
+        "form": "E[phi] = int w phi'^2 ds, minimised at fixed increment",
+        "euler_lagrange": "(w phi')' = 0, so w phi' is conserved",
+        "the_weights_are_not_automatically_the_same": "the azimuth's weight is the METRIC coefficient f^2 for every bearing dimension; the monopole's is the VOLUME element f^q for an S^q cross-section, so its resistance is int ds/f^q",
+        "by_angular_dimension": [
+          {
+            "angular_dimension": 1,
+            "monopole_resistance": 14.754684361573272,
+            "geodesic_I2": 31999.986656079098,
+            "they_coincide": false
+          },
+          {
+            "angular_dimension": 2,
+            "monopole_resistance": 31999.986656079098,
+            "geodesic_I2": 31999.986656079098,
+            "they_coincide": true
+          },
+          {
+            "angular_dimension": 3,
+            "monopole_resistance": 171093502.09430477,
+            "geodesic_I2": 31999.986656079098,
+            "they_coincide": false
+          }
+        ],
+        "the_identity_is_a_q_equals_two_statement": true,
+        "and_q_equals_two_is_the_physical_case": "a three-dimensional spatial throat with S^2 cross-sections, which is what physical_throat carries -- so the identity holds where it is used, but it is not dimension-free, unlike the great-circle reduction of the hinge itself",
+        "as_a_potential": "phi = u: the current is the flux 4 pi f^2 u', the drop is Phi I2 / 4 pi, the conductance is 4 pi / I2",
+        "as_an_azimuth": "phi = theta: the current is Clairaut's h = f^2 theta', the sweep is h I2, the cost is h^2 I2 / 2",
+        "profile_convergence": [
+          {
+            "alpha": 1.0,
+            "worst_profile_deviation": 0.004854765580603493,
+            "over_alpha_squared": 0.004854765580603493
+          },
+          {
+            "alpha": 0.3,
+            "worst_profile_deviation": 0.000437049894658037,
+            "over_alpha_squared": 0.004856109940644856
+          },
+          {
+            "alpha": 0.1,
+            "worst_profile_deviation": 4.856177483847368e-05,
+            "over_alpha_squared": 0.004856177483847367
+          },
+          {
+            "alpha": 0.03,
+            "worst_profile_deviation": 4.370566149380917e-06,
+            "over_alpha_squared": 0.004856184610423241
+          },
+          {
+            "alpha": 0.01,
+            "worst_profile_deviation": 4.856184938617503e-07,
+            "over_alpha_squared": 0.004856184938617503
+          },
+          {
+            "alpha": 0.003,
+            "worst_profile_deviation": 4.370563461142396e-08,
+            "over_alpha_squared": 0.004856181623491551
+          }
+        ],
+        "the_profiles_coincide_as_alpha_vanishes": true,
+        "the_deviation_is_second_order_in_alpha": true,
+        "conductance_here": 0.0003926992454533388,
+        "conductance_physical_throat": 0.0003926992454533388,
+        "conductance_difference": 0.0,
+        "hinge_from_the_conductance": 3.906251628897275e-08,
+        "hinge_from_the_geometry": 3.906251628897274e-08,
+        "the_two_readings_agree": true,
+        "why_it_is_not_a_coincidence": "the weight in the Dirichlet form is the transverse area element f^2, and both the monopole potential and the azimuth are functions on the tube with no angular dependence -- so they solve the same equation with the same measure, and I2 is the resistance to either",
+        "what_is_not_claimed": "that the two remain the same beyond leading order -- at finite alpha the geodesic picks up I4 and the static potential does not"
+      },
+      "pass": true
+    },
+    {
+      "id": "T13",
+      "name": "*** the turn sits AT the neck -- a corrected explanation ***",
+      "detail": {
+        "rows": [
+          {
+            "x": 0.5,
+            "f_over_neck": 1.2715403174076216,
+            "fraction_of_the_arms_turn_done": 0.4621884180344991
+          },
+          {
+            "x": 1.0,
+            "f_over_neck": 2.3810978455418157,
+            "fraction_of_the_arms_turn_done": 0.7616672835735715
+          },
+          {
+            "x": 1.5,
+            "f_over_neck": 5.533830997888883,
+            "fraction_of_the_arms_turn_done": 0.9052089850034163
+          },
+          {
+            "x": 2.0,
+            "f_over_neck": 14.154116418008243,
+            "fraction_of_the_arms_turn_done": 0.964081753612709
+          },
+          {
+            "x": 3.0,
+            "f_over_neck": 101.35781806122793,
+            "fraction_of_the_arms_turn_done": 0.9951053260267726
+          },
+          {
+            "x": 5.298292365610484,
+            "f_over_neck": 9999.99999999999,
+            "fraction_of_the_arms_turn_done": 1.0
+          }
+        ],
+        "clairaut": "theta' = h/f^2, so the angular RATE is highest where f is SMALLEST",
+        "fraction_done_by_2p4_necks": 0.7616672835735715,
+        "the_turn_is_concentrated_at_the_neck": true,
+        "the_corrected_reason": "Pythagoras, not leverage: the corner pays the angle as PURE transverse motion (f0 alpha, first order) while the geodesic TILTS motion that is already radial (half f^2 theta'^2 ds, second order)",
+        "what_the_first_draft_said": "that the geodesic turns where the lever arm f is longer and a given angle costs less arc -- backwards on both counts",
+        "corner_cost": 1e-05,
+        "geodesic_cost": 1.249958327109424e-07,
+        "the_geodesic_is_cheaper": true
+      },
+      "pass": true
+    }
+  ],
+  "passed": 13,
+  "total": 13
+}
