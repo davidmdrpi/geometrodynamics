@@ -1279,7 +1279,61 @@ arc closes as soon as the foci clear each other — which is the same pulse-vers
 mode split that §25 found in the threshold law, seen now in the geometry rather
 than in a number.
 
-## 26. What the arc cost in errors, and what caught them
+## 26. The centre as a finite bearing, not a point (`docs/regularized_center.md`)
+
+Every section above put a **point** in the middle, and the point was doing work:
+two radial arms `P_A → O → P_B` change direction at `O` for free, because at a
+point there is no angular direction left to change. That is the property the
+connection is wanted for — the link's cost does not care where the mouths are —
+and it is bought with `f = 0`, where the geometry stops existing.
+
+**Regularise it.** Keep `dℓ² = ds² + f(s)²dΩ²` and set `f_min = f₀ > 0`. The
+middle becomes a circle in the 2-D cross-section, or the space of radial
+directions `S^{d−1}` (`RP^{d−1}` for an unoriented axis). Three things §19–§23
+had to force become free.
+
+**The arms are this repo's own geometry with the symmetry dropped.** The proper
+distance to an end of scale `F` is `L(F) = √(F(F−f₀)) + f₀ arcosh√(F/f₀)` and
+one arm's resistance is `I(F) = (2/f₀)√(1−f₀/F)`; at `f_o = f_i = sin a`,
+`f₀ = sin³a` they reproduce §23's `length()` and `resistance()` **bit for bit**.
+So `L_o ≠ L_i` is ordinary — scanned to `437` — and the vacuole's one shared
+arbitrary radial gap, along with any meaning for `R_inner/R_outer`, is gone. A
+feature of angular width `Δθ` has physical width `f(s)Δθ`, so it is squeezed
+into the bearing and let out, `w_i/w_o = f_i/f_o`, with `f₀` nowhere in it.
+
+**The result is a correction to the proposal that prompted it.** Turning through
+`α` looks like it should cost the bearing's arc `f₀α` — exact for the
+down-turn-up route, and an honest upper bound. But Clairaut's `f sin ψ = h`
+makes the geodesic cut the corner, and
+
+> `T(α) = α²/(2I)` , `I = ∫ds/f²` — **quadratic**, and `I` is §23's own
+> resistance, so `T(α) = α²(4π/I)/(8π)`.
+
+The geometric cost of swinging the clock hands and the electrical cost of
+pushing monopole flux through the tube are **one integral**. The geodesic spends
+`1.25%` of the arc at `α = 0.1` and `36%` at `π`; a half turn costs `8.4e-04` of
+the arms; turning would not match travelling until `α ≈ 104` radians. **The
+property the point was wanted for survives, and survives more strongly than
+proposed** — and the point model is the `f₀ → 0` limit, not a rival.
+
+**Intersection becomes overlap.** *Whether* two fronts meet on the bearing is a
+question about angles with `f₀` nowhere in it; *how big* the meeting is, is
+`f₀ ×` that angle. So `f₀ → 0` does **not** make everything meet — it shrinks
+the overlap and the gap together, and the distinction survives as a yes/no while
+vanishing as a length.
+
+**And the generality is measured rather than asserted.** The law never used the
+profile and holds to `1.3e-04` on an unrelated one; the `O(α⁴)` correction does
+not carry over (`0.9250` scalar-flat against `0.8886` hyperbolic at `α = π`).
+The quadratic law is about necks; the deficit at a half turn is about a
+particular neck.
+
+**Scope.** Geometry only — no field equation, nothing evolving — and it does not
+choose between the three candidate bulks. It works the finite bearing out far
+enough to be compared with the other two, which is what it now has that they do
+not: a measured hinge cost.
+
+## 27. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -1755,8 +1809,28 @@ Worth recording, because the failure modes repeat:
   And `physical_throat` was discussed as if it posed a dynamical problem; it
   supplies **spatial initial data only**, and the dynamic problem is not
   well-posed until a lapse is chosen. Both were corrected in review, and the
-  pattern is the same one §26 keeps finding: **the calculation was right and
-  the sentence around it was not.**
+  pattern is the same one this section keeps finding: **the calculation was
+  right and the sentence around it was not.**
+
+* **The cancellation lesson, ignored one round after writing it down.** §26's
+  first draft of the turn cost computed `T(α)` as `route_length − (L_o + L_i)`
+  — a `1e-15` quantity from two `O(1)` lengths. That is precisely the failure
+  mode the entry three above describes, reproduced in a different module the
+  week after it was diagnosed and repaired in `physical_throat`. Answers were
+  `2.7×` wrong at `f₀ = 1e-07`. **Writing a failure mode into a ledger does not
+  inoculate against it**; what caught this one was a test demanding that the
+  shape `T/(α²/2I)` be one number across decades of `f₀`, which no incorrect
+  formulation can satisfy.
+* **And the obvious repair was worse than the bug.** Rewriting `T` as a direct
+  integral — no subtraction anywhere — was *less* accurate at `f₀ = 1e-07`,
+  because integrating in `f` puts a spike of width `√f₀` in front of an
+  adaptive quadrature, which walks straight past it. Two independent defects
+  with opposite signatures, and fixing only the one that had a name would have
+  left a number that looked better and was not. The fix was the *variable*:
+  `f = f₀cosh²x`, the same substitution that made PR #267's admittance a closed
+  form, after which the result is stable over seven decades. **"Remove the
+  cancellation" is not the lesson; "check the answer is independent of
+  something it must be independent of" is.**
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -1779,7 +1853,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 27. What is imported rather than derived
+## 28. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -1823,7 +1897,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 28. What would come next
+## 29. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:

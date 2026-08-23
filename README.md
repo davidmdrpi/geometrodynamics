@@ -3474,6 +3474,79 @@ identically. Past one pulse width they stop overlapping at all, and the total is
 python scripts/geometrodynamics_v68_two_fronts.py --still v68.png
 ```
 
+## The centre as a finite bearing, not a point
+
+**The point was doing work, and it cost `f = 0`.** Every picture in this arc put
+a point in the middle, because a point is where the clock-hands story works: two
+radial arms `P_A → O → P_B` change direction at `O` for free, since at a point
+there is no angular direction left to change. That is the property the
+connection is wanted for. It is bought where the geometry stops existing.
+
+**Blow it up.** Keep `dℓ² = ds² + f(s)²dΩ²` and set `f_min = f₀ > 0`. The middle
+becomes a small circle in the 2-D cross-section, or the space of radial
+directions `S^{d−1}` — `RP^{d−1}` if the clock hand is an unoriented axis.
+
+**The arms are the repo's own geometry with the symmetry dropped.**
+
+```
+L(F) = √(F(F − f₀)) + f₀ arcosh√(F/f₀)        I(F) = (2/f₀)√(1 − f₀/F)
+```
+
+Set `f_o = f_i = sin a`, `f₀ = sin³a` and these reproduce
+`VacuumThroat.length()` and `.resistance()` **bit for bit**. So `L_o ≠ L_i` is
+ordinary — scanned to `L_o/L_i = 437` with nothing breaking — and the old
+vacuole's one shared arbitrary radial gap is gone, along with any significance
+for `R_inner/R_outer`. A feature of angular width `Δθ` has physical width
+`f(s)Δθ`, so it is **squeezed into the bearing and let out again** rather than
+teleporting at fixed size; `w_i/w_o = f_i/f_o`, with `f₀` nowhere in it.
+
+**And the result is a correction to the proposal.** Turning through `α` around
+a bearing of radius `f₀` looks like it should cost the arc, `f₀α`. That is exact
+for the down-turn-up route and an honest upper bound — but the geodesic cuts the
+corner, starting to turn while still descending where the lever arm is longer:
+
+```
+T(α) = α² / (2I)  ,   I = ∫ds/f²      quadratic, not linear
+```
+
+and `I` is **not a new quantity** — it is `physical_throat`'s own resistance, so
+`T(α) = α²(4π/I)/(8π)`: the geometric cost of swinging the clock hands and the
+electrical cost of pushing monopole flux through the tube are **one integral**.
+Long arms give `I → 4/f₀` and `T → f₀α²/8`. Checked against the integrated
+geodesic, not the expansion: exact to `8e-05` at `α = 0.1`. The geodesic spends
+`1.25%` of the arc at `α = 0.1` and `36%` at `π`.
+
+**So the property the point was wanted for survives, more strongly than
+proposed.** A half-turn costs `8.4e-04` of the arms, and turning would not cost
+as much as travelling until `α ≈ 104` radians. And the point model is the
+**limit**, not a rival: `T` is linear in `f₀`.
+
+**Intersection becomes overlap.** Two fronts land on the bearing at angular
+positions. *Whether* they meet is a question about angles with `f₀` nowhere in
+it; *how big* the meeting is, is `f₀ × (overlap angle)`. So `f₀ → 0` does **not**
+make every route meet — it shrinks the overlap **and** the gap together, and the
+distinction survives as a yes/no while disappearing as a length.
+
+**How far it generalises, measured.** `T = α²/(2I)` never used the profile, and
+holds to `1.3e-04` on an unrelated one (`f = √(f₀²+s²)`, `I → π/f₀`). The
+`O(α⁴)` correction does not: the shape at `α = π` is `0.9250` scalar-flat
+against `0.8886` hyperbolic. **The quadratic law is about necks; the ~8–11%
+deficit at a half turn is about a particular neck.**
+
+**Scope.** Geometry only — a metric, its geodesics, and an angular width carried
+along them. No field equation is solved, nothing evolves, and this does not
+choose between the three candidate bulks; it works the finite bearing out far
+enough to be compared with the finite caustic ring and the finite neck with
+moving attachment maps.
+
+```bash
+python -m experiments.closure_ledger.regularized_center_probe
+
+python scripts/geometrodynamics_v69_regularized_center.py --still v69.png
+```
+
+Full write-up: `docs/regularized_center.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
