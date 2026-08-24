@@ -1,8 +1,8 @@
 # What higher dimension does to the bulk picture
 
 **Module:** `geometrodynamics/viz/hyperspherical.py`
-**Probe:** `python -m experiments.closure_ledger.hyperspherical_probe` (8/8)
-**Tests:** `tests/test_viz_hyperspherical.py` (46)
+**Probe:** `python -m experiments.closure_ledger.hyperspherical_probe` (11/11)
+**Tests:** `tests/test_viz_hyperspherical.py` (58)
 **Renderer:** `scripts/geometrodynamics_v70_hyperspherical.py`
 
 ---
@@ -120,9 +120,9 @@ an entire `S^n`'s worth of directions coincide.
 **Which is a reading of what PR #268 did.** Replacing `f = 0` with `f₀ > 0` does
 not merely avoid a singularity — it restores, at finite size, the direction
 space the origin had crushed. The bearing *is* the blown-up direction space, and
-its measure is `f₀ⁿ·|S^n|`:
+its measure is `f₀ⁿ·A_n` where `A_n = |S^n|`:
 
-| `n` | `f₀` | `|S^n|` | bearing measure |
+| `n` | `f₀` | `A_n` | bearing measure `f₀ⁿ·A_n` |
 |--|--|--|--|
 | 1 | `1e-03` | `6.2832` | `6.283e-03` |
 | 2 | `1e-03` | `12.5664` | `1.257e-05` |
@@ -131,7 +131,59 @@ its measure is `f₀ⁿ·|S^n|`:
 Nonzero in every case, which is the point — and vanishingly small in a way the
 2-D drawing cannot suggest.
 
-*This is an interpretation, not a result.* PR #268's bearing stands on its own
+### so the centre is a routing manifold, not a hub
+
+That reframes what the singular origin *is*. It is **not** obtained because
+every direction becomes equivalent there. It is obtained because an entire
+finite direction space is compressed to **zero proper measure while its angular
+structure stays intact** — a different statement, and the one the measurements
+support.
+
+Directional capacity — how many distinguishable directions a bearing carries at
+angular resolution `ε` — is **dimensionless**. `f₀` does not enter it at all:
+
+| bearing `S^n` | capacity at `60°` | capacity at `20°` | proper measure at `f₀ = 1e-03` |
+|--|--|--|--|
+| `S¹` | `3.0` | `9.0` | `6.283e-03` |
+| `S²` | `4.0` | `33.2` | `1.257e-05` |
+| **`S³`** | **`5.1`** | **`113.5`** | `1.974e-08` |
+| `S⁴` | `6.4` | `374.1` | `2.632e-11` |
+| `S¹⁰` | `20.4` | `3.524e+05` | `2.073e-29` |
+| `S²⁰` | `112.3` | `2.236e+10` | `2.929e-61` |
+
+Scanning `f₀` at fixed `n = 3` makes the independence explicit — the capacity is
+the *same float* while the proper measure runs off the bottom:
+
+| `f₀` | proper measure `f₀³·A₃` | capacity at `20°` |
+|--|--|--|
+| `1e-01` | `1.974e-02` | `113.5295` |
+| `1e-04` | `1.974e-11` | `113.5295` |
+| `1e-07` | `1.974e-20` | `113.5295` |
+
+And the routing stays usable in high dimension for the reason §2 gave: in `ℝ¹⁰⁰⁰`,
+`1024` random directions are *all* pairwise within `0.145` of orthogonal, so a
+compressed direction space is not a crowded one.
+
+### what the `f₀ → 0` limit actually separates
+
+Three things were being run together. Taking two sectors at fixed angular
+separation `0.3` rad and shrinking the neck:
+
+| `f₀` | they meet? | overlap angle | proper overlap `n=2` | proper overlap `n=3` |
+|--|--|--|--|--|
+| `1e-01` | yes | `0.225` | `5.06e-04` | `1.14e-05` |
+| `1e-03` | yes | `0.225` | `5.06e-08` | `1.14e-11` |
+| `1e-06` | yes | `0.225` | `5.06e-14` | `1.14e-20` |
+| `1e-09` | yes | `0.225` | `5.06e-20` | `1.14e-29` |
+
+- **angular incidence** — survives, unchanged;
+- **the overlap verdict** (do they meet at all) — survives, unchanged;
+- **the proper interaction measure** — collapses as `f₀ⁿ`.
+
+The first reading treated the limit as *merging the routes*. It merges their
+sizes, not their labels.
+
+*§4 is an interpretation, not a result.* PR #268's bearing stands on its own
 geometry, and nothing in `regularized_center` depends on this section.
 
 ## 5 · the collapse is `fⁿ`, not `f`
@@ -145,14 +197,45 @@ For `dℓ² = ds² + f(s)²dΩ_n²` the transverse measure of an angular patch i
 | `1e-02` | `1.0e-02` | `1.0e-04` | `1.0e-06` | `1.0e-08` |
 | `1e-03` | `1.0e-03` | `1.0e-06` | `1.0e-09` | `1.0e-12` |
 
-The 2-D drawing's `ℓ ∝ f` understates the `S³` case by a factor of **a million**.
-
 > **The angular overlap can stay finite while the physical overlap collapses as
 > `f₀ⁿ`.**
 
-That changes what the finite-bearing picture is a picture *of*. Much less like
-two ribbons squeezing together; much more like a **vast angular configuration
-space packed into an extremely small proper region**. Two angular sectors can
+### which `n` is physical depends on which object is drawn
+
+This has to stay explicit, or the exponent will migrate between objects that do
+not share it. `n` is the dimension of the object's own **transverse sphere**,
+which is a fact about the object, not a modelling choice:
+
+| object | transverse sphere | `n` | patch at `f₀/F = 1e-03` | vs the 2-D drawing |
+|--|--|--|--|--|
+| the drawn 2-D cross-section | `S¹` | 1 | `1.0e-03` | — |
+| **PR #265's spatial throat** | **`S²`** | **2** | `1.0e-06` | **`1e+03`** |
+| a bearing in a 4-spatial-`d` embedding | `S³` | 3 | `1.0e-09` | `1e+06` |
+| a bearing in a 5-spatial-`d` embedding | `S⁴` | 4 | `1.0e-12` | `1e+09` |
+
+So the millionfold figure belongs to the `S³` **bearing**, not to every throat
+quantity in the repository. The `#265` throat is `n = 2`: its own understatement
+against the drawing is a **thousand**, and `physical_throat`'s neck area is
+`4π f₀²` — measured `1.958592e-07` at `f₀ = 1.248e-04`, an `f²` law — which is
+what an `S²` cross-section is required to give. `measure_which_n_is_physical_for_which_object`
+pins each row.
+
+That changes what the finite-bearing picture is a picture *of*. Not two thick
+ribbons physically squeezing until they touch — the faithful reading is
+
+    large angular structure → tiny proper measure → large angular structure
+
+with the angular labels intact throughout. Much less like ribbons squeezing;
+much more like a **vast angular configuration space packed into an extremely
+small proper region**.
+
+The consequence for the drawing is practical: two fronts with finite angular
+overlap `ΔΩ` keep that overlap constant all the way down, while
+`V_overlap ∝ f(s)ⁿ`. So the picture does not have to force a dramatic
+macroscopic crossing to be honest. It can show an unmistakable intersection in
+*angular* coordinates while representing an interaction region that is
+extraordinarily small — the intersection is real in the topology of the
+coordinate mapping, and tiny in proper measure. Two angular sectors can
 become coincident on a greatly compressed direction space at finite `f₀`, then
 re-expand into different radial sectors — which a 2-D cross-section can show and
 3-D intuition would not suggest.

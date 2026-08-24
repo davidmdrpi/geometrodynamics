@@ -60,12 +60,38 @@ T5  *** THE COLLAPSE IS f^n, NOT f. *** For ds^2 + f^2 dOmega_n^2 the
     transverse measure of an angular patch is f^n dOmega_n, so squeezing from
     F to f0 costs (f0/F)^n:
         f0/F = 1e-03  ->  1e-03 (S^1), 1e-06 (S^2), 1e-09 (S^3), 1e-12 (S^4).
-    The 2-D drawing's l ~ f understates the S^3 case by a factor of a MILLION.
     THE ANGULAR OVERLAP CAN STAY FINITE WHILE THE PHYSICAL OVERLAP COLLAPSES AS
     f0^n. That changes what the finite-bearing picture is a picture OF: much
     less like two ribbons squeezing together, much more like a vast angular
     configuration space packed into an extremely small proper region. The
     yes/no overlap criterion is untouched -- it was always angular.
+
+T8  *** WHICH n IS PHYSICAL DEPENDS ON WHICH OBJECT IS BEING REPRESENTED. ***
+    n is the dimension of the object's own TRANSVERSE SPHERE, which is a fact
+    about the object and not a modelling choice:
+        drawn 2-D cross-section        S^1  n=1   1e-03   (the picture's own)
+        PR #265 spatial throat         S^2  n=2   1e-06   x1000 vs the drawing
+        bearing in 4 spatial dims      S^3  n=3   1e-09   x1000000
+        bearing in 5 spatial dims      S^4  n=4   1e-12   x1000000000
+    So the MILLIONFOLD figure belongs to the S^3 BEARING, not to every throat
+    quantity in the repository. physical_throat's neck area is 4 pi f0^2 --
+    an f^2 law, verified against the module -- so the #265 throat's own
+    understatement against the drawing is a THOUSAND. Without this pin the same
+    f^n law migrates between objects that do not share an n.
+
+T9  THE FINITE CENTRE IS A ROUTING MANIFOLD, NOT A HUB. Directional capacity
+    is DIMENSIONLESS -- f0 never enters it. At 20 degrees an S^3 bearing
+    distinguishes 113.5 directions and an S^20 one 2.2e+10, and scanning
+    f0 = 1e-01 .. 1e-07 leaves the capacity BIT-IDENTICAL while the proper
+    measure f0^n |S^n| runs 1.974e-02 -> 1.974e-20.
+
+T10 SO THE f0 -> 0 LIMIT SEPARATES THREE THINGS that were being run together:
+    angular incidence SURVIVES, the overlap verdict SURVIVES, and only the
+    proper interaction measure collapses (as f0^n). The singular centre is not
+    obtained because every direction becomes equivalent there; it is obtained
+    because an entire finite direction space is compressed to zero proper
+    measure with its angular structure intact. The limit merges the routes'
+    SIZES, not their LABELS.
 
 T6  *** ORIENTABILITY FLIPS WITH PARITY -- AND THIS REPO USES TWO QUOTIENTS
     THAT ARE ALWAYS OPPOSITE. *** RP^n is orientable iff n is ODD, because the
@@ -116,12 +142,15 @@ import numpy as np
 from geometrodynamics.viz.hyperspherical import (
     measure_s3_is_not_a_generic_sphere,
     measure_the_antipode_is_a_vanishing_measure_relation,
+    measure_the_bearing_is_a_routing_manifold_not_a_hub,
     measure_the_bearing_is_the_blown_up_direction_space,
     measure_the_front_is_a_point_then_a_shell_then_a_point,
+    measure_the_limit_separates_three_things,
     measure_the_patch_collapses_as_f_to_the_n,
     measure_the_peak_is_the_ball_not_the_sphere_and_needs_a_unit,
     measure_the_quotient_flips_orientability_with_parity,
     measure_the_shell_measure_concentrates_at_the_equator,
+    measure_which_n_is_physical_for_which_object,
 )
 
 
@@ -190,6 +219,31 @@ def run_probe() -> dict:
         "pass": bool(special["the_frame_is_global_and_nowhere_zero"]
                      and special["the_fibre_is_a_circle_not_a_point"])})
 
+    scope = measure_which_n_is_physical_for_which_object()
+    checks.append({
+        "id": "T8", "name": "*** which n is physical depends on which object ***",
+        "detail": scope,
+        "pass": bool(scope["physical_throat_is_n_equals_two"]
+                     and scope["the_million_is_not_the_throats"]
+                     and abs(scope["the_throats_own_understatement"] - 1e3)
+                     < 1e-6 * 1e3)})
+
+    routing = measure_the_bearing_is_a_routing_manifold_not_a_hub()
+    checks.append({
+        "id": "T9", "name": "the finite centre is a routing manifold, not a hub",
+        "detail": routing,
+        "pass": bool(routing["capacity_grows_exponentially"]
+                     and routing["capacity_does_not_involve_the_neck"]
+                     and routing["proper_measure_spans_decades_meanwhile"])})
+
+    limit = measure_the_limit_separates_three_things()
+    checks.append({
+        "id": "T10", "name": "*** the limit separates incidence from measure ***",
+        "detail": limit,
+        "pass": bool(limit["angular_incidence_survives"]
+                     and limit["the_overlap_verdict_survives"]
+                     and limit["the_proper_measure_vanishes"])})
+
     return {
         "probe": "hyperspherical",
         "question": "what does higher dimension actually do to the bulk and "
@@ -199,12 +253,19 @@ def run_probe() -> dict:
                   "its physical overlap collapses as f0^n; almost every point "
                   "is at the equator of any other, so the antipodal relation "
                   "is vanishingly non-generic; and orientability of the "
-                  "antipodal quotient flips with dimension parity",
+                  "antipodal quotient flips with dimension parity -- with the "
+                  "exponent pinned to the object it belongs to, since n is the "
+                  "dimension of that object's own transverse sphere",
         "headline": {
             "patch_collapse_at_squeeze_1e_minus_3": {
                 f"S^{n}": (1e-3) ** n for n in (1, 2, 3, 4)},
             "understatement_of_the_2d_drawing_at_n_3":
                 patch["understatement_factor_at_n_three"],
+            "which_n_belongs_to_which_object": {
+                r["object"]: r["cross_section"] for r in scope["rows"]},
+            "the_265_throats_own_understatement":
+                scope["the_throats_own_understatement"],
+            "direction_capacity_is_dimensionless": True,
             "band_width_law": "Delta chi ~ 1/sqrt(n)",
             "orientable_quotients": "RP^n orientable iff n odd",
         },
@@ -281,10 +342,59 @@ def render_markdown(summary: dict) -> str:
         lines.append(f"| `{r['squeeze']:.0e}` | `{r['n_1']:.1e}` | "
                      f"`{r['n_2']:.1e}` | `{r['n_3']:.1e}` | `{r['n_4']:.1e}` |")
     lines += ["",
-              f"The 2-D drawing understates the `S³` case by "
-              f"`{h['understatement_of_the_2d_drawing_at_n_3']:.1e}`.", "",
               f"**So the picture is of** {patch['what_the_picture_is_of']} — "
               f"and {patch['the_yes_no_criterion_is_unaffected']}.", ""]
+
+    scope = next(c for c in summary["checks"] if c["id"] == "T8")["detail"]
+    lines += ["## T8 — which `n` is physical depends on which object", "",
+              f"{scope['the_rule'].capitalize()}.", "",
+              "| object | cross-section | `n` | patch at `f₀/F = 1e-03` | "
+              "vs the 2-D drawing |", "|--|--|--|--|--|"]
+    for r in scope["rows"]:
+        lines.append(f"| {r['object']} | `{r['cross_section']}` | "
+                     f"{r['angular_dim']} | `{r['patch_measure']:.1e}` | "
+                     f"`{r['understatement_vs_the_drawing']:.0e}` |")
+    lines += ["",
+              f"`physical_throat`'s neck area is "
+              f"`{scope['physical_throat_neck_area']:.6e}`, which is "
+              f"`4π f₀²` to the last digit — an `f²` law, so the `#265` "
+              f"throat's own understatement against the drawing is "
+              f"`{scope['the_throats_own_understatement']:.0e}`, **not** the "
+              f"million. The millionfold figure belongs to "
+              f"*{scope['the_millionfold_figure_belongs_to']}*.", "",
+              f"**Why it matters.** {scope['why_it_matters'].capitalize()}.", ""]
+
+    routing = next(c for c in summary["checks"] if c["id"] == "T9")["detail"]
+    lines += ["## T9 — the finite centre is a routing manifold, not a hub", "",
+              "| bearing `S^n` | capacity at `60°` | capacity at `20°` | "
+              "proper measure at `f₀ = 1e-03` |", "|--|--|--|--|"]
+    for r in routing["rows"]:
+        lines.append(f"| `S^{r['sphere_dim']}` | "
+                     f"`{r['capacity_at_60_deg']:.1f}` | "
+                     f"`{r['capacity_at_20_deg']:.4g}` | "
+                     f"`{r['proper_measure_at_neck_1e_3']:.3e}` |")
+    lines += ["", "Holding `n = 3` and varying the neck makes the "
+                  "independence explicit — the capacity is the *same float*:", "",
+              "| `f₀` | proper measure | capacity at `20°` |", "|--|--|--|"]
+    for r in routing["neck_scan"]:
+        lines.append(f"| `{r['neck']:.0e}` | `{r['proper_measure']:.3e}` | "
+                     f"`{r['capacity_at_20_deg']:.4f}` |")
+    lines += ["", f"**The reading:** {routing['the_reading']}.", ""]
+
+    limit = next(c for c in summary["checks"] if c["id"] == "T10")["detail"]
+    lines += ["## T10 — what the `f₀ → 0` limit separates", "",
+              "| `f₀` | they meet? | overlap angle | proper overlap `n=2` | "
+              "proper overlap `n=3` |", "|--|--|--|--|--|"]
+    for r in limit["rows"]:
+        lines.append(f"| `{r['neck']:.0e}` | "
+                     f"{'yes' if r['they_meet'] else 'no'} | "
+                     f"`{r['overlap_angle']:.3f}` | "
+                     f"`{r['proper_overlap_n_2']:.2e}` | "
+                     f"`{r['proper_overlap_n_3']:.2e}` |")
+    lines += [""] + [f"- {t}" for t in limit["the_three_things"]]
+    lines += ["", f"**So the origin is** {limit['so_the_origin_is']}.", "",
+              f"*What the first reading got wrong:* "
+              f"{limit['what_the_first_reading_got_wrong']}.", ""]
 
     parity = next(c for c in summary["checks"] if c["id"] == "T6")["detail"]
     lines += ["## T6 — parity, and two quotients that are always opposite", "",
@@ -305,8 +415,8 @@ def render_markdown(summary: dict) -> str:
     centre = next(c for c in summary["checks"] if c["id"] == "T4")["detail"]
     lines += ["## T4 — the bearing as the blown-up direction space", "",
               f"{centre['what_the_origin_loses'].capitalize()}; the bearing "
-              f"{centre['what_the_bearing_restores']}.", "",
-              "| `n` | `f₀` | `|S^n|` | bearing measure `f₀ⁿ|S^n|` |",
+              f"restores {centre['what_the_bearing_restores']}.", "",
+              "| `n` | `f₀` | `A_n` | bearing measure `f₀ⁿ·A_n` |",
               "|--|--|--|--|"]
     for r in centre["rows"]:
         lines.append(f"| {r['angular_dim']} | `{r['neck']:.0e}` | "

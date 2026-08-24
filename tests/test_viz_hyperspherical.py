@@ -339,3 +339,173 @@ def test_no_reported_peak_is_the_search_ceiling():
     big = next(s for s in got["radius_scan"] if s["radius"] == 4.0)
     assert big["ball_peak_dim"] == 100, "interior, and it moved from 79 when " \
         "the range was widened -- which is why the guard exists"
+
+
+# ── which n belongs to which object ─────────────────────────────────────────
+def test_n_is_the_dimension_of_the_objects_own_transverse_sphere():
+    """The scope pin: `n` is a fact about the object, not a modelling choice.
+
+    The millionfold figure is the `S³` **bearing**'s. PR #265's spatial throat
+    has an `S²` cross-section, so its own understatement against the 2-D
+    drawing is a thousand — and without this stated, the same `f^n` law
+    migrates between objects that do not share an `n`.
+    """
+    got = hs.measure_which_n_is_physical_for_which_object()
+    by_dim = {r["angular_dim"]: r for r in got["rows"]}
+    assert set(by_dim) == {1, 2, 3, 4}
+    for n, row in by_dim.items():
+        assert row["cross_section"] == f"S^{n}"
+        assert row["patch_measure"] == pytest.approx(
+            got["squeeze"] ** n, rel=1e-12)
+        assert row["understatement_vs_the_drawing"] == pytest.approx(
+            got["squeeze"] / got["squeeze"] ** n, rel=1e-12)
+    assert "#265" in by_dim[2]["object"]
+    assert "4-spatial" in by_dim[3]["object"]
+    assert by_dim[2]["understatement_vs_the_drawing"] == pytest.approx(
+        1e3, rel=1e-9)
+    assert by_dim[3]["understatement_vs_the_drawing"] == pytest.approx(
+        1e6, rel=1e-9)
+
+
+def test_the_265_throat_is_an_f_squared_object_measured_not_asserted():
+    """`physical_throat`'s neck area is `4π f₀²`, which is what `n = 2` means."""
+    got = hs.measure_which_n_is_physical_for_which_object()
+    assert got["physical_throat_is_n_equals_two"]
+    assert got["physical_throat_neck_area"] == pytest.approx(
+        got["four_pi_f0_squared"], rel=1e-12)
+    from geometrodynamics.waves.physical_throat import VacuumThroat
+    throat = VacuumThroat(mouth_radius=0.05)
+    f0 = throat.neck_radius()
+    assert got["physical_throat_neck_area"] == pytest.approx(
+        4.0 * math.pi * f0 ** 2, rel=1e-12)
+    assert got["physical_throat_neck_area"] == pytest.approx(
+        throat.neck_area(), rel=1e-15)
+
+
+def test_the_million_is_not_attributed_to_the_throat():
+    got = hs.measure_which_n_is_physical_for_which_object()
+    assert got["the_million_is_not_the_throats"]
+    assert got["the_throats_own_understatement"] == pytest.approx(1e3, rel=1e-9)
+    assert "bearing" in got["the_millionfold_figure_belongs_to"]
+    assert "migrate" in got["why_it_matters"]
+
+
+def test_the_doc_and_the_renderer_do_not_quote_the_million_unattributed():
+    """Every place the millionfold figure appears must name its object.
+
+    Six overstatements reached six files in PR #268 before being caught; this
+    keeps the count at zero for this one by checking the text, not the number.
+    """
+    import pathlib
+    root = pathlib.Path(__file__).resolve().parents[1]
+    for rel in ("docs/hyperspherical.md", "README.md",
+                "scripts/geometrodynamics_v70_hyperspherical.py",
+                "geometrodynamics/viz/hyperspherical.py"):
+        text = (root / rel).read_text()
+        for line_no, line in enumerate(text.splitlines(), 1):
+            low = line.lower()
+            if "million" not in low:
+                continue
+            window = "\n".join(text.splitlines()[
+                max(0, line_no - 6):line_no + 6]).lower()
+            assert "bearing" in window or "s^3" in window or "s³" in window, \
+                f"{rel}:{line_no} quotes a millionfold figure without naming " \
+                f"the object it belongs to"
+
+
+# ── the bearing as a routing manifold ───────────────────────────────────────
+def test_direction_capacity_is_the_reciprocal_cap_fraction():
+    from scipy.integrate import quad
+    for n in (1, 2, 3, 5):
+        eps = 0.3
+        cap = quad(lambda c: math.sin(c) ** (n - 1), 0.0, eps)[0]
+        whole = quad(lambda c: math.sin(c) ** (n - 1), 0.0, math.pi)[0]
+        assert hs.direction_capacity(eps, n) == pytest.approx(
+            whole / cap, rel=1e-10)
+
+
+def test_direction_capacity_grows_like_one_over_sin_eps_to_the_n():
+    """Exponential in the dimension at fixed resolution."""
+    eps = math.radians(20.0)
+    caps = [hs.direction_capacity(eps, n) for n in range(1, 9)]
+    ratios = [b / a for a, b in zip(caps, caps[1:])]
+    assert all(r > 1.0 for r in ratios)
+    # the asymptotic ratio is 1/sin(eps) = 2.924
+    assert ratios[-1] == pytest.approx(1.0 / math.sin(eps), rel=0.10)
+    # and it is still approaching from above, not settled
+    assert ratios[-1] < ratios[0]
+
+
+def test_direction_capacity_rejects_a_non_angle():
+    for bad in (0.0, -0.2, math.pi, 4.0):
+        with pytest.raises(ValueError):
+            hs.direction_capacity(bad, 3)
+
+
+def test_capacity_is_dimensionless_while_the_measure_collapses():
+    """The two are independent, and the scan is a real one, not a tautology.
+
+    An earlier draft of this check compared a value to itself. It varies the
+    neck over six decades and confirms the proper measure moves while the
+    capacity returns the identical float.
+    """
+    got = hs.measure_the_bearing_is_a_routing_manifold_not_a_hub()
+    scan = got["neck_scan"]
+    caps = {r["capacity_at_20_deg"] for r in scan}
+    assert len(caps) == 1, "capacity must not depend on the neck at all"
+    measures = [r["proper_measure"] for r in scan]
+    assert measures[0] / measures[-1] > 1e17
+    for row in scan:
+        assert row["proper_measure"] == pytest.approx(
+            hs.sphere_area(4) * row["neck"] ** 3, rel=1e-12)
+    assert got["capacity_does_not_involve_the_neck"]
+    assert got["proper_measure_spans_decades_meanwhile"]
+
+
+def test_the_routing_reading_is_a_capacity_claim_not_a_crowding_one():
+    got = hs.measure_the_bearing_is_a_routing_manifold_not_a_hub()
+    assert got["capacity_at_20_deg_on_s3"] == pytest.approx(113.529, rel=1e-4)
+    assert got["capacity_at_20_deg_on_s20"] > 1e10
+    assert got["capacity_grows_exponentially"]
+    assert got["a_thousand_directions_stay_near_orthogonal"]
+    assert "not a hub" in got["the_reading"]
+
+
+def test_high_dimensional_direction_families_stay_near_orthogonal():
+    """A compressed direction space is not a crowded one."""
+    got = hs.measure_the_bearing_is_a_routing_manifold_not_a_hub()
+    fams = {f["ambient_dim"]: f for f in got["near_orthogonal_families"]}
+    assert fams[1000]["max_pairwise_cos_of_1024"] < 0.2
+    # and it is monotone in the dimension, which is the 1/sqrt(n) law of section 2
+    dims = sorted(fams)
+    worst = [fams[d]["max_pairwise_cos_of_1024"] for d in dims]
+    assert all(b <= a for a, b in zip(worst, worst[1:]))
+
+
+# ── what the limit separates ────────────────────────────────────────────────
+def test_the_limit_keeps_the_angles_and_takes_only_the_measure():
+    """Angular incidence survives; the proper interaction region does not."""
+    got = hs.measure_the_limit_separates_three_things()
+    angles = {r["overlap_angle"] for r in got["rows"]}
+    assert len(angles) == 1, "the angular overlap must not depend on f0"
+    assert all(r["they_meet"] for r in got["rows"])
+    for r in got["rows"]:
+        assert r["proper_overlap_n_2"] == pytest.approx(
+            (r["overlap_angle"] * r["neck"]) ** 2, rel=1e-12)
+        assert r["proper_overlap_n_3"] == pytest.approx(
+            (r["overlap_angle"] * r["neck"]) ** 3, rel=1e-12)
+    first, last = got["rows"][0], got["rows"][-1]
+    assert first["proper_overlap_n_3"] / last["proper_overlap_n_3"] > 1e20
+    assert got["angular_incidence_survives"]
+    assert got["the_overlap_verdict_survives"]
+    assert got["the_proper_measure_vanishes"]
+
+
+def test_the_limit_merges_sizes_not_labels():
+    """The reading the measurements support, and the one they replace."""
+    got = hs.measure_the_limit_separates_three_things()
+    assert len(got["the_three_things"]) == 3
+    joined = " ".join(got["the_three_things"]).lower()
+    assert "survives" in joined and "f0^n" in joined
+    assert "zero proper measure" in got["so_the_origin_is"].lower()
+    assert "sizes, not their labels" in got["what_the_first_reading_got_wrong"]

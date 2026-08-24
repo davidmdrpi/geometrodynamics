@@ -163,20 +163,28 @@ class HypersphereFigure:
         squeeze = np.geomspace(1e-4, 1.0, 200)
         cols = {1: _PAL["cool"], 2: _PAL["good"], 3: _PAL["warm"],
                 4: _PAL["hot"]}
+        which = {1: "the drawn 2-D cross-section",
+                 2: "PR #265 spatial throat",
+                 3: "bearing in 4 spatial dims",
+                 4: "bearing in 5 spatial dims"}
         for n, col in cols.items():
             ax.plot(squeeze, squeeze ** n, lw=2.2 if n == 3 else 1.6,
                     color=col,
-                    label=f"S^{n}  cross-section:  (f0/F)^{n}")
+                    label=f"S^{n}:  (f0/F)^{n}   {which[n]}")
         ax.axvline(1e-3, color=_PAL["rule"], lw=0.9, ls=":")
         ax.plot([1e-3], [1e-3], "o", ms=6, color=_PAL["cool"], zorder=6)
+        ax.plot([1e-3], [1e-6], "o", ms=6, color=_PAL["good"], zorder=6)
         ax.plot([1e-3], [1e-9], "o", ms=6, color=_PAL["warm"], zorder=6)
         ax.annotate("", xy=(1e-3, 1e-9), xytext=(1e-3, 1e-3),
                     arrowprops=dict(arrowstyle="<->", color=_PAL["bad"],
                                     lw=1.3))
-        ax.text(1.6e-3, 2.4e-6,
-                "a MILLION-fold\nunderstatement\nby the 2-D drawing",
-                color=_PAL["bad"], fontsize=6.9, family="monospace",
-                va="center", ha="left")
+        ax.text(0.025, 0.975,
+                "vs the 2-D drawing, at f0/F = 1e-3:\n"
+                "  x1000       for the n = 2 throat of PR #265\n"
+                "  x1000000    only for an n = 3 bearing\n"
+                "n is set by the OBJECT's transverse sphere",
+                transform=ax.transAxes, color=_PAL["bad"], fontsize=6.8,
+                family="monospace", va="top", ha="left")
         ax.set_xscale("log")
         ax.set_yscale("log")
         ax.set_ylim(1e-14, 2.0)
@@ -253,8 +261,8 @@ class HypersphereFigure:
                       family="monospace")
         self.fig.text(0.5, 0.894,
                       "THE ANGULAR OVERLAP CAN STAY FINITE WHILE THE PHYSICAL "
-                      "OVERLAP COLLAPSES AS f0^n  -  a fixed angular footprint, "
-                      "a millionfold smaller proper region at n = 3",
+                      "OVERLAP COLLAPSES AS f0^n  -  and WHICH n is physical "
+                      "depends on WHICH OBJECT is drawn",
                       color=_PAL["good"], fontsize=7.6, ha="center",
                       family="monospace")
         self.fig.text(0.5, 0.866,

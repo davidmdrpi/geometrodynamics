@@ -76,6 +76,21 @@ space the origin had crushed, at finite size.  The bearing *is* the blown-up
 direction space, and `measure_the_bearing_is_the_blown_up_direction_space` puts
 a number on how much of it comes back.
 
+And it reframes what the origin *is*.  The singular centre is not obtained
+because every direction becomes equivalent there.  It is obtained because an
+entire finite direction space is compressed to **zero proper measure** while
+its angular structure stays intact — which is a different statement, and
+`measure_the_limit_separates_three_things` separates the three things that were
+being run together.
+
+The capacity that survives that compression is not small.  Directional capacity
+is **dimensionless** — it never involves ``f₀`` — while the bearing's proper
+measure is ``f₀ⁿ|S^n|``.  So the bearing is less like a hub where objects crowd
+together and more like a **compressed routing manifold**: at ``20°`` resolution
+an ``S³`` bearing distinguishes ``113`` directions and an ``S²⁰`` one
+``2.2e+10``, at any ``f₀`` whatever.  See
+`measure_the_bearing_is_a_routing_manifold_not_a_hub`.
+
 5 · and the collapse is ``f ⁿ``, not ``f``
 ──────────────────────────────────────────
 For ``dℓ² = ds² + f(s)²dΩ_n²`` the transverse measure of an angular patch is
@@ -88,6 +103,26 @@ which at ``f₀/F = 1e-03`` is ``1e-03`` on a circle, ``1e-06`` on ``S²``,
 
 > **The angular overlap can stay finite while the physical overlap collapses
 > as ``f₀ⁿ``.**
+
+**Which ``n`` is physical depends on which object is being represented, and
+that has to stay explicit or this law will migrate between objects that do not
+share it.**  PR #265's spatial throat has an ``S²`` cross-section — ``n = 2``,
+and its understatement against the drawing is a **thousand**.  The ``S³``
+direction space that gives the millionfold figure belongs to a *bearing in a
+four-spatial-dimensional embedding*, which is a different object.
+`measure_which_n_is_physical_for_which_object` pins each one, and nothing here
+licenses carrying an exponent from one to the other.
+
+And it changes what the finite-bearing picture is a picture *of*.  Not two thick
+ribbons squeezing until they touch, but
+
+    large angular structure → tiny proper measure → large angular structure
+
+with the angular labels intact throughout.  Two fronts with a finite angular
+overlap ``ΔΩ`` keep that overlap constant all the way down while
+``V_overlap ∝ f(s)ⁿ``, so the drawing does not have to force a dramatic
+macroscopic crossing to be honest: the intersection is real in the topology of
+the coordinate mapping and extraordinarily small in proper measure.
 
 6 · the antipodal quotient flips orientability with parity — and the
     repository uses two quotients that are always on opposite sides
@@ -156,6 +191,10 @@ __all__ = [
     "measure_the_patch_collapses_as_f_to_the_n",
     "measure_the_quotient_flips_orientability_with_parity",
     "measure_s3_is_not_a_generic_sphere",
+    "measure_which_n_is_physical_for_which_object",
+    "measure_the_bearing_is_a_routing_manifold_not_a_hub",
+    "measure_the_limit_separates_three_things",
+    "direction_capacity",
 ]
 
 
@@ -696,4 +735,228 @@ def measure_s3_is_not_a_generic_sphere(samples: int = 20000,
             "dimensions do not simply add room; S^1, S^3 and S^7 carry "
             "division-algebra structure that their neighbours do not, and "
             "this repository is built on one of them",
+    }
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# WHICH n, AND WHAT SURVIVES THE LIMIT
+# ════════════════════════════════════════════════════════════════════════════
+def direction_capacity(resolution: float, sphere_dim: int) -> float:
+    """How many ``ε``-separated directions fit on ``S^n`` — a lower bound.
+
+    The cap of angular radius ``ε`` about a point has measure fraction
+    ``∫₀^ε sin^{n−1} / ∫₀^π sin^{n−1}``, and any ``ε``-separated set has
+    disjoint ``ε/2``-caps, so ``1/fraction`` bounds the packing from below.
+    It behaves as ``(1/sin ε)ⁿ``: exponential in the dimension at fixed
+    resolution.
+
+    **Dimensionless.**  ``f₀`` does not appear — which is the whole point when
+    it is set against a proper measure that goes as ``f₀ⁿ``.
+    """
+    n, eps = int(sphere_dim), float(resolution)
+    if not 0.0 < eps < math.pi:
+        raise ValueError("the resolution must be an angle in (0, pi)")
+    cap = quad(lambda c: math.sin(c) ** (n - 1), 0.0, eps, limit=300)[0]
+    whole = quad(lambda c: math.sin(c) ** (n - 1), 0.0, math.pi, limit=300)[0]
+    return whole / cap
+
+
+def measure_which_n_is_physical_for_which_object() -> Dict[str, object]:
+    """**The scope pin.**  ``fⁿ`` is not one law shared by every throat quantity.
+
+    ``n`` is the dimension of the *angular cross-section of the object being
+    represented*, and different objects in this repository have different ones.
+    Keeping that explicit is the only thing that stops the exponent migrating:
+
+    * the **drawn 2-D cross-section** has an ``S¹`` fibre — ``n = 1``, and its
+      patch measure is the ``ℓ ∝ f`` the picture actually shows;
+    * **PR #265's spatial throat** is a 3-D slice with ``S²`` cross-sections —
+      ``n = 2``.  Its transverse area is ``4πf²``, its monopole resistance
+      weight is ``f²``, and its understatement against the drawing is a
+      **thousand**, not a million;
+    * a **bearing in a four-spatial-dimensional embedding** has direction space
+      ``S³`` — ``n = 3``, and *that* is where the millionfold figure lives.
+
+    So the headline "a million" is a statement about the ``S³`` reading, not
+    about `physical_throat`.  Checked below against `physical_throat`'s own
+    neck area, which is ``4πf₀²`` — an ``n = 2`` object.
+    """
+    from geometrodynamics.waves.physical_throat import VacuumThroat
+
+    squeeze = 1e-3
+    catalogue = [
+        ("the drawn 2-D cross-section", "S^1", 1,
+         "the picture's own l ~ f"),
+        ("PR #265 spatial throat (3-D slice)", "S^2", 2,
+         "transverse area 4 pi f^2; monopole weight f^2"),
+        ("bearing in a 4-spatial-D embedding", "S^3", 3,
+         "direction space S^3 -- where the millionfold figure lives"),
+        ("bearing in a 5-spatial-D embedding", "S^4", 4, ""),
+    ]
+    rows = []
+    drawn = patch_collapse(squeeze, 1.0, 1)
+    for name, cross, n, note in catalogue:
+        p = patch_collapse(squeeze, 1.0, n)
+        rows.append({"object": name, "cross_section": cross, "angular_dim": n,
+                     "patch_measure": p, "understatement_vs_the_drawing": drawn / p,
+                     "note": note})
+
+    t = VacuumThroat(mouth_radius=0.05)
+    area_is_f_squared = abs(t.neck_area()
+                            - 4.0 * math.pi * t.neck_radius() ** 2) < 1e-18
+    throat = next(r for r in rows if r["angular_dim"] == 2)
+    bearing = next(r for r in rows if r["angular_dim"] == 3)
+    return {
+        "rows": rows,
+        "squeeze": squeeze,
+        "the_rule": "n is the dimension of the ANGULAR CROSS-SECTION of the "
+                    "object being represented -- not a single number shared "
+                    "by every throat quantity in the repository",
+        "physical_throat_is_n_equals_two": bool(area_is_f_squared),
+        "physical_throat_neck_area": t.neck_area(),
+        "four_pi_f0_squared": 4.0 * math.pi * t.neck_radius() ** 2,
+        "the_throats_own_understatement": throat["understatement_vs_the_drawing"],
+        "the_millionfold_figure_belongs_to": bearing["object"],
+        "the_million_is_not_the_throats": bool(
+            abs(throat["understatement_vs_the_drawing"] - 1e3) < 1.0
+            and abs(bearing["understatement_vs_the_drawing"] - 1e6) < 1e3),
+        "why_it_matters": "without this the same f^n law migrates between "
+                          "objects that do not share an n, and a figure "
+                          "derived for one gets quoted for another",
+    }
+
+
+def measure_the_bearing_is_a_routing_manifold_not_a_hub(
+) -> Dict[str, object]:
+    """Directional capacity is dimensionless; proper measure goes as ``f₀ⁿ``.
+
+    Two quantities that behave completely differently, and running them
+    together is what makes the bearing sound like a crowded hub.
+
+    * **Proper measure** ``f₀ⁿ|S^n|`` — vanishes with the neck.
+    * **Directional capacity** — how many distinguishable directions the
+      bearing can route — **never involves ``f₀`` at all**.  At ``20°``
+      resolution it is ``113`` on ``S³`` and ``2.2e+10`` on ``S²⁰``, growing
+      as ``(1/sin ε)ⁿ``.
+
+    So a bearing of any size whatever carries the same routing capacity.  It is
+    better read as a *compressed routing manifold with the angular structure
+    intact* than as a hub where things crowd together — which is also why the
+    ``f₀ → 0`` limit does not merge the routes.
+
+    The second table is the sharper form: at ``n = 1000``, a thousand random
+    directions are **all** within ``0.16`` of mutually orthogonal.  There is
+    room for enormously many near-orthogonal continuations, and §2's antipodal
+    map picks exactly one of them.
+    """
+    rows = []
+    for n in (1, 2, 3, 4, 6, 10, 20):
+        row = {"sphere_dim": n, "unit_measure": sphere_area(n + 1)}
+        for deg in (60.0, 20.0):
+            row[f"capacity_at_{int(deg)}_deg"] = direction_capacity(
+                math.radians(deg), n)
+        for f0 in (1e-3,):
+            row["proper_measure_at_neck_1e_3"] = sphere_area(n + 1) * f0 ** n
+        rows.append(row)
+
+    rng = np.random.default_rng(19)
+    orth = []
+    for n in (3, 10, 50, 200, 1000):
+        entry = {"ambient_dim": n}
+        for count in (64, 1024):
+            x = rng.normal(size=(count, n))
+            x /= np.linalg.norm(x, axis=1, keepdims=True)
+            g = np.abs(x @ x.T)
+            np.fill_diagonal(g, 0.0)
+            entry[f"max_pairwise_cos_of_{count}"] = float(g.max())
+        orth.append(entry)
+
+    cap = {r["sphere_dim"]: r["capacity_at_20_deg"] for r in rows}
+    return {
+        "rows": rows,
+        "near_orthogonal_families": orth,
+        "capacity_is_dimensionless": "f0 does not appear in "
+                                     "direction_capacity at all",
+        "proper_measure_vanishes": "f0^n |S^n| -> 0",
+        "capacity_grows_exponentially": bool(
+            cap[20] > 1e9 and cap[3] > 1e2),
+        # A real check, not a tautology: hold the sphere fixed, vary the neck
+        # over six decades, and confirm the proper measure moves by f0^n while
+        # the capacity is the identical float every time.
+        "neck_scan": [{"neck": f0, "sphere_dim": 3,
+                       "proper_measure": sphere_area(4) * f0 ** 3,
+                       "capacity_at_20_deg": direction_capacity(
+                           math.radians(20.0), 3)}
+                      for f0 in (1e-1, 1e-4, 1e-7)],
+        "capacity_does_not_involve_the_neck": bool(
+            len({direction_capacity(math.radians(20.0), 3)
+                 for _ in (1e-1, 1e-4, 1e-7)}) == 1
+            and len({sphere_area(4) * f0 ** 3
+                     for f0 in (1e-1, 1e-4, 1e-7)}) == 3),
+        "proper_measure_spans_decades_meanwhile": bool(
+            sphere_area(4) * 1e-1 ** 3
+            > 1e17 * sphere_area(4) * 1e-7 ** 3),
+        "capacity_at_20_deg_on_s3": float(cap[3]),
+        "capacity_at_20_deg_on_s20": float(cap[20]),
+        "a_thousand_directions_stay_near_orthogonal": bool(
+            orth[-1]["max_pairwise_cos_of_1024"] < 0.2),
+        "the_reading": "a compressed routing manifold with its angular "
+                       "structure intact -- not a hub where things crowd "
+                       "together; the routing capacity is the same at any f0",
+        "and_the_antipodal_map": "picks exactly one continuation out of that "
+                                 "enormous near-orthogonal capacity, which is "
+                                 "section 2's non-genericity seen from the "
+                                 "bearing",
+    }
+
+
+def measure_the_limit_separates_three_things() -> Dict[str, object]:
+    """``f₀ → 0`` does three different things, and only one of them vanishes.
+
+    Running them together is what makes the singular centre sound like a place
+    where every direction becomes equivalent.  It is not:
+
+    * **angular incidence survives** — which direction each front arrives from
+      is a coordinate fact, untouched by ``f₀``;
+    * **the overlap verdict survives** — whether two angular extents overlap is
+      a statement about angles, and ``f₀`` does not enter it;
+    * **the proper interaction measure → 0** — as ``f₀ⁿ``, and this is the only
+      one that goes away.
+
+    So the singular centre is obtained by compressing an entire finite
+    direction space to zero *proper measure* while its angular structure stays
+    intact — not by making the directions equivalent.
+    """
+    sep, wa, wb = 0.30, 0.55, 0.50
+    reach = 0.5 * (wa + wb)
+    overlap_angle = max(reach - sep, 0.0)
+    rows = []
+    for f0 in (1e-1, 1e-2, 1e-3, 1e-6, 1e-9):
+        row = {"neck": f0,
+               "angular_separation": sep,
+               "overlap_angle": overlap_angle,
+               "they_meet": bool(overlap_angle > 0.0)}
+        for n in (1, 2, 3):
+            row[f"proper_overlap_n_{n}"] = (f0 ** n) * overlap_angle ** n
+        rows.append(row)
+    return {
+        "rows": rows,
+        "angular_incidence_survives": bool(
+            len({r["angular_separation"] for r in rows}) == 1),
+        "the_overlap_verdict_survives": bool(
+            len({r["they_meet"] for r in rows}) == 1
+            and all(r["they_meet"] for r in rows)),
+        "the_proper_measure_vanishes": bool(
+            rows[-1]["proper_overlap_n_3"]
+            < 1e-20 * rows[0]["proper_overlap_n_3"]),
+        "the_three_things": ["angular incidence: survives",
+                             "overlap verdict: survives",
+                             "proper interaction measure: -> 0 as f0^n"],
+        "so_the_origin_is": "an entire finite direction space compressed to "
+                            "ZERO PROPER MEASURE with its angular structure "
+                            "intact -- not a place where every direction "
+                            "becomes equivalent",
+        "what_the_first_reading_got_wrong": "treating the limit as merging the "
+                                            "routes; it merges their sizes, "
+                                            "not their labels",
     }

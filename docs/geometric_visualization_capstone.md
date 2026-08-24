@@ -1370,11 +1370,35 @@ conclusion changes what the picture is a picture of.
 
 **The collapse is `fⁿ`, not `f`.** The transverse measure of an angular patch in
 `ds² + f²dΩ_n²` is `fⁿdΩ_n`, so a squeeze of `1e-03` costs `1e-03` on a circle,
-`1e-06` on `S²`, `1e-09` on `S³`. The 2-D drawing understates the physical case
-by a **million**. So: *the angular overlap can stay finite while the physical
-overlap collapses as `f₀ⁿ`* — much less like two ribbons squeezing together,
-much more like a vast angular configuration space packed into an extremely small
-proper region. The yes/no criterion is untouched; it was always angular.
+`1e-06` on `S²`, `1e-09` on `S³`. So: *the angular overlap can stay finite while
+the physical overlap collapses as `f₀ⁿ`* — not two thick ribbons squeezing until
+they touch, but **large angular structure → tiny proper measure → large angular
+structure**, with the angular labels intact throughout. The yes/no criterion is
+untouched; it was always angular. Which has a practical consequence for the
+drawing: two fronts with finite angular overlap `ΔΩ` keep it constant all the way
+down while `V_overlap ∝ f(s)ⁿ`, so the picture need not force a dramatic
+macroscopic crossing — the intersection is real in the topology of the coordinate
+mapping and extraordinarily small in proper measure.
+
+**And which `n` is physical depends on which object is drawn** — `n` is the
+dimension of that object's own transverse sphere, which is a fact about the
+object, not a modelling choice. PR #265's spatial throat has an `S²`
+cross-section: `n = 2`, its neck area the measured `4πf₀²`, its understatement
+against the 2-D drawing a **thousand**. The `S³` that gives the *millionfold*
+figure is a bearing in a four-spatial-dimensional embedding, a different object.
+Kept explicit because otherwise the same `f^n` law migrates between objects that
+do not share an `n`, and a figure derived for one gets quoted for the other.
+
+**The finite centre is a routing manifold, not a hub.** Directional capacity is
+**dimensionless** — `f₀` never enters it. At `20°` an `S³` bearing distinguishes
+`113.5` directions and an `S²⁰` one `2.2e+10`, and a neck scan over six decades
+returns the *identical float* while the proper measure runs `1.974e-02 →
+1.974e-20`. So the singular centre is not obtained because every direction
+becomes equivalent there; it is obtained because an entire finite direction space
+is compressed to zero proper measure with its angular structure intact. The
+`f₀ → 0` limit separates three things that had been run together: **angular
+incidence survives, the overlap verdict survives, only the proper interaction
+measure collapses**. It merges the routes' sizes, not their labels.
 
 **Almost all of a sphere is at the equator of any chosen point** — the shell
 measure `sin^{n−1}χ` has band width `1/√n`, measured as `std(χ)·√n → 1.000000`.
@@ -1938,6 +1962,17 @@ Worth recording, because the failure modes repeat:
   appearance of the maximiser-degeneracy failure mode in this arc, after the
   even-`n` harmonic peak and the `argmax` mask. Ties are now reported rather
   than resolved.
+* **An exponent quoted without its object.** §27's headline "the 2-D drawing
+  understates it by a million" reached three files — the doc, the README and the
+  renderer — with no statement of *which object* has `n = 3`. The number is
+  right for an `S³` bearing and wrong by three decades for the `S²` throat of
+  PR #265, which is the object the rest of the repository means by "throat".
+  Nothing numerical was wrong; a law was stated without the scope that makes it
+  a law about anything. **A dimensionless exponent will migrate between objects
+  unless each statement of it names the object it belongs to** — the catalogue
+  is now measured (`measure_which_n_is_physical_for_which_object`, checked
+  against `physical_throat`'s own `4πf₀²` neck area) and a test fails if any
+  file quotes the figure without naming the object within six lines.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by

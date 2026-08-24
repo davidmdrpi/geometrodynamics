@@ -3662,12 +3662,35 @@ measure of an angular patch is `fⁿ dΩ_n`:
 > **The angular overlap can stay finite while the physical overlap collapses as
 > `f₀ⁿ`.**
 
-The 2-D drawing understates `S³` by a factor of a **million**. That changes what
-PR #268's picture is a picture *of*: much less like two ribbons squeezing
-together, much more like a vast angular configuration space packed into an
-extremely small proper region — two angular sectors becoming coincident on a
-greatly compressed direction space, then re-expanding into different radial
-sectors. The yes/no overlap criterion is untouched; it was always angular.
+**Which `n` is physical depends on which object is drawn**, and that has to stay
+explicit or the exponent will migrate between objects that do not share it. `n`
+is the dimension of the object's own transverse sphere: the drawn cross-section
+is `S¹`, **PR #265's spatial throat is `S²`** — `n = 2`, understating the drawing
+by a **thousand**, and its neck area is the measured `4π f₀²` — while the `S³`
+that gives the millionfold figure is a *bearing in a four-spatial-dimensional
+embedding*, a different object. Nothing here licenses carrying an exponent from
+one to the other.
+
+That changes what PR #268's picture is a picture *of*: not two thick ribbons
+squeezing until they touch, but **large angular structure → tiny proper measure →
+large angular structure**, angular labels intact throughout — two angular sectors
+becoming coincident on a greatly compressed direction space, then re-expanding
+into different radial sectors. The yes/no overlap criterion is untouched; it was
+always angular, so the drawing need not force a dramatic macroscopic crossing:
+`ΔΩ` stays constant while `V_overlap ∝ f(s)ⁿ`, and the intersection is real in
+the topology of the coordinate mapping and extraordinarily small in measure.
+
+**And the finite centre is a routing manifold, not a hub.** Directional capacity
+— how many directions a bearing resolves at a given angular resolution — is
+**dimensionless**: at `20°` an `S³` bearing distinguishes `113.5` directions and
+an `S²⁰` one `2.2e+10`, and the number is *bit-identical* across `f₀ = 1e-01 …
+1e-07` while the bearing's proper measure runs `1.974e-02 → 1.974e-20`. So the
+singular centre is not obtained because every direction becomes equivalent
+there. It is obtained because an entire finite direction space is compressed to
+zero proper measure with its angular structure intact — which is a different
+statement, and the `f₀ → 0` limit separates three things that were being run
+together: angular incidence survives, directional capacity survives, proper
+interaction measure collapses as `f₀ⁿ`.
 
 **Orientability flips with parity — and this repo uses two quotients that are
 always opposite.** `ℝP^n` is orientable iff `n` is odd (`det(−I_{n+1}) =
