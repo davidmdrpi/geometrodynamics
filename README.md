@@ -3626,6 +3626,84 @@ python scripts/geometrodynamics_v69_regularized_center.py --still v69.png
 
 Full write-up: `docs/regularized_center.md`.
 
+## What higher dimension does to the bulk picture
+
+**3-D intuition models an extra dimension as "the same sphere, with another
+direction available."** It is not, and the ways it is not bear directly on the
+finite bearing.
+
+**A correction first.** The familiar "spheres peak at 5D" is the **unit ball**,
+`V_d = π^{d/2}/Γ(d/2+1)`, peaking at `d = 5`. The unit *sphere*'s surface,
+`A_{d−1} = 2π^{d/2}/Γ(d/2)`, peaks two later at `d = 7` — the sphere being
+`S⁶ ⊂ ℝ⁷`. And neither is a fact about dimension alone: the two carry different
+units at different `d`, so comparing across `d` picks a length scale and the
+peak follows it — `d = 1` at `R = 0.5`, `d = 5` at `R = 1`, `d = 100` at
+`R = 4`.
+
+**Almost all of a sphere is at the equator of any chosen point.** The shell at
+angle `χ` has measure `∝ sin^{n−1}χ`, and `χ = π/2 + δ` gives
+`e^{−(n−1)δ²/2}` — a band of width `~1/√n`. Measured, `std(χ)·√n` runs
+`0.9669 → 1.000000` over `n = 2 … 1000`.
+
+**So the antipode is an extremely non-generic relation.** Random directions have
+`x·y` of width `1/√n`, so `α → π/2`; the fraction with `α > 0.99π` is `3.2e-04`
+on `S²` and *zero* in `2e+05` samples by `n = 10`. Selecting `x ↔ −x` is not
+"pairing a point with the far one" — it picks a vanishing-measure relation out
+of an overwhelming nearly-orthogonal majority, and gets **more** non-generic as
+dimension rises. (That does not make it correct; it removes the bland reading.)
+
+**And the collapse is `fⁿ`, not `f`.** For `dℓ² = ds² + f²dΩ_n²` the transverse
+measure of an angular patch is `fⁿ dΩ_n`:
+
+| squeeze `f₀/F` | `S¹` | `S²` | `S³` | `S⁴` |
+|--|--|--|--|--|
+| `1e-03` | `1.0e-03` | `1.0e-06` | `1.0e-09` | `1.0e-12` |
+
+> **The angular overlap can stay finite while the physical overlap collapses as
+> `f₀ⁿ`.**
+
+The 2-D drawing understates `S³` by a factor of a **million**. That changes what
+PR #268's picture is a picture *of*: much less like two ribbons squeezing
+together, much more like a vast angular configuration space packed into an
+extremely small proper region — two angular sectors becoming coincident on a
+greatly compressed direction space, then re-expanding into different radial
+sectors. The yes/no overlap criterion is untouched; it was always angular.
+
+**Orientability flips with parity — and this repo uses two quotients that are
+always opposite.** `ℝP^n` is orientable iff `n` is odd (`det(−I_{n+1}) =
+(−1)^{n+1}`). The repo carries the **spatial** quotient `S^d/± = ℝP^d` *and* the
+**two-body exchange** space `(ℝ^d∖0)/± ≃ ℝP^{d−1}`, one apart:
+
+| spatial `d` | spatial `ℝP^d` | exchange `ℝP^{d−1}` | `π₁`(exchange) |
+|--|--|--|--|
+| 2 | non-orientable | orientable | `ℤ` (braid) |
+| **3** | **orientable** | **non-orientable** | `ℤ₂` |
+| 4 | non-orientable | orientable | `ℤ₂` |
+
+At `d = 3` the Pin⁻ structure that makes the throat a spinor lives on the
+*exchange* `ℝP²`. Raising the spatial dimension by one **swaps which is which**,
+so that mechanism would have to be re-derived rather than carried across. Said
+as a consequence *if* the dimension moved — not an argument that it should.
+
+**And `S³` is not a generic sphere.** `S³ ≅ SU(2)`; it is parallelizable (the
+frame `q·i, q·j, q·k`, orthonormal to `6.7e-16` everywhere), which only `S¹`,
+`S³` and `S⁷` are; and it carries the Hopf fibration `S¹ → S³ → S²`. `S²` admits
+no nowhere-zero tangent field at all. So none of the above is a smooth trend to
+extrapolate.
+
+**Scope.** Measure, orientation and frames on round spheres. No field equation
+is solved, nothing evolves, and the embedding-centre reading of the bearing —
+that `f₀ > 0` restores at finite size the direction space the origin crushed —
+is marked as an interpretation, not a result.
+
+```bash
+python -m experiments.closure_ledger.hyperspherical_probe
+
+python scripts/geometrodynamics_v70_hyperspherical.py --still v70.png
+```
+
+Full write-up: `docs/hyperspherical.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and

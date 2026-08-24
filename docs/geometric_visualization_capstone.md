@@ -1362,7 +1362,43 @@ choose between the three candidate bulks. It works the finite bearing out far
 enough to be compared with the other two, which is what it now has that they do
 not: a measured hinge cost.
 
-## 27. What the arc cost in errors, and what caught them
+## 27. What higher dimension does to the picture (`docs/hyperspherical.md`)
+
+§26 left the finite bearing with a measured hinge cost and a `f^q` scoping that
+review had forced on the overlap *size* law. Following that scoping to its
+conclusion changes what the picture is a picture of.
+
+**The collapse is `fⁿ`, not `f`.** The transverse measure of an angular patch in
+`ds² + f²dΩ_n²` is `fⁿdΩ_n`, so a squeeze of `1e-03` costs `1e-03` on a circle,
+`1e-06` on `S²`, `1e-09` on `S³`. The 2-D drawing understates the physical case
+by a **million**. So: *the angular overlap can stay finite while the physical
+overlap collapses as `f₀ⁿ`* — much less like two ribbons squeezing together,
+much more like a vast angular configuration space packed into an extremely small
+proper region. The yes/no criterion is untouched; it was always angular.
+
+**Almost all of a sphere is at the equator of any chosen point** — the shell
+measure `sin^{n−1}χ` has band width `1/√n`, measured as `std(χ)·√n → 1.000000`.
+**So the antipodal relation is vanishingly non-generic:** random directions pile
+up at `π/2`, and the near-antipodal fraction runs `3.2e-04` on `S²` to zero by
+`n = 10`. The identification picks a measure-zero relation out of an
+overwhelmingly generic alternative — which removes a bland reading of it without
+making it correct.
+
+**Orientability flips with parity, and the two quotients this arc uses are
+always opposite.** `ℝP^n` is orientable iff `n` is odd. The spatial quotient
+`ℝP^d` and the two-body exchange space `ℝP^{d−1}` are one apart, so at `d = 3`
+the spatial `ℝP³` is orientable while the exchange `ℝP²` — where §7's Pin⁻
+structure lives — is not. Raising the spatial dimension swaps them.
+
+**And `S³` is exceptional** (`SU(2)`, parallelizable, Hopf), which is a standing
+argument against reading any of this as a trend.
+
+**Scope.** Measure, orientation and frames only; no field equation, nothing
+evolving. The reading of the bearing as the blown-up embedding-centre direction
+space is marked as an interpretation. And the parity section says what would
+have to be re-derived *if* the dimension moved, not that it should.
+
+## 28. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -1889,6 +1925,20 @@ Worth recording, because the failure modes repeat:
   quantities computed in adjacent lines, and the smaller was quoted for the
   larger. It propagated to six files before review caught it.
 
+* **A maximiser reported at the edge of its own search range.** §27's first
+  scan of where the ball volume peaks looked over `d < 80` and reported `79` for
+  `R = 4`. That is not a peak, it is a range: widened, the answer is `100`. The
+  same species as the `argmax`-on-an-all-false-mask entry above — **a maximiser
+  that returns its own boundary looks exactly like an answer** — and the scan
+  now flags any peak that touches the ceiling.
+* **And a tie resolved by floating point.** In the same scan the sphere measure
+  at `R = ½` is *exactly* tied between `d = 2` and `d = 3`, since `2πR = 4πR²`
+  there. A bare `max` picked a side, and the side it picked *changed* when the
+  computation moved into log space — which is how it was noticed. Third
+  appearance of the maximiser-degeneracy failure mode in this arc, after the
+  even-`n` harmonic peak and the `argmax` mask. Ties are now reported rather
+  than resolved.
+
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
 an independent construction — a closed form against brute
@@ -1910,7 +1960,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 28. What is imported rather than derived
+## 29. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -1954,7 +2004,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 29. What would come next
+## 30. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
