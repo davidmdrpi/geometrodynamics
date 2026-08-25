@@ -1973,6 +1973,26 @@ Worth recording, because the failure modes repeat:
   is now measured (`measure_which_n_is_physical_for_which_object`, checked
   against `physical_throat`'s own `4πf₀²` neck area) and a test fails if any
   file quotes the figure without naming the object within six lines.
+* **An overdetermined boundary, caught by the constraint and nothing else.** The
+  first evolution froze `φ(v, R)` at the outer edge, which looks like the obvious
+  "no incoming radiation" condition. It is not available: the characteristic
+  hierarchy spends its three integration constants on the gauge and on central
+  regularity, so `ψ(v, R)` is already determined and imposing anything on it
+  overdetermines the slice. Every diagnostic that looked at the *solution* was
+  clean — the field stayed smooth, the amplitude was stable to four digits across
+  resolutions — and the `vv` residual at the outer edge sat at `O(1)` and got
+  **worse** under refinement, diverging like `h⁻²`. **A residual that diverges
+  under refinement is not noise, it is a boundary condition that should not be
+  there**, and it was the only instrument in the round that could see it.
+* **Two converged numbers that disagree.** Two independent horizon-penetrating
+  ringdown codes, each stable and each flat to four digits under a four-fold
+  refinement and across three extraction windows, give damping rates `37%` apart.
+  There is no resolution study that resolves this, because both *are* converged.
+  The response was to report no frequency and name the first thing to chase —
+  the Kerr–Schild operator fails a flat-space exactness test at its inner cut,
+  error flat at `1.07e-02` across a four-fold refinement, which points at the
+  excision boundary rather than at the operator. **Convergence establishes that a
+  code computes something well; it says nothing about what.**
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -1995,7 +2015,57 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 29. What is imported rather than derived
+And the dynamics round supplies the sharpest instance of the standing lesson yet,
+because this time **both** numbers converged. Two horizon-penetrating time-domain
+constructions of the same ringdown — a Kerr–Schild slicing and a tortoise
+evolution — are each stable under refinement and each flat to four digits, and
+they disagree on the damping rate by `37%`. Neither converged more; both
+converged, to different answers. That is the cleanest possible statement of *a
+converged number is not a correct number*, and the only honest response was to
+report no frequency at all rather than pick the one that looked better.
+
+## 29. The first evolved Einstein equations (`docs/tangherlini_dynamics.md`)
+
+Everything §1–§27 did with gravity was stationary, weak-field or linearized. This
+round evolves the Einstein equations in time for the first time in the tree, at
+the highest-symmetry 4+1 problem: `D = 5`, spherical symmetry, one minimally
+coupled massless scalar, in horizon-penetrating ingoing Eddington–Finkelstein
+coordinates. Vacuum is not an option — Birkhoff in `D` dimensions makes
+Tangherlini unique, so the scalar is the dynamical content.
+
+**The system is derived for general `n` and self-checks at `n = 2`**, the known
+`D = 4` case. The `vr` equation turns out to be an exact **quadrature**,
+`(r^{n−1}e^δA)' = (n−1)r^{n−2}e^δ`, not an ODE — which is what makes the geometry
+machine-precise on Tangherlini (`1.6e-15`).
+
+**The Einstein equation the code never solves converges at second order**,
+`1.989 → 1.997 → 1.999`. The hierarchy solves `rr` and `vr` on every slice, so
+their residuals are identically zero and testing them would be circular; `vv` is
+the one component left over and it carries `∂_v A`, which the code never
+otherwise forms. Named as the characteristic-scheme *analogue* of a
+Hamiltonian/momentum constraint test, not as one.
+
+**A regular centre forbids a trapped surface.** The quadrature's right-hand side
+is a positive integrand over a positive interval, so `A > 0` strictly for `r > 0`
+identically, and no trapped surface can sit on a regular-centred ingoing null
+slice. Four profile families pushed to `min A = 5.63e-03` never cross. So horizon
+*formation* is not observable in this gauge, and the criterion is the loss of
+central regularity rather than `A` changing sign — a statement about the chart,
+not the physics, and the reason production characteristic codes use outgoing
+cones or excise the centre.
+
+**Two targets missed and reported as missed:** the perturbation spectrum and the
+retarded outer→inner transfer function. See the entry added to §28.
+
+**And one discrepancy found in passing.** The master potential for a minimally
+coupled massless scalar with `ψ = r^{n/2}φ` differs from
+`tangherlini.radial.V_tangherlini` by exactly `3A²/(4r²)`, with the flat-limit
+Bessel form settling which is which to `4.3e-16`. Nothing was changed —
+`V_tangherlini` is consumed by roughly fifty probes and several derived
+constants, so acting on it is a decision about the repository's published
+numbers, not a side effect of a dynamics round.
+
+## 30. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -2039,7 +2109,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 30. What would come next
+## 31. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:

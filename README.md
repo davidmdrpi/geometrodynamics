@@ -3727,6 +3727,95 @@ python scripts/geometrodynamics_v70_hyperspherical.py --still v70.png
 
 Full write-up: `docs/hyperspherical.md`.
 
+## The first evolved Einstein equations (PR #270)
+
+Every gravity result above this line is stationary, weak-field or linearized, and
+`THESIS.md` has said in the same words across five rounds that *"the strong-field
+endpoint (a horizon / a resolved throat) is left for full numerical relativity."*
+Nothing in the tree evolved the Einstein equations in time. This round is the
+first that does, at the highest-symmetry 4+1 problem — `D = 5`, spherical
+symmetry, one minimally coupled massless scalar — in **horizon-penetrating**
+ingoing Eddington–Finkelstein coordinates,
+
+    ds² = −A(v,r) e^{2δ(v,r)} dv² + 2 e^{δ(v,r)} dv dr + r² dΩ_n² ,   n = 3
+
+Vacuum is not an option: Birkhoff in `D` dimensions makes Tangherlini the unique
+spherically symmetric vacuum, so the scalar is the dynamical content.
+
+**Derived, not recalled.** The metric, connection, Ricci and Einstein tensors are
+built in sympy for **general `n`** and the system self-checks at both `n = 3` and
+`n = 2` — the latter being the known `D = 4` system, which is what validates the
+general-`n` derivation. What comes out:
+
+    rr    →   ∂_r δ = (κ/n) · r · (∂_r φ)²
+    vr    →   (r^{n−1} e^δ A)' = (n−1) r^{n−2} e^δ
+    wave  →   2 r^n ∂_r(∂_v φ) + n r^{n−1} ∂_v φ + ∂_r(e^δ A r^n ∂_r φ) = 0
+    vv    →   an independent equation containing ∂_v A — never used
+
+The `vr` result is the surprise: it is not an ODE to integrate alongside `A`, it
+is an exact **quadrature**.
+
+**The Einstein equation the code never solves converges at second order.** The
+hierarchy *solves* `rr` and `vr` on every slice, so their residuals are
+identically zero and testing them would be circular. `vv` is the one independent
+component left over, it carries `∂_v A`, and the code never forms `∂_v A` for any
+other purpose:
+
+| points | spacing | max abs `vv` residual | rate |
+|--|--|--|--|
+| 400 | `0.0501` | `1.5511e-04` | — |
+| 800 | `0.0250` | `3.9070e-05` | **`1.989`** |
+| 1600 | `0.0125` | `9.7862e-06` | **`1.997`** |
+| 3200 | `0.0063` | `2.4478e-06` | **`1.999`** |
+
+Stated as the characteristic-scheme *analogue* of a Hamiltonian/momentum
+constraint test, not as one. Two exact solutions pin the scheme first:
+Tangherlini comes back at machine precision (`1.6e-15`, `δ ≡ 0`, `ψ ≡ 0`), and
+the closed-form flat mode `φ = cos(ω(v−r))J₁(ωr)/r` is reproduced at rate
+`2.003`.
+
+**And a regular centre forbids a trapped surface.** The `vr` quadrature reads
+`r^{n−1}e^{δ(r)}A(r) = (n−1)∫₀^r s^{n−2}e^{δ(s)}ds` — a positive integrand over a
+positive interval — so `A > 0` strictly for `r > 0`, **identically**. Four
+profile families driven to `min A = 5.63e-03` confirm it never crosses. So
+**horizon formation is not observable in this gauge**, and the criterion has to
+be posed as the loss of central regularity rather than as `A` changing sign. That
+is a statement about the chart, not the physics: collapse still happens, and it
+is why production characteristic codes use *outgoing* null cones or excise the
+centre.
+
+**A discrepancy found in passing, reported and not acted on.** The
+Schrödinger-form potential for a minimally coupled massless scalar with
+`ψ = r^{n/2}φ` is `A[(ℓ(ℓ+2) + 3/4)/r² + (9/4)r_h²/r⁴]`, while
+`tangherlini.radial.V_tangherlini` carries `A[ℓ(ℓ+2)/r² + 3r_h²/r⁴]` — a
+difference of exactly `3A²/(4r²)`, reproduced to `5.4e-16`. The flat limit
+settles it: `ψ = r^{1/2}J_{ℓ+1}(ωr)` gives `V → ((ℓ+1)² − ¼)/r²`, matched to
+`4.3e-16`. **Nothing was changed** — `V_tangherlini` is consumed by roughly fifty
+probes and by several derived constants, so acting on it is a decision about the
+repository's published numbers, not a side effect of a dynamics round.
+
+**What this round did not earn.** The perturbation spectrum and the retarded
+outer→inner transfer function are **not delivered**. Two horizon-penetrating
+time-domain constructions — a Kerr–Schild slicing of the same chart and a
+tortoise `(t,r*)` evolution with the derived potential — are both stable and both
+*converged*, and they disagree: real parts within `0.3%` at `ℓ = 1`, damping
+rates apart by `37%` (`1.01622 − 0.36231i` against `1.01876 − 0.26404i`). So no
+quasinormal frequency is reported, and the transfer function is not built because
+it is a ratio of the same two signals. **A converged number is not a correct
+number.**
+
+**Scope.** Classical, spherically symmetric, one massless scalar, second-order
+accurate and stated as such. Horizon *persistence* is shown only on a seeded
+background, where it is exact; a dynamically formed horizon is not evolved.
+
+```bash
+python -m experiments.closure_ledger.tangherlini_dynamics_probe
+
+python scripts/geometrodynamics_v71_tangherlini_dynamics.py --still v71.png
+```
+
+Full write-up: `docs/tangherlini_dynamics.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
