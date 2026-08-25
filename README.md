@@ -3626,6 +3626,107 @@ python scripts/geometrodynamics_v69_regularized_center.py --still v69.png
 
 Full write-up: `docs/regularized_center.md`.
 
+## What higher dimension does to the bulk picture
+
+**3-D intuition models an extra dimension as "the same sphere, with another
+direction available."** It is not, and the ways it is not bear directly on the
+finite bearing.
+
+**A correction first.** The familiar "spheres peak at 5D" is the **unit ball**,
+`V_d = π^{d/2}/Γ(d/2+1)`, peaking at `d = 5`. The unit *sphere*'s surface,
+`A_{d−1} = 2π^{d/2}/Γ(d/2)`, peaks two later at `d = 7` — the sphere being
+`S⁶ ⊂ ℝ⁷`. And neither is a fact about dimension alone: the two carry different
+units at different `d`, so comparing across `d` picks a length scale and the
+peak follows it — `d = 1` at `R = 0.5`, `d = 5` at `R = 1`, `d = 100` at
+`R = 4`.
+
+**Almost all of a sphere is at the equator of any chosen point.** The shell at
+angle `χ` has measure `∝ sin^{n−1}χ`, and `χ = π/2 + δ` gives
+`e^{−(n−1)δ²/2}` — a band of width `~1/√n`. Measured, `std(χ)·√n` runs
+`0.9669 → 1.000000` over `n = 2 … 1000`.
+
+**So the antipode is an extremely non-generic relation.** Random directions have
+`x·y` of width `1/√n`, so `α → π/2`; the fraction with `α > 0.99π` is `3.2e-04`
+on `S²` and *zero* in `2e+05` samples by `n = 10`. Selecting `x ↔ −x` is not
+"pairing a point with the far one" — it picks a vanishing-measure relation out
+of an overwhelming nearly-orthogonal majority, and gets **more** non-generic as
+dimension rises. (That does not make it correct; it removes the bland reading.)
+
+**And the collapse is `fⁿ`, not `f`.** For `dℓ² = ds² + f²dΩ_n²` the transverse
+measure of an angular patch is `fⁿ dΩ_n`:
+
+| squeeze `f₀/F` | `S¹` | `S²` | `S³` | `S⁴` |
+|--|--|--|--|--|
+| `1e-03` | `1.0e-03` | `1.0e-06` | `1.0e-09` | `1.0e-12` |
+
+> **The angular overlap can stay finite while the physical overlap collapses as
+> `f₀ⁿ`.**
+
+**Which `n` is physical depends on which object is drawn**, and that has to stay
+explicit or the exponent will migrate between objects that do not share it. `n`
+is the dimension of the object's own transverse sphere: the drawn cross-section
+is `S¹`, **PR #265's spatial throat is `S²`** — `n = 2`, understating the drawing
+by a **thousand**, and its neck area is the measured `4π f₀²` — while the `S³`
+that gives the millionfold figure is a *bearing in a four-spatial-dimensional
+embedding*, a different object. Nothing here licenses carrying an exponent from
+one to the other.
+
+That changes what PR #268's picture is a picture *of*: not two thick ribbons
+squeezing until they touch, but **large angular structure → tiny proper measure →
+large angular structure**, angular labels intact throughout — two angular sectors
+becoming coincident on a greatly compressed direction space, then re-expanding
+into different radial sectors. The yes/no overlap criterion is untouched; it was
+always angular, so the drawing need not force a dramatic macroscopic crossing:
+`ΔΩ` stays constant while `V_overlap ∝ f(s)ⁿ`, and the intersection is real in
+the topology of the coordinate mapping and extraordinarily small in measure.
+
+**And the finite centre is a routing manifold, not a hub.** Directional capacity
+— how many directions a bearing resolves at a given angular resolution — is
+**dimensionless**: at `20°` an `S³` bearing distinguishes `113.5` directions and
+an `S²⁰` one `2.2e+10`, and the number is *bit-identical* across `f₀ = 1e-01 …
+1e-07` while the bearing's proper measure runs `1.974e-02 → 1.974e-20`. So the
+singular centre is not obtained because every direction becomes equivalent
+there. It is obtained because an entire finite direction space is compressed to
+zero proper measure with its angular structure intact — which is a different
+statement, and the `f₀ → 0` limit separates three things that were being run
+together: angular incidence survives, directional capacity survives, proper
+interaction measure collapses as `f₀ⁿ`.
+
+**Orientability flips with parity — and this repo uses two quotients that are
+always opposite.** `ℝP^n` is orientable iff `n` is odd (`det(−I_{n+1}) =
+(−1)^{n+1}`). The repo carries the **spatial** quotient `S^d/± = ℝP^d` *and* the
+**two-body exchange** space `(ℝ^d∖0)/± ≃ ℝP^{d−1}`, one apart:
+
+| spatial `d` | spatial `ℝP^d` | exchange `ℝP^{d−1}` | `π₁`(exchange) |
+|--|--|--|--|
+| 2 | non-orientable | orientable | `ℤ` (braid) |
+| **3** | **orientable** | **non-orientable** | `ℤ₂` |
+| 4 | non-orientable | orientable | `ℤ₂` |
+
+At `d = 3` the Pin⁻ structure that makes the throat a spinor lives on the
+*exchange* `ℝP²`. Raising the spatial dimension by one **swaps which is which**,
+so that mechanism would have to be re-derived rather than carried across. Said
+as a consequence *if* the dimension moved — not an argument that it should.
+
+**And `S³` is not a generic sphere.** `S³ ≅ SU(2)`; it is parallelizable (the
+frame `q·i, q·j, q·k`, orthonormal to `6.7e-16` everywhere), which only `S¹`,
+`S³` and `S⁷` are; and it carries the Hopf fibration `S¹ → S³ → S²`. `S²` admits
+no nowhere-zero tangent field at all. So none of the above is a smooth trend to
+extrapolate.
+
+**Scope.** Measure, orientation and frames on round spheres. No field equation
+is solved, nothing evolves, and the embedding-centre reading of the bearing —
+that `f₀ > 0` restores at finite size the direction space the origin crushed —
+is marked as an interpretation, not a result.
+
+```bash
+python -m experiments.closure_ledger.hyperspherical_probe
+
+python scripts/geometrodynamics_v70_hyperspherical.py --still v70.png
+```
+
+Full write-up: `docs/hyperspherical.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and

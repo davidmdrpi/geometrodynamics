@@ -1,0 +1,804 @@
+{
+  "probe": "hyperspherical",
+  "question": "what does higher dimension actually do to the bulk and intersection picture -- as opposed to what 3-D intuition suggests it does?",
+  "answer": "a packet can keep exactly the same angular footprint while its physical overlap collapses as f0^n; almost every point is at the equator of any other, so the antipodal relation is vanishingly non-generic; and orientability of the antipodal quotient flips with dimension parity -- with the exponent pinned to the object it belongs to, since n is the dimension of that object's own transverse sphere",
+  "headline": {
+    "patch_collapse_at_squeeze_1e_minus_3": {
+      "S^1": 0.001,
+      "S^2": 1e-06,
+      "S^3": 1e-09,
+      "S^4": 1.0000000000000002e-12
+    },
+    "understatement_of_the_2d_drawing_at_n_3": 1000000.0,
+    "which_n_belongs_to_which_object": {
+      "the drawn 2-D cross-section": "S^1",
+      "PR #265 spatial throat (3-D slice)": "S^2",
+      "bearing in a 4-spatial-D embedding": "S^3",
+      "bearing in a 5-spatial-D embedding": "S^4"
+    },
+    "the_265_throats_own_understatement": 1000.0000000000001,
+    "direction_capacity_is_dimensionless": true,
+    "band_width_law": "Delta chi ~ 1/sqrt(n)",
+    "orientable_quotients": "RP^n orientable iff n odd"
+  },
+  "checks": [
+    {
+      "id": "T0",
+      "name": "the peak is the ball's, and it needs a unit",
+      "detail": {
+        "rows": [
+          {
+            "dim": 1,
+            "ball_volume": 1.9999999999999998,
+            "sphere_area": 2.0,
+            "sphere": "S^0"
+          },
+          {
+            "dim": 2,
+            "ball_volume": 3.141592653589793,
+            "sphere_area": 6.283185307179586,
+            "sphere": "S^1"
+          },
+          {
+            "dim": 3,
+            "ball_volume": 4.1887902047863905,
+            "sphere_area": 12.566370614359172,
+            "sphere": "S^2"
+          },
+          {
+            "dim": 4,
+            "ball_volume": 4.934802200544679,
+            "sphere_area": 19.739208802178716,
+            "sphere": "S^3"
+          },
+          {
+            "dim": 5,
+            "ball_volume": 5.263789013914325,
+            "sphere_area": 26.31894506957162,
+            "sphere": "S^4"
+          },
+          {
+            "dim": 6,
+            "ball_volume": 5.167712780049969,
+            "sphere_area": 31.006276680299816,
+            "sphere": "S^5"
+          },
+          {
+            "dim": 7,
+            "ball_volume": 4.7247659703314016,
+            "sphere_area": 33.07336179231981,
+            "sphere": "S^6"
+          },
+          {
+            "dim": 8,
+            "ball_volume": 4.058712126416768,
+            "sphere_area": 32.46969701133414,
+            "sphere": "S^7"
+          },
+          {
+            "dim": 9,
+            "ball_volume": 3.2985089027387064,
+            "sphere_area": 29.686580124648366,
+            "sphere": "S^8"
+          },
+          {
+            "dim": 10,
+            "ball_volume": 2.550164039877345,
+            "sphere_area": 25.50164039877345,
+            "sphere": "S^9"
+          },
+          {
+            "dim": 11,
+            "ball_volume": 1.8841038793898994,
+            "sphere_area": 20.725142673288897,
+            "sphere": "S^10"
+          },
+          {
+            "dim": 12,
+            "ball_volume": 1.3352627688545893,
+            "sphere_area": 16.023153226255072,
+            "sphere": "S^11"
+          }
+        ],
+        "radius_scan": [
+          {
+            "radius": 0.5,
+            "ball_peak_dim": 1,
+            "sphere_peak_dim": 2,
+            "ball_tied_dims": [
+              1
+            ],
+            "sphere_tied_dims": [
+              2,
+              3
+            ],
+            "hit_the_search_ceiling": false
+          },
+          {
+            "radius": 1.0,
+            "ball_peak_dim": 5,
+            "sphere_peak_dim": 7,
+            "ball_tied_dims": [
+              5
+            ],
+            "sphere_tied_dims": [
+              7
+            ],
+            "hit_the_search_ceiling": false
+          },
+          {
+            "radius": 2.0,
+            "ball_peak_dim": 24,
+            "sphere_peak_dim": 26,
+            "ball_tied_dims": [
+              24
+            ],
+            "sphere_tied_dims": [
+              26
+            ],
+            "hit_the_search_ceiling": false
+          },
+          {
+            "radius": 4.0,
+            "ball_peak_dim": 100,
+            "sphere_peak_dim": 102,
+            "ball_tied_dims": [
+              100
+            ],
+            "sphere_tied_dims": [
+              102
+            ],
+            "hit_the_search_ceiling": false
+          }
+        ],
+        "ball_peaks_at": 5,
+        "sphere_peaks_at": 7,
+        "the_peaking_sphere_is": "S^6 in R^7",
+        "the_ball_peaks_at_five": true,
+        "the_sphere_peaks_two_later": true,
+        "the_unit_peaks_are_unique": true,
+        "the_peak_moves_with_the_unit": true,
+        "no_peak_is_at_the_search_ceiling": true,
+        "ties_are_reported_not_resolved": "at R = 1/2 the sphere measure is exactly tied between d = 2 and d = 3, since 2 pi R = 4 pi R^2 there; a bare max picks a side by floating-point accident",
+        "why": "V_d and A_{d-1} carry different units at different d, so comparing them across d implicitly chooses a length scale",
+        "so_the_familiar_claim_is": "about the UNIT ball, and is not a dimension-invariant fact"
+      },
+      "pass": true
+    },
+    {
+      "id": "T1",
+      "name": "*** almost all of a sphere is at the equator ***",
+      "detail": {
+        "rows": [
+          {
+            "sphere_dim": 2,
+            "mean_chi": 1.5707963267948966,
+            "std_chi": 0.683667390089903,
+            "std_times_sqrt_n": 0.9668516952173581,
+            "mass_within_one_over_sqrt_n": 0.6496369390800624
+          },
+          {
+            "sphere_dim": 3,
+            "mean_chi": 1.5707963267948966,
+            "std_chi": 0.5678618083866119,
+            "std_times_sqrt_n": 0.9835655038035542,
+            "mass_within_one_over_sqrt_n": 0.658702361150717
+          },
+          {
+            "sphere_dim": 4,
+            "mean_chi": 1.5707963267948968,
+            "std_chi": 0.49515540797826035,
+            "std_times_sqrt_n": 0.9903108159565207,
+            "mass_within_one_over_sqrt_n": 0.6640406042552354
+          },
+          {
+            "sphere_dim": 7,
+            "mean_chi": 1.5707963267948966,
+            "std_chi": 0.3767113986443172,
+            "std_times_sqrt_n": 0.9966846768561779,
+            "mass_within_one_over_sqrt_n": 0.67160668645567
+          },
+          {
+            "sphere_dim": 15,
+            "mean_chi": 1.5707963267948966,
+            "std_chi": 0.2580087350207657,
+            "std_times_sqrt_n": 0.9992635339114679,
+            "mass_within_one_over_sqrt_n": 0.6773986714299086
+          },
+          {
+            "sphere_dim": 50,
+            "mean_chi": 1.570796326794897,
+            "std_chi": 0.14141193310601993,
+            "std_times_sqrt_n": 0.9999333683996514,
+            "mass_within_one_over_sqrt_n": 0.6810835795161281
+          },
+          {
+            "sphere_dim": 200,
+            "mean_chi": 1.5707963267948972,
+            "std_chi": 0.07071038350052668,
+            "std_times_sqrt_n": 0.9999958334704756,
+            "mass_within_one_over_sqrt_n": 0.6822866481707464
+          },
+          {
+            "sphere_dim": 1000,
+            "mean_chi": 1.5707963267949183,
+            "std_chi": 0.03162277133122826,
+            "std_times_sqrt_n": 0.9999998333335621,
+            "mass_within_one_over_sqrt_n": 0.6826088527340497
+          }
+        ],
+        "law": "shell measure ~ sin^(n-1)(chi); chi = pi/2 + delta gives exp(-(n-1) delta^2 / 2), so the band width is ~1/sqrt(n)",
+        "the_mean_is_always_the_equator": true,
+        "std_times_sqrt_n_tends_to_one": true,
+        "the_band_narrows_as_one_over_sqrt_n": true,
+        "what_it_means": "almost every point is nearly 90 degrees from any chosen point -- concentrated, not scattered"
+      },
+      "pass": true
+    },
+    {
+      "id": "T2",
+      "name": "*** the antipode is a vanishing-measure relation ***",
+      "detail": {
+        "rows": [
+          {
+            "ambient_dim": 3,
+            "std_dot": 0.5766008249953168,
+            "std_dot_times_sqrt_n": 0.9987019245780193,
+            "mean_angle_over_pi": 0.4996111905567708,
+            "fraction_far_from_right_angle": 0.79973,
+            "fraction_near_antipodal": 0.00032
+          },
+          {
+            "ambient_dim": 4,
+            "std_dot": 0.49954119440332695,
+            "std_dot_times_sqrt_n": 0.9990823888066539,
+            "mean_angle_over_pi": 0.49985739117513567,
+            "fraction_far_from_right_angle": 0.747825,
+            "fraction_near_antipodal": 5e-06
+          },
+          {
+            "ambient_dim": 10,
+            "std_dot": 0.31729300895968865,
+            "std_dot_times_sqrt_n": 1.003368593960829,
+            "mean_angle_over_pi": 0.5004349633221594,
+            "fraction_far_from_right_angle": 0.560525,
+            "fraction_near_antipodal": 0.0
+          },
+          {
+            "ambient_dim": 50,
+            "std_dot": 0.14182541634721035,
+            "std_dot_times_sqrt_n": 1.0028571364371788,
+            "mean_angle_over_pi": 0.5000707413995349,
+            "fraction_far_from_right_angle": 0.1641,
+            "fraction_near_antipodal": 0.0
+          },
+          {
+            "ambient_dim": 500,
+            "std_dot": 0.044785050309332414,
+            "std_dot_times_sqrt_n": 1.0014241686741527,
+            "mean_angle_over_pi": 0.5000284442089176,
+            "fraction_far_from_right_angle": 1e-05,
+            "fraction_near_antipodal": 0.0
+          }
+        ],
+        "law": "x.y has mean 0 and width 1/sqrt(n), so alpha -> pi/2",
+        "std_scales_as_one_over_sqrt_n": true,
+        "the_mean_angle_is_a_right_angle": true,
+        "near_antipodal_fraction_collapses": true,
+        "so_the_antipodal_identification_is_non_generic": "it selects a vanishing-measure relation out of an enormous set of nearly orthogonal alternatives, and gets MORE non-generic as dimension rises",
+        "what_is_not_claimed": "that this makes the identification correct -- only that it is not the bland 'pair it with the far point' it can sound like"
+      },
+      "pass": true
+    },
+    {
+      "id": "T3",
+      "name": "point -> equatorial shell -> point",
+      "detail": {
+        "rows": [
+          {
+            "sphere_dim": 2,
+            "front_exponent": 1,
+            "peak_chi_over_pi": 0.5,
+            "measure_within_a_tenth_of_the_equator": 0.09983341664682824,
+            "front_at_quarter_turn_over_peak": 0.7071067811865476
+          },
+          {
+            "sphere_dim": 3,
+            "front_exponent": 2,
+            "peak_chi_over_pi": 0.5,
+            "measure_within_a_tenth_of_the_equator": 0.12690038931034403,
+            "front_at_quarter_turn_over_peak": 0.49999999999999983
+          },
+          {
+            "sphere_dim": 4,
+            "front_exponent": 3,
+            "peak_chi_over_pi": 0.5,
+            "measure_within_a_tenth_of_the_equator": 0.14925261956034927,
+            "front_at_quarter_turn_over_peak": 0.3535533905932737
+          },
+          {
+            "sphere_dim": 7,
+            "front_exponent": 6,
+            "peak_chi_over_pi": 0.5,
+            "measure_within_a_tenth_of_the_equator": 0.201697350527278,
+            "front_at_quarter_turn_over_peak": 0.12499999999999992
+          },
+          {
+            "sphere_dim": 15,
+            "front_exponent": 14,
+            "peak_chi_over_pi": 0.5,
+            "measure_within_a_tenth_of_the_equator": 0.29696380365707026,
+            "front_at_quarter_turn_over_peak": 0.0078124999999999905
+          }
+        ],
+        "law": "front measure = |S^(n-1)| (R sin chi)^(n-1)",
+        "the_peak_is_always_the_equator": true,
+        "the_poles_vanish": true,
+        "the_middle_dominates_more_with_dimension": true,
+        "the_contrast_the_model_turns_on": "almost all propagation measure is equatorial, yet the whole radial congruence reconverges at one antipodal locus"
+      },
+      "pass": true
+    },
+    {
+      "id": "T4",
+      "name": "the bearing as the blown-up direction space",
+      "detail": {
+        "rows": [
+          {
+            "angular_dim": 1,
+            "neck": 0.01,
+            "unit_direction_space_measure": 6.283185307179586,
+            "bearing_measure": 0.06283185307179587,
+            "fraction_of_unit_scale": 0.01
+          },
+          {
+            "angular_dim": 1,
+            "neck": 0.001,
+            "unit_direction_space_measure": 6.283185307179586,
+            "bearing_measure": 0.006283185307179587,
+            "fraction_of_unit_scale": 0.001
+          },
+          {
+            "angular_dim": 2,
+            "neck": 0.01,
+            "unit_direction_space_measure": 12.566370614359172,
+            "bearing_measure": 0.0012566370614359172,
+            "fraction_of_unit_scale": 0.0001
+          },
+          {
+            "angular_dim": 2,
+            "neck": 0.001,
+            "unit_direction_space_measure": 12.566370614359172,
+            "bearing_measure": 1.2566370614359172e-05,
+            "fraction_of_unit_scale": 1e-06
+          },
+          {
+            "angular_dim": 3,
+            "neck": 0.01,
+            "unit_direction_space_measure": 19.739208802178716,
+            "bearing_measure": 1.9739208802178718e-05,
+            "fraction_of_unit_scale": 1.0000000000000002e-06
+          },
+          {
+            "angular_dim": 3,
+            "neck": 0.001,
+            "unit_direction_space_measure": 19.739208802178716,
+            "bearing_measure": 1.9739208802178717e-08,
+            "fraction_of_unit_scale": 1e-09
+          },
+          {
+            "angular_dim": 4,
+            "neck": 0.01,
+            "unit_direction_space_measure": 26.31894506957162,
+            "bearing_measure": 2.631894506957162e-07,
+            "fraction_of_unit_scale": 1e-08
+          },
+          {
+            "angular_dim": 4,
+            "neck": 0.001,
+            "unit_direction_space_measure": 26.31894506957162,
+            "bearing_measure": 2.6318945069571623e-11,
+            "fraction_of_unit_scale": 1.0000000000000002e-12
+          }
+        ],
+        "the_centre_is_unique": "|O - X| = R for every surface point, and O is the unique fixed point of SO(n+1)",
+        "what_the_origin_loses": "an entire S^n of directions collapses to one invariant point",
+        "what_the_bearing_restores": "that direction space at finite size, with measure f0^n |S^n|",
+        "every_bearing_measure_is_positive": true,
+        "and_shrinks_faster_in_higher_dimension": true,
+        "this_is_an_interpretation_not_a_result": "PR #268's bearing stands on its own geometry; this section only says what the construction can be read as doing, and nothing in regularized_center depends on it"
+      },
+      "pass": true
+    },
+    {
+      "id": "T5",
+      "name": "*** the collapse is f^n, not f ***",
+      "detail": {
+        "rows": [
+          {
+            "squeeze": 0.1,
+            "n_1": 0.1,
+            "n_2": 0.010000000000000002,
+            "n_3": 0.0010000000000000002,
+            "n_4": 0.00010000000000000002
+          },
+          {
+            "squeeze": 0.01,
+            "n_1": 0.01,
+            "n_2": 0.0001,
+            "n_3": 1.0000000000000002e-06,
+            "n_4": 1e-08
+          },
+          {
+            "squeeze": 0.001,
+            "n_1": 0.001,
+            "n_2": 1e-06,
+            "n_3": 1e-09,
+            "n_4": 1.0000000000000002e-12
+          }
+        ],
+        "law": "transverse measure of an angular patch = f^n dOmega_n, so a squeeze from F to f0 costs (f0/F)^n",
+        "the_angular_footprint_is_untouched": true,
+        "the_drawn_2d_length_understates_it": true,
+        "understatement_factor_at_n_three": 1000000.0,
+        "the_collapse_steepens_with_dimension": true,
+        "what_the_picture_is_of": "not two ribbons squeezing together, but a vast angular configuration space packed into an extremely small proper region",
+        "the_yes_no_criterion_is_unaffected": "whether two fronts meet was always an angular question, and stays one"
+      },
+      "pass": true
+    },
+    {
+      "id": "T6",
+      "name": "*** orientability flips with parity; two quotients ***",
+      "detail": {
+        "rows": [
+          {
+            "spatial_dim": 2,
+            "spatial_quotient": "RP^2",
+            "spatial_orientable": false,
+            "exchange_quotient": "RP^1",
+            "exchange_orientable": true,
+            "exchange_pi1": "Z (braid)",
+            "opposite_parity": true
+          },
+          {
+            "spatial_dim": 3,
+            "spatial_quotient": "RP^3",
+            "spatial_orientable": true,
+            "exchange_quotient": "RP^2",
+            "exchange_orientable": false,
+            "exchange_pi1": "Z_2",
+            "opposite_parity": true
+          },
+          {
+            "spatial_dim": 4,
+            "spatial_quotient": "RP^4",
+            "spatial_orientable": false,
+            "exchange_quotient": "RP^3",
+            "exchange_orientable": true,
+            "exchange_pi1": "Z_2",
+            "opposite_parity": true
+          },
+          {
+            "spatial_dim": 5,
+            "spatial_quotient": "RP^5",
+            "spatial_orientable": true,
+            "exchange_quotient": "RP^4",
+            "exchange_orientable": false,
+            "exchange_pi1": "Z_2",
+            "opposite_parity": true
+          },
+          {
+            "spatial_dim": 6,
+            "spatial_quotient": "RP^6",
+            "spatial_orientable": false,
+            "exchange_quotient": "RP^5",
+            "exchange_orientable": true,
+            "exchange_pi1": "Z_2",
+            "opposite_parity": true
+          }
+        ],
+        "determinants": [
+          {
+            "n": 1,
+            "det_minus_identity": 1.0,
+            "orientable": true
+          },
+          {
+            "n": 2,
+            "det_minus_identity": -1.0,
+            "orientable": false
+          },
+          {
+            "n": 3,
+            "det_minus_identity": 1.0,
+            "orientable": true
+          },
+          {
+            "n": 4,
+            "det_minus_identity": -1.0,
+            "orientable": false
+          },
+          {
+            "n": 5,
+            "det_minus_identity": 1.0,
+            "orientable": true
+          },
+          {
+            "n": 6,
+            "det_minus_identity": -1.0,
+            "orientable": false
+          },
+          {
+            "n": 7,
+            "det_minus_identity": 1.0,
+            "orientable": true
+          }
+        ],
+        "why": "the antipodal map is the restriction of -I on R^(n+1), so the orientation factor is det(-I) = (-1)^(n+1)",
+        "orientable_iff_odd": true,
+        "the_two_quotients_are_always_opposite": true,
+        "at_the_repos_dimension": {
+          "spatial": "RP^3 orientable",
+          "exchange": "RP^2 NON-orientable -- this is where the Pin- structure lives"
+        },
+        "raising_the_dimension_swaps_them": true,
+        "it_is_parity_not_size": true,
+        "what_is_not_claimed": "that the model should move dimension -- this says what would have to be re-derived if it did, nothing more"
+      },
+      "pass": true
+    },
+    {
+      "id": "T7",
+      "name": "S^3 is not a generic sphere",
+      "detail": {
+        "identifications": [
+          "S^3 = SU(2) = the unit quaternions",
+          "Hopf fibration S^1 -> S^3 -> S^2",
+          "parallelizable (only S^1, S^3, S^7 are)"
+        ],
+        "frame_orthonormality_error": 6.661338147750939e-16,
+        "smallest_frame_vector_norm": 0.9999999999999997,
+        "the_frame_is_global_and_nowhere_zero": true,
+        "hopf_image_on_the_sphere_error": 7.771561172376096e-16,
+        "hopf_fibre_error": 7.771561172376096e-16,
+        "median_distance_moved_along_a_fibre": 1.407661936163088,
+        "the_fibre_is_a_circle_not_a_point": true,
+        "s2_has_no_such_frame": "the hairy-ball theorem: S^2 admits no nowhere-zero tangent vector field",
+        "so_nothing_here_extrapolates_smoothly": "dimensions do not simply add room; S^1, S^3 and S^7 carry division-algebra structure that their neighbours do not, and this repository is built on one of them"
+      },
+      "pass": true
+    },
+    {
+      "id": "T8",
+      "name": "*** which n is physical depends on which object ***",
+      "detail": {
+        "rows": [
+          {
+            "object": "the drawn 2-D cross-section",
+            "cross_section": "S^1",
+            "angular_dim": 1,
+            "patch_measure": 0.001,
+            "understatement_vs_the_drawing": 1.0,
+            "note": "the picture's own l ~ f"
+          },
+          {
+            "object": "PR #265 spatial throat (3-D slice)",
+            "cross_section": "S^2",
+            "angular_dim": 2,
+            "patch_measure": 1e-06,
+            "understatement_vs_the_drawing": 1000.0000000000001,
+            "note": "transverse area 4 pi f^2; monopole weight f^2"
+          },
+          {
+            "object": "bearing in a 4-spatial-D embedding",
+            "cross_section": "S^3",
+            "angular_dim": 3,
+            "patch_measure": 1e-09,
+            "understatement_vs_the_drawing": 1000000.0,
+            "note": "direction space S^3 -- where the millionfold figure lives"
+          },
+          {
+            "object": "bearing in a 5-spatial-D embedding",
+            "cross_section": "S^4",
+            "angular_dim": 4,
+            "patch_measure": 1.0000000000000002e-12,
+            "understatement_vs_the_drawing": 999999999.9999999,
+            "note": ""
+          }
+        ],
+        "squeeze": 0.001,
+        "the_rule": "n is the dimension of the ANGULAR CROSS-SECTION of the object being represented -- not a single number shared by every throat quantity in the repository",
+        "physical_throat_is_n_equals_two": true,
+        "physical_throat_neck_area": 1.9585923926805586e-07,
+        "four_pi_f0_squared": 1.9585923926805586e-07,
+        "the_throats_own_understatement": 1000.0000000000001,
+        "the_millionfold_figure_belongs_to": "bearing in a 4-spatial-D embedding",
+        "the_million_is_not_the_throats": true,
+        "why_it_matters": "without this the same f^n law migrates between objects that do not share an n, and a figure derived for one gets quoted for another"
+      },
+      "pass": true
+    },
+    {
+      "id": "T9",
+      "name": "the finite centre is a routing manifold, not a hub",
+      "detail": {
+        "rows": [
+          {
+            "sphere_dim": 1,
+            "unit_measure": 6.283185307179586,
+            "capacity_at_60_deg": 3.0,
+            "capacity_at_20_deg": 9.0,
+            "proper_measure_at_neck_1e_3": 0.006283185307179587
+          },
+          {
+            "sphere_dim": 2,
+            "unit_measure": 12.566370614359172,
+            "capacity_at_60_deg": 4.000000000000001,
+            "capacity_at_20_deg": 33.163437477526365,
+            "proper_measure_at_neck_1e_3": 1.2566370614359172e-05
+          },
+          {
+            "sphere_dim": 3,
+            "unit_measure": 19.739208802178716,
+            "capacity_at_60_deg": 5.115060485695699,
+            "capacity_at_20_deg": 113.52946956082377,
+            "proper_measure_at_neck_1e_3": 1.9739208802178717e-08
+          },
+          {
+            "sphere_dim": 4,
+            "unit_measure": 26.31894506957162,
+            "capacity_at_60_deg": 6.400000000000001,
+            "capacity_at_20_deg": 374.12536860121503,
+            "proper_measure_at_neck_1e_3": 2.6318945069571623e-11
+          },
+          {
+            "sphere_dim": 6,
+            "unit_measure": 33.07336179231981,
+            "capacity_at_60_deg": 9.66037735849057,
+            "capacity_at_20_deg": 3817.965654605729,
+            "proper_measure_at_neck_1e_3": 3.307336179231981e-17
+          },
+          {
+            "sphere_dim": 10,
+            "unit_measure": 20.725142673288897,
+            "capacity_at_60_deg": 20.43848432870733,
+            "capacity_at_20_deg": 352441.68449838023,
+            "proper_measure_at_neck_1e_3": 2.0725142673288903e-29
+          },
+          {
+            "sphere_dim": 20,
+            "unit_measure": 0.29293215858944094,
+            "capacity_at_60_deg": 112.31816568524965,
+            "capacity_at_20_deg": 22364748913.810097,
+            "proper_measure_at_neck_1e_3": 2.9293215858944107e-61
+          }
+        ],
+        "near_orthogonal_families": [
+          {
+            "ambient_dim": 3,
+            "max_pairwise_cos_of_64": 0.9998453757448127,
+            "max_pairwise_cos_of_1024": 0.9999982790223756
+          },
+          {
+            "ambient_dim": 10,
+            "max_pairwise_cos_of_64": 0.8627762634463247,
+            "max_pairwise_cos_of_1024": 0.9676118342406408
+          },
+          {
+            "ambient_dim": 50,
+            "max_pairwise_cos_of_64": 0.5365725339483016,
+            "max_pairwise_cos_of_1024": 0.6767544252692824
+          },
+          {
+            "ambient_dim": 200,
+            "max_pairwise_cos_of_64": 0.23972944302287638,
+            "max_pairwise_cos_of_1024": 0.33814313522254
+          },
+          {
+            "ambient_dim": 1000,
+            "max_pairwise_cos_of_64": 0.13410252055917316,
+            "max_pairwise_cos_of_1024": 0.14421487652072534
+          }
+        ],
+        "capacity_is_dimensionless": "f0 does not appear in direction_capacity at all",
+        "proper_measure_vanishes": "f0^n |S^n| -> 0",
+        "capacity_grows_exponentially": true,
+        "neck_scan": [
+          {
+            "neck": 0.1,
+            "sphere_dim": 3,
+            "proper_measure": 0.01973920880217872,
+            "capacity_at_20_deg": 113.52946956082377
+          },
+          {
+            "neck": 0.0001,
+            "sphere_dim": 3,
+            "proper_measure": 1.973920880217872e-11,
+            "capacity_at_20_deg": 113.52946956082377
+          },
+          {
+            "neck": 1e-07,
+            "sphere_dim": 3,
+            "proper_measure": 1.9739208802178716e-20,
+            "capacity_at_20_deg": 113.52946956082377
+          }
+        ],
+        "capacity_does_not_involve_the_neck": true,
+        "proper_measure_spans_decades_meanwhile": true,
+        "capacity_at_20_deg_on_s3": 113.52946956082377,
+        "capacity_at_20_deg_on_s20": 22364748913.810097,
+        "a_thousand_directions_stay_near_orthogonal": true,
+        "the_reading": "a compressed routing manifold with its angular structure intact -- not a hub where things crowd together; the routing capacity is the same at any f0",
+        "and_the_antipodal_map": "picks exactly one continuation out of that enormous near-orthogonal capacity, which is section 2's non-genericity seen from the bearing"
+      },
+      "pass": true
+    },
+    {
+      "id": "T10",
+      "name": "*** the limit separates incidence from measure ***",
+      "detail": {
+        "rows": [
+          {
+            "neck": 0.1,
+            "angular_separation": 0.3,
+            "overlap_angle": 0.22500000000000003,
+            "they_meet": true,
+            "proper_overlap_n_1": 0.022500000000000006,
+            "proper_overlap_n_2": 0.0005062500000000003,
+            "proper_overlap_n_3": 1.1390625000000008e-05
+          },
+          {
+            "neck": 0.01,
+            "angular_separation": 0.3,
+            "overlap_angle": 0.22500000000000003,
+            "they_meet": true,
+            "proper_overlap_n_1": 0.0022500000000000003,
+            "proper_overlap_n_2": 5.062500000000002e-06,
+            "proper_overlap_n_3": 1.1390625000000007e-08
+          },
+          {
+            "neck": 0.001,
+            "angular_separation": 0.3,
+            "overlap_angle": 0.22500000000000003,
+            "they_meet": true,
+            "proper_overlap_n_1": 0.00022500000000000005,
+            "proper_overlap_n_2": 5.062500000000002e-08,
+            "proper_overlap_n_3": 1.1390625000000006e-11
+          },
+          {
+            "neck": 1e-06,
+            "angular_separation": 0.3,
+            "overlap_angle": 0.22500000000000003,
+            "they_meet": true,
+            "proper_overlap_n_1": 2.2500000000000002e-07,
+            "proper_overlap_n_2": 5.062500000000002e-14,
+            "proper_overlap_n_3": 1.1390625000000003e-20
+          },
+          {
+            "neck": 1e-09,
+            "angular_separation": 0.3,
+            "overlap_angle": 0.22500000000000003,
+            "they_meet": true,
+            "proper_overlap_n_1": 2.2500000000000005e-10,
+            "proper_overlap_n_2": 5.062500000000002e-20,
+            "proper_overlap_n_3": 1.1390625000000007e-29
+          }
+        ],
+        "angular_incidence_survives": true,
+        "the_overlap_verdict_survives": true,
+        "the_proper_measure_vanishes": true,
+        "the_three_things": [
+          "angular incidence: survives",
+          "overlap verdict: survives",
+          "proper interaction measure: -> 0 as f0^n"
+        ],
+        "so_the_origin_is": "an entire finite direction space compressed to ZERO PROPER MEASURE with its angular structure intact -- not a place where every direction becomes equivalent",
+        "what_the_first_reading_got_wrong": "treating the limit as merging the routes; it merges their sizes, not their labels"
+      },
+      "pass": true
+    }
+  ],
+  "passed": 11,
+  "total": 11
+}

@@ -1362,7 +1362,67 @@ choose between the three candidate bulks. It works the finite bearing out far
 enough to be compared with the other two, which is what it now has that they do
 not: a measured hinge cost.
 
-## 27. What the arc cost in errors, and what caught them
+## 27. What higher dimension does to the picture (`docs/hyperspherical.md`)
+
+§26 left the finite bearing with a measured hinge cost and a `f^q` scoping that
+review had forced on the overlap *size* law. Following that scoping to its
+conclusion changes what the picture is a picture of.
+
+**The collapse is `fⁿ`, not `f`.** The transverse measure of an angular patch in
+`ds² + f²dΩ_n²` is `fⁿdΩ_n`, so a squeeze of `1e-03` costs `1e-03` on a circle,
+`1e-06` on `S²`, `1e-09` on `S³`. So: *the angular overlap can stay finite while
+the physical overlap collapses as `f₀ⁿ`* — not two thick ribbons squeezing until
+they touch, but **large angular structure → tiny proper measure → large angular
+structure**, with the angular labels intact throughout. The yes/no criterion is
+untouched; it was always angular. Which has a practical consequence for the
+drawing: two fronts with finite angular overlap `ΔΩ` keep it constant all the way
+down while `V_overlap ∝ f(s)ⁿ`, so the picture need not force a dramatic
+macroscopic crossing — the intersection is real in the topology of the coordinate
+mapping and extraordinarily small in proper measure.
+
+**And which `n` is physical depends on which object is drawn** — `n` is the
+dimension of that object's own transverse sphere, which is a fact about the
+object, not a modelling choice. PR #265's spatial throat has an `S²`
+cross-section: `n = 2`, its neck area the measured `4πf₀²`, its understatement
+against the 2-D drawing a **thousand**. The `S³` that gives the *millionfold*
+figure is a bearing in a four-spatial-dimensional embedding, a different object.
+Kept explicit because otherwise the same `f^n` law migrates between objects that
+do not share an `n`, and a figure derived for one gets quoted for the other.
+
+**The finite centre is a routing manifold, not a hub.** Directional capacity is
+**dimensionless** — `f₀` never enters it. At `20°` an `S³` bearing distinguishes
+`113.5` directions and an `S²⁰` one `2.2e+10`, and a neck scan over six decades
+returns the *identical float* while the proper measure runs `1.974e-02 →
+1.974e-20`. So the singular centre is not obtained because every direction
+becomes equivalent there; it is obtained because an entire finite direction space
+is compressed to zero proper measure with its angular structure intact. The
+`f₀ → 0` limit separates three things that had been run together: **angular
+incidence survives, the overlap verdict survives, only the proper interaction
+measure collapses**. It merges the routes' sizes, not their labels.
+
+**Almost all of a sphere is at the equator of any chosen point** — the shell
+measure `sin^{n−1}χ` has band width `1/√n`, measured as `std(χ)·√n → 1.000000`.
+**So the antipodal relation is vanishingly non-generic:** random directions pile
+up at `π/2`, and the near-antipodal fraction runs `3.2e-04` on `S²` to zero by
+`n = 10`. The identification picks a measure-zero relation out of an
+overwhelmingly generic alternative — which removes a bland reading of it without
+making it correct.
+
+**Orientability flips with parity, and the two quotients this arc uses are
+always opposite.** `ℝP^n` is orientable iff `n` is odd. The spatial quotient
+`ℝP^d` and the two-body exchange space `ℝP^{d−1}` are one apart, so at `d = 3`
+the spatial `ℝP³` is orientable while the exchange `ℝP²` — where §7's Pin⁻
+structure lives — is not. Raising the spatial dimension swaps them.
+
+**And `S³` is exceptional** (`SU(2)`, parallelizable, Hopf), which is a standing
+argument against reading any of this as a trend.
+
+**Scope.** Measure, orientation and frames only; no field equation, nothing
+evolving. The reading of the bearing as the blown-up embedding-centre direction
+space is marked as an interpretation. And the parity section says what would
+have to be re-derived *if* the dimension moved, not that it should.
+
+## 28. What the arc cost in errors, and what caught them
 
 Worth recording, because the failure modes repeat:
 
@@ -1889,6 +1949,31 @@ Worth recording, because the failure modes repeat:
   quantities computed in adjacent lines, and the smaller was quoted for the
   larger. It propagated to six files before review caught it.
 
+* **A maximiser reported at the edge of its own search range.** §27's first
+  scan of where the ball volume peaks looked over `d < 80` and reported `79` for
+  `R = 4`. That is not a peak, it is a range: widened, the answer is `100`. The
+  same species as the `argmax`-on-an-all-false-mask entry above — **a maximiser
+  that returns its own boundary looks exactly like an answer** — and the scan
+  now flags any peak that touches the ceiling.
+* **And a tie resolved by floating point.** In the same scan the sphere measure
+  at `R = ½` is *exactly* tied between `d = 2` and `d = 3`, since `2πR = 4πR²`
+  there. A bare `max` picked a side, and the side it picked *changed* when the
+  computation moved into log space — which is how it was noticed. Third
+  appearance of the maximiser-degeneracy failure mode in this arc, after the
+  even-`n` harmonic peak and the `argmax` mask. Ties are now reported rather
+  than resolved.
+* **An exponent quoted without its object.** §27's headline "the 2-D drawing
+  understates it by a million" reached three files — the doc, the README and the
+  renderer — with no statement of *which object* has `n = 3`. The number is
+  right for an `S³` bearing and wrong by three decades for the `S²` throat of
+  PR #265, which is the object the rest of the repository means by "throat".
+  Nothing numerical was wrong; a law was stated without the scope that makes it
+  a law about anything. **A dimensionless exponent will migrate between objects
+  unless each statement of it names the object it belongs to** — the catalogue
+  is now measured (`measure_which_n_is_physical_for_which_object`, checked
+  against `physical_throat`'s own `4πf₀²` neck area) and a test fails if any
+  file quotes the figure without naming the object within six lines.
+
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
 an independent construction — a closed form against brute
@@ -1910,7 +1995,7 @@ the number was a condition for, which limit the scaling described, what the rank
 counted, and what the model was called. No amount of numerical care reaches any
 of that. What reached it was being asked to name the object precisely.
 
-## 28. What is imported rather than derived
+## 29. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -1954,7 +2039,7 @@ of that. What reached it was being asked to name the object precisely.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 29. What would come next
+## 30. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:
