@@ -3822,6 +3822,22 @@ PR #270 found — while doing something else — that `tangherlini.radial.V_tang
 was not the master potential of a minimally coupled massless scalar, and reported
 it without changing anything. This round makes the correction and **prices** it.
 
+**The result, first.** Correcting the operator leaves the radial spectrum and the
+cross-`ℓ` structure nearly intact, but **removes the numerical support for the
+claim that the canonical `R_OUTER = 1.26` geometry generates the locked lepton
+pinhole `γ = 22.5`.** Eigenvalues move at `10⁻³`; the cross-`ℓ` operator is
+unchanged to `3.6e-15`. What moves is the barrier sum — and the lepton chain is
+far more sensitive to it than had been measured: `d ln m_μ / d ln γ = −16.6`, so
+a half-percent error in `γ` is an eight-percent error in the muon. Under the
+legacy operator the canonical geometry nearly produced the lock (`22.453` at
+`R = 1.26`, `0.21%` away, masses within `3.8%`); under the corrected operator
+**no channel set at `R = 1.26` lands near `22.5`** — `22.331` or `22.836` — and
+both damage the ladder at the `15–21%` level. The locked Hamiltonian never sees
+`R_OUTER` or the channel set (`del l, n_points, rs, r_outer`), only `γ`, so
+enforcing `γ = 22.5` makes alternative geometric roots **observationally
+indistinguishable**. *`γ = 22.5` remains required by the locked model; its
+claimed derivation from the canonical radial barrier geometry is reopened.*
+
 For `ds² = −A dt² + A⁻¹dr² + r²dΩ_n²` with `ψ = r^{n/2}R`, the unique
 first-derivative-free Schrödinger form carries
 

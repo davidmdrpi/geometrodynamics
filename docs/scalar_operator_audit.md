@@ -16,6 +16,39 @@ regressions and expected scientific changes.
 
 This round makes the correction, and prices it.
 
+## The result, first
+
+**Correcting the operator leaves the radial spectrum and the cross-`ℓ` structure
+nearly intact, but removes the numerical support for the claim that the canonical
+`R_OUTER = 1.26` Tangherlini geometry generates the locked lepton pinhole
+`γ = 22.5`.**
+
+The eigenvalues move at the `10⁻³` level and the cross-`ℓ` operator is unchanged
+to `3.6e-15`. What moves is the barrier sum — and the lepton chain turns out to
+be far more sensitive to it than anyone had measured:
+
+    d ln m_μ / d ln γ  =  −16.6
+
+so a half-percent error in `γ` is an eight-percent error in the muon. `γ = 22.5`
+was reported for years as a `−2.2%` or `−0.21%` near-equality, which reads like a
+rounding detail. At that elasticity it is the most sensitive input in the chain.
+
+Under the legacy operator the canonical geometry *did* nearly produce the lock:
+`γ[0..5] = 22.453` at `R = 1.26`, `0.21%` away, masses within `3.8%`. Under the
+corrected operator **no channel set at `R = 1.26` lands near `22.5`** — `22.331`
+(`−0.75%`) or `22.836` (`+1.50%`) — and both damage the ladder at the `15–21%`
+level.
+
+And the locked lepton Hamiltonian **does not see `R_OUTER` or the channel set at
+all**; it consumes the geometry only through the scalar `γ`
+(`compute_knotted_lepton_spectrum` does `del l, n_points, rs, r_outer`).
+Enforcing `γ = 22.5` therefore makes alternative geometric roots
+**observationally indistinguishable** within the current model — §4 shows two
+different geometries giving bit-identical masses.
+
+> **`γ = 22.5` remains required by the locked lepton model. Its claimed
+> derivation from the canonical radial barrier geometry is reopened.**
+
 ## 0 · the correction
 
 For `ds² = −A dt² + A⁻¹dr² + r²dΩ_n²` a minimally coupled massless scalar

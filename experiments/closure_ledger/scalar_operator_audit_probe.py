@@ -20,6 +20,39 @@ At n = 3 that is A[(l(l+2) + 3/4)/r^2 + (9/4) r_h^2/r^4], so
 
     V_scalar - V_legacy = 3 A^2 / (4 r^2) .
 
+THE RESULT, FIRST
+─────────────────
+Correcting the operator leaves the radial spectrum and the cross-l structure
+nearly intact, but REMOVES THE NUMERICAL SUPPORT for the claim that the
+canonical R_OUTER = 1.26 Tangherlini geometry generates the locked lepton
+pinhole gamma = 22.5.
+
+The eigenvalues move at the 1e-3 level; the cross-l operator is unchanged to
+3.6e-15. What moves is the barrier sum -- and the lepton chain is far more
+sensitive to it than had ever been measured:
+
+    d ln m_mu / d ln gamma  =  -16.6
+
+so a half-percent error in gamma is an eight-percent error in the muon. The
+gamma residual was reported for years as a -2.2% or -0.21% near-equality, which
+reads like a rounding detail; at that elasticity it is the most sensitive input
+in the chain.
+
+Under the legacy operator the canonical geometry nearly produced the lock:
+gamma[0..5] = 22.453 at R = 1.26, 0.21% away, masses within 3.8%. Under the
+corrected operator NO channel set at R = 1.26 lands near 22.5 -- 22.331 (-0.75%)
+or 22.836 (+1.50%) -- and both damage the ladder at the 15-21% level.
+
+And the locked lepton Hamiltonian does not see R_OUTER or the channel set at
+all: compute_knotted_lepton_spectrum does `del l, n_points, rs, r_outer` and
+consumes the geometry ONLY through the scalar gamma. Enforcing gamma = 22.5
+therefore makes alternative geometric roots OBSERVATIONALLY INDISTINGUISHABLE
+within the current model (T7).
+
+    gamma = 22.5 remains REQUIRED by the locked lepton model.
+    Its claimed DERIVATION from the canonical radial barrier geometry
+    is REOPENED.
+
 THIS IS A BUG, NOT A CONVENTION. The old generic name implied the canonical
 scalar operator and the implementation was short of it by an l-independent
 term. PR #270 discovered, independently validated and ISOLATED it without
@@ -196,13 +229,7 @@ def run_probe() -> dict:
                     "claims are algebraically untouched, which keep their "
                     "meaning with different digits, and which no longer say "
                     "what they said?",
-        "answer": "the eigenvalues move at the 1e-3 level and less as l rises, "
-                  "and the cross-l operator is exactly invariant; but the "
-                  "barrier sums move enough that the two gamma statements in "
-                  "the tree swap places -- the canonical l = 1..5 claim "
-                  "improves threefold to -0.75% with nothing tuned, while the "
-                  "claim that the l = 0 channel closes the gap overshoots to "
-                  "+1.50% and is withdrawn",
+        "answer": "correcting the operator leaves the radial spectrum and the cross-l structure nearly intact, but removes the numerical support for the claim that the canonical R_OUTER = 1.26 geometry generates the locked pinhole gamma = 22.5: d ln m_mu / d ln gamma = -16.6, so the gamma residual reported for years as a -2.2% near-equality is the most sensitive input in the chain, and under the corrected operator NO channel set at R = 1.26 lands near 22.5. the locked lepton Hamiltonian sees only gamma -- not R_OUTER, not the channel set -- so enforcing gamma = 22.5 makes alternative geometric roots observationally indistinguishable. gamma = 22.5 remains required by the locked model; its derivation from the canonical barrier geometry is reopened",
         "headline": {
             "the_gap": gap["the_gap"],
             "omega_1_0": [eig["omega_1_0_legacy"], eig["omega_1_0_correct"]],
