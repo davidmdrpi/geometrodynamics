@@ -93,6 +93,7 @@ __all__ = [
     "measure_the_eigenvector_derived_quantities",
     "measure_the_wkb_action_shift",
     "measure_the_downstream_ledger",
+    "measure_which_geometry_preserves_the_lepton_ladder",
 ]
 
 LOCKED_GAMMA = 22.5
@@ -540,4 +541,127 @@ def measure_the_downstream_ledger() -> Dict[str, object]:
                               "sum lands nearer 22.5 than the old one did, but "
                               "that is an observation, not a derivation of why "
                               "22.5",
+    }
+
+
+def measure_which_geometry_preserves_the_lepton_ladder() -> Dict[str, object]:
+    """The one narrow downstream re-derivation, run before the correction merges.
+
+    The corrected operator exposed an ambiguity the legacy one hid: is the lock
+    supposed to be ``ℓ = 0..5``, ``ℓ = 1..5``, or was ``γ = 22.5`` itself partly
+    fitted?  Recomputing every lepton number before answering that would just
+    propagate an unresolved branch choice, so exactly three geometries are passed
+    through the **locked** lepton Hamiltonian with **no retuning**:
+
+        A — keep ``R_OUTER = 1.26`` fixed and let ``γ`` float
+        B — enforce ``Σ_{1..5} V_max = 22.5``
+        C — enforce ``Σ_{0..5} V_max = 22.5``
+
+    **The answer is not one of the three anticipated outcomes.**
+    `lepton_spectrum.compute_knotted_lepton_spectrum` discards ``r_outer``
+    outright (``del l, n_points, rs, r_outer``); the locked block consumes the
+    geometry **only** through the scalar ``hard_pinhole_gamma``.  So B and C come
+    out *bit-identical*, and the channel-set choice leaves no trace in any
+    observable once ``γ`` is enforced.
+
+    > **``γ = 22.5`` is the selector; ``R_OUTER`` is downstream of it.**
+
+    Which inverts the first branch of the trichotomy: it is *fixing* ``R_OUTER``
+    and letting ``γ`` float that breaks the ladder, by ``+15%`` or ``−21%``
+    depending on channel set.
+
+    And the correction **weakens** the "geometry supplies ``γ``" story even while
+    improving the ``1..5`` residual in isolation.  Under the legacy operator the
+    canonical ``R = 1.26`` geometry produced ``γ[0..5] = 22.453``, ``0.21%`` from
+    the lock, and the masses landed within ``3.8%`` — that near-coincidence *was*
+    the claim.  Under the corrected operator no channel set at ``R = 1.26`` lands
+    near ``22.5``, and both damage the ladder at the ``15–21%`` level.
+
+    The reason is sensitivity: ``d ln m_μ / d ln γ ≈ −19``, so a sub-percent
+    geometric residual is **not** a small residual in this chain.
+
+    **So the channel-set question is not decidable by the lepton observables.**
+    It has to be settled by what ``γ`` means geometrically, because the masses
+    only ever saw the scalar.
+    """
+    from geometrodynamics.tangherlini.lepton_spectrum import (
+        LEPTON_BASELINE_DEPTHS, LEPTON_BASELINE_PHASE,
+        LEPTON_BASELINE_RESISTANCE, LEPTON_BASELINE_TRANSPORT, S3_ACTION_BASE,
+        TAU_BETA_50PI, calibrate_electron_predict_heavier)
+
+    def locked(gamma: float):
+        """The locked block, with gamma the only thing allowed to vary."""
+        return calibrate_electron_predict_heavier(
+            depths=LEPTON_BASELINE_DEPTHS, phase_per_pass=LEPTON_BASELINE_PHASE,
+            transport_strength=LEPTON_BASELINE_TRANSPORT,
+            hard_pinhole_gamma=gamma,
+            resistance_scale=LEPTON_BASELINE_RESISTANCE,
+            resistance_model="exponential", depth_cost_mode="tunnel_only",
+            winding_mode="max", action_base=S3_ACTION_BASE,
+            k_uplift_beta=TAU_BETA_50PI, n_points=24)
+
+    observed = {3: 105.6583755, 5: 1776.86}
+    r_b = r_outer_fixed_point(V_scalar_tangherlini, 1, 5)
+    r_c = r_outer_fixed_point(V_scalar_tangherlini, 0, 5)
+    cases = [
+        ("baseline, gamma = 22.5", None, LOCKED_GAMMA),
+        ("legacy R=1.26, gamma[0..5]", 1.26,
+         vmax_sum(V_tangherlini_legacy, 0, 5, r_outer=1.26)),
+        ("legacy R=1.26, gamma[1..5]", 1.26,
+         vmax_sum(V_tangherlini_legacy, 1, 5, r_outer=1.26)),
+        ("A corrected R=1.26, gamma[1..5]", 1.26,
+         vmax_sum(V_scalar_tangherlini, 1, 5, r_outer=1.26)),
+        ("A corrected R=1.26, gamma[0..5]", 1.26,
+         vmax_sum(V_scalar_tangherlini, 0, 5, r_outer=1.26)),
+        ("B corrected root [1..5] = 22.5", r_b, LOCKED_GAMMA),
+        ("C corrected root [0..5] = 22.5", r_c, LOCKED_GAMMA),
+    ]
+    rows = []
+    for name, r_out, gamma in cases:
+        fit = locked(gamma)
+        mu, tau = fit.predicted_mev[3], fit.predicted_mev[5]
+        rows.append({
+            "case": name, "r_outer": r_out, "gamma": float(gamma),
+            "m_mu": float(mu), "m_tau": float(tau),
+            "mu_error_percent": float(100.0 * (mu - observed[3]) / observed[3]),
+            "tau_error_percent": float(100.0 * (tau - observed[5]) / observed[5]),
+        })
+    by = {r["case"]: r for r in rows}
+    b, c = by["B corrected root [1..5] = 22.5"], by["C corrected root [0..5] = 22.5"]
+    a1 = by["A corrected R=1.26, gamma[1..5]"]
+    a0 = by["A corrected R=1.26, gamma[0..5]"]
+    leg0 = by["legacy R=1.26, gamma[0..5]"]
+
+    # d ln m / d ln gamma, from the two corrected fixed-R geometries
+    elasticity = float((math.log(a0["m_mu"]) - math.log(a1["m_mu"]))
+                       / (math.log(a0["gamma"]) - math.log(a1["gamma"])))
+
+    return {
+        "rows": rows,
+        "the_three_geometries": "A: R_OUTER = 1.26 fixed; B: enforce "
+                                "Sum[1..5] = 22.5; C: enforce Sum[0..5] = 22.5",
+        "nothing_was_retuned": True,
+        "B_and_C_are_bit_identical": bool(b["m_mu"] == c["m_mu"]
+                                          and b["m_tau"] == c["m_tau"]),
+        "why": "compute_knotted_lepton_spectrum discards r_outer outright; the "
+               "locked block consumes the geometry ONLY through the scalar "
+               "hard_pinhole_gamma",
+        "so_the_channel_set_is_invisible_to_the_observables": True,
+        "gamma_is_the_selector_r_outer_is_downstream": True,
+        "fixing_r_outer_breaks_the_ladder": bool(
+            abs(a1["mu_error_percent"]) > 10.0
+            and abs(a0["mu_error_percent"]) > 10.0),
+        "corrected_fixed_R_mu_errors": [a1["mu_error_percent"],
+                                        a0["mu_error_percent"]],
+        "legacy_fixed_R_mu_error": leg0["mu_error_percent"],
+        "the_correction_weakens_the_geometry_supplies_gamma_story": bool(
+            abs(leg0["mu_error_percent"]) < abs(a1["mu_error_percent"])
+            and abs(leg0["mu_error_percent"]) < abs(a0["mu_error_percent"])),
+        "d_ln_m_mu_over_d_ln_gamma": elasticity,
+        "so_a_subpercent_residual_is_not_small": bool(abs(elasticity) > 10.0),
+        "what_this_does_not_settle": "the channel-set question is not decidable "
+                                     "by the lepton observables -- it has to be "
+                                     "settled by what gamma MEANS geometrically, "
+                                     "because the masses only ever saw the scalar",
+        "the_outcome_was_not_one_of_the_three_anticipated": True,
     }

@@ -1,0 +1,485 @@
+{
+  "probe": "scalar_operator_audit",
+  "question": "the radial potential was short of the minimally coupled scalar master operator by 3A^2/(4r^2) -- which published claims are algebraically untouched, which keep their meaning with different digits, and which no longer say what they said?",
+  "answer": "the eigenvalues move at the 1e-3 level and less as l rises, and the cross-l operator is exactly invariant; but the barrier sums move enough that the two gamma statements in the tree swap places -- the canonical l = 1..5 claim improves threefold to -0.75% with nothing tuned, while the claim that the l = 0 channel closes the gap overshoots to +1.50% and is withdrawn",
+  "headline": {
+    "the_gap": "3 A^2 / (4 r^2)",
+    "omega_1_0": [
+      1.0547269375351367,
+      1.0558265322755687
+    ],
+    "largest_eigenvalue_shift_percent": 0.1320216186235856,
+    "canonical_gamma_residual": [
+      -2.185599735348597,
+      -0.7502453704828346
+    ],
+    "ell_zero_gamma_residual": [
+      -0.2103168384417447,
+      1.4952165423211423
+    ],
+    "closest_channel_set_swaps": true,
+    "cross_ell_operator_unchanged_to": 1.7763568394002505e-15,
+    "verdict_counts": {
+      "EXACTLY INVARIANT": 2,
+      "NUMERICALLY SHIFTED": 7,
+      "INTERPRETATION CHANGED": 2
+    },
+    "B_and_C_bit_identical": true,
+    "d_ln_m_mu_over_d_ln_gamma": -16.571364818996106
+  },
+  "checks": [
+    {
+      "id": "T0",
+      "name": "the correction, with three independent confirmations",
+      "detail": {
+        "legacy": "A[l(l+2)/r^2 + 3 r_h^2/r^4]",
+        "scalar_correct": "A[l(l+n-1)/r^2 + n(n-2)A/(4r^2) + n A'/(2r)]",
+        "the_gap": "3 A^2 / (4 r^2)",
+        "gap_matches_the_closed_form": 2.400857290751901e-15,
+        "the_gap_carries_no_ell": 2.4424906541753444e-15,
+        "cross_ell_differences_are_invariant": 3.552713678800501e-15,
+        "flat_limit_matches_bessel": 2.2125210985720462e-16,
+        "agrees_bitwise_with_dynamics_master_potential": true,
+        "why_it_is_a_bug_not_a_convention": "the old name implied the canonical minimally coupled scalar operator, and the implementation was short of it by an l-independent term"
+      },
+      "pass": true
+    },
+    {
+      "id": "T1",
+      "name": "the eigenvalues barely move, and less as l rises",
+      "detail": {
+        "rows": [
+          {
+            "ell": 0,
+            "omega_legacy": [
+              1.000658911442212,
+              1.929388887496978,
+              2.861906087732728,
+              3.8003002279820075
+            ],
+            "omega_correct": [
+              1.0019799975339991,
+              1.9310463801183553,
+              2.863296581489875,
+              3.8014122702164728
+            ],
+            "ground_shift_percent": 0.1320216186235856,
+            "min_eigenfunction_overlap": 0.9999980587026683
+          },
+          {
+            "ell": 1,
+            "omega_legacy": [
+              1.0547269375351367,
+              1.9743806502721175,
+              2.894070116868654,
+              3.824666567744213
+            ],
+            "omega_correct": [
+              1.0558265322755687,
+              1.975960572957109,
+              2.8954530505456475,
+              3.825780794948474
+            ],
+            "ground_shift_percent": 0.10425397335557704,
+            "min_eigenfunction_overlap": 0.9999982274839649
+          },
+          {
+            "ell": 2,
+            "omega_legacy": [
+              1.131569459254245,
+              2.0465881151590333,
+              2.947567880172981,
+              3.8653508775359833
+            ],
+            "omega_correct": [
+              1.1323995286141688,
+              2.0480324002247836,
+              2.948933028186534,
+              3.866468055595511
+            ],
+            "ground_shift_percent": 0.07335558176613974,
+            "min_eigenfunction_overlap": 0.9999984479171208
+          },
+          {
+            "ell": 3,
+            "omega_legacy": [
+              1.219082740577607,
+              2.1412077270422216,
+              3.021987803397198,
+              3.9224506034225777
+            ],
+            "omega_correct": [
+              1.2196678515730996,
+              2.142462215388909,
+              3.0233167482329075,
+              3.923570051111028
+            ],
+            "ground_shift_percent": 0.04799600355390187,
+            "min_eigenfunction_overlap": 0.9999985488336881
+          },
+          {
+            "ell": 4,
+            "omega_legacy": [
+              1.3086961779068986,
+              2.251350263270866,
+              3.11618528822597,
+              3.996047500983183
+            ],
+            "omega_correct": [
+              1.3090938770342766,
+              2.252381431728001,
+              3.1174492030745706,
+              3.997165661597034
+            ],
+            "ground_shift_percent": 0.03038895765815121,
+            "min_eigenfunction_overlap": 0.9999986954752402
+          },
+          {
+            "ell": 5,
+            "omega_legacy": [
+              1.3959734850917922,
+              2.3693937895346067,
+              3.227725798780809,
+              4.086079805536645
+            ],
+            "omega_correct": [
+              1.3962420494579402,
+              2.3701999608534283,
+              3.2288878021250724,
+              4.087188103527799
+            ],
+            "ground_shift_percent": 0.019238500517100618,
+            "min_eigenfunction_overlap": 0.9999988799756624
+          }
+        ],
+        "omega_1_0_legacy": 1.0547269375351367,
+        "omega_1_0_correct": 1.0558265322755687,
+        "largest_ground_shift_percent": 0.1320216186235856,
+        "smallest_ground_shift_percent": 0.019238500517100618,
+        "all_shifts_below_a_fifth_of_a_percent": true,
+        "sensitivity_falls_with_ell": true,
+        "eigenfunctions_barely_move": true,
+        "why_so_small": "an eigenvalue averages the potential against a bound state, so an l-independent shift matters least where the centrifugal term already dominates"
+      },
+      "pass": true
+    },
+    {
+      "id": "T2",
+      "name": "*** the barrier sums move, and the gamma story swaps ***",
+      "detail": {
+        "rows": [
+          {
+            "channels": "l = 1..5",
+            "sum_legacy": 22.008240059546566,
+            "sum_correct": 22.331194791641362,
+            "residual_legacy_percent": -2.185599735348597,
+            "residual_correct_percent": -0.7502453704828346,
+            "r_outer_legacy": 1.2873695673143757,
+            "r_outer_correct": 1.2678807470105884
+          },
+          {
+            "channels": "l = 0..5",
+            "sum_legacy": 22.452678711350607,
+            "sum_correct": 22.836423722022257,
+            "residual_legacy_percent": -0.2103168384417447,
+            "residual_correct_percent": 1.4952165423211423,
+            "r_outer_legacy": 1.2622663965547922,
+            "r_outer_correct": 1.2461387775227892
+          }
+        ],
+        "locked_gamma": 22.5,
+        "the_canonical_readme_claim_improves": true,
+        "canonical_residual_before": -2.185599735348597,
+        "canonical_residual_after": -0.7502453704828346,
+        "the_ell_zero_closure_claim_breaks": true,
+        "ell_zero_residual_before": -0.2103168384417447,
+        "ell_zero_residual_after": 1.4952165423211423,
+        "closest_to_gamma_before": "l = 0..5",
+        "closest_to_gamma_after": "l = 1..5",
+        "the_closest_channel_set_swaps": true,
+        "what_has_to_be_reopened": "the claim that adding the l = 0 5D channel closes the gamma discrepancy -- under the corrected operator it overshoots, and the l = 1..5 sum is the one near 22.5",
+        "and_it_is_not_a_refit": "the canonical l = 1..5 statement moves the right way on its own; nothing was tuned"
+      },
+      "pass": true
+    },
+    {
+      "id": "T3",
+      "name": "the cross-l operator survives exactly; its elements drift",
+      "detail": {
+        "the_cross_ell_operator_is_unchanged": 1.7763568394002505e-15,
+        "matrix_elements": [
+          {
+            "ell": 0,
+            "element_legacy": 0.32236573245834477,
+            "element_correct": 0.3212593445821429,
+            "drift_percent": -0.3432088974732573
+          },
+          {
+            "ell": 1,
+            "element_legacy": 0.44429450603671355,
+            "element_correct": 0.44287348091735285,
+            "drift_percent": -0.3198385530437516
+          },
+          {
+            "ell": 2,
+            "element_legacy": 0.5186418408197112,
+            "element_correct": 0.5171942741849944,
+            "drift_percent": -0.27910718356793535
+          },
+          {
+            "ell": 3,
+            "element_legacy": 0.5488585525986982,
+            "element_correct": 0.5476244856607617,
+            "drift_percent": -0.2248424356500428
+          }
+        ],
+        "largest_element_drift_percent": 0.3432088974732573,
+        "structure_invariant_numbers_shifted": true,
+        "the_partition": "the operator V_{l+2} - V_l survives algebraically EXACTLY; its matrix elements drift because the eigenfunctions do"
+      },
+      "pass": true
+    },
+    {
+      "id": "T4",
+      "name": "ratios absorb most of the shift",
+      "detail": {
+        "rows": [
+          {
+            "ell": 0,
+            "alpha_q_legacy": 0.9545570738926532,
+            "alpha_q_correct": 0.9548024404711818,
+            "drift_percent": 0.0257047572365669
+          },
+          {
+            "ell": 1,
+            "alpha_q_legacy": 1.0,
+            "alpha_q_correct": 1.0,
+            "drift_percent": 0.0
+          },
+          {
+            "ell": 2,
+            "alpha_q_legacy": 1.0660778200043415,
+            "alpha_q_correct": 1.0657859957641826,
+            "drift_percent": -0.02737363395832069
+          },
+          {
+            "ell": 3,
+            "alpha_q_legacy": 1.1415580792917066,
+            "alpha_q_correct": 1.1408952641834682,
+            "drift_percent": -0.05806232028506628
+          },
+          {
+            "ell": 4,
+            "alpha_q_legacy": 1.2191655090179172,
+            "alpha_q_correct": 1.2182488311092576,
+            "drift_percent": -0.07518896342449737
+          },
+          {
+            "ell": 5,
+            "alpha_q_legacy": 1.2946687237168446,
+            "alpha_q_correct": 1.2935415563199122,
+            "drift_percent": -0.08706222497570253
+          }
+        ],
+        "largest_drift_percent": 0.08706222497570253,
+        "the_reference_mode_is_exactly_one": true,
+        "ratios_absorb_most_of_the_shift": true,
+        "caveat": "a ratio is not automatically safe -- the common part cancels, the differential does not, and this is measured rather than assumed"
+      },
+      "pass": true
+    },
+    {
+      "id": "T5",
+      "name": "actions move more than eigenvalues",
+      "detail": {
+        "rows": [
+          {
+            "ell": 1,
+            "action_legacy": 2.7705773006260817,
+            "action_correct": 2.736321983720382,
+            "drift_percent": -1.2363963603527315
+          },
+          {
+            "ell": 2,
+            "action_legacy": 2.496428340194119,
+            "action_correct": 2.494326987016936,
+            "drift_percent": -0.08417438399292433
+          },
+          {
+            "ell": 3,
+            "action_legacy": 2.4212474309747516,
+            "action_correct": 2.4212053209062825,
+            "drift_percent": -0.0017391889788046402
+          }
+        ],
+        "largest_drift_percent": 1.2363963603527315,
+        "each_action_uses_its_own_ground_frequency": true,
+        "why_it_moves_more_than_omega": "the action integrates sqrt(w^2 - V) against the potential directly, without the bound state's averaging"
+      },
+      "pass": true
+    },
+    {
+      "id": "T6",
+      "name": "*** the ledger: invariant / shifted / reinterpreted ***",
+      "detail": {
+        "entries": [
+          {
+            "claim": "cross-l perturbation operator V_{l+2} - V_l",
+            "verdict": "EXACTLY INVARIANT",
+            "evidence": "unchanged to 1.8e-15"
+          },
+          {
+            "claim": "Hopf fibration, Pin- structure, odd-k ladder, antipodal parity",
+            "verdict": "EXACTLY INVARIANT",
+            "evidence": "no dependence on the radial operator; not re-run, and proximity is not dependence"
+          },
+          {
+            "claim": "alpha_q(l,0) throat-flux ratios",
+            "verdict": "NUMERICALLY SHIFTED",
+            "evidence": "largest drift 0.087%"
+          },
+          {
+            "claim": "omega_{l,n} radial eigenfrequencies and eigenfunctions",
+            "verdict": "NUMERICALLY SHIFTED",
+            "evidence": "ground shifts 0.0192% to 0.1320%; overlaps > 0.99"
+          },
+          {
+            "claim": "cross-l transport matrix elements",
+            "verdict": "NUMERICALLY SHIFTED",
+            "evidence": "operator exact, elements drift up to 0.343%"
+          },
+          {
+            "claim": "closed-orbit / WKB radial actions",
+            "verdict": "NUMERICALLY SHIFTED",
+            "evidence": "largest drift 1.236%"
+          },
+          {
+            "claim": "the 1.054 factor, omega(1,0) at the gamma-locked geometry",
+            "verdict": "NUMERICALLY SHIFTED",
+            "evidence": "1.054727 -> 1.055827; the quoted 1.054 becomes 1.056, which exceeds the 0.04% Compton-bridge tolerance and so needs re-quoting, not re-deriving"
+          },
+          {
+            "claim": "pinhole gamma = Sum V_max[1..5] vs the locked 22.5",
+            "verdict": "NUMERICALLY SHIFTED",
+            "evidence": "-2.19% -> -0.75% -- the canonical README claim IMPROVES, and nothing was tuned"
+          },
+          {
+            "claim": "R_OUTER as the gamma = 22.5 fixed point",
+            "verdict": "NUMERICALLY SHIFTED",
+            "evidence": "l=0..5 root 1.26227 -> 1.24614; l=1..5 root 1.28737 -> 1.26788"
+          },
+          {
+            "claim": "'adding the l = 0 5D channel closes the gamma discrepancy'",
+            "verdict": "INTERPRETATION CHANGED",
+            "evidence": "-0.21% -> +1.50%; the l=0..5 sum now OVERSHOOTS and the l=1..5 sum is the one near 22.5 -- the closest channel set swaps"
+          },
+          {
+            "claim": "any generation or mass result whose chain runs through gamma, R_OUTER, or a radial eigenvalue",
+            "verdict": "INTERPRETATION CHANGED",
+            "evidence": "inherits the gamma reopening above; each such chain must be re-derived from the corrected operator before its number is quoted again"
+          }
+        ],
+        "counts": {
+          "EXACTLY INVARIANT": 2,
+          "NUMERICALLY SHIFTED": 7,
+          "INTERPRETATION CHANGED": 2
+        },
+        "the_question_this_answers": "not whether the old tests stay green, but which published claims are algebraically untouched, which keep their meaning with different digits, and which no longer say what they said",
+        "not_re_run_and_why": "Hopf, Pin-, odd-k winding and antipodal parity have no dependence on the radial scalar operator; proximity is not dependence",
+        "what_is_still_open": "the gamma narrative. the l = 0 closure claim is withdrawn, not replaced -- the corrected l = 1..5 sum lands nearer 22.5 than the old one did, but that is an observation, not a derivation of why 22.5"
+      },
+      "pass": true
+    },
+    {
+      "id": "T7",
+      "name": "*** the one narrow downstream re-derivation: gamma is the selector ***",
+      "detail": {
+        "rows": [
+          {
+            "case": "baseline, gamma = 22.5",
+            "r_outer": null,
+            "gamma": 22.5,
+            "m_mu": 105.61259982155796,
+            "m_tau": 1778.938087213483,
+            "mu_error_percent": -0.04332423078191384,
+            "tau_error_percent": 0.11695278263245606
+          },
+          {
+            "case": "legacy R=1.26, gamma[0..5]",
+            "r_outer": 1.26,
+            "gamma": 22.452678711350607,
+            "m_mu": 109.64905253474033,
+            "m_tau": 1848.585397270273,
+            "mu_error_percent": 3.776962323957299,
+            "tau_error_percent": 4.036637510567693
+          },
+          {
+            "case": "legacy R=1.26, gamma[1..5]",
+            "r_outer": 1.26,
+            "gamma": 22.008240059546566,
+            "m_mu": 173.0487871320804,
+            "m_tau": 2942.2110273955723,
+            "mu_error_percent": 63.78141942195619,
+            "tau_error_percent": 65.58485347160567
+          },
+          {
+            "case": "A corrected R=1.26, gamma[1..5]",
+            "r_outer": 1.26,
+            "gamma": 22.331194791641362,
+            "m_mu": 121.67101782912306,
+            "m_tau": 2055.99916801511,
+            "mu_error_percent": 15.155109335485717,
+            "tau_error_percent": 15.709688327449
+          },
+          {
+            "case": "A corrected R=1.26, gamma[0..5]",
+            "r_outer": 1.26,
+            "gamma": 22.836423722022257,
+            "m_mu": 83.98032692894073,
+            "m_tau": 1405.595942106859,
+            "mu_error_percent": -20.517113260992055,
+            "tau_error_percent": -20.894389985319098
+          },
+          {
+            "case": "B corrected root [1..5] = 22.5",
+            "r_outer": 1.2678807470105884,
+            "gamma": 22.5,
+            "m_mu": 105.61259982155796,
+            "m_tau": 1778.938087213483,
+            "mu_error_percent": -0.04332423078191384,
+            "tau_error_percent": 0.11695278263245606
+          },
+          {
+            "case": "C corrected root [0..5] = 22.5",
+            "r_outer": 1.2461387775227892,
+            "gamma": 22.5,
+            "m_mu": 105.61259982155796,
+            "m_tau": 1778.938087213483,
+            "mu_error_percent": -0.04332423078191384,
+            "tau_error_percent": 0.11695278263245606
+          }
+        ],
+        "the_three_geometries": "A: R_OUTER = 1.26 fixed; B: enforce Sum[1..5] = 22.5; C: enforce Sum[0..5] = 22.5",
+        "nothing_was_retuned": true,
+        "B_and_C_are_bit_identical": true,
+        "why": "compute_knotted_lepton_spectrum discards r_outer outright; the locked block consumes the geometry ONLY through the scalar hard_pinhole_gamma",
+        "so_the_channel_set_is_invisible_to_the_observables": true,
+        "gamma_is_the_selector_r_outer_is_downstream": true,
+        "fixing_r_outer_breaks_the_ladder": true,
+        "corrected_fixed_R_mu_errors": [
+          15.155109335485717,
+          -20.517113260992055
+        ],
+        "legacy_fixed_R_mu_error": 3.776962323957299,
+        "the_correction_weakens_the_geometry_supplies_gamma_story": true,
+        "d_ln_m_mu_over_d_ln_gamma": -16.571364818996106,
+        "so_a_subpercent_residual_is_not_small": true,
+        "what_this_does_not_settle": "the channel-set question is not decidable by the lepton observables -- it has to be settled by what gamma MEANS geometrically, because the masses only ever saw the scalar",
+        "the_outcome_was_not_one_of_the_three_anticipated": true
+      },
+      "pass": true
+    }
+  ],
+  "passed": 8,
+  "total": 8
+}

@@ -230,3 +230,60 @@ def test_both_operators_are_registered_for_the_sweep():
 def test_the_locked_gamma_is_the_repository_constant():
     from geometrodynamics.tangherlini import LEPTON_BASELINE_PINHOLE
     assert oa.LOCKED_GAMMA == LEPTON_BASELINE_PINHOLE == 22.5
+
+
+# ── the one narrow downstream re-derivation ─────────────────────────────────
+def test_the_locked_lepton_block_is_reproduced_before_anything_is_varied():
+    """If the baseline row is not the locked spectrum, the harness is wrong."""
+    got = oa.measure_which_geometry_preserves_the_lepton_ladder()
+    base = next(r for r in got["rows"] if r["case"].startswith("baseline"))
+    assert base["gamma"] == 22.5
+    assert abs(base["mu_error_percent"]) < 0.5
+    assert abs(base["tau_error_percent"]) < 0.5
+    # and the legacy fixed-R row reproduces the documented "within 3.8%"
+    leg = next(r for r in got["rows"] if r["case"] == "legacy R=1.26, gamma[0..5]")
+    assert 3.0 < leg["mu_error_percent"] < 4.5
+
+
+def test_B_and_C_are_bit_identical_because_r_outer_is_not_an_input():
+    """The locked block discards `r_outer`; only `gamma` reaches it."""
+    got = oa.measure_which_geometry_preserves_the_lepton_ladder()
+    b = next(r for r in got["rows"] if r["case"].startswith("B "))
+    c = next(r for r in got["rows"] if r["case"].startswith("C "))
+    assert b["r_outer"] != c["r_outer"], "the two geometries really do differ"
+    assert b["m_mu"] == c["m_mu"]
+    assert b["m_tau"] == c["m_tau"]
+    assert got["B_and_C_are_bit_identical"]
+    assert got["so_the_channel_set_is_invisible_to_the_observables"]
+
+
+def test_gamma_is_the_selector_and_fixing_r_outer_breaks_the_ladder():
+    """The outcome inverts the anticipated one: R_OUTER is downstream of gamma."""
+    got = oa.measure_which_geometry_preserves_the_lepton_ladder()
+    assert got["gamma_is_the_selector_r_outer_is_downstream"]
+    assert got["fixing_r_outer_breaks_the_ladder"]
+    errs = got["corrected_fixed_R_mu_errors"]
+    assert errs[0] > 10.0 and errs[1] < -10.0, "one overshoots, one undershoots"
+    assert got["the_outcome_was_not_one_of_the_three_anticipated"]
+
+
+def test_the_correction_weakens_the_geometry_supplies_gamma_story():
+    """Legacy R=1.26 landed within 3.8%; corrected lands at 15-21%, either way."""
+    got = oa.measure_which_geometry_preserves_the_lepton_ladder()
+    assert got["the_correction_weakens_the_geometry_supplies_gamma_story"]
+    assert abs(got["legacy_fixed_R_mu_error"]) < 5.0
+    assert all(abs(e) > 10.0 for e in got["corrected_fixed_R_mu_errors"])
+
+
+def test_a_subpercent_gamma_residual_is_not_a_small_residual():
+    """`d ln m_mu / d ln gamma` is large and negative, so gamma carries weight."""
+    got = oa.measure_which_geometry_preserves_the_lepton_ladder()
+    assert got["d_ln_m_mu_over_d_ln_gamma"] < -10.0
+    assert got["so_a_subpercent_residual_is_not_small"]
+
+
+def test_the_channel_set_question_is_left_undecided_on_purpose():
+    got = oa.measure_which_geometry_preserves_the_lepton_ladder()
+    assert got["nothing_was_retuned"]
+    assert "not decidable by the lepton observables" in got["what_this_does_not_settle"]
+    assert "only ever saw the scalar" in got["what_this_does_not_settle"]

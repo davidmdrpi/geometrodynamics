@@ -298,8 +298,11 @@ def master_potential(r, ell: int, horizon: float, n: int = N_ANGULAR):
     at ``n = 3``, and Bessel's equation gives ``V → (ℓ(ℓ+2) + 3/4)/r²`` — which
     is exactly what this returns.
 
-    **This is not `tangherlini.radial.V_tangherlini`.**  See
-    `measure_the_master_potential_disagrees_with_the_repo`.
+    **PR #271 made this the canonical operator**, so
+    `tangherlini.radial.V_tangherlini` now delegates here; the pre-#271
+    implementation survives as `radial.V_tangherlini_legacy`.  See
+    `measure_the_master_potential_disagrees_with_the_repo` for the discovery and
+    `tangherlini.operator_audit` for what the correction moved.
     """
     r = np.asarray(r, dtype=float)
     A = tangherlini_A(r, horizon, n)
@@ -637,7 +640,7 @@ def measure_the_master_potential_disagrees_with_the_repo(
 
         ``V = A[(ℓ(ℓ+2) + 3/4)/r² + (9/4) r_h²/r⁴]`` ,
 
-    and `tangherlini.radial.V_tangherlini` carries
+    and the pre-#271 `tangherlini.radial.V_tangherlini` carried
     ``A[ℓ(ℓ+2)/r² + 3 r_h²/r⁴]``.  The difference is exactly ``3A²/(4r²)``.
 
     **The flat limit settles which is which without appeal to anything.**  At
@@ -646,13 +649,22 @@ def measure_the_master_potential_disagrees_with_the_repo(
     ``V → ((ℓ+1)² − ¼)/r² = (ℓ(ℓ+2) + 3/4)/r²`` — the derived form, including
     the ``3/4``.
 
-    **Nothing is changed.**  ``V_tangherlini`` is consumed by roughly fifty
-    probes and by several derived constants, so replacing it is a decision about
-    the repository's published numbers and not a side effect of a dynamics
-    round.  The measurement states the difference and the flat-limit proof, and
-    stops there.
+    **Nothing was changed in this round.**  ``V_tangherlini`` is consumed by
+    roughly fifty probes and by several derived constants, so replacing it was a
+    decision about the repository's published numbers and not a side effect of a
+    dynamics round.  This measurement states the difference and the flat-limit
+    proof, and stops there.
+
+    **PR #271 then acted on it**, as a dedicated migration and audit: the
+    corrected operator became canonical, the old one was frozen as
+    `radial.V_tangherlini_legacy`, and `tangherlini.operator_audit` sorts every
+    dependent claim into exactly-invariant, numerically-shifted and
+    interpretation-changed.  The comparison below is pinned to the **legacy**
+    operator, so this function goes on recording the discovery instead of
+    silently comparing the corrected operator with itself.
     """
-    from geometrodynamics.tangherlini.radial import V_tangherlini
+    from geometrodynamics.tangherlini.radial import (
+        V_tangherlini_legacy as V_tangherlini)
 
     r = np.linspace(1.2 * horizon, 12.0, 400)
     derived = master_potential(r, ell, horizon)
@@ -668,7 +680,7 @@ def measure_the_master_potential_disagrees_with_the_repo(
 
     return {
         "derived": "A[(l(l+2) + 3/4)/r^2 + (9/4) r_h^2/r^4]",
-        "in_the_repository": "A[l(l+2)/r^2 + 3 r_h^2/r^4]",
+        "in_the_repository_before_271": "A[l(l+2)/r^2 + 3 r_h^2/r^4]",
         "the_difference": "3 A^2 / (4 r^2)",
         "gap_matches_the_closed_form": float(
             np.max(np.abs((derived - existing) - predicted_gap))),
@@ -679,11 +691,13 @@ def measure_the_master_potential_disagrees_with_the_repo(
         "the_flat_limit_is_the_proof": "psi = r^{1/2} J_{l+1}(wr) solves "
                                        "Bessel's equation with V = ((l+1)^2 - "
                                        "1/4)/r^2 = (l(l+2) + 3/4)/r^2",
-        "nothing_was_changed": True,
-        "why_not": "V_tangherlini is consumed by roughly fifty probes and by "
-                   "several derived constants; replacing it is a decision about "
-                   "the repository's published numbers, not a side effect of a "
-                   "dynamics round",
+        "nothing_was_changed_in_this_round": True,
+        "acted_on_in": "PR #271, as a dedicated migration and audit",
+        "why_not_here": "V_tangherlini is consumed by roughly fifty probes and "
+                        "by several derived constants; replacing it is a "
+                        "decision about the repository's published numbers, not "
+                        "a side effect of a dynamics round",
+        "the_comparison_is_against_the_frozen_legacy_operator": True,
         "caveat": "the discrepancy is stated for a MINIMALLY COUPLED MASSLESS "
                   "SCALAR with psi = r^{n/2} phi, which is what the existing "
                   "docstring describes; a different field or a different "

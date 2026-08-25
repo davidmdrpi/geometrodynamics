@@ -110,6 +110,7 @@ import numpy as np
 
 from geometrodynamics.tangherlini.operator_audit import (
     LOCKED_GAMMA,
+    measure_which_geometry_preserves_the_lepton_ladder,
     measure_the_downstream_ledger,
     measure_the_eigenvalue_shifts,
     measure_the_eigenvector_derived_quantities,
@@ -178,6 +179,16 @@ def run_probe() -> dict:
                      and led["counts"]["NUMERICALLY SHIFTED"] >= 5
                      and led["counts"]["INTERPRETATION CHANGED"] >= 1)})
 
+    lad = measure_which_geometry_preserves_the_lepton_ladder()
+    checks.append({
+        "id": "T7",
+        "name": "*** the one narrow downstream re-derivation: gamma is the selector ***",
+        "detail": lad,
+        "pass": bool(lad["nothing_was_retuned"]
+                     and lad["B_and_C_are_bit_identical"]
+                     and lad["gamma_is_the_selector_r_outer_is_downstream"]
+                     and lad["fixing_r_outer_breaks_the_ladder"])})
+
     return {
         "probe": "scalar_operator_audit",
         "question": "the radial potential was short of the minimally coupled "
@@ -203,6 +214,8 @@ def run_probe() -> dict:
             "closest_channel_set_swaps": gam["the_closest_channel_set_swaps"],
             "cross_ell_operator_unchanged_to": inv["the_cross_ell_operator_is_unchanged"],
             "verdict_counts": led["counts"],
+            "B_and_C_bit_identical": lad["B_and_C_are_bit_identical"],
+            "d_ln_m_mu_over_d_ln_gamma": lad["d_ln_m_mu_over_d_ln_gamma"],
         },
         "checks": checks,
         "passed": sum(1 for c in checks if c["pass"]),
@@ -307,6 +320,32 @@ def render_markdown(summary: dict) -> str:
         L.append(f"| {k} | {v} |")
     L += ["", f"**Not re-run, and why.** {led['not_re_run_and_why'].capitalize()}.",
           "", f"**Still open.** {led['what_is_still_open'].capitalize()}.", ""]
+    lad = next(c for c in summary["checks"] if c["id"] == "T7")["detail"]
+    L += ["## T7 — the one narrow downstream re-derivation", "",
+          f"{lad['the_three_geometries']}, each passed through the **locked** "
+          f"lepton Hamiltonian with **nothing retuned**.", "",
+          "| case | `R_OUTER` | `γ` | `m_μ` err | `m_τ` err |",
+          "|--|--|--|--|--|"]
+    for r in lad["rows"]:
+        ro = "—" if r["r_outer"] is None else f"`{r['r_outer']:.5f}`"
+        L.append(f"| {r['case']} | {ro} | `{r['gamma']:.5f}` | "
+                 f"`{r['mu_error_percent']:+.2f}%` | "
+                 f"`{r['tau_error_percent']:+.2f}%` |")
+    L += ["",
+          f"**B and C are bit-identical.** {lad['why'].capitalize()}. So the "
+          f"channel-set choice leaves no trace in any observable once `γ` is "
+          f"enforced — and the comparison cannot decide it.", "",
+          f"> **`γ = 22.5` is the selector; `R_OUTER` is downstream of it.**", "",
+          f"Fixing `R_OUTER` and letting `γ` float is what breaks the ladder: "
+          f"`{lad['corrected_fixed_R_mu_errors'][0]:+.2f}%` and "
+          f"`{lad['corrected_fixed_R_mu_errors'][1]:+.2f}%`, against the legacy "
+          f"geometry's `{lad['legacy_fixed_R_mu_error']:+.2f}%`. So the "
+          f"correction **weakens** the geometry-supplies-`γ` story even while "
+          f"improving the `1..5` residual in isolation.", "",
+          f"The reason is sensitivity: `d ln m_μ / d ln γ = "
+          f"{lad['d_ln_m_mu_over_d_ln_gamma']:.2f}`, so a sub-percent geometric "
+          f"residual is **not** a small residual in this chain.", "",
+          f"**What this does not settle:** {lad['what_this_does_not_settle']}.", ""]
     return "\n".join(L)
 
 

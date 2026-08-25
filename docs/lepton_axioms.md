@@ -62,6 +62,15 @@ archives for the pinhole identification:
 
 - `4 · k_uplift_beta = 100 · (2π)` is an integer count of antipodal
   closure quanta (the closure quantum). Geometric.
+> **⚠ SUPERSEDED BY PR #271 — the radial scalar operator was corrected.**
+> `tangherlini.radial.V_tangherlini` was short of the minimally coupled massless
+> scalar master potential by an `ℓ`-independent `3A²/(4r²)`. Under the corrected
+> operator `Σ_{l=0..5} V_max(l) = 22.83642` (**+1.50%**, an overshoot) while
+> `Σ_{l=1..5} V_max(l) = 22.33119` (**−0.75%**) — so the sum closest to `22.5`
+> **swaps channel sets**, and the claim that the `l = 0` channel closes the gap is
+> **withdrawn, not replaced**. The numbers below are the legacy-operator values,
+> retained as the historical record. See `docs/scalar_operator_audit.md`.
+
 - `hard_pinhole_gamma ≈ 22.5` matches `Σ_{l=0..5} V_max(l)` ≈ 22.453
   on the canonical Chebyshev tortoise grid (within −0.21%, recovering
   the muon mass within 3.8% under the locked block). The `l = 0`

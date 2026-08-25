@@ -3816,6 +3816,75 @@ python scripts/geometrodynamics_v71_tangherlini_dynamics.py --still v71.png
 
 Full write-up: `docs/tangherlini_dynamics.md`.
 
+## The radial scalar operator, corrected (PR #271)
+
+PR #270 found — while doing something else — that `tangherlini.radial.V_tangherlini`
+was not the master potential of a minimally coupled massless scalar, and reported
+it without changing anything. This round makes the correction and **prices** it.
+
+For `ds² = −A dt² + A⁻¹dr² + r²dΩ_n²` with `ψ = r^{n/2}R`, the unique
+first-derivative-free Schrödinger form carries
+
+    V_scalar = A[ ℓ(ℓ+n−1)/r² + n(n−2)A/(4r²) + n A'/(2r) ]
+
+verified symbolically at `n = 2 … 6`. The repository carried
+`A[ℓ(ℓ+2)/r² + 3r_h²/r⁴]`, short by exactly `3A²/(4r²)`. The flat limit settles
+which is which with no appeal to authority: `ψ = r^{1/2}J_{ℓ+1}(ωr)` gives
+`V → ((ℓ+1)² − ¼)/r²`, matched to `2.2e-16` — and the legacy operator **fails**
+that test. **A bug, not a convention.**
+
+`V_tangherlini_legacy` is frozen for archived runs; `V_scalar_tangherlini` is the
+corrected general-`n` operator; `V_tangherlini` now delegates to it.
+
+**The eigenvalues barely move, and move less as `ℓ` rises** — `+0.1320%` at
+`ℓ = 0` down to `+0.0192%` at `ℓ = 5`, overlaps above `0.999998`. An eigenvalue
+averages the potential against a bound state, so an `ℓ`-independent shift matters
+least where the centrifugal term already dominates.
+
+**The barrier sums are not protected, and the `γ` story swaps:**
+
+| channels | legacy | corrected | `R_OUTER` legacy → corrected |
+|--|--|--|--|
+| `ℓ = 1..5` | `22.00824` (`−2.19%`) | `22.33119` (**`−0.75%`**) | `1.28737 → 1.26788` |
+| `ℓ = 0..5` | `22.45268` (`−0.21%`) | `22.83642` (**`+1.50%`**) | `1.26227 → 1.24614` |
+
+The canonical README claim improves threefold with nothing tuned; the claim that
+adding the `ℓ = 0` 5D channel closes the pinhole gap **breaks**, and the sum
+closest to `22.5` swaps channel sets. **Withdrawn, not replaced.**
+
+**Exactly invariant:** `ΔV` carries no `ℓ`, so the cross-`ℓ` operator
+`V_{ℓ+2} − V_ℓ` is unchanged to `3.6e-15`. Its matrix elements still drift,
+because the eigenfunctions do — structure invariant, numbers shifted. Hopf, Pin⁻,
+the odd-`k` ladder and antipodal parity have no dependence on this operator and
+are **not** re-run: proximity is not dependence.
+
+**One narrow downstream re-derivation, run before merging.** Three geometries
+through the *locked* lepton Hamiltonian with nothing retuned: **A** fix
+`R_OUTER = 1.26`; **B** enforce `Σ[1..5] = 22.5`; **C** enforce `Σ[0..5] = 22.5`.
+**B and C come out bit-identical** — `compute_knotted_lepton_spectrum` discards
+`r_outer` outright, so the locked block sees the geometry *only* through the
+scalar `γ`, and the channel-set choice leaves no trace in any observable.
+
+> **`γ = 22.5` is the selector; `R_OUTER` is downstream of it.**
+
+Fixing `R_OUTER` and letting `γ` float is what breaks the ladder: `+15.16%` and
+`−20.52%` on `m_μ`, against the legacy geometry's `+3.78%`. So **the correction
+weakens the "geometry supplies `γ`" story** even while improving the `1..5`
+residual in isolation — because `d ln m_μ / d ln γ = −16.6`, and a sub-percent
+geometric residual is not a small residual in this chain. The channel-set
+question is **not decidable by the lepton observables**.
+
+**And the suite never protected any of it.** Flipping the operator broke exactly
+**2 tests out of 1582**, both PR #270's own bookkeeping. The `γ` sums, the
+`R_OUTER` fixed point and the `1.054` factor are not regression-locked anywhere;
+they live in prose. A silent replacement would have sailed through CI.
+
+```bash
+python -m experiments.closure_ledger.scalar_operator_audit_probe
+```
+
+Full write-up: `docs/scalar_operator_audit.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
