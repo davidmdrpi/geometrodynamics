@@ -36,16 +36,84 @@ def rstar_to_r(rstar: float, rs: float = R_MID, tol: float = 1e-12) -> float:
 
 
 # ── Effective potential ──────────────────────────────────────────────────────
+#
+# TWO OPERATORS LIVE HERE, AND THE DIFFERENCE IS A BUG, NOT A CONVENTION.
+#
+# `V_tangherlini_legacy` is what this module carried from its first commit until
+# PR #271.  It is NOT the master potential of a minimally coupled massless
+# scalar, and its generic old name implied that it was.
+#
+# `V_scalar_tangherlini` is that master potential, derived rather than recalled
+# (PR #270, `tangherlini.dynamics.derive_the_field_equations`) and agreeing
+# bit-for-bit with `dynamics.master_potential`.  For
+#
+#     ds² = −A dt² + A⁻¹dr² + r²dΩ_n² ,     A = 1 − (r_h/r)^{n−1}
+#
+# a minimally coupled massless scalar Φ = e^{−iωt}Y_ℓ(Ω)R(r) obeys
+#
+#     (1/r^n) ∂_r(r^n A R') + (ω²/A − ℓ(ℓ+n−1)/r²) R = 0 ,
+#
+# and the unique first-derivative-free Schrödinger form, with dr* = dr/A and
+# ψ = r^{n/2}R, carries
+#
+#     V = A[ ℓ(ℓ+n−1)/r² + n(n−2)A/(4r²) + n A'/(2r) ] .
+#
+# At n = 3 that is A[(ℓ(ℓ+2) + 3/4)/r² + (9/4)r_h²/r⁴], so
+#
+#     V_scalar − V_legacy = 3A²/(4r²) ,
+#
+# an ℓ-INDEPENDENT shift.  Two consequences worth keeping in view:
+#   * differences V_{ℓ₂} − V_{ℓ₁} are unchanged EXACTLY, so any result built on
+#     the cross-ℓ operator survives algebraically;
+#   * barrier heights and their sums are not, so γ-type quantities move.
+#
+# The flat limit settles which is which with no appeal to authority: at
+# r_h → 0 the regular solution is φ = J_{ℓ+1}(ωr)/r, so ψ = r^{1/2}J_{ℓ+1}(ωr),
+# and Bessel's equation gives V → ((ℓ+1)² − ¼)/r² = (ℓ(ℓ+2) + 3/4)/r².
+#
+# `V_tangherlini` now delegates to the corrected operator.  Archived runs are
+# reproduced by calling `V_tangherlini_legacy` explicitly.
 
-def V_tangherlini(r: float | np.ndarray, l: int, rs: float = R_MID):
-    """Tangherlini effective potential with S³ centrifugal barrier.
+def V_tangherlini_legacy(r: float | np.ndarray, l: int, rs: float = R_MID):
+    """**Frozen.** The pre-#271 potential, kept only to reproduce archived runs.
 
-    V(r, l) = f(r) · [l(l+2)/r² + 3·rs²/r⁴]
+    ``V(r, l) = A(r)·[l(l+2)/r² + 3·rs²/r⁴]``, ``A = 1 − (rs/r)²``.
 
-    where f(r) = 1 − (rs/r)².
+    This is *not* the master potential of a minimally coupled massless scalar
+    with ``ψ = r^{3/2}R``; it is short of that by ``3A²/(4r²)``.  Do not use it
+    for new work — see `V_scalar_tangherlini`.
     """
     f = 1.0 - (rs / r) ** 2
     return f * (l * (l + 2) / r ** 2 + 3.0 * rs ** 2 / r ** 4)
+
+
+def V_scalar_tangherlini(r: float | np.ndarray, l: int, rs: float = R_MID,
+                         n: int = 3):
+    """The master potential of a minimally coupled massless scalar, general ``n``.
+
+    ``V = A[ l(l+n−1)/r² + n(n−2)A/(4r²) + n A'/(2r) ]`` with
+    ``A = 1 − (rs/r)^{n−1}`` and ``ψ = r^{n/2}R``.
+
+    Verified symbolically at ``n = 2 … 6`` and against the flat-limit Bessel
+    form; identical bit-for-bit to `tangherlini.dynamics.master_potential`.
+    """
+    r = np.asarray(r, dtype=float) if not np.isscalar(r) else float(r)
+    A = 1.0 - (rs / r) ** (n - 1)
+    A_prime = (n - 1) * rs ** (n - 1) / r ** n
+    return A * (l * (l + n - 1) / r ** 2
+                + (n * (n - 2) / 4.0) * A / r ** 2
+                + (n / 2.0) * A_prime / r)
+
+
+def V_tangherlini(r: float | np.ndarray, l: int, rs: float = R_MID):
+    """The canonical radial potential — the minimally coupled scalar one.
+
+    Delegates to `V_scalar_tangherlini`.  Before PR #271 this name carried the
+    operator now called `V_tangherlini_legacy`, which differs by ``3A²/(4r²)``;
+    `experiments/closure_ledger/scalar_operator_audit_probe.py` records what
+    that changed and what it left exactly invariant.
+    """
+    return V_scalar_tangherlini(r, l, rs)
 
 
 # ── Chebyshev differentiation ───────────────────────────────────────────────

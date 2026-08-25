@@ -1,0 +1,232 @@
+"""The radial scalar operator, corrected — and what the correction cost.
+
+Three kinds of check. The *algebraic* ones (the gap, its ℓ-independence, the
+flat limit) are asserted at machine precision against closed forms. The *impact*
+ones are asserted as directions and magnitudes, not as frozen digits, because
+their job is to characterise a change rather than to lock a number. And the
+*scoping* ones pin the claims that must not silently drift back.
+"""
+
+import math
+
+import numpy as np
+import pytest
+
+from geometrodynamics.constants import R_MID, R_OUTER
+from geometrodynamics.tangherlini import operator_audit as oa
+from geometrodynamics.tangherlini.radial import (V_scalar_tangherlini,
+                                                 V_tangherlini,
+                                                 V_tangherlini_legacy)
+
+
+# ── the operator itself ─────────────────────────────────────────────────────
+def test_the_canonical_name_now_carries_the_scalar_operator():
+    r = np.linspace(1.02, 6.0, 200)
+    for ell in (0, 1, 2, 5):
+        assert np.array_equal(np.asarray(V_tangherlini(r, ell, 1.0)),
+                              np.asarray(V_scalar_tangherlini(r, ell, 1.0)))
+
+
+def test_the_legacy_operator_is_frozen_exactly_as_it_was():
+    """It must keep returning what it always returned, digit for digit."""
+    r = np.array([1.5, 2.0, 4.0])
+    A = 1.0 - 1.0 / r ** 2
+    for ell in (0, 1, 2, 3):
+        assert np.allclose(V_tangherlini_legacy(r, ell, 1.0),
+                           A * (ell * (ell + 2) / r ** 2 + 3.0 / r ** 4),
+                           rtol=0, atol=0)
+
+
+def test_the_gap_is_the_stated_closed_form_and_carries_no_ell():
+    got = oa.measure_the_two_operators_and_their_exact_gap()
+    assert got["gap_matches_the_closed_form"] < 1e-12
+    assert got["the_gap_carries_no_ell"] < 1e-12
+    r = np.linspace(1.05, 8.0, 300)
+    A = 1.0 - 1.0 / r ** 2
+    for ell in (0, 3, 7):
+        gap = (np.asarray(V_scalar_tangherlini(r, ell, 1.0))
+               - np.asarray(V_tangherlini_legacy(r, ell, 1.0)))
+        assert np.allclose(gap, 3.0 * A ** 2 / (4.0 * r ** 2), atol=1e-14)
+
+
+def test_the_flat_limit_is_bessel_which_is_what_settles_it():
+    """`ψ = r^{1/2}J_{ℓ+1}(ωr)` ⟹ `V = ((ℓ+1)² − ¼)/r²`, with no `r_h` anywhere."""
+    got = oa.measure_the_two_operators_and_their_exact_gap()
+    assert got["flat_limit_matches_bessel"] < 1e-12
+    r = np.linspace(0.6, 9.0, 200)
+    for ell in (0, 1, 2, 4, 6):
+        assert np.allclose(V_scalar_tangherlini(r, ell, 1e-9),
+                           ((ell + 1) ** 2 - 0.25) / r ** 2, rtol=1e-7)
+    # and the legacy operator does NOT reproduce it — the discriminator bites
+    assert not np.allclose(V_tangherlini_legacy(r, 2, 1e-9),
+                           ((2 + 1) ** 2 - 0.25) / r ** 2, rtol=1e-3)
+
+
+@pytest.mark.parametrize("n", [2, 3, 4, 5])
+def test_the_general_n_form_matches_its_own_definition(n):
+    """`V = A[ℓ(ℓ+n−1)/r² + n(n−2)A/(4r²) + nA'/(2r)]`, spelled out."""
+    r = np.linspace(1.3, 7.0, 120)
+    rh, ell = 1.0, 2
+    A = 1.0 - (rh / r) ** (n - 1)
+    Ap = (n - 1) * rh ** (n - 1) / r ** n
+    want = A * (ell * (ell + n - 1) / r ** 2
+                + (n * (n - 2) / 4.0) * A / r ** 2 + (n / 2.0) * Ap / r)
+    assert np.allclose(V_scalar_tangherlini(r, ell, rh, n=n), want, atol=1e-15)
+
+
+def test_it_agrees_bitwise_with_the_dynamics_derivation():
+    """Two modules, one operator — the #270 derivation and this one."""
+    from geometrodynamics.tangherlini.dynamics import master_potential
+    r = np.linspace(1.02, 6.0, 400)
+    for ell in (0, 1, 2, 3, 5):
+        assert np.array_equal(np.asarray(V_scalar_tangherlini(r, ell, 1.0)),
+                              np.asarray(master_potential(r, ell, 1.0)))
+
+
+# ── what survives exactly ───────────────────────────────────────────────────
+def test_the_cross_ell_operator_is_algebraically_unchanged():
+    """`ΔV` has no `ℓ`, so `V_{ℓ₂} − V_{ℓ₁}` cannot move. The load-bearing one."""
+    got = oa.measure_what_survives_exactly()
+    assert got["the_cross_ell_operator_is_unchanged"] < 1e-12
+    r = np.linspace(1.02, 5.0, 300)
+    for l1 in range(0, 4):
+        for l2 in range(l1 + 1, 6):
+            d_old = (np.asarray(V_tangherlini_legacy(r, l2, 1.0))
+                     - np.asarray(V_tangherlini_legacy(r, l1, 1.0)))
+            d_new = (np.asarray(V_scalar_tangherlini(r, l2, 1.0))
+                     - np.asarray(V_scalar_tangherlini(r, l1, 1.0)))
+            assert np.allclose(d_new, d_old, atol=1e-13)
+
+
+def test_the_matrix_elements_of_that_exact_operator_still_drift():
+    """Structure invariant, numbers shifted — the distinction the audit turns on."""
+    got = oa.measure_what_survives_exactly()
+    assert got["structure_invariant_numbers_shifted"]
+    assert got["largest_element_drift_percent"] > 0.0, \
+        "if the elements did not move, the eigenfunctions would not have"
+    assert got["largest_element_drift_percent"] < 50.0
+
+
+# ── the impact ──────────────────────────────────────────────────────────────
+def test_the_eigenvalues_move_only_at_the_tenth_of_a_percent_level():
+    got = oa.measure_the_eigenvalue_shifts()
+    assert got["all_shifts_below_a_fifth_of_a_percent"]
+    assert got["eigenfunctions_barely_move"]
+    assert got["omega_1_0_correct"] > got["omega_1_0_legacy"], "the shift is up"
+
+
+def test_the_eigenvalue_sensitivity_falls_monotonically_with_ell():
+    """An `ℓ`-independent shift matters least where the centrifugal term wins."""
+    got = oa.measure_the_eigenvalue_shifts()
+    assert got["sensitivity_falls_with_ell"]
+    shifts = [abs(r["ground_shift_percent"]) for r in got["rows"]]
+    assert shifts[0] > shifts[-1] * 3.0, "the fall should be substantial"
+
+
+def test_the_barrier_sums_move_more_than_the_eigenvalues():
+    """A barrier reads the potential; an eigenvalue averages it."""
+    eig = oa.measure_the_eigenvalue_shifts()
+    gam = oa.measure_the_gamma_sums_and_the_r_outer_fixed_point()
+    worst_sum = max(abs(100.0 * (r["sum_correct"] - r["sum_legacy"])
+                        / r["sum_legacy"]) for r in gam["rows"])
+    assert worst_sum > eig["largest_ground_shift_percent"]
+
+
+def test_the_canonical_gamma_claim_improves_and_nothing_was_tuned():
+    """`Σ V_max[1..5]` vs the locked `22.5`: `−2.2%` → `−0.75%`."""
+    got = oa.measure_the_gamma_sums_and_the_r_outer_fixed_point()
+    assert got["the_canonical_readme_claim_improves"]
+    assert abs(got["canonical_residual_before"]) > 2.0
+    assert abs(got["canonical_residual_after"]) < 1.0
+    assert got["canonical_residual_after"] < 0.0, "still short of 22.5, not over"
+
+
+def test_the_ell_zero_closure_claim_breaks_and_the_channel_set_swaps():
+    """The one INTERPRETATION CHANGED entry, asserted as a reversal."""
+    got = oa.measure_the_gamma_sums_and_the_r_outer_fixed_point()
+    assert got["the_ell_zero_closure_claim_breaks"]
+    assert got["ell_zero_residual_before"] < 0.0, "used to undershoot"
+    assert got["ell_zero_residual_after"] > 0.0, "now overshoots"
+    assert got["the_closest_channel_set_swaps"]
+    assert got["closest_to_gamma_before"] == "l = 0..5"
+    assert got["closest_to_gamma_after"] == "l = 1..5"
+
+
+def test_the_r_outer_fixed_point_moves_for_both_channel_sets():
+    got = oa.measure_the_gamma_sums_and_the_r_outer_fixed_point()
+    for row in got["rows"]:
+        assert row["r_outer_legacy"] is not None
+        assert row["r_outer_correct"] is not None
+        assert row["r_outer_correct"] < row["r_outer_legacy"], \
+            "a taller barrier reaches gamma at a smaller radius"
+
+
+def test_the_actions_sit_between_the_eigenvalues_and_the_barriers():
+    eig = oa.measure_the_eigenvalue_shifts()
+    act = oa.measure_the_wkb_action_shift()
+    assert act["each_action_uses_its_own_ground_frequency"]
+    assert act["largest_drift_percent"] > eig["largest_ground_shift_percent"]
+
+
+def test_the_throat_flux_ratios_mostly_cancel_the_shift():
+    got = oa.measure_the_eigenvector_derived_quantities()
+    assert got["the_reference_mode_is_exactly_one"]
+    assert got["ratios_absorb_most_of_the_shift"]
+    assert "not automatically safe" in got["caveat"]
+
+
+# ── the ledger ──────────────────────────────────────────────────────────────
+def test_every_load_bearing_claim_carries_one_of_three_verdicts():
+    got = oa.measure_the_downstream_ledger()
+    allowed = {"EXACTLY INVARIANT", "NUMERICALLY SHIFTED", "INTERPRETATION CHANGED"}
+    assert all(e["verdict"] in allowed for e in got["entries"])
+    assert sum(got["counts"].values()) == len(got["entries"])
+    for v in allowed:
+        assert got["counts"][v] >= 1, f"no entry landed in {v}"
+
+
+def test_the_topological_results_are_named_as_not_re_run():
+    """Proximity is not dependence, and the audit says so out loud."""
+    got = oa.measure_the_downstream_ledger()
+    text = " ".join(e["claim"] + e["evidence"] for e in got["entries"])
+    for name in ("Hopf", "Pin-", "odd-k", "antipodal parity"):
+        assert name in text
+    assert "proximity is not dependence" in got["not_re_run_and_why"]
+
+
+def test_the_gamma_narrative_is_withdrawn_not_replaced():
+    """The corrected sum landing nearer 22.5 is an observation, not a derivation."""
+    got = oa.measure_the_downstream_ledger()
+    assert "withdrawn, not replaced" in got["what_is_still_open"]
+    assert "not a derivation of why" in got["what_is_still_open"]
+
+
+def test_the_1054_factor_is_flagged_against_its_own_tolerance():
+    got = oa.measure_the_downstream_ledger()
+    entry = next(e for e in got["entries"] if "1.054" in e["claim"])
+    assert entry["verdict"] == "NUMERICALLY SHIFTED"
+    assert "0.04%" in entry["evidence"], "the tolerance it now exceeds"
+
+
+# ── the audit machinery itself ──────────────────────────────────────────────
+def test_the_audit_grid_matches_the_production_solver():
+    """The audit must measure the same operator the repository runs."""
+    from geometrodynamics.tangherlini.radial import solve_radial_modes
+    for ell in (0, 2):
+        prod, _, rg_prod = solve_radial_modes(ell, N=80, n_modes=2)
+        mine, _, rg_mine = oa.eigen_solve(ell, V_scalar_tangherlini,
+                                          points=80, n_modes=2)
+        assert np.allclose(rg_prod, rg_mine, atol=1e-12)
+        assert np.allclose(prod[:2], mine[:2], rtol=1e-10)
+
+
+def test_both_operators_are_registered_for_the_sweep():
+    assert set(oa.OPERATORS) == {"legacy", "scalar_correct"}
+    r = np.linspace(1.3, 4.0, 50)
+    assert not np.allclose(oa.OPERATORS["legacy"](r, 2, 1.0),
+                           oa.OPERATORS["scalar_correct"](r, 2, 1.0))
+
+
+def test_the_locked_gamma_is_the_repository_constant():
+    from geometrodynamics.tangherlini import LEPTON_BASELINE_PINHOLE
+    assert oa.LOCKED_GAMMA == LEPTON_BASELINE_PINHOLE == 22.5

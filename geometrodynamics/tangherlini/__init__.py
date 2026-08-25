@@ -9,7 +9,9 @@ derived α_q coupling ratios.
 
 from geometrodynamics.tangherlini.radial import (
     solve_radial_modes,
+    V_scalar_tangherlini,
     V_tangherlini,
+    V_tangherlini_legacy,
     r_to_rstar,
     rstar_to_r,
 )
