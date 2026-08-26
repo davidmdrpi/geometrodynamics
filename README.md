@@ -39,10 +39,14 @@ quantum theory of the metric.
 ## Where ℏ enters: scale-free closure ledger + one geometric anchor
 
 The closure-ledger arc (`experiments/closure_ledger/`, PRs #11–#74)
-reduces every dimensionless parameter in the locked lepton surrogate
+reduces most dimensionless parameters in the locked lepton surrogate
 to closure-quantum invariants (`action_base = 2π`, `transport = 8π`,
-`resistance = 7π/100`, `pinhole γ = Σ V_max[1..5]`, `β_lepton = k_5²·(2π) = 50π`,
-`ε = 7π/(100·k_5⁴)`), and an audit (`maslov_dimensional_bridge_probe`,
+`resistance = 7π/100`, `β_lepton = k_5²·(2π) = 50π`,
+`ε = 7π/(100·k_5⁴)`). **The `pinhole γ = Σ V_max[1..5]` entry is reopened by
+PR #271** — correcting the radial scalar operator removed the numerical support
+for deriving `γ = 22.5` from the canonical geometry, and the chain's sensitivity
+to `γ` (`d ln m_μ/d ln γ = −17.5`) makes a sub-percent residual a ~9 % mass
+error. `γ` remains *required*; it is no longer *derived*, and an audit (`maslov_dimensional_bridge_probe`,
 PR #52) then established that the machinery is **scale-free**:
 rescaling `R_MID → λ·R_MID` leaves every dimensionless output
 invariant. By dimensional analysis, **exactly one external dimensionful
@@ -192,12 +196,12 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | S³ action base `action_base = 2π` | **Locked** | Hard topological invariant; default in all lepton scans |
 | k=5 uplift `4β = 200π` (100 × 2π) | **Locked** | τ uplift equals exactly 100 S³ winding quanta |
 | Closure cycle integer-quantised in 2π | **Verified** | `(N_e, N_μ, N_τ) = (3, 6, 109)` from antipodal + Hopf-throat + radial BS + τ-uplift |
-| R_OUTER selected by cross-species fixed point | **Verified** | Bisection on each lepton gives same R* ≈ 1.262 to 0.008 % |
-| Pinhole γ ≈ Σ V_max[1..5] on Chebyshev grid | **Verified** | −2.2 % off the locked γ = 22.5; same operator as the QCD-sector γ_q |
+| R_OUTER selected by cross-species fixed point | **REOPENED (PR #271)** | The bisection agreement was computed with the pre-#271 radial operator. The lepton observables do **not** currently select a unique `R_OUTER`: the locked Hamiltonian discards `r_outer` and sees only `γ`, so the two corrected `γ = 22.5` roots (`1.24614`, `1.26788`) give **bit-identical** masses. See `docs/scalar_operator_audit.md` |
+| Pinhole γ ≈ Σ V_max[1..5] on Chebyshev grid | **REOPENED (PR #271)** | Under the corrected scalar operator the residual improves to −0.75 %, but `d ln m_μ/d ln γ = −17.5` at the lock makes that a **9 %** muon error, and no channel set at `R = 1.26` lands near 22.5. `γ = 22.5` is required by the locked surrogate; its **geometric derivation is reopened**. See `docs/scalar_operator_audit.md` |
 | Transport = 8π = 4·(2π) | **Verified** | +0.13 % off the locked transport = 25.1; 4th closure quantum |
 | Resistance = 7π / 100 | **Verified** | +0.94 % off the locked resistance = 0.2179; selected over `4·(ω−1)` by R_OUTER bisection |
 | Inner cutoff `ε = resistance / k_5⁴` | **Verified** | Closes the Compton bridge `ℏ = m_e R_MID c` to 0.04 % |
-| Closure-quantum ledger closes modulo m_e | **Established** | Every locked parameter is a closure-quantum invariant; m_e is the unique remaining external input |
+| Closure-quantum ledger closes modulo m_e | **PARTIALLY REOPENED (PR #271)** | The `2π`-quantised entries stand. The `pinhole γ` entry does not: its geometric derivation is reopened, so the ledger no longer reduces **every** dimensionless parameter to closure quanta. See `docs/scalar_operator_audit.md` |
 | Quark mass ladder (u, d, s, c, b, t) | **Fitted** | 1.6% max rel err on s, c, b, t with d-anchor, four shell-index axioms, and one phenomenological β |
 | Quark shell-index axioms (ε, η, χ, phase) | **Geometric** | All four expressible in `k_5 = 5` only: `(1−1/k_5², k_5, (k_5−1)·k_5, 0)` |
 | Quark residual sector (transport, pinhole, resistance) | **Derived** | Each matches Tangherlini eigenmode quantity within ~1% on the tortoise grid |
@@ -3827,8 +3831,8 @@ cross-`ℓ` structure nearly intact, but **removes the numerical support for the
 claim that the canonical `R_OUTER = 1.26` geometry generates the locked lepton
 pinhole `γ = 22.5`.** Eigenvalues move at `10⁻³`; the cross-`ℓ` operator is
 unchanged to `3.6e-15`. What moves is the barrier sum — and the lepton chain is
-far more sensitive to it than had been measured: `d ln m_μ / d ln γ = −16.6`, so
-a half-percent error in `γ` is an eight-percent error in the muon. Under the
+far more sensitive to it than had been measured: `d ln m_μ / d ln γ = −17.5` at the lock (secant `−16.6` over `22.331…22.836`), so
+a half-percent error in `γ` is a nine-percent error in the muon. Under the
 legacy operator the canonical geometry nearly produced the lock (`22.453` at
 `R = 1.26`, `0.21%` away, masses within `3.8%`); under the corrected operator
 **no channel set at `R = 1.26` lands near `22.5`** — `22.331` or `22.836` — and
@@ -3886,7 +3890,7 @@ scalar `γ`, and the channel-set choice leaves no trace in any observable.
 Fixing `R_OUTER` and letting `γ` float is what breaks the ladder: `+15.16%` and
 `−20.52%` on `m_μ`, against the legacy geometry's `+3.78%`. So **the correction
 weakens the "geometry supplies `γ`" story** even while improving the `1..5`
-residual in isolation — because `d ln m_μ / d ln γ = −16.6`, and a sub-percent
+residual in isolation — because `d ln m_μ / d ln γ = −17.5` at the lock (secant `−16.6` over `22.331…22.836`), and a sub-percent
 geometric residual is not a small residual in this chain. The channel-set
 question is **not decidable by the lepton observables**.
 

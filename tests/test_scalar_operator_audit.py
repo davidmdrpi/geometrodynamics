@@ -111,7 +111,7 @@ def test_the_matrix_elements_of_that_exact_operator_still_drift():
 def test_the_eigenvalues_move_only_at_the_tenth_of_a_percent_level():
     got = oa.measure_the_eigenvalue_shifts()
     assert got["all_shifts_below_a_fifth_of_a_percent"]
-    assert got["eigenfunctions_barely_move"]
+    assert got["eigenvectors_barely_move"]
     assert got["omega_1_0_correct"] > got["omega_1_0_legacy"], "the shift is up"
 
 
@@ -204,8 +204,11 @@ def test_the_gamma_narrative_is_withdrawn_not_replaced():
 def test_the_1054_factor_is_flagged_against_its_own_tolerance():
     got = oa.measure_the_downstream_ledger()
     entry = next(e for e in got["entries"] if "1.054" in e["claim"])
-    assert entry["verdict"] == "NUMERICALLY SHIFTED"
-    assert "0.04%" in entry["evidence"], "the tolerance it now exceeds"
+    assert entry["verdict"] == "INTERPRETATION CHANGED", \
+        "there is no unique gamma-locked R_OUTER left to evaluate it at"
+    fixed = next(e for e in got["entries"] if "FIXED R_OUTER" in e["claim"])
+    assert fixed["verdict"] == "NUMERICALLY SHIFTED"
+    assert "withdrawn" in entry["evidence"]
 
 
 # ── the audit machinery itself ──────────────────────────────────────────────
@@ -278,7 +281,8 @@ def test_the_correction_weakens_the_geometry_supplies_gamma_story():
 def test_a_subpercent_gamma_residual_is_not_a_small_residual():
     """`d ln m_mu / d ln gamma` is large and negative, so gamma carries weight."""
     got = oa.measure_which_geometry_preserves_the_lepton_ladder()
-    assert got["d_ln_m_mu_over_d_ln_gamma"] < -10.0
+    assert got["local_d_ln_m_mu_over_d_ln_gamma_at_22p5"] < -10.0
+    assert got["secant_elasticity_over_22p331_to_22p836"] < -10.0
     assert got["so_a_subpercent_residual_is_not_small"]
 
 
@@ -287,3 +291,82 @@ def test_the_channel_set_question_is_left_undecided_on_purpose():
     assert got["nothing_was_retuned"]
     assert "not decidable by the lepton observables" in got["what_this_does_not_settle"]
     assert "only ever saw the scalar" in got["what_this_does_not_settle"]
+
+
+# ── the review's fixes, pinned so they cannot drift back ────────────────────
+def test_the_transport_element_is_the_off_diagonal_historical_object():
+    """`⟨u_ℓ₁|V_ℓ₂−V_ℓ₁|u_ℓ₂⟩`, not a diagonal expectation.
+
+    An earlier version computed `dot(v_ℓ², ΔV)` — no `u_{ℓ+2}` in it at all —
+    and quoted the result as the drift of the *cross-ℓ transport* elements.
+    That is a different object. This pins the real one.
+    """
+    got = oa.measure_what_survives_exactly()
+    assert "off-diagonal" in got["the_element_measured"]
+    assert "u_l2" in got["the_element_measured"]
+    pairs = [e["pair"] for e in got["matrix_elements"]]
+    assert pairs == ["<u_1|V_3-V_1|u_3>", "<u_3|V_5-V_3|u_5>", "<u_1|V_5-V_1|u_5>"]
+    assert "diagonal" in got["what_an_earlier_version_measured"]
+    # the elements are genuinely off-diagonal: swapping the states changes nothing,
+    # but dropping one of them would change everything
+    for e in got["matrix_elements"]:
+        assert abs(e["element_legacy"]) > 1e-3
+        assert abs(e["drift_percent"]) < 1.0
+
+
+def test_the_closed_orbit_action_carries_the_return_leg():
+    """`S_full = 2∫√(ω²−V)dr*` — the ledger's `∮p dq`, not the one-way integral."""
+    one = oa.one_way_wkb_action(1.1, V_scalar_tangherlini, 1)
+    both = oa.closed_orbit_action(1.1, V_scalar_tangherlini, 1)
+    assert both == pytest.approx(2.0 * one, rel=1e-12)
+    assert one > 0.0
+    # and the audit reports the doubled one
+    got = oa.measure_the_wkb_action_shift()
+    for row in got["rows"]:
+        w, _, _ = oa.eigen_solve(row["ell"], V_scalar_tangherlini, n_modes=1)
+        assert row["action_correct"] == pytest.approx(
+            2.0 * oa.one_way_wkb_action(float(w[0]), V_scalar_tangherlini,
+                                        row["ell"]), rel=1e-9)
+
+
+def test_the_secant_and_the_local_derivative_are_reported_separately():
+    """One is a finite difference over a range; the other is `d/d` at the lock."""
+    got = oa.measure_which_geometry_preserves_the_lepton_ladder()
+    secant = got["secant_elasticity_over_22p331_to_22p836"]
+    local = got["local_d_ln_m_mu_over_d_ln_gamma_at_22p5"]
+    assert secant < -10.0 and local < -10.0
+    assert secant != local, "a secant over a finite range is not the derivative"
+    assert got["the_headline_number_is_the_local_derivative"]
+    assert "finite difference" in got["why_both_are_reported"]
+
+
+def test_the_gamma_locked_1054_factor_is_withdrawn_not_re_quoted():
+    """No unique γ-locked `R_OUTER` survives, so the factor cannot be re-evaluated."""
+    got = oa.measure_the_downstream_ledger()
+    locked = next(e for e in got["entries"] if "GAMMA-LOCKED" in e["claim"])
+    assert locked["verdict"] == "INTERPRETATION CHANGED"
+    assert "1.24614" in locked["evidence"] and "1.26788" in locked["evidence"]
+    fixed = next(e for e in got["entries"] if "FIXED R_OUTER" in e["claim"])
+    assert fixed["verdict"] == "NUMERICALLY SHIFTED"
+    assert fixed["claim"] != locked["claim"], "two different quantities"
+
+
+def test_the_status_docs_no_longer_assert_the_reopened_claims():
+    """README and THESIS must not still call the reopened claims Verified."""
+    import pathlib
+    root = pathlib.Path(__file__).resolve().parents[1]
+    readme = (root / "README.md").read_text()
+    for row in ("R_OUTER selected by cross-species fixed point",
+                "Pinhole γ ≈ Σ V_max[1..5] on Chebyshev grid"):
+        line = next(l for l in readme.splitlines() if row in l)
+        assert "**Verified**" not in line, f"still asserted as Verified: {row}"
+        assert "REOPENED" in line
+    thesis = (root / "docs" / "THESIS.md").read_text()
+    assert "REOPENED BY PR #271" in thesis
+    # the present-tense claim must be gone; the past-tense record may stay
+    assert "is the\n  unique physical selection" not in thesis
+    assert "was the\n  unique physical selection" in thesis
+    # and the reopened marker has to actually follow the claim it reopens
+    head, tail = thesis.split("REOPENED BY PR #271", 1)
+    assert "cross-species self-consistency loop" in head[-1200:]
+    assert "bit-identical" in tail[:1200]

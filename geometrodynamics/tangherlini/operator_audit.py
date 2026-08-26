@@ -85,7 +85,8 @@ __all__ = [
     "eigen_solve",
     "vmax_sum",
     "r_outer_fixed_point",
-    "radial_action",
+    "one_way_wkb_action",
+    "closed_orbit_action",
     "measure_the_two_operators_and_their_exact_gap",
     "measure_the_eigenvalue_shifts",
     "measure_the_gamma_sums_and_the_r_outer_fixed_point",
@@ -165,13 +166,16 @@ def r_outer_fixed_point(potential: Callable, lo: int, hi: int,
         return None
 
 
-def radial_action(omega: float, potential: Callable, ell: int,
-                  points: int = 4000, rs: float = R_MID,
-                  r_outer: float = R_OUTER) -> float:
-    """``∮ √(ω² − V) dr*`` over the classically allowed region — the WKB action.
+def one_way_wkb_action(omega: float, potential: Callable, ell: int,
+                       points: int = 4000, rs: float = R_MID,
+                       r_outer: float = R_OUTER) -> float:
+    """``∫ √(ω² − V) dr*`` over the classically allowed region — **one way**.
 
-    Computed in tortoise coordinate, which is where the operator is a plain
-    Schrödinger problem, so the action is the honest closed-orbit invariant.
+    Not the closure ledger's closed-orbit action, which is
+    ``S_full = 2∫√(ω² − V)dr*`` — the return leg is a factor of two this does
+    not carry.  `closed_orbit_action` supplies it.  The percent drift under the
+    operator correction is identical either way, but the two must not be
+    confused: only the doubled one is the ``∮p dq`` quantity.
     """
     rs_min = r_to_rstar(rs + 5e-4, rs)
     rs_max = r_to_rstar(r_outer - 5e-4, rs)
@@ -183,6 +187,12 @@ def radial_action(omega: float, potential: Callable, ell: int,
     if not np.any(allowed):
         return 0.0
     return float(np.trapezoid(np.sqrt(integrand[allowed]), grid[allowed]))
+
+
+def closed_orbit_action(omega: float, potential: Callable, ell: int,
+                        **kw) -> float:
+    """``S_full = 2∫√(ω² − V)dr*`` — the closure ledger's ``∮p dq``."""
+    return 2.0 * one_way_wkb_action(omega, potential, ell, **kw)
 
 
 # ── measurements ────────────────────────────────────────────────────────────
@@ -276,7 +286,7 @@ def measure_the_eigenvalue_shifts(
             "omega_legacy": [float(x) for x in w_old[:k]],
             "omega_correct": [float(x) for x in w_new[:k]],
             "ground_shift_percent": float(100.0 * (w_new[0] - w_old[0]) / w_old[0]),
-            "min_eigenfunction_overlap": float(min(overlaps)),
+            "min_collocation_vector_similarity": float(min(overlaps)),
         })
     shifts = [abs(r["ground_shift_percent"]) for r in rows]
     return {
@@ -288,8 +298,8 @@ def measure_the_eigenvalue_shifts(
         "all_shifts_below_a_fifth_of_a_percent": bool(max(shifts) < 0.2),
         "sensitivity_falls_with_ell": bool(
             all(b <= a + 1e-12 for a, b in zip(shifts, shifts[1:]))),
-        "eigenfunctions_barely_move": bool(
-            min(r["min_eigenfunction_overlap"] for r in rows) > 0.99),
+        "eigenvectors_barely_move": bool(
+            min(r["min_collocation_vector_similarity"] for r in rows) > 0.99),
         "why_so_small": "an eigenvalue averages the potential against a bound "
                         "state, so an l-independent shift matters least where "
                         "the centrifugal term already dominates",
@@ -363,29 +373,59 @@ def measure_what_survives_exactly(
                  - np.asarray(V_scalar_tangherlini(rg, l, R_MID)))
         worst_operator = max(worst_operator, float(np.max(np.abs(d_new - d_old))))
 
-    # the matrix elements, which do move
-    elements = []
-    for l in (0, 1, 2, 3):
-        _, v_old, _ = eigen_solve(l, V_tangherlini_legacy, n_modes=1)
-        _, v_new, _ = eigen_solve(l, V_scalar_tangherlini, n_modes=1)
-        d_old = (np.asarray(V_tangherlini_legacy(rg, l + 2, R_MID))
-                 - np.asarray(V_tangherlini_legacy(rg, l, R_MID)))[1:80]
-        d_new = (np.asarray(V_scalar_tangherlini(rg, l + 2, R_MID))
-                 - np.asarray(V_scalar_tangherlini(rg, l, R_MID)))[1:80]
-        m_old = float(np.dot(v_old[:, 0] ** 2, d_old))
-        m_new = float(np.dot(v_new[:, 0] ** 2, d_new))
-        elements.append({"ell": l, "element_legacy": m_old,
-                         "element_correct": m_new,
-                         "drift_percent": 100.0 * (m_new - m_old) / abs(m_old)})
+    # The genuine transport element, matching the historical probe exactly:
+    #   <u_l1 | V_l2 - V_l1 | u_l2>
+    # off-diagonal, L2-normalised in the tortoise coordinate, u_l2 interpolated
+    # onto u_l1's grid, trapezoid in r*.  An earlier version of this function
+    # computed dot(v_l**2, dV) instead -- a DIAGONAL expectation in the l state,
+    # with no u_{l+2} in it at all.  That is a different object and it cannot
+    # speak for the transport ledger; review caught it.
+    def transport_elements(potential):
+        prof = {}
+        for l in (1, 3, 5):
+            _, vecs, rgl = eigen_solve(l, potential, n_modes=1)
+            u = np.zeros(rgl.size)
+            u[1:rgl.size - 1] = vecs[:, 0]
+            rstar = np.array([r_to_rstar(float(x), R_MID) for x in rgl])
+            order = np.argsort(rstar)
+            rs_sorted, u_sorted = rstar[order], u[order]
+            norm = math.sqrt(float(np.trapezoid(u_sorted ** 2, rs_sorted)))
+            V = np.asarray(potential(rgl, l, R_MID), dtype=float)[order]
+            prof[l] = (rs_sorted, u_sorted / norm, V)
+        out = {}
+        for (l1, l2) in ((1, 3), (3, 5), (1, 5)):
+            rs1, u1, V1 = prof[l1]
+            rs2, u2, V2 = prof[l2]
+            u2_on_1 = np.interp(rs1, rs2, u2)
+            V2_on_1 = np.interp(rs1, rs2, V2)
+            out[(l1, l2)] = abs(float(
+                np.trapezoid(u1 * u2_on_1 * (V2_on_1 - V1), rs1)))
+        return out
+
+    t_old = transport_elements(V_tangherlini_legacy)
+    t_new = transport_elements(V_scalar_tangherlini)
+    elements = [{"pair": f"<u_{a}|V_{b}-V_{a}|u_{b}>",
+                 "element_legacy": t_old[(a, b)],
+                 "element_correct": t_new[(a, b)],
+                 "drift_percent": (100.0 * (t_new[(a, b)] - t_old[(a, b)])
+                                   / abs(t_old[(a, b)]))}
+                for (a, b) in ((1, 3), (3, 5), (1, 5))]
     drifts = [abs(e["drift_percent"]) for e in elements]
     return {
         "the_cross_ell_operator_is_unchanged": worst_operator,
+        "the_element_measured": "<u_l1 | V_l2 - V_l1 | u_l2>, off-diagonal, "
+                                "L2-normalised in r*, matching the historical "
+                                "transport probe's normalisation and quadrature",
         "matrix_elements": elements,
         "largest_element_drift_percent": max(drifts),
         "structure_invariant_numbers_shifted": True,
         "the_partition": "the operator V_{l+2} - V_l survives algebraically "
                          "EXACTLY; its matrix elements drift because the "
                          "eigenfunctions do",
+        "what_an_earlier_version_measured": "dot(v_l**2, dV) -- a diagonal "
+                                            "expectation with no u_{l+2} in it, "
+                                            "which cannot speak for the "
+                                            "transport ledger",
     }
 
 
@@ -440,8 +480,8 @@ def measure_the_wkb_action_shift(
     for l in ells:
         w_old, _, _ = eigen_solve(l, V_tangherlini_legacy, n_modes=1)
         w_new, _, _ = eigen_solve(l, V_scalar_tangherlini, n_modes=1)
-        a_old = radial_action(float(w_old[0]), V_tangherlini_legacy, l)
-        a_new = radial_action(float(w_new[0]), V_scalar_tangherlini, l)
+        a_old = closed_orbit_action(float(w_old[0]), V_tangherlini_legacy, l)
+        a_new = closed_orbit_action(float(w_new[0]), V_scalar_tangherlini, l)
         rows.append({"ell": l, "action_legacy": a_old, "action_correct": a_new,
                      "drift_percent": 100.0 * (a_new - a_old) / abs(a_old)})
     drifts = [abs(r["drift_percent"]) for r in rows]
@@ -492,18 +532,25 @@ def measure_the_downstream_ledger() -> Dict[str, object]:
         {"claim": "closed-orbit / WKB radial actions",
          "verdict": "NUMERICALLY SHIFTED",
          "evidence": f"largest drift {act['largest_drift_percent']:.3f}%"},
-        {"claim": "the 1.054 factor, omega(1,0) at the gamma-locked geometry",
+        {"claim": "omega(1,0) at FIXED R_OUTER = 1.26",
          "verdict": "NUMERICALLY SHIFTED",
          "evidence": f"{eig['omega_1_0_legacy']:.6f} -> "
-                     f"{eig['omega_1_0_correct']:.6f}; the quoted 1.054 becomes "
-                     f"1.056, which exceeds the 0.04% Compton-bridge tolerance "
-                     f"and so needs re-quoting, not re-deriving"},
+                     f"{eig['omega_1_0_correct']:.6f} -- a fixed-R shift, "
+                     f"measured at the default geometry"},
+        {"claim": "the 1.054 factor, omega(1,0) AT THE GAMMA-LOCKED GEOMETRY",
+         "verdict": "INTERPRETATION CHANGED",
+         "evidence": "there is no longer a unique gamma-locked R_OUTER to "
+                     "evaluate it at: the corrected roots are 1.24614 and "
+                     "1.26788 and T7 shows they are observationally "
+                     "indistinguishable, so the gamma-locked 1.054 is withdrawn "
+                     "rather than re-quoted. the fixed-R shift above is a "
+                     "different quantity and does not stand in for it"},
         {"claim": "pinhole gamma = Sum V_max[1..5] vs the locked 22.5",
          "verdict": "NUMERICALLY SHIFTED",
          "evidence": f"{gam['canonical_residual_before']:+.2f}% -> "
                      f"{gam['canonical_residual_after']:+.2f}% -- the canonical "
                      f"README claim IMPROVES, and nothing was tuned"},
-        {"claim": "R_OUTER as the gamma = 22.5 fixed point",
+        {"claim": "R_OUTER numerical roots of gamma = 22.5",
          "verdict": "NUMERICALLY SHIFTED",
          "evidence": f"l=0..5 root {gam['rows'][1]['r_outer_legacy']:.5f} -> "
                      f"{gam['rows'][1]['r_outer_correct']:.5f}; l=1..5 root "
@@ -577,7 +624,9 @@ def measure_which_geometry_preserves_the_lepton_ladder() -> Dict[str, object]:
     the claim.  Under the corrected operator no channel set at ``R = 1.26`` lands
     near ``22.5``, and both damage the ladder at the ``15–21%`` level.
 
-    The reason is sensitivity: ``d ln m_μ / d ln γ ≈ −19``, so a sub-percent
+    The reason is sensitivity — a **local** ``d ln m_μ / d ln γ`` at the lock,
+    reported alongside the secant between the two corrected geometries — so a
+    sub-percent
     geometric residual is **not** a small residual in this chain.
 
     **So the channel-set question is not decidable by the lepton observables.**
@@ -632,9 +681,17 @@ def measure_which_geometry_preserves_the_lepton_ladder() -> Dict[str, object]:
     a0 = by["A corrected R=1.26, gamma[0..5]"]
     leg0 = by["legacy R=1.26, gamma[0..5]"]
 
-    # d ln m / d ln gamma, from the two corrected fixed-R geometries
-    elasticity = float((math.log(a0["m_mu"]) - math.log(a1["m_mu"]))
-                       / (math.log(a0["gamma"]) - math.log(a1["gamma"])))
+    # A SECANT elasticity between the two corrected fixed-R geometries -- a
+    # finite difference over gamma = 22.331 .. 22.836, not a derivative.
+    secant = float((math.log(a0["m_mu"]) - math.log(a1["m_mu"]))
+                   / (math.log(a0["gamma"]) - math.log(a1["gamma"])))
+    # and the LOCAL central derivative at the lock itself, which is the
+    # quantity the headline is really about
+    eps = 1e-3 * LOCKED_GAMMA
+    m_hi = locked(LOCKED_GAMMA + eps).predicted_mev[3]
+    m_lo = locked(LOCKED_GAMMA - eps).predicted_mev[3]
+    local = float((math.log(m_hi) - math.log(m_lo))
+                  / (math.log(LOCKED_GAMMA + eps) - math.log(LOCKED_GAMMA - eps)))
 
     return {
         "rows": rows,
@@ -657,8 +714,14 @@ def measure_which_geometry_preserves_the_lepton_ladder() -> Dict[str, object]:
         "the_correction_weakens_the_geometry_supplies_gamma_story": bool(
             abs(leg0["mu_error_percent"]) < abs(a1["mu_error_percent"])
             and abs(leg0["mu_error_percent"]) < abs(a0["mu_error_percent"])),
-        "d_ln_m_mu_over_d_ln_gamma": elasticity,
-        "so_a_subpercent_residual_is_not_small": bool(abs(elasticity) > 10.0),
+        "secant_elasticity_over_22p331_to_22p836": secant,
+        "local_d_ln_m_mu_over_d_ln_gamma_at_22p5": local,
+        "the_headline_number_is_the_local_derivative": True,
+        "why_both_are_reported": "the secant is a finite difference between the "
+                                 "two corrected fixed-R geometries; the local "
+                                 "value is the derivative at the lock. review "
+                                 "caught the first being written as the second",
+        "so_a_subpercent_residual_is_not_small": bool(abs(local) > 10.0),
         "what_this_does_not_settle": "the channel-set question is not decidable "
                                      "by the lepton observables -- it has to be "
                                      "settled by what gamma MEANS geometrically, "

@@ -3940,12 +3940,27 @@ problems rather than implementation TODOs:
   R_OUTER ≈ 1.449) is physically vetoed** — re-running the locked
   lepton surrogate at this geometry breaks the muon and tau masses
   by ~46 %, and no β re-tuning recovers both species. The γ-lock
-  geometry (R_OUTER ≈ 1.262, Σ V_max = 22.5, ω(1, 0) = 1.054) is the
-  unique physical selection. (3) **The γ-lock R_OUTER is selected
-  by a cross-species self-consistency loop**: bisecting μ and τ
-  independently against `γ = Σ V_max(R)` gives the same R* to within
-  0.008 %, confirming that the radial barrier-sum geometry
-  reproduces both lepton mass ratios at a single R_OUTER. The
+  geometry (R_OUTER ≈ 1.262, Σ V_max = 22.5, ω(1, 0) = 1.054) was the
+  unique physical selection. (3) **The γ-lock R_OUTER was reported as
+  selected by a cross-species self-consistency loop**: bisecting μ and τ
+  independently against `γ = Σ V_max(R)` gave the same R* to within
+  0.008 %.
+
+  > **⚠ REOPENED BY PR #271.** Both statements were computed with a radial
+  > operator that was not the minimally coupled massless scalar master
+  > potential — it was short of it by an `ℓ`-independent `3A²/(4r²)`. Two
+  > things follow. First, the locked lepton Hamiltonian **never sees
+  > `R_OUTER`** (`compute_knotted_lepton_spectrum` does `del l, n_points,
+  > rs, r_outer`); it consumes only the scalar `γ`, so the two corrected
+  > `γ = 22.5` roots — `1.24614` and `1.26788` — give **bit-identical**
+  > masses and the observables do not select a unique `R_OUTER`. Second,
+  > under the corrected operator **no channel set at `R = 1.26` lands near
+  > `22.5`**, and with `d ln m_μ/d ln γ = −17.5` at the lock a sub-percent
+  > `γ` residual is a ~9 % mass error. `γ = 22.5` remains **required** by
+  > the locked surrogate; its **derivation from the canonical radial
+  > barrier geometry is reopened**, and the "unique physical selection"
+  > language above does not currently hold. See
+  > `docs/scalar_operator_audit.md`. The
   remaining open piece is **the SI conversion factor 1.054** —
   ω(1, 0) at the cross-species fixed point. Whether 1.054 has a
   closed form in `(k_5, π, barrier invariants)`, and whether the

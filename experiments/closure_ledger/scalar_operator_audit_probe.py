@@ -31,9 +31,9 @@ The eigenvalues move at the 1e-3 level; the cross-l operator is unchanged to
 3.6e-15. What moves is the barrier sum -- and the lepton chain is far more
 sensitive to it than had ever been measured:
 
-    d ln m_mu / d ln gamma  =  -16.6
+    d ln m_mu / d ln gamma |_(gamma=22.5)  =  -17.5
 
-so a half-percent error in gamma is an eight-percent error in the muon. The
+so a half-percent error in gamma is a nine-percent error in the muon. The
 gamma residual was reported for years as a -2.2% or -0.21% near-equality, which
 reads like a rounding detail; at that elasticity it is the most sensitive input
 in the chain.
@@ -172,7 +172,7 @@ def run_probe() -> dict:
         "detail": eig,
         "pass": bool(eig["all_shifts_below_a_fifth_of_a_percent"]
                      and eig["sensitivity_falls_with_ell"]
-                     and eig["eigenfunctions_barely_move"])})
+                     and eig["eigenvectors_barely_move"])})
 
     gam = measure_the_gamma_sums_and_the_r_outer_fixed_point()
     checks.append({
@@ -229,7 +229,7 @@ def run_probe() -> dict:
                     "claims are algebraically untouched, which keep their "
                     "meaning with different digits, and which no longer say "
                     "what they said?",
-        "answer": "correcting the operator leaves the radial spectrum and the cross-l structure nearly intact, but removes the numerical support for the claim that the canonical R_OUTER = 1.26 geometry generates the locked pinhole gamma = 22.5: d ln m_mu / d ln gamma = -16.6, so the gamma residual reported for years as a -2.2% near-equality is the most sensitive input in the chain, and under the corrected operator NO channel set at R = 1.26 lands near 22.5. the locked lepton Hamiltonian sees only gamma -- not R_OUTER, not the channel set -- so enforcing gamma = 22.5 makes alternative geometric roots observationally indistinguishable. gamma = 22.5 remains required by the locked model; its derivation from the canonical barrier geometry is reopened",
+        "answer": "correcting the operator leaves the radial spectrum and the cross-l structure nearly intact, but removes the numerical support for the claim that the canonical R_OUTER = 1.26 geometry generates the locked pinhole gamma = 22.5: d ln m_mu / d ln gamma = -17.5 at the lock (secant -16.6), so the gamma residual reported for years as a -2.2% near-equality is the most sensitive input in the chain, and under the corrected operator NO channel set at R = 1.26 lands near 22.5. the locked lepton Hamiltonian sees only gamma -- not R_OUTER, not the channel set -- so enforcing gamma = 22.5 makes alternative geometric roots observationally indistinguishable. gamma = 22.5 remains required by the locked model; its derivation from the canonical barrier geometry is reopened",
         "headline": {
             "the_gap": gap["the_gap"],
             "omega_1_0": [eig["omega_1_0_legacy"], eig["omega_1_0_correct"]],
@@ -242,7 +242,10 @@ def run_probe() -> dict:
             "cross_ell_operator_unchanged_to": inv["the_cross_ell_operator_is_unchanged"],
             "verdict_counts": led["counts"],
             "B_and_C_bit_identical": lad["B_and_C_are_bit_identical"],
-            "d_ln_m_mu_over_d_ln_gamma": lad["d_ln_m_mu_over_d_ln_gamma"],
+            "local_d_ln_m_mu_over_d_ln_gamma_at_22p5":
+                lad["local_d_ln_m_mu_over_d_ln_gamma_at_22p5"],
+            "secant_elasticity_over_the_two_corrected_geometries":
+                lad["secant_elasticity_over_22p331_to_22p836"],
         },
         "checks": checks,
         "passed": sum(1 for c in checks if c["pass"]),
@@ -277,13 +280,13 @@ def render_markdown(summary: dict) -> str:
 
     e = next(c for c in summary["checks"] if c["id"] == "T1")["detail"]
     L += ["## T1 — the eigenvalues barely move", "",
-          "| `ℓ` | legacy `ω_{ℓ,0}` | corrected | shift | min overlap |",
+          "| `ℓ` | legacy `ω_{ℓ,0}` | corrected | shift | min similarity |",
           "|--|--|--|--|--|"]
     for r in e["rows"]:
         L.append(f"| {r['ell']} | `{r['omega_legacy'][0]:.8f}` | "
                  f"`{r['omega_correct'][0]:.8f}` | "
                  f"`{r['ground_shift_percent']:+.4f}%` | "
-                 f"`{r['min_eigenfunction_overlap']:.6f}` |")
+                 f"`{r['min_collocation_vector_similarity']:.6f}` |")
     L += ["", f"The monotone fall with `ℓ` is not a coincidence: "
               f"{e['why_so_small']}.", ""]
 
@@ -314,9 +317,9 @@ def render_markdown(summary: dict) -> str:
           f"`ΔV` carries no `ℓ`, so `V_{{ℓ+2}} − V_ℓ` is unchanged to "
           f"`{inv['the_cross_ell_operator_is_unchanged']:.1e}` — algebraically "
           f"exact. Its matrix elements are not:", "",
-          "| `ℓ` | element legacy | corrected | drift |", "|--|--|--|--|"]
+          "| element | legacy | corrected | drift |", "|--|--|--|--|"]
     for r in inv["matrix_elements"]:
-        L.append(f"| {r['ell']} | `{r['element_legacy']:.6e}` | "
+        L.append(f"| `{r['pair']}` | `{r['element_legacy']:.6e}` | "
                  f"`{r['element_correct']:.6e}` | `{r['drift_percent']:+.3f}%` |")
     L += ["", f"**{inv['the_partition'].capitalize()}.**", ""]
 
@@ -370,7 +373,9 @@ def render_markdown(summary: dict) -> str:
           f"correction **weakens** the geometry-supplies-`γ` story even while "
           f"improving the `1..5` residual in isolation.", "",
           f"The reason is sensitivity: `d ln m_μ / d ln γ = "
-          f"{lad['d_ln_m_mu_over_d_ln_gamma']:.2f}`, so a sub-percent geometric "
+          f"{lad['local_d_ln_m_mu_over_d_ln_gamma_at_22p5']:.2f}` at the "
+          f"lock (secant `{lad['secant_elasticity_over_22p331_to_22p836']:.2f}` "
+          f"over the two corrected geometries), so a sub-percent geometric "
           f"residual is **not** a small residual in this chain.", "",
           f"**What this does not settle:** {lad['what_this_does_not_settle']}.", ""]
     return "\n".join(L)

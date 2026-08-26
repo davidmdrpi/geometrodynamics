@@ -27,9 +27,9 @@ The eigenvalues move at the `10⁻³` level and the cross-`ℓ` operator is unch
 to `3.6e-15`. What moves is the barrier sum — and the lepton chain turns out to
 be far more sensitive to it than anyone had measured:
 
-    d ln m_μ / d ln γ  =  −16.6
+    d ln m_μ / d ln γ |_{γ=22.5}  =  −17.5
 
-so a half-percent error in `γ` is an eight-percent error in the muon. `γ = 22.5`
+so a half-percent error in `γ` is a nine-percent error in the muon. `γ = 22.5`
 was reported for years as a `−2.2%` or `−0.21%` near-equality, which reads like a
 rounding detail. At that elasticity it is the most sensitive input in the chain.
 
@@ -96,7 +96,7 @@ term.
 
 ## 1 · the eigenvalues barely move, and move less as `ℓ` rises
 
-| `ℓ` | legacy `ω_{ℓ,0}` | corrected | shift | min overlap |
+| `ℓ` | legacy `ω_{ℓ,0}` | corrected | shift | min similarity |
 |--|--|--|--|--|
 | 0 | `1.00065891` | `1.00198000` | `+0.1320%` | `0.999998` |
 | **1** | **`1.05472694`** | **`1.05582653`** | **`+0.1043%`** | `0.999998` |
@@ -109,7 +109,10 @@ The monotone fall with `ℓ` is not a coincidence. **An eigenvalue averages the
 potential against a bound state**, so an `ℓ`-independent shift matters least
 where the centrifugal term already dominates. This is the reassuring half of the
 audit: the spectrum is stable at the `10⁻³` level and the eigenfunctions are
-essentially unmoved.
+essentially unmoved. (The `min similarity` column is a Euclidean
+**collocation-vector** similarity, not a physical `L²` overlap — it omits the
+Chebyshev/tortoise quadrature weight, and is reported as a numerical diagnostic
+rather than as an inner product.)
 
 ## 2 · the barrier sums are not protected, and that is where the meaning moves
 
@@ -150,6 +153,20 @@ not, because they are taken between eigenfunctions that drift.
 
 > **Structure invariant, numbers shifted.** That distinction is the whole
 > partition of the audit.
+
+The element measured is the historical transport object itself —
+`⟨u_{ℓ₁}|V_{ℓ₂} − V_{ℓ₁}|u_{ℓ₂}⟩`, off-diagonal, `L²`-normalised in `r*`, with
+the same interpolation and quadrature as the original probe:
+
+| element | legacy | corrected | drift |
+|--|--|--|--|
+| `⟨u_1\|V_3−V_1\|u_3⟩` | `3.706921e-01` | `3.698264e-01` | `−0.234%` |
+| `⟨u_3\|V_5−V_3\|u_5⟩` | `4.577649e-01` | `4.571212e-01` | `−0.141%` |
+| `⟨u_1\|V_5−V_1\|u_5⟩` | `8.057800e-01` | `8.044531e-01` | `−0.165%` |
+
+*An earlier version of this measurement computed `dot(v_ℓ², ΔV)` — a **diagonal**
+expectation in the `ℓ` state with no `u_{ℓ+2}` in it at all. That is a different
+object and could not speak for the transport ledger; review caught it.*
 
 Ratios behave similarly: `α_q(ℓ,0)` is a ratio of throat derivatives normalised
 to `ℓ = 1`, so the common part of the shift divides out and only the differential
@@ -204,7 +221,7 @@ and the masses landed within `3.8%` — that near-coincidence *was* the claim.
 Under the corrected operator no channel set at `R = 1.26` lands near `22.5`, and
 both damage the ladder at the `15–21%` level.
 
-The reason is sensitivity: `d ln m_μ / d ln γ = −16.6`, so a **sub-percent
+The reason is sensitivity: `d ln m_μ / d ln γ = −17.5` at the lock (secant `−16.6` over `22.331…22.836`), so a **sub-percent
 geometric residual is not a small residual** in this chain. A `0.5%` error in `γ`
 is an `8%` error in the muon.
 
