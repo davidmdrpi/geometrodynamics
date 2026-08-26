@@ -96,6 +96,15 @@ R_OUTER conditions:
 - Compton bridge `ω(1, 0) = 1`  →  R_OUTER ≈ 1.4490, R_MID = λ_C_reduced exactly.
 - γ_lepton lock `Σ V_max[0..5] = 22.5`  →  R_OUTER ≈ 1.2623, ω = 1.054.
 
+> **⚠ SUPERSEDED BY PR #271 — the radial scalar operator was corrected.**
+> `tangherlini.radial.V_tangherlini` was short of the minimally coupled massless
+> scalar master potential by an `ℓ`-independent `3A²/(4r²)`. Under the corrected
+> operator `Σ_{l=0..5} V_max(l) = 22.83642` (**+1.50%**, an overshoot) while
+> `Σ_{l=1..5} V_max(l) = 22.33119` (**−0.75%**) — so the sum closest to `22.5`
+> **swaps channel sets**, and the claim that the `l = 0` channel closes the gap is
+> **withdrawn, not replaced**. The numbers below are the legacy-operator values,
+> retained as the historical record. See `docs/scalar_operator_audit.md`.
+
 These differ by **14.79 %** and cannot both hold under the canonical
 Tangherlini metric. Tension explicitly documented.
 

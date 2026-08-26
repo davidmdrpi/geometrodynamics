@@ -1993,6 +1993,23 @@ Worth recording, because the failure modes repeat:
   error flat at `1.07e-02` across a four-fold refinement, which points at the
   excision boundary rather than at the operator. **Convergence establishes that a
   code computes something well; it says nothing about what.**
+* **A wrong operator that no test protected.** The radial scalar potential was
+  short of the minimally coupled scalar master form by `3A²/(4r²)` for the whole
+  life of the module. Flipping it to the correct operator broke **2 tests out of
+  1582**, both of them the previous round's own bookkeeping. The `γ` sums, the
+  `R_OUTER` fixed point and the `1.054` factor — all load-bearing — are not
+  regression-locked anywhere in the suite; they live in prose and probe
+  narratives. **A green suite is evidence that the code does what the tests say,
+  not that the tests say anything about the physics.** The bug was caught by a
+  derivation done for an unrelated round, and nothing in the tree would have
+  caught it otherwise.
+* **A sub-percent residual that was not small.** The `γ` lock was reported as a
+  `−2.2%` or `−0.21%` near-equality, which reads like a rounding-level detail.
+  Passing three geometries through the locked lepton chain shows
+  `d ln m_μ / d ln γ = −16.6`: a `0.5%` error in `γ` is an `8%` error in the
+  muon. **The size of a residual means nothing until its elasticity is measured**
+  — and the elasticity had never been measured, so a number quoted as reassuring
+  was actually the most sensitive input in the chain.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -2065,7 +2082,31 @@ Bessel form settling which is which to `4.3e-16`. Nothing was changed —
 constants, so acting on it is a decision about the repository's published
 numbers, not a side effect of a dynamics round.
 
-## 30. What is imported rather than derived
+## 30. The radial scalar operator, corrected (`docs/scalar_operator_audit.md`)
+
+§29 discovered that `tangherlini.radial.V_tangherlini` was short of the minimally
+coupled massless scalar master potential by an `ℓ`-independent `3A²/(4r²)`, and
+deliberately changed nothing. This round corrects it and audits what moved.
+
+**The correction is exact and triple-confirmed** — the gap matches its closed
+form to `2.4e-15`, carries no `ℓ` to `2.4e-15`, and the flat limit reproduces the
+Bessel form to `2.2e-16` while the legacy operator fails that same test.
+
+**Three verdicts, not two.** The cross-`ℓ` operator `V_{ℓ+2} − V_ℓ` is
+*exactly invariant* (`3.6e-15`); eigenvalues, actions, ratios and matrix elements
+are *numerically shifted*; and the claim that the `ℓ = 0` channel closes the `γ`
+gap is *interpretation changed* — withdrawn, not replaced.
+
+**And the narrow re-derivation inverted its own question.** Passing three
+geometries through the locked lepton Hamiltonian showed **B and C bit-identical**,
+because the locked block discards `r_outer` and sees only the scalar `γ`. So
+`γ = 22.5` is the selector and `R_OUTER` is downstream of it; fixing `R_OUTER`
+breaks the ladder at the 15–21% level where the legacy geometry missed by 3.8%.
+The correction therefore *weakens* the geometry-supplies-`γ` story even while
+improving the `1..5` residual, because `d ln m_μ / d ln γ = −16.6` makes a
+sub-percent geometric residual anything but small.
+
+## 31. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -2109,7 +2150,7 @@ numbers, not a side effect of a dynamics round.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 31. What would come next
+## 32. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:

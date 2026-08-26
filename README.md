@@ -39,10 +39,14 @@ quantum theory of the metric.
 ## Where ℏ enters: scale-free closure ledger + one geometric anchor
 
 The closure-ledger arc (`experiments/closure_ledger/`, PRs #11–#74)
-reduces every dimensionless parameter in the locked lepton surrogate
+reduces most dimensionless parameters in the locked lepton surrogate
 to closure-quantum invariants (`action_base = 2π`, `transport = 8π`,
-`resistance = 7π/100`, `pinhole γ = Σ V_max[1..5]`, `β_lepton = k_5²·(2π) = 50π`,
-`ε = 7π/(100·k_5⁴)`), and an audit (`maslov_dimensional_bridge_probe`,
+`resistance = 7π/100`, `β_lepton = k_5²·(2π) = 50π`,
+`ε = 7π/(100·k_5⁴)`). **The `pinhole γ = Σ V_max[1..5]` entry is reopened by
+PR #271** — correcting the radial scalar operator removed the numerical support
+for deriving `γ = 22.5` from the canonical geometry, and the chain's sensitivity
+to `γ` (`d ln m_μ/d ln γ = −17.5`) makes a sub-percent residual a ~9 % mass
+error. `γ` remains *required*; it is no longer *derived*, and an audit (`maslov_dimensional_bridge_probe`,
 PR #52) then established that the machinery is **scale-free**:
 rescaling `R_MID → λ·R_MID` leaves every dimensionless output
 invariant. By dimensional analysis, **exactly one external dimensionful
@@ -192,12 +196,12 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | S³ action base `action_base = 2π` | **Locked** | Hard topological invariant; default in all lepton scans |
 | k=5 uplift `4β = 200π` (100 × 2π) | **Locked** | τ uplift equals exactly 100 S³ winding quanta |
 | Closure cycle integer-quantised in 2π | **Verified** | `(N_e, N_μ, N_τ) = (3, 6, 109)` from antipodal + Hopf-throat + radial BS + τ-uplift |
-| R_OUTER selected by cross-species fixed point | **Verified** | Bisection on each lepton gives same R* ≈ 1.262 to 0.008 % |
-| Pinhole γ ≈ Σ V_max[1..5] on Chebyshev grid | **Verified** | −2.2 % off the locked γ = 22.5; same operator as the QCD-sector γ_q |
+| R_OUTER selected by cross-species fixed point | **REOPENED (PR #271)** | The bisection agreement was computed with the pre-#271 radial operator. The lepton observables do **not** currently select a unique `R_OUTER`: the locked Hamiltonian discards `r_outer` and sees only `γ`, so the two corrected `γ = 22.5` roots (`1.24614`, `1.26788`) give **bit-identical** masses. See `docs/scalar_operator_audit.md` |
+| Pinhole γ ≈ Σ V_max[1..5] on Chebyshev grid | **REOPENED (PR #271)** | Under the corrected scalar operator the residual improves to −0.75 %, but `d ln m_μ/d ln γ = −17.5` at the lock makes that a **9 %** muon error, and no channel set at `R = 1.26` lands near 22.5. `γ = 22.5` is required by the locked surrogate; its **geometric derivation is reopened**. See `docs/scalar_operator_audit.md` |
 | Transport = 8π = 4·(2π) | **Verified** | +0.13 % off the locked transport = 25.1; 4th closure quantum |
 | Resistance = 7π / 100 | **Verified** | +0.94 % off the locked resistance = 0.2179; selected over `4·(ω−1)` by R_OUTER bisection |
 | Inner cutoff `ε = resistance / k_5⁴` | **Verified** | Closes the Compton bridge `ℏ = m_e R_MID c` to 0.04 % |
-| Closure-quantum ledger closes modulo m_e | **Established** | Every locked parameter is a closure-quantum invariant; m_e is the unique remaining external input |
+| Closure-quantum ledger closes modulo m_e | **PARTIALLY REOPENED (PR #271)** | The `2π`-quantised entries stand. The `pinhole γ` entry does not: its geometric derivation is reopened, so the ledger no longer reduces **every** dimensionless parameter to closure quanta. See `docs/scalar_operator_audit.md` |
 | Quark mass ladder (u, d, s, c, b, t) | **Fitted** | 1.6% max rel err on s, c, b, t with d-anchor, four shell-index axioms, and one phenomenological β |
 | Quark shell-index axioms (ε, η, χ, phase) | **Geometric** | All four expressible in `k_5 = 5` only: `(1−1/k_5², k_5, (k_5−1)·k_5, 0)` |
 | Quark residual sector (transport, pinhole, resistance) | **Derived** | Each matches Tangherlini eigenmode quantity within ~1% on the tortoise grid |
@@ -3815,6 +3819,91 @@ python scripts/geometrodynamics_v71_tangherlini_dynamics.py --still v71.png
 ```
 
 Full write-up: `docs/tangherlini_dynamics.md`.
+
+## The radial scalar operator, corrected (PR #271)
+
+PR #270 found — while doing something else — that `tangherlini.radial.V_tangherlini`
+was not the master potential of a minimally coupled massless scalar, and reported
+it without changing anything. This round makes the correction and **prices** it.
+
+**The result, first.** Correcting the operator leaves the radial spectrum and the
+cross-`ℓ` structure nearly intact, but **removes the numerical support for the
+claim that the canonical `R_OUTER = 1.26` geometry generates the locked lepton
+pinhole `γ = 22.5`.** Eigenvalues move at `10⁻³`; the cross-`ℓ` operator is
+unchanged to `3.6e-15`. What moves is the barrier sum — and the lepton chain is
+far more sensitive to it than had been measured: `d ln m_μ / d ln γ = −17.5` at the lock (secant `−16.6` over `22.331…22.836`), so
+a half-percent error in `γ` is a nine-percent error in the muon. Under the
+legacy operator the canonical geometry nearly produced the lock (`22.453` at
+`R = 1.26`, `0.21%` away, masses within `3.8%`); under the corrected operator
+**no channel set at `R = 1.26` lands near `22.5`** — `22.331` or `22.836` — and
+both damage the ladder at the `15–21%` level. The locked Hamiltonian never sees
+`R_OUTER` or the channel set (`del l, n_points, rs, r_outer`), only `γ`, so
+enforcing `γ = 22.5` makes alternative geometric roots **observationally
+indistinguishable**. *`γ = 22.5` remains required by the locked model; its
+claimed derivation from the canonical radial barrier geometry is reopened.*
+
+For `ds² = −A dt² + A⁻¹dr² + r²dΩ_n²` with `ψ = r^{n/2}R`, the unique
+first-derivative-free Schrödinger form carries
+
+    V_scalar = A[ ℓ(ℓ+n−1)/r² + n(n−2)A/(4r²) + n A'/(2r) ]
+
+verified symbolically at `n = 2 … 6`. The repository carried
+`A[ℓ(ℓ+2)/r² + 3r_h²/r⁴]`, short by exactly `3A²/(4r²)`. The flat limit settles
+which is which with no appeal to authority: `ψ = r^{1/2}J_{ℓ+1}(ωr)` gives
+`V → ((ℓ+1)² − ¼)/r²`, matched to `2.2e-16` — and the legacy operator **fails**
+that test. **A bug, not a convention.**
+
+`V_tangherlini_legacy` is frozen for archived runs; `V_scalar_tangherlini` is the
+corrected general-`n` operator; `V_tangherlini` now delegates to it.
+
+**The eigenvalues barely move, and move less as `ℓ` rises** — `+0.1320%` at
+`ℓ = 0` down to `+0.0192%` at `ℓ = 5`, overlaps above `0.999998`. An eigenvalue
+averages the potential against a bound state, so an `ℓ`-independent shift matters
+least where the centrifugal term already dominates.
+
+**The barrier sums are not protected, and the `γ` story swaps:**
+
+| channels | legacy | corrected | `R_OUTER` legacy → corrected |
+|--|--|--|--|
+| `ℓ = 1..5` | `22.00824` (`−2.19%`) | `22.33119` (**`−0.75%`**) | `1.28737 → 1.26788` |
+| `ℓ = 0..5` | `22.45268` (`−0.21%`) | `22.83642` (**`+1.50%`**) | `1.26227 → 1.24614` |
+
+The canonical README claim improves threefold with nothing tuned; the claim that
+adding the `ℓ = 0` 5D channel closes the pinhole gap **breaks**, and the sum
+closest to `22.5` swaps channel sets. **Withdrawn, not replaced.**
+
+**Exactly invariant:** `ΔV` carries no `ℓ`, so the cross-`ℓ` operator
+`V_{ℓ+2} − V_ℓ` is unchanged to `3.6e-15`. Its matrix elements still drift,
+because the eigenfunctions do — structure invariant, numbers shifted. Hopf, Pin⁻,
+the odd-`k` ladder and antipodal parity have no dependence on this operator and
+are **not** re-run: proximity is not dependence.
+
+**One narrow downstream re-derivation, run before merging.** Three geometries
+through the *locked* lepton Hamiltonian with nothing retuned: **A** fix
+`R_OUTER = 1.26`; **B** enforce `Σ[1..5] = 22.5`; **C** enforce `Σ[0..5] = 22.5`.
+**B and C come out bit-identical** — `compute_knotted_lepton_spectrum` discards
+`r_outer` outright, so the locked block sees the geometry *only* through the
+scalar `γ`, and the channel-set choice leaves no trace in any observable.
+
+> **`γ = 22.5` is the selector; `R_OUTER` is downstream of it.**
+
+Fixing `R_OUTER` and letting `γ` float is what breaks the ladder: `+15.16%` and
+`−20.52%` on `m_μ`, against the legacy geometry's `+3.78%`. So **the correction
+weakens the "geometry supplies `γ`" story** even while improving the `1..5`
+residual in isolation — because `d ln m_μ / d ln γ = −17.5` at the lock (secant `−16.6` over `22.331…22.836`), and a sub-percent
+geometric residual is not a small residual in this chain. The channel-set
+question is **not decidable by the lepton observables**.
+
+**And the suite never protected any of it.** Flipping the operator broke exactly
+**2 tests out of 1582**, both PR #270's own bookkeeping. The `γ` sums, the
+`R_OUTER` fixed point and the `1.054` factor are not regression-locked anywhere;
+they live in prose. A silent replacement would have sailed through CI.
+
+```bash
+python -m experiments.closure_ledger.scalar_operator_audit_probe
+```
+
+Full write-up: `docs/scalar_operator_audit.md`.
 
 ## The geometric-visualization arc, end to end
 

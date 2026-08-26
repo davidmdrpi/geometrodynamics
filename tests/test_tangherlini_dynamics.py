@@ -192,27 +192,35 @@ def test_the_master_potential_flat_limit_is_bessel():
         assert np.allclose(V, ((ell + 1) ** 2 - 0.25) / r ** 2, rtol=1e-7)
 
 
-def test_the_gap_to_the_repo_potential_is_the_stated_closed_form():
-    from geometrodynamics.tangherlini.radial import V_tangherlini
+def test_the_gap_to_the_legacy_potential_is_the_stated_closed_form():
+    """Pinned to the frozen legacy operator, since #271 made the fix canonical."""
+    from geometrodynamics.tangherlini.radial import V_tangherlini_legacy
     got = dy.measure_the_master_potential_disagrees_with_the_repo()
     assert got["gap_matches_the_closed_form"] < 1e-12
+    assert got["the_comparison_is_against_the_frozen_legacy_operator"]
     r = np.linspace(1.4, 10.0, 300)
     A = dy.tangherlini_A(r, 1.0)
-    gap = dy.master_potential(r, 2, 1.0) - np.asarray(V_tangherlini(r, 2, rs=1.0))
+    gap = (dy.master_potential(r, 2, 1.0)
+           - np.asarray(V_tangherlini_legacy(r, 2, rs=1.0)))
     assert np.allclose(gap, 3.0 * A ** 2 / (4.0 * r ** 2), atol=1e-14)
 
 
-def test_nothing_in_the_repository_was_changed_by_this_round():
-    """The discrepancy is reported. Acting on it is the owner's call."""
-    from geometrodynamics.tangherlini.radial import V_tangherlini
+def test_this_round_changed_nothing_and_names_the_round_that_did():
+    """#270 reported the discrepancy; #271 acted on it. Both facts are pinned."""
+    from geometrodynamics.tangherlini.radial import (V_tangherlini,
+                                                     V_tangherlini_legacy)
     got = dy.measure_the_master_potential_disagrees_with_the_repo()
-    assert got["nothing_was_changed"]
-    assert "fifty probes" in got["why_not"]
-    # the existing function still returns exactly what it always did
+    assert got["nothing_was_changed_in_this_round"]
+    assert "#271" in got["acted_on_in"]
+    assert "fifty probes" in got["why_not_here"]
+    # the frozen operator still returns exactly what it always did
     r = np.array([2.0, 4.0])
     A = 1.0 - 1.0 / r ** 2
-    assert np.allclose(V_tangherlini(r, 2, rs=1.0),
+    assert np.allclose(V_tangherlini_legacy(r, 2, rs=1.0),
                        A * (2 * 4 / r ** 2 + 3.0 / r ** 4))
+    # and the canonical name no longer does
+    assert not np.allclose(V_tangherlini(r, 2, rs=1.0),
+                           V_tangherlini_legacy(r, 2, rs=1.0))
 
 
 def test_the_discrepancy_is_stated_for_one_specific_field():
