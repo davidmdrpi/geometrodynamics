@@ -3,6 +3,15 @@
 scripts/experiment_transport_overlap.py
 ========================================
 
+NOTE (PR #272): this script reads `tangherlini.radial.V_tangherlini`,
+which PR #271 re-pointed from the legacy potential to the corrected
+minimally coupled scalar one.  Its printed numbers therefore no longer
+match the values recorded in `docs/quark_axioms.md` for this
+experiment.  The re-derivation under both operators, side by side,
+lives in `geometrodynamics/qcd/residual_audit.py` and
+`docs/quark_residual_reaudit.md`; `V_tangherlini_legacy` reproduces the
+archived run.
+
 User-named milestone (axioms §8): drop the broad Hopf-scalar
 search and compute the overlap integral
 

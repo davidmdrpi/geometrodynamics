@@ -3,6 +3,15 @@
 scripts/experiment_n_ablation_geometric.py
 ============================================
 
+NOTE (PR #272): this script reads `tangherlini.radial.V_tangherlini`,
+which PR #271 re-pointed from the legacy potential to the corrected
+minimally coupled scalar one.  Its printed numbers therefore no longer
+match the values recorded in `docs/quark_axioms.md` for this
+experiment.  The re-derivation under both operators, side by side,
+lives in `geometrodynamics/qcd/residual_audit.py` and
+`docs/quark_residual_reaudit.md`; `V_tangherlini_legacy` reproduces the
+archived run.
+
 User-named decisive test: re-run the N-stability ablation, but
 this time with all three residuals pinned to their geometric
 derivations (transport from V-difference overlap, pinhole from

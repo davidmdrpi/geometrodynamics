@@ -283,3 +283,27 @@ otherwise.
   from the corrected operator before its number is quoted again. Doing that
   silently here would repeat the original error in the opposite direction.
 - **The γ narrative is reopened, not resolved.** No replacement claim is offered.
+
+## Successor — PR #272
+
+The deferred re-derivation was carried out for the quark residual sector
+(`docs/quark_residual_reaudit.md`). It reverses the expectation set here: the
+three quark residuals derived from this same eigensolver all move **toward**
+their locked values (`pinhole −1.09% → +0.36%`, `transport +0.88% → +0.70%`,
+`resistance +0.49% → −0.02%`).
+
+The two sectors read one barrier and the correction moves it once, so the split
+verdict is not about the geometry — it is about **elasticity**:
+`d ln m_μ/d ln γ = −17.5` against `d ln m_s/d ln pinhole = +4.8`. A percentage
+agreement between a geometric quantity and a fitted knob is meaningless until
+multiplied by the elasticity of what it feeds.
+
+> **One number published here needs correcting.** The README row derived from
+> this round read *"the residual improves to −0.75 %, but `d ln m_μ/d ln γ =
+> −17.5` at the lock makes that a 9 % muon error"*. That `9 %` came from this
+> probe's generic illustration — *a half-percent error in γ is a nine-percent
+> error in the muon* — applied to a residual that is not a half percent.
+> Linearising `−0.75 %` gives `+14.0 %`; the locked block returns **`+15.2 %`**.
+> §4's own A/B/C table carried the right value the whole time, in the row
+> `A corrected R=1.26, gamma[1..5]`. The prose and the table disagreed and the
+> table was right.

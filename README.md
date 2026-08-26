@@ -45,8 +45,9 @@ to closure-quantum invariants (`action_base = 2π`, `transport = 8π`,
 `ε = 7π/(100·k_5⁴)`). **The `pinhole γ = Σ V_max[1..5]` entry is reopened by
 PR #271** — correcting the radial scalar operator removed the numerical support
 for deriving `γ = 22.5` from the canonical geometry, and the chain's sensitivity
-to `γ` (`d ln m_μ/d ln γ = −17.5`) makes a sub-percent residual a ~9 % mass
-error. `γ` remains *required*; it is no longer *derived*, and an audit (`maslov_dimensional_bridge_probe`,
+to `γ` (`d ln m_μ/d ln γ = −17.5`) turns the corrected −0.75 % residual into a
+**measured 15.2 %** muon error. `γ` remains *required*; it is no longer
+*derived*, and an audit (`maslov_dimensional_bridge_probe`,
 PR #52) then established that the machinery is **scale-free**:
 rescaling `R_MID → λ·R_MID` leaves every dimensionless output
 invariant. By dimensional analysis, **exactly one external dimensionful
@@ -197,17 +198,19 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | k=5 uplift `4β = 200π` (100 × 2π) | **Locked** | τ uplift equals exactly 100 S³ winding quanta |
 | Closure cycle integer-quantised in 2π | **Verified** | `(N_e, N_μ, N_τ) = (3, 6, 109)` from antipodal + Hopf-throat + radial BS + τ-uplift |
 | R_OUTER selected by cross-species fixed point | **REOPENED (PR #271)** | The bisection agreement was computed with the pre-#271 radial operator. The lepton observables do **not** currently select a unique `R_OUTER`: the locked Hamiltonian discards `r_outer` and sees only `γ`, so the two corrected `γ = 22.5` roots (`1.24614`, `1.26788`) give **bit-identical** masses. See `docs/scalar_operator_audit.md` |
-| Pinhole γ ≈ Σ V_max[1..5] on Chebyshev grid | **REOPENED (PR #271)** | Under the corrected scalar operator the residual improves to −0.75 %, but `d ln m_μ/d ln γ = −17.5` at the lock makes that a **9 %** muon error, and no channel set at `R = 1.26` lands near 22.5. `γ = 22.5` is required by the locked surrogate; its **geometric derivation is reopened**. See `docs/scalar_operator_audit.md` |
+| Pinhole γ ≈ Σ V_max[1..5] on Chebyshev grid | **REOPENED (PR #271)** | Under the corrected scalar operator the residual improves to −0.75 %, but `d ln m_μ/d ln γ = −17.5` at the lock makes that a **measured 15.2 %** muon error (linearised 14.0 %), and no channel set at `R = 1.26` lands near 22.5. `γ = 22.5` is required by the locked surrogate; its **geometric derivation is reopened**. The `9 %` first published here was a generic half-percent illustration misapplied to the actual residual — corrected in `docs/quark_residual_reaudit.md`. See `docs/scalar_operator_audit.md` |
 | Transport = 8π = 4·(2π) | **Verified** | +0.13 % off the locked transport = 25.1; 4th closure quantum |
-| Resistance = 7π / 100 | **Verified** | +0.94 % off the locked resistance = 0.2179; selected over `4·(ω−1)` by R_OUTER bisection |
+| Resistance = 7π / 100 | **Verified; selector superseded (PR #272)** | +0.94 % off the locked resistance = 0.2179. The stated selector — `R_OUTER` bisection — is reopened by PR #271, and under the legacy operator it had chosen the *worse*-fitting candidate (`4·(ω−1)` = +0.48 %). Under the corrected operator the competitor degrades to **+2.50 %**, so `7π/100` now wins on proximity as well: **conclusion survives, stated reason does not**. See `docs/quark_residual_reaudit.md` |
 | Inner cutoff `ε = resistance / k_5⁴` | **Verified** | Closes the Compton bridge `ℏ = m_e R_MID c` to 0.04 % |
 | Closure-quantum ledger closes modulo m_e | **PARTIALLY REOPENED (PR #271)** | The `2π`-quantised entries stand. The `pinhole γ` entry does not: its geometric derivation is reopened, so the ledger no longer reduces **every** dimensionless parameter to closure quanta. See `docs/scalar_operator_audit.md` |
 | Quark mass ladder (u, d, s, c, b, t) | **Fitted** | 1.6% max rel err on s, c, b, t with d-anchor, four shell-index axioms, and one phenomenological β |
 | Quark shell-index axioms (ε, η, χ, phase) | **Geometric** | All four expressible in `k_5 = 5` only: `(1−1/k_5², k_5, (k_5−1)·k_5, 0)` |
-| Quark residual sector (transport, pinhole, resistance) | **Derived** | Each matches Tangherlini eigenmode quantity within ~1% on the tortoise grid |
-| Pinhole = `Σ V_max(l=1..5)` (tortoise grid) | **Verified** | −1.09% off the fitted lock |
-| Transport = `mean ⟨u_l\|V_{l+2}−V_l\|u_{l+2}⟩` | **Verified** | +0.87% off the fitted lock |
-| Resistance = `transport · ln(α_q(k_5)/α_q(k_1))` | **Verified** | −0.43% off the fitted lock |
+| Quark residual sector (transport, pinhole, resistance) | **Derived — and IMPROVED by PR #271's correction** | All three move *toward* their locked values under the corrected operator, opposite to the lepton sector. The difference is elasticity: `d ln m_s/d ln pinhole = +4.8` against the lepton chain's `−17.5`. See `docs/quark_residual_reaudit.md` |
+| Pinhole = `Σ V_max(l=1..5)` (tortoise grid) | **Verified (re-derived)** | `−1.09%` (legacy) → **`+0.36%`** off the fitted 22.25; the residual changes sign |
+| Transport = `mean ⟨u_l\|V_{l+2}−V_l\|u_{l+2}⟩` | **Verified (re-derived)** | `+0.88%` (legacy) → **`+0.70%`** off the fitted 0.54; the cross-ℓ operator itself is exactly invariant, only the eigenvectors drift |
+| Resistance = `transport · ln(α_q(k_5)/α_q(k_1))` | **Verified (re-derived)** | `+0.49%` (legacy) → **`−0.02%`** off the fitted 0.14. The previously published `−0.43%` used the *locked* transport 0.54 in place of the derived one |
+| The derived residuals **reproduce** the quark ladder | **NOT ESTABLISHED (PR #272)** | Never established under *either* operator: substituted into the locked Hamiltonian with nothing retuned, the derived triples give `3.44%` (legacy) and `3.78%` (corrected) against the fitted lock's `1.61%`. Per-knob agreement is not ladder agreement; the legacy triple's errors merely cancel better. See `docs/quark_residual_reaudit.md` |
+| `R_OUTER = 1.26` bracketed by the lepton and quark sectors | **New, and weak (PR #272)** | Legacy puts 1.26 *outside* the bracket the two sectors define (both demand more: 1.2723, 1.2874); corrected **straddles** it (1.2564, 1.2679), with 1.26 at 31% across a 0.91% window. Suggestive — a 0.91% bracket admits anything inside it — and **not** the single-sector fixed point PR #271 reopened |
 | Quark winding β = N·π/2 with N=466 | **Phenomenological (scope sharpened)** | `N = 2·n_part`, parity (Z₂) topological; `n_part = 233` is fit compensator absorbing the inter-generation hierarchy — diagnosed as **dynamical** (irregular, neither power-law like leptons nor exponential like neutrinos), and specifically the **flavor puzzle**: quark mass ratios are RG-invariant ⟹ not `α_s` running but the (irregular) Yukawa couplings, which overflow the geometric shell capacity (`quark_beta_*` probes, PRs #76, #80, #97, #98) |
 | Compton antipodal kinematics | **Verified** | Closure-compatible: front + back-mouth 4-momentum conservation under (E, **p**) → (E, −**p**); inter-mouth γ skew vanishes identically; throat-pinch skew is recoil-induced `O(ω²/m²)` |
 | Compton S³-propagator pole `1/(s−m²)` | **Verified** | S³ Green function `G(ψ) ∼ 1/ψ` with `ψ ∝ s−m²` reproduces QED propagator pole; fitted exponent 1.0002 across five ω-decades |
@@ -3904,6 +3907,41 @@ python -m experiments.closure_ledger.scalar_operator_audit_probe
 ```
 
 Full write-up: `docs/scalar_operator_audit.md`.
+
+### The deferred re-derivation, carried out (PR #272)
+
+#271 classified the downstream chains and re-derived none of them. Doing it for
+the **quark residual sector** reverses the expectation: all three residuals
+derived from the same eigensolver move **toward** their locked values —
+`pinhole −1.09% → +0.36%` (sign change), `transport +0.88% → +0.70%`,
+`resistance +0.49% → −0.02%`.
+
+One barrier feeds both sectors and the correction moves it once, so the split
+verdict is not about geometry — it is **elasticity**: `d ln m_μ/d ln γ = −17.5`
+against `d ln m_s/d ln pinhole = +4.8`. The lepton's `−0.75%` residual is a
+measured `15.2%` muon error; the quark's `+0.36%` is a measured `1.79%` strange
+error.
+
+> **A percentage agreement between a geometric quantity and a fitted knob means
+> nothing until multiplied by the elasticity of what it feeds.**
+
+Two things get *weaker* on inspection, under both operators. The derived triple
+**never** reproduced the ladder (`3.44%` legacy, `3.78%` corrected, against the
+fitted lock's `1.61%`) — and the ordering reverses, because the legacy triple's
+larger individual errors partially cancel. And `N` still drifts by O(50) with
+the residuals pinned, so `β` remains the model's last fit knob.
+
+One thing gets stronger: read as demands on `R_OUTER`, the corrected operator has
+the two sectors **straddle** `1.26` (`1.25645`, `1.26788`) where the legacy
+operator put it outside their bracket entirely. Different evidence from the
+single-sector fixed point #271 reopened, and weak — a `0.91%` window admits
+anything inside it.
+
+```bash
+python -m experiments.closure_ledger.quark_residual_reaudit_probe
+```
+
+Full write-up: `docs/quark_residual_reaudit.md`.
 
 ## The geometric-visualization arc, end to end
 

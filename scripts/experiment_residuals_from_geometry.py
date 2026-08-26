@@ -3,6 +3,15 @@
 scripts/experiment_residuals_from_geometry.py
 ==============================================
 
+NOTE (PR #272): this script reads `tangherlini.radial.V_tangherlini`,
+which PR #271 re-pointed from the legacy potential to the corrected
+minimally coupled scalar one.  Its printed numbers therefore no longer
+match the values recorded in `docs/quark_axioms.md` for this
+experiment.  The re-derivation under both operators, side by side,
+lives in `geometrodynamics/qcd/residual_audit.py` and
+`docs/quark_residual_reaudit.md`; `V_tangherlini_legacy` reproduces the
+archived run.
+
 User-named milestone: replace one residual knob at a time with
 geometry-derived quantities from the existing codebase, then
 re-run the N-ablation.  If N stops drifting after those are
