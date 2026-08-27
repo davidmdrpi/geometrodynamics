@@ -1353,6 +1353,18 @@ value.  No simple alternate normalization (multiplying by π,
 
 #### Pinhole — tortoise-grid evaluation tightens to 1.1%
 
+> **⚠ SUPERSEDED BY PR #272.**  This table was computed with the
+> pre-#271 operator.  `solve_radial_modes` now carries the corrected
+> scalar potential, so both columns have moved: the `V_max` column
+> most (their sum goes `22.01 → 22.33`, tightening the match to the
+> fitted 22.25 from `−1.09%` to `+0.36%`), the `ω` column least
+> (`ω(1,0) = 1.0547 → 1.0558`).  The *ranking* of candidate
+> constructions below is unchanged, and checked: `Σ V_max(l=1..5)` on
+> the tortoise grid remains by far the closest, and the gap to the
+> runner-up **widens** — `V_max(5)·e` goes `+5.01% → +5.80%` while the
+> winner goes `−1.09% → +0.36%`.  Every refinement listed still rules
+> itself out.  See `docs/quark_residual_reaudit.md`.
+
 V_max(l) and ω(l, n=0) computed via `solve_radial_modes(N=80)`:
 
 | l | V_max(l) | ω(l, 0) |
@@ -1631,6 +1643,19 @@ Compare the previous "all three pinned" attempt with the broad
 geometric scalars (transport = 0.5, pinhole = 21.80, resistance
 = half-α_q-range = 0.147) which gave N = 538, err = 0.117.  The
 new derivations bring N back to baseline and reduce err by 3.4×.
+
+> **⚠ RE-DERIVED BY PR #272.**  Every number in this section was
+> computed with the pre-#271 radial scalar operator.  Under the
+> corrected operator all three residuals move *toward* their locked
+> values — `pinhole −1.09% → +0.36%` (the residual changes sign),
+> `transport +0.88% → +0.70%`, `resistance +0.49% → −0.02%` — so the
+> conclusions below stand and improve.  Two caveats attach.  The
+> `−0.43%` resistance figure used the **locked** transport `0.54` in
+> the formula rather than the derived one; with the derived transport
+> the legacy value is `+0.49%`.  And the composite claim — that the
+> derived triple reproduces the ladder — was never established under
+> either operator: `3.44%` (legacy) and `3.78%` (corrected) against
+> the fitted lock's `1.61%`.  See `docs/quark_residual_reaudit.md`.
 
 | residual  | fitted | derived                                                 | rel diff |
 |-----------|-------:|---------------------------------------------------------|---------:|

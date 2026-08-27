@@ -2005,11 +2005,36 @@ Worth recording, because the failure modes repeat:
   caught it otherwise.
 * **A sub-percent residual that was not small.** The `γ` lock was reported as a
   `−2.2%` or `−0.21%` near-equality, which reads like a rounding-level detail.
-  Passing three geometries through the locked lepton chain shows
-  `d ln m_μ / d ln γ = −16.6`: a `0.5%` error in `γ` is an `8%` error in the
-  muon. **The size of a residual means nothing until its elasticity is measured**
-  — and the elasticity had never been measured, so a number quoted as reassuring
-  was actually the most sensitive input in the chain.
+  Passing three geometries through the locked lepton chain gives a secant
+  `d ln m_μ / d ln γ = −16.6`, and a local derivative at the lock of `−17.5`:
+  the corrected `−0.75%` residual is a **measured `15.2%`** muon error. **The
+  size of a residual means nothing until its elasticity is measured** — and the
+  elasticity had never been measured, so a number quoted as reassuring was
+  actually the most sensitive input in the chain.
+* **The same residual is worth different amounts in different sectors.** The
+  quark ladder reads the *same* barrier sum, and its elasticity is `+4.8` —
+  3.6× softer — so a comparable geometric agreement is a `15%` miss in one
+  sector and a `1.8%` miss in the other. The follow-on lesson to the one above:
+  elasticity is a property of the *consumer*, not of the geometry, and must be
+  measured once per chain rather than inherited.
+* **Three residuals individually right can be jointly wrong.** Each quark
+  residual sits within `0.7%` of its lock, and substituting all three at once
+  misses the ladder by `3.8%` — worse than the legacy set, whose larger
+  individual errors partially cancel. **Per-knob agreement is not system
+  agreement**, and only the per-knob version had ever been checked.
+* **Ask which displacement, and against which objective, before reading a
+  sign.** Projecting the quark residual triple onto what the masses want gives
+  `cos Θ = −0.616` for the corrected set *as a displacement from the lock*, and
+  `+0.873` for the *move the correction actually makes* — opposite signs, both
+  correct, different questions. The L2 log-residual improves while the
+  max-relative-error score worsens. **A cosine is not a verdict until its
+  baseline and its metric are named**, and the first draft of §32 published one
+  that was neither.
+* **Count the observables before interpreting the parameters.** The quark
+  ladder scores four masses and carries eleven knobs, so `rank J = 4` and four
+  first-order directions are invisible by construction. Years of "`N` drifts"
+  were this, and asking whether `pinhole` is *derived* was asking about a
+  quantity the observables never constrained on its own.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -2103,10 +2128,90 @@ because the locked block discards `r_outer` and sees only the scalar `γ`. So
 `γ = 22.5` is the selector and `R_OUTER` is downstream of it; fixing `R_OUTER`
 breaks the ladder at the 15–21% level where the legacy geometry missed by 3.8%.
 The correction therefore *weakens* the geometry-supplies-`γ` story even while
-improving the `1..5` residual, because `d ln m_μ / d ln γ = −16.6` makes a
-sub-percent geometric residual anything but small.
+improving the `1..5` residual, because `d ln m_μ / d ln γ = −17.5` at the lock
+(secant `−16.6` across the two corrected geometries — two quantities, not one)
+makes a sub-percent geometric residual anything but small.
 
-## 31. What is imported rather than derived
+## 31. The quark residual sector, re-derived (`docs/quark_residual_reaudit.md`)
+
+§30 classified the downstream chains and deliberately re-derived none of them.
+This round takes the quark residual sector — three knobs of the frozen v3 lock,
+all derived from the same eigensolver — and **reverses §30's expectation**.
+
+**All three residuals move toward their locked values**: `pinhole −1.09% →
++0.36%` (the residual changes sign), `transport +0.88% → +0.70%`, `resistance
++0.49% → −0.02%`. The lepton sector's closure broke; the quark sector's
+improves.
+
+**And the reason is not geometric.** One barrier feeds both sectors and the
+correction moves it once — `Σ V_max[1..5]` at `R = 1.26` goes `22.008 →
+22.331`, and that single number *is* the lepton `γ` and *is* the quark
+`pinhole`. What differs is how hard each Hamiltonian leans on it:
+`d ln m_μ/d ln γ = −17.5` against `d ln m_s/d ln pinhole = +4.8`, a factor of
+3.6. The lepton's `−0.75%` residual is a measured `15.2%` muon error; the
+quark's `+0.36%` is a measured `1.79%` strange error.
+
+> **A percentage agreement between a geometric quantity and a fitted knob means
+> nothing until multiplied by the elasticity of what it feeds.**
+
+**One claim gets weaker on inspection, under both operators.** Substituting all
+three derived residuals with nothing retuned gives `3.44%` (legacy) and `3.78%`
+(corrected) against the fitted lock's `1.61%` — and the *ordering reverses*,
+because the legacy triple's errors partially cancel. "Each knob is derived to
+within 1%" and "the derived knobs reproduce the ladder" are different claims and
+only the first was ever established. The correction did not create that gap; it
+exposed it.
+
+**One thing genuinely improves.** Read as demands on `R_OUTER`, the legacy
+operator has both sectors asking for more than `1.26`, putting the canonical
+value outside the bracket they define; the corrected operator has them
+**straddle** it (`1.25645` quark, `1.26788` lepton). Different evidence from the
+single-sector fixed point §30 reopened — and weak, since a `0.91%` window admits
+anything inside it. Recorded as suggestive, not as a restored derivation.
+
+## 32. The fit manifold, not the residuals (`docs/quark_response_jacobian.md`)
+
+§31 measured one knob at a time and named the gap between individually-right
+and jointly-wrong residuals a *missing correlation*, guessing it lived between
+`transport` and `resistance`. **The guess was wrong, and so was the object.**
+A collection of scalars cannot express what is happening; the response map
+`J_ia = ∂ln(m_i/m_d)/∂ln p_a` and its SVD can.
+
+**Three statements survive, and none depends on a choice of metric.** `rank J
+= 4`, capped by the observable count, against 8 first-order knobs, with `JᵀJ`
+carrying four exact zeros — so `pinhole`, `transport`, `resistance` and `N` are
+not separately constrained; at most four combinations are, and every
+compensation since PR #76 is that. The positive-knob Jacobian is numerically
+full row rank, converged to five digits over three decades of step. And
+per-knob proximity to a fitted value carries no information about the joint
+effect on the spectrum.
+
+**Which way does the correction move? It depends what you ask, and the round's
+first draft asked it wrong.** As a *candidate displacement from the lock*,
+`cos(J·g_corrected, r) = −0.616`; the draft read that as "the correction moves
+away from the data". But the move the correction makes is
+`Δg = g_corrected − g_legacy`, against the residual the legacy triple leaves —
+and that is **`+0.873`**, toward it. The two objectives disagree too: the L2
+log-residual improves `0.0548 → 0.0433` while the repository's
+max-relative-error score worsens `3.19% → 3.80%`. Both are true; **no
+metric-free claim is available**, and the headline was withdrawn.
+
+**And the residual is removable without meaning anything.** A displacement
+whose largest knob moves `1.78%` takes the ladder from `1.61%` to `0.0179%` on
+an exact re-run — but rank deficiency *guarantees* such a displacement exists.
+The draft's leave-one-out "failure" was likewise withdrawn: `ker(J_keep)` is
+5-dimensional and the held-out row is reachable from it in every case, so a
+kernel shift fits the withheld mass to `~1e-15`. That measured the
+minimum-log-norm regulariser, not the Hamiltonian.
+
+Three apparent nulls were separated into three different objects: `action_base`
+is an exact gauge (`H(a) = H(0) + a·I`, killed by the zero-point subtraction
+*upstream* of the anchor); `phase` is an **antiunitary** `Z₂` of the spectrum
+(`H(−φ,p) = H(φ,p)*` for *arbitrary* `p` — model-wide, not lock-only, which the
+draft also got wrong); `partition_mixing` is a **unitary-conjugation** `Z₂`.
+The latter two are quadratic, visible in `q = x²`.
+
+## 33. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a

@@ -205,11 +205,25 @@ now both established. Two concrete open questions remain:
     0.0078 %), R*-match to locked baseline 0.031 %, γ at R* match to
     canonical 22.5 within 0.034 %. The eigenfrequency reading
     `4·(ω(1,0;R) − 1)` drifts R* by 0.31 % and is ruled out.
-  - R_OUTER is now **structurally selected by closure-quantum
-    invariants alone** — no transport or resistance constants enter
-    the loop as free inputs. The "dimensional-scale-incomplete"
-    residual is now isolated to the 1.054 factor only (the m_e
-    anchor).
+  - R_OUTER was reported as **structurally selected by closure-quantum
+    invariants alone** — no transport or resistance constants entering
+    the loop as free inputs — with the "dimensional-scale-incomplete"
+    residual isolated to the 1.054 factor only (the m_e anchor).
+
+> **⚠ REOPENED BY PR #271; SELECTOR SUPERSEDED BY PR #272.** The
+> disambiguation above is an `R_OUTER` bisection, and that bisection was run
+> with the pre-#271 radial operator. Three consequences. **(1)** The locked
+> lepton Hamiltonian never sees `R_OUTER` at all — it consumes only `γ` — so
+> the bisection cannot select a geometry from lepton observables. **(2)**
+> Under the legacy operator the *rejected* candidate `4·(ω(1,0) − 1)` was in
+> fact the **better-fitting** of the two (`+0.48 %` against `7π/100`'s
+> `+0.94 %`); the selection rested entirely on the now-reopened bisection.
+> **(3)** The conclusion nonetheless **survives**: under the corrected
+> operator `ω(1,0) = 1.0558` drives the competitor to `+2.50 %`, so `7π/100`
+> — which reads no radial eigenvalue — wins on proximity as well. The
+> closed-form `ε = 7π/(100·k₅⁴)` bridge downstream is unaffected.
+> **Conclusion survives; its stated reason does not.** See
+> `docs/quark_residual_reaudit.md`.
 
 ## Cross-references
 

@@ -165,7 +165,7 @@ detail):
 | Spinor transport from `T = iσ_y` | verified throat-orientation structure |
 | Bell correlations / CHSH | derived from throat transport; `2√2` verified |
 | Lepton mass ladder | locked spectral model; `β_lepton = k_5²·(2π) = 50π` now derived from the topological charge (PR #71) |
-| Quark mass ladder | 1.6% fitted ladder; residual sector geometrized; quark `β = 233π` (with `n_part = 233`) diagnosed as phenomenological compensator absorbing the inter-generation mass hierarchy (PR #76); shell-waveguide arc PRs #77–#80 reframes the sector structurally |
+| Quark mass ladder | 1.6% fitted ladder; residual sector geometrized — and **improved** by PR #271's operator correction (all three residuals move toward their locks; PR #272), though the derived triple was never shown to reproduce the ladder (`3.8%` against the lock's `1.6%`); quark `β = 233π` (with `n_part = 233`) diagnosed as phenomenological compensator absorbing the inter-generation mass hierarchy (PR #76) and still drifting after the correction; shell-waveguide arc PRs #77–#80 reframes the sector structurally |
 | Quark sector reframed as cavity wavefronts | PR #76 diagnosis + four-PR shell arc (PRs #77–#80): quarks are the shell-saturated wavefronts that resolve the cavity (not throat traversals like leptons); 6-state `(l, n, p)` basis; `χ_n` derived from cavity-mouth boundary stress (no free parameter, PR #79); BAM-native color algebra `SU(2) × Z₂` from B2 + Hopf + PR #63 (PR #80) |
 | QCD color algebra | BAM-native = `SU(2) × Z₂` from established primitives (PR #80); standard SU(3) NOT derivable from current scaffold — natural triplet candidates all give SO(3)/SU(2); Pati-Salam SU(4) extension (with throat↔shell algebra map) is the most plausible route to SU(3), genuine open work |
 | **Lepton + quark mass operators unified** | The lepton `β·k²` (PR #71) and quark `ω²(l, n)` (PR #77) mass operators are **one Bohr-Sommerfeld operator** `m² = (S/L_eff)²` (PR #83): `m²(k,n) = (k·2π/L_throat)² + ((n+1)·π/L_cavity)²`, `L_throat = √(2π)/k_5`. Leptons wind (`k ∈ {1,3,5}`); quarks resolve the cavity (`k = 0`). Cavity Bohr-Sommerfeld verified to machine precision; `β_lepton = k_5²·(2π)` recovered. Throat↔shell `n+3` Pati-Salam bridge built (PR #82); inter-generation hierarchy still open |
@@ -3955,12 +3955,22 @@ problems rather than implementation TODOs:
   > `γ = 22.5` roots — `1.24614` and `1.26788` — give **bit-identical**
   > masses and the observables do not select a unique `R_OUTER`. Second,
   > under the corrected operator **no channel set at `R = 1.26` lands near
-  > `22.5`**, and with `d ln m_μ/d ln γ = −17.5` at the lock a sub-percent
-  > `γ` residual is a ~9 % mass error. `γ = 22.5` remains **required** by
-  > the locked surrogate; its **derivation from the canonical radial
-  > barrier geometry is reopened**, and the "unique physical selection"
-  > language above does not currently hold. See
-  > `docs/scalar_operator_audit.md`. The
+  > `22.5`**, and with `d ln m_μ/d ln γ = −17.5` at the lock the corrected
+  > `−0.75 %` `γ` residual is a **measured 15.2 %** muon error. `γ = 22.5`
+  > remains **required** by the locked surrogate; its **derivation from the
+  > canonical radial barrier geometry is reopened**, and the "unique
+  > physical selection" language above does not currently hold. See
+  > `docs/scalar_operator_audit.md`.
+  >
+  > **⚠ PARTIALLY RE-EVIDENCED BY PR #272.** The *single-sector* fixed point
+  > above stays reopened. But read as a **two-sector bracket** — the lepton
+  > `γ = 22.5` and the independently fitted quark `pinhole = 22.25`, each
+  > inverted for `R_OUTER` — the corrected operator **straddles** `1.26`
+  > (`1.25645` quark, `1.26788` lepton) where the legacy operator put it
+  > outside the bracket entirely (both sectors demanded more). This is
+  > different evidence, not the restored claim, and it is weak: a `0.91 %`
+  > window admits anything inside it. See `docs/quark_residual_reaudit.md`.
+  > The
   remaining open piece is **the SI conversion factor 1.054** —
   ω(1, 0) at the cross-species fixed point. Whether 1.054 has a
   closed form in `(k_5, π, barrier invariants)`, and whether the
