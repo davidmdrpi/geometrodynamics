@@ -3943,7 +3943,7 @@ python -m experiments.closure_ledger.quark_residual_reaudit_probe
 
 Full write-up: `docs/quark_residual_reaudit.md`.
 
-### The fit manifold, not the residuals (PR #273)
+### The fit manifold, not the residuals (PR #272, same round)
 
 #272 measured one knob at a time and guessed the gap between individually-right
 and jointly-wrong residuals was a scalar relation between `transport` and
