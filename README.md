@@ -3945,42 +3945,52 @@ Full write-up: `docs/quark_residual_reaudit.md`.
 
 ### The fit manifold, not the residuals (PR #272, same round)
 
-#272 measured one knob at a time and guessed the gap between individually-right
-and jointly-wrong residuals was a scalar relation between `transport` and
-`resistance`. **The guess was wrong and so was the object.** The right one is
-the response map `J_ia = ∂ln(m_i/m_d)/∂ln p_a` and its SVD.
+The residual round measured one knob at a time and guessed the gap between
+individually-right and jointly-wrong residuals was a scalar relation between
+`transport` and `resistance`. **The guess was wrong and so was the object.**
+The right one is the response map `J_ia = ∂ln(m_i/m_d)/∂ln p_a` and its SVD.
 
-**The fit manifold is four-dimensional.** `rank J = 4` — capped by the number of
-independently scored masses — against **8** first-order knobs, so four
-directions move no observable at all. `pinhole`, `transport`, `resistance` and
-`N` are **not independently constrained**; the masses fix at most four
-combinations of everything. Every compensation seen since PR #76 is this. The
-condition number is 22.6, so this is *not* a sloppy model — the degeneracy is
-dimensional, not ill-conditioning.
+**Three statements survive, none metric-dependent:**
 
-**The correction moves away from what the masses want.** Projecting the
-operator-induced displacement onto the mass-optimal direction `J⁺r`:
+1. **Four scored masses cannot identify the current parameterisation.**
+   `rank J = 4` — capped by the observable count — against **8** first-order
+   knobs; `JᵀJ` carries four exact zeros. `pinhole`, `transport`, `resistance`
+   and `N` are **not separately constrained**; at most four combinations are.
+   Every compensation seen since PR #76 is this.
+2. **The positive-knob Jacobian is numerically full row rank**, converged to
+   five digits across three decades of step size — a real derivative, not a
+   difference artefact.
+3. **Per-knob proximity to a fitted value does not determine the effect on the
+   spectrum.** The three radial residuals do not compose linearly into the
+   ladder.
 
-| operator | `cos Θ` (observable space) |
-|--|--|
-| legacy | **+0.464** (62.4°) |
-| corrected | **−0.616** (128.0°) |
-
-So #272's three per-knob improvements were not merely uninformative about the
-ladder — they were **misleading** about it. Two thirds of each displacement is
-invisible to the masses entirely.
+**Does correcting the operator move toward the data?** Two different questions,
+and the first draft of this round ran them together. As *candidate
+displacements from the lock*, `cos(J·g, r)` is `+0.464` (legacy) and `−0.616`
+(corrected). But the move the correction actually makes is
+`Δg = g_corrected − g_legacy`, measured against the residual the legacy triple
+leaves — and that is **`+0.873`**, toward it. The two objectives also disagree:
+the L2 log-residual **improves** (`0.0548 → 0.0433`) while the repository's
+max-relative-error score **worsens** (`3.19% → 3.80%`). Both are true; the
+direction of "improvement" is objective-dependent.
 
 **The `1.61%` floor is not structural, and removing it proves nothing.** A
-min-norm displacement of `|δ ln p| = 0.0229` reaches `0.018%` — but 98.3% of
-that repair rides the *weakest* singular direction, and leave-one-species-out
-mispredicts the held-out quark by up to **−10.4%** while the fitted three sit
-at `0.002–0.06%`. Local flexibility, not structure.
+displacement whose largest single knob moves `1.78%` reaches `0.0179%` on an
+exact nonlinear re-run — but the rank deficiency guarantees some such
+displacement exists.
 
-Three nulls were also separated into three different objects: `action_base` is
-an **exact gauge** (`H(a) = H(0) + a·I`, killed by the zero-point subtraction
-upstream of the anchor), while `phase` and `partition_mixing` are **Z₂-even
-quadratic** directions — the latter by the unitary conjugation
-`H(−p) = D H(p) D†` — that the Jacobian cannot see in `x`, only in `q = x²`.
+Three nulls were separated into three different objects: `action_base` is an
+**exact gauge** (`H(a) = H(0) + a·I`, killed by the zero-point subtraction
+upstream of the anchor); `phase` is an **antiunitary** `Z₂` of the spectrum
+(`H(−φ,p) = H(φ,p)*` for *arbitrary* `p`, so the masses are even in `φ` at
+every mixing); `partition_mixing` is a **unitary-conjugation** `Z₂`
+(`H(−p) = D H(p) D†`). The latter two are quadratic, visible in `q = x²`.
+
+The four **nonzero** singular values span only `22.6×`, so there is no long
+hierarchy among identifiable directions — but the rank deficiency is exact, so
+the pathology is **structural non-identifiability**, not ill-conditioning. And
+which knobs drift is itself structure: identifiable share runs from `1.0000`
+(`uplift_asymmetry`) to `0.0003` (`eta_k3k5_minus`).
 
 ```bash
 python -m experiments.closure_ledger.quark_response_jacobian_probe

@@ -62,18 +62,37 @@ def test_action_base_is_flat_at_finite_displacement_not_merely_stationary():
         assert np.max(np.abs(moved - base)) < 1e-10
 
 
-def test_phase_is_even_at_the_lock_and_only_because_mixing_is_off():
-    """The Z₂ is a property of the lock, not of the model."""
-    for phi in (0.1, 0.37):
-        Hp = build_quark_hamiltonian(replace(LOCKED_QUARK_PARAMS, phase=phi))
-        Hm = build_quark_hamiltonian(replace(LOCKED_QUARK_PARAMS, phase=-phi))
-        assert np.max(np.abs(Hp - Hm)) == 0.0
-    # switch the different-partition element on and the evenness must break
-    Hp = build_quark_hamiltonian(replace(LOCKED_QUARK_PARAMS, phase=0.37,
-                                         partition_mixing=0.05))
-    Hm = build_quark_hamiltonian(replace(LOCKED_QUARK_PARAMS, phase=-0.37,
-                                         partition_mixing=0.05))
-    assert np.max(np.abs(Hp - Hm)) > 1e-3
+def test_the_phase_symmetry_is_antiunitary_and_model_wide_not_lock_only():
+    """`H(−φ, p) = H(φ, p)*` for ARBITRARY p, so the SPECTRUM is always even.
+
+    The first draft asserted only `max|H(+φ) − H(−φ)| > 0` at nonzero mixing
+    and concluded the Z₂ was a property of the lock. That mistook matrix
+    inequality for spectral asymmetry. This test pins the real statement: the
+    matrix does change, and the eigenvalues and anchored masses do not.
+    """
+    for p in (0.0, 0.05, 0.3):
+        for phi in (0.1, 0.37):
+            Hp = build_quark_hamiltonian(replace(LOCKED_QUARK_PARAMS,
+                                                 phase=phi,
+                                                 partition_mixing=p))
+            Hm = build_quark_hamiltonian(replace(LOCKED_QUARK_PARAMS,
+                                                 phase=-phi,
+                                                 partition_mixing=p))
+            # the antiunitary identity holds at every mixing
+            assert np.max(np.abs(Hm - np.conj(Hp))) == 0.0
+            # hence isospectral, hence the masses are even in phase
+            assert np.max(np.abs(np.linalg.eigvalsh(Hp)
+                                 - np.linalg.eigvalsh(Hm))) == 0.0
+            if p != 0.0:
+                # the MATRIX does differ -- that is what misled the first draft
+                assert np.max(np.abs(Hp - Hm)) > 1e-3
+                assert np.max(np.abs(
+                    rj.anchored_log_masses(replace(LOCKED_QUARK_PARAMS,
+                                                   phase=phi,
+                                                   partition_mixing=p))
+                    - rj.anchored_log_masses(replace(LOCKED_QUARK_PARAMS,
+                                                     phase=-phi,
+                                                     partition_mixing=p)))) == 0.0
 
 
 def test_partition_mixing_sign_flip_is_a_unitary_conjugation():
@@ -116,9 +135,10 @@ def test_the_three_nulls_are_reported_as_three_different_categories():
     n = rj.measure_the_null_structure_is_three_different_objects()
     assert "EXACT INVARIANCE" in n["action_base"]["status"]
     assert n["action_base"]["removed_upstream_of_the_d_anchor"]
-    assert "QUADRATIC" in n["phase"]["status"]
-    assert n["phase"]["the_Z2_is_a_property_of_the_lock_not_the_model"]
-    assert "QUADRATIC" in n["partition_mixing"]["status"]
+    assert "ANTIUNITARY" in n["phase"]["status"]
+    assert n["phase"]["the_symmetry_is_model_wide_not_lock_only"]
+    assert "UNITARY-CONJUGATION" in n["partition_mixing"]["status"]
+    assert n["phase"]["status"] != n["partition_mixing"]["status"]
     assert n["partition_mixing"]["stronger_than_even_function"]
     assert n["action_base"]["status"] != n["phase"]["status"]
 
@@ -147,25 +167,52 @@ def test_the_rank_is_capped_by_the_number_of_scored_masses():
     assert svd["rank"] == len(rj.SCORED_SPECIES) == 4
     assert svd["rank_is_capped_by_the_observable_count"]
     assert svd["n_first_order_knobs"] == 8
-    assert svd["n_invisible_first_order_directions"] == 4
+    assert svd["n_first_order_null_directions"] == 4
+    assert svd["gram_exact_zeros"] == 4
 
 
-def test_it_is_not_a_sloppy_model_the_degeneracy_is_dimensional():
-    """Guards against importing the wrong diagnosis: cond ~23, not 10³–10⁶."""
+def test_the_pathology_is_rank_deficiency_not_ill_conditioning():
+    """Guards the wording: no long hierarchy among the NONZERO singular values.
+
+    "Condition number 22.6" is only the ratio over the four nonzero values;
+    `JᵀJ` has four exact zeros. The claim must be about rank, not conditioning.
+    """
     svd = rj.measure_the_singular_system_and_effective_rank()
-    assert svd["not_a_sloppy_model"]
-    assert 10.0 < svd["condition_number"] < 100.0
+    assert svd["no_long_hierarchy_among_nonzero_singular_values"]
+    assert 10.0 < svd["nonzero_singular_value_ratio"] < 100.0
+    assert svd["gram_exact_zeros"] == 4
+    assert "rank, not" in svd["the_dominant_pathology_is_structural_non_identifiability"]
+
+
+def test_which_knobs_drift_is_itself_structure():
+    """"Any knob would drift" is false: the null content varies hugely."""
+    svd = rj.measure_the_singular_system_and_effective_rank()
+    share = svd["identifiable_share_by_knob"]
+    assert share["uplift_asymmetry"] == pytest.approx(1.0, abs=1e-3)
+    assert share["eta_k3k5_minus"] < 0.01
+    assert svd["most_identifiable_knob"] == "uplift_asymmetry"
+    assert svd["least_identifiable_knob"] == "eta_k3k5_minus"
+
+
+def test_every_right_space_claim_declares_its_metric():
+    """The min-norm geometry is chart-dependent and must say so."""
+    svd = rj.measure_the_singular_system_and_effective_rank()
+    assert "log coordinates" in svd["metric_scope"]
+    rep = rj.measure_which_directions_repair_the_masses()
+    assert "rescaling" in rep["metric_caveat"]
 
 
 def test_the_quadratic_directions_add_no_new_observable_direction():
     """And the projection residual being ~0 is automatic, not a discovery."""
     svd = rj.measure_the_singular_system_and_effective_rank()
-    equiv = svd["quadratic_directions_are_not_new_observable_directions"]
+    equiv = svd["quadratic_directions_add_no_observable_direction"]
     assert set(equiv) == set(rj.QUADRATIC_KNOBS)
     for v in equiv.values():
         assert v["projection_residual"] < 1e-10
     note = svd["the_projection_residual_is_automatic"]
     assert "column space is all of R^4" in note and "ANY 4-vector" in note
+    # and it must NOT be used to justify dropping the quadratic coordinates
+    assert "does NOT justify" in note
 
 
 def test_the_minimum_norm_repair_reproduces_the_residual_exactly():
@@ -174,6 +221,33 @@ def test_the_minimum_norm_repair_reproduces_the_residual_exactly():
     r = rj.baseline_log_residual()
     assert np.linalg.norm(J @ delta - r) < 1e-12
     assert np.linalg.norm(delta) == pytest.approx(0.0229, abs=5e-4)
+
+
+def test_the_exact_nonlinear_repair_is_computed_not_quoted():
+    """The 0.018% must come from a re-run, not from prose.
+
+    #271/#272's central lesson is that an untested scientific number survives a
+    green suite. The first draft returned this one as a literal.
+    """
+    rep = rj.measure_which_directions_repair_the_masses()
+    assert rep["exact_max_rel_err_percent_after_repair"] < 0.05
+    assert rep["locked_max_rel_err_percent"] == pytest.approx(1.61, abs=0.05)
+    # recompute independently and require agreement
+    delta, _, _ = rj.minimum_norm_correction()
+    moved = replace(LOCKED_QUARK_PARAMS,
+                    **{k: getattr(LOCKED_QUARK_PARAMS, k) * math.exp(v)
+                       for k, v in zip(rj.LOG_KNOBS, delta)})
+    observed = rj.anchored_log_masses() + rj.baseline_log_residual()
+    exact = 100.0 * np.max(np.abs(np.expm1(
+        rj.anchored_log_masses(moved) - observed)))
+    assert rep["exact_max_rel_err_percent_after_repair"] == pytest.approx(
+        exact, rel=1e-9)
+
+
+def test_the_largest_knob_move_is_under_two_percent_not_one():
+    """`beta` moves +1.78%, so "~1% or less" was wrong."""
+    rep = rj.measure_which_directions_repair_the_masses()
+    assert 1.0 < rep["largest_single_knob_move_percent"] < 2.0
 
 
 def test_the_repair_is_carried_by_the_weakest_singular_direction():
@@ -203,48 +277,92 @@ def test_the_stiffest_direction_is_uplift_asymmetry_acting_on_the_bottom_quark()
 
 # ── scoping: the conclusions that must not soften ───────────────────────────
 
-def test_the_corrected_geometry_moves_away_from_what_the_masses_want():
-    """The decisive test, and the round's headline. cos Θ must be NEGATIVE."""
+def test_the_operator_induced_move_points_toward_the_residual():
+    """The corrected headline: the move is `Δg`, not `g_corrected`.
+
+    The first draft compared `J·g_corrected` to `r` and read `cos = −0.616` as
+    "the correction moves away from the data". The move the correction makes is
+    `Δg = g_corrected − g_legacy`, against the residual the legacy triple
+    leaves, and that cosine is strongly POSITIVE.
+    """
     prj = rj.measure_the_geometric_displacement_against_what_the_masses_want()
+    move = prj["the_operator_induced_move"]
+    assert move["cos_move_vs_residual_after_legacy"] == pytest.approx(
+        0.873, abs=0.01)
+    assert move["cos_move_vs_residual_after_legacy"] > 0.8
+    # the candidate-from-the-lock cosines still have their old signs ...
     legacy = prj["per_operator"]["legacy"]
     corrected = prj["per_operator"]["scalar_correct"]
-    assert legacy["cos_theta_observable_space"] > 0.0
-    assert corrected["cos_theta_observable_space"] < 0.0
-    assert prj["the_correction_flips_the_sign_of_the_overlap"]
-    # and the same sign flip in parameter space
-    assert legacy["cos_theta_parameter_space"] > 0.0
-    assert corrected["cos_theta_parameter_space"] < 0.0
-    # most of each displacement moves nothing at all
+    assert legacy["cos_to_r_observable_space"] > 0.0
+    assert corrected["cos_to_r_observable_space"] < 0.0
+    # ... and the withdrawal must say so explicitly
+    assert "Withdrawn" in prj["withdrawn"] or "withdrawn" in prj["withdrawn"]
+    assert "displacement FROM" in prj["withdrawn"]
     for side in (legacy, corrected):
-        assert side["fraction_of_displacement_invisible_to_the_masses"] > 0.5
+        assert side["fraction_of_displacement_in_the_null_space"] > 0.5
 
 
-def test_leave_one_species_out_explodes_while_the_fitted_three_do_not():
-    """The holdout that separates local flexibility from structure."""
-    hld = rj.measure_leave_one_species_out()
-    assert hld["it_explodes_under_holdout"]
-    assert hld["worst_held_out_error_percent"] > 5.0
+def test_the_two_objectives_disagree_and_both_are_reported():
+    """L2 improves while max-rel-error worsens. Neither may be privileged."""
+    prj = rj.measure_the_geometric_displacement_against_what_the_masses_want()
+    obj = prj["the_two_objectives_disagree"]
+    assert obj["l2_improves"] and obj["max_rel_err_worsens"]
+    assert (obj["l2_log_residual"]["scalar_correct"]
+            < obj["l2_log_residual"]["legacy"])
+    assert (obj["max_rel_err_percent_linear"]["scalar_correct"]
+            > obj["max_rel_err_percent_linear"]["legacy"])
+    assert "objective-dependent" in prj["verdict"]
+
+
+def test_the_holdout_measures_the_regulariser_not_the_hamiltonian():
+    """Every held-out species is reachable from ker(J_keep) — so it predicts nothing.
+
+    The first draft read the pseudoinverse's −10.4% miss as the Hamiltonian
+    failing a holdout. With a 5-dimensional kernel and the held-out row outside
+    the span of the other three, a kernel shift fits the withheld mass exactly.
+    """
+    hld = rj.measure_the_minimum_norm_regulariser_does_not_predict_a_held_out_mass()
+    assert hld["every_held_out_species_is_reachable"]
+    assert hld["a_kernel_shift_fits_the_held_out_mass_exactly"]
     for row in hld["rows"]:
-        assert row["fitted_species_max_error_percent_exact"] < 0.1
-        assert abs(row["held_out_error_percent_exact"]) > 1.0
-        # the linear prediction must track the exact re-run
-        assert row["held_out_error_percent_linear"] == pytest.approx(
-            row["held_out_error_percent_exact"], abs=1.0)
-    worst = max(hld["rows"], key=lambda r: abs(r["held_out_error_percent_exact"]))
-    assert worst["held_out"] == "b"
+        assert row["kernel_dimension"] == 5
+        assert row["held_out_row_reachable_from_kernel"] > 1e-9
+        shifted = row["after_a_kernel_shift"]
+        assert abs(shifted["held_out_error_percent"]) < 1e-9
+        assert shifted["fitted_three_max_error_percent"] < 1e-9
+        assert shifted["norm_ratio_to_min_norm"] < 10.0
+    assert "not of the Hamiltonian" in hld["verdict"]
 
 
 def test_the_ledger_withdraws_the_independent_constraint_claim():
     entries = {e["claim"]: e for e in rj.measure_the_jacobian_ledger()["entries"]}
     independent = next(e for k, e in entries.items()
-                       if "independently constrained" in k)
+                       if "can identify the current quark" in k)
     assert independent["verdict"] == "WITHDRAWN"
-    refuted = next(e for k, e in entries.items()
-                   if "per-knob improvements moved the ladder" in k)
-    assert refuted["verdict"] == "REFUTED"
+    assert "rank J = 4" in independent["evidence"]
     conjecture = next(e for k, e in entries.items()
                       if "scalar relation" in k)
     assert conjecture["verdict"] == "REFUTED"
+
+
+def test_the_ledger_records_this_rounds_own_withdrawals():
+    """Three first-draft claims were wrong. The ledger has to say so."""
+    entries = {e["claim"]: e for e in rj.measure_the_jacobian_ledger()["entries"]}
+    own = [e for e in entries.values() if "OWN" in e["verdict"]]
+    assert len(own) >= 3, "the round's own errors must be in its ledger"
+    phase = next(e for k, e in entries.items() if "property of the lock" in k)
+    assert "WITHDRAWN" in phase["verdict"]
+    away = next(e for k, e in entries.items() if "moves AWAY" in k)
+    assert "WITHDRAWN" in away["verdict"]
+    holdout = next(e for k, e in entries.items() if "leave-one-species-out" in k)
+    assert "WITHDRAWN" in holdout["verdict"]
+
+
+def test_the_successor_claim_does_not_assume_ckm_is_column_free():
+    """"Adds rows without adding columns" is not automatic — v4 has new knobs."""
+    settle = rj.measure_the_jacobian_ledger()["what_would_settle_it"]
+    assert "phi_h" in settle
+    assert "NOT" in settle or "not" in settle
 
 
 def test_the_previous_rounds_conjecture_is_recorded_as_wrong():
@@ -259,8 +377,8 @@ def test_the_previous_rounds_conjecture_is_recorded_as_wrong():
 def test_the_status_docs_carry_the_jacobian_outcome():
     readme = _read("README.md")
     assert "quark_response_jacobian" in readme
-    for fragment in ("rank J = 4", "−0.616"):
-        assert fragment in readme, f"missing {fragment}"
+    assert "rank J = 4" in readme
+    assert "+0.873" in readme, "the corrected headline cosine must be in README"
 
 
 def test_the_probe_module_imports_and_declares_its_checks():

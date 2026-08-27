@@ -35,8 +35,11 @@ round's second error.
 | direction | status | mechanism | verified |
 |--|--|--|--|
 | `action_base` | **exact invariance, all orders** | `H(a) = H(0) + a·I` | `1.8e-13` |
-| `phase` | **Z₂-even, quadratic** | enters only as `cos(φ·dk)` | `0.0` |
-| `partition_mixing` | **Z₂-even, quadratic** | `H(−p) = D H(p) D†` | `0.0` |
+| `phase` | **antiunitary `Z₂` of the spectrum, quadratic** | `H(−φ,p) = H(φ,p)*` for *arbitrary* `p` | `0.0` |
+| `partition_mixing` | **unitary-conjugation `Z₂`, quadratic** | `H(−p) = D H(p) D†` | `0.0` |
+
+The two `Z₂`s are of **different kinds** — one antiunitary, one unitary — and
+that distinction is what the first draft of this round got wrong.
 
 ### `action_base` — an exact gauge
 
@@ -53,15 +56,29 @@ kills it too. So `action_base` does **not** reappear in an absolute-scale
 observable of this model — it is a gauge of the model as defined, and it is
 dropped from the first-order parameter space for that reason.
 
-### `phase` — even, but only here
+### `phase` — an antiunitary `Z₂`, model-wide
 
-It enters the same-partition off-diagonal through `cos(phase·dk)`, so
-`H(−φ) = H(φ)` exactly. But the *different*-partition element carries
-`e^{i·phase·k}`, which is not even; it is switched off only because
-`partition_mixing = 0` at the v3 lock. Turn mixing on and the evenness breaks
-(`0.096` at `φ = 0.37`).
+It enters the same-partition off-diagonal through `cos(phase·dk)`, so at the v3
+lock `H(−φ) = H(φ)` exactly. The first draft stopped there and concluded that
+because the *different*-partition element carries `e^{iφk}` — which is not even
+— the symmetry was **a property of the lock**. Turn mixing on and the matrix
+equality does break: `0.096` at `φ = 0.37, p = 0.05`.
 
-> **The Z₂ is a property of the lock, not of the model.**
+**That was wrong.** The Hamiltonian satisfies
+
+```
+H(−φ, p) = H(φ, p)*        for arbitrary p        exact, to 0.0
+```
+
+— same-partition entries are real `cos(φ·dk)`, different-partition entries
+`e^{iφk}` conjugate — and since `H` is Hermitian, `H*` = `Hᵀ` is isospectral.
+The adiabatic labeller uses overlap magnitudes, which conjugation preserves.
+So the **spectrum** is even in `φ` for every `p`: verified `0.0` on the
+eigenvalues *and* on the anchored masses at `p = 0.05, 0.3`.
+
+> **Matrix inequality is not spectral asymmetry.** The `Z₂` is a property of
+> the model, not of the lock, and it is *antiunitary* — a complex-conjugation
+> symmetry, distinct in kind from `partition_mixing`'s unitary one.
 
 ### `partition_mixing` — a discrete gauge symmetry
 
@@ -84,7 +101,7 @@ informative and are never reported as such.
 
 ---
 
-## Result 1 — the fit manifold is four-dimensional
+## Result 1 — the identifiable tangent space is four-dimensional
 
 ```
 rank J = 4        against 8 first-order knobs
@@ -93,8 +110,9 @@ rank J = 4        against 8 first-order knobs
 The rank cannot exceed the number of independently scored masses — `u` is zero
 by construction under `min_eigenvalue` and `d` is the anchor, so the ladder
 scores exactly four numbers. **Four of the eight first-order directions
-therefore move no observable at all**, before any accidental degeneracy, and
-that is before counting the exact gauge and the two quadratic directions.
+therefore move no observable at all.** The *identifiable tangent space* is
+4-dimensional; the model's local non-identifiability is larger still, since the
+exact gauge and the two quadratic coordinates are excluded from this count.
 
 | `a` | `σ_a` | `σ_a/σ_1` |
 |--|--|--|
@@ -103,13 +121,29 @@ that is before counting the exact gauge and the two quadratic directions.
 | 3 | 2.5349 | 0.1319 |
 | 4 | 0.8519 | 0.0443 |
 
-**Condition number 22.6.** This is *not* a sloppy model in the Sethna sense —
-sloppy spectra span 10³–10⁶. The identifiable subspace is well conditioned. The
-degeneracy is **dimensional**: eleven knobs against four observables.
+The four **nonzero** singular values span only `22.6×`, so there is no long
+hierarchy among the identifiable directions. That is *not* the same as "not a
+sloppy model": `JᵀJ` carries **four exact zero eigenvalues** in these
+coordinates, and the full eleven-coordinate model carries more. The dominant
+pathology is **structural non-identifiability**, not ill-conditioning.
 
 > `pinhole`, `transport`, `resistance` and `N` are **not independently
 > constrained physical observables.** The masses fix at most four combinations
 > of everything. Every compensation seen since PR #76 is this one fact.
+
+**Scope.** Every right-space quantity in this document — `δx_min`, the share
+decomposition, the singular vectors, the parameter-space cosine, the "invisible
+fraction" — is Euclidean in the eight positive knobs in **unit log
+coordinates**, with the quadratic coordinates held fixed. Rescaling any column
+changes them. The chart-independent statements are the rank, the zero count of
+`JᵀJ`, and anything computed in observable space.
+
+**And which knobs drift is itself structure.** The share of each unit
+coordinate lying in the identifiable row space runs from `1.0000`
+(`uplift_asymmetry`, fully identifiable) through `0.7616` (`gamma_q`), `0.7027`
+(`beta`), `0.6970` (`chi_q_k3`), `0.6766` (`pinhole`), `0.1373` (`transport`),
+`0.0244` (`resistance`) to `0.0003` (`eta_k3k5_minus`, essentially entirely
+null). **"Any knob would drift" is false.**
 
 The stiffest direction `v1` is `uplift_asymmetry` (−0.988) and `u1` is almost
 purely `b` (0.9992): the single largest entry in the matrix is
@@ -122,39 +156,60 @@ measured.
 
 ---
 
-## Result 2 — the correction moves *away* from what the masses want
+## Result 2 — which way does the correction move?
 
-The decisive test. Project the operator-induced parameter displacement
-`δx_geom` onto the mass-optimal direction `δx_min = J⁺r`.
+Two different questions live here, and the first draft of this round ran them
+together.
 
-| operator | `\|δx_geom\|` | `cos Θ` (parameter) | `cos Θ` (observable) | invisible fraction |
-|--|--|--|--|--|
-| legacy | 0.014819 | +0.2870 | **+0.4638** (62.4°) | 0.6630 |
-| corrected | 0.007906 | −0.2785 | **−0.6163** (128.0°) | 0.6922 |
+**(a) Which candidate displacement from the lock lands nearer the data?**
 
-This is the third case of the trichotomy. The legacy geometry had partial
-overlap with what the data want; **the corrected geometry is actively opposed
-to it.**
+| operator | `\|δx_geom\|` | `cos(J·g, r)` | L2 log-residual | max rel err | null-space fraction |
+|--|--|--|--|--|--|
+| legacy | 0.014819 | **+0.4638** | 0.0548 | 3.19% | 0.6630 |
+| corrected | 0.007906 | **−0.6163** | 0.0433 | 3.80% | 0.6922 |
 
-> PR #272's three per-knob improvements were not merely uninformative about the
-> ladder. They were **misleading** about it. Every residual moved toward its
-> locked value while the displacement they jointly produce turned from
-> partly-helpful to actively-harmful.
+**(b) Which way does the *correction itself* move?** That is
+`Δg = g_corrected − g_legacy`, compared against the residual the legacy triple
+leaves, `r − J·g_legacy`:
 
-A scalar residual cannot see this. Only the projection can — which is the
-argument for the matrix in one line.
+| `\|Δg\|` | `\|r − J·g_legacy\|` | `cos(J·Δg, r − J·g_legacy)` |
+|--|--|--|
+| 0.015537 | 0.054813 | **+0.8734** (29.1°) |
 
-And about **two thirds** of each geometric displacement lies in the null space
-of `J` and moves no observable at all, so even the part that points somewhere
-mostly points nowhere.
+> **Withdrawn.** The first draft's headline — *"the corrected geometry moves
+> away from what the masses want"*, from `cos(J·g_corrected, r) = −0.616` — is
+> a true statement about `g_corrected` **as a displacement from the lock**, and
+> an invalid basis for a claim about what correcting the operator does. Taken
+> as the move it actually makes, the correction points *toward* the residual
+> the legacy triple leaves.
 
----
+**And the two objectives disagree**, which is the substance rather than a
+technicality:
+
+| objective | legacy | corrected | |
+|--|--|--|--|
+| L2 log-residual `\|r − Jg\|` | 0.0548 | 0.0433 | **improves** |
+| max relative error | 3.19% | 3.80% | **worsens** |
+
+Both are true. The direction of "improvement" is objective-dependent and **no
+metric-free claim is available**. The repository's historical score is the
+max-relative-error one, which is why the residual round saw a worsening; the
+L2 log-residual, which weights all four species, sees the opposite.
+
+**What survives, and needs no cosine.** Per-knob proximity to a fitted value
+carries no information about the sign or size of the joint effect on the
+spectrum. That was the point of the round, and it does not depend on which
+objective or which displacement one picks.
+
+About two thirds of each geometric displacement lies in the null space of `J`
+and moves no observable at all.
 
 ## Result 3 — the `0.018%` repair is local flexibility
 
-The minimum-norm correction `δx_min = J⁺r` has `|δ ln p| = 0.0229` — every knob
-moving by ~1% or less — and drives the ladder from the lock's `1.61%` to
-**`0.018%`** (exact nonlinear re-run, not the linearisation).
+The minimum-norm correction `δx_min = J⁺r` has `|δ ln p| = 0.0229`, its largest
+single knob (`beta`) moving `1.78%`, and drives the ladder from the lock's
+`1.61%` to **`0.0179%`** — computed by applying `exp(δ)` to the lock and
+re-solving the spectrum, not quoted from prose.
 
 That is important, but not as a success of the physics. It proves something
 more basic:
@@ -164,7 +219,7 @@ more basic:
 > functional form of the spectrum. It was a consequence of where the chosen
 > lock sits in parameter space.
 
-Two measurements say it is a compensator rather than structure.
+One measurement below is metric-dependent and one is not.
 
 ### Which directions do the repairing
 
@@ -179,22 +234,35 @@ Reporting `σ_a` alone would have said nothing. **98.35% of the repair rides the
 weakest direction** and the stiffest contributes 0.03% — the model's
 least-constrained freedom doing essentially all the work.
 
-### Leave-one-species-out
+*This decomposition is metric-dependent (see the scope note above). What is
+not: the rank deficiency guarantees that some small displacement removing the
+residual exists, whichever chart it is measured in.*
 
-Fit the correction on three masses; evaluate the fourth with **nothing
-readjusted**.
+### The holdout measures the regulariser, not the Hamiltonian
 
-| held out | `\|δx\|` | fitted three (exact) | **held-out (exact)** |
-|--|--|--|--|
-| `s` | 0.022498 | 0.015% | **+1.905%** |
-| `c` | 0.004813 | 0.041% | **+2.562%** |
-| `b` | 0.022198 | 0.059% | **−10.410%** |
-| `t` | 0.008997 | 0.002% | **−2.519%** |
+The first draft fit the correction on three masses, evaluated the fourth, and
+read the miss as the Hamiltonian failing a prediction. **That was an
+overclaim.**
 
-The fitted species land at `0.002–0.06%` every time; the withheld one does not
-come along. **Local flexibility, not structure.**
+For each holdout `J_keep` is `3×8` with a five-dimensional kernel, and because
+the full `J` has rank 4 the held-out row is *not* in the span of the other
+three. So a `z ∈ ker(J_keep)` that moves the withheld species always exists,
+and `δ + λz` fits it while holding the other three exact:
 
----
+| held out | `dim ker` | `\|j_h·Z\|` | min-norm miss | after a kernel shift | norm cost |
+|--|--|--|--|--|--|
+| `s` | 5 | 4.2520 | +1.912% | **+6.9e-16%** | 1.02× |
+| `c` | 5 | 1.1095 | +2.519% | **−3.5e-16%** | 4.77× |
+| `b` | 5 | 17.6989 | −9.705% | **−3.6e-15%** | 1.03× |
+| `t` | 5 | 1.2102 | −2.521% | **+0.0e+00%** | 2.55× |
+
+The pseudoinverse's miss is therefore a property of the **minimum-log-norm
+regulariser**, not of the model. Nothing in the physics selects that
+regulariser.
+
+The rank deficiency already established the local flexibility. The holdout
+added an overclaim on top of it and is now reported as a regulariser
+diagnostic.
 
 ## What this retroactively qualifies
 
@@ -214,14 +282,18 @@ why the legacy set looked better.
 
 | claim | verdict | evidence |
 |--|--|--|
+| four scored masses can identify the current quark parameterisation | **WITHDRAWN** | `rank J = 4` against 8 first-order knobs; `JᵀJ` has 4 exact zeros, the full 11-knob model more |
 | `action_base` is a free parameter of the mass spectrum | **WITHDRAWN — EXACT GAUGE** | `H(a) = H(0) + a·I`, removed upstream of the anchor; flat to all orders |
-| `phase` and `partition_mixing` are null directions | **MISCLASSIFIED** | Z₂-even at the lock, quadratic away from it |
-| `pinhole`, `transport`, `resistance` independently constrained by the masses | **WITHDRAWN** | `rank J = 4` against 8 knobs; four directions move no observable |
-| the v3 ladder's `1.61%` floor is set by the functional form | **WITHDRAWN** | a `0.0229` displacement reaches `0.018%` |
-| that `0.018%` fit is evidence for the model | **NOT ESTABLISHED** | 98.3% rides the weakest direction; leave-one-out misses by 10.4% |
-| PR #272's per-knob improvements moved the ladder toward the data | **REFUTED** | `cos Θ = −0.616` corrected against `+0.464` legacy |
-| the quark model is "sloppy" in the Sethna sense | **NOT SUPPORTED** | condition number 22.6 — the degeneracy is dimensional |
-| `N = 466` drifting is a defect of `N` | **REFRAMED** | symptom of a four-dimensional observable space; any knob would drift |
+| `phase` and `partition_mixing` are null directions | **MISCLASSIFIED** | two different `Z₂`s — antiunitary and unitary — both quadratic |
+| the `phase` `Z₂` is a property of the lock, not the model | **WITHDRAWN — THIS ROUND'S OWN ERROR** | `H(−φ,p) = H(φ,p)*` for arbitrary `p`; the spectrum is even at every mixing |
+| per-knob proximity determines the effect on the spectrum | **REFUTED** | the three radial residuals do not compose linearly into the ladder |
+| the corrected geometry moves AWAY from what the masses want | **WITHDRAWN — THIS ROUND'S OWN ERROR** | that used `g_corrected` as a displacement from the lock; the move is `Δg`, and `cos = +0.873` toward the residual |
+| one objective settles whether the correction helped | **NOT AVAILABLE** | L2 improves `0.0548 → 0.0433` while max-rel-err worsens `3.19% → 3.80%` |
+| the v3 ladder's `1.61%` floor is set by the functional form | **WITHDRAWN** | a displacement whose largest knob moves `1.78%` reaches `0.0179%` |
+| that repair is evidence for the model | **NOT ESTABLISHED** | 98.3% rides the weakest direction in the chosen chart, and rank deficiency guarantees such a displacement exists |
+| leave-one-species-out shows the Hamiltonian fails to predict | **WITHDRAWN — THIS ROUND'S OWN OVERCLAIM** | `ker(J_keep)` is 5-D and the held-out row is reachable; a kernel shift fits it to `~1e-15` at `1.02–4.77×` the norm |
+| the quark model is "sloppy" in the Sethna sense | **NOT THE RIGHT DIAGNOSIS** | nonzero singular values span only `22.6×`, but the rank deficiency is exact — the pathology is rank, not conditioning |
+| `N = 466` drifting is a defect of `N`, and any knob would drift | **REFRAMED, SECOND HALF FALSE** | identifiable share runs `1.0000` (`uplift_asymmetry`) to `0.0003` (`eta_k3k5_minus`) |
 | the missing correlation is a scalar relation `R = f(p, T)` | **REFUTED** | the nearest pair is `gamma_q`/`transport` at 178.9°, not `transport`/`resistance` |
 
 ---
@@ -232,16 +304,18 @@ why the legacy set looked better.
 count, so no amount of further geometric derivation can make `pinhole`,
 `transport` and `resistance` separately identifiable from four masses.
 
-The v4 flavor-CP layer already produces CKM angles and the Jarlskog invariant
-from the *same* Hamiltonian, and by construction inherits the v3 eigenvalues —
-so those observables are free of the mass sector's parameters in the sense that
-matters here: they add rows to `J` without adding columns. Extending the
-Jacobian to the joint mass + CKM response is the natural successor, and it is
-the only route that can raise the achievable rank above four and make these
-directions identifiable for the first time.
+The v4 flavor-CP layer produces CKM angles and the Jarlskog invariant from the
+*same* Hamiltonian and inherits the v3 eigenvalues, so it **adds observable
+rows**. But it is **not automatically column-free**: v4 `QuarkParams` carries
+`phi_h`, targeted `eta` couplings on three elements, and per-shell diagonal
+shifts. Whether those count as new response columns depends on which are
+externally derived and fixed — `phi_h = π/k₅` is derived (PR #159), the `eta`s
+and diagonal shifts are fitted. **A joint identifiability audit has to make
+that call explicitly before claiming the rank rises.**
 
-Two smaller open items: the near-degenerate pair `gamma_q`/`transport` at
-`178.9°` is essentially one handle with two names — an overall scale of the
-`d`-anchored ladder — and deserves an algebraic explanation of the kind the
-three nulls now have; and `chi_q_k3`/`eta_k3k5_minus` at `13.6°` are nearly
-parallel and probably should not both exist.
+Two smaller open items, both from the SVD rather than added by hand: the
+near-degenerate pair `gamma_q`/`transport` at `178.9°` is essentially one
+handle with two names — an overall scale of the `d`-anchored ladder — and
+deserves an algebraic explanation of the kind the three nulls now have; and
+`chi_q_k3`/`eta_k3k5_minus` at `13.6°` are nearly parallel, with the latter
+almost entirely in the null space, so it is not clear both should exist.

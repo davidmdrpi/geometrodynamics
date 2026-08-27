@@ -2022,12 +2022,14 @@ Worth recording, because the failure modes repeat:
   misses the ladder by `3.8%` — worse than the legacy set, whose larger
   individual errors partially cancel. **Per-knob agreement is not system
   agreement**, and only the per-knob version had ever been checked.
-* **A scalar residual cannot tell you which way it points.** The same three
-  quark residuals, projected onto the direction the masses actually want, give
-  `cos Θ = −0.616` under the corrected operator against `+0.464` under the
-  legacy one: they improved individually while turning from partly-helpful to
-  actively-harmful. **Sign and direction are properties of the response map,
-  not of the residual**, and no number of per-knob percentages can recover them.
+* **Ask which displacement, and against which objective, before reading a
+  sign.** Projecting the quark residual triple onto what the masses want gives
+  `cos Θ = −0.616` for the corrected set *as a displacement from the lock*, and
+  `+0.873` for the *move the correction actually makes* — opposite signs, both
+  correct, different questions. The L2 log-residual improves while the
+  max-relative-error score worsens. **A cosine is not a verdict until its
+  baseline and its metric are named**, and the first draft of §32 published one
+  that was neither.
 * **Count the observables before interpreting the parameters.** The quark
   ladder scores four masses and carries eleven knobs, so `rank J = 4` and four
   first-order directions are invisible by construction. Years of "`N` drifts"
@@ -2175,34 +2177,39 @@ and jointly-wrong residuals a *missing correlation*, guessing it lived between
 A collection of scalars cannot express what is happening; the response map
 `J_ia = ∂ln(m_i/m_d)/∂ln p_a` and its SVD can.
 
-**The fit manifold is four-dimensional.** `rank J = 4`, capped by the number of
-independently scored masses, against 8 first-order knobs — so four directions
-move no observable at all. `pinhole`, `transport`, `resistance` and `N` are not
-independently constrained; the masses fix at most four combinations of
-everything. Every compensation seen since PR #76 is that one fact. Condition
-number 22.6, so the degeneracy is *dimensional*, not sloppiness.
+**Three statements survive, and none depends on a choice of metric.** `rank J
+= 4`, capped by the observable count, against 8 first-order knobs, with `JᵀJ`
+carrying four exact zeros — so `pinhole`, `transport`, `resistance` and `N` are
+not separately constrained; at most four combinations are, and every
+compensation since PR #76 is that. The positive-knob Jacobian is numerically
+full row rank, converged to five digits over three decades of step. And
+per-knob proximity to a fitted value carries no information about the joint
+effect on the spectrum.
 
-**The correction moves against the data.** Projecting the operator-induced
-displacement onto the mass-optimal direction `J⁺r` gives `cos Θ = +0.464`
-(legacy) and **`−0.616`** (corrected). §31's three per-knob improvements were
-not merely uninformative about the ladder — they were **misleading** about it,
-and only a projection can see that.
+**Which way does the correction move? It depends what you ask, and the round's
+first draft asked it wrong.** As a *candidate displacement from the lock*,
+`cos(J·g_corrected, r) = −0.616`; the draft read that as "the correction moves
+away from the data". But the move the correction makes is
+`Δg = g_corrected − g_legacy`, against the residual the legacy triple leaves —
+and that is **`+0.873`**, toward it. The two objectives disagree too: the L2
+log-residual improves `0.0548 → 0.0433` while the repository's
+max-relative-error score worsens `3.19% → 3.80%`. Both are true; **no
+metric-free claim is available**, and the headline was withdrawn.
 
-**And the residual is removable without meaning anything.** A `0.0229`
-displacement takes the ladder from `1.61%` to `0.018%` — but 98.3% of that
-repair rides the *weakest* singular direction, and leave-one-species-out
-mispredicts the held-out quark by up to `−10.4%` while the fitted three sit at
-`0.002–0.06%`. The old floor was set by where the lock sits, not by the
-functional form; and the ability to remove it is a statement about parameter
-count, not physics.
+**And the residual is removable without meaning anything.** A displacement
+whose largest knob moves `1.78%` takes the ladder from `1.61%` to `0.0179%` on
+an exact re-run — but rank deficiency *guarantees* such a displacement exists.
+The draft's leave-one-out "failure" was likewise withdrawn: `ker(J_keep)` is
+5-dimensional and the held-out row is reachable from it in every case, so a
+kernel shift fits the withheld mass to `~1e-15`. That measured the
+minimum-log-norm regulariser, not the Hamiltonian.
 
-Three apparent nulls were separated into three different objects along the way:
-`action_base` is an exact gauge (`H(a) = H(0) + a·I`, killed by the zero-point
-subtraction *upstream* of the anchor, so it does not resurface in an
-absolute-scale observable either), while `phase` and `partition_mixing` are
-Z₂-even quadratic directions — the latter by the unitary conjugation
-`H(−p) = D H(p) D†` — invisible to a first derivative in `x` but ordinary in
-`q = x²`.
+Three apparent nulls were separated into three different objects: `action_base`
+is an exact gauge (`H(a) = H(0) + a·I`, killed by the zero-point subtraction
+*upstream* of the anchor); `phase` is an **antiunitary** `Z₂` of the spectrum
+(`H(−φ,p) = H(φ,p)*` for *arbitrary* `p` — model-wide, not lock-only, which the
+draft also got wrong); `partition_mixing` is a **unitary-conjugation** `Z₂`.
+The latter two are quadratic, visible in `q = x²`.
 
 ## 33. What is imported rather than derived
 
