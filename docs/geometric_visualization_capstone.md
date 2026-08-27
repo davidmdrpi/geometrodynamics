@@ -2022,6 +2022,17 @@ Worth recording, because the failure modes repeat:
   misses the ladder by `3.8%` — worse than the legacy set, whose larger
   individual errors partially cancel. **Per-knob agreement is not system
   agreement**, and only the per-knob version had ever been checked.
+* **A scalar residual cannot tell you which way it points.** The same three
+  quark residuals, projected onto the direction the masses actually want, give
+  `cos Θ = −0.616` under the corrected operator against `+0.464` under the
+  legacy one: they improved individually while turning from partly-helpful to
+  actively-harmful. **Sign and direction are properties of the response map,
+  not of the residual**, and no number of per-knob percentages can recover them.
+* **Count the observables before interpreting the parameters.** The quark
+  ladder scores four masses and carries eleven knobs, so `rank J = 4` and four
+  first-order directions are invisible by construction. Years of "`N` drifts"
+  were this, and asking whether `pinhole` is *derived* was asking about a
+  quantity the observables never constrained on its own.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -2156,7 +2167,44 @@ value outside the bracket they define; the corrected operator has them
 single-sector fixed point §30 reopened — and weak, since a `0.91%` window admits
 anything inside it. Recorded as suggestive, not as a restored derivation.
 
-## 32. What is imported rather than derived
+## 32. The fit manifold, not the residuals (`docs/quark_response_jacobian.md`)
+
+§31 measured one knob at a time and named the gap between individually-right
+and jointly-wrong residuals a *missing correlation*, guessing it lived between
+`transport` and `resistance`. **The guess was wrong, and so was the object.**
+A collection of scalars cannot express what is happening; the response map
+`J_ia = ∂ln(m_i/m_d)/∂ln p_a` and its SVD can.
+
+**The fit manifold is four-dimensional.** `rank J = 4`, capped by the number of
+independently scored masses, against 8 first-order knobs — so four directions
+move no observable at all. `pinhole`, `transport`, `resistance` and `N` are not
+independently constrained; the masses fix at most four combinations of
+everything. Every compensation seen since PR #76 is that one fact. Condition
+number 22.6, so the degeneracy is *dimensional*, not sloppiness.
+
+**The correction moves against the data.** Projecting the operator-induced
+displacement onto the mass-optimal direction `J⁺r` gives `cos Θ = +0.464`
+(legacy) and **`−0.616`** (corrected). §31's three per-knob improvements were
+not merely uninformative about the ladder — they were **misleading** about it,
+and only a projection can see that.
+
+**And the residual is removable without meaning anything.** A `0.0229`
+displacement takes the ladder from `1.61%` to `0.018%` — but 98.3% of that
+repair rides the *weakest* singular direction, and leave-one-species-out
+mispredicts the held-out quark by up to `−10.4%` while the fitted three sit at
+`0.002–0.06%`. The old floor was set by where the lock sits, not by the
+functional form; and the ability to remove it is a statement about parameter
+count, not physics.
+
+Three apparent nulls were separated into three different objects along the way:
+`action_base` is an exact gauge (`H(a) = H(0) + a·I`, killed by the zero-point
+subtraction *upstream* of the anchor, so it does not resurface in an
+absolute-scale observable either), while `phase` and `partition_mixing` are
+Z₂-even quadratic directions — the latter by the unitary conjugation
+`H(−p) = D H(p) D†` — invisible to a first derivative in `x` but ordinary in
+`q = x²`.
+
+## 33. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a

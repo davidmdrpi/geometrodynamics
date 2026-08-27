@@ -1,0 +1,528 @@
+{
+  "checks": [
+    {
+      "id": "R0",
+      "name": "the three apparent nulls are three DIFFERENT objects",
+      "detail": {
+        "action_base": {
+          "status": "EXACT INVARIANCE (all orders)",
+          "mechanism": "H(a) = H(0) + a*I; the min_eigenvalue spectrum-zero subtraction removes it identically",
+          "H_minus_identity_shift": 1.8207657603852567e-13,
+          "zero_subtracted_spectrum_gap": 8.22453216642316e-13,
+          "removed_upstream_of_the_d_anchor": true,
+          "so_it_does_not_reappear_in_an_absolute_scale_observable": true,
+          "dropped_from_the_first_order_parameter_space": true
+        },
+        "phase": {
+          "status": "Z2-EVEN, QUADRATIC",
+          "mechanism": "enters only as cos(phase*dk) once partition_mixing = 0",
+          "H_even_at_the_lock": 0.0,
+          "H_even_with_mixing_switched_on": 0.09612752029753,
+          "the_Z2_is_a_property_of_the_lock_not_the_model": true
+        },
+        "partition_mixing": {
+          "status": "Z2-EVEN, QUADRATIC (unitary equivalence)",
+          "mechanism": "H(-p) = D H(p) D\u2020 with D = diag(sigma(p)); isospectral",
+          "conjugation_gap": 0.0,
+          "stronger_than_even_function": true
+        },
+        "quadratic_chart": {
+          "phase": {
+            "d_ln_m_d_q": [
+              -2.590269243540888,
+              -2.532816090194956,
+              -2.5336620801397203,
+              -2.5316271745623453
+            ],
+            "norm_by_q": {
+              "1e-06": 5.094421197017703,
+              "1e-07": 5.094430953241099,
+              "1e-08": 5.094431448955301
+            },
+            "relative_spread_over_two_decades": 2.012381106751105e-06
+          },
+          "partition_mixing": {
+            "d_ln_m_d_q": [
+              -76.85903109511116,
+              -78.64810065427719,
+              -78.74814613728631,
+              -78.79078243178128
+            ],
+            "norm_by_q": {
+              "1e-06": 156.51745272145084,
+              "1e-07": 156.5286084433612,
+              "1e-08": 156.5314419331665
+            },
+            "relative_spread_over_two_decades": 8.93699792379501e-05
+          }
+        },
+        "why_they_must_not_share_a_category": "`action_base` is flat to all orders and carries no information at any displacement; phase and partition_mixing are flat only at the symmetric point and carry ordinary quadratic response away from it"
+      },
+      "pass": true
+    },
+    {
+      "id": "R1",
+      "name": "the Jacobian converges; no adiabatic relabelling noise",
+      "detail": {
+        "rows": [
+          {
+            "knob": "beta",
+            "column_norm_by_step": {
+              "1e-02": 1.2485567995920037,
+              "1e-03": 1.2485645704019803,
+              "1e-04": 1.2485646262658832,
+              "1e-05": 1.24856462875807,
+              "1e-06": 1.2485646521033682
+            },
+            "relative_spread_over_1e-3_to_1e-6": 6.543624932813405e-08
+          },
+          {
+            "knob": "gamma_q",
+            "column_norm_by_step": {
+              "1e-02": 2.4874906060238873,
+              "1e-03": 2.4874451233975505,
+              "1e-04": 2.487444640415023,
+              "1e-05": 2.487445088495254,
+              "1e-06": 2.4874456728453778
+            },
+            "relative_spread_over_1e-3_to_1e-6": 4.1505644374729167e-07
+          },
+          {
+            "knob": "transport",
+            "column_norm_by_step": {
+              "1e-02": 1.052956232880029,
+              "1e-03": 1.0529586410069665,
+              "1e-04": 1.0529586903966468,
+              "1e-05": 1.0529592279851312,
+              "1e-06": 1.052952997216157
+            },
+            "relative_spread_over_1e-3_to_1e-6": 5.917388640038167e-06
+          },
+          {
+            "knob": "pinhole",
+            "column_norm_by_step": {
+              "1e-02": 5.736449419029491,
+              "1e-03": 5.727292930397968,
+              "1e-04": 5.727202032826889,
+              "1e-05": 5.727201149990692,
+              "1e-06": 5.727201115683925
+            },
+            "relative_spread_over_1e-3_to_1e-6": 1.6031083997095544e-05
+          },
+          {
+            "knob": "resistance",
+            "column_norm_by_step": {
+              "1e-02": 0.5388055983653324,
+              "1e-03": 0.5387914180571183,
+              "1e-04": 0.5387912544929156,
+              "1e-05": 0.538791496002343,
+              "1e-06": 0.5387924424340511
+            },
+            "relative_spread_over_1e-3_to_1e-6": 2.2048214523839604e-06
+          },
+          {
+            "knob": "uplift_asymmetry",
+            "column_norm_by_step": {
+              "1e-02": 19.24256912246867,
+              "1e-03": 19.018667550130054,
+              "1e-04": 19.01647324918688,
+              "1e-05": 19.016451206237324,
+              "1e-06": 19.016449803805102
+            },
+            "relative_spread_over_1e-3_to_1e-6": 0.0001166089222132078
+          },
+          {
+            "knob": "chi_q_k3",
+            "column_norm_by_step": {
+              "1e-02": 5.51277156542733,
+              "1e-03": 5.504695289822628,
+              "1e-04": 5.504614977267097,
+              "1e-05": 5.504614166157495,
+              "1e-06": 5.504613311278314
+            },
+            "relative_spread_over_1e-3_to_1e-6": 1.4892476331135909e-05
+          },
+          {
+            "knob": "eta_k3k5_minus",
+            "column_norm_by_step": {
+              "1e-02": 0.10777907991338492,
+              "1e-03": 0.10778179734439765,
+              "1e-04": 0.10778182451860774,
+              "1e-05": 0.10778182515957095,
+              "1e-06": 0.1077818234319973
+            },
+            "relative_spread_over_1e-3_to_1e-6": 2.580692362774933e-07
+          }
+        ],
+        "steps": [
+          0.01,
+          0.001,
+          0.0001,
+          1e-05,
+          1e-06
+        ],
+        "all_converged_below_1e-3_relative": true,
+        "note": "extract_physical_spectrum reassigns species by adiabatic continuation; a relabelling inside the stencil would show up as step-dependent noise, and none appears"
+      },
+      "pass": true
+    },
+    {
+      "id": "R2",
+      "name": "*** rank 4 against 8 first-order knobs: 4 invisible directions ***",
+      "detail": {
+        "singular_values": [
+          19.219005419622203,
+          7.57385598889175,
+          2.534868677552294,
+          0.8519332977547562
+        ],
+        "sigma_ratios": [
+          1.0,
+          0.39408157828807316,
+          0.13189385310044432,
+          0.04432764751109077
+        ],
+        "condition_number": 22.55928424240876,
+        "rank": 4,
+        "n_scored_masses": 4,
+        "n_first_order_knobs": 8,
+        "n_invisible_first_order_directions": 4,
+        "rank_is_capped_by_the_observable_count": true,
+        "right_singular_vectors": {
+          "v1": {
+            "beta": 0.039284300130148046,
+            "gamma_q": -0.06074386646180459,
+            "transport": 0.02536754637304973,
+            "pinhole": -0.09543566874048529,
+            "resistance": -0.014997847278514366,
+            "uplift_asymmetry": -0.9879956578829029,
+            "chi_q_k3": 0.09299785020657968,
+            "eta_k3k5_minus": 0.0025478642265957725
+          },
+          "v2": {
+            "beta": 0.04528785755890502,
+            "gamma_q": 0.01799285008540323,
+            "transport": -0.010009929132920483,
+            "pinhole": -0.7140016709813457,
+            "resistance": -0.03188050462849936,
+            "uplift_asymmetry": 0.13435058264656463,
+            "chi_q_k3": 0.6844778167531914,
+            "eta_k3k5_minus": 0.012261941040219127
+          },
+          "v3": {
+            "beta": 0.2526369115781731,
+            "gamma_q": -0.8641211682322167,
+            "transport": 0.36663885492141196,
+            "pinhole": 0.1173026946956014,
+            "resistance": -0.15223124021961984,
+            "uplift_asymmetry": 0.07412558003209138,
+            "chi_q_k3": 0.11191211829740115,
+            "eta_k3k5_minus": 0.009589111772657985
+          },
+          "v4": {
+            "beta": 0.7970749882491425,
+            "gamma_q": 0.10434111405954727,
+            "transport": -0.045917931160374334,
+            "pinhole": -0.37945130586799175,
+            "resistance": 0.0013301181796722503,
+            "uplift_asymmetry": 0.01786280750415947,
+            "chi_q_k3": -0.4553757804006363,
+            "eta_k3k5_minus": -0.0021667061816914982
+          }
+        },
+        "left_singular_vectors": {
+          "u1": {
+            "s": -0.013798646289279015,
+            "c": -0.01298323402937093,
+            "b": 0.9991834737402192,
+            "t": -0.03568499403321358
+          },
+          "u2": {
+            "s": -0.8529592750733588,
+            "c": 0.35842229384854307,
+            "b": 0.0064283208409332175,
+            "t": 0.3794108736315354
+          },
+          "u3": {
+            "s": 0.5215956352323006,
+            "c": 0.5652363014564386,
+            "b": 0.03733364592083634,
+            "t": 0.6380063602384514
+          },
+          "u4": {
+            "s": -0.014424483821839045,
+            "c": -0.7428814295850538,
+            "b": 0.01404497696161071,
+            "t": 0.6691202092795344
+          }
+        },
+        "quadratic_directions_are_not_new_observable_directions": {
+          "phase": {
+            "equivalent_first_order_combination": {
+              "beta": -0.2734498310161773,
+              "gamma_q": 1.5629319509776367,
+              "transport": -0.6635559404365847,
+              "pinhole": -0.3110850459723767,
+              "resistance": 0.27057663075590993,
+              "uplift_asymmetry": 0.0003308292931026857,
+              "chi_q_k3": -0.2817071060299658,
+              "eta_k3k5_minus": -0.01726503875567674
+            },
+            "dominant": "gamma_q",
+            "projection_residual": 1.4716242253698782e-15
+          },
+          "partition_mixing": {
+            "equivalent_first_order_combination": {
+              "beta": -8.497513820814852,
+              "gamma_q": 47.90808721278865,
+              "transport": -20.338635260842306,
+              "pinhole": -9.207585137657274,
+              "resistance": 8.309909870468124,
+              "uplift_asymmetry": 0.008433764575802805,
+              "chi_q_k3": -8.86022679757486,
+              "eta_k3k5_minus": -0.5341228841871697
+            },
+            "dominant": "gamma_q",
+            "projection_residual": 1.3708376918839186e-15
+          }
+        },
+        "the_projection_residual_is_automatic": "with rank = 4 and four observables the column space is all of R^4, so ANY 4-vector projects exactly; the content is WHICH combination each quadratic direction mimics, not that one exists",
+        "not_a_sloppy_model": true,
+        "the_problem_is_dimensional": "8 first-order knobs (plus 2 quadratic and 1 exactly gauge) against 4 scored masses"
+      },
+      "pass": true
+    },
+    {
+      "id": "R3",
+      "name": "the repair rides the WEAKEST singular direction",
+      "detail": {
+        "rows": [
+          {
+            "a": 1,
+            "sigma": 19.219005419622203,
+            "c_a": -0.0072231108967790066,
+            "c_over_sigma": -0.0003758316696973487,
+            "share_of_correction_norm_squared": 0.0002685280460576313
+          },
+          {
+            "a": 2,
+            "sigma": 7.57385598889175,
+            "c_a": 0.015230382899080961,
+            "c_over_sigma": 0.0020109153014552577,
+            "share_of_correction_norm_squared": 0.0076875944118772995
+          },
+          {
+            "a": 3,
+            "sigma": 2.534868677552294,
+            "c_a": -0.005376790895992279,
+            "c_over_sigma": -0.002121131932240445,
+            "share_of_correction_norm_squared": 0.00855338988981396
+          },
+          {
+            "a": 4,
+            "sigma": 0.8519332977547562,
+            "c_a": 0.01937711971355259,
+            "c_over_sigma": 0.022744878929630275,
+            "share_of_correction_norm_squared": 0.9834904876522511
+          }
+        ],
+        "baseline_residual": [
+          -0.01597524281704521,
+          -0.011881371679726804,
+          -0.007047891256791061,
+          0.015571525159387534
+        ],
+        "baseline_residual_norm": 0.0262396749791677,
+        "delta_x_min": {
+          "beta": 0.017669803646776675,
+          "gamma_q": 0.004265152576239159,
+          "transport": -0.0018517502146850713,
+          "pinhole": -0.010279317641823861,
+          "resistance": 0.00029468359308213246,
+          "uplift_asymmetry": 0.0008905449593827526,
+          "chi_q_k3": -0.009253371982529386,
+          "eta_k3k5_minus": -4.592108416458705e-05
+        },
+        "delta_x_min_norm": 0.022934989600849696,
+        "linear_residual_after_repair": 1.6273148661314594e-17,
+        "dominant_direction": 4,
+        "dominant_share": 0.9834904876522511,
+        "the_repair_rides_the_weakest_direction": true,
+        "verdict": "The min-norm repair is not a coherent physical combination; it is dominated by the softest singular direction \u2014 by the model's least-constrained freedom"
+      },
+      "pass": true
+    },
+    {
+      "id": "R4",
+      "name": "*** the corrected geometry moves AWAY from what the masses want ***",
+      "detail": {
+        "per_operator": {
+          "legacy": {
+            "delta_x_geom": {
+              "beta": 0.0,
+              "gamma_q": 0.0,
+              "transport": 0.008749811016428896,
+              "pinhole": -0.010925077218378619,
+              "resistance": 0.004868139476233891,
+              "uplift_asymmetry": 0.0,
+              "chi_q_k3": 0.0,
+              "eta_k3k5_minus": 0.0
+            },
+            "delta_x_geom_norm": 0.014819422627444795,
+            "g_a": [
+              0.001191591674697023,
+              0.007557739658217411,
+              0.001185396784339733,
+              0.003750236798122266
+            ],
+            "f_a": [
+              -0.0003758316696973478,
+              0.0020109153014552586,
+              -0.0021211319322404464,
+              0.02274487892963028
+            ],
+            "cos_theta_parameter_space": 0.28696447953874255,
+            "angle_parameter_space_deg": 73.32368918233108,
+            "cos_theta_observable_space": 0.4637608318834235,
+            "angle_observable_space_deg": 62.36994534132023,
+            "fraction_of_displacement_invisible_to_the_masses": 0.6630072430464933
+          },
+          "scalar_correct": {
+            "delta_x_geom": {
+              "beta": 0.0,
+              "gamma_q": 0.0,
+              "transport": 0.00701288605431879,
+              "pinhole": 0.0036425619275991397,
+              "resistance": -0.0002471288499127342,
+              "uplift_asymmetry": 0.0,
+              "chi_q_k3": 0.0,
+              "eta_k3k5_minus": 0.0
+            },
+            "delta_x_geom_norm": 0.0079063203119854,
+            "g_a": [
+              -0.00016602422054810327,
+              -0.002663115202936316,
+              0.0030360995736690276,
+              -0.0017045208097862725
+            ],
+            "f_a": [
+              -0.0003758316696973478,
+              0.0020109153014552586,
+              -0.0021211319322404464,
+              0.02274487892963028
+            ],
+            "cos_theta_parameter_space": -0.27850662577518764,
+            "angle_parameter_space_deg": 106.17109567425057,
+            "cos_theta_observable_space": -0.6162609243337601,
+            "angle_observable_space_deg": 128.0435985345128,
+            "fraction_of_displacement_invisible_to_the_masses": 0.6921601511349802
+          }
+        },
+        "delta_x_min_norm": 0.022934989600849696,
+        "the_correction_flips_the_sign_of_the_overlap": true,
+        "verdict": "Case three of the trichotomy: the corrected geometry moves the Hamiltonian AWAY from the mass-optimal direction (cos = -0.616) where the legacy geometry had partial overlap with it (cos = +0.464). PR #272's three per-knob improvements were not merely uninformative about the ladder \u2014 they were misleading about it.",
+        "and_most_of_it_is_invisible_anyway": "About two thirds of each geometric displacement lies in the null space of J and moves no observable at all"
+      },
+      "pass": true
+    },
+    {
+      "id": "R5",
+      "name": "leave-one-out: local flexibility, not structure",
+      "detail": {
+        "rows": [
+          {
+            "held_out": "s",
+            "correction_norm": 0.022498128080414216,
+            "held_out_error_percent_linear": 1.91237539490384,
+            "held_out_error_percent_exact": 1.9054325434138157,
+            "fitted_species_max_error_percent_exact": 0.015279014391851288
+          },
+          {
+            "held_out": "c",
+            "correction_norm": 0.004812875749476733,
+            "held_out_error_percent_linear": 2.519213212693839,
+            "held_out_error_percent_exact": 2.5616640625849656,
+            "fitted_species_max_error_percent_exact": 0.041202942579162
+          },
+          {
+            "held_out": "b",
+            "correction_norm": 0.022197816462962705,
+            "held_out_error_percent_linear": -9.705061269021185,
+            "held_out_error_percent_exact": -10.409588562558554,
+            "fitted_species_max_error_percent_exact": 0.05891146064268842
+          },
+          {
+            "held_out": "t",
+            "correction_norm": 0.008996980630925926,
+            "held_out_error_percent_linear": -2.5208915225907926,
+            "held_out_error_percent_exact": -2.519434899937667,
+            "fitted_species_max_error_percent_exact": 0.0015368610650010879
+          }
+        ],
+        "worst_held_out_error_percent": 10.409588562558554,
+        "the_full_fit_error_percent": 0.0179,
+        "it_explodes_under_holdout": true,
+        "verdict": "Local flexibility, not structure: the four-parameter repair that drives the full ladder to 0.018% mispredicts a withheld species by up to 10.4%"
+      },
+      "pass": true
+    },
+    {
+      "id": "R6",
+      "name": "the ledger",
+      "detail": {
+        "entries": [
+          {
+            "claim": "action_base is a free parameter of the mass spectrum",
+            "verdict": "WITHDRAWN \u2014 EXACT GAUGE",
+            "evidence": "H(a) = H(0) + a*I, removed by the spectrum-zero subtraction upstream of the d-anchor; flat to all orders"
+          },
+          {
+            "claim": "phase and partition_mixing are null directions",
+            "verdict": "MISCLASSIFIED",
+            "evidence": "Z2-even at the lock, quadratic away from it; the Jacobian cannot see them in x, only in q = x^2"
+          },
+          {
+            "claim": "pinhole, transport, resistance are independently constrained by the quark masses",
+            "verdict": "WITHDRAWN",
+            "evidence": "rank J = 4 against 8 first-order knobs, so 4 directions move no observable; the masses fix at most four combinations of everything"
+          },
+          {
+            "claim": "the v3 ladder's 1.61% floor is set by the functional form",
+            "verdict": "WITHDRAWN",
+            "evidence": "a min-norm displacement of |dln p| = 0.0229 reaches 0.018%; the floor was where the lock sits, not what the model can do"
+          },
+          {
+            "claim": "that 0.018% fit is evidence for the model",
+            "verdict": "NOT ESTABLISHED",
+            "evidence": "98.3% of the repair rides the weakest singular direction, and leave-one-out mispredicts by up to 10.4%"
+          },
+          {
+            "claim": "PR #272's three per-knob improvements moved the ladder toward the data",
+            "verdict": "REFUTED",
+            "evidence": "cos(Theta) in observable space is -0.616 (corrected) against +0.464 (legacy): the correction moves AWAY from what the masses want"
+          },
+          {
+            "claim": "the quark model is 'sloppy' in the Sethna sense",
+            "verdict": "NOT SUPPORTED",
+            "evidence": "condition number 22.6 over the identifiable subspace \u2014 well conditioned; the degeneracy is dimensional, not ill-conditioning"
+          },
+          {
+            "claim": "N = 466 drifting is a defect of N",
+            "verdict": "REFRAMED",
+            "evidence": "it is the visible symptom of a four-dimensional observable space; any knob would drift along the unconstrained directions"
+          },
+          {
+            "claim": "the missing correlation is a scalar relation R = f(p, T)",
+            "verdict": "REFUTED",
+            "evidence": "PR #272's conjecture; the degeneracy is a linear subspace selected by the response map, and the nearest pair is gamma_q/transport at 178.9 deg, not transport/resistance"
+          }
+        ],
+        "headline": "The quark masses constrain four combinations of eleven knobs; the residual is removable, the repair is a compensator, and the corrected geometry pushes against the data rather than with it",
+        "what_would_settle_it": "More observables, not more knobs \u2014 the v4 flavor-CP layer already supplies CKM angles and J from the same Hamiltonian, which would raise the achievable rank above four and make these directions identifiable for the first time"
+      },
+      "pass": true
+    }
+  ],
+  "passed": 7,
+  "total": 7
+}

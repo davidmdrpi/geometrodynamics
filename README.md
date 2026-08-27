@@ -3943,6 +3943,51 @@ python -m experiments.closure_ledger.quark_residual_reaudit_probe
 
 Full write-up: `docs/quark_residual_reaudit.md`.
 
+### The fit manifold, not the residuals (PR #273)
+
+#272 measured one knob at a time and guessed the gap between individually-right
+and jointly-wrong residuals was a scalar relation between `transport` and
+`resistance`. **The guess was wrong and so was the object.** The right one is
+the response map `J_ia = ∂ln(m_i/m_d)/∂ln p_a` and its SVD.
+
+**The fit manifold is four-dimensional.** `rank J = 4` — capped by the number of
+independently scored masses — against **8** first-order knobs, so four
+directions move no observable at all. `pinhole`, `transport`, `resistance` and
+`N` are **not independently constrained**; the masses fix at most four
+combinations of everything. Every compensation seen since PR #76 is this. The
+condition number is 22.6, so this is *not* a sloppy model — the degeneracy is
+dimensional, not ill-conditioning.
+
+**The correction moves away from what the masses want.** Projecting the
+operator-induced displacement onto the mass-optimal direction `J⁺r`:
+
+| operator | `cos Θ` (observable space) |
+|--|--|
+| legacy | **+0.464** (62.4°) |
+| corrected | **−0.616** (128.0°) |
+
+So #272's three per-knob improvements were not merely uninformative about the
+ladder — they were **misleading** about it. Two thirds of each displacement is
+invisible to the masses entirely.
+
+**The `1.61%` floor is not structural, and removing it proves nothing.** A
+min-norm displacement of `|δ ln p| = 0.0229` reaches `0.018%` — but 98.3% of
+that repair rides the *weakest* singular direction, and leave-one-species-out
+mispredicts the held-out quark by up to **−10.4%** while the fitted three sit
+at `0.002–0.06%`. Local flexibility, not structure.
+
+Three nulls were also separated into three different objects: `action_base` is
+an **exact gauge** (`H(a) = H(0) + a·I`, killed by the zero-point subtraction
+upstream of the anchor), while `phase` and `partition_mixing` are **Z₂-even
+quadratic** directions — the latter by the unitary conjugation
+`H(−p) = D H(p) D†` — that the Jacobian cannot see in `x`, only in `q = x²`.
+
+```bash
+python -m experiments.closure_ledger.quark_response_jacobian_probe
+```
+
+Full write-up: `docs/quark_response_jacobian.md`.
+
 ## The geometric-visualization arc, end to end
 
 Nine rounds (PRs #242–#250) asked one question repeatedly: *given a geometry and
