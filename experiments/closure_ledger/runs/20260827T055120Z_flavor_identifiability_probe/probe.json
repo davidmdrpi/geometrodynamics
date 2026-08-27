@@ -1,0 +1,462 @@
+{
+  "checks": [
+    {
+      "id": "F0",
+      "name": "four independent, rephasing-invariant flavor coordinates",
+      "detail": {
+        "observables": [
+          "theta12",
+          "theta23",
+          "theta13",
+          "delta"
+        ],
+        "values_rad": [
+          0.2275261689610452,
+          0.041932419815108514,
+          0.0036811462031867935,
+          1.150759754554313
+        ],
+        "values_deg": [
+          13.03628921024836,
+          2.4025506801764616,
+          0.21091414121321067,
+          65.93367716947265
+        ],
+        "jarlskog": 3.0935775472394985e-05,
+        "ckm_unitarity_defect": 6.663923885765105e-16,
+        "max_drift_under_random_rephasing": 3.3306690738754696e-16,
+        "physical_flavor_dimension": 4,
+        "validation_outputs_not_rows": "J, alpha, beta, gamma, |V_td|, |V_ts| and the remaining moduli are functions of these four and are NOT independent observable rows",
+        "why_this_matters": "A unitary 3x3 CKM modulo rephasing has exactly four real parameters, so no observable set can supply more than four independent flavor rows"
+      },
+      "pass": true
+    },
+    {
+      "id": "F1",
+      "name": "both Jacobians converge and their ranks are stable",
+      "detail": {
+        "rows": [
+          {
+            "step": 0.0001,
+            "mass_frobenius": 36.73034470691661,
+            "flavor_frobenius": 2.9672689944563864,
+            "rank_mass": 4,
+            "rank_flavor": 4
+          },
+          {
+            "step": 1e-05,
+            "mass_frobenius": 36.73032609391814,
+            "flavor_frobenius": 2.967267495066431,
+            "rank_mass": 4,
+            "rank_flavor": 4
+          },
+          {
+            "step": 1e-06,
+            "mass_frobenius": 36.730321305071634,
+            "flavor_frobenius": 2.9672674796051814,
+            "rank_mass": 4,
+            "rank_flavor": 4
+          },
+          {
+            "step": 1e-07,
+            "mass_frobenius": 36.73032645137233,
+            "flavor_frobenius": 2.9672674291175167,
+            "rank_mass": 4,
+            "rank_flavor": 4
+          }
+        ],
+        "mass_relative_spread": 6.371256562967426e-07,
+        "flavor_relative_spread": 5.275352091637716e-07,
+        "both_converged": true,
+        "ranks_stable": true
+      },
+      "pass": true
+    },
+    {
+      "id": "F2",
+      "name": "calibration DOF measured, not counted; the trace is a CKM gauge",
+      "detail": {
+        "rows": [
+          {
+            "group": "v3 knobs",
+            "symbols": 8,
+            "measured_flavor_rank": 4,
+            "singular_values": [
+              1.1255357192442725,
+              0.7874457671676385,
+              0.06460935279601739,
+              0.0019103971495644859
+            ]
+          },
+          {
+            "group": "v4 targeted etas",
+            "symbols": 3,
+            "measured_flavor_rank": 3,
+            "singular_values": [
+              0.47515283578881307,
+              0.26274712707082004,
+              0.003090787694899687
+            ]
+          },
+          {
+            "group": "eta_k3k5_minus retune",
+            "symbols": 1,
+            "measured_flavor_rank": 1,
+            "singular_values": [
+              0.024967727317025557
+            ]
+          },
+          {
+            "group": "diag_shift_plus",
+            "symbols": 3,
+            "measured_flavor_rank": 2,
+            "singular_values": [
+              0.0030622436348316283,
+              4.083983844679579e-08,
+              9.454566730672868e-12
+            ]
+          },
+          {
+            "group": "diag_shift_minus",
+            "symbols": 3,
+            "measured_flavor_rank": 2,
+            "singular_values": [
+              0.09920252216249738,
+              0.0003921329190639434,
+              3.231580584799625e-10
+            ]
+          },
+          {
+            "group": "all diagonal shifts",
+            "symbols": 6,
+            "measured_flavor_rank": 3,
+            "singular_values": [
+              0.0992044207891627,
+              0.003003030983808598,
+              0.0003690643638973817,
+              8.480995016951346e-09
+            ]
+          },
+          {
+            "group": "phi_h",
+            "symbols": 1,
+            "measured_flavor_rank": 1,
+            "singular_values": [
+              2.57078398378649
+            ]
+          },
+          {
+            "group": "v4 additions, phi_h fixed",
+            "symbols": 9,
+            "measured_flavor_rank": 4,
+            "singular_values": [
+              0.4774162358512529,
+              0.27700193212761287,
+              0.003160545913847841,
+              0.00041582582851412025
+            ]
+          },
+          {
+            "group": "v4 additions, phi_h released",
+            "symbols": 10,
+            "measured_flavor_rank": 4,
+            "singular_values": [
+              2.6101812513234295,
+              0.3170254541936444,
+              0.006731046570696387,
+              0.00041899471628825154
+            ]
+          },
+          {
+            "group": "everything",
+            "symbols": 18,
+            "measured_flavor_rank": 4,
+            "singular_values": [
+              2.6373382312763916,
+              1.1202676872554957,
+              0.7707574178726448,
+              0.0075273538455640325
+            ]
+          }
+        ],
+        "diagonal_shift_traces": {
+          "diag_shift_plus": {
+            "flavor_response_norm": 2.2301993886239162e-10,
+            "mass_response_norm": 12.474788610720989,
+            "is_an_exact_ckm_gauge": true,
+            "realised_value": [
+              0.0018961946,
+              -0.0018961941,
+              -4e-10
+            ],
+            "realised_trace": 9.99999999536625e-11,
+            "realised_is_traceless": true
+          },
+          "diag_shift_minus": {
+            "flavor_response_norm": 7.968558782763466e-10,
+            "mass_response_norm": 12.47479264918543,
+            "is_an_exact_ckm_gauge": true,
+            "realised_value": [
+              0.1127516149,
+              -0.0647265474,
+              -0.0480250675
+            ],
+            "realised_trace": 6.938893903907228e-18,
+            "realised_is_traceless": true
+          }
+        },
+        "the_trace_direction_is_flavor_blind": true,
+        "both_realised_triples_are_traceless": true,
+        "diag_shift_plus_collapses_further": "the realised (+d, -d, 0) sits in a ONE-parameter family inside the two-dimensional traceless subspace",
+        "symbol_count_is_not_dof_count": "`diag_shift_plus` and diag_shift_minus carry three symbols each and measure rank 2 each, because the trace direction moves masses but no flavor observable and so cannot have been selected on flavor data"
+      },
+      "pass": true
+    },
+    {
+      "id": "F3",
+      "name": "*** rank K = 4: the CKM is a fit, not a prediction ***",
+      "detail": {
+        "grid": [
+          {
+            "step": 1e-05,
+            "rcond": 1e-06,
+            "kernel_dimension": 14,
+            "rank_K": 4,
+            "singular_values": [
+              2.6110229157516103,
+              0.4684947882483526,
+              0.008273763191143167,
+              0.006886970314699513
+            ]
+          },
+          {
+            "step": 1e-05,
+            "rcond": 1e-08,
+            "kernel_dimension": 14,
+            "rank_K": 4,
+            "singular_values": [
+              2.6110229157516103,
+              0.4684947882483526,
+              0.008273763191143167,
+              0.006886970314699513
+            ]
+          },
+          {
+            "step": 1e-05,
+            "rcond": 1e-10,
+            "kernel_dimension": 14,
+            "rank_K": 4,
+            "singular_values": [
+              2.6110229157516103,
+              0.4684947882483526,
+              0.008273763191143167,
+              0.006886970314699513
+            ]
+          },
+          {
+            "step": 1e-06,
+            "rcond": 1e-06,
+            "kernel_dimension": 14,
+            "rank_K": 4,
+            "singular_values": [
+              2.611022915583132,
+              0.4684947841859342,
+              0.008273763103409347,
+              0.0068869702853255315
+            ]
+          },
+          {
+            "step": 1e-06,
+            "rcond": 1e-08,
+            "kernel_dimension": 14,
+            "rank_K": 4,
+            "singular_values": [
+              2.611022915583132,
+              0.4684947841859342,
+              0.008273763103409347,
+              0.0068869702853255315
+            ]
+          },
+          {
+            "step": 1e-06,
+            "rcond": 1e-10,
+            "kernel_dimension": 14,
+            "rank_K": 4,
+            "singular_values": [
+              2.611022915583132,
+              0.4684947841859342,
+              0.008273763103409347,
+              0.0068869702853255315
+            ]
+          },
+          {
+            "step": 1e-07,
+            "rcond": 1e-06,
+            "kernel_dimension": 14,
+            "rank_K": 4,
+            "singular_values": [
+              2.611022857655126,
+              0.4684947240980352,
+              0.008273761506056139,
+              0.006886970714062675
+            ]
+          },
+          {
+            "step": 1e-07,
+            "rcond": 1e-08,
+            "kernel_dimension": 14,
+            "rank_K": 4,
+            "singular_values": [
+              2.611022857655126,
+              0.4684947240980352,
+              0.008273761506056139,
+              0.006886970714062675
+            ]
+          },
+          {
+            "step": 1e-07,
+            "rcond": 1e-10,
+            "kernel_dimension": 14,
+            "rank_K": 4,
+            "singular_values": [
+              2.611022857655126,
+              0.4684947240980352,
+              0.008273761506056139,
+              0.006886970714062675
+            ]
+          }
+        ],
+        "rank_K": 4,
+        "kernel_dimension": 14,
+        "singular_values": [
+          2.611022915583132,
+          0.4684947841859342,
+          0.008273763103409347,
+          0.0068869702853255315
+        ],
+        "singular_value_spread": 379.12504445482955,
+        "kernel_is_a_kernel": 5.334768657833582e-15,
+        "rank_stable_across_the_grid": true,
+        "direct_construction": [
+          {
+            "flavor_miss": 3.6012460940888975e-14,
+            "mass_disturbance": 4.082845173059013e-14,
+            "parameter_excursion": 67.04907457438965
+          },
+          {
+            "flavor_miss": 1.150514644434207e-14,
+            "mass_disturbance": 5.703770789011742e-15,
+            "parameter_excursion": 79.18251430526053
+          },
+          {
+            "flavor_miss": 6.266385963465458e-15,
+            "mass_disturbance": 1.9761969838327786e-14,
+            "parameter_excursion": 52.03361497427931
+          }
+        ],
+        "spans_the_whole_physical_flavor_space": true,
+        "left_null_vectors": 0,
+        "so_there_is_no_invariant_relation": "Rank K = 4 leaves no w with w^T K = 0, so the model predicts no first-order flavor relation w^T dy_F = 0. The round was built to extract one if it existed",
+        "verdict": "The mass-preserving parameter freedom spans the entire physical flavor space. Fitting the CKM is a successful realisation, not a prediction"
+      },
+      "pass": true
+    },
+    {
+      "id": "F4",
+      "name": "*** fixing the derived phi_h does NOT lower the flavor rank ***",
+      "detail": {
+        "per_case": {
+          "phi_h_released": {
+            "n_coordinates": 18,
+            "kernel_dimension": 14,
+            "rank_K": 4,
+            "singular_values": [
+              2.611022915583132,
+              0.4684947841859342,
+              0.008273763103409347,
+              0.0068869702853255315
+            ]
+          },
+          "phi_h_fixed": {
+            "n_coordinates": 17,
+            "kernel_dimension": 13,
+            "rank_K": 4,
+            "singular_values": [
+              0.5424150715583997,
+              0.3658194205064708,
+              0.007932369232769996,
+              0.003569590605439263
+            ]
+          }
+        },
+        "fixing_phi_h_lowers_the_rank": false,
+        "leading_singular_value_ratio": 4.813699051690184,
+        "verdict": "Fixing the derived phase does NOT lower the flavor rank: with phi_h held at pi/k_5 the other fitted matrix elements still span all four physical flavor directions at fixed masses. The derived phase is the single most EFFICIENT CP handle \u2014 releasing it multiplies the leading singular value by 4.8 \u2014 but efficiency is not identifiability, and it produces no flavor prediction by itself",
+        "relation_to_pr_173": "PR #173 found that ADDING phi_h as an input left the observable rank unchanged. This is the stronger statement: with phi_h held FIXED, the mass-preserving freedom still covers the whole physical flavor space"
+      },
+      "pass": true
+    },
+    {
+      "id": "F5",
+      "name": "the '+3 for +5, net +2' counting claim",
+      "detail": {
+        "claimed_new_parameters": 3,
+        "claimed_new_independent_observables": 5,
+        "claimed_net_surplus": 2,
+        "physical_flavor_dimension": 4,
+        "the_observable_claim_exceeds_the_ceiling": true,
+        "measured_calibration_dimension_phi_h_fixed": 4,
+        "measured_calibration_dimension_phi_h_released": 4,
+        "symbols_added_phi_h_fixed": 9,
+        "measured_net_surplus_phi_h_fixed": 0,
+        "verdict": "'+5 independent observables' exceeds the ceiling: a unitary 3x3 CKM has exactly four physical parameters, so at most four of the nine quoted flavor-CP observables are independent. Against that ceiling the v4 additions measure 4 independent calibration directions with phi_h fixed, so the net predictive surplus is at most zero, not +2"
+      },
+      "pass": true
+    },
+    {
+      "id": "F6",
+      "name": "the ledger",
+      "detail": {
+        "entries": [
+          {
+            "claim": "the v4 CKM realization is a prediction of the Hamiltonian",
+            "verdict": "WITHDRAWN",
+            "evidence": "rank K = 4 = the full physical flavor dimension; the mass-preserving freedom generates arbitrary CKM variation at fixed masses"
+          },
+          {
+            "claim": "there is a first-order flavor relation to compare with data",
+            "verdict": "NONE EXISTS",
+            "evidence": "rank K = 4 leaves 0 left-null vectors, so no w^T dy_F = 0 invariant is predicted"
+          },
+          {
+            "claim": "the derived phi_h = pi/k_5 produces a flavor prediction",
+            "verdict": "NOT BY ITSELF",
+            "evidence": "holding it fixed leaves rank K = 4; it is the most efficient CP handle (leading sv x4.8) but not an identifying one"
+          },
+          {
+            "claim": "+3 parameters bought +5 independent observables, net +2",
+            "verdict": "REFUTED",
+            "evidence": "a unitary 3x3 CKM has exactly 4 physical parameters, so '+5 independent' exceeds the ceiling; the measured calibration dimension of the v4 additions is 4 with phi_h fixed, giving net surplus <= 0"
+          },
+          {
+            "claim": "the six diagonal-shift numbers are six fit freedoms",
+            "verdict": "MISCOUNTED",
+            "evidence": "each triple measures flavor rank 2, not 3: the trace direction is an exact CKM gauge that moves masses only, and both realised triples are traceless to ~1e-10"
+          },
+          {
+            "claim": "the masses and the CKM constrain the parameters jointly",
+            "verdict": "NOT AT FIRST ORDER",
+            "evidence": "ker J_M is 14-dimensional and J_F restricted to it still reaches rank 4; the two sectors do not intersect in a constraining way here"
+          }
+        ],
+        "headline": "rank K = 4: the mass-preserving parameter freedom spans the whole physical flavor space, so the v4 CKM agreement is a successful but locally flexible realisation, not a prediction \u2014 and holding the derived phi_h fixed does not change that",
+        "what_this_does_not_say": "The v4 numbers are not wrong and the <= 1% agreement across nine observables is real. What the rank shows is that the agreement is not evidence FOR the Hamiltonian, because the same Hamiltonian could have reproduced any other CKM equally well at the same masses",
+        "scope": "A local, first-order statement at the v4 lock. Rank says nothing about how far the mass-preserving surface extends before nonlinearity or positivity bites, and the parameter excursions required are not small",
+        "the_recommendation": "Per the round's own terms: rank K = 4, so downgrade the CKM realization to a successful but locally flexible realisation, stop the quark parameter archaeology, and return to the trunk"
+      },
+      "pass": true
+    }
+  ],
+  "passed": 7,
+  "total": 7
+}

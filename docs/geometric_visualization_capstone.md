@@ -2035,6 +2035,15 @@ Worth recording, because the failure modes repeat:
   first-order directions are invisible by construction. Years of "`N` drifts"
   were this, and asking whether `pinhole` is *derived* was asking about a
   quantity the observables never constrained on its own.
+* **Ask what a fit could NOT have reproduced.** The v4 CKM matches nine
+  observables at `≤ 1%`, and `rank K = 4` says the same Hamiltonian could have
+  matched any other CKM equally well at the same masses. **Agreement is
+  evidence only in proportion to what the model was unable to accommodate** —
+  which is a rank, not a residual, and had never been measured.
+* **Count calibration directions, not symbols.** Three `diag_shift` numbers
+  carry two flavor freedoms, because the trace direction is an exact CKM gauge.
+  A parameter budget built from names rather than from measured response
+  over- or under-counts in both directions.
 
 The recurring lesson is narrow and practical: **a converged number is not a
 correct number.** Three of the errors above survived grid refinement, and were caught only by
@@ -2211,7 +2220,48 @@ is an exact gauge (`H(a) = H(0) + a·I`, killed by the zero-point subtraction
 draft also got wrong); `partition_mixing` is a **unitary-conjugation** `Z₂`.
 The latter two are quadratic, visible in `q = x²`.
 
-## 33. What is imported rather than derived
+## 33. Is the CKM a prediction? (`docs/flavor_identifiability.md`)
+
+The flavor half of §32's question, and the terminal round of the audit arc.
+Build two response maps over **one** parameter chart — `J_M` for the mass
+ratios, `J_F` for four *genuinely independent* flavor coordinates
+`(θ₁₂, θ₂₃, θ₁₃, δ)` — take `N_M = ker J_M`, and form `K = J_F N_M`. Its rank
+counts the CKM directions reachable without disturbing the masses, and rank is
+chart-independent, so unlike §32's pseudoinverse geometry it smuggles in no
+metric.
+
+**`rank K = 4`** — the full dimension of the physical flavor space. Stable over
+a 3×3 grid of step and cutoff, spread only `379×`, and confirmed by direct
+construction (arbitrary `δy_F` to `1e-14`, masses to `1e-14`). The
+mass-preserving freedom spans everything the CKM can be, so **fitting it is a
+realisation, not a prediction** — and with zero left-null vectors there is no
+first-order relation `wᵀδy_F = 0` to test.
+
+**Holding the derived `φ_h = π/k₅` fixed leaves rank 4.** The other fitted
+elements absorb arbitrary CKM data alone. It is the most *efficient* CP handle
+(leading singular value ×4.8) but not an identifying one — sharpening PR #173's
+"CP at zero parameters is a counting economy, not a Jacobian reduction".
+
+**And the census, measured rather than counted**, found structure a symbol count
+could not see: the trace direction of each diagonal-shift triple is an **exact
+CKM gauge** (`|J_F·1| ≈ 2e-10` against `|J_M·1| = 12.5`), so three symbols carry
+two flavor freedoms, and both realised triples are traceless to `~1e-10`. The
+"+3 parameters for +5 independent observables" claim is refuted on the ceiling
+alone: a unitary 3×3 CKM has exactly four physical parameters.
+
+This does not say the v4 numbers are wrong. It says the `≤ 1%` agreement is not
+evidence *for* the Hamiltonian, because the same Hamiltonian could have
+reproduced any other CKM equally well at the same masses.
+
+**Where the three audits converge.** #271 corrected the radial operator, #272
+found the mass sector's observables too few to identify its parameters, and
+this round found the same in the flavor sector. One structural statement
+carries forward: **the quark sector cannot identify its own parameterisation,
+and no further geometric derivation of an individual knob can change that**,
+because the ceiling is set by the observable count rather than by the quality
+of the derivation. The parameter archaeology ends here.
+
+## 34. What is imported rather than derived
 
 * Birkhoff's theorem (`shell_junction`) — a GR result, still relied on there;
   `multipole_coupling` supplies its static Newtonian analogue, not a
@@ -2255,7 +2305,7 @@ The latter two are quadratic, visible in `q = x²`.
   family is an assumption — and the bare poles sit at `Im ω = γ`, so the limit is
   where stability is decided.
 
-## 32. What would come next
+## 35. What would come next
 
 The honest next object is not another drawing. Three of the closing results name
 their own missing ingredient:

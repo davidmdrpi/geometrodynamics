@@ -204,6 +204,8 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Inner cutoff `ε = resistance / k_5⁴` | **Verified** | Closes the Compton bridge `ℏ = m_e R_MID c` to 0.04 % |
 | Closure-quantum ledger closes modulo m_e | **PARTIALLY REOPENED (PR #271)** | The `2π`-quantised entries stand. The `pinhole γ` entry does not: its geometric derivation is reopened, so the ledger no longer reduces **every** dimensionless parameter to closure quanta. See `docs/scalar_operator_audit.md` |
 | Quark mass ladder (u, d, s, c, b, t) | **Fitted** | 1.6% max rel err on s, c, b, t with d-anchor, four shell-index axioms, and one phenomenological β |
+| Quark CKM / flavor-CP realization (v4) | **Locally flexible realization, NOT a prediction (PR #273)** | `rank K = 4` where `K = J_F ker(J_M)`: the mass-preserving parameter freedom spans the *entire* physical flavor space, so the CKM agreement is not evidence for the Hamiltonian. Zero left-null vectors ⟹ no predicted relation. Holding the derived `φ_h = π/k₅` fixed leaves rank 4. See `docs/flavor_identifiability.md` |
+| Quark v4 counting: "+3 parameters, +5 independent observables, net +2" | **REFUTED (PR #273)** | A unitary 3×3 CKM has exactly **four** physical parameters, so "+5 independent" exceeds the ceiling. Measured calibration dimension of the v4 additions (`φ_h` fixed) = **4**; net surplus **≤ 0**. The six diagonal-shift symbols measure flavor rank 2+2, not 3+3 — the trace of each triple is an exact CKM gauge |
 | Quark shell-index axioms (ε, η, χ, phase) | **Geometric** | All four expressible in `k_5 = 5` only: `(1−1/k_5², k_5, (k_5−1)·k_5, 0)` |
 | Quark residual sector (transport, pinhole, resistance) | **Derived — and IMPROVED by PR #271's correction** | All three move *toward* their locked values under the corrected operator, opposite to the lepton sector. The difference is elasticity: `d ln m_s/d ln pinhole = +4.8` against the lepton chain's `−17.5`. See `docs/quark_residual_reaudit.md` |
 | Pinhole = `Σ V_max(l=1..5)` (tortoise grid) | **Verified (re-derived)** | `−1.09%` (legacy) → **`+0.36%`** off the fitted 22.25; the residual changes sign |
@@ -3997,6 +3999,58 @@ python -m experiments.closure_ledger.quark_response_jacobian_probe
 ```
 
 Full write-up: `docs/quark_response_jacobian.md`.
+
+### Is the CKM a prediction? (PR #273)
+
+The flavor half of the same question, and the audit arc's terminal round. Build
+two response maps over **one** parameter chart `x` — `J_M` for the mass ratios
+and `J_F` for four *genuinely independent* flavor coordinates
+`y_F = (θ₁₂, θ₂₃, θ₁₃, δ)` — take the mass-preserving tangent space
+`N_M = ker J_M`, and form **`K = J_F N_M`**. Its rank counts the physically
+independent CKM directions reachable without disturbing the masses. Rank is
+chart-independent, so unlike a pseudoinverse it smuggles in no metric.
+
+**`rank K = 4`** — the full dimension of the physical flavor space of a unitary
+3×3 matrix. Stable over a 3×3 grid of step and cutoff, singular values spread
+only `379×`, and confirmed by direct construction: an arbitrary target `δy_F`
+is realised to `1e-14` with the masses held to `1e-14`.
+
+> The mass-preserving parameter freedom spans everything the CKM can be.
+> **Fitting it is a successful realisation, not a prediction** — and there are
+> zero left-null vectors, so no first-order relation `wᵀδy_F = 0` exists to
+> compare against experiment.
+
+**The `φ_h` A/B test.** The library treats `φ_h = π/k₅` as derived and as the
+source of CP structure. Holding it fixed leaves **`rank K = 4`** — the other
+fitted matrix elements absorb arbitrary CKM data on their own. It is the most
+*efficient* CP handle (releasing it multiplies the leading singular value by
+`4.8`) but not an identifying one. This sharpens PR #173, which found that
+*adding* `φ_h` left the observable rank unchanged.
+
+**The census, measured rather than counted.** `rank J_F` restricted to each
+knob group: v4 targeted `η`s **3**, `eta_k3k5_minus` retune **1**,
+`diag_shift_plus` **2**, `diag_shift_minus` **2**, `φ_h` **1** — and the nine v4
+additions with `φ_h` fixed measure **4**, saturating the flavor space. The trace
+direction of each diagonal triple is an **exact CKM gauge** (`|J_F·1| ≈ 2e-10`
+against `|J_M·1| = 12.5`), which is why three symbols measure rank two; both
+realised triples are traceless to `~1e-10`.
+
+**The "+3 parameters for +5 independent observables, net +2" claim is refuted
+on the ceiling alone:** a unitary 3×3 CKM has exactly four physical parameters,
+so at most four of the nine quoted flavor-CP observables are independent.
+Measured net surplus **≤ 0**.
+
+This does not say the v4 numbers are wrong — the `≤ 1%` agreement across nine
+observables is real. It says the agreement is not evidence *for* the
+Hamiltonian, because the same Hamiltonian could have reproduced any other CKM
+equally well at the same masses. **Scope:** local and first-order at the v4
+lock; the excursions required are not small (`|δx| ≈ 50–80`).
+
+```bash
+python -m experiments.closure_ledger.flavor_identifiability_probe
+```
+
+Full write-up: `docs/flavor_identifiability.md`.
 
 ## The geometric-visualization arc, end to end
 
