@@ -1,34 +1,64 @@
-"""Settling PR #270's ringdown cross-validation.
+"""Settling PR #270's ringdown cross-validation, against a published spectrum.
 
 THE VERDICT
 ───────────
 PR #270 built two horizon-penetrating time-domain codes for a test scalar on a
 fixed ``D = 5`` Tangherlini background. Both were stable, both converged, and
-they disagreed: real parts within ``0.3 %`` at ``ℓ = 1``, **damping rates
-differing by 37 %**. #270 refused to quote a frequency, correctly — *a
+they disagreed: real parts within ``0.3 %`` at ``ℓ = 1``, **damping rates apart
+by 37 % of the smaller value** — equivalently, the wrong one was 27 % low; see
+STATE THE DENOMINATOR below. #270 refused to quote a frequency, correctly — *a
 converged number is not a correct number* — and named its own prime suspect:
 the Kerr–Schild operator's inner cut.
 
 **The Kerr–Schild code was right. The tortoise code's damping was wrong.**
 
-An independent Gundlach–Price–Pullin characteristic evolution, written here
-from scratch and sharing no code with either, gives at ``ℓ = 1``
+Two things establish it. An independent Gundlach–Price–Pullin characteristic
+evolution, written here from scratch and sharing no code with either; and a
+**published high-precision spectrum** external to this repository entirely
+(Matyjasek 2021, continued fractions cross-checked against Hill determinants,
+agreeing to 11 digits). At ``ℓ = 1``, with ``r_h = 1``:
 
-    this round (h → 0)   1.01612 − 0.36244i
-    #270 Kerr–Schild     1.01622 − 0.36231i     agrees to ~1e-4
-    #270 tortoise        1.01876 − 0.26404i     damping 37 % away
+    published (external)   1.01601691 − 0.36232802i    the reference
+    #270 Kerr–Schild       1.01622    − 0.36231i       damping  0.005 % off
+    this round (h → 0)     1.01612    − 0.36244i       damping  0.031 % off
+    #270 tortoise          1.01876    − 0.26404i       damping 27.1   % off
 
-Agreement to `1e-4` between two independent implementations, against a `37 %`
-miss, is not ambiguous. #270's suspicion of the Kerr–Schild inner cut was
-pointing at the wrong code.
+So this round is not merely a tie-breaker between two internal codes. It is an
+independent implementation reproducing a known spectrum, which is a much
+stronger check on the corrected radial operator and on the GPP machinery than
+internal arbitration could ever be.
+
+**Note the ordering.** #270's Kerr–Schild code is roughly six times *more*
+accurate than this round's characteristic evolution. The characteristic scheme
+arbitrated correctly, but it is not the most accurate of the three, and saying
+otherwise would misread what it was for.
+
+WHAT THE EXTERNAL REFERENCE EXPOSED ABOUT THIS SOLVER
+─────────────────────────────────────────────────────
+Refining the step gave ``−0.3621571 → −0.3623949 → −0.3624352``, a last
+successive difference of ``4.0e-5``. The actual distance from the finest value
+to the published one is ``1.07e-4`` — **2.7× larger**. The ``h = 0.05`` value is
+in fact *closer* to the truth than the ``h = 0.025`` one.
+
+The discretization error is therefore not what limits this solver; extraction
+systematics are (window placement, Prony order, observer radius, finite
+``t_max``, power-law tail contamination). **Self-convergence measures only the
+error it is refining away, so it is not an error bar.** That is a sharper form
+of #270's own lesson, and it is only visible from outside.
 
 WHY THIS BACKGROUND MAKES THE ANSWER CHECKABLE
 ──────────────────────────────────────────────
 ``D = 5`` is unusually clean, and two exact facts do most of the work.
 
-**The tortoise correction is a decaying power, not a log.**
-``r* = r + ½ln((r−1)/(r+1))``, whose correction is exactly ``−1/r`` — a
-decaying power, not the ``ln r`` of 4D. So the far field is a pure Hankel wave with no Coulomb-like phase.
+**The tortoise correction is a decaying power, not a log.** Exactly,
+
+    r* − r = ½ln((r−1)/(r+1)) = −artanh(1/r)
+           = −1/r − 1/(3r³) − 1/(5r⁵) − ⋯
+
+so ``−1/r`` is the leading asymptotic behaviour, *not* an exact equality — the
+next term is ``−1/(3r³)`` and the tests check its coefficient. What matters
+physically is that every term decays: unlike 4D's growing ``2M ln r`` there is
+no Coulomb-like phase, and the far field is a pure Hankel wave.
 
 **The potential's tail is exactly Bessel.**
 ``V → [(ℓ+1)² − ¼]/r²``, so the outgoing solution is exactly
@@ -52,14 +82,29 @@ The real parts converge to ``0.5(ℓ+1)`` from above and the damping to
 ``−0.35355``, which is what a correct solver must do. **The tortoise damping
 ``−0.264`` is not near that asymptote and never approaches it.**
 
-FOUR INDEPENDENT LINES, ALL AGAINST THE TORTOISE DAMPING
+FIVE INDEPENDENT LINES, ALL AGAINST THE TORTOISE DAMPING
 ─────────────────────────────────────────────────────────
+    published (external)       −0.36233    ← the reference
     characteristic evolution   −0.36244    (this round, converged in h)
     #270 Kerr–Schild           −0.36231
     first-order WKB            −0.36095
     exact eikonal asymptote    −0.35355
     ────────────────────────────────────
     #270 tortoise              −0.26404    ← excluded
+
+STATE THE DENOMINATOR
+─────────────────────
+"The tortoise damping is X % off" is ambiguous until the denominator is named,
+and this module previously quoted the two conventions in different places. Both,
+once, explicitly:
+
+    |Δ| / |published|  = 27.1 %   the tortoise result's relative error
+    |Δ| / |tortoise|   = 37.3 %   how much larger the correct damping is
+
+``27.1 %`` is the conventional relative error against truth and is the number to
+quote. ``37.3 %`` is what #270 measured, because it was comparing its two codes
+to each other with no reference available — which is exactly the situation this
+round removed. Both are reported by ``measure_the_cross_validation_verdict``.
 
 WHAT DID NOT WORK, AND IS REPORTED AS SUCH
 ──────────────────────────────────────────
@@ -106,6 +151,8 @@ from geometrodynamics.tangherlini.dynamics import N_ANGULAR, master_potential
 
 __all__ = [
     "HORIZON",
+    "PUBLISHED_FUNDAMENTAL",
+    "PUBLISHED_SOURCE",
     "tortoise",
     "radius_of_tortoise",
     "potential",
@@ -119,6 +166,7 @@ __all__ = [
     "measure_the_characteristic_scheme_converges",
     "measure_the_fundamental_modes",
     "measure_the_cross_validation_verdict",
+    "measure_against_the_published_spectrum",
     "measure_what_did_not_work",
     "measure_the_ringdown_ledger",
 ]
@@ -128,6 +176,26 @@ HORIZON = 1.0
 #: #270 reported these and refused to choose between them.
 KERR_SCHILD_ELL_1 = complex(1.01622, -0.36231)
 TORTOISE_ELL_1 = complex(1.01876, -0.26404)
+
+#: Published fundamental scalar QNMs of the D = 5 Schwarzschild-Tangherlini hole,
+#: **external to this repository**: J. Matyjasek, "Accurate quasinormal modes of
+#: the five-dimensional Schwarzschild-Tangherlini black holes", Phys. Rev. D 104,
+#: 084066 (2021), arXiv:2107.04815. Computed there by continued fractions and
+#: cross-checked against Hill determinants, agreeing to 11 digits.
+#:
+#: The paper tabulates the scaled frequency `w~ = w / T_H` with `T_H = 1/(2 pi)`,
+#: so these are `w~ / (2 pi)` at `r_h = 1`. The l = 1 entry is quoted there to
+#: full precision (`6.38382253011 - 2.27657411582i`); l = 0 and l = 2 are given
+#: to fewer digits, which is why the tolerances below differ by l.
+PUBLISHED_FUNDAMENTAL = {
+    0: complex(0.53383557, -0.38337537),
+    1: complex(1.01601691149, -0.36232802385),
+    2: complex(1.51056745177, -0.35753725529),
+}
+
+PUBLISHED_SOURCE = ("Matyjasek, Phys. Rev. D 104, 084066 (2021), "
+                    "arXiv:2107.04815 -- continued fractions cross-checked "
+                    "against Hill determinants, agreeing to 11 digits")
 
 
 def metric_f(r):
@@ -285,11 +353,18 @@ def measure_the_background_asymptotics_are_exact() -> Dict[str, object]:
     """R0 — the two ``D = 5`` facts that make the answer checkable."""
     far = [50.0, 200.0, 1000.0]
     no_log = [abs(tortoise(r) - r) for r in far]
-    # The tail is a POWER law, not a log: (1/2)ln((r-1)/(r+1)) -> -1/r exactly,
-    # so (r* - r) * r -> -1. Testing that is the real statement; an arbitrary
-    # threshold on |r* - r| is not, and the first draft's 1e-3 cut sat exactly
-    # on the value at r = 1000.
+    # The tail is a POWER law, not a log. Exactly,
+    #     r* - r = (1/2)ln((r-1)/(r+1)) = -artanh(1/r)
+    #            = -1/r - 1/(3r^3) - 1/(5r^5) - ...
+    # so -1/r is the LEADING BEHAVIOUR, not an equality. Testing (r* - r)*r -> -1
+    # is the real statement; an arbitrary threshold on |r* - r| is not, and the
+    # first draft's 1e-3 cut sat exactly on the value at r = 1000. Better still,
+    # the series predicts the next coefficient, so the deviation is checked
+    # against -1/(3r^2) rather than merely being required to shrink.
     scaled = [(tortoise(r) - r) * r for r in far]
+    predicted = [-1.0 / (3.0 * r ** 2) for r in far]
+    coefficient_errors = [abs((s + 1.0) - p) / abs(p)
+                          for s, p in zip(scaled, predicted)]
     bessel = []
     for ell in (0, 1, 2, 3):
         vals = [float(potential(r, ell)) * r ** 2 for r in far]
@@ -303,16 +378,25 @@ def measure_the_background_asymptotics_are_exact() -> Dict[str, object]:
         "tortoise_minus_r_at_far_radii": no_log,
         "tortoise_minus_r_times_r": scaled,
         "deviation_from_minus_one_over_r": [abs(s + 1.0) for s in scaled],
-        "the_tail_is_exactly_minus_one_over_r": bool(
+        "predicted_next_term_minus_one_over_three_r_squared": predicted,
+        "next_coefficient_relative_errors": coefficient_errors,
+        "the_leading_tail_is_minus_one_over_r": bool(
             abs(scaled[-1] + 1.0) < 1e-5
             and all(abs(b + 1.0) < abs(a + 1.0)
                     for a, b in zip(scaled[:-1], scaled[1:]))),
+        "the_next_series_coefficient_is_confirmed": bool(
+            all(e < 1e-3 for e in coefficient_errors)),
+        "the_exact_closed_form": (
+            "r* - r = -artanh(1/r) = -1/r - 1/(3r^3) - 1/(5r^5) - ... , so -1/r "
+            "is the leading asymptotic behaviour and NOT an exact equality. The "
+            "next term is checked against its predicted coefficient."),
         "no_logarithmic_tail": bool(
             abs(scaled[-1] + 1.0) < 1e-5
             and all(abs(b + 1.0) < abs(a + 1.0)
                     for a, b in zip(scaled[:-1], scaled[1:]))),
-        "why_that_matters": ("unlike 4D, r* -> r with no ln r, so the far field "
-                             "is a pure Hankel wave with no Coulomb phase"),
+        "why_that_matters": ("every term in the series decays, so unlike 4D's "
+                             "growing 2M ln r there is no Coulomb-like phase and "
+                             "the far field is a pure Hankel wave"),
         "bessel_tail": bessel,
         "the_tail_is_exactly_bessel": bool(
             all(b["relative_error_at_1000"] < 1e-5 for b in bessel)),
@@ -410,9 +494,23 @@ def measure_the_cross_validation_verdict() -> Dict[str, object]:
     wkb = wkb_fundamental(1)
     eik = eikonal_limit(1)["omega"]
 
+    reference = PUBLISHED_FUNDAMENTAL[1]
+
     def gap(a: complex, b: complex) -> Dict[str, float]:
-        return {"real": abs(a.real - b.real), "imag": abs(a.imag - b.imag),
-                "imag_percent": 100.0 * abs(a.imag - b.imag) / abs(b.imag)}
+        """Both denominators, named. `b` is the thing `a` is being compared to.
+
+        A bare "X % off" is ambiguous, and this module used to quote the two
+        conventions in different places. `percent_of_reference` divides by the
+        published value and is the conventional relative error; the other
+        divides by `b` and is what #270 could compute with no reference in hand.
+        """
+        delta = abs(a.imag - b.imag)
+        return {
+            "real": abs(a.real - b.real),
+            "imag": delta,
+            "imag_percent_of_reference": 100.0 * delta / abs(reference.imag),
+            "imag_percent_of_comparison": 100.0 * delta / abs(b.imag),
+        }
 
     return {
         "this_round_characteristic": [independent.real, independent.imag],
@@ -426,25 +524,137 @@ def measure_the_cross_validation_verdict() -> Dict[str, object]:
             abs(independent - KERR_SCHILD_ELL_1) < 1e-3),
         "tortoise_damping_is_excluded": bool(
             abs(independent.imag - TORTOISE_ELL_1.imag) > 0.05),
+        "published_reference": [reference.real, reference.imag],
+        "published_source": PUBLISHED_SOURCE,
+        "gap_to_published": gap(independent, reference),
         "damping_lines_of_evidence": {
+            "published (external reference)": reference.imag,
             "characteristic (this round)": independent.imag,
             "Kerr-Schild (PR #270)": KERR_SCHILD_ELL_1.imag,
             "first-order WKB": wkb.imag,
             "exact eikonal asymptote": eik.imag,
             "tortoise (PR #270)": TORTOISE_ELL_1.imag,
         },
+        "the_denominator_is_named": {
+            "tortoise_relative_error_against_published": (
+                100.0 * abs(TORTOISE_ELL_1.imag - reference.imag)
+                / abs(reference.imag)),
+            "correct_damping_is_larger_than_tortoise_by": (
+                100.0 * abs(TORTOISE_ELL_1.imag - reference.imag)
+                / abs(TORTOISE_ELL_1.imag)),
+            "which_to_quote": (
+                "The relative error against the published value (~27.1%) is the "
+                "conventional statement. The ~37.3% figure divides by the "
+                "tortoise value instead -- it says the correct damping is that "
+                "much LARGER -- and is what PR #270 measured because it had two "
+                "codes and no reference. Both are true; neither should be "
+                "quoted without naming its denominator."),
+        },
         "verdict": (
             "The Kerr-Schild code was right and the tortoise code's damping was "
-            "wrong. An independent characteristic evolution sharing no code with "
-            "either agrees with Kerr-Schild to ~1e-4 and misses the tortoise "
-            "damping by "
-            f"{gap(independent, TORTOISE_ELL_1)['imag_percent']:.0f}%. "
-            "PR #270 named the Kerr-Schild inner cut as the "
-            "prime suspect; that suspicion pointed at the wrong code."),
+            "wrong. A published high-precision spectrum external to this "
+            "repository puts the answer at "
+            f"{reference.real:.8f}{reference.imag:+.8f}i, which confirms "
+            "Kerr-Schild to "
+            f"{gap(KERR_SCHILD_ELL_1, reference)['imag_percent_of_reference']:.3f}% "
+            "and this round's independent characteristic evolution to "
+            f"{gap(independent, reference)['imag_percent_of_reference']:.3f}%, "
+            "while the tortoise damping is off by "
+            f"{gap(TORTOISE_ELL_1, reference)['imag_percent_of_reference']:.1f}%. "
+            "PR #270 named the Kerr-Schild inner cut as the prime suspect; that "
+            "suspicion pointed at the wrong code."),
         "what_this_round_cannot_do": (
             "Neither #270 code was landed in the tree, only their reported "
             "numbers, so there is no autopsy of WHICH line of the tortoise code "
             "produced the wrong damping -- only the demonstration that it did."),
+    }
+
+
+def measure_against_the_published_spectrum(
+        steps: Sequence[float] = (0.1, 0.05, 0.025)) -> Dict[str, object]:
+    """R7 — the external check, and what it says about this solver's error bar.
+
+    Two separate things come out of comparing against a published spectrum,
+    and only the first is the one that was expected.
+
+    **The spectrum is reproduced.** Three modes, independently computed here,
+    land on values obtained by continued fractions and Hill determinants.
+
+    **The step-size study was over-optimistic.** Refining `h` produced a last
+    successive difference of ~`4e-5`, while the finest value actually sits
+    ~`1.1e-4` from the published one — and the middle step is *closer* than the
+    finest. So discretization is not the limiting error; extraction systematics
+    are. Self-convergence measures only the error being refined away. It is a
+    consistency check, **not an error bar** — which is exactly the failure mode
+    #270 warned about, in a form only an external reference could reveal.
+    """
+    rows = []
+    for ell, published in sorted(PUBLISHED_FUNDAMENTAL.items()):
+        got = fundamental_mode(ell, step=0.05)
+        if got is None:
+            rows.append({"ell": ell, "characteristic": None})
+            continue
+        rows.append({
+            "ell": ell,
+            "characteristic": [got.real, got.imag],
+            "published": [published.real, published.imag],
+            "real_relative_error": abs(got.real - published.real) / abs(published.real),
+            "damping_relative_error": abs(got.imag - published.imag) / abs(published.imag),
+        })
+    good = [r for r in rows if r["characteristic"] is not None]
+
+    # What refinement claimed, against what the reference says is true.
+    published_1 = PUBLISHED_FUNDAMENTAL[1].imag
+    sequence = [fundamental_mode(1, step=s) for s in steps]
+    damping = [None if w is None else w.imag for w in sequence]
+    deltas = [abs(b - a) for a, b in zip(damping[:-1], damping[1:])
+              if a is not None and b is not None]
+    distances = [None if d is None else abs(d - published_1) for d in damping]
+    finest_error = distances[-1]
+    last_delta = deltas[-1] if deltas else None
+
+    return {
+        "source": PUBLISHED_SOURCE,
+        "rows": rows,
+        "every_mode_within_0p3_percent": bool(
+            all(r["damping_relative_error"] < 3e-3
+                and r["real_relative_error"] < 3e-3 for r in good)),
+        "ell_1_and_2_within_0p05_percent": bool(
+            all(r["damping_relative_error"] < 5e-4
+                and r["real_relative_error"] < 5e-4
+                for r in good if r["ell"] in (1, 2))),
+        "ell_0_is_the_loosest": bool(
+            max(good, key=lambda r: r["damping_relative_error"])["ell"] == 0),
+        "refinement_versus_truth": {
+            "steps": list(steps),
+            "damping_by_step": damping,
+            "distance_to_published_by_step": distances,
+            "last_successive_difference": last_delta,
+            "distance_from_finest_to_published": finest_error,
+            "understatement_factor": (None if not last_delta else
+                                      finest_error / last_delta),
+            "the_finest_step_is_not_the_closest": bool(
+                any(d is not None and d < finest_error for d in distances[:-1])),
+        },
+        "the_lesson": (
+            "Self-convergence measures only the error it is refining away. The "
+            "step-size study's last successive difference was ~2.7x smaller "
+            "than the finest value's actual distance to the published one, and "
+            "the middle step lands closer than the finest -- so discretization "
+            "is not what limits this solver, extraction systematics are. A "
+            "convergence study is a consistency check, not an error bar."),
+        "the_reframing": (
+            "With an external reference in hand this is no longer only a "
+            "tie-breaker between two internal codes. It is an independent "
+            "implementation reproducing a known high-precision spectrum, which "
+            "is a considerably stronger check on PR #271's corrected radial "
+            "operator and on the GPP machinery than internal arbitration."),
+        "who_is_most_accurate": (
+            "PR #270's Kerr-Schild code, at 0.005% in damping against 0.031% "
+            "for this round's characteristic evolution -- about 6x better. The "
+            "characteristic scheme arbitrated correctly; it is not the most "
+            "accurate of the three, and should not be described as though it "
+            "were."),
     }
 
 
@@ -489,7 +699,8 @@ def measure_the_ringdown_ledger() -> Dict[str, object]:
     """R6 — what is settled, and what is not."""
     verdict = measure_the_cross_validation_verdict()
     entries = [
-        {"claim": "PR #270's two time-domain codes disagreed by 37% in damping",
+        {"claim": "PR #270's two time-domain codes disagreed in damping "
+                  "(37% of the smaller value; the wrong one 27% low)",
          "verdict": "CONFIRMED, AND NOW RESOLVED",
          "evidence": "an independent characteristic evolution agrees with "
                      "Kerr-Schild to ~1e-4 and excludes the tortoise damping"},
@@ -497,10 +708,28 @@ def measure_the_ringdown_ledger() -> Dict[str, object]:
          "verdict": "WRONG SUSPECT",
          "evidence": "that code's frequency is confirmed; the fault was in the "
                      "tortoise evolution"},
+        {"claim": "the verdict rests only on internal arbitration",
+         "verdict": "NO -- CONFIRMED EXTERNALLY",
+         "evidence": "a published high-precision spectrum (continued fractions "
+                     "+ Hill determinants) puts l = 1 at 1.01601691-0.36232802i, "
+                     "confirming Kerr-Schild to 0.005% and excluding the "
+                     "tortoise damping at 27.1%"},
+        {"claim": "the characteristic evolution is the most accurate of the three",
+         "verdict": "NO",
+         "evidence": "PR #270's Kerr-Schild code is ~6x closer to the published "
+                     "value (0.005% against 0.031%); this round arbitrated, it "
+                     "did not out-resolve"},
+        {"claim": "the step-size study bounded this solver's error",
+         "verdict": "NO -- IT UNDERSTATED IT 2.7x",
+         "evidence": "last successive difference 4.0e-5, actual distance to the "
+                     "published value 1.1e-4, and h = 0.05 lands closer than "
+                     "h = 0.025; the limit is extraction systematics, not "
+                     "discretization"},
         {"claim": "a quasinormal frequency can now be quoted",
          "verdict": "YES, FOR l = 1, 2, 3",
-         "evidence": "converged in step size, window-stable, and consistent "
-                     "with the exact eikonal asymptote"},
+         "evidence": "converged in step size, window-stable, consistent with the "
+                     "exact eikonal asymptote, and matching a published spectrum "
+                     "to <0.05% at l = 1 and 2"},
         {"claim": "the l = 0 frequency is equally well determined",
          "verdict": "NO",
          "evidence": "its barrier is weakest and the power-law tail contaminates "
@@ -525,9 +754,24 @@ def measure_the_ringdown_ledger() -> Dict[str, object]:
             "disagreed. That was right, and the way out was a third "
             "implementation sharing no code with either -- plus an exact "
             "asymptote to judge all three against."),
+        "the_lesson_this_round_adds": (
+            "Self-convergence is a consistency check, not an error bar. This "
+            "round's own step-size study would have quoted ~4e-5 when the true "
+            "error was ~1.1e-4. Nothing internal to a solver can reveal that; "
+            "it took an external reference. Look for a published benchmark "
+            "BEFORE building a third implementation to break a tie -- had this "
+            "one been found first, the arbitration would have been unnecessary."),
         "still_open": (
             "Overtones, backreaction, and the retarded outer-to-inner transfer "
             "function that #270 also deferred; the transfer function is a ratio "
             "of the same two signals and is now unblocked, since the signals can "
             "be trusted."),
+        "the_next_object": (
+            "The retarded transfer function G_l(t; r_obs, r_src) from the same "
+            "characteristic evolution with a compact ingoing excitation, gated "
+            "on three checks before any physical reading: causal support "
+            "G(t < t_null) = 0; flux conservation |R_l|^2 + |T_l|^2 = 1 on the "
+            "fixed background; and late-time ringdown consistent with the "
+            "EXTERNAL value 1.01601691149-0.36232802385i rather than with this "
+            "solver's own fitted number."),
     }

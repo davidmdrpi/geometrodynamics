@@ -19,14 +19,24 @@ from geometrodynamics.tangherlini import ringdown as rd
 
 # ── exact: the D=5 identities ───────────────────────────────────────────────
 
-def test_the_tortoise_correction_is_minus_one_over_r_not_a_log():
+def test_the_tortoise_correction_is_exactly_minus_artanh_one_over_r():
+    """The *exact* closed form. `−1/r` is only its leading term."""
+    for r in (1.5, 3.0, 50.0, 200.0, 1000.0):
+        assert rd.tortoise(r) - r == pytest.approx(-math.atanh(1.0 / r), rel=1e-12)
+
+
+def test_the_leading_tail_is_minus_one_over_r_not_a_log():
     """`r* − r → −1/r`. A log would grow; this decays, so no Coulomb phase."""
     for r in (50.0, 200.0, 1000.0, 5000.0):
         assert (rd.tortoise(r) - r) * r == pytest.approx(-1.0, abs=2e-4)
-    # and the deviation must fall like 1/r^2
-    devs = [abs((rd.tortoise(r) - r) * r + 1.0) for r in (50.0, 200.0, 1000.0)]
-    assert devs == sorted(devs, reverse=True)
-    assert devs[0] / devs[-1] > 100.0
+
+
+def test_the_next_series_coefficient_is_one_third_as_predicted():
+    """`r(r*−r) + 1 → −1/(3r²)`. Checking the coefficient, not just that it
+    shrinks — a wrong tail could also shrink."""
+    for r in (50.0, 200.0, 1000.0):
+        deviation = (rd.tortoise(r) - r) * r + 1.0
+        assert deviation == pytest.approx(-1.0 / (3.0 * r ** 2), rel=1e-3)
 
 
 def test_the_potential_tail_is_exactly_bessel():
@@ -67,7 +77,10 @@ def test_the_asymptotics_measurement_agrees_with_the_direct_checks():
     result = rd.measure_the_background_asymptotics_are_exact()
     assert result["no_logarithmic_tail"]
     assert result["the_tail_is_exactly_bessel"]
-    assert result["the_tail_is_exactly_minus_one_over_r"]
+    assert result["the_leading_tail_is_minus_one_over_r"]
+    assert result["the_next_series_coefficient_is_confirmed"]
+    # the prose must not overclaim an equality the series contradicts
+    assert "NOT an exact equality" in result["the_exact_closed_form"]
 
 
 # ── the exact eikonal asymptote ─────────────────────────────────────────────
@@ -139,24 +152,82 @@ def test_kerr_schild_is_confirmed_and_the_tortoise_damping_excluded():
     v = rd.measure_the_cross_validation_verdict()
     assert v["kerr_schild_is_confirmed"]
     assert v["tortoise_damping_is_excluded"]
-    assert v["gap_to_kerr_schild"]["imag_percent"] < 0.1
-    assert v["gap_to_tortoise"]["imag_percent"] > 30.0
+    assert v["gap_to_kerr_schild"]["imag_percent_of_reference"] < 0.1
+    assert v["gap_to_tortoise"]["imag_percent_of_reference"] > 20.0
 
 
-def test_the_reported_gap_reproduces_pr_270s_own_37_percent():
-    """#270 measured the two codes as 37% apart. So does this round."""
-    v = rd.measure_the_cross_validation_verdict()
-    assert v["gap_to_tortoise"]["imag_percent"] == pytest.approx(37.0, abs=1.5)
+def test_both_denominators_are_reported_and_neither_is_bare():
+    """`27.1%` against truth, `37.3%` against the tortoise value. The module
+    used to quote one in one place and one in another."""
+    d = rd.measure_the_cross_validation_verdict()["the_denominator_is_named"]
+    assert d["tortoise_relative_error_against_published"] == \
+        pytest.approx(27.1, abs=0.5)
+    assert d["correct_damping_is_larger_than_tortoise_by"] == \
+        pytest.approx(37.3, abs=0.5)
+    # the two conventions must not be confused for each other
+    assert d["tortoise_relative_error_against_published"] < \
+        d["correct_damping_is_larger_than_tortoise_by"]
+    assert "denominator" in d["which_to_quote"]
 
 
-def test_four_independent_lines_all_land_near_minus_point_three_six():
+def test_five_independent_lines_all_land_near_minus_point_three_six():
     v = rd.measure_the_cross_validation_verdict()
     lines = v["damping_lines_of_evidence"]
     agreeing = [val for name, val in lines.items() if "tortoise" not in name]
-    assert len(agreeing) == 4
+    assert len(agreeing) == 5, "published, characteristic, KS, WKB, eikonal"
     assert max(agreeing) - min(agreeing) < 0.02
     assert all(-0.39 < val < -0.34 for val in agreeing)
     assert lines["tortoise (PR #270)"] > -0.30, "the outlier, on the other side"
+
+
+# ── the external oracle ─────────────────────────────────────────────────────
+
+def test_the_published_reference_is_the_scaled_frequency_converted_correctly():
+    """`ω = ω̃ · T_H`, `T_H = 1/(2π)`. The paper tabulates `ω̃`."""
+    scaled = complex(6.38382253011, -2.27657411582)   # the paper's l = 1 entry
+    converted = scaled / (2.0 * math.pi)
+    published = rd.PUBLISHED_FUNDAMENTAL[1]
+    assert converted.real == pytest.approx(published.real, rel=1e-11)
+    assert converted.imag == pytest.approx(published.imag, rel=1e-11)
+
+
+def test_the_characteristic_solver_reproduces_the_published_spectrum():
+    """The strongest check in the round: an independent implementation landing
+    on a spectrum computed by continued fractions and Hill determinants."""
+    result = rd.measure_against_the_published_spectrum()
+    assert result["every_mode_within_0p3_percent"]
+    assert result["ell_1_and_2_within_0p05_percent"]
+    assert "arXiv:2107.04815" in result["source"]
+
+
+def test_the_published_values_confirm_the_verdict_independently():
+    """Kerr–Schild lands on the reference; the tortoise damping does not."""
+    published = rd.PUBLISHED_FUNDAMENTAL[1]
+    ks_error = abs(rd.KERR_SCHILD_ELL_1.imag - published.imag) / abs(published.imag)
+    tort_error = abs(rd.TORTOISE_ELL_1.imag - published.imag) / abs(published.imag)
+    assert ks_error < 1e-3, "Kerr-Schild agrees with the published damping"
+    assert tort_error > 0.2, "the tortoise damping does not"
+
+
+def test_the_published_reference_marks_ell_zero_as_the_loosest():
+    """Which validates having given `ℓ = 0` a visibly wider uncertainty."""
+    assert rd.measure_against_the_published_spectrum()["ell_0_is_the_loosest"]
+
+
+def test_step_refinement_understated_this_solvers_error():
+    """The lesson only an external reference could supply: self-convergence
+    measures the error it is refining away, not the total error."""
+    r = rd.measure_against_the_published_spectrum()["refinement_versus_truth"]
+    assert r["understatement_factor"] > 2.0
+    assert r["the_finest_step_is_not_the_closest"], \
+        "h = 0.05 lands closer to the published value than h = 0.025"
+
+
+def test_the_round_does_not_claim_to_be_the_most_accurate_code():
+    """#270's Kerr–Schild is ~6x better. Saying otherwise would misread it."""
+    note = rd.measure_against_the_published_spectrum()["who_is_most_accurate"]
+    assert "Kerr-Schild" in note
+    assert "not the most" in note
 
 
 def test_the_verdict_does_not_claim_an_autopsy_it_cannot_do():

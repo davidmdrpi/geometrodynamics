@@ -19,9 +19,21 @@
           8.333460300491424e-06,
           3.333061613375321e-07
         ],
-        "the_tail_is_exactly_minus_one_over_r": true,
+        "predicted_next_term_minus_one_over_three_r_squared": [
+          -0.00013333333333333334,
+          -8.333333333333334e-06,
+          -3.3333333333333335e-07
+        ],
+        "next_coefficient_relative_errors": [
+          0.0002400679454125996,
+          1.523605897086537e-05,
+          8.151598740375144e-05
+        ],
+        "the_leading_tail_is_minus_one_over_r": true,
+        "the_next_series_coefficient_is_confirmed": true,
+        "the_exact_closed_form": "r* - r = -artanh(1/r) = -1/r - 1/(3r^3) - 1/(5r^5) - ... , so -1/r is the leading asymptotic behaviour and NOT an exact equality. The next term is checked against its predicted coefficient.",
         "no_logarithmic_tail": true,
-        "why_that_matters": "unlike 4D, r* -> r with no ln r, so the far field is a pure Hankel wave with no Coulomb phase",
+        "why_that_matters": "every term in the series decays, so unlike 4D's growing 2M ln r there is no Coulomb-like phase and the far field is a pure Hankel wave",
         "bessel_tail": [
           {
             "ell": 0,
@@ -267,23 +279,42 @@
         "gap_to_kerr_schild": {
           "real": 0.00010108143746312415,
           "imag": 0.0001252285628106642,
-          "imag_percent": 0.034563926695554685
+          "imag_percent_of_reference": 0.0345622073280502,
+          "imag_percent_of_comparison": 0.034563926695554685
         },
         "gap_to_tortoise": {
           "real": 0.002641081437463333,
           "imag": 0.09839522856281069,
-          "imag_percent": 37.26527365657123
+          "imag_percent_of_reference": 27.156394782078813,
+          "imag_percent_of_comparison": 37.26527365657123
         },
         "kerr_schild_is_confirmed": true,
         "tortoise_damping_is_excluded": true,
+        "published_reference": [
+          1.01601691149,
+          -0.36232802385
+        ],
+        "published_source": "Matyjasek, Phys. Rev. D 104, 084066 (2021), arXiv:2107.04815 -- continued fractions cross-checked against Hill determinants, agreeing to 11 digits",
+        "gap_to_published": {
+          "real": 0.00010200707253682495,
+          "imag": 0.00010720471281067123,
+          "imag_percent_of_reference": 0.029587750809761504,
+          "imag_percent_of_comparison": 0.029587750809761504
+        },
         "damping_lines_of_evidence": {
+          "published (external reference)": -0.36232802385,
           "characteristic (this round)": -0.3624352285628107,
           "Kerr-Schild (PR #270)": -0.36231,
           "first-order WKB": -0.3609488966277907,
           "exact eikonal asymptote": -0.3535534542852268,
           "tortoise (PR #270)": -0.26404
         },
-        "verdict": "The Kerr-Schild code was right and the tortoise code's damping was wrong. An independent characteristic evolution sharing no code with either agrees with Kerr-Schild to ~1e-4 and misses the tortoise damping by 37%. PR #270 named the Kerr-Schild inner cut as the prime suspect; that suspicion pointed at the wrong code.",
+        "the_denominator_is_named": {
+          "tortoise_relative_error_against_published": 27.126807031269053,
+          "correct_damping_is_larger_than_tortoise_by": 37.22467196258143,
+          "which_to_quote": "The relative error against the published value (~27.1%) is the conventional statement. The ~37.3% figure divides by the tortoise value instead -- it says the correct damping is that much LARGER -- and is what PR #270 measured because it had two codes and no reference. Both are true; neither should be quoted without naming its denominator."
+        },
+        "verdict": "The Kerr-Schild code was right and the tortoise code's damping was wrong. A published high-precision spectrum external to this repository puts the answer at 1.01601691-0.36232802i, which confirms Kerr-Schild to 0.005% and this round's independent characteristic evolution to 0.030%, while the tortoise damping is off by 27.1%. PR #270 named the Kerr-Schild inner cut as the prime suspect; that suspicion pointed at the wrong code.",
         "what_this_round_cannot_do": "Neither #270 code was landed in the tree, only their reported numbers, so there is no autopsy of WHICH line of the tortoise code produced the wrong damping -- only the demonstration that it did."
       },
       "pass": true
@@ -327,12 +358,88 @@
       "pass": true
     },
     {
+      "id": "R7",
+      "name": "*** the spectrum matches a published high-precision calculation ***",
+      "detail": {
+        "source": "Matyjasek, Phys. Rev. D 104, 084066 (2021), arXiv:2107.04815 -- continued fractions cross-checked against Hill determinants, agreeing to 11 digits",
+        "rows": [
+          {
+            "ell": 0,
+            "characteristic": [
+              0.5353801577987508,
+              -0.38417492316292967
+            ],
+            "published": [
+              0.53383557,
+              -0.38337537
+            ],
+            "real_relative_error": 0.0028933774471992823,
+            "damping_relative_error": 0.002085562155257074
+          },
+          {
+            "ell": 1,
+            "characteristic": [
+              1.016185604401039,
+              -0.36239487289377875
+            ],
+            "published": [
+              1.01601691149,
+              -0.36232802385
+            ],
+            "real_relative_error": 0.00016603356610646257,
+            "damping_relative_error": 0.0001844986845577618
+          },
+          {
+            "ell": 2,
+            "characteristic": [
+              1.5107645450257945,
+              -0.35743787040460756
+            ],
+            "published": [
+              1.51056745177,
+              -0.35753725529
+            ],
+            "real_relative_error": 0.00013047630250703445,
+            "damping_relative_error": 0.00027797071192441243
+          }
+        ],
+        "every_mode_within_0p3_percent": true,
+        "ell_1_and_2_within_0p05_percent": true,
+        "ell_0_is_the_loosest": true,
+        "refinement_versus_truth": {
+          "steps": [
+            0.1,
+            0.05,
+            0.025
+          ],
+          "damping_by_step": [
+            -0.36215706766949296,
+            -0.36239487289377875,
+            -0.3624352285628107
+          ],
+          "distance_to_published_by_step": [
+            0.00017095618050705363,
+            6.684904377873835e-05,
+            0.00010720471281067123
+          ],
+          "last_successive_difference": 4.0355669031932884e-05,
+          "distance_from_finest_to_published": 0.00010720471281067123,
+          "understatement_factor": 2.656496977558261,
+          "the_finest_step_is_not_the_closest": true
+        },
+        "the_lesson": "Self-convergence measures only the error it is refining away. The step-size study's last successive difference was ~2.7x smaller than the finest value's actual distance to the published one, and the middle step lands closer than the finest -- so discretization is not what limits this solver, extraction systematics are. A convergence study is a consistency check, not an error bar.",
+        "the_reframing": "With an external reference in hand this is no longer only a tie-breaker between two internal codes. It is an independent implementation reproducing a known high-precision spectrum, which is a considerably stronger check on PR #271's corrected radial operator and on the GPP machinery than internal arbitration.",
+        "who_is_most_accurate": "PR #270's Kerr-Schild code, at 0.005% in damping against 0.031% for this round's characteristic evolution -- about 6x better. The characteristic scheme arbitrated correctly; it is not the most accurate of the three, and should not be described as though it were."
+      },
+      "pass": true
+    },
+    {
       "id": "R6",
       "name": "the ledger",
       "detail": {
         "entries": [
           {
-            "claim": "PR #270's two time-domain codes disagreed by 37% in damping",
+            "claim": "PR #270's two time-domain codes disagreed in damping (37% of the smaller value; the wrong one 27% low)",
             "verdict": "CONFIRMED, AND NOW RESOLVED",
             "evidence": "an independent characteristic evolution agrees with Kerr-Schild to ~1e-4 and excludes the tortoise damping"
           },
@@ -342,9 +449,24 @@
             "evidence": "that code's frequency is confirmed; the fault was in the tortoise evolution"
           },
           {
+            "claim": "the verdict rests only on internal arbitration",
+            "verdict": "NO -- CONFIRMED EXTERNALLY",
+            "evidence": "a published high-precision spectrum (continued fractions + Hill determinants) puts l = 1 at 1.01601691-0.36232802i, confirming Kerr-Schild to 0.005% and excluding the tortoise damping at 27.1%"
+          },
+          {
+            "claim": "the characteristic evolution is the most accurate of the three",
+            "verdict": "NO",
+            "evidence": "PR #270's Kerr-Schild code is ~6x closer to the published value (0.005% against 0.031%); this round arbitrated, it did not out-resolve"
+          },
+          {
+            "claim": "the step-size study bounded this solver's error",
+            "verdict": "NO -- IT UNDERSTATED IT 2.7x",
+            "evidence": "last successive difference 4.0e-5, actual distance to the published value 1.1e-4, and h = 0.05 lands closer than h = 0.025; the limit is extraction systematics, not discretization"
+          },
+          {
             "claim": "a quasinormal frequency can now be quoted",
             "verdict": "YES, FOR l = 1, 2, 3",
-            "evidence": "converged in step size, window-stable, and consistent with the exact eikonal asymptote"
+            "evidence": "converged in step size, window-stable, consistent with the exact eikonal asymptote, and matching a published spectrum to <0.05% at l = 1 and 2"
           },
           {
             "claim": "the l = 0 frequency is equally well determined",
@@ -367,13 +489,15 @@
             "evidence": "neither #270 code was landed, only their numbers; this round shows WHICH is wrong, not WHY"
           }
         ],
-        "headline": "The Kerr-Schild code was right and the tortoise code's damping was wrong. An independent characteristic evolution sharing no code with either agrees with Kerr-Schild to ~1e-4 and misses the tortoise damping by 37%. PR #270 named the Kerr-Schild inner cut as the prime suspect; that suspicion pointed at the wrong code.",
+        "headline": "The Kerr-Schild code was right and the tortoise code's damping was wrong. A published high-precision spectrum external to this repository puts the answer at 1.01601691-0.36232802i, which confirms Kerr-Schild to 0.005% and this round's independent characteristic evolution to 0.030%, while the tortoise damping is off by 27.1%. PR #270 named the Kerr-Schild inner cut as the prime suspect; that suspicion pointed at the wrong code.",
         "the_standing_lesson_held": "PR #270 refused to quote a frequency from two converged codes that disagreed. That was right, and the way out was a third implementation sharing no code with either -- plus an exact asymptote to judge all three against.",
-        "still_open": "Overtones, backreaction, and the retarded outer-to-inner transfer function that #270 also deferred; the transfer function is a ratio of the same two signals and is now unblocked, since the signals can be trusted."
+        "the_lesson_this_round_adds": "Self-convergence is a consistency check, not an error bar. This round's own step-size study would have quoted ~4e-5 when the true error was ~1.1e-4. Nothing internal to a solver can reveal that; it took an external reference. Look for a published benchmark BEFORE building a third implementation to break a tie -- had this one been found first, the arbitration would have been unnecessary.",
+        "still_open": "Overtones, backreaction, and the retarded outer-to-inner transfer function that #270 also deferred; the transfer function is a ratio of the same two signals and is now unblocked, since the signals can be trusted.",
+        "the_next_object": "The retarded transfer function G_l(t; r_obs, r_src) from the same characteristic evolution with a compact ingoing excitation, gated on three checks before any physical reading: causal support G(t < t_null) = 0; flux conservation |R_l|^2 + |T_l|^2 = 1 on the fixed background; and late-time ringdown consistent with the EXTERNAL value 1.01601691149-0.36232802385i rather than with this solver's own fitted number."
       },
       "pass": true
     }
   ],
-  "passed": 7,
-  "total": 7
+  "passed": 8,
+  "total": 8
 }

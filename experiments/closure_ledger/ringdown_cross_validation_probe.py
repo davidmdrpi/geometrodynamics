@@ -95,7 +95,8 @@ _REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
-from geometrodynamics.tangherlini.ringdown import (  # noqa: E402
+from geometrodynamics.tangherlini.ringdown import (
+    measure_against_the_published_spectrum,  # noqa: E402
     measure_the_background_asymptotics_are_exact,
     measure_the_characteristic_scheme_converges,
     measure_the_cross_validation_verdict, measure_the_eikonal_invariants,
@@ -147,6 +148,15 @@ def run_probe() -> dict:
         "detail": neg,
         "pass": bool(neg["frequency_domain_shooting"]["so_pr_270s_diagnosis_stands"])})
 
+    pub = measure_against_the_published_spectrum()
+    checks.append({
+        "id": "R7",
+        "name": "*** the spectrum matches a published high-precision "
+                "calculation ***",
+        "detail": pub,
+        "pass": bool(pub["every_mode_within_0p3_percent"]
+                     and pub["ell_1_and_2_within_0p05_percent"])})
+
     led = measure_the_ringdown_ledger()
     checks.append({"id": "R6", "name": "the ledger", "detail": led,
                    "pass": bool(len(led["entries"]) >= 7)})
@@ -154,6 +164,12 @@ def run_probe() -> dict:
     return {"checks": checks,
             "passed": sum(1 for c in checks if c["pass"]),
             "total": len(checks)}
+
+
+def _gap(ver: dict, key: str) -> float:
+    """Damping error of `ver[key]` against the published reference, in percent."""
+    reference = ver["published_reference"][1]
+    return 100.0 * abs(ver[key][1] - reference) / abs(reference)
 
 
 def render_markdown(summary: dict) -> str:
@@ -166,35 +182,63 @@ def render_markdown(summary: dict) -> str:
         f"**{summary['passed']}/{summary['total']} checks pass.**", "",
         "PR #270 built two time-domain codes for a test scalar on a fixed "
         "`D = 5` Tangherlini background. Both stable, both converged, and they "
-        "disagreed — real parts within `0.3%`, **damping rates differing by "
-        "37%**. #270 refused to quote a frequency, correctly, and named its "
+        "disagreed — real parts within `0.3%`, and damping rates apart by **37% of "
+        "the smaller value** (equivalently, the wrong one was **27% low**). "
+        "#270 refused to quote a frequency, correctly, and named its "
         "own prime suspect: the Kerr–Schild inner cut.", "",
         "> ## The Kerr–Schild code was right. The tortoise code's damping was wrong.",
         "",
-        "| source | `ω` at `ℓ = 1` | gap to this round |", "|--|--|--|",
-        f"| **this round** (characteristic, `h → 0`) | "
-        f"`{ver['this_round_characteristic'][0]:.5f} "
-        f"{ver['this_round_characteristic'][1]:+.5f}i` | — |",
+        "All damping errors below are relative to the **published** value.", "",
+        "| source | `ω` at `ℓ = 1` | damping error |", "|--|--|--|",
+        f"| **published** (continued fractions + Hill) | "
+        f"`{ver['published_reference'][0]:.8f} "
+        f"{ver['published_reference'][1]:+.8f}i` | — |",
         f"| #270 Kerr–Schild | "
         f"`{ver['pr_270_kerr_schild'][0]:.5f} "
         f"{ver['pr_270_kerr_schild'][1]:+.5f}i` | "
-        f"**`{ver['gap_to_kerr_schild']['imag_percent']:.3f}%`** damping |",
+        f"**`{_gap(ver, 'pr_270_kerr_schild'):.3f}%`** |",
+        f"| **this round** (characteristic, `h → 0`) | "
+        f"`{ver['this_round_characteristic'][0]:.5f} "
+        f"{ver['this_round_characteristic'][1]:+.5f}i` | "
+        f"**`{_gap(ver, 'this_round_characteristic'):.3f}%`** |",
         f"| #270 tortoise | `{ver['pr_270_tortoise'][0]:.5f} "
         f"{ver['pr_270_tortoise'][1]:+.5f}i` | "
-        f"**`{ver['gap_to_tortoise']['imag_percent']:.1f}%`** damping |", "",
+        f"**`{_gap(ver, 'pr_270_tortoise'):.1f}%`** ← excluded |", "",
         "An independent Gundlach–Price–Pullin evolution, written from scratch "
-        "and sharing no code with either, agrees with Kerr–Schild to `~1e-4` "
-        "and misses the tortoise damping by 37%. **#270's suspicion pointed at "
-        "the wrong code.**", "",
+        "and sharing no code with either #270 code, lands on a spectrum "
+        "computed elsewhere by continued fractions. **#270's suspicion pointed "
+        "at the wrong code.**", "",
+        "> **Note the ordering.** #270's Kerr–Schild code is ~6× *more* accurate "
+        "than this round's solver. The characteristic scheme arbitrated "
+        "correctly; it did not out-resolve.", "",
+        "**Naming the denominator.** The tortoise damping is "
+        f"`{ver['the_denominator_is_named']['tortoise_relative_error_against_published']:.1f}%` "
+        "off in the conventional sense (divided by the published value), and "
+        "equivalently the correct damping is "
+        f"`{ver['the_denominator_is_named']['correct_damping_is_larger_than_tortoise_by']:.1f}%` "
+        "*larger* than the tortoise value (divided by the tortoise value). "
+        "PR #270 measured the latter because it had two codes and no reference. "
+        "Both are true; neither should be quoted bare.", "",
     ]
 
     asy = detail("R0")
     L += ["## R0 — why `D = 5` makes the answer checkable", "",
           "Two exact facts do most of the work.", "",
-          f"**No logarithmic tail.** `r* − r` at `r = 50, 200, 1000` is "
-          f"`{', '.join('%.1e' % v for v in asy['tortoise_minus_r_at_far_radii'])}` "
-          f"— unlike 4D, `r* → r`, so the far field is a pure Hankel wave with "
-          f"no Coulomb phase.", "",
+          "**No logarithmic tail.** The correction has the exact closed form "
+          "`r* − r = −artanh(1/r) = −1/r − 1/(3r³) − ⋯`, so `−1/r` is the "
+          "*leading behaviour*, not an equality. Every term decays — unlike "
+          "4D's growing `2M ln r` — so the far field is a pure Hankel wave with "
+          "no Coulomb phase. The series predicts the next coefficient, and it "
+          "is checked rather than assumed:", "",
+          "| `r` | `r(r*−r) + 1` | predicted `−1/(3r²)` | rel. error |",
+          "|--|--|--|--|"]
+    for radius, scaled, pred, err in zip(
+            [50.0, 200.0, 1000.0], asy["tortoise_minus_r_times_r"],
+            asy["predicted_next_term_minus_one_over_three_r_squared"],
+            asy["next_coefficient_relative_errors"]):
+        L.append(f"| `{radius:.0f}` | `{scaled + 1.0:.4e}` | `{pred:.4e}` | "
+                 f"`{err:.1e}` |")
+    L += ["",
           "**The tail is exactly Bessel.** `V·r²` against `(ℓ+1)² − ¼`:", "",
           "| `ℓ` | limit | `V·r²` at `r = 1000` | rel. error |", "|--|--|--|--|"]
     for b in asy["bessel_tail"]:
@@ -271,12 +315,48 @@ def render_markdown(summary: dict) -> str:
           f"{neg['first_order_wkb_accuracy']['real_part_at_ell_2']} at `ℓ = 2`. "
           f"{neg['first_order_wkb_accuracy']['reading']}", ""]
 
+    pub = detail("R7")
+    L += ["## R7 — against a published high-precision spectrum", "",
+          "The strongest check available, and external to this repository "
+          "entirely. Source: " + pub["source"] + ".", "",
+          "| `ℓ` | characteristic (this round) | published | real err | damping err |",
+          "|--|--|--|--|--|"]
+    for row in pub["rows"]:
+        if row["characteristic"] is None:
+            continue
+        L.append(
+            f"| {row['ell']} | `{row['characteristic'][0]:.6f} "
+            f"{row['characteristic'][1]:+.6f}i` | "
+            f"`{row['published'][0]:.8f} {row['published'][1]:+.8f}i` | "
+            f"`{100*row['real_relative_error']:.4f}%` | "
+            f"`{100*row['damping_relative_error']:.4f}%` |")
+    L += ["", "**" + pub["the_reframing"] + "**", "",
+          "*" + pub["who_is_most_accurate"] + "*", ""]
+
+    ref = pub["refinement_versus_truth"]
+    L += ["### What the reference exposed about this solver", "",
+          "| `h` | `Im ω` | distance to published |", "|--|--|--|"]
+    for step, value, distance in zip(ref["steps"], ref["damping_by_step"],
+                                     ref["distance_to_published_by_step"]):
+        if value is None:
+            continue
+        L.append(f"| `{step}` | `{value:.7f}` | `{distance:.2e}` |")
+    L += ["",
+          f"Last successive difference `{ref['last_successive_difference']:.2e}`, "
+          f"actual distance from the finest value to the published one "
+          f"`{ref['distance_from_finest_to_published']:.2e}` — "
+          f"**understated by `{ref['understatement_factor']:.1f}×`**, and the "
+          "`h = 0.05` value lands *closer* than the `h = 0.025` one.", "",
+          "> " + pub["the_lesson"], ""]
+
     led = detail("R6")
     L += ["## R6 — the ledger", "", "| claim | verdict | evidence |", "|--|--|--|"]
     for e in led["entries"]:
         L.append(f"| {e['claim']} | **{e['verdict']}** | {e['evidence']} |")
     L += ["", f"**The standing lesson held.** {led['the_standing_lesson_held']}",
-          "", f"**Still open.** {led['still_open']}", ""]
+          "", f"**The lesson this round adds.** {led['the_lesson_this_round_adds']}",
+          "", f"**Still open.** {led['still_open']}",
+          "", f"**The next object.** {led['the_next_object']}", ""]
     return "\n".join(L)
 
 
