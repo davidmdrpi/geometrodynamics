@@ -337,7 +337,7 @@
         "singular_value_spread": 379.12504445482955,
         "kernel_is_a_kernel": 5.334768657833582e-15,
         "rank_stable_across_the_grid": true,
-        "direct_construction": [
+        "tangent_space_construction": [
           {
             "flavor_miss": 3.6012460940888975e-14,
             "mass_disturbance": 4.082845173059013e-14,
@@ -354,10 +354,126 @@
             "parameter_excursion": 52.03361497427931
           }
         ],
+        "the_tangent_space_construction_is_not_independent_evidence": "it solves K c = dy_F and reports J_M N c = 0, which is algebra on the same first-order matrices whose rank was just computed; the nonlinear check is measure_the_reachability_is_nonlinearly_true",
         "spans_the_whole_physical_flavor_space": true,
         "left_null_vectors": 0,
         "so_there_is_no_invariant_relation": "Rank K = 4 leaves no w with w^T K = 0, so the model predicts no first-order flavor relation w^T dy_F = 0. The round was built to extract one if it existed",
         "verdict": "The mass-preserving parameter freedom spans the entire physical flavor space. Fitting the CKM is a successful realisation, not a prediction"
+      },
+      "pass": true
+    },
+    {
+      "id": "F3b",
+      "name": "*** rank K_v4 = 4 with the FROZEN v3 lock and phi_h fixed ***",
+      "detail": {
+        "rows": [
+          {
+            "group": "v4 additions only, phi_h fixed",
+            "coordinates": 9,
+            "kernel_dimension": 5,
+            "rank_K_v4": 4,
+            "singular_values": [
+              0.4673192762112396,
+              0.27121151750334693,
+              0.0031016264304417106,
+              8.030430040817526e-06
+            ],
+            "smallest_singular_value": 8.030430040817526e-06
+          },
+          {
+            "group": "v4 additions only, phi_h released",
+            "coordinates": 10,
+            "kernel_dimension": 6,
+            "rank_K_v4": 4,
+            "singular_values": [
+              2.609259478488098,
+              0.30430687373799403,
+              0.006723463287740421,
+              1.21016925874928e-05
+            ],
+            "smallest_singular_value": 1.21016925874928e-05
+          },
+          {
+            "group": "with the eta_k3k5 retune, phi_h fixed",
+            "coordinates": 10,
+            "kernel_dimension": 6,
+            "rank_K_v4": 4,
+            "singular_values": [
+              0.46818469509763433,
+              0.27121163820627375,
+              0.007136219797947547,
+              0.0030956291389378074
+            ],
+            "smallest_singular_value": 0.0030956291389378074
+          },
+          {
+            "group": "with the eta_k3k5 retune, phi_h released",
+            "coordinates": 11,
+            "kernel_dimension": 7,
+            "rank_K_v4": 4,
+            "singular_values": [
+              2.6093955381484903,
+              0.3044705250748061,
+              0.00713680019827901,
+              0.006719538857240243
+            ],
+            "smallest_singular_value": 0.006719538857240243
+          }
+        ],
+        "canonical_group": "with the eta_k3k5 retune, phi_h fixed",
+        "canonical_coordinates": 10,
+        "rank_K_v4": 4,
+        "every_group_reaches_the_full_flavor_space": true,
+        "including_the_retune_improves_conditioning": true,
+        "conditioning_improvement": [
+          8.030430040817526e-06,
+          0.0030956291389378074
+        ],
+        "verdict": "With the frozen v3 lock held fixed AND phi_h at its derived value, the 10 numerical quantities selected in the v4 flavor re-lock still span all four physical CKM directions at fixed masses. The surplus claim fails on the restricted question, not merely on the permissive one",
+        "what_the_first_draft_reported_instead": "It reported rank J_F[:,G], which lets the masses move, alongside an unrestricted K over all 18 coordinates; neither is the restricted mass-preserving question"
+      },
+      "pass": true
+    },
+    {
+      "id": "F3c",
+      "name": "the reachability is nonlinearly true: O(eps^2) on a real re-run",
+      "detail": {
+        "rows": [
+          {
+            "epsilon": 0.0001,
+            "mass_error": 1.1999036271248542e-06,
+            "flavor_miss": 2.0523373088075087e-06
+          },
+          {
+            "epsilon": 5e-05,
+            "mass_error": 3.000309347633845e-07,
+            "flavor_miss": 5.119204702094864e-07
+          },
+          {
+            "epsilon": 2.5e-05,
+            "mass_error": 7.501444221347242e-08,
+            "flavor_miss": 1.2783576630635814e-07
+          },
+          {
+            "epsilon": 1.25e-05,
+            "mass_error": 1.8758688824505043e-08,
+            "flavor_miss": 3.194125363608642e-08
+          }
+        ],
+        "mass_error_ratios": [
+          3.999266369220036,
+          3.9996422810099843,
+          3.9989171372936676
+        ],
+        "flavor_miss_ratios": [
+          4.009094045345868,
+          4.0045167717982,
+          4.002215059021119
+        ],
+        "expected_ratio_for_second_order": 4.0,
+        "both_are_second_order": true,
+        "parameter_excursion_for_a_unit_target": 31.788384412977706,
+        "what_it_licenses": "The claim is about INFINITESIMAL CKM directions reachable locally, not about arbitrary finite CKM matrices; the excursion needed for a unit dy_F is far outside the regime this scaling tests"
       },
       "pass": true
     },
@@ -391,6 +507,30 @@
         },
         "fixing_phi_h_lowers_the_rank": false,
         "leading_singular_value_ratio": 4.813699051690184,
+        "the_ratio_is_chart_dependent": "singular-value MAGNITUDE is Euclidean in the chosen linear absolute parameter coordinates; rescaling the phi_h column changes it. Only the RANK is invariant. Kept as a scoped numerical diagnostic, not a physical efficiency statement",
+        "phi_h_response_direction": {
+          "column": [
+            -0.053443231437522165,
+            0.00017199234744746938,
+            -0.0008638577678708736,
+            -2.570228265441621
+          ],
+          "unit": [
+            -0.020788690055088172,
+            6.690268359076324e-05,
+            -0.0003360289208735863,
+            -0.999783833123135
+          ],
+          "by_observable": {
+            "theta12": -0.020788690055088172,
+            "theta23": 6.690268359076324e-05,
+            "theta13": -0.0003360289208735863,
+            "delta": -0.999783833123135
+          },
+          "delta_share": 0.999783833123135
+        },
+        "phi_h_is_delta_dominated": true,
+        "why_the_direction_claim_survives_the_chart": "rescaling the phi_h coordinate scales its J_F column but does not rotate it, so the share of the response lying along delta is invariant -- unlike the singular-value ratio",
         "verdict": "Fixing the derived phase does NOT lower the flavor rank: with phi_h held at pi/k_5 the other fitted matrix elements still span all four physical flavor directions at fixed masses. The derived phase is the single most EFFICIENT CP handle \u2014 releasing it multiplies the leading singular value by 4.8 \u2014 but efficiency is not identifiability, and it produces no flavor prediction by itself",
         "relation_to_pr_173": "PR #173 found that ADDING phi_h as an input left the observable rank unchanged. This is the stronger statement: with phi_h held FIXED, the mass-preserving freedom still covers the whole physical flavor space"
       },
@@ -400,6 +540,10 @@
       "id": "F5",
       "name": "the '+3 for +5, net +2' counting claim",
       "detail": {
+        "restricted_mass_preserving_rank": 4,
+        "restricted_group_coordinates": 10,
+        "the_restricted_question_is_the_decisive_one": "the v4 construction is additive over a FROZEN v3 lock, so the surplus question is whether the v4 calibration freedoms alone span the CKM at fixed masses -- rank K_v4, not rank J_F[:,G]",
+        "the_group_includes_the_eta_k3k5_retune": true,
         "claimed_new_parameters": 3,
         "claimed_new_independent_observables": 5,
         "claimed_net_surplus": 2,
@@ -409,7 +553,7 @@
         "measured_calibration_dimension_phi_h_released": 4,
         "symbols_added_phi_h_fixed": 9,
         "measured_net_surplus_phi_h_fixed": 0,
-        "verdict": "'+5 independent observables' exceeds the ceiling: a unitary 3x3 CKM has exactly four physical parameters, so at most four of the nine quoted flavor-CP observables are independent. Against that ceiling the v4 additions measure 4 independent calibration directions with phi_h fixed, so the net predictive surplus is at most zero, not +2"
+        "verdict": "'+5 independent observables' exceeds the ceiling: a unitary 3x3 CKM has exactly four physical parameters, so at most four of the nine quoted flavor-CP observables are independent. Against that ceiling the v4 calibration group -- the three targeted etas, the eta_k3k5 RETUNE, and the six diagonal shifts, 10 numerical quantities with phi_h fixed -- spans rank 4 at FIXED v3 masses, so the net predictive surplus is at most zero, not +2"
       },
       "pass": true
     },
@@ -421,7 +565,17 @@
           {
             "claim": "the v4 CKM realization is a prediction of the Hamiltonian",
             "verdict": "WITHDRAWN",
-            "evidence": "rank K = 4 = the full physical flavor dimension; the mass-preserving freedom generates arbitrary CKM variation at fixed masses"
+            "evidence": "rank K = 4 over all coordinates AND rank K_v4 = 4 over the v4 calibration group alone with the frozen v3 lock and phi_h both held fixed -- the restricted question, which is the decisive one"
+          },
+          {
+            "claim": "the first draft's headline used the right restricted map",
+            "verdict": "NO -- THIS ROUND'S OWN GAP",
+            "evidence": "it reported rank J_F[:,G] (masses free) beside an unrestricted K over all 18 coordinates; neither is the mass-preserving restricted map. Computing it gives the same rank 4, so the headline strengthens"
+          },
+          {
+            "claim": "the tangent-space construction is independent evidence",
+            "verdict": "NO -- RELABELLED",
+            "evidence": "it is algebra on the same first-order matrices; the independent check is an epsilon-scaling re-run of the Hamiltonian, which gives clean O(eps^2) (ratios 4.00)"
           },
           {
             "claim": "there is a first-order flavor relation to compare with data",
@@ -450,13 +604,13 @@
           }
         ],
         "headline": "rank K = 4: the mass-preserving parameter freedom spans the whole physical flavor space, so the v4 CKM agreement is a successful but locally flexible realisation, not a prediction \u2014 and holding the derived phi_h fixed does not change that",
-        "what_this_does_not_say": "The v4 numbers are not wrong and the <= 1% agreement across nine observables is real. What the rank shows is that the agreement is not evidence FOR the Hamiltonian, because the same Hamiltonian could have reproduced any other CKM equally well at the same masses",
+        "what_this_does_not_say": "The v4 numbers are not wrong and the <= 1% agreement across nine observables is real. What the rank shows is that the agreement is not evidence FOR the Hamiltonian, because the same Hamiltonian could have reproduced any LOCALLY NEIGHBOURING CKM equally well at the same masses. The claim is first-order: the epsilon-scaling check licenses infinitesimal directions, not arbitrary finite CKM matrices",
         "scope": "A local, first-order statement at the v4 lock. Rank says nothing about how far the mass-preserving surface extends before nonlinearity or positivity bites, and the parameter excursions required are not small",
         "the_recommendation": "Per the round's own terms: rank K = 4, so downgrade the CKM realization to a successful but locally flexible realisation, stop the quark parameter archaeology, and return to the trunk"
       },
       "pass": true
     }
   ],
-  "passed": 7,
-  "total": 7
+  "passed": 9,
+  "total": 9
 }

@@ -128,13 +128,54 @@ def test_the_rank_is_not_propped_up_by_a_near_zero_singular_value():
     assert result["singular_value_spread"] < 1e4
 
 
-def test_an_arbitrary_flavor_displacement_is_reachable_at_fixed_masses():
-    """Direct construction, not just a rank count."""
+def test_the_tangent_space_construction_is_labelled_as_dependent():
+    """It is algebra on the same matrices — not independent evidence.
+
+    The first draft called it a "direct construction" and presented it as
+    confirmation of the rank it was computed from.
+    """
     result = fi.measure_the_mass_preserving_flavor_rank()
-    assert len(result["direct_construction"]) == 3
-    for trial in result["direct_construction"]:
+    assert "tangent_space_construction" in result
+    assert "direct_construction" not in result
+    note = result["the_tangent_space_construction_is_not_independent_evidence"]
+    assert "algebra on the same first-order matrices" in note
+    assert "measure_the_reachability_is_nonlinearly_true" in note
+    for trial in result["tangent_space_construction"]:
         assert trial["flavor_miss"] < 1e-10
         assert trial["mass_disturbance"] < 1e-10
+
+
+def test_the_reachability_is_nonlinearly_true_at_second_order():
+    """The independent check: re-run the Hamiltonian and watch O(eps^2)."""
+    result = fi.measure_the_reachability_is_nonlinearly_true()
+    assert result["both_are_second_order"]
+    for ratio in result["mass_error_ratios"] + result["flavor_miss_ratios"]:
+        assert ratio == pytest.approx(4.0, abs=0.4)
+    errors = [row["mass_error"] for row in result["rows"]]
+    assert errors == sorted(errors, reverse=True)
+    assert "INFINITESIMAL" in result["what_it_licenses"]
+
+
+def test_the_restricted_v4_rank_holds_the_frozen_v3_lock_fixed():
+    """The decisive surplus question: v4 freedoms alone, at fixed v3 masses."""
+    result = fi.measure_the_restricted_v4_calibration_rank()
+    assert result["rank_K_v4"] == fi.PHYSICAL_FLAVOR_DIMENSION == 4
+    assert result["every_group_reaches_the_full_flavor_space"]
+    for row in result["rows"]:
+        assert row["rank_K_v4"] == 4
+        assert row["kernel_dimension"] > 0
+
+
+def test_the_calibration_group_includes_the_eta_retune():
+    """The round's own rule: count every quantity selected using flavor data."""
+    result = fi.measure_the_restricted_v4_calibration_rank()
+    canonical = next(r for r in result["rows"] if r["group"] ==
+                     "with the eta_k3k5 retune, phi_h fixed")
+    assert canonical["coordinates"] == 10
+    # and including it makes the rank claim better conditioned, not worse
+    assert result["including_the_retune_improves_conditioning"]
+    lo, hi = result["conditioning_improvement"]
+    assert hi > 100 * lo
 
 
 def test_there_is_no_left_null_vector_so_no_predicted_relation():
@@ -158,10 +199,25 @@ def test_fixing_the_derived_phi_h_does_not_lower_the_flavor_rank():
     assert ab["per_case"]["phi_h_released"]["n_coordinates"] == 18
 
 
-def test_phi_h_is_the_most_efficient_cp_handle_even_though_not_identifying():
-    """Efficiency and identifiability are different, and both get reported."""
+def test_phi_h_is_genuinely_a_delta_direction():
+    """Calling it a CP handle needs evidence, and the direction claim is
+    chart-independent: rescaling the coordinate scales its column without
+    rotating it."""
+    ab = fi.measure_the_phi_h_ab_test()
+    assert ab["phi_h_is_delta_dominated"]
+    d = ab["phi_h_response_direction"]
+    assert d["delta_share"] > 0.99
+    assert abs(d["by_observable"]["theta23"]) < 0.01
+    assert abs(d["by_observable"]["theta13"]) < 0.01
+
+
+def test_the_efficiency_ratio_is_scoped_as_chart_dependent():
+    """Rank is invariant; singular-value magnitude is not."""
     ab = fi.measure_the_phi_h_ab_test()
     assert ab["leading_singular_value_ratio"] > 4.0
+    assert "chart" in ab["the_ratio_is_chart_dependent"] or \
+        "rescaling" in ab["the_ratio_is_chart_dependent"]
+    assert "Only the RANK is invariant" in ab["the_ratio_is_chart_dependent"]
     assert "efficiency is not identifiability" in ab["verdict"]
 
 
@@ -228,6 +284,13 @@ def test_the_ledger_withdraws_the_prediction_claim():
     assert relation["verdict"] == "NONE EXISTS"
     counting = next(e for k, e in entries.items() if "+3 parameters" in k)
     assert counting["verdict"] == "REFUTED"
+
+
+def test_the_ledger_records_this_rounds_own_gaps():
+    entries = {e["claim"]: e for e in fi.measure_the_flavor_ledger()["entries"]}
+    own = [e for e in entries.values()
+           if "OWN GAP" in e["verdict"] or "RELABELLED" in e["verdict"]]
+    assert len(own) >= 2, "the round's own gaps must be in its ledger"
 
 
 def test_the_ledger_states_what_the_result_does_not_say():

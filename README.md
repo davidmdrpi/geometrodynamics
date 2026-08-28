@@ -4012,8 +4012,16 @@ chart-independent, so unlike a pseudoinverse it smuggles in no metric.
 
 **`rank K = 4`** — the full dimension of the physical flavor space of a unitary
 3×3 matrix. Stable over a 3×3 grid of step and cutoff, singular values spread
-only `379×`, and confirmed by direct construction: an arbitrary target `δy_F`
-is realised to `1e-14` with the masses held to `1e-14`.
+only `379×`.
+
+**And on the decisive restricted question too.** v4 was built additively over a
+*frozen* v3 lock, so the surplus test is whether the v4 calibration freedoms
+**alone** span the CKM at fixed masses: `K_v4 = J_F[:,G]·ker(J_M[:,G])` with the
+v3 knobs held fixed. It gives **`rank K_v4 = 4`** with `φ_h` also fixed, over
+the 10 quantities selected in the re-lock — the three targeted `η`s, the
+`η₃₅` **retune**, and the six diagonal shifts. Confirmed nonlinearly: scaling a
+mass-preserving direction by `ε` and re-running the Hamiltonian gives clean
+`O(ε²)` (ratios `4.00`).
 
 > The mass-preserving parameter freedom spans everything the CKM can be.
 > **Fitting it is a successful realisation, not a prediction** — and there are
@@ -4022,9 +4030,11 @@ is realised to `1e-14` with the masses held to `1e-14`.
 
 **The `φ_h` A/B test.** The library treats `φ_h = π/k₅` as derived and as the
 source of CP structure. Holding it fixed leaves **`rank K = 4`** — the other
-fitted matrix elements absorb arbitrary CKM data on their own. It is the most
-*efficient* CP handle (releasing it multiplies the leading singular value by
-`4.8`) but not an identifying one. This sharpens PR #173, which found that
+fitted matrix elements absorb arbitrary CKM data on their own. Its response **is** genuinely a `δ` direction — `0.99978` of its `J_F` column
+lies along `δ`, and that share is chart-independent — and releasing it
+multiplies the leading singular value by `4.8`, though **that ratio is
+chart-dependent** and is kept only as a scoped diagnostic. Efficient, not
+identifying. This sharpens PR #173, which found that
 *adding* `φ_h` left the observable rank unchanged.
 
 **The census, measured rather than counted.** `rank J_F` restricted to each
@@ -4042,8 +4052,8 @@ Measured net surplus **≤ 0**.
 
 This does not say the v4 numbers are wrong — the `≤ 1%` agreement across nine
 observables is real. It says the agreement is not evidence *for* the
-Hamiltonian, because the same Hamiltonian could have reproduced any other CKM
-equally well at the same masses. **Scope:** local and first-order at the v4
+Hamiltonian, because the same Hamiltonian could have reproduced any *locally
+neighbouring* CKM equally well at the same masses. **Scope:** local and first-order at the v4
 lock; the excursions required are not small (`|δx| ≈ 50–80`).
 
 ```bash

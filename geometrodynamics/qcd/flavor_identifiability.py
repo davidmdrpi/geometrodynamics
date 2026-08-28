@@ -92,8 +92,8 @@ Nothing here says the v4 numbers are wrong, or that the CKM agreement is
 accidental in the sense of being lucky. The lock reproduces nine observables at
 ``≤ 1%`` and that is a real property of the realisation. What the rank shows is
 that the agreement is **not evidence for the Hamiltonian**, because the same
-Hamiltonian could have reproduced any other CKM equally well at the same
-masses.
+Hamiltonian could have reproduced any *locally neighbouring* CKM equally well at
+the same masses.
 
 Two scope limits worth stating. This is a **local** statement at the v4 lock: a
 rank is a first-order object and says nothing about how far the mass-preserving
@@ -137,6 +137,8 @@ __all__ = [
     "measure_both_jacobians_converge",
     "measure_the_calibration_dof_census",
     "measure_the_mass_preserving_flavor_rank",
+    "measure_the_reachability_is_nonlinearly_true",
+    "measure_the_restricted_v4_calibration_rank",
     "measure_the_phi_h_ab_test",
     "measure_the_counting_claim",
     "measure_the_flavor_ledger",
@@ -429,7 +431,9 @@ def measure_the_mass_preserving_flavor_rank(
     N = mass_preserving_tangent_space()
     JM = jacobian("mass")
 
-    # direct construction: is an arbitrary flavor displacement reachable?
+    # A TANGENT-SPACE construction -- algebra on the same first-order matrices
+    # whose rank was just computed. It is NOT independent evidence, and the
+    # first draft presented it as though it were. Kept, correctly labelled.
     rng = np.random.default_rng(1)
     trials = []
     for _ in range(3):
@@ -451,7 +455,11 @@ def measure_the_mass_preserving_flavor_rank(
         "singular_value_spread": float(sv[0] / sv[-1]) if sv.size else 0.0,
         "kernel_is_a_kernel": float(np.max(np.abs(JM @ N))),
         "rank_stable_across_the_grid": len(ranks) == 1,
-        "direct_construction": trials,
+        "tangent_space_construction": trials,
+        "the_tangent_space_construction_is_not_independent_evidence": (
+            "it solves K c = dy_F and reports J_M N c = 0, which is algebra on "
+            "the same first-order matrices whose rank was just computed; the "
+            "nonlinear check is measure_the_reachability_is_nonlinearly_true"),
         "spans_the_whole_physical_flavor_space": bool(
             int(np.linalg.matrix_rank(K, tol=1e-8))
             == PHYSICAL_FLAVOR_DIMENSION),
@@ -465,6 +473,154 @@ def measure_the_mass_preserving_flavor_rank(
         "verdict": ("The mass-preserving parameter freedom spans the entire "
                     "physical flavor space. Fitting the CKM is a successful "
                     "realisation, not a prediction"),
+    }
+
+
+def measure_the_reachability_is_nonlinearly_true(
+        epsilons: Sequence[float] = (1e-4, 5e-5, 2.5e-5, 1.25e-5)) -> dict:
+    """F3c — the independent nonlinear check the first draft was missing.
+
+    The tangent-space construction solves ``K c = δy_F`` and reports
+    ``J_M N c ≈ 0``. That is algebra on the matrices whose rank was just
+    computed, not evidence that the *Hamiltonian* does it.
+
+    The real test: take one of those directions, scale it by ``ε``, re-run the
+    actual Hamiltonian, and check that the mass error and the flavor miss both
+    fall as ``O(ε²)``. If the linearisation is honest, halving ``ε`` quarters
+    both.
+
+    It does — ratios ``4.00`` throughout. So the reachability claim is true of
+    the model and not only of its Jacobian. What it licenses remains a
+    statement about **infinitesimal** CKM directions: the excursion needed for
+    a unit ``δy_F`` is ``|δx| ≈ 50–80``, far outside the regime this scaling
+    tests.
+    """
+    JM = jacobian("mass")
+    JF = jacobian("flavor")
+    N = null_space(JM, rcond=1e-8)
+    K = JF @ N
+    base_flavor = flavor_observables()
+    base_mass = mass_observables()
+
+    rng = np.random.default_rng(2)
+    target = rng.normal(size=len(FLAVOR_OBSERVABLES))
+    target /= np.linalg.norm(target)
+    coefficients, *_ = np.linalg.lstsq(K, target, rcond=None)
+    dx = N @ coefficients
+
+    keys = list(SCALAR_COORDS) + list(TUPLE_COORDS)
+    rows = []
+    for eps in epsilons:
+        params = LOCKED_QUARK_PARAMS_V4
+        for key, step in zip(keys, eps * dx):
+            params = _bump(params, key, float(step))
+        mass_error = float(np.max(np.abs(mass_observables(params) - base_mass)))
+        miss = float(np.linalg.norm(
+            (flavor_observables(params) - base_flavor) - eps * target))
+        rows.append({"epsilon": eps, "mass_error": mass_error,
+                     "flavor_miss": miss})
+
+    mass_ratios = [a["mass_error"] / b["mass_error"]
+                   for a, b in zip(rows[:-1], rows[1:])]
+    miss_ratios = [a["flavor_miss"] / b["flavor_miss"]
+                   for a, b in zip(rows[:-1], rows[1:])]
+    return {
+        "rows": rows,
+        "mass_error_ratios": mass_ratios,
+        "flavor_miss_ratios": miss_ratios,
+        "expected_ratio_for_second_order": 4.0,
+        "both_are_second_order": bool(
+            all(3.6 < r < 4.4 for r in mass_ratios)
+            and all(3.6 < r < 4.4 for r in miss_ratios)),
+        "parameter_excursion_for_a_unit_target": float(np.linalg.norm(dx)),
+        "what_it_licenses": (
+            "The claim is about INFINITESIMAL CKM directions reachable locally, "
+            "not about arbitrary finite CKM matrices; the excursion needed for "
+            "a unit dy_F is far outside the regime this scaling tests"),
+    }
+
+
+def measure_the_restricted_v4_calibration_rank() -> dict:
+    """F3b — **the decisive test for predictive surplus**, corrected after review.
+
+    The headline ``rank K`` lets *every* coordinate move, including the eight
+    v3 knobs. But the v4 construction was explicitly **additive over a frozen
+    v3 lock**, so the question that actually bears on predictive surplus is the
+    restricted one:
+
+        ``K_v4 = J_F[:,G] · ker(J_M[:,G])``   with the v3 knobs held fixed.
+
+    The first draft reported ``rank J_F[:,G]`` instead — which lets the masses
+    move — and separately reported the unrestricted ``K``. Neither establishes
+    that the *actual* v4 calibration freedoms span all four CKM directions
+    **while preserving the frozen masses**.
+
+    They do. ``rank K_v4 = 4`` with the v3 knobs fixed and ``φ_h`` fixed at its
+    derived value, so the headline is **stronger** than the first draft claimed,
+    not weaker.
+
+    ``G`` includes the ``eta_k3k5_minus`` **retune** (``5.0 → 5.586``). The
+    round's own rule was to count every numerical quantity selected using flavor
+    data regardless of whether the symbol already existed, and the first draft's
+    "9 symbols" group broke that rule by omitting it. Including it also improves
+    the conditioning markedly — the fourth singular value rises from ``8.0e-6``
+    to ``3.1e-3``.
+    """
+    JM = jacobian("mass")
+    JF = jacobian("flavor")
+    etas = list(V4_TARGETED_ETAS)
+    diag = list(DIAG_SHIFT_PLUS) + list(DIAG_SHIFT_MINUS)
+    groups = {
+        "v4 additions only, phi_h fixed": etas + diag,
+        "v4 additions only, phi_h released": etas + diag + ["phi_h"],
+        "with the eta_k3k5 retune, phi_h fixed": (etas + ["eta_k3k5_minus"]
+                                                  + diag),
+        "with the eta_k3k5 retune, phi_h released": (etas + ["eta_k3k5_minus"]
+                                                     + diag + ["phi_h"]),
+    }
+    rows = []
+    for name, members in groups.items():
+        cols = [COORD_NAMES.index(m) for m in members]
+        N = null_space(JM[:, cols], rcond=1e-8)
+        if N.shape[1] == 0:
+            rows.append({"group": name, "coordinates": len(members),
+                         "kernel_dimension": 0, "rank_K_v4": 0,
+                         "singular_values": []})
+            continue
+        K = JF[:, cols] @ N
+        sv = np.linalg.svd(K, compute_uv=False)
+        rows.append({"group": name, "coordinates": len(members),
+                     "kernel_dimension": int(N.shape[1]),
+                     "rank_K_v4": int(np.linalg.matrix_rank(K, tol=1e-8)),
+                     "singular_values": sv.tolist(),
+                     "smallest_singular_value": float(sv[-1])})
+
+    canonical = next(r for r in rows
+                     if r["group"] == "with the eta_k3k5 retune, phi_h fixed")
+    bare = next(r for r in rows
+                if r["group"] == "v4 additions only, phi_h fixed")
+    return {
+        "rows": rows,
+        "canonical_group": canonical["group"],
+        "canonical_coordinates": canonical["coordinates"],
+        "rank_K_v4": canonical["rank_K_v4"],
+        "every_group_reaches_the_full_flavor_space": all(
+            r["rank_K_v4"] == PHYSICAL_FLAVOR_DIMENSION for r in rows),
+        "including_the_retune_improves_conditioning": bool(
+            canonical["smallest_singular_value"]
+            > bare["smallest_singular_value"]),
+        "conditioning_improvement": [bare["smallest_singular_value"],
+                                     canonical["smallest_singular_value"]],
+        "verdict": (
+            "With the frozen v3 lock held fixed AND phi_h at its derived value, "
+            f"the {canonical['coordinates']} numerical quantities selected in "
+            "the v4 flavor re-lock still span all four physical CKM directions "
+            "at fixed masses. The surplus claim fails on the restricted "
+            "question, not merely on the permissive one"),
+        "what_the_first_draft_reported_instead": (
+            "It reported rank J_F[:,G], which lets the masses move, alongside an "
+            "unrestricted K over all 18 coordinates; neither is the restricted "
+            "mass-preserving question"),
     }
 
 
@@ -488,10 +644,32 @@ def measure_the_phi_h_ab_test() -> dict:
     lowered = out["phi_h_fixed"]["rank_K"] < out["phi_h_released"]["rank_K"]
     ratio = (out["phi_h_released"]["singular_values"][0]
              / out["phi_h_fixed"]["singular_values"][0])
+
+    # Is it actually a CP direction? Chart-independent, because rescaling the
+    # coordinate scales the column without rotating it.
+    column = jacobian("flavor")[:, COORD_NAMES.index("phi_h")]
+    unit = column / np.linalg.norm(column)
+    phi_h_direction = {
+        "column": column.tolist(),
+        "unit": unit.tolist(),
+        "by_observable": dict(zip(FLAVOR_OBSERVABLES, unit.tolist())),
+        "delta_share": float(abs(unit[FLAVOR_OBSERVABLES.index("delta")])),
+    }
     return {
         "per_case": out,
         "fixing_phi_h_lowers_the_rank": bool(lowered),
         "leading_singular_value_ratio": float(ratio),
+        "the_ratio_is_chart_dependent": (
+            "singular-value MAGNITUDE is Euclidean in the chosen linear "
+            "absolute parameter coordinates; rescaling the phi_h column changes "
+            "it. Only the RANK is invariant. Kept as a scoped numerical "
+            "diagnostic, not a physical efficiency statement"),
+        "phi_h_response_direction": phi_h_direction,
+        "phi_h_is_delta_dominated": bool(phi_h_direction["delta_share"] > 0.99),
+        "why_the_direction_claim_survives_the_chart": (
+            "rescaling the phi_h coordinate scales its J_F column but does not "
+            "rotate it, so the share of the response lying along delta is "
+            "invariant -- unlike the singular-value ratio"),
         "verdict": (
             "Fixing the derived phase does NOT lower the flavor rank: with "
             "phi_h held at pi/k_5 the other fitted matrix elements still span "
@@ -515,7 +693,17 @@ def measure_the_counting_claim() -> dict:
                  if r["group"] == "v4 additions, phi_h fixed")
     released = next(r for r in census["rows"]
                     if r["group"] == "v4 additions, phi_h released")
+    restricted = measure_the_restricted_v4_calibration_rank()
+    canonical = next(r for r in restricted["rows"]
+                     if r["group"] == "with the eta_k3k5 retune, phi_h fixed")
     return {
+        "restricted_mass_preserving_rank": restricted["rank_K_v4"],
+        "restricted_group_coordinates": canonical["coordinates"],
+        "the_restricted_question_is_the_decisive_one": (
+            "the v4 construction is additive over a FROZEN v3 lock, so the "
+            "surplus question is whether the v4 calibration freedoms alone span "
+            "the CKM at fixed masses -- rank K_v4, not rank J_F[:,G]"),
+        "the_group_includes_the_eta_k3k5_retune": True,
         "claimed_new_parameters": 3,
         "claimed_new_independent_observables": 5,
         "claimed_net_surplus": 2,
@@ -533,15 +721,18 @@ def measure_the_counting_claim() -> dict:
             "'+5 independent observables' exceeds the ceiling: a unitary 3x3 "
             "CKM has exactly four physical parameters, so at most four of the "
             "nine quoted flavor-CP observables are independent. Against that "
-            f"ceiling the v4 additions measure {fixed['measured_flavor_rank']} "
-            "independent calibration directions with phi_h fixed, so the net "
-            "predictive surplus is at most zero, not +2"),
+            f"ceiling the v4 calibration group -- the three targeted etas, the "
+            f"eta_k3k5 RETUNE, and the six diagonal shifts, "
+            f"{canonical['coordinates']} numerical quantities with phi_h fixed "
+            f"-- spans rank {restricted['rank_K_v4']} at FIXED v3 masses, so "
+            "the net predictive surplus is at most zero, not +2"),
     }
 
 
 def measure_the_flavor_ledger() -> dict:
     """F6 — what the flavor identifiability audit settles."""
     rank = measure_the_mass_preserving_flavor_rank()
+    restricted = measure_the_restricted_v4_calibration_rank()
     ab = measure_the_phi_h_ab_test()
     counting = measure_the_counting_claim()
     census = measure_the_calibration_dof_census()
@@ -549,9 +740,22 @@ def measure_the_flavor_ledger() -> dict:
     entries = [
         {"claim": "the v4 CKM realization is a prediction of the Hamiltonian",
          "verdict": "WITHDRAWN",
-         "evidence": f"rank K = {rank['rank_K']} = the full physical flavor "
-                     "dimension; the mass-preserving freedom generates "
-                     "arbitrary CKM variation at fixed masses"},
+         "evidence": f"rank K = {rank['rank_K']} over all coordinates AND "
+                     f"rank K_v4 = {restricted['rank_K_v4']} over the v4 "
+                     "calibration group alone with the frozen v3 lock and "
+                     "phi_h both held fixed -- the restricted question, which "
+                     "is the decisive one"},
+        {"claim": "the first draft's headline used the right restricted map",
+         "verdict": "NO -- THIS ROUND'S OWN GAP",
+         "evidence": "it reported rank J_F[:,G] (masses free) beside an "
+                     "unrestricted K over all 18 coordinates; neither is the "
+                     "mass-preserving restricted map. Computing it gives the "
+                     "same rank 4, so the headline strengthens"},
+        {"claim": "the tangent-space construction is independent evidence",
+         "verdict": "NO -- RELABELLED",
+         "evidence": "it is algebra on the same first-order matrices; the "
+                     "independent check is an epsilon-scaling re-run of the "
+                     "Hamiltonian, which gives clean O(eps^2) (ratios 4.00)"},
         {"claim": "there is a first-order flavor relation to compare with data",
          "verdict": "NONE EXISTS",
          "evidence": f"rank K = 4 leaves {rank['left_null_vectors']} left-null "
@@ -591,8 +795,10 @@ def measure_the_flavor_ledger() -> dict:
             "The v4 numbers are not wrong and the <= 1% agreement across nine "
             "observables is real. What the rank shows is that the agreement is "
             "not evidence FOR the Hamiltonian, because the same Hamiltonian "
-            "could have reproduced any other CKM equally well at the same "
-            "masses"),
+            "could have reproduced any LOCALLY NEIGHBOURING CKM equally well "
+            "at the same masses. The claim is first-order: the epsilon-scaling "
+            "check licenses infinitesimal directions, not arbitrary finite "
+            "CKM matrices"),
         "scope": (
             "A local, first-order statement at the v4 lock. Rank says nothing "
             "about how far the mass-preserving surface extends before "

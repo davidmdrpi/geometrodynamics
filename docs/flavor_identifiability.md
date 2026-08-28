@@ -1,7 +1,7 @@
 # Is the v4 CKM realization a prediction, or a locally flexible fit?
 
 *Module `geometrodynamics/qcd/flavor_identifiability.py`, probe
-`experiments/closure_ledger/flavor_identifiability_probe.py` (7/7), tests
+`experiments/closure_ledger/flavor_identifiability_probe.py` (9/9), tests
 `tests/test_flavor_identifiability.py`.*
 
 ---
@@ -70,8 +70,9 @@ Spread `379×`, no near-degeneracy, kernel verified to `5.3e-15`. Stable across
 a 3×3 grid of finite-difference step (`1e-5…1e-7`) and null-space cutoff
 (`1e-6…1e-10`) — rank 4 in all nine cells.
 
-**Confirmed by direct construction.** Solving for an arbitrary target `δy_F`
-using only mass-preserving directions:
+**A tangent-space construction** — solving for an arbitrary target `δy_F` using
+only mass-preserving directions. This is algebra on the matrices above, *not*
+independent evidence; the nonlinear check is below:
 
 | trial | flavor miss | mass disturbance | `\|δx\|` |
 |--|--|--|--|
@@ -86,6 +87,76 @@ using only mass-preserving directions:
 left-null vectors, so there is no `w` with `wᵀK = 0` and no first-order
 invariant `wᵀδy_F = 0` to compare against experiment. The round was built to
 extract one if it existed.
+
+---
+
+## The restricted question — which is the decisive one
+
+*Added after review; the first draft did not compute it.*
+
+The headline `rank K` lets **every** coordinate move, including the eight v3
+knobs. But the v4 construction was explicitly **additive over a frozen v3
+lock**, so the question that bears on predictive surplus is the restricted one:
+
+```
+K_v4 = J_F[:,G] · ker(J_M[:,G])        with the v3 knobs held fixed
+```
+
+The first draft reported `rank J_F[:,G]` — which lets the masses move — beside
+an unrestricted `K` over all 18 coordinates. **Neither is the restricted
+mass-preserving map**, and neither establishes that the *actual* v4 calibration
+freedoms span all four CKM directions while preserving the frozen masses.
+
+| group | coordinates | `dim ker J_M` | **rank K_v4** | smallest σ |
+|--|--|--|--|--|
+| v4 additions only, `φ_h` fixed | 9 | 5 | **4** | 8.03e-06 |
+| v4 additions only, `φ_h` released | 10 | 6 | **4** | 1.21e-05 |
+| **with the `η₃₅` retune, `φ_h` fixed** | **10** | 6 | **4** | **3.10e-03** |
+| with the `η₃₅` retune, `φ_h` released | 11 | 7 | **4** | 6.72e-03 |
+
+> **They do span it.** `rank K_v4 = 4` with the frozen v3 lock *and* `φ_h` both
+> held fixed — so the headline is **stronger** than the first draft claimed,
+> not weaker. The surplus claim fails on the restricted question, not merely on
+> the permissive one.
+
+**The group includes the `eta_k3k5_minus` retune** (`5.0 → 5.586`). The round's
+own rule was to count every numerical quantity selected using flavor data
+regardless of whether the symbol already existed, and the first draft's
+nine-symbol group broke that rule by omitting it. Including it also **improves
+the conditioning by two and a half orders** — the smallest singular value rises
+`8.0e-06 → 3.1e-03` — so counting it honestly makes the rank-4 claim more
+robust, not less.
+
+---
+
+## And it is nonlinearly true
+
+*Added after review; the first draft's evidence here was circular.*
+
+The tangent-space construction solves `K c = δy_F` and reports `J_M N c ≈ 0`.
+That is **algebra on the same first-order matrices whose rank was just
+computed** — not independent evidence, and the first draft presented it as
+though it were.
+
+The real test: scale one of those directions by `ε`, re-run the **actual
+Hamiltonian**, and check that both errors fall as `O(ε²)`.
+
+| `ε` | mass error | flavor miss |
+|--|--|--|
+| 1.00e-04 | 1.200e-06 | 2.052e-06 |
+| 5.00e-05 | 3.000e-07 | 5.119e-07 |
+| 2.50e-05 | 7.501e-08 | 1.278e-07 |
+| 1.25e-05 | 1.876e-08 | 3.194e-08 |
+
+Halving `ε` quarters both — mass ratios `[3.999, 4.000, 3.999]`, miss ratios
+`[4.009, 4.005, 4.002]`. Clean second order, so the reachability is a property
+of the model and not only of its Jacobian.
+
+**What it licenses.** The claim is about **infinitesimal** CKM directions
+reachable locally, not about arbitrary finite CKM matrices. The excursion
+needed for a unit `δy_F` is `|δx| ≈ 50–80`, far outside the regime this scaling
+tests. Wherever the first draft said *"the same Hamiltonian could have
+reproduced any other CKM"*, read *"any infinitesimal CKM direction, locally"*.
 
 ---
 
@@ -105,9 +176,18 @@ topology removes one calibration freedom.
 arbitrary CKM data on their own, so the derived phase produces no flavor
 prediction by itself.
 
-It is, however, the single most *efficient* CP handle: releasing it multiplies
-the leading singular value by **4.8**. Both facts are worth keeping, and they
-are different facts — **efficiency is not identifiability**.
+**Is it actually a CP handle?** Yes, and now shown rather than asserted: its
+`J_F` column is **0.99978** along `δ` (`θ₁₂ −0.0208`, `θ₂₃ +0.0001`,
+`θ₁₃ −0.0003`, `δ −0.9998`). That share **is** chart-independent — rescaling
+the `φ_h` coordinate scales its column without rotating it.
+
+It is also the most *efficient* CP handle: releasing it multiplies the leading
+singular value by **4.8**. But **that ratio is chart-dependent**, unlike the
+rank and unlike the direction: singular-value magnitude is Euclidean in the
+chosen linear absolute coordinates, and rescaling any column changes it. Kept
+as a scoped numerical diagnostic, not a physical efficiency statement.
+
+Efficiency and identifiability are different, and only the second is invariant.
 
 This confirms and sharpens **PR #173**, which found that *adding* `φ_h` as an
 input left the observable rank unchanged and concluded that *"CP at zero
@@ -181,9 +261,10 @@ The v4 numbers are not wrong. The lock reproduces nine observables at `≤ 1%`
 and that is a real property of the realisation, unaffected by anything here.
 
 What the rank shows is that the agreement is **not evidence for the
-Hamiltonian**, because the same Hamiltonian could have reproduced any other CKM
-equally well at the same masses. A fit that could have accommodated any outcome
-does not gain credit for accommodating the observed one.
+Hamiltonian**, because the same Hamiltonian could have reproduced any *locally
+neighbouring* CKM equally well at the same masses. A fit that could have
+accommodated any nearby outcome does not gain credit for accommodating the
+observed one.
 
 **Scope.** This is a **local, first-order** statement at the v4 lock. A rank
 says nothing about how far the mass-preserving surface extends before
@@ -197,7 +278,9 @@ arbitrary unit `δy_F` needs `|δx| ≈ 50–80` in these coordinates — so
 
 | claim | verdict | evidence |
 |--|--|--|
-| the v4 CKM realization is a prediction of the Hamiltonian | **WITHDRAWN** | `rank K = 4` = the full physical flavor dimension |
+| the v4 CKM realization is a prediction of the Hamiltonian | **WITHDRAWN** | `rank K = 4` over all coordinates, **and `rank K_v4 = 4`** over the v4 calibration group alone with the frozen v3 lock and `φ_h` both fixed |
+| the first draft's headline used the right restricted map | **NO — THIS ROUND'S OWN GAP** | it reported `rank J_F[:,G]` (masses free) beside an unrestricted `K`; the restricted map gives the same rank 4, so the headline strengthens |
+| the tangent-space construction is independent evidence | **NO — RELABELLED** | algebra on the same matrices; the independent check is the `O(ε²)` re-run |
 | there is a first-order flavor relation to compare with data | **NONE EXISTS** | zero left-null vectors of `K` |
 | the derived `φ_h = π/k₅` produces a flavor prediction | **NOT BY ITSELF** | holding it fixed leaves `rank K = 4`; efficient (×4.8) but not identifying |
 | +3 parameters bought +5 independent observables, net +2 | **REFUTED** | the ceiling is 4; measured calibration dimension is 4; net ≤ 0 |
