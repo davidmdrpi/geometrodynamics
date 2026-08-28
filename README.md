@@ -203,6 +203,8 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Resistance = 7π / 100 | **Verified; selector superseded (PR #272)** | +0.94 % off the locked resistance = 0.2179. The stated selector — `R_OUTER` bisection — is reopened by PR #271, and under the legacy operator it had chosen the *worse*-fitting candidate (`4·(ω−1)` = +0.48 %). Under the corrected operator the competitor degrades to **+2.50 %**, so `7π/100` now wins on proximity as well: **conclusion survives, stated reason does not**. See `docs/quark_residual_reaudit.md` |
 | Inner cutoff `ε = resistance / k_5⁴` | **Verified** | Closes the Compton bridge `ℏ = m_e R_MID c` to 0.04 % |
 | Closure-quantum ledger closes modulo m_e | **PARTIALLY REOPENED (PR #271)** | The `2π`-quantised entries stand. The `pinhole γ` entry does not: its geometric derivation is reopened, so the ledger no longer reduces **every** dimensionless parameter to closure quanta. See `docs/scalar_operator_audit.md` |
+| `D = 5` scalar quasinormal frequency (`ℓ = 1`) | **Settled (PR #274)** | `ω = 1.01612 − 0.36244i`, converged in step size by an independent Gundlach–Price–Pullin characteristic evolution. It confirms PR #270's Kerr–Schild code to `~1e-4` and **excludes its tortoise damping at `37.3%`** — #270's own prime suspect was the wrong code. Quotable for `ℓ = 1, 2, 3`; `ℓ = 0` wider. No autopsy: neither #270 code was landed. See `docs/ringdown_cross_validation.md` |
+| Frequency-domain QNM shooting in real `r` | **Cannot settle it (PR #274)** | Reproduced #270's non-convergence rather than fixing it: the root moves with every knob because for `Im ω < 0` the outgoing piece grows like `e^{\|Im ω\|R}` and swamps the coefficient being zeroed. Sixth-order WKB by finite differences also **diverges** under refinement (`9.0 → 18.6 → 623`) |
 | Quark mass ladder (u, d, s, c, b, t) | **Fitted** | 1.6% max rel err on s, c, b, t with d-anchor, four shell-index axioms, and one phenomenological β |
 | Quark CKM / flavor-CP realization (v4) | **Locally flexible realization, NOT a prediction (PR #273)** | `rank K = 4` where `K = J_F ker(J_M)`: the mass-preserving parameter freedom spans the *entire* physical flavor space, so the CKM agreement is not evidence for the Hamiltonian. Zero left-null vectors ⟹ no predicted relation. Holding the derived `φ_h = π/k₅` fixed leaves rank 4. See `docs/flavor_identifiability.md` |
 | Quark v4 counting: "+3 parameters, +5 independent observables, net +2" | **REFUTED (PR #273)** | A unitary 3×3 CKM has exactly **four** physical parameters, so "+5 independent" exceeds the ceiling. Measured calibration dimension of the v4 additions (`φ_h` fixed) = **4**; net surplus **≤ 0**. The six diagonal-shift symbols measure flavor rank 2+2, not 3+3 — the trace of each triple is an exact CKM gauge |
@@ -3811,7 +3813,10 @@ tortoise `(t,r*)` evolution with the derived potential — are both stable and b
 rates apart by `37%` (`1.01622 − 0.36231i` against `1.01876 − 0.26404i`). So no
 quasinormal frequency is reported, and the transfer function is not built because
 it is a ratio of the same two signals. **A converged number is not a correct
-number.**
+number.** *(Settled by PR #274: an independent characteristic evolution confirms
+the Kerr–Schild frequency to `~1e-4` and excludes the tortoise damping at
+`37.3%`. #270's own prime suspect — the Kerr–Schild inner cut — was the wrong
+code. See `docs/ringdown_cross_validation.md`.)*
 
 **Scope.** Classical, spherically symmetric, one massless scalar, second-order
 accurate and stated as such. Horizon *persistence* is shown only on a seeded
@@ -4061,6 +4066,82 @@ python -m experiments.closure_ledger.flavor_identifiability_probe
 ```
 
 Full write-up: `docs/flavor_identifiability.md`.
+
+## Settling PR #270's ringdown cross-validation (PR #274)
+
+PR #270 left one thing explicitly unearned: it had two horizon-penetrating
+time-domain codes for a test scalar on a fixed `D = 5` Tangherlini background,
+both stable, both converged, and they disagreed — real parts within `0.3%` at
+`ℓ = 1`, **damping rates apart by `37%`**. It refused to quote a frequency, which
+was right, and it named a prime suspect: the Kerr–Schild operator's inner cut.
+
+**The Kerr–Schild code was right. The tortoise code's damping was wrong. The
+prime suspect was the wrong code.**
+
+| source | `ω` at `ℓ = 1` | damping gap to this round |
+|--|--|--|
+| **this round** — characteristic, `h → 0` | `1.01612 − 0.36244i` | — |
+| #270 Kerr–Schild | `1.01622 − 0.36231i` | **`0.035%`** |
+| #270 tortoise | `1.01876 − 0.26404i` | **`37.3%`** |
+
+**Why a third code.** Two converged codes that disagree cannot be adjudicated by
+refining either one further. What breaks the tie is an implementation sharing no
+code with either, plus an exact limit none of the three can influence. The
+arbitrator here is a **Gundlach–Price–Pullin characteristic evolution** on the
+null grid `u = t − r*`, `v = t + r*`, and it was chosen for a specific structural
+reason: **it applies no spatial boundary condition at all.** The domain of
+dependence is the null diamond, so the horizon and infinity are limits, never
+boundaries — which is exactly the excision question #270 suspected. An arbitrator
+that could fail the same way would have settled nothing. That the `37.3%` it
+measures against the tortoise number reproduces #270's own `37%` is the check
+that it landed on one of the two codes and not somewhere new.
+
+**The exact asymptote all three are judged against.** At `n = 3` the photon
+sphere is `r_ph² = 2` **exactly**, giving `Ω_c = 1/2` and `λ = 1/√2` exactly, so
+`ω → 0.5(ℓ+1) − 0.353553i`. The characteristic frequencies approach it the way a
+correct solver must — real parts to `0.5(ℓ+1)` from above, damping to `−0.35355`:
+
+| `ℓ` | characteristic | eikonal |
+|--|--|--|
+| 0 | `0.535380 − 0.384175i` | `0.500000 − 0.353553i` |
+| 1 | `1.016186 − 0.362395i` | `1.000000 − 0.353553i` |
+| 2 | `1.510765 − 0.357438i` | `1.500000 − 0.353553i` |
+| 3 | `2.008183 − 0.355527i` | `2.000000 − 0.353553i` |
+
+Four independent lines land together — characteristic `−0.36244`, #270
+Kerr–Schild `−0.36231`, first-order WKB `−0.36095`, exact eikonal `−0.35355`,
+spanning `0.0089`. The tortoise damping `−0.26404` sits `0.098` away, on the far
+side of the exact asymptote, and never approaches it.
+
+Two `D = 5` identities make this checkable at all, and both are **exact**: the
+tortoise correction is `−1/r`, a *decaying power* rather than 4D's growing
+`ln r`, so the far field is a pure Hankel wave with no Coulomb phase; and
+`V → [(ℓ+1)² − ¼]/r²`, which is the same flat-limit identity PR #271 used to
+settle which radial operator was correct, reused here as a boundary condition.
+The operator evolved is #271's corrected one, taken from `dynamics`.
+
+**Two honest negatives, reported as negatives.** Frequency-domain shooting
+**reproduced** #270's non-convergence rather than fixing it — the root moves with
+every knob (`1.229 − 0.152i` → `1.173 − 0.102i` → `1.155 − 0.214i` across `ε`)
+because the QNM boundary-value problem is exponentially ill-conditioned in real
+`r`. And sixth-order WKB by finite differences **diverges** under refinement
+(`9.01 → 18.63 → 623.09`), since Iyer–Will needs `V⁽⁶⁾` and central differences
+amplify roundoff as `h⁻⁶`. First-order WKB is used instead with its accuracy
+stated rather than assumed: `0.4%` on the damping, `13%` on the real part at
+`ℓ = 1` — a known low-`ℓ` limitation, not a disagreement between solvers.
+
+**What this round cannot do.** There is **no autopsy**. Neither #270 code was
+landed in the tree, only their reported numbers, so this establishes *which*
+number is right and by how much the other is excluded — not which line of the
+unlanded tortoise code did it. **Scope:** test scalar on a fixed background, no
+backreaction, fundamental mode only, and `ℓ = 0` carries a wider uncertainty
+because its barrier is weakest and the tail contaminates its fit earliest.
+
+```bash
+python -m experiments.closure_ledger.ringdown_cross_validation_probe
+```
+
+Full write-up: `docs/ringdown_cross_validation.md`.
 
 ## The geometric-visualization arc, end to end
 

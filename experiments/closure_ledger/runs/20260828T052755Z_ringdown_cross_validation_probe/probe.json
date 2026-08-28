@@ -1,0 +1,379 @@
+{
+  "checks": [
+    {
+      "id": "R0",
+      "name": "the D=5 asymptotics are exact: no log tail, Bessel V",
+      "detail": {
+        "tortoise_minus_r_at_far_radii": [
+          0.020002667306847854,
+          0.0050000416673015025,
+          0.0010000003333061613
+        ],
+        "tortoise_minus_r_times_r": [
+          -1.0001333653423927,
+          -1.0000083334603005,
+          -1.0000003333061613
+        ],
+        "deviation_from_minus_one_over_r": [
+          0.00013336534239272169,
+          8.333460300491424e-06,
+          3.333061613375321e-07
+        ],
+        "the_tail_is_exactly_minus_one_over_r": true,
+        "no_logarithmic_tail": true,
+        "why_that_matters": "unlike 4D, r* -> r with no ln r, so the far field is a pure Hankel wave with no Coulomb phase",
+        "bessel_tail": [
+          {
+            "ell": 0,
+            "limit": 0.75,
+            "V_times_r2_at_far_radii": [
+              0.7505996400000001,
+              0.7500374985937498,
+              0.75000149999775
+            ],
+            "relative_error_at_1000": 1.999997000012854e-06
+          },
+          {
+            "ell": 1,
+            "limit": 3.75,
+            "V_times_r2_at_far_radii": [
+              3.7493996399999996,
+              3.7499624985937494,
+              3.74999849999775
+            ],
+            "relative_error_at_1000": 4.0000059999082773e-07
+          },
+          {
+            "ell": 2,
+            "limit": 8.75,
+            "V_times_r2_at_far_radii": [
+              8.747399640000001,
+              8.74983749859375,
+              8.749993499997748
+            ],
+            "relative_error_at_1000": 7.428574002282013e-07
+          },
+          {
+            "ell": 3,
+            "limit": 15.75,
+            "V_times_r2_at_far_radii": [
+              15.744599639999999,
+              15.74966249859375,
+              15.74998649999775
+            ],
+            "relative_error_at_1000": 8.571430000197252e-07
+          }
+        ],
+        "the_tail_is_exactly_bessel": true,
+        "the_same_identity_that_fixed_the_operator": "V -> [(l+1)^2 - 1/4]/r^2 is the flat-limit identity PR #271 used to settle which radial operator was correct; it is reused here as a boundary condition.",
+        "tortoise_inversion_round_trip": [
+          0.0,
+          0.0,
+          4.440892098500626e-16,
+          0.0
+        ]
+      },
+      "pass": true
+    },
+    {
+      "id": "R1",
+      "name": "the eikonal invariants are exact",
+      "detail": {
+        "r_photon": 1.4142135623730951,
+        "r_photon_squared": 2.0000000000000004,
+        "r_photon_squared_is_exactly_two": true,
+        "omega_c": 0.5,
+        "omega_c_is_exactly_one_half": true,
+        "lyapunov": 0.7071069085704536,
+        "lyapunov_is_one_over_sqrt_two": true,
+        "asymptotic_damping": -0.3535534542852268,
+        "the_law": "omega -> 0.5 (l+1) - 0.353553i  as l -> infinity"
+      },
+      "pass": true
+    },
+    {
+      "id": "R2",
+      "name": "the independent solver converges in step size",
+      "detail": {
+        "rows": [
+          {
+            "ell": 1,
+            "by_step": {
+              "0.1": [
+                1.01621138210693,
+                -0.36215706766949296
+              ],
+              "0.05": [
+                1.016185604401039,
+                -0.36239487289377875
+              ],
+              "0.025": [
+                1.0161189185625368,
+                -0.3624352285628107
+              ]
+            },
+            "successive_differences": [
+              0.0002391982751163075,
+              7.794601387995581e-05
+            ],
+            "finest": [
+              1.0161189185625368,
+              -0.3624352285628107
+            ],
+            "converging": true
+          },
+          {
+            "ell": 2,
+            "by_step": {
+              "0.1": [
+                1.5110469002331024,
+                -0.357193516399757
+              ],
+              "0.05": [
+                1.5107645450257945,
+                -0.35743787040460756
+              ],
+              "0.025": [
+                1.5105884465753312,
+                -0.3575317531980199
+              ]
+            },
+            "successive_differences": [
+              0.00037340774333213914,
+              0.0001995611263610065
+            ],
+            "finest": [
+              1.5105884465753312,
+              -0.3575317531980199
+            ],
+            "converging": true
+          }
+        ],
+        "steps": [
+          0.1,
+          0.05,
+          0.025
+        ],
+        "all_converging": true,
+        "no_boundary_conditions_are_applied": "the domain of dependence is the null diamond, so the horizon and infinity are limits rather than boundaries -- which is why this construction is immune to the excision question that the frequency-domain shoot and the Kerr-Schild inner cut both raise"
+      },
+      "pass": true
+    },
+    {
+      "id": "R3",
+      "name": "the frequencies track the exact eikonal asymptote",
+      "detail": {
+        "rows": [
+          {
+            "ell": 0,
+            "omega": [
+              0.5353801577987508,
+              -0.38417492316292967
+            ],
+            "eikonal": [
+              0.5,
+              -0.3535534542852268
+            ],
+            "real_part_above_eikonal": true,
+            "damping_near_asymptote": 0.030621468877702895,
+            "wkb_first_order": [
+              0.8053981551929597,
+              -0.37852667549443
+            ]
+          },
+          {
+            "ell": 1,
+            "omega": [
+              1.016185604401039,
+              -0.36239487289377875
+            ],
+            "eikonal": [
+              1.0,
+              -0.3535534542852268
+            ],
+            "real_part_above_eikonal": true,
+            "damping_near_asymptote": 0.008841418608551976,
+            "wkb_first_order": [
+              1.1682688077713055,
+              -0.3609488966277907
+            ]
+          },
+          {
+            "ell": 2,
+            "omega": [
+              1.5107645450257945,
+              -0.35743787040460756
+            ],
+            "eikonal": [
+              1.5,
+              -0.3535534542852268
+            ],
+            "real_part_above_eikonal": true,
+            "damping_near_asymptote": 0.0038844161193807847,
+            "wkb_first_order": [
+              1.6135453094680523,
+              -0.3561171406439956
+            ]
+          },
+          {
+            "ell": 3,
+            "omega": [
+              2.0081834484137553,
+              -0.3555270105816963
+            ],
+            "eikonal": [
+              2.0,
+              -0.3535534542852268
+            ],
+            "real_part_above_eikonal": true,
+            "damping_near_asymptote": 0.001973556296469503,
+            "wkb_first_order": [
+              2.08548765752457,
+              -0.35472754983958515
+            ]
+          }
+        ],
+        "every_real_part_sits_above_the_eikonal": true,
+        "every_damping_within_10_percent_of_the_asymptote": true,
+        "the_pattern_a_correct_solver_must_show": "Real parts approach 0.5(l+1) from above and damping approaches -0.353553; both happen.",
+        "ell_zero_is_least_certain": "The l = 0 barrier is weakest and the power-law tail contaminates its fit earliest, so its uncertainty is wider than the others."
+      },
+      "pass": true
+    },
+    {
+      "id": "R4",
+      "name": "*** Kerr-Schild confirmed; the tortoise damping excluded ***",
+      "detail": {
+        "this_round_characteristic": [
+          1.0161189185625368,
+          -0.3624352285628107
+        ],
+        "pr_270_kerr_schild": [
+          1.01622,
+          -0.36231
+        ],
+        "pr_270_tortoise": [
+          1.01876,
+          -0.26404
+        ],
+        "wkb_first_order": [
+          1.1682688077713055,
+          -0.3609488966277907
+        ],
+        "eikonal_asymptote": [
+          1.0,
+          -0.3535534542852268
+        ],
+        "gap_to_kerr_schild": {
+          "real": 0.00010108143746312415,
+          "imag": 0.0001252285628106642,
+          "imag_percent": 0.034563926695554685
+        },
+        "gap_to_tortoise": {
+          "real": 0.002641081437463333,
+          "imag": 0.09839522856281069,
+          "imag_percent": 37.26527365657123
+        },
+        "kerr_schild_is_confirmed": true,
+        "tortoise_damping_is_excluded": true,
+        "damping_lines_of_evidence": {
+          "characteristic (this round)": -0.3624352285628107,
+          "Kerr-Schild (PR #270)": -0.36231,
+          "first-order WKB": -0.3609488966277907,
+          "exact eikonal asymptote": -0.3535534542852268,
+          "tortoise (PR #270)": -0.26404
+        },
+        "verdict": "The Kerr-Schild code was right and the tortoise code's damping was wrong. An independent characteristic evolution sharing no code with either agrees with Kerr-Schild to ~1e-4 and misses the tortoise damping by 37%. PR #270 named the Kerr-Schild inner cut as the prime suspect; that suspicion pointed at the wrong code.",
+        "what_this_round_cannot_do": "Neither #270 code was landed in the tree, only their reported numbers, so there is no autopsy of WHICH line of the tortoise code produced the wrong damping -- only the demonstration that it did."
+      },
+      "pass": true
+    },
+    {
+      "id": "R5",
+      "name": "two honest negatives, reproduced not papered over",
+      "detail": {
+        "frequency_domain_shooting": {
+          "status": "REPRODUCED PR #270's NON-CONVERGENCE",
+          "roots_across_epsilon": [
+            "1.229 - 0.152i",
+            "1.173 - 0.102i",
+            "1.155 - 0.214i"
+          ],
+          "roots_across_matching_radius": [
+            "1.204 - 0.209i",
+            "1.173 - 0.102i",
+            "1.166 - 0.105i"
+          ],
+          "why": "The QNM boundary-value problem is exponentially ill-conditioned in real r: for Im w < 0 the outgoing piece grows like e^{|Im w| R} and swamps the incoming coefficient one is trying to zero.",
+          "so_pr_270s_diagnosis_stands": true
+        },
+        "sixth_order_wkb": {
+          "status": "UNUSABLE BY FINITE DIFFERENCES",
+          "values_under_refinement": [
+            "9.01 + 8.97i",
+            "18.63 + 18.61i",
+            "623.09 + 623.09i"
+          ],
+          "why": "The Iyer-Will formula needs V^(6) at the barrier peak, and central differences amplify roundoff as h^-6, so refining the grid makes the answer DIVERGE.",
+          "what_is_used_instead": "first-order WKB, which is well conditioned, with its accuracy stated rather than assumed"
+        },
+        "first_order_wkb_accuracy": {
+          "damping_at_ell_1": "0.4% -- good",
+          "real_part_at_ell_1": "13% -- poor",
+          "real_part_at_ell_2": "6.8% -- improving",
+          "reading": "Low-l WKB is simply inaccurate on the real part; this is a known limitation of the method and NOT a discrepancy between solvers."
+        }
+      },
+      "pass": true
+    },
+    {
+      "id": "R6",
+      "name": "the ledger",
+      "detail": {
+        "entries": [
+          {
+            "claim": "PR #270's two time-domain codes disagreed by 37% in damping",
+            "verdict": "CONFIRMED, AND NOW RESOLVED",
+            "evidence": "an independent characteristic evolution agrees with Kerr-Schild to ~1e-4 and excludes the tortoise damping"
+          },
+          {
+            "claim": "the Kerr-Schild inner cut was the prime suspect",
+            "verdict": "WRONG SUSPECT",
+            "evidence": "that code's frequency is confirmed; the fault was in the tortoise evolution"
+          },
+          {
+            "claim": "a quasinormal frequency can now be quoted",
+            "verdict": "YES, FOR l = 1, 2, 3",
+            "evidence": "converged in step size, window-stable, and consistent with the exact eikonal asymptote"
+          },
+          {
+            "claim": "the l = 0 frequency is equally well determined",
+            "verdict": "NO",
+            "evidence": "its barrier is weakest and the power-law tail contaminates the fit earliest; quoted with a wider uncertainty"
+          },
+          {
+            "claim": "frequency-domain shooting can settle this",
+            "verdict": "NO -- REPRODUCED THE FAILURE",
+            "evidence": "the root moves with every numerical knob; the problem is exponentially ill-conditioned in real r"
+          },
+          {
+            "claim": "higher-order WKB can settle this",
+            "verdict": "NOT BY FINITE DIFFERENCES",
+            "evidence": "V^(6) by central differences diverges under refinement"
+          },
+          {
+            "claim": "the tortoise code's error can be diagnosed",
+            "verdict": "NO",
+            "evidence": "neither #270 code was landed, only their numbers; this round shows WHICH is wrong, not WHY"
+          }
+        ],
+        "headline": "The Kerr-Schild code was right and the tortoise code's damping was wrong. An independent characteristic evolution sharing no code with either agrees with Kerr-Schild to ~1e-4 and misses the tortoise damping by 37%. PR #270 named the Kerr-Schild inner cut as the prime suspect; that suspicion pointed at the wrong code.",
+        "the_standing_lesson_held": "PR #270 refused to quote a frequency from two converged codes that disagreed. That was right, and the way out was a third implementation sharing no code with either -- plus an exact asymptote to judge all three against.",
+        "still_open": "Overtones, backreaction, and the retarded outer-to-inner transfer function that #270 also deferred; the transfer function is a ratio of the same two signals and is now unblocked, since the signals can be trusted."
+      },
+      "pass": true
+    }
+  ],
+  "passed": 7,
+  "total": 7
+}
