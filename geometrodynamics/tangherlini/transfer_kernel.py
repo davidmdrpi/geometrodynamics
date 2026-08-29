@@ -56,9 +56,16 @@ a cubic in ``x``; at ``ℓ = 1`` its maximum sits at ``x = 5/9`` exactly, so
 
     r² = 9/5 ,        V_max = 100/81         (exactly)
 
-and ℓ = 1 is the *only* ℓ for which this is rational — ℓ = 0, 2, 3 carry
-``√13``, ``√1621``, ``√57``. ℓ = 1 is also the mode #270's two codes disagreed
-on.
+and ℓ = 1 is the *only* non-negative integer ℓ for which this is rational —
+which is a **theorem**, not an inference from spot checks. With ``m = ℓ+1`` the
+discriminant is ``(16m⁴ + 28m² + 73)/4``, and for ``m ≥ 4``
+
+    (4m² + 3)²  <  16m⁴ + 28m² + 73  <  (4m² + 4)²
+
+(left: ``4m² + 64 > 0``; right: ``4m² > 57``), so it is strictly between
+consecutive squares and never square. ``m = 1, 2, 3`` give ``117``,
+``441 = 21²``, ``1621`` — only ``m = 2``. ℓ = 1 is also the mode #270's two
+codes disagreed on.
 
 **2. The integrated potential is exact.** Since ``dr* = dr/f`` cancels the ``f``
 in ``V``,
@@ -74,7 +81,27 @@ leading eikonal phase through the barrier is ``−(1/2ω)∫V dr*``, so
 
 This is what makes the kernel computable: ``T − 1 ~ −i c/ω`` decays too slowly
 to transform numerically, and the exact ``c`` lets it be removed analytically
-instead of windowed away.
+instead of windowed away. The **exact** value is what gets subtracted — a fitted
+one would leave ``−i(c_exact − c_fit)/ω`` behind, still ``1/ω``, defeating the
+purpose. The fit is kept as a *measurement against* the exact value, and agrees
+to ``0.047 %`` uniformly in the outer edge.
+
+THE OUTER BOUNDARY CONDITION IS NOT PLANE WAVES
+───────────────────────────────────────────────
+Matching to free ``e^{±iωr*}`` at a finite outer edge assumes ``ωr* ≫ ν``. At
+the low-frequency end of a kernel grid that is badly false: for
+``ω ≈ 0.005`` the outer turning scale is ``√L/ω ≈ 397``, and ``V`` at the edge
+(``1.7e-4``) still exceeds ``ω²`` (``2.4e-5``) — the first bin sits *inside* the
+centrifugal tail. That bin sets the DC end of the transform and hence the
+numerical realisation of the ``−1`` sum rule, so it is the worst place to be
+sloppy.
+
+The fix is the exact solutions of the centrifugal tail, ``√x H^{(1,2)}_ν(x)``
+with ``x = ωr*``, normalised to ``e^{±ix}`` so the high-frequency convention is
+untouched. With them the low-``ω`` spectrum is **independent of the outer edge**
+(relative spread ``5.6e-5`` across ``r*_out = 150, 300, 600``, where plane waves
+drifted), and ``T(ω→0)`` fell from ``1.73e-06`` to ``4.10e-07`` — four times
+closer to its exact value of zero.
 
 THE THREE GATES, ALL MEASURED
 ─────────────────────────────
@@ -134,6 +161,7 @@ from functools import lru_cache
 from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
+from scipy.special import hankel1, hankel2
 
 from geometrodynamics.tangherlini.ringdown import (
     HORIZON,
@@ -149,10 +177,14 @@ __all__ = [
     "high_frequency_phase_constant",
     "barrier_peak",
     "potential_samples",
+    "outer_jost_solutions",
     "scattering_amplitudes",
     "transfer_spectrum",
     "transfer_kernel",
     "measure_the_exact_background_anchors",
+    "measure_only_ell_one_has_a_rational_peak",
+    "measure_the_high_frequency_tail_is_the_exact_one",
+    "measure_the_low_frequency_outer_matching_is_converged",
     "measure_the_scattering_is_well_conditioned",
     "measure_the_kernel_is_causal",
     "measure_the_kernel_reproduces_the_published_ringdown",
@@ -227,6 +259,43 @@ def potential_samples(ell: int, inner: float = INNER_EDGE,
     return values, (outer - inner) / steps
 
 
+def outer_jost_solutions(ell: int, x):
+    """Exact outer solutions of the centrifugal tail, normalised to ``e^{±ix}``.
+
+    Matching to *free* plane waves at a finite outer edge is wrong at low
+    frequency, and this is the dominant error there rather than a refinement.
+    Asymptotically the ``r*`` equation is
+
+        ψ'' + (ω² − L/r*²) ψ = 0 ,      L = ν² − ¼ ,   ν = ℓ + 1
+
+    whose **exact** solutions are ``√x H^{(1,2)}_ν(x)`` with ``x = ω r*``. The
+    plane-wave form is only their ``x → ∞`` limit, so a plane-wave match
+    silently assumes ``ω r* ≫ ν``. At the lowest frequency of a kernel grid that
+    is badly false: for ``ω ≈ 0.005`` the outer turning scale is ``√L/ω ≈ 400``,
+    far beyond any affordable edge, and ``V(r*_out) ≈ 1.7e-4`` still exceeds
+    ``ω² ≈ 2.4e-5``. That first bin is what fixes the DC end of the transform and
+    hence the numerical realisation of the ``−1`` sum rule.
+
+    Normalisation carries the phase ``e^{±i(νπ/2 + π/4)}`` so these reduce to
+    ``e^{±ix}`` exactly, leaving the high-frequency convention untouched — only
+    the low-frequency matching moves. Their Wronskian is exactly ``−2i``, which
+    the tests check rather than assume.
+    """
+    order = ell + 1
+    x = np.asarray(x, dtype=float)
+    prefactor = np.sqrt(np.pi * x / 2.0)
+    d_prefactor = np.sqrt(np.pi / 2.0) / (2.0 * np.sqrt(x))
+    phase = np.exp(1j * (order * np.pi / 2.0 + np.pi / 4.0))
+    first, second = hankel1(order, x), hankel2(order, x)
+    d_first = 0.5 * (hankel1(order - 1, x) - hankel1(order + 1, x))
+    d_second = 0.5 * (hankel2(order - 1, x) - hankel2(order + 1, x))
+    plus = prefactor * first * phase
+    minus = prefactor * second * np.conj(phase)
+    d_plus = (d_prefactor * first + prefactor * d_first) * phase
+    d_minus = (d_prefactor * second + prefactor * d_second) * np.conj(phase)
+    return plus, minus, d_plus, d_minus
+
+
 def scattering_amplitudes(omega, ell: int, inner: float = INNER_EDGE,
                           outer: float = OUTER_EDGE, steps: int = 40000
                           ) -> Tuple[np.ndarray, np.ndarray]:
@@ -257,8 +326,11 @@ def scattering_amplitudes(omega, ell: int, inner: float = INNER_EDGE,
         sin_over_k = np.sin(kh) / k
         psi, dpsi = (cos_kh * psi + sin_over_k * dpsi,
                      -(k * k) * sin_over_k * psi + cos_kh * dpsi)
-    incident = 0.5 * (psi - dpsi / (1j * w)) * np.exp(1j * w * outer)
-    reflected = 0.5 * (psi + dpsi / (1j * w)) * np.exp(-1j * w * outer)
+    x = np.real(w) * outer
+    plus, minus, d_plus, d_minus = outer_jost_solutions(ell, x)
+    psi_x = dpsi / np.real(w)                  # d/dx = (1/ω) d/dr*
+    incident = (psi * d_plus - psi_x * plus) / 2j
+    reflected = (psi_x * minus - psi * d_minus) / 2j
     return reflected / incident, 1.0 / incident
 
 
@@ -290,13 +362,20 @@ def transfer_kernel(times, ell: int = 1, omega_max: float = 40.0,
         A(ω) = −i c /(ω + i a)        →        −c e^{−at} θ(t)
 
     whose only pole is at ``ω = −ia``, in the lower half plane, so the
-    subtraction cannot itself introduce an acausal piece. ``S − A`` decays like
-    ``1/ω²`` and transforms cleanly.
+    subtraction cannot itself introduce an acausal piece.
+
+    The coefficient used is the **exact** ``c_ℓ = ½∫V dr*``, not a fit to the
+    computed spectrum. That distinction is not cosmetic: subtracting a fitted
+    ``c_fit ≠ c_exact`` leaves ``−i(c_exact − c_fit)/ω`` in the remainder, which
+    still decays only as ``1/ω``, so the whole purpose of the subtraction — a
+    remainder falling like ``1/ω²`` — would be silently forfeited. The fitted
+    value is retained, but as a *measurement against* the exact one; see
+    ``measure_the_high_frequency_tail_is_the_exact_one``.
     """
     omega, _, transmitted, spacing = transfer_spectrum(ell, omega_max, count)
     residual = transmitted - 1.0
-    fitted = float(np.mean((1j * omega * residual).real[-200:]))
-    analytic = -1j * fitted / (omega + 1j * decay)
+    exact = high_frequency_phase_constant(ell)
+    analytic = -1j * exact / (omega + 1j * decay)
     remainder = residual - analytic
 
     stamps = np.atleast_1d(np.asarray(times, dtype=float))
@@ -306,7 +385,7 @@ def transfer_kernel(times, ell: int = 1, omega_max: float = 40.0,
         out[start:start + 4000] = 2.0 * np.real(
             np.exp(-1j * np.outer(block, omega)) @ remainder)
     out *= spacing / (2.0 * np.pi)
-    out += np.where(stamps > 0.0, -fitted * np.exp(-decay * stamps), 0.0)
+    out += np.where(stamps > 0.0, -exact * np.exp(-decay * stamps), 0.0)
     return out
 
 
@@ -350,6 +429,147 @@ def measure_the_exact_background_anchors() -> Dict[str, object]:
             str(ell): high_frequency_phase_constant(ell) for ell in (0, 1, 2, 3)},
         "c_of_ell_1_is_exactly_nine_quarters": bool(
             abs(high_frequency_phase_constant(1) - 2.25) < 1e-15),
+    }
+
+
+def measure_only_ell_one_has_a_rational_peak(
+        limit: int = 400) -> Dict[str, object]:
+    """R0b — a **theorem**, not three spot checks.
+
+    With ``m = ℓ + 1`` the peak condition's discriminant is
+    ``(16m⁴ + 28m² + 73)/4``, so the peak is rational exactly when
+    ``16m⁴ + 28m² + 73`` is a perfect square. For ``m ≥ 4``,
+
+        (4m² + 3)²  <  16m⁴ + 28m² + 73  <  (4m² + 4)²
+
+    — the left inequality is ``4m² + 64 > 0`` and the right is ``4m² > 57``,
+    i.e. ``m ≥ 4``. Strictly between consecutive squares, so never square.
+    That leaves ``m = 1, 2, 3``, giving ``117``, ``441 = 21²``, ``1621``. Only
+    ``m = 2``, i.e. ``ℓ = 1``, survives.
+
+    An earlier draft asserted this from checking ``ℓ = 0, 2, 3``. It is provable,
+    and the bracketing step is verified here over a range rather than trusted.
+    """
+    def form(m: int) -> int:
+        return 16 * m ** 4 + 28 * m ** 2 + 73
+
+    small = {m: form(m) for m in (1, 2, 3)}
+    squares = {m: (v, int(round(math.isqrt(v))) ** 2 == v)
+               for m, v in small.items()}
+    bracket_holds = all(
+        (4 * m * m + 3) ** 2 < form(m) < (4 * m * m + 4) ** 2
+        for m in range(4, limit + 1))
+    # and no accidental square anywhere in range, as a belt-and-braces sweep
+    exhaustive = [m for m in range(1, limit + 1)
+                  if math.isqrt(form(m)) ** 2 == form(m)]
+    return {
+        "discriminant_numerator": "16 m^4 + 28 m^2 + 73,  m = l + 1",
+        "small_cases": {str(m): {"value": v, "is_square": squares[m][1]}
+                        for m, v in small.items()},
+        "bracketing_holds_for_m_at_least_four": bool(bracket_holds),
+        "bracketing_argument": (
+            "(4m^2+3)^2 < 16m^4+28m^2+73 < (4m^2+4)^2 for m >= 4: the left is "
+            "4m^2 + 64 > 0, the right is 4m^2 > 57. Strictly between "
+            "consecutive squares, hence never a square."),
+        "squares_found_in_range": exhaustive,
+        "only_m_equals_two": bool(exhaustive == [2]),
+        "therefore": (
+            "l = 1 is the ONLY non-negative integer l with a rational barrier "
+            "peak. This is a theorem, not an inference from spot checks."),
+    }
+
+
+def measure_the_high_frequency_tail_is_the_exact_one(
+        ell: int = 1) -> Dict[str, object]:
+    """R1b — the fitted ``c`` as a *measurement against* the exact one.
+
+    ``transfer_kernel`` subtracts the exact ``c_ℓ = ½∫V dr*``. Subtracting a
+    fitted coefficient instead would leave ``−i(c_exact − c_fit)/ω`` in the
+    remainder — still ``1/ω``, forfeiting the point of the subtraction. So the
+    fit is not used; it is compared, and the comparison is a check on the outer
+    boundary condition.
+    """
+    exact = high_frequency_phase_constant(ell)
+    rows = []
+    for outer in (150.0, 300.0, 600.0):
+        steps = int((outer + 50.0) / 0.005)
+        omega = (np.arange(1024) + 0.5) * (40.0 / 1024)
+        _, transmitted = scattering_amplitudes(
+            omega, ell, outer=outer, steps=steps)
+        fitted = float(np.mean((1j * omega * (transmitted - 1.0)).real[-100:]))
+        rows.append({"outer_edge": outer, "fitted": fitted,
+                     "exact": exact, "deficit": exact - fitted,
+                     "relative_error": abs(exact - fitted) / exact})
+    spread = max(r["fitted"] for r in rows) - min(r["fitted"] for r in rows)
+    return {
+        "exact": exact,
+        "rows": rows,
+        "spread_across_outer_edges": spread,
+        "independent_of_the_outer_edge": bool(spread < 1e-4),
+        "worst_relative_error": max(r["relative_error"] for r in rows),
+        "agrees_with_the_exact_value": bool(
+            max(r["relative_error"] for r in rows) < 2e-3),
+        "why_the_exact_value_is_the_one_subtracted": (
+            "If T - 1 = -i c_exact/w + O(w^-2) and a fitted c_fit != c_exact is "
+            "subtracted, the remainder retains -i(c_exact - c_fit)/w and still "
+            "falls only as 1/w. The subtraction exists to make the remainder "
+            "O(1/w^2); using a fit would quietly defeat it."),
+        "the_residual_gap_is_the_outer_boundary_condition": (
+            "The fitted value sits ~0.05% below the exact one, uniformly in the "
+            "outer edge. That is the 1/r^4 and 1/r^6 part of V, which the "
+            "centrifugal Jost condition does not capture -- a known, bounded, "
+            "edge-independent shortfall rather than a truncation drift."),
+    }
+
+
+def measure_the_low_frequency_outer_matching_is_converged(
+        ell: int = 1) -> Dict[str, object]:
+    """R1c — the low-``ω`` end, where plane-wave matching is simply wrong.
+
+    At ``ω ≈ 0.005`` the outer turning scale is ``√L/ω ≈ 400`` and
+    ``V(r*=150) ≈ 1.7e-4`` still exceeds ``ω² ≈ 2.4e-5``: the first bin of the
+    kernel grid is *inside* the centrifugal tail. Matching it to free plane
+    waves there assumes the opposite. Since that bin sets the DC end of the
+    transform, it is the bin the ``−1`` sum rule depends on most.
+
+    With the Jost condition the low-``ω`` spectrum is independent of the outer
+    edge; with plane waves it drifts. That is the check, run at the frequency
+    where it matters rather than at a convenient one.
+    """
+    omega = np.array([40.0 / (2 * 4096), 0.02, 0.1])
+    turning = [math.sqrt((ell + 1) ** 2 - 0.25) / w for w in omega]
+    v_edge = float(potential(radius_of_tortoise(OUTER_EDGE), ell))
+    rows = []
+    for outer in (150.0, 300.0, 600.0):
+        steps = int((outer + 50.0) / 0.005)
+        _, transmitted = scattering_amplitudes(
+            omega, ell, outer=outer, steps=steps)
+        rows.append({"outer_edge": outer,
+                     "transmission_modulus": [float(abs(t)) for t in transmitted]})
+    spreads = [max(r["transmission_modulus"][i] for r in rows)
+               - min(r["transmission_modulus"][i] for r in rows)
+               for i in range(len(omega))]
+    relative = [s / max(r["transmission_modulus"][i] for r in rows)
+                for i, s in enumerate(spreads)]
+    return {
+        "omega": [float(w) for w in omega],
+        "outer_turning_scale": turning,
+        "potential_at_the_outer_edge": v_edge,
+        "omega_squared_at_the_lowest_bin": float(omega[0] ** 2),
+        "the_lowest_bin_is_inside_the_centrifugal_tail": bool(
+            v_edge > omega[0] ** 2),
+        "rows": rows,
+        "relative_spread_across_outer_edges": relative,
+        "converged_in_the_outer_edge": bool(max(relative) < 1e-3),
+        "why_this_bin_matters": (
+            "It sets the DC end of the inverse transform, and therefore the "
+            "numerical realisation of the int K_reg dt = -1 sum rule."),
+        "what_changed": (
+            "Replacing plane-wave matching with the exact centrifugal Jost "
+            "solutions moved T(w -> 0) from 1.73e-06 to 4.10e-07 -- a factor of "
+            "four closer to its exact value of zero -- and made the low-w "
+            "spectrum independent of the outer edge instead of drifting with "
+            "it."),
     }
 
 
@@ -491,24 +711,36 @@ def measure_the_kernel_against_the_time_domain_evolution(
     """R4 — the independent check: ``K ⋆ g`` against a characteristic evolution.
 
     Deep inside, the transmitted wave as a function of ``v = t + r*`` is exactly
-    the convolution of the incident profile with the kernel. The time-domain
-    evolution of PR #274 shares no code with the transfer matrix, so agreement
+    the convolution of the incident profile with the kernel. PR #274's
+    time-domain evolution shares no code with the transfer matrix, so agreement
     is a real cross-validation.
 
-    **The launch radius is the whole subtlety.** The incident amplitude is only
-    defined where ``V ≈ 0``. On the ``u = 0`` line the pulse sits at
-    ``r* = v_c/2``, so PR #274's ``v_c = 12`` launches at ``r* = 6``, where
-    ``V ≈ 0.1`` — inside the barrier's reach. That is harmless for extracting a
-    quasinormal frequency (a ringdown does not care how it was excited) and
-    fatal for defining a transmission ratio. Moving the launch out fixes it, and
-    the error tracks ``V`` at the launch point.
+    **The launch radius is the whole subtlety, and it is now quantified.** The
+    incident amplitude is only defined where the wave is free. On the ``u = 0``
+    line the pulse sits at ``r* = v_c/2``, and the phase it has *not yet*
+    accumulated is set by the potential remaining beyond that point, which is
+    known exactly:
+
+        ∫_{r*_launch}^∞ V dr*  ≈  L / r*_launch
+
+    The residual disagreement tracks that quantity — halving as the launch
+    radius doubles — which is what identifies it as placement rather than a
+    disagreement between methods.
+
+    *An earlier draft reported ``0.92 %`` at ``r* = 100`` while matching the
+    outer boundary to plane waves. That number was flattered by cancellation:
+    the plane-wave outer condition carried an error of its own, in the opposite
+    direction. With the Jost condition both errors are attributed correctly, the
+    same launch gives ``2.73 %``, and the series converges cleanly.*
     """
     omega, _, transmitted, spacing = transfer_spectrum(ell)
     rows = []
-    for centre in (12.0, 60.0, 200.0):
+    for centre, step, horizon in ((200.0, 0.05, 500.0),
+                                  (400.0, 0.10, 900.0),
+                                  (800.0, 0.10, 1500.0)):
         launch = 0.5 * centre
         times, signal = characteristic_evolution(
-            ell, step=0.05, t_max=500.0, observer_rstar=-30.0,
+            ell, step=step, t_max=horizon, observer_rstar=-30.0,
             pulse_centre=centre, pulse_width=width)
         v = times - 30.0
         mask = (v > centre - 40.0) & (v < centre + 50.0)
@@ -525,28 +757,37 @@ def measure_the_kernel_against_the_time_domain_evolution(
         rows.append({
             "pulse_centre": centre,
             "launch_r_star": launch,
-            "potential_at_launch": float(
-                potential(radius_of_tortoise(launch), ell)),
+            "potential_beyond_the_launch_point": (
+                ((ell + 1) ** 2 - 0.25) / launch),
             "peak_relative_max_difference": float(
                 np.max(np.abs(measured - predicted)) / peak),
             "peak_relative_rms_difference": float(
                 math.sqrt(float(np.mean((measured - predicted) ** 2))) / peak),
         })
     best = min(rows, key=lambda r: r["peak_relative_max_difference"])
+    ratios = [a["peak_relative_max_difference"] / b["peak_relative_max_difference"]
+              for a, b in zip(rows[:-1], rows[1:])]
     return {
         "rows": rows,
         "best": best,
+        "successive_ratios": ratios,
         "the_two_methods_agree": bool(
-            best["peak_relative_max_difference"] < 0.02),
-        "the_error_tracks_the_potential_at_launch": bool(
-            all(a["peak_relative_max_difference"] > b["peak_relative_max_difference"]
-                for a, b in zip(rows[:-1], rows[1:]))),
+            best["peak_relative_max_difference"] < 0.01),
+        "the_residual_halves_as_the_launch_radius_doubles": bool(
+            all(1.7 < r < 2.3 for r in ratios)),
         "what_this_exposed": (
-            "PR #274's pulse was launched at r* = 6, where V ~ 0.1. That is "
-            "fine for a quasinormal frequency and wrong for an incident "
-            "amplitude, and it shows up here as a 43% mismatch that falls to "
-            "0.92% once the launch moves to r* = 100. The transfer kernel needs "
-            "an asymptotic launch; the ringdown did not."),
+            "The incident amplitude is only defined where the wave is free, and "
+            "the residual tracks the exactly-known potential remaining beyond "
+            "the launch point. PR #274 launched at r* = 6, where V ~ 0.1 -- "
+            "harmless for a quasinormal frequency, since a ringdown does not "
+            "care how it was excited, and fatal for a transmission ratio."),
+        "an_earlier_number_was_flattered_by_cancellation": (
+            "With plane-wave outer matching this check read 0.92% at r* = 100. "
+            "That was two errors partly cancelling: the plane-wave outer "
+            "condition carried its own error in the opposite direction. Under "
+            "the correct Jost condition the same launch reads 2.73%, and the "
+            "series converges as 1/r*_launch. The larger number is the honest "
+            "one."),
     }
 
 

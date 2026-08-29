@@ -1,8 +1,8 @@
 # The retarded outer→inner transfer kernel on the `D = 5` background
 
 *Module `geometrodynamics/tangherlini/transfer_kernel.py`, probe
-`experiments/closure_ledger/transfer_kernel_probe.py` (8/8), tests
-`tests/test_transfer_kernel.py` (27/27).*
+`experiments/closure_ledger/transfer_kernel_probe.py` (11/11), tests
+`tests/test_transfer_kernel.py` (35/35).*
 
 ---
 
@@ -31,8 +31,8 @@ K_ℓ(t) = δ(t) + K_ℓ^reg(t)
 | quantity | measured | meaning |
 |--|--|--|
 | `∫K_reg dt` | `−0.997757` | exact value **`−1`**, a sum rule, not a fit |
-| `∫\|K_reg\| dt` | `2.0233` | against the `δ`'s weight of `1` |
-| `T(ω→0)` | `1.73e-06` | the barrier blocks DC completely |
+| `∫\|K_reg\| dt` | `2.0286` | against the `δ`'s weight of `1` |
+| `T(ω→0)` | `4.10e-07` | the barrier blocks DC completely |
 
 A rigid exchange kernel is `δ(t)`, possibly with a delay: whatever enters leaves
 undistorted, and a static signal passes perfectly. The real geometry **blocks a
@@ -75,16 +75,16 @@ computation rather than decorating it:
 
 | `ω` | `\|T\|` | `\|R\|` | `\|R\|²+\|T\|²−1` |
 |--|--|--|--|
-| `0.1` | `0.00079866` | `0.99999968` | `+1.3e-15` |
-| `0.7` | `0.19749584` | `0.98030373` | `+8.9e-15` |
-| `1.0` | `0.64441877` | `0.76467277` | `+3.0e-14` |
-| `1.5` | `0.98880091` | `0.14924063` | `−3.9e-13` |
-| `3.0` | `0.99999977` | `0.00068021` | `+1.1e-13` |
-| `30` | `1.00000000` | `0.00000005` | `+6.3e-13` |
+| `0.1` | `0.00079553` | `0.99999968` | `+1.1e-15` |
+| `0.7` | `0.19749250` | `0.98030440` | `+8.9e-15` |
+| `1.0` | `0.64441842` | `0.76467307` | `+3.0e-14` |
+| `1.5` | `0.98880233` | `0.14923117` | `−3.9e-13` |
+| `3.0` | `0.99999977` | `0.00068283` | `+1.1e-13` |
+| `30` | `1.00000000` | `0.00000000` | `+6.3e-13` |
 
 The solver is a piecewise-constant transfer matrix, vectorised over `ω` so the
 spatial loop is shared across all frequencies. It is second order in the step
-(`|T|` at `ω = 1`: `0.64442679 → 0.64442037 → 0.64441877`, differences `6.4e-6`,
+(`|T|` at `ω = 1`: `0.64442644 → 0.64442002 → 0.64441842`, differences `6.4e-6`,
 `1.6e-6`), and it agrees with an independent `solve_ivp` integration to `~1e-6`.
 
 ---
@@ -108,8 +108,20 @@ r² = 9/5 ,      V_max = 100/81       (exactly)
 | 2 | `1.893190` | `0.4541` | `2.476709048` |
 | 3 | `1.935691` | `0.4862` | `4.223427135` |
 
-`ℓ = 1` is the **only** one that is rational — `ℓ = 0, 2, 3` carry `√13`,
-`√1621`, `√57`. It is also the mode #270's two codes disagreed on. And the peak
+`ℓ = 1` is the **only** non-negative integer `ℓ` that is rational, and this is a
+**theorem** rather than an inference from three spot checks. With `m = ℓ+1` the
+discriminant is `(16m⁴ + 28m² + 73)/4`, so rationality asks when
+`16m⁴ + 28m² + 73` is a perfect square. For `m ≥ 4`,
+
+```
+(4m² + 3)²  <  16m⁴ + 28m² + 73  <  (4m² + 4)²
+```
+
+— the left inequality is `4m² + 64 > 0`, the right is `4m² > 57`, i.e. `m ≥ 4`.
+Strictly between consecutive squares, hence never square. That leaves
+`m = 1, 2, 3`, giving `117`, `441 = 21²`, `1621` — only `m = 2`. (The `1621` is
+the same surd that appears in the `ℓ = 2` row above.) It is also the mode #270's
+two codes disagreed on. And the peak
 radius increases toward `r² = 2`, the photon sphere PR #274 pinned exactly, which
 is the consistency bridge between the two rounds.
 
@@ -140,9 +152,12 @@ The leading eikonal phase through the barrier is `−(1/2ω)∫V dr*`, so
 T_ℓ(ω) → exp(−i c_ℓ/ω) ,    c_ℓ = (ℓ(ℓ+2) + 3/2)/2 ,    c₁ = 9/4  exactly
 ```
 
-Verified: the fitted constant converges to `9/4` as the outer edge recedes
-(`2.2365 → 2.2427 → 2.2458 → 2.2474` at `r*_out = 150, 300, 600, 1200`), with
-the deficit halving as `r*_out` doubles, exactly as `L/(2r*_out)` predicts.
+Verified below against the fitted asymptote of the computed spectrum, which
+agrees to `0.047%` and — with the Jost outer condition — is **independent of the
+outer edge**. (Under the earlier plane-wave matching it was not: it drifted
+`2.2365 → 2.2427 → 2.2458 → 2.2474` at `r*_out = 150, 300, 600, 1200`, the
+deficit halving as the edge doubled, exactly as the truncated `L/(2r*_out)`
+predicts. That drift is what the Jost condition removes.)
 
 **This is what makes the kernel computable at all.** `T − 1 ~ −i c/ω` decays too
 slowly to transform numerically. Knowing `c` exactly lets it be removed
@@ -155,6 +170,66 @@ A(ω) = −i c/(ω + ia)      →      −c e^{−at} θ(t)
 whose only pole is at `ω = −ia`, in the lower half plane, so the subtraction
 cannot itself introduce an acausal piece. The remainder decays like `1/ω²` and
 transforms cleanly.
+
+**The exact `c` is what gets subtracted, not a fit.** This is not cosmetic. If
+`T − 1 = −i c_exact/ω + O(ω⁻²)` and a fitted `c_fit ≠ c_exact` is subtracted, the
+remainder retains
+
+```
+−i(c_exact − c_fit)/ω
+```
+
+and still falls only as `1/ω` — the entire purpose of the subtraction would be
+silently forfeited. An earlier draft did exactly that. The fitted value is now
+kept as a *measurement against* the exact one:
+
+| outer edge | fitted `c` | exact | deficit |
+|--|--|--|--|
+| `150` | `2.248945` | `2.25` | `+0.001055` |
+| `300` | `2.248945` | `2.25` | `+0.001055` |
+| `600` | `2.248945` | `2.25` | `+0.001055` |
+
+Spread across outer edges `4.4e-07` — **edge-independent**. The uniform `0.047%`
+shortfall is the `1/r⁴` and `1/r⁶` part of `V`, which the centrifugal boundary
+condition does not capture: a known, bounded, edge-independent gap rather than a
+truncation drift.
+
+---
+
+## The outer boundary condition is not plane waves
+
+Matching to free `e^{±iωr*}` at a finite outer edge assumes `ωr* ≫ ν`. At the
+low-frequency end of a kernel grid that is badly false, and it is the **worst**
+place to be sloppy: the lowest bin sets the DC end of the inverse transform, and
+therefore the numerical realisation of the `−1` sum rule.
+
+At `ω = 40/(2·4096) ≈ 0.00488`:
+
+| quantity | value |
+|--|--|
+| outer turning scale `√L/ω` | `396.6` |
+| `V` at `r* = 150` | `1.67e-04` |
+| `ω²` | `2.38e-05` |
+
+`V` at the edge still **exceeds** `ω²` — that bin sits inside the centrifugal
+tail, where plane waves are simply the wrong basis.
+
+The fix is the exact solutions of the tail. Asymptotically the `r*` equation is
+`ψ'' + (ω² − L/r*²)ψ = 0` with `L = ν² − ¼`, `ν = ℓ+1`, whose exact solutions are
+`√x H^{(1,2)}_ν(x)`, `x = ωr*`. Normalised by `e^{±i(νπ/2 + π/4)}` they reduce to
+`e^{±ix}`, so the high-frequency convention is untouched and only the
+low-frequency matching moves. Their Wronskian is exactly `−2i`, which the tests
+check rather than assume.
+
+| outer edge | `\|T\|` at `ω=0.00488` | `ω=0.02` | `ω=0.1` |
+|--|--|--|--|
+| `150` | `4.099913e-07` | `1.393649e-05` | `7.955278e-04` |
+| `300` | `4.100095e-07` | `1.393644e-05` | `7.955282e-04` |
+| `600` | `4.100145e-07` | `1.393644e-05` | `7.955282e-04` |
+
+Relative spread across outer edges `5.6e-05`, `3.6e-06`, `4.3e-07` — **converged**,
+where plane-wave matching drifted. And `T(ω→0)` fell from `1.73e-06` to
+`4.10e-07`, four times closer to its exact value of zero.
 
 ---
 
@@ -204,22 +279,34 @@ extracted from the same machinery would not be a check.
 
 Deep inside, the transmitted wave as a function of `v = t + r*` is exactly
 `K ⋆ g`. PR #274's time-domain characteristic evolution shares no code with the
-transfer matrix, so this is real cross-validation — and it exposed a subtlety.
+transfer matrix, so this is real cross-validation — and it exposed a subtlety
+about where the pulse may be launched.
 
-| pulse centre | launch `r*` | `V` at launch | max diff | rms diff |
-|--|--|--|--|--|
-| `12` | `6` | `9.76e-02` | `43.11%` | `10.17%` |
-| `60` | `30` | `4.16e-03` | `7.26%` | `1.35%` |
-| `200` | `100` | `3.75e-04` | **`0.92%`** | **`0.17%`** |
+The incident amplitude is only defined where the wave is free, and the phase it
+has *not yet* accumulated is set by the potential remaining beyond the launch
+point — which is known exactly, `∫_{r*}^∞ V dr* ≈ L/r*`:
 
-The first row is not a solver disagreement. **The incident amplitude is only
-defined where `V ≈ 0`**, and on the `u = 0` line the pulse sits at `r* = v_c/2`
-— so PR #274's `v_c = 12` launches at `r* = 6`, *inside* the barrier's reach.
+| launch `r*` | `∫V` beyond launch | max diff | rms diff |
+|--|--|--|--|
+| `100` | `0.0375` | `2.73%` | `0.50%` |
+| `200` | `0.0187` | `1.40%` | `0.25%` |
+| `400` | `0.0094` | **`0.73%`** | **`0.13%`** |
 
-That is harmless for extracting a quasinormal frequency, because a ringdown does
-not care how it was excited, and fatal for defining a transmission ratio. The
-error tracks `V` at the launch point, which is what identifies it as a placement
-effect rather than a discrepancy between methods.
+Successive ratios `1.94`, `1.93` — the residual **halves as the launch radius
+doubles**, exactly as `L/r*_launch` predicts. That is what identifies it as
+placement rather than a disagreement between methods.
+
+PR #274 launched at `r* = 6`, where `V ≈ 0.1`. That is harmless for extracting a
+quasinormal frequency, because a ringdown does not care how it was excited, and
+fatal for defining a transmission ratio.
+
+> **An earlier number here was flattered by cancellation.** With plane-wave outer
+> matching this check read `0.92%` at `r* = 100`. That was two errors partly
+> cancelling — the plane-wave outer condition carried its own error in the
+> opposite direction. Under the correct Jost condition the same launch reads
+> `2.73%`, and the series converges cleanly as `1/r*_launch`. **The larger number
+> is the honest one**, and the convergence is worth more than the smaller
+> number was.
 
 ---
 

@@ -28,16 +28,24 @@ def test_the_barrier_peak_at_ell_one_is_exactly_one_hundred_over_eighty_one():
 
 
 def test_only_ell_one_has_a_rational_barrier_peak():
-    """`ℓ = 0, 2, 3` carry `√13`, `√1621`, `√57`. Checked by irrationality of
-    the discriminant, not by eyeballing decimals."""
-    for ell in (0, 2, 3):
-        limit = (ell + 1) ** 2 - 0.25
-        discriminant = 4.0 * (2.25 - limit) ** 2 + 27.0 * limit
-        root = math.sqrt(discriminant)
-        assert abs(root - round(root)) > 1e-6, f"l={ell} unexpectedly rational"
-    limit = 3.75
-    discriminant = 4.0 * (2.25 - limit) ** 2 + 27.0 * limit
-    assert math.sqrt(discriminant) == pytest.approx(10.5, abs=1e-12)
+    """A theorem, not spot checks: `16m⁴+28m²+73` is square only at `m = 2`."""
+    result = tk.measure_only_ell_one_has_a_rational_peak()
+    assert result["only_m_equals_two"]
+    assert result["squares_found_in_range"] == [2]
+    assert result["bracketing_holds_for_m_at_least_four"]
+    assert result["small_cases"]["2"]["value"] == 441      # = 21^2
+    assert not result["small_cases"]["1"]["is_square"]
+    assert not result["small_cases"]["3"]["is_square"]
+
+
+def test_the_bracketing_step_of_the_theorem_is_tight():
+    """`(4m²+3)² < 16m⁴+28m²+73 < (4m²+4)²` needs `4m² > 57`, i.e. `m ≥ 4` —
+    and must genuinely fail at `m = 3`, or the proof would prove too much."""
+    def form(m):
+        return 16 * m ** 4 + 28 * m ** 2 + 73
+    assert not form(3) < (4 * 9 + 4) ** 2, "the bound must fail at m = 3"
+    for m in (4, 5, 10, 100):
+        assert (4 * m * m + 3) ** 2 < form(m) < (4 * m * m + 4) ** 2
 
 
 def test_the_barrier_peak_approaches_the_photon_sphere():
@@ -161,22 +169,12 @@ def test_the_kernel_convolution_reproduces_the_time_domain_evolution():
     assert result["best"]["peak_relative_rms_difference"] < 0.005
 
 
-def test_the_agreement_improves_as_the_pulse_is_launched_further_out():
-    """The residual tracks `V` at the launch point — which is what identifies
-    it as a launch-placement effect rather than a solver disagreement."""
-    result = tk.measure_the_kernel_against_the_time_domain_evolution()
-    assert result["the_error_tracks_the_potential_at_launch"]
-    rows = result["rows"]
-    assert rows[0]["potential_at_launch"] > rows[-1]["potential_at_launch"]
-    assert rows[0]["peak_relative_max_difference"] > 10 * \
-        rows[-1]["peak_relative_max_difference"]
-
-
 def test_pr_274s_launch_radius_is_recorded_as_inadequate_here_only():
     """It was fine for a quasinormal frequency and wrong for an amplitude."""
     note = tk.measure_the_kernel_against_the_time_domain_evolution()[
         "what_this_exposed"]
-    assert "ringdown did not" in note
+    assert "harmless for a quasinormal frequency" in note
+    assert "fatal for a transmission ratio" in note
 
 
 # ── the verdict ─────────────────────────────────────────────────────────────
@@ -222,3 +220,67 @@ def test_the_probe_module_imports_and_declares_its_checks():
     from experiments.closure_ledger import transfer_kernel_probe as probe
     assert callable(probe.run_probe)
     assert callable(probe.render_markdown)
+
+
+# ── the two review patches ──────────────────────────────────────────────────
+
+def test_the_outer_jost_solutions_have_the_exact_wronskian():
+    """`h₊h₋′ − h₋h₊′ = −2i` exactly, at every radius. Checked, not assumed."""
+    for x in (0.5, 5.0, 50.0, 500.0):
+        plus, minus, d_plus, d_minus = tk.outer_jost_solutions(1, np.array([x]))
+        wronskian = (plus * d_minus - minus * d_plus)[0]
+        assert wronskian == pytest.approx(-2j, abs=1e-10)
+
+
+def test_the_jost_solutions_reduce_to_plane_waves_at_large_argument():
+    """Normalised so the high-frequency convention is untouched."""
+    for x in (200.0, 2000.0):
+        plus, minus, _, _ = tk.outer_jost_solutions(1, np.array([x]))
+        assert plus[0] / np.exp(1j * x) == pytest.approx(1.0, abs=2e-2)
+        assert minus[0] / np.exp(-1j * x) == pytest.approx(1.0, abs=2e-2)
+
+
+def test_the_subtracted_coefficient_is_the_exact_one_not_a_fit():
+    """A fitted `c` would leave `−i(c_exact−c_fit)/ω`, still `1/ω`."""
+    result = tk.measure_the_high_frequency_tail_is_the_exact_one()
+    assert result["exact"] == pytest.approx(2.25, abs=1e-15)
+    assert result["agrees_with_the_exact_value"]
+    assert "still falls only as 1/w" in result[
+        "why_the_exact_value_is_the_one_subtracted"]
+
+
+def test_the_fitted_coefficient_is_independent_of_the_outer_edge():
+    """Edge-independence is what distinguishes a bounded shortfall from a
+    truncation drift — the plane-wave version drifted."""
+    result = tk.measure_the_high_frequency_tail_is_the_exact_one()
+    assert result["independent_of_the_outer_edge"]
+    assert result["spread_across_outer_edges"] < 1e-4
+
+
+def test_the_lowest_frequency_bin_is_inside_the_centrifugal_tail():
+    """Which is why plane-wave matching is the wrong basis there."""
+    result = tk.measure_the_low_frequency_outer_matching_is_converged()
+    assert result["the_lowest_bin_is_inside_the_centrifugal_tail"]
+    assert result["outer_turning_scale"][0] > 2.0 * tk.OUTER_EDGE
+
+
+def test_the_low_frequency_spectrum_is_converged_in_the_outer_edge():
+    result = tk.measure_the_low_frequency_outer_matching_is_converged()
+    assert result["converged_in_the_outer_edge"]
+    assert max(result["relative_spread_across_outer_edges"]) < 1e-3
+
+
+def test_the_cross_check_residual_halves_with_the_launch_radius():
+    """Tracking the exactly-known `L/r*_launch` is what identifies the residual
+    as launch placement rather than a disagreement between methods."""
+    result = tk.measure_the_kernel_against_the_time_domain_evolution()
+    assert result["the_residual_halves_as_the_launch_radius_doubles"]
+    assert all(1.7 < r < 2.3 for r in result["successive_ratios"])
+
+
+def test_the_earlier_cross_check_number_is_recorded_as_flattered():
+    """`0.92%` was two errors partly cancelling; `2.73%` is the honest one."""
+    note = tk.measure_the_kernel_against_the_time_domain_evolution()[
+        "an_earlier_number_was_flattered_by_cancellation"]
+    assert "0.92%" in note and "2.73%" in note
+    assert "larger number is the honest one" in note

@@ -4206,8 +4206,8 @@ frequency, `K_ℓ(t) = δ(t) + K_ℓ^reg(t)` — an instantaneous part plus memo
 | quantity | measured | meaning |
 |--|--|--|
 | `∫K_reg dt` | `−0.997757` | exact value **`−1`**, a sum rule, not a fit |
-| `∫\|K_reg\| dt` | `2.0233` | against the `δ`'s weight of `1` |
-| `T(ω→0)` | `1.73e-06` | the barrier blocks DC completely |
+| `∫\|K_reg\| dt` | `2.0286` | against the `δ`'s weight of `1` |
+| `T(ω→0)` | `4.10e-07` | the barrier blocks DC completely |
 
 A rigid exchange kernel is `δ(t)`, possibly delayed: whatever enters leaves
 undistorted and a static signal passes perfectly. The real geometry **blocks a
@@ -4227,18 +4227,34 @@ have unit modulus, and nothing dominates anything. This is a different, well-pos
 problem, not a repair of the failed one. The evidence is unitarity, imposed
 nowhere: **`|R|² + |T|² − 1` ≲ `6.3e-13`**.
 
+**The outer boundary condition is not plane waves.** Matching to free `e^{±iωr*}`
+at a finite edge assumes `ωr* ≫ ν`, and at the low-frequency end of a kernel grid
+that is badly false — at `ω ≈ 0.005` the outer turning scale is `√L/ω ≈ 397` and
+`V` at the edge (`1.7e-4`) still exceeds `ω²` (`2.4e-5`). That bin sets the DC end
+of the transform and hence the numerical realisation of the `−1` sum rule, so it
+is the worst place to be sloppy. Using the exact centrifugal solutions
+`√x H^{(1,2)}_ν(x)` (normalised to `e^{±ix}`, Wronskian exactly `−2i`) makes the
+low-`ω` spectrum **independent of the outer edge** — relative spread `5.6e-5`
+across `r*_out = 150, 300, 600`, where plane waves drifted — and moves `T(ω→0)`
+from `1.73e-06` to `4.10e-07`, four times closer to its exact zero.
+
 **Three exact anchors, derived not recalled.** In `x = 1/r²` the potential is a
 cubic, so the barrier peak solves a quadratic; at `ℓ = 1` the discriminant is a
-perfect square and **`r² = 9/5`, `V_max = 100/81` exactly** — the only `ℓ` that is
-rational (`ℓ = 0, 2, 3` carry `√13`, `√1621`, `√57`), and the mode #270's codes
-disagreed on. The peak radius climbs toward `r² = 2`, the photon sphere #274
+perfect square and **`r² = 9/5`, `V_max = 100/81` exactly** — the only non-negative
+integer `ℓ` that is rational, which is a **theorem**: with `m = ℓ+1` the
+discriminant is `(16m⁴+28m²+73)/4`, and for `m ≥ 4` that numerator lies strictly
+between `(4m²+3)²` and `(4m²+4)²`, leaving only `m = 1, 2, 3` → `117`, `441 = 21²`,
+`1621`. It is also the mode #270's codes disagreed on. The peak radius climbs toward `r² = 2`, the photon sphere #274
 pinned. Since `dr* = dr/f` cancels the `f` in `V`, **`∫V dr* = ℓ(ℓ+2) + 3/2`
 exactly**; the truncated quadrature's deficit matches the predicted tail
 `L/r*_out` in every row. Hence the kernel's high-frequency phase is closed-form,
 `T_ℓ(ω) → exp(−i c_ℓ/ω)` with **`c₁ = 9/4` exactly** — which is what makes the
 kernel computable, since `T − 1 ~ −ic/ω` decays too slowly to transform
 numerically and knowing `c` lets it be removed analytically instead of windowed
-away.
+away. The **exact** value is what gets subtracted: a fitted `c_fit ≠ c_exact`
+would leave `−i(c_exact − c_fit)/ω`, still `1/ω`, silently defeating the
+subtraction. The fit is kept as a *measurement against* the exact value and
+agrees to `0.047%`, uniformly in the outer edge.
 
 **Three gates, all measured.** Causal support `K(t < 0) = 0` to `~9e-7` away from
 the front; flux conservation to `6.3e-13`; and the kernel's own ringdown fitted
@@ -4247,12 +4263,16 @@ against the **external** published value — real part `0.062%`–`1.17%`, dampi
 row, per #274's lesson.
 
 **An independent method reproduces it.** Convolving `K` with the incident profile
-against #274's time-domain characteristic evolution, which shares no code: **`0.92%`
-peak, `0.17%` rms**. That check also exposed a subtlety — #274's pulse launches at
-`r* = 6`, where `V ≈ 0.1`, *inside* the barrier's reach. Harmless for a
-quasinormal frequency (a ringdown does not care how it was excited) and fatal for
-a transmission ratio: the mismatch runs `43% → 7.3% → 0.92%` as the launch moves
-out, tracking `V` at the launch point.
+against #274's time-domain characteristic evolution, which shares no code:
+**`0.73%` peak, `0.13%` rms** at launch radius `r* = 400`. The residual tracks the
+*exactly known* potential remaining beyond the launch point, `∫V ≈ L/r*`, halving
+as the launch radius doubles (`2.73% → 1.40% → 0.73%`, ratios `1.94`, `1.93`) —
+which is what identifies it as placement rather than a method disagreement. #274's
+pulse launches at `r* = 6` where `V ≈ 0.1`: harmless for a quasinormal frequency,
+fatal for a transmission ratio. *An earlier draft of this round reported `0.92%`
+here; that was two errors partly cancelling, since the plane-wave outer condition
+carried its own error in the opposite direction. The larger, converging number is
+the honest one.*
 
 **What the causality gate caught.** Two artefacts, both at exactly the amplitude
 of the physics being sought, neither visible from `t > 0` alone: a missing DC cell

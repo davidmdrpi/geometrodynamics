@@ -15,7 +15,10 @@ sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from geometrodynamics.tangherlini.transfer_kernel import (  # noqa: E402
+    measure_only_ell_one_has_a_rational_peak,
     measure_the_exact_background_anchors,
+    measure_the_high_frequency_tail_is_the_exact_one,
+    measure_the_low_frequency_outer_matching_is_converged,
     measure_the_kernel_against_the_time_domain_evolution,
     measure_the_kernel_is_causal,
     measure_the_kernel_reproduces_the_published_ringdown,
@@ -36,6 +39,26 @@ def run_probe() -> dict:
         "pass": bool(anchors["ell_1_peak_is_exactly_100_over_81"]
                      and anchors["ell_1_peak_radius_squared_is_exactly_9_over_5"]
                      and anchors["c_of_ell_1_is_exactly_nine_quarters"])})
+
+    theorem = measure_only_ell_one_has_a_rational_peak()
+    checks.append({
+        "id": "K0b",
+        "name": "only l = 1 has a rational barrier peak - proved, not checked",
+        "detail": theorem, "pass": bool(theorem["only_m_equals_two"]
+                                        and theorem["bracketing_holds_for_m_at_least_four"])})
+
+    tail = measure_the_high_frequency_tail_is_the_exact_one()
+    checks.append({
+        "id": "K1b",
+        "name": "the subtracted high-frequency coefficient is the exact one",
+        "detail": tail, "pass": bool(tail["agrees_with_the_exact_value"]
+                                     and tail["independent_of_the_outer_edge"])})
+
+    low = measure_the_low_frequency_outer_matching_is_converged()
+    checks.append({
+        "id": "K1c",
+        "name": "the low-frequency outer matching is converged (Jost, not plane)",
+        "detail": low, "pass": bool(low["converged_in_the_outer_edge"])})
 
     conditioning = measure_the_scattering_is_well_conditioned()
     checks.append({
@@ -166,6 +189,41 @@ def render_markdown(summary: dict) -> str:
           + ", ".join(f"`{d:.1e}`" for d in cond["successive_differences"])
           + ".", ""]
 
+    tail = detail("K1b")
+    L += ["### The subtracted coefficient is the exact one", "",
+          "`transfer_kernel` subtracts `c_ℓ = ½∫V dr*` **exactly**. A fitted "
+          "coefficient would leave `−i(c_exact − c_fit)/ω` in the remainder — "
+          "still `1/ω`, defeating the purpose of the subtraction. The fit is "
+          "kept as a *measurement against* the exact value:", "",
+          "| outer edge | fitted `c` | exact | deficit |", "|--|--|--|--|"]
+    for row in tail["rows"]:
+        L.append(f"| `{row['outer_edge']:g}` | `{row['fitted']:.6f}` | "
+                 f"`{row['exact']:.4f}` | `{row['deficit']:+.6f}` |")
+    L += ["",
+          f"Spread across outer edges `{tail['spread_across_outer_edges']:.1e}` — "
+          "**edge-independent**. " + tail["the_residual_gap_is_the_outer_boundary_condition"],
+          ""]
+
+    low = detail("K1c")
+    L += ["### The low-frequency outer matching", "",
+          f"At the lowest bin `ω = {low['omega'][0]:.5f}` the outer turning "
+          f"scale is `{low['outer_turning_scale'][0]:.0f}`, and `V` at the edge "
+          f"(`{low['potential_at_the_outer_edge']:.2e}`) still exceeds `ω²` "
+          f"(`{low['omega_squared_at_the_lowest_bin']:.2e}`) — that bin sits "
+          "**inside** the centrifugal tail, where free plane waves are simply "
+          "the wrong basis. " + low["why_this_bin_matters"], "",
+          "| outer edge | " + " | ".join("`|T|` at `w=" + f"{w:.5g}`"
+                                         for w in low["omega"]) + " |",
+          "|--|" + "--|" * len(low["omega"])]
+    for row in low["rows"]:
+        L.append(f"| `{row['outer_edge']:g} | "
+                 + " | ".join(f"`{t:.6e}`" for t in row["transmission_modulus"])
+                 + " |")
+    L += ["",
+          "Relative spread across outer edges: "
+          + ", ".join(f"`{x:.1e}`" for x in low["relative_spread_across_outer_edges"])
+          + ".", "", "> " + low["what_changed"], ""]
+
     causal = detail("K2")
     L += ["## K2 — GATE 1: causal support", "",
           "| `t` | `K_reg(t)` |", "|--|--|"]
@@ -204,16 +262,24 @@ def render_markdown(summary: dict) -> str:
     L += ["## K4 — an independent method reproduces the kernel", "",
           "Deep inside, the transmitted wave as a function of `v = t + r*` is "
           "exactly `K ⋆ g`. PR #274's characteristic evolution shares no code "
-          "with the transfer matrix, so this is real cross-validation — and it "
-          "exposed a subtlety about where the pulse may be launched.", "",
-          "| pulse centre | launch `r*` | `V` at launch | max diff | rms diff |",
-          "|--|--|--|--|--|"]
+          "with the transfer matrix. The residual tracks the **exactly known** "
+          "potential remaining beyond the launch point, `≈ L/r*_launch`, which "
+          "is what identifies it as placement rather than a method "
+          "disagreement.", "",
+          "| launch `r*` | `∫V` beyond launch | max diff | rms diff |",
+          "|--|--|--|--|"]
     for row in cross["rows"]:
-        L.append(f"| `{row['pulse_centre']:g}` | `{row['launch_r_star']:g}` | "
-                 f"`{row['potential_at_launch']:.2e}` | "
+        L.append(f"| `{row['launch_r_star']:g}` | "
+                 f"`{row['potential_beyond_the_launch_point']:.4f}` | "
                  f"`{100*row['peak_relative_max_difference']:.2f}%` | "
                  f"`{100*row['peak_relative_rms_difference']:.2f}%` |")
-    L += ["", "> " + cross["what_this_exposed"], ""]
+    L += ["",
+          "Successive ratios "
+          + ", ".join(f"`{r:.2f}`" for r in cross["successive_ratios"])
+          + " — the residual **halves as the launch radius doubles**, exactly "
+          "as `L/r*_launch` predicts.", "",
+          "> " + cross["what_this_exposed"], "",
+          "> " + cross["an_earlier_number_was_flattered_by_cancellation"], ""]
 
     caught = detail("K6")
     L += ["## K6 — what the causality gate caught", ""]

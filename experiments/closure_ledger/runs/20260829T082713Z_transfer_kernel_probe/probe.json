@@ -79,6 +79,126 @@
       "pass": true
     },
     {
+      "id": "K0b",
+      "name": "only l = 1 has a rational barrier peak - proved, not checked",
+      "detail": {
+        "discriminant_numerator": "16 m^4 + 28 m^2 + 73,  m = l + 1",
+        "small_cases": {
+          "1": {
+            "value": 117,
+            "is_square": false
+          },
+          "2": {
+            "value": 441,
+            "is_square": true
+          },
+          "3": {
+            "value": 1621,
+            "is_square": false
+          }
+        },
+        "bracketing_holds_for_m_at_least_four": true,
+        "bracketing_argument": "(4m^2+3)^2 < 16m^4+28m^2+73 < (4m^2+4)^2 for m >= 4: the left is 4m^2 + 64 > 0, the right is 4m^2 > 57. Strictly between consecutive squares, hence never a square.",
+        "squares_found_in_range": [
+          2
+        ],
+        "only_m_equals_two": true,
+        "therefore": "l = 1 is the ONLY non-negative integer l with a rational barrier peak. This is a theorem, not an inference from spot checks."
+      },
+      "pass": true
+    },
+    {
+      "id": "K1b",
+      "name": "the subtracted high-frequency coefficient is the exact one",
+      "detail": {
+        "exact": 2.25,
+        "rows": [
+          {
+            "outer_edge": 150.0,
+            "fitted": 2.2489451253912462,
+            "exact": 2.25,
+            "deficit": 0.001054874608753753,
+            "relative_error": 0.00046883315944611244
+          },
+          {
+            "outer_edge": 300.0,
+            "fitted": 2.2489447372038924,
+            "exact": 2.25,
+            "deficit": 0.00105526279610757,
+            "relative_error": 0.00046900568715892003
+          },
+          {
+            "outer_edge": 600.0,
+            "fitted": 2.248944688669334,
+            "exact": 2.25,
+            "deficit": 0.0010553113306661643,
+            "relative_error": 0.0004690272580738508
+          }
+        ],
+        "spread_across_outer_edges": 4.3672191241128644e-07,
+        "independent_of_the_outer_edge": true,
+        "worst_relative_error": 0.0004690272580738508,
+        "agrees_with_the_exact_value": true,
+        "why_the_exact_value_is_the_one_subtracted": "If T - 1 = -i c_exact/w + O(w^-2) and a fitted c_fit != c_exact is subtracted, the remainder retains -i(c_exact - c_fit)/w and still falls only as 1/w. The subtraction exists to make the remainder O(1/w^2); using a fit would quietly defeat it.",
+        "the_residual_gap_is_the_outer_boundary_condition": "The fitted value sits ~0.05% below the exact one, uniformly in the outer edge. That is the 1/r^4 and 1/r^6 part of V, which the centrifugal Jost condition does not capture -- a known, bounded, edge-independent shortfall rather than a truncation drift."
+      },
+      "pass": true
+    },
+    {
+      "id": "K1c",
+      "name": "the low-frequency outer matching is converged (Jost, not plane)",
+      "detail": {
+        "omega": [
+          0.0048828125,
+          0.02,
+          0.1
+        ],
+        "outer_turning_scale": [
+          396.5934946516395,
+          96.82458365518542,
+          19.364916731037084
+        ],
+        "potential_at_the_outer_edge": 0.000166648890644555,
+        "omega_squared_at_the_lowest_bin": 2.384185791015625e-05,
+        "the_lowest_bin_is_inside_the_centrifugal_tail": true,
+        "rows": [
+          {
+            "outer_edge": 150.0,
+            "transmission_modulus": [
+              4.099912974981789e-07,
+              1.3936492324580238e-05,
+              0.0007955278386845205
+            ]
+          },
+          {
+            "outer_edge": 300.0,
+            "transmission_modulus": [
+              4.100095160982963e-07,
+              1.3936442694277263e-05,
+              0.0007955281710733989
+            ]
+          },
+          {
+            "outer_edge": 600.0,
+            "transmission_modulus": [
+              4.100144577791324e-07,
+              1.3936444884034067e-05,
+              0.0007955281801189269
+            ]
+          }
+        ],
+        "relative_spread_across_outer_edges": [
+          5.6486498254029175e-05,
+          3.5611760706463134e-06,
+          4.2919209526045905e-07
+        ],
+        "converged_in_the_outer_edge": true,
+        "why_this_bin_matters": "It sets the DC end of the inverse transform, and therefore the numerical realisation of the int K_reg dt = -1 sum rule.",
+        "what_changed": "Replacing plane-wave matching with the exact centrifugal Jost solutions moved T(w -> 0) from 1.73e-06 to 4.10e-07 -- a factor of four closer to its exact value of zero -- and made the low-w spectrum independent of the outer edge instead of drifting with it."
+      },
+      "pass": true
+    },
+    {
       "id": "K1",
       "name": "the real-frequency scattering is well conditioned (unitarity)",
       "detail": {
@@ -93,57 +213,57 @@
           30.0
         ],
         "transmission_modulus": [
-          0.0007986582804703176,
-          0.014232763333693742,
-          0.19749583926258613,
-          0.6444187704385059,
-          0.9888009072633837,
-          0.9999997686539341,
-          0.9999999999996483,
-          1.0000000000003122
+          0.0007955278386845205,
+          0.014238075336563757,
+          0.19749249747509973,
+          0.6444184183962288,
+          0.9888023343809759,
+          0.999999766870308,
+          0.999999999999735,
+          1.0000000000003126
         ],
         "reflection_modulus": [
-          0.9999996810724252,
-          0.9998987090940188,
-          0.9803037251148113,
-          0.7646727720447187,
-          0.14924063050898045,
-          0.0006802148110623767,
-          4.166224610178348e-07,
-          4.629135907798504e-08
+          0.9999996835676794,
+          0.9998986334677675,
+          0.9803043983585183,
+          0.76467306872397,
+          0.14923117476700481,
+          0.0006828319268682735,
+          4.436820505567346e-11,
+          4.93941544987072e-12
         ],
         "unitarity_residual": [
-          1.3322676295501878e-15,
-          -1.887379141862766e-15,
+          1.1102230246251565e-15,
+          -1.6653345369377348e-15,
           8.881784197001252e-15,
-          2.9976021664879227e-14,
-          -3.913536161803677e-13,
+          3.019806626980426e-14,
+          -3.9246383920499284e-13,
           1.1102230246251565e-13,
-          -5.296874050486622e-13,
-          6.266098750984384e-13
+          -5.302425165609748e-13,
+          6.252776074688882e-13
         ],
-        "worst_unitarity_residual": 6.266098750984384e-13,
+        "worst_unitarity_residual": 6.252776074688882e-13,
         "unitarity_holds": true,
         "step_refinement": [
           {
             "steps": 10000,
-            "transmission_modulus": 0.6444267895796681,
-            "unitarity_residual": 3.2862601528904634e-14
+            "transmission_modulus": 0.6444264374639482,
+            "unitarity_residual": 3.26405569239796e-14
           },
           {
             "steps": 20000,
-            "transmission_modulus": 0.6444203742508025,
-            "unitarity_residual": 3.885780586188048e-14
+            "transmission_modulus": 0.644420022193836,
+            "unitarity_residual": 3.863576125695545e-14
           },
           {
             "steps": 40000,
-            "transmission_modulus": 0.6444187704385059,
-            "unitarity_residual": 3.019806626980426e-14
+            "transmission_modulus": 0.6444184183962288,
+            "unitarity_residual": 3.042011087472929e-14
           }
         ],
         "successive_differences": [
-          6.415328865694292e-06,
-          1.6038122965245094e-06
+          6.4152701122477396e-06,
+          1.6037976071636706e-06
         ],
         "second_order_in_the_step": true,
         "transmission_goes_to_zero_at_dc": true,
@@ -169,19 +289,19 @@
           -0.5
         ],
         "kernel_before_zero": [
-          1.6660483194567628e-07,
-          -3.189938688190191e-07,
-          4.672694358476734e-07,
-          -9.173116409408998e-07,
-          -2.132768288894863e-06,
-          5.131672225932556e-06,
-          8.258443587713968e-06,
-          2.7143466860300403e-05,
-          -3.404920570219787e-05,
-          -0.00010261431339525567
+          2.0250799387998963e-07,
+          -3.317625843932345e-07,
+          4.2717225681332184e-07,
+          -1.0295821853168948e-06,
+          -2.438964585372014e-06,
+          4.96147181773182e-06,
+          9.529030908284058e-06,
+          2.809278532196056e-05,
+          -4.1400224174148107e-05,
+          -0.00010046857193004973
         ],
-        "worst_acausal_value": 0.00010261431339525567,
-        "noise_floor_far_from_the_front": 9.173116409408998e-07,
+        "worst_acausal_value": 0.00010046857193004973,
+        "noise_floor_far_from_the_front": 1.0295821853168948e-06,
         "the_kernel_is_causal": true,
         "times_after_zero": [
           0.5,
@@ -199,19 +319,19 @@
           100.0
         ],
         "kernel_after_zero": [
-          -1.1675229934404778,
-          -0.4353965820065085,
-          0.22105984550521096,
-          0.22118285352239062,
-          -0.08350865162954241,
-          0.026380805242001114,
-          -0.00871947404768815,
-          0.0009891450743812749,
-          0.00018718317138311947,
-          -1.2665603419156423e-05,
-          7.171794321600594e-07,
-          2.3018865117039455e-07,
-          2.666770369429783e-07
+          -1.1695600055068622,
+          -0.43257695262605117,
+          0.22424042896929808,
+          0.2211687782151608,
+          -0.0846117841559544,
+          0.026764569611516038,
+          -0.008740895382490633,
+          0.0009720083073840056,
+          0.00019221183095695206,
+          -1.3242551209907819e-05,
+          7.920708126142961e-07,
+          7.660711075195152e-08,
+          3.465911395068412e-07
         ],
         "the_exact_zero_is_a_free_error_bar": "K(t) vanishes identically for t < 0, so whatever the computation returns there IS its noise floor -- no reference value needed. Any feature at t > 0 smaller than that floor is not measurable, which is how this round knows the late-time tail is out of reach."
       },
@@ -234,11 +354,11 @@
               14.0
             ],
             "omega": [
-              1.0279518734250177,
-              -0.37610416949722936
+              1.0281179998347645,
+              -0.3760653190700044
             ],
-            "real_relative_error": 0.011746814250872064,
-            "damping_relative_error": 0.03802119830767637
+            "real_relative_error": 0.011910321775075726,
+            "damping_relative_error": 0.03791397384622803
           },
           {
             "sample_spacing": 0.2,
@@ -247,11 +367,11 @@
               16.0
             ],
             "omega": [
-              1.026151286443339,
-              -0.3696137796057246
+              1.0263157289576381,
+              -0.3693794139176498
             ],
-            "real_relative_error": 0.00997461246828752,
-            "damping_relative_error": 0.020108176227464053
+            "real_relative_error": 0.010136462642668848,
+            "damping_relative_error": 0.019461343322891764
           },
           {
             "sample_spacing": 0.2,
@@ -260,11 +380,11 @@
               18.0
             ],
             "omega": [
-              1.023142679424378,
-              -0.36308872710966583
+              1.0232580359456378,
+              -0.36312251205157847
             ],
-            "real_relative_error": 0.007013434376725205,
-            "damping_relative_error": 0.00209948778342561
+            "real_relative_error": 0.0071269723699959485,
+            "damping_relative_error": 0.0021927318597563627
           },
           {
             "sample_spacing": 0.3,
@@ -273,11 +393,11 @@
               14.0
             ],
             "omega": [
-              1.0170282279533045,
-              -0.3638366353740053
+              1.017114715486012,
+              -0.3638244711079205
             ],
-            "real_relative_error": 0.0009953736516269587,
-            "damping_relative_error": 0.004163662274795024
+            "real_relative_error": 0.0010804977590404207,
+            "damping_relative_error": 0.004130089751324308
           },
           {
             "sample_spacing": 0.3,
@@ -286,11 +406,11 @@
               16.0
             ],
             "omega": [
-              1.0171485086948806,
-              -0.36141742730073073
+              1.0171676926372033,
+              -0.36139026916137684
             ],
-            "real_relative_error": 0.0011137582377651102,
-            "damping_relative_error": 0.0025131827772898402
+            "real_relative_error": 0.0011326397564738533,
+            "damping_relative_error": 0.0025881373421212154
           },
           {
             "sample_spacing": 0.3,
@@ -299,11 +419,11 @@
               18.0
             ],
             "omega": [
-              1.0153904977443569,
-              -0.3611237331709403
+              1.0153557808441613,
+              -0.36098448302062097
             ],
-            "real_relative_error": 0.0006165386998573208,
-            "damping_relative_error": 0.0033237580308120404
+            "real_relative_error": 0.000650708308456263,
+            "damping_relative_error": 0.00370807870476851
           },
           {
             "sample_spacing": 0.5,
@@ -312,11 +432,11 @@
               14.0
             ],
             "omega": [
-              1.0175863048394016,
-              -0.3631121403927625
+              1.0176151738002113,
+              -0.3632031569857943
             ],
-            "real_relative_error": 0.0015446527825015394,
-            "damping_relative_error": 0.002164106806949934
+            "real_relative_error": 0.0015730666410536896,
+            "damping_relative_error": 0.0024153062368606312
           },
           {
             "sample_spacing": 0.5,
@@ -325,11 +445,11 @@
               16.0
             ],
             "omega": [
-              1.016979135563406,
-              -0.36161090907482596
+              1.016873924244112,
+              -0.36144045556668714
             ],
-            "real_relative_error": 0.000947055174499849,
-            "damping_relative_error": 0.0019791866153608165
+            "real_relative_error": 0.0008435024500283936,
+            "damping_relative_error": 0.0024496263741397004
           },
           {
             "sample_spacing": 0.5,
@@ -338,20 +458,20 @@
               18.0
             ],
             "omega": [
-              1.0141913512247887,
-              -0.36274444984589177
+              1.0139525282743032,
+              -0.3625770551307497
             ],
-            "real_relative_error": 0.001796781376930131,
-            "damping_relative_error": 0.0011493066185356724
+            "real_relative_error": 0.0020318394234888825,
+            "damping_relative_error": 0.0006873089144570509
           }
         ],
         "real_part_band": {
-          "min": 0.0006165386998573208,
-          "max": 0.011746814250872064
+          "min": 0.000650708308456263,
+          "max": 0.011910321775075726
         },
         "damping_band": {
-          "min": 0.0011493066185356724,
-          "max": 0.03802119830767637
+          "min": 0.0006873089144570509,
+          "max": 0.03791397384622803
         },
         "every_fit_lands_on_the_fundamental_mode": true,
         "the_best_fit_is_sub_tenth_percent": true,
@@ -367,37 +487,42 @@
       "detail": {
         "rows": [
           {
-            "pulse_centre": 12.0,
-            "launch_r_star": 6.0,
-            "potential_at_launch": 0.09762718750390012,
-            "peak_relative_max_difference": 0.4310811377410806,
-            "peak_relative_rms_difference": 0.10171633488037098
-          },
-          {
-            "pulse_centre": 60.0,
-            "launch_r_star": 30.0,
-            "potential_at_launch": 0.004155582926522829,
-            "peak_relative_max_difference": 0.07263697586514635,
-            "peak_relative_rms_difference": 0.013460718662375597
-          },
-          {
             "pulse_centre": 200.0,
             "launch_r_star": 100.0,
-            "potential_at_launch": 0.00037491001999580086,
-            "peak_relative_max_difference": 0.00919263352667554,
-            "peak_relative_rms_difference": 0.0016871339225088466
+            "potential_beyond_the_launch_point": 0.0375,
+            "peak_relative_max_difference": 0.027256047476981654,
+            "peak_relative_rms_difference": 0.005019327739036313
+          },
+          {
+            "pulse_centre": 400.0,
+            "launch_r_star": 200.0,
+            "potential_beyond_the_launch_point": 0.01875,
+            "peak_relative_max_difference": 0.014037216321590605,
+            "peak_relative_rms_difference": 0.002546914466627842
+          },
+          {
+            "pulse_centre": 800.0,
+            "launch_r_star": 400.0,
+            "potential_beyond_the_launch_point": 0.009375,
+            "peak_relative_max_difference": 0.007280249249624464,
+            "peak_relative_rms_difference": 0.0013041683412546006
           }
         ],
         "best": {
-          "pulse_centre": 200.0,
-          "launch_r_star": 100.0,
-          "potential_at_launch": 0.00037491001999580086,
-          "peak_relative_max_difference": 0.00919263352667554,
-          "peak_relative_rms_difference": 0.0016871339225088466
+          "pulse_centre": 800.0,
+          "launch_r_star": 400.0,
+          "potential_beyond_the_launch_point": 0.009375,
+          "peak_relative_max_difference": 0.007280249249624464,
+          "peak_relative_rms_difference": 0.0013041683412546006
         },
+        "successive_ratios": [
+          1.941698899023106,
+          1.9281230408855417
+        ],
         "the_two_methods_agree": true,
-        "the_error_tracks_the_potential_at_launch": true,
-        "what_this_exposed": "PR #274's pulse was launched at r* = 6, where V ~ 0.1. That is fine for a quasinormal frequency and wrong for an incident amplitude, and it shows up here as a 43% mismatch that falls to 0.92% once the launch moves to r* = 100. The transfer kernel needs an asymptotic launch; the ringdown did not."
+        "the_residual_halves_as_the_launch_radius_doubles": true,
+        "what_this_exposed": "The incident amplitude is only defined where the wave is free, and the residual tracks the exactly-known potential remaining beyond the launch point. PR #274 launched at r* = 6, where V ~ 0.1 -- harmless for a quasinormal frequency, since a ringdown does not care how it was excited, and fatal for a transmission ratio.",
+        "an_earlier_number_was_flattered_by_cancellation": "With plane-wave outer matching this check read 0.92% at r* = 100. That was two errors partly cancelling: the plane-wave outer condition carried its own error in the opposite direction. Under the correct Jost condition the same launch reads 2.73%, and the series converges as 1/r*_launch. The larger number is the honest one."
       },
       "pass": true
     },
@@ -405,14 +530,14 @@
       "id": "K5",
       "name": "*** the transfer is NOT rigid ***",
       "detail": {
-        "transmission_at_dc": 1.7340689090296068e-06,
+        "transmission_at_dc": 4.099912974981789e-07,
         "sum_rule_exact_value": -1.0,
-        "sum_rule_measured": -0.9977571768423206,
-        "sum_rule_relative_error": 0.00224282315767943,
+        "sum_rule_measured": -0.9977571545599058,
+        "sum_rule_relative_error": 0.002242845440094232,
         "the_sum_rule_holds": true,
-        "memory_absolute_mass": 2.023295074802658,
+        "memory_absolute_mass": 2.028642360455016,
         "instantaneous_weight": 1.0,
-        "memory_to_instantaneous_ratio": 2.023295074802658,
+        "memory_to_instantaneous_ratio": 2.028642360455016,
         "the_kernel_is_not_rigid": true,
         "why_the_sum_rule_is_exact": "int K dt = T(w = 0), and T(0) = 0 because the centrifugal barrier reflects zero-frequency waves completely. With K = delta(t) + K_reg, that forces int K_reg dt = -1 EXACTLY. It is a constraint, not a fit, and the measured value is checked against it.",
         "what_this_says_about_rigid_exchange": "A rigid exchange kernel is delta(t), possibly delayed: whatever enters leaves undistorted, and a static signal passes perfectly. The real geometry blocks a static signal COMPLETELY, and does so entirely through the memory term, which exactly cancels the instantaneous one at DC. In absolute mass the memory is about twice the delta. The memory is not a correction to rigid exchange; it is the same size as the thing it would correct.",
@@ -493,6 +618,6 @@
       "pass": true
     }
   ],
-  "passed": 8,
-  "total": 8
+  "passed": 11,
+  "total": 11
 }

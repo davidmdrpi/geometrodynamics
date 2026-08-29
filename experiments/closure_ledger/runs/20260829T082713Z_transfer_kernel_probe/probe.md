@@ -1,6 +1,6 @@
 # The retarded outer→inner transfer kernel, `D = 5` Tangherlini
 
-**8/8 checks pass.**
+**11/11 checks pass.**
 
 PR #270 deferred this object because it is a ratio of two signals it could not trust. PR #274 settled which signal was right, against a published spectrum. This round builds the kernel.
 
@@ -11,8 +11,8 @@ A wave sent in from the far region reaches the horizon filtered. That filter is 
 | quantity | value | |
 |--|--|--|
 | `∫K_reg dt` | `-0.997757` | exact value `−1`, a **sum rule** from `T(0) = 0` |
-| `∫\|K_reg\| dt` | `2.0233` | against the `δ`'s weight of `1` |
-| `T(ω→0)` | `1.734e-06` | the barrier blocks DC completely |
+| `∫\|K_reg\| dt` | `2.0286` | against the `δ`'s weight of `1` |
+| `T(ω→0)` | `4.100e-07` | the barrier blocks DC completely |
 
 A rigid exchange kernel is `δ(t)`, possibly delayed: whatever enters leaves undistorted, and a static signal passes perfectly. The real geometry **blocks a static signal completely**, and does so *entirely* through the memory term, which exactly cancels the instantaneous one at DC. In absolute mass the memory is about twice the delta. It is not a correction to rigid exchange — it is the same size as the thing it would correct.
 
@@ -48,55 +48,81 @@ The deficit matches the predicted tail in every row, so the domain truncation is
 
 | `ω` | `\|T\|` | `\|R\|` | `\|R\|²+\|T\|²−1` |
 |--|--|--|--|
-| `0.1` | `0.00079866` | `0.99999968` | `+1.3e-15` |
-| `0.3` | `0.01423276` | `0.99989871` | `-1.9e-15` |
-| `0.7` | `0.19749584` | `0.98030373` | `+8.9e-15` |
-| `1` | `0.64441877` | `0.76467277` | `+3.0e-14` |
-| `1.5` | `0.98880091` | `0.14924063` | `-3.9e-13` |
-| `3` | `0.99999977` | `0.00068021` | `+1.1e-13` |
-| `10` | `1.00000000` | `0.00000042` | `-5.3e-13` |
-| `30` | `1.00000000` | `0.00000005` | `+6.3e-13` |
+| `0.1` | `0.00079553` | `0.99999968` | `+1.1e-15` |
+| `0.3` | `0.01423808` | `0.99989863` | `-1.7e-15` |
+| `0.7` | `0.19749250` | `0.98030440` | `+8.9e-15` |
+| `1` | `0.64441842` | `0.76467307` | `+3.0e-14` |
+| `1.5` | `0.98880233` | `0.14923117` | `-3.9e-13` |
+| `3` | `0.99999977` | `0.00068283` | `+1.1e-13` |
+| `10` | `1.00000000` | `0.00000000` | `-5.3e-13` |
+| `30` | `1.00000000` | `0.00000000` | `+6.3e-13` |
 
 Worst residual **`6.3e-13`**, and unitarity is imposed nowhere — it is a consequence of the computation, so it measures it.
 
 > PR #270 and #274 could not converge a quasinormal frequency by shooting in real r, because for Im w < 0 the outgoing solution grows like e^{|Im w| R} and swamps the coefficient being zeroed. Here w is REAL, both e^{+-i w r*} have unit modulus, and nothing dominates anything. This is a different, well-posed problem -- not a repair of the one that failed. Unitarity to ~1e-13, imposed nowhere, is the evidence.
 
-Second order in the spatial step: `|T|` at `ω = 1` gives `0.64442679`, `0.64442037`, `0.64441877`, successive differences `6.4e-06`, `1.6e-06`.
+Second order in the spatial step: `|T|` at `ω = 1` gives `0.64442644`, `0.64442002`, `0.64441842`, successive differences `6.4e-06`, `1.6e-06`.
+
+### The subtracted coefficient is the exact one
+
+`transfer_kernel` subtracts `c_ℓ = ½∫V dr*` **exactly**. A fitted coefficient would leave `−i(c_exact − c_fit)/ω` in the remainder — still `1/ω`, defeating the purpose of the subtraction. The fit is kept as a *measurement against* the exact value:
+
+| outer edge | fitted `c` | exact | deficit |
+|--|--|--|--|
+| `150` | `2.248945` | `2.2500` | `+0.001055` |
+| `300` | `2.248945` | `2.2500` | `+0.001055` |
+| `600` | `2.248945` | `2.2500` | `+0.001055` |
+
+Spread across outer edges `4.4e-07` — **edge-independent**. The fitted value sits ~0.05% below the exact one, uniformly in the outer edge. That is the 1/r^4 and 1/r^6 part of V, which the centrifugal Jost condition does not capture -- a known, bounded, edge-independent shortfall rather than a truncation drift.
+
+### The low-frequency outer matching
+
+At the lowest bin `ω = 0.00488` the outer turning scale is `397`, and `V` at the edge (`1.67e-04`) still exceeds `ω²` (`2.38e-05`) — that bin sits **inside** the centrifugal tail, where free plane waves are simply the wrong basis. It sets the DC end of the inverse transform, and therefore the numerical realisation of the int K_reg dt = -1 sum rule.
+
+| outer edge | `|T|` at `w=0.0048828` | `|T|` at `w=0.02` | `|T|` at `w=0.1` |
+|--|--|--|--|
+| `150 | `4.099913e-07` | `1.393649e-05` | `7.955278e-04` |
+| `300 | `4.100095e-07` | `1.393644e-05` | `7.955282e-04` |
+| `600 | `4.100145e-07` | `1.393644e-05` | `7.955282e-04` |
+
+Relative spread across outer edges: `5.6e-05`, `3.6e-06`, `4.3e-07`.
+
+> Replacing plane-wave matching with the exact centrifugal Jost solutions moved T(w -> 0) from 1.73e-06 to 4.10e-07 -- a factor of four closer to its exact value of zero -- and made the low-w spectrum independent of the outer edge instead of drifting with it.
 
 ## K2 — GATE 1: causal support
 
 | `t` | `K_reg(t)` |
 |--|--|
-| `-300` | `+1.666e-07` |
-| `-200` | `-3.190e-07` |
-| `-100` | `+4.673e-07` |
-| `-50` | `-9.173e-07` |
-| `-20` | `-2.133e-06` |
-| `-10` | `+5.132e-06` |
-| `-5` | `+8.258e-06` |
-| `-2` | `+2.714e-05` |
-| `-1` | `-3.405e-05` |
-| `-0.5` | `-1.026e-04` |
+| `-300` | `+2.025e-07` |
+| `-200` | `-3.318e-07` |
+| `-100` | `+4.272e-07` |
+| `-50` | `-1.030e-06` |
+| `-20` | `-2.439e-06` |
+| `-10` | `+4.961e-06` |
+| `-5` | `+9.529e-06` |
+| `-2` | `+2.809e-05` |
+| `-1` | `-4.140e-05` |
+| `-0.5` | `-1.005e-04` |
 
-Worst acausal value **`1.03e-04`**, and **`9.2e-07`** away from the front.
+Worst acausal value **`1.00e-04`**, and **`1.0e-06`** away from the front.
 
 > K(t) vanishes identically for t < 0, so whatever the computation returns there IS its noise floor -- no reference value needed. Any feature at t > 0 smaller than that floor is not measurable, which is how this round knows the late-time tail is out of reach.
 
 | `t` | `K_reg(t)` |
 |--|--|
-| `0.5` | `-1.168e+00` |
-| `1` | `-4.354e-01` |
-| `2` | `+2.211e-01` |
+| `0.5` | `-1.170e+00` |
+| `1` | `-4.326e-01` |
+| `2` | `+2.242e-01` |
 | `3` | `+2.212e-01` |
-| `5` | `-8.351e-02` |
-| `8` | `+2.638e-02` |
-| `12` | `-8.719e-03` |
-| `16` | `+9.891e-04` |
-| `20` | `+1.872e-04` |
-| `30` | `-1.267e-05` |
-| `40` | `+7.172e-07` |
-| `60` | `+2.302e-07` |
-| `100` | `+2.667e-07` |
+| `5` | `-8.461e-02` |
+| `8` | `+2.676e-02` |
+| `12` | `-8.741e-03` |
+| `16` | `+9.720e-04` |
+| `20` | `+1.922e-04` |
+| `30` | `-1.324e-05` |
+| `40` | `+7.921e-07` |
+| `60` | `+7.661e-08` |
+| `100` | `+3.466e-07` |
 
 ## K3 — GATE 3: the kernel carries the published ringdown
 
@@ -104,17 +130,17 @@ Reference (external): `1.01601691-0.36232802i`. Source: Matyjasek, Phys. Rev. D 
 
 | `dt` | window | fitted `ω` | real err | damping err |
 |--|--|--|--|--|
-| `0.2` | `(3.0, 14.0)` | `1.027952-0.376104i` | `1.175%` | `3.802%` |
-| `0.2` | `(4.0, 16.0)` | `1.026151-0.369614i` | `0.997%` | `2.011%` |
-| `0.2` | `(5.0, 18.0)` | `1.023143-0.363089i` | `0.701%` | `0.210%` |
-| `0.3` | `(3.0, 14.0)` | `1.017028-0.363837i` | `0.100%` | `0.416%` |
-| `0.3` | `(4.0, 16.0)` | `1.017149-0.361417i` | `0.111%` | `0.251%` |
-| `0.3` | `(5.0, 18.0)` | `1.015390-0.361124i` | `0.062%` | `0.332%` |
-| `0.5` | `(3.0, 14.0)` | `1.017586-0.363112i` | `0.154%` | `0.216%` |
-| `0.5` | `(4.0, 16.0)` | `1.016979-0.361611i` | `0.095%` | `0.198%` |
-| `0.5` | `(5.0, 18.0)` | `1.014191-0.362744i` | `0.180%` | `0.115%` |
+| `0.2` | `(3.0, 14.0)` | `1.028118-0.376065i` | `1.191%` | `3.791%` |
+| `0.2` | `(4.0, 16.0)` | `1.026316-0.369379i` | `1.014%` | `1.946%` |
+| `0.2` | `(5.0, 18.0)` | `1.023258-0.363123i` | `0.713%` | `0.219%` |
+| `0.3` | `(3.0, 14.0)` | `1.017115-0.363824i` | `0.108%` | `0.413%` |
+| `0.3` | `(4.0, 16.0)` | `1.017168-0.361390i` | `0.113%` | `0.259%` |
+| `0.3` | `(5.0, 18.0)` | `1.015356-0.360984i` | `0.065%` | `0.371%` |
+| `0.5` | `(3.0, 14.0)` | `1.017615-0.363203i` | `0.157%` | `0.242%` |
+| `0.5` | `(4.0, 16.0)` | `1.016874-0.361440i` | `0.084%` | `0.245%` |
+| `0.5` | `(5.0, 18.0)` | `1.013953-0.362577i` | `0.203%` | `0.069%` |
 
-Band: real part `0.062%`–`1.175%`, damping `0.115%`–`3.802%`.
+Band: real part `0.065%`–`1.191%`, damping `0.069%`–`3.791%`.
 
 > Extraction choices move the fit, exactly as PR #274 measured for the time-domain solver. The spread is the honest statement.
 
@@ -122,15 +148,19 @@ Band: real part `0.062%`–`1.175%`, damping `0.115%`–`3.802%`.
 
 ## K4 — an independent method reproduces the kernel
 
-Deep inside, the transmitted wave as a function of `v = t + r*` is exactly `K ⋆ g`. PR #274's characteristic evolution shares no code with the transfer matrix, so this is real cross-validation — and it exposed a subtlety about where the pulse may be launched.
+Deep inside, the transmitted wave as a function of `v = t + r*` is exactly `K ⋆ g`. PR #274's characteristic evolution shares no code with the transfer matrix. The residual tracks the **exactly known** potential remaining beyond the launch point, `≈ L/r*_launch`, which is what identifies it as placement rather than a method disagreement.
 
-| pulse centre | launch `r*` | `V` at launch | max diff | rms diff |
-|--|--|--|--|--|
-| `12` | `6` | `9.76e-02` | `43.11%` | `10.17%` |
-| `60` | `30` | `4.16e-03` | `7.26%` | `1.35%` |
-| `200` | `100` | `3.75e-04` | `0.92%` | `0.17%` |
+| launch `r*` | `∫V` beyond launch | max diff | rms diff |
+|--|--|--|--|
+| `100` | `0.0375` | `2.73%` | `0.50%` |
+| `200` | `0.0187` | `1.40%` | `0.25%` |
+| `400` | `0.0094` | `0.73%` | `0.13%` |
 
-> PR #274's pulse was launched at r* = 6, where V ~ 0.1. That is fine for a quasinormal frequency and wrong for an incident amplitude, and it shows up here as a 43% mismatch that falls to 0.92% once the launch moves to r* = 100. The transfer kernel needs an asymptotic launch; the ringdown did not.
+Successive ratios `1.94`, `1.93` — the residual **halves as the launch radius doubles**, exactly as `L/r*_launch` predicts.
+
+> The incident amplitude is only defined where the wave is free, and the residual tracks the exactly-known potential remaining beyond the launch point. PR #274 launched at r* = 6, where V ~ 0.1 -- harmless for a quasinormal frequency, since a ringdown does not care how it was excited, and fatal for a transmission ratio.
+
+> With plane-wave outer matching this check read 0.92% at r* = 100. That was two errors partly cancelling: the plane-wave outer condition carried its own error in the opposite direction. Under the correct Jost condition the same launch reads 2.73%, and the series converges as 1/r*_launch. The larger number is the honest one.
 
 ## K6 — what the causality gate caught
 
