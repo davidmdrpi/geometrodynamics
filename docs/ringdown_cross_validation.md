@@ -1,8 +1,8 @@
 # Which of PR #270's two ringdown codes was right?
 
 *Module `geometrodynamics/tangherlini/ringdown.py`, probe
-`experiments/closure_ledger/ringdown_cross_validation_probe.py` (8/8), tests
-`tests/test_ringdown.py` (32/32).*
+`experiments/closure_ledger/ringdown_cross_validation_probe.py` (9/9), tests
+`tests/test_ringdown.py` (40/40).*
 
 ---
 
@@ -39,8 +39,16 @@ All errors below are relative to that value.
 |--|--|--|
 | **published** (CF / Hill) | `1.01601691 − 0.36232802i` | — |
 | #270 Kerr–Schild | `1.01622 − 0.36231i` | **`0.005 %`** |
-| **this round** (characteristic, `h → 0`) | `1.01612 − 0.36244i` | **`0.031 %`** |
+| **this round** (characteristic, `h = 0.025`) | `1.01612 − 0.36244i` | **`0.031 %`** |
+| **this round** (characteristic, `h = 0.05`) | `1.01618 − 0.36240i` | **`0.019 %`** |
 | #270 tortoise | `1.01876 − 0.26404i` | **`27.1 %`** ← excluded |
+
+**No `h → 0` value is quoted, deliberately.** Both rows above are raw values at
+stated step sizes. The sequence is *not* monotone in its distance to the
+published value, so Richardson extrapolation is not justified and none is
+performed. An earlier draft labelled the `h = 0.025` row "`h → 0`", which it is
+not, and quoted `0.031%` in one table and `0.019%` in another without saying
+they were different step sizes.
 
 **Note the ordering.** #270's Kerr–Schild code is about **six times more
 accurate** than this round's characteristic evolution. The characteristic
@@ -93,8 +101,8 @@ excision question that both the frequency-domain shoot and the Kerr–Schild
 inner cut raise — the question that #270 suspected. It cannot be wrong for
 that reason, so it can arbitrate it.
 
-`V` at a diamond centre depends only on `r* = h(j − i)/2`, so the potential is
-a one-dimensional lookup indexed by `j − i`, and the inner `j`-recursion is
+`V` at a diamond centre depends only on `r*`, so the potential is a
+one-dimensional lookup indexed by `j − i`, and the inner `j`-recursion is
 linear and first order,
 
 ```
@@ -105,6 +113,26 @@ which is evaluated in closed form by `cumprod`/`cumsum` rather than a Python
 loop. Without that, the finest run (`t_max = 400`, `h = 0.025`, so
 `16000 × 16000`) is ~`2.6e8` scalar iterations; with it the whole sweep is
 seconds.
+
+### The diamond centre, derived — and a bug it caught
+
+For the update `N = (i, j)` with `S = (i−1, j−1)`, the centre sits at
+`u_c = (i − ½)h` and `v_c = (j − ½)h`, so
+
+```
+r*_c = (v_c − u_c)/2 = [(j − ½)h − (i − ½)h] / 2 = (j − i)h/2
+```
+
+— **the two half-steps cancel**. An earlier version of this module sampled
+`0.5·step·((j−i) − 0.5)`, i.e. `r*_c − h/4`, *contradicting its own docstring*,
+which had the cancellation right. That is fixed and now locked by a test.
+
+Measured effect of the correction: **`~1e-6`** in the extracted frequency —
+three orders of magnitude below this solver's error floor. So it is a real
+derivation bug with negligible numerical consequence at these step sizes, and it
+is **not** what limits the solver. Reporting it that way matters: the tempting
+story would have been "found the bug, that explains the floor", and the
+measurement says otherwise.
 
 ---
 
@@ -138,8 +166,18 @@ number rather than a trend — `r(r*−r) + 1` against `−1/(3r²)`:
 A threshold at a single large radius would have passed for a wrong tail; so
 would "it shrinks". Matching the predicted coefficient would not.
 
-**The potential's tail is exactly Bessel.** `V → [(ℓ+1)² − ¼]/r²`, so the
-outgoing solution is exactly `√r H⁽¹⁾_{ℓ+1}(ωr)`.
+**The potential's tail is *asymptotically* Bessel.** Exactly, and verified
+symbolically,
+
+```
+V = L/r² + (9/4 − L)/r⁴ − (9/4)/r⁶ ,     L = (ℓ+1)² − ¼
+```
+
+so `V → L/r²` only asymptotically, and `√r H⁽¹⁾_{ℓ+1}(ωr)` is the **leading**
+outgoing solution rather than the exact one at finite `r` — the exact solution
+carries a further radial series. An earlier draft of this document said "exactly
+Bessel", which the `1/r⁴` and `1/r⁶` terms contradict. The measured approach is
+what the table shows, and it is the asymptotic approach:
 
 | `ℓ` | `(ℓ+1)² − ¼` | `V·r²` at `r = 1000` | rel. error |
 |--|--|--|--|
@@ -149,8 +187,9 @@ outgoing solution is exactly `√r H⁽¹⁾_{ℓ+1}(ωr)`.
 | 3 | `15.75` | `15.749986` | `8.6e-07` |
 
 This is the *same identity* PR #271 used to settle which radial operator was
-correct. It is reused here as a boundary condition, so the operator this round
-evolves is #271's corrected one, taken from `dynamics` rather than restated.
+correct. It is reused here as an **asymptotic** boundary condition, so the
+operator this round evolves is #271's corrected one, taken from `dynamics`
+rather than restated.
 
 ---
 
@@ -220,8 +259,6 @@ alongside the others.
 
 ### What the reference exposed about this solver
 
-This is the part that could not have been learned from inside.
-
 | `h` | `Im ω` | distance to published |
 |--|--|--|
 | `0.1` | `−0.3621571` | `1.71e-04` |
@@ -232,16 +269,48 @@ The step-size study's last successive difference is `4.0e-5`. The finest value's
 actual distance to the published one is `1.07e-4` — **2.7× larger** — and the
 `h = 0.05` value lands *closer* to the truth than the `h = 0.025` one.
 
-So discretization is **not** what limits this solver. Extraction systematics are:
-window placement, Prony order, observer radius, finite `t_max`, power-law tail
-contamination. Had this round quoted an error bar from its own refinement
-sequence, that bar would have been almost three times too small.
+What that establishes, precisely: **self-convergence estimates the error
+component associated with the refinement parameter, not the total error.** There
+is a component of order `1e-4` that step refinement does not control.
 
-> **Self-convergence measures only the error it is refining away. It is a
-> consistency check, not an error bar.**
+---
 
-That is a sharper form of #270's own lesson, and nothing internal to a solver
-can reveal it.
+## Where the error floor actually lives
+
+*Where* that component lives is a separate question, and an earlier draft
+asserted an answer with nothing varied behind it. Varying them:
+
+| extraction window | damping rel. error |
+|--|--|
+| `(50, 130)` | `1.0205 %` |
+| `(60, 140)` | `0.0192 %` |
+| `(70, 150)` | `0.0392 %` |
+| `(80, 160)` | `0.3252 %` |
+| `(90, 180)` | `61.2379 %` |
+
+| observer `r*` | damping rel. error |
+|--|--|
+| `20` | `0.0202 %` |
+| `30` | `0.0192 %` |
+| `40` | `1.0796 %` |
+
+**The extraction window dominates** by orders of magnitude — late windows admit
+the power-law tail and degrade without limit. The observer radius matters at the
+`1e-2` level once the signal is no longer clean at the sampling point. And
+**`t_max` is bit-irrelevant** (`300`, `400`, `500` give identical digits),
+because the extraction window sits well inside it.
+
+Over reasonable choices the band is `0.019 %`–`0.039 %`, against a
+step-refinement difference of `0.011 %` — **3.6× larger**, and comparable to the
+gap to the published value. So the hypothesis survives, but it is now a
+measurement.
+
+**One corollary did not survive.** An earlier draft said "nothing internal to a
+solver can reveal this". That is too strong — the scan above is internal and
+reveals it, using no external value. What the published spectrum uniquely
+supplies is the **anchor**: a systematic spread tells you the answer is
+uncertain, but only an external reference tells you *which point in the spread is
+right*.
 
 ---
 
@@ -272,6 +341,10 @@ it. Four of the five are independent of this round's solver entirely.
 | the verdict rests only on internal arbitration | **NO — CONFIRMED EXTERNALLY** | published CF/Hill spectrum confirms Kerr–Schild to `0.005 %`, excludes tortoise at `27.1 %` |
 | the characteristic evolution is the most accurate of the three | **NO** | #270's Kerr–Schild is ~6× closer to the published value |
 | the step-size study bounded this solver's error | **NO — UNDERSTATED 2.7×** | last `Δ` `4.0e-5`, true error `1.1e-4`; `h = 0.05` beats `h = 0.025` |
+| the residual is extraction systematics | **MEASURED, NOT ASSERTED** | window dominates by orders of magnitude; `t_max` bit-irrelevant; reasonable band `3.6×` the step-refinement difference |
+| only an external reference could expose that floor | **NO — TOO STRONG** | the internal scan exposes it with no external value; the reference supplies the *anchor*, not the discovery |
+| the GPP potential was sampled at the diamond centre | **NO — OFF BY `h/4`** | centre is `(j−i)h/2`, the half-steps cancelling; code sampled `−h/4` against its own docstring. Fixed, locked by a test, measured effect `~1e-6` — a real bug that does **not** explain the floor |
+| the far-field solution is exactly Hankel | **NO — ASYMPTOTICALLY** | `V = L/r² + (9/4−L)/r⁴ − (9/4)/r⁶`, so the outgoing solution carries a further series; the failed shoot truncated to pure Hankel |
 | a quasinormal frequency can now be quoted | **YES, for `ℓ = 1, 2, 3`** | converged, window-stable, consistent with the exact asymptote, matching published to `<0.05 %` |
 | the `ℓ = 0` frequency is equally well determined | **NO** | `0.21 %` against published — an order of magnitude looser |
 | frequency-domain shooting can settle this | **NO — reproduced the failure** | the root moves with every knob; exponentially ill-conditioned in real `r` |
@@ -295,9 +368,18 @@ because it applies no spatial boundary condition at all, and the suspected fault
 was an inner cut. An arbitrator that could fail the same way would have settled
 nothing.
 
-**Self-convergence is a consistency check, not an error bar.** This round's own
-step-size study would have quoted `~4e-5` when the true error was `~1.1e-4`.
-Only an external reference could show that.
+**Self-convergence estimates the error component associated with the refinement
+parameter — not the total numerical, model, or extraction error.** This round's
+step-size study would have quoted `~4e-5` when the true error was `~1.1e-4`. The
+missing component is findable internally, by varying the knobs the refinement
+does not touch; what the external reference adds is the anchor that says which
+point in the resulting spread is correct.
+
+**A bug you find is not automatically the bug you were looking for.** The
+diamond-centre sampling was genuinely wrong by `h/4`. Fixing it moved the answer
+by `~1e-6` against a floor of `~1e-4`. The tempting story — "found it, that
+explains the discrepancy" — was available and false, and only measuring the fix's
+effect separated the two.
 
 **Look for a published benchmark before building a third implementation.** Had
 the external spectrum been found first, the arbitration would have been
@@ -334,12 +416,23 @@ that moves with every numerical knob:
 | horizon offset `ε` | `1.229 − 0.152i`, `1.173 − 0.102i`, `1.155 − 0.214i` |
 | matching radius | `1.204 − 0.209i`, `1.173 − 0.102i`, `1.166 − 0.105i` |
 
-This is not a bug to be found. The QNM boundary-value problem is exponentially
-ill-conditioned in real `r`: for `Im ω < 0` the outgoing piece grows like
-`e^{|Im ω|R}` and swamps the incoming coefficient one is trying to zero. #270
-reported the same failure; that diagnosis stands. The published continued-fraction
-calculation is the frequency-domain reference this attempt was trying to be, and
-there is no value in forcing the shoot to work merely to accumulate methods.
+The QNM boundary-value problem is exponentially ill-conditioned in real `r`: for
+`Im ω < 0` the outgoing piece grows like `e^{|Im ω|R}` and swamps the incoming
+coefficient one is trying to zero. #270 reported the same failure; that
+diagnosis stands.
+
+**But it is not shown to be the sole cause.** The outer condition here was
+truncated to *pure* Hankel at finite `R`, and since `V` carries `1/r⁴` and
+`1/r⁶` terms the exact outgoing solution has a further radial series. So part of
+the matching-radius drift is **boundary truncation**, not conditioning, and this
+round did not separate the two. What would: impose the asymptotic series to
+several orders and re-scan `R` — conditioning-driven drift persists,
+truncation-driven drift shrinks with series order.
+
+The published continued-fraction calculation is the frequency-domain reference
+this attempt was trying to be, so there is no value in forcing the shoot to work
+merely to accumulate methods — but the diagnosis is stated as contributing, not
+demonstrated-sole.
 
 **Sixth-order WKB by finite differences is unusable.** The Iyer–Will formula
 needs `V⁽⁶⁾` at the barrier peak, and central differences amplify roundoff as

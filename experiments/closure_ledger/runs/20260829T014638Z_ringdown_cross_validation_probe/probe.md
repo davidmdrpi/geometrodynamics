@@ -1,6 +1,6 @@
 # Settling PR #270's ringdown cross-validation
 
-**8/8 checks pass.**
+**9/9 checks pass.**
 
 PR #270 built two time-domain codes for a test scalar on a fixed `D = 5` Tangherlini background. Both stable, both converged, and they disagreed — real parts within `0.3%`, and damping rates apart by **37% of the smaller value** (equivalently, the wrong one was **27% low**). #270 refused to quote a frequency, correctly, and named its own prime suspect: the Kerr–Schild inner cut.
 
@@ -33,7 +33,7 @@ Two exact facts do most of the work.
 | `200` | `-8.3335e-06` | `-8.3333e-06` | `1.5e-05` |
 | `1000` | `-3.3331e-07` | `-3.3333e-07` | `8.2e-05` |
 
-**The tail is exactly Bessel.** `V·r²` against `(ℓ+1)² − ¼`:
+**The tail is *asymptotically* Bessel.** Exactly, `V = L/r² + (9/4−L)/r⁴ − (9/4)/r⁶` with `L = (ℓ+1)² − ¼`, so `√r H⁽¹⁾` is the *leading* outgoing solution, not the exact one at finite `r`. `V·r²` against `L`:
 
 | `ℓ` | limit | `V·r²` at `r = 1000` | rel. error |
 |--|--|--|--|
@@ -42,7 +42,7 @@ Two exact facts do most of the work.
 | 2 | `8.75` | `8.749993` | `7.4e-07` |
 | 3 | `15.75` | `15.749986` | `8.6e-07` |
 
-*V -> [(l+1)^2 - 1/4]/r^2 is the flat-limit identity PR #271 used to settle which radial operator was correct; it is reused here as a boundary condition.*
+*V -> [(l+1)^2 - 1/4]/r^2 is the flat-limit identity PR #271 used to settle which radial operator was correct; it is reused here as an asymptotic boundary condition.*
 
 ## R1 — an exact asymptote to judge every solver against
 
@@ -60,17 +60,17 @@ Gundlach–Price–Pullin on the null grid `u = t − r*`, `v = t + r*`. **No sp
 
 | `ℓ` | `h = 0.1` | `h = 0.05` | `h = 0.025` | successive `\|Δ\|` |
 |--|--|--|--|--|
-| 1 | `1.0162114 -0.3621571i` | `1.0161856 -0.3623949i` | `1.0161189 -0.3624352i` | `2.4e-04`, `7.8e-05` |
-| 2 | `1.5110469 -0.3571935i` | `1.5107645 -0.3574379i` | `1.5105884 -0.3575318i` | `3.7e-04`, `2.0e-04` |
+| 1 | `1.0162112 -0.3621562i` | `1.0161835 -0.3623977i` | `1.0161158 -0.3624367i` | `2.4e-04`, `7.8e-05` |
+| 2 | `1.5110476 -0.3571938i` | `1.5107648 -0.3574392i` | `1.5105838 -0.3575288i` | `3.7e-04`, `2.0e-04` |
 
 ## R3 — the frequencies, against the exact asymptote
 
 | `ℓ` | characteristic | eikonal | 1st-order WKB |
 |--|--|--|--|
-| 0 | `0.535380 -0.384175i` | `0.500000 -0.353553i` | `0.805398 -0.378527i` |
-| 1 | `1.016186 -0.362395i` | `1.000000 -0.353553i` | `1.168269 -0.360949i` |
-| 2 | `1.510765 -0.357438i` | `1.500000 -0.353553i` | `1.613545 -0.356117i` |
-| 3 | `2.008183 -0.355527i` | `2.000000 -0.353553i` | `2.085488 -0.354728i` |
+| 0 | `0.535366 -0.384195i` | `0.500000 -0.353553i` | `0.805398 -0.378527i` |
+| 1 | `1.016184 -0.362398i` | `1.000000 -0.353553i` | `1.168269 -0.360949i` |
+| 2 | `1.510765 -0.357439i` | `1.500000 -0.353553i` | `1.613545 -0.356117i` |
+| 3 | `2.008201 -0.355538i` | `2.000000 -0.353553i` | `2.085488 -0.354728i` |
 
 **Real parts approach 0.5(l+1) from above and damping approaches -0.353553; both happen.** *The l = 0 barrier is weakest and the power-law tail contaminates its fit earliest, so its uncertainty is wider than the others.*
 
@@ -79,7 +79,7 @@ Gundlach–Price–Pullin on the null grid `u = t − r*`, `v = t + r*`. **No sp
 | source | `Im ω` at `ℓ = 1` |
 |--|--|
 | published (external reference) | `-0.36233` |
-| characteristic (this round) | `-0.36244` |
+| characteristic (this round, h = 0.025) | `-0.36244` |
 | Kerr-Schild (PR #270) | `-0.36231` |
 | first-order WKB | `-0.36095` |
 | exact eikonal asymptote | `-0.35355` |
@@ -101,11 +101,11 @@ Gundlach–Price–Pullin on the null grid `u = t − r*`, `v = t + r*`. **No sp
 
 The strongest check available, and external to this repository entirely. Source: Matyjasek, Phys. Rev. D 104, 084066 (2021), arXiv:2107.04815 -- continued fractions cross-checked against Hill determinants, agreeing to 11 digits.
 
-| `ℓ` | characteristic (this round) | published | real err | damping err |
+| `ℓ` | characteristic (`h = 0.05`) | published | real err | damping err |
 |--|--|--|--|--|
-| 0 | `0.535380 -0.384175i` | `0.53383557 -0.38337537i` | `0.2893%` | `0.2086%` |
-| 1 | `1.016186 -0.362395i` | `1.01601691 -0.36232802i` | `0.0166%` | `0.0184%` |
-| 2 | `1.510765 -0.357438i` | `1.51056745 -0.35753726i` | `0.0130%` | `0.0278%` |
+| 0 | `0.535366 -0.384195i` | `0.53383557 -0.38337537i` | `0.2867%` | `0.2137%` |
+| 1 | `1.016184 -0.362398i` | `1.01601691 -0.36232802i` | `0.0164%` | `0.0192%` |
+| 2 | `1.510765 -0.357439i` | `1.51056745 -0.35753726i` | `0.0131%` | `0.0274%` |
 
 **With an external reference in hand this is no longer only a tie-breaker between two internal codes. It is an independent implementation reproducing a known high-precision spectrum, which is a considerably stronger check on PR #271's corrected radial operator and on the GPP machinery than internal arbitration.**
 
@@ -115,13 +115,37 @@ The strongest check available, and external to this repository entirely. Source:
 
 | `h` | `Im ω` | distance to published |
 |--|--|--|
-| `0.1` | `-0.3621571` | `1.71e-04` |
-| `0.05` | `-0.3623949` | `6.68e-05` |
-| `0.025` | `-0.3624352` | `1.07e-04` |
+| `0.1` | `-0.3621562` | `1.72e-04` |
+| `0.05` | `-0.3623977` | `6.97e-05` |
+| `0.025` | `-0.3624367` | `1.09e-04` |
 
-Last successive difference `4.04e-05`, actual distance from the finest value to the published one `1.07e-04` — **understated by `2.7×`**, and the `h = 0.05` value lands *closer* than the `h = 0.025` one.
+Last successive difference `3.90e-05`, actual distance from the finest value to the published one `1.09e-04` — **understated by `2.8×`**, and the `h = 0.05` value lands *closer* than the `h = 0.025` one.
 
 > Self-convergence measures only the error it is refining away. The step-size study's last successive difference was ~2.7x smaller than the finest value's actual distance to the published one, and the middle step lands closer than the finest -- so discretization is not what limits this solver, extraction systematics are. A convergence study is a consistency check, not an error bar.
+
+## R8 — where the error floor actually lives
+
+An earlier draft *asserted* the residual was extraction systematics. Nothing was varied behind that. Varying them:
+
+| extraction window | damping rel. error |
+|--|--|
+| `(50.0, 130.0)` | `1.0205%` |
+| `(60.0, 140.0)` | `0.0192%` |
+| `(70.0, 150.0)` | `0.0392%` |
+| `(80.0, 160.0)` | `0.3252%` |
+| `(90.0, 180.0)` | `61.2379%` |
+
+| observer `r*` | damping rel. error |
+|--|--|
+| `20.0` | `0.0202%` |
+| `30.0` | `0.0192%` |
+| `40.0` | `1.0796%` |
+
+**The window dominates** by orders of magnitude — late windows admit the power-law tail. **`t_max` is bit-irrelevant** (confirmed), because the extraction window sits well inside it.
+
+Over reasonable choices the band is `0.0192%`–`0.0392%`, against a step-refinement difference of `0.0108%` — **3.6× larger**. That is why step refinement alone was the wrong error bar.
+
+> An internal study CAN expose this floor -- this function is one, and it used no external value. The earlier claim that 'nothing internal to a solver can reveal this' was too strong. What the published spectrum uniquely provides is the anchor: a systematic spread says the answer is uncertain, but only an external reference says which point in the spread is correct.
 
 ## R6 — the ledger
 
@@ -131,7 +155,11 @@ Last successive difference `4.04e-05`, actual distance from the finest value to 
 | the Kerr-Schild inner cut was the prime suspect | **WRONG SUSPECT** | that code's frequency is confirmed; the fault was in the tortoise evolution |
 | the verdict rests only on internal arbitration | **NO -- CONFIRMED EXTERNALLY** | a published high-precision spectrum (continued fractions + Hill determinants) puts l = 1 at 1.01601691-0.36232802i, confirming Kerr-Schild to 0.005% and excluding the tortoise damping at 27.1% |
 | the characteristic evolution is the most accurate of the three | **NO** | PR #270's Kerr-Schild code is ~6x closer to the published value (0.005% against 0.031%); this round arbitrated, it did not out-resolve |
-| the step-size study bounded this solver's error | **NO -- IT UNDERSTATED IT 2.7x** | last successive difference 4.0e-5, actual distance to the published value 1.1e-4, and h = 0.05 lands closer than h = 0.025; the limit is extraction systematics, not discretization |
+| the step-size study bounded this solver's error | **NO -- IT UNDERSTATED IT 2.7x** | last successive difference 4.0e-5, actual distance to the published value 1.1e-4, and h = 0.05 lands closer than h = 0.025; self-convergence estimates only the error component tied to the refinement parameter |
+| the residual is extraction systematics | **MEASURED, NOT ASSERTED** | varying the extraction window, observer radius and t_max shows the window dominating by orders of magnitude and t_max being bit-irrelevant; the band over reasonable choices is comparable to the gap to the published value |
+| only an external reference could expose that floor | **NO -- TOO STRONG** | the internal systematics scan exposes it using no external value; what the published spectrum uniquely supplies is the anchor, i.e. WHICH point in the spread is right |
+| the GPP potential was sampled at the diamond centre | **NO -- IT WAS OFF BY h/4** | the centre is r* = (j-i)h/2, the two half-steps cancelling; the code sampled r* - h/4, contradicting its own docstring. Fixed and locked by a test; measured effect ~1e-6, so a real bug that does NOT explain the error floor |
+| the far-field solution is exactly Hankel | **NO -- ASYMPTOTICALLY** | V = L/r^2 + (9/4-L)/r^4 - (9/4)/r^6 exactly, so the outgoing solution carries a further radial series; the failed shoot truncated to pure Hankel, making boundary truncation a second unseparated confounder |
 | a quasinormal frequency can now be quoted | **YES, FOR l = 1, 2, 3** | converged in step size, window-stable, consistent with the exact eikonal asymptote, and matching a published spectrum to <0.05% at l = 1 and 2 |
 | the l = 0 frequency is equally well determined | **NO** | its barrier is weakest and the power-law tail contaminates the fit earliest; quoted with a wider uncertainty |
 | frequency-domain shooting can settle this | **NO -- REPRODUCED THE FAILURE** | the root moves with every numerical knob; the problem is exponentially ill-conditioned in real r |
@@ -140,7 +168,7 @@ Last successive difference `4.04e-05`, actual distance from the finest value to 
 
 **The standing lesson held.** PR #270 refused to quote a frequency from two converged codes that disagreed. That was right, and the way out was a third implementation sharing no code with either -- plus an exact asymptote to judge all three against.
 
-**The lesson this round adds.** Self-convergence is a consistency check, not an error bar. This round's own step-size study would have quoted ~4e-5 when the true error was ~1.1e-4. Nothing internal to a solver can reveal that; it took an external reference. Look for a published benchmark BEFORE building a third implementation to break a tie -- had this one been found first, the arbitration would have been unnecessary.
+**The lesson this round adds.** Self-convergence estimates the error component associated with the refinement parameter, not the total numerical, model or extraction error. This round's step-size study would have quoted ~4e-5 when the true error was ~1.1e-4. An internal scan over extraction choices does expose the missing component -- what the external reference uniquely supplies is the anchor that says which point in the spread is correct. Look for a published benchmark BEFORE building a third implementation to break a tie.
 
 **Still open.** Overtones, backreaction, and the retarded outer-to-inner transfer function that #270 also deferred; the transfer function is a ratio of the same two signals and is now unblocked, since the signals can be trusted.
 

@@ -76,8 +76,9 @@
             "relative_error_at_1000": 8.571430000197252e-07
           }
         ],
-        "the_tail_is_exactly_bessel": true,
-        "the_same_identity_that_fixed_the_operator": "V -> [(l+1)^2 - 1/4]/r^2 is the flat-limit identity PR #271 used to settle which radial operator was correct; it is reused here as a boundary condition.",
+        "the_tail_is_asymptotically_bessel": true,
+        "the_exact_potential_is_not_pure_inverse_square": "V = L/r^2 + (9/4 - L)/r^4 - (9/4)/r^6 with L = (l+1)^2 - 1/4, verified symbolically. So V -> L/r^2 only ASYMPTOTICALLY, and sqrt(r) H^(1)_{l+1}(w r) is the leading outgoing solution rather than the exact one at finite r -- the exact outgoing solution carries a further radial series. An earlier draft said 'exactly Bessel', which the 1/r^4 and 1/r^6 terms contradict.",
+        "the_same_identity_that_fixed_the_operator": "V -> [(l+1)^2 - 1/4]/r^2 is the flat-limit identity PR #271 used to settle which radial operator was correct; it is reused here as an asymptotic boundary condition.",
         "tortoise_inversion_round_trip": [
           0.0,
           0.0,
@@ -112,25 +113,25 @@
             "ell": 1,
             "by_step": {
               "0.1": [
-                1.01621138210693,
-                -0.36215706766949296
+                1.016211180746995,
+                -0.36215616167762255
               ],
               "0.05": [
-                1.016185604401039,
-                -0.36239487289377875
+                1.0161835032624795,
+                -0.3623976969997889
               ],
               "0.025": [
-                1.0161189185625368,
-                -0.3624352285628107
+                1.0161158435644415,
+                -0.3624366829885301
               ]
             },
             "successive_differences": [
-              0.0002391982751163075,
-              7.794601387995581e-05
+              0.00024311592914309042,
+              7.808804042056334e-05
             ],
             "finest": [
-              1.0161189185625368,
-              -0.3624352285628107
+              1.0161158435644415,
+              -0.3624366829885301
             ],
             "converging": true
           },
@@ -138,25 +139,25 @@
             "ell": 2,
             "by_step": {
               "0.1": [
-                1.5110469002331024,
-                -0.357193516399757
+                1.5110475669450807,
+                -0.35719380841076726
               ],
               "0.05": [
-                1.5107645450257945,
-                -0.35743787040460756
+                1.510764840737434,
+                -0.35743917252876517
               ],
               "0.025": [
-                1.5105884465753312,
-                -0.3575317531980199
+                1.5105838316461715,
+                -0.3575287504490042
               ]
             },
             "successive_differences": [
-              0.00037340774333213914,
-              0.0001995611263610065
+              0.00037434964791119535,
+              0.0002019616174276285
             ],
             "finest": [
-              1.5105884465753312,
-              -0.3575317531980199
+              1.5105838316461715,
+              -0.3575287504490042
             ],
             "converging": true
           }
@@ -179,15 +180,15 @@
           {
             "ell": 0,
             "omega": [
-              0.5353801577987508,
-              -0.38417492316292967
+              0.5353659851876221,
+              -0.3841947280312022
             ],
             "eikonal": [
               0.5,
               -0.3535534542852268
             ],
             "real_part_above_eikonal": true,
-            "damping_near_asymptote": 0.030621468877702895,
+            "damping_near_asymptote": 0.030641273745975417,
             "wkb_first_order": [
               0.8053981551929597,
               -0.37852667549443
@@ -196,15 +197,15 @@
           {
             "ell": 1,
             "omega": [
-              1.016185604401039,
-              -0.36239487289377875
+              1.0161835032624795,
+              -0.3623976969997889
             ],
             "eikonal": [
               1.0,
               -0.3535534542852268
             ],
             "real_part_above_eikonal": true,
-            "damping_near_asymptote": 0.008841418608551976,
+            "damping_near_asymptote": 0.008844242714562134,
             "wkb_first_order": [
               1.1682688077713055,
               -0.3609488966277907
@@ -213,15 +214,15 @@
           {
             "ell": 2,
             "omega": [
-              1.5107645450257945,
-              -0.35743787040460756
+              1.510764840737434,
+              -0.35743917252876517
             ],
             "eikonal": [
               1.5,
               -0.3535534542852268
             ],
             "real_part_above_eikonal": true,
-            "damping_near_asymptote": 0.0038844161193807847,
+            "damping_near_asymptote": 0.003885718243538394,
             "wkb_first_order": [
               1.6135453094680523,
               -0.3561171406439956
@@ -230,15 +231,15 @@
           {
             "ell": 3,
             "omega": [
-              2.0081834484137553,
-              -0.3555270105816963
+              2.0082010169958355,
+              -0.3555382088238224
             ],
             "eikonal": [
               2.0,
               -0.3535534542852268
             ],
             "real_part_above_eikonal": true,
-            "damping_near_asymptote": 0.001973556296469503,
+            "damping_near_asymptote": 0.0019847545385956455,
             "wkb_first_order": [
               2.08548765752457,
               -0.35472754983958515
@@ -257,9 +258,11 @@
       "name": "*** Kerr-Schild confirmed; the tortoise damping excluded ***",
       "detail": {
         "this_round_characteristic": [
-          1.0161189185625368,
-          -0.3624352285628107
+          1.0161158435644415,
+          -0.3624366829885301
         ],
+        "this_round_step_size": 0.025,
+        "this_round_is_a_raw_value_not_an_extrapolated_limit": "Quoted at h = 0.025. This is the finest raw point, NOT an h -> 0 limit: the sequence is non-monotone in its distance to the published value, so Richardson extrapolation is not justified and none is performed. R7 reports h = 0.05 separately; the two differ because they are different step sizes, not because the solver has two answers.",
         "pr_270_kerr_schild": [
           1.01622,
           -0.36231
@@ -277,16 +280,16 @@
           -0.3535534542852268
         ],
         "gap_to_kerr_schild": {
-          "real": 0.00010108143746312415,
-          "imag": 0.0001252285628106642,
-          "imag_percent_of_reference": 0.0345622073280502,
-          "imag_percent_of_comparison": 0.034563926695554685
+          "real": 0.00010415643555838905,
+          "imag": 0.0001266829885300802,
+          "imag_percent_of_reference": 0.03496361865250744,
+          "imag_percent_of_comparison": 0.03496535798903706
         },
         "gap_to_tortoise": {
-          "real": 0.002641081437463333,
-          "imag": 0.09839522856281069,
-          "imag_percent_of_reference": 27.156394782078813,
-          "imag_percent_of_comparison": 37.26527365657123
+          "real": 0.002644156435558598,
+          "imag": 0.0983966829885301,
+          "imag_percent_of_reference": 27.15679619340327,
+          "imag_percent_of_comparison": 37.265824491944436
         },
         "kerr_schild_is_confirmed": true,
         "tortoise_damping_is_excluded": true,
@@ -296,14 +299,14 @@
         ],
         "published_source": "Matyjasek, Phys. Rev. D 104, 084066 (2021), arXiv:2107.04815 -- continued fractions cross-checked against Hill determinants, agreeing to 11 digits",
         "gap_to_published": {
-          "real": 0.00010200707253682495,
-          "imag": 0.00010720471281067123,
-          "imag_percent_of_reference": 0.029587750809761504,
-          "imag_percent_of_comparison": 0.029587750809761504
+          "real": 9.893207444156005e-05,
+          "imag": 0.00010865913853008724,
+          "imag_percent_of_reference": 0.029989162134218737,
+          "imag_percent_of_comparison": 0.029989162134218737
         },
         "damping_lines_of_evidence": {
           "published (external reference)": -0.36232802385,
-          "characteristic (this round)": -0.3624352285628107,
+          "characteristic (this round, h = 0.025)": -0.3624366829885301,
           "Kerr-Schild (PR #270)": -0.36231,
           "first-order WKB": -0.3609488966277907,
           "exact eikonal asymptote": -0.3535534542852268,
@@ -336,6 +339,8 @@
             "1.166 - 0.105i"
           ],
           "why": "The QNM boundary-value problem is exponentially ill-conditioned in real r: for Im w < 0 the outgoing piece grows like e^{|Im w| R} and swamps the incoming coefficient one is trying to zero.",
+          "a_second_confounder_not_separated": "The outer condition was truncated to PURE Hankel at finite R. Since V carries 1/r^4 and 1/r^6 terms, the exact outgoing solution has a further radial series, so part of the observed matching-radius drift is boundary truncation rather than conditioning. This round did not separate the two, so the ill-conditioning above is a CONTRIBUTING cause and not a demonstrated sole cause.",
+          "what_would_separate_them": "Impose the asymptotic series to several orders and re-scan the matching radius: conditioning-driven drift would persist, truncation-driven drift would shrink with series order.",
           "so_pr_270s_diagnosis_stands": true
         },
         "sixth_order_wkb": {
@@ -362,45 +367,46 @@
       "name": "*** the spectrum matches a published high-precision calculation ***",
       "detail": {
         "source": "Matyjasek, Phys. Rev. D 104, 084066 (2021), arXiv:2107.04815 -- continued fractions cross-checked against Hill determinants, agreeing to 11 digits",
+        "step_size_of_the_rows": 0.05,
         "rows": [
           {
             "ell": 0,
             "characteristic": [
-              0.5353801577987508,
-              -0.38417492316292967
+              0.5353659851876221,
+              -0.3841947280312022
             ],
             "published": [
               0.53383557,
               -0.38337537
             ],
-            "real_relative_error": 0.0028933774471992823,
-            "damping_relative_error": 0.002085562155257074
+            "real_relative_error": 0.0028668288020262337,
+            "damping_relative_error": 0.0021372213640177243
           },
           {
             "ell": 1,
             "characteristic": [
-              1.016185604401039,
-              -0.36239487289377875
+              1.0161835032624795,
+              -0.3623976969997889
             ],
             "published": [
               1.01601691149,
               -0.36232802385
             ],
-            "real_relative_error": 0.00016603356610646257,
-            "damping_relative_error": 0.0001844986845577618
+            "real_relative_error": 0.00016396555076555306,
+            "damping_relative_error": 0.0001922930195919369
           },
           {
             "ell": 2,
             "characteristic": [
-              1.5107645450257945,
-              -0.35743787040460756
+              1.510764840737434,
+              -0.35743917252876517
             ],
             "published": [
               1.51056745177,
               -0.35753725529
             ],
-            "real_relative_error": 0.00013047630250703445,
-            "damping_relative_error": 0.00027797071192441243
+            "real_relative_error": 0.00013067206446327884,
+            "damping_relative_error": 0.00027432878611572076
           }
         ],
         "every_mode_within_0p3_percent": true,
@@ -413,23 +419,107 @@
             0.025
           ],
           "damping_by_step": [
-            -0.36215706766949296,
-            -0.36239487289377875,
-            -0.3624352285628107
+            -0.36215616167762255,
+            -0.3623976969997889,
+            -0.3624366829885301
           ],
           "distance_to_published_by_step": [
-            0.00017095618050705363,
-            6.684904377873835e-05,
-            0.00010720471281067123
+            0.00017186217237746826,
+            6.967314978889583e-05,
+            0.00010865913853008724
           ],
-          "last_successive_difference": 4.0355669031932884e-05,
-          "distance_from_finest_to_published": 0.00010720471281067123,
-          "understatement_factor": 2.656496977558261,
+          "last_successive_difference": 3.898598874119141e-05,
+          "distance_from_finest_to_published": 0.00010865913853008724,
+          "understatement_factor": 2.7871330710994973,
           "the_finest_step_is_not_the_closest": true
         },
         "the_lesson": "Self-convergence measures only the error it is refining away. The step-size study's last successive difference was ~2.7x smaller than the finest value's actual distance to the published one, and the middle step lands closer than the finest -- so discretization is not what limits this solver, extraction systematics are. A convergence study is a consistency check, not an error bar.",
         "the_reframing": "With an external reference in hand this is no longer only a tie-breaker between two internal codes. It is an independent implementation reproducing a known high-precision spectrum, which is a considerably stronger check on PR #271's corrected radial operator and on the GPP machinery than internal arbitration.",
         "who_is_most_accurate": "PR #270's Kerr-Schild code, at 0.005% in damping against 0.031% for this round's characteristic evolution -- about 6x better. The characteristic scheme arbitrated correctly; it is not the most accurate of the three, and should not be described as though it were."
+      },
+      "pass": true
+    },
+    {
+      "id": "R8",
+      "name": "where the error floor actually lives, by varying knobs",
+      "detail": {
+        "by_extraction_window": [
+          {
+            "window": [
+              50.0,
+              130.0
+            ],
+            "damping_relative_error": 0.010205233991577014
+          },
+          {
+            "window": [
+              60.0,
+              140.0
+            ],
+            "damping_relative_error": 0.0001922930195919369
+          },
+          {
+            "window": [
+              70.0,
+              150.0
+            ],
+            "damping_relative_error": 0.0003918841292032626
+          },
+          {
+            "window": [
+              80.0,
+              160.0
+            ],
+            "damping_relative_error": 0.00325153068043942
+          },
+          {
+            "window": [
+              90.0,
+              180.0
+            ],
+            "damping_relative_error": 0.6123793927280492
+          }
+        ],
+        "by_observer_radius": [
+          {
+            "observer_rstar": 20.0,
+            "damping_relative_error": 0.000201891657458587
+          },
+          {
+            "observer_rstar": 30.0,
+            "damping_relative_error": 0.0001922930195919369
+          },
+          {
+            "observer_rstar": 40.0,
+            "damping_relative_error": 0.01079574426958351
+          }
+        ],
+        "by_t_max": [
+          {
+            "t_max": 300.0,
+            "damping_relative_error": 0.0001922930195919369
+          },
+          {
+            "t_max": 400.0,
+            "damping_relative_error": 0.0001922930195919369
+          },
+          {
+            "t_max": 500.0,
+            "damping_relative_error": 0.0001922930195919369
+          }
+        ],
+        "worst_over_all_variations": 0.6123793927280492,
+        "band_over_reasonable_choices": {
+          "min": 0.0001922930195919369,
+          "max": 0.0003918841292032626
+        },
+        "the_window_dominates": true,
+        "t_max_is_irrelevant": true,
+        "step_refinement_last_relative_difference": 0.0001075986017502505,
+        "extraction_band_exceeds_step_refinement": true,
+        "how_many_times_larger": 3.642093139024925,
+        "what_this_establishes": "The residual is dominated by extraction choices -- above all the window, which degrades without limit once the power-law tail enters it. Over reasonable choices the extraction band is several times the step-refinement difference, and comparable to the gap between this solver and the published value -- which is why step refinement alone was the wrong error bar.",
+        "what_this_corrects": "An internal study CAN expose this floor -- this function is one, and it used no external value. The earlier claim that 'nothing internal to a solver can reveal this' was too strong. What the published spectrum uniquely provides is the anchor: a systematic spread says the answer is uncertain, but only an external reference says which point in the spread is correct."
       },
       "pass": true
     },
@@ -461,7 +551,27 @@
           {
             "claim": "the step-size study bounded this solver's error",
             "verdict": "NO -- IT UNDERSTATED IT 2.7x",
-            "evidence": "last successive difference 4.0e-5, actual distance to the published value 1.1e-4, and h = 0.05 lands closer than h = 0.025; the limit is extraction systematics, not discretization"
+            "evidence": "last successive difference 4.0e-5, actual distance to the published value 1.1e-4, and h = 0.05 lands closer than h = 0.025; self-convergence estimates only the error component tied to the refinement parameter"
+          },
+          {
+            "claim": "the residual is extraction systematics",
+            "verdict": "MEASURED, NOT ASSERTED",
+            "evidence": "varying the extraction window, observer radius and t_max shows the window dominating by orders of magnitude and t_max being bit-irrelevant; the band over reasonable choices is comparable to the gap to the published value"
+          },
+          {
+            "claim": "only an external reference could expose that floor",
+            "verdict": "NO -- TOO STRONG",
+            "evidence": "the internal systematics scan exposes it using no external value; what the published spectrum uniquely supplies is the anchor, i.e. WHICH point in the spread is right"
+          },
+          {
+            "claim": "the GPP potential was sampled at the diamond centre",
+            "verdict": "NO -- IT WAS OFF BY h/4",
+            "evidence": "the centre is r* = (j-i)h/2, the two half-steps cancelling; the code sampled r* - h/4, contradicting its own docstring. Fixed and locked by a test; measured effect ~1e-6, so a real bug that does NOT explain the error floor"
+          },
+          {
+            "claim": "the far-field solution is exactly Hankel",
+            "verdict": "NO -- ASYMPTOTICALLY",
+            "evidence": "V = L/r^2 + (9/4-L)/r^4 - (9/4)/r^6 exactly, so the outgoing solution carries a further radial series; the failed shoot truncated to pure Hankel, making boundary truncation a second unseparated confounder"
           },
           {
             "claim": "a quasinormal frequency can now be quoted",
@@ -491,13 +601,13 @@
         ],
         "headline": "The Kerr-Schild code was right and the tortoise code's damping was wrong. A published high-precision spectrum external to this repository puts the answer at 1.01601691-0.36232802i, which confirms Kerr-Schild to 0.005% and this round's independent characteristic evolution to 0.030%, while the tortoise damping is off by 27.1%. PR #270 named the Kerr-Schild inner cut as the prime suspect; that suspicion pointed at the wrong code.",
         "the_standing_lesson_held": "PR #270 refused to quote a frequency from two converged codes that disagreed. That was right, and the way out was a third implementation sharing no code with either -- plus an exact asymptote to judge all three against.",
-        "the_lesson_this_round_adds": "Self-convergence is a consistency check, not an error bar. This round's own step-size study would have quoted ~4e-5 when the true error was ~1.1e-4. Nothing internal to a solver can reveal that; it took an external reference. Look for a published benchmark BEFORE building a third implementation to break a tie -- had this one been found first, the arbitration would have been unnecessary.",
+        "the_lesson_this_round_adds": "Self-convergence estimates the error component associated with the refinement parameter, not the total numerical, model or extraction error. This round's step-size study would have quoted ~4e-5 when the true error was ~1.1e-4. An internal scan over extraction choices does expose the missing component -- what the external reference uniquely supplies is the anchor that says which point in the spread is correct. Look for a published benchmark BEFORE building a third implementation to break a tie.",
         "still_open": "Overtones, backreaction, and the retarded outer-to-inner transfer function that #270 also deferred; the transfer function is a ratio of the same two signals and is now unblocked, since the signals can be trusted.",
         "the_next_object": "The retarded transfer function G_l(t; r_obs, r_src) from the same characteristic evolution with a compact ingoing excitation, gated on three checks before any physical reading: causal support G(t < t_null) = 0; flux conservation |R_l|^2 + |T_l|^2 = 1 on the fixed background; and late-time ringdown consistent with the EXTERNAL value 1.01601691149-0.36232802385i rather than with this solver's own fitted number."
       },
       "pass": true
     }
   ],
-  "passed": 8,
-  "total": 8
+  "passed": 9,
+  "total": 9
 }

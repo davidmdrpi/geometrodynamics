@@ -39,8 +39,9 @@ def test_the_next_series_coefficient_is_one_third_as_predicted():
         assert deviation == pytest.approx(-1.0 / (3.0 * r ** 2), rel=1e-3)
 
 
-def test_the_potential_tail_is_exactly_bessel():
-    """`V → [(ℓ+1)² − ¼]/r²` — the identity PR #271 used to fix the operator."""
+def test_the_potential_tail_is_asymptotically_bessel():
+    """`V → [(ℓ+1)² − ¼]/r²` — the identity PR #271 used to fix the operator.
+    Asymptotically: the exact `V` also carries `1/r⁴` and `1/r⁶` terms."""
     for ell in (0, 1, 2, 3, 5):
         limit = (ell + 1) ** 2 - 0.25
         assert float(rd.potential(1000.0, ell)) * 1000.0 ** 2 == \
@@ -76,7 +77,7 @@ def test_the_deep_horizon_inverse_saturates_at_the_horizon():
 def test_the_asymptotics_measurement_agrees_with_the_direct_checks():
     result = rd.measure_the_background_asymptotics_are_exact()
     assert result["no_logarithmic_tail"]
-    assert result["the_tail_is_exactly_bessel"]
+    assert result["the_tail_is_asymptotically_bessel"]
     assert result["the_leading_tail_is_minus_one_over_r"]
     assert result["the_next_series_coefficient_is_confirmed"]
     # the prose must not overclaim an equality the series contradicts
@@ -285,3 +286,76 @@ def test_the_probe_module_imports_and_declares_its_checks():
     from experiments.closure_ledger import ringdown_cross_validation_probe as probe
     assert callable(probe.run_probe)
     assert callable(probe.render_markdown)
+
+
+# ── the discretization the arbitrator rests on ──────────────────────────────
+
+def test_the_potential_is_sampled_at_the_diamond_centre():
+    """For `N = (i,j)`, `S = (i−1,j−1)` the centre is `u_c = (i−½)h`,
+    `v_c = (j−½)h`, so `r*_c = (j−i)h/2` — the half-steps cancel. An earlier
+    version sampled `r*_c − h/4`, contradicting its own docstring."""
+    import inspect
+    source = inspect.getsource(rd.characteristic_evolution)
+    assert "0.5 * step * offsets" in source
+    assert "offsets - 0.5" not in source, "the h/4 shift must not come back"
+
+
+def test_the_first_diamond_samples_the_potential_at_the_origin():
+    """`i = j = 1` sits on `r* = 0`, not `−h/4`."""
+    step = 0.05
+    count = int(400.0 / step)
+    offsets = np.arange(-count, count + 1)
+    centres = 0.5 * step * offsets
+    assert centres[count] == 0.0                       # the j − i = 0 entry
+    assert centres[count + 1] == pytest.approx(0.5 * step)
+
+
+def test_the_exact_potential_carries_more_than_the_inverse_square_term():
+    """`V = L/r² + (9/4−L)/r⁴ − (9/4)/r⁶`, which is why the tail is only
+    asymptotically Bessel."""
+    for ell in (0, 1, 2, 3):
+        limit = (ell + 1) ** 2 - 0.25
+        for r in (5.0, 20.0, 100.0):
+            expected = (limit / r ** 2 + (2.25 - limit) / r ** 4
+                        - 2.25 / r ** 6)
+            assert float(rd.potential(r, ell)) == pytest.approx(expected, rel=1e-12)
+
+
+# ── where the error floor actually lives ────────────────────────────────────
+
+def test_the_extraction_window_dominates_the_error_floor():
+    """The claim that the residual is extraction systematics, measured."""
+    result = rd.measure_the_extraction_systematics()
+    assert result["the_window_dominates"]
+    # varying the extraction moves the answer more than refining the step does
+    assert result["extraction_band_exceeds_step_refinement"]
+    assert result["how_many_times_larger"] > 2.0
+
+
+def test_t_max_does_not_move_the_answer_at_all():
+    """The extraction window sits well inside `t_max`, so it cannot."""
+    assert rd.measure_the_extraction_systematics()["t_max_is_irrelevant"]
+
+
+def test_the_round_no_longer_claims_only_an_external_check_could_find_it():
+    """That claim was too strong — this internal scan finds it with no
+    external value. The reference supplies the anchor, not the discovery."""
+    note = rd.measure_the_extraction_systematics()["what_this_corrects"]
+    assert "too strong" in note
+    assert "anchor" in note
+
+
+def test_no_extrapolated_limit_is_claimed():
+    """The quoted number is a raw value at a stated step, not an `h → 0` limit."""
+    v = rd.measure_the_cross_validation_verdict()
+    assert v["this_round_step_size"] == 0.025
+    note = v["this_round_is_a_raw_value_not_an_extrapolated_limit"]
+    assert "not an h -> 0 limit" in note.lower().replace("NOT", "not")
+    assert "Richardson" in note
+
+
+def test_the_failed_shoot_does_not_claim_a_sole_cause():
+    """Boundary truncation is a second confounder this round did not separate."""
+    n = rd.measure_what_did_not_work()["frequency_domain_shooting"]
+    assert "not a demonstrated sole cause" in n["a_second_confounder_not_separated"].lower()
+    assert "series order" in n["what_would_separate_them"]

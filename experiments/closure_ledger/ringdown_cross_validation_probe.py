@@ -96,7 +96,8 @@ if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
 from geometrodynamics.tangherlini.ringdown import (
-    measure_against_the_published_spectrum,  # noqa: E402
+    measure_against_the_published_spectrum,
+    measure_the_extraction_systematics,  # noqa: E402
     measure_the_background_asymptotics_are_exact,
     measure_the_characteristic_scheme_converges,
     measure_the_cross_validation_verdict, measure_the_eikonal_invariants,
@@ -112,7 +113,7 @@ def run_probe() -> dict:
         "id": "R0", "name": "the D=5 asymptotics are exact: no log tail, Bessel V",
         "detail": asy,
         "pass": bool(asy["no_logarithmic_tail"]
-                     and asy["the_tail_is_exactly_bessel"])})
+                     and asy["the_tail_is_asymptotically_bessel"])})
 
     eik = measure_the_eikonal_invariants()
     checks.append({
@@ -156,6 +157,14 @@ def run_probe() -> dict:
         "detail": pub,
         "pass": bool(pub["every_mode_within_0p3_percent"]
                      and pub["ell_1_and_2_within_0p05_percent"])})
+
+    sysm = measure_the_extraction_systematics()
+    checks.append({
+        "id": "R8",
+        "name": "where the error floor actually lives, by varying knobs",
+        "detail": sysm,
+        "pass": bool(sysm["the_window_dominates"]
+                     and sysm["extraction_band_exceeds_step_refinement"])})
 
     led = measure_the_ringdown_ledger()
     checks.append({"id": "R6", "name": "the ledger", "detail": led,
@@ -239,7 +248,10 @@ def render_markdown(summary: dict) -> str:
         L.append(f"| `{radius:.0f}` | `{scaled + 1.0:.4e}` | `{pred:.4e}` | "
                  f"`{err:.1e}` |")
     L += ["",
-          "**The tail is exactly Bessel.** `V·r²` against `(ℓ+1)² − ¼`:", "",
+          "**The tail is *asymptotically* Bessel.** Exactly, "
+          "`V = L/r² + (9/4−L)/r⁴ − (9/4)/r⁶` with `L = (ℓ+1)² − ¼`, so "
+          "`√r H⁽¹⁾` is the *leading* outgoing solution, not the exact one at "
+          "finite `r`. `V·r²` against `L`:", "",
           "| `ℓ` | limit | `V·r²` at `r = 1000` | rel. error |", "|--|--|--|--|"]
     for b in asy["bessel_tail"]:
         L.append(f"| {b['ell']} | `{b['limit']}` | "
@@ -319,7 +331,8 @@ def render_markdown(summary: dict) -> str:
     L += ["## R7 — against a published high-precision spectrum", "",
           "The strongest check available, and external to this repository "
           "entirely. Source: " + pub["source"] + ".", "",
-          "| `ℓ` | characteristic (this round) | published | real err | damping err |",
+          f"| `ℓ` | characteristic (`h = {pub['step_size_of_the_rows']}`) | "
+          "published | real err | damping err |",
           "|--|--|--|--|--|"]
     for row in pub["rows"]:
         if row["characteristic"] is None:
@@ -348,6 +361,34 @@ def render_markdown(summary: dict) -> str:
           f"**understated by `{ref['understatement_factor']:.1f}×`**, and the "
           "`h = 0.05` value lands *closer* than the `h = 0.025` one.", "",
           "> " + pub["the_lesson"], ""]
+
+    sysm = detail("R8")
+    L += ["## R8 — where the error floor actually lives", "",
+          "An earlier draft *asserted* the residual was extraction "
+          "systematics. Nothing was varied behind that. Varying them:", "",
+          "| extraction window | damping rel. error |", "|--|--|"]
+    for row in sysm["by_extraction_window"]:
+        err = row["damping_relative_error"]
+        L.append(f"| `{tuple(row['window'])}` | "
+                 + (f"`{100*err:.4f}%`" if err is not None else "—") + " |")
+    L += ["", "| observer `r*` | damping rel. error |", "|--|--|"]
+    for row in sysm["by_observer_radius"]:
+        err = row["damping_relative_error"]
+        L.append(f"| `{row['observer_rstar']}` | "
+                 + (f"`{100*err:.4f}%`" if err is not None else "—") + " |")
+    band = sysm["band_over_reasonable_choices"]
+    L += ["",
+          f"**The window dominates** by orders of magnitude — late windows "
+          f"admit the power-law tail. **`t_max` is bit-irrelevant** "
+          f"({'confirmed' if sysm['t_max_is_irrelevant'] else 'NOT confirmed'}), "
+          "because the extraction window sits well inside it.", "",
+          f"Over reasonable choices the band is "
+          f"`{100*band['min']:.4f}%`–`{100*band['max']:.4f}%`, against a "
+          f"step-refinement difference of "
+          f"`{100*sysm['step_refinement_last_relative_difference']:.4f}%` — "
+          f"**{sysm['how_many_times_larger']:.1f}× larger**. That is why step "
+          "refinement alone was the wrong error bar.", "",
+          "> " + sysm["what_this_corrects"], ""]
 
     led = detail("R6")
     L += ["## R6 — the ledger", "", "| claim | verdict | evidence |", "|--|--|--|"]
