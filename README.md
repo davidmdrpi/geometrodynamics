@@ -205,6 +205,8 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Closure-quantum ledger closes modulo m_e | **PARTIALLY REOPENED (PR #271)** | The `2π`-quantised entries stand. The `pinhole γ` entry does not: its geometric derivation is reopened, so the ledger no longer reduces **every** dimensionless parameter to closure quanta. See `docs/scalar_operator_audit.md` |
 | `D = 5` scalar quasinormal frequency (`ℓ = 1`) | **Settled against published values (PR #274)** | `ω = 1.01601691 − 0.36232802i` from Matyjasek 2021 (continued fractions + Hill determinants, arXiv:2107.04815). An independent characteristic evolution here reproduces it to `0.018%` in damping. This **confirms PR #270's Kerr–Schild code (`0.005%`) and excludes its tortoise damping (`27.1%` off)** — #270's own prime suspect was the wrong code. No autopsy: neither #270 code was landed. See `docs/ringdown_cross_validation.md` |
 | Self-convergence as an error bar | **REFUTED BY MEASUREMENT (PR #274)** | This round's own step-size study gave a last successive difference of `4.0e-5` while the true error against the published value is `1.1e-4` — **2.7× larger**, with `h = 0.05` closer than `h = 0.025`. Self-convergence estimates only the error component tied to the refinement parameter. The missing component *is* findable internally — varying the extraction window, observer radius and `t_max` gives a band `3.6×` the step-refinement difference — so the external reference supplies the **anchor**, not the discovery |
+| `D = 5` outer→inner transfer kernel | **Delivered, and NOT rigid (PR #275)** | `K_ℓ(t) = δ(t) + K_ℓ^reg(t)` with `∫K_reg dt = −1` **exactly** (sum rule from `T(0) = 0`) and `∫\|K_reg\| dt = 2.02` against the `δ`'s `1`. A static signal is blocked completely, entirely by the memory term. Gates: causality `~9e-7`, unitarity `6.3e-13`, ringdown matching the external published value. Cross-checked against PR #274's independent time-domain evolution to `0.92%`. See `docs/transfer_kernel.md` |
+| Exact `D = 5` barrier constants | **Derived (PR #275)** | At `ℓ = 1` the peak is `V_max = 100/81` at `r² = 9/5` **exactly** — the only rational `ℓ`. And `∫V_ℓ dr* = ℓ(ℓ+2) + 3/2` exactly for all `ℓ`, giving the kernel's closed-form high-frequency phase `c_ℓ = (ℓ(ℓ+2)+3/2)/2`, `c₁ = 9/4` |
 | Frequency-domain QNM shooting in real `r` | **Cannot settle it (PR #274)** | Reproduced #270's non-convergence rather than fixing it: the root moves with every knob because for `Im ω < 0` the outgoing piece grows like `e^{\|Im ω\|R}` and swamps the coefficient being zeroed. Sixth-order WKB by finite differences also **diverges** under refinement (`9.0 → 18.6 → 623`) |
 | Quark mass ladder (u, d, s, c, b, t) | **Fitted** | 1.6% max rel err on s, c, b, t with d-anchor, four shell-index axioms, and one phenomenological β |
 | Quark CKM / flavor-CP realization (v4) | **Locally flexible realization, NOT a prediction (PR #273)** | `rank K = 4` where `K = J_F ker(J_M)`: the mass-preserving parameter freedom spans the *entire* physical flavor space, so the CKM agreement is not evidence for the Hamiltonian. Zero left-null vectors ⟹ no predicted relation. Holding the derived `φ_h = π/k₅` fixed leaves rank 4. See `docs/flavor_identifiability.md` |
@@ -4176,17 +4178,100 @@ test scalar on a fixed background, no backreaction, fundamental mode only. `ℓ 
 is `0.21%` off the published value, an order of magnitude looser than `ℓ = 1, 2`,
 which independently vindicates having quoted it with a wider uncertainty.
 
-**Next.** The retarded transfer function `G_ℓ^ret(t; r_obs, r_src)` from the same
-evolution with a compact purely ingoing excitation, gated on three checks before
-any physical reading: causal support `G(t < t_null) = 0`; flux conservation
-`|R_ℓ|² + |T_ℓ|² = 1`; and late-time ringdown consistent with the **external**
-`1.01601691149 − 0.36232802385i` rather than this solver's own fitted number.
+**Next, and now done in PR #275.** The retarded transfer function, gated on
+three checks before any physical reading: causal support, flux conservation
+`|R_ℓ|² + |T_ℓ|² = 1`, and late-time ringdown consistent with the **external**
+`1.01601691149 − 0.36232802385i` rather than this solver's own fitted number. All
+three pass; see below. The kernel turned out **not** to be rigid.
 
 ```bash
 python -m experiments.closure_ledger.ringdown_cross_validation_probe
 ```
 
 Full write-up: `docs/ringdown_cross_validation.md`.
+
+## The retarded outer→inner transfer kernel (PR #275)
+
+PR #270 deferred the retarded transfer function because it is a ratio of two
+signals it could not trust. PR #274 settled which signal was right, against a
+published spectrum. This round builds the object.
+
+A wave sent in from the far region reaches the horizon filtered. That filter is
+the transmission amplitude `T_ℓ(ω)`; in time it is a convolution kernel,
+`ψ_trans(v) = (K_ℓ ⋆ ψ_inc)(v)` with `v = t + r*`. Since `T → 1` at high
+frequency, `K_ℓ(t) = δ(t) + K_ℓ^reg(t)` — an instantaneous part plus memory.
+
+**The transfer is not rigid, and not marginally.**
+
+| quantity | measured | meaning |
+|--|--|--|
+| `∫K_reg dt` | `−0.997757` | exact value **`−1`**, a sum rule, not a fit |
+| `∫\|K_reg\| dt` | `2.0233` | against the `δ`'s weight of `1` |
+| `T(ω→0)` | `1.73e-06` | the barrier blocks DC completely |
+
+A rigid exchange kernel is `δ(t)`, possibly delayed: whatever enters leaves
+undistorted and a static signal passes perfectly. The real geometry **blocks a
+static signal completely**, and does so *entirely* through the memory term.
+`∫K dt = T(0) = 0` forces `∫K_reg dt = −1` **exactly** — so the memory does not
+modify the instantaneous term, it cancels it. In absolute mass it is about twice
+the delta. Not a correction to rigid exchange; the same size as the thing it
+would correct. **Scope:** a test scalar on a fixed background, per angular
+channel. Whether any BAM exchange kernel is *meant* to approximate this object is
+a modelling question this round does not settle.
+
+**Why the frequency domain works here, having failed twice.** #270 and #274 could
+not converge a quasinormal frequency by shooting in real `r`: for `Im ω < 0` the
+outgoing solution grows like `e^{|Im ω|R}` and swamps the coefficient being
+zeroed. That objection does not apply — here `ω` is **real**, both `e^{±iωr*}`
+have unit modulus, and nothing dominates anything. This is a different, well-posed
+problem, not a repair of the failed one. The evidence is unitarity, imposed
+nowhere: **`|R|² + |T|² − 1` ≲ `6.3e-13`**.
+
+**Three exact anchors, derived not recalled.** In `x = 1/r²` the potential is a
+cubic, so the barrier peak solves a quadratic; at `ℓ = 1` the discriminant is a
+perfect square and **`r² = 9/5`, `V_max = 100/81` exactly** — the only `ℓ` that is
+rational (`ℓ = 0, 2, 3` carry `√13`, `√1621`, `√57`), and the mode #270's codes
+disagreed on. The peak radius climbs toward `r² = 2`, the photon sphere #274
+pinned. Since `dr* = dr/f` cancels the `f` in `V`, **`∫V dr* = ℓ(ℓ+2) + 3/2`
+exactly**; the truncated quadrature's deficit matches the predicted tail
+`L/r*_out` in every row. Hence the kernel's high-frequency phase is closed-form,
+`T_ℓ(ω) → exp(−i c_ℓ/ω)` with **`c₁ = 9/4` exactly** — which is what makes the
+kernel computable, since `T − 1 ~ −ic/ω` decays too slowly to transform
+numerically and knowing `c` lets it be removed analytically instead of windowed
+away.
+
+**Three gates, all measured.** Causal support `K(t < 0) = 0` to `~9e-7` away from
+the front; flux conservation to `6.3e-13`; and the kernel's own ringdown fitted
+against the **external** published value — real part `0.062%`–`1.17%`, damping
+`0.11%`–`3.80%` across nine settings, with the band reported rather than the best
+row, per #274's lesson.
+
+**An independent method reproduces it.** Convolving `K` with the incident profile
+against #274's time-domain characteristic evolution, which shares no code: **`0.92%`
+peak, `0.17%` rms**. That check also exposed a subtlety — #274's pulse launches at
+`r* = 6`, where `V ≈ 0.1`, *inside* the barrier's reach. Harmless for a
+quasinormal frequency (a ringdown does not care how it was excited) and fatal for
+a transmission ratio: the mismatch runs `43% → 7.3% → 0.92%` as the launch moves
+out, tracking `V` at the launch point.
+
+**What the causality gate caught.** Two artefacts, both at exactly the amplitude
+of the physics being sought, neither visible from `t > 0` alone: a missing DC cell
+(right-endpoint `ω` sampling left `[0, dω]` uncovered, putting a constant `−1.9e-3`
+under the whole kernel) and Gibbs ringing from the `1/ω` tail (a `1.6e-3` plateau
+at large `|t|` — on *both* sides). The second would have been read as a late-time
+tail. **An exactly-zero region is a free error bar:** #274 needed a published
+spectrum to find its floor; here causality supplied one on the same run.
+
+**Not delivered.** The **late-time power-law tail is not measured** — the ringdown
+reaches the `~1e-6` noise floor by `t ≈ 40` and a tail would be orders of magnitude
+below it. No exponent is quoted. That needs a method with dynamic range where this
+one has none, not a refinement of this one.
+
+```bash
+python -m experiments.closure_ledger.transfer_kernel_probe
+```
+
+Full write-up: `docs/transfer_kernel.md`.
 
 ## The geometric-visualization arc, end to end
 
