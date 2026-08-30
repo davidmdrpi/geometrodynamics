@@ -62,12 +62,12 @@ def run_probe() -> dict:
     closure = measure_the_closure_offsets_disagree()
     checks.append({
         "id": "G4",
-        "name": "*** phase closure and group closure demand different offsets ***",
+        "name": "the dispersion underneath the closure question (raw, branch dependent)",
         "detail": closure, "pass": bool(closure["the_two_offsets_disagree"])})
 
     loop = measure_whether_the_loop_can_close()
     checks.append({
-        "id": "G5", "name": "*** Lambda = 1 cannot occur at finite frequency ***",
+        "id": "G5", "name": "*** no perfect-transmission point at finite frequency ***",
         "detail": loop,
         "pass": bool(loop["transmission_is_below_one_at_finite_frequency"]
                      and loop["the_approach_to_unity_is_exponential"])})
@@ -101,17 +101,28 @@ def render_markdown(summary: dict) -> str:
         "supplied: `MouthPort.t`, `r_in`, `r_out` are inputs, and "
         "`closure_offset` *solves* for the `Δ` that makes the loop close.", "",
         "This round supplies the geometry and recomputes the closure without "
-        "tuning `Δ` to the answer.", "",
+        "tuning `Δ` to the answer. The end-to-end wiring of this `T_ℓ(ω)` into "
+        "`network.py` itself — and the branch-free closure verdict that needs "
+        "the module's own convention to state — is the companion probe, "
+        "`experiments/closure_ledger/derived_network_probe.py`.", "",
         "> ## Three results", "",
         "> **1.** Traversability costs exactly "
         f"`{price['null_energy_integral_in_units_of_one_over_G5']:.6f}/G₅` "
         "= `−3/(16G₅a)` in the complete null-ray energy integral.", "",
-        "> **2.** No single clock offset closes the loop: phase closure and "
-        f"group closure disagree by up to "
-        f"`{closure['worst_disagreement']:.2f}` over the sampled band.", "",
-        "> **3.** `Λ = 1` — PR #216's completed transaction — cannot occur at "
-        "any finite frequency, and the deficit closes only exponentially, "
-        f"`1 − |T|² ~ exp({loop['log_slope']:.2f} ω)`.", "",
+        "> **2.** The throat is strongly dispersive: the Wigner delay "
+        f"`dδ/dω` runs from `{closure['rows'][0]['wigner_delay']:+.3f}` at "
+        f"`ω = {closure['rows'][0]['omega']:g}` to "
+        f"`{closure['rows'][-1]['wigner_delay']:+.3f}` at "
+        f"`ω = {closure['rows'][-1]['omega']:g}`, so there is no single `τ_th` "
+        "for PR #216's `closure_offset` to use. *The invariant closure verdict "
+        "is not computed here* — it needs the network's own convention, and "
+        "lives in `transaction/derived_network.py`.", "",
+        "> **3.** No finite-frequency perfect-transmission point was found: "
+        "`|T| → 1` only in the ultraviolet, with the deficit closing "
+        f"exponentially, `1 − |T|² ~ exp({loop['log_slope']:.2f} ω)` against "
+        "the analytic `−4a`. So `Λ = 1` — PR #216's completed transaction — "
+        "is a UV limit here, though **not** by a theorem: a positive barrier "
+        "can have perfect-transmission resonances.", "",
         "---", "",
         "## Why not Tangherlini — an argument, not a computation", "",
         "`supp G_ret(c,s) ⊂ J⁺(s)` and `supp G_adv(c,d) ⊂ J⁻(d)`, so a nonzero "
@@ -177,31 +188,41 @@ def render_markdown(summary: dict) -> str:
         L.append(f"| `{w:g}` | `{m:.6f}` | `{p:+.4f}` |")
     L += ["", "> " + threshold["the_phase_offset_is_a_convention"], ""]
 
-    L += ["## G4 — no single clock offset closes the loop", "",
+    L += ["## G4 — the dispersion underneath the closure question", "",
           "PR #216 sets `Δ_BA = −(d_A + d_B + τ_th)`, which *solves* for "
           "closure. Once the throat is dispersive there is no unique `τ_th`: "
           "the geometry supplies `δ_ℓ(ω) = arg T_ℓ(ω)`, and phase closure "
-          "`Φ = 2πn` and group closure `dΦ/dω = 0` demand **different** "
-          "offsets.", "",
+          "`Φ = 2πn` and group closure `dΦ/dω = 0` are different demands.", "",
           f"With `d_A + d_B = {closure['exterior_legs']:.4f}` (antipodal on the "
           "unit `S³`):", "",
-          "| `ω` | `δ_ℓ` | `dδ/dω` (Wigner) | `Δ_phase` | `Δ_group` | gap |",
-          "|--|--|--|--|--|--|"]
+          "| `ω` | `δ_ℓ` | `dδ/dω` (Wigner) | `d²δ/dω²` | `Δ_phase` (`n=0`) | "
+          "`Δ_group` | raw gap |",
+          "|--|--|--|--|--|--|--|"]
     for row in closure["rows"]:
         L.append(f"| `{row['omega']:g}` | `{row['delta']:+.4f}` | "
-                 f"`{row['wigner_delay']:+.4f}` | `{row['delta_phase']:+.4f}` | "
-                 f"`{row['delta_group']:+.4f}` | **`{row['disagreement']:.4f}`** |")
+                 f"`{row['wigner_delay']:+.4f}` | "
+                 f"`{row['second_derivative']:+.4f}` | "
+                 f"`{row['delta_phase']:+.4f}` | "
+                 f"`{row['delta_group']:+.4f}` | `{row['disagreement']:.4f}` |")
     L += ["",
+          "> **" + closure["THIS_IS_NOT_THE_INVARIANT_STATEMENT"] + "**", "",
+          "What survives branch choice is the dispersion itself: the Wigner "
+          "delay above varies by a factor of "
+          f"`{abs(closure['rows'][0]['wigner_delay'] / closure['rows'][-1]['wigner_delay']):.0f}` "
+          "across the sampled band, and `d²δ/dω²` is nonzero throughout — so "
+          "there is no frequency-independent `τ_th` for `closure_offset` to "
+          "take.", "",
           "> " + closure["why_that_matters"], "",
           closure["bandwidth_from_dispersion"], "",
           "**" + closure["what_this_replaces"] + "**", ""]
 
-    L += ["## G5 — can the transaction actually complete?", "",
+    L += ["## G5 — is there a perfect-transmission point?", "",
           "| `ω` | `1 − \\|T\\|²` |", "|--|--|"]
     for w, d in zip(loop["omega"][::4], loop["reflection_probability"][::4]):
         L.append(f"| `{w:.2f}` | `{d:.4e}` |")
     L += ["",
           "> **" + loop["so_lambda_cannot_equal_one_exactly"] + "**", "",
+          "> " + loop["the_slope_is_predicted_not_fitted"], "",
           "> " + loop["but_the_deficit_closes_exponentially"], "",
           "| `D_loop` | regime |", "|--|--|"]
     for key, value in loop["causal_classification"].items():

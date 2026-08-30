@@ -1,0 +1,432 @@
+{
+  "checks": [
+    {
+      "id": "G0",
+      "name": "the geometry and its potential, derived",
+      "detail": {
+        "profile": "f(s) = sqrt(s^2 + a^2), the scalar-flat solution of f'^2 = 1 - a^2/f^2",
+        "potential": "V_l = l(l+2)/f^2 + (3/4)(s^2 + 2a^2)/f^4",
+        "rows": [
+          {
+            "ell": 0,
+            "V_at_throat": 1.5,
+            "exact_throat_value": 1.5,
+            "asymptotic_coefficient": 0.7499999999999999,
+            "exact_asymptotic_coefficient": 0.75
+          },
+          {
+            "ell": 1,
+            "V_at_throat": 4.5,
+            "exact_throat_value": 4.5,
+            "asymptotic_coefficient": 3.7499999700000006,
+            "exact_asymptotic_coefficient": 3.75
+          },
+          {
+            "ell": 2,
+            "V_at_throat": 9.5,
+            "exact_throat_value": 9.5,
+            "asymptotic_coefficient": 8.749999919999999,
+            "exact_asymptotic_coefficient": 8.75
+          },
+          {
+            "ell": 3,
+            "V_at_throat": 16.5,
+            "exact_throat_value": 16.5,
+            "asymptotic_coefficient": 15.749999850000002,
+            "exact_asymptotic_coefficient": 15.75
+          }
+        ],
+        "throat_value_is_exact": true,
+        "asymptotic_tail_matches_pr_275": true,
+        "the_potential_is_even": true,
+        "the_potential_is_positive": true,
+        "it_is_one_barrier_not_two": "V is a single smooth symmetric maximum at s = 0, with no interior cavity and no separated interfaces. The Fabry-Perot form t_A t_B / (1 - r_inA r_inB e^{2 i w tau}) that PR #216 assumes is therefore a modelling choice the geometry does not supply, and this module does not impose it: the whole throat is solved as one scattering problem.",
+        "why_the_same_jost_condition_applies": "V -> [(l+1)^2 - 1/4]/s^2 at BOTH ends -- numerically the same centrifugal tail as the Tangherlini exterior of PR #275 -- so that round's validated Riccati-Hankel boundary condition is imported rather than rewritten.",
+        "the_throat_constant_echoes_pr_275": "V_l(0) = [l(l+2) + 3/2]/a^2 carries the same l(l+2) + 3/2 that PR #275 derived as the exact int V dr* on Tangherlini."
+      },
+      "pass": true
+    },
+    {
+      "id": "G1",
+      "name": "*** the GR price of traversability ***",
+      "detail": {
+        "sample_s": [
+          0.0,
+          0.5,
+          1.0,
+          2.0,
+          5.0
+        ],
+        "density": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "radial_pressure": [
+          -3.0,
+          -1.92,
+          -0.75,
+          -0.12,
+          -0.004437869822485207
+        ],
+        "angular_pressure": [
+          1.0,
+          0.64,
+          0.25,
+          0.04,
+          0.0014792899408284023
+        ],
+        "radial_nec": [
+          -3.0,
+          -1.92,
+          -0.75,
+          -0.12,
+          -0.004437869822485207
+        ],
+        "density_vanishes_identically": true,
+        "radial_nec_is_violated_everywhere": true,
+        "null_energy_integral_in_units_of_one_over_G5": -0.1875,
+        "exact_null_energy_integral": "-3/(16 G5 a)",
+        "the_integral_is_exact": true,
+        "scaling": "the exoticity scales as 1/(G5 a): a wider throat is cheaper",
+        "what_this_is_NOT": "This is the support required by the STATIC traversable throat. It is NOT the energy cost of the clock offset Delta_BA. A frozen final metric can carry a large accumulated offset without any local stress tensor proportional to it -- the offset is produced by the mouths' differential-aging HISTORY. Costing Delta requires moving-mouth dynamics or an explicit gravitational-well history, and this module does not attempt it."
+      },
+      "pass": true
+    },
+    {
+      "id": "G2",
+      "name": "the whole-throat S-matrix is unitary and reciprocal",
+      "detail": {
+        "omega": [
+          0.05,
+          0.1,
+          0.2,
+          0.5,
+          1.0,
+          2.0,
+          5.0,
+          10.0
+        ],
+        "transmission_modulus": [
+          0.0009870468895630772,
+          0.003998712775431753,
+          0.016658928146655795,
+          0.12651406461624792,
+          0.6414248996901352,
+          0.9965714952534432,
+          0.9999999932632812,
+          0.9999999999999674
+        ],
+        "reflection_modulus": [
+          0.999999512869092,
+          0.9999920051161196,
+          0.9998612304280102,
+          0.9919648136170451,
+          0.7671858301985812,
+          0.08273605531012239,
+          0.00011607502712881322,
+          4.095297545525839e-09
+        ],
+        "unitarity_residual": [
+          -1.6431300764452317e-14,
+          1.7541523789077473e-14,
+          9.769962616701378e-15,
+          2.3314683517128287e-14,
+          -1.3766765505351941e-14,
+          -3.674838211509268e-14,
+          -2.5757174171303632e-14,
+          -6.550315845288424e-14
+        ],
+        "worst_unitarity_residual": 6.550315845288424e-14,
+        "unitarity_holds": true,
+        "step_refinement": [
+          {
+            "steps": 15000,
+            "transmission": 0.6414378251141762
+          },
+          {
+            "steps": 30000,
+            "transmission": 0.6414274846298612
+          },
+          {
+            "steps": 60000,
+            "transmission": 0.6414248996901352
+          }
+        ],
+        "successive_differences": [
+          1.0340484315030096e-05,
+          2.5849397260468976e-06
+        ],
+        "second_order_in_the_step": true,
+        "reciprocity_is_structural": "V is even in s to machine precision, so R_L = R_R and T_LR = T_RL identically. Reciprocity here is a property of the geometry, not a numerical coincidence to be verified.",
+        "no_fabry_perot_factorisation_imposed": true
+      },
+      "pass": true
+    },
+    {
+      "id": "G3",
+      "name": "the threshold law (NOT T_0(0) = g)",
+      "detail": {
+        "static_resistance_I3": 2.0,
+        "static_conductance_g": 9.869604401089358,
+        "the_static_conductance_is_not_T_at_zero": "A flux-normalised transmission amplitude between asymptotically flat four-dimensional spatial ends vanishes at threshold, from the asymptotic radial normalisation. g = pi^2 a^2 is a static boundary response; asserting T_0(0) = g would be a false regression. What the static solution controls is the COEFFICIENT of the low-frequency expansion.",
+        "omega": [
+          0.01,
+          0.015,
+          0.02,
+          0.03,
+          0.05
+        ],
+        "transmission": [
+          [
+            -3.928145718315109e-05,
+            -3.085277861930992e-09
+          ],
+          [
+            -8.841192388387578e-05,
+            -1.562578381289013e-08
+          ],
+          [
+            -0.00015724349554444868,
+            -4.941222323277504e-08
+          ],
+          [
+            -0.0003541954363749678,
+            -2.5051162760490075e-07
+          ],
+          [
+            -0.000987044981086381,
+            -1.9410070405107285e-06
+          ]
+        ],
+        "predicted_magnitude": [
+          3.9269908169872414e-05,
+          8.835729338221293e-05,
+          0.00015707963267948965,
+          0.0003534291735288517,
+          0.0009817477042468104
+        ],
+        "magnitude_ratio": [
+          1.000294096293579,
+          1.0006183064284766,
+          1.0010432328228447,
+          1.002168331006944,
+          1.0053977058396406
+        ],
+        "phase_of_ratio_over_pi": [
+          0.5000250009677207,
+          0.5000562575860441,
+          0.5001000257503889,
+          0.5002251308350852,
+          0.5006259501295062
+        ],
+        "the_magnitude_law_holds": true,
+        "the_ratio_is_a_constant_phase": true,
+        "the_convention_factor_is_i": true,
+        "law": "|T_0(w)| -> (pi/8)(a w)^2 ,  measured/predicted -> i",
+        "the_phase_offset_is_a_convention": "The oracle was stated up to the overall phase convention for the asymptotic waves, and the measured ratio is a CONSTANT +pi/2 to within 5e-3 across the sampled band -- i.e. exactly a factor of i, from this module's Riccati-Hankel normalisation to e^{+-ix}. The magnitude law, which is the physical content, is confirmed."
+      },
+      "pass": true
+    },
+    {
+      "id": "G4",
+      "name": "the dispersion underneath the closure question (raw, branch dependent)",
+      "detail": {
+        "exterior_legs": 3.141592653589793,
+        "rows": [
+          {
+            "omega": 0.5,
+            "delta": -2.926048937484074,
+            "wigner_delay": 0.9322761078742747,
+            "second_derivative": 2.3926367268001236,
+            "delta_phase": 2.710505221378355,
+            "delta_group": -4.073868761464068,
+            "disagreement": 6.784373982842423
+          },
+          {
+            "omega": 1.0,
+            "delta": -2.1523378274148834,
+            "wigner_delay": 1.9921208391640022,
+            "second_derivative": 0.14817287731228035,
+            "delta_phase": -0.9892548261749097,
+            "delta_group": -5.133713492753795,
+            "disagreement": 4.144458666578886
+          },
+          {
+            "omega": 1.5,
+            "delta": -1.333907805542491,
+            "wigner_delay": 1.1324069239051493,
+            "second_derivative": -1.8631114293343742,
+            "delta_phase": -2.2523207832281322,
+            "delta_group": -4.273999577494942,
+            "disagreement": 2.02167879426681
+          },
+          {
+            "omega": 2.0,
+            "delta": -0.9400002271407195,
+            "wigner_delay": 0.5424330666713995,
+            "second_derivative": -0.6787089236515165,
+            "delta_phase": -2.671592540019433,
+            "delta_group": -3.6840257202611926,
+            "disagreement": 1.0124331802417594
+          },
+          {
+            "omega": 3.0,
+            "delta": -0.6032146679149842,
+            "wigner_delay": 0.21168018115796938,
+            "second_derivative": -0.15363603327878117,
+            "delta_phase": -2.9405210976181317,
+            "delta_group": -3.3532728347477625,
+            "disagreement": 0.41275173712963076
+          },
+          {
+            "omega": 5.0,
+            "delta": -0.3562824071047,
+            "wigner_delay": 0.07243727402161948,
+            "second_derivative": -0.029717719503274953,
+            "delta_phase": -3.070336172168853,
+            "delta_group": -3.2140299276114126,
+            "disagreement": 0.14369375544255947
+          }
+        ],
+        "worst_disagreement": 6.784373982842423,
+        "the_two_offsets_disagree": true,
+        "THIS_IS_NOT_THE_INVARIANT_STATEMENT": "These gaps are computed at n = 0 with phi_topo = 0, so they are BRANCH DEPENDENT: phase branches are separated by 2 pi / w, and at w = 1 the raw gap of 4.14 is 2.14 to the nearest branch. A constant rephasing of T also shifts Delta_phase while leaving the Wigner delay alone. Eliminating Delta between the two conditions gives the invariant theta - w theta' = 2 pi n; see transaction.derived_network.closure_residual, which searches over n automatically and uses network.py's own eta_topo. This table is retained as the raw dispersion data, not as the verdict.",
+        "why_that_matters": "One clock offset can phase-close a monochromatic carrier while failing to return a localised packet to the same event. Delta_n and Delta_g are the two demands; where they differ, no single offset does both.",
+        "bandwidth_from_dispersion": "d^2 delta / dw^2 sets how narrow the packet must be for the monochromatic answer to survive: the group delay varies across the packet by delta''(w0) * bandwidth.",
+        "what_this_replaces": "closure_offset(d_A, d_B, tau_th) = -(d_A + d_B + tau_th), which SOLVES for the offset that makes the loop close. Here the offset is a derived demand of the geometry, and it is frequency dependent."
+      },
+      "pass": true
+    },
+    {
+      "id": "G5",
+      "name": "*** no perfect-transmission point at finite frequency ***",
+      "detail": {
+        "omega": [
+          1.5,
+          1.8421052631578947,
+          2.1842105263157894,
+          2.526315789473684,
+          2.8684210526315788,
+          3.2105263157894735,
+          3.5526315789473686,
+          3.8947368421052633,
+          4.2368421052631575,
+          4.578947368421053,
+          4.921052631578947,
+          5.2631578947368425,
+          5.605263157894737,
+          5.947368421052632,
+          6.2894736842105265,
+          6.631578947368421,
+          6.973684210526316,
+          7.315789473684211,
+          7.657894736842105,
+          8.0
+        ],
+        "reflection_probability": [
+          0.07758209231014401,
+          0.014631617294280863,
+          0.0028622653446512825,
+          0.0005887122766971009,
+          0.00012600632103021425,
+          2.7789457177740395e-05,
+          6.269481962029033e-06,
+          1.4395400960154348e-06,
+          3.351628291570208e-07,
+          7.891325415343431e-08,
+          1.8750730634842228e-08,
+          4.489324689771479e-09,
+          1.0816922912937343e-09,
+          2.621001193858774e-10,
+          6.378786387983837e-11,
+          1.5593970559280024e-11,
+          3.817834937080988e-12,
+          9.414691248821327e-13,
+          1.816324868286756e-13,
+          9.348077867343818e-14
+        ],
+        "log_slope": -4.24993178905825,
+        "the_approach_to_unity_is_exponential": true,
+        "transmission_at_probes": [
+          0.6414248996901352,
+          0.9965714952534432,
+          0.9999999932632812,
+          0.9999999999999674,
+          1.000000000000015
+        ],
+        "transmission_is_below_one_at_finite_frequency": true,
+        "so_lambda_cannot_equal_one_exactly": "NO FINITE-FREQUENCY PERFECT-TRANSMISSION POINT WAS FOUND, and |T| -> 1 only in the ultraviolet. That is a finding about this potential, NOT a theorem: a positive barrier CAN support perfect-transmission resonances, so |T| < 1 does not follow from V > 0. The direct search for zeros of R_l(w) lives in transaction.derived_network.measure_no_perfect_transmission_resonance. Where |T| < 1, |Lambda| < 1 and G_eff = G_0/(1 - Lambda) has no pole.",
+        "the_slope_is_predicted_not_fitted": "First-Born reflection off V_0, whose Fourier transform is (3 pi/8a)(3 + a|q|) e^{-a|q|}, gives 1 - |T|^2 ~ e^{-4 a w}. The asymptotic log-slope is -4a with nothing fitted; the value below is a finite-frequency fit that approaches it from beneath. See derived_network.measure_the_ultraviolet_slope_matches_born.",
+        "but_the_deficit_closes_exponentially": "1 - |T|^2 ~ exp(-4.25 w) over the fitted window, approaching the analytic -4a. So the quality factor of the near-transaction grows exponentially with frequency and the frequency needed for a given Q grows only logarithmically. Exact closure is approached in the UV, which is a chronology-horizon concern rather than the benign resonance the phenomenological ports suggest.",
+        "causal_classification": {
+          "D_loop > 0": "ordinary delayed feedback",
+          "D_loop = 0": "closed-null / marginal chronology condition",
+          "D_loop < 0": "return before emission (CTC regime)"
+        }
+      },
+      "pass": true
+    },
+    {
+      "id": "G6",
+      "name": "the ledger",
+      "detail": {
+        "entries": [
+          {
+            "claim": "an advanced leg alone evades ER non-traversability",
+            "verdict": "NO -- PROVED, NOT COMPUTED",
+            "evidence": "supp G_ret(c,s) in J+(s) and supp G_adv(c,d) in J-(d), so a nonzero product needs c in J+(s) cap J-(d), whence s -> c -> d and d in J+(s). If d is not in J+(s) the product vanishes for every c"
+          },
+          {
+            "claim": "PR #216's throat transfer is supplied by a geometry",
+            "verdict": "NOW IT IS",
+            "evidence": "T_l(w), R_l(w) computed from the whole traversable throat instead of MouthPort.t, r_in, r_out being inputs"
+          },
+          {
+            "claim": "the throat factorises as two mouths plus a cavity",
+            "verdict": "NOT BY THIS GEOMETRY",
+            "evidence": "V_l is a single smooth symmetric barrier; the Fabry-Perot form is a modelling choice, and is not imposed here"
+          },
+          {
+            "claim": "the static conductance g is T_0(0)",
+            "verdict": "NO -- IT IS THE THRESHOLD COEFFICIENT",
+            "evidence": "|T_0| -> (pi/8)(a w)^2, magnitude ratio 1.0003 at w = 0.01, with a constant phase convention factor of i"
+          },
+          {
+            "claim": "the traversable throat is free",
+            "verdict": "NO",
+            "evidence": "rho = 0 but p_s = -3a^2/(8 pi G5 f^4), radial NEC violated everywhere, and the complete null-ray integral is exactly -0.187500/G5 = -3/(16 G5 a)"
+          },
+          {
+            "claim": "that NEC integral is the cost of the clock offset",
+            "verdict": "NO -- DIFFERENT QUESTION",
+            "evidence": "it is the support of the static throat; Delta_BA comes from the mouths' aging history, and a frozen metric can carry a large offset with no local stress proportional to it"
+          },
+          {
+            "claim": "the throat supplies a single frequency-independent tau_th",
+            "verdict": "NO",
+            "evidence": "the Wigner delay runs +0.9323 -> +0.0724 over w = 0.5...5 with d^2 delta/dw^2 nonzero throughout, so closure_offset has no constant transit time to take"
+          },
+          {
+            "claim": "the raw Delta_phase / Delta_group gap is the closure verdict",
+            "verdict": "NO -- BRANCH DEPENDENT",
+            "evidence": "the tabulated worst gap 6.7844 is evaluated at n = 0; branches are 2 pi/w apart. The invariant statement is theta - w theta' = 2 pi n, computed in the network's own convention by transaction.derived_network.closure_residual"
+          },
+          {
+            "claim": "Lambda = 1 (the completed transaction) can occur",
+            "verdict": "NO SUCH POINT FOUND -- NOT A THEOREM",
+            "evidence": "no finite-frequency perfect-transmission point was found in a direct search for zeros of R_l; |T| -> 1 only in the UV, with 1 - |T|^2 ~ e^{-4 a w} from first Born. A positive barrier does not by itself forbid |T| = 1"
+          }
+        ],
+        "what_this_round_establishes": "PR #216 relocated the advanced wave from a bare postulate into a Morris-Thorne-Yurtsever geometry, which was real progress. This round supplies the geometry it was missing and finds that the relocation has a price (NEC violation, exactly -3/(16 G5 a)), that the closure it assumed is frequency dependent rather than a single tuned constant, and that its completed transaction is a high-Q limit rather than an attainable pole.",
+        "what_remains_postulated": "That the throat is traversable at all, and that the mouths carry the required clock offset. The first now has an exact price; the second needs moving-mouth dynamics this round does not do.",
+        "still_open": "The history that produces Delta_BA, and whether any BAM exchange kernel is meant to approximate the whole-throat T_l derived here."
+      },
+      "pass": true
+    }
+  ],
+  "passed": 7,
+  "total": 7
+}

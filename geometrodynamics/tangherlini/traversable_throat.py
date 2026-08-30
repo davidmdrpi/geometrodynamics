@@ -503,13 +503,21 @@ def measure_the_threshold_law(a: float = THROAT_RADIUS) -> Dict[str, object]:
 def measure_the_closure_offsets_disagree(
         ell: int = 0, a: float = THROAT_RADIUS,
         exterior_legs: float = math.pi) -> Dict[str, object]:
-    """G4 — MTY closure recomputed **without** tuning ``Δ`` to the answer.
+    """G4 — the raw dispersion data behind the closure question.
 
     PR #216 sets ``Δ_BA = −(d_A + d_B + τ_th)`` for exact closure. Once the
     throat is dispersive there is no unique ``τ_th``: the geometry supplies
     ``δ_ℓ(ω) = arg T_ℓ(ω)``, and phase closure and *group* closure demand
-    different offsets. ``exterior_legs`` is ``d_A + d_B``, taken as the
-    antipodal separation ``π`` on the unit ``S³``.
+    different offsets.
+
+    **This is not the invariant test.** The offsets below are evaluated at
+    ``n = 0`` with ``φ_topo = 0``, and phase branches are ``2π/ω`` apart, so
+    the tabulated gaps are branch dependent — at ``ω = 1`` a raw ``4.14`` is
+    ``2.14`` to the nearest branch. Eliminating ``Δ`` between the two
+    conditions gives the branch-free ``θ − ωθ' = 2πn``, computed end-to-end in
+    the network's own convention by
+    ``transaction.derived_network.closure_residual``. What survives here is the
+    dispersion itself: the Wigner delay and its frequency dependence.
     """
     omega = np.array([0.5, 1.0, 1.5, 2.0, 3.0, 5.0])
     delta = phase_shift(omega, ell, a)
@@ -536,6 +544,16 @@ def measure_the_closure_offsets_disagree(
         "rows": rows,
         "worst_disagreement": worst,
         "the_two_offsets_disagree": bool(worst > 1e-3),
+        "THIS_IS_NOT_THE_INVARIANT_STATEMENT": (
+            "These gaps are computed at n = 0 with phi_topo = 0, so they are "
+            "BRANCH DEPENDENT: phase branches are separated by 2 pi / w, and at "
+            "w = 1 the raw gap of 4.14 is 2.14 to the nearest branch. A "
+            "constant rephasing of T also shifts Delta_phase while leaving the "
+            "Wigner delay alone. Eliminating Delta between the two conditions "
+            "gives the invariant theta - w theta' = 2 pi n; see "
+            "transaction.derived_network.closure_residual, which searches over "
+            "n automatically and uses network.py's own eta_topo. This table is "
+            "retained as the raw dispersion data, not as the verdict."),
         "why_that_matters": (
             "One clock offset can phase-close a monochromatic carrier while "
             "failing to return a localised packet to the same event. Delta_n "
@@ -573,13 +591,23 @@ def measure_whether_the_loop_can_close(
         "transmission_is_below_one_at_finite_frequency": bool(
             np.all(np.abs(far) < 1.0 + 1e-12)),
         "so_lambda_cannot_equal_one_exactly": (
-            "|Lambda| = |t_net| |eta_topo| and a barrier with V > 0 everywhere "
-            "has |T| < 1 at every finite frequency. So 1 - Lambda cannot vanish "
-            "and G_eff = G_0/(1 - Lambda) has no true pole -- unless some "
-            "element outside the throat supplies gain. PR #216's completed "
-            "transaction is a high-Q near-resonance, not an exact one."),
+            "NO FINITE-FREQUENCY PERFECT-TRANSMISSION POINT WAS FOUND, and "
+            "|T| -> 1 only in the ultraviolet. That is a finding about this "
+            "potential, NOT a theorem: a positive barrier CAN support "
+            "perfect-transmission resonances, so |T| < 1 does not follow from "
+            "V > 0. The direct search for zeros of R_l(w) lives in "
+            "transaction.derived_network.measure_no_perfect_transmission_"
+            "resonance. Where |T| < 1, |Lambda| < 1 and G_eff = G_0/(1 - "
+            "Lambda) has no pole."),
+        "the_slope_is_predicted_not_fitted": (
+            "First-Born reflection off V_0, whose Fourier transform is "
+            "(3 pi/8a)(3 + a|q|) e^{-a|q|}, gives 1 - |T|^2 ~ e^{-4 a w}. The "
+            "asymptotic log-slope is -4a with nothing fitted; the value below "
+            "is a finite-frequency fit that approaches it from beneath. See "
+            "derived_network.measure_the_ultraviolet_slope_matches_born."),
         "but_the_deficit_closes_exponentially": (
-            f"1 - |T|^2 ~ exp({slope:.2f} w), so the quality factor of the "
+            f"1 - |T|^2 ~ exp({slope:.2f} w) over the fitted window, "
+            "approaching the analytic -4a. So the quality factor of the "
             "near-transaction grows exponentially with frequency and the "
             "frequency needed for a given Q grows only logarithmically. Exact "
             "closure is approached in the UV, which is a chronology-horizon "
@@ -633,16 +661,28 @@ def measure_the_traversable_throat_ledger() -> Dict[str, object]:
                      "from the mouths' aging history, and a frozen metric can "
                      "carry a large offset with no local stress proportional "
                      "to it"},
-        {"claim": "one clock offset closes the loop",
-         "verdict": "NOT FOR A PACKET",
-         "evidence": "phase closure and group closure demand different offsets; "
-                     f"worst disagreement {closure['worst_disagreement']:.4f} "
-                     "over the sampled band"},
+        {"claim": "the throat supplies a single frequency-independent tau_th",
+         "verdict": "NO",
+         "evidence": "the Wigner delay runs "
+                     f"{closure['rows'][0]['wigner_delay']:+.4f} -> "
+                     f"{closure['rows'][-1]['wigner_delay']:+.4f} over "
+                     f"w = {closure['rows'][0]['omega']:g}..."
+                     f"{closure['rows'][-1]['omega']:g} with d^2 delta/dw^2 "
+                     "nonzero throughout, so closure_offset has no constant "
+                     "transit time to take"},
+        {"claim": "the raw Delta_phase / Delta_group gap is the closure verdict",
+         "verdict": "NO -- BRANCH DEPENDENT",
+         "evidence": f"the tabulated worst gap {closure['worst_disagreement']:.4f} "
+                     "is evaluated at n = 0; branches are 2 pi/w apart. The "
+                     "invariant statement is theta - w theta' = 2 pi n, "
+                     "computed in the network's own convention by "
+                     "transaction.derived_network.closure_residual"},
         {"claim": "Lambda = 1 (the completed transaction) can occur",
-         "verdict": "NOT AT ANY FINITE FREQUENCY",
-         "evidence": "|T| < 1 for a positive barrier, so 1 - Lambda cannot "
-                     f"vanish; but 1 - |T|^2 ~ exp({loop['log_slope']:.2f} w), "
-                     "so exact closure is approached only in the UV"},
+         "verdict": "NO SUCH POINT FOUND -- NOT A THEOREM",
+         "evidence": "no finite-frequency perfect-transmission point was found "
+                     "in a direct search for zeros of R_l; |T| -> 1 only in "
+                     "the UV, with 1 - |T|^2 ~ e^{-4 a w} from first Born. A "
+                     "positive barrier does not by itself forbid |T| = 1"},
     ]
     return {
         "entries": entries,

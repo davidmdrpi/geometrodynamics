@@ -5,8 +5,13 @@ supplies — the potential, its throat value, its tail, and the stress tensor.
 The *structural* ones pin what the solver must not assume: unitarity imposed
 nowhere, reciprocity from the evenness of `V`, and no Fabry–Pérot split. The
 *oracle* one pins the threshold law, which is deliberately **not** `T₀(0) = g`.
-And the *verdict* ones guard the three results — the NEC price, the
-disagreement between phase and group closure, and the impossibility of `Λ = 1`.
+And the *verdict* ones guard what this module alone can say — the NEC price,
+the dispersion that denies `closure_offset` a constant `τ_th`, and the absence
+of any perfect-transmission point in the scanned band. Two of those are
+deliberately **weaker** than an earlier draft: the raw `Δ_phase`/`Δ_group` gap
+is branch dependent, and `V > 0` does not forbid `|T| = 1`. The branch-free
+closure verdict is `tests/test_derived_network.py`, which needs `network.py`'s
+own convention to state.
 """
 
 import math
@@ -179,10 +184,28 @@ def test_the_static_conductance_is_not_asserted_to_be_transmission_at_zero():
 # ── the verdict ─────────────────────────────────────────────────────────────
 
 def test_phase_closure_and_group_closure_demand_different_offsets():
-    """The deliverable: PR #216's single tuned `Δ` cannot do both."""
+    """The raw dispersion data behind PR #216's single tuned `Δ`."""
     result = tt.measure_the_closure_offsets_disagree()
     assert result["the_two_offsets_disagree"]
     assert result["worst_disagreement"] > 1.0
+
+
+def test_the_raw_gap_table_says_it_is_not_the_invariant_statement():
+    """It is evaluated at `n = 0`; the branch-free test is in
+    `derived_network.closure_residual`, and this table must point there."""
+    note = tt.measure_the_closure_offsets_disagree()[
+        "THIS_IS_NOT_THE_INVARIANT_STATEMENT"]
+    assert "BRANCH DEPENDENT" in note
+    assert "derived_network.closure_residual" in note
+
+
+def test_there_is_no_frequency_independent_transit_time():
+    """What survives branch choice: the throat is dispersive, so
+    `closure_offset(d_A, d_B, tau_th)` has no constant `tau_th` to take."""
+    rows = tt.measure_the_closure_offsets_disagree()["rows"]
+    delays = [r["wigner_delay"] for r in rows]
+    assert max(delays) > 5.0 * min(delays), "the Wigner delay is not constant"
+    assert all(abs(r["second_derivative"]) > 1e-2 for r in rows)
 
 
 def test_the_closure_disagreement_shrinks_as_the_throat_becomes_transparent():
@@ -200,12 +223,22 @@ def test_the_round_replaces_the_tuned_closure_offset():
     assert "frequency dependent" in note
 
 
-def test_the_loop_eigenvalue_cannot_reach_one_at_finite_frequency():
-    """`|Λ| = 1` needs `|T| = 1`, impossible for a positive barrier."""
+def test_no_perfect_transmission_point_is_found_but_none_is_forbidden():
+    """`|Λ| = 1` needs `|T| = 1`. None was found — but positivity of `V` does
+    not forbid one, and the module must not claim that it does."""
     result = tt.measure_whether_the_loop_can_close()
     assert result["transmission_is_below_one_at_finite_frequency"]
-    assert "no true pole" in result["so_lambda_cannot_equal_one_exactly"] or \
-        "cannot vanish" in result["so_lambda_cannot_equal_one_exactly"]
+    verdict = result["so_lambda_cannot_equal_one_exactly"]
+    assert "NOT a theorem" in verdict or "NOT A THEOREM" in verdict
+    assert "CAN support perfect-transmission resonances" in verdict
+
+
+def test_the_ultraviolet_slope_is_predicted_not_fitted():
+    """First Born on `Ṽ₀(q) = (3π/8a)(3+a|q|)e^{−a|q|}` gives `−4a`."""
+    note = tt.measure_whether_the_loop_can_close()[
+        "the_slope_is_predicted_not_fitted"]
+    assert "Born" in note
+    assert "-4a" in note or "-4.0" in note
 
 
 def test_the_approach_to_unit_transmission_is_exponential():
@@ -226,8 +259,10 @@ def test_the_ledger_derives_its_numbers_from_the_measurements():
     ledger = tt.measure_the_traversable_throat_ledger()
     closure = tt.measure_the_closure_offsets_disagree()
     entries = {e["claim"]: e for e in ledger["entries"]}
-    row = next(e for k, e in entries.items() if "one clock offset closes" in k)
+    row = next(e for k, e in entries.items() if "branch dependent" in
+               e["verdict"].lower())
     assert f"{closure['worst_disagreement']:.4f}" in row["evidence"]
+    assert "derived_network.closure_residual" in row["evidence"]
 
 
 def test_the_ledger_records_that_an_advanced_leg_alone_is_not_enough():

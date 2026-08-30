@@ -1,0 +1,264 @@
+{
+  "checks": [
+    {
+      "id": "N0",
+      "name": "the network loop is driven by the geometry",
+      "detail": {
+        "topological_factor": [
+          1.0,
+          0.0
+        ],
+        "topological_factor_is_unit_modulus": true,
+        "rows": [
+          {
+            "omega": 0.5,
+            "transmission_modulus": 0.12651406461624792,
+            "lambda_modulus": 0.12651406461624792,
+            "difference": 0.0
+          },
+          {
+            "omega": 1.0,
+            "transmission_modulus": 0.6414248996901352,
+            "lambda_modulus": 0.6414248996901353,
+            "difference": 1.1102230246251565e-16
+          },
+          {
+            "omega": 2.0,
+            "transmission_modulus": 0.9965714952534432,
+            "lambda_modulus": 0.9965714952534432,
+            "difference": 0.0
+          },
+          {
+            "omega": 4.0,
+            "transmission_modulus": 0.9999995409576119,
+            "lambda_modulus": 0.9999995409576119,
+            "difference": 0.0
+          }
+        ],
+        "lambda_modulus_equals_transmission": true,
+        "no_extra_transit_phase_is_applied": "derived_loop_eigenvalue applies eta_topo * T * e^{i w (d_A + d_B + Delta)} and no tau_th. A whole-throat T already carries the transit in arg T; adding tau_glob on top, as the MouthPort backend must, would double-count the Wigner delay.",
+        "the_backend_is_the_derived_one": true,
+        "the_ports_are_transparent": true,
+        "the_batched_path_equals_the_scalar_network_path": true
+      },
+      "pass": true
+    },
+    {
+      "id": "N1",
+      "name": "*** no finite frequency closes carrier and packet together ***",
+      "detail": {
+        "range": [
+          0.2,
+          12.0
+        ],
+        "samples": 900,
+        "roots": [],
+        "there_is_no_simultaneous_closure": true,
+        "smallest_absolute_residual": 0.2953298416988618,
+        "residual_at_probes": [
+          {
+            "omega": 0.2,
+            "residual": 3.1085495541040733
+          },
+          {
+            "omega": 2.1688542825361514,
+            "residual": -1.8206986024164973
+          },
+          {
+            "omega": 4.137708565072303,
+            "residual": -0.8751883456598533
+          },
+          {
+            "omega": 6.106562847608454,
+            "residual": -0.5850338536018578
+          },
+          {
+            "omega": 8.075417130144604,
+            "residual": -0.4403308014109898
+          },
+          {
+            "omega": 10.044271412680756,
+            "residual": -0.3532499470434305
+          }
+        ],
+        "why_this_is_the_invariant_statement": "Eliminating Delta between phase closure and group closure gives theta - w theta' = 2 pi n, so C = Arg exp[i(theta - w theta')] searches over n automatically. Comparing Delta_phase at n = 0 against Delta_group -- as an earlier draft did -- is branch dependent: at w = 1 the branches are 2 pi/w = 6.28 apart, so a raw gap of 4.14 is 2.14 to the nearest branch.",
+        "what_it_still_depends_on": "A constant rephasing theta -> theta + c shifts C by c, so this is only meaningful evaluated end-to-end in the network's own convention with its actual eta_topo -- which is why it is computed here rather than from a bare T."
+      },
+      "pass": true
+    },
+    {
+      "id": "N1b",
+      "name": "the closure residual's UV law is analytic",
+      "detail": {
+        "integrated_potential": 3.5342917352885173,
+        "closed_form": "int V_l ds = (pi/a)[l(l+2) + 9/8]",
+        "predicted_limit_of_omega_times_C": -3.5342917352885173,
+        "omega": [
+          4.0,
+          6.0,
+          8.0,
+          10.0,
+          12.0,
+          16.0,
+          20.0
+        ],
+        "residual": [
+          -0.9069826792551752,
+          -0.5956609157632361,
+          -0.4445338754899202,
+          -0.3548262522487282,
+          -0.2953298416988618,
+          -0.22123183415806508,
+          -0.17688765634416026
+        ],
+        "omega_times_residual": [
+          -3.6279307170207007,
+          -3.573965494579417,
+          -3.5562710039193615,
+          -3.548262522487282,
+          -3.5439581003863414,
+          -3.5397093465290412,
+          -3.537753126883205
+        ],
+        "relative_error_at_the_top": 0.0009793734795934665,
+        "the_limit_is_reached": true,
+        "the_approach_is_monotone": true,
+        "what_this_settles": "C vanishes as 1/w and not faster, so there is no finite frequency at which one clock offset serves both a monochromatic carrier and a localised packet. Simultaneous closure is a UV limit -- the SAME limit in which |T| -> 1, so the loop's magnitude and its two phase conditions all close only in the ultraviolet."
+      },
+      "pass": true
+    },
+    {
+      "id": "N2",
+      "name": "direct search for R(w) = 0 - a finding, not a theorem",
+      "detail": {
+        "range": [
+          0.05,
+          12.0
+        ],
+        "samples": 1200,
+        "reflection_is_monotone_decreasing": true,
+        "interior_minima_found": 0,
+        "smallest_reflection_modulus": 7.156719793748521e-11,
+        "smallest_reflection_at_omega": 12.0,
+        "it_is_at_the_top_of_the_range": true,
+        "no_perfect_transmission_point_found": true,
+        "this_is_a_finding_not_a_theorem": "A positive barrier CAN have perfect-transmission resonances, so '|T| < 1 at every finite frequency' is not a general theorem. What is established here is narrower: over the scanned range |R| falls monotonically with no interior zero, so no finite-frequency perfect-transmission point was found, and |T| -> 1 only in the ultraviolet.",
+        "consequence_for_the_loop": "|Lambda| = |eta_topo| |T| and |eta_topo| = 1, so |Lambda| < 1 wherever |T| < 1: 1 - Lambda does not vanish and G_eff has no pole on the scanned range. PR #216's completed transaction is a high-Q limit approached in the UV, not an attainable resonance."
+      },
+      "pass": true
+    },
+    {
+      "id": "N3",
+      "name": "the UV falloff matches the no-fit Born prediction",
+      "detail": {
+        "predicted_slope": -4.0,
+        "omega": [
+          2.0,
+          2.25,
+          2.5,
+          2.75,
+          3.0,
+          3.25,
+          3.5,
+          3.75,
+          4.0,
+          4.25,
+          4.5,
+          4.75,
+          5.0,
+          5.25,
+          5.5,
+          5.75,
+          6.0,
+          6.25,
+          6.5,
+          6.75,
+          7.0
+        ],
+        "local_slope": [
+          -4.718775745585102,
+          -4.666564632148514,
+          -4.5709671951483415,
+          -4.49240563443284,
+          -4.428652499504935,
+          -4.3766295018464945,
+          -4.333730159210543,
+          -4.297953714452756,
+          -4.267796975632415,
+          -4.242129381557984,
+          -4.220090354185057,
+          -4.201009291487956,
+          -4.184400526269812,
+          -4.169772748284899,
+          -4.156990083295732,
+          -4.145585631659593,
+          -4.135094327274267,
+          -4.126354769342228,
+          -4.116922212647744,
+          -4.1279793164678225,
+          -4.144704831439384
+        ],
+        "slope_at_the_top": -4.144704831439384,
+        "the_slope_approaches_the_born_value": true,
+        "the_approach_is_monotone": true,
+        "fourier_transform": "Vtilde_0(q) = (3 pi / 8a)(3 + a|q|) e^{-a|q|}",
+        "why_this_is_a_no_fit_oracle": "An earlier draft quoted a FITTED slope of -4.25 over 1.5 < w < 8. The Born calculation predicts -4a with nothing fitted, and the LOCAL slope descends monotonically toward it (-4.72, -4.43, -4.27, -4.18, -4.13 ...), so -4.25 was the finite-frequency approach to the analytic asymptote rather than a new constant."
+      },
+      "pass": true
+    },
+    {
+      "id": "N4",
+      "name": "the ledger",
+      "detail": {
+        "entries": [
+          {
+            "claim": "PR #216's loop can be driven by a derived geometry",
+            "verdict": "YES, END TO END",
+            "evidence": "NetworkThroat gained a whole_throat_transfer backend; Lambda comes from network.derived_loop_eigenvalue with the module's own eta_topo, and the MouthPort backend is retained untouched"
+          },
+          {
+            "claim": "the derived loop needs a separate tau_th transit phase",
+            "verdict": "NO -- IT WOULD DOUBLE-COUNT",
+            "evidence": "arg T already carries the frequency-dependent transit; the Fabry-Perot backend needs tau_glob only because its t_AB is an excess factor over free interior propagation"
+          },
+          {
+            "claim": "|Lambda| = |T| when the topological factor is unit modulus",
+            "verdict": "CONFIRMED",
+            "evidence": "agreement to <1e-12 at every probe; |eta_topo| = 1"
+          },
+          {
+            "claim": "one clock offset serves both carrier and packet",
+            "verdict": "NO ROOT FOUND",
+            "evidence": "C = Arg exp[i(theta - w theta')] scanned over [0.2, 12.0] at 900 points; smallest |C| = 0.2953"
+          },
+          {
+            "claim": "comparing Delta_phase at n = 0 to Delta_group is the test",
+            "verdict": "NO -- BRANCH DEPENDENT",
+            "evidence": "branches are 2 pi/w apart, so the earlier 4.14 gap at w = 1 is 2.14 to the nearest branch; eliminating Delta gives the invariant theta - w theta' = 2 pi n"
+          },
+          {
+            "claim": "the closure residual's decay is a fitted observation",
+            "verdict": "NO -- IT IS ANALYTIC",
+            "evidence": "w C -> -int V_l ds = -(pi/a)[l(l+2) + 9/8]; at l = 0, a = 1 that is -9 pi/8 = -3.5343, matched to 0.1% by w = 20. C vanishes as 1/w, so simultaneous closure is a UV limit and never finite"
+          },
+          {
+            "claim": "a positive barrier forbids |T| = 1 at finite frequency",
+            "verdict": "NOT A THEOREM",
+            "evidence": "positive barriers can have perfect-transmission resonances; what is shown is that a direct search over [0.05, 12.0] finds none -- 0 interior minima of |R|"
+          },
+          {
+            "claim": "the UV falloff constant is fitted",
+            "verdict": "NO -- IT IS BORN",
+            "evidence": "Vtilde_0(q) = (3 pi/8a)(3 + a|q|)e^{-a|q|} gives 1 - |T|^2 ~ e^{-4aw}; the local slope descends to -4.145 against the predicted -4.0"
+          }
+        ],
+        "what_the_wiring_changes": "The closure questions are now statements about network.py itself rather than about a reconstruction beside it. That matters most for the closure residual, whose value shifts under a constant rephasing of the transfer -- so it is only well posed inside the network's own convention, with its own eta_topo.",
+        "the_geometry_is_still_an_oracle_not_a_glued_solution": "The benchmark has two asymptotically flat ends at s -> +-infinity, while network.py conceptually has two finite mouths embedded in the closed S^3 exterior. T_l is therefore a whole-throat oracle, not a literal glued finite-mouth solution. The high-frequency normalisation T -> 1 is what makes it usable as an excess transfer factor. A later construction needs finite matching surfaces to the S^3 exterior and their junction stress -- and those should not be smuggled in merely to fit the old MouthPort API.",
+        "still_open": "The history that produces Delta_BA, and the finite-mouth junction to the S^3 exterior."
+      },
+      "pass": true
+    }
+  ],
+  "passed": 6,
+  "total": 6
+}

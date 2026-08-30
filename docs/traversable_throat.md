@@ -1,8 +1,10 @@
 # The whole-throat S-matrix of a supported traversable 5D throat
 
-*Module `geometrodynamics/tangherlini/traversable_throat.py`, probe
-`experiments/closure_ledger/traversable_throat_probe.py` (7/7), tests
-`tests/test_traversable_throat.py` (28/28).*
+*Modules `geometrodynamics/tangherlini/traversable_throat.py` and
+`geometrodynamics/transaction/derived_network.py`; probes
+`traversable_throat_probe.py` (7/7) and `derived_network_probe.py` (6/6); tests
+`tests/test_traversable_throat.py` (31/31) and `tests/test_derived_network.py`
+(22/22).*
 
 ---
 
@@ -41,11 +43,15 @@ answer.
 
 along a complete radial null geodesic — exact, and scaling as `1/(G₅a)`.
 
-**2. No single clock offset closes the loop.** Phase closure and group closure
-demand offsets differing by up to **`6.78`** over the sampled band.
+**2. No finite frequency closes carrier and packet together.** The branch-free
+residual `C_ℓ(ω) = Arg exp[i(θ_ℓ − ωθ_ℓ′)]`, with `θ = arg(η_topo T_ℓ)` in
+`network.py`'s own convention, has **no root** over `[0.2, 12]` at 900 points.
+Its decay is analytic: `ωC → −∫V_ℓ ds = −9π/8`, so `C` vanishes only as `1/ω`.
 
-**3. `Λ = 1` cannot occur at any finite frequency**, and the deficit closes only
-exponentially, `1 − |T|² ~ exp(−4.25 ω)`.
+**3. No finite-frequency perfect-transmission point was found** — by direct
+search for `R_ℓ(ω) = 0`, stated as a finding and *not* as a theorem, since a
+positive barrier can support such resonances — and the deficit closes as
+`1 − |T|² ~ e^{−4aω}`, the first-Born prediction with nothing fitted.
 
 ---
 
@@ -191,71 +197,139 @@ Static conductance and dynamical threshold law are two faces of one calculation
 
 ---
 
-## No single clock offset closes the loop
+## Wiring it into `network.py`, not beside it
+
+`T_ℓ(ω)` is only worth having if the module that assumed it actually runs on it.
+`NetworkThroat` therefore gained a **second backend** — an optional callable
+`whole_throat_transfer` — beside the existing `MouthPort` one, which is retained
+untouched. `NetworkThroat.transfer(ω)` dispatches to whichever is present, and
+
+```python
+def derived_loop_eigenvalue(throat, w, d_A, d_B, delta):
+    return throat.topological_factor * throat.transfer(w) \
+        * np.exp(1j * w * (d_A + d_B + delta))
+```
+
+forms `Λ_ℓ(ω, Δ) = η_topo · T_ℓ(ω) · e^{iω(d_A + d_B + Δ)}` with
+`η_topo = NetworkThroat.topological_factor`, the module's own deck orientations
+and mouth phases — `(−1)^ℓ`-type parity and `η_M` kept as the separate
+operations they are, not collapsed into one sign.
+
+No fake `MouthPort`s are manufactured to fit the old API: the ports on a derived
+throat are transparent, and the transfer comes entirely from the metric.
+
+**There is deliberately no `τ_th` phase in this path.** A whole-throat `T`
+already carries the transit in `arg T`; adding `τ_glob` on top would
+double-count the Wigner delay. The Fabry–Pérot backend needs it only because its
+`t_AB` is an *excess* factor over free interior propagation — a different object.
+
+Two consistency checks, both structural rather than tuned. `|η_topo| = 1`, so
+`|Λ| = |T|`, confirmed to `< 1e-12` at every probe frequency. And the batched
+scan used for the continuous searches below is asserted equal to the scalar
+`network.py` path to `1e-12`, so the searches interrogate the object the module
+actually exposes.
+
+This matters for more than tidiness: the closure residual defined next **shifts
+under a constant rephasing of the transfer**, so it is only well posed inside
+the network's own convention, with its own `η_topo`.
+
+---
+
+## No finite frequency closes carrier and packet together
 
 Once the throat is dispersive there is no unique `τ_th`. The geometry supplies
-`δ_ℓ(ω) = arg T_ℓ(ω)`, and monochromatic closure reads
+`δ_ℓ(ω) = arg T_ℓ(ω)`, and closure demands
 
 ```
-Φ_ℓ(ω) = ω(d_A + d_B + Δ_BA) + δ_ℓ(ω) + φ_topo = 2πn
+phase:   ω(D + Δ) + θ_ℓ = 2πn
+group:   D + Δ + θ_ℓ′   = 0
 ```
 
-while a wave packet additionally needs `dΦ/dω = 0`. So:
+**Comparing the two offsets directly is not an invariant test.** An earlier
+draft of this round did exactly that at `n = 0` with `φ_topo = 0` and reported
+gaps of `6.78, 4.14, …`. Phase branches are `2π/ω` apart, so at `ω = 1` a raw
+gap of `4.14` is `2.14` to the nearest branch; and a constant rephasing of `T`
+shifts `δ/ω` — hence `Δ_phase` — while leaving the Wigner delay untouched. The
+raw dispersion table is retained in the module, flagged as data rather than
+verdict.
+
+Eliminating `Δ` removes both problems:
 
 ```
-Δ_phase(ω) = −(d_A+d_B) − [δ_ℓ(ω) + φ_topo − 2πn]/ω
-Δ_group(ω) = −(d_A+d_B) − dδ_ℓ/dω          ← the Wigner delay
+θ_ℓ − ω θ_ℓ′ = 2πn   ⟺   C_ℓ(ω) ≡ Arg exp[i(θ_ℓ − ω θ_ℓ′)] = 0
 ```
 
-With `d_A + d_B = π` (antipodal on the unit `S³`):
+`C` searches over `n` automatically. It is still shifted by a constant
+rephasing of the transfer, which is why it must be computed **end-to-end** with
+`network.py`'s own `η_topo` rather than assembled from a bare `T`.
 
-| `ω` | `δ_ℓ` | `dδ/dω` | `Δ_phase` | `Δ_group` | gap |
-|--|--|--|--|--|--|
-| `0.5` | `−2.9260` | `+0.9323` | `+2.7105` | `−4.0739` | **`6.7844`** |
-| `1.0` | `−2.1523` | `+1.9921` | `−0.9893` | `−5.1337` | **`4.1445`** |
-| `1.5` | `−1.3339` | `+1.1324` | `−2.2523` | `−4.2740` | **`2.0217`** |
-| `2.0` | `−0.9400` | `+0.5424` | `−2.6716` | `−3.6840` | **`1.0124`** |
-| `3.0` | `−0.6032` | `+0.2117` | `−2.9405` | `−3.3533` | **`0.4128`** |
-| `5.0` | `−0.3563` | `+0.0724` | `−3.0703` | `−3.2140` | **`0.1437`** |
+| `ω` | `C_ℓ(ω)` |
+|--|--|
+| `0.20` | `+3.10855` |
+| `2.17` | `−1.82070` |
+| `4.14` | `−0.87519` |
+| `6.11` | `−0.58503` |
+| `8.08` | `−0.44033` |
+| `10.04` | `−0.35325` |
 
-**One clock offset can phase-close a monochromatic carrier while failing to
-return a localised packet to the same event.** The gap is largest where the
-throat disperses most and dies monotonically as it becomes transparent — which
-is what identifies it as a dispersion effect rather than a numerical artefact.
-`d²δ/dω²` then sets how narrow the packet must be for the monochromatic answer
-to survive.
+**No roots** over `[0.2, 12]` at 900 points; smallest `|C| = 0.295`.
 
-This is the quantitative form of the undeclared monochromatic assumption: PR
-#216's conventions line reads *"global monochromatic form `e^{−iωt}`"* while
-`projected_kernel` multiplies frequency by frequency, and a transaction is
-bilinear, `T̃(Ω) = ∫dω Ã_R(ω)Ã_A(Ω−ω)`.
+### And the decay is analytic
+
+At high frequency `θ ≈ −c_ℓ/ω` with `c_ℓ = ½∫V_ℓ ds`, so `θ′ ≈ +c_ℓ/ω²` and
+
+```
+C_ℓ = θ − ωθ′ ≈ −2c_ℓ/ω = −∫V_ℓ ds / ω = −(π/a)[ℓ(ℓ+2) + 9/8] / ω
+```
+
+| `ω` | `C` | `ωC` |
+|--|--|--|
+| `4` | `−0.906983` | `−3.627931` |
+| `8` | `−0.444534` | `−3.556271` |
+| `12` | `−0.295330` | `−3.543958` |
+| `20` | `−0.176888` | `−3.537753` |
+
+Predicted `−9π/8 = −3.534292`, reached to `0.1%` by `ω = 20`, monotonically and
+with nothing fitted.
+
+> **`C` vanishes as `1/ω` and no faster.** Simultaneous carrier-and-packet
+> closure is a UV limit, never attained at finite frequency — and it is *the
+> same limit* in which `|T| → 1`. The loop's magnitude and both of its phase
+> conditions all close only in the ultraviolet.
 
 ---
 
 ## Can the transaction complete?
 
 PR #216 carries `Λ_ℓ(ω) = t_net η_topo e^{iωD_loop}` and `G_eff = G₀/(1−Λ)`,
-calling `Λ → 1` the completed transaction. With a derived `T_ℓ` that becomes
-answerable.
+calling `Λ → 1` the completed transaction. Wired to the derived geometry,
+`Λ_ℓ(ω,Δ) = η_topo T_ℓ(ω) e^{iω(d_A+d_B+Δ)}` — with **no** `tau_th` phase,
+since `arg T` already carries the transit and adding one would double-count the
+Wigner delay. `|η_topo| = 1`, so `|Λ| = |T|` to `1e-12`.
 
-| `ω` | `1 − \|T\|²` |
+**A direct search, not a theorem.** A positive barrier does *not* in general
+forbid perfect transmission — positive barriers can have transmission
+resonances — so `|T| < 1` does not follow from `V > 0`. Searching for zeros of
+`R_ℓ(ω)` over `[0.05, 12]` at 1200 points finds **no interior minimum**: `|R|`
+falls monotonically and its smallest value sits at the top of the range. So no
+finite-frequency perfect-transmission point was found, and where `|T| < 1` we
+have `|Λ| < 1` and `G_eff` has no pole.
+
+**The falloff is Born, not fitted.** For `ℓ = 0`,
+`Ṽ₀(q) = (3π/8a)(3 + a|q|)e^{−a|q|}`, so first-Born reflection at momentum
+transfer `2ω` gives `1 − |T|² ~ e^{−4aω}`: slope `−4a`, nothing fitted. The
+*local* slope descends monotonically toward it —
+
+| `ω` | local slope |
 |--|--|
-| `1.50` | `7.76e-02` |
-| `2.87` | `1.26e-04` |
-| `4.24` | `3.35e-07` |
-| `5.61` | `1.08e-09` |
-| `6.97` | `3.82e-12` |
+| `2.00` | `−4.7188` |
+| `3.00` | `−4.4287` |
+| `4.00` | `−4.2678` |
+| `5.00` | `−4.1844` |
+| `6.00` | `−4.1351` |
 
-**`|Λ| = 1` requires `|T_ℓ(ω)| = 1`, and a barrier with `V > 0` everywhere has
-`|T| < 1` at every finite frequency.** So `1 − Λ` cannot vanish and `G_eff` has
-no true pole, unless something outside the throat supplies gain. The completed
-transaction is a high-`Q` near-resonance, not an attainable one.
-
-But `1 − |T|² ~ exp(−4.25 ω)` over twelve decades, so the `Q` of the
-near-transaction grows *exponentially* with frequency and the frequency needed
-for a given `Q` grows only logarithmically. Exact closure is approached in the
-UV — a chronology-horizon concern rather than the benign resonance the
-phenomenological ports suggested.
+— so the `−4.25` an earlier draft quoted from a global fit was the
+finite-frequency approach to the analytic asymptote, not a new constant.
 
 | `D_loop` | regime |
 |--|--|
@@ -271,12 +345,17 @@ phenomenological ports suggested.
 |--|--|--|
 | an advanced leg alone evades ER non-traversability | **NO — PROVED, NOT COMPUTED** | support composition forces `d ∈ J⁺(s)` |
 | PR #216's throat transfer is supplied by a geometry | **NOW IT IS** | `T_ℓ`, `R_ℓ` from the whole throat instead of port inputs |
+| PR #216's loop can be driven by that geometry | **YES, END TO END** | `NetworkThroat.whole_throat_transfer`; `Λ` from `network.derived_loop_eigenvalue` with the module's own `η_topo`; `MouthPort` backend retained |
+| the derived loop needs a separate `τ_th` phase | **NO — IT WOULD DOUBLE-COUNT** | `arg T` already carries the transit; `τ_glob` is an excess-factor artefact of the Fabry–Pérot backend |
+| comparing `Δ_phase` at `n = 0` to `Δ_group` is the test | **NO — BRANCH DEPENDENT** | branches are `2π/ω` apart; the `4.14` raw gap at `ω = 1` is `2.14` to the nearest branch |
+| the residual's `1/ω` decay is a fitted observation | **NO — IT IS ANALYTIC** | `ωC → −(π/a)[ℓ(ℓ+2)+9/8] = −9π/8`, matched to `0.1 %` by `ω = 20` |
+| the UV falloff constant `−4.25` is a new constant | **NO — IT IS BORN, AND IT IS `−4a`** | the *local* slope descends `−4.72, −4.43, −4.27, −4.18, −4.13` toward the predicted `−4` |
 | the throat factorises as two mouths plus a cavity | **NOT BY THIS GEOMETRY** | one smooth symmetric barrier; not imposed here |
 | the static conductance `g` is `T₀(0)` | **NO — IT IS THE THRESHOLD COEFFICIENT** | `\|T₀\| → (π/8)(aω)²`, ratio `1.0003` at `ω = 0.01` |
 | the traversable throat is free | **NO** | NEC violated everywhere; null-ray integral exactly `−3/(16G₅a)` |
 | that NEC integral is the cost of the clock offset | **NO — DIFFERENT QUESTION** | static support vs aging history |
-| one clock offset closes the loop | **NOT FOR A PACKET** | phase and group closure differ by up to `6.78` |
-| `Λ = 1` can occur | **NOT AT ANY FINITE FREQUENCY** | `\|T\| < 1`; deficit `~ exp(−4.25ω)` |
+| one clock offset closes the loop | **NOT AT ANY FINITE `ω`** | branch-free `C` has no root over `[0.2,12]`; `ωC → −9π/8` so `C ~ 1/ω` |
+| `Λ = 1` can occur | **NO SUCH POINT FOUND — NOT A THEOREM** | direct search for `R(ω)=0` finds no interior zero; deficit `~ e^{−4aω}` from Born |
 
 ---
 
@@ -284,10 +363,27 @@ phenomenological ports suggested.
 
 PR #216 relocated the advanced wave from a bare postulate into a
 Morris–Thorne–Yurtsever geometry. That was real progress. This round supplies
-the geometry it was missing and finds three things: the relocation has an exact
-price, the closure it assumed is frequency-dependent rather than a single tuned
-constant, and its completed transaction is a high-`Q` limit rather than an
-attainable pole.
+the geometry it was missing, **drives PR #216's own loop with it**, and finds
+three things: the relocation has an exact price, the closure it assumed cannot
+be met at any finite frequency on a branch-free test, and its completed
+transaction is a high-`Q` UV limit rather than an attainable pole. Because the
+wiring is end-to-end, those are statements about the BAM module itself rather
+than about a reconstruction beside it.
+
+**Two claims were weakened in the writing.** The `Δ_phase`/`Δ_group` gap was
+branch dependent and is withdrawn as a verdict — the invariant statement needed
+eliminating `Δ` first. And `|T| < 1` at finite `ω` does **not** follow from
+`V > 0`: positive barriers can have perfect-transmission resonances, so what
+stands is a search that found none, not a theorem. In both cases the stronger
+sentence was available and wrong.
+
+**Scope, kept explicit.** The benchmark has two asymptotically flat ends at
+`s → ±∞`, while `network.py` conceptually has two *finite* mouths embedded in
+the closed `S³` exterior. `T_ℓ` is a whole-throat oracle, not a literal glued
+finite-mouth solution; its UV normalisation `T → 1` is what makes it usable as
+an excess transfer factor. Finite matching surfaces to the `S³` exterior, and
+their junction stress, are a later construction — and should not be introduced
+merely to make the old `MouthPort` API fit.
 
 **What remains postulated:** that the throat is traversable at all, and that the
 mouths carry the required clock offset. The first now has an exact price. The

@@ -112,6 +112,40 @@ class NetworkThroat:
     tau_th: float
     port_A: "MouthPort"
     port_B: "MouthPort"
+    whole_throat_transfer: Optional[Callable[[float], complex]] = None
+
+    @property
+    def topological_factor(self) -> complex:
+        """``eta_topo`` — the deck orientations and fixed mouth phases.
+
+        Exposed so that a derived-geometry loop can be built in the *same*
+        convention as ``loop_eigenvalue``. The overall phase of the throat
+        transfer is convention dependent (a constant rephasing of ``T`` shifts
+        the phase-closure offset while leaving the Wigner delay alone), so the
+        closure question is only well posed once ``eta_topo * T`` is evaluated
+        in one consistent scheme.
+        """
+        return complex(self.mouth_A.orientation * self.mouth_B.orientation
+                       * np.exp(1j * (self.mouth_A.transfer_phase
+                                      + self.mouth_B.transfer_phase)))
+
+    def transfer(self, w: float) -> complex:
+        """Throat transmission: the derived backend if present, else the ports.
+
+        The ``MouthPort`` backend is the PR #216 Fabry-Perot composite,
+        ``t_A t_B / (1 - r_inA r_inB e^{2 i w tau})``, which presumes two
+        separated interfaces around a cavity. A smooth single-barrier geometry
+        does not have that structure, so ``whole_throat_transfer`` accepts a
+        complete complex response ``T(w)`` computed from the metric instead.
+
+        **When the derived backend is used, no separate ``tau_th`` transit
+        phase may be applied**: the frequency-dependent transit information is
+        already in ``arg T``, and adding it again double-counts the Wigner
+        delay. ``derived_loop_eigenvalue`` enforces that.
+        """
+        if self.whole_throat_transfer is not None:
+            return complex(self.whole_throat_transfer(w))
+        return self.t_AB(w)
 
     @property
     def delta_BA(self) -> float:
@@ -405,6 +439,24 @@ def loop_eigenvalue(throat: NetworkThroat, w: float, d_A: float,
             * np.exp(1j * (throat.mouth_A.transfer_phase
                            + throat.mouth_B.transfer_phase)))
     return complex(throat.t_AB(w) * deco * np.exp(1j * w * d_loop))
+
+
+
+def derived_loop_eigenvalue(throat: NetworkThroat, w: float, d_A: float,
+                            d_B: float, delta: float) -> complex:
+    """``Lambda_l(w, Delta) = eta_topo * T_l(w) * e^{i w (d_A + d_B + Delta)}``.
+
+    The loop built directly on a *derived* whole-throat response, with the
+    clock offset ``Delta`` left as the free parameter it actually is rather
+    than solved for by ``closure_offset``.
+
+    There is deliberately **no** ``tau_th`` phase here. ``loop_eigenvalue``
+    needs one because its ``t_AB`` is an excess factor over free interior
+    propagation; a whole-throat ``T`` already contains the transit, and adding
+    ``tau_glob`` on top would count the Wigner delay twice.
+    """
+    return complex(throat.topological_factor * throat.transfer(w)
+                   * np.exp(1j * w * (d_A + d_B + delta)))
 
 
 def effective_green(throat: NetworkThroat, w: float, d_A: float,
