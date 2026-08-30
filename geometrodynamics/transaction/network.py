@@ -112,6 +112,59 @@ class NetworkThroat:
     tau_th: float
     port_A: "MouthPort"
     port_B: "MouthPort"
+    whole_throat_transfer: Optional[Callable[[float], complex]] = None
+
+    def __post_init__(self) -> None:
+        """A derived throat must carry ``tau_th = 0``.
+
+        ``t_AB`` is an *excess* factor over free interior propagation, and the
+        free transit phase ``e^{-i w_tau tau_th}`` is applied separately by
+        ``traverse_throat``. A whole-throat ``T`` already contains the transit
+        in ``arg T``, so a nonzero ``tau_th`` alongside it would count the
+        Wigner delay twice. Rejecting the combination here means no caller can
+        build the double-counting object, whichever API it then reaches for.
+        """
+        if self.whole_throat_transfer is not None and self.tau_th != 0.0:
+            raise ValueError(
+                "whole_throat_transfer carries the transit in arg T; a "
+                "nonzero tau_th would double-count it. Use tau_th=0.0.")
+
+    @property
+    def is_derived(self) -> bool:
+        """True when the transfer comes from a metric rather than the ports."""
+        return self.whole_throat_transfer is not None
+
+    def _require_ports(self, what: str) -> None:
+        """Refuse a ports-only decomposition on a derived throat."""
+        if self.whole_throat_transfer is not None:
+            raise NotImplementedError(
+                f"{what} is a property of the two-interface (Fabry-Perot) "
+                "model, not of a whole-throat transfer. The derived backend "
+                "supplies T(w) only; asking a transparent port for it would "
+                "return a meaningless value silently.")
+
+    @property
+    def topological_factor(self) -> complex:
+        """``eta_topo`` — the deck orientations and fixed mouth phases.
+
+        Exposed so that a derived-geometry loop can be built in the *same*
+        convention as ``loop_eigenvalue``. The overall phase of the throat
+        transfer is convention dependent (a constant rephasing of ``T`` shifts
+        the phase-closure offset while leaving the Wigner delay alone), so the
+        closure question is only well posed once ``eta_topo * T`` is evaluated
+        in one consistent scheme.
+        """
+        return complex(self.mouth_A.orientation * self.mouth_B.orientation
+                       * np.exp(1j * (self.mouth_A.transfer_phase
+                                      + self.mouth_B.transfer_phase)))
+
+    def transfer(self, w: float) -> complex:
+        """Alias for ``t_AB``, kept for readers who want the intent named.
+
+        Both go through the same dispatch, so no caller can pick a path that
+        sees a different throat.
+        """
+        return self.t_AB(w)
 
     @property
     def delta_BA(self) -> float:
@@ -154,12 +207,28 @@ class NetworkThroat:
                        * np.exp(2j * wt * self.tau_th))
 
     def t_AB(self, w: float) -> complex:
-        """Composite excess transmission A -> B with ALL interior loops
-        summed: t_A t_B / (1 - r_inA r_inB e^{2 i w_tau tau_th}).  This
-        is the factor in excess of free interior propagation
-        (transparent ports give exactly 1); the free transit phase is
-        carried by the traversal leg."""
+        """Excess transmission A -> B, from whichever backend is installed.
+
+        *Ports backend* (PR #216): the Fabry-Perot composite
+        t_A t_B / (1 - r_inA r_inB e^{2 i w_tau tau_th}) with ALL interior
+        loops summed.  This is the factor in excess of free interior
+        propagation (transparent ports give exactly 1); the free transit
+        phase is carried by the traversal leg.
+
+        *Derived backend*: the whole-throat response T(w_tau) computed from a
+        metric.  It already contains the transit in arg T, which is why
+        ``__post_init__`` forces tau_th = 0 there -- the traversal leg's
+        e^{-i w_tau tau_th} is then exactly 1 and nothing is counted twice.
+
+        The dispatch lives HERE, in the one primitive every other entry point
+        already calls, so ``traverse_throat``, ``network_confirmation``,
+        ``projected_kernel``, ``loop_eigenvalue`` and ``effective_green`` all
+        see the same throat.  Dispatching in a parallel function instead would
+        leave those APIs silently reading transparent ports.
+        """
         wt = self.local_frequency(w)
+        if self.whole_throat_transfer is not None:
+            return complex(self.whole_throat_transfer(wt))
         return complex(self.port_A.t(wt) * self.port_B.t(wt)
                        / (1.0 - self._loop_factor(w)))
 
@@ -167,7 +236,12 @@ class NetworkThroat:
         """Composite reflection back into A's exterior: the direct
         bounce plus every path that enters, loops k times, and exits
         back through A (reciprocity: interior->exterior transmission of
-        a port equals its t)."""
+        a port equals its t).
+
+        Ports backend only.  A whole-throat backend supplies T but not the
+        one-sided reflection, and the transparent ports standing in its slots
+        would silently answer 0 instead."""
+        self._require_ports("r_AA")
         wt = self.local_frequency(w)
         lf = self._loop_factor(w)
         return complex(self.port_A.r_out(wt)
@@ -177,7 +251,12 @@ class NetworkThroat:
     def loop_expansion(self, w: float, kmax: int) -> list:
         """The echo amplitudes: loop k transmits with
         t_A t_B (r_inA r_inB e^{2 i w_tau tau_th})^k after a local
-        transit of (2k+1) tau_th.  Partial sums converge to t_AB(w)."""
+        transit of (2k+1) tau_th.  Partial sums converge to t_AB(w).
+
+        Ports backend only.  A smooth single barrier has no cavity, so there
+        is no echo train to expand -- that decomposition is a property of the
+        two-interface model, not of the throat."""
+        self._require_ports("loop_expansion")
         wt = self.local_frequency(w)
         t0 = self.port_A.t(wt) * self.port_B.t(wt)
         lf = self._loop_factor(w)
@@ -405,6 +484,26 @@ def loop_eigenvalue(throat: NetworkThroat, w: float, d_A: float,
             * np.exp(1j * (throat.mouth_A.transfer_phase
                            + throat.mouth_B.transfer_phase)))
     return complex(throat.t_AB(w) * deco * np.exp(1j * w * d_loop))
+
+
+
+def derived_loop_eigenvalue(throat: NetworkThroat, w: float, d_A: float,
+                            d_B: float, delta: float) -> complex:
+    """``Lambda_l(w, Delta) = eta_topo * T_l(w) * e^{i w (d_A + d_B + Delta)}``.
+
+    A convenience spelling of ``loop_eigenvalue`` for scans that sweep the
+    clock offset ``Delta`` as the free parameter it actually is, rather than
+    letting ``closure_offset`` solve for it.
+
+    **This is not a second code path.** ``t_AB`` dispatches on the backend and
+    ``__post_init__`` forces ``tau_th = 0`` on a derived throat, so with
+    ``delta = throat.delta_BA`` this returns exactly what ``loop_eigenvalue``
+    returns; ``derived_network`` asserts that agreement rather than assuming
+    it. The ``tau_th`` term is absent because it is zero, not because this
+    path drops it.
+    """
+    return complex(throat.topological_factor * throat.transfer(w)
+                   * np.exp(1j * w * (d_A + d_B + delta)))
 
 
 def effective_green(throat: NetworkThroat, w: float, d_A: float,
