@@ -205,6 +205,8 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Closure-quantum ledger closes modulo m_e | **PARTIALLY REOPENED (PR #271)** | The `2π`-quantised entries stand. The `pinhole γ` entry does not: its geometric derivation is reopened, so the ledger no longer reduces **every** dimensionless parameter to closure quanta. See `docs/scalar_operator_audit.md` |
 | `D = 5` scalar quasinormal frequency (`ℓ = 1`) | **Settled against published values (PR #274)** | `ω = 1.01601691 − 0.36232802i` from Matyjasek 2021 (continued fractions + Hill determinants, arXiv:2107.04815). An independent characteristic evolution here reproduces it to `0.018%` in damping. This **confirms PR #270's Kerr–Schild code (`0.005%`) and excludes its tortoise damping (`27.1%` off)** — #270's own prime suspect was the wrong code. No autopsy: neither #270 code was landed. See `docs/ringdown_cross_validation.md` |
 | Self-convergence as an error bar | **REFUTED BY MEASUREMENT (PR #274)** | This round's own step-size study gave a last successive difference of `4.0e-5` while the true error against the published value is `1.1e-4` — **2.7× larger**, with `h = 0.05` closer than `h = 0.025`. Self-convergence estimates only the error component tied to the refinement parameter. The missing component *is* findable internally — varying the extraction window, observer radius and `t_max` gives a band `3.6×` the step-refinement difference — so the external reference supplies the **anchor**, not the discovery |
+| BAM's cross-mouth exchange rule | **Relocated, priced, and its closure refuted (PR #276)** | `handshake.py` imposes no causal support at all (`geo4` is a spatial angle; `Particle4` has no time). `network.py` (PR #216) does better — an MTY clock offset with everything forward in local time — but supplies no geometry. Supplying it: traversability costs `−3/(16G₅a)` exactly, phase and group closure demand offsets differing by up to `6.78`, and `Λ = 1` is impossible at finite `ω`. See `docs/traversable_throat.md` |
+| Advanced legs and ER non-traversability | **An advanced leg alone changes nothing (PR #276)** | `supp G_ret ⊂ J⁺(s)`, `supp G_adv ⊂ J⁻(d)` ⟹ a nonzero product forces `d ∈ J⁺(s)`. So `d ∉ J⁺(s)` kills the transactional product for **every** intermediate event, and a symmetrized `G_sym` gives another zero |
 | `D = 5` outer→inner transfer kernel | **Delivered, and NOT rigid (PR #275)** | `K_ℓ(t) = δ(t) + K_ℓ^reg(t)` with `∫K_reg dt = −1` **exactly** (sum rule from `T(0) = 0`) and `∫\|K_reg\| dt = 2.03` against the `δ`'s `1` (converged to 3 s.f.; measured sum `−0.999996`). The result is analytic: `T(∞) = 1` while `T(0) = 0` forces it. A static signal is blocked completely, entirely by the memory term. Gates: causality `~1e-6` (bounds **acausal** artefacts only, not total error), unitarity `6.3e-13`, ringdown matching the external published value. Cross-checked against PR #274's characteristic null-grid march — a different propagation algorithm on the same operator — to `0.73%`. See `docs/transfer_kernel.md` |
 | Exact `D = 5` barrier constants | **Derived (PR #275)** | At `ℓ = 1` the peak is `V_max = 100/81` at `r² = 9/5` **exactly** — the only rational `ℓ`. And `∫V_ℓ dr* = ℓ(ℓ+2) + 3/2` exactly for all `ℓ`, giving the kernel's closed-form high-frequency phase `c_ℓ = (ℓ(ℓ+2)+3/2)/2`, `c₁ = 9/4` |
 | Frequency-domain QNM shooting in real `r` | **Cannot settle it (PR #274)** | Reproduced #270's non-convergence rather than fixing it: the root moves with every knob because for `Im ω < 0` the outgoing piece grows like `e^{\|Im ω\|R}` and swamps the coefficient being zeroed. Sixth-order WKB by finite differences also **diverges** under refinement (`9.0 → 18.6 → 623`) |
@@ -4307,6 +4309,79 @@ python -m experiments.closure_ledger.transfer_kernel_probe
 ```
 
 Full write-up: `docs/transfer_kernel.md`.
+
+## The traversable throat PR #216 assumed (PR #276)
+
+`transaction/network.py` (PR #216) replaced `handshake.py`'s advanced
+confirmation — which its own docstring calls *"phenomenological … assigned by
+fiat"* — with a Morris–Thorne–Yurtsever mechanism: everything propagates forward
+in local time, and the mouths' clock offset `Δ_BA` carries the return into the
+exterior past. Real progress. But the geometry was never supplied: `MouthPort.t`,
+`r_in`, `r_out` are inputs, and `closure_offset` *solves* for the `Δ` that makes
+the loop close. This round supplies the geometry and recomputes the closure
+without tuning `Δ` to the answer.
+
+**Why it cannot be Tangherlini — an argument, not a computation.**
+`supp G_ret(c,s) ⊂ J⁺(s)` and `supp G_adv(c,d) ⊂ J⁻(d)`, so a nonzero product
+needs `c ∈ J⁺(s) ∩ J⁻(d)`; but then `s → c → d` is causal, so `d ∈ J⁺(s)`.
+Contrapositive: **if `d ∉ J⁺(s)` the transactional product vanishes for every
+`c`.** An advanced leg by itself does not evade ER non-traversability — PR #275's
+`T_ℓ` is exterior→*horizon*, exactly that zero. A symmetrized `G_sym` would give
+another zero and arbitrate nothing.
+
+**Three results.**
+
+| | |
+|--|--|
+| traversability costs | `∫T_ab k^a k^b dλ = −3/(16G₅a)` **exactly** |
+| no single clock offset closes the loop | phase vs group closure differ by up to **`6.78`** |
+| `Λ = 1` (the completed transaction) | **impossible at finite `ω`**; deficit `~ exp(−4.25ω)` |
+
+**The geometry, derived.** `ds² = −dt² + ds² + (s²+a²)dΩ₃²` with `f = √(s²+a²)`
+the scalar-flat solution of `f′² = 1 − a²/f²`. With `ψ = f^{3/2}u`,
+`V_ℓ = ℓ(ℓ+2)/f² + (3/4)(s²+2a²)/f⁴` — a **single smooth symmetric barrier**, so
+the Fabry–Pérot split `t_At_B/(1 − r_inA r_inB e^{2iωτ})` that #216 assumes is a
+modelling choice the geometry does not supply, and is not imposed here. Its tail
+`[(ℓ+1)²−¼]/s²` is numerically #275's, so that round's validated Jost condition
+is imported rather than rewritten. `V_ℓ(0) = [ℓ(ℓ+2)+3/2]/a²` carries the same
+`ℓ(ℓ+2)+3/2` #275 found as `∫V dr*`.
+
+**The price.** In an orthonormal frame `ρ = 0` exactly, `p_s = −3a²/(8πG₅f⁴)`,
+`p_Ω = +a²/(8πG₅f⁴)`; the radial NEC fails everywhere and the complete null-ray
+integral is exactly `−3/(16G₅a)`, scaling as `1/(G₅a)`. **This is not the cost of
+the clock offset** — a frozen metric can carry a large `Δ_BA` with no local
+stress proportional to it, since the offset comes from the mouths' aging
+*history*. Costing `Δ` needs moving-mouth dynamics this round does not do.
+
+**The threshold law, and a false regression avoided.** The exact static monopole
+response is `I₃ = 2/a²`, `g = 2π²/I₃ = π²a²` — but that is a *boundary
+conductance*, not `T₀(0)`. A flux-normalised amplitude between asymptotically
+flat 4D spatial ends vanishes at threshold. What the static solution controls is
+the coefficient: `|T₀| → (π/8)(aω)²`, confirmed with ratio `1.000294` at
+`ω = 0.01` and a *constant* `+π/2` phase — exactly a factor of `i` from the
+Riccati–Hankel normalisation, i.e. the stated convention freedom.
+
+**No single offset closes the loop.** With `δ_ℓ(ω) = arg T_ℓ(ω)`, phase closure
+`Φ = 2πn` and group closure `dΦ/dω = 0` (the Wigner delay) demand different
+offsets: gap `6.78 → 4.14 → 2.02 → 1.01 → 0.41 → 0.14` at `ω = 0.5…5`, largest
+where the throat disperses most and dying monotonically as it becomes
+transparent — which is what identifies it as dispersion rather than artefact.
+
+**And the transaction cannot complete.** `|Λ| = 1` requires `|T_ℓ| = 1`, and a
+positive barrier has `|T| < 1` at every finite `ω`, so `1 − Λ` never vanishes and
+`G_eff = G₀/(1−Λ)` has no true pole without external gain. But
+`1 − |T|² ~ exp(−4.25ω)` over twelve decades, so `Q` grows exponentially and the
+frequency for a given `Q` grows only logarithmically: exact closure is
+approached in the **UV**, a chronology-horizon concern rather than a benign
+resonance.
+
+Unitarity `6.6e-14`, imposed nowhere; reciprocity is structural since `V` is even.
+
+```bash
+python -m experiments.closure_ledger.traversable_throat_probe
+```
+
+Full write-up: `docs/traversable_throat.md`.
 
 ## The geometric-visualization arc, end to end
 
