@@ -1,0 +1,893 @@
+{
+  "checks": [
+    {
+      "id": "K0",
+      "name": "three exact D=5 anchors, derived not recalled",
+      "detail": {
+        "barrier_peaks": [
+          {
+            "ell": 0,
+            "x_peak": 0.62283903060711,
+            "r_squared": 1.6055512754639891,
+            "r": 1.2671034983236331,
+            "r_star": 0.19779245516552257,
+            "V_max": 0.5053837443273571
+          },
+          {
+            "ell": 1,
+            "x_peak": 0.5555555555555556,
+            "r_squared": 1.7999999999999998,
+            "r": 1.3416407864998738,
+            "r_star": 0.379217136380667,
+            "V_max": 1.2345679012345678
+          },
+          {
+            "ell": 2,
+            "x_peak": 0.5282090473479552,
+            "r_squared": 1.8931898365255657,
+            "r": 1.3759323517257547,
+            "r_star": 0.4540643532251667,
+            "V_max": 2.476709047845897
+          },
+          {
+            "ell": 3,
+            "x_peak": 0.5166114784235835,
+            "r_squared": 1.9356906336101063,
+            "r": 1.3912909953026025,
+            "r_star": 0.4862224214046563,
+            "V_max": 4.2234271350721215
+          }
+        ],
+        "ell_1_peak_is_exactly_100_over_81": true,
+        "ell_1_peak_radius_squared_is_exactly_9_over_5": true,
+        "only_ell_1_is_rational": "In x = 1/r^2 the peak solves 27/4 x^2 - 2(9/4 - L) x - L = 0. At l = 1 the discriminant is a perfect square (110.25 = 10.5^2) and x = 5/9 exactly; l = 0, 2, 3 give sqrt(13), sqrt(1621), sqrt(57). l = 1 is also the mode PR #270's two codes disagreed on.",
+        "integrated_potential": [
+          {
+            "ell": 0,
+            "exact": 1.5,
+            "quadrature_on_the_truncated_domain": 1.4950000000136294,
+            "missing_tail_beyond_the_outer_edge": 0.005
+          },
+          {
+            "ell": 1,
+            "exact": 4.5,
+            "quadrature_on_the_truncated_domain": 4.475000888838531,
+            "missing_tail_beyond_the_outer_edge": 0.025
+          },
+          {
+            "ell": 2,
+            "exact": 9.5,
+            "quadrature_on_the_truncated_domain": 9.441669036880034,
+            "missing_tail_beyond_the_outer_edge": 0.058333333333333334
+          },
+          {
+            "ell": 3,
+            "exact": 16.5,
+            "quadrature_on_the_truncated_domain": 16.39500444413814,
+            "missing_tail_beyond_the_outer_edge": 0.105
+          }
+        ],
+        "the_integral_is_elementary": "dr* = dr/f cancels the f in V, leaving int_1^inf (L/r^2 + (9/4)/r^4) dr = L + 3/4 = l(l+2) + 3/2.",
+        "high_frequency_phase_constants": {
+          "0": 0.75,
+          "1": 2.25,
+          "2": 4.75,
+          "3": 8.25
+        },
+        "c_of_ell_1_is_exactly_nine_quarters": true
+      },
+      "pass": true
+    },
+    {
+      "id": "K0b",
+      "name": "only l = 1 has a rational barrier peak - proved, not checked",
+      "detail": {
+        "discriminant_numerator": "16 m^4 + 28 m^2 + 73,  m = l + 1",
+        "small_cases": {
+          "1": {
+            "value": 117,
+            "is_square": false
+          },
+          "2": {
+            "value": 441,
+            "is_square": true
+          },
+          "3": {
+            "value": 1621,
+            "is_square": false
+          }
+        },
+        "bracketing_holds_for_m_at_least_four": true,
+        "bracketing_argument": "(4m^2+3)^2 < 16m^4+28m^2+73 < (4m^2+4)^2 for m >= 4: the left is 4m^2 + 64 > 0, the right is 4m^2 > 57. Strictly between consecutive squares, hence never a square.",
+        "squares_found_in_range": [
+          2
+        ],
+        "only_m_equals_two": true,
+        "therefore": "l = 1 is the ONLY non-negative integer l with a rational barrier peak. This is a theorem, not an inference from spot checks."
+      },
+      "pass": true
+    },
+    {
+      "id": "K1b",
+      "name": "the subtracted high-frequency coefficient is the exact one",
+      "detail": {
+        "exact": 2.25,
+        "rows": [
+          {
+            "outer_edge": 150.0,
+            "phase_estimator": 2.250260286645016,
+            "biased_estimator": 2.2489451253912462,
+            "exact": 2.25,
+            "phase_deviation": 0.00026028664501609455,
+            "biased_deviation": -0.001054874608753753,
+            "relative_error": 0.00011568295334048646
+          },
+          {
+            "outer_edge": 300.0,
+            "phase_estimator": 2.2502598977759183,
+            "biased_estimator": 2.2489447372038924,
+            "exact": 2.25,
+            "phase_deviation": 0.000259897775918283,
+            "biased_deviation": -0.00105526279610757,
+            "relative_error": 0.000115510122630348
+          },
+          {
+            "outer_edge": 600.0,
+            "phase_estimator": 2.2502598491561177,
+            "biased_estimator": 2.248944688669334,
+            "exact": 2.25,
+            "phase_deviation": 0.000259849156117653,
+            "biased_deviation": -0.0010553113306661643,
+            "relative_error": 0.00011548851383006802
+          }
+        ],
+        "spread_across_outer_edges": 4.3748889844152927e-07,
+        "independent_of_the_outer_edge": true,
+        "worst_relative_error": 0.00011568295334048646,
+        "agrees_with_the_exact_value": true,
+        "predicted_bias_of_the_naive_estimator": -0.0013147074099722992,
+        "observed_bias_of_the_naive_estimator": -0.0010551495785091625,
+        "the_biased_estimator_is_also_edge_independent": true,
+        "why_the_exact_value_is_the_one_subtracted": "If T - 1 = -i c_exact/w + O(w^-2) and a fitted c_fit != c_exact is subtracted, the remainder retains -i(c_exact - c_fit)/w and still falls only as 1/w. The subtraction exists to make the remainder O(1/w^2); using a fit would quietly defeat it.",
+        "a_correction_to_an_earlier_draft": "That draft used Re[i w (T-1)], which carries a deterministic -c^3/(6 w^2) bias, and read the resulting 1.06e-3 shortfall as the 1/r^4 and 1/r^6 part of V that a centrifugal Jost condition cannot capture. It was the estimator. With -w arg T the residual is +2.6e-4, four times smaller and opposite in sign, and no physical attribution for it is offered here."
+      },
+      "pass": true
+    },
+    {
+      "id": "K1c",
+      "name": "the low-frequency outer matching is converged (Jost, not plane)",
+      "detail": {
+        "omega": [
+          0.0048828125,
+          0.02,
+          0.1
+        ],
+        "outer_turning_scale": [
+          396.5934946516395,
+          96.82458365518542,
+          19.364916731037084
+        ],
+        "potential_at_the_outer_edge": 0.000166648890644555,
+        "omega_squared_at_the_lowest_bin": 2.384185791015625e-05,
+        "the_lowest_bin_is_inside_the_centrifugal_tail": true,
+        "rows": [
+          {
+            "outer_edge": 150.0,
+            "transmission_modulus": [
+              4.099912974981789e-07,
+              1.3936492324580238e-05,
+              0.0007955278386845205
+            ]
+          },
+          {
+            "outer_edge": 300.0,
+            "transmission_modulus": [
+              4.100095160982963e-07,
+              1.3936442694277263e-05,
+              0.0007955281710733989
+            ]
+          },
+          {
+            "outer_edge": 600.0,
+            "transmission_modulus": [
+              4.100144577791324e-07,
+              1.3936444884034067e-05,
+              0.0007955281801189269
+            ]
+          }
+        ],
+        "relative_spread_across_outer_edges": [
+          5.6486498254029175e-05,
+          3.5611760706463134e-06,
+          4.2919209526045905e-07
+        ],
+        "converged_in_the_outer_edge": true,
+        "why_this_bin_matters": "It sets the DC end of the inverse transform, and therefore the numerical realisation of the int K_reg dt = -1 sum rule.",
+        "what_changed": "Replacing plane-wave matching with the exact centrifugal Jost solutions moved T(w -> 0) from 1.73e-06 to 4.10e-07 -- a factor of four closer to its exact value of zero -- and made the low-w spectrum independent of the outer edge instead of drifting with it."
+      },
+      "pass": true
+    },
+    {
+      "id": "K1d",
+      "name": "the subtraction leaves an O(1/w^2) remainder, as required",
+      "detail": {
+        "rows": [
+          {
+            "decay": 0.5,
+            "omega": [
+              5.0048828125,
+              10.0048828125,
+              20.0048828125,
+              39.9951171875
+            ],
+            "omega_squared_times_remainder": [
+              1.4219166001169579,
+              1.4101181508857483,
+              1.407214883972505,
+              1.4064917254924123
+            ],
+            "bounded": true
+          },
+          {
+            "decay": 1.0,
+            "omega": [
+              5.0048828125,
+              10.0048828125,
+              20.0048828125,
+              39.9951171875
+            ],
+            "omega_squared_times_remainder": [
+              0.3801376247415114,
+              0.30932713212660246,
+              0.2885557526774788,
+              0.2830986950383777
+            ],
+            "bounded": true
+          },
+          {
+            "decay": 2.0,
+            "omega": [
+              5.0048828125,
+              10.0048828125,
+              20.0048828125,
+              39.9951171875
+            ],
+            "omega_squared_times_remainder": [
+              1.841765612796179,
+              1.9340833901645835,
+              1.9598766972070705,
+              1.966517474606772
+            ],
+            "bounded": true
+          }
+        ],
+        "the_remainder_falls_like_one_over_omega_squared": true,
+        "the_plateau_depends_on_the_subtraction_parameter": "w^2|S - A| settles to a different constant for each a, because a different A redistributes the O(1/w^2) tail between the analytic and numerical pieces. The KERNEL must not depend on a at all -- that is checked separately in the convergence study."
+      },
+      "pass": true
+    },
+    {
+      "id": "K1",
+      "name": "the real-frequency scattering is well conditioned (unitarity)",
+      "detail": {
+        "omega": [
+          0.1,
+          0.3,
+          0.7,
+          1.0,
+          1.5,
+          3.0,
+          10.0,
+          30.0
+        ],
+        "transmission_modulus": [
+          0.0007955278386845205,
+          0.014238075336563757,
+          0.19749249747509973,
+          0.6444184183962288,
+          0.9888023343809759,
+          0.999999766870308,
+          0.999999999999735,
+          1.0000000000003126
+        ],
+        "reflection_modulus": [
+          0.9999996835676794,
+          0.9998986334677675,
+          0.9803043983585183,
+          0.76467306872397,
+          0.14923117476700481,
+          0.0006828319268682735,
+          4.436820505567346e-11,
+          4.93941544987072e-12
+        ],
+        "unitarity_residual": [
+          1.1102230246251565e-15,
+          -1.6653345369377348e-15,
+          8.881784197001252e-15,
+          3.019806626980426e-14,
+          -3.9246383920499284e-13,
+          1.1102230246251565e-13,
+          -5.302425165609748e-13,
+          6.252776074688882e-13
+        ],
+        "worst_unitarity_residual": 6.252776074688882e-13,
+        "unitarity_holds": true,
+        "step_refinement": [
+          {
+            "steps": 10000,
+            "transmission_modulus": 0.6444264374639482,
+            "unitarity_residual": 3.26405569239796e-14
+          },
+          {
+            "steps": 20000,
+            "transmission_modulus": 0.644420022193836,
+            "unitarity_residual": 3.863576125695545e-14
+          },
+          {
+            "steps": 40000,
+            "transmission_modulus": 0.6444184183962288,
+            "unitarity_residual": 3.042011087472929e-14
+          }
+        ],
+        "successive_differences": [
+          6.4152701122477396e-06,
+          1.6037976071636706e-06
+        ],
+        "second_order_in_the_step": true,
+        "transmission_goes_to_zero_at_dc": true,
+        "transmission_goes_to_one_at_high_frequency": true,
+        "why_this_is_not_the_failed_shoot": "PR #270 and #274 could not converge a quasinormal frequency by shooting in real r, because for Im w < 0 the outgoing solution grows like e^{|Im w| R} across the whole matching range and swamps the coefficient being zeroed. Here w is REAL, so the ASYMPTOTIC in and out waves are unit-flux and the extracted coefficient is not swamped. This is a different, well-posed problem -- not a repair of the one that failed.",
+        "the_conditioning_claim_is_scoped": "Unit modulus is a property of the asymptotic normalisation, not of the propagation everywhere: under the barrier k = sqrt(w^2 - V) is imaginary and the propagator is hyperbolic, so one solution does grow relative to the other. The correct statement is WELL CONDITIONED ON THE TESTED REAL-FREQUENCY RANGE -- evidenced by unitarity to ~1e-13 and second-order step refinement -- not structurally immune as w -> 0 or l grows."
+      },
+      "pass": true
+    },
+    {
+      "id": "K2",
+      "name": "GATE 1 - the kernel is causal",
+      "detail": {
+        "times_before_zero": [
+          -300.0,
+          -200.0,
+          -100.0,
+          -50.0,
+          -20.0,
+          -10.0,
+          -5.0,
+          -2.0,
+          -1.0,
+          -0.5
+        ],
+        "kernel_before_zero": [
+          2.0250799387998963e-07,
+          -3.317625843932345e-07,
+          4.2717225681332184e-07,
+          -1.0295821853168948e-06,
+          -2.438964585372014e-06,
+          4.96147181773182e-06,
+          9.529030908284058e-06,
+          2.809278532196056e-05,
+          -4.1400224174148107e-05,
+          -0.00010046857193004973
+        ],
+        "worst_acausal_value": 0.00010046857193004973,
+        "noise_floor_far_from_the_front": 1.0295821853168948e-06,
+        "the_kernel_is_causal": true,
+        "times_after_zero": [
+          0.5,
+          1.0,
+          2.0,
+          3.0,
+          5.0,
+          8.0,
+          12.0,
+          16.0,
+          20.0,
+          30.0,
+          40.0,
+          60.0,
+          100.0
+        ],
+        "kernel_after_zero": [
+          -1.1695600055068622,
+          -0.43257695262605117,
+          0.22424042896929808,
+          0.2211687782151608,
+          -0.0846117841559544,
+          0.026764569611516038,
+          -0.008740895382490633,
+          0.0009720083073840056,
+          0.00019221183095695206,
+          -1.3242551209907819e-05,
+          7.920708126142961e-07,
+          7.660711075195152e-08,
+          3.465911395068412e-07
+        ],
+        "the_exact_zero_is_an_acausal_artifact_monitor": "K(t) vanishes identically for t < 0, so whatever the computation returns there is a direct read-out of its ACAUSAL transform artifacts -- no reference value needed. That is what caught the missing DC cell and the symmetric truncation ringing, both of which contaminate t < 0 and t > 0 alike.",
+        "it_is_not_a_total_error_bar": "A numerical error can be perfectly causal and live only at t > 0: outer-boundary error, finite w_max, the arbitrary subtraction parameter, quadrature bias. This round demonstrated exactly that -- replacing plane-wave outer matching with the Jost condition moved positive-time results with no matching negative-time signature. So the negative-time residual bounds one FAMILY of error, not the total, and the late-time tail is judged out of reach on positive-time parameter variation as well."
+      },
+      "pass": true
+    },
+    {
+      "id": "K3",
+      "name": "GATE 3 - the kernel carries the published ringdown",
+      "detail": {
+        "published": [
+          1.01601691149,
+          -0.36232802385
+        ],
+        "source": "Matyjasek, Phys. Rev. D 104, 084066 (2021), arXiv:2107.04815 -- continued fractions cross-checked against Hill determinants, agreeing to 11 digits",
+        "rows": [
+          {
+            "sample_spacing": 0.2,
+            "window": [
+              3.0,
+              14.0
+            ],
+            "omega": [
+              1.0281179998347645,
+              -0.3760653190700044
+            ],
+            "real_relative_error": 0.011910321775075726,
+            "damping_relative_error": 0.03791397384622803
+          },
+          {
+            "sample_spacing": 0.2,
+            "window": [
+              4.0,
+              16.0
+            ],
+            "omega": [
+              1.0263157289576381,
+              -0.3693794139176498
+            ],
+            "real_relative_error": 0.010136462642668848,
+            "damping_relative_error": 0.019461343322891764
+          },
+          {
+            "sample_spacing": 0.2,
+            "window": [
+              5.0,
+              18.0
+            ],
+            "omega": [
+              1.0232580359456378,
+              -0.36312251205157847
+            ],
+            "real_relative_error": 0.0071269723699959485,
+            "damping_relative_error": 0.0021927318597563627
+          },
+          {
+            "sample_spacing": 0.3,
+            "window": [
+              3.0,
+              14.0
+            ],
+            "omega": [
+              1.017114715486012,
+              -0.3638244711079205
+            ],
+            "real_relative_error": 0.0010804977590404207,
+            "damping_relative_error": 0.004130089751324308
+          },
+          {
+            "sample_spacing": 0.3,
+            "window": [
+              4.0,
+              16.0
+            ],
+            "omega": [
+              1.0171676926372033,
+              -0.36139026916137684
+            ],
+            "real_relative_error": 0.0011326397564738533,
+            "damping_relative_error": 0.0025881373421212154
+          },
+          {
+            "sample_spacing": 0.3,
+            "window": [
+              5.0,
+              18.0
+            ],
+            "omega": [
+              1.0153557808441613,
+              -0.36098448302062097
+            ],
+            "real_relative_error": 0.000650708308456263,
+            "damping_relative_error": 0.00370807870476851
+          },
+          {
+            "sample_spacing": 0.5,
+            "window": [
+              3.0,
+              14.0
+            ],
+            "omega": [
+              1.0176151738002113,
+              -0.3632031569857943
+            ],
+            "real_relative_error": 0.0015730666410536896,
+            "damping_relative_error": 0.0024153062368606312
+          },
+          {
+            "sample_spacing": 0.5,
+            "window": [
+              4.0,
+              16.0
+            ],
+            "omega": [
+              1.016873924244112,
+              -0.36144045556668714
+            ],
+            "real_relative_error": 0.0008435024500283936,
+            "damping_relative_error": 0.0024496263741397004
+          },
+          {
+            "sample_spacing": 0.5,
+            "window": [
+              5.0,
+              18.0
+            ],
+            "omega": [
+              1.0139525282743032,
+              -0.3625770551307497
+            ],
+            "real_relative_error": 0.0020318394234888825,
+            "damping_relative_error": 0.0006873089144570509
+          }
+        ],
+        "real_part_band": {
+          "min": 0.000650708308456263,
+          "max": 0.011910321775075726
+        },
+        "damping_band": {
+          "min": 0.0006873089144570509,
+          "max": 0.03791397384622803
+        },
+        "every_fit_lands_on_the_fundamental_mode": true,
+        "the_best_fit_is_sub_tenth_percent": true,
+        "the_ringdown_is_the_published_one": true,
+        "scored_against_an_external_value": "The comparison is with the published continued-fraction value, never with this repository's own time-domain solver. Scoring a kernel against a frequency extracted from the same machinery that produced it would not be a check.",
+        "the_band_is_reported_not_the_best_row": "Extraction choices move the fit, exactly as PR #274 measured for the time-domain solver. The spread is the honest statement."
+      },
+      "pass": true
+    },
+    {
+      "id": "K4",
+      "name": "independent check - kernel convolution vs time-domain evolution",
+      "detail": {
+        "rows": [
+          {
+            "pulse_centre": 200.0,
+            "launch_r_star": 100.0,
+            "potential_beyond_the_launch_point": 0.0375,
+            "peak_relative_max_difference": 0.027256047476981654,
+            "peak_relative_rms_difference": 0.005019327739036313
+          },
+          {
+            "pulse_centre": 400.0,
+            "launch_r_star": 200.0,
+            "potential_beyond_the_launch_point": 0.01875,
+            "peak_relative_max_difference": 0.014037216321590605,
+            "peak_relative_rms_difference": 0.002546914466627842
+          },
+          {
+            "pulse_centre": 800.0,
+            "launch_r_star": 400.0,
+            "potential_beyond_the_launch_point": 0.009375,
+            "peak_relative_max_difference": 0.007280249249624464,
+            "peak_relative_rms_difference": 0.0013041683412546006
+          }
+        ],
+        "best": {
+          "pulse_centre": 800.0,
+          "launch_r_star": 400.0,
+          "potential_beyond_the_launch_point": 0.009375,
+          "peak_relative_max_difference": 0.007280249249624464,
+          "peak_relative_rms_difference": 0.0013041683412546006
+        },
+        "successive_ratios": [
+          1.941698899023106,
+          1.9281230408855417
+        ],
+        "the_two_methods_agree": true,
+        "the_residual_halves_as_the_launch_radius_doubles": true,
+        "what_this_exposed": "The incident amplitude is only defined where the wave is free, and the residual tracks the exactly-known potential remaining beyond the launch point. PR #274 launched at r* = 6, where V ~ 0.1 -- harmless for a quasinormal frequency, since a ringdown does not care how it was excited, and fatal for a transmission ratio.",
+        "an_earlier_number_was_flattered_by_cancellation": "With plane-wave outer matching this check read 0.92% at r* = 100. That was two errors partly cancelling: the plane-wave outer condition carried its own error in the opposite direction. Under the correct Jost condition the same launch reads 2.73%, and the series converges as 1/r*_launch. The larger number is the honest one."
+      },
+      "pass": true
+    },
+    {
+      "id": "K5",
+      "name": "*** the transfer is NOT rigid ***",
+      "detail": {
+        "transmission_at_lowest_bin": 4.099912974981789e-07,
+        "lowest_bin_frequency": 0.0048828125,
+        "transmission_at_exact_dc_is_zero_analytically": "T(w = 0) = 0 exactly: a zero-frequency wave is completely reflected by the centrifugal barrier. The tabulated value above is the lowest sampled bin, not w = 0, and is reported as such.",
+        "transmission_at_high_frequency": 0.9999999999998559,
+        "sum_rule_exact_value": -1.0,
+        "sum_rule_measured": -0.9999962216278564,
+        "sum_rule_relative_error": 3.7783721436035478e-06,
+        "the_sum_rule_holds": true,
+        "memory_absolute_mass": 2.0308790436626496,
+        "instantaneous_weight": 1.0,
+        "the_kernel_is_not_rigid": true,
+        "the_durable_statement": "With the chosen asymptotic normalisation T(inf) = 1 while T(0) = 0. Therefore the transfer function cannot be a rigid phase or delay, and the regular memory must carry signed weight -1. This is analytic and does not depend on any measured number.",
+        "why_the_sum_rule_is_exact": "int K dt = T(w = 0), and T(0) = 0 because the centrifugal barrier reflects zero-frequency waves completely. With K = delta(t) + K_reg, that forces int K_reg dt = -1 EXACTLY. It is a constraint, not a fit, and the measured value is checked against it.",
+        "what_this_says_about_rigid_exchange": "A rigid exchange kernel is delta(t), possibly delayed: whatever enters leaves undistorted, and a static signal passes perfectly. The real geometry blocks a static signal COMPLETELY, and does so entirely through the memory term, which exactly cancels the instantaneous one at DC. In absolute mass the memory is about twice the delta.",
+        "scope_of_that_claim": "This is a statement about the transfer kernel of a test scalar on a fixed D = 5 Tangherlini background, per angular channel. It says what the causal geometry does. Whether any particular BAM exchange kernel is meant to approximate THIS object is a separate question this round does not settle. Note also that T maps the asymptotic exterior to flux crossing the FUTURE HORIZON: it is a one-way exterior-to-interior channel, NOT mouth-to-mouth transmission."
+      },
+      "pass": true
+    },
+    {
+      "id": "K5b",
+      "name": "the kernel integrals are converged in every knob",
+      "detail": {
+        "by_decay": [
+          {
+            "decay": 0.5,
+            "sum": -0.9999995996387726,
+            "mass": 2.031234190701481
+          },
+          {
+            "decay": 1.0,
+            "sum": -0.9999962216278564,
+            "mass": 2.0308790436626496
+          },
+          {
+            "decay": 2.0,
+            "sum": -0.9999838622217585,
+            "mass": 2.031389416526602
+          },
+          {
+            "decay": 4.0,
+            "sum": -0.9999369479959412,
+            "mass": 2.032824525602957
+          }
+        ],
+        "by_spectrum": [
+          {
+            "omega_max": 20.0,
+            "count": 2048,
+            "sum": -0.9999877850199371,
+            "mass": 2.0311444480066125
+          },
+          {
+            "omega_max": 40.0,
+            "count": 4096,
+            "sum": -0.9999962216278564,
+            "mass": 2.0308790436626496
+          },
+          {
+            "omega_max": 40.0,
+            "count": 8192,
+            "sum": -0.9999962275356796,
+            "mass": 2.030873414664245
+          }
+        ],
+        "by_time_quadrature": [
+          {
+            "spacing": 0.02,
+            "horizon": 300.0,
+            "sum": -0.999958779860388,
+            "mass": 2.0308563672715882
+          },
+          {
+            "spacing": 0.01,
+            "horizon": 300.0,
+            "sum": -0.9999887329853694,
+            "mass": 2.030877095518338
+          },
+          {
+            "spacing": 0.005,
+            "horizon": 300.0,
+            "sum": -0.9999962216278564,
+            "mass": 2.0308790436626496
+          },
+          {
+            "spacing": 0.005,
+            "horizon": 150.0,
+            "sum": -0.9999959089160477,
+            "mass": 2.0308484867656915
+          },
+          {
+            "spacing": 0.005,
+            "horizon": 600.0,
+            "sum": -0.99999628670924,
+            "mass": 2.0309631973885867
+          }
+        ],
+        "mass_spreads": {
+          "decay": 0.0019454819403073031,
+          "spectrum": 0.00027103334236766585,
+          "time": 0.00011471062289514222
+        },
+        "worst_mass_spread": 0.0019454819403073031,
+        "worst_sum_spread": 6.265164283136837e-05,
+        "the_mass_is_converged": true,
+        "significant_figures_earned": 3,
+        "the_mass_to_quoted_precision": 2.03,
+        "the_sum_rule_holds_across_every_knob": true,
+        "independent_of_the_subtraction_parameter": true,
+        "the_precision_the_spread_supports": "Worst spread ~2e-3, on the subtraction parameter. So the memory mass is 2.03 to the digits this computation earns; quoting 2.0286 or 2.0309 would claim precision the knobs do not support.",
+        "why_decay_independence_is_the_clean_check": "K cannot depend on a at all: A(w) is subtracted numerically and its exact transform added back. Any residual dependence is measuring the finite w_max, not physics.",
+        "what_was_broken_before": "The time quadrature. A left-endpoint grid starting at t = 0.001 omitted int_0^t0 ~ -c t0 across the jump at t = 0+, giving -0.997757 for a quantity whose exact value is -1, and shrinking only as O(dt) rather than converging. Midpoint sampling over [0, t_max] gives -0.999996, a thousandfold tighter check of the same analytic constraint."
+      },
+      "pass": true
+    },
+    {
+      "id": "K6b",
+      "name": "the late-time tail is unresolved - shown at positive times",
+      "detail": {
+        "times": [
+          40.0,
+          60.0,
+          100.0,
+          150.0,
+          200.0
+        ],
+        "rows": [
+          {
+            "setting": "base",
+            "values": [
+              7.920708126142961e-07,
+              7.660711075195152e-08,
+              3.465911395068412e-07,
+              1.9324063022553e-07,
+              -3.3136928065536905e-07
+            ]
+          },
+          {
+            "setting": "omega_max=20, count=2048",
+            "values": [
+              -5.737035089455494e-06,
+              6.777263406064202e-07,
+              -2.341236261736317e-06,
+              -5.759918932385999e-07,
+              7.917074055837123e-07
+            ]
+          },
+          {
+            "setting": "count=8192",
+            "values": [
+              7.868997340821397e-07,
+              7.415921571558494e-08,
+              3.355204636198495e-07,
+              1.8001524697138732e-07,
+              -2.9291969632107855e-07
+            ]
+          },
+          {
+            "setting": "decay=0.5",
+            "values": [
+              5.42126200488181e-06,
+              6.048358850107897e-07,
+              2.0001121692789306e-06,
+              8.365664172652849e-07,
+              -1.6492511152516203e-06
+            ]
+          },
+          {
+            "setting": "decay=2.0",
+            "values": [
+              -8.688806585625341e-06,
+              -6.976592964222889e-07,
+              -3.0769696043949323e-06,
+              -9.786628627598561e-07,
+              2.302269974565083e-06
+            ]
+          }
+        ],
+        "spread_across_settings": [
+          1.411006859050715e-05,
+          1.3753856370287092e-06,
+          5.077081773673863e-06,
+          1.8152292800251411e-06,
+          3.951521089816703e-06
+        ],
+        "largest_magnitude": [
+          8.688806585625341e-06,
+          6.976592964222889e-07,
+          3.0769696043949323e-06,
+          9.786628627598561e-07,
+          2.302269974565083e-06
+        ],
+        "spread_exceeds_the_values": true,
+        "the_sign_is_not_even_stable": true,
+        "the_tail_is_not_resolved": true,
+        "why_this_is_the_right_argument": "The negative-time floor bounds acausal transform artefacts only. Whether a positive-time feature is real has to be settled at positive times, by varying the parameters it would be independent of. Here it is not: the spread exceeds the values and the sign flips, so no exponent is quoted.",
+        "what_would_be_needed": "A method with dynamic range where this one has none -- a long time-domain evolution in extended precision. Not a refinement of the frequency-domain route, whose range is excellent near the barrier and absent in the tail."
+      },
+      "pass": true
+    },
+    {
+      "id": "K6",
+      "name": "what the causality gate caught",
+      "detail": {
+        "missing_dc_cell": {
+          "symptom": "a constant -1.9e-3 under the whole kernel, at t < 0 as well as t > 0",
+          "cause": "omega sampled at right endpoints left [0, dw] uncovered; since T(0) = 0, S(0) = -1 and the omitted cell contributes about -dw/pi everywhere",
+          "fix": "midpoint sampling, which covers [0, w_max] exactly",
+          "would_have_been_read_as": "a constant offset in the kernel, i.e. a spurious permanent memory"
+        },
+        "gibbs_ringing_from_the_slow_tail": {
+          "symptom": "a 1.6e-3 plateau at large |t|, on BOTH sides of the origin",
+          "cause": "S = T - 1 decays only as -i c/w, so a truncated transform rings",
+          "fix": "subtract A(w) = -i c/(w + i a), whose only pole is at w = -ia in the lower half plane so it cannot introduce an acausal piece, and add back its closed-form transform -c e^{-at} theta(t); the remainder decays like 1/w^2",
+          "would_have_been_read_as": "a late-time tail -- the very quantity this round would most like to measure, which is exactly why the gate mattered"
+        },
+        "the_general_point": "A quantity that is exactly zero on part of its domain is worth more than an accuracy claim: it calibrates the noise floor for free, on the same run, with no reference value. Both artefacts above sat at the level of the physics being looked for, and neither was visible from the t > 0 side alone."
+      },
+      "pass": true
+    },
+    {
+      "id": "K7",
+      "name": "the ledger",
+      "detail": {
+        "entries": [
+          {
+            "claim": "the retarded outer-to-inner transfer kernel exists as a computable object",
+            "verdict": "YES, DELIVERED",
+            "evidence": "K = delta(t) + K_reg from T(w) on a well-conditioned real-frequency scattering problem"
+          },
+          {
+            "claim": "the frequency domain can be used here despite PR #270's and #274's shooting failures",
+            "verdict": "YES -- DIFFERENT PROBLEM",
+            "evidence": "those failed for Im w < 0, where one solution grows exponentially; for real w nothing dominates, and unitarity holds to ~1e-13 without being imposed"
+          },
+          {
+            "claim": "the kernel is causal",
+            "verdict": "YES, TO ~1e-06",
+            "evidence": "K(t < 0) measured directly; the residual bounds ACAUSAL transform artifacts, not the total numerical error"
+          },
+          {
+            "claim": "the kernel carries the published ringdown",
+            "verdict": "YES",
+            "evidence": "fitted against the EXTERNAL continued-fraction value: real part within 0.065%-1.19%, damping 0.07%-3.79% over 9 extraction settings; band reported, not best row"
+          },
+          {
+            "claim": "an independent propagation method reproduces the kernel",
+            "verdict": "YES, TO 0.73% PEAK / 0.13% RMS at launch r* = 400",
+            "evidence": "convolution against PR #274's characteristic null-grid evolution -- a different propagation algorithm on the same operator, not an independent operator; the residual halves as the launch radius doubles"
+          },
+          {
+            "claim": "the transfer is rigid / instantaneous",
+            "verdict": "NO -- AND ANALYTICALLY SO",
+            "evidence": "T(inf) = 1 while T(0) = 0, so int K_reg dt = -1 is FORCED; measured -0.999996. The memory mass 2.0309 against the delta's 1 is a quantitative extra, not the argument"
+          },
+          {
+            "claim": "the late-time power-law tail is measured",
+            "verdict": "NO",
+            "evidence": "argued at POSITIVE times, not from the causality floor: varying (w_max, count) and the subtraction parameter gives late-time values whose spread exceeds the values and whose sign is not stable. No exponent is quoted"
+          },
+          {
+            "claim": "PR #274's pulse placement was adequate for this object",
+            "verdict": "NO -- AND IT WAS FOR ITS OWN",
+            "evidence": "the incident amplitude is only defined where the wave is free; launching inside the barrier's reach was harmless for a quasinormal frequency and fatal for a transmission ratio"
+          },
+          {
+            "claim": "the causality gate bounds the total numerical error",
+            "verdict": "NO -- ACAUSAL ARTIFACTS ONLY",
+            "evidence": "a causal error can live entirely at t > 0; this round's own Jost patch moved positive-time results with no matching negative-time signature"
+          },
+          {
+            "claim": "the high-frequency deficit was the 1/r^4 and 1/r^6 tail",
+            "verdict": "NO -- IT WAS THE ESTIMATOR",
+            "evidence": "Re[i w (T-1)] carries a deterministic -c^3/(6 w^2) bias of -1.3e-3, the whole size of the reported deficit; the unbiased -w arg T gives +2.6e-4, opposite in sign"
+          },
+          {
+            "claim": "the memory mass 2.03 is a converged number",
+            "verdict": "YES, NOW",
+            "evidence": "stable across the subtraction parameter, (w_max, count) and the time quadrature; an earlier draft's -0.997757 sum rule was a left-endpoint grid missing the [0, dt] cell across the jump at t = 0+"
+          }
+        ],
+        "the_lesson_this_round_adds": "An exactly-zero region is a free monitor for the artefacts that violate it. Causality gave this round a stretch of the domain where the answer is known to be zero, and two separate ACAUSAL artefacts -- a missing DC cell and Gibbs ringing -- were caught there at exactly the amplitude of the physics being sought. It bounds that family of error and no other: a causal error lives only at t > 0, as this round's own Jost patch demonstrated.",
+        "the_second_lesson": "Check what an estimator measures before attributing what it returns. Re[i w (T-1)] carries a deterministic -c^3/(6 w^2) bias, and an earlier draft read the resulting shortfall as a physical property of the potential's sub-leading tail. The tell was there: the deficit was independent of the outer edge, which a truncation effect would not be and a fixed-form bias would.",
+        "the_next_object": "The late-time tail, which needs a method with dynamic range where this one has none -- a long time-domain evolution in extended precision rather than a refinement of the frequency-domain route. Separately: whether any BAM exchange kernel is intended to approximate this object, which is a modelling question and not a numerical one.",
+        "still_blocked": "The nonlinear backreaction oracle, by the C(v) / inner-flux issue, unchanged and unrelated to anything here."
+      },
+      "pass": true
+    }
+  ],
+  "passed": 14,
+  "total": 14
+}
