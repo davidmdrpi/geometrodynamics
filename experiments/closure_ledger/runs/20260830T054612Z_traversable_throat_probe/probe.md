@@ -10,7 +10,7 @@ This round supplies the geometry and recomputes the closure without tuning `Δ` 
 
 > **1.** Traversability costs exactly `-0.187500/G₅` = `−3/(16G₅a)` in the complete null-ray energy integral.
 
-> **2.** The throat is strongly dispersive: the Wigner delay `dδ/dω` runs from `+0.932` at `ω = 0.5` to `+0.072` at `ω = 5`, so there is no single `τ_th` for PR #216's `closure_offset` to use. *The invariant closure verdict is not computed here* — it needs the network's own convention, and lives in `transaction/derived_network.py`.
+> **2.** The throat is strongly dispersive: the Wigner delay `dδ/dω` runs from `+0.932` at `ω = 0.5` to `+0.072` at `ω = 5`, so there is no single `τ_th` for PR #216's `closure_offset` to use. *The closure verdict is not computed here* — it needs the network's own `η_topo`, which is fixed by `ConjugatePair`, and lives in `transaction/derived_network.py`. On that topology the loop **does** close, at `ω = 1.4617`.
 
 > **3.** No finite-frequency perfect-transmission point was found: `|T| → 1` only in the ultraviolet, with the deficit closing exponentially, `1 − |T|² ~ exp(-4.25 ω)` against the analytic `−4a`. So `Λ = 1` — PR #216's completed transaction — is a UV limit here, though **not** by a theorem: a positive barrier can have perfect-transmission resonances.
 

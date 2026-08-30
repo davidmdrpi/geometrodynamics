@@ -17,10 +17,12 @@ sys.path.insert(0, os.path.abspath(
 from geometrodynamics.transaction.derived_network import (  # noqa: E402
     measure_no_perfect_transmission_resonance,
     measure_the_closure_residual_has_an_analytic_ultraviolet_law,
-    measure_the_closure_residual_has_no_root,
+    measure_the_closure_root_is_numerically_converged,
     measure_the_derived_network_ledger,
     measure_the_loop_is_driven_by_the_geometry,
     measure_the_ultraviolet_slope_matches_born,
+    measure_what_survives_a_rephasing,
+    measure_where_the_loop_closes,
 )
 
 
@@ -28,23 +30,34 @@ def run_probe() -> dict:
     checks: List[dict] = []
 
     driven = measure_the_loop_is_driven_by_the_geometry()
+    legacy = driven["legacy_apis_see_the_derived_transfer"]
     checks.append({
-        "id": "N0", "name": "the network loop is driven by the geometry",
+        "id": "N0", "name": "every existing network API is driven by the geometry",
         "detail": driven,
         "pass": bool(driven["lambda_modulus_equals_transmission"]
                      and driven["the_backend_is_the_derived_one"]
-                     and driven["the_batched_path_equals_the_scalar_network_path"])})
+                     and driven["the_batched_path_equals_the_scalar_network_path"]
+                     and max(legacy.values()) < 1e-12)})
 
-    closure = measure_the_closure_residual_has_no_root()
+    closure = measure_where_the_loop_closes()
     checks.append({
         "id": "N1",
-        "name": "*** no finite frequency closes carrier and packet together ***",
+        "name": "*** where the loop closes, on the DECLARED topology ***",
         "detail": closure,
-        "pass": bool(closure["there_is_no_simultaneous_closure"])})
+        "pass": bool(closure["scalar_channel_closes"]
+                     and closure["the_two_channels_disagree"])})
+
+    gauge = measure_what_survives_a_rephasing()
+    checks.append({
+        "id": "N1c",
+        "name": "*** and how much of that verdict is gauge, not geometry ***",
+        "detail": gauge,
+        "pass": bool(gauge["the_derivative_identity_holds"]
+                     and gauge["the_swing_is_less_than_one_branch"])})
 
     law = measure_the_closure_residual_has_an_analytic_ultraviolet_law()
     checks.append({
-        "id": "N1b", "name": "the closure residual's UV law is analytic",
+        "id": "N1b", "name": "the closure function's UV tail law is analytic",
         "detail": law,
         "pass": bool(law["the_limit_is_reached"] and law["the_approach_is_monotone"])})
 
@@ -60,10 +73,16 @@ def run_probe() -> dict:
         "detail": ultraviolet,
         "pass": bool(ultraviolet["the_slope_approaches_the_born_value"])})
 
+    converged = measure_the_closure_root_is_numerically_converged()
+    checks.append({
+        "id": "N5", "name": "the PHASE-sensitive root has its own convergence study",
+        "detail": converged,
+        "pass": bool(converged["the_root_is_stable"])})
+
     ledger = measure_the_derived_network_ledger()
     checks.append({
         "id": "N4", "name": "the ledger", "detail": ledger,
-        "pass": bool(len(ledger["entries"]) >= 7)})
+        "pass": bool(len(ledger["entries"]) >= 10)})
 
     return {"checks": checks,
             "passed": sum(1 for c in checks if c["pass"]),
@@ -75,68 +94,103 @@ def render_markdown(summary: dict) -> str:
         return next(c for c in summary["checks"] if c["id"] == cid)["detail"]
 
     driven, closure = detail("N0"), detail("N1")
-    law, resonance = detail("N1b"), detail("N2")
-    ultraviolet, ledger = detail("N3"), detail("N4")
+    gauge, law, resonance = detail("N1c"), detail("N1b"), detail("N2")
+    ultraviolet, converged, ledger = detail("N3"), detail("N5"), detail("N4")
+    scalar = next(r for r in closure["rows"] if r["channel"] == "scalar")
 
     L: List[str] = [
         "# PR #216's loop, driven by a derived geometry", "",
         f"**{summary['passed']}/{summary['total']} checks pass.**", "",
         "`traversable_throat` computes `T_ℓ(ω)` from a supported traversable 5D "
         "metric. `network.py` carries PR #216's loop eigenvalue. This wires "
-        "them, so the closure questions are statements about **the BAM module "
-        "itself** rather than a reconstruction beside it.", "",
+        "them — through the APIs that already existed — so the closure "
+        "questions are statements about **the BAM module itself**.", "",
         "```",
         "Λ_ℓ(ω, Δ) = η_topo · T_ℓ(ω) · e^{iω(d_A + d_B + Δ)}",
         "```", "",
-        "`η_topo` is `NetworkThroat.topological_factor` — the module's own deck "
-        "orientations and mouth phases. **No separate `tau_th` phase**: a "
-        "whole-throat `T` already carries the transit in `arg T`, and adding "
-        "one would double-count the Wigner delay.", "",
-        "> ## The result", "",
-        "> **No finite frequency lets one clock offset serve both a "
-        "monochromatic carrier and a localised packet.** The branch-free "
-        "residual `C = Arg exp[i(θ − ωθ′)]` has **no root** over "
-        f"`{closure['range']}` at {closure['samples']} points, and its decay is "
-        f"analytic: `ωC → −∫V_ℓ ds = {law['predicted_limit_of_omega_times_C']:.6f}` "
-        "`= −9π/8`. So `C` vanishes as `1/ω` — simultaneous closure is a UV "
-        "limit, the same limit in which `|T| → 1`.", "",
+        "`η_topo` is `NetworkThroat.topological_factor`, and its orientations "
+        "are **read off `embedding.topology.make_singlet_pair()`** rather than "
+        "chosen. That is not cosmetic: `ConjugatePair` asserts the two mouths "
+        "of one throat carry *opposite* orientations, so the scalar channel "
+        "has `η_topo = −1`.", "",
+        "> ## The result, which reverses an earlier draft of this round", "",
+        "> **One clock offset does serve both the carrier and the packet — at "
+        f"`ω = {converged['quoted_root']}`.** An earlier draft searched with "
+        "`η_topo = +1`, a *chosen* sign, and reported no root at all; the "
+        "declared topology shifts `Ψ = θ − ωθ′` by `π` and a root appears.", "",
+        "> **But the verdict is gauge dependent, and this says so.** `Ψ` sweeps "
+        f"only `{gauge['total_variation']:.4f}` across the band, less than "
+        f"`2π = {gauge['two_pi']:.4f}`, so a constant rephasing of the Jost "
+        "basis can create or remove the root. Neither *closes* nor *never "
+        "closes* is a property of the geometry alone. What is invariant is "
+        "`dΨ/dω = −ωθ″` and the total variation.", "",
         "---", "",
-        "## N0 — the loop is the module's own", "",
+        "## N0 — every existing API is the one being driven", "",
         "| `ω` | `\\|T\\|` | `\\|Λ\\|` | difference |", "|--|--|--|--|"]
     for row in driven["rows"]:
         L.append(f"| `{row['omega']:g}` | `{row['transmission_modulus']:.10f}` | "
                  f"`{row['lambda_modulus']:.10f}` | `{row['difference']:.1e}` |")
+    legacy = driven["legacy_apis_see_the_derived_transfer"]
     L += ["",
-          f"`|η_topo| = 1` ⟹ `|Λ| = |T|`, confirmed to `1e-12`. The batched scan "
-          "path is asserted equal to the scalar `network.py` path, so the "
-          "continuous searches below the same object the module exposes.", "",
-          "> " + driven["no_extra_transit_phase_is_applied"], ""]
-
-    L += ["## N1 — the branch-free closure residual has no root", "",
-          "Eliminating `Δ` between phase closure `ω(D+Δ) + θ = 2πn` and group "
-          "closure `D + Δ + θ′ = 0` gives `θ − ωθ′ = 2πn`, so", "",
-          "```", "C_ℓ(ω) = Arg exp[i(θ_ℓ − ω θ_ℓ′)]", "```", "",
-          "vanishes exactly when one offset serves both. It searches over `n` "
-          "automatically.", "",
-          "| `ω` | `C_ℓ(ω)` |", "|--|--|"]
-    for row in closure["residual_at_probes"]:
-        L.append(f"| `{row['omega']:.2f}` | `{row['residual']:+.5f}` |")
+          "`|η_topo| = 1` ⟹ `|Λ| = |T|`. And the dispatch is in `t_AB`, so the "
+          "pre-existing entry points agree with the derived transfer exactly:",
+          "",
+          "| API | disagreement with the derived `T` |", "|--|--|"]
+    for name, value in legacy.items():
+        L.append(f"| `{name}` | `{value:.1e}` |")
     L += ["",
-          f"Roots found: **{closure['roots'] or 'none'}**. Smallest `|C|` = "
-          f"`{closure['smallest_absolute_residual']:.5f}`.", "",
-          "> " + closure["why_this_is_the_invariant_statement"], "",
-          "> " + closure["what_it_still_depends_on"], ""]
+          "> " + driven["the_dispatch_is_in_t_AB_not_a_parallel_function"], "",
+          "> " + driven["the_double_count_is_structurally_impossible"], ""]
 
-    L += ["## N1b — and its decay is analytic, not fitted", "",
-          f"`{law['closed_form']}`, so `ωC → −∫V_ℓ ds`:", "",
-          "| `ω` | `C` | `ωC` |", "|--|--|--|"]
-    for w, c, sc in zip(law["omega"], law["residual"], law["omega_times_residual"]):
-        L.append(f"| `{w:g}` | `{c:+.6f}` | `{sc:+.6f}` |")
+    L += ["## N1 — where the loop closes", "",
+          "Eliminating `Δ` between phase closure `ω(D+Δ) + θ = 2πn` and "
+          "group-delay closure `D + Δ + θ′ = 0` gives", "",
+          "```", "Ψ_ℓ(ω) = θ_ℓ − ω θ_ℓ′ = 2πn ,   θ = arg(η_topo T_ℓ)", "```", "",
+          "which searches over `n` automatically. (`dΦ/dω = 0` is group-delay "
+          "closure *at the carrier* — the necessary first-order condition for "
+          "a finite-band packet, not exact packet closure, which would also "
+          "constrain the amplitude and every higher derivative.)", "",
+          "| channel | `η_topo` | roots | closest approach |", "|--|--|--|--|"]
+    for row in closure["rows"]:
+        roots = ", ".join(f"`{r:.4f}`" for r in row["roots"]) or "none"
+        L.append(f"| {row['channel']} | `{row['topological_factor']:+.0f}` | "
+                 f"{roots} | `{row['smallest_distance']:.2e}` |")
+    L += ["",
+          "> **" + closure["what_this_reverses"] + "**", "",
+          "> " + closure["why_two_channels"], "",
+          "> " + closure["how_it_is_searched"], ""]
+
+    L += ["## N1c — what a rephasing can and cannot move", "",
+          f"`Ψ` runs over `[{gauge['psi_min']:.4f}, {gauge['psi_max']:.4f}]`, a "
+          f"total variation of `{gauge['total_variation']:.4f}` against "
+          f"`2π = {gauge['two_pi']:.4f}`.", "",
+          "> " + gauge["what_is_not_invariant"], "",
+          "> " + gauge["what_is_invariant"], "",
+          "`dΨ/dω = −ωθ″` verified against its own refinement:", "",
+          "| step | relative error | ratio |", "|--|--|--|"]
+    for row in gauge["derivative_convergence"]:
+        ratio = ("—" if row["ratio_to_previous"] is None
+                 else f"`{row['ratio_to_previous']:.2f}`")
+        L.append(f"| `{row['step']:.0e}` | `{row['relative_error']:.2e}` | {ratio} |")
+    L += ["",
+          "> " + gauge["how_much_of_the_constant_is_now_derived"], ""]
+
+    L += ["## N1b — the UV tail law is analytic, not fitted", "",
+          f"`{law['closed_form']}`, so `ω[Ψ − arg η_topo] → −∫V_ℓ ds`. The "
+          "topological constant must come out first — otherwise `ωΨ` diverges "
+          "linearly instead of tending to a limit:", "",
+          "| `ω` | `Ψ` | `Ψ − arg η_topo` | `ω(Ψ − arg η_topo)` |",
+          "|--|--|--|--|"]
+    for w, p, c, sc in zip(law["omega"], law["psi"], law["residual"],
+                           law["omega_times_residual"]):
+        L.append(f"| `{w:g}` | `{p:+.6f}` | `{c:+.6f}` | `{sc:+.6f}` |")
     L += ["",
           f"Predicted `{law['predicted_limit_of_omega_times_C']:.6f}`, reached to "
           f"`{100*law['relative_error_at_the_top']:.2f}%` by `ω = 20`, "
           "monotonically.", "",
-          "> **" + law["what_this_settles"] + "**", ""]
+          "> **" + law["why_the_constant_must_be_subtracted"] + "**", "",
+          "> " + law["what_this_settles"], "",
+          "> **" + law["what_this_does_NOT_settle"] + "**", ""]
 
     L += ["## N2 — searching for perfect transmission, not assuming it away", "",
           "> " + resonance["this_is_a_finding_not_a_theorem"], "",
@@ -155,6 +209,16 @@ def render_markdown(summary: dict) -> str:
     for w, sl in list(zip(ultraviolet["omega"], ultraviolet["local_slope"]))[::3]:
         L.append(f"| `{w:.2f}` | `{sl:+.4f}` |")
     L += ["", "> " + ultraviolet["why_this_is_a_no_fit_oracle"], ""]
+
+    L += ["## N5 — the phase-sensitive root, refined", "",
+          "> " + converged["why_unitarity_is_not_enough"], "",
+          "| variant | `edge` | `steps` | fd step | root | shift |",
+          "|--|--|--|--|--|--|"]
+    for row in converged["rows"]:
+        L.append(f"| {row['variant']} | `{row['edge']:g}` | `{row['steps']}` | "
+                 f"`{row['fd_step']:.0e}` | `{row['root']:.9f}` | "
+                 f"`{row['shift_from_baseline']:.1e}` |")
+    L += ["", "> " + converged["what_the_spread_licenses"], ""]
 
     L += ["## N4 — the ledger", "", "| claim | verdict | evidence |", "|--|--|--|"]
     for e in ledger["entries"]:

@@ -114,9 +114,10 @@ def render_markdown(summary: dict) -> str:
         f"`ω = {closure['rows'][0]['omega']:g}` to "
         f"`{closure['rows'][-1]['wigner_delay']:+.3f}` at "
         f"`ω = {closure['rows'][-1]['omega']:g}`, so there is no single `τ_th` "
-        "for PR #216's `closure_offset` to use. *The invariant closure verdict "
-        "is not computed here* — it needs the network's own convention, and "
-        "lives in `transaction/derived_network.py`.", "",
+        "for PR #216's `closure_offset` to use. *The closure verdict is not "
+        "computed here* — it needs the network's own `η_topo`, which is fixed "
+        "by `ConjugatePair`, and lives in `transaction/derived_network.py`. "
+        "On that topology the loop **does** close, at `ω = 1.4617`.", "",
         "> **3.** No finite-frequency perfect-transmission point was found: "
         "`|T| → 1` only in the ultraviolet, with the deficit closing "
         f"exponentially, `1 − |T|² ~ exp({loop['log_slope']:.2f} ω)` against "

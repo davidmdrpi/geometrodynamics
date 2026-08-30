@@ -206,7 +206,8 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | `D = 5` scalar quasinormal frequency (`ℓ = 1`) | **Settled against published values (PR #274)** | `ω = 1.01601691 − 0.36232802i` from Matyjasek 2021 (continued fractions + Hill determinants, arXiv:2107.04815). An independent characteristic evolution here reproduces it to `0.018%` in damping. This **confirms PR #270's Kerr–Schild code (`0.005%`) and excludes its tortoise damping (`27.1%` off)** — #270's own prime suspect was the wrong code. No autopsy: neither #270 code was landed. See `docs/ringdown_cross_validation.md` |
 | Self-convergence as an error bar | **REFUTED BY MEASUREMENT (PR #274)** | This round's own step-size study gave a last successive difference of `4.0e-5` while the true error against the published value is `1.1e-4` — **2.7× larger**, with `h = 0.05` closer than `h = 0.025`. Self-convergence estimates only the error component tied to the refinement parameter. The missing component *is* findable internally — varying the extraction window, observer radius and `t_max` gives a band `3.6×` the step-refinement difference — so the external reference supplies the **anchor**, not the discovery |
 | BAM's cross-mouth exchange rule | **Relocated, priced, and driven end to end (PR #276)** | `handshake.py` imposes no causal support at all (`geo4` is a spatial angle; `Particle4` has no time). `network.py` (PR #216) does better — an MTY clock offset with everything forward in local time — but supplies no geometry. Supplying it and wiring it in: traversability costs `−3/(16G₅a)` exactly, and `network.py`'s own `Λ` is now driven by a derived `T_ℓ(ω)`. See `docs/traversable_throat.md` |
-| One clock offset closes the BAM loop | **NO ROOT FOUND, on the invariant test (PR #276)** | Eliminating `Δ` between phase closure and group closure gives the branch-free `θ_ℓ − ωθ_ℓ′ = 2πn`; the residual has **no root** over `[0.2, 12]` at 900 points, smallest `\|C\| = 0.295`. And `ωC → −∫V_ℓ ds = −(π/a)[ℓ(ℓ+2)+9/8] = −9π/8` analytically, so `C` dies as `1/ω`: simultaneous closure is a **UV limit**, never finite. The earlier `6.78` gap was evaluated at `n = 0` and is branch dependent — **withdrawn as the verdict, retained as dispersion data** |
+| One clock offset closes the BAM loop | **YES, AT `ω = 1.4617` — and the verdict is gauge dependent (PR #276)** | Eliminating `Δ` gives the branch-free `Ψ_ℓ = θ_ℓ − ωθ_ℓ′ = 2πn`. `ConjugatePair` **asserts** the two mouths carry opposite orientations, so `η_topo = −1` for a scalar, not the `+1` a first draft chose — that shifts `Ψ` by `π` and a root appears, stable to `1.0e-6` under `edge`/`steps`/`fd` refinement. But `Ψ` sweeps only `3.9676 < 2π`, so a constant rephasing of the Jost basis can create or remove it: **neither answer is a property of the geometry alone**. Invariant instead: `dΨ/dω = −ωθ″` and the total variation |
+| The `1/ω` closure tail proves no finite root | **NO — IT CONSTRAINS THE TAIL ONLY (PR #276)** | `ω(Ψ − arg η_topo) → −(π/a)[ℓ(ℓ+2)+9/8] = −9π/8` to `0.10 %` by `ω = 20`. The constant must be subtracted or `ωΨ` diverges — invisible at `η_topo = +1`. So `Ψ → π`, the *furthest* a phase can be from a branch: the loop is **least** closed in the UV, and `ω = 1.4617` is a crossing on the way there |
 | Advanced legs and ER non-traversability | **An advanced leg alone changes nothing (PR #276)** | `supp G_ret ⊂ J⁺(s)`, `supp G_adv ⊂ J⁻(d)` ⟹ a nonzero product forces `d ∈ J⁺(s)`. So `d ∉ J⁺(s)` kills the transactional product for **every** intermediate event, and a symmetrized `G_sym` gives another zero |
 | `D = 5` outer→inner transfer kernel | **Delivered, and NOT rigid (PR #275)** | `K_ℓ(t) = δ(t) + K_ℓ^reg(t)` with `∫K_reg dt = −1` **exactly** (sum rule from `T(0) = 0`) and `∫\|K_reg\| dt = 2.03` against the `δ`'s `1` (converged to 3 s.f.; measured sum `−0.999996`). The result is analytic: `T(∞) = 1` while `T(0) = 0` forces it. A static signal is blocked completely, entirely by the memory term. Gates: causality `~1e-6` (bounds **acausal** artefacts only, not total error), unitarity `6.3e-13`, ringdown matching the external published value. Cross-checked against PR #274's characteristic null-grid march — a different propagation algorithm on the same operator — to `0.73%`. See `docs/transfer_kernel.md` |
 | Exact `D = 5` barrier constants | **Derived (PR #275)** | At `ℓ = 1` the peak is `V_max = 100/81` at `r² = 9/5` **exactly** — the only rational `ℓ`. And `∫V_ℓ dr* = ℓ(ℓ+2) + 3/2` exactly for all `ℓ`, giving the kernel's closed-form high-frequency phase `c_ℓ = (ℓ(ℓ+2)+3/2)/2`, `c₁ = 9/4` |
@@ -4335,8 +4336,8 @@ another zero and arbitrate nothing.
 | | |
 |--|--|
 | traversability costs | `∫T_ab k^a k^b dλ = −3/(16G₅a)` **exactly** |
-| one offset closing carrier *and* packet | **no root** of `C_ℓ = Arg e^{i(θ−ωθ′)}` over `[0.2,12]`; and `ωC → −9π/8` analytically, so it dies as `1/ω` — a **UV limit**, never finite |
-| `Λ = 1` (the completed transaction) | **no finite-`ω` point found** — deficit `1−\|T\|² ~ e^{−4aω}` from first Born. A *finding*, not a theorem |
+| one offset closing carrier *and* packet | **it closes, at `ω = 1.4617`**, on the topology `ConjugatePair` declares (`η_topo = −1`) — but `Ψ` sweeps `< 2π`, so the verdict is **gauge dependent**, not geometric |
+| `Λ = 1` (the completed transaction) | **no point found on the tested band** — deficit `1−\|T\|² ~ e^{−4aω}` from first Born. A *finding*, not a theorem |
 
 **The geometry, derived.** `ds² = −dt² + ds² + (s²+a²)dΩ₃²` with `f = √(s²+a²)`
 the scalar-flat solution of `f′² = 1 − a²/f²`. With `ψ = f^{3/2}u`,
@@ -4364,54 +4365,71 @@ Riccati–Hankel normalisation, i.e. the stated convention freedom.
 
 **Wired in, not reconstructed alongside.** `NetworkThroat` gained a second
 backend — `whole_throat_transfer`, a callable `T_ℓ(ω)` — beside the existing
-`MouthPort` one, which is retained untouched. `derived_loop_eigenvalue` then
-forms
+`MouthPort` one, which is retained untouched. **The dispatch lives in `t_AB`**,
+the one primitive `traverse_throat`, `network_confirmation`, `projected_kernel`,
+`loop_eigenvalue` and `effective_green` all already call, so every pre-existing
+entry point sees the derived transfer (agreement `0`, `0`, `0`, `5.6e-17`).
+Putting it in a *new* parallel function instead — as a first draft did — left
+those five reading the transparent ports, so `effective_green(derived_throat,…)`
+was not the `G₀/(1−Λ)` under discussion. The loop is
 
 ```
 Λ_ℓ(ω, Δ) = η_topo · T_ℓ(ω) · e^{iω(d_A + d_B + Δ)}
 ```
 
-with `η_topo = NetworkThroat.topological_factor`, the module's own deck
-orientations and mouth phases. **No separate `τ_th` phase in this path**: a
-whole-throat `T` already carries the transit in `arg T`, and adding one would
-double-count the Wigner delay — the Fabry–Pérot backend needs `τ_glob` only
-because its `t_AB` is an *excess* factor over free interior propagation.
-`|η_topo| = 1`, so `|Λ| = |T|` to `< 1e-12` at every probe, and the batched scan
-path is asserted equal to the scalar `network.py` path to `1e-12`. That matters
-because the closure residual **shifts under a constant rephasing of `T`**, so it
-is only well posed inside the network's own convention.
+**No separate `τ_th` phase, and one cannot be added**: `__post_init__` rejects a
+derived backend with `τ_th ≠ 0`, so `arg T` is counted exactly once;
+`loop_expansion` and `r_AA` raise rather than answer from a transparent port,
+since a smooth barrier has no echo train.
 
-**No single offset closes the loop — on a branch-free test.** Eliminating `Δ`
-between phase closure `ω(D+Δ) + θ = 2πn` and group closure `D + Δ + θ′ = 0`
-leaves `θ_ℓ − ωθ_ℓ′ = 2πn`, so
+**`η_topo` is read off the repository, not chosen — and that reverses the
+answer.** `ConjugatePair.__post_init__` *asserts* that the two mouths of one
+throat carry opposite orientations, and `make_singlet_pair` builds `(+1, −1)`.
+`network_mouth_from_defect` now maps `ThroatDefect → NetworkMouth`, giving
+`η_topo = −1` for a scalar. Wrap parity is kept separate — it is the
+Hopf-holonomy sign a *spinor* sees, and its product is also `−1`, so the spinor
+channel returns to `+1`:
 
-```
-C_ℓ(ω) = Arg exp[i(θ_ℓ − ω θ_ℓ′)],   θ_ℓ = arg(η_topo T_ℓ)
-```
+| channel | `η_topo` | roots of `Ψ = 2πn` on `[0.05, 20]` |
+|--|--|--|
+| scalar (the field solved here) | `−1` | **`ω = 1.4617`** |
+| spinor (orientation × wrap) | `+1` | none |
 
-vanishes exactly when one offset serves both, and searches over `n` by
-construction. It has **no root** over `[0.2, 12]` at 900 points; smallest
-`|C| = 0.295`. **An earlier draft's `6.78` gap is withdrawn as the verdict** —
-it compared `Δ_phase` at `n = 0` against `Δ_group`, and branches are `2π/ω`
-apart, so the raw `4.14` at `ω = 1` is `2.14` to the nearest branch. The table
-survives as raw dispersion data: the Wigner delay runs `+0.932 → +0.072` over
-`ω = 0.5…5` with `δ″ ≠ 0` throughout, which is what denies `closure_offset` a
-constant `τ_th` in the first place.
+Eliminating `Δ` between phase closure `ω(D+Δ) + θ = 2πn` and group-*delay*
+closure `D + Δ + θ′ = 0` leaves `Ψ_ℓ = θ_ℓ − ωθ_ℓ′ = 2πn`. Roots are found both
+by bracketing sign changes and by minimising the smooth `|e^{iΨ} − 1|`, which is
+what would catch a tangential zero. The root survives refinement of the matching
+edge, spatial step and difference step to `1.0e-6`. **A first draft, searching at
+`η_topo = +1`, reported no root at all.**
 
-**And the decay is analytic, not fitted.** `∫V_ℓ ds = (π/a)[ℓ(ℓ+2) + 9/8]` in
-closed form, and `ωC → −∫V_ℓ ds`; at `ℓ = 0, a = 1` that is `−9π/8 = −3.5343`,
-matched to `0.10 %` by `ω = 20` and monotonically. So `C` vanishes as `1/ω` and
-not faster: **simultaneous closure is a UV limit, never attained at finite
-frequency** — the *same* limit in which `|T| → 1`.
+**But the verdict is gauge dependent, and the round says so.** `Ψ` sweeps
+`[−1.0029, 2.9647]` — total variation `3.9676`, less than `2π = 6.2832`. Because
+the swing is under one full branch, a constant rephasing of the Jost basis can
+create or destroy the root: **neither "it closes" nor "it never closes" is a
+property of the geometry alone**. Two things survive: `dΨ/dω = −ωθ″`, verified
+to `2.2e-5` with second-order convergence, and the total variation. A *linear*
+reference phase `b·ω` cancels identically from `θ − ωθ′`, so the whole residual
+freedom is one constant. Its topological part is now derived; its Jost-basis part
+needs the finite-mouth matching, so the verdict is stated relative to that basis.
+
+**The decay is analytic — to `arg η_topo`, not to zero.**
+`∫V_ℓ ds = (π/a)[ℓ(ℓ+2) + 9/8]` in closed form and
+`ω(Ψ − arg η_topo) → −∫V_ℓ ds = −9π/8`, matched to `0.10 %` by `ω = 20`. The
+constant must be subtracted or `ωΨ` diverges linearly — invisible at
+`η_topo = +1`, which is why the first draft missed it. So `Ψ → π`, the furthest
+a phase can be from a branch: **the loop is *least* closed in the ultraviolet**,
+and `ω = 1.4617` is a crossing on the way there. Reading the `1/ω` tail as proof
+that no finite root exists was the draft's third error — an asymptotic law
+constrains the tail, not the interior.
 
 **Can the transaction complete?** `|Λ| = 1` needs `|T_ℓ| = 1`. A direct search
 for zeros of `R_ℓ(ω)` over `[0.05, 12]` finds **0 interior minima** — the
 smallest `|R| = 7.2e-11` sits at the top of the range, i.e. the UV limit rather
-than a resonance. So `1 − Λ` does not vanish on the scanned band and
-`G_eff = G₀/(1−Λ)` has no pole there. **This is a finding about this potential,
-not a theorem**: positive barriers *can* have perfect-transmission resonances,
-so `|T| < 1` does not follow from `V > 0`, and the earlier unconditional claim
-is weakened accordingly. The approach is exponential, and its constant is
+than a resonance. So `1 − Λ` does not vanish **on that band** and
+`G_eff = G₀/(1−Λ)` has no pole there; nothing is claimed below `0.05` or above
+`12`. **This is a band-limited finding about this potential, not a theorem**:
+positive barriers *can* have perfect-transmission resonances, so `|T| < 1` does
+not follow from `V > 0`. The approach is exponential, and its constant is
 predicted rather than fitted: first Born on
 `Ṽ₀(q) = (3π/8a)(3 + a|q|)e^{−a|q|}` gives `1 − |T|² ~ e^{−4aω}`, and the
 **local** slope descends monotonically `−4.72, −4.43, −4.27, −4.18, −4.13`
@@ -4430,7 +4448,7 @@ are a later construction, and should not be smuggled in merely to fit the old
 
 ```bash
 python -m experiments.closure_ledger.traversable_throat_probe   # 7/7
-python -m experiments.closure_ledger.derived_network_probe      # 6/6
+python -m experiments.closure_ledger.derived_network_probe      # 8/8
 ```
 
 Full write-up: `docs/traversable_throat.md`.
