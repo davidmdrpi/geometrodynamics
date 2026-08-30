@@ -1,8 +1,8 @@
 # The retarded outer→inner transfer kernel on the `D = 5` background
 
 *Module `geometrodynamics/tangherlini/transfer_kernel.py`, probe
-`experiments/closure_ledger/transfer_kernel_probe.py` (11/11), tests
-`tests/test_transfer_kernel.py` (35/35).*
+`experiments/closure_ledger/transfer_kernel_probe.py` (14/14), tests
+`tests/test_transfer_kernel.py`.*
 
 ---
 
@@ -30,17 +30,21 @@ K_ℓ(t) = δ(t) + K_ℓ^reg(t)
 
 | quantity | measured | meaning |
 |--|--|--|
-| `∫K_reg dt` | `−0.997757` | exact value **`−1`**, a sum rule, not a fit |
-| `∫\|K_reg\| dt` | `2.0286` | against the `δ`'s weight of `1` |
-| `T(ω→0)` | `4.10e-07` | the barrier blocks DC completely |
+| `∫K_reg dt` | `−0.999996` | exact value **`−1`**, a sum rule, not a fit |
+| `∫\|K_reg\| dt` | `2.03` | against the `δ`'s weight of `1` |
+| `T` at lowest bin `ω = 0.00488` | `4.10e-07` | `T(0) = 0` exactly; this is the lowest **sampled** bin |
 
 A rigid exchange kernel is `δ(t)`, possibly with a delay: whatever enters leaves
 undistorted, and a static signal passes perfectly. The real geometry **blocks a
 static signal completely**, and does so *entirely* through the memory term.
 
-The sum rule is what makes this sharp. `∫K dt = T(ω = 0)`, and `T(0) = 0`
-because the centrifugal barrier reflects zero-frequency waves completely.
-With `K = δ + K_reg` that forces
+**The durable statement is the pair of limits, not the mass.** With the chosen
+asymptotic normalisation `T(∞) = 1` while `T(0) = 0`; therefore the transfer
+function cannot be a rigid phase or delay, and the regular memory must carry
+signed weight `−1`. That is analytic and depends on no measured number.
+
+`∫K dt = T(ω = 0)`, and `T(0) = 0` because the centrifugal barrier reflects
+zero-frequency waves completely. With `K = δ + K_reg` that forces
 
 ```
 ∫ K_reg dt = −1     exactly
@@ -48,8 +52,12 @@ With `K = δ + K_reg` that forces
 
 so the memory does not merely modify the instantaneous term — it **cancels it
 exactly** at zero frequency. In absolute mass the memory is about twice the
-delta. It is not a correction to rigid exchange; it is the same size as the
-thing it would correct.
+delta — a quantitative extra, not the argument.
+
+**The mass is quoted to three significant figures, which is what it earns.**
+Across the subtraction parameter, `(ω_max, count)` and the time quadrature the
+worst spread is `~2e-3`; quoting `2.0309` would claim precision the knobs do not
+support. See the convergence study below.
 
 **Scope of that claim.** This is a statement about the transfer kernel of a test
 scalar on a fixed `D = 5` Tangherlini background, per angular channel. It says
@@ -65,10 +73,18 @@ PR #270 and PR #274 both failed to converge a quasinormal frequency by shooting
 in real `r`. #274 recorded the reason: for `Im ω < 0` the outgoing solution
 grows like `e^{|Im ω|R}` and swamps the coefficient being zeroed.
 
-**That objection does not apply to this calculation.** Here `ω` is *real*, both
-`e^{±iωr*}` have unit modulus, and nothing dominates anything. This is not a
+**That objection does not apply to this calculation.** Here `ω` is *real*, so
+the **asymptotic** in and out waves are unit-flux and the coefficient being
+extracted is not swamped by an exponentially larger companion. This is not a
 repaired version of the shoot that failed — it is a different, well-posed
 problem that happens to use the same background.
+
+**Scoped honestly:** unit modulus is a property of the asymptotic normalisation,
+*not* of the propagation everywhere. Under the barrier `k = √(ω² − V)` is
+imaginary and the local propagator is hyperbolic, so one solution does grow
+relative to the other across the forbidden region. The correct claim is **well
+conditioned on the tested real-frequency range** — evidenced by unitarity and
+step refinement — not structural immunity as `ω → 0` or `ℓ` grows.
 
 The evidence is unitarity, which is imposed nowhere and therefore measures the
 computation rather than decorating it:
@@ -153,8 +169,8 @@ T_ℓ(ω) → exp(−i c_ℓ/ω) ,    c_ℓ = (ℓ(ℓ+2) + 3/2)/2 ,    c₁ = 9
 ```
 
 Verified below against the fitted asymptote of the computed spectrum, which
-agrees to `0.047%` and — with the Jost outer condition — is **independent of the
-outer edge**. (Under the earlier plane-wave matching it was not: it drifted
+agrees to `1.2e-4` relative and — with the Jost outer condition — is
+**independent of the outer edge**. (Under the earlier plane-wave matching it was not: it drifted
 `2.2365 → 2.2427 → 2.2458 → 2.2474` at `r*_out = 150, 300, 600, 1200`, the
 deficit halving as the edge doubled, exactly as the truncated `L/(2r*_out)`
 predicts. That drift is what the Jost condition removes.)
@@ -171,28 +187,53 @@ whose only pole is at `ω = −ia`, in the lower half plane, so the subtraction
 cannot itself introduce an acausal piece. The remainder decays like `1/ω²` and
 transforms cleanly.
 
-**The exact `c` is what gets subtracted, not a fit.** This is not cosmetic. If
+**The exact `c` is what gets subtracted, not a fit.** If
 `T − 1 = −i c_exact/ω + O(ω⁻²)` and a fitted `c_fit ≠ c_exact` is subtracted, the
-remainder retains
+remainder retains `−i(c_exact − c_fit)/ω` and still falls only as `1/ω` — the
+entire purpose of the subtraction, silently forfeited.
+
+### The estimator, and a correction
+
+An earlier draft measured `c` with `Re[iω(T−1)]` and reported a uniform `0.047%`
+shortfall, attributing it to the `1/r⁴` and `1/r⁶` parts of `V` that a purely
+centrifugal boundary condition cannot capture. **That attribution was wrong.**
+The estimator is biased: even for the *exact* asymptote `T = e^{−ic/ω}`,
 
 ```
-−i(c_exact − c_fit)/ω
+Re[iω(e^{−ic/ω} − 1)] = ω sin(c/ω) = c − c³/(6ω²) + O(ω⁻⁴)
 ```
 
-and still falls only as `1/ω` — the entire purpose of the subtraction would be
-silently forfeited. An earlier draft did exactly that. The fitted value is now
-kept as a *measurement against* the exact one:
+At `c = 2.25` over the sampled band `ω ≈ 36–40` that deterministic bias is
+`−1.3e-3` — the entire size of the reported deficit. The unbiased estimator
+`c(ω) = −ω arg T(ω)` is exact for the toy asymptote:
 
-| outer edge | fitted `c` | exact | deficit |
-|--|--|--|--|
-| `150` | `2.248945` | `2.25` | `+0.001055` |
-| `300` | `2.248945` | `2.25` | `+0.001055` |
-| `600` | `2.248945` | `2.25` | `+0.001055` |
+| outer edge | `−ω arg T` (unbiased) | dev | `Re[iω(T−1)]` (biased) | dev |
+|--|--|--|--|--|
+| `150` | `2.25026029` | `+2.60e-04` | `2.24894513` | `−1.06e-03` |
+| `300` | `2.25025990` | `+2.60e-04` | `2.24894474` | `−1.06e-03` |
+| `600` | `2.25025985` | `+2.60e-04` | `2.24894469` | `−1.06e-03` |
 
-Spread across outer edges `4.4e-07` — **edge-independent**. The uniform `0.047%`
-shortfall is the `1/r⁴` and `1/r⁶` part of `V`, which the centrifugal boundary
-condition does not capture: a known, bounded, edge-independent gap rather than a
-truncation drift.
+The true residual is `+2.6e-4` — four times smaller and of the **opposite
+sign**. No physical attribution is offered for it here.
+
+**The tell was visible in the old data.** The biased estimator's deficit is
+*itself* independent of the outer edge, to `4e-9`. A truncation effect moves
+with the edge; a fixed-form bias does not. That should have prompted the check.
+
+### And the remainder really does fall like `1/ω²`
+
+Checking `c` is necessary but not sufficient — the property the transform needs
+is the remainder's decay. `ω²|S − A|` stays bounded:
+
+| `a` | `ω=5` | `ω=10` | `ω=20` | `ω=40` |
+|--|--|--|--|--|
+| `0.5` | `1.422` | `1.410` | `1.407` | `1.406` |
+| `1.0` | `0.380` | `0.309` | `0.289` | `0.283` |
+| `2.0` | `1.842` | `1.934` | `1.960` | `1.967` |
+
+The plateau differs with `a` because a different `A` redistributes the `O(1/ω²)`
+tail between the analytic and numerical pieces. The *kernel* must not depend on
+`a` at all — checked separately below.
 
 ---
 
@@ -278,9 +319,14 @@ extracted from the same machinery would not be a check.
 ## An independent method reproduces the kernel
 
 Deep inside, the transmitted wave as a function of `v = t + r*` is exactly
-`K ⋆ g`. PR #274's time-domain characteristic evolution shares no code with the
-transfer matrix, so this is real cross-validation — and it exposed a subtlety
-about where the pulse may be launched.
+`K ⋆ g`. PR #274's evolution is a characteristic null-grid march rather than a
+frequency-domain transfer matrix, so this is real cross-validation of the
+*propagation* — and it exposed a subtlety about where the pulse may be launched.
+
+It is **not** independent in every sense: both rest on the same `potential` and
+tortoise definitions, and this module imports the characteristic solver. The
+accurate claim is *independent numerical propagation methods on the same
+operator*, which tests the propagation and not the operator.
 
 The incident amplitude is only defined where the wave is free, and the phase it
 has *not yet* accumulated is set by the potential remaining beyond the launch
@@ -326,14 +372,34 @@ kernel sat on a `1.6e-3` plateau at large `|t|` — on *both* sides of the origi
 **Would have been read as:** a late-time tail, which is precisely the quantity
 this round would most like to measure.
 
-> **The general point.** A quantity that is exactly zero on part of its domain is
-> worth more than an accuracy claim: it calibrates the noise floor for free, on
+> **The general point, correctly scoped.** A quantity that is exactly zero on
+> part of its domain is a free monitor for the artefacts that violate it — on
 > the same run, with no reference value.
+
+**It is not a total error bar.** A numerical error can be perfectly causal and
+live only at `t > 0`: outer-boundary error, finite `ω_max`, the arbitrary
+subtraction parameter, quadrature bias. This round demonstrated exactly that —
+replacing plane-wave outer matching with the Jost condition moved positive-time
+results with no matching negative-time signature. So the negative-time residual
+bounds one *family* of error and no other.
+
+Accordingly the late-time tail is judged out of reach on **positive-time**
+evidence, not from the causality floor:
+
+| setting | `t=40` | `t=60` | `t=100` | `t=150` | `t=200` |
+|--|--|--|--|--|--|
+| base | `+7.9e-07` | `+7.7e-08` | `+3.5e-07` | `+1.9e-07` | `−3.3e-07` |
+| `ω_max=20, N=2048` | `−5.7e-06` | `+6.8e-07` | `−2.3e-06` | `−5.8e-07` | `+7.9e-07` |
+| `N=8192` | `+7.9e-07` | `+7.4e-08` | `+3.4e-07` | `+1.8e-07` | `−2.9e-07` |
+| `a=0.5` | `+5.4e-06` | `+6.1e-07` | `+2.0e-06` | `+8.4e-07` | `−1.7e-06` |
+| `a=2.0` | `−8.7e-06` | `−7.0e-07` | `−3.1e-06` | `−9.8e-07` | `+2.3e-06` |
+
+The spread **exceeds** the values and the sign is not even stable. No exponent
+is quoted.
 
 This is the complement to PR #274's lesson. That round needed an external
 published spectrum to discover its error floor. Here the structure of the
-problem supplied one — causality gave a whole stretch of the domain where the
-answer is known in advance.
+problem supplied a monitor for one family of error — but only one.
 
 ---
 
@@ -343,23 +409,30 @@ answer is known in advance.
 |--|--|--|
 | the retarded transfer kernel exists as a computable object | **YES, DELIVERED** | `K = δ(t) + K_reg` from `T(ω)` on a well-conditioned real-frequency problem |
 | the frequency domain can be used despite #270's and #274's failures | **YES — DIFFERENT PROBLEM** | those failed for `Im ω < 0`; for real `ω` nothing dominates, unitarity `~1e-13` |
-| the kernel is causal | **YES, TO `~3e-7`** | measured directly; the residual doubles as the noise floor |
+| the kernel is causal | **YES, TO `~1e-6`** | measured directly; bounds **acausal** artefacts, not total error |
 | the kernel carries the published ringdown | **YES** | against the external value: real `0.062%`–`1.17%`, damping `0.11%`–`3.80%` |
-| an independent method reproduces the kernel | **YES, `0.92%` PEAK / `0.17%` RMS** | convolution vs #274's characteristic evolution, no shared code |
-| the transfer is rigid / instantaneous | **NO — AND NOT MARGINALLY** | `∫K_reg dt = −1` exactly; `∫\|K_reg\| dt = 2.02` against the `δ`'s `1` |
-| the late-time power-law tail is measured | **NO** | the ringdown reaches the `~1e-6` noise floor by `t ≈ 40`; no exponent quoted |
+| an independent propagation method reproduces the kernel | **YES, `0.73%` PEAK / `0.13%` RMS** at `r* = 400` | convolution vs #274's characteristic null-grid march — a different algorithm on the same operator |
+| the transfer is rigid / instantaneous | **NO — AND ANALYTICALLY SO** | `T(∞) = 1` while `T(0) = 0` forces `∫K_reg dt = −1`; measured `−0.999996`, mass `2.03` |
+| the late-time power-law tail is measured | **NO** | argued at positive times: spread across settings exceeds the values, sign unstable |
 | #274's pulse placement was adequate for this object | **NO — AND IT WAS FOR ITS OWN** | `43%` mismatch from launching at `r* = 6`; harmless for the ringdown |
 
 ---
 
 ## What this round adds to the standing list
 
-**An exactly-zero region is a free error bar.** PR #274 needed a published
-spectrum to find its floor. Here causality supplied one on the same run, with no
-external reference, and it caught two separate artefacts at exactly the
-amplitude of the physics being sought. When a problem has a region where the
-answer is known in advance, compute there first — it is the cheapest error bar
-available.
+**An exactly-zero region is a free monitor for the artefacts that violate it.**
+PR #274 needed a published spectrum to find its floor. Here causality supplied a
+monitor on the same run, with no external reference, and it caught two separate
+*acausal* artefacts at exactly the amplitude of the physics being sought. When a
+problem has a region where the answer is known in advance, compute there first.
+But scope what it covers: it bounds the errors that violate the known value, not
+the ones that respect it.
+
+**Check what an estimator measures before attributing what it returns.**
+`Re[iω(T−1)]` carries a deterministic `−c³/(6ω²)` bias, and an earlier draft read
+the resulting shortfall as a physical property of the potential's sub-leading
+tail. The tell was already in the data: the deficit was independent of the outer
+edge, which a truncation effect would not be and a fixed-form bias would.
 
 **A sum rule beats a fit.** `∫K_reg dt = −1` is forced by `T(0) = 0`, not
 obtained by integration. The measured `−0.9978` is then a check on the numerics

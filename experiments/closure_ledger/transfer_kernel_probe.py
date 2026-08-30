@@ -20,7 +20,10 @@ from geometrodynamics.tangherlini.transfer_kernel import (  # noqa: E402
     measure_the_high_frequency_tail_is_the_exact_one,
     measure_the_low_frequency_outer_matching_is_converged,
     measure_the_kernel_against_the_time_domain_evolution,
+    measure_the_kernel_integrals_are_converged,
     measure_the_kernel_is_causal,
+    measure_the_late_time_tail_is_not_resolved,
+    measure_the_subtraction_leaves_an_inverse_square_tail,
     measure_the_kernel_reproduces_the_published_ringdown,
     measure_the_scattering_is_well_conditioned,
     measure_the_transfer_is_not_rigid,
@@ -60,6 +63,13 @@ def run_probe() -> dict:
         "name": "the low-frequency outer matching is converged (Jost, not plane)",
         "detail": low, "pass": bool(low["converged_in_the_outer_edge"])})
 
+    remainder = measure_the_subtraction_leaves_an_inverse_square_tail()
+    checks.append({
+        "id": "K1d",
+        "name": "the subtraction leaves an O(1/w^2) remainder, as required",
+        "detail": remainder,
+        "pass": bool(remainder["the_remainder_falls_like_one_over_omega_squared"])})
+
     conditioning = measure_the_scattering_is_well_conditioned()
     checks.append({
         "id": "K1",
@@ -92,6 +102,18 @@ def run_probe() -> dict:
         "detail": rigid,
         "pass": bool(rigid["the_sum_rule_holds"]
                      and rigid["the_kernel_is_not_rigid"])})
+
+    converged = measure_the_kernel_integrals_are_converged()
+    checks.append({
+        "id": "K5b",
+        "name": "the kernel integrals are converged in every knob",
+        "detail": converged, "pass": bool(converged["the_mass_is_converged"])})
+
+    tail = measure_the_late_time_tail_is_not_resolved()
+    checks.append({
+        "id": "K6b",
+        "name": "the late-time tail is unresolved - shown at positive times",
+        "detail": tail, "pass": bool(tail["the_tail_is_not_resolved"])})
 
     caught = measure_what_the_causality_gate_caught()
     checks.append({
@@ -130,15 +152,16 @@ def render_markdown(summary: dict) -> str:
         f"a **sum rule** from `T(0) = 0` |",
         f"| `∫\\|K_reg\\| dt` | `{rigid['memory_absolute_mass']:.4f}` | against the "
         f"`δ`'s weight of `1` |",
-        f"| `T(ω→0)` | `{rigid['transmission_at_dc']:.3e}` | the barrier blocks "
-        f"DC completely |", "",
+        f"| `T` at lowest bin `ω={rigid['lowest_bin_frequency']:.5f}` | "
+        f"`{rigid['transmission_at_lowest_bin']:.3e}` | `T(0) = 0` exactly; "
+        f"this is the lowest sampled bin, not `ω = 0` |", "",
+        "**The durable statement is the pair of limits, not the mass.** " +
+        rigid["the_durable_statement"], "",
         "A rigid exchange kernel is `δ(t)`, possibly delayed: whatever enters "
         "leaves undistorted, and a static signal passes perfectly. The real "
         "geometry **blocks a static signal completely**, and does so *entirely* "
-        "through the memory term, which exactly cancels the instantaneous one "
-        "at DC. In absolute mass the memory is about twice the delta. It is "
-        "not a correction to rigid exchange — it is the same size as the thing "
-        "it would correct.", "",
+        "through the memory term. In absolute mass the memory is about twice "
+        "the delta — a quantitative extra, not the argument.", "",
     ]
 
     anchors = detail("K0")
@@ -195,14 +218,22 @@ def render_markdown(summary: dict) -> str:
           "coefficient would leave `−i(c_exact − c_fit)/ω` in the remainder — "
           "still `1/ω`, defeating the purpose of the subtraction. The fit is "
           "kept as a *measurement against* the exact value:", "",
-          "| outer edge | fitted `c` | exact | deficit |", "|--|--|--|--|"]
+          "| outer edge | `−ω arg T` (unbiased) | dev | `Re[iω(T−1)]` (biased) | dev |",
+          "|--|--|--|--|--|"]
     for row in tail["rows"]:
-        L.append(f"| `{row['outer_edge']:g}` | `{row['fitted']:.6f}` | "
-                 f"`{row['exact']:.4f}` | `{row['deficit']:+.6f}` |")
+        L.append(f"| `{row['outer_edge']:g}` | `{row['phase_estimator']:.8f}` | "
+                 f"`{row['phase_deviation']:+.2e}` | "
+                 f"`{row['biased_estimator']:.8f}` | "
+                 f"`{row['biased_deviation']:+.2e}` |")
     L += ["",
-          f"Spread across outer edges `{tail['spread_across_outer_edges']:.1e}` — "
-          "**edge-independent**. " + tail["the_residual_gap_is_the_outer_boundary_condition"],
-          ""]
+          f"Exact `c₁ = {tail['exact']}`. The unbiased estimator is "
+          f"edge-independent to `{tail['spread_across_outer_edges']:.1e}`.", "",
+          "> " + tail["a_correction_to_an_earlier_draft"], "",
+          f"The naive estimator's bias is predicted at "
+          f"`{tail['predicted_bias_of_the_naive_estimator']:+.2e}` and observed "
+          f"at `{tail['observed_bias_of_the_naive_estimator']:+.2e}`. That it is "
+          "itself edge-independent is the tell: a truncation effect would move "
+          "with the edge; a fixed-form bias does not.", ""]
 
     low = detail("K1c")
     L += ["### The low-frequency outer matching", "",
@@ -233,7 +264,9 @@ def render_markdown(summary: dict) -> str:
           f"Worst acausal value **`{causal['worst_acausal_value']:.2e}`**, and "
           f"**`{causal['noise_floor_far_from_the_front']:.1e}`** away from the "
           "front.", "",
-          "> " + causal["the_exact_zero_is_a_free_error_bar"], "",
+          "> " + causal["the_exact_zero_is_an_acausal_artifact_monitor"], "",
+          "> **But it is not a total error bar.** "
+          + causal["it_is_not_a_total_error_bar"], "",
           "| `t` | `K_reg(t)` |", "|--|--|"]
     for t, k in zip(causal["times_after_zero"], causal["kernel_after_zero"]):
         L.append(f"| `{t:g}` | `{k:+.3e}` |")
@@ -261,8 +294,10 @@ def render_markdown(summary: dict) -> str:
     cross = detail("K4")
     L += ["## K4 — an independent method reproduces the kernel", "",
           "Deep inside, the transmitted wave as a function of `v = t + r*` is "
-          "exactly `K ⋆ g`. PR #274's characteristic evolution shares no code "
-          "with the transfer matrix. The residual tracks the **exactly known** "
+          "exactly `K ⋆ g`. PR #274's evolution is a characteristic null-grid "
+          "march rather than a frequency-domain transfer matrix — independent "
+          "propagation methods on the same operator, not independent operators. "
+          "The residual tracks the **exactly known** "
           "potential remaining beyond the launch point, `≈ L/r*_launch`, which "
           "is what identifies it as placement rather than a method "
           "disagreement.", "",
@@ -280,6 +315,41 @@ def render_markdown(summary: dict) -> str:
           "as `L/r*_launch` predicts.", "",
           "> " + cross["what_this_exposed"], "",
           "> " + cross["an_earlier_number_was_flattered_by_cancellation"], ""]
+
+    conv = detail("K5b")
+    L += ["## K5b — the kernel integrals are converged", "",
+          "The sum rule is analytic; these are its numerical check, and the "
+          "memory mass is a quoted number so it has to earn its digits.", "",
+          "| knob | setting | `∫K_reg dt` | `∫\|K_reg\| dt` |", "|--|--|--|--|"]
+    for row in conv["by_decay"]:
+        L.append(f"| subtraction `a` | `{row['decay']}` | `{row['sum']:+.7f}` | "
+                 f"`{row['mass']:.7f}` |")
+    for row in conv["by_spectrum"]:
+        L.append(f"| spectrum | `ω_max={row['omega_max']:g}, N={row['count']}` | "
+                 f"`{row['sum']:+.7f}` | `{row['mass']:.7f}` |")
+    for row in conv["by_time_quadrature"]:
+        L.append(f"| time | `dt={row['spacing']}, t_max={row['horizon']:g}` | "
+                 f"`{row['sum']:+.7f}` | `{row['mass']:.7f}` |")
+    L += ["",
+          f"Worst mass spread `{conv['worst_mass_spread']:.1e}`. "
+          + conv["why_decay_independence_is_the_clean_check"], "",
+          "> " + conv["what_was_broken_before"], ""]
+
+    late = detail("K6b")
+    L += ["## K6b — the late-time tail is unresolved, shown at positive times",
+          "", "| setting | " + " | ".join(f"`t={t:g}`" for t in late["times"])
+          + " |", "|--|" + "--|" * len(late["times"])]
+    for row in late["rows"]:
+        L.append(f"| {row['setting']} | "
+                 + " | ".join(f"`{v:+.2e}`" for v in row["values"]) + " |")
+    L += ["", "| spread | "
+          + " | ".join(f"`{v:.2e}`" for v in late["spread_across_settings"])
+          + " |",
+          "| largest \|value\| | "
+          + " | ".join(f"`{v:.2e}`" for v in late["largest_magnitude"]) + " |",
+          "",
+          "The spread **exceeds** the values and the sign is not stable. "
+          + late["why_this_is_the_right_argument"], ""]
 
     caught = detail("K6")
     L += ["## K6 — what the causality gate caught", ""]

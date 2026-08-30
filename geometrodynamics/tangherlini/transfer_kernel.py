@@ -105,10 +105,11 @@ closer to its exact value of zero.
 
 THE THREE GATES, ALL MEASURED
 ─────────────────────────────
-**Causal support.** ``K(t) = 0`` for ``t < 0``, to ``~3e-7`` away from the
-front. This is not decoration: the exact zero for ``t < 0`` is a **free
-calibration of the numerical noise floor**, and it caught two artefacts that
-would otherwise have been read as physics — see below.
+**Causal support.** ``K(t) = 0`` for ``t < 0``, to ``~1e-6`` away from the
+front. This is not decoration: the exact zero for ``t < 0`` is a free read-out
+of the **acausal** transform artefacts, and it caught two of them that would
+otherwise have been read as physics — see below. It does *not* bound the total
+numerical error, since a causal error can live entirely at ``t > 0``.
 
 **Flux conservation.** ``|R|² + |T|² = 1`` to ``8e-13``, nowhere imposed.
 
@@ -120,10 +121,11 @@ sample-spacing/window combinations. The band is the honest statement — as PR
 the spread is reported rather than the best row. Checked against the published
 number, never against this repository's own solver.
 
-**Independent cross-check.** The kernel is validated against the completely
-separate time-domain characteristic evolution of PR #274: convolving ``K`` with
-the incident profile reproduces the transmitted wave to **0.92 % peak, 0.17 %
-rms**. Two methods sharing no code.
+**Independent cross-check.** The kernel is validated against the characteristic
+null-grid evolution of PR #274 — a different propagation algorithm on the same
+operator. Convolving ``K`` with the incident profile reproduces the transmitted
+wave to **0.73 % peak, 0.13 % rms** at launch radius ``r* = 400``, with the
+residual halving as the launch radius doubles.
 
 WHAT THE CAUSALITY GATE CAUGHT
 ──────────────────────────────
@@ -189,7 +191,11 @@ __all__ = [
     "measure_the_kernel_is_causal",
     "measure_the_kernel_reproduces_the_published_ringdown",
     "measure_the_kernel_against_the_time_domain_evolution",
+    "kernel_integrals",
     "measure_the_transfer_is_not_rigid",
+    "measure_the_kernel_integrals_are_converged",
+    "measure_the_subtraction_leaves_an_inverse_square_tail",
+    "measure_the_late_time_tail_is_not_resolved",
     "measure_what_the_causality_gate_caught",
     "measure_the_transfer_kernel_ledger",
 ]
@@ -309,11 +315,21 @@ def scattering_amplitudes(omega, ell: int, inner: float = INNER_EDGE,
         ψ(x+h)  =  cos(kh) ψ + sin(kh)/k ψ' ,   k = √(ω² − V_mid)
         ψ'(x+h) = −k sin(kh) ψ + cos(kh) ψ'
 
-    with complex ``k`` covering the classically forbidden region. **For real
-    ``ω`` both basis solutions have unit modulus, so nothing exponentially
-    dominates anything** — this is why the calculation succeeds where PR #270's
-    and #274's quasinormal shoots (``Im ω < 0``) did not. Vectorised over ``ω``:
-    the spatial loop is shared across all frequencies.
+    with complex ``k`` covering the classically forbidden region.
+
+    **Why this succeeds where the quasinormal shoots failed.** For real ``ω``
+    the *asymptotic* in and out waves are unit-flux, so the coefficient being
+    extracted is not swamped by an exponentially larger companion — unlike
+    ``Im ω < 0``, where the outgoing solution grows like ``e^{|Im ω|R}`` over
+    the whole matching range. That is a claim about the asymptotic
+    normalisation, **not** about the propagation everywhere: under the barrier
+    ``k = √(ω² − V)`` is imaginary and the local propagator is hyperbolic, so
+    one solution does grow relative to the other across the forbidden region.
+    The method is therefore well conditioned *on the tested real-frequency
+    range* — evidenced by unitarity and step refinement — rather than
+    structurally immune to conditioning problems as ``ω → 0`` or ``ℓ`` grows.
+
+    Vectorised over ``ω``: the spatial loop is shared across all frequencies.
     """
     values, h = potential_samples(ell, inner, outer, steps)
     w = np.asarray(omega, dtype=complex)
@@ -391,6 +407,7 @@ def transfer_kernel(times, ell: int = 1, omega_max: float = 40.0,
 
 # ── measurements ────────────────────────────────────────────────────────────
 
+@lru_cache(maxsize=4)
 def measure_the_exact_background_anchors() -> Dict[str, object]:
     """R0 — three closed forms this round derives and then checks numerically."""
     peaks = []
@@ -479,15 +496,31 @@ def measure_only_ell_one_has_a_rational_peak(
     }
 
 
+@lru_cache(maxsize=4)
 def measure_the_high_frequency_tail_is_the_exact_one(
         ell: int = 1) -> Dict[str, object]:
     """R1b — the fitted ``c`` as a *measurement against* the exact one.
 
     ``transfer_kernel`` subtracts the exact ``c_ℓ = ½∫V dr*``. Subtracting a
     fitted coefficient instead would leave ``−i(c_exact − c_fit)/ω`` in the
-    remainder — still ``1/ω``, forfeiting the point of the subtraction. So the
-    fit is not used; it is compared, and the comparison is a check on the outer
-    boundary condition.
+    remainder — still ``1/ω``, forfeiting the point of the subtraction.
+
+    **The estimator matters, and an earlier draft used a biased one.**
+    ``Re[iω(T−1)]`` is not ``c`` at finite ``ω`` even for the exact asymptote
+    ``T = e^{−ic/ω}``:
+
+        Re[iω(e^{−ic/ω} − 1)] = ω sin(c/ω) = c − c³/(6ω²) + O(ω⁻⁴)
+
+    At ``c = 2.25`` over the sampled band that deterministic bias is ``−1.3e-3``
+    — the *entire* size of the "deficit" the earlier draft reported, and which it
+    attributed to the ``1/r⁴`` and ``1/r⁶`` parts of ``V``. That attribution was
+    wrong. The unbiased estimator ``c(ω) = −ω arg T(ω)`` is exact for the toy
+    asymptote, and against the real spectrum it gives a residual of ``+2.6e-4``
+    — four times smaller and of the **opposite sign**.
+
+    That the biased estimator's deficit is *itself* independent of the outer edge
+    is the tell: a truncation effect would move with the edge, a fixed-form bias
+    would not.
     """
     exact = high_frequency_phase_constant(ell)
     rows = []
@@ -496,32 +529,83 @@ def measure_the_high_frequency_tail_is_the_exact_one(
         omega = (np.arange(1024) + 0.5) * (40.0 / 1024)
         _, transmitted = scattering_amplitudes(
             omega, ell, outer=outer, steps=steps)
-        fitted = float(np.mean((1j * omega * (transmitted - 1.0)).real[-100:]))
-        rows.append({"outer_edge": outer, "fitted": fitted,
-                     "exact": exact, "deficit": exact - fitted,
-                     "relative_error": abs(exact - fitted) / exact})
-    spread = max(r["fitted"] for r in rows) - min(r["fitted"] for r in rows)
+        phase = float(np.mean(-omega[-100:] * np.angle(transmitted[-100:])))
+        biased = float(np.mean((1j * omega * (transmitted - 1.0)).real[-100:]))
+        rows.append({"outer_edge": outer,
+                     "phase_estimator": phase,
+                     "biased_estimator": biased,
+                     "exact": exact,
+                     "phase_deviation": phase - exact,
+                     "biased_deviation": biased - exact,
+                     "relative_error": abs(phase - exact) / exact})
+    spread = (max(r["phase_estimator"] for r in rows)
+              - min(r["phase_estimator"] for r in rows))
+    biased_spread = (max(r["biased_estimator"] for r in rows)
+                     - min(r["biased_estimator"] for r in rows))
+    predicted_bias = -exact ** 3 / (6.0 * 38.0 ** 2)
     return {
         "exact": exact,
         "rows": rows,
         "spread_across_outer_edges": spread,
-        "independent_of_the_outer_edge": bool(spread < 1e-4),
+        "independent_of_the_outer_edge": bool(spread < 1e-6),
         "worst_relative_error": max(r["relative_error"] for r in rows),
         "agrees_with_the_exact_value": bool(
-            max(r["relative_error"] for r in rows) < 2e-3),
+            max(r["relative_error"] for r in rows) < 1e-3),
+        "predicted_bias_of_the_naive_estimator": predicted_bias,
+        "observed_bias_of_the_naive_estimator": float(
+            np.mean([r["biased_deviation"] for r in rows])),
+        "the_biased_estimator_is_also_edge_independent": bool(
+            biased_spread < 1e-6),
         "why_the_exact_value_is_the_one_subtracted": (
             "If T - 1 = -i c_exact/w + O(w^-2) and a fitted c_fit != c_exact is "
             "subtracted, the remainder retains -i(c_exact - c_fit)/w and still "
             "falls only as 1/w. The subtraction exists to make the remainder "
             "O(1/w^2); using a fit would quietly defeat it."),
-        "the_residual_gap_is_the_outer_boundary_condition": (
-            "The fitted value sits ~0.05% below the exact one, uniformly in the "
-            "outer edge. That is the 1/r^4 and 1/r^6 part of V, which the "
-            "centrifugal Jost condition does not capture -- a known, bounded, "
-            "edge-independent shortfall rather than a truncation drift."),
+        "a_correction_to_an_earlier_draft": (
+            "That draft used Re[i w (T-1)], which carries a deterministic "
+            "-c^3/(6 w^2) bias, and read the resulting 1.06e-3 shortfall as the "
+            "1/r^4 and 1/r^6 part of V that a centrifugal Jost condition cannot "
+            "capture. It was the estimator. With -w arg T the residual is "
+            "+2.6e-4, four times smaller and opposite in sign, and no physical "
+            "attribution for it is offered here."),
     }
 
 
+@lru_cache(maxsize=4)
+def measure_the_subtraction_leaves_an_inverse_square_tail(
+        ell: int = 1) -> Dict[str, object]:
+    """R1d — the property the inverse transform actually needs.
+
+    Subtracting ``A(ω) = −i c/(ω + ia)`` is only useful if the remainder falls
+    like ``1/ω²``. Checking the coefficient ``c`` is necessary but not
+    sufficient, so check the remainder directly: ``ω²|S − A|`` must stay
+    bounded rather than growing.
+    """
+    omega, _, transmitted, _ = transfer_spectrum(ell)
+    residual = transmitted - 1.0
+    exact = high_frequency_phase_constant(ell)
+    rows = []
+    for decay in (0.5, 1.0, 2.0):
+        remainder = residual - (-1j * exact / (omega + 1j * decay))
+        picks = [len(omega) // 8, len(omega) // 4, len(omega) // 2, -1]
+        scaled = [float(omega[i] ** 2 * abs(remainder[i])) for i in picks]
+        rows.append({"decay": decay,
+                     "omega": [float(omega[i]) for i in picks],
+                     "omega_squared_times_remainder": scaled,
+                     "bounded": bool(max(scaled) < 2.0 * min(scaled))})
+    return {
+        "rows": rows,
+        "the_remainder_falls_like_one_over_omega_squared": bool(
+            all(r["bounded"] for r in rows)),
+        "the_plateau_depends_on_the_subtraction_parameter": (
+            "w^2|S - A| settles to a different constant for each a, because a "
+            "different A redistributes the O(1/w^2) tail between the analytic "
+            "and numerical pieces. The KERNEL must not depend on a at all -- "
+            "that is checked separately in the convergence study."),
+    }
+
+
+@lru_cache(maxsize=4)
 def measure_the_low_frequency_outer_matching_is_converged(
         ell: int = 1) -> Dict[str, object]:
     """R1c — the low-``ω`` end, where plane-wave matching is simply wrong.
@@ -573,6 +657,7 @@ def measure_the_low_frequency_outer_matching_is_converged(
     }
 
 
+@lru_cache(maxsize=4)
 def measure_the_scattering_is_well_conditioned(
         ell: int = 1,
         probes: Sequence[float] = (0.1, 0.3, 0.7, 1.0, 1.5, 3.0, 10.0, 30.0)
@@ -610,14 +695,23 @@ def measure_the_scattering_is_well_conditioned(
         "why_this_is_not_the_failed_shoot": (
             "PR #270 and #274 could not converge a quasinormal frequency by "
             "shooting in real r, because for Im w < 0 the outgoing solution "
-            "grows like e^{|Im w| R} and swamps the coefficient being zeroed. "
-            "Here w is REAL, both e^{+-i w r*} have unit modulus, and nothing "
-            "dominates anything. This is a different, well-posed problem -- not "
-            "a repair of the one that failed. Unitarity to ~1e-13, imposed "
-            "nowhere, is the evidence."),
+            "grows like e^{|Im w| R} across the whole matching range and swamps "
+            "the coefficient being zeroed. Here w is REAL, so the ASYMPTOTIC in "
+            "and out waves are unit-flux and the extracted coefficient is not "
+            "swamped. This is a different, well-posed problem -- not a repair "
+            "of the one that failed."),
+        "the_conditioning_claim_is_scoped": (
+            "Unit modulus is a property of the asymptotic normalisation, not of "
+            "the propagation everywhere: under the barrier k = sqrt(w^2 - V) is "
+            "imaginary and the propagator is hyperbolic, so one solution does "
+            "grow relative to the other. The correct statement is WELL "
+            "CONDITIONED ON THE TESTED REAL-FREQUENCY RANGE -- evidenced by "
+            "unitarity to ~1e-13 and second-order step refinement -- not "
+            "structurally immune as w -> 0 or l grows."),
     }
 
 
+@lru_cache(maxsize=4)
 def measure_the_kernel_is_causal(ell: int = 1) -> Dict[str, object]:
     """R2 — ``K(t < 0) = 0``, and the residual as a measured noise floor."""
     early = np.array([-300.0, -200.0, -100.0, -50.0, -20.0, -10.0, -5.0,
@@ -638,14 +732,25 @@ def measure_the_kernel_is_causal(ell: int = 1) -> Dict[str, object]:
         "the_kernel_is_causal": bool(np.max(np.abs(before)) < 1e-3),
         "times_after_zero": [float(x) for x in late],
         "kernel_after_zero": [float(x) for x in after],
-        "the_exact_zero_is_a_free_error_bar": (
+        "the_exact_zero_is_an_acausal_artifact_monitor": (
             "K(t) vanishes identically for t < 0, so whatever the computation "
-            "returns there IS its noise floor -- no reference value needed. "
-            "Any feature at t > 0 smaller than that floor is not measurable, "
-            "which is how this round knows the late-time tail is out of reach."),
+            "returns there is a direct read-out of its ACAUSAL transform "
+            "artifacts -- no reference value needed. That is what caught the "
+            "missing DC cell and the symmetric truncation ringing, both of "
+            "which contaminate t < 0 and t > 0 alike."),
+        "it_is_not_a_total_error_bar": (
+            "A numerical error can be perfectly causal and live only at t > 0: "
+            "outer-boundary error, finite w_max, the arbitrary subtraction "
+            "parameter, quadrature bias. This round demonstrated exactly that "
+            "-- replacing plane-wave outer matching with the Jost condition "
+            "moved positive-time results with no matching negative-time "
+            "signature. So the negative-time residual bounds one FAMILY of "
+            "error, not the total, and the late-time tail is judged out of "
+            "reach on positive-time parameter variation as well."),
     }
 
 
+@lru_cache(maxsize=4)
 def measure_the_kernel_reproduces_the_published_ringdown(
         ell: int = 1) -> Dict[str, object]:
     """R3 — the kernel's own ringdown, against the EXTERNAL published value."""
@@ -706,14 +811,20 @@ def _prony(times: np.ndarray, values: np.ndarray, modes: int) -> np.ndarray:
     return 1j * np.log(roots) / spacing
 
 
+@lru_cache(maxsize=4)
 def measure_the_kernel_against_the_time_domain_evolution(
         ell: int = 1, width: float = 3.0) -> Dict[str, object]:
     """R4 — the independent check: ``K ⋆ g`` against a characteristic evolution.
 
     Deep inside, the transmitted wave as a function of ``v = t + r*`` is exactly
     the convolution of the incident profile with the kernel. PR #274's
-    time-domain evolution shares no code with the transfer matrix, so agreement
-    is a real cross-validation.
+    time-domain evolution uses a completely different propagation algorithm --
+    a characteristic null-grid march rather than a frequency-domain transfer
+    matrix — so agreement is real cross-validation. It is *not* independent in
+    every sense: both rest on the same ``potential`` and tortoise definitions,
+    and this module imports the characteristic solver. The accurate claim is
+    **independent numerical propagation methods on the same operator**, which
+    tests the propagation and not the operator.
 
     **The launch radius is the whole subtlety, and it is now quantified.** The
     incident amplitude is only defined where the wave is free. On the ``u = 0``
@@ -791,23 +902,57 @@ def measure_the_kernel_against_the_time_domain_evolution(
     }
 
 
+def kernel_integrals(ell: int = 1, spacing: float = 0.005,
+                     horizon: float = 300.0, **kwargs) -> Tuple[float, float]:
+    """``∫K_reg dt`` and ``∫|K_reg| dt`` on a **midpoint** time grid.
+
+    Midpoint sampling matters here for the same reason it did on the frequency
+    grid. ``K_reg`` jumps at ``t = 0⁺`` — the analytic piece contributes
+    ``−c`` there — so a grid starting at ``t₀ > 0`` silently omits
+    ``∫₀^{t₀} ≈ −c t₀``. An earlier draft integrated from ``t = 0.001`` and
+    reported ``−0.997757`` for a quantity whose exact value is ``−1``; that gap
+    was almost entirely the missing first cell, and it shrank as ``O(dt)``
+    rather than converging. A grid of ``(j + ½)dt`` covering ``[0, t_max]``
+    exactly gives ``−0.999996``.
+    """
+    stamps = (np.arange(int(horizon / spacing)) + 0.5) * spacing
+    values = transfer_kernel(stamps, ell, **kwargs)
+    return (float(np.sum(values) * spacing),
+            float(np.sum(np.abs(values)) * spacing))
+
+
+@lru_cache(maxsize=4)
 def measure_the_transfer_is_not_rigid(ell: int = 1) -> Dict[str, object]:
-    """R5 — **the deliverable**: how far the kernel is from instantaneous."""
-    published_dc = abs(transfer_spectrum(ell)[2][0])
-    stamps = np.arange(0.001, 300.0, 0.005)
-    values = transfer_kernel(stamps, ell)
-    signed = float(np.trapezoid(values, stamps))
-    absolute = float(np.trapezoid(np.abs(values), stamps))
+    """R5 — **the deliverable**: how far the kernel is from instantaneous.
+
+    The durable statement is not the memory mass but the pair of limits. With
+    the chosen asymptotic normalisation ``T(∞) = 1`` while ``T(0) = 0``;
+    therefore the transfer function cannot be a rigid phase or delay, and the
+    regular part must carry signed weight ``−1``. That is analytic. Everything
+    below is a numerical check of it.
+    """
+    omega, _, transmitted, _ = transfer_spectrum(ell)
+    signed, absolute = kernel_integrals(ell)
     return {
-        "transmission_at_dc": float(published_dc),
+        "transmission_at_lowest_bin": float(abs(transmitted[0])),
+        "lowest_bin_frequency": float(omega[0]),
+        "transmission_at_exact_dc_is_zero_analytically": (
+            "T(w = 0) = 0 exactly: a zero-frequency wave is completely "
+            "reflected by the centrifugal barrier. The tabulated value above is "
+            "the lowest sampled bin, not w = 0, and is reported as such."),
+        "transmission_at_high_frequency": float(abs(transmitted[-1])),
         "sum_rule_exact_value": -1.0,
         "sum_rule_measured": signed,
         "sum_rule_relative_error": abs(signed + 1.0),
-        "the_sum_rule_holds": bool(abs(signed + 1.0) < 5e-3),
+        "the_sum_rule_holds": bool(abs(signed + 1.0) < 1e-4),
         "memory_absolute_mass": absolute,
         "instantaneous_weight": 1.0,
-        "memory_to_instantaneous_ratio": absolute,
         "the_kernel_is_not_rigid": bool(absolute > 1.0),
+        "the_durable_statement": (
+            "With the chosen asymptotic normalisation T(inf) = 1 while "
+            "T(0) = 0. Therefore the transfer function cannot be a rigid phase "
+            "or delay, and the regular memory must carry signed weight -1. "
+            "This is analytic and does not depend on any measured number."),
         "why_the_sum_rule_is_exact": (
             "int K dt = T(w = 0), and T(0) = 0 because the centrifugal barrier "
             "reflects zero-frequency waves completely. With K = delta(t) + "
@@ -819,14 +964,141 @@ def measure_the_transfer_is_not_rigid(ell: int = 1) -> Dict[str, object]:
             "The real geometry blocks a static signal COMPLETELY, and does so "
             "entirely through the memory term, which exactly cancels the "
             "instantaneous one at DC. In absolute mass the memory is about "
-            "twice the delta. The memory is not a correction to rigid exchange; "
-            "it is the same size as the thing it would correct."),
+            "twice the delta."),
         "scope_of_that_claim": (
             "This is a statement about the transfer kernel of a test scalar on "
             "a fixed D = 5 Tangherlini background, per angular channel. It says "
             "what the causal geometry does. Whether any particular BAM exchange "
             "kernel is meant to approximate THIS object is a separate question "
-            "this round does not settle."),
+            "this round does not settle. Note also that T maps the asymptotic "
+            "exterior to flux crossing the FUTURE HORIZON: it is a one-way "
+            "exterior-to-interior channel, NOT mouth-to-mouth transmission."),
+    }
+
+
+@lru_cache(maxsize=4)
+def measure_the_kernel_integrals_are_converged(
+        ell: int = 1) -> Dict[str, object]:
+    """R5b — the memory mass earns its digits, or it does not get quoted.
+
+    Three axes. ``decay`` is the cleanest: the kernel cannot depend on the
+    arbitrary subtraction parameter *at all*, since ``A`` is removed
+    numerically and added back in closed form, so any dependence measures the
+    inadequacy of ``ω_max``. The time quadrature is the axis that was actually
+    broken before midpoint sampling.
+    """
+    by_decay = [{"decay": a, "sum": kernel_integrals(ell, decay=a)[0],
+                 "mass": kernel_integrals(ell, decay=a)[1]}
+                for a in (0.5, 1.0, 2.0, 4.0)]
+    by_spectrum = []
+    for omega_max, count in ((20.0, 2048), (40.0, 4096), (40.0, 8192)):
+        signed, mass = kernel_integrals(ell, omega_max=omega_max, count=count)
+        by_spectrum.append({"omega_max": omega_max, "count": count,
+                            "sum": signed, "mass": mass})
+    by_time = []
+    for spacing, horizon in ((0.02, 300.0), (0.01, 300.0), (0.005, 300.0),
+                             (0.005, 150.0), (0.005, 600.0)):
+        signed, mass = kernel_integrals(ell, spacing=spacing, horizon=horizon)
+        by_time.append({"spacing": spacing, "horizon": horizon,
+                        "sum": signed, "mass": mass})
+
+    def spread(rows, key):
+        return max(r[key] for r in rows) - min(r[key] for r in rows)
+
+    spreads = {"decay": spread(by_decay, "mass"),
+               "spectrum": spread(by_spectrum, "mass"),
+               "time": spread(by_time, "mass")}
+    worst = max(spreads.values())
+    sum_spread = max(spread(rows, "sum")
+                     for rows in (by_decay, by_spectrum, by_time))
+    return {
+        "by_decay": by_decay,
+        "by_spectrum": by_spectrum,
+        "by_time_quadrature": by_time,
+        "mass_spreads": spreads,
+        "worst_mass_spread": worst,
+        "worst_sum_spread": sum_spread,
+        # The spread sets the precision, so the quoted value carries three
+        # significant figures and no more. The widest axis is the subtraction
+        # parameter at a = 4, where the analytic piece decays fastest and the
+        # most weight falls on the numerical transform at finite w_max.
+        "the_mass_is_converged": bool(worst < 5e-3),
+        "significant_figures_earned": 3,
+        "the_mass_to_quoted_precision": round(
+            0.5 * (max(r["mass"] for r in by_decay)
+                   + min(r["mass"] for r in by_decay)), 2),
+        "the_sum_rule_holds_across_every_knob": bool(
+            all(abs(r["sum"] + 1.0) < 1e-3
+                for rows in (by_decay, by_spectrum, by_time) for r in rows)),
+        "independent_of_the_subtraction_parameter": bool(
+            spreads["decay"] < 5e-3),
+        "the_precision_the_spread_supports": (
+            "Worst spread ~2e-3, on the subtraction parameter. So the memory "
+            "mass is 2.03 to the digits this computation earns; quoting "
+            "2.0286 or 2.0309 would claim precision the knobs do not support."),
+        "why_decay_independence_is_the_clean_check": (
+            "K cannot depend on a at all: A(w) is subtracted numerically and "
+            "its exact transform added back. Any residual dependence is "
+            "measuring the finite w_max, not physics."),
+        "what_was_broken_before": (
+            "The time quadrature. A left-endpoint grid starting at t = 0.001 "
+            "omitted int_0^t0 ~ -c t0 across the jump at t = 0+, giving "
+            "-0.997757 for a quantity whose exact value is -1, and shrinking "
+            "only as O(dt) rather than converging. Midpoint sampling over "
+            "[0, t_max] gives -0.999996, a thousandfold tighter check of the "
+            "same analytic constraint."),
+    }
+
+
+@lru_cache(maxsize=4)
+def measure_the_late_time_tail_is_not_resolved(
+        ell: int = 1) -> Dict[str, object]:
+    """R6b — the tail is out of reach, argued from **positive** time.
+
+    The negative-time floor says a transform artefact is small; it does not say
+    a positive-time feature is real, because a causal error lives only at
+    ``t > 0``. So the claim that the late-time tail is unmeasured is made the
+    way it should be: vary the parameters and see whether the late-time values
+    agree with each other. They do not — the spread across settings exceeds the
+    values, and they change sign.
+    """
+    stamps = np.array([40.0, 60.0, 100.0, 150.0, 200.0])
+    settings = [
+        ("base", {}),
+        ("omega_max=20, count=2048", {"omega_max": 20.0, "count": 2048}),
+        ("count=8192", {"count": 8192}),
+        ("decay=0.5", {"decay": 0.5}),
+        ("decay=2.0", {"decay": 2.0}),
+    ]
+    rows = []
+    for label, kwargs in settings:
+        rows.append({"setting": label,
+                     "values": [float(x) for x in
+                                transfer_kernel(stamps, ell, **kwargs)]})
+    stacked = np.array([r["values"] for r in rows])
+    spread = (stacked.max(axis=0) - stacked.min(axis=0))
+    magnitude = np.abs(stacked).max(axis=0)
+    signs_disagree = bool(np.any(stacked.max(axis=0) * stacked.min(axis=0) < 0))
+    return {
+        "times": [float(t) for t in stamps],
+        "rows": rows,
+        "spread_across_settings": [float(x) for x in spread],
+        "largest_magnitude": [float(x) for x in magnitude],
+        "spread_exceeds_the_values": bool(np.all(spread > 0.5 * magnitude)),
+        "the_sign_is_not_even_stable": signs_disagree,
+        "the_tail_is_not_resolved": bool(
+            np.all(spread > 0.5 * magnitude) and signs_disagree),
+        "why_this_is_the_right_argument": (
+            "The negative-time floor bounds acausal transform artefacts only. "
+            "Whether a positive-time feature is real has to be settled at "
+            "positive times, by varying the parameters it would be independent "
+            "of. Here it is not: the spread exceeds the values and the sign "
+            "flips, so no exponent is quoted."),
+        "what_would_be_needed": (
+            "A method with dynamic range where this one has none -- a long "
+            "time-domain evolution in extended precision. Not a refinement of "
+            "the frequency-domain route, whose range is excellent near the "
+            "barrier and absent in the tail."),
     }
 
 
@@ -867,7 +1139,18 @@ def measure_what_the_causality_gate_caught() -> Dict[str, object]:
 
 
 def measure_the_transfer_kernel_ledger() -> Dict[str, object]:
-    """R7 — what is settled and what is not."""
+    """R7 — what is settled and what is not.
+
+    The numbers here are **derived from the measurements**, not embedded as
+    literals. An earlier draft hard-coded the cross-check percentages, and when
+    the Jost patch changed them the ledger silently kept the old ones -- the
+    exact stale-number failure this arc has been trying to eliminate.
+    """
+    cross = measure_the_kernel_against_the_time_domain_evolution()
+    rigid = measure_the_transfer_is_not_rigid()
+    causal = measure_the_kernel_is_causal()
+    ringdown = measure_the_kernel_reproduces_the_published_ringdown()
+    best = cross["best"]
     entries = [
         {"claim": "the retarded outer-to-inner transfer kernel exists as a "
                   "computable object",
@@ -881,44 +1164,80 @@ def measure_the_transfer_kernel_ledger() -> Dict[str, object]:
                      "exponentially; for real w nothing dominates, and "
                      "unitarity holds to ~1e-13 without being imposed"},
         {"claim": "the kernel is causal",
-         "verdict": "YES, TO ~3e-7",
-         "evidence": "K(t < 0) measured directly; the residual doubles as the "
-                     "noise floor for t > 0"},
+         "verdict": f"YES, TO ~{causal['noise_floor_far_from_the_front']:.0e}",
+         "evidence": "K(t < 0) measured directly; the residual bounds ACAUSAL "
+                     "transform artifacts, not the total numerical error"},
         {"claim": "the kernel carries the published ringdown",
          "verdict": "YES",
          "evidence": "fitted against the EXTERNAL continued-fraction value: "
-                     "real part within 0.062%-1.17%, damping 0.11%-3.80% over "
-                     "nine extraction settings; band reported, not best row"},
-        {"claim": "an independent method reproduces the kernel",
-         "verdict": "YES, TO 0.92% PEAK / 0.17% RMS",
-         "evidence": "convolution against PR #274's time-domain characteristic "
-                     "evolution, which shares no code with the transfer matrix"},
+                     f"real part within "
+                     f"{100*ringdown['real_part_band']['min']:.3f}%-"
+                     f"{100*ringdown['real_part_band']['max']:.2f}%, damping "
+                     f"{100*ringdown['damping_band']['min']:.2f}%-"
+                     f"{100*ringdown['damping_band']['max']:.2f}% over "
+                     f"{len(ringdown['rows'])} extraction settings; band "
+                     "reported, not best row"},
+        {"claim": "an independent propagation method reproduces the kernel",
+         "verdict": (f"YES, TO {100*best['peak_relative_max_difference']:.2f}% "
+                     f"PEAK / {100*best['peak_relative_rms_difference']:.2f}% "
+                     f"RMS at launch r* = {best['launch_r_star']:g}"),
+         "evidence": "convolution against PR #274's characteristic null-grid "
+                     "evolution -- a different propagation algorithm on the "
+                     "same operator, not an independent operator; the residual "
+                     "halves as the launch radius doubles"},
         {"claim": "the transfer is rigid / instantaneous",
-         "verdict": "NO -- AND NOT MARGINALLY",
-         "evidence": "int K_reg dt = -1 exactly (sum rule from T(0) = 0), so "
-                     "the memory cancels the instantaneous part at DC; "
-                     "int |K_reg| dt = 2.02 against the delta's 1"},
+         "verdict": "NO -- AND ANALYTICALLY SO",
+         "evidence": "T(inf) = 1 while T(0) = 0, so int K_reg dt = -1 is "
+                     "FORCED; measured "
+                     f"{rigid['sum_rule_measured']:.6f}. The memory mass "
+                     f"{rigid['memory_absolute_mass']:.4f} against the delta's "
+                     "1 is a quantitative extra, not the argument"},
         {"claim": "the late-time power-law tail is measured",
          "verdict": "NO",
-         "evidence": "the ringdown reaches the ~1e-6 causality noise floor by "
-                     "t ~ 40; a tail would be orders of magnitude below it. No "
-                     "exponent is quoted"},
+         "evidence": "argued at POSITIVE times, not from the causality floor: "
+                     "varying (w_max, count) and the subtraction parameter "
+                     "gives late-time values whose spread exceeds the values "
+                     "and whose sign is not stable. No exponent is quoted"},
         {"claim": "PR #274's pulse placement was adequate for this object",
          "verdict": "NO -- AND IT WAS FOR ITS OWN",
-         "evidence": "launching at r* = 6 (V ~ 0.1) gives a 43% mismatch here "
-                     "and was harmless for the quasinormal frequency; a "
-                     "transmission ratio needs an asymptotic launch"},
+         "evidence": "the incident amplitude is only defined where the wave is "
+                     "free; launching inside the barrier's reach was harmless "
+                     "for a quasinormal frequency and fatal for a transmission "
+                     "ratio"},
+        {"claim": "the causality gate bounds the total numerical error",
+         "verdict": "NO -- ACAUSAL ARTIFACTS ONLY",
+         "evidence": "a causal error can live entirely at t > 0; this round's "
+                     "own Jost patch moved positive-time results with no "
+                     "matching negative-time signature"},
+        {"claim": "the high-frequency deficit was the 1/r^4 and 1/r^6 tail",
+         "verdict": "NO -- IT WAS THE ESTIMATOR",
+         "evidence": "Re[i w (T-1)] carries a deterministic -c^3/(6 w^2) bias "
+                     "of -1.3e-3, the whole size of the reported deficit; the "
+                     "unbiased -w arg T gives +2.6e-4, opposite in sign"},
+        {"claim": "the memory mass 2.03 is a converged number",
+         "verdict": "YES, NOW",
+         "evidence": "stable across the subtraction parameter, (w_max, count) "
+                     "and the time quadrature; an earlier draft's -0.997757 "
+                     "sum rule was a left-endpoint grid missing the [0, dt] "
+                     "cell across the jump at t = 0+"},
     ]
     return {
         "entries": entries,
         "the_lesson_this_round_adds": (
-            "An exactly-zero region is a free error bar. Causality gave this "
-            "round a stretch of the domain where the answer is known to be "
-            "zero, on the same run and with no external reference, and two "
-            "separate artefacts -- a missing DC cell and Gibbs ringing -- were "
-            "caught there at exactly the amplitude of the physics being sought. "
-            "PR #274 needed a published spectrum to find its floor; here the "
-            "structure of the problem supplied one."),
+            "An exactly-zero region is a free monitor for the artefacts that "
+            "violate it. Causality gave this round a stretch of the domain "
+            "where the answer is known to be zero, and two separate ACAUSAL "
+            "artefacts -- a missing DC cell and Gibbs ringing -- were caught "
+            "there at exactly the amplitude of the physics being sought. It "
+            "bounds that family of error and no other: a causal error lives "
+            "only at t > 0, as this round's own Jost patch demonstrated."),
+        "the_second_lesson": (
+            "Check what an estimator measures before attributing what it "
+            "returns. Re[i w (T-1)] carries a deterministic -c^3/(6 w^2) bias, "
+            "and an earlier draft read the resulting shortfall as a physical "
+            "property of the potential's sub-leading tail. The tell was there: "
+            "the deficit was independent of the outer edge, which a truncation "
+            "effect would not be and a fixed-form bias would."),
         "the_next_object": (
             "The late-time tail, which needs a method with dynamic range where "
             "this one has none -- a long time-domain evolution in extended "

@@ -1,6 +1,6 @@
 # The retarded outer→inner transfer kernel, `D = 5` Tangherlini
 
-**11/11 checks pass.**
+**14/14 checks pass.**
 
 PR #270 deferred this object because it is a ratio of two signals it could not trust. PR #274 settled which signal was right, against a published spectrum. This round builds the kernel.
 
@@ -10,11 +10,13 @@ A wave sent in from the far region reaches the horizon filtered. That filter is 
 
 | quantity | value | |
 |--|--|--|
-| `∫K_reg dt` | `-0.997757` | exact value `−1`, a **sum rule** from `T(0) = 0` |
-| `∫\|K_reg\| dt` | `2.0286` | against the `δ`'s weight of `1` |
-| `T(ω→0)` | `4.100e-07` | the barrier blocks DC completely |
+| `∫K_reg dt` | `-0.999996` | exact value `−1`, a **sum rule** from `T(0) = 0` |
+| `∫\|K_reg\| dt` | `2.0309` | against the `δ`'s weight of `1` |
+| `T` at lowest bin `ω=0.00488` | `4.100e-07` | `T(0) = 0` exactly; this is the lowest sampled bin, not `ω = 0` |
 
-A rigid exchange kernel is `δ(t)`, possibly delayed: whatever enters leaves undistorted, and a static signal passes perfectly. The real geometry **blocks a static signal completely**, and does so *entirely* through the memory term, which exactly cancels the instantaneous one at DC. In absolute mass the memory is about twice the delta. It is not a correction to rigid exchange — it is the same size as the thing it would correct.
+**The durable statement is the pair of limits, not the mass.** With the chosen asymptotic normalisation T(inf) = 1 while T(0) = 0. Therefore the transfer function cannot be a rigid phase or delay, and the regular memory must carry signed weight -1. This is analytic and does not depend on any measured number.
+
+A rigid exchange kernel is `δ(t)`, possibly delayed: whatever enters leaves undistorted, and a static signal passes perfectly. The real geometry **blocks a static signal completely**, and does so *entirely* through the memory term. In absolute mass the memory is about twice the delta — a quantitative extra, not the argument.
 
 ## K0 — three exact anchors
 
@@ -59,7 +61,7 @@ The deficit matches the predicted tail in every row, so the domain truncation is
 
 Worst residual **`6.3e-13`**, and unitarity is imposed nowhere — it is a consequence of the computation, so it measures it.
 
-> PR #270 and #274 could not converge a quasinormal frequency by shooting in real r, because for Im w < 0 the outgoing solution grows like e^{|Im w| R} and swamps the coefficient being zeroed. Here w is REAL, both e^{+-i w r*} have unit modulus, and nothing dominates anything. This is a different, well-posed problem -- not a repair of the one that failed. Unitarity to ~1e-13, imposed nowhere, is the evidence.
+> PR #270 and #274 could not converge a quasinormal frequency by shooting in real r, because for Im w < 0 the outgoing solution grows like e^{|Im w| R} across the whole matching range and swamps the coefficient being zeroed. Here w is REAL, so the ASYMPTOTIC in and out waves are unit-flux and the extracted coefficient is not swamped. This is a different, well-posed problem -- not a repair of the one that failed.
 
 Second order in the spatial step: `|T|` at `ω = 1` gives `0.64442644`, `0.64442002`, `0.64441842`, successive differences `6.4e-06`, `1.6e-06`.
 
@@ -67,13 +69,17 @@ Second order in the spatial step: `|T|` at `ω = 1` gives `0.64442644`, `0.64442
 
 `transfer_kernel` subtracts `c_ℓ = ½∫V dr*` **exactly**. A fitted coefficient would leave `−i(c_exact − c_fit)/ω` in the remainder — still `1/ω`, defeating the purpose of the subtraction. The fit is kept as a *measurement against* the exact value:
 
-| outer edge | fitted `c` | exact | deficit |
-|--|--|--|--|
-| `150` | `2.248945` | `2.2500` | `+0.001055` |
-| `300` | `2.248945` | `2.2500` | `+0.001055` |
-| `600` | `2.248945` | `2.2500` | `+0.001055` |
+| outer edge | `−ω arg T` (unbiased) | dev | `Re[iω(T−1)]` (biased) | dev |
+|--|--|--|--|--|
+| `150` | `2.25026029` | `+2.60e-04` | `2.24894513` | `-1.05e-03` |
+| `300` | `2.25025990` | `+2.60e-04` | `2.24894474` | `-1.06e-03` |
+| `600` | `2.25025985` | `+2.60e-04` | `2.24894469` | `-1.06e-03` |
 
-Spread across outer edges `4.4e-07` — **edge-independent**. The fitted value sits ~0.05% below the exact one, uniformly in the outer edge. That is the 1/r^4 and 1/r^6 part of V, which the centrifugal Jost condition does not capture -- a known, bounded, edge-independent shortfall rather than a truncation drift.
+Exact `c₁ = 2.25`. The unbiased estimator is edge-independent to `4.4e-07`.
+
+> That draft used Re[i w (T-1)], which carries a deterministic -c^3/(6 w^2) bias, and read the resulting 1.06e-3 shortfall as the 1/r^4 and 1/r^6 part of V that a centrifugal Jost condition cannot capture. It was the estimator. With -w arg T the residual is +2.6e-4, four times smaller and opposite in sign, and no physical attribution for it is offered here.
+
+The naive estimator's bias is predicted at `-1.31e-03` and observed at `-1.06e-03`. That it is itself edge-independent is the tell: a truncation effect would move with the edge; a fixed-form bias does not.
 
 ### The low-frequency outer matching
 
@@ -106,7 +112,9 @@ Relative spread across outer edges: `5.6e-05`, `3.6e-06`, `4.3e-07`.
 
 Worst acausal value **`1.00e-04`**, and **`1.0e-06`** away from the front.
 
-> K(t) vanishes identically for t < 0, so whatever the computation returns there IS its noise floor -- no reference value needed. Any feature at t > 0 smaller than that floor is not measurable, which is how this round knows the late-time tail is out of reach.
+> K(t) vanishes identically for t < 0, so whatever the computation returns there is a direct read-out of its ACAUSAL transform artifacts -- no reference value needed. That is what caught the missing DC cell and the symmetric truncation ringing, both of which contaminate t < 0 and t > 0 alike.
+
+> **But it is not a total error bar.** A numerical error can be perfectly causal and live only at t > 0: outer-boundary error, finite w_max, the arbitrary subtraction parameter, quadrature bias. This round demonstrated exactly that -- replacing plane-wave outer matching with the Jost condition moved positive-time results with no matching negative-time signature. So the negative-time residual bounds one FAMILY of error, not the total, and the late-time tail is judged out of reach on positive-time parameter variation as well.
 
 | `t` | `K_reg(t)` |
 |--|--|
@@ -148,7 +156,7 @@ Band: real part `0.065%`–`1.191%`, damping `0.069%`–`3.791%`.
 
 ## K4 — an independent method reproduces the kernel
 
-Deep inside, the transmitted wave as a function of `v = t + r*` is exactly `K ⋆ g`. PR #274's characteristic evolution shares no code with the transfer matrix. The residual tracks the **exactly known** potential remaining beyond the launch point, `≈ L/r*_launch`, which is what identifies it as placement rather than a method disagreement.
+Deep inside, the transmitted wave as a function of `v = t + r*` is exactly `K ⋆ g`. PR #274's evolution is a characteristic null-grid march rather than a frequency-domain transfer matrix — independent propagation methods on the same operator, not independent operators. The residual tracks the **exactly known** potential remaining beyond the launch point, `≈ L/r*_launch`, which is what identifies it as placement rather than a method disagreement.
 
 | launch `r*` | `∫V` beyond launch | max diff | rms diff |
 |--|--|--|--|
@@ -161,6 +169,44 @@ Successive ratios `1.94`, `1.93` — the residual **halves as the launch radius 
 > The incident amplitude is only defined where the wave is free, and the residual tracks the exactly-known potential remaining beyond the launch point. PR #274 launched at r* = 6, where V ~ 0.1 -- harmless for a quasinormal frequency, since a ringdown does not care how it was excited, and fatal for a transmission ratio.
 
 > With plane-wave outer matching this check read 0.92% at r* = 100. That was two errors partly cancelling: the plane-wave outer condition carried its own error in the opposite direction. Under the correct Jost condition the same launch reads 2.73%, and the series converges as 1/r*_launch. The larger number is the honest one.
+
+## K5b — the kernel integrals are converged
+
+The sum rule is analytic; these are its numerical check, and the memory mass is a quoted number so it has to earn its digits.
+
+| knob | setting | `∫K_reg dt` | `∫\|K_reg\| dt` |
+|--|--|--|--|
+| subtraction `a` | `0.5` | `-0.9999996` | `2.0312342` |
+| subtraction `a` | `1.0` | `-0.9999962` | `2.0308790` |
+| subtraction `a` | `2.0` | `-0.9999839` | `2.0313894` |
+| subtraction `a` | `4.0` | `-0.9999369` | `2.0328245` |
+| spectrum | `ω_max=20, N=2048` | `-0.9999878` | `2.0311444` |
+| spectrum | `ω_max=40, N=4096` | `-0.9999962` | `2.0308790` |
+| spectrum | `ω_max=40, N=8192` | `-0.9999962` | `2.0308734` |
+| time | `dt=0.02, t_max=300` | `-0.9999588` | `2.0308564` |
+| time | `dt=0.01, t_max=300` | `-0.9999887` | `2.0308771` |
+| time | `dt=0.005, t_max=300` | `-0.9999962` | `2.0308790` |
+| time | `dt=0.005, t_max=150` | `-0.9999959` | `2.0308485` |
+| time | `dt=0.005, t_max=600` | `-0.9999963` | `2.0309632` |
+
+Worst mass spread `1.9e-03`. K cannot depend on a at all: A(w) is subtracted numerically and its exact transform added back. Any residual dependence is measuring the finite w_max, not physics.
+
+> The time quadrature. A left-endpoint grid starting at t = 0.001 omitted int_0^t0 ~ -c t0 across the jump at t = 0+, giving -0.997757 for a quantity whose exact value is -1, and shrinking only as O(dt) rather than converging. Midpoint sampling over [0, t_max] gives -0.999996, a thousandfold tighter check of the same analytic constraint.
+
+## K6b — the late-time tail is unresolved, shown at positive times
+
+| setting | `t=40` | `t=60` | `t=100` | `t=150` | `t=200` |
+|--|--|--|--|--|--|
+| base | `+7.92e-07` | `+7.66e-08` | `+3.47e-07` | `+1.93e-07` | `-3.31e-07` |
+| omega_max=20, count=2048 | `-5.74e-06` | `+6.78e-07` | `-2.34e-06` | `-5.76e-07` | `+7.92e-07` |
+| count=8192 | `+7.87e-07` | `+7.42e-08` | `+3.36e-07` | `+1.80e-07` | `-2.93e-07` |
+| decay=0.5 | `+5.42e-06` | `+6.05e-07` | `+2.00e-06` | `+8.37e-07` | `-1.65e-06` |
+| decay=2.0 | `-8.69e-06` | `-6.98e-07` | `-3.08e-06` | `-9.79e-07` | `+2.30e-06` |
+
+| spread | `1.41e-05` | `1.38e-06` | `5.08e-06` | `1.82e-06` | `3.95e-06` |
+| largest \|value\| | `8.69e-06` | `6.98e-07` | `3.08e-06` | `9.79e-07` | `2.30e-06` |
+
+The spread **exceeds** the values and the sign is not stable. The negative-time floor bounds acausal transform artefacts only. Whether a positive-time feature is real has to be settled at positive times, by varying the parameters it would be independent of. Here it is not: the spread exceeds the values and the sign flips, so no exponent is quoted.
 
 ## K6 — what the causality gate caught
 
@@ -176,16 +222,19 @@ Successive ratios `1.94`, `1.93` — the residual **halves as the launch radius 
 |--|--|--|
 | the retarded outer-to-inner transfer kernel exists as a computable object | **YES, DELIVERED** | K = delta(t) + K_reg from T(w) on a well-conditioned real-frequency scattering problem |
 | the frequency domain can be used here despite PR #270's and #274's shooting failures | **YES -- DIFFERENT PROBLEM** | those failed for Im w < 0, where one solution grows exponentially; for real w nothing dominates, and unitarity holds to ~1e-13 without being imposed |
-| the kernel is causal | **YES, TO ~3e-7** | K(t < 0) measured directly; the residual doubles as the noise floor for t > 0 |
-| the kernel carries the published ringdown | **YES** | fitted against the EXTERNAL continued-fraction value: real part within 0.062%-1.17%, damping 0.11%-3.80% over nine extraction settings; band reported, not best row |
-| an independent method reproduces the kernel | **YES, TO 0.92% PEAK / 0.17% RMS** | convolution against PR #274's time-domain characteristic evolution, which shares no code with the transfer matrix |
-| the transfer is rigid / instantaneous | **NO -- AND NOT MARGINALLY** | int K_reg dt = -1 exactly (sum rule from T(0) = 0), so the memory cancels the instantaneous part at DC; int |K_reg| dt = 2.02 against the delta's 1 |
-| the late-time power-law tail is measured | **NO** | the ringdown reaches the ~1e-6 causality noise floor by t ~ 40; a tail would be orders of magnitude below it. No exponent is quoted |
-| PR #274's pulse placement was adequate for this object | **NO -- AND IT WAS FOR ITS OWN** | launching at r* = 6 (V ~ 0.1) gives a 43% mismatch here and was harmless for the quasinormal frequency; a transmission ratio needs an asymptotic launch |
+| the kernel is causal | **YES, TO ~1e-06** | K(t < 0) measured directly; the residual bounds ACAUSAL transform artifacts, not the total numerical error |
+| the kernel carries the published ringdown | **YES** | fitted against the EXTERNAL continued-fraction value: real part within 0.065%-1.19%, damping 0.07%-3.79% over 9 extraction settings; band reported, not best row |
+| an independent propagation method reproduces the kernel | **YES, TO 0.73% PEAK / 0.13% RMS at launch r* = 400** | convolution against PR #274's characteristic null-grid evolution -- a different propagation algorithm on the same operator, not an independent operator; the residual halves as the launch radius doubles |
+| the transfer is rigid / instantaneous | **NO -- AND ANALYTICALLY SO** | T(inf) = 1 while T(0) = 0, so int K_reg dt = -1 is FORCED; measured -0.999996. The memory mass 2.0309 against the delta's 1 is a quantitative extra, not the argument |
+| the late-time power-law tail is measured | **NO** | argued at POSITIVE times, not from the causality floor: varying (w_max, count) and the subtraction parameter gives late-time values whose spread exceeds the values and whose sign is not stable. No exponent is quoted |
+| PR #274's pulse placement was adequate for this object | **NO -- AND IT WAS FOR ITS OWN** | the incident amplitude is only defined where the wave is free; launching inside the barrier's reach was harmless for a quasinormal frequency and fatal for a transmission ratio |
+| the causality gate bounds the total numerical error | **NO -- ACAUSAL ARTIFACTS ONLY** | a causal error can live entirely at t > 0; this round's own Jost patch moved positive-time results with no matching negative-time signature |
+| the high-frequency deficit was the 1/r^4 and 1/r^6 tail | **NO -- IT WAS THE ESTIMATOR** | Re[i w (T-1)] carries a deterministic -c^3/(6 w^2) bias of -1.3e-3, the whole size of the reported deficit; the unbiased -w arg T gives +2.6e-4, opposite in sign |
+| the memory mass 2.03 is a converged number | **YES, NOW** | stable across the subtraction parameter, (w_max, count) and the time quadrature; an earlier draft's -0.997757 sum rule was a left-endpoint grid missing the [0, dt] cell across the jump at t = 0+ |
 
-**The lesson this round adds.** An exactly-zero region is a free error bar. Causality gave this round a stretch of the domain where the answer is known to be zero, on the same run and with no external reference, and two separate artefacts -- a missing DC cell and Gibbs ringing -- were caught there at exactly the amplitude of the physics being sought. PR #274 needed a published spectrum to find its floor; here the structure of the problem supplied one.
+**The lesson this round adds.** An exactly-zero region is a free monitor for the artefacts that violate it. Causality gave this round a stretch of the domain where the answer is known to be zero, and two separate ACAUSAL artefacts -- a missing DC cell and Gibbs ringing -- were caught there at exactly the amplitude of the physics being sought. It bounds that family of error and no other: a causal error lives only at t > 0, as this round's own Jost patch demonstrated.
 
-**Scope of the headline.** This is a statement about the transfer kernel of a test scalar on a fixed D = 5 Tangherlini background, per angular channel. It says what the causal geometry does. Whether any particular BAM exchange kernel is meant to approximate THIS object is a separate question this round does not settle.
+**Scope of the headline.** This is a statement about the transfer kernel of a test scalar on a fixed D = 5 Tangherlini background, per angular channel. It says what the causal geometry does. Whether any particular BAM exchange kernel is meant to approximate THIS object is a separate question this round does not settle. Note also that T maps the asymptotic exterior to flux crossing the FUTURE HORIZON: it is a one-way exterior-to-interior channel, NOT mouth-to-mouth transmission.
 
 **The next object.** The late-time tail, which needs a method with dynamic range where this one has none -- a long time-domain evolution in extended precision rather than a refinement of the frequency-domain route. Separately: whether any BAM exchange kernel is intended to approximate this object, which is a modelling question and not a numerical one.
 

@@ -131,10 +131,26 @@ def test_causality_holds_at_times_the_probe_does_not_sample():
     assert np.max(np.abs(before)) < 1e-4
 
 
-def test_the_exact_zero_is_used_as_an_error_bar():
-    note = tk.measure_the_kernel_is_causal()["the_exact_zero_is_a_free_error_bar"]
-    assert "noise floor" in note
+def test_the_exact_zero_monitors_acausal_artifacts():
+    note = tk.measure_the_kernel_is_causal()[
+        "the_exact_zero_is_an_acausal_artifact_monitor"]
+    assert "ACAUSAL" in note
     assert "no reference value" in note
+
+
+def test_the_causality_floor_is_not_claimed_as_a_total_error_bar():
+    """A causal error lives only at `t > 0`; this round's own Jost patch did."""
+    note = tk.measure_the_kernel_is_causal()["it_is_not_a_total_error_bar"]
+    assert "perfectly causal" in note
+    assert "Jost" in note
+
+
+def test_the_late_time_tail_is_unresolved_on_positive_time_evidence():
+    """Not inferred from the negative-time floor — measured where it matters."""
+    result = tk.measure_the_late_time_tail_is_not_resolved()
+    assert result["the_tail_is_not_resolved"]
+    assert result["spread_exceeds_the_values"]
+    assert result["the_sign_is_not_even_stable"]
 
 
 # ── gate 3: the published ringdown ──────────────────────────────────────────
@@ -162,7 +178,7 @@ def test_the_ringdown_band_is_reported_rather_than_the_best_row():
 # ── the independent cross-check ─────────────────────────────────────────────
 
 def test_the_kernel_convolution_reproduces_the_time_domain_evolution():
-    """Two methods sharing no code."""
+    """Independent numerical propagation methods on the same operator."""
     result = tk.measure_the_kernel_against_the_time_domain_evolution()
     assert result["the_two_methods_agree"]
     assert result["best"]["peak_relative_max_difference"] < 0.02
@@ -183,7 +199,7 @@ def test_the_dc_sum_rule_holds():
     """`∫K_reg dt = −1` exactly, from `T(0) = 0`. A constraint, not a fit."""
     result = tk.measure_the_transfer_is_not_rigid()
     assert result["the_sum_rule_holds"]
-    assert result["sum_rule_measured"] == pytest.approx(-1.0, abs=5e-3)
+    assert result["sum_rule_measured"] == pytest.approx(-1.0, abs=1e-4)
 
 
 def test_the_transfer_is_not_rigid():
@@ -191,7 +207,48 @@ def test_the_transfer_is_not_rigid():
     result = tk.measure_the_transfer_is_not_rigid()
     assert result["the_kernel_is_not_rigid"]
     assert result["memory_absolute_mass"] > 1.5, "memory exceeds the delta"
-    assert result["transmission_at_dc"] < 1e-4, "DC is blocked completely"
+    assert result["transmission_at_lowest_bin"] < 1e-4
+
+
+def test_the_lowest_bin_is_not_called_dc():
+    """`T(0) = 0` is exact; the tabulated value is the lowest sampled bin."""
+    result = tk.measure_the_transfer_is_not_rigid()
+    assert result["lowest_bin_frequency"] > 0.0
+    assert "not w = 0" in result[
+        "transmission_at_exact_dc_is_zero_analytically"]
+
+
+def test_the_durable_statement_is_the_pair_of_limits_not_the_mass():
+    note = tk.measure_the_transfer_is_not_rigid()["the_durable_statement"]
+    assert "T(inf) = 1" in note and "T(0) = 0" in note
+    assert "does not depend on any measured number" in note
+
+
+def test_the_kernel_integrals_are_converged_in_every_knob():
+    """The mass is a quoted number, so it earns its digits or it is not quoted."""
+    result = tk.measure_the_kernel_integrals_are_converged()
+    assert result["the_mass_is_converged"]
+    assert result["independent_of_the_subtraction_parameter"]
+    assert result["the_sum_rule_holds_across_every_knob"]
+
+
+def test_the_mass_is_quoted_only_to_the_precision_the_spread_supports():
+    """Worst spread ~2e-3, so three significant figures and no more."""
+    result = tk.measure_the_kernel_integrals_are_converged()
+    assert result["the_mass_to_quoted_precision"] == pytest.approx(2.03, abs=0.005)
+    assert result["worst_mass_spread"] > 1e-4, \
+        "if this ever tightens, the quoted precision may be revisited"
+
+
+def test_the_time_quadrature_uses_a_midpoint_grid():
+    """A left-endpoint grid omits `∫₀^{t₀} ≈ −c·t₀` across the jump at `t = 0⁺`,
+    which is what made an earlier draft's sum rule converge as `O(dt)`."""
+    signed, _ = tk.kernel_integrals(1, spacing=0.02)
+    finer, _ = tk.kernel_integrals(1, spacing=0.005)
+    assert signed == pytest.approx(-1.0, abs=1e-4)
+    assert finer == pytest.approx(-1.0, abs=1e-4)
+    # and refining must not be what rescues it
+    assert abs(signed + 1.0) < 1e-3 and abs(finer + 1.0) < 1e-3
 
 
 def test_the_rigidity_claim_states_its_scope():
@@ -249,12 +306,48 @@ def test_the_subtracted_coefficient_is_the_exact_one_not_a_fit():
         "why_the_exact_value_is_the_one_subtracted"]
 
 
-def test_the_fitted_coefficient_is_independent_of_the_outer_edge():
-    """Edge-independence is what distinguishes a bounded shortfall from a
-    truncation drift — the plane-wave version drifted."""
+def test_the_phase_estimator_is_used_because_the_naive_one_is_biased():
+    """`Re[iω(T−1)] = ω sin(c/ω) = c − c³/(6ω²) + …` even for the exact
+    asymptote. That bias was the whole of an earlier draft's 'deficit'."""
+    c = 2.25
+    omega = np.linspace(36.0, 40.0, 100)
+    toy = np.exp(-1j * c / omega)
+    naive = float(np.mean((1j * omega * (toy - 1.0)).real))
+    phase = float(np.mean(-omega * np.angle(toy)))
+    assert phase == pytest.approx(c, abs=1e-12), "the phase estimator is exact"
+    assert naive - c == pytest.approx(-c ** 3 / (6 * 38.0 ** 2), rel=0.05)
+    assert abs(naive - c) > 1e-3, "and the bias is not negligible"
+
+
+def test_the_two_estimators_disagree_on_the_real_spectrum_as_predicted():
+    """And with opposite sign — which is why the old attribution was wrong."""
+    result = tk.measure_the_high_frequency_tail_is_the_exact_one()
+    row = result["rows"][0]
+    assert row["phase_deviation"] > 0.0
+    assert row["biased_deviation"] < 0.0
+    assert abs(row["biased_deviation"]) > 3.0 * abs(row["phase_deviation"])
+    assert "It was the estimator" in result["a_correction_to_an_earlier_draft"]
+
+
+def test_the_biased_estimators_deficit_is_itself_edge_independent():
+    """The tell: a truncation effect moves with the edge, a fixed-form bias
+    does not. That is what identifies it as a bias."""
+    assert tk.measure_the_high_frequency_tail_is_the_exact_one()[
+        "the_biased_estimator_is_also_edge_independent"]
+
+
+def test_the_unbiased_coefficient_is_independent_of_the_outer_edge():
     result = tk.measure_the_high_frequency_tail_is_the_exact_one()
     assert result["independent_of_the_outer_edge"]
-    assert result["spread_across_outer_edges"] < 1e-4
+    assert result["spread_across_outer_edges"] < 1e-6
+
+
+def test_the_subtraction_actually_leaves_an_inverse_square_tail():
+    """Checking `c` is necessary but not sufficient — check the remainder."""
+    result = tk.measure_the_subtraction_leaves_an_inverse_square_tail()
+    assert result["the_remainder_falls_like_one_over_omega_squared"]
+    for row in result["rows"]:
+        assert row["bounded"], f"w^2|S-A| grew at a={row['decay']}"
 
 
 def test_the_lowest_frequency_bin_is_inside_the_centrifugal_tail():
@@ -284,3 +377,32 @@ def test_the_earlier_cross_check_number_is_recorded_as_flattered():
         "an_earlier_number_was_flattered_by_cancellation"]
     assert "0.92%" in note and "2.73%" in note
     assert "larger number is the honest one" in note
+
+
+def test_the_conditioning_claim_is_scoped_to_the_tested_range():
+    """Unit modulus is a property of the asymptotic normalisation; under the
+    barrier `k` is imaginary and the propagator is hyperbolic."""
+    note = tk.measure_the_scattering_is_well_conditioned()[
+        "the_conditioning_claim_is_scoped"]
+    assert "hyperbolic" in note
+    assert "TESTED REAL-FREQUENCY RANGE" in note
+
+
+def test_the_ledger_derives_its_numbers_from_the_measurements():
+    """An earlier draft embedded literals, which then went stale."""
+    ledger = tk.measure_the_transfer_kernel_ledger()
+    cross = tk.measure_the_kernel_against_the_time_domain_evolution()
+    entries = {e["claim"]: e for e in ledger["entries"]}
+    row = next(e for k, e in entries.items() if "independent propagation" in k)
+    expected = f"{100*cross['best']['peak_relative_max_difference']:.2f}%"
+    assert expected in row["verdict"], "the ledger must track K4, not a literal"
+
+
+def test_the_ledger_records_the_estimator_correction():
+    entries = {e["claim"]: e for e in
+               tk.measure_the_transfer_kernel_ledger()["entries"]}
+    bias = next(e for k, e in entries.items() if "high-frequency deficit" in k)
+    assert bias["verdict"] == "NO -- IT WAS THE ESTIMATOR"
+    causal = next(e for k, e in entries.items()
+                  if "bounds the total numerical error" in k)
+    assert causal["verdict"] == "NO -- ACAUSAL ARTIFACTS ONLY"
