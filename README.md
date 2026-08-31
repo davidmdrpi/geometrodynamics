@@ -205,6 +205,8 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Closure-quantum ledger closes modulo m_e | **PARTIALLY REOPENED (PR #271)** | The `2π`-quantised entries stand. The `pinhole γ` entry does not: its geometric derivation is reopened, so the ledger no longer reduces **every** dimensionless parameter to closure quanta. See `docs/scalar_operator_audit.md` |
 | `D = 5` scalar quasinormal frequency (`ℓ = 1`) | **Settled against published values (PR #274)** | `ω = 1.01601691 − 0.36232802i` from Matyjasek 2021 (continued fractions + Hill determinants, arXiv:2107.04815). An independent characteristic evolution here reproduces it to `0.018%` in damping. This **confirms PR #270's Kerr–Schild code (`0.005%`) and excludes its tortoise damping (`27.1%` off)** — #270's own prime suspect was the wrong code. No autopsy: neither #270 code was landed. See `docs/ringdown_cross_validation.md` |
 | Self-convergence as an error bar | **REFUTED BY MEASUREMENT (PR #274)** | This round's own step-size study gave a last successive difference of `4.0e-5` while the true error against the published value is `1.1e-4` — **2.7× larger**, with `h = 0.05` closer than `h = 0.025`. Self-convergence estimates only the error component tied to the refinement parameter. The missing component *is* findable internally — varying the extraction window, observer radius and `t_max` gives a band `3.6×` the step-refinement difference — so the external reference supplies the **anchor**, not the discovery |
+| The finite mouth's geometry | **FORCED — no free tube area, neck radius or length** | One assumption (`S³` = equator of a round `S⁴_R`); then `⁴R = 0` gives `f = √(s²+b²)` and Darmois matching fixes `b = R sin²a`, `S = R sin a cos a`, `L = R sin 2a`. Perturbing `b` by 5% at fixed areal radius leaves a `4.7e-3` slope error: no second matching pair. Seam is shell-free, `[h] = [K] = 0`, Misner–Sharp continuous. See `docs/finite_mouth_prereg.md` |
+| Traversability at a finite mouth | **NEC violation at the neck, for EVERY smooth lapse** | `ρ ≡ 0` for any lapse, and the lapse enters `p_s` only via `3f′N′/(fN)` where `f′(0) = 0` — so `8πG₅(ρ+p_s)\|₀ = −3/(R²sin⁴a)` needing **no** reflection symmetry. Seven hostile lapses (asymmetric, oscillating, exponential, nearly-null) give the identical value. The only escape is `N(0) = 0`, the Tangherlini horizon: **the vacuum and traversable branches are one spatial geometry with two lapses** |
 | BAM's cross-mouth exchange rule | **Relocated, priced, and driven end to end (PR #276)** | `handshake.py` imposes no causal support at all (`geo4` is a spatial angle; `Particle4` has no time). `network.py` (PR #216) does better — an MTY clock offset with everything forward in local time — but supplies no geometry. Supplying it and wiring it in: traversability costs `−3/(16G₅a)` exactly, and `network.py`'s own `Λ` is now driven by a derived `T_ℓ(ω)`. See `docs/traversable_throat.md` |
 | One clock offset closes the BAM loop | **YES, AT `ω = 1.4617` — and the verdict is gauge dependent (PR #276)** | Eliminating `Δ` gives the branch-free `Ψ_ℓ = θ_ℓ − ωθ_ℓ′ = 2πn`. `ConjugatePair` **asserts** the two mouths carry opposite orientations, so `η_topo = −1` for a scalar, not the `+1` a first draft chose — that shifts `Ψ` by `π` and a root appears, stable to `1.0e-6` under `edge`/`steps`/`fd` refinement. But `Ψ` sweeps only `3.9676 < 2π`, so a constant rephasing of the Jost basis can create or remove it: **neither answer is a property of the geometry alone**. Invariant instead: `dΨ/dω = −ωθ″` and the total variation |
 | The `1/ω` closure tail proves no finite root | **NO — IT CONSTRAINS THE TAIL ONLY (PR #276)** | `ω(Ψ − arg η_topo) → −(π/a)[ℓ(ℓ+2)+9/8] = −9π/8` to `0.10 %` by `ω = 20`. The constant must be subtracted or `ωΨ` diverges — invisible at `η_topo = +1`. So `Ψ → π`, the *furthest* a phase can be from a branch: the loop is **least** closed in the UV, and `ω = 1.4617` is a crossing on the way there |
@@ -4311,6 +4313,101 @@ python -m experiments.closure_ledger.transfer_kernel_probe
 ```
 
 Full write-up: `docs/transfer_kernel.md`.
+
+## The finite-mouth handle: one assumption, everything else forced
+
+*Pre-registered in `docs/finite_mouth_prereg.md` and committed **before** the
+module existed — the first application of the audit's recommendation that a
+probe must be able to fail. Module `geometrodynamics/bulk/finite_mouth.py`;
+probe `finite_mouth_probe.py` (6/6); tests `tests/test_finite_mouth.py` (29).*
+
+**The one new assumption.** The observed closed `S³` universe is the totally
+geodesic equator of a round four-sphere spatial bulk `Σ_bulk = S⁴_R`. It
+introduces no new scale and no dimensionless shape parameter.
+
+**Everything else is forced.** Excise two geodesic four-balls of angular radius
+`a < π/2` and join their `S³` boundaries. Demanding `⁴R = 0` on the
+time-symmetric slice gives `ff″ = 1−f′²`, hence `f = √(s²+b²)`. Darmois matching
+(`f_m = R sin a`, `f′₊ = cos a`) is then two conditions on two constants:
+
+```
+b = R sin²a ,   S = R sin a cos a ,   L = 2S = R sin 2a
+```
+
+**There is no tube area, neck radius or throat length left to choose** — which
+is precisely the freedom that carried the answer through PR #263–#265. Holding
+the areal radius correct and moving `b` by 5% leaves a slope error of `4.7e-3`:
+no second matching pair exists.
+
+**One spatial geometry, two lapses.** `ds² + (s²+b²)dΩ₃²` is *also* a
+time-symmetric slice of 5D Schwarzschild–Tangherlini with `F = 1 − b²/r²`,
+`r² = s²+b²`. So the repository's two throat pictures were never different
+spatial geometries:
+
+| branch | `N(0)` | stress | character |
+|--|--|--|--|
+| Tangherlini `N = \|s\|/√(s²+b²)` | `0` | vacuum | horizon, non-traversable |
+| ultrastatic `N = 1` | `1` | anisotropic, NEC-violating | traversable |
+
+**The whole physical fork is the single number `N(0)`.**
+
+**The neck price is unavoidable, and stronger than proposed.** `ρ ≡ 0` for
+*any* lapse (Gauss–Codazzi with `⁴R = 0`), and the lapse enters `p_s` only
+through `3f′N′/(fN)` — where `f′(0) = 0` is what *makes* `s = 0` a neck. So
+
+```
+8πG₅(ρ + p_s)|₀ = −3/b² = −3/(R² sin⁴a)
+```
+
+for **every** smooth lapse with `N(0) > 0`, needing no reflection symmetry.
+Seven hostile lapses — asymmetric `1+0.7s`, oscillating `2+cos 9s`,
+exponential `e^{4s}`, nearly-null `0.05+8s²` — all return the identical value.
+*Smooth and traversable ⟹ radial NEC violation at the neck*; the only escape is
+`N(0) = 0`, the Tangherlini horizon.
+
+**The seam is shell-free.** `[h_ab] = [K_ab] = 0` to `1e-15`, computed from the
+two sides separately, so `S_ab = 0`. The normal pressure agrees exactly at
+`−3/(8πG₅R²)`, as Gauss–Codazzi requires when no shell is present. The geometry
+is `C¹` and not `C²`: `f″` jumps, a finite *step* in bulk stress, not a delta
+function. And the Misner–Sharp parameter `μ = f²(1−f′²)` is `b²` inside and
+`R²sin⁴χ` outside — continuous at `χ = a` — the 5D lift of #265's
+Hawking-mass matching.
+
+**The observable is a DtN operator, not an S-matrix.** There is no infinity, so
+`T_ℓ(ω)` against Jost phases at `s = ±∞` is not physical — and its constant
+phase is exactly what dissolved #276's closure verdict. The finite-mouth map
+`Y_ℓ(ω): (φ_A,φ_B) → (q_A,q_B)` at the two actual `S³` surfaces has an absolute
+reference. Its static limit is closed-form: with `X = arcosh(1/sin a)`,
+`k = ℓ+1`, `F = R sin a`,
+
+```
+Y_ℓ(0) = 2π²F² [[ k coth 2kX − cos a , −k csch 2kX ], [ −k csch 2kX , … ]]
+```
+
+reproduced to `1e-5` by an independent tridiagonal BVP solve that never uses
+the `sinh`/`cosh` reduction, converging at second order (ratios `4.0`) at every
+`ℓ ≤ 8`. The monopole gives `G = π²R²sin⁴a/cos a = 2π²/I₃` with
+`I₃ = 2cos a/(R²sin⁴a)`, and **row sums vanish exactly**: no static monopole
+shunt. Closure then becomes `det[Y^ext + 𝒰†Y^th𝒰] = 0` — a finite-boundary
+determinant, not an asymptotic phase test, so a change of basis conjugates the
+operator instead of shifting a free constant.
+
+*A solver note worth keeping:* a shooting basis was tried first and rejected —
+its two solutions span `e^{±kx}` over rapidity `2kX ≈ 23` at `ℓ = 5`, so
+imposing the far boundary costs ten digits and **the error grew under
+refinement**, which is how it was caught.
+
+**Still open, and it is the real question.** The finite ANEC cost is
+`−(3/R)[cot a + (π/2−a)csc²a]`, diverging as `−3π/(2Ra²)`: the point-mouth
+limit is singularly expensive. *What classical BAM degree of freedom, if any,
+supplies the stress that keeps `N(0) > 0`?* If none, the geometry collapses onto
+the Tangherlini branch and the MTY transaction mechanism is unavailable. The
+discrete identification is deliberately untouched — `Φ_spatial`, `(−1)^ℓ`,
+`η_orientation`, `η_wrap`, `U_spin` remain five separate objects.
+
+```bash
+python -m experiments.closure_ledger.finite_mouth_probe   # 6/6
+```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
