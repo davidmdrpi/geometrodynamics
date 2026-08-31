@@ -205,6 +205,8 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Closure-quantum ledger closes modulo m_e | **PARTIALLY REOPENED (PR #271)** | The `2π`-quantised entries stand. The `pinhole γ` entry does not: its geometric derivation is reopened, so the ledger no longer reduces **every** dimensionless parameter to closure quanta. See `docs/scalar_operator_audit.md` |
 | `D = 5` scalar quasinormal frequency (`ℓ = 1`) | **Settled against published values (PR #274)** | `ω = 1.01601691 − 0.36232802i` from Matyjasek 2021 (continued fractions + Hill determinants, arXiv:2107.04815). An independent characteristic evolution here reproduces it to `0.018%` in damping. This **confirms PR #270's Kerr–Schild code (`0.005%`) and excludes its tortoise damping (`27.1%` off)** — #270's own prime suspect was the wrong code. No autopsy: neither #270 code was landed. See `docs/ringdown_cross_validation.md` |
 | Self-convergence as an error bar | **REFUTED BY MEASUREMENT (PR #274)** | This round's own step-size study gave a last successive difference of `4.0e-5` while the true error against the published value is `1.1e-4` — **2.7× larger**, with `h = 0.05` closer than `h = 0.025`. Self-convergence estimates only the error component tied to the refinement parameter. The missing component *is* findable internally — varying the extraction window, observer radius and `t_max` gives a band `3.6×` the step-refinement difference — so the external reference supplies the **anchor**, not the discovery |
+| A traversable BAM particle throat from existing fields | **NO — NEGATIVE RESULT** | The neck needs `8πG₅T_kk = −3/(R²sin⁴a)`, and every classical field the repository contains gives `T_kk ≥ 0`: minimal scalar, the GL throat-order `q` **that was introduced to represent the throat**, its potential (drops identically), Maxwell/KK, `Λ`, perfect fluid, 5D GWs, the wrap sign (holonomy transport, no stress tensor), and the projected Weyl stress (a 4D brane source, wrong equation). The one loophole — nonminimal coupling — needs `ξ > 1/2` while conformal gives `1−2ξ_c = D/(2(D−1)) > 0` in **every** dimension. Nonzero `K_ij` cannot rescue it either: `θ` is non-increasing, 0 turning points in 15 integrations. Five premises remain open (Gauss–Bonnet, ghost, quantum stress, horizon branch, reinterpretation) and none is refuted |
+| The neck NEC price is an artefact of the lapse or symmetry | **NO — IT IS MORRIS–THORNE / HOCHBERG–VISSER IN 5D** | Re-derived from `θ` and Raychaudhuri alone, residual `1.1e-13`: `θ(0)=0`, `dθ/dλ=+3/b²`, so `R_kk=−3/b²`. Recovering a **known** theorem validates the finite-mouth construction — a second external anchor, deliberately not claimed as a discovery |
 | The finite mouth's geometry | **FORCED — no free tube area, neck radius or length** | One assumption (`S³` = equator of a round `S⁴_R`); then `⁴R = 0` gives `f = √(s²+b²)` and Darmois matching fixes `b = R sin²a`, `S = R sin a cos a`, `L = R sin 2a`. Perturbing `b` by 5% at fixed areal radius leaves a `4.7e-3` slope error: no second matching pair. Seam is shell-free, `[h] = [K] = 0`, Misner–Sharp continuous. See `docs/finite_mouth_prereg.md` |
 | Traversability at a finite mouth | **NEC violation at the neck, for EVERY smooth lapse** | `ρ ≡ 0` for any lapse, and the lapse enters `p_s` only via `3f′N′/(fN)` where `f′(0) = 0` — so `8πG₅(ρ+p_s)\|₀ = −3/(R²sin⁴a)` needing **no** reflection symmetry. Seven hostile lapses (asymmetric, oscillating, exponential, nearly-null) give the identical value. The only escape is `N(0) = 0`, the Tangherlini horizon: **the vacuum and traversable branches are one spatial geometry with two lapses** |
 | BAM's cross-mouth exchange rule | **Relocated, priced, and driven end to end (PR #276)** | `handshake.py` imposes no causal support at all (`geo4` is a spatial angle; `Particle4` has no time). `network.py` (PR #216) does better — an MTY clock offset with everything forward in local time — but supplies no geometry. Supplying it and wiring it in: traversability costs `−3/(16G₅a)` exactly, and `network.py`'s own `Λ` is now driven by a derived `T_ℓ(ω)`. See `docs/traversable_throat.md` |
@@ -4313,6 +4315,79 @@ python -m experiments.closure_ledger.transfer_kernel_probe
 ```
 
 Full write-up: `docs/transfer_kernel.md`.
+
+## No existing BAM field can keep the throat open — a negative result
+
+*Pre-registered in `docs/source_audit_prereg.md`, committed **before** the
+module. Module `geometrodynamics/bulk/source_audit.py`; probe
+`source_audit_probe.py` (5/5); tests `tests/test_source_audit.py` (24).*
+
+**The requirement is a flare-out theorem, not an artefact of `N = 1`.** The
+radial null congruence has a three-dimensional screen in `D = 5`, so
+`θ = 3f′/f`, and Raychaudhuri gives (residual `1.1e-13`, `σ = 0` by symmetry):
+
+```
+θ(0) = 0 ,   dθ/dλ|₀ = +3/b²   ⟹   8πG₅T_kk = R_kk = −3/b²
+```
+
+recovering P4 with no reference to `p_s`, to `N = 1`, or to reflection
+symmetry. **`smooth radial flare-out + Einstein gravity ⟹ T_kk < 0`.**
+
+**This is a known theorem, and saying so is the point.** It is the 5D
+specialisation of the Morris–Thorne flare-out requirement in the local
+Hochberg–Visser form. Recovering it *validates the finite-mouth construction* —
+and the audit found the repository has essentially one external anchor for 324
+claims, so a second is worth more than a misattributed discovery.
+
+**The verdict: every existing candidate gives `T_kk ≥ 0`.** Each built from its
+actual stress tensor, not from prose:
+
+| | candidate | `T_kk` | why |
+|--|--|--|--|
+| C1 | minimal scalar `ψ` | `(k·∇ψ)² ≥ 0` | every `g_ab` term drops |
+| C2 | **complex GL throat-order `q`** | `κ\|k·∇q\|² ≥ 0` | the field introduced to *represent* the throat cannot pay for it |
+| C3 | GL potential, incl. symmetry-breaking | **exactly 0** | pure `g_ab`; `V < 0` is irrelevant to the NEC |
+| C4 | Maxwell / KK | `\|F_{ab}k^b\|² ≥ 0` | `V·k = 0`, so `V` is spacelike or null |
+| C5 | cosmological constant | `0` | `T_ab ∝ g_ab` |
+| C6 | perfect fluid | `(ρ+p)(u·k)² ≥ 0` | conditional on the NEC |
+| C7 | classical 5D GWs | `R_kk = 0` | vacuum; Isaacson energy positive |
+| C8 | wrap sign / identification | none | `hopf/spinor.py` is holonomy **transport**, with no stress tensor |
+| C9 | projected bulk Weyl (#167/#168) | none **in 5D** | there `T⁽⁵⁾_ab = 0`; the projection is an effective *4D brane* source |
+| C10 | conformally improved scalar | `∝ (1−2ξ)(dq/dλ)²` | the only sign not fixed a priori |
+
+**C10 was the only real loophole, and it closes in every dimension.** At the
+`q = 0` defect core the prefactor `1−8πG₅ξq²` is exactly `1` and
+`d²(q²)/dλ² = 2(dq/dλ)²`, so the sign is `sign(1−2ξ)`. A flip needs `ξ > 1/2`,
+while conformal coupling gives
+
+```
+1 − 2ξ_c = D/(2(D−1))  =  2/3, 5/8, 3/5  in D = 4, 5, 6  —  never ≤ 0
+```
+
+**The dynamic escape fails too.** With `T_kk ≥ 0` every term on the right of
+Raychaudhuri is non-positive, so `θ` cannot turn from negative to positive. 15
+integrations over non-negative `R_kk` profiles and shear produce **zero**
+turning points, and every ray focuses within its analytic caustic bound
+`λ ≤ 3/|θ₀|` — the vacuum cases hitting it to 0.3%. So **any** smooth two-way
+traversable BAM throat in classical Einstein gravity needs null-convergence
+violation somewhere; a numerical-relativity round hunting a vacuum dynamic
+rescue would be hunting something the null equations forbid.
+
+*A methodological note kept in the module:* a first draft integrated to a fixed
+`λ ≤ 6` and reported that not every ray focused. That was the **window**, not
+the theorem — at `θ₀ = −0.05` the vacuum caustic sits at `λ = 60`. The
+no-turning-point result never depended on it; the focusing sub-claim did.
+
+**Five branches remain, and the audit refutes none of them** — each is a
+*premise* of the theorem, not a consequence: accept the Tangherlini horizon and
+drop MTY traversability; add a ghost (and its instability); leave Einstein
+gravity (in `D = 5` the natural term is Gauss–Bonnet, exactly where the premise
+fails); invoke quantum/Casimir stress (so the geometry is no longer classical);
+or reinterpret exchange so it needs no traversable throat.
+
+```bash
+python -m experiments.closure_ledger.source_audit_probe   # 5/5
+```
 
 ## The finite-mouth handle: one assumption, everything else forced
 
