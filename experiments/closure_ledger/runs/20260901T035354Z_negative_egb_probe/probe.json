@@ -1,0 +1,178 @@
+{
+  "checks": [
+    {
+      "id": "E1",
+      "name": "*** the exterior constrains alpha the OTHER way ***",
+      "detail": {
+        "ricci_null": 3.0,
+        "lanczos_null": 12.0,
+        "ratio_is_chi_independent": true,
+        "ratio_value": 4.0,
+        "expected_ratio": 4.0,
+        "ricci_null_is_positive": true,
+        "rows": [
+          {
+            "coupling": 0.0,
+            "exterior_null_stress": 3.0,
+            "exterior_nec": true
+          },
+          {
+            "coupling": -0.125,
+            "exterior_null_stress": 1.5,
+            "exterior_nec": true
+          },
+          {
+            "coupling": -0.25,
+            "exterior_null_stress": 0.0,
+            "exterior_nec": true
+          },
+          {
+            "coupling": -0.5,
+            "exterior_null_stress": -3.0,
+            "exterior_nec": false
+          }
+        ],
+        "exterior_needs_alpha_at_least": -0.25,
+        "throat_needs_alpha_at_most": -0.25,
+        "the_two_bounds_coincide": true,
+        "they_point_in_opposite_directions": true,
+        "why": "In the throat R_kk < 0 because the neck must flare out; in the exterior R_kk = +3/R^2 because it holds ordinary matter. The NEC therefore demands opposite signs of the SAME bracket 1 + alpha H_kk/R_kk, and the two bounds land on one number."
+      },
+      "pass": true
+    },
+    {
+      "id": "E2",
+      "name": "*** no open set of couplings survives (a search) ***",
+      "detail": {
+        "scanned_range": [
+          -2.0,
+          2.0
+        ],
+        "samples": 4001,
+        "couplings_satisfying_both": [
+          -0.25
+        ],
+        "surviving_width": 0.0,
+        "the_surviving_set_is_measure_zero": true,
+        "critical_coupling": -0.25,
+        "survivors_are_at_the_critical_value": true,
+        "throat_satisfied_count": 1751,
+        "exterior_satisfied_count": 2251,
+        "why_a_scan": "A surviving interval of alpha would REOPEN the branch, so this looks for one rather than asserting none. The throat and exterior admissible sets are complementary half-lines meeting at a point, so their intersection is a single coupling and any tolerance widens it only by the tolerance.",
+        "what_it_means": "There is no open set of couplings for which this spacetime satisfies the matter NEC everywhere. A fundamental constant of the action would have to take one exact value, tuned to the radius of the universe."
+      },
+      "pass": true
+    },
+    {
+      "id": "E3",
+      "name": "and the two bounds meet by continuity, not by luck",
+      "detail": {
+        "ratio_inside_at_the_seam": 3.9999999999999947,
+        "ratio_outside_at_the_seam": 4.0,
+        "ratio_jump": 5.329070518200751e-15,
+        "ratio_is_continuous": true,
+        "common_value": 4.0,
+        "bracket_inside": 1.3322676295501878e-15,
+        "bracket_outside": 0.0,
+        "bracket_vanishes_at_the_seam": true,
+        "misner_sharp_over_f4_at_the_seam": 0.9999999999999987,
+        "why": "mu/f^4 is 1/R^2 on both sides of the seam -- the same Misner-Sharp continuity finite_mouth's P2 established -- so the shared bracket 1 + 4 alpha mu/f^4 is continuous there. It is required to be <= 0 from the throat side and >= 0 from the exterior side, so it must be exactly 0. The two constraints meet because they are two one-sided limits of one continuous function, not because two independent numbers coincided."
+      },
+      "pass": true
+    },
+    {
+      "id": "E4",
+      "name": "*** and the one surviving coupling empties the universe ***",
+      "detail": {
+        "critical_coupling": -0.25,
+        "rows": [
+          {
+            "coupling": 0.0,
+            "density": 6.0,
+            "pressure": -3.0,
+            "sum": 3.0,
+            "equation_of_state": -0.5
+          },
+          {
+            "coupling": -0.125,
+            "density": 4.5,
+            "pressure": -3.0,
+            "sum": 1.5,
+            "equation_of_state": -0.6666666666666666
+          },
+          {
+            "coupling": -0.25,
+            "density": 3.0,
+            "pressure": -3.0,
+            "sum": 0.0,
+            "equation_of_state": -1.0
+          },
+          {
+            "coupling": -0.375,
+            "density": 1.5,
+            "pressure": -3.0,
+            "sum": -1.5,
+            "equation_of_state": -2.0
+          }
+        ],
+        "pressure_is_coupling_independent": true,
+        "critical_density": 3.0,
+        "critical_pressure": -3.0,
+        "critical_equation_of_state": -1.0,
+        "it_is_exactly_vacuum_energy": true,
+        "einstein_density": 6.0,
+        "density_is_halved": true,
+        "why_the_pressure_cannot_move": "H^i_j = 0 on a maximally symmetric spatial slice, so the entire Gauss-Bonnet correction lands in rho and none of it in p. The equation of state is therefore driven to -1 by shrinking rho onto a fixed p, not by adjusting both.",
+        "what_this_costs": "At the one surviving coupling the exterior -- which is supposed to BE the observed closed universe -- is pure vacuum energy with no ordinary matter anywhere, at half the Einstein-gravity density. Push alpha more negative and the EXTERIOR violates the NEC, which relocates the exotic matter from the throat into the universe around it rather than removing it."
+      },
+      "pass": true
+    },
+    {
+      "id": "E5",
+      "name": "the verdict and what is left untested",
+      "detail": {
+        "branch_is_closed": true,
+        "verdict": "Negative-coupling EGB closes on PHYSICAL grounds: it survives at one exact coupling, and there the observed universe must be empty of ordinary matter",
+        "entries": [
+          {
+            "claim": "the throat's constraint on alpha_GB can be read alone",
+            "verdict": "NO -- alpha_GB IS A COUPLING CONSTANT",
+            "evidence": "the same value acts in the exterior, where R_kk = +3.0000 > 0 and the NEC needs alpha >= -0.250000 -- the opposite direction"
+          },
+          {
+            "claim": "some open interval of alpha_GB works everywhere",
+            "verdict": "NO -- THE SURVIVING SET IS MEASURE ZERO",
+            "evidence": "a 4001-point scan over [-2.0, 2.0] leaves a set of width 0.0e+00, at the single value -0.250000"
+          },
+          {
+            "claim": "the two bounds coinciding is a coincidence",
+            "verdict": "NO -- ONE CONTINUOUS BRACKET",
+            "evidence": "T_kk = R_kk(1 + 4 alpha mu/f^4) on both sides, with R_kk < 0 inside and > 0 outside, and mu/f^4 continuous at the seam at 4.000000/4"
+          },
+          {
+            "claim": "Gauss-Bonnet can adjust the exterior pressure",
+            "verdict": "NO -- H^i_j = 0",
+            "evidence": "on a maximally symmetric slice the whole correction lands in rho; p = -3/R^2 whatever alpha is"
+          },
+          {
+            "claim": "the surviving coupling is physically usable",
+            "verdict": "NO -- IT EMPTIES THE UNIVERSE",
+            "evidence": "w = -1.0 exactly, rho = 3.000000 = half the Einstein value: pure vacuum energy, no ordinary matter anywhere"
+          }
+        ],
+        "what_this_closes": "Global existence for constant-coupling EGB on this geometry. The previous round narrowed the branch by showing a negative coupling was needed; this one closes it by noting that the coupling is not the throat's to choose.",
+        "what_remains_untested": "Stability and the graviton kinetic term at the critical coupling -- the second half of PR #277's open item, and not addressed here. Also dilatonic alpha(phi) L_GB, where the scalar's own stress enters the null contraction and known 5D solutions exist, and f(R). And a DIFFERENT exterior: the constraint is derived for the round S^4_R completion this programme assumes, so a different bulk completion would need its own version of this calculation.",
+        "the_remaining_branches": {
+          "1 accept the horizon": "the Tangherlini branch N(0) = 0 as the particle, abandoning MTY traversability",
+          "2 ghost": "a wrong-sign field, with its stability problem",
+          "3 quantum stress": "Casimir-type support, so the geometry is no longer classical",
+          "4 reinterpret": "particle exchange needs no traversable throat",
+          "5 dilatonic EGB or f(R)": "untested here, and the place where the heterotic term actually lives"
+        }
+      },
+      "pass": true
+    }
+  ],
+  "passed": 5,
+  "total": 5
+}

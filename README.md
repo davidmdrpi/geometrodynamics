@@ -205,6 +205,7 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Closure-quantum ledger closes modulo m_e | **PARTIALLY REOPENED (PR #271)** | The `2π`-quantised entries stand. The `pinhole γ` entry does not: its geometric derivation is reopened, so the ledger no longer reduces **every** dimensionless parameter to closure quanta. See `docs/scalar_operator_audit.md` |
 | `D = 5` scalar quasinormal frequency (`ℓ = 1`) | **Settled against published values (PR #274)** | `ω = 1.01601691 − 0.36232802i` from Matyjasek 2021 (continued fractions + Hill determinants, arXiv:2107.04815). An independent characteristic evolution here reproduces it to `0.018%` in damping. This **confirms PR #270's Kerr–Schild code (`0.005%`) and excludes its tortoise damping (`27.1%` off)** — #270's own prime suspect was the wrong code. No autopsy: neither #270 code was landed. See `docs/ringdown_cross_validation.md` |
 | Self-convergence as an error bar | **REFUTED BY MEASUREMENT (PR #274)** | This round's own step-size study gave a last successive difference of `4.0e-5` while the true error against the published value is `1.1e-4` — **2.7× larger**, with `h = 0.05` closer than `h = 0.025`. Self-convergence estimates only the error component tied to the refinement parameter. The missing component *is* findable internally — varying the extraction window, observer radius and `t_max` gives a band `3.6×` the step-refinement difference — so the external reference supplies the **anchor**, not the discovery |
+| Negative-coupling EGB keeps the throat open | **NO — THE EXTERIOR CLOSES IT** | `α_GB` is a **coupling constant**, so it acts outside too. There `R_kk = +3/R²` (ordinary matter, not flare-out), giving `8πG₅T_kk^ext = 3(R²+4α)/R⁴ ≥ 0 ⟺ α ≥ −R²/4` — the *same number* as the throat's bound, pointing the **other way**. Not a coincidence: both share the bracket `1 + 4αμ/f⁴`, and `μ/f⁴ = 1/R²` on both sides of the seam (the P2 continuity), so it must vanish exactly. A 4001-point scan leaves a surviving set of width `0.0e+00`. And at that single coupling `H^i_j = 0` forces `w = −1` **exactly**: the observed universe must be pure vacuum energy with no matter. **Stability, dilatonic `α(φ)L_GB` and `f(R)` untested** |
 | Gauss–Bonnet reopens the traversable throat | **NARROWED, NOT CLOSED** | Raychaudhuri is action-independent, so flare-out still forces `R_kk < 0`; only which tensor supplies it changes. But `H_kk/R_kk = 4(1−f′²)/f² = 4μ/f⁴ > 0` — the *same* Misner–Sharp `μ` that P2 showed continuous across the seam — so GB has the **same sign** as Einstein at every neck, and the lapse drops out exactly as in P4. So the matter NEC needs a **negative** coupling, and the heterotic `α′/8 > 0` fails hardest (`−393` → `−787`). A first draft claimed closure via "the expansion has broken down"; **withdrawn** — cubic Lovelock is identically zero in `D = 5`, so the tower already terminates at GB, and exact EGB is a complete theory. What replaces it is stronger: the NEC must hold *along* the throat, and `α = −b²/4` leaves `T_kk = −98.3` elsewhere. The mouth sets `f_m⁴/(4b²) = R²/4` **exactly**, so a global solution needs `√\|α\| ≥ R/2` — half the **bulk** radius. Validated by `H_ab ≡ 0` in `D = 4` for two non-vacuum metrics. **Negative-coupling EGB, dilatonic `α(φ)L_GB` and `f(R)` remain open** |
 | A traversable BAM particle throat from existing fields | **NO — NEGATIVE RESULT** | The neck needs `8πG₅T_kk = −3/(R²sin⁴a)`, and every classical field the repository contains gives `T_kk ≥ 0`: minimal scalar, the GL throat-order `q` **that was introduced to represent the throat**, its potential (drops identically), Maxwell/KK, `Λ`, perfect fluid, 5D GWs, the wrap sign (holonomy transport, no stress tensor), and the projected Weyl stress (a 4D brane source, wrong equation). The one loophole — nonminimal coupling — needs `ξ > 1/2` while conformal gives `1−2ξ_c = D/(2(D−1)) > 0` in **every** dimension. Nonzero `K_ij` cannot rescue it either: `θ` is non-increasing, 0 turning points in 15 integrations. Five premises remain open (Gauss–Bonnet, ghost, quantum stress, horizon branch, reinterpretation) and none is refuted |
 | The neck NEC price is an artefact of the lapse or symmetry | **NO — IT IS MORRIS–THORNE / HOCHBERG–VISSER IN 5D** | Re-derived from `θ` and Raychaudhuri alone, residual `1.1e-13`: `θ(0)=0`, `dθ/dλ=+3/b²`, so `R_kk=−3/b²`. Recovering a **known** theorem validates the finite-mouth construction — a second external anchor, deliberately not claimed as a discovery |
@@ -4316,6 +4317,65 @@ python -m experiments.closure_ledger.transfer_kernel_probe
 ```
 
 Full write-up: `docs/transfer_kernel.md`.
+
+## Negative-coupling EGB closes too — the exterior decides it
+
+*Pre-registered in `docs/negative_egb_prereg.md`, committed **before** the
+module. Module `geometrodynamics/bulk/negative_egb.py`; probe
+`negative_egb_probe.py` (5/5); tests `tests/test_negative_egb.py` (18).*
+
+The Gauss–Bonnet round left one branch open: `α_GB ≤ −R²/4` *does* satisfy the
+matter NEC along the throat. **The step it missed is that `α_GB` is a coupling
+constant in the action**, so the same value acts in the exterior the throat is
+glued into. The throat was analysed in isolation, and it should not have been.
+
+**The exterior constrains `α_GB` the other way.** For `ℝ × S⁴_R`,
+`R_kk = +3/R²` — *positive*, because the exterior holds ordinary matter rather
+than flaring out — and `H_kk = 12/R⁴`, so
+
+```
+8πG₅T_kk^ext = 3(R² + 4α_GB)/R⁴  ≥ 0   ⟺   α_GB ≥ −R²/4
+```
+
+against the throat's `α_GB ≤ −R²/4`. **The same number, pointing opposite ways.**
+
+**And that is not a coincidence.** Both regions share one bracket, since
+`T_kk = R_kk(1 + 4αμ/f⁴)`: inside `R_kk < 0` so the NEC needs the bracket `≤ 0`;
+outside `R_kk > 0` so it needs `≥ 0`. And `μ/f⁴ = 1/R²` on **both** sides of the
+seam — the same Misner–Sharp continuity as P2 — and is `χ`-independent
+throughout the exterior. So the bracket is continuous there and must be exactly
+zero. The two bounds are two one-sided limits of one continuous function.
+
+A 4001-point scan over `[−2, 2]` finds survivors of total width **`0.0e+00`**:
+the admissible set is the single point `α_GB = −R²/4`. There is no open set of
+couplings — a fundamental constant of the action would have to be tuned exactly
+to the radius of the universe.
+
+**And the survivor is unusable.** `H^i_j = 0` on a maximally symmetric slice, so
+Gauss–Bonnet cannot touch the exterior pressure at all — the whole correction
+lands in `ρ`:
+
+| `α_GB` | `8πG₅ρ` | `8πG₅p` | `ρ+p` | `w` |
+|--|--|--|--|--|
+| `0` (Einstein) | `+6.000` | `−3.000` | `+3.000` | `−0.500` |
+| `−R²/4` (critical) | `+3.000` | `−3.000` | `0.000` | **`−1.000`** |
+| `−1.5R²/4` | `+1.500` | `−3.000` | `−1.500` | `−2.000` |
+
+At the one surviving coupling the exterior — which is supposed to *be* the
+observed closed universe — is **pure vacuum energy with no ordinary matter
+anywhere**, at half the Einstein density. Push `α_GB` further and the
+**exterior** violates the NEC: the exotic matter is relocated from the throat
+into the universe around it, not removed.
+
+**Untested here:** stability and the graviton kinetic term at the critical
+coupling (the second half of the open item); dilatonic `α(φ)L_GB`, where the
+scalar's own stress enters and where the heterotic term actually lives; `f(R)`;
+and a *different* exterior — the constraint is derived for the round `S⁴_R`
+completion this programme assumes.
+
+```bash
+python -m experiments.closure_ledger.negative_egb_probe   # 5/5
+```
 
 ## Gauss–Bonnet: narrowed, not closed
 
