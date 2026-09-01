@@ -137,6 +137,23 @@ mass term stays finite, so it is the kinetic operator that dies.
 requires; it does not exhibit fields obeying their own equations that supply the
 throat's anisotropic stress.
 
+**E5's reason was wrong, and the true statement is stronger.** E5 above, and
+three docstrings, attributed `H^i_j = 0` to the `S⁴_R` slice being *maximally
+symmetric*. That is the right value for the wrong reason. In `D = 5` the spatial
+block of `H^a_b` for **any** ultrastatic product `−dt² + h₄` is the
+four-dimensional Gauss–Bonnet (Euler) tensor of `h₄`, which vanishes identically
+because Gauss–Bonnet is topological in `D = 4`. No symmetry is used. Checked in
+`gauss_bonnet.measure_the_spatial_block_vanishes` on the throat slice (which is
+*not* maximally symmetric) and on a generic lumpy 4-slice with no symmetry at
+all — both converging to zero at ratio 16 under a 4× step reduction — against a
+nonconstant-lapse control that stays at `2.3e-2` and does **not** shrink.
+
+The consequence is not cosmetic: Gauss–Bonnet cannot touch the pressures
+*anywhere* on this geometry, throat as well as exterior, so the entire
+`α`-dependence lands in the density everywhere. That is what makes the exact
+throat stress `8πG p_s = −3b²/f⁴`, `8πG p_Ω = +b²/f⁴` the Einstein ones at every
+coupling, and `H_tt = −12b⁴/f⁸` — both confirmed numerically to `1e-4`.
+
 ---
 
 ## The frozen verdict

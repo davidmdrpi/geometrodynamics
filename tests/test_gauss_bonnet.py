@@ -255,3 +255,62 @@ def test_the_probe_module_imports_and_declares_its_checks():
     from experiments.closure_ledger import gauss_bonnet_probe as probe
     assert callable(probe.run_probe)
     assert callable(probe.render_markdown)
+
+
+# ── the spatial Lanczos block (added after review of PR #278) ────────────────
+
+def test_the_spatial_block_vanishes_for_every_ultrastatic_product():
+    """`H^i_j = 0` is the 4D Euler tensor, not a consequence of symmetry.
+
+    Three docstrings in this programme credited the vanishing to the `S^4_R`
+    slice being maximally symmetric. It holds for a throat slice, which is not,
+    and for a slice with no symmetry at all.
+    """
+    result = gb.measure_the_spatial_block_vanishes()
+    assert result["vanishes_for_every_ultrastatic_case"]
+    assert result["worst_ultrastatic_residual"] < 1e-4
+    for row in result["rows"]:
+        if row["ultrastatic"]:
+            assert row["refinement_ratio"] > 8.0, (
+                f"{row['metric']}: a discretisation zero must shrink like "
+                f"step^2, got ratio {row['refinement_ratio']:.1f}")
+
+
+def test_the_nonconstant_lapse_control_does_not_vanish():
+    """Without this the check could not distinguish a result from a bug."""
+    result = gb.measure_the_spatial_block_vanishes()
+    assert result["control_does_not_vanish"]
+    assert result["control_residual"] > 1e-3
+    control = next(r for r in result["rows"] if not r["ultrastatic"])
+    assert control["refinement_ratio"] < 1.5, \
+        "a structural nonzero must NOT shrink under refinement"
+
+
+def test_the_reason_given_is_the_euler_tensor_not_maximal_symmetry():
+    result = gb.measure_the_spatial_block_vanishes()
+    why = result["why"].lower()
+    assert "euler" in why and "topological" in why
+    assert "maximal symmetry is not used" in why
+
+
+def test_the_throat_lanczos_time_component_matches_the_closed_form():
+    """`H_tt = -12 b^4/f^8` along the scalar-flat handle, checked at two
+    points including the neck."""
+    neck_radius = 0.7
+    for s in (0.0, 0.9):
+        point = np.array([0.0, s, 1.0, 0.8, 0.0])
+        mixed, _ = gb.lanczos_mixed(gb._throat_metric(neck_radius), point,
+                                    step=5e-4)
+        f_squared = s * s + neck_radius ** 2
+        expected = -12.0 * neck_radius ** 4 / f_squared ** 4
+        # g_tt = -1, so H^t_t = -H_tt.
+        assert mixed[0, 0] == pytest.approx(-expected, rel=1e-4), \
+            f"at s = {s}"
+
+
+def test_the_negative_egb_module_no_longer_credits_maximal_symmetry():
+    from geometrodynamics.bulk import negative_egb as egb
+    empty = egb.measure_the_critical_exterior_is_empty()
+    why = empty["why_the_pressure_cannot_move"]
+    assert "ultrastatic" in why.lower()
+    assert "maximally symmetric" not in why.lower()

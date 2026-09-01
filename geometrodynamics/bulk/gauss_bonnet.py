@@ -298,6 +298,74 @@ def lanczos_null_contraction(metric: Callable, point: np.ndarray,
     return ricci_kk, lanczos_kk
 
 
+def lanczos_mixed(metric: Callable, point: np.ndarray,
+                  step: float = 1e-3) -> Tuple[np.ndarray, float]:
+    """The full ``H^a_b`` and ``L_GB``, keeping the ``-(1/2) g_ab L_GB`` term.
+
+    ``lanczos_null_contraction`` may drop that term because it dies under a
+    null contraction. Here it does not: the spatial block is exactly where it
+    survives, so it has to be carried.
+
+    The index placement is the delicate part. ``R_abcd R^abcd`` needs **all
+    four** indices raised; a draft of this calculation raised only three and
+    contracted a down index against a down index. The tell was that the error
+    did not shrink under refinement — see the note in
+    ``docs/negative_egb_prereg.md``.
+    """
+    g = metric(point)
+    inverse = np.linalg.inv(g)
+    riemann_up = _riemann(metric, point, step)
+    riemann = np.einsum("am,mbcd->abcd", g, riemann_up)          # R_abcd
+    ricci = np.einsum("mamb->ab", riemann_up)                    # R_ab
+    scalar = float(np.einsum("ab,ab->", inverse, ricci))
+    ricci_uu = inverse @ ricci @ inverse                         # R^ab
+    riemann_u3 = np.einsum("abcd,bp,cq,dr->apqr", riemann,
+                           inverse, inverse, inverse)            # R_a^{pqr}
+    riemann_u4 = np.einsum("apqr,am->mpqr", riemann_u3, inverse)  # R^{mpqr}
+
+    l_gb = (scalar ** 2
+            - 4.0 * float(np.einsum("ab,ab->", ricci_uu, ricci))
+            + float(np.einsum("abcd,abcd->", riemann, riemann_u4)))
+
+    term1 = scalar * ricci
+    term2 = np.einsum("ac,cb->ab", ricci @ inverse, ricci)
+    term3 = np.einsum("cd,acbd->ab", ricci_uu, riemann)
+    term4 = np.einsum("acde,bcde->ab", riemann, riemann_u3)
+    lanczos = (2.0 * (term1 - 2.0 * term2 - 2.0 * term3 + term4)
+               - 0.5 * g * l_gb)
+    return inverse @ lanczos, l_gb
+
+
+def _ultrastatic_lumpy() -> Callable:
+    """``-dt^2 + h_4`` with a deliberately generic, inhomogeneous, non-diagonal
+    spatial metric — no Killing vector, no symmetry to lean on."""
+    def metric(point: np.ndarray) -> np.ndarray:
+        x, y, z, w = point[1], point[2], point[3], point[4]
+        g = np.eye(5)
+        g[0, 0] = -1.0
+        g[1, 1] = 1.0 + 0.30 * math.sin(x) + 0.10 * math.cos(2.0 * y)
+        g[2, 2] = 1.0 + 0.20 * math.cos(y) * math.sin(z)
+        g[3, 3] = 1.0 + 0.25 * math.sin(z + 0.4 * w)
+        g[4, 4] = 1.0 + 0.15 * math.cos(w) * math.cos(x)
+        g[1, 2] = g[2, 1] = 0.12 * math.sin(x + y) * math.cos(z)
+        g[3, 4] = g[4, 3] = 0.08 * math.sin(w - z)
+        return g
+    return metric
+
+
+def _lumpy_with_lapse() -> Callable:
+    """The control: the same spatial lumps, but a **nonconstant lapse**, so the
+    product structure is broken. If the spatial block vanished here too, the
+    check could not detect anything."""
+    base = _ultrastatic_lumpy()
+
+    def metric(point: np.ndarray) -> np.ndarray:
+        g = base(point).copy()
+        g[0, 0] = -(1.0 + 0.3 * math.sin(point[1])) ** 2
+        return g
+    return metric
+
+
 def _throat_metric(neck_radius: float, lapse_value: float = 1.0) -> Callable:
     """``-N^2 dt^2 + ds^2 + f^2 dOmega_3^2`` as a callable, for the checker."""
     def metric(point: np.ndarray) -> np.ndarray:
@@ -364,6 +432,77 @@ def measure_the_lanczos_tensor_is_correct() -> Dict[str, object]:
                 "general NON-VACUUM A(r) as well as for Schwarzschild shows the "
                 "zero is a property of the implementation and the dimension, "
                 "not of R_ab = 0."),
+    }
+
+
+@lru_cache(maxsize=4)
+def measure_the_spatial_block_vanishes() -> Dict[str, object]:
+    """B0b — ``H^i_j = 0`` for **any** ultrastatic product, not just a
+    maximally symmetric slice.
+
+    Three earlier docstrings in this programme attributed the vanishing spatial
+    Lanczos block to maximal symmetry of the ``S^4_R`` slice. That is the right
+    value for the wrong reason, and it understates the result. For any
+    ``-dt^2 + h_4`` in ``D = 5`` the spatial block of ``H^a_b`` reduces to the
+    **four-dimensional Gauss-Bonnet (Euler) tensor of ``h_4``**, which vanishes
+    identically because Gauss-Bonnet is topological in ``D = 4``. No symmetry
+    is used.
+
+    The consequence is not cosmetic: Gauss-Bonnet cannot touch the pressures
+    *anywhere* on this geometry — throat as well as exterior — so the whole
+    correction lands in the density, and the throat's ``p_s``, ``p_Omega`` are
+    the Einstein ones at every coupling.
+    """
+    rows = []
+    steps = (2e-3, 1e-3, 5e-4)
+    cases = [
+        ("throat, s = 0.9 (ultrastatic, NOT max. symmetric)",
+         _throat_metric(0.7), np.array([0.0, 0.9, 1.0, 0.8, 0.0]), True),
+        ("throat, at the neck s = 0",
+         _throat_metric(0.7), np.array([0.0, 0.0, 1.1, 0.7, 0.0]), True),
+        ("generic lumpy 4-slice (no symmetry at all)",
+         _ultrastatic_lumpy(), np.array([0.0, 0.3, -0.5, 0.9, 0.2]), True),
+        ("CONTROL: same slice, nonconstant lapse",
+         _lumpy_with_lapse(), np.array([0.0, 0.3, -0.5, 0.9, 0.2]), False),
+    ]
+    for name, metric, point, ultrastatic in cases:
+        residuals = []
+        for step in steps:
+            mixed, _ = lanczos_mixed(metric, point, step)
+            residuals.append(float(np.abs(mixed[1:, 1:]).max()))
+        # A discretisation zero shrinks like step^2; a structural nonzero does
+        # not shrink at all.
+        shrinks = bool(residuals[0] > 4.0 * residuals[-1])
+        rows.append({"metric": name, "ultrastatic": ultrastatic,
+                     "residuals": residuals,
+                     "refinement_ratio": float(residuals[0] / residuals[-1])
+                     if residuals[-1] > 0.0 else float("inf"),
+                     "converges_to_zero": shrinks})
+
+    ultrastatic_rows = [r for r in rows if r["ultrastatic"]]
+    control = next(r for r in rows if not r["ultrastatic"])
+    return {
+        "rows": rows,
+        "vanishes_for_every_ultrastatic_case": bool(
+            all(r["converges_to_zero"] for r in ultrastatic_rows)),
+        "control_does_not_vanish": bool(not control["converges_to_zero"]),
+        "worst_ultrastatic_residual": max(r["residuals"][-1]
+                                          for r in ultrastatic_rows),
+        "control_residual": control["residuals"][-1],
+        "why": ("For -dt^2 + h_4 in D = 5 the spatial block of H^a_b is the 4D "
+                "Gauss-Bonnet (Euler) tensor of h_4, which vanishes "
+                "identically because Gauss-Bonnet is topological in D = 4. "
+                "Maximal symmetry is not used, and the throat slice is not "
+                "maximally symmetric."),
+        "why_the_control_matters": (
+            "Breaking the product with a nonconstant lapse leaves a spatial "
+            f"block of {control['residuals'][-1]:.2e} that does NOT shrink "
+            "under refinement, so the zeros above are a result rather than a "
+            "property of the instrument."),
+        "what_it_means": (
+            "Gauss-Bonnet cannot touch the pressures anywhere on this "
+            "geometry. The entire alpha-dependence lands in the density, in "
+            "the throat as well as in the exterior."),
     }
 
 
@@ -571,6 +710,14 @@ def measure_the_gauss_bonnet_ledger() -> Dict[str, object]:
              "evidence": "H_ab vanishes identically for Schwarzschild AND for "
                          "two general non-vacuum A(r), so the zero is not an "
                          "artefact of R_ab = 0"},
+            {"claim": "the vanishing spatial block H^i_j = 0 is due to the "
+                      "slice being maximally symmetric",
+             "verdict": "NO -- IT IS THE 4D EULER TENSOR",
+             "evidence": "H^i_j vanishes (ratio 16 under a 4x step reduction) "
+                         "for the throat slice and for a generic lumpy 4-slice "
+                         "with no symmetry; a nonconstant-lapse control stays "
+                         "at 2.3e-2 and does not shrink. So Gauss-Bonnet cannot "
+                         "touch the pressures ANYWHERE on this geometry"},
             {"claim": "Gauss-Bonnet can supply the negative null stress",
              "verdict": "NO -- IT HAS THE SAME SIGN",
              "evidence": f"H_kk/R_kk = 4 mu/f^4 = "

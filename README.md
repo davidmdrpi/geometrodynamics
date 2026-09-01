@@ -4351,8 +4351,12 @@ the admissible set is the single point `α_GB = −R²/4`. There is no open set 
 couplings — a fundamental constant of the action would have to be tuned exactly
 to the radius of the universe.
 
-**The survivor forces a vacuum-form 5D exterior.** `H^i_j = 0` on a maximally
-symmetric slice, so Gauss–Bonnet cannot touch the exterior pressure at all — the
+**The survivor forces a vacuum-form 5D exterior.** `H^i_j = 0` for **any**
+ultrastatic product `−dt² + h₄`, because in `D = 5` the spatial block is the 4D
+Gauss–Bonnet (Euler) tensor of `h₄` and Gauss–Bonnet is topological in `D = 4`.
+An earlier draft credited this to maximal symmetry of the slice — the right
+value for the wrong reason, and weaker than the truth: Gauss–Bonnet cannot touch
+the pressure *anywhere* on this geometry, throat as well as exterior, so the
 whole correction lands in `ρ`:
 
 | `α_GB` | `8πG₅ρ` | `8πG₅p` | `ρ+p` | `w` |
@@ -4415,7 +4419,7 @@ python -m experiments.closure_ledger.negative_egb_probe   # 5/5
 
 *Pre-registered in `docs/gauss_bonnet_prereg.md`, committed **before** the
 module. Module `geometrodynamics/bulk/gauss_bonnet.py`; probe
-`gauss_bonnet_probe.py` (5/5); tests `tests/test_gauss_bonnet.py` (24).*
+`gauss_bonnet_probe.py` (6/6); tests `tests/test_gauss_bonnet.py` (32).*
 
 The source audit left five branches. **Gauss–Bonnet was the only one keeping
 both a classical geometry and a traversable throat** — and in `D = 5` the
@@ -4497,7 +4501,7 @@ Lovelock tower is **not** a separate premise in `D = 5` — it terminates at
 Gauss–Bonnet.
 
 ```bash
-python -m experiments.closure_ledger.gauss_bonnet_probe   # 5/5
+python -m experiments.closure_ledger.gauss_bonnet_probe   # 6/6
 ```
 
 ## No existing BAM field can keep the throat open — a negative result

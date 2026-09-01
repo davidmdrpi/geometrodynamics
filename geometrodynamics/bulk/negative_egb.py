@@ -39,8 +39,14 @@ a **measure-zero** solution: there is no open set of couplings.
 
 WHAT THE CRITICAL SOLUTION IS -- AND IS NOT
 ───────────────────────────────────────────
-``H^i_j = 0`` on a maximally symmetric slice, so Gauss-Bonnet does not touch the
-exterior pressure at all:
+``H^i_j = 0`` for **any** ultrastatic product ``-dt^2 + h_4``, because in
+``D = 5`` the spatial block is the four-dimensional Gauss-Bonnet (Euler) tensor
+of ``h_4`` and Gauss-Bonnet is topological in ``D = 4``. Maximal symmetry is not
+needed and an earlier draft wrongly credited it — see
+``gauss_bonnet.measure_the_spatial_block_vanishes``, which checks a throat slice
+and a generic lumpy one, with a nonconstant-lapse control that does *not*
+vanish. So Gauss-Bonnet does not touch the pressure anywhere on this geometry,
+exterior or throat:
 
     8 pi G_5 rho_ext = 6/R^2 + 12 alpha_GB/R^4      8 pi G_5 p_ext = -3/R^2
 
@@ -187,8 +193,9 @@ def exterior_density(coupling: float, bulk_radius: float = BULK_RADIUS) -> float
 def exterior_pressure(coupling: float, bulk_radius: float = BULK_RADIUS) -> float:
     """``8 pi G_5 p = -3/R^2``, **independent of the coupling**.
 
-    Gauss-Bonnet cannot touch it: ``H^i_j = 0`` on a maximally symmetric
-    spatial slice, so the whole correction lands in ``rho``.
+    Gauss-Bonnet cannot touch it: ``H^i_j = 0`` for any ultrastatic product,
+    the slice's symmetry being irrelevant, so the whole correction lands in
+    ``rho``.
     """
     return -3.0 / (bulk_radius * bulk_radius)
 
@@ -359,7 +366,8 @@ def measure_the_critical_exterior_is_empty(
             abs(critical_density - 0.5 * exterior_density(0.0, bulk_radius))
             < 1e-12),
         "why_the_pressure_cannot_move": (
-            "H^i_j = 0 on a maximally symmetric spatial slice, so the entire "
+            "H^i_j = 0 for ANY ultrastatic product -- the spatial block is the "
+            "4D Euler tensor, topological in D = 4 -- so the entire "
             "Gauss-Bonnet correction lands in rho and none of it in p. The "
             "equation of state is therefore driven to -1 by shrinking rho onto "
             "a fixed p, not by adjusting both."),
