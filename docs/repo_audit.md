@@ -16,14 +16,33 @@ functions, 324 claim rows in `README.md`, 45 recorded probe runs.
 `A → ¬A → A`; every reversal traced below ratchets to a strictly narrower or
 better-posed statement, and several dissolve the original question rather than
 answering it the other way. But that is not reassurance, because the real
-finding is worse than circling: **the repository has no internal mechanism that
-can say "wrong."** 45 probe runs have produced 45 passes and 0 failures. 1405
-tests are green and have always been green. Every substantive correction in the
-recent history was initiated from outside — by review — not by the
-instruments. The rate at which bad claims are caught is therefore set by review
-bandwidth, not by the science, and claim production (324 rows) outruns external
-anchoring (essentially one published oracle) by more than two orders of
-magnitude.
+finding is worse than circling: **the repository's instruments do not
+adjudicate the kind of error that keeps being found.** 45 probe runs have
+produced 45 passes and 0 failures. Every substantive correction in the recent
+history was initiated from outside — by review — not by the instruments. The
+rate at which bad claims are caught is therefore set by review bandwidth, not
+by the science, and claim production (324 rows) outruns external anchoring
+(essentially one published oracle) by more than two orders of magnitude.
+
+> **Correction (added after review).** A first version of this audit claimed
+> the test suite had been "green and always green — 0 red at any commit". That
+> is **false**, and it was asserted from local runs without checking CI. GitHub
+> Actions run `32330296533` (PR #263, 2026-08-20, commit `9cbfa25`) concluded
+> `failure`, with `test_the_quadrature_converges_on_known_integrals` failing:
+> `1 failed, 1185 passed, 1 xfailed`. A 60-run sample of the 318 recorded CI
+> runs found exactly that one failure; the remaining 258 were not enumerated,
+> so the true count may be higher.
+>
+> The correction *sharpens* the finding rather than softening it. The suite
+> **can** reject numerical machinery — it caught a quadrature that failed to
+> converge on known integrals. What it has never done is adjudicate the
+> high-level interpretation and provenance errors that review keeps finding:
+> a chosen `η_topo`, a tube area carrying the answer, an "off resonance"
+> computed on the wrong system. Those are the errors that reverse conclusions,
+> and they are invisible to a suite that tests machinery.
+>
+> Writing "always been green" from local runs, in a document whose whole
+> subject is unverified assertion, is the audit committing its own diagnosis.
 
 ---
 
@@ -62,31 +81,35 @@ not flipped back.
 
 ---
 
-## Finding 2 — the instruments cannot fail
+## Finding 2 — the probes cannot fail, and the suite tests the wrong layer
 
 This is the core defect.
 
 | instrument | count | times it has ever reported a problem |
 |--|--|--|
 | probe runs (`experiments/*/runs/*/probe.md`) | 45 recorded | **0** |
-| test suite | 1405 tests | 0 red at any commit |
+| test suite in CI | 318 recorded runs | **1** in a 60-run sample (run `32330296533`) |
 
 A probe is written *after* the result is known, and its checks are constructed
 around what the calculation already produced. `run_probe()` returns
 `passed == total` by construction in every recorded run in the repository's
 history. **An instrument that has never once fired is a recording device, not a
 verification device**, and the `8/8 checks pass` banner at the top of each
-write-up reads as evidence when it carries none.
+write-up reads as evidence when it carries none. That charge stands against the
+probes without qualification: 45 runs, 45 passes.
 
-The test suite has the same problem in a subtler form. Most of the 1405 tests
-pin *machinery* — exact closed forms, unitarity, symmetry, convergence order —
-and those are genuinely load-bearing. But the handful of **verdict** tests are
+The test suite is different in kind, and the correction above matters here.
+Most of the 1405 tests pin *machinery* — exact closed forms, unitarity,
+symmetry, convergence order — and those are genuinely load-bearing and have
+fired at least once. But the handful of **verdict** tests are
 edited whenever the verdict changes. In `5750069` I renamed
 `test_no_finite_frequency_closes_carrier_and_packet_together` to
 `test_the_loop_closes_at_a_finite_frequency_on_the_declared_topology` — the test
 followed the conclusion. A suite that is regenerated to match the current answer
 cannot ratchet against a wrong one, and its size (1890 passing) actively
-misleads about stability.
+misleads about stability. The distinction the CI failure draws is exactly the
+right one: the suite guards the *machinery layer* and has fired there, while
+the *verdict layer* is regenerated to match whatever was concluded.
 
 ---
 

@@ -1,8 +1,8 @@
 """Probe: does Gauss–Bonnet reopen the finite-mouth throat?
 
 Every prediction was frozen in `docs/gauss_bonnet_prereg.md` **before this
-module existed** (commit `d47df40`). The answer is no, and it fails in the
-direction opposite to the one the branch was invoked for.
+module existed** (commit `d47df40`). The branch is **narrowed, not closed**:
+G6 was withdrawn after review, and its replacement is a stronger constraint.
 
 Run:  python -m experiments.closure_ledger.gauss_bonnet_probe
 """
@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath(
 
 from geometrodynamics.bulk.gauss_bonnet import (  # noqa: E402
     measure_gauss_bonnet_reinforces_einstein,
-    measure_the_expansion_breaks_down,
+    measure_the_negative_coupling_requirement,
     measure_the_gauss_bonnet_ledger,
     measure_the_lanczos_tensor_is_correct,
     measure_the_required_coupling,
@@ -51,11 +51,14 @@ def run_probe() -> dict:
         "pass": bool(coupling["no_positive_coupling_works"]
                      and coupling["heterotic_makes_it_worse"])})
 
-    expansion = measure_the_expansion_breaks_down()
+    expansion = measure_the_negative_coupling_requirement()
     checks.append({
-        "id": "B3", "name": "and at that size the truncation is unjustified",
+        "id": "B3",
+        "name": "*** a neck-only cancellation is not a wormhole ***",
         "detail": expansion,
-        "pass": bool(expansion["it_equals_the_leading_term"])})
+        "pass": bool(not expansion["neck_only_satisfies_nec_globally"]
+                     and expansion["global_satisfies_nec"]
+                     and expansion["tower_terminates_at_gauss_bonnet"])})
 
     ledger = measure_the_gauss_bonnet_ledger()
     checks.append({
@@ -76,8 +79,8 @@ def render_markdown(summary: dict) -> str:
 
     L: List[str] = [
         "# Does Gauss–Bonnet reopen the throat?", "",
-        f"**{summary['passed']}/{summary['total']} checks pass — and the "
-        "branch closes.**", "",
+        f"**{summary['passed']}/{summary['total']} checks pass — the branch is "
+        "narrowed, not closed.**", "",
         "Frozen in `docs/gauss_bonnet_prereg.md` before this module existed.", "",
         "> ## The verdict", "",
         f"> **{ledger['verdict']}.**", "",
@@ -87,6 +90,11 @@ def render_markdown(summary: dict) -> str:
         "part geometrically. Instead `H_kk` has the **same sign** as `R_kk` at "
         "every neck, so the best-motivated coupling makes the violation worse.",
         "",
+        "> **An earlier draft of this probe said the branch was closed. It is "
+        "not.** A sufficiently negative constant coupling *does* satisfy the "
+        "matter NEC — see B3, which replaces a withdrawn claim that the "
+        "derivative expansion had broken down. What is closed is the cheap "
+        "version.", "",
         "---", "",
         "## B0 — validate the implementation where the answer is known", "",
         "In `D = 4` the Gauss–Bonnet invariant is topological, so `H_ab` must "
@@ -133,22 +141,37 @@ def render_markdown(summary: dict) -> str:
           f"`{coup['threshold_formula']}`, i.e. "
           f"`α_GB ≤ {coup['threshold']:.9f}` here.", "",
           "> **" + coup["why_the_sign_matters"] + "**", "",
-          "## B3 — and even then, outside the theory's own regime", "",
-          "| `α_GB` | `α_GB H_kk / R_kk` |", "|--|--|"]
-    for row in exp["rows"]:
-        L.append(f"| `{row['coupling']:+.9f}` | `{row['relative_size']:+.4f}` |")
-    L += ["",
-          f"The required Gauss–Bonnet length is "
-          f"`√|α| = {exp['gauss_bonnet_length']:.6f}`, exactly "
-          f"`{exp['length_ratio']:.4f} × b` — tied to the throat radius rather "
-          "than to a separate short scale.", "",
-          "> " + exp["why"], "",
+          "## B3 — a neck-only cancellation is not a wormhole", "",
+          "**Withdrawn first.** An earlier draft read `α_GB H_kk/R_kk = −1` as "
+          "the derivative expansion breaking down. In `D = 5` the Lovelock "
+          "tower already terminates at Gauss–Bonnet:", "",
+          "| Lovelock `k` | status in `D = 5` |", "|--|--|"]
+    for row in exp["lovelock_in_five_dimensions"]:
+        L.append(f"| {row['order']} | {row['status']} |")
+    L += ["", "> **" + exp["what_was_withdrawn"] + "**", "",
+          "**What replaces it.** The NEC must hold *along* the throat, and the "
+          "neck is its easiest point:", "",
+          "| requirement | `α_GB` | `min T_kk` over throat | NEC everywhere? |",
+          "|--|--|--|--|",
+          f"| neck only, `−b²/4` | `{exp['neck_threshold']:+.9f}` | "
+          f"`{exp['neck_only_min_over_throat']:+.2f}` | "
+          f"**{'yes' if exp['neck_only_satisfies_nec_globally'] else 'no'}** |",
+          f"| whole throat, `−R²/4` | `{exp['global_threshold']:+.9f}` | "
+          f"`{exp['global_min_over_throat']:+.6f}` | "
+          f"**{'yes' if exp['global_satisfies_nec'] else 'no'}** |", "",
+          f"The mouth sets `f_m⁴/(4b²) = R²/4` **exactly**, independent of `a`, "
+          f"so the global requirement is `{exp['ratio_global_to_neck']:.0f}×` "
+          "the neck-only one here — and the Gauss–Bonnet length must be "
+          f"`√|α| ≥ {exp['length_over_bulk_radius']:.2f} R`, half the radius of "
+          "the closed universe rather than a short-distance scale.", "",
+          "> " + exp["what_replaces_it"], "",
+          "> **" + exp["the_honest_verdict"] + "**", "",
           "## B4 — the ledger", "", "| claim | verdict | evidence |",
           "|--|--|--|"]
     for entry in ledger["entries"]:
         L.append(f"| {entry['claim']} | **{entry['verdict']}** | "
                  f"{entry['evidence']} |")
-    L += ["", "**What this closes.** " + ledger["what_this_closes"], "",
+    L += ["", "**What this narrows.** " + ledger["what_this_narrows"], "",
           "**What remains.**", ""]
     for key, value in ledger["what_remains"].items():
         L.append(f"- **{key}** — {value}")

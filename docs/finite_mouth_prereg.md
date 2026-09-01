@@ -8,6 +8,28 @@ are written down first so the next computation has a real chance to fail.
 
 ---
 
+## Erratum (post-review): there are three inputs, not one
+
+Two corrections to the framing below, both from review.
+
+**"One assumption; everything else forced" hid two more.** The `S⁴_R` bulk
+completion does **not** imply `⁴R = 0` in the handle. Scalar-flatness on a
+time-symmetric slice is an *independent physical condition*: matching supplies
+only two boundary conditions, so without it many profiles meet the same mouth
+radius and slope. And the mouth angle `a` is a free dimensionless parameter.
+**P1 should be read as conditional on all three** — round `S⁴` exterior,
+scalar-flat time-symmetric handle, chosen `a` — and *then* `b, S, L` are forced.
+
+**P6 establishes a shared spatial profile, not one global spacetime.** The
+shell-free seam is verified only for the ultrastatic branch. On the same
+spatial profile the Tangherlini lapse has `N(S) = cos a ≠ 1` and
+`K^t_t = −tan(a)/R ≠ 0` at the seam against `0` outside — a genuine Israel
+layer — so it does **not** Darmois-match the same ultrastatic `S⁴` exterior and
+would need its own. "The whole physical fork is `N(0)`" is therefore an
+interior statement, not a global one.
+
+---
+
 ## The one new assumption
 
 The observed closed `S³` universe is the totally geodesic equator of a round

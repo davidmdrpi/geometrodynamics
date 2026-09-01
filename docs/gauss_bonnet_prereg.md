@@ -112,6 +112,31 @@ relative to Einstein is `α_GB H_kk / R_kk = 4α_GB/f₀²`, which at the thresh
 is exactly `−1`: the "correction" equals the leading term. Truncating Lovelock
 at Gauss–Bonnet is then unjustified — the whole tower contributes.
 
+> ### ⚠ G6 IS WITHDRAWN (post-review erratum)
+>
+> Both halves are wrong in `D = 5`. The `k`-th Lovelock density antisymmetrises
+> `2k` indices, so it vanishes identically for `2k > D`: **cubic Lovelock needs
+> six and is identically zero here.** The tower already terminates at
+> Gauss–Bonnet, so there is nothing further to contribute. And exact
+> Einstein–Gauss–Bonnet is a *complete classical theory* with second-order
+> equations, not a truncation that can lose validity — order-one is just
+> order-one.
+>
+> The arithmetic `α_GB H_kk/R_kk = −1` stands; the interpretation does not.
+> Its replacement, derived after review, is stronger and is a real constraint
+> rather than a regime complaint: the NEC must hold **along the throat**, not
+> only at the neck. Pointwise it demands `α ≤ −f⁴/(4μ)`, which is *weakest* at
+> the neck, and at the mouth `f_m⁴/(4b²) = R²/4` **exactly**, independent of
+> `a`. So a global matter-NEC solution needs `α_GB ≤ −R²/4`, i.e. a
+> Gauss–Bonnet length of at least `R/2` — half the radius of the closed
+> universe. The neck-only value leaves `T_kk` at `−98.3` elsewhere on the
+> throat, missing the global requirement by `1/sin⁴a = 131`.
+>
+> **The frozen verdict below is likewise weakened from "closed" to "narrowed".**
+> Failure 3 is withdrawn; failure 1 becomes a *comparison* rather than a closure
+> argument, since the heterotic Gauss–Bonnet term is dilaton-coupled — which
+> this round explicitly excludes.
+
 ---
 
 ## The frozen verdict

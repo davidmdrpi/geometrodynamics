@@ -1,4 +1,4 @@
-"""Does Gauss–Bonnet reopen the finite-mouth throat? No — it reinforces it.
+"""Does Gauss–Bonnet reopen the finite-mouth throat? Narrowed, not closed.
 
 THE BRANCH, AND WHY IT WAS WORTH COMPUTING
 ──────────────────────────────────────────
@@ -6,7 +6,8 @@ THE BRANCH, AND WHY IT WAS WORTH COMPUTING
 flare-out theorem rather than a consequence. Gauss-Bonnet is the one to compute
 first: in ``D = 5`` the invariant is **dynamical** rather than topological, it
 is the only escape that keeps both a classical geometry and a traversable
-throat, and it is a calculation instead of a philosophical choice.
+throat, and it is a calculation instead of a philosophical choice. In ``D = 5``
+it is also the *last* Lovelock term — see ``lovelock_status``.
 
     G_ab + alpha_GB H_ab = 8 pi G_5 T_ab
 
@@ -35,15 +36,52 @@ the Misner-Sharp parameter — the same quantity ``finite_mouth`` P2 showed is
 continuous across the seam — so the reinforcement holds along the whole throat
 wherever ``mu > 0``.
 
-Satisfying the matter NEC therefore needs
+Satisfying the matter NEC **at the neck** therefore needs
 
     alpha_GB <= -f_0^2/4
 
-which fails three ways at once: the sign is opposite to the heterotic value
-``alpha' /8 > 0``; the magnitude ties the Gauss-Bonnet length to the throat
-radius; and at that magnitude ``alpha_GB H_kk/R_kk = -1`` exactly, so the
-"correction" equals the leading term and truncating Lovelock at Gauss-Bonnet is
-no longer justified.
+— a *negative* coupling. That does not close the branch, and an earlier draft
+of this module wrongly said it did. Two corrections, both from review:
+
+**Lovelock terminates at Gauss-Bonnet in D = 5.** The k-th Lovelock density
+antisymmetrises 2k indices, so it vanishes identically for 2k > D; cubic
+Lovelock needs six and is identically zero here. There is therefore no "rest of
+the tower" to invoke, and ``alpha_GB H_kk/R_kk = -1`` does **not** mean exact
+constant-coupling EGB has left its own regime — EGB is a complete classical
+theory with second-order equations, not a truncation of one. It means only that
+the Gauss-Bonnet term is order-one relative to Einstein.
+
+**The heterotic sign is a comparison, not a closure argument.** In heterotic
+string theory the Gauss-Bonnet term is dilaton-coupled, which this module
+explicitly excludes. Its positive sign is suggestive about where a
+string-motivated coupling would sit; it does not constrain constant EGB.
+
+WHAT ACTUALLY NARROWS THE BRANCH
+────────────────────────────────
+A neck-only cancellation is not a wormhole. Since
+``8 pi G_5 T_kk = R_kk (1 + 4 alpha mu/f^4)`` with ``R_kk < 0``, the NEC needs
+
+    alpha_GB <= -f^4/(4 mu) = -f^4/(4 b^2)      pointwise
+
+which is *weakest* at the neck and strengthens outward as ``f`` grows. Imposing
+it across the whole throat is controlled by the mouth, and there
+
+    f_m^4/(4 b^2) = (R sin a)^4 / (4 R^2 sin^4 a) = R^2/4      exactly
+
+independently of the mouth angle. So a **global** matter-NEC solution needs
+
+    alpha_GB <= -R^2/4 ,   i.e.   sqrt|alpha_GB| >= R/2
+
+the Gauss-Bonnet length must be half the **bulk radius** — the size of the
+universe — rather than a short-distance scale. At ``a = 0.3`` the neck-only
+value ``-b^2/4`` leaves ``T_kk`` as negative as ``-98.3`` elsewhere on the
+throat, missing the global requirement by ``1/sin^4 a = 131``.
+
+That is the honest verdict: **narrowed, not closed.** Positive/string-sign
+``alpha`` reinforces the violation; a sufficiently negative constant coupling
+can satisfy the matter NEC, but only at a Gauss-Bonnet length comparable to the
+whole closed universe. Global existence and stability of such a solution are
+untouched here.
 
 HOW IT IS CHECKED
 ─────────────────
@@ -56,10 +94,17 @@ of vacuum structure.
 
 SCOPE
 ─────
-Constant-coupling Einstein-Gauss-Bonnet only. A *dilatonic* ``alpha(phi)L_GB``,
-the full Lovelock tower, and ``f(R)`` are separate premises and are **not**
-refuted here. Predictions G1-G6 are frozen in ``docs/gauss_bonnet_prereg.md``,
-committed before this module existed.
+Constant-coupling Einstein-Gauss-Bonnet only, and it is **narrowed rather than
+refuted**: negative ``alpha_GB <= -R^2/4`` does satisfy the matter NEC along
+the throat, with global existence and stability untouched. A *dilatonic*
+``alpha(phi)L_GB`` — where the scalar's own stress enters, and where the
+heterotic term actually lives — and ``f(R)`` are separate premises and are not
+tested. The Lovelock tower is **not** a separate premise in ``D = 5``: it
+terminates at Gauss-Bonnet.
+
+Predictions G1-G5 are frozen in ``docs/gauss_bonnet_prereg.md``, committed
+before this module existed. G6 was frozen too and is **withdrawn** — see
+``measure_the_negative_coupling_requirement``.
 """
 
 from __future__ import annotations
@@ -90,7 +135,9 @@ __all__ = [
     "measure_the_lanczos_tensor_is_correct",
     "measure_gauss_bonnet_reinforces_einstein",
     "measure_the_required_coupling",
-    "measure_the_expansion_breaks_down",
+    "measure_the_negative_coupling_requirement",
+    "lovelock_status",
+    "global_coupling_threshold",
     "measure_the_gauss_bonnet_ledger",
 ]
 
@@ -412,34 +459,93 @@ def measure_the_required_coupling(
     }
 
 
+def lovelock_status(order: int, dimension: int) -> str:
+    """Whether the ``k``-th Lovelock density is dynamical, topological, or zero.
+
+    The density antisymmetrises ``2k`` indices, so it vanishes identically for
+    ``2k > D`` and is a total derivative at ``2k = D``. In ``D = 5`` that makes
+    Gauss-Bonnet (``k = 2``) the **last** dynamical term: cubic Lovelock needs
+    six indices and is identically zero. There is no further tower to invoke.
+    """
+    if 2 * order > dimension:
+        return "identically zero"
+    if 2 * order == dimension:
+        return "topological"
+    return "dynamical"
+
+
+def global_coupling_threshold(bulk_radius: float = BULK_RADIUS) -> float:
+    """``alpha_GB <= -R^2/4``: the NEC along the *whole* throat, not just the neck.
+
+    Pointwise the requirement is ``alpha <= -f^4/(4 mu)``, weakest at the neck
+    and strengthening outward. At the mouth
+    ``f_m^4/(4b^2) = (R sin a)^4/(4 R^2 sin^4 a) = R^2/4`` **exactly**,
+    independently of the mouth angle — so the binding constraint is set by the
+    bulk radius alone.
+    """
+    return -0.25 * bulk_radius * bulk_radius
+
+
 @lru_cache(maxsize=8)
-def measure_the_expansion_breaks_down(
+def measure_the_negative_coupling_requirement(
         bulk_radius: float = BULK_RADIUS,
         mouth_angle: float = MOUTH_ANGLE) -> Dict[str, object]:
-    """B3 — even granting the wrong sign, the truncation is unjustified."""
+    """B3 — a neck-only cancellation is not a wormhole.
+
+    Replaces an earlier draft's claim that ``alpha H_kk/R_kk = -1`` meant the
+    derivative expansion had broken down. It does not: in ``D = 5`` Lovelock
+    terminates at Gauss-Bonnet, and exact EGB is a complete classical theory
+    rather than a truncation. What actually constrains the branch is that the
+    NEC must hold along the throat, not only at its narrowest point.
+    """
     g = geometry(bulk_radius, mouth_angle)
     b = g.neck_radius
-    threshold = coupling_threshold(b)
-    rows = [{"coupling": coupling,
-             "relative_size": relative_gauss_bonnet_size(coupling, b)}
-            for coupling in (0.01 * threshold, 0.1 * threshold,
-                             0.5 * threshold, threshold)]
+    neck = coupling_threshold(b)
+    glob = global_coupling_threshold(bulk_radius)
+    s = np.linspace(-g.half_length, g.half_length, 601)
+    with_neck = matter_null_stress(s, b, neck)
+    with_global = matter_null_stress(s, b, glob)
+    lovelock = [{"order": k, "status": lovelock_status(k, 5)}
+                for k in (1, 2, 3, 4)]
     return {
-        "threshold": threshold,
-        "relative_size_at_threshold": relative_gauss_bonnet_size(threshold, b),
-        "rows": rows,
-        "it_equals_the_leading_term": bool(
-            abs(relative_gauss_bonnet_size(threshold, b) + 1.0) < 1e-12),
-        "gauss_bonnet_length": math.sqrt(abs(threshold)),
-        "neck_radius": b,
-        "length_ratio": math.sqrt(abs(threshold)) / b,
-        "why": ("alpha_GB H_kk/R_kk = 4 alpha_GB/f_0^2, which is exactly -1 at "
-                "the threshold: the 'correction' equals the term it corrects. "
-                "A derivative expansion truncated at Gauss-Bonnet has stopped "
-                "meaning anything there, and the whole Lovelock tower would "
-                "contribute. The required Gauss-Bonnet length is f_0/2, i.e. "
-                "tied to the throat radius rather than to a separate short "
-                "scale."),
+        "neck_threshold": neck,
+        "global_threshold": glob,
+        "global_threshold_is_minus_quarter_R_squared": bool(
+            abs(glob + 0.25 * bulk_radius ** 2) < 1e-15),
+        "ratio_global_to_neck": glob / neck,
+        "expected_ratio": 1.0 / math.sin(mouth_angle) ** 4,
+        "neck_only_min_over_throat": float(np.min(with_neck)),
+        "neck_only_satisfies_nec_globally": bool(np.all(with_neck >= -1e-9)),
+        "global_min_over_throat": float(np.min(with_global)),
+        "global_satisfies_nec": bool(np.all(with_global >= -1e-9)),
+        "gauss_bonnet_length": math.sqrt(abs(glob)),
+        "bulk_radius": bulk_radius,
+        "length_over_bulk_radius": math.sqrt(abs(glob)) / bulk_radius,
+        "relative_size_at_neck_threshold": relative_gauss_bonnet_size(neck, b),
+        "lovelock_in_five_dimensions": lovelock,
+        "tower_terminates_at_gauss_bonnet": bool(
+            lovelock_status(3, 5) == "identically zero"),
+        "what_was_withdrawn": (
+            "An earlier draft read alpha_GB H_kk/R_kk = -1 as 'the derivative "
+            "expansion has broken down and the whole Lovelock tower "
+            "contributes'. Both halves are wrong in D = 5: cubic Lovelock "
+            "antisymmetrises six indices and is IDENTICALLY ZERO here, so there "
+            "is no further tower; and exact Einstein-Gauss-Bonnet is a complete "
+            "classical theory with second-order equations, not a truncation "
+            "that can lose validity. Order-one is just order-one."),
+        "what_replaces_it": (
+            "The NEC has to hold along the throat, not only at the neck. "
+            "Pointwise it demands alpha <= -f^4/(4 mu), which is WEAKEST at the "
+            "neck; at the mouth f_m^4/(4b^2) = R^2/4 exactly, independent of "
+            "the mouth angle. So a global solution needs alpha <= -R^2/4, i.e. "
+            "a Gauss-Bonnet length of at least R/2 -- half the radius of the "
+            "closed universe, not a short-distance scale."),
+        "the_honest_verdict": (
+            "NARROWED, NOT CLOSED. Positive/string-sign alpha reinforces the "
+            "violation. A sufficiently negative constant coupling can satisfy "
+            "the matter NEC, but only at a Gauss-Bonnet length comparable to "
+            "the whole closed universe. Global existence and stability of such "
+            "a solution are untouched here."),
     }
 
 
@@ -449,14 +555,16 @@ def measure_the_gauss_bonnet_ledger() -> Dict[str, object]:
     validation = measure_the_lanczos_tensor_is_correct()
     sign = measure_gauss_bonnet_reinforces_einstein()
     coupling = measure_the_required_coupling()
-    expansion = measure_the_expansion_breaks_down()
-    closed = bool(sign["reinforces"] and coupling["no_positive_coupling_works"]
-                  and expansion["it_equals_the_leading_term"])
+    requirement = measure_the_negative_coupling_requirement()
+    narrowed = bool(sign["reinforces"] and coupling["no_positive_coupling_works"]
+                    and not requirement["neck_only_satisfies_nec_globally"])
     return {
-        "branch_is_closed": closed,
-        "verdict": ("Gauss-Bonnet does NOT reopen the throat: it reinforces "
-                    "the Einstein violation" if closed
-                    else "the branch survives -- see the rows"),
+        "branch_is_narrowed_not_closed": narrowed,
+        "verdict": ("Gauss-Bonnet is NARROWED, not closed: positive/string-sign "
+                    "alpha reinforces the violation, and a global matter-NEC "
+                    "solution needs a Gauss-Bonnet length of at least half the "
+                    "BULK radius" if narrowed
+                    else "the branch is unconstrained -- see the rows"),
         "entries": [
             {"claim": "the Lanczos implementation is trustworthy",
              "verdict": "VALIDATED IN D = 4",
@@ -477,19 +585,40 @@ def measure_the_gauss_bonnet_ledger() -> Dict[str, object]:
              "evidence": "the best-motivated sign deepens the violation by "
                          "(1 + 4 alpha_GB/f_0^2); the matter NEC would need "
                          f"alpha_GB <= {coupling['threshold']:.9f}"},
-            {"claim": "a negative coupling of the right size would work",
-             "verdict": "ONLY OUTSIDE THE THEORY'S OWN REGIME",
-             "evidence": "at threshold alpha_GB H_kk/R_kk = "
-                         f"{expansion['relative_size_at_threshold']:.1f}, so "
-                         "the correction equals the leading term and "
-                         "truncating Lovelock at Gauss-Bonnet is unjustified"},
+            {"claim": "alpha H_kk/R_kk = -1 means the expansion has broken down",
+             "verdict": "WITHDRAWN -- WRONG IN D = 5",
+             "evidence": "cubic Lovelock antisymmetrises six indices and is "
+                         "IDENTICALLY ZERO in five dimensions, so there is no "
+                         "further tower; and exact EGB is a complete classical "
+                         "theory, not a truncation that can lose validity"},
+            {"claim": "a negative coupling that works at the neck suffices",
+             "verdict": "NO -- THE NECK IS THE EASIEST POINT",
+             "evidence": "the NEC needs alpha <= -f^4/(4 mu) pointwise, weakest "
+                         f"at the neck; alpha = -b^2/4 leaves T_kk as low as "
+                         f"{requirement['neck_only_min_over_throat']:.1f} "
+                         "elsewhere on the throat"},
+            {"claim": "a global matter-NEC solution is available cheaply",
+             "verdict": "ONLY AT A COSMOLOGICAL GAUSS-BONNET LENGTH",
+             "evidence": "the mouth sets f_m^4/(4b^2) = R^2/4 exactly, "
+                         "independent of the mouth angle, so alpha <= -R^2/4 "
+                         f"and sqrt|alpha| >= R/2 -- "
+                         f"{requirement['ratio_global_to_neck']:.0f}x the "
+                         "neck-only requirement here"},
         ],
-        "what_this_closes": (
+        "what_this_narrows": (
             "The classical-geometry escape from the source audit. Gauss-Bonnet "
-            "was the only branch keeping both a classical geometry and a "
-            "traversable throat, and for the natural D = 5 higher-curvature "
-            "term with its best-motivated sign it fails."),
+            "is the only branch keeping both a classical geometry and a "
+            "traversable throat, and it is not closed: a sufficiently negative "
+            "constant coupling does satisfy the matter NEC. What is closed is "
+            "the cheap version -- the string-motivated sign fails, and a global "
+            "solution needs the Gauss-Bonnet length to be half the radius of "
+            "the closed universe rather than a short-distance scale."),
         "what_remains": {
+            "0 negative-coupling EGB": "not refuted -- alpha <= -R^2/4 satisfies "
+                                       "the matter NEC along the throat, at a "
+                                       "Gauss-Bonnet length of half the bulk "
+                                       "radius; global existence and stability "
+                                       "are open",
             "1 accept the horizon": "the Tangherlini branch N(0) = 0 as the "
                                     "particle, abandoning MTY traversability",
             "2 ghost": "a wrong-sign field, with its stability problem",
@@ -498,8 +627,9 @@ def measure_the_gauss_bonnet_ledger() -> Dict[str, object]:
             "4 reinterpret": "particle exchange needs no traversable throat",
         },
         "not_refuted_here": (
-            "Dilatonic alpha(phi) L_GB, where the scalar's own stress enters "
-            "and known 5D solutions exist; the full Lovelock tower; and f(R). "
-            "Those are separate premises, and this round tested constant-"
-            "coupling EGB only."),
+            "Negative-coupling constant EGB itself, which this round NARROWS "
+            "rather than closes. Also dilatonic alpha(phi) L_GB, where the "
+            "scalar's own stress enters and known 5D solutions exist, and "
+            "f(R). The Lovelock tower is not a separate premise in D = 5: it "
+            "terminates at Gauss-Bonnet."),
     }

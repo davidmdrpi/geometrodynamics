@@ -2,12 +2,21 @@
 
 WHAT IS ASSUMED, AND WHAT IS FORCED
 ───────────────────────────────────
-**One** geometric assumption: the observed closed `S³` universe is the totally
-geodesic equator of a round four-sphere spatial bulk ``Sigma_bulk = S^4_R``. It
-adds no scale and no dimensionless shape parameter.
+**Three** inputs, not one. An earlier draft of this module said "one geometric
+assumption; everything else forced", and that hid two of them:
 
-Everything else here is forced. Excise two geodesic four-balls of angular
-radius ``a < pi/2`` and join their ``S^3`` boundaries by ``[-S,S] x S^3`` with
+1. the observed closed ``S^3`` universe is the totally geodesic equator of a
+   round four-sphere spatial bulk ``Sigma_bulk = S^4_R``;
+2. the handle interior is **scalar-flat on a time-symmetric slice**,
+   ``{}^{(4)}R = 0``. This does *not* follow from (1). It is an independent
+   physical condition on the throat, and it is what selects ``f`` out of the
+   many profiles that meet the same mouth radius and slope — matching alone is
+   two boundary conditions and constrains no interior;
+3. the mouth angular radius ``a``, a free dimensionless shape parameter.
+
+*Given all three*, the remaining constants are forced. Excise two geodesic
+four-balls of angular radius ``a < pi/2`` and join their ``S^3`` boundaries by
+``[-S,S] x S^3`` with
 
     ds^2 = -N(s)^2 dt^2 + ds^2 + f(s)^2 dOmega_3^2
 
@@ -33,7 +42,17 @@ are one spatial geometry with two lapses:
     N_trav(s) = 1                   ultrastatic, traversable, NEC-violating
 
 ``lapse_vacuum`` and ``lapse_ultrastatic`` below are exactly those, evaluated on
-the *same* ``throat_radius``. The physical fork is the single number ``N(0)``.
+the *same* ``throat_radius``.
+
+**But that is a statement about the spatial profile, not about a single global
+spacetime.** An earlier draft of this module said "the whole physical fork is
+the number ``N(0)``", which overstated it. Only the ultrastatic branch is shown
+here to join the ultrastatic ``S^4`` exterior without a shell. The Tangherlini
+lapse on the same spatial profile has ``N(S) = cos a != 1`` and
+``K^t_t = -tan(a)/R != 0`` at the seam, against ``K^t_t = 0`` outside — a
+genuine Israel layer. So the vacuum branch does **not** Darmois-match the same
+ultrastatic exterior; it would need its own. ``junction_jumps`` now computes
+both branches rather than only the one that works.
 
 WHY A DtN OPERATOR AND NOT AN S-MATRIX
 ──────────────────────────────────────
@@ -306,6 +325,10 @@ def junction_jumps(bulk_radius: float = BULK_RADIUS,
     # normal pressure on each side, ultrastatic
     p_in = -3.0 * g.neck_radius ** 2 / f_in ** 4
     p_out = -3.0 / bulk_radius ** 2
+    # The VACUUM branch against the SAME ultrastatic exterior: it does not match.
+    lapse_at_seam = s_edge / math.sqrt(s_edge ** 2 + g.neck_radius ** 2)
+    lapse_slope = g.neck_radius ** 2 / (s_edge ** 2 + g.neck_radius ** 2) ** 1.5
+    vacuum_ktt = -lapse_slope / lapse_at_seam
     return {
         "areal_radius_inside": f_in,
         "areal_radius_outside": f_out,
@@ -320,6 +343,24 @@ def junction_jumps(bulk_radius: float = BULK_RADIUS,
         "normal_pressure_outside": p_out,
         "normal_pressure_jump": abs(p_in - p_out),
         "exterior_density": 6.0 / bulk_radius ** 2,
+        # ── the vacuum branch, which does NOT match the same exterior ──────
+        "vacuum_lapse_at_seam": lapse_at_seam,
+        "vacuum_lapse_jump": abs(lapse_at_seam - 1.0),
+        "vacuum_timelike_curvature_inside": vacuum_ktt,
+        "vacuum_timelike_curvature_outside": 0.0,
+        "vacuum_timelike_curvature_jump": abs(vacuum_ktt),
+        "vacuum_matches_the_ultrastatic_exterior": bool(
+            abs(vacuum_ktt) < 1e-12 and abs(lapse_at_seam - 1.0) < 1e-12),
+        "vacuum_jump_closed_form": -math.tan(mouth_angle) / bulk_radius,
+        "the_fork_is_not_merely_N_at_zero": (
+            "An earlier draft said the whole physical fork is the number N(0). "
+            "That holds for the SPATIAL profile only. Against this ultrastatic "
+            "S^4 exterior the vacuum branch has N(S) = cos a != 1 and "
+            "K^t_t = -tan(a)/R != 0 while the exterior has 0, so it carries a "
+            "genuine Israel layer and does not Darmois-match. A global "
+            "Tangherlini spacetime needs its own exterior; what is shared "
+            "between the two branches is the spatial geometry, not a single "
+            "matched spacetime with an interchangeable lapse."),
         "second_derivative_jumps": (
             "f'' = b^2/f^3 inside and -R sin chi outside do NOT agree, so the "
             "geometry is C^1 and not C^2. That is a finite STEP in bulk stress, "

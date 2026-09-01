@@ -162,34 +162,82 @@ def test_the_heterotic_sign_is_recorded_as_positive_and_deepens_it():
     assert heterotic < einstein < 0.0
 
 
-# ── the regime of validity ──────────────────────────────────────────────────
+# ── what a negative coupling actually costs ─────────────────────────────────
 
-def test_at_the_threshold_the_correction_equals_the_leading_term():
-    result = gb.measure_the_expansion_breaks_down()
-    assert result["it_equals_the_leading_term"]
-    assert result["relative_size_at_threshold"] == pytest.approx(-1.0, abs=1e-12)
+def test_lovelock_terminates_at_gauss_bonnet_in_five_dimensions():
+    """Why the withdrawn G6 was wrong: there is no further tower in `D = 5`.
+    The `k`-th density antisymmetrises `2k` indices, so it vanishes for
+    `2k > D` and is topological at `2k = D`."""
+    assert gb.lovelock_status(2, 4) == "topological"
+    assert gb.lovelock_status(2, 5) == "dynamical"
+    assert gb.lovelock_status(3, 5) == "identically zero"
+    assert gb.lovelock_status(3, 6) == "topological"
+    assert gb.lovelock_status(3, 7) == "dynamical"
+    assert gb.measure_the_negative_coupling_requirement()[
+        "tower_terminates_at_gauss_bonnet"]
 
 
-def test_the_required_gauss_bonnet_length_is_half_the_neck_radius():
-    result = gb.measure_the_expansion_breaks_down()
-    assert result["length_ratio"] == pytest.approx(0.5, rel=1e-12)
+def test_the_withdrawn_claim_is_recorded_as_withdrawn():
+    note = gb.measure_the_negative_coupling_requirement()["what_was_withdrawn"]
+    assert "IDENTICALLY ZERO" in note
+    assert "complete classical theory" in note
+
+
+def test_a_neck_only_coupling_fails_the_nec_elsewhere_on_the_throat():
+    """The neck is the *easiest* point: the pointwise requirement
+    `alpha <= -f^4/(4 mu)` strengthens outward as `f` grows."""
+    result = gb.measure_the_negative_coupling_requirement()
+    assert not result["neck_only_satisfies_nec_globally"]
+    assert result["neck_only_min_over_throat"] < -1.0
+
+
+def test_the_global_threshold_is_minus_a_quarter_of_the_bulk_radius_squared():
+    """`f_m^4/(4b^2) = R^2/4` exactly, independent of the mouth angle."""
+    for R in (1.0, 2.5):
+        assert gb.global_coupling_threshold(R) == pytest.approx(
+            -0.25 * R ** 2, rel=1e-14)
+        for a in (0.1, 0.3, 0.8):
+            g = fm.geometry(R, a)
+            assert -g.mouth_radius ** 4 / (4.0 * g.neck_radius ** 2) == \
+                pytest.approx(-0.25 * R ** 2, rel=1e-12), "a must cancel"
+    result = gb.measure_the_negative_coupling_requirement()
+    assert result["global_threshold_is_minus_quarter_R_squared"]
+    assert result["global_satisfies_nec"]
+
+
+def test_the_global_requirement_is_a_cosmological_gauss_bonnet_length():
+    """`sqrt|alpha| >= R/2` — half the closed universe, not a short scale."""
+    result = gb.measure_the_negative_coupling_requirement()
+    assert result["length_over_bulk_radius"] == pytest.approx(0.5, rel=1e-12)
+    assert result["ratio_global_to_neck"] == pytest.approx(
+        result["expected_ratio"], rel=1e-9)
 
 
 # ── scope ───────────────────────────────────────────────────────────────────
 
-def test_the_branch_is_reported_closed():
+def test_the_branch_is_reported_narrowed_and_not_closed():
+    """The corrected verdict. A negative coupling *does* work, so claiming
+    closure would be the same overreach the audit was written about."""
     ledger = gb.measure_the_gauss_bonnet_ledger()
-    assert ledger["branch_is_closed"]
-    assert "does NOT reopen" in ledger["verdict"]
+    assert ledger["branch_is_narrowed_not_closed"]
+    assert "NARROWED, not closed" in ledger["verdict"]
+    assert "not closed" in ledger["what_this_narrows"]
 
 
-def test_the_ledger_leaves_four_branches_and_names_what_is_untested():
+def test_the_ledger_keeps_negative_coupling_egb_as_an_open_branch():
     ledger = gb.measure_the_gauss_bonnet_ledger()
-    assert len(ledger["what_remains"]) == 4
+    assert len(ledger["what_remains"]) == 5
+    branches = " ".join(ledger["what_remains"].keys()).lower()
+    assert "negative-coupling egb" in branches, \
+        "the branch this round narrowed must stay listed as open"
+    detail = " ".join(ledger["what_remains"].values())
+    assert "not refuted" in detail
+    assert "stability" in detail, "global existence/stability must be flagged open"
     untested = ledger["not_refuted_here"]
-    assert "Dilatonic" in untested
-    assert "Lovelock" in untested
+    assert "dilatonic" in untested.lower()
     assert "f(R)" in untested
+    assert "terminates at Gauss-Bonnet" in untested, \
+        "the Lovelock tower is not a separate premise in D = 5"
 
 
 def test_the_ledger_derives_its_numbers_from_the_measurements():
@@ -198,6 +246,9 @@ def test_the_ledger_derives_its_numbers_from_the_measurements():
     entries = {e["claim"]: e for e in ledger["entries"]}
     row = next(e for k, e in entries.items() if "supply the negative" in k)
     assert f"{sign['ratio_at_neck']:.4f}" in row["evidence"]
+    requirement = gb.measure_the_negative_coupling_requirement()
+    row = next(e for k, e in entries.items() if "works at the neck suffices" in k)
+    assert f"{requirement['neck_only_min_over_throat']:.1f}" in row["evidence"]
 
 
 def test_the_probe_module_imports_and_declares_its_checks():

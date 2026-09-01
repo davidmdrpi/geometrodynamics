@@ -212,6 +212,16 @@ def measure_the_flare_out_requirement(
             "p_s, to N = 1, or to reflection symmetry. Smooth radial flare-out "
             "plus Einstein gravity forces T_kk < 0, whatever the lapse and "
             "whatever the matter."),
+        "normalisation": (
+            "THE SIGN IS INVARIANT; THE MAGNITUDE IS NOT. R_ab k^a k^b scales "
+            "as lambda^2 under k -> lambda k, so -3/b^2 is quoted in the local "
+            "normalisation k^{hat t} = 1 at the neck. theta = 3 f'/f is "
+            "likewise the ultrastatic/locally normalised form; for an affinely "
+            "parametrised radial null ray in a general lapse it is "
+            "theta = 3(E/N) f'/f with E the conserved energy, and the neck "
+            "value -3/b^2 is recovered by setting k^{hat t} = 1 there. The "
+            "flare-out theorem depends only on the sign, which no rescaling "
+            "can move."),
         "attribution": (
             "NOT a new theorem: this is the 5D specialisation of the standard "
             "traversable-wormhole flare-out requirement (Morris-Thorne 1988) in "

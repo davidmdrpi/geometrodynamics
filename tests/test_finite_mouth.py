@@ -264,3 +264,35 @@ def test_the_probe_module_imports_and_declares_its_checks():
     from experiments.closure_ledger import finite_mouth_probe as probe
     assert callable(probe.run_probe)
     assert callable(probe.render_markdown)
+
+
+# ── post-review corrections ─────────────────────────────────────────────────
+
+def test_the_vacuum_branch_does_not_match_the_ultrastatic_exterior():
+    """P6 corrected. The shared object is the *spatial* profile, not a single
+    global spacetime: the Tangherlini lapse carries `K^t_t = −tan(a)/R ≠ 0` at
+    the seam against `0` outside, so it needs its own exterior."""
+    for R, a in ((1.0, 0.3), (1.0, 0.8), (2.5, 0.3)):
+        j = fm.junction_jumps(R, a)
+        assert not j["vacuum_matches_the_ultrastatic_exterior"]
+        assert j["vacuum_timelike_curvature_inside"] == pytest.approx(
+            -math.tan(a) / R, rel=1e-12)
+        assert j["vacuum_lapse_at_seam"] == pytest.approx(math.cos(a), rel=1e-12)
+        assert j["vacuum_lapse_jump"] > 1e-3
+        # the ultrastatic branch, by contrast, still matches
+        assert j["surface_stress_vanishes"]
+
+
+def test_the_module_records_that_the_fork_is_not_merely_N_at_zero():
+    note = fm.junction_jumps()["the_fork_is_not_merely_N_at_zero"]
+    assert "SPATIAL profile only" in note
+    assert "Israel layer" in note
+
+
+def test_the_scalar_flat_condition_is_named_as_an_independent_input():
+    """"One assumption, everything else forced" hid two more: `⁴R = 0` in the
+    handle does not follow from the `S⁴_R` completion, and `a` is free."""
+    doc = fm.__doc__
+    assert "Three** inputs, not one" in doc or "**Three** inputs" in doc
+    assert "does *not* follow from (1)" in doc
+    assert "free dimensionless shape parameter" in doc
