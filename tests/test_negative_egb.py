@@ -1,12 +1,15 @@
 """Does negative-coupling EGB actually work? Checked against
 `docs/negative_egb_prereg.md`, frozen before the module.
 
-Four kinds. The *exterior* ones pin `R_kk`, `H_kk` and the `χ`-independence
+Five kinds. The *exterior* ones pin `R_kk`, `H_kk` and the `χ`-independence
 that makes the outside constraint a single number. The *search* one hunts for a
 surviving interval of `α_GB` rather than asserting there is none — a surviving
 interval would reopen the branch. The *mechanism* ones pin that the two bounds
-meet by continuity of one bracket, not by coincidence. And the *cost* ones pin
-what the single surviving coupling does to the observed universe.
+meet by continuity of one bracket, not by coincidence. The *cost* ones pin the
+vacuum-form exterior — and, correcting this round's first draft, that the throat
+matter there is **not** exotic. And the *graviton* ones carry the actual
+closure: the TT kinetic coefficient, derived on this product background rather
+than recalled from the maximally symmetric formula.
 """
 
 import math
@@ -159,6 +162,76 @@ def test_the_critical_exterior_is_exactly_vacuum_energy():
             3.0 / R ** 2, rel=1e-13)
 
 
+# ── the throat matter at criticality is NOT exotic (post-review) ────────────
+
+def test_the_throat_matter_satisfies_nec_wec_and_dec_at_criticality():
+    """Corrects this round's "exotic matter merely relocated". With
+    `A = b²/f⁴`, `q = R²b²/f⁴ ≥ 1`: `ρ = 3Aq`, `p_s = −3A`, `p_Ω = A`."""
+    result = ne.measure_the_throat_matter_is_not_exotic()
+    assert result["nec_holds"] and result["wec_holds"] and result["dec_holds"]
+    assert result["min_nec_radial"] >= -1e-9
+    assert result["min_nec_angular"] > 0.0
+    assert result["saturated_at_the_mouth"]
+    assert result["q_at_the_mouth"] == pytest.approx(1.0, abs=1e-9)
+    assert result["q_at_the_neck"] == pytest.approx(
+        result["q_neck_closed_form"], rel=1e-9)
+
+
+def test_the_module_records_the_withdrawn_relocation_claim():
+    note = ne.measure_the_throat_matter_is_not_exotic()["what_this_corrects"]
+    assert "merely relocated" in note
+    assert "It is not" in note
+
+
+# ── the graviton, which is what actually closes the branch ──────────────────
+
+def test_the_graviton_kinetic_coefficient_is_one_plus_four_alpha_over_R_squared():
+    """Derived by linearising on this product background, not recalled: the
+    textbook `1 + 2α(D−3)(D−4)K` is for a maximally symmetric *spacetime*."""
+    result = ne.measure_the_graviton_degenerates()
+    assert result["law_holds"]
+    for row in result["rows"]:
+        assert row["temporal_coefficient"] == pytest.approx(
+            row["predicted_kinetic"], abs=1e-5)
+
+
+def test_the_graviton_kinetic_term_vanishes_at_the_critical_coupling():
+    """The closure. Same coupling the NEC pins."""
+    result = ne.measure_the_graviton_degenerates()
+    assert result["kinetic_vanishes_at_criticality"]
+    assert abs(result["rows"][-1]["temporal_coefficient"]) < 1e-5
+    for R in (1.0, 2.5):
+        assert ne.graviton_kinetic_coefficient(
+            ne.exterior_threshold(R), R) == pytest.approx(0.0, abs=1e-14)
+
+
+def test_the_spatial_coefficient_is_untouched_so_it_is_a_degeneration():
+    """`κ²` survives while `ω²` dies, and the mass term stays finite — the
+    equation degenerates from evolution to constraint rather than vanishing."""
+    result = ne.measure_the_graviton_degenerates()
+    assert result["spatial_coefficient_is_coupling_independent"]
+    assert result["mass_term_stays_finite"]
+    assert abs(result["rows"][-1]["spatial_coefficient"]) > 0.1
+
+
+def test_the_graviton_is_superluminal_before_the_critical_coupling():
+    """`c² = 1/(1 + 4α/R²) > 1` on the whole interval, so the trouble is not
+    confined to a single point."""
+    result = ne.measure_the_graviton_degenerates()
+    assert result["superluminal_below_criticality"]
+    for fraction in (0.2, 0.5, 0.8):
+        coupling = fraction * ne.exterior_threshold(1.0)
+        assert ne.graviton_speed_squared(coupling, 1.0) > 1.0
+    assert ne.graviton_speed_squared(0.0, 1.0) == pytest.approx(1.0, rel=1e-14)
+    assert math.isinf(ne.graviton_speed_squared(ne.exterior_threshold(1.0), 1.0))
+
+
+def test_the_module_says_why_the_coefficient_had_to_be_derived():
+    note = ne.measure_the_graviton_degenerates()["why_it_had_to_be_derived"]
+    assert "maximally symmetric" in note
+    assert "product" in note
+
+
 def test_pushing_the_coupling_further_makes_the_exterior_exotic():
     """The exotic matter is relocated into the universe, not removed."""
     R = 1.0
@@ -173,19 +246,25 @@ def test_pushing_the_coupling_further_makes_the_exterior_exotic():
 
 # ── the verdict ─────────────────────────────────────────────────────────────
 
-def test_the_branch_is_reported_closed_on_physical_grounds():
+def test_the_branch_is_closed_by_the_graviton_not_the_matter():
     ledger = ne.measure_the_negative_egb_ledger()
     assert ledger["branch_is_closed"]
-    assert "PHYSICAL grounds" in ledger["verdict"]
-    assert "coupling constant" in " ".join(
-        e["verdict"] for e in ledger["entries"]).lower()
+    assert "graviton kinetic term" in ledger["closed_by"]
+    assert "STRUCTURAL grounds" in ledger["verdict"]
+    verdicts = " ".join(e["verdict"] for e in ledger["entries"]).lower()
+    assert "coupling constant" in verdicts
+    assert "nec, wec and dec all hold" in verdicts, \
+        "the withdrawn exotic-matter claim must be recorded"
+    assert "overreached" in verdicts, \
+        "the withdrawn empty-universe claim must be recorded"
 
 
 def test_the_ledger_names_what_it_does_not_test():
     """Stability, the graviton kinetic term, dilatonic EGB, `f(R)`, and a
     different exterior."""
     note = ne.measure_the_negative_egb_ledger()["what_remains_untested"]
-    assert "Stability" in note and "graviton kinetic term" in note
+    assert "SOURCE" in note, "no source action was exhibited"
+    assert "scalar and vector perturbation sectors" in note
     assert "dilatonic" in note
     assert "f(R)" in note
     assert "DIFFERENT exterior" in note
@@ -196,7 +275,7 @@ def test_the_ledger_keeps_five_branches_and_derives_its_numbers():
     assert len(ledger["the_remaining_branches"]) == 5
     scan = ne.measure_no_coupling_satisfies_both()
     entries = {e["claim"]: e for e in ledger["entries"]}
-    row = next(e for k, e in entries.items() if "open interval" in k)
+    row = next(e for k, e in entries.items() if "open set of couplings" in k)
     assert f"{scan['critical_coupling']:.6f}" in row["evidence"]
 
 

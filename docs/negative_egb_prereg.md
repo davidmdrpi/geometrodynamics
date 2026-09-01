@@ -97,6 +97,48 @@ all**, at half the Einstein-gravity density.
 
 ---
 
+## ⚠ Erratum (post-review): E6's interpretation is withdrawn
+
+Three claims below overreached, and the branch closes for a different reason.
+
+**"The exotic matter is merely relocated" — false at the critical point.** The
+throat stress there satisfies NEC, WEC **and** DEC. With `A = b²/f⁴` and
+`q = R²b²/f⁴ ≥ 1`: `ρ = 3Aq`, `p_s = −3A`, `p_Ω = A`, so `ρ+p_s = 3A(q−1) ≥ 0`
+(saturated only at the mouth), `ρ+p_Ω = A(3q+1) > 0`, and `ρ ≥ |p_s|, |p_Ω|`.
+Relocation happens only for `α` strictly below critical.
+
+**"The observed universe must be empty" — overreached.** `w = −1` describes the
+*total 5D bulk stress* supporting `ℝ × S⁴_R`, not the observed `S³`, which is
+its equator and carries a different stress tensor; and a homogeneous `−Λg_ab`
+can be moved to the gravitational side. The defensible statement is that the
+branch forces a **vacuum-energy-like 5D exterior**.
+
+**"Measure zero, therefore refuted" — not by itself.** The relation is equally
+read as the field equations selecting `R² = −4α_GB`, and gravity routinely ties
+a vacuum curvature radius to a coupling. Calling it tuning needs an
+independently fixed `R`.
+
+**What closes the branch instead: the graviton.** Linearising the full
+`G_ab + α H_ab` on this background for a TT mode gives
+
+```
+C_kin = −½(1 + 4α_GB/R²)        c² = 1/(1 + 4α_GB/R²)
+```
+
+*derived* for this product spacetime, since the familiar
+`1 + 2α(D−3)(D−4)K` is for a maximally symmetric one. It vanishes **exactly** at
+`α = −R²/4` — the same value the NEC pins — while the spatial `κ²` coefficient
+is entirely coupling-independent. So the tensor cone is **superluminal for every
+`−R²/4 < α < 0`**, diverges at criticality, and there the `ω²` term disappears
+while `κ²` survives: the equation degenerates from evolution to constraint. The
+mass term stays finite, so it is the kinetic operator that dies.
+
+**"Global existence" is also too strong.** This determines the stress the metric
+requires; it does not exhibit fields obeying their own equations that supply the
+throat's anisotropic stress.
+
+---
+
 ## The frozen verdict
 
 **The negative-coupling branch closes on physical grounds, not on a regime
