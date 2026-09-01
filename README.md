@@ -205,6 +205,7 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Closure-quantum ledger closes modulo m_e | **PARTIALLY REOPENED (PR #271)** | The `2π`-quantised entries stand. The `pinhole γ` entry does not: its geometric derivation is reopened, so the ledger no longer reduces **every** dimensionless parameter to closure quanta. See `docs/scalar_operator_audit.md` |
 | `D = 5` scalar quasinormal frequency (`ℓ = 1`) | **Settled against published values (PR #274)** | `ω = 1.01601691 − 0.36232802i` from Matyjasek 2021 (continued fractions + Hill determinants, arXiv:2107.04815). An independent characteristic evolution here reproduces it to `0.018%` in damping. This **confirms PR #270's Kerr–Schild code (`0.005%`) and excludes its tortoise damping (`27.1%` off)** — #270's own prime suspect was the wrong code. No autopsy: neither #270 code was landed. See `docs/ringdown_cross_validation.md` |
 | Self-convergence as an error bar | **REFUTED BY MEASUREMENT (PR #274)** | This round's own step-size study gave a last successive difference of `4.0e-5` while the true error against the published value is `1.1e-4` — **2.7× larger**, with `h = 0.05` closer than `h = 0.025`. Self-convergence estimates only the error component tied to the refinement parameter. The missing component *is* findable internally — varying the extraction window, observer radius and `t_max` gives a band `3.6×` the step-refinement difference — so the external reference supplies the **anchor**, not the discovery |
+| Gauss–Bonnet reopens the traversable throat | **NO — IT REINFORCES THE VIOLATION** | Raychaudhuri is action-independent, so flare-out still forces `R_kk < 0`; only which tensor supplies it changes. But `H_kk/R_kk = 4(1−f′²)/f² = 4μ/f⁴ > 0` — the *same* Misner–Sharp `μ` that P2 showed continuous across the seam — so GB has the **same sign** as Einstein at every neck, and the lapse drops out exactly as in P4. The matter NEC needs `α_GB ≤ −f₀²/4`: wrong sign (heterotic `α′/8 > 0` fails hardest, `−393` → `−787`), wrong magnitude (`√\|α\| = b/2`), and at threshold `α_GB H_kk/R_kk = −1` so the correction equals the leading term. Validated by `H_ab ≡ 0` in `D = 4` for two non-vacuum metrics. **Dilatonic `α(φ)L_GB`, Lovelock and `f(R)` untested** |
 | A traversable BAM particle throat from existing fields | **NO — NEGATIVE RESULT** | The neck needs `8πG₅T_kk = −3/(R²sin⁴a)`, and every classical field the repository contains gives `T_kk ≥ 0`: minimal scalar, the GL throat-order `q` **that was introduced to represent the throat**, its potential (drops identically), Maxwell/KK, `Λ`, perfect fluid, 5D GWs, the wrap sign (holonomy transport, no stress tensor), and the projected Weyl stress (a 4D brane source, wrong equation). The one loophole — nonminimal coupling — needs `ξ > 1/2` while conformal gives `1−2ξ_c = D/(2(D−1)) > 0` in **every** dimension. Nonzero `K_ij` cannot rescue it either: `θ` is non-increasing, 0 turning points in 15 integrations. Five premises remain open (Gauss–Bonnet, ghost, quantum stress, horizon branch, reinterpretation) and none is refuted |
 | The neck NEC price is an artefact of the lapse or symmetry | **NO — IT IS MORRIS–THORNE / HOCHBERG–VISSER IN 5D** | Re-derived from `θ` and Raychaudhuri alone, residual `1.1e-13`: `θ(0)=0`, `dθ/dλ=+3/b²`, so `R_kk=−3/b²`. Recovering a **known** theorem validates the finite-mouth construction — a second external anchor, deliberately not claimed as a discovery |
 | The finite mouth's geometry | **FORCED — no free tube area, neck radius or length** | One assumption (`S³` = equator of a round `S⁴_R`); then `⁴R = 0` gives `f = √(s²+b²)` and Darmois matching fixes `b = R sin²a`, `S = R sin a cos a`, `L = R sin 2a`. Perturbing `b` by 5% at fixed areal radius leaves a `4.7e-3` slope error: no second matching pair. Seam is shell-free, `[h] = [K] = 0`, Misner–Sharp continuous. See `docs/finite_mouth_prereg.md` |
@@ -4315,6 +4316,71 @@ python -m experiments.closure_ledger.transfer_kernel_probe
 ```
 
 Full write-up: `docs/transfer_kernel.md`.
+
+## Gauss–Bonnet does not reopen the throat — it reinforces the violation
+
+*Pre-registered in `docs/gauss_bonnet_prereg.md`, committed **before** the
+module. Module `geometrodynamics/bulk/gauss_bonnet.py`; probe
+`gauss_bonnet_probe.py` (5/5); tests `tests/test_gauss_bonnet.py` (24).*
+
+The source audit left five branches. **Gauss–Bonnet was the only one keeping
+both a classical geometry and a traversable throat** — and in `D = 5` the
+invariant is dynamical rather than topological, so it is the natural
+higher-curvature term. It is a calculation, not a choice, so it went first.
+
+**Raychaudhuri does not care about the gravitational action.** Flare-out still
+forces `R_kk < 0` at the neck; only *which tensor supplies it* changes. With
+`G_ab + α_GB H_ab = 8πG₅T_ab` and the `g_ab L_GB` term dropping under null
+contraction:
+
+```
+R_kk + α_GB H_kk = 8πG₅ T_kk
+```
+
+The branch's hope was that `α_GB H_kk` supplies the negative part
+geometrically. **It does the opposite.** For an arbitrary lapse and profile:
+
+```
+R_kk = −3(N f″ − N′f′)/(N f)          H_kk = 12(f′² − 1)(N f″ − N′f′)/(N f³)
+```
+
+and the lapse drops out at any neck for the same reason it did in P4 — `N′`
+multiplies `f′`, and `f′(0) = 0` is what *makes* it a neck:
+
+```
+R_kk = −3f″/f₀ ,   H_kk = −12f″/f₀³ ,   H_kk/R_kk = 4/f₀²  >  0
+```
+
+**Gauss–Bonnet has the same sign as Einstein and deepens the violation.** More
+generally `H_kk/R_kk = 4(1−f′²)/f² = 4μ/f⁴`, with `μ = f²(1−f′²)` the *same*
+Misner–Sharp parameter P2 showed is continuous across the seam — so the
+reinforcement holds along the whole throat, not just at the neck, wherever
+`μ > 0`.
+
+**It fails three ways at once.** The matter NEC needs
+`α_GB ≤ −f₀²/4 = −R²sin⁴a/4`, which is `−0.001906728` at `R = 1, a = 0.3`:
+
+| | |
+|--|--|
+| wrong sign | heterotic gives `α_GB = α′/8 > 0` — the best-motivated value fails **hardest**, deepening `8πG₅T_kk` from `−393.34` to `−786.69` |
+| wrong magnitude | `\|α_GB\| ≥ f₀²/4` ties the Gauss–Bonnet length to the throat radius: `√\|α\| = b/2` exactly |
+| outside its own regime | at threshold `α_GB H_kk/R_kk = −1` exactly — the "correction" **equals** the leading term, so truncating Lovelock at Gauss–Bonnet is unjustified |
+
+**Validated where the answer is known.** In `D = 4` the Gauss–Bonnet term is
+topological, so `H_ab` must vanish identically — and it does, for two general
+**non-vacuum** `A(r)` metrics as well as for Schwarzschild, so the zero is not
+an artefact of `R_ab = 0`. The closed forms are then reproduced by a Riemann
+tensor built from numerical differentiation, sharing no algebra with them
+(worst relative error `5.9e-4`, finite-difference limited).
+
+**Four branches remain**, and this round refutes none of them: accept the
+Tangherlini horizon; a ghost; quantum stress; or reinterpretation. **Not
+tested here:** a *dilatonic* `α(φ)L_GB`, where the scalar's own stress enters
+and known 5D solutions exist; the full Lovelock tower; and `f(R)`.
+
+```bash
+python -m experiments.closure_ledger.gauss_bonnet_probe   # 5/5
+```
 
 ## No existing BAM field can keep the throat open — a negative result
 
