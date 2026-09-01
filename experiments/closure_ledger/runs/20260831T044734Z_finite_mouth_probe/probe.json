@@ -1,0 +1,307 @@
+{
+  "checks": [
+    {
+      "id": "P1",
+      "name": "*** the geometry is parameter-free (falsifier run) ***",
+      "detail": {
+        "rows": [
+          {
+            "R": 1.0,
+            "a": 0.3,
+            "b": 0.08733219254516084,
+            "b_exact": 0.08733219254516084,
+            "S": 0.28232123669751763,
+            "S_exact": 0.28232123669751763,
+            "L": 0.5646424733950353,
+            "L_exact": 0.5646424733950354,
+            "f_m": 0.29552020666133955,
+            "match_radius": 5.551115123125783e-17,
+            "match_slope": 1.1102230246251565e-16
+          },
+          {
+            "R": 1.0,
+            "a": 0.8,
+            "b": 0.5145997611506444,
+            "b_exact": 0.5145997611506444,
+            "S": 0.49978680152075255,
+            "S_exact": 0.49978680152075255,
+            "L": 0.9995736030415051,
+            "L_exact": 0.9995736030415051,
+            "f_m": 0.7173560908995228,
+            "match_radius": 0.0,
+            "match_slope": 0.0
+          },
+          {
+            "R": 2.5,
+            "a": 0.3,
+            "b": 0.2183304813629021,
+            "b_exact": 0.2183304813629021,
+            "S": 0.7058030917437941,
+            "S_exact": 0.7058030917437941,
+            "L": 1.4116061834875882,
+            "L_exact": 1.4116061834875884,
+            "f_m": 0.7388005166533489,
+            "match_radius": 0.0,
+            "match_slope": 1.1102230246251565e-16
+          },
+          {
+            "R": 1.0,
+            "a": 0.05,
+            "b": 0.002497917360987117,
+            "b_exact": 0.002497917360987117,
+            "S": 0.04991670832341408,
+            "S_exact": 0.04991670832341408,
+            "L": 0.09983341664682815,
+            "L_exact": 0.09983341664682815,
+            "f_m": 0.04997916927067833,
+            "match_radius": 0.0,
+            "match_slope": 0.0
+          }
+        ],
+        "worst_residual": 2.220446049250313e-16,
+        "holds": true,
+        "perturbations_break_matching": [
+          {
+            "delta_b_fraction": 0.05,
+            "slope_error": 0.004696569009182472
+          },
+          {
+            "delta_b_fraction": -0.05,
+            "slope_error": 0.0044461405505058504
+          }
+        ],
+        "no_free_parameter_survives": true,
+        "why": "Darmois matching is two conditions (areal radius and its normal derivative) on two constants (b, S), so it has a unique solution. Holding the radius right and moving b by 5% leaves a slope error of order 1e-2: there is no second matching pair, and therefore no tube area, neck radius or length left to choose. PR #263-#265 spent three rounds discovering that a chosen area was carrying the answer."
+      },
+      "pass": true
+    },
+    {
+      "id": "P2",
+      "name": "Misner-Sharp continuity across the seam",
+      "detail": {
+        "rows": [
+          {
+            "R": 1.0,
+            "a": 0.3,
+            "mu_inside": 0.007626911854745029,
+            "mu_constant_to": 4.5102810375396984e-17,
+            "mu_exterior_at_a": 0.007626911854745046,
+            "jump": 1.6479873021779667e-17
+          },
+          {
+            "R": 1.0,
+            "a": 0.8,
+            "mu_inside": 0.2648129141763003,
+            "mu_constant_to": 2.7755575615628914e-16,
+            "mu_exterior_at_a": 0.26481291417630026,
+            "jump": 5.551115123125783e-17
+          },
+          {
+            "R": 2.5,
+            "a": 0.3,
+            "mu_inside": 0.04766819909215669,
+            "mu_constant_to": 2.706168622523819e-16,
+            "mu_exterior_at_a": 0.047668199092156534,
+            "jump": 1.5959455978986625e-16
+          },
+          {
+            "R": 1.0,
+            "a": 0.05,
+            "mu_inside": 6.2395911423206365e-06,
+            "mu_constant_to": 1.128247885742728e-18,
+            "mu_exterior_at_a": 6.239591142320844e-06,
+            "jump": 2.0752307207730358e-19
+          }
+        ],
+        "worst": 2.7755575615628914e-16,
+        "holds": true,
+        "why": "mu = f^2(1-f'^2) equals b^2 everywhere inside and R^2 sin^4 chi outside; they agree at chi = a because b = R sin^2 a. The seam is smooth exactly when the quasi-local mass parameter is continuous -- the 5D lift of PR #265's Hawking-mass matching."
+      },
+      "pass": true
+    },
+    {
+      "id": "P3",
+      "name": "no Israel shell, and the normal pressure agrees",
+      "detail": {
+        "rows": [
+          {
+            "R": 1.0,
+            "a": 0.3,
+            "metric_jump": 5.551115123125783e-17,
+            "curvature_jump": 1.3322676295501878e-15,
+            "p_normal_in": -3.000000000000002,
+            "p_normal_out": -3.0,
+            "p_jump": 2.220446049250313e-15
+          },
+          {
+            "R": 1.0,
+            "a": 0.8,
+            "metric_jump": 0.0,
+            "curvature_jump": 0.0,
+            "p_normal_in": -3.000000000000001,
+            "p_normal_out": -3.0,
+            "p_jump": 8.881784197001252e-16
+          },
+          {
+            "R": 2.5,
+            "a": 0.3,
+            "metric_jump": 0.0,
+            "curvature_jump": 2.220446049250313e-16,
+            "p_normal_in": -0.48,
+            "p_normal_out": -0.48,
+            "p_jump": 0.0
+          },
+          {
+            "R": 1.0,
+            "a": 0.05,
+            "metric_jump": 0.0,
+            "curvature_jump": 0.0,
+            "p_normal_in": -2.9999999999999996,
+            "p_normal_out": -3.0,
+            "p_jump": 4.440892098500626e-16
+          }
+        ],
+        "worst": 2.220446049250313e-15,
+        "holds": true,
+        "c1_not_c2": "f'' = b^2/f^3 inside and -R sin chi outside do NOT agree, so the geometry is C^1 and not C^2. That is a finite STEP in bulk stress, not a delta function: the Israel layer depends on [K_ab], which vanishes. Tangential pressure and density jump, which is allowed because they involve second normal derivatives.",
+        "why": "[h_ab] = [K_ab] = 0 gives S_ab = 0. The normal pressure agreeing at -3/(8 pi G_5 R^2) on both sides is the Gauss-Codazzi constraint that must hold when no shell is present, and it is computed from the two sides separately."
+      },
+      "pass": true
+    },
+    {
+      "id": "P4",
+      "name": "*** every smooth traversable lapse pays -3/b^2 (falsifier run) ***",
+      "detail": {
+        "predicted": -393.343997824436,
+        "rows": [
+          {
+            "lapse": "N = 1 (ultrastatic)",
+            "nec_at_neck": -393.3439978244359,
+            "deviation": 5.684341886080802e-14
+          },
+          {
+            "lapse": "N = 1 + 0.7 s (asymmetric)",
+            "nec_at_neck": -393.3439978244359,
+            "deviation": 5.684341886080802e-14
+          },
+          {
+            "lapse": "N = 1 + 3 s^2",
+            "nec_at_neck": -393.3439978244359,
+            "deviation": 5.684341886080802e-14
+          },
+          {
+            "lapse": "N = 1 - 2 s^2 + 5 s^3",
+            "nec_at_neck": -393.3439978244359,
+            "deviation": 5.684341886080802e-14
+          },
+          {
+            "lapse": "N = exp(4 s)",
+            "nec_at_neck": -393.3439978244359,
+            "deviation": 5.684341886080802e-14
+          },
+          {
+            "lapse": "N = 2 + cos(9 s)",
+            "nec_at_neck": -393.3439978244359,
+            "deviation": 5.684341886080802e-14
+          },
+          {
+            "lapse": "N = 0.05 + 8 s^2 (nearly null)",
+            "nec_at_neck": -393.3439978244359,
+            "deviation": 5.684341886080802e-14
+          }
+        ],
+        "worst_deviation": 5.684341886080802e-14,
+        "no_lapse_evades_it": true,
+        "holds": true,
+        "vacuum_lapse_at_neck": 0.0,
+        "why": "The lapse enters p_s only through 3 f'N'/(fN), and f'(0) = 0 is what MAKES s = 0 a neck. So the term vanishes there whatever N' does. This is stronger than the proposal stated: it needs no reflection symmetry, which is why an asymmetric and an oscillating lapse give the identical value.",
+        "the_escape": "N(0) = 0 -- the Tangherlini horizon branch, which is vacuum and non-traversable. Smooth AND traversable implies radial NEC violation at the neck."
+      },
+      "pass": true
+    },
+    {
+      "id": "P5",
+      "name": "*** the closed-form admittance vs an independent BVP solve ***",
+      "detail": {
+        "rows": [
+          {
+            "ell": 0,
+            "closed_diag": 0.07879381104474399,
+            "closed_off": -0.07879381104474417,
+            "relative_error": 2.573692768911417e-09
+          },
+          {
+            "ell": 1,
+            "closed_diag": 1.8008642752165214,
+            "closed_off": -0.00359771636805211,
+            "relative_error": 1.3534581391232448e-07
+          },
+          {
+            "ell": 2,
+            "closed_diag": 3.524730783377004,
+            "closed_off": -0.00012326773522200693,
+            "relative_error": 2.7906174963979914e-07
+          },
+          {
+            "ell": 3,
+            "closed_diag": 5.248599165709959,
+            "closed_off": -3.754218169873128e-06,
+            "relative_error": 4.790909816440408e-07
+          },
+          {
+            "ell": 5,
+            "closed_diag": 8.696335933310946,
+            "closed_off": -2.938146687073392e-09,
+            "relative_error": 1.0498178097321215e-06
+          }
+        ],
+        "worst_relative_error": 1.0498178097321215e-06,
+        "convergence": [
+          {
+            "steps": 1000,
+            "relative_error": 4.4650105212958245e-06,
+            "ratio": null
+          },
+          {
+            "steps": 2000,
+            "relative_error": 1.1162546524701097e-06,
+            "ratio": 3.9999927538177813
+          },
+          {
+            "steps": 4000,
+            "relative_error": 2.7906174963979914e-07,
+            "ratio": 4.000027427302104
+          }
+        ],
+        "monopole_conductance": 0.07879381104474419,
+        "monopole_from_resistance": 0.07879381104474417,
+        "conductance_agreement": 1.3877787807814457e-17,
+        "static_resistance": 250.51724926681777,
+        "worst_monopole_row_sum": 1.8041124150158794e-16,
+        "row_sums_vanish": true,
+        "holds": true,
+        "why": "The BVP solve never uses the sinh/cosh reduction, so this is a regression and not an identity. A shooting basis was tried first and rejected: its two solutions span e^{+-kx} over a rapidity 2kX ~ 23 at l = 5, so the far boundary condition costs ten digits and the error grew under refinement instead of shrinking. The conservative tridiagonal form converges at second order at every l tested.",
+        "no_static_shunt": "Row sums vanish exactly: a constant is in the kernel, so there is no static monopole shunt through the handle."
+      },
+      "pass": true
+    },
+    {
+      "id": "P6",
+      "name": "the vacuum control is the same metric with N(0) = 0",
+      "detail": {
+        "spatial_ricci_max": 2.2737367544323206e-13,
+        "profile_is_shared": true,
+        "lapse_vacuum_at_neck": 0.0,
+        "lapse_travers_at_neck": 1.0,
+        "tangherlini_lapse_residual": 3.3306690738754696e-16,
+        "vacuum_radial_nec_max": 5.5670267329333e-07,
+        "vacuum_is_stress_free": true,
+        "holds": true,
+        "why": "N_vac^2 = |s|^2/(s^2+b^2) is exactly the Tangherlini F(r) = 1 - b^2/r^2 with r^2 = s^2+b^2, on the SAME spatial profile that the ultrastatic branch uses. The repository's vacuum throat and transaction throat are one spatial geometry with two lapses; the entire physical fork is the number N(0)."
+      },
+      "pass": true
+    }
+  ],
+  "passed": 6,
+  "total": 6
+}

@@ -205,6 +205,11 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Closure-quantum ledger closes modulo m_e | **PARTIALLY REOPENED (PR #271)** | The `2π`-quantised entries stand. The `pinhole γ` entry does not: its geometric derivation is reopened, so the ledger no longer reduces **every** dimensionless parameter to closure quanta. See `docs/scalar_operator_audit.md` |
 | `D = 5` scalar quasinormal frequency (`ℓ = 1`) | **Settled against published values (PR #274)** | `ω = 1.01601691 − 0.36232802i` from Matyjasek 2021 (continued fractions + Hill determinants, arXiv:2107.04815). An independent characteristic evolution here reproduces it to `0.018%` in damping. This **confirms PR #270's Kerr–Schild code (`0.005%`) and excludes its tortoise damping (`27.1%` off)** — #270's own prime suspect was the wrong code. No autopsy: neither #270 code was landed. See `docs/ringdown_cross_validation.md` |
 | Self-convergence as an error bar | **REFUTED BY MEASUREMENT (PR #274)** | This round's own step-size study gave a last successive difference of `4.0e-5` while the true error against the published value is `1.1e-4` — **2.7× larger**, with `h = 0.05` closer than `h = 0.025`. Self-convergence estimates only the error component tied to the refinement parameter. The missing component *is* findable internally — varying the extraction window, observer radius and `t_max` gives a band `3.6×` the step-refinement difference — so the external reference supplies the **anchor**, not the discovery |
+| Gauss–Bonnet reopens the traversable throat | **NARROWED, NOT CLOSED** | Raychaudhuri is action-independent, so flare-out still forces `R_kk < 0`; only which tensor supplies it changes. But `H_kk/R_kk = 4(1−f′²)/f² = 4μ/f⁴ > 0` — the *same* Misner–Sharp `μ` that P2 showed continuous across the seam — so GB has the **same sign** as Einstein at every neck, and the lapse drops out exactly as in P4. So the matter NEC needs a **negative** coupling, and the heterotic `α′/8 > 0` fails hardest (`−393` → `−787`). A first draft claimed closure via "the expansion has broken down"; **withdrawn** — cubic Lovelock is identically zero in `D = 5`, so the tower already terminates at GB, and exact EGB is a complete theory. What replaces it is stronger: the NEC must hold *along* the throat, and `α = −b²/4` leaves `T_kk = −98.3` elsewhere. The mouth sets `f_m⁴/(4b²) = R²/4` **exactly**, so a global solution needs `√\|α\| ≥ R/2` — half the **bulk** radius. Validated by `H_ab ≡ 0` in `D = 4` for two non-vacuum metrics. **Negative-coupling EGB, dilatonic `α(φ)L_GB` and `f(R)` remain open** |
+| A traversable BAM particle throat from existing fields | **NO — NEGATIVE RESULT** | The neck needs `8πG₅T_kk = −3/(R²sin⁴a)`, and every classical field the repository contains gives `T_kk ≥ 0`: minimal scalar, the GL throat-order `q` **that was introduced to represent the throat**, its potential (drops identically), Maxwell/KK, `Λ`, perfect fluid, 5D GWs, the wrap sign (holonomy transport, no stress tensor), and the projected Weyl stress (a 4D brane source, wrong equation). The one loophole — nonminimal coupling — needs `ξ > 1/2` while conformal gives `1−2ξ_c = D/(2(D−1)) > 0` in **every** dimension. Nonzero `K_ij` cannot rescue it either: `θ` is non-increasing, 0 turning points in 15 integrations. Five premises remain open (Gauss–Bonnet, ghost, quantum stress, horizon branch, reinterpretation) and none is refuted |
+| The neck NEC price is an artefact of the lapse or symmetry | **NO — IT IS MORRIS–THORNE / HOCHBERG–VISSER IN 5D** | Re-derived from `θ` and Raychaudhuri alone, residual `1.1e-13`: `θ(0)=0`, `dθ/dλ=+3/b²`, so `R_kk=−3/b²`. Recovering a **known** theorem validates the finite-mouth construction — a second external anchor, deliberately not claimed as a discovery |
+| The finite mouth's geometry | **FORCED — no free tube area, neck radius or length** | Given three inputs (`S³` = equator of a round `S⁴_R`; a **scalar-flat time-symmetric handle**, which does not follow from the first; and the mouth angle `a`), then `⁴R = 0` gives `f = √(s²+b²)` and Darmois matching fixes `b = R sin²a`, `S = R sin a cos a`, `L = R sin 2a`. Perturbing `b` by 5% at fixed areal radius leaves a `4.7e-3` slope error: no second matching pair. Seam is shell-free for the **ultrastatic** branch, `[h] = [K] = 0`, Misner–Sharp continuous; the vacuum branch does *not* match the same exterior (`K^t_t = −tan(a)/R`). See `docs/finite_mouth_prereg.md` |
+| Traversability at a finite mouth | **NEC violation at the neck, for EVERY smooth lapse** | `ρ ≡ 0` for any lapse, and the lapse enters `p_s` only via `3f′N′/(fN)` where `f′(0) = 0` — so `8πG₅(ρ+p_s)\|₀ = −3/(R²sin⁴a)` needing **no** reflection symmetry. Seven hostile lapses (asymmetric, oscillating, exponential, nearly-null) give the identical value. The only escape is `N(0) = 0`, the Tangherlini horizon: **the vacuum and traversable branches are one spatial geometry with two lapses** |
 | BAM's cross-mouth exchange rule | **Relocated, priced, and driven end to end (PR #276)** | `handshake.py` imposes no causal support at all (`geo4` is a spatial angle; `Particle4` has no time). `network.py` (PR #216) does better — an MTY clock offset with everything forward in local time — but supplies no geometry. Supplying it and wiring it in: traversability costs `−3/(16G₅a)` exactly, and `network.py`'s own `Λ` is now driven by a derived `T_ℓ(ω)`. See `docs/traversable_throat.md` |
 | One clock offset closes the BAM loop | **YES, AT `ω = 1.4617` — and the verdict is gauge dependent (PR #276)** | Eliminating `Δ` gives the branch-free `Ψ_ℓ = θ_ℓ − ωθ_ℓ′ = 2πn`. `ConjugatePair` **asserts** the two mouths carry opposite orientations, so `η_topo = −1` for a scalar, not the `+1` a first draft chose — that shifts `Ψ` by `π` and a root appears, stable to `1.0e-6` under `edge`/`steps`/`fd` refinement. But `Ψ` sweeps only `3.9676 < 2π`, so a constant rephasing of the Jost basis can create or remove it: **neither answer is a property of the geometry alone**. Invariant instead: `dΨ/dω = −ωθ″` and the total variation |
 | The `1/ω` closure tail proves no finite root | **NO — IT CONSTRAINS THE TAIL ONLY (PR #276)** | `ω(Ψ − arg η_topo) → −(π/a)[ℓ(ℓ+2)+9/8] = −9π/8` to `0.10 %` by `ω = 20`. The constant must be subtracted or `ωΨ` diverges — invisible at `η_topo = +1`. So `Ψ → π`, the *furthest* a phase can be from a branch: the loop is **least** closed in the UV, and `ω = 1.4617` is a crossing on the way there |
@@ -4311,6 +4316,273 @@ python -m experiments.closure_ledger.transfer_kernel_probe
 ```
 
 Full write-up: `docs/transfer_kernel.md`.
+
+## Gauss–Bonnet: narrowed, not closed
+
+*Pre-registered in `docs/gauss_bonnet_prereg.md`, committed **before** the
+module. Module `geometrodynamics/bulk/gauss_bonnet.py`; probe
+`gauss_bonnet_probe.py` (5/5); tests `tests/test_gauss_bonnet.py` (24).*
+
+The source audit left five branches. **Gauss–Bonnet was the only one keeping
+both a classical geometry and a traversable throat** — and in `D = 5` the
+invariant is dynamical rather than topological, so it is the natural
+higher-curvature term. It is a calculation, not a choice, so it went first.
+
+**Raychaudhuri does not care about the gravitational action.** Flare-out still
+forces `R_kk < 0` at the neck; only *which tensor supplies it* changes. With
+`G_ab + α_GB H_ab = 8πG₅T_ab` and the `g_ab L_GB` term dropping under null
+contraction:
+
+```
+R_kk + α_GB H_kk = 8πG₅ T_kk
+```
+
+The branch's hope was that `α_GB H_kk` supplies the negative part
+geometrically. **It does the opposite.** For an arbitrary lapse and profile:
+
+```
+R_kk = −3(N f″ − N′f′)/(N f)          H_kk = 12(f′² − 1)(N f″ − N′f′)/(N f³)
+```
+
+and the lapse drops out at any neck for the same reason it did in P4 — `N′`
+multiplies `f′`, and `f′(0) = 0` is what *makes* it a neck:
+
+```
+R_kk = −3f″/f₀ ,   H_kk = −12f″/f₀³ ,   H_kk/R_kk = 4/f₀²  >  0
+```
+
+**Gauss–Bonnet has the same sign as Einstein and deepens the violation.** More
+generally `H_kk/R_kk = 4(1−f′²)/f² = 4μ/f⁴`, with `μ = f²(1−f′²)` the *same*
+Misner–Sharp parameter P2 showed is continuous across the seam — so the
+reinforcement holds along the whole throat, not just at the neck, wherever
+`μ > 0`.
+
+**So the matter NEC needs a *negative* coupling**, `α_GB ≤ −f₀²/4` at the neck
+(`−0.001906728` at `R = 1, a = 0.3`). The heterotic value `α′/8 > 0` fails
+**hardest**, deepening `8πG₅T_kk` from `−393.34` to `−786.69` — though that is
+a *comparison*, not a closure argument, since the heterotic term is
+dilaton-coupled and this round tests constant coupling only.
+
+**A first draft claimed the branch was closed. It is not** — that claim is
+withdrawn, and two corrections replace it.
+
+*Withdrawn:* "at threshold `α H_kk/R_kk = −1`, so the expansion has broken down
+and the whole Lovelock tower contributes." Both halves are wrong in `D = 5`.
+The `k`-th Lovelock density antisymmetrises `2k` indices, so it vanishes for
+`2k > D`: **cubic Lovelock is identically zero here** and the tower already
+terminates at Gauss–Bonnet. And exact EGB is a *complete classical theory* with
+second-order equations, not a truncation that can lose validity.
+
+*What replaces it, and it is a stronger constraint:* the NEC must hold **along**
+the throat, and the neck is its easiest point. Pointwise it demands
+`α ≤ −f⁴/(4μ)`, and at the mouth `f_m⁴/(4b²) = R²/4` **exactly**, independent
+of `a`:
+
+| requirement | `α_GB` | `min T_kk` over the throat | NEC everywhere? |
+|--|--|--|--|
+| neck only, `−b²/4` | `−0.001906728` | `−98.33` | **no** |
+| whole throat, `−R²/4` | `−0.250000000` | `−0.000000` | **yes** |
+
+A global solution therefore needs `√\|α_GB\| ≥ R/2` — a Gauss–Bonnet length of
+**half the radius of the closed universe**, not a short-distance scale, and
+`131×` the neck-only requirement at `a = 0.3`.
+
+**Validated where the answer is known.** In `D = 4` the Gauss–Bonnet term is
+topological, so `H_ab` must vanish identically — and it does, for two general
+**non-vacuum** `A(r)` metrics as well as for Schwarzschild, so the zero is not
+an artefact of `R_ab = 0`. The closed forms are then reproduced by a Riemann
+tensor built from numerical differentiation, sharing no algebra with them
+(worst relative error `5.9e-4`, finite-difference limited).
+
+**Five branches remain**, and this round refutes none — including
+negative-coupling EGB itself, whose global existence and stability are
+untouched: accept the Tangherlini horizon; a ghost; quantum stress;
+reinterpretation. **Not tested here:** a *dilatonic* `α(φ)L_GB`, where the
+scalar's own stress enters and known 5D solutions exist, and `f(R)`. The
+Lovelock tower is **not** a separate premise in `D = 5` — it terminates at
+Gauss–Bonnet.
+
+```bash
+python -m experiments.closure_ledger.gauss_bonnet_probe   # 5/5
+```
+
+## No existing BAM field can keep the throat open — a negative result
+
+*Pre-registered in `docs/source_audit_prereg.md`, committed **before** the
+module. Module `geometrodynamics/bulk/source_audit.py`; probe
+`source_audit_probe.py` (5/5); tests `tests/test_source_audit.py` (24).*
+
+**The requirement is a flare-out theorem, not an artefact of `N = 1`.** The
+radial null congruence has a three-dimensional screen in `D = 5`, so
+`θ = 3f′/f`, and Raychaudhuri gives (residual `1.1e-13`, `σ = 0` by symmetry):
+
+```
+θ(0) = 0 ,   dθ/dλ|₀ = +3/b²   ⟹   8πG₅T_kk = R_kk = −3/b²
+```
+
+recovering P4 with no reference to `p_s`, to `N = 1`, or to reflection
+symmetry. **`smooth radial flare-out + Einstein gravity ⟹ T_kk < 0`.**
+
+**This is a known theorem, and saying so is the point.** It is the 5D
+specialisation of the Morris–Thorne flare-out requirement in the local
+Hochberg–Visser form. Recovering it *validates the finite-mouth construction* —
+and the audit found the repository has essentially one external anchor for 324
+claims, so a second is worth more than a misattributed discovery.
+
+**The verdict: every existing candidate gives `T_kk ≥ 0`.** Each built from its
+actual stress tensor, not from prose:
+
+| | candidate | `T_kk` | why |
+|--|--|--|--|
+| C1 | minimal scalar `ψ` | `(k·∇ψ)² ≥ 0` | every `g_ab` term drops |
+| C2 | **complex GL throat-order `q`** | `κ\|k·∇q\|² ≥ 0` | the field introduced to *represent* the throat cannot pay for it |
+| C3 | GL potential, incl. symmetry-breaking | **exactly 0** | pure `g_ab`; `V < 0` is irrelevant to the NEC |
+| C4 | Maxwell / KK | `\|F_{ab}k^b\|² ≥ 0` | `V·k = 0`, so `V` is spacelike or null |
+| C5 | cosmological constant | `0` | `T_ab ∝ g_ab` |
+| C6 | perfect fluid | `(ρ+p)(u·k)² ≥ 0` | conditional on the NEC |
+| C7 | classical 5D GWs | `R_kk = 0` | vacuum; Isaacson energy positive |
+| C8 | wrap sign / identification | none | `hopf/spinor.py` is holonomy **transport**, with no stress tensor |
+| C9 | projected bulk Weyl (#167/#168) | none **in 5D** | there `T⁽⁵⁾_ab = 0`; the projection is an effective *4D brane* source |
+| C10 | conformally improved scalar | `∝ (1−2ξ)(dq/dλ)²` | the only sign not fixed a priori |
+
+**C10 was the only real loophole, and it closes in every dimension.** At the
+`q = 0` defect core the prefactor `1−8πG₅ξq²` is exactly `1` and
+`d²(q²)/dλ² = 2(dq/dλ)²`, so the sign is `sign(1−2ξ)`. A flip needs `ξ > 1/2`,
+while conformal coupling gives
+
+```
+1 − 2ξ_c = D/(2(D−1))  =  2/3, 5/8, 3/5  in D = 4, 5, 6  —  never ≤ 0
+```
+
+**The dynamic escape fails too.** With `T_kk ≥ 0` every term on the right of
+Raychaudhuri is non-positive, so `θ` cannot turn from negative to positive. 15
+integrations over non-negative `R_kk` profiles and shear produce **zero**
+turning points, and every ray focuses within its analytic caustic bound
+`λ ≤ 3/|θ₀|` — the vacuum cases hitting it to 0.3%. So **any** smooth two-way
+traversable BAM throat in classical Einstein gravity needs null-convergence
+violation somewhere; a numerical-relativity round hunting a vacuum dynamic
+rescue would be hunting something the null equations forbid.
+
+*A methodological note kept in the module:* a first draft integrated to a fixed
+`λ ≤ 6` and reported that not every ray focused. That was the **window**, not
+the theorem — at `θ₀ = −0.05` the vacuum caustic sits at `λ = 60`. The
+no-turning-point result never depended on it; the focusing sub-claim did.
+
+**Five branches remain, and the audit refutes none of them** — each is a
+*premise* of the theorem, not a consequence: accept the Tangherlini horizon and
+drop MTY traversability; add a ghost (and its instability); leave Einstein
+gravity (in `D = 5` the natural term is Gauss–Bonnet, exactly where the premise
+fails); invoke quantum/Casimir stress (so the geometry is no longer classical);
+or reinterpret exchange so it needs no traversable throat.
+
+```bash
+python -m experiments.closure_ledger.source_audit_probe   # 5/5
+```
+
+## The finite-mouth handle: one assumption, everything else forced
+
+*Pre-registered in `docs/finite_mouth_prereg.md` and committed **before** the
+module existed — the first application of the audit's recommendation that a
+probe must be able to fail. Module `geometrodynamics/bulk/finite_mouth.py`;
+probe `finite_mouth_probe.py` (6/6); tests `tests/test_finite_mouth.py` (29).*
+
+**Three inputs, not one** *(corrected after review)*. A first draft said "one
+assumption, everything else forced", which hid two: (1) the closed `S³` is the
+totally geodesic equator of a round `S⁴_R` bulk; (2) the handle is **scalar-flat
+on a time-symmetric slice**, `⁴R = 0` — which does *not* follow from (1), since
+matching supplies only two boundary conditions and constrains no interior; and
+(3) the mouth angle `a`, a free dimensionless shape parameter.
+
+**Given all three, the rest is forced.** Excise two geodesic four-balls of angular radius
+`a < π/2` and join their `S³` boundaries. Demanding `⁴R = 0` on the
+time-symmetric slice gives `ff″ = 1−f′²`, hence `f = √(s²+b²)`. Darmois matching
+(`f_m = R sin a`, `f′₊ = cos a`) is then two conditions on two constants:
+
+```
+b = R sin²a ,   S = R sin a cos a ,   L = 2S = R sin 2a
+```
+
+**There is no tube area, neck radius or throat length left to choose** — which
+is precisely the freedom that carried the answer through PR #263–#265. Holding
+the areal radius correct and moving `b` by 5% leaves a slope error of `4.7e-3`:
+no second matching pair exists.
+
+**One spatial geometry, two lapses.** `ds² + (s²+b²)dΩ₃²` is *also* a
+time-symmetric slice of 5D Schwarzschild–Tangherlini with `F = 1 − b²/r²`,
+`r² = s²+b²`. So the repository's two throat pictures were never different
+spatial geometries:
+
+| branch | `N(0)` | stress | character |
+|--|--|--|--|
+| Tangherlini `N = \|s\|/√(s²+b²)` | `0` | vacuum | horizon, non-traversable |
+| ultrastatic `N = 1` | `1` | anisotropic, NEC-violating | traversable |
+
+**But that is a statement about the spatial profile only** *(corrected after
+review)*. A first draft said "the whole physical fork is the number `N(0)`".
+Only the ultrastatic branch is shown to join the ultrastatic `S⁴` exterior
+shell-free; the Tangherlini lapse has `N(S) = cos a ≠ 1` and
+`K^t_t = −tan(a)/R ≠ 0` at the seam against `0` outside — a genuine Israel
+layer — so it does **not** Darmois-match the same exterior and would need its
+own. What the two branches share is the spatial geometry, not one matched
+spacetime with an interchangeable lapse.
+
+**The neck price is unavoidable, and stronger than proposed.** `ρ ≡ 0` for
+*any* lapse (Gauss–Codazzi with `⁴R = 0`), and the lapse enters `p_s` only
+through `3f′N′/(fN)` — where `f′(0) = 0` is what *makes* `s = 0` a neck. So
+
+```
+8πG₅(ρ + p_s)|₀ = −3/b² = −3/(R² sin⁴a)
+```
+
+for **every** smooth lapse with `N(0) > 0`, needing no reflection symmetry.
+Seven hostile lapses — asymmetric `1+0.7s`, oscillating `2+cos 9s`,
+exponential `e^{4s}`, nearly-null `0.05+8s²` — all return the identical value.
+*Smooth and traversable ⟹ radial NEC violation at the neck*; the only escape is
+`N(0) = 0`, the Tangherlini horizon.
+
+**The seam is shell-free.** `[h_ab] = [K_ab] = 0` to `1e-15`, computed from the
+two sides separately, so `S_ab = 0`. The normal pressure agrees exactly at
+`−3/(8πG₅R²)`, as Gauss–Codazzi requires when no shell is present. The geometry
+is `C¹` and not `C²`: `f″` jumps, a finite *step* in bulk stress, not a delta
+function. And the Misner–Sharp parameter `μ = f²(1−f′²)` is `b²` inside and
+`R²sin⁴χ` outside — continuous at `χ = a` — the 5D lift of #265's
+Hawking-mass matching.
+
+**The observable is a DtN operator, not an S-matrix.** There is no infinity, so
+`T_ℓ(ω)` against Jost phases at `s = ±∞` is not physical — and its constant
+phase is exactly what dissolved #276's closure verdict. The finite-mouth map
+`Y_ℓ(ω): (φ_A,φ_B) → (q_A,q_B)` at the two actual `S³` surfaces has an absolute
+reference. Its static limit is closed-form: with `X = arcosh(1/sin a)`,
+`k = ℓ+1`, `F = R sin a`,
+
+```
+Y_ℓ(0) = 2π²F² [[ k coth 2kX − cos a , −k csch 2kX ], [ −k csch 2kX , … ]]
+```
+
+reproduced to `1e-5` by an independent tridiagonal BVP solve that never uses
+the `sinh`/`cosh` reduction, converging at second order (ratios `4.0`) at every
+`ℓ ≤ 8`. The monopole gives `G = π²R²sin⁴a/cos a = 2π²/I₃` with
+`I₃ = 2cos a/(R²sin⁴a)`, and **row sums vanish exactly**: no static monopole
+shunt. Closure then becomes `det[Y^ext + 𝒰†Y^th𝒰] = 0` — a finite-boundary
+determinant, not an asymptotic phase test, so a change of basis conjugates the
+operator instead of shifting a free constant.
+
+*A solver note worth keeping:* a shooting basis was tried first and rejected —
+its two solutions span `e^{±kx}` over rapidity `2kX ≈ 23` at `ℓ = 5`, so
+imposing the far boundary costs ten digits and **the error grew under
+refinement**, which is how it was caught.
+
+**Still open, and it is the real question.** The finite ANEC cost is
+`−(3/R)[cot a + (π/2−a)csc²a]`, diverging as `−3π/(2Ra²)`: the point-mouth
+limit is singularly expensive. *What classical BAM degree of freedom, if any,
+supplies the stress that keeps `N(0) > 0`?* If none, the geometry collapses onto
+the Tangherlini branch and the MTY transaction mechanism is unavailable. The
+discrete identification is deliberately untouched — `Φ_spatial`, `(−1)^ℓ`,
+`η_orientation`, `η_wrap`, `U_spin` remain five separate objects.
+
+```bash
+python -m experiments.closure_ledger.finite_mouth_probe   # 6/6
+```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 

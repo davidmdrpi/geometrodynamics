@@ -1,0 +1,208 @@
+{
+  "checks": [
+    {
+      "id": "B0",
+      "name": "the Lanczos tensor vanishes in D = 4, as it must",
+      "detail": {
+        "rows": [
+          {
+            "metric": "4D Schwarzschild (vacuum)",
+            "null_residual": 0.0,
+            "ricci_kk": 5.807682007183403e-09,
+            "lanczos_kk": -9.071824083747385e-09,
+            "vanishes": true
+          },
+          {
+            "metric": "4D general A(r) = 1 - 2/r + 0.3/r^2 (non-vacuum)",
+            "null_residual": 0.0,
+            "ricci_kk": 3.1492318926240603e-09,
+            "lanczos_kk": -4.655378959693634e-09,
+            "vanishes": true
+          },
+          {
+            "metric": "4D general A(r) = 1 + 0.2 r^2 (non-vacuum)",
+            "null_residual": 0.0,
+            "ricci_kk": -4.679554521658247e-10,
+            "lanczos_kk": -7.384788986545616e-10,
+            "vanishes": true
+          }
+        ],
+        "topological_in_four_dimensions": true,
+        "worst_null_residual": 0.0,
+        "why": "In D = 4 the Gauss-Bonnet invariant is a total derivative, so its variation H_ab vanishes identically. Getting zero for a general NON-VACUUM A(r) as well as for Schwarzschild shows the zero is a property of the implementation and the dimension, not of R_ab = 0."
+      },
+      "pass": true
+    },
+    {
+      "id": "B1",
+      "name": "*** Gauss-Bonnet has the SAME sign as Einstein at the neck ***",
+      "detail": {
+        "neck_radius": 0.08733219254516084,
+        "ricci_at_neck": -393.3439978244359,
+        "lanczos_at_neck": -206292.66749934648,
+        "ratio_at_neck": 524.4586637659146,
+        "expected_ratio_at_neck": 524.4586637659146,
+        "ratio_is_everywhere_positive": true,
+        "misner_sharp_is_positive": true,
+        "independent_checks": [
+          {
+            "s": 0.0,
+            "ricci_closed": -393.3439978244359,
+            "ricci_numeric": -393.29243141868767,
+            "lanczos_closed": -206292.66749934648,
+            "lanczos_numeric": -206170.9217475638,
+            "ricci_relative_error": 0.00013109747710263216,
+            "lanczos_relative_error": 0.0005901603448074826
+          },
+          {
+            "s": 0.08469637100925528,
+            "ricci_closed": -104.45370091840002,
+            "ricci_numeric": -104.46737053603061,
+            "lanczos_closed": -14547.434180734084,
+            "lanczos_numeric": -14555.994615994758,
+            "ricci_relative_error": 0.0001308677194815365,
+            "lanczos_relative_error": 0.0005884498361924438
+          },
+          {
+            "s": 0.19762486568826232,
+            "ricci_closed": -10.499334724079022,
+            "ricci_numeric": -10.499463443587278,
+            "lanczos_closed": -146.98137286433538,
+            "lanczos_numeric": -146.9892589993204,
+            "ricci_relative_error": 1.2259777561007434e-05,
+            "lanczos_relative_error": 5.365397554360507e-05
+          }
+        ],
+        "worst_relative_error": 0.0005901603448074826,
+        "reinforces": true,
+        "why_this_decides_the_branch": "The branch was invoked so that alpha_GB H_kk could supply the negative part geometrically and leave T_kk >= 0. Instead H_kk has the SAME sign as R_kk at every neck, so for the heterotic sign alpha_GB > 0 the Gauss-Bonnet term makes the violation WORSE by the factor (1 + 4 alpha_GB/f_0^2).",
+        "the_ratio_is_the_misner_sharp_parameter": "H_kk/R_kk = 4(1-f'^2)/f^2 = 4 mu/f^4 with mu = f^2(1-f'^2), the same quantity finite_mouth's P2 showed is continuous across the seam. Since mu = b^2 > 0 throughout, the reinforcement holds along the whole throat and not only at the neck."
+      },
+      "pass": true
+    },
+    {
+      "id": "B2",
+      "name": "*** the matter NEC would need a NEGATIVE coupling ***",
+      "detail": {
+        "neck_radius": 0.08733219254516084,
+        "threshold": -0.0019067279636862614,
+        "threshold_formula": "alpha_GB <= -f_0^2/4 = -R^2 sin^4 a / 4",
+        "rows": [
+          {
+            "case": "heterotic sign, alpha = +b^2/4",
+            "coupling": 0.0019067279636862614,
+            "matter_null_stress": -786.6879956488718,
+            "nec_satisfied": false
+          },
+          {
+            "case": "alpha = 0 (pure Einstein)",
+            "coupling": 0.0,
+            "matter_null_stress": -393.3439978244359,
+            "nec_satisfied": false
+          },
+          {
+            "case": "alpha = -b^2/8 (half-way)",
+            "coupling": -0.0009533639818431307,
+            "matter_null_stress": -196.67199891221796,
+            "nec_satisfied": false
+          },
+          {
+            "case": "threshold alpha = -b^2/4",
+            "coupling": -0.0019067279636862614,
+            "matter_null_stress": 0.0,
+            "nec_satisfied": true
+          },
+          {
+            "case": "beyond, alpha = -b^2/2",
+            "coupling": -0.003813455927372523,
+            "matter_null_stress": 393.3439978244359,
+            "nec_satisfied": true
+          }
+        ],
+        "no_positive_coupling_works": true,
+        "heterotic_sign": 1,
+        "heterotic_makes_it_worse": true,
+        "why_the_sign_matters": "Heterotic string theory gives alpha_GB = alpha'/8 > 0. That is exactly the sign that deepens the violation here, so the best-motivated value of the coupling is the one that fails hardest."
+      },
+      "pass": true
+    },
+    {
+      "id": "B3",
+      "name": "and at that size the truncation is unjustified",
+      "detail": {
+        "threshold": -0.0019067279636862614,
+        "relative_size_at_threshold": -1.0,
+        "rows": [
+          {
+            "coupling": -1.9067279636862615e-05,
+            "relative_size": -0.01
+          },
+          {
+            "coupling": -0.00019067279636862615,
+            "relative_size": -0.1
+          },
+          {
+            "coupling": -0.0009533639818431307,
+            "relative_size": -0.5
+          },
+          {
+            "coupling": -0.0019067279636862614,
+            "relative_size": -1.0
+          }
+        ],
+        "it_equals_the_leading_term": true,
+        "gauss_bonnet_length": 0.04366609627258042,
+        "neck_radius": 0.08733219254516084,
+        "length_ratio": 0.5,
+        "why": "alpha_GB H_kk/R_kk = 4 alpha_GB/f_0^2, which is exactly -1 at the threshold: the 'correction' equals the term it corrects. A derivative expansion truncated at Gauss-Bonnet has stopped meaning anything there, and the whole Lovelock tower would contribute. The required Gauss-Bonnet length is f_0/2, i.e. tied to the throat radius rather than to a separate short scale."
+      },
+      "pass": true
+    },
+    {
+      "id": "B4",
+      "name": "the verdict and what remains",
+      "detail": {
+        "branch_is_closed": true,
+        "verdict": "Gauss-Bonnet does NOT reopen the throat: it reinforces the Einstein violation",
+        "entries": [
+          {
+            "claim": "the Lanczos implementation is trustworthy",
+            "verdict": "VALIDATED IN D = 4",
+            "evidence": "H_ab vanishes identically for Schwarzschild AND for two general non-vacuum A(r), so the zero is not an artefact of R_ab = 0"
+          },
+          {
+            "claim": "Gauss-Bonnet can supply the negative null stress",
+            "verdict": "NO -- IT HAS THE SAME SIGN",
+            "evidence": "H_kk/R_kk = 4 mu/f^4 = 524.4587 > 0 at the neck, positive along the whole throat since mu = b^2 > 0"
+          },
+          {
+            "claim": "the lapse can help in Gauss-Bonnet",
+            "verdict": "NO -- IT DROPS OUT AT THE NECK",
+            "evidence": "N' multiplies f', and f'(0) = 0 is what makes s = 0 a neck; the same structure as P4"
+          },
+          {
+            "claim": "the heterotic coupling alpha' /8 > 0 helps",
+            "verdict": "NO -- IT MAKES IT WORSE",
+            "evidence": "the best-motivated sign deepens the violation by (1 + 4 alpha_GB/f_0^2); the matter NEC would need alpha_GB <= -0.001906728"
+          },
+          {
+            "claim": "a negative coupling of the right size would work",
+            "verdict": "ONLY OUTSIDE THE THEORY'S OWN REGIME",
+            "evidence": "at threshold alpha_GB H_kk/R_kk = -1.0, so the correction equals the leading term and truncating Lovelock at Gauss-Bonnet is unjustified"
+          }
+        ],
+        "what_this_closes": "The classical-geometry escape from the source audit. Gauss-Bonnet was the only branch keeping both a classical geometry and a traversable throat, and for the natural D = 5 higher-curvature term with its best-motivated sign it fails.",
+        "what_remains": {
+          "1 accept the horizon": "the Tangherlini branch N(0) = 0 as the particle, abandoning MTY traversability",
+          "2 ghost": "a wrong-sign field, with its stability problem",
+          "3 quantum stress": "Casimir-type support, so the geometry is no longer classical",
+          "4 reinterpret": "particle exchange needs no traversable throat"
+        },
+        "not_refuted_here": "Dilatonic alpha(phi) L_GB, where the scalar's own stress enters and known 5D solutions exist; the full Lovelock tower; and f(R). Those are separate premises, and this round tested constant-coupling EGB only."
+      },
+      "pass": true
+    }
+  ],
+  "passed": 5,
+  "total": 5
+}

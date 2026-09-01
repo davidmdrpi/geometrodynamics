@@ -1,362 +1,407 @@
-"""A finite-radius mouth: does PR #260's negative mode survive?
+"""Probe: the finite-mouth scalar-flat handle, against six frozen predictions.
 
-> Scope: a LINEAR conformally coupled scalar on a FIXED Einstein static universe.
-> The mouths are now SPHERES of radius a, coupled to the tube through ONE channel
-> each -- monopole matching, so the l >= 1 content on each sphere is dropped.
-> They are spheres in a fixed ambient, not a solved neck geometry. NO
-> BACKREACTION.
+Every check below compares a computation against a number written down in
+`docs/finite_mouth_prereg.md` **before this module existed** (commit `ca07204`).
+That is the difference between this probe and the 45 all-passing runs the audit
+found: these checks can fail, and P1 and P4 additionally run active
+falsification attempts rather than confirmations.
 
-THE QUESTION
-────────────
-PR #260 built the conservative finite throat and found that with POINT mouths it
-carries an exponentially growing mode for every choice of parameters,
-generated at the point-mouth/tube INTERFACE -- and, in the sigma L, sigma d >> 1
-limit, localizing to a single mouth at a rate sigma* = 2 sqrt(pi/A) that knows
-neither the tube's length nor the mouths' separation. That gated the roadmap on
-one question:
-
-    DOES THE NEGATIVE MODE SURVIVE A FINITE-RADIUS MOUTH?
-
-THE ANSWER IS NO -- and the reason is sharper than "it goes away".
-
-WHAT CHANGES
-────────────
-A point mouth needs the 1/(4 pi chi) subtraction and keeps the RENORMALIZED
-self-energy g(lam), which is negative. A sphere does not. Smearing the coupling
-over a sphere of radius a -- the same operator on both sides, so the composite
-stays manifestly self-adjoint -- replaces g by the UNSUBTRACTED Green function:
-
-    G_self(lam) = f(a,lam) G(a,lam),     G_cross(lam) = f(a,lam)^2 G(d,lam)
-
-with f(chi,lam) = sin(w chi)/(w sin chi) the regular radial solution, f(0) = 1.
-Both are MEAN-VALUE IDENTITIES, and T2 checks them against direct quadrature on
-S^3 rather than asserting them.
-
-WHAT IS CHECKED
-───────────────
-T2  THE MODEL'S OWN IDENTITIES. <G(.,c2)> over the sphere at distance a from c1
-    equals f(a) G(d) to 1.0e-10 -- exact, by the mean-value theorem, computed a
-    second way. The self term equals f(a) G(a) to 4.1e-04, grid-limited by the
-    Green function's integrable singularity at coincidence and reported as
-    quadrature error rather than as a model error.
-
-T3  *** THE NEGATIVE MODE DOES NOT SURVIVE, AND IT IS STRUCTURAL. *** At
-    lam = -sigma^2 the two sides of det(A - G) = 0 have OPPOSITE SIGNS for every
-    admissible parameter choice:
-
-      the tube      -coth(kL/2)/(A k),  -tanh(kL/2)/(A k)     strictly NEGATIVE
-      the ambient   f G(a) +/- f^2 G(d)                       strictly POSITIVE
-
-    the second because f and G are positive on the imaginary axis and
-    G(a) > f(a) G(d) whenever a < d/2, which disjoint mouths require anyway. A
-    difference of a negative and a positive number has no zero. 3078 samples
-    over (a, d, L, A, m, sigma): 0 positives, worst approach -5.1e-04.
-
-T4  AND PR #260's MODE WAS THE LINEARIZATION. That round wrote the mouth as a
-    CONSTANT shift 1/(4 pi a), the leading term of
-    G(a,lam) = 1/(4 pi a) + g(lam) + O(a). The exact G(a,-k^2) is SCREENED,
-    ~ e^{-k a}/(4 pi a), and dies; the constant does not, so it eventually beats
-    the tube's -1/(A k) and crosses zero. Measured: the two agree to 0.8% for
-    k a <= 0.1 and disagree by 1000% at k a = 3, and the linearized root sits at
-    k a = 1.0004, 1.0025, 1.022, 1.127 for a = 0.02, 0.05, 0.15, 0.35 -- i.e. AT
-    THE EDGE OF ITS OWN VALIDITY. A mode living where its derivation fails is an
-    artifact, and this is the demonstration rather than the suspicion.
-
-T5  WHERE THE MODE WENT: SOFT AND POSITIVE. The composite has exactly one state
-    below the free gap lam = 1, in the symmetric channel, and as a -> 0
-
-        lam_0  ->  8 pi a / (A L)
-
-    two mouth capacitances 4 pi a restoring a tube of volume A L, matched to 1%
-    by a = 0.02 and 0.2% by a = 0.005. So the point limit drives the mode to zero
-    FROM ABOVE. PR #260 did not get a rate slightly wrong; it put a mode that
-    approaches 0+ on the other side of zero, at lam ~ -1/a^2.
-
-T6  THE DELAY SURVIVES. Slope 1.0010 in L, saturation at the ambient path d to
-    0.0, with the mouth contributing only a sub-leading O(a) shift (measured
-    slope -0.39). A first draft predicted -2a from an ambient block missing the
-    shell form factor; the measured slope is quoted and the prediction recorded
-    as wrong. The contour is also easier: with no growing mode to clear, eps is
-    back to PR #259's single requirement, and 0.4 is comfortable where PR #260
-    needed eps > 2.
-
-T7  AND SO DO THE STATIC RESULTS. det S -> 0 linearly in lam (rank one), and PR
-    #258's W = -beta(lam) holds to 3.6e-12. Both came from the TUBE's zero mode,
-    which the mouth does not touch; only the coefficient moves, because the
-    ambient diagonal is now +f(a)G(a) instead of the renormalized g_0 < 0.
-
-T8  WHAT IS STILL PUT IN, QUANTIFIED. One channel per mouth couples only l = 0.
-    The dropped multipoles obey PR #250's screening law -- the dipole/monopole
-    ratio is 0.934 (a/d) across a decade in a -- so the leading omission is the
-    dipole at O(a/d), and the dropped power fraction is 6.9e-05 at a = 0.02.
-
-WHAT THIS UNGATES
-─────────────────
-PR #260 gated stationary action and backreaction on this question. The answer
-releases them: the finite-mouth throat is conservative, has a real traversal
-delay, and has NO growing mode, so an on-shell action or an A/B/A+B collapse
-comparison computed on it measures the physics rather than an instability. What
-it does NOT settle is the neck geometry -- these are spheres in a fixed ambient,
-with monopole coupling and no backreaction.
-
-    python -m experiments.closure_ledger.finite_mouth_probe
+Run:  python -m experiments.closure_ledger.finite_mouth_probe
 """
 
 from __future__ import annotations
 
 import json
+import math
+import os
+import sys
 from datetime import datetime, timezone
-from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 import numpy as np
 
-from geometrodynamics.waves.finite_mouth import (
-    WORKING_MOUTH,
-    measure_monopole_matching_is_the_remaining_approximation,
-    measure_the_delay_survives_with_a_radius_correction,
-    measure_the_instability_was_the_linearization,
-    measure_the_mean_value_identities_hold,
-    measure_the_mode_became_soft_and_positive,
-    measure_the_negative_mode_does_not_survive,
-    measure_the_static_results_survive,
-)
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "..")))
+
+from geometrodynamics.bulk import finite_mouth as fm  # noqa: E402
+
+CASES = ((1.0, 0.30), (1.0, 0.80), (2.5, 0.30), (1.0, 0.05))
 
 
-# ════════════════════════════════════════════════════════════════════════════
-def t1_goal() -> dict:
+def check_p1() -> dict:
+    """P1 — the geometry is parameter-free, and perturbing it breaks matching."""
+    rows, worst = [], 0.0
+    for R, a in CASES:
+        g = fm.geometry(R, a)
+        rows.append({
+            "R": R, "a": a,
+            "b": g.neck_radius, "b_exact": R * math.sin(a) ** 2,
+            "S": g.half_length, "S_exact": R * math.sin(a) * math.cos(a),
+            "L": g.proper_length, "L_exact": R * math.sin(2.0 * a),
+            "f_m": g.mouth_radius,
+            "match_radius": abs(float(fm.throat_radius(g.half_length, g.neck_radius))
+                                - R * math.sin(a)),
+            "match_slope": abs(float(fm.throat_radius_derivative(
+                g.half_length, g.neck_radius)) - math.cos(a)),
+        })
+        worst = max(worst, rows[-1]["match_radius"], rows[-1]["match_slope"],
+                    abs(rows[-1]["L"] - rows[-1]["L_exact"]))
+    # active falsifier: is there any OTHER (b, S) that also matches?
+    R, a = 1.0, 0.30
+    g = fm.geometry(R, a)
+    perturbed = []
+    for db in (0.05, -0.05):
+        b2 = g.neck_radius * (1.0 + db)
+        # keep the areal radius correct, then the slope must fail
+        s2 = math.sqrt(max(g.mouth_radius ** 2 - b2 ** 2, 0.0))
+        perturbed.append({
+            "delta_b_fraction": db,
+            "slope_error": abs(s2 / g.mouth_radius - math.cos(a))})
     return {
-        "name": "T1_goal",
-        "question": ("PR #260 gated the roadmap on one question: does its "
-                     "negative mode survive a finite-radius mouth? Replace the "
-                     "point mouths by spheres of radius a, coupled through one "
-                     "channel each, and settle it."),
-        "scope": ("a linear conformally coupled scalar on a fixed Einstein "
-                  "static universe. The mouths are spheres in a FIXED ambient "
-                  "with MONOPOLE coupling -- not a solved neck geometry -- so "
-                  "the l >= 1 content on each sphere is dropped, quantified in "
-                  "T8. No backreaction."),
-        "pass": True,
+        "rows": rows, "worst_residual": worst,
+        "holds": bool(worst < 1e-12),
+        "perturbations_break_matching": perturbed,
+        "no_free_parameter_survives": bool(
+            all(p["slope_error"] > 1e-3 for p in perturbed)),
+        "why": ("Darmois matching is two conditions (areal radius and its "
+                "normal derivative) on two constants (b, S), so it has a unique "
+                "solution. Holding the radius right and moving b by 5% leaves a "
+                "slope error of order 1e-2: there is no second matching pair, "
+                "and therefore no tube area, neck radius or length left to "
+                "choose. PR #263-#265 spent three rounds discovering that a "
+                "chosen area was carrying the answer."),
     }
 
 
-def t2_the_mean_value_identities() -> dict:
-    r = measure_the_mean_value_identities_hold()
-    return {"name": "T2_the_mean_value_identities", **r,
-            "pass": bool(r["the_cross_identity_is_exact"]
-                         and r["the_self_identity_is_grid_limited"])}
+def check_p2() -> dict:
+    """P2 — the Misner-Sharp mass parameter does not jump at the seam."""
+    rows, worst = [], 0.0
+    for R, a in CASES:
+        g = fm.geometry(R, a)
+        s = np.linspace(-g.half_length, g.half_length, 401)
+        inside = fm.misner_sharp(s, g.neck_radius)
+        outside = float(fm.misner_sharp_exterior(a, R))
+        spread = float(np.max(inside) - np.min(inside))
+        jump = abs(float(inside[-1]) - outside)
+        rows.append({"R": R, "a": a, "mu_inside": float(inside[0]),
+                     "mu_constant_to": spread, "mu_exterior_at_a": outside,
+                     "jump": jump})
+        worst = max(worst, spread, jump)
+    return {"rows": rows, "worst": worst, "holds": bool(worst < 1e-12),
+            "why": ("mu = f^2(1-f'^2) equals b^2 everywhere inside and "
+                    "R^2 sin^4 chi outside; they agree at chi = a because "
+                    "b = R sin^2 a. The seam is smooth exactly when the "
+                    "quasi-local mass parameter is continuous -- the 5D lift "
+                    "of PR #265's Hawking-mass matching.")}
 
 
-def t3_the_negative_mode_does_not_survive() -> dict:
-    r = measure_the_negative_mode_does_not_survive()
-    return {"name": "T3_the_negative_mode_does_not_survive", **r,
-            "pass": bool(r["there_is_no_growing_mode"])}
+def check_p3() -> dict:
+    """P3 — no Israel surface layer, and the normal pressure agrees."""
+    rows, worst = [], 0.0
+    for R, a in CASES:
+        j = fm.junction_jumps(R, a)
+        rows.append({"R": R, "a": a,
+                     "metric_jump": j["induced_metric_jump"],
+                     "curvature_jump": j["extrinsic_curvature_jump"],
+                     "p_normal_in": j["normal_pressure_inside"],
+                     "p_normal_out": j["normal_pressure_outside"],
+                     "p_jump": j["normal_pressure_jump"]})
+        worst = max(worst, j["induced_metric_jump"],
+                    j["extrinsic_curvature_jump"], j["normal_pressure_jump"])
+    return {"rows": rows, "worst": worst, "holds": bool(worst < 1e-12),
+            "c1_not_c2": fm.junction_jumps()["second_derivative_jumps"],
+            "why": ("[h_ab] = [K_ab] = 0 gives S_ab = 0. The normal pressure "
+                    "agreeing at -3/(8 pi G_5 R^2) on both sides is the "
+                    "Gauss-Codazzi constraint that must hold when no shell is "
+                    "present, and it is computed from the two sides separately.")}
 
 
-def t4_the_instability_was_the_linearization() -> dict:
-    r = measure_the_instability_was_the_linearization()
-    return {"name": "T4_the_instability_was_the_linearization", **r,
-            "pass": bool(r["every_linearized_model_has_a_root"]
-                         and r["no_exact_model_has_one"]
-                         and r["the_root_sits_at_kappa_a_of_order_one"])}
+def check_p4() -> dict:
+    """P4 — every smooth traversable lapse pays the same neck NEC price.
+
+    This is a **falsification attempt**, not a confirmation: it searches a
+    deliberately hostile family of lapses -- asymmetric, rapidly oscillating,
+    exponentially growing, nearly vanishing -- for any that evades the price.
+    """
+    g = fm.geometry()
+    predicted = fm.null_energy_at_neck(g.neck_radius)
+    families = {
+        "N = 1 (ultrastatic)": lambda s, b: np.ones_like(s),
+        "N = 1 + 0.7 s (asymmetric)": lambda s, b: 1.0 + 0.7 * s,
+        "N = 1 + 3 s^2": lambda s, b: 1.0 + 3.0 * s ** 2,
+        "N = 1 - 2 s^2 + 5 s^3": lambda s, b: 1.0 - 2.0 * s ** 2 + 5.0 * s ** 3,
+        "N = exp(4 s)": lambda s, b: np.exp(4.0 * s),
+        "N = 2 + cos(9 s)": lambda s, b: 2.0 + np.cos(9.0 * s),
+        "N = 0.05 + 8 s^2 (nearly null)": lambda s, b: 0.05 + 8.0 * s ** 2,
+    }
+    rows, evaded = [], []
+    for name, lapse in families.items():
+        value = float(fm.stress_tensor(np.array([0.0]), g.neck_radius,
+                                       lapse=lapse)["radial_nec"][0])
+        rows.append({"lapse": name, "nec_at_neck": value,
+                     "deviation": abs(value - predicted)})
+        if value >= 0.0:
+            evaded.append(name)
+    # the vacuum escape: N(0) = 0
+    vac = float(fm.lapse_vacuum(np.array([0.0]), g.neck_radius)[0])
+    return {
+        "predicted": predicted, "rows": rows,
+        "worst_deviation": max(r["deviation"] for r in rows),
+        "no_lapse_evades_it": bool(not evaded),
+        "holds": bool(not evaded
+                      and max(r["deviation"] for r in rows) < 1e-9),
+        "vacuum_lapse_at_neck": vac,
+        "why": ("The lapse enters p_s only through 3 f'N'/(fN), and f'(0) = 0 "
+                "is what MAKES s = 0 a neck. So the term vanishes there "
+                "whatever N' does. This is stronger than the proposal stated: "
+                "it needs no reflection symmetry, which is why an asymmetric "
+                "and an oscillating lapse give the identical value."),
+        "the_escape": ("N(0) = 0 -- the Tangherlini horizon branch, which is "
+                       "vacuum and non-traversable. Smooth AND traversable "
+                       "implies radial NEC violation at the neck."),
+    }
 
 
-def t5_the_mode_became_soft_and_positive() -> dict:
-    r = measure_the_mode_became_soft_and_positive()
-    return {"name": "T5_the_mode_became_soft_and_positive", **r,
-            "pass": bool(r["every_one_is_positive"]
-                         and r["every_one_is_below_the_gap"]
-                         and r["the_capacitance_formula_holds"]
-                         and r["the_point_limit_approaches_zero_from_above"])}
+def check_p5() -> dict:
+    """P5 — the closed-form admittance, against an independent BVP solve."""
+    rows, worst_rel, worst_row = [], 0.0, 0.0
+    for ell in (0, 1, 2, 3, 5):
+        closed = fm.static_admittance(ell)
+        numeric = fm.solve_admittance(ell, steps=4000)
+        rel = float(np.max(np.abs(numeric - closed)) / np.max(np.abs(closed)))
+        rows.append({"ell": ell, "closed_diag": float(closed[0, 0]),
+                     "closed_off": float(closed[0, 1]),
+                     "relative_error": rel})
+        worst_rel = max(worst_rel, rel)
+    # second-order convergence of the independent solver
+    convergence = []
+    prev = None
+    closed = fm.static_admittance(2)
+    for steps in (1000, 2000, 4000):
+        err = float(np.max(np.abs(fm.solve_admittance(2, steps=steps) - closed))
+                    / np.max(np.abs(closed)))
+        convergence.append({"steps": steps, "relative_error": err,
+                            "ratio": None if prev is None else prev / err})
+        prev = err
+    # monopole: row sums must vanish exactly, and G must match two ways
+    g_closed = fm.monopole_conductance()
+    y0 = fm.static_admittance(0)
+    worst_row = float(np.max(np.abs(y0.sum(axis=1))))
+    resistance = fm.static_resistance()
+    return {
+        "rows": rows, "worst_relative_error": worst_rel,
+        "convergence": convergence,
+        "monopole_conductance": g_closed,
+        "monopole_from_resistance": 2.0 * math.pi ** 2 / resistance,
+        "conductance_agreement": abs(g_closed - 2.0 * math.pi ** 2 / resistance),
+        "static_resistance": resistance,
+        "worst_monopole_row_sum": worst_row,
+        "row_sums_vanish": bool(worst_row < 1e-12),
+        "holds": bool(worst_rel < 1e-5 and worst_row < 1e-12
+                      and abs(g_closed - 2.0 * math.pi ** 2 / resistance) < 1e-12
+                      and convergence[-1]["ratio"] > 3.5),
+        "why": ("The BVP solve never uses the sinh/cosh reduction, so this is a "
+                "regression and not an identity. A shooting basis was tried "
+                "first and rejected: its two solutions span e^{+-kx} over a "
+                "rapidity 2kX ~ 23 at l = 5, so the far boundary condition "
+                "costs ten digits and the error grew under refinement instead "
+                "of shrinking. The conservative tridiagonal form converges at "
+                "second order at every l tested."),
+        "no_static_shunt": ("Row sums vanish exactly: a constant is in the "
+                            "kernel, so there is no static monopole shunt "
+                            "through the handle."),
+    }
 
 
-def t6_the_delay_survives() -> dict:
-    r = measure_the_delay_survives_with_a_radius_correction()
-    return {"name": "T6_the_delay_survives", **r,
-            "pass": bool(r["the_traversal_time_survives"]
-                         and r["the_ambient_path_still_takes_over"]
-                         and r["the_mouth_shift_is_subleading"])}
+def check_p6() -> dict:
+    """P6 — the vacuum control comes from the lapse alone."""
+    g = fm.geometry()
+    s = np.linspace(-g.half_length, g.half_length, 401)
+    # identical spatial profile for both branches
+    profile = fm.throat_radius(s, g.neck_radius)
+    ricci = float(np.max(np.abs(fm.spatial_ricci_scalar(s, g.neck_radius))))
+    n_vac = fm.lapse_vacuum(s, g.neck_radius)
+    n_trav = fm.lapse_ultrastatic(s, g.neck_radius)
+    # Tangherlini identification: F = 1 - b^2/r^2 with r^2 = s^2 + b^2
+    r_sq = s * s + g.neck_radius ** 2
+    tangherlini = 1.0 - g.neck_radius ** 2 / r_sq
+    lapse_matches = float(np.max(np.abs(n_vac ** 2 - tangherlini)))
+    # vacuum branch must have vanishing radial NEC away from the horizon
+    interior = np.abs(s) > 0.15 * g.half_length
+    vac_stress = fm.stress_tensor(s[interior], g.neck_radius,
+                                  lapse=fm.lapse_vacuum)
+    return {
+        "spatial_ricci_max": ricci,
+        "profile_is_shared": True,
+        "lapse_vacuum_at_neck": float(n_vac[len(s) // 2]),
+        "lapse_travers_at_neck": float(n_trav[len(s) // 2]),
+        "tangherlini_lapse_residual": lapse_matches,
+        "vacuum_radial_nec_max": float(np.max(np.abs(vac_stress["radial_nec"]))),
+        "vacuum_is_stress_free": bool(
+            np.max(np.abs(vac_stress["radial_nec"])) < 1e-6),
+        "holds": bool(ricci < 1e-10 and lapse_matches < 1e-12
+                      and abs(float(n_vac[len(s) // 2])) < 1e-15
+                      and np.max(np.abs(vac_stress["radial_nec"])) < 1e-6),
+        "why": ("N_vac^2 = |s|^2/(s^2+b^2) is exactly the Tangherlini F(r) = "
+                "1 - b^2/r^2 with r^2 = s^2+b^2, on the SAME spatial profile "
+                "that the ultrastatic branch uses. The repository's vacuum "
+                "throat and transaction throat are one spatial geometry with "
+                "two lapses; the entire physical fork is the number N(0)."),
+    }
 
 
-def t7_the_static_results_survive() -> dict:
-    r = measure_the_static_results_survive()
-    return {"name": "T7_the_static_results_survive", **r,
-            "pass": bool(r["the_static_response_is_still_rank_one"]
-                         and r["det_S_is_linear_in_lambda"]
-                         and r["the_defect_is_still_minus_beta"])}
-
-
-def t8_monopole_matching_is_what_is_left() -> dict:
-    r = measure_monopole_matching_is_the_remaining_approximation()
-    return {"name": "T8_monopole_matching_is_what_is_left", **r,
-            "pass": bool(r["dipole_scales_like_a_over_d"]
-                         and r["smallest_dropped_fraction"] < 1e-3)}
-
-
-def t9_assessment(tests: List[dict]) -> dict:
-    n = sum(1 for t in tests if t["pass"])
-    return {"name": "T9_assessment", "n_passed": n, "n_total": len(tests),
-            "pass": n == len(tests)}
-
-
-# ════════════════════════════════════════════════════════════════════════════
 def run_probe() -> dict:
-    tests = [t1_goal(),
-             t2_the_mean_value_identities(),
-             t3_the_negative_mode_does_not_survive(),
-             t4_the_instability_was_the_linearization(),
-             t5_the_mode_became_soft_and_positive(),
-             t6_the_delay_survives(),
-             t7_the_static_results_survive(),
-             t8_monopole_matching_is_what_is_left()]
-    tests.append(t9_assessment(tests))
-    t2, t3, t4, t5, t6, t7, t8 = tests[1:8]
-
-    if all(t["pass"] for t in tests):
-        verdict_class = "THE_NEGATIVE_MODE_DOES_NOT_SURVIVE_A_FINITE_MOUTH"
-        verdict = (
-            "*** THE ANSWER IS NO. *** PR #260 gated the roadmap on whether its "
-            "growing mode survives a finite-radius mouth. It does not, and the "
-            "statement is STRUCTURAL rather than parametric. Smearing the "
-            "coupling over a sphere of radius a -- the same operator on both "
-            "sides, so the composite stays manifestly self-adjoint -- replaces "
-            "the renormalized self-energy g(lam), which is negative, by the "
-            "UNSUBTRACTED Green function G(a,lam), which is positive. The "
-            "mean-value identities that give it, G_self = f(a)G(a) and "
-            "G_cross = f(a)^2 G(d), are checked against direct quadrature on "
-            f"S^3 to {t2.get('worst_cross_error', 0):.1e} for the cross term "
-            f"and {t2.get('worst_self_error', 0):.1e} for the self term, the "
-            "latter grid-limited by the integrable singularity at coincidence. "
-            "THEN THE SIGNS DECIDE IT: at lam < 0 the tube's channel functions "
-            "are strictly NEGATIVE -- a passive interior supplies no restoring "
-            "force -- and the ambient's are strictly POSITIVE, because f and G "
-            "are positive on the imaginary axis and G(a) > f(a)G(d) whenever "
-            "a < d/2, which disjoint mouths require anyway. A difference of a "
-            "negative and a positive number has no zero, so no parameter choice "
-            f"can produce a growing mode: {t3.get('samples', 0)} samples over "
-            "(a, d, L, A, m, sigma) give "
-            f"{t3.get('positives', 0)} positives, worst approach "
-            f"{t3.get('worst_approach_to_zero', 0):.1e}. *** AND PR #260's MODE "
-            "WAS THE LINEARIZATION. *** That round modelled the mouth as a "
-            "CONSTANT shift 1/(4 pi a) -- the leading term of "
-            "G(a,lam) = 1/(4 pi a) + g(lam) + O(a). The exact G(a,-k^2) is "
-            "SCREENED, ~ e^{-k a}/(4 pi a), and dies; the constant does not, so "
-            "it eventually beats the tube's -1/(A k) and crosses. The two agree "
-            f"to {100*t4.get('worst_gap_below_kappa_a_of_0p1', 0):.1f}% for "
-            f"k a <= 0.1 and differ by "
-            f"{100*t4.get('worst_gap_at_kappa_a_of_3', 0):.0f}% at k a = 3, and "
-            "the linearized root sits at k a = "
-            f"{', '.join(f'{v:.3f}' for v in t4.get('linearized_roots_times_radius', []))}"
-            " -- AT THE EDGE OF ITS OWN VALIDITY. A mode that lives at the "
-            "scale where its derivation fails is an artifact, and that is now "
-            "shown rather than suspected. WHERE THE MODE WENT: SOFT AND "
-            "POSITIVE. The composite has exactly one state below the free gap "
-            "lam = 1, in the symmetric channel, and as a -> 0 it goes to "
-            "8 pi a/(A L) -- two mouth capacitances 4 pi a restoring a tube of "
-            f"volume A L -- matched to "
-            f"{100*t5.get('worst_closed_form_error', 0):.1f}%. So the point "
-            "limit drives the mode to zero FROM ABOVE. PR #260 did not get a "
-            "rate slightly wrong; it took a mode approaching 0+ and put it on "
-            "the other side of zero, at lam ~ -1/a^2. THE GOOD RESULTS SURVIVE: "
-            f"the traversal delay has slope {t6.get('slope_in_length', 0):.4f} "
-            "in L against a predicted 1, saturating at the ambient path to "
-            f"{t6.get('onset_spread_above_d', 0):.1e}, with the mouth adding "
-            f"only a sub-leading O(a) shift (slope "
-            f"{t6.get('slope_in_radius', 0):.2f}; a first draft predicted -2a "
-            "from an ambient block missing the shell form factor, and that "
-            "prediction is recorded as wrong). The static response is still "
-            "rank one, det S linear in lam, and PR #258's W = -beta(lam) holds "
-            f"to {t7.get('worst_defect_error', 0):.1e} -- all three came from "
-            "the TUBE's zero mode, which the mouth does not touch. The contour "
-            "is easier too: with nothing to clear, eps = 0.4 suffices where PR "
-            "#260 needed eps > 2. WHAT IS STILL PUT IN: one channel per mouth, "
-            "so only l = 0 couples; the dropped multipoles obey PR #250's "
-            "screening law, dipole/monopole = "
-            f"{t8.get('rows', [{}])[0].get('ratio_over_a_over_d', 0):.3f} (a/d) "
-            "across a decade in a, and the dropped power fraction is "
-            f"{t8.get('smallest_dropped_fraction', 0):.1e} at a = 0.02. THE "
-            "MOUTHS ARE SPHERES IN A FIXED AMBIENT, NOT A SOLVED NECK, AND "
-            "THERE IS NO BACKREACTION. But the gate PR #260 set is answered: "
-            "with the mouth resolved there is no growing mode, so the "
-            "stationary-action and backreaction rounds can proceed on this "
-            "background and measure the physics rather than an artifact.")
-    else:
-        verdict_class = "INCONCLUSIVE"
-        failed = [t["name"] for t in tests if not t["pass"]]
-        verdict = "INCONCLUSIVE. Failed checks: " + ", ".join(failed)
-
-    return {"probe": "finite_mouth", "tests": tests,
-            "verdict_class": verdict_class, "verdict": verdict,
-            "working_mouth": {"separation": WORKING_MOUTH.separation,
-                              "length": WORKING_MOUTH.length,
-                              "area": WORKING_MOUTH.area,
-                              "radius": WORKING_MOUTH.radius},
-            "generated_utc": datetime.now(timezone.utc).isoformat()}
+    checks: List[dict] = []
+    for cid, name, fn in (
+            ("P1", "*** the geometry is parameter-free (falsifier run) ***", check_p1),
+            ("P2", "Misner-Sharp continuity across the seam", check_p2),
+            ("P3", "no Israel shell, and the normal pressure agrees", check_p3),
+            ("P4", "*** every smooth traversable lapse pays -3/b^2 (falsifier run) ***",
+             check_p4),
+            ("P5", "*** the closed-form admittance vs an independent BVP solve ***",
+             check_p5),
+            ("P6", "the vacuum control is the same metric with N(0) = 0", check_p6)):
+        detail = fn()
+        extra = detail.get("no_free_parameter_survives", True) and \
+            detail.get("no_lapse_evades_it", True)
+        checks.append({"id": cid, "name": name, "detail": detail,
+                       "pass": bool(detail["holds"] and extra)})
+    return {"checks": checks,
+            "passed": sum(1 for c in checks if c["pass"]),
+            "total": len(checks)}
 
 
-# ════════════════════════════════════════════════════════════════════════════
-def render_markdown(s: dict) -> str:
-    lines = [f"# probe — {s['probe']}", "", f"_{s['generated_utc']}_", ""]
-    for t in s["tests"]:
-        lines.append(f"## {t['name']} — {'PASS' if t['pass'] else 'FAIL'}")
-        lines.append("")
-        for k, v in t.items():
-            if k in ("name", "pass"):
-                continue
-            if isinstance(v, list):
-                lines.append(f"- **{k}**:")
-                for row in v[:30]:
-                    if isinstance(row, dict):
-                        lines.append("    - " + ", ".join(
-                            f"{a}={_fmt(b)}" for a, b in row.items()))
-                    else:
-                        lines.append(f"    - {_fmt(row)}")
-            else:
-                lines.append(f"- **{k}**: {_fmt(v)}")
-        lines.append("")
-    lines += [f"## verdict — {s['verdict_class']}", "", s["verdict"], ""]
-    return "\n".join(lines)
+def render_markdown(summary: dict) -> str:
+    def detail(cid: str) -> dict:
+        return next(c for c in summary["checks"] if c["id"] == cid)["detail"]
+
+    p1, p2, p3 = detail("P1"), detail("P2"), detail("P3")
+    p4, p5, p6 = detail("P4"), detail("P5"), detail("P6")
+    g = fm.geometry()
+
+    L: List[str] = [
+        "# The finite-mouth scalar-flat handle", "",
+        f"**{summary['passed']}/{summary['total']} pre-registered predictions "
+        "reproduced.**", "",
+        "Every number below was frozen in `docs/finite_mouth_prereg.md` "
+        "**before this module existed**. P1 and P4 are falsification attempts "
+        "rather than confirmations.", "",
+        "> ## The construction", "",
+        "> One assumption: the closed `S³` universe is the totally geodesic "
+        "equator of a round `S⁴_R` spatial bulk. It adds no scale and no shape "
+        "parameter. Demanding `⁴R = 0` in the throat forces "
+        "`f = √(s²+b²)`, and Darmois matching to the exterior then fixes "
+        "**both** constants:", "",
+        "> ```",
+        "> b = R sin²a ,   S = R sin a cos a ,   L = R sin 2a",
+        "> ```", "",
+        "> There is no tube area, neck radius or throat length left to choose "
+        "— which is exactly the freedom that carried the answer through "
+        "PR #263–#265.", "",
+        "---", "",
+        "## P1 — the geometry is parameter-free", "",
+        "| `R` | `a` | `b` | `S` | `L` | matching residual |",
+        "|--|--|--|--|--|--|"]
+    for r in p1["rows"]:
+        L.append(f"| `{r['R']:g}` | `{r['a']:g}` | `{r['b']:.9f}` | "
+                 f"`{r['S']:.9f}` | `{r['L']:.9f}` | "
+                 f"`{max(r['match_radius'], r['match_slope']):.1e}` |")
+    L += ["",
+          "**Falsifier.** Holding the areal radius correct and moving `b` by "
+          "±5% leaves a slope error of "
+          f"`{p1['perturbations_break_matching'][0]['slope_error']:.2e}`: there "
+          "is no second matching pair.", "",
+          "> " + p1["why"], ""]
+
+    L += ["## P2 — the quasi-local mass does not jump", "",
+          "| `R` | `a` | `μ` inside | `μ_ext(a)` | jump |", "|--|--|--|--|--|"]
+    for r in p2["rows"]:
+        L.append(f"| `{r['R']:g}` | `{r['a']:g}` | `{r['mu_inside']:.9f}` | "
+                 f"`{r['mu_exterior_at_a']:.9f}` | `{r['jump']:.1e}` |")
+    L += ["", "> " + p2["why"], ""]
+
+    L += ["## P3 — no Israel shell", "",
+          "| `R` | `a` | `[h]` | `[K]` | `p_n` inside | `p_n` outside |",
+          "|--|--|--|--|--|--|"]
+    for r in p3["rows"]:
+        L.append(f"| `{r['R']:g}` | `{r['a']:g}` | `{r['metric_jump']:.1e}` | "
+                 f"`{r['curvature_jump']:.1e}` | `{r['p_normal_in']:.6f}` | "
+                 f"`{r['p_normal_out']:.6f}` |")
+    L += ["", "> " + p3["why"], "", "> " + p3["c1_not_c2"], ""]
+
+    L += ["## P4 — the neck NEC price, attacked", "",
+          f"Predicted `8πG₅(ρ+p_s)|₀ = −3/b² = {p4['predicted']:.9f}` for "
+          "**every** smooth lapse with `N(0) > 0`. Seven hostile lapses:", "",
+          "| lapse | `(ρ+p_s)` at the neck | deviation |", "|--|--|--|"]
+    for r in p4["rows"]:
+        L.append(f"| `{r['lapse']}` | `{r['nec_at_neck']:.9f}` | "
+                 f"`{r['deviation']:.1e}` |")
+    L += ["",
+          f"**None evades it.** Worst deviation `{p4['worst_deviation']:.1e}`.", "",
+          "> " + p4["why"], "", "> **" + p4["the_escape"] + "**", ""]
+
+    L += ["## P5 — the admittance, against an independent solver", "",
+          "| `ℓ` | closed-form diagonal | off-diagonal | relative error |",
+          "|--|--|--|--|"]
+    for r in p5["rows"]:
+        L.append(f"| {r['ell']} | `{r['closed_diag']:.9f}` | "
+                 f"`{r['closed_off']:.9f}` | `{r['relative_error']:.1e}` |")
+    L += ["", "Second-order convergence of the independent solve at `ℓ = 2`:", "",
+          "| steps | relative error | ratio |", "|--|--|--|"]
+    for c in p5["convergence"]:
+        ratio = "—" if c["ratio"] is None else f"`{c['ratio']:.2f}`"
+        L.append(f"| `{c['steps']}` | `{c['relative_error']:.2e}` | {ratio} |")
+    L += ["",
+          f"Monopole: `G = {p5['monopole_conductance']:.9f}` = `π²R²sin⁴a/cos a`, "
+          f"and `2π²/I₃` agrees to `{p5['conductance_agreement']:.1e}` with "
+          f"`I₃ = {p5['static_resistance']:.9f}`.", "",
+          f"Row sums vanish to `{p5['worst_monopole_row_sum']:.1e}`. "
+          + p5["no_static_shunt"], "",
+          "> " + p5["why"], ""]
+
+    L += ["## P6 — one spatial geometry, two lapses", "",
+          "| branch | `N(0)` | stress | causal character |", "|--|--|--|--|",
+          f"| Tangherlini | `{p6['lapse_vacuum_at_neck']:.1e}` | vacuum "
+          f"(radial NEC `{p6['vacuum_radial_nec_max']:.1e}`) | horizon, "
+          "non-traversable |",
+          f"| ultrastatic | `{p6['lapse_travers_at_neck']:.1f}` | anisotropic, "
+          "NEC-violating | traversable |", "",
+          f"`⁴R` vanishes on the shared profile to "
+          f"`{p6['spatial_ricci_max']:.1e}`, and `N_vac²` reproduces the "
+          f"Tangherlini `F(r)` to `{p6['tangherlini_lapse_residual']:.1e}`.", "",
+          "> " + p6["why"], "",
+          "---", "",
+          "## What this does not settle", "",
+          "The ANEC cost of the finite ultrastatic throat is "
+          f"`{fm.null_energy_integral(1.0, 0.30):.6f}/(8πG₅)` at `R = 1, "
+          "a = 0.3`, diverging as `−3π/(2Ra²)` for small mouths — so the "
+          "point-mouth limit is singularly expensive. Whether any classical "
+          "BAM degree of freedom can supply that stress, and therefore whether "
+          "`N(0) > 0` is available at all, is untouched here. If none can, the "
+          "geometry collapses onto the Tangherlini branch and the MTY "
+          "transaction mechanism is unavailable.", "",
+          "The discrete BAM identification is deliberately absent: "
+          "`Φ_spatial`, `(−1)^ℓ`, `η_orientation`, `η_wrap` and `U_spin` "
+          "remain five separate objects, none folded into the metric.", ""]
+    return "\n".join(L)
 
 
-def _fmt(v) -> str:
-    if isinstance(v, bool):
-        return str(v)
-    if isinstance(v, float):
-        return f"{v:.6g}"
-    if isinstance(v, np.ndarray):
-        return np.array2string(v, precision=5)
-    if isinstance(v, dict):
-        return ", ".join(f"{a}={_fmt(b)}" for a, b in v.items())
-    if isinstance(v, (list, tuple)):
-        return "[" + ", ".join(_fmt(x) for x in list(v)[:12]) + "]"
-    return str(v)
-
-
-def _json_default(o):
-    if isinstance(o, np.ndarray):
-        return o.tolist()
-    if isinstance(o, (np.floating, np.integer)):
-        return o.item()
-    return str(o)
-
-
-def main(argv: Optional[list] = None) -> int:
+def main() -> int:
     summary = run_probe()
-    md = render_markdown(summary)
-    print(md)
-    here = Path(__file__).resolve().parent
-    ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    out = here / "runs" / f"{ts}_finite_mouth_probe"
-    out.mkdir(parents=True, exist_ok=True)
-    (out / "probe.json").write_text(
-        json.dumps(summary, indent=2, default=_json_default))
-    (out / "probe.md").write_text(md)
-    print(f"\nWrote: {out / 'probe.json'}")
-    print(f"Wrote: {out / 'probe.md'}")
-    return 0
+    text = render_markdown(summary)
+    print(text)
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    outdir = os.path.join(os.path.dirname(__file__), "runs",
+                          f"{stamp}_finite_mouth_probe")
+    os.makedirs(outdir, exist_ok=True)
+    with open(os.path.join(outdir, "probe.json"), "w") as handle:
+        json.dump(summary, handle, indent=2, default=float)
+    with open(os.path.join(outdir, "probe.md"), "w") as handle:
+        handle.write(text)
+    print(f"\n\nWrote: {os.path.join(outdir, 'probe.json')}")
+    print(f"Wrote: {os.path.join(outdir, 'probe.md')}")
+    return 0 if summary["passed"] == summary["total"] else 1
 
 
 if __name__ == "__main__":
-    import sys
-
-    sys.exit(main(sys.argv[1:]))
+    raise SystemExit(main())

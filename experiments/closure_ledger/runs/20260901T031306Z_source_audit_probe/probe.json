@@ -1,0 +1,385 @@
+{
+  "checks": [
+    {
+      "id": "S0",
+      "name": "the neck price is a flare-out theorem, not an artefact of N=1",
+      "detail": {
+        "neck_radius": 0.08733219254516084,
+        "theta_at_neck": 0.0,
+        "dtheta_at_neck": 393.3439978244359,
+        "expected_dtheta": 393.343997824436,
+        "ricci_kk_at_neck": -393.3439978244359,
+        "required_null_stress": -393.343997824436,
+        "raychaudhuri_residual": 1.1368683772161603e-13,
+        "screen_dimension": 3,
+        "identity_holds": true,
+        "flare_out_is_positive": true,
+        "matches_the_component_result": true,
+        "why_this_is_stronger": "Derived from theta and Raychaudhuri alone, with no reference to p_s, to N = 1, or to reflection symmetry. Smooth radial flare-out plus Einstein gravity forces T_kk < 0, whatever the lapse and whatever the matter.",
+        "normalisation": "THE SIGN IS INVARIANT; THE MAGNITUDE IS NOT. R_ab k^a k^b scales as lambda^2 under k -> lambda k, so -3/b^2 is quoted in the local normalisation k^{hat t} = 1 at the neck. theta = 3 f'/f is likewise the ultrastatic/locally normalised form; for an affinely parametrised radial null ray in a general lapse it is theta = 3(E/N) f'/f with E the conserved energy, and the neck value -3/b^2 is recovered by setting k^{hat t} = 1 there. The flare-out theorem depends only on the sign, which no rescaling can move.",
+        "attribution": "NOT a new theorem: this is the 5D specialisation of the standard traversable-wormhole flare-out requirement (Morris-Thorne 1988) in the local form of Hochberg-Visser, who proved NEC violation at a throat defined as a marginally anti-trapped surface. Recovering it here VALIDATES the finite-mouth construction; it is not a discovery, and the repository has too few external anchors to waste one by miscrediting it."
+      },
+      "pass": true
+    },
+    {
+      "id": "S1",
+      "name": "*** every existing BAM field gives T_kk >= 0 ***",
+      "detail": {
+        "rows": [
+          {
+            "id": "C1",
+            "candidate": "minimally coupled scalar psi",
+            "null_stress_min": 0.0013458146839742215,
+            "sign": "NON-NEGATIVE",
+            "reason": "T_kk = (k.grad psi)^2; all g_ab terms drop under the null contraction"
+          },
+          {
+            "id": "C2",
+            "candidate": "complex GL throat-order field q",
+            "null_stress_min": 0.03416991965394573,
+            "sign": "NON-NEGATIVE",
+            "reason": "T_kk = kappa |k.Dq|^2 with the repository's positive gradient term; this is the field introduced to REPRESENT the throat, and it cannot pay for it"
+          },
+          {
+            "id": "C3",
+            "candidate": "GL potential V(q), incl. symmetry-breaking",
+            "null_stress_min": 4.1300296516055823e-14,
+            "sign": "EXACTLY ZERO",
+            "reason": "contracting the full T_ab for V = -9, -1, 0, +4 leaves (k.grad q)^2 to 4.1e-14: the potential drops identically, so V < 0 regions are irrelevant to the NEC"
+          },
+          {
+            "id": "C4",
+            "candidate": "Maxwell / KK gauge field",
+            "null_stress_min": 52.86250463304471,
+            "sign": "NON-NEGATIVE",
+            "reason": "T_kk = |F.k|^2 with V.k = 0 to 0.0e+00 over 200 random field strengths, so V is spacelike or null"
+          },
+          {
+            "id": "C5",
+            "candidate": "cosmological constant",
+            "null_stress_min": 0.0,
+            "sign": "EXACTLY ZERO",
+            "reason": "T_ab \u221d g_ab, and g_ab k^a k^b = 0"
+          },
+          {
+            "id": "C6",
+            "candidate": "perfect fluid obeying the NEC",
+            "null_stress_min": 0.0008877843231015485,
+            "sign": "NON-NEGATIVE",
+            "reason": "T_kk = (rho+p)(u.k)^2, zero only for rho + p = 0"
+          },
+          {
+            "id": "C7",
+            "candidate": "classical 5D gravitational waves",
+            "null_stress_min": 0.0,
+            "sign": "EXACTLY ZERO",
+            "reason": "R_ab = 0 in vacuum, so R_kk = 0 identically; the Isaacson effective energy is positive"
+          },
+          {
+            "id": "C8",
+            "candidate": "non-orientable identification / wrap sign",
+            "null_stress_min": 0.0,
+            "sign": "NO CONTRIBUTION",
+            "reason": "changes global boundary data, not the local R_kk. hopf/spinor.py is SU(2) holonomy transport with no stress tensor, so U_spin is a transport object, not a source"
+          },
+          {
+            "id": "C9",
+            "candidate": "projected bulk Weyl stress (#167/#168)",
+            "null_stress_min": 0.0,
+            "sign": "NO CONTRIBUTION TO THE 5D EQUATION",
+            "reason": "there T^(5)_ab = 0 exactly; the projection is an effective 4D BRANE source and cannot appear on the right-hand side of the 5D Einstein equation, which is what the neck needs"
+          }
+        ],
+        "candidates_with_negative_null_stress": [],
+        "all_non_negative": true,
+        "the_order_field_cannot_pay_its_own_bill": "C2 is the field the repository introduced AS the throat-order degree of freedom. With the ordinary positive gradient term its null stress is a modulus squared, so it cannot support the object it was introduced to represent. That is stronger than saying its constants were never derived."
+      },
+      "pass": true
+    },
+    {
+      "id": "S2",
+      "name": "*** the nonminimal loophole closes in every dimension ***",
+      "detail": {
+        "rows": [
+          {
+            "coupling": "minimal xi = 0",
+            "xi": 0.0,
+            "one_minus_two_xi": 1.0,
+            "null_stress_sign": "positive"
+          },
+          {
+            "coupling": "conformal 4D xi = 1/6",
+            "xi": 0.16666666666666666,
+            "one_minus_two_xi": 0.6666666666666667,
+            "null_stress_sign": "positive"
+          },
+          {
+            "coupling": "conformal 5D xi = 3/16",
+            "xi": 0.1875,
+            "one_minus_two_xi": 0.625,
+            "null_stress_sign": "positive"
+          },
+          {
+            "coupling": "conformal 6D xi = 1/5",
+            "xi": 0.2,
+            "one_minus_two_xi": 0.6,
+            "null_stress_sign": "positive"
+          },
+          {
+            "coupling": "threshold xi = 1/2",
+            "xi": 0.5,
+            "one_minus_two_xi": 0.0,
+            "null_stress_sign": "zero"
+          },
+          {
+            "coupling": "beyond threshold xi = 0.8",
+            "xi": 0.8,
+            "one_minus_two_xi": -0.6000000000000001,
+            "null_stress_sign": "negative"
+          }
+        ],
+        "dimensions": [
+          {
+            "D": 3,
+            "xi_conformal": 0.125,
+            "one_minus_two_xi": 0.75,
+            "closed_form_matches": true
+          },
+          {
+            "D": 4,
+            "xi_conformal": 0.16666666666666666,
+            "one_minus_two_xi": 0.6666666666666666,
+            "closed_form_matches": true
+          },
+          {
+            "D": 5,
+            "xi_conformal": 0.1875,
+            "one_minus_two_xi": 0.625,
+            "closed_form_matches": true
+          },
+          {
+            "D": 6,
+            "xi_conformal": 0.2,
+            "one_minus_two_xi": 0.6,
+            "closed_form_matches": true
+          },
+          {
+            "D": 10,
+            "xi_conformal": 0.2222222222222222,
+            "one_minus_two_xi": 0.5555555555555556,
+            "closed_form_matches": true
+          },
+          {
+            "D": 26,
+            "xi_conformal": 0.24,
+            "one_minus_two_xi": 0.52,
+            "closed_form_matches": true
+          }
+        ],
+        "threshold": 0.5,
+        "conformal_5d": 0.1875,
+        "one_minus_two_xi_5d": 0.625,
+        "conformal_never_flips": true,
+        "closed_form": "1 - 2 xi_c = D/(2(D-1)) > 0 for every D >= 2",
+        "why_the_node_matters": "At q = 0 the prefactor 1 - 8 pi G xi q^2 is exactly 1 and d^2(q^2)/dlam^2 = 2 (dq/dlam)^2, because the q q'' term carries a factor q. BAM places the defect core AT the node, so the sign there is sign(1 - 2 xi).",
+        "the_loophole_closes": "A flip needs xi > 1/2. Conformal coupling gives D/(2(D-1)), which is 5/8 in five dimensions and never reaches zero in ANY dimension. So even a conformally improved throat-order field remains NEC-positive at a smooth q = 0 core."
+      },
+      "pass": true
+    },
+    {
+      "id": "S3",
+      "name": "*** nonzero K_ij cannot rescue it either ***",
+      "detail": {
+        "rows": [
+          {
+            "profile": "vacuum R_kk = 0",
+            "theta_initial": -0.05,
+            "focusing_bound": 60.0,
+            "measured_caustic": 60.18904726181545,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "vacuum R_kk = 0",
+            "theta_initial": -0.5,
+            "focusing_bound": 6.0,
+            "measured_caustic": 6.018904726181545,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "vacuum R_kk = 0",
+            "theta_initial": -2.0,
+            "focusing_bound": 1.5,
+            "measured_caustic": 1.504276069017254,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "constant R_kk = 0.5",
+            "theta_initial": -0.05,
+            "focusing_bound": 60.0,
+            "measured_caustic": 3.438859714928732,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "constant R_kk = 0.5",
+            "theta_initial": -0.5,
+            "focusing_bound": 6.0,
+            "measured_caustic": 2.661065266316579,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "constant R_kk = 0.5",
+            "theta_initial": -2.0,
+            "focusing_bound": 1.5,
+            "measured_caustic": 1.3152288072018004,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "gaussian bump",
+            "theta_initial": -0.05,
+            "focusing_bound": 60.0,
+            "measured_caustic": 2.826706676669167,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "gaussian bump",
+            "theta_initial": -0.5,
+            "focusing_bound": 6.0,
+            "measured_caustic": 2.2901725431357836,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "gaussian bump",
+            "theta_initial": -2.0,
+            "focusing_bound": 1.5,
+            "measured_caustic": 1.3422355588897223,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "oscillating, non-negative",
+            "theta_initial": -0.05,
+            "focusing_bound": 60.0,
+            "measured_caustic": 2.1245311327831957,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "oscillating, non-negative",
+            "theta_initial": -0.5,
+            "focusing_bound": 6.0,
+            "measured_caustic": 1.7770442610652661,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "oscillating, non-negative",
+            "theta_initial": -2.0,
+            "focusing_bound": 1.5,
+            "measured_caustic": 1.1158289572393096,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "decaying tail",
+            "theta_initial": -0.05,
+            "focusing_bound": 60.0,
+            "measured_caustic": 1.8004501125281318,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "decaying tail",
+            "theta_initial": -0.5,
+            "focusing_bound": 6.0,
+            "measured_caustic": 1.4997749437359338,
+            "turned_positive": false,
+            "focused_within_bound": true
+          },
+          {
+            "profile": "decaying tail",
+            "theta_initial": -2.0,
+            "focusing_bound": 1.5,
+            "measured_caustic": 1.0001500375093773,
+            "turned_positive": false,
+            "focused_within_bound": true
+          }
+        ],
+        "any_turning_point": false,
+        "turning_cases": [],
+        "cases_not_focused_within_the_bound": [],
+        "all_focused_within_the_analytic_bound": true,
+        "focusing_bound_formula": "lam_caustic <= (D-2)/|theta_0| = 3/|theta_0|",
+        "why_the_window_matters": "An earlier draft integrated to a fixed lam <= 6 and reported that not every ray focused -- which was an artefact of the window, not a failure of the theorem: at theta0 = -0.05 the vacuum caustic sits at lam = 3/|theta0| = 60. Each ray is now integrated past its own analytic bound. The no-turning-point result never depended on the window; the focusing sub-claim did.",
+        "why": "With T_kk >= 0 every term on the right of Raychaudhuri is non-positive, so theta is non-increasing: a ray that enters converging cannot flare back out. Changing K_ij moves where the throat sits in a slice and whether the neck is trapped, but it cannot make a smooth radial null bundle turn around in ordinary Einstein vacuum.",
+        "the_stronger_statement": "Not just static BAM: ANY smooth two-way traversable BAM throat in classical Einstein gravity requires null-convergence violation somewhere. A numerical-relativity round looking for a vacuum dynamic rescue is looking for something the null equations forbid."
+      },
+      "pass": true
+    },
+    {
+      "id": "S4",
+      "name": "the verdict and the branches it leaves",
+      "detail": {
+        "required_null_stress": -393.343997824436,
+        "verdict": "NO -- the current classical BAM field content cannot support a traversable particle throat",
+        "verdict_is_no": true,
+        "entries": [
+          {
+            "claim": "the neck NEC price is an artefact of N = 1 or of symmetry",
+            "verdict": "NO -- IT IS A FLARE-OUT THEOREM",
+            "evidence": "derived from theta and Raychaudhuri alone, residual 1.1e-13, with no reference to p_s"
+          },
+          {
+            "claim": "that theorem is new",
+            "verdict": "NO -- IT IS MORRIS-THORNE / HOCHBERG-VISSER IN 5D",
+            "evidence": "recovering a known theorem validates the finite-mouth construction; it is a second external anchor, not a discovery"
+          },
+          {
+            "claim": "the GL throat-order field q can support the throat",
+            "verdict": "NO",
+            "evidence": "T_kk = kappa |k.Dq|^2 >= 0 with the repository's own positive gradient term; the field introduced to represent the throat cannot pay for it"
+          },
+          {
+            "claim": "the GL potential's symmetry-breaking region helps",
+            "verdict": "NO -- IT DROPS IDENTICALLY",
+            "evidence": "every g_ab term vanishes under null contraction, so V < 0 is irrelevant to the NEC"
+          },
+          {
+            "claim": "a conformally improved scalar rescues it at the core",
+            "verdict": "NO -- 1 - 2 xi_c = D/(2(D-1)) > 0 IN EVERY DIMENSION",
+            "evidence": "5/8 in five dimensions; a flip needs xi > 1/2, and BAM puts the defect core exactly at the q = 0 node"
+          },
+          {
+            "claim": "the #167/#168 Weyl mechanism can keep this throat open",
+            "verdict": "NO -- WRONG EQUATION",
+            "evidence": "there T^(5)_ab = 0; a projected Weyl tensor is an effective 4D brane source and cannot appear in the 5D Einstein equation the neck lives in"
+          },
+          {
+            "claim": "nonzero K_ij (gravitational waves) can rescue it",
+            "verdict": "NO",
+            "evidence": "15 Raychaudhuri integrations with non-negative R_kk and shear produce zero turning points; theta is non-increasing and focuses"
+          }
+        ],
+        "what_this_forces": "If every existing BAM action gives T_kk >= 0, the honest headline is a negative result about the CURRENT field content, not about wormholes in general.",
+        "the_remaining_branches": {
+          "1 accept the horizon": "take the Tangherlini branch N(0) = 0 as the particle, and abandon MTY traversability",
+          "2 add a ghost": "a wrong-sign field buys T_kk < 0 and brings an obvious stability problem",
+          "3 leave Einstein gravity": "higher curvature -- in D = 5 the natural term is Gauss-Bonnet, which is exactly where the theorem's premise fails; Lovelock wormholes can satisfy the matter NEC",
+          "4 quantum stress": "Casimir-type support, meaning the particle geometry is no longer derived from classical GR",
+          "5 reinterpret": "particle exchange does not require a traversable throat at all"
+        },
+        "what_the_audit_does_not_do": "It does not choose among those five, and it refutes none of them. Each is a premise of the theorem rather than a consequence."
+      },
+      "pass": true
+    }
+  ],
+  "passed": 5,
+  "total": 5
+}
