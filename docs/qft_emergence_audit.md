@@ -1,73 +1,84 @@
 # Audit: emergent QFT from classical GR with an antipodal identity and an inner–outer non-orientable bulk connection
 
 *Independent audit of `davidmdrpi/geometrodynamics` at commit `b771b16`
-(2026-09-02). Question audited: does the repository demonstrate quantum-field-
-theory-like behaviour emerging from classical general relativity, via (a) an
-antipodal identification and (b) a bulk interaction that connects the inner
-and outer surfaces through a non-orientable wormhole? Everything below was
-checked by reading the code and re-running it, not by reading the prose.*
+(2026-09-02), revised after review. Question audited: does the repository
+demonstrate quantum-field-theory-like behaviour emerging from classical
+general relativity, via (a) an antipodal identification and (b) a bulk
+interaction that connects the inner and outer surfaces through a
+non-orientable wormhole? Everything below was checked by reading the code and
+re-running it, not by reading the prose. A revision note at the end records
+what the first draft got wrong and how each correction was verified.*
 
 ## Bottom line
 
-**No.** The repository contains a great deal of careful classical computation,
-and its most recent rounds are honest about their negative results. But on the
-specific question:
+**Not yet.** The repository contains a large body of careful classical
+computation and an unusually candid retraction record, but the specific
+chain "classical GR + antipodal identity + non-orientable inner–outer
+connection ⟹ QFT" is not closed. Four statements summarise the state:
 
-1. **The non-orientable transport is not derived.** The map that
-   `embedding/transport.py` calls "the unique orientation-reversing,
-   Hopf-preserving isometry of S³" is orientation-*preserving* (its 4×4 real
-   matrix has determinant +1; it is left multiplication by the unit quaternion
-   −j). No orientation-reversing isometry of S³ preserves the Hopf fibration at
-   all. `T = iσ_y` is the ordinary spin-½ Kramers structure, inserted, not
-   non-orientable geometry.
-2. **Quantum structure is an input wherever the output is quantitative.** The
-   Bell result `E = −cos(a−b)`, `CHSH = 2√2` is a textbook two-qubit
-   calculation once the singlet and the Born rule are assumed; both are
-   assumed. The repository's own later probes concede that a classical field
-   with local dynamics gives `CHSH = 2` exactly, and that the "fully derived"
-   detector pairing also gives `CHSH = 2.000000`.
-3. **The inner–outer gluing is a drawing rule, not a solution.** Every wave
-   round that "connects" `R_outer` to `R_inner` states in its own docstring
-   that the crossing rule is a representation choice on a fixed round
-   background with no Einstein equation. The visualization capstone lists "the
-   wormhole identification itself" among the imported inputs.
-4. **Where GR is actually solved, the connection is forbidden.** The
-   finite-mouth, source-audit, Gauss–Bonnet and negative-EGB rounds show, on
-   the repository's own evidence and with numbers I reproduced, that a smooth
-   traversable inner–outer throat needs null-energy-condition violation at the
-   neck and that no field in the repository can supply it. The Tangherlini
-   branch that survives has a horizon, and the cross-exterior retarded Green
-   function vanishes identically there, which kills the transaction mechanism.
-5. **No field is quantized anywhere.** There is no Fock space, no commutator,
-   no mode quantization; `ħ` appears only as an SI constant pasted into probe
-   scripts. The "propagator" derivation is the Fourier transform of the
-   classical Coulomb Green function. The QED vertices and squared amplitudes
-   used downstream are imported formulas.
+1. **A real bug in the transport derivation.** `embedding/transport.py`
+   identifies `J = iσ_y K` with "the unique orientation-reversing
+   Hopf-preserving isometry of S³". The map it writes down has real
+   determinant `+1`: it is the antipode on the Hopf base composed with a
+   reversal of the Hopf fibre, and the product preserves the orientation of
+   `S³`. No orientation-reversing isometry of `S³` preserves the Hopf
+   fibration. `J` remains a natural candidate for the lift of a non-orientable
+   mouth transition, but the derivation the README cites for it is false, and
+   the theorem that the physical `RP²` mouth transition lifts to `J` has not
+   been proved.
+2. **The antipodal identification exists as a boundary condition, not as a
+   derived geometry.** PR #129 imposes `Φ(U,V,Ω) = Φ(−U,−V,Ω̄)` at the
+   Tangherlini horizon and derives even-ℓ Neumann / odd-ℓ Dirichlet throat
+   conditions; PR #135 builds the matter resolvent on them. What is missing is
+   any derivation of that identification from the finite-mouth 5D geometry of
+   PR #277, or a solve of the Einstein system on a global antipodal quotient.
+3. **Traversable causal exchange through the throat is in genuine trouble.**
+   With the fields the repository contains, 5D Einstein gravity cannot hold a
+   smooth traversable neck open; the Tangherlini bridge does not transmit a
+   retarded signal across exteriors; constant-coupling Gauss–Bonnet reaches
+   its critical value only where the linearised principal symbol degenerates.
+   This kills the Morris–Thorne–Yurtsever transaction mechanism. It does not
+   by itself kill the alternative already in the repository (PR #206), where
+   the bridge is non-traversable and the pair identity is a global constraint
+   imprinted at nucleation; that alternative is simply underived.
+4. **The quantization map is not derived.** The repository has both explicit
+   Hilbert-space calculations (`bell/bulk_identity.py`) and a formal
+   path-integral arc (`Z = Σ ∫ (dL/L) det^{−1/2} e^{−S_BAM}`, PRs #74,
+   #115–#122). Nothing derives from the classical Einstein equations why
+   histories are weighted by amplitudes, why probabilities are `|A|²`, or why
+   the one-object classical configuration space becomes a complex tensor-
+   product Hilbert space with the measurement structure Bell needs. The
+   repository's own probes record that the fully derived detector pairing
+   gives `CHSH = 2.000000`. `THESIS.md` contradicts itself on whether a path
+   integral is performed.
 
-What the repository *does* establish is narrower and worth keeping: a
-correctly derived scalar-flat handle geometry, a correct recovery of the
-Morris–Thorne / Hochberg–Visser flare-out theorem in five dimensions, a
-working 4+1 characteristic Einstein–scalar evolution, and a candid internal
-audit trail. Those are classical-GR results. None of them produces QFT.
+The highest-value open problem is therefore not another Standard-Model
+numerical match. It is whether the non-orientable finite mouth forces an
+orientation-bundle / Hopf lift, and whether the resulting classical global
+dynamics yields a composition and probability law that is *equivalent* to
+quantum mechanics rather than *represented* using it.
 
 ## Method
 
-* Read the README (4996 lines), `docs/THESIS.md` headers, the package
-  docstrings for `embedding`, `bell`, `bulk`, `waves`, `viz`, `tangherlini`,
-  `transaction`, `qcd`, and the prior internal audit commit `69fc599`.
-* Ran the full test suite (result recorded in the last section).
+* Read the README (4996 lines), `docs/THESIS.md`, the package docstrings for
+  `embedding`, `bell`, `bulk`, `waves`, `viz`, `tangherlini`, `transaction`,
+  `qcd`, the PR #129/#135 probes in `experiments/closure_ledger/`, and the
+  prior internal audit commit `69fc599`.
+* Ran the full test suite (result in the last section).
 * Re-ran `finite_mouth_probe`, `source_audit_probe` and
   `maslov_dimensional_bridge_probe`; run directories were deleted afterwards
   so this audit adds no ledger entries.
 * Wrote and ran an independent check of the orientation claim (appendix).
 * Verified by hand: `f = √(s²+b²)` solves `f f″ = 1 − f′²`; the Raychaudhuri
   neck values `θ(0) = 0`, `dθ/dλ = 3/b²`; the conformal-coupling identity
-  `1 − 2ξ_c = D/(2(D−1))`; the lepton masses returned by
+  `1 − 2ξ_c = D/(2(D−1))`; `h(σz) = −h(z)` and `σ(e^{iφ}z) = e^{−iφ}σ(z)`
+  for the Hopf map `h`; the lepton masses returned by
   `solved_lepton_masses_mev()`.
+* Checked GitHub Actions for the CI history claim (run 32330296533).
 
 ## Findings
 
-### F1. The claimed orientation-reversing Hopf isometry preserves orientation
+### F1. The claimed orientation-reversing Hopf isometry preserves orientation; the transport derivation is reopened, not deleted
 
 `geometrodynamics/embedding/transport.py` states:
 
@@ -84,237 +95,333 @@ M = [[ 0, 0, 1, 0],
      [ 0, 1, 0, 0]]        MᵀM = I,   det M = +1,   M² = −I
 ```
 
-`det M = +1`, so `σ` is an element of `SO(4)` and preserves the orientation of
-`S³`. Identifying `(z₁, z₂)` with the unit quaternion `q = z₁ + z₂ j`, the map
-is `q ↦ −j·q`: left multiplication by a unit quaternion, a fixed-point-free
-*rotation* of `S³`.
+`det M = +1`, so `σ ∈ SO(4)` and it preserves the orientation of `S³`. With
+`(z₁, z₂) ↔ q = z₁ + z₂ j`, the map is `q ↦ −j·q`: left multiplication by a
+unit quaternion, a fixed-point-free rotation.
 
-The stronger statement is also false: **no orientation-reversing isometry of
-`S³` preserves the Hopf fibration.** An isometry `g ∈ O(4)` maps Hopf fibres to
-Hopf fibres iff it normalizes the `U(1)` fibre action, i.e. `g I g⁻¹ = ±I`
-where `I` is multiplication by `i`. The `+` case is `U(2)` (complex-linear),
-the `−` case is `K·U(2)` (antilinear, `K` = complex conjugation). Both have
-real determinant `+1` (`det_R K = (+1)(−1)(+1)(−1) = +1`). A random search
-over 20 000 determinant-`−1` isometries found none that preserve fibres; a
-genuine reflection `diag(1,1,1,−1)` does not.
+What `σ` actually does, with `h: S³ → S²` the Hopf map:
 
-Consequences:
+```
+h(σz) = −h(z)                    antipode on the base S²   (orientation-reversing on S²)
+σ(e^{iφ} z) = e^{−iφ} σ(z)       reverses the fibre S¹     (orientation-reversing on S¹)
+```
 
-* The chain "Hopf fibration → orientation reversal → `T = iσ_y` → singlet"
-  advertised in the README ("derived in `embedding/transport.py` without
-  ansatz"; claim-table rows "History closure → E = −cos(a−b): **Derived**",
-  "CHSH S = 2√2 (topological): **Verified**") has a false first link. What
-  `σ` actually is: the antiunitary map `ψ ↦ iσ_y ψ*`, the standard time-
-  reversal / Kramers structure of a spin-½ representation. Its properties
-  `T² = −I`, `det T = 1` are representation theory, not throat topology.
-* `verify_hopf_preservation` only checks `|σ(z)| = 1`; the fibre-mapping check
-  its docstring promises is an empty comment. `test_hopf_fibration_preservation`
-  therefore cannot detect the error. No test checks the determinant.
-* The `Z₂` "wrap parity" and "non-orientable" labels in
-  `embedding/topology.py` are dataclass fields set by hand
-  (`orientation=±1`, `wrap_parity=±1`). No metric, identification, or
-  quotient anywhere in the package produces a non-orientable manifold; the
-  only orientability computation is a lookup table in `viz/hyperspherical.py`
-  (`RPⁿ` orientable iff `n` odd).
+Two orientation reversals whose product preserves the orientation of the total
+space. That is exactly why `det = +1`, and it is a more useful description of
+`σ` than the one in the file: `J = iσ_y K` is the canonical quaternionic
+structure on `C²`, covering the base antipode, reversing the fibre, with
+`J² = −1`.
 
-### F2. Quantum mechanics is assumed where "QFT-like behaviour" is quantitative
+The stronger statement also holds: **no orientation-reversing isometry of
+`S³` preserves the Hopf fibration.** `g ∈ O(4)` maps fibres to fibres iff
+`g I g⁻¹ = ±I` with `I` = multiplication by `i`; the `+` case is `U(2)`, the
+`−` case is `K·U(2)`, and both have real determinant `+1`. A random search
+over 20 000 determinant-`−1` isometries found none that preserve fibres.
+
+Consequences, stated at the right strength:
+
+* The README chain "Hopf fibration → orientation reversal of S³ → `T = iσ_y`
+  → singlet" has a false link. The claim-table rows that cite it as *derived*
+  ("History closure → E = −cos(a−b): **Derived**", "CHSH S = 2√2
+  (topological): **Verified**") are not supported by this derivation.
+* The repository already separates the orientability questions: the spatial
+  `RP³` quotient is orientable (`viz/hyperspherical.py`), and the
+  non-orientable / Pin structure is assigned to the `RP²` mouth/exchange
+  sector and to a flat-bundle twist class on the `Z₂` network, not to `RP³`.
+  `J` is the natural candidate lift of base-antipode-plus-fibre-reversal.
+  **The missing theorem is that the physical `RP²` mouth transition lifts to
+  `J = iσ_y K`.** F1 reopens that derivation; it does not discard `J`.
+* `verify_hopf_preservation` only checks `|σ(z)| = 1`; the fibre-mapping
+  check its docstring promises is an empty comment, so
+  `test_hopf_fibration_preservation` cannot detect the error. No test checks
+  the determinant.
+* In `embedding/topology.py` the `orientation` and `wrap_parity` labels are
+  dataclass fields set by hand; no metric or quotient in the package produces
+  them.
+
+### F2. `bulk_identity.py` assumes the quantum rules it claims to derive
 
 `bell/bulk_identity.py` declares a 4-component complex `pair_state`, builds
-`|Ψ⟩ = Σ_s |s⟩ ⊗ T|s⟩` (which *is* the singlet, by construction), applies
-detector projectors `(cos θ/2, sin θ/2)`, and squares amplitudes. That is the
-standard quantum calculation; `E = −cos(a−b)` and `CHSH = 2√2` follow
-identically for any `T ∈ SU(2)` with `T² = −1` and have nothing to do with a
-throat. The tensor-product Hilbert space, the projectors and the Born rule are
-all inputs.
+`|Ψ⟩ = Σ_s |s⟩ ⊗ T|s⟩` (the singlet, by construction), applies the spin-½
+projectors `(cos θ/2, sin θ/2)`, and sets `P = |A|²`. The tensor product, the
+projectors and the Born rule are inputs; for any `T ∈ SU(2)` with `T² = −1`
+the result `E = −cos(a−b)`, `CHSH = 2√2` follows identically and says nothing
+about a throat. The module's statements that the law follows "from pure
+topology alone … with nothing else" are untenable.
 
-The repository already knows this. Two of its own rows (README lines ~320 and
-~367) state:
+The repository's own later rounds already contain the sharper physical fact
+(README rows at lines ~320 and ~367):
 
-* "a single classical field on 3-space with local dynamics is an LHV model —
-  all 16 deterministic local strategies enumerated, max CHSH = 2 EXACTLY";
-* "with the setting the docs derive and the detector #209 derives, CHSH =
-  2.000000 exactly … the *-algebra it generates is exactly `span{I, σ_z}`,
-  abelian";
-* the capstone classifies the measurement orientation as "the IMPORTED
+* a single classical field on 3-space with local dynamics is an LHV model,
+  `max CHSH = 2` exactly over all 16 deterministic strategies;
+* with the setting the docs derive and the detector PR #209 derives, the
+  generated algebra is `span{I, σ_z}`, abelian, and `CHSH = 2.000000`;
+* a winding-2 carrier (Probes L/M) can supply the missing non-commuting
+  operation and operational models then violate Bell; the *geometric
+  production* of that carrier/apparatus is classified as "the IMPORTED
   MEASUREMENT FREEDOM".
 
-So the honest status of the Bell arc is: **classical dynamics on the network
-gives Bell-local correlations; Tsirelson is reached only after importing the
-SU(2) transport and a measurement freedom that the geometry does not
-supply.** The top-of-README claim table has not been updated to say this.
+Accurate status: **BAM has identified geometric structures compatible with
+the required measurement algebra, but has not derived the full Bell
+experiment from GR.** The top-of-README claim table has not been updated to
+say this.
 
-### F3. The inner–outer connection is a representation choice on a fixed background
+### F3. Three different inner–outer objects, and only one of them is a drawing
 
-The visual/wave arc (PRs #242–#269, `viz/*`, `waves/*`) is where the
-"inner surface glued to outer surface" picture lives. Its own scope statements:
+The audit question conflates three constructions the repository keeps
+separate, and they should be judged separately:
 
-* `viz/circle_slice.py`: "The crossing rule is the obvious one: a radius that
-  would pass `R_outer` re-enters at `R_inner` … **How** it is glued is a
-  choice, and not a cosmetic one."
-* `viz/one_surface.py`: "The crossing rule that glues `R_outer` to `R_inner`
-  is a *representation* choice, not a derived boundary condition. The field is
-  a linear scalar on a fixed round background."
-* `docs/geometric_visualization_capstone.md` §34, "What is imported rather
-  than derived": "The fixed round `S²` background of every wave round — and
-  the fixed round `S³` of the last one: curvature 1 everywhere, at every time,
-  with no Einstein equation and no backreaction. The wormhole identification
-  itself: a pair of mouths, a time offset Δ, a loop transfer κ, and flux
-  conservation through the throat. All inputs."
+| object | where | status |
+|---|---|---|
+| visual crossing `R_outer → R_inner` | `viz/circle_slice.py`, `viz/one_surface.py`, PRs #242–#269 | representation convention on a fixed round background, by the modules' own docstrings and `docs/geometric_visualization_capstone.md` §34 ("the wormhole identification itself … All inputs") |
+| horizon antipode `Φ(U,V,Ω) = Φ(−U,−V,Ω̄)` | `null_throat_boundary_conditions_probe.py` (PR #129), `antipodal_horizon_exchange_kernel_probe.py` (PR #135) | imposed physical boundary condition on a linear matter-wave problem, on the Tangherlini background; yields even-ℓ Neumann / odd-ℓ Dirichlet, a unitary mirror, a real ℓ-graded spectrum, and a self-adjoint resolvent |
+| finite mouth `S⁴_R` handle | `bulk/finite_mouth.py` (PR #277) | classical geometric junction construction, Darmois-matched, with the discrete identification deliberately left out |
 
 The one-surface result that "the antipode is parity-dependent"
-(`Z_n(π) = (−1)ⁿ`) is correct but is the ordinary parity of zonal harmonics;
-it holds for any linear wave on a round sphere and carries no information about
-wormholes or non-orientability.
+(`Z_n(π) = (−1)ⁿ`) is correct but is ordinary zonal-harmonic parity; it is
+the same `(−1)^ℓ` that PR #129 uses, and it carries no information about
+non-orientability on its own.
 
-### F4. Where the Einstein equations are actually solved, the mechanism fails
+The real gap is the composition
+**finite-mouth geometry → orientation/topology lift → field boundary
+condition.** The horizon identification of PR #129 is a postulate (its own
+docstring: "fixed by the BAM antipodal postulate (PR #128)"), and PR #277
+explicitly declines to fold `Φ_spatial`, `(−1)^ℓ`, `η_orientation`,
+`η_wrap`, `U_spin` into the metric. Nothing connects the two.
 
-These are the rounds that engage classical GR, and I reproduced their numbers:
+### F4. Traversable causal exchange is unsupported; a global constraint is not ruled out
+
+Rounds that engage the Einstein equations, with numbers reproduced here:
 
 | module | what it shows | reproduced |
 |---|---|---|
-| `bulk/finite_mouth.py` | scalar-flat handle `f = √(s²+b²)`, Darmois-matched to `S⁴_R`; `b = R sin²a`, shell-free seam; `8πG₅(ρ+p_s)|₀ = −3/b²` for every lapse with `N(0) > 0` | probe 6/6; `ff″ = 1 − f′²` checked by hand |
-| `bulk/source_audit.py` | flare-out ⇒ `R_kk = −3/b²` (Raychaudhuri residual 1e-13); minimal scalar, GL order field, GL potential, Maxwell, Λ, perfect fluid, vacuum GWs all give `T_kk ≥ 0` | probe 5/5; neck values checked by hand |
-| `bulk/gauss_bonnet.py`, `bulk/negative_egb.py` | `α_GB H_kk` has the same sign as `R_kk` at a neck; the exterior needs `α_GB ≥ −R²/4`, the throat `α_GB ≤ −R²/4` | not re-derived; internally consistent |
-| `tangherlini/traversable_throat.py` | for the Tangherlini bridge, `G_ret(c,s)·G_adv(c,d) ≡ 0` across exteriors by a causal-set argument; the MTY transaction needs a traversable throat | argument checked; it is correct |
-| `tangherlini/dynamics.py` | 4+1 Einstein–scalar characteristic evolution, second-order convergent; Tangherlini exact fixed point; `A > 0` on any regular-centre ingoing slice | not re-run; scope statements accurate |
+| `bulk/finite_mouth.py` | scalar-flat handle `f = √(s²+b²)`, Darmois-matched to `S⁴_R`; `b = R sin²a`; shell-free seam; `8πG₅(ρ+p_s)|₀ = −3/b²` for every lapse with `N(0) > 0` | probe 6/6; `ff″ = 1 − f′²` by hand |
+| `bulk/source_audit.py` | flare-out ⇒ `R_kk = −3/b²` (Raychaudhuri residual 1e-13); minimal scalar, GL order field, GL potential, Maxwell, Λ, perfect fluid, vacuum GWs all give `T_kk ≥ 0` | probe 5/5; neck values by hand |
+| `bulk/gauss_bonnet.py`, `bulk/negative_egb.py` | `α_GB H_kk` has the sign of `R_kk` at a neck; exterior needs `α_GB ≥ −R²/4`, throat `α_GB ≤ −R²/4`; at the critical value the linearised principal symbol `P = C_t ω² + C_s κ²` has `C_t = 0`, so the system stops being an evolution equation, and for `−R²/4 < α < 0` the tensor cone lies outside the metric null cone | not re-derived; internally consistent |
+| `tangherlini/traversable_throat.py` | for the Tangherlini bridge `G_ret(c,s)·G_adv(c,d) ≡ 0` across exteriors by support composition | argument checked; correct |
+| `tangherlini/dynamics.py` | 4+1 Einstein–scalar characteristic evolution, second-order convergent; `A > 0` on any regular-centre ingoing slice | scope statements accurate |
 
 Read together: **a smooth traversable inner–outer throat in 5D Einstein
-gravity requires `T_kk < 0` at the neck; nothing in the repository's matter
-content provides it; the branch that needs no exotic matter has a horizon,
-and through a horizon the exchange kernel is zero.** This is the repository's
-own conclusion, and it is the correct one for the fields it contains. It is
-also fatal to the premise of the question audited: the bulk interaction
-connecting inner and outer surfaces has no classical-GR support in this code.
+gravity with the present BAM matter needs `T_kk < 0` at the neck and nothing
+supplies it; the constant-EGB escape ends in a classical ill-posedness; and
+the horizon branch that needs no exotic matter does not transmit a retarded
+signal across exteriors.** The Morris–Thorne–Yurtsever transaction mechanism
+of PR #216/#276 is therefore unsupported. This is a real negative result, not
+a visualization artefact.
 
-### F5. One loophole in the source audit is closed by assumption, not by theorem
+It is *not* fatal to every reading of the premise. PR #206 and
+`docs/configuration_space_emergence.md` already take the physical bridge to
+be non-traversable, with the pair identification "a property of the
+geometry" imprinted at nucleation rather than transmitted afterwards, and the
+later mouth-freeze probe converts that into a requirement (the handle must be
+dynamically inert at measurement). Whether such a global topological
+constraint can reproduce Bell/QFT without importing quantum state rules is
+unresolved (that is F2 and F9), but the no-traversability theorems do not
+decide it:
 
-Candidate C10 (nonminimally coupled scalar) is dismissed because at a node
-`q = 0` the prefactor `1 − 8πG₅ξq²` equals 1 and the sign is `sign(1 − 2ξ)`.
-That is correct *at a node*. The audit then says "BAM places the defect core at
-`q = 0`, so this is the relevant point". That is a modelling assumption, not
-part of the flare-out theorem.
+```
+no traversable causal exchange  ≠  no possible global topological state constraint
+```
 
-Away from a node the known classical result goes the other way: Barceló &
-Visser, *Traversable wormholes from massless conformally coupled scalar fields*,
-Phys. Lett. B 466 (1999) 127, exhibit an exact three-parameter family of
-traversable wormholes in Einstein gravity with a conformally coupled,
-non-ghost scalar, supported where `8πGξq² > 1` and the effective coupling
-changes sign. The source audit's list of escapes (ghost, higher curvature,
-quantum stress, horizon, reinterpretation) omits this sixth classical branch.
-Whether BAM can use it depends on giving up `q = 0` at the throat; the
-repository should say so rather than report C10 as closed "in every
-dimension".
+### F5. The nonminimal-scalar loophole is closed by a modelling assumption, not by the theorem
 
-### F6. The "antipodal identity" is never imposed as an identification
+Candidate C10 is dismissed because at a node `q = 0` the prefactor
+`1 − 8πG₅ξq²` equals 1 and the sign is `sign(1 − 2ξ)`. Correct at a node. The
+audit then says "BAM places the defect core at `q = 0`, so this is the
+relevant point"; that is a modelling choice, not part of the Hochberg–Visser
+flare-out theorem.
 
-`antipode4(p) = −p` is used to (i) place mouth B at `−p_A`, (ii) weight
-handshake candidates by a Gaussian in the antipodal error with width
-`SIGMA_ANTI = 0.18` (a free constant), (iii) couple a delayed, half-ring-
-shifted copy of the field into the QCD network solver with strength
-`antipodal_coupling = 0.15` (a free constant), and (iv) feed a Bohr-like
-resonance rule `ω τ + φ_spin + φ_throat ≡ 0 or π` in `transaction/cavity.py`
-whose mode frequencies are hand-set constructor defaults (`1.055`, `1.219`).
+Away from a node the classical literature goes the other way: Barceló &
+Visser, *Traversable wormholes from massless conformally coupled scalar
+fields*, Phys. Lett. B 466 (1999) 127, give an exact three-parameter family of
+traversable wormholes in Einstein gravity with a non-ghost conformally
+coupled scalar, supported where `8πGξq² > 1` and the effective Newton
+constant changes sign. Two qualifications: those solutions are 4D, not BAM's
+finite 5D `S⁴`-matched handle; and using the branch means abandoning the
+identification of the throat core with the `q = 0` order-parameter node and
+accepting the effective-gravity-sign region. So it is a legitimate classical
+escape branch, not presently a BAM solution. The source audit should list it
+as a sixth branch and reword "closes in every dimension" to "closes at a
+node".
 
-Nowhere is a field equation solved on the quotient `S³/Z₂ = RP³`, nowhere is a
-twisted spin structure constructed, and nowhere does an identification `x ~ −x`
-enter a boundary condition of a solve. The ledger entry "B2_antipodal_Z2:
-CLOSED (RP³ + spin structure)" in `maslov_dimensional_bridge_probe` is prose
-with no corresponding computation. The 5D transfer kernel round, which is the
-one place an antipodal boundary condition could have been implemented at a
-horizon (cf. 't Hooft's antipodal identification), instead computes a
-Tangherlini exterior-to-horizon kernel and finds it is zero across mouths.
+### F6. The antipodal identification is implemented as an imposed boundary condition; it is not derived
 
-### F7. The lepton and quark ladders are calibrated fits, and the README contradicts itself about them
+**Correction of the first draft of this audit**, which said the identification
+is "never imposed in a solve". That was wrong; the search had been confined to
+the `geometrodynamics/` package and missed `experiments/closure_ledger/`.
 
-`solved_lepton_masses_mev()` returns `[0.511, 105.6126, 1778.938]`, i.e.
-`−0.043 %` and `+0.117 %` on μ and τ, and the "Lepton mass ladder" section
-still advertises "sub-percent accuracy with zero free parameters at scan
-time". The same README's PR #271 section states that the pinhole `γ = 22.5`
-is "no longer derived", that the corrected radial operator yields `22.331` or
-`22.836` at the canonical geometry, and that either value moves the muon by
-`15–21 %` because `d ln m_μ / d ln γ = −17.5`.
+What exists:
 
-The locked Hamiltonian carries four real anchors
-(`phase = 0.001`, `transport = 25.1`, `pinhole = 22.5`,
-`resistance = 0.217869`) plus three discrete structural switches
-(`winding_mode`, `depth_cost_mode`, `resistance_model`), all selected by the
-calibration scans listed in the section's own script map, to reproduce two
-mass ratios. The later identification of some anchors with "closure-quantum
-invariants" (`8π`, `7π/100`) is post hoc. The quark sector adds three opt-in
-extensions and reaches 1.6 %. These are fits with more knobs than targets, and
-the top-level claim table should say "fitted", as the row "**The masses are
-FITTED**" deeper in the same table already does.
+* `null_throat_boundary_conditions_probe.py` (PR #129, 615 lines) takes
+  the PR #128 identification `Φ(U,V,Ω) = Φ(−U,−V,Ω̄)` at the 5D Tangherlini
+  horizon, uses `Y_ℓ(−Ω) = (−1)^ℓ Y_ℓ(Ω)`, and derives even-ℓ Neumann /
+  odd-ℓ Dirichlet throat conditions, zero throat flux (unitary mirror), and a
+  real discrete ℓ-graded spectrum on `[R_MID+ε, R_OUTER]`.
+* `antipodal_horizon_exchange_kernel_probe.py` (PR #135) builds
+  `K_ℓ(r,r′;ω) = ⟨r|(H_ℓ − ω²)⁻¹|r′⟩` with those conditions and checks the
+  spectral representation, reciprocity and `(−1)^ℓ` parity grading to ~1e-14.
+* The QNM comparison (`antipodal_vs_absorbing_qnm_probe.py`) and one-loop
+  self-energy probe build on the same boundary data.
 
-### F8. The verification instruments cannot fail, and pre-registration is nominal
+What does not exist:
 
-The prior internal audit (`69fc599`) found 45/45 probe runs passing and a
-suite that is edited when a verdict changes. This audit confirms it:
+* a derivation of that identification from the finite-mouth 5D geometry;
+* a solve of the nonlinear Einstein system on a global antipodal quotient;
+* any twisted spin structure on the quotient (the probe itself notes that a
+  Möbius field would flip even ↔ odd and leaves it there).
 
-* 45 assertions in `tests/` compare a returned string against prose
-  (`assert "NARROWED, not closed" in ledger["verdict"]`,
-  `assert entry["verdict"] == "WITHDRAWN"`). These lock the narrative, not
-  the number.
-* The three "pre-registered" rounds are real, but the pre-registration commit
-  precedes the module by 24–40 minutes in the same session and author
-  (`765dbaa → 7de86ce`, `ca07204 → 1082f5d`, `d47df40 → 70ad286`). That is
-  a useful discipline; it is not independent.
-* The one external oracle the prior audit identified (Matyjasek 2021 for the
-  5D QNM) remains the only one. The Hochberg–Visser recovery in the source
-  audit is a legitimate second.
+The package-level uses of `antipode4` remain what the first draft described:
+mouth placement at `−p`, a Gaussian match weight with free width
+`SIGMA_ANTI = 0.18`, a delayed half-ring coupling in the QCD solver with free
+strength `antipodal_coupling = 0.15`, and a cavity resonance rule with
+hand-set default frequencies. The ledger entry "B2_antipodal_Z2: CLOSED
+(RP³ + spin structure)" still has no computation behind the words "spin
+structure".
 
-### F9. Terminology: "QFT on a fixed classical background" is not what the code does
+Accurate status: **BAM has implemented the antipodal identification as a
+boundary condition on a linear matter-wave problem on the imposed Tangherlini
+horizon geometry. It has not derived that identification from the finite-mouth
+solution, nor solved the Einstein system on a global antipodal quotient.**
 
-The README's framing is "standard field theory on that fixed classical
-background, in the precise sense of QFT-on-curved-spacetime". QFT on curved
-spacetime means a quantized field: mode expansion, canonical commutators or a
-path-integral measure, a vacuum state, renormalized stress tensor. None of
-those objects exists in the code. Grepping the package and all 302 probes for
-`Fock`, `annihilation`, `creation operator`, `commutator` finds only prose
-mentions. `ħ` occurs as `1.054571817e-34` in ten probe scripts and in the
-anchor relation `ħ = m_e R_MID c`, which is a unit choice. The
-"exchange kernel" probe derives `1/q²` as the Fourier transform of the
-classical Coulomb potential, then feeds it into the textbook Bhabha/Møller
-squared matrix elements, which are imported. The "one-loop determinant" and
-"path-integral measure `S_BAM`" are names attached to classical spectral sums
-and Bohr–Sommerfeld/Maslov counting.
+### F7. The mass ladders are calibrated surrogate fits, and the README contradicts itself about them
+
+`solved_lepton_masses_mev()` returns `[0.511, 105.6126, 1778.938]`
+(`−0.043 %`, `+0.117 %` on μ, τ), and the "Lepton mass ladder" section still
+advertises "sub-percent accuracy with zero free parameters at scan time". The
+same README's PR #271 section states that `γ = 22.5` is "no longer derived",
+that the corrected radial operator gives `22.331` or `22.836` at the canonical
+geometry, and that either value moves the muon by `15–21 %` because
+`d ln m_μ / d ln γ = −17.5`.
+
+The locked Hamiltonian carries four real anchors (`phase = 0.001`,
+`transport = 25.1`, `pinhole = 22.5`, `resistance = 0.217869`) and three
+discrete structural switches, selected by the calibration scans in the
+section's own script map. Raw parameter counting is not the decisive test,
+since some anchors may be independently sourced; the decisive test is the
+repository's own dependency ledger (derived | chosen | calibrated | holdout),
+and on that ledger `γ` moved from *derived* to *chosen* in PR #271 while the
+headline stayed *predicted*. The quark sector adds three opt-in extensions and
+reaches 1.6 %. Accurate status: **excellent calibrated surrogate fits, not
+parameter-free mass predictions.** The row "**The masses are FITTED**"
+deeper in the same table already says so.
+
+### F8. The suite catches numerical failures; it has not caught entitlement errors
+
+**Correction of the first draft**, whose heading repeated the prior internal
+audit's "the instruments cannot fail". GitHub Actions run 32330296533 on the
+PR #263 branch (2026-08-20, head `9cbfa25`) concluded `failure`
+(1 failed, 1185 passed, 1 xfailed; a quadrature convergence test). The suite
+can say no.
+
+What survives, and is more interesting:
+
+* The failures the suite has caught are implementation/numerical
+  (convergence, bookkeeping). The failures that recent reviews caught — the
+  radial operator short by `3A²/(4r²)`, an unfixed `η_topo = +1`, a chosen
+  tube area carrying an answer, an underidentified fit, and now F1 — passed
+  through a green suite. 45 assertions in `tests/` compare a returned string
+  against prose (`assert "NARROWED, not closed" in ledger["verdict"]`); they
+  lock the narrative, not the number. The `γ` sums, `R_OUTER` fixed point and
+  `1.054` factor are unprotected (PR #271's own finding).
+* The three pre-registered rounds (`765dbaa → 7de86ce`, `ca07204 → 1082f5d`,
+  `d47df40 → 70ad286`) commit the criterion 24–40 minutes before the build,
+  by the same session. That is internal prospective testing: it prevents
+  "see answer → choose criterion", which is its purpose, and it is not
+  independent evidence. The PR #277 sequence did that job correctly.
+* The external oracles remain few: Matyjasek 2021 for the 5D QNM, and the
+  Hochberg–Visser recovery in the source audit.
+
+### F9. The central gap: the quantization and probability map is not derived
+
+**Correction of the first draft**, which said "no field is quantized
+anywhere". The absence of a Fock space or canonical commutators does not
+settle that; the repository has a substantial formal path-integral arc:
+`Z = Σ_{k odd, c₁, n_part} (−1)^k ∫ (dL/L) det^{−1/2}_matter ·
+e^{i(π/2)(1−2a)} · e^{−S_BAM}` with Faddeev–Popov gauge fixing, a
+`Diff(S¹)` ghost determinant, ζ / Gel'fand–Yaglom determinants, η phases and
+a sector sum (README rows for PRs #74, #115–#122;
+`s_bam_path_integral_measure_probe.py`, `diff_s1_ghost_determinant_probe.py`,
+`tangherlini_fluctuation_determinant_probe.py`).
+
+So there are two opposite problems, not one:
+
+* some modules use quantum states, tensor products, amplitudes and Born
+  probabilities explicitly (`bell/bulk_identity.py`, `history/closure.py`'s
+  closure weights, the Bhabha/Møller squared amplitudes fed by the
+  exchange-kernel probe);
+* other modules build path-integral / one-loop machinery on the classical
+  background and describe the result as emergent.
+
+`THESIS.md` holds both positions. Its opening frames `S_BAM`, the one-loop
+determinant and the bounded interacting vacuum as matter QFT read off the
+classical geometry; lines 149–151 say "No canonical commutators are imposed,
+no Hilbert space is assumed at the outset, and no path integral is
+performed." Those need reconciling.
+
+The question neither side answers is:
+
+> **Why does classical GR imply the quantum composition and probability
+> rules?**
+
+Nothing in the repository derives from the Einstein equations the weight
+`e^{iS/ħ}` on histories, the rule `P = |A|²`, or the passage from the
+one-object classical configuration space to a complex tensor-product Hilbert
+space with the measurement structure Bell requires. Geometry has produced
+discrete spectra, holonomies, Green functions, self-adjoint kernels and
+algebraic correspondences; the bridge
+
+```
+classical geometric phase space  ⟶  quantum amplitudes / probabilities / multiparticle structure
+```
+
+is not closed. Accurate status: **the repository contains quantum-formal
+structures, but has not derived the quantization/probability map from
+classical GR; in the quantitative sectors that map is imported.**
 
 ## What is sound
 
 * The finite-mouth handle: geometry, matching, and the lapse-independent neck
-  cost are correct and cleanly derived.
+  cost.
 * The source audit's flare-out theorem and its attribution to
   Morris–Thorne / Hochberg–Visser.
-* The causal-support argument that the cross-exterior transactional product
-  vanishes on the Tangherlini bridge.
-* The 4+1 characteristic code's positivity identity and its stated
-  limitations.
-* The retractions themselves. The repository's later rounds routinely
-  withdraw earlier claims, and the internal audit `69fc599` is accurate.
+* The support-composition argument that the cross-exterior transactional
+  product vanishes on the Tangherlini bridge.
+* The negative-EGB closure by degeneration of the classical principal symbol.
+* The PR #129/#135 boundary-value construction as a self-consistent, unitary,
+  parity-graded transport condition, given the postulate.
+* The 4+1 characteristic code's positivity identity and stated limits.
+* The retraction record, including the internal audit `69fc599`.
 
 ## Recommendations
 
-1. Correct `embedding/transport.py` and every README row that depends on it:
-   `σ` is orientation-preserving; `T = iσ_y` is an SU(2)/Kramers structure,
-   not a non-orientable transport. Add a test asserting `det = +1` so the
-   docstring cannot drift back.
+1. Correct `embedding/transport.py` and the README rows that cite it: `σ` is
+   the base antipode composed with fibre reversal, orientation-preserving on
+   `S³`; `J = iσ_y K` is the quaternionic structure on `C²`. Add a test on
+   `det = +1` and on `h(σz) = −h(z)`, `σ(e^{iφ}z) = e^{−iφ}σ(z)` so the
+   docstring cannot drift back. Then attempt the actual theorem: that the
+   `RP²` mouth transition lifts to `J`.
 2. Rewrite the claim table's Bell rows to the repository's own later verdict:
-   classical network dynamics gives `CHSH = 2`; `2√2` requires the imported
-   singlet and measurement freedom.
-3. Move the inner–outer gluing from a drawing rule to a boundary condition of
-   an actual solve, or stop describing the wave rounds as a "connection".
-4. Add Barceló–Visser as a sixth branch in the source audit, with the explicit
-   statement that it requires abandoning `q = 0` at the neck.
-5. Implement the antipodal identification once, as a real quotient
-   (`RP³` boundary condition or an antipodal horizon condition in the 5D
-   kernel), so that "B2 CLOSED" corresponds to a computation.
-6. Mark the lepton and quark ladders "fitted" in the top table and reconcile
-   the "sub-percent, zero free parameters" section with the PR #271 section.
-7. Replace prose-verdict assertions with numeric ones, and regression-lock the
-   `γ` sums, `R_OUTER` fixed point and `1.054` factor that PR #271 found were
-   unprotected.
-8. Drop "QFT on a fixed background" from the framing until a field is
-   quantized; the accurate description is classical wave mechanics and
-   spectral counting on a classical geometry.
+   derived network dynamics gives `CHSH = 2`; `2√2` requires the imported
+   singlet and measurement freedom; the carrier's geometry is open.
+3. Keep the three inner–outer objects distinct in the README (visual
+   convention / imposed horizon BC / finite-mouth junction), and build the
+   missing composition: derive the PR #129 boundary condition, or its
+   twisted variant, from the PR #277 finite-mouth geometry instead of leaving
+   it as an independent postulate.
+4. Add Barceló–Visser as a sixth branch in the source audit, with the
+   explicit statement that it requires abandoning `q = 0` at the neck and is
+   a 4D result.
+5. State the traversability no-go at its correct scope: it closes MTY causal
+   exchange, not the PR #206 global-constraint reading, which then needs its
+   own derivation.
+6. Mark the lepton and quark ladders "calibrated" in the top table and
+   reconcile the "sub-percent, zero free parameters" section with the PR #271
+   section using the dependency ledger.
+7. Replace prose-verdict assertions with numeric ones, and regression-lock
+   the `γ` sums, `R_OUTER` fixed point and `1.054` factor.
+8. Reconcile `THESIS.md` with itself on whether a path integral is performed,
+   and state in one place what is derived versus assumed about amplitudes,
+   `|A|²`, and the tensor product.
 
 ## Appendix: the orientation check
 
@@ -348,8 +455,29 @@ for _ in range(20000):
 print(hits)                                  # 0
 ```
 
-Output on this machine: `det = 1.0`, `hits = 0`.
+Output on this machine: `det = 1.0`, `hits = 0`. The base-antipode and
+fibre-reversal identities follow from `z̄₁′z₂′ = z₂(−z̄₁) = −z̄₁z₂` and
+`σ(e^{iφ}z) = (e^{−iφ}z̄₂, −e^{−iφ}z̄₁)`.
+
+## Revision note
+
+The first draft of this audit was reviewed against the repository history.
+Four of its statements were wrong or overstated, and each correction was
+verified before being adopted:
+
+| draft statement | correction | verified by |
+|---|---|---|
+| "`T = iσ_y` is inserted, not non-orientable geometry" | `σ` is base antipode × fibre reversal; `J` is a natural lift candidate whose derivation from the `RP²` mouth is missing | `h(σz) = −h(z)`, `σ(e^{iφ}z) = e^{−iφ}σ(z)` by hand |
+| "nowhere does `x ~ −x` enter a boundary condition of a solve" | PR #129 imposes it at the horizon; PR #135 builds the resolvent on it | `null_throat_boundary_conditions_probe.py` (615 lines), `antipodal_horizon_exchange_kernel_probe.py` |
+| "the instruments cannot fail" | CI run 32330296533 failed on 2026-08-20 | GitHub Actions API, `conclusion: failure` |
+| "no field is quantized anywhere" | a formal path-integral / determinant arc exists; the gap is the underived quantization map, and `THESIS.md` contradicts itself | README rows for PRs #74, #115–#122; `docs/THESIS.md` lines 149–151 |
+
+Two further scope corrections: the traversability no-go was narrowed from
+"fatal to the premise" to "fatal to MTY causal exchange", since PR #206's
+non-traversable global-constraint reading is not touched by it; and the
+Barceló–Visser branch was qualified as 4D and as incompatible with the
+`q = 0` core.
 
 ## Test suite
 
-*Full-suite result pending at the time of this commit; updated in the next commit.*
+*Full per-file suite run in progress at the time of this commit; result recorded in the next commit.*
