@@ -4771,6 +4771,38 @@ produced in opposite pairs. Still chosen: `P_B = −P_A`, quotient over cover,
 python -m experiments.closure_ledger.finite_mouth_topology_probe   # 7/7
 ```
 
+## The Born rule does not follow from the mouth's classical measure
+
+*Pre-registered in `docs/classical_born_prereg.md` (`7ff6e41`), committed before
+the module. Module `geometrodynamics/bulk/mouth_measurement.py`; probe
+`classical_born_probe.py`; tests `tests/test_mouth_measurement.py`. Write-up:
+`docs/classical_born_rule.md`.*
+
+**Verdict: `BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW`.** With the
+classical state the spin-frame rounds supply — Bloch direction fixed by the
+preparation, fibre phase unresolved with Haar measure — a deterministic
+detector's outcome frequency is the arc measure of its `+1` basin, a free
+function constrained only by reversal `f(π−θ) = 1 − f(θ)`. Born, a straight
+line and a step all pass; symmetry plus Haar select nothing. Every coupling
+in the repository then fails: a linear torque/gradient functional of the
+frame gives an `arccos` family with plateaus (best miss `0.109`); the
+classical Malus intensities are phase-independent and give a step (the
+intensity fraction *is* `cos²(θ/2)`, which is Theorem 1: intensity is not
+probability); spinor-plus-frame harmonics miss by `≥ 0.5`; the repository's
+own winding Stern–Gerlach is a step, and its measurement round feeds it an
+explicitly *Born* throat ensemble. The one classical route that reaches
+Born exactly, `sign(a·(x + κy))` with `y` Haar on `S²` (Archimedes:
+`a·y` uniform on `[−1,1]`), needs a measure a prepared mouth does not have
+and a weight tuned to `κ = 1` (`κ = 0.9, 1.1` miss by `0.05`). That is
+Bell 1964 / Kochen–Specker 1967: deterministic hidden outcome, probabilities
+from ignorance — typology C, which places the pair problem under Bell's
+theorem unless measurement independence fails geometrically. Composition and
+CHSH are deferred.
+
+```bash
+python -m experiments.closure_ledger.classical_born_probe   # 10/10
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced

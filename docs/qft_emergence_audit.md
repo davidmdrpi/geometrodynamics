@@ -423,7 +423,13 @@ Hopf fibre is the mouth's `Spin(2)` (so the `K` is canonical), and the sign
 is a Pin⁻ sector that pair creation must produce in opposite pairs
 (`docs/mouth_spin_frame_prereg.md`). Link 1 has therefore moved from
 "assumed" to a derivation conditional on the antipodal quotient
-construction; link 3 (the quantum probability law) is untouched.
+construction. Link 3 (the quantum probability law) was then tested in
+`docs/classical_born_rule.md`: with the mouth's classical measure and
+deterministic detectors, Born is reached only by importing a Haar-on-`S²`
+variable and a tuned weight (`BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW`);
+the classical route that works is a local hidden-variable model, so the
+pair problem falls under Bell's theorem unless a derived global boundary
+problem makes the ensemble setting-dependent.
 
 ### Ranked missing links
 
