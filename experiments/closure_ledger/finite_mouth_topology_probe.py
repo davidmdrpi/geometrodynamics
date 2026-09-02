@@ -23,6 +23,7 @@ sys.path.insert(0, os.path.abspath(
 
 from geometrodynamics.bulk import finite_mouth as fm      # noqa: E402
 from geometrodynamics.bulk import mouth_topology as mt    # noqa: E402
+from geometrodynamics.bulk import mouth_spin_frame as sf  # noqa: E402
 
 TARGETS = {
     (0, "Neumann"): 0.000000000, (0, "Dirichlet"): 0.157587622,
@@ -270,6 +271,51 @@ def check_h6() -> dict:
                     "sign. J^2 = -1 is geometric; -j and the sign are not selected.")}
 
 
+def check_h7() -> dict:
+    """H7 — the Hopf bundle as the mouth spin-frame bundle, and Pin- pairing
+    (docs/mouth_spin_frame_prereg.md, T1-T6)."""
+    t1 = sf.frame_map_checks()
+    t2a = sf.fibre_rotates_frame_twice()
+    t2b = sf.levi_civita_versus_hopf_connection()
+    t2c = sf.chern_versus_euler()
+    t3 = sf.deck_lifts_of_antipode()
+    t34 = sf.two_sheeted_involution()
+    t5 = sf.pin_minus_structures_rp2()
+    t6 = sf.pin_bordism_pairing_rule()
+    T1 = t1["double_cover"] and t1["orientation_error"] < 1e-12
+    T2 = t2a["angle_is_2phi"] and t2b["omega_is_minus_twice_A"] and t2c["ratio_is_two"]
+    T3 = (t3["exactly_the_perp_units_cover"] and t3["frame_image_is_dA_times_one_reflection"]
+          and all(t34[e]["A_tilde_squared_is_identity"] for e in ("epsilon=+1", "epsilon=-1")))
+    T4 = t34["number_of_pin_minus_structures"] == 2 and not t34["preferred_by_geometry"]
+    T5 = [r["ABK_mod8"] for r in t5] == [1, 7] and all(r["is_quadratic"] for r in t5)
+    T6 = t6["opposite_sectors_bound"] and t6["equal_sectors_do_not"] and t6["single_mouth_cannot_bound"]
+    if T1 and T2 and T3 and T5 and T6:
+        verdict = "HOPF_IS_MOUTH_SPIN_BUNDLE_AND_PAIRING_FIXES_OPPOSITE_PIN_SECTORS"
+    elif T1 and T2 and T3:
+        verdict = "HOPF_IDENTIFICATION_DERIVED_BUT_PIN_PAIRING_UNSELECTED"
+    else:
+        verdict = "MOUTH_SPIN_GEOMETRY_INCOMPATIBLE_WITH_BAM_HOPF_TRANSPORT"
+    return {"frame_map": t1, "fibre_angle": t2a, "connection": t2b, "chern_euler": t2c,
+            "deck_lifts": t3, "involution": t34, "pin_structures": t5, "bordism": t6,
+            "T1": bool(T1), "T2": bool(T2), "T3": bool(T3), "T4": bool(T4),
+            "T5": bool(T5), "T6": bool(T6),
+            "spin_frame_verdict": verdict, "holds": bool(T1 and T2 and T3 and T4 and T5 and T6),
+            "conditions": ["antipodal quotient construction: P_B = -P_A and quotient over cover",
+                           "pair creation modelled as a Pin- bordism of the mouth surfaces"],
+            "class": ("analytic identity (T1-T3, T5), definition (T4), imported theorem + "
+                      "computed invariants (T6), conditional on the two listed choices"),
+            "why": ("q -> (q^-1 i q, q^-1 j q, q^-1 k q) is Spin(3) -> SO(3) = F_SO(S^2): the "
+                    "bulk mouth S^3 is the spin-frame bundle of the brane mouth S^2, and the "
+                    "repository's Hopf fibre is Spin(2) -- fibre angle phi rotates the frame "
+                    "by 2 phi, the Levi-Civita form is -2A, c_1 = 1 against e = 2. Exactly the "
+                    "unit quaternions perpendicular to the fibre generator cover the antipode "
+                    "(one Spin(2)-conjugacy class, so the direction is gauge), each squares to "
+                    "the central -1, and on the two-sheeted Pin- bundle the involution has two "
+                    "sign choices: the two Pin- structures of RP^2, ABK = +1 and 7. With "
+                    "Omega_2^{Pin-} = Z_8, two mouth necks bound a Pin- worldvolume only in "
+                    "opposite sectors, and a single neck cannot bound at all.")}
+
+
 def audit_table(h: dict) -> list:
     return [
         ("Is the physical mouth non-orientable?",
@@ -306,11 +352,23 @@ def audit_table(h: dict) -> list:
          "the finite ultrastatic neck. Reproduced numerically against the PR #277 "
          "oracle to " + f"{h['h3']['worst_relative_error']:.1e}" + ", second order.",
          "numerically converged"),
+        ("Is the Hopf U(1) the mouth's Spin(2)?",
+         "YES, exactly: the bulk mouth S^3 with the brane normal as identity is the "
+         "spin-frame bundle of the brane mouth S^2; fibre angle phi = frame angle "
+         "2 phi; omega_LC = -2 A; c_1 = 1 against e = 2. The identification the "
+         "previous round listed as unproved is standard spin geometry.",
+         "analytic identity"),
+        ("Do the two mouth sectors pair?",
+         "Opposite sectors bound a Pin- worldvolume (ABK 1 + 7 = 0 mod 8); equal "
+         "sectors do not; a single neck cannot. The sign is a conserved pair label, "
+         "not a nuisance parameter -- conditional on modelling pair creation as a "
+         "Pin- bordism of the mouths.",
+         "imported theorem + computed invariants; conditional"),
         ("Which inputs remain postulates?",
          "P_B = -P_A; quotient vs cover; eta; the extension in time (P or PT); the "
-         "identification of the Hopf fibre phase with the mouth's Spin(2) rotation; "
-         "the U(1) direction and the sign of the mouth holonomy. The Pin type is no "
-         "longer a postulate (Pin+ ambient, Pin- intrinsic, both forced).",
+         "bordism modelling of pair creation; which of the two sectors is called the "
+         "particle. The U(1) direction is gauge and the Hopf/Spin(2) identification "
+         "is derived; neither remains a postulate.",
          "definition / chosen"),
     ]
 
@@ -330,11 +388,13 @@ def verdict(h: dict) -> str:
 
 def run_probe() -> dict:
     h = {"h1": check_h1(), "h2": check_h2(), "h3": check_h3(),
-         "h4": check_h4(), "h5": check_h5(), "h6": check_h6()}
+         "h4": check_h4(), "h5": check_h5(), "h6": check_h6(), "h7": check_h7()}
     passed = sum(int(v["holds"]) for v in h.values())
     return {"timestamp": datetime.now(timezone.utc).isoformat(),
             "prereg": ("docs/finite_mouth_topology_prereg.md @ d9d85bc; "
-                       "docs/mouth_pin_holonomy_prereg.md @ 7f46fff"),
+                       "docs/mouth_pin_holonomy_prereg.md @ 7f46fff; "
+                       "docs/mouth_spin_frame_prereg.md @ 6bc4306"),
+            "spin_frame_verdict": h["h7"]["spin_frame_verdict"],
             "checks": h, "passed": passed, "total": len(h),
             "audit_table": audit_table(h), "verdict": verdict(h),
             "dependency_ledger": {
@@ -346,8 +406,14 @@ def run_probe() -> dict:
                 "mouth holonomy": "H~( iota [derived given P_B=-P_A], nu = lambda+lambda "
                                   "[derived], Pin+ [derived: w_1^2 != 0 and P5], t2 "
                                   "[gauge: Spin(2)], sign [chosen: Pin structure] )",
-                "H~ = J": "( H~ [above], Cl^-(2) = H [canonical], H = Hopf C^2 [chosen "
-                          "complex structure], t2 = -j [chosen within U(1)], sign [chosen] )",
+                "H~ = J": "( H~ [above], Cl^-(2) = H [canonical], H = Hopf C^2 [derived: the "
+                          "Hopf fibre is the mouth Spin(2)], t2 [gauge: Spin(2) conjugacy], "
+                          "sign [chosen: Pin- sector, paired opposite at creation] )",
+                "Hopf = P_Spin(mouth S^2)": "( brane normal <-> 1 in H [geometric], reference "
+                                            "direction i [gauge], orientation class of H "
+                                            "[chosen], Ad_{q^-1}(i, j, k) [definition] )",
+                "opposite sectors": "( Omega_2^{Pin-} = Z_8 [imported], ABK(RP^2, eps) = eps "
+                                    "[computed], pair creation = Pin- bordism [chosen] )",
                 "spinor transport of iota": "±e_s ( Pin type [chosen], sign [chosen], "
                                             "neck frame [gauge] )",
                 "handle topology": "mapping torus of m ( m in O(4) [chosen]; "
@@ -369,13 +435,15 @@ def run_probe() -> dict:
 def render_markdown(s: dict) -> str:
     h = s["checks"]
     L = [f"# Finite-mouth topology probe — {s['passed']}/{s['total']}", "",
-         f"Pre-registration: `{s['prereg']}`. Verdict: **`{s['verdict']}`**", ""]
+         f"Pre-registration: `{s['prereg']}`. Verdict: **`{s['verdict']}`**; "
+         f"spin-frame round: **`{s['spin_frame_verdict']}`**", ""]
     for key, title in (("h1", "H1 — the gluing is free; antipodal gluing is orientable"),
                        ("h2", "H2 — the unique free involution"),
                        ("h3", "H3 — the scalar sector and the oracle"),
                        ("h4", "H4 — no horizon limit; the time-reversal datum"),
                        ("h5", "H5 — what J is"),
-                       ("h6", "H6 — the mouth Pin holonomy (after review)")):
+                       ("h6", "H6 — the mouth Pin holonomy (after review)"),
+                       ("h7", "H7 — the Hopf bundle is the mouth spin-frame bundle; Pin⁻ pairing")):
         c = h[key]
         L += [f"## {title}", "", f"**{'HOLDS' if c['holds'] else 'FAILS'}** "
               f"(*{c['class']}*)", "", "> " + c["why"], ""]

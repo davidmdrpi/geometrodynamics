@@ -4694,13 +4694,14 @@ discrete identification is deliberately untouched — `Φ_spatial`, `(−1)^ℓ`
 python -m experiments.closure_ledger.finite_mouth_probe   # 6/6
 ```
 
-## The finite mouth does not select the gluing — but its mouth does supply `J² = −1`
+## The finite mouth does not select the gluing — but its mouth supplies the Pin⁻ transport class
 
 *Pre-registered in `docs/finite_mouth_topology_prereg.md` (`d9d85bc`) and,
 after review, `docs/mouth_pin_holonomy_prereg.md` (`7f46fff`), each
 committed before the code it constrains. Module
 `geometrodynamics/bulk/mouth_topology.py`; probe
-`finite_mouth_topology_probe.py` (6/6); tests `tests/test_mouth_topology.py`.
+`finite_mouth_topology_probe.py` (7/7); tests `tests/test_mouth_topology.py`,
+`tests/test_mouth_spin_frame.py`.
 Derivation: `docs/finite_mouth_bundle_transport.md`.*
 
 **Verdict: `FINITE_MOUTH_ADMITS_BUT_DOES_NOT_SELECT_THE_BAM_LIFT`**, and
@@ -4740,11 +4741,34 @@ after review the "admits" half is stronger than the first draft said.
   that identification is unproved. A first draft said "not a lift of any
   gluing map"; that was wrong.
 
+* **The Hopf bundle is the spin-frame bundle of the brane mouth, and the
+  sign pairs** (`docs/mouth_spin_frame_prereg.md`, `6bc4306`; module
+  `bulk/mouth_spin_frame.py`). `q ↦ (q⁻¹iq, q⁻¹jq, q⁻¹kq)` is
+  `Spin(3) → SO(3) = F_SO(S²)`: the bulk mouth `S³`, with the brane normal as
+  identity, **is** `P_Spin` of the brane mouth `S²`, and the repository's
+  Hopf fibre `q ↦ e^{iφ}q` rotates the tangent frame by `2φ` — the
+  Levi-Civita form is `−2A` (residual `1.7e-9`), `c₁ = 1` against `e = 2`.
+  So the Hopf phase is the mouth's `Spin(2)`, not an assumed `U(1)`, and the
+  `U(1)` direction of the holonomy is gauge (one `Spin(2)`-conjugacy class,
+  the units `u ⊥ i`, each covering the antipode with `L_u² = −1`). What
+  remains is the sign: the two Pin⁻ structures of `RP²`, `ABK = 1` and `7`.
+  With `Ω₂^{Pin⁻} = Z₈`, two mouth necks bound a Pin⁻ worldvolume **only in
+  opposite sectors**, and a single neck cannot bound at all: the sign is a
+  conserved pair label, not `wrap_parity = +1` by fiat. Verdict
+  `HOPF_IS_MOUTH_SPIN_BUNDLE_AND_PAIRING_FIXES_OPPOSITE_PIN_SECTORS`,
+  conditional on the antipodal quotient construction and on modelling pair
+  creation as a Pin⁻ bordism of the mouths.
+
 `embedding/transport.py`'s claim that `σ` is "the unique orientation-reversing
-Hopf-preserving isometry" is withdrawn in the module itself.
+Hopf-preserving isometry" is withdrawn in the module itself. The defensible
+statement about `J` is now: the finite non-orientable mouth forces the Pin⁻
+order-four transport class, the antilinearity is canonical because the Hopf
+fibre is the mouth's `Spin(2)`, and the two signs are conjugate sectors
+produced in opposite pairs. Still chosen: `P_B = −P_A`, quotient over cover,
+`η`, the time extension, the bordism modelling of creation.
 
 ```bash
-python -m experiments.closure_ledger.finite_mouth_topology_probe   # 6/6
+python -m experiments.closure_ledger.finite_mouth_topology_probe   # 7/7
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

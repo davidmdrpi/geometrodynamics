@@ -417,8 +417,13 @@ boundary condition is the `η = +1` sector of the unique free involution of
 the finite handle, conditional on `P_B = −P_A` and on taking the quotient;
 `J = iσ_y K` is the spin lift of the rotation `L_{−j}`, not of `ι`; and the
 induced Pin⁻ holonomy of the `RP²` mouth lies in the same component of
-`Pin(2) ⊂ SU(2)` with `H̃² = −1`, up to a `U(1)` direction and a sign
-(outcome B of `docs/mouth_pin_holonomy_prereg.md`).
+`Pin(2) ⊂ SU(2)` with `H̃² = −1` (outcome B of
+`docs/mouth_pin_holonomy_prereg.md`); the `U(1)` direction is gauge, the
+Hopf fibre is the mouth's `Spin(2)` (so the `K` is canonical), and the sign
+is a Pin⁻ sector that pair creation must produce in opposite pairs
+(`docs/mouth_spin_frame_prereg.md`). Link 1 has therefore moved from
+"assumed" to a derivation conditional on the antipodal quotient
+construction; link 3 (the quantum probability law) is untouched.
 
 ### Ranked missing links
 

@@ -36,7 +36,13 @@ is left multiplication by a unit quaternion of the (i, j) plane -- the same
 fibre-reversing component of Pin(2) that sigma = L_{-j} belongs to, with
 the same square -1 -- determined up to a Spin(2) = U(1) direction and a
 sign. So T^2 = -1 is geometric (the spin holonomy of a 2 pi rotation on the
-round neck); the specific element -j and the sign are not selected.
+round neck). The direction -j within that component is gauge (a Spin(2)
+conjugation), and the Hopf fibre IS the mouth's Spin(2)
+(``bulk/mouth_spin_frame.py``: the bulk mouth S^3 is the spin-frame bundle
+of the brane mouth S^2, fibre angle phi = frame angle 2 phi), so the
+antilinear K is canonical. The sign is the Pin^- sector of the mouth, and
+Pin^- bordism requires the two mouths of a created pair to carry opposite
+sectors. Still chosen: the antipodal quotient construction itself.
 
 Verification checks retained:
     T^2 = -I, T^dagger T = I, det T = 1, T sigma_z T^dagger = -sigma_z.
