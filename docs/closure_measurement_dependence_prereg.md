@@ -4,6 +4,18 @@
 after `docs/classical_born_prereg.md` (merged in PR #279). Success criteria
 may change afterwards only by an explicit correction note.
 
+## Correction note (post-implementation, before commit of the module)
+
+P1 stated that `ρ(x|a,b)` and `ρ(x|a′,b′)` have distinct great-circle
+supports, hence total variation `1`. That is true for **non-coplanar**
+settings (computed: `TV = 1`). In the standard Bell configuration all
+analyzers lie in one plane, so every setting pair shares the same great
+circle and the setting dependence is in the **density** on it, not in the
+support: total variation `0.018` between the pairs `(0, 1)` and `(0.5, 1)`,
+`0.063` between `(0, π/4)` and `(π/2, −π/4)`. Measurement independence
+fails in both cases; the correction is to the described mechanism in the
+coplanar case. No criterion changes.
+
 ## 0. What the repository's two-boundary structure is
 
 The repository has one global, two-boundary principle: the closed-history

@@ -1,0 +1,155 @@
+{
+  "timestamp": "2026-09-02T04:49:34.125531+00:00",
+  "prereg": "docs/closure_measurement_dependence_prereg.md @ 1b0144e",
+  "E": {
+    "0.3": 0.8209532358455054,
+    "0.7853981633974483": 0.5355707908624323,
+    "1.0": 0.3984966504370391,
+    "1.5707963267948966": 0.0,
+    "2.0": -0.3034990767919952
+  },
+  "closed_form": {
+    "0.3": 0.8209532358305647,
+    "0.7853981633974483": 0.5355707907920504,
+    "1.0": 0.39849665042154836,
+    "1.5707963267948966": 1.2436699526031822e-16,
+    "2.0": -0.3034990767428214
+  },
+  "marginals": {
+    "0.2": {
+      "P(A=+)": 0.5,
+      "P(B=+)": 0.5
+    },
+    "1.0": {
+      "P(A=+)": 0.5,
+      "P(B=+)": 0.5
+    },
+    "2.5": {
+      "P(A=+)": 0.5,
+      "P(B=+)": 0.5
+    }
+  },
+  "S_standard": 2.1422831702064027,
+  "S_max": {
+    "S_max": 2.1422831631682016,
+    "settings": [
+      0.0,
+      -1.5707963267948966,
+      -0.7853981633974483,
+      0.7853981633974483
+    ],
+    "below_tsirelson": true
+  },
+  "bargmann": {
+    "max_residual": 2.220446049250313e-16,
+    "signed_variant_is_cos": true,
+    "signed_variant_max_deviation_from_cos": 0.0,
+    "negative_weight_fraction_of_circle_like_outcomes": {
+      "0.5": 0.07955,
+      "1.0": 0.15915,
+      "2.0": 0.3183
+    },
+    "expected_fraction": {
+      "0.5": 0.07957747154594767,
+      "1.0": 0.15915494309189535,
+      "2.0": 0.3183098861837907
+    }
+  },
+  "window": {
+    "0.4": 0.3729024823377838,
+    "0.2": 0.3922680426924355,
+    "0.1": 0.3972744201478919,
+    "0.05": 0.397152562508121
+  },
+  "measurement_dependence": {
+    "non_coplanar": {
+      "coplanar": false,
+      "total_variation": 1.0,
+      "measurement_independence_holds": false,
+      "why": "distinct closure circles; supports meet in two points"
+    },
+    "coplanar": {
+      "coplanar": true,
+      "total_variation": 0.018239080323728084,
+      "measurement_independence_holds": false,
+      "max_density_ratio": 1.0785825961437854,
+      "why": "same closure circle; the conditioned density on it depends on the settings"
+    },
+    "coplanar_standard_pairs": {
+      "coplanar": true,
+      "total_variation": 0.0631400077212698,
+      "measurement_independence_holds": false,
+      "max_density_ratio": 1.2071067811865475,
+      "why": "same closure circle; the conditioned density on it depends on the settings"
+    }
+  },
+  "controls": {
+    "two_leg": {
+      "max_abs_solid_angle": 3.261398424349858e-15,
+      "closure_automatic": true,
+      "source_measure_conditioned": false
+    },
+    "local": {
+      "E_at_gamma": {
+        "0.3": -0.317405,
+        "1.0": -0.18004,
+        "2.0": 0.14009
+      },
+      "CHSH_standard": 0.93971,
+      "local_bound_respected": true
+    },
+    "width": {
+      "rows": [
+        {
+          "sigma": 0.6,
+          "E": 0.16998973047840366
+        },
+        {
+          "sigma": 0.3,
+          "E": 0.2925385085537734
+        },
+        {
+          "sigma": 0.1,
+          "E": 0.38040469237065977
+        },
+        {
+          "sigma": 0.03,
+          "E": 0.39470359374084496
+        }
+      ],
+      "sharp_limit": 0.39849665042154836,
+      "depends_on_sigma": true,
+      "repository_sigma": 0.6
+    },
+    "sign": 0.3984966504370391,
+    "pos_variant": {
+      "E(1)": 0.4649515003974394,
+      "S": 2.464880712225777
+    }
+  },
+  "checks": {
+    "P1_measurement_dependence_non_coplanar_maximal": true,
+    "P1_measurement_dependence_coplanar_in_the_density": true,
+    "P2_no_signalling": "True",
+    "P3_quadrature_equals_closed_form": "True",
+    "P3_pre_registered_values": true,
+    "P3_not_cos": "True",
+    "P4_bell_violation_standard_angles": "True",
+    "P4_below_tsirelson": true,
+    "P5_signed_is_bargmann_and_cos": true,
+    "P6_strict_zero_variant": "True",
+    "P7_window_converges": true,
+    "control_two_leg_loop_no_conditioning": true,
+    "control_local_detectors_respect_bell": true,
+    "control_gaussian_width_matters": true
+  },
+  "passed": "14",
+  "total": 14,
+  "verdict": "CLOSURE_INDUCES_SETTING_DEPENDENT_SOURCE_MEASURE_NO_SIGNALLING_NOT_BORN",
+  "dependency_ledger": {
+    "rho(x|a,b)": "rho( Haar on S^2 [invariant prior; pair direction physical: chosen], closure axiom Omega = 0 mod 2pi [repository axiom], geodesic-realignment detection model [chosen], coarea conditioning [derived; window limit] )",
+    "E(gamma)": "E( rho(x|a,b) [above], outcome signs as history boundary data [chosen: D-type] )",
+    "Born": "signed closure measure [identity: Re Bargmann] -- not a probability; imported if used"
+  },
+  "typology": "D: the admissible source ensemble depends on both future settings through the closure constraint (support = the great circle through a and b), with exact no-signalling. It is not a deterministic detector: the outcome is which closed history is realised. Bell's theorem is evaded by measurement dependence, S = 2.1423 at the standard angles, but the correlation is not the quantum one; the quantum one is the signed closure measure."
+}

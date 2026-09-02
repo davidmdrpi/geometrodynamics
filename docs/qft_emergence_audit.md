@@ -432,7 +432,12 @@ pre-registered label narrowed after review); the classical route that
 works is a local hidden-variable model and an open derivation route, so
 the pair problem falls under Bell's theorem unless the BAM global boundary
 problem, solved with both settings as boundary data, makes the ensemble
-setting-dependent.
+setting-dependent. That was then computed in
+`docs/closure_measurement_dependence.md`: sharp phase closure of the closed
+history does make the source ensemble depend on both settings with exact
+no-signalling and `S = 2.14 > 2`, but yields a closed-form correlation that
+is not `cos γ`; the quantum correlation is the signed (quasi-probability)
+closure density, `D/4 = Re Tr(P_x P_u P_v)`.
 
 ### Ranked missing links
 
