@@ -410,6 +410,14 @@ permitting a rewrite in quantum-mechanical language. That is a clean
 falsification target, and it should be the organising question of the
 project.
 
+*Follow-up (same branch):* links 1 and 2 were tested in
+`docs/finite_mouth_bundle_transport.md`. Result:
+`FINITE_MOUTH_ADMITS_BUT_DOES_NOT_SELECT_THE_BAM_LIFT`. The antipodal
+boundary condition is the `η = +1` sector of the unique free involution of
+the finite handle, conditional on `P_B = −P_A` and on taking the quotient;
+`J = iσ_y K` is a rotation, not a lift of any gluing map, and its `K` is a
+choice of complex structure.
+
 ### Ranked missing links
 
 1. **Topology → transport.** Derive the transition function of the actual

@@ -1,38 +1,40 @@
 """
-Throat transport from Hopf fibration geometry.
+Throat transport: the map ``sigma`` and what it actually is.
 
-Derives T = iσ_y as the UNIQUE orientation-reversing spinor map
-on S³ that preserves the Hopf bundle structure.  This is not an
-ansatz — it is a theorem of the Hopf fibration.
+CORRECTION (finite-mouth topology round, ``docs/finite_mouth_bundle_transport.md``)
+──────────────────────────────────────────────────────────────────────────────
+An earlier version of this docstring said that
 
-Derivation
-----------
-S³ is parameterized as unit vectors (z₁, z₂) ∈ C² with |z₁|²+|z₂|²=1.
-The Hopf map π: S³ → S² sends (z₁,z₂) to the point on S² with
-Bloch coordinates (2Re(z̄₁z₂), 2Im(z̄₁z₂), |z₁|²−|z₂|²).
+    sigma(z1, z2) = (conj(z2), -conj(z1))
 
-A non-orientable throat reverses the orientation of S³.  The
-orientation-reversing isometry of S³ that preserves the Hopf
-fibration structure is:
+is "the UNIQUE orientation-reversing spinor map on S^3 that preserves the
+Hopf bundle structure" and "a theorem of the Hopf fibration". That is false.
+Its real 4x4 matrix has determinant +1: it is left multiplication by the unit
+quaternion -j, an isoclinic rotation of S^3 by pi/2, orientation-PRESERVING
+on S^3. What it does do, exactly:
 
-    σ: (z₁, z₂) → (z̄₂, −z̄₁)
+    h(sigma z) = -h(z)                antipode on the Hopf base S^2
+    sigma(e^{i phi} z) = e^{-i phi} sigma(z)     reversal of the Hopf fibre S^1
 
-In the spin-½ representation (z₁ = ⟨↑|ψ⟩, z₂ = ⟨↓|ψ⟩), this
-acts as:
+two orientation reversals whose product preserves the orientation of the
+total space. No orientation-reversing isometry of S^3 preserves the Hopf
+fibration at all (fibre-preserving isometries are U(2) and K.U(2), both of
+real determinant +1).
 
-    σ(ψ) = iσ_y ψ*  =  iσ_y K ψ
+In the spin-1/2 representation the same map is
 
-where K is complex conjugation.  For states with REAL coefficients
-(which includes all the measurement eigenstates in the standard
-Bell analysis), K acts as identity, giving:
+    T = i sigma_y K      for the Hopf complex structure (fibre = scalar phase)
+    T = i sigma_y        for the half-spinor complex structure of Spin(4)
 
-    T = iσ_y = [[0, 1], [−1, 0]]
+i.e. the antilinear K is a statement about which complex structure the state
+space carries, not about the geometry. ``T^2 = -I``, ``T^dagger T = I``,
+``det T = 1`` hold; they are properties of the quaternionic structure of C^2,
+not consequences of a non-orientable throat. Whether the physical mouth
+transition lifts to this map is an open question, not a theorem; see
+``geometrodynamics/bulk/mouth_topology.py`` and the derivation document.
 
-Verification checks:
-    T² = −I   (double cover: 4π periodicity)
-    T†T = I   (unitarity)
-    det(T) = 1  (SU(2) element)
-    T σ_z T† = −σ_z  (orientation reversal flips spin)
+Verification checks retained:
+    T^2 = -I, T^dagger T = I, det T = 1, T sigma_z T^dagger = -sigma_z.
 """
 
 from __future__ import annotations
@@ -48,16 +50,12 @@ _ID = np.eye(2, dtype=complex)
 
 
 def derive_throat_transport() -> np.ndarray:
-    """Derive T = iσ_y from the Hopf fibration.
+    """Return T = iσ_y, the matrix of ``sigma(z1, z2) = (conj z2, -conj z1)``
+    on real coefficients.
 
-    The orientation-reversing map σ on S³ = {(z₁,z₂) ∈ C² : |z|=1}
-    that preserves the Hopf bundle is:
-
-        σ(z₁, z₂) = (z̄₂, −z̄₁)
-
-    In matrix form on the spin-½ representation:
-
-        T = iσ_y = [[0, 1], [−1, 0]]
+    ``sigma`` is left multiplication by ``-j`` on ``S^3`` (orientation-
+    preserving, ``det = +1``); it is NOT derived from an orientation reversal.
+    The name is kept for the callers that depend on it.
 
     Returns the 2×2 transport matrix.
     """
@@ -110,11 +108,11 @@ def verify_transport_properties(T: np.ndarray) -> dict:
 
 
 def orientation_reversal_on_s3(z1: complex, z2: complex) -> tuple[complex, complex]:
-    """The orientation-reversing Hopf-preserving map on S³.
+    """``sigma(z1, z2) = (conj z2, -conj z1)``: left multiplication by ``-j``.
 
-    σ(z₁, z₂) = (z̄₂, −z̄₁)
-
-    This is the map that non-orientable throat transport implements.
+    Despite the name (kept for callers), this map PRESERVES the orientation of
+    ``S^3`` (real determinant +1). It reverses the orientation of the Hopf
+    base and of the fibre. See the module docstring.
     """
     return (z2.conjugate(), -z1.conjugate())
 
@@ -125,9 +123,10 @@ def verify_hopf_preservation(n_samples: int = 1000, rng=None) -> float:
     The Hopf map π: S³ → S² sends (z₁,z₂) to the Bloch sphere point
     (2Re(z̄₁z₂), 2Im(z̄₁z₂), |z₁|²−|z₂|²).
 
-    Under σ, the base point on S² transforms as the antipodal map
-    on S² composed with a reflection.  This test verifies that σ
-    maps fibers to fibers (i.e. preserves the bundle structure).
+    Under σ the base point on S² goes to its antipode and the fibre
+    phase is reversed.  This check verifies that σ maps fibers to fibers
+    (the base point of σ(z) is the antipode of the base point of z, for
+    every point on the fibre) and that |σ(z)| = 1.
 
     Returns the maximum fiber-mapping error across random samples.
 
@@ -153,8 +152,17 @@ def verify_hopf_preservation(n_samples: int = 1000, rng=None) -> float:
         norm_err = abs(abs(w1) ** 2 + abs(w2) ** 2 - 1.0)
         max_err = max(max_err, norm_err)
 
-        # Check that fiber phase is shifted but base point is mapped
-        # consistently (same image for all points on the same fiber)
+        # Fibre-to-fibre: the Hopf base point of sigma(e^{i phi} z) must be
+        # the antipode of the base point of z, for every phase phi.
+        def base(a: complex, b: complex) -> np.ndarray:
+            return np.array([2.0 * (a.conjugate() * b).real,
+                             2.0 * (a.conjugate() * b).imag,
+                             abs(a) ** 2 - abs(b) ** 2])
+
+        phase = np.exp(1j * rng.uniform(0.0, 2.0 * np.pi))
+        u1, u2 = orientation_reversal_on_s3(phase * z1, phase * z2)
+        fibre_err = float(np.max(np.abs(base(u1, u2) + base(z1, z2))))
+        max_err = max(max_err, fibre_err)
 
     return max_err
 
@@ -167,10 +175,13 @@ def derive_singlet_from_transport() -> np.ndarray:
     where T is the Hopf-derived throat transport and the sum is
     over the spin basis.  Normalised to unit length.
 
-    This is the SAME construction used in bell/analyzers.py,
-    but here we make the derivation chain explicit:
+    This is the SAME construction used in bell/analyzers.py.  The chain
 
         Hopf fibration → orientation reversal → T = iσ_y → singlet
+
+    that this function's docstring once advertised is NOT a derivation:
+    the first link is false (σ preserves the orientation of S³), and the
+    singlet is this formula's definition.  See the module docstring.
     """
     T = derive_throat_transport()
     up = np.array([1, 0], dtype=complex)

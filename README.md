@@ -4694,6 +4694,49 @@ discrete identification is deliberately untouched — `Φ_spatial`, `(−1)^ℓ`
 python -m experiments.closure_ledger.finite_mouth_probe   # 6/6
 ```
 
+## The finite mouth does not select the transport or the antipodal BC
+
+*Pre-registered in `docs/finite_mouth_topology_prereg.md` (commit `d9d85bc`),
+committed before the module. Module `geometrodynamics/bulk/mouth_topology.py`;
+probe `finite_mouth_topology_probe.py` (5/5); tests
+`tests/test_mouth_topology.py` (22). Derivation:
+`docs/finite_mouth_bundle_transport.md`.*
+
+**Verdict: `FINITE_MOUTH_ADMITS_BUT_DOES_NOT_SELECT_THE_BAM_LIFT`.** The
+PR #277 handle's seam maps are free (`Darmois` matching is `O(4)`-invariant),
+so the loop monodromy `m ∈ O(4)` is a choice. Three things follow that
+correct the repository's wording:
+
+* **The antipodally glued two-mouth handle is orientable in the bulk.**
+  `det(−I₄) = +1`. What the antipode twists is the brane `S²`-handle and the
+  brane's normal line bundle; their product leaves `w₁ = 0`. The
+  non-orientable object is the *quotient* `M/ι` by the unique free involution
+  `ι(s,Ω) = (−s,−Ω)`, which exists iff `P_B = −P_A` (a choice PR #277 never
+  made): `M/ι = RP⁴ # RP⁴`, brane slice `RP³ # RP³`, brane neck `RP²`. And
+  the Pin types disagree: `RP⁴ # RP⁴` is Pin⁺ only, `RP²` is Pin⁻ only.
+* **PR #129's antipodal condition is the `η = +1` scalar sector of `ι`**,
+  `ψ_ℓ(−s) = η(−1)^ℓ ψ_ℓ(s)`, obtained at the finite ultrastatic neck with
+  no horizon and no limit. The half-tube admittance is the `(1, ±1)` sector
+  of the PR #277 oracle, reproduced by an independent second-order solve to
+  `5e-7`. It depends on three choices the geometry does not make:
+  `P_B = −P_A`, quotient rather than double cover, and `η`.
+* **`J = iσ_y K` is not the lift of any gluing map.** Built from
+  `transport.py`'s own function, it is `L_{−j}`: left multiplication by the
+  unit quaternion `−j`, a rotation with `det = +1`, base antipode × fibre
+  reversal. It is antilinear only in the Hopf complex structure `L_i` and is
+  the linear `iσ_y ∈ SU(2)` in the half-spinor structure `R_i`. Every Pin
+  lift of `ι` (`±e_s`, four of them) or of `−I₄` (`±` the volume element) is
+  a real, complex-linear, chirality-exchanging or chirality-signing matrix.
+  The `K` is a choice of complex structure plus charge conjugation, inserted
+  by hand.
+
+`embedding/transport.py`'s claim that `σ` is "the unique orientation-reversing
+Hopf-preserving isometry" is withdrawn in the module itself.
+
+```bash
+python -m experiments.closure_ledger.finite_mouth_topology_probe   # 5/5
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced
