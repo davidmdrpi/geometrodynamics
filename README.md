@@ -4819,25 +4819,28 @@ probe `closure_measurement_probe.py`; tests `tests/test_closure_measurement.py`.
 Write-up: `docs/closure_measurement_dependence.md`.*
 
 **Verdict: `CLOSURE_INDUCES_SETTING_DEPENDENT_SOURCE_MEASURE_NO_SIGNALLING_NOT_BORN`.**
-Take the repository's closed-history axiom (phase closure `≡ 0` or `π`
-around every loop) with nothing imported: the created pair's frame direction
-`x ∈ S²` with Haar prior, the loop `source → A → B → source` of geodesic
+Take the **phase-closure component** of the repository's closed-history axiom
+(phase closure `≡ 0` or `π` around every loop — not the full axiom, whose
+stationarity condition is implemented nowhere), under a **chosen
+geodesic-realignment ansatz**, with no amplitude, no Gaussian and no width:
+the created pair's frame direction `x ∈ S²` with Haar prior (**its
+physicality is a choice**), the loop `source → A → B → source` of geodesic
 legs through the outcome directions `s_A a`, `s_B b`, and the spin-frame
 geometric phase, half the solid angle `Ω = 2 atan2(x·(u×v), 1 + x·u + u·v + v·x)`.
 Closure is `x` on the great circle through both settings; Haar conditioned
 on it is the coarea measure, density `|D|/(2|u×v|)`, the parameter-free
-limit of a closure window. Then: the source ensemble depends on both
-settings; marginals are `1/2` to `1e-12` (no signalling); the correlation is
+limit of a closure window, and the equal prior over the four outcome sectors
+is a **chosen** counting measure. Then: the source ensemble depends on both
+settings; marginals are `1/2` to `1e-12` — **detector** no-signalling, with
+operational no-signalling to the past *not* established, since `ρ(x|a,b)`
+depends on the future settings; the correlation is
 the closed form `E(γ) = [c²(π−γ) − s²γ]/[2 sin γ + c²(π−γ) + s²γ]`, giving
 `S = 2.1423` at the standard angles (also the maximum) — a Bell violation
 by measurement dependence, computed rather than inserted — and it is **not**
 `cos γ`. Controls: a loop that does not link both detectors does nothing;
 local detectors on the same source give `S = 0.94`; the repository's own
 Gaussian closure weight (`history/closure.py`, `σ = 0.6`, times an imported
-`|amplitude|²`) moves `E(1)` from `0.398` to `0.170`. *Corrected after
-review:* this is the phase-closure component under a geodesic-realignment
-ansatz; the equal sector prior is chosen; and the no-signalling proved is
-detector no-signalling.
+`|amplitude|²`) moves `E(1)` from `0.398` to `0.170`.
 
 ```bash
 python -m experiments.closure_ledger.closure_measurement_probe   # 14/14
