@@ -161,14 +161,17 @@ def detector_symmetry_check(f: Callable[[float], float], n_theta: int = 61,
     phi = np.linspace(0.0, 2.0 * math.pi, n_phi, endpoint=False)
     psi = -2.0 * phi
     worst_rev = worst_comp = 0
+    eps = 1e-9      # basin-boundary points (D = 0, measure zero, not an outcome) are excluded
     for t in th:
-        d = np.sign(D(t, phi))
-        d_comp = np.sign(D(t, -(math.pi - psi) / 2.0))        # psi -> pi - psi
-        d_rev = np.sign(D(math.pi - t, phi - 0.5 * math.pi))   # psi -> psi + pi
+        raw = D(t, phi)
+        raw_comp = D(t, -(math.pi - psi) / 2.0)                # psi -> pi - psi
+        raw_rev = D(math.pi - t, phi - 0.5 * math.pi)          # psi -> psi + pi
+        off = (np.abs(raw) > eps) & (np.abs(raw_comp) > eps) & (np.abs(raw_rev) > eps)
+        d, d_comp, d_rev = np.sign(raw[off]), np.sign(raw_comp[off]), np.sign(raw_rev[off])
         worst_comp = max(worst_comp, int(np.sum(d_comp != d)))
         worst_rev = max(worst_rev, int(np.sum(d_rev != -d)))
     return {"complementarity_violations": worst_comp, "reversal_violations": worst_rev,
-            "both_hold": worst_comp <= 2 and worst_rev <= 2}   # boundary grid points
+            "both_hold": worst_comp == 0 and worst_rev == 0}
 
 
 def induced_probability(detector, thetas: Sequence[float], n: int = 20000,
