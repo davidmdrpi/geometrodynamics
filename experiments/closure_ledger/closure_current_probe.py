@@ -26,6 +26,8 @@ def run_probe() -> dict:
     r2 = {g: cc.holonomy_weighted_law(g) for g in (0.3, 1.0, 2.0)}
     r3 = cc.sector_prior_control()
     r4 = cc.stationarity_audit()
+    r2b = {g: cc.singlet_loop_law(g, n=40001) for g in (0.3, 1.0, 2.0)}
+    r3b = cc.oriented_sector_prior_control()
     r4b = cc.integrated_sector_weights(n=40001)
     r4c = cc.oriented_current_audit()
     r5 = cc.pin_label_versus_weight()
@@ -33,7 +35,10 @@ def run_probe() -> dict:
         "R1_pin_loop_reduces_to_triangle_with_partner_sign": r1["reduces_to_triangle"],
         "C1_branch_holonomy_is_sign_D": c1["signed_density_is_holonomy_times_coarea"],
         "R2_holonomy_weighted_current_is_born_without_projectors": all(h["E_is_cos"] and h["max_deviation"] < 1e-9 for h in r2.values()),
+        "R2b_derived_singlet_loop_gives_minus_cos_directly": all(
+            h["E_is_minus_cos"] and h["max_deviation"] < 1e-9 for h in r2b.values()),
         "R3_sector_prior_chosen_marginals_fixed_E_moves": r3["marginals_stay_half"] and r3["E_moves"],
+        "R3b_sector_prior_load_bearing_on_the_oriented_branch_too": r3b["quantum_law_only_at_ratio_one"],
         "R4_stationarity_unimplemented_and_proxy_is_disjoint_from_closure": (
             (not r4["implemented"]) and (not r4["proxy_tests_the_repository_condition"])
             and r4["phase_stationarity_proxy"]["closure_and_phase_stationarity_are_disjoint"]),
@@ -47,7 +52,8 @@ def run_probe() -> dict:
             "prereg": "docs/closure_current_prereg.md @ f954e3d",
             "R1": r1, "C1": {k: val for k, val in c1.items() if k != "pi_branch_fraction_by_sector"},
             "R2": {g: {"E": h["E"], "max_deviation": h["max_deviation"]} for g, h in r2.items()},
-            "R3": r3,
+            "R2b": {g: {"E": h["E"], "max_deviation": h["max_deviation"]} for g, h in r2b.items()},
+            "R3": r3, "R3b": r3b, "underived_inputs": cc.underived_inputs(),
             "R4": {k: r4[k] for k in ("named_in_module_docstring", "repository_condition",
                                       "implemented", "weight_form", "why")},
             "R4_proxy": r4["phase_stationarity_proxy"],
@@ -67,6 +73,11 @@ def run_probe() -> dict:
                                  "whether observed event frequencies are the positive count of closed "
                                  "histories or their oriented, holonomy-weighted sum. Nothing classical "
                                  "in the repository decides; the rule forbids deciding it by the answer. "
+                                 "Corrected after review: this is NOT a single binary choice -- "
+                                 "the equal outcome-sector prior moves the correlation on BOTH "
+                                 "branches (quantum only at r = 1) and the current-to-frequency "
+                                 "readout (linear or quadratic in the integrated current) is a "
+                                 "third open item. "
                                  "Sharper form, recorded as an open audit item and not a criterion: "
                                  "if the observable is an integral of a section of the local system "
                                  "the Pin/Hopf data define over the closure locus, the sign is "
@@ -80,7 +91,14 @@ def render(s: dict) -> str:
          "| candidate | E(1) | S_max |", "|--|--|--|"]
     for k, v in s["R5"]["candidates"].items():
         L.append(f"| `{k}` | `{v['E(1)']:+.5f}` | `{v['S_max']:.4f}` |")
-    L += ["", f"R1: `q5 = -q0 G^-1` to `{s['R1']['q5_equals_minus_q0_Ginv']:.1e}`; frame holonomy = Ω(x;u,−v) to "
+    L += ["", "R2b (the derived singlet loop, computed directly): "
+          + ", ".join(f"γ={g}: `E = {h['E']:+.6f}`" for g, h in s["R2b"].items())
+          + " — `P(s_A,s_B) = (1 − s_A s_B cos γ)/4`, deviations `≤ 1e-9`.",
+          "R3b (the sector prior on the oriented branch): "
+          + ", ".join(f"r={r['ratio']}: `E_triplet = {r['E_triplet']:+.5f}`, "
+                      f"`E_singlet = {r['E_singlet']:+.5f}`" for r in s["R3b"]["rows"])
+          + " — the quantum law only at `r = 1`, with marginals `1/2` throughout.",
+          f"R1: `q5 = -q0 G^-1` to `{s['R1']['q5_equals_minus_q0_Ginv']:.1e}`; frame holonomy = Ω(x;u,−v) to "
           f"`{s['R1']['frame_holonomy_is_Omega_of_triangle_x_u_minus_v']:.1e}`; lift = cos(Ω/2)+sin(Ω/2)x to "
           f"`{s['R1']['lift_is_cos_half_Omega_plus_sin_half_Omega_x']:.1e}`.",
           f"C1: e^{{iΩ/2}} = sgn D on the closure set to `{s['C1']['exp_i_half_Omega_equals_sign_D']:.1e}`.",
@@ -97,7 +115,11 @@ def render(s: dict) -> str:
           "holonomy weighting is wave interference, not negative event probabilities.", "", "## Checks", ""]
     for k, ok in s["checks"].items():
         L.append(f"* {'PASS' if ok else 'FAIL'} — {k}")
-    L += ["", "## Where the gap is", "", s["where_the_gap_is"], "", "## Dependency ledger", ""]
+    L += ["", "## Where the gap is", "", s["where_the_gap_is"], "",
+          "**Three inputs remain underived, not one binary choice:**", ""]
+    for item in s["underived_inputs"]:
+        L.append(f"1. {item}")
+    L += ["", "## Dependency ledger", ""]
     for k, v in s["dependency_ledger"].items():
         L.append(f"* `{k}` = {v}")
     return "\n".join(L) + "\n"

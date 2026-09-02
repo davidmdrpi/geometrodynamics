@@ -11,6 +11,13 @@ the two parameter-free measures on the closure set:
 The rule fixed there: the oriented current may be adopted only if the Pin
 structure or a stationary classical equation requires it, never because it
 gives ``2 sqrt 2``.
+
+*Scope of "derived" (review finding 3).* What R1 derives is the **quaternionic
+reduction** of the *chosen* ``source -> A -> J -> B -> source`` itinerary,
+under the *chosen* geodesic realignment at the detectors, to the triangle
+``x -> u -> -v -> x``, together with its holonomy. The itinerary and the
+realignment remain model choices; only the reduction and the holonomy are
+derived.
 """
 
 from __future__ import annotations
@@ -28,7 +35,8 @@ from geometrodynamics.bulk.closure_measurement import (
 __all__ = [
     "minimal_rotation_lift", "pin_loop_reduction", "branch_holonomy_is_sign_D",
     "holonomy_weighted_law", "sector_prior_control", "closure_phase_gradient_on_closure_set",
-    "integrated_sector_weights", "oriented_current_audit",
+    "singlet_loop_law", "oriented_sector_prior_control",
+    "integrated_sector_weights", "oriented_current_audit", "underived_inputs",
     "stationarity_audit", "pin_label_versus_weight", "verdict",
 ]
 
@@ -145,6 +153,47 @@ def holonomy_weighted_law(gamma: float) -> Dict[str, object]:
             "no_projectors_used": True}
 
 
+def singlet_loop_law(gamma: float, n: int = 200001) -> Dict[str, object]:
+    """R2b — the **actual** Pin-derived loop, computed directly.
+
+    R1 shows the derived history is ``x -> u -> -v -> x`` with full holonomy
+    ``-sgn D(x, u, -v)``, so its oriented current is
+
+        -D(x, u, -v) / (2 |u x (-v)|)
+
+    integrated over the closure circle of that triangle (the same great
+    circle, since ``x . (u x -v) = -x . (u x v)``). With
+    ``int_Gamma x dsigma = 0`` this gives ``2 pi (1 - u.v)`` per sector; the
+    common factor ``-1`` from ``J^2`` and the common ``1/(2|u x v|)`` cancel in
+    the normalisation, leaving
+
+        P(s_A, s_B) = (1 - s_A s_B cos gamma) / 4 ,      E = -cos gamma
+
+    the singlet. This is tested here on the derived object rather than
+    inferred from the triplet ``D(x, u, v)`` by a verbal sign substitution --
+    the gap that review finding 2 identified.
+    """
+    a = np.array([0.0, 0.0, 1.0])
+    b = np.array([math.sin(gamma), 0.0, math.cos(gamma)])
+    weights = {}
+    for sA in (1, -1):
+        for sB in (1, -1):
+            u, w = sA * a, -(sB * b)                 # the derived third vertex is -v
+            x = great_circle(u, w, n)
+            Dp = 1.0 + x @ u + float(u @ w) + x @ w
+            weights[(sA, sB)] = -float(np.mean(Dp)) * 2.0 * math.pi / (
+                2.0 * float(np.linalg.norm(np.cross(u, w))))
+    Z = sum(weights.values())
+    P = {k: val / Z for k, val in weights.items()}
+    analytic = {k: (1.0 - k[0] * k[1] * math.cos(gamma)) / 4.0 for k in P}
+    E = sum(sa * sb * P[(sa, sb)] for (sa, sb) in P)
+    return {"P": P, "analytic": analytic,
+            "max_deviation": max(abs(P[k] - analytic[k]) for k in P),
+            "E": E, "E_is_minus_cos": bool(abs(E + math.cos(gamma)) < 1e-9),
+            "all_weights_positive_after_normalisation": all(v > 0 for v in P.values()),
+            "computed_on_the_derived_loop": True}
+
+
 def sector_prior_control(gamma: float = 1.0, ratios=(0.5, 1.0, 2.0)) -> Dict[str, object]:
     """R3 — under ``pi_like / pi_unlike = r`` the marginals stay ``1/2`` and
     ``E = (r W_l − W_u)/(r W_l + W_u)`` moves. The equal prior is the counting
@@ -161,6 +210,41 @@ def sector_prior_control(gamma: float = 1.0, ratios=(0.5, 1.0, 2.0)) -> Dict[str
             "E_moves": bool(abs(rows[0]["E"] - rows[-1]["E"]) > 0.1),
             "symmetry_fixing_ratio": None,
             "status": "equal prior = counting measure on sectors: chosen"}
+
+
+def oriented_sector_prior_control(gamma: float = 1.0,
+                                  ratios=(0.5, 1.0, 2.0)) -> Dict[str, object]:
+    """R3b — the sector prior is a gap for the **oriented** branch as well.
+
+    The oriented sector integrals are proportional to ``1 + u.v``, i.e.
+    ``1 + s_A s_B cos gamma`` (triplet loop) or ``1 - s_A s_B cos gamma``
+    (the derived singlet loop). Under a prior ratio
+    ``r = pi_like / pi_unlike``,
+
+        E_r^triplet = [r(1+cos g) - (1-cos g)] / [r(1+cos g) + (1-cos g)]
+        E_r^singlet = [r(1-cos g) - (1+cos g)] / [r(1-cos g) + (1+cos g)]
+
+    which equal ``+-cos gamma`` **only at r = 1**. So the equal prior is
+    load-bearing on both sides of the fork: the quantum joint law is not
+    recovered from the holonomy weighting alone. Marginals stay ``1/2`` for
+    every ``r`` (the prior respects the ``(x,u,v) -> (-x,-u,-v)`` symmetry),
+    so no-signalling does not constrain it.
+    """
+    c = math.cos(gamma)
+    rows = []
+    for r in ratios:
+        trip = (r * (1 + c) - (1 - c)) / (r * (1 + c) + (1 - c))
+        sing = (r * (1 - c) - (1 + c)) / (r * (1 - c) + (1 + c))
+        rows.append({"ratio": r, "E_triplet": trip, "E_singlet": sing,
+                     "equals_cos": bool(abs(trip - c) < 1e-12),
+                     "equals_minus_cos": bool(abs(sing + c) < 1e-12),
+                     "P(A=+)": 0.5})
+    return {"rows": rows,
+            "quantum_law_only_at_ratio_one": all(
+                (abs(r["ratio"] - 1.0) < 1e-12) == r["equals_cos"] for r in rows),
+            "marginals_stay_half": True,
+            "status": ("the equal sector prior is chosen and load-bearing on BOTH branches: "
+                       "the holonomy weighting alone does not give the quantum joint law")}
 
 
 def closure_phase_gradient_on_closure_set(gamma: float = 1.0, n: int = 2001,
@@ -243,9 +327,18 @@ def integrated_sector_weights(gamma: float = 1.0, n: int = 200001) -> Dict[str, 
 
     for every outcome pair, vanishing only at ``u = -v``. So the
     holonomy-weighted construction uses destructive cancellation
-    *internally* and yields non-negative normalised sector weights: the
-    analogy is classical wave interference, not a negative-probability
-    distribution.
+    *internally* and yields non-negative normalised sector weights, which
+    removes the naive "negative probabilities" objection.
+
+    **The analogy stays qualified** (review finding 4). Non-negativity of the
+    integrated current is not yet an event-frequency law. If ``D`` is an
+    amplitude or a current, a classical detector normally responds to a
+    quadratic (energy) functional of it; if it is an event measure, the signed
+    cancellation needs a reason. Even if local coefficients eventually force
+    the sign, one still has to derive why observed frequencies are *linear* in
+    the integrated current rather than quadratic in it, or given by some other
+    readout functional. That is a third open item, not a corollary of the
+    second.
     """
     a, b = np.array([0.0, 0.0, 1.0]), np.array([math.sin(gamma), 0.0, math.cos(gamma)])
     rows, worst = [], 0.0
@@ -264,8 +357,12 @@ def integrated_sector_weights(gamma: float = 1.0, n: int = 200001) -> Dict[str, 
             "all_sector_integrals_nonnegative": all(r["nonnegative"] for r in rows),
             "cancellation_is_internal": True,
             "reading": ("destructive cancellation within a sector, non-negative normalised "
-                        "sector weights: closer to classical wave interference than to a "
-                        "negative-probability distribution")}
+                        "sector weights: this removes the naive negative-probability "
+                        "objection, and the wave analogy stays qualified"),
+            "still_open_linear_versus_quadratic_readout": (
+                "why observed frequencies would be LINEAR in the integrated current rather "
+                "than quadratic in it (the usual classical detector response to an amplitude) "
+                "or another readout functional -- a third open item, not a corollary")}
 
 
 def oriented_current_audit() -> Dict[str, object]:
@@ -286,7 +383,22 @@ def oriented_current_audit() -> Dict[str, object]:
             "if_local_system": "the sign is geometrically mandatory: HOLONOMY_WEIGHTED_COAREA",
             "if_measure_on_histories": "positivity forces |D|: POSITIVE_COAREA",
             "status": "open; recorded as an audit item, not a success criterion",
-            "established_here": False}
+            "established_here": False,
+            "would_not_by_itself_complete_the_derivation": (
+                "even if the sign were forced, the sector prior (R3b) and the "
+                "current-to-frequency readout (linear vs quadratic) would remain open")}
+
+
+def underived_inputs() -> List[str]:
+    """The headline, narrowed after review: **three** things remain underived,
+    not one binary choice."""
+    return [
+        "branch aggregation: positive count |D| versus oriented sum e^{i Omega/2}|D| = D",
+        "the relative sector coefficients (the equal outcome-sector prior), which move the "
+        "correlation on BOTH branches and are fixed by no symmetry of the model",
+        "the readout: why observed event frequencies would be linear in the integrated "
+        "current rather than quadratic in it or another functional",
+    ]
 
 
 def stationarity_audit() -> Dict[str, object]:

@@ -440,8 +440,9 @@ is not `cos γ` under the positive count of closed histories; the quantum
 correlation is the same closure set with the two branches summed with
 their holonomy (`e^{iΩ/2} = sgn D`), which gives the quantum joint law with
 no projectors (`docs/closure_current.md`). Nothing classical in the
-repository selects count over oriented sum: that is where the quantization
-gap now sits.
+repository selects count over oriented sum, and two further inputs — the
+relative outcome-sector coefficients and the current-to-frequency readout —
+are equally underived: that is where the quantization gap now sits.
 
 ### Ranked missing links
 

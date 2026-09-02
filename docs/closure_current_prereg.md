@@ -181,6 +181,37 @@ is a *measure on histories* (in which case positivity forces `|D|`). Added
 to the implementation audit as an open direction; establishing it would
 resolve the fork under the rule of §2.
 
+**Third correction (review of PR #280) — the headline was one item too
+narrow, and R2 tested the wrong object.** Four findings, none changing a
+criterion of §2, all narrowing what may be claimed:
+
+1. *The equal outcome-sector prior is load-bearing on the oriented branch
+   too.* R3 recorded it only for the positive branch. The oriented sector
+   integrals are proportional to `1 ± s_A s_B cos γ`, so under
+   `r = π_like/π_unlike` the correlation is
+   `E_r = [r(1+cos γ) − (1−cos γ)]/[r(1+cos γ) + (1−cos γ)]` (triplet) and
+   its analogue for the singlet, equal to `±cos γ` **only at `r = 1`**:
+   `0.25243, 0.54030, 0.74031` and `−0.74031, −0.54030, −0.25243` at
+   `γ = 1` for `r = 0.5, 1, 2`, with marginals `1/2` throughout. So the
+   fork is **not** a single binary `|D|` versus `D` choice; the headline is
+   narrowed to *branch aggregation + sector coefficients + readout remain
+   underived*.
+2. *R2 did not test the derived loop.* It computed `closure_weights(γ,
+   "signed")`, the triplet `D(x, u, v)`, and reached the singlet by a verbal
+   sign substitution. The derived object `x → u → −v → x` with current
+   `−D(x, u, −v)/(2|u×v|)` is now integrated directly:
+   `P(s_A,s_B) = (1 − s_A s_B cos γ)/4`, `E = −cos γ` to `≤ 1e-17`.
+3. *"The loop is derived" was too strong.* Derived: the quaternionic
+   reduction of the **chosen** itinerary, under the **chosen** geodesic
+   realignment, to the triangle, plus its holonomy. The itinerary and the
+   realignment remain model choices, as the dependency ledger already said.
+4. *Non-negative sector integrals are not yet an event-frequency law.* The
+   wave analogy is qualified: a classical detector normally responds to a
+   quadratic functional of an amplitude, so why frequencies would be
+   **linear** in the integrated current is a third open item, and forcing
+   the sign by local coefficients would not by itself complete the
+   derivation.
+
 ## 4. Expected verdict, stated in advance
 
 `FORK_UNRESOLVED_BY_CURRENT_STRUCTURES`, with the two candidates' predictions

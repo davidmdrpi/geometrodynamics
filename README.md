@@ -4852,14 +4852,20 @@ tests `tests/test_closure_current.py`. Write-up: `docs/closure_current.md`.*
 **Verdict: `FORK_UNRESOLVED_BY_CURRENT_STRUCTURES`.** On the closure set
 `e^{iΩ/2} = sgn D`, so the "signed" density of the previous round is the
 coarea density times the holonomy of the `0`/`π` closure branch — not an
-inserted quasi-probability. Two things are now derived, not chosen: the
-loop itself (the Pin history `source → A → J → B → source` reduces exactly to
-the geodesic triangle `x → u → −v → x`, the two throat transports
-contributing only `J² = −1`, so the closure holonomy is `−sgn D(x,u,−v)`),
-and the fact that the holonomy-weighted current gives the quantum joint law
-`P_like = (1+cos γ)/4`, `P_unlike = (1−cos γ)/4`, `S = 2√2`, with no
-projectors, from `∫_Γ x dσ = 0`. What is not derived is the weighting
-itself: positive count (`S_max = 2.1423`) or oriented sum (`2√2`). The Pin
+inserted quasi-probability. Two things are now derived: the **reduction** of the chosen
+`source → A → J → B → source` itinerary to the geodesic triangle
+`x → u → −v → x` (the two throat transports contribute only `J² = −1`, so the
+closure holonomy is `−sgn D(x,u,−v)`; the itinerary and the geodesic
+realignment at the detectors remain model choices), and the fact that the
+holonomy-weighted current of that derived loop gives the quantum joint law
+`P(s_A,s_B) = (1 − s_A s_B cos γ)/4`, `E = −cos γ`, `S = 2√2` with no
+projectors, from `∫_Γ x dσ = 0` — computed on the derived loop itself, not
+inferred from the triplet by a sign substitution. What is **not** derived is
+threefold: the branch aggregation (positive count `S_max = 2.1423` or
+oriented sum `2√2`), the relative sector coefficients (the equal prior moves
+the correlation on *both* branches; the quantum law appears only at `r = 1`),
+and the readout (why frequencies would be linear in the integrated current
+rather than quadratic in it). The Pin
 structure supplies the branch holonomy as a *label* on each closed history,
 not as a weight; the repository's fourth closure condition is *extremal
 action*, which is implemented nowhere, and the phase-stationarity proxy is
@@ -4868,13 +4874,13 @@ vanishes), so no variational principle available here can choose; the equal
 sector prior is a chosen counting measure. The oriented branch is not a
 negative-probability theory: `∫_Γ D_s dσ = 2π(1+u·v) ≥ 0`, so the
 cancellation is internal, as in classical wave interference. By the pre-registered rule the oriented sum may not be
-adopted because it gives `2√2`. **The quantization gap is now located:
-not the spin structure, not the loop, not Bell, not the relative outcome
-law — whether observed event frequencies are the positive count of closed
-histories or their oriented, holonomy-weighted sum.**
+adopted because it gives `2√2`. **The quantization gap is now located: not the spin structure, not the
+reduction, not Bell — but three inputs the repository does not supply, namely
+branch aggregation, the sector coefficients, and the current-to-frequency
+readout.**
 
 ```bash
-python -m experiments.closure_ledger.closure_current_probe   # 7/7
+python -m experiments.closure_ledger.closure_current_probe   # 9/9
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

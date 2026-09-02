@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-02T06:04:04.120936+00:00",
+  "timestamp": "2026-09-02T06:20:54.385438+00:00",
   "prereg": "docs/closure_current_prereg.md @ f954e3d",
   "R1": {
     "q5_equals_minus_q0_Ginv": 4.440892098500626e-16,
@@ -29,6 +29,20 @@
       "max_deviation": 5.551115123125783e-17
     }
   },
+  "R2b": {
+    "0.3": {
+      "E": -0.9553364891256061,
+      "max_deviation": 5.204170427930421e-18
+    },
+    "1.0": {
+      "E": -0.5403023058681398,
+      "max_deviation": 0.0
+    },
+    "2.0": {
+      "E": 0.41614683654714246,
+      "max_deviation": 5.551115123125783e-17
+    }
+  },
   "R3": {
     "rows": [
       {
@@ -52,6 +66,42 @@
     "symmetry_fixing_ratio": null,
     "status": "equal prior = counting measure on sectors: chosen"
   },
+  "R3b": {
+    "rows": [
+      {
+        "ratio": 0.5,
+        "E_triplet": 0.2524322070495601,
+        "E_singlet": -0.7403059657533201,
+        "equals_cos": false,
+        "equals_minus_cos": false,
+        "P(A=+)": 0.5
+      },
+      {
+        "ratio": 1.0,
+        "E_triplet": 0.5403023058681398,
+        "E_singlet": -0.5403023058681398,
+        "equals_cos": true,
+        "equals_minus_cos": true,
+        "P(A=+)": 0.5
+      },
+      {
+        "ratio": 2.0,
+        "E_triplet": 0.7403059657533201,
+        "E_singlet": -0.2524322070495601,
+        "equals_cos": false,
+        "equals_minus_cos": false,
+        "P(A=+)": 0.5
+      }
+    ],
+    "quantum_law_only_at_ratio_one": true,
+    "marginals_stay_half": true,
+    "status": "the equal sector prior is chosen and load-bearing on BOTH branches: the holonomy weighting alone does not give the quantum joint law"
+  },
+  "underived_inputs": [
+    "branch aggregation: positive count |D| versus oriented sum e^{i Omega/2}|D| = D",
+    "the relative sector coefficients (the equal outcome-sector prior), which move the correlation on BOTH branches and are fixed by no symmetry of the model",
+    "the readout: why observed event frequencies would be linear in the integrated current rather than quadratic in it or another functional"
+  ],
   "R4": {
     "named_in_module_docstring": true,
     "repository_condition": "stationarity: the history has extremal action",
@@ -119,14 +169,16 @@
     "max_quadrature_residual": 0.0,
     "all_sector_integrals_nonnegative": true,
     "cancellation_is_internal": true,
-    "reading": "destructive cancellation within a sector, non-negative normalised sector weights: closer to classical wave interference than to a negative-probability distribution"
+    "reading": "destructive cancellation within a sector, non-negative normalised sector weights: this removes the naive negative-probability objection, and the wave analogy stays qualified",
+    "still_open_linear_versus_quadratic_readout": "why observed frequencies would be LINEAR in the integrated current rather than quadratic in it (the usual classical detector response to an amplitude) or another readout functional -- a third open item, not a corollary"
   },
   "oriented_current_audit": {
     "question": "do the Pin/Hopf data make the closure locus naturally an oriented current with local coefficients, whose observables are integrals of sections, or is the physical object a measure on histories?",
     "if_local_system": "the sign is geometrically mandatory: HOLONOMY_WEIGHTED_COAREA",
     "if_measure_on_histories": "positivity forces |D|: POSITIVE_COAREA",
     "status": "open; recorded as an audit item, not a success criterion",
-    "established_here": false
+    "established_here": false,
+    "would_not_by_itself_complete_the_derivation": "even if the sign were forced, the sector prior (R3b) and the current-to-frequency readout (linear vs quadratic) would remain open"
   },
   "R5": {
     "supplied_by_pin_structure": "closure holonomy -sgn D(x,u,-v) on every closed history",
@@ -148,13 +200,15 @@
     "R1_pin_loop_reduces_to_triangle_with_partner_sign": true,
     "C1_branch_holonomy_is_sign_D": true,
     "R2_holonomy_weighted_current_is_born_without_projectors": true,
+    "R2b_derived_singlet_loop_gives_minus_cos_directly": true,
     "R3_sector_prior_chosen_marginals_fixed_E_moves": true,
+    "R3b_sector_prior_load_bearing_on_the_oriented_branch_too": true,
     "R4_stationarity_unimplemented_and_proxy_is_disjoint_from_closure": true,
     "sector_integrals_of_the_oriented_current_are_nonnegative": true,
     "R5_pin_supplies_label_not_weight": true
   },
-  "passed": 7,
-  "total": 7,
+  "passed": 9,
+  "total": 9,
   "verdict": "FORK_UNRESOLVED_BY_CURRENT_STRUCTURES",
   "dependency_ledger": {
     "loop": "loop( source pair [x, -x via J], geodesic realignment at A, B [chosen], J = L_{-j} [derived] ) -> triangle x -> u -> -v -> x [derived]",
@@ -168,7 +222,8 @@
     "if_local_system": "the sign is geometrically mandatory: HOLONOMY_WEIGHTED_COAREA",
     "if_measure_on_histories": "positivity forces |D|: POSITIVE_COAREA",
     "status": "open; recorded as an audit item, not a success criterion",
-    "established_here": false
+    "established_here": false,
+    "would_not_by_itself_complete_the_derivation": "even if the sign were forced, the sector prior (R3b) and the current-to-frequency readout (linear vs quadratic) would remain open"
   },
-  "where_the_gap_is": "Not the spin structure (derived), not the loop (derived), not Bell (evaded by measurement dependence either way), not the relative outcome law (the oriented current gives it analytically). It is whether observed event frequencies are the positive count of closed histories or their oriented, holonomy-weighted sum. Nothing classical in the repository decides; the rule forbids deciding it by the answer. Sharper form, recorded as an open audit item and not a criterion: if the observable is an integral of a section of the local system the Pin/Hopf data define over the closure locus, the sign is geometrically mandatory; if the physical object is a measure on histories, positivity forces |D|."
+  "where_the_gap_is": "Not the spin structure (derived), not the loop (derived), not Bell (evaded by measurement dependence either way), not the relative outcome law (the oriented current gives it analytically). It is whether observed event frequencies are the positive count of closed histories or their oriented, holonomy-weighted sum. Nothing classical in the repository decides; the rule forbids deciding it by the answer. Corrected after review: this is NOT a single binary choice -- the equal outcome-sector prior moves the correlation on BOTH branches (quantum only at r = 1) and the current-to-frequency readout (linear or quadratic in the integrated current) is a third open item. Sharper form, recorded as an open audit item and not a criterion: if the observable is an integral of a section of the local system the Pin/Hopf data define over the closure locus, the sign is geometrically mandatory; if the physical object is a measure on histories, positivity forces |D|."
 }

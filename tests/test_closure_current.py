@@ -32,6 +32,39 @@ def test_R2_holonomy_weighted_current_is_the_quantum_joint_law_without_projector
         assert h["circle_mean_of_x"] < 1e-12
 
 
+def test_R2b_the_derived_singlet_loop_gives_minus_cos_computed_directly():
+    """Review finding 2: test the actual Pin-derived loop `x → u → −v → x`,
+    not the triplet function plus a verbal sign substitution."""
+    for g in (0.3, 1.0, 2.0):
+        r = cc.singlet_loop_law(g, n=40001)
+        assert r["computed_on_the_derived_loop"]
+        assert r["max_deviation"] < 1e-9
+        assert r["E"] == pytest.approx(-math.cos(g), abs=1e-9)
+        assert r["E_is_minus_cos"] and r["all_weights_positive_after_normalisation"]
+        for (sa, sb), val in r["P"].items():
+            assert val == pytest.approx((1 - sa * sb * math.cos(g)) / 4, abs=1e-9)
+
+
+def test_R3b_the_sector_prior_is_load_bearing_on_the_oriented_branch_too():
+    """Review finding 1: the quantum law needs `r = 1` on both branches."""
+    o = cc.oriented_sector_prior_control()
+    assert [round(r["E_triplet"], 5) for r in o["rows"]] == [0.25243, 0.54030, 0.74031]
+    assert [round(r["E_singlet"], 5) for r in o["rows"]] == [-0.74031, -0.54030, -0.25243]
+    assert o["quantum_law_only_at_ratio_one"] and o["marginals_stay_half"]
+    for row in o["rows"]:
+        if abs(row["ratio"] - 1.0) > 1e-12:
+            assert not row["equals_cos"] and not row["equals_minus_cos"]
+
+
+def test_the_headline_names_three_underived_inputs_not_one_binary_choice():
+    """Review finding 1 + 4: branch aggregation, sector coefficients, readout."""
+    items = cc.underived_inputs()
+    assert len(items) == 3
+    joined = " ".join(items).lower()
+    for key in ("positive count", "sector", "readout"):
+        assert key in joined
+
+
 def test_R3_sector_prior_moves_E_but_not_the_marginals():
     r = cc.sector_prior_control()
     assert r["marginals_stay_half"] and r["E_moves"]
@@ -64,6 +97,7 @@ def test_the_oriented_current_has_non_negative_sector_integrals():
     r = cc.integrated_sector_weights(n=40001)
     assert r["max_quadrature_residual"] < 1e-9
     assert r["all_sector_integrals_nonnegative"]
+    assert "LINEAR" in r["still_open_linear_versus_quadratic_readout"]   # finding 4
     for row in r["rows"]:
         assert row["integral"] == pytest.approx(row["exact_2pi_1_plus_udotv"], abs=1e-9)
         assert 0.0 < row["negative_arc_fraction"] < 0.5
@@ -74,6 +108,7 @@ def test_the_oriented_current_audit_is_open_and_not_a_criterion():
     a = cc.oriented_current_audit()
     assert not a["established_here"]
     assert "not a success criterion" in a["status"]
+    assert "would remain open" in a["would_not_by_itself_complete_the_derivation"]
 
 
 def test_R5_the_two_candidates_and_the_verdict_rule():
