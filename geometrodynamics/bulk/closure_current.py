@@ -27,7 +27,8 @@ from geometrodynamics.bulk.closure_measurement import (
 
 __all__ = [
     "minimal_rotation_lift", "pin_loop_reduction", "branch_holonomy_is_sign_D",
-    "holonomy_weighted_law", "sector_prior_control", "stationary_set_of_closure_phase",
+    "holonomy_weighted_law", "sector_prior_control", "closure_phase_gradient_on_closure_set",
+    "integrated_sector_weights", "oriented_current_audit",
     "stationarity_audit", "pin_label_versus_weight", "verdict",
 ]
 
@@ -162,58 +163,130 @@ def sector_prior_control(gamma: float = 1.0, ratios=(0.5, 1.0, 2.0)) -> Dict[str
             "status": "equal prior = counting measure on sectors: chosen"}
 
 
-def stationary_set_of_closure_phase(gamma: float = 1.0, n_theta: int = 721, n_phi: int = 1441,
-                                    sA: int = 1, sB: int = 1) -> Dict[str, object]:
-    """R4 — the stationary set ``∇_{S²} Ω = 0`` of the closure phase, found on a
-    grid, against the closure set ``N = 0``. ``∇Ω = 2 (D ∇N − N ∇D)/(N² + D²)``."""
+def closure_phase_gradient_on_closure_set(gamma: float = 1.0, n: int = 2001,
+                                          sA: int = 1, sB: int = 1,
+                                          step: float = 1e-6) -> Dict[str, object]:
+    """R4 (analytic) — the phase-stationarity **proxy**, and why it is disjoint
+    from sharp closure.
+
+    With ``N = x.q``, ``q = u x v``, and ``D = A + x.p``, ``A = 1 + u.v``,
+    ``p = u + v``, the closure phase is ``Omega = 2 arg(D + iN)`` and
+
+        grad Omega = 2 (D grad N - N grad D) / (D^2 + N^2).
+
+    On the closure set ``N = 0`` the tangential gradient of ``N`` is ``q``
+    itself (``q`` is already tangent there, since ``x.q = 0``), so
+
+        grad_{S^2} Omega |_{N=0}  =  2 q / D  =  2 (u x v) / D ,
+
+    of norm ``2|u x v| / |D| > 0`` for non-collinear analyzers. Hence sharp
+    closure and stationarity of the phase are **disjoint** away from the two
+    points where ``D = 0``, and those points are ``x = -u`` and ``x = -v``,
+    where ``D = N = 0``: the ``arg`` chart is singular there, which is not
+    stationarity.
+
+    The finite-difference check wraps the increment of ``arg`` into
+    ``(-pi, pi]``: ``Omega`` itself jumps by ``4 pi`` across the closure
+    circle wherever ``D < 0`` (the ``pi`` branch), while the holonomy
+    ``e^{i Omega/2} = -1`` is continuous there.
+
+    **This is a proxy and is labelled as one.** The repository's fourth
+    closure condition is *stationarity of an action*, which is not
+    implemented anywhere (see :func:`stationarity_audit`); nothing here
+    tests it.
+    """
     a, b = np.array([0.0, 0.0, 1.0]), np.array([math.sin(gamma), 0.0, math.cos(gamma)])
     u, v = sA * a, sB * b
-    th = np.linspace(1e-3, math.pi - 1e-3, n_theta)
-    ph = np.linspace(0.0, 2 * math.pi, n_phi, endpoint=False)
-    T, P = np.meshgrid(th, ph, indexing="ij")
-    x = np.stack([np.sin(T) * np.cos(P), np.sin(T) * np.sin(P), np.cos(T)], -1)
-    w = np.cross(u, v)
-    N = x @ w
-    D = 1.0 + x @ u + float(u @ v) + x @ v
-    gradN = w[None, None, :] - N[..., None] * x
-    gradD = (u + v)[None, None, :] - (x @ (u + v))[..., None] * x
-    grad = 2.0 * (D[..., None] * gradN - N[..., None] * gradD) / (N * N + D * D)[..., None]
-    gnorm = np.linalg.norm(grad, axis=-1)
-    # local minima of |grad| below tolerance
-    tol = 2e-2
-    cand = np.argwhere(gnorm < tol)
-    pts = x[gnorm < tol]
-    # cluster
-    clusters: List[np.ndarray] = []
-    for p in pts:
-        if all(np.linalg.norm(p - c) > 0.1 for c in clusters):
-            clusters.append(p)
-    dist_to_circle = [float(abs(c @ _unit(w))) for c in clusters]     # |x . n_Gamma| = sin of angular distance to Γ
-    # Lexell: the level set Omega = const is a circle through -u and -v (the two
-    # singular points D = N = 0); check coplanarity of a sampled level set
-    level = 0.7
-    sel = np.abs(2.0 * np.arctan2(N, D) - level) < 2e-3          # the signed level set
-    pts = x[sel]
-    if len(pts) > 10:
-        centroid = pts.mean(axis=0)
-        centred = pts - centroid
-        U_, sv, Vt = np.linalg.svd(centred, full_matrices=False)
-        coplanarity = float(sv[-1] / sv[0])
-        normal = Vt[-1]
-        # the fitted plane (hence the Lexell circle) must contain -u and -v;
-        # grid samples cannot resolve the level set near those singular points
-        singular_on_it = [float(abs((-u - centroid) @ normal)), float(abs((-v - centroid) @ normal))]
-    else:
-        coplanarity, singular_on_it = float("nan"), []
-    singular_D_N = [float(abs(1.0 + (-u) @ u + u @ v + v @ (-u))), float(abs(1.0 + (-v) @ u + u @ v + v @ (-v)))]
-    return {"n_stationary_points": len(clusters), "points": [c.tolist() for c in clusters],
-            "sin_distance_to_closure_circle": dist_to_circle,
-            "no_stationary_points": len(clusters) == 0,
-            "coincides_with_closure_set": bool(len(clusters) > 0 and max(dist_to_circle) < 1e-3),
-            "min_grad_on_grid": float(gnorm.min()),
-            "lexell": {"level_set_is_a_circle (plane residual)": coplanarity,
-                       "level_set_plane_contains_minus_u_minus_v (plane distances)": singular_on_it,
-                       "D_at_minus_u_minus_v": singular_D_N}}
+    q, p, A = np.cross(u, v), u + v, 1.0 + float(u @ v)
+    x = great_circle(u, v, n)
+    D = A + x @ p
+    keep = np.abs(D) > 1e-2
+    xk, Dk = x[keep], D[keep]
+    analytic = 2.0 * q[None, :] / Dk[:, None]
+    analytic = analytic - (np.sum(analytic * xk, axis=1)[:, None]) * xk
+
+    def _arg(y):
+        y = y / np.linalg.norm(y, axis=-1, keepdims=True)
+        return np.arctan2(y @ q, A + y @ p)
+
+    fd = np.zeros_like(xk)
+    for k in range(3):
+        d = np.zeros(3)
+        d[k] = 1.0
+        tangent = d[None, :] - (xk @ d)[:, None] * xk
+        raw = _arg(xk + step * tangent) - _arg(xk - step * tangent)
+        fd[:, k] = 2.0 * ((raw + math.pi) % (2.0 * math.pi) - math.pi) / (2.0 * step)
+    fd = fd - (np.sum(fd * xk, axis=1)[:, None]) * xk
+    norms = np.linalg.norm(analytic, axis=1)
+    singular = [float(abs(A + (-u) @ p)) + float(abs((-u) @ q)),
+                float(abs(A + (-v) @ p)) + float(abs((-v) @ q))]
+    return {"analytic_gradient": "2 (u x v) / D",
+            "finite_difference_residual": float(np.max(np.abs(fd - analytic))),
+            "min_gradient_norm_on_closure_set": float(norms.min()),
+            "cross_product_norm": float(np.linalg.norm(q)),
+            "gradient_never_vanishes_on_closure_set": bool(norms.min() > 1e-6),
+            "singular_points_are_minus_u_and_minus_v": singular,
+            "singular_points_are_chart_not_stationary": bool(max(singular) < 1e-12),
+            "closure_and_phase_stationarity_are_disjoint": bool(norms.min() > 1e-6),
+            "classification": ("phase-stationarity proxy: incompatible with sharp phase closure "
+                               "for generic (non-collinear) settings. It does NOT test the "
+                               "repository's unimplemented extremal-action condition.")}
+
+
+def integrated_sector_weights(gamma: float = 1.0, n: int = 200001) -> Dict[str, object]:
+    """The oriented current does not produce negative event probabilities.
+
+    Although ``D`` changes sign pointwise on the closure circle, with
+    ``int_Gamma x dsigma = 0`` the integrated sector weight is
+
+        int_Gamma D_s dsigma = 2 pi (1 + u.v)  >=  0
+
+    for every outcome pair, vanishing only at ``u = -v``. So the
+    holonomy-weighted construction uses destructive cancellation
+    *internally* and yields non-negative normalised sector weights: the
+    analogy is classical wave interference, not a negative-probability
+    distribution.
+    """
+    a, b = np.array([0.0, 0.0, 1.0]), np.array([math.sin(gamma), 0.0, math.cos(gamma)])
+    rows, worst = [], 0.0
+    for sA in (1, -1):
+        for sB in (1, -1):
+            u, v = sA * a, sB * b
+            x = great_circle(u, v, n)
+            D = 1.0 + x @ u + float(u @ v) + x @ v
+            quad = float(np.mean(D) * 2.0 * math.pi)
+            exact = 2.0 * math.pi * (1.0 + float(u @ v))
+            worst = max(worst, abs(quad - exact))
+            rows.append({"sector": (sA, sB), "integral": quad, "exact_2pi_1_plus_udotv": exact,
+                         "nonnegative": bool(exact >= -1e-12),
+                         "negative_arc_fraction": float(np.mean(D < 0))})
+    return {"rows": rows, "max_quadrature_residual": worst,
+            "all_sector_integrals_nonnegative": all(r["nonnegative"] for r in rows),
+            "cancellation_is_internal": True,
+            "reading": ("destructive cancellation within a sector, non-negative normalised "
+                        "sector weights: closer to classical wave interference than to a "
+                        "negative-probability distribution")}
+
+
+def oriented_current_audit() -> Dict[str, object]:
+    """An open mathematical direction, recorded as an audit item and **not** a
+    success criterion of the pre-registration.
+
+    If the physical observable is the integral of a section of the local
+    system that the Pin/Hopf data define over the closure locus, the sign
+    ``e^{i Omega/2}`` is geometrically mandatory and the oriented current is
+    forced. If the physical object is instead a measure on histories,
+    positivity forces ``|D|``. That is a sharper statement of the fork than
+    "quasi-probability versus probability", and neither side is established
+    here.
+    """
+    return {"question": ("do the Pin/Hopf data make the closure locus naturally an oriented "
+                         "current with local coefficients, whose observables are integrals of "
+                         "sections, or is the physical object a measure on histories?"),
+            "if_local_system": "the sign is geometrically mandatory: HOLONOMY_WEIGHTED_COAREA",
+            "if_measure_on_histories": "positivity forces |D|: POSITIVE_COAREA",
+            "status": "open; recorded as an audit item, not a success criterion",
+            "established_here": False}
 
 
 def stationarity_audit() -> Dict[str, object]:
@@ -237,12 +310,21 @@ def stationarity_audit() -> Dict[str, object]:
     implemented = any(("stationar" in n.lower() or "extremal" in n.lower()
                        or ("action" in n.lower() and "transaction" not in n.lower())) for n in idents)
     in_docstring = "Stationarity" in src.split('"""')[1]
-    stat = stationary_set_of_closure_phase()
-    return {"named_in_module_docstring": in_docstring, "implemented": implemented,
+    proxy = closure_phase_gradient_on_closure_set()
+    return {"named_in_module_docstring": in_docstring,
+            "repository_condition": "stationarity: the history has extremal action",
+            "implemented": implemented,
             "branch_sign_used_in_weight": False,
             "weight_form": "exp(-mismatch^2 / (2 sigma^2)), sigma = 0.6, positive for both branches",
-            "stationary_set": stat,
-            "stationarity_decides_the_fork": False}
+            "phase_stationarity_proxy": proxy,
+            "proxy_tests_the_repository_condition": False,
+            "stationarity_decides_the_fork": False,
+            "why": ("The repository's fourth condition is extremal action and there is no action "
+                    "functional in the module. Substituting stationarity of the geometric phase "
+                    "would be a new assumption, and analytically it is incompatible with sharp "
+                    "closure anyway: grad Omega = 2(u x v)/D never vanishes on the closure set. "
+                    "So no variational principle available in the repository can choose between "
+                    "positive and holonomy-weighted coarea.")}
 
 
 def pin_label_versus_weight() -> Dict[str, object]:

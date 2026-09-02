@@ -131,25 +131,55 @@ shown to *require* the oriented sum. It may not be adopted because it gives
   falsifier for a dynamical round: a source read-out whose statistics
   depend on `(a, b)` would falsify the model as a physical theory.
 
-## Correction note (post-implementation)
+## Correction notes (post-implementation, from review)
 
-R4 predicted that the stationary set of the closure phase is a set of
-isolated points. It is empty: `Ω(x; u, v)` has **no** critical points on
-`S²` minus the two singular points `−u, −v` (`D = N = 0` there), because its
-level sets are Lexell circles through `−u` and `−v` (checked: a sampled
-level set is coplanar to `< 5e-3` and passes through both). Stationarity
-in the source direction therefore selects nothing, which is stronger than
-the prediction and leaves the conclusion — stationarity does not decide
-the fork — unchanged. Also fixed: the audit's test for an implementation
-of stationarity matched the substring "action" in `make_transaction_history`;
-it now inspects identifiers and excludes "transaction". No criterion
-changes.
+**First correction — R4 substituted the wrong notion of stationarity, and the
+result is stronger than predicted.** The repository's fourth closure
+condition is *stationarity: the history has extremal action*. No action
+functional exists in `history/closure.py`, so replacing that condition with
+stationarity of the geometric phase, `∇Ω = 0`, introduces a **new
+assumption**; it is now labelled a **proxy** and does not test the
+repository's condition. Analytically, with `N = x·q`, `q = u×v`,
+`D = A + x·p`, `A = 1 + u·v`, `p = u+v`:
 
-**Second correction.** R3's pre-computed values `0.0947, 0.3985, 0.5695`
+```
+∇Ω = 2(D ∇N − N ∇D)/(D² + N²),     and on N = 0,     ∇_{S²}Ω = 2q/D = 2(u×v)/D
+```
+
+(`q` is already tangent there), of norm `2|u×v|/|D| > 0`. So for
+non-collinear analyzers, **sharp closure and phase-stationarity are disjoint**,
+not intersecting in isolated points as R4 predicted; the only points with
+`D = 0` are `x = −u` and `x = −v`, where `D = N = 0` and the `arg` chart is
+singular — a chart singularity, not stationarity. Verified by a
+branch-wrapped finite difference to `3.4e-7` (`Ω` itself jumps by `4π`
+across the closure circle where `D < 0`, while the holonomy
+`e^{iΩ/2} = −1` is continuous). This strengthens the fork diagnosis: **no
+variational principle available in the repository can choose between
+positive and holonomy-weighted coarea.** The earlier grid-search version of
+R4 and its Lexell level-set check are superseded by this identity.
+
+**Second correction — R3's pre-computed values.** `0.0947, 0.3985, 0.5695`
 were mis-evaluated when the document was written; the closed form
-`E = (rW_l − W_u)/(rW_l + W_u)` with `W_l = 2 + c(π−γ)/s = 5.920`,
-`W_u = 2 + sγ/c = 2.546` at `γ = 1` gives `0.0751, 0.3985, 0.6460`. The
-criterion (marginals fixed at `1/2`, `E` moves) is unchanged and holds.
+`E = (rW_l − W_u)/(rW_l + W_u)` with `W_l = 2 + c(π−γ)/s = 5.9201590573`,
+`W_u = 2 + sγ/c = 2.5463024898` at `γ = 1` gives
+`0.075145, 0.398497, 0.646018`. The criterion (marginals fixed at `1/2`,
+`E` moves) is unchanged and holds.
+
+**Addendum, not a criterion — the oriented current has non-negative sector
+integrals.** Although `D` changes sign pointwise, `∫_Γ x dσ = 0` gives
+`∫_Γ D_s dσ = 2π(1 + u·v) ≥ 0` for every outcome pair. The
+holonomy-weighted construction therefore uses destructive cancellation
+*internally* and yields non-negative normalised sector weights: the
+analogy is classical wave interference, not a negative-probability
+distribution. Recorded, and it does not decide the fork.
+
+**Addendum, not a criterion — the sharper form of the fork.** Whether the
+Pin/Hopf data make the closure locus naturally an *oriented current with
+local coefficients*, whose observables are integrals of sections (in which
+case the sign is geometrically mandatory), or whether the physical object
+is a *measure on histories* (in which case positivity forces `|D|`). Added
+to the implementation audit as an open direction; establishing it would
+resolve the fork under the rule of §2.
 
 ## 4. Expected verdict, stated in advance
 

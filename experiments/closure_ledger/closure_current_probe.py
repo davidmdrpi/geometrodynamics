@@ -26,13 +26,18 @@ def run_probe() -> dict:
     r2 = {g: cc.holonomy_weighted_law(g) for g in (0.3, 1.0, 2.0)}
     r3 = cc.sector_prior_control()
     r4 = cc.stationarity_audit()
+    r4b = cc.integrated_sector_weights(n=40001)
+    r4c = cc.oriented_current_audit()
     r5 = cc.pin_label_versus_weight()
     checks = {
         "R1_pin_loop_reduces_to_triangle_with_partner_sign": r1["reduces_to_triangle"],
         "C1_branch_holonomy_is_sign_D": c1["signed_density_is_holonomy_times_coarea"],
         "R2_holonomy_weighted_current_is_born_without_projectors": all(h["E_is_cos"] and h["max_deviation"] < 1e-9 for h in r2.values()),
         "R3_sector_prior_chosen_marginals_fixed_E_moves": r3["marginals_stay_half"] and r3["E_moves"],
-        "R4_stationarity_unimplemented_and_does_not_decide": (not r4["implemented"]) and r4["stationary_set"]["no_stationary_points"],
+        "R4_stationarity_unimplemented_and_proxy_is_disjoint_from_closure": (
+            (not r4["implemented"]) and (not r4["proxy_tests_the_repository_condition"])
+            and r4["phase_stationarity_proxy"]["closure_and_phase_stationarity_are_disjoint"]),
+        "sector_integrals_of_the_oriented_current_are_nonnegative": r4b["all_sector_integrals_nonnegative"],
         "R5_pin_supplies_label_not_weight": r5["selected_by_pin_structure"] == "nothing about the measure",
     }
     v = cc.verdict(r1["reduces_to_triangle"], c1["signed_density_is_holonomy_times_coarea"],
@@ -42,9 +47,11 @@ def run_probe() -> dict:
             "prereg": "docs/closure_current_prereg.md @ f954e3d",
             "R1": r1, "C1": {k: val for k, val in c1.items() if k != "pi_branch_fraction_by_sector"},
             "R2": {g: {"E": h["E"], "max_deviation": h["max_deviation"]} for g, h in r2.items()},
-            "R3": r3, "R4": {k: r4[k] for k in ("named_in_module_docstring", "implemented", "weight_form")},
-            "R4_stationary_points": r4["stationary_set"]["n_stationary_points"],
-            "R4_sin_distance_to_closure_circle": r4["stationary_set"]["sin_distance_to_closure_circle"],
+            "R3": r3,
+            "R4": {k: r4[k] for k in ("named_in_module_docstring", "repository_condition",
+                                      "implemented", "weight_form", "why")},
+            "R4_proxy": r4["phase_stationarity_proxy"],
+            "sector_integrals": r4b, "oriented_current_audit": r4c,
             "R5": r5, "checks": checks, "passed": sum(checks.values()), "total": len(checks),
             "verdict": v,
             "dependency_ledger": {
@@ -53,12 +60,18 @@ def run_probe() -> dict:
                 "positive coarea": "|D|/(2|u x v|) [derived conditioning; counting measure on sectors: chosen]",
                 "oriented current": "e^{i Phi} x coarea [derived label; adopting it as weight: the open step]",
                 "sector prior": "counting [chosen]"},
+            "open_audit_item": cc.oriented_current_audit(),
             "where_the_gap_is": ("Not the spin structure (derived), not the loop (derived), not Bell "
                                  "(evaded by measurement dependence either way), not the relative "
                                  "outcome law (the oriented current gives it analytically). It is "
                                  "whether observed event frequencies are the positive count of closed "
                                  "histories or their oriented, holonomy-weighted sum. Nothing classical "
-                                 "in the repository decides; the rule forbids deciding it by the answer.")}
+                                 "in the repository decides; the rule forbids deciding it by the answer. "
+                                 "Sharper form, recorded as an open audit item and not a criterion: "
+                                 "if the observable is an integral of a section of the local system "
+                                 "the Pin/Hopf data define over the closure locus, the sign is "
+                                 "geometrically mandatory; if the physical object is a measure on "
+                                 "histories, positivity forces |D|.")}
 
 
 def render(s: dict) -> str:
@@ -74,9 +87,14 @@ def render(s: dict) -> str:
           "R2: holonomy-weighted current gives P_like = (1+cos γ)/4, P_unlike = (1−cos γ)/4: deviations "
           + ", ".join(f"γ={g}: `{v['max_deviation']:.1e}`" for g, v in s["R2"].items()) + ".",
           "R3: sector prior ratio 0.5/1/2 → E(1) = " + ", ".join(f"`{r['E']:.4f}`" for r in s["R3"]["rows"]) + "; marginals 1/2 throughout.",
-          f"R4: stationarity named in the docstring, implemented: {s['R4']['implemented']}; stationary points of Ω "
-          f"in the source direction: {s['R4_stationary_points']} (Lexell: the level sets are circles through −u and −v; "
-          "the closure phase has no critical points).", "", "## Checks", ""]
+          f"R4: the repository's condition is *{s['R4']['repository_condition']}*, implemented: "
+          f"{s['R4']['implemented']}. The phase-stationarity **proxy** is analytically disjoint from sharp "
+          f"closure: `∇Ω|_{{N=0}} = 2(u×v)/D`, minimum norm `{s['R4_proxy']['min_gradient_norm_on_closure_set']:.4f}` "
+          f"on the closure set (finite-difference residual `{s['R4_proxy']['finite_difference_residual']:.1e}`); the "
+          "only points with `D = 0` are `x = −u, −v`, where the `arg` chart is singular, not stationary.",
+          "Oriented-current sector integrals: `∫_Γ D_s dσ = 2π(1+u·v) ≥ 0` (residual "
+          f"`{s['sector_integrals']['max_quadrature_residual']:.1e}`) — the cancellation is internal, so the "
+          "holonomy weighting is wave interference, not negative event probabilities.", "", "## Checks", ""]
     for k, ok in s["checks"].items():
         L.append(f"* {'PASS' if ok else 'FAIL'} — {k}")
     L += ["", "## Where the gap is", "", s["where_the_gap_is"], "", "## Dependency ledger", ""]

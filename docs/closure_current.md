@@ -74,19 +74,49 @@ it does not produce it.
 
 * **R3, the sector prior.** Chosen; moves `E`; fixes nothing about the
   branch weighting.
-* **R4, stationarity.** Named in the repository, implemented nowhere. And it
-  could not help even if implemented as stationarity of the closure phase
-  in the source direction: `Ω(x; u, v)` has **no critical points** on `S²`
-  minus the two singular points `−u, −v` where `D = N = 0` (`min |∇Ω| = 0.51`
-  on a `721 × 1441` grid). Its level sets are Lexell circles through `−u`
-  and `−v` (a sampled level set is coplanar to `2e-3` and its plane contains
-  both to `< 1e-2`). *Correction to the pre-registration, which predicted isolated
-  points; the conclusion is stronger, not weaker.*
+* **R4, stationarity — corrected after review.** The repository's condition
+  is *extremal action*, and no action functional exists in
+  `history/closure.py`. Substituting stationarity of the geometric phase is
+  a **proxy**, labelled as such, and it does not test the repository's
+  condition. The proxy is moreover analytically incompatible with sharp
+  closure: on `N = 0` the tangential gradient is
+
+  ```
+  ∇_{S²}Ω |_{N=0} = 2q/D = 2(u×v)/D,     |∇Ω| = 2|u×v|/|D| > 0
+  ```
+
+  so closure and phase-stationarity are **disjoint** for non-collinear
+  analyzers (minimum gradient norm `0.5107` on the closure set;
+  branch-wrapped finite-difference residual `3.4e-7`). The only points with
+  `D = 0` are `x = −u` and `x = −v`, where `D = N = 0` and the `arg` chart
+  is singular — not stationary points. *This is stronger than the
+  pre-registered "isolated points", and it strengthens the diagnosis: no
+  variational principle available in the repository can choose between the
+  two measures.* (`Ω` jumps by `4π` across the closure circle where `D < 0`;
+  the holonomy `e^{iΩ/2} = −1` is continuous there, which is why the
+  finite difference must be branch-wrapped.)
 * **R5, the Pin structure.** It supplies the closure holonomy `−sgn D` as
   a **label** on each closed history (R1). Whether a label enters the
   measure as a weight is not a property of a bundle. The repository's
   classical field equations are linear and carry no measure on histories.
   No computation available here selects a weighting.
+
+## 3b. The oriented current does not give negative probabilities
+
+Although `D` changes sign pointwise on the closure circle (on an arc of
+fractional length `γ/2π` for like outcomes), the integrated sector weights
+are non-negative: with `∫_Γ x dσ = 0`,
+
+```
+∫_Γ D_s dσ = 2π(1 + u·v) ≥ 0        (quadrature residual 1.8e-15)
+```
+
+for every outcome pair, vanishing only at `u = −v`. The holonomy weighting
+therefore uses destructive cancellation **internally** and yields
+non-negative normalised sector weights. The right analogy is classical wave
+interference, not a negative-probability distribution — a sharper statement
+than "quasi-probability versus probability", and it is what makes the
+oriented branch a candidate at all rather than an obvious non-starter.
 
 ## 4. Where the quantization gap is
 
@@ -116,6 +146,14 @@ repository.
   stationary classical field equation, or from a counting argument that
   distinguishes the two branches physically. Any of these would resolve
   the fork; by the rule, only such a derivation may.
+* **The sharper form of the fork, recorded as an open audit item and not a
+  criterion.** Do the Pin/Hopf data make the closure locus naturally an
+  *oriented current with local coefficients*, whose observables are
+  integrals of sections? Then the sign `e^{iΩ/2}` is geometrically
+  mandatory and the oriented branch is forced. Or is the physical object a
+  *measure on histories*? Then positivity forces `|D|`. Neither is
+  established here, and this is the form in which the question should be
+  attacked next.
 
 ## 6. Dependency ledger
 

@@ -4861,17 +4861,20 @@ and the fact that the holonomy-weighted current gives the quantum joint law
 projectors, from `∫_Γ x dσ = 0`. What is not derived is the weighting
 itself: positive count (`S_max = 2.1423`) or oriented sum (`2√2`). The Pin
 structure supplies the branch holonomy as a *label* on each closed history,
-not as a weight; stationarity is named in `history/closure.py` and
-implemented nowhere, and the stationary set of the closure phase is a few
-isolated points, not the closure circle; the equal sector prior is a chosen
-counting measure. By the pre-registered rule the oriented sum may not be
+not as a weight; the repository's fourth closure condition is *extremal
+action*, which is implemented nowhere, and the phase-stationarity proxy is
+analytically **disjoint** from sharp closure (`∇Ω|_{N=0} = 2(u×v)/D` never
+vanishes), so no variational principle available here can choose; the equal
+sector prior is a chosen counting measure. The oriented branch is not a
+negative-probability theory: `∫_Γ D_s dσ = 2π(1+u·v) ≥ 0`, so the
+cancellation is internal, as in classical wave interference. By the pre-registered rule the oriented sum may not be
 adopted because it gives `2√2`. **The quantization gap is now located:
 not the spin structure, not the loop, not Bell, not the relative outcome
 law — whether observed event frequencies are the positive count of closed
 histories or their oriented, holonomy-weighted sum.**
 
 ```bash
-python -m experiments.closure_ledger.closure_current_probe   # 6/6
+python -m experiments.closure_ledger.closure_current_probe   # 7/7
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

@@ -40,16 +40,40 @@ def test_R3_sector_prior_moves_E_but_not_the_marginals():
     assert r["symmetry_fixing_ratio"] is None
 
 
-def test_R4_stationarity_is_unimplemented_and_its_set_is_not_the_closure_set():
+def test_R4_phase_stationarity_is_a_proxy_and_is_disjoint_from_sharp_closure():
+    """Corrected after review: the repository's condition is extremal action,
+    unimplemented; the phase-stationarity proxy is analytically incompatible
+    with sharp closure, since `∇Ω|_{N=0} = 2(u×v)/D` never vanishes."""
     a = cc.stationarity_audit()
     assert a["named_in_module_docstring"] and not a["implemented"]
-    s = a["stationary_set"]
-    assert s["no_stationary_points"] and s["min_grad_on_grid"] > 0.1     # Lexell: no critical points
-    assert not s["coincides_with_closure_set"]
-    assert s["lexell"]["level_set_is_a_circle (plane residual)"] < 5e-3
-    assert max(s["lexell"]["level_set_plane_contains_minus_u_minus_v (plane distances)"]) < 1e-2
-    assert max(s["lexell"]["D_at_minus_u_minus_v"]) < 1e-12
+    assert a["repository_condition"] == "stationarity: the history has extremal action"
+    assert not a["proxy_tests_the_repository_condition"]
     assert not a["stationarity_decides_the_fork"]
+    g = a["phase_stationarity_proxy"]
+    assert g["finite_difference_residual"] < 1e-5
+    assert g["min_gradient_norm_on_closure_set"] > 1e-6
+    assert g["gradient_never_vanishes_on_closure_set"]
+    assert g["singular_points_are_chart_not_stationary"]
+    assert g["closure_and_phase_stationarity_are_disjoint"]
+
+
+def test_the_oriented_current_has_non_negative_sector_integrals():
+    """`∫_Γ D_s dσ = 2π(1 + u·v) ≥ 0`: the cancellation is internal, so the
+    holonomy-weighted construction is wave interference, not negative
+    probabilities."""
+    r = cc.integrated_sector_weights(n=40001)
+    assert r["max_quadrature_residual"] < 1e-9
+    assert r["all_sector_integrals_nonnegative"]
+    for row in r["rows"]:
+        assert row["integral"] == pytest.approx(row["exact_2pi_1_plus_udotv"], abs=1e-9)
+        assert 0.0 < row["negative_arc_fraction"] < 0.5
+    assert cc.integrated_sector_weights.__doc__ is not None
+
+
+def test_the_oriented_current_audit_is_open_and_not_a_criterion():
+    a = cc.oriented_current_audit()
+    assert not a["established_here"]
+    assert "not a success criterion" in a["status"]
 
 
 def test_R5_the_two_candidates_and_the_verdict_rule():

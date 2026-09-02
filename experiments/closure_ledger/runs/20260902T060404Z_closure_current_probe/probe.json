@@ -1,0 +1,174 @@
+{
+  "timestamp": "2026-09-02T06:04:04.120936+00:00",
+  "prereg": "docs/closure_current_prereg.md @ f954e3d",
+  "R1": {
+    "q5_equals_minus_q0_Ginv": 4.440892098500626e-16,
+    "holonomy_fibre_independent": 2.4776144425915363e-15,
+    "frame_holonomy_is_Omega_of_triangle_x_u_minus_v": 2.220446049250313e-15,
+    "lift_is_cos_half_Omega_plus_sin_half_Omega_x": 9.298117831235686e-16,
+    "reduces_to_triangle": true,
+    "partner_sign": "v -> -v: the singlet sign",
+    "extra_from_J_squared": -1
+  },
+  "C1": {
+    "exp_i_half_Omega_equals_sign_D": 1.2246467991473532e-16,
+    "loop_lift_equals_sign_D_on_circle": 3.954103338027351e-16,
+    "signed_density_is_holonomy_times_coarea": true
+  },
+  "R2": {
+    "0.3": {
+      "E": 0.955336489125606,
+      "max_deviation": 5.551115123125783e-17
+    },
+    "1.0": {
+      "E": 0.5403023058681398,
+      "max_deviation": 5.551115123125783e-17
+    },
+    "2.0": {
+      "E": -0.41614683654714246,
+      "max_deviation": 5.551115123125783e-17
+    }
+  },
+  "R3": {
+    "rows": [
+      {
+        "ratio": 0.5,
+        "E": 0.07514499310420747,
+        "P(A=+)": 0.5
+      },
+      {
+        "ratio": 1.0,
+        "E": 0.3984966504215484,
+        "P(A=+)": 0.5
+      },
+      {
+        "ratio": 2.0,
+        "E": 0.6460179829785379,
+        "P(A=+)": 0.5
+      }
+    ],
+    "marginals_stay_half": true,
+    "E_moves": true,
+    "symmetry_fixing_ratio": null,
+    "status": "equal prior = counting measure on sectors: chosen"
+  },
+  "R4": {
+    "named_in_module_docstring": true,
+    "repository_condition": "stationarity: the history has extremal action",
+    "implemented": false,
+    "weight_form": "exp(-mismatch^2 / (2 sigma^2)), sigma = 0.6, positive for both branches",
+    "why": "The repository's fourth condition is extremal action and there is no action functional in the module. Substituting stationarity of the geometric phase would be a new assumption, and analytically it is incompatible with sharp closure anyway: grad Omega = 2(u x v)/D never vanishes on the closure set. So no variational principle available in the repository can choose between positive and holonomy-weighted coarea."
+  },
+  "R4_proxy": {
+    "analytic_gradient": "2 (u x v) / D",
+    "finite_difference_residual": 3.4467817044969706e-07,
+    "min_gradient_norm_on_closure_set": 0.5106839161901221,
+    "cross_product_norm": 0.8414709848078965,
+    "gradient_never_vanishes_on_closure_set": true,
+    "singular_points_are_minus_u_and_minus_v": [
+      0.0,
+      0.0
+    ],
+    "singular_points_are_chart_not_stationary": true,
+    "closure_and_phase_stationarity_are_disjoint": true,
+    "classification": "phase-stationarity proxy: incompatible with sharp phase closure for generic (non-collinear) settings. It does NOT test the repository's unimplemented extremal-action condition."
+  },
+  "sector_integrals": {
+    "rows": [
+      {
+        "sector": [
+          1,
+          1
+        ],
+        "integral": 9.678004816845533,
+        "exact_2pi_1_plus_udotv": 9.678004816845533,
+        "nonnegative": true,
+        "negative_arc_fraction": 0.15914602134946626
+      },
+      {
+        "sector": [
+          1,
+          -1
+        ],
+        "integral": 2.88836579751364,
+        "exact_2pi_1_plus_udotv": 2.88836579751364,
+        "nonnegative": true,
+        "negative_arc_fraction": 0.3408414789630259
+      },
+      {
+        "sector": [
+          -1,
+          1
+        ],
+        "integral": 2.88836579751364,
+        "exact_2pi_1_plus_udotv": 2.88836579751364,
+        "nonnegative": true,
+        "negative_arc_fraction": 0.3408414789630259
+      },
+      {
+        "sector": [
+          -1,
+          -1
+        ],
+        "integral": 9.678004816845533,
+        "exact_2pi_1_plus_udotv": 9.678004816845533,
+        "nonnegative": true,
+        "negative_arc_fraction": 0.15914602134946626
+      }
+    ],
+    "max_quadrature_residual": 0.0,
+    "all_sector_integrals_nonnegative": true,
+    "cancellation_is_internal": true,
+    "reading": "destructive cancellation within a sector, non-negative normalised sector weights: closer to classical wave interference than to a negative-probability distribution"
+  },
+  "oriented_current_audit": {
+    "question": "do the Pin/Hopf data make the closure locus naturally an oriented current with local coefficients, whose observables are integrals of sections, or is the physical object a measure on histories?",
+    "if_local_system": "the sign is geometrically mandatory: HOLONOMY_WEIGHTED_COAREA",
+    "if_measure_on_histories": "positivity forces |D|: POSITIVE_COAREA",
+    "status": "open; recorded as an audit item, not a success criterion",
+    "established_here": false
+  },
+  "R5": {
+    "supplied_by_pin_structure": "closure holonomy -sgn D(x,u,-v) on every closed history",
+    "selected_by_pin_structure": "nothing about the measure",
+    "selected_by_implemented_classical_dynamics": "nothing (stationarity unimplemented; field equations linear, no history measure)",
+    "the_open_step": "positive count versus oriented (holonomy-weighted) sum over the 0/pi closure branches",
+    "candidates": {
+      "POSITIVE_COAREA": {
+        "E(1)": 0.3984966504215484,
+        "S_max": 2.1422831702064027
+      },
+      "HOLONOMY_WEIGHTED_COAREA": {
+        "E(1)": 0.5403023058681398,
+        "S_max": 2.8284271247461903
+      }
+    }
+  },
+  "checks": {
+    "R1_pin_loop_reduces_to_triangle_with_partner_sign": true,
+    "C1_branch_holonomy_is_sign_D": true,
+    "R2_holonomy_weighted_current_is_born_without_projectors": true,
+    "R3_sector_prior_chosen_marginals_fixed_E_moves": true,
+    "R4_stationarity_unimplemented_and_proxy_is_disjoint_from_closure": true,
+    "sector_integrals_of_the_oriented_current_are_nonnegative": true,
+    "R5_pin_supplies_label_not_weight": true
+  },
+  "passed": 7,
+  "total": 7,
+  "verdict": "FORK_UNRESOLVED_BY_CURRENT_STRUCTURES",
+  "dependency_ledger": {
+    "loop": "loop( source pair [x, -x via J], geodesic realignment at A, B [chosen], J = L_{-j} [derived] ) -> triangle x -> u -> -v -> x [derived]",
+    "closure holonomy": "-sgn D(x, u, -v) [derived from J^2 = -1 and the lift G]",
+    "positive coarea": "|D|/(2|u x v|) [derived conditioning; counting measure on sectors: chosen]",
+    "oriented current": "e^{i Phi} x coarea [derived label; adopting it as weight: the open step]",
+    "sector prior": "counting [chosen]"
+  },
+  "open_audit_item": {
+    "question": "do the Pin/Hopf data make the closure locus naturally an oriented current with local coefficients, whose observables are integrals of sections, or is the physical object a measure on histories?",
+    "if_local_system": "the sign is geometrically mandatory: HOLONOMY_WEIGHTED_COAREA",
+    "if_measure_on_histories": "positivity forces |D|: POSITIVE_COAREA",
+    "status": "open; recorded as an audit item, not a success criterion",
+    "established_here": false
+  },
+  "where_the_gap_is": "Not the spin structure (derived), not the loop (derived), not Bell (evaded by measurement dependence either way), not the relative outcome law (the oriented current gives it analytically). It is whether observed event frequencies are the positive count of closed histories or their oriented, holonomy-weighted sum. Nothing classical in the repository decides; the rule forbids deciding it by the answer. Sharper form, recorded as an open audit item and not a criterion: if the observable is an integral of a section of the local system the Pin/Hopf data define over the closure locus, the sign is geometrically mandatory; if the physical object is a measure on histories, positivity forces |D|."
+}
