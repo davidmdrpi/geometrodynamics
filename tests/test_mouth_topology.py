@@ -214,11 +214,82 @@ def test_spin_lifts_of_the_antipode_are_the_chirality_signs():
     assert out["eigenvalues"] == [-1.0, 1.0]
 
 
-def test_no_pin_lift_of_a_gluing_map_can_equal_J():
-    """S3: every lift is a real (complex-linear) matrix in the regular
-    representation; `J` is antilinear for the Hopf structure. A map cannot be
-    both, so `J` is not a lift of any element of `O(4)`."""
+def test_J_is_the_lift_of_a_rotation_not_of_iota_or_the_antipode():
+    """S3, corrected (R2): `J` is `L_{-j}`, an `SO(4)` rotation with the
+    Spin(4) lift `(-j, 1)`; it is antilinear only for `L_i`. The lifts of
+    `iota` are odd (chirality-exchanging) and the lifts of `-I_4` are the
+    volume element, so `J` is a lift of neither."""
     c = mt.complex_structure_commutation()
-    assert c["anticommutes_with_L_i"]           # antilinear w.r.t. L_i
+    assert c["det_J"] == pytest.approx(1.0)      # a rotation
+    assert c["anticommutes_with_L_i"] and c["commutes_with_R_i"]
     for row in mt.pin_lifts_of_reflection()["lifts"]:
-        assert row["is_real_matrix"]             # linear in every complex structure
+        assert row["anticommutes_with_volume"]   # odd: not a chirality-preserving map
+    assert mt.spin_lifts_of_antipode()["eigenvalues"] == [-1.0, 1.0]
+
+
+# ── the mouth Pin holonomy (docs/mouth_pin_holonomy_prereg.md) ──────────────
+
+def test_P1_deck_generator_reverses_both_normals_and_reflects_the_tangent():
+    h = mt.neck_holonomy()
+    assert np.allclose(h["holonomy"], np.diag([-1.0, -1.0, 1.0, -1.0]), atol=1e-9)
+    assert h["both_normals_reversed"] and h["tangent_is_reflection"]
+    assert h["det"] == pytest.approx(-1.0, abs=1e-9)
+
+
+def test_P2_ambient_pin_plus_induces_intrinsic_pin_minus_through_lambda_plus_lambda():
+    w = mt.restricted_stiefel_whitney()
+    assert w["w_nu"] == (1, 0, 1) and w["w_TN"] == (1, 1, 1)
+    assert w["w_TM_restricted"] == (1, 1, 0)
+    assert w["ambient_pin_plus_compatible"]
+    assert w["intrinsic_pin_minus"] and not w["intrinsic_pin_plus"]
+
+
+def test_P3_twisted_tangent_generators_are_quaternionic():
+    t = mt.twisted_tangent_generators()
+    assert t["normal_volume_squared"] == -1
+    assert t["twisted_t1_squared"] == -1 and t["twisted_t2_squared"] == -1
+    assert t["twisted_anticommute"] and t["generates_quaternions"]
+
+
+def test_P4_holonomy_lift_squares_to_minus_one_in_pin_plus_only():
+    lifts = mt.holonomy_lifts()
+    assert lifts["square_in_pin_plus"] == -1
+    assert lifts["square_in_pin_minus"] == +1
+    for row in lifts["lifts"]:
+        assert row["odd_anticommutes_with_volume"] and row["equals_twisted_t2"]
+        assert row["normal_part_squared"] == -1
+
+
+def test_P5_closed_loop_spin_holonomy_is_minus_one_from_the_unwrapped_angle():
+    out = mt.closed_loop_spin_holonomy()
+    assert out["equator_rotation_angle"] == pytest.approx(2.0 * math.pi, abs=1e-6)
+    assert out["max_deviation_from_classical_law"] < 1e-6
+    assert out["spin_holonomy_is_minus_one"]
+
+
+def test_P6_mouth_holonomy_matches_J_only_at_the_intrinsic_level_up_to_U1_and_sign():
+    c = mt.compare_mouth_holonomy_with_transport()
+    assert not c["vector_level"]["same_O4_class"]
+    assert not c["ambient_spinor_level"]["conjugate_in_Pin4"]
+    intrinsic = c["intrinsic_level"]
+    assert intrinsic["L_minus_j_conjugate_to_L_j_by_spin2"]
+    assert intrinsic["conjugating_angle"] == pytest.approx(0.5 * math.pi, abs=1e-3)
+    assert intrinsic["also_equal_up_to_sign"]
+    assert intrinsic["fibre_reversing_component_all_order_four"]
+    assert c["outcome"] == "B"
+
+
+def test_P7_the_K_is_anticommutation_with_the_spin2_generator():
+    m = mt.intrinsic_pin2_module()
+    assert m["holonomy_squared_minus_identity"]
+    assert m["spin2_generator_is_L_k"]
+    assert m["holonomy_anticommutes_with_spin2_generator"]
+    assert m["holonomy_commutes_with_right_i"]
+    assert m["pin2_is_normaliser_of_spin2"]
+
+
+def test_P8_the_sign_is_a_pin_structure_and_is_not_selected():
+    counts = mt.pin_structure_counts()
+    assert counts["RP2_pin_minus_structures"] == 2
+    assert counts["RP4_connected_sum_pin_plus_structures"] == 4
+    assert not counts["sign_of_holonomy_fixed_by_geometry"]

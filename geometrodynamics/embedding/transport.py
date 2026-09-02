@@ -28,10 +28,15 @@ In the spin-1/2 representation the same map is
 
 i.e. the antilinear K is a statement about which complex structure the state
 space carries, not about the geometry. ``T^2 = -I``, ``T^dagger T = I``,
-``det T = 1`` hold; they are properties of the quaternionic structure of C^2,
-not consequences of a non-orientable throat. Whether the physical mouth
-transition lifts to this map is an open question, not a theorem; see
-``geometrodynamics/bulk/mouth_topology.py`` and the derivation document.
+``det T = 1`` hold; they are properties of the quaternionic structure of C^2.
+The finite-mouth round (``geometrodynamics/bulk/mouth_topology.py``,
+``docs/finite_mouth_bundle_transport.md`` section 5b) found that the deck-
+generator holonomy of the RP^2 mouth on the restricted Pin+ spinor bundle
+is left multiplication by a unit quaternion of the (i, j) plane -- the same
+fibre-reversing component of Pin(2) that sigma = L_{-j} belongs to, with
+the same square -1 -- determined up to a Spin(2) = U(1) direction and a
+sign. So T^2 = -1 is geometric (the spin holonomy of a 2 pi rotation on the
+round neck); the specific element -j and the sign are not selected.
 
 Verification checks retained:
     T^2 = -I, T^dagger T = I, det T = 1, T sigma_z T^dagger = -sigma_z.

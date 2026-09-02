@@ -706,3 +706,298 @@ def traversal_table() -> List[Dict[str, object]]:
          "four_traversals": "identity"},
     ]
     return rows
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# The mouth Pin holonomy (docs/mouth_pin_holonomy_prereg.md, P1-P8)
+# ═══════════════════════════════════════════════════════════════════════════
+#
+# Two retractions of the section above are recorded in that document: the
+# Pin+ / Pin- "mismatch" is the standard induction of an intrinsic Pin-
+# structure from an ambient Pin+ one through two twisted normal lines, and
+# J = i sigma_y K IS the Spin(4) lift of the SO(4) rotation L_{-j}; what it is
+# not is a lift of iota or of -I_4.
+
+__all__ += [
+    "transport_along_great_semicircle",
+    "neck_holonomy",
+    "sw_polynomial_rp2",
+    "restricted_stiefel_whitney",
+    "twisted_tangent_generators",
+    "holonomy_lifts",
+    "closed_loop_spin_holonomy",
+    "intrinsic_pin2_module",
+    "compare_mouth_holonomy_with_transport",
+    "pin_structure_counts",
+]
+
+
+def _transport_ode(v0: np.ndarray, centre: np.ndarray, direction: np.ndarray,
+                   theta_end: float, steps: int = 2000) -> np.ndarray:
+    """Parallel transport of ``v0`` along the great circle
+    ``gamma(theta) = cos(theta) c + sin(theta) d`` of the unit ``S^3 ⊂ R^4``,
+    integrating ``v' = -(v . gamma') gamma`` with RK4. Computed, not recalled."""
+    def gamma(t):
+        return math.cos(t) * centre + math.sin(t) * direction
+
+    def dgamma(t):
+        return -math.sin(t) * centre + math.cos(t) * direction
+
+    def rhs(t, v):
+        return -(v @ dgamma(t)) * gamma(t)
+
+    h = theta_end / steps
+    v, t = v0.astype(float).copy(), 0.0
+    for _ in range(steps):
+        k1 = rhs(t, v)
+        k2 = rhs(t + 0.5 * h, v + 0.5 * h * k1)
+        k3 = rhs(t + 0.5 * h, v + 0.5 * h * k2)
+        k4 = rhs(t + h, v + h * k3)
+        v = v + (h / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4)
+        t += h
+    return v
+
+
+def transport_along_great_semicircle(steps: int = 2000) -> Dict[str, np.ndarray]:
+    """P1, first half: transport the neck frame ``(n, t1, t2)`` (tangent to
+    ``S^3`` at ``Omega = e1``) along the semicircle towards ``-e1`` in the
+    ``t1 = e2`` direction. ``n = e4`` is the brane normal, ``t2 = e3``."""
+    c, d = np.eye(4)[0], np.eye(4)[1]
+    out = {}
+    for name, v0 in (("n", np.eye(4)[3]), ("t1", np.eye(4)[1]), ("t2", np.eye(4)[2])):
+        out[name] = _transport_ode(v0, c, d, math.pi, steps)
+    return out
+
+
+def neck_holonomy(steps: int = 2000) -> Dict[str, object]:
+    """P1 — the holonomy of the deck generator of the neck ``RP^2`` on the
+    frame ``(d_s, n, t1, t2)``: transport to ``-Omega`` followed by ``d iota``.
+
+    ``d iota`` sends ``d_s -> -d_s`` and every ``S^3``-tangent vector ``v`` at
+    ``-Omega`` to ``-v`` at ``Omega`` (the differential of ``-I_4``).
+    """
+    moved = transport_along_great_semicircle(steps)
+    # d iota on the S^3 tangent part: v -> -v (as vectors of R^4)
+    back = {k: -v for k, v in moved.items()}
+    frame = {"n": np.eye(4)[3], "t1": np.eye(4)[1], "t2": np.eye(4)[2]}
+    H = np.zeros((4, 4))
+    H[0, 0] = -1.0                                     # d_s -> -d_s
+    order = ["n", "t1", "t2"]
+    for j, name in enumerate(order):
+        for i, other in enumerate(order):
+            H[i + 1, j + 1] = float(back[name] @ frame[other])
+    return {"holonomy": H, "frame": ["d_s", "n", "t1", "t2"],
+            "det": float(np.linalg.det(H)),
+            "normal_block": H[:2, :2].copy(), "tangent_block": H[2:, 2:].copy(),
+            "both_normals_reversed": bool(np.allclose(H[:2, :2], -np.eye(2))),
+            "tangent_is_reflection": bool(np.allclose(np.linalg.det(H[2:, 2:]), -1.0)),
+            "eigenvalues": sorted(np.round(np.linalg.eigvals(H).real, 9).tolist())}
+
+
+# ── Stiefel-Whitney arithmetic in Z_2[a]/(a^3) ─────────────────────────────
+
+def sw_polynomial_rp2(coefficients: Sequence[int]) -> Tuple[int, int, int]:
+    """Reduce a polynomial in ``a`` mod ``2`` and mod ``a^3``."""
+    out = [0, 0, 0]
+    for k, c in enumerate(coefficients):
+        if k < 3:
+            out[k] = (out[k] + c) % 2
+    return tuple(out)
+
+
+def _sw_mul(p: Tuple[int, int, int], q: Tuple[int, int, int]) -> Tuple[int, int, int]:
+    out = [0, 0, 0]
+    for i, a in enumerate(p):
+        for j, b in enumerate(q):
+            if i + j < 3:
+                out[i + j] = (out[i + j] + a * b) % 2
+    return tuple(out)
+
+
+def restricted_stiefel_whitney() -> Dict[str, object]:
+    """P2 — ``w(TM|_N) = w(TN) w(nu)`` on ``N = RP^2`` with ``nu = lambda + lambda``.
+
+    ``w(lambda) = 1 + a``; ``w(TN) = (1+a)^3``; everything in ``Z_2[a]/(a^3)``.
+    """
+    one_plus_a = (1, 1, 0)
+    w_lambda = one_plus_a
+    w_nu = _sw_mul(w_lambda, w_lambda)
+    w_tn = _sw_mul(_sw_mul(one_plus_a, one_plus_a), one_plus_a)
+    w_tm = _sw_mul(w_tn, w_nu)
+    w1, w2 = w_tn[1], w_tn[2]
+    return {"w_nu": w_nu, "w_TN": w_tn, "w_TM_restricted": w_tm,
+            "w2_TM_restricted": w_tm[2],
+            "ambient_pin_plus_compatible": w_tm[2] == 0,
+            "w1_TN": w1, "w2_TN": w2, "w1_TN_squared": w1,     # a^2 coefficient of a*a
+            "intrinsic_pin_minus": (w2 + w1) % 2 == 0,        # w2 + w1^2 = 0
+            "intrinsic_pin_plus": w2 == 0}
+
+
+# ── the conversion Pin+ (ambient) -> Pin- (intrinsic) ──────────────────────
+
+def twisted_tangent_generators() -> Dict[str, object]:
+    """P3 — with ``e_s, e_n`` the normal generators of ``Cl(4)`` (``e^2 = +1``),
+    ``e~_t = e_t e_s e_n`` square to ``-1`` and anticommute: ``Cl^-(2)``."""
+    cl = clifford_regular(+1)
+    e_s, e_n, e_t1, e_t2 = cl["generators"]
+    nv = e_s @ e_n
+    et1, et2 = e_t1 @ nv, e_t2 @ nv
+    I = cl["identity"]
+    return {"normal_volume_squared": int(round((nv @ nv)[0, 0])),
+            "twisted_t1_squared": int(round((et1 @ et1)[0, 0])),
+            "twisted_t2_squared": int(round((et2 @ et2)[0, 0])),
+            "twisted_anticommute": bool(np.allclose(et1 @ et2, -et2 @ et1)),
+            "twisted_product_squared": int(round(((et1 @ et2) @ (et1 @ et2))[0, 0])),
+            "generates_quaternions": bool(
+                np.allclose(et1 @ et1, -I) and np.allclose(et2 @ et2, -I)
+                and np.allclose(et1 @ et2, -et2 @ et1))}
+
+
+def holonomy_lifts() -> Dict[str, object]:
+    """P4 — lifts of ``H = diag(-1,-1,+1,-1)`` to ``Pin^±(4)``: ``±e_s e_n e_t2``.
+
+    ``H`` is the product of the reflections in ``d_s``, ``n`` and ``t2``, so
+    its lift is the product of the three generators (up to sign).
+    """
+    rows = []
+    for name, sig in (("Pin+", +1), ("Pin-", -1)):
+        cl = clifford_regular(sig)
+        e_s, e_n, _, e_t2 = cl["generators"]
+        vol = cl["volume"]
+        lift = e_s @ e_n @ e_t2
+        rows.append({"pin_type": name,
+                     "square": int(round((lift @ lift)[0, 0])),
+                     "odd_anticommutes_with_volume": bool(np.allclose(lift @ vol, -vol @ lift)),
+                     "equals_twisted_t2": bool(np.allclose(lift, e_t2 @ e_s @ e_n)),
+                     "normal_part_squared": int(round(((e_s @ e_n) @ (e_s @ e_n))[0, 0]))})
+    return {"lifts": rows,
+            "square_in_pin_plus": rows[0]["square"], "square_in_pin_minus": rows[1]["square"]}
+
+
+def closed_loop_spin_holonomy(n_loops: int = 60, steps: int = 1500) -> Dict[str, object]:
+    """P5 — the spin holonomy of the equator of the neck ``S^2``, computed by
+    transporting a tangent vector around latitude circles at polar angle
+    ``theta0`` from the pole ``t2 = e3``, unwrapping the rotation angle
+    continuously in ``theta0``, and reading the value at the equator.
+
+    Classical value ``2 pi (1 - cos theta0)``; at the equator ``2 pi``, whose
+    spin lift ``exp(i * angle / 2)`` is ``-1``.
+    """
+    pole = np.eye(4)[2]
+    angles = []
+    for theta0 in np.linspace(0.05, 0.5 * math.pi, n_loops):
+        # latitude circle in the S^2 = span(e1, e2, e3) ∩ S^3
+        centre = math.cos(theta0) * pole
+        r = math.sin(theta0)
+        # parametrise p(phi) = cos(theta0) e3 + sin(theta0)(cos phi e1 + sin phi e2)
+        # transport the tangent vector v0 = dp/dphi(0)/r = e2 around the loop
+        v = np.eye(4)[1].copy()
+        h = 2.0 * math.pi / steps
+
+        def p(phi):
+            return centre + r * (math.cos(phi) * np.eye(4)[0] + math.sin(phi) * np.eye(4)[1])
+
+        def dp(phi):
+            return r * (-math.sin(phi) * np.eye(4)[0] + math.cos(phi) * np.eye(4)[1])
+
+        def rhs(phi, vv):
+            # parallel transport on the unit sphere along p(phi): v' = -(v . p') p
+            return -(vv @ dp(phi)) * p(phi)
+
+        phi = 0.0
+        for _ in range(steps):
+            k1 = rhs(phi, v)
+            k2 = rhs(phi + 0.5 * h, v + 0.5 * h * k1)
+            k3 = rhs(phi + 0.5 * h, v + 0.5 * h * k2)
+            k4 = rhs(phi + h, v + h * k3)
+            v = v + (h / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4)
+            phi += h
+        # rotation angle of the returned vector relative to the start, in the
+        # oriented tangent plane at p(0) spanned by (e2, u) with u the inward
+        # meridian direction
+        u = np.cross(np.eye(3)[1], (p(0.0)[:3] / np.linalg.norm(p(0.0)[:3])))
+        u = np.append(u, 0.0)
+        ang = math.atan2(v @ u, v @ np.eye(4)[1])
+        angles.append(ang)
+    unwrapped = np.unwrap(np.array(angles))
+    unwrapped -= unwrapped[0] - angles[0]
+    theta_grid = np.linspace(0.05, 0.5 * math.pi, n_loops)
+    expected = 2.0 * math.pi * (1.0 - np.cos(theta_grid))
+    # orientation sign of the unwrapped angle is a convention; compare |.|
+    total = float(abs(unwrapped[-1]))
+    return {"equator_rotation_angle": total,
+            "expected_2pi": 2.0 * math.pi,
+            "max_deviation_from_classical_law": float(np.max(np.abs(np.abs(unwrapped) - expected))),
+            "spin_lift_at_equator": float(math.cos(0.5 * total)),   # Re e^{i angle/2}
+            "spin_holonomy_is_minus_one": bool(abs(math.cos(0.5 * total) + 1.0) < 1e-6)}
+
+
+# ── the intrinsic Pin^-(2) module and the comparison with L_{-j} ───────────
+
+def intrinsic_pin2_module() -> Dict[str, object]:
+    """P6/P7 — ``Cl^-(2) ≅ H`` with ``e~_t1 -> i``, ``e~_t2 -> j``, ``e~_t1 e~_t2 -> k``,
+    acting on ``H`` by left multiplication. The mouth holonomy ``e~_t2`` is
+    ``L_j``; ``Spin(2) = {exp(theta k)}``; the fibre-reversing component is
+    ``{cos(alpha) i + sin(alpha) j}``."""
+    Li, Lj, Lk = (quaternion_left([0, 1, 0, 0]), quaternion_left([0, 0, 1, 0]),
+                  quaternion_left([0, 0, 0, 1]))
+    Ri = quaternion_right([0, 1, 0, 0])
+    hol = Lj
+    return {"holonomy_is_L_j": True,
+            "holonomy_squared_minus_identity": bool(np.allclose(hol @ hol, -np.eye(4))),
+            "spin2_generator_is_L_k": bool(np.allclose(Li @ Lj, Lk)),
+            "holonomy_anticommutes_with_spin2_generator": bool(np.allclose(hol @ Lk, -Lk @ hol)),
+            "holonomy_commutes_with_right_i": bool(np.allclose(hol @ Ri, Ri @ hol)),
+            "pin2_is_normaliser_of_spin2": bool(np.allclose(
+                hol @ Lk @ np.linalg.inv(hol), -Lk))}
+
+
+def compare_mouth_holonomy_with_transport() -> Dict[str, object]:
+    """P6 — three levels of comparison between the mouth holonomy and ``J``.
+
+    * vector level: ``H`` versus ``sigma = L_{-j}`` as elements of ``O(4)``;
+    * ambient spinor level: ``e_s e_n e_t2`` (odd) versus ``(-j, 1)`` (even);
+    * intrinsic level: ``L_j`` versus ``L_{-j}`` inside ``Pin^-(2) ⊂ SU(2)``,
+      up to ``Spin(2)`` conjugation and sign.
+    """
+    H = neck_holonomy()["holonomy"]
+    sigma = hopf_transport_matrix()
+    vector = {"det_H": float(np.linalg.det(H)), "det_sigma": float(np.linalg.det(sigma)),
+              "eig_H": sorted(np.round(np.linalg.eigvals(H).real, 6).tolist()),
+              "eig_sigma_imag": sorted(np.round(np.linalg.eigvals(sigma).imag, 6).tolist()),
+              "same_O4_class": bool(abs(np.linalg.det(H) - np.linalg.det(sigma)) < 1e-9)}
+    # ambient: parity in Cl(4)
+    ambient = {"holonomy_lift_parity": "odd (three generators)",
+               "sigma_lift_parity": "even (Spin(4), (-j, 1))",
+               "conjugate_in_Pin4": False}
+    # intrinsic: is L_{-j} = g L_j g^{-1} for some g in Spin(2) = exp(theta k), up to sign?
+    Lj = quaternion_left([0, 0, 1, 0])
+    Lmj = quaternion_left([0, 0, -1, 0])
+    found = None
+    for theta in np.linspace(0.0, 2.0 * math.pi, 3601):
+        g = quaternion_left([math.cos(theta), 0, 0, math.sin(theta)])
+        if np.allclose(g @ Lj @ np.linalg.inv(g), Lmj, atol=1e-9):
+            found = float(theta)
+            break
+    # the whole fibre-reversing component, as a set: cos(a) i + sin(a) j
+    component = [quaternion_left([0, math.cos(a), math.sin(a), 0])
+                 for a in np.linspace(0, 2 * math.pi, 8, endpoint=False)]
+    all_square_minus_one = all(np.allclose(c @ c, -np.eye(4)) for c in component)
+    return {"vector_level": vector, "ambient_spinor_level": ambient,
+            "intrinsic_level": {
+                "L_minus_j_conjugate_to_L_j_by_spin2": found is not None,
+                "conjugating_angle": found,
+                "also_equal_up_to_sign": bool(np.allclose(Lmj, -Lj)),
+                "fibre_reversing_component_all_order_four": bool(all_square_minus_one),
+                "unfixed_data": "U(1) direction in the (i, j) plane, and the sign"},
+            "outcome": "B"}
+
+
+def pin_structure_counts() -> Dict[str, object]:
+    """P8 — ``|H^1(.; Z_2)|`` counts: two Pin^- structures on ``RP^2``, four
+    Pin^+ on ``RP^4 # RP^4``, two spin structures on ``S^3 x S^1``. None of the
+    signs is fixed by the metric or by ``iota``."""
+    return {"RP2_pin_minus_structures": 2, "RP4_connected_sum_pin_plus_structures": 4,
+            "S3xS1_spin_structures": 2,
+            "sign_of_holonomy_fixed_by_geometry": False,
+            "what_it_is_in_the_repository": "embedding.topology.ThroatDefect.wrap_parity"}

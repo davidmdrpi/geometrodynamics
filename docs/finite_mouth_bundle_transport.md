@@ -111,14 +111,22 @@ is `RP³`, its brane neck is `RP² = S²/±`. The words "`RP²` mouth",
 "non-orientable throat" and "Möbius wrap" all refer to **this quotient**, not
 to the two-mouth handle.
 
-*A Pin mismatch.* With `w(RPⁿ) = (1+a)^{n+1}`: `RP²` has `w₁ = a`, `w₂ = a²`,
-so it is Pin⁻ only; `RP⁴` has `w₁ = a`, `w₂ = 0`, `w₁² = a² ≠ 0`, so it is
-Pin⁺ only, and so is `RP⁴ # RP⁴` (`w₂ = 0`, `w₁² = a₁² + a₂² ≠ 0`). The Pin⁻
-the repository assigns to the `RP²` mouth is the structure induced on `RP²` by
-the spin structure of the orientable brane slice; it is not the Pin structure
-of the bulk quotient, which is of the opposite type
-(`pin_structures_rp`). *Evidence class:* topological theorem (Stiefel–Whitney
-classes of projective spaces), conditional on `P_B = −P_A`.
+*Pin types, corrected after review.* With `w(RPⁿ) = (1+a)^{n+1}`: `RP²` has
+`w₁ = a`, `w₂ = a²`, so it is Pin⁻ only; `RP⁴` has `w₁ = a`, `w₂ = 0`,
+`w₁² = a² ≠ 0`, so it is Pin⁺ only, and so is `RP⁴ # RP⁴`. **A first draft
+of this document called that a mismatch. It is not; it is the standard
+mechanism by which an ambient Pin⁺ structure induces an intrinsic Pin⁻
+structure on a surface whose normal bundle is twisted.** The deck generator
+of the neck `RP²` reverses both normal directions (`∂_s` and the brane
+normal `n`), so `ν = λ ⊕ λ`, `w(ν) = 1 + a²`, and
+
+```
+w(TM|_N) = w(TN) w(ν) = (1 + a + a²)(1 + a²) = 1 + a         (a³ = 0)
+```
+
+so `w₂(TM|_N) = 0` (ambient Pin⁺ restricts) while `w₂(TN) + w₁(TN)² = 0`
+(intrinsic Pin⁻). See §5b and `docs/mouth_pin_holonomy_prereg.md` (R1).
+*Evidence class:* topological theorem, conditional on `P_B = −P_A`.
 
 ## 3. The scalar boundary condition (H3)
 
@@ -236,21 +244,132 @@ representation (`clifford_regular`):
 * the antipode `−I₄ ∈ SO(4)` lifts to `±e₀e₁e₂e₃ = ±` volume element, with
   eigenvalues `±1`: the chirality sign (`spin_lifts_of_antipode`).
 
-Every lift is a real matrix in the regular representation, hence
-complex-linear in any complex structure. `J` is antilinear in the Hopf
-structure. **No lift of any element of `O(4)` is `J`.** The lift of `ι` is a
-chirality-exchanging reflection; the lift of `−I₄` is a chirality sign; `J`
-is a rotation with an antiunitary factor bolted on. The central falsifier of
-the round is therefore answered: `iσ_y K` cannot be obtained from the mouth
-gluing without inserting (i) a two-component complex structure on the state
-space — the Hopf one, in which the fibre is the phase — and (ii) the
-antilinear `C`. Both are inserted by hand in `embedding/transport.py` and
-`bell/bulk_identity.py`. The derivation there is circular in exactly the
-sense the pre-registration anticipated.
+**Corrected after review (R2 in `docs/mouth_pin_holonomy_prereg.md`).** A
+first draft said "no lift of any element of `O(4)` is `J`". That was too
+broad, and wrong: `σ = L_{−j} ∈ SO(4)` has the Spin(4) lift `(−j, 1)` (up to
+the central sign), which acts on one half-spinor as the linear quaternion
+`−j`, i.e. as `iσ_y` in the `R_i` basis. So `J` **is** the spin lift of a
+geometric rotation, and that rotation is an admissible seam monodromy (the
+fibre-reversing Hopf-isometry class). What remains true and narrower:
+
+* `J` is not a lift of `ι` (whose lifts are the odd, chirality-exchanging
+  `±e_s`) nor of `−I₄` (whose lifts are `±` the volume element);
+* the geometry does not select `m = σ` over `m = I` or `m = −I`;
+* the `K` is a statement about complex structure: one real map, antilinear
+  for `L_i`, linear for `R_i`. "The Pin matrices are real, therefore
+  complex-linear" does not decide which complex structure is physical.
+
+Whether the *mouth* — rather than a chosen seam monodromy — produces an
+element of this class is the question of §5b.
 
 **Lift control.** The four lifts of `ι` are pairwise distinct within a Pin
 type and differ in square across types; the two lifts of `−I₄` differ by
 sign. Uniqueness of "the" transport is false even before `J` is considered.
+
+## 5b. The mouth holonomy, and where the order-four structure comes from
+
+*Pre-registered in `docs/mouth_pin_holonomy_prereg.md` (`7f46fff`) after
+review; results in the corresponding section of
+`finite_mouth_topology_probe` and `tests/test_mouth_topology.py`.*
+
+**What the deck generator does to the frame (P1).** At a neck point
+`Ω ∈ S² ⊂ S³_{s=0}` take the frame `(∂_s, n, t₁, t₂)`, `n` the brane normal
+inside the mouth `S³`, `t₁, t₂` tangent to the neck `S²`. The generator of
+`π₁(RP²)` lifts to the great semicircle from `Ω` to `−Ω` in the `t₁`
+direction, followed by the deck map `ι`. Parallel transport along the
+semicircle, integrated from `v′ = −(v·γ′)γ` on the round neck
+(`transport_along_great_semicircle`), followed by `dι` (`∂_s ↦ −∂_s`, and
+every `S³`-tangent vector `v ↦ −v`), gives
+
+```
+H = diag(−1, −1, +1, −1)      in (∂_s, n, t₁, t₂),      det H = −1
+```
+
+Both normals reverse; the tangent block is a reflection (the Möbius
+monodromy of `RP²`). So `ν = λ ⊕ λ`. *Class:* analytic identity, computed.
+
+**Stiefel–Whitney (P2).** In `Z₂[a]/(a³)`: `w(ν) = 1 + a²`,
+`w(TN) = 1 + a + a²`, `w(TM|_N) = 1 + a`. So `w₂(TM|_N) = 0` — the ambient
+Pin⁺ structure restricts to the neck — while `w₂(TN) + w₁(TN)² = 0` and
+`w₂(TN) ≠ 0`: intrinsically Pin⁻, not Pin⁺. This is the retraction R1: the
+two Pin types are the same structure seen from the ambient and intrinsic
+sides.
+
+**The conversion (P3).** With `e_s, e_n` the normal generators of `Cl(4)`
+(`e² = +1`), the twisted tangent generators `ẽ_t = e_t e_s e_n` satisfy
+`ẽ_t² = −1` and `ẽ_{t₁}ẽ_{t₂} = −ẽ_{t₂}ẽ_{t₁}`: they generate `Cl⁻(2) ≅ H`
+(`twisted_tangent_generators`, in the regular representation). The normal
+volume element has `(e_s e_n)² = −1`: the Spin(2) lift of the normal
+`π`-rotation, of order four. **Not inserted.**
+
+**The lift (P4).** `H` is the product of the reflections in `∂_s`, `n`, `t₂`,
+so its Pin lift is `±e_s e_n e_{t₂} = ±ẽ_{t₂}`: odd in `Cl(4)`, hence
+chirality-exchanging, with
+
+```
+H̃² = −1   in Pin⁺(4),        H̃² = +1   in Pin⁻(4).
+```
+
+**Consistency with the cover (P5).** `H̃²` is the spin holonomy of the closed
+great circle `γ ∪ ι(γ)` on the double cover. Computed independently by
+transporting a tangent vector around latitude circles of the neck `S²` and
+unwrapping the rotation angle continuously to the equator
+(`closed_loop_spin_holonomy`): the angle follows `2π(1 − cos θ₀)` to
+`2.6e-11` and reaches `2π` at the equator, whose spin lift is `−1`. So the
+Pin⁺ convention is the one coherent with the cover's spin structure; Pin⁻
+would give `+1` and is excluded twice over (by `w₁² ≠ 0` and by this).
+**The order-four structure is the spin holonomy of a `2π` tangent rotation
+on the round neck, and the deck-generator holonomy is its square root.**
+
+**Comparison with `J` (P6), at three levels.**
+
+| level | mouth holonomy | `J` | equivalent? |
+|--|--|--|--|
+| vector, `O(4)` | `H`: `det −1`, eigenvalues `−1,−1,−1,+1` | `σ = L_{−j}`: `det +1`, isoclinic | no |
+| ambient spinor, `Pin(4)` | `±e_s e_n e_{t₂}`, odd, chirality-exchanging | `(−j, 1)`, even | no |
+| intrinsic, `Pin⁻(2) ⊂ SU(2)` | `L_j` (with `ẽ_{t₁} ↦ i`, `ẽ_{t₂} ↦ j`, `ẽ_{t₁}ẽ_{t₂} ↦ k`) | `L_{−j}` | **yes, up to `Spin(2)` conjugation (angle `π/2`) and sign** |
+
+`Cl⁻(2) ≅ H` canonically, acting on itself by left multiplication;
+`Pin⁻(2)` is generated by the unit vectors `cos α·i + sin α·j` and
+`Spin(2) = {e^{θk}}` — exactly the normaliser `Pin(2) ⊂ SU(2)_L` that §5
+found as the Hopf-fibre-preserving isometry group. The mouth holonomy is
+left multiplication by a unit quaternion in the `(i, j)` plane, of order
+four; `σ = L_{−j}` is one element of that component
+(`compare_mouth_holonomy_with_transport`). **Outcome B**: the mouth supplies
+`J² = −1` and the component; it leaves a `U(1)` direction (the tangent
+direction of the generator path, a `Spin(2)` conjugation) and a sign.
+
+**The `K` (P7).** In the module `H`, `L_j` anticommutes with the `Spin(2)`
+generator `L_k` and commutes with `R_i` (`intrinsic_pin2_module`). So the
+mouth holonomy is antilinear for the complex structure `L_k` and linear for
+`R_i`. If the Hopf fibre phase of the mouth is identified with the `Spin(2)`
+rotation of the mouth's tangent plane, the transport is antilinear
+**canonically**: the `K` is the statement that `Pin⁻(2) ∖ Spin(2)`
+anticommutes with the `Spin(2)` generator. That identification (fibre phase
+= mouth tangent rotation) is physical and unproved: *conditional*.
+
+**Selection (P8).** `RP²` carries two Pin⁻ structures, `RP⁴ # RP⁴` four Pin⁺
+structures, `S³ × S¹` two spin structures. The sign of `H̃` is not fixed by
+the metric or by `ι`; it is the choice of Pin structure. This is the
+quantity `embedding/topology.py` stores as `wrap_parity`: now identified,
+still not selected.
+
+**What this changes in the audit table.** "Is `J` a valid lift?" — yes: of
+the rotation `σ`, and the induced Pin⁻ holonomy of the mouth lies in the
+same component with the same square. "Is it unique?" — no: up to a `U(1)`
+and a sign. "Where does the order-four structure come from?" — from the
+ambient Pin⁺ structure and the two twisted normal lines, i.e. from the spin
+holonomy of the round neck; forced, not inserted.
+
+*Dependency ledger:*
+
+```
+mouth holonomy H̃  =  H̃( ι [derived given P_B = −P_A], ν = λ⊕λ [derived from ι],
+                         Pin⁺ [derived: w₁² ≠ 0 and P5], t₂ [gauge: Spin(2)],
+                         sign [chosen: Pin structure] )
+"H̃ = J"           =  ( H̃, Cl⁻(2) ≅ H [canonical], H ≅ Hopf C² [chosen complex structure],
+                        t₂ = −j [chosen within U(1)], sign [chosen] )
+```
 
 ## 6. The five discrete objects, kept apart
 
@@ -273,11 +392,12 @@ first and (given the gluing class) the last.
 |--|--|--|
 | Is the physical mouth non-orientable? | Two-mouth handle with antipodal gluing: **no** (bulk `w₁ = 0`; the brane `S²`-handle and the brane normal bundle are twisted). Quotient `M/ι`: **yes** (`RP⁴ # RP⁴`). | topological theorem |
 | What object carries `w₁ ≠ 0`? | On the handle: the brane `S² ×̃ S¹` and the brane's normal line bundle. On the quotient: the bulk and its brane neck `RP²`. Never the bulk mouth `S³`. | topological theorem |
-| Is `J = iσ_y K` a valid lift? | **No**, of any gluing map: all Pin lifts are complex-linear; `J` is antilinear for the Hopf structure. `J = (spin rotation by π) ∘ (U(1) reversal)`. | analytic identity |
-| Is it unique? | Not as a lift. The lifts of `ι` are four, of `−I₄` two; among Hopf-fibre-reversing isometries `J` is one point of a two-parameter component. | analytic identity |
+| Is `J = iσ_y K` a valid lift? | **Yes**: the Spin(4) lift `(−j, 1)` of the rotation `σ = L_{−j}`; and the induced Pin⁻ holonomy of the `RP²` mouth lies in the same fibre-reversing component of `Pin(2) ⊂ SU(2)`, with the same square `−1`. Not a lift of `ι` (`±e_s`) or of `−I₄` (`±` volume). | analytic identity |
+| Is it unique? | **No**: determined up to `Spin(2) = U(1)` conjugation (the tangent direction of the generator path) and a sign (the Pin structure). Outcome B. | analytic identity |
+| Where does `J² = −1` come from? | From the ambient Pin⁺ structure and the two twisted normal lines `ν = λ ⊕ λ`: `(e_s e_n)² = −1`, and `H̃²` is the spin holonomy `−1` of the `2π` tangent rotation around the neck's great circle. Forced by the quotient, not inserted. | analytic identity; numerically converged (`2.6e-11`) |
 | Is PR #129's antipodal BC derived? | **Conditionally**: it is the `η = +1` sector of the unique free involution, given `P_B = −P_A` and the quotient rather than the double cover. Neither is forced. | conditional on an unproved physical identification |
 | Does its horizon limit reproduce even/odd BCs? | There is no limit: the labels are lapse-independent and hold at the finite ultrastatic neck; reproduced against the PR #277 oracle to `5e-7`, second order. | numerically converged |
-| Which inputs remain postulates? | `P_B = −P_A`; quotient versus cover; `η`; `T` (P or PT); the Hopf complex structure on the state space; `C`; the Pin type and sign. | definition / chosen |
+| Which inputs remain postulates? | `P_B = −P_A`; quotient versus cover; `η`; `T` (P or PT); the identification of the Hopf fibre phase with the mouth's `Spin(2)` rotation (which would make the `K` canonical); the `U(1)` direction and the sign of the mouth holonomy. The Pin type is no longer a postulate: Pin⁺ ambient, Pin⁻ intrinsic, both forced. | definition / chosen |
 
 ## 8. Dependency ledger
 
@@ -296,17 +416,29 @@ conditionally.
 
 ## 9. Verdict
 
-`FINITE_MOUTH_ADMITS_BUT_DOES_NOT_SELECT_THE_BAM_LIFT`
+`FINITE_MOUTH_ADMITS_BUT_DOES_NOT_SELECT_THE_BAM_LIFT`, with the following
+sharpening after review (§5b):
 
-The trichotomy was well posed. Its middle option needs one sharpening: the
-geometry does not merely fail to select the BAM lift, it contradicts two of
-the words attached to it. The antipodally glued two-mouth handle is orientable
-in the bulk, and the non-orientable object — the quotient — is Pin⁺, not the
-Pin⁻ assigned to its `RP²` neck. `J` is a rotation whose `K` is a choice of
-complex structure. What the finite mouth *does* supply, and supplies
-uniquely once `P_B = −P_A` is chosen, is the involution `ι`; PR #129's
-boundary condition is its `η = +1` scalar sector, and this document is the
-first place that sector is obtained without a horizon.
+* **What is not selected** is the seam gluing of the two-mouth handle, the
+  choice of quotient over cover, `η`, the `U(1)` direction of the mouth
+  holonomy, and its sign.
+* **What is supplied, and was not before.** Given `P_B = −P_A` and the
+  quotient, the neck `RP²` has normal bundle `λ ⊕ λ`; the ambient Pin⁺
+  structure (forced by `w₁² ≠ 0` and by coherence with the cover's spin
+  holonomy) induces the intrinsic Pin⁻ structure; the deck-generator
+  holonomy on the restricted spinor bundle is `±ẽ_{t₂}` with `H̃² = −1`,
+  the square root of the spin holonomy `−1` of a `2π` tangent rotation on
+  the round neck. In the intrinsic module `Cl⁻(2) ≅ H` this is left
+  multiplication by a unit quaternion of the `(i, j)` plane — the component
+  of `Pin(2) ⊂ SU(2)` that contains `σ = L_{−j}`. **The order-four structure
+  `J² = −1` is geometric.** Outcome B of the follow-up: the BAM transport is
+  reached up to a `U(1)` and a sign.
+* **What the first draft got wrong**, recorded as R1 and R2 in
+  `docs/mouth_pin_holonomy_prereg.md`: the Pin types are not mismatched,
+  and `J` is the spin lift of a rotation.
+* The antipodally glued two-mouth handle remains orientable in the bulk;
+  the non-orientable object remains the quotient; PR #129's condition
+  remains the `η = +1` scalar sector of `ι`, obtained here without a horizon.
 
 ## 10. What the repository should change
 

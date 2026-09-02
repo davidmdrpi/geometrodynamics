@@ -52,7 +52,8 @@ def check_h1() -> dict:
     t2 = classes["antipodal"]["det_bulk"] == +1
     t3 = classes["antipodal"]["label"] == "(det m_3, eps) = (-, -)" and \
         len({(c["det_brane"], c["eps"]) for c in classes.values()}) == 4
-    t4 = all(r["scalar"] == (-1) ** r["ell"] and r["dim"] == r["expected"]
+    # tolerance, not float equality: the scalar is a least-squares fit
+    t4 = all(abs(r["scalar"] - (-1) ** r["ell"]) < 1e-9 and r["dim"] == r["expected"]
              and r["residual"] < 1e-9 for r in reps) and not refl["is_scalar"]
     return {"classes": classes, "harmonic_action_of_antipode": reps,
             "reflection_is_scalar_on_l2": refl["is_scalar"],
@@ -219,6 +220,56 @@ def check_h5() -> dict:
                     "which the mouth gluing supplies.")}
 
 
+def check_h6() -> dict:
+    """H6 — the mouth Pin holonomy (docs/mouth_pin_holonomy_prereg.md, P1-P8)."""
+    hol = mt.neck_holonomy()
+    sw = mt.restricted_stiefel_whitney()
+    tw = mt.twisted_tangent_generators()
+    lifts = mt.holonomy_lifts()
+    loop = mt.closed_loop_spin_holonomy()
+    mod = mt.intrinsic_pin2_module()
+    cmp_ = mt.compare_mouth_holonomy_with_transport()
+    counts = mt.pin_structure_counts()
+    p1 = bool(np.allclose(hol["holonomy"], np.diag([-1.0, -1.0, 1.0, -1.0]), atol=1e-9))
+    p2 = sw["ambient_pin_plus_compatible"] and sw["intrinsic_pin_minus"] and not sw["intrinsic_pin_plus"]
+    p3 = tw["generates_quaternions"] and tw["normal_volume_squared"] == -1
+    p4 = lifts["square_in_pin_plus"] == -1 and lifts["square_in_pin_minus"] == 1
+    p5 = loop["spin_holonomy_is_minus_one"] and loop["max_deviation_from_classical_law"] < 1e-6
+    p6 = (not cmp_["vector_level"]["same_O4_class"]
+          and cmp_["intrinsic_level"]["L_minus_j_conjugate_to_L_j_by_spin2"]
+          and cmp_["intrinsic_level"]["fibre_reversing_component_all_order_four"])
+    p7 = mod["holonomy_anticommutes_with_spin2_generator"] and mod["holonomy_commutes_with_right_i"]
+    p8 = not counts["sign_of_holonomy_fixed_by_geometry"]
+    outcome = "B" if (p1 and p2 and p3 and p4 and p5 and p6 and p7 and p8) else (
+        "C" if not (p4 and p6) else "UNDETERMINED")
+    return {"holonomy": hol["holonomy"].tolist(), "det": hol["det"],
+            "stiefel_whitney": sw, "twisted_generators": tw, "lifts": lifts,
+            "closed_loop": loop, "intrinsic_module": mod, "comparison": cmp_,
+            "pin_counts": counts,
+            "P1": p1, "P2": bool(p2), "P3": bool(p3), "P4": bool(p4), "P5": bool(p5),
+            "P6": bool(p6), "P7": bool(p7), "P8": bool(p8),
+            "outcome": outcome, "holds": bool(outcome == "B"),
+            "class": ("topological theorem (P1-P3), analytic identity (P4, P6, P7), "
+                      "numerically converged (P5), chosen (P8)"),
+            "retractions": ["R1: the Pin+/Pin- 'mismatch' is the standard induction "
+                            "of an intrinsic Pin- structure through nu = lambda + lambda",
+                            "R2: J is the Spin(4) lift of the rotation L_{-j}; 'not a "
+                            "lift of any gluing map' was wrong"],
+            "why": ("The deck generator of the neck RP^2 reverses both normals "
+                    "(d_s and the brane normal) and reflects the tangent plane. "
+                    "The ambient Pin+ structure restricts to the neck (w_2(TM|_N) = 0) "
+                    "and induces the intrinsic Pin- one; the twisted tangent "
+                    "generators e_t e_s e_n generate Cl^-(2) = H. The holonomy lift "
+                    "±e_s e_n e_t2 squares to -1 in Pin+ -- the square root of the "
+                    "spin holonomy -1 of a 2 pi tangent rotation around the neck's "
+                    "great circle, computed by unwrapping the angle to 2 pi -- and to "
+                    "+1 in Pin-, which is excluded. In the intrinsic module the "
+                    "holonomy is left multiplication by a unit quaternion of the "
+                    "(i, j) plane: the fibre-reversing component of Pin(2) in SU(2) "
+                    "that contains sigma = L_{-j}, up to a Spin(2) conjugation and a "
+                    "sign. J^2 = -1 is geometric; -j and the sign are not selected.")}
+
+
 def audit_table(h: dict) -> list:
     return [
         ("Is the physical mouth non-orientable?",
@@ -230,13 +281,21 @@ def audit_table(h: dict) -> list:
          "(eps = -1). On the quotient: the bulk itself and its brane neck RP^2. "
          "Never the bulk mouth S^3.", "topological theorem"),
         ("Is J = i sigma_y K a valid lift?",
-         "NO, of any gluing map: every Pin lift is complex-linear; J is antilinear "
-         "for the Hopf structure. J = (spin rotation by pi) o (U(1) reversal).",
+         "YES: the Spin(4) lift (-j, 1) of the rotation sigma = L_{-j}; and the "
+         "induced Pin- holonomy of the RP^2 mouth lies in the same fibre-reversing "
+         "component of Pin(2) in SU(2), with the same square -1. Not a lift of iota "
+         "(±e_s) or of -I_4 (± volume). [R2 corrects the first draft]",
          "analytic identity"),
         ("Is it unique?",
-         "Not applicable as a lift. Among fibre-reversing Hopf isometries it is one "
-         "point of the component (-j e^{i alpha}, g_R); the lifts of iota are four "
-         "(±e_s in Pin^±) and of -I_4 two (± volume).", "analytic identity"),
+         "NO: determined up to Spin(2) = U(1) conjugation (the tangent direction of "
+         "the generator path) and a sign (the Pin structure). Outcome B.",
+         "analytic identity"),
+        ("Where does J^2 = -1 come from?",
+         "From the ambient Pin+ structure and the two twisted normal lines: "
+         "(e_s e_n)^2 = -1, and the holonomy lift squares to the spin holonomy -1 "
+         "of the 2 pi tangent rotation around the neck's great circle. Forced by the "
+         "quotient, not inserted. [R1: the Pin types are not mismatched]",
+         "analytic identity; numerically converged"),
         ("Is PR #129's antipodal BC derived?",
          "CONDITIONALLY: it is the eta = +1 sector of the unique free involution, "
          "given P_B = -P_A (chosen) and the quotient rather than the double cover "
@@ -248,9 +307,10 @@ def audit_table(h: dict) -> list:
          "oracle to " + f"{h['h3']['worst_relative_error']:.1e}" + ", second order.",
          "numerically converged"),
         ("Which inputs remain postulates?",
-         "P_B = -P_A; quotient vs cover; eta; the extension in time (P or PT); "
-         "the Hopf complex structure on the state space; charge conjugation C; "
-         "any Pin type and sign. The geometry fixes none of them.",
+         "P_B = -P_A; quotient vs cover; eta; the extension in time (P or PT); the "
+         "identification of the Hopf fibre phase with the mouth's Spin(2) rotation; "
+         "the U(1) direction and the sign of the mouth holonomy. The Pin type is no "
+         "longer a postulate (Pin+ ambient, Pin- intrinsic, both forced).",
          "definition / chosen"),
     ]
 
@@ -270,10 +330,11 @@ def verdict(h: dict) -> str:
 
 def run_probe() -> dict:
     h = {"h1": check_h1(), "h2": check_h2(), "h3": check_h3(),
-         "h4": check_h4(), "h5": check_h5()}
+         "h4": check_h4(), "h5": check_h5(), "h6": check_h6()}
     passed = sum(int(v["holds"]) for v in h.values())
     return {"timestamp": datetime.now(timezone.utc).isoformat(),
-            "prereg": "docs/finite_mouth_topology_prereg.md @ d9d85bc",
+            "prereg": ("docs/finite_mouth_topology_prereg.md @ d9d85bc; "
+                       "docs/mouth_pin_holonomy_prereg.md @ 7f46fff"),
             "checks": h, "passed": passed, "total": len(h),
             "audit_table": audit_table(h), "verdict": verdict(h),
             "dependency_ledger": {
@@ -282,20 +343,27 @@ def run_probe() -> dict:
                                 "(-1)^l [identity], a, R [geometry], P-or-PT [chosen] )",
                 "J": "J( Hopf complex structure on C^2 [chosen], C = U(1) reversal "
                      "[chosen], -j in SU(2)_L [gauge/convention] )",
+                "mouth holonomy": "H~( iota [derived given P_B=-P_A], nu = lambda+lambda "
+                                  "[derived], Pin+ [derived: w_1^2 != 0 and P5], t2 "
+                                  "[gauge: Spin(2)], sign [chosen: Pin structure] )",
+                "H~ = J": "( H~ [above], Cl^-(2) = H [canonical], H = Hopf C^2 [chosen "
+                          "complex structure], t2 = -j [chosen within U(1)], sign [chosen] )",
                 "spinor transport of iota": "±e_s ( Pin type [chosen], sign [chosen], "
                                             "neck frame [gauge] )",
                 "handle topology": "mapping torus of m ( m in O(4) [chosen]; "
                                    "(det m_3, eps) [derived from m] )"},
             "refinement_of_the_trichotomy": (
-                "The trichotomy is well posed but its middle option needs one "
-                "sharpening: the geometry does not merely fail to select the BAM "
-                "lift, it contradicts two of the words attached to it. (i) The "
-                "antipodally glued two-mouth handle is orientable in the bulk; "
-                "non-orientability lives on the quotient, and there the Pin type "
-                "(Pin+ on RP^4 # RP^4) is not the Pin- the repository assigns to "
-                "the RP^2 mouth. (ii) J is a rotation, not a reflection, and its "
-                "antilinearity is a choice of complex structure. Neither the "
-                "non-orientability nor the K can be read off the finite mouth.")}
+                "The trichotomy is well posed; its middle option is sharpened in "
+                "both directions after review. Not selected: the seam gluing of the "
+                "two-mouth handle (antipodal gluing is orientable in the bulk), the "
+                "quotient over the cover, eta, the U(1) direction and the sign of "
+                "the mouth holonomy. Supplied, given the quotient: the neck RP^2 "
+                "has normal bundle lambda + lambda, the ambient Pin+ induces the "
+                "intrinsic Pin- (not a mismatch: R1), and the deck-generator "
+                "holonomy squares to -1 -- the spin holonomy of a 2 pi rotation on "
+                "the round neck -- inside the same component of Pin(2) in SU(2) that "
+                "contains sigma = L_{-j} (which IS the spin lift of a rotation: R2). "
+                "J^2 = -1 is geometric; -j and the sign are not.")}
 
 
 def render_markdown(s: dict) -> str:
@@ -306,7 +374,8 @@ def render_markdown(s: dict) -> str:
                        ("h2", "H2 — the unique free involution"),
                        ("h3", "H3 — the scalar sector and the oracle"),
                        ("h4", "H4 — no horizon limit; the time-reversal datum"),
-                       ("h5", "H5 — what J is")):
+                       ("h5", "H5 — what J is"),
+                       ("h6", "H6 — the mouth Pin holonomy (after review)")):
         c = h[key]
         L += [f"## {title}", "", f"**{'HOLDS' if c['holds'] else 'FAILS'}** "
               f"(*{c['class']}*)", "", "> " + c["why"], ""]

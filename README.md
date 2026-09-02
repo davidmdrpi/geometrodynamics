@@ -4694,47 +4694,57 @@ discrete identification is deliberately untouched — `Φ_spatial`, `(−1)^ℓ`
 python -m experiments.closure_ledger.finite_mouth_probe   # 6/6
 ```
 
-## The finite mouth does not select the transport or the antipodal BC
+## The finite mouth does not select the gluing — but its mouth does supply `J² = −1`
 
-*Pre-registered in `docs/finite_mouth_topology_prereg.md` (commit `d9d85bc`),
-committed before the module. Module `geometrodynamics/bulk/mouth_topology.py`;
-probe `finite_mouth_topology_probe.py` (5/5); tests
-`tests/test_mouth_topology.py` (22). Derivation:
-`docs/finite_mouth_bundle_transport.md`.*
+*Pre-registered in `docs/finite_mouth_topology_prereg.md` (`d9d85bc`) and,
+after review, `docs/mouth_pin_holonomy_prereg.md` (`7f46fff`), each
+committed before the code it constrains. Module
+`geometrodynamics/bulk/mouth_topology.py`; probe
+`finite_mouth_topology_probe.py` (6/6); tests `tests/test_mouth_topology.py`.
+Derivation: `docs/finite_mouth_bundle_transport.md`.*
 
-**Verdict: `FINITE_MOUTH_ADMITS_BUT_DOES_NOT_SELECT_THE_BAM_LIFT`.** The
-PR #277 handle's seam maps are free (`Darmois` matching is `O(4)`-invariant),
-so the loop monodromy `m ∈ O(4)` is a choice. Three things follow that
-correct the repository's wording:
+**Verdict: `FINITE_MOUTH_ADMITS_BUT_DOES_NOT_SELECT_THE_BAM_LIFT`**, and
+after review the "admits" half is stronger than the first draft said.
 
-* **The antipodally glued two-mouth handle is orientable in the bulk.**
-  `det(−I₄) = +1`. What the antipode twists is the brane `S²`-handle and the
-  brane's normal line bundle; their product leaves `w₁ = 0`. The
-  non-orientable object is the *quotient* `M/ι` by the unique free involution
-  `ι(s,Ω) = (−s,−Ω)`, which exists iff `P_B = −P_A` (a choice PR #277 never
-  made): `M/ι = RP⁴ # RP⁴`, brane slice `RP³ # RP³`, brane neck `RP²`. And
-  the Pin types disagree: `RP⁴ # RP⁴` is Pin⁺ only, `RP²` is Pin⁻ only.
-* **PR #129's antipodal condition is the `η = +1` scalar sector of `ι`**,
+* **The seam gluing is free.** Darmois matching is `O(4)`-invariant, so the
+  loop monodromy `m ∈ O(4)` is a choice. `det(−I₄) = +1`: the antipodally
+  glued two-mouth handle is **orientable** in the bulk; the antipode twists
+  the brane `S²`-handle and the brane's normal bundle, `(det m₃, ε) = (−,−)`.
+* **The non-orientable object is the quotient.** With `P_B = −P_A` (a choice
+  PR #277 never made) the unique free involution is `ι(s,Ω) = (−s,−Ω)`, and
+  `M/ι = RP⁴ # RP⁴` (Pin⁺ only), brane slice `RP³ # RP³`, brane neck `RP²`
+  (Pin⁻ only). A first draft called the two Pin types a mismatch. **They are
+  not**: the neck's normal bundle is `λ ⊕ λ`, and the ambient Pin⁺ induces
+  the intrinsic Pin⁻ through it, `w(TM|_N) = (1+a+a²)(1+a²) = 1+a`.
+* **PR #129's antipodal condition is the `η = +1` scalar sector of `ι`,**
   `ψ_ℓ(−s) = η(−1)^ℓ ψ_ℓ(s)`, obtained at the finite ultrastatic neck with
-  no horizon and no limit. The half-tube admittance is the `(1, ±1)` sector
+  no horizon and no limit; the half-tube admittance is the `(1, ±1)` sector
   of the PR #277 oracle, reproduced by an independent second-order solve to
-  `5e-7`. It depends on three choices the geometry does not make:
-  `P_B = −P_A`, quotient rather than double cover, and `η`.
-* **`J = iσ_y K` is not the lift of any gluing map.** Built from
-  `transport.py`'s own function, it is `L_{−j}`: left multiplication by the
-  unit quaternion `−j`, a rotation with `det = +1`, base antipode × fibre
-  reversal. It is antilinear only in the Hopf complex structure `L_i` and is
-  the linear `iσ_y ∈ SU(2)` in the half-spinor structure `R_i`. Every Pin
-  lift of `ι` (`±e_s`, four of them) or of `−I₄` (`±` the volume element) is
-  a real, complex-linear, chirality-exchanging or chirality-signing matrix.
-  The `K` is a choice of complex structure plus charge conjugation, inserted
-  by hand.
+  `5e-7`. It depends on three choices: `P_B = −P_A`, quotient over cover, `η`.
+* **The mouth's induced Pin⁻ holonomy has square `−1`, and it is the
+  component `J` lives in.** The deck generator of the neck `RP²` acts on the
+  frame `(∂_s, n, t₁, t₂)` as `diag(−1,−1,+1,−1)` (transport computed by
+  ODE, then `dι`): both normals reverse. Its Pin⁺ lift `±e_s e_n e_{t₂}` has
+  `H̃² = −1`, the square root of the spin holonomy `−1` of the `2π` tangent
+  rotation around the neck's great circle (angle unwrapped to `2π` to
+  `2.6e-11`); Pin⁻ would give `+1` and is excluded. In the intrinsic module
+  `Cl⁻(2) ≅ H` the holonomy is left multiplication by a unit quaternion of
+  the `(i, j)` plane — the fibre-reversing component of `Pin(2) ⊂ SU(2)` that
+  contains `σ = L_{−j}` — up to a `Spin(2) = U(1)` conjugation and a sign.
+  **`J² = −1` is geometric; `−j` and the sign are not selected** (outcome B).
+* **`J = iσ_y K` is the spin lift of the rotation `σ = L_{−j}`,** `(−j, 1) ∈ Spin(4)`,
+  not a lift of `ι` or of `−I₄`. Its `K` is a statement about complex
+  structure: antilinear for the Hopf `L_i` (or for the mouth's `Spin(2)`
+  generator `L_k`), linear for `R_i`. If the Hopf fibre phase is identified
+  with the mouth's tangent-plane rotation, the antilinearity is canonical;
+  that identification is unproved. A first draft said "not a lift of any
+  gluing map"; that was wrong.
 
 `embedding/transport.py`'s claim that `σ` is "the unique orientation-reversing
 Hopf-preserving isometry" is withdrawn in the module itself.
 
 ```bash
-python -m experiments.closure_ledger.finite_mouth_topology_probe   # 5/5
+python -m experiments.closure_ledger.finite_mouth_topology_probe   # 6/6
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

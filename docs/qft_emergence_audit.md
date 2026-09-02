@@ -415,8 +415,10 @@ project.
 `FINITE_MOUTH_ADMITS_BUT_DOES_NOT_SELECT_THE_BAM_LIFT`. The antipodal
 boundary condition is the `η = +1` sector of the unique free involution of
 the finite handle, conditional on `P_B = −P_A` and on taking the quotient;
-`J = iσ_y K` is a rotation, not a lift of any gluing map, and its `K` is a
-choice of complex structure.
+`J = iσ_y K` is the spin lift of the rotation `L_{−j}`, not of `ι`; and the
+induced Pin⁻ holonomy of the `RP²` mouth lies in the same component of
+`Pin(2) ⊂ SU(2)` with `H̃² = −1`, up to a `U(1)` direction and a sign
+(outcome B of `docs/mouth_pin_holonomy_prereg.md`).
 
 ### Ranked missing links
 
