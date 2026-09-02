@@ -118,20 +118,42 @@ read as the field equations selecting `R² = −4α_GB`, and gravity routinely t
 a vacuum curvature radius to a coupling. Calling it tuning needs an
 independently fixed `R`.
 
-**What closes the branch instead: the graviton.** Linearising the full
-`G_ab + α H_ab` on this background for a TT mode gives
+**What closes the branch instead: the classical principal symbol.** Write
+`g_AB = g⁽⁰⁾_AB + h_AB`, linearise the **classical** field equations
+`G_AB + α H_AB` about this background with `h_AB` transverse-traceless, and read
+off the highest-derivative operator:
 
 ```
-C_kin = −½(1 + 4α_GB/R²)        c² = 1/(1 + 4α_GB/R²)
+P(ω, κ) = C_t ω² + C_s κ²        C_t = −½(1 + 4α_GB/R²)   C_s = +½
+c² = 1/(1 + 4α_GB/R²)
 ```
 
-*derived* for this product spacetime, since the familiar
-`1 + 2α(D−3)(D−4)K` is for a maximally symmetric one. It vanishes **exactly** at
-`α = −R²/4` — the same value the NEC pins — while the spatial `κ²` coefficient
-is entirely coupling-independent. So the tensor cone is **superluminal for every
-`−R²/4 < α < 0`**, diverges at criticality, and there the `ω²` term disappears
-while `κ²` survives: the equation degenerates from evolution to constraint. The
-mass term stays finite, so it is the kinetic operator that dies.
+*derived* for this product spacetime, since the familiar `1 + 2α(D−3)(D−4)K` is
+for a maximally symmetric one. That `P` is this quadratic form is **measured**,
+not assumed: propagation directions off the coordinate axes, including mixed
+time–space ones, reproduce `C_t d_t² + C_s|d_space|²` to `3e-7`.
+
+`C_t` vanishes **exactly** at `α = −R²/4` — the same value the NEC pins — while
+`C_s` is entirely coupling-independent. Two distinct consequences, which the
+first draft of this erratum ran together:
+
+- On the open interval `−R²/4 < α < 0` the operator is **still hyperbolic**;
+  what fails is that `c² > 1`, so the tensor characteristic cone lies *outside*
+  the metric null cone. That is a **causality** failure, not ill-posedness.
+  Characteristics parting company with the metric cone is a general feature of
+  Lovelock gravity — attributed, not claimed here.
+- At `α = −R²/4` the coefficient of the leading time derivative vanishes, so `P`
+  drops from degree 2 to degree 0 in `ω` and the linearised system stops being
+  an evolution equation in this sector. The lower-order term stays finite, so it
+  is the **principal part** that degenerates, not the whole equation.
+
+**Terminology, retracted.** An earlier draft of this erratum called the above
+"the graviton kinetic term". That was wrong for this programme and is withdrawn.
+BAM is strictly classical general relativity: it does not quantise the metric,
+and its gravitational waves are classical metric waves, not gravitons. Nothing
+in the calculation quantises anything — only the description of it was wrong,
+and the numbers are unchanged. What is at stake is well-posedness of the
+classical Cauchy problem, which needs no particle interpretation.
 
 **"Global existence" is also too strong.** This determines the stress the metric
 requires; it does not exhibit fields obeying their own equations that supply the
@@ -185,8 +207,10 @@ relocated from the throat to the universe around it.
 
 This settles **global existence** for constant-coupling EGB on *this* geometry:
 there is no open set of `α_GB`, and the single surviving value empties the
-universe. It does **not** address stability or the graviton kinetic term at that
-coupling — the second half of the ledger's open item — and it does not touch
+universe. It does **not** address stability or the linearised operator at that
+coupling — the second half of the ledger's open item, since answered in the
+erratum above for the **tensor sector only**; the scalar and vector sectors are
+untouched — and it does not touch
 dilatonic `α(φ)L_GB` or `f(R)`, where the scalar's own stress enters. Nor does
 it rule out a *different* exterior: the constraint is derived for the round
 `S⁴_R` completion this programme assumes.

@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from geometrodynamics.bulk.negative_egb import (  # noqa: E402
-    measure_the_graviton_degenerates,
+    measure_the_principal_symbol_degenerates,
     measure_the_throat_matter_is_not_exotic,
     measure_no_coupling_satisfies_both,
     measure_the_bracket_is_continuous_at_the_seam,
@@ -71,14 +71,18 @@ def run_probe() -> dict:
         "pass": bool(honest["nec_holds"] and honest["wec_holds"]
                      and honest["dec_holds"])})
 
-    graviton = measure_the_graviton_degenerates()
+    symbol = measure_the_principal_symbol_degenerates()
     checks.append({
         "id": "E4c",
-        "name": "*** THE CLOSURE: the graviton kinetic term vanishes there ***",
-        "detail": graviton,
-        "pass": bool(graviton["law_holds"]
-                     and graviton["kinetic_vanishes_at_criticality"]
-                     and graviton["superluminal_below_criticality"])})
+        "name": "*** THE CLOSURE: the classical principal symbol degenerates "
+                "there ***",
+        "detail": symbol,
+        "pass": bool(symbol["law_holds"]
+                     and symbol["symbol_is_quadratic_and_isotropic"]
+                     and symbol["kinetic_vanishes_at_criticality"]
+                     and symbol["degree_in_omega_drops_at_criticality"]
+                     and symbol["hyperbolic_on_the_open_interval"]
+                     and symbol["cone_leaves_the_null_cone_before_criticality"])})
 
     ledger = measure_the_negative_egb_ledger()
     checks.append({
@@ -96,18 +100,20 @@ def render_markdown(summary: dict) -> str:
 
     opp, scan = detail("E1"), detail("E2")
     seam, empty = detail("E3"), detail("E4")
-    honest, graviton, ledger = detail("E4b"), detail("E4c"), detail("E5")
+    honest, symbol, ledger = detail("E4b"), detail("E4c"), detail("E5")
 
     L: List[str] = [
         "# Does negative-coupling EGB actually work?", "",
         f"**{summary['passed']}/{summary['total']} checks pass — the branch "
-        "closes, on the graviton rather than the matter.**", "",
+        "closes, on the classical field equations rather than the "
+        "matter.**", "",
         "Frozen in `docs/negative_egb_prereg.md` before this module existed.", "",
         "> ## The step the previous round missed", "",
         "> `α_GB` is a **coupling constant in the action**, so the same value "
         "acts in the exterior the throat is glued into. PR #277 analysed the "
         "throat in isolation, and it should not have. The NEC then pins one "
-        "coupling — and at exactly that coupling the graviton degenerates.", "",
+        "coupling — and at exactly that coupling the linearised "
+        "classical operator degenerates.", "",
         f"> **{ledger['verdict']}.**", "",
         "---", "",
         "## E1 — the exterior constrains `α_GB` in the opposite direction", "",
@@ -162,25 +168,41 @@ def render_markdown(summary: dict) -> str:
           f"`ρ−|p_s| = {honest['min_dec_radial']:+.1e}`. "
           f"NEC **{honest['nec_holds']}**, WEC **{honest['wec_holds']}**, "
           f"DEC **{honest['dec_holds']}**.", "",
-          "## E4c — the closure: the graviton", "",
-          "Linearising the full `G_ab + α H_ab` on **this** background — a "
-          "product, not a maximally symmetric spacetime, so the textbook "
-          "coefficient does not apply:", "",
-          "| `α_GB` | `C_kin` (`ω²`) | predicted | `C_spatial` (`κ²`) | `c²` |",
-          "|--|--|--|--|--|"]
-    for row in graviton["rows"]:
+          "## E4c — the closure: the classical principal symbol", "",
+          "**This is a classical PDE test, not a quantum one.** Linearise the "
+          "classical field equations `G_AB + α H_AB` about this background, "
+          "take `h_AB` transverse-traceless, and read off the highest-"
+          "derivative operator. The background is a product, not a maximally "
+          "symmetric spacetime, so the textbook coefficient does not apply and "
+          "the symbol is derived here.", "",
+          "| `α_GB` | `C_t` (`ω²`) | predicted | `C_s` (`κ²`) | `deg_ω P` | "
+          "hyperbolic | `c²` |",
+          "|--|--|--|--|--|--|--|"]
+    for row in symbol["rows"]:
         speed = ("∞" if not np.isfinite(row["speed_squared"])
                  else f"`{row['speed_squared']:.2f}`")
         L.append(f"| `{row['coupling']:+.5f}` | "
                  f"`{row['temporal_coefficient']:+.7f}` | "
                  f"`{row['predicted_kinetic']:+.7f}` | "
-                 f"`{row['spatial_coefficient']:+.7f}` | {speed} |")
+                 f"`{row['spatial_coefficient']:+.7f}` | "
+                 f"`{row['degree_in_omega']}` | "
+                 f"{'yes' if row['hyperbolic'] else '**no**'} | {speed} |")
     L += ["",
-          "```", graviton["kinetic_law"],
+          "```", symbol["symbol"], symbol["kinetic_law"],
           "c^2 = 1/(1 + 4 alpha/R^2)", "```", "",
-          "> " + graviton["why_it_had_to_be_derived"], "",
-          "> **" + graviton["why_this_closes_the_branch"] + "**", "",
-          "> **" + graviton["and_it_is_bad_before_criticality"] + "**", "",
+          "That `P` is this quadratic form is **measured, not assumed** — "
+          "directions off the coordinate axes reproduce "
+          "`C_t d_t² + C_s |d_space|²`:", "",
+          "| propagation direction | measured | predicted | error |",
+          "|--|--|--|--|"]
+    for row in symbol["direction_rows"]:
+        L.append(f"| {row['direction']} | `{row['measured']:+.7f}` | "
+                 f"`{row['predicted']:+.7f}` | `{row['error']:.1e}` |")
+    L += ["",
+          "> " + symbol["this_is_classical"], "",
+          "> " + symbol["why_it_had_to_be_derived"], "",
+          "> **" + symbol["why_this_closes_the_branch"] + "**", "",
+          "> **" + symbol["and_it_is_bad_before_criticality"] + "**", "",
           "## E5 — the ledger", "", "| claim | verdict | evidence |",
           "|--|--|--|"]
     for entry in ledger["entries"]:

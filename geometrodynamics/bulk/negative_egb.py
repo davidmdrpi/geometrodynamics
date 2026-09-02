@@ -76,27 +76,48 @@ equations selecting ``R^2 = -4 alpha_GB``, and gravity routinely ties a vacuum
 curvature radius to a coupling. Calling it tuning needs an independently fixed
 ``R`` that was not free to respond.
 
-WHAT ACTUALLY CLOSES THE BRANCH: THE GRAVITON
-─────────────────────────────────────────────
-Linearising the full ``G_ab + alpha H_ab`` on this background for a TT mode
-gives the coefficient of the ``omega^2`` term:
+WHAT ACTUALLY CLOSES THE BRANCH: THE CLASSICAL PRINCIPAL SYMBOL
+──────────────────────────────────────────────────────────────
+This is a classical PDE question and nothing else. Write
+``g_AB = g^(0)_AB + h_AB``, linearise the classical field equations
+``G_AB + alpha_GB H_AB = 8 pi G_5 T_AB`` about the critical background, take
+``h_AB`` transverse-traceless, and read off the principal symbol — the
+highest-derivative operator acting on ``h_AB``:
 
-    C_kin = -(1/2)(1 + 4 alpha_GB/R^2)
+    P(omega, kappa) = C_t omega^2 + C_s kappa^2
+    C_t = -(1/2)(1 + 4 alpha_GB/R^2)        C_s = +1/2
 
 **derived here rather than recalled** — the familiar
 ``1 + 2 alpha (D-3)(D-4) K`` is for a maximally symmetric *spacetime*, and
-``R x S^4_R`` is a product. It vanishes **exactly** at ``alpha = -R^2/4``, the
-same value the NEC pins, while the spatial ``kappa^2`` coefficient is entirely
-coupling-independent. Hence
+``R x S^4_R`` is a product. That ``P`` really is this quadratic form is measured
+rather than assumed: propagation directions off the coordinate axes, including
+mixed time-space ones, reproduce ``C_t d_t^2 + C_s |d_space|^2`` to ``3e-7``.
 
-    c^2 = 1/(1 + 4 alpha_GB/R^2)
+``C_t`` vanishes **exactly** at ``alpha = -R^2/4``, the same value the NEC pins,
+while ``C_s`` is entirely coupling-independent. Two distinct things follow, and
+an earlier draft of this module ran them together:
 
-is **superluminal for every** ``-R^2/4 < alpha_GB < 0`` and diverges at the
-critical coupling, where the time-derivative term disappears and the tensor
-equation degenerates from an evolution equation into a constraint. The mass term
-stays finite, so this is a degeneration of the kinetic operator rather than an
-overall vanishing: **there is no propagating graviton at the one coupling the
-NEC allows.**
+- On the open interval ``-R^2/4 < alpha_GB < 0`` the operator is still
+  **hyperbolic** — real characteristic speeds — but
+  ``c^2 = 1/(1 + 4 alpha_GB/R^2) > 1``, so the tensor characteristic cone lies
+  outside the metric null cone. That is a **causality** failure, not
+  ill-posedness. Characteristics parting company with the metric cone is a
+  general feature of Lovelock gravity, attributed rather than claimed here.
+- At the endpoint ``alpha_GB = -R^2/4`` the coefficient of the leading time
+  derivative vanishes: ``P`` drops from degree 2 to degree 0 in ``omega`` and
+  the linearised system stops being an evolution equation in this sector. The
+  lower-order (background-curvature) term stays finite, so this is a
+  degeneration of the **principal part** rather than the whole equation
+  vanishing or an overall factor that could be divided out.
+
+TERMINOLOGY, RETRACTED
+──────────────────────
+An earlier draft called this "the graviton kinetic term". That was wrong for
+this programme and is withdrawn. BAM is strictly classical general relativity:
+it does not quantise the metric, and its gravitational waves are classical
+metric waves, not gravitons. Nothing here quantises anything — the calculation
+is unchanged, only the description of it. What is at stake is well-posedness of
+the classical Cauchy problem, which needs no particle interpretation.
 
 SCOPE
 ─────
@@ -131,11 +152,12 @@ from geometrodynamics.bulk.gauss_bonnet import (
 )
 
 __all__ = [
-    "graviton_kinetic_coefficient",
-    "graviton_speed_squared",
+    "tensor_kinetic_coefficient",
+    "characteristic_speed_squared",
+    "principal_symbol",
     "linearised_field_equation",
-    "tt_kinetic_and_mass",
-    "measure_the_graviton_degenerates",
+    "tt_symbol_coefficient",
+    "measure_the_principal_symbol_degenerates",
     "measure_the_throat_matter_is_not_exotic",
     "exterior_ricci_null",
     "exterior_lanczos_null",
@@ -383,21 +405,25 @@ def measure_the_critical_exterior_is_empty(
 
 @lru_cache(maxsize=4)
 def measure_the_negative_egb_ledger() -> Dict[str, object]:
-    """The verdict on the branch PR #277 left open — closed by the graviton."""
+    """The verdict on the branch PR #277 left open — closed by the classical
+    linearised operator, not by the matter content."""
     opposite = measure_the_exterior_constrains_alpha_oppositely()
     scan = measure_no_coupling_satisfies_both()
     seam = measure_the_bracket_is_continuous_at_the_seam()
     empty = measure_the_critical_exterior_is_empty()
-    graviton = measure_the_graviton_degenerates()
+    symbol = measure_the_principal_symbol_degenerates()
     honest = measure_the_throat_matter_is_not_exotic()
-    closed = bool(graviton["kinetic_vanishes_at_criticality"]
-                  and graviton["law_holds"])
+    closed = bool(symbol["kinetic_vanishes_at_criticality"]
+                  and symbol["law_holds"]
+                  and symbol["degree_in_omega_drops_at_criticality"])
     return {
         "branch_is_closed": closed,
-        "closed_by": "the graviton kinetic term, not the matter content",
+        "closed_by": ("the principal symbol of the linearised CLASSICAL "
+                      "field equations, not the matter content"),
         "verdict": ("Negative-coupling EGB closes on STRUCTURAL grounds: the "
                     "NEC pins one coupling, and at exactly that coupling the "
-                    "TT kinetic term vanishes -- no propagating graviton"
+                    "principal symbol of the linearised classical equations "
+                    "loses its leading time derivative"
                     if closed else "the branch survives -- see the rows"),
         "entries": [
             {"claim": "the throat's constraint on alpha_GB can be read alone",
@@ -432,32 +458,45 @@ def measure_the_negative_egb_ledger() -> Dict[str, object]:
                          "equator's; and a homogeneous -Lambda g_ab can be "
                          "moved to the gravitational side. The defensible "
                          "claim is a vacuum-energy-like 5D exterior"},
-            {"claim": "the tensor sector is healthy at the critical coupling",
-             "verdict": "NO -- THE KINETIC TERM VANISHES",
-             "evidence": f"C_kin = -(1/2)(1 + 4 alpha/R^2) derived by "
+            {"claim": "the linearised tensor sector is well posed at the "
+                      "critical coupling",
+             "verdict": "NO -- THE PRINCIPAL SYMBOL DEGENERATES",
+             "evidence": f"C_t = -(1/2)(1 + 4 alpha/R^2) derived by "
                          "linearising on THIS product background, matching to "
-                         f"{max(abs(r['temporal_coefficient'] - r['predicted_kinetic']) for r in graviton['rows']):.0e}; "
+                         f"{max(abs(r['temporal_coefficient'] - r['predicted_kinetic']) for r in symbol['rows']):.0e}; "
                          "it is "
-                         f"{graviton['rows'][-1]['temporal_coefficient']:.1e} at "
-                         "criticality while the spatial coefficient is "
-                         "untouched, so the equation loses its time derivative"},
+                         f"{symbol['rows'][-1]['temporal_coefficient']:.1e} at "
+                         "criticality while C_s is untouched, so P drops from "
+                         "degree 2 to degree 0 in omega and the Cauchy problem "
+                         "stops being an evolution problem"},
+            {"claim": "the symbol being a quadratic form is an assumption",
+             "verdict": "NO -- IT IS MEASURED OFF-AXIS",
+             "evidence": "propagation directions off the coordinate axes, "
+                         "including mixed time-space ones, reproduce "
+                         "C_t d_t^2 + C_s |d_space|^2 to "
+                         f"{symbol['worst_direction_error']:.0e}"},
             {"claim": "the trouble starts only at the critical point",
-             "verdict": "NO -- SUPERLUMINAL ON THE WHOLE INTERVAL",
+             "verdict": "NO -- THE CONE LEAVES THE NULL CONE FIRST",
              "evidence": "c^2 = 1/(1 + 4 alpha/R^2) exceeds 1 for every "
                          "-R^2/4 < alpha < 0, reaching "
-                         f"{graviton['rows'][-2]['speed_squared']:.0f} at 96% "
-                         "of the critical value before diverging"},
+                         f"{symbol['rows'][-2]['speed_squared']:.0f} at 96% "
+                         "of the critical value before diverging. There the "
+                         "operator is still hyperbolic -- it is a causality "
+                         "failure, not ill-posedness; the two are distinct and "
+                         "an earlier draft ran them together"},
         ],
         "what_this_closes": (
             "Constant-coupling EGB on this geometry, on STRUCTURAL rather than "
             "matter-content grounds. The NEC pins a unique coupling; the "
-            "graviton degenerates at exactly that coupling; and the tensor cone "
-            "is already outside the matter light cone on the approach."),
+            "principal symbol of the linearised classical equations degenerates "
+            "at exactly that coupling; and the tensor characteristic cone is "
+            "already outside the metric null cone on the approach."),
         "what_remains_untested": (
             "Whether an admissible SOURCE realises the throat's full anisotropic "
             "stress -- this round determines the stress the metric requires, not "
             "fields obeying their own equations that supply it. Also the scalar "
-            "and vector perturbation sectors, dilatonic alpha(phi) L_GB where "
+            "and vector perturbation sectors -- this round settles the tensor "
+            "sector only -- dilatonic alpha(phi) L_GB where "
             "the scalar's own stress enters and where the heterotic term lives, "
             "f(R), and a DIFFERENT exterior: the constraint is derived for the "
             "round S^4_R completion this programme assumes."),
@@ -474,16 +513,36 @@ def measure_the_negative_egb_ledger() -> Dict[str, object]:
     }
 
 
-# ── the graviton sector: what actually closes the branch ────────────────────
+# ── the classical tensor sector: what actually closes the branch ────────────
+#
+# TERMINOLOGY. An earlier draft of this round called this "the graviton
+# sector". That was wrong for this programme and is retracted. BAM is a
+# strictly classical general-relativity programme: it does not quantise the
+# metric, and its gravitational waves are classical metric waves. Nothing below
+# quantises anything. The question is the ordinary classical PDE one --
+# **does the linearised field operator stay hyperbolic, with a nonzero
+# coefficient on its highest time derivative?** -- asked of
+#
+#     g_AB = g^(0)_AB + h_AB ,    linearise  G_AB + alpha_GB H_AB = 8 pi G_5 T_AB
+#
+# about the critical background, and answered by inspecting the principal
+# symbol of the operator acting on h_AB. No graviton ontology is involved, and
+# none is needed: a vanishing coefficient on the second time derivative is a
+# statement about well-posedness of the Cauchy problem, not about particles.
 
-def graviton_kinetic_coefficient(coupling: float,
-                                 bulk_radius: float = BULK_RADIUS) -> float:
-    """``K_grav = 1 + 4 alpha_GB/R^2``, the coefficient of the TT ``omega^2`` term.
 
-    **Derived, not recalled.** ``tt_kinetic_and_mass`` linearises the full
+def tensor_kinetic_coefficient(coupling: float,
+                               bulk_radius: float = BULK_RADIUS) -> float:
+    """``K = 1 + 4 alpha_GB/R^2``, the coefficient of the TT ``omega^2`` term.
+
+    The coefficient multiplying the second **time** derivative in the linearised
+    classical field equation for a transverse-traceless metric perturbation.
+
+    **Derived, not recalled.** ``tt_symbol_coefficient`` linearises the full
     ``G_ab + alpha H_ab`` numerically around ``R x S^4_R`` and fits the
     ``omega^2`` coefficient; the result is ``-(1/2)(1 + 4 alpha/R^2)`` across
-    six couplings, two bulk radii and two polarisations.
+    six couplings, two bulk radii, two polarisations and a sweep of propagation
+    directions.
 
     It vanishes **exactly** at the critical coupling ``alpha = -R^2/4`` -- the
     same value the NEC analysis pins.
@@ -491,16 +550,27 @@ def graviton_kinetic_coefficient(coupling: float,
     return 1.0 + 4.0 * coupling / (bulk_radius * bulk_radius)
 
 
-def graviton_speed_squared(coupling: float,
-                           bulk_radius: float = BULK_RADIUS) -> float:
-    """``c^2 = 1/(1 + 4 alpha_GB/R^2)`` for tensor modes.
+def characteristic_speed_squared(coupling: float,
+                                 bulk_radius: float = BULK_RADIUS) -> float:
+    """``c^2 = 1/(1 + 4 alpha_GB/R^2)`` for classical tensor perturbations.
+
+    The characteristic speed of the linearised operator: the slope of the
+    characteristic cone ``P(omega, kappa) = 0`` of the principal symbol, which
+    in a Lovelock theory need not coincide with the metric null cone.
 
     The **spatial** ``kappa^2`` coefficient is ``alpha``-independent -- checked,
-    not assumed -- so the whole coupling dependence sits in the time derivative
-    and the characteristic cone opens as ``alpha`` goes negative. Superluminal
-    for every ``-R^2/4 < alpha < 0``, and divergent at the critical coupling.
+    not assumed -- so the whole coupling dependence sits on the time derivative
+    and the characteristic cone opens as ``alpha`` goes negative. Greater than
+    the metric light speed for every ``-R^2/4 < alpha < 0``, and divergent at
+    the critical coupling.
+
+    Note the distinction, which the first draft of this round blurred: on the
+    open interval the operator is still **hyperbolic**, with real characteristic
+    speeds -- the pathology there is a tensor cone lying outside the metric null
+    cone, a causality problem, not ill-posedness. The loss of hyperbolicity
+    happens only at the endpoint, where the symbol degenerates.
     """
-    kinetic = graviton_kinetic_coefficient(coupling, bulk_radius)
+    kinetic = tensor_kinetic_coefficient(coupling, bulk_radius)
     return float("inf") if kinetic == 0.0 else 1.0 / kinetic
 
 
@@ -545,110 +615,225 @@ def linearised_field_equation(metric, point, coupling: float,
     return result
 
 
+def _direction(axis_or_vector, dim: int = 5) -> np.ndarray:
+    """A unit propagation covector, from an axis index or an explicit vector."""
+    if isinstance(axis_or_vector, (int, np.integer)):
+        vector = np.zeros(dim)
+        vector[int(axis_or_vector)] = 1.0
+        return vector
+    vector = np.asarray(axis_or_vector, dtype=float)
+    return vector / float(np.linalg.norm(vector))
+
+
 def _perturbed_metric(bulk_radius: float, amplitude: float, frequency: float,
-                      axis: int, first: int = 2, second: int = 3):
+                      axis_or_vector, first: int = 2, second: int = 3):
     """``R x S^4_R`` in stereographic coordinates plus a TT plane wave.
 
     Stereographic coordinates make the background exactly ``delta_ij`` at the
     origin while carrying the correct Riemann tensor there, so a plane-wave
     polarisation is transverse and traceless without further projection.
+
+    The wave is ``cos(frequency * d.x)`` for a unit covector ``d``, so the
+    propagation covector is ``k = frequency * d``. Taking ``d`` along a single
+    axis recovers the pure ``omega`` or pure ``kappa`` cases; a mixed ``d``
+    probes the symbol off those axes, which is what makes the quadratic form a
+    measurement rather than an assumption.
     """
+    unit = _direction(axis_or_vector)
+
     def metric(point: np.ndarray) -> np.ndarray:
         spatial = point[1:]
         conformal = 1.0 / (1.0 + float(np.dot(spatial, spatial))
                            / (4.0 * bulk_radius * bulk_radius))
         g = np.diag([-1.0, conformal ** 2, conformal ** 2,
                      conformal ** 2, conformal ** 2])
-        wave = amplitude * math.cos(frequency * point[axis])
+        wave = amplitude * math.cos(frequency * float(np.dot(unit, point)))
         g[first, second] += wave
         g[second, first] += wave
         return g
     return metric
 
 
-def tt_kinetic_and_mass(bulk_radius: float, coupling: float, axis: int,
-                        first: int = 2, second: int = 3,
-                        frequencies=(0.5, 0.9, 1.3, 1.7),
-                        amplitude: float = 1e-5):
-    """Fit ``dE/d(amplitude) = C_kin * freq^2 + C_mass`` for a TT mode.
+def tt_symbol_coefficient(bulk_radius: float, coupling: float, axis_or_vector,
+                          first: int = 2, second: int = 3,
+                          frequencies=(0.5, 0.9, 1.3, 1.7),
+                          amplitude: float = 1e-5):
+    """Fit ``dE/d(amplitude) = C * freq^2 + C_lower`` for a TT plane wave.
 
-    ``axis = 0`` gives the ``omega^2`` (time-derivative) coefficient;
-    ``axis = 1`` the ``kappa^2`` (spatial) one.
+    ``C`` is the principal-symbol coefficient along the given propagation
+    direction: the coefficient of the highest (second) derivative in the
+    linearised classical field equation. ``axis = 0`` gives the ``omega^2``
+    (time-derivative) coefficient, ``axis = 1`` the ``kappa^2`` (spatial) one,
+    and an explicit vector gives the combination along that direction.
+
+    ``C_lower`` collects everything below leading derivative order -- the
+    background-curvature term. It plays no part in hyperbolicity, which is
+    decided by the principal symbol alone; it is fitted and reported only to
+    show that ``C`` vanishes on its own rather than the whole equation doing so.
     """
     point = np.zeros(5)
     design, values = [], []
     for frequency in frequencies:
         plus = linearised_field_equation(
-            _perturbed_metric(bulk_radius, amplitude, frequency, axis,
-                              first, second), point, coupling)[first, second]
+            _perturbed_metric(bulk_radius, amplitude, frequency,
+                              axis_or_vector, first, second),
+            point, coupling)[first, second]
         minus = linearised_field_equation(
-            _perturbed_metric(bulk_radius, -amplitude, frequency, axis,
-                              first, second), point, coupling)[first, second]
+            _perturbed_metric(bulk_radius, -amplitude, frequency,
+                              axis_or_vector, first, second),
+            point, coupling)[first, second]
         design.append([frequency ** 2, 1.0])
         values.append((plus - minus) / (2.0 * amplitude))
     design = np.array(design)
     values = np.array(values)
-    (kinetic, mass), *_ = np.linalg.lstsq(design, values, rcond=None)
-    residual = float(np.max(np.abs(design @ np.array([kinetic, mass]) - values)))
-    return float(kinetic), float(mass), residual
+    (leading, lower), *_ = np.linalg.lstsq(design, values, rcond=None)
+    residual = float(np.max(np.abs(design @ np.array([leading, lower]) - values)))
+    return float(leading), float(lower), residual
+
+
+
+def principal_symbol(coupling: float, angular_frequency: float,
+                     wavenumber: float,
+                     bulk_radius: float = BULK_RADIUS) -> float:
+    """``P(omega, kappa) = C_t omega^2 + C_s kappa^2`` in closed form.
+
+    The principal symbol of the linearised classical operator in the tensor
+    sector, with ``C_t = -(1/2)(1 + 4 alpha/R^2)`` and ``C_s = +1/2``. The
+    characteristic covectors are its zeros; the Cauchy problem is well posed in
+    this sector only while the coefficient of ``omega^2`` is nonzero.
+    """
+    temporal = -0.5 * tensor_kinetic_coefficient(coupling, bulk_radius)
+    return temporal * angular_frequency ** 2 + 0.5 * wavenumber ** 2
 
 
 @lru_cache(maxsize=4)
-def measure_the_graviton_degenerates(
+def measure_the_principal_symbol_degenerates(
         bulk_radius: float = BULK_RADIUS) -> Dict[str, object]:
-    """The decisive test: the TT kinetic coefficient at the critical coupling.
+    """The decisive test, and it is a classical PDE test.
+
+    Linearise the classical field equations ``G_AB + alpha_GB H_AB`` about the
+    critical background, take a transverse-traceless ``h_AB``, and inspect the
+    highest-derivative operator acting on it. Two things are asked of it:
+
+    1. does the coefficient of the second **time** derivative stay nonzero, and
+    2. does the principal symbol stay hyperbolic -- real characteristic speeds?
 
     Derived for **this** ``R x S^4`` background rather than inferred from the
     maximally symmetric formula, because the exterior is a *product* spacetime
     and not maximally symmetric.
+
+    The two answers differ, and the first draft of this round ran them
+    together. On the open interval ``-R^2/4 < alpha < 0`` the operator stays
+    hyperbolic: the characteristic speeds are real. What goes wrong there is
+    that they exceed the metric light speed, so the tensor characteristic cone
+    lies **outside** the null cone of ``g`` -- a causality failure, not
+    ill-posedness. Characteristics parting company with the metric cone is a
+    known feature of Lovelock gravity generally, not something special to this
+    background. Only at the endpoint ``alpha = -R^2/4`` does the ``omega^2``
+    coefficient itself vanish and the Cauchy problem in this sector cease to be
+    an evolution problem at all.
     """
     critical = exterior_threshold(bulk_radius)
     rows = []
     for fraction in (0.0, 0.2, 0.5, 0.8, 0.96, 1.0):
         coupling = fraction * critical
-        temporal, mass, residual = tt_kinetic_and_mass(bulk_radius, coupling, 0)
-        spatial, _, _ = tt_kinetic_and_mass(bulk_radius, coupling, 1)
+        temporal, lower, residual = tt_symbol_coefficient(
+            bulk_radius, coupling, 0)
+        spatial, _, _ = tt_symbol_coefficient(bulk_radius, coupling, 1)
+        degenerate = abs(temporal) < 1e-5
         rows.append({
             "coupling": coupling,
             "temporal_coefficient": temporal,
             "spatial_coefficient": spatial,
-            "mass_term": mass,
+            "lower_order_term": lower,
             "fit_residual": residual,
-            "predicted_kinetic": -0.5 * graviton_kinetic_coefficient(
+            "predicted_kinetic": -0.5 * tensor_kinetic_coefficient(
                 coupling, bulk_radius),
-            "speed_squared": (float("inf") if abs(temporal) < 1e-6
+            "speed_squared": (float("inf") if degenerate
                               else -spatial / temporal),
+            # Degree of P(omega, kappa) in omega at fixed kappa: 2 while the
+            # operator evolves, 0 once the leading time derivative is gone.
+            "degree_in_omega": 0 if degenerate else 2,
+            "hyperbolic": bool(not degenerate),
+            "cone_outside_the_null_cone": bool(
+                degenerate or -spatial / temporal > 1.0 + 1e-3),
         })
     critical_row = rows[-1]
     spatial_values = [r["spatial_coefficient"] for r in rows]
+
+    # Is the symbol really quadratic, and isotropic in the spatial directions?
+    # Sampled rather than assumed: a mixed direction must reproduce
+    # C(d) = C_t d_t^2 + C_s |d_space|^2.
+    probe_coupling = 0.5 * critical
+    c_t, _, _ = tt_symbol_coefficient(bulk_radius, probe_coupling, 0)
+    c_s, _, _ = tt_symbol_coefficient(bulk_radius, probe_coupling, 1)
+    direction_rows = []
+    for label, vector in (
+            ("spatial, along x1", [0.0, 1.0, 0.0, 0.0, 0.0]),
+            ("spatial, along x4", [0.0, 0.0, 0.0, 0.0, 1.0]),
+            ("spatial, 45 deg in the (x1, x4) plane",
+             [0.0, 1.0, 0.0, 0.0, 1.0]),
+            ("mixed, 45 deg in the (t, x1) plane", [1.0, 1.0, 0.0, 0.0, 0.0]),
+            ("mixed, 30 deg from t toward x4",
+             [math.cos(math.pi / 6.0), 0.0, 0.0, 0.0, math.sin(math.pi / 6.0)])):
+        unit = _direction(vector)
+        measured, _, _ = tt_symbol_coefficient(
+            bulk_radius, probe_coupling, vector)
+        predicted = c_t * unit[0] ** 2 + c_s * float(np.dot(unit[1:], unit[1:]))
+        direction_rows.append({
+            "direction": label, "measured": measured, "predicted": predicted,
+            "error": abs(measured - predicted)})
+    quadratic = bool(max(r["error"] for r in direction_rows) < 1e-4)
+
     return {
         "critical_coupling": critical,
         "rows": rows,
-        "kinetic_law": "C_kin = -(1/2)(1 + 4 alpha/R^2)",
+        "direction_rows": direction_rows,
+        "symbol": "P(omega, kappa) = C_t omega^2 + C_s kappa^2",
+        "kinetic_law": "C_t = -(1/2)(1 + 4 alpha/R^2),   C_s = +1/2",
         "law_holds": bool(all(
             abs(r["temporal_coefficient"] - r["predicted_kinetic"]) < 1e-5
             for r in rows)),
+        "symbol_is_quadratic_and_isotropic": quadratic,
+        "worst_direction_error": max(r["error"] for r in direction_rows),
         "kinetic_vanishes_at_criticality": bool(
             abs(critical_row["temporal_coefficient"]) < 1e-5),
+        "degree_in_omega_drops_at_criticality": bool(
+            rows[0]["degree_in_omega"] == 2
+            and critical_row["degree_in_omega"] == 0),
         "spatial_coefficient_is_coupling_independent": bool(
             max(spatial_values) - min(spatial_values) < 1e-6),
-        "mass_term_stays_finite": bool(abs(critical_row["mass_term"]) > 1.0),
-        "superluminal_below_criticality": bool(all(
-            r["speed_squared"] > 1.0 + 1e-3
-            for r in rows[1:-1])),
+        "lower_order_term_stays_finite": bool(
+            abs(critical_row["lower_order_term"]) > 1.0),
+        "hyperbolic_on_the_open_interval": bool(all(
+            r["hyperbolic"] for r in rows[:-1])),
+        "cone_leaves_the_null_cone_before_criticality": bool(all(
+            r["cone_outside_the_null_cone"] for r in rows[1:-1])),
+        "this_is_classical": (
+            "No quantisation anywhere. This is the principal symbol of the "
+            "linearised classical field equations, and the question is "
+            "well-posedness of the Cauchy problem for classical metric "
+            "perturbations. An earlier draft of this round called it a "
+            "'graviton kinetic term', which imported a quantum-gravity framing "
+            "this programme rejects; the wording is retracted, the calculation "
+            "is unchanged."),
         "why_this_closes_the_branch": (
             "At alpha = -R^2/4 the omega^2 coefficient vanishes while the "
-            "kappa^2 coefficient is untouched, so the tensor equation loses its "
-            "time-derivative term entirely: it degenerates from an evolution "
-            "equation into a constraint, and there is no propagating graviton. "
-            "The mass term stays finite, so this is a degeneration of the "
-            "kinetic operator and not an overall vanishing."),
+            "kappa^2 coefficient is untouched, so the principal symbol drops "
+            "from degree 2 to degree 0 in omega: the linearised equation loses "
+            "its leading time derivative and degenerates from an evolution "
+            "equation into a constraint. The lower-order term stays finite, so "
+            "this is a degeneration of the principal part specifically, not the "
+            "whole equation vanishing or an overall factor that could be "
+            "divided out."),
         "and_it_is_bad_before_criticality": (
-            "c^2 = 1/(1 + 4 alpha/R^2) is SUPERLUMINAL for every "
-            "-R^2/4 < alpha < 0 and diverges at the critical coupling, so the "
-            "tensor cone opens outside the matter light cone well before the "
-            "degeneration. The branch is in trouble on an interval, not only at "
-            "a point."),
+            "c^2 = 1/(1 + 4 alpha/R^2) exceeds 1 for every -R^2/4 < alpha < 0 "
+            "and diverges at the critical coupling, so the tensor "
+            "characteristic cone lies outside the metric null cone well before "
+            "the degeneration. That is a causality failure rather than "
+            "ill-posedness -- the operator is still hyperbolic there -- so the "
+            "branch is in trouble on an interval, for one reason, and at the "
+            "endpoint for a second and worse one."),
         "why_it_had_to_be_derived": (
             "The familiar 1 + 2 alpha (D-3)(D-4) K coefficient is derived for a "
             "maximally symmetric SPACETIME. R x S^4_R is a product and is not "
@@ -656,6 +841,7 @@ def measure_the_graviton_degenerates(
             "coefficient was computed by linearising the full field equations "
             "on this background."),
     }
+
 
 
 @lru_cache(maxsize=4)

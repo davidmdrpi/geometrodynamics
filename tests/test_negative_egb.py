@@ -7,7 +7,7 @@ surviving interval of `α_GB` rather than asserting there is none — a survivin
 interval would reopen the branch. The *mechanism* ones pin that the two bounds
 meet by continuity of one bracket, not by coincidence. The *cost* ones pin the
 vacuum-form exterior — and, correcting this round's first draft, that the throat
-matter there is **not** exotic. And the *graviton* ones carry the actual
+matter there is **not** exotic. And the *principal-symbol* ones carry the actual
 closure: the TT kinetic coefficient, derived on this product background rather
 than recalled from the maximally symmetric formula.
 """
@@ -183,51 +183,111 @@ def test_the_module_records_the_withdrawn_relocation_claim():
     assert "It is not" in note
 
 
-# ── the graviton, which is what actually closes the branch ──────────────────
+# ── the classical linearised operator, which is what closes the branch ──────
+#
+# This is a classical PDE question throughout: the principal symbol of the
+# linearised field equations and whether the Cauchy problem stays an evolution
+# problem. Nothing here quantises the metric.
 
-def test_the_graviton_kinetic_coefficient_is_one_plus_four_alpha_over_R_squared():
+def test_the_kinetic_coefficient_is_one_plus_four_alpha_over_R_squared():
     """Derived by linearising on this product background, not recalled: the
     textbook `1 + 2α(D−3)(D−4)K` is for a maximally symmetric *spacetime*."""
-    result = ne.measure_the_graviton_degenerates()
+    result = ne.measure_the_principal_symbol_degenerates()
     assert result["law_holds"]
     for row in result["rows"]:
         assert row["temporal_coefficient"] == pytest.approx(
             row["predicted_kinetic"], abs=1e-5)
 
 
-def test_the_graviton_kinetic_term_vanishes_at_the_critical_coupling():
+def test_the_principal_symbol_is_a_measured_quadratic_form():
+    """The symbol's shape is sampled off-axis rather than assumed. Without this
+    the `C_t ω² + C_s κ²` reading would be an ansatz, not a measurement."""
+    result = ne.measure_the_principal_symbol_degenerates()
+    assert result["symbol_is_quadratic_and_isotropic"]
+    assert result["worst_direction_error"] < 1e-4
+    mixed = [r for r in result["direction_rows"] if "mixed" in r["direction"]]
+    assert mixed, "a direction with both time and space components is required"
+    for row in mixed:
+        assert row["measured"] == pytest.approx(row["predicted"], abs=1e-5)
+
+
+def test_the_leading_time_derivative_vanishes_at_the_critical_coupling():
     """The closure. Same coupling the NEC pins."""
-    result = ne.measure_the_graviton_degenerates()
+    result = ne.measure_the_principal_symbol_degenerates()
     assert result["kinetic_vanishes_at_criticality"]
     assert abs(result["rows"][-1]["temporal_coefficient"]) < 1e-5
     for R in (1.0, 2.5):
-        assert ne.graviton_kinetic_coefficient(
+        assert ne.tensor_kinetic_coefficient(
             ne.exterior_threshold(R), R) == pytest.approx(0.0, abs=1e-14)
 
 
+def test_the_symbol_drops_from_degree_two_to_degree_zero_in_omega():
+    """The precise classical statement: the Cauchy problem stops being an
+    evolution problem in this sector."""
+    result = ne.measure_the_principal_symbol_degenerates()
+    assert result["degree_in_omega_drops_at_criticality"]
+    assert result["rows"][0]["degree_in_omega"] == 2
+    assert result["rows"][-1]["degree_in_omega"] == 0
+    assert result["rows"][-1]["hyperbolic"] is False
+
+
 def test_the_spatial_coefficient_is_untouched_so_it_is_a_degeneration():
-    """`κ²` survives while `ω²` dies, and the mass term stays finite — the
-    equation degenerates from evolution to constraint rather than vanishing."""
-    result = ne.measure_the_graviton_degenerates()
+    """`κ²` survives while `ω²` dies, and the lower-order term stays finite —
+    the principal part degenerates rather than the whole equation vanishing."""
+    result = ne.measure_the_principal_symbol_degenerates()
     assert result["spatial_coefficient_is_coupling_independent"]
-    assert result["mass_term_stays_finite"]
+    assert result["lower_order_term_stays_finite"]
     assert abs(result["rows"][-1]["spatial_coefficient"]) > 0.1
 
 
-def test_the_graviton_is_superluminal_before_the_critical_coupling():
-    """`c² = 1/(1 + 4α/R²) > 1` on the whole interval, so the trouble is not
-    confined to a single point."""
-    result = ne.measure_the_graviton_degenerates()
-    assert result["superluminal_below_criticality"]
+def test_the_open_interval_is_hyperbolic_but_acausal_not_ill_posed():
+    """The distinction an earlier draft ran together. On `−R²/4 < α < 0` the
+    operator is still hyperbolic; what fails is that the characteristic cone
+    lies outside the metric null cone."""
+    result = ne.measure_the_principal_symbol_degenerates()
+    assert result["hyperbolic_on_the_open_interval"]
+    assert result["cone_leaves_the_null_cone_before_criticality"]
+    for row in result["rows"][1:-1]:
+        assert row["hyperbolic"], "still well posed away from the endpoint"
+        assert row["speed_squared"] > 1.0
     for fraction in (0.2, 0.5, 0.8):
         coupling = fraction * ne.exterior_threshold(1.0)
-        assert ne.graviton_speed_squared(coupling, 1.0) > 1.0
-    assert ne.graviton_speed_squared(0.0, 1.0) == pytest.approx(1.0, rel=1e-14)
-    assert math.isinf(ne.graviton_speed_squared(ne.exterior_threshold(1.0), 1.0))
+        assert ne.characteristic_speed_squared(coupling, 1.0) > 1.0
+    assert ne.characteristic_speed_squared(0.0, 1.0) == pytest.approx(
+        1.0, rel=1e-14)
+    assert math.isinf(
+        ne.characteristic_speed_squared(ne.exterior_threshold(1.0), 1.0))
+
+
+def test_the_closed_form_symbol_agrees_with_the_measured_coefficients():
+    """`principal_symbol` must reproduce the fitted numbers, and its zero must
+    be the characteristic speed."""
+    R = 1.0
+    for fraction in (0.0, 0.5, 0.8):
+        coupling = fraction * ne.exterior_threshold(R)
+        speed = ne.characteristic_speed_squared(coupling, R)
+        # A characteristic covector: omega^2 = c^2 kappa^2 makes P vanish.
+        assert ne.principal_symbol(
+            coupling, math.sqrt(speed), 1.0, R) == pytest.approx(0.0, abs=1e-12)
+    critical = ne.exterior_threshold(R)
+    # At criticality no finite omega solves P = 0 with kappa != 0.
+    assert ne.principal_symbol(critical, 1e6, 1.0, R) == pytest.approx(0.5)
+
+
+def test_the_module_retracts_the_quantum_wording():
+    """BAM does not quantise the metric; the earlier 'graviton' framing is
+    withdrawn and the record of the withdrawal is kept."""
+    result = ne.measure_the_principal_symbol_degenerates()
+    note = result["this_is_classical"]
+    assert "No quantisation" in note
+    assert "retracted" in note
+    assert "calculation is unchanged" in note
+    assert "graviton" not in ne.measure_the_negative_egb_ledger()["closed_by"]
 
 
 def test_the_module_says_why_the_coefficient_had_to_be_derived():
-    note = ne.measure_the_graviton_degenerates()["why_it_had_to_be_derived"]
+    note = ne.measure_the_principal_symbol_degenerates()[
+        "why_it_had_to_be_derived"]
     assert "maximally symmetric" in note
     assert "product" in note
 
@@ -246,10 +306,11 @@ def test_pushing_the_coupling_further_makes_the_exterior_exotic():
 
 # ── the verdict ─────────────────────────────────────────────────────────────
 
-def test_the_branch_is_closed_by_the_graviton_not_the_matter():
+def test_the_branch_is_closed_by_the_field_equations_not_the_matter():
     ledger = ne.measure_the_negative_egb_ledger()
     assert ledger["branch_is_closed"]
-    assert "graviton kinetic term" in ledger["closed_by"]
+    assert "principal symbol" in ledger["closed_by"]
+    assert "CLASSICAL" in ledger["closed_by"]
     assert "STRUCTURAL grounds" in ledger["verdict"]
     verdicts = " ".join(e["verdict"] for e in ledger["entries"]).lower()
     assert "coupling constant" in verdicts
@@ -260,8 +321,8 @@ def test_the_branch_is_closed_by_the_graviton_not_the_matter():
 
 
 def test_the_ledger_names_what_it_does_not_test():
-    """Stability, the graviton kinetic term, dilatonic EGB, `f(R)`, and a
-    different exterior."""
+    """A source action, the scalar and vector sectors, dilatonic EGB, `f(R)`,
+    and a different exterior."""
     note = ne.measure_the_negative_egb_ledger()["what_remains_untested"]
     assert "SOURCE" in note, "no source action was exhibited"
     assert "scalar and vector perturbation sectors" in note
