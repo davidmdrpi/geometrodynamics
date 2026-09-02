@@ -24,6 +24,7 @@ from geometrodynamics.bulk.gauss_bonnet import (  # noqa: E402
     measure_the_gauss_bonnet_ledger,
     measure_the_lanczos_tensor_is_correct,
     measure_the_required_coupling,
+    measure_the_spatial_block_vanishes,
 )
 
 
@@ -35,6 +36,14 @@ def run_probe() -> dict:
         "id": "B0", "name": "the Lanczos tensor vanishes in D = 4, as it must",
         "detail": validation,
         "pass": bool(validation["topological_in_four_dimensions"])})
+
+    spatial = measure_the_spatial_block_vanishes()
+    checks.append({
+        "id": "B0b",
+        "name": "H^i_j = 0 for ANY ultrastatic product, not by symmetry",
+        "detail": spatial,
+        "pass": bool(spatial["vanishes_for_every_ultrastatic_case"]
+                     and spatial["control_does_not_vanish"])})
 
     sign = measure_gauss_bonnet_reinforces_einstein()
     checks.append({
@@ -75,6 +84,7 @@ def render_markdown(summary: dict) -> str:
         return next(c for c in summary["checks"] if c["id"] == cid)["detail"]
 
     val, sign = detail("B0"), detail("B1")
+    block = detail("B0b")
     coup, exp, ledger = detail("B2"), detail("B3"), detail("B4")
 
     L: List[str] = [
@@ -104,6 +114,20 @@ def render_markdown(summary: dict) -> str:
         L.append(f"| {row['metric']} | `{row['ricci_kk']:+.2e}` | "
                  f"`{row['lanczos_kk']:+.2e}` |")
     L += ["", "> " + val["why"], "",
+          "## B0b — `H^i_j = 0` for *any* ultrastatic product", "",
+          "Added after review. Three earlier docstrings credited this to the "
+          "`S⁴_R` slice being maximally symmetric. Wrong reason, and it "
+          "understates the result: in `D = 5` the spatial block of `H^a_b` is "
+          "the **4D Gauss–Bonnet (Euler) tensor** of `h₄`, identically zero "
+          "because Gauss–Bonnet is topological in `D = 4`.", "",
+          "| metric | `max|H^i_j|` at `h = 5e-4` | ratio over a 4× refinement |",
+          "|--|--|--|"]
+    for row in block["rows"]:
+        L.append(f"| {row['metric']} | `{row['residuals'][-1]:.2e}` | "
+                 f"`{row['refinement_ratio']:.1f}` |")
+    L += ["",
+          "> " + block["why_the_control_matters"], "",
+          "> **" + block["what_it_means"] + "**", "",
           "## B1 — the decisive sign", "",
           "```",
           "R_kk = −3(N f″ − N′f′)/(N f)",

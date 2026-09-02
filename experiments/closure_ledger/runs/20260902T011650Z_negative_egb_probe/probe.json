@@ -1,0 +1,344 @@
+{
+  "checks": [
+    {
+      "id": "E1",
+      "name": "*** the exterior constrains alpha the OTHER way ***",
+      "detail": {
+        "ricci_null": 3.0,
+        "lanczos_null": 12.0,
+        "ratio_is_chi_independent": true,
+        "ratio_value": 4.0,
+        "expected_ratio": 4.0,
+        "ricci_null_is_positive": true,
+        "rows": [
+          {
+            "coupling": 0.0,
+            "exterior_null_stress": 3.0,
+            "exterior_nec": true
+          },
+          {
+            "coupling": -0.125,
+            "exterior_null_stress": 1.5,
+            "exterior_nec": true
+          },
+          {
+            "coupling": -0.25,
+            "exterior_null_stress": 0.0,
+            "exterior_nec": true
+          },
+          {
+            "coupling": -0.5,
+            "exterior_null_stress": -3.0,
+            "exterior_nec": false
+          }
+        ],
+        "exterior_needs_alpha_at_least": -0.25,
+        "throat_needs_alpha_at_most": -0.25,
+        "the_two_bounds_coincide": true,
+        "they_point_in_opposite_directions": true,
+        "why": "In the throat R_kk < 0 because the neck must flare out; in the exterior R_kk = +3/R^2 because it holds ordinary matter. The NEC therefore demands opposite signs of the SAME bracket 1 + alpha H_kk/R_kk, and the two bounds land on one number."
+      },
+      "pass": true
+    },
+    {
+      "id": "E2",
+      "name": "*** no open set of couplings survives (a search) ***",
+      "detail": {
+        "scanned_range": [
+          -2.0,
+          2.0
+        ],
+        "samples": 4001,
+        "couplings_satisfying_both": [
+          -0.25
+        ],
+        "surviving_width": 0.0,
+        "the_surviving_set_is_measure_zero": true,
+        "critical_coupling": -0.25,
+        "survivors_are_at_the_critical_value": true,
+        "throat_satisfied_count": 1751,
+        "exterior_satisfied_count": 2251,
+        "why_a_scan": "A surviving interval of alpha would REOPEN the branch, so this looks for one rather than asserting none. The throat and exterior admissible sets are complementary half-lines meeting at a point, so their intersection is a single coupling and any tolerance widens it only by the tolerance.",
+        "what_it_means": "There is no open set of couplings for which this spacetime satisfies the matter NEC everywhere. A fundamental constant of the action would have to take one exact value, tuned to the radius of the universe."
+      },
+      "pass": true
+    },
+    {
+      "id": "E3",
+      "name": "and the two bounds meet by continuity, not by luck",
+      "detail": {
+        "ratio_inside_at_the_seam": 3.9999999999999947,
+        "ratio_outside_at_the_seam": 4.0,
+        "ratio_jump": 5.329070518200751e-15,
+        "ratio_is_continuous": true,
+        "common_value": 4.0,
+        "bracket_inside": 1.3322676295501878e-15,
+        "bracket_outside": 0.0,
+        "bracket_vanishes_at_the_seam": true,
+        "misner_sharp_over_f4_at_the_seam": 0.9999999999999987,
+        "why": "mu/f^4 is 1/R^2 on both sides of the seam -- the same Misner-Sharp continuity finite_mouth's P2 established -- so the shared bracket 1 + 4 alpha mu/f^4 is continuous there. It is required to be <= 0 from the throat side and >= 0 from the exterior side, so it must be exactly 0. The two constraints meet because they are two one-sided limits of one continuous function, not because two independent numbers coincided."
+      },
+      "pass": true
+    },
+    {
+      "id": "E4",
+      "name": "the surviving coupling forces a vacuum-form 5D exterior",
+      "detail": {
+        "critical_coupling": -0.25,
+        "rows": [
+          {
+            "coupling": 0.0,
+            "density": 6.0,
+            "pressure": -3.0,
+            "sum": 3.0,
+            "equation_of_state": -0.5
+          },
+          {
+            "coupling": -0.125,
+            "density": 4.5,
+            "pressure": -3.0,
+            "sum": 1.5,
+            "equation_of_state": -0.6666666666666666
+          },
+          {
+            "coupling": -0.25,
+            "density": 3.0,
+            "pressure": -3.0,
+            "sum": 0.0,
+            "equation_of_state": -1.0
+          },
+          {
+            "coupling": -0.375,
+            "density": 1.5,
+            "pressure": -3.0,
+            "sum": -1.5,
+            "equation_of_state": -2.0
+          }
+        ],
+        "pressure_is_coupling_independent": true,
+        "critical_density": 3.0,
+        "critical_pressure": -3.0,
+        "critical_equation_of_state": -1.0,
+        "it_is_exactly_vacuum_energy": true,
+        "einstein_density": 6.0,
+        "density_is_halved": true,
+        "why_the_pressure_cannot_move": "H^i_j = 0 for ANY ultrastatic product -- the spatial block is the 4D Euler tensor, topological in D = 4 -- so the entire Gauss-Bonnet correction lands in rho and none of it in p. The equation of state is therefore driven to -1 by shrinking rho onto a fixed p, not by adjusting both.",
+        "what_this_costs": "At the one surviving coupling the exterior -- which is supposed to BE the observed closed universe -- is pure vacuum energy with no ordinary matter anywhere, at half the Einstein-gravity density. Push alpha more negative and the EXTERIOR violates the NEC, which relocates the exotic matter from the throat into the universe around it rather than removing it."
+      },
+      "pass": true
+    },
+    {
+      "id": "E4b",
+      "name": "and there the throat matter is NOT exotic (NEC, WEC, DEC)",
+      "detail": {
+        "critical_coupling": -0.25,
+        "q_at_the_mouth": 1.0000000000000009,
+        "q_at_the_neck": 131.11466594147865,
+        "q_neck_closed_form": 131.11466594147865,
+        "min_density": 3.0000000000000053,
+        "min_nec_radial": 2.6645352591003757e-15,
+        "min_nec_angular": 4.000000000000006,
+        "min_dec_radial": 2.6645352591003757e-15,
+        "min_dec_angular": 2.0000000000000044,
+        "nec_holds": true,
+        "wec_holds": true,
+        "dec_holds": true,
+        "saturated_at_the_mouth": true,
+        "what_this_corrects": "An earlier draft of this round said the exotic matter was 'merely relocated' at the critical coupling. It is not. rho + p_s = 3A(q-1) >= 0 with equality only at the mouth, rho + p_Omega = A(3q+1) > 0, and rho exceeds both |p_s| and |p_Omega|, so NEC, WEC and DEC all hold along the throat. Relocation happens only for alpha strictly below the critical value."
+      },
+      "pass": true
+    },
+    {
+      "id": "E4c",
+      "name": "*** THE CLOSURE: the classical principal symbol degenerates there ***",
+      "detail": {
+        "critical_coupling": -0.25,
+        "rows": [
+          {
+            "coupling": -0.0,
+            "temporal_coefficient": -0.49999946775274184,
+            "spatial_coefficient": 0.49999971775250573,
+            "lower_order_term": -4.999994753823265,
+            "fit_residual": 1.6999975116505084e-07,
+            "predicted_kinetic": -0.5,
+            "speed_squared": 1.00000050000006,
+            "degree_in_omega": 2,
+            "hyperbolic": true,
+            "cone_outside_the_null_cone": false
+          },
+          {
+            "coupling": -0.05,
+            "temporal_coefficient": -0.3999996742070648,
+            "spatial_coefficient": 0.49999976775241844,
+            "lower_order_term": -4.999995103088227,
+            "fit_residual": 1.3599983628154177e-07,
+            "predicted_kinetic": -0.4,
+            "speed_squared": 1.250000437484325,
+            "degree_in_omega": 2,
+            "hyperbolic": true,
+            "cone_outside_the_null_cone": true
+          },
+          {
+            "coupling": -0.125,
+            "temporal_coefficient": -0.2499999838885489,
+            "spatial_coefficient": 0.4999998427522873,
+            "lower_order_term": -4.999995626985675,
+            "fit_residual": 8.499995818311845e-08,
+            "predicted_kinetic": -0.25,
+            "speed_squared": 1.9999994999007258,
+            "degree_in_omega": 2,
+            "hyperbolic": true,
+            "cone_outside_the_null_cone": true
+          },
+          {
+            "coupling": -0.2,
+            "temporal_coefficient": -0.10000029357003204,
+            "spatial_coefficient": 0.49999991775215685,
+            "lower_order_term": -4.999996150883118,
+            "fit_residual": 3.4000087190122485e-08,
+            "predicted_kinetic": -0.09999999999999998,
+            "speed_squared": 4.999984499065473,
+            "degree_in_omega": 2,
+            "hyperbolic": true,
+            "cone_outside_the_null_cone": true
+          },
+          {
+            "coupling": -0.24,
+            "temporal_coefficient": -0.02000045873349011,
+            "spatial_coefficient": 0.49999995775208594,
+            "lower_order_term": -4.999996430295089,
+            "fit_residual": 6.800153329322711e-09,
+            "predicted_kinetic": -0.020000000000000018,
+            "speed_squared": 24.999424483942082,
+            "degree_in_omega": 2,
+            "hyperbolic": true,
+            "cone_outside_the_null_cone": true
+          },
+          {
+            "coupling": -0.25,
+            "temporal_coefficient": -5.000243541520332e-07,
+            "spatial_coefficient": 0.4999999677520691,
+            "lower_order_term": -4.9999965001480815,
+            "fit_residual": 1.7141843500212417e-13,
+            "predicted_kinetic": -0.0,
+            "speed_squared": Infinity,
+            "degree_in_omega": 0,
+            "hyperbolic": false,
+            "cone_outside_the_null_cone": true
+          }
+        ],
+        "direction_rows": [
+          {
+            "direction": "spatial, along x1",
+            "measured": 0.4999998427522873,
+            "predicted": 0.4999998427522873,
+            "error": 0.0
+          },
+          {
+            "direction": "spatial, along x4",
+            "measured": 0.4999998427522866,
+            "predicted": 0.4999998427522873,
+            "error": 7.216449660063518e-16
+          },
+          {
+            "direction": "spatial, 45 deg in the (x1, x4) plane",
+            "measured": 0.5000001089275949,
+            "predicted": 0.4999998427522872,
+            "error": 2.6617530773931364e-07
+          },
+          {
+            "direction": "mixed, 45 deg in the (t, x1) plane",
+            "measured": 0.12499999597566663,
+            "predicted": 0.12499992943186918,
+            "error": 6.65437974584071e-08
+          },
+          {
+            "direction": "mixed, 30 deg from t toward x4",
+            "measured": -0.06249997730488026,
+            "predicted": -0.0625000272283399,
+            "error": 4.9923459644052315e-08
+          }
+        ],
+        "symbol": "P(omega, kappa) = C_t omega^2 + C_s kappa^2",
+        "kinetic_law": "C_t = -(1/2)(1 + 4 alpha/R^2),   C_s = +1/2",
+        "law_holds": true,
+        "symbol_is_quadratic_and_isotropic": true,
+        "worst_direction_error": 2.6617530773931364e-07,
+        "kinetic_vanishes_at_criticality": true,
+        "degree_in_omega_drops_at_criticality": true,
+        "spatial_coefficient_is_coupling_independent": true,
+        "lower_order_term_stays_finite": true,
+        "hyperbolic_on_the_open_interval": true,
+        "cone_leaves_the_null_cone_before_criticality": true,
+        "this_is_classical": "No quantisation anywhere. This is the principal symbol of the linearised classical field equations, and the question is well-posedness of the Cauchy problem for classical metric perturbations. An earlier draft of this round called it a 'graviton kinetic term', which imported a quantum-gravity framing this programme rejects; the wording is retracted, the calculation is unchanged.",
+        "why_this_closes_the_branch": "At alpha = -R^2/4 the omega^2 coefficient vanishes while the kappa^2 coefficient is untouched, so the principal symbol drops from degree 2 to degree 0 in omega: the linearised equation loses its leading time derivative and degenerates from an evolution equation into a constraint. The lower-order term stays finite, so this is a degeneration of the principal part specifically, not the whole equation vanishing or an overall factor that could be divided out.",
+        "and_it_is_bad_before_criticality": "c^2 = 1/(1 + 4 alpha/R^2) exceeds 1 for every -R^2/4 < alpha < 0 and diverges at the critical coupling, so the tensor characteristic cone lies outside the metric null cone well before the degeneration. That is a causality failure rather than ill-posedness -- the operator is still hyperbolic there -- so the branch is in trouble on an interval, for one reason, and at the endpoint for a second and worse one.",
+        "why_it_had_to_be_derived": "The familiar 1 + 2 alpha (D-3)(D-4) K coefficient is derived for a maximally symmetric SPACETIME. R x S^4_R is a product and is not maximally symmetric, so that formula does not apply here and the coefficient was computed by linearising the full field equations on this background."
+      },
+      "pass": true
+    },
+    {
+      "id": "E5",
+      "name": "the verdict and what is left untested",
+      "detail": {
+        "branch_is_closed": true,
+        "closed_by": "the principal symbol of the linearised CLASSICAL field equations, not the matter content",
+        "verdict": "Negative-coupling EGB closes on STRUCTURAL grounds: the NEC pins one coupling, and at exactly that coupling the principal symbol of the linearised classical equations loses its leading time derivative",
+        "entries": [
+          {
+            "claim": "the throat's constraint on alpha_GB can be read alone",
+            "verdict": "NO -- alpha_GB IS A COUPLING CONSTANT",
+            "evidence": "the same value acts in the exterior, where R_kk = +3.0000 > 0 and the NEC needs alpha >= -0.250000 -- the opposite direction"
+          },
+          {
+            "claim": "the two bounds coinciding is a coincidence",
+            "verdict": "NO -- ONE CONTINUOUS BRACKET",
+            "evidence": "T_kk = R_kk(1 + 4 alpha mu/f^4) on both sides, with R_kk < 0 inside and > 0 outside, and mu/f^4 continuous at the seam at 4.000000/4"
+          },
+          {
+            "claim": "the NEC alone leaves an open set of couplings",
+            "verdict": "NO -- IT PINS ONE",
+            "evidence": "a 4001-point scan leaves width 0.0e+00 at -0.250000; equivalently the field equations select R^2 = -4 alpha_GB"
+          },
+          {
+            "claim": "at that coupling the throat matter is exotic",
+            "verdict": "NO -- NEC, WEC AND DEC ALL HOLD",
+            "evidence": "rho = 3Aq, p_s = -3A, p_Omega = A with q >= 1, so rho+p_s = 3A(q-1) >= 2.7e-15 (saturated at the mouth) and rho exceeds both pressures in magnitude. An earlier draft's 'relocated exotic matter' applies only below critical"
+          },
+          {
+            "claim": "at that coupling the observed universe must be empty",
+            "verdict": "OVERREACHED -- IT IS A 5D BULK STATEMENT",
+            "evidence": "w = -1.0 is the total stress supporting R x S^4_R, not the S^3 equator's; and a homogeneous -Lambda g_ab can be moved to the gravitational side. The defensible claim is a vacuum-energy-like 5D exterior"
+          },
+          {
+            "claim": "the linearised tensor sector is well posed at the critical coupling",
+            "verdict": "NO -- THE PRINCIPAL SYMBOL DEGENERATES",
+            "evidence": "C_t = -(1/2)(1 + 4 alpha/R^2) derived by linearising on THIS product background, matching to 5e-07; it is -5.0e-07 at criticality while C_s is untouched, so P drops from degree 2 to degree 0 in omega and the Cauchy problem stops being an evolution problem"
+          },
+          {
+            "claim": "the symbol being a quadratic form is an assumption",
+            "verdict": "NO -- IT IS MEASURED OFF-AXIS",
+            "evidence": "propagation directions off the coordinate axes, including mixed time-space ones, reproduce C_t d_t^2 + C_s |d_space|^2 to 3e-07"
+          },
+          {
+            "claim": "the trouble starts only at the critical point",
+            "verdict": "NO -- THE CONE LEAVES THE NULL CONE FIRST",
+            "evidence": "c^2 = 1/(1 + 4 alpha/R^2) exceeds 1 for every -R^2/4 < alpha < 0, reaching 25 at 96% of the critical value before diverging. There the operator is still hyperbolic -- it is a causality failure, not ill-posedness; the two are distinct and an earlier draft ran them together"
+          }
+        ],
+        "what_this_closes": "Constant-coupling EGB on this geometry, on STRUCTURAL rather than matter-content grounds. The NEC pins a unique coupling; the principal symbol of the linearised classical equations degenerates at exactly that coupling; and the tensor characteristic cone is already outside the metric null cone on the approach.",
+        "what_remains_untested": "Whether an admissible SOURCE realises the throat's full anisotropic stress -- this round determines the stress the metric requires, not fields obeying their own equations that supply it. Also the scalar and vector perturbation sectors -- this round settles the tensor sector only -- dilatonic alpha(phi) L_GB where the scalar's own stress enters and where the heterotic term lives, f(R), and a DIFFERENT exterior: the constraint is derived for the round S^4_R completion this programme assumes.",
+        "the_remaining_branches": {
+          "1 accept the horizon": "the Tangherlini branch N(0) = 0 as the particle, abandoning MTY traversability",
+          "2 ghost": "a wrong-sign field, with its stability problem",
+          "3 quantum stress": "Casimir-type support, so the geometry is no longer classical",
+          "4 reinterpret": "particle exchange needs no traversable throat",
+          "5 dilatonic EGB or f(R)": "untested here, and the place where the heterotic term actually lives"
+        }
+      },
+      "pass": true
+    }
+  ],
+  "passed": 7,
+  "total": 7
+}
