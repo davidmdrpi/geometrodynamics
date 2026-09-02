@@ -378,6 +378,57 @@ is not closed. Accurate status: **the repository contains quantum-formal
 structures, but has not derived the quantization/probability map from
 classical GR; in the quantitative sectors that map is imported.**
 
+## Dependency structure: the boxes exist, the arrows do not
+
+The first draft made several central ingredients look absent. The corrected
+picture is that they exist at different evidentiary levels and have not been
+composed. Read top to bottom, each box is real; the arrows between them are
+the missing derivations.
+
+```
+  finite classical mouth geometry          (PR #277, Darmois-matched, derived)
+            │  ? no derivation of the identification from the geometry
+            ▼
+  antipodal boundary condition             (PR #129/#135, imposed postulate; consequences derived)
+            │  ? no theorem that the RP² mouth transition lifts to J
+            ▼
+  Hopf / quaternionic transport candidate  (J = iσ_y K; base antipode × fibre reversal; derivation false as stated)
+            │  ? no derivation of amplitudes, |A|², tensor product from classical dynamics
+            ▼
+  discrete spectral / Green-function machinery   (compact spectra, Z₂ sectors, holonomies, self-adjoint kernels, η phases: derived)
+            │  ? "represented using QM" versus "equivalent to QM" not distinguished
+            ▼
+  formal quantum / path-integral machinery       (Z = Σ ∫ (dL/L) det^{−1/2} e^{−S}, Hilbert-space Bell: present, assumed)
+```
+
+What the repository has demonstrated is that classical geometry naturally
+produces several ingredients that quantum theories use: compact spectra, `Z₂`
+sectors, holonomies, self-adjoint kernels, `η` phases, topological charge.
+Those are not trivial. What it has not demonstrated is that those structures
+organise themselves *uniquely* into quantum mechanics rather than merely
+permitting a rewrite in quantum-mechanical language. That is a clean
+falsification target, and it should be the organising question of the
+project.
+
+### Ranked missing links
+
+1. **Topology → transport.** Derive the transition function of the actual
+   finite `RP²`-type mouth and determine whether its natural lift is
+   `J = iσ_y K`, instead of inserting that lift afterwards.
+2. **Finite mouth → antipodal boundary condition.** Derive PR #129's
+   `Φ(U,V,Ω) = Φ(−U,−V,Ω̄)` (or its twisted variant) from the same physical
+   finite-mouth geometry and bundle gluing.
+3. **Classical global dynamics → quantum composition and statistics.**
+   Derive, rather than assume, why alternatives combine as complex amplitudes,
+   why `P = |A|²`, why composition is a tensor product, and why the relevant
+   measure is the proposed path-integral one rather than a classical
+   statistical ensemble. This is the genuine QFT-emergence hurdle.
+4. **Only then revisit Bell.** If 1–3 succeed, the singlet and the Born
+   calculation stop being imported quantum mechanics and become consequences;
+   if they fail, the Bell arc is downstream of an unproved premise.
+5. **Keep the mass and QCD fits frozen** until the trunk is resolved; further
+   numerical matches do not bear on links 1–3.
+
 ## What is sound
 
 * The finite-mouth handle: geometry, matching, and the lapse-independent neck
