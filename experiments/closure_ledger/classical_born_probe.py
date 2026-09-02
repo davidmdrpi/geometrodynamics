@@ -51,6 +51,11 @@ def run_probe() -> dict:
         "measure_control_fires": meas["measure_matters"],
         "reversal_control": all(v < 1e-12 for v in rev.values()),
     }
+    sym = {name: mm.detector_symmetry_check(f) for name, f in (
+        ("born", lambda t: math.cos(t / 2) ** 2), ("line", lambda t: 1.0 - t / math.pi))}
+    checks["H1_constructive_basin_has_detector_level_symmetries"] = all(r["both_hold"] for r in sym.values())
+    push = mm.detector_mouth_pushforward()
+    checks["C5_measure_is_base_marginal_of_haar_S3"] = push["base_marginal_is_haar_S2"]
     v = mm.verdict(c1["best_max_miss"], [r["max_miss"] for r in c3], arch[1.0], [arch[k] for k in (0.5, 0.9, 1.1, 2.0)])
     return {"timestamp": datetime.now(timezone.utc).isoformat(),
             "prereg": "docs/classical_born_prereg.md @ 7ff6e41",
@@ -58,16 +63,21 @@ def run_probe() -> dict:
             "C5": {"max_miss_by_kappa": arch, "monte_carlo_kappa1": mc, "uniformity": uni},
             "controls": {"tuned_basin_miss": basin, "measure": meas, "reversal": rev},
             "checks": checks, "passed": sum(checks.values()), "total": len(checks),
-            "verdict": v,
+            "verdict": v, "narrow_verdict": mm.narrow_verdict(v),
+            "detector_symmetries": sym, "detector_mouth": push,
             "typology": ("C: deterministic hidden outcome. The only classical route to Born found "
                          "(C5) is Bell 1964 / Kochen-Specker 1967: outcomes fixed by (x, y), "
                          "probabilities from ignorance of y. Outcome D (setting-dependent ensemble "
                          "from a derived global boundary problem) was not found and nothing here "
                          "supplies it."),
             "dependency_ledger": {
-                "f under fibre Haar": "f( rotational covariance [derived], Haar on S^1 [derived], "
-                                      "basin shape [from the coupling: derived for C1-C4; tuned for the control] )",
-                "C5 Born": "( Haar on S^2 [chosen: the detector mouth is unprepared], kappa = 1 [chosen], "
+                "f under fibre Haar": "f( rotational covariance [derived], Haar on S^1 [natural "
+                                      "invariant measure; gauge-or-physical fork and preparation "
+                                      "derivation open], basin shape [from the coupling: derived for "
+                                      "C1-C4; tuned for the control] )",
+                "C5 Born": "( Haar on S^2 = base marginal of Haar on S^3 [would follow from an "
+                           "identical unprepared detector mouth by isotropy: open route], kappa = 1 "
+                           "[would follow from a symmetric polarisation coupling: open route], "
                            "D = sign(a.(x + kappa y)) [chosen] )"},
             "what_is_not_claimed": ("Nothing about composition or CHSH. Nothing about the field "
                                     "sector beyond the spin-frame degree of freedom.")}
@@ -75,7 +85,8 @@ def run_probe() -> dict:
 
 def render(s: dict) -> str:
     L = [f"# Classical Born-rule probe — {s['passed']}/{s['total']}", "",
-         f"Pre-registration: `{s['prereg']}`. Verdict: **`{s['verdict']}`**", "",
+         f"Pre-registration: `{s['prereg']}`. Pre-registered label: `{s['verdict']}`; "
+         f"scope-correct reading (post-review): **`{s['narrow_verdict']}`**", "",
          "| candidate | coupling | induced f(θ) under fibre Haar | max miss from Born |", "|--|--|--|--|",
          f"| C1 | sign of a linear functional of the frame | arccos family with plateaus | `{s['C1']['best_max_miss']:.3f}` (best, α/ρ = {s['C1']['best_alpha_over_rho']:.2f}) |",
          f"| C2 | classical Malus intensities | step | `{s['C2']['max_miss']:.3f}` |",

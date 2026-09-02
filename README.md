@@ -4778,9 +4778,13 @@ the module. Module `geometrodynamics/bulk/mouth_measurement.py`; probe
 `classical_born_probe.py`; tests `tests/test_mouth_measurement.py`. Write-up:
 `docs/classical_born_rule.md`.*
 
-**Verdict: `BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW`.** With the
-classical state the spin-frame rounds supply — Bloch direction fixed by the
-preparation, fibre phase unresolved with Haar measure — a deterministic
+**Verdict: `CURRENT_BAM_PREPARATION_AND_DETECTOR_DYNAMICS_DO_NOT_DERIVE_BORN`**
+(the pre-registered label `BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW`
+was narrowed after review, since it read as a no-go against every classical
+detector, which was not established). With the classical state the
+spin-frame rounds supply — Bloch direction fixed by the preparation, fibre
+phase given the natural invariant (Haar) measure, whose status as gauge or
+physical the repository has not decided — a deterministic
 detector's outcome frequency is the arc measure of its `+1` basin, a free
 function constrained only by reversal `f(π−θ) = 1 − f(θ)`. Born, a straight
 line and a step all pass; symmetry plus Haar select nothing. Every coupling
@@ -4795,9 +4799,13 @@ Born exactly, `sign(a·(x + κy))` with `y` Haar on `S²` (Archimedes:
 `a·y` uniform on `[−1,1]`), needs a measure a prepared mouth does not have
 and a weight tuned to `κ = 1` (`κ = 0.9, 1.1` miss by `0.05`). That is
 Bell 1964 / Kochen–Specker 1967: deterministic hidden outcome, probabilities
-from ignorance — typology C, which places the pair problem under Bell's
-theorem unless measurement independence fails geometrically. Composition and
-CHSH are deferred.
+from ignorance — typology C. It is an open route, not a closed one: an
+identical unprepared detector mouth would give `y` Haar by isotropy, and a
+symmetric polarisation coupling could give `κ = 1`; even then it would be a
+classical completion of one spin and would not touch Bell. Single-system
+Born and Bell have separated: the next target is whether the BAM global
+boundary problem, solved with both analyzer settings as boundary data,
+yields `ρ(λ|a,b) ≠ ρ(λ)`. Composition and CHSH are deferred.
 
 ```bash
 python -m experiments.closure_ledger.classical_born_probe   # 10/10

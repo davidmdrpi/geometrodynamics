@@ -6,8 +6,17 @@ bundle ``S^3 = P_Spin(S^2)`` (``mouth_spin_frame``): a Bloch direction
 ``x = q^{-1} i q`` fixed by the preparation and a fibre phase ``phi`` left
 unresolved, with the tangent frame rotating by ``2 phi``. A detector with
 analyzer axis ``a`` is a deterministic map ``D_a(q) in {+1, -1}``. The ensemble
-measure is Haar on the fibre (the only unresolved variable a prepared mouth
-has), or Haar on ``S^2`` where a candidate says so explicitly.
+measure is Haar on the fibre, or Haar on ``S^2`` where a candidate says so.
+
+*On the status of fibre Haar (post-review).* The fibre is the Spin(2)
+spin-frame fibre. Whether its coordinate is gauge or a physical microscopic
+coordinate is a fork the repository has not decided. If gauge, averaging over
+it is gauge averaging and cannot produce stochastic outcomes at all. If
+physical, Haar is the natural invariant measure but its emergence from
+preparation dynamics (phase mixing) is not shown anywhere. "Unresolved" is
+epistemic. The ledger therefore carries fibre Haar as *natural invariant
+measure; physical preparation derivation open* -- and the negative result
+holds even granting it.
 
 Nothing here uses a projector, ``|amplitude|^2`` as a probability, a random
 number drawn with quantum weights, a tensor-product state, CHSH or QED. The
@@ -28,8 +37,10 @@ __all__ = [
     "linear_threshold", "intensity_detector", "two_harmonic", "tuned_born_basin",
     "induced_probability", "linear_threshold_closed_form",
     "classification_theorem", "linear_family_best_fit", "two_harmonic_natural_weightings",
+    "symmetric_basin", "detector_symmetry_check", "detector_mouth_pushforward",
     "archimedes_uniformity", "archimedes_probability", "archimedes_monte_carlo",
     "repository_winding_detector", "measure_control", "reversal_control", "verdict",
+    "narrow_verdict",
 ]
 
 _I = np.array([0, 1.0, 0, 0])
@@ -111,13 +122,53 @@ def two_harmonic(A: Callable[[float], float], B: Callable[[float], float],
     return D
 
 
-def tuned_born_basin():
-    """Basin control — ``D = +1 iff |psi| < pi cos^2(theta/2)``. Reproduces Born
-    by construction; classified TUNED and never counted as derived."""
+def _circular_distance_to(psi: np.ndarray, centre: float) -> np.ndarray:
+    return np.abs((psi - centre + math.pi) % (2.0 * math.pi) - math.pi)
+
+
+def symmetric_basin(f: Callable[[float], float]):
+    """The constructive basin of H1b: ``D = +1 iff |psi - pi/2|_circ < pi f(theta)``.
+
+    Centred at ``psi = pi/2`` so that it is invariant under the complementarity
+    constraint ``psi -> pi - psi`` and, its complement being centred at
+    ``-pi/2``, satisfies reversal ``D(pi - theta, psi + pi) = -D(theta, psi)``
+    whenever ``f(pi - theta) = 1 - f(theta)``. *Correction note:* the first
+    version used ``|psi| < pi f``, centred at ``0``, which is invariant under
+    ``psi -> -psi`` but not under ``psi -> pi - psi``; the arc-measure
+    conclusion was unaffected, the constructive proof was not what the
+    pre-registration claimed. ``detector_symmetry_check`` now tests the
+    detector-level conditions directly."""
     def D(theta, phi):
-        psi = (-2.0 * np.asarray(phi, dtype=float) + math.pi) % (2.0 * math.pi) - math.pi
-        return math.pi * math.cos(theta / 2.0) ** 2 - np.abs(psi)
+        psi = -2.0 * np.asarray(phi, dtype=float)
+        return math.pi * f(theta) - _circular_distance_to(psi, 0.5 * math.pi)
     return D
+
+
+def tuned_born_basin():
+    """Basin control — ``symmetric_basin(cos^2(theta/2))``. Reproduces Born by
+    construction; classified TUNED and never counted as derived."""
+    return symmetric_basin(lambda t: math.cos(t / 2.0) ** 2)
+
+
+def detector_symmetry_check(f: Callable[[float], float], n_theta: int = 61,
+                            n_phi: int = 720) -> Dict[str, object]:
+    """Detector-level (not probability-level) checks of the two constraints on
+    ``D(theta, psi)`` for the constructive basin of ``f``: complementarity
+    ``D(theta, pi - psi) = D(theta, psi)`` and reversal
+    ``D(pi - theta, psi + pi) = -D(theta, psi)``."""
+    D = symmetric_basin(f)
+    th = np.linspace(0.05, math.pi - 0.05, n_theta)
+    phi = np.linspace(0.0, 2.0 * math.pi, n_phi, endpoint=False)
+    psi = -2.0 * phi
+    worst_rev = worst_comp = 0
+    for t in th:
+        d = np.sign(D(t, phi))
+        d_comp = np.sign(D(t, -(math.pi - psi) / 2.0))        # psi -> pi - psi
+        d_rev = np.sign(D(math.pi - t, phi - 0.5 * math.pi))   # psi -> psi + pi
+        worst_comp = max(worst_comp, int(np.sum(d_comp != d)))
+        worst_rev = max(worst_rev, int(np.sum(d_rev != -d)))
+    return {"complementarity_violations": worst_comp, "reversal_violations": worst_rev,
+            "both_hold": worst_comp <= 2 and worst_rev <= 2}   # boundary grid points
 
 
 def induced_probability(detector, thetas: Sequence[float], n: int = 20000,
@@ -139,11 +190,7 @@ def classification_theorem(n_theta: int = 181) -> Dict[str, object]:
     realised = {}
     for k, v in candidates.items():
         fvals = dict(zip(np.round(th, 12), v))
-
-        def D(theta, phi, fv=fvals):
-            f = fv[round(theta, 12)]
-            psi = (-2.0 * np.asarray(phi, dtype=float) + math.pi) % (2.0 * math.pi) - math.pi
-            return math.pi * f - np.abs(psi)
+        D = symmetric_basin(lambda theta, fv=fvals: fv[round(theta, 12)])
         got = induced_probability(D, th[1:-1], n=20000)
         realised[k] = float(np.max(np.abs(got - v[1:-1])))
     return {"reversal_residuals": reversal,
@@ -187,6 +234,26 @@ def two_harmonic_natural_weightings(n_theta: int = 181) -> List[Dict[str, object
 
 
 # ── C5: the Archimedes route ───────────────────────────────────────────────
+
+def detector_mouth_pushforward(n: int = 20000, seed: int = 4) -> Dict[str, object]:
+    """C5's measure, stated precisely: Haar on ``S^2`` is the base marginal
+    (pushforward under the Hopf map) of Haar on ``SU(2) = S^3``, not the same
+    object. An identical, unprepared detector mouth ``q_D ~ Haar(S^3)`` has
+    ``y = h(q_D) ~ Haar(S^2)`` by isotropy: checked by the Kolmogorov distance
+    of ``a . y`` from uniform on ``[-1, 1]``. What this does NOT give is the
+    coupling weight ``kappa = 1``; that would need a symmetric polarisation
+    coupling between two identical mouths, which is not built here."""
+    rng = np.random.default_rng(seed)
+    q = rng.standard_normal((n, 4))
+    q /= np.linalg.norm(q, axis=1, keepdims=True)
+    y = np.array([spin_frame(qi)[0] for qi in q])
+    u = np.sort(y[:, 2])
+    ks = float(np.max(np.abs(np.arange(1, n + 1) / n - (u + 1.0) / 2.0)))
+    return {"kolmogorov_distance_of_a_dot_y": ks, "base_marginal_is_haar_S2": bool(ks < 1.5e-2),
+            "kappa_derived": False,
+            "open_route": ("identical unprepared detector mouth [isotropy gives y Haar on S^2] + "
+                           "symmetric classical polarisation coupling [would give kappa = 1]")}
+
 
 def archimedes_uniformity(n: int = 400000, seed: int = 0) -> Dict[str, object]:
     """``a . y`` is uniform on ``[-1, 1]`` for ``y`` Haar on ``S^2`` (hat-box theorem):
@@ -267,3 +334,15 @@ def verdict(linear_best_miss: float, two_harmonic_misses: Sequence[float],
     if archimedes_kappa1_miss < 1e-3 and min(archimedes_off_misses) > 1e-2:
         return "BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW"
     return "CLASSICAL_INTENSITY_ONLY_NO_OUTCOME_PROBABILITY"
+
+
+def narrow_verdict(pre_registered: str) -> str:
+    """*Correction note (post-review).* The pre-registered label reads as a
+    no-go against every classical BAM detector. It is not: C5 is an analytic
+    Born reproduction whose two inputs (``y`` Haar on ``S^2``, ``kappa = 1``)
+    are underived rather than impossible. The scope-correct statement is that
+    the preparation and detector dynamics currently in the repository do not
+    derive Born."""
+    if pre_registered == "BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW":
+        return "CURRENT_BAM_PREPARATION_AND_DETECTOR_DYNAMICS_DO_NOT_DERIVE_BORN"
+    return pre_registered

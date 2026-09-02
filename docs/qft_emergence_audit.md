@@ -426,10 +426,13 @@ is a Pin⁻ sector that pair creation must produce in opposite pairs
 construction. Link 3 (the quantum probability law) was then tested in
 `docs/classical_born_rule.md`: with the mouth's classical measure and
 deterministic detectors, Born is reached only by importing a Haar-on-`S²`
-variable and a tuned weight (`BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW`);
-the classical route that works is a local hidden-variable model, so the
-pair problem falls under Bell's theorem unless a derived global boundary
-problem makes the ensemble setting-dependent.
+variable and a tuned weight
+(`CURRENT_BAM_PREPARATION_AND_DETECTOR_DYNAMICS_DO_NOT_DERIVE_BORN`, the
+pre-registered label narrowed after review); the classical route that
+works is a local hidden-variable model and an open derivation route, so
+the pair problem falls under Bell's theorem unless the BAM global boundary
+problem, solved with both settings as boundary data, makes the ensemble
+setting-dependent.
 
 ### Ranked missing links
 

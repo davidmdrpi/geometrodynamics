@@ -6,6 +6,37 @@ is frozen at `7bd7ecc`; this round does not touch it, nor masses, QED
 vertices, composition or CHSH. Success criteria may change afterwards only
 by an explicit correction note.
 
+## Correction note (post-review, after `6ca7075`)
+
+Three corrections, none of which rescues Born; each sharpens what was ruled
+out. The criteria of §4 are unchanged; one label is narrowed in reading.
+
+1. **H1b's constructive basin had the wrong symmetry.** The text claimed
+   the complementarity constraint `D(θ, ψ) = D(θ, π−ψ)` and then realised
+   `f` with `|ψ| < πf(θ)`, which is invariant under `ψ ↦ −ψ`, not under
+   `ψ ↦ π−ψ`. The basin centred at `π/2`, `|ψ − π/2|_circ < πf(θ)`, has
+   both the complementarity symmetry and (its complement being centred at
+   `−π/2`) reversal, for arbitrary `f`. The arc-measure conclusion was
+   unaffected; the constructive proof was not what was claimed.
+   `detector_symmetry_check` now tests both conditions at the detector
+   level.
+2. **Fibre Haar is not "derived".** The fibre is the Spin(2) spin-frame
+   fibre; whether its coordinate is gauge or physical is a fork the
+   repository has not decided, and "unresolved" is epistemic. The ledger
+   entry becomes *natural invariant measure; gauge-or-physical fork and
+   preparation derivation open*. The negative result holds even granting
+   it.
+3. **The verdict label overstates.** `BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW`
+   reads as a no-go against every classical BAM detector. C5 is an analytic
+   Born reproduction whose two inputs are underived, not impossible: an
+   identical unprepared detector mouth would give `y` Haar on `S²` by
+   isotropy, and a symmetric polarisation coupling could give `κ = 1`. The
+   scope-correct reading is
+   `CURRENT_BAM_PREPARATION_AND_DETECTOR_DYNAMICS_DO_NOT_DERIVE_BORN`.
+   Also corrected: "Haar on `S²` is Haar on all of `SU(2)`" → Haar on `S²`
+   is the base marginal (pushforward under the Hopf map) of Haar on
+   `SU(2) ≅ S³`; the two are not the same object.
+
 ## 0. The question, and what is not the question
 
 A classical wave has intensity proportional to amplitude squared. That does

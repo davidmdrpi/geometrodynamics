@@ -1,0 +1,126 @@
+{
+  "timestamp": "2026-09-02T04:08:59.284694+00:00",
+  "prereg": "docs/classical_born_prereg.md @ 7ff6e41",
+  "classification": {
+    "reversal_residuals": {
+      "born": 2.220446049250313e-16,
+      "line": 1.1102230246251565e-16,
+      "step": 0.0
+    },
+    "all_satisfy_reversal": true,
+    "basin_realisation_residuals": {
+      "born": 9.999999999987796e-05,
+      "line": 0.0001000000000000445,
+      "step": 9.999999999998899e-05
+    },
+    "every_f_is_realisable": true,
+    "conclusion": "symmetry and fibre Haar constrain f only by f(pi-theta) = 1-f(theta); Born, the line and the step all pass; the basin shape decides."
+  },
+  "C1": {
+    "best_alpha_over_rho": 0.7999999999999999,
+    "best_max_miss": 0.10869592157379315,
+    "closed_form_vs_arc_measure": 3.390121158819426e-05,
+    "plateaus": "f = 1 for cot theta > rho/alpha and 0 for cot theta < -rho/alpha",
+    "reaches_born": false
+  },
+  "C2": {
+    "max_miss": 0.4999999999999999
+  },
+  "C3": [
+    {
+      "weighting": "(cos th/2, sin th/2), 0, 0",
+      "max_miss": 0.5239023779815177
+    },
+    {
+      "weighting": "(cos th/2, sin th/2), 0, pi/2",
+      "max_miss": 0.5
+    },
+    {
+      "weighting": "(sin th, cos th), 0, 0",
+      "max_miss": 0.5203033905932737
+    },
+    {
+      "weighting": "(cos th, sin th), pi/2, 0",
+      "max_miss": 0.5675227288213004
+    }
+  ],
+  "C4": {
+    "phase_independent": true,
+    "induced_f_is_step": true,
+    "max_miss_from_born": 0.4999999999999999,
+    "repository_source_of_born_statistics": "measurement_sector_probe: 'The winding Stern-Gerlach with a Born throat ensemble'"
+  },
+  "C5": {
+    "max_miss_by_kappa": {
+      "0.5": 0.2499999999999999,
+      "0.9": 0.04993300257217592,
+      "1.0": 2.220446049250313e-16,
+      "1.1": 0.04545454545454547,
+      "2.0": 0.25
+    },
+    "monte_carlo_kappa1": {
+      "0.3": 0.97757,
+      "1.0": 0.770065,
+      "2.0": 0.29134
+    },
+    "uniformity": {
+      "kolmogorov_distance": 0.0014763153293591985,
+      "uniform": true
+    }
+  },
+  "controls": {
+    "tuned_basin_miss": 9.999999999987796e-05,
+    "measure": {
+      "max_change": 0.13750267699993718,
+      "measure_matters": true,
+      "weight": "1 + 0.8 cos(2 phi + 1)"
+    },
+    "reversal": {
+      "born": 2.220446049250313e-16,
+      "archimedes": 2.220446049250313e-16,
+      "linear_best": 1.7208456881689926e-15
+    }
+  },
+  "checks": {
+    "H1_symmetry_plus_haar_do_not_select_born": true,
+    "C1_linear_family_misses_by_pre_registered_amount": true,
+    "C2_intensity_is_the_step": true,
+    "C3_two_harmonic_misses_by_at_least_half": true,
+    "C4_repository_detector_is_the_step": true,
+    "C5_archimedes_born_iff_kappa_one": true,
+    "C5_monte_carlo": true,
+    "basin_control_tuned_reproduces_born": true,
+    "measure_control_fires": true,
+    "reversal_control": true,
+    "H1_constructive_basin_has_detector_level_symmetries": false,
+    "C5_measure_is_base_marginal_of_haar_S3": true
+  },
+  "passed": 11,
+  "total": 12,
+  "verdict": "BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW",
+  "narrow_verdict": "CURRENT_BAM_PREPARATION_AND_DETECTOR_DYNAMICS_DO_NOT_DERIVE_BORN",
+  "detector_symmetries": {
+    "born": {
+      "complementarity_violations": 0,
+      "reversal_violations": 0,
+      "both_hold": true
+    },
+    "line": {
+      "complementarity_violations": 0,
+      "reversal_violations": 4,
+      "both_hold": false
+    }
+  },
+  "detector_mouth": {
+    "kolmogorov_distance_of_a_dot_y": 0.005597732768352015,
+    "base_marginal_is_haar_S2": true,
+    "kappa_derived": false,
+    "open_route": "identical unprepared detector mouth [isotropy gives y Haar on S^2] + symmetric classical polarisation coupling [would give kappa = 1]"
+  },
+  "typology": "C: deterministic hidden outcome. The only classical route to Born found (C5) is Bell 1964 / Kochen-Specker 1967: outcomes fixed by (x, y), probabilities from ignorance of y. Outcome D (setting-dependent ensemble from a derived global boundary problem) was not found and nothing here supplies it.",
+  "dependency_ledger": {
+    "f under fibre Haar": "f( rotational covariance [derived], Haar on S^1 [natural invariant measure; gauge-or-physical fork and preparation derivation open], basin shape [from the coupling: derived for C1-C4; tuned for the control] )",
+    "C5 Born": "( Haar on S^2 = base marginal of Haar on S^3 [would follow from an identical unprepared detector mouth by isotropy: open route], kappa = 1 [would follow from a symmetric polarisation coupling: open route], D = sign(a.(x + kappa y)) [chosen] )"
+  },
+  "what_is_not_claimed": "Nothing about composition or CHSH. Nothing about the field sector beyond the spin-frame degree of freedom."
+}

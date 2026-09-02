@@ -9,7 +9,22 @@ and not computed here.*
 
 ## Verdict
 
-`BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW`
+Pre-registered label: `BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW`.
+Scope-correct reading, adopted after review and recorded as a correction
+in the pre-registration:
+
+`CURRENT_BAM_PREPARATION_AND_DETECTOR_DYNAMICS_DO_NOT_DERIVE_BORN`
+
+The pre-registered label reads as a no-go against every classical BAM
+detector, and the round did not establish that. What it established:
+
+```
+Spin-frame symmetry does not select the Born basin.
+Classical Malus intensity does not explain outcome probability.
+The existing BAM winding detector does not derive Born.
+A classical detector hidden-variable model reproduces Born exactly,
+but its physical detector ensemble and coupling are not yet derived.
+```
 
 With the classical state the previous rounds actually supply — a point of
 the mouth spin-frame bundle, Bloch direction fixed by the preparation, fibre
@@ -42,12 +57,25 @@ tangent frame at `x`. Under the fibre `q ↦ e^{iφ}q` the frame turns by `2φ`
 P(+|θ) = f(θ) = arc measure of {ψ : D(θ, ψ) = +1} / 2π.
 ```
 
-Analyzer reversal forces `f(π−θ) = 1 − f(θ)` and nothing else. Born
-`cos²(θ/2)`, the straight line `1 − θ/π` and the step all satisfy it
-(residuals `≤ 2e-16`), and each is realised by the symmetric basin
-`|ψ| < π f(θ)` (residuals `1e-4` on a `20000`-point circle). **Symmetry plus
-fibre Haar do not select Born. The basin shape decides, and the basin shape
-must come from a coupling.**
+Analyzer reversal forces `f(π−θ) = 1 − f(θ)`; composed with complementarity
+of orthogonal outcomes it adds `D(θ, ψ) = D(θ, π−ψ)`, and nothing else.
+Born `cos²(θ/2)`, the straight line `1 − θ/π` and the step all satisfy the
+first (residuals `≤ 2e-16`), and each is realised by the basin centred at
+`ψ = π/2`, `|ψ − π/2|_circ < π f(θ)`, which has both detector-level
+symmetries (checked directly: zero violations on a `720`-point circle
+across `θ`) and the required arc measure (residuals `1e-4`). *Correction:*
+the first version used the basin `|ψ| < πf`, centred at `0`, which lacks
+the `π−ψ` symmetry; the conclusion was unaffected, the constructive proof
+was not what the pre-registration claimed. **Symmetry plus fibre Haar do
+not select Born. The basin shape decides, and the basin shape must come
+from a coupling.**
+
+*On the fibre ensemble.* The fibre is the Spin(2) spin-frame fibre. If its
+coordinate is gauge, averaging over it is gauge averaging and no detector
+can obtain stochastic outcomes from it at all; if it is physical, Haar is
+the natural invariant measure but its emergence from preparation dynamics
+is not shown anywhere in the repository. The round grants the most natural
+invariant ensemble, and Born still does not follow.
 
 ## 3. The couplings (H2)
 
@@ -79,13 +107,23 @@ no coupling in the repository gives Born, and the only way to get it is the
 tuned basin `|ψ| < π cos²(θ/2)` (basin control: reproduces Born to `1e-4`;
 classified **tuned**).
 
-C5 needs Haar on `S²`, which is Haar on all of `SU(2)`: the measure of an
-**unprepared** mouth. The only candidate carrier is the detector's own mouth,
-a second unit spin with unresolved orientation, and the coupling must
-register the total polarisation `x + y` with equal weights. Neither the
-detector-mouth model nor `κ = 1` is derived anywhere in the repository. Both
-are exactly the ingredients of the classic single-spin hidden-variable
-construction.
+C5 needs Haar on `S²`, which is the base marginal (the pushforward under
+the Hopf map) of Haar on `SU(2) ≅ S³`: the measure of an **unprepared**
+mouth (checked: the pushforward of Haar `q ∈ S³` gives `a·y` uniform to a
+Kolmogorov distance `< 1.5e-2` on `2×10⁴` samples). The only candidate
+carrier is the detector's own mouth, a second unit spin with unresolved
+orientation, and the coupling must register the total polarisation `x + y`
+with equal weights. Neither the detector-mouth model nor `κ = 1` is derived
+in the repository; both are exactly the ingredients of the classic
+single-spin hidden-variable construction.
+
+**C5 is an open derivation route, not a closed one.** If the detector
+contains an identical unprepared mouth, isotropy gives `y` Haar on `S²`
+without further input; if system and detector mouths enter a symmetric
+classical polarisation coupling, equal normalisation could force `κ = 1`.
+Then the single-system Born rule would be derived from apparatus microstate
+ignorance. It would remain a deterministic classical completion of one spin
+and would not touch Bell's theorem.
 
 ## 5. Controls
 
@@ -118,13 +156,38 @@ would require measurement independence or outcome independence to fail
 ## 7. Dependency ledger
 
 ```
-f(θ) under fibre Haar  =  f( rotational covariance [derived], Haar on S¹ [derived: unresolved phase],
+f(θ) under fibre Haar  =  f( rotational covariance [derived],
+                             Haar on S¹ [natural invariant measure; gauge-or-physical fork and
+                                         preparation derivation open],
                              basin shape [from the coupling: derived for C1-C4; tuned for the control] )
-C5 Born                =  ( Haar on S² [chosen: detector mouth unprepared], κ = 1 [chosen],
+C5 Born                =  ( Haar on S² = base marginal of Haar on S³ [open route: identical unprepared
+                                                                   detector mouth + isotropy],
+                            κ = 1 [open route: symmetric polarisation coupling],
                             D = sign(a·(x + κy)) [chosen] )
 ```
 
-## 8. What is not claimed
+## 8. Single-system Born and Bell have separated
+
+Even if C5 is derived, it is a deterministic classical completion of one
+spin, exactly the account Bell's 1964 paper grants a single spin-½ before
+proving the two-particle no-go. The pair problem must then explain why the
+joint global solution is not `λ = (λ_source, y_A, y_B)` with `A = A(a, λ)`,
+`B = B(b, λ)` under a setting-independent distribution; if it is, CHSH is
+capped at `2`. The next target is therefore sharper than "composition":
+
+> Does the BAM global boundary-value problem, solved with `(a, b)` as
+> boundary data, produce an admissible classical ensemble
+> `ρ(λ | a, b) ≠ ρ(λ)`?
+
+Not an assumed retrocausal weight, not a transaction product: the classical
+boundary problem actually solved, and the resulting measure compared with
+the setting-independent one. If `ρ(λ|a,b) = ρ(λ)`, BAM with deterministic
+detectors is in Bell's local class regardless of the mouth topology. If
+not, the questions become whether the dependence arises from two-time
+boundary conditions without signalling and whether it reproduces the
+quantum joint probabilities.
+
+## 9. What is not claimed
 
 Nothing about composition (`Γ₁ × Γ₂` versus `H₁ ⊗ H₂`) or CHSH; nothing
 about the field sector beyond the spin-frame degree of freedom; nothing

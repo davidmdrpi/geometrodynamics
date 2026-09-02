@@ -80,3 +80,23 @@ def test_verdict_rule():
     v = mm.verdict(0.109, [0.5, 0.5], 0.0, [0.05, 0.046, 0.25, 0.25])
     assert v == "BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW"
     assert mm.verdict(1e-4, [0.5], 0.0, [0.05]) == "BORN_RULE_DERIVED_FROM_CLASSICAL_BAM_MEASURE"
+
+
+def test_H1_constructive_basin_has_the_detector_level_symmetries():
+    """Post-review: complementarity `D(θ, π−ψ) = D(θ, ψ)` and reversal
+    `D(π−θ, ψ+π) = −D(θ, ψ)` at the detector level, for Born, the line and the step."""
+    for f in (lambda t: math.cos(t / 2) ** 2, lambda t: 1.0 - t / math.pi,
+              lambda t: 1.0 if t < math.pi / 2 else 0.0):
+        r = mm.detector_symmetry_check(f)
+        assert r["both_hold"], r
+
+
+def test_C5_measure_is_the_base_marginal_of_haar_on_S3_and_kappa_is_not_derived():
+    r = mm.detector_mouth_pushforward()
+    assert r["base_marginal_is_haar_S2"]
+    assert not r["kappa_derived"]
+
+
+def test_narrow_verdict_wording():
+    assert mm.narrow_verdict("BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW") == \
+        "CURRENT_BAM_PREPARATION_AND_DETECTOR_DYNAMICS_DO_NOT_DERIVE_BORN"
