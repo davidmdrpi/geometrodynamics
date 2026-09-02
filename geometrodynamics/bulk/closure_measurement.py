@@ -16,10 +16,16 @@ code carries its own assumptions:
   the ``eps -> 0`` limit of a uniform window ``|Omega mod 2 pi| < eps``.
 
 No amplitude, no Gaussian, no width, no projector, no Born rule: the quantum
-correlation ``cos(gamma)`` appears only as a comparison target and, in P5, as
-the identity that the *signed* density ``D/4`` is the real part of the
-Bargmann invariant ``Tr(P_x P_u P_v)`` -- a quasi-probability, not a measure
-this module adopts.
+correlation ``cos(gamma)`` appears only as a comparison target.
+
+*Correction after review (``closure_current``).* The "signed" variant is not
+an inserted quasi-probability: on the closure set ``e^{i Omega/2} = sgn D``,
+so ``D/(2|u x v|)`` is the coarea density weighted by the holonomy of the
+``0``/``pi`` closure branch. Whether histories combine as positive counts
+(``abs``) or with their holonomy (``signed``) is the open step, examined in
+``closure_current``. The equal prior over the four outcome sectors used in
+``closure_weights`` is a chosen counting measure. "No signalling" here means
+detector no-signalling; operational no-signalling to the past is open.
 """
 
 from __future__ import annotations

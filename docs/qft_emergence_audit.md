@@ -436,8 +436,12 @@ setting-dependent. That was then computed in
 `docs/closure_measurement_dependence.md`: sharp phase closure of the closed
 history does make the source ensemble depend on both settings with exact
 no-signalling and `S = 2.14 > 2`, but yields a closed-form correlation that
-is not `cos γ`; the quantum correlation is the signed (quasi-probability)
-closure density, `D/4 = Re Tr(P_x P_u P_v)`.
+is not `cos γ` under the positive count of closed histories; the quantum
+correlation is the same closure set with the two branches summed with
+their holonomy (`e^{iΩ/2} = sgn D`), which gives the quantum joint law with
+no projectors (`docs/closure_current.md`). Nothing classical in the
+repository selects count over oriented sum: that is where the quantization
+gap now sits.
 
 ### Ranked missing links
 

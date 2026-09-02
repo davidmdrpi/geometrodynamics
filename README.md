@@ -4831,15 +4831,47 @@ settings; marginals are `1/2` to `1e-12` (no signalling); the correlation is
 the closed form `E(γ) = [c²(π−γ) − s²γ]/[2 sin γ + c²(π−γ) + s²γ]`, giving
 `S = 2.1423` at the standard angles (also the maximum) — a Bell violation
 by measurement dependence, computed rather than inserted — and it is **not**
-`cos γ`. The quantum correlation is the *signed* density `D`, and
-`D/4 = Re Tr(P_x P_u P_v)`: the Born rule is the closure model's
-quasi-probability. Controls: a loop that does not link both detectors does
-nothing; local detectors on the same source give `S = 0.94`; the
-repository's own Gaussian closure weight (`history/closure.py`, `σ = 0.6`,
-times an imported `|amplitude|²`) moves `E(1)` from `0.398` to `0.170`.
+`cos γ`. Controls: a loop that does not link both detectors does nothing;
+local detectors on the same source give `S = 0.94`; the repository's own
+Gaussian closure weight (`history/closure.py`, `σ = 0.6`, times an imported
+`|amplitude|²`) moves `E(1)` from `0.398` to `0.170`. *Corrected after
+review:* this is the phase-closure component under a geodesic-realignment
+ansatz; the equal sector prior is chosen; and the no-signalling proved is
+detector no-signalling.
 
 ```bash
 python -m experiments.closure_ledger.closure_measurement_probe   # 14/14
+```
+
+## The fork: positive count or holonomy-weighted sum over the closure branches
+
+*Pre-registered in `docs/closure_current_prereg.md` (`f954e3d`). Module
+`geometrodynamics/bulk/closure_current.py`; probe `closure_current_probe.py`;
+tests `tests/test_closure_current.py`. Write-up: `docs/closure_current.md`.*
+
+**Verdict: `FORK_UNRESOLVED_BY_CURRENT_STRUCTURES`.** On the closure set
+`e^{iΩ/2} = sgn D`, so the "signed" density of the previous round is the
+coarea density times the holonomy of the `0`/`π` closure branch — not an
+inserted quasi-probability. Two things are now derived, not chosen: the
+loop itself (the Pin history `source → A → J → B → source` reduces exactly to
+the geodesic triangle `x → u → −v → x`, the two throat transports
+contributing only `J² = −1`, so the closure holonomy is `−sgn D(x,u,−v)`),
+and the fact that the holonomy-weighted current gives the quantum joint law
+`P_like = (1+cos γ)/4`, `P_unlike = (1−cos γ)/4`, `S = 2√2`, with no
+projectors, from `∫_Γ x dσ = 0`. What is not derived is the weighting
+itself: positive count (`S_max = 2.1423`) or oriented sum (`2√2`). The Pin
+structure supplies the branch holonomy as a *label* on each closed history,
+not as a weight; stationarity is named in `history/closure.py` and
+implemented nowhere, and the stationary set of the closure phase is a few
+isolated points, not the closure circle; the equal sector prior is a chosen
+counting measure. By the pre-registered rule the oriented sum may not be
+adopted because it gives `2√2`. **The quantization gap is now located:
+not the spin structure, not the loop, not Bell, not the relative outcome
+law — whether observed event frequencies are the positive count of closed
+histories or their oriented, holonomy-weighted sum.**
+
+```bash
+python -m experiments.closure_ledger.closure_current_probe   # 6/6
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

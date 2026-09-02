@@ -21,9 +21,22 @@ does three things and fails to do a fourth:
    which is also the maximum over settings, below `2√2`;
 4. it does **not** reproduce the quantum correlation: `E(γ)` is a
    different, closed-form function of the angle. The quantum correlation is
-   what one gets from the **signed** closure density, which is the real
-   part of the Bargmann invariant, a quasi-probability with negative weight
-   on part of the closure set.
+   what one gets from the **holonomy-weighted** closure density
+   `e^{iΩ/2} |D| = D` (see the correction below).
+
+*Correction after review (`docs/closure_current_prereg.md`, C1–C4).* A first
+version of this document called the signed density an inserted
+quasi-probability and said adopting it "imports the quantum rule". On the
+closure set `e^{iΩ/2} = sgn D`, so the signed density is the coarea density
+times the actual holonomy of the `0`/`π` closure branch; the open question
+is whether histories combine as positive counts or with their holonomy,
+and that is the subject of the next round. Three further corrections: the
+model uses the phase-closure component of BAM under a geodesic-realignment
+loop ansatz, not the full closure axiom (stationarity is unimplemented and
+the branch sign is discarded by the repository's Gaussian weight); the
+equal prior over the four outcome sectors is a chosen counting measure,
+entered in the ledger; and what is proved is detector no-signalling, not
+operational no-signalling to the past.
 
 This is outcome **D** of the Born-rule round's typology, obtained by
 calculation rather than asserted. It evades Bell's theorem by violating
@@ -87,16 +100,19 @@ no larger value: `S_max = 2.1423 < 2.8284`.
 `ε = 0.4, 0.2, 0.1, 0.05` (`2×10⁶` samples), converging to the coarea value
 `0.3985`. This confirms the positive density `|D|`, not the signed `D`.
 
-**The signed variant is quantum mechanics (P5).** With `D` in place of
-`|D|`, `E = (c²−s²)/(c²+s²) = cos γ` exactly and `S = 2√2`. The identity
-`D/4 = Re Tr(P_x P_u P_v)` (checked to `2e-16`) says the signed closure
-density is the real part of the Bargmann invariant of the three spin-½
-projectors. It is negative on the arc of `Γ` where `D < 0`, of fractional
-length `γ/2π` for like outcomes (measured `0.0796, 0.1592, 0.3183` at
-`γ = 0.5, 1, 2`). A signed measure is not a probability; adopting it
-imports the quantum rule. What this identifies precisely is *where* the
-Born rule sits relative to the classical closure model: it is the same
-closure set with a quasi-probability weight.
+**The holonomy-weighted variant is quantum mechanics (P5, corrected).**
+With `D` in place of `|D|`, `E = (c²−s²)/(c²+s²) = cos γ` exactly and
+`S = 2√2`. Since `e^{iΩ/2} = sgn D` on the closure set, `D/(2|u×v|)` is the
+coarea density weighted by the closure holonomy of each branch, the `π`
+branch entering with opposite orientation on the arc where `D < 0`
+(fractional length `γ/2π` for like outcomes; measured `0.0796, 0.1592,
+0.3183` at `γ = 0.5, 1, 2`). The identity `D/4 = Re Tr(P_x P_u P_v)`
+(checked to `2e-16`) is then a representation of what the closure geometry
+already contains, not its source: with `∫_Γ x dσ = 0` the oriented current
+gives `P_like = (1+cos γ)/4`, `P_unlike = (1−cos γ)/4` with no projectors.
+What this identifies precisely is *where* the quantum rule sits relative to
+the classical closure model: the same closure set, with the branches
+summed with their holonomy instead of counted.
 
 **The strict-zero variant (P6).** Dropping the `π` branch of the axiom
 keeps only the `D > 0` arc: `E(1) = 0.46495`, `S = 2.4649`. Still not
@@ -133,7 +149,8 @@ failure in the coplanar case, not to its existence.
                 geodesic-realignment detection model [chosen],
                 coarea conditioning [derived; window limit] )
 E(γ)      =  E( ρ(x|a,b) [above], outcome signs as history boundary data [chosen: D-type] )
-Born      =  signed closure measure [identity: Re Bargmann]  — not a probability; imported if used
+oriented current  =  e^{iΩ/2} × coarea = D/(2|u×v|)  [derived label; adopting it as weight: the open step]
+sector prior      =  counting on the four outcome sectors  [chosen]
 ```
 
 ## 7. What this means for the program
@@ -147,10 +164,11 @@ Born      =  signed closure measure [identity: Re Bargmann]  — not a probabili
 * It is therefore not in Bell's local class, and it violates CHSH. This is
   the first place in the repository where a Bell violation is *computed*
   from a classical global constraint rather than from an inserted singlet.
-* It is not quantum mechanics. The correlation function is
-  `[c²(π−γ) − s²γ]/[2 sin γ + c²(π−γ) + s²γ]`, and the maximal violation is
-  `2.14`, not `2.83`. The distance to quantum mechanics is exactly the
-  distance from `|D|` to `D`: from a probability to a quasi-probability.
+* Under the positive count it is not quantum mechanics. The correlation
+  function is `[c²(π−γ) − s²γ]/[2 sin γ + c²(π−γ) + s²γ]`, and the maximal
+  violation is `2.14`, not `2.83`. The distance to quantum mechanics is
+  exactly the distance from `|D|` to `D`: from counting the two closure
+  branches to summing them with their holonomy.
 * Two modelling choices carry the result and are open: that detection is
   geodesic realignment to the outcome direction, and that outcomes are
   history boundary data rather than functions of the source state. A

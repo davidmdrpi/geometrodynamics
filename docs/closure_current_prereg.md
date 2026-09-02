@@ -131,6 +131,26 @@ shown to *require* the oriented sum. It may not be adopted because it gives
   falsifier for a dynamical round: a source read-out whose statistics
   depend on `(a, b)` would falsify the model as a physical theory.
 
+## Correction note (post-implementation)
+
+R4 predicted that the stationary set of the closure phase is a set of
+isolated points. It is empty: `Ω(x; u, v)` has **no** critical points on
+`S²` minus the two singular points `−u, −v` (`D = N = 0` there), because its
+level sets are Lexell circles through `−u` and `−v` (checked: a sampled
+level set is coplanar to `< 5e-3` and passes through both). Stationarity
+in the source direction therefore selects nothing, which is stronger than
+the prediction and leaves the conclusion — stationarity does not decide
+the fork — unchanged. Also fixed: the audit's test for an implementation
+of stationarity matched the substring "action" in `make_transaction_history`;
+it now inspects identifiers and excludes "transaction". No criterion
+changes.
+
+**Second correction.** R3's pre-computed values `0.0947, 0.3985, 0.5695`
+were mis-evaluated when the document was written; the closed form
+`E = (rW_l − W_u)/(rW_l + W_u)` with `W_l = 2 + c(π−γ)/s = 5.920`,
+`W_u = 2 + sγ/c = 2.546` at `γ = 1` gives `0.0751, 0.3985, 0.6460`. The
+criterion (marginals fixed at `1/2`, `E` moves) is unchanged and holds.
+
 ## 4. Expected verdict, stated in advance
 
 `FORK_UNRESOLVED_BY_CURRENT_STRUCTURES`, with the two candidates' predictions
