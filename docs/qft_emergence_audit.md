@@ -531,4 +531,15 @@ Barceló–Visser branch was qualified as 4D and as incompatible with the
 
 ## Test suite
 
-*Full per-file suite run in progress at the time of this commit; result recorded in the next commit.*
+Run at commit `b771b16` on Python 3.11 (numpy 2.4.6, scipy 1.17.1, sympy
+1.14.0), one `pytest -q --timeout=900` invocation per test file, 64 files:
+
+| passed | failed | errors | xfailed | skipped | wall time |
+|---|---|---|---|---|---|
+| 2007 | 0 | 0 | 1 | 0 | ~26 min |
+
+The one expected failure is the pre-existing `xfail` in
+`tests/test_quark_spectrum.py`. A single monolithic `pytest -q -x` run was
+also started and was killed by its own 590 s timeout before finishing; the
+per-file run above is the complete result. As stated in F8, a green suite
+validates the implementation, not the derivations this audit is about.
