@@ -4694,6 +4694,123 @@ discrete identification is deliberately untouched — `Φ_spatial`, `(−1)^ℓ`
 python -m experiments.closure_ledger.finite_mouth_probe   # 6/6
 ```
 
+## The finite mouth does not select the gluing — but its mouth supplies the Pin⁻ transport class
+
+*Pre-registered in `docs/finite_mouth_topology_prereg.md` (`d9d85bc`) and,
+after review, `docs/mouth_pin_holonomy_prereg.md` (`7f46fff`), each
+committed before the code it constrains. Module
+`geometrodynamics/bulk/mouth_topology.py`; probe
+`finite_mouth_topology_probe.py` (7/7); tests `tests/test_mouth_topology.py`,
+`tests/test_mouth_spin_frame.py`.
+Derivation: `docs/finite_mouth_bundle_transport.md`.*
+
+**Verdict: `FINITE_MOUTH_ADMITS_BUT_DOES_NOT_SELECT_THE_BAM_LIFT`**, and
+after review the "admits" half is stronger than the first draft said.
+
+* **The seam gluing is free.** Darmois matching is `O(4)`-invariant, so the
+  loop monodromy `m ∈ O(4)` is a choice. `det(−I₄) = +1`: the antipodally
+  glued two-mouth handle is **orientable** in the bulk; the antipode twists
+  the brane `S²`-handle and the brane's normal bundle, `(det m₃, ε) = (−,−)`.
+* **The non-orientable object is the quotient.** With `P_B = −P_A` (a choice
+  PR #277 never made) the unique free involution is `ι(s,Ω) = (−s,−Ω)`, and
+  `M/ι = RP⁴ # RP⁴` (Pin⁺ only), brane slice `RP³ # RP³`, brane neck `RP²`
+  (Pin⁻ only). A first draft called the two Pin types a mismatch. **They are
+  not**: the neck's normal bundle is `λ ⊕ λ`, and the ambient Pin⁺ induces
+  the intrinsic Pin⁻ through it, `w(TM|_N) = (1+a+a²)(1+a²) = 1+a`.
+* **PR #129's antipodal condition is the `η = +1` scalar sector of `ι`,**
+  `ψ_ℓ(−s) = η(−1)^ℓ ψ_ℓ(s)`, obtained at the finite ultrastatic neck with
+  no horizon and no limit; the half-tube admittance is the `(1, ±1)` sector
+  of the PR #277 oracle, reproduced by an independent second-order solve to
+  `5e-7`. It depends on three choices: `P_B = −P_A`, quotient over cover, `η`.
+* **The mouth's induced Pin⁻ holonomy has square `−1`, and it is the
+  component `J` lives in.** The deck generator of the neck `RP²` acts on the
+  frame `(∂_s, n, t₁, t₂)` as `diag(−1,−1,+1,−1)` (transport computed by
+  ODE, then `dι`): both normals reverse. Its Pin⁺ lift `±e_s e_n e_{t₂}` has
+  `H̃² = −1`, the square root of the spin holonomy `−1` of the `2π` tangent
+  rotation around the neck's great circle (angle unwrapped to `2π` to
+  `2.6e-11`); Pin⁻ would give `+1` and is excluded. In the intrinsic module
+  `Cl⁻(2) ≅ H` the holonomy is left multiplication by a unit quaternion of
+  the `(i, j)` plane — the fibre-reversing component of `Pin(2) ⊂ SU(2)` that
+  contains `σ = L_{−j}` — up to a `Spin(2) = U(1)` conjugation and a sign.
+  **`J² = −1` is geometric; `−j` and the sign are not selected** (outcome B).
+* **`J = iσ_y K` is the spin lift of the rotation `σ = L_{−j}`,** `(−j, 1) ∈ Spin(4)`,
+  not a lift of `ι` or of `−I₄`. Its `K` is a statement about complex
+  structure: antilinear for the Hopf `L_i` (or for the mouth's `Spin(2)`
+  generator `L_k`), linear for `R_i`. If the Hopf fibre phase is identified
+  with the mouth's tangent-plane rotation, the antilinearity is canonical;
+  that identification is unproved. A first draft said "not a lift of any
+  gluing map"; that was wrong.
+
+* **The Hopf bundle is the spin-frame bundle of the brane mouth, and the
+  sign pairs** (`docs/mouth_spin_frame_prereg.md`, `6bc4306`; module
+  `bulk/mouth_spin_frame.py`). `q ↦ (q⁻¹iq, q⁻¹jq, q⁻¹kq)` is
+  `Spin(3) → SO(3) = F_SO(S²)`: the bulk mouth `S³`, with the brane normal as
+  identity, **is** `P_Spin` of the brane mouth `S²`, and the repository's
+  Hopf fibre `q ↦ e^{iφ}q` rotates the tangent frame by `2φ` — the
+  Levi-Civita form is `−2A` (residual `1.7e-9`), `c₁ = 1` against `e = 2`.
+  So the Hopf phase is the mouth's `Spin(2)`, not an assumed `U(1)`, and the
+  `U(1)` direction of the holonomy is gauge (one `Spin(2)`-conjugacy class,
+  the units `u ⊥ i`, each covering the antipode with `L_u² = −1`). What
+  remains is the sign: the two Pin⁻ structures of `RP²`, `ABK = 1` and `7`.
+  With `Ω₂^{Pin⁻} = Z₈`, two mouth necks bound a Pin⁻ worldvolume **only in
+  opposite sectors**, and a single neck cannot bound at all: the sign is a
+  conserved pair label, not `wrap_parity = +1` by fiat. Verdict
+  `HOPF_IS_MOUTH_SPIN_BUNDLE_AND_PAIRING_FIXES_OPPOSITE_PIN_SECTORS`,
+  conditional on the antipodal quotient construction and on modelling pair
+  creation as a Pin⁻ bordism of the mouths.
+
+`embedding/transport.py`'s claim that `σ` is "the unique orientation-reversing
+Hopf-preserving isometry" is withdrawn in the module itself. The defensible
+statement about `J` is now: the finite non-orientable mouth forces the Pin⁻
+order-four transport class, the antilinearity is canonical because the Hopf
+fibre is the mouth's `Spin(2)`, and the two signs are conjugate sectors
+produced in opposite pairs. Still chosen: `P_B = −P_A`, quotient over cover,
+`η`, the time extension, the bordism modelling of creation.
+
+```bash
+python -m experiments.closure_ledger.finite_mouth_topology_probe   # 7/7
+```
+
+## The Born rule does not follow from the mouth's classical measure
+
+*Pre-registered in `docs/classical_born_prereg.md` (`7ff6e41`), committed before
+the module. Module `geometrodynamics/bulk/mouth_measurement.py`; probe
+`classical_born_probe.py`; tests `tests/test_mouth_measurement.py`. Write-up:
+`docs/classical_born_rule.md`.*
+
+**Verdict: `CURRENT_BAM_PREPARATION_AND_DETECTOR_DYNAMICS_DO_NOT_DERIVE_BORN`**
+(the pre-registered label `BORN_REQUIRES_AN_IMPORTED_MEASURE_OR_DETECTOR_LAW`
+was narrowed after review, since it read as a no-go against every classical
+detector, which was not established). With the classical state the
+spin-frame rounds supply — Bloch direction fixed by the preparation, fibre
+phase given the natural invariant (Haar) measure, whose status as gauge or
+physical the repository has not decided — a deterministic
+detector's outcome frequency is the arc measure of its `+1` basin, a free
+function constrained only by reversal `f(π−θ) = 1 − f(θ)`. Born, a straight
+line and a step all pass; symmetry plus Haar select nothing. Every coupling
+in the repository then fails: a linear torque/gradient functional of the
+frame gives an `arccos` family with plateaus (best miss `0.109`); the
+classical Malus intensities are phase-independent and give a step (the
+intensity fraction *is* `cos²(θ/2)`, which is Theorem 1: intensity is not
+probability); spinor-plus-frame harmonics miss by `≥ 0.5`; the repository's
+own winding Stern–Gerlach is a step, and its measurement round feeds it an
+explicitly *Born* throat ensemble. The one classical route that reaches
+Born exactly, `sign(a·(x + κy))` with `y` Haar on `S²` (Archimedes:
+`a·y` uniform on `[−1,1]`), needs a measure a prepared mouth does not have
+and a weight tuned to `κ = 1` (`κ = 0.9, 1.1` miss by `0.05`). That is
+Bell 1964 / Kochen–Specker 1967: deterministic hidden outcome, probabilities
+from ignorance — typology C. It is an open route, not a closed one: an
+identical unprepared detector mouth would give `y` Haar by isotropy, and a
+symmetric polarisation coupling could give `κ = 1`; even then it would be a
+classical completion of one spin and would not touch Bell. Single-system
+Born and Bell have separated: the next target is whether the BAM global
+boundary problem, solved with both analyzer settings as boundary data,
+yields `ρ(λ|a,b) ≠ ρ(λ)`. Composition and CHSH are deferred.
+
+```bash
+python -m experiments.closure_ledger.classical_born_probe   # 10/10
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced

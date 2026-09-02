@@ -1,0 +1,491 @@
+"""Probe: does the finite mouth force the transport and the antipodal BC?
+
+Every check compares a computation against `docs/finite_mouth_topology_prereg.md`
+(commit `d9d85bc`), written before `geometrodynamics/bulk/mouth_topology.py`
+existed. The verdict rule is frozen there. Nothing here uses a singlet, a Born
+rule, a projector, a tensor product, CHSH or a QED amplitude.
+
+Run:  python -m experiments.closure_ledger.finite_mouth_topology_probe
+"""
+
+from __future__ import annotations
+
+import json
+import math
+import os
+import sys
+from datetime import datetime, timezone
+
+import numpy as np
+
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "..")))
+
+from geometrodynamics.bulk import finite_mouth as fm      # noqa: E402
+from geometrodynamics.bulk import mouth_topology as mt    # noqa: E402
+from geometrodynamics.bulk import mouth_spin_frame as sf  # noqa: E402
+
+TARGETS = {
+    (0, "Neumann"): 0.000000000, (0, "Dirichlet"): 0.157587622,
+    (1, "Neumann"): 1.797266559, (1, "Dirichlet"): 1.804461992,
+    (2, "Neumann"): 3.524607516, (2, "Dirichlet"): 3.524854051,
+    (3, "Neumann"): 5.248595411, (3, "Dirichlet"): 5.248602920,
+}
+
+
+def check_h1() -> dict:
+    """H1 — the gluing is free; antipodal gluing is orientable in the bulk."""
+    classes = {}
+    for name, m in (("identity", mt.identity_gluing()),
+                    ("antipodal", mt.antipodal_gluing()),
+                    ("reflection (normal)", mt.reflection_gluing(3)),
+                    ("reflection (brane)", mt.reflection_gluing(0))):
+        c = mt.classify_gluing(m)
+        classes[name] = {"det_bulk": c.det_bulk, "det_brane": c.det_brane,
+                         "eps": c.normal_sign, "label": c.label,
+                         "w1_loop": mt.mapping_torus_w1(m)}
+    reps = []
+    for ell in range(5):
+        r = mt.harmonic_representation(mt.antipodal_gluing(), ell)
+        reps.append({"ell": ell, "dim": r["dimension"], "expected": (ell + 1) ** 2,
+                     "scalar": r["scalar"], "residual": r["fit_residual"]})
+    refl = mt.harmonic_representation(mt.reflection_gluing(3), 2)
+    t2 = classes["antipodal"]["det_bulk"] == +1
+    t3 = classes["antipodal"]["label"] == "(det m_3, eps) = (-, -)" and \
+        len({(c["det_brane"], c["eps"]) for c in classes.values()}) == 4
+    # tolerance, not float equality: the scalar is a least-squares fit
+    t4 = all(abs(r["scalar"] - (-1) ** r["ell"]) < 1e-9 and r["dim"] == r["expected"]
+             and r["residual"] < 1e-9 for r in reps) and not refl["is_scalar"]
+    return {"classes": classes, "harmonic_action_of_antipode": reps,
+            "reflection_is_scalar_on_l2": refl["is_scalar"],
+            "T2_antipodal_gluing_orientable": t2,
+            "T3_four_classes_and_antipodal_is_minus_minus": t3,
+            "T4_parity_computed_not_assumed": t4,
+            "holds": bool(t2 and t3 and t4),
+            "class": "topological theorem",
+            "why": ("Darmois matching is O(4)-invariant, so the seam maps are "
+                    "free and only the loop monodromy m matters. det(-I_4) = +1: "
+                    "the antipodally glued two-mouth handle is ORIENTABLE in the "
+                    "bulk; what it twists is the brane S^2-handle and the brane's "
+                    "normal line bundle. The (-1)^l is the computed action of -I "
+                    "on degree-l harmonics; a reflection does not act as a "
+                    "scalar at all.")}
+
+
+def check_h2() -> dict:
+    """H2 — the unique free involution and what it makes non-orientable."""
+    inv = mt.antipodal_involution()
+    o5 = mt.free_involutions_of_o5()
+    free = [r["minus_ones"] for r in o5 if r["free_on_S4"]]
+    pins = {n: mt.pin_structures_rp(n) for n in (2, 3, 4)}
+    i1 = inv.is_free and inv.is_isometry(0.09, fm.lapse_ultrastatic) and \
+        inv.is_isometry(0.09, fm.lapse_vacuum) and inv.tangent_determinant() == -1 \
+        and inv.brane_determinant() == +1
+    i2 = free == [5]
+    i3 = (not pins[4]["orientable"]) and pins[4]["pin_plus"] and not pins[4]["pin_minus"] \
+        and pins[3]["spin"] and pins[2]["pin_minus"] and not pins[2]["pin_plus"]
+    return {"involution": inv.name, "free": inv.is_free,
+            "det_bulk": inv.tangent_determinant(), "det_brane_slice": inv.brane_determinant(),
+            "isometry_ultrastatic": inv.is_isometry(0.09, fm.lapse_ultrastatic),
+            "isometry_tangherlini": inv.is_isometry(0.09, fm.lapse_vacuum),
+            "free_classes_in_O5": free, "o5_table": o5,
+            "pin_types": pins,
+            "quotient": {"bulk": "RP^4 # RP^4 (non-orientable; Pin+ only)",
+                         "brane_slice": "RP^3 # RP^3 (orientable, spin)",
+                         "neck": "RP^3 (orientable, spin)",
+                         "brane_neck": "RP^2 (non-orientable; Pin- only)"},
+            "I1": bool(i1), "I2": bool(i2), "I3": bool(i3),
+            "holds": bool(i1 and i2 and i3),
+            "class": "topological theorem, conditional on P_B = -P_A (chosen)",
+            "why": ("-I_5 is the only fixed-point-free involution in O(5), and "
+                    "through the tube it continues uniquely as (s, Omega) -> "
+                    "(-s, -Omega). That map is free, an isometry for both lapses, "
+                    "and reverses the bulk orientation while preserving the "
+                    "brane slice's. The non-orientable object is the QUOTIENT "
+                    "M/iota = RP^4 # RP^4, not the two-mouth handle; the RP^2 the "
+                    "repository names is its brane neck. And the Pin types do not "
+                    "match: RP^4 # RP^4 is Pin+ only, RP^2 is Pin- only.")}
+
+
+def check_h3() -> dict:
+    """H3 — the scalar sector and the half-tube oracle."""
+    sectors = {"eta=+1": [mt.neck_sector(l) for l in range(6)],
+               "eta=-1": [mt.neck_sector(l, eta=-1) for l in range(6)]}
+    b1 = sectors["eta=+1"] == ["Neumann", "Dirichlet"] * 3 and \
+        sectors["eta=-1"] == ["Dirichlet", "Neumann"] * 3
+    rows, worst = [], 0.0
+    for (ell, cond), target in TARGETS.items():
+        oracle = mt.half_tube_admittance_oracle(ell, cond)
+        num = mt.half_tube_admittance(ell, cond, steps=2000)
+        rel = abs(num - oracle) / max(1.0, abs(oracle))
+        Y = fm.static_admittance(ell)
+        eig = Y[0, 0] + Y[0, 1] if cond == "Neumann" else Y[0, 0] - Y[0, 1]
+        rows.append({"ell": ell, "condition": cond, "target": target, "oracle": oracle,
+                     "solve": num, "relative_error": rel,
+                     "pr277_eigenvalue": float(eig),
+                     "oracle_matches_target": abs(oracle - target) < 2e-9,
+                     "oracle_is_pr277_sector": abs(eig - oracle) < 1e-12})
+        worst = max(worst, rel)
+    conv = []
+    for cond, ell in (("Neumann", 2), ("Dirichlet", 1)):
+        oracle = mt.half_tube_admittance_oracle(ell, cond)
+        errs = [abs(mt.half_tube_admittance(ell, cond, steps=n) - oracle)
+                for n in (500, 1000, 2000, 4000)]
+        conv.append({"condition": cond, "ell": ell, "errors": errs,
+                     "ratios": [errs[i] / errs[i + 1] for i in range(3)]})
+    b2 = worst < 1e-5 and all(r["oracle_matches_target"] and r["oracle_is_pr277_sector"]
+                              for r in rows) and all(min(c["ratios"]) >= 3.5 for c in conv)
+    ctrl = mt.neck_reflection_involution()
+    b3 = (not ctrl.is_free) and \
+        [mt.neck_sector(l, involution=ctrl) for l in range(6)] == ["Neumann"] * 6
+    geo = []
+    for a in (0.05, 0.3, 0.8, 1.2):
+        geo.append({"a": a, "labels": [mt.neck_sector(l) for l in range(4)],
+                    "Y1_D": mt.half_tube_admittance_oracle(1, "Dirichlet", 1.0, a)})
+    b4 = all(g["labels"] == ["Neumann", "Dirichlet"] * 2 for g in geo) and \
+        len({round(g["Y1_D"], 6) for g in geo}) == 4
+    return {"sectors": sectors, "oracle_rows": rows, "worst_relative_error": worst,
+            "convergence": conv, "antipodal_control_free": ctrl.is_free,
+            "antipodal_control_labels": [mt.neck_sector(l, involution=ctrl) for l in range(6)],
+            "geometry_control": geo,
+            "B1": bool(b1), "B2": bool(b2), "B3": bool(b3), "B4": bool(b4),
+            "holds": bool(b1 and b2 and b3 and b4),
+            "class": "analytic identity, conditional on H2's choices and on eta",
+            "why": ("On M/iota a scalar obeys psi_l(-s) = eta (-1)^l psi_l(s), so "
+                    "the neck is Neumann or Dirichlet by the parity of l. PR #129's "
+                    "even/odd structure is the eta = +1 sector, obtained at the "
+                    "finite ultrastatic neck with no horizon. The half-tube "
+                    "admittance is the (1, ±1) sector of PR #277's two-mouth "
+                    "oracle, reproduced by an independent second-order solve. "
+                    "Replacing the antipode by the identity fixes the whole neck "
+                    "and erases the grading.")}
+
+
+def check_h4() -> dict:
+    """H4 — no horizon limit is needed; the map contains a time reversal."""
+    res = {lapse.__name__: mt.static_operator_commutes_with_parity(0.09, lapse)
+           for lapse in (fm.lapse_ultrastatic, fm.lapse_vacuum)}
+    l1 = all(v < 1e-8 for v in res.values())
+    # (U,V) -> (-U,-V) is rotation by pi in the Lorentzian (U,V) plane: det +1,
+    # reverses T = U+V (time orientation) and X = V-U (space orientation).
+    # (U,V) -> (V,U) is the reflection: det -1, preserves T, reverses X.
+    uv_rot = np.array([[-1.0, 0.0], [0.0, -1.0]])
+    uv_ref = np.array([[0.0, 1.0], [1.0, 0.0]])
+    T = np.array([1.0, 1.0])
+    l2 = {"pr129_map_det_UV": float(np.linalg.det(uv_rot)),
+          "pr129_map_reverses_time_orientation": bool(np.allclose(uv_rot @ T, -T)),
+          "alternative_reflection_det_UV": float(np.linalg.det(uv_ref)),
+          "alternative_preserves_time_orientation": bool(np.allclose(uv_ref @ T, T)),
+          "both_restrict_to_iota_on_t_equals_0": True,
+          "five_d_det_pr129": float(np.linalg.det(uv_rot)) * 1.0,   # x det(-I_4)=+1
+          "five_d_det_alternative": float(np.linalg.det(uv_ref)) * 1.0}
+    return {"parity_commutator_residuals": res, "L1": bool(l1), "L2": l2,
+            "holds": bool(l1),
+            "class": "analytic identity",
+            "why": ("f and both lapses are even in s, so the static operator "
+                    "commutes with s -> -s for the ultrastatic and Tangherlini "
+                    "branches alike: the sector labels are lapse-independent and "
+                    "there is no limit to take. PR #129's (U,V) -> (-U,-V) is the "
+                    "PT-type extension of iota (5D det +1, time orientation "
+                    "reversed); the P-type extension (U,V) -> (V,U) exists too "
+                    "(5D det -1, time orientation kept). Both restrict to iota on "
+                    "the t = 0 slice. Which one is physical is a further choice, "
+                    "recorded as the datum T.")}
+
+
+def check_h5() -> dict:
+    """H5 — J is not the lift of any gluing map."""
+    c = mt.complex_structure_commutation()
+    lifts = mt.pin_lifts_of_reflection()
+    anti = mt.spin_lifts_of_antipode()
+    s1 = lifts["count"] == 4 and all(r["anticommutes_with_volume"] and r["is_real_matrix"]
+                                     for r in lifts["lifts"])
+    s2 = c["J_equals_left_mult_by_minus_j"] and c["anticommutes_with_L_i"] and \
+        c["commutes_with_R_i"] and np.allclose(c["linear_matrix_in_R_i_basis"], [[0, 1], [-1, 0]])
+    s3 = s2 and s1 and abs(c["det_J"] - 1.0) < 1e-12 and c["hopf_base_antipode"]
+    s4 = lifts["lifts_within_a_type_are_distinct"] and anti["eigenvalues"] == [-1.0, 1.0]
+    return {"J": {k: (v.tolist() if isinstance(v, np.ndarray) else v) for k, v in c.items()},
+            "reflection_lifts": lifts, "antipode_lifts": anti,
+            "S1": bool(s1), "S2": bool(s2), "S3": bool(s3), "S4": bool(s4),
+            "holds": bool(s1 and s2 and s3 and s4),
+            "class": "analytic identity (S2, S3); representation choice (the K)",
+            "why": ("The lift of the neck reflection is ±e_s in Pin^±(4): a real "
+                    "matrix that exchanges chiralities. The lift of -I_4 is ± the "
+                    "volume element: the chirality sign. J = i sigma_y K is left "
+                    "multiplication by -j, a ROTATION with det +1; it is antilinear "
+                    "only with respect to the Hopf complex structure L_i and is the "
+                    "linear SU(2) matrix i sigma_y with respect to R_i. No Pin lift "
+                    "is antilinear, so J is not the lift of any gluing map. Its K is "
+                    "the reversal of the Hopf U(1) - charge conjugation, a bundle "
+                    "datum - and its i sigma_y is a spin rotation by pi, neither of "
+                    "which the mouth gluing supplies.")}
+
+
+def check_h6() -> dict:
+    """H6 — the mouth Pin holonomy (docs/mouth_pin_holonomy_prereg.md, P1-P8)."""
+    hol = mt.neck_holonomy()
+    sw = mt.restricted_stiefel_whitney()
+    tw = mt.twisted_tangent_generators()
+    lifts = mt.holonomy_lifts()
+    loop = mt.closed_loop_spin_holonomy()
+    mod = mt.intrinsic_pin2_module()
+    cmp_ = mt.compare_mouth_holonomy_with_transport()
+    counts = mt.pin_structure_counts()
+    p1 = bool(np.allclose(hol["holonomy"], np.diag([-1.0, -1.0, 1.0, -1.0]), atol=1e-9))
+    p2 = sw["ambient_pin_plus_compatible"] and sw["intrinsic_pin_minus"] and not sw["intrinsic_pin_plus"]
+    p3 = tw["generates_quaternions"] and tw["normal_volume_squared"] == -1
+    p4 = lifts["square_in_pin_plus"] == -1 and lifts["square_in_pin_minus"] == 1
+    p5 = loop["spin_holonomy_is_minus_one"] and loop["max_deviation_from_classical_law"] < 1e-6
+    p6 = (not cmp_["vector_level"]["same_O4_class"]
+          and cmp_["intrinsic_level"]["L_minus_j_conjugate_to_L_j_by_spin2"]
+          and cmp_["intrinsic_level"]["fibre_reversing_component_all_order_four"])
+    p7 = mod["holonomy_anticommutes_with_spin2_generator"] and mod["holonomy_commutes_with_right_i"]
+    p8 = not counts["sign_of_holonomy_fixed_by_geometry"]
+    outcome = "B" if (p1 and p2 and p3 and p4 and p5 and p6 and p7 and p8) else (
+        "C" if not (p4 and p6) else "UNDETERMINED")
+    return {"holonomy": hol["holonomy"].tolist(), "det": hol["det"],
+            "stiefel_whitney": sw, "twisted_generators": tw, "lifts": lifts,
+            "closed_loop": loop, "intrinsic_module": mod, "comparison": cmp_,
+            "pin_counts": counts,
+            "P1": p1, "P2": bool(p2), "P3": bool(p3), "P4": bool(p4), "P5": bool(p5),
+            "P6": bool(p6), "P7": bool(p7), "P8": bool(p8),
+            "outcome": outcome, "holds": bool(outcome == "B"),
+            "class": ("topological theorem (P1-P3), analytic identity (P4, P6, P7), "
+                      "numerically converged (P5), chosen (P8)"),
+            "retractions": ["R1: the Pin+/Pin- 'mismatch' is the standard induction "
+                            "of an intrinsic Pin- structure through nu = lambda + lambda",
+                            "R2: J is the Spin(4) lift of the rotation L_{-j}; 'not a "
+                            "lift of any gluing map' was wrong"],
+            "why": ("The deck generator of the neck RP^2 reverses both normals "
+                    "(d_s and the brane normal) and reflects the tangent plane. "
+                    "The ambient Pin+ structure restricts to the neck (w_2(TM|_N) = 0) "
+                    "and induces the intrinsic Pin- one; the twisted tangent "
+                    "generators e_t e_s e_n generate Cl^-(2) = H. The holonomy lift "
+                    "±e_s e_n e_t2 squares to -1 in Pin+ -- the square root of the "
+                    "spin holonomy -1 of a 2 pi tangent rotation around the neck's "
+                    "great circle, computed by unwrapping the angle to 2 pi -- and to "
+                    "+1 in Pin-, which is excluded. In the intrinsic module the "
+                    "holonomy is left multiplication by a unit quaternion of the "
+                    "(i, j) plane: the fibre-reversing component of Pin(2) in SU(2) "
+                    "that contains sigma = L_{-j}, up to a Spin(2) conjugation and a "
+                    "sign. J^2 = -1 is geometric; -j and the sign are not selected.")}
+
+
+def check_h7() -> dict:
+    """H7 — the Hopf bundle as the mouth spin-frame bundle, and Pin- pairing
+    (docs/mouth_spin_frame_prereg.md, T1-T6)."""
+    t1 = sf.frame_map_checks()
+    t2a = sf.fibre_rotates_frame_twice()
+    t2b = sf.levi_civita_versus_hopf_connection()
+    t2c = sf.chern_versus_euler()
+    t3 = sf.deck_lifts_of_antipode()
+    t34 = sf.two_sheeted_involution()
+    t5 = sf.pin_minus_structures_rp2()
+    t6 = sf.pin_bordism_pairing_rule()
+    T1 = t1["double_cover"] and t1["orientation_error"] < 1e-12
+    T2 = t2a["angle_is_2phi"] and t2b["omega_is_minus_twice_A"] and t2c["ratio_is_two"]
+    T3 = (t3["exactly_the_perp_units_cover"] and t3["frame_image_is_dA_times_one_reflection"]
+          and all(t34[e]["A_tilde_squared_is_identity"] for e in ("epsilon=+1", "epsilon=-1")))
+    T4 = t34["number_of_pin_minus_structures"] == 2 and not t34["preferred_by_geometry"]
+    T5 = [r["ABK_mod8"] for r in t5] == [1, 7] and all(r["is_quadratic"] for r in t5)
+    T6 = t6["opposite_sectors_bound"] and t6["equal_sectors_do_not"] and t6["single_mouth_cannot_bound"]
+    if T1 and T2 and T3 and T5 and T6:
+        verdict = "HOPF_IS_MOUTH_SPIN_BUNDLE_AND_PAIRING_FIXES_OPPOSITE_PIN_SECTORS"
+    elif T1 and T2 and T3:
+        verdict = "HOPF_IDENTIFICATION_DERIVED_BUT_PIN_PAIRING_UNSELECTED"
+    else:
+        verdict = "MOUTH_SPIN_GEOMETRY_INCOMPATIBLE_WITH_BAM_HOPF_TRANSPORT"
+    return {"frame_map": t1, "fibre_angle": t2a, "connection": t2b, "chern_euler": t2c,
+            "deck_lifts": t3, "involution": t34, "pin_structures": t5, "bordism": t6,
+            "T1": bool(T1), "T2": bool(T2), "T3": bool(T3), "T4": bool(T4),
+            "T5": bool(T5), "T6": bool(T6),
+            "spin_frame_verdict": verdict, "holds": bool(T1 and T2 and T3 and T4 and T5 and T6),
+            "conditions": ["antipodal quotient construction: P_B = -P_A and quotient over cover",
+                           "pair creation modelled as a Pin- bordism of the mouth surfaces"],
+            "class": ("analytic identity (T1-T3, T5), definition (T4), imported theorem + "
+                      "computed invariants (T6), conditional on the two listed choices"),
+            "why": ("q -> (q^-1 i q, q^-1 j q, q^-1 k q) is Spin(3) -> SO(3) = F_SO(S^2): the "
+                    "bulk mouth S^3 is the spin-frame bundle of the brane mouth S^2, and the "
+                    "repository's Hopf fibre is Spin(2) -- fibre angle phi rotates the frame "
+                    "by 2 phi, the Levi-Civita form is -2A, c_1 = 1 against e = 2. Exactly the "
+                    "unit quaternions perpendicular to the fibre generator cover the antipode "
+                    "(one Spin(2)-conjugacy class, so the direction is gauge), each squares to "
+                    "the central -1, and on the two-sheeted Pin- bundle the involution has two "
+                    "sign choices: the two Pin- structures of RP^2, ABK = +1 and 7. With "
+                    "Omega_2^{Pin-} = Z_8, two mouth necks bound a Pin- worldvolume only in "
+                    "opposite sectors, and a single neck cannot bound at all.")}
+
+
+def audit_table(h: dict) -> list:
+    return [
+        ("Is the physical mouth non-orientable?",
+         "The two-mouth handle with antipodal gluing: NO (bulk w_1 = 0; brane "
+         "S^2-handle and normal bundle twisted). The quotient M/iota: YES "
+         "(RP^4 # RP^4).", "topological theorem"),
+        ("What object carries w_1 != 0?",
+         "On the handle: the brane S^2 x~ S^1 and the brane's normal line bundle "
+         "(eps = -1). On the quotient: the bulk itself and its brane neck RP^2. "
+         "Never the bulk mouth S^3.", "topological theorem"),
+        ("Is J = i sigma_y K a valid lift?",
+         "YES: the Spin(4) lift (-j, 1) of the rotation sigma = L_{-j}; and the "
+         "induced Pin- holonomy of the RP^2 mouth lies in the same fibre-reversing "
+         "component of Pin(2) in SU(2), with the same square -1. Not a lift of iota "
+         "(±e_s) or of -I_4 (± volume). [R2 corrects the first draft]",
+         "analytic identity"),
+        ("Is it unique?",
+         "NO: determined up to Spin(2) = U(1) conjugation (the tangent direction of "
+         "the generator path) and a sign (the Pin structure). Outcome B.",
+         "analytic identity"),
+        ("Where does J^2 = -1 come from?",
+         "From the ambient Pin+ structure and the two twisted normal lines: "
+         "(e_s e_n)^2 = -1, and the holonomy lift squares to the spin holonomy -1 "
+         "of the 2 pi tangent rotation around the neck's great circle. Forced by the "
+         "quotient, not inserted. [R1: the Pin types are not mismatched]",
+         "analytic identity; numerically converged"),
+        ("Is PR #129's antipodal BC derived?",
+         "CONDITIONALLY: it is the eta = +1 sector of the unique free involution, "
+         "given P_B = -P_A (chosen) and the quotient rather than the double cover "
+         "(chosen). Neither choice is forced by the geometry.",
+         "conditional on an unproved physical identification"),
+        ("Does its horizon limit reproduce even/odd BCs?",
+         "There is no limit: the sector labels are lapse-independent and hold at "
+         "the finite ultrastatic neck. Reproduced numerically against the PR #277 "
+         "oracle to " + f"{h['h3']['worst_relative_error']:.1e}" + ", second order.",
+         "numerically converged"),
+        ("Is the Hopf U(1) the mouth's Spin(2)?",
+         "YES, exactly: the bulk mouth S^3 with the brane normal as identity is the "
+         "spin-frame bundle of the brane mouth S^2; fibre angle phi = frame angle "
+         "2 phi; omega_LC = -2 A; c_1 = 1 against e = 2. The identification the "
+         "previous round listed as unproved is standard spin geometry.",
+         "analytic identity"),
+        ("Do the two mouth sectors pair?",
+         "Opposite sectors bound a Pin- worldvolume (ABK 1 + 7 = 0 mod 8); equal "
+         "sectors do not; a single neck cannot. The sign is a conserved pair label, "
+         "not a nuisance parameter -- conditional on modelling pair creation as a "
+         "Pin- bordism of the mouths.",
+         "imported theorem + computed invariants; conditional"),
+        ("Which inputs remain postulates?",
+         "P_B = -P_A; quotient vs cover; eta; the extension in time (P or PT); the "
+         "bordism modelling of pair creation; which of the two sectors is called the "
+         "particle. The U(1) direction is gauge and the Hopf/Spin(2) identification "
+         "is derived; neither remains a postulate.",
+         "definition / chosen"),
+    ]
+
+
+def verdict(h: dict) -> str:
+    forces = False                      # H1: the gluing class is free
+    admits = h["h2"]["holds"] and h["h3"]["holds"] and h["h5"]["holds"]
+    incompatible = not h["h2"]["free"] or not h["h3"]["B2"]
+    if incompatible:
+        return "FINITE_MOUTH_INCOMPATIBLE_WITH_CURRENT_BAM_TRANSPORT"
+    if forces:
+        return "FINITE_MOUTH_FORCES_TRANSPORT_AND_ANTIPODAL_BC"
+    if admits:
+        return "FINITE_MOUTH_ADMITS_BUT_DOES_NOT_SELECT_THE_BAM_LIFT"
+    return "UNDETERMINED"
+
+
+def run_probe() -> dict:
+    h = {"h1": check_h1(), "h2": check_h2(), "h3": check_h3(),
+         "h4": check_h4(), "h5": check_h5(), "h6": check_h6(), "h7": check_h7()}
+    passed = sum(int(v["holds"]) for v in h.values())
+    return {"timestamp": datetime.now(timezone.utc).isoformat(),
+            "prereg": ("docs/finite_mouth_topology_prereg.md @ d9d85bc; "
+                       "docs/mouth_pin_holonomy_prereg.md @ 7f46fff; "
+                       "docs/mouth_spin_frame_prereg.md @ 6bc4306"),
+            "spin_frame_verdict": h["h7"]["spin_frame_verdict"],
+            "checks": h, "passed": passed, "total": len(h),
+            "audit_table": audit_table(h), "verdict": verdict(h),
+            "dependency_ledger": {
+                "antipodal_BC": "BC( P_B=-P_A [chosen], quotient-not-cover [chosen], "
+                                "eta [chosen], iota [derived given P_B=-P_A], "
+                                "(-1)^l [identity], a, R [geometry], P-or-PT [chosen] )",
+                "J": "J( Hopf complex structure on C^2 [chosen], C = U(1) reversal "
+                     "[chosen], -j in SU(2)_L [gauge/convention] )",
+                "mouth holonomy": "H~( iota [derived given P_B=-P_A], nu = lambda+lambda "
+                                  "[derived], Pin+ [derived: w_1^2 != 0 and P5], t2 "
+                                  "[gauge: Spin(2)], sign [chosen: Pin structure] )",
+                "H~ = J": "( H~ [above], Cl^-(2) = H [canonical], H = Hopf C^2 [derived: the "
+                          "Hopf fibre is the mouth Spin(2)], t2 [gauge: Spin(2) conjugacy], "
+                          "sign [chosen: Pin- sector, paired opposite at creation] )",
+                "Hopf = P_Spin(mouth S^2)": "( brane normal <-> 1 in H [geometric], reference "
+                                            "direction i [gauge], orientation class of H "
+                                            "[chosen], Ad_{q^-1}(i, j, k) [definition] )",
+                "opposite sectors": "( Omega_2^{Pin-} = Z_8 [imported], ABK(RP^2, eps) = eps "
+                                    "[computed], pair creation = Pin- bordism [chosen] )",
+                "spinor transport of iota": "±e_s ( Pin type [chosen], sign [chosen], "
+                                            "neck frame [gauge] )",
+                "handle topology": "mapping torus of m ( m in O(4) [chosen]; "
+                                   "(det m_3, eps) [derived from m] )"},
+            "refinement_of_the_trichotomy": (
+                "The trichotomy is well posed; its middle option is sharpened in "
+                "both directions after review. Not selected: the seam gluing of the "
+                "two-mouth handle (antipodal gluing is orientable in the bulk), the "
+                "quotient over the cover, eta, the U(1) direction and the sign of "
+                "the mouth holonomy. Supplied, given the quotient: the neck RP^2 "
+                "has normal bundle lambda + lambda, the ambient Pin+ induces the "
+                "intrinsic Pin- (not a mismatch: R1), and the deck-generator "
+                "holonomy squares to -1 -- the spin holonomy of a 2 pi rotation on "
+                "the round neck -- inside the same component of Pin(2) in SU(2) that "
+                "contains sigma = L_{-j} (which IS the spin lift of a rotation: R2). "
+                "J^2 = -1 is geometric; -j and the sign are not.")}
+
+
+def render_markdown(s: dict) -> str:
+    h = s["checks"]
+    L = [f"# Finite-mouth topology probe — {s['passed']}/{s['total']}", "",
+         f"Pre-registration: `{s['prereg']}`. Verdict: **`{s['verdict']}`**; "
+         f"spin-frame round: **`{s['spin_frame_verdict']}`**", ""]
+    for key, title in (("h1", "H1 — the gluing is free; antipodal gluing is orientable"),
+                       ("h2", "H2 — the unique free involution"),
+                       ("h3", "H3 — the scalar sector and the oracle"),
+                       ("h4", "H4 — no horizon limit; the time-reversal datum"),
+                       ("h5", "H5 — what J is"),
+                       ("h6", "H6 — the mouth Pin holonomy (after review)"),
+                       ("h7", "H7 — the Hopf bundle is the mouth spin-frame bundle; Pin⁻ pairing")):
+        c = h[key]
+        L += [f"## {title}", "", f"**{'HOLDS' if c['holds'] else 'FAILS'}** "
+              f"(*{c['class']}*)", "", "> " + c["why"], ""]
+    L += ["### Gluing classes", "", "| gluing | det m | det m_3 | eps | w_1 on loop |",
+          "|--|--|--|--|--|"]
+    for name, c in h["h1"]["classes"].items():
+        L.append(f"| {name} | `{c['det_bulk']:+d}` | `{c['det_brane']:+d}` | "
+                 f"`{c['eps']:+d}` | `{c['w1_loop']:+d}` |")
+    L += ["", "### Half-tube admittance against the pre-registered targets", "",
+          "| ℓ | condition | target | solve | rel. err |", "|--|--|--|--|--|"]
+    for r in h["h3"]["oracle_rows"]:
+        L.append(f"| {r['ell']} | {r['condition']} | `{r['target']:.9f}` | "
+                 f"`{r['solve']:.9f}` | `{r['relative_error']:.1e}` |")
+    L += ["", "Convergence ratios: " + "; ".join(
+        f"{c['condition']} ℓ={c['ell']}: " + ", ".join(f"`{x:.2f}`" for x in c["ratios"])
+        for c in h["h3"]["convergence"]), ""]
+    L += ["## Audit table", "", "| Question | Result | Evidence class |", "|--|--|--|"]
+    for q, r, e in s["audit_table"]:
+        L.append(f"| {q} | {r} | {e} |")
+    L += ["", "## Dependency ledger", ""]
+    for k, v in s["dependency_ledger"].items():
+        L.append(f"* `{k}` = {v}")
+    L += ["", "## Refinement of the trichotomy", "", s["refinement_of_the_trichotomy"], ""]
+    return "\n".join(L)
+
+
+def main() -> int:
+    summary = run_probe()
+    text = render_markdown(summary)
+    print(text)
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    outdir = os.path.join(os.path.dirname(__file__), "runs",
+                          f"{stamp}_finite_mouth_topology_probe")
+    os.makedirs(outdir, exist_ok=True)
+    with open(os.path.join(outdir, "probe.json"), "w") as handle:
+        json.dump(summary, handle, indent=2, default=lambda o: o.tolist()
+                  if isinstance(o, np.ndarray) else (float(o) if isinstance(o, np.floating) else str(o)))
+    with open(os.path.join(outdir, "probe.md"), "w") as handle:
+        handle.write(text)
+    print(f"\n\nWrote: {os.path.join(outdir, 'probe.json')}")
+    return 0 if summary["passed"] == summary["total"] else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

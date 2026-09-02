@@ -1,0 +1,671 @@
+{
+  "timestamp": "2026-09-02T03:07:13.245573+00:00",
+  "prereg": "docs/finite_mouth_topology_prereg.md @ d9d85bc; docs/mouth_pin_holonomy_prereg.md @ 7f46fff",
+  "checks": {
+    "h1": {
+      "classes": {
+        "identity": {
+          "det_bulk": 1,
+          "det_brane": 1,
+          "eps": 1,
+          "label": "(det m_3, eps) = (+, +)",
+          "w1_loop": 1
+        },
+        "antipodal": {
+          "det_bulk": 1,
+          "det_brane": -1,
+          "eps": -1,
+          "label": "(det m_3, eps) = (-, -)",
+          "w1_loop": 1
+        },
+        "reflection (normal)": {
+          "det_bulk": -1,
+          "det_brane": 1,
+          "eps": -1,
+          "label": "(det m_3, eps) = (+, -)",
+          "w1_loop": -1
+        },
+        "reflection (brane)": {
+          "det_bulk": -1,
+          "det_brane": -1,
+          "eps": 1,
+          "label": "(det m_3, eps) = (-, +)",
+          "w1_loop": -1
+        }
+      },
+      "harmonic_action_of_antipode": [
+        {
+          "ell": 0,
+          "dim": 1,
+          "expected": 1,
+          "scalar": 1.0000000000000002,
+          "residual": 2.220446049250313e-16
+        },
+        {
+          "ell": 1,
+          "dim": 4,
+          "expected": 4,
+          "scalar": -0.9999999999999999,
+          "residual": 1.0547118733938987e-15
+        },
+        {
+          "ell": 2,
+          "dim": 9,
+          "expected": 9,
+          "scalar": 1.0000000000000004,
+          "residual": 5.828670879282072e-16
+        },
+        {
+          "ell": 3,
+          "dim": 16,
+          "expected": 16,
+          "scalar": -1.0000000000000002,
+          "residual": 4.440892098500626e-16
+        },
+        {
+          "ell": 4,
+          "dim": 25,
+          "expected": 25,
+          "scalar": 0.9999999999999991,
+          "residual": 2.7755575615628914e-16
+        }
+      ],
+      "reflection_is_scalar_on_l2": false,
+      "T2_antipodal_gluing_orientable": true,
+      "T3_four_classes_and_antipodal_is_minus_minus": true,
+      "T4_parity_computed_not_assumed": true,
+      "holds": true,
+      "class": "topological theorem",
+      "why": "Darmois matching is O(4)-invariant, so the seam maps are free and only the loop monodromy m matters. det(-I_4) = +1: the antipodally glued two-mouth handle is ORIENTABLE in the bulk; what it twists is the brane S^2-handle and the brane's normal line bundle. The (-1)^l is the computed action of -I on degree-l harmonics; a reflection does not act as a scalar at all."
+    },
+    "h2": {
+      "involution": "antipodal iota: (s, Omega) -> (-s, -Omega)",
+      "free": true,
+      "det_bulk": -1,
+      "det_brane_slice": 1,
+      "isometry_ultrastatic": true,
+      "isometry_tangherlini": true,
+      "free_classes_in_O5": [
+        5
+      ],
+      "o5_table": [
+        {
+          "minus_ones": 0,
+          "free_on_S4": false,
+          "swaps_antipodal_centres": false,
+          "det": 1
+        },
+        {
+          "minus_ones": 1,
+          "free_on_S4": false,
+          "swaps_antipodal_centres": true,
+          "det": -1
+        },
+        {
+          "minus_ones": 2,
+          "free_on_S4": false,
+          "swaps_antipodal_centres": true,
+          "det": 1
+        },
+        {
+          "minus_ones": 3,
+          "free_on_S4": false,
+          "swaps_antipodal_centres": true,
+          "det": -1
+        },
+        {
+          "minus_ones": 4,
+          "free_on_S4": false,
+          "swaps_antipodal_centres": true,
+          "det": 1
+        },
+        {
+          "minus_ones": 5,
+          "free_on_S4": true,
+          "swaps_antipodal_centres": true,
+          "det": -1
+        }
+      ],
+      "pin_types": {
+        "2": {
+          "n": 2,
+          "orientable": false,
+          "spin": false,
+          "pin_plus": false,
+          "pin_minus": true
+        },
+        "3": {
+          "n": 3,
+          "orientable": true,
+          "spin": true,
+          "pin_plus": true,
+          "pin_minus": true
+        },
+        "4": {
+          "n": 4,
+          "orientable": false,
+          "spin": false,
+          "pin_plus": true,
+          "pin_minus": false
+        }
+      },
+      "quotient": {
+        "bulk": "RP^4 # RP^4 (non-orientable; Pin+ only)",
+        "brane_slice": "RP^3 # RP^3 (orientable, spin)",
+        "neck": "RP^3 (orientable, spin)",
+        "brane_neck": "RP^2 (non-orientable; Pin- only)"
+      },
+      "I1": true,
+      "I2": true,
+      "I3": true,
+      "holds": true,
+      "class": "topological theorem, conditional on P_B = -P_A (chosen)",
+      "why": "-I_5 is the only fixed-point-free involution in O(5), and through the tube it continues uniquely as (s, Omega) -> (-s, -Omega). That map is free, an isometry for both lapses, and reverses the bulk orientation while preserving the brane slice's. The non-orientable object is the QUOTIENT M/iota = RP^4 # RP^4, not the two-mouth handle; the RP^2 the repository names is its brane neck. And the Pin types do not match: RP^4 # RP^4 is Pin+ only, RP^2 is Pin- only."
+    },
+    "h3": {
+      "sectors": {
+        "eta=+1": [
+          "Neumann",
+          "Dirichlet",
+          "Neumann",
+          "Dirichlet",
+          "Neumann",
+          "Dirichlet"
+        ],
+        "eta=-1": [
+          "Dirichlet",
+          "Neumann",
+          "Dirichlet",
+          "Neumann",
+          "Dirichlet",
+          "Neumann"
+        ]
+      },
+      "oracle_rows": [
+        {
+          "ell": 0,
+          "condition": "Neumann",
+          "target": 0.0,
+          "oracle": 0.0,
+          "solve": 0.0,
+          "relative_error": 0.0,
+          "pr277_eigenvalue": -1.8041124150158794e-16,
+          "oracle_matches_target": true,
+          "oracle_is_pr277_sector": "True"
+        },
+        {
+          "ell": 0,
+          "condition": "Dirichlet",
+          "target": 0.157587622,
+          "oracle": 0.15758762208948837,
+          "solve": 0.15758762168147644,
+          "relative_error": 4.0801192979778023e-10,
+          "pr277_eigenvalue": 0.15758762208948818,
+          "oracle_matches_target": true,
+          "oracle_is_pr277_sector": "True"
+        },
+        {
+          "ell": 1,
+          "condition": "Neumann",
+          "target": 1.797266559,
+          "oracle": 1.7972665588484693,
+          "solve": 1.7972667979914383,
+          "relative_error": 1.3305926592001842e-07,
+          "pr277_eigenvalue": 1.7972665588484693,
+          "oracle_matches_target": true,
+          "oracle_is_pr277_sector": "True"
+        },
+        {
+          "ell": 1,
+          "condition": "Dirichlet",
+          "target": 1.804461992,
+          "oracle": 1.804461991584573,
+          "solve": 1.8044622399070571,
+          "relative_error": 1.3761580198922243e-07,
+          "pr277_eigenvalue": 1.8044619915845734,
+          "oracle_matches_target": true,
+          "oracle_is_pr277_sector": "True"
+        },
+        {
+          "ell": 2,
+          "condition": "Neumann",
+          "target": 3.524607516,
+          "oracle": 3.5246075156417827,
+          "solve": 3.5246084986257067,
+          "relative_error": 2.7889174033525685e-07,
+          "pr277_eigenvalue": 3.524607515641782,
+          "oracle_matches_target": true,
+          "oracle_is_pr277_sector": "True"
+        },
+        {
+          "ell": 2,
+          "condition": "Dirichlet",
+          "target": 3.524854051,
+          "oracle": 3.5248540511122255,
+          "solve": 3.524855035358971,
+          "relative_error": 2.792304961189807e-07,
+          "pr277_eigenvalue": 3.524854051112226,
+          "oracle_matches_target": true,
+          "oracle_is_pr277_sector": "True"
+        },
+        {
+          "ell": 3,
+          "condition": "Neumann",
+          "target": 5.248595411,
+          "oracle": 5.248595411491788,
+          "solve": 5.248597925998922,
+          "relative_error": 4.790819137174247e-07,
+          "pr277_eigenvalue": 5.248595411491789,
+          "oracle_matches_target": true,
+          "oracle_is_pr277_sector": "True"
+        },
+        {
+          "ell": 3,
+          "condition": "Dirichlet",
+          "target": 5.24860292,
+          "oracle": 5.248602919928128,
+          "solve": 5.2486054345290505,
+          "relative_error": 4.790990975154242e-07,
+          "pr277_eigenvalue": 5.248602919928129,
+          "oracle_matches_target": true,
+          "oracle_is_pr277_sector": "True"
+        }
+      ],
+      "worst_relative_error": 4.790990975154242e-07,
+      "convergence": [
+        {
+          "condition": "Neumann",
+          "ell": 2,
+          "errors": [
+            1.5727883969862688e-05,
+            3.931973674209388e-06,
+            9.829839240360627e-07,
+            2.4576758894667705e-07
+          ],
+          "ratios": [
+            3.999997271859948,
+            4.000038635489562,
+            3.999648319166022
+          ]
+        },
+        {
+          "condition": "Dirichlet",
+          "ell": 1,
+          "errors": [
+            3.973360271691817e-06,
+            9.933474665047015e-07,
+            2.4832248413098057e-07,
+            6.20818203511675e-08
+          ],
+          "ratios": [
+            3.9999702074772556,
+            4.0002316744735404,
+            3.999922726594319
+          ]
+        }
+      ],
+      "antipodal_control_free": false,
+      "antipodal_control_labels": [
+        "Neumann",
+        "Neumann",
+        "Neumann",
+        "Neumann",
+        "Neumann",
+        "Neumann"
+      ],
+      "geometry_control": [
+        {
+          "a": 0.05,
+          "labels": [
+            "Neumann",
+            "Dirichlet",
+            "Neumann",
+            "Dirichlet"
+          ],
+          "Y1_D": 0.04936861026660757
+        },
+        {
+          "a": 0.3,
+          "labels": [
+            "Neumann",
+            "Dirichlet",
+            "Neumann",
+            "Dirichlet"
+          ],
+          "Y1_D": 1.804461991584573
+        },
+        {
+          "a": 0.8,
+          "labels": [
+            "Neumann",
+            "Dirichlet",
+            "Neumann",
+            "Dirichlet"
+          ],
+          "Y1_D": 14.579724866467865
+        },
+        {
+          "a": 1.2,
+          "labels": [
+            "Neumann",
+            "Dirichlet",
+            "Neumann",
+            "Dirichlet"
+          ],
+          "Y1_D": 47.321710242121235
+        }
+      ],
+      "B1": true,
+      "B2": true,
+      "B3": true,
+      "B4": true,
+      "holds": true,
+      "class": "analytic identity, conditional on H2's choices and on eta",
+      "why": "On M/iota a scalar obeys psi_l(-s) = eta (-1)^l psi_l(s), so the neck is Neumann or Dirichlet by the parity of l. PR #129's even/odd structure is the eta = +1 sector, obtained at the finite ultrastatic neck with no horizon. The half-tube admittance is the (1, \u00b11) sector of PR #277's two-mouth oracle, reproduced by an independent second-order solve. Replacing the antipode by the identity fixes the whole neck and erases the grading."
+    },
+    "h4": {
+      "parity_commutator_residuals": {
+        "lapse_ultrastatic": 2.1827872842550278e-11,
+        "lapse_vacuum": 2.9103830456733704e-11
+      },
+      "L1": true,
+      "L2": {
+        "pr129_map_det_UV": 1.0,
+        "pr129_map_reverses_time_orientation": true,
+        "alternative_reflection_det_UV": -1.0,
+        "alternative_preserves_time_orientation": true,
+        "both_restrict_to_iota_on_t_equals_0": true,
+        "five_d_det_pr129": 1.0,
+        "five_d_det_alternative": -1.0
+      },
+      "holds": true,
+      "class": "analytic identity",
+      "why": "f and both lapses are even in s, so the static operator commutes with s -> -s for the ultrastatic and Tangherlini branches alike: the sector labels are lapse-independent and there is no limit to take. PR #129's (U,V) -> (-U,-V) is the PT-type extension of iota (5D det +1, time orientation reversed); the P-type extension (U,V) -> (V,U) exists too (5D det -1, time orientation kept). Both restrict to iota on the t = 0 slice. Which one is physical is a further choice, recorded as the datum T."
+    },
+    "h5": {
+      "J": {
+        "J_equals_left_mult_by_minus_j": true,
+        "det_J": 1.0,
+        "J_squared_is_minus_identity": true,
+        "anticommutes_with_L_i": true,
+        "commutes_with_L_i": false,
+        "commutes_with_R_i": true,
+        "linear_matrix_in_R_i_basis": [
+          [
+            "0j",
+            "(1+0j)"
+          ],
+          [
+            "(-1+0j)",
+            "0j"
+          ]
+        ],
+        "hopf_base_antipode": true
+      },
+      "reflection_lifts": {
+        "lifts": [
+          {
+            "pin_type": "Pin+",
+            "sign": 1,
+            "square": 1,
+            "anticommutes_with_volume": true,
+            "is_real_matrix": true
+          },
+          {
+            "pin_type": "Pin+",
+            "sign": -1,
+            "square": 1,
+            "anticommutes_with_volume": true,
+            "is_real_matrix": true
+          },
+          {
+            "pin_type": "Pin-",
+            "sign": 1,
+            "square": -1,
+            "anticommutes_with_volume": true,
+            "is_real_matrix": true
+          },
+          {
+            "pin_type": "Pin-",
+            "sign": -1,
+            "square": -1,
+            "anticommutes_with_volume": true,
+            "is_real_matrix": true
+          }
+        ],
+        "lifts_within_a_type_are_distinct": true,
+        "count": 4
+      },
+      "antipode_lifts": {
+        "lifts": [
+          {
+            "sign": 1,
+            "square_is_identity": true
+          },
+          {
+            "sign": -1,
+            "square_is_identity": true
+          }
+        ],
+        "commutes_with_all_generators": false,
+        "anticommutes_with_generators": true,
+        "eigenvalues": [
+          -1.0,
+          1.0
+        ]
+      },
+      "S1": true,
+      "S2": true,
+      "S3": true,
+      "S4": true,
+      "holds": true,
+      "class": "analytic identity (S2, S3); representation choice (the K)",
+      "why": "The lift of the neck reflection is \u00b1e_s in Pin^\u00b1(4): a real matrix that exchanges chiralities. The lift of -I_4 is \u00b1 the volume element: the chirality sign. J = i sigma_y K is left multiplication by -j, a ROTATION with det +1; it is antilinear only with respect to the Hopf complex structure L_i and is the linear SU(2) matrix i sigma_y with respect to R_i. No Pin lift is antilinear, so J is not the lift of any gluing map. Its K is the reversal of the Hopf U(1) - charge conjugation, a bundle datum - and its i sigma_y is a spin rotation by pi, neither of which the mouth gluing supplies."
+    },
+    "h6": {
+      "holonomy": [
+        [
+          -1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.9999999999998723,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "det": -0.9999999999998723,
+      "stiefel_whitney": {
+        "w_nu": [
+          1,
+          0,
+          1
+        ],
+        "w_TN": [
+          1,
+          1,
+          1
+        ],
+        "w_TM_restricted": [
+          1,
+          1,
+          0
+        ],
+        "w2_TM_restricted": 0,
+        "ambient_pin_plus_compatible": true,
+        "w1_TN": 1,
+        "w2_TN": 1,
+        "w1_TN_squared": 1,
+        "intrinsic_pin_minus": true,
+        "intrinsic_pin_plus": false
+      },
+      "twisted_generators": {
+        "normal_volume_squared": -1,
+        "twisted_t1_squared": -1,
+        "twisted_t2_squared": -1,
+        "twisted_anticommute": true,
+        "twisted_product_squared": -1,
+        "generates_quaternions": true
+      },
+      "lifts": {
+        "lifts": [
+          {
+            "pin_type": "Pin+",
+            "square": -1,
+            "odd_anticommutes_with_volume": true,
+            "equals_twisted_t2": true,
+            "normal_part_squared": -1
+          },
+          {
+            "pin_type": "Pin-",
+            "square": 1,
+            "odd_anticommutes_with_volume": true,
+            "equals_twisted_t2": true,
+            "normal_part_squared": -1
+          }
+        ],
+        "square_in_pin_plus": -1,
+        "square_in_pin_minus": 1
+      },
+      "closed_loop": {
+        "equator_rotation_angle": 6.283185307179586,
+        "expected_2pi": 6.283185307179586,
+        "max_deviation_from_classical_law": 2.6200375202733994e-11,
+        "spin_lift_at_equator": -1.0,
+        "spin_holonomy_is_minus_one": true
+      },
+      "intrinsic_module": {
+        "holonomy_is_L_j": true,
+        "holonomy_squared_minus_identity": true,
+        "spin2_generator_is_L_k": true,
+        "holonomy_anticommutes_with_spin2_generator": true,
+        "holonomy_commutes_with_right_i": true,
+        "pin2_is_normaliser_of_spin2": true
+      },
+      "comparison": {
+        "vector_level": {
+          "det_H": -0.9999999999998723,
+          "det_sigma": 1.0,
+          "eig_H": [
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0
+          ],
+          "eig_sigma_imag": [
+            -1.0,
+            -1.0,
+            1.0,
+            1.0
+          ],
+          "same_O4_class": false
+        },
+        "ambient_spinor_level": {
+          "holonomy_lift_parity": "odd (three generators)",
+          "sigma_lift_parity": "even (Spin(4), (-j, 1))",
+          "conjugate_in_Pin4": false
+        },
+        "intrinsic_level": {
+          "L_minus_j_conjugate_to_L_j_by_spin2": true,
+          "conjugating_angle": 1.5707963267948966,
+          "also_equal_up_to_sign": true,
+          "fibre_reversing_component_all_order_four": true,
+          "unfixed_data": "U(1) direction in the (i, j) plane, and the sign"
+        },
+        "outcome": "B"
+      },
+      "pin_counts": {
+        "RP2_pin_minus_structures": 2,
+        "RP4_connected_sum_pin_plus_structures": 4,
+        "S3xS1_spin_structures": 2,
+        "sign_of_holonomy_fixed_by_geometry": false,
+        "what_it_is_in_the_repository": "embedding.topology.ThroatDefect.wrap_parity"
+      },
+      "P1": true,
+      "P2": true,
+      "P3": true,
+      "P4": true,
+      "P5": true,
+      "P6": true,
+      "P7": true,
+      "P8": true,
+      "outcome": "B",
+      "holds": true,
+      "class": "topological theorem (P1-P3), analytic identity (P4, P6, P7), numerically converged (P5), chosen (P8)",
+      "retractions": [
+        "R1: the Pin+/Pin- 'mismatch' is the standard induction of an intrinsic Pin- structure through nu = lambda + lambda",
+        "R2: J is the Spin(4) lift of the rotation L_{-j}; 'not a lift of any gluing map' was wrong"
+      ],
+      "why": "The deck generator of the neck RP^2 reverses both normals (d_s and the brane normal) and reflects the tangent plane. The ambient Pin+ structure restricts to the neck (w_2(TM|_N) = 0) and induces the intrinsic Pin- one; the twisted tangent generators e_t e_s e_n generate Cl^-(2) = H. The holonomy lift \u00b1e_s e_n e_t2 squares to -1 in Pin+ -- the square root of the spin holonomy -1 of a 2 pi tangent rotation around the neck's great circle, computed by unwrapping the angle to 2 pi -- and to +1 in Pin-, which is excluded. In the intrinsic module the holonomy is left multiplication by a unit quaternion of the (i, j) plane: the fibre-reversing component of Pin(2) in SU(2) that contains sigma = L_{-j}, up to a Spin(2) conjugation and a sign. J^2 = -1 is geometric; -j and the sign are not selected."
+    }
+  },
+  "passed": 6,
+  "total": 6,
+  "audit_table": [
+    [
+      "Is the physical mouth non-orientable?",
+      "The two-mouth handle with antipodal gluing: NO (bulk w_1 = 0; brane S^2-handle and normal bundle twisted). The quotient M/iota: YES (RP^4 # RP^4).",
+      "topological theorem"
+    ],
+    [
+      "What object carries w_1 != 0?",
+      "On the handle: the brane S^2 x~ S^1 and the brane's normal line bundle (eps = -1). On the quotient: the bulk itself and its brane neck RP^2. Never the bulk mouth S^3.",
+      "topological theorem"
+    ],
+    [
+      "Is J = i sigma_y K a valid lift?",
+      "YES: the Spin(4) lift (-j, 1) of the rotation sigma = L_{-j}; and the induced Pin- holonomy of the RP^2 mouth lies in the same fibre-reversing component of Pin(2) in SU(2), with the same square -1. Not a lift of iota (\u00b1e_s) or of -I_4 (\u00b1 volume). [R2 corrects the first draft]",
+      "analytic identity"
+    ],
+    [
+      "Is it unique?",
+      "NO: determined up to Spin(2) = U(1) conjugation (the tangent direction of the generator path) and a sign (the Pin structure). Outcome B.",
+      "analytic identity"
+    ],
+    [
+      "Where does J^2 = -1 come from?",
+      "From the ambient Pin+ structure and the two twisted normal lines: (e_s e_n)^2 = -1, and the holonomy lift squares to the spin holonomy -1 of the 2 pi tangent rotation around the neck's great circle. Forced by the quotient, not inserted. [R1: the Pin types are not mismatched]",
+      "analytic identity; numerically converged"
+    ],
+    [
+      "Is PR #129's antipodal BC derived?",
+      "CONDITIONALLY: it is the eta = +1 sector of the unique free involution, given P_B = -P_A (chosen) and the quotient rather than the double cover (chosen). Neither choice is forced by the geometry.",
+      "conditional on an unproved physical identification"
+    ],
+    [
+      "Does its horizon limit reproduce even/odd BCs?",
+      "There is no limit: the sector labels are lapse-independent and hold at the finite ultrastatic neck. Reproduced numerically against the PR #277 oracle to 4.8e-07, second order.",
+      "numerically converged"
+    ],
+    [
+      "Which inputs remain postulates?",
+      "P_B = -P_A; quotient vs cover; eta; the extension in time (P or PT); the identification of the Hopf fibre phase with the mouth's Spin(2) rotation; the U(1) direction and the sign of the mouth holonomy. The Pin type is no longer a postulate (Pin+ ambient, Pin- intrinsic, both forced).",
+      "definition / chosen"
+    ]
+  ],
+  "verdict": "FINITE_MOUTH_ADMITS_BUT_DOES_NOT_SELECT_THE_BAM_LIFT",
+  "dependency_ledger": {
+    "antipodal_BC": "BC( P_B=-P_A [chosen], quotient-not-cover [chosen], eta [chosen], iota [derived given P_B=-P_A], (-1)^l [identity], a, R [geometry], P-or-PT [chosen] )",
+    "J": "J( Hopf complex structure on C^2 [chosen], C = U(1) reversal [chosen], -j in SU(2)_L [gauge/convention] )",
+    "mouth holonomy": "H~( iota [derived given P_B=-P_A], nu = lambda+lambda [derived], Pin+ [derived: w_1^2 != 0 and P5], t2 [gauge: Spin(2)], sign [chosen: Pin structure] )",
+    "H~ = J": "( H~ [above], Cl^-(2) = H [canonical], H = Hopf C^2 [chosen complex structure], t2 = -j [chosen within U(1)], sign [chosen] )",
+    "spinor transport of iota": "\u00b1e_s ( Pin type [chosen], sign [chosen], neck frame [gauge] )",
+    "handle topology": "mapping torus of m ( m in O(4) [chosen]; (det m_3, eps) [derived from m] )"
+  },
+  "refinement_of_the_trichotomy": "The trichotomy is well posed; its middle option is sharpened in both directions after review. Not selected: the seam gluing of the two-mouth handle (antipodal gluing is orientable in the bulk), the quotient over the cover, eta, the U(1) direction and the sign of the mouth holonomy. Supplied, given the quotient: the neck RP^2 has normal bundle lambda + lambda, the ambient Pin+ induces the intrinsic Pin- (not a mismatch: R1), and the deck-generator holonomy squares to -1 -- the spin holonomy of a 2 pi rotation on the round neck -- inside the same component of Pin(2) in SU(2) that contains sigma = L_{-j} (which IS the spin lift of a rotation: R2). J^2 = -1 is geometric; -j and the sign are not."
+}
