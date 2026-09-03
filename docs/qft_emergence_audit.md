@@ -77,18 +77,22 @@ named inputs plus composition.
    common basepoint compose additively in `θ`, so `e^{iθ}` is a genuine
    holonomy carrying the branch sign but has **no critical points**, while
    `S_H` has the critical set and is **not additive**, so `e^{iκS_H}` is not
-   the holonomy of any connection and `κ` is free. `A_π/A_0 = e^{2iκ}e^{∓iπ/2}`
-   has magnitude `1` for every real `κ`, so the fork is purely a phase
-   question; `κ = 1` selects neither branch. With the correct Morse–Bott
-   masses, `A_π/A_0 = (M_π/M_0)e^{2iκ}e^{∓iπ/2}`, and since
+   the holonomy of any connection and `κ` is free. With the Morse–Bott
+   component masses, `A_π/A_0 = (M_π/M_0)e^{2iκ}e^{∓iπ/2}` — only the *phase
+   factor* has unit modulus, the masses being generically unequal — and since
    `(M_0 ∓ M_π)|u×v|` are exactly `∫_Γ D dσ` and `∫_Γ|D| dσ`, stationary phase
    reproduces **both** candidate aggregations and leaves only their relative
-   phase open. Separately: the fixed-setting symmetry group has two sector
-   orbits except at `γ = π/2`, so `r` is free at every CHSH angle; every
-   *existing* classical observable is degree-2 homogeneous, but none is a
-   derived detector coupling and two ordinary quadratics disagree
-   (`8√2/3 = 3.7712` for the square of the integral, `3.3941` for the integral
-   of the square), so no readout is named; and **operational no-signalling to
+   phase open; `κ = 1` selects neither branch. This holds for the round-5
+   Haar/uniform source measure (`a = 1`): a non-constant in-plane amplitude
+   moves both masses, and it is stationary phase over the two-parameter family
+   of geodesic triangles, not over BAM's full history space. Separately: the fixed-setting symmetry group has two sector
+   orbits except at `γ = π/2`, so `r` is free at every CHSH angle — and the
+   other identified discrete operations (detector exchange, history reversal,
+   the Pin deck) all preserve `s_A s_B`, though that is an enumeration and not
+   a classification; all six *audited* stress and flux quantities are degree-2
+   homogeneous, but none is a derived detector coupling and two ordinary
+   quadratics disagree (`8√2/3 = 3.7712` for the square of the integral,
+   `12√2/5 = 3.3941` for the integral of the square), so no readout is named; and **operational no-signalling to
    the past is now unproved in both directions** — the conditioned source
    density is exactly antipodally even, so odd observables are blind, *some*
    even ones separate the ensembles, and non-coplanar settings give mutually
@@ -566,15 +570,17 @@ recorded in the historical list below rather than here.*
    gives the coarea masses (`−cos θ`) is not additive, and the additive one
    (`θ`) has no critical points anywhere, so `κ` in `e^{iκS_H}` is a free
    normalisation — a fourth underived input, not a route to the first. The
-   Morse–Bott masses do reproduce both candidate aggregations exactly, which
+   Morse–Bott masses do reproduce both candidate aggregations exactly — for
+   the round-5 Haar measure, on the two-parameter triangle family — which
    isolates the open element as their relative phase alone. Scoped: this closes
    real class functions of the holonomy, not classical actions in general.*
 2. **The relative sector coefficients.** Derive `π_like = π_unlike` from a
    symmetry or chain argument rather than adopting the counting measure. It
    moves the correlation on both branches and the quantum law appears only at
    `r = 1`; no-signalling does not constrain it.
-   *Round 7: the full fixed-setting isometry group has order 4 and two sector
-   orbits at every angle except `γ = π/2`, where it is order 8 and transitive.
+   *Round 7: the fixed-setting **base-isometry** group has order 4 and two
+   sector orbits at every angle except `γ = π/2`, where it is order 8 and
+   transitive.
    `r = 1` is forced there and nowhere else — and `π/2` is not a CHSH angle.
    Fibre symmetries cannot help; the sector weights are fibre-blind.*
 3. **The readout.** Derive why observed frequencies would be linear in the

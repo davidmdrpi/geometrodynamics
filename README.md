@@ -4919,26 +4919,39 @@ positive coarea masses of the two arcs, generically unequal
 (`M_0 = 11.6708`, `M_π = 0.1695`). They satisfy, to residual `0.0`,
 `(M_0 ∓ M_π)|u×v| = ∫_Γ D dσ` and `∫_Γ |D| dσ` — so **stationary phase
 reproduces both candidate aggregations exactly and leaves only their relative
-phase open**. That phase is real only when `4κ/π` is an odd integer
+phase open**. Two qualifications: this holds for `a = 1`, i.e. conditional on
+round 5's inherited Haar measure (a non-constant in-plane amplitude moves both
+masses — `1 + 0.5 x·u` takes the oriented sum from `9.6780` to `12.0975`), and
+it is stationary phase over the two-parameter family of geodesic triangles, not
+BAM's full history space. The punctures where `S_H` is singular carry no mass:
+the excised disc is `O(ε²)`, `sin γ · ε²/|u×v|` two-sided, so the coefficients
+are genuine rather than formal. That phase is real only when `4κ/π` is an odd integer
 (convention-independent), alternates with `κ` mod `π`, and at `κ = 1` gives
 **neither** branch. Control: every `F(cos θ)` with `F' ≠ 0` shares the same
 critical set, so critical-set agreement is not evidence of selection.
-**B — `LIKE_UNLIKE_SECTOR_RATIO_REMAINS_FREE`.** Orthogonality forces
-`a·b = ε_Aε_B(a·b)`, so at non-orthogonal settings the fixed-setting group has
-order 4 and two sector orbits `{++,−−}`, `{+−,−+}`. `r = 1` is forced *only* at
-`γ = π/2`, which is not a CHSH angle; fibre symmetries cannot help, the
-weights being fibre-blind.
+**B — `NO_IDENTIFIED_SYMMETRY_FORCES_EQUAL_SECTOR_MEASURE`.** Orthogonality
+forces `a·b = ε_Aε_B(a·b)`, so at non-orthogonal settings the **base-isometry**
+group has order 4 and two sector orbits `{++,−−}`, `{+−,−+}`. `r = 1` is forced
+*only* at `γ = π/2`, which is not a CHSH angle; fibre symmetries cannot help,
+the weights being fibre-blind. The other identified discrete operations —
+detector-label exchange, history reversal (`D` is symmetric in `u,w`), the Pin
+deck — all preserve `s_A s_B` to `0.0`. That is an enumeration over the
+operations the model has, **not** a classification of every discrete symmetry,
+hence *no identified symmetry* rather than *no symmetry*.
 **C — `NO_BAM_DETECTOR_COUPLING_CURRENTLY_DEFINES_THE_READOUT`.** Measured
 under `φ ↦ cφ`, all five null stresses of `source_audit.py` and the conserved
-mouth current `Im(q*Aq)` have degree exactly `2.000000`; none is linear. But
-those are stress tensors and a conserved flux, not detector models, and
+mouth current `Im(q*Aq)` have degree exactly `2.000000`; none is linear —
+six audited quantities, not every observable in the repository, and the
+perfect-fluid row scales `u·k` rather than a field amplitude. Those are stress
+tensors and a conserved flux, not detector models, and
 degree-2 homogeneity names no law: squaring the integral gives
 `E = −2cos γ/(1+cos²γ)`, `S_max = 8√2/3 = 3.7712`, while squaring locally and
 integrating gives — from the exact `⟨D_s²⟩ = (1+c_s)(2+c_s)` —
-`E = −3cos γ/(2+cos²γ)`, `S_max = 3.3941`. Both keep marginals at `1/2`; both
-exceed Tsirelson; **they disagree**. The surviving finding is that every
-existing matter or flux observable is quadratic in field amplitude and none
-supplies the linear history-current readout the oriented branch needs.
+`E = −3cos γ/(2+cos²γ)`, `S_max = 12√2/5 = 3.3941`. Both keep marginals at
+`1/2`; both exceed Tsirelson; **they disagree**. The surviving finding, in its
+narrow form: all six audited stress and flux quantities are degree-2
+homogeneous and none supplies the linear history-current readout the oriented
+branch needs.
 **D — `HISTORY_ACTION_INDEPENDENTLY_POSTULATED`.** `closed_orbit_action` is a
 genuine one-form integral (independently integrated legs `0.9924 + 0.7358`,
 additive to `2.0e-8`); the angular term of any such construction is `∮A = θ`,

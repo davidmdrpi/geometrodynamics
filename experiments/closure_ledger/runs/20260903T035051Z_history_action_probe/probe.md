@@ -1,11 +1,11 @@
 # Round 7 — does a classical BAM action select the oriented branch?
 
-**21/21 checks pass.**
+**24/24 checks pass.**
 
 ## Five independent verdicts
 
 * **A_action** — `HOLONOMY_TRACE_IS_A_STATIONARY_FUNCTIONAL_NOT_A_DERIVED_ACTION`
-* **B_sectors** — `LIKE_UNLIKE_SECTOR_RATIO_REMAINS_FREE`
+* **B_sectors** — `NO_IDENTIFIED_SYMMETRY_FORCES_EQUAL_SECTOR_MEASURE`
 * **C_readout** — `NO_BAM_DETECTOR_COUPLING_CURRENTLY_DEFINES_THE_READOUT`
 * **D_compatibility** — `HISTORY_ACTION_INDEPENDENTLY_POSTULATED`
 * **E_causality** — `SETTING_INFORMATION_IS_PRESENT_AT_SOURCE_READOUT_DYNAMICS_OPEN`
@@ -21,10 +21,13 @@
 * PASS  A3     Crit(S_H) = Gamma: no critical points OFF closure either
 * PASS  F1     component masses are unequal; only the PHASE is undetermined
 * PASS  F1b    the masses reproduce BOTH candidate aggregations exactly
+* PASS  F1c    ...but CONDITIONAL on the round-5 Haar amplitude a = 1
+* PASS  F1d    the singular punctures carry no mass: excised disc is O(eps^2)
 * PASS  F2     phase factor real iff 4kappa/pi odd
 * PASS  B1     two sector orbits at every angle but pi/2
 * PASS  B2     r not forced at any CHSH angle
 * PASS  B3     fibre symmetries cannot change sector weights
+* PASS  B4     no IDENTIFIED discrete operation mixes like and unlike
 * PASS  C1     every existing BAM observable is degree 2
 * PASS  C2     but two ordinary quadratics disagree: no readout is named
 * PASS  C3     <D_s^2> = (1+c)(2+c) closed form
@@ -48,6 +51,8 @@
 
 * component masses `M_0 = 11.670806`, `M_pi = 0.169512`, ratio `0.014524` — **not** 1
 * `(M_0 - M_pi)|uxv| = int D` (residual `1.8e-15`) and `(M_0 + M_pi)|uxv| = int |D|` (residual `0.0e+00`): stationary phase supplies both candidate magnitudes; only the relative phase is open
+* conditional on the round-5 Haar amplitude `a = 1`: `1 + 0.5 x.u` moves the oriented sum to `12.0975` from `9.6780`
+* the singular punctures carry no mass: excised disc `O(eps^2)`, worst relative error `3.33e-03`
 * no critical points off closure: `min |grad theta| = 0.2850`, and the only candidate needs `x_p = -sec(gamma/2)`, outside the sphere
 
 | kappa | 4k/pi | phase real? | selects |
@@ -67,7 +72,7 @@
 | 1.5708 | 8 | 1 | True |
 | 2.3562 | 4 | 2 | False |
 
-## C — measured homogeneity of every BAM coupling
+## C — measured homogeneity of the six audited quantities
 
 | coupling | where | degree |
 |---|---|---|
@@ -103,6 +108,8 @@
 * `kappa, the normalisation in e^{i kappa S_H}` — **open** (question A/F3: no repository source)
 * `orientation convention in the Maslov factor` — **chosen** (shifts kappa by pi/2; F2 is invariant)
 * `current-to-frequency readout` — **open** (question C: every existing observable is degree 2, but two ordinary quadratics disagree and none is a derived detector coupling)
+* `the round-5 Haar/uniform source measure (a = 1 in the Morse-Bott coefficients)` — **chosen** (note N12: a non-constant in-plane amplitude moves both masses)
+* `restriction to the two-parameter family of geodesic triangles` — **chosen** (note N12: not stationary phase over BAM's full history space)
 * `a map from the source variable x to field configurations` — **open** (gate E: needed before degree in phi says anything about parity in x)
 * `a source-local readout that respects the two-boundary problem` — **open** (gate E: not constructed; measurement is itself a BC)
 * `antipodal scalar BC, eta, quotient-vs-cover` — **not used** (C1: not in this strand)

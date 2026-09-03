@@ -115,7 +115,8 @@
     "oriented_identity_residual": 1.7763568394002505e-15,
     "positive_count_identity_residual": 0.0,
     "int_D": 9.67800481684553,
-    "int_absD": 9.963284144461117
+    "int_absD": 9.963284144461117,
+    "amplitude_is_unity": true
   },
   "off_closure": {
     "min_grad_theta_off_closure": 0.2850255051730859,
@@ -154,6 +155,84 @@
       }
     ],
     "no_off_closure_critical_points": true
+  },
+  "amplitude": {
+    "rows": [
+      {
+        "amplitude": "1 (round-5 Haar)",
+        "M_0": 11.67080583639533,
+        "M_pi": 0.16951227835901764,
+        "oriented": 9.678004816845531
+      },
+      {
+        "amplitude": "1 + 0.5 x.u  (in plane)",
+        "M_0": 14.473582871914568,
+        "M_pi": 0.09696592436917979,
+        "oriented": 12.097506021056914
+      },
+      {
+        "amplitude": "1 + 0.8 x.(uxv)/|uxv| (normal)",
+        "M_0": 11.67080583639533,
+        "M_pi": 0.16951227835901764,
+        "oriented": 9.678004816845531
+      }
+    ],
+    "in_plane_amplitude_moves_the_aggregation": true,
+    "normal_amplitude_is_invisible": true,
+    "masses_are_conditional_on_the_measure": true
+  },
+  "excision": {
+    "rows": [
+      {
+        "eps": 0.2,
+        "excised_mass": 0.03986683299848696,
+        "predicted_sin_g_eps2_over_q": 0.040000000000000015,
+        "ratio": 0.9966708249621736
+      },
+      {
+        "eps": 0.1,
+        "excised_mass": 0.009991666599983032,
+        "predicted_sin_g_eps2_over_q": 0.010000000000000004,
+        "ratio": 0.9991666599983028
+      },
+      {
+        "eps": 0.05,
+        "excised_mass": 0.0024996355147409574,
+        "predicted_sin_g_eps2_over_q": 0.002500000000000001,
+        "ratio": 0.9998542058963826
+      },
+      {
+        "eps": 0.025,
+        "excised_mass": 0.0006250065369780558,
+        "predicted_sin_g_eps2_over_q": 0.0006250000000000002,
+        "ratio": 1.0000104591648888
+      }
+    ],
+    "worst_relative_error": 0.0033291750378263707,
+    "mass_is_O_eps_squared": true,
+    "excision_is_safe": true
+  },
+  "discrete": {
+    "rows": [
+      {
+        "operation": "detector-label exchange A<->B",
+        "preserves_s_A_s_B": true,
+        "max_weight_change": 0.0
+      },
+      {
+        "operation": "history reversal (u <-> w)",
+        "preserves_s_A_s_B": true,
+        "max_weight_change": 0.0
+      },
+      {
+        "operation": "Pin deck / fibre sector flip",
+        "preserves_s_A_s_B": true,
+        "max_weight_change": 0.0
+      }
+    ],
+    "all_preserve_like_unlike": true,
+    "no_identified_operation_mixes_like_and_unlike": true,
+    "is_a_classification_of_all_symmetries": false
   },
   "orbits": {
     "rows": [
@@ -261,6 +340,8 @@
       "marginal_dev": 5.551115123125783e-17
     },
     "tsirelson": 2.8284271247461903,
+    "closed_form_square_of_integral": 3.771236166328254,
+    "closed_form_integral_of_square": 3.3941125496954285,
     "the_two_quadratics_disagree": true,
     "both_exceed_tsirelson": true,
     "homogeneity_does_not_select_a_readout": true
@@ -325,7 +406,7 @@
   },
   "verdicts": {
     "A_action": "HOLONOMY_TRACE_IS_A_STATIONARY_FUNCTIONAL_NOT_A_DERIVED_ACTION",
-    "B_sectors": "LIKE_UNLIKE_SECTOR_RATIO_REMAINS_FREE",
+    "B_sectors": "NO_IDENTIFIED_SYMMETRY_FORCES_EQUAL_SECTOR_MEASURE",
     "C_readout": "NO_BAM_DETECTOR_COUPLING_CURRENTLY_DEFINES_THE_READOUT",
     "D_compatibility": "HISTORY_ACTION_INDEPENDENTLY_POSTULATED",
     "E_causality": "SETTING_INFORMATION_IS_PRESENT_AT_SOURCE_READOUT_DYNAMICS_OPEN",
@@ -383,6 +464,16 @@
       "where": "question C: every existing observable is degree 2, but two ordinary quadratics disagree and none is a derived detector coupling"
     },
     {
+      "input": "the round-5 Haar/uniform source measure (a = 1 in the Morse-Bott coefficients)",
+      "status": "chosen",
+      "where": "note N12: a non-constant in-plane amplitude moves both masses"
+    },
+    {
+      "input": "restriction to the two-parameter family of geodesic triangles",
+      "status": "chosen",
+      "where": "note N12: not stationary phase over BAM's full history space"
+    },
+    {
       "input": "a map from the source variable x to field configurations",
       "status": "open",
       "where": "gate E: needed before degree in phi says anything about parity in x"
@@ -432,6 +523,14 @@
       true
     ],
     [
+      "F1c    ...but CONDITIONAL on the round-5 Haar amplitude a = 1",
+      true
+    ],
+    [
+      "F1d    the singular punctures carry no mass: excised disc is O(eps^2)",
+      true
+    ],
+    [
       "F2     phase factor real iff 4kappa/pi odd",
       true
     ],
@@ -445,6 +544,10 @@
     ],
     [
       "B3     fibre symmetries cannot change sector weights",
+      true
+    ],
+    [
+      "B4     no IDENTIFIED discrete operation mixes like and unlike",
       true
     ],
     [
@@ -484,6 +587,6 @@
       true
     ]
   ],
-  "passed": 21,
-  "total": 21
+  "passed": 24,
+  "total": 24
 }

@@ -337,3 +337,59 @@ singularity — or `x ∈ span(p,q)`, where the condition reduces to
 `x_p = −|p|/A = −sec(γ/2)`, impossible for `0 < γ < π` since `|x_p| ≤ 1`.
 Confirmed to `1.8e-15` against the closed form, with a global grid search
 finding `min|∇θ| = 0.285` off closure.
+
+**N11 — B's scope, and a narrowed label.** `sector_symmetry_group` enumerates
+the `O(3)` **base isometries** fixing both setting axes, and
+`fibre_action_is_weight_blind` closes the vertical `Spin(2)` extension. That is
+not a classification of every discrete symmetry of the fixed-setting
+boundary-value problem, so calling it "the full fixed-setting symmetry group"
+was stronger than the code constructs. New `discrete_symmetry_extension` checks
+the three further operations the model actually supplies — detector-label
+exchange `A↔B`, history reversal of the derived loop (`D` is symmetric in
+`u,w`, so every weight is invariant to `0.0`, and `N → −N` vanishes on `Γ`),
+and the Pin deck (fibre-blind) — and all three preserve `s_A s_B`. The result
+survives, but as an enumeration rather than a classification, so the verdict
+label becomes `NO_IDENTIFIED_SYMMETRY_FORCES_EQUAL_SECTOR_MEASURE` in place of
+`LIKE_UNLIKE_SECTOR_RATIO_REMAINS_FREE`.
+
+**N12 — the Morse–Bott masses are conditional on an unrecorded measure.**
+`morse_bott_component_masses` sets `a = 1` and integrates uniform arclength, so
+`M_j = ∫|D|/|u×v| dσ` reproduces round 5 **conditional on the inherited
+Haar/uniform source measure** — equivalently unit amplitude in this
+finite-dimensional integral. That is a choice, and it is now in the dependency
+ledger. New `amplitude_dependence` demonstrates it: `a = 1 + 0.5 x·u` takes
+`M_0` from `11.6708` to `14.4736` and the oriented sum from `9.6780` to
+`12.0975`. (An amplitude varying only along `u×v` is invisible, since
+`x·(u×v) = 0` on `Γ`.) So "with nothing tuned" now applies to the *Hessian*,
+not to the measure. Also recorded: this is stationary phase over the
+two-parameter family of geodesic triangles parameterised by `x`, **not** over
+BAM's full loop or history space, and that scope is stated wherever `S_H` is
+called a history-action candidate.
+
+**N13 — C's reconnaissance is narrowed in prose.** The code measures six
+specific quantities — the five `source_audit.py` null stresses plus
+`mouth_flux`. That supports *all audited stress and flux quantities are
+degree-2 homogeneous; none supplies a linear detector readout*. It does **not**
+support "every existing classical observable in the repository is quadratic in
+field amplitude"; in particular the perfect-fluid row scales `u·k` rather than
+a field amplitude, and unaudited field/configuration variables exist. The
+narrow form is now used in `README.md`, `docs/history_action.md` and the audit.
+The C verdict itself was already correct.
+
+**N14 — the endpoint problem, closed by excision rather than downgraded.**
+`S_H` is undefined at `x = −u, −v`, so the critical components are open arcs
+ending at singular points of the phase; in local tangent coordinates there
+`D ~ sin γ·ξ`, `N ~ sin γ·η`, so `S_H ~ −ξ/√(ξ²+η²)` is genuinely
+direction-dependent, and textbook Morse–Bott stationary phase wants smoothness
+near the critical manifold. New `excision_estimate` supplies the missing
+argument: on `Γ`, `|D| ~ sin γ·s` in arclength from the puncture, so the mass
+inside a disc of radius `ε` is `sin γ·ε²/|u×v|` — two-sided, the factor two
+because the disc covers the arc on both sides, which an initial one-sided
+version of this estimate got wrong by exactly `2`. It is `O(ε²)`, measured
+within `0.3%` of the closed form at `ε = 0.2` and improving to `1e-5` at
+`ε = 0.025`. The punctures carry no mass, so the quoted coefficients are the
+genuine ones and need not be relabelled formal.
+
+**N15 — exact closed form for the local-square maximum.** `S_max` for
+`E = −3cos γ/(2+cos²γ)` is attained at `γ = π/4`, where `E = −3√2/5`, giving
+exactly `12√2/5 = 3.394112549...` rather than the grid decimal.

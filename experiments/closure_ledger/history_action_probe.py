@@ -30,6 +30,9 @@ def run_probe() -> dict:
     masses = ha.morse_bott_component_masses(
         [0.0, 0.0, 1.0], [math.sin(1.0), 0.0, math.cos(1.0)])
     offcrit = ha.no_off_closure_critical_points(trials=6)
+    amp = ha.amplitude_dependence()
+    excis = ha.excision_estimate()
+    discrete = ha.discrete_symmetry_extension()
     orbits = ha.sector_orbits()
     fibre = ha.fibre_action_is_weight_blind()
     homog = ha.detector_response_homogeneity()
@@ -58,6 +61,10 @@ def run_probe() -> dict:
         ("F1b    the masses reproduce BOTH candidate aggregations exactly",
          masses["oriented_identity_residual"] < 1e-9
          and masses["positive_count_identity_residual"] < 1e-9),
+        ("F1c    ...but CONDITIONAL on the round-5 Haar amplitude a = 1",
+         amp["masses_are_conditional_on_the_measure"]),
+        ("F1d    the singular punctures carry no mass: excised disc is O(eps^2)",
+         excis["excision_is_safe"]),
         ("F2     phase factor real iff 4kappa/pi odd",
          kappas["pi/4"]["phase_factor_is_real"]
          and kappas["3pi/4"]["phase_factor_is_real"]
@@ -68,6 +75,8 @@ def run_probe() -> dict:
          not orbits["forced_at_any_chsh_angle"]),
         ("B3     fibre symmetries cannot change sector weights",
          fibre["fibre_blind"]),
+        ("B4     no IDENTIFIED discrete operation mixes like and unlike",
+         discrete["no_identified_operation_mixes_like_and_unlike"]),
         ("C1     every existing BAM observable is degree 2",
          homog["all_quadratic"]),
         ("C2     but two ordinary quadratics disagree: no readout is named",
@@ -92,6 +101,7 @@ def run_probe() -> dict:
     return {
         "oracle": oracle, "degeneracy": degen, "additivity": addit,
         "kappa": kappas, "masses": masses, "off_closure": offcrit,
+        "amplitude": amp, "excision": excis, "discrete": discrete,
         "orbits": orbits, "fibre": fibre, "local_square": locsq,
         "homogeneity": homog, "quadratic": quad, "radial": radial,
         "gate": gate, "verdicts": v,
@@ -131,6 +141,11 @@ def render(s: dict) -> str:
           f" and `(M_0 + M_pi)|uxv| = int |D|` (residual "
           f"`{m['positive_count_identity_residual']:.1e}`): stationary phase supplies"
           " both candidate magnitudes; only the relative phase is open",
+          f"* conditional on the round-5 Haar amplitude `a = 1`: `1 + 0.5 x.u`"
+          f" moves the oriented sum to `{s['amplitude']['rows'][1]['oriented']:.4f}`"
+          f" from `{s['amplitude']['rows'][0]['oriented']:.4f}`",
+          f"* the singular punctures carry no mass: excised disc `O(eps^2)`,"
+          f" worst relative error `{s['excision']['worst_relative_error']:.2e}`",
           f"* no critical points off closure: `min |grad theta| = "
           f"{s['off_closure']['min_grad_theta_off_closure']:.4f}`,"
           " and the only candidate needs `x_p = -sec(gamma/2)`, outside the sphere",
@@ -146,7 +161,7 @@ def render(s: dict) -> str:
         L.append(f"| {r['gamma']:.4f} | {r['group_order']} | {r['n_orbits']} "
                  f"| {r['r_forced']} |")
 
-    L += ["", "## C — measured homogeneity of every BAM coupling", "",
+    L += ["", "## C — measured homogeneity of the six audited quantities", "",
           "| coupling | where | degree |", "|---|---|---|"]
     for r in s["homogeneity"]["rows"]:
         L.append(f"| `{r['coupling']}` | `{r['where']}` | {r['measured_degree']:.6f} |")

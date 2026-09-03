@@ -10,6 +10,7 @@ from geometrodynamics.bulk.history_action import (
     holonomy_trace, morse_bott_oracle, class_function_degeneracy,
     additive_functionals_have_no_critical_points, saddle_branch_ratio,
     morse_bott_component_masses, no_off_closure_critical_points,
+    amplitude_dependence, excision_estimate, discrete_symmetry_extension,
     sector_symmetry_group, sector_orbits, fibre_action_is_weight_blind,
     detector_response_homogeneity, quadratic_readouts_disagree,
     local_square_mean_is_closed_form,
@@ -75,6 +76,35 @@ def test_the_component_masses_are_generically_unequal():
     r = saddle_branch_ratio(math.pi / 4)
     assert abs(r["magnitude"] - r["mass_ratio"]) < 1e-12
     assert abs(r["magnitude"] - 1.0) > 0.5
+
+
+def test_the_masses_are_conditional_on_the_round5_haar_measure():
+    """The Morse-Bott coefficients use a = 1; a different preparation density
+    moves them, so "nothing tuned" applies to the Hessian, not the measure."""
+    a = amplitude_dependence()
+    assert a["in_plane_amplitude_moves_the_aggregation"]
+    assert a["masses_are_conditional_on_the_measure"]
+    # an amplitude varying only along u x v is invisible on the closure circle
+    assert a["normal_amplitude_is_invisible"]
+
+
+def test_the_punctures_carry_no_mass_so_excision_is_safe():
+    """S_H is singular at x = -u, -v; the excised mass is O(eps^2), so the
+    Morse-Bott coefficients are genuine rather than formal."""
+    e = excision_estimate()
+    assert e["mass_is_O_eps_squared"]
+    assert e["excision_is_safe"]
+    assert e["worst_relative_error"] < 0.01
+
+
+def test_no_identified_discrete_operation_mixes_like_and_unlike():
+    """Detector exchange, history reversal and the Pin deck all preserve
+    s_A s_B - an enumeration, explicitly not a classification."""
+    d = discrete_symmetry_extension()
+    assert d["all_preserve_like_unlike"]
+    assert d["no_identified_operation_mixes_like_and_unlike"]
+    assert d["is_a_classification_of_all_symmetries"] is False
+    assert all(r["max_weight_change"] < 1e-9 for r in d["rows"])
 
 
 def test_the_masses_reproduce_both_candidate_aggregations_exactly():
@@ -152,8 +182,10 @@ def test_a_larger_group_along_the_fibre_cannot_change_the_weights():
 
 # ── C: the readout ──────────────────────────────────────────────────────────
 
-def test_every_bam_coupling_is_degree_two_homogeneous():
+def test_all_six_audited_quantities_are_degree_two_homogeneous():
+    """Six specific quantities, not every observable in the repository."""
     c = detector_response_homogeneity()
+    assert len(c["rows"]) == 6
     assert c["all_quadratic"] and not c["any_linear"]
     for row in c["rows"]:
         assert abs(row["measured_degree"] - 2.0) < 1e-6, row
@@ -165,7 +197,10 @@ def test_two_ordinary_quadratic_readouts_disagree():
     q = quadratic_readouts_disagree()
     assert q["the_two_quadratics_disagree"]
     assert abs(q["square_of_integral"]["S_max"] - 8.0 * math.sqrt(2.0) / 3.0) < 1e-4
-    assert abs(q["integral_of_square"]["S_max"] - 3.3941) < 1e-3
+    assert abs(q["integral_of_square"]["S_max"]
+               - 12.0 * math.sqrt(2.0) / 5.0) < 1e-4
+    assert abs(q["closed_form_integral_of_square"]
+               - 12.0 * math.sqrt(2.0) / 5.0) < 1e-12
     assert abs(q["linear"]["S_max"] - 2.0 * math.sqrt(2.0)) < 1e-8
     assert q["both_exceed_tsirelson"]
 
@@ -236,7 +271,7 @@ def test_non_coplanar_settings_give_mutually_singular_source_measures():
 def test_the_five_verdicts_are_the_pre_registered_labels():
     v = verdicts()
     assert v["A_action"] == "HOLONOMY_TRACE_IS_A_STATIONARY_FUNCTIONAL_NOT_A_DERIVED_ACTION"
-    assert v["B_sectors"] == "LIKE_UNLIKE_SECTOR_RATIO_REMAINS_FREE"
+    assert v["B_sectors"] == "NO_IDENTIFIED_SYMMETRY_FORCES_EQUAL_SECTOR_MEASURE"
     assert v["C_readout"] == "NO_BAM_DETECTOR_COUPLING_CURRENTLY_DEFINES_THE_READOUT"
     assert v["D_compatibility"] == "HISTORY_ACTION_INDEPENDENTLY_POSTULATED"
     assert v["E_causality"] == "SETTING_INFORMATION_IS_PRESENT_AT_SOURCE_READOUT_DYNAMICS_OPEN"

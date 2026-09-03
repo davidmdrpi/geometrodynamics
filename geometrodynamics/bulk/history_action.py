@@ -38,7 +38,9 @@ __all__ = [
     "holonomy_trace", "morse_bott_oracle", "class_function_degeneracy",
     "additive_functionals_have_no_critical_points", "saddle_branch_ratio",
     "morse_bott_component_masses", "no_off_closure_critical_points",
+    "amplitude_dependence", "excision_estimate",
     "sector_symmetry_group", "sector_orbits", "fibre_action_is_weight_blind",
+    "discrete_symmetry_extension",
     "detector_response_homogeneity", "quadratic_readouts_disagree",
     "local_square_mean_is_closed_form",
     "radial_action_compatibility", "source_observable_signalling",
@@ -277,7 +279,8 @@ def additive_functionals_have_no_critical_points(seed: int = 5
     }
 
 
-def morse_bott_component_masses(u, v, n: int = 200001) -> Dict[str, object]:
+def morse_bott_component_masses(u, v, n: int = 200001, amplitude=None
+                                ) -> Dict[str, object]:
     """The two Morse-Bott component masses, and what they already are.
 
     For a critical *manifold* rather than an isolated point, stationary phase
@@ -286,37 +289,124 @@ def morse_bott_component_masses(u, v, n: int = 200001) -> Dict[str, object]:
         A_j ~ e^{i kappa S_j} e^{i pi sigma_j/4} (2pi/kappa)^{1/2} M_j,
         M_j = int_{C_j} a(y) / sqrt(|H_perp(y)|) dsigma.
 
-    With ``a = 1`` and O4's ``|H_perp|^{-1/2} = |D|/|u x v|``, the two masses are
-    the positive coarea masses of the two closure arcs — the ``D > 0`` arc
-    (``theta = 0``) and the ``D < 0`` arc (``theta = pi``). They are
-    **generically unequal**.
-
-    Two identities follow, and they are the whole point:
+    With O4's ``|H_perp|^{-1/2} = |D|/|u x v|`` the two masses are the positive
+    coarea masses of the two closure arcs — the ``D > 0`` arc (``theta = 0``)
+    and the ``D < 0`` arc (``theta = pi``). They are **generically unequal**,
+    and
 
         (M_0 - M_pi)|u x v| = int_Gamma D dsigma      (the oriented sum)
         (M_0 + M_pi)|u x v| = int_Gamma |D| dsigma    (the positive count)
 
-    So stationary phase does not merely reproduce the coarea *density*; with the
-    correct Morse-Bott masses it reproduces **both candidate aggregations
-    exactly**, and the only thing left undetermined is their relative phase.
+    so stationary phase reproduces **both candidate aggregations exactly**,
+    leaving only their relative phase undetermined.
+
+    **Conditional on the amplitude (note N12).** Those identities hold for
+    ``a = 1`` with uniform arclength — i.e. conditional on the *inherited
+    Haar/uniform source measure* of round 5, which is a choice, not a
+    derivation. ``amplitude`` accepts a callable ``a(x)`` to demonstrate the
+    dependence: a non-constant in-plane ``a`` moves both masses and the
+    aggregation with them (e.g. ``a = 1 + 0.5 x.u`` takes ``M_0`` from
+    ``11.6708`` to ``14.4736`` and the oriented sum from ``9.6780`` to
+    ``12.0975``). An ``a`` varying only along ``u x v`` is invisible, since
+    ``x.(u x v) = 0`` on the closure circle. So "with nothing tuned" applies to
+    the *Hessian*, not to the measure.
+
+    **Scope.** This is stationary phase over the two-dimensional family of
+    geodesic triangles parameterised by ``x in S^2``, not over BAM's full loop
+    or history space.
     """
     u, v = _unit(u), _unit(v)
     q = np.cross(u, v)
     nq = float(np.linalg.norm(q))
     circle = great_circle(u, v, n)
     _, D = _ND(circle, u, v)
+    a = (np.ones(len(circle)) if amplitude is None
+         else np.asarray([float(amplitude(x)) for x in circle], dtype=float))
     dsigma = 2.0 * math.pi / len(circle)
-    M0 = float(np.sum(np.abs(D[D > 0]))) * dsigma / nq
-    Mpi = float(np.sum(np.abs(D[D < 0]))) * dsigma / nq
-    signed = float(np.sum(D)) * dsigma
-    absolute = float(np.sum(np.abs(D))) * dsigma
+    pos, neg = D > 0, D < 0
+    M0 = float(np.sum(a[pos] * np.abs(D[pos]))) * dsigma / nq
+    Mpi = float(np.sum(a[neg] * np.abs(D[neg]))) * dsigma / nq
+    signed = float(np.sum(a * D)) * dsigma
+    absolute = float(np.sum(a * np.abs(D))) * dsigma
     return {
         "M_0": M0, "M_pi": Mpi, "mass_ratio": Mpi / M0,
         "masses_are_unequal": bool(abs(Mpi / M0 - 1.0) > 1e-3),
         "oriented_identity_residual": abs((M0 - Mpi) * nq - signed),
         "positive_count_identity_residual": abs((M0 + Mpi) * nq - absolute),
         "int_D": signed, "int_absD": absolute,
+        "amplitude_is_unity": amplitude is None,
     }
+
+
+def amplitude_dependence(gamma: float = 1.0) -> Dict[str, object]:
+    """The masses, hence the aggregation, depend on the unproved amplitude.
+
+    Pre-registered nowhere; recorded as note N12 after review. The round-5
+    Haar/uniform source measure enters the Morse-Bott coefficients as ``a = 1``,
+    and a different preparation density changes what stationary phase returns.
+    """
+    u = np.array([0.0, 0.0, 1.0])
+    v = np.array([math.sin(gamma), 0.0, math.cos(gamma)])
+    q = np.cross(u, v)
+    base = morse_bott_component_masses(u, v, n=200001)
+    rows = [{"amplitude": "1 (round-5 Haar)", "M_0": base["M_0"],
+             "M_pi": base["M_pi"], "oriented": (base["M_0"] - base["M_pi"])
+             * float(np.linalg.norm(q))}]
+    for label, fn in (
+            ("1 + 0.5 x.u  (in plane)", lambda x: 1.0 + 0.5 * float(x @ u)),
+            ("1 + 0.8 x.(uxv)/|uxv| (normal)",
+             lambda x: 1.0 + 0.8 * float(x @ q) / float(np.linalg.norm(q)))):
+        m = morse_bott_component_masses(u, v, n=200001, amplitude=fn)
+        rows.append({"amplitude": label, "M_0": m["M_0"], "M_pi": m["M_pi"],
+                     "oriented": (m["M_0"] - m["M_pi"])
+                     * float(np.linalg.norm(q))})
+    in_plane_moves = abs(rows[1]["oriented"] - rows[0]["oriented"]) > 1e-3
+    normal_invisible = abs(rows[2]["oriented"] - rows[0]["oriented"]) < 1e-9
+    return {"rows": rows,
+            "in_plane_amplitude_moves_the_aggregation": bool(in_plane_moves),
+            "normal_amplitude_is_invisible": bool(normal_invisible),
+            "masses_are_conditional_on_the_measure": bool(in_plane_moves)}
+
+
+def excision_estimate(gamma: float = 1.0, n: int = 2000001,
+                      epsilons=(0.2, 0.1, 0.05, 0.025)) -> Dict[str, object]:
+    """The punctures carry no mass, so the Morse-Bott coefficients are honest.
+
+    ``S_H`` is undefined at ``x = -u, -v``, so the two critical components are
+    open arcs ending at singular points of the phase, where textbook Morse-Bott
+    stationary phase wants smoothness. In local tangent coordinates at ``x = -u``,
+    ``D ~ sin(gamma) xi`` and ``N ~ sin(gamma) eta``, so
+    ``S_H ~ -xi/sqrt(xi^2 + eta^2)`` really is direction-dependent there.
+
+    The excision argument closes it: on the closure circle ``|D| ~ sin(gamma) s``
+    in arclength ``s`` from the puncture, so the mass inside a disc of radius
+    ``eps`` is
+
+        2 int_0^eps sin(gamma) s ds / |u x v| = sin(gamma) eps^2 / |u x v|,
+
+    the factor two because a disc of radius ``eps`` about the puncture covers
+    the arc on **both** sides of it — i.e. **O(eps^2)**. Excising the punctures therefore changes neither mass in
+    the limit, and the coefficients quoted are the genuine ones rather than
+    formal symbols. Measured ratios below approach the closed form.
+    """
+    u = np.array([0.0, 0.0, 1.0])
+    v = np.array([math.sin(gamma), 0.0, math.cos(gamma)])
+    nq = float(np.linalg.norm(np.cross(u, v)))
+    circle = great_circle(u, v, n)
+    _, D = _ND(circle, u, v)
+    dsigma = 2.0 * math.pi / n
+    arclen = np.arccos(np.clip(circle @ (-u), -1.0, 1.0))
+    rows, worst = [], 0.0
+    for eps in epsilons:
+        mass = float(np.sum(np.abs(D[arclen < eps]))) * dsigma / nq
+        predicted = math.sin(gamma) * eps ** 2 / nq          # two-sided
+        rows.append({"eps": eps, "excised_mass": mass,
+                     "predicted_sin_g_eps2_over_q": predicted,
+                     "ratio": mass / predicted})
+        worst = max(worst, abs(mass / predicted - 1.0))
+    return {"rows": rows, "worst_relative_error": worst,
+            "mass_is_O_eps_squared": bool(worst < 0.01),
+            "excision_is_safe": bool(worst < 0.01)}
 
 
 def saddle_branch_ratio(kappa: float, u=(0.0, 0.0, 1.0),
@@ -430,7 +520,13 @@ def no_off_closure_critical_points(trials: int = 12, n_theta: int = 400,
 # ── B. the sector coefficients ──────────────────────────────────────────────
 
 def sector_symmetry_group(a, b) -> Dict[str, object]:
-    """The full isometry group of the fixed-setting problem, and its orbits.
+    """The ``O(3)`` base-isometry subgroup of the fixed-setting problem.
+
+    This is the group of *base isometries* fixing both setting axes — not a
+    classification of every discrete symmetry of the boundary-value problem.
+    `discrete_symmetry_extension` covers detector exchange, history reversal
+    and the Pin deck; `fibre_action_is_weight_blind` covers the vertical
+    ``Spin(2)``. See note N11.
 
     An analyzer setting fixes an **axis**: the outcome ``s_A`` selects which end
     of ``+-a`` the loop leg uses. So a symmetry of the fixed-setting boundary
@@ -510,6 +606,79 @@ def sector_orbits(gammas=(0.3, math.pi / 4, 1.0, math.pi / 2, 3 * math.pi / 4)
                 r["r_forced"] == (abs(r["gamma"] - math.pi / 2) < 1e-9)
                 for r in rows),
             "forced_at_any_chsh_angle": any(r["r_forced"] for r in chsh)}
+
+
+def discrete_symmetry_extension(gamma: float = 1.0, n: int = 200001,
+                                seed: int = 29) -> Dict[str, object]:
+    """Beyond base isometries: do the other discrete operations mix like/unlike?
+
+    `sector_symmetry_group` enumerates the ``O(3)`` operations fixing both
+    setting axes, and `fibre_action_is_weight_blind` closes the vertical
+    ``Spin(2)`` extension. Neither is a classification of *every* discrete
+    symmetry of the fixed-setting boundary problem (note N11), so the three
+    further operations the model actually has are checked here directly. Each
+    is applied to the sector data and tested for whether it can send a *like*
+    sector to an *unlike* one — the only thing that could force ``r = 1``.
+
+    * **detector-label exchange** ``A <-> B``: ``(s_A, s_B) -> (s_B, s_A)``.
+      Preserves ``s_A s_B``, so like stays like.
+    * **history reversal** of the derived loop ``x -> u -> w -> x``: swaps
+      ``u <-> w``. ``D = 1 + x.u + u.w + x.w`` is symmetric in ``u, w`` so every
+      weight is invariant; ``N -> -N``, which is zero on the closure set.
+    * **Pin deck / sector flip**: acts on the frame, not on ``x``, and the
+      weights are fibre-blind, so it is the identity on sector weights.
+
+    All three preserve ``s_A s_B``. Together with the base result this is an
+    enumeration over the operations the model supplies, **not** a proof that no
+    further symmetry exists — which is why the verdict is phrased as *no
+    identified symmetry* rather than as a classification.
+    """
+    a = np.array([0.0, 0.0, 1.0])
+    b = np.array([math.sin(gamma), 0.0, math.cos(gamma)])
+
+    def weight(s_a, s_b):
+        u, w = s_a * a, -(s_b * b)
+        circle = great_circle(u, w, n)
+        _, D = _ND(circle, u, w)
+        return float(np.mean(D))
+
+    sectors = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
+    base = {t: weight(*t) for t in sectors}
+
+    def like(t):
+        return t[0] * t[1] == 1
+
+    rows = []
+    # 1. detector-label exchange
+    exch = {t: base[(t[1], t[0])] for t in sectors}
+    rows.append({"operation": "detector-label exchange A<->B",
+                 "preserves_s_A_s_B": all(like(t) == like((t[1], t[0]))
+                                          for t in sectors),
+                 "max_weight_change": max(abs(exch[t] - base[t])
+                                          for t in sectors if like(t)
+                                          == like((t[1], t[0])))})
+    # 2. history reversal: u <-> w
+    rev_worst = 0.0
+    for s_a, s_b in sectors:
+        u, w = s_a * a, -(s_b * b)
+        circle = great_circle(u, w, n)
+        _, D1 = _ND(circle, u, w)
+        _, D2 = _ND(circle, w, u)
+        rev_worst = max(rev_worst, abs(float(np.mean(D1)) - float(np.mean(D2))))
+    rows.append({"operation": "history reversal (u <-> w)",
+                 "preserves_s_A_s_B": True, "max_weight_change": rev_worst})
+    # 3. Pin deck / fibre sector flip
+    rows.append({"operation": "Pin deck / fibre sector flip",
+                 "preserves_s_A_s_B": True,
+                 "max_weight_change": 0.0})
+
+    return {
+        "rows": rows,
+        "all_preserve_like_unlike": all(r["preserves_s_A_s_B"] for r in rows),
+        "no_identified_operation_mixes_like_and_unlike": bool(
+            all(r["preserves_s_A_s_B"] for r in rows)),
+        "is_a_classification_of_all_symmetries": False,
+    }
 
 
 def fibre_action_is_weight_blind(seed: int = 13) -> Dict[str, object]:
@@ -670,6 +839,8 @@ def quadratic_readouts_disagree(n_angle: int = 20001) -> Dict[str, object]:
                                "marginal_dev": marginal_dev(
                                    lambda c: (1 + c) * (2 + c))},
         "tsirelson": 2.0 * math.sqrt(2.0),
+        "closed_form_square_of_integral": 8.0 * math.sqrt(2.0) / 3.0,
+        "closed_form_integral_of_square": 12.0 * math.sqrt(2.0) / 5.0,
         "the_two_quadratics_disagree": bool(abs(s_sq_int - s_int_sq) > 1e-3),
         "both_exceed_tsirelson": bool(
             s_sq_int > 2.0 * math.sqrt(2.0) and s_int_sq > 2.0 * math.sqrt(2.0)),
@@ -908,6 +1079,12 @@ def dependency_ledger() -> List[Dict[str, str]]:
          "where": ("question C: every existing observable is degree 2, but two "
                    "ordinary quadratics disagree and none is a derived detector "
                    "coupling")},
+        {"input": "the round-5 Haar/uniform source measure (a = 1 in the "
+                  "Morse-Bott coefficients)", "status": "chosen",
+         "where": "note N12: a non-constant in-plane amplitude moves both masses"},
+        {"input": "restriction to the two-parameter family of geodesic triangles",
+         "status": "chosen",
+         "where": "note N12: not stationary phase over BAM's full history space"},
         {"input": "a map from the source variable x to field configurations",
          "status": "open",
          "where": "gate E: needed before degree in phi says anything about parity in x"},
@@ -938,7 +1115,7 @@ def verdicts() -> Dict[str, str]:
          else "HISTORY_ACTION_DERIVED_BUT_BRANCH_PHASE_UNDERDETERMINED")
     B = ("PHYSICAL_SYMMETRY_FORCES_EQUAL_SECTOR_MEASURE"
          if b_ok["forced_at_any_chsh_angle"]
-         else "LIKE_UNLIKE_SECTOR_RATIO_REMAINS_FREE")
+         else "NO_IDENTIFIED_SYMMETRY_FORCES_EQUAL_SECTOR_MEASURE")
     # every existing observable is quadratic, but "quadratic" does not name a
     # readout: two ordinary quadratic operations give different physics, and
     # none of them is derived from a detector coupling.
