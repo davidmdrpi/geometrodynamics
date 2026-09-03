@@ -1,0 +1,592 @@
+{
+  "oracle": {
+    "O1_trace_identity": 0.0,
+    "O1_closed_form": 3.3306690738754696e-16,
+    "O2_grad_on_closure": 1.1572726646448763e-06,
+    "O3_transverse_curvature_rel": 2.5600808372262875e-06,
+    "O3_index_is_sign_D": true,
+    "O4_saddle_magnitude_is_coarea_rel": 1.2800379608422056e-06,
+    "points": 210,
+    "passes": true
+  },
+  "degeneracy": {
+    "rows": [
+      {
+        "functional": "-cos",
+        "worst_|grad|_on_closure": 1.1943664715129216e-06,
+        "critical_on_closure": true
+      },
+      {
+        "functional": "cos^3",
+        "worst_|grad|_on_closure": 1.2323159211847767e-06,
+        "critical_on_closure": true
+      },
+      {
+        "functional": "exp",
+        "worst_|grad|_on_closure": 3.5489017476129195e-07,
+        "critical_on_closure": true
+      },
+      {
+        "functional": "atan",
+        "worst_|grad|_on_closure": 1.129868849286153e-07,
+        "critical_on_closure": true
+      },
+      {
+        "functional": "N^2 (not a class function)",
+        "worst_|grad|_on_closure": 1.9785384225989532e-16,
+        "critical_on_closure": true
+      }
+    ],
+    "all_share_the_critical_set": true,
+    "conclusion": "critical-set agreement does not select S_H"
+  },
+  "additivity": {
+    "theta_is_additive_residual": 3.3306690738754696e-16,
+    "S_H_additivity_defect": 1.8046173551149935,
+    "min_|grad theta|_on_closure": 0.16201928628816037,
+    "theta_additive": true,
+    "S_H_not_additive": true,
+    "theta_has_no_critical_point": true,
+    "conclusion": "the additive functional carries the branch sign but is nowhere stationary; the stationary functional is not additive, so its kappa is a free normalisation"
+  },
+  "kappa": {
+    "pi/4": {
+      "kappa": 0.7853981633974483,
+      "convention": 1,
+      "phase_factor": "(1+0j)",
+      "mass_ratio": 0.014524470815694919,
+      "ratio": "(0.014524470815694919+0j)",
+      "magnitude": 0.014524470815694919,
+      "magnitude_is_the_mass_ratio": true,
+      "4kappa_over_pi": 1.0,
+      "arg_phase_factor": 0.0,
+      "phase_factor_is_real": true,
+      "odd_multiple_of_pi_over_4": true,
+      "selects": "positive count  M_0 + M_pi"
+    },
+    "3pi/4": {
+      "kappa": 2.356194490192345,
+      "convention": 1,
+      "phase_factor": "(-1+1.224646799147353e-16j)",
+      "mass_ratio": 0.014524470815694919,
+      "ratio": "(-0.014524470815694919+1.7787346693749923e-18j)",
+      "magnitude": 0.014524470815694919,
+      "magnitude_is_the_mass_ratio": true,
+      "4kappa_over_pi": 3.0,
+      "arg_phase_factor": 3.141592653589793,
+      "phase_factor_is_real": true,
+      "odd_multiple_of_pi_over_4": true,
+      "selects": "oriented sum  M_0 - M_pi"
+    },
+    "1 (hbar=1)": {
+      "kappa": 1.0,
+      "convention": 1,
+      "phase_factor": "(0.9092974268256817+0.41614683654714246j)",
+      "mass_ratio": 0.014524470815694919,
+      "ratio": "(0.0132070639387161+0.006044312582472735j)",
+      "magnitude": 0.014524470815694919,
+      "magnitude_is_the_mass_ratio": true,
+      "4kappa_over_pi": 1.2732395447351628,
+      "arg_phase_factor": 0.42920367320510344,
+      "phase_factor_is_real": false,
+      "odd_multiple_of_pi_over_4": false,
+      "selects": "neither: complex relative weight"
+    },
+    "pi/2": {
+      "kappa": 1.5707963267948966,
+      "convention": 1,
+      "phase_factor": "(6.123233995736766e-17+1j)",
+      "mass_ratio": 0.014524470815694919,
+      "ratio": "(8.893673346874964e-19+0.014524470815694919j)",
+      "magnitude": 0.014524470815694919,
+      "magnitude_is_the_mass_ratio": true,
+      "4kappa_over_pi": 2.0,
+      "arg_phase_factor": 1.5707963267948966,
+      "phase_factor_is_real": false,
+      "odd_multiple_of_pi_over_4": false,
+      "selects": "neither: complex relative weight"
+    }
+  },
+  "masses": {
+    "M_0": 11.67080583639533,
+    "M_pi": 0.16951227835901764,
+    "mass_ratio": 0.014524470780791738,
+    "masses_are_unequal": true,
+    "oriented_identity_residual": 1.7763568394002505e-15,
+    "positive_count_identity_residual": 0.0,
+    "int_D": 9.67800481684553,
+    "int_absD": 9.963284144461117,
+    "amplitude_is_unity": true
+  },
+  "off_closure": {
+    "min_grad_theta_off_closure": 0.2850255051730859,
+    "required_x_p_equals_minus_sec_half_gamma": 1.7763568394002505e-15,
+    "every_required_x_p_exceeds_the_sphere": true,
+    "rows": [
+      {
+        "gamma": 1.110649115537821,
+        "required_x_p": -1.1768452792026536,
+        "impossible": true
+      },
+      {
+        "gamma": 2.646411280763192,
+        "required_x_p": -4.080486293114947,
+        "impossible": true
+      },
+      {
+        "gamma": 2.0132019852055842,
+        "required_x_p": -1.8700815761299492,
+        "impossible": true
+      },
+      {
+        "gamma": 2.592441259207637,
+        "required_x_p": -3.6881512777747334,
+        "impossible": true
+      },
+      {
+        "gamma": 2.1167404223392485,
+        "required_x_p": -2.039595952279948,
+        "impossible": true
+      },
+      {
+        "gamma": 1.4295050195443337,
+        "required_x_p": -1.3240552772784149,
+        "impossible": true
+      }
+    ],
+    "no_off_closure_critical_points": true
+  },
+  "amplitude": {
+    "rows": [
+      {
+        "amplitude": "1 (round-5 Haar)",
+        "M_0": 11.67080583639533,
+        "M_pi": 0.16951227835901764,
+        "oriented": 9.678004816845531
+      },
+      {
+        "amplitude": "1 + 0.5 x.u  (in plane)",
+        "M_0": 14.473582871914568,
+        "M_pi": 0.09696592436917979,
+        "oriented": 12.097506021056914
+      },
+      {
+        "amplitude": "1 + 0.8 x.(uxv)/|uxv| (normal)",
+        "M_0": 11.67080583639533,
+        "M_pi": 0.16951227835901764,
+        "oriented": 9.678004816845531
+      }
+    ],
+    "in_plane_amplitude_moves_the_aggregation": true,
+    "normal_amplitude_is_invisible": true,
+    "masses_are_conditional_on_the_measure": true
+  },
+  "excision": {
+    "rows": [
+      {
+        "eps": 0.2,
+        "excised_mass": 0.03986683299848696,
+        "predicted_sin_g_eps2_over_q": 0.040000000000000015,
+        "ratio": 0.9966708249621736
+      },
+      {
+        "eps": 0.1,
+        "excised_mass": 0.009991666599983032,
+        "predicted_sin_g_eps2_over_q": 0.010000000000000004,
+        "ratio": 0.9991666599983028
+      },
+      {
+        "eps": 0.05,
+        "excised_mass": 0.0024996355147409574,
+        "predicted_sin_g_eps2_over_q": 0.002500000000000001,
+        "ratio": 0.9998542058963826
+      },
+      {
+        "eps": 0.025,
+        "excised_mass": 0.0006250065369780558,
+        "predicted_sin_g_eps2_over_q": 0.0006250000000000002,
+        "ratio": 1.0000104591648888
+      }
+    ],
+    "worst_relative_error": 0.0033291750378263707,
+    "mass_is_O_eps_squared": true,
+    "excision_is_safe": true
+  },
+  "discrete": {
+    "rows": [
+      {
+        "operation": "detector-label exchange A<->B",
+        "preserves_s_A_s_B": true,
+        "max_weight_change": 0.0
+      },
+      {
+        "operation": "history reversal (u <-> w)",
+        "preserves_s_A_s_B": true,
+        "max_weight_change": 0.0
+      },
+      {
+        "operation": "Pin deck / fibre sector flip",
+        "preserves_s_A_s_B": true,
+        "max_weight_change": 0.0
+      }
+    ],
+    "all_preserve_like_unlike": true,
+    "no_identified_operation_mixes_like_and_unlike": true,
+    "is_a_classification_of_all_symmetries": false
+  },
+  "orbits": {
+    "rows": [
+      {
+        "gamma": 0.3,
+        "n_orbits": 2,
+        "group_order": 4,
+        "r_forced": false
+      },
+      {
+        "gamma": 0.7853981633974483,
+        "n_orbits": 2,
+        "group_order": 4,
+        "r_forced": false
+      },
+      {
+        "gamma": 1.0,
+        "n_orbits": 2,
+        "group_order": 4,
+        "r_forced": false
+      },
+      {
+        "gamma": 1.5707963267948966,
+        "n_orbits": 1,
+        "group_order": 8,
+        "r_forced": true
+      },
+      {
+        "gamma": 2.356194490192345,
+        "n_orbits": 2,
+        "group_order": 4,
+        "r_forced": false
+      }
+    ],
+    "forced_only_at_right_angle": true,
+    "forced_at_any_chsh_angle": false
+  },
+  "fibre": {
+    "fibre_action_is_vertical_residual": 3.3306690738754696e-16,
+    "round6_holonomy_fibre_independence": 2.4776144425915363e-15,
+    "fibre_blind": true
+  },
+  "local_square": {
+    "worst_residual": 1.7763568394002505e-15,
+    "closed_form_holds": true
+  },
+  "homogeneity": {
+    "rows": [
+      {
+        "coupling": "null_stress_minimal_scalar",
+        "where": "source_audit.py:115",
+        "measured_degree": 1.9999999999999991,
+        "quadratic": true
+      },
+      {
+        "coupling": "null_stress_complex_order_field",
+        "where": "source_audit.py:126",
+        "measured_degree": 1.9999999999999987,
+        "quadratic": true
+      },
+      {
+        "coupling": "null_stress_maxwell",
+        "where": "source_audit.py:137",
+        "measured_degree": 1.9999999999999998,
+        "quadratic": true
+      },
+      {
+        "coupling": "null_stress_perfect_fluid",
+        "where": "source_audit.py:150",
+        "measured_degree": 2.0000000000000004,
+        "quadratic": true
+      },
+      {
+        "coupling": "null_stress_nonminimal_at_node",
+        "where": "source_audit.py:157",
+        "measured_degree": 1.9999999999999998,
+        "quadratic": true
+      },
+      {
+        "coupling": "mouth_flux Im(q* A q)",
+        "where": "throat_operator.py:676",
+        "measured_degree": 1.9999999999999982,
+        "quadratic": true
+      }
+    ],
+    "all_quadratic": true,
+    "any_linear": false
+  },
+  "quadratic": {
+    "linear": {
+      "E_at_1": -0.5403023058681398,
+      "S_max": 2.8284271247451294,
+      "argmax": 0.7853986633974483
+    },
+    "square_of_integral": {
+      "E_at_1": -0.8364288087425561,
+      "S_max": 3.771236166326211,
+      "argmax": 0.7853986633974483,
+      "marginal_dev": 5.551115123125783e-17
+    },
+    "integral_of_square": {
+      "E_at_1": -0.7072246251376195,
+      "S_max": 3.3941125496935443,
+      "argmax": 0.7853986633974483,
+      "marginal_dev": 5.551115123125783e-17
+    },
+    "tsirelson": 2.8284271247461903,
+    "closed_form_square_of_integral": 3.771236166328254,
+    "closed_form_integral_of_square": 3.3941125496954285,
+    "the_two_quadratics_disagree": true,
+    "both_exceed_tsirelson": true,
+    "homogeneity_does_not_select_a_readout": true
+  },
+  "radial": {
+    "whole": 1.728266065150381,
+    "first_leg": 0.9924404812357288,
+    "second_leg": 0.7358255643694311,
+    "both_legs_nonzero": true,
+    "radial_action_additive_defect": 1.9545220997230217e-08,
+    "radial_action_is_a_one_form_integral": true,
+    "agrees_with_repository_one_way": 0.0,
+    "closed_orbit_is_twice_one_way": 0.0,
+    "angular_term_of_a_one_form_construction": "theta = oint A (additive)",
+    "theta_has_critical_points": false,
+    "S_H_is_a_one_form_integral": false,
+    "conclusion": "a single symplectic construction yields the additive geometric phase theta, which is nowhere stationary; -cos(theta) has to be appended for its critical set"
+  },
+  "gate": {
+    "non_coplanar_total_variation": 1.0,
+    "non_coplanar_supports_mutually_singular": true,
+    "coplanar_total_variation": 0.043473161041877276,
+    "density_is_antipodally_even_residual": 3.3881317890172014e-20,
+    "observable_rows": [
+      {
+        "gamma": 0.6,
+        "odd  E[x.m]": 0.0,
+        "odd  P(x.m>0)": 0.5,
+        "even E[(x.m)^2]": 0.10389090848394394,
+        "even E[|x.m|]": 0.28968583049491536,
+        "even E[1] (blind)": 1.0,
+        "even E[x.x] (blind)": 1.0
+      },
+      {
+        "gamma": 1.2,
+        "odd  E[x.m]": 0.0,
+        "odd  P(x.m>0)": 0.5,
+        "even E[(x.m)^2]": 0.10245464886416017,
+        "even E[|x.m|]": 0.2869171032794389,
+        "even E[1] (blind)": 1.0,
+        "even E[x.x] (blind)": 1.0
+      },
+      {
+        "gamma": 2.0,
+        "odd  E[x.m]": -2.7755575615628914e-17,
+        "odd  P(x.m>0)": 0.5,
+        "even E[(x.m)^2]": 0.10854270627700201,
+        "even E[|x.m|]": 0.29720128476545266,
+        "even E[1] (blind)": 1.0,
+        "even E[x.x] (blind)": 1.0
+      }
+    ],
+    "odd_observable_spread": 2.7755575615628914e-17,
+    "some_even_observables_separate": 0.010284181486013733,
+    "blind_even_observable_spread": 0.0,
+    "odd_observables_are_blind": true,
+    "some_even_functions_separate_the_ensembles": true,
+    "not_every_even_observable_separates": true,
+    "bam_couplings_shown_even_in_x": false,
+    "operational_readout_constructed": false,
+    "setting_information_present_at_source": true
+  },
+  "verdicts": {
+    "A_action": "HOLONOMY_TRACE_IS_A_STATIONARY_FUNCTIONAL_NOT_A_DERIVED_ACTION",
+    "B_sectors": "NO_IDENTIFIED_SYMMETRY_FORCES_EQUAL_SECTOR_MEASURE",
+    "C_readout": "NO_BAM_DETECTOR_COUPLING_CURRENTLY_DEFINES_THE_READOUT",
+    "D_compatibility": "HISTORY_ACTION_INDEPENDENTLY_POSTULATED",
+    "E_causality": "SETTING_INFORMATION_IS_PRESENT_AT_SOURCE_READOUT_DYNAMICS_OPEN",
+    "headline": "NOT MET \u2014 no field of the pre-registered conjunction holds"
+  },
+  "ledger": [
+    {
+      "input": "Hopf bundle = P_Spin(S^2)",
+      "status": "derived",
+      "where": "round 3 (PR #279)"
+    },
+    {
+      "input": "reduction of the chosen itinerary to x -> u -> -v -> x",
+      "status": "derived",
+      "where": "round 6 (PR #280)"
+    },
+    {
+      "input": "geodesic-realignment ansatz at the detectors",
+      "status": "chosen",
+      "where": "round 5"
+    },
+    {
+      "input": "the source -> A -> J -> B -> source itinerary",
+      "status": "chosen",
+      "where": "round 5"
+    },
+    {
+      "input": "physicality of the pair direction x",
+      "status": "chosen",
+      "where": "round 5; collides with gate E"
+    },
+    {
+      "input": "equal sector prior r = 1",
+      "status": "open",
+      "where": "question B: free at every angle but pi/2"
+    },
+    {
+      "input": "S_H = -1/2 Tr G as the functional",
+      "status": "chosen",
+      "where": "question A: stationary but not additive"
+    },
+    {
+      "input": "kappa, the normalisation in e^{i kappa S_H}",
+      "status": "open",
+      "where": "question A/F3: no repository source"
+    },
+    {
+      "input": "orientation convention in the Maslov factor",
+      "status": "chosen",
+      "where": "shifts kappa by pi/2; F2 is invariant"
+    },
+    {
+      "input": "current-to-frequency readout",
+      "status": "open",
+      "where": "question C: every existing observable is degree 2, but two ordinary quadratics disagree and none is a derived detector coupling"
+    },
+    {
+      "input": "the round-5 Haar/uniform source measure (a = 1 in the Morse-Bott coefficients)",
+      "status": "chosen",
+      "where": "note N12: a non-constant in-plane amplitude moves both masses"
+    },
+    {
+      "input": "restriction to the two-parameter family of geodesic triangles",
+      "status": "chosen",
+      "where": "note N12: not stationary phase over BAM's full history space"
+    },
+    {
+      "input": "a map from the source variable x to field configurations",
+      "status": "open",
+      "where": "gate E: needed before degree in phi says anything about parity in x"
+    },
+    {
+      "input": "a source-local readout that respects the two-boundary problem",
+      "status": "open",
+      "where": "gate E: not constructed; measurement is itself a BC"
+    },
+    {
+      "input": "antipodal scalar BC, eta, quotient-vs-cover",
+      "status": "not used",
+      "where": "C1: not in this strand"
+    }
+  ],
+  "checks": [
+    [
+      "O1-O4  the frozen oracle reproduces",
+      true
+    ],
+    [
+      "O4     saddle magnitude IS the positive coarea density",
+      true
+    ],
+    [
+      "A-ctl  every F(cos theta) shares the critical set",
+      true
+    ],
+    [
+      "A1     theta additive, S_H not",
+      true
+    ],
+    [
+      "A2     the additive functional is nowhere stationary",
+      true
+    ],
+    [
+      "A3     Crit(S_H) = Gamma: no critical points OFF closure either",
+      true
+    ],
+    [
+      "F1     component masses are unequal; only the PHASE is undetermined",
+      true
+    ],
+    [
+      "F1b    the masses reproduce BOTH candidate aggregations exactly",
+      true
+    ],
+    [
+      "F1c    ...but CONDITIONAL on the round-5 Haar amplitude a = 1",
+      true
+    ],
+    [
+      "F1d    the singular punctures carry no mass: excised disc is O(eps^2)",
+      true
+    ],
+    [
+      "F2     phase factor real iff 4kappa/pi odd",
+      true
+    ],
+    [
+      "B1     two sector orbits at every angle but pi/2",
+      true
+    ],
+    [
+      "B2     r not forced at any CHSH angle",
+      true
+    ],
+    [
+      "B3     fibre symmetries cannot change sector weights",
+      true
+    ],
+    [
+      "B4     no IDENTIFIED discrete operation mixes like and unlike",
+      true
+    ],
+    [
+      "C1     every existing BAM observable is degree 2",
+      true
+    ],
+    [
+      "C2     but two ordinary quadratics disagree: no readout is named",
+      true
+    ],
+    [
+      "C3     <D_s^2> = (1+c)(2+c) closed form",
+      true
+    ],
+    [
+      "D1     the radial action is a genuine one-form integral",
+      true
+    ],
+    [
+      "E1     source density is exactly antipodally even",
+      true
+    ],
+    [
+      "E2     odd observables blind; SOME even ones separate",
+      true
+    ],
+    [
+      "E2b    but NOT every even observable separates (constants, x.x)",
+      true
+    ],
+    [
+      "E4     no operational readout is claimed",
+      true
+    ],
+    [
+      "E3     non-coplanar supports are mutually singular",
+      true
+    ]
+  ],
+  "passed": 24,
+  "total": 24
+}
