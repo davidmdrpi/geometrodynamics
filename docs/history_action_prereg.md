@@ -206,3 +206,45 @@ Every input the round uses, classified `derived` / `chosen` / `imported` /
 `open`, including at minimum: the geodesic-realignment ansatz, the itinerary,
 the physicality of `x`, the sector prior, `κ`, the orientation convention,
 and any detector coupling used in C.
+
+## Correction notes (post-implementation)
+
+Recorded here rather than applied silently. **No criterion changed**; each
+note narrows or sharpens what may be claimed.
+
+**N1 — E has a parity structure that was not anticipated.** The gate was
+pre-registered as a single question. The measured answer splits: the
+outcome-summed conditioned density is *exactly* antipodally even
+(`ρ(−x|a,b) = ρ(x|a,b)`, residual `3.4e-20` on an antipodally paired grid), so
+**every odd source-local observable is blind** — `E[x·m|a,b] = 0` and
+`P(x·m>0|a,b) = 1/2` exactly, for every axis and setting pair. This is a
+genuine partial protection and is recorded as a finding in its own right.
+It does not change the verdict: every **even** observable signals
+(`E[(x·m)²]` spread `0.0103`), non-coplanar settings give mutually singular
+supports (total variation `1`, a one-shot signal), and by question C every
+classical coupling in BAM is degree-2 homogeneous, hence even — so the
+readable class is exactly the class BAM has.
+
+**N2 — E's verdict label.** Both `SOURCE_READOUT_SIGNALS_FUTURE_SETTINGS` and
+`X_PHYSICALITY_COLLIDES_WITH_NO_SIGNALLING` are defensible. The first is
+reported, because it is what was measured; the collision is the
+interpretation and is stated explicitly in `docs/history_action.md` rather
+than used as the label.
+
+**N3 — two implementation bugs found and fixed before the result was
+recorded**, both of the same kind: a check that compared a quantity with
+itself. (i) The first version of question D computed the outer leg as
+`whole − inner`, making additivity true by construction, and the split point
+lay outside the classically allowed region so the outer leg was zero; it now
+integrates both legs independently over an interval split *inside* the allowed
+region (`0.9924` and `0.7358`, additive to `2.0e-8`). (ii) The first version of
+`fibre_action_is_weight_blind` recomputed the same base integrand twice; it now
+measures that the Hopf action is vertical (`3.3e-16`) and re-runs round 6's
+fibre-independence measurement (`2.5e-15`). Neither bug had reached a verdict.
+
+**N4 — a consequence of C that was not pre-registered.** The quadratic readout
+is not a *weaker* correlation but a **superquantum** one: `E = −2cos γ/(1+cos²γ)`
+with exact `1/2` marginals and `S_max = 8√2/3 = 3.7712 > 2√2`. Recorded because
+it inverts the natural reading of item 3: linearity is not a convenience that
+happens to give the quantum answer, it is what keeps the model *at* the
+Tsirelson bound rather than past it.

@@ -69,11 +69,33 @@ named inputs plus composition.
      `H₁ ⊗ H₂` is untouched.
    (`docs/closure_measurement_dependence.md`, `docs/closure_current.md`,
    `docs/classical_born_rule.md`; PR #280.)
+6. **The action route to branch aggregation is closed, and the causality gate
+   fails.** The holonomy trace `S_H = −½ Tr G = −cos(Ω/2)` has the derived
+   closure set as its **Morse–Bott critical manifold**, and its transverse
+   stationary-phase magnitude is exactly the positive coarea density — with
+   nothing tuned. It is nevertheless not an action: closure holonomies at a
+   common basepoint compose additively in `θ`, so `e^{iθ}` is a genuine
+   holonomy carrying the branch sign but has **no critical points**, while
+   `S_H` has the critical set and is **not additive**, so `e^{iκS_H}` is not
+   the holonomy of any connection and `κ` is free. `A_π/A_0 = e^{2iκ}e^{∓iπ/2}`
+   has magnitude `1` for every real `κ`, so the fork is purely a phase
+   question; `κ = 1` selects neither branch. Separately: the fixed-setting
+   symmetry group has two sector orbits except at `γ = π/2`, so `r` is free at
+   every CHSH angle; every classical coupling in the repository is degree-2
+   homogeneous, and a quadratic readout is *superquantum*
+   (`S_max = 8√2/3 = 3.7712`); and **operational no-signalling to the past
+   fails** — the conditioned source density is exactly antipodally even, so odd
+   observables are blind, but every even one signals, and non-coplanar settings
+   give mutually singular supports (total variation `1`). Since every BAM
+   coupling is even, the readable class is exactly the one BAM has.
+   (`docs/history_action.md`; round 7.)
 
 So the organising question is no longer whether the geometry supplies spin
 structure or a Bell-violating global constraint — it does, conditionally on
 named choices — but whether anything in the classical theory selects how
-closed histories aggregate into observed event frequencies.
+closed histories aggregate into observed event frequencies. Round 7 sharpens
+the negative: the branch holonomy and the coarea magnitude come from two
+provably different functionals, and no single object supplies both.
 
 ### Original bottom line, as written at `b771b16`
 
@@ -533,18 +555,39 @@ recorded in the historical list below rather than here.*
    The sharper form: do the Pin/Hopf data make the closure locus an oriented
    current with local coefficients (sign mandatory), or is the physical
    object a measure on histories (positivity forces `|D|`)?
+   *Round 7: the stationary-action route is closed. The functional whose
+   saddle gives the coarea magnitude (`−cos θ`) is not additive, and the
+   additive one (`θ`) has no critical points, so `κ` in `e^{iκS_H}` is a free
+   normalisation — a fourth underived input, not a route to the first.*
 2. **The relative sector coefficients.** Derive `π_like = π_unlike` from a
    symmetry or chain argument rather than adopting the counting measure. It
    moves the correlation on both branches and the quantum law appears only at
    `r = 1`; no-signalling does not constrain it.
+   *Round 7: the full fixed-setting isometry group has order 4 and two sector
+   orbits at every angle except `γ = π/2`, where it is order 8 and transitive.
+   `r = 1` is forced there and nowhere else — and `π/2` is not a CHSH angle.
+   Fibre symmetries cannot help; the sector weights are fibre-blind.*
 3. **The readout.** Derive why observed frequencies would be linear in the
    integrated current rather than quadratic in it — the usual classical
    detector response to an amplitude — or given by another functional.
+   *Round 7: measured under `φ ↦ cφ`, all five null stresses of
+   `source_audit.py` and the conserved mouth current `Im(q*Aq)` have degree
+   exactly `2`; none is linear. A quadratic readout keeps marginals at `1/2`
+   but gives `E = −2cos γ/(1+cos²γ)` and `S_max = 8√2/3 = 3.7712` —
+   superquantum. Linearity is what holds the model at Tsirelson.*
 4. **Composition.** Everything above concerns one pair. Derive `H₁ ⊗ H₂` from
    `Γ₁ × Γ₂` for the opposite-Pin-sector pair, rather than assuming it.
-5. **Operational no-signalling to the past.** `ρ(x|a,b)` depends on the
-   future settings; a source read-out coupling whose statistics depend on
-   `(a,b)` would falsify the model. The model has no such coupling yet.
+5. **Operational no-signalling to the past — now a live failure, not an open
+   question.** *Round 7 ran the gate.* The conditioned density is exactly
+   antipodally even, so every **odd** source observable is blind
+   (`E[x·m|a,b] = 0`, `P(x·m>0) = 1/2` exactly). Every **even** one signals
+   (`E[(x·m)²]` spread `0.0103`), and for non-coplanar settings the supports
+   are mutually singular — a one-shot signal, total variation `1`. Every
+   classical coupling BAM has is degree 2, hence even, so the readable class
+   is exactly the one the repository supplies. Either a dynamical reason for
+   source inaccessibility must be derived, or `x` must be declared gauge — which
+   collides with round 5's use of `x` as a physical source variable. That
+   collision is now the sharpest open problem on this strand.
 6. **Only then revisit Bell in full**, and **keep the mass and QCD fits
    frozen** until the trunk is resolved.
 
