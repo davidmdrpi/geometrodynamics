@@ -1,14 +1,14 @@
 # Round 7 — does a classical BAM action select the oriented branch?
 
-**16/16 checks pass.**
+**21/21 checks pass.**
 
 ## Five independent verdicts
 
 * **A_action** — `HOLONOMY_TRACE_IS_A_STATIONARY_FUNCTIONAL_NOT_A_DERIVED_ACTION`
 * **B_sectors** — `LIKE_UNLIKE_SECTOR_RATIO_REMAINS_FREE`
-* **C_readout** — `CLASSICAL_DETECTOR_RESPONDS_QUADRATICALLY`
+* **C_readout** — `NO_BAM_DETECTOR_COUPLING_CURRENTLY_DEFINES_THE_READOUT`
 * **D_compatibility** — `HISTORY_ACTION_INDEPENDENTLY_POSTULATED`
-* **E_causality** — `SOURCE_READOUT_SIGNALS_FUTURE_SETTINGS`
+* **E_causality** — `SETTING_INFORMATION_IS_PRESENT_AT_SOURCE_READOUT_DYNAMICS_OPEN`
 * **headline** — `NOT MET — no field of the pre-registered conjunction holds`
 
 ## Checks
@@ -18,16 +18,21 @@
 * PASS  A-ctl  every F(cos theta) shares the critical set
 * PASS  A1     theta additive, S_H not
 * PASS  A2     the additive functional is nowhere stationary
-* PASS  F1     saddle magnitudes never separate the branches
-* PASS  F2     ratio real iff 4kappa/pi odd
+* PASS  A3     Crit(S_H) = Gamma: no critical points OFF closure either
+* PASS  F1     component masses are unequal; only the PHASE is undetermined
+* PASS  F1b    the masses reproduce BOTH candidate aggregations exactly
+* PASS  F2     phase factor real iff 4kappa/pi odd
 * PASS  B1     two sector orbits at every angle but pi/2
 * PASS  B2     r not forced at any CHSH angle
 * PASS  B3     fibre symmetries cannot change sector weights
-* PASS  C1     every BAM coupling is degree 2
-* PASS  C2     a quadratic readout is superquantum
+* PASS  C1     every existing BAM observable is degree 2
+* PASS  C2     but two ordinary quadratics disagree: no readout is named
+* PASS  C3     <D_s^2> = (1+c)(2+c) closed form
 * PASS  D1     the radial action is a genuine one-form integral
 * PASS  E1     source density is exactly antipodally even
-* PASS  E2     odd observables blind, even observables signal
+* PASS  E2     odd observables blind; SOME even ones separate
+* PASS  E2b    but NOT every even observable separates (constants, x.x)
+* PASS  E4     no operational readout is claimed
 * PASS  E3     non-coplanar supports are mutually singular
 
 ## The candidate, and why it is not an action
@@ -40,10 +45,15 @@
 * `theta` additive to `3.3e-16`; `S_H` additivity defect `1.805`
 * `min |grad theta|` on closure = `0.1620` > 0
 
-| kappa | 4k/pi | real? | selects |
+
+* component masses `M_0 = 11.670806`, `M_pi = 0.169512`, ratio `0.014524` — **not** 1
+* `(M_0 - M_pi)|uxv| = int D` (residual `1.8e-15`) and `(M_0 + M_pi)|uxv| = int |D|` (residual `0.0e+00`): stationary phase supplies both candidate magnitudes; only the relative phase is open
+* no critical points off closure: `min |grad theta| = 0.2850`, and the only candidate needs `x_p = -sec(gamma/2)`, outside the sphere
+
+| kappa | 4k/pi | phase real? | selects |
 |---|---|---|---|
-| pi/4 | 1.0000 | True | positive count (+1) |
-| 3pi/4 | 3.0000 | True | oriented (-1) |
+| pi/4 | 1.0000 | True | positive count  M_0 + M_pi |
+| 3pi/4 | 3.0000 | True | oriented sum  M_0 - M_pi |
 | 1 (hbar=1) | 1.2732 | False | neither: complex relative weight |
 | pi/2 | 2.0000 | False | neither: complex relative weight |
 
@@ -69,14 +79,16 @@
 | `mouth_flux Im(q* A q)` | `throat_operator.py:676` | 2.000000 |
 
 * linear readout: `S_max = 2.828427` (Tsirelson)
-* quadratic readout: `S_max = 3.771236` = `8 sqrt2/3` at `gamma = 0.7854` — **superquantum**
-* quadratic marginals stay `1/2` to `5.6e-17`
+* quadratic, square-of-integral: `S_max = 3.771236` = `8 sqrt2/3`
+* quadratic, integral-of-square: `S_max = 3.394113`
+* both keep marginals at exactly `1/2`; **they disagree**, so degree-2 homogeneity does not name a readout
 
 ## E — causality gate
 
 * conditioned density antipodally even to `3.4e-20`
 * odd observables blind (spread `2.8e-17`)
-* even observables signal (spread `0.0103`)
+* *some* even functions separate (spread `0.0103`); constants and `x.x` do not (spread `0.0e+00`)
+* no map from `x` to field configurations, and no two-boundary-compatible source readout, is constructed — a hazard, not a channel
 * non-coplanar total variation `1.0` — mutually singular, a one-shot signal
 
 ## Dependency ledger
@@ -90,5 +102,7 @@
 * `S_H = -1/2 Tr G as the functional` — **chosen** (question A: stationary but not additive)
 * `kappa, the normalisation in e^{i kappa S_H}` — **open** (question A/F3: no repository source)
 * `orientation convention in the Maslov factor` — **chosen** (shifts kappa by pi/2; F2 is invariant)
-* `linear current-to-frequency readout` — **open** (question C: every BAM coupling is degree 2)
+* `current-to-frequency readout` — **open** (question C: every existing observable is degree 2, but two ordinary quadratics disagree and none is a derived detector coupling)
+* `a map from the source variable x to field configurations` — **open** (gate E: needed before degree in phi says anything about parity in x)
+* `a source-local readout that respects the two-boundary problem` — **open** (gate E: not constructed; measurement is itself a BC)
 * `antipodal scalar BC, eta, quotient-vs-cover` — **not used** (C1: not in this strand)

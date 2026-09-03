@@ -11,9 +11,9 @@ Pre-registered in `docs/history_action_prereg.md` (`a33a901`) before
 |---|---|
 | A — closed-history action | `HOLONOMY_TRACE_IS_A_STATIONARY_FUNCTIONAL_NOT_A_DERIVED_ACTION` |
 | B — sector coefficients | `LIKE_UNLIKE_SECTOR_RATIO_REMAINS_FREE` |
-| C — classical readout | `CLASSICAL_DETECTOR_RESPONDS_QUADRATICALLY` |
+| C — classical readout | `NO_BAM_DETECTOR_COUPLING_CURRENTLY_DEFINES_THE_READOUT` |
 | D — radial compatibility | `HISTORY_ACTION_INDEPENDENTLY_POSTULATED` |
-| E — causality gate | `SOURCE_READOUT_SIGNALS_FUTURE_SETTINGS` |
+| E — causality gate | `SETTING_INFORMATION_IS_PRESENT_AT_SOURCE_READOUT_DYNAMICS_OPEN` |
 
 ## Scope
 
@@ -37,7 +37,8 @@ does everything the pre-registration froze (O1–O4, reproduced to `3.3e-16`,
 
 * it is smooth wherever `D² + N² ≠ 0`, unlike the `arg` chart;
 * the derived closure set is exactly its critical manifold, Morse–Bott, with
-  index `0` on `θ = 0` and `1` on `θ = π`;
+  index `0` on `θ = 0` and `1` on `θ = π` — including the off-closure half,
+  proved below rather than assumed;
 * and its transverse stationary-phase magnitude `|D|/|u×v|` **is** the positive
   coarea density of round 5, with nothing tuned.
 
@@ -60,17 +61,65 @@ angles: `θ[γ₁∘γ₂] = θ[γ₁] + θ[γ₂]` exactly (`3.3e-16`). Then:
   O4 is not the semiclassics of an action.
 
 Any functional that is both a class function of `G` and additive is constant.
-So **no single functional supplies both the saddle magnitude and the branch
-phase.** The magnitude and the sign come from provably different objects.
+So **no globally single-valued real class function of the holonomy alone is
+both additive and stationary on the closure manifold**: the magnitude and the
+sign come from provably different objects *within that class*.
 
-### The falsifier, realised
+**Scope.** This is not a no-go for classical actions in general. A full
+classical action need not be a class function of `G` at all — it may carry
+`∫p dq − H dt`, detector interactions, orientation-dependent potentials or
+boundary terms. What is closed is the holonomy-trace route, the one the `S_H`
+coincidence suggests.
 
-For `∫ e^{iκS_H}`, with `S_H = ∓1` on the two components and Maslov factors
-differing by one index unit,
+### `Crit(S_H) = Γ`, including off the closure set
+
+Checking `∇S_H = 0` *on* `Γ` does not exclude critical points elsewhere, and
+round 6's `∇θ|_{N=0} ≠ 0` concerns only `N = 0`. With `p = u+v`, `q = u×v`,
+`A = 1+u·v`, so `N = x·q` and `D = A + x·p`,
 
 ```
-A_π / A_0 = e^{2iκ} · e^{∓iπ/2}.
+∇_{S²}θ = P_x (Dq − Np) / (D² + N²),
 ```
+
+so a regular critical point needs `Dq − Np ∥ x`. Since `p ⊥ q`, the vector
+`Dq − Np` has no component along `p̂ × q̂`. Either `x` does — forcing
+`Dq − Np = 0`, hence `D = N = 0`, the excluded chart singularity `x = −u, −v`
+— or `x ∈ span(p,q)`, where the condition collapses to
+`|p|(x_p² + x_q²) + A x_p = 0`, i.e.
+
+```
+x_p = −|p|/A = −2cos(γ/2) / 2cos²(γ/2) = −sec(γ/2),
+```
+
+impossible for `0 < γ < π` because `|x_p| ≤ 1`. Verified to `1.8e-15` against
+the closed form, with a global grid search finding `min|∇θ| = 0.285` off
+closure.
+
+### The falsifier, realised — with the correct Morse–Bott masses
+
+For a critical *manifold*, stationary phase carries an integral over each
+component, `A_j ~ e^{iκS_j} e^{iπσ_j/4}(2π/κ)^{1/2} M_j` with
+`M_j = ∫_{C_j} a/√|H_⊥| dσ`. So
+
+```
+A_π / A_0 = (M_π/M_0) · e^{2iκ} · e^{∓iπ/2}.
+```
+
+Because `|H_⊥|^{−1/2} = |D|/|u×v|`, the masses are the positive coarea masses
+of the two arcs, and they are **generically unequal** — measured
+`M_0 = 11.6708`, `M_π = 0.1695`, ratio `0.0145`. An earlier version of this
+document asserted `|A_π/A_0| = 1` by mistaking the local phase prefactor for
+the component amplitude; that is withdrawn (note N5).
+
+The corrected statement is stronger. To residual `0.0`,
+
+```
+(M_0 − M_π)|u×v| = ∫_Γ D dσ      (the oriented sum)
+(M_0 + M_π)|u×v| = ∫_Γ |D| dσ    (the positive count)
+```
+
+**Stationary phase reproduces both candidate aggregations exactly**, and the
+only undetermined element is their relative phase, `arg(A_π/A_0) = 2κ ∓ π/2`.
 
 | `κ` | `4κ/π` | ratio real? | selects |
 |---|---|---|---|
@@ -79,8 +128,9 @@ A_π / A_0 = e^{2iκ} · e^{∓iπ/2}.
 | `1` (`ħ = 1`) | 1.273 | **no** | neither — a complex relative weight |
 | `π/2` | 2 | **no** | neither |
 
-`|A_π/A_0| = 1` for every real `κ`: the branches are **never** separated by the
-saddle magnitude, so no refinement of O4 can settle the fork. The ratio is real
+The phase factor has unit modulus for every real `κ`, so no refinement of the
+*phase* changes the magnitudes and no refinement of the magnitudes settles the
+fork: the two are cleanly separated. The relative factor is real
 — i.e. the aggregation is one of the two candidates at all — iff `4κ/π` is an
 odd integer, a statement invariant under the orientation convention (which
 shifts `κ` by `π/2`). And the sign then alternates with `κ` mod `π`. The one
@@ -119,7 +169,7 @@ Enlarging the group along the spin-frame fibre cannot help: round 6 showed the
 holonomy is fibre-independent, so fibre symmetries leave every sector weight
 unchanged (`0.0`).
 
-## C — every BAM coupling is quadratic, and quadratic overshoots
+## C — every existing observable is quadratic, and that names no readout
 
 Measured, not asserted — the slope of `log R` against `log c` under `φ ↦ cφ`:
 
@@ -132,27 +182,36 @@ Measured, not asserted — the slope of `log R` against `log c` under `φ ↦ c�
 | `null_stress_nonminimal_at_node` | `source_audit.py:157` | 2.000000 |
 | `mouth_flux  Im(q* A q)` | `throat_operator.py:676` | 2.000000 |
 
-Every classical coupling BAM has — including its one conserved mouth current —
-is degree-2 homogeneous. None is linear.
+Every existing classical observable examined — including BAM's one conserved
+mouth current — is degree-2 homogeneous. None is linear. That is a real
+finding, and it is the whole of what the code establishes.
 
-The consequence is not a milder correlation. With
-`∫_Γ D_s dσ = 2π(1 − s_A s_B cos γ)`, a **quadratic** readout gives
+It is **not** a derived detector response, and the round does not claim one.
+The pre-registration required an actual quantity arriving at a detector with
+its response functional derived from a classical coupling. The five
+`source_audit.py` `T_kk` are stress tensors, not detector models; `mouth_flux`
+is a conserved flux, not an event-counting coupling.
 
-```
-P = (1 − s_A s_B cos γ)² / (4(1 + cos²γ)),      E = −2cos γ / (1 + cos²γ),
-```
+And degree-2 homogeneity does not name a law, because two perfectly ordinary
+quadratic operations disagree:
 
-with marginals still exactly `1/2` (`5.6e-17`) and
+| readout | `E(γ)` | `S_max` |
+|---|---|---|
+| linear in `∫_Γ D_s dσ` | `−cos γ` | `2.8284` (Tsirelson) |
+| square the integral, `(∫_Γ D_s dσ)²` | `−2cos γ/(1+cos²γ)` | `3.7712 = 8√2/3` |
+| square locally, `∫_Γ D_s² dσ` | `−3cos γ/(2+cos²γ)` | `3.3941` |
 
-```
-S_max = 8√2/3 = 3.7712   at γ = π/4,
-```
+The third line uses `⟨D_s²⟩_Γ = (1+c_s)(2+c_s)` exactly, from `⟨x⟩ = 0` and
+`⟨(x·p)²⟩ = |p|²/2 = 1+c_s` (residual `1.8e-15`). All three keep marginals at
+exactly `1/2`. Both quadratics exceed Tsirelson, and they differ from each
+other — so "quadratic" is not a prediction, and the earlier verdict
+`CLASSICAL_DETECTOR_RESPONDS_QUADRATICALLY` claimed more than was shown
+(note N6).
 
-against `2√2 = 2.8284` for the linear readout. **The quadratic response
-BAM actually has is superquantum** — above Tsirelson, below the PR-box bound
-`4`. So linearity is not a harmless convention: it is what keeps the model at
-the quantum bound rather than past it, and it is exactly what the matter
-sector does not supply.
+The supporting observation survives and is worth stating on its own: *every
+existing matter or flux observable in the repository is quadratic in field
+amplitude, and none supplies the linear history-current readout the oriented
+branch would need.*
 
 ## D — one symplectic structure gives `θ`, not `S_H`
 
@@ -171,7 +230,7 @@ route from the repository's action to `S_H` is to append `S_H` because it has
 the wanted critical set, which is the pre-registered definition of
 independently postulated.
 
-## E — the causality gate fails, with a parity structure
+## E — the information is present; the channel is not built
 
 The gate asks `P(O_S|a,b) = P(O_S)` for every source-local observable. The
 answer has a structure the pre-registration did not anticipate, recorded here
@@ -182,32 +241,51 @@ as a finding:
   Every **odd** observable is therefore blind: `E[x·m|a,b] = 0` and
   `P(x·m>0|a,b) = 1/2` exactly, for every axis and every setting pair
   (spread `2.8e-17`). This is a genuine partial protection.
-* Every **even** observable is not blind. `E[(x·m)²|a,b]` runs
+* **Some** even functions are not blind. `E[(x·m)²|a,b]` runs
   `0.10389, 0.10245, 0.10854` across `γ = 0.6, 1.2, 2.0`; spread `0.0103`.
-  And by C **every coupling in BAM is degree 2, hence even** — precisely the
-  class that reads the setting dependence. The homogeneity that fails to
-  supply a linear readout is the homogeneity that makes the source readable.
+  Not all of them: constants and `x·x = 1` are even and perfectly blind
+  (spread `0.0`), both computed here. The earlier claim that *every* even
+  observable signals was false and is withdrawn (note N7).
 * For **non-coplanar** settings the conditioned supports are different great
   circles meeting in two points: total variation `1.0`, mutually singular. A
-  single sample of `x` excludes settings. No parity argument touches this, and
-  it is a one-shot signal rather than a statistical one.
+  single sample of `x` would exclude settings. No parity argument touches this.
 
-Declaring `x` gauge would remove the signal and simultaneously remove round
-5's physical source variable. That collision is recorded, not resolved.
+Three things the round explicitly does **not** establish, all withdrawn from
+the first version (note N7):
+
+1. That BAM's couplings are even **in `x`**. Degree-2 homogeneity in a field
+   `φ` is not the operation `x ↦ −x` on the mouth direction, and the repository
+   has no map from `x` to scalar, Maxwell or GL field configurations. The
+   inference was a non-sequitur.
+2. That the observables used are things BAM can measure. `x·m`, `(x·m)²`,
+   `|x·m|` are synthetic functions of `x`, not couplings the theory possesses.
+3. That any of them could be read **without disturbing the solution**. In a
+   two-boundary theory a source measurement is itself a further boundary
+   condition, so a passive readout of an ontic variable may not exist at all.
+
+So the honest result is a **causality hazard, not a demonstrated signalling
+channel**: `ρ(x|a,b)` carries information about future settings that an ideal
+faithful readout of `x` would reveal. Closing it needs either a dynamical
+non-readability theorem or a reformulation in which `x` is not operational —
+and the latter collides with round 5's use of `x` as a physical source
+variable. That collision is recorded, not resolved.
 
 ## Where this leaves the program
 
 Round 6 left three underived inputs. Round 7 does not remove any of them, and
 adds two things that are worth more than a removal would have been:
 
-1. **`κ`** — a fourth underived ingredient, and a proof that the natural route
-   to it is closed, since the stationary functional is not additive and so
-   admits no representation condition.
-2. **A failed causality gate.** `ρ(x|a,b) ≠ ρ(x)` with `x` physical is
-   readable by exactly the couplings BAM has. The detector no-signalling of
-   round 5 stands; operational no-signalling to the past does not.
+1. **`κ`** — a fourth underived ingredient, and a proof that the holonomy-trace
+   route to it is closed, since the stationary functional is not additive and
+   so admits no representation condition. Stationary phase supplies *both*
+   candidate magnitudes exactly and leaves only their relative phase open.
+2. **A causality hazard.** `ρ(x|a,b) ≠ ρ(x)` with `x` physical means future
+   settings are encoded in the source ensemble. Whether that is operationally
+   readable is unproved and is now a first-class open problem — independent of
+   whether the Born law is ever recovered. Detector no-signalling stands.
 
 The make-or-break problem is unchanged in location and sharper in form: the
-geometry supplies the branch holonomy as a label and the coarea density as a
-magnitude, from two different functionals, and nothing yet makes either one a
-probability.
+geometry supplies the branch holonomy as a label and the coarea masses as
+magnitudes, from two different functionals, and nothing yet makes either one a
+probability. The probability layer is not one clever action away — even the
+`S_H` coincidence, which is genuine, does not close it.

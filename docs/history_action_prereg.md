@@ -74,8 +74,10 @@ A_π / A_0  =  e^{2iκ} · e^{∓iπ/2}        (sign per orientation convention)
 Three consequences are pre-registered:
 
 * **F1.** `|A_π/A_0| = 1` for real `κ`. The magnitudes never distinguish the
-  branches; **the entire fork is a phase question**, and no refinement of the
-  saddle *magnitude* can settle it.
+  branches, so **the entire fork is a phase question**, and no refinement of
+  the saddle *magnitude* can settle it. **[Superseded by note N5 — this is
+  wrong as stated; only the local phase prefactor has unit modulus.]**
+
 * **F2.** The ratio is real — i.e. the aggregation is either the positive
   count or the oriented sum, and not something complex that is neither — iff
   `4κ/π` is an **odd integer**. This statement is independent of the
@@ -248,3 +250,90 @@ with exact `1/2` marginals and `S_max = 8√2/3 = 3.7712 > 2√2`. Recorded beca
 it inverts the natural reading of item 3: linearity is not a convenience that
 happens to give the quantum answer, it is what keeps the model *at* the
 Tsirelson bound rather than past it.
+
+**N5 — F1 was wrong, and the corrected statement is stronger.** F1 treated the
+local phase prefactor as the whole component amplitude. For a Morse–Bott
+critical *manifold*, stationary phase carries an integral over each component,
+
+```
+A_j ~ e^{iκS_j} e^{iπσ_j/4} (2π/κ)^{1/2} M_j ,   M_j = ∫_{C_j} a/√|H_⊥| dσ,
+```
+
+so the true ratio is `A_π/A_0 = (M_π/M_0) e^{2iκ} e^{∓iπ/2}`. Since
+`|H_⊥|^{−1/2} = |D|/|u×v|`, the masses `M_0` and `M_π` are the positive coarea
+masses of the two closure arcs, and they are **generically unequal** — measured
+`M_0 = 11.6708`, `M_π = 0.1695`, ratio `0.0145`. So `|A_π/A_0| ≠ 1`, and the
+test `test_F1_the_saddle_magnitudes_never_separate_the_branches` was wrong and
+is replaced.
+
+What survives is cleaner than what was frozen. The two masses satisfy, to
+residual `0.0`,
+
+```
+(M_0 − M_π)|u×v| = ∫_Γ D dσ      (the oriented sum)
+(M_0 + M_π)|u×v| = ∫_Γ |D| dσ    (the positive count)
+```
+
+so stationary phase reproduces **both candidate aggregations exactly**, and the
+sole undetermined element is their relative *phase*, `arg(A_π/A_0) = 2κ ∓ π/2`.
+F2 and F3 are unaffected: the relative factor is real iff `4κ/π` is an odd
+integer, and its sign alternates with `κ` mod `π`.
+
+**N6 — C is downgraded to `NO_BAM_DETECTOR_COUPLING_CURRENTLY_DEFINES_THE_
+READOUT`.** §3C required an actual detector coupling with its response
+functional derived. That was not achieved: the five `source_audit.py` `T_kk`
+are stress tensors, not detector models, and `mouth_flux` is a conserved flux,
+not an event-counting coupling. The measured degree-2 homogeneity is real and
+is retained as a supporting finding — *every existing matter/flux observable
+examined is quadratic in field amplitude; none supplies a linear history-current
+readout* — but it does not select a law. Two ordinary quadratic operations
+disagree: squaring the integral gives `E = −2cos γ/(1+cos²γ)`,
+`S_max = 8√2/3 = 3.7712`; squaring locally and then integrating gives, from the
+exact `⟨D_s²⟩ = (1+c_s)(2+c_s)`, `E = −3cos γ/(2+cos²γ)`, `S_max = 3.3941`.
+Both keep marginals at `1/2`. The earlier verdict
+`CLASSICAL_DETECTOR_RESPONDS_QUADRATICALLY` claimed more than the code
+establishes and is withdrawn.
+
+**N7 — three overclaims in E, withdrawn.** (i) "Every even observable signals"
+is false: constants and `x·x = 1` are even and blind, and both are now computed.
+The supported claim is that *some* even functions separate the conditioned
+ensembles. (ii) "BAM's couplings are degree 2 in `φ`, hence even in `x`" is a
+non-sequitur — `x ↦ −x` on the mouth direction is not `φ ↦ −φ` on a scalar,
+Maxwell or GL field, and no map from `x` to those field configurations exists in
+the repository. Withdrawn. (iii) The observables used (`x·m`, `(x·m)²`, `|x·m|`)
+are synthetic functions of `x`, not couplings BAM has, and nothing shows a BAM
+apparatus could measure one without altering the global two-boundary solution —
+in a two-boundary theory a source measurement is itself a further boundary
+condition.
+
+**N8 — E's label, and why it is outside the pre-registered set.** §3E offered
+only `SOURCE_OBSERVABLES_OPERATIONALLY_NON_SIGNALLING`,
+`SOURCE_READOUT_SIGNALS_FUTURE_SETTINGS` and
+`X_PHYSICALITY_COLLIDES_WITH_NO_SIGNALLING`. That set has no term for what was
+actually established, which is that the information is *present* while
+readability is undemonstrated. The label used is
+`SETTING_INFORMATION_IS_PRESENT_AT_SOURCE_READOUT_DYNAMICS_OPEN`. This is a
+narrowing, not a weakening of the gate: it remains a serious causality hazard
+requiring either a dynamical non-readability theorem or a reformulation in which
+`x` is not operational.
+
+**N9 — the A and D theorems are scoped.** "No single functional supplies both
+the saddle magnitude and the branch phase" was too broad. What is established:
+*no globally single-valued real class function of the holonomy alone is
+simultaneously additive and has the closure manifold as its stationary set.* A
+full classical action need not be a class function of `G` — it may contain
+`∫p dq − H dt`, detector interactions, orientation-dependent potentials or
+boundary terms. Likewise D establishes that the **repository's existing** radial
+action plus the natural connection term does not generate `S_H`; it is not a
+general no-go.
+
+**N10 — the off-closure half of `Crit(S_H) = Γ` is now proved, not asserted.**
+Checking `∇S_H = 0` *on* the closure set does not exclude critical points
+elsewhere, and round 6's `∇θ|_{N=0} ≠ 0` concerns only `N = 0`. With `p = u+v`,
+`q = u×v`, `A = 1+u·v`, `∇_{S²}θ = P_x(Dq − Np)/(D²+N²)`, so a regular critical
+point needs `Dq − Np ∥ x`. As `p ⊥ q`, either `x` has a component along
+`p̂ × q̂` — forcing `Dq − Np = 0`, hence `D = N = 0`, the excluded chart
+singularity — or `x ∈ span(p,q)`, where the condition reduces to
+`x_p = −|p|/A = −sec(γ/2)`, impossible for `0 < γ < π` since `|x_p| ≤ 1`.
+Confirmed to `1.8e-15` against the closed form, with a global grid search
+finding `min|∇θ| = 0.285` off closure.

@@ -18,10 +18,11 @@ closure holonomy ``G = cos(Omega/2) + sin(Omega/2) x``,
 
 whose Morse-Bott saddle measure reproduces the positive coarea density with
 nothing tuned (O4). The central structural result of this module is that
-this is *not* an accident and *not* a derivation: the functional whose
-saddle supplies the magnitude and the functional whose exponential is the
-holonomy are provably different objects, and no single functional can be
-both.
+this is *not* an accident and *not* a derivation: within the class of real
+class functions of the holonomy, the functional whose saddle supplies the
+magnitude and the functional whose exponential is the holonomy are provably
+different objects, and no single one can be both. That is a statement about
+that class, not a no-go for classical actions in general.
 """
 
 from __future__ import annotations
@@ -36,8 +37,10 @@ from geometrodynamics.bulk.closure_measurement import solid_angle, great_circle
 __all__ = [
     "holonomy_trace", "morse_bott_oracle", "class_function_degeneracy",
     "additive_functionals_have_no_critical_points", "saddle_branch_ratio",
+    "morse_bott_component_masses", "no_off_closure_critical_points",
     "sector_symmetry_group", "sector_orbits", "fibre_action_is_weight_blind",
-    "detector_response_homogeneity", "quadratic_readout_law",
+    "detector_response_homogeneity", "quadratic_readouts_disagree",
+    "local_square_mean_is_closed_form",
     "radial_action_compatibility", "source_observable_signalling",
     "dependency_ledger", "verdicts",
 ]
@@ -220,9 +223,17 @@ def additive_functionals_have_no_critical_points(seed: int = 5
 
     Any functional that is both a class function of ``G`` and additive is
     constant: additivity forces ``f(theta) = lambda theta``, which is not
-    invariant under ``theta -> theta + 2pi`` unless ``lambda = 0``. Hence **no
-    single functional supplies both the saddle magnitude and the branch
-    phase**, which is the structural reason for F3.
+    invariant under ``theta -> theta + 2pi`` unless ``lambda = 0``.
+
+    **Scope (note N9).** What this establishes is precisely: *no globally
+    single-valued real class function of the holonomy alone is simultaneously
+    additive and has the closure manifold as its stationary set.* It is **not**
+    a no-go for classical actions in general. A full classical action need not
+    be a class function of ``G`` at all — it may contain ``int p dq - H dt``,
+    detector interaction terms, orientation-dependent potentials or boundary
+    terms. Nothing here forbids some unified construction of that kind; what is
+    shown is that the *holonomy-trace* route, the one the ``S_H`` coincidence
+    suggests, cannot supply both roles at once.
 
     ``min |grad theta|`` below is evaluated from round 6's closed form. That is
     not circular: O3 of `morse_bott_oracle` measures the transverse curvature
@@ -266,33 +277,153 @@ def additive_functionals_have_no_critical_points(seed: int = 5
     }
 
 
-def saddle_branch_ratio(kappa: float, convention: int = +1) -> Dict[str, object]:
-    """F1-F3: the relative saddle amplitude ``A_pi / A_0``.
+def morse_bott_component_masses(u, v, n: int = 200001) -> Dict[str, object]:
+    """The two Morse-Bott component masses, and what they already are.
 
-    ``S_H = -1`` on the ``theta = 0`` component and ``+1`` on ``theta = pi``;
-    the transverse indices are 0 and 1, so the Maslov factors differ by one
-    unit. With ``convention = +1`` for ``e^{+i(pi/4)sgn}``,
+    For a critical *manifold* rather than an isolated point, stationary phase
+    carries an integral over the component,
 
-        A_pi / A_0 = e^{2 i kappa} e^{-i pi/2 * convention}.
+        A_j ~ e^{i kappa S_j} e^{i pi sigma_j/4} (2pi/kappa)^{1/2} M_j,
+        M_j = int_{C_j} a(y) / sqrt(|H_perp(y)|) dsigma.
 
-    The magnitude is 1 for every real ``kappa`` (F1), so the branches are
-    never separated by the saddle *measure*; the ratio is real iff ``4 kappa/pi``
-    is an odd integer (F2), a statement unchanged by flipping the convention,
-    which shifts ``kappa`` by ``pi/2``; and the sign then alternates with
-    ``kappa`` mod ``pi`` (F3).
+    With ``a = 1`` and O4's ``|H_perp|^{-1/2} = |D|/|u x v|``, the two masses are
+    the positive coarea masses of the two closure arcs — the ``D > 0`` arc
+    (``theta = 0``) and the ``D < 0`` arc (``theta = pi``). They are
+    **generically unequal**.
+
+    Two identities follow, and they are the whole point:
+
+        (M_0 - M_pi)|u x v| = int_Gamma D dsigma      (the oriented sum)
+        (M_0 + M_pi)|u x v| = int_Gamma |D| dsigma    (the positive count)
+
+    So stationary phase does not merely reproduce the coarea *density*; with the
+    correct Morse-Bott masses it reproduces **both candidate aggregations
+    exactly**, and the only thing left undetermined is their relative phase.
     """
-    ratio = complex(np.exp(2j * kappa) * np.exp(-0.5j * math.pi * convention))
+    u, v = _unit(u), _unit(v)
+    q = np.cross(u, v)
+    nq = float(np.linalg.norm(q))
+    circle = great_circle(u, v, n)
+    _, D = _ND(circle, u, v)
+    dsigma = 2.0 * math.pi / len(circle)
+    M0 = float(np.sum(np.abs(D[D > 0]))) * dsigma / nq
+    Mpi = float(np.sum(np.abs(D[D < 0]))) * dsigma / nq
+    signed = float(np.sum(D)) * dsigma
+    absolute = float(np.sum(np.abs(D))) * dsigma
+    return {
+        "M_0": M0, "M_pi": Mpi, "mass_ratio": Mpi / M0,
+        "masses_are_unequal": bool(abs(Mpi / M0 - 1.0) > 1e-3),
+        "oriented_identity_residual": abs((M0 - Mpi) * nq - signed),
+        "positive_count_identity_residual": abs((M0 + Mpi) * nq - absolute),
+        "int_D": signed, "int_absD": absolute,
+    }
+
+
+def saddle_branch_ratio(kappa: float, u=(0.0, 0.0, 1.0),
+                        v=(math.sin(1.0), 0.0, math.cos(1.0)),
+                        convention: int = +1) -> Dict[str, object]:
+    """``A_pi / A_0 = (M_pi/M_0) e^{2 i kappa} e^{-i pi/2 * convention}``.
+
+    ``S_H = -1`` on the ``theta = 0`` component and ``+1`` on ``theta = pi``,
+    and the transverse indices are ``0`` and ``1``, so the Maslov factors
+    differ by one unit. The **magnitude** of the ratio is the mass ratio
+    ``M_pi/M_0``, which is generically far from ``1`` — it is *not* unity, and
+    an earlier version of this module wrongly said so by treating the local
+    phase prefactor as the whole component amplitude.
+
+    What survives, and is the actual content:
+
+        arg(A_pi/A_0) = 2 kappa - pi/2 * convention.
+
+    The masses are the already-derived positive coarea masses (see
+    `morse_bott_component_masses`), so stationary phase supplies the magnitudes
+    correctly and leaves **only the relative phase** open. The ratio is real —
+    i.e. the aggregation is one of the two candidates rather than something
+    complex — iff ``4 kappa/pi`` is an odd integer, a statement unchanged by
+    flipping the convention, which shifts ``kappa`` by ``pi/2``; the sign then
+    alternates with ``kappa`` mod ``pi``. A relative factor of ``-1`` gives
+    ``M_0 - M_pi`` (the oriented sum), ``+1`` gives ``M_0 + M_pi`` (the positive
+    count).
+    """
+    masses = morse_bott_component_masses(u, v, n=40001)
+    phase = complex(np.exp(2j * kappa) * np.exp(-0.5j * math.pi * convention))
+    ratio = (masses["M_pi"] / masses["M_0"]) * phase
     four_k = 4.0 * kappa / math.pi
     is_odd = abs(four_k - round(four_k)) < 1e-9 and int(round(four_k)) % 2 != 0
     return {
         "kappa": kappa, "convention": convention,
+        "phase_factor": phase, "mass_ratio": masses["M_pi"] / masses["M_0"],
         "ratio": ratio, "magnitude": abs(ratio),
+        "magnitude_is_the_mass_ratio": True,
         "4kappa_over_pi": four_k,
-        "ratio_is_real": bool(abs(ratio.imag) < 1e-9),
+        "arg_phase_factor": float(np.angle(phase)),
+        "phase_factor_is_real": bool(abs(phase.imag) < 1e-9),
         "odd_multiple_of_pi_over_4": bool(is_odd),
-        "selects": ("oriented (-1)" if abs(ratio + 1) < 1e-9 else
-                    "positive count (+1)" if abs(ratio - 1) < 1e-9 else
+        "selects": ("oriented sum  M_0 - M_pi" if abs(phase + 1) < 1e-9 else
+                    "positive count  M_0 + M_pi" if abs(phase - 1) < 1e-9 else
                     "neither: complex relative weight"),
+    }
+
+
+def no_off_closure_critical_points(trials: int = 12, n_theta: int = 400,
+                                   seed: int = 21) -> Dict[str, object]:
+    """``Crit(S_H) = Gamma_closure`` exactly — the off-closure half, proved.
+
+    Checking ``grad S_H = 0`` *on* the closure set does not exclude critical
+    points elsewhere, and round 6's ``grad theta|_{N=0} != 0`` concerns only
+    ``N = 0``. The missing argument is short. With ``p = u + v``, ``q = u x v``,
+    ``A = 1 + u.v``, so ``N = x.q`` and ``D = A + x.p``,
+
+        grad_{S^2} theta = P_x (D q - N p) / (D^2 + N^2),
+
+    so a regular critical point needs ``D q - N p`` parallel to ``x``. Since
+    ``p . q = 0``, write ``x`` in the orthonormal basis ``(p_hat, q_hat, r_hat)``
+    with ``r_hat = p_hat x q_hat``. The vector ``D q - N p`` has no ``r_hat``
+    component, so either
+
+    * ``x`` has a nonzero ``r_hat`` component, forcing ``D q - N p = 0``, hence
+      ``D = N = 0`` — the excluded chart singularity ``x = -u, -v``; or
+    * ``x`` lies in ``span(p, q)``, where the parallelism condition reduces to
+      ``|p|(x_p^2 + x_q^2) + A x_p = 0``, i.e. ``x_p = -|p|/A``.
+
+    And ``|p|/A = 2cos(gamma/2) / (2cos^2(gamma/2)) = sec(gamma/2) > 1`` for
+    ``0 < gamma < pi``, while ``|x_p| <= 1``. No solution. Both the closed form
+    and a global grid search are reported.
+    """
+    rng = np.random.default_rng(seed)
+    worst_off = math.inf
+    sec_worst = 0.0
+    rows = []
+    for _ in range(trials):
+        u, v = _unit(rng.normal(size=3)), _unit(rng.normal(size=3))
+        p, q = u + v, np.cross(u, v)
+        A = 1.0 + float(u @ v)
+        gamma = math.acos(float(np.clip(u @ v, -1.0, 1.0)))
+        required = -float(np.linalg.norm(p)) / A
+        sec_form = -1.0 / math.cos(0.5 * gamma)
+        sec_worst = max(sec_worst, abs(required - sec_form))
+        th = np.arccos(np.linspace(-1.0, 1.0, n_theta))
+        ph = np.linspace(0.0, 2.0 * math.pi, 2 * n_theta, endpoint=False)
+        T, P = np.meshgrid(th, ph, indexing="ij")
+        X = np.stack([np.sin(T) * np.cos(P), np.sin(T) * np.sin(P),
+                      np.cos(T)], axis=-1).reshape(-1, 3)
+        N = X @ q
+        D = A + X @ p
+        amb = D[:, None] * q[None, :] - N[:, None] * p[None, :]
+        tang = amb - np.sum(amb * X, axis=1)[:, None] * X
+        grad = np.linalg.norm(tang, axis=1) / (D ** 2 + N ** 2)
+        off = np.abs(N) > 1e-3
+        worst_off = min(worst_off, float(np.min(grad[off])))
+        rows.append({"gamma": gamma, "required_x_p": required,
+                     "impossible": bool(abs(required) > 1.0)})
+    return {
+        "min_grad_theta_off_closure": worst_off,
+        "required_x_p_equals_minus_sec_half_gamma": sec_worst,
+        "every_required_x_p_exceeds_the_sphere": all(r["impossible"] for r in rows),
+        "rows": rows,
+        "no_off_closure_critical_points": bool(
+            worst_off > 1e-3 and sec_worst < 1e-12
+            and all(r["impossible"] for r in rows)),
     }
 
 
@@ -474,53 +605,95 @@ def detector_response_homogeneity() -> Dict[str, object]:
             "any_linear": any(abs(r["measured_degree"] - 1.0) < 1e-6 for r in out)}
 
 
-def quadratic_readout_law(n_angle: int = 3601) -> Dict[str, object]:
-    """What a quadratic detector would actually predict — and it overshoots.
+def quadratic_readouts_disagree(n_angle: int = 20001) -> Dict[str, object]:
+    """Degree-2 homogeneity does not pick a readout: two quadratics disagree.
 
     Round 6 gave the sector integral ``int_Gamma D_s dsigma = 2 pi (1 + u.w)``
-    with ``u = s_A a``, ``w = -s_B b``, so ``u.w = -s_A s_B cos gamma``. A
-    readout **linear** in that integral gives ``P = (1 - s_A s_B cos g)/4`` and
-    ``E = -cos gamma``. A readout **quadratic** in it — the homogeneity every
-    BAM coupling actually has — gives
+    with ``u = s_A a``, ``w = -s_B b``, so ``c_s = u.w = -s_A s_B cos gamma``. A
+    readout **linear** in that integral gives ``E = -cos gamma`` and
+    ``S_max = 2 sqrt 2``. But "quadratic" is ambiguous, and the ambiguity is
+    not academic — two perfectly ordinary classical quadratic operations give
+    different physics:
 
-        P = (1 - s_A s_B cos g)^2 / (4(1 + cos^2 g)),
-        E = -2 cos g / (1 + cos^2 g),
+    * **square the integral** (a coherent, amplitude-like response):
+      ``R_s ~ (int_Gamma D_s dsigma)^2``, giving
+      ``E = -2 cos g/(1 + cos^2 g)`` and ``S_max = 8 sqrt2/3 = 3.7712``;
+    * **square locally, then integrate** (an ordinary intensity/energy
+      response): ``R_s ~ int_Gamma D_s^2 dsigma``. On the closure circle
+      ``<D_s^2> = (1 + c_s)(2 + c_s)`` exactly, since ``<x> = 0`` and
+      ``<(x.p)^2> = |p|^2/2 = 1 + c_s``; this gives
+      ``E = -3 cos g/(2 + cos^2 g)`` and ``S_max = 3.3941``.
 
-    with marginals still exactly ``1/2``. This is not a milder correlation: it
-    is **superquantum**, exceeding Tsirelson. So the linear readout is not a
-    harmless convention — it is what keeps the model at ``2 sqrt 2`` instead of
-    above it, and nothing in BAM's matter sector supplies it.
+    Both keep the marginals at exactly ``1/2``. Both are quadratic. They
+    disagree, and nothing measured in `detector_response_homogeneity` chooses
+    between them — which is why C cannot be reported as a derived quadratic
+    law. It is reported as *no derived readout at all*.
     """
-    def E_lin(g):
+    def E_linear(g):
         return -math.cos(g)
 
-    def E_quad(g):
+    def E_square_of_integral(g):
         c = math.cos(g)
         return -2.0 * c / (1.0 + c * c)
 
-    def chsh(E, g):
-        return abs(3.0 * E(g) - E(3.0 * g))
-
-    grid = np.linspace(1e-6, math.pi / 2, n_angle)
-    s_lin = max(chsh(E_lin, float(g)) for g in grid)
-    s_quad = max(chsh(E_quad, float(g)) for g in grid)
-    g_star = float(grid[int(np.argmax([chsh(E_quad, float(g)) for g in grid]))])
-    # marginals of the quadratic law
-    marg = []
-    for g in (0.3, 1.0, 2.0):
+    def E_integral_of_square(g):
         c = math.cos(g)
-        w = {(sa, sb): (1 - sa * sb * c) ** 2 for sa in (1, -1) for sb in (1, -1)}
-        tot = sum(w.values())
-        marg.append(abs(sum(v for k, v in w.items() if k[0] == 1) / tot - 0.5))
+        return -3.0 * c / (2.0 + c * c)
+
+    def chsh_max(E):
+        grid = np.linspace(1e-6, math.pi / 2, n_angle)
+        vals = [abs(3.0 * E(float(g)) - E(3.0 * float(g))) for g in grid]
+        k = int(np.argmax(vals))
+        return float(vals[k]), float(grid[k])
+
+    def marginal_dev(weight):
+        worst = 0.0
+        for g in (0.3, 1.0, 2.0):
+            c = math.cos(g)
+            w = {(sa, sb): weight(-sa * sb * c)
+                 for sa in (1, -1) for sb in (1, -1)}
+            tot = sum(w.values())
+            worst = max(worst,
+                        abs(sum(x for k, x in w.items() if k[0] == 1) / tot - 0.5))
+        return worst
+
+    s_lin, g_lin = chsh_max(E_linear)
+    s_sq_int, g_sq_int = chsh_max(E_square_of_integral)
+    s_int_sq, g_int_sq = chsh_max(E_integral_of_square)
     return {
-        "S_max_linear": s_lin,
-        "S_max_quadratic": s_quad,
-        "argmax_gamma_quadratic": g_star,
+        "linear": {"E_at_1": E_linear(1.0), "S_max": s_lin, "argmax": g_lin},
+        "square_of_integral": {"E_at_1": E_square_of_integral(1.0),
+                               "S_max": s_sq_int, "argmax": g_sq_int,
+                               "marginal_dev": marginal_dev(lambda c: (1 + c) ** 2)},
+        "integral_of_square": {"E_at_1": E_integral_of_square(1.0),
+                               "S_max": s_int_sq, "argmax": g_int_sq,
+                               "marginal_dev": marginal_dev(
+                                   lambda c: (1 + c) * (2 + c))},
         "tsirelson": 2.0 * math.sqrt(2.0),
-        "quadratic_exceeds_tsirelson": bool(s_quad > 2.0 * math.sqrt(2.0) + 1e-9),
-        "quadratic_marginal_deviation": max(marg),
-        "E_quadratic_at_1.0": E_quad(1.0),
+        "the_two_quadratics_disagree": bool(abs(s_sq_int - s_int_sq) > 1e-3),
+        "both_exceed_tsirelson": bool(
+            s_sq_int > 2.0 * math.sqrt(2.0) and s_int_sq > 2.0 * math.sqrt(2.0)),
+        "homogeneity_does_not_select_a_readout": True,
     }
+
+
+def local_square_mean_is_closed_form(seed: int = 17) -> Dict[str, object]:
+    """``<D_s^2>_Gamma = (1 + c_s)(2 + c_s)``, checked against the circle."""
+    rng = np.random.default_rng(seed)
+    worst = 0.0
+    for _ in range(12):
+        g = float(rng.uniform(0.2, 2.8))
+        a = np.array([0.0, 0.0, 1.0])
+        b = np.array([math.sin(g), 0.0, math.cos(g)])
+        for s_a in (1, -1):
+            for s_b in (1, -1):
+                u, w = s_a * a, -(s_b * b)
+                c = float(u @ w)
+                circle = great_circle(u, w, 200001)
+                _, D = _ND(circle, u, w)
+                worst = max(worst,
+                            abs(float(np.mean(D ** 2)) - (1 + c) * (2 + c)))
+    return {"worst_residual": worst, "closed_form_holds": bool(worst < 1e-5)}
 
 
 # ── D. compatibility with the existing radial action ────────────────────────
@@ -548,6 +721,11 @@ def radial_action_compatibility(omega: float = 0.9, ell: int = 2
     So the only way to reach ``S_H`` from here is to append it because it has
     the wanted stationary set. That is the pre-registered definition of
     independently postulated.
+
+    **Scope (note N9).** This is a statement about the **repository's existing
+    radial action**, not a general theorem. It shows that
+    ``closed_orbit_action`` plus the natural connection term does not generate
+    ``S_H``; it does not show that no unified classical action could.
     """
     from geometrodynamics.tangherlini.operator_audit import (
         one_way_wkb_action, closed_orbit_action)
@@ -606,33 +784,44 @@ def radial_action_compatibility(omega: float = 0.9, ell: int = 2
 
 def source_observable_signalling(n: int = 200000, m_axis=(0.3, 0.7, 0.2)
                                  ) -> Dict[str, object]:
-    """Does any source-local observable reveal the future settings? **Yes.**
+    """Is future-setting information *present* at the source? Yes. Readable? Open.
 
-    Round 5 established ``rho(x|a,b) != rho(x)``. This gate asks the stronger
-    operational question, ``P(O_S|a,b) = P(O_S)`` for every source-local
-    observable BAM actually has. The answer has a parity structure that was
-    not anticipated in the pre-registration and is recorded as a finding:
+    Round 5 established ``rho(x|a,b) != rho(x)``. This gate was pre-registered
+    as ``P(O_S|a,b) = P(O_S)`` for every source-local observable. What the
+    computation actually supports is narrower than the first version of this
+    module claimed, and the scope is corrected here (notes N7-N8):
 
-    * The outcome-summed conditioned density is **antipodally even**,
-      ``rho(-x|a,b) = rho(x|a,b)`` (residual ~1e-9). So every **odd**
-      observable is blind: ``E[x.m | a, b] = 0`` and ``P(x.m > 0|a,b) = 1/2``
-      for every axis ``m`` and every setting pair. Odd couplings therefore give
-      no signal, which is a genuine partial protection.
-    * Every **even** observable is not blind. ``E[(x.m)^2 | a, b]`` varies with
-      the settings. And by `detector_response_homogeneity` **every classical
-      coupling in BAM is degree-2 homogeneous**, hence even — precisely the
-      class that reads the setting dependence. The homogeneity that fails to
-      supply a linear readout in C is the homogeneity that makes the source
-      readable here.
-    * For **non-coplanar** settings the conditioned supports are different
-      great circles, meeting in two points: the measures are mutually singular,
-      total variation ``1``. A single sample of ``x`` then excludes settings,
-      so this is a one-shot signal and no parity argument touches it.
+    * **Established.** The outcome-summed conditioned density is *exactly*
+      antipodally even, ``rho(-x|a,b) = rho(x|a,b)``, so every **odd** function
+      of ``x`` has vanishing expectation and cannot distinguish settings. And
+      **some even functions do** distinguish them: ``E[(x.m)^2|a,b]`` and
+      ``E[|x.m| |a,b]`` both move with ``gamma``. For non-coplanar settings the
+      conditioned supports are different great circles meeting in two points —
+      mutually singular, total variation ``1``.
+    * **Not established, and no longer claimed: "every even observable
+      signals".** That is false, and two counterexamples are computed here:
+      constants, and ``x.x = 1`` on the sphere, are even and perfectly blind.
+      The correct statement is that *some* even functions separate the
+      conditioned ensembles.
+    * **Not established: that BAM's couplings are even in ``x``.** Degree-2
+      homogeneity in a field ``phi`` (question C) is not the same operation as
+      ``x -> -x`` on the mouth direction. Deducing one from the other needs an
+      explicit map from the source variable ``x`` to scalar / Maxwell / GL
+      field configurations, and the repository has none. The earlier version of
+      this module made that inference; it is withdrawn.
+    * **Not established: an operational channel.** The observables used here
+      (``x.m``, ``(x.m)^2``, ``|x.m|``) are synthetic functions of ``x``, not
+      couplings BAM possesses. Nothing shows a BAM apparatus can measure one
+      without altering the global two-boundary solution — and in a two-boundary
+      theory a source measurement is itself a further boundary condition, so a
+      passive readout of an ontic variable may not be available at all.
 
-    No dynamical reason for source inaccessibility exists in the repository.
-    Declaring ``x`` gauge would remove the signal and simultaneously remove
-    round 5's physical source variable, which is the collision the
-    pre-registration required to be stated rather than resolved by preference.
+    So the result is a **causality hazard**, not a demonstrated signalling
+    channel: the conditioned source ensemble carries information about future
+    settings that an ideal faithful readout of ``x`` would reveal. Closing it
+    requires either a dynamical non-readability theorem or a reformulation in
+    which ``x`` is not an operational degree of freedom — and the latter
+    collides with round 5's use of ``x`` as a physical source variable.
     """
     from geometrodynamics.bulk.closure_measurement import (
         measurement_dependence, source_density_on_circle)
@@ -654,17 +843,22 @@ def source_observable_signalling(n: int = 200000, m_axis=(0.3, 0.7, 0.2)
         w = w / w.sum()
         parity = max(parity, float(np.max(np.abs(w - np.roll(w, len(w) // 2)))))
         proj = circle @ m
-        rows.append({"gamma": gamma,
-                     "odd  E[x.m]": float(np.sum(w * proj)),
-                     "odd  P(x.m>0)": float(np.sum(w[proj > 0])),
-                     "even E[(x.m)^2]": float(np.sum(w * proj * proj)),
-                     "even E[|x.m|]": float(np.sum(w * np.abs(proj)))})
+        rows.append({
+            "gamma": gamma,
+            "odd  E[x.m]": float(np.sum(w * proj)),
+            "odd  P(x.m>0)": float(np.sum(w[proj > 0])),
+            "even E[(x.m)^2]": float(np.sum(w * proj * proj)),
+            "even E[|x.m|]": float(np.sum(w * np.abs(proj))),
+            "even E[1] (blind)": float(np.sum(w)),
+            "even E[x.x] (blind)": float(np.sum(w * np.sum(circle ** 2, axis=1))),
+        })
 
     def spread(key):
         return max(r[key] for r in rows) - min(r[key] for r in rows)
 
     odd_spread = max(spread("odd  E[x.m]"), spread("odd  P(x.m>0)"))
-    even_spread = max(spread("even E[(x.m)^2]"), spread("even E[|x.m|]"))
+    some_even = max(spread("even E[(x.m)^2]"), spread("even E[|x.m|]"))
+    blind_even = max(spread("even E[1] (blind)"), spread("even E[x.x] (blind)"))
     return {
         "non_coplanar_total_variation": non_coplanar.get("total_variation"),
         "non_coplanar_supports_mutually_singular": bool(
@@ -673,14 +867,17 @@ def source_observable_signalling(n: int = 200000, m_axis=(0.3, 0.7, 0.2)
         "density_is_antipodally_even_residual": parity,
         "observable_rows": rows,
         "odd_observable_spread": odd_spread,
-        "even_observable_spread": even_spread,
+        "some_even_observables_separate": some_even,
+        "blind_even_observable_spread": blind_even,
         "odd_observables_are_blind": bool(odd_spread < 1e-6),
-        "even_observables_signal": bool(even_spread > 1e-3),
-        "bam_couplings_are_even": True,   # degree 2, from detector_response_homogeneity
-        "source_readout_signals": bool(
-            even_spread > 1e-3
+        "some_even_functions_separate_the_ensembles": bool(some_even > 1e-3),
+        "not_every_even_observable_separates": bool(blind_even < 1e-12),
+        # the claims deliberately NOT made:
+        "bam_couplings_shown_even_in_x": False,
+        "operational_readout_constructed": False,
+        "setting_information_present_at_source": bool(
+            some_even > 1e-3
             or float(non_coplanar.get("total_variation", 0.0)) > 0.99),
-        "dynamical_reason_for_inaccessibility_in_repo": None,
     }
 
 
@@ -707,8 +904,15 @@ def dependency_ledger() -> List[Dict[str, str]]:
          "status": "open", "where": "question A/F3: no repository source"},
         {"input": "orientation convention in the Maslov factor",
          "status": "chosen", "where": "shifts kappa by pi/2; F2 is invariant"},
-        {"input": "linear current-to-frequency readout", "status": "open",
-         "where": "question C: every BAM coupling is degree 2"},
+        {"input": "current-to-frequency readout", "status": "open",
+         "where": ("question C: every existing observable is degree 2, but two "
+                   "ordinary quadratics disagree and none is a derived detector "
+                   "coupling")},
+        {"input": "a map from the source variable x to field configurations",
+         "status": "open",
+         "where": "gate E: needed before degree in phi says anything about parity in x"},
+        {"input": "a source-local readout that respects the two-boundary problem",
+         "status": "open", "where": "gate E: not constructed; measurement is itself a BC"},
         {"input": "antipodal scalar BC, eta, quotient-vs-cover",
          "status": "not used", "where": "C1: not in this strand"},
     ]
@@ -717,12 +921,15 @@ def dependency_ledger() -> List[Dict[str, str]]:
 def verdicts() -> Dict[str, str]:
     """Five independent fields, computed from the measurements above.
 
-    The pre-registered headline requires A, B, C and E to hold together. It is
-    not printed.
+    The pre-registered headline requires A, B, C and E together. It is not
+    printed. C and E carry labels narrower than the pre-registered options
+    because the pre-registered options overstated what the computation
+    supports; both narrowings are recorded as correction notes N6 and N8.
     """
     a_ok = additive_functionals_have_no_critical_points()
     b_ok = sector_orbits()
     c_ok = detector_response_homogeneity()
+    c_amb = quadratic_readouts_disagree()
     e_ok = source_observable_signalling(n=50000)
 
     A = ("HOLONOMY_TRACE_IS_A_STATIONARY_FUNCTIONAL_NOT_A_DERIVED_ACTION"
@@ -732,12 +939,20 @@ def verdicts() -> Dict[str, str]:
     B = ("PHYSICAL_SYMMETRY_FORCES_EQUAL_SECTOR_MEASURE"
          if b_ok["forced_at_any_chsh_angle"]
          else "LIKE_UNLIKE_SECTOR_RATIO_REMAINS_FREE")
-    C = ("CLASSICAL_DETECTOR_RESPONDS_QUADRATICALLY" if c_ok["all_quadratic"]
+    # every existing observable is quadratic, but "quadratic" does not name a
+    # readout: two ordinary quadratic operations give different physics, and
+    # none of them is derived from a detector coupling.
+    C = ("NO_BAM_DETECTOR_COUPLING_CURRENTLY_DEFINES_THE_READOUT"
+         if (c_ok["all_quadratic"] and c_amb["the_two_quadratics_disagree"])
          else "CLASSICAL_DETECTOR_DERIVES_LINEAR_HISTORY_READOUT"
-         if c_ok["any_linear"] else "NO_BAM_DETECTOR_COUPLING_CURRENTLY_DEFINES_THE_READOUT")
+         if c_ok["any_linear"] else "CLASSICAL_DETECTOR_RESPONDS_QUADRATICALLY")
     D = "HISTORY_ACTION_INDEPENDENTLY_POSTULATED"
-    E = ("SOURCE_READOUT_SIGNALS_FUTURE_SETTINGS"
-         if e_ok["source_readout_signals"]
+    # information is present at the source; no operational channel is built.
+    E = ("SETTING_INFORMATION_IS_PRESENT_AT_SOURCE_READOUT_DYNAMICS_OPEN"
+         if (e_ok["setting_information_present_at_source"]
+             and not e_ok["operational_readout_constructed"])
+         else "SOURCE_READOUT_SIGNALS_FUTURE_SETTINGS"
+         if e_ok["operational_readout_constructed"]
          else "SOURCE_OBSERVABLES_OPERATIONALLY_NON_SIGNALLING")
     return {"A_action": A, "B_sectors": B, "C_readout": C,
             "D_compatibility": D, "E_causality": E,

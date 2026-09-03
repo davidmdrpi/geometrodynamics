@@ -9,8 +9,10 @@ import pytest
 from geometrodynamics.bulk.history_action import (
     holonomy_trace, morse_bott_oracle, class_function_degeneracy,
     additive_functionals_have_no_critical_points, saddle_branch_ratio,
+    morse_bott_component_masses, no_off_closure_critical_points,
     sector_symmetry_group, sector_orbits, fibre_action_is_weight_blind,
-    detector_response_homogeneity, quadratic_readout_law,
+    detector_response_homogeneity, quadratic_readouts_disagree,
+    local_square_mean_is_closed_form,
     radial_action_compatibility, source_observable_signalling,
     dependency_ledger, verdicts)
 
@@ -56,15 +58,43 @@ def test_the_additive_functional_has_no_critical_point_on_closure():
 @pytest.mark.parametrize("kappa,expect_real", [
     (math.pi / 4, True), (3 * math.pi / 4, True),
     (math.pi / 2, False), (1.0, False), (0.3, False)])
-def test_F2_ratio_is_real_iff_4kappa_over_pi_is_an_odd_integer(kappa, expect_real):
+def test_F2_phase_factor_is_real_iff_4kappa_over_pi_is_an_odd_integer(kappa, expect_real):
     r = saddle_branch_ratio(kappa)
-    assert r["ratio_is_real"] is expect_real
+    assert r["phase_factor_is_real"] is expect_real
     assert r["odd_multiple_of_pi_over_4"] is expect_real
 
 
-def test_F1_the_saddle_magnitudes_never_separate_the_branches():
+def test_the_component_masses_are_generically_unequal():
+    """Morse-Bott stationary phase integrates over each component, so the
+    ratio is M_pi/M_0, not 1. An earlier version claimed unit magnitude by
+    mistaking the local phase prefactor for the component amplitude."""
+    m = morse_bott_component_masses([0, 0, 1],
+                                    [math.sin(1.0), 0, math.cos(1.0)])
+    assert m["masses_are_unequal"]
+    assert abs(m["mass_ratio"] - 1.0) > 0.5
+    r = saddle_branch_ratio(math.pi / 4)
+    assert abs(r["magnitude"] - r["mass_ratio"]) < 1e-12
+    assert abs(r["magnitude"] - 1.0) > 0.5
+
+
+def test_the_masses_reproduce_both_candidate_aggregations_exactly():
+    """(M_0 - M_pi)|uxv| is the oriented sum and (M_0 + M_pi)|uxv| the positive
+    count: stationary phase supplies both magnitudes, leaving only the phase."""
+    rng = np.random.default_rng(2)
+    for _ in range(4):
+        u, v = (w / np.linalg.norm(w) for w in rng.normal(size=(2, 3)))
+        m = morse_bott_component_masses(u, v)
+        assert m["oriented_identity_residual"] < 1e-9
+        assert m["positive_count_identity_residual"] < 1e-9
+
+
+def test_the_undetermined_part_is_the_relative_phase_only():
     for kappa in (0.1, math.pi / 4, 1.0, 3 * math.pi / 4, 5.0):
-        assert abs(saddle_branch_ratio(kappa)["magnitude"] - 1.0) < 1e-12
+        r = saddle_branch_ratio(kappa)
+        assert abs(abs(r["phase_factor"]) - 1.0) < 1e-12   # phase only
+        assert abs(r["arg_phase_factor"]
+                   - math.atan2(math.sin(2 * kappa - math.pi / 2),
+                                math.cos(2 * kappa - math.pi / 2))) < 1e-12
 
 
 def test_F3_the_branch_sign_alternates_with_kappa_so_stationarity_cannot_choose():
@@ -72,6 +102,15 @@ def test_F3_the_branch_sign_alternates_with_kappa_so_stationarity_cannot_choose(
     assert saddle_branch_ratio(3 * math.pi / 4)["selects"].startswith("oriented")
     # the one value with any claim to naturalness is neither branch
     assert saddle_branch_ratio(1.0)["selects"].startswith("neither")
+
+
+def test_there_are_no_critical_points_off_the_closure_set():
+    """The half of Crit(S_H) = Gamma that checking on the closure set omits."""
+    o = no_off_closure_critical_points(trials=6)
+    assert o["min_grad_theta_off_closure"] > 1e-3
+    assert o["required_x_p_equals_minus_sec_half_gamma"] < 1e-12
+    assert o["every_required_x_p_exceeds_the_sphere"]
+    assert o["no_off_closure_critical_points"]
 
 
 def test_S_H_closed_form_matches_the_trace_definition():
@@ -120,15 +159,25 @@ def test_every_bam_coupling_is_degree_two_homogeneous():
         assert abs(row["measured_degree"] - 2.0) < 1e-6, row
 
 
-def test_the_quadratic_readout_is_superquantum():
-    q = quadratic_readout_law()
-    assert q["quadratic_exceeds_tsirelson"]
-    assert abs(q["S_max_quadratic"] - 8.0 * math.sqrt(2.0) / 3.0) < 1e-4
-    assert abs(q["S_max_linear"] - 2.0 * math.sqrt(2.0)) < 1e-8
+def test_two_ordinary_quadratic_readouts_disagree():
+    """Degree-2 homogeneity does not name a readout, so C cannot be reported
+    as a derived quadratic law."""
+    q = quadratic_readouts_disagree()
+    assert q["the_two_quadratics_disagree"]
+    assert abs(q["square_of_integral"]["S_max"] - 8.0 * math.sqrt(2.0) / 3.0) < 1e-4
+    assert abs(q["integral_of_square"]["S_max"] - 3.3941) < 1e-3
+    assert abs(q["linear"]["S_max"] - 2.0 * math.sqrt(2.0)) < 1e-8
+    assert q["both_exceed_tsirelson"]
 
 
-def test_the_quadratic_readout_still_has_exact_half_marginals():
-    assert quadratic_readout_law()["quadratic_marginal_deviation"] < 1e-12
+def test_both_quadratic_readouts_keep_exact_half_marginals():
+    q = quadratic_readouts_disagree()
+    assert q["square_of_integral"]["marginal_dev"] < 1e-12
+    assert q["integral_of_square"]["marginal_dev"] < 1e-12
+
+
+def test_the_local_square_mean_closed_form():
+    assert local_square_mean_is_closed_form()["closed_form_holds"]
 
 
 # ── D: compatibility with the existing radial action ────────────────────────
@@ -153,11 +202,27 @@ def test_the_conditioned_source_density_is_exactly_antipodally_even():
     assert e["density_is_antipodally_even_residual"] < 1e-15
 
 
-def test_odd_source_observables_are_blind_but_even_ones_signal():
+def test_odd_observables_are_blind_and_some_even_ones_separate():
     e = source_observable_signalling(n=20000)
     assert e["odd_observables_are_blind"]
-    assert e["even_observables_signal"]
-    assert e["source_readout_signals"]
+    assert e["some_even_functions_separate_the_ensembles"]
+    assert e["setting_information_present_at_source"]
+
+
+def test_not_every_even_observable_separates():
+    """The claim "every even observable signals" is false: constants and x.x
+    are even and blind."""
+    e = source_observable_signalling(n=20000)
+    assert e["not_every_even_observable_separates"]
+    assert e["blind_even_observable_spread"] < 1e-12
+
+
+def test_no_operational_channel_is_claimed():
+    """Neither the map from x to field configurations nor a source-local
+    readout compatible with the two-boundary problem is constructed."""
+    e = source_observable_signalling(n=20000)
+    assert e["bam_couplings_shown_even_in_x"] is False
+    assert e["operational_readout_constructed"] is False
 
 
 def test_non_coplanar_settings_give_mutually_singular_source_measures():
@@ -172,9 +237,9 @@ def test_the_five_verdicts_are_the_pre_registered_labels():
     v = verdicts()
     assert v["A_action"] == "HOLONOMY_TRACE_IS_A_STATIONARY_FUNCTIONAL_NOT_A_DERIVED_ACTION"
     assert v["B_sectors"] == "LIKE_UNLIKE_SECTOR_RATIO_REMAINS_FREE"
-    assert v["C_readout"] == "CLASSICAL_DETECTOR_RESPONDS_QUADRATICALLY"
+    assert v["C_readout"] == "NO_BAM_DETECTOR_COUPLING_CURRENTLY_DEFINES_THE_READOUT"
     assert v["D_compatibility"] == "HISTORY_ACTION_INDEPENDENTLY_POSTULATED"
-    assert v["E_causality"] == "SOURCE_READOUT_SIGNALS_FUTURE_SETTINGS"
+    assert v["E_causality"] == "SETTING_INFORMATION_IS_PRESENT_AT_SOURCE_READOUT_DYNAMICS_OPEN"
 
 
 def test_the_headline_is_not_printed():
@@ -185,5 +250,6 @@ def test_the_ledger_records_kappa_and_the_sector_prior_as_open():
     led = {row["input"]: row["status"] for row in dependency_ledger()}
     assert led["kappa, the normalisation in e^{i kappa S_H}"] == "open"
     assert led["equal sector prior r = 1"] == "open"
-    assert led["linear current-to-frequency readout"] == "open"
+    assert led["current-to-frequency readout"] == "open"
+    assert led["a map from the source variable x to field configurations"] == "open"
     assert led["antipodal scalar BC, eta, quotient-vs-cover"] == "not used"

@@ -79,15 +79,22 @@ named inputs plus composition.
    `S_H` has the critical set and is **not additive**, so `e^{iκS_H}` is not
    the holonomy of any connection and `κ` is free. `A_π/A_0 = e^{2iκ}e^{∓iπ/2}`
    has magnitude `1` for every real `κ`, so the fork is purely a phase
-   question; `κ = 1` selects neither branch. Separately: the fixed-setting
-   symmetry group has two sector orbits except at `γ = π/2`, so `r` is free at
-   every CHSH angle; every classical coupling in the repository is degree-2
-   homogeneous, and a quadratic readout is *superquantum*
-   (`S_max = 8√2/3 = 3.7712`); and **operational no-signalling to the past
-   fails** — the conditioned source density is exactly antipodally even, so odd
-   observables are blind, but every even one signals, and non-coplanar settings
-   give mutually singular supports (total variation `1`). Since every BAM
-   coupling is even, the readable class is exactly the one BAM has.
+   question; `κ = 1` selects neither branch. With the correct Morse–Bott
+   masses, `A_π/A_0 = (M_π/M_0)e^{2iκ}e^{∓iπ/2}`, and since
+   `(M_0 ∓ M_π)|u×v|` are exactly `∫_Γ D dσ` and `∫_Γ|D| dσ`, stationary phase
+   reproduces **both** candidate aggregations and leaves only their relative
+   phase open. Separately: the fixed-setting symmetry group has two sector
+   orbits except at `γ = π/2`, so `r` is free at every CHSH angle; every
+   *existing* classical observable is degree-2 homogeneous, but none is a
+   derived detector coupling and two ordinary quadratics disagree
+   (`8√2/3 = 3.7712` for the square of the integral, `3.3941` for the integral
+   of the square), so no readout is named; and **operational no-signalling to
+   the past is now unproved in both directions** — the conditioned source
+   density is exactly antipodally even, so odd observables are blind, *some*
+   even ones separate the ensembles, and non-coplanar settings give mutually
+   singular supports (total variation `1`) — a causality hazard rather than a
+   demonstrated channel, since no map from `x` to field configurations and no
+   two-boundary-compatible source readout exists.
    (`docs/history_action.md`; round 7.)
 
 So the organising question is no longer whether the geometry supplies spin
@@ -555,10 +562,13 @@ recorded in the historical list below rather than here.*
    The sharper form: do the Pin/Hopf data make the closure locus an oriented
    current with local coefficients (sign mandatory), or is the physical
    object a measure on histories (positivity forces `|D|`)?
-   *Round 7: the stationary-action route is closed. The functional whose
-   saddle gives the coarea magnitude (`−cos θ`) is not additive, and the
-   additive one (`θ`) has no critical points, so `κ` in `e^{iκS_H}` is a free
-   normalisation — a fourth underived input, not a route to the first.*
+   *Round 7: the holonomy-trace route is closed. The functional whose saddle
+   gives the coarea masses (`−cos θ`) is not additive, and the additive one
+   (`θ`) has no critical points anywhere, so `κ` in `e^{iκS_H}` is a free
+   normalisation — a fourth underived input, not a route to the first. The
+   Morse–Bott masses do reproduce both candidate aggregations exactly, which
+   isolates the open element as their relative phase alone. Scoped: this closes
+   real class functions of the holonomy, not classical actions in general.*
 2. **The relative sector coefficients.** Derive `π_like = π_unlike` from a
    symmetry or chain argument rather than adopting the counting measure. It
    moves the correlation on both branches and the quantum law appears only at
@@ -572,22 +582,33 @@ recorded in the historical list below rather than here.*
    detector response to an amplitude — or given by another functional.
    *Round 7: measured under `φ ↦ cφ`, all five null stresses of
    `source_audit.py` and the conserved mouth current `Im(q*Aq)` have degree
-   exactly `2`; none is linear. A quadratic readout keeps marginals at `1/2`
-   but gives `E = −2cos γ/(1+cos²γ)` and `S_max = 8√2/3 = 3.7712` —
-   superquantum. Linearity is what holds the model at Tsirelson.*
+   exactly `2`; none is linear. But those are stress tensors and a conserved
+   flux, not detector models, and degree-2 homogeneity names no law — squaring
+   the integral gives `S_max = 8√2/3 = 3.7712`, squaring locally and
+   integrating gives `3.3941`, both with `1/2` marginals and both above
+   Tsirelson. No readout is derived; the standing finding is that every
+   existing observable is quadratic in field amplitude and none supplies the
+   linear history-current readout.*
 4. **Composition.** Everything above concerns one pair. Derive `H₁ ⊗ H₂` from
    `Γ₁ × Γ₂` for the opposite-Pin-sector pair, rather than assuming it.
-5. **Operational no-signalling to the past — now a live failure, not an open
-   question.** *Round 7 ran the gate.* The conditioned density is exactly
-   antipodally even, so every **odd** source observable is blind
-   (`E[x·m|a,b] = 0`, `P(x·m>0) = 1/2` exactly). Every **even** one signals
-   (`E[(x·m)²]` spread `0.0103`), and for non-coplanar settings the supports
-   are mutually singular — a one-shot signal, total variation `1`. Every
-   classical coupling BAM has is degree 2, hence even, so the readable class
-   is exactly the one the repository supplies. Either a dynamical reason for
-   source inaccessibility must be derived, or `x` must be declared gauge — which
-   collides with round 5's use of `x` as a physical source variable. That
-   collision is now the sharpest open problem on this strand.
+5. **Operational no-signalling to the past — a first-class causality hazard,
+   still unproved in both directions.** *Round 7 ran the gate.* The conditioned
+   density is exactly antipodally even, so every **odd** source observable is
+   blind (`E[x·m|a,b] = 0`, `P(x·m>0) = 1/2` exactly). *Some* even functions
+   separate the conditioned ensembles (`E[(x·m)²]` spread `0.0103`) though not
+   all — constants and `x·x` are blind — and for non-coplanar settings the
+   supports are mutually singular, total variation `1`. What is **not** shown:
+   that BAM's couplings are even *in `x`* (degree in `φ` is not parity in `x`,
+   and no map between them exists), that the synthetic observables used are
+   measurable in BAM, or that any could be read without altering the global
+   two-boundary solution — where a source measurement is itself another
+   boundary condition. So `ρ(x|a,b)` demonstrably carries future-setting
+   information that an ideal faithful readout would reveal, while no
+   operational channel is constructed. Closing it requires a dynamical
+   non-readability theorem or a reformulation in which `x` is not operational —
+   which collides with round 5's use of `x` as a physical source variable.
+   That is now the sharpest open problem on this strand, and it is independent
+   of whether the Born law is ever recovered.
 6. **Only then revisit Bell in full**, and **keep the mass and QCD fits
    frozen** until the trunk is resolved.
 
