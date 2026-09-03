@@ -6,10 +6,79 @@ demonstrate quantum-field-theory-like behaviour emerging from classical
 general relativity, via (a) an antipodal identification and (b) a bulk
 interaction that connects the inner and outer surfaces through a
 non-orientable wormhole? Everything below was checked by reading the code and
-re-running it, not by reading the prose. A revision note at the end records
-what the first draft got wrong and how each correction was verified.*
+re-running it, not by reading the prose.*
 
-## Bottom line
+*The **Bottom line** below is the **current** status, updated through PR #280.
+The audit's original findings F1–F9 and its original bottom line are kept
+verbatim as the historical record, and the **Revision note** at the end
+records what the first draft got wrong, what has since been resolved, and how
+each correction was verified.*
+
+## Bottom line — current status (through PR #280)
+
+**Not yet, but the gap is now localised to one place.** Two of the three
+originally-missing arrows have been substantially closed, conditionally; the
+third has been narrowed from "the quantization map is not derived" to three
+named inputs plus composition.
+
+1. **Topology → transport: substantially resolved, conditionally.** The
+   `RP²` mouth's induced Pin⁻ holonomy squares to `−1` — the spin holonomy of
+   a `2π` rotation on the round neck, forced by the ambient Pin⁺ structure and
+   the two twisted normal lines — and lies in the same fibre-reversing
+   component of `Pin(2) ⊂ SU(2)` that contains `J = iσ_y K`, up to a `Spin(2)`
+   direction that is gauge and a sign that is the Pin⁻ sector. The Hopf fibre
+   **is** the mouth's `Spin(2)` (`q ↦ (q⁻¹iq, q⁻¹jq, q⁻¹kq)` is
+   `Spin(3) → SO(3) = F_SO(S²)`; fibre angle `φ` = frame angle `2φ`;
+   `c₁ = 1` against `e = 2`), so the antilinear `K` is canonical rather than
+   inserted. `J² = −1` is geometric. Conditional on the antipodal quotient
+   construction. (`docs/finite_mouth_bundle_transport.md`,
+   `docs/mouth_spin_frame_prereg.md`; PR #279.)
+2. **Finite mouth → antipodal boundary condition: substantially resolved,
+   conditionally.** PR #129's `Φ(U,V,Ω) = Φ(−U,−V,Ω̄)` is the `η = +1` scalar
+   sector of the unique free involution `ι(s,Ω) = (−s,−Ω)` of the finite
+   handle, obtained at the finite ultrastatic neck with no horizon and no
+   limit, and reproduced against the PR #277 admittance oracle to `5e-7`.
+   Conditional on `P_B = −P_A`, on taking the quotient rather than the double
+   cover, and on `η`. (Same documents; PR #279.)
+3. **The transport bug is fixed.** `embedding/transport.py` no longer claims
+   `σ` is orientation-reversing on `S³`; it is `L_{−j}`, the base antipode
+   composed with fibre reversal, `det = +1`, with Spin(4) lift `(−j, 1)`.
+4. **Traversable causal exchange remains unsupported**, and that is unchanged:
+   5D Einstein gravity with the repository's matter cannot hold a smooth
+   traversable neck open, the Tangherlini bridge does not transmit across
+   exteriors, and constant-coupling Gauss–Bonnet reaches its critical value
+   only where the linearised principal symbol degenerates. PR #206's
+   non-traversable global-constraint reading is untouched by this and is now
+   the branch being developed.
+5. **The current substantive gap is the probability and composition problem,
+   in four named parts.** Sharp phase closure of the closed history *does*
+   make the source ensemble depend on both analyzer settings, with exact
+   detector no-signalling and `S = 2.1423 > 2` — a Bell violation computed
+   from a classical global constraint rather than an inserted singlet — and
+   the holonomy-weighted current of the derived loop gives the quantum joint
+   law `P(s_A,s_B) = (1 − s_A s_B cos γ)/4`, `S = 2√2`, with no projectors.
+   What remains underived:
+   - **branch aggregation** — positive count `|D|` (`S_max = 2.1423`) or the
+     oriented, holonomy-weighted sum `D` (`2√2`);
+   - **the relative sector coefficients** — the equal outcome-sector prior is
+     a chosen counting measure and moves the correlation on *both* branches;
+     the quantum law appears only at `r = 1`;
+   - **the readout** — why observed frequencies would be *linear* in the
+     integrated current rather than quadratic in it;
+   - **composition** — everything above is one pair; `Γ₁ × Γ₂` versus
+     `H₁ ⊗ H₂` is untouched.
+   (`docs/closure_measurement_dependence.md`, `docs/closure_current.md`,
+   `docs/classical_born_rule.md`; PR #280.)
+
+So the organising question is no longer whether the geometry supplies spin
+structure or a Bell-violating global constraint — it does, conditionally on
+named choices — but whether anything in the classical theory selects how
+closed histories aggregate into observed event frequencies.
+
+### Original bottom line, as written at `b771b16`
+
+*Kept for the record; items 1 and 2 are superseded by the current status
+above, and the findings F1–F9 below are the audit as originally written.*
 
 **Not yet.** The repository contains a large body of careful classical
 computation and an unusually candid retraction record, but the specific
@@ -52,12 +121,6 @@ connection ⟹ QFT" is not closed. Four statements summarise the state:
    gives `CHSH = 2.000000`. `THESIS.md` contradicts itself on whether a path
    integral is performed.
 
-The highest-value open problem is therefore not another Standard-Model
-numerical match. It is whether the non-orientable finite mouth forces an
-orientation-bundle / Hopf lift, and whether the resulting classical global
-dynamics yields a composition and probability law that is *equivalent* to
-quantum mechanics rather than *represented* using it.
-
 ## Method
 
 * Read the README (4996 lines), `docs/THESIS.md`, the package docstrings for
@@ -77,6 +140,10 @@ quantum mechanics rather than *represented* using it.
 * Checked GitHub Actions for the CI history claim (run 32330296533).
 
 ## Findings
+
+*These are the findings as written at `b771b16`. Three of them have since
+changed status — see "What has been resolved since the audit was written" in
+the Revision note, and the current bottom line at the top.*
 
 ### F1. The claimed orientation-reversing Hopf isometry preserves orientation; the transport derivation is reopened, not deleted
 
@@ -385,15 +452,22 @@ picture is that they exist at different evidentiary levels and have not been
 composed. Read top to bottom, each box is real; the arrows between them are
 the missing derivations.
 
+*The diagram below is the picture as of `b771b16`; the arrows marked `?` are
+annotated with their current status, established on this branch.*
+
 ```
   finite classical mouth geometry          (PR #277, Darmois-matched, derived)
-            │  ? no derivation of the identification from the geometry
+            │  ✓ the antipodal BC is the η=+1 sector of the unique free involution
+            │    (conditional on P_B = −P_A, quotient over cover, η)          [PR #279]
             ▼
   antipodal boundary condition             (PR #129/#135, imposed postulate; consequences derived)
-            │  ? no theorem that the RP² mouth transition lifts to J
+            │  ✓ the RP² mouth's Pin⁻ holonomy squares to −1 in J's component;
+            │    the Hopf fibre IS the mouth's Spin(2), so the K is canonical;
+            │    the direction is gauge, the sign is the Pin⁻ sector          [PR #279]
             ▼
-  Hopf / quaternionic transport candidate  (J = iσ_y K; base antipode × fibre reversal; derivation false as stated)
-            │  ? no derivation of amplitudes, |A|², tensor product from classical dynamics
+  Hopf / quaternionic transport candidate  (J = iσ_y K = L_{−j}; base antipode × fibre reversal; Spin(4) lift (−j, 1))
+            │  ? branch aggregation, sector coefficients, readout, composition
+            │    all still underived                                          [PR #280]
             ▼
   discrete spectral / Green-function machinery   (compact spectra, Z₂ sectors, holonomies, self-adjoint kernels, η phases: derived)
             │  ? "represented using QM" versus "equivalent to QM" not distinguished
@@ -432,21 +506,64 @@ pre-registered label narrowed after review); the classical route that
 works is a local hidden-variable model and an open derivation route, so
 the pair problem falls under Bell's theorem unless the BAM global boundary
 problem, solved with both settings as boundary data, makes the ensemble
-setting-dependent.
+setting-dependent. That was then computed in
+`docs/closure_measurement_dependence.md`: sharp phase closure of the closed
+history does make the source ensemble depend on both settings with exact
+no-signalling and `S = 2.14 > 2`, but yields a closed-form correlation that
+is not `cos γ` under the positive count of closed histories; the quantum
+correlation is the same closure set with the two branches summed with
+their holonomy (`e^{iΩ/2} = sgn D`), which gives the quantum joint law with
+no projectors (`docs/closure_current.md`). Nothing classical in the
+repository selects count over oriented sum, and two further inputs — the
+relative outcome-sector coefficients and the current-to-frequency readout —
+are equally underived: that is where the quantization gap now sits.
 
-### Ranked missing links
+### Ranked missing links — current
+
+*Original links 1 and 2 (topology → transport, finite mouth → antipodal
+boundary condition) are substantially resolved, conditionally, and are
+recorded in the historical list below rather than here.*
+
+1. **Branch aggregation.** Derive whether observed event frequencies are the
+   positive count of closed histories, `Σ|D|`, or their oriented sum with the
+   closure holonomy, `Σ e^{iΩ/2}|D| = ΣD`. Nothing classical in the
+   repository selects between them: the Pin structure supplies the branch
+   holonomy as a *label*, the extremal-action condition is unimplemented, and
+   its phase-stationarity proxy is analytically disjoint from sharp closure.
+   The sharper form: do the Pin/Hopf data make the closure locus an oriented
+   current with local coefficients (sign mandatory), or is the physical
+   object a measure on histories (positivity forces `|D|`)?
+2. **The relative sector coefficients.** Derive `π_like = π_unlike` from a
+   symmetry or chain argument rather than adopting the counting measure. It
+   moves the correlation on both branches and the quantum law appears only at
+   `r = 1`; no-signalling does not constrain it.
+3. **The readout.** Derive why observed frequencies would be linear in the
+   integrated current rather than quadratic in it — the usual classical
+   detector response to an amplitude — or given by another functional.
+4. **Composition.** Everything above concerns one pair. Derive `H₁ ⊗ H₂` from
+   `Γ₁ × Γ₂` for the opposite-Pin-sector pair, rather than assuming it.
+5. **Operational no-signalling to the past.** `ρ(x|a,b)` depends on the
+   future settings; a source read-out coupling whose statistics depend on
+   `(a,b)` would falsify the model. The model has no such coupling yet.
+6. **Only then revisit Bell in full**, and **keep the mass and QCD fits
+   frozen** until the trunk is resolved.
+
+### Ranked missing links, as written at `b771b16`
 
 1. **Topology → transport.** Derive the transition function of the actual
    finite `RP²`-type mouth and determine whether its natural lift is
    `J = iσ_y K`, instead of inserting that lift afterwards.
+   *(Substantially resolved, conditionally — see the current bottom line.)*
 2. **Finite mouth → antipodal boundary condition.** Derive PR #129's
    `Φ(U,V,Ω) = Φ(−U,−V,Ω̄)` (or its twisted variant) from the same physical
    finite-mouth geometry and bundle gluing.
+   *(Substantially resolved, conditionally — see the current bottom line.)*
 3. **Classical global dynamics → quantum composition and statistics.**
    Derive, rather than assume, why alternatives combine as complex amplitudes,
    why `P = |A|²`, why composition is a tensor product, and why the relevant
    measure is the proposed path-integral one rather than a classical
    statistical ensemble. This is the genuine QFT-emergence hurdle.
+   *(Narrowed to the four current items above.)*
 4. **Only then revisit Bell.** If 1–3 succeed, the singlet and the Born
    calculation stop being imported quantum mechanics and become consequences;
    if they fail, the Bell arc is downstream of an unproved premise.
@@ -552,6 +669,21 @@ Two further scope corrections: the traversability no-go was narrowed from
 non-traversable global-constraint reading is not touched by it; and the
 Barceló–Visser branch was qualified as 4D and as incompatible with the
 `q = 0` core.
+
+### What has been resolved since the audit was written
+
+The findings F1–F9 above are the audit as written at `b771b16`. Subsequent
+rounds on this branch changed the status of three of them; the current
+bottom line at the top of this document supersedes the original one.
+
+| original finding | current status | where |
+|---|---|---|
+| F1 — the `RP²` mouth → `J` theorem is unproved | substantially resolved, conditionally: the mouth's induced Pin⁻ holonomy squares to `−1` and lies in `J`'s component, the Hopf fibre **is** the mouth's `Spin(2)` so the `K` is canonical, and the direction is gauge | `docs/finite_mouth_bundle_transport.md`, `docs/mouth_spin_frame_prereg.md` (PR #279) |
+| F1 — the transport docstring is false | fixed in the module; `σ = L_{−j}`, `det = +1`, Spin(4) lift `(−j, 1)` | `geometrodynamics/embedding/transport.py` (PR #279) |
+| F6 — the antipodal BC is imposed, not derived from the finite mouth | substantially resolved, conditionally: it is the `η = +1` scalar sector of the unique free involution, at the finite neck, no horizon | same (PR #279) |
+| F9 — the quantization map is not derived | narrowed, not closed: sharp closure gives setting-dependent source measure with detector no-signalling and `S = 2.14`, and the holonomy-weighted current gives the quantum joint law with no projectors; what remains is branch aggregation, sector coefficients, readout, and composition | `docs/closure_measurement_dependence.md`, `docs/closure_current.md`, `docs/classical_born_rule.md` (PR #280) |
+
+F2–F5, F7 and F8 stand as written.
 
 ## Test suite
 

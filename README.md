@@ -4811,6 +4811,81 @@ yields `ρ(λ|a,b) ≠ ρ(λ)`. Composition and CHSH are deferred.
 python -m experiments.closure_ledger.classical_born_probe   # 10/10
 ```
 
+## Sharp closure of a closed history: measurement dependence at the source, no signalling, not Born
+
+*Pre-registered in `docs/closure_measurement_dependence_prereg.md` (`1b0144e`),
+committed before the module. Module `geometrodynamics/bulk/closure_measurement.py`;
+probe `closure_measurement_probe.py`; tests `tests/test_closure_measurement.py`.
+Write-up: `docs/closure_measurement_dependence.md`.*
+
+**Verdict: `CLOSURE_INDUCES_SETTING_DEPENDENT_SOURCE_MEASURE_NO_SIGNALLING_NOT_BORN`.**
+Take the **phase-closure component** of the repository's closed-history axiom
+(phase closure `≡ 0` or `π` around every loop — not the full axiom, whose
+stationarity condition is implemented nowhere), under a **chosen
+geodesic-realignment ansatz**, with no amplitude, no Gaussian and no width:
+the created pair's frame direction `x ∈ S²` with Haar prior (**its
+physicality is a choice**), the loop `source → A → B → source` of geodesic
+legs through the outcome directions `s_A a`, `s_B b`, and the spin-frame
+geometric phase, half the solid angle `Ω = 2 atan2(x·(u×v), 1 + x·u + u·v + v·x)`.
+Closure is `x` on the great circle through both settings; Haar conditioned
+on it is the coarea measure, density `|D|/(2|u×v|)`, the parameter-free
+limit of a closure window, and the equal prior over the four outcome sectors
+is a **chosen** counting measure. Then: the source ensemble depends on both
+settings; marginals are `1/2` to `1e-12` — **detector** no-signalling, with
+operational no-signalling to the past *not* established, since `ρ(x|a,b)`
+depends on the future settings; the correlation is
+the closed form `E(γ) = [c²(π−γ) − s²γ]/[2 sin γ + c²(π−γ) + s²γ]`, giving
+`S = 2.1423` at the standard angles (also the maximum) — a Bell violation
+by measurement dependence, computed rather than inserted — and it is **not**
+`cos γ`. Controls: a loop that does not link both detectors does nothing;
+local detectors on the same source give `S = 0.94`; the repository's own
+Gaussian closure weight (`history/closure.py`, `σ = 0.6`, times an imported
+`|amplitude|²`) moves `E(1)` from `0.398` to `0.170`.
+
+```bash
+python -m experiments.closure_ledger.closure_measurement_probe   # 14/14
+```
+
+## The fork: positive count or holonomy-weighted sum over the closure branches
+
+*Pre-registered in `docs/closure_current_prereg.md` (`f954e3d`). Module
+`geometrodynamics/bulk/closure_current.py`; probe `closure_current_probe.py`;
+tests `tests/test_closure_current.py`. Write-up: `docs/closure_current.md`.*
+
+**Verdict: `FORK_UNRESOLVED_BY_CURRENT_STRUCTURES`.** On the closure set
+`e^{iΩ/2} = sgn D`, so the "signed" density of the previous round is the
+coarea density times the holonomy of the `0`/`π` closure branch — not an
+inserted quasi-probability. Two things are now derived: the **reduction** of the chosen
+`source → A → J → B → source` itinerary to the geodesic triangle
+`x → u → −v → x` (the two throat transports contribute only `J² = −1`, so the
+closure holonomy is `−sgn D(x,u,−v)`; the itinerary and the geodesic
+realignment at the detectors remain model choices), and the fact that the
+holonomy-weighted current of that derived loop gives the quantum joint law
+`P(s_A,s_B) = (1 − s_A s_B cos γ)/4`, `E = −cos γ`, `S = 2√2` with no
+projectors, from `∫_Γ x dσ = 0` — computed on the derived loop itself, not
+inferred from the triplet by a sign substitution. What is **not** derived is
+threefold: the branch aggregation (positive count `S_max = 2.1423` or
+oriented sum `2√2`), the relative sector coefficients (the equal prior moves
+the correlation on *both* branches; the quantum law appears only at `r = 1`),
+and the readout (why frequencies would be linear in the integrated current
+rather than quadratic in it). The Pin
+structure supplies the branch holonomy as a *label* on each closed history,
+not as a weight; the repository's fourth closure condition is *extremal
+action*, which is implemented nowhere, and the phase-stationarity proxy is
+analytically **disjoint** from sharp closure (`∇Ω|_{N=0} = 2(u×v)/D` never
+vanishes), so no variational principle available here can choose; the equal
+sector prior is a chosen counting measure. The oriented branch is not a
+negative-probability theory: `∫_Γ D_s dσ = 2π(1+u·v) ≥ 0`, so the
+cancellation is internal, as in classical wave interference. By the pre-registered rule the oriented sum may not be
+adopted because it gives `2√2`. **The quantization gap is now located: not the spin structure, not the
+reduction, not Bell — but three inputs the repository does not supply, namely
+branch aggregation, the sector coefficients, and the current-to-frequency
+readout.**
+
+```bash
+python -m experiments.closure_ledger.closure_current_probe   # 9/9
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced
