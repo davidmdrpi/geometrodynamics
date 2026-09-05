@@ -722,7 +722,7 @@ def fibre_action_is_weight_blind(seed: int = 13) -> Dict[str, object]:
 # ── C. the classical readout ────────────────────────────────────────────────
 
 def detector_response_homogeneity() -> Dict[str, object]:
-    """Every classical coupling BAM actually has is degree-2 homogeneous.
+    """The six audited stress/flux quantities are degree-2 homogeneous.
 
     The pre-registered control is ``phi -> c phi``. The couplings are the
     repository's own, named by file: the five null stresses of
@@ -964,7 +964,9 @@ def source_observable_signalling(n: int = 200000, m_axis=(0.3, 0.7, 0.2)
 
     * **Established.** The outcome-summed conditioned density is *exactly*
       antipodally even, ``rho(-x|a,b) = rho(x|a,b)``, so every **odd** function
-      of ``x`` has vanishing expectation and cannot distinguish settings. And
+      of ``x`` has vanishing expectation. This does NOT make its full law
+      setting-independent: its variance can change. The sign tests below
+      are blind for these nondegenerate continuous projections. And
       **some even functions do** distinguish them: ``E[(x.m)^2|a,b]`` and
       ``E[|x.m| |a,b]`` both move with ``gamma``. For non-coplanar settings the
       conditioned supports are different great circles meeting in two points —
@@ -983,9 +985,11 @@ def source_observable_signalling(n: int = 200000, m_axis=(0.3, 0.7, 0.2)
     * **Not established: an operational channel.** The observables used here
       (``x.m``, ``(x.m)^2``, ``|x.m|``) are synthetic functions of ``x``, not
       couplings BAM possesses. Nothing shows a BAM apparatus can measure one
-      without altering the global two-boundary solution — and in a two-boundary
-      theory a source measurement is itself a further boundary condition, so a
-      passive readout of an ontic variable may not be available at all.
+      without altering the global two-boundary solution. A prescribed final
+      pointer value would add a boundary condition, but a final record can
+      instead be an output. See ``docs/source_readout.md`` for an exact
+      conditional Hamiltonian pointer preserving both source boundaries.
+      Its physical frame-to-field map and intervention law remain missing.
 
     So the result is a **causality hazard**, not a demonstrated signalling
     channel: the conditioned source ensemble carries information about future
@@ -1040,7 +1044,9 @@ def source_observable_signalling(n: int = 200000, m_axis=(0.3, 0.7, 0.2)
         "odd_observable_spread": odd_spread,
         "some_even_observables_separate": some_even,
         "blind_even_observable_spread": blind_even,
-        "odd_observables_are_blind": bool(odd_spread < 1e-6),
+        "odd_means_and_signs_are_blind": bool(odd_spread < 1e-6),
+        "odd_projection_variance_spread": spread("even E[(x.m)^2]"),
+        "odd_full_distributions_are_blind": bool(spread("even E[(x.m)^2]") < 1e-10),
         "some_even_functions_separate_the_ensembles": bool(some_even > 1e-3),
         "not_every_even_observable_separates": bool(blind_even < 1e-12),
         # the claims deliberately NOT made:
@@ -1076,7 +1082,7 @@ def dependency_ledger() -> List[Dict[str, str]]:
         {"input": "orientation convention in the Maslov factor",
          "status": "chosen", "where": "shifts kappa by pi/2; F2 is invariant"},
         {"input": "current-to-frequency readout", "status": "open",
-         "where": ("question C: every existing observable is degree 2, but two "
+         "where": ("question C: six audited stress/flux quantities are degree 2, but two "
                    "ordinary quadratics disagree and none is a derived detector "
                    "coupling")},
         {"input": "the round-5 Haar/uniform source measure (a = 1 in the "
@@ -1116,7 +1122,7 @@ def verdicts() -> Dict[str, str]:
     B = ("PHYSICAL_SYMMETRY_FORCES_EQUAL_SECTOR_MEASURE"
          if b_ok["forced_at_any_chsh_angle"]
          else "NO_IDENTIFIED_SYMMETRY_FORCES_EQUAL_SECTOR_MEASURE")
-    # every existing observable is quadratic, but "quadratic" does not name a
+    # Six audited stress/flux quantities are quadratic, but that does not name a
     # readout: two ordinary quadratic operations give different physics, and
     # none of them is derived from a detector coupling.
     C = ("NO_BAM_DETECTOR_COUPLING_CURRENTLY_DEFINES_THE_READOUT"

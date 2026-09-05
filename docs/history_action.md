@@ -198,7 +198,7 @@ over the operations the model has, not a classification of every discrete
 symmetry of the boundary-value problem** — which is why the verdict reads *no
 identified symmetry*, not *no symmetry*.
 
-## C — every existing observable is quadratic, and that names no readout
+## C — six audited stress/flux quantities are quadratic, and that names no readout
 
 Measured, not asserted — the slope of `log R` against `log c` under `φ ↦ cφ`:
 
@@ -269,11 +269,17 @@ as a finding:
 
 * The outcome-summed conditioned density is **exactly antipodally even**,
   `ρ(−x|a,b) = ρ(x|a,b)` (residual `3.4e-20` on an antipodally paired grid).
-  Every **odd** observable is therefore blind: `E[x·m|a,b] = 0` and
-  `P(x·m>0|a,b) = 1/2` exactly, for every axis and every setting pair
-  (spread `2.8e-17`). This is a genuine partial protection.
+  Every integrable **odd mean** therefore vanishes: `E[x·m|a,b] = 0`.
+  The nondegenerate projections tested here have `P(x·m>0|a,b)=1/2`
+  (spread `2.8e-17`). **Correction:** this does not make their full readout
+  laws blind; variances can distinguish settings. Nor is the sign claim true
+  for every axis: generally `P(F>0)=(1-P(F=0))/2`, and a projection normal to
+  a sharp closure circle is identically zero. See the explicit variances
+  `0.1` versus `0.4` and finite-noise control in [source_readout.md](source_readout.md).
 * **Some** even functions are not blind. `E[(x·m)²|a,b]` runs
-  `0.10389, 0.10245, 0.10854` across `γ = 0.6, 1.2, 2.0`; spread `0.0103`.
+  `0.10389, 0.10245, 0.10854` across `γ = 0.6, 1.2, 2.0`; spread `0.00609`.
+  The earlier `0.0103` label belonged to the spread of `E[|x·m|]`, not
+  `E[(x·m)²]`; the computed values themselves were unchanged.
   Not all of them: constants and `x·x = 1` are even and perfectly blind
   (spread `0.0`), both computed here. The earlier claim that *every* even
   observable signals was false and is withdrawn (note N7).
@@ -290,9 +296,15 @@ the first version (note N7):
    inference was a non-sequitur.
 2. That the observables used are things BAM can measure. `x·m`, `(x·m)²`,
    `|x·m|` are synthetic functions of `x`, not couplings the theory possesses.
-3. That any of them could be read **without disturbing the solution**. In a
-   two-boundary theory a source measurement is itself a further boundary
-   condition, so a passive readout of an ontic variable may not exist at all.
+3. That any of them could be read **without disturbing the solution**. This
+   remains an apparatus question. A prescribed final pointer value adds a
+   boundary condition, but an output record need not. The follow-up constructs
+   an exact classical interaction `h(t) P F`, with ideal `P=0`, preserving
+   both source endpoints. It works on the existing scalar source oscillator
+   after adding that coupling; a map from the informative frame variable to
+   this oscillator, an admissible preparation and the instrument-modified
+   ensemble under future interventions are still missing. Thus two source
+   boundary conditions alone supply no non-readability theorem.
 
 So the honest result is a **causality hazard, not a demonstrated signalling
 channel**: `ρ(x|a,b)` carries information about future settings that an ideal

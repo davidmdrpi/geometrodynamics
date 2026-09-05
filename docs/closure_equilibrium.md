@@ -274,3 +274,33 @@ reproducing the integrated quantum law, nor coherent classical field
 responses. The result identifies a concrete conditional measure and a
 physical way to vary it; it is not a theorem selecting an aggregation rule
 for the full BAM theory.
+
+## 7. Follow-up: field grounding, prior strength, and causality
+
+The [source-readout audit](source_readout.md) supplies a conditional local
+parent: extending the existing scalar tube gradient energy to an
+unconstrained `3x3` field with endpoints `I,Ad_G` gives
+`E_min=A||Ad_G-I||²_F/(2L)`, matching this model for `K=8A/L`. The additional
+transported channels, endpoint matching and identification of the tube path
+with the analyzer holonomy are not supplied by BAM's audited implementations.
+An interior constrained to `SO(3)` would be a different field model.
+
+The conditioning-variable choice is **relocated into a coupling to holonomy
+rather than N**. Bi-invariance makes the Frobenius distance natural but does
+not uniquely select its square as the exact energy. Likewise round kinetics
+plus canonical equilibrium imply Haar but are stronger sufficient premises
+than a Haar position prior alone. Non-Gaussian rotation-invariant kinetics
+and anisotropic unit-determinant inertia can also give Haar; variable scalar
+inertia need not. Liouville volume does not itself establish equilibration.
+
+The follow-up's cross-round sweep confirms the shared laws in 24 angle/sector
+cases. In particular at `c=cos(1)`, round 7's component masses sum to
+`M_0+M_pi=11.8403181080`, against this model's `M(c)=11.8403181146`.
+The difference is `6.62e-9`, consistent with independent circle integration.
+
+For causality, antipodal symmetry guarantees vanishing odd means, not blind
+full readout laws. The same noisy source response separates the conditional
+ensembles both here at finite temperature and in the sharp limit. An ideal
+classical pointer can preserve both source endpoints, but a map from the
+informative frame variable to local BAM fields and a complete intervention
+and apparatus model remain absent. The operational gate stays open.
