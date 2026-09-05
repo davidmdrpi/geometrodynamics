@@ -104,3 +104,25 @@ record the status correctly.
 ## 5. Dependency ledger to be printed
 
 The corrected round-5 ledger, with the conditioning variable as its own line.
+
+## Correction notes (post-implementation)
+
+**N16 — the finding, and the four locations.** The false statement was in
+`geometrodynamics/bulk/closure_measurement.py:15`, `README.md:4831`,
+`docs/closure_measurement_dependence.md:70`, and — load-bearing — the
+dependency ledger at `docs/closure_measurement_dependence.md:150`, where
+`coarea conditioning` was marked `[derived; window limit]`. All four now
+distinguish the conditioning *variable* (chosen) from the density that follows
+once it is fixed (derived). `window_monte_carlo`'s docstring now says it is a
+phase window and names the `N`-window alternative.
+
+**N17 — no criterion changed and no number moved.** Rule 3 held: worst movement
+across the five frozen downstream quantities was `3.2e-11`, which is
+Monte-Carlo noise in the two round-5 correlation integrals; the round-6 law and
+the round-7 masses were bit-identical. The finding is exactly what it looked
+like — a mislabelled ledger entry — and nothing larger.
+
+**N18 — the expected verdict was obtained, and that is not a success.** §4
+predicted `CONDITIONING_VARIABLE_IS_A_CHOSEN_INPUT_JUSTIFIED_BY_THE_PHASE_AXIOM`
+and it is what the measurements support. Recorded so that agreement with the
+prediction is not read as confirmation of anything beyond correct bookkeeping.

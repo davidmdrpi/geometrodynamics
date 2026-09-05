@@ -4828,9 +4828,14 @@ physicality is a choice**), the loop `source → A → B → source` of geodesic
 legs through the outcome directions `s_A a`, `s_B b`, and the spin-frame
 geometric phase, half the solid angle `Ω = 2 atan2(x·(u×v), 1 + x·u + u·v + v·x)`.
 Closure is `x` on the great circle through both settings; Haar conditioned
-on it is the coarea measure, density `|D|/(2|u×v|)`, the parameter-free
-limit of a closure window, and the equal prior over the four outcome sectors
-is a **chosen** counting measure. Then: the source ensemble depends on both
+on the **phase** is the coarea measure with respect to `θ`, density
+`|D|/(2|u×v|)`, the `ε → 0` limit of the closure window the code applies. The
+conditioning *variable* is a **chosen** input, not a consequence of the zero
+set: an `|N| < ε` window has the same support and gives the uniform measure and
+`E = 0`. It is justified by the closure axiom being stated on phase
+(`history/closure.py:11`), and that justification is not a derivation. The
+equal prior over the four outcome sectors is likewise a **chosen** counting
+measure. Then: the source ensemble depends on both
 settings; marginals are `1/2` to `1e-12` — **detector** no-signalling, with
 operational no-signalling to the past *not* established, since `ρ(x|a,b)`
 depends on the future settings; the correlation is
@@ -4975,14 +4980,61 @@ no-signalling to the past is unproved either way, and closing it needs a
 dynamical non-readability theorem or a reformulation in which `x` is not
 operational — which collides with round 5.
 
-**Net: the round removes none of the three underived inputs and adds a fourth
-(`κ`), plus a first-class causality hazard.** The geometry supplies the branch
+**Net: the round removes none of the three underived inputs, and adds `κ` as a
+parameter of the route it closed, plus a first-class causality hazard.** The geometry supplies the branch
 holonomy as a label and the coarea masses as magnitudes — from two provably
 different functionals — and nothing yet makes either a probability. The
 probability layer is not one clever action away.
 
 ```bash
 python -m experiments.closure_ledger.history_action_probe   # 21/21
+```
+
+## The conditioning variable is a choice, not a consequence of the closure set
+
+*Pre-registered in `docs/conditioning_variable_prereg.md` (`39be3e3`). Module
+`geometrodynamics/bulk/conditioning_variable.py`; probe
+`conditioning_variable_probe.py`; tests `tests/test_conditioning_variable.py`.
+Write-up: `docs/conditioning_variable.md`.*
+
+**Verdict: `CONDITIONING_VARIABLE_IS_A_CHOSEN_INPUT_JUSTIFIED_BY_THE_PHASE_AXIOM`.**
+A correction round, prompted by an external audit of `92a915b`. It changes the
+recorded *status* of the input rounds 5–7 all rest on, and changes **no number**
+they produced (worst movement `3.2e-11`).
+
+The repository said "Haar conditioned on `N = 0` is the coarea measure, density
+`|D|/(2|u×v|)`" and ledgered it **derived**. But `window_monte_carlo` conditions
+on `|Ω mod 2π| < ε` — the **phase** — and coarea density is
+`1/|∇(conditioning variable)|`. On `Γ`, `|∇N| = |a×b| = sin γ` is **constant**,
+so an `N`-window gives the *uniform* arclength measure; `|∇θ| = |q|/|D|`, so a
+phase window gives **`|D|`**. Same support, two limits: conditioning on a
+measure-zero set is not determined by the set (Borel–Kolmogorov).
+
+Worse for the `N`-window: `u×w = −s_A s_B (a×b)`, so `|N|` is **identical in all
+four outcome sectors** — it selects the same `x` in each. Measured at `γ = 1`,
+`ε = 0.01`: all four counts `5956`, equal rather than approximately equal,
+giving `E = 0` exactly at every `ε`, against the phase window's
+`0.397, 0.400, 0.398, 0.395, 0.399 → 0.3984966504`.
+
+The repository's choice is nevertheless right, for a reason it had not recorded:
+`history/closure.py:11` states the third closure condition as *"Phase closure:
+total phase around every loop ≡ 0 or π (mod 2π)"* — an axiom **on phase**, of
+which a phase tolerance is the natural regularisation, while `N = 0` is a
+derived description of the same locus. The pre-registration forbade preferring
+the phase window because it gives the interesting answer, so the module reads
+that line out of the source rather than quoting it. Justified is not derived,
+and the ledger now separates `conditioning variable = phase [chosen]` from
+`coarea density given that variable [derived: 1/|∇θ|]`.
+
+Two narrowings from the same audit: **`κ`** is a parameter of the holonomy-trace
+route round 7 closed, not a fourth universal underived input; and
+**`born_rule_equivariance.md`'s reason (iii)** — that `v = J/ρ` is the *unique*
+velocity field closing continuity — is withdrawn, since `∇·K = 0` makes
+`v' = (J+K)/ρ` equally valid (`|∇·K|/|∇·J| = 5e-16`), and `∫K d³x = 0` for
+compactly supported `∇×A` means a mean-velocity check cannot exclude it either.
+
+```bash
+python -m experiments.closure_ledger.conditioning_variable_probe   # 10/10
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

@@ -306,8 +306,10 @@ variable. That collision is recorded, not resolved.
 Round 6 left three underived inputs. Round 7 does not remove any of them, and
 adds two things that are worth more than a removal would have been:
 
-1. **`κ`** — a fourth underived ingredient, and a proof that the holonomy-trace
-   route to it is closed, since the stationary functional is not additive and
+1. **`κ`** — a further underived ingredient *of the holonomy-trace route*, not
+   a fourth universal input alongside the three: it is the normalisation of
+   `e^{iκS_H}` and exists only inside the route this round closed. With a proof
+   that the route is closed, since the stationary functional is not additive and
    so admits no representation condition. Stationary phase supplies *both*
    candidate magnitudes exactly and leaves only their relative phase open.
 2. **A causality hazard.** `ρ(x|a,b) ≠ ρ(x)` with `x` physical means future

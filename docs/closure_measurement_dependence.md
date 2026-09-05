@@ -67,9 +67,16 @@ sharp `0.398`).
   it is the spin-frame holonomy of the loop.
 * Closure: `Ω/2 ≡ 0 or π (mod 2π)` ⟺ `N = 0` ⟺ `x ∈ Γ(a,b)`, the great
   circle through both settings. *Repository axiom.*
-* Conditioned measure: Haar restricted to `N = 0` is the coarea measure,
-  density `|D|/(2|u×v|)`; the `ε → 0` limit of uniform sampling in the
-  window `|Ω mod 2π| < ε`. *Derived; parameter-free.*
+* Conditioning variable: the **phase**. `window_monte_carlo` samples the
+  window `|Ω mod 2π| < ε`, and its `ε → 0` limit is the coarea measure *with
+  respect to `θ`*, density `|D|/(2|u×v|)`. *The density is derived once the
+  variable is fixed; the variable is **chosen**.* Conditioning on `|N| < ε`
+  instead has the same support `Γ` and a different limit — uniform in
+  arclength, `E = 0` — because `|∇N| = |u×v|` is constant on `Γ` while
+  `|∇θ| = |u×v|/|D|` is not, and `|N|` is identical in all four outcome
+  sectors. Conditioning on a measure-zero set is not determined by the set
+  (Borel–Kolmogorov). Justified by the axiom being stated on phase, not
+  derived from the closure set. See `docs/conditioning_variable_prereg.md`.
 * `P(s_A, s_B | a, b) ∝ ∫_Γ |D| dσ / (2|u×v|)`. Not a deterministic
   detector: several histories close for a given `x`, and the outcome is
   which closed history is realised.
@@ -147,7 +154,9 @@ failure in the coplanar case, not to its existence.
 ρ(x|a,b)  =  ρ( Haar on S² [invariant prior; pair direction physical: chosen],
                 closure axiom Ω ≡ 0 mod 2π [repository axiom],
                 geodesic-realignment detection model [chosen],
-                coarea conditioning [derived; window limit] )
+                conditioning variable = phase, not N [chosen; justified by
+                    the axiom being stated on phase],
+                coarea density given that variable [derived: 1/|grad theta|] )
 E(γ)      =  E( ρ(x|a,b) [above], outcome signs as history boundary data [chosen: D-type] )
 oriented current  =  e^{iΩ/2} × coarea = D/(2|u×v|)  [derived label; adopting it as weight: the open step]
 sector prior      =  counting on the four outcome sectors  [chosen]

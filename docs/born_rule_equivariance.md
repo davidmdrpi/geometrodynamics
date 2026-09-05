@@ -70,8 +70,22 @@ This is not an extra postulate grafted on: (i) a soliton with phase ramp
 e^{iv·x} translates at velocity v (Galilean structure of the kinetic
 term); (ii) the exact Ehrenfest relation d⟨x⟩/dt = ⟨∇S⟩_ρ holds for the
 full nonlinear equation (verified on the running dynamics in the probe);
-(iii) it is the unique velocity field whose current closes the continuity
-equation (§2). The BAM transport flow is ẋ = v(x, t).
+and (iii) its current closes the continuity equation (§2). The BAM transport
+flow is ẋ = v(x, t).
+
+**(iii) does not say *unique*, and an earlier version of this line did.**
+Continuity does not determine a velocity field: for any `K` with `∇·K = 0`,
+`∇·(ρv') = ∇·(J + K) = ∇·J`, so `v' = (J + K)/ρ` closes the same equation
+wherever `ρ > 0`. Demonstrated with an explicit compactly supported
+`K = ∇×(f ẑ)` in `geometrodynamics/bulk/conditioning_variable.py`
+(`|∇·K|/|∇·J| = 5e-16`, `|∇·(J+K) − ∇·J|/|∇·J| = 9e-16`). Nor does an
+Ehrenfest or mean-velocity check exclude it: `∫K d³x = 0` for compactly
+supported `∇×A` (measured `1.7e-16` relative). Reasons (i) and (ii) stand;
+the uniqueness of the *velocity* is not established here, and the
+Goldstein–Struyve uniqueness cited in §3 assumes Bohmian dynamics and
+locality conditions on the density functional rather than deriving them.
+Theorem 2's uniqueness is over *densities* `h(ρ)`, which is a different and
+unaffected statement.
 
 ## 2. Theorem 1 (equivariance): the BAM flow preserves |ψ|² exactly
 
@@ -132,8 +146,10 @@ This vanishes identically iff h = ρh′, i.e. **h ∝ ρ** — provided the flo
 is compressible (∇·v ≢ 0), which the probe verifies on the actual
 dynamics (|∇·v| = O(1); the flow is strongly compressible during soliton
 breathing and collision). So among densities that are functions of ρ,
-|ψ|² is the **unique** equivariant one; Goldstein–Struyve extend
-uniqueness to all local functionals of ψ in the linear theory, cited not
+|ψ|² is the **unique** equivariant one *among densities* `h(ρ)`;
+Goldstein–Struyve extend uniqueness to all local functionals of ψ in the
+linear theory — assuming Bohmian dynamics and locality conditions on the
+density functional, not deriving them — cited not
 re-proved. The probe demonstrates the failure concretely: ensembles
 prepared as √ρ- and ρ²-distributed and transported by the same flow
 depart from those functionals immediately (KS distance grows), while the
