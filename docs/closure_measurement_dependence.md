@@ -1,4 +1,4 @@
-# Sharp phase closure of a closed history: measurement dependence at the source, without an imported measure or signalling
+# Sharp phase closure: a setting-dependent source measure with detector no-signalling
 
 *Fifth round of the finite-mouth chain. Pre-registered in
 `docs/closure_measurement_dependence_prereg.md` (`1b0144e`); module
@@ -10,8 +10,8 @@
 `CLOSURE_INDUCES_SETTING_DEPENDENT_SOURCE_MEASURE_NO_SIGNALLING_NOT_BORN`
 
 The repository's closed-history axiom, applied to the classical state the
-spin-frame rounds supply and with no amplitude, no Gaussian and no width,
-does three things and fails to do a fourth:
+spin-frame rounds supply with the chosen phase-window prescription and
+equal outcome-sector priors, does three things and fails to do a fourth:
 
 1. it makes the admissible source ensemble depend on **both** future
    analyzer settings (the source direction is confined to the great circle
@@ -37,6 +37,16 @@ the branch sign is discarded by the repository's Gaussian weight); the
 equal prior over the four outcome sectors is a chosen counting measure,
 entered in the ledger; and what is proved is detector no-signalling, not
 operational no-signalling to the past.
+
+*Closure-equilibrium clarification (2026-09-05).* The zero-area condition
+`N = 0` alone does not determine a conditional measure. This round used
+a shrinking **phase** window; a shrinking `|N|` window instead gives
+uniform arclength and, with equal sector priors, zero correlation.
+[The equilibrium derivation](closure_equilibrium.md) obtains this round's
+positive phase-coarea law from a specified classical frame-restoring energy
+and canonical preparation. It also shows why keeping the same closure set
+while changing the physical stiffness can change the law. The historical
+numerical results below are unchanged and conditional on the stated model.
 
 This is outcome **D** of the Born-rule round's typology, obtained by
 calculation rather than asserted. It evades Bell's theorem by violating
@@ -107,7 +117,7 @@ no larger value: `S_max = 2.1423 < 2.8284`.
 `ε = 0.4, 0.2, 0.1, 0.05` (`2×10⁶` samples), converging to the coarea value
 `0.3985`. This confirms the positive density `|D|`, not the signed `D`.
 
-**The holonomy-weighted variant is quantum mechanics (P5, corrected).**
+**The holonomy-weighted variant recovers the two-analyzer quantum correlation (P5, corrected).**
 With `D` in place of `|D|`, `E = (c²−s²)/(c²+s²) = cos γ` exactly and
 `S = 2√2`. Since `e^{iΩ/2} = sgn D` on the closure set, `D/(2|u×v|)` is the
 coarea density weighted by the closure holonomy of each branch, the `π`
@@ -164,10 +174,10 @@ sector prior      =  counting on the four outcome sectors  [chosen]
 
 ## 7. What this means for the program
 
-* The question the previous round posed is answered: the BAM two-boundary
-  principle **does** make the source ensemble depend on both settings, with
-  no signalling and no imported measure beyond an invariant prior and a
-  parameter-free conditioning. The mechanism is the closure constraint
+* In this model, the BAM two-boundary principle makes the source ensemble
+  depend on both settings, with detector no-signalling. The result uses
+  an invariant source prior, equal outcome-sector priors, and a chosen
+  phase-window conditioning prescription. The mechanism is the closure constraint
   linking the source direction to both analyzers through one loop; a loop
   that does not link both does nothing.
 * It is therefore not in Bell's local class, and it violates CHSH. This is
@@ -178,9 +188,10 @@ sector prior      =  counting on the four outcome sectors  [chosen]
   violation is `2.14`, not `2.83`. The distance to quantum mechanics is
   exactly the distance from `|D|` to `D`: from counting the two closure
   branches to summing them with their holonomy.
-* Two modelling choices carry the result and are open: that detection is
-  geodesic realignment to the outcome direction, and that outcomes are
-  history boundary data rather than functions of the source state. A
+* Further modelling choices remain open: detection is geodesic realignment
+  to the outcome direction, and outcomes are history boundary data rather
+  than functions of the source state. These accompany the source prior,
+  sector prior, and phase-conditioning prescription named above. A
   different detection model changes the loop and hence `E`; the next
   question is whether any classical detection dynamics selects the loop
   and the measure, and whether the closure principle can be stated for the
