@@ -12,8 +12,16 @@ code carries its own assumptions:
   ``Omega = 2 atan2(N, D)``, ``N = x.(u x v)``, ``D = 1 + x.u + u.v + v.x``;
 * the repository's closure axiom ``Omega/2 = 0 or pi (mod 2 pi)`` is
   ``N = 0``: ``x`` on the great circle through ``a`` and ``b``;
-* Haar conditioned on ``N = 0`` is the coarea measure, density ``|D|/(2|u x v|)``,
-  the ``eps -> 0`` limit of a uniform window ``|Omega mod 2 pi| < eps``.
+* Haar conditioned **on the phase** is the coarea measure with respect to
+  ``theta``, density ``|D|/(2|u x v|)``: the ``eps -> 0`` limit of the window
+  ``|Omega mod 2 pi| < eps`` that `window_monte_carlo` actually applies. The
+  conditioning *variable* is an input, not a consequence of the zero set --
+  conditioning instead on ``|N| < eps`` gives the uniform arclength measure and
+  ``E = 0``, since ``|grad N| = |u x v|`` is constant on the circle while
+  ``|grad theta| = |u x v|/|D|`` is not, and ``|N|`` is identical in all four
+  outcome sectors. See ``geometrodynamics/bulk/conditioning_variable.py`` and
+  note N16. The choice is justified by the repository's closure axiom being
+  stated on phase (``history/closure.py:11``), but justified is not derived.
 
 No amplitude, no Gaussian, no width, no projector, no Born rule: the quantum
 correlation ``cos(gamma)`` appears only as a comparison target.
@@ -150,8 +158,10 @@ def chsh_max(variant: str = "abs", n_grid: int = 49) -> Dict[str, object]:
 
 def window_monte_carlo(gamma: float, eps: float, n: int = 2000000, seed: int = 0) -> float:
     """Uniform ``x ~ Haar(S^2)``, keep ``|Omega mod 2 pi| < eps``, count outcome
-    pairs. The ``eps -> 0`` limit is the coarea measure: the independent
-    construction of P7."""
+    pairs. This is a **phase** window; its ``eps -> 0`` limit is the coarea
+    measure *with respect to the phase*, which is the independent construction
+    of P7. An ``|N| < eps`` window has the same support and a different limit
+    (uniform arclength, ``E = 0``) -- see `conditioning_variable`."""
     rng = np.random.default_rng(seed)
     x = rng.standard_normal((n, 3))
     x /= np.linalg.norm(x, axis=1, keepdims=True)

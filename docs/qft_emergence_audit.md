@@ -569,7 +569,8 @@ recorded in the historical list below rather than here.*
    *Round 7: the holonomy-trace route is closed. The functional whose saddle
    gives the coarea masses (`−cos θ`) is not additive, and the additive one
    (`θ`) has no critical points anywhere, so `κ` in `e^{iκS_H}` is a free
-   normalisation — a fourth underived input, not a route to the first. The
+   normalisation — a further underived input *of that route*, not a fourth
+   universal one alongside the three, and not a route to the first. The
    Morse–Bott masses do reproduce both candidate aggregations exactly — for
    the round-5 Haar measure, on the two-parameter triangle family — which
    isolates the open element as their relative phase alone. Scoped: this closes
@@ -597,6 +598,16 @@ recorded in the historical list below rather than here.*
    linear history-current readout.*
 4. **Composition.** Everything above concerns one pair. Derive `H₁ ⊗ H₂` from
    `Γ₁ × Γ₂` for the opposite-Pin-sector pair, rather than assuming it.
+4b. **The conditioning variable.** *Round 8, from an external audit.* The `|D|`
+   density that rounds 5–7 all rest on is the coarea measure with respect to
+   the **phase**, not a consequence of the closure set: an `|N| < ε` window has
+   the same support and gives the uniform measure with `E = 0` exactly, since
+   `|∇N|` is constant on `Γ` and `|N|` is sector-independent. Conditioning on a
+   measure-zero set is not fixed by the set. The choice is justified by
+   `history/closure.py:11` stating the axiom on phase, and the ledger entry
+   moved from **derived** to **chosen**. No downstream number changed
+   (`3.2e-11`). Deriving a *preparation dynamics* that produces the phase
+   tolerance would upgrade it. (`docs/conditioning_variable.md`.)
 5. **Operational no-signalling to the past — a first-class causality hazard,
    still unproved in both directions.** *Round 7 ran the gate.* The conditioned
    density is exactly antipodally even, so every **odd** source observable is

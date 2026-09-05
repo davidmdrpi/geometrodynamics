@@ -1,0 +1,261 @@
+{
+  "sector": {
+    "counts": {
+      "(+1,+1)": 5956,
+      "(+1,-1)": 5956,
+      "(-1,+1)": 5956,
+      "(-1,-1)": 5956
+    },
+    "counts_all_equal": true,
+    "cross_product_is_pm_q_residual": 0.0,
+    "E": 0.0,
+    "E_is_zero": true
+  },
+  "gradients": {
+    "rows": [
+      {
+        "sector": "(+1,+1)",
+        "|grad N|": 0.8414709848078965,
+        "grad_N_spread": 0.0,
+        "|grad theta| min": 0.5931914375015152,
+        "|grad theta| max": 215404.96585739483,
+        "N_density_uniform": true,
+        "theta_density_range": [
+          4.642418507018232e-06,
+          1.6857964171093516
+        ]
+      },
+      {
+        "sector": "(+1,-1)",
+        "|grad N|": 0.8414709848078965,
+        "grad_N_spread": 0.0,
+        "|grad theta| min": 0.25534192123322164,
+        "|grad theta| max": 90370.2854077316,
+        "N_density_uniform": true,
+        "theta_density_range": [
+          1.106558417391526e-05,
+          3.9163173644590463
+        ]
+      },
+      {
+        "sector": "(-1,+1)",
+        "|grad N|": 0.8414709848078965,
+        "grad_N_spread": 0.0,
+        "|grad theta| min": 0.25534192123322164,
+        "|grad theta| max": 90370.2854077316,
+        "N_density_uniform": true,
+        "theta_density_range": [
+          1.106558417391526e-05,
+          3.9163173644590463
+        ]
+      },
+      {
+        "sector": "(-1,-1)",
+        "|grad N|": 0.8414709848078965,
+        "grad_N_spread": 0.0,
+        "|grad theta| min": 0.5931914375015152,
+        "|grad theta| max": 215404.96585739483,
+        "N_density_uniform": true,
+        "theta_density_range": [
+          4.642418507018232e-06,
+          1.6857964171093516
+        ]
+      }
+    ],
+    "grad_N_is_constant_on_closure": true,
+    "theta_density_varies": true
+  },
+  "families": {
+    "rows": [
+      {
+        "eps": 0.05,
+        "E_N_window": 0.0,
+        "E_phase_window": 0.397021240397809
+      },
+      {
+        "eps": 0.02,
+        "E_N_window": 0.0,
+        "E_phase_window": 0.40003884321214866
+      },
+      {
+        "eps": 0.01,
+        "E_N_window": 0.0,
+        "E_phase_window": 0.3984570128212244
+      },
+      {
+        "eps": 0.005,
+        "E_N_window": 0.0,
+        "E_phase_window": 0.39491080991247185
+      },
+      {
+        "eps": 0.002,
+        "E_N_window": 0.0,
+        "E_phase_window": 0.3986013986013986
+      }
+    ],
+    "N_window_limit": 0.0,
+    "phase_window_limit_closed_form": 0.39849665042194027,
+    "N_window_is_zero_at_every_eps": true,
+    "phase_window_tracks_the_repository_law": true,
+    "same_support_different_limits": true
+  },
+  "axiom": {
+    "file": "geometrodynamics/history/closure.py",
+    "matches": [
+      [
+        11,
+        "3. Phase closure: total phase around every loop \u2261 0 or \u03c0 (mod 2\u03c0)"
+      ]
+    ],
+    "axiom_is_stated_on_phase": true,
+    "text": "3. Phase closure: total phase around every loop \u2261 0 or \u03c0 (mod 2\u03c0)",
+    "note": "the closure axiom is a condition on total phase, so a phase tolerance is the natural regularisation of it; N = 0 is a derived description of the same locus"
+  },
+  "frozen": {
+    "checks": [
+      {
+        "quantity": "round-5 correlation(abs) at gamma=1",
+        "expected": 0.3984966504,
+        "got": 0.39849665042194027,
+        "delta": 2.1940282923793575e-11
+      },
+      {
+        "quantity": "round-5 correlation(signed) at gamma=1",
+        "expected": 0.5403023059,
+        "got": 0.5403023058681398,
+        "delta": 3.186018115997058e-11
+      },
+      {
+        "quantity": "round-6 oriented singlet E at gamma=1",
+        "expected": -0.5403023058681398,
+        "got": -0.5403023058681398,
+        "delta": 0.0
+      },
+      {
+        "quantity": "round-7 M_0",
+        "expected": 11.67080583639533,
+        "got": 11.67080583639533,
+        "delta": 0.0
+      },
+      {
+        "quantity": "round-7 M_pi",
+        "expected": 0.16951227835901764,
+        "got": 0.16951227835901764,
+        "delta": 0.0
+      }
+    ],
+    "worst_delta": 3.186018115997058e-11,
+    "nothing_downstream_moved": true
+  },
+  "velocity": {
+    "max|div K| / max|div J|": 4.961793777465977e-16,
+    "max|div(J+K) - div J| / max|div J|": 8.683139110565461e-16,
+    "integrated_K": [
+      3.6933364392970223e-16,
+      -1.892170863709894e-15,
+      0.0
+    ],
+    "integrated_K_relative": 1.7395858334888716e-16,
+    "K_is_divergence_free": true,
+    "continuity_unchanged": true,
+    "mean_velocity_check_cannot_exclude_it": true,
+    "uniqueness_claim_at_line_73_is_false": true
+  },
+  "kappa": {
+    "three_universal_underived_inputs": [
+      "branch aggregation (positive count or oriented sum)",
+      "relative outcome-sector coefficients (r = 1 is chosen)",
+      "current-to-frequency readout"
+    ],
+    "kappa": "the normalisation of e^{i kappa S_H}; it exists only inside the holonomy-trace route, which round 7 closed by showing S_H is not additive. It is a parameter of that attempted route, not a fourth universal underived input.",
+    "was_previously_described_as": "a fourth underived ingredient"
+  },
+  "verdict": {
+    "A_conditioning_variable": "CONDITIONING_VARIABLE_IS_A_CHOSEN_INPUT_JUSTIFIED_BY_THE_PHASE_AXIOM",
+    "ledger_change": "coarea conditioning: derived -> chosen (the variable)",
+    "downstream_numbers_unchanged": true,
+    "B_kappa": "route-local parameter, not a fourth universal input",
+    "C_velocity_uniqueness": "born_rule_equivariance.md:73 reason (iii) is withdrawn"
+  },
+  "ledger": [
+    {
+      "input": "Haar prior on S^2",
+      "status": "chosen",
+      "where": "invariant prior; physicality of x is itself a choice"
+    },
+    {
+      "input": "closure axiom: total phase = 0 or pi (mod 2pi)",
+      "status": "repository axiom",
+      "where": "history/closure.py:12"
+    },
+    {
+      "input": "geodesic-realignment detection model",
+      "status": "chosen",
+      "where": "round 5"
+    },
+    {
+      "input": "the conditioning VARIABLE (phase, not N)",
+      "status": "chosen",
+      "where": "was ledgered 'derived'. Conditioning on a measure-zero set is not fixed by the set: an N-window gives the uniform measure and E = 0, a phase window gives |D| and the repository's law. Justified by the axiom being stated on phase, but justified is not derived"
+    },
+    {
+      "input": "coarea density |D|/(2|u x v|) GIVEN the phase variable",
+      "status": "derived",
+      "where": "1/|grad theta| with grad theta = q/D"
+    },
+    {
+      "input": "outcome signs as history boundary data",
+      "status": "chosen",
+      "where": "D-type"
+    },
+    {
+      "input": "equal prior on the four outcome sectors",
+      "status": "chosen",
+      "where": "counting measure; only r = 1 gives the quantum law"
+    }
+  ],
+  "checks": [
+    [
+      "O1   |N| is identical in all four outcome sectors",
+      true
+    ],
+    [
+      "O2   |grad N| is constant on Gamma -> uniform arclength",
+      true
+    ],
+    [
+      "O3   |grad theta| = |q|/|D| -> the |D| density",
+      true
+    ],
+    [
+      "O4   the N-window gives E = 0 exactly",
+      true
+    ],
+    [
+      "O5   the phase window tracks the repository law",
+      true
+    ],
+    [
+      "BK   same support, two limits (Borel-Kolmogorov)",
+      true
+    ],
+    [
+      "R1   the justification is in the repository, cited from source",
+      true
+    ],
+    [
+      "R3   NO round 5-7 number moved",
+      true
+    ],
+    [
+      "C1   div K = 0 leaves continuity unchanged",
+      true
+    ],
+    [
+      "C2   int K = 0, so a mean-velocity check cannot exclude it",
+      true
+    ]
+  ],
+  "passed": 10,
+  "total": 10
+}
