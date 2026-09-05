@@ -16,6 +16,16 @@ support: total variation `0.018` between the pairs `(0, 1)` and `(0.5, 1)`,
 fails in both cases; the correction is to the described mechanism in the
 coplanar case. No criterion changes.
 
+## Closure-equilibrium clarification (2026-09-05)
+
+The frozen text below describes the implemented **phase-window** limit.
+Its shorthand "Haar conditioned on N = 0" must not be read as uniqueness
+from the zero set alone: conditioning with a shrinking `|N|` window gives
+uniform arclength instead. No numerical prediction or acceptance criterion
+below is changed. [closure_equilibrium.md](closure_equilibrium.md) derives
+the phase-window law from an additional classical energy and equilibrium
+preparation, and demonstrates the alternative with the same closure set.
+
 ## 0. What the repository's two-boundary structure is
 
 The repository has one global, two-boundary principle: the closed-history

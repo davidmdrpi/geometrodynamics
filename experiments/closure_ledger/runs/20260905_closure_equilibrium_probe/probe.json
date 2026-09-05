@@ -1,0 +1,505 @@
+{
+  "local_preregistration_commit": "76ed50e",
+  "published_preregistration_commit": "d83d46aab8cfe87b0a0adc7f9674401be455d74f",
+  "original_base_commit": "92a915bfaaabd02564accd7467b81cedb1ee8c16",
+  "integrated_main_commit": "e96d48abf57fc97f135bb323fe0da116793d1077",
+  "assumptions": [
+    "round rotor with identical sector inertia",
+    "canonical equilibrium preparation",
+    "specified classical frame-restoring energy",
+    "equal sector priors except P6",
+    "geodesic triangle with singlet partner sign"
+  ],
+  "open": [
+    "BAM origin of the coupling",
+    "equilibration and local detector implementation",
+    "sector prior",
+    "composition and event readout",
+    "source-readout causality"
+  ],
+  "quadrature": {
+    "n_normal": 128,
+    "n_azimuth": 1024,
+    "domain": "whole sphere, no closure cutoff"
+  },
+  "checks": [
+    {
+      "name": "P1 quaternion frame identity and invariances",
+      "error": 5.273559366969494e-16,
+      "bound": 1e-11,
+      "passed": true
+    },
+    {
+      "name": "P2 limiting joint law",
+      "error": 0.0001906017568821805,
+      "bound": 0.002,
+      "passed": true
+    },
+    {
+      "name": "P2 scaled partition masses",
+      "error": 0.0020911258282508838,
+      "bound": 0.01,
+      "passed": true
+    },
+    {
+      "name": "P2 independent coordinate refinements",
+      "error": 1.6687925680214377e-07,
+      "bound": 0.0001,
+      "passed": true
+    },
+    {
+      "name": "P2 independent full-sphere Monte Carlo (standard errors)",
+      "error": 0.7360391882498649,
+      "bound": 6.0,
+      "passed": true
+    },
+    {
+      "name": "P2 Monte Carlo correlation (standard errors)",
+      "error": 0.5561263171578296,
+      "bound": 6.0,
+      "passed": true
+    },
+    {
+      "name": "P3 normal residual exact Gaussian",
+      "error": 4.107825191113079e-15,
+      "bound": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "P3 normal residual zero correlation",
+      "error": 0.0,
+      "bound": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "P4 covariance of finite-temperature partition",
+      "error": 6.938893903907228e-18,
+      "bound": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "P4 covariance of pointwise energy",
+      "error": 1.1102230246251565e-16,
+      "bound": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "P4 fixed-stiffness analytic mass",
+      "error": 1.7763568394002505e-15,
+      "bound": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "P4 fixed-stiffness limiting joint law",
+      "error": 4.033218242416314e-05,
+      "bound": 0.002,
+      "passed": true
+    },
+    {
+      "name": "P4 fixed stiffness changes the ensemble",
+      "passed": true
+    },
+    {
+      "name": "P5 quartic limiting joint law",
+      "error": 0.00019005175201153302,
+      "bound": 0.002,
+      "passed": true
+    },
+    {
+      "name": "P5 quartic scaled partition masses",
+      "error": 0.002812895436047458,
+      "bound": 0.01,
+      "passed": true
+    },
+    {
+      "name": "P5 quartic changes finite-temperature response",
+      "passed": true
+    },
+    {
+      "name": "P2 puncture excision asymptotic",
+      "error": 0.0008330556051556748,
+      "bound": 0.001,
+      "passed": true
+    },
+    {
+      "name": "P6 paired half marginals",
+      "error": 5.551115123125783e-17,
+      "bound": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "P6 prior dependence survives",
+      "passed": true
+    }
+  ],
+  "passed": 19,
+  "total": 19,
+  "frame_residuals": {
+    "transport": 3.3306690738754696e-16,
+    "lift_sign": 0.0,
+    "spatial_rotation": 5.273559366969494e-16,
+    "initial_frame": 2.220446049250313e-16
+  },
+  "thermal": [
+    {
+      "gamma": 0.7853981633974483,
+      "beta": 16,
+      "probabilities": {
+        "+1,+1": 0.14735035596797227,
+        "-1,-1": 0.14735035596797227,
+        "+1,-1": 0.3526496440320277,
+        "-1,+1": 0.3526496440320277
+      },
+      "E": -0.41059857612811085,
+      "joint_error": 0.0312430536659849,
+      "scaled_mass_relative_errors": [
+        0.015602072385223043,
+        -0.2648676709222202
+      ]
+    },
+    {
+      "gamma": 0.7853981633974483,
+      "beta": 64,
+      "probabilities": {
+        "+1,+1": 0.12639206544822698,
+        "-1,-1": 0.12639206544822698,
+        "+1,-1": 0.37360793455177305,
+        "-1,+1": 0.37360793455177305
+      },
+      "E": -0.49443173820709213,
+      "joint_error": 0.010284763146239564,
+      "scaled_mass_relative_errors": [
+        0.002922258310007475,
+        -0.10337006666174464
+      ]
+    },
+    {
+      "gamma": 0.7853981633974483,
+      "beta": 256,
+      "probabilities": {
+        "+1,+1": 0.11900920540863653,
+        "-1,-1": 0.11900920540863653,
+        "+1,-1": 0.3809907945913635,
+        "-1,+1": 0.3809907945913635
+      },
+      "E": -0.5239631783654539,
+      "joint_error": 0.0029019031066491174,
+      "scaled_mass_relative_errors": [
+        0.0006891849992338717,
+        -0.031091387121907288
+      ]
+    },
+    {
+      "gamma": 0.7853981633974483,
+      "beta": 1024,
+      "probabilities": {
+        "+1,+1": 0.1168614910290774,
+        "-1,-1": 0.1168614910290774,
+        "+1,-1": 0.3831385089709226,
+        "-1,+1": 0.3831385089709226
+      },
+      "E": -0.5325540358836904,
+      "joint_error": 0.0007541887270899883,
+      "scaled_mass_relative_errors": [
+        0.0001708144213761198,
+        -0.008236222295100126
+      ]
+    },
+    {
+      "gamma": 0.7853981633974483,
+      "beta": 4096,
+      "probabilities": {
+        "+1,+1": 0.11629790405886951,
+        "-1,-1": 0.11629790405886951,
+        "+1,-1": 0.3837020959411305,
+        "-1,+1": 0.3837020959411305
+      },
+      "E": -0.534808383764522,
+      "joint_error": 0.00019060175688209724,
+      "scaled_mass_relative_errors": [
+        4.3560567990708066e-05,
+        -0.0020911258282504397
+      ]
+    },
+    {
+      "gamma": 1.0,
+      "beta": 16,
+      "probabilities": {
+        "+1,+1": 0.17282976699831404,
+        "-1,-1": 0.17282976699831404,
+        "+1,-1": 0.32717023300168596,
+        "-1,+1": 0.32717023300168596
+      },
+      "E": -0.30868093200674385,
+      "joint_error": 0.022453929603701156,
+      "scaled_mass_relative_errors": [
+        0.0013250723393551933,
+        -0.1847196986243551
+      ]
+    },
+    {
+      "gamma": 1.0,
+      "beta": 64,
+      "probabilities": {
+        "+1,+1": 0.15737716584439593,
+        "-1,-1": 0.15737716584439593,
+        "+1,-1": 0.3426228341556041,
+        "-1,+1": 0.3426228341556041
+      },
+      "E": -0.3704913366224163,
+      "joint_error": 0.007001328449783045,
+      "scaled_mass_relative_errors": [
+        -0.0006212831114781325,
+        -0.06420375288268854
+      ]
+    },
+    {
+      "gamma": 1.0,
+      "beta": 256,
+      "probabilities": {
+        "+1,+1": 0.15228221530202157,
+        "-1,-1": 0.15228221530202157,
+        "+1,-1": 0.3477177846979784,
+        "-1,+1": 0.3477177846979784
+      },
+      "E": -0.3908711387919137,
+      "joint_error": 0.0019063779074086906,
+      "scaled_mass_relative_errors": [
+        -0.0002025552932927166,
+        -0.01810203461627702
+      ]
+    },
+    {
+      "gamma": 1.0,
+      "beta": 1024,
+      "probabilities": {
+        "+1,+1": 0.15086446390207867,
+        "-1,-1": 0.15086446390207867,
+        "+1,-1": 0.3491355360979213,
+        "-1,+1": 0.3491355360979213
+      },
+      "E": -0.3965421443916853,
+      "joint_error": 0.0004886265074657836,
+      "scaled_mass_relative_errors": [
+        -5.522250405054496e-05,
+        -0.004686860959363104
+      ]
+    },
+    {
+      "gamma": 1.0,
+      "beta": 4096,
+      "probabilities": {
+        "+1,+1": 0.1504986930832882,
+        "-1,-1": 0.1504986930832882,
+        "+1,-1": 0.34950130691671183,
+        "-1,+1": 0.34950130691671183
+      },
+      "E": -0.39800522766684726,
+      "joint_error": 0.00012285568867531627,
+      "scaled_mass_relative_errors": [
+        -1.582501030017447e-05,
+        -0.0011832372290043747
+      ]
+    },
+    {
+      "gamma": 2.356194490192345,
+      "beta": 16,
+      "probabilities": {
+        "+1,+1": 0.3526496440320277,
+        "-1,-1": 0.3526496440320277,
+        "+1,-1": 0.14735035596797233,
+        "-1,+1": 0.14735035596797233
+      },
+      "E": 0.41059857612811074,
+      "joint_error": 0.0312430536659849,
+      "scaled_mass_relative_errors": [
+        -0.2648676709222203,
+        0.015602072385223043
+      ]
+    },
+    {
+      "gamma": 2.356194490192345,
+      "beta": 64,
+      "probabilities": {
+        "+1,+1": 0.373607934551773,
+        "-1,-1": 0.373607934551773,
+        "+1,-1": 0.12639206544822698,
+        "-1,+1": 0.12639206544822698
+      },
+      "E": 0.494431738207092,
+      "joint_error": 0.010284763146239606,
+      "scaled_mass_relative_errors": [
+        -0.10337006666174464,
+        0.002922258310007475
+      ]
+    },
+    {
+      "gamma": 2.356194490192345,
+      "beta": 256,
+      "probabilities": {
+        "+1,+1": 0.3809907945913635,
+        "-1,-1": 0.3809907945913635,
+        "+1,-1": 0.11900920540863656,
+        "-1,+1": 0.11900920540863656
+      },
+      "E": 0.5239631783654538,
+      "joint_error": 0.0029019031066491174,
+      "scaled_mass_relative_errors": [
+        -0.03109138712190762,
+        0.0006891849992338717
+      ]
+    },
+    {
+      "gamma": 2.356194490192345,
+      "beta": 1024,
+      "probabilities": {
+        "+1,+1": 0.38313850897092255,
+        "-1,-1": 0.38313850897092255,
+        "+1,-1": 0.11686149102907745,
+        "-1,+1": 0.11686149102907745
+      },
+      "E": 0.5325540358836902,
+      "joint_error": 0.0007541887270900438,
+      "scaled_mass_relative_errors": [
+        -0.00823622229510046,
+        0.00017081442137634184
+      ]
+    },
+    {
+      "gamma": 2.356194490192345,
+      "beta": 4096,
+      "probabilities": {
+        "+1,+1": 0.3837020959411304,
+        "-1,-1": 0.3837020959411304,
+        "+1,-1": 0.11629790405886954,
+        "-1,+1": 0.11629790405886954
+      },
+      "E": 0.5348083837645218,
+      "joint_error": 0.0001906017568821805,
+      "scaled_mass_relative_errors": [
+        -0.0020911258282508838,
+        4.356056799093011e-05
+      ]
+    }
+  ],
+  "refinements": [
+    {
+      "gamma": 0.7853981633974483,
+      "normal_error": 3.566109907371384e-11,
+      "azimuth_error": 6.187033907423256e-08
+    },
+    {
+      "gamma": 1.0,
+      "normal_error": 1.2304236740590113e-08,
+      "azimuth_error": 1.6687925680214377e-07
+    },
+    {
+      "gamma": 2.356194490192345,
+      "normal_error": 3.566109907371384e-11,
+      "azimuth_error": 6.187033907423256e-08
+    }
+  ],
+  "monte_carlo": {
+    "probabilities": {
+      "+1,+1": 0.17289784315243253,
+      "+1,-1": 0.32744769655392925,
+      "-1,+1": 0.3271430970770249,
+      "-1,-1": 0.17251136321661226
+    },
+    "standard_errors": {
+      "+1,+1": 0.00043239692935729515,
+      "+1,-1": 0.0006246196136557576,
+      "-1,+1": 0.0006230471243471634,
+      "-1,-1": 0.0004325908005779881
+    },
+    "correlation": -0.3091815872619093,
+    "correlation_standard_error": 0.0009002545639705342,
+    "n_samples": 120000,
+    "seed": 20260905
+  },
+  "normal_gaussian_error": 4.107825191113079e-15,
+  "rescaled": {
+    "E_limit": -0.038650674985765965,
+    "E_beta4096": -0.03848934625606931
+  },
+  "quartic": [
+    {
+      "gamma": 0.7853981633974483,
+      "joint_error": 0.0001900517520114775,
+      "scaled_mass_relative_errors": [
+        -0.0006859115145367856,
+        -0.002812895436047458
+      ],
+      "finite_beta_16_change": 0.006759460029668207
+    },
+    {
+      "gamma": 1.0,
+      "joint_error": 0.00012249961808893928,
+      "scaled_mass_relative_errors": [
+        -0.0007450924835986639,
+        -0.0019082750613024224
+      ],
+      "finite_beta_16_change": 0.005239635412012361
+    },
+    {
+      "gamma": 2.356194490192345,
+      "joint_error": 0.00019005175201153302,
+      "scaled_mass_relative_errors": [
+        -0.002812895436047458,
+        -0.0006859115145365635
+      ],
+      "finite_beta_16_change": 0.006759460029668207
+    }
+  ],
+  "punctures": [
+    {
+      "radius": 0.1,
+      "mass": 0.01998333888789689,
+      "relative_error_to_2eps2": -0.0008330556051556748
+    },
+    {
+      "radius": 0.05,
+      "mass": 0.00499895842013498,
+      "relative_error_to_2eps2": -0.0002083159730041917
+    },
+    {
+      "radius": 0.025,
+      "mass": 0.0012499348971896675,
+      "relative_error_to_2eps2": -5.208224826624974e-05
+    }
+  ],
+  "priors": [
+    {
+      "like_unlike_prior_ratio": 0.5,
+      "E": -0.6264588153438678,
+      "probabilities": {
+        "+1,+1": 0.09338529616403302,
+        "-1,-1": 0.09338529616403302,
+        "+1,-1": 0.40661470383596693,
+        "-1,+1": 0.40661470383596693
+      }
+    },
+    {
+      "like_unlike_prior_ratio": 1.0,
+      "E": -0.3704913366224163,
+      "probabilities": {
+        "+1,+1": 0.15737716584439593,
+        "-1,-1": 0.15737716584439593,
+        "+1,-1": 0.3426228341556041,
+        "-1,+1": 0.3426228341556041
+      }
+    },
+    {
+      "like_unlike_prior_ratio": 2.0,
+      "E": -0.04239347503197094,
+      "probabilities": {
+        "+1,+1": 0.23940163124200728,
+        "-1,-1": 0.23940163124200728,
+        "+1,-1": 0.26059836875799275,
+        "-1,+1": 0.26059836875799275
+      }
+    }
+  ],
+  "standard_angle_CHSH_limit": 2.1422831631682016,
+  "standard_angle_CHSH_beta4096": 2.139233535058088
+}

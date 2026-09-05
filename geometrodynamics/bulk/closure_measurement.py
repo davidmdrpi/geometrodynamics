@@ -34,6 +34,12 @@ so ``D/(2|u x v|)`` is the coarea density weighted by the holonomy of the
 ``closure_current``. The equal prior over the four outcome sectors used in
 ``closure_weights`` is a chosen counting measure. "No signalling" here means
 detector no-signalling; operational no-signalling to the past is open.
+
+*Closure-equilibrium clarification.* ``docs/closure_equilibrium.md`` derives
+this positive phase measure from a specified classical frame-restoring
+Hamiltonian and canonical preparation. Those are additional assumptions;
+the physical response, not just the closure locus, determines the measure.
+The historical implementation below is unchanged.
 """
 
 from __future__ import annotations

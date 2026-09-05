@@ -5037,6 +5037,37 @@ compactly supported `∇×A` means a mean-velocity check cannot exclude it eithe
 python -m experiments.closure_ledger.conditioning_variable_probe   # 10/10
 ```
 
+## Classical frame equilibrium supplies a conditional closure measure
+
+The remaining measure question has a concrete conditional answer:
+**a round rotor in canonical equilibrium with frame-restoring energy
+`V = K ||Ad_G - I||²_F / 16 = K sin²θ / 2` approaches the positive
+phase-coarea law.** Integrating the momenta supplies sphere area; Gaussian
+integration normal to closure supplies `|D|/|u×w|`. The two geodesic
+punctures carry no limiting mass. With equal sector priors and the singlet
+partner sign, standard-angle `CHSH = 2.1422831632`.
+
+The closure circle alone does not force that measure. The classical
+countermodel `V = K N²/2` has the same regular zero set but uniform
+arclength and `E = 0` at every temperature. For a residual `F` and physical
+stiffness `a`, replacing `F` by `gF` preserves the measure when `a` changes
+to `a/g²`; keeping `a` fixed changes the physical response. This supplies
+a conditional physical realization of the phase-window prescription
+clarified by PR #282.
+
+This is a new specified Hamiltonian and preparation, **not a derived BAM
+detector coupling**. Equal sector priors, equilibration, local apparatus
+implementation, composition, event readout, and source-readout causality
+remain open. The result does not derive the Born rule or exhaust classical
+alternatives. See [the derivation and dependency ledger](docs/closure_equilibrium.md)
+and [the preregistration](docs/closure_equilibrium_prereg.md) (local commit
+`76ed50e`, frozen before implementation; uploaded to GitHub afterwards).
+
+```bash
+python -m experiments.closure_ledger.closure_equilibrium_probe   # 19/19
+python -m pytest -q tests/test_closure_equilibrium.py             # 49 tests
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced
