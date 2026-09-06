@@ -573,7 +573,17 @@ recorded in the historical list below rather than here.*
    `CHSH = 2√2` with no signed cancellation, while the same positive class also
    reaches `CHSH = 4`. Positivity constrains nothing, and marginals are `1/2`
    for every member of the class. The real question is **which counting function
-   `Φ`** — see `docs/positive_counting.md`. Original text follows.
+   `Φ`** — see `docs/positive_counting.md`.
+   The [TT field reduction](tt_triangle_rotor.md) now tests a concrete
+   existing field candidate. The embedding `beta=A(nn^T-I/3)` gives an
+   `RP2` director and a formally round angular metric with inertia `2CA^2`,
+   but its rotating source-free trajectories excite two omitted biaxial
+   components. The exact normal residual has norm `sqrt(2)|A||n_dot|^2`.
+   Thus this family is not an autonomous rotor in the linear ESU TT model.
+   A manufactured drive sustains it with additional radial and normal stress;
+   no such feedback, triangle-holonomy coupling or history preparation is
+   derived from the existing scalar sources. The action pullback alone
+   therefore selects no `Phi`. Original text follows.
    Derive whether observed event frequencies are the
    positive count of closed histories, `Σ|D|`, or their oriented sum with the
    closure holonomy, `Σ e^{iΩ/2}|D| = ΣD`. Nothing classical in the
@@ -695,7 +705,7 @@ of an original freeze.
 
 | Provenance class | Work and anchors | What is established and limited |
 |---|---|---|
-| Public freeze before implementation | Rounds 5–8: `1b0144e`, `f954e3d`, `a33a901`, `39be3e3`; pointer spread: `baf856d` | The public preregistration precedes its implementation in the recorded history. The pointer-spread implementation and sweep followed its public freeze without reconstruction or post-result parameter changes. Subsequent review corrections must be identified separately. |
+| Public freeze before implementation | Rounds 5–8: `1b0144e`, `f954e3d`, `a33a901`, `39be3e3`; pointer spread: `baf856d`; TT rotor: `0eb684b` | The public preregistration precedes its implementation in the recorded history. The pointer-spread and TT-rotor implementations and probes followed their public freezes without reconstruction or post-result parameter changes. The TT normal obstruction was an analytic prediction explicitly recorded before its numerical test. Subsequent review corrections must be identified separately. |
 | Local freeze, published after calculation | #283: local `76ed50e`; published freeze `d83d46a`, then implementation `7d70728` | Public ordering establishes publication of the freeze before publication of the implementation, but does not independently verify that the local freeze preceded calculation. |
 | Public freeze, implementation reconstructed with results known | #284: public `d258bb1`, then reconstructed implementation `fe5016d` | The freeze preceded the first implementation. A session reset lost uncommitted work; reconstruction and rerun used the earlier results. This is not a second blind test. |
 

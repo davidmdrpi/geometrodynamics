@@ -314,6 +314,16 @@ require a dynamical normalization as well. It therefore does not ground
 
 ## 5. A conditional local parent for the Frobenius energy
 
+The subsequent [existing-field TT test](tt_triangle_rotor.md) supplies a
+different, scoped result. A uniaxial tensor embeds an `RP2` director in the
+repository's dynamical ESU shear mode and has a round angular kinetic term
+after substitution. The full tensor equations do not preserve that family
+when the free director rotates: two biaxial components are excited at linear
+order in field amplitude. Its anisotropic stress coupling is quadrupolar;
+it has not been identified with the triangle-holonomy energy. The TT result
+does not supply the missing operational frame-to-field history map or
+invalidate the conditional matrix-field extension below.
+
 The massless scalar tube's zero-frequency DtN matrix is
 
 \[

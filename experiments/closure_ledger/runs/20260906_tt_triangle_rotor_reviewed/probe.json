@@ -1,0 +1,418 @@
+{
+  "public_preregistration": "0eb684b86a57be9cfbd2d41d89377cc11f6b76cf",
+  "base_commit": "cd7f3001581a37a2fe887ff4452340c45cb9f00a",
+  "model": {
+    "radius": 1.0,
+    "kappa": 1.0,
+    "volume": 19.739208802178716,
+    "action_normalization": 19.739208802178716
+  },
+  "adm": {
+    "spatial_scalar": "2*(-l1**4 + 2*l1**2*l2**2 + 2*l1**2*l3**2 - l2**4 + 2*l2**2*l3**2 - l3**4)/(l1**2*l2**2*l3**2)",
+    "round_scalar": "6/a**2",
+    "linear_scalar": "0",
+    "curvature_quadratic": "16*(-b1**2 - b1*b2 - b2**2)/a**2",
+    "curvature_coefficient_per_tr_beta2": "-8/a**2",
+    "adm_kinetic_quadratic": "2*d1**2 + 2*d1*d2 + 2*d2**2",
+    "omega2_radius2": 8.0,
+    "round_anchor": true,
+    "linear_vanishes": true,
+    "kinetic_is_frobenius": true
+  },
+  "cartan_reference": {
+    "omega2_radius2": 8.0,
+    "anchors_pass": true,
+    "momentum_constraint": true
+  },
+  "algebra": {
+    "kinetic": 6.505213034913027e-19,
+    "lagrangian": 4.163336342344337e-17,
+    "normal_formula": 3.878959614448864e-17,
+    "normal_basis": 1.129703286137716e-16,
+    "normal_norm": 6.938893903907228e-18,
+    "radial_equation": 3.2303635270234374e-17,
+    "angular_equation": 2.4627219835046073e-17,
+    "covariance": 5.3746807599263046e-17,
+    "antipodal": 0.0,
+    "metric_finite_difference": 3.818226751849361e-10,
+    "adm_kinetic": 3.8380279857030963e-13
+  },
+  "primary": {
+    "amplitude": 0.01,
+    "speed": 0.4,
+    "times": [
+      0.04,
+      0.02,
+      0.01,
+      0.005
+    ],
+    "distances": [
+      1.813612620860843e-06,
+      4.5276106185574645e-07,
+      1.1315036482894678e-07,
+      2.8285100998912192e-08
+    ],
+    "distances_over_t2": [
+      0.001133507888038027,
+      0.001131902654639366,
+      0.0011315036482894677,
+      0.0011314040399564877
+    ],
+    "predicted_coefficient": 0.001131370849898476,
+    "halving_ratios": [
+      4.005672690640247,
+      4.001410534912552,
+      4.000352158307598
+    ],
+    "eigenvalue_distance_error": 1.767201895548089e-18,
+    "free_normal_residual": 0.0022627416997969526,
+    "predicted_normal_residual": 0.002262741699796953,
+    "energy_residual": 8.673617379884035e-19,
+    "charge_residual": 3.2526065174565133e-19
+  },
+  "stationary_director": {
+    "amplitude": 0.01,
+    "speed": 0.0,
+    "times": [
+      0.04,
+      0.02,
+      0.01,
+      0.005
+    ],
+    "distances": [
+      1.0622968402425924e-18,
+      1.0622968402425924e-18,
+      1.0622968402425924e-18,
+      1.5023145987371592e-18
+    ],
+    "distances_over_t2": [
+      6.639355251516202e-16,
+      2.6557421006064807e-15,
+      1.0622968402425923e-14,
+      6.009258394948637e-14
+    ],
+    "predicted_coefficient": 0.0,
+    "halving_ratios": [],
+    "eigenvalue_distance_error": 1.5023145987371592e-18,
+    "free_normal_residual": 0.0,
+    "predicted_normal_residual": 0.0,
+    "energy_residual": 1.734723475976807e-18,
+    "charge_residual": 0.0
+  },
+  "amplitude_controls": [
+    {
+      "amplitude": 0.01,
+      "speed": 0.4,
+      "times": [
+        0.04,
+        0.02,
+        0.01,
+        0.005
+      ],
+      "distances": [
+        1.813612620860843e-06,
+        4.5276106185574645e-07,
+        1.1315036482894678e-07,
+        2.8285100998912192e-08
+      ],
+      "distances_over_t2": [
+        0.001133507888038027,
+        0.001131902654639366,
+        0.0011315036482894677,
+        0.0011314040399564877
+      ],
+      "predicted_coefficient": 0.001131370849898476,
+      "halving_ratios": [
+        4.005672690640247,
+        4.001410534912552,
+        4.000352158307598
+      ],
+      "eigenvalue_distance_error": 1.767201895548089e-18,
+      "free_normal_residual": 0.0022627416997969526,
+      "predicted_normal_residual": 0.002262741699796953,
+      "energy_residual": 8.673617379884035e-19,
+      "charge_residual": 3.2526065174565133e-19
+    },
+    {
+      "amplitude": 0.005,
+      "speed": 0.4,
+      "times": [
+        0.04,
+        0.02,
+        0.01,
+        0.005
+      ],
+      "distances": [
+        9.068063104304216e-07,
+        2.2638053092787323e-07,
+        5.657518241447339e-08,
+        1.4142550499456096e-08
+      ],
+      "distances_over_t2": [
+        0.0005667539440190135,
+        0.000565951327319683,
+        0.0005657518241447339,
+        0.0005657020199782438
+      ],
+      "predicted_coefficient": 0.000565685424949238,
+      "halving_ratios": [
+        4.005672690640247,
+        4.001410534912552,
+        4.000352158307598
+      ],
+      "eigenvalue_distance_error": 8.836009477740446e-19,
+      "free_normal_residual": 0.0011313708498984763,
+      "predicted_normal_residual": 0.0011313708498984765,
+      "energy_residual": 2.168404344971009e-19,
+      "charge_residual": 8.131516293641283e-20
+    },
+    {
+      "amplitude": 0.0025,
+      "speed": 0.4,
+      "times": [
+        0.04,
+        0.02,
+        0.01,
+        0.005
+      ],
+      "distances": [
+        4.534031552152108e-07,
+        1.1319026546393661e-07,
+        2.8287591207236696e-08,
+        7.071275249728048e-09
+      ],
+      "distances_over_t2": [
+        0.00028337697200950674,
+        0.0002829756636598415,
+        0.00028287591207236694,
+        0.0002828510099891219
+      ],
+      "predicted_coefficient": 0.000282842712474619,
+      "halving_ratios": [
+        4.005672690640247,
+        4.001410534912552,
+        4.000352158307598
+      ],
+      "eigenvalue_distance_error": 4.418004738870223e-19,
+      "free_normal_residual": 0.0005656854249492381,
+      "predicted_normal_residual": 0.0005656854249492382,
+      "energy_residual": 5.421010862427522e-20,
+      "charge_residual": 2.0328790734103208e-20
+    }
+  ],
+  "speed_controls": [
+    {
+      "amplitude": 0.01,
+      "speed": 0.2,
+      "times": [
+        0.04,
+        0.02,
+        0.01,
+        0.005
+      ],
+      "distances": [
+        4.534909229131917e-07,
+        1.1319570968474936e-07,
+        2.8287930831226084e-08,
+        7.071296466072009e-09
+      ],
+      "distances_over_t2": [
+        0.0002834318268207448,
+        0.00028298927421187335,
+        0.00028287930831226085,
+        0.00028285185864288035
+      ],
+      "predicted_coefficient": 0.000282842712474619,
+      "halving_ratios": [
+        4.006255397630937,
+        4.001554951477627,
+        4.000388184394646
+      ],
+      "eigenvalue_distance_error": 2.1187983236362038e-18,
+      "free_normal_residual": 0.0005656854249492381,
+      "predicted_normal_residual": 0.0005656854249492382,
+      "energy_residual": 8.673617379884035e-19,
+      "charge_residual": 1.6263032587282567e-19
+    },
+    {
+      "amplitude": 0.01,
+      "speed": 0.4,
+      "times": [
+        0.04,
+        0.02,
+        0.01,
+        0.005
+      ],
+      "distances": [
+        1.813612620860843e-06,
+        4.5276106185574645e-07,
+        1.1315036482894678e-07,
+        2.8285100998912192e-08
+      ],
+      "distances_over_t2": [
+        0.001133507888038027,
+        0.001131902654639366,
+        0.0011315036482894677,
+        0.0011314040399564877
+      ],
+      "predicted_coefficient": 0.001131370849898476,
+      "halving_ratios": [
+        4.005672690640247,
+        4.001410534912552,
+        4.000352158307598
+      ],
+      "eigenvalue_distance_error": 1.767201895548089e-18,
+      "free_normal_residual": 0.0022627416997969526,
+      "predicted_normal_residual": 0.002262741699796953,
+      "energy_residual": 8.673617379884035e-19,
+      "charge_residual": 3.2526065174565133e-19
+    },
+    {
+      "amplitude": 0.01,
+      "speed": 0.8,
+      "times": [
+        0.04,
+        0.02,
+        0.01,
+        0.005
+      ],
+      "distances": [
+        7.248844198607982e-06,
+        1.8106959847858642e-06,
+        4.525797259840632e-07,
+        1.1313904617881468e-07
+      ],
+      "distances_over_t2": [
+        0.0045305276241299885,
+        0.00452673996196466,
+        0.0045257972598406315,
+        0.004525561847152587
+      ],
+      "predicted_coefficient": 0.004525483399593904,
+      "halving_ratios": [
+        4.003346922683568,
+        4.00083318104626,
+        4.000208073778237
+      ],
+      "eigenvalue_distance_error": 1.5047937354666671e-18,
+      "free_normal_residual": 0.00905096679918781,
+      "predicted_normal_residual": 0.009050966799187812,
+      "energy_residual": 8.673617379884035e-19,
+      "charge_residual": 6.505213034913027e-19
+    }
+  ],
+  "dynamics": {
+    "free_ode_error": 6.851134243257562e-13,
+    "manufactured_ode_error": 4.789528149085065e-14,
+    "manufactured_full_equation_residual": 2.4161902126951447e-17,
+    "manufactured_min_radial_force": 0.06140054288576496,
+    "manufactured_min_normal_force": 0.0022627416997969465,
+    "frozen_amplitude_stationary_radial_force": 0.06531972647421809,
+    "max_tensor_norm": 0.008164965809277261,
+    "late_distance_t_0_3": 0.00011747773239163753
+  },
+  "inherited_response": {
+    "errors_513_1025": [
+      5.156244048471945e-11,
+      1.2912867612711128e-11
+    ],
+    "integrated_source_factor": 0.05066059182116889,
+    "source_variation_identity_residual": 0.0
+  },
+  "relative_amplitude_error": 0.0,
+  "primary_coefficient_relative_error": 2.9336143859914898e-05,
+  "frozen_checks": {
+    "Q1 independent ADM round and linear anchors": true,
+    "Q1 ADM kinetic and Cartan frequency agree": true,
+    "Q1 matrix velocity and restricted action": true,
+    "Q1 finite-difference pullback metric": true,
+    "Q1 relational rotation covariance and antipodal identity": true,
+    "Q2 omitted equation matches full tensor residual": true,
+    "Q2 normal projector matches explicit biaxial basis": true,
+    "Q2 free normal norm identity": true,
+    "Q2 restricted radial and angular equations vanish": true,
+    "Q2 primary full-field trajectory leaves the cone": true,
+    "Q2 second-order departure in time": true,
+    "Q2 predicted small-time coefficient": true,
+    "Q2 minimization includes signed amplitude and all axes": true,
+    "Q2 stationary-director invariant control": true,
+    "Q2 departure persists at linear field order": true,
+    "Q2 every nonzero test speed has nonzero normal residual": true,
+    "Q2 independent unconstrained DOP853 flow": true,
+    "Q2 conserved free energy and rotation charge": true,
+    "Q2 manufactured forced rotation solves full equation": true,
+    "Q2 manufactured rotation requires radial and normal stress": true,
+    "Q2 frozen stationary amplitude also needs support": true,
+    "Q3 repository source normalization and response": true
+  },
+  "post_review": {
+    "status": "POST_REVIEW_ADDITION",
+    "checks": {
+      "R1 exact full-period spectrum and distance": true,
+      "R2 periodic returns do not imply interval invariance": true,
+      "R3 a continuously advancing eigenline exists": true,
+      "R4 nearest-uniaxial axis switches between distinct optima": true
+    },
+    "spectrum_error": 3.469446951953614e-18,
+    "distance_error": 2.6093023246641475e-18,
+    "periodic_return_error": 2.633363398817473e-18,
+    "eigenline_residual": 2.9408983928669308e-18,
+    "phase_over_pi": [
+      0.0,
+      0.25,
+      0.375,
+      0.5,
+      0.625,
+      0.75,
+      1.0
+    ],
+    "continuous_angle_degrees": [
+      0.0,
+      7.896584524131983,
+      17.163465198253764,
+      45.00000000000002,
+      72.83653480174624,
+      82.10341547586803,
+      90.0
+    ],
+    "nearest_axis_defined_at_quarter_period": false,
+    "two_optima_distance_errors": [
+      1.3010426069826053e-18,
+      0.0
+    ],
+    "nearest_amplitude_changes_sign": true
+  },
+  "checks": {
+    "Q1 independent ADM round and linear anchors": true,
+    "Q1 ADM kinetic and Cartan frequency agree": true,
+    "Q1 matrix velocity and restricted action": true,
+    "Q1 finite-difference pullback metric": true,
+    "Q1 relational rotation covariance and antipodal identity": true,
+    "Q2 omitted equation matches full tensor residual": true,
+    "Q2 normal projector matches explicit biaxial basis": true,
+    "Q2 free normal norm identity": true,
+    "Q2 restricted radial and angular equations vanish": true,
+    "Q2 primary full-field trajectory leaves the cone": true,
+    "Q2 second-order departure in time": true,
+    "Q2 predicted small-time coefficient": true,
+    "Q2 minimization includes signed amplitude and all axes": true,
+    "Q2 stationary-director invariant control": true,
+    "Q2 departure persists at linear field order": true,
+    "Q2 every nonzero test speed has nonzero normal residual": true,
+    "Q2 independent unconstrained DOP853 flow": true,
+    "Q2 conserved free energy and rotation charge": true,
+    "Q2 manufactured forced rotation solves full equation": true,
+    "Q2 manufactured rotation requires radial and normal stress": true,
+    "Q2 frozen stationary amplitude also needs support": true,
+    "Q3 repository source normalization and response": true,
+    "R1 exact full-period spectrum and distance": true,
+    "R2 periodic returns do not imply interval invariance": true,
+    "R3 a continuously advancing eigenline exists": true,
+    "R4 nearest-uniaxial axis switches between distinct optima": true
+  },
+  "passed": true,
+  "physical_verdict": "FREE_ROTATING_UNIAXIAL_TT_FAMILY_NOT_INVARIANT",
+  "scope": "Unconstrained linear homogeneous ESU TT mode and its proposed uniaxial cone; not a no-go for every BAM field or driven solution.",
+  "weight_selection": "NOT_DERIVED",
+  "operational_source_readout": "NOT_DERIVED"
+}
