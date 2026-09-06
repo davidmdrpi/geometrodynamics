@@ -5037,6 +5037,49 @@ compactly supported `∇×A` means a mean-velocity check cannot exclude it eithe
 python -m experiments.closure_ledger.conditioning_variable_probe   # 10/10
 ```
 
+## Counting suffices: positivity does not obstruct the quantum correlation
+
+*Pre-registered in `docs/positive_counting_prereg.md` (`a987342`). Module
+`geometrodynamics/bulk/positive_counting.py`; probe `positive_counting_probe.py`;
+tests `tests/test_positive_counting.py`. Write-up: `docs/positive_counting.md`.*
+
+Opened to test whether the repeated near-misses (`2.1423`, `3.3941`, `3.7712`)
+were a structural obstruction. **They are not.** On the closure circle
+`D(x) = t + √(2t) cos ψ` with `ψ` uniform and `t = 1 + u·w`, so — since
+`t_like = 1 − cos γ` and `t_unlike = 1 + cos γ` sum to `2` — every positive
+counting model `W_s = ∫_Γ Φ(D_s) dσ` collapses to one function of one variable,
+and `E = −cos γ` is equivalent to `G(t) = W(t)/t` being **even about `t = 1`**.
+
+**Q1 — `sup CHSH = 4`.** A nonnegative bump at `v = 1+√2` makes `W` vanish below
+`t = 1`, giving `E = −sgn(cos γ)` and the algebraic maximum. Positivity bounds
+nothing.
+
+**Q2 — the quantum law is attained by a nonnegative weight.** Expanding
+`Φ = Σaₙ Dⁿ`, `Gₙ(u)` has degree `n−1` with leading coefficient `1`; the single
+degree-3 condition `a₂ + 5a₃ = 0` gives
+
+```
+Φ(D) = D²(1 − D/5),   G(u) = 1.2 − 0.2u²,   E = −cos γ to 1e-16,   CHSH = 2√2.
+```
+
+`Φ ≥ 0` on the whole physical range `D ∈ [−½, 4]`. Degree 3 is minimal, and no
+polynomial solution is globally nonnegative (the top degree is forced odd).
+
+**What this withdraws.** Round 5's conclusion that *"the distance to quantum
+mechanics is exactly the distance from `|D|` to `D`"* is wrong. The quantum
+correlation needs no signed cancellation, no closure holonomy and no oriented
+current — it needs a particular counting function. Round 7's result that the
+holonomy and the coarea magnitude come from different functionals stands, but is
+no longer the barrier.
+
+Everything now rests on one question: **what selects `Φ`?** #283's equilibrium
+selects `|·|`, hence `2.1423`. Nothing in the geometry, positivity, marginals or
+no-signalling distinguishes it from `D²(1 − D/5)`.
+
+```bash
+python -m experiments.closure_ledger.positive_counting_probe   # 9/9
+```
+
 ## Classical frame equilibrium supplies a conditional closure measure
 
 The remaining measure question has a concrete conditional answer:

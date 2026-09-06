@@ -185,9 +185,15 @@ sector prior      =  counting on the four outcome sectors  [chosen]
   from a classical global constraint rather than from an inserted singlet.
 * Under the positive count it is not quantum mechanics. The correlation
   function is `[c²(π−γ) − s²γ]/[2 sin γ + c²(π−γ) + s²γ]`, and the maximal
-  violation is `2.14`, not `2.83`. The distance to quantum mechanics is
-  exactly the distance from `|D|` to `D`: from counting the two closure
-  branches to summing them with their holonomy.
+  violation is `2.14`, not `2.83`. *This sentence previously read "the
+  distance to quantum mechanics is exactly the distance from `|D|` to `D`:
+  from counting the two closure branches to summing them with their
+  holonomy." **That is withdrawn by round 9.*** Counting suffices: the
+  nonnegative weight `Φ(D) = D²(1 − D/5)` reproduces `E = −cos γ` to `1e-16`
+  with no signed cancellation and no holonomy weighting, and the same class
+  reaches `CHSH = 4`. The distance to quantum mechanics is not counting
+  versus summing — it is *which counting function*, and nothing in the
+  geometry selects one. See [docs/positive_counting.md](positive_counting.md).
 * Further modelling choices remain open: detection is geodesic realignment
   to the outcome direction, and outcomes are history boundary data rather
   than functions of the source state. These accompany the source prior,
