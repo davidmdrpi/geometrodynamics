@@ -5088,13 +5088,22 @@ are balanced, but the variances are exactly **0.1 and 0.4**. With Gaussian
 resolution `0.15`, the same event `|Y|>0.6` has probabilities **0.05286 and
 0.51361**. The distinction survives finite temperature.
 
+This does not make every odd projection informative for these settings:
+`F=x_z` has the same complete distribution for both future choices, with
+sharp variance `1/2`. The post-review controls verify this symmetry at finite
+temperature too. Parity alone gives no general unreadability guarantee;
+sign tests are not the only possible blind records.
+
 An explicit canonical pointer retains its reciprocal force. At ideal initial
 `P=0`, a finite pulse reads the repository's conservative scalar source
 oscillator while preserving its periodic source endpoints to `2.3e-13`.
 Finite `P` recoils. **The oscillator is not the informative spin-frame
 variable:** no map or operational BAM channel has been constructed. This
-rules out an obstruction based only on two source boundary conditions; the
-complete apparatus, preparation and intervention problem remains open.
+rules out an obstruction based only on two source boundary conditions **at
+ideal zero pointer momentum**. Momentum spread generically restores recoil,
+with impulse RMS momentum change linear in that spread. A finite-spread
+follow-up must solve for the instrument-modified ensemble as well as the
+record. The complete apparatus, preparation and intervention problem remains open.
 
 The field audit supplies a **conditional** parent for #283's frame energy:
 extend the scalar tube to an unconstrained matrix field with endpoints
@@ -5112,7 +5121,7 @@ provenance and evidence are in [source_readout.md](docs/source_readout.md).
 
 ```bash
 python -m experiments.closure_ledger.source_readout_probe   # 46/46
-python -m pytest -q tests/test_source_readout.py             # 21 tests
+python -m pytest -q tests/test_source_readout.py             # 23 tests
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

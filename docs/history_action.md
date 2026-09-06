@@ -2,8 +2,8 @@
 
 Pre-registered in `docs/history_action_prereg.md` (`a33a901`) before
 `geometrodynamics/bulk/history_action.py` existed. Module, tests
-(`tests/test_history_action.py`, 28), probe
-(`experiments/closure_ledger/history_action_probe.py`, 16/16).
+(`tests/test_history_action.py`), current probe
+(`experiments/closure_ledger/history_action_probe.py`, 24/24).
 
 **Five independent verdicts. The pre-registered headline is not printed.**
 
@@ -303,8 +303,10 @@ the first version (note N7):
    both source endpoints. It works on the existing scalar source oscillator
    after adding that coupling; a map from the informative frame variable to
    this oscillator, an admissible preparation and the instrument-modified
-   ensemble under future interventions are still missing. Thus two source
-   boundary conditions alone supply no non-readability theorem.
+   ensemble under future interventions are still missing. **At ideal zero
+   pointer momentum**, two source boundary conditions alone do not prohibit
+   this record. A momentum spread generically restores recoil; its impulse
+   RMS size is linear in that spread.
 
 So the honest result is a **causality hazard, not a demonstrated signalling
 channel**: `ρ(x|a,b)` carries information about future settings that an ideal

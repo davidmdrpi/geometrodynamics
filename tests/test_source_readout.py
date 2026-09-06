@@ -31,6 +31,25 @@ def test_odd_readout_mean_does_not_determine_its_law(choice, variance):
 
 
 @pytest.mark.parametrize("beta", [None, 64.])
+def test_nondegenerate_odd_projection_can_have_identical_full_laws(beta):
+    """Post-review control: rotation about a maps the ensembles and fixes x_z."""
+    laws, records = [], []
+    for b in readout.FUTURE_ANALYZERS:
+        x, w = (readout.source_circle(readout.FIXED_ANALYZER, b) if beta is None
+                else readout.source_sphere(readout.FIXED_ANALYZER, b, beta))
+        laws.append((x @ readout.FIXED_ANALYZER, w))
+        records.append(readout.record_statistics(x, w, axis=readout.FIXED_ANALYZER, noise=.15))
+    # Matched projected nodes AND their masses check the whole discrete law,
+    # not merely equality of two moments or of a single selected event.
+    np.testing.assert_allclose(laws[0][0], laws[1][0], atol=1e-14, rtol=0)
+    np.testing.assert_allclose(laws[0][1], laws[1][1], atol=1e-14, rtol=0)
+    assert records[0]["variance"] > .4  # nondegenerate continuous limit
+    assert records[0] == pytest.approx(records[1], abs=1e-14)
+    if beta is None:
+        assert records[0]["variance"] == pytest.approx(.5, abs=1e-14)
+
+
+@pytest.mark.parametrize("beta", [None, 64.])
 def test_same_gaussian_kernel_retains_information_while_constant_kernel_erases_it(beta):
     records, constant = [], []
     for b in readout.FUTURE_ANALYZERS:

@@ -101,8 +101,9 @@ named inputs plus composition.
    demonstrated channel, since no map from `x` to field configurations and no
    operational BAM readout of that informative variable has been constructed.
    A subsequent ideal classical pointer preserves both endpoints of an
-   existing scalar source orbit, so two source boundaries alone are no
-   obstruction; its oscillator is not the frame variable.
+   existing scalar source orbit at **ideal zero pointer momentum**. Thus two
+   source boundaries alone do not prohibit this ideal record; finite momentum
+   spread restores recoil, and its oscillator is not the frame variable.
    (`docs/history_action.md`; round 7, corrected by `docs/source_readout.md`.)
 
 So the organising question is no longer whether the geometry supplies spin
@@ -649,8 +650,15 @@ recorded in the historical list below rather than here.*
    established connection to the informative spin-frame variable, the ideal
    preparation is additional, and the complete apparatus boundary problem
    is not derived. A final pointer record need not itself be prescribed final
-   boundary data. Therefore “measurement adds a boundary condition” alone is
-   no dynamical obstruction. The gate is equality of the **full early-record
+   boundary data. **At ideal zero pointer momentum**, “measurement adds a
+   boundary condition” alone is no dynamical obstruction. A momentum spread
+   generically restores back-action, with impulse RMS recoil linear in that
+   spread. This ideal-pointer result and the missing frame-to-field map are
+   separate gaps. A finite-spread follow-up must compute the instrument's
+   modified history ensemble, not reuse the unmeasured posterior. Also, the
+   same future choices `b_0,b_1` have identical full laws for the nondegenerate
+   odd projection `x_z`; no universal assertion that every projection
+   distinguishes every setting pair follows. The gate is equality of the **full early-record
    law under future interventions**, using the **instrument-modified ensemble**
    and no future postselection, not equality of odd means or an unmeasured
    posterior. No operational BAM channel is constructed. Closing it requires a dynamical
@@ -661,13 +669,19 @@ recorded in the historical list below rather than here.*
 6. **Only then revisit Bell in full**, and **keep the mass and QCD fits
    frozen** until the trunk is resolved.
 
-**Provenance of the equilibrium follow-up.** Unlike the public preregistration
-ordering of rounds 5–8, #283's `76ed50e` freeze was local; `d83d46a` published
-it after calculation, followed by `7d70728`. Public timestamps do not verify
-the claimed pre-calculation freeze. The source-readout follow-up was publicly
-preregistered at `d258bb1` before its first implementation. After a session
-reset, its implementation was reconstructed with the prior results known and
-rerun; see `docs/source_readout.md` for that distinction and archived evidence.
+**Preregistration provenance on this strand.** These classes describe what
+the public ordering supports; they do not make every later correction part
+of an original freeze.
+
+| Provenance class | Work and anchors | What is established and limited |
+|---|---|---|
+| Public freeze before implementation | Rounds 5–8: `1b0144e`, `f954e3d`, `a33a901`, `39be3e3` | The public preregistration precedes its implementation in the recorded history. Subsequent review corrections must be identified separately. |
+| Local freeze, published after calculation | #283: local `76ed50e`; published freeze `d83d46a`, then implementation `7d70728` | Public ordering establishes publication of the freeze before publication of the implementation, but does not independently verify that the local freeze preceded calculation. |
+| Public freeze, implementation reconstructed with results known | #284: public `d258bb1`, then reconstructed implementation `fe5016d` | The freeze preceded the first implementation. A session reset lost uncommitted work; reconstruction and rerun used the earlier results. This is not a second blind test. |
+
+See `docs/source_readout.md` for archived evidence and the explicitly
+post-review blind-projection and finite-spread clarifications. Historical
+freezes and archived outputs remain intact.
 
 ### Ranked missing links, as written at `b771b16`
 

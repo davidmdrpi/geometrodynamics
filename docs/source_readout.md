@@ -61,6 +61,19 @@ are `1/sqrt(5)` and `2/sqrt(5)`, respectively, hence
 This is an exact counterexample to distributional blindness of odd
 observables. It uses the same axis and the same response at both settings.
 
+It does not imply that **every** nondegenerate odd projection separates
+these settings. For a general fixed unit axis `m`, the two sharp variances
+are `(m_x²+m_z²)/2` and `(m_y²+m_z²)/2`. Their difference is
+`(m_y²-m_x²)/2`, which vanishes on a nonempty set of axes. In particular
+`F=x_z` is continuous, odd and nondegenerate, with variance `1/2` in both
+ensembles. Its **entire law** agrees: the quarter-turn about `a=e_z`
+mapping `b_0` to `b_1` preserves `F` and carries one source measure to the
+other. This symmetry also holds at finite beta and after the same readout
+noise. Thus parity supplies no general guarantee of unreadability, but
+sign tests are not the only records that can fail to distinguish a given
+pair. This qualification and its two regression cases were added after
+the review at `fe5016d`; they are not new preregistered results.
+
 For finite resolution let `Y = F + Z`, with independent Gaussian noise
 `Z ~ Normal(0,0.15²)`, and use the fixed event `B = {|Y|>0.6}`. Its kernel is
 
@@ -137,7 +150,11 @@ additional physics here. Finite momentum produces recoil. The impulse has
 `|delta p| <= |gP| |dF|`; a finite pulse also changes the source trajectory,
 so its original endpoint constraints cannot simply be assumed preserved.
 No claim of a robust no-disturbance apparatus with nonzero momentum width is
-made. A model requiring the pointer itself to return to its initial position
+made. For an independent zero-mean initial momentum with standard deviation
+`sigma_P`, the impulse's conditional recoil covariance is
+`g² sigma_P² dF dF^T`; its root-mean-square size at fixed source position
+is `|g| sigma_P |dF|`. Zero mean recoil is not zero disturbance.
+A model requiring the pointer itself to return to its initial position
 would impose `integral hF dt = 0`: for `h>=0` and `F=q_osc²`, that prohibits a
 nonzero record. That is an *extra apparatus boundary requirement*, not a
 consequence of the two source endpoints alone. We have not derived BAM's
@@ -178,8 +195,10 @@ can do work. This control does not keep energy constant by fiat.
 
 **The oscillator `q_s` is not the quaternion frame `q`, nor is `q_s²` known
 to equal an informative `F(x)`.** This is a source-local coupling in an
-extended version of an existing reduced Hamiltonian. It invalidates an
-obstruction based solely on “measurement adds a boundary condition.” It
+extended version of an existing reduced Hamiltonian. **At ideal zero pointer
+momentum**, it invalidates an obstruction based solely on “measurement adds
+a boundary condition.” Nonzero momentum spread generically restores recoil,
+linear in the spread for the impulse's root-mean-square momentum change. It
 does not complete the source-readout construction requested by the live
 falsifier, because the informative field map and allowed preparation remain
 unproved.
@@ -209,6 +228,44 @@ prescription in #283 nor the pointer toy supplies this missing intervention
 structure. A non-readability theorem must constrain the allowed physical
 observables, apparatus/preparation, modified measure, or future-setting
 control. An absent implementation proves none of these constraints.
+
+### What a finite-momentum follow-up must measure
+
+The review proposes replacing `P=0` by a distribution. That is a useful
+next experiment, but merely sampling momenta in `pointer_kick` cannot decide
+the operational gate: **for the same incoming source ensemble**, its record
+`Q_out=Q_in+gF(x)` is independent of `P` at every spread. The source momenta
+change, and subsequent dynamics and boundary conditioning may change which
+incoming histories are allowed. Reusing the old posterior would omit the
+very effect being investigated.
+
+A finite pulse has both pointer drift `P(t_1-t_0)/M` and a record of the
+perturbed source trajectory. A meaningful comparison must specify the same
+initial apparatus distribution for both future choices, solve the joint
+boundary problem with the interaction present, determine its history weights,
+and compare the full early-record laws without selecting on later outputs.
+The existing Duffing example contains no analyzer-setting or frame-variable
+map, so a spread experiment on that oscillator alone cannot supply the
+required comparison. Such a map and a physical preparation/intervention law
+are separate gaps from the ideal-pointer limitation.
+
+There is a useful conditional continuity check on any proposed result. Let
+`L_{b,sigma}` be the early-record law of that **complete instrument model**,
+and suppose its zero-spread event contrast is `Delta_0>0`. If
+`TV(L_{b,sigma},L_{b,0}) <= epsilon_b(sigma)`, then
+
+\[
+ |L_{b_1,\sigma}(B)-L_{b_0,\sigma}(B)|
+ \geq \Delta_0-\epsilon_{b_1}(\sigma)-\epsilon_{b_0}(\sigma).
+\]
+
+If both errors tend to zero, some nonzero spreads retain the distinction.
+Complete erasure at every nonzero spread would therefore require a singular
+limit or failure of these hypotheses. No continuity or nonzero `Delta_0`
+for an operational BAM instrument has been established here. Nor would
+erasure for one particular apparatus prove that every admissible apparatus
+is unreadable. These are analytic checks added in response to the review,
+not a completed finite-spread dynamics experiment.
 
 ## 4. What the existing field machinery does and does not contain
 
@@ -398,7 +455,8 @@ python -m experiments.closure_ledger.source_readout_probe \
   --output-dir experiments/closure_ledger/runs/20260905_source_readout_probe
 ```
 
-The new suite has 21 independent tests; the probe has 46 numerical criteria
+The source-readout suite now has 23 tests (21 original, two post-review
+blind-projection controls); the original probe has 46 numerical criteria
 and exits nonzero on failure. See the
 [archived report](../experiments/closure_ledger/runs/20260905_source_readout_probe/probe.md)
 and [full numerical evidence](../experiments/closure_ledger/runs/20260905_source_readout_probe/probe.json).

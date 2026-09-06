@@ -988,7 +988,8 @@ def source_observable_signalling(n: int = 200000, m_axis=(0.3, 0.7, 0.2)
       without altering the global two-boundary solution. A prescribed final
       pointer value would add a boundary condition, but a final record can
       instead be an output. See ``docs/source_readout.md`` for an exact
-      conditional Hamiltonian pointer preserving both source boundaries.
+      conditional Hamiltonian pointer preserving both source boundaries at
+      ideal zero pointer momentum; a momentum spread generically recoils.
       Its physical frame-to-field map and intervention law remain missing.
 
     So the result is a **causality hazard**, not a demonstrated signalling
