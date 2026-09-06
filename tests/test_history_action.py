@@ -237,9 +237,11 @@ def test_the_conditioned_source_density_is_exactly_antipodally_even():
     assert e["density_is_antipodally_even_residual"] < 1e-15
 
 
-def test_odd_observables_are_blind_and_some_even_ones_separate():
+def test_odd_means_and_signs_are_blind_but_full_distributions_are_not():
     e = source_observable_signalling(n=20000)
-    assert e["odd_observables_are_blind"]
+    assert e["odd_means_and_signs_are_blind"]
+    assert not e["odd_full_distributions_are_blind"]
+    assert e["odd_projection_variance_spread"] > 1e-3
     assert e["some_even_functions_separate_the_ensembles"]
     assert e["setting_information_present_at_source"]
 

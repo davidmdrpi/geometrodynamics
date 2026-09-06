@@ -4964,16 +4964,22 @@ which is nowhere stationary, so `−cos θ` must be appended for its critical se
 *Scoped:* a statement about the repository's existing radial action, not a
 general no-go.
 **E — `SETTING_INFORMATION_IS_PRESENT_AT_SOURCE_READOUT_DYNAMICS_OPEN`.** The
-conditioned density is *exactly* antipodally even (`3.4e-20`), so every **odd**
-source observable is blind — `E[x·m|a,b] = 0`, `P(x·m>0) = 1/2` exactly. *Some*
-even functions separate the ensembles (`E[(x·m)²]` spread `0.0103`), though not
+conditioned density is *exactly* antipodally even (`3.4e-20`), so every integrable
+**odd mean vanishes** — `E[x·m|a,b] = 0`. The tested nondegenerate projections
+have `P(x·m>0)=1/2`, but their full readout laws can differ through their variance.
+The earlier claim that odd observables were blind was too broad; see the
+[source-readout correction](docs/source_readout.md). *Some*
+even functions separate the ensembles (`E[(x·m)²]` spread `0.00609`,
+`E[|x·m|]` spread `0.0103`), though not
 all — constants and `x·x` are even and blind. For non-coplanar settings the
 supports are mutually singular (total variation `1.0`). Three things are **not**
 shown and are not claimed: that BAM's couplings are even *in `x`* (degree in
 `φ` is not parity in `x`, and no map between them exists); that the synthetic
 observables used are quantities BAM can measure; or that any could be read
-without altering the global two-boundary solution, where a source measurement
-is itself another boundary condition. So this is a **causality hazard, not a
+without altering the global two-boundary solution. A prescribed final pointer
+value would add a boundary condition; an output record need not. The
+follow-up constructs an ideal classical pointer preserving both source
+endpoints, but does not supply the informative frame-to-field map. So this is a **causality hazard, not a
 demonstrated channel**: `ρ(x|a,b)` carries future-setting information an ideal
 faithful readout would reveal. Detector no-signalling stands; operational
 no-signalling to the past is unproved either way, and closing it needs a
@@ -4987,7 +4993,7 @@ different functionals — and nothing yet makes either a probability. The
 probability layer is not one clever action away.
 
 ```bash
-python -m experiments.closure_ledger.history_action_probe   # 21/21
+python -m experiments.closure_ledger.history_action_probe   # 24/24
 ```
 
 ## The conditioning variable is a choice, not a consequence of the closure set
@@ -5109,6 +5115,11 @@ to `a/g²`; keeping `a` fixed changes the physical response. This supplies
 a conditional physical realization of the phase-window prescription
 clarified by PR #282.
 
+The choice is **relocated into a coupling to holonomy rather than N**.
+Round kinetics plus canonical equilibrium imply the inherited Haar position
+prior, but are stronger sufficient premises than that prior alone. Neither
+Liouville volume nor the equilibrium calculation proves equilibration.
+
 This is a new specified Hamiltonian and preparation, **not a derived BAM
 detector coupling**. Equal sector priors, equilibration, local apparatus
 implementation, composition, event readout, and source-readout causality
@@ -5120,6 +5131,51 @@ and [the preregistration](docs/closure_equilibrium_prereg.md) (local commit
 ```bash
 python -m experiments.closure_ledger.closure_equilibrium_probe   # 19/19
 python -m pytest -q tests/test_closure_equilibrium.py             # 49 tests
+```
+
+## Source readability: parity does not protect the full record
+
+The [preregistered source-readout follow-up](docs/source_readout.md) corrects
+round 7's odd-observable claim. With fixed `a=e_z`, future choices `b=e_x,e_y`
+and the same readout `F=(x_x+2x_y)/sqrt(5)`, both means vanish and both signs
+are balanced, but the variances are exactly **0.1 and 0.4**. With Gaussian
+resolution `0.15`, the same event `|Y|>0.6` has probabilities **0.05286 and
+0.51361**. The distinction survives finite temperature.
+
+This does not make every odd projection informative for these settings:
+`F=x_z` has the same complete distribution for both future choices, with
+sharp variance `1/2`. The post-review controls verify this symmetry at finite
+temperature too. Parity alone gives no general unreadability guarantee;
+sign tests are not the only possible blind records.
+
+An explicit canonical pointer retains its reciprocal force. At ideal initial
+`P=0`, a finite pulse reads the repository's conservative scalar source
+oscillator while preserving its periodic source endpoints to `2.3e-13`.
+Finite `P` recoils. **The oscillator is not the informative spin-frame
+variable:** no map or operational BAM channel has been constructed. This
+rules out an obstruction based only on two source boundary conditions **at
+ideal zero pointer momentum**. Momentum spread generically restores recoil,
+with impulse RMS momentum change linear in that spread. A finite-spread
+follow-up must solve for the instrument-modified ensemble as well as the
+record. The complete apparatus, preparation and intervention problem remains open.
+
+The field audit supplies a **conditional** parent for #283's frame energy:
+extend the scalar tube to an unconstrained matrix field with endpoints
+`I,Ad_G`; minimizing its gradient energy gives
+`A||Ad_G-I||²_F/(2L)`, or `K=8A/L`. The extra transported channels and their
+holonomy matching are not in the audited spherical/monopole implementations.
+Bi-invariance does not uniquely select that exact potential. A cross-round
+sweep of 24 angle/sector cases agrees, including
+`M_0+M_pi = M(cos(1)) = 11.8403181` to numerical integration accuracy.
+
+The public freeze is `d258bb1`; implementation was reconstructed after a
+session reset and rerun with the earlier outcomes known. This differs from
+#283's original local-only freeze. Full derivations, assumption budget,
+provenance and evidence are in [source_readout.md](docs/source_readout.md).
+
+```bash
+python -m experiments.closure_ledger.source_readout_probe   # 46/46
+python -m pytest -q tests/test_source_readout.py             # 23 tests
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
