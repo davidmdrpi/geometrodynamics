@@ -267,6 +267,19 @@ erasure for one particular apparatus prove that every admissible apparatus
 is unreadable. These are analytic checks added in response to the review,
 not a completed finite-spread dynamics experiment.
 
+The subsequent [publicly preregistered pointer-spread experiment](pointer_spread.md)
+now performs that comparison in an explicit rotor extension. It evolves a
+finite pulse with reciprocal force, closes the actual source path including
+its parallel transport, and recomputes the conditional history weights.
+With source and pointer momentum widths both `0.1`, the same early event
+has probabilities approximately `0.158` and `0.458` while the actual pointer
+momentum marginal remains the same Gaussian for both settings. Momentum
+recoil RMS is `0.0816`; holding the old posterior fixed would overstate the
+contrast. The exact-`P=0` limitation is therefore removed in that extension.
+Direct local access to the rotor and its preparation law are additional
+inputs: this does not map the Duffing oscillator to the informative frame
+or establish an operational BAM intervention.
+
 ## 4. What the existing field machinery does and does not contain
 
 The inventory below concerns the implementations at merged #283, `b0e372f`.
@@ -300,6 +313,16 @@ require a dynamical normalization as well. It therefore does not ground
 #283's potential. The spectral parameters and mass fits are untouched.
 
 ## 5. A conditional local parent for the Frobenius energy
+
+The subsequent [existing-field TT test](tt_triangle_rotor.md) supplies a
+different, scoped result. A uniaxial tensor embeds an `RP2` director in the
+repository's dynamical ESU shear mode and has a round angular kinetic term
+after substitution. The full tensor equations do not preserve that family
+when the free director rotates: two biaxial components are excited at linear
+order in field amplitude. Its anisotropic stress coupling is quadrupolar;
+it has not been identified with the triangle-holonomy energy. The TT result
+does not supply the missing operational frame-to-field history map or
+invalidate the conditional matrix-field extension below.
 
 The massless scalar tube's zero-frequency DtN matrix is
 
