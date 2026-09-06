@@ -77,7 +77,7 @@ def run_probe() -> dict:
          fibre["fibre_blind"]),
         ("B4     no IDENTIFIED discrete operation mixes like and unlike",
          discrete["no_identified_operation_mixes_like_and_unlike"]),
-        ("C1     every existing BAM observable is degree 2",
+        ("C1     the six audited stress/flux quantities are degree 2",
          homog["all_quadratic"]),
         ("C2     but two ordinary quadratics disagree: no readout is named",
          quad["the_two_quadratics_disagree"]),
@@ -87,8 +87,9 @@ def run_probe() -> dict:
          and radial["both_legs_nonzero"]),
         ("E1     source density is exactly antipodally even",
          gate["density_is_antipodally_even_residual"] < 1e-15),
-        ("E2     odd observables blind; SOME even ones separate",
-         gate["odd_observables_are_blind"]
+        ("E2     odd means/signs blind, but full readout laws separate",
+         gate["odd_means_and_signs_are_blind"]
+         and not gate["odd_full_distributions_are_blind"]
          and gate["some_even_functions_separate_the_ensembles"]),
         ("E2b    but NOT every even observable separates (constants, x.x)",
          gate["not_every_even_observable_separates"]),
@@ -174,7 +175,8 @@ def render(s: dict) -> str:
 
     L += ["", "## E — causality gate", "",
           f"* conditioned density antipodally even to `{g['density_is_antipodally_even_residual']:.1e}`",
-          f"* odd observables blind (spread `{g['odd_observable_spread']:.1e}`)",
+          f"* odd means/signs blind (spread `{g['odd_observable_spread']:.1e}`); "
+          f"projection variances separate (spread `{g['odd_projection_variance_spread']:.4f}`)",
           f"* *some* even functions separate (spread "
           f"`{g['some_even_observables_separate']:.4f}`); constants and `x.x` do not"
           f" (spread `{g['blind_even_observable_spread']:.1e}`)",

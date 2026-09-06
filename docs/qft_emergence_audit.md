@@ -94,12 +94,17 @@ named inputs plus composition.
    quadratics disagree (`8√2/3 = 3.7712` for the square of the integral,
    `12√2/5 = 3.3941` for the integral of the square), so no readout is named; and **operational no-signalling to
    the past is now unproved in both directions** — the conditioned source
-   density is exactly antipodally even, so odd observables are blind, *some*
-   even ones separate the ensembles, and non-coplanar settings give mutually
+   density is exactly antipodally even, so odd **means vanish**; their full
+   readout laws can separate the ensembles (including through their variance).
+   Some even functions separate too, and non-coplanar settings give mutually
    singular supports (total variation `1`) — a causality hazard rather than a
    demonstrated channel, since no map from `x` to field configurations and no
-   two-boundary-compatible source readout exists.
-   (`docs/history_action.md`; round 7.)
+   operational BAM readout of that informative variable has been constructed.
+   A subsequent ideal classical pointer preserves both endpoints of an
+   existing scalar source orbit at **ideal zero pointer momentum**. Thus two
+   source boundaries alone do not prohibit this ideal record; finite momentum
+   spread restores recoil, and its oscillator is not the frame variable.
+   (`docs/history_action.md`; round 7, corrected by `docs/source_readout.md`.)
 
 So the organising question is no longer whether the geometry supplies spin
 structure or a Bell-violating global constraint — it does, conditionally on
@@ -593,8 +598,8 @@ recorded in the historical list below rather than here.*
    flux, not detector models, and degree-2 homogeneity names no law — squaring
    the integral gives `S_max = 8√2/3 = 3.7712`, squaring locally and
    integrating gives `3.3941`, both with `1/2` marginals and both above
-   Tsirelson. No readout is derived; the standing finding is that every
-   existing observable is quadratic in field amplitude and none supplies the
+   Tsirelson. No readout is derived; the six audited stress/flux quantities
+   are quadratic in field amplitude and none supplies the
    linear history-current readout.*
 4. **Composition.** Everything above concerns one pair. Derive `H₁ ⊗ H₂` from
    `Γ₁ × Γ₂` for the opposite-Pin-sector pair, rather than assuming it.
@@ -606,28 +611,77 @@ recorded in the historical list below rather than here.*
    measure-zero set is not fixed by the set. The choice is justified by
    `history/closure.py:11` stating the axiom on phase, and the ledger entry
    moved from **derived** to **chosen**. No downstream number changed
-   (`3.2e-11`). Deriving a *preparation dynamics* that produces the phase
-   tolerance would upgrade it. (`docs/conditioning_variable.md`.)
+   (`3.2e-11`). PR #283 now supplies a **conditional equilibrium realization**:
+   a round rotor with `V=K||Ad_G-I||²_F/16` approaches positive phase coarea,
+   with standard-angle `CHSH=2.1422831632`. This relocates the choice into
+   **coupling to holonomy rather than N**; the `N²/2` countermodel still gives
+   `E=0`. Round kinetics plus canonical equilibrium also imply Haar, but are
+   stronger sufficient premises than the position prior they replace.
+   Equilibrium is not a derivation of equilibration. The field audit constructs
+   the same potential by minimizing a scalar tube energy extended to nine
+   transported components with endpoints `I,Ad_G`; those channels, matching,
+   path and scale are not supplied by the existing spherical/monopole models.
+   Thus there is a conditional classical parent, not yet BAM grounding or
+   exhaustion of classical alternatives. Cross-round masses and laws agree in
+   all 24 tested angle/sector cases.
+   (`docs/conditioning_variable.md`, `docs/closure_equilibrium.md`,
+   `docs/source_readout.md`.)
 5. **Operational no-signalling to the past — a first-class causality hazard,
    still unproved in both directions.** *Round 7 ran the gate.* The conditioned
-   density is exactly antipodally even, so every **odd** source observable is
-   blind (`E[x·m|a,b] = 0`, `P(x·m>0) = 1/2` exactly). *Some* even functions
-   separate the conditioned ensembles (`E[(x·m)²]` spread `0.0103`) though not
+   density is exactly antipodally even, so every integrable **odd mean**
+   vanishes. The tested nondegenerate projections have `P(x·m>0)=1/2`, but
+   their full laws need not agree. *Some* even functions
+   separate the conditioned ensembles (`E[(x·m)²]` spread `0.00609`;
+   `E[|x·m|]` spread `0.0103`) though not
    all — constants and `x·x` are blind — and for non-coplanar settings the
    supports are mutually singular, total variation `1`. What is **not** shown:
    that BAM's couplings are even *in `x`* (degree in `φ` is not parity in `x`,
    and no map between them exists), that the synthetic observables used are
-   measurable in BAM, or that any could be read without altering the global
-   two-boundary solution — where a source measurement is itself another
-   boundary condition. So `ρ(x|a,b)` demonstrably carries future-setting
-   information that an ideal faithful readout would reveal, while no
-   operational channel is constructed. Closing it requires a dynamical
+   measurable in BAM, or what early-record law an actual instrument and
+   independently selectable future setting would produce.
+   The follow-up fixes `a=e_z`, `b_0=e_x`, `b_1=e_y`, `m=(1,2,0)/sqrt(5)`:
+   the same odd readout has variances `0.1` and `0.4`. With fixed Gaussian
+   resolution `0.15`, the event `|Y|>0.6` has probabilities `0.05286` and
+   `0.51361`; the distinction survives #283's finite-temperature ensemble.
+   A canonical interaction `h(t) P F` with ideal initial `P=0` preserves an
+   old source history while writing a pointer record. Applied to the existing
+   conservative Duffing source, it preserves both source endpoints to
+   `2.3e-13`; finite `P` recoils. But the readable scalar oscillator has no
+   established connection to the informative spin-frame variable, the ideal
+   preparation is additional, and the complete apparatus boundary problem
+   is not derived. A final pointer record need not itself be prescribed final
+   boundary data. **At ideal zero pointer momentum**, “measurement adds a
+   boundary condition” alone is no dynamical obstruction. A momentum spread
+   generically restores back-action, with impulse RMS recoil linear in that
+   spread. This ideal-pointer result and the missing frame-to-field map are
+   separate gaps. A finite-spread follow-up must compute the instrument's
+   modified history ensemble, not reuse the unmeasured posterior. Also, the
+   same future choices `b_0,b_1` have identical full laws for the nondegenerate
+   odd projection `x_z`; no universal assertion that every projection
+   distinguishes every setting pair follows. The gate is equality of the **full early-record
+   law under future interventions**, using the **instrument-modified ensemble**
+   and no future postselection, not equality of odd means or an unmeasured
+   posterior. No operational BAM channel is constructed. Closing it requires a dynamical
    non-readability theorem or a reformulation in which `x` is not operational —
    which collides with round 5's use of `x` as a physical source variable.
    That is now the sharpest open problem on this strand, and it is independent
-   of whether the Born law is ever recovered.
+   of whether the Born law is ever recovered. (`docs/source_readout.md`.)
 6. **Only then revisit Bell in full**, and **keep the mass and QCD fits
    frozen** until the trunk is resolved.
+
+**Preregistration provenance on this strand.** These classes describe what
+the public ordering supports; they do not make every later correction part
+of an original freeze.
+
+| Provenance class | Work and anchors | What is established and limited |
+|---|---|---|
+| Public freeze before implementation | Rounds 5–8: `1b0144e`, `f954e3d`, `a33a901`, `39be3e3` | The public preregistration precedes its implementation in the recorded history. Subsequent review corrections must be identified separately. |
+| Local freeze, published after calculation | #283: local `76ed50e`; published freeze `d83d46a`, then implementation `7d70728` | Public ordering establishes publication of the freeze before publication of the implementation, but does not independently verify that the local freeze preceded calculation. |
+| Public freeze, implementation reconstructed with results known | #284: public `d258bb1`, then reconstructed implementation `fe5016d` | The freeze preceded the first implementation. A session reset lost uncommitted work; reconstruction and rerun used the earlier results. This is not a second blind test. |
+
+See `docs/source_readout.md` for archived evidence and the explicitly
+post-review blind-projection and finite-spread clarifications. Historical
+freezes and archived outputs remain intact.
 
 ### Ranked missing links, as written at `b771b16`
 
