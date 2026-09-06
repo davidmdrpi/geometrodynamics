@@ -1,0 +1,295 @@
+{
+  "reduction": {
+    "worst_sorted_residual": 2.7256277214560143e-05,
+    "rows": [
+      {
+        "gamma": 0.4,
+        "t_like": 0.0789390059971149,
+        "t_unlike": 1.921060994002885,
+        "sum": 2.0
+      },
+      {
+        "gamma": 1.0,
+        "t_like": 0.45969769413186023,
+        "t_unlike": 1.5403023058681398,
+        "sum": 2.0
+      },
+      {
+        "gamma": 2.0,
+        "t_like": 1.4161468365471424,
+        "t_unlike": 0.5838531634528576,
+        "sum": 2.0
+      },
+      {
+        "gamma": 2.7,
+        "t_like": 1.9040721420170612,
+        "t_unlike": 0.09592785798293879,
+        "sum": 2.0
+      }
+    ],
+    "t_pair_sums_to_two": true,
+    "reduction_holds": true
+  },
+  "marginals": {
+    "flip_residual": 0.0,
+    "marginals_forced_half": true
+  },
+  "q1": {
+    "v": 2.414213562373095,
+    "rows": [
+      {
+        "width": 0.2,
+        "CHSH": 4.0,
+        "E_pi_over_4": -1.0,
+        "E_3pi_over_4": 1.0
+      },
+      {
+        "width": 0.1,
+        "CHSH": 4.0,
+        "E_pi_over_4": -1.0,
+        "E_3pi_over_4": 1.0
+      },
+      {
+        "width": 0.05,
+        "CHSH": 4.0,
+        "E_pi_over_4": -1.0,
+        "E_3pi_over_4": 1.0
+      },
+      {
+        "width": 0.02,
+        "CHSH": 4.0,
+        "E_pi_over_4": -1.0,
+        "E_3pi_over_4": 1.0
+      }
+    ],
+    "reaches_algebraic_maximum": true,
+    "threshold_at_t_equals_one": true
+  },
+  "minimal": {
+    "G2_odd_u": 1.0,
+    "G3_odd_u": 5.0,
+    "condition": "a_2 + 5 a_3 = 0",
+    "combined_G_in_u": [
+      1.2,
+      0.0,
+      -0.2,
+      0.0
+    ],
+    "combined_is_even": true,
+    "degree_2_forces_a2_zero": true,
+    "min_phi_on_physical_range": 2.5000024999772447e-11,
+    "phi_nonnegative_on_range": true
+  },
+  "global": {
+    "rows": [
+      {
+        "top_degree": 2,
+        "top_degree_forced_zero": true
+      },
+      {
+        "top_degree": 3,
+        "top_degree_forced_zero": false
+      },
+      {
+        "top_degree": 4,
+        "top_degree_forced_zero": true
+      },
+      {
+        "top_degree": 5,
+        "top_degree_forced_zero": false
+      },
+      {
+        "top_degree": 6,
+        "top_degree_forced_zero": true
+      },
+      {
+        "top_degree": 7,
+        "top_degree_forced_zero": false
+      },
+      {
+        "top_degree": 8,
+        "top_degree_forced_zero": true
+      },
+      {
+        "top_degree": 9,
+        "top_degree_forced_zero": false
+      },
+      {
+        "top_degree": 10,
+        "top_degree_forced_zero": true
+      },
+      {
+        "top_degree": 11,
+        "top_degree_forced_zero": false
+      },
+      {
+        "top_degree": 12,
+        "top_degree_forced_zero": true
+      }
+    ],
+    "every_even_top_degree_is_forced_zero": true,
+    "conclusion": "top degree is always odd, so no globally nonnegative polynomial solution exists"
+  },
+  "symmetry_n_conditions": 3,
+  "quantum_rows": [
+    {
+      "gamma": 0.3,
+      "E": -0.9553364891256061,
+      "target": -0.955336489125606,
+      "err": 1.1102230246251565e-16
+    },
+    {
+      "gamma": 0.5,
+      "E": -0.8775825618903726,
+      "target": -0.8775825618903728,
+      "err": 1.1102230246251565e-16
+    },
+    {
+      "gamma": 1.0,
+      "E": -0.5403023058681399,
+      "target": -0.5403023058681398,
+      "err": 1.1102230246251565e-16
+    },
+    {
+      "gamma": 1.5,
+      "E": -0.07073720166770302,
+      "target": -0.0707372016677029,
+      "err": 1.1102230246251565e-16
+    },
+    {
+      "gamma": 2.0,
+      "E": 0.41614683654714235,
+      "target": 0.4161468365471424,
+      "err": 5.551115123125783e-17
+    },
+    {
+      "gamma": 2.5,
+      "E": 0.8011436155469338,
+      "target": 0.8011436155469337,
+      "err": 1.1102230246251565e-16
+    },
+    {
+      "gamma": 3.0,
+      "E": 0.9899924966004454,
+      "target": 0.9899924966004454,
+      "err": 0.0
+    }
+  ],
+  "known_chsh": {
+    "|D| (round 5)": 2.142283163164545,
+    "D (round 6, signed)": 2.8284271247461903,
+    "D^2(1-D/5) (round 9)": 2.82842712474619
+  },
+  "frozen": {
+    "checks": [
+      {
+        "quantity": "round-5 correlation(abs)",
+        "expected": 0.3984966504,
+        "got": 0.39849665042194027,
+        "delta": 2.1940282923793575e-11
+      },
+      {
+        "quantity": "round-5 correlation(signed)",
+        "expected": 0.5403023059,
+        "got": 0.5403023058681398,
+        "delta": 3.186018115997058e-11
+      },
+      {
+        "quantity": "round-7 M_0",
+        "expected": 11.67080583639533,
+        "got": 11.67080583639533,
+        "delta": 0.0
+      },
+      {
+        "quantity": "round-7 M_pi",
+        "expected": 0.16951227835901764,
+        "got": 0.16951227835901764,
+        "delta": 0.0
+      }
+    ],
+    "worst_delta": 3.186018115997058e-11,
+    "nothing_downstream_moved": true
+  },
+  "verdict": {
+    "Q1_positivity_bound": "NO_BOUND_ALGEBRAIC_MAXIMUM_REACHED",
+    "Q1_sup_CHSH": 4.0,
+    "Q2_quantum_law": "QUANTUM_LAW_ATTAINABLE_BY_POSITIVE_COUNTING",
+    "Q2_witness": "Phi(D) = D^2 (1 - D/5)",
+    "Q2_worst_error_vs_minus_cos": 1.1102230246251565e-16,
+    "no_go_requires_a_dual_certificate": true,
+    "withdrawn": "round 6's 'the distance to quantum mechanics is exactly the distance from |D| to D' \u2014 counting suffices",
+    "remaining": "nothing in the geometry selects Phi; and by sector_sum_identity, attaining the singlet law does not close the source-readout hazard"
+  },
+  "ledger": [
+    {
+      "input": "class restriction: W_s = int Phi(D_s) dsigma, Phi >= 0",
+      "status": "chosen",
+      "where": "excludes (int D)^2, x-dependence beyond D, sector-dependent Phi"
+    },
+    {
+      "input": "geodesic itinerary and realignment",
+      "status": "chosen",
+      "where": "inherited from rounds 5-6"
+    },
+    {
+      "input": "conditioning variable = phase",
+      "status": "chosen",
+      "where": "inherited from round 8"
+    },
+    {
+      "input": "equal sector prior",
+      "status": "chosen",
+      "where": "inherited; the class gives 1/2 marginals for any paired prior"
+    },
+    {
+      "input": "nonnegativity of Phi on [-1/2, 4]",
+      "status": "derived",
+      "where": "the range the model evaluates; global nonnegativity is impossible for polynomials (no_global_polynomial)"
+    },
+    {
+      "input": "which Phi the physics selects",
+      "status": "open",
+      "where": "THE remaining question; #283's equilibrium selects |.|"
+    }
+  ],
+  "checks": [
+    [
+      "O1  reduction D = t + sqrt(2t) cos psi holds as a law",
+      true
+    ],
+    [
+      "O5  marginals are 1/2 for every member of the class",
+      true
+    ],
+    [
+      "Q1  a nonnegative threshold weight reaches CHSH = 4",
+      true
+    ],
+    [
+      "Q2  an explicit nonnegative Phi reproduces -cos gamma",
+      true
+    ],
+    [
+      "Q2  and gives exactly Tsirelson",
+      true
+    ],
+    [
+      "S1  degree 3 is the minimal nonnegative solution",
+      true
+    ],
+    [
+      "S2  no polynomial solution is globally nonnegative",
+      true
+    ],
+    [
+      "S3  G_n has degree n-1 with leading coefficient 1",
+      true
+    ],
+    [
+      "R5  nothing in rounds 5-8 or #283 moved",
+      true
+    ]
+  ],
+  "passed": 9,
+  "total": 9
+}

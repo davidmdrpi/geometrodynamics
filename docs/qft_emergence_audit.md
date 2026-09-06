@@ -562,7 +562,15 @@ are equally underived: that is where the quantization gap now sits.
 boundary condition) are substantially resolved, conditionally, and are
 recorded in the historical list below rather than here.*
 
-1. **Branch aggregation.** Derive whether observed event frequencies are the
+1. **Branch aggregation — reframed by round 9; the fork as posed is dissolved.**
+   *This item asked whether frequencies are the positive count `Σ|D|` or the
+   oriented sum `ΣD`. Round 9 shows that is not the axis.* The nonnegative
+   weight `Φ(D) = D²(1 − D/5)` reproduces `E = −cos γ` to `1e-16` and
+   `CHSH = 2√2` with no signed cancellation, while the same positive class also
+   reaches `CHSH = 4`. Positivity constrains nothing, and marginals are `1/2`
+   for every member of the class. The real question is **which counting function
+   `Φ`** — see `docs/positive_counting.md`. Original text follows.
+   Derive whether observed event frequencies are the
    positive count of closed histories, `Σ|D|`, or their oriented sum with the
    closure holonomy, `Σ e^{iΩ/2}|D| = ΣD`. Nothing classical in the
    repository selects between them: the Pin structure supplies the branch
