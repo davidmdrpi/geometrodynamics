@@ -5178,6 +5178,40 @@ python -m experiments.closure_ledger.source_readout_probe   # 46/46
 python -m pytest -q tests/test_source_readout.py             # 23 tests
 ```
 
+## Finite pointer spread preserves the conditional record distinction
+
+The [pointer-spread experiment](docs/pointer_spread.md) follows the source-readout
+review with a finite pulse, Gaussian source and pointer momenta, and reciprocal
+source force. It computes closure weights using the actual source trajectory
+and its parallel transport. The early record is taken at `t=1`, before the
+future closure at `t=2`; no later pointer output is used for selection.
+
+At source and pointer momentum widths both **0.1**, the same event `|Y|>0.6`
+has probabilities approximately **0.158 and 0.458** for the two future choices.
+The contrast **0.300** survives nonzero momentum recoil RMS **0.0816**. The
+primary law preserves the actual Gaussian pointer momentum marginal for both
+settings. A separate joint-conditioning control reports how its posterior
+pointer distribution changes. Reusing the old source posterior would overstate
+the contrast (`0.326` at width `0.1`, and `0.160` versus `0.024` at width `0.5`).
+
+The [public preregistration](docs/pointer_spread_prereg.md), commit `baf856d`,
+preceded implementation and all spread calculations. All four primary numerical
+scrambles exceed the frozen contrast threshold `0.1`; all **25/25** probe
+criteria pass, including independent Hamilton-equation integration, work
+balance, stationary-model agreement, symmetry and resolution controls.
+
+This removes the exact-`P=0` objection **within this classical rotor extension**.
+Local access to the informative frame, the coupling, positive history weights
+and physical preparation/intervention law remain assumptions. No actual BAM
+source-field map, operational retrocausal channel or Born-rule derivation is
+supplied. The result identifies what a field-level realization would have to
+exclude or make unreadable.
+
+```bash
+python -m experiments.closure_ledger.pointer_spread_probe   # 25/25
+python -m pytest -q tests/test_pointer_spread.py             # 14 tests
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced

@@ -104,6 +104,10 @@ named inputs plus composition.
    existing scalar source orbit at **ideal zero pointer momentum**. Thus two
    source boundaries alone do not prohibit this ideal record; finite momentum
    spread restores recoil, and its oscillator is not the frame variable.
+   The finite-spread rotor extension retains an early-event contrast about
+   `0.300` with full path conditioning and reciprocal force. This removes the
+   exact-`P=0` limitation conditionally; local frame access and a physical BAM
+   preparation/intervention remain unproved. (`docs/pointer_spread.md`.)
    (`docs/history_action.md`; round 7, corrected by `docs/source_readout.md`.)
 
 So the organising question is no longer whether the geometry supplies spin
@@ -662,8 +666,16 @@ recorded in the historical list below rather than here.*
    boundary condition” alone is no dynamical obstruction. A momentum spread
    generically restores back-action, with impulse RMS recoil linear in that
    spread. This ideal-pointer result and the missing frame-to-field map are
-   separate gaps. A finite-spread follow-up must compute the instrument's
-   modified history ensemble, not reuse the unmeasured posterior. Also, the
+   separate gaps. The [finite-spread follow-up](pointer_spread.md) now computes
+   an instrument-modified ensemble in a stated rotor extension. Its full
+   closure includes the perturbed source path and transport, returning to
+   the original source direction. At source and pointer momentum widths
+   `0.1`, a fixed actual Gaussian pointer marginal gives early-event
+   probabilities about `0.158` and `0.458`, with momentum recoil RMS `0.0816`.
+   Reusing the unmeasured posterior overstates the contrast. This removes
+   the exact-`P=0` limitation in that conditional model, while direct local
+   access to the rotor, its coupling, positive history weighting and physical
+   preparation/intervention remain ungrounded in BAM. Also, the
    same future choices `b_0,b_1` have identical full laws for the nondegenerate
    odd projection `x_z`; no universal assertion that every projection
    distinguishes every setting pair follows. The gate is equality of the **full early-record
@@ -683,7 +695,7 @@ of an original freeze.
 
 | Provenance class | Work and anchors | What is established and limited |
 |---|---|---|
-| Public freeze before implementation | Rounds 5–8: `1b0144e`, `f954e3d`, `a33a901`, `39be3e3` | The public preregistration precedes its implementation in the recorded history. Subsequent review corrections must be identified separately. |
+| Public freeze before implementation | Rounds 5–8: `1b0144e`, `f954e3d`, `a33a901`, `39be3e3`; pointer spread: `baf856d` | The public preregistration precedes its implementation in the recorded history. The pointer-spread implementation and sweep followed its public freeze without reconstruction or post-result parameter changes. Subsequent review corrections must be identified separately. |
 | Local freeze, published after calculation | #283: local `76ed50e`; published freeze `d83d46a`, then implementation `7d70728` | Public ordering establishes publication of the freeze before publication of the implementation, but does not independently verify that the local freeze preceded calculation. |
 | Public freeze, implementation reconstructed with results known | #284: public `d258bb1`, then reconstructed implementation `fe5016d` | The freeze preceded the first implementation. A session reset lost uncommitted work; reconstruction and rerun used the earlier results. This is not a second blind test. |
 
