@@ -5178,6 +5178,80 @@ python -m experiments.closure_ledger.source_readout_probe   # 46/46
 python -m pytest -q tests/test_source_readout.py             # 23 tests
 ```
 
+## Finite pointer spread preserves the conditional record distinction
+
+The [pointer-spread experiment](docs/pointer_spread.md) follows the source-readout
+review with a finite pulse, Gaussian source and pointer momenta, and reciprocal
+source force. It computes closure weights using the actual source trajectory
+and its parallel transport. The early record is taken at `t=1`, before the
+future closure at `t=2`; no later pointer output is used for selection.
+
+At source and pointer momentum widths both **0.1**, the same event `|Y|>0.6`
+has probabilities approximately **0.158 and 0.458** for the two future choices.
+The contrast **0.300** survives nonzero momentum recoil RMS **0.0816**. The
+primary law preserves the actual Gaussian pointer momentum marginal for both
+settings. A separate joint-conditioning control reports how its posterior
+pointer distribution changes. Reusing the old source posterior would overstate
+the contrast (`0.326` at width `0.1`, and `0.160` versus `0.024` at width `0.5`).
+
+The [public preregistration](docs/pointer_spread_prereg.md), commit `baf856d`,
+preceded implementation and all spread calculations. All four primary numerical
+scrambles exceed the frozen contrast threshold `0.1`; all **25/25** probe
+criteria pass, including independent Hamilton-equation integration, work
+balance, stationary-model agreement, symmetry and resolution controls.
+
+This removes the exact-`P=0` objection **within this classical rotor extension**.
+Local access to the informative frame, the coupling, positive history weights
+and physical preparation/intervention law remain assumptions. No actual BAM
+source-field map, operational retrocausal channel or Born-rule derivation is
+supplied. The result identifies what a field-level realization would have to
+exclude or make unreadable.
+
+```bash
+python -m experiments.closure_ledger.pointer_spread_probe   # 25/25
+python -m pytest -q tests/test_pointer_spread.py             # 14 tests
+```
+
+## The existing TT field does not close on a free triangle rotor
+
+The [preregistered TT field test](docs/tt_triangle_rotor.md) attempts the
+missing field-to-rotor reduction using the repository's homogeneous ESU
+tensor mode. An independent ADM derivation gives the quadratic field action
+and its normalization. The uniaxial family `beta=A(nn^T-I/3)` embeds a
+director with `n ~ -n`, and its restricted action has a round angular metric
+with inertia `2CA^2`, where `C=Vol(S3)/kappa`.
+
+**The full field equations do not preserve the rotating family.** Two
+omitted biaxial components have free residual norm
+`sqrt(2)|A||n_dot|^2`. Unconstrained tensor evolution leaves the cone with
+distance `|A||n_dot|^2 t^2/sqrt(2)` at small times. The relative departure
+persists as the field amplitude is reduced, so it cannot be dropped as a
+higher-order field correction while keeping director motion. A stationary
+director with oscillating amplitude is the invariant control.
+
+Post-review, the departure is solved exactly over a full period: the tensor
+is biaxial between isolated returns to the cone at `omega t=k pi`. Its
+nearest uniaxial fit switches between perpendicular axes at equal-distance
+ties; a continuously tracked eigenline can advance monotonically. This
+obstructs the uniaxial rotor reduction, not eigenframe rotation in general.
+
+A manufactured drive sustains rotation by supplying radial and normal stress.
+This scopes the obstruction to the free uniaxial reduction; it does not rule
+out every source or BAM field. The existing matter coupling is quadrupolar,
+but no triangle-holonomy energy, canonical preparation, selected `Phi` or
+operational source readout follows from the failed reduction.
+
+The public freeze `0eb684b` preceded implementation. **27 tests, all 22
+frozen checks and four post-review checks pass**, including independent field integration, normal-equation
+projection, global distance minimization, ADM/Cartan agreement, conserved
+quantities and the driven control. Passing the obstruction checks is not a
+successful rotor reduction.
+
+```bash
+python -m experiments.closure_ledger.tt_triangle_rotor_probe   # 22 frozen + 4 post-review
+python -m pytest -q tests/test_tt_triangle_rotor.py             # 27 tests
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced
