@@ -580,8 +580,9 @@ recorded in the historical list below rather than here.*
    but its rotating source-free trajectories excite two omitted biaxial
    components. The exact normal residual has norm `sqrt(2)|A||n_dot|^2`.
    Thus this family is not an autonomous rotor in the linear ESU TT model.
-   A manufactured drive sustains it with additional radial and normal stress;
-   no such feedback, triangle-holonomy coupling or history preparation is
+   A manufactured drive sustains it with normal stress; radial stress also
+   enters except at the restricted circular-orbit speed `omega/sqrt(3)`.
+   No such feedback, triangle-holonomy coupling or history preparation is
    derived from the existing scalar sources. The action pullback alone
    therefore selects no `Phi`. Original text follows.
    Derive whether observed event frequencies are the

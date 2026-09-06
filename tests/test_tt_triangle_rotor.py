@@ -14,6 +14,7 @@ def test_adm_curvature_derivation_has_the_round_anchor_and_tensor_frequency():
     result = rotor.adm_quadratic_derivation()
     assert result["round_anchor"] and result["linear_vanishes"]
     assert result["kinetic_is_frobenius"]
+    assert result["general_trace_identity"]
     assert result["omega2_radius2"] == pytest.approx(8., abs=1e-13)
     assert rotor.TensorModel(radius=2.).omega2 == 2.
 
@@ -204,6 +205,83 @@ def test_post_review_nearest_axis_has_two_distinct_optima_at_the_switch():
     assert not result["nearest_axis_defined_at_quarter_period"]
     assert result["nearest_amplitude_changes_sign"]
     assert max(result["two_optima_distance_errors"]) < 1e-14
+
+
+@pytest.mark.parametrize("amplitude_rate", [-5., 0., 50.])
+@pytest.mark.parametrize("speed", [.05, .4, 3.])
+def test_general_eigenline_matches_matrix_winding_for_signed_amplitude(amplitude_rate, speed):
+    model = rotor.TensorModel(radius=1.7)
+    period = 2 * math.pi / math.sqrt(model.omega2)
+    times = np.linspace(0, period, 8193)
+    line = rotor.continuous_eigenline(times, speed, model, amplitude_rate)
+    for amplitude in (-.001, .001):
+        B0 = rotor.embedding(amplitude, [0., 0., 1.])
+        Bd0 = rotor.field_velocity(amplitude, amplitude * amplitude_rate, [0., 0., 1.], [speed, 0., 0.])
+        B, _ = rotor.exact_free_flow(B0, Bd0, times, model)
+        measured = .5 * np.unwrap(np.arctan2(2 * B[:, 0, 2] / amplitude,
+                                             (B[:, 2, 2] - B[:, 0, 0]) / amplitude))
+        np.testing.assert_allclose(line["angle"], measured, atol=1e-10, rtol=0)
+        assert measured[-1] - measured[0] == pytest.approx(math.pi, abs=1e-12)
+        assert np.min(np.diff(measured)) > 0
+    # Sparse, unordered times must retain the analytic winding without relying
+    # on neighboring samples to choose a branch.
+    np.testing.assert_allclose(rotor.continuous_eigenline(
+        np.array([3., -2., 1., 0.]) * period, speed, model, amplitude_rate)["angle"],
+        np.array([3., -2., 1., 0.]) * math.pi, atol=1e-12)
+
+
+def test_general_winding_agrees_with_unconstrained_ode_and_does_not_fix_angular_charge():
+    model = rotor.TensorModel()
+    omega = math.sqrt(model.omega2)
+    times = np.linspace(0, 2 * math.pi / omega, 2049)
+    charges = []
+    for speed in (.2, .8):
+        B0 = rotor.embedding(.01, [0., 0., 1.])
+        Bd0 = rotor.field_velocity(.01, .005, [0., 0., 1.], [speed, 0., 0.])
+        B, _ = probe.ode_flow(B0, Bd0, times)
+        angle = .5 * np.unwrap(np.arctan2(2 * B[:, 0, 2], B[:, 2, 2] - B[:, 0, 0]))
+        np.testing.assert_allclose(angle, rotor.continuous_eigenline(times, speed, amplitude_rate=.5)["angle"], atol=1e-8)
+        charges.append(np.linalg.norm(rotor.rotational_charge(B0, Bd0)))
+    assert charges[1] == pytest.approx(4 * charges[0])
+    # Circular ellipse at A_dot0=0, speed=omega/2: instantaneous rate is
+    # uniform although the tensor still becomes biaxial.
+    line = rotor.continuous_eigenline(times, omega / 2)
+    np.testing.assert_allclose(line["angular_speed"], omega / 2, atol=1e-13)
+    assert rotor.closed_form_free_spectrum(math.pi / (2 * omega), speed=omega / 2)["distance"] > .001
+
+
+@pytest.mark.parametrize("radius", [1., 2.3])
+@pytest.mark.parametrize("amplitude", [-.01, .01])
+def test_restricted_circular_orbit_drops_only_normal_equations(amplitude, radius):
+    model = rotor.TensorModel(radius=radius)
+    speed = math.sqrt(model.omega2 / 3)
+    times = np.linspace(0, .3 / speed, 61)
+    for t in times:
+        n = np.array([math.sin(speed * t), 0., math.cos(speed * t)])
+        v = speed * np.array([math.cos(speed * t), 0., -math.sin(speed * t)])
+        addot, nddot = rotor.restricted_acceleration(amplitude, 0., n, v, model=model)
+        assert abs(addot) < 1e-13
+        np.testing.assert_allclose(nddot, -speed ** 2 * n, atol=1e-13)
+        # Differentiate nn^T independently using sine/cosine at twice speed.
+        Bdd = 2 * amplitude * speed ** 2 * np.array([
+            [math.cos(2 * speed * t), 0., -math.sin(2 * speed * t)],
+            [0., 0., 0.], [-math.sin(2 * speed * t), 0., -math.cos(2 * speed * t)]])
+        residual = Bdd + model.omega2 * rotor.embedding(amplitude, n)
+        assert abs(n @ residual @ n) < 1e-13
+        np.testing.assert_allclose(residual @ n, 0., atol=1e-13)
+        assert np.linalg.norm(residual) == pytest.approx(math.sqrt(2) * abs(amplitude) * model.omega2 / 3, abs=1e-13)
+    initial = rotor.uniform_rotation(0., amplitude, speed, model)
+    full, _ = probe.ode_flow(initial["beta"], initial["beta_dot"], times, model=model)
+    assert rotor.nearest_uniaxial(full[-1])["distance"] > 1e-4
+
+
+def test_general_adm_kinetic_control_detects_trace_term_omission():
+    trace = probe.adm_trace_controls()
+    assert trace["general_matrix_error"] < 1e-10
+    assert trace["trace_error"] < 1e-12
+    assert trace["pure_trace_kinetic"] == pytest.approx(-.24)
+    assert trace["pure_trace_without_K_squared"] == pytest.approx(.12)
+    assert trace["minimum_defect_without_K_squared"] > .1
 
 
 def test_failed_or_uncertified_numerics_cannot_be_reported_as_an_obstruction():

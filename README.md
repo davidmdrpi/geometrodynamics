@@ -5235,21 +5235,28 @@ nearest uniaxial fit switches between perpendicular axes at equal-distance
 ties; a continuously tracked eigenline can advance monotonically. This
 obstructs the uniaxial rotor reduction, not eigenframe rotation in general.
 
-A manufactured drive sustains rotation by supplying radial and normal stress.
+A manufactured drive at the frozen speed supplies radial and normal stress.
+At the restricted system's own circular-orbit speed `omega/sqrt(3)`, the
+radial force vanishes while the two omitted normal equations still fail.
+The continued eigenline winds exactly `pi` per field period even with
+nonzero initial amplitude velocity. That fixes its mean rate while leaving
+initial orientation and rotational charge variable.
 This scopes the obstruction to the free uniaxial reduction; it does not rule
 out every source or BAM field. The existing matter coupling is quadrupolar,
 but no triangle-holonomy energy, canonical preparation, selected `Phi` or
 operational source readout follows from the failed reduction.
 
-The public freeze `0eb684b` preceded implementation. **27 tests, all 22
-frozen checks and four post-review checks pass**, including independent field integration, normal-equation
+The public freeze `0eb684b` preceded implementation. **42 tests, all 22
+frozen checks and seven post-review checks pass**, including independent field integration, normal-equation
 projection, global distance minimization, ADM/Cartan agreement, conserved
 quantities and the driven control. Passing the obstruction checks is not a
 successful rotor reduction.
+The amplitude-scaling and STF kinetic identities are explicitly labelled
+as such; a new general-trace ADM control detects omission of the `-K^2` term.
 
 ```bash
-python -m experiments.closure_ledger.tt_triangle_rotor_probe   # 22 frozen + 4 post-review
-python -m pytest -q tests/test_tt_triangle_rotor.py             # 27 tests
+python -m experiments.closure_ledger.tt_triangle_rotor_probe   # 22 frozen + 7 post-review
+python -m pytest -q tests/test_tt_triangle_rotor.py             # 42 tests
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

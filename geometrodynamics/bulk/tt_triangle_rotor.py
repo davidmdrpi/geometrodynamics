@@ -218,19 +218,24 @@ def closed_form_free_spectrum(times, amplitude=.01, speed=.4, model=TensorModel(
             "distance": abs(amplitude) * gap / math.sqrt(2), "c": c, "s": s}
 
 
-def continuous_eigenline(times, speed=.4, model=TensorModel()):
+def continuous_eigenline(times, speed=.4, model=TensorModel(), amplitude_rate=0.):
     """A continuously advancing eigenline of the biaxial field, not a rotor.
 
-    n0=e_z, vhat=e_x, A0>0. At repeated eigenvalues this continuation is
-    a choice; the field alone does not distinguish a line in that eigenspace.
-    The nearest-uniaxial axis instead switches branch at cos(omega t)=0.
+    n0=e_z, vhat=e_x; amplitude_rate=A_dot0/A0 for nonzero signed A0.
+    The line starts at n0, selecting the other eigenvalue branch if A0<0.
+    At repeated eigenvalues this continuation is a choice; the field alone
+    does not distinguish a line in that eigenspace. The nearest-uniaxial
+    axis switches branch when cos(omega t)+amplitude_rate*sin(omega t)/omega=0.
+    The continued angle advances pi per field period, even for nonzero A_dot0.
     """
     if not np.isfinite(speed) or speed <= 0:
         raise ValueError("positive director speed required for this branch")
+    if not np.isfinite(amplitude_rate):
+        raise ValueError("finite amplitude rate required")
     phase = math.sqrt(model.omega2) * np.asarray(times, dtype=float)
     winding = np.floor((phase + math.pi) / (2 * math.pi))
     reduced = phase - 2 * math.pi * winding
-    c = np.cos(reduced)
+    c = np.cos(reduced) + amplitude_rate * np.sin(reduced) / math.sqrt(model.omega2)
     s = speed * np.sin(reduced) / math.sqrt(model.omega2)
     angle = .5 * np.arctan2(2 * s, c) + math.pi * winding
     axes = np.stack((np.sin(angle), np.zeros_like(angle), np.cos(angle)), axis=-1)
@@ -271,18 +276,29 @@ def adm_quadratic_derivation():
     quadratic = sp.simplify(sp.diff(anisotropic, eps, 2).subs(eps, 0) / 2)
     norm2 = sum(v ** 2 for v in b)
     coefficient = sp.simplify(quadratic / norm2)
-    # N=1, fixed a, sum b_i=0: K^i_j=epsilon bdot_i delta^i_j.
-    d1, d2 = sp.symbols("d1 d2", real=True)
-    rates = (d1, d2, -d1 - d2)
-    kinetic = sp.expand(sum(d ** 2 for d in rates) - sum(rates) ** 2)
+    # First allow all three rates: derive K from the metric before imposing
+    # tr beta=0. This diagnoses the -K^2 term hidden by the STF restriction.
+    d1, d2, d3, t = sp.symbols("d1 d2 d3 t", real=True)
+    rates = (d1, d2, d3)
+    metric = sp.diag(*(a ** 2 * sp.exp(2 * eps * t * d) for d in rates))
+    K = metric.inv() * sp.diff(metric, t) / 2
+    general_kinetic = sp.expand((sp.trace(K * K) - sp.trace(K) ** 2) / eps ** 2)
+    trace_rate = sum(rates)
+    shear_norm2 = sum((d - trace_rate / 3) ** 2 for d in rates)
+    trace_identity = sp.simplify(general_kinetic - shear_norm2 + sp.Rational(2, 3) * trace_rate ** 2)
+    kinetic = sp.expand(general_kinetic.subs(d3, -d1 - d2))
+    stf_norm2 = d1 ** 2 + d2 ** 2 + (-d1 - d2) ** 2
     return {"spatial_scalar": str(scalar), "round_scalar": str(round_value),
             "linear_scalar": str(linear), "curvature_quadratic": str(quadratic),
             "curvature_coefficient_per_tr_beta2": str(coefficient),
             "adm_kinetic_quadratic": str(kinetic),
+            "adm_general_kinetic_quadratic": str(general_kinetic),
+            "general_trace_identity": bool(trace_identity == 0),
+            "kinetic_check_scope": "STF identity; general trace and noncommuting matrix controls are reported separately.",
             "omega2_radius2": float(sp.simplify(-coefficient * a ** 2)),
             "round_anchor": bool(sp.simplify(round_value - 6 / a ** 2) == 0),
             "linear_vanishes": bool(linear == 0),
-            "kinetic_is_frobenius": bool(sp.simplify(kinetic - sum(d ** 2 for d in rates)) == 0)}
+            "kinetic_is_frobenius": bool(sp.simplify(kinetic - stf_norm2) == 0)}
 
 
 def physical_verdict(checks, analytic_obstruction):

@@ -92,6 +92,24 @@ Rotational invariance extends the quadratic result to all STF components.
 A separate matrix-exponential/Frechet-derivative calculation checks the
 kinetic expression for noncommuting `beta,beta_dot`.
 
+The posted review correctly identified `kinetic_is_frobenius` as an STF
+identity: setting the three rates to `(d1,d2,-d1-d2)` makes the trace term
+vanish by construction. It is algebraic bookkeeping, not independent
+evidence for the kinetic functional. The derivation now obtains
+`K=g^{-1} gdot/2` with all three diagonal rates independent before imposing
+the STF restriction. Writing `h=tr K` and `K_TF=K-h I/3` gives
+
+\[
+ \operatorname{tr}K^2-(\operatorname{tr}K)^2
+ =\operatorname{tr}K_{\rm TF}^2-\frac23h^2.
+\]
+
+A new noncommuting matrix control varies the trace rate. For pure trace
+`K=H I`, the ADM kinetic term is `-6H^2`; omitting `-K^2` gives `+3H^2`.
+At `H=0.2` these are `-0.24` and `+0.12`. This checks the term that the
+original STF identity could not distinguish. It is an off-STF diagnostic
+of the kinetic functional, not a new scalar mode in the TT dynamics.
+
 With `C=V3/kappa`, and the matter variation
 `delta S_m=integral dt integral dV T_TT:delta beta`, the quadratic action is
 
@@ -185,9 +203,10 @@ first vector along nonzero `v`, the free residual has eigenvalues
 
 **No source-free rotating solution stays in this uniaxial family on a regular
 interval.** The full field develops biaxial components. A constant director
-with freely oscillating amplitude is the invariant control. Freezing `A`
-would add a separate radial support requirement; even a stationary tensor
-of nonzero fixed amplitude needs `S=omega^2 beta`.
+with freely oscillating amplitude is the invariant control. Holding `A`
+fixed generally adds a radial support requirement, with the special-speed
+exception below. A stationary tensor of nonzero fixed amplitude needs
+`S=omega^2 beta`.
 
 This is not a higher-order gravitational correction that can be dropped
 while retaining director motion. At fixed director speed the residual is
@@ -208,6 +227,33 @@ that rotation. Its radial and normal source norms are `0.0614005` and
 `0.00226274`, respectively. This is added forcing data, not stress derived
 from the scalar source histories. Whether existing coupled matter supplies
 the required force remains open.
+
+### Posted review: the restricted system's own circular orbit
+
+For constant `A` and uniform great-circle speed `v`, the required stress
+decomposes as
+
+\[
+ S_{\rm radial}=A(\omega^2-3|v|^2)Q(n),\qquad
+ S_{\rm angular}=0,\qquad
+ S_{\rm normal}=2A(vv^\mathsf T-|v|^2P/2).
+\]
+
+Consequently the restricted, source-free Euler–Lagrange equations admit a
+constant-amplitude circular orbit at `|v|=omega/sqrt(3)`. Its radial and
+angular equations vanish, but the full normal residual has norm
+`sqrt(2)|A|omega^2/3`. For `A=0.01,a=1`, this is `0.03771236166`.
+The reduction's own circular solution therefore violates precisely the
+two discarded equations. A full unforced tensor integration from the same
+initial data becomes biaxial.
+
+This corrects the freeze's overbroad assertion that frozen amplitude always
+requires radial reaction. **Normal forcing is necessary for every regular
+rotating uniaxial state; radial forcing vanishes at this special speed.**
+The original `v=0.4` control and its two nonzero force norms remain correct.
+The historical preregistration is preserved; this qualification and the new
+R6 control record the correction explicitly. No ground-state interpretation
+of the restricted circular orbit is needed.
 
 ## 5. Unconstrained evolution independently confirms the departure
 
@@ -233,6 +279,12 @@ The analytic coefficient is `|A0| |v0|^2/sqrt(2)=0.00113137085`.
 Step-halving ratios are `4.00567,4.00141,4.00035`; the final coefficient
 differs by `2.94e-5` relatively. Amplitudes `0.01,0.005,0.0025` give identical
 distance/amplitude curves. The stationary-director control stays on the cone.
+As the posted review observes, the amplitude scaling is an exact consequence
+of linear flow and the homogeneity of the cone:
+`d(lambda beta, cone)=|lambda| d(beta, cone)`. Its frozen numerical check is
+retained as a regression for that identity, not independent evidence for
+the physical order of the leakage. The normal-residual formula proves that
+the obstruction is leading order in field amplitude at fixed speed.
 
 Additional checks: independent DOP853 free-flow error below `6.86e-13`;
 manufactured driven-flow error below `4.80e-14`; matrix normal-residual
@@ -305,6 +357,52 @@ eigenframe rotation.
 Across those controls, the spectrum, distance, return and eigenline
 residuals are all below `3.5e-18` in the stated amplitude units.
 
+### Posted review: winding with arbitrary initial amplitude velocity
+
+For `A0!=0`, initial tangent speed `v0>0` and arbitrary `A_dot0`, set
+`rho=A_dot0/A0`, `C=cos(omega t)+(rho/omega)sin(omega t)` and
+`s=v0 sin(omega t)/omega`. In the fixed `(x,z)` plane,
+
+\[
+ (u,q)=(\beta_{zz}-\beta_{xx},2\beta_{xz})
+       =X\cos\omega t+Y\sin\omega t,
+ \quad X=(A_0,0),\quad
+ Y=(\dot A_0/\omega,2A_0v_0/\omega).
+\]
+
+Its determinant is `det(X,Y)=2A0^2 v0/omega>0`. This is a nondegenerate
+origin-centred ellipse traversed once in a field period `T=2pi/omega`.
+For the continued eigenline starting at `n0`,
+
+\[
+ \alpha=\tfrac12\operatorname{unwrap}\arg(C+2is),\qquad
+ \dot\alpha=\frac{v_0}{C^2+4s^2}>0,\qquad
+ \alpha(t+T)-\alpha(t)=\pi,\quad \langle\dot\alpha\rangle=\omega/2.
+\]
+
+This proves the review's winding law; R5 measures it directly from the
+full matrix histories across nine choices of amplitude velocity and speed,
+and checks the analytic continuation against those histories. Signed
+amplitudes, another radius, arbitrary-period branch choices and independent
+ODE histories have additional unit-test coverage. The zero-speed case is
+degenerate and is excluded from this winding theorem.
+
+The mean rate is locked to the field frequency, but it does **not** follow
+that the family has no orientation data or cannot encode an analyzer
+setting. Initial `n0` and the motion plane remain free, and the conserved
+matrix charge `C_action[beta0,beta_dot0]` depends on `A0^2 v0`. The initial
+instantaneous eigenline speed is `v0`, which is also free. Establishing an
+operational analyzer encoding still requires the missing field-history map;
+winding alone neither supplies nor excludes it.
+
+Nor must every continued eigenline rotate nonuniformly: at `A_dot0=0` and
+`v0=omega/2`, the ellipse is circular and `alpha_dot=omega/2` is constant.
+The tensor nevertheless becomes biaxial. For small positive `v0` with
+`A_dot0=0`, the continued angle advances by approximately `pi/2` near each
+zero of `cos(omega t)`, totaling `pi` per field period; it does not advance
+by `pi` at each zero. The omitted normal equations remain the decisive
+obstruction to an autonomous uniaxial rotor.
+
 ## 6. What this supplies for selection and causality
 
 The field has an existing anisotropic source coupling. On the candidate
@@ -351,20 +449,30 @@ the obstruction established here.
 ```bash
 python -m pytest -q tests/test_tt_triangle_rotor.py
 python -m experiments.closure_ledger.tt_triangle_rotor_probe \
-  --output-dir experiments/closure_ledger/runs/20260906_tt_triangle_rotor_reviewed
+  --output-dir experiments/closure_ledger/runs/20260906_tt_triangle_rotor_posted_review
 ```
 
-**27 tests, 22/22 frozen checks and four post-review checks pass.** The physical verdict is
+**42 tests, 22/22 frozen checks and seven post-review checks pass.** The physical verdict is
 `FREE_ROTATING_UNIAXIAL_TT_FAMILY_NOT_INVARIANT`. A failed required numerical
 check returns `UNRESOLVED` and a nonzero probe exit; it cannot be promoted
-to a no-go. See the [reviewed report](../experiments/closure_ledger/runs/20260906_tt_triangle_rotor_reviewed/probe.md)
-and [full reviewed archive](../experiments/closure_ledger/runs/20260906_tt_triangle_rotor_reviewed/probe.json).
+to a no-go. See the [posted-review report](../experiments/closure_ledger/runs/20260906_tt_triangle_rotor_posted_review/probe.md)
+and [full posted-review archive](../experiments/closure_ledger/runs/20260906_tt_triangle_rotor_posted_review/probe.json).
 The [original frozen run](../experiments/closure_ledger/runs/20260906_tt_triangle_rotor_probe/probe.json)
-is preserved separately with its original 22 checks.
+and [first reviewed run](../experiments/closure_ledger/runs/20260906_tt_triangle_rotor_reviewed/probe.json)
+are preserved separately with their original 22 and 26 checks.
 
-The integrated focused suite passes **210 tests**, covering this module,
+On the original implementation `7f4f321`, the integrated focused suite passed
+**210 tests**, covering this module,
 positive counting, pointer spread, source readout, the five preceding
 closure/history modules and six relevant inherited tensor tests.
+The [posted COMMENT review](https://github.com/davidmdrpi/geometrodynamics/pull/287#pullrequestreview-5126841019)
+independently reproduced all 27 original tests and 26 probe checks, reported
+**2264 passed, 1 xfailed** for the full suite on that head, and confirmed the
+#285 integration gap. GitHub CI also passed on `7f4f321` for Python 3.10 and
+3.12. Those are results for the reviewed head; this follow-up adds 15 focused
+tests and R5–R7, and labels the homogeneity/STF checks without changing their
+frozen thresholds. Earlier archives are historical evidence and should not
+be overwritten when reproducing the extended probe.
 
 An integration issue was resolved before publication: #285 had been merged
 into #284's branch after `main` received #284's earlier head. Consequently

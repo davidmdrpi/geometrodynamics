@@ -219,6 +219,123 @@ def post_review_controls():
             "nearest_amplitude_changes_sign": bool(switch)}
 
 
+def eigenline_winding_controls():
+    """Posted-review extension: arbitrary A_dot0, using full matrix histories.
+
+    Winding is measured from the matrix entries, not imposed by the analytic
+    angle's branch convention. The ellipse determinant proves the general law.
+    """
+    model = rotor.TensorModel()
+    omega = math.sqrt(model.omega2)
+    times = np.linspace(0, 2 * math.pi / omega, 8193)
+    rows = []
+    for amplitude_dot in (-.05, 0., .5):
+        for speed in (.05, .4, 3.):
+            amplitude = .01
+            B0 = rotor.embedding(amplitude, [0., 0., 1.])
+            Bd0 = rotor.field_velocity(amplitude, amplitude_dot, [0., 0., 1.], [speed, 0., 0.])
+            B, Bd = rotor.exact_free_flow(B0, Bd0, times, model)
+            u, q = B[:, 2, 2] - B[:, 0, 0], 2 * B[:, 0, 2]
+            ud, qd = Bd[:, 2, 2] - Bd[:, 0, 0], 2 * Bd[:, 0, 2]
+            measured_angle = np.unwrap(np.arctan2(q, u)) / 2
+            rate = (u * qd - q * ud) / (2 * (u * u + q * q))
+            line = rotor.continuous_eigenline(times, speed, model, amplitude_dot / amplitude)
+            axes = line["axis"]
+            Bn = np.einsum("nij,nj->ni", B, axes)
+            eigenvalues = np.einsum("ni,ni->n", axes, Bn)
+            rows.append({"amplitude": amplitude, "amplitude_dot": amplitude_dot, "speed": speed,
+                "ellipse_determinant": 2 * amplitude ** 2 * speed / omega,
+                "winding_over_pi": float((measured_angle[-1] - measured_angle[0]) / math.pi),
+                "minimum_angular_increment": float(np.min(np.diff(measured_angle))),
+                "minimum_angular_speed": float(np.min(rate)),
+                "angle_error": float(np.max(abs(measured_angle - line["angle"]))),
+                "relative_rate_error": float(np.max(abs(rate / line["angular_speed"] - 1))),
+                "eigenline_residual": float(np.max(abs(Bn - eigenvalues[:, None] * axes)))})
+    return {"rows": rows, "mean_angular_speed": omega / 2,
+            "scope": "Mean winding is frequency-locked; initial orientation, instantaneous speed and rotational charge remain variable."}
+
+
+def restricted_circular_controls():
+    """The free restricted circular orbit fails only the full normal equations."""
+    model = rotor.TensorModel()
+    amplitude, speed = .01, math.sqrt(model.omega2 / 3)
+    times = np.linspace(0, 2 * math.pi / speed, 129)
+    maxima = {k: 0. for k in ("radial", "angular", "normal_error", "restricted_acceleration")}
+    minimum_normal = math.inf
+    for t in times:
+        field = rotor.uniform_rotation(t, amplitude, speed, model)
+        # S=0: evaluate the restricted solution in the full equations.
+        addot, nddot = rotor.restricted_acceleration(amplitude, 0., field["n"], field["v"], model=model)
+        maxima["restricted_acceleration"] = max(maxima["restricted_acceleration"],
+            abs(addot), float(np.linalg.norm(nddot + speed ** 2 * field["n"])))
+        residual = field["beta_ddot"] + model.omega2 * field["beta"]
+        parts = rotor.tensor_components(residual, field["n"])
+        for key in ("radial", "angular"):
+            maxima[key] = max(maxima[key], float(np.linalg.norm(parts[key])))
+        normal = float(np.linalg.norm(parts["normal"]))
+        minimum_normal = min(minimum_normal, normal)
+        maxima["normal_error"] = max(maxima["normal_error"],
+            abs(normal - math.sqrt(2) * abs(amplitude) * model.omega2 / 3))
+    return {"amplitude": amplitude, "speed": speed, "maxima": maxima,
+            "minimum_normal_force": minimum_normal,
+            "predicted_normal_force": math.sqrt(2) * abs(amplitude) * model.omega2 / 3}
+
+
+def adm_trace_controls():
+    """Off-STF diagnostic of the kinetic functional, not a new dynamical mode.
+
+    General matrix rates expose the -K^2 term; the pure trace control would
+    change sign if it were omitted. The original STF scalar identity cannot.
+    """
+    B = np.array([[.01, .003, 0.], [.003, -.004, .002], [0., .002, -.006]])
+    shear = np.array([[.02, -.005, .004], [-.005, -.003, .006], [.004, .006, -.017]])
+    eps = 1e-3
+    g = expm(2 * eps * B)
+    error = trace_error = 0.
+    omission_defects = []
+    for H in (-.3, 0., .2):
+        velocity = shear + H * np.eye(3)
+        gd = expm_frechet(2 * eps * B, 2 * eps * velocity, compute_expm=False)
+        K = .5 * np.linalg.solve(g, gd) / eps
+        kinetic = np.trace(K @ K) - np.trace(K) ** 2
+        error = max(error, abs(kinetic - (np.sum(shear ** 2) - 6 * H ** 2)))
+        trace_error = max(trace_error, abs(np.trace(K) - 3 * H))
+        if H:
+            omission_defects.append(float(abs(np.trace(K @ K) - (np.sum(shear ** 2) - 6 * H ** 2))))
+    H = .2
+    # At the round metric, compute K directly from an isotropic gdot.
+    K = .5 * np.linalg.solve(np.eye(3), 2 * H * np.eye(3))
+    return {"general_matrix_error": float(error), "trace_error": float(trace_error),
+            "minimum_defect_without_K_squared": min(omission_defects),
+            "pure_trace_kinetic": float(np.trace(K @ K) - np.trace(K) ** 2),
+            "pure_trace_prediction": -6 * H ** 2,
+            "pure_trace_without_K_squared": float(np.trace(K @ K))}
+
+
+def posted_review_controls(adm):
+    """New controls prompted by COMMENT review 5126841019 of 7f4f321."""
+    winding = eigenline_winding_controls()
+    circular = restricted_circular_controls()
+    trace = adm_trace_controls()
+    checks = {
+        "R5 general eigenline winds pi per field period": all(
+            abs(r["winding_over_pi"] - 1) < 1e-12 and r["minimum_angular_increment"] > 0
+            and r["minimum_angular_speed"] > 0 and r["angle_error"] < 1e-10
+            and r["relative_rate_error"] < 1e-9 and r["eigenline_residual"] < 1e-12
+            for r in winding["rows"]),
+        "R6 restricted circular orbit needs normal but no radial force":
+            max(circular["maxima"].values()) < 1e-10 and circular["minimum_normal_force"] > .01,
+        "R7 general ADM trace control detects the minus K squared term": adm["general_trace_identity"]
+            and max(trace["general_matrix_error"], trace["trace_error"]) < 1e-10
+            and abs(trace["pure_trace_kinetic"] - trace["pure_trace_prediction"]) < 1e-12
+            and trace["minimum_defect_without_K_squared"] > .1
+            and trace["pure_trace_kinetic"] < 0 < trace["pure_trace_without_K_squared"],
+    }
+    return {"status": "POSTED_REVIEW_ADDITION", "reviewed_commit": "7f4f321e365eda7eacd0b928dc7084b9ff2fe464",
+            "checks": {k: bool(v) for k, v in checks.items()},
+            "winding": winding, "restricted_circular_orbit": circular, "adm_trace": trace}
+
+
 def run_probe(progress=None):
     def note(message):
         if progress:
@@ -274,7 +391,9 @@ def run_probe(progress=None):
     checks = {k: bool(v) for k, v in checks.items()}
     frozen_checks = dict(checks)
     review = post_review_controls()
+    posted_review = posted_review_controls(adm)
     checks.update(review["checks"])
+    checks.update(posted_review["checks"])
     return {"public_preregistration": rotor.PUBLIC_PREREG,
             "base_commit": "cd7f3001581a37a2fe887ff4452340c45cb9f00a",
             "model": {"radius": 1., "kappa": 1., "volume": rotor.TensorModel().volume,
@@ -285,7 +404,12 @@ def run_probe(progress=None):
             "dynamics": dynamics, "inherited_response": inherited,
             "relative_amplitude_error": relative_amplitude_error,
             "primary_coefficient_relative_error": coefficient_error,
-            "frozen_checks": frozen_checks, "post_review": review,
+            "frozen_checks": frozen_checks, "post_review": review, "posted_review": posted_review,
+            "check_annotations": {
+                "Q2 departure persists at linear field order": "Homogeneity regression: linear flow and a scale-invariant cone prove amplitude scaling. This is not independent physical evidence.",
+                "Q1 ADM kinetic and Cartan frequency agree": "kinetic_is_frobenius is the STF identity. Curvature/Cartan checks and noncommuting matrix controls are substantive; R7 separately tests general trace rates.",
+                "Q2 manufactured rotation requires radial and normal stress": "Frozen speed 0.4 only. At speed omega/sqrt(3), R6 has zero radial force and nonzero normal force."
+            },
             "checks": checks, "passed": all(checks.values()),
             "physical_verdict": rotor.physical_verdict(checks, adm["kinetic_is_frobenius"] and algebra["normal_formula"] < 1e-10),
             "scope": "Unconstrained linear homogeneous ESU TT mode and its proposed uniaxial cone; not a no-go for every BAM field or driven solution.",
@@ -305,7 +429,11 @@ def render(report):
               "| criterion | pass |", "|---|---|"]
     lines += [f"| {key} | {value} |" for key, value in report["checks"].items()]
     lines += ["", f"Passed {sum(report['checks'].values())}/{len(report['checks'])} checks "
-              f"({len(report['frozen_checks'])} frozen, {len(report['post_review']['checks'])} post-review).", "",
+              f"({len(report['frozen_checks'])} frozen, {len(report['post_review']['checks'])} initial review, "
+              f"{len(report['posted_review']['checks'])} posted review).", "",
+              "Check interpretation:", ""]
+    lines += [f"- **{key}:** {value}" for key, value in report["check_annotations"].items()]
+    lines += ["",
               "A passing obstruction check is not a successful rotor reduction. Phi selection and operational source readout remain unproved.", ""]
     return "\n".join(lines)
 
