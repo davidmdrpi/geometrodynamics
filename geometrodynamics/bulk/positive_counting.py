@@ -49,7 +49,7 @@ __all__ = [
     "reduction_residual", "W", "correlation_from_phi", "chsh_from_phi",
     "quantum_phi", "monomial_W_coefficients", "G_in_shifted_basis",
     "symmetry_conditions", "solve_minimal_degree", "no_global_polynomial",
-    "threshold_phi_reaches_four", "marginals_are_automatic",
+    "threshold_phi_reaches_four", "marginals_are_automatic", "closed_form_W", "sector_sum_identity",
     "downstream_numbers_unchanged", "dependency_ledger", "verdict",
 ]
 
@@ -119,9 +119,13 @@ def quantum_phi(d):
     """``Phi(D) = D^2 (1 - D/5)`` — nonnegative on ``[-1/2, 4]``, gives ``-cos gamma``.
 
     Minimal-degree solution beyond the signed ``Phi = D``; see
-    `solve_minimal_degree`. It is nonnegative exactly on the range the model
-    evaluates (``D <= 4``, with the root at ``D = 5`` outside it), not globally —
-    and `no_global_polynomial` shows no polynomial solution can be global.
+    `solve_minimal_degree`. Nonnegativity is immediate rather than numerical:
+    ``D^2 >= 0`` and ``1 - D/5 >= 1/5`` on the physical range ``D <= 4``. It is
+    not globally nonnegative (the root at ``D = 5`` lies outside the range the
+    model evaluates), and `no_global_polynomial` shows no polynomial solution
+    can be. Its transform has the closed form ``W(t) = (2 pi/5) t(5 + 2t - t^2)``
+    whose second factor is invariant under ``t -> 2 - t``, which proves
+    ``E = -cos gamma`` outright (see `closed_form_W`).
     """
     d = np.asarray(d, dtype=float)
     return d * d * (1.0 - d / 5.0)
@@ -315,8 +319,70 @@ def dependency_ledger() -> List[Dict[str, str]]:
     ]
 
 
+def closed_form_W(t: float) -> float:
+    """``W(t) = (2 pi/5) t (5 + 2t - t^2)`` for the cubic witness.
+
+    The factor ``5 + 2t - t^2`` is manifestly invariant under ``t -> 2 - t``,
+    which *proves* ``E = -cos gamma`` with equal sector priors rather than
+    checking it angle by angle. Nonnegativity is equally direct: ``D^2 >= 0``
+    and ``1 - D/5 >= 1/5`` on ``D <= 4``.
+    """
+    return 2.0 * math.pi / 5.0 * t * (5.0 + 2.0 * t - t * t)
+
+
+def sector_sum_identity(gammas: Sequence[float] = (0.4, 1.0, math.pi / 2, 2.3),
+                        n: int = 20001) -> Dict[str, object]:
+    """``sum_s Phi(D_s(x)) = (8/5)[3 - (a.b)(a.x)(b.x)]`` on the closure circle.
+
+    For **orthogonal** settings the right-hand side is constant in ``x``, so the
+    outcome-summed weight carries no information about position on the circle.
+    That does **not** remove the source-readout hazard: the two closure circles
+    for ``b = e_x`` and ``b = e_y`` lie in different planes, so the odd readout
+    ``F = (x_x + 2 x_y)/sqrt(5)`` still has variances ``0.1`` and ``0.4``.
+    Attaining the singlet correlation and closing the causality gate are
+    independent requirements.
+    """
+    from geometrodynamics.bulk.closure_measurement import great_circle
+    worst = 0.0
+    for gamma in gammas:
+        a = np.array([0.0, 0.0, 1.0])
+        b = np.array([math.sin(gamma), 0.0, math.cos(gamma)])
+        circle = great_circle(a, b, n)
+        total = np.zeros(len(circle))
+        for s_a in (1, -1):
+            for s_b in (1, -1):
+                u, w = s_a * a, -(s_b * b)
+                total += quantum_phi(1.0 + circle @ u + float(u @ w) + circle @ w)
+        pred = (8.0 / 5.0) * (3.0 - float(a @ b) * (circle @ a) * (circle @ b))
+        worst = max(worst, float(np.max(np.abs(total - pred))))
+    # the orthogonal case, where the sum is constant
+    a, b = np.array([0.0, 0.0, 1.0]), np.array([1.0, 0.0, 0.0])
+    circle = great_circle(a, b, n)
+    total = np.zeros(len(circle))
+    for s_a in (1, -1):
+        for s_b in (1, -1):
+            u, w = s_a * a, -(s_b * b)
+            total += quantum_phi(1.0 + circle @ u + float(u @ w) + circle @ w)
+    spread = float(total.max() - total.min())
+    return {"identity_residual": worst, "identity_holds": bool(worst < 1e-12),
+            "orthogonal_sum_spread": spread,
+            "orthogonal_sum_is_constant": bool(spread < 1e-12),
+            "hazard_survives": True,
+            "note": ("the two closure circles lie in different planes, so an "
+                     "odd readout still separates the settings; see #284")}
+
+
 def verdict() -> Dict[str, object]:
-    """The two pre-registered questions, answered."""
+    """The two pre-registered questions, answered.
+
+    **Failure branches report non-resolution, not a no-go.** Pre-registered
+    rule 2 requires a verified dual infeasibility certificate before any claim
+    that the quantum law is unattainable, and no certificate is computed here.
+    An earlier version of this function returned
+    ``QUANTUM_LAW_UNATTAINABLE_IN_THIS_CLASS`` whenever its witness failed, and
+    inferred a positivity bound from a single failed Q1 construction; both
+    contradicted the freeze. Corrected in note N19.
+    """
     q1 = threshold_phi_reaches_four()
     worst = max(abs(correlation_from_phi(quantum_phi, g) + math.cos(g))
                 for g in (0.3, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0))
@@ -324,14 +390,19 @@ def verdict() -> Dict[str, object]:
     return {
         "Q1_positivity_bound": ("NO_BOUND_ALGEBRAIC_MAXIMUM_REACHED"
                                 if q1["reaches_algebraic_maximum"]
-                                else "POSITIVITY_BOUNDS_CHSH"),
-        "Q1_sup_CHSH": 4.0,
+                                # one failed construction does not establish a bound
+                                else "UNRESOLVED_NUMERICALLY"),
+        "Q1_sup_CHSH": 4.0 if q1["reaches_algebraic_maximum"] else None,
         "Q2_quantum_law": ("QUANTUM_LAW_ATTAINABLE_BY_POSITIVE_COUNTING"
                            if attainable
-                           else "QUANTUM_LAW_UNATTAINABLE_IN_THIS_CLASS"),
-        "Q2_witness": "Phi(D) = D^2 (1 - D/5)",
+                           # a failed witness is not an infeasibility certificate
+                           else "UNRESOLVED_NUMERICALLY"),
+        "Q2_witness": "Phi(D) = D^2 (1 - D/5)" if attainable else None,
         "Q2_worst_error_vs_minus_cos": worst,
+        "no_go_requires_a_dual_certificate": True,
         "withdrawn": ("round 6's 'the distance to quantum mechanics is exactly "
                       "the distance from |D| to D' — counting suffices"),
-        "remaining": "nothing in the geometry selects Phi",
+        "remaining": ("nothing in the geometry selects Phi; and by "
+                      "sector_sum_identity, attaining the singlet law does not "
+                      "close the source-readout hazard"),
     }

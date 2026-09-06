@@ -124,3 +124,54 @@ accidental, and would be the round's result.
 Including at minimum: the class restriction of §0, the sector prior, the
 geodesic itinerary and realignment inherited from rounds 5–6, and the
 conditioning variable inherited from round 8.
+
+## Correction notes (post-implementation, from review of `d7af69d`)
+
+**N19 — the failure branches of `verdict()` contradicted rule 2.** As written,
+`verdict()` returned `QUANTUM_LAW_UNATTAINABLE_IN_THIS_CLASS` whenever its
+numerical witness failed, and inferred a positivity bound from a single failed
+Q1 construction. Rule 2 of §3 requires a **verified dual infeasibility
+certificate** before any unattainability claim, and none is computed. Both
+branches now return `UNRESOLVED_NUMERICALLY`, and `Q1_sup_CHSH` / `Q2_witness`
+return `None` rather than a value when the construction fails. Neither affects
+the result actually obtained, which took the success branch; the defect was
+that the frozen safeguard was not implemented.
+
+**N20 — §2's radial reformulation is strictly stronger than Q2.** O6 and the
+Q2 restatement asked for a nonnegative radial `Ψ` whose circular mean equals
+`r²/2`, which fixes `W(t)/2π = t` exactly. Reproducing the *normalised*
+correlation only requires `W(t)/t` to be symmetric about `t = 1`, which permits
+a non-constant symmetric factor. The cubic witness satisfies the weaker
+condition and **not** the stronger one: its closed form is
+
+```
+W(t) = (2π/5) · t · (5 + 2t − t²),      W(1)/2π = 1.2 ≠ 1.
+```
+
+The freeze is preserved as written; this note records that a dual certificate
+against the *radial* problem would not have settled Q2, so O6 may not be used
+as the operative statement of the question.
+
+**N21 — the step correlation is a limiting statement.** §2's Q1 prediction
+described the narrow bump as giving `E(γ) = −sgn(cos γ)`. At finite width the
+bump's support straddles both sectors near `t = 1`: at width `0.2` and
+`cos γ = 0.1`, `t_like + √(2 t_like) = 2.2416` exceeds the bump's lower edge
+`2.2142`, so `W_like > 0` and `E = −0.56133` rather than `−1`. The
+standard-angle values are unaffected — at `γ = π/4`, `t_like + √(2t_like) =
+1.058`, far below the bump — so `CHSH = 4` there is exact, and the supremum
+claim stands. The all-angle step holds only as the width tends to zero.
+
+**N22 — an addition, not a correction.** The sector-summed weight of the cubic
+has the closed form
+
+```
+Σ_s Φ(D_s(x)) = (8/5)[3 − (a·b)(a·x)(b·x)]     (residual 2.7e-15),
+```
+
+which is **constant on the circle for orthogonal settings**. It does not follow
+that the source-readout hazard is removed: the closure circles for `b = e_x`
+and `b = e_y` lie in different planes, so the odd readout of #284 still has
+variances `0.1` and `0.4`. Attaining the singlet correlation and closing the
+causality gate are independent requirements. This is a sharp-closure statement;
+#285's finite-spread result does not transfer to the cubic weighting without
+specifying its coupled history extension.

@@ -5051,8 +5051,10 @@ counting model `W_s = ∫_Γ Φ(D_s) dσ` collapses to one function of one varia
 and `E = −cos γ` is equivalent to `G(t) = W(t)/t` being **even about `t = 1`**.
 
 **Q1 — `sup CHSH = 4`.** A nonnegative bump at `v = 1+√2` makes `W` vanish below
-`t = 1`, giving `E = −sgn(cos γ)` and the algebraic maximum. Positivity bounds
-nothing.
+`t = 1`, giving the algebraic maximum at the standard angles. Positivity bounds
+nothing. (The step `E = −sgn(cos γ)` is a zero-width limit: at width `0.2` and
+`cos γ = 0.1` the bump straddles both sectors and `E = −0.56133`. The standard
+angles, where the claim is made, are exact.)
 
 **Q2 — the quantum law is attained by a nonnegative weight.** Expanding
 `Φ = Σaₙ Dⁿ`, `Gₙ(u)` has degree `n−1` with leading coefficient `1`; the single
@@ -5062,8 +5064,11 @@ degree-3 condition `a₂ + 5a₃ = 0` gives
 Φ(D) = D²(1 − D/5),   G(u) = 1.2 − 0.2u²,   E = −cos γ to 1e-16,   CHSH = 2√2.
 ```
 
-`Φ ≥ 0` on the whole physical range `D ∈ [−½, 4]`. Degree 3 is minimal, and no
-polynomial solution is globally nonnegative (the top degree is forced odd).
+Nonnegativity is immediate: `D² ≥ 0` and `1 − D/5 ≥ 1/5` on `D ≤ 4`. The
+closed form `W(t) = (2π/5)·t·(5 + 2t − t²)` has a second factor manifestly
+invariant under `t ↦ 2−t`, which *proves* `E = −cos γ` rather than checking it
+angle by angle. Degree 3 is minimal, and no polynomial solution is globally
+nonnegative (the top degree is forced odd).
 
 **What this withdraws.** Round 5's conclusion that *"the distance to quantum
 mechanics is exactly the distance from `|D|` to `D`"* is wrong. The quantum
@@ -5071,6 +5076,12 @@ correlation needs no signed cancellation, no closure holonomy and no oriented
 current — it needs a particular counting function. Round 7's result that the
 holonomy and the coarea magnitude come from different functionals stands, but is
 no longer the barrier.
+
+**It does not close the causality gate.** The cubic's sector-summed weight is
+`Σ_s Φ(D_s) = (8/5)[3 − (a·b)(a·x)(b·x)]`, *constant* on the circle for
+orthogonal settings — yet the two closure circles lie in different planes, so
+#284's odd readout still has variances `0.1` and `0.4`. Reproducing the singlet
+correlation and closing the source-readout hazard are independent requirements.
 
 Everything now rests on one question: **what selects `Φ`?** #283's equilibrium
 selects `|·|`, hence `2.1423`. Nothing in the geometry, positivity, marginals or

@@ -74,9 +74,16 @@ a₂ + 5a₃ = 0    ⟹    Φ(D) = D² − D³/5 = D²(1 − D/5),
 G(u) = 1.2 − 0.2u²,   even about t = 1.
 ```
 
-`Φ ≥ 0` on the entire physical range `D ∈ [−1/2, 4]` (minimum `2.5e-11`, at the
-double root `D = 0`; the other root is at `D = 5`, outside the range the model
-ever evaluates). Measured:
+Nonnegativity is immediate rather than numerical: `D² ≥ 0` and `1 − D/5 ≥ 1/5`
+on `D ≤ 4`. And the transform has a closed form whose second factor is
+*manifestly* symmetric,
+
+```
+W(t) = (2π/5) · t · (5 + 2t − t²),     5 + 2t − t²  invariant under  t ↦ 2−t,
+```
+
+which **proves** `E = −cos γ` with equal sector priors rather than checking it
+angle by angle. Measured, as confirmation:
 
 | `γ` | `E` | `−cos γ` | error |
 |---|---:|---:|---:|
@@ -116,6 +123,23 @@ This also reframes round 7. That round's central result — that the branch
 holonomy and the coarea magnitude come from two provably different functionals,
 leaving `κ` free — remains correct as stated, but it is no longer the barrier
 between BAM and the quantum law. One can bypass the oriented branch entirely.
+
+## Attaining the quantum law does not close the causality gate
+
+The cubic's sector-summed weight has the closed form
+
+```
+Σ_s Φ(D_s(x)) = (8/5)[3 − (a·b)(a·x)(b·x)]      (residual 2.7e-15),
+```
+
+which is **constant on the circle for orthogonal settings**. That does not
+rescue the source-readout hazard of #284: the closure circles for `b = e_x` and
+`b = e_y` lie in *different planes*, so the odd readout `F = (x_x + 2x_y)/√5`
+still has variances `0.1` and `0.4`. **Reproducing the singlet correlation and
+closing the causality gate are independent requirements**, and this round
+settles only the first. This is a sharp-closure statement; #285's finite-spread
+result does not transfer to the cubic weighting without specifying its coupled
+history extension.
 
 ## What remains
 

@@ -9,8 +9,9 @@
 * **Q2_quantum_law** — `QUANTUM_LAW_ATTAINABLE_BY_POSITIVE_COUNTING`
 * **Q2_witness** — `Phi(D) = D^2 (1 - D/5)`
 * **Q2_worst_error_vs_minus_cos** — `1.1102230246251565e-16`
+* **no_go_requires_a_dual_certificate** — `True`
 * **withdrawn** — `round 6's 'the distance to quantum mechanics is exactly the distance from |D| to D' — counting suffices`
-* **remaining** — `nothing in the geometry selects Phi`
+* **remaining** — `nothing in the geometry selects Phi; and by sector_sum_identity, attaining the singlet law does not close the source-readout hazard`
 
 ## Checks
 
