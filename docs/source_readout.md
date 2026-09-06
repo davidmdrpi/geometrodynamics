@@ -267,6 +267,19 @@ erasure for one particular apparatus prove that every admissible apparatus
 is unreadable. These are analytic checks added in response to the review,
 not a completed finite-spread dynamics experiment.
 
+The subsequent [publicly preregistered pointer-spread experiment](pointer_spread.md)
+now performs that comparison in an explicit rotor extension. It evolves a
+finite pulse with reciprocal force, closes the actual source path including
+its parallel transport, and recomputes the conditional history weights.
+With source and pointer momentum widths both `0.1`, the same early event
+has probabilities approximately `0.158` and `0.458` while the actual pointer
+momentum marginal remains the same Gaussian for both settings. Momentum
+recoil RMS is `0.0816`; holding the old posterior fixed would overstate the
+contrast. The exact-`P=0` limitation is therefore removed in that extension.
+Direct local access to the rotor and its preparation law are additional
+inputs: this does not map the Duffing oscillator to the informative frame
+or establish an operational BAM intervention.
+
 ## 4. What the existing field machinery does and does not contain
 
 The inventory below concerns the implementations at merged #283, `b0e372f`.
