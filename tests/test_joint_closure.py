@@ -201,7 +201,7 @@ def test_generic_closure_rule_accepts_a_union_of_non_closed_subsystems():
     assert r["default_sigma_cannot_reject"]
 
 
-def test_on_closure_holonomies_are_central_so_composition_is_rank_one():
+def test_on_closure_holonomies_are_central_and_respect_the_window_bound():
     """N24 regression: the first version reported generic ``SU(2)``
     non-commutativity as the obstruction. On the closure locus
     ``theta_i in pi Z``, so the reduced holonomies are ``+-1`` and commute
@@ -216,7 +216,47 @@ def test_on_closure_holonomies_are_central_so_composition_is_rank_one():
         assert row["max_commutator"] <= 2 * math.sin(e1) * math.sin(e2)
     assert r["off_closure_control_is_not_evidence"]
     assert not r["common_frame_transport_derived"]
-    assert r["composition_on_closure_is_rank_one"]
+    assert r["supplies_a_closure_condition_not_a_weight"]
+    assert "composition_on_closure_is_rank_one" not in r   # withdrawn by N27
+
+
+def test_composed_holonomy_condition_is_rank_two_not_rank_one():
+    """N27 regression: centrality gives commutation ON closure, not its
+    continuation away from it. ``d vec(G1 G2) = c1 c2 (x1 dtheta1 +
+    x2 dtheta2)`` has rank two for non-parallel axes, so opposite small
+    phases do not cancel and the scalar-sum rank-one defect does not
+    transfer to the holonomy product."""
+    r = jc.composed_holonomy_rank()
+    assert r["rank_one_claim_withdrawn"]
+    assert r["min_rank"] == 2
+    assert r["max_analytic_residual"] < 1e-9
+    assert r["min_opposite_phase_vec_norm"] > 1e-3
+    for row in r["rows"]:
+        assert row["rank"] == 2
+        assert abs(row["axis_dot"]) < 1.0 - 1e-6      # non-parallel axes
+        assert min(row["singular_values"]) > 1e-6     # genuinely rank two
+
+
+def test_reviewed_configuration_reproduces_the_reported_singular_values():
+    """The reviewed case: both triangles at ``t = 1`` with ``D = 2``, whose
+    closure axes are orthogonal and whose normal Jacobian is ``0.5, 0.5``."""
+    reviewed = jc.composed_holonomy_rank()["reviewed_configuration"]
+    assert abs(reviewed["axis_dot"]) < 1e-12
+    assert reviewed["rank"] == 2
+    for value in reviewed["normal_singular_values"]:
+        assert abs(value - 0.5) < 1e-9
+
+
+def test_off_closure_control_is_a_real_commutator():
+    """N29 regression: the previous version drew a fresh axis in each of the
+    four slots, computing ``G1 G2 - G3 G4`` rather than ``[G1, G2]``."""
+    import inspect
+    source = inspect.getsource(jc.based_loop_composition_scope)
+    tail = source[source.index("off_closure = 0.0"):]
+    assert tail.count("_unit(rng.normal(size=3))") == 2
+    assert "H1" in tail and "H2" in tail
+    value = jc.based_loop_composition_scope()["off_closure_control_commutator"]
+    assert 0.0 < value <= 2.0        # |[G1,G2]| = 2 |s1 s2| |x1 x x2| <= 2
 
 
 def test_no_inspected_module_supplies_a_joint_weight_rule():
@@ -224,6 +264,33 @@ def test_no_inspected_module_supplies_a_joint_weight_rule():
     assert not audit["any_module_supplies_joint_weight_rule"]
     assert len(audit["entries"]) == 5
     assert sum(e["applies_to_disconnected_pairs"] for e in audit["entries"]) == 2
+
+
+def test_window_slice_finds_a_gap_narrower_than_any_sample_grid():
+    """N28 regression: a 257-point scan only finds gaps containing a sample
+    point, and missed this one entirely, returning ``(2.0, 1)``."""
+    tri = _pair(0.1, 1, -1)
+    psi, eps = 2.613587734905, 0.099365561552
+    measure, components = jc.window_slice(tri, psi, eps)
+    assert components == 2
+    assert abs(measure - 1.997544152) < 1e-8
+    edges = jc.window_boundary_z(tri, psi, eps)
+    assert len(edges) == 2
+    assert abs(edges[0] - 0.501339412) < 1e-8
+    assert abs(edges[1] - 0.502567336) < 1e-8
+    # the boundary really solves |z||q| = |D| tan(eps)
+    qn = float(np.linalg.norm(tri.q))
+    A = math.sqrt(2 * tri.t) * math.cos(psi)
+    for z in edges:
+        assert abs(qn * z - abs(tri.t + math.sqrt(1 - z * z) * A) * math.tan(eps)) < 1e-12
+
+
+def test_frozen_grid_guarantees_a_single_window_interval():
+    """``|q|/t > tan(epsilon)`` forces one interval on the positive half."""
+    worst = min(float(np.linalg.norm(_pair(g, sA, sB).q)) / _pair(g, sA, sB).t
+                for g in (0.35, 0.7, 1.0, 1.3, math.pi / 2, 2.4, 2.7)
+                for sA, sB in jc.SECTOR_SIGNS)
+    assert worst > math.tan(0.08)
 
 
 def test_window_slice_handles_a_disconnected_accepted_set():
@@ -238,6 +305,7 @@ def test_window_slice_handles_a_disconnected_accepted_set():
     root = math.sqrt(2 * tri.t) * math.cos(math.pi)
     g = lambda z: Aq * z - abs(tri.t + math.sqrt(max(1 - z * z, 0.0)) * root) * math.tan(0.1)
     assert g(0.0) < 0 and g(0.2) > 0 and g(1.0) < 0   # genuinely disconnected
+    assert not hasattr(jc, "_negative_set_measure")   # the scan is gone (N28)
 
 
 def test_registered_windows_keep_the_accepted_set_connected():
@@ -272,7 +340,7 @@ def test_structural_regressions_are_labelled_and_not_counted_as_evidence():
     assert all(report["checks"].values())
     assert all("structural" in k for k in report["structural_regressions"])
     assert all(report["structural_regressions"].values())
-    assert len(report["checks"]) == 16
+    assert len(report["checks"]) == 17
     assert not any("structural" in k for k in report["checks"])
     assert report["weight_selection"] == "NOT_DERIVED"
     assert report["operational_source_readout"] == "NOT_DERIVED"

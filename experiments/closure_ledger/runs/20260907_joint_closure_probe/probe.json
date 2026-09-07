@@ -561,88 +561,88 @@
             0.04,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.000690231941375602
+          "max_discrepancy_from_coarea": 0.0006902319413799041
         },
         {
           "epsilon": [
             0.04,
             0.08
           ],
-          "max_discrepancy_from_coarea": 0.001341209702921814
+          "max_discrepancy_from_coarea": 0.001341209702927254
         },
         {
           "epsilon": [
             0.08,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.002017044377278787
+          "max_discrepancy_from_coarea": 0.002017044377278371
         },
         {
           "epsilon": [
             0.02,
             0.02
           ],
-          "max_discrepancy_from_coarea": 0.0001742158281755335
+          "max_discrepancy_from_coarea": 0.000174215828165597
         },
         {
           "epsilon": [
             0.02,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.0003400852786407671
+          "max_discrepancy_from_coarea": 0.00034008527863924054
         },
         {
           "epsilon": [
             0.04,
             0.02
           ],
-          "max_discrepancy_from_coarea": 0.0005246896550526459
+          "max_discrepancy_from_coarea": 0.0005246896550484548
         },
         {
           "epsilon": [
             0.01,
             0.01
           ],
-          "max_discrepancy_from_coarea": 4.3659848089905307e-05
+          "max_discrepancy_from_coarea": 4.365984813373136e-05
         },
         {
           "epsilon": [
             0.01,
             0.02
           ],
-          "max_discrepancy_from_coarea": 8.53278273023339e-05
+          "max_discrepancy_from_coarea": 8.532782730996669e-05
         },
         {
           "epsilon": [
             0.02,
             0.01
           ],
-          "max_discrepancy_from_coarea": 0.0001325686829351802
+          "max_discrepancy_from_coarea": 0.00013256868296140922
         },
         {
           "epsilon": [
             0.005,
             0.005
           ],
-          "max_discrepancy_from_coarea": 1.0921616862169525e-05
+          "max_discrepancy_from_coarea": 1.092161639615341e-05
         },
         {
           "epsilon": [
             0.005,
             0.01
           ],
-          "max_discrepancy_from_coarea": 2.135123574528719e-05
+          "max_discrepancy_from_coarea": 2.1351235776179145e-05
         },
         {
           "epsilon": [
             0.01,
             0.005
           ],
-          "max_discrepancy_from_coarea": 3.323153751838559e-05
+          "max_discrepancy_from_coarea": 3.3231537065553374e-05
         }
       ],
-      "final_window_discrepancy": 3.323153751838559e-05,
-      "joint_factorisation_regression": 8.326672684688674e-17,
+      "final_window_discrepancy": 3.3231537065553374e-05,
+      "joint_factorisation_regression": 5.551115123125783e-17,
       "max_accepted_components": 1,
       "monotone": true
     },
@@ -658,87 +658,87 @@
             0.04,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.0006902319413756297
+          "max_discrepancy_from_coarea": 0.0006902319413799318
         },
         {
           "epsilon": [
             0.04,
             0.08
           ],
-          "max_discrepancy_from_coarea": 0.0013412097029217585
+          "max_discrepancy_from_coarea": 0.0013412097029282255
         },
         {
           "epsilon": [
             0.08,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.002017044377278787
+          "max_discrepancy_from_coarea": 0.0020170443772783986
         },
         {
           "epsilon": [
             0.02,
             0.02
           ],
-          "max_discrepancy_from_coarea": 0.00017421582817556125
+          "max_discrepancy_from_coarea": 0.00017421582816556924
         },
         {
           "epsilon": [
             0.02,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.0003400852786407671
+          "max_discrepancy_from_coarea": 0.00034008527863929605
         },
         {
           "epsilon": [
             0.04,
             0.02
           ],
-          "max_discrepancy_from_coarea": 0.0005246896550526459
+          "max_discrepancy_from_coarea": 0.000524689655048427
         },
         {
           "epsilon": [
             0.01,
             0.01
           ],
-          "max_discrepancy_from_coarea": 4.365984808987755e-05
+          "max_discrepancy_from_coarea": 4.3659848133703605e-05
         },
         {
           "epsilon": [
             0.01,
             0.02
           ],
-          "max_discrepancy_from_coarea": 8.53278273023339e-05
+          "max_discrepancy_from_coarea": 8.532782730993893e-05
         },
         {
           "epsilon": [
             0.02,
             0.01
           ],
-          "max_discrepancy_from_coarea": 0.00013256868293515245
+          "max_discrepancy_from_coarea": 0.00013256868296138147
         },
         {
           "epsilon": [
             0.005,
             0.005
           ],
-          "max_discrepancy_from_coarea": 1.0921616862058503e-05
+          "max_discrepancy_from_coarea": 1.0921616396125655e-05
         },
         {
           "epsilon": [
             0.005,
             0.01
           ],
-          "max_discrepancy_from_coarea": 2.1351235745259434e-05
+          "max_discrepancy_from_coarea": 2.135123577615139e-05
         },
         {
           "epsilon": [
             0.01,
             0.005
           ],
-          "max_discrepancy_from_coarea": 3.3231537518357834e-05
+          "max_discrepancy_from_coarea": 3.323153706552562e-05
         }
       ],
-      "final_window_discrepancy": 3.3231537518357834e-05,
+      "final_window_discrepancy": 3.323153706552562e-05,
       "joint_factorisation_regression": 5.551115123125783e-17,
       "max_accepted_components": 1,
       "monotone": true
@@ -755,87 +755,87 @@
             0.04,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.00012123727162147158
+          "max_discrepancy_from_coarea": 0.00012123727162503817
         },
         {
           "epsilon": [
             0.04,
             0.08
           ],
-          "max_discrepancy_from_coarea": 0.00024351305768384457
+          "max_discrepancy_from_coarea": 0.00024351305768492704
         },
         {
           "epsilon": [
             0.08,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.0003589538909226364
+          "max_discrepancy_from_coarea": 0.0003589538909280071
         },
         {
           "epsilon": [
             0.02,
             0.02
           ],
-          "max_discrepancy_from_coarea": 3.0372555004654078e-05
+          "max_discrepancy_from_coarea": 3.0372554991067724e-05
         },
         {
           "epsilon": [
             0.02,
             0.04
           ],
-          "max_discrepancy_from_coarea": 6.119951395908152e-05
+          "max_discrepancy_from_coarea": 6.119951396101053e-05
         },
         {
           "epsilon": [
             0.04,
             0.02
           ],
-          "max_discrepancy_from_coarea": 9.04280641208649e-05
+          "max_discrepancy_from_coarea": 9.042806410888837e-05
         },
         {
           "epsilon": [
             0.01,
             0.01
           ],
-          "max_discrepancy_from_coarea": 7.5971031574251224e-06
+          "max_discrepancy_from_coarea": 7.597103110115744e-06
         },
         {
           "epsilon": [
             0.01,
             0.02
           ],
-          "max_discrepancy_from_coarea": 1.532011873990602e-05
+          "max_discrepancy_from_coarea": 1.5320118643843972e-05
         },
         {
           "epsilon": [
             0.02,
             0.01
           ],
-          "max_discrepancy_from_coarea": 2.2650653925565534e-05
+          "max_discrepancy_from_coarea": 2.265065396078736e-05
         },
         {
           "epsilon": [
             0.005,
             0.005
           ],
-          "max_discrepancy_from_coarea": 1.8995237540120335e-06
+          "max_discrepancy_from_coarea": 1.8995240317343232e-06
         },
         {
           "epsilon": [
             0.005,
             0.01
           ],
-          "max_discrepancy_from_coarea": 3.831297258061195e-06
+          "max_discrepancy_from_coarea": 3.831297575987436e-06
         },
         {
           "epsilon": [
             0.01,
             0.005
           ],
-          "max_discrepancy_from_coarea": 5.665399388884995e-06
+          "max_discrepancy_from_coarea": 5.665399301330032e-06
         }
       ],
-      "final_window_discrepancy": 5.665399388884995e-06,
+      "final_window_discrepancy": 5.665399301330032e-06,
       "joint_factorisation_regression": 4.163336342344337e-17,
       "max_accepted_components": 1,
       "monotone": true
@@ -852,87 +852,87 @@
             0.04,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.00012123727162147158
+          "max_discrepancy_from_coarea": 0.0001212372716259541
         },
         {
           "epsilon": [
             0.04,
             0.08
           ],
-          "max_discrepancy_from_coarea": 0.00024351305768385845
+          "max_discrepancy_from_coarea": 0.0002435130576848854
         },
         {
           "epsilon": [
             0.08,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.0003589538909226364
+          "max_discrepancy_from_coarea": 0.0003589538909289508
         },
         {
           "epsilon": [
             0.02,
             0.02
           ],
-          "max_discrepancy_from_coarea": 3.0372555004654078e-05
+          "max_discrepancy_from_coarea": 3.0372554991442424e-05
         },
         {
           "epsilon": [
             0.02,
             0.04
           ],
-          "max_discrepancy_from_coarea": 6.119951395908152e-05
+          "max_discrepancy_from_coarea": 6.119951396198198e-05
         },
         {
           "epsilon": [
             0.04,
             0.02
           ],
-          "max_discrepancy_from_coarea": 9.04280641208649e-05
+          "max_discrepancy_from_coarea": 9.04280641092492e-05
         },
         {
           "epsilon": [
             0.01,
             0.01
           ],
-          "max_discrepancy_from_coarea": 7.5971031574251224e-06
+          "max_discrepancy_from_coarea": 7.597103137899075e-06
         },
         {
           "epsilon": [
             0.01,
             0.02
           ],
-          "max_discrepancy_from_coarea": 1.532011873990602e-05
+          "max_discrepancy_from_coarea": 1.5320118644204794e-05
         },
         {
           "epsilon": [
             0.02,
             0.01
           ],
-          "max_discrepancy_from_coarea": 2.2650653925565534e-05
+          "max_discrepancy_from_coarea": 2.2650653988612324e-05
         },
         {
           "epsilon": [
             0.005,
             0.005
           ],
-          "max_discrepancy_from_coarea": 1.8995237539704002e-06
+          "max_discrepancy_from_coarea": 1.8995237900526485e-06
         },
         {
           "epsilon": [
             0.005,
             0.01
           ],
-          "max_discrepancy_from_coarea": 3.831297258061195e-06
+          "max_discrepancy_from_coarea": 3.831297603854034e-06
         },
         {
           "epsilon": [
             0.01,
             0.005
           ],
-          "max_discrepancy_from_coarea": 5.665399388884995e-06
+          "max_discrepancy_from_coarea": 5.665399059676113e-06
         }
       ],
-      "final_window_discrepancy": 5.665399388884995e-06,
+      "final_window_discrepancy": 5.665399059676113e-06,
       "joint_factorisation_regression": 4.163336342344337e-17,
       "max_accepted_components": 1,
       "monotone": true
@@ -949,87 +949,87 @@
             0.04,
             0.04
           ],
-          "max_discrepancy_from_coarea": 1.3877787807814457e-17
+          "max_discrepancy_from_coarea": 7.632783294297951e-17
         },
         {
           "epsilon": [
             0.04,
             0.08
           ],
-          "max_discrepancy_from_coarea": 2.7755575615628914e-17
+          "max_discrepancy_from_coarea": 4.85722573273506e-17
         },
         {
           "epsilon": [
             0.08,
             0.04
           ],
-          "max_discrepancy_from_coarea": 2.7755575615628914e-17
+          "max_discrepancy_from_coarea": 6.938893903907228e-17
         },
         {
           "epsilon": [
             0.02,
             0.02
           ],
-          "max_discrepancy_from_coarea": 3.469446951953614e-17
+          "max_discrepancy_from_coarea": 1.3877787807814457e-17
         },
         {
           "epsilon": [
             0.02,
             0.04
           ],
-          "max_discrepancy_from_coarea": 3.469446951953614e-17
+          "max_discrepancy_from_coarea": 5.551115123125783e-17
         },
         {
           "epsilon": [
             0.04,
             0.02
           ],
-          "max_discrepancy_from_coarea": 3.469446951953614e-17
+          "max_discrepancy_from_coarea": 6.938893903907228e-17
         },
         {
           "epsilon": [
             0.01,
             0.01
           ],
-          "max_discrepancy_from_coarea": 1.3877787807814457e-17
+          "max_discrepancy_from_coarea": 2.7755575615628914e-17
         },
         {
           "epsilon": [
             0.01,
             0.02
           ],
-          "max_discrepancy_from_coarea": 3.469446951953614e-17
+          "max_discrepancy_from_coarea": 1.3877787807814457e-17
         },
         {
           "epsilon": [
             0.02,
             0.01
           ],
-          "max_discrepancy_from_coarea": 3.469446951953614e-17
+          "max_discrepancy_from_coarea": 1.3877787807814457e-17
         },
         {
           "epsilon": [
             0.005,
             0.005
           ],
-          "max_discrepancy_from_coarea": 1.3877787807814457e-17
+          "max_discrepancy_from_coarea": 0.0
         },
         {
           "epsilon": [
             0.005,
             0.01
           ],
-          "max_discrepancy_from_coarea": 2.7755575615628914e-17
+          "max_discrepancy_from_coarea": 0.0
         },
         {
           "epsilon": [
             0.01,
             0.005
           ],
-          "max_discrepancy_from_coarea": 2.7755575615628914e-17
+          "max_discrepancy_from_coarea": 0.0
         }
       ],
-      "final_window_discrepancy": 2.7755575615628914e-17,
+      "final_window_discrepancy": 0.0,
       "joint_factorisation_regression": 2.7755575615628914e-17,
       "max_accepted_components": 1,
       "monotone": true
@@ -1046,87 +1046,87 @@
             0.04,
             0.04
           ],
-          "max_discrepancy_from_coarea": 1.3877787807814457e-17
+          "max_discrepancy_from_coarea": 7.632783294297951e-17
         },
         {
           "epsilon": [
             0.04,
             0.08
           ],
-          "max_discrepancy_from_coarea": 2.7755575615628914e-17
+          "max_discrepancy_from_coarea": 4.85722573273506e-17
         },
         {
           "epsilon": [
             0.08,
             0.04
           ],
-          "max_discrepancy_from_coarea": 2.7755575615628914e-17
+          "max_discrepancy_from_coarea": 6.938893903907228e-17
         },
         {
           "epsilon": [
             0.02,
             0.02
           ],
-          "max_discrepancy_from_coarea": 3.469446951953614e-17
+          "max_discrepancy_from_coarea": 1.3877787807814457e-17
         },
         {
           "epsilon": [
             0.02,
             0.04
           ],
-          "max_discrepancy_from_coarea": 3.469446951953614e-17
+          "max_discrepancy_from_coarea": 5.551115123125783e-17
         },
         {
           "epsilon": [
             0.04,
             0.02
           ],
-          "max_discrepancy_from_coarea": 3.469446951953614e-17
+          "max_discrepancy_from_coarea": 6.938893903907228e-17
         },
         {
           "epsilon": [
             0.01,
             0.01
           ],
-          "max_discrepancy_from_coarea": 1.3877787807814457e-17
+          "max_discrepancy_from_coarea": 2.7755575615628914e-17
         },
         {
           "epsilon": [
             0.01,
             0.02
           ],
-          "max_discrepancy_from_coarea": 3.469446951953614e-17
+          "max_discrepancy_from_coarea": 1.3877787807814457e-17
         },
         {
           "epsilon": [
             0.02,
             0.01
           ],
-          "max_discrepancy_from_coarea": 3.469446951953614e-17
+          "max_discrepancy_from_coarea": 1.3877787807814457e-17
         },
         {
           "epsilon": [
             0.005,
             0.005
           ],
-          "max_discrepancy_from_coarea": 1.3877787807814457e-17
+          "max_discrepancy_from_coarea": 0.0
         },
         {
           "epsilon": [
             0.005,
             0.01
           ],
-          "max_discrepancy_from_coarea": 2.7755575615628914e-17
+          "max_discrepancy_from_coarea": 0.0
         },
         {
           "epsilon": [
             0.01,
             0.005
           ],
-          "max_discrepancy_from_coarea": 2.7755575615628914e-17
+          "max_discrepancy_from_coarea": 0.0
         }
       ],
-      "final_window_discrepancy": 2.7755575615628914e-17,
+      "final_window_discrepancy": 0.0,
       "joint_factorisation_regression": 2.7755575615628914e-17,
       "max_accepted_components": 1,
       "monotone": true
@@ -1143,88 +1143,88 @@
             0.04,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.0005486133202298737
+          "max_discrepancy_from_coarea": 0.0005486133202354249
         },
         {
           "epsilon": [
             0.04,
             0.08
           ],
-          "max_discrepancy_from_coarea": 0.0015612716493834389
+          "max_discrepancy_from_coarea": 0.0015612716493821066
         },
         {
           "epsilon": [
             0.08,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.001130434786462492
+          "max_discrepancy_from_coarea": 0.0011304347864703468
         },
         {
           "epsilon": [
             0.02,
             0.02
           ],
-          "max_discrepancy_from_coarea": 0.0001380558518057906
+          "max_discrepancy_from_coarea": 0.0001380558517611319
         },
         {
           "epsilon": [
             0.02,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.0004008751240947295
+          "max_discrepancy_from_coarea": 0.0004008751240645869
         },
         {
           "epsilon": [
             0.04,
             0.02
           ],
-          "max_discrepancy_from_coarea": 0.0002860231323007778
+          "max_discrepancy_from_coarea": 0.000286023132291896
         },
         {
           "epsilon": [
             0.01,
             0.01
           ],
-          "max_discrepancy_from_coarea": 3.457113669552703e-05
+          "max_discrepancy_from_coarea": 3.457113671551104e-05
         },
         {
           "epsilon": [
             0.01,
             0.02
           ],
-          "max_discrepancy_from_coarea": 0.00010091779786361443
+          "max_discrepancy_from_coarea": 0.00010091779788456989
         },
         {
           "epsilon": [
             0.02,
             0.01
           ],
-          "max_discrepancy_from_coarea": 7.172370225283498e-05
+          "max_discrepancy_from_coarea": 7.172370220734359e-05
         },
         {
           "epsilon": [
             0.005,
             0.005
           ],
-          "max_discrepancy_from_coarea": 8.64636972611188e-06
+          "max_discrepancy_from_coarea": 8.646369577508528e-06
         },
         {
           "epsilon": [
             0.005,
             0.01
           ],
-          "max_discrepancy_from_coarea": 2.527379850997269e-05
+          "max_discrepancy_from_coarea": 2.5273798106489886e-05
         },
         {
           "epsilon": [
             0.01,
             0.005
           ],
-          "max_discrepancy_from_coarea": 1.7944617967058374e-05
+          "max_discrepancy_from_coarea": 1.7944618241894084e-05
         }
       ],
-      "final_window_discrepancy": 2.527379850997269e-05,
-      "joint_factorisation_regression": 2.7755575615628914e-17,
+      "final_window_discrepancy": 2.5273798106489886e-05,
+      "joint_factorisation_regression": 5.551115123125783e-17,
       "max_accepted_components": 1,
       "monotone": true
     },
@@ -1240,87 +1240,87 @@
             0.04,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.000548613320229846
+          "max_discrepancy_from_coarea": 0.0005486133202352861
         },
         {
           "epsilon": [
             0.04,
             0.08
           ],
-          "max_discrepancy_from_coarea": 0.0015612716493834111
+          "max_discrepancy_from_coarea": 0.0015612716493819678
         },
         {
           "epsilon": [
             0.08,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.001130434786462492
+          "max_discrepancy_from_coarea": 0.001130434786470208
         },
         {
           "epsilon": [
             0.02,
             0.02
           ],
-          "max_discrepancy_from_coarea": 0.00013805585180576285
+          "max_discrepancy_from_coarea": 0.00013805585176110413
         },
         {
           "epsilon": [
             0.02,
             0.04
           ],
-          "max_discrepancy_from_coarea": 0.0004008751240947295
+          "max_discrepancy_from_coarea": 0.0004008751240644204
         },
         {
           "epsilon": [
             0.04,
             0.02
           ],
-          "max_discrepancy_from_coarea": 0.0002860231323007223
+          "max_discrepancy_from_coarea": 0.00028602313229186827
         },
         {
           "epsilon": [
             0.01,
             0.01
           ],
-          "max_discrepancy_from_coarea": 3.457113669549927e-05
+          "max_discrepancy_from_coarea": 3.4571136715483286e-05
         },
         {
           "epsilon": [
             0.01,
             0.02
           ],
-          "max_discrepancy_from_coarea": 0.00010091779786361443
+          "max_discrepancy_from_coarea": 0.00010091779788454214
         },
         {
           "epsilon": [
             0.02,
             0.01
           ],
-          "max_discrepancy_from_coarea": 7.172370225280722e-05
+          "max_discrepancy_from_coarea": 7.172370220731583e-05
         },
         {
           "epsilon": [
             0.005,
             0.005
           ],
-          "max_discrepancy_from_coarea": 8.64636972611188e-06
+          "max_discrepancy_from_coarea": 8.646369577480773e-06
         },
         {
           "epsilon": [
             0.005,
             0.01
           ],
-          "max_discrepancy_from_coarea": 2.5273798509944934e-05
+          "max_discrepancy_from_coarea": 2.527379810646213e-05
         },
         {
           "epsilon": [
             0.01,
             0.005
           ],
-          "max_discrepancy_from_coarea": 1.7944617967030618e-05
+          "max_discrepancy_from_coarea": 1.7944618241866328e-05
         }
       ],
-      "final_window_discrepancy": 2.5273798509944934e-05,
+      "final_window_discrepancy": 2.527379810646213e-05,
       "joint_factorisation_regression": 5.551115123125783e-17,
       "max_accepted_components": 1,
       "monotone": true
@@ -2706,7 +2706,7 @@
         "rule": "theta additive for loops based at a common x",
         "applies_to_disconnected_pairs": true,
         "supplies_joint_weight_rule": false,
-        "reason": "on the closure locus theta_i lie in pi Z, so the reduced holonomies are central and compose exactly -- but what that composition delivers is theta_1 + theta_2 in pi Z, the rank-one condition the freeze forbids as a substitute for the two independent conditions"
+        "reason": "on the closure locus theta_i lie in pi Z, so the reduced holonomies are central and compose exactly; the composed condition is rank TWO and reproduces the two independent conditions, consistent with Gamma_1 x Gamma_2 (N27). But a closure condition is not a weight, and the common quaternion frame it needs is assumed, not derived"
       },
       {
         "module": "geometrodynamics/bulk/closure_current.py",
@@ -2794,10 +2794,112 @@
         }
       ],
       "windows_respect_bound": true,
-      "off_closure_control_commutator": 1.9906196424275429,
+      "off_closure_control_commutator": 1.9885109221907105,
       "off_closure_control_is_not_evidence": true,
       "common_frame_transport_derived": false,
-      "composition_on_closure_is_rank_one": true
+      "composed_holonomy": {
+        "rows": [
+          {
+            "gamma": [
+              1.5707963267948966,
+              1.5707963267948966
+            ],
+            "psi": [
+              0.7853981633974483,
+              0.7853981633974483
+            ],
+            "D": [
+              2.0,
+              2.0
+            ],
+            "axis_dot": -0.9323273456060344,
+            "analytic_residual": 1.66644475996236e-13,
+            "singular_values": [
+              1.3900817765892013,
+              0.2601396824668298
+            ],
+            "rank": 2,
+            "normal_singular_values": [
+              0.6950408882946006,
+              0.1300698412334149
+            ],
+            "opposite_phase_vec_norm": 0.5559053206792475
+          },
+          {
+            "gamma": [
+              1.0,
+              1.3
+            ],
+            "psi": [
+              0.6,
+              2.1
+            ],
+            "D": [
+              1.2510716375464674,
+              0.4636992193594902
+            ],
+            "axis_dot": -0.2863144707325197,
+            "analytic_residual": 1.6575629757653587e-13,
+            "singular_values": [
+              1.1341580448650406,
+              0.8447991058631884
+            ],
+            "rank": 2,
+            "normal_singular_values": [
+              2.087820823353153,
+              0.6414050067399772
+            ],
+            "opposite_phase_vec_norm": 0.46049299690895856
+          },
+          {
+            "gamma": [
+              0.7,
+              2.4
+            ],
+            "psi": [
+              2.9,
+              1.15
+            ],
+            "D": [
+              -0.4307210392060137,
+              0.5586434680801671
+            ],
+            "axis_dot": 0.7896139119659461,
+            "analytic_residual": 1.383337888682945e-13,
+            "singular_values": [
+              1.3377645203717095,
+              0.4586786326328966
+            ],
+            "rank": 2,
+            "normal_singular_values": [
+              1.8245867935980185,
+              0.608173047394726
+            ],
+            "opposite_phase_vec_norm": 0.19081239999377564
+          }
+        ],
+        "reviewed_configuration": {
+          "t": [
+            1.0,
+            1.0
+          ],
+          "D": [
+            2.0,
+            2.0
+          ],
+          "axis_dot": -2.2204460492503128e-16,
+          "normal_singular_values": [
+            0.49999999999991646,
+            0.4999999999999167
+          ],
+          "rank": 2
+        },
+        "min_rank": 2,
+        "max_analytic_residual": 1.66644475996236e-13,
+        "min_opposite_phase_vec_norm": 0.19081239999377564,
+        "rank_one_claim_withdrawn": true
+      },
+      "supplies_a_closure_condition_not_a_weight": true
     },
     "any_module_supplies_joint_weight_rule": false,
     "search_scope": "the five modules named in the freeze's Q2, at the pinned baseline; not an exhaustive search of BAM"
@@ -2818,7 +2920,8 @@
     "Q3 same signed product separates the cubic weight": true,
     "Q3 same absolute product, opposite sign separates the cubic": true,
     "Q2 the generic closure rule is rank one on a union": true,
-    "Q2 on-closure holonomies are central, so composition is rank one": true
+    "Q2 on-closure holonomies are central and the window bound holds": true,
+    "Q2 the composed-holonomy condition is rank two, not rank one": true
   },
   "structural_regressions": {
     "product marginals (structural)": true,

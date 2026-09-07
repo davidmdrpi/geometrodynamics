@@ -69,11 +69,23 @@ points the freeze excludes. There
 
     |dD/dpsi| = sqrt(2t) |sin psi_0| = sqrt(t(2-t)) = |q|
 
-**identically**, so the arc with `|D|/|q| < eta` is exactly `|psi - psi_0| < eta`
-and its coarea mass is exactly `eta^2` per puncture, independent of the
-settings. Measured against that law the relative error is `3.3e-05` at
-`eta = 0.02` and falls as `eta`; the excluded joint fraction, by
-inclusion–exclusion over the two factors, stays below `2.5e-04`.
+**identically**. That derivative identity is exact. It does **not** make the
+registered domain `|D|/|q| < eta` equal to `|psi - psi_0| < eta` — they agree
+only to leading order — so the excised mass is `2 eta^2` *asymptotically* and
+not exactly. The correct two-puncture expansion is
+
+    M_eta = 2 eta^2 + (1+t)/(2-t) eta^4 + O(eta^6),
+
+derived by inverting `D = -|q| phi + t phi^2/2 + |q| phi^3/6 + O(phi^4)` at a
+puncture. `D` has the elementary primitive `F = t psi + sqrt(2t) sin psi` and a
+single sign on each side, so the mass is evaluated exactly rather than by
+quadrature; the result agrees with independent `D`-domain integration to
+`9.8e-15`. Across all 28 sector cases the residual against the two-term law
+scales as `eta^6` with the ratio constant to better than `2x`, the worst
+relative residual is `2.5e-04`, and the quartic term improves on the leading
+term by at least `39x`. The leading `2 eta^2` is settings-independent; the
+quartic coefficient is not, and diverges as `t -> 2`. The excluded joint
+fraction, by inclusion–exclusion over the two factors, stays below `2.5e-04`.
 
 ### Finite windows reach the same limit
 
@@ -122,25 +134,43 @@ the module's own default `sigma = 0.6` the worst attainable mismatch `pi/2`
 still scores weight `0.0325 > 0.01`, so the phase gate cannot reject **any**
 history on phase alone.
 
-**The one composition rule the repository has is the rank-one rule.**
-`history_action.py` proves `theta[g1 . g2] = theta[g1] + theta[g2]` for loops
-based at the same `x` (residual `4.4e-16`). On the closure locus that theorem
-is *available*, not blocked: `theta_i in pi Z` there, so each reduced holonomy
-`cos theta + sin theta x` is `+-1` — central — and the two commute exactly
-(commutator `3.0e-31`). Inside finite windows of half-width `epsilon_i` the
-commutator obeys `2 sin(epsilon_1) sin(epsilon_2)`, verified at four width
-pairs. So composition on the closure locus is available and delivers precisely
-`theta_1 + theta_2 in pi Z` — the rank-one condition the freeze forbids as a
-substitute for the two independent conditions. **The repository's composition
-rule is the wrong one, not an unavailable one.** Generic `SU(2)`
-non-commutativity (`1.99`) is retained only as a labelled off-closure control;
-it also assumes a common quaternion frame, and the freeze forbids treating that
-as physical without deriving the transport identification, which is not done.
+**Composition on the closure locus is available, and it gives the *right*
+condition — but only a condition.** `history_action.py` proves
+`theta[g1 . g2] = theta[g1] + theta[g2]` for loops based at the same `x`
+(residual `4.4e-16`). On the closure locus that theorem is not blocked:
+`theta_i in pi Z` there, so each reduced holonomy `cos theta + sin theta x` is
+`+-1` — central — and the two commute exactly (commutator `3.0e-31`). Inside
+finite windows of half-width `epsilon_i` the commutator obeys
+`2 sin(epsilon_1) sin(epsilon_2)`, verified at four width pairs.
+
+Centrality does **not** propagate to a rank-one joint condition. Writing
+`G_i = cos theta_i + sin theta_i x_i` and differentiating the product at a
+closed configuration (`s_i = 0`, `c_i = +-1`) gives
+
+    d vec(G_1 G_2) = c_1 c_2 (x_1 d theta_1 + x_2 d theta_2),
+
+which has **rank two** whenever the closure axes are non-parallel — measured
+rank `2` in every tested configuration, matching the analytic form to
+`1.7e-13`. In the reviewed configuration (both triangles at `t = 1`, `D = 2`,
+orthogonal axes) the normal Jacobian has singular values `0.5, 0.5`. Opposite
+small phases therefore do **not** cancel in the matrix product: at
+`theta_1 = +0.3`, `theta_2 = -0.3` the vector part has norm `0.19` to `0.56`
+across the tested configurations.
+
+So the composed-holonomy condition reproduces the two independent conditions,
+consistent with the reference locus `Gamma_1 x Gamma_2`. **The rank-one defect
+is specific to `history/closure.py`'s explicit scalar sum of phases and does
+not transfer to the holonomy product.** What remains for Q2 is narrower and
+still decisive: the holonomy route supplies a joint *closure condition*, not a
+joint *weight*, and it assumes a common quaternion frame whose transport
+identification the freeze requires and this round does not derive. Generic
+`SU(2)` non-commutativity (`1.99`) is retained only as a labelled off-closure
+control.
 
 | module | applies to disconnected pairs | supplies a joint weight rule |
 |---|---|---|
 | `history/closure.py` | yes | no — rank-one summed rule |
-| `bulk/history_action.py` | yes, on the closure locus | no — it delivers only the rank-one condition |
+| `bulk/history_action.py` | yes, on the closure locus | no — a rank-two closure condition, not a weight; common frame assumed |
 | `bulk/closure_current.py` | no | no — single-pair measures only |
 | `transaction/network.py` | no | no — presupposes a throat connection |
 | `transaction/derived_network.py` | no | no — same connected loop |
@@ -172,8 +202,8 @@ completion can supply such a rule.**
 ## Reproduce
 
 ```bash
-python -m experiments.closure_ledger.joint_closure_probe   # 16 required checks
-python -m pytest -q tests/test_joint_closure.py             # 44 tests
+python -m experiments.closure_ledger.joint_closure_probe   # 17 required checks
+python -m pytest -q tests/test_joint_closure.py             # 49 tests
 ```
 
 ## Review corrections
@@ -195,14 +225,14 @@ factor. The vanishing-mass conclusion is unaffected.
 
 **N24 — the non-commutativity result sampled off the closure locus.** The first
 version drew arbitrary holonomy angles in `[-2,2]` and reported the resulting
-commutator norm `1.94` as the obstruction. On `Gamma_1 x Gamma_2` the reduced
+commutator norm as the obstruction. On `Gamma_1 x Gamma_2` the reduced
 holonomies are central and commute exactly, so that figure says nothing about
 conditioned triangles, and within finite windows the commutator is bounded by
 `2 sin(epsilon_1) sin(epsilon_2)`. The generic calculation is demoted to an
 explicitly off-closure control with its common-frame assumption flagged, and
 the on-closure central-holonomy check and window bound replace it in the Q2
-gate. The revised statement is **stronger**: composition is available and is
-rank one, rather than unavailable.
+gate. *The replacement conclusion drawn at the time was itself wrong; see
+N27.*
 
 **N25 — pole clipping could count rejected points as accepted.** The window
 solver assumed that reaching the pole meant the whole intervening interval was
@@ -222,3 +252,43 @@ CLI end to end through rendering, archival and a nonzero exit.
 
 Archived report:
 [`runs/20260907_joint_closure_probe`](../experiments/closure_ledger/runs/20260907_joint_closure_probe/probe.md).
+
+
+**N27 — centrality does not imply a rank-one joint condition.** The N24 fix
+over-corrected, claiming that centrality on the closure locus "delivers
+precisely `theta_1 + theta_2 in pi Z`". **Withdrawn.** Centrality establishes
+commutation *on* closure, not its continuation away from closure. The
+differential of the composed holonomy at a closed configuration is
+`c_1 c_2 (x_1 d theta_1 + x_2 d theta_2)`, of rank two for non-parallel axes;
+in the reviewed configuration the normal Jacobian has singular values
+`0.5, 0.5`, and opposite small phases do not cancel. The composed-holonomy
+condition is therefore the *correct* rank-two condition, consistent with
+`Gamma_1 x Gamma_2`. The rank-one defect belongs to `history/closure.py`'s
+explicit scalar sum alone. The hardcoded `composition_on_closure_is_rank_one`
+verdict field is removed and replaced by a measured rank check. Centrality and
+the underived common-frame transport are retained as separate facts, and Q2's
+conclusion is unchanged: the holonomy route gives a closure condition, not a
+weight.
+
+**N28 — the window solver still missed narrow excluded intervals.** The N25 fix
+used a 257-point scan, which only finds gaps containing a sample point. At
+`gamma = 0.1`, sector `(+,-)`, `psi = 2.613587734905`,
+`epsilon = 0.099365561552` it returned `(2.0, 1)`; the correct slice measure is
+`1.997544152` with the excluded interval `(0.501339412, 0.502567336)`. The
+boundary is now solved in closed form: with `y = sqrt(1-z^2)`,
+`A = sqrt(2t) cos psi` and `k = tan eps`,
+
+    (q^2 + k^2 A^2) y^2 + 2 k^2 t A y + (k^2 t^2 - q^2) = 0,
+
+with no spurious roots because both sides of `|z||q| = |D| k` are nonnegative
+before squaring. A numerically stable quadratic is required — the two roots
+differ by about `7e-4` here — and the result agrees with a 50-digit
+computation to `3e-12`. The frozen grid is unaffected: its
+`min |q|/t = 0.1768` exceeds `max tan(epsilon) = 0.0802`, which guarantees a
+single interval on the positive half.
+
+**N29 — the off-closure control did not compute a commutator.** It drew a fresh
+axis in each of the four slots, evaluating `G_1 G_2 - G_3 G_4` rather than
+`[G_1, G_2]`, so the archived `1.94` was mislabelled. Two holonomies are now
+drawn once and reused in reversed order, giving `1.99`. The quantity is a
+labelled off-closure control either way and is not evidence.

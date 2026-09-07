@@ -52,7 +52,8 @@ Search scope: the five modules named in the freeze's Q2, at the pinned baseline;
 | Q3 same signed product separates the cubic weight | True |
 | Q3 same absolute product, opposite sign separates the cubic | True |
 | Q2 the generic closure rule is rank one on a union | True |
-| Q2 on-closure holonomies are central, so composition is rank one | True |
+| Q2 on-closure holonomies are central and the window bound holds | True |
+| Q2 the composed-holonomy condition is rank two, not rank one | True |
 
 Structural regressions (guaranteed by the product construction; not independent evidence):
 
@@ -62,6 +63,6 @@ Structural regressions (guaranteed by the product construction; not independent 
 - joint Gram off-diagonal (structural): True
 - copy exchange (structural): True
 
-Passed 16/16 required checks.
+Passed 17/17 required checks.
 
 No `Phi` is selected, no Born rule is derived and no operational source-local readout is constructed.

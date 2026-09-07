@@ -113,11 +113,19 @@ def run_probe(progress=lambda s: None):
             and controls["absolute_product"]["cubic_gap"] > 1e-6,
         "Q2 the generic closure rule is rank one on a union":
             bool(audit["rank_one_demonstration"]["rank_one_cancellation_demonstrated"]),
-        "Q2 on-closure holonomies are central, so composition is rank one":
+        "Q2 on-closure holonomies are central and the window bound holds":
             audit["based_loop_scope"]["same_base_additivity_residual"] < 1e-12
             and audit["based_loop_scope"]["on_closure_commutator"] < 1e-20
             and audit["based_loop_scope"]["on_closure_holonomy_is_central"] < 1e-12
             and audit["based_loop_scope"]["windows_respect_bound"],
+        "Q2 the composed-holonomy condition is rank two, not rank one":
+            audit["based_loop_scope"]["composed_holonomy"]["min_rank"] == 2
+            and audit["based_loop_scope"]["composed_holonomy"][
+                "max_analytic_residual"] < 1e-9
+            and audit["based_loop_scope"]["composed_holonomy"][
+                "min_opposite_phase_vec_norm"] > 1e-3
+            and audit["based_loop_scope"]["composed_holonomy"][
+                "reviewed_configuration"]["rank"] == 2,
     }
     regressions = {
         "product marginals (structural)": max(

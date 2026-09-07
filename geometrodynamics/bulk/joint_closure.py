@@ -284,36 +284,43 @@ def three_factor_associativity(a1, b1, a2, b2) -> float:
     return worst
 
 
-def _negative_set_measure(g, lo: float, hi: float, nodes: int = 257
-                          ) -> Tuple[float, int]:
-    """Measure of ``{g < 0}`` on ``[lo, hi]``, plus the number of components.
+def window_boundary_z(tri: Triangle, psi: float, epsilon: float) -> List[float]:
+    """Exact interior boundary of the accepted ``z`` set at fixed ``psi``.
 
-    Correction N25. The first implementation assumed that if ``g`` was
-    negative at both ends the whole interval was accepted. The accepted set
-    can be disconnected -- at ``gamma = 0.1``, sector ``(+,-)``, ``psi = pi``,
-    ``epsilon = 0.1`` it is a neighbourhood of ``z = 0`` together with one of
-    ``z = 1``, and the excluded middle was being counted.
+    Correction N28. A sampled scan only finds gaps containing a sample point,
+    and it missed one: at ``gamma = 0.1``, sector ``(+,-)``,
+    ``psi = 2.613587734905``, ``epsilon = 0.099365561552`` the excluded
+    interval is ``(0.50133941, 0.50256734)``, narrower than any grid step.
+
+    With ``y = sqrt(1 - z^2)``, ``A = sqrt(2t) cos psi`` and ``k = tan eps``,
+    the boundary ``|z||q| = |D| k`` squares to
+
+        (q^2 + k^2 A^2) y^2 + 2 k^2 t A y + (k^2 t^2 - q^2) = 0,
+
+    with no spurious roots, because both sides are nonnegative before
+    squaring. The accepted set is therefore delimited by the admissible roots
+    alone and needs no sampling.
     """
-    zs = np.linspace(lo, hi, nodes)
-    vals = np.array([g(float(z)) for z in zs])
-    negative = vals < 0.0
-    total, components = 0.0, 0
-    i = 0
-    while i < nodes:
-        if not negative[i]:
-            i += 1
-            continue
-        j = i
-        while j + 1 < nodes and negative[j + 1]:
-            j += 1
-        left = zs[i] if i == 0 else brentq(g, zs[i - 1], zs[i],
-                                           xtol=1e-14, rtol=8.9e-16)
-        right = zs[j] if j == nodes - 1 else brentq(g, zs[j], zs[j + 1],
-                                                    xtol=1e-14, rtol=8.9e-16)
-        total += right - left
-        components += 1
-        i = j + 1
-    return total, components
+    qn = float(np.linalg.norm(tri.q))
+    A = math.sqrt(2.0 * tri.t) * math.cos(psi)
+    k = math.tan(epsilon)
+    a = qn * qn + k * k * A * A
+    b = 2.0 * k * k * tri.t * A
+    c = k * k * tri.t * tri.t - qn * qn
+    if a == 0.0:
+        return []
+    disc = b * b - 4.0 * a * c
+    if disc < 0.0:
+        return []
+    # The two roots can be very close (about 7e-4 apart in the counterexample
+    # above), so use the stable form rather than the cancelling one.
+    sqrt_disc = math.sqrt(disc)
+    helper = -0.5 * (b + math.copysign(sqrt_disc, b if b != 0.0 else 1.0))
+    ys = {helper / a}
+    if helper != 0.0:
+        ys.add(c / helper)
+    zs = sorted({math.sqrt(max(0.0, 1.0 - y * y)) for y in ys if 0.0 <= y <= 1.0})
+    return [z for z in zs if 0.0 < z < 1.0]
 
 
 def window_slice(tri: Triangle, psi: float, epsilon: float) -> Tuple[float, int]:
@@ -322,16 +329,28 @@ def window_slice(tri: Triangle, psi: float, epsilon: float) -> Tuple[float, int]
     Coordinates ``x = sqrt(1-z^2) r(psi) + z qhat`` with area element
     ``dpsi dz``, so ``N = z|q|`` and
     ``D = t + sqrt(1-z^2) sqrt(2t) cos psi``. ``dist(theta, pi Z) < epsilon``
-    is exactly ``|N| < |D| tan(epsilon)``; the inequality is solved directly
-    and the limiting coarea density is never inserted as an integrand.
+    is exactly ``|N| < |D| tan(epsilon)``; the inequality is solved in closed
+    form and the limiting coarea density is never inserted as an integrand.
     ``g`` is even in ``z``, so the measure on ``[0, 1]`` is doubled.
     """
-    Aq = float(np.linalg.norm(tri.q))
-    root = math.sqrt(2.0 * tri.t) * math.cos(psi)
-    tan_e = math.tan(epsilon)
-    g = lambda z: Aq * z - abs(tri.t + math.sqrt(max(1.0 - z * z, 0.0)) * root) * tan_e
-    measure, components = _negative_set_measure(g, 0.0, 1.0)
-    return 2.0 * measure, components
+    qn = float(np.linalg.norm(tri.q))
+    A = math.sqrt(2.0 * tri.t) * math.cos(psi)
+    k = math.tan(epsilon)
+    accepted = lambda z: (qn * abs(z)
+                          < abs(tri.t + math.sqrt(max(0.0, 1.0 - z * z)) * A) * k)
+    edges = [0.0] + window_boundary_z(tri, psi, epsilon) + [1.0]
+    total, components, previous = 0.0, 0, False
+    for lo, hi in zip(edges[:-1], edges[1:]):
+        if hi <= lo:
+            continue
+        if accepted(0.5 * (lo + hi)):
+            total += hi - lo
+            if not previous:
+                components += 1
+            previous = True
+        else:
+            previous = False
+    return 2.0 * total, components
 
 
 def finite_window_mass(tri: Triangle, epsilon: float) -> Tuple[float, int]:
@@ -676,27 +695,126 @@ def _quaternion_multiply(g: np.ndarray, h: np.ndarray) -> np.ndarray:
                            g[0] * h[1:] + h[0] * g[1:] + np.cross(g[1:], h[1:])))
 
 
+def composed_holonomy_rank(pairs=None) -> Dict[str, object]:
+    """Rank of the composed-holonomy closure condition at a closed point.
+
+    Correction N27. The previous version claimed that centrality on the
+    closure locus "delivers precisely ``theta_1 + theta_2 in pi Z``". That is
+    **withdrawn**: centrality establishes commutation *on* closure, not the
+    continuation away from it. Writing ``G_i = cos theta_i + sin theta_i x_i``
+    and differentiating the product at a closed configuration
+    (``s_i = 0``, ``c_i = +-1``) gives
+
+        d vec(G_1 G_2) = c_1 c_2 (x_1 d theta_1 + x_2 d theta_2),
+
+    which has **rank two** whenever ``x_1`` and ``x_2`` are non-parallel. So
+    the composed-holonomy condition reproduces the two independent conditions
+    -- consistent with the reference locus ``Gamma_1 x Gamma_2`` of section 2 --
+    and opposite small phases do **not** cancel in the matrix product.
+
+    The rank-one defect is therefore specific to ``history/closure.py``'s
+    explicit scalar sum of phases and does not transfer to the holonomy
+    product. Both facts are measured below.
+    """
+    if pairs is None:
+        # The first row realises D1 = D2 = 2 at t1 = t2 = 1; the rest are
+        # arbitrary regular points, specified by arclength so that every
+        # value is attainable by construction.
+        quarter = math.pi / 4
+        pairs = ((math.pi / 2, quarter, math.pi / 2, quarter),
+                 (1.0, 0.6, 1.3, 2.1), (0.7, 2.9, 2.4, 1.15))
+    rows = []
+    for gamma1, psi1, gamma2, psi2 in pairs:
+        tri1 = Triangle((0.0, 0.0, 1.0),
+                        (math.sin(gamma1), 0.0, math.cos(gamma1)), 1, 1)
+        tri2 = Triangle(tuple(ROTATION_PAIR2 @ np.array([0.0, 0.0, 1.0])),
+                        tuple(ROTATION_PAIR2 @ np.array(
+                            [math.sin(gamma2), 0.0, math.cos(gamma2)])), 1, -1)
+        x1, x2 = tri1.circle_point(psi1), tri2.circle_point(psi2)
+        D1 = tri1.invariants(x1)[1]
+        D2 = tri2.invariants(x2)[1]
+        if min(abs(D1), abs(D2)) < 1e-3:
+            raise ValueError("composed-holonomy rank needs regular points")
+        step = 1e-6
+        jac = np.zeros((3, 2))
+        for j, (d1, d2) in enumerate(((step, 0.0), (0.0, step))):
+            plus = _quaternion_multiply(
+                np.concatenate(([math.cos(d1)], math.sin(d1) * x1)),
+                np.concatenate(([math.cos(d2)], math.sin(d2) * x2)))
+            minus = _quaternion_multiply(
+                np.concatenate(([math.cos(-d1)], math.sin(-d1) * x1)),
+                np.concatenate(([math.cos(-d2)], math.sin(-d2) * x2)))
+            jac[:, j] = (plus[1:] - minus[1:]) / (2.0 * step)
+        analytic = np.stack([x1, x2], axis=1)
+        sv = np.linalg.svd(jac, compute_uv=False)
+        gt1 = float(np.linalg.norm(tri1.q)) / abs(tri1.invariants(x1)[1])
+        gt2 = float(np.linalg.norm(tri2.q)) / abs(tri2.invariants(x2)[1])
+        normal_sv = np.linalg.svd(jac @ np.diag([gt1, gt2]), compute_uv=False)
+        # opposite small phases: do they cancel in the product?
+        delta = 0.3
+        opposite = _quaternion_multiply(
+            np.concatenate(([math.cos(delta)], math.sin(delta) * x1)),
+            np.concatenate(([math.cos(-delta)], math.sin(-delta) * x2)))
+        rows.append({"gamma": [gamma1, gamma2], "psi": [psi1, psi2],
+                     "D": [D1, D2],
+                     "axis_dot": float(x1 @ x2),
+                     "analytic_residual": float(np.max(np.abs(jac - analytic))),
+                     "singular_values": [float(v) for v in sv],
+                     "rank": int(np.linalg.matrix_rank(jac, tol=1e-9)),
+                     "normal_singular_values": [float(v) for v in normal_sv],
+                     "opposite_phase_vec_norm": float(np.linalg.norm(opposite[1:]))})
+    # The reviewed configuration: both triangles unrotated at t = 1 with
+    # D = 2, where the two closure axes are orthogonal and the normal
+    # Jacobian has singular values 0.5, 0.5.
+    flat = Triangle((0.0, 0.0, 1.0), (1.0, 0.0, 0.0), 1, 1)
+    quarter = _psi_for_D(flat.t, 2.0)
+    y1, y2 = flat.circle_point(quarter), flat.circle_point(-quarter)
+    step = 1e-6
+    jac = np.zeros((3, 2))
+    for j, (d1, d2) in enumerate(((step, 0.0), (0.0, step))):
+        plus = _quaternion_multiply(
+            np.concatenate(([math.cos(d1)], math.sin(d1) * y1)),
+            np.concatenate(([math.cos(d2)], math.sin(d2) * y2)))
+        minus = _quaternion_multiply(
+            np.concatenate(([math.cos(-d1)], math.sin(-d1) * y1)),
+            np.concatenate(([math.cos(-d2)], math.sin(-d2) * y2)))
+        jac[:, j] = (plus[1:] - minus[1:]) / (2.0 * step)
+    gt = float(np.linalg.norm(flat.q)) / 2.0
+    reviewed = {"t": [flat.t, flat.t], "D": [2.0, 2.0],
+                "axis_dot": float(y1 @ y2),
+                "normal_singular_values": sorted(
+                    float(v) for v in np.linalg.svd(jac * gt, compute_uv=False)),
+                "rank": int(np.linalg.matrix_rank(jac, tol=1e-9))}
+
+    return {"rows": rows, "reviewed_configuration": reviewed,
+            "min_rank": min([r["rank"] for r in rows] + [reviewed["rank"]]),
+            "max_analytic_residual": max(r["analytic_residual"] for r in rows),
+            "min_opposite_phase_vec_norm": min(
+                r["opposite_phase_vec_norm"] for r in rows),
+            "rank_one_claim_withdrawn": True}
+
+
 def based_loop_composition_scope() -> Dict[str, object]:
     """Q2: what the inherited composition theorem gives on the closure locus.
 
-    Correction N24. The first implementation sampled arbitrary holonomy angles
-    and reported their generic ``SU(2)`` non-commutativity as the obstruction.
-    That is an **off-closure** statement and does not apply to conditioned
-    triangles. On ``Gamma_1 x Gamma_2`` we have ``theta_i in pi Z``, so each
-    reduced holonomy ``cos theta + sin theta x`` is ``+-1`` — central — and the
-    two commute exactly. Inside finite windows of half-width ``epsilon_i`` the
-    commutator norm is bounded by ``2 sin(epsilon_1) sin(epsilon_2)``, which
-    vanishes with the windows.
+    Corrections N24 and N27. The first version reported generic ``SU(2)``
+    non-commutativity as the obstruction; that is an **off-closure** statement
+    which does not apply to conditioned triangles, because on
+    ``Gamma_1 x Gamma_2`` we have ``theta_i in pi Z`` and each reduced
+    holonomy is ``+-1`` -- central -- so the two commute exactly. Inside finite
+    windows of half-width ``epsilon_i`` the commutator obeys
+    ``2 sin(epsilon_1) sin(epsilon_2)``.
 
-    The conclusion is therefore **stronger and different**: composition is
-    available on the closure locus, and what it delivers is precisely
-    ``theta_1 + theta_2 in pi Z`` — the rank-one condition the freeze forbids
-    as a substitute for the two independent conditions. The repository's one
-    composition rule is the wrong one, not an unavailable one.
+    The second version then over-corrected, claiming centrality delivers the
+    rank-one condition ``theta_1 + theta_2 in pi Z``. That is withdrawn: see
+    :func:`composed_holonomy_rank`. The composed-holonomy condition is rank
+    two and reproduces the two independent conditions. The rank-one defect
+    belongs to ``history/closure.py``'s explicit scalar sum alone.
 
-    The generic sampling is retained only as a labelled off-closure control.
-    It also assumes a common quaternion frame for the two triangles; the
-    freeze forbids treating that as physical without deriving the transport
+    What remains for Q2 is narrower and still decisive: the holonomy route
+    supplies a joint **closure condition**, not a joint **weight**, and it
+    assumes a common quaternion frame for the two triangles. The freeze
+    forbids treating that as physical without deriving the transport
     identification, and none is derived here.
     """
     rng = np.random.default_rng(SEED)
@@ -704,7 +822,6 @@ def based_loop_composition_scope() -> Dict[str, object]:
     def su2(axis, angle):
         return np.concatenate(([math.cos(angle)], math.sin(angle) * axis))
 
-    # (a) same base point: the inherited additivity theorem, reproduced.
     same_base = 0.0
     for _ in range(400):
         x = _unit(rng.normal(size=3))
@@ -712,7 +829,6 @@ def based_loop_composition_scope() -> Dict[str, object]:
         same_base = max(same_base, abs(
             _quaternion_multiply(su2(x, t1), su2(x, t2))[0] - math.cos(t1 + t2)))
 
-    # (b) ON the closure locus: theta in pi Z, so the holonomies are central.
     on_closure_commutator = on_closure_central = 0.0
     for _ in range(400):
         x1, x2 = _unit(rng.normal(size=3)), _unit(rng.normal(size=3))
@@ -725,7 +841,6 @@ def based_loop_composition_scope() -> Dict[str, object]:
                                      float(np.linalg.norm(G[1:])),
                                      abs(abs(G[0]) - 1.0))
 
-    # (c) finite windows: the commutator obeys 2 sin(e1) sin(e2).
     window_rows = []
     for e1, e2 in ((0.04, 0.04), (0.04, 0.08), (0.08, 0.04), (0.01, 0.01)):
         worst = 0.0
@@ -740,16 +855,15 @@ def based_loop_composition_scope() -> Dict[str, object]:
         window_rows.append({"epsilon": (e1, e2), "max_commutator": worst,
                             "bound_2_sin_sin": bound, "respects_bound": worst <= bound})
 
-    # (d) OFF-CLOSURE CONTROL ONLY. Generic angles, and a common quaternion
-    #     frame that is assumed rather than derived.
+    # Correction N29: the first version drew a fresh axis in each of the four
+    # slots, so it computed G1 G2 - G3 G4 rather than a commutator.
     off_closure = 0.0
     for _ in range(400):
         t1, t2 = rng.uniform(-2.0, 2.0, size=2)
+        H1 = su2(_unit(rng.normal(size=3)), t1)
+        H2 = su2(_unit(rng.normal(size=3)), t2)
         off_closure = max(off_closure, float(np.linalg.norm(
-            _quaternion_multiply(su2(_unit(rng.normal(size=3)), t1),
-                                 su2(_unit(rng.normal(size=3)), t2))
-            - _quaternion_multiply(su2(_unit(rng.normal(size=3)), t2),
-                                   su2(_unit(rng.normal(size=3)), t1)))))
+            _quaternion_multiply(H1, H2) - _quaternion_multiply(H2, H1))))
 
     return {"same_base_additivity_residual": same_base,
             "on_closure_commutator": on_closure_commutator,
@@ -759,7 +873,8 @@ def based_loop_composition_scope() -> Dict[str, object]:
             "off_closure_control_commutator": off_closure,
             "off_closure_control_is_not_evidence": True,
             "common_frame_transport_derived": False,
-            "composition_on_closure_is_rank_one": True}
+            "composed_holonomy": composed_holonomy_rank(),
+            "supplies_a_closure_condition_not_a_weight": True}
 
 
 def repository_joint_rule_audit() -> Dict[str, object]:
@@ -787,10 +902,11 @@ def repository_joint_rule_audit() -> Dict[str, object]:
          "applies_to_disconnected_pairs": True,
          "supplies_joint_weight_rule": False,
          "reason": "on the closure locus theta_i lie in pi Z, so the reduced "
-                   "holonomies are central and compose exactly -- but what "
-                   "that composition delivers is theta_1 + theta_2 in pi Z, "
-                   "the rank-one condition the freeze forbids as a substitute "
-                   "for the two independent conditions"},
+                   "holonomies are central and compose exactly; the composed "
+                   "condition is rank TWO and reproduces the two independent "
+                   "conditions, consistent with Gamma_1 x Gamma_2 (N27). But a "
+                   "closure condition is not a weight, and the common "
+                   "quaternion frame it needs is assumed, not derived"},
         {"module": "geometrodynamics/bulk/closure_current.py",
          "variables": "one triangle's D, |u x v|, Pin branch label",
          "rule": "positive or holonomy-weighted coarea on a single closure set",

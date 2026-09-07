@@ -638,8 +638,11 @@ recorded in the historical list below rather than here.*
    `history/closure.py`'s summed rule is rank one on a union (and at its
    default `σ` cannot reject any history on phase alone), `history_action.py`'s
    additivity theorem *is* available on the closure locus — where `θᵢ ∈ πZ`
-   makes the holonomies central — but delivers only that same rank-one
-   condition, and the transaction modules presuppose a throat. So independent composition selects nothing, the
+   makes the holonomies central — but the composed-holonomy condition is
+   **rank two**, reproducing the two independent conditions rather than the
+   scalar sum, so it yields a joint closure condition and no joint weight
+   (and assumes an underived common frame); the transaction modules
+   presuppose a throat. So independent composition selects nothing, the
    conditional product-scalar obstruction is not invoked, and the missing link
    is now named precisely: a physical rule connecting two prepared histories.
    See `docs/joint_closure.md`.
