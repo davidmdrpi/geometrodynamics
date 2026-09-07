@@ -8,6 +8,13 @@ reaction changes the scalar history and conserves the projected Hamiltonian.
 nonuniform energy and momentum sources for metric equations omitted by the
 TT-only projection. An explicit field configuration certifies that gap.
 
+The [constraint-response follow-up](scalar_tt_constraints.md), frozen after
+the review of `67940cb`, now bounds the linear scalar and longitudinal
+responses on independent CMC slices with zero support perturbations. In that
+problem the inhomogeneous scalar metric response exceeds an all-time upper
+bound on the scalar-induced TT response. This does not yet bound the full
+scalar backreaction or complete the Einstein–matter evolution.
+
 The [public freeze](reciprocal_scalar_tt_prereg.md) was pushed at
 [`d8dc90d`](https://github.com/davidmdrpi/geometrodynamics/commit/d8dc90d6d66e14824c337f96ee93a512dc9ed84f)
 before implementation and numerical results. The baseline is main `22f77a3`,
@@ -257,7 +264,8 @@ has the global scalar harmonic been turned into a localized apparatus.
 |---|---|
 | Reciprocal scalar–TT interaction and projected histories | Derived and checked |
 | Complete scalar multiplet closure under the projected equation | Algebraically invariant |
-| Full Einstein–matter constraint completion | Missing; explicit nonzero omitted source |
+| Conditional linear CMC constraint response | Bounded in the [follow-up](scalar_tt_constraints.md), with zero support perturbations |
+| Full Einstein–matter evolution and constraint propagation | Missing |
 | Physical triangle-history map | Not derived |
 | Local apparatus and early-record law | Not derived |
 | Phi, Born law, canonical preparation | Not derived |
@@ -276,7 +284,8 @@ python -m pytest -q tests/test_reciprocal_scalar_tt.py tests/test_tt_triangle_ro
 
 The [archived report](../experiments/closure_ledger/runs/20260907_reciprocal_scalar_tt/probe.md)
 links its full JSON companion through the same directory. It records the
-frozen data, checks, histories, and separate physical verdicts. The unchanged
-freeze is the parent of the implementation; no acceptance thresholds were
-changed. This PR adds a module and evidence, and leaves prior field solvers
-and #288's files unchanged.
+frozen data, checks, histories, and separate physical verdicts. The original
+unchanged freeze is the parent of the original implementation; the separately
+frozen constraint follow-up preserves its archive and acceptance thresholds.
+This PR adds modules and evidence, and leaves prior field solvers and #288's
+files unchanged.

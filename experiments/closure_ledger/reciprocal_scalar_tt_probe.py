@@ -107,11 +107,13 @@ def constraint_certificate(model):
     jets, _ = rt.scalar_jets(model, q, p, -model.omega_scalar2*q, points)
     rho = stress_series(jets)[:, 0, 0, 0]
     predicted = 44*.2**2/model.volume
+    from geometrodynamics.waves.scalar_tt_constraints import homogeneous_tt_constraint_certificate
+    tt = homogeneous_tt_constraint_certificate()
     return {"north_energy_density": float(rho[0]), "transverse_energy_density": float(rho[1]),
             "predicted_contrast_44_amplitude2_over_volume": predicted,
             "certificate_error": float(abs(rho[0]-rho[1]-predicted)),
-            "linear_homogeneous_TT_delta_G00": 0.,
-            "linear_homogeneous_TT_delta_G0i": 0.,
+            "linear_homogeneous_TT_delta_G00": tt["delta_G00"],
+            "linear_homogeneous_TT_delta_G0i": tt["delta_G0i_max_absolute"],
             "scope": "omitted constraints of this TT-only ansatz; additional metric/support response is open"}
 
 
