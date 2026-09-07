@@ -212,6 +212,22 @@ is also a function of the pair. Report the smallest demonstrated reduction
 and what rule it describes. If it factors through `|D1 D2|`, record that
 additional loss of sign information explicitly.
 
+For the reference rule, `PRODUCT_STATISTIC_SUFFICIENT` is already known
+before implementation, with the stronger factorization through `|D1 D2|`.
+Mathematically, a function of the absolute product is also a function of
+the signed product: write `h(p)=|p|/(|q1||q2|)`. The gap is therefore not
+a failure of signed-product sufficiency for the reference density. It is
+the unsupported transfer of that fact to a different weight or to a
+universal family of weights in P3.
+
+In particular, the cubic is not even:
+`Phi(d)-Phi(-d)=-2d^3/5`. At `t1=t2=1`, the histories with
+`(D1,D2)=(1/4,1)` and `(-1/4,1)` are both regular and have the same absolute
+product but different cubic product weights. Together with the existing
+same-signed-product control in Q3, this is an analytic distinction already
+known before implementation. Absolute-product sufficiency of the reference
+measure supplies no universal sufficiency theorem for those other weights.
+
 A reduction of **one reference density** is distinct from a statistic
 sufficient for a **family of allowed weights or measurements**. For the
 latter, every member must factor through the proposed map, with a physical
@@ -308,7 +324,7 @@ hypotheses, particularly universal reuse of `Phi` on a composite scalar.
 These settings are fixed before running any round-10 numerical experiment.
 They check analytic statements; none is a numerical Born-rule search.
 
-- Use dimensionless unit spheres and all 16 sectors. Seed `20260907` for
+- Use dimensionless unit spheres and all 16 sectors. Seed `2026090710` for
   reproducible auxiliary samples. Canonical pair 1 is `a1=e_z`,
   `b1=(sin(gamma1),0,cos(gamma1))`. Pair 2 has the same form rotated by
   `R=I` or `R=R_x(0.61) R_z(0.37)` (active right-handed rotations).
@@ -371,8 +387,35 @@ weight selection:
    with an explicit ledger for all P3 hypotheses; distinguish any merely
    assumed hypotheses from ones established for BAM.
 
-The expected reference result is already stated in section 2. No outcome
-for the existence or sufficiency of an inherited connected rule is predicted.
+The expected reference result is already stated in section 2. The working
+expectation for Q2 is that no inherited rule will be found that maps the
+two disconnected triangle preparations into a further physically specified
+joint weight. The transport/network machinery may instead presuppose a
+connection. This is a pre-implementation expectation, subject to contrary
+repository evidence, not a result or a reason to omit a candidate.
+
+If the audit supports that expectation and the reference checks pass,
+report `INDEPENDENT_PHASE_PRODUCT_VERIFIED`,
+`PRODUCT_STATISTIC_SUFFICIENT` for the reference rule (specifically through
+the absolute product), and `JOINT_WEIGHT_RULE_UNSPECIFIED` for the missing
+additional physical rule. The consequence of independent composition alone
+remains `NO_SELECTION_FROM_INDEPENDENCE`.
+
+That outcome is informative: it identifies the precise missing classical
+map or response, and which existing modules fail to supply it, while
+establishing the conditional joint reference measure. State the negative
+finding within the documented search scope; absence from the inspected
+machinery is not a theorem that no BAM completion can supply such a rule.
+
+It also does not establish P3's hypothesis 1 for every admissible weight.
+For the reference density that hypothesis already holds in section 2;
+the negative audit adds no universal quantifier. The factorwise cubic
+construction in P1 remains an admissible extension, though not a derived
+physical preparation. Do not reduce P3's remaining assumptions to "only
+universal reuse of Phi" unless the physical completeness of the allowed
+rule family, the composite-scalar identification and the domain/regularity
+hypotheses have each been accounted for explicitly.
+
 A missing rule is an informative repository gap, not a universal no-go.
 Finding an extra invariant also does not automatically exclude all cubic
 or power-law factors inside a richer model; it invalidates their claimed
@@ -404,3 +447,16 @@ Prior sources: [round 8 conditioning](conditioning_variable.md),
 [round 7 readout audit](history_action.md),
 [conditional equilibrium](closure_equilibrium.md), and
 [the existing-field TT obstruction](tt_triangle_rotor.md).
+
+## Amendment record
+
+**A1 — 2026-09-07, before implementation, following review of `75db3f3`.**
+Section 3 now spells out the reference rule's absolute-product factorization
+and its lack of authority over other weights; it includes a regular sign
+control. Section 6 records the modal repository-gap outcome and the limit
+of what absence of an additional rule would establish. Section 5 changes
+the auxiliary seed from `20260907` to `2026090710` to distinguish this round
+from the TT round at a glance. A different seed aids provenance; it does not
+by itself prove statistical independence. No round-10 experiment has run,
+and no geometric settings, tolerances or acceptance gates were changed.
+The prior version remains available at its published commit.
