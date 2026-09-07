@@ -5276,32 +5276,38 @@ by `0.1373` and `0.005`. Sufficiency of the reference measure is not a
 sufficiency theorem for a family of weights.
 
 **No inherited module supplies a joint weight rule for two disconnected
-preparations.** `history/closure.py` sums all phases into one number, which on
-a union is the rank-one condition `theta_1 + theta_2 in pi Z`: two sub-loops at
-`+pi/2` and `-pi/2` are each maximally far from closure yet their union is
-accepted. At that module's default `sigma = 0.6` the worst attainable mismatch
-still scores `0.0325 > 0.01`, so the phase gate cannot reject any history on
-phase alone. `history_action.py`'s composition theorem requires a common base
-point, which independent triangles do not share (measured non-commutativity
-`1.94`). The transaction modules presuppose a throat connection.
+preparations, and the one composition rule that exists is the wrong one.**
+`history/closure.py` sums all phases into a single number, which on a union is
+the rank-one condition `theta_1 + theta_2 in pi Z`: two sub-loops at `+pi/2`
+and `-pi/2` are each maximally far from closure yet their union is accepted. At
+that module's default `sigma = 0.6` the worst attainable mismatch still scores
+`0.0325 > 0.01`, so the phase gate cannot reject any history on phase alone.
+`history_action.py`'s composition theorem *is* available on the closure locus —
+`theta_i in pi Z` makes the reduced holonomies central, so they commute exactly
+(`3.0e-31`, and `2 sin(e_1) sin(e_2)` inside finite windows) — but what it
+delivers there is exactly that same rank-one condition. The transaction modules
+presuppose a throat connection.
 
 Verdicts: `INDEPENDENT_PHASE_PRODUCT_VERIFIED`, `PRODUCT_STATISTIC_SUFFICIENT`
 for the reference rule through the absolute product,
 `JOINT_WEIGHT_RULE_UNSPECIFIED` for any further rule, and
-`NO_SELECTION_FROM_INDEPENDENCE`. The freeze's conditional P3 obstruction is
+`NO_SELECTION_FROM_INDEPENDENCE`. Review corrections N23-N26 (excision cutoff,
+off-closure sampling, disconnected window sets, verdict schema) are recorded in
+[the write-up](docs/joint_closure.md#review-corrections); none changes the
+conclusion and two strengthen it. The freeze's conditional P3 obstruction is
 **not** invoked — none of its hypotheses is established here. Absence of a rule
 in the five inspected modules is a repository gap, not a theorem about every
 BAM completion. The inherited phase conditioning remains **chosen**.
 
-The public freeze `b78157a` preceded implementation. **36 tests and all 15
+The public freeze `b78157a` preceded implementation. **44 tests and all 16
 required probe checks pass**, alongside five structural regressions that the
 product construction guarantees and that are recorded as oracles rather than
 evidence: product marginals, three-factor associativity, joint window
 factorization, the vanishing Gram off-diagonal and copy exchange.
 
 ```bash
-python -m experiments.closure_ledger.joint_closure_probe   # 15 required checks
-python -m pytest -q tests/test_joint_closure.py             # 36 tests
+python -m experiments.closure_ledger.joint_closure_probe   # 16 required checks
+python -m pytest -q tests/test_joint_closure.py             # 44 tests
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

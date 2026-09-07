@@ -90,9 +90,13 @@ def run_probe(progress=lambda s: None):
              or max(p[f]["slope_minus_q"], p[f]["puncture_is_minus_u"],
                     p[f]["puncture_is_minus_w"]) < 1e-12)
             for p in punctures for f in ("factor1", "factor2")),
-        "Q1 excised mass follows the analytic 2 eta^2 law": all(
-            p[f"excision{i}"]["relative_error_vs_2eta2"] < 1e-3
+        "Q1 excised mass follows the two-term law with an eta^6 residual": all(
+            p[f"excision{i}"]["max_relative_residual_vs_two_term"] < 1e-3
+            and p[f"excision{i}"]["residual_scales_as_eta6"]
+            and p[f"excision{i}"]["quartic_improvement_factor"] > 10.0
             for p in punctures for i in (1, 2)),
+        "Q1 the accepted window set is connected on the registered grid": all(
+            w["max_accepted_components"] == 1 for w in windows),
         "Q1 joint excluded fraction is bounded and vanishing": all(
             row["joint_excluded_fraction"] < 1e-3
             for p in punctures for row in p["joint_excluded"]),
@@ -109,9 +113,11 @@ def run_probe(progress=lambda s: None):
             and controls["absolute_product"]["cubic_gap"] > 1e-6,
         "Q2 the generic closure rule is rank one on a union":
             bool(audit["rank_one_demonstration"]["rank_one_cancellation_demonstrated"]),
-        "Q2 based-loop additivity needs a common base point":
+        "Q2 on-closure holonomies are central, so composition is rank one":
             audit["based_loop_scope"]["same_base_additivity_residual"] < 1e-12
-            and audit["based_loop_scope"]["distinct_base_noncommutativity"] > 1e-3,
+            and audit["based_loop_scope"]["on_closure_commutator"] < 1e-20
+            and audit["based_loop_scope"]["on_closure_holonomy_is_central"] < 1e-12
+            and audit["based_loop_scope"]["windows_respect_bound"],
     }
     regressions = {
         "product marginals (structural)": max(
@@ -180,6 +186,10 @@ def render(report):
     for e in report["repository_audit"]["entries"]:
         lines.append(f"| `{e['module']}` | {e['applies_to_disconnected_pairs']} | "
                      f"{e['supplies_joint_weight_rule']} |")
+    if v.get("failed_checks"):
+        lines += ["", "**Required checks failed; every verdict field is "
+                  "`UNRESOLVED`.** Failing: "
+                  + ", ".join(f"`{c}`" for c in v["failed_checks"]), ""]
     lines += ["", f"Search scope: {report['repository_audit']['search_scope']}.", "",
               "| criterion | pass |", "|---|---|"]
     lines += [f"| {k} | {v} |" for k, v in report["checks"].items()]

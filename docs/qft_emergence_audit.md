@@ -637,8 +637,9 @@ recorded in the historical list below rather than here.*
    module supplies a joint weight rule for two disconnected preparations**:
    `history/closure.py`'s summed rule is rank one on a union (and at its
    default `σ` cannot reject any history on phase alone), `history_action.py`'s
-   additivity theorem needs a common base point, and the transaction modules
-   presuppose a throat. So independent composition selects nothing, the
+   additivity theorem *is* available on the closure locus — where `θᵢ ∈ πZ`
+   makes the holonomies central — but delivers only that same rank-one
+   condition, and the transaction modules presuppose a throat. So independent composition selects nothing, the
    conditional product-scalar obstruction is not invoked, and the missing link
    is now named precisely: a physical rule connecting two prepared histories.
    See `docs/joint_closure.md`.

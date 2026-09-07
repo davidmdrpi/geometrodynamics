@@ -75,11 +75,33 @@ def test_punctures_are_minus_u_and_minus_w_with_slope_equal_to_q(gamma):
     assert max(info["puncture_is_minus_u"], info["puncture_is_minus_w"]) < 1e-13
 
 
-def test_excised_coarea_mass_follows_the_two_eta_squared_law():
-    result = jc.excision_masses(_pair(1.0))
-    assert result["relative_error_vs_2eta2"] < 1e-3
+@pytest.mark.parametrize("gamma,sA,sB", [(0.35, 1, -1), (0.7, 1, -1), (1.0, 1, 1),
+                                          (2.7, 1, 1), (math.pi / 2, 1, 1)])
+def test_excision_uses_the_registered_domain_and_the_two_term_law(gamma, sA, sB):
+    """N23 regression: the freeze excises ``|D|/|q| < eta``, not
+    ``|psi - psi0| < eta``. Those agree only to leading order, so the excised
+    mass is ``2 eta^2`` asymptotically and NOT exactly."""
+    tri = _pair(gamma, sA, sB)
+    result = jc.excision_masses(tri)
+    assert result["max_relative_residual_vs_two_term"] < 1e-3
+    assert result["residual_scales_as_eta6"]
+    assert result["quartic_improvement_factor"] > 10.0
     for row in result["rows"]:
         assert row["fraction"] < 1e-3
+        # the arc really is the |D|/|q| level set, not a fixed psi window
+        for edge in row["arc"]:
+            assert abs(abs(float(tri.D_of_psi(edge)))
+                       / float(np.linalg.norm(tri.q)) - row["eta"]) < 1e-12
+
+
+def test_the_excision_domains_differ_at_third_order():
+    """The two domains are not interchangeable at the frozen widths."""
+    tri = _pair(0.7, 1, -1)
+    psi0 = math.acos(-tri.t / math.sqrt(2 * tri.t))
+    lo, hi = jc.puncture_arc_bounds(tri, psi0, 0.02)
+    assert abs((hi - lo) - 0.04) > 1e-6          # not the naive 2 eta arc
+    measured = jc.excision_masses(tri, (0.02,))["rows"][0]
+    assert measured["deviation_from_leading"] > 1e-3   # would fail a 2 eta^2 gate
 
 
 def test_joint_excision_bound_uses_inclusion_exclusion():
@@ -179,25 +201,63 @@ def test_generic_closure_rule_accepts_a_union_of_non_closed_subsystems():
     assert r["default_sigma_cannot_reject"]
 
 
-def test_based_loop_additivity_requires_a_common_base_point():
+def test_on_closure_holonomies_are_central_so_composition_is_rank_one():
+    """N24 regression: the first version reported generic ``SU(2)``
+    non-commutativity as the obstruction. On the closure locus
+    ``theta_i in pi Z``, so the reduced holonomies are ``+-1`` and commute
+    exactly; the generic figure is an off-closure control only."""
     r = jc.based_loop_composition_scope()
     assert r["same_base_additivity_residual"] < 1e-12
-    assert r["distinct_base_noncommutativity"] > 1e-3
-    assert not r["theorem_applies_to_disconnected_pairs"]
+    assert r["on_closure_commutator"] < 1e-20
+    assert r["on_closure_holonomy_is_central"] < 1e-12
+    assert r["windows_respect_bound"]
+    for row in r["window_rows"]:
+        e1, e2 = row["epsilon"]
+        assert row["max_commutator"] <= 2 * math.sin(e1) * math.sin(e2)
+    assert r["off_closure_control_is_not_evidence"]
+    assert not r["common_frame_transport_derived"]
+    assert r["composition_on_closure_is_rank_one"]
 
 
 def test_no_inspected_module_supplies_a_joint_weight_rule():
     audit = jc.repository_joint_rule_audit()
     assert not audit["any_module_supplies_joint_weight_rule"]
     assert len(audit["entries"]) == 5
-    assert sum(e["applies_to_disconnected_pairs"] for e in audit["entries"]) == 1
+    assert sum(e["applies_to_disconnected_pairs"] for e in audit["entries"]) == 2
+
+
+def test_window_slice_handles_a_disconnected_accepted_set():
+    """N25 regression: at ``gamma = 0.1``, sector ``(+,-)``, ``psi = pi``,
+    ``epsilon = 0.1`` the accepted set is a neighbourhood of ``z = 0`` plus one
+    of ``z = 1``. The first version returned the whole interval."""
+    tri = _pair(0.1, 1, -1)
+    measure, components = jc.window_slice(tri, math.pi, 0.1)
+    assert components == 2
+    assert measure < 1.0                       # not the full |z| <= 1 interval
+    Aq = float(np.linalg.norm(tri.q))
+    root = math.sqrt(2 * tri.t) * math.cos(math.pi)
+    g = lambda z: Aq * z - abs(tri.t + math.sqrt(max(1 - z * z, 0.0)) * root) * math.tan(0.1)
+    assert g(0.0) < 0 and g(0.2) > 0 and g(1.0) < 0   # genuinely disconnected
+
+
+def test_registered_windows_keep_the_accepted_set_connected():
+    a = (0.0, 0.0, 1.0)
+    b1 = (math.sin(0.35), 0.0, math.cos(0.35))
+    b2 = (math.sin(0.7), 0.0, math.cos(0.7))
+    assert jc.window_convergence(a, b1, a, b2)["max_accepted_components"] == 1
 
 
 def test_verdict_reports_unresolved_when_a_required_check_fails():
     audit = jc.repository_joint_rule_audit()
     controls = jc.level_set_controls()
     bad = jc.verdict({"anything": False}, audit, controls)
-    assert set(bad.values()) == {"UNRESOLVED"}
+    good_keys = set(jc.verdict({"anything": True}, audit, controls))
+    # N26: the failure branch must carry every field the renderer reads
+    assert set(bad) == good_keys
+    assert bad["reference_composition"] == "UNRESOLVED"
+    assert bad["additional_physical_rule"] == "UNRESOLVED"
+    assert bad["consequence_for_selection"] == "UNRESOLVED"
+    assert bad["failed_checks"] == ["anything"]
     good = jc.verdict({"anything": True}, audit, controls)
     assert good["reference_composition"] == "INDEPENDENT_PHASE_PRODUCT_VERIFIED"
     assert good["reduction_of_specified_rules"] == "PRODUCT_STATISTIC_SUFFICIENT"
@@ -212,8 +272,37 @@ def test_structural_regressions_are_labelled_and_not_counted_as_evidence():
     assert all(report["checks"].values())
     assert all("structural" in k for k in report["structural_regressions"])
     assert all(report["structural_regressions"].values())
-    assert len(report["checks"]) == 15
+    assert len(report["checks"]) == 16
     assert not any("structural" in k for k in report["checks"])
     assert report["weight_selection"] == "NOT_DERIVED"
     assert report["operational_source_readout"] == "NOT_DERIVED"
     assert jc.PUBLIC_PREREG in report["public_preregistration"]
+
+
+def test_failing_cli_path_renders_archives_and_exits_nonzero(tmp_path, monkeypatch):
+    """N26 regression: a failed mandatory check used to raise ``KeyError`` in
+    the renderer, so no report was written and a stale passing archive
+    survived. The failing path must render, archive and exit nonzero."""
+    real = probe.run_probe
+
+    def failing(progress=lambda s: None):
+        report = real(progress=progress)
+        report["checks"]["Q1 injected failure"] = False
+        report["checks_passed"] = False
+        report["verdict"] = jc.verdict(report["checks"], report["repository_audit"],
+                                       report["level_set_controls"])
+        return report
+
+    monkeypatch.setattr(probe, "run_probe", failing)
+    out = tmp_path / "run"
+    out.mkdir()
+    (out / "probe.md").write_text("STALE PASSING ARCHIVE")
+    assert probe.main(["--output-dir", str(out)]) == 1
+    written = (out / "probe.md").read_text()
+    assert "STALE" not in written
+    assert "UNRESOLVED" in written
+    assert "Q1 injected failure" in written
+    import json
+    archived = json.loads((out / "probe.json").read_text())
+    assert archived["verdict"]["consequence_for_selection"] == "UNRESOLVED"
+    assert archived["checks_passed"] is False

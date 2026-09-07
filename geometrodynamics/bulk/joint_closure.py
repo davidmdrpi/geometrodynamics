@@ -284,37 +284,74 @@ def three_factor_associativity(a1, b1, a2, b2) -> float:
     return worst
 
 
-def window_half_width(tri: Triangle, psi: float, epsilon: float) -> float:
-    """Root-resolved ``z`` half-width of the finite phase window at fixed ``psi``.
+def _negative_set_measure(g, lo: float, hi: float, nodes: int = 257
+                          ) -> Tuple[float, int]:
+    """Measure of ``{g < 0}`` on ``[lo, hi]``, plus the number of components.
+
+    Correction N25. The first implementation assumed that if ``g`` was
+    negative at both ends the whole interval was accepted. The accepted set
+    can be disconnected -- at ``gamma = 0.1``, sector ``(+,-)``, ``psi = pi``,
+    ``epsilon = 0.1`` it is a neighbourhood of ``z = 0`` together with one of
+    ``z = 1``, and the excluded middle was being counted.
+    """
+    zs = np.linspace(lo, hi, nodes)
+    vals = np.array([g(float(z)) for z in zs])
+    negative = vals < 0.0
+    total, components = 0.0, 0
+    i = 0
+    while i < nodes:
+        if not negative[i]:
+            i += 1
+            continue
+        j = i
+        while j + 1 < nodes and negative[j + 1]:
+            j += 1
+        left = zs[i] if i == 0 else brentq(g, zs[i - 1], zs[i],
+                                           xtol=1e-14, rtol=8.9e-16)
+        right = zs[j] if j == nodes - 1 else brentq(g, zs[j], zs[j + 1],
+                                                    xtol=1e-14, rtol=8.9e-16)
+        total += right - left
+        components += 1
+        i = j + 1
+    return total, components
+
+
+def window_slice(tri: Triangle, psi: float, epsilon: float) -> Tuple[float, int]:
+    """Measure of the accepted ``z`` set at fixed ``psi``, and its components.
 
     Coordinates ``x = sqrt(1-z^2) r(psi) + z qhat`` with area element
-    ``dpsi dz``, so ``N = z |q|`` and ``D = t + sqrt(1-z^2) sqrt(2t) cos psi``.
-    ``dist(theta, pi Z) < epsilon`` is exactly ``|N| < |D| tan(epsilon)``.
-    The inequality is solved directly; the limiting coarea density is never
-    inserted as an integrand.
+    ``dpsi dz``, so ``N = z|q|`` and
+    ``D = t + sqrt(1-z^2) sqrt(2t) cos psi``. ``dist(theta, pi Z) < epsilon``
+    is exactly ``|N| < |D| tan(epsilon)``; the inequality is solved directly
+    and the limiting coarea density is never inserted as an integrand.
+    ``g`` is even in ``z``, so the measure on ``[0, 1]`` is doubled.
     """
     Aq = float(np.linalg.norm(tri.q))
     root = math.sqrt(2.0 * tri.t) * math.cos(psi)
     tan_e = math.tan(epsilon)
     g = lambda z: Aq * z - abs(tri.t + math.sqrt(max(1.0 - z * z, 0.0)) * root) * tan_e
-    if g(0.0) >= 0.0:          # pinched at a puncture of D
-        return 0.0
-    hi = 1.0
-    if g(hi) <= 0.0:           # window reaches the pole; clip
-        return hi
-    return brentq(g, 0.0, hi, xtol=1e-14, rtol=1e-14)
+    measure, components = _negative_set_measure(g, 0.0, 1.0)
+    return 2.0 * measure, components
 
 
-def finite_window_mass(tri: Triangle, epsilon: float) -> float:
-    """``int dpsi dz`` over the finite window, by adaptive quadrature in psi."""
-    f = lambda ps: 2.0 * window_half_width(tri, ps, epsilon)
+def finite_window_mass(tri: Triangle, epsilon: float) -> Tuple[float, int]:
+    """``int dpsi dz`` over the finite window, and the worst component count."""
+    worst = 0
+
+    def integrand(ps):
+        nonlocal worst
+        measure, components = window_slice(tri, ps, epsilon)
+        worst = max(worst, components)
+        return measure
+
     if tri.t >= 2.0:
         cuts = [0.0, math.pi, 2.0 * math.pi]
     else:
         psi0 = math.acos(-tri.t / math.sqrt(2.0 * tri.t))
         cuts = [0.0, psi0, math.pi, 2.0 * math.pi - psi0, 2.0 * math.pi]
-    return sum(quad(f, lo, hi, limit=200, epsabs=1e-10, epsrel=1e-10)[0]
-               for lo, hi in zip(cuts[:-1], cuts[1:]))
+    total = sum(quad(integrand, lo, hi, limit=200, epsabs=1e-10, epsrel=1e-10)[0]
+                for lo, hi in zip(cuts[:-1], cuts[1:]))
+    return total, worst
 
 
 def window_convergence(a1, b1, a2, b2,
@@ -329,11 +366,14 @@ def window_convergence(a1, b1, a2, b2,
     """
     tri1, tri2 = sector_triangles(a1, b1), sector_triangles(a2, b2)
     target = reference_sector_masses(a1, b1, a2, b2)["probabilities"]
-    rows, factor_error = [], 0.0
+    rows, factor_error, components = [], 0.0, 0
     for e in widths:
         for scale1, scale2 in ((1, 1), (1, 2), (2, 1)):
-            m1 = [finite_window_mass(T, scale1 * e) for T in tri1]
-            m2 = [finite_window_mass(T, scale2 * e) for T in tri2]
+            sliced1 = [finite_window_mass(T, scale1 * e) for T in tri1]
+            sliced2 = [finite_window_mass(T, scale2 * e) for T in tri2]
+            m1 = [v for v, _ in sliced1]
+            m2 = [v for v, _ in sliced2]
+            components = max([components] + [c for _, c in sliced1 + sliced2])
             joint = [m1[i] * m2[j] for i in range(4) for j in range(4)]
             total = sum(joint)
             probs = [v / total for v in joint]
@@ -349,6 +389,9 @@ def window_convergence(a1, b1, a2, b2,
                 if min(r["epsilon"]) <= smallest + 1e-15)
     return {"rows": rows, "final_window_discrepancy": final,
             "joint_factorisation_regression": factor_error,
+            # the registered settings and widths keep the accepted z-set
+            # connected; a value above 1 flags the regime N25 describes
+            "max_accepted_components": components,
             "monotone": all(rows[i]["max_discrepancy_from_coarea"]
                             >= rows[i + 3]["max_discrepancy_from_coarea"] - 1e-12
                             for i in range(len(rows) - 3))}
@@ -358,9 +401,11 @@ def puncture_geometry(tri: Triangle) -> Dict[str, float]:
     """The two punctures of the closure circle and the exact excision law.
 
     ``D`` vanishes on ``Gamma`` exactly at ``x = -u`` and ``x = -w``. There
-    ``|dD/dpsi| = sqrt(t(2-t)) = |q|`` identically, so the arc with
-    ``|D|/|q| < eta`` is ``|psi - psi0| < eta`` and its coarea mass is
-    ``eta^2`` per puncture, independent of the settings.
+    ``|dD/dpsi| = sqrt(t(2-t)) = |q|`` identically. That derivative identity
+    is exact. It makes the arc ``|D|/|q| < eta`` equal to ``|psi - psi0| < eta``
+    only to leading order, so the excised mass is ``2 eta^2`` asymptotically
+    and not exactly; see :func:`excision_two_term` for the quartic term
+    (correction N23).
 
     Note ``t = 1 -+ cos gamma`` lies strictly inside ``(0, 2)`` for any
     non-collinear settings, so every regular closure circle has exactly two
@@ -380,28 +425,85 @@ def puncture_geometry(tri: Triangle) -> Dict[str, float]:
             "puncture_is_minus_u": at_u, "puncture_is_minus_w": at_w}
 
 
+def puncture_arc_bounds(tri: Triangle, psi0: float, eta: float) -> Tuple[float, float]:
+    """Solve ``|D|/|q| = eta`` around a puncture, the domain the freeze names.
+
+    Correction N23. The first implementation integrated ``|psi - psi0| < eta``
+    instead. Those domains agree only to leading order, because
+    ``|dD/dpsi| = |q|`` holds *at* the puncture and not on the whole arc.
+    """
+    qn = float(np.linalg.norm(tri.q))
+    f = lambda ps: abs(float(tri.D_of_psi(ps))) / qn - eta
+    span = min(0.5, 0.9 * psi0)
+    return (brentq(f, psi0 - span, psi0 - 1e-15, xtol=1e-15, rtol=8.9e-16),
+            brentq(f, psi0 + 1e-15, psi0 + span, xtol=1e-15, rtol=8.9e-16))
+
+
+def excision_two_term(t: float, eta: float) -> float:
+    """``M_eta = 2 eta^2 + (1+t)/(2-t) eta^4 + O(eta^6)`` for the two punctures.
+
+    Derived from ``D = -|q| phi + t phi^2/2 + |q| phi^3/6 + O(phi^4)`` at a
+    puncture: inverting to ``phi(D/|q|)`` and integrating ``|D|/|q|`` over
+    ``|D|/|q| < eta`` gives ``eta^2 + 3(2 alpha^2 + 1/6) eta^4 / 2`` per
+    puncture with ``alpha = t / (2|q|)``, and ``3(2 alpha^2 + 1/6)``
+    collapses to ``(1+t)/(2-t)``. The leading term is settings-independent;
+    the quartic correction is not.
+    """
+    if t >= 2.0:
+        return 0.0
+    return 2.0 * eta ** 2 + (1.0 + t) / (2.0 - t) * eta ** 4
+
+
 def excision_masses(tri: Triangle, etas: Sequence[float] = (0.02, 0.01, 0.005)
                     ) -> Dict[str, object]:
-    """Measured excised coarea mass against the analytic ``2 eta^2`` bound."""
+    """Excised coarea mass on ``|D|/|q| < eta`` against the two-term law.
+
+    The mass vanishes as ``2 eta^2``; that leading behaviour is exact and
+    settings-independent, but the mass itself is not ``2 eta^2`` exactly.
+    The gate is the two-term expansion, whose residual must fall like
+    ``eta^6``.
+    """
     qn = float(np.linalg.norm(tri.q))
     total = W1_closed(tri.t) / qn
     rows = []
     for eta in etas:
         if tri.t >= 2.0:
-            measured = 0.0
+            measured, lo, hi = 0.0, float("nan"), float("nan")
         else:
-            f = lambda ps: abs(tri.D_of_psi(ps)) / qn
             psi0 = math.acos(-tri.t / math.sqrt(2.0 * tri.t))
-            measured = 0.0
-            for centre in (psi0, 2.0 * math.pi - psi0):
-                lo, hi = centre - eta, centre + eta
-                measured += quad(f, lo, hi, limit=200, epsabs=1e-14)[0]
-        predicted = 0.0 if tri.t >= 2.0 else 2.0 * eta * eta
-        rows.append({"eta": eta, "excised": measured, "predicted": predicted,
+            lo, hi = puncture_arc_bounds(tri, psi0, eta)
+            # D has an elementary primitive, F(psi) = t psi + sqrt(2t) sin psi,
+            # and a single sign on each side of the puncture. Using it instead
+            # of adaptive quadrature removes a ~1e-10 noise floor that was
+            # swamping the genuine O(eta^6) remainder.
+            root = math.sqrt(2.0 * tri.t)
+            F = lambda ps: tri.t * ps + root * math.sin(ps)
+            measured = 2.0 * (abs(F(psi0) - F(lo)) + abs(F(hi) - F(psi0))) / qn
+        leading = 0.0 if tri.t >= 2.0 else 2.0 * eta * eta
+        two_term = excision_two_term(tri.t, eta)
+        rows.append({"eta": eta, "excised": measured, "arc": [lo, hi],
+                     "leading_2eta2": leading, "two_term": two_term,
+                     "residual_vs_two_term": abs(measured - two_term),
+                     "deviation_from_leading": (abs(measured - leading) / leading
+                                                if leading > 0 else 0.0),
                      "fraction": measured / total})
-    err = max((abs(r["excised"] - r["predicted"]) / r["predicted"]
-               for r in rows if r["predicted"] > 0.0), default=0.0)
-    return {"rows": rows, "total_mass": total, "relative_error_vs_2eta2": err}
+    scaled = [r["residual_vs_two_term"] / r["eta"] ** 6
+              for r in rows if r["two_term"] > 0]
+    improvement = [r["deviation_from_leading"] * r["leading_2eta2"]
+                   / max(r["residual_vs_two_term"], 1e-300)
+                   for r in rows if r["two_term"] > 0]
+    return {"rows": rows, "total_mass": total,
+            "max_relative_residual_vs_two_term": max(
+                (r["residual_vs_two_term"] / r["two_term"]
+                 for r in rows if r["two_term"] > 0), default=0.0),
+            "residual_over_eta6": scaled,
+            # the substantive claim: the remainder after the quartic term is
+            # genuinely sixth order, so this ratio is constant in eta (its
+            # value depends on t and diverges as t -> 2)
+            "residual_scales_as_eta6": bool(
+                len(scaled) < 2
+                or max(scaled) / max(min(scaled), 1e-300) < 2.0),
+            "quartic_improvement_factor": min(improvement, default=math.inf)}
 
 
 def joint_excision_bound(tri1: Triangle, tri2: Triangle,
@@ -569,40 +671,95 @@ def generic_closure_rule_is_rank_one() -> Dict[str, object]:
                 union.is_closed and not any(r.is_closed for r in singles))}
 
 
+def _quaternion_multiply(g: np.ndarray, h: np.ndarray) -> np.ndarray:
+    return np.concatenate(([g[0] * h[0] - g[1:] @ h[1:]],
+                           g[0] * h[1:] + h[0] * g[1:] + np.cross(g[1:], h[1:])))
+
+
 def based_loop_composition_scope() -> Dict[str, object]:
-    """Q2: the inherited composition theorem needs a common base point.
+    """Q2: what the inherited composition theorem gives on the closure locus.
 
-    ``history_action.additive_functionals_have_no_critical_points`` proves
-    ``theta[g1 . g2] = theta[g1] + theta[g2]`` for loops based at the **same**
-    ``x``, where the holonomies lie in the ``U(1)`` generated by ``x`` and
-    therefore commute. Two independently prepared triangles have distinct base
-    points on distinct spheres, so the hypothesis fails: their holonomies are
-    generic ``SU(2)`` elements and do not commute.
+    Correction N24. The first implementation sampled arbitrary holonomy angles
+    and reported their generic ``SU(2)`` non-commutativity as the obstruction.
+    That is an **off-closure** statement and does not apply to conditioned
+    triangles. On ``Gamma_1 x Gamma_2`` we have ``theta_i in pi Z``, so each
+    reduced holonomy ``cos theta + sin theta x`` is ``+-1`` — central — and the
+    two commute exactly. Inside finite windows of half-width ``epsilon_i`` the
+    commutator norm is bounded by ``2 sin(epsilon_1) sin(epsilon_2)``, which
+    vanishes with the windows.
 
-    Measured here rather than asserted: the composition defect for independent
-    base points is nonzero.
+    The conclusion is therefore **stronger and different**: composition is
+    available on the closure locus, and what it delivers is precisely
+    ``theta_1 + theta_2 in pi Z`` — the rank-one condition the freeze forbids
+    as a substitute for the two independent conditions. The repository's one
+    composition rule is the wrong one, not an unavailable one.
+
+    The generic sampling is retained only as a labelled off-closure control.
+    It also assumes a common quaternion frame for the two triangles; the
+    freeze forbids treating that as physical without deriving the transport
+    identification, and none is derived here.
     """
     rng = np.random.default_rng(SEED)
-    same_base, cross_base = 0.0, 0.0
+
+    def su2(axis, angle):
+        return np.concatenate(([math.cos(angle)], math.sin(angle) * axis))
+
+    # (a) same base point: the inherited additivity theorem, reproduced.
+    same_base = 0.0
     for _ in range(400):
         x = _unit(rng.normal(size=3))
-        y = _unit(rng.normal(size=3))
         t1, t2 = rng.uniform(-2.0, 2.0, size=2)
+        same_base = max(same_base, abs(
+            _quaternion_multiply(su2(x, t1), su2(x, t2))[0] - math.cos(t1 + t2)))
 
-        def su2(axis, angle):
-            return np.concatenate(([math.cos(angle)], math.sin(angle) * axis))
+    # (b) ON the closure locus: theta in pi Z, so the holonomies are central.
+    on_closure_commutator = on_closure_central = 0.0
+    for _ in range(400):
+        x1, x2 = _unit(rng.normal(size=3)), _unit(rng.normal(size=3))
+        k1, k2 = rng.integers(-3, 4, size=2)
+        G1, G2 = su2(x1, math.pi * k1), su2(x2, math.pi * k2)
+        on_closure_commutator = max(on_closure_commutator, float(np.linalg.norm(
+            _quaternion_multiply(G1, G2) - _quaternion_multiply(G2, G1))))
+        for G in (G1, G2):
+            on_closure_central = max(on_closure_central,
+                                     float(np.linalg.norm(G[1:])),
+                                     abs(abs(G[0]) - 1.0))
 
-        def mul(g, h):
-            return np.concatenate(([g[0] * h[0] - g[1:] @ h[1:]],
-                                   g[0] * h[1:] + h[0] * g[1:] + np.cross(g[1:], h[1:])))
+    # (c) finite windows: the commutator obeys 2 sin(e1) sin(e2).
+    window_rows = []
+    for e1, e2 in ((0.04, 0.04), (0.04, 0.08), (0.08, 0.04), (0.01, 0.01)):
+        worst = 0.0
+        for _ in range(2000):
+            d1, d2 = rng.uniform(-e1, e1), rng.uniform(-e2, e2)
+            k1, k2 = rng.integers(-2, 3, size=2)
+            G1 = su2(_unit(rng.normal(size=3)), math.pi * k1 + d1)
+            G2 = su2(_unit(rng.normal(size=3)), math.pi * k2 + d2)
+            worst = max(worst, float(np.linalg.norm(
+                _quaternion_multiply(G1, G2) - _quaternion_multiply(G2, G1))))
+        bound = 2.0 * math.sin(e1) * math.sin(e2)
+        window_rows.append({"epsilon": (e1, e2), "max_commutator": worst,
+                            "bound_2_sin_sin": bound, "respects_bound": worst <= bound})
 
-        g1, g2 = su2(x, t1), su2(x, t2)
-        same_base = max(same_base, abs(mul(g1, g2)[0] - math.cos(t1 + t2)))
-        h1, h2 = su2(x, t1), su2(y, t2)
-        cross_base = max(cross_base, float(np.linalg.norm(mul(h1, h2) - mul(h2, h1))))
+    # (d) OFF-CLOSURE CONTROL ONLY. Generic angles, and a common quaternion
+    #     frame that is assumed rather than derived.
+    off_closure = 0.0
+    for _ in range(400):
+        t1, t2 = rng.uniform(-2.0, 2.0, size=2)
+        off_closure = max(off_closure, float(np.linalg.norm(
+            _quaternion_multiply(su2(_unit(rng.normal(size=3)), t1),
+                                 su2(_unit(rng.normal(size=3)), t2))
+            - _quaternion_multiply(su2(_unit(rng.normal(size=3)), t2),
+                                   su2(_unit(rng.normal(size=3)), t1)))))
+
     return {"same_base_additivity_residual": same_base,
-            "distinct_base_noncommutativity": cross_base,
-            "theorem_applies_to_disconnected_pairs": False}
+            "on_closure_commutator": on_closure_commutator,
+            "on_closure_holonomy_is_central": on_closure_central,
+            "window_rows": window_rows,
+            "windows_respect_bound": all(r["respects_bound"] for r in window_rows),
+            "off_closure_control_commutator": off_closure,
+            "off_closure_control_is_not_evidence": True,
+            "common_frame_transport_derived": False,
+            "composition_on_closure_is_rank_one": True}
 
 
 def repository_joint_rule_audit() -> Dict[str, object]:
@@ -627,10 +784,13 @@ def repository_joint_rule_audit() -> Dict[str, object]:
         {"module": "geometrodynamics/bulk/history_action.py",
          "variables": "SU(2) closure holonomy G of one based loop, theta, S_H",
          "rule": "theta additive for loops based at a common x",
-         "applies_to_disconnected_pairs": False,
+         "applies_to_disconnected_pairs": True,
          "supplies_joint_weight_rule": False,
-         "reason": "hypothesis is a common base point; independent triangles "
-                   "have distinct base points on distinct spheres"},
+         "reason": "on the closure locus theta_i lie in pi Z, so the reduced "
+                   "holonomies are central and compose exactly -- but what "
+                   "that composition delivers is theta_1 + theta_2 in pi Z, "
+                   "the rank-one condition the freeze forbids as a substitute "
+                   "for the two independent conditions"},
         {"module": "geometrodynamics/bulk/closure_current.py",
          "variables": "one triangle's D, |u x v|, Pin branch label",
          "rule": "positive or holonomy-weighted coarea on a single closure set",
@@ -810,10 +970,18 @@ def verdict(checks: Dict[str, bool], audit: Dict[str, object],
     A failed mandatory check yields ``UNRESOLVED`` for the affected claim; the
     existence of a passing baseline must not hide a failed factorisation.
     """
+    fields = ("reference_composition", "reduction_of_specified_rules",
+              "reduction_scope", "additional_physical_rule",
+              "consequence_for_selection", "P3_hypotheses_established")
     if not checks or not all(checks.values()):
-        return {"reference_composition": "UNRESOLVED",
-                "reduction_of_specified_rules": "UNRESOLVED",
-                "consequence_for_selection": "UNRESOLVED"}
+        # Correction N26: the failure branch must carry every field the
+        # renderer and the archive read, or reporting crashes before the
+        # UNRESOLVED verdict is ever written.
+        failed = sorted(k for k, v in checks.items() if not v) or ["no checks supplied"]
+        return dict.fromkeys(fields, "UNRESOLVED") | {
+            "failed_checks": failed,
+            "reduction_scope": "UNRESOLVED -- required checks failed: "
+                               + "; ".join(failed)}
     reference = "INDEPENDENT_PHASE_PRODUCT_VERIFIED"
 
     # Field 2 has two parts: the reference rule, and any further rule the
@@ -843,6 +1011,7 @@ def verdict(checks: Dict[str, bool], audit: Dict[str, object],
                                "transfer to the cubic weight",
             "additional_physical_rule": additional,
             "consequence_for_selection": consequence,
+            "failed_checks": [],
             "P3_hypotheses_established": "NO -- neither the physical "
                                          "completeness of the allowed rule "
                                          "family, nor the composite-scalar "

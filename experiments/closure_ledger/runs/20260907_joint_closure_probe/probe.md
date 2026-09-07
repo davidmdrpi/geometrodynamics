@@ -28,7 +28,7 @@ Reduction scope: the reference rule only, through the ABSOLUTE product; the sepa
 | module | applies to disconnected pairs | supplies a joint weight rule |
 |---|---|---|
 | `geometrodynamics/history/closure.py` | True | False |
-| `geometrodynamics/bulk/history_action.py` | False | False |
+| `geometrodynamics/bulk/history_action.py` | True | False |
 | `geometrodynamics/bulk/closure_current.py` | False | False |
 | `geometrodynamics/transaction/network.py` | False | False |
 | `geometrodynamics/transaction/derived_network.py` | False | False |
@@ -45,13 +45,14 @@ Search scope: the five modules named in the freeze's Q2, at the pinned baseline;
 | Q1 uniform sector-probability grids agree at 2048 | True |
 | Q1 finite windows converge to the coarea limit | True |
 | Q1 punctures are exactly -u and -w with |dD/dpsi| = |q| | True |
-| Q1 excised mass follows the analytic 2 eta^2 law | True |
+| Q1 excised mass follows the two-term law with an eta^6 residual | True |
+| Q1 the accepted window set is connected on the registered grid | True |
 | Q1 joint excluded fraction is bounded and vanishing | True |
 | Q3 reflection preserves the pair statistic and the density | True |
 | Q3 same signed product separates the cubic weight | True |
 | Q3 same absolute product, opposite sign separates the cubic | True |
 | Q2 the generic closure rule is rank one on a union | True |
-| Q2 based-loop additivity needs a common base point | True |
+| Q2 on-closure holonomies are central, so composition is rank one | True |
 
 Structural regressions (guaranteed by the product construction; not independent evidence):
 
@@ -61,6 +62,6 @@ Structural regressions (guaranteed by the product construction; not independent 
 - joint Gram off-diagonal (structural): True
 - copy exchange (structural): True
 
-Passed 15/15 required checks.
+Passed 16/16 required checks.
 
 No `Phi` is selected, no Born rule is derived and no operational source-local readout is constructed.
