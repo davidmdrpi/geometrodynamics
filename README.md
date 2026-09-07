@@ -5259,6 +5259,65 @@ python -m experiments.closure_ledger.tt_triangle_rotor_probe   # 22 frozen + 7 p
 python -m pytest -q tests/test_tt_triangle_rotor.py             # 42 tests
 ```
 
+## Independent composition selects no counting function (round 10)
+
+The [preregistered joint-closure test](docs/joint_closure.md) asks what data a
+joint history of two independently prepared triangles actually retains. The
+joint closure locus is `Gamma_1 x Gamma_2`, the two differentials occupy
+orthogonal tangent blocks, and the coarea Jacobian is
+`|q_1||q_2| / |D_1 D_2|`, so the reference density is
+`|D_1 D_2| / (|q_1||q_2|)` — a function of the **absolute product** alone.
+
+**That sufficiency does not transfer to any other weight.** At `t_1 = t_2 = 1`,
+`(1,2)` and `(sqrt2,sqrt2)` have the same signed product, and `(1/4,1)` and
+`(-1/4,1)` the same absolute product; the reference density agrees to `1e-15`
+on both pairs while the factorwise cubic `Phi(D) = D^2(1 - D/5)` separates them
+by `0.1373` and `0.005`. Sufficiency of the reference measure is not a
+sufficiency theorem for a family of weights.
+
+**No inherited module supplies a joint weight rule for two disconnected
+preparations.**
+`history/closure.py` sums all phases into a single number, which on a union is
+the rank-one condition `theta_1 + theta_2 in pi Z`: two sub-loops at `+pi/2`
+and `-pi/2` are each maximally far from closure yet their union is accepted. At
+that module's default `sigma = 0.6` the worst attainable mismatch still scores
+`0.0325 > 0.01`, so the phase gate cannot reject any history on phase alone.
+`history_action.py`'s composition theorem *is* available on the closure locus —
+`theta_i in pi Z` makes the reduced holonomies central, so they commute exactly
+(`3.0e-31`, and `2 sin(e_1) sin(e_2)` inside finite windows). Centrality does
+not propagate to a rank-one joint condition, though: the differential of the
+composed holonomy at a closed configuration is
+`c_1 c_2 (x_1 d theta_1 + x_2 d theta_2)`, of **rank two** for non-parallel
+axes (singular values `0.5, 0.5` in the reviewed configuration), so it
+reproduces the two independent conditions and opposite phases do not cancel.
+The rank-one defect belongs to the explicit scalar sum alone. What the holonomy
+route gives is a joint *closure condition*, not a joint *weight*, and it
+assumes a common quaternion frame that is not derived. The transaction modules
+presuppose a throat connection.
+
+Verdicts: `INDEPENDENT_PHASE_PRODUCT_VERIFIED`, `PRODUCT_STATISTIC_SUFFICIENT`
+for the reference rule through the absolute product,
+`JOINT_WEIGHT_RULE_UNSPECIFIED` for any further rule, and
+`NO_SELECTION_FROM_INDEPENDENCE`. Review corrections N23-N29 (excision cutoff, off-closure
+sampling, a withdrawn rank-one claim, disconnected and narrow window gaps,
+verdict schema, a mislabelled control) are recorded in
+[the write-up](docs/joint_closure.md#review-corrections); none changes the
+conclusion. The freeze's conditional P3 obstruction is
+**not** invoked — none of its hypotheses is established here. Absence of a rule
+in the five inspected modules is a repository gap, not a theorem about every
+BAM completion. The inherited phase conditioning remains **chosen**.
+
+The public freeze `b78157a` preceded implementation. **49 tests and all 17
+required probe checks pass**, alongside five structural regressions that the
+product construction guarantees and that are recorded as oracles rather than
+evidence: product marginals, three-factor associativity, joint window
+factorization, the vanishing Gram off-diagonal and copy exchange.
+
+```bash
+python -m experiments.closure_ledger.joint_closure_probe   # 17 required checks
+python -m pytest -q tests/test_joint_closure.py             # 49 tests
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced

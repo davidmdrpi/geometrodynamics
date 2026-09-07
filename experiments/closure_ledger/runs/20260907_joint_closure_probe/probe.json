@@ -1,0 +1,2946 @@
+{
+  "public_preregistration": "b78157a",
+  "seed": 2026090710,
+  "conditioning": "CHOSEN: product Haar with separate phase windows; round 8 established that phase conditioning is not forced by the zero set",
+  "geometry": [
+    {
+      "angles": [
+        0.35,
+        0.7
+      ],
+      "rotation": "identity",
+      "t": [
+        0.06062728715262111,
+        1.7648421872844886
+      ],
+      "sector_probabilities": [
+        0.005351653032306319,
+        0.020615777383653066,
+        0.020615777383653066,
+        0.005351653032306319,
+        0.046171090521646106,
+        0.1778614790623945,
+        0.1778614790623945,
+        0.046171090521646106,
+        0.046171090521646106,
+        0.1778614790623945,
+        0.1778614790623945,
+        0.046171090521646106,
+        0.005351653032306319,
+        0.020615777383653066,
+        0.020615777383653066,
+        0.005351653032306319
+      ],
+      "product_marginal_error": 2.7755575615628914e-17,
+      "associativity_regression": 0.0,
+      "gram": {
+        "samples": 24,
+        "per_step_relative_error": {
+          "0.0001": 4.055754563163734e-07,
+          "5e-05": 1.0138982083932965e-07,
+          "2.5e-05": 2.5341906170949155e-08
+        },
+        "max_offdiagonal_gram": 0.0,
+        "finest_relative_error": 2.5341906170949155e-08,
+        "improves": true
+      },
+      "analytic_route": {
+        "single_factor_relative_error": 2.1148995202205848e-16,
+        "joint_jacobian_relative_error": 3.9326254609707565e-16,
+        "samples": 24
+      },
+      "covariance_exchange": {
+        "common_frame_covariance": 2.658660371215715e-15,
+        "copy_exchange": 0.0
+      },
+      "sector_grids": {
+        "rows": [
+          {
+            "n": 512,
+            "max_error": 2.705073927425361e-07
+          },
+          {
+            "n": 1024,
+            "max_error": 4.834507068285365e-08
+          },
+          {
+            "n": 2048,
+            "max_error": 1.4762932654122096e-08
+          }
+        ],
+        "final_grid_error": 1.4762932654122096e-08
+      }
+    },
+    {
+      "angles": [
+        0.35,
+        0.7
+      ],
+      "rotation": "R_x(0.61)R_z(0.37)",
+      "t": [
+        0.06062728715262111,
+        1.7648421872844884
+      ],
+      "sector_probabilities": [
+        0.00535165303230632,
+        0.020615777383653063,
+        0.020615777383653063,
+        0.00535165303230632,
+        0.04617109052164612,
+        0.17786147906239447,
+        0.17786147906239447,
+        0.04617109052164612,
+        0.04617109052164612,
+        0.17786147906239447,
+        0.17786147906239447,
+        0.04617109052164612,
+        0.00535165303230632,
+        0.020615777383653063,
+        0.020615777383653063,
+        0.00535165303230632
+      ],
+      "product_marginal_error": 6.938893903907228e-18,
+      "associativity_regression": 0.0,
+      "gram": {
+        "samples": 24,
+        "per_step_relative_error": {
+          "0.0001": 4.03302352306305e-07,
+          "5e-05": 1.0082185804182939e-07,
+          "2.5e-05": 2.521101992444272e-08
+        },
+        "max_offdiagonal_gram": 0.0,
+        "finest_relative_error": 2.521101992444272e-08,
+        "improves": true
+      },
+      "analytic_route": {
+        "single_factor_relative_error": 2.6070190074480103e-16,
+        "joint_jacobian_relative_error": 3.932625460970705e-16,
+        "samples": 24
+      },
+      "covariance_exchange": {
+        "common_frame_covariance": 2.6815050781246262e-14,
+        "copy_exchange": 0.0
+      },
+      "sector_grids": {
+        "rows": [
+          {
+            "n": 512,
+            "max_error": 2.705073927425361e-07
+          },
+          {
+            "n": 1024,
+            "max_error": 4.8345070689792546e-08
+          },
+          {
+            "n": 2048,
+            "max_error": 1.4762932681877672e-08
+          }
+        ],
+        "final_grid_error": 1.4762932681877672e-08
+      }
+    },
+    {
+      "angles": [
+        1.0,
+        1.3
+      ],
+      "rotation": "identity",
+      "t": [
+        0.45969769413186023,
+        1.2674988286245874
+      ],
+      "sector_probabilities": [
+        0.030318267811490555,
+        0.04486965088581589,
+        0.04486965088581589,
+        0.030318267811490555,
+        0.07049004134501988,
+        0.1043220399576737,
+        0.1043220399576737,
+        0.07049004134501988,
+        0.07049004134501988,
+        0.1043220399576737,
+        0.1043220399576737,
+        0.07049004134501988,
+        0.030318267811490555,
+        0.04486965088581589,
+        0.04486965088581589,
+        0.030318267811490555
+      ],
+      "product_marginal_error": 1.3877787807814457e-17,
+      "associativity_regression": 2.1316176689201768e-16,
+      "gram": {
+        "samples": 24,
+        "per_step_relative_error": {
+          "0.0001": 3.4934453348628687e-07,
+          "5e-05": 8.733717719435856e-08,
+          "2.5e-05": 2.1833751854807898e-08
+        },
+        "max_offdiagonal_gram": 0.0,
+        "finest_relative_error": 2.1833751854807898e-08,
+        "improves": true
+      },
+      "analytic_route": {
+        "single_factor_relative_error": 2.103486364839145e-16,
+        "joint_jacobian_relative_error": 2.301070521459294e-16,
+        "samples": 24
+      },
+      "covariance_exchange": {
+        "common_frame_covariance": 2.0654570935091716e-15,
+        "copy_exchange": 0.0
+      },
+      "sector_grids": {
+        "rows": [
+          {
+            "n": 512,
+            "max_error": 7.457706245606044e-08
+          },
+          {
+            "n": 1024,
+            "max_error": 4.656991621498907e-08
+          },
+          {
+            "n": 2048,
+            "max_error": 8.278984595100347e-09
+          }
+        ],
+        "final_grid_error": 8.278984595100347e-09
+      }
+    },
+    {
+      "angles": [
+        1.0,
+        1.3
+      ],
+      "rotation": "R_x(0.61)R_z(0.37)",
+      "t": [
+        0.45969769413186023,
+        1.2674988286245874
+      ],
+      "sector_probabilities": [
+        0.030318267811490555,
+        0.04486965088581589,
+        0.04486965088581589,
+        0.030318267811490555,
+        0.07049004134501989,
+        0.1043220399576737,
+        0.1043220399576737,
+        0.07049004134501989,
+        0.07049004134501989,
+        0.1043220399576737,
+        0.1043220399576737,
+        0.07049004134501989,
+        0.030318267811490555,
+        0.04486965088581589,
+        0.04486965088581589,
+        0.030318267811490555
+      ],
+      "product_marginal_error": 1.3877787807814457e-17,
+      "associativity_regression": 0.0,
+      "gram": {
+        "samples": 24,
+        "per_step_relative_error": {
+          "0.0001": 3.4596512683921586e-07,
+          "5e-05": 8.649001325069614e-08,
+          "2.5e-05": 2.1621997715534784e-08
+        },
+        "max_offdiagonal_gram": 0.0,
+        "finest_relative_error": 2.1621997715534784e-08,
+        "improves": true
+      },
+      "analytic_route": {
+        "single_factor_relative_error": 2.3095455677801656e-16,
+        "joint_jacobian_relative_error": 2.5585598284927217e-16,
+        "samples": 24
+      },
+      "covariance_exchange": {
+        "common_frame_covariance": 1.7505828108359908e-15,
+        "copy_exchange": 0.0
+      },
+      "sector_grids": {
+        "rows": [
+          {
+            "n": 512,
+            "max_error": 7.457706242830486e-08
+          },
+          {
+            "n": 1024,
+            "max_error": 4.656991621498907e-08
+          },
+          {
+            "n": 2048,
+            "max_error": 8.278984595100347e-09
+          }
+        ],
+        "final_grid_error": 8.278984595100347e-09
+      }
+    },
+    {
+      "angles": [
+        1.5707963267948966,
+        1.5707963267948966
+      ],
+      "rotation": "identity",
+      "t": [
+        0.9999999999999999,
+        1.0
+      ],
+      "sector_probabilities": [
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001
+      ],
+      "product_marginal_error": 2.7755575615628914e-17,
+      "associativity_regression": 0.0,
+      "gram": {
+        "samples": 24,
+        "per_step_relative_error": {
+          "0.0001": 2.8834824042527325e-07,
+          "5e-05": 7.208468669066391e-08,
+          "2.5e-05": 1.8021601405553406e-08
+        },
+        "max_offdiagonal_gram": 0.0,
+        "finest_relative_error": 1.8021601405553406e-08,
+        "improves": true
+      },
+      "analytic_route": {
+        "single_factor_relative_error": 1.677920860043369e-16,
+        "joint_jacobian_relative_error": 2.478374954744086e-16,
+        "samples": 24
+      },
+      "covariance_exchange": {
+        "common_frame_covariance": 8.455593356393983e-15,
+        "copy_exchange": 0.0
+      },
+      "sector_grids": {
+        "rows": [
+          {
+            "n": 512,
+            "max_error": 2.0816681711721685e-17
+          },
+          {
+            "n": 1024,
+            "max_error": 4.85722573273506e-17
+          },
+          {
+            "n": 2048,
+            "max_error": 1.3877787807814457e-17
+          }
+        ],
+        "final_grid_error": 1.3877787807814457e-17
+      }
+    },
+    {
+      "angles": [
+        1.5707963267948966,
+        1.5707963267948966
+      ],
+      "rotation": "R_x(0.61)R_z(0.37)",
+      "t": [
+        0.9999999999999999,
+        1.0
+      ],
+      "sector_probabilities": [
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001,
+        0.06250000000000001
+      ],
+      "product_marginal_error": 2.7755575615628914e-17,
+      "associativity_regression": 0.0,
+      "gram": {
+        "samples": 24,
+        "per_step_relative_error": {
+          "0.0001": 2.881946968747866e-07,
+          "5e-05": 7.205021349193936e-08,
+          "2.5e-05": 1.8009502238912654e-08
+        },
+        "max_offdiagonal_gram": 0.0,
+        "finest_relative_error": 1.8009502238912654e-08,
+        "improves": true
+      },
+      "analytic_route": {
+        "single_factor_relative_error": 1.9482376131345074e-16,
+        "joint_jacobian_relative_error": 2.4036724578522944e-16,
+        "samples": 24
+      },
+      "covariance_exchange": {
+        "common_frame_covariance": 8.618200920940022e-15,
+        "copy_exchange": 0.0
+      },
+      "sector_grids": {
+        "rows": [
+          {
+            "n": 512,
+            "max_error": 2.0816681711721685e-17
+          },
+          {
+            "n": 1024,
+            "max_error": 4.85722573273506e-17
+          },
+          {
+            "n": 2048,
+            "max_error": 1.3877787807814457e-17
+          }
+        ],
+        "final_grid_error": 1.3877787807814457e-17
+      }
+    },
+    {
+      "angles": [
+        2.4,
+        2.7
+      ],
+      "rotation": "identity",
+      "t": [
+        1.7373937155412453,
+        0.09592785798293879
+      ],
+      "sector_probabilities": [
+        0.16989496552261213,
+        0.02542070491715575,
+        0.02542070491715575,
+        0.16989496552261213,
+        0.04756706036102651,
+        0.007117269199205635,
+        0.007117269199205635,
+        0.04756706036102651,
+        0.04756706036102651,
+        0.007117269199205635,
+        0.007117269199205635,
+        0.04756706036102651,
+        0.16989496552261213,
+        0.02542070491715575,
+        0.02542070491715575,
+        0.16989496552261213
+      ],
+      "product_marginal_error": 3.469446951953614e-18,
+      "associativity_regression": 1.809868965662654e-16,
+      "gram": {
+        "samples": 24,
+        "per_step_relative_error": {
+          "0.0001": 6.542014588230584e-08,
+          "5e-05": 1.6357669504499643e-08,
+          "2.5e-05": 4.097986915607061e-09
+        },
+        "max_offdiagonal_gram": 0.0,
+        "finest_relative_error": 4.097986915607061e-09,
+        "improves": true
+      },
+      "analytic_route": {
+        "single_factor_relative_error": 2.0531088872247432e-16,
+        "joint_jacobian_relative_error": 2.1672196406803664e-16,
+        "samples": 24
+      },
+      "covariance_exchange": {
+        "common_frame_covariance": 3.3247879423152434e-15,
+        "copy_exchange": 0.0
+      },
+      "sector_grids": {
+        "rows": [
+          {
+            "n": 512,
+            "max_error": 1.7800387455690903e-07
+          },
+          {
+            "n": 1024,
+            "max_error": 5.267362369193451e-08
+          },
+          {
+            "n": 2048,
+            "max_error": 1.3975321316861411e-08
+          }
+        ],
+        "final_grid_error": 1.3975321316861411e-08
+      }
+    },
+    {
+      "angles": [
+        2.4,
+        2.7
+      ],
+      "rotation": "R_x(0.61)R_z(0.37)",
+      "t": [
+        1.7373937155412453,
+        0.0959278579829389
+      ],
+      "sector_probabilities": [
+        0.1698949655226121,
+        0.025420704917155763,
+        0.025420704917155763,
+        0.1698949655226121,
+        0.047567060361026495,
+        0.007117269199205642,
+        0.007117269199205642,
+        0.047567060361026495,
+        0.047567060361026495,
+        0.007117269199205642,
+        0.007117269199205642,
+        0.047567060361026495,
+        0.1698949655226121,
+        0.025420704917155763,
+        0.025420704917155763,
+        0.1698949655226121
+      ],
+      "product_marginal_error": 6.938893903907228e-18,
+      "associativity_regression": 0.0,
+      "gram": {
+        "samples": 24,
+        "per_step_relative_error": {
+          "0.0001": 6.208743519742313e-08,
+          "5e-05": 1.552707702022006e-08,
+          "2.5e-05": 3.89480195135993e-09
+        },
+        "max_offdiagonal_gram": 0.0,
+        "finest_relative_error": 3.89480195135993e-09,
+        "improves": true
+      },
+      "analytic_route": {
+        "single_factor_relative_error": 2.0531088872247459e-16,
+        "joint_jacobian_relative_error": 4.838225636368236e-16,
+        "samples": 24
+      },
+      "covariance_exchange": {
+        "common_frame_covariance": 1.9958698231184743e-15,
+        "copy_exchange": 0.0
+      },
+      "sector_grids": {
+        "rows": [
+          {
+            "n": 512,
+            "max_error": 1.7800387452915345e-07
+          },
+          {
+            "n": 1024,
+            "max_error": 5.2673623678056725e-08
+          },
+          {
+            "n": 2048,
+            "max_error": 1.3975321316861411e-08
+          }
+        ],
+        "final_grid_error": 1.3975321316861411e-08
+      }
+    }
+  ],
+  "windows": [
+    {
+      "angles": [
+        0.35,
+        0.7
+      ],
+      "rotation": "identity",
+      "rows": [
+        {
+          "epsilon": [
+            0.04,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.0006902319413799041
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.08
+          ],
+          "max_discrepancy_from_coarea": 0.001341209702927254
+        },
+        {
+          "epsilon": [
+            0.08,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.002017044377278371
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 0.000174215828165597
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.00034008527863924054
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 0.0005246896550484548
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 4.365984813373136e-05
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 8.532782730996669e-05
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 0.00013256868296140922
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 1.092161639615341e-05
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 2.1351235776179145e-05
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 3.3231537065553374e-05
+        }
+      ],
+      "final_window_discrepancy": 3.3231537065553374e-05,
+      "joint_factorisation_regression": 5.551115123125783e-17,
+      "max_accepted_components": 1,
+      "monotone": true
+    },
+    {
+      "angles": [
+        0.35,
+        0.7
+      ],
+      "rotation": "R_x(0.61)R_z(0.37)",
+      "rows": [
+        {
+          "epsilon": [
+            0.04,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.0006902319413799318
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.08
+          ],
+          "max_discrepancy_from_coarea": 0.0013412097029282255
+        },
+        {
+          "epsilon": [
+            0.08,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.0020170443772783986
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 0.00017421582816556924
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.00034008527863929605
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 0.000524689655048427
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 4.3659848133703605e-05
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 8.532782730993893e-05
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 0.00013256868296138147
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 1.0921616396125655e-05
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 2.135123577615139e-05
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 3.323153706552562e-05
+        }
+      ],
+      "final_window_discrepancy": 3.323153706552562e-05,
+      "joint_factorisation_regression": 5.551115123125783e-17,
+      "max_accepted_components": 1,
+      "monotone": true
+    },
+    {
+      "angles": [
+        1.0,
+        1.3
+      ],
+      "rotation": "identity",
+      "rows": [
+        {
+          "epsilon": [
+            0.04,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.00012123727162503817
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.08
+          ],
+          "max_discrepancy_from_coarea": 0.00024351305768492704
+        },
+        {
+          "epsilon": [
+            0.08,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.0003589538909280071
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 3.0372554991067724e-05
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 6.119951396101053e-05
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 9.042806410888837e-05
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 7.597103110115744e-06
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 1.5320118643843972e-05
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 2.265065396078736e-05
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 1.8995240317343232e-06
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 3.831297575987436e-06
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 5.665399301330032e-06
+        }
+      ],
+      "final_window_discrepancy": 5.665399301330032e-06,
+      "joint_factorisation_regression": 4.163336342344337e-17,
+      "max_accepted_components": 1,
+      "monotone": true
+    },
+    {
+      "angles": [
+        1.0,
+        1.3
+      ],
+      "rotation": "R_x(0.61)R_z(0.37)",
+      "rows": [
+        {
+          "epsilon": [
+            0.04,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.0001212372716259541
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.08
+          ],
+          "max_discrepancy_from_coarea": 0.0002435130576848854
+        },
+        {
+          "epsilon": [
+            0.08,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.0003589538909289508
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 3.0372554991442424e-05
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 6.119951396198198e-05
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 9.04280641092492e-05
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 7.597103137899075e-06
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 1.5320118644204794e-05
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 2.2650653988612324e-05
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 1.8995237900526485e-06
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 3.831297603854034e-06
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 5.665399059676113e-06
+        }
+      ],
+      "final_window_discrepancy": 5.665399059676113e-06,
+      "joint_factorisation_regression": 4.163336342344337e-17,
+      "max_accepted_components": 1,
+      "monotone": true
+    },
+    {
+      "angles": [
+        1.5707963267948966,
+        1.5707963267948966
+      ],
+      "rotation": "identity",
+      "rows": [
+        {
+          "epsilon": [
+            0.04,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 7.632783294297951e-17
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.08
+          ],
+          "max_discrepancy_from_coarea": 4.85722573273506e-17
+        },
+        {
+          "epsilon": [
+            0.08,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 6.938893903907228e-17
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 1.3877787807814457e-17
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 5.551115123125783e-17
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 6.938893903907228e-17
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 2.7755575615628914e-17
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 1.3877787807814457e-17
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 1.3877787807814457e-17
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 0.0
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 0.0
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 0.0
+        }
+      ],
+      "final_window_discrepancy": 0.0,
+      "joint_factorisation_regression": 2.7755575615628914e-17,
+      "max_accepted_components": 1,
+      "monotone": true
+    },
+    {
+      "angles": [
+        1.5707963267948966,
+        1.5707963267948966
+      ],
+      "rotation": "R_x(0.61)R_z(0.37)",
+      "rows": [
+        {
+          "epsilon": [
+            0.04,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 7.632783294297951e-17
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.08
+          ],
+          "max_discrepancy_from_coarea": 4.85722573273506e-17
+        },
+        {
+          "epsilon": [
+            0.08,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 6.938893903907228e-17
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 1.3877787807814457e-17
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 5.551115123125783e-17
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 6.938893903907228e-17
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 2.7755575615628914e-17
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 1.3877787807814457e-17
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 1.3877787807814457e-17
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 0.0
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 0.0
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 0.0
+        }
+      ],
+      "final_window_discrepancy": 0.0,
+      "joint_factorisation_regression": 2.7755575615628914e-17,
+      "max_accepted_components": 1,
+      "monotone": true
+    },
+    {
+      "angles": [
+        2.4,
+        2.7
+      ],
+      "rotation": "identity",
+      "rows": [
+        {
+          "epsilon": [
+            0.04,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.0005486133202354249
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.08
+          ],
+          "max_discrepancy_from_coarea": 0.0015612716493821066
+        },
+        {
+          "epsilon": [
+            0.08,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.0011304347864703468
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 0.0001380558517611319
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.0004008751240645869
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 0.000286023132291896
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 3.457113671551104e-05
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 0.00010091779788456989
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 7.172370220734359e-05
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 8.646369577508528e-06
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 2.5273798106489886e-05
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 1.7944618241894084e-05
+        }
+      ],
+      "final_window_discrepancy": 2.5273798106489886e-05,
+      "joint_factorisation_regression": 5.551115123125783e-17,
+      "max_accepted_components": 1,
+      "monotone": true
+    },
+    {
+      "angles": [
+        2.4,
+        2.7
+      ],
+      "rotation": "R_x(0.61)R_z(0.37)",
+      "rows": [
+        {
+          "epsilon": [
+            0.04,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.0005486133202352861
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.08
+          ],
+          "max_discrepancy_from_coarea": 0.0015612716493819678
+        },
+        {
+          "epsilon": [
+            0.08,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.001130434786470208
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 0.00013805585176110413
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.04
+          ],
+          "max_discrepancy_from_coarea": 0.0004008751240644204
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 0.00028602313229186827
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 3.4571136715483286e-05
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.02
+          ],
+          "max_discrepancy_from_coarea": 0.00010091779788454214
+        },
+        {
+          "epsilon": [
+            0.02,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 7.172370220731583e-05
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 8.646369577480773e-06
+        },
+        {
+          "epsilon": [
+            0.005,
+            0.01
+          ],
+          "max_discrepancy_from_coarea": 2.527379810646213e-05
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.005
+          ],
+          "max_discrepancy_from_coarea": 1.7944618241866328e-05
+        }
+      ],
+      "final_window_discrepancy": 2.527379810646213e-05,
+      "joint_factorisation_regression": 5.551115123125783e-17,
+      "max_accepted_components": 1,
+      "monotone": true
+    }
+  ],
+  "punctures": [
+    {
+      "angles": [
+        0.35,
+        0.7
+      ],
+      "rotation": "identity",
+      "factor1": {
+        "has_punctures": 1.0,
+        "psi0": 1.7457963267948966,
+        "slope": 0.34289780745545145,
+        "slope_minus_q": 1.1102230246251565e-16,
+        "puncture_is_minus_u": 1.1102230246251565e-16,
+        "puncture_is_minus_w": 1.5700924586837752e-16
+      },
+      "factor2": {
+        "has_punctures": 1.0,
+        "psi0": 2.791592653589793,
+        "slope": 0.6442176872376915,
+        "slope_minus_q": 4.440892098500626e-16,
+        "puncture_is_minus_u": 2.7755575615628914e-16,
+        "puncture_is_minus_w": 2.482534153247273e-16
+      },
+      "excision1": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008000875239006486,
+            "arc": [
+              1.7258302409872908,
+              1.7658331583799776
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008000875027089018,
+            "residual_vs_two_term": 2.11917467081435e-11,
+            "deviation_from_leading": 0.00010940487581064797,
+            "fraction": 0.00019401865132356934
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.00020000546925098717,
+            "arc": [
+              1.7358049856161533,
+              1.7558053502306354
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020000546891930639,
+            "residual_vs_two_term": 3.3168078201507856e-13,
+            "deviation_from_leading": 2.7346254935793537e-05,
+            "fraction": 4.85006830405629e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.000034181286727e-05,
+            "arc": [
+              1.7407985141587363,
+              1.7507985597336844
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000034180745665e-05,
+            "residual_vs_two_term": 5.4106228503623954e-15,
+            "deviation_from_leading": 6.836257345393991e-06,
+            "fraction": 1.212492207971813e-05
+          }
+        ],
+        "total_mass": 4.123766031990009,
+        "max_relative_residual_vs_two_term": 2.648678630323983e-08,
+        "residual_over_eta6": [
+          0.3311210423147421,
+          0.3316807820150785,
+          0.34627986242319325
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 4130.093750832014
+      },
+      "excision2": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.000801893006813389,
+            "arc": [
+              2.772111261095246,
+              2.812174321773297
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008018811824487443,
+            "residual_vs_two_term": 1.1824364644645764e-08,
+            "deviation_from_leading": 0.002366258516736159,
+            "fraction": 4.614535497560989e-05
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.0002001177575536984,
+            "arc": [
+              2.781725843564534,
+              2.801733692842955
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020011757390304654,
+            "residual_vs_two_term": 1.8365065186914248e-10,
+            "deviation_from_leading": 0.0005887877684920015,
+            "fraction": 1.1515881646025428e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.000735123196616e-05,
+            "arc": [
+              2.7866264161055114,
+              2.7966273962318686
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000734836894041e-05,
+            "residual_vs_two_term": 2.8630257480110125e-12,
+            "deviation_from_leading": 0.00014702463932309028,
+            "fraction": 2.8776993369217537e-06
+          }
+        ],
+        "total_mass": 17.37754552407776,
+        "max_relative_residual_vs_two_term": 1.4745781424296696e-05,
+        "residual_over_eta6": [
+          184.75569757259004,
+          183.65065186914245,
+          183.23364787270475
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 160.09374459253564
+      },
+      "joint_excluded": [
+        {
+          "eta": 0.02,
+          "factor1": 0.00019401865132356934,
+          "factor2": 4.614535497560989e-05,
+          "joint_excluded_fraction": 0.00024015505323964203
+        },
+        {
+          "eta": 0.01,
+          "factor1": 4.85006830405629e-05,
+          "factor2": 1.1515881646025428e-05,
+          "joint_excluded_fraction": 6.001600615846268e-05
+        },
+        {
+          "eta": 0.005,
+          "factor1": 1.212492207971813e-05,
+          "factor2": 2.8776993369217537e-06,
+          "joint_excluded_fraction": 1.5002586524759653e-05
+        }
+      ]
+    },
+    {
+      "angles": [
+        0.35,
+        0.7
+      ],
+      "rotation": "R_x(0.61)R_z(0.37)",
+      "factor1": {
+        "has_punctures": 1.0,
+        "psi0": 1.7457963267948966,
+        "slope": 0.34289780745545145,
+        "slope_minus_q": 1.1102230246251565e-16,
+        "puncture_is_minus_u": 1.1102230246251565e-16,
+        "puncture_is_minus_w": 1.5700924586837752e-16
+      },
+      "factor2": {
+        "has_punctures": 1.0,
+        "psi0": 2.791592653589793,
+        "slope": 0.6442176872376915,
+        "slope_minus_q": 4.440892098500626e-16,
+        "puncture_is_minus_u": 2.7194799110210365e-16,
+        "puncture_is_minus_w": 2.482534153247273e-16
+      },
+      "excision1": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008000875239006486,
+            "arc": [
+              1.7258302409872908,
+              1.7658331583799776
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008000875027089018,
+            "residual_vs_two_term": 2.11917467081435e-11,
+            "deviation_from_leading": 0.00010940487581064797,
+            "fraction": 0.00019401865132356934
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.00020000546925098717,
+            "arc": [
+              1.7358049856161533,
+              1.7558053502306354
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020000546891930639,
+            "residual_vs_two_term": 3.3168078201507856e-13,
+            "deviation_from_leading": 2.7346254935793537e-05,
+            "fraction": 4.85006830405629e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.000034181286727e-05,
+            "arc": [
+              1.7407985141587363,
+              1.7507985597336844
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000034180745665e-05,
+            "residual_vs_two_term": 5.4106228503623954e-15,
+            "deviation_from_leading": 6.836257345393991e-06,
+            "fraction": 1.212492207971813e-05
+          }
+        ],
+        "total_mass": 4.123766031990009,
+        "max_relative_residual_vs_two_term": 2.648678630323983e-08,
+        "residual_over_eta6": [
+          0.3311210423147421,
+          0.3316807820150785,
+          0.34627986242319325
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 4130.093750832014
+      },
+      "excision2": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008018930068161464,
+            "arc": [
+              2.772111261095246,
+              2.812174321773297
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008018811824487443,
+            "residual_vs_two_term": 1.182436740209715e-08,
+            "deviation_from_leading": 0.0023662585201829735,
+            "fraction": 4.614535497576857e-05
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.00020011775755921318,
+            "arc": [
+              2.781725843564534,
+              2.801733692842955
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020011757390304654,
+            "residual_vs_two_term": 1.8365616663638777e-10,
+            "deviation_from_leading": 0.0005887877960658377,
+            "fraction": 1.151588164634278e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.000735123472354e-05,
+            "arc": [
+              2.7866264161055114,
+              2.7966273962318686
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000734836894041e-05,
+            "residual_vs_two_term": 2.865783131633659e-12,
+            "deviation_from_leading": 0.00014702469447076274,
+            "fraction": 2.877699337080429e-06
+          }
+        ],
+        "total_mass": 17.377545524077757,
+        "max_relative_residual_vs_two_term": 1.4745784863024834e-05,
+        "residual_over_eta6": [
+          184.75574065776792,
+          183.65616663638775,
+          183.41012042455415
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 160.09370749175457
+      },
+      "joint_excluded": [
+        {
+          "eta": 0.02,
+          "factor1": 0.00019401865132356934,
+          "factor2": 4.614535497576857e-05,
+          "joint_excluded_fraction": 0.00024015505323980065
+        },
+        {
+          "eta": 0.01,
+          "factor1": 4.85006830405629e-05,
+          "factor2": 1.151588164634278e-05,
+          "joint_excluded_fraction": 6.001600615878002e-05
+        },
+        {
+          "eta": 0.005,
+          "factor1": 1.212492207971813e-05,
+          "factor2": 2.877699337080429e-06,
+          "joint_excluded_fraction": 1.5002586524918328e-05
+        }
+      ]
+    },
+    {
+      "angles": [
+        1.0,
+        1.3
+      ],
+      "rotation": "identity",
+      "factor1": {
+        "has_punctures": 1.0,
+        "psi0": 2.0707963267948966,
+        "slope": 0.8414709848078965,
+        "slope_minus_q": 0.0,
+        "puncture_is_minus_u": 0.0,
+        "puncture_is_minus_w": 0.0
+      },
+      "factor2": {
+        "has_punctures": 1.0,
+        "psi0": 2.491592653589793,
+        "slope": 0.963558185417193,
+        "slope_minus_q": 0.0,
+        "puncture_is_minus_u": 1.1102230246251565e-16,
+        "puncture_is_minus_w": 1.2412670766236366e-16
+      },
+      "excision1": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008001517075733969,
+            "arc": [
+              2.0509031080800195,
+              2.090908164730919
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008001516271384983,
+            "residual_vs_two_term": 8.043489865047077e-11,
+            "deviation_from_leading": 0.00018963446674611674,
+            "fraction": 0.00015712031676615225
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.00020000947795185576,
+            "arc": [
+              2.060823329059953,
+              2.0808239609150636
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020000947669615614,
+            "residual_vs_two_term": 1.2556996187209485e-12,
+            "deviation_from_leading": 4.7389759278760636e-05,
+            "fraction": 3.927449286752374e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.000059231267882e-05,
+            "arc": [
+              2.0658031162803434,
+              2.0758031952551663
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000059229350976e-05,
+            "residual_vs_two_term": 1.9169060327776932e-14,
+            "deviation_from_leading": 1.1846253576339432e-05,
+            "fraction": 9.818274245128324e-06
+          }
+        ],
+        "total_mass": 5.0926049796875805,
+        "max_relative_residual_vs_two_term": 1.0052457049687195e-07,
+        "residual_over_eta6": [
+          1.2567952914136056,
+          1.2556996187209482,
+          1.2268198609777234
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 1886.0914347158873
+      },
+      "excision2": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008004961426952013,
+            "arc": [
+              2.4718477802236154,
+              2.511864315465285
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008004952890544853,
+            "residual_vs_two_term": 8.536407159484907e-10,
+            "deviation_from_leading": 0.0006201783690015664,
+            "fraction": 9.050274038850838e-05
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.00020003096888296476,
+            "arc": [
+              2.4816574122907182,
+              2.5016594767940656
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020003095556590534,
+            "residual_vs_two_term": 1.3317059423516991e-11,
+            "deviation_from_leading": 0.00015484441482377528,
+            "fraction": 2.2615163123115546e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.000193493038702e-05,
+            "arc": [
+              2.4866089687395236,
+              2.4966092267275304
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.0001934722869084e-05,
+            "residual_vs_two_term": 2.0751793566951143e-13,
+            "deviation_from_leading": 3.869860774034393e-05,
+            "fraction": 5.6531342183505975e-06
+          }
+        ],
+        "total_mass": 8.844993414109311,
+        "max_relative_residual_vs_two_term": 1.0663906803958568e-06,
+        "residual_over_eta6": [
+          13.338136186695165,
+          13.317059423516989,
+          13.28114788284873
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 581.2078617290213
+      },
+      "joint_excluded": [
+        {
+          "eta": 0.02,
+          "factor1": 0.00015712031676615225,
+          "factor2": 9.050274038850838e-05,
+          "joint_excluded_fraction": 0.0002476088373354226
+        },
+        {
+          "eta": 0.01,
+          "factor1": 3.927449286752374e-05,
+          "factor2": 2.2615163123115546e-05,
+          "joint_excluded_fraction": 6.18887677915765e-05
+        },
+        {
+          "eta": 0.005,
+          "factor1": 9.818274245128324e-06,
+          "factor2": 5.6531342183505975e-06,
+          "joint_excluded_fraction": 1.5471352959456823e-05
+        }
+      ]
+    },
+    {
+      "angles": [
+        1.0,
+        1.3
+      ],
+      "rotation": "R_x(0.61)R_z(0.37)",
+      "factor1": {
+        "has_punctures": 1.0,
+        "psi0": 2.0707963267948966,
+        "slope": 0.8414709848078965,
+        "slope_minus_q": 0.0,
+        "puncture_is_minus_u": 0.0,
+        "puncture_is_minus_w": 0.0
+      },
+      "factor2": {
+        "has_punctures": 1.0,
+        "psi0": 2.491592653589793,
+        "slope": 0.963558185417193,
+        "slope_minus_q": 1.1102230246251565e-16,
+        "puncture_is_minus_u": 1.2412670766236366e-16,
+        "puncture_is_minus_w": 1.5700924586837752e-16
+      },
+      "excision1": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008001517075733969,
+            "arc": [
+              2.0509031080800195,
+              2.090908164730919
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008001516271384983,
+            "residual_vs_two_term": 8.043489865047077e-11,
+            "deviation_from_leading": 0.00018963446674611674,
+            "fraction": 0.00015712031676615225
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.00020000947795185576,
+            "arc": [
+              2.060823329059953,
+              2.0808239609150636
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020000947669615614,
+            "residual_vs_two_term": 1.2556996187209485e-12,
+            "deviation_from_leading": 4.7389759278760636e-05,
+            "fraction": 3.927449286752374e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.000059231267882e-05,
+            "arc": [
+              2.0658031162803434,
+              2.0758031952551663
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000059229350976e-05,
+            "residual_vs_two_term": 1.9169060327776932e-14,
+            "deviation_from_leading": 1.1846253576339432e-05,
+            "fraction": 9.818274245128324e-06
+          }
+        ],
+        "total_mass": 5.0926049796875805,
+        "max_relative_residual_vs_two_term": 1.0052457049687195e-07,
+        "residual_over_eta6": [
+          1.2567952914136056,
+          1.2556996187209482,
+          1.2268198609777234
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 1886.0914347158873
+      },
+      "excision2": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008004961426952012,
+            "arc": [
+              2.4718477802236154,
+              2.511864315465285
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008004952890544853,
+            "residual_vs_two_term": 8.536407158400705e-10,
+            "deviation_from_leading": 0.0006201783690014308,
+            "fraction": 9.050274038850838e-05
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.00020003096888296474,
+            "arc": [
+              2.4816574122907182,
+              2.5016594767940656
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020003095556590534,
+            "residual_vs_two_term": 1.3317059396411937e-11,
+            "deviation_from_leading": 0.00015484441482363975,
+            "fraction": 2.2615163123115546e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.000193493038701e-05,
+            "arc": [
+              2.4866089687395236,
+              2.4966092267275304
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.0001934722869084e-05,
+            "residual_vs_two_term": 2.0751792889324785e-13,
+            "deviation_from_leading": 3.8698607740208406e-05,
+            "fraction": 5.6531342183505975e-06
+          }
+        ],
+        "total_mass": 8.84499341410931,
+        "max_relative_residual_vs_two_term": 1.0663906802604153e-06,
+        "residual_over_eta6": [
+          13.3381361850011,
+          13.317059396411935,
+          13.281147449167861
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 581.207861802713
+      },
+      "joint_excluded": [
+        {
+          "eta": 0.02,
+          "factor1": 0.00015712031676615225,
+          "factor2": 9.050274038850838e-05,
+          "joint_excluded_fraction": 0.0002476088373354226
+        },
+        {
+          "eta": 0.01,
+          "factor1": 3.927449286752374e-05,
+          "factor2": 2.2615163123115546e-05,
+          "joint_excluded_fraction": 6.18887677915765e-05
+        },
+        {
+          "eta": 0.005,
+          "factor1": 9.818274245128324e-06,
+          "factor2": 5.6531342183505975e-06,
+          "joint_excluded_fraction": 1.5471352959456823e-05
+        }
+      ]
+    },
+    {
+      "angles": [
+        1.5707963267948966,
+        1.5707963267948966
+      ],
+      "rotation": "identity",
+      "factor1": {
+        "has_punctures": 1.0,
+        "psi0": 2.356194490192345,
+        "slope": 1.0,
+        "slope_minus_q": 0.0,
+        "puncture_is_minus_u": 0.0,
+        "puncture_is_minus_w": 1.6081226496766364e-16
+      },
+      "factor2": {
+        "has_punctures": 1.0,
+        "psi0": 2.356194490192345,
+        "slope": 1.0000000000000002,
+        "slope_minus_q": 2.220446049250313e-16,
+        "puncture_is_minus_u": 1.5700924586837752e-16,
+        "puncture_is_minus_w": 2.0493319272211658e-16
+      },
+      "excision1": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008003203631918865,
+            "arc": [
+              2.336389311609131,
+              2.3763999891708156
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008003200000000001,
+            "residual_vs_two_term": 3.631918863962816e-10,
+            "deviation_from_leading": 0.0004004539898580593,
+            "fraction": 0.00011206468949045947
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.0002000200056686552,
+            "arc": [
+              2.346243833358704,
+              2.366245167032155
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020002,
+            "residual_vs_two_term": 5.668655188263358e-12,
+            "deviation_from_leading": 0.00010002834327588954,
+            "fraction": 2.8007758965097673e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.000125008880474e-05,
+            "arc": [
+              2.351206907478747,
+              2.3612070741560394
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000125e-05,
+            "residual_vs_two_term": 8.88047366762526e-14,
+            "deviation_from_leading": 2.500177609472058e-05,
+            "fraction": 7.0014144623148055e-06
+          }
+        ],
+        "total_mass": 7.141592653589792,
+        "max_relative_residual_vs_two_term": 4.538083346614873e-07,
+        "residual_over_eta6": [
+          5.674873224941899,
+          5.668655188263357,
+          5.683503147280166
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 882.0769512920688
+      },
+      "excision2": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008003203631918865,
+            "arc": [
+              2.336389311609131,
+              2.3763999891708156
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008003200000000001,
+            "residual_vs_two_term": 3.631918863962816e-10,
+            "deviation_from_leading": 0.0004004539898580593,
+            "fraction": 0.00011206468949045945
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.000200020005667767,
+            "arc": [
+              2.346243833358704,
+              2.3662451670321545
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020002,
+            "residual_vs_two_term": 5.667767009843658e-12,
+            "deviation_from_leading": 0.00010002833883499744,
+            "fraction": 2.8007758964973305e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.000125008791656e-05,
+            "arc": [
+              2.351206907478747,
+              2.3612070741560394
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000125e-05,
+            "residual_vs_two_term": 8.791655825655248e-14,
+            "deviation_from_leading": 2.5001758331152186e-05,
+            "fraction": 7.001414462190437e-06
+          }
+        ],
+        "total_mass": 7.141592653589793,
+        "max_relative_residual_vs_two_term": 4.538083346614873e-07,
+        "residual_over_eta6": [
+          5.674873224941899,
+          5.667767009843657,
+          5.626659728419358
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 882.0769512920688
+      },
+      "joint_excluded": [
+        {
+          "eta": 0.02,
+          "factor1": 0.00011206468949045947,
+          "factor2": 0.00011206468949045945,
+          "joint_excluded_fraction": 0.00022411682048628832
+        },
+        {
+          "eta": 0.01,
+          "factor1": 2.8007758965097673e-05,
+          "factor2": 2.8007758964973305e-05,
+          "joint_excluded_fraction": 5.601473349550874e-05
+        },
+        {
+          "eta": 0.005,
+          "factor1": 7.0014144623148055e-06,
+          "factor2": 7.001414462190437e-06,
+          "joint_excluded_fraction": 1.400277990470077e-05
+        }
+      ]
+    },
+    {
+      "angles": [
+        1.5707963267948966,
+        1.5707963267948966
+      ],
+      "rotation": "R_x(0.61)R_z(0.37)",
+      "factor1": {
+        "has_punctures": 1.0,
+        "psi0": 2.356194490192345,
+        "slope": 1.0,
+        "slope_minus_q": 0.0,
+        "puncture_is_minus_u": 0.0,
+        "puncture_is_minus_w": 1.6081226496766364e-16
+      },
+      "factor2": {
+        "has_punctures": 1.0,
+        "psi0": 2.356194490192345,
+        "slope": 1.0000000000000002,
+        "slope_minus_q": 2.220446049250313e-16,
+        "puncture_is_minus_u": 2.0014830212433605e-16,
+        "puncture_is_minus_w": 2.0014830212433605e-16
+      },
+      "excision1": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008003203631918865,
+            "arc": [
+              2.336389311609131,
+              2.3763999891708156
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008003200000000001,
+            "residual_vs_two_term": 3.631918863962816e-10,
+            "deviation_from_leading": 0.0004004539898580593,
+            "fraction": 0.00011206468949045947
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.0002000200056686552,
+            "arc": [
+              2.346243833358704,
+              2.366245167032155
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020002,
+            "residual_vs_two_term": 5.668655188263358e-12,
+            "deviation_from_leading": 0.00010002834327588954,
+            "fraction": 2.8007758965097673e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.000125008880474e-05,
+            "arc": [
+              2.351206907478747,
+              2.3612070741560394
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000125e-05,
+            "residual_vs_two_term": 8.88047366762526e-14,
+            "deviation_from_leading": 2.500177609472058e-05,
+            "fraction": 7.0014144623148055e-06
+          }
+        ],
+        "total_mass": 7.141592653589792,
+        "max_relative_residual_vs_two_term": 4.538083346614873e-07,
+        "residual_over_eta6": [
+          5.674873224941899,
+          5.668655188263357,
+          5.683503147280166
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 882.0769512920688
+      },
+      "excision2": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008003203631918865,
+            "arc": [
+              2.336389311609131,
+              2.3763999891708156
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008003200000000001,
+            "residual_vs_two_term": 3.631918863962816e-10,
+            "deviation_from_leading": 0.0004004539898580593,
+            "fraction": 0.00011206468949045945
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.000200020005667767,
+            "arc": [
+              2.346243833358704,
+              2.3662451670321545
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020002,
+            "residual_vs_two_term": 5.667767009843658e-12,
+            "deviation_from_leading": 0.00010002833883499744,
+            "fraction": 2.8007758964973305e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.000125008791656e-05,
+            "arc": [
+              2.351206907478747,
+              2.3612070741560394
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000125e-05,
+            "residual_vs_two_term": 8.791655825655248e-14,
+            "deviation_from_leading": 2.5001758331152186e-05,
+            "fraction": 7.001414462190437e-06
+          }
+        ],
+        "total_mass": 7.141592653589793,
+        "max_relative_residual_vs_two_term": 4.538083346614873e-07,
+        "residual_over_eta6": [
+          5.674873224941899,
+          5.667767009843657,
+          5.626659728419358
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 882.0769512920688
+      },
+      "joint_excluded": [
+        {
+          "eta": 0.02,
+          "factor1": 0.00011206468949045947,
+          "factor2": 0.00011206468949045945,
+          "joint_excluded_fraction": 0.00022411682048628832
+        },
+        {
+          "eta": 0.01,
+          "factor1": 2.8007758965097673e-05,
+          "factor2": 2.8007758964973305e-05,
+          "joint_excluded_fraction": 5.601473349550874e-05
+        },
+        {
+          "eta": 0.005,
+          "factor1": 7.0014144623148055e-06,
+          "factor2": 7.001414462190437e-06,
+          "joint_excluded_fraction": 1.400277990470077e-05
+        }
+      ]
+    },
+    {
+      "angles": [
+        2.4,
+        2.7
+      ],
+      "rotation": "identity",
+      "factor1": {
+        "has_punctures": 1.0,
+        "psi0": 2.7707963267948963,
+        "slope": 0.6754631805511515,
+        "slope_minus_q": 5.551115123125783e-16,
+        "puncture_is_minus_u": 3.3306690738754696e-16,
+        "puncture_is_minus_w": 4.002966042486721e-16
+      },
+      "factor2": {
+        "has_punctures": 1.0,
+        "psi0": 1.7915926535897932,
+        "slope": 0.42737988023382983,
+        "slope_minus_q": 5.551115123125783e-17,
+        "puncture_is_minus_u": 5.551115123125783e-17,
+        "puncture_is_minus_w": 1.1102230246251565e-16
+      },
+      "excision1": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008016771421128849,
+            "arc": [
+              2.7512846875492696,
+              2.7913405611563977
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008016678313521298,
+            "residual_vs_two_term": 9.310760755161344e-09,
+            "deviation_from_leading": 0.0020964276411061084,
+            "fraction": 4.904325623455143e-05
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.00020010438417083853,
+            "arc": [
+              2.760921571563578,
+              2.7809285295427553
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020010423945950812,
+            "residual_vs_two_term": 1.4471133040244895e-10,
+            "deviation_from_leading": 0.0005219208541925853,
+            "fraction": 1.2241549710002415e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.0006517222177165e-05,
+            "arc": [
+              2.765828051476535,
+              2.7758289204096647
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000651496621926e-05,
+            "residual_vs_two_term": 2.2559579055639496e-12,
+            "deviation_from_leading": 0.00013034444354325454,
+            "fraction": 3.059189677107455e-06
+          }
+        ],
+        "total_mass": 16.34632778620633,
+        "max_relative_residual_vs_two_term": 1.1614237706728718e-05,
+        "residual_over_eta6": [
+          145.48063679939597,
+          144.7113304024489,
+          144.38130595609275
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 180.12943914976836
+      },
+      "excision2": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008000921158326466,
+            "arc": [
+              1.7716360241142388,
+              1.811639094560155
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008000920912886691,
+            "residual_vs_two_term": 2.4543977527463623e-11,
+            "deviation_from_leading": 0.00011514479080821684,
+            "fraction": 0.0001905781659887044
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.00020000575608932045,
+            "arc": [
+              1.781603685419825,
+              1.801604069156531
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020000575570554182,
+            "residual_vs_two_term": 3.837786208618632e-13,
+            "deviation_from_leading": 2.8780446602181186e-05,
+            "fraction": 4.7640427181336736e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.0000359738371384e-05,
+            "arc": [
+              1.7865954353608309,
+              1.7965954833257625
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000035973159637e-05,
+            "residual_vs_two_term": 6.775016745536044e-15,
+            "deviation_from_leading": 7.194767427638011e-06,
+            "fraction": 1.1909849714988852e-05
+          }
+        ],
+        "total_mass": 4.198235992469716,
+        "max_relative_residual_vs_two_term": 3.067644061814415e-08,
+        "residual_over_eta6": [
+          0.383499648866619,
+          0.38377862086186315,
+          0.4336010717143068
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 3753.0930976244554
+      },
+      "joint_excluded": [
+        {
+          "eta": 0.02,
+          "factor1": 4.904325623455143e-05,
+          "factor2": 0.0001905781659887044,
+          "joint_excluded_fraction": 0.00023961207564942853
+        },
+        {
+          "eta": 0.01,
+          "factor1": 1.2241549710002415e-05,
+          "factor2": 4.7640427181336736e-05,
+          "joint_excluded_fraction": 5.9881393698681604e-05
+        },
+        {
+          "eta": 0.005,
+          "factor1": 3.059189677107455e-06,
+          "factor2": 1.1909849714988852e-05,
+          "joint_excluded_fraction": 1.4969002957607002e-05
+        }
+      ]
+    },
+    {
+      "angles": [
+        2.4,
+        2.7
+      ],
+      "rotation": "R_x(0.61)R_z(0.37)",
+      "factor1": {
+        "has_punctures": 1.0,
+        "psi0": 2.7707963267948963,
+        "slope": 0.6754631805511515,
+        "slope_minus_q": 5.551115123125783e-16,
+        "puncture_is_minus_u": 3.3306690738754696e-16,
+        "puncture_is_minus_w": 4.002966042486721e-16
+      },
+      "factor2": {
+        "has_punctures": 1.0,
+        "psi0": 1.7915926535897932,
+        "slope": 0.42737988023383006,
+        "slope_minus_q": 2.7755575615628914e-16,
+        "puncture_is_minus_u": 1.1102230246251565e-16,
+        "puncture_is_minus_w": 1.9229626863835638e-16
+      },
+      "excision1": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008016771421128849,
+            "arc": [
+              2.7512846875492696,
+              2.7913405611563977
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008016678313521298,
+            "residual_vs_two_term": 9.310760755161344e-09,
+            "deviation_from_leading": 0.0020964276411061084,
+            "fraction": 4.904325623455143e-05
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.00020010438417083853,
+            "arc": [
+              2.760921571563578,
+              2.7809285295427553
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020010423945950812,
+            "residual_vs_two_term": 1.4471133040244895e-10,
+            "deviation_from_leading": 0.0005219208541925853,
+            "fraction": 1.2241549710002415e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.0006517222177165e-05,
+            "arc": [
+              2.765828051476535,
+              2.7758289204096647
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000651496621926e-05,
+            "residual_vs_two_term": 2.2559579055639496e-12,
+            "deviation_from_leading": 0.00013034444354325454,
+            "fraction": 3.059189677107455e-06
+          }
+        ],
+        "total_mass": 16.34632778620633,
+        "max_relative_residual_vs_two_term": 1.1614237706728718e-05,
+        "residual_over_eta6": [
+          145.48063679939597,
+          144.7113304024489,
+          144.38130595609275
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 180.12943914976836
+      },
+      "excision2": {
+        "rows": [
+          {
+            "eta": 0.02,
+            "excised": 0.0008000921158326466,
+            "arc": [
+              1.771636024114239,
+              1.8116390945601553
+            ],
+            "leading_2eta2": 0.0008,
+            "two_term": 0.0008000920912886691,
+            "residual_vs_two_term": 2.4543977527463623e-11,
+            "deviation_from_leading": 0.00011514479080821684,
+            "fraction": 0.00019057816598870423
+          },
+          {
+            "eta": 0.01,
+            "excised": 0.00020000575608932045,
+            "arc": [
+              1.7816036854198252,
+              1.8016040691565312
+            ],
+            "leading_2eta2": 0.0002,
+            "two_term": 0.00020000575570554182,
+            "residual_vs_two_term": 3.837786208618632e-13,
+            "deviation_from_leading": 2.8780446602181186e-05,
+            "fraction": 4.7640427181336695e-05
+          },
+          {
+            "eta": 0.005,
+            "excised": 5.0000359738371384e-05,
+            "arc": [
+              1.786595435360831,
+              1.7965954833257627
+            ],
+            "leading_2eta2": 5e-05,
+            "two_term": 5.000035973159637e-05,
+            "residual_vs_two_term": 6.775016745536044e-15,
+            "deviation_from_leading": 7.194767427638011e-06,
+            "fraction": 1.1909849714988842e-05
+          }
+        ],
+        "total_mass": 4.198235992469719,
+        "max_relative_residual_vs_two_term": 3.067644061814415e-08,
+        "residual_over_eta6": [
+          0.383499648866619,
+          0.38377862086186315,
+          0.4336010717143068
+        ],
+        "residual_scales_as_eta6": true,
+        "quartic_improvement_factor": 3753.0930976244554
+      },
+      "joint_excluded": [
+        {
+          "eta": 0.02,
+          "factor1": 4.904325623455143e-05,
+          "factor2": 0.00019057816598870423,
+          "joint_excluded_fraction": 0.00023961207564942837
+        },
+        {
+          "eta": 0.01,
+          "factor1": 1.2241549710002415e-05,
+          "factor2": 4.7640427181336695e-05,
+          "joint_excluded_fraction": 5.9881393698681564e-05
+        },
+        {
+          "eta": 0.005,
+          "factor1": 3.059189677107455e-06,
+          "factor2": 1.1909849714988842e-05,
+          "joint_excluded_fraction": 1.4969002957606992e-05
+        }
+      ]
+    }
+  ],
+  "grids": [
+    {
+      "t": 0.06062728715262111,
+      "sizes": [
+        512,
+        1024,
+        2048
+      ],
+      "relative_errors": [
+        1.1409048084383186e-06,
+        2.6755599254460082e-06,
+        3.7269782502308053e-07
+      ],
+      "closed_form_error": 1.5702959129236657e-16,
+      "final_error": 3.7269782502308053e-07,
+      "decreasing": false
+    },
+    {
+      "t": 0.06062728715262111,
+      "sizes": [
+        512,
+        1024,
+        2048
+      ],
+      "relative_errors": [
+        1.1409048084383186e-06,
+        2.6755599254460082e-06,
+        3.7269782502308053e-07
+      ],
+      "closed_form_error": 1.5702959129236657e-16,
+      "final_error": 3.7269782502308053e-07,
+      "decreasing": false
+    },
+    {
+      "t": 0.45969769413186023,
+      "sizes": [
+        512,
+        1024,
+        2048
+      ],
+      "relative_errors": [
+        1.0362221312623084e-06,
+        2.2792769772422304e-06,
+        3.0565483029753275e-07
+      ],
+      "closed_form_error": 0.0,
+      "final_error": 3.0565483029753275e-07,
+      "decreasing": false
+    },
+    {
+      "t": 0.45969769413186023,
+      "sizes": [
+        512,
+        1024,
+        2048
+      ],
+      "relative_errors": [
+        1.0362221312623084e-06,
+        2.2792769772422304e-06,
+        3.0565483029753275e-07
+      ],
+      "closed_form_error": 0.0,
+      "final_error": 3.0565483029753275e-07,
+      "decreasing": false
+    },
+    {
+      "t": 0.9999999999999999,
+      "sizes": [
+        512,
+        1024,
+        2048
+      ],
+      "relative_errors": [
+        3.5145958911637177e-06,
+        8.786460779625642e-07,
+        2.196613385055712e-07
+      ],
+      "closed_form_error": 1.2436699526031822e-16,
+      "final_error": 2.196613385055712e-07,
+      "decreasing": true
+    },
+    {
+      "t": 0.9999999999999999,
+      "sizes": [
+        512,
+        1024,
+        2048
+      ],
+      "relative_errors": [
+        3.5145958911637177e-06,
+        8.786460779625642e-07,
+        2.196613385055712e-07
+      ],
+      "closed_form_error": 1.2436699526031822e-16,
+      "final_error": 2.196613385055712e-07,
+      "decreasing": true
+    },
+    {
+      "t": 1.7373937155412453,
+      "sizes": [
+        512,
+        1024,
+        2048
+      ],
+      "relative_errors": [
+        6.736506087359744e-07,
+        4.7014995540659456e-07,
+        7.375493896553069e-08
+      ],
+      "closed_form_error": 0.0,
+      "final_error": 7.375493896553069e-08,
+      "decreasing": true
+    },
+    {
+      "t": 1.7373937155412453,
+      "sizes": [
+        512,
+        1024,
+        2048
+      ],
+      "relative_errors": [
+        6.736506087359744e-07,
+        4.7014995540659456e-07,
+        7.375493896553069e-08
+      ],
+      "closed_form_error": 0.0,
+      "final_error": 7.375493896553069e-08,
+      "decreasing": true
+    }
+  ],
+  "level_set_controls": {
+    "reflection": {
+      "statistic": "pair",
+      "statistic_match": 2.220446049250313e-16,
+      "reference_density_gap": 2.220446049250313e-16,
+      "cubic_gap": 6.661338147750939e-16,
+      "values": [
+        [
+          0.6999999999999998,
+          1.8999999999999995
+        ],
+        [
+          0.7,
+          1.8999999999999997
+        ]
+      ],
+      "chord_separation": 2.489979919597747,
+      "realisation_error": 4.440892098500626e-16
+    },
+    "signed_product": {
+      "statistic": "product",
+      "statistic_match": 1.1102230246251565e-15,
+      "reference_density_gap": 1.1102230246251565e-15,
+      "cubic_gap": 0.13725830020304963,
+      "values": [
+        [
+          0.9999999999999999,
+          1.9999999999999996
+        ],
+        [
+          1.4142135623730951,
+          1.4142135623730951
+        ]
+      ],
+      "chord_separation": 0.5668356666646025,
+      "realisation_error": 4.440892098500626e-16
+    },
+    "absolute_product": {
+      "statistic": "absolute_product",
+      "statistic_match": 5.273559366969494e-16,
+      "reference_density_gap": 5.273559366969494e-16,
+      "cubic_gap": 0.0049999999999997685,
+      "values": [
+        [
+          0.2500000000000002,
+          0.9999999999999999
+        ],
+        [
+          -0.24999999999999967,
+          0.9999999999999999
+        ]
+      ],
+      "chord_separation": 0.5190991270671766,
+      "realisation_error": 3.3306690738754696e-16
+    }
+  },
+  "repository_audit": {
+    "entries": [
+      {
+        "module": "geometrodynamics/history/closure.py",
+        "variables": "event phases, worldline phases, orientation-weighted charges",
+        "rule": "single summed total_phase within tolerance of pi Z; Gaussian weight",
+        "applies_to_disconnected_pairs": true,
+        "supplies_joint_weight_rule": false,
+        "reason": "the summed rule is rank one on a union and accepts cancellation between subsystems that do not close; the freeze forbids it as a substitute for the two conditions"
+      },
+      {
+        "module": "geometrodynamics/bulk/history_action.py",
+        "variables": "SU(2) closure holonomy G of one based loop, theta, S_H",
+        "rule": "theta additive for loops based at a common x",
+        "applies_to_disconnected_pairs": true,
+        "supplies_joint_weight_rule": false,
+        "reason": "on the closure locus theta_i lie in pi Z, so the reduced holonomies are central and compose exactly; the composed condition is rank TWO and reproduces the two independent conditions, consistent with Gamma_1 x Gamma_2 (N27). But a closure condition is not a weight, and the common quaternion frame it needs is assumed, not derived"
+      },
+      {
+        "module": "geometrodynamics/bulk/closure_current.py",
+        "variables": "one triangle's D, |u x v|, Pin branch label",
+        "rule": "positive or holonomy-weighted coarea on a single closure set",
+        "applies_to_disconnected_pairs": false,
+        "supplies_joint_weight_rule": false,
+        "reason": "single-pair measures; no two-preparation rule is defined"
+      },
+      {
+        "module": "geometrodynamics/transaction/network.py",
+        "variables": "mouth clocks, throat transfer t_AB, loop eigenvalue",
+        "rule": "self-consistent field on a throat-connected loop",
+        "applies_to_disconnected_pairs": false,
+        "supplies_joint_weight_rule": false,
+        "reason": "presupposes a throat connecting the mouths; two independent preparations have no such channel"
+      },
+      {
+        "module": "geometrodynamics/transaction/derived_network.py",
+        "variables": "Lambda_l(omega, Delta), G_eff, eta_topo",
+        "rule": "derived-geometry loop eigenvalue and effective Green function",
+        "applies_to_disconnected_pairs": false,
+        "supplies_joint_weight_rule": false,
+        "reason": "wires a derived throat into the same connected loop"
+      }
+    ],
+    "rank_one_demonstration": {
+      "subsystem_phase": 1.5707963267948966,
+      "sigma": 0.3,
+      "union_total_phase": 0.0,
+      "union_is_closed": true,
+      "union_mismatch": 0.0,
+      "subsystem_is_closed": [
+        false,
+        false
+      ],
+      "subsystem_mismatch": [
+        1.5707963267948966,
+        1.5707963267948966
+      ],
+      "default_sigma_worst_case_weight": 0.03248600256913792,
+      "default_sigma_cannot_reject": true,
+      "rank_one_cancellation_demonstrated": true
+    },
+    "based_loop_scope": {
+      "same_base_additivity_residual": 4.440892098500626e-16,
+      "on_closure_commutator": 2.9582283945787943e-31,
+      "on_closure_holonomy_is_central": 3.6739403974420604e-16,
+      "window_rows": [
+        {
+          "epsilon": [
+            0.04,
+            0.04
+          ],
+          "max_commutator": 0.0028944606900144667,
+          "bound_2_sin_sin": 0.003198293697380615,
+          "respects_bound": true
+        },
+        {
+          "epsilon": [
+            0.04,
+            0.08
+          ],
+          "max_commutator": 0.0060127920529529245,
+          "bound_2_sin_sin": 0.006391470807111689,
+          "respects_bound": true
+        },
+        {
+          "epsilon": [
+            0.08,
+            0.04
+          ],
+          "max_commutator": 0.006177331664268388,
+          "bound_2_sin_sin": 0.006391470807111689,
+          "respects_bound": true
+        },
+        {
+          "epsilon": [
+            0.01,
+            0.01
+          ],
+          "max_commutator": 0.00019194379724085295,
+          "bound_2_sin_sin": 0.0001999933334222216,
+          "respects_bound": true
+        }
+      ],
+      "windows_respect_bound": true,
+      "off_closure_control_commutator": 1.9885109221907105,
+      "off_closure_control_is_not_evidence": true,
+      "common_frame_transport_derived": false,
+      "composed_holonomy": {
+        "rows": [
+          {
+            "gamma": [
+              1.5707963267948966,
+              1.5707963267948966
+            ],
+            "psi": [
+              0.7853981633974483,
+              0.7853981633974483
+            ],
+            "D": [
+              2.0,
+              2.0
+            ],
+            "axis_dot": -0.9323273456060344,
+            "analytic_residual": 1.66644475996236e-13,
+            "singular_values": [
+              1.3900817765892013,
+              0.2601396824668298
+            ],
+            "rank": 2,
+            "normal_singular_values": [
+              0.6950408882946006,
+              0.1300698412334149
+            ],
+            "opposite_phase_vec_norm": 0.5559053206792475
+          },
+          {
+            "gamma": [
+              1.0,
+              1.3
+            ],
+            "psi": [
+              0.6,
+              2.1
+            ],
+            "D": [
+              1.2510716375464674,
+              0.4636992193594902
+            ],
+            "axis_dot": -0.2863144707325197,
+            "analytic_residual": 1.6575629757653587e-13,
+            "singular_values": [
+              1.1341580448650406,
+              0.8447991058631884
+            ],
+            "rank": 2,
+            "normal_singular_values": [
+              2.087820823353153,
+              0.6414050067399772
+            ],
+            "opposite_phase_vec_norm": 0.46049299690895856
+          },
+          {
+            "gamma": [
+              0.7,
+              2.4
+            ],
+            "psi": [
+              2.9,
+              1.15
+            ],
+            "D": [
+              -0.4307210392060137,
+              0.5586434680801671
+            ],
+            "axis_dot": 0.7896139119659461,
+            "analytic_residual": 1.383337888682945e-13,
+            "singular_values": [
+              1.3377645203717095,
+              0.4586786326328966
+            ],
+            "rank": 2,
+            "normal_singular_values": [
+              1.8245867935980185,
+              0.608173047394726
+            ],
+            "opposite_phase_vec_norm": 0.19081239999377564
+          }
+        ],
+        "reviewed_configuration": {
+          "t": [
+            1.0,
+            1.0
+          ],
+          "D": [
+            2.0,
+            2.0
+          ],
+          "axis_dot": -2.2204460492503128e-16,
+          "normal_singular_values": [
+            0.49999999999991646,
+            0.4999999999999167
+          ],
+          "rank": 2
+        },
+        "min_rank": 2,
+        "max_analytic_residual": 1.66644475996236e-13,
+        "min_opposite_phase_vec_norm": 0.19081239999377564,
+        "rank_one_claim_withdrawn": true
+      },
+      "supplies_a_closure_condition_not_a_weight": true
+    },
+    "any_module_supplies_joint_weight_rule": false,
+    "search_scope": "the five modules named in the freeze's Q2, at the pinned baseline; not an exhaustive search of BAM"
+  },
+  "checks": {
+    "Q1 finite-difference Gram matches the closed Jacobian": true,
+    "Q1 independent analytic route agrees to 1e-10": true,
+    "Q1 density is invariant under a common SO(3) frame change": true,
+    "Q3 level sets contain genuinely distinct histories": true,
+    "Q1 closed form matches split quadrature": true,
+    "Q1 uniform sector-probability grids agree at 2048": true,
+    "Q1 finite windows converge to the coarea limit": true,
+    "Q1 punctures are exactly -u and -w with |dD/dpsi| = |q|": true,
+    "Q1 excised mass follows the two-term law with an eta^6 residual": true,
+    "Q1 the accepted window set is connected on the registered grid": true,
+    "Q1 joint excluded fraction is bounded and vanishing": true,
+    "Q3 reflection preserves the pair statistic and the density": true,
+    "Q3 same signed product separates the cubic weight": true,
+    "Q3 same absolute product, opposite sign separates the cubic": true,
+    "Q2 the generic closure rule is rank one on a union": true,
+    "Q2 on-closure holonomies are central and the window bound holds": true,
+    "Q2 the composed-holonomy condition is rank two, not rank one": true
+  },
+  "structural_regressions": {
+    "product marginals (structural)": true,
+    "three-factor associativity (structural)": true,
+    "joint window factorisation (structural)": true,
+    "joint Gram off-diagonal (structural)": true,
+    "copy exchange (structural)": true
+  },
+  "checks_passed": true,
+  "verdict": {
+    "reference_composition": "INDEPENDENT_PHASE_PRODUCT_VERIFIED",
+    "reduction_of_specified_rules": "PRODUCT_STATISTIC_SUFFICIENT",
+    "reduction_scope": "the reference rule only, through the ABSOLUTE product; the separations in the level-set controls show the factorisation does not transfer to the cubic weight",
+    "additional_physical_rule": "JOINT_WEIGHT_RULE_UNSPECIFIED",
+    "consequence_for_selection": "NO_SELECTION_FROM_INDEPENDENCE",
+    "failed_checks": [],
+    "P3_hypotheses_established": "NO -- neither the physical completeness of the allowed rule family, nor the composite-scalar identification, nor the domain hypothesis is established here"
+  },
+  "scope": "Two independently prepared triangles under the inherited chosen phase conditioning. Not a Born rule, not an operational readout, not a Hilbert tensor product.",
+  "weight_selection": "NOT_DERIVED",
+  "operational_source_readout": "NOT_DERIVED"
+}

@@ -626,6 +626,26 @@ recorded in the historical list below rather than here.*
    linear history-current readout.*
 4. **Composition.** Everything above concerns one pair. Derive `H₁ ⊗ H₂` from
    `Γ₁ × Γ₂` for the opposite-Pin-sector pair, rather than assuming it.
+   *Round 10 answers the classical half and leaves the quantum half open.* The
+   joint closure locus **is** `Γ₁ × Γ₂`, its coarea Jacobian is
+   `|q₁||q₂|/|D₁D₂|`, and the reference density `|D₁D₂|/(|q₁||q₂|)` is a
+   function of the absolute product alone — verified against an independent
+   analytic route to `4.8e-16` and finite phase windows to `3.3e-05`. But that
+   sufficiency does not transfer: at `t₁=t₂=1` the pairs `(1,2)`/`(√2,√2)` and
+   `(1/4,1)`/`(−1/4,1)` leave the reference density fixed to `1e-15` while
+   separating the cubic weight by `0.1373` and `0.005`. And **no inherited
+   module supplies a joint weight rule for two disconnected preparations**:
+   `history/closure.py`'s summed rule is rank one on a union (and at its
+   default `σ` cannot reject any history on phase alone), `history_action.py`'s
+   additivity theorem *is* available on the closure locus — where `θᵢ ∈ πZ`
+   makes the holonomies central — but the composed-holonomy condition is
+   **rank two**, reproducing the two independent conditions rather than the
+   scalar sum, so it yields a joint closure condition and no joint weight
+   (and assumes an underived common frame); the transaction modules
+   presuppose a throat. So independent composition selects nothing, the
+   conditional product-scalar obstruction is not invoked, and the missing link
+   is now named precisely: a physical rule connecting two prepared histories.
+   See `docs/joint_closure.md`.
 4b. **The conditioning variable.** *Round 8, from an external audit.* The `|D|`
    density that rounds 5–7 all rest on is the coarea measure with respect to
    the **phase**, not a consequence of the closure set: an `|N| < ε` window has
@@ -706,7 +726,7 @@ of an original freeze.
 
 | Provenance class | Work and anchors | What is established and limited |
 |---|---|---|
-| Public freeze before implementation | Rounds 5–8: `1b0144e`, `f954e3d`, `a33a901`, `39be3e3`; pointer spread: `baf856d`; TT rotor: `0eb684b` | The public preregistration precedes its implementation in the recorded history. The pointer-spread and TT-rotor implementations and probes followed their public freezes without reconstruction or post-result parameter changes. The TT normal obstruction was an analytic prediction explicitly recorded before its numerical test. Subsequent review corrections must be identified separately. |
+| Public freeze before implementation | Rounds 5–8: `1b0144e`, `f954e3d`, `a33a901`, `39be3e3`; pointer spread: `baf856d`; TT rotor: `0eb684b`; joint closure: `75db3f3`, amended `b78157a` | The public preregistration precedes its implementation in the recorded history. The pointer-spread and TT-rotor implementations and probes followed their public freezes without reconstruction or post-result parameter changes. The TT normal obstruction was an analytic prediction explicitly recorded before its numerical test. Round 10's freeze was published, reviewed and amended (A1) before any of its code or numbers existed; the amendment changed scope wording, the expected-gap statement and the auxiliary seed, and changed no geometric setting, tolerance or acceptance gate. Subsequent review corrections must be identified separately. |
 | Local freeze, published after calculation | #283: local `76ed50e`; published freeze `d83d46a`, then implementation `7d70728` | Public ordering establishes publication of the freeze before publication of the implementation, but does not independently verify that the local freeze preceded calculation. |
 | Public freeze, implementation reconstructed with results known | #284: public `d258bb1`, then reconstructed implementation `fe5016d` | The freeze preceded the first implementation. A session reset lost uncommitted work; reconstruction and rerun used the earlier results. This is not a second blind test. |
 
