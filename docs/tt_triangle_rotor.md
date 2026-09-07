@@ -444,6 +444,14 @@ a source/confinement mechanism that controls them. Substituting the desired
 rotor into an action and ignoring its normal equations would miss exactly
 the obstruction established here.
 
+The [reciprocal scalar–TT follow-up](reciprocal_scalar_tt.md) retains all five
+tensor components and derives the scalar reaction from the same action.
+It realizes the quadrupolar source with a complete scalar harmonic multiplet,
+but exhibits nonzero matter sources in the omitted Einstein constraints.
+Its coupled histories are a verified variational projection; full gravitational
+constraint completion, a localized apparatus, and the triangle-history map
+remain open.
+
 ## Reproduction and provenance
 
 ```bash
