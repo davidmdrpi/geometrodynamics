@@ -5318,6 +5318,39 @@ python -m experiments.closure_ledger.joint_closure_probe   # 17 required checks
 python -m pytest -q tests/test_joint_closure.py             # 49 tests
 ```
 
+## Constraint solvability does not derive the antipodal condition (round 11)
+
+The linearized Hamiltonian constraint on the round `S^3` has a genuine
+four-dimensional `l=1` kernel, so it is solvable only when `int rho x^A dV=0`.
+Antipodal parity purity guarantees that — which raised the question of whether
+general relativity *derives* the identification BAM imposes (audit item F6).
+
+**It does not.** The obstruction is bilinear across the parity sectors and is
+carried entirely by the degree-1 triple overlap `int Y_n Y_n' Y_1 dV`, which is
+nonzero only for **adjacent** degrees `|n-n'|=1`. Measured over every pair to
+degree 6: minimum adjacent norm `3.464102`, maximum non-adjacent `1.39e-14`.
+So any degree set with no adjacent pair is equally solvable, including
+mixed-parity ones — `{1,4}`, `{2,5}`, `{3,6}` give `|P^A| <= 2.9e-14` over 600
+samples each, against `5.08`, `6.93`, `9.03` for `{1,2}`, `{2,3}`, `{3,4}`.
+Parity is sufficient, strictly stronger than necessary.
+
+The parity eigenspaces are still maximal *within* an adjacent truncation (no
+nonzero evading subspace, no nonzero evading graph subspace), and the momentum
+constraint's obstruction is not a parity condition at all: parity-pure data
+kills the dipole exactly while carrying `SO(4)` Killing charges up to `6.99`.
+
+The public freeze `495f1f1` preceded implementation and recorded the negative
+expectation in advance so it could not be softened. **51 tests and all 9
+required probe checks pass.** One implementation correction (C1, a factor of
+two in the overlap route) was caught by the frozen cross-check against the
+inherited improved stress and is recorded in
+[the write-up](docs/parity_solvability.md#implementation-correction).
+
+```bash
+python -m experiments.closure_ledger.parity_solvability_probe   # 9 required checks
+python -m pytest -q tests/test_parity_solvability.py             # 51 tests
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced
