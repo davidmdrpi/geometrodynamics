@@ -147,6 +147,29 @@ Hamiltonian and momentum residuals are meaningful unused-equation checks.
 The constant momentum potential is immaterial; its Euler equation is not
 imposed. The homogeneous fluid energy equation remains active.
 
+Momentum compatibility has its own reason here. The coherent standing wave
+has `q=A q_dir`, `p=dot(A) q_dir` and `j_phi=grad J_phi`. The fluid starts at
+rest, and its linear Euler forcing is a gradient, so `j_f=grad J_f` remains
+true throughout this scalar response. For every one of the six round-S3
+Killing fields K, compactness and `div K=0` give
+
+\[
+ \int K\cdot(j_\phi+j_f)\,dV
+ =-\int(J_\phi+J_f)\operatorname{div}K\,dV=0.
+\]
+
+This is a gradient-current argument, independent of parity. General
+parity-pure data can carry Killing charge: the inherited constraint tests
+include and reject that negative control. The unused momentum residuals
+above check local propagation separately. The homogeneous linear operator
+and the leading standing-wave source keep this order-s^2 response within
+degrees 0,2,4,6; hence no degree-1 Hamiltonian source is generated here.
+Since `l(l+2)=3` only at `l=1`, additional source multiplets would require
+their own dipole check and their own momentum accounting. Parity purity is
+not asserted to be necessary for solvability. At later times this gauge is
+not CMC, so the initial CMC conformal-Killing test is not imposed as a new
+evolution condition.
+
 The free-support scalar frequency is
 `Omega_l^2=[c_s^2(l(l+2)-3)-1]/a^2`. This recovers the established degree-2
 threshold `c_s^2=1/5`; the homogeneous scale mode remains unstable. This is a
@@ -171,22 +194,68 @@ The second equality is Einstein's trace equation: the leading conformal
 scalar has zero trace, and Lambda is fixed. It is checked against the
 geometric curvature expression, not substituted to make the check vanish.
 
-Initially the fluid is at rest, its pressure gradient vanishes and its
-four-acceleration is zero. Its coordinate velocity still has derivative
-`v_dot=-grad alpha`; gravitational coordinate acceleration is not proper
-acceleration. Converting `partial_t^2 phi` to `D_U^2 phi` removes the lapse
-and this material-advection contribution. Also `delta R^(4)(0)=0`, since
-the initial support perturbations vanish. Therefore
+Write the fluid coordinate velocity as `v^i=dx^i/dt=O(s^2)`. Normalization
+gives `U^0=1-alpha+O(s^4)`, `U^i=v^i+O(s^4)`. Applying the material
+derivative twice, with all displayed spatial contractions in the round
+metric, gives
 
 \[
- F_{\rm proper}(0)=2\psi(0)\Delta\phi_1(0)
-                         -\nabla\psi(0)\cdot\nabla\phi_1(0).
+ D_U^2\phi=\partial_t^2\phi
+ -2\alpha\ddot\phi_1-\dot\alpha\dot\phi_1
+ +\dot v\cdot\nabla\phi_1+2v\cdot\nabla\dot\phi_1+O(s^5).
 \]
+
+Initially the fluid is at rest, its pressure gradient vanishes and its
+four-acceleration is zero. The spatial geodesic equation still gives
+`v_dot=-grad alpha`: the fluid moves away from fixed spatial coordinates.
+Also `dot(phi_1)(0)=0` and `delta R^(4)(0)=0`, since the initial support
+perturbations vanish. Thus the conversion of the *cubic correction* is
+
+\[
+ F_{\rm proper}(0)=F_t(0)-2\alpha(0)\ddot\phi_1(0)
+                         -\nabla\alpha(0)\cdot\nabla\phi_1(0)
+ =2\psi(0)\Delta\phi_1(0)-\nabla\psi(0)\cdot\nabla\phi_1(0).
+\]
+
+Both correction terms matter. In the same units as the modal coefficients,
+
+| Contribution to the initial conversion | Coefficient |
+|---|---:|
+| Coordinate-time correction | `+55096/875` |
+| Clock normalization, `-2 alpha ddot(phi_1)` | `-76928/875` |
+| Fluid coordinate acceleration, `-grad(alpha).grad(phi_1)` | `+13856/875` |
+| Proper-time correction | **`-7976/875`** |
 
 Equivalently, on this initial slice,
 `D_U^2 phi=Delta_g phi-R^(4)phi/6`. The conformal spatial Laplacian variation
 is `delta Delta phi=2 psi Delta phi-grad psi.grad phi`, giving the same
 result without choosing a spatially varying lapse.
+
+The same-metric numerical control strengthens the already frozen clock
+gate without changing the freeze or its predictions. In the nonlinear test
+metric `N=exp(epsilon alpha)`, `g_ij=exp(-2 epsilon psi)gbar_ij`, use
+`U^0=N^-1`, `U^i=0` initially and construct `Gamma^mu_00` from the metric
+derivatives. The geodesic scalar Hessian then gives, at the same event,
+
+\[
+ D_U^2\phi=N^{-2}\bigl(\partial_t^2\phi
+              -\epsilon\dot\alpha\dot\phi\bigr)
+       -\epsilon e^{2\epsilon\psi}\nabla\alpha\cdot\nabla\phi.
+\]
+
+Insert the coordinate acceleration obtained from that metric's full
+conformal wave operator, including its scalar curvature. Differentiate both
+clock results with respect to epsilon at zero, using centered differences
+and Richardson extrapolation at the frozen metric-control steps. This route
+does not use the first-order force or its manual clock conversion. It checks
+both signed coefficients and both pointwise force fields on both spatial
+rules and the radius controls. Its tolerance is the nonlinear metric
+control's `1e-7`; the original first-order conversion still must pass `1e-9`.
+A negative control substitutes coordinate acceleration for the proper
+derivative: the independent clock gate fails and the verdict is UNRESOLVED.
+The finite-epsilon metric is a variation control, not a nonlinear
+Einstein-fluid solution, and this geodesic construction applies to the
+initial fluid clock only.
 
 The projection onto the fixed initial Y is a diagnostic of this local scalar
 correction. It is not an operational detector record, and the preparation
@@ -253,6 +322,11 @@ Controls use sound-speed squares `0,1/5,1`, two lower amplitudes, and radii
 - Full improved stress fixes the scalar anisotropic projection on two
   spatial rules. The initial coefficients agree to `2.7e-13` or better,
   including radius controls; proper-clock conversion agrees to `5.1e-16`.
+- The additional same-metric geodesic check recovers both clock signs.
+  Across both rules and the radius controls, its maximum coefficient error
+  is `3.1e-8` and its scaled pointwise error is `1.6e-8`, within the `1e-7`
+  nonlinear metric gate. Substituting the coordinate clock makes this gate
+  fail even while the original first-order conversion still passes.
 - Independently evolved fluid and reduced metric responses agree to
   `5.2e-12`. Maximum unused Hamiltonian and momentum residuals are
   `6.3e-13` and `6.6e-15`; tolerance refinement is below `6.6e-11`.

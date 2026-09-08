@@ -133,6 +133,28 @@
       "proper_conversion_coefficient": -9.115428571428573,
       "proper_coefficient_error": 1.7763568394002505e-15,
       "coordinate_coefficient_error": 1.9895196601282805e-13,
+      "same_metric_two_clocks": {
+        "coordinate": {
+          "Richardson_coefficient": 62.966857143693815,
+          "coefficient_error": 8.366711767848756e-10,
+          "centered_scaled_errors": [
+            1.7459934951035966e-11,
+            2.9396813524652e-11,
+            5.5321243292201916e-11
+          ],
+          "Richardson_scaled_error": 7.457532229448885e-11
+        },
+        "proper": {
+          "Richardson_coefficient": -9.115428569707586,
+          "coefficient_error": 1.7209860203593053e-09,
+          "centered_scaled_errors": [
+            1.2848448896754472e-10,
+            2.708472801258004e-10,
+            5.325675017091681e-10
+          ],
+          "Richardson_scaled_error": 7.14426057612604e-10
+        }
+      },
       "clock_conversion_scaled_error": 5.043340680777718e-16
     },
     {
@@ -141,6 +163,28 @@
       "proper_conversion_coefficient": -9.115428571428476,
       "proper_coefficient_error": 9.592326932761353e-14,
       "coordinate_coefficient_error": 1.8474111129762605e-13,
+      "same_metric_two_clocks": {
+        "coordinate": {
+          "Richardson_coefficient": 62.966857142592964,
+          "coefficient_error": 2.6417978915560525e-10,
+          "centered_scaled_errors": [
+            1.799676995174748e-11,
+            2.7658988352405093e-11,
+            5.594170316159807e-11
+          ],
+          "Richardson_scaled_error": 7.592224717053482e-11
+        },
+        "proper": {
+          "Richardson_coefficient": -9.115428572634347,
+          "coefficient_error": 1.2057750353733354e-09,
+          "centered_scaled_errors": [
+            1.3799903878700896e-10,
+            2.6169431285581017e-10,
+            5.624613670603472e-10
+          ],
+          "Richardson_scaled_error": 7.563912524740015e-10
+        }
+      },
       "clock_conversion_scaled_error": 5.056274288185478e-16
     }
   ],
@@ -12377,6 +12421,28 @@
       "proper_conversion_coefficient": -9.115428571428525,
       "proper_coefficient_error": 4.618527782440651e-14,
       "coordinate_coefficient_error": 2.6290081223123707e-13,
+      "same_metric_two_clocks": {
+        "coordinate": {
+          "Richardson_coefficient": 62.96685714374456,
+          "coefficient_error": 8.874181389728619e-10,
+          "centered_scaled_errors": [
+            1.836762683406603e-11,
+            2.4456860081520112e-11,
+            5.0021738476218096e-11
+          ],
+          "Richardson_scaled_error": 6.79460295472176e-11
+        },
+        "proper": {
+          "Richardson_coefficient": -9.115428570350707,
+          "coefficient_error": 1.0778649084386416e-09,
+          "centered_scaled_errors": [
+            1.1148858193352132e-10,
+            2.351614035049883e-10,
+            4.737202330813682e-10
+          ],
+          "Richardson_scaled_error": 6.452704396698131e-10
+        }
+      },
       "clock_conversion_scaled_error": 5.080689337088741e-16
     },
     {
@@ -12387,6 +12453,28 @@
       "proper_conversion_coefficient": -9.115428571428586,
       "proper_coefficient_error": 1.4210854715202004e-14,
       "coordinate_coefficient_error": 1.7763568394002505e-13,
+      "same_metric_two_clocks": {
+        "coordinate": {
+          "Richardson_coefficient": 62.96685715500101,
+          "coefficient_error": 1.21438645805938e-08,
+          "centered_scaled_errors": [
+            2.827849217691933e-10,
+            5.777899020326103e-10,
+            1.1103561316527985e-09
+          ],
+          "Richardson_scaled_error": 1.5095550015607339e-09
+        },
+        "proper": {
+          "Richardson_coefficient": -9.1154285404336,
+          "coefficient_error": 3.099497192238232e-08,
+          "centered_scaled_errors": [
+            2.59867156376656e-09,
+            5.272302166566207e-09,
+            1.1226526979948283e-08
+          ],
+          "Richardson_scaled_error": 1.5200602630961507e-08
+        }
+      },
       "clock_conversion_scaled_error": 4.637865956451926e-16
     }
   ],

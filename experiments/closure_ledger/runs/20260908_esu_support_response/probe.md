@@ -17,6 +17,9 @@ The continuous metric bounds apply to t in [0,2], with a=kappa=1 and s=0.02.
 | Newtonian coordinate-time scalar force | 55096/875 |
 | Induced homogeneous TT force | 0 |
 
+Both clocks are also evaluated in the same exponential test metric, using its connection for the initial proper derivative.
+Maximum two-clock Richardson field/coefficient error: 3.1e-08.
+
 | c_s^2 | Unused Hamiltonian residual | Unused momentum residual | All-space/all-time psi upper bound |
 |---:|---:|---:|---:|
 | 0.333333 | 5.05e-13 | 5.08e-15 | 0.00100504 |

@@ -50,14 +50,42 @@ def evolution_checks(model, times, spatial):
 def initial_force_checks(model, spatial):
     forces = spatial.force_fields(0., model.initial())
     projected = {k: spatial.project_force(v)/model.cubic_scale for k, v in forces.items()}
+    # One nonlinear metric and scalar equation, two clocks. The proper
+    # derivative is contracted with the connection of an initial geodesic,
+    # independently of force_fields' linear conversion. Frozen gates 5/6.
+    derivatives = {key: [] for key in ("coordinate", "proper")}
+    for epsilon in (.04, .02, .01):
+        plus = spatial.exact_initial_clock_accelerations(epsilon)
+        minus = spatial.exact_initial_clock_accelerations(-epsilon)
+        for key in derivatives:
+            derivatives[key].append((plus[key]-minus[key])/(2*epsilon))
+    richardson = {key: (4*values[-1]-values[-2])/3 for key, values in derivatives.items()}
+    two_clocks = {}
+    for key, target, expected in (("coordinate", "coordinate", 55096/875),
+                                  ("proper", "initial_proper_geometry", -7976/875)):
+        coefficient = spatial.project_force(richardson[key])/model.cubic_scale
+        two_clocks[key] = {
+            "Richardson_coefficient": coefficient,
+            "coefficient_error": abs(coefficient-expected),
+            "centered_scaled_errors": [esu.scaled_error(d/model.cubic_scale,
+                forces[target]/model.cubic_scale) for d in derivatives[key]],
+            "Richardson_scaled_error": esu.scaled_error(richardson[key]/model.cubic_scale,
+                forces[target]/model.cubic_scale)}
     return {"proper_quadrature_coefficient": projected["initial_proper_geometry"],
             "coordinate_quadrature_coefficient": projected["coordinate"],
             "proper_conversion_coefficient": projected["initial_proper_conversion"],
             "proper_coefficient_error": abs(projected["initial_proper_geometry"]+7976/875),
             "coordinate_coefficient_error": abs(projected["coordinate"]-55096/875),
+            "same_metric_two_clocks": two_clocks,
             "clock_conversion_scaled_error": esu.scaled_error(
                 forces["initial_proper_conversion"]/model.cubic_scale,
                 forces["initial_proper_geometry"]/model.cubic_scale)}
+
+
+def clock_conversion_passes(rows):
+    return (max(r["clock_conversion_scaled_error"] for r in rows) < 1e-9
+            and max(c[k] for r in rows for c in r["same_metric_two_clocks"].values()
+                    for k in ("Richardson_scaled_error", "coefficient_error")) < 1e-7)
 
 
 def metric_variation_checks(model, spatial, times, states):
@@ -140,7 +168,7 @@ def run_probe(progress=lambda message: None):
         "fluid_only_frequency": geometry["ell2_threshold"] == "1/5" and geometry["ell0_frequency_times_a2"] == "-3*cs2 - 1",
         "nonlinear_metric_variation": max(r["Richardson_scaled_error"] for r in variation) < 1e-7,
         "initial_proper_and_coordinate_coefficients": max(max(r["proper_coefficient_error"], r["coordinate_coefficient_error"]) for r in initial+radii) < 1e-9,
-        "clock_conversion": max(r["clock_conversion_scaled_error"] for r in initial+radii) < 1e-9,
+        "clock_conversion": clock_conversion_passes(initial+radii),
         "amplitude_and_radius_scaling": force_scaling < 1e-8 and metric_scaling < 1e-8,
         "induced_TT_force": tt_error < 1e-8 and model.induced_tt_force(0.) == 0.,
         "small_metric_regime": max(max(r["continuous_all_space_potential_bounds"].values()) for r in controls) < .05
@@ -174,6 +202,8 @@ def render(report):
               f"| Fluid proper-time scalar force | {exact['proper_total']} |",
               f"| Newtonian coordinate-time scalar force | {exact['coordinate_total']} |",
               "| Induced homogeneous TT force | 0 |", "",
+              "Both clocks are also evaluated in the same exponential test metric, using its connection for the initial proper derivative.",
+              f"Maximum two-clock Richardson field/coefficient error: {max(c[k] for r in report['initial_force_checks']+report['radius_checks'] for c in r['same_metric_two_clocks'].values() for k in ('Richardson_scaled_error', 'coefficient_error')):.3g}.", "",
               "| c_s^2 | Unused Hamiltonian residual | Unused momentum residual | All-space/all-time psi upper bound |",
               "|---:|---:|---:|---:|"]
     for r in report["support_controls"]:

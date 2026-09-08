@@ -272,6 +272,33 @@ class SpatialFields:
                      + e*np.sum((ga-gp)*jets["grad"][:, 0], axis=1))
                 - np.exp(2*e*alpha)*R*jets["phi"][:, 0]/6)
 
+    def exact_initial_clock_accelerations(self, epsilon):
+        """Two derivatives of the same scalar in the exponential test metric.
+
+        Normalize an initially resting geodesic, construct Gamma^mu_00 from
+        metric derivatives, and contract its covariant scalar Hessian. This
+        does not call the first-order force or clock-conversion formulas.
+        Only the initial fluid clock is geodesic in the frozen preparation;
+        this is not a later fluid history or a nonlinear Einstein solution.
+        """
+        state = self.model.initial()
+        f, jets = self.model.fields(0., state), self.jets(0.)
+        alpha, psi, dalpha = (self.H @ f[k] for k in ("alpha", "psi", "dalpha"))
+        grad_alpha = np.einsum("pli,l->pi", self.grad_H, f["alpha"])
+        # Spatial components use the background orthonormal frame. For
+        # Gamma^mu_00, the frame's spatial commutators do not contribute.
+        diagonal = np.column_stack((-np.exp(2*epsilon*alpha),
+                                    np.repeat(np.exp(-2*epsilon*psi)[:, None], 3, axis=1)))
+        d_g00 = 2*epsilon*diagonal[:, :1]*np.column_stack((dalpha, grad_alpha))
+        connection_numerator = -d_g00
+        connection_numerator[:, 0] += 2*d_g00[:, 0]
+        gamma_00 = connection_numerator/(2*diagonal)
+        U0_squared = -1/diagonal[:, 0]
+        coordinate = self.exact_coordinate_acceleration(0., state, epsilon)
+        d_phi = np.column_stack((jets["dt"][:, 0], jets["grad"][:, 0]))
+        proper = U0_squared*(coordinate-np.sum(gamma_00*d_phi, axis=1))
+        return {"coordinate": coordinate, "proper": proper}
+
 
 def scaled_error(actual, expected):
     actual, expected = np.asarray(actual), np.asarray(expected)

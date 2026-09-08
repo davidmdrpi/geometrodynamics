@@ -57,6 +57,38 @@ def test_constraints_propagate_in_the_independent_fluid_evolution(report):
         assert np.linalg.norm(density[-1]) > 1e-6
 
 
+def test_same_metric_geodesic_hessian_recovers_both_clock_signs(report):
+    for row in report["initial_force_checks"]+report["radius_checks"]:
+        clocks = row["same_metric_two_clocks"]
+        assert clocks["coordinate"]["Richardson_coefficient"] == pytest.approx(55096/875, abs=1e-7)
+        assert clocks["proper"]["Richardson_coefficient"] == pytest.approx(-7976/875, abs=1e-7)
+        for clock in clocks.values():
+            assert clock["Richardson_scaled_error"] < 1e-7
+
+
+def test_geodesic_clock_gate_detects_a_coordinate_clock_substitution(monkeypatch):
+    model = esu.SupportResponse()
+    spatial = esu.SpatialFields(model)
+    actual = spatial.exact_initial_clock_accelerations
+
+    def wrong_clock(epsilon):
+        clocks = actual(epsilon)
+        return {**clocks, "proper": clocks["coordinate"]}
+
+    monkeypatch.setattr(spatial, "exact_initial_clock_accelerations", wrong_clock)
+    row = probe.initial_force_checks(model, spatial)
+    # The old first-order conversion still passes; the independent check
+    # rejects the wrong derivative by the full separation of the coefficients.
+    assert row["clock_conversion_scaled_error"] < 1e-9
+    assert row["same_metric_two_clocks"]["proper"]["coefficient_error"] > 70.
+    assert not probe.clock_conversion_passes([row])
+    checks = dict.fromkeys(esu.REQUIRED_CHECKS, True)
+    checks["clock_conversion"] = probe.clock_conversion_passes([row])
+    verdict = esu.verdict(checks)
+    assert verdict["cancellation"] == "UNRESOLVED"
+    assert verdict["failed_checks"] == ["clock_conversion"]
+
+
 @pytest.mark.parametrize("radius,cs2", [(.7, 0.), (1., .2), (1., 1/3), (2., 1.)])
 def test_fluid_only_frequency_from_independent_linearized_equations(radius, cs2):
     model = esu.SupportResponse(radius=radius, sound_speed_squared=cs2)
