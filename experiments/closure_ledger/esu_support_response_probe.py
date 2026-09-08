@@ -170,6 +170,8 @@ def run_probe(progress=lambda message: None):
         "initial_proper_and_coordinate_coefficients": max(max(r["proper_coefficient_error"], r["coordinate_coefficient_error"]) for r in initial+radii) < 1e-9,
         "clock_conversion": clock_conversion_passes(initial+radii),
         "amplitude_and_radius_scaling": force_scaling < 1e-8 and metric_scaling < 1e-8,
+        # The initial zero follows from the frozen tensor preparation.
+        # Independent numerical validation comes from the history comparison.
         "induced_TT_force": tt_error < 1e-8 and model.induced_tt_force(0.) == 0.,
         "small_metric_regime": max(max(r["continuous_all_space_potential_bounds"].values()) for r in controls) < .05
              and all(r["sampled_max_abs_psi"] <= r["continuous_all_space_potential_bounds"]["psi"]
@@ -202,6 +204,7 @@ def render(report):
               f"| Fluid proper-time scalar force | {exact['proper_total']} |",
               f"| Newtonian coordinate-time scalar force | {exact['coordinate_total']} |",
               "| Induced homogeneous TT force | 0 |", "",
+              "The initial TT zero follows from the frozen preparation; the independent TT check compares the induced response over the interval.", "",
               "Both clocks are also evaluated in the same exponential test metric, using its connection for the initial proper derivative.",
               f"Maximum two-clock Richardson field/coefficient error: {max(c[k] for r in report['initial_force_checks']+report['radius_checks'] for c in r['same_metric_two_clocks'].values() for k in ('Richardson_scaled_error', 'coefficient_error')):.3g}.", "",
               "| c_s^2 | Unused Hamiltonian residual | Unused momentum residual | All-space/all-time psi upper bound |",

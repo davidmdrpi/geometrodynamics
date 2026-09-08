@@ -299,7 +299,11 @@ anisotropic stress is zero, as required by the support class. These conditions
 are not a derivation of a universal BAM preparation.
 
 With zero free tensor data, the induced homogeneous TT force vanishes at
-t=0. Thus it cannot identically cancel this nonzero scalar force. All free
+t=0. This exact zero follows from the frozen preparation. The gate checks
+that the implementation respects these initial data; its independent
+numerical evidence is the comparison of the induced response over the
+interval with the inherited TT solver. Thus the TT force cannot identically
+cancel this nonzero scalar force. All free
 tensor data were set to zero; unevolved induced tensor modes likewise have
 zero initial metric perturbation and do not contribute to this initial
 scalar wave-operator variation. Their later contribution is not computed.
