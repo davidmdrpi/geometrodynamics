@@ -582,8 +582,8 @@ recorded in the historical list below rather than here.*
    Thus this family is not an autonomous rotor in the linear ESU TT model.
    A manufactured drive sustains it with normal stress; radial stress also
    enters except at the restricted circular-orbit speed `omega/sqrt(3)`.
-   No such feedback, triangle-holonomy coupling or history preparation is
-   derived from the existing scalar sources. The action pullback alone
+   That round did not derive the needed drive from existing scalar sources.
+   The action pullback alone
    therefore selects no `Phi`.
    The [reciprocal scalar–TT derivation](reciprocal_scalar_tt.md) supplies
    the field interaction `6 s^2 Q_m/a^2`, but its
@@ -600,6 +600,17 @@ recorded in the historical list below rather than here.*
    cancellation is excluded for that preparation. The support class and
    constitutive law are not derived from BAM; a complete field/history map
    and source-local causality/readout result remain open. No `Phi` is selected.
+   The [driven normal-stress construction](driven_normal_stress.md) now gives
+   an explicit leading-order existence result: two real degree-3 scalar modes
+   in temporal quadrature supply constant stress `6s^2 Q_z/(Ca^2)` with zero
+   Hamiltonian dipoles and all ten momentum compatibility charges zero.
+   With chosen nonzero tensor initial data, the homogeneous projection stays
+   uniaxial at `A=-3s^2/(2C)` and `Omega=sqrt(2)/a`; its radial, angular and
+   normal equations all hold. This realizes a driven orbit at order `s^2`,
+   while preserving the free-rotor obstruction. The scalar phases and free
+   tensor oscillation remain preparation inputs. The other metric sectors
+   and higher-order feedback are not evolved; the scalar and tensor periods
+   are incommensurate, so no closed joint history or `Phi` selection follows.
    Original text follows.
    Derive whether observed event frequencies are the
    positive count of closed histories, `Σ|D|`, or their oriented sum with the
