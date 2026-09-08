@@ -201,7 +201,26 @@ def scan_degree_sets(sets: Sequence[Sequence[int]], samples: int = 200,
     return rows
 
 
-def bilinearity_in_amplitude(degrees: Sequence[int], samples: int = 40
+def quadrature_exactness(degrees: Sequence[int] = (2, 3)) -> Dict[str, float]:
+    """The sphere rules are exact for these polynomial integrands.
+
+    The improved-stress dipole integrand is a polynomial, so the
+    Gauss-Legendre times trapezoid rule reproduces it exactly once the order
+    is high enough. Demonstrating that licenses the coarse grid for the
+    high-sample bilinearity scan without loss of fidelity.
+    """
+    rng = np.random.default_rng(SEED + 6)
+    state = random_state(degrees, rng)
+    fine = dipole_from_improved_stress(state, None, 12, 24)
+    coarse = dipole_from_improved_stress(state, None, 6, 12)
+    scale = max(float(np.max(np.abs(fine))), 1e-30)
+    return {"fine_vs_coarse_absolute": float(np.max(np.abs(fine - coarse))),
+            "fine_vs_coarse_relative": float(np.max(np.abs(fine - coarse))) / scale,
+            "exact": bool(np.max(np.abs(fine - coarse)) / scale < 1e-12)}
+
+
+def bilinearity_in_amplitude(degrees: Sequence[int], samples: int = 40,
+                             radial_order: int = 6, angular_order: int = 12
                              ) -> Dict[str, float]:
     """Halving one parity component must halve the dipole, not merely shrink it.
 
@@ -218,11 +237,14 @@ def bilinearity_in_amplitude(degrees: Sequence[int], samples: int = 40
         # Measured through the INDEPENDENT improved-stress route. Using the
         # overlap route here would be bilinear by construction and could not
         # fail, so it would be a structural regression rather than evidence.
-        full = float(np.max(np.abs(dipole_from_improved_stress(state))))
-        half = float(np.max(np.abs(dipole_from_improved_stress(halved))))
+        full = float(np.max(np.abs(dipole_from_improved_stress(
+            state, None, radial_order, angular_order))))
+        half = float(np.max(np.abs(dipole_from_improved_stress(
+            halved, None, radial_order, angular_order))))
         if full > 1e-8:
             worst = max(worst, abs(half / full - 0.5))
-    return {"max_halving_error": worst, "route": "improved_stress"}
+    return {"max_halving_error": worst, "route": "improved_stress",
+            "grid": [radial_order, angular_order]}
 
 
 def subspace_maximality(degree_a: int = 1, degree_b: int = 2) -> Dict[str, object]:
@@ -237,8 +259,10 @@ def subspace_maximality(degree_a: int = 1, degree_b: int = 2) -> Dict[str, objec
     coeff = dipole_coefficient(degree_a, degree_b)
     dim_a = harmonic_multiplet(degree_a).dimension
     dim_b = harmonic_multiplet(degree_b).dimension
-    # P^A is the symmetrized cross term; for a != b the cross term appears twice
-    flat = (2.0 * coeff * T).transpose(2, 0, 1).reshape(dim_b, -1).T
+    # Correction C2: this retained the factor of two that C1 removed from the
+    # dipole normalization. It rescales every singular value and cannot change
+    # the kernel, but the reported magnitude was twice the consistent one.
+    flat = (coeff * T).transpose(2, 0, 1).reshape(dim_b, -1).T
     singular = np.linalg.svd(flat, compute_uv=False)
     return {"degrees": [degree_a, degree_b], "dim_a": dim_a, "dim_b": dim_b,
             "singular_values": [float(s) for s in singular],
@@ -283,13 +307,33 @@ def graph_subspace_search(degree_a: int = 1, degree_b: int = 2) -> Dict[str, obj
 VERDICT_FIELDS = ("dipole_obstruction_structure", "antipodal_parity_status",
                   "f6_consequence", "momentum_sector", "triangle_map", "readout")
 
+#: Correction C3. The first version gated only on ``all(checks.values())``, so
+#: ``verdict({"unrelated": True}, ...)`` returned the full affirmative result
+#: and a probe that silently dropped every real check would still have passed.
+#: Presence is now required as well as truth.
+REQUIRED_CHECKS = (
+    "selection rule holds for every pair up to degree 6",
+    "predicted free mixed-parity sets have no obstruction",
+    "predicted obstructed sets do obstruct",
+    "parity-pure sets have no obstruction",
+    "overlap reduction matches the inherited improved stress",
+    "the obstruction is bilinear, measured independently",
+    "no nonzero subspace evades an adjacent partner",
+    "no nonzero graph subspace evades an adjacent pair",
+    "a small-projection mixed-parity subspace evades an adjacent pair",
+    "the complete six Killing and four gradient charges are audited",
+    "momentum charges are not a parity condition",
+)
+
 
 def verdict(checks: Dict[str, bool], momentum_note: str) -> Dict[str, object]:
     """Stable schema on every path; a failure names itself and blocks all fields."""
-    if not checks or not all(checks.values()):
+    missing = [k for k in REQUIRED_CHECKS if k not in checks]
+    failed = sorted(k for k, v in checks.items() if not v)
+    if missing or failed or not checks:
         return {**dict.fromkeys(VERDICT_FIELDS, "UNRESOLVED"),
-                "failed_checks": sorted(k for k, v in checks.items() if not v)
-                                 or ["no checks supplied"]}
+                "failed_checks": failed or ["no checks supplied"],
+                "missing_checks": missing}
     return {"dipole_obstruction_structure":
                 "BILINEAR_CROSS_PARITY_ADJACENT_DEGREE_ONLY",
             "antipodal_parity_status": "SUFFICIENT_NOT_NECESSARY",
@@ -297,7 +341,7 @@ def verdict(checks: Dict[str, bool], momentum_note: str) -> Dict[str, object]:
                 "CONSTRAINT_SOLVABILITY_DOES_NOT_DERIVE_THE_ANTIPODAL_CONDITION",
             "momentum_sector": momentum_note,
             "triangle_map": "NOT_DERIVED", "readout": "NOT_DERIVED",
-            "failed_checks": []}
+            "failed_checks": [], "missing_checks": []}
 
 
 def route_agreement(field: Dict[int, np.ndarray],
@@ -367,3 +411,187 @@ def momentum_sector_report() -> Dict[str, object]:
             "parity_pure_kills_dipole": bool(
                 max(r["hamiltonian_dipole"] for r in rows) < 1e-12),
             "note": "NOT_PREDICTED_IN_ADVANCE"}
+
+
+def _monomial_mode(degree: int, exponent: Tuple[int, ...]) -> np.ndarray:
+    """Modal coefficients of a single ambient monomial inside one multiplet."""
+    from geometrodynamics.waves.reciprocal_scalar_tt import sphere_moment
+    mult = harmonic_multiplet(degree)
+    exps = np.array(mult.exponents)
+    target = np.zeros(len(exps))
+    for i, e in enumerate(exps):
+        if tuple(int(v) for v in e) == exponent:
+            target[i] = 1.0
+    moments = np.array([[sphere_moment(tuple(a + b)) for b in exps] for a in exps])
+    return mult.B.T @ (moments @ target)
+
+
+def small_projection_counterexample() -> Dict[str, object]:
+    """A mixed-parity subspace inside ADJACENT degrees with no obstruction.
+
+    Correction C4. The first version claimed the parity answer "fails only
+    globally", on the strength of two maximality tests. Both enlarge or map
+    *all* of ``V_n``, so neither family contains a subspace whose projection
+    into ``V_n`` is smaller. Such subspaces exist:
+
+        S = span{ x_0, x_1 x_2 }  in  V_1 + V_2,
+
+    for which ``int x^A x_0 x_1 x_2 dV = 0`` for every ambient coordinate, so
+    the dipole vanishes on all of ``S`` at every amplitude. The parity
+    eigenspaces are therefore not maximal even within an adjacent truncation.
+    This strengthens the round's negative conclusion rather than weakening it.
+    """
+    rng = np.random.default_rng(SEED + 4)
+    q1 = _monomial_mode(1, (1, 0, 0, 0))          # x_0
+    q2 = _monomial_mode(2, (0, 1, 1, 0))          # x_1 x_2
+    worst_overlap = worst_stress = 0.0
+    for _ in range(200):
+        a, b = rng.normal(size=2) * rng.choice([0.2, 1.0, 5.0])
+        state = {1: a * q1, 2: b * q2}
+        worst_overlap = max(worst_overlap,
+                            float(np.max(np.abs(dipole_from_overlap(state)))))
+        worst_stress = max(worst_stress,
+                           float(np.max(np.abs(dipole_from_improved_stress(state)))))
+    generic = 0.0
+    for _ in range(100):
+        generic = max(generic, float(np.max(np.abs(
+            dipole_from_overlap(random_state([1, 2], rng))))))
+    return {"subspace": "span{x_0, x_1 x_2} in V_1 + V_2",
+            "mixed_parity": True, "degrees_adjacent": True,
+            "max_dipole_overlap_route": worst_overlap,
+            "max_dipole_stress_route": worst_stress,
+            "generic_adjacent_dipole": generic,
+            "evades": bool(max(worst_overlap, worst_stress) < 1e-12
+                           and generic > 1e-3)}
+
+
+def killing_generators(degree: int) -> np.ndarray:
+    """All six ``so(4)`` generators acting on one multiplet.
+
+    Correction C5. The first version used only ``mult.D``, three of the six.
+    ``D`` spans one ``su(2)`` factor and ``rotation_generators`` the diagonal
+    ``so(3)``; the two intersect trivially, so together they span ``so(4)``.
+    """
+    mult = harmonic_multiplet(degree)
+    return np.concatenate([np.asarray(mult.D),
+                           np.asarray(mult.rotation_generators)], axis=0)
+
+
+def killing_charges(field: Dict[int, np.ndarray],
+                    momentum: Dict[int, np.ndarray]) -> np.ndarray:
+    """All six ``SO(4)`` Killing charges ``-p^T G q``.
+
+    A Killing field is divergence free, so the improved-stress correction
+    ``-(1/6) d_i d_t(phi^2)`` integrates away against it and the charge is the
+    canonical one. That is not true of the gradient conformal fields; see
+    :func:`gradient_conformal_charges`.
+    """
+    charges = np.zeros(6)
+    for n in sorted(set(field) & set(momentum)):
+        q, p = field[n], momentum[n]
+        charges += np.array([-p @ (G @ q) for G in killing_generators(n)])
+    return charges
+
+
+def gradient_conformal_charges(field: Dict[int, np.ndarray],
+                               momentum: Dict[int, np.ndarray],
+                               radial_order: int = 12,
+                               angular_order: int = 24) -> np.ndarray:
+    """The four gradient conformal-Killing charges ``int j . grad(x^A) dV``.
+
+    These need the full improved momentum density, because ``grad(x^A)`` is not
+    divergence free: ``div grad(x^A) = -lambda_1 x^A``. Evaluated pointwise on
+    the inherited sphere quadrature rather than through a modal shortcut.
+    """
+    from geometrodynamics.waves.reciprocal_scalar_tt import (
+        sphere_quadrature, scalar_jets, ReciprocalModel as RM)
+    points, weights = sphere_quadrature(radial_order, angular_order)
+    degrees = sorted(set(field) | set(momentum))
+    phi = np.zeros(len(points))
+    dt = np.zeros(len(points))
+    grad = np.zeros((len(points), 3))
+    dtgrad = np.zeros((len(points), 3))
+    for n in degrees:
+        mult = harmonic_multiplet(n)
+        q = field.get(n, np.zeros(mult.dimension))
+        p = momentum.get(n, np.zeros(mult.dimension))
+        sub = RM(degree=n)
+        jets, _ = scalar_jets(sub, q, p, -sub.omega_scalar2 * q, points)
+        phi += jets["phi"][:, 0]
+        dt += jets["dt"][:, 0]
+        grad += jets["grad"][:, 0, :]
+        dtgrad += jets["dtgrad"][:, 0, :]
+    # improved momentum density j_i = -T_0i = -(2/3) phidot d_i phi
+    #                                        + (1/3) phi d_i phidot
+    current = -(2.0 / 3.0) * dt[:, None] * grad + (1.0 / 3.0) * phi[:, None] * dtgrad
+    one = RM(degree=1)
+    charges = []
+    for basis in np.eye(harmonic_multiplet(1).dimension):
+        jets, _ = scalar_jets(one, basis, np.zeros_like(basis),
+                              -one.omega_scalar2 * basis, points)
+        charges.append(float(np.einsum("p,pi,pi->", weights, current,
+                                       jets["grad"][:, 0, :])))
+    return np.array(charges)
+
+
+def complete_momentum_audit() -> Dict[str, object]:
+    """Frozen check 6, delivered in full: six Killing and four gradient charges.
+
+    Correction C5. The first version reported three of the six Killing charges
+    and none of the four gradient conformal charges, so it could report "zero"
+    while an actual charge was large.
+
+    Completing it exposes the structure. The Killing charges are **diagonal in
+    degree** — a Killing field is divergence free, the improvement term drops,
+    and the canonical charge ``-p^T G q`` needs field and momentum in the same
+    multiplet. The gradient conformal charges are not: ``grad(x^A)`` has
+    divergence ``-lambda_1 x^A``, the improvement survives, and the charge is a
+    field-momentum pairing obeying the same **adjacency** rule as the
+    Hamiltonian dipole. Neither is a parity condition.
+    """
+    rng = np.random.default_rng(SEED + 5)
+    mult = harmonic_multiplet(3)
+    q = rng.normal(size=mult.dimension); q /= np.linalg.norm(q)
+
+    # (a) data annihilating the three originally reported generators
+    rows = np.array([D @ q for D in np.asarray(mult.D)])
+    p = rng.normal(size=mult.dimension)
+    p = p - rows.T @ np.linalg.pinv(rows @ rows.T) @ rows @ p
+    p /= np.linalg.norm(p)
+    partial = np.array([-p @ (D @ q) for D in np.asarray(mult.D)])
+    full = killing_charges({3: q}, {3: p})
+
+    # (b) field and momentum in disjoint ADJACENT degrees: every Killing charge
+    #     and the Hamiltonian dipole vanish, yet a gradient charge survives.
+    q2 = rng.normal(size=harmonic_multiplet(2).dimension); q2 /= np.linalg.norm(q2)
+    p3 = rng.normal(size=harmonic_multiplet(3).dimension); p3 /= np.linalg.norm(p3)
+    split_field, split_momentum = {2: q2}, {3: p3}
+    split_killing = killing_charges(split_field, split_momentum)
+    split_gradient = gradient_conformal_charges(split_field, split_momentum)
+    split_dipole = dipole_from_overlap(split_field, split_momentum)
+
+    # (c) the gradient charge obeys adjacency, not parity
+    far_gradient = gradient_conformal_charges({2: q2}, {5: rng.normal(
+        size=harmonic_multiplet(5).dimension)})
+    same_gradient = gradient_conformal_charges({3: q}, {3: p})
+
+    return {
+        "originally_reported_three": float(np.max(np.abs(partial))),
+        "complete_six_on_the_same_data": float(np.max(np.abs(full))),
+        "incomplete_audit_would_report_zero": bool(np.max(np.abs(partial)) < 1e-10
+                                                   and np.max(np.abs(full)) > 1e-3),
+        "split_degree_killing": float(np.max(np.abs(split_killing))),
+        "split_degree_hamiltonian_dipole": float(np.max(np.abs(split_dipole))),
+        "split_degree_gradient_charge": float(np.max(np.abs(split_gradient))),
+        "gradient_sector_is_independent": bool(
+            np.max(np.abs(split_killing)) < 1e-12
+            and np.max(np.abs(split_dipole)) < 1e-12
+            and np.max(np.abs(split_gradient)) > 1e-3),
+        "gradient_same_degree": float(np.max(np.abs(same_gradient))),
+        "gradient_non_adjacent": float(np.max(np.abs(far_gradient))),
+        "gradient_obeys_adjacency": bool(np.max(np.abs(same_gradient)) < 1e-12
+                                         and np.max(np.abs(far_gradient)) < 1e-12
+                                         and np.max(np.abs(split_gradient)) > 1e-3),
+        "killing_is_diagonal_in_degree": bool(np.max(np.abs(split_killing)) < 1e-12
+                                              and np.max(np.abs(full)) > 1e-3),
+    }

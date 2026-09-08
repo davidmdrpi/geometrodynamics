@@ -9,7 +9,7 @@ Public freeze: `495f1f185411a80cfd688b0b33291d1986f9702a`. Seed `2026090713`.
 | dipole_obstruction_structure | **BILINEAR_CROSS_PARITY_ADJACENT_DEGREE_ONLY** |
 | antipodal_parity_status | **SUFFICIENT_NOT_NECESSARY** |
 | f6_consequence | **CONSTRAINT_SOLVABILITY_DOES_NOT_DERIVE_THE_ANTIPODAL_CONDITION** |
-| momentum_sector | **KILLING_CHARGE_INDEPENDENT_OF_PARITY; NOT_PREDICTED_IN_ADVANCE** |
+| momentum_sector | **KILLING_DIAGONAL_IN_DEGREE_AND_GRADIENT_CKV_ADJACENT; NOT_PREDICTED_IN_ADVANCE** |
 | triangle_map | **NOT_DERIVED** |
 | readout | **NOT_DERIVED** |
 
@@ -49,9 +49,11 @@ Minimum adjacent overlap norm `3.4641`; maximum non-adjacent `1.387e-14`.
 | the obstruction is bilinear, measured independently | True |
 | no nonzero subspace evades an adjacent partner | True |
 | no nonzero graph subspace evades an adjacent pair | True |
-| momentum charges are reported and are not a parity condition | True |
+| a small-projection mixed-parity subspace evades an adjacent pair | True |
+| the complete six Killing and four gradient charges are audited | True |
+| momentum charges are not a parity condition | True |
 
-Passed 9/9 required checks.
+Passed 11/11 required checks.
 
 ### Implementation corrections
 

@@ -5334,21 +5334,30 @@ mixed-parity ones — `{1,4}`, `{2,5}`, `{3,6}` give `|P^A| <= 2.9e-14` over 600
 samples each, against `5.08`, `6.93`, `9.03` for `{1,2}`, `{2,3}`, `{3,4}`.
 Parity is sufficient, strictly stronger than necessary.
 
-The parity eigenspaces are still maximal *within* an adjacent truncation (no
-nonzero evading subspace, no nonzero evading graph subspace), and the momentum
-constraint's obstruction is not a parity condition at all: parity-pure data
-kills the dipole exactly while carrying `SO(4)` Killing charges up to `6.99`.
+The eigenspaces are **not** maximal even within an adjacent truncation. Two
+narrower results hold — no nonzero evading subspace of `V_{n+1}` against all of
+`V_n`, and no nonzero evading graph of a map defined on all of `V_n` — but both
+families miss subspaces with smaller projections, and those evade:
+`span{x_0, x_1 x_2}` in `V_1 + V_2` is mixed parity, adjacent, and has an
+identically vanishing dipole. Nor is the momentum sector a parity condition:
+the six `SO(4)` Killing charges are diagonal in degree, while the four gradient
+conformal charges follow the adjacency rule and pair field against momentum, so
+field in `V_2` with momentum in `V_3` gives zero Killing charge and zero
+Hamiltonian dipole yet a gradient charge of `0.267`.
 
 The public freeze `495f1f1` preceded implementation and recorded the negative
-expectation in advance so it could not be softened. **51 tests and all 9
-required probe checks pass.** One implementation correction (C1, a factor of
-two in the overlap route) was caught by the frozen cross-check against the
-inherited improved stress and is recorded in
-[the write-up](docs/parity_solvability.md#implementation-correction).
+expectation in advance so it could not be softened. **61 tests and all 11
+required probe checks pass.** Six implementation corrections are recorded in
+the write-up: [C1](docs/parity_solvability.md#implementation-correction), a
+factor of two caught by the frozen cross-check, and
+[C2-C6](docs/parity_solvability.md#review-corrections) from review — a stale
+factor of two, a verdict that could not fail on a *missing* check, the
+withdrawn "fails only globally" claim, a momentum audit covering three of ten
+charges, and archived verification narrower than the freeze demanded.
 
 ```bash
-python -m experiments.closure_ledger.parity_solvability_probe   # 9 required checks
-python -m pytest -q tests/test_parity_solvability.py             # 51 tests
+python -m experiments.closure_ledger.parity_solvability_probe   # 11 required checks
+python -m pytest -q tests/test_parity_solvability.py             # 61 tests
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

@@ -77,12 +77,22 @@ So constraint solvability does not derive the antipodal condition. **This
 route to F6 is closed.** The freeze recorded that expectation in advance
 precisely so it could not be softened once it held.
 
-The parity eigenspaces *are* maximal within an adjacent truncation: for
-`V_n + V_{n+1}` no nonzero `u` in `V_{n+1}` is annihilated by all of `V_n`
-(smallest singular value `13.86` at `n=1`), and no nonzero `T: V_n -> V_{n+1}`
-gives a graph subspace with identically vanishing dipole (nullity `0` on a
-`40 x 36` system). The parity answer fails only globally, where non-adjacent
-mixed sets evade.
+**The parity eigenspaces are not maximal even within an adjacent truncation.**
+Two narrower statements do hold, and are retained: for `V_n + V_{n+1}` no
+nonzero `u` in `V_{n+1}` is annihilated by all of `V_n` (smallest singular
+value `6.928203` at `n=1`), and no nonzero `T: V_n -> V_{n+1}` gives a graph
+subspace with identically vanishing dipole (nullity `0` on a `40 x 36`
+system). But both families enlarge or map *all* of `V_n`, so neither contains
+a subspace with a smaller projection — and such subspaces evade:
+
+    S = span{ x_0, x_1 x_2 }  in  V_1 + V_2
+
+is mixed parity, sits inside an adjacent pair, and has
+`int x^A x_0 x_1 x_2 dV = 0` for every ambient coordinate. Its dipole vanishes
+at every amplitude on both routes (`4.9e-15` and `3.3e-14` over 200 random
+amplitudes), against `4.67` for generic data in the same adjacent pair. So the
+parity answer fails locally as well as globally, which strengthens the
+negative conclusion rather than weakening it.
 
 ## The momentum sector is not a parity condition at all
 
@@ -96,8 +106,20 @@ Hamiltonian dipole exactly, yet carries large `SO(4)` Killing charges.
 | 3 | odd | `0` | `3.745197` |
 | 4 | even | `0` | `6.992044` |
 
-The two constraints impose independent conditions, and only one of them has
-any relation to parity — and even that one is adjacency, not parity.
+Completing the audit to all six Killing and all four gradient conformal
+charges exposes their structure. **Killing charges are diagonal in degree**: a
+Killing field is divergence free, the improved-stress correction integrates
+away against it, and the canonical charge `-p^T G q` needs field and momentum
+in the same multiplet. **Gradient conformal charges are not**: `grad(x^A)` has
+divergence `-lambda_1 x^A`, the improvement survives, and the charge is a
+field-momentum pairing obeying the same adjacency rule as the Hamiltonian
+dipole. With field in `V_2` and momentum in `V_3` all six Killing charges and
+the Hamiltonian dipole vanish exactly while a gradient charge reaches `0.267`;
+at equal or non-adjacent degrees the gradient charges vanish (`2.9e-17`,
+`4.4e-15`).
+
+So there are three independent obstructions, and none of them is a parity
+condition.
 
 ## Interpretation, offered as observation only
 
@@ -134,6 +156,46 @@ triangle map or readout follows.
 ## Reproduce
 
 ```bash
-python -m experiments.closure_ledger.parity_solvability_probe   # 9 required checks
-python -m pytest -q tests/test_parity_solvability.py             # 51 tests
+python -m experiments.closure_ledger.parity_solvability_probe   # 11 required checks
+python -m pytest -q tests/test_parity_solvability.py             # 61 tests
 ```
+
+
+## Review corrections (C2-C6)
+
+Recorded, not applied silently. None changes the adjacency selection rule or
+the counterexample classes; C4 strengthens the negative conclusion.
+
+**C2 - a stale factor of two.** `subspace_maximality` retained the `2 *` that
+C1 removed from the dipole normalization, so its reported smallest singular
+value was `13.856406` where the consistent value is `6.928203`. It rescales
+every singular value and cannot change the kernel, so the conclusion stands.
+
+**C3 - a missing check could not fail the verdict.** `verdict` gated only on
+`all(checks.values())`, so `verdict({"unrelated": True}, ...)` returned the
+full affirmative result and a probe that silently dropped every real check
+would still have passed. A test asserting `verdict({"a": True}, ...)` had
+locked that in. The frozen required names are now declared in
+`REQUIRED_CHECKS`, presence is required as well as truth, the probe asserts
+its check set matches exactly, and a test drops each required check in turn
+and drives the failing CLI end to end.
+
+**C4 - the "fails only globally" claim was false.** See above. The two
+maximality results are narrower than the interpretation placed on them; the
+explicit counterexample is now a required check and a test.
+
+**C5 - the momentum audit was one third of what was frozen.** It computed
+three of six Killing charges and none of the four gradient conformal charges.
+Constructed data makes the omission concrete: the three originally reported
+charges come to `7.1e-16` while the complete six reach `0.180` on the same
+data. Both sectors are now computed, and their structure is reported above.
+
+**C6 - the archived verification under-delivered against the freeze.** The
+reduction check sampled seven hand-picked degree sets with field data only,
+where frozen check 2 demands every pair through degree 6 at nonzero momentum
+as well as `p = 0`; and the bilinearity scan used 8 samples where check 4
+demands 200. Both now match the freeze: 21 unordered pairs times three data
+kinds is 63 reduction cases, and the bilinearity scan runs 200 samples per
+pair. The high-sample scan uses the coarse sphere rule, licensed by a new
+check that the rules are exact for these polynomial integrands (fine and
+coarse grids agree to better than `1e-12` relative).

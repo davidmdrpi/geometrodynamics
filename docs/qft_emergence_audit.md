@@ -366,10 +366,12 @@ non-adjacent `1.39e-14` over all pairs to degree 6). So any degree set without
 an adjacent pair is equally solvable, including mixed-parity ones: `{1,4}`,
 `{2,5}` and `{3,6}` give `|P^A| ≤ 2.9e-14` over 600 samples each, while
 `{1,2}`, `{2,3}`, `{3,4}` give `5.08`, `6.93`, `9.03`. Parity is **sufficient
-but not necessary**, and the momentum constraint's own obstruction — the
-`SO(4)` Killing charges — is not a parity condition at all: parity-pure data
-kills the dipole exactly while carrying charges up to `6.99`. See
-`docs/parity_solvability.md`.
+but not necessary**, and neither is the momentum
+constraint's own obstruction: the six `SO(4)` Killing charges are diagonal in
+degree, and the four gradient conformal charges follow the adjacency rule while
+pairing field against momentum. Parity is not maximal even within an adjacent
+pair — `span{x⁰, x¹x²} ⊂ V₁⊕V₂` is mixed parity with an identically vanishing
+dipole. See `docs/parity_solvability.md`.
 
 **Correction of the first draft of this audit**, which said the identification
 is "never imposed in a solve". That was wrong; the search had been confined to

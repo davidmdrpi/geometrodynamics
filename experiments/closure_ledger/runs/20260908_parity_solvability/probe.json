@@ -357,12 +357,43 @@
   "route_agreement": [
     {
       "degrees": [
+        1
+      ],
+      "kind": "field",
+      "absolute": 2.925177461365891e-16,
+      "scale": 2.925177461365891e-16,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        1
+      ],
+      "kind": "momentum",
+      "absolute": 8.716482540971023e-17,
+      "scale": 8.716482540971023e-17,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        1
+      ],
+      "kind": "both",
+      "absolute": 4.733694447707493e-16,
+      "scale": 4.733694447707493e-16,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
         1,
         2
       ],
-      "absolute": 7.993605777301127e-15,
-      "scale": 2.6049304076503867,
-      "relative": 3.0686446570030465e-15,
+      "kind": "field",
+      "absolute": 5.773159728050814e-15,
+      "scale": 3.3289244419756385,
+      "relative": 1.7342417434456936e-15,
       "below_floor": false
     },
     {
@@ -370,9 +401,10 @@
         1,
         2
       ],
-      "absolute": 3.774758283725532e-15,
-      "scale": 2.9383421641273344,
-      "relative": 1.2846557932597368e-15,
+      "kind": "momentum",
+      "absolute": 1.6653345369377348e-15,
+      "scale": 0.3975613307566927,
+      "relative": 4.18887454111305e-15,
       "below_floor": false
     },
     {
@@ -380,78 +412,42 @@
         1,
         2
       ],
-      "absolute": 1.7763568394002505e-15,
-      "scale": 2.3528030452302957,
-      "relative": 7.549959793708012e-16,
-      "below_floor": false
-    },
-    {
-      "degrees": [
-        2,
-        3
-      ],
-      "absolute": 1.3322676295501878e-14,
-      "scale": 4.2624337745116865,
-      "relative": 3.125603117910765e-15,
-      "below_floor": false
-    },
-    {
-      "degrees": [
-        2,
-        3
-      ],
-      "absolute": 9.769962616701378e-15,
-      "scale": 4.6359085232771005,
-      "relative": 2.1074537100216638e-15,
-      "below_floor": false
-    },
-    {
-      "degrees": [
-        2,
-        3
-      ],
-      "absolute": 9.325873406851315e-15,
-      "scale": 3.5562279777027848,
-      "relative": 2.622405949597063e-15,
-      "below_floor": false
-    },
-    {
-      "degrees": [
-        3,
-        4
-      ],
-      "absolute": 7.993605777301127e-15,
-      "scale": 7.099164646641072,
-      "relative": 1.1259924477287978e-15,
-      "below_floor": false
-    },
-    {
-      "degrees": [
-        3,
-        4
-      ],
-      "absolute": 7.993605777301127e-15,
-      "scale": 3.950132847196953,
-      "relative": 2.0236296060203283e-15,
-      "below_floor": false
-    },
-    {
-      "degrees": [
-        3,
-        4
-      ],
-      "absolute": 1.9984014443252818e-15,
-      "scale": 4.4090819053822585,
-      "relative": 4.532466139687247e-16,
+      "kind": "both",
+      "absolute": 4.6629367034256575e-15,
+      "scale": 3.4484378813470227,
+      "relative": 1.3521881106364107e-15,
       "below_floor": false
     },
     {
       "degrees": [
         1,
-        4
+        3
       ],
-      "absolute": 6.0662443625482406e-15,
-      "scale": 5.175330650142307e-15,
+      "kind": "field",
+      "absolute": 1.564903534447687e-15,
+      "scale": 1.564903534447687e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        1,
+        3
+      ],
+      "kind": "momentum",
+      "absolute": 4.1316911914349164e-16,
+      "scale": 4.1316911914349164e-16,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        1,
+        3
+      ],
+      "kind": "both",
+      "absolute": 1.8055354303672666e-15,
+      "scale": 1.8055354303672666e-15,
       "relative": 0.0,
       "below_floor": true
     },
@@ -460,8 +456,9 @@
         1,
         4
       ],
-      "absolute": 1.978294219677024e-15,
-      "scale": 2.57102620985529e-15,
+      "kind": "field",
+      "absolute": 3.3889132542358303e-15,
+      "scale": 2.5569824035898137e-15,
       "relative": 0.0,
       "below_floor": true
     },
@@ -470,120 +467,594 @@
         1,
         4
       ],
-      "absolute": 4.311974827424567e-15,
-      "scale": 4.033051663628311e-15,
+      "kind": "momentum",
+      "absolute": 1.801405780309896e-16,
+      "scale": 1.3605212605388023e-16,
       "relative": 0.0,
       "below_floor": true
     },
     {
       "degrees": [
-        2,
+        1,
+        4
+      ],
+      "kind": "both",
+      "absolute": 1.6585684686563122e-15,
+      "scale": 1.8967032805461415e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        1,
         5
       ],
-      "absolute": 9.888912440968542e-15,
-      "scale": 1.4282628899020544e-14,
+      "kind": "field",
+      "absolute": 5.684688830775997e-15,
+      "scale": 5.684688830775997e-15,
       "relative": 0.0,
       "below_floor": true
     },
     {
       "degrees": [
-        2,
+        1,
         5
       ],
-      "absolute": 2.9801572816323098e-15,
-      "scale": 4.0736321650983176e-15,
+      "kind": "momentum",
+      "absolute": 1.4029066568705095e-16,
+      "scale": 1.4029066568705095e-16,
       "relative": 0.0,
       "below_floor": true
     },
     {
       "degrees": [
-        2,
+        1,
         5
       ],
-      "absolute": 5.6021644948158525e-15,
-      "scale": 5.614397768156573e-15,
+      "kind": "both",
+      "absolute": 4.270618147311778e-15,
+      "scale": 4.270618147311778e-15,
       "relative": 0.0,
       "below_floor": true
     },
     {
       "degrees": [
         1,
-        2,
-        3
+        6
       ],
-      "absolute": 4.440892098500626e-15,
-      "scale": 4.598079720382098,
-      "relative": 9.658145070463436e-16,
-      "below_floor": false
+      "kind": "field",
+      "absolute": 3.274257401146889e-14,
+      "scale": 2.515687219651112e-14,
+      "relative": 0.0,
+      "below_floor": true
     },
     {
       "degrees": [
         1,
-        2,
-        3
+        6
       ],
-      "absolute": 1.3766765505351941e-14,
-      "scale": 6.477936303401443,
-      "relative": 2.1251776585273414e-15,
-      "below_floor": false
+      "kind": "momentum",
+      "absolute": 4.739813629606331e-17,
+      "scale": 3.246202948375271e-16,
+      "relative": 0.0,
+      "below_floor": true
     },
     {
       "degrees": [
         1,
+        6
+      ],
+      "kind": "both",
+      "absolute": 1.2336592349699762e-14,
+      "scale": 1.1717187648558793e-14,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        2
+      ],
+      "kind": "field",
+      "absolute": 3.9587948262413686e-16,
+      "scale": 3.9587948262413686e-16,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        2
+      ],
+      "kind": "momentum",
+      "absolute": 9.33819943029976e-17,
+      "scale": 9.33819943029976e-17,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        2
+      ],
+      "kind": "both",
+      "absolute": 4.756394930693908e-16,
+      "scale": 4.756394930693908e-16,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
         2,
         3
       ],
-      "absolute": 3.1086244689504383e-15,
-      "scale": 3.6526750993936163,
-      "relative": 8.510541957226099e-16,
+      "kind": "field",
+      "absolute": 7.105427357601002e-15,
+      "scale": 5.0821045523585795,
+      "relative": 1.398126953980789e-15,
       "below_floor": false
     },
     {
       "degrees": [
         2,
-        3,
-        4
+        3
       ],
-      "absolute": 5.329070518200751e-15,
-      "scale": 5.742171935200791,
-      "relative": 9.280583337347257e-16,
+      "kind": "momentum",
+      "absolute": 8.881784197001252e-16,
+      "scale": 0.3653035408210369,
+      "relative": 2.431343582665261e-15,
       "below_floor": false
     },
     {
       "degrees": [
         2,
-        3,
-        4
+        3
       ],
+      "kind": "both",
       "absolute": 3.9968028886505635e-15,
-      "scale": 3.8458185108573857,
-      "relative": 1.039259361139098e-15,
+      "scale": 5.619594477370294,
+      "relative": 7.112262112053465e-16,
       "below_floor": false
     },
     {
       "degrees": [
         2,
+        4
+      ],
+      "kind": "field",
+      "absolute": 5.1486592766991635e-15,
+      "scale": 5.1486592766991635e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        2,
+        4
+      ],
+      "kind": "momentum",
+      "absolute": 1.815492302662241e-16,
+      "scale": 1.815492302662241e-16,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        2,
+        4
+      ],
+      "kind": "both",
+      "absolute": 1.6757361015300176e-15,
+      "scale": 1.6757361015300176e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        2,
+        5
+      ],
+      "kind": "field",
+      "absolute": 4.225052817998037e-15,
+      "scale": 4.467322167876164e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        2,
+        5
+      ],
+      "kind": "momentum",
+      "absolute": 2.779900632298045e-16,
+      "scale": 3.2594828895380016e-16,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        2,
+        5
+      ],
+      "kind": "both",
+      "absolute": 3.3040002374322605e-15,
+      "scale": 3.50674594686429e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        2,
+        6
+      ],
+      "kind": "field",
+      "absolute": 7.308959210430843e-15,
+      "scale": 7.308959210430843e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        2,
+        6
+      ],
+      "kind": "momentum",
+      "absolute": 1.901555085268014e-16,
+      "scale": 1.901555085268014e-16,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        2,
+        6
+      ],
+      "kind": "both",
+      "absolute": 6.862240810312503e-15,
+      "scale": 6.862240810312503e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        3
+      ],
+      "kind": "field",
+      "absolute": 5.935508733106033e-16,
+      "scale": 5.935508733106033e-16,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        3
+      ],
+      "kind": "momentum",
+      "absolute": 5.063746923654439e-17,
+      "scale": 5.063746923654439e-17,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        3
+      ],
+      "kind": "both",
+      "absolute": 8.931996310114487e-16,
+      "scale": 8.931996310114487e-16,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
         3,
         4
       ],
-      "absolute": 1.9539925233402755e-14,
-      "scale": 9.761019117917652,
-      "relative": 2.001832492832087e-15,
+      "kind": "field",
+      "absolute": 7.632783294297951e-15,
+      "scale": 2.9995198512379435,
+      "relative": 2.544668371222079e-15,
       "below_floor": false
+    },
+    {
+      "degrees": [
+        3,
+        4
+      ],
+      "kind": "momentum",
+      "absolute": 3.3306690738754696e-16,
+      "scale": 0.14285758088952014,
+      "relative": 2.331461202924376e-15,
+      "below_floor": false
+    },
+    {
+      "degrees": [
+        3,
+        4
+      ],
+      "kind": "both",
+      "absolute": 2.220446049250313e-14,
+      "scale": 5.951487518946107,
+      "relative": 3.730909360360233e-15,
+      "below_floor": false
+    },
+    {
+      "degrees": [
+        3,
+        5
+      ],
+      "kind": "field",
+      "absolute": 3.83812990070731e-15,
+      "scale": 3.83812990070731e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        3,
+        5
+      ],
+      "kind": "momentum",
+      "absolute": 1.882037857976499e-16,
+      "scale": 1.882037857976499e-16,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        3,
+        5
+      ],
+      "kind": "both",
+      "absolute": 5.996505375582828e-15,
+      "scale": 5.996505375582828e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        3,
+        6
+      ],
+      "kind": "field",
+      "absolute": 1.1993140475679545e-14,
+      "scale": 1.2766081756971617e-14,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        3,
+        6
+      ],
+      "kind": "momentum",
+      "absolute": 2.730154697784534e-16,
+      "scale": 2.62566131726085e-16,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        3,
+        6
+      ],
+      "kind": "both",
+      "absolute": 6.697800499185375e-15,
+      "scale": 8.346079903576165e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        4
+      ],
+      "kind": "field",
+      "absolute": 1.8358253285610804e-15,
+      "scale": 1.8358253285610804e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        4
+      ],
+      "kind": "momentum",
+      "absolute": 7.363088003892182e-17,
+      "scale": 7.363088003892182e-17,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        4
+      ],
+      "kind": "both",
+      "absolute": 1.4275283429301955e-15,
+      "scale": 1.4275283429301955e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        4,
+        5
+      ],
+      "kind": "field",
+      "absolute": 7.993605777301127e-15,
+      "scale": 6.926475572311488,
+      "relative": 1.1540653964413706e-15,
+      "below_floor": false
+    },
+    {
+      "degrees": [
+        4,
+        5
+      ],
+      "kind": "momentum",
+      "absolute": 4.579669976578771e-16,
+      "scale": 0.2364158851799489,
+      "relative": 1.9371244758333122e-15,
+      "below_floor": false
+    },
+    {
+      "degrees": [
+        4,
+        5
+      ],
+      "kind": "both",
+      "absolute": 3.552713678800501e-14,
+      "scale": 11.437845494375637,
+      "relative": 3.106103925383051e-15,
+      "below_floor": false
+    },
+    {
+      "degrees": [
+        4,
+        6
+      ],
+      "kind": "field",
+      "absolute": 5.841356044700152e-15,
+      "scale": 5.841356044700152e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        4,
+        6
+      ],
+      "kind": "momentum",
+      "absolute": 2.0763149229455213e-16,
+      "scale": 2.0763149229455213e-16,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        4,
+        6
+      ],
+      "kind": "both",
+      "absolute": 7.36953900681847e-15,
+      "scale": 7.36953900681847e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        5
+      ],
+      "kind": "field",
+      "absolute": 1.9229409731202907e-15,
+      "scale": 1.9229409731202907e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        5
+      ],
+      "kind": "momentum",
+      "absolute": 4.679010000632755e-17,
+      "scale": 4.679010000632755e-17,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        5
+      ],
+      "kind": "both",
+      "absolute": 3.738003830078274e-15,
+      "scale": 3.738003830078274e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        5,
+        6
+      ],
+      "kind": "field",
+      "absolute": 1.687538997430238e-14,
+      "scale": 7.9576196589341555,
+      "relative": 2.1206580230755427e-15,
+      "below_floor": false
+    },
+    {
+      "degrees": [
+        5,
+        6
+      ],
+      "kind": "momentum",
+      "absolute": 7.077671781985373e-16,
+      "scale": 0.1443947581401768,
+      "relative": 4.901612685354166e-15,
+      "below_floor": false
+    },
+    {
+      "degrees": [
+        5,
+        6
+      ],
+      "kind": "both",
+      "absolute": 3.375077994860476e-14,
+      "scale": 4.824171826398808,
+      "relative": 6.996181140131435e-15,
+      "below_floor": false
+    },
+    {
+      "degrees": [
+        6
+      ],
+      "kind": "field",
+      "absolute": 3.721957637925488e-15,
+      "scale": 3.721957637925488e-15,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        6
+      ],
+      "kind": "momentum",
+      "absolute": 8.230969873049759e-17,
+      "scale": 8.230969873049759e-17,
+      "relative": 0.0,
+      "below_floor": true
+    },
+    {
+      "degrees": [
+        6
+      ],
+      "kind": "both",
+      "absolute": 3.4856557744322725e-15,
+      "scale": 3.4856557744322725e-15,
+      "relative": 0.0,
+      "below_floor": true
     }
   ],
   "halving": {
     "[1, 2]": {
-      "max_halving_error": 3.774758283725532e-15,
-      "route": "improved_stress"
+      "max_halving_error": 1.9984014443252818e-15,
+      "route": "improved_stress",
+      "grid": [
+        6,
+        12
+      ]
     },
     "[2, 3]": {
-      "max_halving_error": 1.9984014443252818e-15,
-      "route": "improved_stress"
+      "max_halving_error": 2.55351295663786e-15,
+      "route": "improved_stress",
+      "grid": [
+        6,
+        12
+      ]
     },
     "[3, 4]": {
-      "max_halving_error": 6.994405055138486e-15,
-      "route": "improved_stress"
+      "max_halving_error": 2.55351295663786e-15,
+      "route": "improved_stress",
+      "grid": [
+        6,
+        12
+      ]
     }
   },
   "maximality": [
@@ -595,17 +1066,17 @@
       "dim_a": 4,
       "dim_b": 9,
       "singular_values": [
-        13.856406460551021,
-        13.856406460551018,
-        13.856406460551018,
-        13.856406460551016,
-        13.856406460551016,
-        13.856406460551016,
-        13.856406460551016,
-        13.856406460551016,
-        13.856406460551016
+        6.9282032302755105,
+        6.928203230275509,
+        6.928203230275509,
+        6.928203230275508,
+        6.928203230275508,
+        6.928203230275508,
+        6.928203230275508,
+        6.928203230275508,
+        6.928203230275508
       ],
-      "smallest_singular_value": 13.856406460551016,
+      "smallest_singular_value": 6.928203230275508,
       "kernel_is_trivial": true
     },
     {
@@ -616,24 +1087,24 @@
       "dim_a": 9,
       "dim_b": 16,
       "singular_values": [
-        29.393876913398156,
-        29.393876913398152,
-        29.393876913398152,
-        29.39387691339815,
-        29.39387691339815,
-        29.393876913398145,
-        29.393876913398138,
-        29.393876913398138,
-        29.393876913398138,
-        29.393876913398135,
-        29.393876913398135,
-        29.393876913398135,
-        29.393876913398135,
-        29.393876913398135,
-        29.39387691339813,
-        29.39387691339813
+        14.696938456699078,
+        14.696938456699076,
+        14.696938456699076,
+        14.696938456699074,
+        14.696938456699074,
+        14.696938456699073,
+        14.696938456699069,
+        14.696938456699069,
+        14.696938456699069,
+        14.696938456699067,
+        14.696938456699067,
+        14.696938456699067,
+        14.696938456699067,
+        14.696938456699067,
+        14.696938456699066,
+        14.696938456699066
       ],
-      "smallest_singular_value": 29.39387691339813,
+      "smallest_singular_value": 14.696938456699066,
       "kernel_is_trivial": true
     },
     {
@@ -644,33 +1115,33 @@
       "dim_a": 16,
       "dim_b": 25,
       "singular_values": [
-        50.596442562694094,
-        50.596442562694094,
-        50.59644256269409,
-        50.59644256269409,
-        50.59644256269409,
-        50.59644256269409,
-        50.59644256269408,
-        50.59644256269408,
-        50.59644256269408,
-        50.59644256269408,
-        50.59644256269408,
-        50.59644256269408,
-        50.59644256269408,
-        50.59644256269408,
-        50.59644256269407,
-        50.59644256269407,
-        50.59644256269407,
-        50.59644256269407,
-        50.59644256269407,
-        50.59644256269407,
-        50.59644256269407,
-        50.596442562694065,
-        50.596442562694065,
-        50.596442562694065,
-        50.59644256269405
+        25.298221281347047,
+        25.298221281347047,
+        25.298221281347043,
+        25.298221281347043,
+        25.298221281347043,
+        25.298221281347043,
+        25.29822128134704,
+        25.29822128134704,
+        25.29822128134704,
+        25.29822128134704,
+        25.29822128134704,
+        25.29822128134704,
+        25.29822128134704,
+        25.29822128134704,
+        25.298221281347036,
+        25.298221281347036,
+        25.298221281347036,
+        25.298221281347036,
+        25.298221281347036,
+        25.298221281347036,
+        25.298221281347036,
+        25.298221281347033,
+        25.298221281347033,
+        25.298221281347033,
+        25.298221281347026
       ],
-      "smallest_singular_value": 50.59644256269405,
+      "smallest_singular_value": 25.298221281347026,
       "kernel_is_trivial": true
     }
   ],
@@ -709,14 +1180,14 @@
         "parity": "odd",
         "hamiltonian_dipole": 0.0,
         "killing_charge_aligned": 1.0,
-        "killing_charge_random": 0.17940257122743736
+        "killing_charge_random": 0.19416126100738265
       },
       {
         "degree": 2,
         "parity": "even",
         "hamiltonian_dipole": 0.0,
         "killing_charge_aligned": 1.0711418190348536,
-        "killing_charge_random": 0.42931227213056483
+        "killing_charge_random": 0.5431191964069562
       },
       {
         "degree": 3,
@@ -737,6 +1208,33 @@
     "parity_pure_kills_dipole": true,
     "note": "NOT_PREDICTED_IN_ADVANCE"
   },
+  "complete_momentum_audit": {
+    "originally_reported_three": 7.147060721024445e-16,
+    "complete_six_on_the_same_data": 0.17954742273789656,
+    "incomplete_audit_would_report_zero": true,
+    "split_degree_killing": 0.0,
+    "split_degree_hamiltonian_dipole": 0.0,
+    "split_degree_gradient_charge": 0.26687704635216697,
+    "gradient_sector_is_independent": true,
+    "gradient_same_degree": 2.938187887435717e-17,
+    "gradient_non_adjacent": 4.3576253716537394e-15,
+    "gradient_obeys_adjacency": true,
+    "killing_is_diagonal_in_degree": true
+  },
+  "quadrature_exactness": {
+    "fine_vs_coarse_absolute": 4.884981308350689e-15,
+    "fine_vs_coarse_relative": 1.6241990244540544e-15,
+    "exact": true
+  },
+  "small_projection_counterexample": {
+    "subspace": "span{x_0, x_1 x_2} in V_1 + V_2",
+    "mixed_parity": true,
+    "degrees_adjacent": true,
+    "max_dipole_overlap_route": 4.883936459782754e-15,
+    "max_dipole_stress_route": 3.2720354203874535e-14,
+    "generic_adjacent_dipole": 4.674528594725658,
+    "evades": true
+  },
   "checks": {
     "selection rule holds for every pair up to degree 6": true,
     "predicted free mixed-parity sets have no obstruction": true,
@@ -746,17 +1244,20 @@
     "the obstruction is bilinear, measured independently": true,
     "no nonzero subspace evades an adjacent partner": true,
     "no nonzero graph subspace evades an adjacent pair": true,
-    "momentum charges are reported and are not a parity condition": true
+    "a small-projection mixed-parity subspace evades an adjacent pair": true,
+    "the complete six Killing and four gradient charges are audited": true,
+    "momentum charges are not a parity condition": true
   },
   "checks_passed": true,
   "verdict": {
     "dipole_obstruction_structure": "BILINEAR_CROSS_PARITY_ADJACENT_DEGREE_ONLY",
     "antipodal_parity_status": "SUFFICIENT_NOT_NECESSARY",
     "f6_consequence": "CONSTRAINT_SOLVABILITY_DOES_NOT_DERIVE_THE_ANTIPODAL_CONDITION",
-    "momentum_sector": "KILLING_CHARGE_INDEPENDENT_OF_PARITY; NOT_PREDICTED_IN_ADVANCE",
+    "momentum_sector": "KILLING_DIAGONAL_IN_DEGREE_AND_GRADIENT_CKV_ADJACENT; NOT_PREDICTED_IN_ADVANCE",
     "triangle_map": "NOT_DERIVED",
     "readout": "NOT_DERIVED",
-    "failed_checks": []
+    "failed_checks": [],
+    "missing_checks": []
   },
   "implementation_corrections": [
     "C1: the overlap route summed ordered pairs (n,m) and (m,n), each with the full frozen P2 coefficient, double counting the total cross term. Found by the frozen improved-stress cross-check, which disagreed by exactly 2.000. One overall factor of 1/2 fixes it. No frozen prediction changed: a global factor cannot move a zero, so the selection rule and both counterexample classes are unaffected; only reported magnitudes halve."

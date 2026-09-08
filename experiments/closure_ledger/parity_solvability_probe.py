@@ -29,18 +29,35 @@ def run_probe(progress=lambda s: None):
                                + list(PARITY_PURE), samples=200)
     by_set = {tuple(r["degrees"]): r for r in scan}
 
-    progress("independent improved-stress cross-check")
+    progress("independent improved-stress cross-check, full frozen coverage")
+    # Correction C6. The first version sampled seven hand-picked degree sets
+    # with field data only. Frozen check 2 demands every pair through degree 6
+    # AND nonzero momentum. That is 21 unordered pairs times three data kinds.
     rng = np.random.default_rng(ps.SEED + 3)
     agreement = []
-    for degrees in ([1, 2], [2, 3], [3, 4], [1, 4], [2, 5], [1, 2, 3], [2, 3, 4]):
-        for _ in range(3):
-            state = ps.random_state(degrees, rng)
-            agreement.append({"degrees": list(degrees),
-                              **ps.route_agreement(state)})
+    for n in range(1, ps.MAX_DEGREE + 1):
+        for m in range(n, ps.MAX_DEGREE + 1):
+            degrees = [n] if n == m else [n, m]
+            for kind in ("field", "momentum", "both"):
+                base = ps.random_state(degrees, rng)
+                field = base if kind in ("field", "both") else {}
+                momentum = (ps.random_state(degrees, rng)
+                            if kind in ("momentum", "both") else {})
+                agreement.append({"degrees": degrees, "kind": kind,
+                                  **ps.route_agreement(field, momentum)})
 
     progress("bilinearity through the independent route")
-    halving = {str(d): ps.bilinearity_in_amplitude(d, samples=8)
+    halving = {str(d): ps.bilinearity_in_amplitude(d, samples=200)
                for d in PREDICTED_OBSTRUCTED}
+
+    progress("quadrature exactness")
+    exactness = ps.quadrature_exactness()
+
+    progress("small-projection counterexample")
+    small = ps.small_projection_counterexample()
+
+    progress("complete momentum audit")
+    audit = ps.complete_momentum_audit()
 
     progress("maximality")
     maximal = [ps.subspace_maximality(n, n + 1) for n in (1, 2, 3)]
@@ -62,24 +79,37 @@ def run_probe(progress=lambda s: None):
             (a["relative"] < 1e-10 if not a["below_floor"] else a["absolute"] < 1e-12)
             for a in agreement),
         "the obstruction is bilinear, measured independently": all(
-            v["max_halving_error"] < 1e-8 for v in halving.values()),
+            v["max_halving_error"] < 1e-8 for v in halving.values())
+            and exactness["exact"],
         "no nonzero subspace evades an adjacent partner": all(
             m["kernel_is_trivial"] for m in maximal),
         "no nonzero graph subspace evades an adjacent pair": all(
             g["only_trivial_graph"] for g in graphs),
-        "momentum charges are reported and are not a parity condition":
+        "a small-projection mixed-parity subspace evades an adjacent pair":
+            small["evades"],
+        "the complete six Killing and four gradient charges are audited":
+            audit["incomplete_audit_would_report_zero"]
+            and audit["gradient_sector_is_independent"]
+            and audit["gradient_obeys_adjacency"]
+            and audit["killing_is_diagonal_in_degree"],
+        "momentum charges are not a parity condition":
             momentum["parity_pure_kills_dipole"]
             and momentum["parity_pure_can_carry_charge"],
     }
     checks = {k: bool(v) for k, v in checks.items()}
-    note = ("KILLING_CHARGE_INDEPENDENT_OF_PARITY; " + momentum["note"])
+    assert set(checks) == set(ps.REQUIRED_CHECKS), (
+        "probe checks must match the frozen required set exactly")
+    note = ("KILLING_DIAGONAL_IN_DEGREE_AND_GRADIENT_CKV_ADJACENT; "
+            + momentum["note"])
     return {
         "public_preregistration": ps.PUBLIC_PREREG,
         "seed": ps.SEED,
         "selection_rule": table, "degree_set_scan": scan,
         "route_agreement": agreement, "halving": halving,
         "maximality": maximal, "graph_subspaces": graphs,
-        "momentum_sector": momentum,
+        "momentum_sector": momentum, "complete_momentum_audit": audit,
+        "quadrature_exactness": exactness,
+        "small_projection_counterexample": small,
         "checks": checks, "checks_passed": all(checks.values()),
         "verdict": ps.verdict(checks, note),
         "implementation_corrections": [
