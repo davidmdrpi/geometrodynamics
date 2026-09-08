@@ -584,7 +584,23 @@ recorded in the historical list below rather than here.*
    enters except at the restricted circular-orbit speed `omega/sqrt(3)`.
    No such feedback, triangle-holonomy coupling or history preparation is
    derived from the existing scalar sources. The action pullback alone
-   therefore selects no `Phi`. Original text follows.
+   therefore selects no `Phi`.
+   The [reciprocal scalar–TT derivation](reciprocal_scalar_tt.md) supplies
+   the field interaction `6 s^2 Q_m/a^2`, but its
+   [constraint-response bound](scalar_tt_constraints.md) rules out justifying
+   the TT-only projection by smaller omitted metric amplitude: with zero
+   support perturbations on the specified slices, the mean-free scalar
+   metric lower bound exceeds the induced TT upper bound by a factor 1.886.
+   Both scale as `s^2`; this is not a comparison of scalar forces.
+   The [ESU support response](esu_support_response.md) now derives a
+   parameterized perfect-fluid scalar completion with propagated constraints.
+   For initially unperturbed support and zero free tensor data, its initial
+   proper-time cubic force has coefficient `-7976/875` in units
+   `kappa s^3/(V a^2)`, while the induced TT force is zero. Identical
+   cancellation is excluded for that preparation. The support class and
+   constitutive law are not derived from BAM; a complete field/history map
+   and source-local causality/readout result remain open. No `Phi` is selected.
+   Original text follows.
    Derive whether observed event frequencies are the
    positive count of closed histories, `Σ|D|`, or their oriented sum with the
    closure holonomy, `Σ e^{iΩ/2}|D| = ΣD`. Nothing classical in the
