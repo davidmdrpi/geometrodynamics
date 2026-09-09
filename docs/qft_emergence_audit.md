@@ -632,6 +632,12 @@ recorded in the historical list below rather than here.*
    radiation-like background therefore does not derive the assumed
    perfect-fluid response. Support selection, history weighting and the
    physical readout/triangle map remain separate open inputs.
+   A [post-freeze uniqueness proof](scalar_esu_uniqueness.md) further closes
+   the unrestricted smooth single-scalar classification: the even
+   homogeneous support is the only family in the stated exact ESU model.
+   Both the scalar coefficient/rank argument (with its `B!=0` qualification)
+   and an independent zero-momentum argument rule out nonconstant spatial
+   profiles. This adds no support selection or history measure.
    The [driven normal-stress construction](driven_normal_stress.md) now gives
    an explicit leading-order existence result: two real degree-3 scalar modes
    in temporal quadrature supply constant stress `6s^2 Q_z/(Ca^2)` with zero

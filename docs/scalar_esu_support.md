@@ -118,9 +118,14 @@ argument. The zero history cannot supply
 \(\rho+p=2/(\kappa a^2)\), regardless of Lambda. This finishes the
 odd-sector exclusion.
 
-The reciprocal form is a necessary spatial classification. It is not a
-classification of all unrestricted Einstein-scalar histories: its time,
-momentum and density equations have not been solved here.
+The reciprocal form alone is a necessary spatial classification. The
+initial implementation left its time, momentum and density equations open.
+A [separate post-freeze extension](scalar_esu_uniqueness.md) now proves
+that the homogeneous control below is the full smooth single-real-scalar
+support family, even without imposing odd parity. It checks the rank
+argument and its zero-vector exception, and supplies an independent route
+through the zero-momentum Einstein equation. The freeze and original probe
+archive remain unchanged.
 
 ## An exact even control
 
