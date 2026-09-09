@@ -618,6 +618,20 @@ recorded in the historical list below rather than here.*
    cancellation is excluded for that preparation. The support class and
    constitutive law are not derived from BAM; a complete field/history map
    and source-local causality/readout result remain open. No `Phi` is selected.
+   The [single-scalar support audit](scalar_esu_support.md) tests replacing
+   that unspecified fluid by the existing real conformal scalar itself.
+   Pointwise isotropy on complete round S3 forces every nonzero smooth
+   scalar slice to be nowhere zero: locally `1/phi=A+B.x`, and a component
+   boundary at `phi=0` is impossible. Thus no nontrivial antipodally odd
+   history of this single scalar supplies exact ESU support. This exclusion
+   is conditional on the imposed odd sector, exact isotropy and one real
+   scalar, not a no-go for other support fields or averaged geometries.
+   Relaxing odd admissibility gives an exact homogeneous even control with
+   positive kinetic coefficients; its independently evolved perturbations
+   carry anisotropic stress and propagate both scalar constraints. Its
+   radiation-like background therefore does not derive the assumed
+   perfect-fluid response. Support selection, history weighting and the
+   physical readout/triangle map remain separate open inputs.
    Original text follows.
    Derive whether observed event frequencies are the
    positive count of closed histories, `Σ|D|`, or their oriented sum with the
