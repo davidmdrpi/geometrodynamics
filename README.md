@@ -5318,6 +5318,48 @@ python -m experiments.closure_ledger.joint_closure_probe   # 17 required checks
 python -m pytest -q tests/test_joint_closure.py             # 49 tests
 ```
 
+## Constraint solvability does not derive the antipodal condition (round 11)
+
+The linearized Hamiltonian constraint on the round `S^3` has a genuine
+four-dimensional `l=1` kernel, so it is solvable only when `int rho x^A dV=0`.
+Antipodal parity purity guarantees that — which raised the question of whether
+general relativity *derives* the identification BAM imposes (audit item F6).
+
+**It does not.** The obstruction is bilinear across the parity sectors and is
+carried entirely by the degree-1 triple overlap `int Y_n Y_n' Y_1 dV`, which is
+nonzero only for **adjacent** degrees `|n-n'|=1`. Measured over every pair to
+degree 6: minimum adjacent norm `3.464102`, maximum non-adjacent `1.39e-14`.
+So any degree set with no adjacent pair is equally solvable, including
+mixed-parity ones — `{1,4}`, `{2,5}`, `{3,6}` give `|P^A| <= 2.9e-14` over 600
+samples each, against `5.08`, `6.93`, `9.03` for `{1,2}`, `{2,3}`, `{3,4}`.
+Parity is sufficient, strictly stronger than necessary.
+
+The eigenspaces are **not** maximal even within an adjacent truncation. Two
+narrower results hold — no nonzero evading subspace of `V_{n+1}` against all of
+`V_n`, and no nonzero evading graph of a map defined on all of `V_n` — but both
+families miss subspaces with smaller projections, and those evade:
+`span{x_0, x_1 x_2}` in `V_1 + V_2` is mixed parity, adjacent, and has an
+identically vanishing dipole. Nor is the momentum sector a parity condition:
+the six `SO(4)` Killing charges are diagonal in degree, while the four gradient
+conformal charges follow the adjacency rule and pair field against momentum, so
+field in `V_2` with momentum in `V_3` gives zero Killing charge and zero
+Hamiltonian dipole yet a gradient charge of `0.267`.
+
+The public freeze `495f1f1` preceded implementation and recorded the negative
+expectation in advance so it could not be softened. **61 tests and all 11
+required probe checks pass.** Six implementation corrections are recorded in
+the write-up: [C1](docs/parity_solvability.md#implementation-correction), a
+factor of two caught by the frozen cross-check, and
+[C2-C6](docs/parity_solvability.md#review-corrections) from review — a stale
+factor of two, a verdict that could not fail on a *missing* check, the
+withdrawn "fails only globally" claim, a momentum audit covering three of ten
+charges, and archived verification narrower than the freeze demanded.
+
+```bash
+python -m experiments.closure_ledger.parity_solvability_probe   # 11 required checks
+python -m pytest -q tests/test_parity_solvability.py             # 61 tests
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced

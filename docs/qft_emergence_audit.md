@@ -355,6 +355,24 @@ node".
 
 ### F6. The antipodal identification is implemented as an imposed boundary condition; it is not derived
 
+*Round 11 closes one candidate route to deriving it.* The linearized
+Hamiltonian constraint on the round `S³` has a four-dimensional `l=1` kernel,
+so a solution exists only when `∫ρ x^A dV = 0`. Antipodal parity purity
+guarantees that, which raised the question of whether general relativity
+derives the identification. It does not. The obstruction is carried entirely
+by the degree-1 triple overlap `∫Y_n Y_n' Y_1 dV`, which is nonzero only for
+**adjacent** degrees `|n−n'| = 1` (minimum adjacent norm `3.464102`, maximum
+non-adjacent `1.39e-14` over all pairs to degree 6). So any degree set without
+an adjacent pair is equally solvable, including mixed-parity ones: `{1,4}`,
+`{2,5}` and `{3,6}` give `|P^A| ≤ 2.9e-14` over 600 samples each, while
+`{1,2}`, `{2,3}`, `{3,4}` give `5.08`, `6.93`, `9.03`. Parity is **sufficient
+but not necessary**, and neither is the momentum
+constraint's own obstruction: the six `SO(4)` Killing charges are diagonal in
+degree, and the four gradient conformal charges follow the adjacency rule while
+pairing field against momentum. Parity is not maximal even within an adjacent
+pair — `span{x⁰, x¹x²} ⊂ V₁⊕V₂` is mixed parity with an identically vanishing
+dipole. See `docs/parity_solvability.md`.
+
 **Correction of the first draft of this audit**, which said the identification
 is "never imposed in a solve". That was wrong; the search had been confined to
 the `geometrodynamics/` package and missed `experiments/closure_ledger/`.
