@@ -1,0 +1,1 @@
+{"degree":1,"input_dimension":9,"operators":{"A":{"rank":10,"fixed_trace_rank":9,"nullity":0,"kernel_columns":[],"pivots":[0,1,2,3,4,5,6,7,8,9],"prime":1000003,"certified":true},"L":{"rank":10,"fixed_trace_rank":9,"nullity":0,"kernel_columns":[],"pivots":[0,1,2,3,4,5,6,7,8,9],"prime":1000003,"certified":true}}}
