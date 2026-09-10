@@ -250,3 +250,59 @@ Deliverables after this freeze: an isolated module, an independently checked
 probe, targeted tests, exact kernel certificates, a derivation and archived
 JSON/Markdown. Preserve this file and distinguish re-derived prior candidate
 results from P3 outcomes first obtained after publication.
+
+## 7. Review amendment, published before implementation
+
+This appendix responds to the review of `a12cb2f`. Sections 1--6 above are
+preserved verbatim. No P3 scan or implementation preceded this amendment.
+
+P1 additionally requires **componentwise odd parity**, `Y_i(-x)+Y_i(x)=0`,
+both as a polynomial identity and at quadrature and independent off-grid
+points. An even-degree multiplet is a required discriminating control: its
+isotropic stress must not qualify as odd support.
+
+P2a uses two phases. Constant density at the simultaneous field-zero phase
+fixes `sum f_I^2` constant in space. The subsequent spatial-isotropy step
+uses a phase with nonzero cosine. At the zero-field phase the trace-free
+stress vanishes without constraining the gradient tensor.
+
+The required gate identifiers and their affected verdicts are now fixed.
+In the table B=`background_existence`, K=`kinetic_regularity`,
+M=`component_count_bound`, D=`diagonal_sensitivity`,
+P=`full_preparation_kernel`. Every listed gate has at least one target;
+unknown/missing targets or a changed gate set invalidate all five verdicts.
+A failed check invalidates its listed targets even if other checks pass.
+
+| Required gate identifier | Affected verdicts |
+|---|---|
+| `harmonic_parity` | B, M, D, P |
+| `addition_identities` | B, K, M, D, P |
+| `full_stress_background` | B, K, M, D, P |
+| `einstein_normalization` | B, K, M, D, P |
+| `kinetic_matrix` | K |
+| `component_bound` | M |
+| `independent_field_controls` | B, M, D, P |
+| `exact_preparation_kernel` | P |
+| `normalized_sensitivity` | D, P |
+| `gram_reconstruction` | D, P |
+| `scope_and_order` | B, K, M, D, P |
+| `failure_paths` | B, K, M, D, P |
+
+The tuple `REQUIRED_CHECKS` must contain exactly these twelve names, and
+`CHECK_TARGETS` must be total with exactly these targets. Tests must compare
+both against this published table and exercise each gate as missing and
+false, checking every affected verdict, nonzero CLI status and replacement
+of stale JSON/Markdown. Empty or unrelated-only check dictionaries cannot
+pass. Missing/invalid kernel results cannot become an affirmative physical
+classification through a gate set alone.
+
+Fixed scope verdicts remain `coupled_dynamical_stability: NOT_ESTABLISHED`,
+`field_content_preparation_selection: NOT_DERIVED`,
+`TT_frequency_transfer: NOT_ESTABLISHED`,
+`coupled_support_response: NOT_DERIVED`, `Phi_selection: NOT_DERIVED`, and
+`causality_gate: OPEN`. No gate result promotes these statements.
+
+The coherent-field control is a structural regression of #293, not a new
+exclusion. P2 should explicitly compare its density and Lambda with #293's
+homogeneous even control; their equality does not imply equal perturbation
+response or select either preparation.
