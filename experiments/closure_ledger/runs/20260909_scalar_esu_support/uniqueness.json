@@ -1,0 +1,165 @@
+{
+  "post_freeze": true,
+  "seed": 2026090916,
+  "original_freeze": "de55f3f3175adafcf2cb760e0aef5767ca3e5016",
+  "exact": {
+    "residuals": {
+      "three_conditions": "0",
+      "rank_factor_00": "0",
+      "rank_factor_01": "0",
+      "rank_factor_02": "0",
+      "rank_factor_03": "0",
+      "rank_factor_10": "0",
+      "rank_factor_11": "0",
+      "rank_factor_12": "0",
+      "rank_factor_13": "0",
+      "rank_factor_20": "0",
+      "rank_factor_21": "0",
+      "rank_factor_22": "0",
+      "rank_factor_23": "0",
+      "rank_factor_30": "0",
+      "rank_factor_31": "0",
+      "rank_factor_32": "0",
+      "rank_factor_33": "0",
+      "perpendicular_square_1": "0",
+      "perpendicular_acceleration_1": "0",
+      "perpendicular_square_2": "0",
+      "perpendicular_acceleration_2": "0",
+      "perpendicular_square_3": "0",
+      "perpendicular_acceleration_3": "0",
+      "parallel_acceleration": "0",
+      "regularity_contradiction": "0",
+      "momentum_reciprocal": "0",
+      "constant_B_wave_residual": "0"
+    },
+    "all_zero": true,
+    "sym_convention": "sym(U V^T)=(U V^T+V U^T)/2",
+    "rank_bound": "M=H K H^T with H of shape 4x3; rank(M)<=3",
+    "alignment_scope": "B!=0: Bd=lambda B and Bdd=2 lambda^2 B; at B=0 only Bd=0 follows pointwise",
+    "regularity_identity": "q^2+a^2 qdot^2=1 contradicts |q|>1",
+    "constant_B_residual": "2 (b^2-A0^2)/a^2",
+    "global_proof": "docs/scalar_esu_uniqueness.md",
+    "proof_status": "WRITTEN_ANALYTIC_PROOF_WITH_SYMBOLIC_LOCAL_CHECKS"
+  },
+  "pointwise": [
+    {
+      "radius": 0.7,
+      "wave_expansion_absolute": 2.6645352591003757e-15,
+      "wave_scale": 6.678889892952528,
+      "momentum_absolute": 9.053088140253962e-18,
+      "non_solution_wave_size": 2.2648052366298703
+    },
+    {
+      "radius": 1.0,
+      "wave_expansion_absolute": 1.3322676295501878e-15,
+      "wave_scale": 2.944871349316159,
+      "momentum_absolute": 1.1005586668084919e-17,
+      "non_solution_wave_size": 1.0359018210735595
+    },
+    {
+      "radius": 2.0,
+      "wave_expansion_absolute": 4.163336342344337e-16,
+      "wave_scale": 1.385696860547978,
+      "momentum_absolute": 3.469446951953614e-18,
+      "non_solution_wave_size": 0.20972830850616697
+    }
+  ],
+  "rank_controls": {
+    "max_rank": 3,
+    "min_generic_rank": 3,
+    "alignment_max_relative": 3.5094916708850004e-16,
+    "zero_B_nonzero_Bdd_matrix_norm": 0.0,
+    "zero_B_control_Bdd": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "transverse_velocity_matrix_norm": 2.0,
+    "transverse_acceleration_matrix_norm": 0.7071067811865476,
+    "trace_matched_identity_residual": 1.8708286933869707,
+    "rank_step_is_analytic": "samples are controls; rectangular factorization proves the bound"
+  },
+  "failure_controls": [
+    {
+      "key": "coefficient_expansion",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "coefficient_expansion",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "rank_and_alignment",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "rank_and_alignment",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "regularity_contradiction",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "regularity_contradiction",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "independent_momentum_route",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "independent_momentum_route",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "degenerate_controls",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "degenerate_controls",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "failure_paths",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "failure_paths",
+      "mode": "failed",
+      "passed": true
+    }
+  ],
+  "checks": {
+    "coefficient_expansion": true,
+    "rank_and_alignment": true,
+    "regularity_contradiction": true,
+    "independent_momentum_route": true,
+    "degenerate_controls": true,
+    "failure_paths": true
+  },
+  "checks_passed": true,
+  "verdict": {
+    "uniqueness": "ONLY_HOMOGENEOUS_SUPPORT_IN_STATED_CLASS",
+    "failed_checks": [],
+    "post_freeze": true,
+    "BAM_support_selection": "NOT_DERIVED",
+    "Phi_selection": "NOT_DERIVED",
+    "causality_gate": "OPEN"
+  },
+  "original_freeze_or_archive_changed": false,
+  "review_clarification": "Alignment requires B!=0; B=0 forces Bd=0 but leaves Bdd unrestricted pointwise.",
+  "proof_scope": "one smooth real conformal scalar; exact pointwise round ESU; no other matter; no parity needed for uniqueness"
+}
