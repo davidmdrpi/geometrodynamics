@@ -638,6 +638,17 @@ recorded in the historical list below rather than here.*
    Both the scalar coefficient/rank argument (with its `B!=0` qualification)
    and an independent zero-momentum argument rule out nonconstant spatial
    profiles. This adds no support selection or history measure.
+   The [odd multiplet support construction](odd_multiplet_support.md)
+   supplies an exact alternative with independent conformal components.
+   Four real fields suffice at degree 1 and are minimal within the
+   common-phase, single-degree ansatz. The full kinetic matrix is positive.
+   Fixed-trace preparations are isolated at degrees 1 and 3, but degree 5
+   has an exactly certified 84-dimensional Gram kernel preserving the
+   complete pointwise stress. Equal coefficients are not universally
+   necessary. This expands the assumed matter content; it derives neither
+   a preparation law nor coupled stability. The support's metric response
+   must be derived before transferring the bare TT frequency or attempting
+   O(s^4) persistence. Phi selection and the causality gate remain open.
    The [driven normal-stress construction](driven_normal_stress.md) now gives
    an explicit leading-order existence result: two real degree-3 scalar modes
    in temporal quadrature supply constant stress `6s^2 Q_z/(Ca^2)` with zero
