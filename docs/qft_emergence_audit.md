@@ -649,6 +649,17 @@ recorded in the historical list below rather than here.*
    a preparation law nor coupled stability. The support's metric response
    must be derived before transferring the bare TT frequency or attempting
    O(s^4) persistence. Phi selection and the causality gate remain open.
+   The [coupled multiplet tensor response](coupled_multiplet_response.md)
+   resolves that transfer question for the four-component degree-1 support.
+   Zero scalar perturbations are dynamically preserved in its linear
+   homogeneous TT sector, while the full metric-dependent stress gives
+   `(f beta_dot)_dot + g beta/a^2 = 0`, with
+   `f=1-cos^2(theta)/8`, `g=8+cos^2(theta)/2`, `theta=2t/a+delta`.
+   All linear Einstein constraints and scalar equations are checked through
+   independent curvature/stress variations. The bare oscillator fails; the
+   resulting period map is numerically elliptic, not a proof of general
+   stability. Scalar/vector response, nonlinear persistence, signal-field
+   preparation, Phi selection and operational causality remain open.
    The [driven normal-stress construction](driven_normal_stress.md) now gives
    an explicit leading-order existence result: two real degree-3 scalar modes
    in temporal quadrature supply constant stress `6s^2 Q_z/(Ca^2)` with zero

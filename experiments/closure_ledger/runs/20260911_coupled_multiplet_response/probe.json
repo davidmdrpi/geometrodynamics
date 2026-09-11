@@ -1,0 +1,3911 @@
+{
+  "prereg": "64d7f9c8e41a9b8ef591eae7b04685f038ed49b4",
+  "baseline": "fe3d423d322fd1ea8760dc4aee09dff7fdf2acb9",
+  "seed": 2026091014,
+  "exact": {
+    "residuals": {
+      "spatial_curvature": "0",
+      "gradient_expansion": "0",
+      "quadratic_action": "0",
+      "stress_action": "0",
+      "determinant_tangent": "0",
+      "kinetic": "0",
+      "stiffness": "0",
+      "bare_turning_point": "0",
+      "hessian_0": "0",
+      "hessian_1": "0",
+      "hessian_2": "0",
+      "hessian_3": "0",
+      "hessian_4": "0",
+      "hessian_5": "0",
+      "hessian_6": "0",
+      "hessian_7": "0",
+      "hessian_8": "0",
+      "gradient_0": "0",
+      "gradient_1": "0",
+      "gradient_2": "0",
+      "gradient_3": "0",
+      "gradient_4": "0",
+      "gradient_5": "0",
+      "gradient_6": "0",
+      "gradient_7": "0",
+      "gradient_8": "0",
+      "KG_0": "0",
+      "KG_1": "0",
+      "KG_2": "0",
+      "KG_3": "0"
+    },
+    "all_zero": true,
+    "parity_degree": 1,
+    "components": 4,
+    "minimum_f": "7/8",
+    "curvature_kinetic_proof": "tr(K)=0 for det(exp(2 epsilon beta))=1; tr(K^2)=epsilon^2 tr(beta_dot^2)+O(epsilon^3)"
+  },
+  "geometry": [
+    {
+      "case": "basis_0",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.0,
+      "phase": 0.0,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 2.0675000000000003
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001603028256139e-07,
+          "T_absolute": 4.020011623072129e-09,
+          "residual_absolute": 7.961402908495035e-07,
+          "constraints_absolute": 8.33779234495783e-14,
+          "KG_absolute": 1.6184142622847343e-13,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 2.067500796140291
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0003985766006948e-07,
+          "T_absolute": 1.0049728912067313e-09,
+          "residual_absolute": 1.9903488449776988e-07,
+          "constraints_absolute": 6.758924397066522e-13,
+          "KG_absolute": 4.627779271052809e-13,
+          "scalar_curvature_absolute": 8.881784197001252e-13,
+          "complete_Einstein_response": 2.067500199034885
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.001034007436682e-08,
+          "T_absolute": 2.5132859948779986e-10,
+          "residual_absolute": 4.975901129071905e-08,
+          "constraints_absolute": 1.294731412214092e-12,
+          "KG_absolute": 5.20740757162067e-13,
+          "scalar_curvature_absolute": 1.7763568394002505e-12,
+          "complete_Einstein_response": 2.0675000497590115
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000004360057772
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999699534657123
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.0001194641629185
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9986411942565865
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000003782545084
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.9999766742731375
+        }
+      ]
+    },
+    {
+      "case": "basis_1",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.0,
+      "phase": 0.0,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 2.0200000000000005,
+        "T": 1.0,
+        "residual": 2.0675000000000003
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001598355030566e-07,
+          "T_absolute": 4.019969767547187e-09,
+          "residual_absolute": 7.961398655345626e-07,
+          "constraints_absolute": 4.144212440520326e-07,
+          "KG_absolute": 3.4638766941499066e-08,
+          "scalar_curvature_absolute": 3.870852527398938e-07,
+          "complete_Einstein_response": 2.0675007961398797
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0003943313297837e-07,
+          "T_absolute": 1.005035365475735e-09,
+          "residual_absolute": 1.9903439793392682e-07,
+          "constraints_absolute": 1.0360669522310925e-07,
+          "KG_absolute": 8.659604611968181e-09,
+          "scalar_curvature_absolute": 9.677236789684684e-08,
+          "complete_Einstein_response": 2.067500199034399
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.000880870871968e-08,
+          "T_absolute": 2.5107093187253983e-10,
+          "residual_absolute": 4.975773789254223e-08,
+          "constraints_absolute": 2.5901432202989785e-08,
+          "KG_absolute": 2.1648323999453906e-09,
+          "scalar_curvature_absolute": 2.419309197421171e-08,
+          "complete_Einstein_response": 2.0675000497577383
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000010512782956
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000083951171964
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9998291658565948
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.002993727628961
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000011424150191
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000069262870538
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9999465590482113
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000037311108611
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000040243595633
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000127036248453
+        }
+      ]
+    },
+    {
+      "case": "basis_2",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.0,
+      "phase": 0.0,
+      "angles": [
+        0.57,
+        1.43,
+        2.14
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 2.0675000000000003
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001600428184689e-07,
+          "T_absolute": 4.019913214902617e-09,
+          "residual_absolute": 7.961401292870805e-07,
+          "constraints_absolute": 5.928594619604555e-13,
+          "KG_absolute": 3.754704674526955e-13,
+          "scalar_curvature_absolute": 2.220446049250313e-13,
+          "complete_Einstein_response": 2.0675007961401297
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0003993004172084e-07,
+          "T_absolute": 1.0049709619111665e-09,
+          "residual_absolute": 1.9903495876335638e-07,
+          "constraints_absolute": 8.473409956879749e-13,
+          "KG_absolute": 1.986996825864056e-13,
+          "scalar_curvature_absolute": 8.881784197001252e-13,
+          "complete_Einstein_response": 2.067500199034959
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.001186780222165e-08,
+          "T_absolute": 2.515709089995144e-10,
+          "residual_absolute": 4.976029674656218e-08,
+          "constraints_absolute": 3.5405497993034576e-12,
+          "KG_absolute": 1.250233875266816e-12,
+          "scalar_curvature_absolute": 6.217248937900877e-12,
+          "complete_Einstein_response": 2.067500049760297
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000001612935905
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.999849212447022
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.0000292219965194
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.99478209109268
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000001478301384
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999874835495374
+        }
+      ]
+    },
+    {
+      "case": "basis_3",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.0,
+      "phase": 0.0,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 2.0675000000000003
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001601489566032e-07,
+          "T_absolute": 4.019975167632409e-09,
+          "residual_absolute": 7.961401734066325e-07,
+          "constraints_absolute": 2.359224498529118e-13,
+          "KG_absolute": 2.867703063870717e-13,
+          "scalar_curvature_absolute": 2.220446049250313e-13,
+          "complete_Einstein_response": 2.0675007961401732
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0004044487511514e-07,
+          "T_absolute": 1.0050471129739624e-09,
+          "residual_absolute": 1.9903539744732127e-07,
+          "constraints_absolute": 4.440892236407849e-13,
+          "KG_absolute": 3.3190841028655767e-13,
+          "scalar_curvature_absolute": 4.440892098500626e-13,
+          "complete_Einstein_response": 2.067500199035398
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.001016437197834e-08,
+          "T_absolute": 2.511287299317492e-10,
+          "residual_absolute": 4.975903546572075e-08,
+          "constraints_absolute": 1.2560739771528173e-12,
+          "KG_absolute": 6.004449063730082e-13,
+          "scalar_curvature_absolute": 1.7763568394002505e-12,
+          "complete_Einstein_response": 2.0675000497590355
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999918489290582
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.99999574860829
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9997877868005514
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.002119204947639
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999992883765045
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999985039590202
+        }
+      ]
+    },
+    {
+      "case": "basis_4",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.0,
+      "phase": 0.0,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 2.0675000000000003
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001603276332459e-07,
+          "T_absolute": 4.020008095395858e-09,
+          "residual_absolute": 7.9614031911133e-07,
+          "constraints_absolute": 4.982493692195997e-13,
+          "KG_absolute": 1.2719202621569003e-13,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 2.0675007961403193
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0004012928610563e-07,
+          "T_absolute": 1.0050336665068986e-09,
+          "residual_absolute": 1.990350953612206e-07,
+          "constraints_absolute": 6.479604616253675e-13,
+          "KG_absolute": 1.594436429147036e-13,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 2.0675001990350954
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.0009825087251034e-08,
+          "T_absolute": 2.5122726098367493e-10,
+          "residual_absolute": 4.975859741354757e-08,
+          "constraints_absolute": 1.9860273277022418e-12,
+          "KG_absolute": 4.518280359883027e-13,
+          "scalar_curvature_absolute": 1.7763568394002505e-12,
+          "complete_Einstein_response": 2.0675000497585976
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999990526342026
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000016575484918
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9998740632916543
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.0004960551323565
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.9999996868213
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000014182615005
+        }
+      ]
+    },
+    {
+      "case": "basis_0",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.39269908169872414,
+      "phase": 0.0,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 2.12125
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001603028256139e-07,
+          "T_absolute": 2.2790002434945206e-08,
+          "residual_absolute": 8.229503052409027e-07,
+          "constraints_absolute": 8.489686493056875e-14,
+          "KG_absolute": 9.309503074677274e-14,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 2.121250822950305
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0003985766006948e-07,
+          "T_absolute": 5.697495090011808e-09,
+          "residual_absolute": 2.057373528077294e-07,
+          "constraints_absolute": 1.266432715671225e-12,
+          "KG_absolute": 2.5514002453611346e-13,
+          "scalar_curvature_absolute": 8.881784197001252e-13,
+          "complete_Einstein_response": 2.121250205737353
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.001034007436682e-08,
+          "T_absolute": 1.4243903422138945e-09,
+          "residual_absolute": 5.1434730465636084e-08,
+          "constraints_absolute": 1.0485651457888533e-12,
+          "KG_absolute": 7.860269245766491e-13,
+          "scalar_curvature_absolute": 1.7763568394002505e-12,
+          "complete_Einstein_response": 2.12125005143473
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000004360057772
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999699534657123
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000003874491795
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9999534686231675
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000004345394616
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.99996949425416
+        }
+      ]
+    },
+    {
+      "case": "basis_1",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.39269908169872414,
+      "phase": 0.0,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 2.0200000000000005,
+        "T": 1.0,
+        "residual": 2.1212500000000003
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001598355030566e-07,
+          "T_absolute": 2.2790052926217585e-08,
+          "residual_absolute": 8.229498881063166e-07,
+          "constraints_absolute": 4.621170362181447e-07,
+          "KG_absolute": 1.2369335044394526e-07,
+          "scalar_curvature_absolute": 3.870852527398938e-07,
+          "complete_Einstein_response": 2.1212508229499054
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0003943313297837e-07,
+          "T_absolute": 5.6975211236542755e-09,
+          "residual_absolute": 2.057369543062929e-07,
+          "constraints_absolute": 1.1553066820670284e-07,
+          "KG_absolute": 3.092317286265617e-08,
+          "scalar_curvature_absolute": 9.677236789684684e-08,
+          "complete_Einstein_response": 2.1212502057369558
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.000880870871968e-08,
+          "T_absolute": 1.4245156585706222e-09,
+          "residual_absolute": 5.1433324227073465e-08,
+          "constraints_absolute": 2.8882708513414377e-08,
+          "KG_absolute": 7.731020127061809e-09,
+          "scalar_curvature_absolute": 2.419309197421171e-08,
+          "complete_Einstein_response": 2.1212500514333246
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000010512782956
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000083951171964
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.999994459274686
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9996198633374402
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000010065674162
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000071109500581
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9999512111480513
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.999994257915438
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000021310663155
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.9998825969178524
+        }
+      ]
+    },
+    {
+      "case": "basis_2",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.39269908169872414,
+      "phase": 0.0,
+      "angles": [
+        0.57,
+        1.43,
+        2.14
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 2.12125
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001600428184689e-07,
+          "T_absolute": 2.2790025505791532e-08,
+          "residual_absolute": 8.229500686280707e-07,
+          "constraints_absolute": 6.46393654554511e-13,
+          "KG_absolute": 2.4951089245224826e-13,
+          "scalar_curvature_absolute": 2.220446049250313e-13,
+          "complete_Einstein_response": 2.1212508229500684
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0003993004172084e-07,
+          "T_absolute": 5.697440872955647e-09,
+          "residual_absolute": 2.05737371021188e-07,
+          "constraints_absolute": 8.48649825692037e-13,
+          "KG_absolute": 1.182160275045642e-13,
+          "scalar_curvature_absolute": 8.881784197001252e-13,
+          "complete_Einstein_response": 2.121250205737371
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.001186780222165e-08,
+          "T_absolute": 1.4243508319366465e-09,
+          "residual_absolute": 5.1436218630848435e-08,
+          "constraints_absolute": 3.361323671193323e-12,
+          "KG_absolute": 1.273509170037064e-12,
+          "scalar_curvature_absolute": 6.217248937900877e-12,
+          "complete_Einstein_response": 2.1212500514362183
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000001612935905
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.999849212447022
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000045988010194
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000026359523384
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.00000284121118
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999854120259897
+        }
+      ]
+    },
+    {
+      "case": "basis_3",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.39269908169872414,
+      "phase": 0.0,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 2.12125
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001601489566032e-07,
+          "T_absolute": 2.279001849900282e-08,
+          "residual_absolute": 8.22950167543848e-07,
+          "constraints_absolute": 2.1704362002973262e-13,
+          "KG_absolute": 7.632783294297951e-14,
+          "scalar_curvature_absolute": 2.220446049250313e-13,
+          "complete_Einstein_response": 2.1212508229501674
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0004044487511514e-07,
+          "T_absolute": 5.697401208209894e-09,
+          "residual_absolute": 2.057378461313111e-07,
+          "constraints_absolute": 5.121056217495128e-13,
+          "KG_absolute": 4.0149761686118593e-13,
+          "scalar_curvature_absolute": 4.440892098500626e-13,
+          "complete_Einstein_response": 2.121250205737846
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.001016437197834e-08,
+          "T_absolute": 1.4244076773782557e-09,
+          "residual_absolute": 5.1434572035320506e-08,
+          "constraints_absolute": 2.04882276072338e-12,
+          "KG_absolute": 3.2009291313835883e-13,
+          "scalar_curvature_absolute": 1.7763568394002505e-12,
+          "complete_Einstein_response": 2.121250051434572
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999918489290582
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.99999574860829
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.0000726061142835
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.999838879481785
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999994084795679
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999991406364369
+        }
+      ]
+    },
+    {
+      "case": "basis_4",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.39269908169872414,
+      "phase": 0.0,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 2.12125
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001603276332459e-07,
+          "T_absolute": 2.2790011031237762e-08,
+          "residual_absolute": 8.229503386840399e-07,
+          "constraints_absolute": 3.3355965005224056e-13,
+          "KG_absolute": 7.97218214573518e-14,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 2.1212508229503384
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0004012928610563e-07,
+          "T_absolute": 5.697488769872304e-09,
+          "residual_absolute": 2.057376181535878e-07,
+          "constraints_absolute": 4.474073119091063e-13,
+          "KG_absolute": 6.206335383118183e-14,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 2.121250205737618
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.0009825087251034e-08,
+          "T_absolute": 1.4243488746373266e-09,
+          "residual_absolute": 5.14341737140755e-08,
+          "constraints_absolute": 2.3425563333318413e-12,
+          "KG_absolute": 4.3819540784381504e-13,
+          "scalar_curvature_absolute": 1.7763568394002505e-12,
+          "complete_Einstein_response": 2.1212500514341737
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999990526342026
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000016575484918
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000009820422788
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000065483481371
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.9999993490237107
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000017951047313
+        }
+      ]
+    },
+    {
+      "case": "basis_0",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.7853981633974483,
+      "phase": 0.0,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 2.02
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001603028256139e-07,
+          "T_absolute": 5.675798171874622e-14,
+          "residual_absolute": 8.001603222947601e-07,
+          "constraints_absolute": 8.326695648105336e-14,
+          "KG_absolute": 1.901584250360973e-17,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 2.020000800160322
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0003985766006948e-07,
+          "T_absolute": 8.35241000045867e-14,
+          "residual_absolute": 2.0003987728621946e-07,
+          "constraints_absolute": 1.3517848724402445e-12,
+          "KG_absolute": 1.5891746739565033e-17,
+          "scalar_curvature_absolute": 8.881784197001252e-13,
+          "complete_Einstein_response": 2.020000200039877
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.001034007436682e-08,
+          "T_absolute": 2.1035668094018095e-13,
+          "residual_absolute": 5.0010300826440066e-08,
+          "constraints_absolute": 1.0778315964330114e-12,
+          "KG_absolute": 2.0747985160988133e-17,
+          "scalar_curvature_absolute": 1.7763568394002505e-12,
+          "complete_Einstein_response": 2.020000050010301
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000004360057772
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999699534657123
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000004064938918
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.9999734850716973
+        }
+      ]
+    },
+    {
+      "case": "basis_1",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.7853981633974483,
+      "phase": 0.0,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 2.0200000000000005,
+        "T": 1.0,
+        "residual": 2.0200000000000005
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001598355030566e-07,
+          "T_absolute": 3.756168251963162e-14,
+          "residual_absolute": 8.001598409873378e-07,
+          "constraints_absolute": 4.3085035364198753e-07,
+          "KG_absolute": 1.4029006028284773e-07,
+          "scalar_curvature_absolute": 3.870852527398938e-07,
+          "complete_Einstein_response": 2.020000800159857
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0003943313297837e-07,
+          "T_absolute": 4.31446441860945e-14,
+          "residual_absolute": 2.0003941056136856e-07,
+          "constraints_absolute": 1.077140732017705e-07,
+          "KG_absolute": 3.5072501045885306e-08,
+          "scalar_curvature_absolute": 9.677236789684684e-08,
+          "complete_Einstein_response": 2.0200002000394117
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.000880870871968e-08,
+          "T_absolute": 9.477634720000947e-14,
+          "residual_absolute": 5.0008808708195836e-08,
+          "constraints_absolute": 2.692864951938982e-08,
+          "KG_absolute": 8.768124473789505e-09,
+          "scalar_curvature_absolute": 2.419309197421171e-08,
+          "complete_Einstein_response": 2.020000050008809
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000010512782956
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000083951171964
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.0000109915434034
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000083499861186
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9999448617537348
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9999805086479214
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000001599523981
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000000359338795
+        }
+      ]
+    },
+    {
+      "case": "basis_2",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.7853981633974483,
+      "phase": 0.0,
+      "angles": [
+        0.57,
+        1.43,
+        2.14
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 2.02
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001600428184689e-07,
+          "T_absolute": 6.529154001982889e-14,
+          "residual_absolute": 8.001600577343086e-07,
+          "constraints_absolute": 6.890151690883547e-13,
+          "KG_absolute": 1.5152185993940876e-17,
+          "scalar_curvature_absolute": 2.220446049250313e-13,
+          "complete_Einstein_response": 2.0200008001600573
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0003993004172084e-07,
+          "T_absolute": 8.014939395076645e-14,
+          "residual_absolute": 2.0003989251644312e-07,
+          "constraints_absolute": 8.711007428850143e-13,
+          "KG_absolute": 4.0657581468206416e-17,
+          "scalar_curvature_absolute": 8.881784197001252e-13,
+          "complete_Einstein_response": 2.0200002000398927
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.001186780222165e-08,
+          "T_absolute": 1.714977258156806e-13,
+          "residual_absolute": 5.0011895437776407e-08,
+          "constraints_absolute": 3.953391805305433e-12,
+          "KG_absolute": 4.558265131137669e-17,
+          "scalar_curvature_absolute": 6.217248937900877e-12,
+          "complete_Einstein_response": 2.020000050011895
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000001612935905
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.999849212447022
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000002437856419
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999846251884773
+        }
+      ]
+    },
+    {
+      "case": "basis_3",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.7853981633974483,
+      "phase": 0.0,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 2.02
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001601489566032e-07,
+          "T_absolute": 4.091519462147036e-14,
+          "residual_absolute": 8.001601637154851e-07,
+          "constraints_absolute": 2.0014839740816329e-13,
+          "KG_absolute": 7.814768387166964e-17,
+          "scalar_curvature_absolute": 2.220446049250313e-13,
+          "complete_Einstein_response": 2.0200008001601635
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0004044487511514e-07,
+          "T_absolute": 9.723107429814961e-14,
+          "residual_absolute": 2.000404433050957e-07,
+          "constraints_absolute": 8.617648185348266e-13,
+          "KG_absolute": 4.595885563886244e-17,
+          "scalar_curvature_absolute": 4.440892098500626e-13,
+          "complete_Einstein_response": 2.0200002000404433
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.001016437197834e-08,
+          "T_absolute": 2.972342082711395e-13,
+          "residual_absolute": 5.001037037121349e-08,
+          "constraints_absolute": 1.5553032004405236e-12,
+          "KG_absolute": 2.874925156281326e-17,
+          "scalar_curvature_absolute": 1.7763568394002505e-12,
+          "complete_Einstein_response": 2.0200000500103705
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999918489290582
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.99999574860829
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999991954102525
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999979240710466
+        }
+      ]
+    },
+    {
+      "case": "basis_4",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.7853981633974483,
+      "phase": 0.0,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 2.02
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001603276332459e-07,
+          "T_absolute": 3.115996152679358e-14,
+          "residual_absolute": 8.001603299884043e-07,
+          "constraints_absolute": 3.7470038429676164e-13,
+          "KG_absolute": 2.117582368135751e-18,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 2.02000080016033
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0004012928610563e-07,
+          "T_absolute": 1.0106988967291416e-13,
+          "residual_absolute": 2.000401087179473e-07,
+          "constraints_absolute": 3.330669702169292e-13,
+          "KG_absolute": 9.777637057597112e-18,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 2.0200002000401085
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.0009825087251034e-08,
+          "T_absolute": 2.4349446482488755e-13,
+          "residual_absolute": 5.000979903029546e-08,
+          "constraints_absolute": 2.443121386804196e-12,
+          "KG_absolute": 9.049413365248729e-18,
+          "scalar_curvature_absolute": 1.7763568394002505e-12,
+          "complete_Einstein_response": 2.020000050009799
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999990526342026
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000016575484918
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999999475688223
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000018248358985
+        }
+      ]
+    },
+    {
+      "case": "basis_0",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 1.1780972450961724,
+      "phase": 0.0,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 1.96625
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001603028256139e-07,
+          "T_absolute": 2.680998460883145e-08,
+          "residual_absolute": 7.733503182659574e-07,
+          "constraints_absolute": 5.829119456534971e-14,
+          "KG_absolute": 1.152775633689051e-13,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 1.966250773350318
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0003985766006948e-07,
+          "T_absolute": 6.7025268451961794e-09,
+          "residual_absolute": 1.933373307855836e-07,
+          "constraints_absolute": 1.2216737396965278e-12,
+          "KG_absolute": 1.8926779167518858e-13,
+          "scalar_curvature_absolute": 8.881784197001252e-13,
+          "complete_Einstein_response": 1.9662501933373309
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.001034007436682e-08,
+          "T_absolute": 1.6756795926163266e-09,
+          "residual_absolute": 4.833466047330095e-08,
+          "constraints_absolute": 1.2979602342723988e-12,
+          "KG_absolute": 2.691002896857602e-13,
+          "scalar_curvature_absolute": 1.7763568394002505e-12,
+          "complete_Einstein_response": 1.9662500483346605
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000004360057772
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999699534657123
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9999816827360632
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9998857029291455
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.00000514708473
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.9999728743802616
+        }
+      ]
+    },
+    {
+      "case": "basis_1",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 1.1780972450961724,
+      "phase": 0.0,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 2.0200000000000005,
+        "T": 1.0,
+        "residual": 1.9662500000000005
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001598355030566e-07,
+          "T_absolute": 2.6809966043408717e-08,
+          "residual_absolute": 7.733498694058373e-07,
+          "constraints_absolute": 3.8319082432637096e-07,
+          "KG_absolute": 7.470668037517757e-08,
+          "scalar_curvature_absolute": 3.870852527398938e-07,
+          "complete_Einstein_response": 1.9662507733498824
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0003943313297837e-07,
+          "T_absolute": 6.702511178258484e-09,
+          "residual_absolute": 1.933369219038132e-07,
+          "constraints_absolute": 9.579924844432803e-08,
+          "KG_absolute": 1.867678210616747e-08,
+          "scalar_curvature_absolute": 9.677236789684684e-08,
+          "complete_Einstein_response": 1.9662501933369232
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.000880870871968e-08,
+          "T_absolute": 1.67560922872619e-09,
+          "residual_absolute": 4.833319925898877e-08,
+          "constraints_absolute": 2.3950063977492422e-08,
+          "KG_absolute": 4.668912432318191e-09,
+          "scalar_curvature_absolute": 2.419309197421171e-08,
+          "complete_Einstein_response": 1.9662500483331997
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000010512782956
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000083951171964
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.999988262664078
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.0000443202104945
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.0000112849142475
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000085342330352
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9999356002156454
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9999579347411096
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.9999760103485835
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000242535475043
+        }
+      ]
+    },
+    {
+      "case": "basis_2",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 1.1780972450961724,
+      "phase": 0.0,
+      "angles": [
+        0.57,
+        1.43,
+        2.14
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 1.96625
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001600428184689e-07,
+          "T_absolute": 2.6810000614014038e-08,
+          "residual_absolute": 7.733500424008336e-07,
+          "constraints_absolute": 5.525123750139634e-13,
+          "KG_absolute": 1.666147490140628e-13,
+          "scalar_curvature_absolute": 2.220446049250313e-13,
+          "complete_Einstein_response": 1.9662507733500425
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0003993004172084e-07,
+          "T_absolute": 6.702545417002309e-09,
+          "residual_absolute": 1.9333738463997704e-07,
+          "constraints_absolute": 7.206532737191623e-13,
+          "KG_absolute": 3.4366794124495704e-13,
+          "scalar_curvature_absolute": 8.881784197001252e-13,
+          "complete_Einstein_response": 1.9662501933373846
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.001186780222165e-08,
+          "T_absolute": 1.675756480930516e-09,
+          "residual_absolute": 4.833611126007074e-08,
+          "constraints_absolute": 3.6523637894003325e-12,
+          "KG_absolute": 7.393423202182513e-13,
+          "scalar_curvature_absolute": 6.217248937900877e-12,
+          "complete_Einstein_response": 1.9662500483361112
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000001612935905
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.999849212447022
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.999972987278126
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9997132598171494
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000002606019143
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999853931147503
+        }
+      ]
+    },
+    {
+      "case": "basis_3",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 1.1780972450961724,
+      "phase": 0.0,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 1.96625
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001601489566032e-07,
+          "T_absolute": 2.6809979761090724e-08,
+          "residual_absolute": 7.733501691072329e-07,
+          "constraints_absolute": 2.355931187819145e-13,
+          "KG_absolute": 1.1210126175528406e-13,
+          "scalar_curvature_absolute": 2.220446049250313e-13,
+          "complete_Einstein_response": 1.966250773350169
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0004044487511514e-07,
+          "T_absolute": 6.702430323667896e-09,
+          "residual_absolute": 1.933380145613312e-07,
+          "constraints_absolute": 9.15565170943771e-13,
+          "KG_absolute": 2.292986861754152e-13,
+          "scalar_curvature_absolute": 4.440892098500626e-13,
+          "complete_Einstein_response": 1.9662501933380145
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.001016437197834e-08,
+          "T_absolute": 1.6756834044497718e-09,
+          "residual_absolute": 4.833448099833359e-08,
+          "constraints_absolute": 1.838838718766526e-12,
+          "KG_absolute": 2.558937633260452e-13,
+          "scalar_curvature_absolute": 1.7763568394002505e-12,
+          "complete_Einstein_response": 1.966250048334481
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999918489290582
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.99999574860829
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000038563089307
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9998190027242697
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.9999902288326683
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.0000018737761325
+        }
+      ]
+    },
+    {
+      "case": "basis_4",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 1.1780972450961724,
+      "phase": 0.0,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 2.02,
+        "T": 1.0,
+        "residual": 1.96625
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.001603276332459e-07,
+          "T_absolute": 2.6810014033250035e-08,
+          "residual_absolute": 7.73350313555874e-07,
+          "constraints_absolute": 3.788943824783428e-13,
+          "KG_absolute": 8.441528768080325e-14,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 1.9662507733503134
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.0004012928610563e-07,
+          "T_absolute": 6.7025301233528535e-09,
+          "residual_absolute": 1.9333759911439758e-07,
+          "constraints_absolute": 1.7827534908478013e-13,
+          "KG_absolute": 1.6004645656917942e-13,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 1.966250193337599
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.0009825087251034e-08,
+          "T_absolute": 1.6756245122455787e-09,
+          "residual_absolute": 4.833420027746354e-08,
+          "constraints_absolute": 2.4445805899389033e-12,
+          "KG_absolute": 1.3383253895372865e-13,
+          "scalar_curvature_absolute": 1.7763568394002505e-12,
+          "complete_Einstein_response": 1.9662500483342003
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999990526342026
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000016575484918
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9999841164217957
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000019141741067
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.9999995712074803
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.00001651014269
+        }
+      ]
+    },
+    {
+      "case": "pure_beta",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.31,
+      "phase": 0.0,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 1.6,
+        "T": 1.0,
+        "residual": 1.6662398142219388
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 5.1200007170097e-07,
+          "T_absolute": 2.1196746166703353e-08,
+          "residual_absolute": 5.331968176124994e-07,
+          "constraints_absolute": 1.6653345404593596e-13,
+          "KG_absolute": 1.1359458890015175e-13,
+          "scalar_curvature_absolute": 2.220446049250313e-13,
+          "complete_Einstein_response": 1.6662403474187566
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 1.2800003295986583e-07,
+          "T_absolute": 5.299233846523115e-09,
+          "residual_absolute": 1.3329926693320504e-07,
+          "constraints_absolute": 1.1443917047552737e-13,
+          "KG_absolute": 2.5476231888929304e-13,
+          "scalar_curvature_absolute": 4.440892098500626e-13,
+          "complete_Einstein_response": 1.6662399475212057
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 3.1999605678540986e-08,
+          "T_absolute": 1.324806642416638e-09,
+          "residual_absolute": 3.332441232831604e-08,
+          "constraints_absolute": 2.589462819678223e-12,
+          "KG_absolute": 8.256992190338329e-13,
+          "scalar_curvature_absolute": 2.6645352591003757e-12,
+          "complete_Einstein_response": 1.6662398475463513
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 3.999999530168142
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000050320798264
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.999964293066774
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.0000054927687785
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.9999981236181825
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000048541589419
+        }
+      ]
+    },
+    {
+      "case": "pure_velocity",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.31,
+      "phase": 0.0,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 1.0,
+        "T": 1.0,
+        "residual": 1.0
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 0.0,
+          "T_absolute": 3.63246627514166e-14,
+          "residual_absolute": 3.631409567406046e-14,
+          "constraints_absolute": 3.323659241259219e-14,
+          "KG_absolute": 5.551115123125783e-14,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 0.07329825995735229
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 0.0,
+          "T_absolute": 6.483259904729213e-14,
+          "residual_absolute": 6.482815856146208e-14,
+          "constraints_absolute": 1.1223326467593115e-13,
+          "KG_absolute": 8.326672684688674e-14,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 0.07329825995734902
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 0.0,
+          "T_absolute": 1.4140356278966672e-13,
+          "residual_absolute": 1.4141685605844748e-13,
+          "constraints_absolute": 1.2775955724272932e-13,
+          "KG_absolute": 2.7194799110210365e-13,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 0.0732982599572754
+        }
+      ],
+      "convergence": []
+    },
+    {
+      "case": "pure_acceleration",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.31,
+      "phase": 0.0,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 1.0,
+        "T": 1.0,
+        "residual": 1.0
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 1.5811610433459217e-13,
+          "T_absolute": 3.1785935695296375e-14,
+          "residual_absolute": 1.4911410228097376e-13,
+          "constraints_absolute": 1.6711069443220838e-13,
+          "KG_absolute": 0.0,
+          "scalar_curvature_absolute": 2.220446049250313e-13,
+          "complete_Einstein_response": 0.3852240975334549
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.7831238101801503e-13,
+          "T_absolute": 5.849164052919109e-14,
+          "residual_absolute": 2.438788236930016e-13,
+          "constraints_absolute": 8.326672684688674e-14,
+          "KG_absolute": 0.0,
+          "scalar_curvature_absolute": 0.0,
+          "complete_Einstein_response": 0.3852240975336336
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 3.584054253459698e-13,
+          "T_absolute": 1.0991507964901184e-13,
+          "residual_absolute": 4.449138765043422e-13,
+          "constraints_absolute": 1.0934428697813142e-12,
+          "KG_absolute": 0.0,
+          "scalar_curvature_absolute": 8.881784197001252e-13,
+          "complete_Einstein_response": 0.38522409753349046
+        }
+      ],
+      "convergence": []
+    },
+    {
+      "case": "generic",
+      "radius": 0.7,
+      "kappa": 0.4,
+      "time": 0.217,
+      "phase": 0.17,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 3.579626041198304,
+        "T": 1.0,
+        "residual": 3.644633418208305
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 1.343279819740318e-06,
+          "T_absolute": 1.378287371740834e-07,
+          "residual_absolute": 1.3751487278330861e-06,
+          "constraints_absolute": 3.646503810136165e-07,
+          "KG_absolute": 2.030846391002192e-07,
+          "scalar_curvature_absolute": 3.434830198045802e-07,
+          "complete_Einstein_response": 3.644634770480606
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 3.358205839515241e-07,
+          "T_absolute": 3.445715007420084e-08,
+          "residual_absolute": 3.437877035208928e-07,
+          "constraints_absolute": 9.116316285907294e-08,
+          "KG_absolute": 5.077071564123125e-08,
+          "scalar_curvature_absolute": 8.586908961660811e-08,
+          "complete_Einstein_response": 3.6446337562771136
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 8.395630432475723e-08,
+          "T_absolute": 8.613586888112102e-09,
+          "residual_absolute": 8.594786748829161e-08,
+          "constraints_absolute": 2.2792668791967886e-08,
+          "KG_absolute": 1.2694413101196363e-08,
+          "scalar_curvature_absolute": 2.1472601474670228e-08,
+          "complete_Einstein_response": 3.6446335027264847
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999925077082867
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.999944812393279
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.00000397239121
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000325360594702
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.9999939315732824
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999956177711167
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.999975094954979
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.999670406793203
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000034991338447
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.999453557758133
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 0.7,
+      "kappa": 0.4,
+      "time": 0.217,
+      "phase": 0.17,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 5.649470662593225,
+        "T": 1.0,
+        "residual": 5.644541069018413
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 5.260680167466149e-06,
+          "T_absolute": 4.81198629457535e-07,
+          "residual_absolute": 5.188753932798685e-06,
+          "constraints_absolute": 1.9360735104110026e-06,
+          "KG_absolute": 6.740330377868928e-07,
+          "scalar_curvature_absolute": 1.943280647509482e-06,
+          "complete_Einstein_response": 5.644546202815392
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 1.3151694847961572e-06,
+          "T_absolute": 1.2029962000140667e-07,
+          "residual_absolute": 1.2971880269768876e-06,
+          "constraints_absolute": 4.840180287918633e-07,
+          "KG_absolute": 1.6850846302823386e-07,
+          "scalar_curvature_absolute": 4.85820272899673e-07,
+          "complete_Einstein_response": 5.644542352467161
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 3.2879162573650657e-07,
+          "T_absolute": 3.0075383564615264e-08,
+          "residual_absolute": 3.2429606463098685e-07,
+          "constraints_absolute": 1.2100979781128877e-07,
+          "KG_absolute": 4.212748513929711e-08,
+          "scalar_curvature_absolute": 1.2146017525083153e-07,
+          "complete_Einstein_response": 5.644541389879645
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000001694292292
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000009069118242
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.0000012423306766
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9999363513668817
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.00000140680541
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000011620409099
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.00000288262723
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9998251178526485
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.9999951674472127
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.9999649271977735
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 0.7,
+      "kappa": 0.4,
+      "time": 0.217,
+      "phase": 0.17,
+      "angles": [
+        0.57,
+        1.43,
+        2.14
+      ],
+      "scales": {
+        "G": 7.624514725438845,
+        "T": 1.0,
+        "residual": 7.776713927944453
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 1.4238441948106022e-05,
+          "T_absolute": 6.979302499899889e-07,
+          "residual_absolute": 1.4487030432428911e-05,
+          "constraints_absolute": 2.8764586887183085e-06,
+          "KG_absolute": 8.508815050312998e-07,
+          "scalar_curvature_absolute": 3.833371398087593e-06,
+          "complete_Einstein_response": 7.7767283375898595
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 3.559606304652009e-06,
+          "T_absolute": 1.7448250257911514e-07,
+          "residual_absolute": 3.621753412618807e-06,
+          "constraints_absolute": 7.191145511527349e-07,
+          "KG_absolute": 2.1271945660209683e-07,
+          "scalar_curvature_absolute": 9.583427384995957e-07,
+          "complete_Einstein_response": 7.776717530351434
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 8.898975759461215e-07,
+          "T_absolute": 4.3620434651882885e-08,
+          "residual_absolute": 9.054345101062394e-07,
+          "constraints_absolute": 1.7978757904783743e-07,
+          "KG_absolute": 5.3181903105557926e-08,
+          "scalar_curvature_absolute": 2.395985632119846e-07,
+          "complete_Einstein_response": 7.776714828542065
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000004699816933
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000017980572096
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000001373625004
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000017514075449
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000004633654413
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000016977698197
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.0000006731992395
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9998010705811593
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000017293307209
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.999846642943208
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 0.7,
+      "kappa": 1.0,
+      "time": 0.217,
+      "phase": 0.17,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 6.565794962590405,
+        "T": 1.0,
+        "residual": 6.8632817972305284
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 9.850069921972704e-06,
+          "T_absolute": 3.813616079245741e-07,
+          "residual_absolute": 1.021473765430762e-05,
+          "constraints_absolute": 1.375173178452054e-06,
+          "KG_absolute": 1.7678689654145955e-06,
+          "scalar_curvature_absolute": 4.22049062365204e-07,
+          "complete_Einstein_response": 6.86329186360706
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.4625146500086627e-06,
+          "T_absolute": 9.534031569351747e-08,
+          "residual_absolute": 2.5536815049415233e-06,
+          "constraints_absolute": 3.437921470617007e-07,
+          "KG_absolute": 4.419669352971323e-07,
+          "scalar_curvature_absolute": 1.0551470808195518e-07,
+          "complete_Einstein_response": 6.863284313821933
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 6.156274975657009e-07,
+          "T_absolute": 2.3834946579603785e-08,
+          "residual_absolute": 6.384190584809907e-07,
+          "constraints_absolute": 8.595080431687966e-08,
+          "KG_absolute": 1.1049066539623854e-07,
+          "scalar_curvature_absolute": 2.637534635141492e-08,
+          "complete_Einstein_response": 6.863282426377198
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000004597713988
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000007569099622
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000003620194685
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000022210039387
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.0000045559877
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000008256359973
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000013351687322
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9998712029991346
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000002769949443
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000038679395792
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 0.7,
+      "kappa": 1.0,
+      "time": 0.217,
+      "phase": 0.17,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 7.970146899141105,
+        "T": 1.0,
+        "residual": 8.119690794755218
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 1.4381227567517671e-05,
+          "T_absolute": 3.756225951686518e-07,
+          "residual_absolute": 1.4615889014566732e-05,
+          "constraints_absolute": 3.002989121601426e-06,
+          "KG_absolute": 1.992180161893222e-06,
+          "scalar_curvature_absolute": 5.201045372160706e-06,
+          "complete_Einstein_response": 8.119705370773787
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 3.5953034296902444e-06,
+          "T_absolute": 9.390543431332981e-08,
+          "residual_absolute": 3.6539686062324766e-06,
+          "constraints_absolute": 7.507472941348082e-07,
+          "KG_absolute": 4.98044479726742e-07,
+          "scalar_curvature_absolute": 1.3002621201962938e-06,
+          "complete_Einstein_response": 8.119694438756143
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 8.988270132328628e-07,
+          "T_absolute": 2.3476180985666634e-08,
+          "residual_absolute": 9.134930955774299e-07,
+          "constraints_absolute": 1.8768424945951445e-07,
+          "KG_absolute": 1.245092903046879e-07,
+          "scalar_curvature_absolute": 3.2506086711237003e-07,
+          "complete_Einstein_response": 8.11969170575637
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000003851902062
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999948563615257
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000009135949786
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000030259208843
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000003992819424
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999995866331928
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.999999926822505
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000054859674053
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000004503586217
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.0000587788105815
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 0.7,
+      "kappa": 1.0,
+      "time": 0.217,
+      "phase": 0.17,
+      "angles": [
+        0.57,
+        1.43,
+        2.14
+      ],
+      "scales": {
+        "G": 8.808246975048327,
+        "T": 1.0,
+        "residual": 9.10854508171102
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 1.546872039162531e-05,
+          "T_absolute": 4.6778213799129017e-07,
+          "residual_absolute": 1.5929316173137228e-05,
+          "constraints_absolute": 4.72308796515684e-06,
+          "KG_absolute": 2.0092904002015196e-06,
+          "scalar_curvature_absolute": 2.274650690026192e-06,
+          "complete_Einstein_response": 9.108560927711778
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 3.867176828350384e-06,
+          "T_absolute": 1.1694534955779379e-07,
+          "residual_absolute": 3.982325593174611e-06,
+          "constraints_absolute": 1.180766745889923e-06,
+          "KG_absolute": 5.02321957914279e-07,
+          "scalar_curvature_absolute": 5.686562332130052e-07,
+          "complete_Einstein_response": 9.108549043207708
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 9.667895685780713e-07,
+          "T_absolute": 2.9236957506836757e-08,
+          "residual_absolute": 9.955773464279315e-07,
+          "constraints_absolute": 2.9519248379015807e-07,
+          "KG_absolute": 1.2558021895076022e-07,
+          "scalar_curvature_absolute": 1.4216361421404144e-07,
+          "complete_Einstein_response": 9.108546072081163
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000003381853056
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000019191392524
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000006325690742
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9999151597921
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000003465422016
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000016279461303
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000017769468204
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.999989195962349
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000005113342874
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000008616892431
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 1.0,
+      "kappa": 0.4,
+      "time": 0.31,
+      "phase": 0.17,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 3.0468080249593843,
+        "T": 1.0,
+        "residual": 3.2467273927957403
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 4.580514095204308e-06,
+          "T_absolute": 6.312167519218305e-07,
+          "residual_absolute": 4.820012381566803e-06,
+          "constraints_absolute": 5.375209036517226e-07,
+          "KG_absolute": 2.0653048169650747e-07,
+          "scalar_curvature_absolute": 7.017719738655614e-07,
+          "complete_Einstein_response": 3.2467321426247424
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 1.1451276888411672e-06,
+          "T_absolute": 1.5780399597197757e-07,
+          "residual_absolute": 1.2050022013575834e-06,
+          "constraints_absolute": 1.3438021897324195e-07,
+          "KG_absolute": 5.1632923443060086e-08,
+          "scalar_curvature_absolute": 1.7544365960020514e-07,
+          "complete_Einstein_response": 3.246728580252071
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 2.8628156246648137e-07,
+          "T_absolute": 3.9450618402110314e-08,
+          "residual_absolute": 3.0125002315236546e-07,
+          "constraints_absolute": 3.359636810724313e-08,
+          "KG_absolute": 1.2908738918605578e-08,
+          "scalar_curvature_absolute": 4.3861803078470984e-08,
+          "complete_Einstein_response": 3.246727689659336
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000002916565263
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.00000502643352
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000004867011862
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000038589091831
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000002967742685
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000006999993227
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000000206568757
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9998436302485496
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.9999765251383796
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.9998425693342288
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 1.0,
+      "kappa": 0.4,
+      "time": 0.31,
+      "phase": 0.17,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 3.1172361905618757,
+        "T": 1.0,
+        "residual": 3.264702634263066
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 4.160581948451306e-06,
+          "T_absolute": 4.835376504625757e-07,
+          "residual_absolute": 4.333570778740159e-06,
+          "constraints_absolute": 7.598067773331357e-07,
+          "KG_absolute": 3.6305379189923993e-07,
+          "scalar_curvature_absolute": 8.580469668117985e-08,
+          "complete_Einstein_response": 3.2647069495676067
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 1.0401447705353185e-06,
+          "T_absolute": 1.208843560247587e-07,
+          "residual_absolute": 1.083391970061357e-06,
+          "constraints_absolute": 1.8995158108422855e-07,
+          "KG_absolute": 9.076350252831685e-08,
+          "scalar_curvature_absolute": 2.1451729281807275e-08,
+          "complete_Einstein_response": 3.2647037130884646
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 2.600364277642705e-07,
+          "T_absolute": 3.022046444488245e-08,
+          "residual_absolute": 2.70848030950939e-07,
+          "constraints_absolute": 4.7487695735303095e-08,
+          "KG_absolute": 2.2690525189745308e-08,
+          "scalar_curvature_absolute": 5.361933119729656e-09,
+          "complete_Einstein_response": 3.2647029039694866
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000002755683741
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999963831153513
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.0000018725627395
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000082667334033
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.00000267538879
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999999432366562
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000002384798373
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000016807364599
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.999997595795431
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.0000617777386775
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 1.0,
+      "kappa": 0.4,
+      "time": 0.31,
+      "phase": 0.17,
+      "angles": [
+        0.57,
+        1.43,
+        2.14
+      ],
+      "scales": {
+        "G": 2.4983478909768846,
+        "T": 1.0,
+        "residual": 2.56050519256832
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 1.8760612598894442e-06,
+          "T_absolute": 1.1920423924488451e-07,
+          "residual_absolute": 1.9033874953318482e-06,
+          "constraints_absolute": 7.761222963837645e-07,
+          "KG_absolute": 6.442319664255011e-07,
+          "scalar_curvature_absolute": 1.2625482881389871e-06,
+          "complete_Einstein_response": 2.560507081764358
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 4.690150324152665e-07,
+          "T_absolute": 2.980121722025e-08,
+          "residual_absolute": 4.75846673428182e-07,
+          "constraints_absolute": 1.9403078865253594e-07,
+          "KG_absolute": 1.6105794128942537e-07,
+          "scalar_curvature_absolute": 3.1563773816856155e-07,
+          "complete_Einstein_response": 2.5605056648670854
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 1.172529044122377e-07,
+          "T_absolute": 7.449983399819099e-09,
+          "residual_absolute": 1.1896081011662827e-07,
+          "constraints_absolute": 4.8509130875916595e-08,
+          "KG_absolute": 4.026409591857077e-08,
+          "scalar_curvature_absolute": 7.891109987667733e-08,
+          "complete_Einstein_response": 2.5605053106421485
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000002409791372
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.0000291230851195
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.999978872134288
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000172298501179
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.0000016846164215
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000028857921071
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.999995576854657
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9998817779039353
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000001249660824
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.0000386849650225
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.31,
+      "phase": 0.17,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 3.440236318940791,
+        "T": 1.0,
+        "residual": 3.501006285120949
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 5.114633973596037e-06,
+          "T_absolute": 2.2798801512798373e-07,
+          "residual_absolute": 5.19267314013293e-06,
+          "constraints_absolute": 8.975028635124941e-07,
+          "KG_absolute": 2.1266187020026983e-07,
+          "scalar_curvature_absolute": 7.173601712651134e-07,
+          "complete_Einstein_response": 3.5010114461925625
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 1.278656572629522e-06,
+          "T_absolute": 5.699688990888309e-08,
+          "residual_absolute": 1.2981663057260584e-06,
+          "constraints_absolute": 2.2437610981752134e-07,
+          "KG_absolute": 5.316563025847939e-08,
+          "scalar_curvature_absolute": 1.793400983274296e-07,
+          "complete_Einstein_response": 3.501007575386843
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 3.196641004719444e-07,
+          "T_absolute": 1.4249333990841717e-08,
+          "residual_absolute": 3.2454150276078786e-07,
+          "constraints_absolute": 5.6094145731723595e-08,
+          "KG_absolute": 1.3290966647286052e-08,
+          "scalar_curvature_absolute": 4.483347026962292e-08,
+          "complete_Einstein_response": 3.5010066076874713
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.0000060087111065
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000000534128619
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.00000799153168
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.999968696467915
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000006098778455
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000000907997604
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9999929771596783
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.999991565797698
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.999987758376143
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000132696844555
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.31,
+      "phase": 0.17,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 1.0303698539349575,
+        "T": 1.0,
+        "residual": 1.0110803581056718
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 7.859156254196727e-08,
+          "T_absolute": 3.399859509475797e-09,
+          "residual_absolute": 7.595746212705639e-08,
+          "constraints_absolute": 4.545542748772924e-08,
+          "KG_absolute": 1.7537047304878033e-08,
+          "scalar_curvature_absolute": 6.770495275532085e-08,
+          "complete_Einstein_response": 1.0110804324296683
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 1.9647642036350406e-08,
+          "T_absolute": 8.499226119101668e-10,
+          "residual_absolute": 1.8989138450110013e-08,
+          "constraints_absolute": 1.1365408550862463e-08,
+          "KG_absolute": 4.384366789204453e-09,
+          "scalar_curvature_absolute": 1.6927792501064687e-08,
+          "complete_Einstein_response": 1.0110803766864649
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 4.912588299657927e-09,
+          "T_absolute": 2.123550021379651e-10,
+          "residual_absolute": 4.748018152991826e-09,
+          "constraints_absolute": 2.84157476914031e-09,
+          "KG_absolute": 1.0958957994934576e-09,
+          "scalar_curvature_absolute": 4.231281991451397e-09,
+          "complete_Einstein_response": 1.011080362751634
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000050611496475
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.9994481193790468
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000198914386746
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.002366807248458
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000047834008832
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.9993820238754894
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9994538941831403
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9996866083875573
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.9999042388650485
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000715023482146
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.31,
+      "phase": 0.17,
+      "angles": [
+        0.57,
+        1.43,
+        2.14
+      ],
+      "scales": {
+        "G": 3.5652932093419265,
+        "T": 1.0,
+        "residual": 3.5891708224171657
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 3.999107398860127e-06,
+          "T_absolute": 1.5208499251529752e-07,
+          "residual_absolute": 3.999596492227173e-06,
+          "constraints_absolute": 6.954044604046736e-07,
+          "KG_absolute": 1.8183447432811405e-07,
+          "scalar_curvature_absolute": 6.095612903322944e-08,
+          "complete_Einstein_response": 3.589174735766236
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 9.997763545851432e-07,
+          "T_absolute": 3.802123396644582e-08,
+          "residual_absolute": 9.998985387475578e-07,
+          "constraints_absolute": 1.7385051085492868e-07,
+          "KG_absolute": 4.545867906539474e-08,
+          "scalar_curvature_absolute": 1.52380330575852e-08,
+          "complete_Einstein_response": 3.5891718007540034
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 2.4994590518030013e-07,
+          "T_absolute": 9.505384884240854e-09,
+          "residual_absolute": 2.4997638115186456e-07,
+          "constraints_absolute": 4.3461771703928364e-08,
+          "KG_absolute": 1.1365637586695871e-08,
+          "scalar_curvature_absolute": 3.804068171575636e-09,
+          "complete_Einstein_response": 3.589171067003327
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000001980962587
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999709291654444
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000001489944127
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9999678529042937
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000002337474105
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.9999720539201813
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000013902662391
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000078782780383
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.9999946779477566
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.999659387222299
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 2.0,
+      "kappa": 0.4,
+      "time": 0.62,
+      "phase": 0.17,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 1.0,
+        "T": 1.0,
+        "residual": 1.0
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 8.578516624738086e-07,
+          "T_absolute": 3.458931586344352e-08,
+          "residual_absolute": 8.583056810559544e-07,
+          "constraints_absolute": 1.6783721954655354e-07,
+          "KG_absolute": 6.019031566415283e-08,
+          "scalar_curvature_absolute": 2.593245618243145e-07,
+          "complete_Einstein_response": 0.7609793492385151
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.144627446036625e-07,
+          "T_absolute": 8.647312764675338e-09,
+          "residual_absolute": 2.1457624247321807e-07,
+          "constraints_absolute": 4.1959132268033175e-08,
+          "KG_absolute": 1.5047545247079988e-08,
+          "scalar_curvature_absolute": 6.48309184114737e-08,
+          "complete_Einstein_response": 0.7609787089429337
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.361568772351361e-08,
+          "T_absolute": 2.1617789892237983e-09,
+          "residual_absolute": 5.364406833797583e-08,
+          "constraints_absolute": 1.0490088811224995e-08,
+          "KG_absolute": 3.7620505424420115e-09,
+          "scalar_curvature_absolute": 1.620814593650266e-08,
+          "complete_Einstein_response": 0.7609785488692267
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000003189640979
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999998826762795
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.00000749420588
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000091039732149
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000003314267572
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999999424378385
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000016455879412
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9998834159663645
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000008950020131
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.999825381748425
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 2.0,
+      "kappa": 0.4,
+      "time": 0.62,
+      "phase": 0.17,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 1.0,
+        "T": 1.0,
+        "residual": 1.0
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 3.821240779132595e-07,
+          "T_absolute": 3.377752296179622e-08,
+          "residual_absolute": 3.8687237286919403e-07,
+          "constraints_absolute": 9.1829520315839e-08,
+          "KG_absolute": 5.022370463256641e-09,
+          "scalar_curvature_absolute": 9.317352445137317e-08,
+          "complete_Einstein_response": 0.5949444437262587
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 9.553090948937151e-08,
+          "T_absolute": 8.44438518128436e-09,
+          "residual_absolute": 9.671798927027664e-08,
+          "constraints_absolute": 2.2957286703110297e-08,
+          "KG_absolute": 1.2556423576959608e-09,
+          "scalar_curvature_absolute": 2.3293256212753022e-08,
+          "complete_Einstein_response": 0.594944156765079
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 2.3882640068784052e-08,
+          "T_absolute": 2.1111745631946186e-09,
+          "residual_absolute": 2.417939544887727e-08,
+          "constraints_absolute": 5.7388374911915915e-09,
+          "KG_absolute": 3.137985055225101e-10,
+          "scalar_curvature_absolute": 5.822453630344171e-09,
+          "complete_Einstein_response": 0.5949440850247484
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000004605376164
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000014622095141
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.999997896431672
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.999851707433591
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000004298973651
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000016852148699
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000016269492238
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000337479210189
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.999841541243028
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.0014287372247805
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 2.0,
+      "kappa": 0.4,
+      "time": 0.62,
+      "phase": 0.17,
+      "angles": [
+        0.57,
+        1.43,
+        2.14
+      ],
+      "scales": {
+        "G": 1.0,
+        "T": 1.0,
+        "residual": 1.0
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 5.158555048124382e-07,
+          "T_absolute": 5.5707953124630125e-08,
+          "residual_absolute": 5.25445425986743e-07,
+          "constraints_absolute": 9.889650009870794e-08,
+          "KG_absolute": 1.7089305631512658e-07,
+          "scalar_curvature_absolute": 1.657343151606483e-07,
+          "complete_Einstein_response": 0.6598881574080718
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 1.289641609371779e-07,
+          "T_absolute": 1.3926936550124716e-08,
+          "residual_absolute": 1.3136161828843417e-07,
+          "constraints_absolute": 2.4724308371068123e-08,
+          "KG_absolute": 4.272325033871181e-08,
+          "scalar_curvature_absolute": 4.143374532361577e-08,
+          "complete_Einstein_response": 0.659887772984891
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 3.2240695199360774e-08,
+          "T_absolute": 3.4818382811445655e-09,
+          "residual_absolute": 3.2840093013911386e-08,
+          "constraints_absolute": 6.181728854248397e-09,
+          "KG_absolute": 1.0680762148108763e-08,
+          "scalar_curvature_absolute": 1.035882490896256e-08,
+          "complete_Einstein_response": 0.6598876768785191
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 3.999991168583076
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000042807381363
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000014857835427
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9998803578972058
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.9999920283640886
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000037948515801
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.999970337468958
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9995782658885672
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.0000012864255154
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000018888752877
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 2.0,
+      "kappa": 1.0,
+      "time": 0.62,
+      "phase": 0.17,
+      "angles": [
+        0.83,
+        1.07,
+        0.61
+      ],
+      "scales": {
+        "G": 1.0,
+        "T": 1.0,
+        "residual": 1.0
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 9.567305151610199e-08,
+          "T_absolute": 5.008680643177677e-09,
+          "residual_absolute": 9.102039109867663e-08,
+          "constraints_absolute": 1.208029293513346e-08,
+          "KG_absolute": 1.4048172606883823e-09,
+          "scalar_curvature_absolute": 1.2492451517687186e-08,
+          "complete_Einstein_response": 0.26773189454282326
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 2.3918239739982736e-08,
+          "T_absolute": 1.2521855620221378e-09,
+          "residual_absolute": 2.2755062283352596e-08,
+          "constraints_absolute": 3.0200055917234203e-09,
+          "KG_absolute": 3.511407475153331e-10,
+          "scalar_curvature_absolute": 3.1230573682705653e-09,
+          "complete_Einstein_response": 0.2677318274352112
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 5.979437127706653e-09,
+          "T_absolute": 3.1297404517701007e-10,
+          "residual_absolute": 5.688696234554651e-09,
+          "constraints_absolute": 7.552824428259692e-10,
+          "KG_absolute": 8.791578685783116e-11,
+          "scalar_curvature_absolute": 7.811529201262601e-10,
+          "complete_Einstein_response": 0.26773181065828605
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.0000038696899125
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000082153076558
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.999950802091365
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.00092461761145
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000006238843229
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.00004875372538
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000089591966492
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.99851157723692
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000724127372996
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 2.0,
+      "kappa": 1.0,
+      "time": 0.62,
+      "phase": 0.17,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 1.0,
+        "T": 1.0,
+        "residual": 1.0
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 1.922481801503113e-06,
+          "T_absolute": 6.765239015782647e-08,
+          "residual_absolute": 1.966246394923002e-06,
+          "constraints_absolute": 2.1679796545959326e-07,
+          "KG_absolute": 3.1027696595292636e-07,
+          "scalar_curvature_absolute": 2.5124957669930836e-08,
+          "complete_Einstein_response": 0.9476863084246557
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 4.806197599535802e-07,
+          "T_absolute": 1.6913072905227695e-08,
+          "residual_absolute": 4.915608750670961e-07,
+          "constraints_absolute": 5.419939165408711e-08,
+          "KG_absolute": 7.756919075102485e-08,
+          "scalar_curvature_absolute": 6.280864717211898e-09,
+          "complete_Einstein_response": 0.9476848441736203
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 1.2015476133210453e-07,
+          "T_absolute": 4.228247304774112e-09,
+          "residual_absolute": 1.2289002339479426e-07,
+          "constraints_absolute": 1.3549688683609748e-08,
+          "KG_absolute": 1.9392277925667017e-08,
+          "scalar_curvature_absolute": 1.5700774014248964e-09,
+          "complete_Einstein_response": 0.947684478111391
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000005746099147
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000005947539274
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000005826079994
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000019792156233
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000005888700189
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000006359246238
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000007358814051
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000047006220068
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000002616358699
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000004076280109
+        }
+      ]
+    },
+    {
+      "case": "generic",
+      "radius": 2.0,
+      "kappa": 1.0,
+      "time": 0.62,
+      "phase": 0.17,
+      "angles": [
+        0.57,
+        1.43,
+        2.14
+      ],
+      "scales": {
+        "G": 1.0,
+        "T": 1.0,
+        "residual": 1.0
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 5.424204937594606e-07,
+          "T_absolute": 2.644346195985081e-08,
+          "residual_absolute": 5.344859029799879e-07,
+          "constraints_absolute": 1.6702630125413713e-07,
+          "KG_absolute": 5.0863143813982224e-08,
+          "scalar_curvature_absolute": 1.6137680081129702e-07,
+          "complete_Einstein_response": 0.6541043291953356
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 1.356051108750797e-07,
+          "T_absolute": 6.610855273906463e-09,
+          "residual_absolute": 1.336214497467977e-07,
+          "constraints_absolute": 4.175631749413927e-08,
+          "KG_absolute": 1.271574331353415e-08,
+          "scalar_curvature_absolute": 4.03433952911314e-08,
+          "complete_Einstein_response": 0.6541039386993814
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 3.3901309605693093e-08,
+          "T_absolute": 1.6527016972398753e-09,
+          "residual_absolute": 3.340539045766127e-08,
+          "constraints_absolute": 1.043929934960894e-08,
+          "KG_absolute": 3.178909456891996e-09,
+          "scalar_curvature_absolute": 1.0085932089509697e-08,
+          "complete_Einstein_response": 0.6541038410754373
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.00000037062867
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 3.9999962376765335
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000006181382478
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000029336780523
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000000778264248
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 3.999996644737695
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000024697522242
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 3.9999157123225393
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000013413281585
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.0000331830672105
+        }
+      ]
+    },
+    {
+      "case": "on_equation",
+      "radius": 1.0,
+      "kappa": 1.0,
+      "time": 0.23,
+      "phase": 0.0,
+      "angles": [
+        1.21,
+        0.72,
+        1.31
+      ],
+      "scales": {
+        "G": 1.0,
+        "T": 1.0,
+        "residual": 1.0
+      },
+      "steps": [
+        {
+          "epsilon": 0.002,
+          "G_absolute": 5.6219410579955075e-08,
+          "T_absolute": 5.3134373282105026e-08,
+          "residual_absolute": 9.297517168988389e-08,
+          "constraints_absolute": 1.2312065441099497e-07,
+          "KG_absolute": 2.26016230460188e-08,
+          "scalar_curvature_absolute": 1.28007382471651e-07,
+          "complete_Einstein_response": 1.344040629528183e-07
+        },
+        {
+          "epsilon": 0.001,
+          "G_absolute": 1.4054660099278014e-08,
+          "T_absolute": 1.328360499650186e-08,
+          "residual_absolute": 2.3243584758135955e-08,
+          "constraints_absolute": 3.0779326951413974e-08,
+          "KG_absolute": 5.650499567067889e-09,
+          "scalar_curvature_absolute": 3.200106846179551e-08,
+          "complete_Einstein_response": 3.3600561964069064e-08
+        },
+        {
+          "epsilon": 0.0005,
+          "G_absolute": 3.5131644767439375e-09,
+          "T_absolute": 3.320739404941468e-09,
+          "residual_absolute": 5.810758859599839e-09,
+          "constraints_absolute": 7.693943077632225e-09,
+          "KG_absolute": 1.4122861879936603e-09,
+          "scalar_curvature_absolute": 8.000711204658728e-09,
+          "complete_Einstein_response": 8.399828549090478e-09
+        }
+      ],
+      "convergence": [
+        {
+          "field": "G_absolute",
+          "ratio": 4.000054799108451
+        },
+        {
+          "field": "G_absolute",
+          "ratio": 4.000569911347879
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 3.9999964840943085
+        },
+        {
+          "field": "T_absolute",
+          "ratio": 4.000194949575093
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.000035823103395
+        },
+        {
+          "field": "residual_absolute",
+          "ratio": 4.0000945349393895
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000108728996717
+        },
+        {
+          "field": "constraints_absolute",
+          "ratio": 4.000462005092734
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 3.999933594853286
+        },
+        {
+          "field": "KG_absolute",
+          "ratio": 4.000959306339442
+        }
+      ]
+    }
+  ],
+  "backgrounds": [
+    {
+      "radius": 0.7,
+      "kappa": 0.4,
+      "phase": 0.0,
+      "einstein_scaled": 1.4445356451262004e-15,
+      "KG_absolute": 1.85775845048325e-15,
+      "odd_absolute": 5.438959822042073e-16,
+      "density_error": 0.0
+    },
+    {
+      "radius": 0.7,
+      "kappa": 0.4,
+      "phase": 0.7853981633974483,
+      "einstein_scaled": 1.4841992169012793e-15,
+      "KG_absolute": 1.7413167731470528e-15,
+      "odd_absolute": 4.335559509131367e-16,
+      "density_error": 8.881784197001252e-16
+    },
+    {
+      "radius": 0.7,
+      "kappa": 0.4,
+      "phase": 1.5707963267948966,
+      "einstein_scaled": 1.713023963114304e-15,
+      "KG_absolute": 1.0815978671750455e-31,
+      "odd_absolute": 3.79911344573374e-32,
+      "density_error": 8.881784197001252e-16
+    },
+    {
+      "radius": 0.7,
+      "kappa": 1.0,
+      "phase": 0.0,
+      "einstein_scaled": 1.2316304826084415e-15,
+      "KG_absolute": 1.4936523181711914e-15,
+      "odd_absolute": 3.4219371797089426e-16,
+      "density_error": 8.881784197001252e-16
+    },
+    {
+      "radius": 0.7,
+      "kappa": 1.0,
+      "phase": 0.7853981633974483,
+      "einstein_scaled": 1.6466372673526778e-15,
+      "KG_absolute": 3.925231146709438e-16,
+      "odd_absolute": 2.2887833992611187e-16,
+      "density_error": 4.440892098500626e-16
+    },
+    {
+      "radius": 0.7,
+      "kappa": 1.0,
+      "phase": 1.5707963267948966,
+      "einstein_scaled": 1.527610493147889e-15,
+      "KG_absolute": 5.407989335875227e-32,
+      "odd_absolute": 1.6594320252033047e-32,
+      "density_error": 4.440892098500626e-16
+    },
+    {
+      "radius": 1.0,
+      "kappa": 0.4,
+      "phase": 0.0,
+      "einstein_scaled": 1.2474314539541678e-15,
+      "KG_absolute": 1.0892074392614738e-15,
+      "odd_absolute": 5.438959822042073e-16,
+      "density_error": 8.881784197001252e-16
+    },
+    {
+      "radius": 1.0,
+      "kappa": 0.4,
+      "phase": 0.7853981633974483,
+      "einstein_scaled": 1.4047872371829643e-15,
+      "KG_absolute": 1.0677783136387644e-15,
+      "odd_absolute": 4.335559509131367e-16,
+      "density_error": 4.440892098500626e-16
+    },
+    {
+      "radius": 1.0,
+      "kappa": 0.4,
+      "phase": 1.5707963267948966,
+      "einstein_scaled": 1.5044153742913504e-15,
+      "KG_absolute": 7.548073030552817e-32,
+      "odd_absolute": 3.79911344573374e-32,
+      "density_error": 0.0
+    },
+    {
+      "radius": 1.0,
+      "kappa": 1.0,
+      "phase": 0.0,
+      "einstein_scaled": 1.2123786542554847e-15,
+      "KG_absolute": 9.255558542105616e-16,
+      "odd_absolute": 3.4219371797089426e-16,
+      "density_error": 4.440892098500626e-16
+    },
+    {
+      "radius": 1.0,
+      "kappa": 1.0,
+      "phase": 0.7853981633974483,
+      "einstein_scaled": 1.2807143610705336e-15,
+      "KG_absolute": 3.7238012298709097e-16,
+      "odd_absolute": 2.2887833992611187e-16,
+      "density_error": 2.220446049250313e-16
+    },
+    {
+      "radius": 1.0,
+      "kappa": 1.0,
+      "phase": 1.5707963267948966,
+      "einstein_scaled": 1.4573917085634274e-15,
+      "KG_absolute": 3.458961601356301e-32,
+      "odd_absolute": 1.6594320252033047e-32,
+      "density_error": 2.220446049250313e-16
+    },
+    {
+      "radius": 2.0,
+      "kappa": 0.4,
+      "phase": 0.0,
+      "einstein_scaled": 1.2474314539541678e-15,
+      "KG_absolute": 2.7230185981536845e-16,
+      "odd_absolute": 5.438959822042073e-16,
+      "density_error": 2.220446049250313e-16
+    },
+    {
+      "radius": 2.0,
+      "kappa": 0.4,
+      "phase": 0.7853981633974483,
+      "einstein_scaled": 1.4047872371829643e-15,
+      "KG_absolute": 2.669445784096911e-16,
+      "odd_absolute": 4.335559509131367e-16,
+      "density_error": 1.1102230246251565e-16
+    },
+    {
+      "radius": 2.0,
+      "kappa": 0.4,
+      "phase": 1.5707963267948966,
+      "einstein_scaled": 1.5044153742913504e-15,
+      "KG_absolute": 1.8870182576382043e-32,
+      "odd_absolute": 3.79911344573374e-32,
+      "density_error": 0.0
+    },
+    {
+      "radius": 2.0,
+      "kappa": 1.0,
+      "phase": 0.0,
+      "einstein_scaled": 1.2123786542554847e-15,
+      "KG_absolute": 2.313889635526404e-16,
+      "odd_absolute": 3.4219371797089426e-16,
+      "density_error": 1.1102230246251565e-16
+    },
+    {
+      "radius": 2.0,
+      "kappa": 1.0,
+      "phase": 0.7853981633974483,
+      "einstein_scaled": 1.2807143610705336e-15,
+      "KG_absolute": 9.309503074677274e-17,
+      "odd_absolute": 2.2887833992611187e-16,
+      "density_error": 5.551115123125783e-17
+    },
+    {
+      "radius": 2.0,
+      "kappa": 1.0,
+      "phase": 1.5707963267948966,
+      "einstein_scaled": 1.4573917085634274e-15,
+      "KG_absolute": 8.647404003390753e-33,
+      "odd_absolute": 1.6594320252033047e-32,
+      "density_error": 5.551115123125783e-17
+    }
+  ],
+  "controls": {
+    "bare_turning_residual": 1.5000000000000007,
+    "expected_bare": 1.5,
+    "reversed_fprime_residual": 0.49999999999999994,
+    "dropped_metric_response_residual": 0.7499999999999998,
+    "bare_history_max": 1.5000000000000007
+  },
+  "evolution": {
+    "evidence": {
+      "maps": [
+        [
+          [
+            -0.04815327009754039,
+            -0.3716572780363937
+          ],
+          [
+            2.6844120148811323,
+            -0.0481532700975405
+          ]
+        ],
+        [
+          [
+            -0.04815327009753756,
+            -0.37165727803639353
+          ],
+          [
+            2.684412014881136,
+            -0.0481532700975382
+          ]
+        ]
+      ],
+      "traces": [
+        -0.09630654019508089,
+        -0.09630654019507576
+      ]
+    },
+    "period_tau": 1.5707963267948966,
+    "step_caps": [
+      0.031415926535897934,
+      0.015707963267948967
+    ],
+    "monodromy": [
+      [
+        -0.04815327009753756,
+        -0.37165727803639353
+      ],
+      [
+        2.684412014881136,
+        -0.0481532700975382
+      ]
+    ],
+    "trace": -0.09630654019507576,
+    "eigenvalues": [
+      {
+        "real": -0.04815327009753788,
+        "imag": 0.9988399584412477,
+        "modulus": 1.0
+      },
+      {
+        "real": -0.04815327009753788,
+        "imag": -0.9988399584412477,
+        "modulus": 1.0
+      }
+    ],
+    "classification": "NUMERICALLY_ELLIPTIC",
+    "determinant": 1.0,
+    "refinement": 4.7237058311481314e-14,
+    "normal_form_error": 2.074810500188957e-15,
+    "symplectic_error": 7.120375260920369e-14,
+    "twenty_period_error": 1.0228300184123858e-13,
+    "twenty_period_map_norm": 2.3696219450960343,
+    "canonical_map_norm_max": 2.8018747707439497,
+    "five_component_error": 3.552713678800501e-15,
+    "physical_time": [
+      {
+        "radius": 0.7,
+        "kappa": 0.4,
+        "error": 2.559840628395278e-15
+      },
+      {
+        "radius": 0.7,
+        "kappa": 1.0,
+        "error": 2.559840628395278e-15
+      },
+      {
+        "radius": 1.0,
+        "kappa": 0.4,
+        "error": 1.8668719762243345e-15
+      },
+      {
+        "radius": 1.0,
+        "kappa": 1.0,
+        "error": 1.8668719762243345e-15
+      },
+      {
+        "radius": 2.0,
+        "kappa": 0.4,
+        "error": 2.168712409976959e-15
+      },
+      {
+        "radius": 2.0,
+        "kappa": 1.0,
+        "error": 2.168712409976959e-15
+      }
+    ],
+    "bare_control_error": 6.550080624322541e-15,
+    "bare_trace": -0.5325106840828279,
+    "phase_controls": [
+      {
+        "phase": 0.31,
+        "trace": -0.09630654019508096,
+        "trace_difference": 5.204170427930421e-15
+      },
+      {
+        "phase": 0.77,
+        "trace": -0.09630654019508098,
+        "trace_difference": 5.218048215738236e-15
+      }
+    ],
+    "quasifrequency": "NOT_ASSIGNED: modulo-4 ambiguity; trace is compared directly"
+  },
+  "failure_controls": [
+    {
+      "key": "background_and_parity",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "background_and_parity",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "scalar_sector_closure",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "scalar_sector_closure",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "quadratic_action",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "quadratic_action",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "independent_curvature_stress",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "independent_curvature_stress",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "constraint_completion",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "constraint_completion",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "bare_frequency_control",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "bare_frequency_control",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "canonical_propagation",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "canonical_propagation",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "period_map_convergence",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "period_map_convergence",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "scope_and_order",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "scope_and_order",
+      "mode": "failed",
+      "passed": true
+    },
+    {
+      "key": "failure_paths",
+      "mode": "missing",
+      "passed": true
+    },
+    {
+      "key": "failure_paths",
+      "mode": "failed",
+      "passed": true
+    }
+  ],
+  "checks": {
+    "background_and_parity": true,
+    "scalar_sector_closure": true,
+    "quadratic_action": true,
+    "independent_curvature_stress": true,
+    "constraint_completion": true,
+    "bare_frequency_control": true,
+    "canonical_propagation": true,
+    "period_map_convergence": true,
+    "scope_and_order": true,
+    "failure_paths": true
+  },
+  "period_evidence": {
+    "maps": [
+      [
+        [
+          -0.04815327009754039,
+          -0.3716572780363937
+        ],
+        [
+          2.6844120148811323,
+          -0.0481532700975405
+        ]
+      ],
+      [
+        [
+          -0.04815327009753756,
+          -0.37165727803639353
+        ],
+        [
+          2.684412014881136,
+          -0.0481532700975382
+        ]
+      ]
+    ],
+    "traces": [
+      -0.09630654019508089,
+      -0.09630654019507576
+    ]
+  },
+  "verdict": {
+    "linear_tensor_sector": "CLOSED_AT_LINEAR_ORDER_FOR_TENSOR_INITIAL_DATA",
+    "coupled_tensor_equation": "PERIODIC_HAMILTONIAN_RESPONSE_VERIFIED",
+    "bare_frequency_transfer": "BARE_EQUATION_FAILS_FOR_THIS_SUPPORT",
+    "period_map_type": "NUMERICALLY_ELLIPTIC",
+    "general_scalar_vector_response": "NOT_DERIVED",
+    "full_dynamical_stability": "NOT_ESTABLISHED",
+    "nonlinear_persistence": "NOT_ESTABLISHED",
+    "preparation_selection": "NOT_DERIVED",
+    "Phi_selection": "NOT_DERIVED",
+    "causality_gate": "OPEN",
+    "failed_checks": []
+  },
+  "checks_passed": true
+}
