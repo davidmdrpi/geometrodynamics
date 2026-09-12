@@ -983,6 +983,20 @@ bottom line at the top of this document supersedes the original one.
 
 F2–F5, F7 and F8 stand as written.
 
+## Expanding supported TT transport (PR #298)
+
+On the exact expanding four-component FRW family, the homogeneous TT normal
+potential has one simple zero for every support phase within the frozen
+`2.97 <= A/a <= 3.03` window. An exact quadratic-form and rational sign
+certificate establishes the global statement; sampled roots only check it.
+The named instantaneous actions fail to remain invariant, while exact
+basis-dependent classical invariants remain available. Physical amplitude
+freezing retains an independent decaying coefficient: the complete real
+input/output map is two-dimensional and symplectic. Neither freezing nor
+the turning point derives quantization, Phi selection, a rotor, or a causal
+readout. See [tt_turning_transport.md](tt_turning_transport.md) for the
+proof, review corrections, numerical limits, and unchanged freeze.
+
 ## Test suite
 
 Run at commit `b771b16` on Python 3.11 (numpy 2.4.6, scipy 1.17.1, sympy
