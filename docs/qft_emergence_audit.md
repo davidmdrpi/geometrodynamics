@@ -649,6 +649,31 @@ recorded in the historical list below rather than here.*
    a preparation law nor coupled stability. The support's metric response
    must be derived before transferring the bare TT frequency or attempting
    O(s^4) persistence. Phi selection and the causality gate remain open.
+   The [coupled multiplet tensor response](coupled_multiplet_response.md)
+   resolves that transfer question for the four-component degree-1 support.
+   Zero scalar perturbations are dynamically preserved in its linear
+   homogeneous TT sector, while the full metric-dependent stress gives
+   `(f beta_dot)_dot + g beta/a^2 = 0`, with
+   `f=1-cos^2(theta)/8`, `g=8+cos^2(theta)/2`, `theta=2t/a+delta`.
+   All linear Einstein constraints and scalar equations are checked through
+   independent curvature/stress variations. The bare oscillator fails; the
+   resulting period map is numerically elliptic, not a proof of general
+   stability. Scalar/vector response, nonlinear persistence, signal-field
+   preparation, Phi selection and operational causality remain open.
+   The [low scalar mode calculation](multiplet_scalar_stability.md) then
+   establishes an admissible homogeneous instability of this same
+   four-component background: `r''=2r` in `eta=t/a`, with proper-time growth
+   rate `sqrt(2)/a`. Both growing and decaying eigenvectors have exact local
+   FRW continuations satisfying the full Einstein–matter constraint at fixed
+   conformal energy. The growing volume perturbation is not a clock mode.
+   The constrained scalar-type degree-1 block on the unrestricted S3 cover
+   has a semisimple `-I` full-period map, but its even field perturbations
+   violate the inherited componentwise odd condition. The homogeneous
+   instability survives that restriction. The tensor result and the exact
+   support remain valid; general stability does not. This supplies no
+   preparation-space measure or mechanism removing the growing mode.
+   Vector response and tensor-driven quadratic scalar/vector sources remain
+   uncomputed, as do a rotor on the coupled equation and the trunk questions.
    The [driven normal-stress construction](driven_normal_stress.md) now gives
    an explicit leading-order existence result: two real degree-3 scalar modes
    in temporal quadrature supply constant stress `6s^2 Q_z/(Ca^2)` with zero
