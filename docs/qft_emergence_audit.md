@@ -674,6 +674,17 @@ recorded in the historical list below rather than here.*
    preparation-space measure or mechanism removing the growing mode.
    Vector response and tensor-driven quadratic scalar/vector sources remain
    uncomputed, as do a rotor on the coupled equation and the trunk questions.
+   The [supported FRW tensor derivation](frw_supported_tt.md) extends the
+   homogeneous five-component TT equation to the exact evolving four-scalar
+   family without expanding the background departure: `(M beta')'+K beta=0`,
+   `M=A^2/kappa-q^2/6`, `K=8A^2/kappa+2q^2/3`. The scalar equations and all
+   remaining linear Einstein equations close for zero scalar perturbation
+   data. Action and full-stress derivations agree, with independent coordinate
+   curvature and both-clock checks. Canonical, normal-form and proper-time
+   transport agree on the frozen regular intervals. This supplies the actual
+   supported operator for a later transport/invariant question; it establishes
+   neither an adiabatic invariant nor a rotor, quantum counting law, or
+   stability against the homogeneous scalar mode.
    The [driven normal-stress construction](driven_normal_stress.md) now gives
    an explicit leading-order existence result: two real degree-3 scalar modes
    in temporal quadrature supply constant stress `6s^2 Q_z/(Ca^2)` with zero
