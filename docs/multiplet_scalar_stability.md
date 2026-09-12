@@ -288,6 +288,106 @@ Reproduce with:
 
 ```bash
 python -m experiments.closure_ledger.multiplet_scalar_stability_probe \
-  --output experiments/closure_ledger/runs/20260911_multiplet_scalar_stability
+  --output-dir experiments/closure_ledger/runs/20260911_multiplet_scalar_stability
 python -m pytest -q tests/test_multiplet_scalar_stability.py
 ```
+
+`--output` remains a compatibility alias for the original archived invocation.
+
+## 7. Post-review scope: instability does not yet determine the next rotor
+
+The [independent review](https://github.com/davidmdrpi/geometrodynamics/pull/296#issuecomment-5628148876)
+reproduces the rate, exact constraint completion, dipole map and parity result,
+with no correctness findings. The CLI naming nit is addressed above. The
+[follow-up proposal](https://github.com/davidmdrpi/geometrodynamics/pull/296#issuecomment-5628170990)
+raises useful next questions but makes several stronger inferences that are
+not results of this PR. The following is post-review analytic scoping, not a
+new frozen evolution experiment.
+
+**Changing the equal-stress preparation does not cure this homogeneous
+instability.** The extension to #294's other exact isotropic preparations
+can be justified by classical conformal covariance, not tracelessness alone.
+Map the reference cylinder metric to `A(eta)^2(-deta^2+gamma)` and rescale
+every conformal component by `1/A`. A complete configuration with constant
+isotropic reference stress lifts to `rho=E/A^4`, `p=rho/3`; its homogeneous
+Einstein reduction is the same one above. This includes the degree-5
+equal-stress Gram family. It does not assert that arbitrary anisotropic
+four-field data have a radiation-fluid perturbation law. More generally the
+formula `sigma^2=(1+3w)/a^2` presumes a constant-w homogeneous barotropic law;
+a background value of w by itself does not fix the pressure response.
+
+**The rate does not fix the departure time without an initial amplitude.**
+For the growing linear perturbation,
+
+    delta A(t)/a = epsilon_0 exp(sqrt(2) t/a),
+    t_target/a = log(epsilon_target/|epsilon_0|)/sqrt(2).
+
+The latter estimate is valid while the perturbation remains small. A 1%
+increase of the perturbation is different from a 1% change of the background
+radius. For example `epsilon_0=1e-6` reaches 1% at approximately `6.513 a`,
+not `0.007 a`; after a full bare director turn its linear value is about
+`0.0005355`. The equality of the bare speed and growth rate is exact, and
+there is no parametric separation of those rates. It does not prove failure
+within a fixed fraction of a turn independently of the initial data.
+Also distinguish a vector's 2pi revolution from a uniaxial tensor's period:
+`nn^T` repeats after the director advances pi. A coupled Floquet
+quasifrequency divided by two is a frequency proxy, not an admissible coupled
+rotor solution; #292's cancellation has not been re-established.
+
+**The proposed bare TT scattering equation omits the support response.**
+It already fails the static limit checked in #295. A candidate extension of
+that PR's homogeneous five-component quadratic action to the exact FRW
+background, retaining the conformal multiplet, is
+
+\[
+ L_2=\frac{\operatorname{Vol}(S^3_{\rm unit})}{2}
+       [M\operatorname{tr}(\beta'^2)-K\operatorname{tr}(\beta^2)],
+ \quad M=\frac{A^2}{\kappa}-\frac{q^2}{6},\quad
+ K=\frac{8A^2}{\kappa}+\frac{2q^2}{3}.
+\]
+
+This follows by retaining the same curvature/gradient terms with
+`Q=q^2/A^2`, `F=1/kappa-Q/6`, and `dt=A d eta`. In the fixed-volume tensor
+parameterization the background expansion does not introduce tensor-dependent
+trace-K boundary terms. It predicts
+
+\[
+ (M\beta')'+K\beta=0,\qquad
+ u''+\left[\frac{K}{M}-\frac{(\sqrt M)''}{\sqrt M}\right]u=0,
+ \qquad u=\sqrt M\,\beta.
+\]
+
+At `A=a`, division by `a^2/kappa` gives exactly #295's f and g. The bare
+`8-A''/A` potential is recovered only on dropping q; that is not the supported
+background. Full scalar closure, all Einstein constraints, and this action
+extension must be independently checked on the evolving geometry in the next
+freeze/implementation before any transport or invariant verdict is assigned.
+The formula here concerns the inherited homogeneous TT block, not an
+unverified general tensor-harmonic tower.
+
+Even the proposed bare potential is not the stated sech-squared well. For
+the expanding branch `A=a coth z`, `z=C-eta/sqrt(2)`, direct differentiation
+gives `A''/A=csch^2 z`. Its future endpoint is at finite conformal time and
+infinite proper time. The contracting branch below a instead has a tanh
+form and reaches A=0. Thus one cannot import the usual two-asymptotic-region
+scattering coefficients of a sech-squared potential. With the actual q terms,
+the past limit is already the periodic coefficient problem of #295. Any
+Bogoliubov-style classical mode decomposition requires a stated choice of
+input/output bases; a preferred quantum vacuum is not an inherited input.
+
+**A missing preparation measure does not exclude two-boundary selection.**
+The stable line has zero area under an absolutely continuous measure on the
+linear homogeneous plane. A measure concentrated on that line is singular
+relative to that area measure. Neither fact shows such a measure is forbidden
+by the present action, or that a counting measure cannot be singular. Closure
+conditioning itself uses lower-dimensional loci. No selection mechanism is
+derived here, but the claim that abandoning the static background is the
+only live option is not established either.
+
+The useful next calculation is consequently **the full supported TT response
+along an exact departing FRW family**, followed by a precisely defined
+classical transport or adiabatic-action test. SO(4) harmonic labels,
+adiabatic oscillator action, and positive/negative-frequency mixing are
+different questions. Preserving a spatial mode label does not quantize its
+amplitude or select Phi, and failure of an approximate adiabatic invariant
+alone would not refute the entire rotor program.

@@ -220,7 +220,9 @@ def render(report):
 
 
 def main(argv=None):
-    parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True)
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--output-dir','--output',dest='output',type=Path,required=True,
+                        help='directory for probe.json and probe.md (--output is a compatibility alias)')
     args=parser.parse_args(argv)
     try:
         report=finalize(run_probe());text=render(report);payload=json.dumps(report,indent=2,allow_nan=False)+'\n'

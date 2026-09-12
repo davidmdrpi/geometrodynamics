@@ -153,7 +153,7 @@ def test_cli_failure_does_not_leave_a_success_artifact(report,tmp_path,monkeypat
         if kind=='exception':raise ArithmeticError('injected independent-route failure')
         return bad
     monkeypatch.setattr(probe,'run_probe',failed)
-    assert probe.main(['--output',str(tmp_path)])==1
+    assert probe.main(['--output-dir',str(tmp_path)])==1
     result=json.loads((tmp_path/'probe.json').read_text())
     assert not result['checks_passed']
     assert result['verdict']['homogeneous_physical_block']=='UNRESOLVED'
