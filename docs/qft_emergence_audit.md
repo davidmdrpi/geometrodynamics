@@ -674,6 +674,17 @@ recorded in the historical list below rather than here.*
    preparation-space measure or mechanism removing the growing mode.
    Vector response and tensor-driven quadratic scalar/vector sources remain
    uncomputed, as do a rotor on the coupled equation and the trunk questions.
+   The [supported FRW tensor derivation](frw_supported_tt.md) extends the
+   homogeneous five-component TT equation to the exact evolving four-scalar
+   family without expanding the background departure: `(M beta')'+K beta=0`,
+   `M=A^2/kappa-q^2/6`, `K=8A^2/kappa+2q^2/3`. The scalar equations and all
+   remaining linear Einstein equations close for zero scalar perturbation
+   data. Action and full-stress derivations agree, with independent coordinate
+   curvature and both-clock checks. Canonical, normal-form and proper-time
+   transport agree on the frozen regular intervals. This supplies the actual
+   supported operator for a later transport/invariant question; it establishes
+   neither an adiabatic invariant nor a rotor, quantum counting law, or
+   stability against the homogeneous scalar mode.
    The [driven normal-stress construction](driven_normal_stress.md) now gives
    an explicit leading-order existence result: two real degree-3 scalar modes
    in temporal quadrature supply constant stress `6s^2 Q_z/(Ca^2)` with zero
@@ -971,6 +982,20 @@ bottom line at the top of this document supersedes the original one.
 | F9 — the quantization map is not derived | narrowed, not closed: sharp closure gives setting-dependent source measure with detector no-signalling and `S = 2.14`, and the holonomy-weighted current gives the quantum joint law with no projectors; what remains is branch aggregation, sector coefficients, readout, and composition | `docs/closure_measurement_dependence.md`, `docs/closure_current.md`, `docs/classical_born_rule.md` (PR #280) |
 
 F2–F5, F7 and F8 stand as written.
+
+## Expanding supported TT transport (PR #298)
+
+On the exact expanding four-component FRW family, the homogeneous TT normal
+potential has one simple zero for every support phase within the frozen
+`2.97 <= A/a <= 3.03` window. An exact quadratic-form and rational sign
+certificate establishes the global statement; sampled roots only check it.
+The named instantaneous actions fail to remain invariant, while exact
+basis-dependent classical invariants remain available. Physical amplitude
+freezing retains an independent decaying coefficient: the complete real
+input/output map is two-dimensional and symplectic. Neither freezing nor
+the turning point derives quantization, Phi selection, a rotor, or a causal
+readout. See [tt_turning_transport.md](tt_turning_transport.md) for the
+proof, review corrections, numerical limits, and unchanged freeze.
 
 ## Test suite
 
