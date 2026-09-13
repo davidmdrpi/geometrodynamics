@@ -997,6 +997,27 @@ the turning point derives quantization, Phi selection, a rotor, or a causal
 readout. See [tt_turning_transport.md](tt_turning_transport.md) for the
 proof, review corrections, numerical limits, and unchanged freeze.
 
+## Nonlinear supported tensor completion (milestone follow-up)
+
+The quaternionic configuration of the original four conformal scalars gives
+an exact homogeneous Einstein–matter reduction with all constraints retained.
+All five homogeneous TT displacement/velocity directions admit local
+constraint-completed families on each d>0 expanding FRW reference. A rigid
+support falsely excludes noncommuting data: its quadratic gravitational
+momentum can instead be balanced by a second-order response of the existing
+matter configuration. An explicit large-scale continuation bound supplies
+future persistence on a stated domain and an existence neighborhood around
+the departing references.
+
+The original freeze's two amplitude-difference gates miss their tolerance
+(11/13); those N/F verdicts remain unresolved in the original archive. A
+separately published prospective refinement passes with second-order
+convergence (13/13). See [nonlinear_supported_tt.md](nonlinear_supported_tt.md)
+for the equations, proof, original failures and distinct refinement verdict.
+This establishes nonlinear realizability in the specified classical sector;
+it does not derive a preparation, Phi, a rotor, quantization or a causal
+readout, and does not erase the homogeneous ESU instability.
+
 ## Test suite
 
 Run at commit `b771b16` on Python 3.11 (numpy 2.4.6, scipy 1.17.1, sympy
