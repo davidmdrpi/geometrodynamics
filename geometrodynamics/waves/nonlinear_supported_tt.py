@@ -1,0 +1,264 @@
+"""Exact homogeneous four-field Einstein system; freeze a067782.
+
+Conformal jets are A, A', q, q', M, L=M^-1 M'/2. Evolution uses t/a.
+The momentum equations retain the existing matter's quaternionic response.
+"""
+from functools import lru_cache
+import math
+import copy
+import numpy as np
+from scipy.integrate import solve_ivp
+from scipy.linalg import expm
+from . import reciprocal_scalar_tt as rt
+from . import coupled_multiplet_response as cm
+from .scalar_esu_support import curvature_from_jets, improved_stress
+
+PUBLIC_PREREG='a06778213efc0f92cca170d66e579a981617bbe3'
+PROVENANCE='9f922b6c4739cb1cf9a1597f78a75fe8fa8eb587'
+BASELINE='934dabc1ede2d8e84c7585e6778c0dc201243faf'
+SEED=2026091319
+S=rt.QUATERNION_DERIVATIVES
+BASIS=np.concatenate((np.eye(4)[None],S))
+CROSS=np.array([rt.cross_matrix(e) for e in np.eye(3)])
+I=np.eye(3)
+
+
+def B(q):return np.einsum('i,ijk->jk',q,BASIS)
+def stf(X):return X-np.trace(X)*I/3
+
+def pack(A,Ap,q,qp,M,L,eta=0.):return np.r_[A,Ap,eta,q,qp,M.ravel(),L.ravel()]
+def unpack(y):return y[0],y[1],y[3:7],y[7:11],y[11:20].reshape(3,3),y[20:29].reshape(3,3)
+
+
+def ingredients(y,kappa=1.):
+    A,Ap,q,qp,M,L=unpack(y);inv=np.linalg.inv(M);Q=q@q
+    H=A*A/kappa-Q/6;Hp=2*A*Ap/kappa-q@qp/3
+    if A<=0 or H<=0 or np.linalg.eigvalsh((M+M.T)/2).min()<=0:raise ValueError('left positive A, F, M chart')
+    r=2*(2*np.trace(inv)-np.trace(M@M));ell=np.trace(L@L);trinv=np.trace(inv)
+    force=stf((-4+Q/H)*inv-4*M@M)
+    return H,Hp,r,ell,trinv,force,inv
+
+
+def conformal_rhs(y,a=1.,kappa=1.):
+    A,Ap,q,qp,M,L=unpack(y);H,Hp,r,ell,trinv,force,_=ingredients(y,kappa)
+    App=-A*(r+ell)/6+A**3/a**2
+    qpp=-(trinv+(r+ell)/6)*q
+    Lp=-Hp/H*L+force
+    return pack(Ap,App,qp,qpp,2*M@L,Lp,eta=1.)
+
+
+def proper_rhs(time,y,a=1.,kappa=1.):return conformal_rhs(y,a,kappa)*(a/y[0])
+
+
+def current(q,qp):return np.array([np.trace(B(qp).T@B(q)@s)/4 for s in S])
+
+
+def constraints(y,a=1.,kappa=1.):
+    A,Ap,q,qp,M,L=unpack(y);H,_,r,ell,trinv,_,_=ingredients(y,kappa)
+    terms=np.array([-3*Ap**2/kappa,qp@qp/2,H*ell/2,-H*r/2,(q@q)*trinv/2,3*A**4/(2*a*a*kappa)])
+    gravity=np.array([H*np.trace((L-L.T)@c) for c in CROSS]);matter=current(q,qp)
+    residual=np.r_[sum(terms),gravity-matter]
+    scale=np.r_[max(1.,sum(abs(terms))),np.maximum(1.,abs(gravity)+abs(matter))]
+    return dict(residual=residual,normalized=abs(residual)/scale,scale=scale,energy_terms=terms,
+                gravitational_momentum=gravity,matter_momentum=matter)
+
+
+def initial_data(U,V,epsilon,departure=.15,phase=0.,a=1.,kappa=1.,rigid=False):
+    if not np.isfinite([epsilon,departure,phase,a,kappa]).all() or min(departure,a,kappa)<=0:raise ValueError('finite d,a,kappa>0 required')
+    U=np.asarray(U,dtype=float);V=np.asarray(V,dtype=float)
+    if any(X.shape!=(3,3) or not np.isfinite(X).all() or np.linalg.norm(X-X.T)>1e-12 or abs(np.trace(X))>1e-12 for X in (U,V)):raise ValueError('STF data required')
+    A=a*(1+departure);qb=a*math.sqrt(3/(4*kappa))*math.cos(phase)
+    vb=-2*a*math.sqrt(3/(4*kappa))*math.sin(phase);D=qb*qb+vb*vb
+    root=expm(epsilon*U);M=root@root;L=epsilon*np.linalg.solve(root,V@root)
+    gravity=np.array([np.trace((L-L.T)@c) for c in CROSS])
+    Hb=A*A/kappa-qb*qb/6;c=vb*vb/(6*D*D)
+    H=2*Hb/(1+math.sqrt(1+4*c*Hb*(gravity@gravity)))
+    xi=np.zeros(3) if rigid else H*gravity
+    q=np.r_[qb,-vb*xi/D];qp=np.r_[vb,qb*xi/D]
+    provisional=pack(A,0.,q,qp,M,L)
+    E=constraints(provisional,a,kappa)['residual'][0]
+    if E<=0:raise ValueError('no positive expanding Hamiltonian root')
+    Ap=math.sqrt(kappa*E/3)
+    return pack(A,Ap,q,qp,M,L)
+
+
+def evolve(y0,times,a=1.,kappa=1.,rtol=1e-12,atol=1e-14):
+    times=np.asarray(times,dtype=float)
+    if times[0]<0 or np.any(np.diff(times)<=0):raise ValueError('ordered nonnegative sample times required')
+    sol=solve_ivp(lambda t,y:proper_rhs(t,y,a,kappa),(0.,times[-1]),y0,t_eval=times,
+                  method='DOP853',rtol=rtol,atol=atol,max_step=.02)
+    if not sol.success or not np.isfinite(sol.y).all():raise ArithmeticError('nonlinear evolution failed')
+    return sol.y.T
+
+
+def beta(y):
+    M=unpack(y)[4];vals,vec=np.linalg.eigh((M+M.T)/2)
+    return (vec*np.log(vals))@vec.T/2
+
+
+def full_geometry(y,dy=None,a=1.,kappa=1.,angles=(.83,1.07,.61),clock='conformal',minimal=False):
+    """Independent coordinate curvature and all improved stresses, no projected ODE."""
+    A,Ap,q,qp,M,L=unpack(y)
+    if dy is None:dy=conformal_rhs(y,a,kappa)
+    _,App,_,qpp,Mp,Lp=unpack(dy)
+    Mpp=2*Mp@L+2*M@Lp
+    P=B(q)/A;Pp=B(qp)/A-B(q)*Ap/A**2
+    Ppp=B(qpp)/A-2*B(qp)*Ap/A**2-B(q)*App/A**2+2*B(q)*Ap*Ap/A**3
+    if clock=='conformal':N,Nd,Ndd=A,Ap,App;At,Att=Ap,App;Pt,Ptt=Pp,Ppp;Mt,Mtt=Mp,Mpp
+    elif clock=='wrong_proper':
+        N,Nd,Ndd=1.,0.,0.;At,Att=Ap,App;Pt,Ptt=Pp,Ppp;Mt,Mtt=Mp,Mpp
+    elif clock=='proper':
+        N,Nd,Ndd=1.,0.,0.;At=Ap/A;Att=App/A**2-Ap*Ap/A**3
+        Pt=Pp/A;Ptt=Ppp/A**2-Pp*Ap/A**3;Mt=Mp/A;Mtt=Mpp/A**2-Mp*Ap/A**3
+    else:raise ValueError('unknown clock')
+    H=A*A*M;Ht=2*A*At*M+A*A*Mt
+    Htt=2*(At*At+A*Att)*M+4*A*At*Mt+A*A*Mtt
+    x,dx,ddx,E,dE,ddE=cm.coframe_jets(tuple(angles))
+    g=np.zeros((4,4));g[0,0]=-N*N;g[1:,1:]=E.T@H@E
+    dg=np.zeros((4,4,4));ddg=np.zeros((4,4,4,4))
+    dg[0,0,0]=-2*N*Nd;ddg[0,0,0,0]=-2*(Nd*Nd+N*Ndd)
+    dg[0,1:,1:]=E.T@Ht@E;ddg[0,0,1:,1:]=E.T@Htt@E
+    for c in range(3):
+        dg[c+1,1:,1:]=dE[c].T@H@E+E.T@H@dE[c]
+        ddg[0,c+1,1:,1:]=ddg[c+1,0,1:,1:]=dE[c].T@Ht@E+E.T@Ht@dE[c]
+        for d in range(3):
+            ddg[c+1,d+1,1:,1:]=(ddE[c,d].T@H@E+dE[c].T@H@dE[d]+dE[d].T@H@dE[c]+E.T@H@ddE[c,d])
+    inverse,connection,ricci,G,R=curvature_from_jets(g,dg,ddg)
+    T=np.zeros((4,4));kg=[]
+    fields=P@x
+    for i in range(4):
+        derivative=np.r_[Pt[i]@x,P[i]@dx]
+        second=np.empty((4,4));second[0,0]=Ptt[i]@x
+        second[0,1:]=second[1:,0]=Pt[i]@dx;second[1:,1:]=np.einsum('j,jkl->kl',P[i],ddx)
+        Hess=second-np.einsum('kij,k->ij',connection,derivative)
+        if minimal:T+=np.outer(derivative,derivative)-g*(derivative@inverse@derivative)/2
+        else:T+=improved_stress(g,inverse,G,fields[i],derivative,Hess)
+        kg.append(np.sum(inverse*Hess)-R*fields[i]/6)
+    frame=np.zeros((4,4));frame[0,0]=N;frame[1:,1:]=A*E;fi=np.linalg.inv(frame)
+    Tm=frame@inverse@T@fi;Gm=frame@inverse@G@fi;lam=3/(2*a*a)
+    residual=Gm+lam*np.eye(4)-kappa*Tm
+    scale=max(1.,a*a*np.linalg.norm(Gm),2*a*a*lam,kappa*a*a*np.linalg.norm(Tm))
+    return dict(residual=residual,normalized=a*a*np.linalg.norm(residual)/scale,KG=np.array(kg),
+                R=R,stress=Tm,einstein=Gm,scale=scale,fields=fields)
+
+
+def expected_residual(y,dy,a=1.,kappa=1.,angles=(.83,1.07,.61)):
+    A,Ap,q,qp,M,L=unpack(y);_,App,_,qpp,_,Lp=unpack(dy)
+    H,Hp,r,ell,trinv,force,inv=ingredients(y,kappa)
+    qa=qpp+(trinv+(r+ell)/6)*q
+    Aa=App+A*(r+ell)/6-A**3/a**2
+    tensor=H*Lp+Hp*L-H*force
+    con=constraints(y,a,kappa)['residual'];out=np.zeros((4,4))
+    out[0,0]=kappa*con[0]/A**4;out[0,1:]=-kappa*con[1:]/A**4
+    out[1:,0]=kappa*inv@con[1:]/A**4
+    trace=-6*Aa/A**3+kappa*(q@qa)/A**4
+    out[1:,1:]=kappa*tensor/A**4+I*(trace-out[0,0])/3
+    x=cm.coframe_jets(tuple(angles))[0]
+    return dict(residual=out,KG=-B(qa)@x/A**3)
+
+
+@lru_cache(None)
+def _exact_certificate():
+    import sympy as s
+    mats=[s.Matrix(m.astype(int)) for m in BASIS];q=s.Matrix(s.symbols('q0:4'));v=s.Matrix(s.symbols('v0:4'))
+    b=sum((q[i]*mats[i] for i in range(4)),s.zeros(4));bv=sum((v[i]*mats[i] for i in range(4)),s.zeros(4))
+    gram=s.simplify(b.T*b-(q.dot(q))*s.eye(4))
+    anti=[mats[i]*mats[j]+mats[j]*mats[i]+2*(i==j)*s.eye(4) for i in range(1,4) for j in range(1,4)]
+    A,Ap,kap,lam,Q,Qp,ell,r,t,u,w=s.symbols('A Ap kappa Lambda Q Qprime ell r t u w',real=True)
+    H=A*A/kap-Q/6;Hp=2*A*Ap/kap-Qp/6
+    App=-A*(ell+r)/6+2*lam*A**3/3;omega=t+(ell+r)/6
+    ellp=-2*Hp*ell/H+2*((-4+Q/H)*u-4*w);rp=-8*(u+w);tp=-2*u
+    Ep=(-6*Ap*App/kap-omega*Qp/2+Hp*ell/2+H*ellp/2
+        -Hp*r/2-H*rp/2+Qp*t/2+Q*tp/2+4*lam*A**3*Ap/kap)
+    # Lapse variation is minus the exact energy; A and q Euler equations.
+    av,qv,qq,n=s.symbols('av qv qq n',real=True)
+    Ln=(-3*av*av/kap+qv*qv/2+H*ell/2)/n+n*(H*r/2-Q*t/2-lam*A**4/kap)
+    lapse=s.diff(Ln,n).subs(n,1)+(-3*av*av/kap+qv*qv/2+H*ell/2-H*r/2+Q*t/2+lam*A**4/kap)
+    Ae=s.diff((-3*av*av/kap+H*(ell+r)/2-lam*A**4/kap),A)+6*App/kap
+    Hb,c,g2,h=s.symbols('Hb c g2 h',positive=True)
+    hroot=2*Hb/(1+s.sqrt(1+4*c*Hb*g2))
+    root=s.simplify((c*g2*h*h+h-Hb).subs(h,hroot))
+    qb,vb=s.symbols('qb vb',real=True);xi=s.Matrix(s.symbols('xi0:3'));D=qb*qb+vb*vb
+    qc=s.Matrix([qb,*(-vb*xi/D)]);vc=s.Matrix([vb,*(qb*xi/D)])
+    bc=sum((qc[i]*mats[i] for i in range(4)),s.zeros(4));bvc=sum((vc[i]*mats[i] for i in range(4)),s.zeros(4))
+    currents=[s.simplify(s.trace(bvc.T*bc*mats[i+1])/4-xi[i]) for i in range(3)]
+    identities=dict(quaternion_gram=str(s.simplify(sum(z*z for z in gram))),
+        clifford=sum(sum(z*z for z in m) for m in anti),energy_propagation=s.simplify(Ep),
+        lapse_variation=s.simplify(lapse),scale_euler=s.simplify(Ae),completion_root=root,
+        completion_current=sum(z*z for z in currents),
+        linear_stiffness=s.simplify(8*H+2*Q-(8*A*A/kap+2*Q/3)))
+    identities={k:str(s.simplify(v)) for k,v in identities.items()}
+    return dict(identities=identities,all_zero=set(identities.values())=={'0'},
+        constraint_jacobian_diagonal=['-6*A_bprime/kappa','-1','-1','-1'],
+        determinant='6*A_bprime/kappa',regular_domain='d>0, a>0, kappa>0',
+        shape_equation='(H L)prime = H STF[(-4+Q/H) M^-1 -4 M^2]',
+        scalar_equation='qsecond + [tr(M^-1)+(r+tr(L^2))/6] q = 0')
+
+
+@lru_cache(None)
+def _future_certificate():
+    """Exact rational margins for the bootstrap proved in the results document.
+
+Dimensionless a=kappa=1. Entry: A>=32, |M-I|F<=.1, |L|F<=.1,
+|q|+|qprime|<=4, positive expanding constraint solution.
+"""
+    import sympy as s
+    A0=s.Integer(32);delta=s.Rational(1,5);c=s.Rational(2,3);h=s.Rational(49,50)
+    # Bootstrap: |M-I|F<=.2, |L|F<=1, |q|+|qprime|<=8.
+    # Frequency bound <=7 and conformal duration <=3/(2 A0).
+    # exp(z)<=1/(1-z), 0<=z<1, gives a purely rational matter bound.
+    duration=1/(c*A0);matter=4/(1-7*duration)
+    integral=s.Rational(1,10)/(3*h*c*A0)+14*delta/(6*h*c*c*A0*A0)
+    margins=dict(kinetic_lower=1-s.Rational(64,6)/A0**2-h,
+        expansion_lower=s.Rational(1,2)-s.Rational(15,6)/A0**2-c*c,
+        expansion_upper=1-(s.Rational(1,2)+s.Rational(16,6)/A0**2+s.Rational(320,6)/A0**4),
+        matter_margin=8-matter,
+        shape_margin=delta-(s.Rational(1,10)+2*(1+delta)*integral),
+        velocity_margin=1-(s.Rational(1,10)/h+14*delta/(4*h*c*A0)),
+        force_lipschitz_margin=14-(4*(s.Rational(5,4)+s.Rational(11,5))+s.Rational(64)*s.Rational(5,4)/(h*A0*A0)))
+    return dict(entry=dict(A_min=32,shape_norm_max=.1,velocity_norm_max=.1,matter_sum_max=4),
+        bootstrap=dict(shape_norm_max=.2,velocity_norm_max=1,matter_sum_max=8),
+        rational_margins={k:str(v) for k,v in margins.items()},all_positive=all(v>0 for v in margins.values()),
+        integral_velocity_bound=str(integral),conformal_duration_bound=str(duration),
+        continuation='closed_bootstrap_with_infinite_proper_time',
+        initial_FRW_neighborhood='existence_by_continuous_dependence_no_numeric_radius_claim')
+
+
+def second_variations(U,V,times,departure=.15,phase=0.,a=1.,kappa=1.):
+    """Independent first/second conformal variations, converted to equal proper time."""
+    A=a*(1+departure);Ap=(A*A-a*a)/(math.sqrt(2)*a)
+    qb=a*math.sqrt(3/(4*kappa))*math.cos(phase);vp=-2*a*math.sqrt(3/(4*kappa))*math.sin(phase)
+    H=A*A/kappa-qb*qb/6;K=8*H+2*qb*qb;D=qb*qb+vp*vp
+    g2=np.array([-2*np.trace((U@V-V@U)@c) for c in CROSS]);xi2=H*g2
+    a2p=kappa*(H*np.trace(V@V)+K*np.trace(U@U))/(12*Ap)
+    z0=np.r_[A,Ap,qb,vp,0.,rt.components(U),rt.components(V),
+             0.,a2p,0.,0.,-vp*xi2/D,qb*xi2/D,np.zeros(10),0.]
+    def rhs(time,z):
+        A,Ap,q,v=z[:4];b=rt.tensor(z[5:10]);bp=rt.tensor(z[10:15]);a2,va2,u2,vu2=z[15:19]
+        H=A*A/kappa-q*q/6;hp=2*A*Ap/kappa-q*v/3;omega=(8*H+2*q*q)/H
+        App=-A+A**3/a**2;bpp=-hp/H*bp-omega*b
+        aa2=(-1+3*A*A/a**2)*a2-A*(np.trace(bp@bp)-8*np.trace(b@b))/6
+        uu2=-4*u2-q*(2*np.trace(b@b)/3+np.trace(bp@bp)/6)
+        b2=rt.tensor(z[25:30]);v2=rt.tensor(z[30:35])
+        bb2=-hp/H*v2-omega*b2+(-40+2*q*q/H)*stf(b@b)
+        return np.r_[Ap,App,v,-4*q,1.,rt.components(bp),rt.components(bpp),
+                     va2,aa2,vu2,uu2,z[22:25],-4*z[19:22],z[30:35],rt.components(bb2),a2]*(a/A)
+    sol=solve_ivp(rhs,(0.,max(times)),z0,t_eval=times,method='DOP853',rtol=1e-12,atol=1e-14,max_step=.02)
+    if not sol.success:raise ArithmeticError('second variation failed')
+    output=[]
+    for z in sol.y.T:
+        eta2=-z[35]/z[0]
+        output.append(dict(first=np.r_[0.,np.zeros(4),z[5:10]],
+            second=np.r_[z[15]+z[1]*eta2,z[17]+z[3]*eta2,z[19:22],z[25:30]],
+            baseline=np.r_[z[0],z[2],np.zeros(3),np.zeros(5)],eta=z[4]))
+    return output
+
+
+def observables(y):
+    A,Ap,q,qp,M,L=unpack(y)
+    return np.r_[A,q,rt.components(beta(y))]
+
+
+def exact_certificate():return copy.deepcopy(_exact_certificate())
+
+def future_certificate():return copy.deepcopy(_future_certificate())
