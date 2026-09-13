@@ -56,7 +56,7 @@ def valid_rows(r,original):
                     err=[p.relative(z,b) for z,b in zip(val,pred[key+'_prediction'])]
                     if max(abs(np.asarray(err)-row[key+'_errors']))>=1e-10:return False
                     errors[key].append(max(err[1:5]))
-                    if eps==.0025 and max(err[:5])>=.001:return False
+                    if eps==.0025 and max(err[1:5])>=.001:return False
             for vals in errors.values():
                 for i in range(2):
                     if min(vals[i:i+2])>1e-8 and not 3.5<=vals[i]/vals[i+1]<=4.5:return False
@@ -64,9 +64,27 @@ def valid_rows(r,original):
     except (KeyError,TypeError,ValueError,OverflowError,ZeroDivisionError,IndexError,np.linalg.LinAlgError):return False
 
 
+def constraints_valid(r):
+    """Check every refinement state, including times outside the accuracy window."""
+    try:
+        if len(r['rows'])!=29:return False
+        for v in r['rows']:
+            if [row['epsilon'] for row in v['levels']]!=[.01,.005,.0025]:return False
+            for row in v['levels']:
+                for sign in ('minus','plus'):
+                    states=np.asarray(row[sign],dtype=float)
+                    if states.shape!=(7,29) or not np.isfinite(states).all():return False
+                    for y in states:
+                        residual=n.constraints(y)['normalized']
+                        if not np.isfinite(residual).all() or max(residual)>=1e-8:return False
+        return True
+    except (KeyError,TypeError,ValueError,OverflowError,IndexError,np.linalg.LinAlgError):return False
+
+
 def evidence_checks(r,original):
     valid=valid_rows(r,original)
     checks=p.evidence_gates(original)
+    checks['constraint_propagation']=bool(checks['constraint_propagation'] and constraints_valid(r))
     try:operator=all(max(v['linear_operator_errors']+v['zero_solution_errors'])<1e-8 for v in original['variations'])
     except (KeyError,TypeError,ValueError):operator=False
     checks['linear_recovery']=bool(valid and operator)

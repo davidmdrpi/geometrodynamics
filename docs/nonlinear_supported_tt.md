@@ -229,10 +229,22 @@ M-self-adjointness. With h_0=49/50 and c_0=2/3,
     h_0 A^2 <= H <= A^2,
     c_0 A^2 <= A' <= A^2.
 
-The first follows from Q<=64. The second follows from the Hamiltonian
-constraint: bound the curvature term by 15A^2/6 and retain the positive
-kinetic terms for the lower estimate; bound the other terms for the upper
-estimate. The sign A'>0 cannot change under the lower bound.
+The first follows from Q<=64. For the second, divide the Hamiltonian
+constraint by 3A^4:
+
+    (A'/A^2)^2 = 1/2 + (|q'|^2 + H ell - H r + Q tr(M^-1))/(6A^4).
+
+The curvature contribution has absolute value at most 15/(6A^2).
+Retaining the nonnegative kinetic and Q terms gives the lower estimate.
+For the upper estimate, use H ell<=A^2, |H r|<=15A^2, and
+`|q'|^2+Q tr(M^-1)<=64+256=320`. Thus
+
+    1/2 - 15/(6A^2) <= (A'/A^2)^2
+      <= 1/2 + 16/(6A^2) + 320/(6A^4).
+
+The conservative coefficient 16 is 1+15, including the absolute curvature
+bound as well as shear; dropping curvature would require its positive sign.
+The sign A'>0 cannot change under the lower bound.
 
 The remaining conformal duration is at most `1/(c_0 A_0)<=3/64`. The scalar
 frequency has absolute value at most 7 in its second-order equation, hence
@@ -295,11 +307,13 @@ not remove the ESU instability or establish inhomogeneous stability.
 
 ## 6. Numerical results, failure gates and scope
 
-The targeted suite reports **214 passed**, including 61 new tests. It
+The pre-review targeted suite reported **214 passed**, including 61 new tests. It
 covers the nonzero shift variation, independent off-shell accelerations,
 field/velocity-zero completion, phase and unit changes, the prospective
 refinement, source-hash provenance, every missing/false gate, malformed raw
 evidence, and actual CLI failures overwriting stale success artifacts.
+The review update's milestone suite reports **67 passed**, including six
+new constraint-tampering cases at both refined amplitudes and three times.
 
 | Check | Largest observed error / outcome |
 |---|---:|
@@ -307,6 +321,7 @@ evidence, and actual CLI failures overwriting stale success artifacts.
 | full coordinate field agreement, 378 on-shell and 20 off-shell cases | 1.79e-15 |
 | 108 scale/coupling/clock controls | 3.07e-15 |
 | constraint propagation on 213 trajectories | 9.16e-14 normalized |
+| constraint propagation on 812 smaller-amplitude refinement states | 5.38e-15 normalized |
 | final solver comparisons, each state block | 7.38e-15 relative |
 | independent linear-operator/FRW controls | 2.33e-14 |
 | original first-variation error, epsilon=.01 | 1.176e-3: fails 1e-3 |
@@ -333,6 +348,21 @@ recorded before refinement. Probe commands still write plain JSON, and the
 refinement command accepts either plain or gzip-compressed original input.
 The pre-refinement source snapshots accompany the archive so the hashes in
 the extension freeze remain traceable after validation code was strengthened.
+The post-freeze source changes added input validation, defensive copies of
+cached certificates, and raw-evidence gate checks; the evolution equations,
+integrator, tolerances and archived trajectories are unchanged. Re-scoring
+the frozen original evidence with the current code reproduces all 13 saved
+gate values and the complete original verdict exactly: still 11/13, with
+N/F unresolved. This equality is also checked in the test suite.
+
+The review update additionally checks Hamiltonian and all three momentum
+constraints on every refinement state, including all 812 states at epsilon
+.005/.0025, using the original normalized 1e-8 propagation cutoff. This
+strengthens the existing `constraint_propagation` gate for the extension;
+it does not alter the original report. A velocity-only corruption invisible
+to the variation observables now fails that gate and withdraws N/F alone.
+Both refinement accuracy and ratio checks use the registered `0<t/a<=2`
+window; constraint checks include t=0 and the later samples through t/a=8.
 
 The deterministic archive and gate report accompany this document. All
 frozen cases, failed gates, raw constraints, coordinate-field residuals,

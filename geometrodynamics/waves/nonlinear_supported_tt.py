@@ -209,6 +209,8 @@ Dimensionless a=kappa=1. Entry: A>=32, |M-I|F<=.1, |L|F<=.1,
     # exp(z)<=1/(1-z), 0<=z<1, gives a purely rational matter bound.
     duration=1/(c*A0);matter=4/(1-7*duration)
     integral=s.Rational(1,10)/(3*h*c*A0)+14*delta/(6*h*c*c*A0*A0)
+    # Upper expansion bound uses |r|<=15 and ell<=1: 16=15+1.
+    # The matter numerator is |qprime|^2+Q*tr(M^-1)<=64+256=320.
     margins=dict(kinetic_lower=1-s.Rational(64,6)/A0**2-h,
         expansion_lower=s.Rational(1,2)-s.Rational(15,6)/A0**2-c*c,
         expansion_upper=1-(s.Rational(1,2)+s.Rational(16,6)/A0**2+s.Rational(320,6)/A0**4),

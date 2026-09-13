@@ -28,9 +28,25 @@ def test_original_misses_are_retained_and_refinement_is_separate(original,refine
     assert original['verdict']['finite_amplitude_response']=='UNRESOLVED'
     assert original['verdict']['future_persistence']=='UNRESOLVED'
     assert p.evidence_gates(original)==original['checks']
+    assert p.verdict(p.evidence_gates(original),original)==original['verdict']
     assert r.valid_rows(refined,original)
     assert r.finalize(copy.deepcopy(refined),original)==refined
     assert refined['checks_passed']
+
+
+@pytest.mark.parametrize('level',[1,2])
+@pytest.mark.parametrize('time_index',[0,3,6])
+def test_refinement_constraints_detect_invisible_velocity_damage(original,refined,level,time_index):
+    damaged=copy.deepcopy(refined)
+    # A' is absent from the measured observables: variation checks alone pass.
+    damaged['rows'][0]['levels'][level]['plus'][time_index][1]+=.1
+    assert r.valid_rows(damaged,original)
+    assert not r.constraints_valid(damaged)
+    checks=r.evidence_checks(damaged,original)
+    assert [key for key,passed in checks.items() if not passed]==['constraint_propagation']
+    out=r.verdict(refined['checks'],damaged,original)
+    for target,name in p.TARGETS.items():
+        assert (out[name]=='UNRESOLVED')==(target in 'NF')
 
 
 def test_pre_refinement_source_hashes_are_archived():
