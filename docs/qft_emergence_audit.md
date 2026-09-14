@@ -1,5 +1,17 @@
 # Audit: emergent QFT from classical GR with an antipodal identity and an inner–outer non-orientable bulk connection
 
+**Field-to-apparatus follow-up (freeze #301, 2026-09-14):** the complete
+#300 quartet has exactly uniform summed scalar intensity, and no inherited
+bulk-to-mouth interface was found in the audited models. The older N=8
+graph mixer reproduces, but its geometric interpretation needs the kinetic
+measure as well as link stiffness: for the covariant free scalar on a
+static intrinsic circle the apparent first-order splitting cancels exactly.
+This does not exclude an embedded mouth with additional transverse or
+interface dynamics. Eight control/audit verification gates pass; the map
+and reciprocal physical-response gates remain unestablished. See the
+[results and source inventory](field_apparatus.md). No Phi, event-frequency
+law or operational causality result follows.
+
 *Independent audit of `davidmdrpi/geometrodynamics` at commit `b771b16`
 (2026-09-02), revised after review. Question audited: does the repository
 demonstrate quantum-field-theory-like behaviour emerging from classical

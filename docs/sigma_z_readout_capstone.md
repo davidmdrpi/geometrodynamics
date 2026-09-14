@@ -1,5 +1,21 @@
 # The measurement-arc capstone: the geometric object behind σ_z-sensitive readout, identified and classified (PR #241)
 
+> **2026-09-14 qualification of the geometric interpretation.** The
+> [field-to-apparatus experiment](field_apparatus.md), frozen in #301,
+> reproduces the N=8 graph coefficient below. Its assignment of hopping
+> `R_mid^-2` at fixed site kinetic measure is a specified graph/material
+> operator, however, and has not been derived as the covariant operator of
+> a deformed mouth. For a free scalar on a static intrinsic circle the
+> metric changes both stiffness and kinetic measure; their first-order
+> contributions cancel and the spectrum depends only on circumference.
+> The graph computation therefore does not by itself certify the claimed
+> physical geometric mixer. An embedded mouth may have transverse,
+> extrinsic or interface terms absent from that control. Their derivation
+> and the connection to #300's supported fields remain open. The earlier
+> operator, occupation and orientation ledger below is preserved with this
+> qualification; its quantum pointer results are not classical Born-rule
+> derivations.
+
 > **Framing.** QFT on the *fixed classical* throat geometry — geometry →
 > fields, **not** quantum gravity. The capstone question, as posed:
 > *identify the precise geometric object that would generate
