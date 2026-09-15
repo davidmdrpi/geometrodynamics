@@ -1,0 +1,9 @@
+{
+  "prereg": "2b1bfca7b2650db7f8dcf74ca1c54ecd8bdffa17",
+  "source_sha256": {
+    "geometrodynamics/waves/mouth_momentum.py": "2c0dbd89c880becd8f29a6f82f32f7dcabe0fb3eba92a54d1010bb03f1f292e0",
+    "experiments/closure_ledger/mouth_momentum_probe.py": "748aabc4806e92fffdf50b714fffaa7bd2122fb6a4ac62445cf31b45c0bc0959",
+    "tests/test_mouth_momentum.py": "33f4efc62fc3c45b37c2119d74fe9f61e770096e9edace8442114ac36ad34813",
+    "docs/mouth_momentum_prereg.md": "760e1e289cd88c4a3b8f616968e99a025104a143a702e5881a0c0e8fa03de581"
+  }
+}
