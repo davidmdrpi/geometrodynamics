@@ -110,7 +110,7 @@ def score(data):
             if r['ns']==64:offgrid.append(maximum(f.offgrid_residual()))
         target=m.Grid(64,32)
         for e in m.AMPLITUDES:
-            a=[m.Interpolant(lookup[e,*grid]).values(target.s,target.u) for grid in m.GRIDS]
+            a=[m.Interpolant(lookup[(e,)+grid]).values(target.s,target.u) for grid in m.GRIDS]
             differences.append([maximum(a[0]-a[1]),maximum(a[1]-a[2])])
         gates['hamiltonian'] = (keys==expected and max(ongrid)<1e-10 and max(offgrid)<1e-8
                                and max(x[1] for x in differences)<1e-7 and min(minima)>0)
@@ -201,7 +201,7 @@ def score(data):
         for key in untwisted:integrity &= maximum(np.asarray(data['untwisted_seam'][key])-untwisted[key])<1e-12
         control_ok &= max(maximum(x) for x in untwisted.values())<1e-10
         # Zero-wave solution stays the exact product solution.
-        control_ok &= all(maximum(np.asarray(lookup[0.,*grid]['psi'])-1)<1e-12 for grid in m.GRIDS)
+        control_ok &= all(maximum(np.asarray(lookup[(0.,)+grid]['psi'])-1)<1e-12 for grid in m.GRIDS)
         gates['controls']=control_ok
         metrics['controls']=control_errors
         gates['evidence']=bool(integrity)

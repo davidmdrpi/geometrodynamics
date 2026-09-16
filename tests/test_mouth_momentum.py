@@ -118,3 +118,9 @@ def test_cli_damaged_raw_evidence_returns_failure(tmp_path,archive):
         env={**os.environ,'OPENBLAS_NUM_THREADS':'1'})
     assert result.returncode==1
     assert not any(json.loads((tmp_path/'verdict.json').read_text())['verdicts'].values())
+
+
+def test_probe_uses_python310_grammar():
+    import ast
+    source = Path(p.__file__).read_text()
+    ast.parse(source, feature_version=(3, 10))

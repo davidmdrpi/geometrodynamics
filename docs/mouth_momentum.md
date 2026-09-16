@@ -221,3 +221,11 @@ OPENBLAS_NUM_THREADS=1 python -m pytest -q tests/test_mouth_momentum.py
 The construction uses the standard conformal method; see the references
 in the public specification. The contribution is a repository implementation
 and verified benchmark, not a novel general wormhole existence theorem.
+
+### Python 3.10 compatibility correction (2026-09-16)
+
+Repository-wide CI initially stopped during collection because the probe used
+Python 3.11 starred-subscript syntax. Explicit tuple construction restores
+the declared Python 3.10 support. A grammar regression was added; 28 targeted
+tests pass. No equation, tolerance, archived solution or scientific gate
+changed. The manifest retains original and corrected source hashes.
