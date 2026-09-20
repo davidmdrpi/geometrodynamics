@@ -60,6 +60,38 @@ link stiffness at fixed site inertia. A geometric interpretation requires
 deriving both forms from the relevant field action, rather than identifying
 the stiffness with a metric coefficient by notation alone.
 
+### Review clarification, 2026-09-20: normalization and phase
+
+For the same midpoint convention, let theta=2 pi/N. The incidence matrix
+acts on a winding mode by multiplication by exp(i k theta)-1. Combining
+these two factors with the m=2 Fourier coefficient of the link derivative
+gives, for non-aliased N>=5,
+
+    <+1|partial_epsilon H_graph|-1>
+      = -exp(i(theta+varphi)) (1-exp(-i theta))^2
+      = 4 sin^2(pi/N) exp(i varphi).
+
+The reversed bra/ket ordering is its complex conjugate. The magnitude is
+the unweighted graph's winding-one eigenvalue, lambda1=4 sin^2(pi/N).
+This identifies exactly how the N=8 value generalizes; it does not alter
+the original registered N=8 experiment or its archived results.
+
+The unscaled number tends to zero as N^-2. This alone is not a physical
+continuum no-go: for a circle of fixed circumference, the Laplacian includes
+the inverse square of the grid spacing. Dividing by (2 pi/N)^2 makes this
+coefficient tend to exp(i varphi) at radius one, and its ratio to lambda1
+is already one for every N. A specified material-stiffness model can
+therefore have a finite continuum coupling. That does not derive it from
+the covariant geometric action of section 3.
+
+Nor does equality of magnitudes with lambda1 identify the graph coefficient
+literally with the omitted covariant lambda0 delta W: the graph uses an
+R^-2 stiffness, whose first variation has a factor -2, while the covariant
+stiffness uses R^-1, with factor -1. At radius one their respective
+off-diagonal stiffness derivatives are exp(i varphi) and exp(i varphi)/2;
+the covariant kinetic contribution exp(i varphi)/2 cancels the latter.
+Both the kinetic form and the stiffness must follow from the same action.
+
 ## 3. What the covariant circle changes
 
 For the frozen static intrinsic-circle control, a free scalar has action
@@ -164,6 +196,26 @@ Eight verification gates pass. The map/interface and reciprocal full-field
 response gates remain false, as visibly recorded. This is not a ten-gate
 affirmative field-response result. Missing physical matrix elements and
 generated amplitudes are null, not zero.
+
+Review clarification, 2026-09-20: the two unavailable map/interface and
+reciprocal-response gates are explicitly hard-coded false, not evaluated
+physical residuals. Their substantive justification is the separately
+checked source inventory. The current verdict selector has no code path
+for the freeze's licensed outcomes `INHERITED_MAP_DERIVED`,
+`SCOPED_MAP_OBSTRUCTION_PROVED`, `PHYSICAL_MOUTH_MIXING_DERIVED`,
+`PREDICTION_REFUTED`, `INHERITED_FIELD_RESPONSE_DERIVED`, `SOURCE_TERM_ONLY`,
+`CONDITIONAL_APPARATUS_RESPONSE`, or `SCOPED_RESPONSE_OBSTRUCTION_PROVED`.
+Those outcomes are unimplemented, not measured exclusions. A later
+implementation would need its own tests before reporting any of them.
+
+The separate metric/stress-channel diagnostic requested by the freeze was
+not performed in this round. The source audit identifies that the improved
+stress can vary with the metric, but that is not a quantitative channel
+measurement. Work stopped at the missing mouth map after the exact
+scalar-intensity and intrinsic-circle controls; a missing map does not
+prevent examining bulk stress anisotropy separately. That required
+diagnostic remains outstanding, and no zero metric/stress response is
+claimed. This reporting correction does not retroactively complete it.
 
 The probe recomputes the control checks from raw matrices and samples; saved
 passing flags do not determine the verdict. Its six failure-control records
