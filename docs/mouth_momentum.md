@@ -90,6 +90,29 @@ intentional: the numerical ODE demonstrates completion and convergence,
 while its exact solution avoids importing its truncation error into the
 nonlinear metric solve.
 
+### Review clarification, 2026-09-20: topology and section flux
+
+The S2-fiber antipode reverses orientation; the S3 antipode preserves it.
+This nonorientable mapping torus is not the antipodal quotient RP3, nor
+does it automatically inherit the conformal-Killing charge selection rules
+of a round-S3 excision. Fields and symmetries must descend on the actual
+manifold before their associated fluxes can be interpreted.
+
+Having no external boundary does not force every internal section flux to
+vanish. At the registered epsilon=0 baseline, psi=1 and X=partial_s is a
+global Killing vector. The momentum constraint makes J^i=K^i_j X^j
+divergence-free, and the cooriented S2 section has
+
+    Q_X = integral_S2 K_ij X^i nu^j dA = (2C)(4 pi) = 8 pi C = 4 pi.
+
+There is no contradiction with the divergence theorem: this section is
+nonseparating. Cutting the handle yields two faces with opposite outward
+normal fluxes; their sum is zero, not necessarily either flux individually.
+This is a spatial constraint flux, not an ADM momentum at infinity, a
+radiative transfer measurement, or an evolved throat-crossing event.
+The observation is an analytic qualification of the review comment on
+#303, not a new frozen numerical gate or a change to the archived run.
+
 ## 3. Nonlinear Hamiltonian response and independent constraints
 
 The nonlinear scalar equation is
