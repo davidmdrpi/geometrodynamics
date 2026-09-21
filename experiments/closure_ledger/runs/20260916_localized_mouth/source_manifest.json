@@ -1,0 +1,238 @@
+{
+  "original_freeze": "66bce68ce5c9e07f4369283b18cb1ac4d3e94f73",
+  "refinement_freeze": "dbec68f2b6de8f745c269167a2ac7a41a38f4654",
+  "software": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "sympy": "1.14.0"
+  },
+  "validation": {
+    "targeted_tests": 66,
+    "refinement_replay": "byte-identical raw archive, verdict and report",
+    "original_gates": 6,
+    "refinement_gates": 7,
+    "total_gates": 8,
+    "scientific_cli_exit": 1,
+    "packaging": "All three assembled gzip archives byte-identical to local original commit 6cffb77; seven packaging integrity tests pass."
+  },
+  "notes": [
+    "Original snapshots predate the prospective refinement.",
+    "Bernstein attempt is retained; direct scaled Hermite arithmetic repairs cancellation without changing its unique mathematical interpolant.",
+    "Current scoring adds integrity checks; original and stable reports remain byte-identical.",
+    "All original scientific data and failed verdicts are retained.",
+    "2026-09-20: raw archives split losslessly for publication; probe I/O accepts validated parts. Numerical routines, saved samples, gates and frozen specifications unchanged."
+  ],
+  "files": {
+    "geometrodynamics/waves/localized_mouth.py": {
+      "sha256": "957864b68f263d9a276ab5d392ecbb5c4e1237f637276f005c833ee543fc8c8f",
+      "bytes": 14009
+    },
+    "experiments/closure_ledger/localized_mouth_probe.py": {
+      "sha256": "25203efb8056fea9afbd2aa2f1312bd25177baf1bcbbcc71faa261a3297c0754",
+      "bytes": 14392
+    },
+    "experiments/closure_ledger/localized_mouth_refinement_probe.py": {
+      "sha256": "166937dee15036b4f3998c535809f3a1a662aaa5f2f8efb5320abab537f67863",
+      "bytes": 5378
+    },
+    "tests/test_localized_mouth.py": {
+      "sha256": "2ac69e43e1384fa1a453014b0192385d1d11ad071bb482459cd87fecc055bf12",
+      "bytes": 7577
+    },
+    "docs/localized_mouth_prereg.md": {
+      "sha256": "455602f8bfa5162f1b78fbbe355209d0cbe6a2526470040a60d7ef349568be37",
+      "bytes": 10314
+    },
+    "docs/localized_mouth_refinement_prereg.md": {
+      "sha256": "9b1be24a8d53ed8bcbe377ef1981d05f958d16d724781ddd33c2477d218c59ff",
+      "bytes": 4471
+    },
+    "docs/localized_mouth.md": {
+      "sha256": "43eeffd60069b8a276752221a387cc19e18b7c4ee6ee641149ecbeed12150564",
+      "bytes": 10437
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_module.py.txt": {
+      "sha256": "eb931d00a03a9673ebe4eb5160efcc12fa1466442aaf5897dfdcdcfb6e00c4fb",
+      "bytes": 13368
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_refinement.json.gz": {
+      "sha256": "b55be4b5e286a4086b9514312ef253ae8a4dc35c8634e0eeed02e50122017069",
+      "bytes": 3111766,
+      "decompressed_sha256": "1e5dd14b457a84cfee59cfaa72236bd4b132c64c36371c65493b4e168ce0a0eb"
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_refinement.md": {
+      "sha256": "21aaadb6f17dee74cd6f5e708a6051ce382c5ca8bc1604d514543b26b51310a0",
+      "bytes": 7503
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_refinement_verdict.json": {
+      "sha256": "7bfa2249971a73129b79170ad87a7e0e2c4a485c22d46edb3f3049d64c366994",
+      "bytes": 7396
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/original_module.py.txt": {
+      "sha256": "424026b1caf05e15ddb423a49d66938654388bf953e6c2f4a773988cf3229f17",
+      "bytes": 9295
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/original_probe.py.txt": {
+      "sha256": "4f387abf1bd892d125ae521e67235e0347f49b301348a3582642cb3c3d3426c0",
+      "bytes": 13552
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/probe.json.gz": {
+      "sha256": "66b0228f46badc12434fd9c06b098617299269224643b342d67c64251836481c",
+      "bytes": 3057104,
+      "decompressed_sha256": "e510ba44aeb7d8d8d25cfc28cfb54a6a402d45ba43d373d5f6b48b6bfdffd227"
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/probe.md": {
+      "sha256": "f55fd2de2b2e05f93d3d8d37aa833f20d603ce93de088373b45a5e6bc09f0d9f",
+      "bytes": 7096
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.json.gz": {
+      "sha256": "7b0ea6aa239e6105bb719607165f4c786f81f9784366d18b10be8af4fe754b00",
+      "bytes": 3525247,
+      "decompressed_sha256": "b9fd7d2e652ccdae2012c636c7fc249fc8b5cca05cb872df5b32576f591cb3ae"
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.md": {
+      "sha256": "694f1a75dce8da0a7586a5f906aeed4915bf7af3b9158e04067abad763d87c29",
+      "bytes": 7497
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement_verdict.json": {
+      "sha256": "2072dde327b5a0047dad38490b7d77ac1cadf9fcb6ccd2217d667719a9542d93",
+      "bytes": 7390
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/verdict.json": {
+      "sha256": "43c13299ebc392904f0f5c9e5c74e12fb4d6732efab8f8b1a0e985ea27a414a5",
+      "bytes": 6968
+    },
+    "experiments/closure_ledger/evidence_archive.py": {
+      "sha256": "304f13c4ca0cd335f4079333176064d5497d5f22c0243809f3601700e710f63e",
+      "bytes": 937
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_refinement.json.gz.parts.json": {
+      "sha256": "5ab85cd81884754eac1936ea6b1d13c28ec4a63fefc2e700224b0025f93c3780",
+      "bytes": 1720
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/probe.json.gz.parts.json": {
+      "sha256": "8a6dabd10884218dedf7cc3e3caa8c5b3ef350de312039508b069e03c16b7a68",
+      "bytes": 1428
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.json.gz.parts.json": {
+      "sha256": "33e17d302266ee7ba66e546982d3caf6e22db6884e91d24e0ebe67f07adca69d",
+      "bytes": 1793
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_refinement.json.gz.part000": {
+      "sha256": "1dd12d17a339796d60a2663dc6b33db508421d965ad559fb8a4cb26b35ac1eb8",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_refinement.json.gz.part001": {
+      "sha256": "91735bdbefd7229cbf3025be4b901f86b4d2ab1b838d1556bae1cc541ed23e8a",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_refinement.json.gz.part002": {
+      "sha256": "9304924eff34d96efdc02ba6ab8924979c6098132ebaadf5cc28174b1d691abb",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_refinement.json.gz.part003": {
+      "sha256": "e0c20e8f0b19fbf4e83610500793bc4bd8fc5413f0009a969345e4661a9cc761",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_refinement.json.gz.part004": {
+      "sha256": "0a520724a494975892b61c01a99632dd81487ce73a4efd9b8dc8dac7833c0fbc",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_refinement.json.gz.part005": {
+      "sha256": "9b835f6a271c663a11b46f7cbaa61a73531235f6b5fd75042e95a06c4631c84a",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_refinement.json.gz.part006": {
+      "sha256": "8c5735949febf7e740f54749a5d5d0eb0952dac4d534debf15209e9235882ce2",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_refinement.json.gz.part007": {
+      "sha256": "fa8eaaa5a9ebd657817d3b3dfe11d58d334799820a53842481615d645dad6b85",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_refinement.json.gz.part008": {
+      "sha256": "2e60bad2a729731887387c47b5ce1d5bb3e26abc1964f01788f263f0b1394f8f",
+      "bytes": 39766
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/probe.json.gz.part000": {
+      "sha256": "3328e10ddf00d7bd59cd132954c21cc765a7885a460d5f26d72120fda76efa5a",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/probe.json.gz.part001": {
+      "sha256": "eb9521abb2124fc46c15a66ce284226e20e18dbb3c55bd937968b0d62888ca42",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/probe.json.gz.part002": {
+      "sha256": "44b611394b5d5650b8b9cabea960b8b6dee3953e30efbcfd38a4d17dd859ab79",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/probe.json.gz.part003": {
+      "sha256": "c3b02d3d83a5fbf6bbc2205b75cb5d5aba2cd49e3f73da10226db99a54de71f9",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/probe.json.gz.part004": {
+      "sha256": "43e3d7b25fe42e9b23c40bd8c7d80424662751758499db21d3f30b73fd964f78",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/probe.json.gz.part005": {
+      "sha256": "a38033060394d52583c77d2c34124dc3d6df35ee59e2cb9c1a1044fe97fb8ad4",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/probe.json.gz.part006": {
+      "sha256": "4be314e9781f7366c7ae20905ff13f0afabee4469e6d1fca0ae89ee255ad9832",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/probe.json.gz.part007": {
+      "sha256": "56e4f6ad8ff8d3941a449f93c4668cf5f03291921401736e8d0199561c3783f8",
+      "bytes": 369104
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.json.gz.part000": {
+      "sha256": "8fcf0187de2a5b801df5342f57448b379913d22c0fb5e9fda8996ef22f7d523d",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.json.gz.part001": {
+      "sha256": "6aefd7d3bfa8d69e5ce354950837e55276029325025264e32dcd4dad3e1d9693",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.json.gz.part002": {
+      "sha256": "c45bf89d5d7ae28fc121f461f4b9e09e96b764e45fe246333881ed5d6e1840cb",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.json.gz.part003": {
+      "sha256": "78bbbc3683dfc0c873c2c5b44b278fb8439e9e1c37a1af0954f70d6366f71237",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.json.gz.part004": {
+      "sha256": "d376d306b156e246ebf890e1eb28f637962d0b7023e01d60a545688c9480fb2e",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.json.gz.part005": {
+      "sha256": "488fb6a834be7717b7ce06559bb419570619c1c4326476b66956aa4ac58525c5",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.json.gz.part006": {
+      "sha256": "bad05aaacacf1c27a1118ae83c8191b254deae03388046baf886f468c9cf2072",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.json.gz.part007": {
+      "sha256": "e3ff1b16988cbb7c39bf672183a3b4f2f3eb8d13fa6997513820fbe5db9fd403",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.json.gz.part008": {
+      "sha256": "3daada9cc069acac68387a4f9fb93c2668b87c210a66b9bb9ad04659a5c640b1",
+      "bytes": 384000
+    },
+    "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.json.gz.part009": {
+      "sha256": "9dfa683ed8ad8ccb3055f9a0ec33559924dd36137021fea36bb91d353f8a1294",
+      "bytes": 69247
+    }
+  },
+  "pre_packaging_source_sha256": {
+    "geometrodynamics/waves/localized_mouth.py": "957864b68f263d9a276ab5d392ecbb5c4e1237f637276f005c833ee543fc8c8f",
+    "experiments/closure_ledger/localized_mouth_probe.py": "e70b52d0877d2f295d16e3f263e5eb56efa581bfa2c0da75e25aa3db6d19530f",
+    "experiments/closure_ledger/localized_mouth_refinement_probe.py": "06ca71d56fc55d6d4da8972c57808051a05a1590695f83bcc421346a7963ce77",
+    "tests/test_localized_mouth.py": "ee5519dc7c4197dd8e6d173f30a3a7c632308e54a0e8e1ba46dc2d2ec02faaa4",
+    "docs/localized_mouth.md": "7e28120bd2a653c0af28cc00076a426bc0a1aa60a3419c8579dae2ff6ccd7cfc"
+  }
+}

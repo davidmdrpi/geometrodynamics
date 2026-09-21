@@ -1,0 +1,277 @@
+# Prospective localized-mouth refinement
+
+Original: **6/8**, unchanged.
+
+Refinement: **7/8**.
+
+```json
+{
+  "gates": {
+    "action": true,
+    "momentum": true,
+    "hamiltonian": true,
+    "seam": true,
+    "physical": false,
+    "localization": true,
+    "controls": true,
+    "evidence": true
+  },
+  "passed": 7,
+  "total": 8,
+  "metrics": {
+    "cases": [
+      {
+        "L": 3.5,
+        "eta": 0.0,
+        "H_residual": 4.040013601436243e-10,
+        "M_residual": 0.0,
+        "minimum_psi": 0.44774691070344674,
+        "relative_refinement": 4.118007834776942e-12
+      },
+      {
+        "L": 3.5,
+        "eta": 0.1,
+        "H_residual": 4.0609543505709667e-10,
+        "M_residual": 1.0145994423305452e-14,
+        "minimum_psi": 0.44774692957070217,
+        "relative_refinement": 4.11754024427264e-12
+      },
+      {
+        "L": 3.5,
+        "eta": 0.3,
+        "H_residual": 4.39690561737649e-10,
+        "M_residual": 3.043798496398225e-14,
+        "minimum_psi": 0.4477470805083964,
+        "relative_refinement": 4.1176961968455176e-12
+      },
+      {
+        "L": 4.5,
+        "eta": 0.0,
+        "H_residual": 3.0987312715780035e-10,
+        "M_residual": 0.0,
+        "minimum_psi": 0.2827583132852744,
+        "relative_refinement": 8.788090593617293e-11
+      },
+      {
+        "L": 4.5,
+        "eta": 0.1,
+        "H_residual": 2.848949687273006e-10,
+        "M_residual": 4.200630276569658e-16,
+        "minimum_psi": 0.28275831462025475,
+        "relative_refinement": 8.788090588042337e-11
+      },
+      {
+        "L": 4.5,
+        "eta": 0.3,
+        "H_residual": 3.272679349741736e-10,
+        "M_residual": 1.2601890697360075e-15,
+        "minimum_psi": 0.28275832530009376,
+        "relative_refinement": 8.788069696600545e-11
+      },
+      {
+        "L": 5.5,
+        "eta": 0.0,
+        "H_residual": 2.850297775580657e-10,
+        "M_residual": 0.0,
+        "minimum_psi": 0.17356235258058386,
+        "relative_refinement": 9.92600152585192e-11
+      },
+      {
+        "L": 5.5,
+        "eta": 0.1,
+        "H_residual": 2.7475893782380467e-10,
+        "M_residual": 1.4898672406336324e-17,
+        "minimum_psi": 0.17356235268479636,
+        "relative_refinement": 9.925989214777441e-11
+      },
+      {
+        "L": 5.5,
+        "eta": 0.3,
+        "H_residual": 3.274435722566693e-10,
+        "M_residual": 4.4696017425804125e-17,
+        "minimum_psi": 0.17356235351849655,
+        "relative_refinement": 9.926001521462914e-11
+      }
+    ],
+    "momentum_max": 3.043798496398225e-14,
+    "H_offgrid_max": 4.39690561737649e-10,
+    "boundary_max": 3.2526065174565133e-19,
+    "relative_refinement_max": 9.92600152585192e-11,
+    "even_source_integral": -7.692045499692535e-06,
+    "odd_source_integral": 0.0,
+    "omitted_momentum_residual": 6.340254806093677e-07,
+    "seam_max": 2.7755575615628914e-17,
+    "missing_scalar_sign": 1.7317897831296805,
+    "physical_H": [
+      4.105731927024027e-06,
+      2.8343449238765403e-07,
+      6.021437935031099e-08
+    ],
+    "physical_M": [
+      2.902337997314683e-13,
+      1.8117954073840794e-14,
+      1.128089110906144e-15
+    ],
+    "physical_ratios": [
+      4.707089825483524,
+      16.060747239451185
+    ],
+    "wrong_f_H": 0.07142859426626125,
+    "null_min": 2.4390094414377668e-05,
+    "localization": [
+      {
+        "L": 3.5,
+        "eta": 0.0,
+        "bulk_error": 0.15040061226721269,
+        "radii": [
+          0.8495993877327873,
+          0.21480569257794827,
+          0.21444079355386245,
+          0.21431924446437028
+        ],
+        "neck_ratio": 0.2522591795131768,
+        "theta_plus": 3.578352060656795e-20,
+        "theta_minus": -3.578352060656795e-20
+      },
+      {
+        "L": 3.5,
+        "eta": 0.1,
+        "bulk_error": 0.1504006357436144,
+        "radii": [
+          0.8495993642563856,
+          0.21480571059779277,
+          0.21444081160536174,
+          0.21431926252643133
+        ],
+        "neck_ratio": 0.25225920774318716,
+        "theta_plus": 0.0006376152997467314,
+        "theta_minus": 0.000637615299746729
+      },
+      {
+        "L": 3.5,
+        "eta": 0.3,
+        "bulk_error": 0.15040082355447892,
+        "radii": [
+          0.8495991764455211,
+          0.21480585475624267,
+          0.21444095601704952,
+          0.21431940702261265
+        ],
+        "neck_ratio": 0.2522594335828614,
+        "theta_plus": 0.0019128420302661371,
+        "theta_minus": 0.0019128420302661371
+      },
+      {
+        "L": 4.5,
+        "eta": 0.0,
+        "bulk_error": 0.05359909685173048,
+        "radii": [
+          0.9464009031482695,
+          0.08568333384027035,
+          0.08552522532527383,
+          0.08547256519482481
+        ],
+        "neck_ratio": 0.09031327517809237,
+        "theta_plus": 2.242931794163157e-18,
+        "theta_minus": -2.242931794163157e-18
+      },
+      {
+        "L": 4.5,
+        "eta": 0.1,
+        "bulk_error": 0.05359909763012838,
+        "radii": [
+          0.9464009023698716,
+          0.08568333464630122,
+          0.08552522613209061,
+          0.08547256600190414
+        ],
+        "neck_ratio": 0.09031327610516143,
+        "theta_plus": 0.0005016553306723932,
+        "theta_minus": 0.0005016553306723932
+      },
+      {
+        "L": 4.5,
+        "eta": 0.3,
+        "bulk_error": 0.05359910385731004,
+        "radii": [
+          0.94640089614269,
+          0.08568334109454664,
+          0.0855252325866233,
+          0.08547257245853665
+        ],
+        "neck_ratio": 0.09031328352171156,
+        "theta_plus": 0.0015049656509600008,
+        "theta_minus": 0.0015049656509599917
+      },
+      {
+        "L": 5.5,
+        "eta": 0.0,
+        "bulk_error": 0.019387472409855278,
+        "radii": [
+          0.9806125275901447,
+          0.03228420553194531,
+          0.03222388381670075,
+          0.03220379325994862
+        ],
+        "neck_ratio": 0.03284048730143132,
+        "theta_plus": -1.454910532730946e-17,
+        "theta_minus": 1.454910532730946e-17
+      },
+      {
+        "L": 5.5,
+        "eta": 0.1,
+        "bulk_error": 0.019387472444069576,
+        "radii": [
+          0.9806125275559304,
+          0.03228420557057538,
+          0.03222388385536259,
+          0.03220379329862104
+        ],
+        "neck_ratio": 0.032840487342014155,
+        "theta_plus": 0.0004671110485207919,
+        "theta_minus": 0.0004671110485208792
+      },
+      {
+        "L": 5.5,
+        "eta": 0.3,
+        "bulk_error": 0.01938747271778407,
+        "radii": [
+          0.9806125272822159,
+          0.03228420587961596,
+          0.032223884164657136,
+          0.03220379360800044
+        ],
+        "neck_ratio": 0.03284048766667687,
+        "theta_plus": 0.0014013331051750124,
+        "theta_minus": 0.001401333105174993
+      }
+    ],
+    "reversal_scalar_difference": 0.0,
+    "reconstruction_knot_error": 5.551115123125783e-17,
+    "reconstruction_relative_change": 2.1687782569441334e-12
+  },
+  "verdicts": {
+    "FOUR_SCALAR_HANDLE_CONSTRAINT_DATA": false,
+    "LOCALIZED_BULK_MOUTH_INITIAL_DATA": false
+  },
+  "unestablished": [
+    "traversability",
+    "crossing_evolution",
+    "momentum_transfer_events",
+    "sector_selection",
+    "discrete_action",
+    "quantum_statistics"
+  ],
+  "original_gates": {
+    "action": true,
+    "momentum": true,
+    "hamiltonian": false,
+    "seam": true,
+    "physical": false,
+    "localization": true,
+    "controls": true,
+    "evidence": true
+  },
+  "refinement_freeze": "dbec68f2b6de8f745c269167a2ac7a41a38f4654"
+}
+```
