@@ -15,6 +15,48 @@ ORIGINAL_HASH='e510ba44aeb7d8d8d25cfc28cfb54a6a402d45ba43d373d5f6b48b6bfdffd227'
 ORIGINAL_GATES={k:k not in ('hamiltonian','physical') for k in p.GATES}
 
 
+def reconstruction_agrees(actual,expected):
+    """Exact metadata/mesh; roundoff-only bounds on the complete polynomials.
+
+    CPU-dispatched NumPy arithmetic can differ in its last bits. Compare
+    interval-scaled coefficients, not raw power coefficients (which contain
+    inverse powers of the tiny interval width). The sum of absolute scaled
+    coefficient differences bounds the error everywhere in that interval.
+    Check psi through its second derivative and the stored velocity through
+    its first derivative, without relying on a finite set of sample points.
+    """
+    if not isinstance(actual,dict) or not isinstance(expected,dict):
+        return False,float('inf')
+    if actual.keys()!=expected.keys():return False,float('inf')
+    if any(actual[k]!=expected[k] for k in expected if k!='solution'):
+        return False,float('inf')
+    a,e=actual['solution'],expected['solution']
+    if not isinstance(a,dict) or not isinstance(e,dict):
+        return False,float('inf')
+    if a.keys()!=e.keys() or any(a[k]!=e[k] for k in e if k!='c'):
+        return False,float('inf')
+    ac,ec=np.asarray(a['c'],dtype=float),np.asarray(e['c'],dtype=float)
+    h=np.diff(np.asarray(e['x'],dtype=float))
+    if (ac.shape!=ec.shape or ec.shape!=(6,len(h),2)
+            or not np.isfinite(ac).all() or not np.isfinite(ec).all()
+            or not np.isfinite(h).all() or not np.all(h>0)):
+        return False,float('inf')
+    # Arithmetic agreement only: far below the unchanged 1e-12 knot and
+    # 1e-7 PDE thresholds. Never use this budget for a scientific gate.
+    roundoff=32*np.finfo(float).eps
+    worst=0.
+    for component,orders in ((0,range(3)),(1,range(2))):
+        for order in orders:
+            powers=np.arange(5,order-1,-1)
+            factors=np.ones(len(powers))
+            for j in range(order):factors*=powers-j
+            weights=factors[:,None]*h[None,:]**(powers[:,None]-order)
+            delta=np.sum(abs((ac[:len(powers),:,component]-ec[:len(powers),:,component])*weights),axis=0)
+            scale=np.maximum(1.,np.sum(abs(ec[:len(powers),:,component]*weights),axis=0))
+            worst=max(worst,float(np.max(delta/(roundoff*scale))))
+    return worst<=1.,worst
+
+
 def read_original(path):
     raw=read_bytes(path);raw=gzip.decompress(raw) if path.suffix=='.gz' else raw
     if hashlib.sha256(raw).hexdigest()!=ORIGINAL_HASH:raise ValueError('original archive hash mismatch')
@@ -40,7 +82,7 @@ def run(original):
 
 def score(data,original):
     result=p.score(data,derivative_order=4)
-    integrity=True;knots=[];changes=[]
+    integrity=True;knots=[];changes=[];roundoff_ratios=[]
     try:
         integrity &= data['refinement_freeze']==FREEZE and data['original_sha256']==ORIGINAL_HASH
         original_bytes=json.dumps(original,sort_keys=True,indent=2,allow_nan=False).encode()+b'\n'
@@ -52,7 +94,9 @@ def score(data,original):
                 continue
             L=before['L'];profiles=original['profiles'][str(L)]
             expected=m.reconstruct(before,profiles)
-            integrity &= after==expected
+            agrees,ratio=reconstruction_agrees(after,expected)
+            integrity &= agrees
+            roundoff_ratios.append(ratio)
             b=m.Data(before,profiles);a=m.Data(after,profiles)
             atknots=a.sol(b.sol.x);old=b.sol(b.sol.x)
             knots.append(p.peak(atknots-old))
@@ -65,6 +109,8 @@ def score(data,original):
     result['gates']['evidence'] &= bool(integrity)
     result['metrics']['reconstruction_knot_error']=max(knots) if knots else None
     result['metrics']['reconstruction_relative_change']=max(changes) if changes else None
+    ratio=max(roundoff_ratios) if roundoff_ratios else float('inf')
+    result['metrics']['reconstruction_roundoff_budget_used']=ratio if np.isfinite(ratio) else None
     result['passed']=sum(result['gates'].values())
     result['original_gates']=dict(ORIGINAL_GATES)
     result['refinement_freeze']=FREEZE

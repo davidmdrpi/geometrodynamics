@@ -120,6 +120,60 @@ def test_quintic_preserves_knots_without_bernstein_cancellation(original):
         assert after['solution']['axis']==1
 
 
+def test_reconstruction_allows_roundoff_without_allowing_metadata_changes(original):
+    before=next(row for row in original['solutions'] if row['n_initial']==513)
+    expected=m.reconstruct(before,original['profiles'][str(before['L'])])
+    actual=copy.deepcopy(expected)
+    value=actual['solution']['c'][-1][0][0]
+    actual['solution']['c'][-1][0][0]=float(np.nextafter(value,np.inf))
+    assert actual!=expected
+    agrees,used=r.reconstruction_agrees(actual,expected)
+    assert agrees and 0<used<1
+    actual['message']='changed provenance'
+    assert not r.reconstruction_agrees(actual,expected)[0]
+
+
+@pytest.mark.parametrize('damage',['mesh','axis','shape','velocity','curvature'])
+def test_reconstruction_rejects_structural_and_derivative_damage(original,damage):
+    before=next(row for row in original['solutions'] if row['n_initial']==513)
+    expected=m.reconstruct(before,original['profiles'][str(before['L'])])
+    actual=copy.deepcopy(expected);sol=actual['solution']
+    if damage=='mesh':sol['x'][1]=float(np.nextafter(sol['x'][1],np.inf))
+    elif damage=='axis':sol['axis']=0
+    elif damage=='shape':sol['c'].pop()
+    elif damage=='velocity':sol['c'][-1][0][1]+=1e-10
+    elif damage=='curvature':
+        # Tiny value perturbation, zero endpoint values/slopes, but curvature
+        # well above arithmetic roundoff throughout the interval: a*t^2(1-t)^2.
+        h=sol['x'][1]-sol['x'][0];amplitude=1e-8*h*h
+        sol['c'][1][0][0]+=amplitude/h**4
+        sol['c'][2][0][0]-=2*amplitude/h**3
+        sol['c'][3][0][0]+=amplitude/h**2
+        for i in range(5):sol['c'][i+1][0][1]=(5-i)*sol['c'][i][0][0]
+        a=m.restore(sol);e=m.restore(expected['solution'])
+        ends=np.array([sol['x'][0],sol['x'][1]])
+        assert np.max(abs(a(ends)-e(ends)))<1e-12
+    assert not r.reconstruction_agrees(actual,expected)[0]
+
+
+def test_archived_refinement_rescores_with_cpu_dispatch_disabled(tmp_path):
+    # NumPy's dispatch groups differ between supported versions. Disable the
+    # groups exposed by this build in a fresh process, before NumPy imports.
+    try:from numpy._core import _multiarray_umath as cpu
+    except ImportError:from numpy.core import _multiarray_umath as cpu
+    mask=','.join(cpu.__cpu_dispatch__)
+    proc=subprocess.run([sys.executable,'-m','experiments.closure_ledger.localized_mouth_refinement_probe',
+        '--original',str(RUN/'probe.json.gz'),'--rescore',str(RUN/'refinement.json.gz'),
+        '--output-dir',str(tmp_path)],capture_output=True,text=True,
+        env={**os.environ,'OPENBLAS_NUM_THREADS':'1','NPY_DISABLE_CPU_FEATURES':mask})
+    assert proc.returncode==1,proc.stderr
+    result=json.loads((tmp_path/'refinement_verdict.json').read_text())
+    assert result['passed']==7,result
+    assert result['gates']['evidence']
+    assert not result['gates']['physical']
+    assert not any(result['verdicts'].values())
+
+
 def test_original_antipodal_bulk_scalar_profile_is_retained(original):
     for L in m.LENGTHS:
         theta=m.restore(original['profiles'][str(L)]['theta'])

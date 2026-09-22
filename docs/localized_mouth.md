@@ -171,10 +171,52 @@ OPENBLAS_NUM_THREADS=1 python -m pytest -q tests/test_localized_mouth.py tests/t
 Both scientific commands intentionally exit **1** for their failed gates.
 The refinement also accepts `--rescore <archive>` to evaluate saved evidence.
 An independent replay of the stable refinement reproduced its raw archive
-byte for byte. The targeted suite passes **66 tests**, including source/frame
+byte for byte. The targeted suite passes **73 tests**, including source/frame
 corruption, missing evidence, polynomial tampering, preservation of both
 failed scientific verdicts, stale-output withdrawal and Python 3.10 grammar.
 Seven additional packaging checks verify exact compressed/decompressed hashes and reject missing, reordered or corrupted evidence parts. Software test success does not change the scientific gate results.
+
+## Reproducibility repair, 2026-09-22
+
+The first GitHub CI run failed two tests because it rescored the refinement
+as 6/8 instead of 7/8. This was a software evidence-validation failure, not
+a newly failed constraint. With NumPy 2.5.3 and SciPy 1.18.1, disabling the
+AVX-512 dispatch groups locally reproduced it: the scientific residuals
+and controls retained their results, but exact
+dictionary equality against freshly reconstructed polynomial coefficients
+failed the evidence gate. The underlying physical gate remained false.
+
+All nine reconstructed coefficient records differed in their last bits.
+Across the 1001 comparison points their scalar values were identical; the
+largest second-derivative difference was 1.67e-16. This explains why matching
+library versions alone did not reproduce the discrepancy: CPU-dispatched
+floating-point operations can take different arithmetic paths.
+
+The repaired validator keeps metadata, mesh and polynomial layout exact.
+It bounds differences over every complete interval, for psi through its
+second derivative and the stored velocity through its first derivative.
+For coefficients c_k and interval width h, the derivative-order-r error is
+bounded by the sum of abs(delta c_k) k!/(k-r)! h^(k-r). That sum bounds the
+error at every point of the interval, including between validation samples.
+The arithmetic budget is 32 float64 eps times the larger of one and the
+corresponding expected coefficient sum. This roundoff budget is distinct
+from, and far below, the unchanged knot and PDE acceptance bounds.
+
+The reproducing AVX-512-disabled case uses 0.789 of that arithmetic budget
+and now scores 7/8. Native dispatch also scores 7/8. Regression tests run
+the scorer in a fresh process with the current NumPy build's optional CPU
+dispatch groups disabled. Further tests retain rejection of changed mesh,
+metadata, array shape, velocity and curvature; the curvature control keeps
+endpoint values/slopes within 1e-12 and is still rejected by the interval
+derivative bound. CI checks these tests on Python 3.10 and 3.12 before the
+full suite.
+
+The solver, all raw evidence, both original reports and both public freeze
+files are unchanged. Original 6/8 and refined 7/8 remain their recorded
+outcomes, and both milestone verdicts remain false. Re-scoring now reports
+the fraction of the arithmetic reconstruction budget used; this diagnostic
+is not a new physical acceptance criterion. The source manifest preserves
+the pre-repair hashes alongside current source hashes.
 
 ## Consequence for the quantum-foundations claim
 

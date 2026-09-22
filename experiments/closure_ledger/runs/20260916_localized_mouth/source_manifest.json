@@ -8,20 +8,35 @@
     "sympy": "1.14.0"
   },
   "validation": {
-    "targeted_tests": 66,
+    "targeted_tests": 73,
     "refinement_replay": "byte-identical raw archive, verdict and report",
     "original_gates": 6,
     "refinement_gates": 7,
     "total_gates": 8,
     "scientific_cli_exit": 1,
-    "packaging": "All three assembled gzip archives byte-identical to local original commit 6cffb77; seven packaging integrity tests pass."
+    "packaging": "All three assembled gzip archives byte-identical to local original commit 6cffb77; seven packaging integrity tests pass.",
+    "portability_repair": {
+      "date": "2026-09-22",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "before_avx512_disabled": {
+        "passed": 6,
+        "additional_failed_gate": "evidence"
+      },
+      "after_native": 7,
+      "after_avx512_disabled": 7,
+      "full_optional_dispatch_disabled_regression": "passed",
+      "physical_gate": "still false",
+      "arithmetic_budget": "32 float64 eps, interval coefficient bounds on psi, psi prime, psi double-prime, stored velocity and velocity prime"
+    }
   },
   "notes": [
     "Original snapshots predate the prospective refinement.",
     "Bernstein attempt is retained; direct scaled Hermite arithmetic repairs cancellation without changing its unique mathematical interpolant.",
     "Current scoring adds integrity checks; original and stable reports remain byte-identical.",
     "All original scientific data and failed verdicts are retained.",
-    "2026-09-20: raw archives split losslessly for publication; probe I/O accepts validated parts. Numerical routines, saved samples, gates and frozen specifications unchanged."
+    "2026-09-20: raw archives split losslessly for publication; probe I/O accepts validated parts. Numerical routines, saved samples, gates and frozen specifications unchanged.",
+    "2026-09-22: exact reconstructed-coefficient equality replaced by interval-wide roundoff bounds; metadata and mesh remain exact. Scientific gates, solver, freeze documents, raw archives and saved reports unchanged. Re-scoring adds an arithmetic-budget diagnostic."
   ],
   "files": {
     "geometrodynamics/waves/localized_mouth.py": {
@@ -33,12 +48,12 @@
       "bytes": 14392
     },
     "experiments/closure_ledger/localized_mouth_refinement_probe.py": {
-      "sha256": "166937dee15036b4f3998c535809f3a1a662aaa5f2f8efb5320abab537f67863",
-      "bytes": 5378
+      "sha256": "95fdf57d6d2df56f93688b278ff2be6136dfca5ff29ec83f2aa908f3164838a7",
+      "bytes": 7866
     },
     "tests/test_localized_mouth.py": {
-      "sha256": "2ac69e43e1384fa1a453014b0192385d1d11ad071bb482459cd87fecc055bf12",
-      "bytes": 7577
+      "sha256": "36f27cfec7d50d3cae5fba0d1984b7155f21119720560f59c87871f1081a23b7",
+      "bytes": 10461
     },
     "docs/localized_mouth_prereg.md": {
       "sha256": "455602f8bfa5162f1b78fbbe355209d0cbe6a2526470040a60d7ef349568be37",
@@ -49,8 +64,8 @@
       "bytes": 4471
     },
     "docs/localized_mouth.md": {
-      "sha256": "43eeffd60069b8a276752221a387cc19e18b7c4ee6ee641149ecbeed12150564",
-      "bytes": 10437
+      "sha256": "33910aa8c5a7f50d0cb5c9962bd3b802e65fdfa515e097cf94d34663d16de306",
+      "bytes": 12948
     },
     "experiments/closure_ledger/runs/20260916_localized_mouth/bernstein_module.py.txt": {
       "sha256": "eb931d00a03a9673ebe4eb5160efcc12fa1466442aaf5897dfdcdcfb6e00c4fb",
@@ -226,6 +241,10 @@
     "experiments/closure_ledger/runs/20260916_localized_mouth/refinement.json.gz.part009": {
       "sha256": "9dfa683ed8ad8ccb3055f9a0ec33559924dd36137021fea36bb91d353f8a1294",
       "bytes": 69247
+    },
+    ".github/workflows/ci.yml": {
+      "sha256": "c67f3cf1245f0a3b77777a9f1e6f1a222a13f0b52499f458bb523ad803c6d574",
+      "bytes": 755
     }
   },
   "pre_packaging_source_sha256": {
@@ -234,5 +253,11 @@
     "experiments/closure_ledger/localized_mouth_refinement_probe.py": "06ca71d56fc55d6d4da8972c57808051a05a1590695f83bcc421346a7963ce77",
     "tests/test_localized_mouth.py": "ee5519dc7c4197dd8e6d173f30a3a7c632308e54a0e8e1ba46dc2d2ec02faaa4",
     "docs/localized_mouth.md": "7e28120bd2a653c0af28cc00076a426bc0a1aa60a3419c8579dae2ff6ccd7cfc"
+  },
+  "pre_portability_source_sha256": {
+    ".github/workflows/ci.yml": "f427e9eb94fa52ac2ee05d5e04f231d1c40a9454d8630bd42ac8fd5759b3a5ea",
+    "docs/localized_mouth.md": "43eeffd60069b8a276752221a387cc19e18b7c4ee6ee641149ecbeed12150564",
+    "experiments/closure_ledger/localized_mouth_refinement_probe.py": "166937dee15036b4f3998c535809f3a1a662aaa5f2f8efb5320abab537f67863",
+    "tests/test_localized_mouth.py": "2ac69e43e1384fa1a453014b0192385d1d11ad071bb482459cd87fecc055bf12"
   }
 }
