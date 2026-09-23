@@ -22,6 +22,6 @@ jobs:
       - name: Check localized evidence portability
         # Check archived numerical evidence on each runner before the longer
         # full suite. Includes a fresh-process CPU-dispatch portability test.
-        run: pytest -q tests/test_localized_mouth.py tests/test_mouth_momentum.py
+        run: pytest -q tests/test_localized_mouth.py tests/test_mouth_momentum.py tests/test_localized_mouth_error_budget.py
       - name: Run full test suite
         run: pytest -q

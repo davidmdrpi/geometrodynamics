@@ -1,11 +1,12 @@
-# Localized four-scalar handle: results and remaining failure
+# Localized four-scalar handle: registered initial-data results
 
-The localized initial-data experiment is implemented, but its full registered
-certification is **not passed**. The original experiment passes **6/8** gates.
-The prospectively registered derivative reconstruction passes **7/8**. Its
-independent physical Hamiltonian convergence-rate gate remains failed. Both
-`FOUR_SCALAR_HANDLE_CONSTRAINT_DATA` and `LOCALIZED_BULK_MOUTH_INITIAL_DATA`
-remain false. Small absolute errors do not override the frozen rate criterion.
+The prospective independent physical error-budget extension passes **8/8**
+registered gates. Both `FOUR_SCALAR_HANDLE_CONSTRAINT_DATA` and
+`LOCALIZED_BULK_MOUTH_INITIAL_DATA` are true under that extension. The original
+experiment remains **6/8** and derivative reconstruction remains **7/8**;
+their historical verdicts and failed convergence tests are unchanged.
+See [the independent error-budget report](localized_mouth_error_budget.md)
+for the separate specification, signed measurements and replay commands.
 
 This extends the compact vacuum handle benchmark in #304 by retaining the
 repository's existing four conformal scalars and their round-S3 bulk profile,
@@ -30,7 +31,12 @@ Hamiltonian BVP. It does not derive those four fields from vacuum GR.
   arithmetic fixes this implementation defect while preserving the unique
   registered interpolant, original knots, schedule and acceptance bounds.
 - The stable implementation gives 7/8. The frozen extension says to stop if
-  it fails; no extra resolution or revised threshold was tried afterward.
+  it fails; that experiment stopped with its failed verdict intact.
+- A separate coordinate error-budget test was then publicly frozen in #307
+  at `f9025668b2d6ad4bd94a2f704aa699e8849831a7` before its measurements.
+  It directly differentiates the saved metric at high precision, separates
+  finite-difference error from the nonzero solution residual, and passes 8/8.
+  It uses the same saved data and unchanged absolute physical tolerance.
 
 Artifacts are in
 [`experiments/closure_ledger/runs/20260916_localized_mouth/`](../experiments/closure_ledger/runs/20260916_localized_mouth/).
@@ -110,8 +116,9 @@ test. The ODE fixes its endpoint accelerations, so residuals at those knots
 vanish by construction, up to arithmetic error. Away from knots the check
 is substantive, but the unchanged numeric bound does not give it the same
 evidential independence. The original 6/8 failure is retained, and the
-independent coordinate-curvature gate remains mandatory and failed. No
-threshold has been tightened retrospectively to answer the review.
+independent coordinate-curvature gate remains mandatory. Its historical
+total-residual rate test failed; the separately preregistered physical
+error-budget test now passes. No historical threshold or result is changed.
 
 ## Registered outcomes
 
@@ -213,7 +220,7 @@ full suite.
 
 The solver, all raw evidence, both original reports and both public freeze
 files are unchanged. Original 6/8 and refined 7/8 remain their recorded
-outcomes, and both milestone verdicts remain false. Re-scoring now reports
+outcomes, and both historical milestone verdicts remain false. Re-scoring now reports
 the fraction of the arithmetic reconstruction budget used; this diagnostic
 is not a new physical acceptance criterion. The source manifest preserves
 the pre-repair hashes alongside current source hashes.
@@ -222,14 +229,13 @@ the pre-repair hashes alongside current source hashes.
 
 There is now a concrete numerical momentum solve with nonzero quartet
 current on a slice carrying a localized antipodal handle, accompanied by
-independent physical momentum checks. Full localized initial-data
-certification remains unresolved because of the Hamiltonian rate failure.
+independent physical momentum checks. The separate error-budget extension
+now completes the registered localized initial-data checks with 8/8 gates.
 An evolved throat/worldline crossing, reciprocal momentum-transfer event,
 traversability, selection of the sign sector, discrete action and quantum
 statistics remain unestablished. There is no event detector or threshold
 that could manufacture measurement discreteness in this experiment.
 
-The immediate numerical follow-up would require a new prospective
-specification that separates solver/interpolation error from coordinate
-truncation in the physical curvature test. It must not retroactively change
-these verdicts. Crossing dynamics remains a subsequent, distinct milestone.
+The new prospective specification separates the saved solution's physical
+residual from coordinate differentiation error without changing historical
+verdicts. Crossing dynamics remains a subsequent, distinct milestone.
