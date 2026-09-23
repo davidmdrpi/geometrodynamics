@@ -75,6 +75,30 @@ also contains finite-precision effects; it was not a clean measurement of
 one constant floor. Larger stencils can cross polynomial knots. No unique
 floor was inferred from ratios of maxima at changing points.
 
+The independent review of #307 confirmed the result and corrected its
+earlier knot table: the step rule uses all three meshes, not just psi.
+The distances below follow directly from the archived h0 values (d=8h0):
+
+| s | Nearest knot across psi, theta and tensor | h0 | Original reach 2h=.004 crosses a knot? |
+|---|---:|---:|---|
+| .385 | 7.16146e-5 | 8.95182e-6 | yes |
+| 1.265 | 1.07422e-4 | 1.34277e-5 | yes |
+| 2.805 | 5.37109e-5 | 6.71387e-6 | yes |
+| 4.345 | 2.14844e-4 | 2.68555e-5 | yes |
+| 5.115 | 3.75977e-4 | 4.69971e-5 | yes |
+
+All five radial locations therefore cross a polynomial boundary in the
+original finest stencil. That invalidates an unqualified smooth-piece
+fourth-order truncation argument; it does not by itself measure the size
+of that contribution. The measured nonzero solution residual and finite-
+precision differences are separate effects. Every new H and M ratio is
+active at every point: none passes through the 1e-40 exception.
+
+For subsequent evolution the review correctly requires independent scalar
+amplitudes: fixed initial norm is not preserved by the field equations.
+The matched round background breathes, and its homogeneous gravitational
+mode is unstable. These must remain explicit controls in an evolution test.
+
 The registered solution residual and differentiation error are now measured
 separately. Subtracting the reference cannot hide an inaccurate solution:
 absolute constraints must pass independently, and a regression test rejects
