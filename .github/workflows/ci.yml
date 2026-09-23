@@ -13,6 +13,12 @@ jobs:
         python-version: ["3.10", "3.12"]
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Source audits read their pinned baseline out of git history
+          # (`git show <baseline>:<path>`, `git grep <baseline>`). The default
+          # shallow clone does not contain that commit, so those checks fail
+          # with exit 128 on the runner while passing locally.
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
