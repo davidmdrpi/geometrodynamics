@@ -3,8 +3,13 @@
 The registered short-time evolution passes its validation and gives two
 affirmative results: `EVOLVED_TEST_WORLDLINE_CROSSING` and
 `COVARIANT_MATTER_MOMENTUM_BALANCE`. `FINITE_CROSSING_IMPULSE` and
-`DISCRETE_RECIPROCAL_MOMENTUM_EXCHANGE` are false. Crossing a smooth evolved
-neck did not produce a finite momentum jump in these preparations.
+`DISCRETE_RECIPROCAL_MOMENTUM_EXCHANGE` retain their historical Boolean
+value false. The impulse is a measured negative; reciprocal exchange is
+**NOT_TESTED**, because this experiment has no independent gravitating
+receiver. Crossing a smooth evolved neck did not produce a finite momentum
+jump in these preparations. The [subsequent saved-field audit](handle_surface_audit.md)
+finds future-trapped neck spheres at t=.01 in both metric frames and
+distinguishes cut-face flux cancellation from two-object recoil.
 
 The full specification was public in
 [PR #308](https://github.com/davidmdrpi/geometrodynamics/pull/308) at
@@ -25,9 +30,11 @@ Metric compatibility of the full four-dimensional target-space Christoffel
 connection and equivariant angular closure were checked symbolically.
 The evolution agrees with exact round Jordan-universe breathing data to
 9.55e-14, and spatial Ricci/divergence agree with an independent coordinate
-engine to 8.89e-16. The initial Einstein-time norm acceleration is
--3.958973274443148, confirming the review's warning that fixed-norm
-evolution would discard an active equation.
+engine to 8.89e-16. The analytic initial Einstein-time norm-acceleration
+prediction is
+-3.958973274443148; it is not a separate numerical measurement. The
+round-breathing right-hand-side check above validates the active norm
+equation that fixed-norm evolution would discard.
 
 Both archived eta=0 and eta=.3 data were evolved with N=512,1024,2048 and
 200,400,800 RK4 steps, respectively, over Einstein proper time [0,.01].
@@ -50,6 +57,9 @@ registered Ricci-component normalization, which differs from #307's
 physical initial-data normalization; the smaller normalized numbers are
 not a claim that the archived initial solution became more accurate.
 The radius-ratio differences are already below the 1e-8 convergence trigger.
+The registered field comparison covers A, B, u, v; it does not impose the
+same bound on k, l, P, Q. In particular it must not be quoted as convergence
+of all eight state components.
 
 ## Background and neck are distinct on this interval
 
@@ -93,6 +103,10 @@ For eta=.3, the signed local-frame momentum changes in symmetric windows are:
 
 Successive absolute ratios are approximately **2**, not the registered
 finite-impulse window [.8,1.2]. The changes tend to zero with window width.
+At the symmetric seam,
+A_s=f_s=0 and dp_s/dt=0. The leading local-frame change is
+`d p_hat/dt = p_hat (k + f_t/(2f))`: gravitational redshift due to the
+changing radial frame, not an independently measured recoil receiver.
 The signed covariant radial momentum changes shrink approximately **eightfold**
 per halving, consistent with a cubic window dependence at a reflection-symmetric
 neck where the instantaneous radial force vanishes. Neither momentum
