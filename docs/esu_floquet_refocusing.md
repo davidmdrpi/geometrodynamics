@@ -7,19 +7,23 @@ exact as n grows: `1-F_n ~ n^-1.952`. The support's own mass term
 reduces the phase error of the bare ESU by a factor of about 5.5. The frozen
 WKB prediction holds to 3.5e-5.
 
-**Uncertified (vector and scalar sectors).** Both are **UNRESOLVED** under
-the frozen integrator gate G3. Section 3 explains why; the failure is
-numerical bookkeeping, not disagreement between integrators. Their computed
-maps show:
-- vector: elliptic, with asymptotic refocusing matching its WKB prediction
-  to 0.23%;
-- scalar: a **parametrically unstable n=2 mode**, with multiplier 1.2475 per
-  transit and period doubling against the breathing background. It lies in
-  the RP3-compatible sector. The scalar refocusing fidelity saturates near
-  .994 instead of approaching 1.
+**Scalar sector, certified by the prospective G3 extension.** The frozen G3
+left V and S UNRESOLVED; that record stands. A dated addendum
+([`9a8ef99`](esu_floquet_g3_extension_prereg.md)) was published before it
+was run, and under it S passes. The scalar sector has a **parametrically
+unstable n=2 mode**:
+- multiplier 1.2475 per transit, with period doubling against the breathing
+  background;
+- it lies in the RP3-compatible sector;
+- degrees 3..80 are elliptic;
+- the scalar refocusing fidelity saturates near .994 instead of approaching
+  1.
 
-These scalar and vector statements are not verdicts until the prospective
-extension of G3 passes.
+**Vector sector: still UNRESOLVED.** It fails the extension's trace-ratio
+test as well. A diagnostic, not a verdict, shows that its matrices converge
+at exactly fourth order. The trace is first-order insensitive to phase error
+for maps near ±I, so its errors cancel (section 3). The uncertified vector
+maps are elliptic, with asymptotic refocusing matching WKB to 0.23%.
 
 The freeze [`4e65c3e`](esu_floquet_refocusing_prereg.md) was published in
 [#310](https://github.com/davidmdrpi/geometrodynamics/pull/310) before
@@ -36,6 +40,10 @@ after the freeze; each was fixed before any result was viewed.
 | T_WKB_PREDICTION | **PASS** (measured (n+1)θ_n = 0.283349, predicted 0.283339) |
 | V_STABILITY, V_REFOCUSING, V_WKB_PREDICTION | UNRESOLVED (G3) |
 | S_STABILITY, S_REFOCUSING | UNRESOLVED (G3) |
+| *Extension (9a8ef99):* S_STABILITY_EXT | **HYPERBOLIC_AT[2]** (also in the odd subset) |
+| *Extension:* S_REFOCUSING_EXT | ASYMPTOTIC under the frozen classifier; the data show saturation (section 6) |
+| *Extension:* T_STABILITY_EXT, T_REFOCUSING_EXT | ELLIPTIC_2_TO_80, ASYMPTOTIC (confirms the frozen verdicts) |
+| *Extension:* V | UNRESOLVED (trace-ratio test fails; section 3) |
 
 For the odd (RP3-compatible) subsets, T (n even) is also ELLIPTIC and
 ASYMPTOTIC, with p = 1.952 ± 0.002. V and S are UNRESOLVED.
@@ -92,9 +100,28 @@ coarser difference exceeded 1e-11. The same failure pattern occurred in
 #307.
 
 The frozen rule makes these sectors UNRESOLVED, and they are reported as
-such. A dated, prospective extension with truncation-dominated RK4 step
-counts is published separately before it is run. It cannot change the
-maps; it can only certify their accuracy.
+such.
+
+**Extension outcome.** The prospective extension
+([`9a8ef99`](esu_floquet_g3_extension_prereg.md)) ran RK4 at 2^10, 2^11 and
+2^12 steps against the unchanged archived maps
+(`g3_extension.json`):
+
+| sector | evaluated trace ratios | range | result |
+|---|---|---|---|
+| T | 76 | 18.3–31.8 | pass |
+| S | 79 | 16.0–30.7 | pass |
+| V | 79 | 0.84–15808 | fail (61 degrees outside [8,32]) |
+
+Per the addendum, V stays UNRESOLVED and no further search follows.
+
+As a diagnostic only, the V **matrix-norm** errors at the same step counts
+converge at 16.0 and 16.0 for n = 18, 22, 27, 40, and at 15.7–16.0 for
+n = 60, 80. The signed trace errors change sign between resolutions. The
+refocusing maps are close to ±I, and the trace of a near-rotation is
+stationary in its phase, so trace errors cancel at first order. The vector
+maps therefore appear accurate. The registered criterion cannot show it,
+and a matrix-norm criterion would need its own prospective registration.
 
 ## 4. Tensor sector (certified)
 
@@ -131,7 +158,7 @@ n⁻². In the RP3 quotient this is a return to the launch point.
 
 Low-degree vector perturbations of the quartet refocus poorly.
 
-## 6. Scalar sector (maps computed, not certified)
+## 6. Scalar sector (certified by the G3 extension)
 
 **n=2 is hyperbolic.** Over one transit π, the multipliers are 1.2475444,
 0.8015747 and a unit-circle pair 0.4150 ± 0.9098i, with det = 1. The
@@ -162,10 +189,10 @@ the pump frequency 4.
   0.105, matches the freeze's non-binding heuristic π(<f^−1/2> − 1) = 0.1057.
 
 The frozen ASYMPTOTIC rule needs a positive fitted exponent and F ≥ .99 for
-n = 40–80. A slow residual drift satisfies it: p = 0.157 ± 0.007. If S is
-later resolved, its frozen label would be ASYMPTOTIC, but the data describe
-saturation below 1, i.e. a plateau. This weakness of the frozen classifier
-is recorded here; the label is not changed.
+n = 40–80. A slow residual drift satisfies it: p = 0.157 ± 0.007. Under the
+extension, the frozen label is therefore ASYMPTOTIC. The data, however,
+describe saturation below 1, i.e. a plateau. This weakness of the frozen
+classifier is recorded here; the label is not changed.
 
 ## 7. Operational choices made after the freeze (before any result was viewed)
 
@@ -191,7 +218,8 @@ is recorded here; the label is not changed.
 - **The background is not a stable stage.**
   - The homogeneous Eddington mode multiplies perturbations by 85 per
     transit.
-  - The uncertified scalar n=2 mode adds 1.25 per transit.
+  - The scalar n=2 quadrupole, certified by the extension, grows by 1.25 per
+    transit.
   - Any experiment lasting a transit time has to account for both.
 - **Not addressed:**
   - nonlinear evolution;
@@ -209,6 +237,7 @@ python -m experiments.closure_ledger.esu_floquet_probe \
 python -m experiments.closure_ledger.esu_floquet_probe \
   --output /dev/null --replay experiments/closure_ledger/runs/20260926_esu_floquet/esu_floquet.json
 python -m experiments.closure_ledger.esu_floquet_symbolic /tmp/g1.json   # G1, ~40 min
+python -m experiments.closure_ledger.esu_floquet_g3_extension --output /tmp/g3_extension.json
 pytest -q tests/test_esu_floquet.py
 ```
 

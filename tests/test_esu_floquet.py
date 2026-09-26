@@ -79,3 +79,22 @@ def test_failed_run_withdraws_verdicts(tmp_path, monkeypatch):
         probe.main()
     data = json.loads(out.read_text())
     assert set(data['verdicts'].values()) == {'UNRESOLVED'}
+
+
+EXT = ARCHIVE.parent/'g3_extension.json'
+
+
+@pytest.mark.skipif(not EXT.exists(), reason='extension not generated')
+def test_extension_verdicts_follow_from_archived_maps():
+    data = json.loads(ARCHIVE.read_text())
+    ext = json.loads(EXT.read_text())
+    assert ext['addendum'] == '9a8ef99'
+    import hashlib
+    assert ext['archive_sha256'] == hashlib.sha256(ARCHIVE.read_bytes()).hexdigest()
+    s_rows = data['sectors']['S']['rows']
+    assert [r['n'] for r in s_rows if r['stability'] == 'HYPERBOLIC'] == [2]
+    assert ext['verdicts_ext']['S_STABILITY_EXT'] == 'HYPERBOLIC_AT[2]'
+    assert ext['verdicts_ext']['V_EXT'] == 'UNRESOLVED'
+    for X in ('T', 'S'):
+        for row in ext['sectors'][X]['rows']:
+            assert all(8 <= q <= 32 for q in row['ratios'])
