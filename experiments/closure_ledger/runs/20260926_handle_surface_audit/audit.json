@@ -1,0 +1,767 @@
+{
+  "source_commit": "7a9aba6e8ac2c4520075c77f1a14662864f94da3",
+  "evolution_raw_sha256": "8a858b6d7ecce0de3047f92a8baa77fd9c262ec9475d6886d539eac26cadf815",
+  "initial_raw_sha256": "b9fd7d2e652ccdae2012c636c7fc249fc8b5cca05cb872df5b32576f591cb3ae",
+  "audit_source_sha256": {
+    "geometrodynamics/waves/handle_surfaces.py": "bc22c89cc08e223e8408ea2aa90809ea095699568e1af016977ecf9fd664df41",
+    "experiments/closure_ledger/handle_surface_audit.py": "b5a9bafe7c2e9ffe7c699bbe6b22ba5a6a479915328d0128a61866c440c2a54e"
+  },
+  "method": "post-hoc initial/final snapshot audit; no evolution rerun",
+  "times": [
+    0.0,
+    0.01
+  ],
+  "sign_tolerance": 1e-08,
+  "rows": [
+    {
+      "eta": 0.0,
+      "N": 512,
+      "initial": {
+        "frames": {
+          "Einstein": {
+            "seam_expansions": [
+              -5.931904625440257e-14,
+              5.931904625440257e-14
+            ],
+            "central_bulk_expansions": [
+              -1.0236071901947463e-15,
+              1.0236071901947463e-15
+            ],
+            "seam_radius": 0.030123890233306905,
+            "central_bulk_radius": 0.9172790268551826,
+            "seam_future_trapped": false,
+            "seam_past_trapped": false,
+            "seam_near_marginal": true,
+            "seam_negative_margin": -5.931904625440257e-14,
+            "grid_sphere_counts": {
+              "future_trapped": 0,
+              "past_trapped": 0,
+              "untrapped": 510,
+              "near_marginal": 2
+            },
+            "area_route_max_difference": 2.236411014155948e-07
+          },
+          "Jordan": {
+            "seam_expansions": [
+              -4.2252553202314635e-14,
+              4.2252553202314635e-14
+            ],
+            "central_bulk_expansions": [
+              -3.7797457053357933e-16,
+              3.7797457053357933e-16
+            ],
+            "seam_radius": 0.03220379325994862,
+            "central_bulk_radius": 0.9806125275901447,
+            "seam_future_trapped": false,
+            "seam_past_trapped": false,
+            "seam_near_marginal": true,
+            "seam_negative_margin": -4.2252553202314635e-14,
+            "grid_sphere_counts": {
+              "future_trapped": 0,
+              "past_trapped": 0,
+              "untrapped": 510,
+              "near_marginal": 2
+            },
+            "area_route_max_difference": 2.4058365255541503e-07
+          }
+        },
+        "cut_faces": {
+          "positive_normal": 0.0,
+          "negative_normal": -0.0,
+          "sum": 0.0,
+          "independent_surfaces": false
+        }
+      },
+      "final": {
+        "frames": {
+          "Einstein": {
+            "seam_expansions": [
+              -11.526001889145368,
+              -11.526001889147159
+            ],
+            "central_bulk_expansions": [
+              0.012794769536079066,
+              0.01279476953608316
+            ],
+            "seam_radius": 0.029287897340757953,
+            "central_bulk_radius": 0.9173083747653344,
+            "seam_future_trapped": true,
+            "seam_past_trapped": false,
+            "seam_near_marginal": false,
+            "seam_negative_margin": 11.526001889145368,
+            "grid_sphere_counts": {
+              "future_trapped": 31,
+              "past_trapped": 1,
+              "untrapped": 480,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 2.2363388585411315e-07
+          },
+          "Jordan": {
+            "seam_expansions": [
+              -10.786309311318341,
+              -10.786309311319556
+            ],
+            "central_bulk_expansions": [
+              -0.0006098397527296183,
+              -0.00060983975272463
+            ],
+            "seam_radius": 0.031309685557729894,
+            "central_bulk_radius": 0.9806109293417227,
+            "seam_future_trapped": true,
+            "seam_past_trapped": false,
+            "seam_near_marginal": false,
+            "seam_negative_margin": 10.786309311318341,
+            "grid_sphere_counts": {
+              "future_trapped": 32,
+              "past_trapped": 0,
+              "untrapped": 480,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 2.810049792856262e-07
+          }
+        },
+        "cut_faces": {
+          "positive_normal": -0.003953669100102905,
+          "negative_normal": 0.003953669100102905,
+          "sum": 0.0,
+          "independent_surfaces": false
+        }
+      }
+    },
+    {
+      "eta": 0.0,
+      "N": 1024,
+      "initial": {
+        "frames": {
+          "Einstein": {
+            "seam_expansions": [
+              2.372761850176103e-13,
+              -2.372761850176103e-13
+            ],
+            "central_bulk_expansions": [
+              -6.1416431411684785e-15,
+              6.1416431411684785e-15
+            ],
+            "seam_radius": 0.030123890233306905,
+            "central_bulk_radius": 0.9172790268551826,
+            "seam_future_trapped": false,
+            "seam_past_trapped": false,
+            "seam_near_marginal": true,
+            "seam_negative_margin": -2.372761850176103e-13,
+            "grid_sphere_counts": {
+              "future_trapped": 0,
+              "past_trapped": 0,
+              "untrapped": 1022,
+              "near_marginal": 2
+            },
+            "area_route_max_difference": 1.4000457126961408e-08
+          },
+          "Jordan": {
+            "seam_expansions": [
+              2.484222149866264e-13,
+              -2.484222149866264e-13
+            ],
+            "central_bulk_expansions": [
+              -4.875697685690848e-15,
+              4.875697685690848e-15
+            ],
+            "seam_radius": 0.03220379325994862,
+            "central_bulk_radius": 0.9806125275901447,
+            "seam_future_trapped": false,
+            "seam_past_trapped": false,
+            "seam_near_marginal": true,
+            "seam_negative_margin": -2.484222149866264e-13,
+            "grid_sphere_counts": {
+              "future_trapped": 0,
+              "past_trapped": 0,
+              "untrapped": 1022,
+              "near_marginal": 2
+            },
+            "area_route_max_difference": 1.5477741754921226e-08
+          }
+        },
+        "cut_faces": {
+          "positive_normal": 0.0,
+          "negative_normal": -0.0,
+          "sum": 0.0,
+          "independent_surfaces": false
+        }
+      },
+      "final": {
+        "frames": {
+          "Einstein": {
+            "seam_expansions": [
+              -11.52600185311936,
+              -11.526001853115897
+            ],
+            "central_bulk_expansions": [
+              0.012794766533515215,
+              0.012794766533515215
+            ],
+            "seam_radius": 0.029287897342944604,
+            "central_bulk_radius": 0.9173083747584462,
+            "seam_future_trapped": true,
+            "seam_past_trapped": false,
+            "seam_near_marginal": false,
+            "seam_negative_margin": 11.526001853115897,
+            "grid_sphere_counts": {
+              "future_trapped": 61,
+              "past_trapped": 1,
+              "untrapped": 962,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 1.4000045012174667e-08
+          },
+          "Jordan": {
+            "seam_expansions": [
+              -10.786309277616262,
+              -10.78630927761334
+            ],
+            "central_bulk_expansions": [
+              -0.0006098429906684009,
+              -0.0006098429906672422
+            ],
+            "seam_radius": 0.03130968556006758,
+            "central_bulk_radius": 0.9806109293332337,
+            "seam_future_trapped": true,
+            "seam_past_trapped": false,
+            "seam_near_marginal": false,
+            "seam_negative_margin": 10.78630927761334,
+            "grid_sphere_counts": {
+              "future_trapped": 62,
+              "past_trapped": 0,
+              "untrapped": 962,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 1.7503811733377006e-08
+          }
+        },
+        "cut_faces": {
+          "positive_normal": -0.003953669088875007,
+          "negative_normal": 0.003953669088875007,
+          "sum": 0.0,
+          "independent_surfaces": false
+        }
+      }
+    },
+    {
+      "eta": 0.0,
+      "N": 2048,
+      "initial": {
+        "frames": {
+          "Einstein": {
+            "seam_expansions": [
+              -1.1863809250880514e-13,
+              1.1863809250880514e-13
+            ],
+            "central_bulk_expansions": [
+              -1.2283286282336957e-14,
+              1.2283286282336957e-14
+            ],
+            "seam_radius": 0.030123890233306905,
+            "central_bulk_radius": 0.9172790268551826,
+            "seam_future_trapped": false,
+            "seam_past_trapped": false,
+            "seam_near_marginal": true,
+            "seam_negative_margin": -1.1863809250880514e-13,
+            "grid_sphere_counts": {
+              "future_trapped": 0,
+              "past_trapped": 0,
+              "untrapped": 2046,
+              "near_marginal": 2
+            },
+            "area_route_max_difference": 8.754309499536816e-10
+          },
+          "Jordan": {
+            "seam_expansions": [
+              -5.803443901217329e-14,
+              5.803443901217329e-14
+            ],
+            "central_bulk_expansions": [
+              -1.091043993248808e-14,
+              1.091043993248808e-14
+            ],
+            "seam_radius": 0.03220379325994862,
+            "central_bulk_radius": 0.9806125275901447,
+            "seam_future_trapped": false,
+            "seam_past_trapped": false,
+            "seam_near_marginal": true,
+            "seam_negative_margin": -5.803443901217329e-14,
+            "grid_sphere_counts": {
+              "future_trapped": 0,
+              "past_trapped": 0,
+              "untrapped": 2046,
+              "near_marginal": 2
+            },
+            "area_route_max_difference": 9.811920165248011e-10
+          }
+        },
+        "cut_faces": {
+          "positive_normal": 0.0,
+          "negative_normal": -0.0,
+          "sum": 0.0,
+          "independent_surfaces": false
+        }
+      },
+      "final": {
+        "frames": {
+          "Einstein": {
+            "seam_expansions": [
+              -11.526001850858801,
+              -11.526001850874511
+            ],
+            "central_bulk_expansions": [
+              0.01279476634549304,
+              0.012794766345476664
+            ],
+            "seam_radius": 0.02928789734308126,
+            "central_bulk_radius": 0.9173083747580159,
+            "seam_future_trapped": true,
+            "seam_past_trapped": false,
+            "seam_near_marginal": false,
+            "seam_negative_margin": 11.526001850858801,
+            "grid_sphere_counts": {
+              "future_trapped": 121,
+              "past_trapped": 3,
+              "untrapped": 1924,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 8.75379435605339e-10
+          },
+          "Jordan": {
+            "seam_expansions": [
+              -10.786309275503442,
+              -10.78630927551747
+            ],
+            "central_bulk_expansions": [
+              -0.0006098431934015294,
+              -0.0006098431934156896
+            ],
+            "seam_radius": 0.03130968556021368,
+            "central_bulk_radius": 0.9806109293327031,
+            "seam_future_trapped": true,
+            "seam_past_trapped": false,
+            "seam_near_marginal": false,
+            "seam_negative_margin": 10.786309275503442,
+            "grid_sphere_counts": {
+              "future_trapped": 122,
+              "past_trapped": 0,
+              "untrapped": 1926,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 1.1214069672860205e-09
+          }
+        },
+        "cut_faces": {
+          "positive_normal": -0.003953669088173545,
+          "negative_normal": 0.003953669088173545,
+          "sum": 0.0,
+          "independent_surfaces": false
+        }
+      }
+    },
+    {
+      "eta": 0.3,
+      "N": 512,
+      "initial": {
+        "frames": {
+          "Einstein": {
+            "seam_expansions": [
+              0.0014980881039992826,
+              0.0014980881041772396
+            ],
+            "central_bulk_expansions": [
+              1.3746583175923292e-07,
+              1.3746583175923292e-07
+            ],
+            "seam_radius": 0.03012389055887957,
+            "central_bulk_radius": 0.9172790265671416,
+            "seam_future_trapped": false,
+            "seam_past_trapped": true,
+            "seam_near_marginal": false,
+            "seam_negative_margin": -0.0014980881041772396,
+            "grid_sphere_counts": {
+              "future_trapped": 0,
+              "past_trapped": 2,
+              "untrapped": 510,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 2.2364110108252788e-07
+          },
+          "Jordan": {
+            "seam_expansions": [
+              0.0014013331051050063,
+              0.0014013331052449992
+            ],
+            "central_bulk_expansions": [
+              1.285875117872617e-07,
+              1.2858751062821714e-07
+            ],
+            "seam_radius": 0.03220379360800044,
+            "central_bulk_radius": 0.9806125272822159,
+            "seam_future_trapped": false,
+            "seam_past_trapped": true,
+            "seam_near_marginal": false,
+            "seam_negative_margin": -0.0014013331052449992,
+            "grid_sphere_counts": {
+              "future_trapped": 0,
+              "past_trapped": 2,
+              "untrapped": 510,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 2.4058406467020177e-07
+          }
+        },
+        "cut_faces": {
+          "positive_normal": 5.146125850149671e-07,
+          "negative_normal": -5.146125850149671e-07,
+          "sum": 0.0,
+          "independent_surfaces": false
+        }
+      },
+      "final": {
+        "frames": {
+          "Einstein": {
+            "seam_expansions": [
+              -11.524300066298693,
+              -11.524300066295979
+            ],
+            "central_bulk_expansions": [
+              0.01279490697552856,
+              0.01279490697552856
+            ],
+            "seam_radius": 0.029288126639753633,
+            "central_bulk_radius": 0.9173083751077336,
+            "seam_future_trapped": true,
+            "seam_past_trapped": false,
+            "seam_near_marginal": false,
+            "seam_negative_margin": 11.524300066295979,
+            "grid_sphere_counts": {
+              "future_trapped": 31,
+              "past_trapped": 1,
+              "untrapped": 480,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 2.2363387164325843e-07
+          },
+          "Jordan": {
+            "seam_expansions": [
+              -10.784706090419375,
+              -10.784706090416577
+            ],
+            "central_bulk_expansions": [
+              -0.0006097111934781981,
+              -0.0006097111934773291
+            ],
+            "seam_radius": 0.0313099313334077,
+            "central_bulk_radius": 0.9806109297077312,
+            "seam_future_trapped": true,
+            "seam_past_trapped": false,
+            "seam_near_marginal": false,
+            "seam_negative_margin": 10.784706090416577,
+            "grid_sphere_counts": {
+              "future_trapped": 32,
+              "past_trapped": 0,
+              "untrapped": 480,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 2.8076481939365294e-07
+          }
+        },
+        "cut_faces": {
+          "positive_normal": -0.003953088515805595,
+          "negative_normal": 0.003953088515805595,
+          "sum": 0.0,
+          "independent_surfaces": false
+        }
+      }
+    },
+    {
+      "eta": 0.3,
+      "N": 1024,
+      "initial": {
+        "frames": {
+          "Einstein": {
+            "seam_expansions": [
+              0.0014980881042662181,
+              0.001498088103910304
+            ],
+            "central_bulk_expansions": [
+              1.3746583585366167e-07,
+              1.3746582766480416e-07
+            ],
+            "seam_radius": 0.03012389055887957,
+            "central_bulk_radius": 0.9172790265671416,
+            "seam_future_trapped": false,
+            "seam_past_trapped": true,
+            "seam_near_marginal": false,
+            "seam_negative_margin": -0.0014980881042662181,
+            "grid_sphere_counts": {
+              "future_trapped": 0,
+              "past_trapped": 2,
+              "untrapped": 1022,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 1.4000470227593098e-08
+          },
+          "Jordan": {
+            "seam_expansions": [
+              0.001401333105367937,
+              0.0014013331049820687
+            ],
+            "central_bulk_expansions": [
+              1.2858751590701024e-07,
+              1.285875065084686e-07
+            ],
+            "seam_radius": 0.03220379360800044,
+            "central_bulk_radius": 0.9806125272822159,
+            "seam_future_trapped": false,
+            "seam_past_trapped": true,
+            "seam_near_marginal": false,
+            "seam_negative_margin": -0.001401333105367937,
+            "grid_sphere_counts": {
+              "future_trapped": 0,
+              "past_trapped": 2,
+              "untrapped": 1022,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 1.5477532144814177e-08
+          }
+        },
+        "cut_faces": {
+          "positive_normal": 5.146125850149671e-07,
+          "negative_normal": -5.146125850149671e-07,
+          "sum": 0.0,
+          "independent_surfaces": false
+        }
+      },
+      "final": {
+        "frames": {
+          "Einstein": {
+            "seam_expansions": [
+              -11.524300030268572,
+              -11.524300030267531
+            ],
+            "central_bulk_expansions": [
+              0.012794903972978817,
+              0.012794903972987005
+            ],
+            "seam_radius": 0.02928812664194007,
+            "central_bulk_radius": 0.9173083751008448,
+            "seam_future_trapped": true,
+            "seam_past_trapped": false,
+            "seam_near_marginal": false,
+            "seam_negative_margin": 11.524300030267531,
+            "grid_sphere_counts": {
+              "future_trapped": 61,
+              "past_trapped": 1,
+              "untrapped": 962,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 1.4000036685501982e-08
+          },
+          "Jordan": {
+            "seam_expansions": [
+              -10.784706056713825,
+              -10.784706056713436
+            ],
+            "central_bulk_expansions": [
+              -0.0006097144314060476,
+              -0.0006097144313966503
+            ],
+            "seam_radius": 0.03130993133574516,
+            "central_bulk_radius": 0.980610929699242,
+            "seam_future_trapped": true,
+            "seam_past_trapped": false,
+            "seam_near_marginal": false,
+            "seam_negative_margin": 10.784706056713436,
+            "grid_sphere_counts": {
+              "future_trapped": 62,
+              "past_trapped": 0,
+              "untrapped": 962,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 1.749416966845274e-08
+          }
+        },
+        "cut_faces": {
+          "positive_normal": -0.0039530885045771956,
+          "negative_normal": 0.0039530885045771956,
+          "sum": 0.0,
+          "independent_surfaces": false
+        }
+      }
+    },
+    {
+      "eta": 0.3,
+      "N": 2048,
+      "initial": {
+        "frames": {
+          "Einstein": {
+            "seam_expansions": [
+              0.0014980881042068993,
+              0.001498088103969623
+            ],
+            "central_bulk_expansions": [
+              1.3746583585366167e-07,
+              1.3746582766480416e-07
+            ],
+            "seam_radius": 0.03012389055887957,
+            "central_bulk_radius": 0.9172790265671416,
+            "seam_future_trapped": false,
+            "seam_past_trapped": true,
+            "seam_near_marginal": false,
+            "seam_negative_margin": -0.0014980881042068993,
+            "grid_sphere_counts": {
+              "future_trapped": 0,
+              "past_trapped": 2,
+              "untrapped": 2046,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 8.754305058644718e-10
+          },
+          "Jordan": {
+            "seam_expansions": [
+              0.00140133310533892,
+              0.0014013331050110856
+            ],
+            "central_bulk_expansions": [
+              1.285875156172491e-07,
+              1.2858750679822974e-07
+            ],
+            "seam_radius": 0.03220379360800044,
+            "central_bulk_radius": 0.9806125272822159,
+            "seam_future_trapped": false,
+            "seam_past_trapped": true,
+            "seam_near_marginal": false,
+            "seam_negative_margin": -0.00140133310533892,
+            "grid_sphere_counts": {
+              "future_trapped": 0,
+              "past_trapped": 2,
+              "untrapped": 2046,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 9.803322598145314e-10
+          }
+        },
+        "cut_faces": {
+          "positive_normal": 5.146125850149671e-07,
+          "negative_normal": -5.146125850149671e-07,
+          "sum": 0.0,
+          "independent_surfaces": false
+        }
+      },
+      "final": {
+        "frames": {
+          "Einstein": {
+            "seam_expansions": [
+              -11.524300028018978,
+              -11.524300028015514
+            ],
+            "central_bulk_expansions": [
+              0.012794903785301891,
+              0.012794903785285515
+            ],
+            "seam_radius": 0.02928812664207672,
+            "central_bulk_radius": 0.9173083751004144,
+            "seam_future_trapped": true,
+            "seam_past_trapped": false,
+            "seam_near_marginal": false,
+            "seam_negative_margin": 11.524300028015514,
+            "grid_sphere_counts": {
+              "future_trapped": 121,
+              "past_trapped": 3,
+              "untrapped": 1924,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 8.753816560513883e-10
+          },
+          "Jordan": {
+            "seam_expansions": [
+              -10.78470605461481,
+              -10.784706054609533
+            ],
+            "central_bulk_expansions": [
+              -0.0006097146336947071,
+              -0.0006097146337077083
+            ],
+            "seam_radius": 0.03130993133589125,
+            "central_bulk_radius": 0.9806109296987112,
+            "seam_future_trapped": true,
+            "seam_past_trapped": false,
+            "seam_near_marginal": false,
+            "seam_negative_margin": 10.784706054609533,
+            "grid_sphere_counts": {
+              "future_trapped": 122,
+              "past_trapped": 0,
+              "untrapped": 1926,
+              "near_marginal": 0
+            },
+            "area_route_max_difference": 1.1192398119419522e-09
+          }
+        },
+        "cut_faces": {
+          "positive_normal": -0.0039530885038757645,
+          "negative_normal": 0.0039530885038757645,
+          "sum": 0.0,
+          "independent_surfaces": false
+        }
+      }
+    }
+  ],
+  "convergence": [
+    {
+      "eta": 0.0,
+      "frame": "Einstein",
+      "seam_differences": [
+        3.603126152995628e-08,
+        2.2605597393976495e-09
+      ],
+      "fine_negative_margin": 11.526001850858801,
+      "margin_over_medium_fine": 5098738002.796612
+    },
+    {
+      "eta": 0.0,
+      "frame": "Jordan",
+      "seam_differences": [
+        3.3706216484574725e-08,
+        2.1128201410647307e-09
+      ],
+      "fine_negative_margin": 10.786309275503442,
+      "margin_over_medium_fine": 5105171550.507753
+    },
+    {
+      "eta": 0.3,
+      "frame": "Einstein",
+      "seam_differences": [
+        3.603012110886539e-08,
+        2.2520172393569737e-09
+      ],
+      "fine_negative_margin": 11.524300028015514,
+      "margin_over_medium_fine": 5117323183.239079
+    },
+    {
+      "eta": 0.3,
+      "frame": "Jordan",
+      "seam_differences": [
+        3.370555035075995e-08,
+        2.1039028297309414e-09
+      ],
+      "fine_negative_margin": 10.784706054609533,
+      "margin_over_medium_fine": 5126047601.727282
+    }
+  ],
+  "status": {
+    "FUTURE_TRAPPED_NECK_AT_FINAL_TIME": true,
+    "TWO_INDEPENDENT_GRAVITATING_OBJECTS": "NOT_TESTED",
+    "EXTERIOR_BULK_RECIPROCAL_MOMENTUM_TRANSFER": "NOT_TESTED",
+    "DISCRETE_RECIPROCAL_MOMENTUM_EXCHANGE": "NOT_TESTED"
+  },
+  "limitations": [
+    "No full field snapshots at intermediate diagnostic times: onset and trapping at each crossing not measured here.",
+    "Counts are grid sections in spherical symmetry, not object or horizon counts.",
+    "A trapped sphere does not identify an event horizon or prove two separate black holes.",
+    "The two cut fluxes use the same section with opposite normals."
+  ]
+}
