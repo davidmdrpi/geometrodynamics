@@ -13,6 +13,8 @@ jobs:
         python-version: ["3.10", "3.12"]
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -24,6 +26,6 @@ jobs:
         # full suite. Includes a fresh-process CPU-dispatch portability test.
         run: |
           python -m experiments.closure_ledger.restore_handle_evidence
-          pytest -q tests/test_localized_mouth.py tests/test_mouth_momentum.py tests/test_localized_mouth_error_budget.py tests/test_handle_evolution.py tests/test_handle_evidence_transport.py
+          pytest -q tests/test_localized_mouth.py tests/test_mouth_momentum.py tests/test_localized_mouth_error_budget.py tests/test_handle_evolution.py tests/test_handle_evidence_transport.py tests/test_handle_surfaces.py
       - name: Run full test suite
         run: pytest -q
