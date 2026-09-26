@@ -98,7 +98,7 @@ There are three different constructions to keep separate.
 | Construction | Surfaces and observable | What is established |
 |---|---|---|
 | #303 review's excised S3 complement | Two distinct boundary spheres; conformal-Killing charge integrals of symmetrized Bowen-York seed data | Reported initial constraint-charge relation C2=-C1; no Hamiltonian completion or evolution in that review |
-| #304 compact mapping torus, inherited by #308 | Opposite oriented faces of one identified neck cut | Equal-and-opposite flux by smooth gluing and normal orientation |
+| #304 compact mapping torus, inherited by #308 | Opposite oriented faces of one identified neck cut; radial section flux, not mouth linear momentum | Equal-and-opposite flux by smooth gluing and normal orientation |
 | Desired exterior interaction experiment | Two separately tracked gravitating regions with independently evaluated surface charges and bulk flux | Not yet implemented or tested |
 
 The provenance for the first row is the
@@ -135,13 +135,61 @@ the same stored section with opposite normals and labels the results
 incorrect evolution: it cannot certify recoil, radiation flux, or exchange.
 No 1/(8pi G) normalization or asymptotic particle interpretation is implied.
 
+The magnitude is dominated by the common collapse, not by the initial eta
+charge carried forward. The same archived finest-grid values give:
+
+| Positive-normal neck flux | Value |
+|---|---:|
+| Initial eta=.3 (initial eta=0 is zero) | +5.14612585015e-7 |
+| Final eta=0 reference | -0.00395366908817 |
+| Final eta=.3 | -0.00395308850388 |
+| Final difference, eta=.3 minus eta=0 | +5.80584297780e-7 |
+
+The difference is 12.8197% above the initial eta-dependent flux, underneath
+a reference contribution about 7,683 times the initial flux. Subtracting
+the matched reference isolates a preparation-dependent response **in this
+specified slicing and charge convention**. It does not make the response
+gauge invariant or turn it into linear momentum. Both raw runs and the
+subtraction must be retained, including reference terms in any balance.
+
+There is also a distinction between radial dilation and translation. In
+the round-S3 bulk chart, x_c=tanh(s) and
+`gamma_round=sech(s)^2 (ds^2+dOmega^2)`, hence
+`grad_round(x_c)=partial_s`. Near the two poles this acts as `+/-r partial_r`:
+a dilation, with opposite signs. It remains a conformal-Killing field for
+the initial conformally round metric, but its round-gradient expression is
+not the gradient in the deformed physical metric. On #304's product
+baseline it is instead the longitudinal Killing field of the mapping
+torus; the two geometric interpretations should not be conflated.
+
+For #306's spherical maximal initial data, A=B=psi^2,
+`k=2a/B^3, l=-a/B^3`, and therefore `Q_X=8pi a(s)`. Its radial variation is
+fixed by the scalar current through the momentum constraint; its constant
+part is free initial data. It is a radial dilation-type constraint charge,
+not a measured translational momentum. Charges transforming as vectors
+under the preserved SO(3), including the transverse round-S3 embedding
+coordinate gradients, vanish by symmetry on these round sections. Directed
+recoil requires the nonspherical degrees of freedom in the next design.
+
 More generally, write pi^ij=K^ij-K gamma^ij and use the convention
 D_i pi^ij=j^j. For a chosen comparison vector X,
 
     D_i(pi^i_j X^j) = j_j X^j + pi^ij D_(i X_j).
 
-The integrated identity includes the deformation term unless X is Killing
-(or the relevant trace-free conformal-Killing reduction applies). It is a
+The integrated identity includes the deformation term unless X is Killing.
+If X is conformal Killing, `D_(i X_j)=lambda gamma_ij`, that term is
+`-2 K lambda` in three spatial dimensions. Its usual trace-free reduction
+requires **maximal slicing K=0** (or a separately justified vanishing
+term); it cannot be assumed throughout #308's geodesic-slicing evolution.
+At the final eta=.3 seam, K=k+2l=0.59443226538. Moreover X=partial_s need
+not remain conformal Killing once the evolved A and B differ. In these
+coordinates its full deformation term is
+
+    pi^ij D_(i X_j) = -2 l A_s/A - 2(k+l) B_s/B.
+
+Only when A_s/A=B_s/B=lambda does it reduce to -2K lambda. At the symmetric
+seam the spatial derivatives vanish, but that pointwise fact does not
+remove deformation terms throughout a volume. This is a
 **spatial constraint identity**, not a time-evolution momentum-transfer law.
 On a compact curved universe, comparing charges at different locations
 also requires specifying X or a frame-transport prescription. Coordinate
@@ -185,3 +233,15 @@ expanding/past-trapped and marginal controls; time and normal reversal;
 conformal-frame disagreement; an independent area derivative; distinct
 versus same-cut fluxes; malformed input; tampered archives; and withdrawal
 of stale output after failure.
+
+## Review follow-up, 2026-09-26 UTC
+
+The [independent #309 review](https://github.com/davidmdrpi/geometrodynamics/pull/309#issuecomment-5843046495)
+reproduced the archived audit and independently confirmed its expansions.
+The reference-flux comparison above uses the already archived audit values;
+no evolution or revised audit was generated. The follow-up clarifies
+collapse versus preparation response, dilation versus translation, and
+the maximal-slicing condition. The companion design now includes the
+one-handle neck contribution, causal-route requirements and the residual
+SO(2) symmetry of the specified antipodal encounter. Local trapping alone
+is not promoted to a proof that all communication must use the exterior.

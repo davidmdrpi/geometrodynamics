@@ -27,10 +27,15 @@ frames, with the Jordan frame identifying the physical probe metric.
 
 Spherical #308 evolution cannot represent general directional recoil or
 radiative tensor modes. Extend the spatial/metric ansatz to at least an
-appropriate nonspherical sector before claiming that measurement. Axisymmetry
-may suffice for a chosen head-on preparation; it does not test arbitrary
-three-component recoil. A second test particle on the old metric is not
-this extension.
+appropriate nonspherical sector before claiming that measurement. One
+concrete symmetric encounter uses a reference S3 embedded in R4, with
+mouth centers at +e1 and -e1 and both initial tangent directions along +e2.
+Their reference great-circle paths meet at +e2; rotations in the (e3,e4)
+plane preserve the preparation, leaving SO(2) axisymmetry. This defines
+what "head-on" means here; the embedding labels are not imposed trajectories
+for the gravitating evolution. Axisymmetry can test that sector, not
+arbitrary three-component recoil. A second test particle on the old metric
+is not this extension.
 
 ## 2. Complete and validate the constraints
 
@@ -59,6 +64,15 @@ boundary-stress framework. Its full balance law must be derived for the
 actual chosen boundary motion and scalar system before implementation.
 A Brown-York energy formula by itself is not a recoil observable.
 
+Name the slicing used by any conformal-Killing constraint-charge check.
+With pi^ij=K^ij-K gamma^ij, a conformal-Killing comparison vector obeying
+`D_(i X_j)=lambda gamma_ij` contributes `-2K lambda` to the divergence
+identity. Use maximal slicing K=0 to remove that term, or retain it.
+If the evolved vector is not conformal Killing, retain the full
+`pi^ij D_(i X_j)` term. In particular #308's geodesic slicing does not
+preserve K=0. Its radial `partial_s` charge is not the translational
+observable needed for recoil.
+
 Measure P1(t) and P2(t) separately on surfaces that remain geometrically
 attached to the two regions. Track surface motion, changes in the comparison
 frame and extraction-radius dependence. Horizon area growth is useful
@@ -67,13 +81,36 @@ universe supplies no asymptotically flat ADM momentum frame.
 
 Integrate the exterior contribution independently, including matter flux,
 geometric/boundary stress, observer work and transport terms required by
-the chosen formulation. The balance has the schematic structure
+the chosen formulation. Partition the geometry before writing a ledger:
 
-    Delta P1 + Transport(Delta P2) + exterior contribution = residual.
+- **Two separately enclosed objects:** their independently measured charges
+  and the exterior contribution may form a balance of the schematic form
+  `Delta P1 + Transport(Delta P2) + exterior contribution = residual`.
+  The global constraints still restrict the allowed initial data; separate
+  measurements do not mean freely specifiable independent momenta.
+- **Two collars of one handle:** the two nonseparating extraction spheres
+  together bound both a neck region N and a complementary bulk region B.
+  Include the neck contribution as well:
+  `Delta P1 + Transport(Delta P2) + exterior contribution + neck contribution = residual`.
+  If the interior is excised, account for the inner-boundary flux/work in
+  the retained-domain balance instead of evolving its content. Do not
+  count both descriptions of the same contribution.
 
-This is a design requirement, not yet a derived or implemented equation.
-Do not force Delta P2=-Delta P1 at every time: the bulk can carry momentum
-while a disturbance propagates. The spatial momentum-constraint integral
+These are accounting requirements, not derived or implemented equations;
+the chosen surface charges and volume partition must avoid double counting.
+For the spatial constraint check on a retained one-handle slice, choose
+normals outward from N and consistently restrict a global comparison X.
+Then
+
+    Q1_N + Q2_N = integral_N [j_j X^j + pi^ij D_(i X_j)] dV,
+    Q1_B + Q2_B = integral_B [j_j X^j + pi^ij D_(i X_j)] dV,
+    Q1_B = -Q1_N, Q2_B = -Q2_N.
+
+This illustrates why equal-and-opposite boundary bookkeeping on a slice
+cannot determine whether a disturbance propagated through the neck or
+through the bulk. Do not force Delta P2=-Delta P1 at every time: retained
+neck and bulk degrees of freedom can contribute while a disturbance
+propagates. The spatial momentum-constraint integral
 in the audit is an initial-data/constraint check, not a substitute for this
 time-dependent ledger. General relativity has no unique local tensorial
 gravitational momentum density; the boundary formulation must state what
@@ -87,13 +124,39 @@ is elliptic, so the perturbed initial metric can already differ globally:
 do not mistake that initial difference for superluminal propagation.
 Track characteristic propagation in the evolved exterior geometry and
 the subsequent change of the receiver's independently measured charge.
+For a perturbation with genuinely localized causal support, a response
+attributed to the exterior must not precede the earliest exterior null
+arrival. Establish matching initial data on the relevant receiver domain
+of dependence, or explicitly separate the global initial-data change;
+otherwise a difference before that arrival is not a clean propagation test.
+Use the physical metric and an explicit clock comparison, not coordinate
+distance divided by a background speed.
+
+For a retained handle, track the competing neck causal route too. The
+measured local trapped spheres alone do not establish a global causal
+barrier or prove that every response must use the bulk; distinctions
+between trapped regions and their causal boundaries already arise in
+[spherical examples](https://arxiv.org/abs/1009.0225). Establish the absence
+of a relevant neck causal path over the measured interval, or quantify
+and separate its contribution. With excision, verify that all relevant
+characteristic fields at the inner boundary flow out of the retained
+computational domain; merely labeling it "trapped" is insufficient.
+Only after that check can an appropriately timed receiver response be
+attributed to the exterior route. Traversability remains unnecessary.
+
 Evolve for the measured bulk travel time, not merely the old t<=.01 neck
 window. Retain the ESU support's instability and report any gauge, curvature,
 positivity or constraint stop as a failure/inconclusive endpoint.
 
 Use convergent spatial/time refinement, more than one extraction radius,
 zero-perturbation and sign-reversed preparations, and an asymmetric
-preparation. A fixed-background/test-particle calculation is a labelled
+preparation. Report both raw charges and their matched-reference
+differences with the same gauge, surface and frame prescriptions. The
+existing audit gives a concrete warning: the final eta=.3 minus eta=0
+cut-flux difference is +5.80584e-7, while the common collapse contribution
+is about -0.003954. A reference difference can reveal preparation response,
+but is not automatically a gauge-invariant physical momentum. Apply the
+same subtraction to every term of the chosen balance. A fixed-background/test-particle calculation is a labelled
 negative control for reciprocal backreaction. A pulse must be made from
 retained dynamical fields/metric degrees of freedom, not a prescribed
 mouth force. If gravitational radiation is the claimed carrier, resolve
