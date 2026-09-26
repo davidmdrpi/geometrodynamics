@@ -1,5 +1,11 @@
 {
   "seed": 2026092610,
+  "sources": {
+    "experiments/closure_ledger/esu_floquet_symbolic.py": "dd960b8c8af8f8b9aa8be01d19f926fcf4c7701ae1eb79cf06a20ece6310e21b",
+    "experiments/closure_ledger/esu_linearization.py": "9cc72be73524aa07d93f60811a26dd0bf32b681375475b0854debb72b46713d8",
+    "geometrodynamics/waves/esu_floquet.py": "e4c244bddc7b3e5d5ba684290b2f727704ebf101dd58fad25bdbfafc0d61e559"
+  },
+  "threshold": 1e-12,
   "scalar": {
     "2": 9.992578901591243e-15,
     "3": 1.752764600126966e-14,
@@ -11,5 +17,6 @@
   },
   "tensor": {
     "2": 3.861692541860992e-16
-  }
+  },
+  "passed": true
 }

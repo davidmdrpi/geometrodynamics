@@ -2,8 +2,10 @@
 
 **Certified result (tensor sector).** Gravitational-wave perturbations of the
 breathing four-scalar ESU are elliptic for every degree n=2..80. They
-refocus at the antipode after conformal time pi, and the refocusing becomes
-exact as n grows: `1-F_n ~ n^-1.952`. The support's own mass term
+approximately refocus at the antipode after conformal time pi, and the
+refocusing improves with degree. The phase error and operator defect fall
+as about 1/n: θ_n and D_n are 0.0963 and 0.0986 at n=2, and 0.0035 at n=80.
+The trace infidelity 1−F_n falls as `n^-1.952`. The support's own mass term
 reduces the phase error of the bare ESU by a factor of about 5.5. The frozen
 WKB prediction holds to 3.5e-5.
 
@@ -24,6 +26,11 @@ test as well. A diagnostic, not a verdict, shows that its matrices converge
 at exactly fourth order. The trace is first-order insensitive to phase error
 for maps near ±I, so its errors cancel (section 3). The uncertified vector
 maps are elliptic, with asymptotic refocusing matching WKB to 0.23%.
+
+A [dated clarification](esu_floquet_refocusing_prereg_clarification.md)
+corrects the freeze's opening premise about #308–#309. Those PRs showed
+trapped neck spheres on one saved slice, not global closure of every route
+through the neck. The results here do not depend on that premise.
 
 The freeze [`4e65c3e`](esu_floquet_refocusing_prereg.md) was published in
 [#310](https://github.com/davidmdrpi/geometrodynamics/pull/310) before
@@ -144,16 +151,21 @@ Every multiplier lies on the unit circle; the maximum |μ| is 1 − 6e-14.
   gradient stress adds `2R²/f`, which nearly cancels the curvature
   detuning.
 
-So a gravitational-wave packet launched anywhere reassembles, inverted, at
-its antipode after conformal time π (Einstein proper time ≈ .968π). The
-inversion is the point-caustic sign. The residual dispersion falls as
-n⁻². In the RP3 quotient this is a return to the launch point.
+So a high-frequency gravitational-wave packet approximately reassembles,
+inverted, at its antipode after conformal time π (Einstein proper time
+≈ .968π). The inversion is the point-caustic sign. Reassembly is not exact
+for any finite band. Each degree carries a residual phase error θ_n ≈
+0.283/(n+1) and an operator defect D_n of the same order, so a finite-band
+packet arrives with residual distortion that shrinks as about 1/n. The n⁻²
+law quoted above describes the phase-averaged infidelity 1−F_n ≈ θ_n²/2,
+not the phase dispersion. In the RP3 quotient the same statement describes
+an approximate return to the launch point.
 
 ## 5. Vector sector (maps computed, not certified)
 
 - All multipliers lie on the unit circle for n = 2..80.
 - F_n: 0.5715 at n=2, 0.9921 at n=10, 0.99987 at n=80.
-- 1 − F ~ n^−1.970.
+- Infidelity 1 − F ~ n^−1.970; the phase error θ_n falls as about 1/n.
 - (n+1)θ_n = 1.30440, against the WKB value π<2R²/f>/2 = 1.30147 (0.23%).
 
 Low-degree vector perturbations of the quartet refocus poorly.
@@ -210,7 +222,43 @@ classifier is recorded here; the label is not changed.
    and its recorded hashes would not have matched. The archived run is the
    complete rerun under the committed sources.
 
-## 8. What this does and does not establish
+## 8. Revisions after review (2026-09-26)
+
+The review of `6f2cf6a` found gaps in evidence validation. No map, verdict
+or threshold changed.
+
+1. **Replay rebuilds everything.** The archive now separates raw evidence
+   from every derived quantity:
+   - raw: primary and half-period maps, integrator differences, residual
+     scans, control numbers;
+   - derived: observables, gates, labels, fits, WKB results, verdicts and
+     odd-sector verdicts.
+
+   `replay` rebuilds the complete derived structure from the raw evidence and
+   compares it exactly for labels and within 1e-9 for numbers. It recomputes
+   all primary and half-period maps and the controls, and with `--full` it
+   remeasures all raw evidence. Regressions cover altered top-level and
+   odd-sector verdicts, sector stability, WKB verdicts, gate and control
+   flags, row labels, half-period and primary maps, control numbers and
+   integrator differences.
+2. **G1 is enforced.** The G1 record is bound to the SHA256 of
+   `esu_floquet_symbolic.py`, `esu_linearization.py` and `esu_floquet.py`.
+   It must contain every required harmonic case below 1e-12. Its hash is
+   recorded in the probe archive. A missing, failed, stale or incomplete
+   record makes every certified verdict UNRESOLVED. G1 was rerun to produce
+   the bound record; its residuals are identical to the first run.
+3. **The extension replaces only G3.** G1, G2, G4 and the controls are
+   recomputed from raw evidence and must pass. The recorded
+   `archive_sha256` hashes the exact bytes validated, and extension replay
+   checks that binding.
+4. **Regenerated archives.** Both archives were regenerated under the
+   revised code. Every primary and half-period map is bit-identical to the
+   previous archive, and every frozen and extension verdict is unchanged.
+5. **Wording.** Section 4 now distinguishes the approximate, high-frequency
+   packet reassembly (phase error about 1/n) from the n⁻² infidelity law.
+   The premise clarification is linked above.
+
+## 9. What this does and does not establish
 
 - **Linear antipodal refocusing of gravitational waves is a derived property
   of this supported ESU.** It needs no throat. It answers where and when a
@@ -235,12 +283,14 @@ classifier is recorded here; the label is not changed.
 python -m experiments.closure_ledger.esu_floquet_probe \
   --output /tmp/esu_floquet.json            # several minutes
 python -m experiments.closure_ledger.esu_floquet_probe \
-  --output /dev/null --replay experiments/closure_ledger/runs/20260926_esu_floquet/esu_floquet.json
+  --output /dev/null --replay experiments/closure_ledger/runs/20260926_esu_floquet/esu_floquet.json --full
 python -m experiments.closure_ledger.esu_floquet_symbolic /tmp/g1.json   # G1, ~40 min
-python -m experiments.closure_ledger.esu_floquet_g3_extension --output /tmp/g3_extension.json
+python -m experiments.closure_ledger.esu_floquet_g3_extension --output /dev/null \
+  --replay experiments/closure_ledger/runs/20260926_esu_floquet/g3_extension.json
 pytest -q tests/test_esu_floquet.py
 ```
 
-Replay checks the freeze, the source hashes and every stored matrix's
-derived observables and labels, and recomputes the maps (all degrees by
-default). A tampered matrix or relabelled verdict clears the evidence.
+Replay checks the freeze, the source hashes and the bound G1 record. It
+rebuilds every derived result from raw evidence, recomputes the maps and
+controls, and with `--full` remeasures everything. A tampered map, flag or
+verdict clears the evidence.

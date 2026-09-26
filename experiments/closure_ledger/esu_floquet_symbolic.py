@@ -119,14 +119,44 @@ def tensor_case(rng):
     return worst
 
 
+G1_SOURCES = ('experiments/closure_ledger/esu_floquet_symbolic.py',
+              'experiments/closure_ledger/esu_linearization.py',
+              'geometrodynamics/waves/esu_floquet.py')
+G1_REQUIRED = dict(tensor=('2',), vector=('2', '3'), scalar=('2', '3', '4'))
+G1_THRESHOLD = 1e-12
+
+
+def g1_sources():
+    import hashlib
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[2]
+    return {p: hashlib.sha256((root/p).read_bytes()).hexdigest() for p in G1_SOURCES}
+
+
+def g1_valid(record):
+    """A G1 record certifies only if complete, below threshold and bound to current sources."""
+    try:
+        if record.get('sources') != g1_sources() or record.get('threshold') != G1_THRESHOLD:
+            return False
+        for sector, degrees in G1_REQUIRED.items():
+            for n in degrees:
+                v = record[sector][n]
+                if not (isinstance(v, float) and np.isfinite(v) and v < G1_THRESHOLD):
+                    return False
+        return True
+    except (KeyError, TypeError, AttributeError):
+        return False
+
+
 def run(seed=2026092610):
     rng = random.Random(seed)
-    out = dict(seed=seed, scalar={}, vector={}, tensor={})
+    out = dict(seed=seed, sources=g1_sources(), threshold=G1_THRESHOLD, scalar={}, vector={}, tensor={})
     out['tensor']['2'] = tensor_case(rng); print('tensor n=2', out['tensor']['2'], flush=True)
     for n in (2, 3):
         out['vector'][str(n)] = vector_case(n, rng); print('vector', n, out['vector'][str(n)], flush=True)
     for n in (2, 3, 4):
         out['scalar'][str(n)] = scalar_case(n, rng); print('scalar', n, out['scalar'][str(n)], flush=True)
+    out['passed'] = g1_valid(out)
     return out
 
 
