@@ -52,7 +52,7 @@ def derived():
 
 def test_archived_decisions_are_rebuilt_and_failure_retained(derived):
     archive=json.loads((probe.RUN/'packet.json').read_text())
-    assert probe.old.close(archive['result'],derived,1e-10)
+    assert probe.result_close(archive['result'],derived)
     assert all(derived['gates'].values())
     failures=[r for r in derived['packets'] if r['verdict']=='NOT_ESTABLISHED']
     assert len(failures)==2
@@ -128,3 +128,35 @@ def test_full_replay_rejects_joint_raw_and_decision_change(tmp_path,monkeypatch)
                 (destination/src.name).symlink_to(src)
     monkeypatch.setattr(probe,'measure',independently_measured_fixture)
     assert not probe.replay(tmp_path,full=True)
+
+
+def test_tail_ratio_is_bounded_below_reporting_resolution():
+    tail=probe.tail_observable(.9,1e-17,1.)
+    assert tail['ratio'] is None and not tail['resolved']
+    assert tail['ratio_lower_bound']>10
+    assert tail['belt_power']==1e-17  # retain measured value, never turn into zero
+    resolved=probe.tail_observable(.9,1e-8,1.)
+    assert resolved['resolved'] and resolved['ratio']>10
+    assert probe.tail_observable(0.,0.,1.)['ratio_lower_bound']==0.
+
+
+def test_tail_portability_does_not_hide_corrupt_bounds_or_changed_gates(derived):
+    changed=copy.deepcopy(derived)
+    row=next(r for r in changed['packets'] if not r['target_belt']['resolved'])
+    tail=row['target_belt']
+    row['target_belt']=probe.tail_observable(tail['target_power'],tail['belt_power']*1.000001,tail['full_power'])
+    assert probe.result_close(changed,derived)
+    row['target_belt']['ratio_lower_bound']*=2
+    assert not probe.result_close(changed,derived)
+    row['target_belt']=copy.deepcopy(next(r['target_belt'] for r in derived['packets'] if not r['target_belt']['resolved']))
+    row['physical_criteria']['target_over_belt']=False
+    assert not probe.result_close(changed,derived)
+
+
+def test_resolved_tail_corruption_is_not_tolerated(derived):
+    changed=copy.deepcopy(derived)
+    row=next(r for r in changed['packets'] if r['target_belt']['resolved'])
+    t=row['target_belt']
+    row['target_belt']=probe.tail_observable(t['target_power'],t['belt_power']*1.01,t['full_power'])
+    row['target_over_belt_mean_weyl_power']=row['target_belt']['ratio']
+    assert not probe.result_close(changed,derived)

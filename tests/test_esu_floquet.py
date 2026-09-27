@@ -239,3 +239,65 @@ def test_extension_full_replay_checks_fresh_gate_decisions(monkeypatch):
     assert ext_mod.replay(ext, archive_bytes)
     assert not ext_mod.replay(ext, archive_bytes, full=True)
     assert True in calls
+
+
+@have_archive
+def test_floor_band_difference_is_nonpassing_sensitivity_not_certification(monkeypatch):
+    original=json.loads(ARCHIVE.read_text())
+    g1=probe.load_g1()
+    data=copy.deepcopy(original)
+    data.update(probe.provenance(g1))
+    fresh=copy.deepcopy(data['raw'])
+    row=next(r for r in fresh['sectors']['V']['rows'] if 1e-11<r['rk4_16_diff']<2e-11 and r['rk4_17_diff']>0)
+    row['rk4_16_diff']=.99e-11
+    monkeypatch.setattr(probe,'measure',lambda:fresh)
+    audit={}
+    assert not probe.replay(data,full=True,audit=audit)
+    assert audit['status']=='DECISION_ROUNDOFF_SENSITIVE'
+    assert audit['passed'] is False
+    assert audit['attributable_rows']
+    assert data['result']==original['result']
+    # A simultaneous unrelated failure cannot be excused by the floor band.
+    fresh['controls']['C3_T2_half_trace']+=1.
+    assert not probe.replay(data,full=True,audit=audit)
+    assert audit['status']=='REJECTED'
+
+
+@have_archive
+def test_zeroed_error_exploit_never_receives_roundoff_sensitive_status(monkeypatch):
+    data=json.loads(ARCHIVE.read_text())
+    g1=probe.load_g1()
+    data.update(probe.provenance(g1))
+    fresh=copy.deepcopy(data['raw'])
+    row=next(r for r in fresh['sectors']['V']['rows'] if 1e-11<r['rk4_16_diff']<2e-11 and r['rk4_17_diff']>0)
+    row['rk4_16_diff']=row['rk4_17_diff']=0.
+    monkeypatch.setattr(probe,'measure',lambda:fresh)
+    audit={}
+    assert not probe.replay(data,full=True,audit=audit)
+    assert audit['status']=='REJECTED'
+
+
+@have_archive
+def test_floor_band_is_reported_even_when_decisions_match(monkeypatch):
+    data=json.loads(ARCHIVE.read_text())
+    monkeypatch.setattr(probe,'measure',lambda:copy.deepcopy(data['raw']))
+    audit={}
+    assert probe.replay(data,full=True,audit=audit)
+    assert audit['status']=='PASS'
+    assert sum(r['sector']=='V' for r in audit['rows'])==23
+    assert sum(r['sector']=='S' for r in audit['rows'])==17
+
+
+def test_cli_floor_sensitivity_has_nonzero_distinct_exit(tmp_path,monkeypatch):
+    archive=tmp_path/'archive.json'; archive.write_text('{}')
+    report=tmp_path/'audit.json'
+    def sensitive(*args,**kw):
+        kw['audit'].update(status='DECISION_ROUNDOFF_SENSITIVE',passed=False)
+        return False
+    monkeypatch.setattr(probe,'replay',sensitive)
+    monkeypatch.setattr('sys.argv',['x','--output',str(tmp_path/'unused.json'),
+        '--replay',str(archive),'--full','--audit-output',str(report)])
+    with pytest.raises(SystemExit) as exc:
+        probe.main()
+    assert exc.value.code==2
+    assert json.loads(report.read_text())['passed'] is False

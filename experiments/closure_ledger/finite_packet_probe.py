@@ -5,6 +5,7 @@ coordinate spatial checks, and quadrature matrices. All claims are rebuilt.
 Partial replay validates recorded evidence; --full independently remeasures it.
 """
 import argparse
+import copy
 import hashlib
 import json
 from pathlib import Path
@@ -17,6 +18,10 @@ ROOT = Path(__file__).resolve().parents[2]
 RUN = ROOT/'experiments/closure_ledger/runs/20260927_finite_packet'
 FREEZE = '2eb1fecb8d9884e768bdc1b4c3bc895f5aac09ce'
 BASELINE = '99c94fee6dc6f5158c1ccd8e791ccd51f52e3b5a'
+# Post-review reporting resolution, not a new physical acceptance threshold.
+# 128 binary64 epsilons of full-sphere power cover cancellation-sensitive tails
+# conservatively; this is not a rigorous bound on ODE or harmonic truncation.
+TAIL_RELATIVE_FLOOR = 128*np.finfo(float).eps
 SOURCES = ('geometrodynamics/waves/finite_packet.py', 'geometrodynamics/waves/esu_floquet.py',
            'experiments/closure_ledger/finite_packet_probe.py',
            'experiments/closure_ledger/finite_packet_spatial.py',
@@ -50,6 +55,59 @@ def relative_difference(a, b):
     return float(np.max(np.linalg.norm(a-b, axis=(-2,-1))/np.maximum(1.,np.linalg.norm(b,axis=(-2,-1)))))
 
 
+def tail_observable(target, belt, full):
+    """Report an interval when division by a tiny denominator is ill-conditioned.
+
+    Preserve the measured powers; never claim a zero tail. The lower bound
+    allows one reporting-floor uncertainty in both numerator and denominator.
+    Its use for criterion (d) is conservative: it cannot promote a failed ratio.
+    """
+    if not all(np.isfinite(v) and v >= 0 for v in (target,belt,full)) or full <= 0:
+        raise ValueError('invalid regional power')
+    floor = TAIL_RELATIVE_FLOOR*full
+    volume_ratio = p.volume('belt')/p.volume('south')
+    lower = max(0.,target-floor)/(belt+floor)*volume_ratio
+    resolved = belt > floor
+    return dict(target_power=float(target),belt_power=float(belt),full_power=float(full),
+                reporting_floor=float(floor),resolved=bool(resolved),
+                ratio=float(target/belt*volume_ratio) if resolved else None,
+                ratio_lower_bound=float(lower))
+
+
+def result_close(archived, fresh, tol=1e-10):
+    """Exact decisions; powers compare on their full-signal resolution scale.
+
+    The resolution is derived from the fresh full power, not from a claimed
+    archive allowance. Ratios and lower bounds are rebuilt from the powers,
+    so a tampered bound or decision cannot hide inside the absolute tolerance.
+    """
+    try:
+        a,b=copy.deepcopy(archived),copy.deepcopy(fresh)
+        if len(a['packets']) != len(b['packets']):
+            return False
+        for ar,br in zip(a['packets'],b['packets']):
+            at,bt=ar.pop('target_belt'),br.pop('target_belt')
+            if not old.close(at,tail_observable(at['target_power'],at['belt_power'],at['full_power']),tol):
+                return False
+            if not old.close(bt,tail_observable(bt['target_power'],bt['belt_power'],bt['full_power']),tol):
+                return False
+            if at['resolved'] != bt['resolved']:
+                return False
+            if ar.pop('target_over_belt_mean_weyl_power') != at['ratio'] or br.pop('target_over_belt_mean_weyl_power') != bt['ratio']:
+                return False
+            allowance = 2*TAIL_RELATIVE_FLOOR*bt['full_power']
+            for key in ('target_power','belt_power','full_power'):
+                if abs(at[key]-bt[key]) > allowance+tol*abs(bt[key]):
+                    return False
+            if at['resolved'] and not old.close(at['ratio'],bt['ratio'],tol):
+                return False
+            # Exact categorical/physical decisions are compared below. The
+            # noisy lower-bound value is authenticated via its inputs above.
+        return old.close(a,b,tol)
+    except (KeyError,TypeError,ValueError,OverflowError):
+        return False
+
+
 def inspect_packet(M, grams, c, phase, even, kind):
     state = p.packet_state(M, c, phase)
     fields, powers = p.observables(state, grams, kind)
@@ -67,7 +125,8 @@ def inspect_packet(M, grams, c, phase, even, kind):
     initial_metric = fraction('metric', 0, 'north')
     initial_weyl = fraction('weyl', 0, 'north')
     final_weyl = fraction('weyl', j, 'south')
-    mean_ratio = (powers['weyl']['south'][j]/p.volume('south'))/(powers['weyl']['belt'][j]/p.volume('belt'))
+    tail = tail_observable(powers['weyl']['south'][j],powers['weyl']['belt'][j],powers['weyl']['full'][j])
+    mean_ratio = tail['ratio'] if tail['resolved'] else tail['ratio_lower_bound']
     window = np.flatnonzero((p.TIMES >= np.pi-.15-1e-14)&(p.TIMES <= np.pi+.15+1e-14))
     peak = window[np.argmax(powers['weyl']['south'][window])]
     # Raw squared powers, not energy and not a claim about a sharp causal front.
@@ -80,7 +139,7 @@ def inspect_packet(M, grams, c, phase, even, kind):
     out = dict(state_error=float(error), state_overlap=float(overlap), weyl_error=float(e_error),
                initial_metric_cap_fraction=initial_metric, initial_weyl_cap_fraction=initial_weyl,
                final_weyl_cap_fraction=final_weyl, weyl_cap_retention=final_weyl/initial_weyl,
-               target_over_belt_mean_weyl_power=float(mean_ratio),
+               target_over_belt_mean_weyl_power=tail['ratio'], target_belt=tail,
                peak_time=float(p.TIMES[peak]), peak_offset=float(p.TIMES[peak]-np.pi),
                initial_south_metric_fraction=float(powers['metric']['south'][0]/powers['metric']['full'][0]),
                initial_south_weyl_fraction=float(powers['weyl']['south'][0]/powers['weyl']['full'][0]),
@@ -202,9 +261,10 @@ def save_quadrature(run):
     np.savez_compressed(run/'quadrature.npz',**data)
 
 
-def publish_record(run=RUN):
+def publish_record(run=RUN, preserve_powers=False):
     result,curves=score(run,True)
-    np.savez_compressed(run/'powers.npz',times=p.TIMES,**curves)
+    if not preserve_powers:
+        np.savez_compressed(run/'powers.npz',times=p.TIMES,**curves)
     raw = sorted(list(run.glob('*.npz'))+[run/'spatial.json'])
     record=dict(freeze=FREEZE,baseline=BASELINE,sources={s:sha(ROOT/s) for s in SOURCES},
                 raw_files={f.name:sha(f) for f in raw},result=result)
@@ -224,7 +284,7 @@ def replay(run=RUN,full=False):
         if set(archive['raw_files'])!=required or any(sha(run/name)!=digest for name,digest in archive['raw_files'].items()):
             return False
         derived,curves=score(run,True)
-        if not old.close(archive['result'],derived,1e-10):
+        if not result_close(archive['result'],derived):
             return False
         with np.load(run/'powers.npz',allow_pickle=False) as a:
             if set(a.files)!=set(curves)|{'times'} or not np.array_equal(a['times'],p.TIMES):
@@ -237,7 +297,7 @@ def replay(run=RUN,full=False):
                 fresh=Path(tmp)
                 measure(fresh)
                 actual=score(fresh)
-                if old.decisions(actual)!=old.decisions(derived) or not old.close(derived,actual,1e-7):
+                if old.decisions(actual)!=old.decisions(derived) or not result_close(derived,actual,1e-7):
                     return False
                 for method in ('DOP853','Radau'):
                     if relative_difference(load_modes(run,method),load_modes(fresh,method))>=1e-7:

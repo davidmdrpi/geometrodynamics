@@ -1,7 +1,8 @@
 # Finite-packet first antipodal transit
 
-**Five of six S3-cover preparations meet the frozen linear first-transit
-criteria.** The sixth misses the arrival-time cutoff and is retained as
+**This confirms #310's modal refocusing at the level of a localized packet.**
+Five of six S3-cover preparations meet the frozen linear first-transit
+criteria. The sixth misses the arrival-time cutoff and is retained as
 `NOT_ESTABLISHED`. All four numerical validation gates pass. The even-degree
 preparations yield five paired recurrences and the same one failed timing
 criterion. They do not describe delivery between independently located
@@ -128,8 +129,10 @@ remains a subsequent test.
 
 ## Numerical evidence and implementation correction
 
-**43 targeted tests and a fresh full packet replay pass.** Validation commands,
-source hashes and dependency versions are recorded in `validation.json`.
+**Initial author-platform validation:** 43 targeted tests and a fresh full
+packet replay passed at `054006e`. The subsequent independent review and CI
+found a tail-ratio portability failure; see the dated correction below.
+The original commands and versions remain recorded in `validation.json`.
 
 - Maximum coordinate TT/Weyl residual: 9.52e-16.
 - Full normalized harmonic Gram error: 2.04e-14.
@@ -194,3 +197,93 @@ and compares them with the saved record. It leaves the published archive
 unchanged. Partial replay also rechecks quadratures and reconstructs every
 reported result and power curve, but does not independently re-integrate
 modal solutions or repeat coordinate differentiation.
+
+
+## Review follow-through (2026-09-27)
+
+The independent review reproduced the tensor harmonics, localization fractions,
+state errors, Weyl target fractions and failed timing criterion. It also found
+two CI failures in the original replay. The 3.12 full suite reported 2 failed
+and 2886 passed; the other matrix job was cancelled. Matching a tested tree
+establishes artifact identity, not portability across numerical libraries.
+
+### Tail reporting and replay
+
+The original three mismatches were reproduced locally with NumPy 2.3.5 /
+SciPy 1.17.0. Corrected replay passes there. All **50 targeted tests pass**
+on that stack and on NumPy 2.5.3 / SciPy 1.18.1 with Haswell
+CPU dispatch. `review_validation.json` records these checks; dedicated
+CI steps now check default and alternate dispatch on Python 3.10 and 3.12.
+
+For center 24, the belt's squared-Weyl power is only about 1.5 machine epsilons
+of the full-sphere power. Dividing by it produced ratios near 1e17 with
+platform-sensitive last digits. Those ratios are not resolved measurements
+at the adopted full-signal precision and are no longer presented as evidence
+of physical enhancement. This does not prove that the exact belt field
+vanishes or that every digit of its small computed value is noise.
+
+The dated reporting policy is a resolution allowance of **128 binary64
+epsilons times the full-sphere power**. It is a conservative postprocessing
+allowance, not a rigorously derived bound on ODE, harmonic or truncation error.
+The measured target, belt and full powers and this allowance are all recorded.
+Below that resolution, `ratio` is null and only the lower bound
+
+    max(0, P_target - allowance) / (P_belt + allowance) * V_belt/V_target
+
+is reported. The center-24 cover bounds exceed 1e15, and the paired bounds
+exceed 5e14. Their precise sizes are not additional physics evidence. The
+frozen ratio>=10 criterion is retained as a consistency check, using this
+conservative lower bound when the denominator is unresolved. All original
+physical criteria and packet verdicts are unchanged. Centers 12 and 40 have
+resolved finite-band tails and retain ordinary ratio comparisons.
+
+Replay compares the small powers on the declared full-signal resolution scale,
+reconstructs every ratio or bound from those powers, and still requires exact
+agreement of categorical gates and verdicts. It rejects forged allowances,
+bounds, resolved-tail changes and changed physical decisions. The initial
+`packet.json` is preserved byte-for-byte as `packet_initial.json`; all `.npz`
+files, the prospective freeze, #310 archives and modal trajectories are
+unchanged. Only the derived reporting record is updated.
+
+### #310 floor-band diagnostic
+
+The original exact decision check remains fail-closed. Full replay now records
+all RK4 rows whose archived or fresh e16 difference lies between 0.5e-11 and
+2e-11. The original data contain 23 such vector rows and 17 scalar rows.
+
+If fresh decisions differ, and replacing only convergence errors whose e16
+values are in that band in BOTH records restores exact decision agreement,
+replay reports `DECISION_ROUNDOFF_SENSITIVE`. This is **not a pass and grants
+no certification**: the boolean API returns false and the CLI exits 2.
+Other mismatches remain `REJECTED` (exit 1). In particular, the reviewed exploit
+that zeroes the convergence evidence lies outside the band and stays rejected.
+An exact replay still passes while disclosing its sensitive rows. This cannot
+guarantee cross-platform replay or change historical G3 certification; a new
+prospective convergence criterion would be needed for that.
+
+Use `esu_floquet_probe --replay ... --full --audit-output path.json` (alongside
+its required `--output` argument) to save the diagnostic. The committed
+`replay310_floor_audit.json` records a fresh full measurement with validator
+and equation hashes. No #310 measurement criterion was changed.
+
+### Interpretation and next derivation
+
+Criteria (a)-(d) were strongly anticipated from #310 and the localized
+preparation; they mainly confirm consistency. The additions are the explicit
+spatial reconstruction, gauge-invariant electric-Weyl observable, quotient
+recurrence distinction and the phase-sensitive timing test. No new nonlinear
+transport capability is established.
+
+The review's suggested epsilon~5e-4 nonlinear limit is a heuristic, not a
+measured bound. The next freeze must derive the averaged second-order TT AND
+quartet response from the retained action, solve the second-order homogeneous
+constraint with a specified preparation, and project the resulting initial
+and forced response onto the growing n=0 branch. An epsilon^2 n^2 scaling alone
+does not determine its coefficient or growing-mode seed. That calculation
+belongs before choosing the nonlinear experiment's amplitude budget.
+
+The git history establishes that the freeze commit precedes implementation.
+Publication before measurement is recorded by the task's successful GitHub
+file-creation action; the commit DAG alone is not an independent public-time
+attestation. Future freezes should additionally have a contemporaneous PR or
+issue entry before measurements begin.
