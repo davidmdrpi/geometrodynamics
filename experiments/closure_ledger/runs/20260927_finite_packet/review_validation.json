@@ -1,0 +1,32 @@
+{
+  "review_comment": "https://github.com/davidmdrpi/geometrodynamics/pull/311#issuecomment-5853503441",
+  "tests_passed_per_environment": 50,
+  "environments": [
+    {
+      "python": "3.12.14",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "OPENBLAS_CORETYPE": "Haswell",
+      "OPENBLAS_NUM_THREADS": 1
+    },
+    {
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "OPENBLAS_NUM_THREADS": 1
+    }
+  ],
+  "original_three_ratio_failures_reproduced": true,
+  "corrected_replay_passes_on_independent_stack": true,
+  "raw_files_unchanged": true,
+  "physical_criteria_and_verdicts_unchanged": true,
+  "packet_record_sha256": "42fb700991fa8c0a583612985af9a166e3dc284402c0ebbb1f76ecb8df22649f",
+  "initial_packet_record_sha256": "f6ca59e281f3446760b8886c3f4c418a68c3253586785afddee0e21217364576",
+  "sources": {
+    "geometrodynamics/waves/finite_packet.py": "78e2f3d05ed5b82573872a422993a004a2bfd17f7ade5e0d1c39669706e2196a",
+    "geometrodynamics/waves/esu_floquet.py": "e4c244bddc7b3e5d5ba684290b2f727704ebf101dd58fad25bdbfafc0d61e559",
+    "experiments/closure_ledger/finite_packet_probe.py": "6b657c2b910d86c9df91c53a5c442f5ec558f8d688d5f4be1882b5971453d336",
+    "experiments/closure_ledger/finite_packet_spatial.py": "25468a6cffeb29a37b647bf6d98b34a2f782ede6fab56b6c2d448516ba4273e8",
+    "docs/finite_packet_first_transit_prereg.md": "26ba549c6e877fab76745c4138f2e3e7bef39e58019c9673496fd8687f189ba2"
+  }
+}

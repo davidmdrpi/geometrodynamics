@@ -1,0 +1,13 @@
+{
+  "baseline_full_replay": true,
+  "extension_full_replay": true,
+  "joint_forgery_rejected": true,
+  "elapsed_seconds": 210.58846288199993,
+  "measurement": "one fresh full measure, reused unchanged across the three validation calls",
+  "sources": {
+    "geometrodynamics/waves/esu_floquet.py": "e4c244bddc7b3e5d5ba684290b2f727704ebf101dd58fad25bdbfafc0d61e559",
+    "experiments/closure_ledger/esu_floquet_probe.py": "4c54d50e234d53a1cd5bad17363ffddd42cc628ec3c0cd4f5e4bd46d030679b6",
+    "docs/esu_floquet_refocusing_prereg.md": "05c2d2b4852f475a71e40a3f82042cb9d3f10b0f64b0804c153ccead036223f4"
+  },
+  "extension_source": "0b3fabe57f191ecf02fcf1e70b540b2539aab113d693699126ecc2c9c1357d62"
+}

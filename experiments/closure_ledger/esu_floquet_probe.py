@@ -7,6 +7,7 @@ validated G1 record; `replay` compares that reconstruction, and optionally a fre
 measurement, against an archive. No stored flag or label is trusted.
 """
 import argparse
+import copy
 import hashlib
 import json
 from pathlib import Path
@@ -26,6 +27,9 @@ RK4_STEPS = (2**16, 2**17)
 PRIOR_T2_HALF_TRACE = -0.0963065402      # #294, one pi/2 period at phase zero
 VERDICT_KEYS = ('T_STABILITY', 'V_STABILITY', 'S_STABILITY', 'T_REFOCUSING', 'V_REFOCUSING',
                 'S_REFOCUSING', 'T_WKB_PREDICTION', 'V_WKB_PREDICTION')
+# Exact, canonicalized historical record at #310 commit 109c7ee. Its source
+# hashes describe that historical producer, not this corrected validator.
+LEGACY_RECORD_SHA256 = '562f00b36685c14fe2818f230418dbd7d750c61ba1f66343e6c6d1760b0b9275'
 
 
 def digest(p):
@@ -244,7 +248,78 @@ def close(a, b, tol):
     return bool(np.isfinite(a) and abs(a-b) <= tol*max(1., abs(b)))
 
 
-def replay(data, g1_record=None, degrees=None, full=False, tol=1e-9):
+def decisions(value):
+    """Keep every categorical decision; numerical agreement cannot replace this.
+
+    Preserve paths and list shape, including absent versus present labels. This
+    includes per-row decisions and aggregate gates, not just top-level verdicts.
+    """
+    if isinstance(value, dict):
+        return {k: decisions(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [decisions(v) for v in value]
+    return value if isinstance(value, (bool, str)) or value is None else '<number>'
+
+
+def source_record_valid(data):
+    if all(data['sources'].get(p) == digest(p) for p in SOURCES):
+        return True
+    historical = hashlib.sha256(json.dumps(data, sort_keys=True,
+        separators=(',', ':'), allow_nan=False).encode()).hexdigest()
+    return historical == LEGACY_RECORD_SHA256
+
+
+def roundoff_band_report(archived_raw, fresh_raw):
+    """Diagnostic only: no change to the frozen 1e-11 G3 ratio floor."""
+    floor=1e-11
+    rows=[]
+    for sector in fl.SECTORS:
+        for a,b in zip(archived_raw['sectors'][sector]['rows'],fresh_raw['sectors'][sector]['rows']):
+            av,bv=a['rk4_16_diff'],b['rk4_16_diff']
+            in_a=.5*floor <= av <= 2*floor
+            in_b=.5*floor <= bv <= 2*floor
+            if in_a or in_b:
+                rows.append(dict(sector=sector,n=a['n'],archived_e16=av,fresh_e16=bv,
+                                 archived_e17=a['rk4_17_diff'],fresh_e17=b['rk4_17_diff'],
+                                 archived_in_band=bool(in_a),fresh_in_band=bool(in_b)))
+    return dict(floor=floor,band=[.5*floor,2*floor],rows=rows)
+
+
+def full_replay_assessment(data, fresh, g1_record, evidence_ok, tol):
+    """A sensitivity diagnostic is neither a replay pass nor certification.
+
+    Only differences attributable to errors with BOTH e16 values in the
+    declared band can receive the special status. Zeroed evidence is outside
+    that band and remains REJECTED. Unrelated decision changes stay REJECTED.
+    """
+    report=roundoff_band_report(data['raw'],fresh)
+    report.update(status='REJECTED',passed=False,
+                  validator_sha256=digest('experiments/closure_ledger/esu_floquet_probe.py'),
+                  equation_sha256=digest('geometrodynamics/waves/esu_floquet.py'))
+    if not evidence_ok or not close(data['raw'],fresh,tol):
+        return report
+    archived_decisions=decisions(data['result'])
+    if archived_decisions==decisions(score(fresh,g1_record)):
+        report.update(status='PASS',passed=True)
+        return report
+    counterfactual=copy.deepcopy(fresh)
+    replaced=[]
+    for row in report['rows']:
+        if row['archived_in_band'] and row['fresh_in_band']:
+            X,n=row['sector'],row['n']
+            a=data['raw']['sectors'][X]['rows'][n-2]
+            b=counterfactual['sectors'][X]['rows'][n-2]
+            if any(a[k]!=b[k] for k in ('rk4_16_diff','rk4_17_diff')):
+                replaced.append(dict(sector=X,n=n))
+                for k in ('rk4_16_diff','rk4_17_diff'):
+                    b[k]=a[k]
+    if replaced and archived_decisions==decisions(score(counterfactual,g1_record)):
+        report['status']='DECISION_ROUNDOFF_SENSITIVE'
+        report['attributable_rows']=replaced
+    return report
+
+
+def replay(data, g1_record=None, degrees=None, full=False, tol=1e-9, audit=None):
     """Evidence check.
 
     Always: provenance, freeze and source hashes; a validated G1 record whose hash
@@ -252,17 +327,26 @@ def replay(data, g1_record=None, degrees=None, full=False, tol=1e-9):
     rows, gates, labels, fits, WKB and verdicts, including odd-sector results) from
     raw evidence, compared exactly for labels and within tol for numbers.
     Maps: primary and half-period maps are recomputed for `degrees` (all by default).
-    full=True: remeasure all raw evidence and compare it as well.
+    full=True: remeasure all raw evidence AND score it independently. Every
+    categorical decision must agree exactly; the numerical tolerance is never
+    permission to cross a gate threshold. A non-full replay is a partial audit.
     """
+    if audit is not None:
+        audit.clear()
+        audit.update(status='REJECTED',passed=False)
     try:
         g1_record = load_g1() if g1_record is None else g1_record
         ok = close(data.get('freeze'), FREEZE, 0) and data.get('degrees') == DEGREES
-        ok &= all(data['sources'].get(p) == digest(p) for p in SOURCES)
+        ok &= source_record_valid(data)
         ok &= data.get('g1_sha256') == provenance(g1_record)['g1_sha256']
         ok &= symbolic.g1_valid(g1_record)
         ok &= close(data['result'], score(data['raw'], g1_record), tol)
         if full:
-            ok &= close(data['raw'], measure(), tol)
+            fresh = measure()
+            assessment = full_replay_assessment(data,fresh,g1_record,ok,tol)
+            if audit is not None:
+                audit.update(assessment)
+            ok = assessment['passed']
         else:
             for X in fl.SECTORS:
                 rows = data['raw']['sectors'][X]['rows']
@@ -281,11 +365,19 @@ def main():
     ap.add_argument('--output', type=Path, required=True)
     ap.add_argument('--replay', type=Path)
     ap.add_argument('--full', action='store_true', help='with --replay: remeasure all raw evidence')
+    ap.add_argument('--audit-output',type=Path,help='record full replay floor-band diagnostics')
     args = ap.parse_args()
+    if args.audit_output and not (args.replay and args.full):
+        ap.error('--audit-output requires --replay --full')
     if args.replay:
-        ok = replay(json.loads(args.replay.read_text()), full=args.full)
-        print('replay evidence:', ok)
-        raise SystemExit(0 if ok else 1)
+        audit = {}
+        ok = replay(json.loads(args.replay.read_text()), full=args.full,audit=audit)
+        if args.audit_output:
+            args.audit_output.parent.mkdir(parents=True,exist_ok=True)
+            args.audit_output.write_text(json.dumps(audit,indent=2,allow_nan=False)+'\n')
+        status = audit.get('status','REJECTED') if args.full else ('PARTIAL_PASS' if ok else 'REJECTED')
+        print('replay evidence:', status)
+        raise SystemExit(0 if ok else 2 if status=='DECISION_ROUNDOFF_SENSITIVE' else 1)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(dict(result=dict(verdicts=dict.fromkeys(VERDICT_KEYS, 'UNRESOLVED')), error='incomplete'))+'\n')
     try:

@@ -84,7 +84,12 @@ def replay(ext, archive_bytes, g1_record=None, full=False, tol=1e-9):
         derived = score(data, g1_record, ext['errors'])
         ok &= probe.close({k: ext[k] for k in ('sectors', 'verdicts_ext')}, derived, tol)
         if full:
-            ok &= probe.close(ext['errors'], measure(data), tol)
+            # Full extension replay also validates the underlying experiment.
+            ok &= probe.replay(data, g1_record, full=True, tol=tol)
+            fresh_errors = measure(data)
+            ok &= probe.close(ext['errors'], fresh_errors, tol)
+            fresh_result = score(data, g1_record, fresh_errors)
+            ok &= probe.decisions(derived) == probe.decisions(fresh_result)
         return bool(ok)
     except (KeyError, TypeError, ValueError, AttributeError):
         return False

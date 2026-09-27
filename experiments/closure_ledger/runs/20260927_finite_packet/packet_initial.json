@@ -1,0 +1,834 @@
+{
+  "freeze": "2eb1fecb8d9884e768bdc1b4c3bc895f5aac09ce",
+  "baseline": "99c94fee6dc6f5158c1ccd8e791ccd51f52e3b5a",
+  "sources": {
+    "geometrodynamics/waves/finite_packet.py": "78e2f3d05ed5b82573872a422993a004a2bfd17f7ade5e0d1c39669706e2196a",
+    "geometrodynamics/waves/esu_floquet.py": "e4c244bddc7b3e5d5ba684290b2f727704ebf101dd58fad25bdbfafc0d61e559",
+    "experiments/closure_ledger/finite_packet_probe.py": "938edeaa264b07b0d7dc30122fc28005ae62ff6b75436abfc3004bd4e3ee80f8",
+    "experiments/closure_ledger/finite_packet_spatial.py": "25468a6cffeb29a37b647bf6d98b34a2f782ede6fab56b6c2d448516ba4273e8",
+    "docs/finite_packet_first_transit_prereg.md": "26ba549c6e877fab76745c4138f2e3e7bef39e58019c9673496fd8687f189ba2"
+  },
+  "raw_files": {
+    "modes_DOP853_0.npz": "eb432a43af3559cba96362d911b4768b74e610e17034362652a5caab49eb4c1a",
+    "modes_DOP853_1.npz": "72997719aa9713bcff6c5989df9a0c99721272a8026effe758575cc8bd1e8e3d",
+    "modes_DOP853_2.npz": "8232680339cad3a71848e1adeb707682080f6c887bd9250f282a5c7a93b3f625",
+    "modes_DOP853_3.npz": "9fedd9f5a7207fd81b27e7ab0a4af0b4fa71a01113072a818e32ab001ec4f231",
+    "modes_DOP853_4.npz": "218632836a78e96255f956bf24dd164ebc6fbd2ab476e2bdd3373f096dfc38ef",
+    "modes_DOP853_5.npz": "f86fd50f75dd0991616b0b70db336cb0ab7e4a2628e8a1a619b0961699153ece",
+    "modes_DOP853_6.npz": "23006e8c7fc2f5c8ac4c6cd7e7cee5c62299e6b0156758626a36262b80868d4c",
+    "modes_DOP853_7.npz": "cbc964e1aefb135820ed3a7294861a6d3d4d66aaf6e582e0fd872df539a25f14",
+    "modes_Radau_0.npz": "d7c9d6e85a9bf7558f219c5707c52b03f688cb0076087bb4d4d371f9d7ffb034",
+    "modes_Radau_1.npz": "cc27a98393ffddf430db19b9395c98802c469870973cca1bb81a1fcb98b206c5",
+    "modes_Radau_2.npz": "970c17b51b92a85da93abd0cc952dd52b167a34cb4c4fe4eb7c10e7c690cc4ce",
+    "modes_Radau_3.npz": "8ba9a0155c5d45f72a9a54517a158f0138b73820d6dd420e29c82c28a81eb32e",
+    "modes_Radau_4.npz": "488d8a0b4b32ce135bcf3403c6b2736aa125bb525a962c0346850950ee919549",
+    "modes_Radau_5.npz": "11d302427c37afa1b3e40510cda7aa5d4887358cb9b59e79f23f208cff11a75d",
+    "modes_Radau_6.npz": "6c560ae420ef70e014a1da6f968fe950c67c76aea059f8eb23ab8be21e5f8a69",
+    "modes_Radau_7.npz": "63d448253a3df0ddd85a344eecd954833c75a68660e46a9af8e1c10dd463d903",
+    "powers.npz": "a2b513a83e4dab0ee7401d6fc5ddcbd6c5111ff9c3bf6feca93c21640a922fc9",
+    "quadrature.npz": "9fdd8ae5edc9215ce41e34156f9b6ef5cd8535097565cea02fb1dd3b4576a60a",
+    "scalar_DOP853.npz": "113b91f124909748ff760a36ccca28f83b68352667940f7bb6503f03fe640736",
+    "scalar_Radau.npz": "50e0ae5186f0bc6c809ce1cbac7dc13628833bfa147a99a3e13b11cece832ae5",
+    "spatial.json": "9e44828a3bb3ec3694ac2eb9aba217059cfc5ba4618248a0f7b9b4d614d8af2b"
+  },
+  "result": {
+    "gates": {
+      "G1": true,
+      "G2": true,
+      "G3": true,
+      "G4": true
+    },
+    "diagnostics": {
+      "coordinate_checks": {
+        "2": 9.516117754876797e-16,
+        "3": 4.52054579528735e-16,
+        "5": 6.002476446387094e-16
+      },
+      "gram_error": 2.034589751319424e-14,
+      "integrator_difference": 1.9599321178201188e-10,
+      "quadrature_difference": 1.3142471491915006e-13,
+      "quadrature_record_error": 0.0,
+      "free_state_error": 9.634461608323972e-15,
+      "amplitude_squared_error": 4.872427074534035e-16
+    },
+    "packets": [
+      {
+        "state_error": 0.021506354989232035,
+        "state_overlap": 0.999768738400329,
+        "weyl_error": 0.00020098114055000705,
+        "initial_metric_cap_fraction": 0.6742994918828393,
+        "initial_weyl_cap_fraction": 0.7136145186945886,
+        "final_weyl_cap_fraction": 0.7136137369776347,
+        "weyl_cap_retention": 0.9999989045669149,
+        "target_over_belt_mean_weyl_power": 2292306158.000645,
+        "peak_time": 3.142592653589793,
+        "peak_offset": 0.0009999999999998899,
+        "initial_south_metric_fraction": 1.3524700166364671e-12,
+        "initial_south_weyl_fraction": 5.781486597926317e-17,
+        "early_south_weyl_over_initial_north": 0.06733987712634644,
+        "initial_weyl_norm": 114.18475110481819,
+        "final_weyl_norm": 114.16275435513457,
+        "final_stress_norm": 0.9793655213864885,
+        "physical_criteria": {
+          "initial_localization": true,
+          "antipodal_state": true,
+          "weyl_retention": true,
+          "target_over_belt": true,
+          "arrival_time": true
+        },
+        "preparation": "cover_12_0.00000000",
+        "even_only": false,
+        "center": 12,
+        "width": 3,
+        "phase": 0.0,
+        "amplitude_scan": [
+          {
+            "epsilon": 1e-06,
+            "final_weyl_norm": 0.00011416275435513456,
+            "final_stress_norm": 9.793655213864885e-07
+          },
+          {
+            "epsilon": 1e-05,
+            "final_weyl_norm": 0.0011416275435513457,
+            "final_stress_norm": 9.793655213864885e-06
+          },
+          {
+            "epsilon": 0.0001,
+            "final_weyl_norm": 0.011416275435513457,
+            "final_stress_norm": 9.793655213864885e-05
+          }
+        ],
+        "verdict": "LOCALIZED_FIRST_TRANSIT"
+      },
+      {
+        "state_error": 0.021495621745516263,
+        "state_overlap": 0.9997689714352664,
+        "weyl_error": 0.019818735179484567,
+        "initial_metric_cap_fraction": 0.6742994918828393,
+        "initial_weyl_cap_fraction": 0.7136145186945886,
+        "final_weyl_cap_fraction": 0.7137564051052331,
+        "weyl_cap_retention": 1.00019882780819,
+        "target_over_belt_mean_weyl_power": 2285704774.825988,
+        "peak_time": 3.192844873982099,
+        "peak_offset": 0.051252220392306036,
+        "initial_south_metric_fraction": 1.3524700166352754e-12,
+        "initial_south_weyl_fraction": 5.781486586901613e-17,
+        "early_south_weyl_over_initial_north": 0.11672722198062604,
+        "initial_weyl_norm": 80.74081181431508,
+        "final_weyl_norm": 79.15710948782373,
+        "final_stress_norm": 0.6778318850919006,
+        "physical_criteria": {
+          "initial_localization": true,
+          "antipodal_state": true,
+          "weyl_retention": true,
+          "target_over_belt": true,
+          "arrival_time": false
+        },
+        "preparation": "cover_12_0.78539816",
+        "even_only": false,
+        "center": 12,
+        "width": 3,
+        "phase": 0.7853981633974483,
+        "amplitude_scan": [
+          {
+            "epsilon": 1e-06,
+            "final_weyl_norm": 7.915710948782373e-05,
+            "final_stress_norm": 6.778318850919006e-07
+          },
+          {
+            "epsilon": 1e-05,
+            "final_weyl_norm": 0.0007915710948782373,
+            "final_stress_norm": 6.7783188509190066e-06
+          },
+          {
+            "epsilon": 0.0001,
+            "final_weyl_norm": 0.007915710948782373,
+            "final_stress_norm": 6.778318850919007e-05
+          }
+        ],
+        "verdict": "NOT_ESTABLISHED"
+      },
+      {
+        "state_error": 0.0111727739794394,
+        "state_overlap": 0.999937584561801,
+        "weyl_error": 5.372190347821644e-05,
+        "initial_metric_cap_fraction": 0.9848894091836441,
+        "initial_weyl_cap_fraction": 0.9866863669270367,
+        "final_weyl_cap_fraction": 0.986685772920563,
+        "weyl_cap_retention": 0.9999993979784321,
+        "target_over_belt_mean_weyl_power": 1.003163281300312e+17,
+        "peak_time": 3.141592653589793,
+        "peak_offset": 0.0,
+        "initial_south_metric_fraction": 9.825564161178978e-14,
+        "initial_south_weyl_fraction": 6.221877823960181e-19,
+        "early_south_weyl_over_initial_north": 0.0016751922491093747,
+        "initial_weyl_norm": 427.0215925204548,
+        "final_weyl_norm": 426.99966531078417,
+        "final_stress_norm": 0.9795307110066163,
+        "physical_criteria": {
+          "initial_localization": true,
+          "antipodal_state": true,
+          "weyl_retention": true,
+          "target_over_belt": true,
+          "arrival_time": true
+        },
+        "preparation": "cover_24_0.00000000",
+        "even_only": false,
+        "center": 24,
+        "width": 6,
+        "phase": 0.0,
+        "amplitude_scan": [
+          {
+            "epsilon": 1e-06,
+            "final_weyl_norm": 0.0004269996653107841,
+            "final_stress_norm": 9.795307110066162e-07
+          },
+          {
+            "epsilon": 1e-05,
+            "final_weyl_norm": 0.004269996653107842,
+            "final_stress_norm": 9.795307110066163e-06
+          },
+          {
+            "epsilon": 0.0001,
+            "final_weyl_norm": 0.042699966531078416,
+            "final_stress_norm": 9.795307110066163e-05
+          }
+        ],
+        "verdict": "LOCALIZED_FIRST_TRANSIT"
+      },
+      {
+        "state_error": 0.011171332625002918,
+        "state_overlap": 0.9999376007469204,
+        "weyl_error": 0.010185942403586341,
+        "initial_metric_cap_fraction": 0.9848894091836441,
+        "initial_weyl_cap_fraction": 0.986686366927037,
+        "final_weyl_cap_fraction": 0.986646058158981,
+        "weyl_cap_retention": 0.999959147334546,
+        "target_over_belt_mean_weyl_power": 1.495761646936093e+17,
+        "peak_time": 3.1685926535897933,
+        "peak_offset": 0.027000000000000135,
+        "initial_south_metric_fraction": 9.825564161249427e-14,
+        "initial_south_weyl_fraction": 6.221877884913366e-19,
+        "early_south_weyl_over_initial_north": 0.00392379737040659,
+        "initial_weyl_norm": 301.9498637842923,
+        "final_weyl_norm": 298.90722745592063,
+        "final_stress_norm": 0.6850058874065209,
+        "physical_criteria": {
+          "initial_localization": true,
+          "antipodal_state": true,
+          "weyl_retention": true,
+          "target_over_belt": true,
+          "arrival_time": true
+        },
+        "preparation": "cover_24_0.78539816",
+        "even_only": false,
+        "center": 24,
+        "width": 6,
+        "phase": 0.7853981633974483,
+        "amplitude_scan": [
+          {
+            "epsilon": 1e-06,
+            "final_weyl_norm": 0.00029890722745592064,
+            "final_stress_norm": 6.850058874065208e-07
+          },
+          {
+            "epsilon": 1e-05,
+            "final_weyl_norm": 0.0029890722745592067,
+            "final_stress_norm": 6.85005887406521e-06
+          },
+          {
+            "epsilon": 0.0001,
+            "final_weyl_norm": 0.029890722745592065,
+            "final_stress_norm": 6.85005887406521e-05
+          }
+        ],
+        "verdict": "LOCALIZED_FIRST_TRANSIT"
+      },
+      {
+        "state_error": 0.0068098932601937286,
+        "state_overlap": 0.9999768126769432,
+        "weyl_error": 1.98735140131352e-05,
+        "initial_metric_cap_fraction": 0.9999519664293832,
+        "initial_weyl_cap_fraction": 0.9999110051813337,
+        "final_weyl_cap_fraction": 0.9999110037592404,
+        "weyl_cap_retention": 0.9999999985777801,
+        "target_over_belt_mean_weyl_power": 4158994114.616078,
+        "peak_time": 3.141592653589793,
+        "peak_offset": 0.0,
+        "initial_south_metric_fraction": 3.841841670131423e-10,
+        "initial_south_weyl_fraction": 4.1766080953494615e-09,
+        "early_south_weyl_over_initial_north": 1.0519001732375145e-05,
+        "initial_weyl_norm": 1154.2249764875917,
+        "final_weyl_norm": 1154.2030768543157,
+        "final_stress_norm": 0.9795691247997733,
+        "physical_criteria": {
+          "initial_localization": true,
+          "antipodal_state": true,
+          "weyl_retention": true,
+          "target_over_belt": true,
+          "arrival_time": true
+        },
+        "preparation": "cover_40_0.00000000",
+        "even_only": false,
+        "center": 40,
+        "width": 10,
+        "phase": 0.0,
+        "amplitude_scan": [
+          {
+            "epsilon": 1e-06,
+            "final_weyl_norm": 0.0011542030768543156,
+            "final_stress_norm": 9.795691247997733e-07
+          },
+          {
+            "epsilon": 1e-05,
+            "final_weyl_norm": 0.011542030768543158,
+            "final_stress_norm": 9.795691247997734e-06
+          },
+          {
+            "epsilon": 0.0001,
+            "final_weyl_norm": 0.11542030768543157,
+            "final_stress_norm": 9.795691247997734e-05
+          }
+        ],
+        "verdict": "LOCALIZED_FIRST_TRANSIT"
+      },
+      {
+        "state_error": 0.006809569750696773,
+        "state_overlap": 0.9999768148868191,
+        "weyl_error": 0.006179475005508518,
+        "initial_metric_cap_fraction": 0.999951966429383,
+        "initial_weyl_cap_fraction": 0.999911005181334,
+        "final_weyl_cap_fraction": 0.9999109346157684,
+        "weyl_cap_retention": 0.9999999294281539,
+        "target_over_belt_mean_weyl_power": 4137116902.115894,
+        "peak_time": 3.157592653589793,
+        "peak_offset": 0.016000000000000014,
+        "initial_south_metric_fraction": 3.84184167013117e-10,
+        "initial_south_weyl_fraction": 4.1766080953494036e-09,
+        "early_south_weyl_over_initial_north": 8.829057321343042e-06,
+        "initial_weyl_norm": 816.1603078892595,
+        "final_weyl_norm": 811.1718609968386,
+        "final_stress_norm": 0.6880124315665436,
+        "physical_criteria": {
+          "initial_localization": true,
+          "antipodal_state": true,
+          "weyl_retention": true,
+          "target_over_belt": true,
+          "arrival_time": true
+        },
+        "preparation": "cover_40_0.78539816",
+        "even_only": false,
+        "center": 40,
+        "width": 10,
+        "phase": 0.7853981633974483,
+        "amplitude_scan": [
+          {
+            "epsilon": 1e-06,
+            "final_weyl_norm": 0.0008111718609968386,
+            "final_stress_norm": 6.880124315665435e-07
+          },
+          {
+            "epsilon": 1e-05,
+            "final_weyl_norm": 0.008111718609968387,
+            "final_stress_norm": 6.8801243156654365e-06
+          },
+          {
+            "epsilon": 0.0001,
+            "final_weyl_norm": 0.08111718609968387,
+            "final_stress_norm": 6.880124315665436e-05
+          }
+        ],
+        "verdict": "LOCALIZED_FIRST_TRANSIT"
+      },
+      {
+        "state_error": 0.021506327996537275,
+        "state_overlap": 0.9997687389807062,
+        "weyl_error": 0.000200981140568088,
+        "initial_metric_cap_fraction": 0.6742998786948821,
+        "initial_weyl_cap_fraction": 0.7136145194204822,
+        "final_weyl_cap_fraction": 0.7136137376665856,
+        "weyl_cap_retention": 0.9999989045151476,
+        "target_over_belt_mean_weyl_power": 1156830324.2835987,
+        "peak_time": 3.142592653589793,
+        "peak_offset": 0.0009999999999998899,
+        "initial_south_metric_fraction": 0.337149939347441,
+        "initial_south_weyl_fraction": 0.356807259710241,
+        "early_south_weyl_over_initial_north": 0.9999999999999996,
+        "initial_weyl_norm": 114.18475110499344,
+        "final_weyl_norm": 114.16275435536329,
+        "final_stress_norm": 0.9793655213759873,
+        "physical_criteria": {
+          "initial_localization": true,
+          "antipodal_state": true,
+          "weyl_retention": true,
+          "target_over_belt": true,
+          "arrival_time": true
+        },
+        "preparation": "paired_12_0.00000000",
+        "even_only": true,
+        "center": 12,
+        "width": 3,
+        "phase": 0.0,
+        "amplitude_scan": [
+          {
+            "epsilon": 1e-06,
+            "final_weyl_norm": 0.00011416275435536329,
+            "final_stress_norm": 9.793655213759872e-07
+          },
+          {
+            "epsilon": 1e-05,
+            "final_weyl_norm": 0.001141627543553633,
+            "final_stress_norm": 9.793655213759873e-06
+          },
+          {
+            "epsilon": 0.0001,
+            "final_weyl_norm": 0.01141627543553633,
+            "final_stress_norm": 9.793655213759874e-05
+          }
+        ],
+        "verdict": "PAIRED_RECURRENCE"
+      },
+      {
+        "state_error": 0.021495622687546605,
+        "state_overlap": 0.9997689714113666,
+        "weyl_error": 0.019818737991805904,
+        "initial_metric_cap_fraction": 0.6742998786948821,
+        "initial_weyl_cap_fraction": 0.7136145194204822,
+        "final_weyl_cap_fraction": 0.7137563908135688,
+        "weyl_cap_retention": 1.0001988067636318,
+        "target_over_belt_mean_weyl_power": 1150087784.144489,
+        "peak_time": 3.192844873982099,
+        "peak_offset": 0.051252220392306036,
+        "initial_south_metric_fraction": 0.337149939347441,
+        "initial_south_weyl_fraction": 0.356807259710241,
+        "early_south_weyl_over_initial_north": 1.9576156441020423,
+        "initial_weyl_norm": 80.74081181443898,
+        "final_weyl_norm": 79.15710935554797,
+        "final_stress_norm": 0.6778318747261657,
+        "physical_criteria": {
+          "initial_localization": true,
+          "antipodal_state": true,
+          "weyl_retention": true,
+          "target_over_belt": true,
+          "arrival_time": false
+        },
+        "preparation": "paired_12_0.78539816",
+        "even_only": true,
+        "center": 12,
+        "width": 3,
+        "phase": 0.7853981633974483,
+        "amplitude_scan": [
+          {
+            "epsilon": 1e-06,
+            "final_weyl_norm": 7.915710935554797e-05,
+            "final_stress_norm": 6.778318747261657e-07
+          },
+          {
+            "epsilon": 1e-05,
+            "final_weyl_norm": 0.0007915710935554798,
+            "final_stress_norm": 6.778318747261657e-06
+          },
+          {
+            "epsilon": 0.0001,
+            "final_weyl_norm": 0.007915710935554798,
+            "final_stress_norm": 6.778318747261657e-05
+          }
+        ],
+        "verdict": "NOT_ESTABLISHED"
+      },
+      {
+        "state_error": 0.011172773976563749,
+        "state_overlap": 0.9999375845618329,
+        "weyl_error": 5.37219034856077e-05,
+        "initial_metric_cap_fraction": 0.9848893991501184,
+        "initial_weyl_cap_fraction": 0.9866863669745815,
+        "final_weyl_cap_fraction": 0.9866857729670514,
+        "weyl_cap_retention": 0.9999993979773615,
+        "target_over_belt_mean_weyl_power": 4.9677334520485656e+16,
+        "peak_time": 3.141592653589793,
+        "peak_offset": 0.0,
+        "initial_south_metric_fraction": 0.49244469957505904,
+        "initial_south_weyl_fraction": 0.4933431834872905,
+        "early_south_weyl_over_initial_north": 0.999999999999999,
+        "initial_weyl_norm": 427.02159251284894,
+        "final_weyl_norm": 426.99966530317903,
+        "final_stress_norm": 0.9795307110060201,
+        "physical_criteria": {
+          "initial_localization": true,
+          "antipodal_state": true,
+          "weyl_retention": true,
+          "target_over_belt": true,
+          "arrival_time": true
+        },
+        "preparation": "paired_24_0.00000000",
+        "even_only": true,
+        "center": 24,
+        "width": 6,
+        "phase": 0.0,
+        "amplitude_scan": [
+          {
+            "epsilon": 1e-06,
+            "final_weyl_norm": 0.000426999665303179,
+            "final_stress_norm": 9.7953071100602e-07
+          },
+          {
+            "epsilon": 1e-05,
+            "final_weyl_norm": 0.004269996653031791,
+            "final_stress_norm": 9.795307110060202e-06
+          },
+          {
+            "epsilon": 0.0001,
+            "final_weyl_norm": 0.04269996653031791,
+            "final_stress_norm": 9.795307110060201e-05
+          }
+        ],
+        "verdict": "PAIRED_RECURRENCE"
+      },
+      {
+        "state_error": 0.011171332678887137,
+        "state_overlap": 0.9999376007463171,
+        "weyl_error": 0.010185942403945129,
+        "initial_metric_cap_fraction": 0.9848893991501183,
+        "initial_weyl_cap_fraction": 0.9866863669745817,
+        "final_weyl_cap_fraction": 0.9866460582013605,
+        "weyl_cap_retention": 0.9999591473293132,
+        "target_over_belt_mean_weyl_power": 7.390254451873035e+16,
+        "peak_time": 3.1685926535897933,
+        "peak_offset": 0.027000000000000135,
+        "initial_south_metric_fraction": 0.49244469957505893,
+        "initial_south_weyl_fraction": 0.49334318348729067,
+        "early_south_weyl_over_initial_north": 1.966328710983283,
+        "initial_weyl_norm": 301.9498637789141,
+        "final_weyl_norm": 298.90722745056314,
+        "final_stress_norm": 0.6850058873915602,
+        "physical_criteria": {
+          "initial_localization": true,
+          "antipodal_state": true,
+          "weyl_retention": true,
+          "target_over_belt": true,
+          "arrival_time": true
+        },
+        "preparation": "paired_24_0.78539816",
+        "even_only": true,
+        "center": 24,
+        "width": 6,
+        "phase": 0.7853981633974483,
+        "amplitude_scan": [
+          {
+            "epsilon": 1e-06,
+            "final_weyl_norm": 0.0002989072274505631,
+            "final_stress_norm": 6.850058873915602e-07
+          },
+          {
+            "epsilon": 1e-05,
+            "final_weyl_norm": 0.0029890722745056315,
+            "final_stress_norm": 6.850058873915603e-06
+          },
+          {
+            "epsilon": 0.0001,
+            "final_weyl_norm": 0.029890722745056317,
+            "final_stress_norm": 6.850058873915603e-05
+          }
+        ],
+        "verdict": "PAIRED_RECURRENCE"
+      },
+      {
+        "state_error": 0.006809893251814137,
+        "state_overlap": 0.9999768126770001,
+        "weyl_error": 1.9873513221540462e-05,
+        "initial_metric_cap_fraction": 0.9999519070822812,
+        "initial_weyl_cap_fraction": 0.9999108824551766,
+        "final_weyl_cap_fraction": 0.9999108810330208,
+        "weyl_cap_retention": 0.9999999985777175,
+        "target_over_belt_mean_weyl_power": 3327163320.7326174,
+        "peak_time": 3.141592653589793,
+        "peak_offset": 0.0,
+        "initial_south_metric_fraction": 0.4999759535411405,
+        "initial_south_weyl_fraction": 0.49995544122758817,
+        "early_south_weyl_over_initial_north": 0.9999999999999998,
+        "initial_weyl_norm": 1154.2250198521501,
+        "final_weyl_norm": 1154.2031202193466,
+        "final_stress_norm": 0.9795691247998638,
+        "physical_criteria": {
+          "initial_localization": true,
+          "antipodal_state": true,
+          "weyl_retention": true,
+          "target_over_belt": true,
+          "arrival_time": true
+        },
+        "preparation": "paired_40_0.00000000",
+        "even_only": true,
+        "center": 40,
+        "width": 10,
+        "phase": 0.0,
+        "amplitude_scan": [
+          {
+            "epsilon": 1e-06,
+            "final_weyl_norm": 0.0011542031202193465,
+            "final_stress_norm": 9.795691247998637e-07
+          },
+          {
+            "epsilon": 1e-05,
+            "final_weyl_norm": 0.011542031202193466,
+            "final_stress_norm": 9.795691247998638e-06
+          },
+          {
+            "epsilon": 0.0001,
+            "final_weyl_norm": 0.11542031202193466,
+            "final_stress_norm": 9.795691247998638e-05
+          }
+        ],
+        "verdict": "PAIRED_RECURRENCE"
+      },
+      {
+        "state_error": 0.006809569743621391,
+        "state_overlap": 0.9999768148868672,
+        "weyl_error": 0.006179474830688389,
+        "initial_metric_cap_fraction": 0.9999519070822811,
+        "initial_weyl_cap_fraction": 0.9999108824551762,
+        "final_weyl_cap_fraction": 0.9999108121416679,
+        "weyl_cap_retention": 0.9999999296802249,
+        "target_over_belt_mean_weyl_power": 3309468471.14636,
+        "peak_time": 3.157592653589793,
+        "peak_offset": 0.016000000000000014,
+        "initial_south_metric_fraction": 0.49997595354114044,
+        "initial_south_weyl_fraction": 0.4999554412275881,
+        "early_south_weyl_over_initial_north": 1.9755069232854194,
+        "initial_weyl_norm": 816.1603385526328,
+        "final_weyl_norm": 811.1718916511245,
+        "final_stress_norm": 0.6880124315827986,
+        "physical_criteria": {
+          "initial_localization": true,
+          "antipodal_state": true,
+          "weyl_retention": true,
+          "target_over_belt": true,
+          "arrival_time": true
+        },
+        "preparation": "paired_40_0.78539816",
+        "even_only": true,
+        "center": 40,
+        "width": 10,
+        "phase": 0.7853981633974483,
+        "amplitude_scan": [
+          {
+            "epsilon": 1e-06,
+            "final_weyl_norm": 0.0008111718916511244,
+            "final_stress_norm": 6.880124315827985e-07
+          },
+          {
+            "epsilon": 1e-05,
+            "final_weyl_norm": 0.008111718916511246,
+            "final_stress_norm": 6.880124315827986e-06
+          },
+          {
+            "epsilon": 0.0001,
+            "final_weyl_norm": 0.08111718916511246,
+            "final_stress_norm": 6.880124315827986e-05
+          }
+        ],
+        "verdict": "PAIRED_RECURRENCE"
+      }
+    ],
+    "controls": [
+      {
+        "preparation": "cover_12_0.00000000",
+        "kind": "free",
+        "state_error": 3.0162394550024695e-15,
+        "weyl_error": 0.0,
+        "peak_offset": 0.0
+      },
+      {
+        "preparation": "cover_12_0.00000000",
+        "kind": "bare",
+        "state_error": 0.11881133068227392,
+        "weyl_error": 0.006174269826838655,
+        "peak_offset": 0.007000000000000117
+      },
+      {
+        "preparation": "cover_12_0.78539816",
+        "kind": "free",
+        "state_error": 3.0219048881869507e-15,
+        "weyl_error": 3.073423892687979e-15,
+        "peak_offset": 0.04999999999999982
+      },
+      {
+        "preparation": "cover_12_0.78539816",
+        "kind": "bare",
+        "state_error": 0.119221182502275,
+        "weyl_error": 0.11501592671977151,
+        "peak_offset": 0.05699999999999994
+      },
+      {
+        "preparation": "cover_24_0.00000000",
+        "kind": "free",
+        "state_error": 5.412682995742179e-15,
+        "weyl_error": 0.0,
+        "peak_offset": 0.0
+      },
+      {
+        "preparation": "cover_24_0.00000000",
+        "kind": "bare",
+        "state_error": 0.06188170938593876,
+        "weyl_error": 0.0016509033101732502,
+        "peak_offset": 0.0018783305884588763
+      },
+      {
+        "preparation": "cover_24_0.78539816",
+        "kind": "free",
+        "state_error": 5.418642367801028e-15,
+        "weyl_error": 5.6464630711447296e-15,
+        "peak_offset": 0.026565275490382678
+      },
+      {
+        "preparation": "cover_24_0.78539816",
+        "kind": "bare",
+        "state_error": 0.06193818258410262,
+        "weyl_error": 0.057825426607061504,
+        "peak_offset": 0.028999999999999915
+      },
+      {
+        "preparation": "cover_40_0.00000000",
+        "kind": "free",
+        "state_error": 9.634461608323972e-15,
+        "weyl_error": 0.0,
+        "peak_offset": 0.0
+      },
+      {
+        "preparation": "cover_40_0.00000000",
+        "kind": "bare",
+        "state_error": 0.03773987617035082,
+        "weyl_error": 0.0006107734999544289,
+        "peak_offset": 0.0009999999999998899
+      },
+      {
+        "preparation": "cover_40_0.78539816",
+        "kind": "free",
+        "state_error": 9.615584400471501e-15,
+        "weyl_error": 1.011131824984738e-14,
+        "peak_offset": 0.016000000000000014
+      },
+      {
+        "preparation": "cover_40_0.78539816",
+        "kind": "bare",
+        "state_error": 0.037752561406118025,
+        "weyl_error": 0.0347569284386641,
+        "peak_offset": 0.016999999999999904
+      },
+      {
+        "preparation": "paired_12_0.00000000",
+        "kind": "free",
+        "state_error": 3.912659511909667e-15,
+        "weyl_error": 0.0,
+        "peak_offset": 0.0
+      },
+      {
+        "preparation": "paired_12_0.00000000",
+        "kind": "bare",
+        "state_error": 0.11881133237541022,
+        "weyl_error": 0.006174269825909569,
+        "peak_offset": 0.007000000000000117
+      },
+      {
+        "preparation": "paired_12_0.78539816",
+        "kind": "free",
+        "state_error": 3.860078855092224e-15,
+        "weyl_error": 4.0351979622155815e-15,
+        "peak_offset": 0.04999999999999982
+      },
+      {
+        "preparation": "paired_12_0.78539816",
+        "kind": "bare",
+        "state_error": 0.11922118542901584,
+        "weyl_error": 0.11501592659942647,
+        "peak_offset": 0.05699999999999994
+      },
+      {
+        "preparation": "paired_24_0.00000000",
+        "kind": "free",
+        "state_error": 4.8409285551070364e-15,
+        "weyl_error": 0.0,
+        "peak_offset": 0.0
+      },
+      {
+        "preparation": "paired_24_0.00000000",
+        "kind": "bare",
+        "state_error": 0.0618817096077794,
+        "weyl_error": 0.0016509033101877936,
+        "peak_offset": 0.0018783305884588763
+      },
+      {
+        "preparation": "paired_24_0.78539816",
+        "kind": "free",
+        "state_error": 4.819048185470947e-15,
+        "weyl_error": 5.076076978221e-15,
+        "peak_offset": 0.026565275490382678
+      },
+      {
+        "preparation": "paired_24_0.78539816",
+        "kind": "bare",
+        "state_error": 0.06193818289685362,
+        "weyl_error": 0.05782542660706224,
+        "peak_offset": 0.028999999999999915
+      },
+      {
+        "preparation": "paired_40_0.00000000",
+        "kind": "free",
+        "state_error": 9.317045608811873e-15,
+        "weyl_error": 0.0,
+        "peak_offset": 0.0
+      },
+      {
+        "preparation": "paired_40_0.00000000",
+        "kind": "bare",
+        "state_error": 0.03773987611743211,
+        "weyl_error": 0.0006107734769941278,
+        "peak_offset": 0.0009999999999998899
+      },
+      {
+        "preparation": "paired_40_0.78539816",
+        "kind": "free",
+        "state_error": 9.302136469265062e-15,
+        "weyl_error": 9.897697155451641e-15,
+        "peak_offset": 0.016000000000000014
+      },
+      {
+        "preparation": "paired_40_0.78539816",
+        "kind": "bare",
+        "state_error": 0.03775256137058248,
+        "weyl_error": 0.0347569274490916,
+        "peak_offset": 0.016999999999999904
+      }
+    ],
+    "instability_budget": {
+      "n2_spectral_radius": 1.2475444002663671,
+      "n2_max_scaled_state_gain": 3.287839050951701,
+      "n2_max_metric_transfer_gain": 1.2650519390825428,
+      "n2_seed_bound_for_point01_metric": 0.007904813779624202,
+      "homogeneous_gain": 85.01969522320721,
+      "homogeneous_seed_bound_for_point01_drift": 0.00011761980531389123,
+      "seed_scan": [
+        {
+          "seed": 0.0,
+          "homogeneous_drift_bound": 0.0,
+          "n2_metric_bound": 0.0
+        },
+        {
+          "seed": 1e-08,
+          "homogeneous_drift_bound": 8.501969522320721e-07,
+          "n2_metric_bound": 1.2650519390825428e-08
+        },
+        {
+          "seed": 1e-06,
+          "homogeneous_drift_bound": 8.50196952232072e-05,
+          "n2_metric_bound": 1.2650519390825427e-06
+        },
+        {
+          "seed": 0.0001,
+          "homogeneous_drift_bound": 0.008501969522320721,
+          "n2_metric_bound": 0.0001265051939082543
+        }
+      ],
+      "independent_difference": 2.3991231205878484e-11
+    }
+  }
+}
