@@ -178,3 +178,64 @@ def test_failed_run_withdraws_verdicts(tmp_path, monkeypatch):
     with pytest.raises(ArithmeticError):
         probe.main()
     assert set(json.loads(out.read_text())['result']['verdicts'].values()) == {'UNRESOLVED'}
+
+
+@have_archive
+def test_full_replay_rejects_joint_near_floor_evidence_and_result_forgery(monkeypatch):
+    """The reviewed exploit remains rejected even with current producer hashes."""
+    original = json.loads(ARCHIVE.read_text())
+    g1 = probe.load_g1()
+    good = copy.deepcopy(original)
+    good.update(probe.provenance(g1))
+    monkeypatch.setattr(probe, 'measure', lambda: copy.deepcopy(original['raw']))
+    assert probe.replay(good, full=True)
+    bad = copy.deepcopy(good)
+    changed = 0
+    for X in 'VS':
+        for row in bad['raw']['sectors'][X]['rows']:
+            a, b = row['rk4_16_diff'], row['rk4_17_diff']
+            if a > 1e-11 and b > 0 and not 8 <= a/b <= 32:
+                row['rk4_16_diff'] = row['rk4_17_diff'] = 0.
+                changed += 1
+    assert changed > 0
+    bad['result'] = probe.score(bad['raw'], g1)
+    assert probe.close(bad['raw'], original['raw'], 1e-9)
+    assert probe.decisions(bad['result']) != probe.decisions(good['result'])
+    assert probe.replay(bad, degrees=[])  # explicitly only a partial audit
+    assert not probe.replay(bad, full=True)
+
+
+@have_archive
+def test_legacy_record_is_authenticated_without_rewriting_its_sources():
+    data = json.loads(ARCHIVE.read_text())
+    assert probe.source_record_valid(data)
+    assert data['sources']['experiments/closure_ledger/esu_floquet_probe.py'] != probe.digest('experiments/closure_ledger/esu_floquet_probe.py')
+    data['raw']['controls']['C1_defects'][0] += 1e-15
+    assert not probe.source_record_valid(data)
+
+
+@have_archive
+def test_extension_full_replay_checks_fresh_gate_decisions(monkeypatch):
+    archive_bytes = ARCHIVE.read_bytes()
+    data = json.loads(archive_bytes)
+    g1 = probe.load_g1()
+    # Controlled independent measurement fixture: one trace-ratio failure just
+    # above the extension floor. Other rows give nonvacuous 16:1 convergence.
+    fresh = {X: [[16e-6, 1e-6, 6.25e-8] for _ in probe.DEGREES] for X in fl.SECTORS}
+    fresh['V'][0] = [1.000001e-9, 3e-10, 1e-11]
+    altered = copy.deepcopy(fresh)
+    altered['V'][0][0] = .999999e-9
+    assert probe.close(fresh, altered, 1e-9)
+    ext = dict(addendum=ext_mod.ADDENDUM,
+               archive_sha256=hashlib.sha256(archive_bytes).hexdigest(),
+               steps=list(ext_mod.STEPS), floor=ext_mod.FLOOR, errors=altered,
+               **ext_mod.score(data, g1, altered))
+    calls = []
+    def base_replay(*a, **kw):
+        calls.append(kw.get('full', False))
+        return True
+    monkeypatch.setattr(probe, 'replay', base_replay)
+    monkeypatch.setattr(ext_mod, 'measure', lambda _: fresh)
+    assert ext_mod.replay(ext, archive_bytes)
+    assert not ext_mod.replay(ext, archive_bytes, full=True)
+    assert True in calls

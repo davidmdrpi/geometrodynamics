@@ -26,6 +26,9 @@ RK4_STEPS = (2**16, 2**17)
 PRIOR_T2_HALF_TRACE = -0.0963065402      # #294, one pi/2 period at phase zero
 VERDICT_KEYS = ('T_STABILITY', 'V_STABILITY', 'S_STABILITY', 'T_REFOCUSING', 'V_REFOCUSING',
                 'S_REFOCUSING', 'T_WKB_PREDICTION', 'V_WKB_PREDICTION')
+# Exact, canonicalized historical record at #310 commit 109c7ee. Its source
+# hashes describe that historical producer, not this corrected validator.
+LEGACY_RECORD_SHA256 = '562f00b36685c14fe2818f230418dbd7d750c61ba1f66343e6c6d1760b0b9275'
 
 
 def digest(p):
@@ -244,6 +247,27 @@ def close(a, b, tol):
     return bool(np.isfinite(a) and abs(a-b) <= tol*max(1., abs(b)))
 
 
+def decisions(value):
+    """Keep every categorical decision; numerical agreement cannot replace this.
+
+    Preserve paths and list shape, including absent versus present labels. This
+    includes per-row decisions and aggregate gates, not just top-level verdicts.
+    """
+    if isinstance(value, dict):
+        return {k: decisions(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [decisions(v) for v in value]
+    return value if isinstance(value, (bool, str)) or value is None else '<number>'
+
+
+def source_record_valid(data):
+    if all(data['sources'].get(p) == digest(p) for p in SOURCES):
+        return True
+    historical = hashlib.sha256(json.dumps(data, sort_keys=True,
+        separators=(',', ':'), allow_nan=False).encode()).hexdigest()
+    return historical == LEGACY_RECORD_SHA256
+
+
 def replay(data, g1_record=None, degrees=None, full=False, tol=1e-9):
     """Evidence check.
 
@@ -252,17 +276,21 @@ def replay(data, g1_record=None, degrees=None, full=False, tol=1e-9):
     rows, gates, labels, fits, WKB and verdicts, including odd-sector results) from
     raw evidence, compared exactly for labels and within tol for numbers.
     Maps: primary and half-period maps are recomputed for `degrees` (all by default).
-    full=True: remeasure all raw evidence and compare it as well.
+    full=True: remeasure all raw evidence AND score it independently. Every
+    categorical decision must agree exactly; the numerical tolerance is never
+    permission to cross a gate threshold. A non-full replay is a partial audit.
     """
     try:
         g1_record = load_g1() if g1_record is None else g1_record
         ok = close(data.get('freeze'), FREEZE, 0) and data.get('degrees') == DEGREES
-        ok &= all(data['sources'].get(p) == digest(p) for p in SOURCES)
+        ok &= source_record_valid(data)
         ok &= data.get('g1_sha256') == provenance(g1_record)['g1_sha256']
         ok &= symbolic.g1_valid(g1_record)
         ok &= close(data['result'], score(data['raw'], g1_record), tol)
         if full:
-            ok &= close(data['raw'], measure(), tol)
+            fresh = measure()
+            ok &= close(data['raw'], fresh, tol)
+            ok &= decisions(data['result']) == decisions(score(fresh, g1_record))
         else:
             for X in fl.SECTORS:
                 rows = data['raw']['sectors'][X]['rows']
