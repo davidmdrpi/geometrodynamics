@@ -1,0 +1,290 @@
+{
+  "kind": "post-review diagnostic controls, not preregistered gates",
+  "original_verdict": "REGISTERED_GATE_FAILURE",
+  "grids": [
+    {
+      "grid": [
+        64,
+        192
+      ],
+      "controls": [
+        {
+          "field": "pair",
+          "metric": "pair",
+          "constraint_solved": true,
+          "H_normalized_max": 3.237464771697964e-11,
+          "rates_01": [
+            8.269750613599937e-05,
+            -6.448201727571136e-05,
+            -1.8469931171824668e-05
+          ],
+          "energies": [
+            0.11175200717734277,
+            0.11338884872332572
+          ]
+        },
+        {
+          "field": "pair",
+          "metric": "round",
+          "constraint_solved": false,
+          "H_normalized_max": 0.019726989015295352,
+          "rates_01": [
+            0.00015297121281686012,
+            -0.00011173845081046195,
+            -4.123276200640978e-05
+          ],
+          "energies": [
+            0.11215612013392909,
+            0.11340828261426678
+          ]
+        },
+        {
+          "field": "A_only",
+          "metric": "pair",
+          "constraint_solved": false,
+          "H_normalized_max": 0.01964936115774428,
+          "rates_01": [
+            -6.982384371123317e-05,
+            -3.9340096828059e-05,
+            -8.57249425520977e-06
+          ],
+          "energies": [
+            0.11171535381133255,
+            0.10966670851186944
+          ]
+        },
+        {
+          "field": "B_only",
+          "metric": "pair",
+          "constraint_solved": false,
+          "H_normalized_max": 0.013099210068122981,
+          "rates_01": [
+            5.769192070550664e-05,
+            4.725736086625317e-05,
+            1.2498920555683224e-05
+          ],
+          "energies": [
+            0.1093000815091016,
+            0.1133642675766493
+          ]
+        },
+        {
+          "field": "A_only",
+          "metric": "round",
+          "constraint_solved": false,
+          "H_normalized_max": 0.013086499404652454,
+          "rates_01": [
+            -4.607859233063394e-19,
+            -8.331525278053973e-05,
+            8.331525278053526e-05
+          ],
+          "energies": [
+            0.11211938423587323,
+            0.10968586150502957
+          ]
+        },
+        {
+          "field": "B_only",
+          "metric": "round",
+          "constraint_solved": false,
+          "H_normalized_max": 0.019652295096241192,
+          "rates_01": [
+            0.0001246688923621635,
+            -1.7057601552484918e-10,
+            -0.00012466872178615372
+          ],
+          "energies": [
+            0.10969802459371478,
+            0.11338370233462675
+          ]
+        }
+      ],
+      "energy_response": {
+        "solved": [
+          [
+            0.13977475663981553,
+            -0.02253228744680813
+          ],
+          [
+            -0.022410309770876102,
+            0.14299560991176685
+          ]
+        ],
+        "fixed_round": [
+          [
+            0.12537586644952026,
+            0.0012285533361189316
+          ],
+          [
+            0.0012317500763248113,
+            0.1277618956823101
+          ]
+        ],
+        "solved_minus_fixed_round": [
+          [
+            0.014398890190295277,
+            -0.023760840782927062
+          ],
+          [
+            -0.023642059847200914,
+            0.01523371422945674
+          ]
+        ]
+      },
+      "active_density_range": [
+        -3.987582024156607,
+        -3.9184427093184757
+      ],
+      "active_identity_max_error": 8.881784197001252e-16,
+      "other_seed_supremum_in_either_cap": 0.1168947962784656
+    },
+    {
+      "grid": [
+        96,
+        288
+      ],
+      "controls": [
+        {
+          "field": "pair",
+          "metric": "pair",
+          "constraint_solved": true,
+          "H_normalized_max": 3.401593250946612e-11,
+          "rates_01": [
+            8.26975119971188e-05,
+            -6.448187416268788e-05,
+            -1.8470080145958522e-05
+          ],
+          "energies": [
+            0.11175201026270302,
+            0.11338885513090387
+          ]
+        },
+        {
+          "field": "pair",
+          "metric": "round",
+          "constraint_solved": false,
+          "H_normalized_max": 0.019755961250458146,
+          "rates_01": [
+            0.00015297122020743216,
+            -0.00011173830278370163,
+            -4.123291742373768e-05
+          ],
+          "energies": [
+            0.11215612323865787,
+            0.11340828903536773
+          ]
+        },
+        {
+          "field": "A_only",
+          "metric": "pair",
+          "constraint_solved": false,
+          "H_normalized_max": 0.019671862286015265,
+          "rates_01": [
+            -6.98238452285881e-05,
+            -3.93401209034244e-05,
+            -8.572468662487516e-06
+          ],
+          "energies": [
+            0.11171535689354203,
+            0.10966671480819332
+          ]
+        },
+        {
+          "field": "B_only",
+          "metric": "pair",
+          "constraint_solved": false,
+          "H_normalized_max": 0.013108909684352412,
+          "rates_01": [
+            5.76919267436162e-05,
+            4.725752656425604e-05,
+            1.2498748819569423e-05
+          ],
+          "energies": [
+            0.10930008457005051,
+            0.1133642739776124
+          ]
+        },
+        {
+          "field": "A_only",
+          "metric": "round",
+          "constraint_solved": false,
+          "H_normalized_max": 0.013096204266649246,
+          "rates_01": [
+            -7.826584432629735e-19,
+            -8.331527244089791e-05,
+            8.331527244089485e-05
+          ],
+          "energies": [
+            0.11211938733744803,
+            0.10968586781471587
+          ]
+        },
+        {
+          "field": "B_only",
+          "metric": "round",
+          "constraint_solved": false,
+          "H_normalized_max": 0.01967532222102193,
+          "rates_01": [
+            0.00012466889990156237,
+            5.300319509465509e-14,
+            -0.00012466889995456907
+          ],
+          "energies": [
+            0.10969802767391336,
+            0.11338370874910764
+          ]
+        }
+      ],
+      "energy_response": {
+        "solved": [
+          [
+            0.1397747578699704,
+            -0.022532287992316213
+          ],
+          [
+            -0.022410310468720662,
+            0.14299561396666216
+          ]
+        ],
+        "fixed_round": [
+          [
+            0.12537586769982567,
+            0.001228553443810565
+          ],
+          [
+            0.0012317504099745857,
+            0.12776189951493877
+          ]
+        ],
+        "solved_minus_fixed_round": [
+          [
+            0.01439889017014473,
+            -0.02376084143612678
+          ],
+          [
+            -0.023642060878695248,
+            0.01523371445172339
+          ]
+        ]
+      },
+      "active_density_range": [
+        -3.9876923914512465,
+        -3.9184425722075416
+      ],
+      "active_identity_max_error": 8.881784197001252e-16,
+      "other_seed_supremum_in_either_cap": 0.1168947962784656
+    }
+  ],
+  "source_sha256": {
+    "experiments/closure_ledger/runs/20260927_two_regions/initial_data.json": "d837789cfefcd7c159a7d64f9467188b55159e6371bd022961e72a19d21af421",
+    "geometrodynamics/waves/two_regions.py": "7c9fb844fd29de0a6949d64daff4f573d0cf17880eaac00c9b508bfc5a1a6433",
+    "experiments/closure_ledger/two_regions_controls.py": "44327984884ebcc628c9440e8115aa85a90861aa8e71c728f3555e65002de9d2",
+    "docs/two_gravitating_regions_prereg.md": "3f540c02c0540f57ef1ddd6ca96645b4e52cc24af5dde6033f6129577b5bc9c4"
+  },
+  "background_phase_prediction": {
+    "formula": "2*(dR/deta)^2/f^3 - 3/f^2; R=sqrt(3)/2 cos(2 eta)",
+    "eta_0": -3.9183673469387754,
+    "eta_pi_over_4": 2.999999999999999,
+    "limitation": "Ricci focusing changes sign; region recoil sign is not determined by this scalar alone"
+  }
+}
