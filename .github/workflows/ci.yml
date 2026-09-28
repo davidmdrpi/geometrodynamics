@@ -26,10 +26,10 @@ jobs:
           cache: pip
       - name: Install package
         run: pip install -e ".[dev]"
-      - name: Verify packet and Floquet replay
+      - name: Verify packet, Floquet and two-region replay
         env:
           OPENBLAS_NUM_THREADS: "1"
-        run: pytest -q tests/test_finite_packet.py tests/test_esu_floquet.py
+        run: pytest -q tests/test_finite_packet.py tests/test_esu_floquet.py tests/test_two_regions.py tests/test_two_regions_controls.py
       - name: Verify packet replay with alternate CPU dispatch
         env:
           OPENBLAS_NUM_THREADS: "1"
