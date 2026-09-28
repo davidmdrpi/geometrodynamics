@@ -1,0 +1,294 @@
+{
+  "refinement_freeze": "e1abc93f0accb1e49793fb4792f0cf5780fcb161",
+  "original_verdict": "INCONCLUSIVE_NUMERICAL_FAILURE",
+  "original_numerical_gates": {
+    "complete": true,
+    "constraints": true,
+    "chart": true,
+    "work_balance": true,
+    "background": true,
+    "window_quadrature": false,
+    "independent_integrator": true
+  },
+  "numerical_gates": {
+    "complete": true,
+    "constraints": true,
+    "chart": true,
+    "work_balance": true,
+    "background": true,
+    "window_quadrature": true,
+    "independent_integrator": true
+  },
+  "replacements": [
+    {
+      "parameters": [
+        0.34171875,
+        0.0,
+        1.5707963267948966
+      ],
+      "method": "DOP853",
+      "diagnostics": {
+        "initial_readouts": [
+          14.804406601634035,
+          14.693750128078996
+        ],
+        "window_means": [
+          [
+            -0.39240003730791934,
+            -0.19089074670286854
+          ],
+          [
+            -0.3520989349007338,
+            -0.2350467554626353
+          ],
+          [
+            -0.3158846073956205,
+            -0.22456140019139564
+          ],
+          [
+            -0.314972067969158,
+            -0.22106264437870907
+          ]
+        ],
+        "coarse_window_means": [
+          [
+            -0.39239982775402077,
+            -0.19089114654917158
+          ],
+          [
+            -0.3520989245686858,
+            -0.2350467439682934
+          ],
+          [
+            -0.31588460781662714,
+            -0.22456140000133332
+          ],
+          [
+            -0.314972067969464,
+            -0.22106264438053275
+          ]
+        ],
+        "quadrature_error_over_Jbg": 2.7008600465995906e-08,
+        "work_error_over_Jbg": 1.421112435153231e-15,
+        "constraint_max": 7.75332990089425e-16,
+        "det_error": 3.4416913763379853e-15,
+        "symmetry_error": 0.0,
+        "sampled_min_A_H_M_omega2": [
+          1.15,
+          1.3224999999999998,
+          0.6167674128285914,
+          4.00931101350803
+        ],
+        "energy_terms_initial": [
+          -0.8608376154956277,
+          1.4999999999999998,
+          0.0,
+          -3.2626717595043715,
+          4.552882848090465e-33,
+          2.6235093749999994
+        ],
+        "energy_terms_final": [
+          -6167952646.3125925,
+          1.4637350607083486,
+          0.6473971238067328,
+          -189548.3690659134,
+          0.0032892096918199754,
+          6168142192.567244
+        ]
+      }
+    },
+    {
+      "parameters": [
+        0.34171875,
+        0.0,
+        1.5707963267948966
+      ],
+      "method": "RK45",
+      "diagnostics": {
+        "initial_readouts": [
+          14.804406601634035,
+          14.693750128078996
+        ],
+        "window_means": [
+          [
+            -0.39240003730234335,
+            -0.19089074669918946
+          ],
+          [
+            -0.35209893489730537,
+            -0.23504675545940099
+          ],
+          [
+            -0.3158846073942726,
+            -0.22456140018853418
+          ],
+          [
+            -0.3149720679679319,
+            -0.221062644375983
+          ]
+        ],
+        "coarse_window_means": [
+          [
+            -0.3923998277481336,
+            -0.19089114654527228
+          ],
+          [
+            -0.3520989245655129,
+            -0.23504674396531883
+          ],
+          [
+            -0.3158846078153084,
+            -0.2245613999985005
+          ],
+          [
+            -0.31497206796823796,
+            -0.2210626443778066
+          ]
+        ],
+        "quadrature_error_over_Jbg": 2.7008585591185802e-08,
+        "work_error_over_Jbg": 5.135577871859019e-13,
+        "constraint_max": 4.631242370729861e-13,
+        "det_error": 3.3284486278262193e-13,
+        "symmetry_error": 0.0,
+        "sampled_min_A_H_M_omega2": [
+          1.15,
+          1.3224999999999998,
+          0.6167674128285914,
+          4.009311013507189
+        ],
+        "energy_terms_initial": [
+          -0.8608376154956277,
+          1.4999999999999998,
+          0.0,
+          -3.2626717595043715,
+          4.552882848090465e-33,
+          2.6235093749999994
+        ],
+        "energy_terms_final": [
+          -6167952646.328046,
+          1.4637350607087243,
+          0.6473971237985575,
+          -189548.36906610883,
+          0.0032892096916286116,
+          6168142192.582239
+        ]
+      }
+    }
+  ],
+  "changes_from_original_means_over_Jbg": [
+    2.7008600465995906e-08,
+    2.7008585591185802e-08
+  ],
+  "independent_integrator_error_over_Jbg": 1.380946323265734e-12,
+  "candidate_windows": [
+    {
+      "amplitudes": [
+        0.02,
+        0.03,
+        0.045,
+        0.0675
+      ],
+      "unresolved_or_nonpositive": 166,
+      "signed_min": -0.012623928144303775,
+      "signed_max": 0.01241968967426749,
+      "common_median": -4.4492749978945294e-05,
+      "relative_range": null,
+      "max_resolved_abs_log_slope": 2.041500344302182,
+      "gates": {
+        "all_positive_resolved": false,
+        "common_value": false,
+        "flat_amplitude": false
+      },
+      "passes": false
+    },
+    {
+      "amplitudes": [
+        0.03,
+        0.045,
+        0.0675,
+        0.10125
+      ],
+      "unresolved_or_nonpositive": 162,
+      "signed_min": -0.02851260962497643,
+      "signed_max": 0.028073237199735365,
+      "common_median": -9.873853709934838e-05,
+      "relative_range": null,
+      "max_resolved_abs_log_slope": 2.142564108172749,
+      "gates": {
+        "all_positive_resolved": false,
+        "common_value": false,
+        "flat_amplitude": false
+      },
+      "passes": false
+    },
+    {
+      "amplitudes": [
+        0.045,
+        0.0675,
+        0.10125,
+        0.151875
+      ],
+      "unresolved_or_nonpositive": 159,
+      "signed_min": -0.06476549238838274,
+      "signed_max": 0.06385066012271505,
+      "common_median": -0.00021808013468014307,
+      "relative_range": null,
+      "max_resolved_abs_log_slope": 2.4894424267838415,
+      "gates": {
+        "all_positive_resolved": false,
+        "common_value": false,
+        "flat_amplitude": false
+      },
+      "passes": false
+    },
+    {
+      "amplitudes": [
+        0.0675,
+        0.10125,
+        0.151875,
+        0.2278125
+      ],
+      "unresolved_or_nonpositive": 156,
+      "signed_min": -0.14920933525308597,
+      "signed_max": 0.14738799962413945,
+      "common_median": -0.0004284740357811086,
+      "relative_range": null,
+      "max_resolved_abs_log_slope": 3.341897698402304,
+      "gates": {
+        "all_positive_resolved": false,
+        "common_value": false,
+        "flat_amplitude": false
+      },
+      "passes": false
+    },
+    {
+      "amplitudes": [
+        0.10125,
+        0.151875,
+        0.2278125,
+        0.34171875
+      ],
+      "unresolved_or_nonpositive": 151,
+      "signed_min": -0.3520989349007338,
+      "signed_max": 0.3498145243493044,
+      "common_median": -0.00037857267215543426,
+      "relative_range": null,
+      "max_resolved_abs_log_slope": 6.2015577180431425,
+      "gates": {
+        "all_positive_resolved": false,
+        "common_value": false,
+        "flat_amplitude": false
+      },
+      "passes": false
+    }
+  ],
+  "selection_verdict": "NO_ROBUST_PLATEAU_IN_REGISTERED_FAMILY",
+  "localized_receiver_verdict": "NOT_TESTED",
+  "source_sha256": {
+    "experiments/closure_ledger/selection_plateau_refinement.py": "51869515208109bc5269556521091cdb4beab4c6f26dbff52eaa45b57612d09c",
+    "geometrodynamics/waves/selection_plateau.py": "babcd345adc7b59852149766b746c3e99337854053b42c9a3d99cb876e7a218f",
+    "docs/nonlinear_selection_plateau_refinement_prereg.md": "b15ec7f68e993c02d896ff1fa38ca8ce84eab76c7a19dbf213e7517afa1cca2a",
+    "experiments/closure_ledger/runs/20260928_selection_plateau/plateau.json": "ace0f4f41c5a484d9e49cce78d5e4a0f8a868adfbe08b034ff8de21c0ab675dc"
+  },
+  "raw_sha256": "9b01cf53de58d42e1fcbb26094259656d291a08a9a05b0e9680ac07d444609bf"
+}
