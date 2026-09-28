@@ -1373,7 +1373,6 @@
   "receiver_selection": {
     "verdict": "NOT_READY_FOR_RECEIVER_ACTION_SELECTION",
     "missing": [
-      "explicit selection mechanism and its distinct falsification criterion",
       "constraint-monitored localized source/receiver evolution",
       "separated seed perturbations and field/metric interaction controls",
       "operational absorbed-action observable and full transfer ledger",
@@ -1580,19 +1579,17 @@
       }
     }
   ],
-  "registered_numerical_verdict": "PASS_CANONICAL_CONTINUUM_CONTROL",
-  "numerical_check_passed": true,
-  "numerical_verdict": "INTEGRAL_INVARIANT_IMPLEMENTATION_CHECK",
-  "physical_scope": "Poincare-Cartan integral-invariant implementation check only; no evidence for or against receiver action selection.",
+  "numerical_verdict": "PASS_CANONICAL_CONTINUUM_CONTROL",
+  "physical_scope": "Continuous preparation-loop action in this sector; receiver action selection remains untested.",
   "environment": {
     "python": "3.12.14",
     "numpy": "2.5.3",
     "scipy": "1.18.1"
   },
   "source_sha256": {
-    "geometrodynamics/waves/action_selection.py": "9aac0e03fe18bab5c8123e6b0139fa5d6dbdcaa484afac90d65f77005ff4e2bc",
+    "geometrodynamics/waves/action_selection.py": "c29427cbdbf286e736744000f48df65f0450b9efba0e45709d327a13613922b6",
     "geometrodynamics/waves/nonlinear_supported_tt.py": "6846a6f0e12c60af402b7f29c39e05b3289355ad039787b5c04668221d9a7b14",
-    "experiments/closure_ledger/action_selection_probe.py": "cba4188455e4116fcfc23664c75a1b9f142031ad5ac360be917c55ac0ce3d015",
+    "experiments/closure_ledger/action_selection_probe.py": "b20da8c9e792af1b2bfa33ca1d7b115f0d8b565273cf49efa3fe6294f579f848",
     "docs/dynamical_action_selection_prereg.md": "74fd4d8a881407bfd76c13a24b9e9bdf13b233e55fa65b783d7da55de4265475"
   },
   "archive_sha256": "fa8c49ccedf16f00c030af286a87a369c42589af0a6f76e6a9a01a6f372e2326"

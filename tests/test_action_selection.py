@@ -60,7 +60,10 @@ def test_archived_states_replay_full_ledger_and_readiness():
     assert replay['numerical_gates'] == saved['numerical_gates']
     assert replay['numerical_verdict'] == saved['numerical_verdict']
     assert replay['receiver_selection']['verdict'] == 'NOT_READY_FOR_RECEIVER_ACTION_SELECTION'
-    assert len(replay['receiver_selection']['missing']) == 5
+    assert len(replay['receiver_selection']['missing']) == 6
+    assert 'selection mechanism' in replay['receiver_selection']['missing'][0]
+    assert replay['numerical_verdict'] == 'INTEGRAL_INVARIANT_IMPLEMENTATION_CHECK'
+    assert replay['numerical_check_passed'] is True
     for row, original in zip(replay['cases'],saved['cases']):
         for key in a.SECTORS:
             values = row['quadratures'][-1]['action'][key]
@@ -92,3 +95,18 @@ def test_replay_rejects_relabelled_preparation_or_duration():
     raw['cases'][1]['states'][0][0][0] += .01
     with pytest.raises(ValueError, match='preparation'):
         validate_schedule(raw)
+
+
+def test_review_relabel_preserves_frozen_results_and_rejects_damaged_flow():
+    saved = json.loads((RUN/'action.json').read_text())
+    initial = json.loads((RUN/'action_initial.json').read_text())
+    assert saved['registered_numerical_verdict'] == initial['numerical_verdict']
+    assert saved['numerical_gates'] == initial['numerical_gates']
+    assert saved['archive_sha256'] == initial['archive_sha256']
+    assert saved['cases'] == initial['cases']
+    raw = decode_states(RUN/'states.json.gz.b64')
+    raw['cases'][-1]['states'][0][-1][1] *= 1.1
+    damaged = summarize(raw)
+    assert damaged['numerical_check_passed'] is False
+    assert damaged['numerical_verdict'] == 'REGISTERED_NUMERICAL_FAILURE'
+    assert damaged['receiver_selection']['verdict'] == 'NOT_READY_FOR_RECEIVER_ACTION_SELECTION'

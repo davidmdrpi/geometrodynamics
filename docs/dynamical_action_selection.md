@@ -1,8 +1,9 @@
-# Step 4: nonlinear action control and receiver-test readiness
+# Poincaré–Cartan implementation check and receiver-test readiness
 
-**The available nonlinear control retains a continuous action family. The full
-receiver action-selection experiment remains NOT_READY.** This distinction is
-the result, not an omitted test quietly counted as a pass.
+**This run checks implementation of the Poincaré–Cartan integral invariant.
+It supplies no evidence for or against receiver action selection. The full
+receiver experiment remains NOT_READY.** The quadratic amplitude scaling was
+built into the preparation loop and is carried forward by the theorem.
 
 The requested step 4 is to sweep preparation amplitude and duration and test
 whether transferred action approaches robust selected values under changes in
@@ -48,7 +49,8 @@ At initial time A and q do not vary around the loop. Direct substitution gives
 Thus a continuum of initial actions is allowed analytically. Conservation of
 full canonical circulation by smooth constrained Hamiltonian flow is the
 prospective null prediction. The experiment tests its nonlinear implementation
-and shows how sector-only measurements can hide parts of the action ledger.
+and checks the sum of its chart-dependent sector integrals. These quantities
+must not be summarized later as physical action transfer between sectors.
 It is not a search that could establish a new universal action scale.
 
 ## Public freeze and results
@@ -82,9 +84,10 @@ Full-action amplitude log-slopes are 2 to about 9e-14 at every sampled time:
 doubling amplitude multiplies action by four. The shape slopes at t=2 range
 from 1.99594 to 1.99979. Nonlinear scalar and scale contributions scale roughly
 as epsilon^4 at small amplitude and have smooth finite-amplitude corrections;
-there is no sampled nonzero plateau in these readouts. The exact initial
-formula and Hamiltonian circulation identity, rather than four amplitude
-samples alone, establish the continuous full-action family in this sector.
+there is no sampled nonzero plateau in these readouts. Both the quadratic full-action formula and its conservation were analytic
+inputs. Their numerical agreement is an integrator, canonical-normalization
+and constraint-implementation check, not a discovered property of the matter
+model or evidence about action selection.
 
 | Numerical validity check | Result |
 |---|---:|
@@ -106,8 +109,11 @@ not rigorous global error bounds.
 
 Two verdicts are deliberately separate:
 
-- `PASS_CANONICAL_CONTINUUM_CONTROL`: the nonlinear constrained dynamics
-  preserve a continuous preparation-loop action, with a resolved sector ledger.
+- `INTEGRAL_INVARIANT_IMPLEMENTATION_CHECK`: the seven numerical gates confirm
+  implementation of a known Hamiltonian invariant. `numerical_check_passed`
+  records their pass/fail status. The original frozen label
+  `PASS_CANONICAL_CONTINUUM_CONTROL` is retained only as
+  `registered_numerical_verdict`, not as a scientific selection finding.
 - `NOT_READY_FOR_RECEIVER_ACTION_SELECTION`: no operational receiver transfer
   is measured, so no action-selection milestone is awarded or rejected globally.
 
@@ -124,12 +130,86 @@ homogeneous experiment. That part of the requested step 4 remains outstanding,
 as do receiver-definition controls; the machine-readable readiness verdict
 lists them explicitly.
 
+## Review response: theorem and mechanism preflight
+
+The [review](https://github.com/davidmdrpi/geometrodynamics/pull/313#issuecomment-5863520331)
+is correct that the primary check is predetermined for an exact smooth
+Hamiltonian implementation. Numerical errors or a faulty implementation can
+fail the gates, but a pass does not discriminate physical selection mechanisms.
+For canonical Theta=p dq and omega=dq wedge dp=-dTheta, with
+contraction_X omega=dH, Cartan's identity gives
+
+    Lie_X Theta = d[Theta(X)-H],
+    d/dt integral_C(t) Theta = 0.
+
+The extended invariant uses Theta-H dt. For the common proper-time sampling
+here, H is the Hamiltonian constraint C, not the coefficient A^2-Q/6 also named
+H in the code. On C=0, the lapse-dependent generator NC gives the same
+characteristic flow and the closed-loop invariant is unchanged. This is the
+Poincaré–Cartan result, not specific to the quartet potential. See Sussman and
+Wisdom, [Structure and Interpretation of Classical Mechanics, sections 5.3
+and 5.5.1](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/9579/sicm_edition_2.zip/chapter005.html).
+
+The review's Liouville concern is relevant but requires a narrower statement.
+A regular finite-dimensional Hamiltonian phase space preserves its symplectic
+volume. It cannot compress an open basin of nonzero volume into a bounded,
+lower-dimensional attractor. A receiver-plus-bulk Hamiltonian truncation is
+subject to this constraint after gauge reduction. The full infinite-dimensional
+Einstein field theory does not come with a finite Lebesgue phase-volume measure
+merely by analogy; the assumptions and any truncation must be stated.
+
+This excludes a full-phase-space dissipative-attractor explanation under those
+assumptions. It does not exclude focusing of projected coordinates, finite-time
+subsystem plateaus, resonant or isolated periodic solutions, or selected global
+boundary-value histories. A projection can lose preparation information while
+other coordinates retain it. For an asymptotic receiver-relaxation hypothesis,
+one must derive an effective reservoir mechanism and its duration of validity;
+an irreversible law must not be silently added to the closed theory. For the
+volume theorem, projected focusing and the finite-volume assumptions of
+recurrence see David Tong, [Classical Dynamics, section 4.2](https://davidtong.org/teaching/classical-dynamics/dynhtml/S4).
+
+The prior bulk results demand a return-flux and instability check, not an
+assumption of an ideal sink: #311 measured approximate tensor refocusing for
+specific linear preparations, including a failed low-frequency timing gate.
+It did not show that every field component in an interacting nonlinear bulk
+returns completely at time pi. #310's scalar growth constrains the experiment's
+usable duration; growth is neither an established reservoir nor a universal
+proof against a transient receiver response. Spatial compactness alone also
+does not supply the bounded finite phase-volume assumptions of recurrence.
+
+Topology and boundary conditions can select classical modes or winding sectors
+without quantization. They do not alone establish a universal nonzero unit of
+absorbed action. A relation such as I=n hbar cannot be inserted as its own
+explanation. Conversely, the review's assertion that every possible boundary
+selection of action requires prior quantization is stronger than established:
+a concrete classical boundary-value problem would have to be derived and
+solved. Nothing in this PR supplies one.
+
+Before constructing the expensive receiver experiment, its freeze must name
+which mechanism and which operational selection claim it tests:
+
+| Proposed mechanism | Required derivation and falsifier |
+|---|---|
+| Effective receiver relaxation | Derive the receiver/bulk split from the retained action; measure outgoing and returning flux, information/energy retained in the bulk, relaxation time, and the instability budget. Reject a sink description when return flux spoils its frozen accuracy over the stated duration. |
+| Finite-time resonance or plateau | Specify a physical readout, duration and basin of preparations; test robustness to conjugate initial data and receiver definition. Do not call a narrow resonance or thresholded display an action quantum. |
+| Global topological/boundary selection | State the actual classical global conditions and derive the allowed histories and action normalization. Test continuous amplitude deformations within each allowed sector; parity or winding labels alone cannot pass. |
+
+This is a required mechanism preflight, not three mechanisms supplied by this
+model. No candidate is established here. If none is specified with a distinct
+falsifiable observable, the readiness result stays NOT_READY and another
+invariant-only calculation is not a substitute for step 4. The original freeze
+is unchanged; these are post-review requirements for a future experiment.
+
 ## Reproduction and next decisive test
 
 Raw endpoint states for every finest-grid trajectory, including the RK45
 control, are stored losslessly as gzip/base64 JSON in
 [`states.json.gz.b64`](../experiments/closure_ledger/runs/20260928_action_selection/states.json.gz.b64).
-The diagnostic report, gates and source/archive hashes are in
+The original diagnostic report is preserved byte-for-byte as
+[`action_initial.json`](../experiments/closure_ledger/runs/20260928_action_selection/action_initial.json).
+The current report relabels interpretation and adds mechanism readiness; its
+raw states, numerical rows, thresholds and gates are unchanged.
+The current diagnostic report, gates and source/archive hashes are in
 [`action.json`](../experiments/closure_ledger/runs/20260928_action_selection/action.json).
 Decode with `decode_states` in the runner, or base64-decode, gzip-decompress
 and parse JSON. No unsafe object/pickle deserialization is used.

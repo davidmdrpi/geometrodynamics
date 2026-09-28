@@ -105,7 +105,8 @@ def diagnostics(states):
 
 
 def receiver_readiness():
-    missing = ['constraint-monitored localized source/receiver evolution',
+    missing = ['explicit selection mechanism and its distinct falsification criterion',
+               'constraint-monitored localized source/receiver evolution',
                'separated seed perturbations and field/metric interaction controls',
                'operational absorbed-action observable and full transfer ledger',
                'physical preparation-pulse duration sweep',

@@ -92,8 +92,10 @@ def summarize(raw):
         slopes.append(row)
     result['amplitude_log_slopes'] = slopes
     result['numerical_gates'] = {k:bool(v) for k,v in gates.items()}
-    result['numerical_verdict'] = 'PASS_CANONICAL_CONTINUUM_CONTROL' if all(gates.values()) else 'REGISTERED_NUMERICAL_FAILURE'
-    result['physical_scope'] = 'Continuous preparation-loop action in this sector; receiver action selection remains untested.'
+    result['registered_numerical_verdict'] = 'PASS_CANONICAL_CONTINUUM_CONTROL' if all(gates.values()) else 'REGISTERED_NUMERICAL_FAILURE'
+    result['numerical_check_passed'] = bool(all(gates.values()))
+    result['numerical_verdict'] = 'INTEGRAL_INVARIANT_IMPLEMENTATION_CHECK' if all(gates.values()) else 'REGISTERED_NUMERICAL_FAILURE'
+    result['physical_scope'] = 'Poincare-Cartan integral-invariant implementation check only; no evidence for or against receiver action selection.'
     return result
 
 
@@ -124,7 +126,7 @@ def main():
     result['archive_sha256'] = hashlib.sha256(archive.read_bytes()).hexdigest()
     (args.output_dir/'action.json').write_text(json.dumps(result, indent=2, allow_nan=False)+'\n')
     print(json.dumps({k:result[k] for k in ('numerical_verdict','numerical_gates','receiver_selection')}, indent=2))
-    return 0 if result['numerical_verdict']=='PASS_CANONICAL_CONTINUUM_CONTROL' else 1
+    return 0 if result['numerical_check_passed'] else 1
 
 
 if __name__ == '__main__':
