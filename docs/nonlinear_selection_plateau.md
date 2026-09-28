@@ -6,6 +6,13 @@ nonzero change in a scalar action readout across a broad set of preparations?
 The criterion is fixed before the run and can fail with a correct integrator.
 It is distinct from #313's Poincaré–Cartan implementation check.
 
+Review clarification: the weak-amplitude response has a quadratic analytic
+null model. Its observed phase dependence already defeats the all-phase
+positive-plateau requirement in that regime. The useful additional numerical
+finding is the absence of saturation in the finite-amplitude range tested.
+The original freeze omitted this explicit null analysis; the section below
+is a retrospective derivation, not an amended preregistration.
+
 ## Mechanism and observable
 
 The coupled model is the inherited spatially homogeneous, nonspherical
@@ -110,6 +117,85 @@ would not rescue it: a time plateau still retains preparation and readout
 dependence. This is a negative result for this specified family and basin,
 not a theorem against smaller phase-specific resonances or another GR model.
 
+## Review follow-up: analytic null and what the scan adds
+
+This section responds to the [review of commit 6d24d9a](https://github.com/davidmdrpi/geometrodynamics/pull/314#issuecomment-5864633430).
+It uses the existing equations and archived measurements, with no new
+trajectories, changed gates or changes to either frozen specification.
+
+Write M=exp(2 beta), beta=epsilon b+O(epsilon^2), with tr(b)=0,
+and use primes for conformal-time derivatives. The exact frequency in this
+model expands as
+
+    tr(M^-1) = 3 + 2 epsilon^2 tr(b^2) + O(epsilon^3),
+    r = 6 - 8 epsilon^2 tr(b^2) + O(epsilon^3),
+    tr(L^2) = epsilon^2 tr(b'^2) + O(epsilon^3),
+    Omega^2 = 4 + epsilon^2 w2 + O(epsilon^3),
+    w2 = (2/3)tr(b^2) + (1/6)tr(b'^2).
+
+There is no first-order scalar-frequency forcing. On the round background,
+q_b=(sqrt(3)/2)cos(2 eta+phi)e0 and
+q_b'= -sqrt(3)sin(2 eta+phi)e0. Substitution in the exact work identities
+therefore gives the two leading changes, including subtraction of the
+initial readout:
+
+    Delta J_ref = epsilon^2 C_ref + O(epsilon^3),
+    C_ref = (3 V3/8) integral_0^eta w2(s;theta,phi) sin(4s+2phi) ds,
+    Delta J_inst = epsilon^2 C_inst + O(epsilon^3),
+    C_inst = (3 V3/32) integral_0^eta w2'(s;theta,phi) cos(4s+2phi) ds.
+
+Equivalently, C_inst=C_ref+(3 V3/32)[w2 cos(4 eta+2phi)]_0^eta.
+At fixed proper time these coefficients use the background eta(t), and a
+window mean averages them over the same proper-time window as the data.
+The constraint completion's transverse quartet components start at order
+epsilon^2 and do not change these leading quadratic readouts.
+
+The phase dependence needs one qualification to the review's shorthand
+epsilon^2 cos(2phi) null. The linear shape equation is
+
+    b'' + (H_b'/H_b)b' + (8+2 Q_b/H_b)b = 0,
+    Q_b=(3/4)cos^2(2 eta+phi), H_b=A_b^2-Q_b/6,
+    b(0)=cos(theta)U, b'(0)=-sin(theta)V.
+
+Thus w2 itself depends on phi through the responding geometry. A kernel
+held independent of phase would yield a linear combination of cos(2phi)
+and sin(2phi), with an exact sign reversal under phi -> phi+pi/2; a pure
+cosine requires an additional vanishing sine coefficient. Neither exact
+antisymmetry nor an exact zero at pi/4 is a symmetry theorem for this
+backreacting system. The archive shows an approximate sign reversal, which
+is sufficient to fail the registered all-phase gate. Quadratic scaling
+alone already excludes a nonzero amplitude plateau wherever the leading
+coefficient is nonzero and perturbation theory is accurate. Its accuracy
+at a particular finite amplitude is a numerical question.
+
+For theta=0 and the t=8 window, the archived J_ref responses give:
+
+| epsilon | Delta J, phi=0 | Delta J / epsilon^2, phi=0 | Adjacent log-slope, phi=0 | [Delta J(0)+Delta J(pi/2)] / Delta J(0) |
+|---:|---:|---:|---:|---:|
+| .02000000 | .00100307 | 2.507671 | — | -.014881 |
+| .03000000 | .00225673 | 2.507480 | 1.999812 | -.014804 |
+| .04500000 | .00507685 | 2.507089 | 1.999615 | -.014636 |
+| .06750000 | .01141978 | 2.506398 | 1.999320 | -.014288 |
+| .10125000 | .02568801 | 2.505765 | 1.999377 | -.013635 |
+| .15187500 | .05786771 | 2.508786 | 2.002972 | -.012689 |
+| .22781250 | .13161949 | 2.536093 | 2.026699 | -.012135 |
+| .34171875 | .31141955 | 2.666909 | 2.124044 | -.011407 |
+
+These are post hoc diagnostics, not new selection gates or a fit of an
+action unit. Values come from `plateau.json`'s `cases[*].diagnostics.window_means[3][0]`,
+with the DOP853 replacement from `refinement.json` for the final pi/2 row.
+The slope is log[J(epsilon_i)/J(epsilon_(i-1))]/log(1.5).
+The nearly constant coefficient confirms approximate quadratic behavior;
+calling it exact epsilon^2 scaling would overstate the data. The last two
+slopes steepen to 2.027 and 2.124 rather than approach the frozen .1 limit.
+This finite-amplitude observation is the added information beyond the
+weak-amplitude null. It does not establish behavior beyond epsilon=.34171875.
+
+Any further plateau experiment must state and test its analytic response
+null prospectively, and explain what mechanism could depart from it in the
+chosen regime. This retrospective correction does not repair the omission
+in the original freeze or convert these data into evidence for selection.
+
 | Numerical check | Observed bound |
 |---|---:|
 | Original DOP853 sampled constraint residual | 7.20e-14 |
@@ -169,3 +255,25 @@ OPENBLAS_NUM_THREADS=1 python -m experiments.closure_ledger.selection_plateau_re
 The next scientific choice should change or derive a mechanism, not re-label
 this failed plateau test as selection. A localized receiver experiment would
 still need its own action readout and spatial exchange accounting.
+
+Two other questions raised by review remain open, with prerequisites:
+
+- **Discrete events:** for n=phi/|phi|, an integer degree needs a closed
+  oriented spatial domain mapped to S3, or a receiver region with boundary
+  conditions that define such a degree (for example, a constant boundary
+  map collapsed to a point). A general finite receiver-window integral is
+  not integer-valued. Boundary transport must be distinguished from a
+  change through |phi|=0, where n is undefined. Even a well-defined integer
+  event count does not make the action per event universal; that is a
+  separate amplitude, pulse-duration and receiver-definition test. The
+  S3/RP3 identification must also be specified for the proposed field map.
+- **Global history selection:** a boundary-value experiment needs explicit
+  physical boundary conditions and a demonstrated discrete solution set.
+  Periodicity alone does not establish discrete action values or remove
+  continuous families and free scales.
+
+This PR supplies neither calculation. Its homogeneous null also cannot
+establish a general no-go theorem for localized self-gravitating receivers.
+Claims about soliton existence, event stability or universal continuous
+absorption require analysis of those configurations and their boundary
+conditions. They are not consequences of this scan.
