@@ -79,3 +79,21 @@ def test_linear_return_map_matches_310_and_is_symplectic():
     assert abs(A[2, 2]+A[3, 3]-np.trace(fl.monodromy('T', 2))) < 1e-10
     assert np.abs(A.T @ rm.OMEGA @ A-rm.OMEGA).max() < 1e-11
     assert np.abs(A[:2, 2:]).max() == 0 and np.abs(A[2:, :2]).max() == 0
+
+
+ARCHIVE = __import__('pathlib').Path(__file__).resolve().parents[1]/'experiments/closure_ledger/runs/20260929_r3_return_map/return_map.json'
+
+
+@pytest.mark.skipif(not ARCHIVE.exists(), reason='archive not generated')
+def test_return_map_archive_rescores_and_binds_sources():
+    import json
+    from experiments.closure_ledger import r3_return_map_probe as probe
+    from experiments.closure_ledger.esu_floquet_probe import close
+    rec = json.loads(ARCHIVE.read_text())
+    assert rec['sources'] == probe.sources()
+    again = json.loads(json.dumps(probe.score(rec['m1'], rec['m2'], rec['result']['theta0'])))
+    assert again['label'] == rec['result']['label'] and again['checks'] == rec['result']['checks']
+    assert close(again, rec['result'], 1e-9)
+    bad = json.loads(ARCHIVE.read_text())
+    bad['m2']['circles'][0]['omega'] += 1e-6
+    assert not close(json.loads(json.dumps(probe.score(bad['m1'], bad['m2'], bad['result']['theta0']))), rec['result'], 1e-9)
