@@ -1,9 +1,17 @@
 # Constrained R3 return map: leading frequency-shift coefficient
 
 Date: 2026-09-29.
-- Specification and code: [`cff0ec0`](r3_return_map_prereg.md), pushed 02:04:23 UTC, before any cubic-order ESU computation.
+- Specification and code: [`cff0ec0`](r3_return_map_jets_prereg.md), pushed 02:04:23 UTC, before any cubic-order ESU computation.
 - Archive: `experiments/closure_ledger/runs/20260929_r3_return_map/return_map.json`. It binds the SHA-256 of all five sources and stores the Method 1 jet coefficients, both normal forms, and every circle (K, omega, I, residuals).
 - Replay: `tests/test_r3_return_map.py::test_return_map_archive_rescores_and_binds_sources`.
+
+**File rename (2026-09-29):** the specification was renamed from
+`docs/r3_return_map_prereg.md` to `docs/r3_return_map_jets_prereg.md`, with
+content byte-identical to `cff0ec0`. The rename avoids a path collision with
+#316's independent specification. The probe and archive still carry the
+original path string, because their source hashes are bound.
+#316 is kept as the independent prospective replication. Its frozen gates
+give the label, and this run serves as the cross-check.
 
 ## 1. Registered label: UNRESOLVED
 
