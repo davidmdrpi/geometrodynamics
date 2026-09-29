@@ -71,3 +71,23 @@ def test_so3_representation_is_orthogonal_and_multiplicative():
     R2, _ = np.linalg.qr(rng.normal(size=(3, 3)))
     D1, D2 = rx.so3_rep(R1), rx.so3_rep(R2)
     assert np.allclose(D1.T @ D1, np.eye(5)) and np.allclose(rx.so3_rep(R1 @ R2), D1 @ D2)
+
+
+RESULT = __import__('pathlib').Path(__file__).resolve().parents[1]/'experiments/closure_ledger/runs/20260929_r3_extension/result.json'
+
+
+@pytest.mark.skipif(not RESULT.exists(), reason='extension not run')
+def test_extension_archive_rescores_and_binds_sources():
+    import json
+    from experiments.closure_ledger import r3_extension_probe as probe
+    from experiments.closure_ledger.esu_floquet_probe import close
+    rec = json.loads(RESULT.read_text())
+    A = json.loads((probe.RUN_DIR/'part_A.json').read_text())
+    B = json.loads((probe.RUN_DIR/'part_B.json').read_text())
+    assert A['sources'] == B['sources'] == probe.sources()
+    a, b = probe.score_a(A, rec['theta0']), probe.score_b(B, rec['theta0'])
+    assert a['label'] == rec['A']['label'] and b['label'] == rec['B']['label'] and b['checks'] == rec['B']['checks']
+    assert close(json.loads(json.dumps(a)), rec['A'], 1e-9)
+    assert abs(b['nu_max']-rec['B']['nu_max']) < 1e-7 and abs(b['nu_lrs']-rec['B']['nu_lrs']) < 1e-9
+    A['circles'][3]['omega'] += 1e-3        # a manufactured turn must be detected
+    assert probe.score_a(A, rec['theta0'])['label'] == 'TURN_IN_FAMILY'

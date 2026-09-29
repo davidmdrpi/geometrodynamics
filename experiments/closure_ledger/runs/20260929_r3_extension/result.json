@@ -1,0 +1,96 @@
+{
+ "theta0": 3.045248856242761,
+ "A": {
+  "label": "NO_TURN_IN_FAMILY",
+  "status": "FAMILY_ENDED",
+  "n_circles": 27,
+  "a_max": 0.30443702144069645,
+  "I_max": 0.12811735821996853,
+  "frac_range": [
+   0.358709229937302,
+   0.484666408415976
+  ],
+  "max_omega_increase": -5.683558673963418e-05,
+  "end_reason": "ValueError: no real clock velocity",
+  "closure_rationals_q_le_12": [
+   "4/11",
+   "3/8",
+   "2/5",
+   "5/12",
+   "3/7",
+   "4/9",
+   "5/11"
+  ],
+  "low_order_closures_in_range": []
+ },
+ "B": {
+  "label": "SOME_POLARISATION_SHIFTS_TOWARD",
+  "checks": {
+   "B1_fixed_point": true,
+   "B2_linear": true,
+   "B3_dissipative": true,
+   "B4_so3_covariance": true,
+   "B5_lrs_matches_316": true,
+   "B6_linear_polarisations_equal": true,
+   "B7_convergence": true,
+   "B8_nonresonance": true,
+   "B9_constraint": true
+  },
+  "failures": [],
+  "nu_lrs": -0.9501180968942944,
+  "nu_max": 0.8479719230495326,
+  "nu_min": -1.8441266274563108,
+  "argmax": [
+   [
+    0.1673920012291764,
+    0.623921907405817
+   ],
+   [
+    -0.20233779135623445,
+    0.03497355894787153
+   ],
+   [
+    -0.6482554281887045,
+    0.10017010568646804
+   ],
+   [
+    -0.08997376785121058,
+    0.24688440467797895
+   ],
+   [
+    -0.052047683127278914,
+    0.19624561142700475
+   ]
+  ],
+  "argmin": [
+   [
+    -0.22215071254242502,
+    -0.09750527033033982
+   ],
+   [
+    -0.5543507477018579,
+    -0.11548347902918572
+   ],
+   [
+    0.10515549082012655,
+    -0.5401340348788555
+   ],
+   [
+    0.1439206134313422,
+    -0.42008815613445516
+   ],
+   [
+    0.3340261831558844,
+    0.09453809790599829
+   ]
+  ],
+  "sym2_upper_bound": 2.8670458359289124,
+  "sym2_lower_bound": -4.104330350910898,
+  "certified_by_sym2_bound": false,
+  "convergence": 3.843592111252292e-13,
+  "so3_defect": 1.0103029524088925e-14,
+  "linear_polarisation_spread": 1.1657341758564144e-14,
+  "dissipative_max": 1.2646781324441862e-13
+ },
+ "C": "NOT_TESTED: inhomogeneous n>=3 tensor, vector and scalar sectors (specification section 5)"
+}
