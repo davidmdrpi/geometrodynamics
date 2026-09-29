@@ -35,5 +35,9 @@ jobs:
           OPENBLAS_NUM_THREADS: "1"
           OPENBLAS_CORETYPE: Haswell
         run: pytest -q tests/test_finite_packet.py
+      - name: Verify R3 historical replay and review controls
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: pytest -q tests/test_r3_resonance.py tests/test_r3_review_controls.py
       - name: Run test suite
         run: pytest -q
