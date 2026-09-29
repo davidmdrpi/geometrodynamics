@@ -4,19 +4,22 @@ Date: 2026-09-29.
 - Specification and code: [`8584346`](r3_extension_prereg.md). It became public with the merge push at 04:58:16 UTC, before any cubic five-polarisation jet or new-amplitude circle.
 - Archives: `experiments/closure_ledger/runs/20260929_r3_extension/` (`part_A.json`, `part_B.json`, `result.json`). They bind the SHA-256 of all six sources.
 - Re-score test: `tests/test_r3_extension.py`.
+- Authenticated replay (added after the #317 review): `python -m experiments.closure_ledger.r3_extension_replay --full` returns VERIFIED, with the largest re-evaluated invariance residual 4.9e-12. See [the correction note](r3_extension_prereg_correction.md).
 
 ## Summary
 
 | part | question | frozen label |
 |---|---|---|
 | **B** | leading twist for all five homogeneous n=2 polarisations | **SOME_POLARISATION_SHIFTS_TOWARD** |
-| **A** | does the LRS family turn at large amplitude? | **NO_TURN_IN_FAMILY** |
-| D | which closure rationals does the LRS family reach? | descriptive (below) |
+| **A** | does the LRS family turn at large amplitude? | **NO_TURN_IN_FAMILY** (27 circles through a = .3044; continuation beyond that failed numerically, unresolved) |
+| D | which closure rationals does the LRS family pass? | descriptive; candidate rationals only, periodic histories unverified |
 | C | inhomogeneous n >= 3 tensor, vector and scalar sectors | NOT_TESTED |
 
 **The R3 refocusing closure is not ruled out.** #316's SHIFT_AWAY_FROM_TARGET
-holds for every *linear* polarisation, and at large amplitude for the LRS
-family. But the homogeneous n=2 tensor also has complex (elliptical)
+holds for every *linear* polarisation. For the LRS family it continues to
+hold at large amplitude, through the last accepted circle at a = .3044.
+Beyond that point, continuation failed numerically and the question is
+unresolved. But the homogeneous n=2 tensor also has complex (elliptical)
 polarisations, and some of them shift *toward* the resonance. By the
 frozen continuation rule, that calls for a separate prospective crossing
 and closure test. It does not establish a crossing.
@@ -73,17 +76,27 @@ a = .004 to .3044 (I = 2.3e-5 to 0.128). Each has a residual <= 5e-12,
 a Fourier tail <= 3.3e-11, and constraint residuals <= 1e-10.
 - **frac(rho) decreases monotonically**, from .484645 to .358709. The
   largest step in omega is -5.7e-5, so it never increases.
-- **The family ends** after the registered retries, because the
-  constraint fails and the integrator breaks down:
+- **Continuation then failed.** The registered retries went as follows:
   - a = .2560 failed and its retry at .2348 passed;
   - .3320 failed and its retry at .3044 passed;
-  - .3620 failed and its retry at .3320 failed, with "no real clock velocity".
-- **Beyond a ≈ .33 the section data do not exist.** The tensor energy
-  exceeds what the Hamiltonian constraint allows at q = 0.
+  - .3620 failed (integrator: step size underflow), and its retry at .3320
+    failed with "no real clock velocity".
 
-At its largest circle the rotation has moved about 0.126 turns away from
-the target. Within the LRS family, no turn and no crossing occur anywhere
-up to the family's end.
+**Scope of the label (corrected 2026-09-29, after the #317 review).**
+NO_TURN_IN_FAMILY covers the 27 accepted circles through a = .3044. It
+says nothing beyond them. The endpoint is a failure of **numerical
+continuation**, not a demonstrated physical boundary. The final retry's
+initial predictor (the a = .3044 circle rescaled to .3320) has positive
+q'^2 at every grid point, between 2.114 and 2.244. The predictor for the
+failed a = .3620 step is also positive everywhere, between 1.907 and 2.140. So the constraint
+failure occurred at a later Newton trial state. It does not show that
+section data or invariant circles cease to exist. An earlier version of
+this section claimed that they "do not exist beyond a ≈ .33". That claim
+is withdrawn.
+
+At the last accepted circle the rotation has moved about 0.126 turns away
+from the target. Whether the family continues, and whether it turns,
+beyond a = .3044 is unresolved.
 
 ## Part D: closure conditions reached
 
@@ -91,12 +104,23 @@ The LRS family's frac(rho) range [.358709, .484666] contains the
 rationals with q <= 12:
 **5/11, 4/9, 3/7, 5/12, 2/5, 3/8 and 4/11**.
 
-By Poincaré–Birkhoff, each has closed histories at an isolated action.
-For example, 2/5 is crossed between a = .2348 and .2792. The natural
-low-order closures (0, 1/4, 1/3, 1/2, 2/3, 3/4, 1) all lie outside the
-range. So closure as such is available at a dense set of actions. It
-selects nothing discrete unless physics fixes the rational, and the one
-the refocusing premise fixes, 1/2, is not reached by linear polarisations.
+These are **candidate closure rationals only: no periodic history has
+been verified** (corrected 2026-09-29, after the #317 review). The code
+lists the rationals that lie between sampled rotation numbers. It does
+not solve P^q(z) = z.
+
+An earlier version of this section, and §4 of the specification, invoked
+Poincaré–Birkhoff to assert closed histories at each rational and closure
+actions dense in the family. Those claims are withdrawn. That theorem
+needs an invariant annulus of an area-preserving map, with twist
+conditions on its boundaries. Those hypotheses have not been established
+for this four-dimensional return map over the measured range: the centre
+manifold, its induced area form, and the boundary twist were not checked.
+
+For example, 2/5 lies between the rotation numbers sampled at a = .2348
+and a = .2792. Whether a period-5 orbit exists there is untested. The
+natural low-order closures (0, 1/4, 1/3, 1/2, 2/3, 3/4, 1) all lie
+outside the sampled range of the linearly polarised family.
 
 ## Part C: not tested
 
@@ -122,8 +146,8 @@ No conclusion here extends to them.
    - test the full-state closure P^2(z) = z by multiple shooting.
 3. **Selection would still not follow.** Even a verified closed history
    would not establish selected or quantised action. That still needs a
-   physical reason for the closure condition. Part D shows that closure
-   by itself is dense.
+   physical reason for the closure condition. Part D lists candidate
+   closure rationals only. It does not show that closure is dense.
 
 ## Disclosures
 

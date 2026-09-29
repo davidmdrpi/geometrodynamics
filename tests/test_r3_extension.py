@@ -91,3 +91,60 @@ def test_extension_archive_rescores_and_binds_sources():
     assert abs(b['nu_max']-rec['B']['nu_max']) < 1e-7 and abs(b['nu_lrs']-rec['B']['nu_lrs']) < 1e-9
     A['circles'][3]['omega'] += 1e-3        # a manufactured turn must be detected
     assert probe.score_a(A, rec['theta0'])['label'] == 'TURN_IN_FAMILY'
+
+
+@pytest.mark.skipif(not RESULT.exists(), reason='extension not run')
+def test_authenticated_replay_verifies():
+    from experiments.closure_ledger import r3_extension_replay as replay
+    out = replay.replay()
+    assert out['replay'] == 'VERIFIED' and out['A'] == 'NO_TURN_IN_FAMILY'
+    assert out['B'] == 'SOME_POLARISATION_SHIFTS_TOWARD' and out['accepted_circles'] == 27
+
+
+def _accepted(A):
+    return next(i for i, c in enumerate(A['circles']) if c['ok'])
+
+
+@pytest.mark.skipif(not RESULT.exists(), reason='extension not run')
+@pytest.mark.parametrize('damage', ['residual', 'delete_K', 'nan_K', 'tail', 'action', 'flip_failed_to_ok',
+                                    'flip_ok_to_failed', 'off_ladder', 'shape_K'])
+def test_replay_validation_rejects_damaged_part_a(damage):
+    import copy
+    import json
+    from experiments.closure_ledger import r3_extension_probe as probe
+    from experiments.closure_ledger import r3_extension_replay as replay
+    A = copy.deepcopy(json.loads((probe.RUN_DIR/'part_A.json').read_text()))
+    i = _accepted(A)
+    if damage == 'residual':
+        A['circles'][i]['residual'] = 1.0
+    elif damage == 'delete_K':
+        del A['circles'][i]['K']
+    elif damage == 'nan_K':
+        A['circles'][i]['K'][0][0] = float('nan')
+    elif damage == 'tail':
+        A['circles'][i]['fourier_tail'] = 5e-11    # passes the threshold, contradicts K
+    elif damage == 'action':
+        A['circles'][i]['action'] *= 1.001
+    elif damage == 'flip_failed_to_ok':
+        j = next(k for k, c in enumerate(A['circles']) if not c['ok'])
+        A['circles'][j]['ok'] = True
+    elif damage == 'flip_ok_to_failed':
+        A['circles'][i]['ok'] = False
+    elif damage == 'off_ladder':
+        A['circles'][i+1]['a'] *= 1.01
+    else:
+        A['circles'][i]['K'] = A['circles'][i]['K'][:-1]
+    with pytest.raises(ValueError):
+        replay.validate_a(A)
+
+
+@pytest.mark.skipif(not RESULT.exists(), reason='extension not run')
+def test_replay_rejects_altered_archive_bytes(tmp_path):
+    import shutil
+    from experiments.closure_ledger import r3_extension_probe as probe
+    from experiments.closure_ledger import r3_extension_replay as replay
+    for name in replay.SHA256:
+        shutil.copy(probe.RUN_DIR/name, tmp_path/name)
+    (tmp_path/'part_A.json').write_text((tmp_path/'part_A.json').read_text().replace('"ok": true', '"ok": false', 1))
+    with pytest.raises(ValueError, match='fingerprint'):
+        replay.replay(directory=tmp_path)
