@@ -196,3 +196,23 @@ The small-grid command is a reproducibility smoke check, not a physical
 degree measurement. The linear-control record is
 `experiments/closure_ledger/runs/20260929_r3_review/review.json`. No nonlinear
 result is substituted or re-scored under looser thresholds.
+
+### CI portability correction (2026-09-29)
+
+The author independently reproduced and accepted the review findings in
+[PR #315](https://github.com/davidmdrpi/geometrodynamics/pull/315#issuecomment-5882049338).
+Python 3.12 CI exposed exact floating-point equality in both replay checks;
+the underlying decisions agreed. The base-branch test fix `40d03da` is
+incorporated, and the review replay now uses the existing structural
+comparator with scaled numerical tolerance 1e-9. Structure, labels,
+booleans and verdicts still compare exactly. This is a recomputation
+tolerance, not a change to N1–N5 or their thresholds.
+
+Regressions reverse the Birkhoff summation order and reject changed
+decisions, labels, nonfinite results, and material numeric discrepancies.
+Archive fingerprint checks still reject jointly altered evidence and
+results. Both the nonlinear archive and the original linear-control record
+remain byte-for-byte unchanged; the latter's historical source binding is
+authenticated by its pinned record fingerprint instead of incorrectly
+requiring its old producer hash to equal the updated replay code. Fresh
+linear controls still reproduce its measurements.

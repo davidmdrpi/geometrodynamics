@@ -7,6 +7,7 @@ from geometrodynamics.waves import esu_floquet as fl
 from geometrodynamics.waves import nonlinear_supported_tt as d
 from geometrodynamics.waves import r3_resonance as r3
 from experiments.closure_ledger import r3_resonance_probe as probe
+from experiments.closure_ledger.esu_floquet_probe import close
 
 ARCHIVE = probe.RUN_DIR/'r3_resonance.json'
 
@@ -55,7 +56,8 @@ def test_archive_rescores_and_binds_sources():
     assert rec['freeze'] == probe.FREEZE and rec['correction'] == probe.CORRECTION
     assert rec['sources'] == probe.sources()
     again = json.loads(json.dumps(probe.score(rec['raw'])))
-    assert again == rec['result']
+    # Labels exactly; floats to 1e-9 (BLAS summation order differs across platforms).
+    assert again['verdict'] == rec['result']['verdict'] and close(again, rec['result'], 1e-9)
 
 
 @pytest.mark.skipif(not ARCHIVE.exists(), reason='archive not generated')
@@ -63,4 +65,18 @@ def test_tampered_increments_change_the_score():
     rec = json.loads(ARCHIVE.read_text())
     run = next(r for r in rec['raw']['runs'] if r['eps'] == .01 and r['pol'] == 1 and r['integrator'] == 'secondary')
     run['increments'] = [x+1e-3 for x in run['increments']]
-    assert json.loads(json.dumps(probe.score(rec['raw']))) != rec['result']
+    assert not close(json.loads(json.dumps(probe.score(rec['raw']))), rec['result'], 1e-9)
+
+
+@pytest.mark.skipif(not ARCHIVE.exists(), reason='archive not generated')
+def test_rescore_tolerates_summation_order(monkeypatch):
+    rec = json.loads(ARCHIVE.read_text())
+
+    def reversed_sum(inc):
+        inc = np.asarray(inc, float)
+        t = (np.arange(len(inc))+.5)/len(inc)
+        w = np.exp(-1/(t*(1-t)))
+        return float(sum(w[::-1]*inc[::-1])/(2*np.pi*w.sum()))
+    monkeypatch.setattr(r3, 'birkhoff', reversed_sum)
+    again = json.loads(json.dumps(probe.score(rec['raw'])))
+    assert again != rec['result'] and close(again, rec['result'], 1e-9)

@@ -51,6 +51,39 @@ def test_jointly_altered_diagnostics_and_result_cannot_authenticate(tmp_path):
         review.replay(path)
 
 
+def test_replay_tolerates_reversed_summation_order(monkeypatch):
+    def reversed_sum(inc):
+        inc = np.asarray(inc, float)
+        t = (np.arange(len(inc))+.5)/len(inc)
+        w = np.exp(-1/(t*(1-t)))
+        return float(sum(w[::-1]*inc[::-1])/(2*np.pi*w.sum()))
+    monkeypatch.setattr(r3, 'birkhoff', reversed_sum)
+    assert review.replay()['registered_verdict'] == 'UNRESOLVED'
+
+
+@pytest.mark.parametrize('damage', ['verdict', 'resolved', 'label', 'number', 'nan'])
+def test_tolerant_replay_still_rejects_changed_decisions_and_material_errors(monkeypatch, damage):
+    score = review.probe.score
+
+    def altered(raw):
+        fresh = score(raw)
+        if damage == 'verdict':
+            fresh['verdict'] = 'PASS'
+        elif damage == 'resolved':
+            fresh['rows'][0]['resolved'] = not fresh['rows'][0]['resolved']
+        elif damage == 'label':
+            fresh['failures'][0] = 'different failure'
+        elif damage == 'number':
+            fresh['rows'][0]['c'] += 1e-5
+        else:
+            fresh['rows'][0]['c'] = float('nan')
+        return fresh
+
+    monkeypatch.setattr(review.probe, 'score', altered)
+    with pytest.raises(ValueError):
+        review.replay()
+
+
 def test_exact_static_event_time_and_hopf_countercontrol():
     eps = np.array([.001, .01, .05])
     lam = 1.3
@@ -85,9 +118,13 @@ def test_linear_reference_exposes_finite_window_bias_and_angle_dependence():
     assert primary['half_window_difference'] > 3e-4
     assert abs(primary['bias48']) > 2e-5
     assert abs(primary['alternative_angle_rho48']-primary['rho']['48']) > 2e-4
-    rec = json.loads((review.probe.ROOT/'experiments/closure_ledger/runs/20260929_r3_review/review.json').read_text())
-    for path, digest in rec['source_sha256'].items():
-        assert hashlib.sha256((review.probe.ROOT/path).read_bytes()).hexdigest() == digest
+    # Authenticate the original record and its original producer binding,
+    # retained unchanged after the replay-only portability fix.
+    blob = (review.probe.ROOT/'experiments/closure_ledger/runs/20260929_r3_review/review.json').read_bytes()
+    assert hashlib.sha256(blob).hexdigest() == '73185d30bdc008ef8f7e63a0988aa604b8d900fbe326ac759ce8daed4dc2e583'
+    rec = json.loads(blob)
+    assert rec['source_sha256'] == {'experiments/closure_ledger/r3_review_controls.py':
+                                  '9c362d5c5065afbf9b9d0ffabdacf4c32b1c8812ec9a618f7007d8db1e1fa64c'}
     np.testing.assert_allclose(primary['increments'], rec['linear'][0]['increments'], atol=1e-10, rtol=0)
 
 

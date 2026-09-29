@@ -63,6 +63,9 @@ def validate_raw(raw):
 
 
 def replay(path=ARCHIVE):
+    # Keep the standalone kinematic helpers free of the symbolic audit imports.
+    from experiments.closure_ledger.esu_floquet_probe import close
+
     blob = Path(path).read_bytes()
     if hashlib.sha256(blob).hexdigest() != ARCHIVE_SHA256:
         raise ValueError('historical archive fingerprint mismatch')
@@ -73,7 +76,9 @@ def replay(path=ARCHIVE):
         raise ValueError('historical producer changed')
     validate_raw(rec['raw'])
     fresh = json.loads(json.dumps(probe.score(rec['raw']), allow_nan=False))
-    if fresh != rec['result']:
+    # Archive bytes stay exact. Recomputed floats can differ with BLAS order;
+    # close retains exact structure, labels, booleans and None throughout.
+    if fresh['verdict'] != rec['result']['verdict'] or not close(fresh, rec['result'], 1e-9):
         raise ValueError('saved verdict does not reproduce')
     restarts = [abs(w['kick']) for r in rec['raw']['runs'] for w in r['windows'][1:]]
     return dict(archive_sha256=ARCHIVE_SHA256, registered_verdict=fresh['verdict'],
