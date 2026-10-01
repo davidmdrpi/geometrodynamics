@@ -1,0 +1,9 @@
+{
+  "freeze": "0c51f9b5b528432c012fc15a4765af8829bb3867",
+  "sources": {
+    "docs/diagonal_bianchi_prereg.md": "8110b2c87806e6d51ac00a9161db68608953f20a7e8b599669b027a6dea85cda",
+    "geometrodynamics/waves/diagonal_bianchi.py": "94d6ee11f159ab507e87260ccdc9b660a1773adebe0d45288ba586be2d04a81f",
+    "geometrodynamics/waves/nonlinear_supported_tt.py": "6846a6f0e12c60af402b7f29c39e05b3289355ad039787b5c04668221d9a7b14",
+    "experiments/closure_ledger/diagonal_bianchi_probe.py": "9469bdde7345d5091afa6139b4e4cd29d454be40651dd480c9a0b1409db8152f"
+  }
+}

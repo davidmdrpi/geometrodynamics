@@ -43,5 +43,9 @@ jobs:
         env:
           OPENBLAS_NUM_THREADS: "1"
         run: pytest -q tests/test_r3_phase_return_map.py
+      - name: Verify diagonal Bianchi IX evidence
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: pytest -q tests/test_diagonal_bianchi.py
       - name: Run test suite
         run: pytest -q
