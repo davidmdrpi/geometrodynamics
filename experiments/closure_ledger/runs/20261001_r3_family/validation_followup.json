@@ -1,0 +1,17 @@
+{
+ "sample_index": 0,
+ "coordinate_directions_relative_error": [
+  5.1611532059799306e-11,
+  3.5271244463786106e-11,
+  2.084294977536183e-10,
+  8.585200815608533e-11,
+  8.313597254760986e-11,
+  5.1023178715822425e-11
+ ],
+ "compensated_shear_relative_error": 5.347007086574117e-11,
+ "compensated_initial_constraint": 1.0142015210750017e-13,
+ "compensated_final_constraint": 1.0142353409830032e-13,
+ "norm_N": 2.1322050865861377,
+ "norm_N2": 6.923550548934e-11,
+ "norm_M2off_pow100": 213.2251985436404
+}
