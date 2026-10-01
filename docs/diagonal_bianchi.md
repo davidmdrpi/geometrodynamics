@@ -77,6 +77,30 @@ The experiment does not classify equivalences, degeneracy, stability or
 isolation, and does not attach the bracketing circles' actions to the
 period-two solutions as an exact orbit action.
 
+## Post-publication review: numerical family
+
+The [independent review of `03afa4e`](https://github.com/davidmdrpi/geometrodynamics/pull/318#issuecomment-5922620742)
+on 2026-10-01 reproduced both registered labels, replay and all 12 diagonal
+tests. Its separate event-located map using the unchanged 29-state equations
+reproduced the bracket and closed all eight archived candidates to 8.5e-13
+or better.
+
+The review also reports exploratory evidence that the two-return solutions
+are **numerically non-isolated**, forming a continuous one-parameter family:
+opposite seeds exchange the two nodes; the shooting Jacobian has one
+near-null singular value (4.3e-10, versus 0.139 for the next); and continuation
+along that direction remains closed to 6e-13 or better over the traced arc.
+Its finite-difference multipliers include a near-unit pair and the large
+Einstein-static unstable pair. These are attributed review findings, not
+new registered measurements or additions to the immutable archive. The
+review's continuation data are not archived here, and exact non-isolation,
+a global closed family and an exact unit Jordan block are not proved.
+
+Carry this numerical family forward as prior information for the next
+freeze. Neither the family nor the successful closures establish action
+selection. In particular, a common action on one family would not by itself
+establish a discrete spectrum or a mechanism selecting that family.
+
 ## Implementation, provenance and replay
 
 `geometrodynamics/waves/diagonal_bianchi.py` evolves the exact scalar-phase
@@ -123,15 +147,28 @@ The producer refuses an existing output directory. A new run can use:
 
     OPENBLAS_NUM_THREADS=1 python -m experiments.closure_ledger.diagonal_bianchi_probe --output /tmp/diagonal-fresh
 
-## Next candidate: transverse stability and isolation
+## Next candidate: family action and transverse stability
 
-The next useful target is this verified diagonal period-two candidate
-under general homogeneous perturbations. A new prospective specification
-should compute the constraint-compatible full-period monodromy, distinguish
-physical growth from gauge/symmetry directions and the known homogeneous
-background instability, and check convergence against direct perturbations.
-The closure Jacobian should also be examined for near-null directions to
-separate isolated solutions from a numerically unresolved family.
+The next prospective specification should disclose the review's family
+finding and test its extent and action rather than treating isolation as
+an unexplored question. Continue with a fixed phase condition around the
+putative full family, report closure residuals and their convergence, and
+measure the canonical action along the family with a stated uncertainty.
+Distinguish that section-family loop integral from the time integral along
+one physical two-return history; the latter requires the appropriate full
+canonical one-form. Do not substitute interpolation of the two bracket
+actions for either measurement.
+
+Use variational equations for the constraint-compatible full-period
+monodromy and closure Jacobian, with convergence and direct-perturbation
+checks. Distinguish family, gauge and symmetry directions from physical
+growth and the known homogeneous background instability. Report the full
+unstable spectrum separately from stability within a specified centre
+sector. General tensor perturbations require the full 12-dimensional
+section map, including off-diagonal directions; angular-momentum-carrying
+perturbations require the second-order matter compensation described in
+the #317 extension specification. A diagonal spectrum alone cannot settle
+that broader stability question.
 
 That test can establish or reject robustness within a stated sector. Even
 an isolated stable orbit would still require a physical selection mechanism
