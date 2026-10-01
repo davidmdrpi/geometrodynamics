@@ -36,3 +36,69 @@ def test_loop_action_of_an_ellipse():
 def test_pair_classification():
     out = rf.classify_pairs([85., 1/85., np.exp(.8j), np.exp(-.8j)])
     assert sorted(p['kind'] for p in out) == ['ELLIPTIC', 'HYPERBOLIC']
+
+
+import copy
+import json
+import pytest
+from experiments.closure_ledger import r3_family_probe as _probe
+from experiments.closure_ledger import r3_family_replay as replay
+
+_have = pytest.mark.skipif(not (_probe.RUN_DIR/'result.json').exists(), reason='family test not run')
+
+
+def _load(name):
+    return json.loads((_probe.RUN_DIR/name).read_text())
+
+
+@_have
+def test_authenticated_family_replay_verifies():
+    out = replay.replay()
+    assert out['replay'] == 'VERIFIED' and out['FAMILY'] == 'CLOSED_FAMILY_LOOP_NUMERICALLY'
+    assert out['max_reevaluated_loop_closure'] <= 1e-10
+
+
+@_have
+@pytest.mark.parametrize('damage', ['truncate', 'duplicate', 'reorder', 'shift_node', 'nan_M2'])
+def test_replay_rejects_damaged_samples(damage):
+    F, S = _load('stage_F.json'), copy.deepcopy(_load('stage_S.json'))
+    if damage == 'truncate':
+        S['samples'] = S['samples'][:1]
+    elif damage == 'duplicate':
+        S['samples'] = [S['samples'][0]]*len(S['samples'])
+    elif damage == 'reorder':
+        S['samples'] = S['samples'][::-1]
+    elif damage == 'shift_node':
+        S['samples'][3]['v'][7] += 1e-9
+    else:
+        S['samples'][2]['M2'][0][0] = float('nan')
+    with pytest.raises(ValueError):
+        replay.validate_s(S, F)
+
+
+@_have
+def test_replay_rejects_trivial_second_nodes_with_intact_saved_residuals():
+    F = copy.deepcopy(_load('stage_F.json'))
+    for p in [F['start']]+F['points']:
+        p['v'][6:] = [1., 0., 0., 0., 0., 0.]
+    with pytest.raises(ValueError):
+        replay.validate_f(F)
+
+
+@_have
+def test_replay_rejects_saved_residuals_that_do_not_reproduce():
+    from multiprocessing import Pool
+    F = copy.deepcopy(_load('stage_F.json'))
+    F['points'][5]['v'][3] += 1e-6           # node moved; saved residual left intact
+    with Pool(4) as pool, pytest.raises(ValueError):
+        replay.validate_f(F, pool)
+
+
+@_have
+def test_replay_rejects_altered_archive_bytes(tmp_path):
+    import shutil
+    for n in replay.SHA256:
+        shutil.copy(_probe.RUN_DIR/n, tmp_path/n)
+    (tmp_path/'stage_S.json').write_text((tmp_path/'stage_S.json').read_text().replace('"index": 10', '"index": 11', 1))
+    with pytest.raises(ValueError, match='fingerprint'):
+        replay.replay(directory=tmp_path)

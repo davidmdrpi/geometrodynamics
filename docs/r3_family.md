@@ -10,10 +10,10 @@ Date: 2026-10-01.
 | label | result |
 |---|---|
 | FAMILY | **CLOSED_FAMILY_LOOP_NUMERICALLY** |
-| loop action | **I = 0.0188474 ± 1.6e-9** |
+| loop action | **I = 0.018847372581 ± 1.6e-9** |
 | ACTION_CONSISTENCY | **CONSISTENT**: circle interpolation gives 0.0188475 (quadratic), 0.0188681 (linear) |
 | DIAGONAL_TRANSVERSE | **ELLIPTIC** |
-| OFF_DIAGONAL | **MARGINAL**, explained by symmetry in §3 |
+| OFF_DIAGONAL | **MARGINAL**: unit Jordan blocks, so perturbations drift secularly; explained by symmetry in §3 |
 
 Every check F1–F5 and S1–S4 passes:
 
@@ -50,7 +50,7 @@ At each of the 12 samples the multipliers of P² split into three groups.
 |---|---|---|
 | Einstein-static (A, p_A) | 7242.2 and 1/7242.2 | the homogeneous instability, shared with the ESU itself (about 85 per return) |
 | diagonal family pair | 1 (Jordan) | motion along the loop |
-| diagonal transverse | e^{±0.837i} (trace 1.34186) | **elliptic: linearly stable** |
+| diagonal transverse | e^{±0.837i} (trace 1.34186) | **elliptic** (no growth in this pair) |
 | off-diagonal (3 pairs) | all 1 | SO(3) rotations and conserved angular momentum (below) |
 
 **Why the off-diagonal multipliers are all 1.** At a diagonal, anisotropic configuration, off-diagonal shape perturbations are rotations of the principal axes together with their conjugate angular momenta. The check:
@@ -63,8 +63,9 @@ So an off-diagonal perturbation, with its angular momentum compensated by a quar
 **Answer to "does it survive general homogeneous perturbations?"**
 - No exponential instability appears beyond the Einstein-static direction, which every homogeneous orbit has, including the ESU.
 - The diagonal transverse pair is elliptic.
-- The off-diagonal directions are neutral by symmetry.
-- Within the homogeneous centre directions the family is therefore linearly stable, with neutral drift.
+- The off-diagonal directions are marginal. Their unit multipliers form nontrivial Jordan blocks, so perturbations there grow **secularly** in the unreduced variables. For the first sample, N = M2_off - I has ||N|| = 2.13 and ||N^2|| = 7e-11, and ||M2_off^100|| = 213. That is linear growth, about 2.1 per two returns, not bounded motion. The same holds for the family (unit) pair along the loop.
+- **So the family is not linearly stable in the unreduced homogeneous variables.** The supported statement is narrower: no exponential growth is resolved beyond the Einstein-static pair; the diagonal transverse pair is elliptic; and there is marginal secular drift in the rotation/angular-momentum and family directions. Whether the family is stable *modulo rotations* needs an explicit symmetry reduction and a stated perturbation norm. That is not done here.
+- *Corrected 2026-10-01 after the #319 review. The earlier text said "linearly stable, with neutral drift", which does not follow from unit Jordan blocks.*
 - Nonlinear stability is NOT_TESTED.
 - Inhomogeneous perturbations are NOT_TESTED.
 - The Einstein-static instability remains a physical caveat for any claim built on this orbit, as it does for the static universe.
@@ -72,14 +73,34 @@ So an off-diagonal perturbation, with its angular momentum compensated by a quar
 ## 4. What this establishes and what it does not
 
 Within the exact diagonal homogeneous system:
-- **Established numerically:** the refocusing closure at 3/2 occurs on one closed loop, at one action, I* = 0.0188474; it is linearly stable in the diagonal transverse direction and neutral in the rotation directions.
+- **Established numerically:** the refocusing closure at 3/2 occurs on one closed loop, at one action, I* = 0.0188474; its diagonal transverse pair is elliptic; no exponential growth is resolved beyond the Einstein-static pair; and the rotation/angular-momentum and family directions show marginal secular (linear) drift.
 - **Not established:**
   - a physical reason why histories must close;
   - that closure at other rationals does not select other actions;
   - stability against inhomogeneous perturbations;
   - any connection to an action quantum.
 
-## 5. Disclosures
+## 5. Review follow-up (2026-10-01, #319 review)
+
+Three additions, each in a separate layer. The frozen producer, the archives and every label are unchanged.
+
+1. **Authenticated replay** (`experiments/closure_ledger/r3_family_replay.py`). It:
+   - checks the three archives against pinned SHA-256s;
+   - validates finite values and shapes;
+   - recomputes the registered 12-point arclength schedule and requires the samples to be exactly those stage-F points, in order;
+   - re-evaluates every stage-F node pair on the full system, which reproduces the saved residuals (max 9.95e-13) and rejects trivial or one-return pairs;
+   - checks each saved M2: det, block decoupling, and that its unit-multiplier direction is the stage-F loop tangent;
+   - only then re-scores. With `--full` it also recomputes each M2 by exact jets.
+
+   Negative controls reject truncated, duplicated, reordered and shifted samples, nonfinite M2, trivial second nodes with intact saved residuals, non-reproducing residuals, and altered bytes. The frozen scorer accepted the first and the trivial-node mutations; this replay does not.
+2. **Off-diagonal coverage** (`experiments/closure_ledger/r3_family_validation.py`, archived as `validation_followup.json`). The frozen S3 probed real eigenvector parts. At the defective unit multipliers these collapse onto the rotation eigenspace. At sample 0, the supplement finds:
+   - six independent off-diagonal coordinate directions agree with M2 to ≤ 2.1e-10;
+   - a full-system perturbation along the strongest secular-shear direction agrees to 5.3e-11, with its angular momentum cancelled by quartet components q_1..q_3 so every constraint holds (1e-13 initially and finally).
+
+   The archived map is confirmed; the gap was in coverage, not correctness.
+3. **Stability wording** corrected in §1, §3 and §4, as described in §3.
+
+## 6. Disclosures
 
 - **Scoring wrapper.** The frozen probe's `score` stage crashed after computing, while printing, because numpy bools are not JSON-serialisable. Editing the probe would change its bound source hash. Instead, `r3_family_score.py` calls the unchanged `score()` and converts numpy scalars. It changes no number or rule.
 - **Interpretation added after the result.** The rotation-generator analysis in §3 and the constant-multiplier observation in §2 were computed after the labels were fixed. They are interpretation, not registered tests.
