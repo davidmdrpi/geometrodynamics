@@ -1,0 +1,1204 @@
+{
+  "crossing": "CROSSING_BRACKETED_NUMERICALLY",
+  "closure": "NONTRIVIAL_TWO_RETURN_ORBIT_VERIFIED_NUMERICALLY",
+  "termination": "BRACKET_FOUND",
+  "accepted": 19,
+  "circles": [
+    {
+      "accepted": true,
+      "action": 4.597167263517198e-05,
+      "circular_area": -7.999934694182327e-06,
+      "omega": 3.045493765809576,
+      "rho": 1.4847053869841451,
+      "grid_error": 7.601164548383347e-13,
+      "offgrid_error": 7.964684112602837e-13,
+      "fourier_tail": 6.050188738521191e-16,
+      "amplitude_error": 6.436415058277879e-19,
+      "full_checks": [
+        {
+          "constraint": 8.881784197001252e-15,
+          "chart": 0.8750144258834875,
+          "section": 3.8315704775637727e-16,
+          "negative_clock": true,
+          "formulation_error": 1.111384652226466e-13
+        },
+        {
+          "constraint": 7.549516567451064e-15,
+          "chart": 0.8750144411309814,
+          "section": 1.4268100589909238e-16,
+          "negative_clock": true,
+          "formulation_error": 5.673359659227352e-14
+        },
+        {
+          "constraint": 1.709743457922741e-14,
+          "chart": 0.8750144231074638,
+          "section": 2.7538735181131813e-16,
+          "negative_clock": true,
+          "formulation_error": 2.3407326370629176e-13
+        },
+        {
+          "constraint": 8.43769498715119e-15,
+          "chart": 0.8750144220065773,
+          "section": 2.474149357611921e-16,
+          "negative_clock": true,
+          "formulation_error": 3.43258878441592e-14
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 6.501506997153544e-05,
+      "circular_area": -1.1313577902650845e-05,
+      "omega": 3.0455952024764614,
+      "rho": 1.4847215311310906,
+      "grid_error": 4.107502121629689e-13,
+      "offgrid_error": 3.829278896364123e-13,
+      "fourier_tail": 3.513641959117628e-16,
+      "amplitude_error": 8.07394725250475e-19,
+      "full_checks": [
+        {
+          "constraint": 5.1958437552457326e-14,
+          "chart": 0.8750204001549454,
+          "section": 3.686287386450715e-17,
+          "negative_clock": true,
+          "formulation_error": 1.2352650684589027e-12
+        },
+        {
+          "constraint": 7.549516567451064e-15,
+          "chart": 0.8750204258032055,
+          "section": 1.4007892068512717e-16,
+          "negative_clock": true,
+          "formulation_error": 5.840396573423106e-14
+        },
+        {
+          "constraint": 1.3766765505351941e-14,
+          "chart": 0.8750203954914664,
+          "section": 8.565197162635485e-17,
+          "negative_clock": true,
+          "formulation_error": 3.457479471198995e-13
+        },
+        {
+          "constraint": 4.1300296516055823e-14,
+          "chart": 0.8750203936416321,
+          "section": 1.6371452804531117e-16,
+          "negative_clock": true,
+          "formulation_error": 2.4196343986535555e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 9.194780744577385e-05,
+      "circular_area": -1.599973884831475e-05,
+      "omega": 3.045738647389892,
+      "rho": 1.4847443610981246,
+      "grid_error": 4.5311925647068977e-13,
+      "offgrid_error": 5.629360823949803e-13,
+      "fourier_tail": 3.668334462034329e-16,
+      "amplitude_error": 9.599385185229816e-19,
+      "full_checks": [
+        {
+          "constraint": 2.2648549702353193e-14,
+          "chart": 0.8750288485089919,
+          "section": 8.890457814381136e-18,
+          "negative_clock": true,
+          "formulation_error": 8.15639870173609e-14
+        },
+        {
+          "constraint": 2.6423307986078726e-14,
+          "chart": 0.8750288916564337,
+          "section": 9.606031248221569e-17,
+          "negative_clock": true,
+          "formulation_error": 6.071273770047935e-13
+        },
+        {
+          "constraint": 8.43769498715119e-15,
+          "chart": 0.8750288406785461,
+          "section": 7.762887554996212e-17,
+          "negative_clock": true,
+          "formulation_error": 1.363448057685982e-13
+        },
+        {
+          "constraint": 1.0658141036401503e-14,
+          "chart": 0.8750288375713084,
+          "section": 1.0495077029659683e-16,
+          "negative_clock": true,
+          "formulation_error": 9.077559133858376e-14
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.00013003906279047308,
+      "circular_area": -2.2626894810345743e-05,
+      "omega": 3.045941492739261,
+      "rho": 1.4847766449381599,
+      "grid_error": 4.078509863617388e-13,
+      "offgrid_error": 4.0969340584179424e-13,
+      "fourier_tail": 3.8196279088033967e-16,
+      "amplitude_error": 1.0999413732803647e-18,
+      "full_checks": [
+        {
+          "constraint": 1.4210854715202004e-14,
+          "chart": 0.8750407955992111,
+          "section": 2.634611279139776e-16,
+          "negative_clock": true,
+          "formulation_error": 3.399826688216647e-13
+        },
+        {
+          "constraint": 9.325873406851315e-15,
+          "chart": 0.8750408681934015,
+          "section": 1.6653345369377348e-16,
+          "negative_clock": true,
+          "formulation_error": 2.2684062342172306e-13
+        },
+        {
+          "constraint": 9.547918011776346e-15,
+          "chart": 0.8750407824595849,
+          "section": 3.428247269399165e-16,
+          "negative_clock": true,
+          "formulation_error": 2.161975619011233e-13
+        },
+        {
+          "constraint": 9.325873406851315e-15,
+          "chart": 0.8750407772428261,
+          "section": 2.747368305078268e-16,
+          "negative_clock": true,
+          "formulation_error": 3.0831790825248213e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.0001839134563618122,
+      "circular_area": -3.1998955952825716e-05,
+      "omega": 3.0462283265999592,
+      "rho": 1.484822295964936,
+      "grid_error": 3.952806670473211e-13,
+      "offgrid_error": 3.955175299874238e-13,
+      "fourier_tail": 3.039328249066236e-16,
+      "amplitude_error": 1.3344143147523393e-18,
+      "full_checks": [
+        {
+          "constraint": 3.863576125695545e-14,
+          "chart": 0.8750576906267044,
+          "section": 3.707971429900425e-17,
+          "negative_clock": true,
+          "formulation_error": 1.285216936681264e-13
+        },
+        {
+          "constraint": 2.1760371282653068e-14,
+          "chart": 0.8750578127845484,
+          "section": 3.5908775952719907e-16,
+          "negative_clock": true,
+          "formulation_error": 2.497514973220168e-13
+        },
+        {
+          "constraint": 2.398081733190338e-14,
+          "chart": 0.8750576685990806,
+          "section": 1.2555061157382141e-16,
+          "negative_clock": true,
+          "formulation_error": 7.624157333109262e-14
+        },
+        {
+          "constraint": 3.1530333899354446e-14,
+          "chart": 0.8750576598470703,
+          "section": 2.5587171270657905e-17,
+          "negative_clock": true,
+          "formulation_error": 7.096118660328255e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.0002601137965637286,
+      "circular_area": -4.525274682925259e-05,
+      "omega": 3.0466339053741933,
+      "rho": 1.4848868458316686,
+      "grid_error": 3.946580361267242e-13,
+      "offgrid_error": 4.4104659592924113e-13,
+      "fourier_tail": 3.8510100453248785e-16,
+      "amplitude_error": 1.3895317818145432e-18,
+      "full_checks": [
+        {
+          "constraint": 1.4432899320127035e-14,
+          "chart": 0.8750815834965491,
+          "section": 1.8301332671555315e-16,
+          "negative_clock": true,
+          "formulation_error": 2.801047112286378e-13
+        },
+        {
+          "constraint": 4.263256414560601e-14,
+          "chart": 0.8750817891056084,
+          "section": 9.64939933512099e-17,
+          "negative_clock": true,
+          "formulation_error": 6.817405780933051e-13
+        },
+        {
+          "constraint": 6.661338147750939e-15,
+          "chart": 0.8750815466179922,
+          "section": 4.185020385794047e-17,
+          "negative_clock": true,
+          "formulation_error": 2.033724632520247e-13
+        },
+        {
+          "constraint": 2.020605904817785e-14,
+          "chart": 0.8750815319498485,
+          "section": 9.974659986866641e-18,
+          "negative_clock": true,
+          "formulation_error": 5.120192752449586e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.0003678982208298498,
+      "circular_area": -6.399582829180565e-05,
+      "omega": 3.047207349268444,
+      "rho": 1.4849781122620245,
+      "grid_error": 4.353940109177155e-13,
+      "offgrid_error": 4.581543189941624e-13,
+      "fourier_tail": 2.622078182506135e-16,
+      "amplitude_error": 1.8765457902085543e-18,
+      "full_checks": [
+        {
+          "constraint": 2.375877272697835e-14,
+          "chart": 0.8751153743585229,
+          "section": 1.2576745200831851e-17,
+          "negative_clock": true,
+          "formulation_error": 2.2149794764856527e-13
+        },
+        {
+          "constraint": 6.217248937900877e-15,
+          "chart": 0.8751157205421928,
+          "section": 1.8951853975046618e-16,
+          "negative_clock": true,
+          "formulation_error": 9.298386001866787e-14
+        },
+        {
+          "constraint": 8.881784197001252e-15,
+          "chart": 0.8751153127341644,
+          "section": 6.722053469410127e-17,
+          "negative_clock": true,
+          "formulation_error": 6.853485644835622e-14
+        },
+        {
+          "constraint": 4.241051954068098e-14,
+          "chart": 0.8751152881870966,
+          "section": 1.6761765586625899e-16,
+          "negative_clock": true,
+          "formulation_error": 1.1195792065649265e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.000520370113445003,
+      "circular_area": -9.050133200435797e-05,
+      "omega": 3.0480180592237343,
+      "rho": 1.4851071407588228,
+      "grid_error": 9.595062849180984e-13,
+      "offgrid_error": 1.0004318023892791e-12,
+      "fourier_tail": 5.782688422701447e-16,
+      "amplitude_error": 2.9770754792726464e-18,
+      "full_checks": [
+        {
+          "constraint": 1.021405182655144e-14,
+          "chart": 0.8751631674249686,
+          "section": 3.67544536472586e-16,
+          "negative_clock": true,
+          "formulation_error": 4.138081843263713e-14
+        },
+        {
+          "constraint": 2.2426505097428162e-14,
+          "chart": 0.8751637505652267,
+          "section": 3.131175874138137e-16,
+          "negative_clock": true,
+          "formulation_error": 2.793265801764779e-13
+        },
+        {
+          "constraint": 1.176836406102666e-14,
+          "chart": 0.8751630647306233,
+          "section": 3.5952144039619327e-16,
+          "negative_clock": true,
+          "formulation_error": 2.8869996789650547e-13
+        },
+        {
+          "constraint": 7.016609515630989e-14,
+          "chart": 0.8751630237378228,
+          "section": 5.854691731421724e-17,
+          "negative_clock": true,
+          "formulation_error": 6.405183119464163e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.0007360812105278654,
+      "circular_area": -0.00012798334905219977,
+      "omega": 3.049164051995716,
+      "rho": 1.4852895311732313,
+      "grid_error": 2.8309296367604736e-12,
+      "offgrid_error": 2.899242840568401e-12,
+      "fourier_tail": 4.592249541511541e-16,
+      "amplitude_error": 8.283768954388807e-18,
+      "full_checks": [
+        {
+          "constraint": 1.9984014443252818e-14,
+          "chart": 0.875230773284493,
+          "section": 2.495833401061631e-16,
+          "negative_clock": true,
+          "formulation_error": 1.197358549047639e-13
+        },
+        {
+          "constraint": 1.5987211554602254e-14,
+          "chart": 0.8752317562161717,
+          "section": 1.2598429244281562e-16,
+          "negative_clock": true,
+          "formulation_error": 7.066950038939028e-14
+        },
+        {
+          "constraint": 5.240252676230739e-14,
+          "chart": 0.8752306028177563,
+          "section": 1.713039432527097e-16,
+          "negative_clock": true,
+          "formulation_error": 3.522885328859646e-13
+        },
+        {
+          "constraint": 2.6423307986078726e-14,
+          "chart": 0.875230534569655,
+          "section": 3.185385982762412e-16,
+          "negative_clock": true,
+          "formulation_error": 5.147905722307968e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.0010413089938207188,
+      "circular_area": -0.00018098609362471633,
+      "omega": 3.050783682341553,
+      "rho": 1.4855473033487527,
+      "grid_error": 9.50097119712225e-12,
+      "offgrid_error": 9.887821603296121e-12,
+      "fourier_tail": 3.08408311138332e-16,
+      "amplitude_error": 5.0542136804797765e-17,
+      "full_checks": [
+        {
+          "constraint": 3.019806626980426e-14,
+          "chart": 0.8753264233255733,
+          "section": 1.8127860323957634e-16,
+          "negative_clock": true,
+          "formulation_error": 3.5013816610760537e-13
+        },
+        {
+          "constraint": 9.325873406851315e-15,
+          "chart": 0.8753280816586412,
+          "section": 2.3830763751231387e-16,
+          "negative_clock": true,
+          "formulation_error": 2.051839058901661e-13
+        },
+        {
+          "constraint": 6.217248937900877e-15,
+          "chart": 0.8753261419605223,
+          "section": 1.4007892068512717e-16,
+          "negative_clock": true,
+          "formulation_error": 3.469831928428141e-14
+        },
+        {
+          "constraint": 5.639932965095795e-14,
+          "chart": 0.875326028840435,
+          "section": 1.6609977282477928e-16,
+          "negative_clock": true,
+          "formulation_error": 1.4168884571478732e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.0014732977661195874,
+      "circular_area": -0.0002559336839305093,
+      "omega": 3.053072090031684,
+      "rho": 1.4859115147444466,
+      "grid_error": 3.9342624522250257e-11,
+      "offgrid_error": 3.955209327644125e-11,
+      "fourier_tail": 4.163172102945169e-16,
+      "amplitude_error": 4.2139686060444675e-16,
+      "full_checks": [
+        {
+          "constraint": 4.107825191113079e-14,
+          "chart": 0.8754617883961847,
+          "section": 5.5077470362263625e-17,
+          "negative_clock": true,
+          "formulation_error": 3.1287343016676763e-13
+        },
+        {
+          "constraint": 3.6415315207705135e-14,
+          "chart": 0.8754645898047927,
+          "section": 3.0682921481339775e-16,
+          "negative_clock": true,
+          "formulation_error": 8.068178354689488e-13
+        },
+        {
+          "constraint": 3.5083047578154947e-14,
+          "chart": 0.8754613278220327,
+          "section": 1.1882855810441129e-16,
+          "negative_clock": true,
+          "formulation_error": 2.442883541937599e-13
+        },
+        {
+          "constraint": 1.9984014443252818e-14,
+          "chart": 0.8754611415570576,
+          "section": 2.480654570646834e-16,
+          "negative_clock": true,
+          "formulation_error": 1.7267173205593594e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.0020848824516090146,
+      "circular_area": -0.0003619065178708449,
+      "omega": 3.056304198428743,
+      "rho": 1.4864259207724473,
+      "grid_error": 4.839921120673198e-13,
+      "offgrid_error": 5.70888185357811e-13,
+      "fourier_tail": 1.6080745230032267e-16,
+      "amplitude_error": 4.51361725979697e-18,
+      "full_checks": [
+        {
+          "constraint": 1.1102230246251565e-14,
+          "chart": 0.8756534362499999,
+          "section": 1.9038590148845458e-16,
+          "negative_clock": true,
+          "formulation_error": 4.8156093099705616e-15
+        },
+        {
+          "constraint": 6.217248937900877e-15,
+          "chart": 0.8756581770776601,
+          "section": 2.6985792073164205e-16,
+          "negative_clock": true,
+          "formulation_error": 2.1633541312515714e-13
+        },
+        {
+          "constraint": 1.687538997430238e-14,
+          "chart": 0.8756526915422993,
+          "section": 1.1633489310769463e-16,
+          "negative_clock": true,
+          "formulation_error": 3.106274799554755e-14
+        },
+        {
+          "constraint": 3.4638958368304884e-14,
+          "chart": 0.8756523878649831,
+          "section": 9.085614205428527e-17,
+          "negative_clock": true,
+          "formulation_error": 3.5430116956600144e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.002951106705946876,
+      "circular_area": -0.0005117370481541315,
+      "omega": 3.0608667180735796,
+      "rho": 1.487152068326877,
+      "grid_error": 5.567111170928091e-13,
+      "offgrid_error": 5.769328835199608e-13,
+      "fourier_tail": 3.600834965735885e-16,
+      "amplitude_error": 5.253256952286561e-18,
+      "full_checks": [
+        {
+          "constraint": 1.554312234475219e-14,
+          "chart": 0.8759249263385108,
+          "section": 8.424250880212369e-16,
+          "negative_clock": true,
+          "formulation_error": 4.707019753895196e-13
+        },
+        {
+          "constraint": 9.992007221626409e-15,
+          "chart": 0.8759329689917292,
+          "section": 2.242130092700023e-16,
+          "negative_clock": true,
+          "formulation_error": 8.793508456117483e-14
+        },
+        {
+          "constraint": 3.552713678800501e-14,
+          "chart": 0.8759237445064894,
+          "section": 3.371868756429919e-16,
+          "negative_clock": true,
+          "formulation_error": 2.0541897447368812e-14
+        },
+        {
+          "constraint": 3.774758283725532e-15,
+          "chart": 0.8759232569465197,
+          "section": 7.906002241764298e-16,
+          "negative_clock": true,
+          "formulation_error": 6.193507620828875e-14
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.004178736438738943,
+      "circular_area": -0.000723555294298781,
+      "omega": 3.0673023651929907,
+      "rho": 1.4881763333779263,
+      "grid_error": 3.3332261646992767e-13,
+      "offgrid_error": 4.791202428289926e-13,
+      "fourier_tail": 4.0776732351788114e-16,
+      "amplitude_error": 6.343937423232414e-18,
+      "full_checks": [
+        {
+          "constraint": 2.6423307986078726e-14,
+          "chart": 0.8763098386547674,
+          "section": 3.1994806110047236e-16,
+          "negative_clock": true,
+          "formulation_error": 3.799732270905014e-13
+        },
+        {
+          "constraint": 1.176836406102666e-14,
+          "chart": 0.8763235286513227,
+          "section": 2.712673835558732e-16,
+          "negative_clock": true,
+          "formulation_error": 3.777223217364678e-13
+        },
+        {
+          "constraint": 2.6201263381153694e-14,
+          "chart": 0.8763080174407345,
+          "section": 5.724045369637221e-16,
+          "negative_clock": true,
+          "formulation_error": 3.628551520124153e-13
+        },
+        {
+          "constraint": 1.9539925233402755e-14,
+          "chart": 0.8763072538063134,
+          "section": 1.5780562620526517e-16,
+          "negative_clock": true,
+          "formulation_error": 1.9084278428393997e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.005920010269273246,
+      "circular_area": -0.0010229668767462994,
+      "omega": 3.0763703134573115,
+      "rho": 1.4896195421678946,
+      "grid_error": 5.154450000502409e-13,
+      "offgrid_error": 5.335594704773683e-13,
+      "fourier_tail": 3.215517648593444e-16,
+      "amplitude_error": 7.44682931516659e-18,
+      "full_checks": [
+        {
+          "constraint": 1.7763568394002505e-14,
+          "chart": 0.8768561856782933,
+          "section": 8.326672684688674e-17,
+          "negative_clock": true,
+          "formulation_error": 3.2775948025521445e-13
+        },
+        {
+          "constraint": 3.6415315207705135e-14,
+          "chart": 0.8768795941807894,
+          "section": 2.3592239273284576e-16,
+          "negative_clock": true,
+          "formulation_error": 6.897942503650278e-13
+        },
+        {
+          "constraint": 2.2426505097428162e-14,
+          "chart": 0.8768535132534392,
+          "section": 6.591949208711867e-17,
+          "negative_clock": true,
+          "formulation_error": 1.670725732240419e-13
+        },
+        {
+          "constraint": 2.398081733190338e-14,
+          "chart": 0.8768523671009418,
+          "section": 6.938893903907228e-18,
+          "negative_clock": true,
+          "formulation_error": 4.3340905950955966e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.008392642382396391,
+      "circular_area": -0.0014461198115238725,
+      "omega": 3.0891275068726634,
+      "rho": 1.4916499125599274,
+      "grid_error": 3.3718340619603993e-13,
+      "offgrid_error": 5.46156002367848e-13,
+      "fourier_tail": 5.450744318131378e-16,
+      "amplitude_error": 8.433154870957335e-18,
+      "full_checks": [
+        {
+          "constraint": 7.993605777301127e-15,
+          "chart": 0.8776328948630676,
+          "section": 8.326672684688674e-17,
+          "negative_clock": true,
+          "formulation_error": 1.2029475180731775e-13
+        },
+        {
+          "constraint": 1.7985612998927536e-14,
+          "chart": 0.8776731618002628,
+          "section": 1.97758476261356e-16,
+          "negative_clock": true,
+          "formulation_error": 8.080727927073372e-13
+        },
+        {
+          "constraint": 4.529709940470639e-14,
+          "chart": 0.8776293119546915,
+          "section": 7.979727989493313e-17,
+          "negative_clock": true,
+          "formulation_error": 5.208024360077793e-13
+        },
+        {
+          "constraint": 2.90878432451791e-14,
+          "chart": 0.8776277265542481,
+          "section": 5.898059818321144e-17,
+          "negative_clock": true,
+          "formulation_error": 3.836844036930742e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.011909112945383774,
+      "circular_area": -0.0020440204220585644,
+      "omega": 3.1070351962475056,
+      "rho": 1.4945000098432877,
+      "grid_error": 1.68227940258725e-11,
+      "offgrid_error": 1.6837609214878646e-11,
+      "fourier_tail": 3.609933059939785e-16,
+      "amplitude_error": 5.980254409200874e-17,
+      "full_checks": [
+        {
+          "constraint": 6.150635556423367e-14,
+          "chart": 0.8787394269519383,
+          "section": 3.8163916471489756e-17,
+          "negative_clock": true,
+          "formulation_error": 2.8914347858285255e-13
+        },
+        {
+          "constraint": 8.215650382226158e-15,
+          "chart": 0.8788092253565589,
+          "section": 3.642919299551295e-16,
+          "negative_clock": true,
+          "formulation_error": 2.0954245283366646e-13
+        },
+        {
+          "constraint": 3.1308289294429414e-14,
+          "chart": 0.8787355070795119,
+          "section": 2.203098814490545e-16,
+          "negative_clock": true,
+          "formulation_error": 5.9310195643647035e-15
+        },
+        {
+          "constraint": 4.1744385725905886e-14,
+          "chart": 0.8787336963789991,
+          "section": 6.765421556309548e-17,
+          "negative_clock": true,
+          "formulation_error": 1.165911985012702e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.016919730868282946,
+      "circular_area": -0.002888611978457213,
+      "omega": 3.132092125868484,
+      "rho": 1.498487944051172,
+      "grid_error": 8.663579836171165e-13,
+      "offgrid_error": 8.155754717409369e-13,
+      "fourier_tail": 4.216352197829911e-16,
+      "amplitude_error": 1.2437652800875734e-17,
+      "full_checks": [
+        {
+          "constraint": 5.329070518200751e-15,
+          "chart": 0.8803201334074965,
+          "section": 3.122502256758253e-17,
+          "negative_clock": true,
+          "formulation_error": 1.4495147432607575e-13
+        },
+        {
+          "constraint": 1.0658141036401503e-14,
+          "chart": 0.8804422811326942,
+          "section": 1.5612511283791264e-16,
+          "negative_clock": true,
+          "formulation_error": 1.2572668600663306e-13
+        },
+        {
+          "constraint": 2.1094237467877974e-14,
+          "chart": 0.8803183538961741,
+          "section": 1.6132928326584306e-16,
+          "negative_clock": true,
+          "formulation_error": 2.868701370201121e-13
+        },
+        {
+          "constraint": 2.1538326677728037e-14,
+          "chart": 0.8803174813617115,
+          "section": 3.400058012914542e-16,
+          "negative_clock": true,
+          "formulation_error": 2.8463906578957143e-13
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "action": 0.02407552089012366,
+      "circular_area": -0.004081378181873646,
+      "omega": 3.1669849281964066,
+      "rho": 1.5040413060199893,
+      "grid_error": 1.1023821178818283e-11,
+      "offgrid_error": 1.0981915463809111e-11,
+      "fourier_tail": 3.5603890269456807e-16,
+      "amplitude_error": 1.423251556507676e-17,
+      "full_checks": [
+        {
+          "constraint": 1.1324274851176597e-14,
+          "chart": 0.8679874895480604,
+          "section": 1.8561541192951836e-16,
+          "negative_clock": true,
+          "formulation_error": 2.318619471766703e-13
+        },
+        {
+          "constraint": 2.7533531010703882e-14,
+          "chart": 0.8679847776320118,
+          "section": 9.020562075079397e-17,
+          "negative_clock": true,
+          "formulation_error": 2.760465467321893e-13
+        },
+        {
+          "constraint": 1.509903313490213e-14,
+          "chart": 0.8679781771607584,
+          "section": 1.2663481374630692e-16,
+          "negative_clock": true,
+          "formulation_error": 1.0854029263915321e-13
+        },
+        {
+          "constraint": 4.551914400963142e-14,
+          "chart": 0.867986215576141,
+          "section": 7.112366251504909e-17,
+          "negative_clock": true,
+          "formulation_error": 2.35380291646603e-13
+        }
+      ]
+    }
+  ],
+  "refinements": [
+    {
+      "accepted": true,
+      "action": 0.016919730868282946,
+      "circular_area": -0.002888611978457213,
+      "omega": 3.132092125868484,
+      "rho": 1.498487944051172,
+      "grid_error": 9.840517073075872e-13,
+      "offgrid_error": 8.574238324551842e-13,
+      "fourier_tail": 2.2506007228465062e-17,
+      "amplitude_error": 1.8768911331085912e-17,
+      "full_checks": [
+        {
+          "constraint": 1.021405182655144e-14,
+          "chart": 0.8803201334075138,
+          "section": 1.942890293094024e-16,
+          "negative_clock": true,
+          "formulation_error": 2.1449675531842044e-13
+        },
+        {
+          "constraint": 3.774758283725532e-14,
+          "chart": 0.8804422811326942,
+          "section": 2.3418766925686896e-16,
+          "negative_clock": true,
+          "formulation_error": 1.6696062934973277e-13
+        },
+        {
+          "constraint": 9.325873406851315e-15,
+          "chart": 0.8803183538961731,
+          "section": 1.3183898417423734e-16,
+          "negative_clock": true,
+          "formulation_error": 2.6800843445570766e-13
+        },
+        {
+          "constraint": 1.0436096431476471e-14,
+          "chart": 0.8803174813617214,
+          "section": 2.1337098754514727e-16,
+          "negative_clock": true,
+          "formulation_error": 3.5744497639544903e-13
+        }
+      ],
+      "uncertainty": 1e-09,
+      "resolved_side": true
+    },
+    {
+      "accepted": true,
+      "action": 0.02407552089012365,
+      "circular_area": -0.004081378181873645,
+      "omega": 3.1669849281964066,
+      "rho": 1.5040413060199893,
+      "grid_error": 1.1096130524829162e-11,
+      "offgrid_error": 1.0902724469769032e-11,
+      "fourier_tail": 2.5366972973022584e-17,
+      "amplitude_error": 2.1441005104835973e-17,
+      "full_checks": [
+        {
+          "constraint": 1.4654943925052066e-14,
+          "chart": 0.8679874895480587,
+          "section": 2.0990154059319366e-16,
+          "negative_clock": true,
+          "formulation_error": 2.5037263928773257e-14
+        },
+        {
+          "constraint": 3.26405569239796e-14,
+          "chart": 0.8679847776320114,
+          "section": 3.5908775952719907e-16,
+          "negative_clock": true,
+          "formulation_error": 1.255146160616949e-13
+        },
+        {
+          "constraint": 5.284661597215745e-14,
+          "chart": 0.8679781771607583,
+          "section": 2.7755575615628914e-17,
+          "negative_clock": true,
+          "formulation_error": 2.54370472168447e-13
+        },
+        {
+          "constraint": 1.199040866595169e-14,
+          "chart": 0.8679862155761399,
+          "section": 1.8388068845354155e-16,
+          "negative_clock": true,
+          "formulation_error": 2.922397566995638e-13
+        }
+      ],
+      "uncertainty": 1e-09,
+      "resolved_side": true
+    }
+  ],
+  "shooting": [
+    {
+      "candidate": true,
+      "verified": true,
+      "residual": 2.7961635014773362e-14,
+      "separation": 0.49325611780254736,
+      "minimum_distance": 0.22774540688177397,
+      "full_checks": [
+        {
+          "constraint": 3.8413716652030416e-14,
+          "chart": 0.8809304290021296,
+          "section": 1.960237527853792e-16,
+          "negative_clock": true,
+          "node_error": 1.1037952642829404e-13
+        },
+        {
+          "constraint": 1.4344081478157023e-13,
+          "chart": 0.8809285898254475,
+          "section": 1.0581813203458523e-16,
+          "negative_clock": true,
+          "node_error": 1.1063521680818728e-11,
+          "full_closure": 1.8439202801364546e-12
+        },
+        {
+          "constraint": 4.403144515663371e-13,
+          "chart": 0.8809304290021306,
+          "section": 2.0968470015869656e-16,
+          "negative_clock": true,
+          "node_error": 1.5656929013918922e-13
+        },
+        {
+          "constraint": 7.278622149442526e-13,
+          "chart": 0.8809285898254315,
+          "section": 1.5124620306172787e-17,
+          "negative_clock": true,
+          "node_error": 1.7230849349615402e-11,
+          "full_closure": 2.8718082252182447e-12
+        }
+      ]
+    },
+    {
+      "candidate": true,
+      "verified": true,
+      "residual": 3.574310986076412e-14,
+      "separation": 0.4932686388618896,
+      "minimum_distance": 0.23391601307799753,
+      "full_checks": [
+        {
+          "constraint": 5.595524044110789e-14,
+          "chart": 0.8808993939850515,
+          "section": 1.5785983631388945e-16,
+          "negative_clock": true,
+          "node_error": 1.7974272244203338e-13
+        },
+        {
+          "constraint": 1.5343282200319663e-13,
+          "chart": 0.8810034898144117,
+          "section": 1.5959455978986625e-16,
+          "negative_clock": true,
+          "node_error": 1.7940375096961447e-11,
+          "full_closure": 2.9900625161602412e-12
+        },
+        {
+          "constraint": 3.423927807943983e-13,
+          "chart": 0.8808993939850612,
+          "section": 3.478120569333498e-16,
+          "negative_clock": true,
+          "node_error": 4.1961443000837484e-13
+        },
+        {
+          "constraint": 3.5482727867020003e-13,
+          "chart": 0.8810034898188255,
+          "section": 3.2211646544544337e-16,
+          "negative_clock": true,
+          "node_error": 3.9546023573866496e-11,
+          "full_closure": 6.5910039470477855e-12
+        }
+      ]
+    },
+    {
+      "candidate": true,
+      "verified": true,
+      "residual": 7.965850201685498e-14,
+      "separation": 0.4932805369120407,
+      "minimum_distance": 0.24734199313021546,
+      "full_checks": [
+        {
+          "constraint": 5.88418203051333e-14,
+          "chart": 0.8810412757015076,
+          "section": 1.491862189340054e-16,
+          "negative_clock": true,
+          "node_error": 5.869831530558312e-13
+        },
+        {
+          "constraint": 1.3522516439934407e-13,
+          "chart": 0.8809285914290874,
+          "section": 3.0010716134398763e-16,
+          "negative_clock": true,
+          "node_error": 5.205056177737255e-11,
+          "full_closure": 8.675093629562092e-12
+        },
+        {
+          "constraint": 4.218847493575595e-13,
+          "chart": 0.881041275701507,
+          "section": 3.970348355641917e-16,
+          "negative_clock": true,
+          "node_error": 3.723158933932602e-13
+        },
+        {
+          "constraint": 8.031353360138382e-13,
+          "chart": 0.8809285914305903,
+          "section": 1.9526481126463935e-16,
+          "negative_clock": true,
+          "node_error": 3.1831909937801717e-11,
+          "full_closure": 5.3053183048969166e-12
+        }
+      ]
+    },
+    {
+      "candidate": true,
+      "verified": true,
+      "residual": 6.660405733882602e-14,
+      "separation": 0.49326802212852094,
+      "minimum_distance": 0.2335556620818848,
+      "full_checks": [
+        {
+          "constraint": 7.771561172376096e-15,
+          "chart": 0.8808993937255578,
+          "section": 1.9949319973733282e-16,
+          "negative_clock": true,
+          "node_error": 1.1207853221895103e-13
+        },
+        {
+          "constraint": 3.2862601528904634e-14,
+          "chart": 0.8810008954009768,
+          "section": 2.8275992658421956e-16,
+          "negative_clock": true,
+          "node_error": 1.0813164166151301e-11,
+          "full_closure": 1.8021940276918835e-12
+        },
+        {
+          "constraint": 4.711786516509164e-13,
+          "chart": 0.8808993937256774,
+          "section": 2.4760467114137708e-17,
+          "negative_clock": true,
+          "node_error": 8.949540327568561e-13
+        },
+        {
+          "constraint": 4.511946372076636e-13,
+          "chart": 0.8810008954017428,
+          "section": 3.614730043066672e-16,
+          "negative_clock": true,
+          "node_error": 7.685617550365342e-11,
+          "full_closure": 1.2809362565872201e-11
+        }
+      ]
+    },
+    {
+      "candidate": true,
+      "verified": true,
+      "residual": 4.509124668160107e-14,
+      "separation": 0.49325611782558826,
+      "minimum_distance": 0.22774541668682138,
+      "full_checks": [
+        {
+          "constraint": 2.375877272697835e-14,
+          "chart": 0.88092858714488,
+          "section": 3.0531133177191805e-16,
+          "negative_clock": true,
+          "node_error": 2.607191026927306e-13
+        },
+        {
+          "constraint": 4.1522341120980855e-14,
+          "chart": 0.8809304317531849,
+          "section": 1.9081958235744878e-16,
+          "negative_clock": true,
+          "node_error": 2.1349292840723176e-11,
+          "full_closure": 3.558215473736207e-12
+        },
+        {
+          "constraint": 5.184741524999481e-13,
+          "chart": 0.8809285871448893,
+          "section": 2.0036056147532122e-16,
+          "negative_clock": true,
+          "node_error": 3.3713350917918307e-13
+        },
+        {
+          "constraint": 5.364597654988756e-13,
+          "chart": 0.8809304317528349,
+          "section": 3.3566899260151217e-16,
+          "negative_clock": true,
+          "node_error": 1.6247484291260572e-11,
+          "full_closure": 2.7079140491081174e-12
+        }
+      ]
+    },
+    {
+      "candidate": true,
+      "verified": true,
+      "residual": 6.234509436486846e-14,
+      "separation": 0.49326863900693757,
+      "minimum_distance": 0.23391609883768644,
+      "full_checks": [
+        {
+          "constraint": 4.529709940470639e-14,
+          "chart": 0.8810034904259239,
+          "section": 3.3480163086352377e-16,
+          "negative_clock": true,
+          "node_error": 7.933135485332921e-13
+        },
+        {
+          "constraint": 1.674216321134736e-13,
+          "chart": 0.8808993939922701,
+          "section": 1.491862189340054e-16,
+          "negative_clock": true,
+          "node_error": 6.91974290367714e-11,
+          "full_closure": 1.15329048394619e-11
+        },
+        {
+          "constraint": 3.219646771412954e-13,
+          "chart": 0.881003490425978,
+          "section": 3.2526065174565133e-16,
+          "negative_clock": true,
+          "node_error": 8.729128531115293e-14
+        },
+        {
+          "constraint": 5.437872374614017e-13,
+          "chart": 0.8808993939928748,
+          "section": 1.9125326322644298e-16,
+          "negative_clock": true,
+          "node_error": 2.4448197372822777e-12,
+          "full_closure": 4.0746995621371296e-13
+        }
+      ]
+    },
+    {
+      "candidate": true,
+      "verified": true,
+      "residual": 1.2284140718521463e-13,
+      "separation": 0.4932805368788807,
+      "minimum_distance": 0.24734096876894468,
+      "full_checks": [
+        {
+          "constraint": 1.6431300764452317e-14,
+          "chart": 0.8809285875715553,
+          "section": 3.677613769070831e-16,
+          "negative_clock": true,
+          "node_error": 8.531370054853937e-14
+        },
+        {
+          "constraint": 1.7363888105137448e-13,
+          "chart": 0.8810412576192638,
+          "section": 2.5153490401663703e-16,
+          "negative_clock": true,
+          "node_error": 5.149955548816587e-12,
+          "full_closure": 8.583259428728007e-13
+        },
+        {
+          "constraint": 4.1167069753100805e-13,
+          "chart": 0.8809285875715254,
+          "section": 1.2717691483254967e-16,
+          "negative_clock": true,
+          "node_error": 4.642987383451924e-13
+        },
+        {
+          "constraint": 4.782840790085174e-13,
+          "chart": 0.881041257619209,
+          "section": 9.584347204771859e-17,
+          "negative_clock": true,
+          "node_error": 4.3490854147176794e-11,
+          "full_closure": 7.248475691196132e-12
+        }
+      ]
+    },
+    {
+      "candidate": true,
+      "verified": true,
+      "residual": 7.16835445169206e-14,
+      "separation": 0.4932680219048983,
+      "minimum_distance": 0.23355553295180967,
+      "full_checks": [
+        {
+          "constraint": 1.865174681370263e-14,
+          "chart": 0.8810008944602099,
+          "section": 8.153200337090993e-17,
+          "negative_clock": true,
+          "node_error": 3.717646850087686e-13
+        },
+        {
+          "constraint": 3.9745984281580604e-14,
+          "chart": 0.8808993937397657,
+          "section": 3.9898639947466563e-17,
+          "negative_clock": true,
+          "node_error": 3.0859662047966196e-11,
+          "full_closure": 5.143276998959348e-12
+        },
+        {
+          "constraint": 3.7414515929867775e-13,
+          "chart": 0.8810008944602088,
+          "section": 2.2768245622195593e-16,
+          "negative_clock": true,
+          "node_error": 7.808241900275625e-13
+        },
+        {
+          "constraint": 4.1033842990145786e-13,
+          "chart": 0.880899393732406,
+          "section": 1.8577804225539118e-16,
+          "negative_clock": true,
+          "node_error": 6.444678601544296e-11,
+          "full_closure": 1.0741130993538808e-11
+        }
+      ]
+    }
+  ],
+  "closest_index": 17,
+  "closest_omega": 3.132092125868484,
+  "action_selection": "NOT_ESTABLISHED",
+  "freeze": "0c51f9b5b528432c012fc15a4765af8829bb3867",
+  "sources": {
+    "docs/diagonal_bianchi_prereg.md": "8110b2c87806e6d51ac00a9161db68608953f20a7e8b599669b027a6dea85cda",
+    "geometrodynamics/waves/diagonal_bianchi.py": "94d6ee11f159ab507e87260ccdc9b660a1773adebe0d45288ba586be2d04a81f",
+    "geometrodynamics/waves/nonlinear_supported_tt.py": "6846a6f0e12c60af402b7f29c39e05b3289355ad039787b5c04668221d9a7b14",
+    "experiments/closure_ledger/diagonal_bianchi_probe.py": "9469bdde7345d5091afa6139b4e4cd29d454be40651dd480c9a0b1409db8152f"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  }
+}
