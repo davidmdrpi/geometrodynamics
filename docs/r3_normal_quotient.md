@@ -19,6 +19,41 @@ orbital stability, stability of an individual periodic history, an exact
 symmetry generating the diagonal family, or action selection. The full
 unreduced homogeneous system is still unstable.
 
+## Interpretation after review (2026-10-04)
+
+The [review of `36a8277`](https://github.com/davidmdrpi/geometrodynamics/pull/320#issuecomment-5976783259)
+independently reproduced the label and the full-system perturbation response.
+It also identified why boundedness of this quotient is largely an algebraic
+consequence of #319's measured Jordan structure, rather than additional
+evidence for dynamical stability of individual histories.
+
+For a 2-by-2 unit Jordan block, removing its eigenvector leaves the identity
+on the remaining generalized direction. A post-review check at sample 0,
+using an ordered real Schur decomposition to exclude the physical hyperbolic
+pair, gives numerical nullities 4, 8 and 8 for `(C10-I)`, `(C10-I)^2` and
+`(C10-I)^3` at an absolute singular-value cutoff of 1e-7. This agrees with
+four 2-by-2 unit Jordan blocks and the elliptic pair, with no resolved larger
+unit block. These are numerical rank observations, not an exact Jordan-form
+proof or a new registered measurement.
+
+The substantive checks are that no larger secular chain is resolved and
+that the removed subspace matches the rotation and family eigendirections.
+Given that structure and the elliptic pair, the bounded quotient follows;
+Q3/Q4 provide numerical checks of that consequence. Invariance in Q2 alone
+would not identify a complete unit eigenspace or rule out larger blocks.
+
+Bounded distance to the family does **not** imply persistence of exact
+two-return closure. The retained neutral directions include angular-momentum
+changes and the generalized direction conjugate to family phase (the local
+action/detuning direction). They can persist while their accumulated rotation
+or phase displacement is absorbed by the quotient. Along a detuned nearby
+invariant circle, rotation need not remain one-half per return, so the exact
+3/2 closure is lost. Thus the quotient result does not make resonant closure
+robust to action perturbations. Local codimension-one language assumes a
+nonzero frequency/action slope; this PR does not prove a global foliation,
+an exact action-coordinate identification, or uniqueness of the resonant
+family.
+
 ## The quotient and its norm
 
 The section has 12 dimensionless coordinates `(A,p_A,x_1,p_1,...,x_5,p_5)`.
@@ -26,6 +61,14 @@ Let R be an orthonormal basis for the three analytic SO(3) tangents plus
 the numerically identified diagonal-family tangent. Its complement Q gives
 the norm `min_a ||delta z - R a||_2 = ||Q^T delta z||_2`. Invariance of R is
 checked before forming `B = Q^T M2 Q`, an eight-dimensional quotient map.
+
+This Euclidean norm mixes scale-factor, momentum and tensor coordinates.
+The full section coordinates are not asserted to be globally canonical.
+The reported amplification 2.852 and condition number 2.929 depend on their
+scaling and on the chosen similarity basis; they are not invariant physical
+amplification factors. Boundedness of powers of a finite-dimensional exact
+linear map is preserved under a fixed invertible coordinate change, whereas
+these numerical constants are not.
 
 An ordered real Schur decomposition selects a six-dimensional invariant
 centre subspace U of B. The two excluded multipliers at sample 0 are about
@@ -67,8 +110,11 @@ Both clock returns are integrated consecutively, then the response is
 projected into the normal quotient. The smaller epsilon gives a larger
 finite-difference error, consistent with numerical subtraction sensitivity;
 both pass the preregistered 1e-4 threshold. No extrapolated error bound is
-claimed. The derivative itself is separately checked at two RK4/Richardson
-resolutions.
+claimed. Q5 contains one resolution comparison and one reproducibility
+check: `(1024,2048)` differs from the archived derivative by 6.49e-12 relative;
+`(2048,4096)` is #319's original default and reproduces it exactly in the
+measurement environment, with zero matrix, trace and power differences.
+The latter supplies no additional resolution beyond the archived baseline.
 
 The finite power ladder and approximate invariant metric do not constitute
 an infinite-time proof: residual floating-point errors can accumulate.
@@ -90,6 +136,14 @@ and #319's original archive hashes. Replay authenticates the inventory,
 recomputes all six gates, reconstructs perturbation responses from the saved
 states, and checks the results against the saved decisions. It does not
 reintegrate the trajectories during routine replay.
+
+The bound source inventory intentionally includes
+`experiments/closure_ledger/r3_family_replay.py`. Consequently, even a later
+change to that #319 replay makes this historical #320 provenance check fail.
+Reproduce from the published experiment revision, or retain the original
+source in a versioned compatibility layer for future development. Do not
+silently refresh historical hashes. This documents the coupling without
+changing the measured source inventory or archive.
 
     OPENBLAS_NUM_THREADS=1 python -m experiments.closure_ledger.r3_normal_quotient_replay
     OPENBLAS_NUM_THREADS=1 pytest -q tests/test_r3_normal_quotient.py
