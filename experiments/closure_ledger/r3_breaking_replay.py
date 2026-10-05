@@ -15,7 +15,13 @@ from pathlib import Path
 import numpy as np
 from experiments.closure_ledger import r3_breaking_probe as probe
 
-SHA256 = {}   # pinned after the measurement
+SHA256 = {
+    'scan_control.json': '40ba7aaf15110e980a9d5309631021a9d33421a14b655b28ebcd7c0f35f81760',
+    'scan_main.json': 'd00b8947f0cd19d6b28e8b98716d473d677ca54af27d95032e2eb7cb22f040bd',
+    'noise.json': 'b16d69458bf8f16954fe024511dd0da4e92963b3413c6387fcf67a0dc7537efe',
+    'orbits.json': '87227498a3a2e7511af621437fa5928ad8ab6f6b379be53122aa5558fe8dcf5f',
+    'result.json': '4aaf42df3e9116d0d864ef0b140c0d83ad4e06c4b1807f0fe6ad9dcb082407a7',
+}
 FULL_TOL = 1e-10
 
 

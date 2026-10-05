@@ -1,0 +1,77 @@
+{
+ "sources": {
+  "geometrodynamics/waves/r3_breaking.py": "a445fdfedd0230f91d9f74bb1f09e0c976d7c84b9e5672e0bee4a09ded821c74",
+  "geometrodynamics/waves/r3_family.py": "3e2255cd51fc90201aef429a947fa574e9d2a623f9964691f65f4cd64600c9b2",
+  "geometrodynamics/waves/r3_return_map.py": "6d661891775351bffb672dcd1d014e2a7dab7635ea4e8745365fbce4e90797a5",
+  "geometrodynamics/waves/r3_extension.py": "e1554cd794f418f9686819ba2fb66b32a732c43daf97945b53c3a42da24107a5",
+  "geometrodynamics/waves/jets.py": "8bc8c26a94491c44acaf325d300ead7471361eb17b483ccef3edbe3b01a9a48d",
+  "geometrodynamics/waves/nonlinear_supported_tt.py": "6846a6f0e12c60af402b7f29c39e05b3289355ad039787b5c04668221d9a7b14",
+  "experiments/closure_ledger/r3_breaking_probe.py": "5e9b31e8045ef53a9a29101bd67c679e0b474619685032bfafc8c286e38fcf1d"
+ },
+ "result": {
+  "control": {
+   "resolution": 1e-11,
+   "Lambda": 8.070665191627094e-14,
+   "sign_changes": 6,
+   "dominant_harmonic": 6,
+   "harmonics": [
+    2.79417533907883e-14,
+    5.753993760093134e-16,
+    6.838392037089918e-16,
+    1.2493517427613845e-15,
+    2.336932088919136e-16,
+    6.680965206905516e-16,
+    1.6758724407504404e-14,
+    3.164126598608208e-16,
+    3.9499281287525963e-16,
+    6.518784002399362e-15,
+    4.864382963496329e-16,
+    2.0898703134133694e-16,
+    4.470647215499826e-15,
+    4.473113734281095e-16,
+    2.9886963972927495e-16,
+    3.3326617372478746e-15
+   ],
+   "label": "UNBROKEN_LOOP",
+   "converged": 60,
+   "noise": 9.744222303842407e-13,
+   "failed": 0,
+   "max_residual": 1.1369325306443765e-12,
+   "max_constraint": 1.9451107391432743e-13,
+   "max_cond": 2936.101245221918,
+   "max_seed_distance": 0.02787193036450232
+  },
+  "main": {
+   "resolution": 2.7951812201386374e-11,
+   "Lambda": 1.5676548526196134e-11,
+   "sign_changes": 20,
+   "dominant_harmonic": 10,
+   "harmonics": [
+    1.1024200264512397e-13,
+    3.176540284607626e-14,
+    9.85559018118865e-14,
+    9.096308648944454e-14,
+    7.398335373612283e-14,
+    3.72202806008304e-13,
+    2.9887970242365736e-14,
+    4.660161511656176e-13,
+    1.016625478773082e-12,
+    3.325529203331579e-13,
+    5.753298993028329e-12,
+    1.3978020649172832e-13,
+    1.1172562210780363e-12,
+    4.948353296342977e-13,
+    1.1086060896596422e-13,
+    2.7150609066967617e-13
+   ],
+   "label": "UNBROKEN_LOOP",
+   "converged": 60,
+   "noise": 2.7951812201386374e-12,
+   "failed": 0,
+   "max_residual": 1.992239706538612e-12,
+   "max_constraint": 1.8609558338766874e-12,
+   "max_cond": 7722.001285063921,
+   "max_seed_distance": 0.005122509478016513
+  }
+ }
+}
