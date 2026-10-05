@@ -1,0 +1,261 @@
+{
+  "label": "CONTROLLED_NONLINEAR_BOUND_FAILED",
+  "twist": 4.908582988640943,
+  "baseline_loop_action": 0.018847372580685754,
+  "cases": [
+    {
+      "detuning": -0.001,
+      "d0": 0.007337318223375818,
+      "target": 102,
+      "tuning_norm": 2.68002088584611e-05,
+      "precision_log10": -395.53900173833244,
+      "unforced": "NUMERICALLY_UNRESOLVED",
+      "controlled": "CONTROL_BUDGET_EXCEEDED",
+      "integrator_comparison": {
+        "unforced": {
+          "agrees": false,
+          "max_difference": 0.0,
+          "limit": 7.337318223375818e-07
+        },
+        "controlled": {
+          "agrees": true,
+          "max_difference": 5.159832977552625e-11,
+          "limit": 7.337318223375818e-07
+        }
+      },
+      "runs": [
+        {
+          "terminal": "NUMERICALLY_UNRESOLVED",
+          "steps": 2,
+          "target": 102,
+          "phase_drift": 0.006185703863251549,
+          "max_distance_over_d0": 1.8289668880983017,
+          "peak_proposed_cost_over_d0": 0.0,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 2.433608869978343e-13
+        },
+        {
+          "terminal": "CONTROL_BUDGET_EXCEEDED",
+          "steps": 1,
+          "target": 102,
+          "phase_drift": 0.006185703863251549,
+          "max_distance_over_d0": 1.8289668880983017,
+          "peak_proposed_cost_over_d0": 1.5031722152530627,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 2.433608869978343e-13
+        },
+        {
+          "terminal": "NUMERICALLY_UNRESOLVED",
+          "steps": 2,
+          "target": 102,
+          "phase_drift": 0.006185703878891005,
+          "max_distance_over_d0": 1.8289668939592527,
+          "peak_proposed_cost_over_d0": 0.0,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 3.2951419370874646e-13
+        },
+        {
+          "terminal": "CONTROL_BUDGET_EXCEEDED",
+          "steps": 1,
+          "target": 102,
+          "phase_drift": 0.006185703878891005,
+          "max_distance_over_d0": 1.8289668939592527,
+          "peak_proposed_cost_over_d0": 1.5031722222853772,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 3.2951419370874646e-13
+        }
+      ]
+    },
+    {
+      "detuning": -0.0005,
+      "d0": 0.00364489310664519,
+      "target": 204,
+      "tuning_norm": 1.330883445372106e-05,
+      "precision_log10": -789.5484233861214,
+      "unforced": "NUMERICALLY_UNRESOLVED",
+      "controlled": "CONTROL_BUDGET_EXCEEDED",
+      "integrator_comparison": {
+        "unforced": {
+          "agrees": false,
+          "max_difference": 0.0,
+          "limit": 3.64489310664519e-07
+        },
+        "controlled": {
+          "agrees": true,
+          "max_difference": 2.1051316939635356e-11,
+          "limit": 3.64489310664519e-07
+        }
+      },
+      "runs": [
+        {
+          "terminal": "NUMERICALLY_UNRESOLVED",
+          "steps": 2,
+          "target": 204,
+          "phase_drift": 0.0033648087750582085,
+          "max_distance_over_d0": 1.2699437253233115,
+          "peak_proposed_cost_over_d0": 0.0,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 2.637889906509372e-13
+        },
+        {
+          "terminal": "CONTROL_BUDGET_EXCEEDED",
+          "steps": 1,
+          "target": 204,
+          "phase_drift": 0.0033648087750582085,
+          "max_distance_over_d0": 1.2699437253233115,
+          "peak_proposed_cost_over_d0": 0.7470814882643846,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 2.637889906509372e-13
+        },
+        {
+          "terminal": "NUMERICALLY_UNRESOLVED",
+          "steps": 2,
+          "target": 204,
+          "phase_drift": 0.00336480815388655,
+          "max_distance_over_d0": 1.269943728784894,
+          "peak_proposed_cost_over_d0": 0.0,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 3.5771385853422544e-13
+        },
+        {
+          "terminal": "CONTROL_BUDGET_EXCEEDED",
+          "steps": 1,
+          "target": 204,
+          "phase_drift": 0.00336480815388655,
+          "max_distance_over_d0": 1.269943728784894,
+          "peak_proposed_cost_over_d0": 0.7470814940399496,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 3.5771385853422544e-13
+        }
+      ]
+    },
+    {
+      "detuning": 0.0005,
+      "d0": 0.003599262582693132,
+      "target": 204,
+      "tuning_norm": 1.3133518628088068e-05,
+      "precision_log10": -789.553894650878,
+      "unforced": "NUMERICALLY_UNRESOLVED",
+      "controlled": "CONTROL_BUDGET_EXCEEDED",
+      "integrator_comparison": {
+        "unforced": {
+          "agrees": false,
+          "max_difference": 0.0,
+          "limit": 3.5992625826931317e-07
+        },
+        "controlled": {
+          "agrees": true,
+          "max_difference": 4.218317405449423e-11,
+          "limit": 3.5992625826931317e-07
+        }
+      },
+      "runs": [
+        {
+          "terminal": "NUMERICALLY_UNRESOLVED",
+          "steps": 2,
+          "target": 204,
+          "phase_drift": -0.003847925382745032,
+          "max_distance_over_d0": 1.2433208188791993,
+          "peak_proposed_cost_over_d0": 0.0,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 3.375077994860476e-14
+        },
+        {
+          "terminal": "CONTROL_BUDGET_EXCEEDED",
+          "steps": 1,
+          "target": 204,
+          "phase_drift": -0.003847925382745032,
+          "max_distance_over_d0": 1.2433208188791993,
+          "peak_proposed_cost_over_d0": 0.737050082022637,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 3.375077994860476e-14
+        },
+        {
+          "terminal": "NUMERICALLY_UNRESOLVED",
+          "steps": 2,
+          "target": 204,
+          "phase_drift": -0.0038479257050996196,
+          "max_distance_over_d0": 1.243320812089949,
+          "peak_proposed_cost_over_d0": 0.0,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 3.2596148002994596e-13
+        },
+        {
+          "terminal": "CONTROL_BUDGET_EXCEEDED",
+          "steps": 1,
+          "target": 204,
+          "phase_drift": -0.0038479257050996196,
+          "max_distance_over_d0": 1.243320812089949,
+          "peak_proposed_cost_over_d0": 0.737050070302688,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 3.2596148002994596e-13
+        }
+      ]
+    },
+    {
+      "detuning": 0.001,
+      "d0": 0.007154673775011643,
+      "target": 102,
+      "tuning_norm": 2.6098481941170226e-05,
+      "precision_log10": -395.5499492569706,
+      "unforced": "NUMERICALLY_UNRESOLVED",
+      "controlled": "CONTROL_BUDGET_EXCEEDED",
+      "integrator_comparison": {
+        "unforced": {
+          "agrees": false,
+          "max_difference": 0.0,
+          "limit": 7.154673775011643e-07
+        },
+        "controlled": {
+          "agrees": true,
+          "max_difference": 1.0585388815487207e-10,
+          "limit": 7.154673775011643e-07
+        }
+      },
+      "runs": [
+        {
+          "terminal": "NUMERICALLY_UNRESOLVED",
+          "steps": 2,
+          "target": 102,
+          "phase_drift": -0.008127429606263448,
+          "max_distance_over_d0": 1.7671171355125639,
+          "peak_proposed_cost_over_d0": 0.0,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 2.475797344914099e-13
+        },
+        {
+          "terminal": "CONTROL_BUDGET_EXCEEDED",
+          "steps": 1,
+          "target": 102,
+          "phase_drift": -0.008127429606263448,
+          "max_distance_over_d0": 1.7671171355125639,
+          "peak_proposed_cost_over_d0": 1.4631299476357453,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 2.475797344914099e-13
+        },
+        {
+          "terminal": "NUMERICALLY_UNRESOLVED",
+          "steps": 2,
+          "target": 102,
+          "phase_drift": -0.00812743045246922,
+          "max_distance_over_d0": 1.7671171233981073,
+          "peak_proposed_cost_over_d0": 0.0,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 3.597122599785507e-13
+        },
+        {
+          "terminal": "CONTROL_BUDGET_EXCEEDED",
+          "steps": 1,
+          "target": 102,
+          "phase_drift": -0.00812743045246922,
+          "max_distance_over_d0": 1.7671171233981073,
+          "peak_proposed_cost_over_d0": 1.4631299328406768,
+          "applied_cumulative_cost_over_d0": 0.0,
+          "max_constraint": 3.597122599785507e-13
+        }
+      ]
+    }
+  ],
+  "autonomous_stability": "NOT_ESTABLISHED",
+  "action_selection": "NOT_ESTABLISHED"
+}
