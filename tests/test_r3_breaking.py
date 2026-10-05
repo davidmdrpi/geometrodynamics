@@ -120,3 +120,53 @@ def test_probe_pipeline_on_toy(tmp_path, monkeypatch):
     assert out['main']['label'] == 'BROKEN_CHAIN' and out['main']['orbit_gate'] and out['main']['distinct_orbits'] == 2
     rec = json.loads((tmp_path/'result.json').read_text())
     assert rec['sources'] == probe.sources()
+
+
+_RUN = __import__('pathlib').Path(__file__).resolve().parents[1]/'experiments/closure_ledger/runs/20261005_r3_breaking'
+
+
+@pytest.mark.skipif(not (_RUN/'result.json').exists(), reason='breaking scan not run')
+def test_authenticated_replay_verifies():
+    from experiments.closure_ledger import r3_breaking_replay as replay
+    out = replay.replay()
+    rec = json.loads((_RUN/'result.json').read_text())['result']
+    assert out['replay'] == 'VERIFIED' and out['main'] == rec['main']['label'] and out['control'] == rec['control']['label']
+
+
+@pytest.mark.skipif(not (_RUN/'result.json').exists(), reason='breaking scan not run')
+@pytest.mark.parametrize('damage', ['bytes', 'residual', 'phase', 'shape', 'nan'])
+def test_replay_rejects_damaged_archives(tmp_path, damage):
+    import shutil
+    from experiments.closure_ledger import r3_breaking_replay as replay
+    for name in replay.SHA256:
+        shutil.copy(_RUN/name, tmp_path/name)
+    if damage == 'bytes':
+        p = tmp_path/'scan_main.json'
+        p.write_text(p.read_text().replace('"ok": true', '"ok": false', 1))
+        with pytest.raises(ValueError, match='fingerprint'):
+            replay.replay(directory=tmp_path)
+        return
+    rec = json.loads((tmp_path/'scan_main.json').read_text())
+    p = next(x for x in rec['points'] if x['ok'])
+    if damage == 'residual':
+        p['residual'] = 1e-6
+    elif damage == 'phase':
+        p['phi'] += 1e-3
+    elif damage == 'shape':
+        p['nodes'] = p['nodes'][:-1]
+    else:
+        p['lam'] = float('nan')
+    with pytest.raises(ValueError):
+        replay.validate_scan(rec, 5, 4)
+
+
+@pytest.mark.skipif(not (_RUN/'result.json').exists(), reason='breaking scan not run')
+def test_full_reevaluation_rejects_altered_lambda():
+    from experiments.closure_ledger import r3_breaking_probe as probe
+    from experiments.closure_ledger import r3_breaking_replay as replay
+    rec = json.loads((_RUN/'scan_main.json').read_text())
+    rec['points'] = [p for p in rec['points'] if p['ok']][:2]
+    assert replay.reevaluate(rec, probe.P4) < 1e-10
+    rec['points'][0]['lam'] += 1e-8
+    with pytest.raises(ValueError, match='re-close'):
+        replay.reevaluate(rec, probe.P4)
