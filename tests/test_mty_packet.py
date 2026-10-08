@@ -65,3 +65,67 @@ def test_inventory_and_admissible_grid():
 @pytest.mark.parametrize('amplitude',[0.,-1.,float('nan'),float('inf')])
 def test_invalid_amplitude_is_rejected(amplitude):
     with pytest.raises(ValueError):m.grid(m.Config(0,amplitude))
+
+
+import copy
+import json
+import shutil
+from experiments.closure_ledger import mty_packet_probe as probe
+from experiments.closure_ledger import mty_packet_replay as replay
+
+
+@pytest.fixture(scope='module')
+def measured():
+    return probe.read(probe.RUN/'D3_A1_on_fine.npz.b64')
+
+
+def test_pinned_replay_recomputes_all_decisions():
+    result=replay.replay()
+    assert result['label']=='REDUCED_MTY_PACKET_SCATTERING_SUPPORTED'
+    assert all(result['checks'].values())
+    assert len(result['diagnostics'])==32
+    assert result['gravitating_mouth_recoil']=='NOT_ESTABLISHED'
+    assert result['unique_history']=='NOT_ESTABLISHED'
+
+
+@pytest.mark.parametrize('field',['q','v','incoming','outgoing'])
+def test_changed_fields_are_rejected(measured,field):
+    r=copy.deepcopy(measured);r[field][4000,0]+=.01
+    with pytest.raises(ValueError):m.diagnose(r)
+
+
+def test_fake_converged_flag_cannot_replace_network_matching():
+    c=m.Config(3,1,dt=1/128,start=-2,stop=4)
+    x=np.zeros((len(m.grid(c)),2,3))
+    _,fields=m.response(x,c)
+    record=dict(config=probe.asdict(c),status='CONVERGED',iterate=x,**fields)
+    d=m.diagnose(record)
+    assert not d['valid'] and d['residual']>1e-3
+
+
+def test_nonfinite_iterate_rejected(measured):
+    r=copy.deepcopy(measured);r['iterate'][100,0,0]=np.nan
+    with pytest.raises(ArithmeticError):m.diagnose(r)
+
+
+def test_wrong_case_schedule_rejected():
+    with pytest.raises(ValueError):probe.assess({'invented':{}})
+    names=[name for name,_ in probe.schedule()]
+    with pytest.raises(ValueError):probe.assess(dict.fromkeys(reversed(names)))
+
+
+def test_manifest_tamper_rejected(tmp_path):
+    (tmp_path/'manifest.json').write_text('{}\n')
+    with pytest.raises(ValueError,match='manifest'):replay.replay(tmp_path)
+
+
+def test_missing_archive_rejected(tmp_path):
+    shutil.copyfile(probe.RUN/'manifest.json',tmp_path/'manifest.json')
+    with pytest.raises(FileNotFoundError):replay.replay(tmp_path)
+
+
+def test_corrupt_archive_rejected(tmp_path):
+    shutil.copyfile(probe.RUN/'manifest.json',tmp_path/'manifest.json')
+    name=probe.schedule()[0][0]+'.npz.b64'
+    (tmp_path/name).write_text('not the archived measurement\n')
+    with pytest.raises(ValueError,match='evidence'):replay.replay(tmp_path)
