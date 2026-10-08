@@ -1,0 +1,19 @@
+{
+  "freeze": "75bed15f1afc7c932462d2721c5e76d3c2546458",
+  "sources": {
+    "docs/r3_nonlinear_budget_prereg.md": "f8ef5c1f2bf9bfd68420a99a131dca135d82c40644e5c47bf7647b7cea6212be",
+    "docs/r3_normal_quotient_prereg.md": "834f68ac95ac3de7e7a2826a639a817f623e7bf4cd75186f791f35c741992d4c",
+    "experiments/closure_ledger/r3_family_probe.py": "592371d35aa3a1f8cc597a154c6723d23fa4a683727d6333e479b9bfa648b303",
+    "experiments/closure_ledger/r3_family_replay.py": "90e4bfd67cf6c5ef8fe9a8d24eaf7e520324b15ec0c023b787e75e9ca41a07e9",
+    "experiments/closure_ledger/r3_nonlinear_budget_probe.py": "df85af6854fd77f0abbbc238e42e028872ccbc83142ebcaefd688ff33ed56ab6",
+    "experiments/closure_ledger/r3_normal_quotient_probe.py": "17df313e6f4098ca7b729b3819a4fa45fdd649150c1a01babe48d94a63c54970",
+    "experiments/closure_ledger/r3_normal_quotient_replay.py": "ff85699ac5c043f2e0ee237efe2e544a8709363f8aa8785d8df2bc44e18f4231",
+    "geometrodynamics/waves/jets.py": "8bc8c26a94491c44acaf325d300ead7471361eb17b483ccef3edbe3b01a9a48d",
+    "geometrodynamics/waves/nonlinear_supported_tt.py": "6846a6f0e12c60af402b7f29c39e05b3289355ad039787b5c04668221d9a7b14",
+    "geometrodynamics/waves/r3_extension.py": "e1554cd794f418f9686819ba2fb66b32a732c43daf97945b53c3a42da24107a5",
+    "geometrodynamics/waves/r3_family.py": "3e2255cd51fc90201aef429a947fa574e9d2a623f9964691f65f4cd64600c9b2",
+    "geometrodynamics/waves/r3_nonlinear_budget.py": "ab50039f091ebf58cb5338074fc6e70d2b3bcfee879a2d246bf9dfff0aa2c596",
+    "geometrodynamics/waves/r3_normal_quotient.py": "ee50adc255eb81bcfc0eb62d11b158fdf33b599a52196c8633fec52c45820ffa"
+  },
+  "parent_manifest": "132a99d9f051d7e96f96c5b8d8673d7e9deeffe045342ea1563c66ebe1a2f163"
+}
