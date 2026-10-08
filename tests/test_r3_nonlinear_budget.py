@@ -134,3 +134,26 @@ def test_portable_replay_checks_recorded_initial_setup(measured_family,first_cas
     else: case['initial']['initial'][0]+=.001
     f=portable.RecordedInitialFamily(measured_family,[case])
     with pytest.raises(ValueError): f.initial(case['detuning'])
+
+
+def test_review_diagnostics_preserve_labels_and_validate_partial_escape():
+    from experiments.closure_ledger import r3_nonlinear_budget_review as review
+    result=review.diagnostics()
+    assert result['registered_label']=='CONTROLLED_NONLINEAR_BOUND_FAILED'
+    for case in result['cases']:
+        assert case['registered_unforced']=='NUMERICALLY_UNRESOLVED'
+        assert case['partial_section_outside_tube']
+        assert all(204 < x < 206 for x in case['cost_over_d0_squared'])
+        assert case['endpoint_max_difference'] < 2e-9
+        assert all(r['scale_distance_lower_bound_over_d0']>7 for r in case['partial_returns'])
+
+
+@pytest.mark.parametrize('change',['missing_return','broken_connection','nonfinite','off_constraint'])
+def test_review_rejects_invalid_partial_history(measured_family,first_case,change):
+    from experiments.closure_ledger import r3_nonlinear_budget_review as review
+    run=copy.deepcopy(first_case['runs'][0]);step=run['steps'][1]
+    if change=='missing_return': step['returns']=[]
+    elif change=='broken_connection': step['start'][0]+=.001
+    elif change=='nonfinite': step['returns'][0]['states'][5][0]=float('nan')
+    else: step['returns'][0]['states'][5][7]+=.1
+    with pytest.raises(ValueError): review.partial_return(measured_family,run,first_case['initial']['d0'])

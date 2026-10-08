@@ -5,10 +5,12 @@ pre-stated reset budget after one two-return step, independently in DOP853
 and Radau. No over-budget reset was applied. The aggregate label is
 `CONTROLLED_NONLINEAR_BOUND_FAILED`.
 
-This rules out this particular linear tuning/controller, coordinate tube and
-budget for these four initial conditions. It does not rule out a different
-controller or better nonlinear manifold tuning. Autonomous nonlinear
-stability and dynamical action selection remain `NOT_ESTABLISHED`.
+This is a failure of this particular linear tuning/controller, coordinate
+tube and budget for these four initial conditions. The post-hoc review below
+shows that the design confounds nonlinear detuning with amplified initial
+tuning error. It does not discriminate intrinsic robustness of the nearby
+family. Autonomous nonlinear stability and dynamical action selection remain
+`NOT_ESTABLISHED`.
 
 ## Prospective commitment
 
@@ -18,6 +20,12 @@ The cases, tolerances, controller, budgets, horizons and labels were not
 changed after observing outcomes. The experiment follows #320 at
 `80d894a9304b9c1cbe4db51b955865a0083d6f4b`; #321 is stacked on that branch.
 The measured sources and specification are hashed in `provenance.json`.
+Only the prose specification was published before trajectories. The producer
+and dynamics implementation first appeared in measurement commit `6504e1c`;
+their hashes bind what ran but do not constitute a pre-run code freeze.
+For example, the departure interval `1e-6` implements the specification's
+"short initial departure" without having been fixed numerically in that
+specification. This limits the strength of the prospective provenance claim.
 
 The finite-power result in #320 excluded the physical hyperbolic pair and
 conditioned away marginal action drift. This study instead evolves the
@@ -103,16 +111,101 @@ distances and costs is `1.06e-10`, below the case-specific limits
 controlled histories are at most `3.60e-13`, below the `1e-8` gate.
 Both solvers used `rtol=2e-12`, `atol=2e-14` and `max_step=0.025`.
 
-All eight unforced runs reach `NUMERICALLY_UNRESOLVED` on step 2.
-Their failed numerical attempts are not evidence of physical tube escape.
-The archives retain completed return histories and error records; they do
-not contain a valid completed second step. The aggregate negative is based
-only on the resolved controlled budget failures.
+All eight unforced runs reach `NUMERICALLY_UNRESOLVED` on step 2 under the
+registered two-return scoring rule. However, each archive contains a valid
+first return of that step, already outside the tube, independently confirmed
+by both integrators. The original report overlooked these completed partial
+histories when it said the failed attempts were not evidence of escape.
+That statement is corrected here. The second return is not reached; the
+archive does not establish its subsequent fate or a collapse singularity.
+The registered labels remain unchanged, and the aggregate negative still
+rests on the controlled budget failures.
 
 No case completed its target horizon. Measured drift after the first step
 has magnitude only 0.00336 to 0.00813 radian. Early failure was an explicit
 stopping rule, so it falsifies the specified bounded-control hypothesis;
 it cannot support a long-horizon or autonomous claim.
+
+## Review follow-up: what the negative result measures
+
+This section is post hoc, prompted by the
+[independent review](https://github.com/davidmdrpi/geometrodynamics/pull/321#issuecomment-6051205277).
+No new trajectories were run. The specification, measured sources, archives
+and registered labels are unchanged.
+
+**Quadratic cost and poor discrimination.** The first proposed reset costs
+divided by `d0^2` are 204.8667, 204.9666, 204.7781 and 204.4999 in case order.
+Both integrators reproduce this near-quadratic scaling. It is consistent
+with an O(d0^2) residual from linear initial tuning that grows along the
+hyperbolic direction before the first correction. The coefficient near 205
+is an effective two-return correction-cost coefficient in this norm: it
+already includes evolution and controller projection. It is neither a
+direct measurement of centre-manifold curvature nor a coefficient to
+multiply by 7242 again. Establishing the manifold mechanism separately
+requires nonlinear invariant-manifold calculations.
+
+The review's feasibility estimate is compelling **within that local scaling
+model**. Combining `d0 ≈ 7.2*abs(delta_I)` and `cost ≈ 205*d0^2` with the
+256-step cap gives `abs(delta_I) >= 3.979e-4` and a first cost near
+`0.587*d0` at the smallest permitted detuning, about 29 times the per-step
+cap. This exposes why reducing the tested detuning modestly would not rescue
+the design. If the same cost recurred at every step, the cumulative cost
+would be approximately `150*d0`, roughly independent of detuning.
+
+Those are extrapolations from four first-step measurements, not a proof of
+impossibility for every admissible detuning or a measured cumulative cost.
+No reset was applied, and no controlled later step was observed. The
+registered negative stands, but should not be used as evidence against
+nearby invariant tori. A future design needs a feasibility/pilot stage
+disclosed separately before freezing both its specification and producer.
+
+**Correction timing.** The reviewer reports that pre-step A corrections of
+about `3.4e-7` at +0.001 and `8.8e-8` at -0.0005 reduce the subsequent
+proposed reset costs to about `6.9e-5*d0` and `3.3e-5*d0`, respectively.
+These are the reviewer's post-hoc one-step diagnostics, not independently
+rerun here or incorporated into our registered evidence. They support
+investigating initialization and timing rather than interpreting the failed
+delayed controller as intrinsic nonlinear fragility. They do not establish
+budget compliance, stability or a predictable positive outcome over the
+102/204-step horizons.
+
+**Valid intermediate unforced escape.** The added archive-only diagnostic
+validates the completed first return within each failed second step:
+connection to the previous state, time ordering, chart, constraints and
+descending section. It checks DOP853/Radau endpoint agreement and computes
+the global range of the reference spline's A coordinate, including all
+interior extrema: `[1.00043661784, 1.00050323387]`.
+
+| Input action offset | A at the third descending return (DOP853) | Lower bound on distance / d0 from A alone | Maximum endpoint discrepancy between integrators |
+|---:|---:|---:|---:|
+| -0.0010 | 0.8962493834 | 14.1996 | 5.88e-10 |
+| -0.0005 | 0.9736829327 | 7.3400 | 2.84e-10 |
+| +0.0005 | 0.9743871616 | 7.2374 | 5.64e-10 |
+| +0.0010 | 0.9013404345 | 13.8506 | 1.22e-9 |
+
+Every lower bound exceeds the tube radius `2*d0`; this conclusion does not
+depend on finding a nearest phase. Sampled constraint residuals in these
+partial returns are at most `7.43e-13`. The agreement is numerical, not exact
+identity. This is resolved finite-time departure of these linearly tuned
+unforced initial conditions, consistent with the inherited hyperbolic
+instability. It does not establish instability of motion restricted to a
+nonlinear centre manifold. The post-hoc observation supplements, rather than
+replaces, the registered `NUMERICALLY_UNRESOLVED` full-step status.
+
+**Related evidence and next question.** The review points to
+[`r3_breaking.md`](https://github.com/davidmdrpi/geometrodynamics/blob/claude/geometrodynamics-qft-audit-vpktax/docs/r3_breaking.md).
+That report finds two resonances unbroken at its registered resolution,
+while its post-hoc analysis suggests a small harmonic-10 breaking signal
+at the LRS 2/5 resonance. It explicitly does not identify an extra integral
+or establish exact integrability. We inspected the report; this follow-up
+does not independently replay that separate experiment.
+
+A useful next study would test a candidate extra integral or a normal-form
+remainder on held-out amplitudes and phases, with pre-stated accuracy and
+failure thresholds and both code and specification published before the
+validation runs. A merely successful one-step predictive correction or
+an in-sample normal-form fit would not suffice. Two nearly unbroken
+resonances do not guarantee a positive full-horizon controller result.
 
 ## Evidence and verification
 
@@ -129,6 +222,7 @@ From the repository root, after installing the project dependencies:
 
 ```bash
 OPENBLAS_NUM_THREADS=1 python -m experiments.closure_ledger.r3_nonlinear_budget_replay
+OPENBLAS_NUM_THREADS=1 python -m experiments.closure_ledger.r3_nonlinear_budget_review
 pytest -q tests/test_r3_nonlinear_budget.py tests/test_r3_normal_quotient.py
 ```
 
@@ -145,6 +239,8 @@ bytes, changed labels and missing/reordered cases or returns.
 Production used Python 3.12.14, NumPy 2.5.3 and SciPy 1.18.1. The 21 new
 tests pass there and with NumPy 2.3.5 / SciPy 1.17.0; the new and parent
 normal-quotient suites pass 38 tests together in the production environment.
+The review follow-up adds five tests for the partial-return evidence and
+tamper rejection; the combined suite now has 43 tests.
 
 The portable replay was added after measurement. The original producer's
 replay regenerated initial states before validating phase drift. Under the
