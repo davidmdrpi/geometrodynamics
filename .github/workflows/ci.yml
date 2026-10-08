@@ -39,5 +39,9 @@ jobs:
         env:
           OPENBLAS_NUM_THREADS: "1"
         run: pytest -q tests/test_r3_resonance.py tests/test_r3_review_controls.py
+      - name: Verify normal-quotient replay and controls
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: pytest -q tests/test_r3_normal_quotient.py
       - name: Run test suite
         run: pytest -q
