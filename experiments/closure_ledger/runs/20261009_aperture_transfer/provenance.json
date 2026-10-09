@@ -1,0 +1,11 @@
+{
+  "freeze": "cc81c4c4dacb1322810dffd5b434e650cd4af08f",
+  "sources": {
+    "geometrodynamics/transaction/aperture_transfer.py": "55094a5bfaa18aedcdcf0d050ef95e50f8eb96279ffb028a96d77522c880dd50",
+    "experiments/closure_ledger/aperture_transfer_probe.py": "9b14574b66b56825ff2ad60b5172a48352d2b88a867d43be8de071e24fa1d400",
+    "docs/aperture_transfer_prereg.md": "3bf4597e9084067b2f63eb7788435d8f61043ba385bf9a1ee3ab7744a593ce0e"
+  },
+  "python": "3.12.14",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1"
+}

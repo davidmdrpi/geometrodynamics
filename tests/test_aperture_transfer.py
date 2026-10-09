@@ -62,3 +62,57 @@ def test_shifted_return_retains_all_flux_and_never_wraps():
 @pytest.mark.parametrize('change',[{'squash':0},{'aperture':float('nan')},{'dt':0},{'lmax':2.5},{'offset':-1},{'axis':'invalid'}])
 def test_invalid_config_rejected(change):
     with pytest.raises(ValueError):a.operators(replace(a.Config(),**change))
+
+
+from experiments.closure_ledger import aperture_transfer_probe as probe
+from experiments.closure_ledger import aperture_transfer_replay as replay
+import copy
+import shutil
+
+
+@pytest.fixture(scope='module')
+def audited():
+    return replay.replay()
+
+
+def test_pinned_replay_keeps_frozen_failure_and_discloses_correction(audited):
+    assert audited['original_label']=='NUMERICALLY_UNRESOLVED'
+    assert not audited['original_checks']['numerical_validity']
+    assert all(audited['audited']['checks'].values())
+    assert audited['audited']['label']=='FINITE_APERTURE_TRANSFER_SUPPORTED_AFTER_DIAGNOSTIC_CORRECTION'
+    assert len(audited['audited']['diagnostics'])==35
+    assert audited['audited']['closed_feedback_history']=='NOT_ESTABLISHED'
+
+
+def test_reverse_source_checks_receiver_not_prompt_reflection(audited):
+    r=probe.read(probe.RUN/'reverse_source.npz.b64')
+    old=a.diagnose(r);new=audited['audited']['diagnostics']['reverse_source']
+    assert old['early_leak_fraction']>.3 and not old['valid']
+    assert new['physical_receiver']=='A' and new['early_leak_fraction']<1e-15 and new['valid']
+    assert new['capture_fraction']==pytest.approx(audited['audited']['diagnostics']['b1.1_a0.4_w12_fine']['capture_fraction'],abs=1e-12)
+
+
+@pytest.mark.parametrize('field',['outgoing','energy','final_q','final_v'])
+def test_recorded_dynamics_tampering_is_rejected(field):
+    r=probe.read(probe.RUN/'b1.1_a0.4_w12_fine.npz.b64')
+    r[field].flat[100]+=.01
+    assert not a.diagnose(r)['valid']
+
+
+def test_source_and_grid_tampering_are_rejected():
+    r=probe.read(probe.RUN/'b1.1_a0.4_w12_fine.npz.b64')
+    r['incoming'][0,0]+=.1
+    with pytest.raises(ValueError,match='source'):a.diagnose(r)
+    r=probe.read(probe.RUN/'b1.1_a0.4_w12_fine.npz.b64');r['time'][0]+=.01
+    with pytest.raises(ValueError,match='time'):a.diagnose(r)
+
+
+def test_missing_or_corrupt_evidence_rejected(tmp_path):
+    shutil.copyfile(probe.RUN/'manifest.json',tmp_path/'manifest.json')
+    with pytest.raises(FileNotFoundError):replay.replay(tmp_path)
+    n=probe.schedule()[0][0]+'.npz.b64';(tmp_path/n).write_text('bad data')
+    with pytest.raises(ValueError,match='archive'):replay.replay(tmp_path)
+
+
+def test_wrong_schedule_rejected():
+    with pytest.raises(ValueError,match='inventory'):probe.assess({})

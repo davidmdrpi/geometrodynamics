@@ -49,3 +49,7 @@ jobs:
         env:
           OPENBLAS_NUM_THREADS: "1"
         run: pytest -q tests/test_mty_packet.py
+      - name: Verify finite-aperture transfer and disclosed diagnostic correction
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: pytest -q tests/test_aperture_transfer.py
