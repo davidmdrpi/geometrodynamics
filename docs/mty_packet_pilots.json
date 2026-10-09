@@ -1,0 +1,218 @@
+[
+  {
+    "config": {
+      "aging_duration": 1.0,
+      "amplitude": 0.5,
+      "dt": 0.015625,
+      "start": -4.0,
+      "stop": 8.0,
+      "connected": true,
+      "seed": 0,
+      "scheme": "discrete_gradient",
+      "basis_B": 1,
+      "nonlinear": true
+    },
+    "status": "CONVERGED",
+    "calls": 93,
+    "elapsed": 0.12068162699961249,
+    "diagnostics": {
+      "valid": false,
+      "residual": 1.7187075720959122e-10,
+      "local_energy_error": 1.3236673103453447e-15,
+      "canonical_momentum_error": 7.96194707386455e-15,
+      "kinematic_error": 2.1250362580715887e-17,
+      "input_energy": 0.03466796875000001,
+      "output_energy": 0.034423041989803914,
+      "full_history_energy_error": 0.006561450766681511,
+      "transport_window_defect": 0.006561450766681741,
+      "edge_energy_fraction": 0.07332200068041365,
+      "endpoint_energy_fraction": 0.0005034788795381855,
+      "before_source_energy_fraction": 0.0,
+      "peak_response_momenta": [
+        0.03286426292835063,
+        0.034531315146063606
+      ],
+      "peak_handle_energy": 0.008461075874457762
+    }
+  },
+  {
+    "config": {
+      "aging_duration": 3.5,
+      "amplitude": 0.5,
+      "dt": 0.015625,
+      "start": -4.0,
+      "stop": 8.0,
+      "connected": true,
+      "seed": 0,
+      "scheme": "discrete_gradient",
+      "basis_B": 1,
+      "nonlinear": true
+    },
+    "status": "CONVERGED",
+    "calls": 198,
+    "elapsed": 0.4613761440000417,
+    "diagnostics": {
+      "valid": false,
+      "residual": 1.915383563561024e-10,
+      "local_energy_error": 1.5068150170484736e-15,
+      "canonical_momentum_error": 1.7477339020466331e-15,
+      "kinematic_error": 1.9081958235744878e-17,
+      "input_energy": 0.03466796875000001,
+      "output_energy": 0.03413125652180656,
+      "full_history_energy_error": 0.01411236383128099,
+      "transport_window_defect": 0.01411236383128251,
+      "edge_energy_fraction": 0.11869404847687313,
+      "endpoint_energy_fraction": 0.0013691381875947156,
+      "before_source_energy_fraction": 0.0426120646537557,
+      "peak_response_momenta": [
+        0.032718130106685776,
+        0.028279362911278735
+      ],
+      "peak_handle_energy": 0.008828435195204596
+    }
+  },
+  {
+    "config": {
+      "aging_duration": 1.0,
+      "amplitude": 0.5,
+      "dt": 0.015625,
+      "start": -8.0,
+      "stop": 32.0,
+      "connected": true,
+      "seed": 0,
+      "scheme": "discrete_gradient",
+      "basis_B": 1,
+      "nonlinear": true
+    },
+    "status": "CONVERGED",
+    "calls": 319,
+    "elapsed": 0.9963607050003702,
+    "diagnostics": {
+      "valid": true,
+      "residual": 1.7765637385139775e-10,
+      "local_energy_error": 1.4589268760215086e-15,
+      "canonical_momentum_error": 7.350023367713732e-15,
+      "kinematic_error": 2.168404344971009e-17,
+      "input_energy": 0.03466796875,
+      "output_energy": 0.034667958175343926,
+      "full_history_energy_error": 3.0268164102236927e-07,
+      "transport_window_defect": 3.026816417046904e-07,
+      "edge_energy_fraction": 2.7453242783798235e-06,
+      "endpoint_energy_fraction": 2.3450581378589846e-09,
+      "before_source_energy_fraction": 0.0,
+      "peak_response_momenta": [
+        0.03286426292835065,
+        0.03453131514606348
+      ],
+      "peak_handle_energy": 0.00846107587445777
+    }
+  },
+  {
+    "config": {
+      "aging_duration": 1.0,
+      "amplitude": 0.5,
+      "dt": 0.015625,
+      "start": -16.0,
+      "stop": 64.0,
+      "connected": true,
+      "seed": 0,
+      "scheme": "discrete_gradient",
+      "basis_B": 1,
+      "nonlinear": true
+    },
+    "status": "NUMERICALLY_UNRESOLVED",
+    "calls": 601,
+    "elapsed": 3.5530059769998843,
+    "diagnostics": {
+      "valid": true,
+      "residual": 2.3054833836591777e-10,
+      "local_energy_error": 1.4589268760215082e-15,
+      "canonical_momentum_error": 8.406015372588728e-15,
+      "kinematic_error": 2.168404344971009e-17,
+      "input_energy": 0.03466796875000001,
+      "output_energy": 0.03466796874815209,
+      "full_history_energy_error": 5.264231923272308e-11,
+      "transport_window_defect": 5.264252188643947e-11,
+      "edge_energy_fraction": 2.8089568496717193e-10,
+      "endpoint_energy_fraction": 6.609955809331227e-13,
+      "before_source_energy_fraction": 0.0,
+      "peak_response_momenta": [
+        0.03286426292835065,
+        0.03453131514606348
+      ],
+      "peak_handle_energy": 0.00846107587445777
+    }
+  },
+  {
+    "config": {
+      "aging_duration": 3.5,
+      "amplitude": 0.5,
+      "dt": 0.015625,
+      "start": -8.0,
+      "stop": 32.0,
+      "connected": true,
+      "seed": 0,
+      "scheme": "discrete_gradient",
+      "basis_B": 1,
+      "nonlinear": true
+    },
+    "status": "CONVERGED",
+    "calls": 435,
+    "elapsed": 1.4658820180002294,
+    "diagnostics": {
+      "valid": false,
+      "residual": 1.8993892315086539e-10,
+      "local_energy_error": 1.1475562284461784e-15,
+      "canonical_momentum_error": 2.6595479291069424e-15,
+      "kinematic_error": 1.452830911130576e-17,
+      "input_energy": 0.03466796875,
+      "output_energy": 0.03466694890384104,
+      "full_history_energy_error": 2.9207660378224154e-05,
+      "transport_window_defect": 2.9207660379422695e-05,
+      "edge_energy_fraction": 0.00015221899547648214,
+      "endpoint_energy_fraction": 2.0987389713717525e-07,
+      "before_source_energy_fraction": 0.04260784105761424,
+      "peak_response_momenta": [
+        0.03271539165443015,
+        0.028281752539692766
+      ],
+      "peak_handle_energy": 0.008824799714039136
+    }
+  },
+  {
+    "config": {
+      "aging_duration": 3.5,
+      "amplitude": 0.5,
+      "dt": 0.015625,
+      "start": -16.0,
+      "stop": 64.0,
+      "connected": true,
+      "seed": 0,
+      "scheme": "discrete_gradient",
+      "basis_B": 1,
+      "nonlinear": true
+    },
+    "status": "CONVERGED",
+    "calls": 545,
+    "elapsed": 4.772022787999958,
+    "diagnostics": {
+      "valid": true,
+      "residual": 1.971945192161625e-10,
+      "local_energy_error": 1.3408679487550304e-15,
+      "canonical_momentum_error": 5.107676434579211e-15,
+      "kinematic_error": 2.5153490401663703e-17,
+      "input_energy": 0.03466796875000001,
+      "output_energy": 0.03466796647446869,
+      "full_history_energy_error": 6.492647605487699e-08,
+      "transport_window_defect": 6.492647829456804e-08,
+      "edge_energy_fraction": 3.247143426849658e-07,
+      "endpoint_energy_fraction": 7.113850883237968e-10,
+      "before_source_energy_fraction": 0.04260780138615953,
+      "peak_response_momenta": [
+        0.03271539241963398,
+        0.028281757394893706
+      ],
+      "peak_handle_energy": 0.008824806993054646
+    }
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "freeze": "786455dada520ecc3a867d508d73c99d76ef2627",
+  "sources": {
+    "geometrodynamics/transaction/mty_packet.py": "90cd5178cf5a82bbaefb72fd46d7f6270df27baf480a2f919a9966af3c9cd0e3",
+    "geometrodynamics/transaction/network.py": "4f16a27240c07c8bd5bcaf195ef74487a0adce56476f494974a90251b3273dae",
+    "experiments/closure_ledger/mty_packet_probe.py": "4d254dadc60676c700d48d9867bc0d9672039f27bfc46186aa46ae6df20bbf8e",
+    "docs/mty_packet_prereg.md": "ada68564e10758d1937da84d4d66df3b2996c35505cd7e0d9c1fffb77712cb6a"
+  },
+  "python": "3.12.14",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1"
+}
