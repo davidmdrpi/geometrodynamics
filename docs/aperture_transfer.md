@@ -14,6 +14,11 @@ reconstructs the same archived dynamics. All numerical and mechanism gates
 then pass, giving
 **FINITE_APERTURE_TRANSFER_SUPPORTED_AFTER_DIAGNOSTIC_CORRECTION**.
 This is not represented as an unqualified prospective pass.
+The empirical conclusion is limited to capture retention in this finite
+parameter box. The six mechanism gates do not supply six independent pieces
+of evidence: two are structural controls and one is a derived timing-window
+measurement. Large-phase robustness and propagation on the evolving R3
+geometry remain untested.
 
 ## What is now resolved, and what is still assumed
 
@@ -129,6 +134,108 @@ The xi=0 controls capture 16.761% for b=1.1 and 41.957% for b=1, compared
 with conformal values 17.018% and 42.361%. Only those two minimal-coupling
 cases were tested; coupling-independent robustness is not established.
 
+## Review assessment: what the gates establish
+
+This post-measurement assessment addresses the
+[protocol review](https://github.com/davidmdrpi/geometrodynamics/pull/323#issuecomment-6073291886)
+and the [measured review](https://github.com/davidmdrpi/geometrodynamics/pull/323#issuecomment-6074988371).
+It changes the interpretation, not the frozen gates or either recorded verdict.
+
+| Frozen mechanism gate | Evidential role | Limitation |
+|---|---|---|
+| Disconnected B capture <1e-12 | Structural implementation control | With W[:,B]=0 and no incident B wave, outgoing B is identically zero. |
+| Causal before-source return <1e-12 | Structural clock-map control | Recorded t_B>=-.25 implies t_return=t_B+.125>=-.125, after source onset. |
+| Shifted before-source return >1e-5 | Derived timing-window capture | t_return=t_B-1.375<-.25 is exactly t_B<1.125; there is no feedback evolution. |
+| Capture >1e-4 in every primary case | Permissive empirical response check | Observed .0986–.5081 is far above the threshold; this is not a demanding robustness test. |
+| Both .5-radian displacements change output L2 by >.01 | Empirical position sensitivity check | Observed .5038/.5473 demonstrates profile dependence, not a unique antipodal focus. |
+| Nonround/round capture >.1 in every paired case | Principal nonround measurement | Observed .3459–.6936 applies only to these geometries, sources, ports and horizon. |
+
+The review is right to discount the structural and derived controls as
+independent mechanism evidence. However, capture and displacement thresholds
+are not mathematical identities. Round free-field refocusing alone does not
+guarantee energy extraction into a finite lead above a chosen threshold; nor
+does displacement greater than one aperture radius guarantee an output-norm
+threshold. The shifted-return gate still requires enough capture before
+t_B=1.125, but its value follows directly from that part of the recorded
+waveform. The evidence should therefore be read as one limited transport
+study with consistency and response checks, not a collection of independent
+confirmations of self-signaling or emergent quantum mechanics.
+
+## Phase range and the missing scaling test
+
+For the conformal model, the exact phase change relative to the round mode
+at one round transit is
+
+\[
+\delta\phi_{lm}=\pi\left[
+\sqrt{(l+1)^2+(b^{-2}-1)m^2+(1-b^2)/3}-(l+1)\right].
+\]
+
+To first order in the change of squared frequency this becomes
+\(\pi[(b^{-2}-1)m^2+(1-b^2)/3]/[2(l+1)]\).
+The review's useful high-frequency proxy,
+\(\Phi=\pi|b^{-2}-1|w/2\), additionally uses
+\(|m|\simeq l\simeq l+1\simeq w\) and neglects the curvature term.
+It is not the exact phase of every excited mode. The source is broadband and
+the apertures weight a distribution of (l,m).
+
+The following is a post-hoc arithmetic comparison, using the frozen spectrum
+and archived retention values; no new propagation or fit is involved.
+The representative exact column uses l=w-1, |m|=l. It is neither an effective
+phase of the packet nor a maximum over the retained spectrum.
+
+| b | w | Proxy Phi (rad) | Representative exact abs(delta phi) (rad) | Retention, a=.4 | Retention, a=.6 |
+|---:|---:|---:|---:|---:|---:|
+| 1.1 | 8 | 2.181 | 1.744 | .586 | .694 |
+| .9 | 8 | 2.948 | 2.175 | .510 | .673 |
+| 1.1 | 12 | 3.271 | 2.867 | .402 | .548 |
+| .9 | 12 | 4.422 | 3.556 | .346 | .565 |
+
+These carrier proxies span only about a factor of two, at order-one phase.
+This does not test an asymptotic large-phase regime. A power-law exponent is
+undetermined: a=.6 is not even monotone in this proxy, and varying w also
+changes aperture size in wavelengths, relative pulse bandwidth and coupling
+response. A stationary-phase amplitude or peak-intensity estimate alone
+does not supply a law for time-integrated lead capture.
+
+The older throat-resolution proposal in
+[PR #166](https://github.com/davidmdrpi/geometrodynamics/pull/166) invoked a
+cutoff of order R/R_mouth. Conditional scale separations of order 1e39 would
+be utterly outside this study; they are not validated by L=56 or these carrier
+values. Moreover, [PR #165](https://github.com/davidmdrpi/geometrodynamics/pull/165)
+rejected the physical single-radius identification. Neither that identification
+nor a physically realized throat-scale coherent wave follows from this table.
+
+Any scaling study needs a separate preregistration: a deformation/carrier
+grid reaching a demonstrated large-phase regime, aperture size in wavelengths
+held fixed, explicit coupling-strength scaling, pulse-cycle and window
+conventions, and convergence of the weighted mode-phase distribution. A
+pre-stated rejection rule must target integrated capture itself; neither an
+exponent selected after measurement nor a permissive nonzero threshold would
+establish robustness. No such new gate or exponent is assigned here.
+
+## Static geometry is not the R3 propagation test
+
+The Berger background is static and biaxial. The
+[R3 family](r3_family.md) has time-dependent triaxial shape, with anisotropy
+coordinates of order .08 and a one-return clock near 3.136 in unit-S3
+conformal time, close to pi. Two returns form the orbit roundtrip; the tensor
+phase advances approximately a half-turn per return. Its shape evolves on
+the transit timescale. A fixed +/-10% Berger deformation is therefore not a
+substitute for wave propagation on that orbit, even if the coordinate
+anisotropies look comparable. Diagonal ellipticity also does not establish
+full stability of the R3 family.
+
+The coherent receiver matters in that next test: at w=12 the round a=.6 port
+captures 18.01%, versus 42.36% at a=.4. Retention ratios must be accompanied
+by absolute capture and the complete complex response; they can otherwise
+conceal poor round transmission. The future study must retain the specified
+transducer model, or separately test a changed one, and sample independently
+chosen phases of the geometry rather than choose a favorable transit phase.
+An evolving-background energy ledger must explicitly include metric work
+(and any work from evolving ports). The static field-plus-lead conservation
+identity cannot simply be reused as if background pumping vanished.
+
 ## Frozen verdict and diagnostic correction
 
 The protocol and implementation were published at
@@ -137,6 +244,20 @@ All 35 cases were run once. Original sources, provenance, raw histories,
 result.json and manifest remain unchanged. There were no propagation pilots
 in the validation parameter box. Pre-freeze implementation checks are listed
 in the [protocol](aperture_transfer_prereg.md).
+
+The review asked whether production followed the first review. Retrospective
+local filesystem records place provenance writing at 2026-10-09 02:39:38 UTC,
+the last scheduled archive at 02:39:42, and result/manifest writing and the
+production log's last modification at 02:39:44. The first review was posted
+at 02:54:35 UTC; the measured review followed at 05:35:25 UTC. These local
+records indicate that production preceded the first review by about fifteen
+minutes. They are not independently signed run timestamps, and the original
+provenance does not contain explicit run-start/run-finish UTC fields. The
+later evidence publication, delayed by upload/approval interruptions, must
+not be treated as the production time. The protocol was held fixed after
+its publication; this chronology does not support a claim that the review
+was considered and rejected before the run. A future producer should record
+start and finish times directly. The frozen producer is left unchanged here.
 
 The sole frozen numerical rejection is reverse_source. Its source is B, but
 the frozen diagnostic always interprets outgoing B as captured arrival. It
@@ -199,8 +320,11 @@ replay with NumPy 2.3.5 and SciPy 1.17.0 reproduces both verdicts and all
 seven audited checks; this is a portability check, not a second simulation.
 
 GR support, excised-mouth matching, gravitational recoil and closed-feedback
-history remain NOT_ESTABLISHED. The next step is to couple this measured
-bulk response back into a fully self-consistent history, retaining its stored
-energy and finite aperture response; then replace distributed ports by actual
-finite-boundary matching. Neither step is supplied by a Penrose inequality or
-by an inverse-boundary theorem alone.
+history remain NOT_ESTABLISHED. Before claiming robustness relevant to BAM,
+the unresolved phase-scaling and time-dependent R3 propagation tests above
+need separate, falsifiable protocols. A closed-feedback study must retain
+stored bulk energy, complex finite-aperture response and any metric work;
+actual finite-boundary matching is another distinct requirement. Neither
+requirement is supplied by a Penrose inequality or an inverse-boundary
+theorem alone. This review follow-up adds no production trajectories and
+does not promote the present finite-box result into those untested claims.
