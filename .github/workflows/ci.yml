@@ -52,6 +52,12 @@ jobs:
           OPENBLAS_NUM_THREADS: "1"
           NPY_DISABLE_CPU_FEATURES: "AVX2,FMA3,AVX512F"
         run: pytest -q tests/test_aperture_transfer.py
+      - name: Verify phase family and authenticated failed-retention result
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: |
+          pytest -q tests/test_aperture_phase.py tests/test_aperture_phase_evidence.py
+          python -m experiments.closure_ledger.aperture_phase_probe --manifest-sha 02b8bd392282292cbf0f82a42dfdf17ba2263a84b709bebf38217fa394037a6d
       - name: Run test suite
         run: pytest -q
       - name: Verify reduced MTY packet experiment

@@ -1,0 +1,15 @@
+{
+  "freeze": "70736ccaa7fb3693bbabb404ba87af09a5d5b3be",
+  "sources": {
+    "geometrodynamics/transaction/aperture_phase.py": "6a27b44bf1de9c86a80d563dcb24206283845e9c8c6b228db12d10e0de4abb84",
+    "experiments/closure_ledger/aperture_phase_probe.py": "947feb9e36b7726d85d48de8c50be8757edd71384388d1a215cc6462da3530ab",
+    "docs/aperture_phase_prereg.md": "7d84e5323bac7ac7493f42dc84edb5fb3a71ab5d3f02693b1701017de9201709",
+    "geometrodynamics/transaction/aperture_transfer.py": "55094a5bfaa18aedcdcf0d050ef95e50f8eb96279ffb028a96d77522c880dd50",
+    "experiments/closure_ledger/aperture_transfer_probe.py": "9b14574b66b56825ff2ad60b5172a48352d2b88a867d43be8de071e24fa1d400"
+  },
+  "started_utc": "2026-10-10T03:49:20.810600+00:00",
+  "python": "3.12.14",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39"
+}
