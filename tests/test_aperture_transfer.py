@@ -86,7 +86,7 @@ def test_pinned_replay_keeps_frozen_failure_and_discloses_correction(audited):
 
 def test_reverse_source_checks_receiver_not_prompt_reflection(audited):
     r=probe.read(probe.RUN/'reverse_source.npz.b64')
-    old=a.diagnose(r);new=audited['audited']['diagnostics']['reverse_source']
+    old=replay.portable_diagnose(r);new=audited['audited']['diagnostics']['reverse_source']
     assert old['early_leak_fraction']>.3 and not old['valid']
     assert new['physical_receiver']=='A' and new['early_leak_fraction']<1e-15 and new['valid']
     assert new['capture_fraction']==pytest.approx(audited['audited']['diagnostics']['b1.1_a0.4_w12_fine']['capture_fraction'],abs=1e-12)
@@ -96,15 +96,15 @@ def test_reverse_source_checks_receiver_not_prompt_reflection(audited):
 def test_recorded_dynamics_tampering_is_rejected(field):
     r=probe.read(probe.RUN/'b1.1_a0.4_w12_fine.npz.b64')
     r[field].flat[100]+=.01
-    assert not a.diagnose(r)['valid']
+    assert not replay.portable_diagnose(r)['valid']
 
 
 def test_source_and_grid_tampering_are_rejected():
     r=probe.read(probe.RUN/'b1.1_a0.4_w12_fine.npz.b64')
     r['incoming'][0,0]+=.1
-    with pytest.raises(ValueError,match='source'):a.diagnose(r)
+    with pytest.raises(ValueError,match='source'):replay.portable_diagnose(r)
     r=probe.read(probe.RUN/'b1.1_a0.4_w12_fine.npz.b64');r['time'][0]+=.01
-    with pytest.raises(ValueError,match='time'):a.diagnose(r)
+    with pytest.raises(ValueError,match='time'):replay.portable_diagnose(r)
 
 
 def test_missing_or_corrupt_evidence_rejected(tmp_path):
@@ -116,3 +116,35 @@ def test_missing_or_corrupt_evidence_rejected(tmp_path):
 
 def test_wrong_schedule_rejected():
     with pytest.raises(ValueError,match='inventory'):probe.assess({})
+
+
+def test_portable_source_accepts_scalar_math_without_mutating_archive():
+    import math
+    r=probe.read(probe.RUN/'b1.1_a0.4_w12_fine.npz.b64')
+    r['incoming'][:,0]=[math.cos(2*math.pi*t)**4*math.cos(12*math.pi*t)
+                        if abs(t)<.25 else 0. for t in r['time']]
+    before=r['incoming'].copy()
+    local,error=replay.portable_record(r)
+    assert error<1e-14
+    assert np.array_equal(r['incoming'],before)
+    assert local['incoming'] is not r['incoming']
+    assert replay.portable_diagnose(r)['valid']
+
+
+def test_portable_source_accepts_ulp_change_but_rejects_material_change():
+    r=probe.read(probe.RUN/'b1.1_a0.4_w12_fine.npz.b64')
+    idx=np.argmax(abs(r['incoming'][:,0]))
+    r['incoming'][idx,0]=np.nextafter(r['incoming'][idx,0],np.inf)
+    assert replay.portable_diagnose(r)['valid']
+    r['incoming'][idx,0]+=2e-14
+    with pytest.raises(ValueError,match='source'):replay.portable_diagnose(r)
+
+
+@pytest.mark.parametrize('kind',['inactive','support','nan','shape'])
+def test_portable_source_keeps_exact_zero_and_shape_guards(kind):
+    r=probe.read(probe.RUN/'b1.1_a0.4_w12_fine.npz.b64')
+    if kind=='inactive':r['incoming'][100,1]=1e-16
+    elif kind=='support':r['incoming'][-1,0]=1e-16
+    elif kind=='nan':r['incoming'][100,0]=np.nan
+    else:r['incoming']=r['incoming'][:-1]
+    with pytest.raises(ValueError,match='source'):replay.portable_diagnose(r)

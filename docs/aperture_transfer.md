@@ -278,6 +278,32 @@ The original result remains NUMERICALLY_UNRESOLVED. The corrected support
 label is explicitly post-measurement. A future independent protocol should
 use source-relative receiver indexing from its initial freeze.
 
+### Portable replay correction (2026-10-10)
+
+The [follow-up review](https://github.com/davidmdrpi/geometrodynamics/pull/323#issuecomment-6093356264)
+identified a separate reproducibility defect: the frozen diagnostic demands
+bit-exact equality between an archived cosine packet and its local NumPy
+evaluation. Identical NumPy versions need not produce identical last bits
+across CPU dispatch paths. The specific failing kernel has not been isolated.
+
+The portable wrapper first verifies the unchanged pinned manifest, every file
+hash and all frozen source hashes. It then checks each stored source against
+the local formula with absolute tolerance 1e-14 times the analytic amplitude
+bound (one), with no relative tolerance. The time grid, inactive port and
+zero source outside compact support remain exact checks. Only a copy of the
+incoming array is replaced by the local formula for the frozen diagnostic;
+outgoing waves, field energies and final states stay archived and must still
+pass reconstruction. The maximum source difference is reported for every
+case. This is a disclosed roundoff adaptation, not bit-exact re-execution of
+the frozen replay. Both saved decisions must still reproduce.
+
+Regression checks exercise independent scalar-math packet evaluation, a
+one-ULP perturbation, rejection above the bound, and exact support/port guards.
+All 48 aperture-plus-MTY tests pass; all 27 aperture tests also pass with
+AVX2, FMA3 and AVX512F NumPy features disabled. CI runs both aperture checks
+before the full suite so an unrelated failure cannot hide their results.
+No frozen source or production evidence has been rewritten or rerun.
+
 ## Verification and evidence
 
 | Diagnostic | Largest observed | Frozen limit |
