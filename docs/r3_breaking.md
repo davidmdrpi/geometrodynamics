@@ -105,3 +105,16 @@ Either would show:
 - **Commit sequence.** The archives were committed stage by stage while the run progressed, without being read. The run used the frozen code unchanged.
 - **Replay scaffold.** The replay scaffold and tamper tests were committed during the run, before any result was read. The archive hashes were pinned afterwards.
 - **What the run used.** The run used only the frozen probe. The post-hoc script reuses the archived Jacobians and nodes (chord Newton) and changes only the map evaluation.
+
+## Note (2026-10-10): the section map is a square
+
+This note was added before the ladder study (`docs/r3_ladder_prereg.md`) measured anything.
+
+**The structure.** The flow commutes with (q, q') → (−q, −q'). That symmetry maps downward clock crossings to upward ones and fixes z. So P = h∘h, where h is the half-return map. This is verified to 3e-40 with the 48-digit Taylor map `lrs_taylor`. On the archived circle a = .2348, h rotates by ρ/2 + 1/2.
+
+**What it means for the 2/5 result.** The LRS 2/5 crossing is h's 7/10 resonance. Its leading resonant order is 10, not 5. The post-hoc observations in §2 are exactly the signature of that order-10 h-chain:
+- harmonic 10 dominant;
+- harmonic 5 near noise;
+- 20 sign changes.
+
+**What changes in §3 item 1.** The comparison with "low-order resonant harmonics" should use a^10 ≈ 9e-7, not a^5 ≈ 1e-3. The breaking (≲ 1.6e-11) is then about 5 orders below that yardstick, not about 8. That is equivalent to an effective analyticity radius of about 3 in units of a. Whether this is anomalous is the question the ladder study tests. The labels in §1 are unaffected.
