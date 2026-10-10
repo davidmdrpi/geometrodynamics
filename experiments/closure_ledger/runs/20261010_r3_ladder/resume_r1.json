@@ -1,0 +1,20 @@
+{
+ "sources": {
+  "geometrodynamics/waves/r3_breaking.py": "a445fdfedd0230f91d9f74bb1f09e0c976d7c84b9e5672e0bee4a09ded821c74",
+  "geometrodynamics/waves/r3_family.py": "3e2255cd51fc90201aef429a947fa574e9d2a623f9964691f65f4cd64600c9b2",
+  "geometrodynamics/waves/r3_return_map.py": "6d661891775351bffb672dcd1d014e2a7dab7635ea4e8745365fbce4e90797a5",
+  "geometrodynamics/waves/r3_extension.py": "e1554cd794f418f9686819ba2fb66b32a732c43daf97945b53c3a42da24107a5",
+  "geometrodynamics/waves/jets.py": "8bc8c26a94491c44acaf325d300ead7471361eb17b483ccef3edbe3b01a9a48d",
+  "geometrodynamics/waves/nonlinear_supported_tt.py": "6846a6f0e12c60af402b7f29c39e05b3289355ad039787b5c04668221d9a7b14",
+  "experiments/closure_ledger/r3_breaking_probe.py": "5e9b31e8045ef53a9a29101bd67c679e0b474619685032bfafc8c286e38fcf1d",
+  "geometrodynamics/waves/lrs_taylor.py": "ec05a0d4bdb86d0e0b383d8966923bc15359ddeca2befb3a57114de143e6de6e",
+  "experiments/closure_ledger/r3_ladder_probe.py": "786a10535139c368269fbe5844c64c3a9310cba33c156aa4b30d13956bbab328",
+  "docs/r3_ladder_prereg.md": "6bf2c3287c04d875f4bdad578f5e5e0026ccc2afb8eb61f7f0cb8535ebac6428"
+ },
+ "started_utc": "2026-10-10T20:28:17.744191+00:00",
+ "stages": [
+  "scan",
+  "hp"
+ ],
+ "note": "resumption after background time limit; frozen functions only"
+}
