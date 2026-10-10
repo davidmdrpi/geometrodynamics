@@ -18,13 +18,39 @@ import numpy as np
 from geometrodynamics.waves import lrs_taylor as lt
 from experiments.closure_ledger import r3_ladder_probe as probe
 
-SHA256 = {}   # pinned after the run
+SHA256 = {
+    'started.json': 'd770e64407a9e9eda858cc9bd486a57fe9c674740097bcdb3d265b452f5ab65e',
+    'resume_r1.json': '32e798160a10f42ad65cd18e7413f75f4b585f862c315a117de2946a94d0e1b9',
+    'resume_r2.json': '780bb0fd2f7157212bdbbb1edd9a530d2d261a63783f45be84ec1545dea422b7',
+    'result.json': '4cb3e6d028e621ad08a978e5807a490e706625aef5d5eb499d901a68d84641a7',
+    'scan_5_11.json': '243dc174d6dd11c691aa7eba194b4c40896511aa810a7e555fdd22abb52d61d3',
+    'hp_5_11.json': 'f878a8a2a0d13379bff99876c332a74e0019de81979e3656686f9874c83beb0c',
+    'hpnoise_5_11.json': '4ab867d94e7d74d104115084df041f362f53732870194d8cf5ede5ab800892f0',
+    'scan_4_9.json': '995062c6d0ed9e0b6dd638f2db6542fe5d1f1b80fac2b08dc4cad606858460df',
+    'hp_4_9.json': '4e5009ef8ff88f3cdde7e12a0427b13d60782720bd609481aeb2928f1d89898e',
+    'hpnoise_4_9.json': '94026205fbb95b8432e9ea456bfa6d76a990e358a45a3e4bc850c2c32aaa4f2f',
+    'scan_3_7.json': 'a91756fa9a55768013e4b2149e88431e5fb24cf9999090bb1872a84688151b9a',
+    'hp_3_7.json': 'ea1f54af3181d67c8f6f98879f0faf758791b74e786e3441ef23cdf764b854c1',
+    'hpnoise_3_7.json': 'e4864afe34214a68b70b9e2483ed990454441ffeb58af01b788187d1cbda9fe5',
+    'scan_5_12.json': '95e216fd9e32d4009492f9f08bf917515340c240531b6d1ae2607230f5b103df',
+    'hp_5_12.json': 'aad5e7e7a0514845b525c6c4c14b777e118c84c057c48b71412c44ed8e0b7152',
+    'hpnoise_5_12.json': '723c1330e0f56a57206b07b3861a86f827e23b92bb614d0235834608549d5178',
+    'scan_2_5.json': 'eec80874c4fefb1ce3d79e0dbb98da83edf598024b7ab0c069c4c8aef1b14640',
+    'hp_2_5.json': '2173736c004b1081f7a85f082476385f68935bc9423e55ff0f153079fca18f49',
+    'hpnoise_2_5.json': '29d6f01fe98c9d47ae4e987f9c9522bd54beab5c0839be2237b8f535497bb8b4',
+    'scan_3_8.json': '89731e7a8d716296cf0c9a190e6d684f3179188b040811b013a8b8b4c6dd8269',
+    'hp_3_8.json': 'fb37d92d5ba101de18890bd075fa11599a17baa1970e59fb7b03e97830058ff0',
+    'hpnoise_3_8.json': 'db48bb18f87ee83080e9ea4546212824548e64c411874eca54d07491ead8a332',
+    'scan_4_11.json': 'b7e377bd35f00a994af74a602e707bd01db786cd95c694048449bccdf3e41948',
+    'hp_4_11.json': 'c8f05ee174102ebadb00640934d286a599f9bec27ea0207b960448d49ba97967',
+    'hpnoise_4_11.json': 'd25ead2960282b342b3bbe177907f5c75fee28206b76abc4e027f8e3ea5c7d12',
+}
 FULL_TOL = 1e-33
 LABELS = ('primary', 'signal_2_5', 'harmonic_selection', 'exact_integrability')
 
 
 def names():
-    out = ['started.json', 'result.json']
+    out = ['started.json', 'resume_r1.json', 'resume_r2.json', 'result.json']
     for p, q in probe.RUNGS:
         out += [f'{s}_{probe.tag(p, q)}.json' for s in ('scan', 'hp', 'hpnoise')]
     return out

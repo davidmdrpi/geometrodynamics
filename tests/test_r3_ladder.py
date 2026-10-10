@@ -202,3 +202,56 @@ def test_probe_pipeline_on_toy(tmp_path, monkeypatch):
     assert rec['sources'] == lp.sources()
     with pytest.raises(FileExistsError):
         lp.score()
+
+
+# ---------- authenticated replay (after the run) ----------
+_RUN = __import__('pathlib').Path(__file__).resolve().parents[1]/'experiments/closure_ledger/runs/20261010_r3_ladder'
+
+
+@pytest.mark.skipif(not (_RUN/'result.json').exists(), reason='ladder not run')
+def test_ladder_replay_verifies():
+    from experiments.closure_ledger import r3_ladder_replay as replay
+    out = replay.replay()
+    rec = json.loads((_RUN/'result.json').read_text())['result']
+    assert out['replay'] == 'VERIFIED' and out['primary'] == rec['primary']
+
+
+@pytest.mark.skipif(not (_RUN/'result.json').exists(), reason='ladder not run')
+@pytest.mark.parametrize('damage', ['bytes', 'residual', 'lam', 'nodes', 'order'])
+def test_ladder_replay_rejects_damaged_archives(tmp_path, damage):
+    import shutil
+    from experiments.closure_ledger import r3_ladder_replay as replay
+    for name in replay.SHA256:
+        shutil.copy(_RUN/name, tmp_path/name)
+    if damage == 'bytes':
+        p = tmp_path/'hp_3_7.json'
+        p.write_text(p.read_text().replace('"ok": true', '"ok": false', 1))
+        with pytest.raises(ValueError, match='fingerprint'):
+            replay.replay(directory=tmp_path)
+        return
+    scan = json.loads((tmp_path/'scan_3_7.json').read_text())
+    rows = json.loads((tmp_path/'hp_3_7.json').read_text())['rows']
+    r = next(x for x in rows if x['ok'])
+    if damage == 'residual':
+        r['residual'] = 1e-20
+    elif damage == 'lam':
+        r['lam_float'] += 1e-9
+    elif damage == 'nodes':
+        r['nodes'] = r['nodes'][:-1]
+    else:
+        rows = rows[1:]+rows[:1]
+    with pytest.raises(ValueError):
+        replay.validate_rows(scan, rows, 1e-35)
+
+
+@pytest.mark.skipif(not (_RUN/'result.json').exists(), reason='ladder not run')
+def test_ladder_reclosure_rejects_altered_lambda():
+    from experiments.closure_ledger import r3_ladder_replay as replay
+    scan = json.loads((_RUN/'scan_3_7.json').read_text())
+    rows = json.loads((_RUN/'hp_3_7.json').read_text())['rows']
+    assert replay.reclose(scan, rows, every=30) < 1e-33
+    j = next(k for k in range(0, 60, 30) if rows[k]['ok'])
+    with gmpy2.context(gmpy2.get_context(), precision=160):
+        rows[j]['lam'] = str(gmpy2.mpfr(rows[j]['lam'])+gmpy2.mpfr('1e-30'))
+    with pytest.raises(ValueError, match='re-close'):
+        replay.reclose(scan, rows, every=30)
