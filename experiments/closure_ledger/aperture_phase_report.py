@@ -8,8 +8,41 @@ import matplotlib.pyplot as plt
 from experiments.closure_ledger import aperture_phase_probe as p
 
 
+def coherence_review(result):
+    """Post-hoc comparison of already archived quantities; no propagation."""
+    ds=result['diagnostics'];cases=[]
+    for n,c in p.schedule():
+        if not n.endswith('_fine') or c.squash==1:continue
+        phase=ds[n]['phase'];coherence=phase['weighted_free_coherence']
+        retention=result['retention'][n]
+        cases.append(dict(name=n,squash=c.squash,carrier=c.carrier,footprint=c.footprint,
+                          proxy=phase['proxy'],retention=retention,free_coherence=coherence,
+                          capture_to_coherence=retention/coherence,
+                          coherence_to_simple_fresnel=coherence/(np.pi/(4*phase['proxy']))))
+    fits={}
+    for f in (4.8,7.2):
+        subset=[c for c in cases if c['squash']==.8 and c['footprint']==f]
+        slope,intercept=np.polyfit(np.log([c['proxy'] for c in subset]),
+                                  np.log([c['free_coherence'] for c in subset]),1)
+        fits[str(f)]=dict(free_coherence_beta=float(-slope),
+                         capture_beta=result['fits'][str(f)]['fine']['beta'])
+    ratios=[c['capture_to_coherence'] for c in cases]
+    high=[c for c in cases if c['proxy']>=10]
+    return dict(interpretation='Post-hoc; no new production or registered gate.',
+                manifest_sha=p.digest(p.RUN/'manifest.json'),cases=cases,fits=fits,
+                ratio_min=min(ratios),ratio_max=max(ratios),ratio_median=float(np.median(ratios)),
+                high_phase_count=len(high),
+                high_phase_free_coherence_below_point_one=sum(c['free_coherence']<.1 for c in high))
+
+
 def render():
     r=json.loads((p.RUN/'result.json').read_text());ds=r['diagnostics']
+    review=coherence_review(r)
+    (p.ROOT/'docs/aperture_phase_coherence.json').write_text(json.dumps(review,indent=2,allow_nan=False)+'\n')
+    coherence_rows=[f'| {c["footprint"]:g} | {c["squash"]:g} | {c["carrier"]} | {c["retention"]:.6f} | {c["free_coherence"]:.6f} | {c["capture_to_coherence"]:.6f} |'
+                    for c in review['cases']]
+    coherence_fits=[f'| {f} | {v["capture_beta"]:.6f} | {v["free_coherence_beta"]:.6f} |'
+                    for f,v in review['fits'].items()]
     colors=plt.cm.viridis(np.linspace(.05,.95,6))
     fig,axes=plt.subplots(1,2,figsize=(11,4.4),layout='constrained')
     for color,b in zip(colors,(.8,.9,.98,1.02,1.1,1.2)):
@@ -67,6 +100,10 @@ retention in the declared family. It does not show zero transport, nor does it
 exclude other port models or geometries. The inverse-phase result is a
 three-carrier, finite-range test at b=.8, not an asymptotic scaling theorem.
 Neither result establishes quantum mechanics or self-consistent feedback.
+The post-hoc review comparison below shows that this inverse-phase trend
+largely tracks free-field spectral dephasing already encoded in the frozen
+phase diagnostic. The additional empirical result is how closely integrated
+lead capture follows that free coherence under the specified port dynamics.
 
 ![Capture and retention](figures/aperture_phase.png)
 
@@ -122,6 +159,93 @@ regime and extrapolation to throat-scale resolution remain unestablished.
 The near-round deformation cases report behavior outside the fit range;
 they are not added as convenient points to improve the fitted law.
 
+## Review follow-up: free coherence versus integrated capture
+
+The [independent review](https://github.com/davidmdrpi/geometrodynamics/pull/324#issuecomment-6099053228)
+correctly identifies the leading dephasing mechanism. This comparison is
+**post-hoc interpretation** of quantities already archived by the frozen run,
+not a newly registered test or a new simulation. Both original labels remain.
+The [machine-readable comparison](aperture_phase_coherence.json) contains all
+21 nonround fine cases and binds the original manifest.
+
+Let C_free=|sum rho_lm exp(i delta_phi_lm)|^2, using the registered normalized
+round free-source energy weights. This depends only on the spectrum and
+source/aperture weights, without evolving the coupled ports. Let R denote
+the measured nonround/round integrated lead capture. Across all 21 cases,
+R/C_free lies in **[{review['ratio_min']:.6f}, {review['ratio_max']:.6f}]**, with
+median **{review['ratio_median']:.6f}**.
+
+| a*w | b | w | Measured retention R | Free coherence C_free | R/C_free |
+|---:|---:|---:|---:|---:|---:|
+{chr(10).join(coherence_rows)}
+
+On the same preselected b=.8 slices, the free-coherence fits already closely
+predict the integrated-capture exponents:
+
+| a*w | Registered capture beta | Post-hoc free-coherence beta |
+|---:|---:|---:|
+{chr(10).join(coherence_fits)}
+
+All {review['high_phase_count']} designated high-phase cases have C_free<.1.
+The one measured retention above .1 is b=.8,w=12,a*w=7.2: free coherence
+about .0944 is multiplied by R/C_free about 1.125, lifting retention to .1062.
+Thus the free diagnostic predicted suppression before port evolution in
+principle. It was not used as a prospective capture predictor or ratio gate
+in this protocol. The principal additional information from the trajectories
+is the measured port/propagation correction R/C_free and its energy ledger,
+not discovery of an otherwise unknown inverse-phase mechanism.
+
+### What the Fresnel asymptotic does and does not establish
+
+For a single high-l block, uniform m weights and the quadratic phase
+approximation give the continuum factor
+
+    A(Phi) = integral_0^1 exp(i Phi x^2) dx
+           = Phi^(-1/2) integral_0^sqrt(Phi) exp(i u^2) du,
+    |A(Phi)|^2 ~ pi/(4 Phi) as Phi -> infinity.
+
+The sign-reversed phase has the same squared magnitude. The standard Fresnel
+limits and asymptotic expansions are given in
+[DLMF 7.5](https://dlmf.nist.gov/7.5) and
+[DLMF 7.12(ii)](https://dlmf.nist.gov/7.12#ii).
+There is therefore an analytic inverse-phase asymptotic for this idealized
+free factor. The earlier caution about no established asymptotic exponent
+applies to **integrated capture in this full packet/port family**, not to
+the Fresnel integral itself.
+
+The archived C_free uses the exact square-root frequencies and a weighted
+sum over l as well as discrete m; Phi uses the carrier alone. Consequently
+pi/(4 Phi) is not its exact finite-range normalization. At b=.8 the ratios
+C_free/[pi/(4 Phi)] are 1.222, 1.148, 1.148 for a*w=4.8 and
+1.275, 1.446, 1.447 for a*w=7.2 as w increases. In particular the reported
+band on R/C_free cannot be copied unchanged onto R/[pi/(4 Phi)].
+The latter reaches about 1.82 in the b=.8,w=24,a*w=7.2 case.
+
+Whether R/C_free stays bounded above and away from zero at much larger phase
+is not settled by these samples. A subsequent protocol could put a prospective
+band on that ratio, explicitly excluding or handling near-zero C_free, and
+check the packet-weighted analytic approximation separately. The current
+observed [0.987,1.367] band is not retroactively made a success criterion.
+
+### Portable re-scoring test
+
+The review also found that the evidence test required exact dictionary
+equality after recomputing np.polyfit. Least-squares/LAPACK roundoff made
+Python 3.10 CI fail although its fit values differed only in the last digits;
+the Python 3.12 job passed. The revised test admits absolute 1e-12, with zero
+relative tolerance, **only for beta and maximum log residual**. Fit decisions,
+all labels and other re-scored fields remain exact, as do file/source hashes.
+Regression tests accept last-bit fit changes but reject material fit changes,
+changed labels, changed fit decisions and changes to other recorded values.
+This edits the post-freeze evidence test, not the frozen scorer, protocol,
+sources, thresholds or simulation data. CPU-dispatch testing alone does not
+cover differences across NumPy/LAPACK versions.
+
+Local validation uses Python 3.12.14 with NumPy 2.5.3 and separately 2.2.6.
+The latter reproduces failure of the former exact-equality assertion, with
+maximum fit drift 2.67e-15; all 64 focused tests pass with the revised test
+in both environments. The Python 3.10 CI job remains a separate check.
+
 ## Verification and energy accounting
 
 | Diagnostic | Largest observed | Frozen limit |
@@ -143,7 +267,7 @@ Source formulas allow absolute roundoff <=1e-14 while grid, compact support
 and inactive port remain exact. Stored incoming samples are used in physics
 ledgers after validation. The frozen thresholds and source files are intact.
 
-All 58 focused tests pass. A complete authenticated replay with AVX2, FMA3
+The original 58 focused tests passed before publication. A complete authenticated replay with AVX2, FMA3
 and AVX512F NumPy features disabled reproduces both labels, both exponents
 and every archived capture measurement. All 57 NPZ archives were inspected
 with pickle disabled: 342 finite float64 arrays, with the declared configuration
