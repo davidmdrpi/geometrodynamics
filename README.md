@@ -10,31 +10,40 @@ spacetime itself — specifically the Hopf fibration on S³, 5D Tangherlini
 wormholes, topological flux-tube networks, coherent wormhole-throat
 condensates, and non-orientable throat topology.
 
-## Direction of the program: GR → QFT, *not* quantum gravity
+## Current foundation: GR outside foci plus an antipodal regularity postulate
 
-**BAM derives quantum field theory *from* continuous (classical) general
-relativity — it is the opposite of a quantum-gravity program, and does not
-attempt to quantise gravity.** The foundation is a *classical*, continuous GR
-geometry: the wormhole throat, the 5D Tangherlini bulk, the metric `f(r)`. The
-quantum field theory — the matter spectrum, the propagator/exchange kernel, the
-self-energy, the interaction vertices (PRs #116, #129–#140) — is the *derived*
-output, obtained as standard field theory **on that fixed classical background**.
+**BAM investigates whether quantum behavior can emerge from classical bulk
+geometry governed by Einstein dynamics away from focal regions, together with
+an additional regularity and matching postulate at antipodal encounters. It
+has not derived QFT from unmodified continuous classical GR.** The metric is
+not canonically quantized, but it must respond dynamically in an event
+calculation; the earlier statement that the arrow never runs from fields to
+geometry excluded the very backreaction that still needs to be computed.
 
-So the arrow runs **geometry → fields**, never **fields → geometry**:
+The revised antipodal postulate excludes physical singularities from accepted
+solutions. It calls for a regular bulk continuation through an inner/outer
+encounter, with explicitly defined ER-bridge/handle geometry and, where used,
+a separately specified Alice charge-conjugating bundle lift. A ray caustic is
+not itself a curvature singularity. Horizons and trapped surfaces are not
+excluded merely by this postulate. A quotient, a boundary identification, or
+a finite curvature scalar alone does not establish nonsingular evolution.
 
-  - the metric is a classical input, never a quantised dynamical field;
-  - "throat", "horizon", "5D Tangherlini" name a *classical GR background*, and
-    the probes that build propagators, vertices, and self-energies are deriving
-    *QFT on that background*, in the precise sense of QFT-on-curved-spacetime;
-  - asking BAM to "tackle quantum gravity" is therefore a **category error** —
-    it would invert the program. Gravity here is the foundational *classical*
-    layer from which quantum matter is reconstructed, not a thing to be
-    quantised.
+**Current gap:** regularity and conservation do not uniquely determine the
+focus response. A complete action or constitutive law for that response,
+including its support stress and a well-posed evolution/matching problem,
+remains to be selected and tested. The [antipodal regularity specification](docs/antipodal_focus_regularity.md)
+states the mathematical requirements, the actual scope of the Penrose and
+Blaschke results, and a reproducible counterexample: two regular 5D necks with
+the same spatial data and mouth matching give different transport.
 
-When the probes below speak of the path-integral measure `S_BAM`, the
-one-loop determinant, or the bounded interacting vacuum, these are statements
-about the **matter QFT** read off the classical throat geometry — not about a
-quantum theory of the metric.
+Consequently, downstream event, particle-creation, and emergent-QFT claims are
+**conditional on the additional focus law**. Existing fixed-background spectra,
+propagators, determinants and exchange calculations retain their stated
+mathematical scope; calculations using matter-QFT rules on a supplied geometry
+do not establish that those rules follow from Einstein evolution. Historical
+milestone claims below must be read with this qualification. The
+[dependency ledger](docs/antipodal_focus_regularity.md#dependency-ledger)
+separates postulates, conditional calculations and uncomputed claims.
 
 ## Where ℏ enters: scale-free closure ledger + one geometric anchor
 
@@ -172,7 +181,7 @@ to sub-percent and the six-quark mass ladder to ~1.6%.
 | Hayward metric from throat density | **Derived** | n(r) → ρ(r) → m(r) → f(r) matches Hayward to < 1% |
 | de Sitter EOS from Einstein eqs | **Derived** | p_r/ρ = −1 exact at all radii |
 | SEC violation for regularity | **Derived** | Penrose-required SEC violation confirmed (~85% of interior) |
-| Singularity avoidance (Hayward core) | **Derived** | K(0) = 24/l⁴ finite; metric now derived from throat density |
+| Singularity avoidance (Hayward core) | **Conditional static construction** | K(0) = 24/l⁴ for the assumed core model; bounded curvature alone does not prove complete nonsingular event evolution. See the antipodal regularity specification. |
 | Geodesic completeness | **Modeled** | Hayward infaller decelerates; heuristic completeness criterion |
 | BH entropy from throat counting | **Consistent** | S_throat matches S_BH by construction (N set from area law) |
 | Charge without charge (BH) | **Modeled** | Net Q from orientation sum, Q/N → 0 for large M |

@@ -4,8 +4,9 @@ This document describes the foundational thesis of **Bulk Antipodal
 Mechanics (BAM)**, a research program in classical-geometric physics on
 a closed `S³` universe.
 
-The name foregrounds the channels by which discrete quantum-mechanical
-spectra arise from continuous, GR-consistent geometry. *Bulk* refers to
+The name foregrounds proposed channels by which quantum-mechanical
+behavior might arise from classical bulk geometry and an added antipodal
+regularity postulate. *Bulk* refers to
 the 5D Tangherlini extension and the non-orientable wormhole throats
 that live in it; *antipodal* refers to `S³` closure with antipodal wave
 focusing; *mechanics* signals a quantitative framework for computing
@@ -16,23 +17,31 @@ when the global and topological machinery Wheeler did not have is added
 to the geometrodynamic instinct that *matter is a property of
 spacetime, not an independent field attached to it*.
 
-One framing point should be stated at the outset, because it is easy to invert.
-**BAM derives quantum field theory from continuous, classical general
-relativity; it is the opposite of a quantum-gravity program, and it does not
-quantise gravity.** The foundational layer is a *classical* GR geometry — the
-`S³` slice, the wormhole throat, the 5D Tangherlini bulk and its metric `f(r)` —
-and the quantum structure (the discrete matter spectrum, the propagator and
-exchange kernel, the self-energy, the interaction vertices) is *reconstructed
-on that fixed classical background*, in the precise sense of quantum field
-theory on a curved spacetime. The arrow runs geometry → fields and never the
-reverse: the metric is a classical input, not a quantised dynamical variable.
-Consequently, asking BAM to address quantum gravity is a category error that
-would turn the program upside down — gravity is the foundational classical layer
-*from which* quantum matter is derived, not an object the program seeks to
-quantise. Where this thesis later speaks of a path-integral measure `S_BAM`, a
-one-loop fluctuation determinant, or a bounded interacting vacuum, those are
-statements about the emergent *matter* field theory, read off the classical
-throat geometry — not about a quantum theory of the metric.
+## Foundational revision: the antipodal regularity postulate
+
+**BAM is a proposed classical geometric theory with Einstein dynamics away
+from focal regions and an additional regularity/matching postulate at foci.
+It has not derived QFT from unmodified continuous classical GR.** The postulate
+requires a nonsingular bulk continuation of the inner/outer encounter. An ER
+bridge, a non-orientable handle, and an Alice bundle operation must each have
+explicit geometry and field matching; their names do not provide an evolution
+law. Quantizing the metric is not assumed. Classical backreaction is required.
+
+The earlier fixed-background framing described the scope of many individual
+calculations, but cannot describe the uncomputed antipodal event. Ray focusing,
+curvature blow-up, geodesic incompleteness and topology change are distinct.
+Trapped mouths remain admissible if the proposed continuation is regular.
+The [regularity specification](antipodal_focus_regularity.md) gives equations,
+conditions, an explicit 5D control and the remaining closure requirements.
+It demonstrates that regularity alone leaves different transport laws possible.
+
+All downstream quantum-event claims are conditional on a specified focus law
+and its independent tests. Existing spectra and QFT-on-background calculations
+retain their individual assumptions; they do not supply that missing law or
+derive the quantum rules they use. Historical claims in this thesis, including
+claims of regular cores, do not constitute a proof of nonsingular coupled
+spacetime evolution. This revision takes precedence over stronger historical
+framing below.
 
 ## The BAM conjecture
 
@@ -49,24 +58,16 @@ that were not available in the 1960s.
 
 ## What BAM is trying to demonstrate
 
-The aim is to test, computationally, whether quantum-mechanical
-observables can be computed from purely geometric inputs on a closed
-`S³`, without canonical quantization as an independent postulate. BAM
-does **not** claim to have shown this in full. It claims to have
-demonstrated that several of the most distinctive observables — charge
-quantization, spin-½, the Coulomb radial response, the charged-lepton
-mass ladder, the six-quark mass ladder, Bell's inequality saturation,
-regular black-hole interiors — can each be derived from, or made
-consistent with, classical geometry on `S³` alone. (The
-finite-separation Coulomb claim — that two throat mouths on `S³`
-produce `F(ψ) ∝ 1/sin²(ψ)` — has now been **demonstrated**: the S³
-Green response reproduces the Coulomb potential and inverse-square
-force in the flat-space limit, with the `1/sin²ψ` form confirmed as
-the leading behaviour and refined by a compact-`S³` antipodal-image
-modulation; see `docs/two_throat_coulomb_research_plan.md` and the
-`two_throat_coulomb_probe`.) Whether this set is closeable into a
-complete derivation of quantum field theory is the open question BAM
-exists to test.
+The aim is to test whether quantum-mechanical observables follow from
+classical bulk geometry together with the additional focus law, without
+canonical quantization as an independent postulate. This has not been shown
+in full. The historical studies below report spectra, charge and transport
+constructions, interaction models and regular static cores under their own
+assumptions. They must be assessed individually; agreement with a quantum
+formula, or use of QFT on a classical background, does not establish the
+proposed event mechanism. Closing those conditional calculations into a
+predictive theory depends on specifying and testing the focus law and
+accounting for every inserted quantum ingredient.
 
 A reader looking for "BAM replaces QFT" should read the program as a
 falsification campaign for that claim. A reader looking for "geometric
