@@ -1,4 +1,4 @@
-# The diagonal loop carries a twelvefold discrete action
+# Numerical support for a twelvefold action on the diagonal loop
 
 The registered group-action test **passes**: `ORDER_TWELVE_SELECTION_SUPPORTED`.
 On the labelled diagonal-circular component from #319, the half-clock map H
@@ -132,9 +132,9 @@ its production values are read, is:
 2. Establish an obstruction error bound F from precision/order refinement,
    residual propagation through the augmented system, and an independent
    integration formulation. Require F<=1e-30 before interpreting a null result.
-   Validate the machinery on the already resolved LRS 3/7 case and a numerical
-   order-twelve positive control of known coefficient. The latter is a solver
-   control, not an alteration of the GR model.
+   Validate the machinery against the pinned 60-phase LRS 3/7 archive described
+   below and a numerical order-twelve positive control of known coefficient.
+   The latter is a solver control, not an alteration of the GR model.
 3. Seek a reproducible nonzero obstruction exceeding 100F and isolated
    unconstrained periodic orbits at its zero brackets. A leading twelfth term
    suggests 24 simple zeros around the labelled cover, counted before quotienting
@@ -155,6 +155,86 @@ normalization and the nonuniform angle generate sidebands. For a quantitative
 resonant coefficient, additionally construct a common symmetry angle with the
 correct obstruction weight, or extract a symmetry-adapted resonant normal
 form. The current test predicts neither a nonzero coefficient nor its size.
+
+## Review follow-up and the proposed detection window
+
+The [independent review](https://github.com/davidmdrpi/geometrodynamics/pull/326#issuecomment-6105060967)
+reproduces the registered score, the 96-edge replay and all 13 focused tests.
+It also reports a separately written fixed-step matrix RK4 implementation with
+Newton crossing and Richardson extrapolation: at four samples its half map
+agrees within 1.4e-13 and its spatial commutator is at most 1e-14. Those additional
+numbers are the reviewer's results, not new computations archived by this PR.
+The title now says "Support" to match the conditional, sampled conclusion.
+
+For the proposed follow-up, let Lambda denote the maximum absolute phase-slice
+obstruction in the **fixed historical coordinate and unfolding normalization**,
+not a Fourier coefficient or an invariant energy. Define an effective exponent
+sigma_eff = -ln(Lambda)/12 when Lambda>0. This is a way to express the numerical
+window; it does not measure an analyticity-strip width or determine a normal-form
+coefficient. The existing 60-phase null is a finite sampled observation, not a
+rigorous bound on the continuous maximum.
+
+| Reference level for Lambda | Effective exponent |
+|---|---:|
+| Old registered resolution 1e-11, interpreted at order 4 | 6.3321 |
+| Same resolution, interpreted at order 12 | 2.1107 |
+| Proposed detection threshold 100F at F=1e-30, order 12 | 5.3727 |
+
+Thus a signal strictly between **1e-28 and 1e-11** would occupy the newly
+accessible window if the proposed accuracy gate passes; the corresponding
+order-twelve exponent lies between approximately **2.11 and 5.37**. The actual
+threshold is 100F and must be reported, even if F is smaller than 1e-30. A null
+at that threshold would give a sampled upper limit and, for nonzero Lambda,
+the effective lower limit sigma_eff >= ln(1/(100F))/12. Phase refinement or a
+controlled interpolation bound is required before promoting this to a bound
+on the continuous maximum.
+
+The LRS ladder's descriptive exponents of roughly 1.9–3.2 make an order-twelve
+double-precision null plausible. They do not calibrate the circular family's
+coefficient. A high-precision null therefore earns the proposed label
+**additional suppression candidate**, contingent on both controls and all
+accuracy gates; it is not by itself a demonstrated anomaly or a hidden integral.
+A resolved obstruction with verified isolated roots would directly rule out an
+exact periodic continuum of this branch, without ruling out every possible
+additional integral elsewhere in the system. These are the distinct ways the
+follow-up can advance the question.
+
+### Pinned positive control and independent formulation
+
+Use the 60-phase [LRS 3/7 high-precision archive](https://github.com/davidmdrpi/geometrodynamics/blob/e7afdeb46e274799bd1c0ca749e85e52f70dc50c/experiments/closure_ledger/runs/20261010_r3_ladder/hp_3_7.json)
+and its `hpnoise_3_7.json` refinement at commit
+`e7afdeb46e274799bd1c0ca749e85e52f70dc50c`. Their SHA256 values were checked
+against that commit's replay pins during this review follow-up:
+
+- `hp_3_7.json`: `ea1f54af3181d67c8f6f98879f0faf758791b74e786e3441ef23cdf764b854c1`
+- `hpnoise_3_7.json`: `e4864afe34214a68b70b9e2483ed990454441ffeb58af01b788187d1cbda9fe5`
+
+The future code should compare the identical augmented shooting equations,
+including saved slices and unfolding vectors, rather than merely matching a
+spectrum. Retain the synthetic order-twelve control: the LRS control alone does
+not exercise all diagonal degrees of freedom. Archive bytes were authenticated
+here; the high-precision integrations have not been rerun in this PR.
+
+For the second arbitrary-precision implementation, extend the pinned
+[`lrs_taylor` recurrence](https://github.com/davidmdrpi/geometrodynamics/blob/e7afdeb46e274799bd1c0ca749e85e52f70dc50c/geometrodynamics/waves/lrs_taylor.py)
+to (A,A',q,q',x1,x2,p1,p2). Write h=A^2-q^2/6, p=h*v,
+and m=exp(2*x*BASIS), componentwise. The independent momentum form is
+
+\[
+x'=p/h,\qquad
+p'=\mathrm{BASIS}\left[(q^2-4h)m^{-1}-4h m^2\right].
+\]
+
+It follows by differentiating p=h*v and cancelling h'*v against the velocity
+equation. The remaining A and q equations use ell=(p/h) dot (p/h) and the same
+curvature sums. Taylor convolutions, exponential recurrences and division by h
+supply the series. Compare this formulation with a separately implemented
+velocity-form integrator, including independently located clock crossings and
+augmented residuals. Agreement between two implementations and precision/order
+refinement supplies a numerical error estimate, not a rigorous interval bound.
+No arbitrary-precision producer or result is introduced by this documentation
+update; the full implementation and scoring rules must still be frozen before
+the proposed production run.
 
 ## Reproduction and provenance
 
