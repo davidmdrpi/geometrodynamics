@@ -49,6 +49,14 @@ degree-20 loop fit, inside #326's previously registered 1.9919e-8 membership
 gate. These support locality, but are **post-hoc diagnostics**, not a replacement
 registered pass. See the [published follow-up specification](r3_diagonal_obstruction_followup.md).
 
+The results review also identified a missed calibration check: the old
+`20261005_r3_breaking/scan_control.json` already has 39 of 60 seed displacements
+above 0.01, with maximum 0.0278719303645. Recomputing those distances from the
+saved nodes and historical seeds confirms these values. The new gate's failure
+was therefore foreseeable from available data. Future locality gates should
+be calibrated against historical seed mismatch before their thresholds are
+frozen; this observation does not retroactively repair this experiment.
+
 ## Supplemental isolated-root checks
 
 The separate label is **SUPPLEMENTAL_ROOTS_VERIFIED**. All 24 detected
@@ -70,6 +78,13 @@ full-clock return P and cyclic axis permutation C the 24 representatives form
 of twelve**. Both classifications have maximum matching error 5.899e-17,
 against the fixed 1e-8 matching tolerance. Full labelled nodes, bracket histories
 and diagnostics are archived in `supplement.json`.
+
+As noted in the results review and checked directly against all archived
+bracket endpoints, the H,C class containing bracket 5 consists of all twelve
+downward lambda crossings; the class containing bracket 12 consists of all
+twelve upward crossings. This describes the alternating zero pattern in the
+historical phase orientation. Crossing direction alone does not classify
+elliptic or hyperbolic stability.
 
 This supports the leading-twelfth pattern on the sampled component. It does not
 count 24 independent physical objects, establish a complete census between
@@ -179,6 +194,29 @@ maps at three generic off-family points to at most 4e-56, with its own section
 and return code. It also reports an exact reproduction of one LRS control.
 These are reviewer-reported checks, not reruns performed by this producer and
 not an independent reproduction of this diagonal scan.
+
+The subsequent [independent results review at fc729ab](https://github.com/davidmdrpi/geometrodynamics/pull/327#issuecomment-6111764805)
+reports re-closure with that separately written map at 256 bits, order 56 and
+local scale 1e-72:
+
+| Reviewer-reported independent check | Result |
+| --- | --- |
+| Augmented residual at 12 saved phase solutions, including maximum-amplitude phase 59 and both endpoints of brackets 5 and 12 | <=6.5e-66 |
+| Unaugmented closure at all 24 supplemental roots | <=7.4e-52 |
+| Closure Jacobian at roots 5 and 12, independent differences at 1e-24 and 70-digit SVD | Smallest singular value about 4.40e-17; next about 0.139 |
+
+These are stronger independent checks of the measured diagonal result than
+the earlier off-family comparison. They cover a subset of the phase scan,
+all saved roots' closures, and two roots' Jacobians; they are not a fresh
+independent 192-phase solve or a Jacobian census at all 24 roots. The separate
+implementation and outputs are reported in the review, not bundled here or
+rerun by this producer. Our frozen numerical result and labels remain intact.
+
+Together with #325, #326 and the LRS ladder, this removes the observed anomalous
+suppression that motivated the hidden-integral search in the tested R3
+families. Further hidden-integral work on this evidence should be deprioritized.
+It does not prove that every homogeneous family lacks an extra integral, nor
+does crossing alternation establish stability or dynamical action selection.
 
 The review suggested committing to descriptive reporting below the fixed
 label threshold. That suggestion was read after the scan was known; no new
