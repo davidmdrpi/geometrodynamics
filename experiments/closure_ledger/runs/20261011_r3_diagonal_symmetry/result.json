@@ -1,0 +1,73 @@
+{
+  "label": "ORDER_TWELVE_SELECTION_SUPPORTED",
+  "gates": {
+    "interpolation_resolved": true,
+    "same_component": true,
+    "order_four": true,
+    "rotation_branch": true,
+    "map_identities": true,
+    "independent_maps": true,
+    "constraints": true,
+    "reflection_exchanges_chirality": true
+  },
+  "metrics": {
+    "membership_H": 9.547623247563308e-10,
+    "membership_C": 1.0038029851777708e-09,
+    "square": 5.071442397974746e-14,
+    "fourth": 9.244581594919192e-11,
+    "pair": 1.1150088014347248e-12,
+    "commutator": 3.262949806182025e-14,
+    "matrix_difference": 1.0875089891115852e-13,
+    "radau_difference": 1.2152908887563818e-13,
+    "constraint": 5.950795411990839e-14
+  },
+  "interpolation_error": 9.959276736637435e-10,
+  "membership_gate": 1.991855347327487e-08,
+  "fit_conditions": [
+    1.5401168157971812,
+    1.7815927335597326
+  ],
+  "oriented_half_rotation": 0.25,
+  "four_step_windings": [
+    0.9999999999996755,
+    0.9999999999998678,
+    1.0000000000000175,
+    1.0000000000001825,
+    0.9999999999995945,
+    0.9999999999999583,
+    1.0000000000000908,
+    1.0000000000000526,
+    0.9999999999990765,
+    0.9999999999992711,
+    0.9999999999995466,
+    0.9999999999993683,
+    0.9999999999999756,
+    0.9999999999995296,
+    0.9999999999999745,
+    0.9999999999995753,
+    0.9999999999999193,
+    0.9999999999996452,
+    0.9999999999995752,
+    0.9999999999996658,
+    1.0000000000005296,
+    0.9999999999995479,
+    1.000000000000168,
+    0.9999999999998032
+  ],
+  "max_azimuth_increment_deviation": 0.008820888095984386,
+  "min_nontrivial_separation": 0.22442731599740262,
+  "chirality_range": [
+    -0.01964177551907923,
+    -0.017663920074898906
+  ],
+  "reflected_chirality_range": [
+    0.017664703387228666,
+    0.01964177551907923
+  ],
+  "four_half_time_range": [
+    6.271615250392858,
+    6.271615250392923
+  ],
+  "sample_count": 24,
+  "radau_count": 6
+}
