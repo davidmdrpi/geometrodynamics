@@ -309,7 +309,7 @@ NEC/WEC-violating *exotic* surface matter — the Israel/Lanczos surface
 density `σ = −√f(a)/(2πa) < 0` — which the non-orientable (antipodal `Z₂` /
 C-swap) gluing does **not** rescue. The honest resolution is *consistent
 with* braneworld. The BAM throat metric `f(r) = 1 − (r_s/r)²` is
-**Ricci-flat** (`R = 0`), and its effective 4D stress is **traceless** with
+**scalar-flat, not Ricci-flat** (`R = 0`), and its effective 4D stress is **traceless** with
 the `r⁻⁴` form `ρ_eff = −r_s²/(8πG r⁴) < 0`, `p_r = −ρ_eff`, `p_t = +ρ_eff`
 — the **tidal-charge / bulk-Weyl form**: exactly what a projected bulk Weyl
 tensor `E_μν` (traceless by construction) takes. Crucially it is *also*
@@ -329,27 +329,29 @@ relocating σ rather than removing it. This is the strongest "consistent-
 with" the audits have reached — narrow, specific, and closable by a 5D
 embedding calculation (`israel_junction_weyl_split_probe`, PR #167).
 
-**The embedding, supplied — the gap closes (PR #168).** That 5D
-calculation is now done, as an explicit **global regular** embedding (not
-a Campbell–Magaard local-existence series). The BAM throat is the
-**equatorial (`χ = π/2`) totally-geodesic slice** of the 5D
-Schwarzschild–Tangherlini bulk `ds²₅ = −F dt² + dρ²/F + ρ²dΩ₃²`,
-`F = 1 − μ/ρ²`, with `μ = r_s²`. The equator is a Z₂ fixed-point set, so
-`K_μν = 0` (a tension-free, matter-free brane); the induced 4D metric is
-exactly `f = 1 − (r_s/r)²`; the projected bulk Weyl equals the brane tidal
-stress, `E_μν = −G⁴_μν` (verified to `~10⁻⁸`); the bulk is Ricci-flat (an
-ordinary 5D vacuum); and the 5D Kretschmann `K₅ = 72 μ²/ρ⁸` is **finite
-throughout** the exterior `ρ ≥ r_s` (max `72/r_s⁴` at the throat), the only
-singularity `ρ = 0` lying behind the regular 5D Killing horizon `ρ = r_s`,
-with the extra dimension `χ` compact and regular. Three checks and the
-regularity gate pass: the bulk-Weyl reading is **realised**, not merely
-consistent-with — no exotic brane matter, no brane gauge field — and the
-`f = 0` throat is identified as the **regular 5D Killing horizon** (an
-improvement on the #167 caveat: regular, not singular). The honest residue
-is that the throat sits at that (regular) horizon, the brane is the
-tension-free totally-geodesic slice (`μ = r_s²` fixing the bulk mass), and
-it is the exterior embedding `ρ ≥ r_s`
-(`global_regular_5d_embedding_probe`, PR #168).
+**The exterior embedding is supplied; a regular interior is not (#168,
+corrected in #328).** The equatorial (`χ=π/2`) slice of the 5D
+Schwarzschild–Tangherlini metric `ds²₅=−F dt²+dρ²/F+ρ²dΩ₃²`,
+`F=1−μ/ρ²`, `μ=r_s²`, is totally geodesic (`K_μν=0`). It induces the
+pure-tidal 4D metric and realizes `E_μν=−G⁴_μν` without physical brane
+matter. These exterior embedding and Weyl-projection checks remain valid.
+
+The five-dimensional bulk is Ricci-flat, but its Kretschmann scalar
+`K₅=72μ²/ρ⁸` diverges at `ρ=0`. Its horizon `ρ=r_s` is regular in an
+appropriate chart; regularity of the exterior and horizon does not imply
+geodesic completeness or a globally nonsingular development. The old
+**global regular** label was too strong. In particular, projected 4D Weyl
+stress supplies no physical 5D stress to hold open a 5D static neck.
+
+The original finite-mouth spatial neck is the time-symmetric Tangherlini
+slice. Its vacuum waist reaches the singular boundary after proper time
+`b`. For the current `a=0.5` control, the causal condition `X_m>1` places
+the entire approach inside the neck's vacuum domain of dependence; changing
+only exterior data cannot avert it. That condition is not true at all mouth
+angles. See the [vacuum baseline and smooth regular alternatives](antipodal_focus_regularity.md#4a-review-control-the-vacuum-development-is-singular).
+A predictive regularity law remains necessary to complete this proposed
+BAM continuation, and regularity alone does not select one. The historical
+producer name is unchanged (`global_regular_5d_embedding_probe`, PR #168).
 
 **Why the throat is non-orientable but the bulk is not (PR #169).** The
 non-orientability of the throat is not an extra assumption — it is forced

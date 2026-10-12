@@ -60,6 +60,12 @@ Inside, specify either modified geometric equations or an effective sector:
 
 \(T^f\) needs a constitutive/evolution law. Defining it after choosing a
 metric is an inverse construction, not a predictive matter theory.
+More generally, for any sufficiently smooth candidate metric one can set
+\(\kappa_D T^{\rm total}=G+\Lambda g\); the Einstein constraints then hold
+by definition and conservation follows from the contracted Bianchi identity.
+This does **not** establish boundary compatibility, a realizable matter action,
+causal completeness or well-posed perturbation dynamics. It explains why an
+unspecified effective stress cannot by itself select the focus response.
 Gravitational radiation is evolved in \(g\); adding a separate exact local
 gravitational-wave stress to the full Einstein equation would double-count it.
 An averaged effective stress must declare its approximation and validity.
@@ -163,6 +169,8 @@ The old spatial join to the round exterior is Darmois \(C^1\) with a bounded
 curvature jump, not globally \(C^2\); the new lapse adds no shell or jump.
 This is a **piecewise-smooth junction control**. A fully \(C^2\) global candidate
 needs a specified smoothing collar, its stress and recomputed transport.
+The review supplement in §4b supplies that control without changing this
+original producer or its archive.
 
 Set \(A=r''/r,\ B=(1-r'^2)/r^2,\ C=N''/N,\ D=N'r'/(Nr)\).
 The required orthonormal effective stress for \(\Lambda=0\) is
@@ -244,6 +252,143 @@ These numbers demonstrate nonuniqueness under the stated admissibility
 conditions; they do not fit a BAM parameter or favor one epsilon.
 
 
+## 4a. Review control: the vacuum development is singular
+
+The original spatial neck with \(K_{ij}=0\) is the bifurcation slice of
+the five-dimensional Schwarzschild–Tangherlini vacuum, locally
+
+\[
+ g=-Fdt^2+F^{-1}dr^2+r^2d\Omega_3^2,\qquad F=1-b^2/r^2.
+\]
+
+Here \(dr^2/F=ds^2\) on \(r^2=s^2+b^2\). The static coordinates break down
+at the horizon; the vacuum development is understood in regular Kruskal
+coordinates. This is **vacuum Einstein evolution of the local initial data**,
+not vacuum matching to the same ultrastatic exterior. The latter is not
+shell-free, as `finite_mouth.py` already records.
+
+The timelike geodesic from the bifurcation waist has zero Killing energy:
+\(\dot r^2=b^2/r^2-1\), hence
+
+\[
+ r(\tau)^2=b^2-\tau^2,\qquad
+ \tau_{\rm end}=\int_0^b\frac{r\,dr}{\sqrt{b^2-r^2}}=b,
+ \qquad \mathcal K=72b^4/r^8.
+\]
+
+Its finite-proper-time endpoint has divergent curvature. Initially the
+waist has both null expansions zero; future interior spheres become
+future-trapped, since both future radial null directions decrease \(r\).
+Thus initial marginality does not mean the vacuum waist remains static.
+
+To check whether exterior changes can affect this conclusion, fix the
+Kruskal normalization
+
+\[
+ X^2-T^2=e^{2r/b}\frac{r-b}{r+b},\qquad
+ X_m=e^{r_m/b}\sqrt{\frac{r_m-b}{r_m+b}},\quad r_m=R\sin a.
+\]
+
+On the initial slice \(T=0\), the neck occupies \(-X_m<X<X_m\).
+The waist approaches the singular boundary at \((T,X)=(1,0)\).
+Radial characteristics have slopes \(\pm1\), so its entire regular
+approach is shielded from exterior initial data if **\(X_m>1\)**.
+Strictly, the singular boundary is not a spacetime point in a domain of
+dependence; the regular points approaching it are in that domain.
+At \(R=1,a=0.5\), \(b=0.229848847066\) and \(X_m\simeq4.78>1\).
+The supplement also checks \(a=1.3\), for which \(X_m<1\); that case
+does not support the same exterior-independence conclusion.
+
+Consequently, retaining these local data and vacuum dynamics until the
+endpoint fails the BAM regularity postulate in the shielded case. Avoiding
+that endpoint requires a change in the interior evolution or initial data
+before it occurs. This calculation does **not** prove that every regular
+alternative must have a static open neck or the NEC value below, nor that
+every ray caustic collapses. A complete focus action is the next missing
+input; its well-posedness, stability and quantum predictions would still
+need separate demonstration.
+
+## 4b. Review control: smooth collars preserve the ambiguity
+
+Smoothing only \(r\) would not make the original spacetime \(C^\infty\):
+the original lapse extended by one is \(C^2\), with a third-derivative jump.
+The supplement therefore replaces **both** profiles and records new results
+separately. Set \(\delta=cS\), \(L=S-\delta\), with disclosed control inputs
+\(c=0.1,0.2\). On each collar \(L<|s|<S\), use
+
+\[
+ z=(|s|-L)/\delta,\quad
+ w(z)=\frac{e^{-1/z}}{e^{-1/z}+e^{-1/(1-z)}},\quad
+ r_c=(1-w)\sqrt{s^2+b^2}+wR\sin\bigl(a+(|s|-S)/R\bigr).
+\]
+
+Extend \(w=0\) for \(z\le0\), \(w=1\) for \(z\ge1\). Its derivatives
+of all positive orders vanish at both endpoints. Keep the round continuation
+outside the original mouths, and use the compactly supported lapse
+
+\[
+ \log N_\epsilon(s)=
+ \begin{cases}
+ \epsilon\exp\bigl(1-[1-(s/L)^2]^{-1}\bigr),& |s|<L,\\
+ 0,& |s|\ge L.
+ \end{cases}
+\]
+
+For each fixed collar, both members have exactly the same spatial geometry,
+original mouth locations/radii, boundary clocks and matching data. The waist
+geometry is unchanged; all jets match the round ultrastatic exterior.
+The local joined metric is \(C^\infty\) in regular charts. For positive
+fixed collar width, radius and lapse stay positive, and the independent
+curvature components are bounded. No limit \(\delta\to0\) is asserted.
+This removes the differentiability qualification, **not** the missing
+constitutive law, global Alice extension or dynamical AP-R0 checks.
+
+The same warped-product stress formulas apply, but now
+\(\kappa_5\rho=3(B-A)\) is generally nonzero in the collar. Its value is
+identical across the two lapse choices. This support is explicitly included;
+the smoothed slice is not claimed to be vacuum or everywhere scalar-flat.
+Independent coordinate curvature and radial conservation tests cover the
+collar and its exterior continuation. The supplement recomputes all six
+scalar transfers for each pair, with refinement and determinant checks.
+These are additional chosen regular geometries, not a derived collar scale.
+
+| Collar fraction | Transit, epsilon=0 | Transit, epsilon=0.1 | Reduction |
+| --- | --- | --- | --- |
+| 0.1 | 0.841470984808 | 0.797579345456 | 5.21606% |
+| 0.2 | 0.841470984808 | 0.802456194273 | 4.63650% |
+
+All twelve paired mode comparisons differ. The largest refinement difference
+is `5.94e-10`, and the largest determinant error is `1.76e-12`. A pilot at
+`rtol=1e-11` failed the unchanged `1e-8` absolute refinement gate for the
+high-gain `c=0.2, epsilon=0.1, ell=1, omega*S=0.5` transfer (`1.01e-7`).
+Production uses `rtol=2e-13`, checked against `5e-14`; the failed pilot and
+the precision change are disclosed in the supplement archive.
+
+### Static-geometry admission test, with its scope fixed
+
+For the specified static family (including these collars), at the waist
+\(r=b,r'=0,r''=1/b\), hence exactly
+
+\[
+ \boxed{\kappa_5(\rho+p_s)=-3/b^2=-56.7853877\quad(R=1,a=0.5).}
+\]
+
+A candidate claiming to recover **this static geometry** must supply this
+total radial null contraction (after any geometric modification is moved
+to an effective source), as well as all other field equations. Merely
+allowing "at least" this much NEC violation is not sufficient. For a more
+general static minimum, the value is \(-3r''(0)/b\); for an evolving or
+trapped throat, time-dependent terms enter. The boxed number is therefore
+not a universal rejection threshold for all possible BAM focus laws.
+
+The projected four-dimensional Weyl stress of #168 is not five-dimensional
+matter support: that Tangherlini bulk is Ricci-flat and has zero physical
+five-dimensional stress. Its regular exterior/horizon does not remove its
+singular interior. Recovering the static open five-dimensional benchmark
+requires genuine effective bulk support or modified bulk equations. We
+correct the relevant #168 milestone in README/THESIS; the broader historical
+dependency audit remains a separate follow-up.
+
 ## 5. What the cited mathematical papers contribute
 
 We read the precise LaTeX statements at OpenAI/math commit
@@ -316,11 +461,12 @@ not silently remain an independently free property.
 
 | Item | Status |
 | --- | --- |
+| Original neck under vacuum evolution | Singular waist endpoint after proper time \(b\); exterior-independence proved here only for \(X_m>1\) |
 | Einstein dynamics outside the focus | Assumed classical law; support sector must be specified |
 | No physical singularities in accepted events | Additional BAM postulate |
 | Ideal round antipodal ray refocus | Background/control, with explicit support and optical metric |
 | Positive-radius handle and Alice lift | Geometric and bundle inputs until derived |
-| Regularity and conserved flux | Necessary checks, insufficient to select response |
+| Regularity and conserved flux | Necessary checks, insufficient to select response, including the smooth-collar controls |
 | Unique focus action or constitutive law | **Missing** |
 | Well-posed nonlinear event and robust continuation | **Uncomputed** |
 | Existing spectra/transport | Conditional on their background and boundary rules |
@@ -337,7 +483,9 @@ It must determine the metric/support response and field matching, rather
 than impose a curvature inequality or choose a lapse after seeing results.
 Calibrate proposed gates against historical controls before freezing them.
 
-First recover its regular static solution and junction ledger. Then evolve
+For a candidate claiming the static benchmark, first recover its regular
+static solution, exact waist NEC contraction and junction ledger. A different
+geometry must declare and test its own field-equation requirements. Then evolve
 a finite, nonspherical gravitational-wave packet with the Einstein constraints
 solved. Exact spherical symmetry would eliminate the intended radiative
 degrees of freedom. Use the native bulk or label a reduction as a proxy.
@@ -394,3 +542,13 @@ coordinate-Christoffel/Riemann calculation, check radial stress conservation,
 compare the static monopole with quadrature, refine transport integration,
 check Wronskian conservation and verify scale covariance. Historical producers
 and archives are unchanged.
+
+Review supplement (original archive preserved):
+
+    OPENBLAS_NUM_THREADS=1 python -m experiments.closure_ledger.focus_regularity_review_probe
+    python -m pytest tests/test_focus_regularity.py tests/test_focus_regularity_review.py -q
+
+The new archive lives in `runs/20261011_focus_regularity_review/result.json`.
+The combined 22 tests additionally check vacuum proper-time quadrature,
+geodesic integration, curvature in interior/exterior charts, the causal
+countercontrol, smooth collar stress/matching and conservative transport.
