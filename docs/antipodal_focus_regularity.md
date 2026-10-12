@@ -510,6 +510,14 @@ This PR completes a foundation and computability audit. It does not claim
 the missing focus law is derived. The measured ambiguity is a concrete target
 for that law to eliminate.
 
+Follow-up: the [first explicit action admission test](focus_action_admission.md)
+now checks a closed ghost-scalar control, proves its original-mouth support
+obstruction and reproduces the radial instability of its alternative regular
+solution. The candidate is rejected under the stated gates; a viable focus
+law remains missing. The [historical foundation claims audit](historical_foundation_claims_audit.md)
+also reopens the pair-energy normalization and records the quantum-readout,
+bundle and regular-event dependencies separately.
+
 ## Sources and reproduction
 
 The source ledger pins the exact blobs read in the cited repository.
