@@ -4,9 +4,16 @@
 scalar action reproduces #330's static bulk and shell stresses and its affine
 surface EOS. Its nominated material sector has positive bare quadratic kinetic
 coefficients. However, #330's nonzero radial oscillation with the bulk metric
-and support fields frozen violates this completion's **linearized density
-junction and scalar-current equation**. It is not a physical perturbation to
-which a canonical energy sign can be assigned in this action.
+and support fields frozen changes the **total conserved scalar shift charge**:
+Q'_r=-r0^3 s'_stat/q is nonzero throughout the WEC/C>0 window. The trial
+oscillation therefore leaves the background's fixed-charge sector. Its
+linearized density-junction and scalar-current failures express this same
+obstruction. It is not a physical perturbation to which a canonical energy
+sign can be assigned in this action.
+
+This conclusion assumes both **a continuous scalar whose surface value is the
+trace of the frozen bulk field** and **a single-invariant barotropic surface
+action P_Sigma(Y)**. It does not exclude all possible material completions.
 
 **The full constrained radial kinetic sign is still uncomputed.** This test
 identifies a precise obstruction to computing it from the old oscillator alone;
@@ -71,6 +78,9 @@ volume element are time independent. Its barred stress is
 rho=X0+V=6/R^2+12 alpha/R^4 and p=X0-V=-3/R^2, exactly the required exterior.
 This q and constant potential are choices tied to the prescribed background,
 not a dynamically selected bulk radius.
+Thus the previously unspecified support is replaced by a definite rolling
+scalar, filling the entire retained bulk and carrying conserved shift charge.
+It is not a field confined to the focus or shell.
 
 Let s0,p0 be the existing barred static shell stresses and W0=s0+p0>0. For
 **0<eta<=1**, take
@@ -227,6 +237,19 @@ Q=qR^4\int_{\arcsin(r/R)}^{\pi-\arcsin(r/R)}\sin^3 u\,du
 There is one shell and two excised caps. Direct differentiation gives
 dot(Q)=r^3 J and at equilibrium Q'_r=-r0^3 s'_stat/q=5.23169337259. The local
 boundary obstruction and closed-system charge failure agree independently.
+For an oscillatory perturbation, conservation requires delta Q to be constant;
+the frozen trial instead gives delta Q=Q'_r delta r(t). Changing the initial
+charge sector does not cure its time dependence. A constant shift of chi also
+cannot cure it, since it changes neither Y nor Q.
+
+The two assumptions above are essential to the stated proof: trace continuity
+gives delta Y=0 when the bulk is frozen, and P_Sigma(Y) then gives delta s=0.
+An independent surface field or additional material invariant changes this
+argument and requires a new action and all its current junctions. The review's
+suggestion that a tuned two-field surface action might reopen a frozen tangent
+is an **untested possibility**, not an established counterexample. Counting
+adjustable Hessian entries does not establish a constraint-satisfying mode or
+a positive physical kinetic norm.
 
 Evaluating, without changing, #330's archived 20-period trajectory gives maximum
 density mismatch **0.09087813** and scalar-current residual **0.08365584**.
@@ -245,13 +268,30 @@ the boundary scalar trace rate to satisfy
 \quad\hbox{at the chosen point}.
 \]
 
+The near-unit numerical coefficient is not a selection rule. The exact static
+Ward identity gives
+
+\[
+R\frac{\eta s'_{\rm stat}}{s_0+p_0}
+=-\frac{3\eta R}{r_0}
++\frac{6\eta C}{R\cos a\,(s_0+p_0)}.
+\]
+
+At the chosen point these terms are -1.015159008547 and +0.015587419372.
+At fixed geometry and static stresses the sum scales linearly with eta:
+eta=.05 gives -0.499785794588 and eta=.2 gives -1.999143178350.
+Nothing in this calculation selects -1.
+
 This is a necessary boundary condition under the stated fixed-metric trial,
 not a solved bulk field. For the canonical completion, bulk perturbations have
 delta rho=q delta(dot chi) and radial momentum proportional to q partial_r(delta
 chi). Keeping the bulk metric unperturbed would set the corresponding EGB
 left-hand sides to zero, so an oscillatory scalar response cannot simply be
 added while retaining the metric. The lapse, shift and spatial geometry must
-respond as well. A full treatment also perturbs the normal scalar derivative;
+respond **at the same perturbative order as the shell**. Thus the
+prescribed-exterior approximation fails at first order in this completion;
+neither #330's frequency nor its stability window has been reproduced by this
+action. A full treatment also perturbs the normal scalar derivative;
 the old prescribed flux and frequency cannot be carried over automatically.
 
 The action now specifies the material response that #330 lacked. A coupled
@@ -295,3 +335,15 @@ original producer, protocol or simulation archive is modified.
 Validation: 88 focused tests pass with NumPy 2.3.5 and 2.2.6 (SciPy 1.17,
 Python 3.12.14), including nine new action tests and the previous 79 shell,
 focus/audit and negative-EGB checks. Repository-wide CI is separate.
+
+### Independent review and follow-up
+
+The [review of a21a9f2](https://github.com/davidmdrpi/geometrodynamics/pull/331#issuecomment-6139078212)
+reports 88 passing tests with NumPy 2.4.6/SciPy 1.17.1 and a producer rerun
+matching every archived field except environment. It also reports symbolic
+checks of the density-slope and EOS identities and green Python 3.10/3.12 CI.
+These are attributed reviewer checks; they are not additional archived runs
+of this PR's producer. This follow-up leads with charge conservation, states
+the two material assumptions, and expands the trace-response coefficient.
+The original protocol, producer, source-bound manifest and trajectory are
+unchanged.
