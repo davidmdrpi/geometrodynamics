@@ -1,0 +1,60 @@
+{
+  "label": "HISTORICAL_FOUNDATION_DEPENDENCIES_REOPENED",
+  "baseline_commit": "d42cb5e695f689dee254b51dbeabed3c21b6ad3c",
+  "scope": "Foundation/event chain; not an exhaustive audit of all mass, flavor, QCD or QFT results",
+  "pair_threshold": {
+    "legacy_minimum_test_pass": true,
+    "legacy_threshold_test_pass": true,
+    "minimum_to_electron_rest_energy": 0.005473014426975001,
+    "analytic_ratio": 0.0054730144269750005,
+    "computed_pair_minimum_MeV": 0.005593409250996168,
+    "asserted_pair_threshold_MeV": 1.0219978999923285,
+    "conclusion": "The two passing legacy checks do not test their claimed energy equality"
+  },
+  "finite_band_focus": {
+    "mode_count": 16,
+    "exact_north_pole_limit": 19.89489489167722,
+    "near_pole_values": [
+      19.894766003220045,
+      19.894862669470363,
+      19.894886836119724
+    ],
+    "near_pole_errors": [
+      0.00012888845717640152,
+      3.2222206858278923e-05,
+      8.055557497499422e-06
+    ],
+    "antipodal_identity_error": 2.1316282072803006e-14,
+    "conclusion": "Finite harmonic sum has a finite pole limit; exact linear refocus survives"
+  },
+  "bell_readout": {
+    "records": [
+      {
+        "amplitude_power": 2,
+        "chsh": 2.8284271247461903,
+        "max_marginal_error": 1.1102230246251565e-16
+      },
+      {
+        "amplitude_power": 4,
+        "chsh": 3.7712361663282534,
+        "max_marginal_error": 2.220446049250313e-16
+      }
+    ],
+    "scope": "Alternative normalized readout on the same amplitudes; not a quantum or GR realization",
+    "conclusion": "Binary outcomes, amplitudes and no-signaling do not by themselves select the squared-amplitude readout"
+  },
+  "source_sha256": {
+    "experiments/closure_ledger/pair_production_threshold_probe.py": "c72f6f040c6247686de2b720f8d6e008ecf77cb68a6fd8944606e5fbf204430f",
+    "experiments/closure_ledger/antipodal_focusing_threshold_probe.py": "a640296e2e32c70774acbcc52d0b791c3f4108d5b0871b86adecd67e451f69b4",
+    "experiments/closure_ledger/self_consistent_throat_radius_probe.py": "7de117e644d4022ee822545290e1eaa9b820fc7c49b1541b302785ad0e026a35",
+    "experiments/closure_ledger/throat_dirac_spinor_probe.py": "911549e20879ca9b79cef2697ce7cb90611c73f3e3c78365ac4ceb87e601278f",
+    "experiments/closure_ledger/charge_conjugation_swap_probe.py": "d8f8e3153e074c312b1f109fc31488a0075b0997420e88638b10bd5ad3e00ab6",
+    "experiments/closure_ledger/pair_creation_cobordism_capstone_probe.py": "517953fca1793b505b22961cdcf27b08d28bb285014cfb4050883833f306628f",
+    "experiments/closure_ledger/born_rule_equivariance_probe.py": "3c474dc46309135d27ec96bcc8637e0e7957a5687cb4bc8d3e8f669e4ea678dc",
+    "experiments/closure_ledger/guidance_law_from_5d_probe.py": "c49e34501592b19df8e1b5c34723ed962cbacb494e407c311ee8a324026b34ad",
+    "geometrodynamics/bell/bulk_identity.py": "7825adb255884e20f3eb6a4a8cae1c40012ee45506843c3734fcf1e3d7579d8e",
+    "geometrodynamics/history/closure.py": "ac3d0b7a4da6728b29ae9462bce14aaec7c5d47596c52aa28e123e929503e096",
+    "geometrodynamics/blackhole/interior.py": "7020d12b6d30820fd6ad540cb0ef514fc052578dfab88968bbca270fe8709697",
+    "experiments/closure_ledger/historical_foundation_audit_probe.py": "2828b8c24cc3974a1e172301b5b22b2c73797d508c60026398a3a901a029b7a5"
+  }
+}
