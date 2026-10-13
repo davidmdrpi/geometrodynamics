@@ -1,0 +1,211 @@
+{
+  "label": "OPEN_RADIAL_WINDOW_COUPLED_ADMISSION_OPEN",
+  "numerical_gates": {
+    "tensor_contraction": true,
+    "flux_identity": true,
+    "source_free_countercontrol_fails": true,
+    "acceleration_jacobian": true,
+    "stable_norm": true,
+    "period_agreement": true,
+    "amplitude_convergence": true,
+    "integrator_replay": true,
+    "unstable_control": true,
+    "work_balance": true,
+    "stable_energy_conditions": true
+  },
+  "independent_checks": {
+    "max_tensor_relative_error": 1.9807357990199783e-15,
+    "max_flux_normalized_error": 1.0580998179127556e-08,
+    "omitted_flux_residual_at_r031_v012": 0.5801202086185762
+  },
+  "grid": {
+    "points": 10201,
+    "stable_WEC_points": 934,
+    "stable_DEC_points": 662,
+    "max_jacobian_normalized_error": 8.509747030364289e-11
+  },
+  "parameters": {
+    "R": 1.0,
+    "a": 0.3,
+    "alpha": -0.06,
+    "eta": 0.1
+  },
+  "linear": {
+    "E": -4.256255000717914,
+    "D": -8.910483477111923,
+    "omega2": 1.9454069907884115,
+    "eta_critical": 0.15663221929941185,
+    "bulk_C": 0.76,
+    "bulk_tensor_speed2": 1.3157894736842106
+  },
+  "static_bounds": {
+    "alpha_lower": -0.25,
+    "alpha_WEC": -0.0313793581313021,
+    "alpha_DEC": -0.05229893021883683,
+    "minimum_GB_length_over_mouth": 0.599424991916711
+  },
+  "equilibrium": {
+    "s": 17.691137098681573,
+    "p": 12.93091257506331
+  },
+  "stable_trajectories": [
+    {
+      "fraction": 0.001,
+      "duration_over_R": 90.095817013351,
+      "minimum_density_R": 17.60088410816442,
+      "minimum_NEC_R": 30.52277138417601,
+      "minimum_DEC_margin_R": 4.678996832152825,
+      "minimum_abs_D": 8.888356078676058,
+      "D_remains_negative": true,
+      "minimum_r_over_R": 0.29522397332379213,
+      "maximum_r_over_R": 0.29581572686800084,
+      "maximum_work_balance_error": 9.140361783270982e-15,
+      "maximum_abs_work": 0.002004772826933951,
+      "maximum_abs_flux_integral": 7.289702096442565e-05,
+      "maximum_coordinate_norm_over_initial": 1.002413137621416,
+      "period_over_R": 4.504815238340879,
+      "linear_period_over_R": 4.50479085066755,
+      "relative_period_error": 5.413719335267686e-06,
+      "relative_frequency_shift": -5.4136900270451704e-06,
+      "phase_drift_radians": -0.0006803043527196892,
+      "crossing_count": 20
+    },
+    {
+      "fraction": 0.0001,
+      "duration_over_R": 90.095817013351,
+      "minimum_density_R": 17.68209357012069,
+      "minimum_NEC_R": 30.612101792327913,
+      "minimum_DEC_margin_R": 4.752085347913466,
+      "minimum_abs_D": 8.908267783687071,
+      "D_remains_negative": true,
+      "minimum_r_over_R": 0.2954906475248578,
+      "maximum_r_over_R": 0.29554975868200606,
+      "maximum_work_balance_error": 1.1019512352053322e-14,
+      "maximum_abs_work": 0.000200260017588856,
+      "maximum_abs_flux_integral": 7.281812166044797e-06,
+      "maximum_coordinate_norm_over_initial": 1.0002407894768823,
+      "period_over_R": 4.5047910940250775,
+      "linear_period_over_R": 4.50479085066755,
+      "relative_period_error": 5.402193714587611e-08,
+      "relative_frequency_shift": -5.402193414827394e-08,
+      "phase_drift_radians": -6.78859646089035e-06,
+      "crossing_count": 20
+    },
+    {
+      "fraction": 0.001,
+      "duration_over_R": 90.095817013351,
+      "minimum_density_R": 17.60088410816442,
+      "minimum_NEC_R": 30.52277138417601,
+      "minimum_DEC_margin_R": 4.678996832152825,
+      "minimum_abs_D": 8.888356078676058,
+      "D_remains_negative": true,
+      "minimum_r_over_R": 0.2952239733237922,
+      "maximum_r_over_R": 0.29581572686800084,
+      "maximum_work_balance_error": 8.630314812225382e-15,
+      "maximum_abs_work": 0.002004772826935124,
+      "maximum_abs_flux_integral": 7.289702096446832e-05,
+      "maximum_coordinate_norm_over_initial": 1.0024131376212282,
+      "period_over_R": 4.504815238340803,
+      "linear_period_over_R": 4.50479085066755,
+      "relative_period_error": 5.413719318392296e-06,
+      "relative_frequency_shift": -5.4136900101697805e-06,
+      "phase_drift_radians": -0.0006803043505791232,
+      "crossing_count": 20
+    }
+  ],
+  "unstable_trajectory": {
+    "fraction": 1e-05,
+    "duration_over_R": 2.25304972902794,
+    "minimum_density_R": 17.624155096301447,
+    "minimum_NEC_R": 30.53497307065072,
+    "minimum_DEC_margin_R": 4.713337121952174,
+    "minimum_abs_D": 8.894063615040993,
+    "D_remains_negative": true,
+    "minimum_r_over_R": 0.29552316186340616,
+    "maximum_r_over_R": 0.2957394374845291,
+    "maximum_work_balance_error": 7.559393860670653e-15,
+    "maximum_abs_work": 0.0007326835213600744,
+    "maximum_abs_flux_integral": 2.6673683416640682e-05,
+    "final_displacement_growth": 74.18471503735971,
+    "maximum_relative_cosh_error": 0.0003400283645220295
+  },
+  "replay_coordinate_error": 4.838384007995019e-15,
+  "corrective_kick_budget": 0.0,
+  "admission": {
+    "radial_stability_window": true,
+    "exterior_TT_principal_part": true,
+    "canonical_kinetic_norm": "UNCOMPUTED: D<0 is not a canonical energy calculation",
+    "bulk_matter_action": "UNCOMPUTED",
+    "coupled_characteristics": "UNCOMPUTED",
+    "nonspherical_stability": "UNCOMPUTED",
+    "smooth_finite_thickness": "UNCOMPUTED",
+    "focal_activation": "UNCOMPUTED"
+  },
+  "casimir": {
+    "D": 5,
+    "assumption": "one-scale Einstein curvature balance; no magnetic or near-extremal enhancement",
+    "rows": [
+      {
+        "N": 1,
+        "L_over_b": 1,
+        "b_over_lP": 1.0
+      },
+      {
+        "N": 1,
+        "L_over_b": 10,
+        "b_over_lP": 0.2154434690031884
+      },
+      {
+        "N": 1,
+        "L_over_b": 100,
+        "b_over_lP": 0.046415888336127795
+      },
+      {
+        "N": 1000,
+        "L_over_b": 1,
+        "b_over_lP": 9.999999999999998
+      },
+      {
+        "N": 1000,
+        "L_over_b": 10,
+        "b_over_lP": 2.154434690031884
+      },
+      {
+        "N": 1000,
+        "L_over_b": 100,
+        "b_over_lP": 0.4641588833612779
+      },
+      {
+        "N": 1000000,
+        "L_over_b": 1,
+        "b_over_lP": 99.99999999999997
+      },
+      {
+        "N": 1000000,
+        "L_over_b": 10,
+        "b_over_lP": 21.544346900318832
+      },
+      {
+        "N": 1000000,
+        "L_over_b": 100,
+        "b_over_lP": 4.641588833612778
+      }
+    ]
+  },
+  "sources": {
+    "geometrodynamics/bulk/egb_shell_dynamics.py": "25d4f4a286a340e093df5eec6de785a80fe6386d77579e82b46d6a79c866a707",
+    "experiments/closure_ledger/egb_shell_dynamics_probe.py": "2c16d636db75879da324b06b93671ac0e327ddb58083de72d74dd05e021b5f2b",
+    "tests/test_egb_shell_dynamics.py": "8de24c46907f25219b9349a73144c1e3d3983381d2f123e8f67395ac72ca45e1",
+    "docs/egb_shell_dynamics_protocol.md": "aaf781405b25316054f1a358bb114a263a1d126c65cd5a63eb32bc5f8439600a"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  },
+  "samples_archive": {
+    "file": "samples.npz",
+    "sha256": "d589528aab6222be04a80a9e1aee27821920294e43294703ab80444afd511dfd",
+    "schema": "grid arrays (alpha,eta); trajectory y rows: r, dr/dtau, pressure work, integrated exterior flux"
+  }
+}

@@ -52,6 +52,16 @@ rejects a massless ghost-scalar control: it fails the original mouth contract,
 and its own regular two-ended solution has a resolved radial instability.
 This is a tested candidate failure, not a completed antipodal event law.
 
+The next [moving EGB shell test](docs/egb_shell_dynamics.md) identifies the two
+mouths directly, replacing the smooth neck with a distributional junction.
+It finds an open radial-stability window with nonnegative shell energy and a
+subset satisfying the dominant energy condition, including a nonlinear
+20-period control with exterior flux accounted for. This variant uses constant
+Gauss–Bonnet coupling throughout the bulk, so it is an explicit extension of
+the Einstein-away-from-foci baseline. Its shell equation of state is imposed;
+the canonical kinetic norm, coupled evolution, and smooth regularity remain
+uncomputed. It is a candidate to test further, not an admitted focus law.
+
 ## Where ℏ enters: scale-free closure ledger + one geometric anchor
 
 The closure-ledger arc (`experiments/closure_ledger/`, PRs #11–#74)
