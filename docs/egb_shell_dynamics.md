@@ -51,8 +51,16 @@ For C>0 the bulk stress satisfies NEC (and here DEC). The existing
 the exterior TT principal coefficients Ct=-C/2, Cs=1/2, so cT^2=1/C.
 This is one necessary characteristic check, not a full matter or coupled
 well-posedness result. A bulk material action and perturbative response remain
-unspecified. At negative alpha the TT cone is wider than the metric null cone;
-no global causal admissibility claim follows from this local computation.
+unspecified. At negative alpha the TT cone is wider than the metric null cone,
+but the ultrastatic bulk still has a time function: the effective inverse
+principal metric is proportional to diag(-C,g_spatial_inverse), hence
+g_eff_inverse(dt,dt)=-C<0. With the common, unshifted t used here, the smooth
+bulk TT cone permits no closed future-directed effective-causal curve. Wider
+than the metric cone is not by itself a pathology of this background.
+At the distributional shell there is no ordinary smooth pointwise effective
+metric to apply this argument to. Perturbative junction conditions, or a
+controlled finite-thickness model and its characteristics, must decide crossing
+and coupled propagation. No claim is made for time-shifted identifications.
 
 ## Moving junction and the flux that cannot be dropped
 
@@ -110,6 +118,19 @@ Multiply each term by 2 pi^2/kappa5 for the physical shell energy/work.
 This ledger does not claim that the shell's energy alone is conserved or that
 the total closed-bulk gravitational energy has been calculated.
 
+The material task is concrete. The background fluid has
+w_bulk=p_bulk/rho=-3/(6+12 alpha/R^2), equal to -0.5681818 at alpha=-.06 R^2,
+whereas the equilibrium shell pressure is positive. A realization must supply
+this stress exchange at the stated rate. **It is bidirectional**: F is odd in v,
+positive for expansion and negative for contraction with these conventions.
+An oscillating shell cannot be modeled as a one-way absorber. The stress
+identity does not itself specify particle conversion, chemistry or entropy
+production. Both F and the 2C/Delta part of D vanish as C approaches zero;
+the Gauss--Bonnet part of D need not vanish. The archived scan has minimum
+C=0.0004, while the selected trajectories use C=.76. Future coupled scans must
+state a positive C margin in advance; the original grid has not been filtered
+after observing its result.
+
 ## Equilibrium, material response, and the open interval
 
 At r0=R sin(a), a=.3, q0=cos(a)/r0,
@@ -159,11 +180,39 @@ counts. The 101 by 101 grid finds 934 stable-WEC points and 662 also satisfying
 DEC. The finite-difference acceleration Jacobian agrees with -omega_r^2 to
 8.51e-11 normalized error.
 
-**D0 is negative throughout this WEC window.** It is nonzero, so the radial
-ODE can be solved locally. Its sign alone does not compute the canonical
-kinetic norm or prove the absence of ghosts; no shell/support action and
-constraint-reduced quadratic Hamiltonian has been supplied. That is an open
-admission gate, not a passed gate.
+The independent review supplies an especially useful identity. Define the WEC
+bracket P=1+4 alpha/(3R^2)+8 alpha/(3r0^2), so s0=-6q0 P. Exactly,
+
+\[
+E_0=3P-2C.
+\]
+
+Shell WEC gives P<=0, while C>0, hence **E0<0 and D0<0 for every mouth angle
+0<a<pi/2 in the stated radial parameter window**. This is structural, not
+a numerical observation at a=.3. At fixed r0/R it separates this family from
+the GR thin-shell branch. The radial coefficient vanishes at
+
+\[
+\alpha_D=-\frac{r_0^2R^2}{8R^2-4r_0^2},\qquad
+-\frac{R^2}{4}<\alpha_{\rm WEC}<\alpha_D<0.
+\]
+
+For x=r0^2/R^2 in (0,1),
+(alpha_D-alpha_WEC)/R^2=x(1-x)/(4-x^2)>0. Crossing from alpha=0 into the
+WEC window at fixed geometry therefore encounters a degenerate radial
+acceleration equation. No smooth continuation through that point is claimed.
+At a=.3 the boundary is alpha_D/R^2=-0.0114149713041.
+
+D0 is nonzero inside the window, so the radial ODE can be solved locally.
+Its sign alone does not compute the canonical kinetic norm or prove the
+absence of ghosts; no shell/support action and constraint-reduced quadratic
+Hamiltonian has been supplied. The structural identity means changing a or
+alpha cannot reverse **D0** within this window. It does not yet prove that one
+canonical-energy sign governs every material completion. Even the same linear
+oscillator equation follows from either sign of its quadratic Lagrangian.
+A family-wide kinetic verdict needs the derived relation between D0 and the
+physical quadratic form, including constraints, boundary terms and support.
+That is an open admission gate, not a passed gate.
 
 ## Finite-amplitude controls and horizon
 
@@ -238,6 +287,12 @@ obstruction therefore remains relevant to any attempted thickening. No focal
 activation, topology creation, scattering law, or antipodal quantum event is
 computed here.
 
+**Geometry dependency break:** this direct identification has no scalar-flat
+neck, so it does not inherit #328's neck transit 2S, waist b=R sin^2(a), or the
+neck-based `finite_mouth` spectra and Dirichlet-to-Neumann operators. Transport
+must be recomputed for the new junction and its field-matching law. The same
+mouth radius and angular labels do not make the two interiors interchangeable.
+
 ## Sources and reproduction
 
 - S. C. Davis, [Generalised Israel Junction Conditions for a Gauss-Bonnet Brane World](https://arxiv.org/abs/hep-th/0208205), equations (3), (6), (7), (10), (11).
@@ -262,3 +317,26 @@ Python 3.12.14): ten new shell tests, 35 preceding focus/audit tests, and 29
 existing negative-EGB tests. The archive test checks every recorded source
 hash and the NPZ digest, then recomputes the stable trajectory metrics from
 the saved arrays. This is local validation; repository-wide CI is separate.
+
+## Independent review and response
+
+The [review of 7d3745d](https://github.com/davidmdrpi/geometrodynamics/pull/330#issuecomment-6135900196)
+reports an independent symbolic derivation of the embedding, sourced
+conservation and linear frequency, closed-form reproduction of the grid counts,
+and a separately written fixed-step RK4 reproduction of the nonlinear controls.
+It also reports 74 passing tests with NumPy 2.4.6/SciPy 1.17.1 and an identical
+NPZ digest on producer replay. These independent-code results are attributed
+to the reviewer; the separate implementation is not part of this archive.
+
+This response adds the structural identity, branch-separating degeneracy,
+bulk TT time-function argument, explicit bidirectional exchange requirement,
+and geometry dependency break above. Five new review tests check exact rational
+identities and branch ordering, varying-angle/scaling agreement with the shell
+implementation, the fluid stress projection, the critical-C limit, and both
+flux signs in the archived oscillation. The original producer, frozen protocol,
+simulation arrays and result manifest are unchanged. The accepted claim remains
+the closed-form radial window; the common sign of D0 is not promoted into an
+uncomputed universal canonical-energy verdict.
+
+After these additions, 79 focused tests pass under NumPy 2.3.5 and 2.2.6,
+including the original archive/source integrity checks.

@@ -470,6 +470,7 @@ not silently remain an independently free property.
 | Unique focus action or constitutive law | **Missing** |
 | Well-posed nonlinear event and robust continuation | **Uncomputed** |
 | Existing spectra/transport | Conditional on their background and boundary rules |
+| Direct EGB mouth identification (#330) | Different interior: no finite neck; does not inherit neck transit \(2S\), waist \(b=R\sin^2a\), or neck-based `finite_mouth` spectra/DtN operators; transport requires new junction matching |
 | QFT-on-background calculations | Use QFT ingredients; do not derive those ingredients |
 | Quantum event, creation probabilities, Born rule, action quanta | **Not established here** |
 
