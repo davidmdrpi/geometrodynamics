@@ -1,0 +1,409 @@
+{
+  "boost_controls": [
+    {
+      "boost": 0.5,
+      "coordinate_time_origin_shift": -0.6931471805599453,
+      "linear_map_relative_error_if_alpha_not_transformed": 0.75
+    },
+    {
+      "boost": 1.0,
+      "coordinate_time_origin_shift": 0.0,
+      "linear_map_relative_error_if_alpha_not_transformed": 0.0
+    },
+    {
+      "boost": 2.0,
+      "coordinate_time_origin_shift": 0.6931471805599453,
+      "linear_map_relative_error_if_alpha_not_transformed": 3.0
+    },
+    {
+      "boost": 4.0,
+      "coordinate_time_origin_shift": 1.3862943611198906,
+      "linear_map_relative_error_if_alpha_not_transformed": 15.0
+    }
+  ],
+  "checks": {
+    "cutoff_delay_increasing": true,
+    "horizon_wave_coefficient_nonzero": true,
+    "linear_formal_jump_zero": true,
+    "linear_sides_incompatible": true,
+    "metric_jacobian": true,
+    "reciprocal_negative_mu": true,
+    "reciprocal_sides_compatible": true,
+    "trace_killing_energy_balance": true,
+    "trace_killing_energy_covariant": true,
+    "trace_symplectic_orientation": true
+  },
+  "cutoff_null_ray_bounds": [
+    {
+      "earliest_round_trip_Killing_time": 3.745910149055312,
+      "earliest_round_trip_observer_proper_time": 3.244053349375853,
+      "epsilon": 0.1
+    },
+    {
+      "earliest_round_trip_Killing_time": 6.184692619390965,
+      "earliest_round_trip_observer_proper_time": 5.356100922990698,
+      "epsilon": 0.01
+    },
+    {
+      "earliest_round_trip_Killing_time": 8.500790045915734,
+      "earliest_round_trip_observer_proper_time": 7.361900132000909,
+      "epsilon": 0.001
+    },
+    {
+      "earliest_round_trip_Killing_time": 10.80472526261817,
+      "earliest_round_trip_observer_proper_time": 9.357166558338825,
+      "epsilon": 0.0001
+    }
+  ],
+  "environment": {
+    "numpy": "2.3.5",
+    "python": "3.12.14",
+    "scipy": "1.17.0"
+  },
+  "experiment_kind": "analytic preflight and characteristic-trace quadrature; no PDE evolution",
+  "geometry": [
+    {
+      "F_horizon": 0.5413411329464508,
+      "b": 0.5,
+      "horizon_K": 1152.0,
+      "horizon_Q": [
+        1.6240233988393524,
+        3.248046797678705
+      ],
+      "metric_jacobian_residual": 0.0,
+      "submitted_first_F_ratio": 4.0,
+      "submitted_second_F_ratio": 1.0
+    },
+    {
+      "F_horizon": 0.5413411329464508,
+      "b": 1.0,
+      "horizon_K": 72.0,
+      "horizon_Q": [
+        0.4060058497098381,
+        0.8120116994196762
+      ],
+      "metric_jacobian_residual": 0.0,
+      "submitted_first_F_ratio": 4.0,
+      "submitted_second_F_ratio": 4.0
+    },
+    {
+      "F_horizon": 0.5413411329464508,
+      "b": 2.0,
+      "horizon_K": 4.5,
+      "horizon_Q": [
+        0.10150146242745953,
+        0.20300292485491905
+      ],
+      "metric_jacobian_residual": 0.0,
+      "submitted_first_F_ratio": 4.0,
+      "submitted_second_F_ratio": 16.0
+    }
+  ],
+  "label": "SUBMITTED_PROTOCOL_REQUIRES_CORRECTION",
+  "laws": {
+    "A": {
+      "G1": "FAIL_RETURN_REQUIREMENT: local lift enters interior; quotient reverses time orientation",
+      "G2": "LOCAL_SMOOTH_QUOTIENT: no junction shell; r=0 excluded, not regularized",
+      "G3": "NOT_RUN: no retarded return law",
+      "name": "kruskal_analytic_quotient"
+    },
+    "B": {
+      "G1": "FAIL: gprime<0 reverses horizon generator ordering",
+      "G2": "INVALID_JUNCTION: retained exterior sides incompatible; formal zero jump is not admission",
+      "G3": "NOT_RUN: only formal trace covariance and orientation checked",
+      "name": "direct_null_bounce"
+    },
+    "C": {
+      "G1": "EVEN_BC_NOT_STATIC_NORMAL: corrected wall has finite-epsilon return with divergent delay",
+      "G2": "UNSPECIFIED: test-field wall supplies no gravitational matching or material action",
+      "G3": "NOT_RUN: original Neumann vector not boost covariant",
+      "name": "stretched_horizon_cutoff"
+    }
+  },
+  "linear_junction": [
+    {
+      "V": 1.0,
+      "continuous_metric_transverse_slope": -0.7692307692307692,
+      "formal_mu_8piG": -0.0,
+      "formal_p_8piG": 0.0,
+      "future_generator_preserved": false,
+      "jump_nr": 0.0,
+      "nr_minus": -1.0,
+      "nr_plus": -1.0,
+      "physical_stress_interpretation": false,
+      "retained_exterior_sides_compatible": false
+    },
+    {
+      "V": 2.0,
+      "continuous_metric_transverse_slope": -0.7692307692307692,
+      "formal_mu_8piG": -0.0,
+      "formal_p_8piG": 0.0,
+      "future_generator_preserved": false,
+      "jump_nr": 0.0,
+      "nr_minus": -2.0,
+      "nr_plus": -2.0,
+      "physical_stress_interpretation": false,
+      "retained_exterior_sides_compatible": false
+    },
+    {
+      "V": 3.0,
+      "continuous_metric_transverse_slope": -0.7692307692307692,
+      "formal_mu_8piG": -0.0,
+      "formal_p_8piG": 0.0,
+      "future_generator_preserved": false,
+      "jump_nr": 0.0,
+      "nr_minus": -3.0,
+      "nr_plus": -3.0,
+      "physical_stress_interpretation": false,
+      "retained_exterior_sides_compatible": false
+    }
+  ],
+  "original_protocol_preserved": true,
+  "reciprocal_diagnostic_control": [
+    {
+      "V": 1.0,
+      "continuous_metric_transverse_slope": 1.0,
+      "formal_mu_8piG": -6.0,
+      "formal_p_8piG": 2.0,
+      "future_generator_preserved": true,
+      "jump_nr": 2.0,
+      "nr_minus": -1.0,
+      "nr_plus": 1.0,
+      "physical_stress_interpretation": true,
+      "retained_exterior_sides_compatible": true
+    },
+    {
+      "V": 2.0,
+      "continuous_metric_transverse_slope": 4.0,
+      "formal_mu_8piG": -12.0,
+      "formal_p_8piG": 1.0,
+      "future_generator_preserved": true,
+      "jump_nr": 4.0,
+      "nr_minus": -2.0,
+      "nr_plus": 2.0,
+      "physical_stress_interpretation": true,
+      "retained_exterior_sides_compatible": true
+    },
+    {
+      "V": 3.0,
+      "continuous_metric_transverse_slope": 9.0,
+      "formal_mu_8piG": -18.0,
+      "formal_p_8piG": 0.6666666666666666,
+      "future_generator_preserved": true,
+      "jump_nr": 6.0,
+      "nr_minus": -3.0,
+      "nr_plus": 3.0,
+      "physical_stress_interpretation": true,
+      "retained_exterior_sides_compatible": true
+    }
+  ],
+  "sources": {
+    "docs/null_horizon_continuation_audit.md": "b74866c47bb8f639e1db05f2b488f49caa37f41b5853f2708c72c637f8059b30",
+    "docs/protocols/null_horizon_continuation_submitted.txt": "5377d81aed81cf7926bdba151e7b25f246ebf7e414c5accadb12d36443326fb5",
+    "experiments/throat_dynamics/null_horizon_continuation_probe.py": "efebb830bcd598f08b12250d309f9e90336c8f422d3ef98c896ba553602e5c0c",
+    "tests/test_null_horizon_continuation.py": "7cef47f669864e3978eb5a3436b1e033d894a7900af6446d3e06b9d82fa33935"
+  },
+  "trace_quadratures": [
+    {
+      "alpha_in_this_chart": 5.2,
+      "boost": 0.5,
+      "ell": 0,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "linear",
+      "raw_in": 0.0007089815403622063,
+      "raw_out": 0.0001363426039158089,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": -4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": 1.3,
+      "boost": 1.0,
+      "ell": 0,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "linear",
+      "raw_in": 0.00035449077018110314,
+      "raw_out": 0.0002726852078316178,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": -4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": 0.325,
+      "boost": 2.0,
+      "ell": 0,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "linear",
+      "raw_in": 0.00017724538509055157,
+      "raw_out": 0.0005453704156632356,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": -4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": 0.08125,
+      "boost": 4.0,
+      "ell": 0,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "linear",
+      "raw_in": 8.862269254527579e-05,
+      "raw_out": 0.0010907408313264712,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": -4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": 5.2,
+      "boost": 0.5,
+      "ell": 1,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "linear",
+      "raw_in": 0.0007089815403622063,
+      "raw_out": 0.0001363426039158089,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": -4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": 1.3,
+      "boost": 1.0,
+      "ell": 1,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "linear",
+      "raw_in": 0.00035449077018110314,
+      "raw_out": 0.0002726852078316178,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": -4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": 0.325,
+      "boost": 2.0,
+      "ell": 1,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "linear",
+      "raw_in": 0.00017724538509055157,
+      "raw_out": 0.0005453704156632356,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": -4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": 0.08125,
+      "boost": 4.0,
+      "ell": 1,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "linear",
+      "raw_in": 8.862269254527579e-05,
+      "raw_out": 0.0010907408313264712,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": -4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": null,
+      "boost": 0.5,
+      "ell": 0,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "reciprocal",
+      "raw_in": 0.0007089815403622063,
+      "raw_out": 0.0007255982952144455,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": 4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": null,
+      "boost": 1.0,
+      "ell": 0,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "reciprocal",
+      "raw_in": 0.00035449077018110314,
+      "raw_out": 0.001451196590428891,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": 4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": null,
+      "boost": 2.0,
+      "ell": 0,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "reciprocal",
+      "raw_in": 0.00017724538509055157,
+      "raw_out": 0.002902393180857782,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": 4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": null,
+      "boost": 4.0,
+      "ell": 0,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "reciprocal",
+      "raw_in": 8.862269254527579e-05,
+      "raw_out": 0.005804786361715564,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": 4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": null,
+      "boost": 0.5,
+      "ell": 1,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "reciprocal",
+      "raw_in": 0.0007089815403622063,
+      "raw_out": 0.0007255982952144455,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": 4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": null,
+      "boost": 1.0,
+      "ell": 1,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "reciprocal",
+      "raw_in": 0.00035449077018110314,
+      "raw_out": 0.001451196590428891,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": 4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": null,
+      "boost": 2.0,
+      "ell": 1,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "reciprocal",
+      "raw_in": 0.00017724538509055157,
+      "raw_out": 0.002902393180857782,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": 4.4311346272637906e-05
+    },
+    {
+      "alpha_in_this_chart": null,
+      "boost": 4.0,
+      "ell": 1,
+      "killing_in": 0.0007089815403622064,
+      "killing_out": 0.0007089815403622063,
+      "kind": "reciprocal",
+      "raw_in": 8.862269254527579e-05,
+      "raw_out": 0.005804786361715564,
+      "symplectic_in": 4.4311346272637906e-05,
+      "symplectic_out": 4.4311346272637906e-05
+    }
+  ],
+  "uncomputed": [
+    "finite-packet PDE evolution",
+    "observer waveform",
+    "Misner-Sharp mass response",
+    "global causal consistency",
+    "surface matter action and stability",
+    "finite-thickness regularity",
+    "quantum event law"
+  ]
+}
