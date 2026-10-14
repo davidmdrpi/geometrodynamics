@@ -1,0 +1,238 @@
+{
+  "amplitude_diagnostics": [
+    {
+      "A": 0.005,
+      "H": 5.348199547681937e-06,
+      "S_angle_leading": 216.20523375833784,
+      "S_length_leading": -0.05550281920285487,
+      "V": 4.0,
+      "common_radius_shift": -4.2785596381455496e-05,
+      "densitized_S_angle": 0.5,
+      "densitized_null_generator": -24.0,
+      "jump_K_angle": 0.018500939734284957,
+      "jump_K_length": -216.20523375833784,
+      "proper_normal_width_budgets": [
+        {
+          "necessary_peak_angular_stress_lower_bound": 10810.261687916893,
+          "width": 0.01
+        },
+        {
+          "necessary_peak_angular_stress_lower_bound": 1081.026168791689,
+          "width": 0.1
+        },
+        {
+          "necessary_peak_angular_stress_lower_bound": 108.10261687916892,
+          "width": 1.0
+        }
+      ],
+      "scalar_delta_source_leading": 9.956151549845257e-06,
+      "scalar_normal_jump_leading": -9.956151549845257e-06,
+      "x": -1.794803025779171e-05,
+      "y": -0.00017622610888454524
+    },
+    {
+      "A": 0.01,
+      "H": 2.1392798190727748e-05,
+      "S_angle_leading": 108.10261687916892,
+      "S_length_leading": -0.11100563840570973,
+      "V": 4.0,
+      "common_radius_shift": -0.00017114238552582198,
+      "densitized_S_angle": 0.5,
+      "densitized_null_generator": -24.0,
+      "jump_K_angle": 0.03700187946856991,
+      "jump_K_length": -108.10261687916892,
+      "proper_normal_width_budgets": [
+        {
+          "necessary_peak_angular_stress_lower_bound": 5405.130843958446,
+          "width": 0.01
+        },
+        {
+          "necessary_peak_angular_stress_lower_bound": 540.5130843958445,
+          "width": 0.1
+        },
+        {
+          "necessary_peak_angular_stress_lower_bound": 54.05130843958446,
+          "width": 1.0
+        }
+      ],
+      "scalar_delta_source_leading": 3.982460619938103e-05,
+      "scalar_normal_jump_leading": -3.982460619938103e-05,
+      "x": -7.179212103116684e-05,
+      "y": -0.0007049044355381809
+    },
+    {
+      "A": 0.02,
+      "H": 8.557119276291099e-05,
+      "S_angle_leading": 54.05130843958446,
+      "S_length_leading": -0.22201127681141947,
+      "V": 4.0,
+      "common_radius_shift": -0.0006845695421032879,
+      "densitized_S_angle": 0.5,
+      "densitized_null_generator": -24.0,
+      "jump_K_angle": 0.07400375893713983,
+      "jump_K_length": -54.05130843958446,
+      "proper_normal_width_budgets": [
+        {
+          "necessary_peak_angular_stress_lower_bound": 2702.565421979223,
+          "width": 0.01
+        },
+        {
+          "necessary_peak_angular_stress_lower_bound": 270.2565421979223,
+          "width": 0.1
+        },
+        {
+          "necessary_peak_angular_stress_lower_bound": 27.02565421979223,
+          "width": 1.0
+        }
+      ],
+      "scalar_delta_source_leading": 0.0001592984247975241,
+      "scalar_normal_jump_leading": -0.0001592984247975241,
+      "x": -0.00028716848412466736,
+      "y": -0.0028196177421527238
+    }
+  ],
+  "artifacts": {
+    "seam_N512.csv": "b6964d128d3d85419008f60f20e46adcbb19ff422e05024599163c44a14fa6c1"
+  },
+  "conclusion": "induced metric can match, but source-free scalar matching fails and surface stress remains required",
+  "environment": {
+    "numpy": "2.3.5",
+    "python": "3.12.14",
+    "scipy": "1.17.0"
+  },
+  "label": "SPACELIKE_MATCH_REQUIRES_SURFACE_STRESS_AND_SCALAR_SOURCE",
+  "normalization": "b=c=kappa5=1; spacelike unit normal future-directed; scalar constant on S3",
+  "numerical_gates": {
+    "induced_metric_match": true,
+    "leading_conservation_identities": true,
+    "null_density_limit": true,
+    "scalar_source_independent_control": true,
+    "spacelike_after_peak": true
+  },
+  "orders": {
+    "K_angle": "O(A), remainder O(A\u00b3)",
+    "K_length": "O(1/A), remainder O(A)",
+    "S_angle": "O(1/A), remainder O(A)",
+    "S_length": "O(A), remainder O(A\u00b3)",
+    "embedding": "O(A\u00b2)",
+    "scalar_source": "O(A\u00b2), remainder O(A\u2074)"
+  },
+  "refinement": [
+    {
+      "N": 64,
+      "codazzi_leading_max_after_peak": 1.3877787807814457e-17,
+      "endpoint": {
+        "H": 2.124837821936396e-05,
+        "S_angle_leading": 108.46936812997173,
+        "S_length_leading": -0.110630311643571,
+        "V": 4.0,
+        "common_radius_shift": -0.00016998702575491168,
+        "densitized_S_angle": 0.5,
+        "densitized_null_generator": -24.0,
+        "jump_K_angle": 0.036876770547857,
+        "jump_K_length": -108.46936812997173,
+        "scalar_delta_source_leading": 3.983046932583829e-05,
+        "scalar_normal_jump_leading": -3.983046932583829e-05,
+        "x": -7.131929180006783e-05,
+        "y": -0.0007001710345580687
+      },
+      "gauss_leading_max_after_peak": 1.7763568394002505e-15,
+      "min_H_after_peak": 1.6715297624889376e-05,
+      "radius_match_max": 2.710505431213761e-20,
+      "scalar_jump_2d": -2.7290043222661423e-05,
+      "scalar_jump_relative_discrepancy": 0.31484504991865125,
+      "temporal_match_max": 6.776263578034403e-21
+    },
+    {
+      "N": 128,
+      "codazzi_leading_max_after_peak": 1.3877787807814457e-17,
+      "endpoint": {
+        "H": 2.1358291883432274e-05,
+        "S_angle_leading": 108.18990655391084,
+        "S_length_leading": -0.11091607694494514,
+        "V": 4.0,
+        "common_radius_shift": -0.0001708663350674582,
+        "densitized_S_angle": 0.5,
+        "densitized_null_generator": -24.0,
+        "jump_K_angle": 0.036972025648315046,
+        "jump_K_length": -108.18990655391084,
+        "scalar_delta_source_leading": 3.982532576638321e-05,
+        "scalar_normal_jump_leading": -3.982532576638321e-05,
+        "x": -7.167915934257371e-05,
+        "y": -0.0007037735560083127
+      },
+      "gauss_leading_max_after_peak": 1.7763568394002505e-15,
+      "min_H_after_peak": 1.6554034976698385e-05,
+      "radius_match_max": 2.710505431213761e-20,
+      "scalar_jump_2d": -3.5270408522311526e-05,
+      "scalar_jump_relative_discrepancy": 0.11437237879210305,
+      "temporal_match_max": 6.776263578034403e-21
+    },
+    {
+      "N": 256,
+      "codazzi_leading_max_after_peak": 2.0816681711721685e-17,
+      "endpoint": {
+        "H": 2.1385890859727803e-05,
+        "S_angle_leading": 108.12007325444989,
+        "S_length_leading": -0.11098771614554115,
+        "V": 4.0,
+        "common_radius_shift": -0.00017108712687782243,
+        "densitized_S_angle": 0.5,
+        "densitized_null_generator": -24.0,
+        "jump_K_angle": 0.03699590538184705,
+        "jump_K_length": -108.12007325444989,
+        "scalar_delta_source_leading": 3.9824707669939945e-05,
+        "scalar_normal_jump_leading": -3.9824707669939945e-05,
+        "x": -7.17695094297254e-05,
+        "y": -0.0007046780645666266
+      },
+      "gauss_leading_max_after_peak": 1.7763568394002505e-15,
+      "min_H_after_peak": 1.6447954056617976e-05,
+      "radius_match_max": 2.710505431213761e-20,
+      "scalar_jump_2d": -3.8419820835662495e-05,
+      "scalar_jump_relative_discrepancy": 0.03527676451314854,
+      "temporal_match_max": 6.776263578034403e-21
+    },
+    {
+      "N": 512,
+      "codazzi_leading_max_after_peak": 2.0816681711721685e-17,
+      "endpoint": {
+        "H": 2.1392798190727748e-05,
+        "S_angle_leading": 108.10261687916892,
+        "S_length_leading": -0.11100563840570973,
+        "V": 4.0,
+        "common_radius_shift": -0.00017114238552582198,
+        "densitized_S_angle": 0.5,
+        "densitized_null_generator": -24.0,
+        "jump_K_angle": 0.03700187946856991,
+        "jump_K_length": -108.10261687916892,
+        "scalar_delta_source_leading": 3.982460619938103e-05,
+        "scalar_normal_jump_leading": -3.982460619938103e-05,
+        "x": -7.179212103116684e-05,
+        "y": -0.0007049044355381809
+      },
+      "gauss_leading_max_after_peak": 2.6645352591003757e-15,
+      "min_H_after_peak": 1.645344323366202e-05,
+      "radius_match_max": 5.421010862427522e-20,
+      "scalar_jump_2d": -3.943177291962807e-05,
+      "scalar_jump_relative_discrepancy": 0.009864084475468382,
+      "temporal_match_max": 6.776263578034403e-21
+    }
+  ],
+  "sources": {
+    "docs/spacelike_seam_junction.md": "4448976e043c705ae232acab179ea1aba40721df9a9b7f57a8430ff1ee79a992",
+    "docs/spacelike_seam_protocol.md": "766e558ee5cb26c39292e33ae3fe4c6dd0679b527229b967a6e389b20d3764a8",
+    "experiments/throat_dynamics/runs/20261014_reciprocal_packet/result.json": "ac5e4aab61b8930ff2d566d66c86e4be93f883d46bf354f03baa3aeee46d6727",
+    "experiments/throat_dynamics/spacelike_seam_probe.py": "a0b67cbda74b593f419b73d85c64f360691cbeccf106b12b11c73acc5167dbbd",
+    "geometrodynamics/tangherlini/characteristic_packet.py": "f016e8d6a024760e6350887c6d05c1a8c2a37d120603598405f938d01f2303be",
+    "geometrodynamics/tangherlini/spacelike_seam.py": "eb0b9d2bc00371bf03f4a31b4cef84dba051cf23cb98cc0100f2c43142e6bd02",
+    "tests/test_spacelike_seam.py": "d5f6ae86ae5c0def1749a8113d3538298be7c95e9474fa919d693f2f7a7d9e7d"
+  },
+  "uncomputed": [
+    "surface action",
+    "full subleading conservation",
+    "finite-thickness metric solution",
+    "nonlinear stability",
+    "global continuation through the signature-change locus"
+  ]
+}
