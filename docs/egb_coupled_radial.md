@@ -9,6 +9,13 @@ has **negative kinetic norm**. There are also growing modes in both reflection
 parities. The earlier positive prescribed-exterior stability window does not
 provide a positive-energy, stable radial mode of this material completion.
 
+**Review correction of attribution:** the shell-free canonical-supported S4
+already has one conformal negative kinetic direction and an Eddington growing
+mode. The shell adds one negative direction, the negative-energy oscillation,
+and two growing modes at the benchmark. Focus admission must be measured
+relative to that background. See the [no-shell and small-mouth controls](egb_coupled_background_review.md);
+the original numerical label and results below are preserved.
+
 At R=1, a=.3, alpha=-.06, eta=.1:
 
 | Parity / mode | omega^2 R^2 | Physical kinetic coefficient | Consequence |
@@ -279,7 +286,9 @@ is the ground eigenfunction at eigenvalue 4 when the equator endpoint is
 Dirichlet instead. Separated-boundary eigenvalue interlacing places exactly one
 Neumann-equator eigenvalue below 4 and none equal to it. Thus the even physical
 kinetic form has **two negative directions**, not just one numerical negative
-value. The odd physical Dirichlet/Dirichlet block is positive; its instability
+value. One belongs to the supporting closed-universe background; only the
+shell block is the additional negative direction attributable to this focus
+construction. The background-relative distinction is essential. The odd physical Dirichlet/Dirichlet block is positive; its instability
 is a potential instability instead. This count concerns kinetic directions,
 not the number of growing eigenmodes.
 

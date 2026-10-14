@@ -81,7 +81,10 @@ near the earlier frequency (omega^2 R^2=1.96815015), but its **physical kinetic
 norm is negative** after the gravitational boundary contribution is included.
 Growing radial modes also occur in both reflection parities. An action-level
 formula gives two negative kinetic directions throughout the stated WEC/C>0
-branch of this canonical completion. It fails positive-energy radial admission;
+branch of this canonical completion. The [no-shell control](docs/egb_coupled_background_review.md)
+separates one background conformal direction and homogeneous Eddington
+instability from the shell's additional negative direction and benchmark growing
+modes. It fails radial admission relative to that background;
 this does not exclude different focus laws or material actions.
 
 ## Where ℏ enters: scale-free closure ledger + one geometric anchor
