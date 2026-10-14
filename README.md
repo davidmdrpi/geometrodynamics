@@ -62,6 +62,18 @@ the Einstein-away-from-foci baseline. Its shell equation of state is imposed;
 the canonical kinetic norm, coupled evolution, and smooth regularity remain
 uncomputed. It is a candidate to test further, not an admitted focus law.
 
+The [action-level kinetic admission test](docs/egb_shell_kinetic_admission.md)
+now supplies one explicit bulk/surface scalar material action matching that
+equilibrium and EOS, with positive bare material kinetic coefficients. Its
+conserved scalar charge excludes the old radial oscillator when the bulk
+fields are frozen: displacement changes the total charge at first order.
+This result assumes a continuous bulk scalar traced onto the shell and a
+single-invariant barotropic surface action. The bulk must respond at the same
+order as the shell; this action has not reproduced the earlier frequency or
+stability window. It does not establish a gravitational ghost
+or overturn the restricted radial window. The full constrained radial kinetic
+sign remains uncomputed.
+
 ## Where ℏ enters: scale-free closure ledger + one geometric anchor
 
 The closure-ledger arc (`experiments/closure_ledger/`, PRs #11–#74)
