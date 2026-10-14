@@ -1,0 +1,425 @@
+{
+  "amplitude_controls": [
+    {
+      "amplitude_factor": 0.5,
+      "field_relative_error": 0.0,
+      "mass_relative_error": 0.0
+    },
+    {
+      "amplitude_factor": 2.0,
+      "field_relative_error": 0.0,
+      "mass_relative_error": 0.0
+    }
+  ],
+  "artifacts": {
+    "fields_N64_l0.npz": "35f93b5a78bd591f79590f9bd29805e1504ca5269dfeb750997867f663393b0d",
+    "fields_N64_l1.npz": "35acec3aebdc86d296da09e7a138b6749212215927974cb3102a295fba4cc179",
+    "waveforms_N512.csv": "2703a9eb2654a4517e5b37039bac2e397762dacbfe5ce2eb68603b31c614a2af"
+  },
+  "boost_controls": [
+    {
+      "boost": 0.5,
+      "clock_max_difference": 4.440892098500626e-16,
+      "mass_relative_L2": 0.0,
+      "observer_relative_L2": 0.0
+    },
+    {
+      "boost": 1.0,
+      "clock_max_difference": 0.0,
+      "mass_relative_L2": 0.0,
+      "observer_relative_L2": 0.0
+    },
+    {
+      "boost": 2.0,
+      "clock_max_difference": 4.440892098500626e-16,
+      "mass_relative_L2": 0.0,
+      "observer_relative_L2": 0.0
+    },
+    {
+      "boost": 4.0,
+      "clock_max_difference": 4.440892098500626e-16,
+      "mass_relative_L2": 0.0,
+      "observer_relative_L2": 0.0
+    }
+  ],
+  "convergence_differences": [
+    {
+      "N": 128,
+      "ell": 0,
+      "field": 9.250771225216392e-05,
+      "outgoing": 0.0015469610518208299
+    },
+    {
+      "N": 256,
+      "ell": 0,
+      "field": 2.1081693763092066e-05,
+      "outgoing": 0.0003960847523959486
+    },
+    {
+      "N": 512,
+      "ell": 0,
+      "field": 5.004592336792425e-06,
+      "outgoing": 9.965977371903887e-05
+    },
+    {
+      "N": 128,
+      "ell": 1,
+      "field": 0.00012647111387312346,
+      "outgoing": 0.0015675484035495152
+    },
+    {
+      "N": 256,
+      "ell": 1,
+      "field": 2.9219655508417314e-05,
+      "outgoing": 0.00040064758314761533
+    },
+    {
+      "N": 512,
+      "ell": 1,
+      "field": 6.9852417444243485e-06,
+      "outgoing": 0.00010076586749665833
+    }
+  ],
+  "environment": {
+    "numpy": "2.3.5",
+    "python": "3.12.14",
+    "scipy": "1.17.0"
+  },
+  "label": "RECIPROCAL_FIXED_NULL_MATCHING_FAILS_AT_ORDER_A2",
+  "measured_orders": [
+    {
+      "N": 256,
+      "ell": 0,
+      "field": 2.1335828644777526,
+      "outgoing": 1.9655558044858812
+    },
+    {
+      "N": 512,
+      "ell": 0,
+      "field": 2.0746663216849446,
+      "outgoing": 1.9907259611459913
+    },
+    {
+      "N": 256,
+      "ell": 1,
+      "field": 2.1137968351947514,
+      "outgoing": 1.9681043130093283
+    },
+    {
+      "N": 512,
+      "ell": 1,
+      "field": 2.064557219038254,
+      "outgoing": 1.9913267375236428
+    }
+  ],
+  "mismatch_resolved": true,
+  "numerical_gates": {
+    "field_second_order": true,
+    "mass_path_conservation": true,
+    "passive_boost_covariance": true,
+    "perturbative_amplitude_orders": true,
+    "symplectic_conservation": true
+  },
+  "parameters": {
+    "A": 0.01,
+    "Omega3": 19.739208802178716,
+    "b": 1.0,
+    "c": 1.0,
+    "kappa5": 1.0,
+    "observer_r": 2.0
+  },
+  "rows": [
+    {
+      "N": 64,
+      "ell": 0,
+      "incoming_mass": {
+        "corner_delta_m": 0.0005071898704452916,
+        "opposite_corner_path": 0.0005072266950345336,
+        "relative_path_discrepancy": 0.00041595718700394206
+      },
+      "incoming_symplectic": {
+        "bottom": 0.0,
+        "left": 4.141602388551414e-05,
+        "relative_residual": 1.487321363480982e-05,
+        "right": 4.1399938901141514e-05,
+        "top": 1.670097374378238e-08
+      },
+      "observer_peak_abs_u": 0.008503326532015468,
+      "observer_window": {
+        "delta_M": -0.015014303585880717,
+        "outward_killing_energy": 0.015015109047181341,
+        "relative_balance": 5.364338667758086e-05,
+        "t_end": 2.836988216785836,
+        "t_start": 0.7575466751059997
+      },
+      "outgoing_mass": {
+        "corner_delta_m": -0.0005070706841011936,
+        "opposite_corner_path": -0.0005071910583621986,
+        "relative_path_discrepancy": 0.0008603630697942688
+      },
+      "outgoing_symplectic": {
+        "bottom": 4.1415375717017295e-05,
+        "left": 0.0,
+        "relative_residual": 2.8289708449196798e-05,
+        "right": 2.820225844675033e-08,
+        "top": 4.138600182966619e-05
+      },
+      "seam_end": {
+        "incoming_delta_m": 0.0005071898704452915,
+        "incoming_delta_r": -0.00024720315820288616,
+        "induced_radius_mismatch": -0.00012459505508596866,
+        "mass_parameter_jump": -0.001014379740890583,
+        "outgoing_delta_m": -0.0005071898704452915,
+        "outgoing_delta_r": -0.0001226081031169175
+      },
+      "seam_killing_energy": {
+        "incoming": 0.015017290144708357,
+        "outgoing": 0.01502293098090115,
+        "relative_difference": 0.0003756227747109264
+      }
+    },
+    {
+      "N": 128,
+      "ell": 0,
+      "incoming_mass": {
+        "corner_delta_m": 0.0005097749124066388,
+        "opposite_corner_path": 0.0005097843488021817,
+        "relative_path_discrepancy": 0.00010468229219315743
+      },
+      "incoming_symplectic": {
+        "bottom": 0.0,
+        "left": 4.152308178212487e-05,
+        "relative_residual": 5.529627914999774e-06,
+        "right": 4.150667782590752e-05,
+        "top": 1.6633563409486976e-08
+      },
+      "observer_peak_abs_u": 0.008498507518201246,
+      "observer_window": {
+        "delta_M": -0.015084422018140316,
+        "outward_killing_energy": 0.015084647671271326,
+        "relative_balance": 1.4959125060664637e-05,
+        "t_end": 2.836988216785836,
+        "t_start": 0.7575466751059997
+      },
+      "outgoing_mass": {
+        "corner_delta_m": -0.0005094387619592704,
+        "opposite_corner_path": -0.0005094697675341736,
+        "relative_path_discrepancy": 0.00021810603248601543
+      },
+      "outgoing_symplectic": {
+        "bottom": 4.1510550671280955e-05,
+        "left": 0.0,
+        "relative_residual": 1.087463878790893e-05,
+        "right": 2.8695546441545694e-08,
+        "top": 4.148140371259497e-05
+      },
+      "seam_end": {
+        "incoming_delta_m": 0.0005097749124066381,
+        "incoming_delta_r": -0.00024847208972177424,
+        "induced_radius_mismatch": -0.0001252284514227276,
+        "mass_parameter_jump": -0.0010195498248132763,
+        "outgoing_delta_m": -0.0005097749124066381,
+        "outgoing_delta_r": -0.00012324363829904663
+      },
+      "seam_killing_energy": {
+        "incoming": 0.015093830160105931,
+        "outgoing": 0.015095237949720463,
+        "relative_difference": 9.32692099750998e-05
+      }
+    },
+    {
+      "N": 256,
+      "ell": 0,
+      "incoming_mass": {
+        "corner_delta_m": 0.0005104240812980478,
+        "opposite_corner_path": 0.0005104264557069562,
+        "relative_path_discrepancy": 2.6193558356318075e-05
+      },
+      "incoming_symplectic": {
+        "bottom": 0.0,
+        "left": 4.1549888695908806e-05,
+        "relative_residual": 1.7151458870303996e-06,
+        "right": 4.153340113687598e-05,
+        "top": 1.6558823153531018e-08
+      },
+      "observer_peak_abs_u": 0.008497275284609121,
+      "observer_window": {
+        "delta_M": -0.015102038524937737,
+        "outward_killing_energy": 0.01510209662960329,
+        "relative_balance": 3.8474568782102646e-06,
+        "t_end": 2.836988216785836,
+        "t_start": 0.7575466751059997
+      },
+      "outgoing_mass": {
+        "corner_delta_m": -0.0005100337160930755,
+        "opposite_corner_path": -0.0005100415303636144,
+        "relative_path_discrepancy": 5.4731602131501786e-05
+      },
+      "outgoing_symplectic": {
+        "bottom": 4.153437020168211e-05,
+        "left": 0.0,
+        "relative_residual": 3.54671721288305e-06,
+        "right": 2.8945333687759164e-08,
+        "top": 4.1505277557328625e-05
+      },
+      "seam_end": {
+        "incoming_delta_m": 0.0005104240812980477,
+        "incoming_delta_r": -0.0002487907019692195,
+        "induced_radius_mismatch": -0.0001253874778207733,
+        "mass_parameter_jump": -0.0010208481625960954,
+        "outgoing_delta_m": -0.0005104240812980477,
+        "outgoing_delta_r": -0.0001234032241484462
+      },
+      "seam_killing_energy": {
+        "incoming": 0.015113051278330607,
+        "outgoing": 0.015113403073198146,
+        "relative_difference": 2.3277554020095792e-05
+      }
+    },
+    {
+      "N": 512,
+      "ell": 0,
+      "incoming_mass": {
+        "corner_delta_m": 0.000510586556823709,
+        "opposite_corner_path": 0.0005105871513990349,
+        "relative_path_discrepancy": 6.5508268613586515e-06
+      },
+      "incoming_symplectic": {
+        "bottom": 0.0,
+        "left": 4.155659307972982e-05,
+        "relative_residual": 4.798024977309999e-07,
+        "right": 4.154008435585284e-05,
+        "top": 1.652866283413342e-08
+      },
+      "observer_peak_abs_u": 0.008497988726733331,
+      "observer_window": {
+        "delta_M": -0.01510644813422842,
+        "outward_killing_energy": 0.015106462769323072,
+        "relative_balance": 9.687969232284527e-07,
+        "t_end": 2.836988216785836,
+        "t_start": 0.7575466751059997
+      },
+      "outgoing_mass": {
+        "corner_delta_m": -0.0005101826397822621,
+        "opposite_corner_path": -0.0005101845973888186,
+        "relative_path_discrepancy": 1.3695937375492668e-05
+      },
+      "outgoing_symplectic": {
+        "bottom": 4.154032667540761e-05,
+        "left": 0.0,
+        "relative_residual": 1.0286218499246823e-06,
+        "right": 2.9036535164741305e-08,
+        "top": 4.15112474109552e-05
+      },
+      "seam_end": {
+        "incoming_delta_m": 0.0005105865568237093,
+        "incoming_delta_r": -0.0002488704417971031,
+        "induced_radius_mismatch": -0.0001254272769904333,
+        "mass_parameter_jump": -0.0010211731136474185,
+        "outgoing_delta_m": -0.0005105865568237093,
+        "outgoing_delta_r": -0.00012344316480666982
+      },
+      "seam_killing_energy": {
+        "incoming": 0.015117861985273854,
+        "outgoing": 0.015117949924436772,
+        "relative_difference": 5.816904731892336e-06
+      }
+    },
+    {
+      "N": 64,
+      "ell": 1,
+      "incoming_symplectic": {
+        "bottom": 0.0,
+        "left": 4.141602388551414e-05,
+        "relative_residual": 5.763774662667732e-05,
+        "right": 4.132162190216069e-05,
+        "top": 9.678910964445139e-08
+      },
+      "observer_peak_abs_u": 0.006767308123905821,
+      "outgoing_symplectic": {
+        "bottom": 4.133659685604427e-05,
+        "left": 0.0,
+        "relative_residual": 8.356087606342004e-05,
+        "right": 2.1191773346931487e-07,
+        "top": 4.1121225000328185e-05
+      }
+    },
+    {
+      "N": 128,
+      "ell": 1,
+      "incoming_symplectic": {
+        "bottom": 0.0,
+        "left": 4.152308178212487e-05,
+        "relative_residual": 1.994715376217012e-05,
+        "right": 4.142748433110263e-05,
+        "top": 9.642571831922749e-08
+      },
+      "observer_peak_abs_u": 0.006767878380701036,
+      "outgoing_symplectic": {
+        "bottom": 4.143124130023319e-05,
+        "left": 0.0,
+        "relative_residual": 3.3617393868607895e-05,
+        "right": 2.138339975245047e-07,
+        "top": 4.121601449235143e-05
+      }
+    },
+    {
+      "N": 256,
+      "ell": 1,
+      "incoming_symplectic": {
+        "bottom": 0.0,
+        "left": 4.1549888695908806e-05,
+        "relative_residual": 5.9229378478879525e-06,
+        "right": 4.1453980029085714e-05,
+        "top": 9.615476423142419e-08
+      },
+      "observer_peak_abs_u": 0.006766417786066245,
+      "outgoing_symplectic": {
+        "bottom": 4.145492009895487e-05,
+        "left": 0.0,
+        "relative_residual": 1.1177770624992757e-05,
+        "right": 2.1473334474396198e-07,
+        "top": 4.1239723380622766e-05
+      }
+    },
+    {
+      "N": 512,
+      "ell": 1,
+      "incoming_symplectic": {
+        "bottom": 0.0,
+        "left": 4.155659307972982e-05,
+        "relative_residual": 1.6162789455170779e-06,
+        "right": 4.14606057618387e-05,
+        "top": 9.605448493755987e-08
+      },
+      "observer_peak_abs_u": 0.0067668843734137035,
+      "outgoing_symplectic": {
+        "bottom": 4.1460840831025086e-05,
+        "left": 0.0,
+        "relative_residual": 3.269630720190984e-06,
+        "right": 2.1505411123664258e-07,
+        "top": 4.124565115814958e-05
+      }
+    }
+  ],
+  "scope": {
+    "checkpoint": "full 2D fields at N=64; finest N=512 observer/seam arrays in CSV",
+    "field": "2D linear characteristic evolution, l=0 and l=1",
+    "gravity": "O(A^2) spherical Einstein mass and null-area response, l=0 only",
+    "seam": "prescribed reciprocal field transfer; perturbed induced metric fails matching",
+    "uncomputed": [
+      "nonlinear coupled metric evolution",
+      "surface material response",
+      "finite-thickness focus resolution",
+      "global causal embedding",
+      "quantum event"
+    ]
+  },
+  "sources": {
+    "docs/reciprocal_packet_evolution.md": "935227ddbf2b8cc0200720bbc20689024613897d15b215e19843acd26e4eee2e",
+    "docs/reciprocal_packet_protocol.md": "feb9dbeee0159e2658c418a54c53733c4c6b00e147fe569a19df7a5bf89c7c50",
+    "experiments/throat_dynamics/reciprocal_packet_probe.py": "ed9fc3bb29c250a97f61f4a70c0ac9aed289b47f231fa3ed743073d0120f9c87",
+    "geometrodynamics/tangherlini/characteristic_packet.py": "f016e8d6a024760e6350887c6d05c1a8c2a37d120603598405f938d01f2303be",
+    "tests/test_reciprocal_characteristic_packet.py": "2bbe39dd6b5c0c6654affa91c1e9b02e375925fe967ea76cc62db49c7e3be82b"
+  }
+}
