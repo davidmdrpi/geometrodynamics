@@ -106,6 +106,14 @@ null junction therefore fails perturbative geometric matching for this canonical
 scalar, despite conserving the field trace. A dynamical surface completion has
 not been supplied; no nonlinear matched spacetime is claimed.
 
+The [deflected spacelike-seam calculation](docs/spacelike_seam_junction.md)
+then restores the leading induced-metric match by allowing the seam to change
+causal character. Its required surface stress has the correct reciprocal
+null-shell tensor-density limit, despite a divergent unit-normal angular
+coefficient. A nonzero scalar normal-derivative jump requires a surface scalar
+source. Leading conservation identities hold; a supporting action, full
+subleading conservation, and a regular finite-thickness solution remain open.
+
 ## Where ℏ enters: scale-free closure ledger + one geometric anchor
 
 The closure-ledger arc (`experiments/closure_ledger/`, PRs #11–#74)
