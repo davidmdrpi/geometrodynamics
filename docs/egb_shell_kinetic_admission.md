@@ -1,5 +1,9 @@
 # Action completion and the first constrained kinetic test
 
+**Subsequent calculation:** [the coupled radial problem](egb_coupled_radial.md)
+now computes the physical norm for this action and finds a negative-norm shell
+oscillation and growing modes. The first-test results below remain unchanged.
+
 **Result: `STATIC_ACTION_MATCH_FROZEN_MODE_REJECTED`.** A specified classical
 scalar action reproduces #330's static bulk and shell stresses and its affine
 surface EOS. Its nominated material sector has positive bare quadratic kinetic

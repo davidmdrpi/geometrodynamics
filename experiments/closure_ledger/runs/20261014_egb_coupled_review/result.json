@@ -1,0 +1,185 @@
+{
+  "baseline": [
+    {
+      "ell": 0,
+      "full_sphere_L2": 0.9999999999999999,
+      "gauge": false,
+      "growing_physical": true,
+      "growth_rate_R": 2.5751852258368566,
+      "h": -4,
+      "kinetic_norm": -9.120000000000001,
+      "kinetic_norm_quadrature": -9.12,
+      "omega2_R2": -6.631578947368421
+    },
+    {
+      "ell": 1,
+      "full_sphere_L2": 1.0,
+      "gauge": true,
+      "growing_physical": false,
+      "growth_rate_R": null,
+      "h": 0,
+      "kinetic_norm": 0.0,
+      "kinetic_norm_quadrature": 1.5904680350919362e-15,
+      "omega2_R2": -2.6315789473684212
+    },
+    {
+      "ell": 2,
+      "full_sphere_L2": 1.0000000000000002,
+      "gauge": false,
+      "growing_physical": false,
+      "growth_rate_R": null,
+      "h": 6,
+      "kinetic_norm": 13.680000000000001,
+      "kinetic_norm_quadrature": 13.680000000000001,
+      "omega2_R2": 3.3684210526315788
+    },
+    {
+      "ell": 3,
+      "full_sphere_L2": 1.0,
+      "gauge": false,
+      "growing_physical": false,
+      "growth_rate_R": null,
+      "h": 14,
+      "kinetic_norm": 31.92,
+      "kinetic_norm_quadrature": 31.920000000000012,
+      "omega2_R2": 11.368421052631579
+    },
+    {
+      "ell": 4,
+      "full_sphere_L2": 0.9999999999999999,
+      "gauge": false,
+      "growing_physical": false,
+      "growth_rate_R": null,
+      "h": 24,
+      "kinetic_norm": 54.720000000000006,
+      "kinetic_norm_quadrature": 54.72000000000002,
+      "omega2_R2": 21.36842105263158
+    },
+    {
+      "ell": 5,
+      "full_sphere_L2": 0.9999999999999997,
+      "gauge": false,
+      "growing_physical": false,
+      "growth_rate_R": null,
+      "h": 36,
+      "kinetic_norm": 82.08000000000001,
+      "kinetic_norm_quadrature": 82.08000000000003,
+      "omega2_R2": 33.368421052631575
+    },
+    {
+      "ell": 6,
+      "full_sphere_L2": 1.0,
+      "gauge": false,
+      "growing_physical": false,
+      "growth_rate_R": null,
+      "h": 50,
+      "kinetic_norm": 114.00000000000001,
+      "kinetic_norm_quadrature": 114.00000000000003,
+      "omega2_R2": 47.368421052631575
+    }
+  ],
+  "comparison": {
+    "no_shell_growing_physical": 1,
+    "no_shell_negative_even_directions": 1,
+    "no_shell_negative_norm_oscillations": 0,
+    "with_shell_growing_found": 3,
+    "with_shell_negative_even_directions": 2,
+    "with_shell_negative_norm_oscillations_found": 1
+  },
+  "environment": {
+    "numpy": "2.3.5",
+    "python": "3.12.14",
+    "scipy": "1.17.0"
+  },
+  "failure_reasons": {
+    "background": [
+      "homogeneous Eddington growth for every C>0",
+      "one closed-universe conformal negative kinetic direction; baseline signature, not a new focus defect"
+    ],
+    "shell": [
+      "one additional negative even kinetic direction",
+      "real-frequency negative-norm shell oscillation",
+      "two additional growing modes in the computed benchmark spectrum"
+    ]
+  },
+  "label": "BACKGROUND_AND_SHELL_FAILURES_SEPARATED",
+  "normalization": {
+    "density": "L2 of delta rho/rho0 per unit mode amplitude",
+    "no_shell": "unit full-sphere weighted L2; G=3 C R^4 integral_0^pi sin^3(u)(fprime^2-4f^2)",
+    "odd": "unit half-bulk weighted L2, as in original #333"
+  },
+  "numerical_gates": {
+    "no_shell_L2": true,
+    "no_shell_norm": true,
+    "odd_density": true,
+    "odd_density_decreases": true,
+    "odd_norm": true,
+    "positive_physical_odd_h": true
+  },
+  "odd_mouth_controls": [
+    {
+      "a": 0.3,
+      "density_contrast_L2_half_bulk": 0.5246957051564438,
+      "density_contrast_quadrature": 0.5246957051564438,
+      "even_lowest_omega2_R2": -6.373537850515515,
+      "growth_rate_R": 1.1901656004438268,
+      "h": 1.2150847908886067,
+      "norm_gradient_quadrature": 5.540786646786601,
+      "norm_half_bulk_L2_unit": 5.540786646452047,
+      "omega2_R2": -1.4164941564798146
+    },
+    {
+      "a": 0.2,
+      "density_contrast_L2_half_bulk": 0.2388309558239387,
+      "density_contrast_quadrature": 0.23883095582393868,
+      "even_lowest_omega2_R2": -6.5172395427634084,
+      "growth_rate_R": 1.4416992522302996,
+      "h": 0.5530822134870159,
+      "norm_gradient_quadrature": 2.522054893602931,
+      "norm_half_bulk_L2_unit": 2.5220548935007927,
+      "omega2_R2": -2.0784967338814053
+    },
+    {
+      "a": 0.1,
+      "density_contrast_L2_half_bulk": 0.06234389761904116,
+      "density_contrast_quadrature": 0.06234389761882883,
+      "even_lowest_omega2_R2": -6.601844982280524,
+      "growth_rate_R": 1.5770870633905407,
+      "h": 0.14437534185462164,
+      "norm_gradient_quadrature": 0.6583515588718074,
+      "norm_half_bulk_L2_unit": 0.6583515588570747,
+      "omega2_R2": -2.4872036055137996
+    },
+    {
+      "a": 0.05,
+      "density_contrast_L2_half_bulk": 0.01595946746851471,
+      "density_contrast_quadrature": 0.01595946746851471,
+      "even_lowest_omega2_R2": -6.62411026288582,
+      "growth_rate_R": 1.6107824746374755,
+      "h": 0.036958766769191964,
+      "norm_gradient_quadrature": 0.16853197640015902,
+      "norm_half_bulk_L2_unit": 0.1685319764675154,
+      "omega2_R2": -2.5946201805992293
+    },
+    {
+      "a": 0.02,
+      "density_contrast_L2_half_bulk": 0.0025820671365431465,
+      "density_contrast_quadrature": 0.0025820671362722686,
+      "even_lowest_omega2_R2": -6.630380196066992,
+      "growth_rate_R": 1.620370150142636,
+      "h": 0.00597952389515255,
+      "norm_gradient_quadrature": 0.02726662885888647,
+      "norm_half_bulk_L2_unit": 0.02726662896189563,
+      "omega2_R2": -2.6255994234732687
+    }
+  ],
+  "original_archive": "experiments/closure_ledger/runs/20261013_egb_coupled_radial/result.json",
+  "original_archive_sha256": "debb319f36e48c8572471b9e818953096da03f62f6d4a2335a1c839b643c0c38",
+  "original_label": "COUPLED_RADIAL_ADMISSION_FAILED",
+  "qualification": "growing-mode counts compare the benchmark C=.76; higher no-shell harmonics can grow for smaller C; finite with-shell count is not an infinite-spectrum certificate",
+  "small_mouth_scope": "fixed R=1, alpha=-.06, eta=.1; each a has its own equilibrium-anchored surface action, not evolution of one fixed surface material",
+  "sources": {
+    "experiments/closure_ledger/egb_coupled_background_review.py": "8c37a3f83bf1851bf53facf0433c7177e17c99e1f6cef96488cb6aafbcadbcba",
+    "geometrodynamics/bulk/egb_coupled_radial.py": "cbbaa3b53ed311fa28e0c97baa3db60078b2fd84cc285f548c2d23d3a5741dda"
+  }
+}

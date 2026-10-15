@@ -59,8 +59,8 @@ subset satisfying the dominant energy condition, including a nonlinear
 20-period control with exterior flux accounted for. This variant uses constant
 Gauss–Bonnet coupling throughout the bulk, so it is an explicit extension of
 the Einstein-away-from-foci baseline. Its shell equation of state is imposed;
-the canonical kinetic norm, coupled evolution, and smooth regularity remain
-uncomputed. It is a candidate to test further, not an admitted focus law.
+the canonical kinetic norm and coupled response were left for the following
+action tests. Smooth regularity remains uncomputed. It is not an admitted focus law.
 
 The [action-level kinetic admission test](docs/egb_shell_kinetic_admission.md)
 now supplies one explicit bulk/surface scalar material action matching that
@@ -72,7 +72,20 @@ single-invariant barotropic surface action. The bulk must respond at the same
 order as the shell; this action has not reproduced the earlier frequency or
 stability window. It does not establish a gravitational ghost
 or overturn the restricted radial window. The full constrained radial kinetic
-sign remains uncomputed.
+sign was left uncomputed by that first admission test.
+
+The [coupled radial calculation](docs/egb_coupled_radial.md) now solves that
+linear metric–scalar problem for the specified action, including the shell
+junctions, scalar current and conserved charge. The shell oscillation survives
+near the earlier frequency (omega^2 R^2=1.96815015), but its **physical kinetic
+norm is negative** after the gravitational boundary contribution is included.
+Growing radial modes also occur in both reflection parities. An action-level
+formula gives two negative kinetic directions throughout the stated WEC/C>0
+branch of this canonical completion. The [no-shell control](docs/egb_coupled_background_review.md)
+separates one background conformal direction and homogeneous Eddington
+instability from the shell's additional negative direction and benchmark growing
+modes. It fails radial admission relative to that background;
+this does not exclude different focus laws or material actions.
 
 ## Where ℏ enters: scale-free closure ledger + one geometric anchor
 

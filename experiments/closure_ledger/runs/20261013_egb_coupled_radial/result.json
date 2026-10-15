@@ -1,0 +1,421 @@
+{
+  "auxiliary_mass_is_physical_norm": false,
+  "constants": {
+    "C": 0.76,
+    "D": -8.910483477111923,
+    "b": 67.15361770558087,
+    "d": -0.46989665789823565,
+    "e": 2.6315789473684212,
+    "j": -19.83674906206464,
+    "x": 0.08733219254516084
+  },
+  "environment": {
+    "numpy": "2.3.5",
+    "python": "3.12.14",
+    "scipy": "1.17.0"
+  },
+  "even_modes": [
+    {
+      "bulk_psi_at_mouth": 0.2743246837345296,
+      "charge_residual": 9.583889237774201e-12,
+      "frequency_R": null,
+      "growth_rate_R": 2.5245866692421046,
+      "junction_residuals": {
+        "density": -8.29913915367797e-12,
+        "pressure": 3.552713678800501e-14,
+        "scalar_current_integrated": 8.355982572538778e-12
+      },
+      "norm_gauges": [
+        {
+          "bulk": -621.3054921969226,
+          "myers": -0.24028309501555786,
+          "surface_scalar": -2.394032741883597,
+          "total": -623.9398080338218
+        },
+        {
+          "bulk": -621.7149673336627,
+          "myers": -0.24028309501555786,
+          "surface_scalar": -1.9845576051357567,
+          "total": -623.939808033814
+        }
+      ],
+      "norm_spectral": -623.93980803381,
+      "omega2_R2": -6.3735378505149445,
+      "physical_norm_no_S3_over_kappa": -623.9398080347951,
+      "shell_fractional_displacement": 1.0,
+      "shooting_tight_difference": 7.291944825738028e-13
+    },
+    {
+      "bulk_psi_at_mouth": -4.548886948852192,
+      "charge_residual": 5.795630642069227e-11,
+      "frequency_R": null,
+      "growth_rate_R": 1.5750094057636197,
+      "junction_residuals": {
+        "density": -2.842170943040401e-14,
+        "pressure": -3.552713678800501e-15,
+        "scalar_current_integrated": 8.526512829121202e-14
+      },
+      "norm_gauges": [
+        {
+          "bulk": 3.717891508335441,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 10.564361097080523,
+          "total": 14.041969510400406
+        },
+        {
+          "bulk": 2.0520247059920202,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 12.230227899399274,
+          "total": 14.041969510375736
+        }
+      ],
+      "norm_spectral": 14.041969510366021,
+      "omega2_R2": -2.48065462824387,
+      "physical_norm_no_S3_over_kappa": 14.041969510281211,
+      "shell_fractional_displacement": 1.0,
+      "shooting_tight_difference": 2.1227464230832993e-13
+    },
+    {
+      "bulk_psi_at_mouth": -0.06478942206034193,
+      "charge_residual": -5.410449865905775e-12,
+      "frequency_R": 1.4029077486548858,
+      "growth_rate_R": null,
+      "junction_residuals": {
+        "density": 2.842170943040401e-14,
+        "pressure": 0.0,
+        "scalar_current_integrated": -1.4988010832439613e-14
+      },
+      "norm_gauges": [
+        {
+          "bulk": 0.03809354725047374,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 0.0022681877916176435,
+          "total": -0.1999213599734665
+        },
+        {
+          "bulk": 0.03973614598676135,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 0.0006255890555527235,
+          "total": -0.19992135997324378
+        }
+      ],
+      "norm_spectral": -0.19992135997312344,
+      "omega2_R2": 1.9681501512359203,
+      "physical_norm_no_S3_over_kappa": -0.19992135997314475,
+      "shell_fractional_displacement": 1.0,
+      "shooting_tight_difference": 2.722266856380884e-13
+    },
+    {
+      "bulk_psi_at_mouth": 0.010052927505850946,
+      "charge_residual": 6.434621724338285e-10,
+      "frequency_R": 2.534330665172294,
+      "growth_rate_R": null,
+      "junction_residuals": {
+        "density": 2.928146614067373e-11,
+        "pressure": 3.9968028886505635e-15,
+        "scalar_current_integrated": -2.9260149858600926e-11
+      },
+      "norm_gauges": [
+        {
+          "bulk": 36.88371301966718,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 0.6323608987949788,
+          "total": 37.2757908234466
+        },
+        {
+          "bulk": 37.184360265494306,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 0.33171365296289634,
+          "total": 37.275790823441646
+        }
+      ],
+      "norm_spectral": 37.27579082343229,
+      "omega2_R2": 6.4228319204326425,
+      "physical_norm_no_S3_over_kappa": 37.275790827280716,
+      "shell_fractional_displacement": 1.0,
+      "shooting_tight_difference": 2.976969781798289e-10
+    },
+    {
+      "bulk_psi_at_mouth": 0.06656527943398616,
+      "charge_residual": -2.505084140125291e-09,
+      "frequency_R": 5.5733578183481916,
+      "growth_rate_R": null,
+      "junction_residuals": {
+        "density": 6.606342140003107e-10,
+        "pressure": -5.684341886080802e-14,
+        "scalar_current_integrated": -6.607479008380324e-10
+      },
+      "norm_gauges": [
+        {
+          "bulk": 2028.6144032479233,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 5.024739631298528,
+          "total": 2033.3988597842063
+        },
+        {
+          "bulk": 2030.4579161511547,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 3.181226727289275,
+          "total": 2033.3988597834284
+        }
+      ],
+      "norm_spectral": 2033.398859783116,
+      "omega2_R2": 31.062317371342914,
+      "physical_norm_no_S3_over_kappa": 2033.3988601123108,
+      "shell_fractional_displacement": 1.0,
+      "shooting_tight_difference": 3.895266331710445e-10
+    },
+    {
+      "bulk_psi_at_mouth": 0.07739845398681641,
+      "charge_residual": -1.34121798112119e-08,
+      "frequency_R": 8.23449930560035,
+      "growth_rate_R": null,
+      "junction_residuals": {
+        "density": 4.906041795038618e-09,
+        "pressure": -2.8421709430404007e-13,
+        "scalar_current_integrated": -4.906041795038618e-09
+      },
+      "norm_gauges": [
+        {
+          "bulk": 10839.416797460892,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 11.761463624388359,
+          "total": 10850.937977990265
+        },
+        {
+          "bulk": 10843.538372492098,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 7.6398885944659005,
+          "total": 10850.937977991547
+        }
+      ],
+      "norm_spectral": 10850.937977992262,
+      "omega2_R2": 67.80697881393264,
+      "physical_norm_no_S3_over_kappa": 10850.93797685751,
+      "shell_fractional_displacement": 1.0,
+      "shooting_tight_difference": 2.574580548753147e-10
+    },
+    {
+      "bulk_psi_at_mouth": 0.08147034944738214,
+      "charge_residual": 3.1682390044807107e-09,
+      "frequency_R": 10.80447667581734,
+      "growth_rate_R": null,
+      "junction_residuals": {
+        "density": 6.369191396515816e-08,
+        "pressure": 2.2737367544323206e-13,
+        "scalar_current_integrated": -6.369145921780728e-08
+      },
+      "norm_gauges": [
+        {
+          "bulk": 33383.51965804354,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 20.75846415778472,
+          "total": 33404.037839106306
+        },
+        {
+          "bulk": 33390.671520117656,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 13.60660208380841,
+          "total": 33404.03783910645
+        }
+      ],
+      "norm_spectral": 33404.03783906222,
+      "omega2_R2": 116.73671623828089,
+      "physical_norm_no_S3_over_kappa": 33404.03783908305,
+      "shell_fractional_displacement": 1.0,
+      "shooting_tight_difference": 7.399592050205683e-11
+    },
+    {
+      "bulk_psi_at_mouth": 0.08345573554821381,
+      "charge_residual": 1.5336354408646002e-10,
+      "frequency_R": 13.336903487342555,
+      "growth_rate_R": null,
+      "junction_residuals": {
+        "density": -6.234313332242891e-08,
+        "pressure": 0.0,
+        "scalar_current_integrated": 6.234404281713068e-08
+      },
+      "norm_gauges": [
+        {
+          "bulk": 78874.24468774025,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 32.00782765479031,
+          "total": 78906.01223230003
+        },
+        {
+          "bulk": 78885.18184187716,
+          "myers": -0.24028309501555786,
+          "surface_scalar": 21.07067351808454,
+          "total": 78906.01223230023
+        }
+      ],
+      "norm_spectral": 78906.01223230017,
+      "omega2_R2": 177.87299463069002,
+      "physical_norm_no_S3_over_kappa": 78906.0122312525,
+      "shell_fractional_displacement": 1.0,
+      "shooting_tight_difference": 2.191029579989845e-10
+    }
+  ],
+  "exceptional_modes": {
+    "constant_scalar_shift": "quotiented at fixed total charge",
+    "odd_h_zero": "cos(u), z=0, pure coordinate mode with zero symplectic norm; removed"
+  },
+  "failure_reasons": [
+    "oscillatory shell mode has negative physical kinetic norm",
+    "negative squared frequencies in the computed radial spectrum"
+  ],
+  "finite_element_errors_first_four": [
+    [
+      0.0002502763416769582,
+      0.0001339269272762067,
+      1.8585605891408008e-05,
+      0.0056967427004464
+    ],
+    [
+      6.261852907307741e-05,
+      3.350763309617477e-05,
+      4.648206153756718e-06,
+      0.0014243734704519895
+    ],
+    [
+      1.5657747083785978e-05,
+      8.378532910136016e-06,
+      1.1621645552573057e-06,
+      0.000356104996729556
+    ]
+  ],
+  "finite_elements": [
+    {
+      "auxiliary_negative_directions": 1,
+      "elements": 80,
+      "low_eigenvalues": [
+        -6.3732875741732675,
+        -2.480520701316594,
+        1.968131565630029,
+        6.428528663133089,
+        31.098127804183456,
+        67.93533376458579,
+        117.07671465322102,
+        178.6194660914761
+      ],
+      "maximum_imaginary_part": 0.0,
+      "physical_negative_directions": 2
+    },
+    {
+      "auxiliary_negative_directions": 1,
+      "elements": 160,
+      "low_eigenvalues": [
+        -6.373475231985871,
+        -2.480621120610774,
+        1.9681455030297665,
+        6.4242562939030945,
+        31.071267504946583,
+        67.83904806634581,
+        116.82163414996023,
+        178.05935718121833
+      ],
+      "maximum_imaginary_part": 0.0,
+      "physical_negative_directions": 2
+    },
+    {
+      "auxiliary_negative_directions": 1,
+      "elements": 320,
+      "low_eigenvalues": [
+        -6.373522192767861,
+        -2.48064624971096,
+        1.968148989071365,
+        6.423188025429372,
+        31.064554750510613,
+        67.81499490871782,
+        116.75794060257567,
+        177.91956926591368
+      ],
+      "maximum_imaginary_part": 0.0,
+      "physical_negative_directions": 2
+    }
+  ],
+  "full_action_hessian": [
+    {
+      "amplitude": 0.001,
+      "expected": 0.07623737893097451,
+      "measured": 0.07623734951667238,
+      "relative_error": 3.858252020903214e-07
+    },
+    {
+      "amplitude": 0.0005,
+      "expected": 0.07623737893097451,
+      "measured": 0.07623737151296606,
+      "relative_error": 9.730146237333292e-08
+    }
+  ],
+  "label": "COUPLED_RADIAL_ADMISSION_FAILED",
+  "limitations": [
+    "no nonlinear evolution",
+    "no nonspherical stability claim",
+    "no finite-thickness regularity",
+    "no no-go for different material actions"
+  ],
+  "normalization": {
+    "even": "z=delta r_shell/r0=1",
+    "norm": "coefficient of Qdot^2 in S2=(Omega3/2kappa5) integral(K Qdot^2-K omega^2 Q^2)dt",
+    "odd": "half-bulk integral sin(u)^3 psi^2 du=1"
+  },
+  "numerical_gates": {
+    "action_hessian": true,
+    "fem_refinement": true,
+    "finite_pencil_real": true,
+    "junctions": true,
+    "physical_inertia": true,
+    "spectral_norm_agreement": true,
+    "tighter_shooting": true,
+    "total_charge": true,
+    "two_gauge_norm_agreement": true
+  },
+  "odd_modes_in_scanned_range": [
+    {
+      "growth_rate_R": 1.1901656004496517,
+      "omega2_R2": -1.41649415649368,
+      "physical_norm_no_S3_over_kappa": 5.540786646659966
+    },
+    {
+      "growth_rate_R": null,
+      "omega2_R2": 17.221174416011298,
+      "physical_norm_no_S3_over_kappa": 90.5285553388427
+    },
+    {
+      "growth_rate_R": null,
+      "omega2_R2": 47.891362428092506,
+      "physical_norm_no_S3_over_kappa": 230.38461267370573
+    },
+    {
+      "growth_rate_R": null,
+      "omega2_R2": 90.72393332411356,
+      "physical_norm_no_S3_over_kappa": 425.7011359595851
+    },
+    {
+      "growth_rate_R": null,
+      "omega2_R2": 145.755247222565,
+      "physical_norm_no_S3_over_kappa": 676.6439273355273
+    }
+  ],
+  "odd_scan_range": [
+    -2.6305789473684213,
+    180.0
+  ],
+  "old_prescribed_exterior_omega2_R2": 1.9454069907884115,
+  "parameters": {
+    "R": 1.0,
+    "a": 0.3,
+    "alpha": -0.06,
+    "bulk_lambda": 0,
+    "eta": 0.1
+  },
+  "physical_negative_kinetic_directions_even": 2,
+  "scope": "linear spherical perturbations of the #331 material action; even and odd sectors",
+  "sources": {
+    "docs/egb_coupled_radial_protocol.md": "8f2dc2c678df18c4a367860fe6f7786087707cf4584f09cb1f9737e8b1e1e82a",
+    "experiments/closure_ledger/egb_coupled_action_check.py": "0276f3d95a822a37d0960664c2f163eadf89c52355f44dbec27b7cdfc4fb9b49",
+    "experiments/closure_ledger/egb_coupled_radial_probe.py": "11f5c21a0047eb70d2ed9766e6e6c1d6fd9b82caa2b36a4834402051a93cf550",
+    "geometrodynamics/bulk/egb_coupled_radial.py": "cbbaa3b53ed311fa28e0c97baa3db60078b2fd84cc285f548c2d23d3a5741dda"
+  }
+}

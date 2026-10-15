@@ -471,6 +471,8 @@ not silently remain an independently free property.
 | Well-posed nonlinear event and robust continuation | **Uncomputed** |
 | Existing spectra/transport | Conditional on their background and boundary rules |
 | Direct EGB mouth identification (#330) | Different interior: no finite neck; does not inherit neck transit \(2S\), waist \(b=R\sin^2a\), or neck-based `finite_mouth` spectra/DtN operators; transport requires new junction matching |
+| Canonical scalar support for static S4 (#331/#333) | **Unstable even without a shell:** homogeneous Eddington mode has omega^2 R^2=-4-2/C for every C>0; one conformal negative kinetic direction belongs to the background, not the focus. Other support laws remain separate candidates. See [reference control](egb_coupled_background_review.md). |
+| Coupled canonical-supported EGB-WEC shell (#333) | **Fails relative radial admission:** adds one negative kinetic direction throughout the stated branch; the benchmark has a negative-energy oscillation and two additional growing modes. This is separate from the support instability; smooth regularity and alternative actions remain open. |
 | QFT-on-background calculations | Use QFT ingredients; do not derive those ingredients |
 | Quantum event, creation probabilities, Born rule, action quanta | **Not established here** |
 
