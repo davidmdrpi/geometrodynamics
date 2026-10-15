@@ -14,7 +14,7 @@ not revive the archive's prescribed pulse or timed mound.
 ## Look first
 
 Same scalar solution, same external time (approximately 1.1), same camera,
-same launch normalization:
+same launch normalization, display gain 4:
 
 | Fixed display geometry | Scalar-driven geometry |
 |---|---|
@@ -48,10 +48,11 @@ server in the development environment. Backend availability varies by machine.
 |---|---|
 | Time / Space | Scrub / play the stored solution |
 | `d` / `--flat` | Deformed / reference display geometry, without rerunning the wave |
-| Gain slider / `--gain` | Shape exaggeration only; default 6 |
+| `--n-sphere 12000` | Refine the sphere mesh (default 6000); increases simulation cost |
+| Gain slider / `--gain` | Shape exaggeration only; default 4 |
 | `c` / `--neutral` | Remove wave colour to inspect shape alone |
 | `f` / `--front` | Optional first-threshold-crossing contour |
-| `g` | Opaque / transparent sphere |
+| `g` | Opaque / transparent sphere; use this to see the Klein entry through the wall |
 | `m` | Wave / first arrival / slicing tilt / curvature |
 | `o` | Orientation loop on the **reference** geometry |
 | Right-click | Relaunch at the corresponding intrinsic sphere vertex |
@@ -123,3 +124,27 @@ the solver, all four colour modes, nonzero offsets, bare-sphere focusing, and
 #337's chronology-refusal state. Both PNGs and the 48-frame GIF were rendered
 and inspected, including intermediate and final movie frames. Sphere lighting
 uses updated smooth normals; the underlying vertex geometry is not smoothed.
+
+## Review follow-up and bubble interpretation
+
+The first-arrival contour now excludes any cell with an unknown arrival,
+preventing VTK from interpolating NaN positions. The default gain is reduced
+from 6 to 4, the gain slider sits below the clock controls, and
+`--n-sphere 12000` allows a mesh comparison. Display identities use portable
+floating-point tolerances. The example images have been regenerated.
+
+The opaque default is retained for reading deformation. Press **g** to see
+the Klein handle's interior entry. Clock jumps are primarily visible in
+colour and the gold waist rings: the independent review measured only
+0.006–0.007 separation for offsets (−0.8,+0.6), time 1.0, gain 6. Those
+values are below 1% of the unit sphere radius, not a large opening.
+
+For the next physical comparison, see [bubble propagation and mouth
+response](bubble_wave_mouth_response.md). It distinguishes mouth-free
+refocusing, passive attached features, and a dynamically coupled mouth.
+
+Review-fix validation: the 8 display tests plus the new optional PyVista
+NaN-contour regression passed (9 targeted tests). The 27 unchanged
+handle/clock tests had also been independently reproduced on the prior
+commit. The contour regression runs without opening a render window and
+skips when PyVista is not installed.

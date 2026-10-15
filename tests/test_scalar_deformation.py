@@ -16,10 +16,10 @@ def test_signed_radial_graph_and_shared_rims(kinds):
     points = warp.coordinates(u, 1.0, 3.0)
     np.testing.assert_array_equal(warp.coordinates(u, 1.0, 0.0), warp.reference)
     np.testing.assert_allclose(warp.coordinates(-u, 1.0, 3.0) - warp.reference,
-                               -(points-warp.reference), atol=3e-16)
+                               -(points-warp.reference), rtol=1e-12, atol=1e-14)
     sphere = surf.on_sphere[cut.orig]
     np.testing.assert_allclose(np.linalg.norm(points[sphere], axis=1),
-                               1 + warp.excursion*np.tanh(3*u[sphere]), atol=5e-16)
+                               1 + warp.excursion*np.tanh(3*u[sphere]), rtol=1e-12, atol=1e-14)
     for ids in surf.tube_ids:
         # Both glued ends share precisely the sphere's radial displacement,
         # including the far rim's gluing permutation.
@@ -38,7 +38,7 @@ def test_breathing_at_waist_and_fixed_amplitude_scale():
     u = np.ones(len(warp.reference))*.1
     big = warp.coordinates(u, 1, 3)-warp.reference
     small = warp.coordinates(u/10, 1, 3)-warp.reference
-    np.testing.assert_allclose(small, big*np.tanh(.03)/np.tanh(.3), atol=3e-16)
+    np.testing.assert_allclose(small, big*np.tanh(.03)/np.tanh(.3), rtol=1e-12, atol=1e-14)
 
 
 def test_clock_cut_faces_are_not_welded_or_averaged():

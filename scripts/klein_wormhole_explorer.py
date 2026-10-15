@@ -100,10 +100,23 @@ def _faces(tris: np.ndarray) -> np.ndarray:
     return np.hstack([np.full((len(tris), 1), 3, dtype=np.int64), tris.astype(np.int64)]).ravel()
 
 
+def reached_contour(mesh, time):
+    """Contour only cells whose vertices all have a finite first arrival.
+
+    Keeping NaN as unknown is important, but interpolating through it can
+    produce NaN coordinates in VTK and corrupt the camera clipping bounds.
+    """
+    reached = mesh.extract_points(np.isfinite(mesh.point_data["arrival"]), adjacent_cells=False)
+    return reached.contour([time], scalars="arrival") if reached.n_cells else pv.PolyData()
+
+
 class Explorer:
     def __init__(self, a=0.3, kinds=(True, True), source=(-0.55, 0.62, 0.56), offsets=(0.0, 0.0),
-                 off_screen=False, window_size=(1400, 900), deform=True, gain=6.0, front=False,
-                 neutral=False):
+                 off_screen=False, window_size=(1400, 900), deform=True, gain=4.0, front=False,
+                 neutral=False, n_sphere=6000):
+        if int(n_sphere) != n_sphere or n_sphere < 100:
+            raise ValueError("n_sphere must be an integer >= 100")
+        self.n_sphere = int(n_sphere)
         self.a = float(a)
         self.kinds = list(kinds)
         self.offsets = [float(v) for v in (list(offsets) + [0.0, 0.0])[:2]]
@@ -135,7 +148,7 @@ class Explorer:
     def build(self):
         """Geometry, then clocks and waves."""
         handles = default_handles(len(self.kinds), self.kinds) if self.kinds else ()
-        self.surf = surf = build_surface(self.a, handles)
+        self.surf = surf = build_surface(self.a, handles, n_sphere=self.n_sphere)
         self.cut = surf.cut()
         self.deformation = ScalarDeformation(surf, self.cut)
         self.loops = loop_lengths(surf)
@@ -221,7 +234,7 @@ class Explorer:
                         show_scalar_bar=(name == ("tubes" if self.tube_mesh.n_cells else "sphere")
                                          and not (self.neutral and self.mode == "wave")),
                         scalar_bar_args=dict(title=title, vertical=True, position_x=0.86, position_y=0.25,
-                                             height=0.45, width=0.04, color="white"))
+                                             height=0.36, width=0.04, color="white"))
             if name == "sphere":
                 actor.GetProperty().SetInterpolationToPhong()
         wlab, wpos = [], []
@@ -279,7 +292,7 @@ class Explorer:
             mesh.Modified()
         t = float(self.times[self.frame])
         lead = self.show_front and self.sim is not None and self.mode in ("wave", "arrival")
-        front = self.full_mesh.contour([t], scalars="arrival") if lead and t > self.times[0] else None
+        front = reached_contour(self.full_mesh, t) if lead and t > self.times[0] else None
         if front is not None and front.n_points:
             self.pl.add_mesh(front, color="white", line_width=3, name="front")
         else:
@@ -383,7 +396,7 @@ class Explorer:
         pl.add_key_event("f", self._toggle_front)
         pl.add_key_event("c", self._toggle_neutral)
         self._slider(self._on_gain, [0.0, max(20.0, self.gain)], self.gain, "shape gain (display only)",
-                     (0.55, 0.23), (0.85, 0.23), "%.1f")
+                     (0.62, 0.73), (0.95, 0.73), "%.1f")
         pl.add_key_event("g", self._toggle_glass)
         pl.add_key_event("o", self._toggle_loop)
         try:
@@ -537,7 +550,8 @@ def main(argv=None):
     ap.add_argument("--source", default="-0.55,0.62,0.56", help="source direction x,y,z on the sphere")
     ap.add_argument("--mode", choices=MODES, default="wave")
     ap.add_argument("--flat", action="store_true", help="compare fixed display geometry")
-    ap.add_argument("--gain", type=float, default=6.0, help="shape exaggeration; fixed launch normalization")
+    ap.add_argument("--gain", type=float, default=4.0, help="shape exaggeration; fixed launch normalization")
+    ap.add_argument("--n-sphere", type=int, default=6000, help="sphere mesh vertices; try 12000 for refinement")
     ap.add_argument("--front", action="store_true", help="show first threshold crossing contour")
     ap.add_argument("--neutral", action="store_true", help="neutral shading to inspect shape without wave colour")
     ap.add_argument("--loop", action="store_true", help="show the orientation loop through handle 1")
@@ -549,7 +563,8 @@ def main(argv=None):
     headless = bool(args.screenshot or args.gif)
     ex = Explorer(a=args.a, kinds=kinds, source=[float(v) for v in args.source.split(",")],
                   offsets=[float(v) for v in args.offsets.split(",")], off_screen=headless,
-                  deform=not args.flat, gain=args.gain, front=args.front, neutral=args.neutral)
+                  deform=not args.flat, gain=args.gain, front=args.front, neutral=args.neutral,
+                  n_sphere=args.n_sphere)
     if args.mode != "wave":
         ex.mode = args.mode
         ex._draw_static()

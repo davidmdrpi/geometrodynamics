@@ -40,7 +40,7 @@ class ScalarDeformation:
         self.reference = surf.points[self.cut.orig].copy()
         self.vectors = vectors[self.cut.orig]
 
-    def coordinates(self, field, amplitude: float, gain: float = 6.0):
+    def coordinates(self, field, amplitude: float, gain: float = 4.0):
         """Use external-time cut-mesh samples and a fixed launch normalization.
 
         Positive and negative values produce opposite displacements. No
