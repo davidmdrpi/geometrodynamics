@@ -1,0 +1,100 @@
+# Preregistration: Null-Horizon Antipodal Continuation & Finite-Packet Audit
+
+**Status:** Frozen before implementation  
+**Target Module:** `experiments/throat_dynamics/null_horizon_continuation_probe.py`  
+**Test Suite:** `tests/test_null_horizon_continuation.py`  
+**Context:** Post-PR #333 pivot audit; tests whether the curvature-regular 5D Tangherlini Killing horizon ($N(0)=0$, PRs #127–#131, #168) defines a causal, stress-free, boost-invariant continuation for finite wavepackets.
+
+---
+
+## 1. Motivation and Scope
+
+In PR #333, the canonical kinetic audit closed the timelike thin-shell WEC stability window of PR #330 by demonstrating that the coupled bulk–shell reduction carries negative canonical kinetic directions (one background conformal mode on the supported $S^3$ plus a second negative kinetic direction, a negative-energy oscillation, and two growing modes introduced by the shell).
+
+Earlier probes in [THESIS.md](https://github.com/davidmdrpi/geometrodynamics/blob/main/docs/THESIS.md) (PRs #127–#131, #168) established that:
+1. The equatorial slice of the 5D Schwarzschild–Tangherlini bulk $ds_5^2 = -f(r)\,dt^2 + f(r)^{-1}dr^2 + r^2 d\Omega_3^2$ with $f(r) = 1 - (r_s/r)^2$ is Ricci-flat and curvature-regular across the horizon $r = r_s$ ($K_5(r_s) = 72/r_s^4$).
+2. Under the antipodal map $(U,V,\Omega) \mapsto (-U,-V,\bar{\Omega})$, stationary cavity eigenmodes on $[r_s+\epsilon, R_{\text{OUTER}}]$ obey real $(-1)^\ell$ parity boundary conditions ($\partial_{r_*}\psi = 0$ for even $\ell$, $\psi = 0$ for odd $\ell$), yielding a real spectrum.
+
+**The Audit Gap:** Stationary mode parity on a cutoff interval or at the bifurcate sphere $U=V=0$ does not specify how a localized, causal wavepacket arriving on the future horizon $\mathcal{H}^+$ ($U=0, V>0$) is continued back into the exterior region $r > r_s$. This preregistration tests whether BAM's regularity postulate can define a consistent, calculable antipodal continuation across null boundaries.
+
+---
+
+## 2. Background Geometry and Double-Null Reduction
+
+On the 5D Schwarzschild–Tangherlini spacetime with horizon radius $r_s$ and surface gravity $\kappa = f'(r_s)/2 = 1/r_s$:
+- **Tortoise coordinate ($r > r_s$):**
+  $$r_*(r) = r + \frac{r_s}{2}\ln\frac{r - r_s}{r + r_s}, \qquad \frac{dr}{dr_*} = f(r) = 1 - \frac{r_s^2}{r^2}$$
+- **Kruskal–Szekeres double-null coordinates:**
+  $$U V = -\frac{1}{\kappa^2}e^{2\kappa r_*} = -r_s^2 \left(\frac{r - r_s}{r + r_s}\right) e^{2r/r_s}, \qquad \frac{V}{U} = -e^{2\kappa t}$$
+  $$ds_5^2 = -F(r)\,dU\,dV + r(U,V)^2\,d\Omega_3^2, \qquad F(r) = \frac{4 f(r)}{\kappa^2 \vert{}UV\vert{}} = \frac{4 r_s^2 (r + r_s)^2}{r^2} e^{-2r/r_s}$$
+  At the throat $r = r_s$ ($UV = 0$), $F(r_s) = 16 r_s^2 e^{-2} > 0$ is smooth and non-degenerate.
+- **Characteristic scalar wave equation:**
+  Expanding $\Phi(U,V,\Omega) = r^{-3/2}\sum_{\ell,m} u_{\ell m}(U,V)\,Y_{\ell m}(\Omega)$ with $Y_{\ell m}(-\Omega) = (-1)^\ell Y_{\ell m}(\Omega)$:
+  $$\partial_U \partial_V u_{\ell m} + \frac{1}{4} F(r)\,V_\ell(r)\,u_{\ell m} = 0, \qquad V_\ell(r) = f(r)\left[\frac{\ell(\ell+2)}{r^2} + \frac{3r_s^2}{r^4}\right]$$
+  Because $V_\ell(r_s) = 0$, the wave operator on the horizon generators $\mathcal{H}^+$ ($U=0$) and $\mathcal{H}^-$ ($V=0$) reduces exactly to $\partial_U \partial_V u_{\ell m} = 0$.
+
+---
+
+## 3. Candidate Continuation Laws (Frozen Before Evolution)
+
+To prevent conflating distinct geometric constructions under the label "antipodal horizon BC," the probe must evaluate three explicit candidate laws side-by-side:
+
+### Law A — Analytic Kruskal $\mathbb{Z}_2$ Quotient (`kruskal_analytic_quotient`)
+- **Definition:** The spacetime is the smooth Kruskal manifold $\mathcal{M}$ quotiented by the fixed-point-free involution $J(U,V,\Omega) = (-U,-V,\bar{\Omega})$ with single-valuedness condition:
+  $$u_{\ell m}(U,V) = (-1)^\ell u_{\ell m}(-U,-V)$$
+- **Causal Routing Check:** An ingoing packet launched in Region I ($U < 0, V > 0$) crosses $\mathcal{H}^+$ at $U = 0, V = V_0 > 0$. By $J$-identification, $(0, V_0, \Omega) \sim (0, -V_0, \bar{\Omega})$ on the past horizon $\mathcal{H}^-$. Forward causal evolution ($\partial_U$ across $U = 0$ at $V_0 > 0$) carries data into **Region II ($U > 0, V > 0, r < r_s$)** unless initial data on the past horizon $\mathcal{H}^-$ was already pre-populated to emerge through $V = 0, U < 0$.
+
+### Law B — Direct $\mathcal{H}^+ \to \mathcal{H}^-$ Null Horizon Gluing (`direct_null_bounce`)
+- **Definition:** Excise the black-hole interior $r < r_s$ ($UV > 0$) and solder the ingoing future horizon $\mathcal{H}^+ = \{U_{\text{in}} = 0, V_{\text{in}} > 0\}$ directly to the outgoing exterior horizon $\mathcal{H}^-_{\text{ext}} = \{U_{\text{out}} < 0, V_{\text{out}} = 0\}$ via an antipodal map:
+  $$(U_{\text{in}} = 0, V_{\text{in}}, \Omega) \mapsto (U_{\text{out}} = g(V_{\text{in}}), V_{\text{out}} = 0, \bar{\Omega}), \qquad g(V_{\text{in}}) = -\alpha_0 V_{\text{in}} \quad (\alpha_0 > 0)$$
+  with characteristic field matching:
+  $$u_{\ell m}^{\text{out}}(U_{\text{out}} = -\alpha_0 V, V_{\text{out}} = 0) = (-1)^\ell u_{\ell m}^{\text{in}}(U_{\text{in}} = 0, V)$$
+- **Purpose:** Forces causal packets hitting $\mathcal{H}^+$ at finite advanced time $V > 0$ to re-emerge immediately into the exterior $r > r_s$ along outgoing null rays $U_{\text{out}} = -\alpha_0 V$.
+
+### Law C — Stretched-Horizon Timelike Limit (`stretched_horizon_cutoff`)
+- **Definition:** Impose the PR #129 boundary condition on the timelike hypersurface $\Sigma_\epsilon = \{r = r_s + \epsilon\}$ ($\epsilon > 0$):
+  $$\ell \text{ even}: \quad \left.(\partial_V - \partial_U)u_{\ell m}\right\vert{}_{r_s+\epsilon} = 0, \qquad \ell \text{ odd}: \quad \left.u_{\ell m}\right\vert{}_{r_s+\epsilon} = 0$$
+  and evaluate the sequence $\epsilon \in \{10^{-1}, 10^{-2}, 10^{-3}, 10^{-4}\}$ as $\epsilon \to 0^+$.
+
+---
+
+## 4. Three-Step Audit Protocol and Measured Gates
+
+### Step 1: Characteristic Well-Posedness Gate (`G1_characteristic_completeness`)
+For a causal initial value problem with data prescribed *only* in the exterior past ($r > r_s$, no fine-tuned data pre-injected on $\mathcal{H}^-$):
+- Does the continuation law uniquely determine the outgoing exterior field $u_{\ell m}(U,V)$ in $r > r_s$ from the ingoing packet alone?
+- **Pass Criterion:** The map from ingoing characteristic trace $u_{\ell m}^{\text{in}}(0, V)$ ($V \in [V_1, V_2]$) to outgoing exterior radiation at $r_{\text{obs}} > r_s$ is uniquely determined, causal, and requires zero retrocausal data on $\mathcal{H}^-$.
+
+### Step 2: Barrabès–Israel Null Junction & Distributional Stress Gate (`G2_null_junction_stress`)
+Let $\Sigma$ be the null horizon surface ($r = r_s$) with tangent null generator $\ell^A = (\partial_V)^A$ and transverse null vector $n^A$ normalized by $g_{AB}\ell^A n^B = -1$, $g_{AB}n^A n^B = 0$ (so $n^U = 2/F(r_s)$).
+1. Compute the transverse radial directional derivative $(n^A \partial_A r)^\pm$ and the transverse extrinsic curvature $\mathcal{K}_{ab}^\pm = \frac{1}{2}(\mathcal{L}_n g_{AB}) e^\pm_a{}^A e^\pm_b{}^B$ on the ingoing ($-$) and outgoing ($+$) sides of the junction:
+   $$\mathcal{K}_{ij}^\pm = r_s \left(n^A \partial_A r\right)^\pm \gamma_{ij} = \frac{1}{2} r_s\, \theta_{(n)}^\pm\, \gamma_{ij}$$
+2. Compute the Barrabès–Israel distributional surface stress-energy tensor $S^{ab}$ on $\Sigma$:
+   $$S^{ab} = \mu_{\text{null}}\,\ell^a \ell^b + p_{\text{null}}\,\gamma^{ab}, \qquad \mu_{\text{null}} = -\frac{3}{8\pi G_5 r_s}\left[(n^A \partial_A r)^+ - (n^A \partial_A r)^-\right], \qquad p_{\text{null}} = \frac{[\tilde{\kappa}]}{8\pi G_5}$$
+   where $\tilde{\kappa}^\pm = -n_A \ell^B \nabla_B \ell^A$ is the surface-gravity / inaffinity parameter.
+- **Pass Criterion:** Both $[\mathcal{K}_{ij}] = 0$ ($\mu_{\text{null}} = 0$) and $[\tilde{\kappa}] = 0$ ($p_{\text{null}} = 0$) must vanish to machine tolerance ($< 10^{-12}$) without introducing an unsmoothed thin-shell distribution or violating the Null Energy Condition ($\mu_{\text{null}} \ge 0$).
+
+### Step 3: Finite-Packet Evolution, Flux Balance & Null-Boost Invariance (`G3_packet_and_boost_invariance`)
+Propagate a compactly supported ingoing Gaussian wavepacket for both $\ell = 0$ and $\ell = 1$:
+$$u_{\ell m}^{\text{init}}(U_0, V) = A_0 \exp\left(-\frac{(V - V_c)^2}{2\sigma_V^2}\right), \qquad V_c = 2.0\,r_s, \quad \sigma_V = 0.25\,r_s$$
+1. **Flux & Mass Balance:** Measure the integrated null energy flux and Misner–Sharp mass change across the horizon transit:
+   $$\mathcal{F}_{\text{in}} = \int_{\mathcal{H}^+} T_{VV}\,\Omega_3\,r_s^3\,dV, \qquad \mathcal{F}_{\text{out}} = \int_{\mathcal{H}^-_{\text{ext}}} T_{UU}\,\Omega_3\,r_s^3\,dU, \qquad \Delta_{\text{flux}} = \frac{\vert{}\mathcal{F}_{\text{out}} - \mathcal{F}_{\text{in}}\vert{}}{\mathcal{F}_{\text{in}}}$$
+   and symplectic Wronskian drift $\Delta_{\text{symp}}$ between initial and final slices.
+2. **Null-Coordinate Boost Invariance:** Apply the Lorentz boost rescaling of the Kruskal null coordinates:
+   $$V \mapsto \tilde{V} = \lambda V, \qquad U \mapsto \tilde{U} = \lambda^{-1} U, \qquad \lambda \in \{0.5, 1.0, 2.0, 4.0\}$$
+   which leaves the bulk metric $ds_5^2 = -F(r)\,dU\,dV + r^2 d\Omega_3^2$ and the static exterior observer time $t_{\text{obs}}$ invariant. Re-apply the continuation law in the $(\tilde{U},\tilde{V})$ frame and measure the physical waveform $u_{\ell m}(t_{\text{obs}}, r_{\text{obs}})$ and transmitted energy $E_{\text{out}}(\lambda)$ at a fixed exterior radius $r_{\text{obs}} = 2.0\,r_s$.
+- **Pass Criterion:**
+  - Flux balance $\Delta_{\text{flux}} < 10^{-4}$ and symplectic conservation $\Delta_{\text{symp}} < 10^{-6}$ under grid refinement.
+  - Boost invariance: relative variation of the physical exterior waveform and transmitted energy across $\lambda \in \{0.5, 1.0, 2.0, 4.0\}$ must satisfy:
+    $$\max_{\lambda} \frac{\Vert{}u_{\ell m}^{(\lambda)}(t_{\text{obs}}, r_{\text{obs}}) - u_{\ell m}^{(1)}(t_{\text{obs}}, r_{\text{obs}})\Vert{}_{L^2}}{\Vert{}u_{\ell m}^{(1)}(t_{\text{obs}}, r_{\text{obs}})\Vert{}_{L^2}} < 10^{-10}, \qquad \max_{\lambda} \frac{\vert{}E_{\text{out}}(\lambda) - E_{\text{out}}(1)\vert{}}{E_{\text{out}}(1)} < 10^{-10}$$
+
+---
+
+## 5. Pre-Stated Failure Conditions
+
+A candidate null-horizon continuation law **FAILS** if any of the following occur:
+1. **No Outgoing Exterior Continuation (Fails G1):** The law is curvature-regular and stress-free across $\mathcal{H}^+$, but carries a causal ingoing packet into the black-hole interior $r < r_s$ ($U > 0, V > 0$) rather than returning it to the exterior $r > r_s$ unless retrocausal initial data is pre-placed on $\mathcal{H}^-$.
+2. **Hidden Distributional Null Shell / Exotic Matter (Fails G2):** Routing the packet back into the exterior $r > r_s$ flips the sign of the transverse radial expansion $(n^A \partial_A r)^+ = -(n^A \partial_A r)^- > 0$, producing a nonzero Barrabès–Israel jump $[\mathcal{K}_{ij}] \neq 0$ and a negative-energy distributional null shockwave $\mu_{\text{null}} < 0$ on the horizon, or degenerating into a timelike thin shell at $r_s + \epsilon$ subject to the PR #333 obstruction.
+3. **Flux Imbalance or Null-Normalization Dependence (Fails G3):** The transmitted exterior waveform or energy flux $T_{UU}(dU/dV)^2$ changes under the null boost rescaling $(U, V) \mapsto (\lambda^{-1}U, \lambda V)$, proving that the gluing law breaks local boost invariance on the bifurcate horizon.
+
+Stationary mode parity ($Y_{\ell m}(-\Omega) = (-1)^\ell Y_{\ell m}(\Omega)$) or self-adjointness on a static tortoise grid must **not** be counted as passing this test.

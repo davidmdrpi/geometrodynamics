@@ -87,6 +87,16 @@ instability from the shell's additional negative direction and benchmark growing
 modes. It fails radial admission relative to that background;
 this does not exclude different focus laws or material actions.
 
+The [null-horizon continuation preflight](docs/null_horizon_continuation_audit.md)
+separates the regular local Tangherlini horizon from that cosmological support
+model. It preserves and audits three submitted continuation laws. The proposed
+linear bounce reverses generator ordering and cannot join the retained exterior
+sides; a separate reciprocal-map control is covariant and conserves horizon
+trace energy, but needs negative-density null-shell stress. Metric, wave-operator,
+and flux-normalization errors in the submitted protocol are identified before
+evolution. This is an analytic and trace-quadrature audit, not a completed packet
+evolution or a new focus-law admission.
+
 ## Where ℏ enters: scale-free closure ledger + one geometric anchor
 
 The closure-ledger arc (`experiments/closure_ledger/`, PRs #11–#74)
