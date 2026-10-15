@@ -148,3 +148,11 @@ NaN-contour regression passed (9 targeted tests). The 27 unchanged
 handle/clock tests had also been independently reproduced on the prior
 commit. The contour regression runs without opening a render window and
 skips when PyVista is not installed.
+
+The second independent review reproduced **36 tests** at `d622909`.
+Install the optional viewer dependencies with `pip install -e ".[dev,viz]"`.
+A dedicated `viz-contour` CI job now installs that extra and runs the contour
+regression without a render window, so this check is not silently skipped
+by the minimal-dependency test matrix. The later physical suggestions are
+assessed in [the second-review audit](bubble_wave_review_audit.md); its new
+transmission measurements are not claimed as reproduced results here.

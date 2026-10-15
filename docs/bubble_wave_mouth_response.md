@@ -118,3 +118,13 @@ with the claimed return, counts as failure of the transparent-mouth law for
 that regime. No reset of the field or mouth may be inserted at the antipode.
 This comparison can support the bubble intuition in a measured limit without
 making it impossible for the model to fail.
+
+## Second-review qualifications
+
+The [follow-up audit](bubble_wave_review_audit.md) makes the recurrence
+statement explicit for Maxwell and unsourced TT modes, derives the
+Gauss–Bonnet obstruction to importing a conformal potential onto the
+negative-Euler-characteristic 2D surface, and separates reviewer-reported
+low neck uptake from demonstrated transparent passage. The next baseline
+should use an independently converged radial/spectral bare solution;
+near-caustic comparisons between two unrelated meshes are not yet adequate.

@@ -6,6 +6,18 @@ on:
   pull_request:
 
 jobs:
+  viz-contour:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install visualization dependencies
+        run: pip install -e ".[dev,viz]"
+      - name: Check finite contour geometry without a render window
+        run: python -m pytest -q tests/test_scalar_deformation_contour.py
   test:
     runs-on: ubuntu-latest
     strategy:
