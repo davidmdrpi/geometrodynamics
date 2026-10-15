@@ -33,9 +33,20 @@ A scalar field needs no normal, so it is well defined on the non-orientable
 surface; a "height along the normal" would not be, which is why the field is
 shown as colour and isolines.
 
+MOUTH CLOCK OFFSETS (Morris–Thorne–Yurtsever)
+─────────────────────────────────────────────
+Each handle may carry a clock offset ``Δ``, the ``Δ_BA = o_B − o_A`` of
+``transaction.network``: a signal crossing the neck from mouth A to mouth B
+emerges ``Δ`` later in external (Killing) time, and one crossing B → A emerges
+``Δ`` earlier. The jump sits at the neck waist. The spacetime is then stationary,
+not static, and has no global ``t = const`` Cauchy surface. Waves are evolved in
+a tilted time ``τ = t − θ`` (``ClockField``), which exists exactly when no closed
+causal curve does. The two-handle case shows the Roman-ring effect: offsets
+that are each safe alone can close a causal loop through both handles
+(``loop_lengths``, ``chronology_ratio``).
+
 Units: R = 1 and wave speed 1. Nothing here is fitted, and no quantum rule is
-inserted. Mouth clock offsets (the Morris–Thorne–Yurtsever ingredient of
-``transaction.network``) are not modelled: the surface is static.
+inserted: this is the classical wave equation on a classical spacetime.
 """
 
 from __future__ import annotations
@@ -53,6 +64,15 @@ __all__ = [
     "Neck",
     "HandledSphere",
     "HandleWaveSim",
+    "ClockField",
+    "ChronologyError",
+    "CutMesh",
+    "clock_field",
+    "source_clock",
+    "LoopLength",
+    "loop_lengths",
+    "chronology_ratio",
+    "neck_crossing_length",
     "default_handles",
     "build_surface",
     "is_orientable",
@@ -301,6 +321,22 @@ class _DrawnHandle:
 # ─────────────────────────────────────────────────────────────────────────────
 
 @dataclass
+class CutMesh:
+    """Display mesh cut at the neck waists.
+
+    ``orig``    surface vertex behind each display vertex (originals come first)
+    ``handle``  −1 for originals; for a waist copy, the handle it belongs to
+    ``tris``    triangles in display indices
+    ``jump``    per triangle corner: the handle whose clock jump applies there, else −1
+    """
+
+    orig: np.ndarray
+    handle: np.ndarray
+    tris: np.ndarray
+    jump: np.ndarray
+
+
+@dataclass
 class HandledSphere:
     """Abstract glued surface plus its drawing.
 
@@ -325,6 +361,15 @@ class HandledSphere:
     rims: List[Tuple[np.ndarray, np.ndarray]]
     drawn: List[_DrawnHandle]
     n_ring: int
+    tube_ids: List[np.ndarray] = field(default_factory=list)
+    tri_tube: Optional[np.ndarray] = None
+    tri_layer: Optional[np.ndarray] = None
+    n_s: int = 0
+
+    @property
+    def waist(self) -> int:
+        """Ring index of the neck waist (s = 0), where each handle's clock jump sits."""
+        return self.n_s // 2
 
     @property
     def n_vertices(self) -> int:
@@ -337,28 +382,65 @@ class HandledSphere:
         K[m] = self.neck.gaussian_curvature(self.s[m])
         return K
 
-    def operators(self) -> Tuple[sp.csr_matrix, np.ndarray]:
-        """Intrinsic cotangent stiffness K (positive semidefinite) and lumped mass."""
-        t = self.tris
+    def local_stiffness(self) -> Tuple[np.ndarray, np.ndarray]:
+        """Per-triangle area and 3×3 cotangent matrices, θᵀ K_T θ = ∫_T |∇θ|²."""
         l = self.lengths
         l0, l1, l2 = l[:, 0], l[:, 1], l[:, 2]
         sp_ = 0.5 * (l0 + l1 + l2)
         area = np.sqrt(np.maximum(sp_ * (sp_ - l0) * (sp_ - l1) * (sp_ - l2), 1e-300))
         cot = np.stack([(l1 ** 2 + l2 ** 2 - l0 ** 2), (l0 ** 2 + l2 ** 2 - l1 ** 2),
                         (l0 ** 2 + l1 ** 2 - l2 ** 2)], axis=1) / (4 * area[:, None])
-        rows, cols, vals = [], [], []
+        KT = np.zeros((len(l), 3, 3))
         for k, (i, j) in enumerate([(1, 2), (0, 2), (0, 1)]):   # edge opposite vertex k
             w = 0.5 * cot[:, k]
-            a, b = t[:, i], t[:, j]
-            rows += [a, b, a, b]
-            cols += [b, a, a, b]
-            vals += [-w, -w, w, w]
+            KT[:, i, j] -= w
+            KT[:, j, i] -= w
+            KT[:, i, i] += w
+            KT[:, j, j] += w
+        return area, KT
+
+    def assemble(self, KT: np.ndarray) -> sp.csr_matrix:
+        t = self.tris
+        rows = np.repeat(t, 3, axis=1).ravel()
+        cols = np.tile(t, (1, 3)).ravel()
         n = self.n_vertices
-        K = sp.csr_matrix((np.concatenate(vals), (np.concatenate(rows), np.concatenate(cols))), shape=(n, n))
-        mass = np.zeros(n)
+        return sp.csr_matrix((KT.ravel(), (rows, cols)), shape=(n, n))
+
+    def operators(self) -> Tuple[sp.csr_matrix, np.ndarray]:
+        """Intrinsic cotangent stiffness K (positive semidefinite) and lumped mass."""
+        area, KT = self.local_stiffness()
+        mass = np.zeros(self.n_vertices)
         for k in range(3):
-            np.add.at(mass, t[:, k], area / 3)
-        return K, mass
+            np.add.at(mass, self.tris[:, k], area / 3)
+        return self.assemble(KT), mass
+
+    def cut(self) -> "CutMesh":
+        """The surface cut open at every neck waist, for display in external time.
+
+        Each waist ring is duplicated; triangles on the mouth-B side of the waist use
+        the copies. A field shown in external (Killing) time jumps there by the
+        handle's clock offset, and the cut lets the picture show that jump.
+        """
+        n = self.n_vertices
+        orig = [np.arange(n)]
+        handle = [np.full(n, -1)]
+        tris = self.tris.copy()
+        jump = np.full(self.tris.shape, -1)
+        nxt = n
+        for k, ids in enumerate(self.tube_ids):
+            ring = ids[self.waist]
+            dup = np.full(n, -1)
+            dup[ring] = nxt + np.arange(len(ring))
+            orig.append(ring)
+            handle.append(np.full(len(ring), k))
+            nxt += len(ring)
+            bside = np.where((self.tri_tube == k) & (self.tri_layer >= self.waist))[0]
+            sub = tris[bside]
+            on = dup[sub] >= 0
+            sub[on] = dup[sub][on]
+            tris[bside] = sub
+            jump[bside] = np.where(on, k, -1)
+        return CutMesh(orig=np.concatenate(orig), handle=np.concatenate(handle), tris=tris, jump=jump)
 
     def total_area(self) -> float:
         return float(self.operators()[1].sum())
@@ -434,6 +516,8 @@ def build_surface(a: float = 0.3, handles: Optional[Sequence[HandleSpec]] = None
     nv = len(sphere_pts)
     ds = ds_target if ds_target is not None else min(0.02, neck.S / 14)
     n_s = max(16, int(math.ceil(2 * neck.S / ds)))
+    n_s += n_s % 2                       # even, so a ring sits exactly on the waist s = 0
+    tube_ids, tri_tube, tri_layer = [], [np.full(len(stri), -1)], [np.full(len(stri), -1)]
     s_grid = neck.S - 2 * neck.S * np.arange(n_s + 1) / n_s
     half = n_ring // 2
     for k, (d, (ra, rb)) in enumerate(zip(drawn, rims)):
@@ -445,6 +529,7 @@ def build_surface(a: float = 0.3, handles: Optional[Sequence[HandleSpec]] = None
         ids[0] = ra
         ids[1:-1] = nv + np.arange(len(inner) * n_ring).reshape(len(inner), n_ring)
         ids[-1] = rb[perm]
+        tube_ids.append(ids)
         pts.append(drawn_pts)
         on_sphere.append(np.zeros(len(drawn_pts), bool))
         tube_of.append(np.full(len(drawn_pts), k))
@@ -460,6 +545,8 @@ def build_surface(a: float = 0.3, handles: Optional[Sequence[HandleSpec]] = None
             for tri, coords in (((v00, v10, v11), ((sa_, 0.0), (sb_, 0.0), (sb_, dpsi))),
                                 ((v00, v11, v01), ((sa_, 0.0), (sb_, dpsi), (sa_, dpsi)))):
                 tris.append(np.stack(tri, axis=1))
+                tri_tube.append(np.full(n_ring, k))
+                tri_layer.append(np.full(n_ring, i))
                 L = np.empty((n_ring, 3))
                 for m, (p, q) in enumerate([(1, 2), (2, 0), (0, 1)]):
                     (s_p, y_p), (s_q, y_q) = coords[p], coords[q]
@@ -470,7 +557,8 @@ def build_surface(a: float = 0.3, handles: Optional[Sequence[HandleSpec]] = None
         a=a, handles=handles, neck=neck,
         points=np.vstack(pts), tris=np.vstack(tris), lengths=np.vstack(lengths),
         on_sphere=np.concatenate(on_sphere), tube_of=np.concatenate(tube_of), s=np.concatenate(svals),
-        sphere_tris=np.arange(len(stri)), rims=rims, drawn=drawn, n_ring=n_ring)
+        sphere_tris=np.arange(len(stri)), rims=rims, drawn=drawn, n_ring=n_ring,
+        tube_ids=tube_ids, tri_tube=np.concatenate(tri_tube), tri_layer=np.concatenate(tri_layer), n_s=n_s)
     return surf
 
 
@@ -526,16 +614,317 @@ def is_orientable(tris: np.ndarray) -> bool:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Mouth clock offsets
+# ─────────────────────────────────────────────────────────────────────────────
+
+class ChronologyError(ValueError):
+    """The clock offsets admit (or come too close to) closed causal curves."""
+
+
+@dataclass
+class ClockField:
+    """A time function for a surface whose handles carry clock offsets.
+
+    Handle ``k`` identifies its two waist sides with a time shift: a signal that
+    crosses from the mouth-A side to the mouth-B side arrives ``offsets[k]`` later
+    in external (Killing) time, the ``Δ_BA = o_B − o_A`` of ``transaction.network``.
+    Negative offsets are advances.
+
+    ``theta`` is single-valued on the surface cut at the waists and jumps by
+    ``offsets[k]`` across waist ``k``. External time is ``t = τ + theta``, and
+    the spacetime metric is the stationary
+
+        ds² = −(dτ + dθ)² + g ,
+
+    with ``dθ`` the smooth part. The slices ``τ = const`` are spacelike exactly
+    when ``|dθ| < 1`` everywhere, so they are Cauchy surfaces then. ``theta`` is
+    chosen to make the largest slope ``tilt = max |dθ|`` as small as possible.
+    By duality that minimum is the largest ratio of clock gain to length over
+    all closed loops, so ``tilt < 1`` exactly when no closed causal curve exists.
+    The computed tilt overestimates the exact minimum by a few percent (finite
+    p and mesh), so it errs on the safe side.
+    """
+
+    offsets: np.ndarray
+    theta: np.ndarray
+    corner: np.ndarray
+    slope: np.ndarray
+    display: np.ndarray
+    tube_tilt: np.ndarray
+
+    @property
+    def tilt(self) -> float:
+        return float(self.slope.max()) if self.slope.size else 0.0
+
+    @property
+    def chronology_safe(self) -> bool:
+        return self.tilt < 1.0
+
+    def binding(self, frac: float = 0.97) -> str:
+        """Which closed loops set the tilt: through one handle or through both."""
+        if not np.any(self.offsets):
+            return "none"
+        hot = [k for k, t in enumerate(self.tube_tilt) if t >= frac * self.tilt]
+        if len(hot) >= 2:
+            return "both handles (Roman ring)"
+        if hot:
+            return f"handle {hot[0] + 1}"
+        return "sphere"
+
+
+def _slopes(surf: HandledSphere, corner: np.ndarray, area: np.ndarray, KT: np.ndarray) -> np.ndarray:
+    return np.sqrt(np.maximum(np.einsum("ti,tij,tj->t", corner, KT, corner), 0.0) / area)
+
+
+def clock_field(surf: HandledSphere, offsets: Sequence[float], anchor: int = 0,
+                fixed: Optional[np.ndarray] = None, schedule: Sequence[int] = (4, 8, 16, 32, 64, 128),
+                maxiter: int = 800, gauge: Optional[np.ndarray] = None,
+                cut: Optional[CutMesh] = None) -> ClockField:
+    """Minimal-tilt clock function for the given waist offsets (see ``ClockField``).
+
+    Starts from the harmonic solution and minimises the p-mean of ``|dθ|`` with
+    L-BFGS for increasing p, which tends to the minimax. ``theta = 0`` on the
+    vertex mask ``fixed`` (default: ``anchor`` alone). Holding it at zero over a
+    source disk makes the slice flat there, so the source emits at one external
+    time. ``gauge`` adds a single-valued function (an exact form). That changes
+    the slicing but not the physics, and is used to test exactly that.
+    """
+    from scipy.optimize import minimize
+    import scipy.sparse.linalg as spl
+
+    cut = surf.cut() if cut is None else cut
+    off = np.zeros(len(surf.tube_ids))
+    off[:len(offsets)] = np.asarray(offsets, float)[:len(off)]
+    area, KT = surf.local_stiffness()
+    tris, n = surf.tris, surf.n_vertices
+    off_ = np.append(off, 0.0)                     # index −1 (no jump) reads the trailing 0
+    J = off_[cut.jump]
+    theta = np.zeros(n)
+    if fixed is None:
+        fixed = np.arange(n) == anchor
+    if np.any(off):
+        keep = ~np.asarray(fixed, bool)
+        rhs = np.zeros(n)
+        KJ = np.einsum("tij,tj->ti", KT, J)
+        for k in range(3):
+            np.add.at(rhs, tris[:, k], -KJ[:, k])
+        K = surf.assemble(KT).tocsr()
+        theta[keep] = spl.spsolve(K[keep][:, keep].tocsc(), rhs[keep])
+        A = area.sum()
+        flat = tris.ravel()
+        kt = [[np.ascontiguousarray(KT[:, i, j]) for j in range(3)] for i in range(3)]
+        for p in schedule:
+            def f(x, p=p):
+                theta[keep] = x
+                c = theta[tris] + J
+                Kc = np.stack([kt[i][0] * c[:, 0] + kt[i][1] * c[:, 1] + kt[i][2] * c[:, 2] for i in range(3)], axis=1)
+                g = np.sqrt(np.maximum((c * Kc).sum(axis=1), 0.0) / area)
+                gm = g.max()
+                r = g / gm
+                F = gm * ((area * r ** p).sum() / A) ** (1.0 / p)
+                coef = (F / gm) ** (1 - p) * r ** (p - 2) / (gm * A)
+                gc = coef[:, None] * Kc
+                grad = np.bincount(flat, weights=gc.ravel(), minlength=n)
+                return F, grad[keep]
+            res = minimize(f, theta[keep], jac=True, method="L-BFGS-B",
+                           options=dict(maxiter=maxiter, gtol=1e-12, ftol=1e-14))
+            theta[keep] = res.x
+    if gauge is not None:
+        theta = theta + np.asarray(gauge, float)
+    theta = theta - theta[anchor]
+    corner = theta[tris] + J
+    slope = _slopes(surf, corner, area, KT)
+    display = theta[cut.orig] + off_[cut.handle]
+    tube_tilt = np.array([slope[surf.tri_tube == k].max() for k in range(len(surf.tube_ids))])
+    return ClockField(offsets=off, theta=theta, corner=corner, slope=slope, display=display,
+                      tube_tilt=tube_tilt)
+
+
+def neck_crossing_length(neck: Neck, n: int = 300):
+    """Shortest neck crossing from rim A to rim B with angular displacement ``Δψ``.
+
+    Geodesics of ``ds² + r(s)² dψ²`` obey Clairaut's ``r² ψ' = c``. Those with
+    ``c < b`` cross the waist after turning by
+
+        Δψ(c) = 2c ∫₀^S ds / (r √(r² − c²)),   length(c) = 2 ∫₀^S r ds / √(r² − c²),
+
+    and ``Δψ → ∞`` as ``c → b``, so every displacement is reachable. Returns a
+    vectorised ``N(Δψ)`` (``Δψ`` taken mod 2π) with ``N(0) = 2S``.
+    """
+    from scipy.integrate import quad
+
+    b, S = neck.b, neck.S
+    cs = np.concatenate([[0.0], b * (1 - np.geomspace(1e-9, 1, n))[::-1]])
+    cs = np.unique(cs[cs < b])
+    turn, length = [], []
+    for c in cs:
+        k2 = b * b - c * c
+        turn.append(2 * quad(lambda s: c / (math.sqrt(s * s + b * b) * math.sqrt(s * s + k2)), 0, S, limit=200)[0])
+        length.append(2 * quad(lambda s: math.sqrt(s * s + b * b) / math.sqrt(s * s + k2), 0, S, limit=200)[0])
+    turn, length = np.array(turn), np.array(length)
+
+    def N(dpsi):
+        d = np.abs((np.asarray(dpsi, float) + math.pi) % (2 * math.pi) - math.pi)
+        return np.interp(d, turn, length)
+    return N
+
+
+@dataclass(frozen=True)
+class LoopLength:
+    """Shortest closed loop in one class: through handle ``i`` (A→B), then optionally ``j``.
+
+    ``sign`` is +1 when handle ``j`` is also crossed A→B (the loop gains
+    ``Δ_i + Δ_j``), −1 when it is crossed B→A (gains ``Δ_i − Δ_j``), and 0 for a
+    loop through handle ``i`` alone. ``obstructed`` flags that a sphere leg of
+    the minimiser runs through another mouth. The length is then only a lower
+    bound for the class.
+    """
+
+    i: int
+    j: Optional[int]
+    sign: int
+    length: float
+    obstructed: bool
+
+    def gain(self, offsets: Sequence[float]) -> float:
+        d = list(offsets) + [0.0] * 4
+        return d[self.i] + (self.sign * d[self.j] if self.j is not None else 0.0)
+
+    @property
+    def label(self) -> str:
+        if self.j is None:
+            return f"handle {self.i + 1}"
+        return f"ring {self.i + 1}{'+' if self.sign > 0 else '−'}{self.j + 1}"
+
+
+def loop_lengths(surf: HandledSphere) -> List[LoopLength]:
+    """Exact shortest loops through one handle and through each pair (both senses).
+
+    A loop is built from neck crossings (``neck_crossing_length``) and
+    great-circle legs between rim points, glued as in ``build_surface``. Its
+    length is minimised over the rim angles. A closed causal curve exists in a
+    class exactly when its clock gain is at least its length, so with
+    ``ratio = max |gain| / length`` the offsets are chronology-safe for these
+    classes when ``ratio < 1``. The minimal-tilt clock field gives the same
+    number from the other side, by duality, and covers every class.
+    """
+    from scipy.optimize import minimize
+
+    nk = surf.neck
+    N = neck_crossing_length(nk)
+    ca, sa = nk.ca, nk.sa
+    fr = []
+    for d in surf.drawn:
+        beta = (lambda p: math.pi - p) if d.spec.klein else (lambda p: p + math.pi)
+        fr.append((d.c, d.e1, d.e2, beta))
+    centers = [s * f[0] for f in fr for s in (1, -1)]
+
+    def P(f, psi, side):
+        psi = np.asarray(psi, float)[..., None]
+        return side * ca * f[0] + sa * (np.cos(psi) * f[1] + np.sin(psi) * f[2])
+
+    def arc(p, q):
+        return np.arccos(np.clip(np.sum(p * q, axis=-1), -1, 1))
+
+    def blocked(p, q, own):
+        t = np.linspace(0, 1, 60)[:, None]
+        w = arc(p, q)
+        if w < 1e-9:
+            return False
+        path = (np.sin((1 - t) * w) * p + np.sin(t * w) * q) / math.sin(w)
+        return any(arc(path, m).min() < nk.a - 1e-6 for k, m in enumerate(centers) if k not in own)
+
+    def solve(fn, legs, dims, own):
+        g = np.linspace(0, 2 * math.pi, 25 if dims == 4 else 73)[:-1]
+        grid = np.meshgrid(*([g] * dims), indexing="ij")
+        vals = fn(*grid)
+        best = None
+        for k in np.argsort(vals.ravel())[:12 if dims == 4 else 4]:
+            x0 = [G.ravel()[k] for G in grid]
+            r = minimize(lambda v: float(fn(*v)), x0, method="Nelder-Mead",
+                         options=dict(xatol=1e-10, fatol=1e-12, maxiter=4000))
+            if best is None or r.fun < best.fun:
+                best = r
+        return best.fun, any(blocked(p, q, own) for p, q in legs(*best.x))
+
+    out = []
+    for i, f in enumerate(fr):
+        fn = lambda a, b: N(b - a) + arc(P(f, f[3](b), -1), P(f, a, 1))
+        legs = lambda a, b: [(P(f, f[3](b), -1), P(f, a, 1))]
+        L, obs = solve(fn, legs, 2, {2 * i, 2 * i + 1})
+        out.append(LoopLength(i, None, 0, L, obs))
+    for i in range(len(fr)):
+        for j in range(i + 1, len(fr)):
+            fi, fj = fr[i], fr[j]
+            own = {2 * i, 2 * i + 1, 2 * j, 2 * j + 1}
+            plus = lambda a, b, p, q: (N(b - a) + arc(P(fi, fi[3](b), -1), P(fj, p, 1))
+                                       + N(q - p) + arc(P(fj, fj[3](q), -1), P(fi, a, 1)))
+            plus_legs = lambda a, b, p, q: [(P(fi, fi[3](b), -1), P(fj, p, 1)), (P(fj, fj[3](q), -1), P(fi, a, 1))]
+            minus = lambda a, b, p, q: (N(b - a) + arc(P(fi, fi[3](b), -1), P(fj, fj[3](q), -1))
+                                        + N(q - p) + arc(P(fj, p, 1), P(fi, a, 1)))
+            minus_legs = lambda a, b, p, q: [(P(fi, fi[3](b), -1), P(fj, fj[3](q), -1)), (P(fj, p, 1), P(fi, a, 1))]
+            for sign, fn, legs in ((1, plus, plus_legs), (-1, minus, minus_legs)):
+                L, obs = solve(fn, legs, 4, own)
+                out.append(LoopLength(i, j, sign, L, obs))
+    return out
+
+
+def chronology_ratio(loops: Sequence[LoopLength], offsets: Sequence[float]) -> Tuple[float, Optional[LoopLength]]:
+    """``max |clock gain| / length`` over the loops, and the loop that attains it."""
+    best, arg = 0.0, None
+    for lp in loops:
+        r = abs(lp.gain(offsets)) / lp.length
+        if r > best:
+            best, arg = r, lp
+    return best, arg
+
+
+def source_clock(surf: HandledSphere, source, offsets: Sequence[float], width: float = 0.25,
+                 margin: float = 0.05, gauge: Optional[np.ndarray] = None,
+                 cut: Optional[CutMesh] = None) -> ClockField:
+    """Clock field held at ``θ = 0`` on the disk of radius ``width + margin`` around ``source``.
+
+    With the slice flat over the source, a bump laid on it is an emission at a
+    single external time. That is what makes runs with different offsets
+    comparable.
+    """
+    p = np.asarray(source, float)
+    p = p / np.linalg.norm(p)
+    m = np.where(surf.on_sphere)[0]
+    dist = np.full(surf.n_vertices, np.inf)
+    dist[m] = np.arccos(np.clip(surf.points[m] @ p, -1, 1))
+    return clock_field(surf, offsets, anchor=int(m[np.argmin(dist[m])]), fixed=dist < width + margin,
+                       gauge=gauge, cut=cut)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Waves
 # ─────────────────────────────────────────────────────────────────────────────
 
 class HandleWaveSim:
-    """Leapfrog ``u_tt = Δu`` on the intrinsic glued surface, frames precomputed.
+    """Scalar waves ``□u = 0`` on the glued surface, with optional mouth clock offsets.
 
-    The source is a compact, zero-mean bump around a sphere point (see ``initial``).
-    ``arrival`` holds the first time ``|u|`` exceeds ``threshold`` times the launch
-    amplitude. The default is low (0.5%) because a narrow neck reflects most of
-    an incoming wave: what crosses it is a few percent of the launch amplitude.
+    Without offsets this is leapfrog for ``u_tt = Δu``. With offsets the field
+    is evolved in the clock function's time ``τ`` (see ``ClockField``), where the
+    wave equation of ``−(dτ + dθ)² + g`` reads
+
+        (1 − |dθ|²) u_ττ + 2 dθ·∇u_τ + (Δθ) u_τ − Δu = 0 .
+
+    Its finite-element form ``M ü + C u̇ + K u = 0`` has a skew gyroscopic ``C``
+    that does no work. The centred scheme conserves ``½v·Mv + ½uₙ·K uₙ₊₁``
+    exactly, and ``energy_drift`` reports it.
+
+    The source is a compact bump placed on the slice ``τ = 0`` around a sphere
+    point, with ``θ = 0`` there. It is corrected (see ``initial``) so that it
+    excites neither the constant mode nor its linearly growing partner. Before
+    ``τ = 0`` the field is zero, which makes the source a retarded emission.
+
+    ``frames`` and ``arrival`` are given on the ``CutMesh`` display vertices
+    (surface vertices first) in **external time** ``t = τ + θ``. Each neck
+    therefore shows its clock jump at the waist. ``arrival`` holds the first
+    external time ``|u|`` exceeds ``threshold`` times the launch amplitude. The
+    default is low (0.5%) because a narrow neck reflects most of an incoming
+    wave: what crosses it is a few percent of the launch amplitude.
 
     At that threshold the recorded arrival respects the causal bound (geodesic
     distance minus the source width) on handled surfaces. The one exception is
@@ -544,8 +933,12 @@ class HandleWaveSim:
     error halves when the vertex count is quadrupled.
     """
 
+    max_tilt = 0.95
+
     def __init__(self, surf: HandledSphere, source=(-0.55, 0.62, 0.56), width: float = 0.25,
-                 t_max: float = 2 * math.pi + 0.6, n_frames: int = 300, threshold: float = 0.005):
+                 t_max: float = 2 * math.pi + 0.6, n_frames: int = 300, threshold: float = 0.005,
+                 offsets: Optional[Sequence[float]] = None, gauge: Optional[np.ndarray] = None,
+                 clock: Optional[ClockField] = None):
         self.surf = surf
         p = np.asarray(source, float)
         self.source = p / np.linalg.norm(p)
@@ -553,19 +946,52 @@ class HandleWaveSim:
         self.t_max = float(t_max)
         self.n_frames = int(n_frames)
         self.threshold = float(threshold)
-        self.K, self.mass = surf.operators()
+        self.cut = surf.cut()
+        m = np.where(surf.on_sphere)[0]
+        self.source_vertex = int(m[np.argmax(surf.points[m] @ self.source)])
+        if clock is None:
+            clock = source_clock(surf, self.source, offsets if offsets is not None else (),
+                                 width=self.width, gauge=gauge, cut=self.cut)
+        self.clock = clock
+        if clock.tilt >= 1.0:
+            raise ChronologyError(
+                f"closed causal curves: max |dθ| = {clock.tilt:.3f} >= 1 (loops through {clock.binding()})")
+        if clock.tilt > self.max_tilt:
+            raise ChronologyError(
+                f"within {100 * (1 - clock.tilt):.0f}% of the chronology horizon (max |dθ| = "
+                f"{clock.tilt:.3f}); the evolution would need a much finer mesh and step")
+        self.K, self.mass0 = surf.operators()
+        area = self.mass0.sum()
+        self._area_T, KT = surf.local_stiffness()
+        w = self._area_T / 3 * (1 - clock.slope ** 2)
+        self.mass = np.zeros(surf.n_vertices)
+        for k in range(3):
+            np.add.at(self.mass, surf.tris[:, k], w)
+        self.C = None
+        if np.any(clock.corner):
+            g = np.einsum("tij,tj->ti", KT, clock.corner) / 3          # B_ij = Σ_T (K_T θ_T)_j / 3, i ∈ T
+            rows = np.repeat(surf.tris, 3, axis=1).ravel()
+            cols = np.tile(surf.tris, (1, 3)).ravel()
+            vals = np.repeat(g[:, None, :], 3, axis=1).ravel()
+            B = sp.csr_matrix((vals, (rows, cols)), shape=(surf.n_vertices,) * 2)
+            self.C = (B - B.T).tocsr()
         self._inv_mass = 1.0 / self.mass
+        self._area_total = area
         self.frames: Optional[np.ndarray] = None
-        self.times = np.linspace(0.0, self.t_max, self.n_frames)
         self.arrival: Optional[np.ndarray] = None
+        lo = min(0.0, float(clock.display.min()))
+        self.t_min = math.floor(lo / 0.05) * 0.05 if lo < 0 else 0.0
+        self.times = np.linspace(self.t_min, self.t_max, self.n_frames)
 
     def initial(self) -> np.ndarray:
-        """Compact, monopole-free launch data: (1 − x²)⁴ (1 − c x²), x = d/w < 1.
+        """Compact launch data ``(1 − x²)⁴ (1 + c₁x² + c₂x⁴)``, ``x = d/w < 1``.
 
-        ``c`` is set on the mesh so the mass-weighted mean is exactly zero. The
-        field is then zero outside the light cone, with no constant pedestal
-        (a closed surface can never shed a monopole, and subtracting it would
-        put an acausal offset everywhere).
+        Without offsets only ``c₁`` is used, to make the mass-weighted mean zero.
+        That removes the constant pedestal a closed surface would otherwise carry,
+        and with it an acausal offset everywhere. With offsets the zero frequency
+        has a Jordan pair (the constant ``1`` and ``τ·1 + φ₁`` with ``Kφ₁ = −C1``).
+        Both conserved charges, ``Q = 1·C u`` and ``W = 1·M u − φ₁·C u``, are then
+        set to zero.
         """
         x = self.surf.points
         d = np.full(len(x), np.inf)
@@ -573,8 +999,24 @@ class HandleWaveSim:
         d[m] = np.arccos(np.clip(x[m] @ self.source, -1, 1))
         q = np.where(d < self.width, (d / self.width) ** 2, 1.0)
         p = np.where(d < self.width, (1 - q) ** 4, 0.0)
-        c = float(self.mass @ p) / float(self.mass @ (p * q))
-        return p * (1 - c * q)
+        basis = [p, p * q, p * q * q]
+        if self.C is None:
+            return p - (self.mass @ p) / (self.mass @ (p * q)) * p * q
+        import scipy.sparse.linalg as spl
+        n = self.surf.n_vertices
+        keep = np.arange(n) != self.source_vertex
+        phi = np.zeros(n)
+        rhs = -(self.C @ np.ones(n))
+        phi[keep] = spl.spsolve(self.K[keep][:, keep].tocsc(), rhs[keep])
+        ones = np.ones(n)
+        Q = lambda u: ones @ (self.C @ u)
+        W = lambda u: self.mass @ u - phi @ (self.C @ u)
+        rows = [[Q(b) for b in basis], [W(b) for b in basis]]
+        scale = max(abs(v) for v in rows[1])
+        rows = [r for r in rows if max(abs(v) for v in r) > 1e-12 * scale]   # Q ≡ 0 if dθ vanishes at the source
+        A = np.array([r[1:] for r in rows])
+        c = np.linalg.lstsq(A, -np.array([r[0] for r in rows]), rcond=None)[0]
+        return basis[0] + c[0] * basis[1] + c[1] * basis[2]
 
     def max_frequency(self, iters: int = 60) -> float:
         rng = np.random.default_rng(0)
@@ -587,41 +1029,73 @@ class HandleWaveSim:
         return math.sqrt(1.05 * lam)
 
     def energy(self, u_prev, u_next, dt) -> float:
-        """Leapfrog's exactly conserved energy for the step u_prev -> u_next."""
+        """The centred scheme's exactly conserved energy for the step u_prev -> u_next."""
         v = (u_next - u_prev) / dt
         return 0.5 * float(v @ (self.mass * v) + u_prev @ (self.K @ u_next))
 
     def run(self) -> "HandleWaveSim":
-        frame_dt = self.t_max / (self.n_frames - 1)
+        frame_dt = (self.t_max - self.t_min) / (self.n_frames - 1)
+        theta_min = float(self.clock.display.min())
+        tau_end = self.t_max - min(0.0, theta_min) + 2 * frame_dt
+        n_tau = int(math.ceil(tau_end / frame_dt)) + 1
         dt0 = 1.8 / self.max_frequency()
         sub = max(1, int(math.ceil(frame_dt / dt0)))
         dt = frame_dt / sub
         self.dt = dt
         u0 = self.initial()
         amp = float(np.max(np.abs(u0)))
-        acc = lambda u: -self._inv_mass * (self.K @ u)
+        M = self.mass
+        if self.C is None:
+            step = lambda cur, prev: 2 * cur - prev - dt * dt * self._inv_mass * (self.K @ cur)
+        else:
+            import scipy.sparse.linalg as spl
+            Ap = (sp.diags(M / dt ** 2) + self.C / (2 * dt)).tocsc()
+            Am = (sp.diags(M / dt ** 2) - self.C / (2 * dt)).tocsr()
+            lu = spl.splu(Ap)
+            step = lambda cur, prev: lu.solve(2 * M / dt ** 2 * cur - self.K @ cur - Am @ prev)
         prev = u0
-        cur = u0 + 0.5 * dt * dt * acc(u0)
-        frames = np.empty((self.n_frames, len(u0)), np.float32)
-        frames[0] = u0
+        cur = u0 - 0.5 * dt * dt * self._inv_mass * (self.K @ u0)
+        tau_frames = np.empty((n_tau, len(u0)), np.float32)
+        tau_frames[0] = u0
         arrival = np.full(len(u0), np.nan)
         arrival[np.abs(u0) > self.threshold * amp] = 0.0
         e0 = self.energy(prev, cur, dt)
         t = dt
-        step = 1
-        for f in range(1, self.n_frames):
+        first = True
+        for f in range(1, n_tau):
             for _ in range(sub):
-                if step > 1:
-                    nxt = 2 * cur - prev + dt * dt * acc(cur)
-                    prev, cur = cur, nxt
+                if not first:
+                    prev, cur = cur, step(cur, prev)
+                first = False
                 hit = np.isnan(arrival) & (np.abs(cur) > self.threshold * amp)
                 arrival[hit] = t
                 t += dt
-                step += 1
-            frames[f] = cur
+            tau_frames[f] = cur
         self.energy_drift = abs(self.energy(prev, cur, dt) - e0) / e0
-        self.frames, self.arrival, self.amplitude = frames, arrival, amp
+        self.tau_frames, self.tau_arrival, self.amplitude = tau_frames, arrival, amp
+        self.frame_dt = frame_dt
+        self.frames = self._external_frames()
+        self.arrival = arrival[self.cut.orig] + self.clock.display
         return self
+
+    def _external_frames(self) -> np.ndarray:
+        """Resample τ-frames at external times ``t = τ + θ`` on the display vertices."""
+        orig, th = self.cut.orig, self.clock.display
+        out = np.zeros((self.n_frames, len(orig)), np.float32)
+        last = len(self.tau_frames) - 1
+        for i, t in enumerate(self.times):
+            x = (t - th) / self.frame_dt
+            ok = x >= 0
+            i0 = np.minimum(np.floor(x).astype(int), last - 1)
+            fr = np.clip(x - i0, 0, 1)
+            i0 = np.clip(i0, 0, last - 1)
+            val = (1 - fr) * self.tau_frames[i0, orig] + fr * self.tau_frames[i0 + 1, orig]
+            out[i] = np.where(ok, val, 0.0)
+        return out
+
+    def frame_at(self, t: float) -> int:
+        return int(np.clip(round((t - self.t_min) / (self.t_max - self.t_min) * (self.n_frames - 1)),
+                           0, self.n_frames - 1))
 
     def compressed(self, frame: int, eps: float = 0.005) -> np.ndarray:
         """Sign-preserving log compression of u, in [−1, 1], so weak transmitted fronts stay visible."""
