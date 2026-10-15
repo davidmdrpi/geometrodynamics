@@ -97,6 +97,15 @@ and flux-normalization errors in the submitted protocol are identified before
 evolution. This is an analytic and trace-quadrature audit, not a completed packet
 evolution or a new focus-law admission.
 
+The [reciprocal-map packet calculation](docs/reciprocal_packet_evolution.md)
+now evolves the full two-characteristic scalar problem in both exterior patches
+and computes its leading spherical Einstein mass and area response. The packet
+reaches an exterior observer with convergent mass/energy balance, but the two
+null constraints demand different induced radii at O(A²). The fixed reciprocal
+null junction therefore fails perturbative geometric matching for this canonical
+scalar, despite conserving the field trace. A dynamical surface completion has
+not been supplied; no nonlinear matched spacetime is claimed.
+
 ## Where ℏ enters: scale-free closure ledger + one geometric anchor
 
 The closure-ledger arc (`experiments/closure_ledger/`, PRs #11–#74)
