@@ -1,0 +1,19 @@
+{
+ "freeze_commit": "82c832f633a9bada476598df8b4806442d1f3b81",
+ "validation_spec_commit": "9d68f01f2abe04cd5962addf74e0418a80d3274a",
+ "recovery_commit": "721882a01d42af8e839dec20e796c7fcc29319c9",
+ "generated_utc": "2026-10-10T20:43:41.456092+00:00",
+ "environment": {
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "scipy": "1.17.0"
+ },
+ "sha256": {
+  "known.json": "271509344ecac7af2ae6979a70a572e56e7b0499b93a66cf319f7b7d9b84c2d9",
+  "scan.json": "1cb311fbb534b5e52b04ca6c711c65c3b28113cf37afbe96b6986fa1ec3424e6",
+  "noise.json": "6c968491712afa01400890297a9e46901ce78ffa999e0a8a8ade6c317241d9c8",
+  "result.json": "446ddb73c43016d343b86ba5751bcff2cc1ec3427e3d6b5eb3b21ada98c276fa",
+  "validation.json": "6ac7f6c655f61b8a8f02b1d9b6b62c5177dba7a5241a05f4f872e1d9c2878d4b",
+  "execution.json": "21f6b156c6e4977ab55663a4e2dbb415004d687b3a02ddaf9cbed8915be3b52f"
+ }
+}

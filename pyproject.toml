@@ -34,6 +34,9 @@ dev = [
     "pytest>=7.0",
     "pytest-timeout>=2.1",
 ]
+precision = [
+    "gmpy2>=2.1",
+]
 notebooks = [
     "jupyter>=1.0",
     "ipywidgets>=8.0",

@@ -1,0 +1,103 @@
+{
+ "sources": {
+  "geometrodynamics/waves/r3_breaking.py": "a445fdfedd0230f91d9f74bb1f09e0c976d7c84b9e5672e0bee4a09ded821c74",
+  "geometrodynamics/waves/r3_family.py": "3e2255cd51fc90201aef429a947fa574e9d2a623f9964691f65f4cd64600c9b2",
+  "geometrodynamics/waves/r3_return_map.py": "6d661891775351bffb672dcd1d014e2a7dab7635ea4e8745365fbce4e90797a5",
+  "geometrodynamics/waves/r3_extension.py": "e1554cd794f418f9686819ba2fb66b32a732c43daf97945b53c3a42da24107a5",
+  "geometrodynamics/waves/jets.py": "8bc8c26a94491c44acaf325d300ead7471361eb17b483ccef3edbe3b01a9a48d",
+  "geometrodynamics/waves/nonlinear_supported_tt.py": "6846a6f0e12c60af402b7f29c39e05b3289355ad039787b5c04668221d9a7b14",
+  "experiments/closure_ledger/r3_breaking_probe.py": "5e9b31e8045ef53a9a29101bd67c679e0b474619685032bfafc8c286e38fcf1d",
+  "geometrodynamics/waves/lrs_taylor.py": "ec05a0d4bdb86d0e0b383d8966923bc15359ddeca2befb3a57114de143e6de6e",
+  "experiments/closure_ledger/r3_ladder_probe.py": "786a10535139c368269fbe5844c64c3a9310cba33c156aa4b30d13956bbab328",
+  "docs/r3_ladder_prereg.md": "6bf2c3287c04d875f4bdad578f5e5e0026ccc2afb8eb61f7f0cb8535ebac6428"
+ },
+ "rungs": [
+  {
+   "rung": "5/11",
+   "a": 0.1483625162854631,
+   "Q_h": 11,
+   "Lambda": 6.829186349426257e-16,
+   "sigma": 3.174559631849617,
+   "R": 3.548280308645534,
+   "harmonic_Q": 2.175289593108088e-16,
+   "largest_other": 5.056589309163998e-17,
+   "double_error": 2.3271339662886305e-12
+  },
+  {
+   "rung": "4/9",
+   "a": 0.171240516036318,
+   "Q_h": 18,
+   "Lambda": 1.5673066120080506e-22,
+   "sigma": 2.7893063018597104,
+   "R": 2.7860368933447277,
+   "harmonic_Q": 4.988536424799344e-23,
+   "largest_other": 1.1990954950953852e-23,
+   "double_error": 2.313221600820633e-12
+  },
+  {
+   "rung": "3/7",
+   "a": 0.20224973224025236,
+   "Q_h": 7,
+   "Lambda": 5.60687472305108e-09,
+   "sigma": 2.714181766144218,
+   "R": 3.0524047396533565,
+   "harmonic_Q": 1.906061465404472e-09,
+   "largest_other": 4.0728272500162086e-10,
+   "double_error": 1.5127377420758248e-12
+  },
+  {
+   "rung": "5/12",
+   "a": 0.2232756598395938,
+   "Q_h": 24,
+   "Lambda": 5.64202045886647e-27,
+   "sigma": 2.518314803003887,
+   "R": 2.7703306321546495,
+   "harmonic_Q": 1.8753202638053354e-27,
+   "largest_other": 3.931603940404277e-28,
+   "double_error": 1.4196452110916933e-12
+  },
+  {
+   "rung": "2/5",
+   "a": 0.24861928209579554,
+   "Q_h": 10,
+   "Lambda": 1.5415584768728813e-11,
+   "sigma": 2.489564212026429,
+   "R": 2.9973593124259637,
+   "harmonic_Q": 5.763395295418929e-12,
+   "largest_other": 1.1395548245299295e-12,
+   "double_error": 1.6943581471664506e-12
+  },
+  {
+   "rung": "3/8",
+   "a": 0.2838742985316631,
+   "Q_h": 16,
+   "Lambda": 2.0671157751399336e-15,
+   "sigma": 2.1132888815365427,
+   "R": 2.3491771829521175,
+   "harmonic_Q": 7.324467466800337e-16,
+   "largest_other": 1.2691420832204225e-16,
+   "double_error": 2.230516907804539e-12
+  },
+  {
+   "rung": "4/11",
+   "a": 0.2982178381485847,
+   "Q_h": 22,
+   "Lambda": 1.0707397313280297e-18,
+   "sigma": 1.8808264512087762,
+   "R": 1.955987913066974,
+   "harmonic_Q": 3.842125480745732e-19,
+   "largest_other": 6.462007153399133e-20,
+   "double_error": 3.446333393661728e-12
+  }
+ ],
+ "sigma_monotone_decreasing_in_a": true,
+ "sigma_linear_fit": {
+  "slope": -7.527223337491145,
+  "intercept": 4.220248641620646,
+  "rms": 0.08910978307478766
+ },
+ "two_fifths_vs_archive": {
+  "max_diff": 1.6943581471664506e-12,
+  "correlation": 0.99808410739352
+ }
+}
