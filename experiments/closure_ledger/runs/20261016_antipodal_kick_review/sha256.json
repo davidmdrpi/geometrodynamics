@@ -1,0 +1,12 @@
+{
+  "directional_equator.csv": "cf81c4ab7a529aed381fdc9fc2a2e230cd1c97520083359d36b93784f0181478",
+  "directional_pole.csv": "0efb9e5e68331c33ec1329620954fa46e4ae2ad2af51cde79a2513b649208efa",
+  "emitter_L40.csv": "d44890a6308c5a80335e3f798fcf1e895f5333099ea3dda164f54bfa3df402ec",
+  "emitter_dt_half.csv": "b387c01a3034a864ac75fc99afdaa4121e228003d08c8c5f275f857a575d2eb1",
+  "moving_emitter.csv": "dc93aae818a347340f868d41d17f8406a6daf7dde3166bea777695e9dbbfc88d",
+  "moving_unexcited.csv": "df52801e51ba65192e60604afdcc85a3cc15155d147c2c63678bb5a5e65956f7",
+  "rest_emitter.csv": "b4143f478cfc6cc88119dede34484e93e6d1dbef240be11dff8ef96e9a970e5c",
+  "symmetric_equator.csv": "850de98e02f7c37f468afa3417c41f4ded7bb433f7777eae70d5db338a0295b0",
+  "symmetric_pole.csv": "2134e890a23a4e05041f37b68b1fa89cc8691b0cf7c761650a3d67b421567e6a",
+  "summary.json": "ee9448b5e9cca7b43d96b7b634f2bcba9675c3683c8c7e892ec8350e33891558"
+}

@@ -137,24 +137,42 @@ def render(data, output):
             cursor.set_xdata([time, time])
         fig.canvas.draw()
         chart = Image.fromarray(np.asarray(fig.canvas.buffer_rgba())[:, :, :3])
-        canvas = Image.new('RGB', (960, 670), BG)
+        canvas = Image.new('RGB', (960, 760), BG)
         draw = ImageDraw.Draw(canvas)
         draw.text((20, 12), f'ANTIPODAL REFOCUSING  |  t = {time:.2f}   |   focus at pi = 3.14',
                   font=font, fill='white')
         canvas.paste(pic, (0, 42))
-        canvas.paste(chart, (0, 390))
-        draw.text((20, 365), 'Solved scalar displacement; fixed radial display gain. Attachment position is not magnified.',
+        canvas.paste(chart, (0, 480))
+        draw.text((20, 365), 'Solved scalar displacement; fixed radial display gain. Sphere positions are not magnified.',
                   font=small, fill='#d6e1e8')
-        draw.text((20, 647), 'Conservative scalar toy on S2. Shading = field sign; pale ring = original target. No GR or quantization claim.',
+        # This is a separate angular-coordinate inset, not an exaggerated X(t)
+        # in the sphere renderer. All cases use the same explicit 0--3 degree axis.
+        for j, name in enumerate(NAMES):
+            left, right, y = 320*j+40, 320*j+280, 433
+            draw.text((320*j+28, 393), 'Magnified surface track (0-3 degrees)',
+                      font=small, fill=COLORS[j])
+            draw.line((left, y, right, y), fill='#667888', width=2)
+            for degree in range(4):
+                pixel = left+(right-left)*degree/3
+                draw.line((pixel, y-4, pixel, y+4), fill='#aabac8')
+                draw.text((pixel-4, y+10), str(degree), font=small, fill='#aabac8')
+            x = archive[f'{name}_x'][i]
+            angle = np.degrees(np.arctan2(x[1], x[0]))
+            pixel = left+(right-left)*angle/3
+            if not 0 <= angle <= 3:
+                raise ValueError('Track inset axis does not cover the solved trajectory')
+            draw.line((left, y, pixel, y), fill=COLORS[j], width=3)
+            draw.ellipse((pixel-6, y-6, pixel+6, y+6), fill=COLORS[j], outline='white')
+        draw.text((20, 737), 'Conservative scalar toy on S2. Shading = field sign; pale ring = original target. No GR or quantization claim.',
                   font=small, fill='#aabac8')
         frames.append(canvas)
     for label, target in [('incoming', np.pi-.35), ('focus', np.pi), ('after', times[-1])]:
         frames[int(np.argmin(abs(times-target)))].save(output/f'{label}.png', optimize=True)
-    swatches = Image.new('RGB', (8*160, 8*112), BG)
+    swatches = Image.new('RGB', (8*160, 8*127), BG)
     for i, frame in enumerate(frames):
-        swatches.paste(frame.resize((160, 112)), ((i%8)*160, (i//8)*112))
+        swatches.paste(frame.resize((160, 127)), ((i%8)*160, (i//8)*127))
     palette = swatches.quantize(colors=128)
-    smaller = [frame.resize((768, 536)).quantize(palette=palette, dither=Image.Dither.NONE)
+    smaller = [frame.resize((768, 608)).quantize(palette=palette, dither=Image.Dither.NONE)
                for frame in frames]
     durations = [max(30, int(1500*(times[i+1]-t))) for i, t in enumerate(times[:-1])]+[1400]
     smaller[0].save(output/'antipodal_kick.gif', save_all=True, append_images=smaller[1:],

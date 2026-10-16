@@ -6,7 +6,9 @@ There is no focus-triggered force, threshold, reset, or assigned trajectory.
 The attachment is coupled at every time. A coherent incoming packet produces
 a localized exchange; the outgoing field carries the compensating change in
 rotational momentum. This is a positive mechanism result within the stated
-toy model, not an independently reproduced discovery or a GR/QFT derivation.
+toy model, not a GR/QFT derivation. A subsequent independent review reproduced
+the numerical archive exactly; see the [review follow-up](antipodal_kick_review.md)
+for that verification, same-packet off-focus controls, and self-emission checks.
 
 ![Actual coupled evolution](images/antipodal_kick/antipodal_kick.gif)
 
@@ -82,6 +84,12 @@ The symmetric attachment still deforms: its maximum sampled internal shape
 energy is 0.01638. The corresponding directional value is 0.01330. Thus
 strong focusing and deformation alone do not select a recoil direction.
 
+The directional attachment receives **13.34%** of the incoming field's
+rotational momentum by the horizon. The direction comes from that field;
+the focus does not choose a direction from a symmetric initial state.
+This is reversible transfer within the conservative system, not irreversible
+absorption. The follow-up quantifies the same-launch off-focus comparison.
+
 **The dephased run has MORE final recoil than the coherent run.** The positive
 result is localization of exchange near the antipode, not an increase in
 total transfer, exclusive antipodal interaction, or immunity to diffuse waves.
@@ -127,8 +135,9 @@ as are the harmonic reality condition and energy/momentum errors.
 The protocol was committed locally before the first coupled run; its SHA256
 is recorded in the result summary. This is a pre-set computational test,
 not an external preregistration. The code/tests and experiment were produced
-in the same implementation effort; independent external reproduction remains
-outstanding.
+in the same implementation effort. Subsequently, the independent review
+reproduced all numeric results and byte-identical numerical archives across
+different Python/NumPy versions; see the linked review follow-up.
 
 ## Reproduction and visualization
 
@@ -151,7 +160,8 @@ fixed field/displacement scale. Display radius is `1+0.18 tanh(u/u_ref)`,
 where u_ref is the prescribed free directional target peak, fixed across
 all cases and frames. This display map is not the solved metric. A small
 attached sphere illustrates q using radius `0.10(1+2q)`; its angular position
-is the actual X(t), without magnification. The pale target ring is a fixed
+is the actual X(t), without magnification. A separate magnified surface-track
+inset uses a common, explicitly labeled 0–3 degree axis. The pale target ring is a fixed
 reference marker. Charts show the full trajectories with a moving time
 cursor; the grey band marks W. No displayed crest or recoil is scripted.
 

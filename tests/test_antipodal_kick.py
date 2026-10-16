@@ -98,3 +98,16 @@ def test_symmetric_and_mirrored_controls_and_second_order_energy():
 def test_invalid_parameters():
     with pytest.raises(ValueError):
         AntipodalKick(replace(Parameters(), mass=0))
+
+
+def test_displacement_uses_initial_attachment_and_events_are_exact():
+    model = AntipodalKick(Parameters(cutoff=4, coupling=0))
+    s = model.initial()
+    s.x = np.array([0., 0., 1.])
+    s.angular = np.array([.03, 0., 0.])
+    a, stats = model.evolve(s, end=1., dt=.01, event_times=[.12345, .6789])
+    assert stats['final_displacement'] == pytest.approx(.1, abs=1e-12)
+    assert stats['max_displacement'] == pytest.approx(.1, abs=1e-12)
+    assert .12345 in a['t'] and .6789 in a['t']
+    with pytest.raises(ValueError):
+        model.evolve(s, end=1., event_times=[1.1])

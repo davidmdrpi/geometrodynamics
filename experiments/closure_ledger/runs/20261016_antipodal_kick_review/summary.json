@@ -1,0 +1,494 @@
+{
+  "status": "POST_REVIEW_REPLICATION",
+  "review": "https://github.com/davidmdrpi/geometrodynamics/pull/339#issuecomment-6206173894",
+  "off_focus": {
+    "symmetric_pole": {
+      "max_energy_relative": 1.0570060507419932e-07,
+      "max_angular_relative": 2.8189256484623115e-17,
+      "max_sphere_error": 3.3639757646142243e-14,
+      "max_tangency_error": 0.0,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.0005694437182433043,
+      "torque_activity": 0.0007213953793273682,
+      "focus_torque_activity": 1.417068630877738e-06,
+      "initial_energy": 0.1,
+      "initial_wave_energy": 0.1,
+      "initial_angular": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "focus_impulse": [
+        0.0,
+        -1.149553302322347e-06,
+        0.0
+      ],
+      "final_impulse": [
+        0.0,
+        0.0005436312519363064,
+        0.0
+      ],
+      "max_displacement": 0.00492234197797059,
+      "final_displacement": 0.00492234197797059,
+      "max_shape_energy": 0.0003900328160437109,
+      "focus_activity_fraction": 0.0019643439249625054
+    },
+    "symmetric_equator": {
+      "max_energy_relative": 1.0569373265489901e-07,
+      "max_angular_relative": 4.445228907190568e-17,
+      "max_sphere_error": 3.774758283725532e-14,
+      "max_tangency_error": 3.4854091318448795e-20,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.000569443715833997,
+      "torque_activity": 0.0007213953785936166,
+      "focus_torque_activity": 1.4170686255178187e-06,
+      "initial_energy": 0.1,
+      "initial_wave_energy": 0.1,
+      "initial_angular": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "focus_impulse": [
+        -6.617679967922191e-23,
+        -7.015452918692899e-23,
+        1.1495532933787633e-06
+      ],
+      "final_impulse": [
+        3.3297483112175076e-20,
+        3.3281165186351614e-20,
+        -0.0005436312495345396
+      ],
+      "max_displacement": 0.004922341958144866,
+      "final_displacement": 0.004922341958144866,
+      "max_shape_energy": 0.0003900328145285529,
+      "focus_activity_fraction": 0.0019643439195305623
+    },
+    "directional_pole": {
+      "max_energy_relative": 8.498299175485614e-08,
+      "max_angular_relative": 2.4563688785724786e-14,
+      "max_sphere_error": 3.341771304121721e-14,
+      "max_tangency_error": 2.880491300126234e-15,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.00045971786732954245,
+      "torque_activity": 0.0005885572192663388,
+      "focus_torque_activity": 1.1170319557732278e-06,
+      "initial_energy": 0.09999999999999999,
+      "initial_wave_energy": 0.09999999999999999,
+      "initial_angular": [
+        -3.4335891487273827e-18,
+        0.0,
+        0.056074766228401206
+      ],
+      "focus_impulse": [
+        3.499714342865203e-08,
+        -9.044439595484624e-07,
+        1.34790916307532e-10
+      ],
+      "final_impulse": [
+        -4.502798995402011e-05,
+        0.0004375014403507621,
+        1.8018558800199227e-08
+      ],
+      "max_displacement": 0.003972121526966713,
+      "final_displacement": 0.003972121526966713,
+      "max_shape_energy": 0.00031340394531703984,
+      "focus_activity_fraction": 0.0018979156472936564
+    },
+    "directional_equator": {
+      "max_energy_relative": 2.3832337617428043e-08,
+      "max_angular_relative": 2.331468282489e-14,
+      "max_sphere_error": 6.8833827526759706e-15,
+      "max_tangency_error": 2.5058202132564714e-21,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 4.092372008305857e-05,
+      "torque_activity": 7.000960473031327e-05,
+      "focus_torque_activity": 4.1276637631873505e-07,
+      "initial_energy": 0.10000000296910874,
+      "initial_wave_energy": 0.09999999999999999,
+      "initial_angular": [
+        -3.4335891487273827e-18,
+        0.0,
+        0.056074766228401206
+      ],
+      "focus_impulse": [
+        -2.3325983132971906e-23,
+        -2.389232398336866e-23,
+        3.902943832103555e-07
+      ],
+      "final_impulse": [
+        6.165294040451967e-22,
+        1.2494678460692638e-21,
+        -2.040001158979636e-05
+      ],
+      "max_displacement": 0.00034363126181521827,
+      "final_displacement": 0.00034363126181521827,
+      "max_shape_energy": 3.0224235133972972e-05,
+      "focus_activity_fraction": 0.0058958535462208155
+    }
+  },
+  "emitter": {
+    "rest_emitter": {
+      "max_energy_relative": 2.531446690416198e-05,
+      "max_angular_relative": 6.500384650575226e-31,
+      "max_sphere_error": 0.0,
+      "max_tangency_error": 0.0,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 1.1607633705712635e-32,
+      "torque_activity": 2.5210686675031537e-32,
+      "focus_torque_activity": 3.2436752947381135e-33,
+      "initial_energy": 0.04500000000000001,
+      "initial_wave_energy": 0.0,
+      "initial_angular": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "focus_impulse": [
+        0.0,
+        6.775633249058308e-34,
+        0.0
+      ],
+      "final_impulse": [
+        0.0,
+        -1.0986286748239021e-32,
+        0.0
+      ],
+      "max_displacement": 0.0,
+      "final_displacement": 0.0,
+      "max_shape_energy": 0.043141260669717144,
+      "focus_activity_fraction": 0.1286627110379593,
+      "early_impulse": [
+        0.0,
+        -1.8424804779271036e-33,
+        0.0
+      ],
+      "antipode_window_impulse": [
+        0.0,
+        6.775633249058308e-34,
+        0.0
+      ],
+      "return_window_impulse": [
+        0.0,
+        -2.717348341530911e-34,
+        0.0
+      ],
+      "energy_budget": {
+        "initial": {
+          "time": 0.0,
+          "wave": 0.0,
+          "shape": 0.025000000000000005,
+          "kinetic": 0.0,
+          "interaction": 0.020000000000000004,
+          "total": 0.04500000000000001
+        },
+        "early": {
+          "time": 2.0,
+          "wave": 0.024585661590821595,
+          "shape": 0.017869138664448326,
+          "kinetic": 5.65789051923748e-66,
+          "interaction": 0.0025445130456283197,
+          "total": 0.04499931330089824
+        },
+        "final": {
+          "time": 7.483185307179586,
+          "wave": 0.036858174696625806,
+          "shape": 0.007619096792632561,
+          "kinetic": 2.0116416085755387e-64,
+          "interaction": 0.000522073035106956,
+          "total": 0.044999344524365326
+        }
+      }
+    },
+    "moving_emitter": {
+      "max_energy_relative": 2.4489698476563618e-05,
+      "max_angular_relative": 2.3651928683210653e-14,
+      "max_sphere_error": 3.774758283725532e-15,
+      "max_tangency_error": 1.0789644731166789e-19,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.0300557506099139,
+      "torque_activity": 0.003756783706679529,
+      "focus_torque_activity": 0.0003429707405686871,
+      "initial_energy": 0.046500000000000014,
+      "initial_wave_energy": 0.0,
+      "initial_angular": [
+        0.0,
+        0.0,
+        0.03
+      ],
+      "focus_impulse": [
+        9.942236414560947e-21,
+        3.0770102221809125e-21,
+        -0.00016999326596878542
+      ],
+      "final_impulse": [
+        1.0390729621978396e-19,
+        2.9097639323817595e-20,
+        -0.0017653087449499213
+      ],
+      "max_displacement": 0.7255438372890214,
+      "final_displacement": 0.7255438372890214,
+      "max_shape_energy": 0.04314452162705959,
+      "focus_activity_fraction": 0.09129371487607553,
+      "early_impulse": [
+        4.326612653560143e-20,
+        4.62270865725403e-21,
+        -0.0007113309489397805
+      ],
+      "antipode_window_impulse": [
+        9.942236414560947e-21,
+        3.0770102221809125e-21,
+        -0.00016999326596878542
+      ],
+      "return_window_impulse": [
+        1.0850010044073325e-20,
+        5.505087012276209e-21,
+        -0.00019527858440949314
+      ],
+      "energy_budget": {
+        "initial": {
+          "time": 0.0,
+          "wave": 0.0,
+          "shape": 0.025000000000000005,
+          "kinetic": 0.0015,
+          "interaction": 0.020000000000000004,
+          "total": 0.046500000000000014
+        },
+        "early": {
+          "time": 2.0,
+          "wave": 0.024551543614388598,
+          "shape": 0.017964382580181393,
+          "kinetic": 0.0014297102246375545,
+          "interaction": 0.00255367565489729,
+          "total": 0.046499312074104834
+        },
+        "final": {
+          "time": 7.483185307179586,
+          "wave": 0.04247425671056669,
+          "shape": 0.0020337704581368937,
+          "kinetic": 0.0013286629837800023,
+          "interaction": 0.0006628103836107813,
+          "total": 0.04649950053609437
+        }
+      }
+    },
+    "moving_unexcited": {
+      "max_energy_relative": 0.0,
+      "max_angular_relative": 0.0,
+      "max_sphere_error": 3.979039320256561e-13,
+      "max_tangency_error": 0.0,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.03,
+      "torque_activity": 0.0,
+      "focus_torque_activity": 0.0,
+      "initial_energy": 0.0015,
+      "initial_wave_energy": 0.0,
+      "initial_angular": [
+        0.0,
+        0.0,
+        0.03
+      ],
+      "focus_impulse": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "final_impulse": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max_displacement": 0.7483185307177449,
+      "final_displacement": 0.7483185307177449,
+      "max_shape_energy": 0.0,
+      "focus_activity_fraction": 0.0,
+      "early_impulse": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "antipode_window_impulse": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "return_window_impulse": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "energy_budget": {
+        "initial": {
+          "time": 0.0,
+          "wave": 0.0,
+          "shape": 0.0,
+          "kinetic": 0.0015,
+          "interaction": 0.0,
+          "total": 0.0015
+        },
+        "early": {
+          "time": 2.0,
+          "wave": 0.0,
+          "shape": 0.0,
+          "kinetic": 0.0015,
+          "interaction": 0.0,
+          "total": 0.0015
+        },
+        "final": {
+          "time": 7.483185307179586,
+          "wave": 0.0,
+          "shape": 0.0,
+          "kinetic": 0.0015,
+          "interaction": 0.0,
+          "total": 0.0015
+        }
+      }
+    }
+  },
+  "refinement": {
+    "L40": {
+      "max_energy_relative": 2.4489698645335424e-05,
+      "max_angular_relative": 2.5815669793031185e-14,
+      "max_sphere_error": 5.329070518200751e-15,
+      "max_tangency_error": 1.0789644820119274e-19,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.030055750591335834,
+      "torque_activity": 0.0037567836699452894,
+      "focus_torque_activity": 0.0003429707367184742,
+      "initial_energy": 0.046500000000000014,
+      "initial_wave_energy": 0.0,
+      "initial_angular": [
+        0.0,
+        0.0,
+        0.03
+      ],
+      "focus_impulse": [
+        9.942236341821161e-21,
+        3.077010212771501e-21,
+        -0.00016999326479371496
+      ],
+      "final_impulse": [
+        1.0390729708374942e-19,
+        2.909763960658402e-20,
+        -0.0017653087595378737
+      ],
+      "max_displacement": 0.7255438371835715,
+      "final_displacement": 0.7255438371835715,
+      "max_shape_energy": 0.0431445216174871,
+      "focus_activity_fraction": 0.09129371474388594,
+      "early_impulse": [
+        4.32661266090198e-20,
+        4.62270865425776e-21,
+        -0.0007113309501391857
+      ],
+      "antipode_window_impulse": [
+        9.942236341821161e-21,
+        3.077010212771501e-21,
+        -0.00016999326479371496
+      ],
+      "return_window_impulse": [
+        1.0850010762774263e-20,
+        5.505087273560835e-21,
+        -0.00019527859647911275
+      ],
+      "energy_budget": {
+        "initial": {
+          "time": 0.0,
+          "wave": 0.0,
+          "shape": 0.025000000000000005,
+          "kinetic": 0.0015,
+          "interaction": 0.020000000000000004,
+          "total": 0.046500000000000014
+        },
+        "early": {
+          "time": 2.0,
+          "wave": 0.02455154360588383,
+          "shape": 0.017964382569697356,
+          "kinetic": 0.001429710224520458,
+          "interaction": 0.0025536756739986087,
+          "total": 0.046499312074100255
+        },
+        "final": {
+          "time": 7.483185307179586,
+          "wave": 0.04247425668666367,
+          "shape": 0.0020337704789245652,
+          "kinetic": 0.0013286629824070478,
+          "interaction": 0.000662810388093407,
+          "total": 0.046499500536088686
+        }
+      }
+    },
+    "dt_half": {
+      "max_energy_relative": 6.122407738640024e-06,
+      "max_angular_relative": 3.111310492397111e-14,
+      "max_sphere_error": 6.439293542825908e-15,
+      "max_tangency_error": 1.0790414652100865e-19,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.030055758310458966,
+      "torque_activity": 0.0037568213827407515,
+      "focus_torque_activity": 0.0003429666594043329,
+      "initial_energy": 0.046500000000000014,
+      "initial_wave_energy": 0.0,
+      "initial_angular": [
+        0.0,
+        0.0,
+        0.03
+      ],
+      "focus_impulse": [
+        9.9421457096013e-21,
+        3.0769819347555654e-21,
+        -0.0001699917075884197
+      ],
+      "final_impulse": [
+        1.0391474302891739e-19,
+        2.910042749913511e-20,
+        -0.0017654349964564449
+      ],
+      "max_displacement": 0.7255432525766372,
+      "final_displacement": 0.7255432525766372,
+      "max_shape_energy": 0.04314531399911785,
+      "focus_activity_fraction": 0.09129171298373653,
+      "early_impulse": [
+        4.326622255093952e-20,
+        4.6227493352751374e-21,
+        -0.0007113325661790987
+      ],
+      "antipode_window_impulse": [
+        9.9421457096013e-21,
+        3.0769819347555654e-21,
+        -0.0001699917075884197
+      ],
+      "return_window_impulse": [
+        1.0856782628935096e-20,
+        5.5075343278119995e-21,
+        -0.00019539224457758297
+      ],
+      "energy_budget": {
+        "initial": {
+          "time": 0.0,
+          "wave": 0.0,
+          "shape": 0.025000000000000005,
+          "kinetic": 0.0015,
+          "interaction": 0.020000000000000004,
+          "total": 0.046500000000000014
+        },
+        "early": {
+          "time": 2.0,
+          "wave": 0.02455164885508028,
+          "shape": 0.017964607257261903,
+          "kinetic": 0.0014297100667482682,
+          "interaction": 0.0025538618422620745,
+          "total": 0.046499828021352524
+        },
+        "final": {
+          "time": 7.483185307179586,
+          "wave": 0.04247441737727248,
+          "shape": 0.0020339543571918574,
+          "kinetic": 0.001328651101565544,
+          "interaction": 0.0006628527721254466,
+          "total": 0.04649987560815532
+        }
+      }
+    }
+  }
+}

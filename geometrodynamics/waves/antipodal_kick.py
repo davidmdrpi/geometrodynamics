@@ -152,17 +152,23 @@ class AntipodalKick:
     def sample(self, a, points):
         return (harmonics(self.ell, self.order, points) @ a).real
 
-    def evolve(self, state=None, dt=0.002, end=np.pi+1.2, output_dt=0.02):
+    def evolve(self, state=None, dt=0.002, end=np.pi+1.2, output_dt=0.02,
+               event_times=()):
         """Output coefficients, state, torque, and conservation diagnostics.
 
         Every integration step contributes to diagnostic maxima and torque
-        integrals. The focus-window endpoints are exact integration boundaries.
+        integrals. The focus-window endpoints and optional event_times are
+        exact integration boundaries. Displacement is relative to initial X.
         """
         if dt <= 0 or output_dt <= 0 or end <= 0:
             raise ValueError("Positive steps and horizon required")
+        if any(not np.isfinite(t) or t < 0 or t > end for t in event_times):
+            raise ValueError("Event times must lie in [0, end]")
         s = self.initial() if state is None else state.copy()
+        initial_x = s.x.copy()
         times = np.unique(np.r_[np.arange(0, end, output_dt), end,
-                                [t for t in [np.pi-.6, np.pi, np.pi+.6] if t <= end]])
+                                [t for t in [np.pi-.6, np.pi, np.pi+.6] if t <= end],
+                                event_times])
         keys = ("t", "a", "p", "x", "angular", "q", "pq", "torque",
                 "wave_angular", "energy", "shape_energy", "ubar")
         out = {k: [] for k in keys}
@@ -218,8 +224,8 @@ class AntipodalKick:
                      initial_angular=initial_j.tolist(),
                      focus_impulse=(arrays["angular"][hi]-arrays["angular"][lo]).tolist(),
                      final_impulse=(s.angular-arrays["angular"][0]).tolist(),
-                     max_displacement=float(np.max(np.arccos(np.clip(arrays["x"][:, 0], -1, 1)))),
-                     final_displacement=float(np.arccos(np.clip(s.x[0], -1, 1))),
+                     max_displacement=float(np.max(np.arccos(np.clip(arrays["x"]@initial_x, -1, 1)))),
+                     final_displacement=float(np.arccos(np.clip(s.x@initial_x, -1, 1))),
                      max_shape_energy=float(np.max(arrays["shape_energy"])),
                      focus_activity_fraction=stats["focus_torque_activity"]
                         /max(stats["torque_activity"], 1e-300))
