@@ -5,8 +5,8 @@ A unit sphere with one or two antipodal finite-mouth handles, each glued either
 orientation-reversingly (Klein-type, the default) or orientation-preservingly
 (torus-type), and each carrying a Morris–Thorne–Yurtsever clock offset Δ. A
 scalar wave launched on the sphere runs on the *intrinsic* glued surface (true
-neck length 2S) and is shown on the drawing as colour plus its leading
-wavefront, in external (Killing) time. Geometry, topology, clocks and waves come
+neck length 2S) and deforms the displayed surface with its signed amplitude,
+in external (Killing) time. The intrinsic metric remains fixed. Geometry, topology, clocks and waves come
 from ``geometrodynamics.viz.klein_handles``; this file is only the viewer.
 
 Run
@@ -20,15 +20,24 @@ Controls
     Space         play / pause            Slider (bottom left)   time t
     1, 2          handle 1 / 2: Klein <-> torus     Slider (bottom right)  mouth angle a
     h             one or two handles      Sliders (top right)    clock offsets Δ1, Δ2
+    d             deformation / fixed geometry     f   first-arrival contour
+    c             wave colours / neutral shading   Gain slider: display exaggeration
     m             colour: wave / first arrival / slicing tilt / curvature
     z             set both offsets to zero
     g             see-through sphere      o   orientation loop through handle 1
     Right-click   put the wave source at that point on the sphere and relaunch
 
 Reading the picture
-    * Sphere band, mouth rims, neck radius along its length and the flares at
-      each mouth are exact. The thin middle of each neck is stretched (no 3D
-      surface can show 2S < 2R cos a at true length).
+    * The reference sphere and mouth rims are exact. The drawn neck is an
+      immersion with a stretched middle and a reshaped Klein exit.
+    * Shape is driven by the computed signed scalar, with fixed launch
+      normalization: sphere radius = 1 + 0.22*tanh(gain*u/u_ref). In handles
+      a continuous ambient vector gives transverse breathing and matches
+      sphere displacement at the rims. It is not a global normal field.
+      This is a display of a fixed-metric wave, not gravitational backreaction.
+    * Default: opaque deformed surface, no arrival contour. Press d to compare
+      fixed geometry; c removes wave colour to inspect shape alone. No feature
+      is placed at a prescribed radius or arrival time.
     * A Klein-type handle passes through the sphere wall and joins its far mouth
       from inside. That crossing is a drawing artifact.
     * Clock offset Δ = o_B − o_A (the convention of transaction.network): a wave
@@ -44,7 +53,7 @@ Reading the picture
       brightest along the loop that is closest to closing.
     * The wave colour is log-compressed: a narrow neck reflects most of an
       incoming wave, and what crosses is a few percent of the launch amplitude.
-    * The white curve is the leading wavefront: where the field first exceeds
+    * The optional white curve (f) is a first-threshold-crossing contour: where the field first exceeds
       0.5% of its launch amplitude by the current external time. Before the
       launch (t < 0) a front can appear only beyond a mouth with an advanced
       clock.
@@ -78,9 +87,11 @@ from geometrodynamics.viz.klein_handles import (
     symlog_curvature,
 )
 
+from geometrodynamics.viz.scalar_deformation import ScalarDeformation
+
 MODES = ("wave", "arrival", "tilt", "curvature")
 HELP = ("Space play/pause   1/2 handle type   h handles   m colour   z zero offsets   "
-        "g see-through   o orientation loop   right-click source")
+        "d deform   f front   c colour\ng see-through   o reference loop   right-click source")
 OFFSET_RANGE = 3.3
 GOLD = "#ffd166"
 
@@ -89,15 +100,33 @@ def _faces(tris: np.ndarray) -> np.ndarray:
     return np.hstack([np.full((len(tris), 1), 3, dtype=np.int64), tris.astype(np.int64)]).ravel()
 
 
+def reached_contour(mesh, time):
+    """Contour only cells whose vertices all have a finite first arrival.
+
+    Keeping NaN as unknown is important, but interpolating through it can
+    produce NaN coordinates in VTK and corrupt the camera clipping bounds.
+    """
+    reached = mesh.extract_points(np.isfinite(mesh.point_data["arrival"]), adjacent_cells=False)
+    return reached.contour([time], scalars="arrival") if reached.n_cells else pv.PolyData()
+
+
 class Explorer:
     def __init__(self, a=0.3, kinds=(True, True), source=(-0.55, 0.62, 0.56), offsets=(0.0, 0.0),
-                 off_screen=False, window_size=(1400, 900)):
+                 off_screen=False, window_size=(1400, 900), deform=True, gain=4.0, front=False,
+                 neutral=False, n_sphere=6000):
+        if int(n_sphere) != n_sphere or n_sphere < 100:
+            raise ValueError("n_sphere must be an integer >= 100")
+        self.n_sphere = int(n_sphere)
         self.a = float(a)
         self.kinds = list(kinds)
         self.offsets = [float(v) for v in (list(offsets) + [0.0, 0.0])[:2]]
         self.source = np.asarray(source, float) / np.linalg.norm(source)
         self.mode = "wave"
-        self.glass = True
+        self.glass = False
+        if not np.isfinite(gain) or gain < 0:
+            raise ValueError("gain must be finite and nonnegative")
+        self.deform, self.gain = bool(deform), float(gain)
+        self.show_front, self.neutral = bool(front), bool(neutral)
         self.playing = False
         self.show_loop = False
         self.frame = 0
@@ -119,12 +148,18 @@ class Explorer:
     def build(self):
         """Geometry, then clocks and waves."""
         handles = default_handles(len(self.kinds), self.kinds) if self.kinds else ()
-        self.surf = surf = build_surface(self.a, handles)
+        self.surf = surf = build_surface(self.a, handles, n_sphere=self.n_sphere)
         self.cut = surf.cut()
+        self.deformation = ScalarDeformation(surf, self.cut)
         self.loops = loop_lengths(surf)
         pts = surf.points[self.cut.orig]
         ns = len(surf.sphere_tris)
-        self.sphere_mesh = pv.PolyData(pts, _faces(self.cut.tris[:ns]))
+        sphere_tris = self.cut.tris[:ns].copy()
+        tri_points = pts[sphere_tris]
+        normal = np.cross(tri_points[:, 1]-tri_points[:, 0], tri_points[:, 2]-tri_points[:, 0])
+        reverse = np.einsum("ij,ij->i", normal, tri_points.mean(axis=1)) < 0
+        sphere_tris[reverse] = sphere_tris[reverse][:, [0, 2, 1]]
+        self.sphere_mesh = pv.PolyData(pts, _faces(sphere_tris))
         self.tube_mesh = pv.PolyData(pts, _faces(self.cut.tris[ns:]))
         self.full_mesh = pv.PolyData(pts, _faces(self.cut.tris))
         self.curv = symlog_curvature(surf)[self.cut.orig]
@@ -149,7 +184,7 @@ class Explorer:
             self.sim_error = str(err)
         if self.sim is not None:
             self.times = self.sim.times
-            arrival = np.where(np.isnan(self.sim.arrival), self.sim.t_max, self.sim.arrival)
+            arrival = self.sim.arrival.copy()  # unobserved vertices remain undefined
         else:
             self.times = np.array([0.0])
             arrival = np.full(len(self.cut.orig), np.inf)
@@ -173,7 +208,8 @@ class Explorer:
         if self.sim is None and mode in ("wave", "arrival"):
             mode = "tilt"
         if mode == "wave":
-            return self.sim.compressed(self.frame), "RdBu_r", (-1.0, 1.0), "u (log-compressed)"
+            values = np.zeros(len(self.cut.orig)) if self.neutral else self.sim.compressed(self.frame)
+            return values, "RdBu_r", (-1.0, 1.0), "u (log-compressed)"
         if mode == "arrival":
             hit = self.sim.arrival[np.isfinite(self.sim.arrival)]
             lo, hi = (float(hit.min()), float(hit.max())) if hit.size else (0.0, self.sim.t_max)
@@ -190,25 +226,23 @@ class Explorer:
         for name, mesh, opacity in (("sphere", self.sphere_mesh, 0.38 if self.glass else 1.0),
                                     ("tubes", self.tube_mesh, 1.0)):
             mesh.point_data["c"] = values
-            pl.add_mesh(mesh, scalars="c", cmap=cmap, clim=clim, name=name, opacity=opacity,
-                        smooth_shading=True, specular=0.25, show_scalar_bar=(name == "tubes"),
-                        scalar_bar_args=dict(title=title, vertical=True, position_x=0.86, position_y=0.25,
-                                             height=0.45, width=0.04, color="white"))
-        rims, waists, wlab, wpos = [], [], [], []
-        for k, (ra, rb) in enumerate(surf.rims):
-            for ring in (ra, rb):
-                p = surf.points[ring]
-                rims.append(pv.lines_from_points(np.vstack([p, p[:1]])))
-            if k < len(self.active_offsets) and self.active_offsets[k] != 0.0:
-                p = surf.points[surf.tube_ids[k][surf.waist]]
-                waists.append(pv.lines_from_points(np.vstack([p, p[:1]])))
-                wlab.append(f"Δ{k + 1} = {self.active_offsets[k]:+.2f}")
-                wpos.append(p.mean(axis=0) + 0.12 * surf.drawn[k].e1)
-        for name, items, color, width in (("rims", rims, "#8fa3c2", 2.0), ("waists", waists, GOLD, 4.0)):
-            if items:
-                pl.add_mesh(pv.merge(items), color=color, line_width=width, name=name)
-            else:
+            if mesh.n_cells == 0:
                 pl.remove_actor(name)
+                continue
+            actor = pl.add_mesh(mesh, scalars="c", cmap=cmap, clim=clim, name=name, opacity=opacity,
+                        smooth_shading=False, specular=0.15,
+                        show_scalar_bar=(name == ("tubes" if self.tube_mesh.n_cells else "sphere")
+                                         and not (self.neutral and self.mode == "wave")),
+                        scalar_bar_args=dict(title=title, vertical=True, position_x=0.86, position_y=0.25,
+                                             height=0.36, width=0.04, color="white"))
+            if name == "sphere":
+                actor.GetProperty().SetInterpolationToPhong()
+        wlab, wpos = [], []
+        for k, delta in enumerate(self.active_offsets):
+            if delta:
+                p = surf.points[surf.tube_ids[k][surf.waist]]
+                wlab.append(f"Δ{k + 1} = {delta:+.2f}")
+                wpos.append(p.mean(axis=0) + 0.12 * surf.drawn[k].e1)
         labels, lpos = [], []
         for k, d in enumerate(surf.drawn):
             for tag, sgn in (("A", 1), ("B", -1)):
@@ -220,7 +254,6 @@ class Explorer:
                                     shape=None, show_points=False, always_visible=True)
             else:
                 pl.remove_actor(name)
-        pl.add_mesh(pv.Sphere(radius=0.035, center=self.source), color=GOLD, name="source")
         self._draw_loop()
 
     def _draw_loop(self):
@@ -243,17 +276,44 @@ class Explorer:
 
     def update(self):
         values, _, _, _ = self._scalars()
+        points = self.deformation.reference
+        if self.deform and self.sim is not None and self.mode == "wave":
+            points = self.deformation.coordinates(self.sim.frames[self.frame], self.sim.amplitude, self.gain)
+        # Update the actual mesh vertices, including the contour's input mesh.
+        for mesh in (self.sphere_mesh, self.tube_mesh, self.full_mesh):
+            mesh.points = points.copy()
+        # Smooth lighting only: vertices and the computed field are unchanged.
+        # The sphere band is orientable; no global normals are imposed on a Klein handle.
+        self.sphere_mesh.compute_normals(cell_normals=False, point_normals=True,
+                                         consistent_normals=False, inplace=True)
+        self._moving_markers(points)
         for mesh in (self.sphere_mesh, self.tube_mesh):
             mesh.point_data["c"][:] = values
             mesh.Modified()
         t = float(self.times[self.frame])
-        lead = self.sim is not None and self.mode in ("wave", "arrival")
-        front = self.full_mesh.contour([t], scalars="arrival") if lead and t > self.times[0] else None
+        lead = self.show_front and self.sim is not None and self.mode in ("wave", "arrival")
+        front = reached_contour(self.full_mesh, t) if lead and t > self.times[0] else None
         if front is not None and front.n_points:
             self.pl.add_mesh(front, color="white", line_width=3, name="front")
         else:
             self.pl.remove_actor("front")
         self._status(t)
+
+    def _moving_markers(self, points):
+        for name, rings, color, width in (
+            ("rims", [r for pair in self.surf.rims for r in pair], "#8fa3c2", 1.0),
+            ("waists", [ring for k, ids in enumerate(self.surf.tube_ids)
+                        if self.active_offsets[k] != 0 for ring in
+                        (ids[self.surf.waist], np.flatnonzero(self.cut.handle == k))], GOLD, 2.0),
+        ):
+            lines = [pv.lines_from_points(np.vstack([points[r], points[r[:1]]])) for r in rings]
+            if lines:
+                self.pl.add_mesh(pv.merge(lines), color=color, line_width=width, name=name)
+            else:
+                self.pl.remove_actor(name)
+        sphere_ids = np.flatnonzero(self.surf.on_sphere)
+        j = sphere_ids[np.argmax(self.surf.points[sphere_ids] @ self.source)]
+        self.pl.add_mesh(pv.Sphere(radius=0.025, center=points[j]), color=GOLD, name="source")
 
     def _status(self, t):
         surf, nk = self.surf, self.surf.neck
@@ -276,21 +336,40 @@ class Explorer:
             refused = self.sim_error.split(":")[0].split(";")[0]
             lines.append(f"slicing tilt (largest slope of theta) = {self.clock.tilt:.2f}" +
                          (f"    no evolution: {refused}" if self.sim is None else ""))
-        lines.append(f"t = {t:.2f}    colour: {self.mode}")
+        shape = "deformed" if self.deform and self.sim is not None and self.mode == "wave" else "reference"
+        lines.append(f"t = {t:.2f}    colour: {self.mode}    shape: {shape}    gain: {self.gain:.1f}")
+        if self.sim is not None:
+            raw = self.sim.frames[self.frame] / self.sim.amplitude
+            lines.append(f"u/u_ref range: [{raw.min():+.3f}, {raw.max():+.3f}]    "
+                         f"tau-energy drift: {self.sim.energy_drift:.1e}")
+        lines.append("Shape = display of solved scalar; fixed intrinsic metric")
         if self.show_loop and surf.drawn:
-            lines.append("loop through handle 1: normal returns "
+            lines.append("reference-geometry loop through handle 1: normal returns "
                          + ("REVERSED (one-sided)" if self.loop_flipped else "unchanged (two-sided)"))
         self.pl.add_text("\n".join(lines), position="upper_left", font_size=10, color="white", name="status")
-        self.pl.add_text(HELP, position="lower_edge", font_size=8, color="#aab4c8", name="help")
+        self.pl.add_text(HELP, position=(12, 8), font_size=8, color="#aab4c8", name="help")
 
     # ── interaction ──────────────────────────────────────────────────────────
     def _slider(self, callback, rng, value, title, a, b, fmt):
         kw = dict(rng=rng, value=value, title=title, fmt=fmt, pointa=a, pointb=b, style="modern",
                   color="white", title_height=0.018)
         try:
-            return self.pl.add_slider_widget(callback, interaction_event="end", **kw)
+            widget = self.pl.add_slider_widget(callback, interaction_event="end", **kw)
         except TypeError:  # older PyVista without interaction_event
-            return self.pl.add_slider_widget(callback, **kw)
+            widget = self.pl.add_slider_widget(callback, **kw)
+        self._style_slider(widget)
+        return widget
+
+    @staticmethod
+    def _style_slider(widget):
+        rep = widget.GetRepresentation()
+        rep.SetSliderWidth(0.018)
+        rep.SetSliderLength(0.018)
+        rep.SetTubeWidth(0.006)
+        rep.SetEndCapLength(0.008)
+        rep.SetEndCapWidth(0.018)
+        rep.SetTitleHeight(0.016)
+        rep.SetLabelHeight(0.018)
 
     def _add_widgets(self):
         pl = self.pl
@@ -298,6 +377,7 @@ class Explorer:
             self._on_time, rng=[float(self.times[0]), float(max(self.times[-1], self.times[0] + 1e-3))],
             value=float(self.times[self.frame]), title="time t", fmt="%.2f",
             pointa=(0.05, 0.1), pointb=(0.42, 0.1), style="modern", color="white")
+        self._style_slider(self.time_slider)
         self._slider(self._on_a, [0.15, 0.45], self.a, "mouth angle a", (0.55, 0.1), (0.85, 0.1), "%.3f")
         self.offset_sliders = [
             self._slider(lambda v, k=k: self._on_offset(k, v), [-OFFSET_RANGE, OFFSET_RANGE], self.offsets[k],
@@ -312,6 +392,11 @@ class Explorer:
         pl.add_key_event("h", self._toggle_count)
         pl.add_key_event("m", self._cycle_mode)
         pl.add_key_event("z", self._zero_offsets)
+        pl.add_key_event("d", self._toggle_deformation)
+        pl.add_key_event("f", self._toggle_front)
+        pl.add_key_event("c", self._toggle_neutral)
+        self._slider(self._on_gain, [0.0, max(20.0, self.gain)], self.gain, "shape gain (display only)",
+                     (0.62, 0.73), (0.95, 0.73), "%.1f")
         pl.add_key_event("g", self._toggle_glass)
         pl.add_key_event("o", self._toggle_loop)
         try:
@@ -393,6 +478,27 @@ class Explorer:
         self.update()
         self.pl.render()
 
+    def _toggle_deformation(self):
+        self.deform = not self.deform
+        self.update()
+        self.pl.render()
+
+    def _toggle_front(self):
+        self.show_front = not self.show_front
+        self.update()
+        self.pl.render()
+
+    def _toggle_neutral(self):
+        self.neutral = not self.neutral
+        self._draw_static()
+        self.update()
+        self.pl.render()
+
+    def _on_gain(self, value):
+        self.gain = float(value)
+        self.update()
+        self.pl.render()
+
     def _toggle_glass(self):
         self.glass = not self.glass
         self._draw_static()
@@ -407,9 +513,13 @@ class Explorer:
 
     def _on_pick(self, point, *args):
         x = np.asarray(point, float)
-        if abs(np.linalg.norm(x) - 1.0) > 0.02:
-            return  # only points on the sphere band can host the source
-        self.source = x / np.linalg.norm(x)
+        # Picking is in displaced display coordinates; recover the intrinsic
+        # sphere vertex rather than rejecting points whose radius is not one.
+        j = int(np.argmin(np.linalg.norm(self.full_mesh.points - x, axis=1)))
+        orig = self.cut.orig[j]
+        if not self.surf.on_sphere[orig]:
+            return
+        self.source = self.surf.points[orig].copy()
         try:
             self._resimulate()
         except Exception:
@@ -439,6 +549,11 @@ def main(argv=None):
     ap.add_argument("--offsets", default="0,0", help="clock offsets Δ1,Δ2 (Δ = o_B − o_A)")
     ap.add_argument("--source", default="-0.55,0.62,0.56", help="source direction x,y,z on the sphere")
     ap.add_argument("--mode", choices=MODES, default="wave")
+    ap.add_argument("--flat", action="store_true", help="compare fixed display geometry")
+    ap.add_argument("--gain", type=float, default=4.0, help="shape exaggeration; fixed launch normalization")
+    ap.add_argument("--n-sphere", type=int, default=6000, help="sphere mesh vertices; try 12000 for refinement")
+    ap.add_argument("--front", action="store_true", help="show first threshold crossing contour")
+    ap.add_argument("--neutral", action="store_true", help="neutral shading to inspect shape without wave colour")
     ap.add_argument("--loop", action="store_true", help="show the orientation loop through handle 1")
     ap.add_argument("--screenshot", help="render one frame to this PNG and exit")
     ap.add_argument("--time", type=float, default=1.1, help="time for --screenshot")
@@ -447,7 +562,9 @@ def main(argv=None):
     kinds = [] if args.handles.strip() == "none" else [k.strip().lower() == "klein" for k in args.handles.split(",")]
     headless = bool(args.screenshot or args.gif)
     ex = Explorer(a=args.a, kinds=kinds, source=[float(v) for v in args.source.split(",")],
-                  offsets=[float(v) for v in args.offsets.split(",")], off_screen=headless)
+                  offsets=[float(v) for v in args.offsets.split(",")], off_screen=headless,
+                  deform=not args.flat, gain=args.gain, front=args.front, neutral=args.neutral,
+                  n_sphere=args.n_sphere)
     if args.mode != "wave":
         ex.mode = args.mode
         ex._draw_static()
