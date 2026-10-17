@@ -1,0 +1,17 @@
+{
+  "minimum_sphere_orientation_ratio": 0.28087346281970677,
+  "maximum_rim_error": 2.220446049250313e-16,
+  "maximum_far_landmark_error": 2.220446049250313e-16,
+  "euler_characteristic": -2,
+  "orientable": false,
+  "frames": 57,
+  "cases": [
+    "directional",
+    "symmetric"
+  ],
+  "fixed_field_scale": 0.15459801905039247,
+  "display_gain": 4.0,
+  "sphere_vertices": 1702,
+  "minimum_collar_gap": 0.16867824939501075,
+  "note": "Necks are neutral: no neck scalar or moving handled-metric solver is implied."
+}

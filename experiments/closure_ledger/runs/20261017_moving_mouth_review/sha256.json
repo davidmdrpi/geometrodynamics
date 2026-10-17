@@ -1,0 +1,9 @@
+{
+  "directional_separation.csv": "e93e1af965a5e2a366cda834342045da66300edcac04117b5d8d526a226c32ab",
+  "directional_x_only.csv": "3ef3f534bfa58a84665c0b6e8300961acf207bb0cd1700aaef55d31905fe521c",
+  "directional_z_only.csv": "e7b7fdddab33470d16f4d033882dba7e6cddaab73f793f26d5ccb8401347eca5",
+  "symmetric_separation.csv": "3608d0e050f5a00aa9195b9a6211bb7e4e57d19ef8bb2b6d69064977cef4783f",
+  "symmetric_x_only.csv": "8edc92ef60ace9a1e971dc6da5bb072c30d74428a0913f1e6cd4a55dc235032e",
+  "symmetric_z_only.csv": "c0bae92a698ce37f833baf949c68011d821ed16153f8d94036062d473b775766",
+  "summary.json": "18a668d301aee9abb98db65c7ba8720ff226b816af1ed67ed60492a3603cd8d0"
+}

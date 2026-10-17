@@ -156,3 +156,9 @@ regression without a render window, so this check is not silently skipped
 by the minimal-dependency test matrix. The later physical suggestions are
 assessed in [the second-review audit](bubble_wave_review_audit.md); its new
 transmission measurements are not claimed as reproduced results here.
+
+For the next visualization with **two independently moving antipodal mouth
+pairs**, see [the effective momentum-exchange experiment](moving_mouth_pairs_results.md).
+It uses this viewer's handle geometry and gluing with #339's round-sphere
+effective scalar mechanics; it does not yet evolve this handled-domain PDE
+on a moving metric.

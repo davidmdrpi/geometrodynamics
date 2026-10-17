@@ -60,3 +60,7 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db
+
+# Reconstructed large moving-mouth assets (lossless pieces are tracked).
+/docs/images/moving_mouth_pairs/moving_mouth_pairs.gif
+/experiments/closure_ledger/runs/20261016_moving_mouth_pairs/render_states.npz
