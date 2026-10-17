@@ -9,6 +9,8 @@ on that branch) with its default parameters (M = 0.1). Run them from a checkout 
     python docs/reviews/pr340/window_impulses.py                      # reads long_directional.npz
     PYTHONPATH=. python docs/reviews/pr340/long_horizon_checks.py    # dt/2, cutoff 40, displaced pair
     PYTHONPATH=. python docs/reviews/pr340/displaced_pair_windows.py
+    PYTHONPATH=. python docs/reviews/pr340/amplitude_scaling.py      # follow-up review (650e825)
+    PYTHONPATH=. python docs/reviews/pr340/symmetric_stop.py         # follow-up review (650e825)
 
 ## The movie
 
@@ -16,9 +18,11 @@ on that branch) with its default parameters (M = 0.1). Run them from a checkout 
 parameters to 4π + 1.2 instead of π + 1.2. Only the horizon changes:
 
 - **Directional packets:** the pairs travel 29° and 49°.
-- **Symmetric packets:** the pairs converge. The run stops at t = 12.30, the last output
-  before mouths of different handles reach the PR protocol's 2·0.3 + 0.05 rad
-  disjointness limit.
+- **Symmetric packets:** the pairs converge. The panel freezes at t = 12.30, the last
+  output before mouths of different handles reach the PR protocol's 2·0.3 + 0.05 rad
+  disjointness limit. This is a display stop: the script integrates the full horizon, and
+  states past the limit are not valid finite-mouth dynamics. `symmetric_stop.py` stops the
+  integration itself; the last admissible state is at t = 12.312.
 
 Energy is conserved to 7e-6 relative and total angular momentum to 1e-14.
 
@@ -32,6 +36,13 @@ The drawing differs from the PR renderer in two ways, both needed to show large 
 
 The necks are #338's neutral drawings, rotated rigidly with their pair axis. A Klein handle
 crosses the sphere wall only because it cannot be drawn in 3D without crossing.
+
+## Follow-up review scripts
+
+- `amplitude_scaling.py` scales the prepared field by λ = 1, ½ and ¼. It separates the bilinear
+  part of the single-packet nonadditivity residual from its trajectory and backreaction part.
+- `symmetric_stop.py` stops the symmetric run at the first integration step past the
+  disjoint-mouth limit, rather than freezing the display as the movie does.
 
 ## The controls
 
