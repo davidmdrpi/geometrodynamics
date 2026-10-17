@@ -5,6 +5,8 @@ impulse of two wave packets in the existing effective Hamiltonian. It compares
 an independent fixed-axis response calculation against the weak-amplitude limit
 of two independently moving antipodal mouth pairs.
 
+[Numerical results, frozen gates and figure](mouth_exchange_numerics.md).
+
 ## What is computed
 
 Write the smoothed scalar at mouth hs as U_hs=<w_hs,a>_real, its shape coordinate
@@ -51,7 +53,9 @@ are unequal. Therefore C_1y=-C_2y for this preparation. This symmetry predicts
 a specific coefficient relation; the computed nonzero coefficient and its
 agreement with freely moving trajectories are the substantive numerical tests.
 There is no analogous assertion that all components of the full recoil vectors
-are equal and opposite. The finite-amplitude field can retain momentum.
+are equal and opposite. The finite-amplitude field can retain mixed y momentum. In the directional
+case, mixed x and z field momentum already changes at quadratic order; the
+quartic result is specific to mixed y, not the whole field vector.
 
 ## Reproduction and scope
 
@@ -63,7 +67,7 @@ python experiments/closure_ledger/mouth_exchange_report.py
 python -m pytest -q tests/test_mouth_exchange.py tests/test_moving_mouth_pairs.py tests/test_antipodal_kick.py
 ```
 
-The protocol was committed locally before runs at `0206381`. PR340's reviewer
+The protocol was committed locally before runs at `0206381` (published protocol commit `7426483`). PR340's reviewer
 had already reported the coarser scaling trend. This is a replication and a
 new independent reference calculation, not a claim of blind preregistration.
 The archive preserves six exact event states per run, per-mouth and pair
@@ -79,3 +83,6 @@ This is classical angular-momentum exchange under an assumed round-S2
 scalar/shape coupling. Neither the drawn necks nor a changing handled metric
 carry the computed scalar. No through-handle transport, GR completion,
 quantized action, or localized measurement law is established here.
+
+Each moving object is an antipodally constrained mouth pair. The two pair axes
+are independent; the four individual mouth positions are not unconstrained.

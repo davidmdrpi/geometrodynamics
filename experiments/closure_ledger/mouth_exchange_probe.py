@@ -48,7 +48,7 @@ def fixed_reference(model, eta, rtol=2e-10, atol=2e-12):
         return np.concatenate(dy)
 
     sol = solve_ivp(rhs, (0., EVENTS[-1]), initial, method='DOP853',
-                    rtol=rtol, atol=atol, t_eval=EVENTS)
+                    rtol=rtol, atol=atol, t_eval=EVENTS, dense_output=True)
     if not sol.success:
         raise RuntimeError(sol.message)
     impulses = sol.y[2*width:].real.T.reshape(-1, 2, 2, 3)
@@ -59,7 +59,10 @@ def fixed_reference(model, eta, rtol=2e-10, atol=2e-12):
         field.append([-np.real(np.vdot(p0, d@a1)+np.vdot(p1, d@a0)) for d in model.generators])
     field = np.array(field)
     ledger = field-field[0]+impulses.sum(axis=(1, 2))
-    return dict(t=EVENTS.tolist(), mouth_mixed_impulse=impulses.tolist(),
+    curve_t = np.unique(np.r_[np.linspace(0., EVENTS[-1], 161), EVENTS])
+    curve = sol.sol(curve_t)[2*width:].real.T.reshape(-1, 2, 2, 3)
+    return dict(curve_t=curve_t.tolist(), curve_pair_mixed_impulse=curve.sum(axis=2).tolist(),
+                t=EVENTS.tolist(), mouth_mixed_impulse=impulses.tolist(),
                 pair_mixed_impulse=impulses.sum(axis=2).tolist(), mixed_field=field.tolist(),
                 max_mixed_ledger=float(np.max(np.linalg.norm(ledger, axis=1))), nfev=sol.nfev)
 
@@ -138,7 +141,7 @@ def run(out):
         for name, eta in [('directional', .7), ('symmetric', 0.)]:
             case = result['cases'].setdefault(name, dict(reference={}, moving={}))
             for cutoff in [32, 40]:
-                if str(cutoff) not in case['reference']:
+                if 'curve_t' not in case['reference'].get(str(cutoff), {}):
                     jobs[pool.submit(job, eta, cutoff, None, None)] = (name, 'reference', str(cutoff))
                 settings = [(.002, [1., .5, .25, .125]), (.001, [.25, .125])] if cutoff == 32 else [(.002, [.25, .125])]
                 for dt, amplitudes in settings:
