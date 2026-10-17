@@ -1,0 +1,112 @@
+{
+  "label": "CANDIDATE_REJECTED_STATIC_AND_BOUNDARY_GATES",
+  "scope": "Explicit massless ghost action, analytic original-neck obstruction, two-ended Ellis radial stability; no nonlinear event",
+  "known_result": "Torii-Shinkai 2013 eqs 3.17-3.18, table I; replication, not discovery",
+  "numerical_gates": {
+    "mesh_refines": true,
+    "richardson_agreement": true,
+    "domain_convergence": true,
+    "eigen_residuals": true,
+    "negative_variational_bound": true,
+    "reproduced_reference": true
+  },
+  "admission_gates": {
+    "original_mouth_contract": false,
+    "static_two_ended_stability": false,
+    "bounded_local_kinetic_hamiltonian": false,
+    "closed_bulk_scalar_matching_supplied": false,
+    "focal_activation_law_supplied": false
+  },
+  "original_neck": {
+    "neck_radius": 0.22984884706593015,
+    "half_length": 0.42073549240394825,
+    "mouth_radius": 0.479425538604203,
+    "unit_lapse_positive_integral": 0.4922426023124799,
+    "integral_exact": 0.49224260231247985,
+    "forced_symmetric_lapse_at_waist": 2.085829642933488,
+    "forced_right_mouth_lapse_derivative": -1.8304877217124518,
+    "original_waist_rho_plus_p_angular": 18.928462573893558,
+    "ellis_radius_for_same_round_mouth": 0.33195693591509523
+  },
+  "mesh_refinement": [
+    {
+      "half_domain_over_b": 12.0,
+      "spacing_over_b": 0.04,
+      "lambda0": -2.9858113569305003,
+      "lambda1": 0.03767721856051283,
+      "residual_l2": 2.7882987794541105e-13,
+      "parity_error": 1.700029006457271e-16,
+      "growth_time_over_b": 0.5787204341209372
+    },
+    {
+      "half_domain_over_b": 12.0,
+      "spacing_over_b": 0.02,
+      "lambda0": -2.985171850201497,
+      "lambda1": 0.03768943196760066,
+      "residual_l2": 1.1231209187151186e-12,
+      "parity_error": 6.050715484207103e-15,
+      "growth_time_over_b": 0.5787824197973631
+    },
+    {
+      "half_domain_over_b": 12.0,
+      "spacing_over_b": 0.01,
+      "lambda0": -2.9850121486664634,
+      "lambda1": 0.03769247984083455,
+      "residual_l2": 3.9209695232516796e-12,
+      "parity_error": 2.886579864025407e-15,
+      "growth_time_over_b": 0.5787979023481891
+    }
+  ],
+  "domain_refinement": [
+    {
+      "half_domain_over_b": 8.0,
+      "spacing_over_b": 0.02,
+      "lambda0": -2.985171850180839,
+      "lambda1": 0.08383150966766328,
+      "residual_l2": 8.772097649703896e-13,
+      "parity_error": 9.575673587391975e-16,
+      "growth_time_over_b": 0.5787824197993658
+    },
+    {
+      "half_domain_over_b": 12.0,
+      "spacing_over_b": 0.02,
+      "lambda0": -2.985171850201497,
+      "lambda1": 0.03768943196760066,
+      "residual_l2": 1.1231209187151186e-12,
+      "parity_error": 6.050715484207103e-15,
+      "growth_time_over_b": 0.5787824197973631
+    },
+    {
+      "half_domain_over_b": 16.0,
+      "spacing_over_b": 0.02,
+      "lambda0": -2.9851718502009383,
+      "lambda1": 0.021412883862273382,
+      "residual_l2": 8.981266369691071e-13,
+      "parity_error": 5.689893001203927e-15,
+      "growth_time_over_b": 0.5787824197974173
+    }
+  ],
+  "richardson_lambda": -2.9849589148214526,
+  "rayleigh": {
+    "kinetic": 1.2533141373155003,
+    "potential": -4.845190276475141,
+    "norm": 1.2533141373155001,
+    "quotient": -2.865902515751682,
+    "integration_half_domain": 12.0
+  },
+  "growth_time_over_b": 0.5788030634745784,
+  "ghost_kinetic_hessian": -1.0,
+  "corrective_kick_budget": 0.0,
+  "sources": {
+    "geometrodynamics/bulk/focus_action_admission.py": "9edd5306a85c472fa2fc551057d6e1d04688e82977783eec3ffced59ffbb3c00",
+    "geometrodynamics/bulk/focus_regularity.py": "329e575af1655f066bd34545cf69f344825120d5d1467f42f9423edf14a0b977",
+    "geometrodynamics/bulk/finite_mouth.py": "d5627763865f8fa1c495b693a2377cf72c6902efe7e64f3b45540455025ec93c",
+    "experiments/closure_ledger/focus_action_admission_probe.py": "bbcc86b7edc5640367d0bd6632e03037bdaaa8d5f4202f430f7820b241fa87f8",
+    "tests/test_focus_action_admission.py": "b5f3d96221b1027dcf7fdfbc4c9f08d519b01420f19277dcd18dc9d7ddd75a8d"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  }
+}

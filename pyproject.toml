@@ -38,6 +38,7 @@ viz = [
 dev = [
     "pytest>=7.0",
     "pytest-timeout>=2.1",
+    "gmpy2>=2.2",
 ]
 precision = [
     "gmpy2>=2.1",
