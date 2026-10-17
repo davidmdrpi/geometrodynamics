@@ -128,3 +128,15 @@ negative-Euler-characteristic 2D surface, and separates reviewer-reported
 low neck uptake from demonstrated transparent passage. The next baseline
 should use an independently converged radial/spectral bare solution;
 near-caustic comparisons between two unrelated meshes are not yet adequate.
+
+## First computed refocusing/recoil comparator
+
+The [antipodal-kick experiment](antipodal_kick_results.md) now evolves a
+movable deformable attachment with reciprocal field coupling on a separate
+smooth round-sphere scalar model. Symmetric focusing excites deformation
+without recoil; asymmetric focusing produces a localized, conserved exchange
+that reverses with the incoming directional bias. The pre-set controls and
+refinements pass for this family. The dephased control accumulates more total
+recoil, so the positive result is concentration of exchange at refocus, not
+exclusive antipodal interaction or quantized action. The original handled
+solver remains the minimal scalar on a fixed geometry.

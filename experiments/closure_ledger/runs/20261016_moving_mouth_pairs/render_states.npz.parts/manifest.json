@@ -1,0 +1,71 @@
+{
+  "size": 1192597,
+  "sha256": "5e04eb1048306a609ce892181676c1c4a296925579d73d9e87981404ab9c9b5e",
+  "parts": [
+    {
+      "file": "000.bin",
+      "size": 98304,
+      "sha256": "9c304369bdb8a1eeb68c6e60f54ebd3455941bc45df8ef728ebeb9dca1c23ab9"
+    },
+    {
+      "file": "001.bin",
+      "size": 98304,
+      "sha256": "2191d04c82538aa47b5443b1ee0b09337bbc9662861436f6e40e1d56a5a1df73"
+    },
+    {
+      "file": "002.bin",
+      "size": 98304,
+      "sha256": "2f0cb35866860ca6ea42cbb66860ef5d1aa1e95263c239f710a74c2da4f8b879"
+    },
+    {
+      "file": "003.bin",
+      "size": 98304,
+      "sha256": "b5c244f170537bc63f874028703e1698457ae80882e352450d9b13817f10c70c"
+    },
+    {
+      "file": "004.bin",
+      "size": 98304,
+      "sha256": "2f33dd2bad46fd6b28fe01b256b135925dd3efe376ba08410842fd55bed7aeec"
+    },
+    {
+      "file": "005.bin",
+      "size": 98304,
+      "sha256": "26d2b7b98a35be06547f18584a0a124662e10b6a91515477d5e43c3fb0cf0bb8"
+    },
+    {
+      "file": "006.bin",
+      "size": 98304,
+      "sha256": "57fe38f727de12ae913d75767f45944a87a0ae8dddb9c4d0fad9d89b2a03e1e2"
+    },
+    {
+      "file": "007.bin",
+      "size": 98304,
+      "sha256": "1b7ffb75155a528d486e8ec30589ce5bc16ce5081567092482c7b7378998242b"
+    },
+    {
+      "file": "008.bin",
+      "size": 98304,
+      "sha256": "38e01b1163f1fe3d3f14e6bd59b125cb140f01cdafb9ce04c87f82d56e70862b"
+    },
+    {
+      "file": "009.bin",
+      "size": 98304,
+      "sha256": "162683293a8193d99f23263c37e1f82e00a103bcec966a483c00e41ba6689684"
+    },
+    {
+      "file": "010.bin",
+      "size": 98304,
+      "sha256": "c2be416ca7738d444c686486f53f48bf4a2ea8defc3b81a04a4ad8bfaa74be39"
+    },
+    {
+      "file": "011.bin",
+      "size": 98304,
+      "sha256": "ba9a870658e10bc267af16634fd4157f4fc286e49b528823d2e2fca68bd6409a"
+    },
+    {
+      "file": "012.bin",
+      "size": 12949,
+      "sha256": "f880f825ff207ffd13ef25ad6ce9844984f2c846e5ff718520c57fa7f0eeecaf"
+    }
+  ]
+}

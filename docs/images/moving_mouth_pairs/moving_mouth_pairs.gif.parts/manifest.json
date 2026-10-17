@@ -1,0 +1,91 @@
+{
+  "size": 1651283,
+  "sha256": "a4fa6e13bc3c8b80a0ff3814af57f2eb841ec95c90309c288ffe1114d3c037b9",
+  "parts": [
+    {
+      "file": "000.bin",
+      "size": 98304,
+      "sha256": "33b717ca4782a3d1127a6d0a200ea0047554854d8af6d9ac30e39e67f54da7a8"
+    },
+    {
+      "file": "001.bin",
+      "size": 98304,
+      "sha256": "18345f46924bc5f0f66d5e2bc32dc9c1fc8c8322b2c4f1c0935e7bf3405db91e"
+    },
+    {
+      "file": "002.bin",
+      "size": 98304,
+      "sha256": "93f9a59b8220f0e5fecadadc7dc7bfacd113e3fdae3f1e386fda7ba8757ae0ef"
+    },
+    {
+      "file": "003.bin",
+      "size": 98304,
+      "sha256": "203e82585854e8f664c0b41283ddacd5cc82d37b308d2c171077aad36d9e5457"
+    },
+    {
+      "file": "004.bin",
+      "size": 98304,
+      "sha256": "8ea365b2f0b7857785be8ed78f53a8a04f20a12821d02e6ff195a7ee16339649"
+    },
+    {
+      "file": "005.bin",
+      "size": 98304,
+      "sha256": "47d1aa4c2fb0ede2e26abc019df98ac0663dd70e4fd557950bf64e84ded7cfed"
+    },
+    {
+      "file": "006.bin",
+      "size": 98304,
+      "sha256": "3984b889fa42c17b5f06441d44b6f4803c871f73c6666a6edabaeefc228443f1"
+    },
+    {
+      "file": "007.bin",
+      "size": 98304,
+      "sha256": "7325043fe4d0628d2d78793074af98fec9152e265ce61380ecb46c577932eb12"
+    },
+    {
+      "file": "008.bin",
+      "size": 98304,
+      "sha256": "44875060dea43c9076427e90157cd12a79113583a198c3121e1410dc07f337af"
+    },
+    {
+      "file": "009.bin",
+      "size": 98304,
+      "sha256": "fc022ac64fa3eda3d88ed47aed42b3fbf5c244c0b5f05f32abe321e9d6c726b8"
+    },
+    {
+      "file": "010.bin",
+      "size": 98304,
+      "sha256": "928e4e7452dfd22f5bb68e7327910be9726dc54e31f227f1988b55178b27e6e5"
+    },
+    {
+      "file": "011.bin",
+      "size": 98304,
+      "sha256": "752566b1cf42a9d882a347362736732e59e504ba7a54a8bb6739f7687e4949ba"
+    },
+    {
+      "file": "012.bin",
+      "size": 98304,
+      "sha256": "49861f84889c2b8cb862a4ab8fee3843eb4f15e5c3833428075be0966d0b04c3"
+    },
+    {
+      "file": "013.bin",
+      "size": 98304,
+      "sha256": "85b11478634d9b898ac28da53e67d13d9aca3aaa64e2f7a6174d88efeacb825b"
+    },
+    {
+      "file": "014.bin",
+      "size": 98304,
+      "sha256": "24a525a7879facf2acc64ef4d478f2ca862b5c07087222901a1e977d40a5c16a"
+    },
+    {
+      "file": "015.bin",
+      "size": 98304,
+      "sha256": "e70caa83af4e32159f3569935f719b0a1da6d35939093d0c62c5ba23fd8d54d1"
+    },
+    {
+      "file": "016.bin",
+      "size": 78419,
+      "sha256": "86a187cf31eafda4baa176d9f15cb3402a62c613088bb35c131d0048697af2b7"
+    }
+  ]
+}
