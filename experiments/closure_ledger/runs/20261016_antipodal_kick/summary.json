@@ -1,0 +1,343 @@
+{
+  "parameters": {
+    "cutoff": 32,
+    "sigma": 0.2,
+    "footprint": 0.12,
+    "mass": 0.3,
+    "shape_mass": 0.05,
+    "shape_frequency": 5.0,
+    "coupling": 1.0,
+    "energy": 0.1
+  },
+  "dt": 0.002,
+  "horizon": 4.341592653589793,
+  "focus_window": [
+    2.541592653589793,
+    3.741592653589793
+  ],
+  "cases": {
+    "symmetric": {
+      "max_energy_relative": 5.407069768870176e-06,
+      "max_angular_relative": 6.642547271179254e-31,
+      "max_sphere_error": 0.0,
+      "max_tangency_error": 0.0,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 1.7788600616025979e-32,
+      "torque_activity": 2.1191128934334467e-32,
+      "focus_torque_activity": 1.4366046161708375e-32,
+      "initial_energy": 0.1,
+      "initial_wave_energy": 0.1,
+      "initial_angular": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "focus_impulse": [
+        0.0,
+        -1.3977084917724907e-32,
+        0.0
+      ],
+      "final_impulse": [
+        0.0,
+        -1.5902383682145135e-32,
+        0.0
+      ],
+      "max_displacement": 0.0,
+      "final_displacement": 0.0,
+      "max_shape_energy": 0.016380626934248393,
+      "focus_activity_fraction": 0.6779273632011223,
+      "bare_target_cap_energy_at_focus": 0.09921182212371275,
+      "bare_target_cap_energy_at_midtransit": 1.8683491051640778e-06,
+      "initial_source_cap_energy": 0.09984951052910158
+    },
+    "directional": {
+      "max_energy_relative": 4.317701096240301e-06,
+      "max_angular_relative": 2.386979502944087e-14,
+      "max_sphere_error": 7.105427357601002e-15,
+      "max_tangency_error": 4.579799655328853e-19,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.0074792496001952515,
+      "torque_activity": 0.009450863711331222,
+      "focus_torque_activity": 0.008777961551870795,
+      "initial_energy": 0.09999999999999999,
+      "initial_wave_energy": 0.09999999999999999,
+      "initial_angular": [
+        -3.4335891487273827e-18,
+        0.0,
+        0.056074766228401206
+      ],
+      "focus_impulse": [
+        -4.2014125405973044e-19,
+        -8.434588802564126e-23,
+        0.006861373660603492
+      ],
+      "final_impulse": [
+        -4.579787579264016e-19,
+        -1.349037220661802e-22,
+        0.0074792496001952515
+      ],
+      "max_displacement": 0.027267520496191452,
+      "final_displacement": 0.027267520496191452,
+      "max_shape_energy": 0.013304996979641583,
+      "focus_activity_fraction": 0.9287999298250759,
+      "bare_target_cap_energy_at_focus": 0.09921157331369744,
+      "bare_target_cap_energy_at_midtransit": 1.7867574385429968e-06,
+      "initial_source_cap_energy": 0.0998229607516189
+    },
+    "mirror": {
+      "max_energy_relative": 4.317701096240301e-06,
+      "max_angular_relative": 2.386979502944087e-14,
+      "max_sphere_error": 7.105427357601002e-15,
+      "max_tangency_error": 4.579799655328853e-19,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.0074792496001952515,
+      "torque_activity": 0.009450863711331222,
+      "focus_torque_activity": 0.008777961551870795,
+      "initial_energy": 0.09999999999999999,
+      "initial_wave_energy": 0.09999999999999999,
+      "initial_angular": [
+        3.4335891487273827e-18,
+        0.0,
+        -0.056074766228401206
+      ],
+      "focus_impulse": [
+        4.2014125405973044e-19,
+        -8.434588802564126e-23,
+        -0.006861373660603492
+      ],
+      "final_impulse": [
+        4.579787579264016e-19,
+        -1.349037220661802e-22,
+        -0.0074792496001952515
+      ],
+      "max_displacement": 0.027267520496191452,
+      "final_displacement": 0.027267520496191452,
+      "max_shape_energy": 0.013304996979641583,
+      "focus_activity_fraction": 0.9287999298250759,
+      "bare_target_cap_energy_at_focus": 0.09921157331369744,
+      "bare_target_cap_energy_at_midtransit": 1.786757438542995e-06,
+      "initial_source_cap_energy": 0.0998229607516189
+    },
+    "dephased": {
+      "max_energy_relative": 2.6987319576218703e-06,
+      "max_angular_relative": 2.784448758743094e-14,
+      "max_sphere_error": 5.329070518200751e-15,
+      "max_tangency_error": 5.51902951602528e-19,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.00900965414049996,
+      "torque_activity": 0.011015797099035309,
+      "focus_torque_activity": 0.002177971911938772,
+      "initial_energy": 0.10017908717522468,
+      "initial_wave_energy": 0.10000000000000003,
+      "initial_angular": [
+        -3.4335891487273815e-18,
+        2.8997078714464585e-33,
+        0.056074766228401206
+      ],
+      "focus_impulse": [
+        -1.21454217581986e-19,
+        -2.1936657427421556e-23,
+        0.001982812909220403
+      ],
+      "final_impulse": [
+        -5.518798914070758e-19,
+        -7.555485961205016e-22,
+        0.00900965414049996
+      ],
+      "max_displacement": 0.045120423088008246,
+      "final_displacement": 0.045120423088008246,
+      "max_shape_energy": 0.011334962290793046,
+      "focus_activity_fraction": 0.19771351018525063,
+      "bare_target_cap_energy_at_focus": 0.009737986476081826,
+      "bare_target_cap_energy_at_midtransit": 0.011157661383352719,
+      "initial_source_cap_energy": 0.00809760076237562
+    },
+    "uncoupled": {
+      "max_energy_relative": 4.204969705767781e-14,
+      "max_angular_relative": 2.3800406090401796e-14,
+      "max_sphere_error": 0.0,
+      "max_tangency_error": 0.0,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.0,
+      "torque_activity": 0.0,
+      "focus_torque_activity": 0.0,
+      "initial_energy": 0.09999999999999999,
+      "initial_wave_energy": 0.09999999999999999,
+      "initial_angular": [
+        -3.4335891487273827e-18,
+        0.0,
+        0.056074766228401206
+      ],
+      "focus_impulse": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "final_impulse": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max_displacement": 0.0,
+      "final_displacement": 0.0,
+      "max_shape_energy": 0.0,
+      "focus_activity_fraction": 0.0,
+      "bare_target_cap_energy_at_focus": 0.09921157331369744,
+      "bare_target_cap_energy_at_midtransit": 1.7867574385429968e-06,
+      "initial_source_cap_energy": 0.0998229607516189
+    },
+    "half_amplitude": {
+      "max_energy_relative": 4.339221671284532e-06,
+      "max_angular_relative": 2.393918396847994e-14,
+      "max_sphere_error": 5.10702591327572e-15,
+      "max_tangency_error": 1.0827443036025116e-19,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.001768253933510964,
+      "torque_activity": 0.002297029131414271,
+      "focus_torque_activity": 0.0021548541041688067,
+      "initial_energy": 0.024999999999999998,
+      "initial_wave_energy": 0.024999999999999998,
+      "initial_angular": [
+        -8.583972871818457e-19,
+        0.0,
+        0.014018691557100301
+      ],
+      "focus_impulse": [
+        -1.0037744329279065e-19,
+        -1.2778594613191876e-24,
+        0.0016392872242191549
+      ],
+      "final_impulse": [
+        -1.0827442598657824e-19,
+        -2.0068696908328075e-24,
+        0.001768253933510964
+      ],
+      "max_displacement": 0.006539393205202316,
+      "final_displacement": 0.006539393205202316,
+      "max_shape_energy": 0.0033000350259234485,
+      "focus_activity_fraction": 0.9381048218757558,
+      "bare_target_cap_energy_at_focus": 0.02480289332842436,
+      "bare_target_cap_energy_at_midtransit": 4.466893596357492e-07,
+      "initial_source_cap_energy": 0.024955740187904724
+    }
+  },
+  "convergence": {
+    "L24": {
+      "max_energy_relative": 4.317713591245331e-06,
+      "max_angular_relative": 2.2690183065776637e-14,
+      "max_sphere_error": 9.547918011776346e-15,
+      "max_tangency_error": 4.579810348090334e-19,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.007479267061765953,
+      "torque_activity": 0.009450865365945563,
+      "focus_torque_activity": 0.008777969001017247,
+      "initial_energy": 0.1,
+      "initial_wave_energy": 0.1,
+      "initial_angular": [
+        -3.433589148431734e-18,
+        0.0,
+        0.05607476622357291
+      ],
+      "focus_impulse": [
+        -4.201423720613445e-19,
+        -8.434643597254376e-23,
+        0.0068613919183946725
+      ],
+      "final_impulse": [
+        -4.579798272188623e-19,
+        -1.3490355801058897e-22,
+        0.007479267061765953
+      ],
+      "max_displacement": 0.0272675777312882,
+      "final_displacement": 0.0272675777312882,
+      "max_shape_energy": 0.013305027019332167,
+      "focus_activity_fraction": 0.9288005554123147
+    },
+    "L40": {
+      "max_energy_relative": 4.3177010894401855e-06,
+      "max_angular_relative": 2.25514051876985e-14,
+      "max_sphere_error": 7.105427357601002e-15,
+      "max_tangency_error": 4.579799647782691e-19,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.007479249587872099,
+      "torque_activity": 0.009450863699779483,
+      "focus_torque_activity": 0.00877796154157142,
+      "initial_energy": 0.09999999999999998,
+      "initial_wave_energy": 0.09999999999999998,
+      "initial_angular": [
+        -3.4335891487273815e-18,
+        0.0,
+        0.056074766228401185
+      ],
+      "focus_impulse": [
+        -4.201412533764112e-19,
+        -8.434588764947901e-23,
+        0.006861373649444301
+      ],
+      "final_impulse": [
+        -4.579787571717937e-19,
+        -1.3490372144356283e-22,
+        0.007479249587872099
+      ],
+      "max_displacement": 0.027267520455181337,
+      "final_displacement": 0.027267520455181337,
+      "max_shape_energy": 0.013304996959511105,
+      "focus_activity_fraction": 0.9287999298705616
+    },
+    "dt_half": {
+      "max_energy_relative": 1.1047839207356525e-06,
+      "max_angular_relative": 1.3877787807814459e-15,
+      "max_sphere_error": 1.199040866595169e-14,
+      "max_tangency_error": 4.579738465933874e-19,
+      "max_reality_error": 0.0,
+      "max_attachment_angular": 0.007479149675159912,
+      "torque_activity": 0.009450680154163487,
+      "focus_torque_activity": 0.008777800285443152,
+      "initial_energy": 0.09999999999999999,
+      "initial_wave_energy": 0.09999999999999999,
+      "initial_angular": [
+        -3.4335891487273827e-18,
+        0.0,
+        0.056074766228401206
+      ],
+      "focus_impulse": [
+        -4.2013611877667995e-19,
+        -8.434309860615958e-23,
+        0.0068612897970916666
+      ],
+      "final_impulse": [
+        -4.579726390199758e-19,
+        -1.3490050685959448e-22,
+        0.007479149675159912
+      ],
+      "max_displacement": 0.027267190915383797,
+      "final_displacement": 0.027267190915383797,
+      "max_shape_energy": 0.01330497102412166,
+      "focus_activity_fraction": 0.9288009055703892
+    }
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  },
+  "protocol_sha256": "bfbcfaf24f0d8b5426c019dc3f2b4eced93f92963e6e61e7914c3723dcc0675b",
+  "relative_final_impulse_changes": {
+    "L24": 2.3346688016760734e-06,
+    "L40": 1.6476455134067544e-09,
+    "dt_half": 1.336030226032972e-05
+  },
+  "gates": {
+    "energy": true,
+    "angular_momentum": true,
+    "space_convergence": true,
+    "time_convergence": true,
+    "symmetric_null": true,
+    "mirror_reversal": true,
+    "uncoupled_null": true,
+    "localized_activity": true,
+    "coherence_enhancement": true,
+    "nonzero_focus_impulse": true
+  },
+  "verdict": "SUPPORTED_FOR_THIS_SCALAR_FAMILY"
+}
