@@ -1,0 +1,183 @@
+# Focused-wave neck collapse: effective protocol (draft)
+
+**Status: draft for discussion. Not frozen.** Freeze it in a local commit before the first coupled run, and publish its hash with the results. As in #340 and #341, that is not external preregistration.
+
+## Question
+Can a focused scalar wave push a metastable neck past its collapse threshold? If it can, where do the neck's stored energy and angular momentum go?
+
+The picture under test is a handle whose neck carries surface energy. The neck is metastable: an energy barrier separates it from a lower-energy state with the neck gone. A wave focused onto its mouths delivers energy to the neck's breathing mode. Past the barrier, the waist contracts until its walls meet (self-contact). The handle then splits, the two halves retract into the sphere, and the released energy leaves as a wave.
+
+This protocol tests that chain in the round-S² effective model of #339, #340 and #341. It is classical and conservative throughout. Topology change enters only through an explicit, stated rule (§4), never through the dynamics.
+
+## 1. What is already known, and what this does not claim
+- **Soap-film physics supports the mechanism.**
+  - A catenoid neck between two coaxial rings of radius a, a distance 2h apart, is metastable for 0.5277 < h/a < 0.6627. Over that range two flat discs have less area than the stable catenoid, and a barrier (the unstable thin catenoid) separates them. This is Goldschmidt's result, checked numerically in §2.
+  - A long tube at fixed pressure is unstable to pinching (Plateau–Rayleigh).
+  - So a metastable neck is physically realisable only as a short neck.
+- **In relativity a throat needs support, and topology change is singular.**
+  - Ellis-type throats are dynamically unstable: a pulse collapses them or makes them expand (Shinkai & Hayward 2002; González, Guzmán & Sarbach 2009).
+  - Classical spatial topology change requires closed timelike curves (Geroch 1967), or a singularity under the energy conditions (Tipler 1977).
+  - In #200's terms, pinching a 3D throat's neck is an index-3 topology change, the class #200 treated as causally discontinuous.
+- **Therefore this protocol does not claim:**
+  - a GR neck pinch;
+  - a derivation of topology change;
+  - neck stability itself, which is an assumption parameterised in §2;
+  - any quantization.
+  
+  The "mass to energy" reading means only that the neck's stored surface energy is released as field energy.
+- **Exact refocusing is a property of the operator.** The conformal scalar (−Δ + ¼) refocuses exactly at the antipode. A tension-membrane wave (ω_l² ∝ (l−1)(l+2)) would not. Every result here inherits that assumption.
+
+## 2. Model (Stage A: effective neck mode)
+Use the unchanged #340 Hamiltonian, with M = 0.1 per pair, cutoff 32, κ = 1, μ = 0.05 and Ω = 5. Make one change: each pair's symmetric shape mode becomes a metastable neck waist.
+
+**Coordinates.** For pair h, let Q_h = (q_h+ + q_h−)/2 and P_h = (q_h+ − q_h−)/2. In #340 the shape energy μΩ²(q_h+² + q_h−²)/2 equals μΩ²(Q_h² + P_h²), and the shape kinetic energy is μ(Q̇_h² + Ṗ_h²).
+
+**Waist.** Let r_h = r₀ + ζQ_h. Replace μΩ²Q_h² by
+
+  V(r_h) = γ [A(r_h) − A(r₀)],
+
+where A(r) is the area of a reduced shape family:
+- the family is the cosh profile ρ(z) = r cosh(βz), with β = arccosh(a/r)/h, so that ρ(±h) = a;
+- it contains both exact catenoids;
+- its stationary points are exactly the thin and thick catenoid waists r_b < r₀.
+
+The P_h mode, the mouth–field coupling κ(q − ū)²/2 and everything else stay as in #340.
+
+**Nesting.** Choose γ and ζ so that:
+- the small-oscillation limit is #340 exactly: γA''(r₀)ζ²/2 = μΩ², with waist inertia 2μ/ζ²;
+- the barrier ΔV = γ[A(r_b) − A(r₀)] takes the preset value.
+
+One parameter, ΔV, then fixes both γ and ζ. The barrier in field units is Q_b = (r_b − r₀)/ζ < 0.
+
+**Baseline geometry: h/a = 0.60** (a = 1 in neck units).
+
+| quantity | value |
+|---|---|
+| thick (stable) catenoid r₀ | 0.745071 |
+| thin (barrier) catenoid r_b | 0.351888 |
+| A(r₀) | 6.999643 |
+| A(r_b) | 7.207912 (barrier = 2.98% of A(r₀)) |
+| two discs, 2πa² | 6.283185 (release = 10.2% of A(r₀)) |
+| family area at r = 1e-4 | 6.375373 |
+
+The family reaches the two-disc value only logarithmically, which §4 accounts for.
+
+**Stage-0 gates.** `experiments/closure_ledger/neck_stage0_check.py` reproduces every number in this section and asserts these gates. Before any coupled run, all of the following must hold:
+- the code reproduces the critical h/a = 0.66274 to 1e-4;
+- the area crossing h/a = 0.52770 is reproduced to 1e-4;
+- the family's stationary points equal the catenoid waists to 1e-6 at h/a = 0.55, 0.60 and 0.65.
+
+**Barrier sweep.** ΔV ∈ {0.0025, 0.005, 0.01, 0.02} in model energy units. #340's prepared packet carries 0.1. The baseline is ΔV = 0.01. With A''(r₀) = 10.012 and A(r_b) − A(r₀) = 0.208270 at h/a = 0.60, the nesting conditions give:
+
+| ΔV | γ | ζ | barrier Q_b (field units) | harmonic estimate −√(ΔV/μΩ²) | waist inertia 2μ/ζ² |
+|---|---|---|---|---|---|
+| 0.0025 | 0.01200 | 4.561 | −0.086 | −0.045 | 0.0048 |
+| 0.005 | 0.02401 | 3.225 | −0.122 | −0.063 | 0.0096 |
+| 0.01 | 0.04801 | 2.280 | −0.172 | −0.089 | 0.0192 |
+| 0.02 | 0.09603 | 1.613 | −0.244 | −0.126 | 0.0385 |
+
+The well is softer than its harmonic approximation, so the barrier sits about twice as far out. For scale, #340's mouths reach shape amplitudes of order 0.07 at λ = 1.
+
+**Integrator.** Keep #340's exact harmonic drift, and put V(r₀ + ζQ) − μΩ²Q² into the kick. The splitting stays symplectic, and with V quadratic it reduces to #340 exactly.
+
+## 3. Collapse event
+Collapse of pair h occurs when the waist reaches the surgery radius r_s = 0.05a, moving inward. Past r_b, V decreases monotonically to r_s, so crossing the barrier with inward velocity leads to collapse.
+
+Detect the crossing after every integration step. Bracket it at step resolution and retain the last state before the crossing. A waist that crosses r_b and returns is a **sub-threshold excursion**, not a collapse. Record each excursion's depth.
+
+## 4. Surgery rule (imposed, not derived)
+At the collapse time t_c:
+
+1. **Remove pair h:**
+   - its axis and L_h;
+   - its waist mode Q_h and antisymmetric mode P_h, with their momenta;
+   - its two mouth–field couplings.
+
+   The field domain is unchanged: it is the full sphere, as in #340.
+2. **Energy to deposit.** E_dep equals the removed pair's total energy minus γ·2πa² (two closed caps), where the total is kinetic + shape + V(r_s) + its interaction terms. Report the logarithmic remainder γ[A(r_s) − 2πa²] separately.
+3. **Angular momentum to deposit.** ΔJ_field = L_h.
+4. **Deposition form.** Apply an impulsive field displacement δa and velocity δp at the two former mouth sites s = ±. Both lie in the span of {w_hs, D_i w_hs}: the axisymmetric footprints and their rotational dipoles.
+   - Including δa lets the deposit carry its own angular momentum, through the ⟨δp, D δa⟩ term, instead of relying on the field already present.
+   - Take the solution of minimum norm in the field-energy metric that satisfies two constraints exactly: ΔE_field = E_dep and ΔJ_field = L_h, where J = −Re⟨p, D a⟩.
+   - If no real solution exists, report SURGERY_INFEASIBLE. Do not substitute another rule.
+5. **Variant.** Spread the same δp over a retraction time τ_r ∈ {0.05, 0.1, 0.2}, as a forcing with the same totals; τ_r = 0 is the baseline.
+
+   For scale, the soap-film retraction speed is √(2γ/σ) (Taylor–Culick). Here τ_r is a free parameter, and results must be insensitive to it (§7).
+
+## 5. Runs
+**Packets.** Use #340's preparations scaled by λ, so the energy is 0.1λ². Search λ ∈ (0, √10] by bisection to 1% in λ, giving the threshold λ*. Run:
+
+| case | preparation | role |
+|---|---|---|
+| C1 | symmetric x-packet alone, normalised to energy 0.1λ² by itself; pair 2 at the focus, pair 1 at 90° as spectator | focused, no first-order recoil |
+| C2 | directional x-packet alone, same layout | focused, with recoil carrying the pair off-focus |
+| C3 | C1 packet with pair 2 rotated to ±y, off the source–target axis | off-focus control |
+| C4 | #340's two-packet preparation (directional and symmetric) | both necks at risk |
+| C5 | mirror of C2 (η → −η) | λ* must agree to 1e-8 relative |
+| N1 | empty field, waist at r₀ | no collapse over the horizon |
+| N2 | κ = 0 at λ = √10 | no collapse |
+| N3 | V replaced by its quadratic Taylor term, at δ = 0 | must reproduce #340's directional CSV to 1e-12 (nesting gate) |
+
+**Start convention.** Backpropagate the prepared packets by π + δ, with δ = 1.2, so that both the source focus (at t = δ) and the target focus (at t = π + δ) are complete events with resting, unexcited mouths beforehand. #341's review found that starting in mid-focus (δ = 0) halves the leading exchange coefficient. Also report δ = 0 for comparability with #340 and #341, labelled as the half-focus convention.
+
+**Horizon.** 2π + δ + 1.2, so it includes the source-side return focus at 2π + δ. Sample exactly at δ ± 0.6, and at kπ + δ ± 0.6 and kπ + δ for k = 1, 2.
+- Stop at #340's disjoint-mouth limit (0.65 rad), bracketed as in #341.
+- A collision stop makes that run INCOMPLETE.
+
+**Recorded per run:**
+- every energy term, plus all-step maxima of the energy and angular-momentum errors;
+- per-mouth impulses in every window;
+- the waist trajectory and the deepest excursion;
+- t_c and its bracket;
+- the deposited E and J, and δa, δp;
+- at t_c + π, the refocused field amplitude and energy in 0.3-rad caps around both former mouth sites;
+- after t_c, the other pair's impulse.
+
+## 6. Hypotheses, set before running
+- **H1 (focus selectivity).** λ*(C1) < λ*(C3)/√5, meaning the off-focus threshold energy is at least 5× larger. #339 found that the focus deposits 40× to 440× more shape energy than an off-focus pass.
+- **H2 (symmetric collapses more easily than directional).** λ*(C1) < λ*(C2). A symmetric single packet gives no first-order recoil, so the pair stays on the focus. #339's focus shape-energy maxima were 0.0164 (symmetric) against 0.0133 (directional).
+- **H3 (where collapse happens).** At threshold, t_c falls in a focus window: target [π + δ ± 0.6], or source return [2π + δ ± 0.6]. Report which, and whether the source focus at t = δ pre-loads the neck.
+  - Both mouths of a pair drive the same waist mode Q. With Ω = 5 the source and target foci are 2.5 ringing periods apart, so whether the second focus adds to or cancels the first depends on the waist's phase.
+  - Record the waist phase at each focus.
+  - This is distinct from #341's rotational exchange, which accrues at mid-transit crossings rather than at foci.
+- **H4 (re-convergence).** The released pulse re-converges on the two former mouth sites at t_c + π. Each site's antipode is the other site, and that site is where the pulse's other half started. Test it: the energy in the two 0.3-rad caps at t_c + π should exceed its value at t_c + π/2 by a preset factor of 5.
+- **H5 (barrier scaling).** For single-pass transfer, λ*² ∝ ΔV across the sweep. A significantly weaker growth means multi-focus pumping. Report the log-log slope with its uncertainty.
+
+## 7. Gates
+**Numerical (otherwise UNRESOLVED_NUMERICALLY):**
+- relative energy error < 1e-4 over each trajectory, including across the surgery;
+- normalised angular-momentum error < 1e-8;
+- surgery ledger exact to 1e-12;
+- halving dt and raising the cutoff to 40 each change λ* by < 1% and t_c by < 0.01;
+- the τ_r variants change the deposited energy by 0 (exact), and change the re-convergence factor by < 10%.
+
+**Controls:**
+- the N1–N3 gates hold;
+- the C5 mirror holds;
+- the Stage-0 gates hold.
+
+**Verdict:**
+- **SUPPORTED_FOR_THIS_EFFECTIVE_FAMILY:** H1 holds at the baseline ΔV with converged thresholds, and every ledger closes.
+- **NOT_SUPPORTED:** no collapse in C1 or C2 for λ ≤ √10, or H1 fails while converged.
+- **Reported, not gated:** H2–H5, each with its uncertainty and stated as confirmed or not.
+
+## 8. Practices carried over from #340 and #341
+- Stop the integration (not the display) at every validity limit, bracketed at step resolution.
+- Write archives with sorted keys, so a rerun reproduces the manifest bytes.
+- Any statement about a cross term between packets needs amplitude scaling (λ, λ/2, λ/4) and a leading-order reference.
+- Draw large motion on a fixed sphere.
+
+## 9. Drawing
+- Use the fixed-sphere renderer from the #340 review, with colour-only field and moving cutouts.
+- Draw each neck with its waist scaled by r_h(t)/r₀, so that contraction and pinch are visible.
+- At t_c, replace the neck by two retracting cap bumps whose height follows the deposited footprint, then show the outgoing ring and its re-convergence at t_c + π.
+- Label the surgery frame "imposed topology-change rule".
+- Klein-handle crossings are drawing artifacts and are never treated as contact.
+
+## 10. Stage B (separate protocol, before physical interpretation)
+Before Stage A thresholds are read physically, solve the neck as an axisymmetric membrane: a surface of revolution with tension and surface density between two rims driven by an imposed rim pulse. Compare its collapse threshold and released energy with the reduced potential V(r) and waist inertia; they must agree within 10%.
+
+Stage B removes the one-mode reduction. It does not remove the surgery rule, which any continuum calculation also needs at the singularity.
+
+## 11. Scope
+This is a classical, conservative test in an assumed effective Hamiltonian. The topology change is imposed (§4). Its 3+1 analogue is a singular, index-3 event in #200's classification. A positive result would establish, for this family, a focused-wave route from stored neck energy to outgoing field energy, with exact bookkeeping. It would not establish neck dynamics in GR, a particle-to-radiation law, or quantization.
