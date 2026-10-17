@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import pyvista as pv
+# Sibling import for the documented direct entry point:
+# python scripts/render_moving_mouth_pairs.py (not python -m scripts...).
 from restore_moving_mouth_assets import load_asset
 
 from geometrodynamics.viz.klein_handles import build_surface, is_orientable, euler_characteristic
@@ -108,7 +110,7 @@ def render(data, output):
     axes[1].plot(trace['t'], sum(momenta), color='white', lw=2, label='Pair sum')
     axes[1].plot(trace['t'], wave[0]-wave, color='#ef839a', ls='--', label='Field loss')
     axes[2].plot(trace['t'], np.degrees(trace['separation'])-90, color='#ad9cff')
-    axes[0].set_title('Magnified axis displacement (degrees)', color='white', fontsize=10)
+    axes[0].set_title('Axis displacement (true degrees)', color='white', fontsize=10)
     axes[1].set_title('Angular momentum along (x+z)/sqrt(2)', color='white', fontsize=10)
     axes[2].set_title('Change in pair separation (degrees)', color='white', fontsize=10)
     for ax in axes[:2]:
@@ -175,7 +177,7 @@ def render(data, output):
         draw.text((20, 517), 'Scalar deformation gain 4. Neutral necks: no computed throat wave or fluid flow. Mouth positions are unscaled.',
                   font=small, fill='#d5e0ec')
         canvas.paste(chart, (0, 542))
-        draw.text((20, 798), 'Directional-case diagnostics. Blue window = launch; pale window = refocus. No action quantization or GR claim.',
+        draw.text((20, 798), 'Blue: outgoing half of source focus. Pale: target focus. True angles; no GR or action quantization claim.',
                   font=small, fill='#aabacd')
         frames.append(canvas)
         if i % 10 == 0:

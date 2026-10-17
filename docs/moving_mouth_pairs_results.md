@@ -28,6 +28,16 @@ free target profile for every frame/case; colors saturate at ±u_ref/4.
 This fixed gain makes low-amplitude traveling deformations visible. It has
 no effect on the field evolution, mouth axes, or momentum ledger.
 
+For visible large-angle transport, the reviewer supplied the larger movie
+below, now included with its source scripts. It extends the horizon to
+4pi+1.2, uses a fixed sphere and no radial display, and holds the symmetric
+panel at its last admissible sampled frame. This is **reviewer-produced
+exploratory evidence**, not part of the frozen result or independently rerun
+long-horizon evidence in this follow-up. See the [review audit](moving_mouth_review_audit.md)
+for the display-stop versus integration-stop distinction and interpretation.
+
+![Reviewer-produced exploratory large-motion visualization](reviews/pr340/long_horizon_pairs.gif)
+
 ## Model and scope
 
 This combines #339's **round-S² effective scalar mechanics** with #338's
@@ -56,8 +66,10 @@ is derived here.
 Two coherent profiles target +x and +z, with relative profile weight .65 and
 directional velocity bias eta=.7. Their JOINT field energy is .1 before free
 backpropagation by pi. This is prepared incoming radiation, not spontaneous
-emission from a mouth. Negative mouths interact at launch, before positive
-mouths encounter refocus. All initial mouth shapes and pair momenta vanish.
+emission from a mouth. Time zero is the source-side focal instant: negative
+mouths see its outgoing half before positive mouths encounter the target-side
+focus at pi. These are different events of the same mechanism, not two
+different coupling laws. All initial mouth shapes and pair momenta vanish.
 Initial interaction energy is below 6e-34 in the directional case, and is
 included in the budget throughout. All masses, couplings, widths, preparation,
 controls and failure criteria are in the [frozen protocol](moving_mouth_pairs_protocol.md).
@@ -80,6 +92,12 @@ All ten frozen gates pass: **SUPPORTED_FOR_THIS_EFFECTIVE_FAMILY**.
 | Empty field and resting mouths | 0 | 0 | 0 |
 
 Directional positive-axis separation ends at **88.73518°**, from 90°.
+Post-review single-packet controls reproduce the dominant individual recoil.
+Combining their independently evolved pair axes gives a **+0.43976°**
+separation change, whereas the shared-field run gives **-1.26482°**.
+The **-1.70458°** difference is a nonlinear interaction/backreaction
+comparison; subtracting separate evolutions does not isolate a pure
+bilinear interference torque. See the [archived controls and audit](moving_mouth_review_audit.md).
 The final pair momenta (x,y,z) are:
 
 - Pair 1: (0.00315843849, 0.00079377276, 0.00000014900), magnitude .00325666.
@@ -92,18 +110,19 @@ mirror test. The symmetric superposition is not axisymmetric about either
 pair: each sees the other packet and moves within the x-z plane. The
 single-focus null of #339 therefore does not apply to this preparation.
 
-Launch and refocus are separate interactions. These are **norms of integrated
+The truncated source-focus window and full target-focus window are separate
+events, not comparable full-cycle windows. These are **norms of integrated
 vector torques**, not scalar quantities to add without their directions:
 
-| Mouth | Launch [0,.6] | Refocus [pi-.6,pi+.6] |
+| Mouth | Outgoing half of source focus [0,.6] | Full target focus [pi-.6,pi+.6] |
 |---|---:|---:|
 | Pair 1, positive (+z initially) | 4.43e-8 | .00228976 |
 | Pair 1, negative | .000540687 | .000112386 |
 | Pair 2, positive (+x initially) | 1.95e-8 | .00733375 |
 | Pair 2, negative | .00130843 | .000145667 |
 
-The prepared field mainly kicks negative mouths near launch and positive
-mouths near refocus. Other interactions remain nonzero; this does not isolate
+The prepared field mainly kicks negative mouths at the initial source focus
+and positive mouths at the target focus. Other interactions remain nonzero; this does not isolate
 an echo-only contribution or place all final recoil at the antipode.
 Final energies: field .09260310, pair kinetic .00051027, shape .00479245,
 interaction .00209441. All four terms belong in the ledger. No dissipation or
@@ -111,6 +130,8 @@ irreversible absorption is included.
 
 ## Verification and reproduction
 
+- The independent reviewer reproduced all original CSVs and the NPZ
+  byte-for-byte, as well as pixel-identical 3D panels. CI on `ab376e7` passed.
 - **50 relevant tests pass**, covering the new mechanics/drawing, #339's
   scalar comparator, and #338's deformation, contour and handle regressions.
 - Maximum relative energy error across seven runs: **7.06e-6**.
@@ -134,9 +155,19 @@ interaction energies, both kinetic energies and the field budget.
 ```bash
 pip install -e '.[dev,viz]'
 python -m pytest -q tests/test_moving_mouth_pairs.py tests/test_antipodal_kick.py
+python -m pytest -q tests/test_viz_klein_handles.py tests/test_scalar_deformation.py tests/test_scalar_deformation_contour.py
+python scripts/restore_moving_mouth_assets.py
 python experiments/closure_ledger/moving_mouth_pairs_probe.py
 python scripts/render_moving_mouth_pairs.py
 ```
+
+The two pytest commands together reproduce the 50-test claim. Restore the
+large assets **before** checking the original `sha256.json` manifest. The
+renderer is a direct script entry point; its sibling loader import assumes
+the documented `python scripts/render_moving_mouth_pairs.py` invocation.
+The archived figures preserve the original rendering bytes. Their old
+"Magnified axis displacement" wording denotes chart scale, not multiplied
+angles; the renderer now says "Axis displacement (true degrees)".
 
 ## Coordinate motion and the remaining physical calculation
 
