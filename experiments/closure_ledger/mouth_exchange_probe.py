@@ -125,6 +125,11 @@ def triple(model, eta, lam, dt):
                 normalized_final=(mixed[-1]/lam**2).tolist(), composite_change=composite.tolist())
 
 
+def archive_text(result):
+    """Canonical bytes independent of worker completion or nested insertion order."""
+    return json.dumps(result, sort_keys=True, separators=(',', ':'), allow_nan=False)+'\n'
+
+
 def job(eta, cutoff, dt, lam):
     model = MovingMouthPairs(Parameters(mass=.1, cutoff=cutoff))
     return fixed_reference(model, eta) if lam is None else triple(model, eta, lam, dt)
@@ -152,7 +157,7 @@ def run(out):
         for future in as_completed(jobs):
             name, kind, key = jobs[future]
             result['cases'][name][kind][key] = future.result()
-            (out/'results.json').write_text(json.dumps(result, indent=2)+'\n')
+            (out/'results.json').write_text(archive_text(result))
             print(name, kind, key, flush=True)
 
 

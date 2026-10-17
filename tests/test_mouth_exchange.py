@@ -42,3 +42,18 @@ def test_reference_tolerance_refinement():
     coarse = probe.fixed_reference(model, 0., rtol=2e-8, atol=2e-10)
     fine = probe.fixed_reference(model, 0.)
     np.testing.assert_allclose(coarse['pair_mixed_impulse'], fine['pair_mixed_impulse'], atol=1e-9, rtol=1e-5)
+
+
+def test_archive_bytes_ignore_worker_and_nested_key_order():
+    import json
+    original = {'cases': {'symmetric': {'b': 2., 'a': [1., 0.]},
+                          'directional': {'z': 3.}}, 'protocol': 'frozen'}
+    def reverse(value):
+        if isinstance(value, dict):
+            return {key: reverse(value[key]) for key in reversed(value)}
+        if isinstance(value, list):
+            return [reverse(x) for x in value]
+        return value
+    text = probe.archive_text(original)
+    assert text == probe.archive_text(reverse(original))
+    assert json.loads(text) == original

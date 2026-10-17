@@ -86,3 +86,23 @@ quantized action, or localized measurement law is established here.
 
 Each moving object is an antipodally constrained mouth pair. The two pair axes
 are independent; the four individual mouth positions are not unconstrained.
+
+## Review follow-up and preparation convention
+
+The numerical coefficient above uses **delta=0**: resting, unexcited mouths
+are initialized at the center of the prepared source focus. The source window
+is only its outgoing half. The Hamiltonian coupling is constant for t>=0;
+"switching on" describes the initial-value preparation, not an explicit
+coupling ramp implemented in the equations.
+
+The reviewer reports that starting the scalar delta=1.2 earlier, with mouths
+again unexcited at that earlier start, gives approximately C1y=1.020e-3
+(directional) and 1.269e-3 (symmetric), versus 4.847e-4 and 6.031e-4 here.
+These are different initial-value problems, not time translations of a single
+coupled solution. The strength must be compared at fixed delta. Those additional
+reviewer runs have not been independently repeated in this follow-up.
+
+[Review audit, mechanism and next-test qualifications](mouth_exchange_review_audit.md).
+The archive now uses canonical sorted-key JSON both at checkpoints and in the
+report, eliminating worker-order dependence. Numerical values and the frozen
+protocol are unchanged. The report no longer writes an unsolicited temporary PNG.

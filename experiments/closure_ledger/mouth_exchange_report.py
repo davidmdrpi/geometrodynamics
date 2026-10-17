@@ -8,6 +8,7 @@ import matplotlib
 matplotlib.use('Agg')
 matplotlib.rcParams['svg.hashsalt'] = 'mouth-exchange'
 import matplotlib.pyplot as plt
+from mouth_exchange_probe import archive_text
 
 ROOT = Path('experiments/closure_ledger/runs/20261017_mouth_exchange')
 
@@ -125,7 +126,7 @@ def main():
     (ROOT/'gates.json').write_text(json.dumps(report, indent=2, allow_nan=False)+'\n')
     write_numerics(result, report)
     # Compact archive retains all recorded states, energies, momenta and events.
-    (ROOT/'results.json').write_text(json.dumps(result, separators=(',', ':'))+'\n')
+    (ROOT/'results.json').write_text(archive_text(result))
     fig, axes = plt.subplots(2, 2, figsize=(10, 7), constrained_layout=True)
     for col,(name,case) in enumerate(result['cases'].items()):
         r = report[name]
@@ -154,7 +155,6 @@ def main():
     fig.savefig(dest/'exchange.svg', metadata={'Date': None})
     svg = dest/'exchange.svg'
     svg.write_text('\n'.join(line.rstrip() for line in svg.read_text().splitlines())+'\n')
-    fig.savefig('/tmp/mouth_exchange.png',dpi=130)
     files = sorted(ROOT.glob('*.json'))
     (ROOT/'sha256.json').write_text(json.dumps({p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in files if p.name!='sha256.json'},indent=2)+'\n')
     print(json.dumps(report, indent=2, allow_nan=False))
