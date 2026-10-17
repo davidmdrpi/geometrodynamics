@@ -130,6 +130,10 @@ irreversible absorption is included.
 
 ## Verification and reproduction
 
+- A second review at `650e825` reproduced the supplementary archive
+  byte-for-byte and all 50 tests; CI passed. Its new weak-field scaling and
+  collision-stop observations, their limits, and the next scaling requirements
+  are recorded in the [review audit](moving_mouth_review_audit.md#second-review-weak-field-reciprocity-and-an-actual-stopping-bracket).
 - The independent reviewer reproduced all original CSVs and the NPZ
   byte-for-byte, as well as pixel-identical 3D panels. CI on `ab376e7` passed.
 - **50 relevant tests pass**, covering the new mechanics/drawing, #339's
