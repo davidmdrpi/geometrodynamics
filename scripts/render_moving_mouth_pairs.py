@@ -5,6 +5,7 @@ Scalar samples live on the round sphere; neutral necks have NO solved field.
 Fibers follow the coordinate map and do not generate the motion.
 """
 import argparse
+import io
 import json
 from pathlib import Path
 
@@ -14,6 +15,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import pyvista as pv
+from restore_moving_mouth_assets import load_asset
 
 from geometrodynamics.viz.klein_handles import build_surface, is_orientable, euler_characteristic
 from geometrodynamics.viz.moving_mouth_pairs import MovingPairGeometry, axis_rotation
@@ -30,7 +32,7 @@ def faces(tris):
 
 def render(data, output):
     output.mkdir(parents=True, exist_ok=True)
-    archive = np.load(data/'render_states.npz')
+    archive = np.load(io.BytesIO(load_asset(data/'render_states.npz')))
     summary = json.loads((data/'summary.json').read_text())
     model = MovingMouthPairs(Parameters(**summary['parameters']))
     surf = build_surface(n_sphere=1800, n_ring=32, ds_target=.008)

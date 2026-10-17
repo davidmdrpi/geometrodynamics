@@ -6,7 +6,15 @@ Both pairs recoil from a scalar field, and their relative separation changes.
 No camera rotation, prescribed trajectory, or antipodal kick switch produces
 the motion. The field receives the reciprocal torque.
 
-![Solved motion of two mouth pairs](images/moving_mouth_pairs/moving_mouth_pairs.gif)
+![Compact preview of solved motion](images/moving_mouth_pairs/preview.gif)
+
+This compact preview reduces image resolution and frame cadence only. The
+original 57-frame animation and full-precision NPZ are stored losslessly in
+checksummed `.parts` directories because large upload requests did not finish.
+Run `python scripts/restore_moving_mouth_assets.py` to reconstruct both exact
+original files. The renderer loads the NPZ pieces automatically; no experiment
+rerun is required. Both reconstructions were verified byte-for-byte against
+the originals. CSVs and their original manifest remain unchanged.
 
 Left: directional packets. Right: symmetric packets. Teal rims belong to pair
 1 (initially ±z), amber to pair 2 (initially ±x). White rings mark initial rim
