@@ -224,10 +224,16 @@ Run:
 - Label the surgery frame "imposed topology-change rule".
 - Klein-handle crossings are drawing artifacts and are never treated as contact.
 - Colour by field energy density, not displacement. At a focal instant the energy can sit entirely in u_t: for this preparation u ≡ 0 at the source focus t = δ.
-- **Storyboard.** [`docs/images/neck_collapse/storyboard.gif`](images/neck_collapse/storyboard.gif), made by `scripts/render_neck_collapse_storyboard.py`, draws this sequence on #340's geometry.
-  - **Scripted:** the waist trajectory.
-  - **Computed:** the free-field packet, the released pulse (Stage-0 surface release) and the Stage-0 shapes.
-  - It is illustrative, not a result.
+- **Storyboard.** [`docs/images/neck_collapse/storyboard.gif`](images/neck_collapse/storyboard.gif), made by `scripts/render_neck_collapse_storyboard.py`, draws this sequence on #340's geometry. It is illustrative, not a result.
+  - **Scripted or illustrative:**
+    - the waist trajectory and pinch time;
+    - the overview neck morph;
+    - the retraction.
+  - **Computed:**
+    - the free field (κ = 0) of the packet;
+    - a prescribed pulse whose self-energy equals the Stage-0 release;
+    - the Stage-0 shapes in the close-up, and V(r).
+  - **Not enforced:** the surgery ledger. The uncoupled field causes nothing the neck does in the storyboard.
 
 ## 10. Stage B (separate protocol, before physical interpretation)
 Before Stage A thresholds are read physically, solve the neck as an axisymmetric membrane: a surface of revolution with tension and surface density between two rims driven by an imposed rim pulse. Compare its collapse threshold and released energy with the reduced potential V(r) and waist inertia; they must agree within 10%.
