@@ -1,0 +1,30 @@
+{
+  "assigned_release_budget": 0.04,
+  "cap_refocus_ratio": 47.180295399789735,
+  "contact_time": 1.3698178940612946,
+  "detach": true,
+  "drive": 1.0,
+  "emitted_cap_energy_antipode": 0.00934023954202648,
+  "emitted_cap_energy_midflight": 0.00019796907719378344,
+  "final_added_field_energy": 0.03999999999999998,
+  "focus_time": 1.2,
+  "gain": 0.18,
+  "intrinsic_neck_length": 0.5646424733950353,
+  "limitations": [
+    "no solved neck stress or geometry feedback",
+    "readout gain and irreversible withdrawal are imposed",
+    "assigned reservoir is not derived throat energy",
+    "smooth scalar density is not a constructed regular spacetime metric"
+  ],
+  "maximum_budget_residual": 0.0,
+  "maximum_reservoir": 0.04406023880073299,
+  "minimum_added_energy": -0.004060238800732988,
+  "minimum_reservoir": -4.85722573273506e-17,
+  "mode_count": 25,
+  "pulse_duration": 0.3,
+  "release_interference": -0.031172086097599375,
+  "release_self_energy": 0.07117208609759938,
+  "sphere_equation": "u_tt - Delta_S2 u + u/4 = F; omega_l=l+1/2",
+  "status": "ILLUSTRATIVE_ONE_WAY_CONTACT_AND_RELEASE",
+  "withdrawal_duration": 0.65
+}
