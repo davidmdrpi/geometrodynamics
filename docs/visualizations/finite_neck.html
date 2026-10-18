@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Finite neck — geometric study</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#0c1622;color:#dee9f1}body{max-width:1120px;margin:0 auto;padding:24px}h1{font-size:28px;margin:0 0 8px}p{color:#a6bdce;line-height:1.5;margin:8px 0 18px}.tag{color:#ffc36f;font-size:13px;letter-spacing:.07em}canvas{display:block;width:100%;background:#101e2c;border:1px solid #294358;border-radius:12px}fieldset{border:1px solid #294358;border-radius:10px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin:18px 0;padding:15px}label{display:flex;gap:9px;align-items:center}input[type=range]{width:240px;accent-color:#55d7cc}button{background:#214655;color:white;border:1px solid #4e8c99;border-radius:6px;padding:9px 15px;cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #ffc36f}output{font-variant-numeric:tabular-nums;min-width:4em}.small{font-size:13px}a{color:#55d7cc}.legend{display:flex;gap:26px;flex-wrap:wrap}.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:7px}details{margin-top:20px;border-top:1px solid #294358;padding-top:15px}summary{cursor:pointer}code{color:#ffc36f}
+</style>
+<h1>A finite neck: wave, narrowing, reconnection</h1>
+<div class="tag">GEOMETRIC STUDY — BOTH THE PACKET AND COLLAPSE ARE PRESCRIBED</div>
+<p>Inspect a finite bridge with fixed rims. A signed deformation passes along the surface; the independent waist schedule then narrows the bridge toward a double cone. At a finite cutoff, an explicit geometric rule replaces the neck with two closed caps.</p>
+<canvas id="scene" width="1080" height="590" aria-label="Animated cutaway of a finite neck and its axial section"></canvas>
+<fieldset><legend>Inspect the sequence</legend>
+<button id="play">Pause</button><button id="reset">Restart</button>
+<label>Time <input id="time" type="range" min="0" max="10" step=".01" value="0"><output id="clock">0.00</output></label>
+<label><input id="wave" type="checkbox" checked> Show signed deformation</label>
+</fieldset>
+<fieldset><legend>Inspect the waist directly</legend>
+<label><input id="manual" type="checkbox"> Manual waist (before surgery)</label>
+<label>Radius <input id="radius" type="range" min=".045" max=".745071089" step=".001" value=".745071089" disabled><output id="radiusOut">0.745</output></label>
+<label>Rotate view <input id="angle" type="range" min="-.5" max=".5" step=".01" value="0"></label>
+</fieldset>
+<div class="legend small"><span><i class="dot" style="background:#55d7cc"></i>Outward deformation</span><span><i class="dot" style="background:#d97db3"></i>Inward deformation</span><span><i class="dot" style="background:#ffc36f"></i>Fixed rims / nominal waist</span></div>
+<p class="small">The front sector is removed only for visibility. The packet changes the displayed radius by at most 8%; it solves no transport equation and applies no force. Switching it off leaves the collapse schedule unchanged. Surgery occurs at a nonzero waist radius, b = 0.045. The retraction is prescribed; no released energy is assigned.</p>
+<details><summary>Geometry and scope</summary>
+<p>The initial neck is the equilibrium catenoid at rim radius a = 1 and half-separation h = 0.6. Its initial waist is b ≈ 0.745071. The fixed-rim cosh family <code>R = b cosh[acosh(1/b) z/h]</code> blends into <code>R = sqrt[b² + (1−b²)(z/h)²]</code> as the waist narrows. Only the initial member is asserted to be an equilibrium catenoid.</p>
+<p>The latter profile approaches a double cone as b tends to zero, but this study stops at a finite cutoff. Two closed caps are inserted by a stated geometric replacement and then flatten. This is a visualization of the proposed topology rule, not a computation of self-contact, fluid dynamics, GR, or quantization. A coupled membrane calculation is needed to determine whether an incoming wave actually produces the depicted evolution.</p>
+<p><a href="../finite_neck_visualization.md">Reproduction and equations</a> · <a href="../images/finite_neck/finite_neck.gif">Animation</a></p>
+</details>
+<script>
+'use strict';
+const $=id=>document.getElementById(id),cv=$('scene'),ctx=cv.getContext('2d');
+const H=.6,B0=.745071089,BS=.045,TC=6.8,END=10;
+let t=0,playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,last=null;
+const smooth=u=>{u=Math.max(0,Math.min(1,u));return u*u*(3-2*u)};
+function nominal(t){return B0+(BS-B0)*smooth((t-2.6)/(TC-2.6))}
+function baseR(x,b){const f=smooth((.5-b)/.3);return (1-f)*b*Math.cosh(Math.acosh(1/b)*x/H)+f*Math.sqrt(b*b+(1-b*b)*(x/H)**2)}
+function wave(x,t){const c=-1+.35*t;return .08*Math.exp(-(((x-c)/.24)**2))*Math.sin(22*(x-c))*Math.max(0,1-(x/H)**2)}
+function branches(){const arr=[],n=70,manual=$('manual').checked,b=manual?+$('radius').value:nominal(t);
+ if(t<TC||manual){const p=[];for(let i=0;i<=n;i++){const x=-H+2*H*i/n,r=baseR(x,b),u=$('wave').checked?wave(x,t):0;p.push({x,r:r*(1+u),u,base:r})}arr.push(p)}
+ else{const L=H*(.98-.96*smooth((t-TC)/(END-TC)));for(const sign of [-1,1]){const p=[];for(let i=0;i<=n;i++){const v=i/n,u=1-v,r=Math.sqrt((u*u+.03*u)/1.03);p.push({x:sign*(H-L*v),r,u:0,base:r})}arr.push(p)}}return arr}
+function line(points,color,width=1){ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke()}
+function text(s,x,y,size=16,color='#a6bdce'){ctx.font=`${size}px system-ui`;ctx.fillStyle=color;ctx.fillText(s,x,y)}
+function phase(){if($('manual').checked)return ['Manual waist inspection','The packet and radius controls are independent.'];if(t<2.6)return ['01  Incoming deformation','Fixed rims; prescribed signed packet'];if(t<5.2)return ['02  Narrowing waist','Contraction prescribed independently of the packet'];if(t<TC)return ['03  Rounded double cone','Approaching the finite surgery cutoff'];if(t<7.5)return ['04  Imposed reconnection','Connected neck replaced by two closed caps'];return ['05  Cap retraction','Prescribed geometric relaxation']}
+function draw(){ctx.clearRect(0,0,1080,590);const [title,note]=phase();text(title,25,40,24,'#55d7cc');text(note,25,69,15);text(`t = ${t.toFixed(2)}`,945,40,19,'#dee9f1');
+ const turn=+$('angle').value,co=Math.cos(turn),si=Math.sin(turn);
+ function xyz(x,y,z){return [co*x-si*y,si*x+co*y,z]}
+ function proj(x,y,z){[x,y,z]=xyz(x,y,z);return [315+190*(1.35*x-.6*y),290+155*(-z+.25*x+.22*y)]}
+ const data=branches(),faces=[],N=36;
+ for(const p of data)for(let i=0;i<p.length-1;i++)for(let j=0;j<N;j++){const ph=[Math.PI/3+4*Math.PI/3*j/N,Math.PI/3+4*Math.PI/3*(j+1)/N];const v=[[i,0],[i+1,0],[i+1,1],[i,1]].map(([k,l])=>[p[k].x,p[k].r*Math.cos(ph[l]),p[k].r*Math.sin(ph[l])]);const depth=v.reduce((s,v)=>{v=xyz(...v);return s+.45*v[0]+v[1]+.2*v[2]},0)/4;const w=(p[i].u+p[i+1].u)/.16,color=w>=0?[85,215,204]:[217,125,179],f=Math.min(Math.abs(w),1),shade=.62+.28*(Math.cos((ph[0]+ph[1])/2-.5)+1)/2;const rgb=[98,136,157].map((c,k)=>Math.round(((1-f)*c+f*color[k])*shade));faces.push({depth,v,color:`rgb(${rgb})`})}
+ faces.sort((a,b)=>a.depth-b.depth);for(const f of faces){ctx.beginPath();f.v.map(v=>proj(...v)).forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.closePath();ctx.fillStyle=f.color;ctx.fill()}
+ for(const p of data)for(const phi of [Math.PI/3,5*Math.PI/3])line(p.map(q=>proj(q.x,q.r*Math.cos(phi),q.r*Math.sin(phi))),'#dee9f1',2);
+ for(const x of [-H,H])line(Array.from({length:121},(_,i)=>proj(x,Math.cos(i*Math.PI/60),Math.sin(i*Math.PI/60))),'#ffc36f',2);
+ text('CUTAWAY: front sector omitted',25,108,13);text('AXIAL SECTION',720,108,13);
+ const sec=(x,r)=>[835+175*x/H,290-145*r];line([sec(-H,0),sec(H,0)],'#304858');for(const x of [-H,H])line([sec(x,-1.08),sec(x,1.08)],'#ffc36f',2);
+ for(const p of data)for(const sign of [-1,1]){line(p.map(q=>sec(q.x,sign*q.base)),'#627789',1);line(p.map(q=>sec(q.x,sign*q.r)),'#55d7cc',2)}
+ const b=$('manual').checked?+$('radius').value:nominal(t);$('radiusOut').textContent=b.toFixed(3);
+ if(t<TC||$('manual').checked){line([sec(0,-b),sec(0,b)],'#ffc36f',2);text(`b = ${b.toFixed(3)}`,848,285,14,'#ffc36f')}else text('two closed caps',755,285,16,'#ffc36f');
+ line([[25,475],[1055,475]],'#294358');text('Fixed-rim cosh family → rounded double cone → two closed caps',25,508,17,'#dee9f1');text('The waist never reaches zero in this display. Reconnection is imposed at a finite cutoff.',25,540,14);text('Color shows signed deformation, not energy. No shoaling or wave-driven instability is calculated.',25,568,14);$('clock').textContent=t.toFixed(2);$('time').value=t;
+}
+$('play').onclick=()=>{if($('manual').checked){$('manual').checked=false;$('radius').disabled=true}playing=!playing;last=null;$('play').textContent=playing?'Pause':'Play'};
+$('reset').onclick=()=>{t=0;$('manual').checked=false;$('radius').disabled=true;draw()};
+$('time').oninput=e=>{t=+e.target.value;playing=false;$('play').textContent='Play';draw()};
+$('manual').onchange=()=>{$('radius').disabled=!$('manual').checked;if($('manual').checked){$('radius').value=nominal(Math.min(t,TC));playing=false;$('play').textContent='Play'}draw()};
+for(const id of ['radius','angle','wave'])$(id).oninput=draw;
+$('play').textContent=playing?'Pause':'Play';
+function tick(now){if(playing&&!$('manual').checked&&last!==null){t+=Math.min((now-last)/1000,.1)*.65;if(t>END)t=0;draw()}last=now;requestAnimationFrame(tick)}
+draw();requestAnimationFrame(tick);
+</script></html>
