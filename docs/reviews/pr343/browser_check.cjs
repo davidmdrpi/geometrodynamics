@@ -1,32 +1,23 @@
-// Real-browser check of PR #343 HTML: console errors, contact readout, screenshots. Needs a global Playwright.
-//   node docs/reviews/pr343/browser_check.cjs docs/visualizations/finite_neck.html <output dir>
+// Headless-Chromium check of an HTML page: console errors, horizontal overflow, screenshots.
+//   node browser_check.cjs <page.html> <output dir> [js to run before the screenshot]...
 const {chromium} = require(require('child_process').execSync('npm root -g').toString().trim() + '/playwright');
 const path = require('path');
 (async () => {
-  const page_path = 'file://' + path.resolve(process.argv[2]);
-  const out = process.argv[3];
-  const browser = await chromium.launch();
-  const errors = [];
-  for (const [name, w, motion] of [['desktop', 1200, 'no-preference'], ['phone', 390, 'reduce']]) {
-    const page = await browser.newPage({viewport: {width: w, height: 900}, reducedMotion: motion});
+  const [page_path, out, ...scripts] = process.argv.slice(2);
+  const browser = await chromium.launch(); const errors = [];
+  for (const [name, w] of [['desktop', 1200], ['phone', 390]]) {
+    const page = await browser.newPage({viewport: {width: w, height: 900}, reducedMotion: 'reduce'});
     page.on('pageerror', e => errors.push(`${name}: ${e.message}`));
     page.on('console', m => { if (m.type() === 'error') errors.push(`${name}: ${m.text()}`); });
-    await page.goto(page_path);
-    await page.waitForTimeout(300);
-    const status = await page.textContent('#status');
-    const play = await page.textContent('#play');
-    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-    console.log(name, '| play button:', play, '| horizontal overflow px:', overflow, '|', status);
-    if (name === 'desktop') {
-      await page.click('#play').catch(() => {});
-      for (const [tag, js] of [['before', 'tc-.1'], ['at', 'tc'], ['after02', 'tc+.2'], ['after1', 'tc+1']]) {
-        await page.evaluate(js => { t = eval(js); playing = false; draw(); }, js);
-        await page.locator('#scene').screenshot({path: `${out}/html_${tag}.png`});
-      }
-      await page.click('#off'); console.log('wave off:', await page.textContent('#status'), '| contact disabled:', await page.isDisabled('#contact'));
+    await page.goto('file://' + path.resolve(page_path)); await page.waitForTimeout(400);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    const status = await page.evaluate(() => (document.getElementById('status') || {}).textContent || '');
+    console.log(`${name}: overflow ${overflow}px | ${status.slice(0, 160)}`);
+    if (name === 'desktop') for (const [k, js] of scripts.entries()) {
+      await page.evaluate(js); await page.waitForTimeout(200);
+      await page.screenshot({path: `${out}/shot_${k}.png`, fullPage: true});
     }
     await page.close();
   }
-  console.log('errors:', errors.length ? errors : 'none');
-  await browser.close();
+  console.log('errors:', errors.length ? errors : 'none'); await browser.close();
 })();
