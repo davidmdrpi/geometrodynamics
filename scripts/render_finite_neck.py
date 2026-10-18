@@ -1,153 +1,131 @@
 #!/usr/bin/env python
-"""Wave-contact visualization: prescribed packet, contact-triggered regularized reconnection."""
+"""Render option C's smooth density directly, with no surface switch or dissolve."""
 import argparse
 import hashlib
 import json
 from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
-from neck_wave_contact import ContactNeck, Parameters, H, END, X, smooth
+from neck_wave_contact import ContactNeck, Parameters, H, END, LEVEL
 
-BG=(12,22,34);FG=(222,233,241);MUTED=(150,174,190)
-TEAL=(85,215,204);GOLD=(255,195,111);PINK=(227,133,182)
-FONT='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
-BOLD='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
+BG = (12,22,34); FG = (222,233,241); MUTED = (150,174,190)
+TEAL = (85,215,204); GOLD = (255,195,111)
+FONT = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
+BOLD = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
+STOPS = np.array([[12,22,34],[46,50,88],[143,66,122],[236,119,143],[255,219,155]])
+PALETTE = np.array([np.interp(np.linspace(0,1,256),np.linspace(0,1,5),STOPS[:,i]) for i in range(3)]).T.astype('uint8')
 
-def project(x,y,z):
-    return (310+195*(1.35*x-.6*y),330+150*(-z+.25*x+.22*y))
 
-def arrow(d,points,color=GOLD,width=2):
-    d.line(points,fill=color,width=width)
-    v=np.array(points[-1])-np.array(points[-2]);v/=max(np.linalg.norm(v),1e-12)
-    p=np.array(points[-1]);n=np.array([-v[1],v[0]])
-    d.polygon([tuple(p),tuple(p-7*v+4*n),tuple(p-7*v-4*n)],fill=color)
+def contour_segments(xs, ys, z, level=LEVEL):
+    """Marching squares; resolve saddle cells by the cell-center value."""
+    bits = ((z[:-1,:-1]>=level).astype(int)+2*(z[:-1,1:]>=level)+
+            4*(z[1:,1:]>=level)+8*(z[1:,:-1]>=level))
+    table = {1:[(3,0)],2:[(0,1)],3:[(3,1)],4:[(1,2)],6:[(0,2)],7:[(3,2)],
+             8:[(2,3)],9:[(0,2)],11:[(1,2)],12:[(1,3)],13:[(0,1)],14:[(3,0)]}
+    result = []
+    for j,i in zip(*np.nonzero((bits!=0)&(bits!=15))):
+        corners=[(xs[i],ys[j]),(xs[i+1],ys[j]),(xs[i+1],ys[j+1]),(xs[i],ys[j+1])]
+        v=[z[j,i],z[j,i+1],z[j+1,i+1],z[j+1,i]]; mask=bits[j,i]
+        if mask in (5,10):
+            center=sum(v)/4>=level
+            pairs=[(0,1),(2,3)] if (mask==5)==center else [(3,0),(1,2)]
+        else: pairs=table[mask]
+        def edge(k):
+            l=(k+1)%4; u=(level-v[k])/(v[l]-v[k])
+            return tuple((1-u)*a+u*b for a,b in zip(corners[k],corners[l]))
+        result.extend((edge(a),edge(b)) for a,b in pairs)
+    return result
 
-def surface(parts):
-    im=Image.new('RGB',(960,720),BG);d=ImageDraw.Draw(im);cells=[]
-    phis=np.linspace(np.pi/3,5*np.pi/3,33)
-    for x,r,u,_ in parts:
-        for i in range(len(x)-1):
-            for j in range(len(phis)-1):
-                v=[(x[k],r[k]*np.cos(phis[l]),r[k]*np.sin(phis[l])) for k,l in [(i,j),(i+1,j),(i+1,j+1),(i,j+1)]]
-                dep=sum(.45*p[0]+p[1]+.2*p[2] for p in v)/4
-                wave=(u[i]+u[i+1])/.36;f=min(abs(wave),1)
-                col=np.array(TEAL if wave>=0 else PINK)*f+np.array((83,126,151))*(1-f)
-                shade=.64+.26*(1+np.cos((phis[j]+phis[j+1])/2-.5))/2
-                cells.append((dep,[project(*p) for p in v],tuple((col*shade).astype(int))))
-    for _,p,c in sorted(cells,key=lambda v:v[0]):d.polygon(p,fill=c)
-    for x,r,_,_ in parts:
-        for phi in [phis[0],phis[-1]]:
-            d.line([project(xx,rr*np.cos(phi),rr*np.sin(phi)) for xx,rr in zip(x,r)],fill=FG,width=2)
+
+def panel(im, model, t, box, extent):
+    left,top,width,height=box; xmin,xmax,ymin,ymax=extent
+    xs=np.linspace(xmin,xmax,width); ys=np.linspace(ymax,ymin,height)
+    z=model.density(xs[None,:],ys[:,None],t)
+    im.paste(Image.fromarray(PALETTE[np.rint(z*255).clip(0,255).astype(int)]),(left,top))
+    d=ImageDraw.Draw(im)
+    for a,b in contour_segments(np.arange(width),np.arange(height),z):
+        d.line([(left+a[0],top+a[1]),(left+b[0],top+b[1])],fill=FG,width=1)
+    axis=top+height*ymax/(ymax-ymin)
+    for x in range(left,left+width,12):d.line([(x,axis),(min(x+5,left+width),axis)],fill=(99,132,144))
+    d.rectangle((left,top,left+width,top+height),outline=(54,80,99),width=1)
+
+
+def draw_frame(model,t,curves):
+    im=Image.new('RGB',(960,740),BG);d=ImageDraw.Draw(im)
+    font=lambda n,b=False:ImageFont.truetype(BOLD if b else FONT,n)
+    d.text((25,18),'Wave contact as a smooth diffuse field',font=font(26,True),fill=FG)
+    d.text((25,54),'OPTION C  /  same packet, no imposed split, no cross-fade',font=font(14),fill=GOLD)
+    title,note=model.phase(t)
+    d.text((25,86),title,font=font(21,True),fill=TEAL)
+    d.text((25,116),note,font=font(13),fill=MUTED)
+    d.text((930,89),f't = {t:.2f}',font=font(18),fill=FG,anchor='ra')
+    d.text((25,147),'FULL NECK: axial section (different axis scales)',font=font(12,True),fill=MUTED)
+    d.text((625,147),'FOCUS: equal-scale axial section',font=font(12,True),fill=MUTED)
+    panel(im,model,t,(25,172,560,320),(-H,H,-1.08,1.08))
+    panel(im,model,t,(625,172,310,310),(-.23,.23,-.23,.23))
+    d=ImageDraw.Draw(im)
+    for x,val in [(25,'−0.6'),(305,'x = 0'),(585,'+0.6')]:d.text((x,499),val,font=font(12),fill=MUTED,anchor='ma' if x==305 else ('ra' if x==585 else 'la'))
+    d.text((625,490),'Dashed: axis ρ = 0. White: ψ = ½.',font=font(12),fill=FG)
+    d.text((625,511),'Rotate this section about the axis for 3D.',font=font(12),fill=MUTED)
+    # Actual field values, not opacity interpolation between geometries.
+    bar=np.repeat(PALETTE[None,:,:],12,axis=0)
+    im.paste(Image.fromarray(bar),(25,537));d=ImageDraw.Draw(im)
+    d.text((25,553),'ψ = 0',font=font(12),fill=MUTED);d.text((281,553),'1',font=font(12),fill=MUTED,anchor='ra')
+    d.text((304,535),'Color is shell density. The field remains smooth;',font=font(13),fill=FG)
+    d.text((304,555),'a selected contour can still change topology at a critical point.',font=font(13),fill=MUTED)
+    # max on the axis measures filling; after the wave passes it returns to zero.
+    px=lambda q:240+q/END*670;py=lambda p:663-p*62
+    d.text((25,592),'PEAK AXIS DENSITY',font=font(12,True),fill=MUTED)
+    d.text((25,615),'Teal: default packet',font=font(12),fill=TEAL)
+    d.text((25,637),'Gray: weak / wave off',font=font(12),fill=MUTED)
+    for y,lab in [(0,'0'),(.5,'½'),(1,'1')]:
+        d.line([(240,py(y)),(910,py(y))],fill=(44,65,81),width=1)
+        d.text((228,py(y)-7),lab,font=font(11),fill=MUTED,anchor='ra')
+    for curve,col in zip(curves,[TEAL,(153,177,198),(77,98,118)]):d.line([(px(q),py(p)) for q,p in curve],fill=col,width=2)
+    for q in model.field_events:
+        d.line([(px(q),594),(px(q),667)],fill=GOLD,width=1)
+    d.line([(px(t),596),(px(t),668)],fill=FG,width=2)
+    for q in [0,3,6,9]:d.text((px(q),669),str(q),font=font(11),fill=MUTED,anchor='ma')
+    d.text((25,709),'Prescribed field, not solved fluid or spacetime dynamics. No mass, energy, or momentum conservation claim.',font=font(12),fill=MUTED)
     return im
 
-def draw_frame(m,t,curves):
-    parts=m.branches(t,81);im=surface(parts)
-    dt=-1 if m.tc is None else t-m.tc
-    if 0<=dt<.5:
-        # Explicit finite-duration rendering blend between two topologies.
-        im=Image.blend(surface(m.branches(m.tc-1e-8,81)),im,float(smooth(dt/.5)))
-    d=ImageDraw.Draw(im);font=lambda n,b=False:ImageFont.truetype(BOLD if b else FONT,n)
-    d.text((25,18),'The deformation meets itself in a narrow neck',font=font(25,True),fill=FG)
-    d.text((25,55),'FIXED RESTING WAIST  /  contact comes from the prescribed wave',font=font(14),fill=GOLD)
-    title,note=m.phase(t);d.text((25,96),title,font=font(21,True),fill=TEAL)
-    d.text((25,128),note,font=font(13),fill=MUTED)
-    d.text((930,99),f't = {t:.2f}',font=font(17),fill=FG,anchor='ra')
-    d.text((28,166),'CUTAWAY: signed deformation on a fixed narrow bridge',font=font(12),fill=MUTED)
-    for rim in [-H,H]:d.line([project(rim,np.cos(p),np.sin(p)) for p in np.linspace(0,2*np.pi,100)],fill=GOLD,width=2)
-    if m.tc is not None and -.5<dt<.7:
-        rad=m.par.thickness+.008
-        d.line([project(m.xc,rad*np.cos(p),rad*np.sin(p)) for p in np.linspace(0,2*np.pi,100)],fill=GOLD,width=5)
-    if dt>=.5:
-        # Arrows trace the imposed cap profiles. They are not velocity measurements.
-        for x,r,_,_ in parts:
-            j=int(15+35*((dt*.6)%1))
-            pts=[project(x[k],r[k]*np.cos(1.3),r[k]*np.sin(1.3)) for k in [j+4,j+2,j]]
-            arrow(d,pts)
-    d.text((28,503),'No independent shrinking-waist schedule.',font=font(13),fill=FG)
-    # Magnified meridional section, including finite-thickness facing surfaces.
-    d.text((645,166),'CONTACT CLOSE-UP',font=font(13,True),fill=MUTED)
-    center=m.xc if m.xc is not None else 0.
-    halfwidth=.23;vertical=.26
-    if dt>=0:
-        tips=[part[0][-1] for part in parts]
-        center=sum(tips)/2
-        halfwidth=max(.23,(tips[1]-tips[0])/2+.13)
-        vertical=.26+.7*m.progress(t)
-    zlo,zhi=center-halfwidth,center+halfwidth
-    box=(635,188,935,492);zoom=Image.new('RGB',(300,304),(16,30,43));zd=ImageDraw.Draw(zoom)
-    proj=lambda x,y:((x-zlo)/(zhi-zlo)*300,152-y/vertical*145)
-    z=np.linspace(zlo,zhi,501);eps=m.par.thickness
-    if m.tc is None or t<m.tc:
-        r=m.radius(z,t)
-        for s in [-1,1]:
-            poly=[proj(xx,s*(rr+eps)) for xx,rr in zip(z,r)]+[proj(xx,s*max(rr-eps,0)) for xx,rr in zip(z[::-1],r[::-1])]
-            zd.polygon(poly,fill=(111,78,115));zd.line([proj(xx,s*rr) for xx,rr in zip(z,r)],fill=PINK,width=2)
-            zd.line([proj(xx,s*rr) for xx,rr in zip(z,m.rest(z))],fill=(59,85,104),width=1)
-    else:
-        for x,r,_,_ in parts:
-            for s in [-1,1]:
-                pts=[proj(xx,s*rr) for xx,rr in zip(x,r)]
-                zd.line(pts,fill=TEAL,width=5)
-                # Curved motion guides near the rounded shoulder.
-                if dt<1.5:
-                    j=len(x)-12;px,py=proj(x[j],s*r[j])
-                    if 10<px<290 and 15<py<289:
-                        zd.arc((px-11,py-11,px+11,py+11),40,290,fill=GOLD,width=2)
-        if dt<.5:
-            # Contact is a finite diffuse region, not a rendered point crossing.
-            a=float(1-smooth(dt/.5));layer=Image.new('RGB',(300,304),(16,30,43));ld=ImageDraw.Draw(layer)
-            ld.ellipse((118,119,182,185),fill=GOLD)
-            zoom=Image.blend(zoom,layer,.5*a);zd=ImageDraw.Draw(zoom)
-    im.paste(zoom,(635,188));d=ImageDraw.Draw(im)
-    d.rectangle(box,outline=(54,80,99),width=1)
-    d.text((645,502),'Contact band → rounded rims (zoom follows)',font=font(12),fill=MUTED)
-    # Contact-gap history includes no-wave and weak-wave controls.
-    d.line([(25,545),(935,545)],fill=(47,68,86),width=1)
-    d.text((25,560),'FACING-SURFACE GAP',font=font(12,True),fill=MUTED)
-    px=lambda q:260+q/END*660;py=lambda gap:650-gap/.28*70
-    d.line([(260,650),(920,650)],fill=GOLD,width=1)
-    colors=[TEAL,(153,177,198),(77,98,118)]
-    for curve,col in zip(curves,colors):d.line([(px(q),py(g)) for q,g in curve],fill=col,width=2)
-    d.text((25,588),'Teal: wave reaches contact',font=font(12),fill=TEAL)
-    d.text((25,610),'Gray: weak wave / wave off',font=font(12),fill=MUTED)
-    if m.tc is not None:
-        d.line([(px(m.tc),570),(px(m.tc),655)],fill=GOLD,width=1)
-        d.text((px(m.tc)+8,561),f'contact t={m.tc:.3f}',font=font(12),fill=GOLD)
-    d.line([(px(t),630),(px(t),655)],fill=FG,width=2)
-    d.text((25,683),'Kinematic contact rule and illustrative rim motion. No fluid solver, energy release, or smooth-topology theorem.',font=font(12),fill=MUTED)
-    return im
 
-def verify():
-    for amp in [0,.08]:assert ContactNeck(Parameters(amplitude=amp)).tc is None
-    m=ContactNeck();assert m.tc is not None and abs(m.gap(m.tc))<1e-10
-    assert m.gap(m.tc-.001)>0
-    for t in np.linspace(0,m.tc-1e-8,50):
-        assert min(m.radius(X,t))>0
-        assert max(abs(m.radius(np.array([-H,H]),t)-1))<1e-12
-    for t in np.linspace(m.tc,END,20):
-        a,b=m.branches(t);assert a[0][-1]<b[0][-1]
-        for x,r,_,_ in [a,b]:assert r[0]==1 and r[-1]==0 and np.all(r>=0)
-    print('Verified: wave-off/weak-wave nulls, contact bracket, fixed rims, positive pre-contact neck and separated rounded caps')
-    return m
+def audit(model):
+    # A sampled spatial Hessian check, not a certified global maximum.
+    xx=np.linspace(-H,H,241)[None,:];rr=np.linspace(0,1.08,217)[:,None]
+    maximum=0.
+    for t in np.linspace(0,END,91):
+        a,b,c,d=model.hessian_components(xx,rr,t)
+        maximum=max(maximum,float(np.max(np.sqrt(a*a+b*b+c*c+2*d*d))))
+    record=model.record()
+    record.update(no_wave_band_crossings=ContactNeck(Parameters(amplitude=0)).band_events,
+                  weak_wave_band_crossings=ContactNeck(Parameters(amplitude=.08)).band_events,
+                  no_wave_field_crossings=ContactNeck(Parameters(amplitude=0)).field_events,
+                  weak_wave_field_crossings=ContactNeck(Parameters(amplitude=.08)).field_events,
+                  sampled_hessian_frobenius_max=maximum,
+                  sampled_hessian_scaled_max=maximum*model.par.thickness**2,
+                  hessian_grid=dict(x_points=241,rho_points=217,time_points=91,x_range=[-H,H],rho_range=[0,1.08],time_range=[0,END]))
+    return record
+
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,default=Path('docs/images/finite_neck'));args=ap.parse_args();args.output.mkdir(parents=True,exist_ok=True)
-    m=verify();models=[m,ContactNeck(Parameters(amplitude=.08)),ContactNeck(Parameters(amplitude=0))]
-    curves=[[(t,max(mm.gap(t),0)) for t in np.linspace(0,mm.tc if mm.tc is not None else END,161)] for mm in models]
-    times=np.unique(np.r_[np.linspace(0,END,53),m.tc-.03,m.tc,m.tc+.25,m.tc+.5])
-    frames=[draw_frame(m,float(t),curves).resize((720,540)) for t in times]
-    palette=Image.new('RGB',(720,540*6))
-    for i,j in enumerate(np.linspace(0,len(times)-1,6).astype(int)):palette.paste(frames[j],(0,540*i))
-    palette=palette.quantize(colors=64);frames=[f.quantize(palette=palette,dither=Image.Dither.NONE) for f in frames]
-    durations=[110]*len(times);durations[int(np.flatnonzero(times==m.tc)[0])]=800;durations[-1]=1800
+    m=ContactNeck();models=[m,ContactNeck(Parameters(amplitude=.08)),ContactNeck(Parameters(amplitude=0))]
+    curves=[[(t,mm.axis_peak(t)) for t in np.linspace(0,END,181)] for mm in models]
+    times=np.unique(np.r_[np.linspace(0,END,61),m.field_events,m.tc])
+    frames=[draw_frame(m,float(t),curves).resize((720,555)) for t in times]
+    palette=Image.new('RGB',(720,555*6))
+    for i,j in enumerate(np.linspace(0,len(times)-1,6).astype(int)):palette.paste(frames[j],(0,555*i))
+    palette=palette.quantize(colors=96);frames=[f.quantize(palette=palette,dither=Image.Dither.NONE) for f in frames]
+    durations=[120]*len(times);durations[-1]=1600
     frames[0].save(args.output/'finite_neck.gif',save_all=True,append_images=frames[1:],duration=durations,loop=0,optimize=True)
-    snaps=[m.tc-.7,m.tc+.05,m.tc+.7]
-    sheet=Image.new('RGB',(1440,360),BG)
-    for i,t in enumerate(snaps):sheet.paste(draw_frame(m,t,curves).resize((480,360)),(480*i,0))
-    sheet.save(args.output/'sequence.png',optimize=True);draw_frame(m,m.tc+.05,curves).save(args.output/'closeup.png',optimize=True)
-    (args.output/'contact.json').write_text(json.dumps(dict(status='KINEMATIC_NOT_DYNAMICAL',parameters=m.par.__dict__,contact_time=m.tc,contact_position=m.xc,time_bracket=m.bracket,contact_gap=m.gap(m.tc),no_wave_contact=models[2].tc,weak_wave_contact=models[1].tc),indent=2,sort_keys=True)+'\n')
+    snaps=[3.2,4.25,5.3];sheet=Image.new('RGB',(1440,370),BG)
+    for i,t in enumerate(snaps):sheet.paste(draw_frame(m,t,curves).resize((480,370)),(480*i,0))
+    sheet.save(args.output/'sequence.png',optimize=True)
+    draw_frame(m,m.field_events[0]+.16,curves).save(args.output/'closeup.png',optimize=True)
+    (args.output/'contact.json').write_text(json.dumps(audit(m),indent=2,sort_keys=True)+'\n')
     files=[args.output/x for x in ['finite_neck.gif','sequence.png','closeup.png','contact.json']]
     (args.output/'sha256.json').write_text(json.dumps({p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in files},indent=2,sort_keys=True)+'\n')
-    print({p.name:p.stat().st_size for p in files})
+    print({p.name:p.stat().st_size for p in files});print(json.dumps(m.record(),indent=2))
 
 if __name__=='__main__':main()

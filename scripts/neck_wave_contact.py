@@ -1,90 +1,144 @@
-"""Contact-driven *kinematic* neck study. No independent waist-collapse schedule.
+"""Option C: prescribed smooth shell density; no topology-switching geometry.
 
-The imposed packet determines a finite-thickness contact event. The post-contact
-geometry is a regularized illustration, not a membrane or fluid solution.
+R is a signed shell-center parameter once the packet carries it through zero.
+psi, not R or any one isocontour, is the regular field in this analogy.
 """
 from dataclasses import dataclass
 import numpy as np
 
 H, END = .6, 9.
 X = np.linspace(-H, H, 801)
-
-def smooth(u):
-    u=np.clip(u,0,1)
-    return u*u*(3-2*u)
+LEVEL = .5
 
 @dataclass(frozen=True)
 class Parameters:
     waist: float = .16
     amplitude: float = .18
-    thickness: float = .025  # radial half-thickness of the display band
+    thickness: float = .025
 
 class ContactNeck:
     def __init__(self, parameters=Parameters()):
-        self.par=parameters
+        self.par = parameters
         if not (0 < parameters.thickness < parameters.waist < 1 and 0 <= parameters.amplitude <= .4):
             raise ValueError('Require 0 < thickness < waist < 1 and amplitude in [0,.4]')
-        self.tc, self.xc, self.bracket=self.find_contact()
+        self.level_radius = parameters.thickness*np.sqrt(-np.log(1-np.sqrt(1-LEVEL)))
+        self.band_events = self.crossings(parameters.thickness)
+        self.field_events = self.crossings(self.level_radius)
+        self.tc = self.band_events[0] if self.band_events else None
+        self.xc = self.minimum(self.tc)[1] if self.tc is not None else None
 
-    def rest(self,x):
+    def rest(self, x):
         return self.par.waist*np.cosh(np.arccosh(1/self.par.waist)*np.asarray(x)/H)
 
-    def wave(self,x,t):
-        x=np.asarray(x);c=-.85+.20*t
-        taper=np.maximum(0,1-(x/H)**2)**2
-        return -self.par.amplitude*np.exp(-((x-c)/.18)**2)*np.cos(14*(x-c))*taper
+    def wave(self, x, t):
+        x = np.asarray(x); z = x-(-.85+.20*t)
+        taper = np.maximum(0, 1-(x/H)**2)**2
+        return -self.par.amplitude*np.exp(-(z/.18)**2)*np.cos(14*z)*taper
 
-    def radius(self,x,t):
-        return self.rest(x)+self.wave(x,t)
+    def radius(self, x, t):
+        """Signed center parameter, not an embedded surface when negative."""
+        return self.rest(x)+self.wave(x, t)
 
-    def gap(self,t):
-        return 2*(float(np.min(self.radius(X,t)))-self.par.thickness)
+    def gap(self, t):
+        """Legacy radial-band diagnostic, not the field's topology criterion."""
+        return 2*(float(np.min(self.radius(X, t)))-self.par.thickness)
 
-    def find_contact(self):
-        lo=0.
-        for hi in np.linspace(0,END,361)[1:]:
-            if self.gap(hi)<=0:
-                bracket=(lo,float(hi))
+    def minimum(self, t):
+        """Grid bracket plus continuous golden-section refinement of the minimum."""
+        values = self.radius(X, t); i = int(np.argmin(values))
+        if i in (0, len(X)-1):
+            return float(values[i]), float(X[i])
+        a, b = float(X[i-1]), float(X[i+1]); ratio = (np.sqrt(5)-1)/2
+        c, d = b-ratio*(b-a), a+ratio*(b-a)
+        fc, fd = float(self.radius(c,t)), float(self.radius(d,t))
+        for _ in range(28):
+            if fc < fd:
+                b, d, fd = d, c, fc; c = b-ratio*(b-a); fc = float(self.radius(c,t))
+            else:
+                a, c, fc = c, d, fd; d = a+ratio*(b-a); fd = float(self.radius(d,t))
+        x = (a+b)/2
+        return float(self.radius(x,t)), x
+
+    def crossings(self, level):
+        # All sign-changing crossings in the horizon. Equality at the analytic
+        # threshold is a grazing event at 4.25, not a nonzero closure interval.
+        if self.par.amplitude < self.par.waist-level:
+            return []
+        if abs(self.par.amplitude-(self.par.waist-level)) < 1e-14:
+            return [4.25]
+        f = lambda t: self.minimum(t)[0]-level
+        result = []; lo = 0.; flo = f(lo)
+        for hi in np.linspace(0, END, 361)[1:]:
+            fhi = f(hi)
+            if (flo > 0) != (fhi > 0):
+                a, b, fa = lo, float(hi), flo
                 for _ in range(36):
-                    mid=(lo+hi)/2
-                    if self.gap(mid)>0:lo=mid
-                    else:hi=mid
-                tc=(lo+hi)/2
-                xc=float(X[np.argmin(self.radius(X,tc))])
-                return float(tc),xc,bracket
-            lo=float(hi)
-        return None,None,None
+                    mid = (a+b)/2; fm = f(mid)
+                    if (fa > 0) == (fm > 0): a, fa = mid, fm
+                    else: b = mid
+                result.append((a+b)/2)
+            lo, flo = float(hi), fhi
+        return result
 
-    def progress(self,t):
-        return 0. if self.tc is None else float(smooth((t-self.tc)/2.8))
+    def density(self, x, rho, t):
+        r = self.radius(x, t); e = self.par.thickness
+        a = np.exp(-((np.asarray(rho)-r)/e)**2)
+        b = np.exp(-((np.asarray(rho)+r)/e)**2)
+        return a+b-a*b
 
-    def branches(self,t,n=101):
-        if self.tc is None or t < self.tc:
-            x=np.linspace(-H,H,n)
-            return [(x,self.radius(x,t),self.wave(x,t),self.rest(x))]
-        p=self.progress(t);g=.018+.96*p
-        # Two rounded closed tips start a finite distance apart. Local blending
-        # across the old/new surfaces is a display operation, not physical time integration.
-        left=self.xc-(self.xc+H)*g
-        right=self.xc+(H-self.xc)*g
-        parts=[]
-        for rim,tip in [(-H,left),(H,right)]:
-            x=tip+(rim-tip)*(1-np.linspace(0,1,n))**2;distance=abs(x-tip)
-            L=min(.12,abs(rim-tip)*.65)
-            u=np.clip(distance/L,0,1)
-            cap=np.sqrt(np.maximum(0,2*u-u*u))
-            r=self.radius(x,self.tc)*cap
-            # A rounded shoulder on each cap denotes the rolled rim. This is
-            # attached to the cap profile, not a detached torus with assigned mass.
-            r += .018*np.exp(-((distance-.045)/.022)**2)*cap*(1-p)
-            r[0]=1.;r[-1]=0.
-            parts.append((x,r,np.zeros_like(x),r))
-        return parts
+    def radius_derivatives(self, x, t):
+        x = np.asarray(x); z = x-(-.85+.2*t); w = .18; k = 14
+        rate = np.arccosh(1/self.par.waist)/H
+        f = np.exp(-(z/w)**2)*np.cos(k*z)
+        fp = np.exp(-(z/w)**2)*(-2*z/w**2*np.cos(k*z)-k*np.sin(k*z))
+        fpp = np.exp(-(z/w)**2)*((4*z*z/w**4-2/w**2-k*k)*np.cos(k*z)+4*k*z/w**2*np.sin(k*z))
+        taper = (1-(x/H)**2)**2
+        tp = -4*x/H**2*(1-(x/H)**2); tpp = -4/H**2+12*x*x/H**4
+        rx = self.par.waist*rate*np.sinh(rate*x)-self.par.amplitude*(fp*taper+f*tp)
+        rxx = rate**2*self.rest(x)-self.par.amplitude*(fpp*taper+2*fp*tp+f*tpp)
+        return rx, rxx
 
-    def phase(self,t):
-        if self.tc is None:return 'Passing deformation', 'No contact: the narrow resting neck remains intact'
-        dt=t-self.tc
-        if dt<-.8:return 'Incoming deformation', 'A fixed narrow neck; the wave supplies the displacement'
-        if dt<0:return 'Opposing faces approach', 'The inward crest closes the finite-thickness gap'
-        if dt<.65:return 'Finite-width contact and reconnection', 'Local geometric blend; no zero-radius intersection is rendered'
-        return 'Rounded rims retract', 'Motion guides illustrate retraction, not a solved fluid velocity'
+    def hessian_components(self, x, rho, t):
+        """Cartesian Hessian in axial/radial/tangential basis, including axis limit.
+
+        Valid on the displayed neck |x|<=H. Returns xx, rr, tangent, xr.
+        """
+        r = self.radius(x, t); rx, rxx = self.radius_derivatives(x, t)
+        rho = np.asarray(rho); e2 = self.par.thickness**2
+        a = np.exp(-(rho-r)**2/e2); b = np.exp(-(rho+r)**2/e2); ab = a*b
+        aa = (4*(rho-r)**2/e2**2-2/e2)*a
+        bb = (4*(rho+r)**2/e2**2-2/e2)*b
+        dr = -2*(rho-r)/e2*a-2*(rho+r)/e2*b+4*rho/e2*ab
+        dR = 2*(rho-r)/e2*a-2*(rho+r)/e2*b+4*r/e2*ab
+        drr = aa+bb-(16*rho*rho/e2**2-4/e2)*ab
+        dRR = aa+bb-(16*r*r/e2**2-4/e2)*ab
+        drR = -aa+bb-16*rho*r/e2**2*ab
+        tangent = np.divide(dr, rho, out=np.array(drr, copy=True), where=np.abs(rho)>1e-10)
+        return dRR*rx*rx+dR*rxx, drr, tangent, drR*rx
+
+    def axis_peak(self, t):
+        # If R crosses zero, continuity and positive endpoint R imply psi=1
+        # somewhere on the axis, even if the sampling grid misses that root.
+        rmin = self.minimum(t)[0]
+        g = np.exp(-(max(rmin, 0)/self.par.thickness)**2)
+        return 2*g-g*g
+
+    def phase(self, t):
+        if self.axis_peak(t) >= LEVEL:
+            return 'Diffuse density bridges the axis', 'The field stays smooth; the white contour is a derived boundary.'
+        if self.field_events and t > self.field_events[-1]:
+            return 'The wave passes; the lumen reopens', 'No caps, permanent separation, or retraction rule is imposed.'
+        return 'Opposing diffuse walls approach', 'The resting neck is fixed; the prescribed packet moves the density.'
+
+    def record(self):
+        e = self.par.thickness; b = self.par.waist
+        samples = [(0., 0., 4.25), (-.129, .03, 3.53), (.1, .05, 4.), (0., -.04, 5.2)]
+        return dict(status='KINEMATIC_NOT_DYNAMICAL', regularization='C_SMOOTH_FIELD_DERIVED_SURFACE',
+                    parameters=self.par.__dict__, contour_level=LEVEL, contour_radius_threshold=self.level_radius,
+                    contact_time=self.tc, contact_position=self.xc, band_crossings=self.band_events,
+                    field_contour_crossings=self.field_events,
+                    band_amplitude_threshold=b-e, field_amplitude_threshold=b-self.level_radius,
+                    threshold_rule='A > threshold gives an interval; equality is grazing at t=4.25',
+                    minimum_signed_R=b-self.par.amplitude,
+                    weak_wave_minimum_band_gap=2*(b-.08-e),
+                    samples=[dict(x=x,rho=rho,t=t,psi=float(self.density(x,rho,t))) for x,rho,t in samples])
