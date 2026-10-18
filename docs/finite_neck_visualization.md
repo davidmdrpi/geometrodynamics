@@ -1,70 +1,78 @@
-# Finite neck: a geometric visualization
+# Deformation contact in a narrow neck
 
-[Open the interactive study](visualizations/finite_neck.html) (download and open
-locally if viewing on GitHub). It is self-contained and makes no network requests.
-Play/pause, scrub time, turn the packet off, rotate the cutaway, or directly
-adjust the pre-surgery waist. Reduced-motion preference starts playback paused.
+[Interactive study](visualizations/finite_neck.html) — download and open locally
+when viewing on GitHub. No network or external packages are needed by the HTML.
 
-![Finite-neck sequence](images/finite_neck/finite_neck.gif)
+![Wave-contact sequence](images/finite_neck/finite_neck.gif)
 
-## What this shows
+This revises the visualization from #342 in one essential way: **the resting
+neck no longer shrinks independently of the wave**. A signed inward crest closes
+the gap between opposing finite-thickness surfaces. Reconnection is triggered
+by contact with that band, rather than by a preset pinch time. The wave-off and
+weak-wave controls leave the same resting neck intact throughout the time window.
 
-A finite bridge between two fixed rims, a prescribed signed deformation packet,
-a narrowing waist, and an explicitly imposed replacement by two closed caps.
-The cutaway removes a front sector only for visibility. Both the 3D surface and
-axial section use the same radius profile. The geometry is independent of the
-packet: switching off the packet does not prevent the scripted narrowing.
+## Geometry and event
 
-Rim radius a=1, half-separation h=.6, initial waist b0=.745071089. The fixed-rim
-cosh family is
+Rim radius is 1, half-separation h=.6, and the fixed resting waist is b=.16:
 
-    R_c(z,b) = b cosh[acosh(a/b) z/h].
+    R0(x) = b cosh[acosh(1/b) x/h].
 
-Only its initial member is identified as the equilibrium catenoid. As b falls
-from .5 to .2, a smooth interpolation changes the profile to
+This narrow resting shape is assumed; it is not asserted to be a stable
+catenoid equilibrium. The prescribed signed displacement is
 
-    R_d(z,b) = sqrt[b² + (a²-b²)(z/h)²].
+    u(x,t) = -A exp[-((x-c(t))/.18)^2] cos[14(x-c(t))] [1-(x/h)^2]^2,
+    c(t) = -.85 + .20 t,   R(x,t)=R0(x)+u(x,t),   A=.18.
 
-Both profiles have radius a at z=+/-h and radius b at z=0. The latter approaches
-a double cone as b tends to zero. This geometric limiting statement does not
-establish a fluid pinch-off solution. The visualization never reaches b=0:
-at t=6.8, b=.045, an explicit topology rule replaces the connected surface by
-two closed caps with a positive axial gap. Each cap uses R/a=sqrt[(u²+.03u)/1.03],
-where u runs from zero at the closed tip to one at the fixed rim. The square-root
-behavior rounds the tip. Their axial lengths decrease from .98h to .02h,
-approaching flat discs according to a prescribed schedule.
-This replacement need not be a continuous material trajectory.
+The rims remain fixed. Pink denotes inward deformation, teal outward deformation.
+A radial display half-thickness epsilon=.025 defines opposing surface bands.
+Their facing gap is 2[min_x R(x,t)-epsilon]. The first zero of this gap triggers
+the contact rule, located with a time bracket and bisection on an 801-point
+axial grid. This is **contact of prescribed geometry**, not a dynamical instability
+calculation. `contact.json` records the parameters and event.
 
-The incoming packet multiplies the displayed radius by 1+u(z,t), with |u|<=.08
-and u=0 at both rims. It is a prescribed moving envelope, **not a solved wave
-on a narrowing membrane**. Color encodes the sign of u; it is not an energy
-scale. No azimuthal filtering, inverse-taper shoaling, unavoidable pinch-off,
-released pulse, or conservation ledger is claimed.
+The default contact occurs off the center of the waist as the crest arrives.
+The pre-contact connected radius remains positive; no zero-radius throat is
+rendered. The contact ring is highlighted, and the axial close-up represents
+the local contact region with a finite-width blend.
 
-This supplements the #342 sphere storyboard with an inspectable local neck.
-It does not replace that renderer or modify the neck-collapse protocol.
-The next physical calculation is to determine R(z,t) from a specified membrane
-and surrounding-fluid dynamics, and then test whether an incoming wave drives
-it to the admission boundary. The regularized topology rule remains separate.
+## Rounded reconnection and rim motion
 
-For experimental context, see Goldstein, Pesci, Raufaste and Shemilt (2021),
-[Geometry of catenoidal soap film collapse induced by boundary deformation](https://doi.org/10.1103/PhysRevE.104.035105).
-Real collapse can develop a central thread, multiple pinch sites and satellite
-bubbles; the present rounded-double-cone-to-caps sequence is deliberately simpler.
+The renderer blends from the connected surface to two rounded closed caps over
+.5 display-time units. The close-up zoom follows the separating caps. The two cap tips start with a positive axial separation;
+they are never drawn intersecting each other at an axis point. Near each cap tip,
+the radius scales as the square root of distance from the tip, giving a rounded
+surface of revolution rather than a conical endpoint. Rounded shoulders and
+curved gold motion guides represent rolling/retracting rims. They are illustrative
+kinematics, not material trajectories, vortices, or a computed velocity field.
+No detached torus or energy reservoir is silently introduced.
 
-## Reproduce
+The visible topology transition is an **explicit regularization**, not a claim
+that a smooth embedded surface can change topology while remaining everywhere
+regular. Finite film thickness, coalescence, reconnection and post-contact flow
+require a material/continuum model. The local blend is not a phase-field PDE.
+No surface mass, energy or momentum conservation is established by this visual.
+It also does not claim azimuthal filtering, shoaling, or inevitable pinch-off.
+
+## Controls and reproduction
+
+The HTML has time scrubbing, wave amplitude and resting-neck width controls,
+wave-off/weak-wave/contact presets, and a jump-to-contact button. Changing the
+wave or neck recomputes the contact event; no contact means no reconnection.
+Reduced-motion preference starts playback paused.
 
 ```bash
 python scripts/render_finite_neck.py
+python -m pytest -q tests/test_neck_wave_contact.py
 ```
 
-Requires NumPy and Pillow. The script verifies fixed rims, the prescribed nominal
-waist, positivity before surgery, and closed tips after surgery, then writes
-the GIF, a close-up, a sequence still and their SHA-256 manifest. The HTML uses
-the same equations with user-adjustable display controls. No coupled simulation
-is run and no existing experimental archive is changed.
+Python rendering requires NumPy and Pillow. Model equations are in
+`scripts/neck_wave_contact.py`. Checks cover no-wave/weak-wave nulls, first contact,
+fixed rims, positive pre-contact radii, and separated closed post-contact tips.
+The static sequence and animation are visually inspected; the HTML's matching
+math and controls are checked with JavaScript. A local browser was not available
+for a browser-specific layout check.
 
-Validation: the Python geometry checks pass. The HTML JavaScript was executed
-with a mock canvas to check time/waist/wave controls and geometry; a local browser
-was unavailable, so browser-specific layout was not visually tested. The rendered
-GIF and PNG stills were visually inspected.
+The #342 protocol and sphere storyboard are unchanged. This study replaces only
+the earlier local visualization and its independent shrinking-waist schedule.
+The next physical step would solve the wave and surface response together, then
+check whether they actually reach the specified finite contact layer.

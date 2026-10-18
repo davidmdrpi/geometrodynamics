@@ -1,0 +1,17 @@
+{
+  "contact_gap": -4.347910920188269e-14,
+  "contact_position": -0.12899999999999995,
+  "contact_time": 3.530092543601678,
+  "no_wave_contact": null,
+  "parameters": {
+    "amplitude": 0.18,
+    "thickness": 0.025,
+    "waist": 0.16
+  },
+  "status": "KINEMATIC_NOT_DYNAMICAL",
+  "time_bracket": [
+    3.5250000000000004,
+    3.5500000000000003
+  ],
+  "weak_wave_contact": null
+}
