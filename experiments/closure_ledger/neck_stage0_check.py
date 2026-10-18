@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 """Stage-0 numbers for docs/neck_collapse_protocol.md: catenoid neck between two rims.
 
-Checks the reduced cosh-profile family against Goldschmidt's catenoid results and
-prints the baseline neck parameters quoted in the protocol. No field or mouth dynamics.
+Checks the reduced cosh-profile family against Goldschmidt's catenoid results, checks
+its continuation through r = a, and prints the baseline neck parameters and energy
+references quoted in the protocol. No field or mouth dynamics.
 
     python experiments/closure_ledger/neck_stage0_check.py
 """
@@ -13,13 +14,32 @@ A_RIM = 1.0              # rim radius a (neck units)
 H_BASE = 0.60            # baseline half-separation h/a
 MU, OMEGA = .05, 5.      # #340 mouth shape mass and frequency
 BARRIERS = (.0025, .005, .01, .02)
+R_SURGERY, R_OUTER = .05, 1.3   # surgery waist and outward validity limit, in units of a
 
 
 def area(r, h, a=A_RIM):
-    """Area of rho(z) = r cosh(beta z), beta = arccosh(a/r)/h, for |z| <= h."""
-    beta = np.arccosh(a/r)/h
-    f = lambda z: r*np.cosh(beta*z)*np.sqrt(1+(r*beta*np.sinh(beta*z))**2)
+    """Area of rho(z) = r cosh(beta z), beta = arccosh(a/r)/h, for |z| <= h.
+
+    For r > a use the analytic continuation rho = r cos(beta z), beta = arccos(a/r)/h
+    (barrel profiles): the area depends on beta^2, and arccosh(a/r)^2 continues to
+    -arccos(a/r)^2, so A(r) is smooth through r = a.
+    """
+    if r <= a:
+        beta = np.arccosh(a/r)/h
+        f = lambda z: r*np.cosh(beta*z)*np.sqrt(1+(r*beta*np.sinh(beta*z))**2)
+    else:
+        beta = np.arccos(a/r)/h
+        f = lambda z: r*np.cos(beta*z)*np.sqrt(1+(r*beta*np.sin(beta*z))**2)
     return 4*np.pi*integrate.quad(f, 0, h, epsabs=1e-13, epsrel=1e-13, limit=400)[0]
+
+
+def one_sided_derivatives(h, side, d=2e-4):
+    """Richardson-extrapolated one-sided first and second derivatives of A at r = a."""
+    def first(step):
+        return side*(area(A_RIM+side*step, h)-area(A_RIM, h))/step
+    def second(step):
+        return (area(A_RIM+2*side*step, h)-2*area(A_RIM+side*step, h)+area(A_RIM, h))/step**2
+    return 2*first(d/2)-first(d), 2*second(d/2)-second(d)
 
 
 def catenoid_waists(h, a=A_RIM):
@@ -72,6 +92,21 @@ def main():
         gamma = dv/(ab-a0)
         zeta = np.sqrt(2*MU*OMEGA**2/(gamma*a2))
         print(f'{dv:<8} {gamma:.5f}  {zeta:.3f}  {(rb-r0)/zeta:+.3f}   {-np.sqrt(dv/(MU*OMEGA**2)):+.3f}    {2*MU/zeta**2:.4f}')
+
+    # Domain: smooth continuation through r = a, and the outward validity limit.
+    (d1l, d2l), (d1r, d2r) = one_sided_derivatives(H_BASE, -1), one_sided_derivatives(H_BASE, +1)
+    print(f"continuation at r = a: A'(a-) = {d1l:.6f}, A'(a+) = {d1r:.6f}; A''(a-) = {d2l:.4f}, A''(a+) = {d2r:.4f}")
+    assert abs(d1l-d1r) < 1e-4*abs(d1l) and abs(d2l-d2r) < 1e-3*abs(d2l)
+
+    # Common energy zero (baseline barrier dV = 0.01): V(r) = gamma [A(r) - A(r0)].
+    gamma = .01/(ab-a0)
+    zeta = np.sqrt(2*MU*OMEGA**2/(gamma*a2))
+    a_s = area(R_SURGERY, H_BASE)
+    v_caps = gamma*(2*np.pi*A_RIM**2-a0)
+    print(f'baseline dV = 0.01: gamma A(r0) = {gamma*a0:.10f}; V(r_s) = {gamma*(a_s-a0):.10f}; '
+          f'caps V_caps = gamma[2 pi a^2 - A(r0)] = {v_caps:.10f}; released V(r_s) - V_caps = {gamma*(a_s-2*np.pi):.10f}')
+    for r in (1., 1.2, R_OUTER):
+        print(f'outward r = {r:.1f}a: Q = {(r-r0)/zeta:.6f}, V = {gamma*(area(r, H_BASE)-a0):.6f}')
 
 
 if __name__ == '__main__':

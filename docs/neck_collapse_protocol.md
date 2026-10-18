@@ -2,6 +2,14 @@
 
 **Status: draft for discussion. Not frozen.** Freeze it in a local commit before the first coupled run, and publish its hash with the results. As in #340 and #341, that is not external preregistration.
 
+**Revised after the review of `d864d0b`:**
+- one energy zero before and after surgery;
+- the surgery constraint on the complete surviving Hamiltonian;
+- a conservative Hamiltonian retraction variant;
+- the waist domain continued past r = a, with an outward stop;
+- a threshold search that does not assume monotonicity, with brackets and censoring;
+- a post-collapse horizon separate from the collapse search, with counterfactual attribution for H4.
+
 ## Question
 Can a focused scalar wave push a metastable neck past its collapse threshold? If it can, where do the neck's stored energy and angular momentum go?
 
@@ -43,6 +51,13 @@ where A(r) is the area of a reduced shape family:
 
 The P_h mode, the mouth–field coupling κ(q − ū)²/2 and everything else stay as in #340.
 
+**Domain.** The cosh family is real only for 0 < r ≤ a. For r > a, use its analytic continuation ρ(z) = r cos(βz), with β = arccos(a/r)/h: barrel-shaped necks, since cosh(ix) = cos x.
+- The area depends on β², and arccosh(a/r)² continues analytically to −arccos(a/r)², so A(r) is smooth through r = a. The Stage-0 script checks this: A′(a±) = 5.026548 and A″(a±) = 27.5902 from both sides.
+- Outward excursions are reachable. At the baseline, r = a is reached at Q = (a − r₀)/ζ = 0.1118, after a potential rise of only 0.0259.
+- Beyond r = a the potential climbs steeply: V = 0.101 at r = 1.2a and V = 0.157 at r = 1.3a (Q = 0.243).
+- **Outward limit.** Stop the run at r = 1.3a, bracketed like the collision stop; that run is INCOMPLETE (OUTWARD_LIMIT).
+- No substep may evaluate V at r ≤ 0 or r > 1.3a. A step that would do so is the crossing step: the run either stops at the previous state (outward) or takes the surgery state of §3 (inward).
+
 **Nesting.** Choose γ and ζ so that:
 - the small-oscillation limit is #340 exactly: γA''(r₀)ζ²/2 = μΩ², with waist inertia 2μ/ζ²;
 - the barrier ΔV = γ[A(r_b) − A(r₀)] takes the preset value.
@@ -83,7 +98,11 @@ The well is softer than its harmonic approximation, so the barrier sits about tw
 ## 3. Collapse event
 Collapse of pair h occurs when the waist reaches the surgery radius r_s = 0.05a, moving inward. Past r_b, V decreases monotonically to r_s, so crossing the barrier with inward velocity leads to collapse.
 
-Detect the crossing after every integration step. Bracket it at step resolution and retain the last state before the crossing. A waist that crosses r_b and returns is a **sub-threshold excursion**, not a collapse. Record each excursion's depth.
+Detect the crossing after every integration step.
+- **The surgery state is the first integration state with r ≤ r_s.** Record the bracket [t_prev, t_c]. Every quantity in §4 is evaluated at that state.
+- If the crossing step would evaluate V at r ≤ 0, halve that step until the state lands in (0, r_s].
+
+A waist that crosses r_b and returns is a **sub-threshold excursion**, not a collapse. Record each excursion's depth.
 
 ## 4. Surgery rule (imposed, not derived)
 At the collapse time t_c:
@@ -94,18 +113,36 @@ At the collapse time t_c:
    - its two mouth–field couplings.
 
    The field domain is unchanged: it is the full sphere, as in #340.
-2. **Energy to deposit.** E_dep equals the removed pair's total energy minus γ·2πa² (two closed caps), where the total is kinetic + shape + V(r_s) + its interaction terms. Report the logarithmic remainder γ[A(r_s) − 2πa²] separately.
-3. **Angular momentum to deposit.** ΔJ_field = L_h.
-4. **Deposition form.** Apply an impulsive field displacement δa and velocity δp at the two former mouth sites s = ±. Both lie in the span of {w_hs, D_i w_hs}: the axisymmetric footprints and their rotational dipoles.
+2. **One energy zero throughout.** Keep the shifted convention of §2, V(r) = γ[A(r) − A(r₀)].
+   - The two closed caps left after surgery then have V_caps = γ[2πa² − A(r₀)], which is negative: −0.034400 at the baseline.
+   - The surface energy released is V(r_s) − V_caps = γ[A(r_s) − 2πa²]. At the baseline, with r_s = 0.05a, it is 0.023287.
+   - Never subtract the absolute cap energy γ·2πa² from the shifted potential. At the baseline that would give −0.31280 in place of +0.02329.
+3. **Energy balance on the complete Hamiltonian.** Let H_before be the full Hamiltonian at the surgery state: field, the surviving pair (kinetic, shape and interaction terms), and the removed pair (kinetic, shape, V(r_s) and its interaction terms). Let H_after(δa, δp) be the full Hamiltonian after removal: field (a + δa, p + δp), the surviving pair with its interaction energy κΣ(q − ū)²/2 evaluated at a + δa, and V_caps. Require H_after(δa, δp) = H_before. A nonzero δa changes the surviving mouths' ū, so a field-energy constraint alone does not conserve the total.
+4. **Angular momentum.** J_field(a + δa, p + δp) − J_field(a, p) = L_h, with J = −Re⟨p, D a⟩. The surviving pair's L is unchanged at the impulse, so total J is conserved.
+5. **Deposition form.** Apply an impulsive field displacement δa and velocity δp at the two former mouth sites s = ±. Both lie in the span of {w_hs, D_i w_hs}: the axisymmetric footprints and their rotational dipoles.
    - Including δa lets the deposit carry its own angular momentum, through the ⟨δp, D δa⟩ term, instead of relying on the field already present.
-   - Take the solution of minimum norm in the field-energy metric that satisfies two constraints exactly: ΔE_field = E_dep and ΔJ_field = L_h, where J = −Re⟨p, D a⟩.
+   - Take the solution of minimum norm in the field-energy metric that satisfies the two constraints of steps 3 and 4 exactly.
    - If no real solution exists, report SURGERY_INFEASIBLE. Do not substitute another rule.
-5. **Variant.** Spread the same δp over a retraction time τ_r ∈ {0.05, 0.1, 0.2}, as a forcing with the same totals; τ_r = 0 is the baseline.
+6. **Variant: Hamiltonian retraction (conservative by construction).** Do not spread a prescribed force over time: a fixed impulse delivered over an interval τ does not deliver fixed work. A resting oscillator given total impulse J that way receives (J²/2)·sinc²(ωτ/2), not J²/2. Instead:
+   - At t_c, keep pair h's rotor and its two mouth oscillators, now cap oscillators, and drop the waist potential.
+   - Reset Q_h to the cap rest value 0, with harmonic potential μΩ²Q_h² from then on. The cap oscillators' energy is measured from V_caps, the closed-cap energy in the common zero, so they hold V_caps + μΩ²(Q_h² + P_h²) + μ(Q̇_h² + Ṗ_h²).
+   - Choose Q̇_h so that the complete Hamiltonian is unchanged, including the change in the pair's own interaction terms. This is an internal conversion of the released surface energy into cap motion. The field and J are unchanged. If no real Q̇_h exists, report RETRACTION_INFEASIBLE.
+   - Evolve the unchanged #340 Hamiltonian for a retraction time τ_r ∈ {0.05, 0.1, 0.2}. The caps ring down into the field through the existing coupling, and the full energy and angular-momentum ledger holds at every step.
+   - At t_c + τ_r, apply steps 1–5 to what remains in the pair (the reservoir): rotor kinetic energy, cap-oscillator energy and interaction terms. The state after removal again holds V_caps, as in the baseline.
+   - Report the reservoir's energy and L_h at the hand-over. τ_r = 0 recovers the baseline rule.
 
    For scale, the soap-film retraction speed is √(2γ/σ) (Taylor–Culick). Here τ_r is a free parameter, and results must be insensitive to it (§7).
 
 ## 5. Runs
-**Packets.** Use #340's preparations scaled by λ, so the energy is 0.1λ². Search λ ∈ (0, √10] by bisection to 1% in λ, giving the threshold λ*. Run:
+**Packets.** Use #340's preparations scaled by λ, so the energy is 0.1λ².
+
+**Threshold search.** Bisection would assume that collapse is monotone in λ. That has not been established: amplitude-dependent phase, recoil and repeated foci can open and close collapse windows.
+1. Scan 24 log-spaced values of λ in [0.1, √10], plus λ = √10. Classify each run as COLLAPSE, NO_COLLAPSE or INCOMPLETE (collision stop or outward limit).
+2. Refine every boundary between adjacent COLLAPSE and NO_COLLAPSE points by bisection to 1% in λ.
+3. λ* is the lower edge of the lowest collapse interval, reported as a bracket [λ*_lo, λ*_hi]. Report every interval: a non-monotone window is a result, not noise.
+4. A boundary next to an INCOMPLETE point is UNRESOLVED. If nothing collapses up to √10, report λ* > √10 (censored).
+
+Run:
 
 | case | preparation | role |
 |---|---|---|
@@ -120,7 +157,10 @@ At the collapse time t_c:
 
 **Start convention.** Backpropagate the prepared packets by π + δ, with δ = 1.2, so that both the source focus (at t = δ) and the target focus (at t = π + δ) are complete events with resting, unexcited mouths beforehand. #341's review found that starting in mid-focus (δ = 0) halves the leading exchange coefficient. Also report δ = 0 for comparability with #340 and #341, labelled as the half-focus convention.
 
-**Horizon.** 2π + δ + 1.2, so it includes the source-side return focus at 2π + δ. Sample exactly at δ ± 0.6, and at kπ + δ ± 0.6 and kπ + δ for k = 1, 2.
+**Horizons.**
+- **Collapse search:** to 2π + δ + 1.2, so it includes the source-side return focus at 2π + δ. Only collapses before this horizon count.
+- **Post-collapse observation:** after a collapse, continue the run to t_c + π + 0.6, subject to the validity limits. If a limit stops the run earlier, H4 is UNAVAILABLE for that run.
+- **Sampling:** exactly at δ ± 0.6, at kπ + δ ± 0.6 and kπ + δ for k = 1, 2, and at t_c + π/2 and t_c + π.
 - Stop at #340's disjoint-mouth limit (0.65 rad), bracketed as in #341.
 - A collision stop makes that run INCOMPLETE.
 
@@ -134,22 +174,31 @@ At the collapse time t_c:
 - after t_c, the other pair's impulse.
 
 ## 6. Hypotheses, set before running
-- **H1 (focus selectivity).** λ*(C1) < λ*(C3)/√5, meaning the off-focus threshold energy is at least 5× larger. #339 found that the focus deposits 40× to 440× more shape energy than an off-focus pass.
+- **H1 (focus selectivity).** The off-focus threshold energy is at least 5× larger than the focused one, tested conservatively on brackets:
+  - holds if λ*_hi(C1) < λ*_lo(C3)/√5;
+  - if C3 is censored (no collapse up to √10), holds if λ*_hi(C1) < √2;
+  - UNRESOLVED if either bracket touches an UNRESOLVED boundary.
+
+  #339 found that the focus deposits 40× to 440× more shape energy than an off-focus pass.
 - **H2 (symmetric collapses more easily than directional).** λ*(C1) < λ*(C2). A symmetric single packet gives no first-order recoil, so the pair stays on the focus. #339's focus shape-energy maxima were 0.0164 (symmetric) against 0.0133 (directional).
 - **H3 (where collapse happens).** At threshold, t_c falls in a focus window: target [π + δ ± 0.6], or source return [2π + δ ± 0.6]. Report which, and whether the source focus at t = δ pre-loads the neck.
   - Both mouths of a pair drive the same waist mode Q. With Ω = 5 the source and target foci are 2.5 ringing periods apart, so whether the second focus adds to or cancels the first depends on the waist's phase.
   - Record the waist phase at each focus.
   - This is distinct from #341's rotational exchange, which accrues at mid-transit crossings rather than at foci.
-- **H4 (re-convergence).** The released pulse re-converges on the two former mouth sites at t_c + π. Each site's antipode is the other site, and that site is where the pulse's other half started. Test it: the energy in the two 0.3-rad caps at t_c + π should exceed its value at t_c + π/2 by a preset factor of 5.
+- **H4 (re-convergence).** The released pulse re-converges on the two former mouth sites at t_c + π. Each site's antipode is the other site, and that site is where the pulse's other half started.
+  - Cap energy alone cannot test this, because the original packets also refocus.
+  - **Attribution:** evolve a paired counterfactual, the identical post-surgery state with the deposit omitted, under the same Hamiltonian. This is for attribution only; the counterfactual does not conserve energy. Use the difference field.
+  - **Test:** the difference field's energy in the two 0.3-rad caps at t_c + π must exceed its value at t_c + π/2 by a preset factor of 5.
+  - **Check:** also evolve the deposit alone in the free field, with no mouths.
 - **H5 (barrier scaling).** For single-pass transfer, λ*² ∝ ΔV across the sweep. A significantly weaker growth means multi-focus pumping. Report the log-log slope with its uncertainty.
 
 ## 7. Gates
 **Numerical (otherwise UNRESOLVED_NUMERICALLY):**
 - relative energy error < 1e-4 over each trajectory, including across the surgery;
 - normalised angular-momentum error < 1e-8;
-- surgery ledger exact to 1e-12;
+- surgery ledger: the complete Hamiltonian (field, surviving pair with its interaction terms, caps) and total angular momentum unchanged across the surgery to 1e-12;
 - halving dt and raising the cutoff to 40 each change λ* by < 1% and t_c by < 0.01;
-- the τ_r variants change the deposited energy by 0 (exact), and change the re-convergence factor by < 10%.
+- the τ_r variants keep the complete ledger within the numerical tolerances above at every step of the retraction stage, and change the re-convergence factor by < 10%.
 
 **Controls:**
 - the N1–N3 gates hold;
@@ -158,7 +207,8 @@ At the collapse time t_c:
 
 **Verdict:**
 - **SUPPORTED_FOR_THIS_EFFECTIVE_FAMILY:** H1 holds at the baseline ΔV with converged thresholds, and every ledger closes.
-- **NOT_SUPPORTED:** no collapse in C1 or C2 for λ ≤ √10, or H1 fails while converged.
+- **NOT_SUPPORTED:** C1 and C2 both censored (no collapse for λ ≤ √10), or H1 fails while converged.
+- **UNRESOLVED:** H1 UNRESOLVED, or the C1 threshold bracket touches an UNRESOLVED boundary.
 - **Reported, not gated:** H2–H5, each with its uncertainty and stated as confirmed or not.
 
 ## 8. Practices carried over from #340 and #341
