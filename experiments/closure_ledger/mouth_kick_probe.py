@@ -5,6 +5,7 @@
     python experiments/closure_ledger/mouth_kick_probe.py checks    # conservation, mesh, controls
     python experiments/closure_ledger/mouth_kick_probe.py flux      # static throat flux x wave cross term
     python experiments/closure_ledger/mouth_kick_probe.py offsets   # mouth clock offsets (MTY)
+    python experiments/closure_ledger/mouth_kick_probe.py offset_checks   # frame and rim-weight convergence
 
 Each part writes JSON to experiments/closure_ledger/runs/20261019_mouth_kicks/.
 Model and bookkeeping: geometrodynamics/waves/rim_kicks.py. Write-up:
@@ -18,7 +19,7 @@ from pathlib import Path
 
 import numpy as np
 
-from geometrodynamics.waves.rim_kicks import (FluxField, GluedWave, glued_surface, offset_history,
+from geometrodynamics.waves.rim_kicks import (FluxField, GluedWave, glued_surface, mouth_frame, offset_history,
                                               release_source)
 
 OUT = Path(__file__).resolve().parent/'runs'/'20261019_mouth_kicks'
@@ -67,15 +68,38 @@ def direct(args):
                         m2=m2, weight=list(weight), flux=flux, e1=e1.tolist(), e2=e2.tolist()))
 
 
+OFFSET_WIDTH = .5     # the solver's width-.25 release is under-resolved for the weighted ledger (5-34% weight dependence)
+
+
 def offset_run(args):
     handle, psi, offset, n_sphere = args
     s = surface(handle, n_sphere)
-    h, info = offset_history(s, release_source(psi, D0, s), (offset,) if offset else (), t_max=T_END,
-                             flux=FluxField.unit_energy())
-    from geometrodynamics.waves.rim_kicks import mouth_frame
+    h, info = offset_history(s, release_source(psi, D0, s), (offset,) if offset else (), width=OFFSET_WIDTH,
+                             t_max=T_END, flux=FluxField.unit_energy())
     e1, e2 = mouth_frame(s)
     return thin(h, dict(tag='offset', handle=handle, mode='release', psi=psi, offset=offset, n_sphere=n_sphere,
-                        e1=e1.tolist(), e2=e2.tolist(), **info))
+                        width=OFFSET_WIDTH, e1=e1.tolist(), e2=e2.tolist(), **info))
+
+
+def offset_check(args):
+    """Same release on a finer frame grid, ledgered with three rim weights from one run."""
+    handle, psi, offset, n_sphere = args
+    s = surface(handle, n_sphere)
+    weights = [(.35, .9), (.35, .65), (.5, 1.3)]
+    hs, info = offset_history(s, release_source(psi, D0, s), (offset,) if offset else (), width=OFFSET_WIDTH,
+                              t_max=T_END, frame_dt=.00125, weight=weights)
+    e1, e2 = mouth_frame(s)
+    out = dict(tag='offset_check', handle=handle, mode='release', psi=psi, offset=offset, n_sphere=n_sphere,
+               width=OFFSET_WIDTH, e1=e1.tolist(), e2=e2.tolist(), weights=weights, **info)
+    out['by_weight'] = [thin(h) for h in hs]
+    out.update(t=out['by_weight'][0]['t'], J=out['by_weight'][0]['J'], L0=out['by_weight'][0]['L0'])
+    if offset == 0:                       # the direct leapfrog from the same initial data
+        from geometrodynamics.viz.klein_handles import HandleWaveSim
+        g = GluedWave(s, m2=0.)
+        u0 = HandleWaveSim(s, source=release_source(psi, D0, s), width=OFFSET_WIDTH, t_max=1., n_frames=4).initial()
+        u0 = u0/np.sqrt(g.energy(u0, 0*u0))
+        out['direct'] = thin(g.run(u0, 0*u0, T_END))
+    return out
 
 
 def jobs_for(part):
@@ -98,8 +122,12 @@ def jobs_for(part):
         return direct, [('flux', h, m, p, 24000, .25, D0, 1, 0., w, True)
                         for h in ('klein', 'torus') for m in ('release', 'out', 'in') for p in (0., np.pi/4, np.pi/2)]
     if part == 'offsets':
+        # With the width-.5 release, offsets near -2 come within 5% of the chronology horizon
+        # in HandleWaveSim's minimal-tilt slicing (its safety limit); -1.75 has tilt about .84.
         return offset_run, [(h, p, o, 12000) for h in ('klein', 'torus') for p in (0., np.pi/2)
-                            for o in (-2., -1.5, -1., -.5, 0., .5, 1.)]
+                            for o in (-1.75, -1.5, -1., -.5, 0., .5, 1.)]
+    if part == 'offset_checks':
+        return offset_check, [('klein', 0., o, 12000) for o in (0., -1., -1.75)]
     raise SystemExit(f'unknown part {part!r}')
 
 
