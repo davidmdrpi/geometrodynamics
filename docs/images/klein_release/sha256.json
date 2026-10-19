@@ -1,7 +1,12 @@
 {
-  "antipode.png": "d4ef894e2d8d0717086e72c92facd2c7d346039d7c45abae87982573c193b3ea",
-  "contact.png": "efea7ce3618c116f2a1ecadaf3fb7f3bc83ca0c0024cf797faa6d2103c9f9fba",
-  "klein_release.gif": "107df25c7df2f942fd5e1b538c8e745ef75dbb3117c2fbaed2ed9c2fb3c11e89",
-  "report.json": "e6d80f805cf7708f96ad2236e3702b303fd8210138c1b19d63b4b69ac448edb1",
-  "retraction.png": "6c6746893110e8b620de5be1ddda65c945f9512863ae2c88051f69b88607d8b2"
+  "antipode.png": "bca8bee445638f51f23efeb9473ad88df4afce280332bb828036563e3457b04a",
+  "contact.png": "d8142798f384705907c74d876bf9784a9e90337e67a6d67d3e8e0f7932de100d",
+  "glued_probe/bare_12000.csv": "19ba4821d55b2026c34dd847a9995efc95592dfbd8714e11f96c488d0b238f48",
+  "glued_probe/comparison.png": "be2b1e6d2b0d74ab4571556f5f1737e89218138490f41a07ebf4109738f5b7ca",
+  "glued_probe/glued_12000.csv": "15295424c549eddaee187d78526f9002db0d371a037fa8dd34f1cdd066c393bc",
+  "glued_probe/glued_6000.csv": "07cea2f53c331d23e5ec3a6e67d551b144521c7efe602d633999b946cfa80f4f",
+  "glued_probe/report.json": "8e28db0d327d8d5017bb738ae82dfa2abe914fd7582366dbc852206ad53fa945",
+  "klein_release.gif": "235c71d5bdc0dfd3996c3e38b1716733235d1e455dc96ea694a2bdd535f9d3e3",
+  "report.json": "ef20a03221ab31b043b8f7cc99b2f61664da5a85fdeab7500613f5008d2d6659",
+  "retraction.png": "5b27f74cdc0ab8991441d32a0b436f3240a08833dafc1014729867161a409a82"
 }

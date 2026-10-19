@@ -1,156 +1,180 @@
-# Sphere → intrinsic throat → release → antipode
+# Glued-surface test and counterfactual release storyboard
 
-![Klein throat release](images/klein_release/klein_release.gif)
+**Review result: the incoming wave enters the throat, but does not cause contact
+at the selected gain `.18` on the fixed glued geometry.** The earlier animation
+used a bare-sphere signal to prescribe throat deformation. That prescription
+cannot establish collapse on the actual connected surface.
+
+![Glued propagation test](images/klein_release/glued_probe/comparison.png)
+
+## Propagation on the connected surface
+
+`scripts/klein_glued_probe.py` evolves the original incident data on the existing
+#338 sphere-with-Klein-handle mesh. Sphere caps are removed and their rim
+vertices are shared with the intrinsic neck. The curved handle drawing does
+not determine distances. The initial field and velocity are the original
+sphere modes on sphere vertices and zero in the neck interior; shared rims
+retain the sphere values. These are selected initial data.
+
+The cotangent finite-element system is
+
+```text
+M u_tt + K u + M u/4 = 0.
+```
+
+Here `+1/4` is a selected constant potential term. Its conformal interpretation
+on the unit round sphere is not extended to the nonconstant-curvature neck.
+Velocity Verlet uses `dt=.002`, with a stability estimate that reduces it if
+needed. The probe runs to `t=2.6`, encompassing the first neck transit and the
+early arrival at mouth B. It makes no claim about arbitrarily late contact.
+
+The same intrinsic neck sets both propagation and the radius readout:
+
+```text
+s in [-S,S],  S = sin(.3) cos(.3)
+r0(s) = sqrt(s²+b²)/sin(.3),  b = sin(.3)²
+w(s,t) = azimuthal_mean(u(s,phi,t)) / original_reference_peak
+R(s,t) = r0(s) - .18 w(s,t) [1-(s/S)²]².
+```
+
+All radii in this readout are in rim units. The Gaussian width is `.025` in
+those same units. Half-density contact requires
+`R <= .025 sqrt(-ln(1-sqrt(.5))) = .02770319`. The scalar-to-radius conversion
+is still a prescribed diagnostic; the metric itself does not evolve.
+
+| First-transit diagnostic | Coarse glued mesh | Finer glued mesh |
+|---|---:|---:|
+| Actual vertices | 7,562 | 13,266 |
+| Peak neck energy / initial energy | .80528 | .80630 |
+| Peak energy near B / initial energy | .71297 | .71601 |
+| Peak waist field / reference pole peak | .47934 | .48151 |
+| Minimum radius, in rim units | .20886 | .20855 |
+| Contact threshold | .02770 | .02770 |
+| Minimum sampled gain needed for contact | .54849 | .54655 |
+| Maximum relative energy drift | .0001144 | .0001206 |
+
+The gain remains `.18`; the larger critical-gain diagnostic is **not** applied.
+The bare-sphere control recovers a pole peak of `.99987` of the original
+reference. Near B means sphere triangles entirely inside a one-radian cap about
+B; neck triangles are excluded. The fine glued run peaks there at `t=1.86`,
+well before bare-sphere refocusing. Its waist peak is at `t=1.23`.
+
+Energy is assigned by triangle, with each triangle's share of lumped kinetic
+and potential mass and its own stiffness energy. Thus the sphere and neck
+partitions include their respective shares at common rim vertices and sum to
+total energy to roundoff. About 81% entering the neck does not mean 81% is
+available for an independently added release pulse. This run performs **no cut,
+withdrawal, or energy injection**: the field continues evolving on the connected
+mesh. Coarse/fine agreement supports this first-transit null, not a general
+convergence theorem or a nonlinear stability result.
+
+## What the retained illustration means
+
+![Counterfactual release storyboard](images/klein_release/klein_release.gif)
 
 [Open the self-contained nine-stage viewer](visualizations/klein_release.html).
-The GIF animates the full sequence; the viewer provides larger, scrubbable key
-frames. This companion builds on #343's option C and the earlier Klein-handle
-geometry. It depicts the user's proposed mechanism; it is not a claim that the
-mechanism has been derived from GR or fluid equations.
+The viewer and animation explicitly say **counterfactual storyboard**. They
+illustrate the requested sequence if a separate contact-and-withdrawal law is
+admitted. They do not depict the outcome of the glued probe above.
 
-## What the sequence shows
+The sphere shows a signed deformation as radial displacement and color. A
+curved guide illustrates the orientation-reversing identification; the inset
+shows the intrinsic throat density. Neither is a solved embedding of an
+extradimensional spacetime or a physical normal field on a Klein bottle.
 
-1. A signed scalar deformation converges on mouth A of the sphere.
-2. The signal at that mouth drives a delayed disturbance along the intrinsic
-   throat. The curved handle is retained as an **immersion/identification guide**;
-   its drawn length does not set propagation time.
-3. The diffuse throat field reaches the half-density contact criterion. An
-   explicitly selected irreversible rule opens a gap in that density and
-   withdraws both halves toward their respective mouths on the **same sphere**.
-4. A finite-duration source at the two mouth sites transfers an assigned energy
-   budget into the existing sphere field. The sphere-wave state is continuous;
-   it is not replaced by a second field at contact.
-5. The emitted component travels and refocuses at the antipodal mouth sites,
-   then continues its standing-mode return cycle. It is a **traveling packet
-   formed from standing modes**, not a stationary single-mode deformation.
+The incident sphere field uses modes `l=0,...,24`, `omega_l=l+1/2`, and initial
+energy `.08`. Its free evolution would focus at A at `t=1.2`. This field remains
+continuous throughout the illustrative source-driven sequence. It lives on an
+unholed sphere, so its throat readout has no backreaction or propagation through
+the glued surface. That is precisely why the independent probe is necessary.
 
-The outer view shows sphere displacement as actual radial geometry and signed
-color, rather than circles overlaid on a rigid sphere. The inset shows the
-intrinsic throat density separately from its curved drawing. The sphere itself
-is the round-S2 analogue; the handle is not a solved embedding of an
-extradimensional spacetime. Ring outlines and the retracting immersed guide are
-schematic, not physical material boundaries or a globally defined normal field
-on a Klein bottle.
+### Consistent illustrative geometry and causal timing
 
-## One continuous sphere field
-
-We retain axisymmetric conformal scalar modes throughout:
+The storyboard retains #343's narrower profile
+`R0(x)=.16 cosh(acosh(1/.16) x/.6)`, `x in [-.6,.6]`. Both axial and radial
+coordinates are scaled by `sin(.3)`. Its propagation distance is now its own
+meridian arclength,
 
 ```text
-u(theta,t) = sum_l a_l(t) sqrt[(2l+1)/(4pi)] P_l(cos theta),  l=0,...,24
-omega_l = l + 1/2
-u_tt - Delta_S2 u + u/4 = F.
+s(x) = sin(.3) integral[-.6,x] sqrt(1+R0'(y)²) dy,
+L = s(.6) = .65472445.
 ```
 
-The incoming packet has spectral weights proportional to
-`l(l+1) exp[-.24² l(l+1)/2]`, free evolution focused at A at `t=1.2`, and energy
-`.08` at the default drive. This is selected initial data, not a spontaneous
-emission prediction. The packet propagates over the sphere throughout the
-sequence; no discontinuous transfer between finite-element and spherical bases
-is used. A prototype of such a transfer discarded too much wave detail and was
-not adopted.
+It no longer borrows #338's `.56464247` length. The delayed bare-sphere readout
+is `u(A,t-s(x))/reference_peak` with the existing smooth startup; it modifies
+`R0` with gain `.18` and taper `[1-(x/.6)²]²`. Its Gaussian-union density reaches
+the half-density criterion at `tc=1.42752092`, at `xc=-.06093770`.
 
-## Throat readout and irreversible withdrawal
-
-The drawn Klein handle comes directly from `viz.klein_handles.build_surface`,
-with one orientation-reversing mouth pair at ±x. Its intrinsic length is
-`L=2 sin(.3) cos(.3)=.56464247`, independent of the long immersion arc.
-For normalized throat coordinate x ∈ [−.6,.6], use the one-way delayed readout
+Withdrawal is an additional irreversible law, not a consequence of the scalar
+wave equation. Each position starts only after
 
 ```text
-d(x) = L (x+.6)/1.2
-w(x,t) = [u(A,t-d(x))/u_reference_peak] S((t-d(x))/.15)
-R(x,t) = R0(x) - .18 w(x,t) [1-(x/.6)^2]^2,
-R0(x) = .16 cosh[acosh(1/.16) x/.6].
+t_arrive(x) = tc + sqrt((s(x)-s(xc))² + .01²).
 ```
 
-`S(z)=10z³−15z⁴+6z⁵` inside [0,1], clipped to 0/1 outside, provides a C2
-retarded startup. The reference peak is fixed when drive changes. The `.18`
-gain is a chosen visualization coupling: neither the conversion from sphere
-amplitude to throat radius nor a neck wave/stress equation has been derived.
-This readout does not subtract energy from the incident sphere wave or include
-reflections and backreaction.
+This smooth delay is at least the intrinsic signal travel time. A C2 smoothstep
+withdraws the local density over `.65` time units; a local C2 stopping clock
+settles its transmitted readout over `.15`. The guide retracts according to the
+same local progress. The process is centred at the detected contact position,
+not the geometric midpoint, and nothing freezes everywhere at contact.
 
-The PR #343 density is then
-`psi = G(rho-R)+G(rho+R)-G(rho-R)G(rho+R)`, with
-`G(s)=exp[-s²/.025²]`. Contact is the first time its half-density contour fills
-the axis. In this example `t_c=1.3698178941`. The smooth scalar, not the sharp
-contour, represents the regularized continuum.
+The two mouth sources wait for their respective signal travel times:
+`.30926446` and `.34546000` after contact. Each then lasts `.3`. Their selected
+opposite signs are an emission-parity assumption, not a consequence of Klein
+gluing. Duhamel integration preserves sphere displacement and velocity at every
+source boundary. After both pulses, modes evolve freely again.
 
-**The permanent separation is a new rule.** Without it the field need not stay
-separated. For q=S((t−t_c)/.65), multiply the throat field by
+### Assigned release budget
 
-```text
-1 - S([1.25 q - (x/.6)^2]/.25).
-```
+The storyboard assigns a reservoir of `.04` and chooses the source amplitude
+so the **net** sphere energy increase equals that budget. Work includes the
+cross term with the incident field:
 
-This C2 window opens from the middle and withdraws to both rims. A C2 stopping
-clock settles the transmitted readout over `.15` time units; it does not freeze
-its time derivative abruptly. The guide retracts to its own two rims and loses
-opacity according to the same window. This opacity belongs to an explanatory
-drawing; no cross-fade between two physical interface solutions is claimed.
-The inset zoom expands during withdrawal to keep the departing density visible.
-With `detach=False`, no withdrawal or release source is applied. With zero drive
-or weak gain `.08`, no contact occurs and neither event is triggered.
-
-## Release energy: assigned, and accounted for
-
-Once contact occurs, the sphere is driven for T=.3 by a smooth pulse
-
-```text
-F_l(t) = lambda h_l g(t-t_c)
-h_l = sqrt[(2l+1)/(4pi)] [1-(-1)^l] exp[-.3² l(l+1)/2]
-g(tau) = 30 (tau/T)^2 (1-tau/T)^2 / T,  0 < tau < T.
-```
-
-Opposite source signs at A and B are a selected emission parity, not a result
-of Klein gluing. Duhamel integrals give the forced mode solution. After the
-pulse, all modes again evolve freely. There is no jump in displacement or
-velocity at source startup or shutdown.
-
-The assigned reservoir is `.04`. Its work is measured against the freely
-evolving incident field, including the interference term. The source amplitude
-is chosen from the positive root of the quadratic energy equation. At the end:
-
-| Quantity | Energy |
+| Quantity after both sources end | Energy |
 |---|---:|
-| Emitted component's self-energy | .0711720861 |
-| Interference with incident field | −.0311720861 |
-| Actual increase in total sphere-field energy | **.0400000000** |
+| Emitted component's self-energy | .03384120 |
+| Interference with incident field | .00615880 |
+| Net sphere-field energy increase | **.04000000** |
 
-The signed work initially becomes negative: the forcing briefly absorbs energy
-from the incident field before delivering the net release. The displayed
-reservoir can therefore temporarily exceed `.04`; it is not clipped to hide
-this. It never falls below zero beyond floating-point roundoff in the sampled
-run. The cancellation in the table is why pulse self-energy alone would be an
-incorrect transfer budget.
+Signed work briefly becomes negative; the reservoir can slightly exceed its
+initial value and is not clipped. Its sampled minimum is zero to roundoff.
+The emitted component travels to the antipodal caps and has a refocus-to-
+midflight cap-energy ratio of about `47.68`. It is a traveling packet built
+from standing modes, not a stationary single mode.
 
-This is a **funded source model**, not a derivation of available neck energy.
-There is no neck action or surface-energy functional here, and no full
-sphere–throat conservation or momentum-transfer result. Quantization is not
-inferred from the discrete spectral basis or the chosen trigger.
+This is a funded illustrative source, **not** neck energy computed from the
+glued evolution. It is never applied to the no-contact probe. Neither discrete
+modes nor an assigned threshold establish quantization or momentum exchange.
 
-## Reproduction and checks
+## Reproduction and review checks
 
 ```bash
+PYTHONPATH=.:scripts OPENBLAS_NUM_THREADS=1 python scripts/klein_glued_probe.py
 PYTHONPATH=. OPENBLAS_NUM_THREADS=1 python scripts/render_klein_release.py
-PYTHONPATH=. python -m pytest -q tests/test_klein_release_model.py
+PYTHONPATH=.:scripts python -m pytest -q tests/test_klein_release_model.py tests/test_klein_glued_probe.py
 ```
 
-The renderer uses NumPy, SciPy and Pillow, plus existing repository geometry.
-No GPU, VTK, browser, or network is needed. `report.json` records contact,
-parameters, signed work, pulse self/interference energies, and an emitted-wave
-cap-energy comparison between midflight and antipodal refocus. Cap energy uses
-Gauss–Legendre quadrature over the two .3-radian mouth caps.
+Dependencies are NumPy, SciPy, Pillow, Matplotlib, and existing repository code.
+The renderer creates a missing custom-output viewer directory. Recursive
+checksums include the probe's CSVs, report, and figure. Run the probe before the
+storyboard renderer to refresh that manifest.
 
-Tests cover wave-off/weak-coupling nulls, the propagation delay and contact
-criterion, optional withdrawal, continuity, the forced modal equation, signed
-work including interference, reservoir funding, and the exact 2pi phase-space
-return up to a global sign. These test the stated model, not a solved collapse
-law. The generated frames are visually inspected; the stage viewer uses those
-same frames. Checksums accompany the artifacts.
+The 12 tests cover the original null controls and modal work/continuity checks,
+consistent arclength, causal mouth source timing and contact-centred withdrawal,
+element-energy partition, and a fresh smaller glued run with no contact. CSVs
+preserve the sampled first-transit diagnostics. Generated frames are inspected;
+browser playback is not an additional physical validation.
 
-The next calculation would replace the assigned readout/withdrawal/source with
-one coupled energy functional and evolution law. The present visual makes that
-missing connection explicit and shows what the proposed mechanism is intended
-to do.
+## Next calculation
+
+The fixed-metric null rejects the previous readout as evidence for the depicted
+collapse. It does not rule out a geometry instability. The review identifies
+the #338 neck as the thin catenoid branch under a soap-film area model. The next
+candidate is coupled geometry response with a stated material/regularity law
+and a conserved energy budget, rather than increasing the readout gain until
+contact appears. That soap-film analogy is not a GR stability claim.
+
+If a coupled model actually triggers contact, topology change must preserve the
+surviving sphere vertex field and account for all neck energy and momentum.
+The present probe deliberately reaches no such event; no topology-transfer law
+has been implemented or validated here.

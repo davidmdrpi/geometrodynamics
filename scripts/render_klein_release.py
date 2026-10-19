@@ -50,11 +50,12 @@ class Renderer:
         indent=-.08*(1-q)*np.exp(-(theta/.3)**4)
         sphere=self.unit*(1+indent+.22*wave[:,None].ravel()/m.peak)[:,None]
         guide=self.guide.copy();center=guide.mean(axis=1,keepdims=True)
-        signal=m.transmitted(self.coord,m.throat_clock(t))
+        signal=m.transmitted(self.coord,m.throat_clock(t,self.coord))
         guide=center+(guide-center)*(1-.4*signal[:,None,None]*(1-(self.coord/.6)**2)[:,None,None]**2)
         targets=np.where((self.coord<0)[:,None,None],self.guide[0][None,:,:],self.guide[-1][None,:,:])
-        guide=(1-q)*guide+q*targets
-        alpha=1-smooth_local((1.25*q-(self.coord/.6)**2)/.25)
+        local=m.local_withdrawal(self.coord,t)[:,None,None]
+        guide=(1-local)*guide+local*targets
+        alpha=1-local[:,0,0]
         pts=np.vstack([sphere,guide.reshape(-1,3)])
         tri=np.vstack([self.tris,self.gtris+len(sphere)])
         signed=np.r_[wave/m.peak,np.repeat(signal,len(self.ids[0]))]
@@ -85,13 +86,13 @@ class Renderer:
     def frame(self,t):
         m=self.m;im=Image.new('RGB',(1100,800),BG);d=ImageDraw.Draw(im)
         d.text((24,17),'Sphere wave → throat contact → release → antipode',font=font(25,True),fill=FG)
-        d.text((24,54),'KLEIN IDENTIFICATION  /  intrinsic throat shown separately  /  irreversible release is a chosen rule',font=font(13),fill=GOLD)
+        d.text((24,54),'COUNTERFACTUAL STORYBOARD / glued fixed-metric probe: NO CONTACT at gain 0.18',font=font(13),fill=GOLD)
         q=m.progress(t)
         if t<m.focus-.12:phase='Incoming deformation converges on mouth A'
         elif t<m.tc:phase='Mouth signal propagates down the intrinsic throat'
         elif q<1:phase='Diffuse contact; the two throat halves withdraw'
-        elif t<m.tc+m.pulse_duration+2.5:phase='Released wave travels over the sphere'
-        elif t<m.tc+m.pulse_duration+3.7:phase='Released packet refocuses near the antipodal mouths'
+        elif t<m.tc+m.release_end+2.5:phase='Released wave travels over the sphere'
+        elif t<m.tc+m.release_end+3.7:phase='Released packet refocuses near the antipodal mouths'
         else:phase='Standing-mode superposition continues its return cycle'
         d.text((24,87),phase,font=font(20,True),fill=TEAL)
         d.text((1074,87),f't = {t:.2f}',font=font(18),fill=FG,anchor='ra')
@@ -134,26 +135,26 @@ def smooth_local(q):
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--output',type=Path,default=Path('docs/images/klein_release'));args=ap.parse_args();args.output.mkdir(parents=True,exist_ok=True)
     m=KleinRelease();r=Renderer(m)
-    times=np.unique(np.r_[np.linspace(0,m.end,65),m.focus,m.tc,m.tc+.08,m.tc+.16,m.tc+.24,m.tc+.32,m.tc+.4,m.tc+.5,m.tc+.6,m.tc+m.withdrawal,m.tc+m.pulse_duration+np.pi])
+    times=np.unique(np.r_[np.linspace(0,m.end,65),m.focus,m.tc,m.tc+.08,m.tc+.16,m.tc+.24,m.tc+.32,m.tc+.4,m.tc+.5,m.tc+.6,m.tc+m.withdrawal_end,m.tc+float(np.mean(m.source_delays))+m.pulse_duration/2+np.pi])
     frames=[r.frame(float(t)).resize((660,480)) for t in times]
     pal=Image.new('RGB',(660,480*6))
     for i,j in enumerate(np.linspace(0,len(times)-1,6).astype(int)):pal.paste(frames[j],(0,i*480))
     pal=pal.quantize(colors=64);indexed=[f.quantize(palette=pal,dither=Image.Dither.NONE) for f in frames]
     durations=[120]*len(times);durations[-1]=1600
-    for event in [m.tc,m.tc+.4,m.tc+m.pulse_duration+np.pi]:durations[np.argmin(abs(times-event))]=700
+    for event in [m.tc,m.tc+.4,m.tc+float(np.mean(m.source_delays))+m.pulse_duration/2+np.pi]:durations[np.argmin(abs(times-event))]=700
     indexed[0].save(args.output/'klein_release.gif',save_all=True,append_images=indexed[1:],duration=durations,loop=0,optimize=True)
-    for name,t in [('contact',m.tc+.12),('retraction',m.tc+.4),('antipode',m.tc+m.pulse_duration+np.pi)]:r.frame(t).save(args.output/(name+'.png'),optimize=True)
+    for name,t in [('contact',m.tc+.12),('retraction',m.tc+.4),('antipode',m.tc+float(np.mean(m.source_delays))+m.pulse_duration/2+np.pi)]:r.frame(t).save(args.output/(name+'.png'),optimize=True)
     (args.output/'report.json').write_text(json.dumps(m.report(),indent=2,sort_keys=True)+'\n')
     # Browser-free, self-contained scrubber using the exact rendered frames.
     images=[]
     import io
-    stage_times=[0.,.85,m.focus,m.tc+.12,m.tc+.32,m.tc+m.withdrawal,m.tc+m.pulse_duration/2+np.pi/2,m.tc+m.pulse_duration/2+np.pi,m.end]
+    stage_times=[0.,.85,m.focus,m.tc+.12,m.tc+.32,m.tc+m.withdrawal_end,m.tc+float(np.mean(m.source_delays))+m.pulse_duration/2+np.pi/2,m.tc+float(np.mean(m.source_delays))+m.pulse_duration/2+np.pi,m.end]
     for t in stage_times:
         buf=io.BytesIO();r.frame(t).save(buf,format='WEBP',quality=65,method=6);images.append('data:image/webp;base64,'+base64.b64encode(buf.getvalue()).decode())
-    html='''<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Klein throat release</title><style>body{max-width:1000px;margin:24px auto;padding:12px;background:#0c1622;color:#dee9f1;font:16px system-ui}img,input{width:100%}button{padding:10px;margin:8px;background:#214655;color:white;border:1px solid #55d7cc}p{line-height:1.5;color:#a6bdce}</style><h1>Klein throat release — nine-stage viewer</h1><p>The curved handle illustrates an extradimensional identification. The inset shows the intrinsic diffuse field. Separation and withdrawal are imposed; the sphere modes and assigned pulse-work budget are computed.</p><img id="frame" alt="Klein-handle collapse and sphere wave"><button id="play">Play</button><label>Frame <output id="out"></output><input id="scrub" type="range" min="0" value="0"></label><p>White: total sphere deformation. Teal: emitted component. The traveling packet is a superposition of standing modes; it is not a stationary single mode.</p><script>const frames=FRAMES,times=TIMES;let i=0,playing=false;const img=document.getElementById('frame'),scrub=document.getElementById('scrub'),out=document.getElementById('out'),play=document.getElementById('play');scrub.max=frames.length-1;function draw(){img.src=frames[i];scrub.value=i;out.textContent='t = '+times[i].toFixed(3)}scrub.oninput=()=>{i=+scrub.value;playing=false;play.textContent='Play';draw()};play.onclick=()=>{playing=!playing;play.textContent=playing?'Pause':'Play'};setInterval(()=>{if(playing){i=(i+1)%frames.length;draw()}},900);draw();</script>'''.replace('FRAMES',json.dumps(images)).replace('TIMES',json.dumps(stage_times))
-    viewer=args.output.parent.parent/'visualizations'/'klein_release.html';viewer.write_text(html)
-    files=[p for p in args.output.iterdir() if p.name!='sha256.json']
-    (args.output/'sha256.json').write_text(json.dumps({p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in files},indent=2,sort_keys=True)+'\n')
+    html='''<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Klein throat release</title><style>body{max-width:1000px;margin:24px auto;padding:12px;background:#0c1622;color:#dee9f1;font:16px system-ui}img,input{width:100%}button{padding:10px;margin:8px;background:#214655;color:white;border:1px solid #55d7cc}p{line-height:1.5;color:#a6bdce}</style><h1>Counterfactual release storyboard</h1><p><strong>The glued fixed-metric probe does not reach contact at gain 0.18.</strong> This is an illustrative mechanism, not its dynamical validation. See the PR review response and comparison figure.</p><p>The curved handle illustrates an extradimensional identification. The inset shows the intrinsic diffuse field. Separation and withdrawal are imposed; the sphere modes and assigned pulse-work budget are computed.</p><img id="frame" alt="Klein-handle collapse and sphere wave"><button id="play">Play</button><label>Frame <output id="out"></output><input id="scrub" type="range" min="0" value="0"></label><p>White: total sphere deformation. Teal: emitted component. The traveling packet is a superposition of standing modes; it is not a stationary single mode.</p><script>const frames=FRAMES,times=TIMES;let i=0,playing=false;const img=document.getElementById('frame'),scrub=document.getElementById('scrub'),out=document.getElementById('out'),play=document.getElementById('play');scrub.max=frames.length-1;function draw(){img.src=frames[i];scrub.value=i;out.textContent='t = '+times[i].toFixed(3)}scrub.oninput=()=>{i=+scrub.value;playing=false;play.textContent='Play';draw()};play.onclick=()=>{playing=!playing;play.textContent=playing?'Pause':'Play'};setInterval(()=>{if(playing){i=(i+1)%frames.length;draw()}},900);draw();</script>'''.replace('FRAMES',json.dumps(images)).replace('TIMES',json.dumps(stage_times))
+    viewer=args.output.parent.parent/'visualizations'/'klein_release.html';viewer.parent.mkdir(parents=True,exist_ok=True);viewer.write_text(html)
+    files=[p for p in args.output.rglob('*') if p.is_file() and p.name!='sha256.json']
+    (args.output/'sha256.json').write_text(json.dumps({str(p.relative_to(args.output)):hashlib.sha256(p.read_bytes()).hexdigest() for p in files},indent=2,sort_keys=True)+'\n')
     print(json.dumps(m.report(),indent=2));print({p.name:p.stat().st_size for p in files});print('viewer bytes',viewer.stat().st_size)
 
 if __name__=='__main__':main()
