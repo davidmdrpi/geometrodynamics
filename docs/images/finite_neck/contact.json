@@ -1,0 +1,75 @@
+{
+  "band_amplitude_threshold": 0.135,
+  "band_crossings": [
+    3.5300925420599025,
+    4.969907457940099
+  ],
+  "contact_position": -0.129002861991741,
+  "contact_time": 3.5300925420599025,
+  "contour_level": 0.5,
+  "contour_radius_threshold": 0.027703194505547504,
+  "field_amplitude_threshold": 0.1322968054944525,
+  "field_contour_crossings": [
+    3.508636585996829,
+    4.991363414003172
+  ],
+  "hessian_grid": {
+    "rho_points": 217,
+    "rho_range": [
+      0,
+      1.08
+    ],
+    "time_points": 91,
+    "time_range": [
+      0,
+      9.0
+    ],
+    "x_points": 241,
+    "x_range": [
+      -0.6,
+      0.6
+    ]
+  },
+  "minimum_signed_R": -0.01999999999999999,
+  "no_wave_band_crossings": [],
+  "no_wave_field_crossings": [],
+  "parameters": {
+    "amplitude": 0.18,
+    "thickness": 0.025,
+    "waist": 0.16
+  },
+  "regularization": "C_SMOOTH_FIELD_DERIVED_SURFACE",
+  "sampled_hessian_frobenius_max": 58170.90824651046,
+  "sampled_hessian_scaled_max": 36.35681765406904,
+  "samples": [
+    {
+      "psi": 0.7765475476329033,
+      "rho": 0.0,
+      "t": 4.25,
+      "x": 0.0
+    },
+    {
+      "psi": 0.9612740926049118,
+      "rho": 0.03,
+      "t": 3.53,
+      "x": -0.129
+    },
+    {
+      "psi": 3.7452169825152445e-20,
+      "rho": 0.05,
+      "t": 4.0,
+      "x": 0.1
+    },
+    {
+      "psi": 2.282568495063467e-21,
+      "rho": -0.04,
+      "t": 5.2,
+      "x": 0.0
+    }
+  ],
+  "status": "KINEMATIC_NOT_DYNAMICAL",
+  "threshold_rule": "A > threshold gives an interval; equality is grazing at t=4.25",
+  "weak_wave_band_crossings": [],
+  "weak_wave_field_crossings": [],
+  "weak_wave_minimum_band_gap": 0.11
+}

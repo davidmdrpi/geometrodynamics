@@ -1,70 +1,135 @@
-# Finite neck: a geometric visualization
+# Wave contact as a smooth diffuse field — review option C
 
-[Open the interactive study](visualizations/finite_neck.html) (download and open
-locally if viewing on GitHub). It is self-contained and makes no network requests.
-Play/pause, scrub time, turn the packet off, rotate the cutaway, or directly
-adjust the pre-surgery waist. Reduced-motion preference starts playback paused.
+[Interactive study](visualizations/finite_neck.html) — download and open locally.
+The HTML needs no network or external packages.
 
-![Finite-neck sequence](images/finite_neck/finite_neck.gif)
+![Diffuse field approaching, fusing, and reopening](images/finite_neck/finite_neck.gif)
 
-## What this shows
+The [independent review of #343](https://github.com/davidmdrpi/geometrodynamics/pull/343#issuecomment-6253167504)
+identified a real failure in the previous visual. At the old contact event the
+mid-surface radius remained ε, but its inner offset R−ε closed at **one axis
+point**, with divergent hoop curvature. The renderer then jumped to two caps;
+an image dissolve hid that jump. Finite thickness had moved the pinch inward,
+not removed it.
 
-A finite bridge between two fixed rims, a prescribed signed deformation packet,
-a narrowing waist, and an explicitly imposed replacement by two closed caps.
-The cutaway removes a front sector only for visibility. Both the 3D surface and
-axial section use the same radius profile. The geometry is independent of the
-packet: switching off the packet does not prevent the scripted narrowing.
+This revision chooses **C: a smooth field with a derived boundary**. It removes
+the imposed caps, retraction schedule, motion guides, and cross-fade. Every frame
+samples the same scalar field. Its walls overlap and the passage reopens as the
+prescribed packet passes. This changes what represents the continuum: the field,
+not an infinitely thin material wall or an established GR metric.
 
-Rim radius a=1, half-separation h=.6, initial waist b0=.745071089. The fixed-rim
-cosh family is
+## Field definition
 
-    R_c(z,b) = b cosh[acosh(a/b) z/h].
+The fixed resting profile and prescribed signed packet are unchanged, for
+|x| ≤ h=.6, t ∈ [0,9], rim radius 1:
 
-Only its initial member is identified as the equilibrium catenoid. As b falls
-from .5 to .2, a smooth interpolation changes the profile to
+```text
+R0(x) = b cosh[acosh(1/b) x/h],                         b = .16
+u(x,t) = -A exp[-((x-c(t))/.18)^2] cos[14(x-c(t))] [1-(x/h)^2]^2
+c(t) = -.85 + .20 t,                                  A = .18
+R(x,t) = R0(x) + u(x,t).
+```
 
-    R_d(z,b) = sqrt[b² + (a²-b²)(z/h)²].
+With ε=.025 and radial coordinate ρ=√(y²+z²), define
 
-Both profiles have radius a at z=+/-h and radius b at z=0. The latter approaches
-a double cone as b tends to zero. This geometric limiting statement does not
-establish a fluid pinch-off solution. The visualization never reaches b=0:
-at t=6.8, b=.045, an explicit topology rule replaces the connected surface by
-two closed caps with a positive axial gap. Each cap uses R/a=sqrt[(u²+.03u)/1.03],
-where u runs from zero at the closed tip to one at the fixed rim. The square-root
-behavior rounds the tip. Their axial lengths decrease from .98h to .02h,
-approaching flat discs according to a prescribed schedule.
-This replacement need not be a continuous material trajectory.
+```text
+G(s) = exp(-s²/ε²)
+ψ(x,ρ,t) = G(ρ-R) + G(ρ+R) - G(ρ-R)G(ρ+R).
+```
 
-The incoming packet multiplies the displayed radius by 1+u(z,t), with |u|<=.08
-and u=0 at both rims. It is a prescribed moving envelope, **not a solved wave
-on a narrowing membrane**. Color encodes the sign of u; it is not an energy
-scale. No azimuthal filtering, inverse-taper shoaling, unavoidable pinch-off,
-released pulse, or conservation ledger is claimed.
+The field is in [0,1] and invariant under ρ → −ρ and R → −R. A meridional
+section therefore shows two approaching diffuse walls. Gaussian tails overlap
+at all times: **there is no literal first contact of compact material surfaces**.
+The event markers refer to a chosen density contour.
 
-This supplements the #342 sphere storyboard with an inspectable local neck.
-It does not replace that renderer or modify the neck-collapse protocol.
-The next physical calculation is to determine R(z,t) from a specified membrane
-and surrounding-fluid dynamics, and then test whether an incoming wave drives
-it to the admission boundary. The regularized topology rule remains separate.
+R is a **signed shell-center parameter** after it passes through zero. Its
+minimum is b−A=−.02 for the default packet. It cannot then be interpreted as a
+positive embedded mid-surface radius. The density formula remains well-defined;
+there is no radius clamp or alternate post-contact formula. Large amplitudes can
+produce more complex derived contours; their meaning is limited to this field
+construction.
 
-For experimental context, see Goldstein, Pesci, Raufaste and Shemilt (2021),
-[Geometry of catenoidal soap film collapse induced by boundary deformation](https://doi.org/10.1103/PhysRevE.104.035105).
-Real collapse can develop a central thread, multiple pinch sites and satellite
-bubbles; the present rounded-double-cone-to-caps sequence is deliberately simpler.
+## What is smooth, and what is not
 
-## Reproduce
+Writing s=y²+z² gives
+
+```text
+ψ = 2 exp[-(s+R²)/ε²] cosh(2R√s/ε²) - exp[-2(s+R²)/ε²].
+```
+
+Expand cosh in even powers: every term contains an integer power of s. Thus ψ
+is analytic in Cartesian coordinates at the axis, as well as away from it, on
+the modeled neck interior for finite ε. Its derivatives stay finite on compact
+space-time domains. This does **not** give a bound uniform as ε → 0.
+
+The white ψ=½ contour is a diagnostic. It can have a critical point and change
+topology; it is not claimed to be an everywhere-regular embedded surface through
+that change. A nonsingular scalar field is also **not a constructed nonsingular
+spacetime metric**. The field width and union formula are additional modeling
+choices. No Einstein equation, fluid equation, mass conservation, energy release,
+or momentum transfer has been solved here. The narrow resting profile is assumed,
+not asserted to be a stable catenoid equilibrium.
+
+`hessian_components` evaluates the Cartesian Hessian in the axial/radial/
+tangential basis, including the regular axis limit ψρ/ρ → ψρρ. The committed
+241×217 spatial grid at 91 times samples a maximum Frobenius norm of about
+58,170.9, or 36.3568/ε². This is a **sampled maximum**, not a certified global
+bound. It includes the steep outer neck, unlike a local focus-only calculation.
+Tests compare those derivatives with independent Cartesian finite differences
+and check continuity across closure and reopening.
+
+## Two thresholds and reopening
+
+For this particular packet, R0≥b and u≥−A; equality occurs at x=0, t=4.25.
+Consequently min over space and time of R is exactly b−A. The null controls test
+this analytic amplitude inequality; they do not establish a dynamical stability
+result.
+
+| Diagnostic | Radius threshold | Amplitude for a nonzero closure interval | Default closes | Default reopens |
+|---|---:|---:|---:|---:|
+| Old radial band, R−ε | .025 | A > b−ε = .135 | 3.5300925421 | 4.9699074579 |
+| Derived ψ=½ contour | .0277031945 | A > b−.0277031945 = .1322968055 | 3.5086365860 | 4.9913634140 |
+
+For the field criterion, solve 2g−g²=½ on the axis, with g=exp(−R²/ε²).
+The relevant radius is ε√[−log(1−√(1/2))]. Equality at either amplitude threshold
+is a grazing event at t=4.25, not a finite closure interval. The weak wave A=.08
+leaves a minimum old-band gap of .11; both it and the wave-off control stay open
+at the half-density contour throughout the displayed horizon.
+
+Events use an 801-point axial grid to bracket the minimum, continuous
+golden-section refinement, and time bisection. An independent SciPy bounded
+minimizer plus Brent root calculation agrees with both recorded event pairs to
+better than 1e−9. The old review's reopening estimate of 4.971 is approximately
+4.96991 under this refinement. These event times only label the frames; **they
+do not control ψ**. Permanent separation would require different dynamics.
+
+## Viewing and reproduction
+
+The full-neck plot stretches the axial scale for readability. The focus view
+has equal axial and radial scales. Rotating the section around its dashed axis
+gives the axisymmetric 3D field. Color is ψ; white is ψ=½. The animation shows
+approach, fusion, and reopening rather than freezing the outcome at fusion.
+
+The HTML offers amplitude, waist and field-width controls; time scrubbing;
+wave-off/weak-wave presets; contour visibility; and closure/reopening buttons.
+Reduced-motion preference starts paused. Flexible control columns replace the
+fixed 200 px inputs that overflowed a phone-width viewport.
 
 ```bash
 python scripts/render_finite_neck.py
+python -m pytest -q tests/test_neck_wave_contact.py
 ```
 
-Requires NumPy and Pillow. The script verifies fixed rims, the prescribed nominal
-waist, positivity before surgery, and closed tips after surgery, then writes
-the GIF, a close-up, a sequence still and their SHA-256 manifest. The HTML uses
-the same equations with user-adjustable display controls. No coupled simulation
-is run and no existing experimental archive is changed.
+Rendering requires NumPy and Pillow. The checks cover null controls, analytic
+thresholds including grazing, both event pairs, fixed rims, bounded/even density,
+independence from event metadata, analytic-versus-numerical Cartesian derivatives,
+time continuity, and matching Python/HTML fields and controls. The JavaScript
+check uses Node with a mock canvas; it is not a full browser layout test.
+The static frames and sampled animation frames are visually inspected.
+`contact.json` records events, parameters, density samples, and the Hessian audit;
+`sha256.json` fingerprints the generated artifacts.
 
-Validation: the Python geometry checks pass. The HTML JavaScript was executed
-with a mock canvas to check time/waist/wave controls and geometry; a local browser
-was unavailable, so browser-specific layout was not visually tested. The rendered
-GIF and PNG stills were visually inspected.
+The next physical step is a coupled wave–field/flow evolution with an energy and
+momentum budget. Separately, an m=2 flattening perturbation can test contact
+between distinct sheets instead of axisymmetric lumen closure. Neither follows
+from the present prescribed field, and neither is silently included here.
