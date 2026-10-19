@@ -1,0 +1,965 @@
+{
+  "checks": {
+    "cutoff40 v=0.300": {
+      "angular_drift": 7.989297622475663e-19,
+      "contact_side": "P",
+      "contact_time": 10.780677926160388,
+      "energy_drift": 1.3092522217088906e-07,
+      "released": 2.1889404567189885,
+      "unreleased_angular": [
+        1.0049927687488322e-19,
+        0.0,
+        1.0439726941270295e-19
+      ]
+    },
+    "cutoff40 v=0.333": {
+      "angular_drift": 9.109376825196608e-19,
+      "contact_side": "P",
+      "contact_time": 26.9199837940306,
+      "energy_drift": 1.624476211735855e-07,
+      "released": 2.207480012310075,
+      "unreleased_angular": [
+        7.845008279700115e-19,
+        0.0,
+        1.2668163727330537e-19
+      ]
+    },
+    "dt_half v=0.300": {
+      "angular_drift": 7.7796579488613975e-19,
+      "contact_side": "P",
+      "contact_time": 10.7806739406931,
+      "energy_drift": 3.273007456417606e-08,
+      "released": 2.1889405940099986,
+      "unreleased_angular": [
+        1.911268086432259e-19,
+        0.0,
+        5.591833034387675e-20
+      ]
+    },
+    "dt_half v=0.333": {
+      "angular_drift": 8.830388710732052e-19,
+      "contact_side": "P",
+      "contact_time": 26.919736811515076,
+      "energy_drift": 4.0610722680790856e-08,
+      "released": 2.207478712311728,
+      "unreleased_angular": [
+        2.142398705496743e-19,
+        0.0,
+        2.8839859261772826e-19
+      ]
+    },
+    "free v=0.333": {
+      "angular_drift": 0.0,
+      "contact_side": "-P",
+      "contact_time": 7.624777960768978,
+      "energy_drift": 2.093456611578367e-16,
+      "released": 2.1213203435596424,
+      "unreleased_angular": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "independent v=0.300": {
+      "angular_drift": 2.1620792517440535e-09,
+      "contact_side": "P",
+      "contact_time": 10.256812243800526,
+      "energy_drift": 1.3330147778889136e-07,
+      "released": 2.193022684383974,
+      "unreleased_angular": [
+        8.322093014712095e-13,
+        8.794770467446256e-13,
+        1.0243784986929683e-12
+      ]
+    }
+  },
+  "coulomb_barrier": 0.10911963784093745,
+  "direct_exchange": [
+    {
+      "direction": 1,
+      "impulse": -0.014236433000000001,
+      "source": "partner",
+      "time": 0.7915720887474387,
+      "v": 0.3
+    },
+    {
+      "direction": 1,
+      "impulse": -0.0164445134,
+      "source": "partner",
+      "time": 0.8263571448766391,
+      "v": 0.3333333333333333
+    }
+  ],
+  "featured": {
+    "0.300": {
+      "angular_drift": 7.98929760591242e-19,
+      "contact_side": "P",
+      "contact_time": 10.780677970588515,
+      "coulomb": 0.106318572,
+      "coulomb0": 0.106318572,
+      "d_max": 1.7827514681977583,
+      "energy_drift": 1.3092518610655553e-07,
+      "kinetic": 0.082621885,
+      "kinetic0": 0.096569673,
+      "released": 2.188940456491504,
+      "speed": 0.27887314889412584,
+      "t_d_max": 5.419999999999846,
+      "transverse": 0.013947994
+    },
+    "0.333": {
+      "angular_drift": 9.109376862270334e-19,
+      "contact_side": "P",
+      "contact_time": 26.919983321957833,
+      "coulomb": 0.106318572,
+      "coulomb0": 0.106318572,
+      "d_max": 2.848249055181695,
+      "energy_drift": 1.6244758790720443e-07,
+      "kinetic": 0.101161437,
+      "kinetic0": 0.121320344,
+      "released": 2.207480008992448,
+      "speed": 0.3065501311631715,
+      "t_d_max": 13.73999999999893,
+      "transverse": 0.020159159
+    }
+  },
+  "first_return_events": [
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.008125070800000007,
+      "prediction": "flash timing",
+      "run": "natural v=0.300",
+      "source": "partner",
+      "time": 5.094804914858724
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.0186966492,
+      "prediction": "flash timing",
+      "run": "natural v=0.300",
+      "source": "own",
+      "time": 5.694363055721907
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.013217189600000007,
+      "prediction": "flash timing",
+      "run": "natural v=0.300",
+      "source": "own",
+      "time": 6.8190773896910235
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.010929846999999996,
+      "prediction": "flash timing",
+      "run": "natural v=0.300",
+      "source": "partner",
+      "time": 7.385296967371794
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.006148183200000005,
+      "prediction": "flash timing",
+      "run": "natural v=0.333",
+      "source": "partner",
+      "time": 4.8675830454150955
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.013703656799999988,
+      "prediction": "flash timing",
+      "run": "natural v=0.333",
+      "source": "own",
+      "time": 5.418089659635756
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.012273234799999998,
+      "prediction": "flash timing",
+      "run": "natural v=0.333",
+      "source": "own",
+      "time": 7.241470332830534
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.011383037599999996,
+      "prediction": "flash timing",
+      "run": "natural v=0.333",
+      "source": "partner",
+      "time": 7.8758964393619335
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.007080693299999998,
+      "prediction": "flash timing",
+      "run": "shift -0.5 v=0.300",
+      "source": "partner",
+      "time": 5.587339665984874
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.0184422753,
+      "prediction": "flash timing",
+      "run": "shift -0.5 v=0.300",
+      "source": "own",
+      "time": 6.19096943781551
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.012322939500000008,
+      "prediction": "flash timing",
+      "run": "shift -0.5 v=0.300",
+      "source": "own",
+      "time": 7.316163788347475
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.010636116300000012,
+      "prediction": "flash timing",
+      "run": "shift -0.5 v=0.300",
+      "source": "partner",
+      "time": 7.875285369567487
+    },
+    {
+      "along_ray": false,
+      "direction": -1,
+      "foci": 1,
+      "impulse": 0.0015426863999999998,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -0.5 v=0.300",
+      "source": "partner",
+      "time": 5.095837137371924
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.003575829599999999,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -0.5 v=0.300",
+      "source": "own",
+      "time": 5.686736749726727
+    },
+    {
+      "along_ray": false,
+      "direction": 1,
+      "foci": 2,
+      "impulse": -0.004227105600000003,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -0.5 v=0.300",
+      "source": "own",
+      "time": 6.8469981053597
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.0054342243000000045,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -0.5 v=0.300",
+      "source": "partner",
+      "time": 7.4096172883508515
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.007809310199999999,
+      "prediction": "flash timing",
+      "run": "shift -1.0 v=0.300",
+      "source": "partner",
+      "time": 6.092044389205502
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.018192839699999984,
+      "prediction": "flash timing",
+      "run": "shift -1.0 v=0.300",
+      "source": "own",
+      "time": 6.701002176444764
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.012444796799999994,
+      "prediction": "flash timing",
+      "run": "shift -1.0 v=0.300",
+      "source": "own",
+      "time": 7.79271655774962
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.009943913100000023,
+      "prediction": "flash timing",
+      "run": "shift -1.0 v=0.300",
+      "source": "partner",
+      "time": 8.34186523907325
+    },
+    {
+      "along_ray": false,
+      "direction": -1,
+      "foci": 1,
+      "impulse": 0.005093024100000004,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -1.0 v=0.300",
+      "source": "partner",
+      "time": 5.103540478789847
+    },
+    {
+      "along_ray": false,
+      "direction": -1,
+      "foci": 1,
+      "impulse": 0.0023186405999999975,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -1.0 v=0.300",
+      "source": "own",
+      "time": 5.6941968533430405
+    },
+    {
+      "along_ray": false,
+      "direction": 1,
+      "foci": 2,
+      "impulse": -0.019934753100000004,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -1.0 v=0.300",
+      "source": "own",
+      "time": 6.859384393850179
+    },
+    {
+      "along_ray": false,
+      "direction": 1,
+      "foci": 2,
+      "impulse": -0.0034395047999999985,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -1.0 v=0.300",
+      "source": "partner",
+      "time": 7.424066913342324
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.007557919799999999,
+      "prediction": "flash timing",
+      "run": "shift +0.5 v=0.300",
+      "source": "partner",
+      "time": 4.6115322508563965
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.018131704199999984,
+      "prediction": "flash timing",
+      "run": "shift +0.5 v=0.300",
+      "source": "own",
+      "time": 5.205166711996292
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.013200817500000005,
+      "prediction": "flash timing",
+      "run": "shift +0.5 v=0.300",
+      "source": "own",
+      "time": 6.312313152652642
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.010713220800000001,
+      "prediction": "flash timing",
+      "run": "shift +0.5 v=0.300",
+      "source": "partner",
+      "time": 6.881292282440364
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.010239205800000007,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +0.5 v=0.300",
+      "source": "partner",
+      "time": 5.104408775885752
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.01011143999999999,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +0.5 v=0.300",
+      "source": "own",
+      "time": 5.721483309062454
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.00801856709999999,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +0.5 v=0.300",
+      "source": "own",
+      "time": 6.786360849827145
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.006482454300000005,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +0.5 v=0.300",
+      "source": "partner",
+      "time": 7.354053758567482
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.00772384500000001,
+      "prediction": "flash timing",
+      "run": "shift +1.0 v=0.300",
+      "source": "partner",
+      "time": 4.134734767864406
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.018603783300000003,
+      "prediction": "flash timing",
+      "run": "shift +1.0 v=0.300",
+      "source": "own",
+      "time": 4.721704967810567
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.012934400100000005,
+      "prediction": "flash timing",
+      "run": "shift +1.0 v=0.300",
+      "source": "own",
+      "time": 5.803185192231883
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.010691999100000002,
+      "prediction": "flash timing",
+      "run": "shift +1.0 v=0.300",
+      "source": "partner",
+      "time": 6.372921446337365
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.0070561215000000035,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +1.0 v=0.300",
+      "source": "partner",
+      "time": 5.129394844324979
+    },
+    {
+      "along_ray": false,
+      "direction": -1,
+      "foci": 1,
+      "impulse": 0.011906508299999997,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +1.0 v=0.300",
+      "source": "own",
+      "time": 5.760839774713747
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.004913069400000001,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +1.0 v=0.300",
+      "source": "own",
+      "time": 6.753000955487702
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.002630424300000003,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +1.0 v=0.300",
+      "source": "partner",
+      "time": 7.3178004791702955
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.005499846599999997,
+      "prediction": "flash timing",
+      "run": "shift -0.5 v=0.333",
+      "source": "partner",
+      "time": 5.322509880451603
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.011765228399999992,
+      "prediction": "flash timing",
+      "run": "shift -0.5 v=0.333",
+      "source": "own",
+      "time": 5.872512252375498
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.011469491399999995,
+      "prediction": "flash timing",
+      "run": "shift -0.5 v=0.333",
+      "source": "own",
+      "time": 7.800881346418935
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.011724806400000004,
+      "prediction": "flash timing",
+      "run": "shift -0.5 v=0.333",
+      "source": "partner",
+      "time": 8.434699056151828
+    },
+    {
+      "along_ray": false,
+      "direction": -1,
+      "foci": 1,
+      "impulse": 0.003485117100000004,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -0.5 v=0.333",
+      "source": "partner",
+      "time": 4.869234313716494
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.001462257599999996,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -0.5 v=0.333",
+      "source": "own",
+      "time": 5.413634321290456
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.005196723300000003,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -0.5 v=0.333",
+      "source": "own",
+      "time": 7.2758869932319925
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.008332933800000015,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -0.5 v=0.333",
+      "source": "partner",
+      "time": 7.906200123461731
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.005503934700000003,
+      "prediction": "flash timing",
+      "run": "shift -1.0 v=0.333",
+      "source": "partner",
+      "time": 5.785553396556961
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.011793570000000003,
+      "prediction": "flash timing",
+      "run": "shift -1.0 v=0.333",
+      "source": "own",
+      "time": 6.335363513952141
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.011347847700000024,
+      "prediction": "flash timing",
+      "run": "shift -1.0 v=0.333",
+      "source": "own",
+      "time": 8.338647435187983
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.011690021699999999,
+      "prediction": "flash timing",
+      "run": "shift -1.0 v=0.333",
+      "source": "partner",
+      "time": 8.969493311873546
+    },
+    {
+      "along_ray": false,
+      "direction": -1,
+      "foci": 1,
+      "impulse": 0.007393977600000002,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -1.0 v=0.333",
+      "source": "partner",
+      "time": 4.87661669611224
+    },
+    {
+      "along_ray": false,
+      "direction": -1,
+      "foci": 1,
+      "impulse": 0.004394675700000002,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -1.0 v=0.333",
+      "source": "own",
+      "time": 5.421674824708715
+    },
+    {
+      "along_ray": false,
+      "direction": 1,
+      "foci": 2,
+      "impulse": -0.0062833728,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -1.0 v=0.333",
+      "source": "own",
+      "time": 7.293248805006411
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.0014233359000000057,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift -1.0 v=0.333",
+      "source": "partner",
+      "time": 7.921299093686375
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.006483480900000005,
+      "prediction": "flash timing",
+      "run": "shift +0.5 v=0.333",
+      "source": "partner",
+      "time": 4.417946036752622
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.013915481700000003,
+      "prediction": "flash timing",
+      "run": "shift +0.5 v=0.333",
+      "source": "own",
+      "time": 4.967330018950846
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.012776589599999989,
+      "prediction": "flash timing",
+      "run": "shift +0.5 v=0.333",
+      "source": "own",
+      "time": 6.675279380764196
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.011773879800000003,
+      "prediction": "flash timing",
+      "run": "shift +0.5 v=0.333",
+      "source": "partner",
+      "time": 7.306204317811453
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.010650236400000002,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +0.5 v=0.333",
+      "source": "partner",
+      "time": 4.874682099506308
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.014946083400000008,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +0.5 v=0.333",
+      "source": "own",
+      "time": 5.438242302135171
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.006865772699999995,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +0.5 v=0.333",
+      "source": "own",
+      "time": 7.20046226160172
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.005312808299999999,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +0.5 v=0.333",
+      "source": "partner",
+      "time": 7.835194275202658
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.007533423000000006,
+      "prediction": "flash timing",
+      "run": "shift +1.0 v=0.333",
+      "source": "partner",
+      "time": 3.9710434453105243
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.015572324100000005,
+      "prediction": "flash timing",
+      "run": "shift +1.0 v=0.333",
+      "source": "own",
+      "time": 4.518567336603238
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.012139166699999995,
+      "prediction": "flash timing",
+      "run": "shift +1.0 v=0.333",
+      "source": "own",
+      "time": 6.11258908639881
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.011634185400000002,
+      "prediction": "flash timing",
+      "run": "shift +1.0 v=0.333",
+      "source": "partner",
+      "time": 6.7378190315434745
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.008452841700000003,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +1.0 v=0.333",
+      "source": "partner",
+      "time": 4.894018941956133
+    },
+    {
+      "along_ray": true,
+      "direction": -1,
+      "foci": 1,
+      "impulse": -0.0009104192999999921,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +1.0 v=0.333",
+      "source": "own",
+      "time": 5.4720164461394765
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.003816702600000001,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +1.0 v=0.333",
+      "source": "own",
+      "time": 7.158649811847698
+    },
+    {
+      "along_ray": true,
+      "direction": 1,
+      "foci": 2,
+      "impulse": 0.00046049729999999856,
+      "prediction": "unshifted timing (wrong)",
+      "run": "shift +1.0 v=0.333",
+      "source": "partner",
+      "time": 7.78746816044477
+    }
+  ],
+  "first_returns": {
+    "flash timing": {
+      "along_ray": 40,
+      "mean_abs_impulse": 0.011588268027500001,
+      "n": 40
+    },
+    "unshifted timing (wrong)": {
+      "along_ray": 21,
+      "mean_abs_impulse": 0.006134728584375001,
+      "n": 32
+    }
+  },
+  "flash_energy": {
+    "0.200": 0.00567033,
+    "0.250": 0.008859891,
+    "0.280": 0.011113847,
+    "0.300": 0.012758242,
+    "0.320": 0.014516045,
+    "0.333": 0.015750917,
+    "0.340": 0.016387254,
+    "0.360": 0.018371869,
+    "0.400": 0.02268132,
+    "0.450": 0.028706045,
+    "0.500": 0.035439562
+  },
+  "max_energy_drift": 2.417270867442396e-07,
+  "max_mirror_asymmetry": 0.0,
+  "retimed": [
+    {
+      "contact_side": "P",
+      "contact_time": 11.054375544716349,
+      "retime_energy": -0.0028016209569634576,
+      "shift": -0.5,
+      "v": 0.3
+    },
+    {
+      "contact_side": "P",
+      "contact_time": 11.140429334335568,
+      "retime_energy": 0.00038441928502219724,
+      "shift": -1.0,
+      "v": 0.3
+    },
+    {
+      "contact_side": "P",
+      "contact_time": 10.397744494892663,
+      "retime_energy": 0.004811525016135576,
+      "shift": 0.5,
+      "v": 0.3
+    },
+    {
+      "contact_side": "P",
+      "contact_time": 9.97727321667857,
+      "retime_energy": 0.004231698920771354,
+      "shift": 1.0,
+      "v": 0.3
+    },
+    {
+      "contact_side": "P",
+      "contact_time": 10.308047465965704,
+      "retime_energy": -0.011326333896105822,
+      "shift": null,
+      "v": 0.3
+    },
+    {
+      "contact_side": "-P",
+      "contact_time": 30.780866627764564,
+      "retime_energy": -0.002365565558293703,
+      "shift": -0.5,
+      "v": 0.3333333333333333
+    },
+    {
+      "contact_side": "-P",
+      "contact_time": 27.2171282175535,
+      "retime_energy": 0.0019976892376334376,
+      "shift": -1.0,
+      "v": 0.3333333333333333
+    },
+    {
+      "contact_side": "P",
+      "contact_time": 21.09487089672814,
+      "retime_energy": 0.00452971197350216,
+      "shift": 0.5,
+      "v": 0.3333333333333333
+    },
+    {
+      "contact_side": "P",
+      "contact_time": 18.123307368464335,
+      "retime_energy": 0.002836457608077936,
+      "shift": 1.0,
+      "v": 0.3333333333333333
+    },
+    {
+      "contact_side": "P",
+      "contact_time": 20.809892806699256,
+      "retime_energy": -0.014543775401918424,
+      "shift": null,
+      "v": 0.3333333333333333
+    }
+  ],
+  "tables": {
+    "ledger": "| v | kinetic at birth | birth flash | kinetic at contact | transverse field at contact | released |\n|---|---|---|---|---|---|\n| 0.200 | 0.0412 | 0.0057 | 0.0296 | 0.0116 | 2.1360 |\n| 0.250 | 0.0656 | 0.0089 | 0.0642 | 0.0014 | 2.1705 |\n| 0.280 | 0.0833 | 0.0111 | 0.0615 | 0.0218 | 2.1679 |\n| 0.300 | 0.0966 | 0.0128 | 0.0826 | 0.0139 | 2.1889 |\n| 0.320 | 0.1110 | 0.0145 | 0.0917 | 0.0193 | 2.1980 |\n| 0.333 | 0.1213 | 0.0158 | 0.1012 | 0.0202 | 2.2075 |\n| 0.340 | 0.1267 | 0.0164 | 0.1171 | 0.0096 | 2.2234 |\n| 0.360 | 0.1437 | 0.0184 | 0.1168 | 0.0269 | 2.2231 |\n| 0.400 | 0.1822 | 0.0227 | 0.1249 | 0.0573 | 2.2312 |\n| 0.450 | 0.2396 | 0.0287 | 0.1901 | 0.0495 | 2.2964 |\n| 0.500 | 0.3094 | 0.0354 | 0.2343 | 0.0751 | 2.3406 |",
+    "outcomes": "| v | free (q = 0) | full field | no flash | instantaneous Coulomb |\n|---|---|---|---|---|\n| 0.200 | 12.71 at \u2212P | 3.85 at P | 4.83 at P | 4.07 at P |\n| 0.250 | 10.17 at \u2212P | 6.12 at P | 8.36 at P | 6.69 at P |\n| 0.280 | 9.08 at \u2212P | 8.36 at P | 13.21 at P | 9.64 at P |\n| 0.300 | 8.47 at \u2212P | 10.78 at P | 33.90 at P | 13.52 at P |\n| 0.320 | 7.94 at \u2212P | 15.30 at P | 14.71 at \u2212P | 23.36 at \u2212P |\n| 0.333 | 7.62 at \u2212P | 26.92 at P | 12.43 at \u2212P | 15.07 at \u2212P |\n| 0.340 | 7.48 at \u2212P | 21.38 at \u2212P | 11.66 at \u2212P | 13.57 at \u2212P |\n| 0.360 | 7.06 at \u2212P | 13.94 at \u2212P | 9.99 at \u2212P | 10.97 at \u2212P |\n| 0.400 | 6.35 at \u2212P | 9.89 at \u2212P | 8.02 at \u2212P | 8.44 at \u2212P |\n| 0.450 | 5.65 at \u2212P | 7.76 at \u2212P | 6.60 at \u2212P | 6.79 at \u2212P |\n| 0.500 | 5.08 at \u2212P | 6.44 at \u2212P | 5.67 at \u2212P | 5.77 at \u2212P |",
+    "retimed": "| v | flash after t = 3 | returns shift | energy change at t = 3 | contact |\n|---|---|---|---|---|\n| 0.300 | natural | 0 | 0 | 10.78 at P |\n| 0.300 | absorbed | \u2014 | -0.0113 | 10.31 at P |\n| 0.300 | re-timed | +1.0 (later) | +0.0004 | 11.14 at P |\n| 0.300 | re-timed | +0.5 (later) | -0.0028 | 11.05 at P |\n| 0.300 | re-timed | -0.5 (earlier) | +0.0048 | 10.40 at P |\n| 0.300 | re-timed | -1.0 (earlier) | +0.0042 | 9.98 at P |\n| 0.333 | natural | 0 | 0 | 26.92 at P |\n| 0.333 | absorbed | \u2014 | -0.0145 | 20.81 at P |\n| 0.333 | re-timed | +1.0 (later) | +0.0020 | 27.22 at \u2212P |\n| 0.333 | re-timed | +0.5 (later) | -0.0024 | 30.78 at \u2212P |\n| 0.333 | re-timed | -0.5 (earlier) | +0.0045 | 21.09 at P |\n| 0.333 | re-timed | -1.0 (earlier) | +0.0028 | 18.12 at P |"
+  },
+  "thresholds": {
+    "dressed": [
+      0.3,
+      0.32
+    ],
+    "full": [
+      0.3333333333333333,
+      0.34
+    ],
+    "instant": [
+      0.3,
+      0.32
+    ]
+  }
+}

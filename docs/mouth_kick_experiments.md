@@ -181,6 +181,9 @@ This is Wheeler's charge without charge, for a scalar potential.
   - event-aligned returns of the same field, with mistiming controls;
   - an explicit ledger of wave, mouth, neck and clock-support energy;
   - collapse as the outcome of a stated regularity law, not a scheduled event.
+- **Follow-up in this PR:** [pair_birth_timeline.md](pair_birth_timeline.md) takes up that test, with
+  independently moving Wheeler-flux mouths born touching, returns of the birth flash, re-timed
+  controls, a full ledger, and annihilation at rim contact.
 
 ## Reproduction
 ```bash
