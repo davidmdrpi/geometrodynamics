@@ -1,0 +1,23 @@
+// Executes the actual HTML model/controls; this does not test browser layout.
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'..'),html=fs.readFileSync(path.join(root,'docs/visualizations/finite_neck.html'),'utf8');
+const js=html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const canvas=new Proxy({createImageData:(w,h)=>({data:new Uint8ClampedArray(w*h*4)})},{get:(t,k)=>t[k]||(()=>{}),set:()=>true});
+const elements=Object.fromEntries([...html.matchAll(/id="([^"]+)"/g)].map(m=>[m[1],{value:'',textContent:'',getContext:()=>canvas}]));
+elements.waist.value='.16';elements.amp.value='.18';elements.eps.value='.025';elements.contour.checked=true;
+const context=vm.createContext({document:{getElementById:id=>elements[id]},matchMedia:()=>({matches:true}),requestAnimationFrame:()=>{}});
+vm.runInContext(js,context);const run=s=>vm.runInContext(s,context);
+const record=JSON.parse(fs.readFileSync(path.join(root,'docs/images/finite_neck/contact.json'),'utf8'));
+for(let i=0;i<2;i++)assert.ok(Math.abs(run(`events[${i}]`)-record.field_contour_crossings[i])<1e-10);
+for(const p of record.samples)assert.ok(Math.abs(run(`density(${p.x},${p.rho},${p.t})`)-p.psi)<1e-12);
+assert.equal(elements.play.textContent,'Play');
+elements.off.onclick();assert.equal(run('tc'),null);assert.equal(elements.contact.disabled,true);assert.equal(elements.reopen.disabled,true);
+elements.weak.onclick();assert.equal(run('events.length'),0);
+elements.example.onclick();elements.contact.onclick();assert.equal(run('t'),run('events[0]'));assert.equal(run('playing'),false);
+elements.reopen.onclick();assert.equal(run('t'),run('events[1]'));
+elements.time.oninput({target:{value:'5.3'}});assert.ok(run('axisPeak(t)')<.5);
+elements.contour.checked=false;elements.contour.onchange();
+elements.waist.value='.30';elements.waist.oninput();assert.equal(run('events.length'),0);
+elements.example.onclick();const old=run('events[0]');elements.eps.value='.04';elements.eps.oninput();assert.ok(run('events[0]')<old);
+elements.play.onclick();assert.equal(run('playing'),true);elements.restart.onclick();assert.equal(run('t'),0);
+console.log('Python/HTML fields and both events agree; nulls, reopening, width, contour and playback controls passed.');

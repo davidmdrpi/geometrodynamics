@@ -1,164 +1,131 @@
 #!/usr/bin/env python
-"""Geometric study, not a wave-driven collapse calculation. See docs/finite_neck_visualization.md."""
+"""Render option C's smooth density directly, with no surface switch or dissolve."""
 import argparse
 import hashlib
 import json
 from pathlib import Path
-import math
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
+from neck_wave_contact import ContactNeck, Parameters, H, END, LEVEL
 
-H, A, B0, BS, TC, END = .6, 1., .745071089, .045, 6.8, 10.
-BG = (12, 22, 34)
-FG = (222, 233, 241)
-MUTED = (150, 174, 190)
-TEAL = (85, 215, 204)
-GOLD = (255, 195, 111)
+BG = (12,22,34); FG = (222,233,241); MUTED = (150,174,190)
+TEAL = (85,215,204); GOLD = (255,195,111)
 FONT = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
 BOLD = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
+STOPS = np.array([[12,22,34],[46,50,88],[143,66,122],[236,119,143],[255,219,155]])
+PALETTE = np.array([np.interp(np.linspace(0,1,256),np.linspace(0,1,5),STOPS[:,i]) for i in range(3)]).T.astype('uint8')
 
-def smooth(u):
-    u = np.clip(u, 0., 1.)
-    return u*u*(3-2*u)
 
-def waist(t):
-    return B0+(BS-B0)*smooth((t-2.6)/(TC-2.6))
+def contour_segments(xs, ys, z, level=LEVEL):
+    """Marching squares; resolve saddle cells by the cell-center value."""
+    bits = ((z[:-1,:-1]>=level).astype(int)+2*(z[:-1,1:]>=level)+
+            4*(z[1:,1:]>=level)+8*(z[1:,:-1]>=level))
+    table = {1:[(3,0)],2:[(0,1)],3:[(3,1)],4:[(1,2)],6:[(0,2)],7:[(3,2)],
+             8:[(2,3)],9:[(0,2)],11:[(1,2)],12:[(1,3)],13:[(0,1)],14:[(3,0)]}
+    result = []
+    for j,i in zip(*np.nonzero((bits!=0)&(bits!=15))):
+        corners=[(xs[i],ys[j]),(xs[i+1],ys[j]),(xs[i+1],ys[j+1]),(xs[i],ys[j+1])]
+        v=[z[j,i],z[j,i+1],z[j+1,i+1],z[j+1,i]]; mask=bits[j,i]
+        if mask in (5,10):
+            center=sum(v)/4>=level
+            pairs=[(0,1),(2,3)] if (mask==5)==center else [(3,0),(1,2)]
+        else: pairs=table[mask]
+        def edge(k):
+            l=(k+1)%4; u=(level-v[k])/(v[l]-v[k])
+            return tuple((1-u)*a+u*b for a,b in zip(corners[k],corners[l]))
+        result.extend((edge(a),edge(b)) for a,b in pairs)
+    return result
 
-def profile(x, t):
-    """Fixed rims; cosh family blends into a rounded double cone before surgery."""
-    b = waist(t)
-    cosh = b*np.cosh(np.arccosh(A/b)*x/H)
-    cone = np.sqrt(b*b+(A*A-b*b)*(x/H)**2)
-    mix = smooth((.5-b)/.3)
-    return (1-mix)*cosh+mix*cone
 
-def deformation(x,t):
-    """Prescribed signed display packet; neither transport PDE nor shoaling law."""
-    c = -1.+.35*t
-    return .08*np.exp(-((x-c)/.24)**2)*np.sin(22*(x-c))*np.maximum(0,1-(x/H)**2)
+def panel(im, model, t, box, extent):
+    left,top,width,height=box; xmin,xmax,ymin,ymax=extent
+    xs=np.linspace(xmin,xmax,width); ys=np.linspace(ymax,ymin,height)
+    z=model.density(xs[None,:],ys[:,None],t)
+    im.paste(Image.fromarray(PALETTE[np.rint(z*255).clip(0,255).astype(int)]),(left,top))
+    d=ImageDraw.Draw(im)
+    for a,b in contour_segments(np.arange(width),np.arange(height),z):
+        d.line([(left+a[0],top+a[1]),(left+b[0],top+b[1])],fill=FG,width=1)
+    axis=top+height*ymax/(ymax-ymin)
+    for x in range(left,left+width,12):d.line([(x,axis),(min(x+5,left+width),axis)],fill=(99,132,144))
+    d.rectangle((left,top,left+width,top+height),outline=(54,80,99),width=1)
 
-def branches(t,n=61):
-    if t < TC:
-        x = np.linspace(-H,H,n)
-        r = profile(x,t)
-        u = deformation(x,t)
-        return [(x,r*(1+u),u,r)]
-    # Imposed reconnection to two closed convex caps, then prescribed flattening.
-    length = H*(.98-.96*smooth((t-TC)/(END-TC)))
-    v = np.linspace(0,1,n)
-    u = 1-v
-    r = A*np.sqrt((u*u+.03*u)/1.03)
-    return [(-H+length*v,r,np.zeros(n),r), (H-length*v,r,np.zeros(n),r)]
 
-def phase(t):
-    if t < 2.6: return '01  Incoming deformation', 'Fixed rims; prescribed signed packet'
-    if t < 5.2: return '02  Narrowing waist', 'Contraction prescribed independently of the packet'
-    if t < TC: return '03  Rounded double cone', 'Finite cutoff: b = 0.045 at the surgery frame'
-    if t < 7.5: return '04  Imposed reconnection', 'Connected neck replaced by two closed caps'
-    return '05  Cap retraction', 'Prescribed geometric relaxation; no energy-transfer claim'
-
-def draw_frame(t, size=(960,720)):
-    im=Image.new('RGB',size,BG);d=ImageDraw.Draw(im)
-    font=lambda n,b=False: ImageFont.truetype(BOLD if b else FONT,n)
-    d.text((28,20),'A finite neck: wave, narrowing, reconnection',font=font(25,True),fill=FG)
-    d.text((28,58),'GEOMETRIC STUDY  /  packet and collapse prescribed; no coupled dynamics',font=font(14),fill=GOLD)
-    title,subtitle=phase(t)
-    d.text((28,100),title,font=font(20,True),fill=TEAL)
-    d.text((28,131),subtitle,font=font(13),fill=MUTED)
-    d.text((925,102),f't = {t:4.2f}',font=font(17),fill=FG,anchor='ra')
-    d.text((30,170),'CUTAWAY SURFACE',font=font(12,True),fill=MUTED)
-    def project(x,y,z):
-        return (320+190*(1.35*x-.6*y),350+150*(-z+.25*x+.22*y))
-    cells=[]
-    angles=np.linspace(np.pi/3,5*np.pi/3,37)
-    for x,r,u,base in branches(t):
-        for i in range(len(x)-1):
-            for j in range(len(angles)-1):
-                vertices=[(x[k],r[k]*np.cos(angles[l]),r[k]*np.sin(angles[l]))
-                          for k,l in [(i,j),(i+1,j),(i+1,j+1),(i,j+1)]]
-                depth=np.mean([.45*p[0]+p[1]+.2*p[2] for p in vertices])
-                wave=(u[i]+u[i+1])/2/.08
-                color=np.array(TEAL if wave>=0 else (217,125,179),float)
-                strength=min(abs(wave),1)
-                color=(1-strength)*np.array((98,136,157))+strength*color
-                shade=.62+.28*(np.cos((angles[j]+angles[j+1])/2-.5)+1)/2
-                color=tuple((color*shade).astype(int))
-                cells.append((depth,[project(*p) for p in vertices],color))
-    for _,poly,color in sorted(cells,key=lambda x:x[0]):d.polygon(poly,fill=color)
-    # Exposed longitudinal edges make both the lumen and the closure visible.
-    for x,r,u,base in branches(t):
-        for phi in [angles[0],angles[-1]]:
-            d.line([project(xx,rr*np.cos(phi),rr*np.sin(phi)) for xx,rr in zip(x,r)],fill=FG,width=2)
-    for rim in [-H,H]:
-        ring=[project(rim,np.cos(p),np.sin(p)) for p in np.linspace(0,2*np.pi,120)]
-        d.line(ring,fill=GOLD,width=2)
-    if t<TC:
-        b=waist(t)
-        ring=[project(0,b*np.cos(p),b*np.sin(p)) for p in angles]
-        d.line(ring,fill=TEAL,width=3)
-    d.text((32,517),'Front sector removed for visibility; rims stay fixed.',font=font(12),fill=MUTED)
-    # Exact axial section and nominal profile, aligned to the finite rim separation.
-    d.text((650,170),'AXIAL SECTION',font=font(12,True),fill=MUTED)
-    proj=lambda x,r:(780+155*x/H,350-130*r)
-    d.line([proj(-H,0),proj(H,0)],fill=(49,69,87),width=1)
-    for rim in [-H,H]:d.line([proj(rim,-1.08),proj(rim,1.08)],fill=GOLD,width=2)
-    for x,r,u,base in branches(t,121):
-        for sign in [-1,1]:
-            d.line([proj(xx,sign*rr) for xx,rr in zip(x,base)],fill=(74,93,110),width=1)
-            d.line([proj(xx,sign*rr) for xx,rr in zip(x,r)],fill=TEAL,width=3)
-    if t<TC:
-        b=waist(t);d.line([proj(0,-b),proj(0,b)],fill=GOLD,width=2)
-        d.text((790,350),f' b = {b:.3f}',font=font(13),fill=GOLD)
-    else:d.text((710,350),'two closed caps',font=font(13),fill=GOLD)
-    d.text((653,517),'Cosh family → rounded cones → caps',font=font(12),fill=MUTED)
-    # Waist timeline: no fictitious continuous waist after the topology change.
-    d.line([(28,552),(932,552)],fill=(47,68,86),width=1)
-    d.text((30,570),'PRESCRIBED WAIST',font=font(12,True),fill=MUTED)
-    xp=lambda q:225+q/END*690
-    yp=lambda b:650-b/B0*60
-    d.line([(225,650),(915,650)],fill=(74,93,110),width=1)
-    d.line([(xp(q),yp(waist(q))) for q in np.linspace(0,TC,160)],fill=TEAL,width=3)
-    d.line([(xp(TC),580),(xp(TC),657)],fill=GOLD,width=2)
-    d.text((xp(TC)+8,580),'surgery',font=font(12),fill=GOLD)
-    if t<TC:
-        px,py=xp(t),yp(waist(t));d.ellipse((px-5,py-5,px+5,py+5),fill=FG)
-    d.line([(xp(t),625),(xp(t),657)],fill=FG,width=1)
-    d.text((30,601),'Signed wave: inward / outward',font=font(12),fill=MUTED)
-    d.text((30,623),'Display deformation ≤ 8%',font=font(12),fill=MUTED)
-    d.text((28,684),'No inevitable pinch-off assumed. No singular radius is evaluated. No released energy is assigned.',font=font(13),fill=MUTED)
+def draw_frame(model,t,curves):
+    im=Image.new('RGB',(960,740),BG);d=ImageDraw.Draw(im)
+    font=lambda n,b=False:ImageFont.truetype(BOLD if b else FONT,n)
+    d.text((25,18),'Wave contact as a smooth diffuse field',font=font(26,True),fill=FG)
+    d.text((25,54),'OPTION C  /  same packet, no imposed split, no cross-fade',font=font(14),fill=GOLD)
+    title,note=model.phase(t)
+    d.text((25,86),title,font=font(21,True),fill=TEAL)
+    d.text((25,116),note,font=font(13),fill=MUTED)
+    d.text((930,89),f't = {t:.2f}',font=font(18),fill=FG,anchor='ra')
+    d.text((25,147),'FULL NECK: axial section (different axis scales)',font=font(12,True),fill=MUTED)
+    d.text((625,147),'FOCUS: equal-scale axial section',font=font(12,True),fill=MUTED)
+    panel(im,model,t,(25,172,560,320),(-H,H,-1.08,1.08))
+    panel(im,model,t,(625,172,310,310),(-.23,.23,-.23,.23))
+    d=ImageDraw.Draw(im)
+    for x,val in [(25,'−0.6'),(305,'x = 0'),(585,'+0.6')]:d.text((x,499),val,font=font(12),fill=MUTED,anchor='ma' if x==305 else ('ra' if x==585 else 'la'))
+    d.text((625,490),'Dashed: axis ρ = 0. White: ψ = ½.',font=font(12),fill=FG)
+    d.text((625,511),'Rotate this section about the axis for 3D.',font=font(12),fill=MUTED)
+    # Actual field values, not opacity interpolation between geometries.
+    bar=np.repeat(PALETTE[None,:,:],12,axis=0)
+    im.paste(Image.fromarray(bar),(25,537));d=ImageDraw.Draw(im)
+    d.text((25,553),'ψ = 0',font=font(12),fill=MUTED);d.text((281,553),'1',font=font(12),fill=MUTED,anchor='ra')
+    d.text((304,535),'Color is shell density. The field remains smooth;',font=font(13),fill=FG)
+    d.text((304,555),'a selected contour can still change topology at a critical point.',font=font(13),fill=MUTED)
+    # max on the axis measures filling; after the wave passes it returns to zero.
+    px=lambda q:240+q/END*670;py=lambda p:663-p*62
+    d.text((25,592),'PEAK AXIS DENSITY',font=font(12,True),fill=MUTED)
+    d.text((25,615),'Teal: default packet',font=font(12),fill=TEAL)
+    d.text((25,637),'Gray: weak / wave off',font=font(12),fill=MUTED)
+    for y,lab in [(0,'0'),(.5,'½'),(1,'1')]:
+        d.line([(240,py(y)),(910,py(y))],fill=(44,65,81),width=1)
+        d.text((228,py(y)-7),lab,font=font(11),fill=MUTED,anchor='ra')
+    for curve,col in zip(curves,[TEAL,(153,177,198),(77,98,118)]):d.line([(px(q),py(p)) for q,p in curve],fill=col,width=2)
+    for q in model.field_events:
+        d.line([(px(q),594),(px(q),667)],fill=GOLD,width=1)
+    d.line([(px(t),596),(px(t),668)],fill=FG,width=2)
+    for q in [0,3,6,9]:d.text((px(q),669),str(q),font=font(11),fill=MUTED,anchor='ma')
+    d.text((25,709),'Prescribed field, not solved fluid or spacetime dynamics. No mass, energy, or momentum conservation claim.',font=font(12),fill=MUTED)
     return im
 
-def verify():
-    for t in np.linspace(0,TC,100,endpoint=False):
-        assert np.max(abs(profile(np.array([-H,H]),t)-A))<1e-12
-        assert abs(profile(0,t)-waist(t))<1e-12
-        for x,r,u,base in branches(t):assert np.all(np.isfinite(r)) and np.min(r)>0
-    for t in np.linspace(TC,END,20):
-        parts = branches(t)
-        assert parts[0][0][-1] < parts[1][0][-1]
-        for x,r,u,base in parts:
-            assert r[-1]==0 and r[0]==A and np.all(np.isfinite(r))
-    print('Geometry checks: fixed rims, nominal waist, positive pre-surgery radius, closed post-surgery caps')
+
+def audit(model):
+    # A sampled spatial Hessian check, not a certified global maximum.
+    xx=np.linspace(-H,H,241)[None,:];rr=np.linspace(0,1.08,217)[:,None]
+    maximum=0.
+    for t in np.linspace(0,END,91):
+        a,b,c,d=model.hessian_components(xx,rr,t)
+        maximum=max(maximum,float(np.max(np.sqrt(a*a+b*b+c*c+2*d*d))))
+    record=model.record()
+    record.update(no_wave_band_crossings=ContactNeck(Parameters(amplitude=0)).band_events,
+                  weak_wave_band_crossings=ContactNeck(Parameters(amplitude=.08)).band_events,
+                  no_wave_field_crossings=ContactNeck(Parameters(amplitude=0)).field_events,
+                  weak_wave_field_crossings=ContactNeck(Parameters(amplitude=.08)).field_events,
+                  sampled_hessian_frobenius_max=maximum,
+                  sampled_hessian_scaled_max=maximum*model.par.thickness**2,
+                  hessian_grid=dict(x_points=241,rho_points=217,time_points=91,x_range=[-H,H],rho_range=[0,1.08],time_range=[0,END]))
+    return record
+
 
 def main():
-    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,default=Path('docs/images/finite_neck'))
-    args=ap.parse_args();args.output.mkdir(parents=True,exist_ok=True);verify()
-    times=np.unique(np.r_[np.linspace(0,END,51),TC-.03,TC])
-    frames=[draw_frame(float(t)).resize((720,540)) for t in times]
-    palette=Image.new('RGB',(720,540*6))
-    for i,j in enumerate([0,13,25,32,36,50]):palette.paste(frames[j],(0,540*i))
-    palette=palette.quantize(colors=64)
-    quant=[f.quantize(palette=palette,dither=Image.Dither.NONE) for f in frames]
-    duration=[100]*len(times)
-    duration[np.flatnonzero(times==TC)[0]]=1100;duration[-1]=1800
-    quant[0].save(args.output/'finite_neck.gif',save_all=True,append_images=quant[1:],duration=duration,loop=0,optimize=True)
-    panels=[draw_frame(t) for t in [1.7,6.4,7.1]]
-    sheet=Image.new('RGB',(1440,360),BG)
-    for i,p in enumerate(panels):sheet.paste(p.resize((480,360)),(480*i,0))
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,default=Path('docs/images/finite_neck'));args=ap.parse_args();args.output.mkdir(parents=True,exist_ok=True)
+    m=ContactNeck();models=[m,ContactNeck(Parameters(amplitude=.08)),ContactNeck(Parameters(amplitude=0))]
+    curves=[[(t,mm.axis_peak(t)) for t in np.linspace(0,END,181)] for mm in models]
+    times=np.unique(np.r_[np.linspace(0,END,61),m.field_events,m.tc])
+    frames=[draw_frame(m,float(t),curves).resize((720,555)) for t in times]
+    palette=Image.new('RGB',(720,555*6))
+    for i,j in enumerate(np.linspace(0,len(times)-1,6).astype(int)):palette.paste(frames[j],(0,555*i))
+    palette=palette.quantize(colors=96);frames=[f.quantize(palette=palette,dither=Image.Dither.NONE) for f in frames]
+    durations=[120]*len(times);durations[-1]=1600
+    frames[0].save(args.output/'finite_neck.gif',save_all=True,append_images=frames[1:],duration=durations,loop=0,optimize=True)
+    snaps=[3.2,4.25,5.3];sheet=Image.new('RGB',(1440,370),BG)
+    for i,t in enumerate(snaps):sheet.paste(draw_frame(m,t,curves).resize((480,370)),(480*i,0))
     sheet.save(args.output/'sequence.png',optimize=True)
-    draw_frame(6.4).save(args.output/'closeup.png',optimize=True)
-    files=[args.output/x for x in ['finite_neck.gif','sequence.png','closeup.png']]
+    draw_frame(m,m.field_events[0]+.16,curves).save(args.output/'closeup.png',optimize=True)
+    (args.output/'contact.json').write_text(json.dumps(audit(m),indent=2,sort_keys=True)+'\n')
+    files=[args.output/x for x in ['finite_neck.gif','sequence.png','closeup.png','contact.json']]
     (args.output/'sha256.json').write_text(json.dumps({p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in files},indent=2,sort_keys=True)+'\n')
-    print({p.name:p.stat().st_size for p in files})
+    print({p.name:p.stat().st_size for p in files});print(json.dumps(m.record(),indent=2))
 
 if __name__=='__main__':main()
