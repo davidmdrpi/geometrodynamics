@@ -153,3 +153,42 @@ def test_bare_field_refocuses_at_the_antipode():
     assert np.allclose(e[2], e[0], atol=1e-9*e[0].max())                # exact return for omega = l + 1/2
     th, t, e, _, _ = bare_timeline(t=np.array([np.pi]), operator='massless')
     assert th[np.argmax(e[0])] == pytest.approx(np.pi)
+
+
+def test_free_mouth_clocks_run_slow_by_gamma():
+    m = PairBirth(Parameters(cutoff=8, charge=0.))
+    h, info = m.run_history(m.initial(.4), 3.)
+    assert np.allclose(h['tau'][-1], 3.*np.sqrt(1-.4**2), rtol=1e-9)
+    assert np.abs(h['clock'][h['alive']]).max() < 1e-12              # equal speeds: no offset
+
+
+def test_symmetric_cycles_keep_zero_offset_and_conserve_through_surgeries(model):
+    h, info = model.run_history(model.initial(.25), 22., cycles=3)
+    kinds = [e['kind'] for e in info['events']]
+    assert kinds[:4] == ['contact', 'birth', 'contact', 'birth']
+    c0, b1 = info['events'][0], info['events'][1]
+    assert b1['time'] == pytest.approx(c0['time'] + np.pi)                     # re-birth at the refocus
+    assert np.dot(b1['point'], c0['point']) == pytest.approx(-1.)               # at the antipode
+    assert abs(b1['energy']) < 1e-12 and np.abs(b1['angular']).max() < 1e-12
+    assert b1['correction'] < 1e-10                                            # the mirror needs no correction
+    assert np.nanmax(np.abs(h['clock'])) == 0.
+    assert info['energy_drift'] < 1e-6 and info['angular_drift'] < 1e-12
+
+
+def test_asymmetric_history_offset_is_set_by_velocities_not_positions(model):
+    h, info = model.run_history(model.initial(velocities=independent_start(.25)), 16., cycles=2)
+    alive = h['alive']
+    first = alive & (h['cycle'] == 0)
+    g = np.sqrt(1 + np.sum(np.cross(h['L'], h['x'])**2, -1))                  # gamma per mouth (mass 1)
+    dtau = np.diff(h['t'][first])[:, None]/g[first][:-1]
+    integral = np.r_[0, np.cumsum(dtau[:, 0] - dtau[:, 1])]
+    assert np.abs(h['clock'][first] - integral).max() < 2e-3                  # offset = integrated dilation
+    birth = info['events'][1]
+    after = np.flatnonzero(np.abs(h['t'] - birth['time']) < 1e-9)[-1]
+    assert h['clock'][after] == 0. and np.allclose(h['tau'][after], 0.)       # clocks restart at re-birth
+    assert abs(birth['energy']) < 1e-10 and np.abs(birth['angular']).max() < 1e-10
+    assert info['angular_drift'] < 1e-7 and info['energy_drift'] < 1e-6
+    ext, fo = h['external'], h['first_order']
+    ok = alive & np.isfinite(ext)
+    assert np.abs(ext[ok] - fo[ok]).max() < .05*np.abs(fo[ok]).max() + 1e-6  # small-offset approximation
+    assert info['min_chronology_margin'] > 0

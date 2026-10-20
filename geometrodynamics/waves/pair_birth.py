@@ -35,12 +35,20 @@ where chi = sum c_lm Y_lm and U = (1/2) int |grad phi|^2 is the Coulomb energy.
     (#339/#344 operator, omega = l + 1/2) at the contact point.
   - The contact time is an outcome of the dynamics. The surgery itself is a
     stated rule, not something the dynamics derives.
+- **Complete history** (`run_history`), as in the archived v39 cycle:
+  - The released pulse refocuses at the antipode of the contact point after pi.
+  - There `recreate` starts the next pair, conserving energy and canonical angular
+    momentum.
+  - Each mouth carries its proper time since its own birth. The throat identifies
+    equal proper times, so its clock offset is a functional of the whole velocity
+    history since that birth (`clock_offsets`), never of where the mouths are now.
+  - Offsets are zero at every birth, and clock memory does not survive the surgery.
 
 **Scope.** Classical throughout: nothing is quantized. The neck shape and the
 rest energy M (neck surface energy plus the flux energy inside the neck) are
 held fixed.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import numpy as np
 from numpy.polynomial import legendre
@@ -105,10 +113,14 @@ class PairState:
     P: np.ndarray            # (2, n)
     alive: bool = True
     release: dict = None     # set at contact: time, point, energy and pulse coefficients
+    tau: np.ndarray = field(default_factory=lambda: np.zeros(2))    # mouth proper times since birth
+    birth: float = 0.        # external time of the current birth
+    cycle: int = 0           # births so far after the first
 
     def copy(self):
         return PairState(self.t, self.x.copy(), self.L.copy(), self.Q.copy(), self.P.copy(), self.alive,
-                         None if self.release is None else dict(self.release))
+                         None if self.release is None else dict(self.release), self.tau.copy(), self.birth,
+                         self.cycle)
 
 
 class PairBirth:
@@ -350,6 +362,7 @@ class PairBirth:
             s.P += dt/2*self.source(s.x, self.velocity(s))
         length = np.linalg.norm(s.L, axis=1)
         g = self.gamma(s.L)
+        s.tau += dt/g                                   # proper time, midpoint rule over the step
         for j in range(2):
             if length[j] > 0:
                 s.x[j] = rotate(s.x[j], s.L[j]/length[j], length[j]*dt/(self.par.mass*g[j]))
@@ -409,8 +422,65 @@ class PairBirth:
         z0 = np.r_[np.sqrt(2*released/np.vdot(shape, shape).real), np.zeros(6)]
         z = optimize.least_squares(residual, z0, xtol=1e-15, ftol=1e-15, gtol=1e-15).x
         a0, p0 = pulse(z)
-        s.release = dict(time=s.t, point=c, energy=released, p0=p0, a0=a0)
+        s.release = dict(time=s.t, point=c, energy=released, p0=p0, a0=a0,
+                         x=s.x.copy(), p=np.cross(s.L, s.x), tau=s.tau.copy())
         return J_before - self.angular_momentum(s)
+
+    def recreate(self, s):
+        """Inverse surgery: re-create the pair where the released pulse refocuses (v39 RECONNECT).
+
+        At t_c + pi the conformal deformation pulse released at contact point c has refocused
+        at -c. The rule removes the whole deformation field and puts a touching pair there:
+        - Positions are the antipodal images of the contact positions, -x_k: still touching
+          (separation 2a), midpoint -c.
+        - Momenta start from the contact momenta. As ambient vectors these are tangent at -x_k
+          and point apart. They are then corrected by least squares in the tangent planes, so
+          the pair carries exactly the pulse's energy (rest + kinetic + Coulomb at 2a) and
+          canonical angular momentum. For a symmetric pair the uncorrected mirror already does.
+        - Clocks restart: the new mouths are born together, so their offset is zero. Clock
+          memory does not survive the topology change.
+        The transverse field is untouched. Like the release, this is a stated rule, not
+        derived dynamics. Returns the energy and angular-momentum residuals.
+        """
+        if s.alive or s.release is None:
+            raise ValueError('Re-creation needs a released pair')
+        E_target = self.deformation_energy(s)
+        J_target = self.deformation_angular(s)
+        x = -s.release['x']
+        p0 = s.release['p']
+        basis = []
+        for k in range(2):
+            e1 = np.cross(x[k], p0[k]) if np.linalg.norm(p0[k]) > 1e-12 else np.cross(x[k], [1., 0, 0])
+            e1 /= np.linalg.norm(e1)
+            basis.append((e1, np.cross(x[k], e1)))
+        w = self.footprints(x)
+        A = self._rot(w, s.Q.sum(0)/self.omega) if self.par.transverse else np.zeros((2, 3))
+        U = self.coulomb(x)[0]
+
+        def momenta(b):
+            return np.array([p0[k] + b[2*k]*basis[k][0] + b[2*k+1]*basis[k][1] for k in range(2)])
+
+        def residual(b):
+            p = momenta(b)
+            gam = np.sqrt(1 + np.sum(p*p, 1)/self.par.mass**2)
+            J = np.cross(x, p + self.charges[:, None]*A).sum(0)
+            E = self.par.mass*gam.sum() + U
+            return np.r_[J - J_target, (E - E_target)/E_target, 1e-8*b]
+
+        b = optimize.least_squares(residual, np.zeros(4), xtol=1e-15, ftol=1e-15, gtol=1e-15).x
+        p = momenta(b)
+        s.release = None
+        s.alive = True
+        s.x = x.copy()
+        s.L = np.cross(x, p)
+        s.tau = np.zeros(2)
+        s.birth = s.t
+        s.cycle += 1
+        if self.separation_rate(s) <= 0:
+            raise RuntimeError('Re-created pair is not separating')
+        return dict(energy=float(sum(self.energy_components(s).values()) - E_target - self.transverse_energy(s)),
+                    angular=(np.cross(x, p + self.charges[:, None]*A).sum(0) - J_target).tolist(),
+                    correction=float(np.linalg.norm(b)))
 
     def deformation(self, s, points, t=None):
         """Deformation field u and u_t at points (unit vectors) at time t (default s.t)."""
@@ -569,6 +639,118 @@ class PairBirth:
             b = c
             s, fb = trial(b)
         return s
+
+
+    def run_history(self, s, end, cycles=1, dt=.004, output_dt=.02, neck_length=.565):
+        """Complete history: birth, flight, contact, release, refocusing, re-birth, repeated.
+
+        Each cycle runs from a birth with synchronised mouth clocks to rim contact. The
+        released pulse refocuses at the antipode of the contact point after pi, where
+        `recreate` starts the next cycle, up to `cycles` births in all. Besides the ledgers,
+        each mouth's proper time since its birth is recorded.
+
+        `clock_offsets` turns the proper times into the throat's external-time offset. The
+        throat identifies equal proper times on the two mouths, so this offset depends on
+        the whole velocity history since birth, not on where the mouths are.
+        neck_length (#338's 2S) enters only the chronology margin d + L_neck - |offset|.
+        """
+        s = s.copy()
+        keys = ('t', 'x', 'L', 'd', 'tau', 'alive', 'cycle', 'energy', 'J')
+        out = {k: [] for k in keys}
+        out['energy_parts'] = {k: [] for k in ('rest', 'kinetic', 'coulomb', 'transverse', 'deformation')}
+        events = []
+
+        def record():
+            e = self.energy_components(s)
+            for k, v in e.items():
+                out['energy_parts'][k].append(v)
+            vals = (s.t, s.x.copy(), s.L.copy(), self.separation(s.x), s.tau.copy(), s.alive, s.cycle,
+                    sum(e.values()), self.angular_momentum(s))
+            for k, v in zip(keys, vals):
+                out[k].append(v)
+
+        record()
+        next_out = output_dt
+        rebirth = None
+        while s.t < end - 1e-12:
+            if s.alive:
+                prev = s.copy()
+                self.step(s, min(dt, end - s.t))
+                if self.contact(s):
+                    s = self._refine(prev, s.t - prev.t)
+                    record()
+                    residual = self.release(s)
+                    events.append(dict(kind='contact', time=s.t, cycle=s.cycle, point=s.release['point'].tolist(),
+                                       clocks=s.release['tau'].tolist(), energy=s.release['energy'],
+                                       speed=np.linalg.norm(s.release['p'], axis=1).tolist(),
+                                       unreleased_angular=residual.tolist()))
+                    record()
+                    rebirth = s.t + np.pi if s.cycle + 1 < cycles else None
+                    next_out = (np.floor(s.t/output_dt + 1e-9) + 1)*output_dt
+                    continue
+            else:
+                target = min(end, rebirth) if rebirth is not None else end
+                n = max(1, int(np.ceil((target - s.t)/dt - 1e-9)))
+                h = (target - s.t)/n
+                for _ in range(n):
+                    self.step(s, h)
+                    if s.t >= next_out - 1e-9:
+                        record()
+                        next_out = (np.floor(s.t/output_dt + 1e-9) + 1)*output_dt
+                if rebirth is not None and abs(s.t - rebirth) < 1e-9:
+                    record()
+                    check = self.recreate(s)
+                    events.append(dict(kind='birth', time=s.t, cycle=s.cycle,
+                                       point=((s.x[0]+s.x[1])/np.linalg.norm(s.x[0]+s.x[1])).tolist(),
+                                       speed=np.linalg.norm(self.velocity(s), axis=1).tolist(), **check))
+                    record()
+                    rebirth = None
+                    next_out = (np.floor(s.t/output_dt + 1e-9) + 1)*output_dt
+                continue
+            if s.t >= next_out - 1e-9:
+                record()
+                next_out += output_dt
+        arrays = {k: np.asarray(v) for k, v in out.items() if k != 'energy_parts'}
+        arrays['energy_parts'] = {k: np.asarray(v) for k, v in out['energy_parts'].items()}
+        e, J = arrays['energy'], arrays['J']
+        offsets = clock_offsets(arrays, self.par.mass)
+        margin = np.where(arrays['alive'], arrays['d'] + neck_length - np.abs(offsets['external']), np.nan)
+        arrays.update(offsets, chronology_margin=margin)
+        info = dict(events=events, energy_drift=float(np.abs(e-e[0]).max()/e[0]),
+                    angular_drift=float(np.abs(J-J[0]).max()), final_state=s, neck_length=neck_length,
+                    min_chronology_margin=float(np.nanmin(margin)),
+                    max_clock_difference=float(np.nanmax(np.abs(offsets['clock']))),
+                    max_external_offset=float(np.nanmax(np.abs(offsets['external']))))
+        return arrays, info
+
+
+def clock_offsets(history, mass=1.):
+    """Throat clock offsets from recorded proper times.
+
+    - clock: tau_A - tau_B at equal external time, i.e. what one sees comparing the two
+      mouth clocks through the throat.
+    - external: the external-time shift t_B - t of the event on B that the throat
+      identifies with A at time t, the one with tau_B(t_B) = tau_A(t). It is found
+      within the same cycle by inverting tau_B(t), and is NaN where that event falls
+      outside the recorded flight (after contact).
+    - first_order: gamma_B (tau_A - tau_B), the small-offset approximation.
+    Both offsets are zero at every birth and depend only on the velocity histories.
+    """
+    t, tau, alive, cycle = (np.asarray(history[k]) for k in ('t', 'tau', 'alive', 'cycle'))
+    clock = np.where(alive, tau[:, 0] - tau[:, 1], np.nan)
+    external = np.full(len(t), np.nan)
+    for c in np.unique(cycle):
+        sel = np.flatnonzero(alive & (cycle == c))
+        if len(sel) < 2:
+            continue
+        tb, taub = t[sel], tau[sel, 1]
+        keep = np.r_[True, np.diff(taub) > 0]
+        tb, taub = tb[keep], taub[keep]
+        inside = (tau[sel, 0] >= taub[0]) & (tau[sel, 0] <= taub[-1])
+        external[sel[inside]] = np.interp(tau[sel, 0][inside], taub, tb) - t[sel][inside]
+    L = np.asarray(history['L'])
+    gamma_b = np.sqrt(1 + np.sum(L[:, 1]**2, -1)/mass**2)
+    return dict(clock=clock, external=external, first_order=gamma_b*clock)
 
 
 def circle_angle(x, P, T):

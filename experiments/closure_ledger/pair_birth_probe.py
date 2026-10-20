@@ -5,6 +5,7 @@
     python experiments/closure_ledger/pair_birth_probe.py featured   # v = 0.30, 1/3 full runs with field maps
     python experiments/closure_ledger/pair_birth_probe.py retimed    # same birth, flash removed or re-timed at t = 3
     python experiments/closure_ledger/pair_birth_probe.py checks     # step, cutoff, free motion, independent mouths
+    python experiments/closure_ledger/pair_birth_probe.py history    # repeated cycles with history clocks
 
 Each part writes JSON to experiments/closure_ledger/runs/20261019_pair_birth/.
 Model: geometrodynamics/waves/pair_birth.py. Write-up: docs/pair_birth_timeline.md.
@@ -147,6 +148,39 @@ def job(args):
     return out
 
 
+HISTORY_END = 60.
+
+
+def history_job(args):
+    """Several birth-to-annihilation cycles, with each mouth's proper time recorded."""
+    tag, v, cycles, velocities, every = args
+    m = PairBirth(Parameters())
+    s0 = m.initial(v) if velocities is None else m.initial(velocities=velocities)
+    t0 = time.time()
+    h, info = m.run_history(s0, HISTORY_END, cycles=cycles, dt=DT, output_dt=OUTPUT_DT)
+    keep = np.zeros(len(h['t']), bool)
+    keep[::every] = True
+    keep[-1] = True
+    for e in info['events']:                       # both sides of every surgery
+        keep[np.abs(h['t']-e['time']) < 1e-9] = True
+    def r(a, k=7):
+        a = np.round(np.asarray(a, float)[keep], k)
+        return [None if np.isnan(v_) else v_ for v_ in a.tolist()] if a.ndim == 1 else a.tolist()
+    out = dict(tag=tag, v=v, mode='history', retime=None, cycles=cycles, end=HISTORY_END,
+               velocities=None if velocities is None else np.asarray(velocities).tolist(),
+               t=r(h['t'], 6), d=r(h['d'], 6), x=np.round(h['x'][keep], 6).tolist(), tau=r(h['tau'], 8),
+               alive=h['alive'][keep].tolist(), cycle=h['cycle'][keep].tolist(),
+               energy={k: r(v_, 9) for k, v_ in h['energy_parts'].items()}, J=r(h['J'], 10),
+               clock=r(h['clock'], 10), external=r(h['external'], 10), first_order=r(h['first_order'], 10),
+               chronology_margin=r(h['chronology_margin'], 8),
+               events=[{k: (np.asarray(v_).tolist() if isinstance(v_, np.ndarray) else v_) for k, v_ in e.items()}
+                       for e in info['events']],
+               seconds=round(time.time()-t0, 1),
+               **{k: v_ for k, v_ in info.items() if k not in ('events', 'final_state')})
+    out.update(contact_time=None, contact_side=None, energy_drift=info['energy_drift'])
+    return out
+
+
 def jobs_for(part):
     if part == 'scan':
         return [('scan', v, mode, dict(every=10)) for v in SPEEDS for mode in ('full', 'dressed', 'instant')]
@@ -165,6 +199,17 @@ def jobs_for(part):
                 ('cutoff40', .30, 'full', dict(parameters=dict(cutoff=40))),
                 ('free', 1/3, 'full', dict(parameters=dict(charge=0.), end=12.)),
                 ('independent', .3, 'full', dict(velocities=independent.tolist()))]
+    if part == 'history':
+        x, vel, _, _ = birth_positions(.3, .3, PLANE)
+        independent = vel.copy()
+        independent[0] *= 1.15
+        independent[1] = .85*vel[1] + .08*N
+        _, slow, _, _ = birth_positions(.3, .15, PLANE)
+        _, fast, _, _ = birth_positions(.3, .45, PLANE)
+        lopsided = np.array([fast[0], slow[1]])      # one mouth travels, the other nearly stays
+        return [('history_symmetric', .30, 5, None, 5), ('history_symmetric', 1/3, 3, None, 5),
+                ('history_independent', .30, 5, independent.tolist(), 5),
+                ('history_lopsided', .30, 5, lopsided.tolist(), 5)]
     raise SystemExit(f'unknown part {part!r}')
 
 
@@ -173,7 +218,7 @@ def main(part):
     OUT.mkdir(parents=True, exist_ok=True)
     t0, runs = time.time(), []
     with Pool(4) as pool:
-        for r in pool.imap_unordered(job, jobs):
+        for r in pool.imap_unordered(history_job if part == 'history' else job, jobs):
             runs.append(r)
             print(f"{len(runs)}/{len(jobs)} {r['tag']} v={r['v']:.3f} {r['mode']} retime={r['retime']} "
                   f"contact={r['contact_time']} {r['contact_side']} drift={r['energy_drift']:.1e} "

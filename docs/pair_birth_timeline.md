@@ -59,6 +59,17 @@ A classical experiment on #345, answering the acceptance test set in its review 
      and its angular momentum leave as one deformation pulse.
    - The pulse refocuses at the antipode of the contact point and returns with its sign flipped,
      as in #344.
+8. **The complete history closes the cycle, and the throat clocks follow it.**
+   - The released pulse refocuses at the antipode after π, and the pair is re-born there. That
+     is the archived v39 cycle, now with exact energy and angular momentum: five births and
+     four re-births in 60 time units.
+   - Each mouth carries its proper time since its own birth. The throat offset is the
+     integrated difference, so it depends on the whole velocity history, never on position.
+   - Symmetric pairs have no offset at all.
+   - Even a lopsided birth (0.45 / 0.15) peaks at 0.215 mid-flight and is back below 0.0011 at
+     contact. The offset resets at every birth.
+   - A closed loop through the throat would need |offset| ≥ d + L_neck. The margin never falls
+     below 1.155.
 
 **What this is not.**
 - **The field and mouths are effective.** The sphere-side field is 2+1 Maxwell on the round
@@ -303,8 +314,8 @@ identical. The energy change at t = 3 comes from cross terms with the rest of th
 - transverse field: the waves;
 - the released deformation pulse.
 
-**Clock support is zero:** this experiment has no clock offset. #345 §3 treats offsets
-separately.
+**Clock support:** no offset is imposed. The throat offset that the mouths' own histories
+generate is tracked in §7. #345 §3 treats imposed offsets separately.
 
 | v | kinetic at birth | birth flash | kinetic at contact | transverse field at contact | released |
 |---|---|---|---|---|---|
@@ -338,11 +349,76 @@ separately.
   t = 10.26.
 - Energy drift is 1.3 × 10⁻⁷. The angular-momentum drift is 2.2 × 10⁻⁹, through the release.
 
-## 7. Checks
+## 7. Complete history: throat clocks and the closed cycle
+![History](images/pair_birth/history.png)
+
+The archived v39 cycle (in PR #1's `archive/geometrodynamics_v39.py`) runs as follows:
+- separation from the birth point;
+- exchange across the sphere;
+- attraction back together;
+- annihilation;
+- the annihilation wave travelling to the antipode;
+- re-creation there, and the cycle repeats.
+
+`run_history` now does the same with the action-derived model.
+
+**Re-birth.**
+- At t_c + π the conformal release pulse has refocused at −c.
+- The rule (`recreate`) removes it and places a touching pair at the antipodal images of the
+  contact positions. It starts from the contact momenta, which already point apart there.
+- Least squares in the tangent planes then correct those momenta, so the new pair carries
+  exactly the pulse's energy and canonical angular momentum.
+- For a symmetric pair the mirror needs no correction.
+- The transverse field is left untouched.
+- Like the release, this is a stated rule.
+
+**Throat clocks.**
+- Each mouth carries its proper time τ_k since its own birth, integrated with the midpoint
+  1/γ of every step. The throat identifies equal proper times on the two mouths (MTY).
+- The throat's external-time offset is therefore t_B − t_A with τ_B(t_B) = τ_A(t_A). To first
+  order it is γ_B(τ_A − τ_B).
+- So the offset is a functional of the two velocity histories since birth. It is zero at
+  every birth, and clock memory does not survive the surgery.
+- Chronology check: a closed null loop through the throat needs |offset| ≥ d + L_neck, with
+  L_neck = 2S = 0.565 (#338).
+
+| run | births | contacts | max throat offset in each cycle | offset at contact | min chronology margin |
+|---|---|---|---|---|---|
+| symmetric, v = 0.30 | 5 | P, −P, P, −P, P | 0 | 0 | 1.165 |
+| symmetric, v = 1/3 | 3 | P, −P, P | 0 | 0 | 1.165 |
+| unequal speeds + off-circle kick | 5 | off the circle, wandering | 0.045, 0.048, 0.048, 0.044, 0.041 | ≤ 0.0093 | 1.155 |
+| lopsided, 0.45 and 0.15 | 5 | on the circle at 113°, 24°, −92°, 146°, 14° | 0.215, 0.170, 0.115, 0.094, 0.072 | ≤ 0.0011 | 1.164 |
+
+**What the history shows.**
+- **Every cycle closes.**
+  - Contacts alternate P, −P, P, … for symmetric pairs, as in v39. With net angular momentum
+    the contact point wanders.
+  - Total energy holds to 5 × 10⁻⁷ over 60 time units and nine surgeries.
+  - Angular momentum holds to 3 × 10⁻⁸ (10⁻¹⁷ for symmetric pairs).
+- **Waves accumulate.**
+  - At v = 0.30 the pair is re-born at speeds 0.300, 0.279, 0.262, 0.246 and 0.221.
+  - The transverse field grows from 0.014 after the first flight to 0.041 after the fifth.
+    Each birth inherits the previous cycles' waves (panel d).
+- **No clock offset for symmetric pairs.** Both mouths age identically, so the offset is
+  exactly zero throughout. A symmetric cycle has no MTY ingredient at all.
+- **Asymmetric births give small, transient offsets.**
+  - The offset grows while one mouth is faster. It cancels once the attraction has reversed
+    the roles: the mouth born fast arrives slow, and the slow one arrives fast.
+  - Even the lopsided birth peaks at 0.215 and is back within 0.0011 at contact. The peak
+    falls cycle by cycle as energy goes into the waves.
+- **No chronology horizon.** Separation plus neck length always exceeds the offset by at least
+  1.155.
+- **An imposed offset is not reachable here.** An offset of order 1, such as the −1.2 imposed
+  at t = 0 in #346's port model, cannot arise from these histories. It would need a sustained
+  velocity-squared difference of about 0.1 over T ≈ 24 without the attraction reversing it.
+
+## 8. Checks
 
 | check | result |
 |---|---|
-| energy, all 51 runs | maximum relative drift 2.4 × 10⁻⁷ |
+| energy, all 51 single-flight runs | maximum relative drift 2.4 × 10⁻⁷ |
+| energy and angular momentum over repeated cycles | 5 × 10⁻⁷ and 3 × 10⁻⁸ through up to nine surgeries per run; each re-birth matches the pulse it replaces to rounding |
+| free clocks (q = 0) | τ = t √(1 − v²) to 10⁻⁹; zero offset for equal speeds |
 | angular momentum | symmetric runs below 10⁻¹⁸; independent mouths 2.2 × 10⁻⁹ |
 | mirror symmetry of the forces on A and B | exact (difference 0) |
 | step halved (dt = 0.002) | contact time changes by 4 × 10⁻⁶ (v = 0.30) and 2.5 × 10⁻⁴ (v = 1/3) |
@@ -351,7 +427,8 @@ separately.
 | vector potential and magnetic force | match finite differences of the action |
 | flash decomposition | for weak charge, default − dressed force equals the post hoc flash force (2%) |
 | instantaneous Coulomb turning point | matches the energy budget |
-| tests | `tests/test_pair_birth.py`: 10 checks |
+| history offset | equals the integrated dilation difference; the external offset agrees with γ_B(τ_A − τ_B) |
+| tests | `tests/test_pair_birth.py`: 13 checks |
 
 ## Against the acceptance test
 
@@ -360,7 +437,7 @@ separately.
 | independently moving, non-antipodal mouths | yes: two rotors with their own positions and momenta; an asymmetric run |
 | a two-sided force, or a recoil from an action | yes: one Lagrangian; energy and canonical angular momentum conserved |
 | event-aligned returns of the same field, with mistiming controls | first returns: 40/40 along the ray at the predicted times, against 21/32 at wrong times; re-timing changes the outcome. Later returns: timing only |
-| ledger of wave, mouth, neck and clock-support energy | waves (transverse, deformation), mouths (kinetic), Coulomb; neck energy is the fixed rest energy; clock support zero (no offset) |
+| ledger of wave, mouth, neck and clock-support energy | waves (transverse, deformation), mouths (kinetic), Coulomb; neck energy is the fixed rest energy; no imposed clock support, and the history-generated throat offset is tracked (§7) |
 | collapse from a stated regularity law, not a schedule | rim contact sets the time dynamically; the surgery itself is a stated rule |
 
 ## Limits and next steps
@@ -373,8 +450,12 @@ separately.
   approximately. The released deformation pulse refocuses exactly.
 - **Parameters not scanned.** The thresholds depend on q, M and the footprint. Only the birth
   speed and the flash timing were scanned.
-- **No clock offset.** Combining birth and return with the clock offsets of #345 §3 is the
-  route to the "earlier re-emission" picture.
+- **Clocks are bookkeeping here.** The throat offset is tracked, but nothing travels through
+  the throat in this model, so the offset does not feed back on the dynamics.
+  - That needs a neck channel whose port timing is set by the history offset, as proposed for
+    #346.
+  - In these histories the offset stays below 0.22, so an "earlier re-emission" through the
+    throat would be a small, transient effect.
 
 ## Reproduction
 ```bash
@@ -382,6 +463,7 @@ python experiments/closure_ledger/pair_birth_probe.py featured   # v = 0.30, 1/3
 python experiments/closure_ledger/pair_birth_probe.py scan       # 11 speeds x 3 field models, ~3 min
 python experiments/closure_ledger/pair_birth_probe.py retimed    # flash absorbed or re-timed at t = 3, ~2 min
 python experiments/closure_ledger/pair_birth_probe.py checks     # step, cutoff, free motion, independent mouths
+python experiments/closure_ledger/pair_birth_probe.py history    # repeated cycles with throat clocks, ~1 min
 python experiments/closure_ledger/pair_birth_report.py           # tables, figures, summary.json, sha256.json
 python -m pytest -q tests/test_pair_birth.py
 ```

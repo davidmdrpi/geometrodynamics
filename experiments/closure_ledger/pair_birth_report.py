@@ -384,9 +384,121 @@ def figure_ledger(featured, checks, path):
     plt.close(fig)
 
 
+def load_history():
+    path = RUNS/'history.json'
+    if not path.exists():
+        return []
+    runs = json.loads(path.read_text())['runs']
+    for r in runs:
+        for k in ('t', 'd', 'tau', 'alive', 'cycle', 'J', 'x', 'clock', 'external', 'first_order', 'chronology_margin'):
+            r[k] = np.array([np.nan if v is None else v for v in r[k]] if k in
+                            ('clock', 'external', 'first_order', 'chronology_margin') else r[k], dtype=float
+                            if k != 'alive' else bool)
+        r['energy'] = {k: np.array(v) for k, v in r['energy'].items()}
+    return runs
+
+
+def history_name(r):
+    return dict(history_symmetric=f'symmetric, v = {r["v"]:.2f}', history_independent='unequal + off-circle kick',
+                history_lopsided='lopsided (0.45 / 0.15)')[r['tag']]
+
+
+def history_rows(runs):
+    rows = []
+    for r in runs:
+        births = [dict(time=0., speed=None)] + [e for e in r['events'] if e['kind'] == 'birth']
+        contacts = [e for e in r['events'] if e['kind'] == 'contact']
+        for c, (b, k) in enumerate(zip(births, contacts)):
+            sel = r['alive'] & (r['cycle'] == c)
+            ext = np.abs(r['external'][sel])
+            rows.append(dict(run=history_name(r), cycle=c, birth=b['time'], contact=k['time'],
+                             flight=k['time']-b['time'], contact_point=k['point'], contact_speed=k['speed'],
+                             max_offset=float(np.nanmax(ext)) if np.isfinite(ext).any() else 0.,
+                             offset_at_contact=float(k['clocks'][0]-k['clocks'][1]),
+                             min_margin=float(np.nanmin(r['chronology_margin'][sel])),
+                             released=k['energy'], rebirth_correction=None if b['speed'] is None else b['correction']))
+    return rows
+
+
+def history_table(rows):
+    lines = ['| run | cycle | born | contact | place | max throat offset | offset at contact | min chronology margin |',
+             '|---|---|---|---|---|---|---|---|']
+    for q in rows:
+        x, y, z = q['contact_point']
+        place = ('P' if z > .999 else '−P' if z < -.999 else
+                 f'circle, {np.degrees(np.arctan2(x, z)):.0f}° from P' if abs(y) < 1e-6 else 'off the circle')
+        lines.append(f"| {q['run']} | {q['cycle']+1} | {q['birth']:.2f} | {q['contact']:.2f} | {place} | "
+                     f"{q['max_offset']:.4f} | {q['offset_at_contact']:+.5f} | {q['min_margin']:.3f} |")
+    return '\n'.join(lines)
+
+
+def figure_history(runs, path):
+    fig, axes = plt.subplots(2, 2, figsize=(15, 9), gridspec_kw=dict(hspace=.38, wspace=.22))
+    ax = axes[0, 0]
+    for r, col in ((pick(runs, tag='history_symmetric', v=.30), COLORS['full']),
+                   (pick(runs, tag='history_symmetric', v=1/3), COLORS['dressed'])):
+        al = r['alive']
+        ax.plot(np.where(al, r['t'], np.nan), np.where(al, r['d'], np.nan), color=col, lw=1.3, label=history_name(r))
+        for e in r['events']:
+            ax.plot(e['time'], 2*A, '*' if e['kind'] == 'contact' else '^', color=col, ms=9 if e['kind'] == 'contact'
+                    else 6, mec='k', mew=.4)
+            if e['kind'] == 'contact':
+                ax.text(e['time'], 2*A-.22, 'P' if e['point'][2] > 0 else '−P', ha='center', fontsize=7, color=col)
+    ax.axhline(np.pi, color='k', lw=.4)
+    ax.set_ylim(0, 3.3)
+    ax.set_xlabel('time t')
+    ax.set_ylabel('separation d')
+    ax.set_title('(a) Repeated cycles: born touching (▲), contact (★), re-born at the antipode after π',
+                 fontsize=10)
+    ax.legend(fontsize=8, loc='upper right')
+    ax = axes[0, 1]
+    for r, col in ((pick(runs, tag='history_lopsided'), '#8e44ad'), (pick(runs, tag='history_independent'), '#e67e22'),
+                   (pick(runs, tag='history_symmetric', v=.30), COLORS['full'])):
+        ax.plot(r['t'], r['external'], color=col, lw=1.2, label=history_name(r))
+        for e in r['events']:
+            if e['kind'] == 'birth':
+                ax.axvline(e['time'], color=col, lw=.5, ls=':')
+    ax.axhline(0, color='k', lw=.4)
+    ax.set_xlabel('time t')
+    ax.set_ylabel('throat clock offset (external time)')
+    ax.set_title('(b) History offset: zero at every birth, set by the velocity history, back near zero at contact',
+                 fontsize=10)
+    ax.legend(fontsize=8)
+    ax = axes[1, 0]
+    for r, col in ((pick(runs, tag='history_lopsided'), '#8e44ad'), (pick(runs, tag='history_independent'), '#e67e22')):
+        al = r['alive']
+        ax.plot(np.where(al, r['t'], np.nan), np.where(al, r['d'] + r['neck_length'], np.nan), color=col, lw=1,
+                ls='--', label=f'{history_name(r)}: d + L_neck')
+        ax.plot(r['t'], np.abs(r['external']), color=col, lw=1.4, label=f'{history_name(r)}: |offset|')
+    ax.set_xlabel('time t')
+    ax.set_ylabel('external time')
+    ax.set_title('(c) Chronology check: a closed loop needs |offset| ≥ d + L_neck; the gap never closes', fontsize=10)
+    ax.legend(fontsize=7, loc='upper right')
+    ax = axes[1, 1]
+    r = pick(runs, tag='history_symmetric', v=.30)
+    E = r['energy']
+    ax.plot(r['t'], E['kinetic'], color=COLORS['full'], label='mouth kinetic')
+    ax.plot(r['t'], E['transverse'], color='#e67e22', label='transverse field (waves)')
+    ax.plot(r['t'], np.where(r['alive'], E['coulomb']-E['coulomb'][0], np.nan), color='k', lw=.9,
+            label='Coulomb (change from birth)')
+    births = [e for e in r['events'] if e['kind'] == 'birth']
+    for e in births:
+        ax.axvline(e['time'], color='k', lw=.4, ls=':')
+    ax.set_xlabel('time t')
+    ax.set_ylabel('energy')
+    ax.set_title('(d) Symmetric v = 0.30: each flight leaves energy in the waves, so each birth is slower',
+                 fontsize=10)
+    ax.legend(fontsize=8)
+    fig.savefig(path, dpi=110, bbox_inches='tight')
+    plt.close(fig)
+
+
 def main():
     scan, featured, retimed, checks = (load(p) for p in ('scan', 'featured', 'retimed', 'checks'))
+    history = load_history()
     IMAGES.mkdir(parents=True, exist_ok=True)
+    if history:
+        figure_history(history, IMAGES/'history.png')
     figure_timeline(featured, IMAGES/'timeline.png')
     figure_outcomes(scan, checks, IMAGES/'outcomes.png')
     figure_flash(featured, retimed, scan, IMAGES/'flash_returns.png')
@@ -413,12 +525,21 @@ def main():
         max_energy_drift=max(r['energy_drift'] for part in (scan, featured, retimed, checks) for r in part),
         max_mirror_asymmetry=max(max(r['asymmetry_coulomb'], r['asymmetry_exchange'], r['asymmetry_own'])
                                  for part in (scan, featured, retimed) for r in part),
-        tables=dict(outcomes=outcome_table(scan), ledger=ledger_table(scan), retimed=retimed_table(retimed, featured)))
+        history=dict(rows=history_rows(history),
+                     runs={f"{r['tag']} v={r['v']:.3f}": dict(energy_drift=r['energy_drift'],
+                                                             angular_drift=r['angular_drift'],
+                                                             max_external_offset=r['max_external_offset'],
+                                                             max_clock_difference=r['max_clock_difference'],
+                                                             min_chronology_margin=r['min_chronology_margin'],
+                                                             births=sum(e['kind'] == 'birth' for e in r['events'])+1)
+                           for r in history}) if history else None,
+        tables=dict(outcomes=outcome_table(scan), ledger=ledger_table(scan), retimed=retimed_table(retimed, featured),
+                    history=history_table(history_rows(history)) if history else None))
     (RUNS/'summary.json').write_text(json.dumps(report, indent=2, sort_keys=True)+'\n')
     files = sorted(RUNS.glob('*.json')) + sorted(IMAGES.glob('*.png'))
     (RUNS/'sha256.json').write_text(json.dumps({p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                                                 for p in files if p.name != 'sha256.json'}, indent=2)+'\n')
-    for k in ('outcomes', 'ledger', 'retimed'):
+    for k in ('outcomes', 'ledger', 'retimed', 'history'):
         print(report['tables'][k], '\n')
     print(json.dumps(dict(thresholds=report['thresholds'], barrier=report['coulomb_barrier'],
                           first_returns=stats, direct=report['direct_exchange'],

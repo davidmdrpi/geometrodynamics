@@ -869,6 +869,422 @@
     "0.450": 0.028706045,
     "0.500": 0.035439562
   },
+  "history": {
+    "rows": [
+      {
+        "birth": 0.0,
+        "contact": 10.256812243800525,
+        "contact_point": [
+          0.48493121965078057,
+          0.6043577739302891,
+          0.632133999479566
+        ],
+        "contact_speed": [
+          0.24941849514930076,
+          0.33953035399399534
+        ],
+        "cycle": 0,
+        "flight": 10.256812243800525,
+        "max_offset": 0.0453372115,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.006098941572917127,
+        "rebirth_correction": null,
+        "released": 2.193022684383974,
+        "run": "unequal + off-circle kick"
+      },
+      {
+        "birth": 13.398404897390058,
+        "contact": 22.047706743247883,
+        "contact_point": [
+          -0.6479608540190954,
+          -0.7605827118486904,
+          -0.040751320171701376
+        ],
+        "contact_speed": [
+          0.22027810659747737,
+          0.31204174232608906
+        ],
+        "cycle": 1,
+        "flight": 8.649301845857824,
+        "max_offset": 0.0482442895,
+        "min_margin": 1.15531753,
+        "offset_at_contact": -0.009245520520389405,
+        "rebirth_correction": 0.18914973762557288,
+        "released": 2.1778467391253193,
+        "run": "unequal + off-circle kick"
+      },
+      {
+        "birth": 25.189299396837416,
+        "contact": 32.87427675854965,
+        "contact_point": [
+          0.5711503437746874,
+          0.6924642582751127,
+          -0.4407726577472273
+        ],
+        "contact_speed": [
+          0.2054053233292768,
+          0.31944950540373546
+        ],
+        "cycle": 2,
+        "flight": 7.684977361712232,
+        "max_offset": 0.0481680569,
+        "min_margin": 1.15526066,
+        "offset_at_contact": -0.00927977899034449,
+        "rebirth_correction": 0.23852602822512983,
+        "released": 2.1769810387861606,
+        "run": "unequal + off-circle kick"
+      },
+      {
+        "birth": 36.015869412141974,
+        "contact": 43.048500713003506,
+        "contact_point": [
+          -0.4105872485237335,
+          -0.490682259330321,
+          0.7685369423314676
+        ],
+        "contact_speed": [
+          0.1700025393736844,
+          0.2987438583480186
+        ],
+        "cycle": 3,
+        "flight": 7.0326313008615315,
+        "max_offset": 0.0442124462,
+        "min_margin": 1.16423982,
+        "offset_at_contact": -0.0007284177181912099,
+        "rebirth_correction": 0.23691574901007076,
+        "released": 2.1643364728185306,
+        "run": "unequal + off-circle kick"
+      },
+      {
+        "birth": 46.19009336659583,
+        "contact": 53.21373919019131,
+        "contact_point": [
+          0.14444424765926317,
+          0.21071576000032588,
+          -0.9668168015739251
+        ],
+        "contact_speed": [
+          0.19843807313995196,
+          0.3141812548729733
+        ],
+        "cycle": 4,
+        "flight": 7.02364582359548,
+        "max_offset": 0.0405381487,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.0059790908221799555,
+        "rebirth_correction": 0.23100422606788532,
+        "released": 2.1740109239944245,
+        "run": "unequal + off-circle kick"
+      },
+      {
+        "birth": 0.0,
+        "contact": 12.260887803414807,
+        "contact_point": [
+          0.9233640323684593,
+          -5.310517576640063e-18,
+          -0.3839255966046791
+        ],
+        "contact_speed": [
+          0.11222252341529569,
+          0.4522836999218164
+        ],
+        "cycle": 0,
+        "flight": 12.260887803414807,
+        "max_offset": 0.2149563979,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.0003526186835607348,
+        "rebirth_correction": null,
+        "released": 2.210120552885996,
+        "run": "lopsided (0.45 / 0.15)"
+      },
+      {
+        "birth": 15.40248045700434,
+        "contact": 25.317270158949963,
+        "contact_point": [
+          0.4088170453978454,
+          1.9392945282939886e-19,
+          0.9126163615628289
+        ],
+        "contact_speed": [
+          0.07157523339058613,
+          0.4113005579334102
+        ],
+        "cycle": 1,
+        "flight": 9.914789701945622,
+        "max_offset": 0.1702021109,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.0010052781988623138,
+        "rebirth_correction": 0.49032653941292603,
+        "released": 2.190157597549694,
+        "run": "lopsided (0.45 / 0.15)"
+      },
+      {
+        "birth": 28.458862812539497,
+        "contact": 35.27324401977769,
+        "contact_point": [
+          -0.9993655164964242,
+          1.1975871956868271e-17,
+          -0.03561691224453955
+        ],
+        "contact_speed": [
+          0.07966352946834761,
+          0.4343595208860604
+        ],
+        "cycle": 2,
+        "flight": 6.8143812072381955,
+        "max_offset": 0.114599701,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.0005892724792797566,
+        "rebirth_correction": 0.48547010499375975,
+        "released": 2.199747300311029,
+        "run": "lopsided (0.45 / 0.15)"
+      },
+      {
+        "birth": 38.41483667337002,
+        "contact": 44.55268554497178,
+        "contact_point": [
+          0.5656287509164469,
+          2.4467794292860562e-18,
+          -0.8246600003254069
+        ],
+        "contact_speed": [
+          0.07494467538235325,
+          0.4198844867609029
+        ],
+        "cycle": 3,
+        "flight": 6.137848871601761,
+        "max_offset": 0.0937875947,
+        "min_margin": 1.16382724,
+        "offset_at_contact": -0.0010816751511111278,
+        "rebirth_correction": 0.49862680579131446,
+        "released": 2.1936980154140717,
+        "run": "lopsided (0.45 / 0.15)"
+      },
+      {
+        "birth": 47.694278198564106,
+        "contact": 52.81718905995473,
+        "contact_point": [
+          0.2365313316499518,
+          -1.0118301724844657e-17,
+          0.9716238619691782
+        ],
+        "contact_speed": [
+          0.040698605453941064,
+          0.38650705047839584
+        ],
+        "cycle": 4,
+        "flight": 5.122910861390622,
+        "max_offset": 0.071508465,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.0007023768874647729,
+        "rebirth_correction": 0.48631222599583046,
+        "released": 2.179241422557938,
+        "run": "lopsided (0.45 / 0.15)"
+      },
+      {
+        "birth": 0.0,
+        "contact": 10.780677970588515,
+        "contact_point": [
+          0.0,
+          -2.8184445937583683e-18,
+          1.0
+        ],
+        "contact_speed": [
+          0.29039366146593154,
+          0.29039366146593154
+        ],
+        "cycle": 0,
+        "flight": 10.780677970588515,
+        "max_offset": 0.0,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.0,
+        "rebirth_correction": null,
+        "released": 2.188940456491504,
+        "run": "symmetric, v = 0.30"
+      },
+      {
+        "birth": 13.922270624178049,
+        "contact": 23.066879578325445,
+        "contact_point": [
+          0.0,
+          -1.3739459376346719e-17,
+          -1.0
+        ],
+        "contact_speed": [
+          0.27191304231850927,
+          0.27191304231850927
+        ],
+        "cycle": 1,
+        "flight": 9.144608954147396,
+        "max_offset": 0.0,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.0,
+        "rebirth_correction": 0.0,
+        "released": 2.178936918348321,
+        "run": "symmetric, v = 0.30"
+      },
+      {
+        "birth": 26.20847223191498,
+        "contact": 34.21935259063777,
+        "contact_point": [
+          0.0,
+          -6.0643628643876854e-18,
+          1.0
+        ],
+        "contact_speed": [
+          0.25421111132838003,
+          0.25421111132838003
+        ],
+        "cycle": 2,
+        "flight": 8.01088035872279,
+        "max_offset": 0.0,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.0,
+        "rebirth_correction": 0.0,
+        "released": 2.169930249564932,
+        "run": "symmetric, v = 0.30"
+      },
+      {
+        "birth": 37.360945244230095,
+        "contact": 44.68022643588541,
+        "contact_point": [
+          0.0,
+          -5.2680318121066126e-18,
+          -1.0
+        ],
+        "contact_speed": [
+          0.2271292012721246,
+          0.2271292012721246
+        ],
+        "cycle": 3,
+        "flight": 7.319281191655314,
+        "max_offset": 0.0,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.0,
+        "rebirth_correction": 0.0,
+        "released": 2.1572575509990144,
+        "run": "symmetric, v = 0.30"
+      },
+      {
+        "birth": 47.821819089477735,
+        "contact": 54.08369900528964,
+        "contact_point": [
+          0.0,
+          -3.4585640036484764e-18,
+          1.0
+        ],
+        "contact_speed": [
+          0.23728667269560336,
+          0.23728667269560336
+        ],
+        "cycle": 4,
+        "flight": 6.261879915811903,
+        "max_offset": 0.0,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.0,
+        "rebirth_correction": 0.0,
+        "released": 2.1618525316926367,
+        "run": "symmetric, v = 0.30"
+      },
+      {
+        "birth": 0.0,
+        "contact": 26.919983321957833,
+        "contact_point": [
+          0.0,
+          2.3524213083495714e-17,
+          1.0
+        ],
+        "contact_speed": [
+          0.3220556570788421,
+          0.3220556570788421
+        ],
+        "cycle": 0,
+        "flight": 26.919983321957833,
+        "max_offset": 0.0,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.0,
+        "rebirth_correction": null,
+        "released": 2.207480008992448,
+        "run": "symmetric, v = 0.33"
+      },
+      {
+        "birth": 30.061575975547367,
+        "contact": 43.31694593088988,
+        "contact_point": [
+          0.0,
+          -5.42805218438223e-17,
+          -1.0
+        ],
+        "contact_speed": [
+          0.26881936719838556,
+          0.26881936719838556
+        ],
+        "cycle": 1,
+        "flight": 13.255369955342513,
+        "max_offset": 0.0,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.0,
+        "rebirth_correction": 0.0,
+        "released": 2.1773220505128523,
+        "run": "symmetric, v = 0.33"
+      },
+      {
+        "birth": 46.458538584482206,
+        "contact": 54.88299594339155,
+        "contact_point": [
+          0.0,
+          4.6401336903110626e-17,
+          1.0
+        ],
+        "contact_speed": [
+          0.27256696831506494,
+          0.27256696831506494
+        ],
+        "cycle": 2,
+        "flight": 8.424457358909343,
+        "max_offset": 0.0,
+        "min_margin": 1.165,
+        "offset_at_contact": 0.0,
+        "rebirth_correction": 0.0,
+        "released": 2.1792804645956556,
+        "run": "symmetric, v = 0.33"
+      }
+    ],
+    "runs": {
+      "history_independent v=0.300": {
+        "angular_drift": 1.1645686068262329e-08,
+        "births": 5,
+        "energy_drift": 3.961682780998941e-07,
+        "max_clock_difference": 0.04810643448148966,
+        "max_external_offset": 0.04824635336638394,
+        "min_chronology_margin": 1.1552606577334652
+      },
+      "history_lopsided v=0.300": {
+        "angular_drift": 2.5525962732420027e-08,
+        "births": 5,
+        "energy_drift": 5.007918032209762e-07,
+        "max_clock_difference": 0.21214950056847304,
+        "max_external_offset": 0.21496239008185825,
+        "min_chronology_margin": 1.163827235565194
+      },
+      "history_symmetric v=0.300": {
+        "angular_drift": 5.8301812060666856e-18,
+        "births": 5,
+        "energy_drift": 4.0994670628652383e-07,
+        "max_clock_difference": 0.0,
+        "max_external_offset": 0.0,
+        "min_chronology_margin": 1.1649999999999991
+      },
+      "history_symmetric v=0.333": {
+        "angular_drift": 2.6791384106635963e-18,
+        "births": 3,
+        "energy_drift": 3.415193753328324e-07,
+        "max_clock_difference": 0.0,
+        "max_external_offset": 0.0,
+        "min_chronology_margin": 1.165
+      }
+    }
+  },
   "max_energy_drift": 2.417270867442396e-07,
   "max_mirror_asymmetry": 0.0,
   "retimed": [
@@ -944,6 +1360,7 @@
     }
   ],
   "tables": {
+    "history": "| run | cycle | born | contact | place | max throat offset | offset at contact | min chronology margin |\n|---|---|---|---|---|---|---|---|\n| unequal + off-circle kick | 1 | 0.00 | 10.26 | off the circle | 0.0453 | +0.00610 | 1.165 |\n| unequal + off-circle kick | 2 | 13.40 | 22.05 | off the circle | 0.0482 | -0.00925 | 1.155 |\n| unequal + off-circle kick | 3 | 25.19 | 32.87 | off the circle | 0.0482 | -0.00928 | 1.155 |\n| unequal + off-circle kick | 4 | 36.02 | 43.05 | off the circle | 0.0442 | -0.00073 | 1.164 |\n| unequal + off-circle kick | 5 | 46.19 | 53.21 | off the circle | 0.0405 | +0.00598 | 1.165 |\n| lopsided (0.45 / 0.15) | 1 | 0.00 | 12.26 | circle, 113\u00b0 from P | 0.2150 | +0.00035 | 1.165 |\n| lopsided (0.45 / 0.15) | 2 | 15.40 | 25.32 | circle, 24\u00b0 from P | 0.1702 | +0.00101 | 1.165 |\n| lopsided (0.45 / 0.15) | 3 | 28.46 | 35.27 | circle, -92\u00b0 from P | 0.1146 | +0.00059 | 1.165 |\n| lopsided (0.45 / 0.15) | 4 | 38.41 | 44.55 | circle, 146\u00b0 from P | 0.0938 | -0.00108 | 1.164 |\n| lopsided (0.45 / 0.15) | 5 | 47.69 | 52.82 | circle, 14\u00b0 from P | 0.0715 | +0.00070 | 1.165 |\n| symmetric, v = 0.30 | 1 | 0.00 | 10.78 | P | 0.0000 | +0.00000 | 1.165 |\n| symmetric, v = 0.30 | 2 | 13.92 | 23.07 | \u2212P | 0.0000 | +0.00000 | 1.165 |\n| symmetric, v = 0.30 | 3 | 26.21 | 34.22 | P | 0.0000 | +0.00000 | 1.165 |\n| symmetric, v = 0.30 | 4 | 37.36 | 44.68 | \u2212P | 0.0000 | +0.00000 | 1.165 |\n| symmetric, v = 0.30 | 5 | 47.82 | 54.08 | P | 0.0000 | +0.00000 | 1.165 |\n| symmetric, v = 0.33 | 1 | 0.00 | 26.92 | P | 0.0000 | +0.00000 | 1.165 |\n| symmetric, v = 0.33 | 2 | 30.06 | 43.32 | \u2212P | 0.0000 | +0.00000 | 1.165 |\n| symmetric, v = 0.33 | 3 | 46.46 | 54.88 | P | 0.0000 | +0.00000 | 1.165 |",
     "ledger": "| v | kinetic at birth | birth flash | kinetic at contact | transverse field at contact | released |\n|---|---|---|---|---|---|\n| 0.200 | 0.0412 | 0.0057 | 0.0296 | 0.0116 | 2.1360 |\n| 0.250 | 0.0656 | 0.0089 | 0.0642 | 0.0014 | 2.1705 |\n| 0.280 | 0.0833 | 0.0111 | 0.0615 | 0.0218 | 2.1679 |\n| 0.300 | 0.0966 | 0.0128 | 0.0826 | 0.0139 | 2.1889 |\n| 0.320 | 0.1110 | 0.0145 | 0.0917 | 0.0193 | 2.1980 |\n| 0.333 | 0.1213 | 0.0158 | 0.1012 | 0.0202 | 2.2075 |\n| 0.340 | 0.1267 | 0.0164 | 0.1171 | 0.0096 | 2.2234 |\n| 0.360 | 0.1437 | 0.0184 | 0.1168 | 0.0269 | 2.2231 |\n| 0.400 | 0.1822 | 0.0227 | 0.1249 | 0.0573 | 2.2312 |\n| 0.450 | 0.2396 | 0.0287 | 0.1901 | 0.0495 | 2.2964 |\n| 0.500 | 0.3094 | 0.0354 | 0.2343 | 0.0751 | 2.3406 |",
     "outcomes": "| v | free (q = 0) | full field | no flash | instantaneous Coulomb |\n|---|---|---|---|---|\n| 0.200 | 12.71 at \u2212P | 3.85 at P | 4.83 at P | 4.07 at P |\n| 0.250 | 10.17 at \u2212P | 6.12 at P | 8.36 at P | 6.69 at P |\n| 0.280 | 9.08 at \u2212P | 8.36 at P | 13.21 at P | 9.64 at P |\n| 0.300 | 8.47 at \u2212P | 10.78 at P | 33.90 at P | 13.52 at P |\n| 0.320 | 7.94 at \u2212P | 15.30 at P | 14.71 at \u2212P | 23.36 at \u2212P |\n| 0.333 | 7.62 at \u2212P | 26.92 at P | 12.43 at \u2212P | 15.07 at \u2212P |\n| 0.340 | 7.48 at \u2212P | 21.38 at \u2212P | 11.66 at \u2212P | 13.57 at \u2212P |\n| 0.360 | 7.06 at \u2212P | 13.94 at \u2212P | 9.99 at \u2212P | 10.97 at \u2212P |\n| 0.400 | 6.35 at \u2212P | 9.89 at \u2212P | 8.02 at \u2212P | 8.44 at \u2212P |\n| 0.450 | 5.65 at \u2212P | 7.76 at \u2212P | 6.60 at \u2212P | 6.79 at \u2212P |\n| 0.500 | 5.08 at \u2212P | 6.44 at \u2212P | 5.67 at \u2212P | 5.77 at \u2212P |",
     "retimed": "| v | flash after t = 3 | returns shift | energy change at t = 3 | contact |\n|---|---|---|---|---|\n| 0.300 | natural | 0 | 0 | 10.78 at P |\n| 0.300 | absorbed | \u2014 | -0.0113 | 10.31 at P |\n| 0.300 | re-timed | +1.0 (later) | +0.0004 | 11.14 at P |\n| 0.300 | re-timed | +0.5 (later) | -0.0028 | 11.05 at P |\n| 0.300 | re-timed | -0.5 (earlier) | +0.0048 | 10.40 at P |\n| 0.300 | re-timed | -1.0 (earlier) | +0.0042 | 9.98 at P |\n| 0.333 | natural | 0 | 0 | 26.92 at P |\n| 0.333 | absorbed | \u2014 | -0.0145 | 20.81 at P |\n| 0.333 | re-timed | +1.0 (later) | +0.0020 | 27.22 at \u2212P |\n| 0.333 | re-timed | +0.5 (later) | -0.0024 | 30.78 at \u2212P |\n| 0.333 | re-timed | -0.5 (earlier) | +0.0045 | 21.09 at P |\n| 0.333 | re-timed | -1.0 (earlier) | +0.0028 | 18.12 at P |"
