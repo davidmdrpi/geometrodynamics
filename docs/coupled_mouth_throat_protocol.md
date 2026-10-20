@@ -1,5 +1,16 @@
 # Coupled mouth–throat candidate: protocol before running
 
+**Review correction (2026-10-20):** This document preserves the frozen
+constitutive experiment, including its imposed offset and original gates.
+It is not a physically history-generated MTY model. The archived angular
+"reaction" closes a coordinate canonical balance; it does not establish a
+physical support torque. The instantaneous radius gate does not distinguish
+oscillation from secular contraction. The [review response](reviews/pr346/response.md)
+and [corrected results](coupled_mouth_throat_results.md) supersede those physical
+interpretations. No equation, parameter, archive or original verdict is changed
+by this correction. Proper-time matching, a derived clock-work ledger and a
+calibrated neck channel remain requirements for a new experiment.
+
 **History and disclosure (2026-10-20):** The original protocol was committed
 locally before pilots; its GitHub publication at `5c6e971` occurred after those
 pilots. It is a locally frozen protocol, not independent external preregistration.
