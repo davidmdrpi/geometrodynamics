@@ -1,5 +1,13 @@
 # History-coupled throat: constitutive action and frozen first test
 
+**Paired-refinement amendment:** after the baseline pilot and first low-resolution
+controls, but before any higher-resolution case, add high-resolution g=0,
+blocked-neck and reversed-time controls with the same l_max=12/nodes=25/spacing=.01.
+This addresses a concrete ambiguity: a baseline resolution change alone cannot
+establish that the much smaller transmitting-minus-blocked effect survives.
+No physical parameter, original control, convergence threshold or success
+criterion changes. The first protocol was published as `6588ff0` before pilots.
+
 This is a new classical effective model, stacked on #346. It tests reciprocal
 surface/throat waves acting on independently moving mouths. It does not claim
 GR wormhole support, a QED derivation, particle quantization or topology change.
