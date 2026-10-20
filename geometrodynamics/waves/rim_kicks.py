@@ -1,4 +1,4 @@
-"""Angular kicks a scalar wave hands to the two mouths of a glued handled sphere.
+"""Angular momentum a scalar wave hands to the two mouth rims of a glued handled sphere.
 
 The surface is ``viz.klein_handles.build_surface`` (#338): a unit sphere with one
 antipodal mouth pair, A at ``+AXIS`` and B at ``-AXIS``, joined by the finite
@@ -7,28 +7,32 @@ catenoid neck ``r(s) = sqrt(s^2 + b^2)``. The gluing is orientation-reversing
 The field obeys ``u_tt = Delta u - m2 u`` on the intrinsic cotangent mesh with
 lumped mass. Nothing here is fitted, and no quantization rule is used.
 
-Kick bookkeeping
-----------------
+Rim momentum flux
+-----------------
 Rotations are Killing fields on the sphere band (the sphere minus both mouth
 caps). For each generator ``xi_k = e_k x p`` the density ``l_k = -u_t (xi_k . grad u)``
 obeys ``d_t l_k + div S_k = 0`` with
 
     S_k = grad u (xi_k . grad u) - xi_k (|grad u|^2 + m2 u^2 - u_t^2) / 2 .
 
-The kick on a mouth is the angular momentum the band hands to its rim. For a
-weight ``chi`` that is 1 on that rim and 0 near the other mouth,
+``J`` is the angular momentum the band hands to a rim: the momentum leaving the
+sphere subdomain there. For a weight ``chi`` that is 1 on that rim and 0 near the
+other mouth,
 
     J(T) = int_0^T dt int grad chi . S_k dA  -  [ int chi l_k dA ]_0^T ,
 
-which needs only area integrals. The geometry is held fixed, so this is the
-leading-order kick. Each mouth is treated as its own body: neck stiffness is not
-modelled. An angular impulse J moves A (at +AXIS) along ``J x AXIS`` and B (at
--AXIS) along ``J x (-AXIS)``.
+which needs only area integrals; the geometry is held fixed.
 
-From antipodes the separation is ``pi - |a + b|`` to first order in the two
-displacements, so any kick that is not a rigid rotation brings the mouths
-closer. Whether the mouths close in together is the sign of ``a . b``:
-``follow = a . b / |a|^2 > 0`` means B moves the same way as A.
+J is not a body impulse. The field continues through the rim into the neck, so
+part of J is momentum carried into or stored in the throat, and no mouth action
+is specified here. Reading J as a mechanical kick on a mouth needs either a
+two-sided control volume around the mouth or forces from an action with
+independent mouth coordinates; neither is done here. ``displacements`` and
+``follow`` state what J would do *if* each rim's flux acted on its mouth as a
+rigid body: A (at +AXIS) would move along ``J x AXIS`` and B (at -AXIS) along
+``J x (-AXIS)``. From antipodes the separation is then ``pi - |a + b|`` to first
+order, and ``follow = a . b / |a|^2 > 0`` means the two rim fluxes point the same
+ambient way.
 
 Flux through the throat
 -----------------------
@@ -36,8 +40,8 @@ A massless field (``m2 = 0``) admits a static harmonic field whose potential has
 a period around the loop through the handle and back over the sphere: Wheeler's
 "charge without charge" for a scalar potential. ``FluxField`` gives it in closed
 form. Field lines leave one mouth into the sphere and enter the other, so the
-mouths act as a source and a sink. The kick then gains a term bilinear in that
-field and the wave, which flips sign with either one; ``RimKicks.cross_rates``
+mouths act as a source and a sink. The rim flux then gains a term bilinear in
+that field and the wave, which flips sign with either one; ``RimKicks.cross_rates``
 evaluates it.
 
 Clock offsets
@@ -45,18 +49,20 @@ Clock offsets
 ``offset_history`` runs #338's ``HandleWaveSim`` with a mouth clock offset (the
 Morris-Thorne-Yurtsever ingredient): a signal crossing the neck from A to B
 emerges ``offset`` later in external time, earlier when the offset is negative.
-The band is static in external time, so the same kick bookkeeping applies to
-the external-time frames.
+The band is static in external time, so the same rim-flux bookkeeping applies to
+the external-time frames. A constant offset shifts when a component re-emerges
+(its phase); it does not change its amplitude (gain).
 """
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Optional, Sequence
 
 import numpy as np
 import scipy.sparse as sp
 
-from geometrodynamics.viz.klein_handles import HandledSphere, HandleSpec, HandleWaveSim, build_surface
+from geometrodynamics.viz.klein_handles import HandledSphere, HandleSpec, HandleWaveSim, build_surface, source_clock
 
 AXIS = np.array([1.0, 0.0, 0.0])
 MOUTH_ANGLE = 0.3
@@ -85,7 +91,7 @@ def mouth_frame(surf: HandledSphere):
 
 
 class RimKicks:
-    """Band operators and rim weights for the angular kick bookkeeping."""
+    """Band operators and rim weights for the rim momentum flux bookkeeping."""
 
     def __init__(self, surf: HandledSphere, m2: float = 0.25, weight=(0.35, 0.9)):
         self.surf, self.m2 = surf, float(m2)
@@ -146,7 +152,7 @@ class RimKicks:
 
 
 class KickLedger:
-    """Trapezoid accumulation of rim kicks along a sampled (u, u_t) history."""
+    """Trapezoid accumulation of rim momentum fluxes along a sampled (u, u_t) history."""
 
     def __init__(self, kicks: RimKicks, static: Optional[np.ndarray] = None):
         self.k, self.static = kicks, static
@@ -184,7 +190,8 @@ class KickLedger:
 
 @dataclass
 class KickHistory:
-    """Cumulative rim kicks: ``J[i, m]`` is mouth m's (0 = A, 1 = B) angular impulse at ``t[i]``."""
+    """Cumulative rim momentum flux: ``J[i, m]`` is the angular momentum the band has handed to rim m
+    (0 = A, 1 = B) by ``t[i]``. Not a body impulse (see the module docstring)."""
 
     t: np.ndarray
     J: np.ndarray
@@ -198,7 +205,7 @@ class KickHistory:
 
 
 class GluedWave:
-    """Direct leapfrog evolution on the glued surface, with the kick ledger run every step."""
+    """Direct leapfrog evolution on the glued surface, with the rim-flux ledger run every step."""
 
     def __init__(self, surf: HandledSphere, m2: float = 0.25, weight=(0.35, 0.9)):
         self.surf, self.m2 = surf, float(m2)
@@ -322,51 +329,91 @@ def offset_history(surf: HandledSphere, source, offsets: Sequence[float] = (), w
                    weight=(0.35, 0.9)):
     """Release a bump at ``source`` with #338's HandleWaveSim and mouth clock offsets.
 
-    The field is massless (HandleWaveSim solves u_tt = Delta u). Kicks are taken from
-    the external-time frames on the band, with u_t by central differences, and are
-    normalised to unit wave energy (the cross term to unit wave and unit flux energy).
-    Frames ``frame_dt`` apart reproduce the direct leapfrog kicks to 0.5%. ``info`` also
-    gives the first external time the field at each rim exceeds HandleWaveSim's arrival
-    threshold (0.5% of the launch amplitude). Returns (KickHistory, info).
+    The field is massless (HandleWaveSim solves u_tt = Delta u). Rim fluxes are taken
+    from the external-time frames on the band and normalised to unit wave energy (the
+    cross term to unit wave and unit flux energy). ``info`` also gives the first
+    external time the field at each rim exceeds HandleWaveSim's arrival threshold
+    (0.5% of the launch amplitude). Returns (KickHistory, info); with a list of rim
+    weights, a list of histories from the same run.
+
+    The release is an initial condition: the bump appears at rest at t = 0 on the
+    source disk, where the clock is held at zero. With an offset, HandleWaveSim's
+    external-time frames start before t = 0 and are zero-padded there, so the field
+    at the source jumps at t = 0. That jump is not differentiated: t = 0 is placed on
+    the frame grid, the ledger is advanced to the pre-release state (source zero),
+    the bump is inserted with its true initial velocity (zero), and source velocities
+    after the release are differenced from the post-release frames only.
     """
     offsets = tuple(float(o) for o in offsets)
-    span = t_max + max([0.0] + [-o for o in offsets]) + 0.1
-    sim = HandleWaveSim(surf, source=source, width=width, t_max=t_max, n_frames=int(np.ceil(span / frame_dt)) + 1,
-                        offsets=offsets if any(offsets) else None)
+    clock = source_clock(surf, source, offsets if any(offsets) else (), width=width)
+    lo = min(0.0, float(clock.display.min()))
+    t_min = math.floor(lo / 0.05) * 0.05 if lo < 0 else 0.0          # HandleWaveSim's own choice
+    before = int(round(-t_min / frame_dt))
+    step = -t_min / before if before else frame_dt                  # puts t = 0 on the grid
+    n_frames = before + int(np.ceil(t_max / step)) + 1
+    sim = HandleWaveSim(surf, source=source, width=width, t_max=t_min + (n_frames - 1) * step, n_frames=n_frames,
+                        clock=clock)
+    if abs(sim.t_min - t_min) > 1e-12:
+        raise RuntimeError("frame grid does not match HandleWaveSim's start time")
     sim.run()
     K, _ = surf.operators()
-    u0 = sim.initial()
-    e0 = 0.5 * float(u0 @ (K @ u0))
     n = surf.n_vertices
-    U = sim.frames[:, :n].astype(float)
+    u0 = sim.initial()[:n]
+    e0 = 0.5 * float(u0 @ (K @ u0))
+    src = np.flatnonzero(u0)
+    if np.abs(clock.display[:n][src]).max() > 1e-12:
+        raise RuntimeError("the release must lie where the clock is held at zero")
     t = np.asarray(sim.times, float)
+    i0 = int(np.argmin(np.abs(t)))
+    t[i0] = 0.0
+    U = sim.frames[:, :n].astype(float)
     V = np.gradient(U, t, axis=0, edge_order=2)
-    kicks = RimKicks(surf, m2=0.0, weight=weight)
-    static = flux.band_gradient(kicks) / np.sqrt(flux.energy) if flux is not None else None
-    ledger = KickLedger(kicks, static)
+    post = U[i0:, src].copy()
+    post[0] = u0[src]
+    U[:i0 + 1, src] = 0.0                                            # before the release: padding only
+    V[:i0 + 1, src] = 0.0
+    if len(post) > 2:
+        V[i0:, src] = np.gradient(post, t[i0:], axis=0, edge_order=2)
+    V[i0, src] = 0.0                                                 # released at rest
+    weights = list(weight) if isinstance(weight[0], (tuple, list)) else [weight]
+    ledgers = []
+    for w in weights:
+        kicks = RimKicks(surf, m2=0.0, weight=w)
+        static = flux.band_gradient(kicks) / np.sqrt(flux.energy) if flux is not None else None
+        ledgers.append(KickLedger(kicks, static))
+    after = U[i0].copy()
+    after[src] = u0[src]
     for i in range(len(t)):
-        ledger.push(float(t[i]), U[i], V[i])
-    h = ledger.history()
-    h.J = h.J / e0
-    h.L = h.L / e0
-    if h.Jx is not None:
-        h.Jx = h.Jx / np.sqrt(e0)
-        h.Lx = h.Lx / np.sqrt(e0)
+        for ledger in ledgers:
+            if i == i0:
+                ledger.push(0.0, U[i], V[i], record=False)            # pre-release state at t = 0
+                ledger.push(0.0, after, V[i])
+            else:
+                ledger.push(float(t[i]), U[i], V[i])
+    hs = []
+    for ledger in ledgers:
+        h = ledger.history()
+        h.J = h.J / e0
+        h.L = h.L / e0
+        if h.Jx is not None:
+            h.Jx = h.Jx / np.sqrt(e0)
+            h.Lx = h.Lx / np.sqrt(e0)
+        hs.append(h)
     ra, rb = surf.rims[0] if surf.rims else (np.array([], int), np.array([], int))
     first = lambda ids: float(np.nanmin(sim.arrival[ids])) if len(ids) and np.isfinite(sim.arrival[ids]).any() else None
     info = dict(offsets=list(offsets), tilt=float(sim.clock.tilt), energy_drift=float(sim.energy_drift),
-                t_min=float(sim.t_min), dt=float(sim.dt), wave_energy=e0,
+                t_min=float(sim.t_min), dt=float(sim.dt), frame_dt=float(step), wave_energy=e0,
                 arrival_rim_A=first(ra), arrival_rim_B=first(rb), arrival_threshold=float(sim.threshold))
-    return h, info
+    return (hs if len(weights) > 1 else hs[0]), info
 
 
 def displacements(J: np.ndarray):
-    """Ambient displacement directions of A and B from angular impulses ``J[..., m, :]``."""
+    """Ambient directions A and B would move in if each rim's flux ``J[..., m, :]`` acted on its mouth as a rigid body."""
     a = np.cross(J[..., 0, :], AXIS)
     b = np.cross(J[..., 1, :], -AXIS)
     return a, b
 
 
 def follow(a: np.ndarray, b: np.ndarray) -> float:
-    """b . a / |a|^2: positive when B moves the same way as A, so the mouths close in together."""
+    """b . a / |a|^2: positive when the two rim fluxes point the same ambient way (common mode)."""
     return float(b @ a / (a @ a))

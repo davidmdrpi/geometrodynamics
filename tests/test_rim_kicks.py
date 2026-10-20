@@ -122,3 +122,31 @@ def test_negative_offset_reemits_through_mouth_b_earlier(klein):
     assert info[-1.]['tilt'] < .95
     assert abs(info[-1.]['arrival_rim_A']-info[0.]['arrival_rim_A']) < .05     # entry at A is unchanged
     assert abs((info[-1.]['arrival_rim_B']-info[0.]['arrival_rim_B'])+1.) < .1  # exit at B is one unit earlier
+
+
+def test_offset_release_is_not_differentiated_across_the_padding(klein):
+    """With an offset the external-time frames are zero-padded before the release at t = 0.
+
+    The jump at the source must not enter the rim flux: before any wave reaches a rim the
+    flux stays small and does not grow as the frames are refined (it grew as 1/frame_dt).
+    """
+    src = release_source(0., 1., klein)
+    a = []
+    for frame_dt in (.005, .0025, .00125):
+        h, info = offset_history(klein, src, (-1.,), t_max=.12, frame_dt=frame_dt)
+        assert info['t_min'] < 0
+        a.append(displacements(h.J[h.at(.02)])[0])
+    assert np.abs(np.array(a)).max() < 1e-4
+    assert np.abs(a[0]-a[2]).max() < 1e-5
+
+
+def test_offset_flux_converges_in_frame_spacing_and_rim_weight():
+    s = glued_surface('klein', n_sphere=6000, n_ring=24, ds=.03)
+    src = release_source(0., 1., s)
+    weights = [(.35, .9), (.35, .65)]
+    coarse, _ = offset_history(s, src, (-1.,), width=.5, t_max=2., frame_dt=.005, weight=weights)
+    fine, _ = offset_history(s, src, (-1.,), width=.5, t_max=2., frame_dt=.0025, weight=weights)
+    ref = fine[0].J[fine[0].at(2.)]
+    scale = np.abs(ref).max()
+    assert np.abs(coarse[0].J[coarse[0].at(2.)]-ref).max() < .02*scale
+    assert np.abs(fine[1].J[fine[1].at(2.)]-ref).max() < .08*scale

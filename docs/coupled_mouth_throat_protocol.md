@@ -1,5 +1,25 @@
 # Coupled mouth–throat candidate: protocol before running
 
+**History and disclosure (2026-10-20):** The original protocol was committed
+locally before pilots; its GitHub publication at `5c6e971` occurred after those
+pilots. It is a locally frozen protocol, not independent external preregistration.
+After the pilots, the horizon was extended from 6π to **8π for every production
+case**: three complete acceleration windows had left no later interval in which
+to test the subsequent collapse. Equations, parameters, controls and the first
+three-window acceleration criterion were unchanged. The initial 6π wording is
+retained below to make this amendment visible. The numerical window thresholds
+used in the original experiment and replay are Δseparation < −0.001 rad and
+Δcombined speed > 0.001; those tolerances were not specified in the original
+published prose and are additional implementation choices, not preregistered
+thresholds. All baseline window separation changes are positive, so this
+distinction does not affect its rejection.
+
+The unpublished implementation was lost in a session reset. The reconstruction
+uses this action and the preserved binary initial states as recovery checks;
+it does not reselect the parameters. See the results document for the recovery
+provenance and full replay comparisons. No claim of an independent replication
+is made by reconstructing the same equations against their earlier output.
+
 This is an effective classical **port model**, not a moving excised-cap mesh,
 GR solution, or QED derivation. It adds independent meridional mouth positions
 and a positive-radius neck degree of freedom to one coupled sphere/interval
