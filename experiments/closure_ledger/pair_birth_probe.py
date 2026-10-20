@@ -6,21 +6,27 @@
     python experiments/closure_ledger/pair_birth_probe.py retimed    # same birth, flash removed or re-timed at t = 3
     python experiments/closure_ledger/pair_birth_probe.py checks     # step, cutoff, free motion, independent mouths
     python experiments/closure_ledger/pair_birth_probe.py history    # repeated cycles with history clocks
+    python experiments/closure_ledger/pair_birth_probe.py neck       # neck channel: clock history, off, reversed
+    python experiments/closure_ledger/pair_birth_probe.py neck_checks    # port stiffness, nodes, step
 
 Each part writes JSON to experiments/closure_ledger/runs/20261019_pair_birth/.
 Model: geometrodynamics/waves/pair_birth.py. Write-up: docs/pair_birth_timeline.md.
-Runs use four worker processes.
+Runs use four worker processes, each with single-threaded BLAS.
 """
 import json
+import os
 import sys
 import time
+
+for _var in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS'):
+    os.environ.setdefault(_var, '1')
 from dataclasses import replace
 from multiprocessing import Pool
 from pathlib import Path
 
 import numpy as np
 
-from geometrodynamics.waves.pair_birth import (PairBirth, Parameters, birth_positions, circle_angle,
+from geometrodynamics.waves.pair_birth import (NeckChannel, PairBirth, Parameters, birth_positions, circle_angle,
                                                front_crossings)
 
 OUT = Path(__file__).resolve().parent/'runs'/'20261019_pair_birth'
@@ -149,15 +155,18 @@ def job(args):
 
 
 HISTORY_END = 60.
+NECK = dict(port=100., nodes=65)    # port stiffness and neck nodes (calibration: neck_checks)
 
 
 def history_job(args):
-    """Several birth-to-annihilation cycles, with each mouth's proper time recorded."""
-    tag, v, cycles, velocities, every = args
-    m = PairBirth(Parameters())
+    """Several birth-to-annihilation cycles, with each mouth's proper time recorded. With a
+    neck (a dict of NeckChannel fields) the offset acts back through the neck channel."""
+    tag, v, cycles, velocities, every, *more = args
+    neck, end, dt = (more + [None, HISTORY_END, DT][len(more):])[:3]
+    m = PairBirth(Parameters(), None if neck is None else NeckChannel(**neck))
     s0 = m.initial(v) if velocities is None else m.initial(velocities=velocities)
     t0 = time.time()
-    h, info = m.run_history(s0, HISTORY_END, cycles=cycles, dt=DT, output_dt=OUTPUT_DT)
+    h, info = m.run_history(s0, end, cycles=cycles, dt=dt, output_dt=OUTPUT_DT)
     keep = np.zeros(len(h['t']), bool)
     keep[::every] = True
     keep[-1] = True
@@ -166,7 +175,7 @@ def history_job(args):
     def r(a, k=7):
         a = np.round(np.asarray(a, float)[keep], k)
         return [None if np.isnan(v_) else v_ for v_ in a.tolist()] if a.ndim == 1 else a.tolist()
-    out = dict(tag=tag, v=v, mode='history', retime=None, cycles=cycles, end=HISTORY_END,
+    out = dict(tag=tag, v=v, mode='history' if neck is None else 'neck', retime=None, cycles=cycles, end=end,
                velocities=None if velocities is None else np.asarray(velocities).tolist(),
                t=r(h['t'], 6), d=r(h['d'], 6), x=np.round(h['x'][keep], 6).tolist(), tau=r(h['tau'], 8),
                alive=h['alive'][keep].tolist(), cycle=h['cycle'][keep].tolist(),
@@ -178,6 +187,11 @@ def history_job(args):
                seconds=round(time.time()-t0, 1),
                **{k: v_ for k, v_ in info.items() if k not in ('events', 'final_state')})
     out.update(contact_time=None, contact_side=None, energy_drift=info['energy_drift'])
+    if neck is not None:
+        norm = lambda a: np.linalg.norm(a, axis=-1)
+        out.update(neck=neck, dt=dt, masses=r(h['masses'], 9), mu=r(h['mu'], 10), spin=r(h['spin'], 10),
+                   ends=np.round(h['ends'][keep], 8).tolist(), throat_force=r(norm(h['throat']), 9),
+                   port_force=r(norm(h['port']), 9), exchange_force=r(norm(h['exchange']), 9))
     return out
 
 
@@ -210,7 +224,31 @@ def jobs_for(part):
         return [('history_symmetric', .30, 5, None, 5), ('history_symmetric', 1/3, 3, None, 5),
                 ('history_independent', .30, 5, independent.tolist(), 5),
                 ('history_lopsided', .30, 5, lopsided.tolist(), 5)]
+    if part in ('neck', 'neck_checks'):
+        births = history_births()
+        if part == 'neck':
+            out = [(f'neck_{name}_{clock}', .30, 5, vel, 5, None if clock == 'none' else dict(NECK, clock=clock))
+                   for name, vel in births.items() for clock in ('none', 'off', 'history', 'reversed')]
+            return out + [(f'neck_lopsided_klein_{clock}', .30, 5, births['lopsided'], 5,
+                           dict(NECK, clock=clock, handle='klein')) for clock in ('off', 'history')]
+        first = 14.                                    # through the lopsided pair's first contact
+        lop = births['lopsided']
+        out = [(f'check_port{g:g}_nodes{n}_{clock}', .30, 1, lop, 2, dict(port=g, nodes=n, clock=clock), first)
+               for g in (25., 100., 400.) for n in (65, 129) for clock in ('off', 'history')]
+        return out + [(f'check_dt_half_{clock}', .30, 1, lop, 2, dict(NECK, clock=clock), first, DT/2)
+                      for clock in ('off', 'history')]
     raise SystemExit(f'unknown part {part!r}')
+
+
+def history_births():
+    """Birth momenta of the history runs: symmetric (v = 0.30), independent, lopsided."""
+    x, vel, _, _ = birth_positions(.3, .3, PLANE)
+    independent = vel.copy()
+    independent[0] *= 1.15
+    independent[1] = .85*vel[1] + .08*N
+    _, slow, _, _ = birth_positions(.3, .15, PLANE)
+    _, fast, _, _ = birth_positions(.3, .45, PLANE)
+    return dict(symmetric=None, independent=independent.tolist(), lopsided=np.array([fast[0], slow[1]]).tolist())
 
 
 def main(part):
@@ -218,7 +256,7 @@ def main(part):
     OUT.mkdir(parents=True, exist_ok=True)
     t0, runs = time.time(), []
     with Pool(4) as pool:
-        for r in pool.imap_unordered(history_job if part == 'history' else job, jobs):
+        for r in pool.imap_unordered(job if part in ('scan', 'featured', 'retimed', 'checks') else history_job, jobs):
             runs.append(r)
             print(f"{len(runs)}/{len(jobs)} {r['tag']} v={r['v']:.3f} {r['mode']} retime={r['retime']} "
                   f"contact={r['contact_time']} {r['contact_side']} drift={r['energy_drift']:.1e} "

@@ -388,7 +388,10 @@ def load_history():
     path = RUNS/'history.json'
     if not path.exists():
         return []
-    runs = json.loads(path.read_text())['runs']
+    return load_history_runs(json.loads(path.read_text())['runs'])
+
+
+def load_history_runs(runs):
     for r in runs:
         for k in ('t', 'd', 'tau', 'alive', 'cycle', 'J', 'x', 'clock', 'external', 'first_order', 'chronology_margin'):
             r[k] = np.array([np.nan if v is None else v for v in r[k]] if k in
@@ -493,9 +496,179 @@ def figure_history(runs, path):
     plt.close(fig)
 
 
+NECK_ARRAYS = ('masses', 'mu', 'spin', 'ends', 'throat_force', 'port_force', 'exchange_force')
+NECK_COLORS = dict(none='#7f8c8d', off='#1f5fa8', history='#c0392b', reversed='#e67e22')
+NECK_LABELS = dict(none='no neck', off='neck, clock off', history='neck, history clock',
+                   reversed='neck, reversed clock')
+
+
+def load_neck(part):
+    path = RUNS/f'{part}.json'
+    if not path.exists():
+        return []
+    runs = load_history_runs(json.loads(path.read_text())['runs'])
+    for r in runs:
+        for k in NECK_ARRAYS:
+            if r.get(k) is not None:
+                r[k] = np.array(r[k], float)
+        r['birth'], r['clock_mode'] = neck_tag(r['tag'])
+    return runs
+
+
+def neck_tag(tag):
+    """('lopsided', 'history') from 'neck_lopsided_history'; the Klein runs read 'lopsided_klein'."""
+    *birth, clock = tag.split('_')[1:]
+    return '_'.join(birth), clock
+
+
+def contacts(r):
+    return [e for e in r['events'] if e['kind'] == 'contact']
+
+
+def neck_rows(runs):
+    """Per birth and clock mode: contacts, offsets, clock momentum, neck share and conservation."""
+    rows = []
+    for r in runs:
+        al = r['alive']
+        e = r['energy']
+        neck = e.get('neck', np.zeros_like(r['t'])) + e.get('port', np.zeros_like(r['t']))
+        rows.append(dict(
+            birth=r['birth'], clock=r['clock_mode'],
+            contacts=[round(c['time'], 5) for c in contacts(r)],
+            places=[c['point'] for c in contacts(r)],
+            offsets_at_contact=[c['clocks'][0] - c['clocks'][1] for c in contacts(r)],
+            max_offset=float(np.nanmax(np.abs(r['clock'][al]))),
+            max_mu=float(np.abs(r['mu']).max()) if r.get('mu') is not None else 0.,
+            max_neck=float(neck.max()), mean_neck_share=float(np.mean((neck/e['transverse'].clip(1e-12))[al])),
+            max_throat_force=float(r['throat_force'].max()) if r.get('throat_force') is not None else 0.,
+            max_exchange_force=float(r['exchange_force'].max()) if r.get('exchange_force') is not None else None,
+            energy_drift=r['energy_drift'], angular_drift=r['angular_drift'],
+            min_margin=r['min_chronology_margin']))
+    return rows
+
+
+def feedback(runs, birth):
+    """Contact-time shifts per cycle: clock feedback (history - off, reversed - off) and the
+    neck's own effect (off - none)."""
+    by = {r['clock_mode']: r for r in runs if r['birth'] == birth}
+    t = {k: np.array([c['time'] for c in contacts(v)]) for k, v in by.items()}
+    n = min(len(v) for v in t.values())
+    return dict(history=(t['history'][:n] - t['off'][:n]).tolist(),
+                reversed=(t['reversed'][:n] - t['off'][:n]).tolist() if 'reversed' in t else None,
+                neck=(t['off'][:n] - t['none'][:n]).tolist() if 'none' in t else None)
+
+
+def neck_table(rows):
+    lines = ['| birth | clock | contacts | max \\|offset\\| | offset at contact | max \\|μ\\| | neck + port, max | '
+             'neck / waves | energy drift |', '|---|---|---|---|---|---|---|---|---|']
+    for q in rows:
+        lines.append(f"| {q['birth']} | {q['clock']} | {', '.join(f'{c:.3f}' for c in q['contacts'])} | "
+                     f"{q['max_offset']:.4f} | {max(abs(o) for o in q['offsets_at_contact']):.1e} | "
+                     f"{q['max_mu']:.2e} | {q['max_neck']:.2e} | {q['mean_neck_share']:.3f} | {q['energy_drift']:.1e} |")
+    return '\n'.join(lines)
+
+
+def calibration_rows(checks):
+    rows = {}
+    for r in checks:
+        key = r['tag'].rsplit('_', 1)[0]
+        rows.setdefault(key, {})[r['tag'].rsplit('_', 1)[1]] = r
+    out = []
+    for key, pair in sorted(rows.items()):
+        h, o = pair['history'], pair['off']
+        ch, co = contacts(h)[0], contacts(o)[0]
+        e = h['energy']
+        out.append(dict(run=key, port=h['neck']['port'], nodes=h['neck'].get('nodes', 65), dt=h['dt'],
+                        contact_shift=ch['time'] - co['time'], mu_at_contact=float(h['mu'][h['alive']][-1]),
+                        mean_neck=float(np.mean((e['neck'] + e['port'])[h['alive']])),
+                        offset_shift=(ch['clocks'][0] - ch['clocks'][1]) - (co['clocks'][0] - co['clocks'][1]),
+                        energy_drift=max(h['energy_drift'], o['energy_drift'])))
+    return out
+
+
+def calibration_table(rows):
+    lines = ['| port g | nodes | dt | mean neck + port energy | μ at contact | contact shift, history − off | '
+             'energy drift |', '|---|---|---|---|---|---|---|']
+    for q in sorted(rows, key=lambda q: (q['port'], q['nodes'], -q['dt'])):
+        lines.append(f"| {q['port']:g} | {q['nodes']} | {q['dt']:g} | {q['mean_neck']:.2e} | {q['mu_at_contact']:+.2e} | "
+                     f"{q['contact_shift']:+.2e} | {q['energy_drift']:.1e} |")
+    return '\n'.join(lines)
+
+
+def figure_neck(runs, checks, path):
+    fig, axes = plt.subplots(2, 2, figsize=(16, 9.5), gridspec_kw=dict(hspace=.42, wspace=.42))
+    lop = {r['clock_mode']: r for r in runs if r['birth'] == 'lopsided'}
+    first = lambda r: r['alive'] & (r['cycle'] == 0)
+    ax = axes[0, 0]
+    r = lop['history']
+    ax.plot(r['t'], r['clock'], color='k', lw=1.2, label='offset A = τ_A − τ_B (history)')
+    ax.set_xlabel('time t')
+    ax.set_ylabel('offset A')
+    tw = ax.twinx()
+    for k in ('history', 'reversed'):
+        tw.plot(lop[k]['t'], lop[k]['mu'], color=NECK_COLORS[k], lw=1.2, label=f'μ, {NECK_LABELS[k]}')
+    tw.set_ylabel('clock momentum μ')
+    for e in contacts(r):
+        ax.axvline(e['time'], color='k', lw=.4, ls=':')
+    h1, l1 = ax.get_legend_handles_labels()
+    h2, l2 = tw.get_legend_handles_labels()
+    ax.legend(h1 + h2, l1 + l2, fontsize=7, loc='lower left')
+    ax.set_title('(a) Lopsided birth: the offset loads the clock momentum μ\n'
+                 '(rest energies M ± μ); reversing the clock flips its sign', fontsize=10)
+    ax = axes[0, 1]
+    for k, ref, lab in (('history', 'off', 'history − off (clock feedback)'),
+                        ('reversed', 'off', 'reversed − off'), ('off', 'none', 'off − no neck (neck itself)')):
+        a, b = lop[k], lop[ref]
+        n = min(np.flatnonzero(first(a))[-1], np.flatnonzero(first(b))[-1])
+        same = np.abs(a['t'][:n] - b['t'][:n]) < 1e-9                     # common output times before contact
+        ax.plot(a['t'][:n][same], (a['d'][:n] - b['d'][:n])[same], color=NECK_COLORS[k if k != 'off' else 'none'],
+                lw=1.2, label=lab)
+    ax.axhline(0, color='k', lw=.4)
+    ax.set_xlabel('time t (first flight)')
+    ax.set_ylabel('separation difference')
+    ax.set_title('(b) Lopsided birth, first flight: what the clock and the neck\nchange in the separation',
+                 fontsize=10)
+    ax.legend(fontsize=7)
+    ax = axes[1, 0]
+    r = lop['history']
+    e = r['energy']
+    ax.plot(r['t'], e['transverse'], color='#7f8c8d', lw=1, label='transverse field (sphere)')
+    ax.plot(r['t'], e['neck'], color=NECK_COLORS['history'], lw=1.2, label='neck field')
+    ax.plot(r['t'], e['port'], color=NECK_COLORS['reversed'], lw=1, label='ports')
+    ax.set_yscale('log')
+    ax.set_ylim(1e-6, 1e-1)
+    ax.set_xlabel('time t')
+    ax.set_ylabel('energy')
+    ax.legend(fontsize=7, loc='lower right')
+    ax.set_title('(c) Lopsided birth, history clock: the neck holds a few per cent\nof the wave energy; '
+                 'it is emptied at each contact', fontsize=10)
+    ax = axes[1, 1]
+    rows = calibration_rows(checks)
+    for nodes, mk in ((65, 'o'), (129, 's')):
+        sel = sorted((q for q in rows if q['nodes'] == nodes and q['dt'] > .003), key=lambda q: q['port'])
+        ax.plot([q['port'] for q in sel], [q['contact_shift'] for q in sel], mk + '-', color='#c0392b',
+                label=f'contact shift, {nodes} nodes')
+        ax.plot([q['port'] for q in sel], [q['mu_at_contact'] for q in sel], mk + '--', color='#1f5fa8',
+                label=f'μ at contact, {nodes} nodes')
+    ax.axhline(0, color='k', lw=.4)
+    ax.set_xscale('log')
+    ax.set_xticks([25, 100, 400], ['25', '100', '400'])
+    ax.minorticks_off()
+    ax.set_xlabel('port stiffness g')
+    ax.set_ylabel('time shift, or μ')
+    ax.set_title('(d) Calibration: first lopsided contact, history clock against\nclock off, '
+                 'at two neck resolutions', fontsize=10)
+    ax.legend(fontsize=7)
+    fig.savefig(path, dpi=110, bbox_inches='tight')
+    plt.close(fig)
+
+
 def main():
     scan, featured, retimed, checks = (load(p) for p in ('scan', 'featured', 'retimed', 'checks'))
     history = load_history()
+    neck, neck_checks = load_neck('neck'), load_neck('neck_checks')
+    if neck and neck_checks:
+        figure_neck(neck, neck_checks, IMAGES/'neck.png')
     IMAGES.mkdir(parents=True, exist_ok=True)
     if history:
         figure_history(history, IMAGES/'history.png')
@@ -533,14 +706,23 @@ def main():
                                                              min_chronology_margin=r['min_chronology_margin'],
                                                              births=sum(e['kind'] == 'birth' for e in r['events'])+1)
                            for r in history}) if history else None,
+        neck=dict(rows=neck_rows(neck), feedback={b: feedback(neck, b) for b in sorted({r['birth'] for r in neck})
+                                                  if not b.endswith('klein')},
+                  klein=dict(history=[c['time'] for c in contacts(pick(neck, tag='neck_lopsided_klein_history'))],
+                             off=[c['time'] for c in contacts(pick(neck, tag='neck_lopsided_klein_off'))]),
+                  calibration=calibration_rows(neck_checks)) if neck and neck_checks else None,
         tables=dict(outcomes=outcome_table(scan), ledger=ledger_table(scan), retimed=retimed_table(retimed, featured),
-                    history=history_table(history_rows(history)) if history else None))
+                    history=history_table(history_rows(history)) if history else None,
+                    neck=neck_table(neck_rows(neck)) if neck else None,
+                    calibration=calibration_table(calibration_rows(neck_checks)) if neck_checks else None))
     (RUNS/'summary.json').write_text(json.dumps(report, indent=2, sort_keys=True)+'\n')
     files = sorted(RUNS.glob('*.json')) + sorted(IMAGES.glob('*.png'))
     (RUNS/'sha256.json').write_text(json.dumps({p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                                                 for p in files if p.name != 'sha256.json'}, indent=2)+'\n')
-    for k in ('outcomes', 'ledger', 'retimed', 'history'):
+    for k in ('outcomes', 'ledger', 'retimed', 'history', 'neck', 'calibration'):
         print(report['tables'][k], '\n')
+    if report['neck']:
+        print(json.dumps(dict(feedback=report['neck']['feedback'], klein=report['neck']['klein']), indent=1))
     print(json.dumps(dict(thresholds=report['thresholds'], barrier=report['coulomb_barrier'],
                           first_returns=stats, direct=report['direct_exchange'],
                           max_energy_drift=report['max_energy_drift'],

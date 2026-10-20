@@ -70,12 +70,24 @@ A classical experiment on #345, answering the acceptance test set in its review 
      contact. The offset resets at every birth.
    - A closed loop through the throat would need |offset| ≥ d + L_neck. The margin never falls
      below 1.155.
+9. **With a neck channel, the offset acts back on the motion.**
+   - The neck carries the field through the throat. Signals cross it in L + A one way and
+     L − A the other, and the offset's reaction is a clock momentum μ that shifts the two rest
+     energies by ±μ.
+   - In the lopsided birth, the history clock brings the first contact 0.012 earlier than the
+     same neck with its clock off, and the reversed clock 0.007 later. That is robust to the
+     port stiffness and the neck mesh.
+   - The reaction is small: μ ≤ 3 × 10⁻³. The effect compounds over later cycles to contact
+     shifts of 0.05–0.4.
+   - The neck itself, with or without its clock, changes the history more. Symmetric pairs feel
+     no clock at all.
 
 **What this is not.**
 - **The field and mouths are effective.** The sphere-side field is 2+1 Maxwell on the round
   unit sphere, and the mouths are point particles with Gaussian footprints.
-  - The neck is not part of the field domain, unlike #338/#345's glued mesh.
-  - Its shape is rigid, and its energy is a fixed rest energy M per mouth.
+  - The neck is not part of the field domain, unlike #338/#345's glued mesh. The optional neck
+    channel of §8 adds its interior as a 1-D wave channel attached by ports.
+  - Its shape is rigid, and its static energy is a fixed rest energy M per mouth.
 - **The removal is a rule, not dynamics.** The surgery at contact is a stated rule. #342's
   waist-barrier collapse is not coupled here.
 - **The static part looks instantaneous only in this gauge.** The calculation uses Coulomb
@@ -412,7 +424,172 @@ The archived v39 cycle (in PR #1's `archive/geometrodynamics_v39.py`) runs as fo
   at t = 0 in #346's port model, cannot arise from these histories. It would need a sustained
   velocity-squared difference of about 0.1 over T ≈ 24 without the attraction reversing it.
 
-## 8. Checks
+## 8. Neck channel: the offset acts back
+![Neck channel](images/pair_birth/neck.png)
+
+In §7 the offset was bookkeeping. Nothing travelled through the throat, so nothing could feel
+it. `NeckChannel` makes the throat interior a wave channel, from the same action, with its
+timing set by the history offset.
+
+**The neck.**
+- **Geometry.** #338's catenoid, fixed by the mouth angle alone:
+  - the circumference is 2πf(s), with f = √(s² + b²), b = sin²a = 0.087 and s ∈ [−S, S];
+  - S = sin a cos a, so the length is L = sin 2a = 0.565;
+  - the circumference equals the rim's at both ends.
+- **Field.** The transverse field's dual scalar ψ (B = ψ_t, |E_T| = |∇ψ|) continues into the
+  tube. The neck keeps two parts of it:
+  - **m = 0**, axisymmetric, with weight 2πf;
+  - **m = 1**, the cos and sin of the rim angle, with weight πf and the centrifugal term 1/f².
+    The narrow waist (radius 0.087) makes this a barrier, ∫ds/f = 3.78. On the glued mesh it
+    reflected most of the sideways flux ([mouth_kick_experiments.md](mouth_kick_experiments.md)).
+- **Ports.** Each neck end is tied by a spring of stiffness g to the matching rim moment of the
+  sphere-side ψ around its mouth:
+  - for m = 0, the rim average;
+  - for m = 1, the cos and sin moments in the mouth's rim frame.
+
+  Large g is continuity of ψ across the junction.
+- **Rim frames and spin.** Each mouth carries a rim frame. The frame is transported with the
+  mouth and turned by a spin s_k, with moment of inertia M sin²a.
+  - So the ports' twist is booked, and angular momentum stays exact.
+  - A spinning mouth feels the gyroscopic force s (x × v) of the sphere's curvature.
+- **Handle.** The neck joins rim angle ψ at A to ψ + π at B (torus) or to π − ψ (Klein). The
+  charges cannot tell the two apart (Model). The neck can, through its m = 1 part.
+- **Mirror symmetry.** A pair moving in one plane through the centre makes B odd under
+  reflection in that plane. So for coplanar flights (symmetric and lopsided) the m = 0 part
+  vanishes identically, and the channel is the out-of-plane m = 1 row.
+
+**Clocks in the neck.**
+- **The slice.** The neck is ultrastatic in its own time T, and the throat joins equal proper
+  times. So at external time t the neck slice runs from T = τ_A at A to T = τ_B at B. In that
+  chart it has:
+  - a lapse that interpolates the two mouths' proper-time rates;
+  - a tilt dT/dσ = −A/L, with A = τ_A − τ_B the history offset of §7.
+- **Crossing times.** Signals cross in L + A from A to B and in L − A from B to A. This is
+  checked to 10⁻³.
+- **The constraint.** Ȧ = 1/γ_A − 1/γ_B is imposed with a conjugate clock momentum μ. The
+  momentum shifts the rest energies to M + μ and M − μ.
+- **The Hamiltonian.** The lapse folds the neck and port energies into each mouth's rest
+  energy:
+
+      H = Σ_k √(m_k² + |p_k − q_k A_T|²) + U + H_T,   m_k = M ± μ + N_k + V_k + s_k²/(2M sin²a)
+
+  - N_k is mouth k's lapse share of the neck energy and V_k its port energy.
+  - H is autonomous, so energy and canonical angular momentum are conserved.
+- **The clock force is the throat's energy flux.** dμ/dt = −∂H/∂A = (1/L)∫ N S dσ, where S is
+  the energy flux along the neck.
+  - A parcel of energy that crosses the whole neck from A to B adds its energy to μ.
+  - μ is the offset's only reaction.
+
+**Integrator.**
+- The neck and ports evolve exactly, by matrix exponential, with frozen inputs: the mouths'
+  rates, the offset, the frames and the rim moments.
+- Simpson's rule integrates the reactions on the field, the mouths, their spins and μ.
+- These flows are Strang-split with the field and mouth flows at dt = 0.004.
+- A newborn neck starts at rest in the static continuation of the field it is born into: the
+  minimum of neck plus port energy, which is empty for a field-free birth. It starts with μ = 0
+  and no spin.
+
+**Controls.** Each birth is run four ways:
+- with no neck;
+- with the neck and the clock off: the neck sees no offset, and μ ≡ 0;
+- with the history clock;
+- with the clock reversed: the neck sees −A.
+
+The handle is a torus; the lopsided birth is also run with a Klein handle. The comparisons are:
+- **history − off** isolates the offset's feedback;
+- **off − no neck** is the neck's own effect;
+- **reversed − off** should flip the first-order feedback.
+
+**Calibration** (`neck_checks`: lopsided birth to its first contact, history clock against clock off).
+
+| port g | nodes | dt | mean neck + port energy | μ at contact | contact shift, history − off | energy drift |
+|---|---|---|---|---|---|---|
+| 25 | 65 | 0.004 | 6.34e-04 | +2.88e-04 | −1.14e-02 | 6.6e-07 |
+| 25 | 129 | 0.004 | 6.34e-04 | +2.67e-04 | −1.13e-02 | 6.6e-07 |
+| **100** | **65** | **0.004** | **1.06e-03** | **+5.50e-04** | **−1.23e-02** | **1.4e-06** |
+| 100 | 65 | 0.002 | 1.06e-03 | +5.47e-04 | −1.23e-02 | 4.6e-07 |
+| 100 | 129 | 0.004 | 1.06e-03 | +4.02e-04 | −1.13e-02 | 1.4e-06 |
+| 400 | 65 | 0.004 | 1.24e-03 | +1.02e-03 | −1.47e-02 | 4.3e-06 |
+| 400 | 129 | 0.004 | 1.24e-03 | +6.04e-04 | −1.20e-02 | 4.3e-06 |
+
+- **Port stiffness.** The neck's energy is set by g and converged in nodes. At g = 100 it holds
+  85% of the energy at g = 400.
+- **μ converges only at first order in h for stiff ports.** The port acts as a discrete Robin
+  boundary.
+  - At g = 100, μ at contact is 5.5 × 10⁻⁴ at 65 nodes and 4.0 × 10⁻⁴ at 129.
+- **The feedback on the motion is robust.** The first contact comes earlier by 0.011–0.015 for
+  every g and mesh, and by 0.011–0.012 at 129 nodes. Halving dt changes it by 3 × 10⁻⁵.
+- **Production settings** (bold row): g = 100 with 65 nodes. The shift there is 9% larger
+  than at 129 nodes.
+
+**Results** (five births each, 60 time units, torus handle unless stated).
+
+| birth | neck and clock | contacts at t | max \|A\| | max \|μ\| | neck + port, max | neck / waves (mean) | energy drift |
+|---|---|---|---|---|---|---|---|
+| lopsided (0.45 / 0.15) | no neck | 12.261, 25.317, 35.273, 44.553, 52.817 | 0.2121 | — | — | — | 5.0e-07 |
+| | clock off | 12.235, 24.351, 36.665, 47.781, 57.928 | 0.2108 | 0 | 3.2e-03 | 0.050 | 3.3e-06 |
+| | history | 12.223, 24.407, 36.598, 47.918, 57.896 | 0.2106 | 1.0e-03 | 3.3e-03 | 0.058 | 3.5e-06 |
+| | reversed | 12.243, 24.306, 36.676, 47.651, 57.608 | 0.2110 | 1.1e-03 | 3.3e-03 | 0.054 | 3.6e-06 |
+| | Klein, clock off | 12.234, 24.344, 36.197, 47.520, 57.400 | 0.2107 | 0 | 3.6e-03 | 0.057 | 3.8e-06 |
+| | Klein, history | 12.223, 24.347, 36.270, 47.591, 57.661 | 0.2105 | 7.9e-04 | 3.5e-03 | 0.056 | 3.4e-06 |
+| unequal + off-circle kick | no neck | 10.257, 22.048, 32.874, 43.048, 53.214 | 0.0481 | — | — | — | 4.0e-07 |
+| | clock off | 10.224, 21.816, 32.235, 41.546, 50.002 | 0.0464 | 0 | 5.2e-03 | 0.075 | 4.5e-06 |
+| | history | 10.224, 21.814, 32.186, 41.598, 50.378 | 0.0464 | 2.7e-03 | 4.3e-03 | 0.074 | 4.4e-06 |
+| | reversed | 10.224, 21.818, 32.288, 41.489, 49.512 | 0.0463 | 2.8e-03 | 5.9e-03 | 0.074 | 4.4e-06 |
+| symmetric, v = 0.30 | no neck | 10.781, 23.067, 34.219, 44.680, 54.084 | 0 | — | — | — | 4.1e-07 |
+| | clock off, history or reversed | 10.755, 22.731, 34.466, 44.908, 53.156 | 0 | 0 | 6.1e-03 | 0.064 | 2.8e-06 |
+
+Contact-time shifts by cycle:
+
+| birth | contact | history − off | reversed − off | off − no neck |
+|---|---|---|---|---|
+| lopsided | 1 | **−0.0123** | **+0.0074** | −0.026 |
+| | 2 | +0.056 | −0.045 | −0.97 |
+| | 3 | −0.067 | +0.010 | +1.39 |
+| | 4 | +0.136 | −0.130 | +3.23 |
+| | 5 | −0.032 | −0.320 | +5.11 |
+| unequal + off-circle kick | 1 | −0.00003 | −0.0002 | −0.033 |
+| | 2 | −0.0014 | +0.0023 | −0.23 |
+| | 3 | −0.049 | +0.053 | −0.64 |
+| | 4 | +0.052 | −0.057 | −1.50 |
+| | 5 | +0.376 | −0.490 | −3.21 |
+| symmetric | 1–5 | < 10⁻¹¹ | < 10⁻¹¹ | −0.026, −0.34, +0.25, +0.23, −0.93 |
+
+**What the neck shows.**
+- **The offset acts back, at first order.**
+  - With the history clock, the lopsided pair's first contact comes 0.0123 earlier than with
+    the clock off. With the clock reversed it comes 0.0074 later.
+  - So the part odd in the offset is −0.0099, and the even part is −0.0024.
+  - The separation difference grows steadily through the first flight (panel b).
+- **The reaction itself is small.**
+  - μ stays at or below 1.1 × 10⁻³ (lopsided) and 2.8 × 10⁻³ (unequal + kick). The rest
+    energies move by at most 0.3%.
+  - The kicked birth has the smaller offset (0.046) but the larger μ. Its off-plane motion
+    drives the m = 0 part, which crosses the neck without a barrier. The lopsided pair's
+    sideways part has to tunnel through the waist.
+  - Even so, its first contact moves by only 3 × 10⁻⁵. Its offset is a fifth of the lopsided
+    one, and its feedback shows only in later cycles.
+- **The feedback compounds along the history.**
+  - By the second to fifth contacts the clock shifts contact times by 0.05–0.14 (lopsided) and
+    up to 0.38 (kicked), mostly with the opposite sign for the reversed clock.
+  - These are amplified differences of a sensitive multi-cycle history, not a per-cycle effect
+    that grows: each changed contact moves the next birth.
+- **The neck itself matters more than its clock.**
+  - Clock off against no neck, every birth's first contact comes 0.026–0.033 earlier.
+  - By the third to fifth contacts the histories differ at order one, with contacts at
+    different places.
+  - The neck holds 5–7.5% of the wave energy, and is emptied into the release at each contact.
+- **Symmetric pairs feel no clock at all.** A ≡ 0, so the three clock modes agree to 10⁻¹¹.
+  The neck still acts on them.
+- **No runaway, no horizon.**
+  - The feedback changes the lopsided pair's peak offset by 2 × 10⁻⁴ (0.2106 against 0.2108).
+  - The chronology margin stays above 1.154.
+- **The handle matters only in the details.**
+  - Torus against Klein moves the first lopsided contact by 0.001, and the clock feedback is
+    −0.0123 against −0.0109.
+  - Later contacts differ by up to 0.5.
+
+## 9. Checks
 
 | check | result |
 |---|---|
@@ -428,7 +605,12 @@ The archived v39 cycle (in PR #1's `archive/geometrodynamics_v39.py`) runs as fo
 | flash decomposition | for weak charge, default − dressed force equals the post hoc flash force (2%) |
 | instantaneous Coulomb turning point | matches the energy budget |
 | history offset | equals the integrated dilation difference; the external offset agrees with γ_B(τ_A − τ_B) |
-| tests | `tests/test_pair_birth.py`: 13 checks |
+| neck channel: energy and angular momentum | ≤ 4.5 × 10⁻⁶ and ≤ 3.2 × 10⁻⁸ over 60 time units in all 14 runs; every re-birth matches its pulse to 10⁻¹⁴; each neck-and-port flow conserves angular momentum exactly |
+| neck crossing times | L + A from A to B and L − A from B to A, to 10⁻³ |
+| neck clock and port forces | ∂H/∂A, the port forces on the mouths, the spin torque and the pull on the field all match finite differences of H (relative 10⁻⁵) |
+| neck controls | a decoupled neck (g = 0) reproduces the bare pair to 10⁻¹³; the clock-off neck keeps μ ≡ 0; symmetric births keep A ≡ 0 and μ < 10⁻¹⁵ with either handle |
+| coplanar flights | the m = 0 row stays below 10⁻¹⁵, as the mirror symmetry requires |
+| tests | `tests/test_pair_birth.py`: 20 checks |
 
 ## Against the acceptance test
 
@@ -437,7 +619,7 @@ The archived v39 cycle (in PR #1's `archive/geometrodynamics_v39.py`) runs as fo
 | independently moving, non-antipodal mouths | yes: two rotors with their own positions and momenta; an asymmetric run |
 | a two-sided force, or a recoil from an action | yes: one Lagrangian; energy and canonical angular momentum conserved |
 | event-aligned returns of the same field, with mistiming controls | first returns: 40/40 along the ray at the predicted times, against 21/32 at wrong times; re-timing changes the outcome. Later returns: timing only |
-| ledger of wave, mouth, neck and clock-support energy | waves (transverse, deformation), mouths (kinetic), Coulomb; neck energy is the fixed rest energy; no imposed clock support, and the history-generated throat offset is tracked (§7) |
+| ledger of wave, mouth, neck and clock-support energy | waves (transverse, deformation), mouths (kinetic), Coulomb; neck rest energy fixed; no imposed clock support, and the history offset is tracked (§7). With the neck channel: the neck field, ports, spins and the clock momentum μ, which carries the offset's reaction (§8) |
 | collapse from a stated regularity law, not a schedule | rim contact sets the time dynamically; the surgery itself is a stated rule |
 
 ## Limits and next steps
@@ -450,12 +632,12 @@ The archived v39 cycle (in PR #1's `archive/geometrodynamics_v39.py`) runs as fo
   approximately. The released deformation pulse refocuses exactly.
 - **Parameters not scanned.** The thresholds depend on q, M and the footprint. Only the birth
   speed and the flash timing were scanned.
-- **Clocks are bookkeeping here.** The throat offset is tracked, but nothing travels through
-  the throat in this model, so the offset does not feed back on the dynamics.
-  - That needs a neck channel whose port timing is set by the history offset, as proposed for
-    #346.
-  - In these histories the offset stays below 0.22, so an "earlier re-emission" through the
-    throat would be a small, transient effect.
+- **The neck channel is a hybrid.**
+  - The sphere stays whole, including the disc inside each rim. The neck is attached by port
+    springs rather than glued, and only its m = 0 and m = 1 parts are kept.
+  - The port stiffness is calibrated by convergence, not against the glued mesh. For stiff
+    ports, μ converges only at first order in the neck spacing.
+  - The neck's shape stays rigid.
 
 ## Reproduction
 ```bash
@@ -464,6 +646,8 @@ python experiments/closure_ledger/pair_birth_probe.py scan       # 11 speeds x 3
 python experiments/closure_ledger/pair_birth_probe.py retimed    # flash absorbed or re-timed at t = 3, ~2 min
 python experiments/closure_ledger/pair_birth_probe.py checks     # step, cutoff, free motion, independent mouths
 python experiments/closure_ledger/pair_birth_probe.py history    # repeated cycles with throat clocks, ~1 min
+python experiments/closure_ledger/pair_birth_probe.py neck_checks    # port stiffness, neck nodes, step, ~9 min
+python experiments/closure_ledger/pair_birth_probe.py neck       # neck channel, four clock modes, ~13 min
 python experiments/closure_ledger/pair_birth_report.py           # tables, figures, summary.json, sha256.json
 python -m pytest -q tests/test_pair_birth.py
 ```
