@@ -8,6 +8,11 @@ establish that the much smaller transmitting-minus-blocked effect survives.
 No physical parameter, original control, convergence threshold or success
 criterion changes. The first protocol was published as `6588ff0` before pilots.
 
+**Timing-refinement amendment:** after the first thirteen cases, add the same
+high-resolution asymmetric birth to check the newly observed geometric
+earlier-exit prediction. This is a disclosed follow-up validation of that
+specific timing result, not a preregistered additional mechanism success.
+
 This is a new classical effective model, stacked on #346. It tests reciprocal
 surface/throat waves acting on independently moving mouths. It does not claim
 GR wormhole support, a QED derivation, particle quantization or topology change.

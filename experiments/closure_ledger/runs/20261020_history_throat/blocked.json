@@ -1,0 +1,72 @@
+{
+  "case": "blocked",
+  "parameters": {
+    "lmax": 8,
+    "nodes": 17,
+    "length": 0.565,
+    "mass": 1.0,
+    "charge": 0.5,
+    "mouth_angle": 0.3,
+    "footprint": 0.2,
+    "packet_width": 0.35,
+    "packet_energy": 0.02,
+    "coupling": 0.5,
+    "spatial_parity": -1,
+    "time_orientation": 1,
+    "horizon": 8.0,
+    "neck_horizon": 8.0,
+    "spacing": 0.02,
+    "birth_a": 0.3,
+    "birth_b": -0.3,
+    "endpoint_load": 0.0,
+    "blocked": true,
+    "rtol": 2e-09,
+    "fixed_point_tolerance": 2e-07,
+    "max_iterations": 80,
+    "relaxation": 0.5
+  },
+  "converged": true,
+  "iterations": 1,
+  "residuals": [
+    0.0
+  ],
+  "exterior_final_time": 8.0,
+  "stop": "horizon",
+  "initial_exterior_energy": 2.1442720215463584,
+  "energy_relative_residual": 1.460089437339727e-13,
+  "angular_absolute_residual": 1.061613163112781e-18,
+  "neck_clock_work_residual": 0.0,
+  "neck_final_energy": 0.0,
+  "endpoint_load_energy": 0.0,
+  "final_clock_energies": [
+    0.0,
+    0.0
+  ],
+  "ledger_pass": true,
+  "initial_separation": 0.6,
+  "final_separation": 1.9342793147072694,
+  "maximum_separation": 3.1385765195788586,
+  "actual_birth_velocities": [
+    0.29994372193984775,
+    -0.29994372193984775
+  ],
+  "final_positions": [
+    2.1744529962361585,
+    -2.1744529962361585
+  ],
+  "final_momenta": [
+    0.23980872469402528,
+    -0.23980872469402528
+  ],
+  "minimum_effective_mass": 1.0000000000100702,
+  "maximum_simultaneous_clock_difference": 0.0,
+  "max_neck_energy": 0.0,
+  "port_impulses": [
+    0.0002912428378520877,
+    -0.00029124283785208826
+  ],
+  "geometric_supported_events": 0,
+  "geometric_advanced_events": 0,
+  "initial_data_note": "Same specified field and nominal momenta; different port Hamiltonians need not have equal initial energies.",
+  "scope": "Constitutive scalar plus Coulomb model; fixed neck, meridional mouths, dynamical clock energies. No GR/QED or topology-change claim."
+}

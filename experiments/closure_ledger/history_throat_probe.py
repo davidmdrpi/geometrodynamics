@@ -20,7 +20,8 @@ CASES = dict(baseline={}, asymmetric=dict(birth_a=.45, birth_b=-.15),
     higher_resolution=dict(lmax=12, nodes=25, spacing=.01),
     high_no_throat=dict(lmax=12, nodes=25, spacing=.01, coupling=0.),
     high_blocked=dict(lmax=12, nodes=25, spacing=.01, blocked=True),
-    high_reversed=dict(lmax=12, nodes=25, spacing=.01, time_orientation=-1))
+    high_reversed=dict(lmax=12, nodes=25, spacing=.01, time_orientation=-1),
+    high_asymmetric=dict(lmax=12, nodes=25, spacing=.01, birth_a=.45, birth_b=-.15))
 
 
 def archive(name, root=ROOT):
@@ -98,7 +99,7 @@ def main():
             (args.out/f'{name}_failure.json').write_text(json.dumps(failure, indent=2)+'\n')
             print(json.dumps(failure), flush=True)
     hashes = {str(p): hashlib.sha256(p.read_bytes()).hexdigest()
-              for p in sorted(args.out.glob('*')) if p.name != 'sha256.json'}
+              for p in sorted(args.out.glob('*')) if p.is_file() and p.name != 'sha256.json'}
     (args.out/'sha256.json').write_text(json.dumps(hashes, indent=2)+'\n')
 
 
