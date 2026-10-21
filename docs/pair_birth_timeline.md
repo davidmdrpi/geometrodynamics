@@ -427,6 +427,21 @@ The archived v39 cycle (in PR #1's `archive/geometrodynamics_v39.py`) runs as fo
 ## 8. Neck channel: the offset acts back
 ![Neck channel](images/pair_birth/neck.png)
 
+![Neck channel animation](images/pair_birth/neck_channel.gif)
+
+*Animation, preview at a quarter of the frames ([full MP4](images/pair_birth/neck_channel.mp4), 17 s).* The
+lopsided birth with the history clock, from birth through contact, release and refocusing to the
+re-birth at t = 15.36. The panels show:
+- **left:** the field ψ on the sphere, with the birth circle as the equator, and the mouths' rims
+  and tracks;
+- **right, top to bottom:**
+  - the field inside the neck, unrolled at its true circumference, with the live crossing times
+    L ± A;
+  - the offset and μ;
+  - the separation against the clock-off neck.
+
+The released pulse is drawn as contours.
+
 In §7 the offset was bookkeeping. Nothing travelled through the throat, so nothing could feel
 it. `NeckChannel` makes the throat interior a wave channel, from the same action, with its
 timing set by the history offset.
@@ -648,6 +663,7 @@ python experiments/closure_ledger/pair_birth_probe.py checks     # step, cutoff,
 python experiments/closure_ledger/pair_birth_probe.py history    # repeated cycles with throat clocks, ~1 min
 python experiments/closure_ledger/pair_birth_probe.py neck_checks    # port stiffness, neck nodes, step, ~9 min
 python experiments/closure_ledger/pair_birth_probe.py neck       # neck channel, four clock modes, ~13 min
+python experiments/closure_ledger/pair_birth_neck_animation.py   # neck_channel.mp4 and .gif, ~3 min (MP4 needs imageio-ffmpeg)
 python experiments/closure_ledger/pair_birth_report.py           # tables, figures, summary.json, sha256.json
 python -m pytest -q tests/test_pair_birth.py
 ```

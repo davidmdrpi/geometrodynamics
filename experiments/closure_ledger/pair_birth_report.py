@@ -716,7 +716,7 @@ def main():
                     neck=neck_table(neck_rows(neck)) if neck else None,
                     calibration=calibration_table(calibration_rows(neck_checks)) if neck_checks else None))
     (RUNS/'summary.json').write_text(json.dumps(report, indent=2, sort_keys=True)+'\n')
-    files = sorted(RUNS.glob('*.json')) + sorted(IMAGES.glob('*.png'))
+    files = sorted(RUNS.glob('*.json')) + sorted(p for ext in ('png', 'gif', 'mp4') for p in IMAGES.glob(f'*.{ext}'))
     (RUNS/'sha256.json').write_text(json.dumps({p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                                                 for p in files if p.name != 'sha256.json'}, indent=2)+'\n')
     for k in ('outcomes', 'ledger', 'retimed', 'history', 'neck', 'calibration'):

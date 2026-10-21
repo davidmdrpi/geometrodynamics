@@ -958,7 +958,7 @@ class PairBirth:
         return s
 
 
-    def run_history(self, s, end, cycles=1, dt=.004, output_dt=.02, neck_length=.565):
+    def run_history(self, s, end, cycles=1, dt=.004, output_dt=.02, neck_length=.565, observer=None):
         """Complete history: birth, flight, contact, release, refocusing, re-birth, repeated.
 
         Each cycle runs from a birth with synchronised mouth clocks to rim contact. The
@@ -976,6 +976,9 @@ class PairBirth:
         momentum mu, the spins, the neck end values (row, end) and the forces from the field the
         ports emitted ('throat'), from the port springs ('port') and, for scale, from the
         partner's field ('exchange'). The rest energies m_k are always recorded.
+
+        observer(state), if given, sees the full state at every recorded time (for field maps
+        and animations); it must not change it.
         """
         s = s.copy()
         neck_length = neck_length if self.neck is None else self.neck_length
@@ -997,6 +1000,8 @@ class PairBirth:
                 vals += (s.mu, s.spin.copy(), s.eta[:, [0, -1]].copy(), f['throat'], f['port'], f['exchange'])
             for k, v in zip(keys, vals):
                 out[k].append(v)
+            if observer is not None:
+                observer(s)
 
         record()
         next_out = output_dt
