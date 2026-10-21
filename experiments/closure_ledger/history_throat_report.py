@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from geometrodynamics.waves.coupled_mouth_throat import real_basis
-from geometrodynamics.waves.history_throat import Parameters
+from geometrodynamics.waves.legacy_history_throat import Parameters
 from experiments.closure_ledger.history_throat_probe import CASES, ROOT
 
 
@@ -157,10 +157,10 @@ def main():
     svg = images/'comparison.svg'
     svg.write_text('\n'.join(line.rstrip() for line in svg.read_text().splitlines())+'\n')
     fig.savefig(images/'comparison.png', dpi=120); plt.close(fig)
-    write_viewer(results, images/'replay.html')
+    write_viewer(results, images/'legacy_scalar_replay.html')
     chunk_replays(ROOT)
     paths = [p for p in ROOT.rglob('*') if p.is_file() and p.suffix != '.npz' and p.name != 'sha256.json']
-    paths += list(images.glob('*')) + [Path('geometrodynamics/waves/history_throat.py'),
+    paths += list(images.glob('*')) + [Path('geometrodynamics/waves/legacy_history_throat.py'),
         Path('tests/test_history_throat.py'), Path('docs/history_coupled_throat_protocol.md'),
         Path('docs/history_coupled_throat_results.md')]
     paths += list(Path('experiments/closure_ledger').glob('history_throat*'))

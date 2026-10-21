@@ -1,0 +1,49 @@
+{
+  "cases": {
+    "through": {
+      "mouth_entry": 5,
+      "mouth_exit": 5,
+      "antipodal_reflection": 0,
+      "throat_reflection": 0
+    },
+    "empty": {
+      "mouth_entry": 3,
+      "mouth_exit": 2,
+      "antipodal_reflection": 3,
+      "throat_reflection": 0
+    },
+    "moving_hit": {
+      "mouth_entry": 1,
+      "mouth_exit": 1,
+      "antipodal_reflection": 5,
+      "throat_reflection": 0
+    },
+    "moving_miss": {
+      "mouth_entry": 0,
+      "mouth_exit": 0,
+      "antipodal_reflection": 6,
+      "throat_reflection": 0
+    },
+    "reversed": {
+      "mouth_entry": 2,
+      "mouth_exit": 2,
+      "antipodal_reflection": 0,
+      "throat_reflection": 0
+    },
+    "neck_reflection": {
+      "mouth_entry": 2,
+      "mouth_exit": 3,
+      "antipodal_reflection": 2,
+      "throat_reflection": 3
+    }
+  },
+  "status": {
+    "through": "history_boundary",
+    "empty": "history_boundary",
+    "moving_hit": "history_boundary",
+    "moving_miss": "history_boundary",
+    "reversed": "cycle_requires_boundary_solution",
+    "neck_reflection": "history_boundary"
+  },
+  "scope": "Prescribed-motion antipodal-only characteristic transport; no recoil law or field-energy ledger solved."
+}

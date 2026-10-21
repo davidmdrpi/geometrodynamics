@@ -1,9 +1,10 @@
+"""Regression checks for the superseded continuous local-port action."""
 from dataclasses import replace
 
 import numpy as np
 import pytest
 
-from geometrodynamics.waves.history_throat import (
+from geometrodynamics.waves.legacy_history_throat import (
     EndpointHistory, HistoryThroat, Parameters,
 )
 from geometrodynamics.waves.coupled_mouth_throat import real_basis

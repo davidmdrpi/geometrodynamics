@@ -1,5 +1,12 @@
 # Reciprocal proper-clock histories: a throat changes the mouth trajectories
 
+> **Historical local-port experiment, superseded for BAM routing.** This model
+> allows off-antipodal continuous coupling and does not satisfy the corrected
+> interaction rule. Its trajectory changes are not predictions of that rule.
+> See [the antipodal-only correction](antipodal_throat_transport.md) and the
+> [current replay](images/history_throat/replay.html). The original full record
+> and manifest are preserved at commit `48d9dc3ede4edaa6220dd86f3d162aa58df2944c`.
+
 The new model solves the closed-surface field, a finite throat field, two moving
 mouths and their proper clocks **reciprocally**. It is no longer #346's fixed-tilt
 model with an imposed clock offset. Clock energies are dynamical canonical
@@ -11,7 +18,7 @@ numerically consistent **constitutive classical model**, not yet a calibrated
 wormhole, a QED derivation, or a particle collision/collapse cycle. No discrete
 kick, repeated launch, local gain or topology surgery is programmed.
 
-[Interactive replay (download/open HTML)](images/history_throat/replay.html) ·
+[Archived scalar replay (original commit)](https://github.com/davidmdrpi/geometrodynamics/blob/48d9dc3ede4edaa6220dd86f3d162aa58df2944c/docs/images/history_throat/replay.html) ·
 [Action and protocol](history_coupled_throat_protocol.md) ·
 [Case data and exact reassembly](../experiments/closure_ledger/runs/20261020_history_throat/README.md)
 

@@ -1,0 +1,19 @@
+{
+  "/workspace/scratch/2359c91c5390/history-throat/experiments/closure_ledger/antipodal_throat_replay.py": "8a32e213c60ef8c102b820603d4df0704a8c1f966618a829e037018f04e399a1",
+  "docs/antipodal_throat_transport.md": "ef1af87ccca224e6083f2d0257653bf669e21e9ce5f760701797df55964c77dc",
+  "docs/images/history_throat/antipodal_transport.png": "217e670aa5c52dd164c1324e3fce04585a52e2aeff3eb4920a7ef9a9ea5c3df2",
+  "docs/images/history_throat/replay.html": "5ef42004f21cc374fca3dad046c30202186f5c3424d7ad1d5c0d9ccbc7158fa2",
+  "experiments/closure_ledger/antipodal_throat_viewer.html": "82fe261fc3b0b1bdb7175692d6ffd7f1ff9142f43ce995ba80fcac0d9316a195",
+  "experiments/closure_ledger/check_antipodal_throat_viewer.cjs": "f8233f3e6d0be5cd252f30b32e1f33921be8846a3788adcb00ee0b3b365b6ef3",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/README.md": "cd9fd84d6f1cb3ad8647e4ef9ff541cfec7f013228a6172584d6c043836873f8",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/empty.json": "a9c7c7d91fde20062b853874b05cc9e95d48e967dfd5ba2403ffc950f35c8c64",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/moving_hit.json": "5c309cbe18a49c71dff0ff312670d597c9bf92fe25f9c43ae99e24407694dfea",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/moving_miss.json": "a8b5f2c9ae8b9c84a377e136f12ac2cd43809a8ef4c2b68b5e93cdb2f93af60e",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/neck_reflection.json": "7d4aa5317ae60eeaa1ff0d47937a29012ca4ffadda795eca84d6b48359e6ae84",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/reversed.json": "92e7046691d17a29a0b5528020f514100f892970c5ae37f0dfed4d44cce5a112",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/summary.json": "2a9ba7732b319713d4700db8af643cff29e41210d2dcc9c50fe592332df7c1a0",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/through.json": "612c77fa2b7893389d555e18708fe29c4acd7e59847cae13378b9917c01e5d9f",
+  "geometrodynamics/waves/antipodal_throat_transport.py": "046ccab3163ebdce7ff773e4e6a4e632ef7adf3bbbad8137e566a0c100e34081",
+  "geometrodynamics/waves/history_throat.py": "ba43dbde75f389fe742ac83d9846b9671b896231763ca8d3138d89a88bcd1653",
+  "tests/test_antipodal_throat_transport.py": "2b0ce37c6114a18e36ed6641989d9259074fa612dda36ad978071c96c7c70976"
+}

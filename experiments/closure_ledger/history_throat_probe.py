@@ -7,7 +7,7 @@ from pathlib import Path
 
 import numpy as np
 
-from geometrodynamics.waves.history_throat import HistoryThroat, Parameters
+from geometrodynamics.waves.legacy_history_throat import HistoryThroat, Parameters
 
 
 ROOT = Path('experiments/closure_ledger/runs/20261020_history_throat')

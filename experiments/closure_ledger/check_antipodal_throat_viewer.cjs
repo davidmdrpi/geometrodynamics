@@ -1,0 +1,18 @@
+const fs=require('fs'),vm=require('vm'),{createCanvas}=require('@napi-rs/canvas');
+// Optional visual QA dependency: npm install @napi-rs/canvas
+const root=require('path').resolve(__dirname,'../..')+'/';
+const html=fs.readFileSync(root+'docs/images/history_throat/replay.html','utf8');
+const script=html.match(/<script>([\s\S]*)<\/script>/)[1];
+let commands=0,buttons=[],tick;
+function finiteContext(ctx){return new Proxy(ctx,{get(target,key){let val=target[key];if(typeof val!=='function')return val;return (...args)=>{for(const a of args)if(typeof a==='number'&&!Number.isFinite(a))throw Error('nonfinite '+key);commands++;return val.apply(target,args)}},set(target,key,val){target[key]=val;return true}})}
+const elements={};for(const id of ['case','play','previous','next','progress','counter','cutaway','scene','throat','title','description','event','clock','routes','ending','viewLabel']){let obj={value:0,textContent:'',checked:id==='cutaway',setPointerCapture(){},classList:{toggle(){}},dataset:{}};let text='';Object.defineProperty(obj,'innerHTML',{get(){return text},set(v){text=v;if(id==='routes')buttons=[...v.matchAll(/data-leg="(\d+)"/g)].map(m=>({dataset:{leg:m[1]},classList:{toggle(){}}}))}});elements[id]=obj}
+for(const [id,w,h] of [['scene',1000,670],['throat',1000,175]]){let c=createCanvas(w,h);elements[id].canvas=c;let ctx=finiteContext(c.getContext('2d'));elements[id].getContext=()=>ctx}
+const context=vm.createContext({document:{getElementById:id=>elements[id],querySelectorAll:()=>buttons},setInterval:f=>tick=f,console});
+vm.runInContext(script,context);
+let frames=0;let keys=vm.runInContext('Object.keys(DATA.cases)',context);
+for(const key of (process.env.PREVIEW_ONLY?[]:keys)){elements.case.onchange({target:{value:key}});let n=buttons.length;for(let i=0;i<n;i++){buttons[i].onclick();for(let j=0;j<=10;j++){elements.progress.oninput({target:{value:j*100}});frames++}}elements.previous.onclick();elements.next.onclick();elements.cutaway.checked=false;elements.cutaway.onchange();elements.cutaway.checked=true;elements.cutaway.onchange();elements.scene.onpointerdown({clientX:1,clientY:1,target:elements.scene});elements.scene.onpointermove({clientX:5,clientY:3});elements.scene.onpointerup();}
+elements.case.onchange({target:{value:'through'}});buttons[1].onclick();elements.progress.oninput({target:{value:600}});vm.runInContext('yaw=-.85;pitch=.1;render()',context);
+const shot=createCanvas(1120,1010),g=shot.getContext('2d');g.fillStyle='#080e17';g.fillRect(0,0,1120,1010);g.fillStyle='#8bdbd1';g.font='14px sans-serif';g.fillText('BAM GEOMETRY / ANTIPODAL-ONLY ROUTING',55,35);g.fillStyle='#eef5f7';g.font='bold 28px sans-serif';g.fillText('Antipodal focus → throat → surface',55,75);g.font='15px sans-serif';g.fillStyle='#aec2d0';g.fillText('Connected Klein immersion • same front in the throat • prescribed mouth motion',55,106);g.drawImage(elements.scene.canvas,55,125);g.drawImage(elements.throat.canvas,55,795,1000,175);g.fillStyle='#bed0d9';g.font='13px sans-serif';g.fillText('Curved handle is a drawing aid. Travel uses intrinsic L and the mouth clocks. Recoil remains unsolved.',55,992);fs.writeFileSync(root+'docs/images/history_throat/antipodal_transport.png',shot.toBuffer('image/png'));
+// Verify real play and route selection controls, including final stop.
+elements.case.onchange({target:{value:'reversed'}});elements.play.onclick();for(let i=0;i<400;i++)tick();if(vm.runInContext('playing',context))throw Error('Player did not stop at unresolved cycle');
+console.log(JSON.stringify({cases:keys.length,checkedFrames:frames,canvasCommands:commands,playStopsAtBoundary:true}));

@@ -1,5 +1,12 @@
 # History-coupled throat: constitutive action and frozen first test
 
+> **Historical local-port experiment, superseded for BAM routing.** This model
+> allows off-antipodal continuous coupling and does not satisfy the corrected
+> interaction rule. Its trajectory changes are not predictions of that rule.
+> See [the antipodal-only correction](antipodal_throat_transport.md) and the
+> [current replay](images/history_throat/replay.html). The original full record
+> and manifest are preserved at commit `48d9dc3ede4edaa6220dd86f3d162aa58df2944c`.
+
 **Paired-refinement amendment:** after the baseline pilot and first low-resolution
 controls, but before any higher-resolution case, add high-resolution g=0,
 blocked-neck and reversed-time controls with the same l_max=12/nodes=25/spacing=.01.
