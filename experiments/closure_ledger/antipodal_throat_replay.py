@@ -11,9 +11,10 @@ import numpy as np
 from geometrodynamics.waves.history_throat import AntipodalTransport, inertial_mouth
 from geometrodynamics.viz.klein_handles import build_surface, default_handles
 
-ROOT = Path('experiments/closure_ledger/runs/20261021_antipodal_transport')
-TEMPLATE = Path('experiments/closure_ledger/antipodal_throat_viewer.html')
-VIEWER = Path('docs/images/history_throat/replay.html')
+REPO = Path(__file__).resolve().parents[2]
+ROOT = REPO/'experiments/closure_ledger/runs/20261021_antipodal_transport'
+TEMPLATE = REPO/'experiments/closure_ledger/antipodal_throat_viewer.html'
+VIEWER = REPO/'docs/images/history_throat/replay.html'
 
 
 def controls():
@@ -29,16 +30,22 @@ def controls():
          'Prescribed inertial B arrives at the first focus at t=π. Later captures are decided anew from arrival positions.'),
         ('moving_miss', 'Moving mouth misses arrival', [mouth(0., .04), mouth(np.pi, -.12, chart_side=-1)], {},
          'B starts at the antipode but has left its aperture by arrival. Its old position cannot capture the front.'),
-        ('reversed', 'Reversed time → unresolved loop', [mouth(0.), mouth(np.pi, chart_side=-1, orientation=-1, anchor=16.)], dict(emission=1.),
-         'The supplied reversed clock map produces an advanced throat edge and a recurring route. Its amplitude boundary problem is unresolved.'),
-        ('neck_reflection', 'Closed outlet → throat reflection', [mouth(0.), mouth(np.pi, chart_side=-1, opened=False)], dict(emission=1., channel='throat'),
+        ('reversed', 'Imposed loop · channel arrows reset', [mouth(0.), mouth(np.pi, chart_side=-1, orientation=-1, anchor=16.)], dict(emission=1.),
+         'The supplied clock map and channel-forward resets impose a closed null route. Two caustics give gain −1, so only the zero amplitude satisfies its source-free loop condition.'),
+        ('reversed_precaustic', 'Imposed loop · pre-caustic capture', [mouth(0.), mouth(np.pi, chart_side=-1, orientation=-1, anchor=16.)], dict(emission=1.),
+         'The same channel-forward loop, but open-mouth capture precedes the caustic. Its front gain is +1; arbitrary homogeneous amplitudes are consistent, without selecting a driven field solution.'),
+        ('reversed_oriented', 'Reversed time · transported arrow', [mouth(0.), mouth(np.pi, chart_side=-1, orientation=-1, anchor=16.)], dict(emission=1.),
+         'The same clock map with orientation carried through each attachment. The exit surface leg runs backward in exterior time when required; the four-leg loop no longer closes.'),
+        ('neck_reflection', 'Closed outlet → throat reflection', [mouth(0.), mouth(np.pi, chart_side=-1, opened=False, end_condition='dirichlet')], dict(emission=1., channel='throat'),
          'An initial front inside A travels to a closed B outlet, reflects inside the throat, and returns to A. This is a separate boundary control.'),
     ]
     result = {}
     for key, title, mouths, settings, description in specs:
         options = dict(emission=0., origin=north, max_legs=16)
         options.update(settings)
-        r = AntipodalTransport(mouths).trace(**options)
+        r = AntipodalTransport(mouths, time_policy='channel_forward' if key in ('reversed', 'reversed_precaustic')
+                              else 'transport_orientation', capture_phase='before_caustic' if key == 'reversed_precaustic'
+                              else 'after_caustic').trace(**options)
         r.update(title=title, description=description)
         result[key] = r
     return result
@@ -71,6 +78,7 @@ def main():
                     for kind in ['mouth_entry', 'mouth_exit', 'antipodal_reflection', 'throat_reflection']}
               for name, r in cases.items()}
     summary = dict(cases=counts, status={k:r['status'] for k,r in cases.items()},
+                   loop_diagnostics={k:r['continuation'] for k,r in cases.items() if r['continuation']},
                    scope='Prescribed-motion antipodal-only characteristic transport; no recoil law or field-energy ledger solved.')
     (ROOT/'summary.json').write_text(json.dumps(summary, indent=2)+'\n')
     payload = dict(cases=cases, mesh=mesh())
@@ -80,9 +88,11 @@ def main():
             Path('geometrodynamics/waves/antipodal_throat_transport.py'),
             Path('geometrodynamics/waves/history_throat.py'),
             Path('tests/test_antipodal_throat_transport.py')]
-    paths += [p for p in [Path('docs/antipodal_throat_transport.md'),
+    paths += [p for p in [REPO/'docs/antipodal_throat_transport.md',
                           VIEWER.with_name('antipodal_transport.png'), ROOT/'README.md'] if p.exists()]
-    hashes = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(paths) if p.name != 'sha256.json'}
+    paths = [p if p.is_absolute() else REPO/p for p in paths]
+    hashes = {p.resolve().relative_to(REPO).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+              for p in sorted(paths) if p.name != 'sha256.json'}
     (ROOT/'sha256.json').write_text(json.dumps(hashes, indent=2)+'\n')
     print(json.dumps(summary, indent=2))
 

@@ -30,6 +30,18 @@
       "antipodal_reflection": 0,
       "throat_reflection": 0
     },
+    "reversed_precaustic": {
+      "mouth_entry": 2,
+      "mouth_exit": 2,
+      "antipodal_reflection": 0,
+      "throat_reflection": 0
+    },
+    "reversed_oriented": {
+      "mouth_entry": 5,
+      "mouth_exit": 4,
+      "antipodal_reflection": 0,
+      "throat_reflection": 0
+    },
     "neck_reflection": {
       "mouth_entry": 2,
       "mouth_exit": 3,
@@ -43,7 +55,57 @@
     "moving_hit": "history_boundary",
     "moving_miss": "history_boundary",
     "reversed": "cycle_requires_boundary_solution",
+    "reversed_precaustic": "cycle_requires_boundary_solution",
+    "reversed_oriented": "history_boundary",
     "neck_reflection": "history_boundary"
+  },
+  "loop_diagnostics": {
+    "reversed": {
+      "edge": 0,
+      "amplitude": [
+        -1.0,
+        -0.0
+      ],
+      "loop_gain": [
+        -1.0,
+        0.0
+      ],
+      "seed_consistency_residual": 2.0,
+      "homogeneous_solution": "zero_only",
+      "closure": {
+        "from_edge": 0,
+        "to_edge": 4,
+        "channel": "surface",
+        "time_difference": 4.440892098500626e-16,
+        "position_difference": 0.0,
+        "max_difference": 4.440892098500626e-16,
+        "tolerance": 1e-09
+      },
+      "interpretation": "Gain condition a=G*a on a route closed within stated tolerance; not a driven field solution"
+    },
+    "reversed_precaustic": {
+      "edge": 0,
+      "amplitude": [
+        1.0,
+        0.0
+      ],
+      "loop_gain": [
+        1.0,
+        0.0
+      ],
+      "seed_consistency_residual": 0.0,
+      "homogeneous_solution": "any_amplitude",
+      "closure": {
+        "from_edge": 0,
+        "to_edge": 4,
+        "channel": "surface",
+        "time_difference": 4.440892098500626e-16,
+        "position_difference": 0.0,
+        "max_difference": 4.440892098500626e-16,
+        "tolerance": 1e-09
+      },
+      "interpretation": "Gain condition a=G*a on a route closed within stated tolerance; not a driven field solution"
+    }
   },
   "scope": "Prescribed-motion antipodal-only characteristic transport; no recoil law or field-energy ledger solved."
 }
