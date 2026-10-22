@@ -1,0 +1,90 @@
+{
+  "case": "reversed",
+  "parameters": {
+    "lmax": 8,
+    "nodes": 17,
+    "length": 0.565,
+    "mass": 1.0,
+    "charge": 0.5,
+    "mouth_angle": 0.3,
+    "footprint": 0.2,
+    "packet_width": 0.35,
+    "packet_energy": 0.02,
+    "coupling": 0.5,
+    "spatial_parity": -1,
+    "time_orientation": -1,
+    "horizon": 8.0,
+    "neck_horizon": 8.0,
+    "spacing": 0.02,
+    "birth_a": 0.3,
+    "birth_b": -0.3,
+    "endpoint_load": 0.0,
+    "blocked": false,
+    "rtol": 2e-09,
+    "fixed_point_tolerance": 2e-07,
+    "max_iterations": 80,
+    "relaxation": 0.5
+  },
+  "converged": true,
+  "iterations": 19,
+  "residuals": [
+    0.028953375680398637,
+    0.014062335299551983,
+    0.006815205292139505,
+    0.003385612127057739,
+    0.001696507827144332,
+    0.000851010687230952,
+    0.00042738822089369646,
+    0.00021491665393624446,
+    0.00010822683447268486,
+    5.4585313812687e-05,
+    2.757747087571774e-05,
+    1.3958690207493268e-05,
+    7.0795230376063945e-06,
+    3.5983528859639957e-06,
+    1.8331799721202358e-06,
+    9.361778957397981e-07,
+    5.354163745792048e-07,
+    3.18163945807904e-07,
+    1.8913435615754148e-07
+  ],
+  "exterior_final_time": 8.0,
+  "stop": "horizon",
+  "initial_exterior_energy": 2.144234973041856,
+  "energy_relative_residual": 1.721355439975861e-08,
+  "angular_absolute_residual": 6.007419422213254e-12,
+  "neck_clock_work_residual": -9.260837976271736e-09,
+  "neck_final_energy": 3.222872735824129e-05,
+  "endpoint_load_energy": 0.0,
+  "final_clock_energies": [
+    1.77704523330779e-05,
+    -1.4467535863139657e-05
+  ],
+  "ledger_pass": true,
+  "initial_separation": 0.6,
+  "final_separation": 1.9342266635669694,
+  "maximum_separation": 3.138558460605848,
+  "actual_birth_velocities": [
+    0.29994372193984775,
+    -0.2999543209430197
+  ],
+  "final_positions": [
+    2.1745547882313843,
+    -2.1744038553812324
+  ],
+  "final_momenta": [
+    0.2398331615645162,
+    -0.23980941904829972
+  ],
+  "minimum_effective_mass": 0.9999760838059022,
+  "maximum_simultaneous_clock_difference": 3.597347255013261e-05,
+  "max_neck_energy": 3.582275105159775e-05,
+  "port_impulses": [
+    0.000316740142495689,
+    -0.0002929957038613004
+  ],
+  "geometric_supported_events": 143,
+  "geometric_advanced_events": 68,
+  "initial_data_note": "Same specified field and nominal momenta; different port Hamiltonians need not have equal initial energies.",
+  "scope": "Constitutive scalar plus Coulomb model; fixed neck, meridional mouths, dynamical clock energies. No GR/QED or topology-change claim."
+}

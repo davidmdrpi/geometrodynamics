@@ -1,0 +1,21 @@
+{
+  "docs/antipodal_throat_transport.md": "7cfff0a4cf0e0ffae3d70072dc8bfc3a2f19920c682a0fd9e095060d6e4b1099",
+  "docs/images/history_throat/antipodal_transport.png": "217e670aa5c52dd164c1324e3fce04585a52e2aeff3eb4920a7ef9a9ea5c3df2",
+  "docs/images/history_throat/replay.html": "b0be73e652c82a90ad66d7d9cce5235157750521275625723552308434fce699",
+  "experiments/closure_ledger/antipodal_throat_replay.py": "1b5a6da61ab8641730fb4289bc8531b019d66db5c7992d4953e57e081110368c",
+  "experiments/closure_ledger/antipodal_throat_viewer.html": "7a0c18f03f3e3f33013dec06c610580b56d379d0be363fdd9805c6047c90b978",
+  "experiments/closure_ledger/check_antipodal_throat_viewer.cjs": "f8233f3e6d0be5cd252f30b32e1f33921be8846a3788adcb00ee0b3b365b6ef3",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/README.md": "e7539345ba0a2431ebfc1a7cf7f02a251695d26a47851e4f460fc0a9da9a9a42",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/empty.json": "f3ae9f08df753fce4014d528f0d48e1d1544b58a86dfc853ed5fe692dbe29f9a",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/moving_hit.json": "4ff996c89f5139b17b4304bdc3de2b9f4ec615d0f350e4c3a76c327490d8ae01",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/moving_miss.json": "a30ad085886e9d8f78299ab129f5b559b392f336c838db19d92d9b13035bdb56",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/neck_reflection.json": "bfbcefbecf9623115e6c5283922639e1fb7a52962f327b49b81ac14cb2238875",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/reversed.json": "c74e19c7987ea20e9cf863f994104ec397fc607e961650550b99d827d4059328",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/reversed_oriented.json": "0b3e5b76a3b3a89d3057093dd190860225fce99907c34c5059d794589bf007b4",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/reversed_precaustic.json": "ad634d3552d17b999d882b830d9c54d4d5d5e607eb836d4aa617d3627c2ba2b8",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/summary.json": "b1f40e6ec2688a77dea8ac4aacc0d1769a14cd508d5403ea093f738a5b7d4fcc",
+  "experiments/closure_ledger/runs/20261021_antipodal_transport/through.json": "e80148ee04f8e1fedd4d6025e9694df7263a7d33f3a0991167342adb8959b2f8",
+  "geometrodynamics/waves/antipodal_throat_transport.py": "248ffa9a2520955b4274200242ca7a73fa51f594b4f74c6c025a59f627691188",
+  "geometrodynamics/waves/history_throat.py": "ba43dbde75f389fe742ac83d9846b9671b896231763ca8d3138d89a88bcd1653",
+  "tests/test_antipodal_throat_transport.py": "5abba7e471cab36c5b98c3daa462a5cbf708b2e3a85dcda2f847bd79b4a07e93"
+}
