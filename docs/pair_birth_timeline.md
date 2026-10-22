@@ -81,6 +81,15 @@ A classical experiment on #345, answering the acceptance test set in its review 
      shifts of 0.05–0.4.
    - The neck itself, with or without its clock, changes the history more. Symmetric pairs feel
      no clock at all.
+10. **Under the antipodal-only (BAM) rule of #347 the picture changes** (§9).
+    - **The rule.** Waves act only at antipodal foci: an empty focus reflects with phase −i, a
+      mouth there captures, and the throat carries captures on the clock histories.
+    - **No force in flight.** Nothing pushes the mouths in flight. The static attraction
+      breaks the rule, so pairs coast: symmetric pairs meet at −P every cycle. #345's P, −P
+      alternation comes from the static field.
+    - **Clock offsets.** Without the attraction to reverse them, lopsided offsets grow past L,
+      and throat exits land in the past. A fast lopsided pair drives the chronology margin
+      negative.
 
 **What this is not.**
 - **The field and mouths are effective.** The sphere-side field is 2+1 Maxwell on the round
@@ -467,8 +476,15 @@ timing set by the history offset.
   mouth and turned by a spin s_k, with moment of inertia M sin²a.
   - So the ports' twist is booked, and angular momentum stays exact.
   - A spinning mouth feels the gyroscopic force s (x × v) of the sphere's curvature.
-- **Handle.** The neck joins rim angle ψ at A to ψ + π at B (torus) or to π − ψ (Klein). The
-  charges cannot tell the two apart (Model). The neck can, through its m = 1 part.
+- **Handle.** The rim frames are oriented by the sphere's outward normal at each mouth. In such
+  frames a Klein (non-orientable) handle maps rim to rim by a rotation, here ψ → ψ + π, and a
+  torus handle by a reflection, here ψ → π − ψ. A test checks this against #338's glued Klein
+  mesh.
+  - #338 writes the same handles in one ambient frame for both rims, where rotation and
+    reflection trade places.
+  - An earlier version of this section followed #338's formulas in these frames and so had the
+    two labels swapped. The runs were unaffected; only their names changed.
+  - The charges cannot tell the two handles apart (Model). The neck can, through its m = 1 part.
 - **Mirror symmetry.** A pair moving in one plane through the centre makes B odd under
   reflection in that plane. So for coplanar flights (symmetric and lopsided) the m = 0 part
   vanishes identically, and the channel is the out-of-plane m = 1 row.
@@ -510,7 +526,8 @@ timing set by the history offset.
 - with the history clock;
 - with the clock reversed: the neck sees −A.
 
-The handle is a torus; the lopsided birth is also run with a Klein handle. The comparisons are:
+The handle is a Klein handle, the BAM case; the lopsided birth is also run with a torus handle.
+The comparisons are:
 - **history − off** isolates the offset's feedback;
 - **off − no neck** is the neck's own effect;
 - **reversed − off** should flip the first-order feedback.
@@ -537,7 +554,7 @@ The handle is a torus; the lopsided birth is also run with a Klein handle. The c
 - **Production settings** (bold row): g = 100 with 65 nodes. The shift there is 9% larger
   than at 129 nodes.
 
-**Results** (five births each, 60 time units, torus handle unless stated).
+**Results** (five births each, 60 time units, Klein handle unless stated).
 
 | birth | neck and clock | contacts at t | max \|A\| | max \|μ\| | neck + port, max | neck / waves (mean) | energy drift |
 |---|---|---|---|---|---|---|---|
@@ -545,8 +562,8 @@ The handle is a torus; the lopsided birth is also run with a Klein handle. The c
 | | clock off | 12.235, 24.351, 36.665, 47.781, 57.928 | 0.2108 | 0 | 3.2e-03 | 0.050 | 3.3e-06 |
 | | history | 12.223, 24.407, 36.598, 47.918, 57.896 | 0.2106 | 1.0e-03 | 3.3e-03 | 0.058 | 3.5e-06 |
 | | reversed | 12.243, 24.306, 36.676, 47.651, 57.608 | 0.2110 | 1.1e-03 | 3.3e-03 | 0.054 | 3.6e-06 |
-| | Klein, clock off | 12.234, 24.344, 36.197, 47.520, 57.400 | 0.2107 | 0 | 3.6e-03 | 0.057 | 3.8e-06 |
-| | Klein, history | 12.223, 24.347, 36.270, 47.591, 57.661 | 0.2105 | 7.9e-04 | 3.5e-03 | 0.056 | 3.4e-06 |
+| | torus, clock off | 12.234, 24.344, 36.197, 47.520, 57.400 | 0.2107 | 0 | 3.6e-03 | 0.057 | 3.8e-06 |
+| | torus, history | 12.223, 24.347, 36.270, 47.591, 57.661 | 0.2105 | 7.9e-04 | 3.5e-03 | 0.056 | 3.4e-06 |
 | unequal + off-circle kick | no neck | 10.257, 22.048, 32.874, 43.048, 53.214 | 0.0481 | — | — | — | 4.0e-07 |
 | | clock off | 10.224, 21.816, 32.235, 41.546, 50.002 | 0.0464 | 0 | 5.2e-03 | 0.075 | 4.5e-06 |
 | | history | 10.224, 21.814, 32.186, 41.598, 50.378 | 0.0464 | 2.7e-03 | 4.3e-03 | 0.074 | 4.4e-06 |
@@ -600,11 +617,113 @@ Contact-time shifts by cycle:
   - The feedback changes the lopsided pair's peak offset by 2 × 10⁻⁴ (0.2106 against 0.2108).
   - The chronology margin stays above 1.154.
 - **The handle matters only in the details.**
-  - Torus against Klein moves the first lopsided contact by 0.001, and the clock feedback is
-    −0.0123 against −0.0109.
+  - Klein against torus moves the first lopsided contact by 0.001, and the clock feedback is
+    −0.0123 (Klein) against −0.0109 (torus).
   - Later contacts differ by up to 0.5.
 
-## 9. Checks
+## 9. Under the antipodal-only rule
+![Antipodal-only rule](images/pair_birth/antipodal.png)
+
+#347 adopts the BAM routing rule:
+
+> a front launched at (n, t) can next interact only at its antipodal focus (−n, t + π).
+
+Everything in §§3–8 lets the field act on the mouths at every instant: the Coulomb attraction,
+the exchange and self fields, and the neck's ports. None of that obeys the rule.
+`geometrodynamics/waves/antipodal_pair_birth.py` rebuilds the history under it, with the same
+mouths, births, release and re-birth.
+
+**Rules.**
+- **Fronts.** Radiation is carried by fronts. Each has an origin, a launch time, an energy, an
+  angular momentum about the centre (conserved in flight) and a phase. Mouths a front passes
+  on its way feel nothing.
+- **Reflections.** If no open mouth's aperture contains the focus, the front passes through
+  the caustic and continues from there. Its phase is multiplied by −i, the 2-D Gouy phase.
+  - After two foci it is back sign-flipped. That is the field's exact result for the conformal
+    operator (§1); a real −1 per focus would give +1.
+- **Mouth interactions.** A mouth captures a front only if its aperture (radius a) contains the
+  focus at the focal time. Then:
+  - the front's angular momentum goes into the mouth: the part across its normal into the
+    orbit, the part along it into the spin;
+  - the rest of the front's energy enters the throat.
+- **Throat interactions.** The front crosses the neck in neck time L = sin 2a, on the actual
+  proper-time histories: σ_out = σ_in + L (#347's map).
+  - It leaves from the aperture point mapped through the handle (Klein: a rotation; torus: a
+    reflection), as an isotropic front.
+  - The point inside the aperture is mapped as a portal. That is an assumption: the glued
+    handle's throat attaches only at the rim.
+  - When the offset exceeds L, the exit lies in the destination's past (an advanced edge).
+    Nothing on its way interacts under the rule, so it is kept while its first focus is still
+    ahead. Otherwise it is a causality boundary, and its energy is booked as unresolved.
+  - At annihilation the throat's contents go into the release.
+- **No static attraction.** The Coulomb attraction acts at every separation, so the strict rule
+  removes it. The flux energy is then part of the fixed rest energy, and the mouths coast on
+  geodesics. A labelled control keeps it ("antipodal + static field"), breaking the rule for
+  the static field only.
+- **Emission only at events.**
+  - The birth flash: one front per mouth, with #345's flash energy, paid by the pair at birth.
+    It starts at rest, so it carries no angular momentum.
+  - Throat exits.
+  - The release pulse at rim contact, with re-birth at its antipodal focus as in §7.
+
+**Results** (five births each, 60 time units, Klein handle unless stated; birth speeds after the
+flash).
+
+| birth | rule | birth speeds | contacts (t, place) | captures | throat exits (advanced) | max \|offset\| | min chronology margin |
+|---|---|---|---|---|---|---|---|
+| symmetric, v = 0.30 | continuous (#345 §7) | — | 10.78 P, 23.07 −P, 34.22 P, 44.68 −P, 54.08 P | — | — | 0.000 | 1.165 |
+|  | antipodal + static field | 0.283 / 0.283 | 10.06 P, 21.30 −P, 31.21 P, 41.12 −P, 51.03 P | 12 | 6 (0) | 0.000 | 1.165 |
+|  | antipodal, strict | 0.283 / 0.283 | 8.98 −P, 21.65 −P, 34.33 −P, 47.00 −P, 59.67 −P | 16 | 8 (0) | 0.000 | 1.165 |
+| symmetric, v = 1/3 | continuous (#345 §7) | — | 26.92 P, 43.32 −P, 54.88 P | — | — | 0.000 | 1.165 |
+|  | antipodal + static field | 0.315 / 0.315 | 23.09 P, 39.03 −P, 54.97 P | 4 | 0 (0) | 0.000 | 1.165 |
+|  | antipodal, strict | 0.315 / 0.315 | 8.07 −P, 19.76 −P, 31.97 −P, 44.73 −P, 57.49 −P | 16 | 12 (0) | 0.000 | 1.165 |
+| unequal + off-circle kick | continuous (#345 §7) | — | 10.26 off circle, 22.05 off circle, 32.87 off circle, 43.05 off circle, 53.21 off circle | — | — | 0.048 | 1.155 |
+|  | antipodal + static field | 0.328 / 0.250 | 9.47 off circle, 20.59 off circle, 30.62 off circle, 39.72 off circle, 48.53 off circle | 6 | 5 (0) | 0.049 | 1.154 |
+|  | antipodal, strict | 0.328 / 0.250 | 8.83 off circle, 21.29 off circle, 34.34 off circle, 48.03 off circle | 6 | 6 (0) | 0.271 | 0.893 |
+| lopsided (0.45 / 0.15) | continuous (#345 §7) | — | 12.26 113°, 25.32 24°, 35.27 −92°, 44.55 146°, 52.82 14° | — | — | 0.212 | 1.164 |
+|  | antipodal + static field | 0.435 / 0.130 | 11.10 107°, 22.98 12°, 33.31 −99°, 42.73 142°, 51.25 15° | 9 | 8 (0) | 0.210 | 1.165 |
+|  | antipodal, strict | 0.435 / 0.130 | 8.99 −101°, 21.70 −16°, 35.02 75°, 49.02 174° | 11 | 11 (2) | 0.843 | 0.321 |
+|  | antipodal, strict, torus | 0.435 / 0.130 | 8.99 −101°, 21.70 −16°, 35.02 75°, 49.02 174° | 11 | 11 (2) | 0.843 | 0.321 |
+| fast lopsided (0.85 / 0.15) | antipodal + static field | 0.844 / 0.114 | 5.95 −43°, 15.40 109°, 25.25 −84°, 35.12 84°, 45.00 −107° | 12 | 9 (6) | 2.808 | −1.644 |
+|  | antipodal, strict | 0.844 / 0.114 | 5.31 −69°, 13.99 52°, 22.94 −177°, 31.88 −46°, 41.09 97° | 7 | 5 (5) | 2.660 | −1.496 |
+
+**What the rule changes.**
+- **Nothing pushes a mouth in flight.**
+  - The flash carries no angular momentum, a front converging on a point is symmetric, and
+    exits are isotropic.
+  - Fronts change the history only through energy. What the throat holds at contact leaves
+    with the release pulse and funds the next birth.
+  - In the symmetric strict run this settles into a steady cycle. Each birth pays a flash of
+    0.0101, the previous flash is captured by the new pair, and it returns 0.0101 to the
+    throat. Every re-birth is at 0.267.
+- **Without the static attraction, pairs do not come back.**
+  - Strict symmetric pairs coast to −P every cycle, at (π − 2a)/v, and are re-born at P.
+  - #345's alternation P, −P, P, … comes from the static field. Keeping only it gives
+    P, −P, P, … again, at 10.06 against #345's 10.78. The rest of the difference is #345's
+    continuous wave forces.
+- **The clock offset is no longer reversed.**
+  - In #345 the attraction swapped which mouth was fast, so the lopsided offset was back near
+    zero by contact (≤ 0.0011).
+  - Coasting, it grows linearly to 0.84, past L = 0.565. Two of the fast mouth's captures then
+    exit the slow mouth in the past, by 0.25 and 0.12. Both are kept, because their first foci
+    are still ahead.
+- **A fast lopsided pair outgrows the chronology margin.**
+  - With 0.85 / 0.15 the offset reaches 2.66, while d + L never falls below 1.165. So
+    d + L − |A| goes to −1.50 late in each flight (−1.64 with the static field).
+  - By that instantaneous estimate a closed null loop through the throat becomes possible.
+    No route in these runs closed one, and none reached a causality boundary.
+  - Every capture by the fast mouth exits in the past, by 0.81–0.88.
+- **The handle changes exit points only.** Klein and torus give identical contacts and event
+  counts in the lopsided run: no exit point moved a later capture.
+- **Scope.** §§3–8 describe the continuous model only, including the neck channel's clock
+  feedback (a continuous port coupling). Under the rule there is no in-flight force for a
+  clock offset to modify.
+- **Conservation.**
+  - Strict runs: energy to 5 × 10⁻¹⁵ and angular momentum to 2 × 10⁻¹⁵. Flight is exact, and
+    captures, exits, releases and re-births are exact.
+  - With the static field: energy to 1 × 10⁻⁷ (the integrator).
+
+## 10. Checks
 
 | check | result |
 |---|---|
@@ -625,7 +744,12 @@ Contact-time shifts by cycle:
 | neck clock and port forces | ∂H/∂A, the port forces on the mouths, the spin torque and the pull on the field all match finite differences of H (relative 10⁻⁵) |
 | neck controls | a decoupled neck (g = 0) reproduces the bare pair to 10⁻¹³; the clock-off neck keeps μ ≡ 0; symmetric births keep A ≡ 0 and μ < 10⁻¹⁵ with either handle |
 | coplanar flights | the m = 0 row stays below 10⁻¹⁵, as the mirror symmetry requires |
-| tests | `tests/test_pair_birth.py`: 20 checks |
+| handle labels | in sphere-oriented rim frames #338's non-orientable mesh maps rim to rim by a rotation (det +1), as the neck's Klein map does; the torus map is a reflection |
+| antipodal rule: interaction support | fronts sweep over mouths without effect and act only at foci; empty foci multiply the phase by −i, so two foci give −1, matching the field's exact 2π sign flip |
+| antipodal rule: throat | exits on the clock histories, τ_dest = τ_capture + L, to 10⁻⁹ for moving mouths; Klein exits rotate the aperture coordinates and torus exits reflect them |
+| antipodal rule: conservation | angular momentum carried by a front is transferred exactly at capture; strict runs conserve energy to 5 × 10⁻¹⁵ through releases and re-births |
+| antipodal rule: free flight | strict symmetric pairs meet at −P at exactly (π − 2a)/v after paying for the flash |
+| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 9 checks |
 
 ## Against the acceptance test
 
@@ -647,6 +771,13 @@ Contact-time shifts by cycle:
   approximately. The released deformation pulse refocuses exactly.
 - **Parameters not scanned.** The thresholds depend on q, M and the footprint. Only the birth
   speed and the flash timing were scanned.
+- **The antipodal-only model is a characteristic reduction.**
+  - Fronts are point-focusing packets with stated capture, exit and emission rules, not a field
+    solution with the restricted support. Interference between coincident fronts is not
+    modelled; phases are bookkeeping.
+  - Under it, nothing pushes the mouths in flight and the static attraction is gone. So BAM
+    needs an attraction mechanism built from antipodal events. Momentum-carrying fronts, for
+    example from a non-symmetric birth or a recoil law at the ports, are the open question.
 - **The neck channel is a hybrid.**
   - The sphere stays whole, including the disc inside each rim. The neck is attached by port
     springs rather than glued, and only its m = 0 and m = 1 parts are kept.
@@ -664,7 +795,8 @@ python experiments/closure_ledger/pair_birth_probe.py history    # repeated cycl
 python experiments/closure_ledger/pair_birth_probe.py neck_checks    # port stiffness, neck nodes, step, ~9 min
 python experiments/closure_ledger/pair_birth_probe.py neck       # neck channel, four clock modes, ~13 min
 python experiments/closure_ledger/pair_birth_neck_animation.py   # neck_channel.mp4 and .gif, ~3 min (MP4 needs imageio-ffmpeg)
+python experiments/closure_ledger/pair_birth_probe.py antipodal  # the history under the antipodal-only rule, ~15 s
 python experiments/closure_ledger/pair_birth_report.py           # tables, figures, summary.json, sha256.json
-python -m pytest -q tests/test_pair_birth.py
+python -m pytest -q tests/test_pair_birth.py tests/test_antipodal_pair_birth.py
 ```
 Results are in `experiments/closure_ledger/runs/20261019_pair_birth/`.

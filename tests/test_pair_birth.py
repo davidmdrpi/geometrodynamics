@@ -264,6 +264,27 @@ def test_rebirth_starts_a_relaxed_neck_and_conserves(necked):
     assert info['energy_drift'] < 3e-6 and info['angular_drift'] < 1e-8
 
 
+def test_handle_labels_match_the_glued_mesh_orientability():
+    """In sphere-oriented rim frames #338's non-orientable (Klein) mesh maps rim to rim by a
+    rotation; the neck's 'klein' map must be a rotation and its 'torus' map a reflection."""
+    from geometrodynamics.viz.klein_handles import build_surface, default_handles, is_orientable
+    surface = build_surface(a=.24, handles=default_handles(1), n_ring=16, n_sphere=180, ds_target=.06)
+    assert not is_orientable(surface.tris)
+    ends = [surface.points[surface.tube_ids[0][0]], surface.points[surface.tube_ids[0][-1]]]
+    centres = [e.mean(0)/np.linalg.norm(e.mean(0)) for e in ends]
+    frames = []
+    for c in centres:
+        e1 = np.cross(c, [0., 1., 0.]) if abs(c[1]) < .9 else np.cross(c, [1., 0., 0.])
+        e1 /= np.linalg.norm(e1)
+        frames.append((e1, np.cross(c, e1)))                                  # sphere-oriented: e1 x e2 = c
+    local = [np.array([[p @ f[0], p @ f[1]] for p in pts]) for pts, f in zip(ends, frames)]
+    rim_map, *_ = np.linalg.lstsq(local[0], local[1], rcond=None)
+    assert np.linalg.det(rim_map) == pytest.approx(1., abs=1e-6)              # Klein: a rotation
+    for handle, det in (('klein', 1.), ('torus', -1.)):
+        m = PairBirth(Parameters(cutoff=4), NeckChannel(nodes=5, handle=handle))
+        assert np.prod(m._handle[1]) == det
+
+
 def test_symmetric_births_keep_zero_offset_with_either_handle():
     for handle in ('torus', 'klein'):
         m = PairBirth(COARSE, NeckChannel(port=100., nodes=33, handle=handle))

@@ -516,7 +516,7 @@ def load_neck(part):
 
 
 def neck_tag(tag):
-    """('lopsided', 'history') from 'neck_lopsided_history'; the Klein runs read 'lopsided_klein'."""
+    """('lopsided', 'history') from 'neck_lopsided_history'; the torus runs read 'lopsided_torus'."""
     *birth, clock = tag.split('_')[1:]
     return '_'.join(birth), clock
 
@@ -663,12 +663,177 @@ def figure_neck(runs, checks, path):
     plt.close(fig)
 
 
+ANTIPODAL_NAMES = dict(symmetric='symmetric, v = 0.30', symmetric_third='symmetric, v = 1/3',
+                      independent='unequal + off-circle kick', lopsided='lopsided (0.45 / 0.15)',
+                      fast_lopsided='fast lopsided (0.85 / 0.15)')
+
+
+def load_antipodal():
+    path = RUNS/'antipodal.json'
+    if not path.exists():
+        return []
+    runs = json.loads(path.read_text())['runs']
+    for r in runs:
+        for k in ('t', 'd', 'alive', 'cycle', 'clock', 'total'):
+            r[k] = np.array([np.nan if v is None else v for v in r[k]], dtype=float if k != 'alive' else bool)
+        r['x'] = np.array(r['x'])
+        r['energy'] = {k: np.array(v, float) for k, v in r['energy'].items()}
+        r['birth_name'] = r['tag'][len('antipodal_'):].rsplit('_', 2 if r['tag'].endswith('torus') else 1)[0]
+    return runs
+
+
+def place(point):
+    p = np.asarray(point)
+    if p[2] > .999:
+        return 'P'
+    if p[2] < -.999:
+        return '−P'
+    if abs(p[1]) < 1e-6:
+        return f'{np.degrees(np.arctan2(p[0], p[2])):.0f}°'
+    return 'off circle'
+
+
+def antipodal_rows(runs):
+    rows = []
+    for r in runs:
+        ev = r['events']
+        rows.append(dict(
+            tag=r['tag'], birth=r['birth_name'], static=r['static'], handle=r['handle'],
+            speeds=r['birth_speed'], contacts=[(e['time'], place(e['point'])) for e in ev if e['kind'] == 'contact'],
+            captures=sum(e['kind'] == 'capture' for e in ev), exits=sum(e['kind'] == 'throat_exit' for e in ev),
+            advanced=sum(e['kind'] == 'throat_exit' and e['advanced'] for e in ev),
+            causality=sum(e['kind'] == 'capture' and e.get('exit') == 'causality_boundary' for e in ev),
+            reflections=sum(e['kind'] == 'reflection' for e in ev),
+            captured_energy=sum(e['into_throat'] for e in ev if e['kind'] == 'capture'),
+            max_offset=float(np.nanmax(np.abs(r['clock']))), min_margin=r['min_chronology_margin'],
+            energy_drift=r['energy_drift'], angular_drift=r['angular_drift']))
+    return rows
+
+
+def antipodal_table(runs, history):
+    lines = ['| birth | rule | birth speeds | contacts (t, place) | captures | throat exits (advanced) | '
+             'max \\|offset\\| | min chronology margin |', '|---|---|---|---|---|---|---|---|']
+    cont = {'symmetric': pick(history, tag='history_symmetric', v=.30), 'symmetric_third':
+            pick(history, tag='history_symmetric', v=1/3), 'independent': pick(history, tag='history_independent'),
+            'lopsided': pick(history, tag='history_lopsided')} if history else {}
+    order = ['symmetric', 'symmetric_third', 'independent', 'lopsided', 'fast_lopsided']
+    rows = sorted(antipodal_rows(runs), key=lambda q: (order.index(q['birth']), q['static'], q['handle']))
+    for name in order:
+        label = ANTIPODAL_NAMES[name]
+        if name in cont:
+            h = cont[name]
+            cs = ', '.join(f"{e['time']:.2f} {place(e['point'])}" for e in h['events'] if e['kind'] == 'contact')
+            ext = np.abs(h['clock'][h['alive']])
+            lines.append(f"| {label} | continuous (#345 §7) | — | {cs} | — | — | "
+                         f"{np.nanmax(ext):.3f} | {h['min_chronology_margin']:.3f} |")
+            label = ''
+        for q in (q for q in rows if q['birth'] == name):
+            rule = ('antipodal, strict' if q['static'] == 'none' else 'antipodal + static field') + \
+                (', torus' if q['handle'] == 'torus' else '')
+            cs = ', '.join(f'{t:.2f} {p}' for t, p in q['contacts'])
+            lines.append(f"| {label} | {rule} | {q['speeds'][0]:.3f} / {q['speeds'][1]:.3f} | {cs} | {q['captures']} | "
+                         f"{q['exits']} ({q['advanced']}) | {q['max_offset']:.3f} | {q['min_margin']:.3f} |")
+            label = ''
+    return '\n'.join(lines)
+
+
+def figure_antipodal(runs, history, path):
+    fig, axes = plt.subplots(2, 2, figsize=(15, 9), gridspec_kw=dict(hspace=.42, wspace=.22))
+    by = {r['tag']: r for r in runs}
+    styles = dict(continuous=('#7f8c8d', 'continuous (#345)'), none=('#c0392b', 'antipodal, strict'),
+                  coulomb=('#1f5fa8', 'antipodal + static field'))
+
+    def alive_line(ax, t, y, alive, **kw):
+        ax.plot(np.where(alive, t, np.nan), np.where(alive, y, np.nan), **kw)
+
+    ax = axes[0, 0]
+    if history:
+        h = pick(history, tag='history_symmetric', v=.30)
+        alive_line(ax, h['t'], h['d'], h['alive'], color=styles['continuous'][0], lw=1.2, label=styles['continuous'][1])
+    for static in ('none', 'coulomb'):
+        r = by[f'antipodal_symmetric_{static}']
+        alive_line(ax, r['t'], r['d'], r['alive'], color=styles[static][0], lw=1.2, label=styles[static][1])
+        for e in r['events']:
+            if e['kind'] == 'contact':
+                ax.text(e['time'], 2*A - (.25 if static == 'none' else .45), place(e['point']), ha='center',
+                        fontsize=7, color=styles[static][0])
+    ax.axhline(np.pi, color='k', lw=.4)
+    ax.set_ylim(0, 3.3)
+    ax.set_xlabel('time t')
+    ax.set_ylabel('separation d')
+    ax.set_title('(a) Symmetric v = 0.30: under the strict rule the pair coasts to −P every cycle;\n'
+                 'the static field alone restores #345\'s P, −P, P, ...', fontsize=10)
+    ax.legend(fontsize=8, loc='upper right')
+    ax = axes[0, 1]
+    if history:
+        h = pick(history, tag='history_lopsided')
+        ax.plot(h['t'], h['clock'], color=styles['continuous'][0], lw=1.2, label=styles['continuous'][1])
+    for static in ('none', 'coulomb'):
+        r = by[f'antipodal_lopsided_{static}']
+        ax.plot(r['t'], r['clock'], color=styles[static][0], lw=1.2, label=styles[static][1])
+    L = by['antipodal_lopsided_none']['length']
+    for s_ in (1, -1):
+        ax.axhline(s_*L, color='k', lw=.6, ls='--')
+    ax.text(.5, -L - .05, '−L: beyond it a throat exit lands in the past', fontsize=7, va='top')
+    ax.axhline(0, color='k', lw=.4)
+    ax.set_xlabel('time t')
+    ax.set_ylabel('clock offset A = τ_A − τ_B')
+    ax.set_title('(b) Lopsided birth: without the attraction nothing swaps the roles,\nso the offset grows past L',
+                 fontsize=10)
+    ax.legend(fontsize=8, loc='upper right')
+    ax = axes[1, 0]
+    r = by['antipodal_lopsided_none']
+    rows = dict(reflection=0, capture=1, throat_exit=2, contact=3, birth=4)
+    for e in r['events']:
+        y = rows[e['kind']]
+        if e['kind'] == 'reflection':
+            ax.plot(e['time'], y, '|', color='#7f8c8d', ms=7)
+        elif e['kind'] == 'capture':
+            ax.plot(e['time'], y, 'o', color=('#117a3a', '#7d2fa5')[e['mouth']], ms=6)
+        elif e['kind'] == 'throat_exit':
+            ax.plot(e['time'], y, '^', color=('#117a3a', '#7d2fa5')[e['mouth']], ms=7,
+                    mfc='white' if e['advanced'] else None, mec='#c0392b' if e['advanced'] else None)
+            if e['advanced']:
+                ax.annotate('', xy=(e['time'], y + .15), xytext=(e['t_in'], rows['capture'] + .15),
+                            arrowprops=dict(arrowstyle='->', color='#c0392b', lw=.8))
+        else:
+            ax.plot(e['time'], y, '*' if e['kind'] == 'contact' else 'v', color='k', ms=9)
+    ax.set_yticks(list(rows.values()), ['reflection at an empty focus', 'capture at a focus (A green, B purple)',
+                                        'throat exit (hollow: advanced)', 'rim contact, release', 'birth'], fontsize=8)
+    ax.set_ylim(-.6, 4.6)
+    ax.set_xlabel('time t')
+    ax.set_title('(c) Lopsided birth, strict rule: every interaction is an antipodal focus;\n'
+                 'red arrows join a capture to its exit in the past', fontsize=10)
+    ax = axes[1, 1]
+    for static in ('none', 'coulomb'):
+        r = by[f'antipodal_fast_lopsided_{static}']
+        margin = np.where(r['alive'], r['d'] + r['length'] - np.abs(r['clock']), np.nan)
+        ax.plot(r['t'], margin, color=styles[static][0], lw=1.2, label=f'{styles[static][1]}: d + L − |A|')
+    ax.axhline(0, color='k', lw=.6)
+    ax.fill_between([0, HISTORY_END], -3, 0, color='#c0392b', alpha=.07)
+    ax.set_ylim(-2, 2)
+    ax.set_xlim(0, HISTORY_END)
+    ax.set_xlabel('time t')
+    ax.set_ylabel('chronology margin')
+    ax.set_title('(d) Fast lopsided birth (0.85 / 0.15): the offset outgrows d + L;\n'
+                 'below zero a closed null loop through the throat is possible', fontsize=10)
+    ax.legend(fontsize=8, loc='upper right')
+    fig.savefig(path, dpi=110, bbox_inches='tight')
+    plt.close(fig)
+
+
+HISTORY_END = 60.
+
+
 def main():
     scan, featured, retimed, checks = (load(p) for p in ('scan', 'featured', 'retimed', 'checks'))
     history = load_history()
     neck, neck_checks = load_neck('neck'), load_neck('neck_checks')
     if neck and neck_checks:
         figure_neck(neck, neck_checks, IMAGES/'neck.png')
+    antipodal = load_antipodal()
+    if antipodal:
+        figure_antipodal(antipodal, history, IMAGES/'antipodal.png')
     IMAGES.mkdir(parents=True, exist_ok=True)
     if history:
         figure_history(history, IMAGES/'history.png')
@@ -707,22 +872,24 @@ def main():
                                                              births=sum(e['kind'] == 'birth' for e in r['events'])+1)
                            for r in history}) if history else None,
         neck=dict(rows=neck_rows(neck), feedback={b: feedback(neck, b) for b in sorted({r['birth'] for r in neck})
-                                                  if not b.endswith('klein')},
-                  klein=dict(history=[c['time'] for c in contacts(pick(neck, tag='neck_lopsided_klein_history'))],
-                             off=[c['time'] for c in contacts(pick(neck, tag='neck_lopsided_klein_off'))]),
+                                                  if not b.endswith('torus')},
+                  torus=dict(history=[c['time'] for c in contacts(pick(neck, tag='neck_lopsided_torus_history'))],
+                             off=[c['time'] for c in contacts(pick(neck, tag='neck_lopsided_torus_off'))]),
                   calibration=calibration_rows(neck_checks)) if neck and neck_checks else None,
+        antipodal=dict(rows=antipodal_rows(antipodal)) if antipodal else None,
         tables=dict(outcomes=outcome_table(scan), ledger=ledger_table(scan), retimed=retimed_table(retimed, featured),
                     history=history_table(history_rows(history)) if history else None,
                     neck=neck_table(neck_rows(neck)) if neck else None,
-                    calibration=calibration_table(calibration_rows(neck_checks)) if neck_checks else None))
+                    calibration=calibration_table(calibration_rows(neck_checks)) if neck_checks else None,
+                    antipodal=antipodal_table(antipodal, history) if antipodal else None))
     (RUNS/'summary.json').write_text(json.dumps(report, indent=2, sort_keys=True)+'\n')
     files = sorted(RUNS.glob('*.json')) + sorted(p for ext in ('png', 'gif', 'mp4') for p in IMAGES.glob(f'*.{ext}'))
     (RUNS/'sha256.json').write_text(json.dumps({p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                                                 for p in files if p.name != 'sha256.json'}, indent=2)+'\n')
-    for k in ('outcomes', 'ledger', 'retimed', 'history', 'neck', 'calibration'):
+    for k in ('outcomes', 'ledger', 'retimed', 'history', 'neck', 'calibration', 'antipodal'):
         print(report['tables'][k], '\n')
     if report['neck']:
-        print(json.dumps(dict(feedback=report['neck']['feedback'], klein=report['neck']['klein']), indent=1))
+        print(json.dumps(dict(feedback=report['neck']['feedback'], torus=report['neck']['torus']), indent=1))
     print(json.dumps(dict(thresholds=report['thresholds'], barrier=report['coulomb_barrier'],
                           first_returns=stats, direct=report['direct_exchange'],
                           max_energy_drift=report['max_energy_drift'],

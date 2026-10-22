@@ -8,6 +8,7 @@
     python experiments/closure_ledger/pair_birth_probe.py history    # repeated cycles with history clocks
     python experiments/closure_ledger/pair_birth_probe.py neck       # neck channel: clock history, off, reversed
     python experiments/closure_ledger/pair_birth_probe.py neck_checks    # port stiffness, nodes, step
+    python experiments/closure_ledger/pair_birth_probe.py antipodal  # the history under the antipodal-only rule
 
 Each part writes JSON to experiments/closure_ledger/runs/20261019_pair_birth/.
 Model: geometrodynamics/waves/pair_birth.py. Write-up: docs/pair_birth_timeline.md.
@@ -26,6 +27,7 @@ from pathlib import Path
 
 import numpy as np
 
+from geometrodynamics.waves.antipodal_pair_birth import AntipodalPairBirth
 from geometrodynamics.waves.pair_birth import (NeckChannel, PairBirth, Parameters, birth_positions, circle_angle,
                                                front_crossings)
 
@@ -224,13 +226,24 @@ def jobs_for(part):
         return [('history_symmetric', .30, 5, None, 5), ('history_symmetric', 1/3, 3, None, 5),
                 ('history_independent', .30, 5, independent.tolist(), 5),
                 ('history_lopsided', .30, 5, lopsided.tolist(), 5)]
+    if part == 'antipodal':
+        births = dict(history_births(), symmetric_third=None, fast_lopsided=None)
+        _, slow, _, _ = birth_positions(.3, .15, PLANE)
+        _, fast, _, _ = birth_positions(.3, .85, PLANE)
+        births['fast_lopsided'] = np.array([fast[0], slow[1]]).tolist()
+        out = []
+        for name, vel in births.items():
+            v = 1/3 if name == 'symmetric_third' else .30
+            for static in ('none', 'coulomb'):
+                out.append((f'antipodal_{name}_{static}', v, vel, static, 'klein'))
+        return out + [('antipodal_lopsided_none_torus', .30, births['lopsided'], 'none', 'torus')]
     if part in ('neck', 'neck_checks'):
         births = history_births()
         if part == 'neck':
             out = [(f'neck_{name}_{clock}', .30, 5, vel, 5, None if clock == 'none' else dict(NECK, clock=clock))
                    for name, vel in births.items() for clock in ('none', 'off', 'history', 'reversed')]
-            return out + [(f'neck_lopsided_klein_{clock}', .30, 5, births['lopsided'], 5,
-                           dict(NECK, clock=clock, handle='klein')) for clock in ('off', 'history')]
+            return out + [(f'neck_lopsided_torus_{clock}', .30, 5, births['lopsided'], 5,
+                           dict(NECK, clock=clock, handle='torus')) for clock in ('off', 'history')]
         first = 14.                                    # through the lopsided pair's first contact
         lop = births['lopsided']
         out = [(f'check_port{g:g}_nodes{n}_{clock}', .30, 1, lop, 2, dict(port=g, nodes=n, clock=clock), first)
@@ -238,6 +251,35 @@ def jobs_for(part):
         return out + [(f'check_dt_half_{clock}', .30, 1, lop, 2, dict(NECK, clock=clock), first, DT/2)
                       for clock in ('off', 'history')]
     raise SystemExit(f'unknown part {part!r}')
+
+
+def antipodal_job(args):
+    """One history under the antipodal-only rule (strict, or with the static field kept)."""
+    tag, v, velocities, static, handle = args
+    m = AntipodalPairBirth(Parameters(), static=static, handle=handle)
+    s0 = m.initial(v) if velocities is None else m.initial(velocities=velocities)
+    t0 = time.time()
+    h, info = m.run(s0, HISTORY_END, cycles=5, dt=DT, output_dt=OUTPUT_DT)
+    keep = np.zeros(len(h['t']), bool)
+    keep[::5] = True
+    keep[-1] = True
+    for e in info['events']:
+        keep[np.abs(h['t'] - e['time']) < 1e-9] = True
+    r = lambda a, k=7: [None if not np.isfinite(x) else x for x in np.round(np.asarray(a, float)[keep], k).tolist()]
+
+    def clean(e):
+        return {k: (np.asarray(x).tolist() if isinstance(x, np.ndarray) else float(x) if isinstance(x, np.floating)
+                    else x) for k, x in e.items()}
+    return dict(tag=tag, v=v, mode='antipodal', static=static, handle=handle, retime=None, end=HISTORY_END,
+                velocities=None if velocities is None else np.asarray(velocities).tolist(),
+                birth_speed=np.linalg.norm(m.velocity(s0), axis=1).tolist(),
+                t=r(h['t'], 6), d=r(h['d'], 6), x=np.round(h['x'][keep], 6).tolist(), tau=np.round(h['tau'][keep], 8).tolist(),
+                alive=h['alive'][keep].tolist(), cycle=h['cycle'][keep].tolist(), clock=r(h['clock'], 9),
+                energy={k: r(v_, 10) for k, v_ in h['ledger'].items()}, total=r(h['energy'], 12),
+                J=np.round(h['J'][keep], 12).tolist(), n_fronts=h['n_fronts'][keep].tolist(),
+                events=[clean(e) for e in info['events']], energy_drift=info['energy_drift'],
+                angular_drift=info['angular_drift'], min_chronology_margin=info['min_chronology_margin'],
+                length=info['length'], seconds=round(time.time()-t0, 1), contact_time=None, contact_side=None)
 
 
 def history_births():
@@ -256,7 +298,9 @@ def main(part):
     OUT.mkdir(parents=True, exist_ok=True)
     t0, runs = time.time(), []
     with Pool(4) as pool:
-        for r in pool.imap_unordered(job if part in ('scan', 'featured', 'retimed', 'checks') else history_job, jobs):
+        worker = (job if part in ('scan', 'featured', 'retimed', 'checks') else
+                  antipodal_job if part == 'antipodal' else history_job)
+        for r in pool.imap_unordered(worker, jobs):
             runs.append(r)
             print(f"{len(runs)}/{len(jobs)} {r['tag']} v={r['v']:.3f} {r['mode']} retime={r['retime']} "
                   f"contact={r['contact_time']} {r['contact_side']} drift={r['energy_drift']:.1e} "

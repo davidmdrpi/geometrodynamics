@@ -65,9 +65,12 @@ channel, so the clock offset can act back on the motion.
 - **Rim frames and handle.** Each mouth carries a rim frame. Frames are transported
   with the mouth and turned by a spin s_k with moment of inertia M sin^2 a, so the
   port's twist is booked and canonical angular momentum stays exact. At birth e1
-  points to the contact point. The neck joins rim angle psi at A to psi + pi at B
-  (torus) or to pi - psi (Klein, orientation-reversing); the handle type enters
-  only through the m = 1 part.
+  points to the contact point, and e2 = x cross e1, so both frames are oriented
+  by the sphere's outward normal. In such frames a Klein handle (non-orientable)
+  maps the rim by a rotation, here psi at A to psi + pi at B, and a torus handle
+  (orientable) by a reflection, here psi to pi - psi. #338 writes the same two
+  handles in one ambient frame shared by both rims, where rotation and reflection
+  trade places. The handle type enters only through the m = 1 part.
 - **Clocks.** The neck is ultrastatic in its own time T. The throat joins equal
   proper times, so at external time t the neck slice runs from T = tau_A at mouth A
   to T = tau_B at mouth B. In that chart the neck has:
@@ -82,6 +85,11 @@ channel, so the clock offset can act back on the motion.
   + s_k^2 / (2 M sin^2 a).
   It is autonomous: energy and canonical angular momentum stay conserved, and the
   offset's only reaction is mu.
+
+**Interaction support.** This model couples the field to the mouths at every instant
+(Coulomb, exchange and self fields, and the neck's ports). The BAM routing rule of #347
+allows a front to act only at its antipodal focus. `antipodal_pair_birth` rebuilds the
+history under that rule.
 
 **Scope.** Classical throughout: nothing is quantized. The neck shape and the
 rest energy M (neck surface energy plus the flux energy inside the neck) are
@@ -113,7 +121,7 @@ class NeckChannel:
     nodes: int = 65              # nodes along the neck (linear elements, lumped masses)
     port: float = 100.           # port stiffness g (m = 0 row; m = 1 rows take g/2); 0 decouples the neck
     clock: str = 'history'       # offset the neck sees: 'history' (A), 'off' (0) or 'reversed' (-A)
-    handle: str = 'torus'        # rim map through the neck: 'torus' (psi -> psi + pi) or 'klein' (pi - psi)
+    handle: str = 'klein'        # rim map in sphere-oriented frames: 'klein' (psi -> psi + pi) or 'torus' (pi - psi)
     max_tilt: float = .9         # chart stop when |A|/L reaches this
 
 
@@ -252,7 +260,8 @@ class PairBirth:
         rim = np.array([legendre.legval(np.cos(a), np.eye(self.par.cutoff+1)[l]) for l in range(self.par.cutoff+1)])
         self._rim0 = self.smoothing*rim[self.ell]/self.omega
         self._rim1 = self.smoothing*(-2*special.lpmv(1, self.ell, np.cos(a))/self.lam)/self.omega
-        self._handle = np.array([[1., 1.], [-1., -1. if nk.handle == 'torus' else 1.]])
+        # Sphere-oriented rim frames at both ends: Klein is a rotation (det +1), torus a reflection (det -1).
+        self._handle = np.array([[1., 1.], [-1., -1. if nk.handle == 'klein' else 1.]])
         self.inertia = self.par.mass*np.sin(a)**2
         self.clock_sign = dict(history=1., off=0., reversed=-1.)[nk.clock]
         self.copies = 3
