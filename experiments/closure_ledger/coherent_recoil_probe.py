@@ -12,7 +12,7 @@ import numpy as np
 
 from geometrodynamics.waves.coherent_mouth_recoil import (
     PathParameters, closed_paths, finite_mass_scatter, focus_overlap,
-    junction, path_sum, scatter,
+    junction, path_sum, scatter, size_impedance,
 )
 
 REPO = Path(__file__).resolve().parents[2]
@@ -32,12 +32,13 @@ def sizing_controls():
     for a in [.025,.05,.1,.16,.3,.5]:
         geometry=VacuumThroat(a)
         ratio=geometry.neck_radius()/geometry.mouth_f()
-        r,t=junction(ratio**2)[0]
-        rows.append(dict(angular_mouth_radius=a,neck_over_mouth=ratio,
-            geometric_length=geometry.length(),transmitted_energy_fraction=float(t*t),
-            maximum_balanced_interference_impulse_per_energy=float(2*abs(r*t))))
+        for dimension in [2,3]:
+            r,t=junction(size_impedance(ratio,dimension))[0]
+            rows.append(dict(angular_mouth_radius=a,neck_over_mouth=ratio,dimension=dimension,
+                geometric_length=geometry.length(),transmitted_energy_fraction=float(t*t),
+                maximum_balanced_interference_impulse_per_energy=float(2*abs(r*t))))
     save('geometric_sizes.json',dict(rows=rows,
-        interpretation='VacuumThroat scalar-flat initial-data geometry plus the assumed equal-speed area impedance. Not a traversable dynamic throat solution.'))
+        interpretation='VacuumThroat scalar-flat initial-data geometry under separate 2D circumference / 3D area admittance assumptions. Not a traversable dynamic throat solution.'))
     return rows
 
 
@@ -47,8 +48,11 @@ def write_manifest():
                                  scipy=scipy.__version__,matplotlib=matplotlib.__version__))
     paths = list(ROOT.glob('*.json'))+[IMAGE,Path(__file__),ROOT/'README.md',
         REPO/'docs/coherent_mouth_recoil.md',
+        REPO/'docs/pr348_review_response.md',
+        REPO/'experiments/closure_ledger/coherent_recoil_review.py',
         REPO/'geometrodynamics/waves/coherent_mouth_recoil.py',
         REPO/'geometrodynamics/waves/physical_throat.py',
+        REPO/'geometrodynamics/waves/pair_birth.py',
         REPO/'tests/test_coherent_mouth_recoil.py']
     hashes={str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest()
             for p in paths if p.name!='sha256.json'}
@@ -60,7 +64,9 @@ def main():
     sizing_controls()
     radii = np.array([.05, .1, .2, np.sqrt(2)-1, .6, .8, 1.])
     lengths = np.array([1/8, 1/4, 1/2, 1., 2.])
-    frequencies = np.linspace(0, 8, 65)
+    # Positive-frequency diagnostic: do not assign the envelope -i factor to
+    # a DC/static mode, whose boundary condition is a separate unresolved input.
+    frequencies = np.linspace(.013, 8.013, 65)
     caps = ['before_caustic', 'after_caustic']; handles = ['torus', 'klein']
     shape = (len(caps), len(handles), len(radii), len(lengths), len(frequencies))
     pressure = np.zeros(shape); exposure = np.zeros(shape)
@@ -81,9 +87,13 @@ def main():
     axes = dict(capture_phase=caps, handle=handles, neck_over_mouth=radii.tolist(),
                 length_over_pi=lengths.tolist(), omega=frequencies.tolist())
     save('spectrum.json', dict(axes=axes, axis_order=list(axes), survival=.8,
-                              source=[1, 0, -1, 0], impulse_per_exposure=pressure.tolist()))
+                              source=[1, 0, 0, 0], impedance_dimension=3,
+                              impulse_per_exposure=pressure.tolist()))
     save('exposure.json', dict(axes=axes, axis_order=list(axes), exposure=exposure.tolist(),
+                              source=[1,0,0,0],
                               interpretation='Externally fed resolvent, not a finite-seed amplification'))
+    save('spectral_pressure_per_source.json',dict(axes=axes,axis_order=list(axes),source=[1,0,0,0],
+        impulse_per_source_energy=(pressure*exposure).tolist()))
     print('frequency grid complete', flush=True)
 
     closed = []; worst_energy = 0.
@@ -104,11 +114,7 @@ def main():
     save('closed_paths.json', closed)
     print('closed finite-seed grid complete', flush=True)
 
-    # Check exact refinement of the same pulse/delays, not a changed pulse width.
-    p = PathParameters(throat_bins=6, throat_seed_fraction=.5, pulse_bins=1, periods=32)
-    coarse = closed_paths(p)
-    fine = closed_paths(replace(p, surface_bins=48, throat_bins=12))
-    refinement = float(np.max(np.abs(np.array(coarse['impulse'])-fine['impulse'])))
+    # Integer-delay rescaling is an identity, not a numerical validation gate.
     # Broader finite pulse sensitivity, including non-simple delay ratios.
     width_controls = []
     for bins in [5, 7, 11, 24, 48]:
@@ -166,7 +172,7 @@ def main():
         pulse_controls=len(width_controls), duration_controls=len(duration_controls),
         clock_boundary_cases=len(clock_controls), finite_mass_cases=len(mass_rows),
         max_closed_energy_error=worst_energy, max_scattering_unitarity_error=max_unitarity,
-        max_walk_sum_relative_error=max_walk_error, delay_refinement_impulse_error=refinement,
+        max_walk_sum_relative_error=max_walk_error,
         max_collision_energy_error=energy_error, max_collision_momentum_error=momentum_error,
         optimum_balanced_neck_over_mouth=float(np.sqrt(2)-1),
         spectrum_negative_fraction={cap:{h:float(np.mean(pressure[ci,hi]<-1e-10))
@@ -175,13 +181,16 @@ def main():
               for x in closed if x['parameters']['throat_seed_fraction']==f) for f in [0., .1, .5]},
         closed_sample_counts={str(f):sum(x['parameters']['throat_seed_fraction']==f for x in closed)
                               for f in [0., .1, .5]},
-        interpretation='Negative PORT impulse, not demonstrated S3 separation attraction. No moving-mouth history or GR field closure.')
+        source=[1,0,0,0],impedance_dimension=3,
+        interpretation='Normal stress on a centred m=0 port. Its tangential force is zero by symmetry; no orbital attraction is modelled.')
     save('summary.json', summary)
+    from .coherent_recoil_review import review_controls
+    review_controls(save)
 
     # Standalone scientific figure, not an illustrative BAM geometry animation.
     plt.rcParams.update({'font.size': 9, 'axes.spines.top': False, 'axes.spines.right': False})
     fig, axs = plt.subplots(2, 3, figsize=(14, 8.3), constrained_layout=True)
-    fig.suptitle('Wave-exchange recoil: conservative mechanisms and their limits', fontsize=16)
+    fig.suptitle('Centred-mode neck stress: corrected source and sizing controls', fontsize=16)
     rs = np.linspace(.001, 1, 240); phases = np.linspace(0, 2*np.pi, 240)
     reflection = ((1-rs**2)/(1+rs**2))**2
     values = 2*np.sqrt(reflection*(1-reflection))[None,:]*np.cos(phases[:,None])
@@ -189,18 +198,20 @@ def main():
                          cmap='RdBu_r', vmin=-1, vmax=1)
     axs[0,0].axvline(np.sqrt(2)-1,color='k',lw=.8,ls='--')
     axs[0,0].set(xlabel='Neck / mouth radius', ylabel='Relative phase / π',
-                 title='a  Balanced coherent input: Δp / E')
+                 title='a  Balanced input, 3D area law: Δp / E')
     fig.colorbar(im,ax=axs[0,0],label='Local port impulse')
-    for ph,label in [(0,'In phase'),(np.pi,'Opposite phase')]:
-        axs[0,1].plot(rs,2*np.sqrt(reflection*(1-reflection))*np.cos(ph),label=label)
-    axs[0,1].axhline(0,color='k',lw=.8,ls='--',label='Phase average')
-    axs[0,1].set(xlabel='Neck / mouth radius',ylabel='Δp / E',title='b  Partial mixing, not a sign-only force')
+    for dimension,label in [(2,'2D surface: circumference'),(3,'3D space: area')]:
+        z=rs**(dimension-1); rr=(1-z)/(1+z);tt=2*np.sqrt(z)/(1+z)
+        axs[0,1].plot(rs,2*rr*tt,label=label)
+    axs[0,1].set(xlabel='Neck / mouth radius',ylabel='Maximum balanced |Δp| / E',title='b  Dimension changes optimal sizing')
     axs[0,1].legend(fontsize=8)
-    for hi,handle in enumerate(handles):
-        axs[0,2].plot(frequencies,pressure[1,hi,3,1],label=handle.title())
+    for ci,cap in enumerate(caps):
+        for hi,handle in enumerate(handles):
+            axs[0,2].plot(frequencies,pressure[ci,hi,3,1],ls='--' if ci==0 else '-',
+                          label=handle.title()+(' pre' if ci==0 else ' post'))
     axs[0,2].axhline(0,color='k',lw=.6)
     axs[0,2].set(xlabel='Frequency × sphere radius / c',ylabel='Impulse / incident exposure',
-                 title='c  All-path susceptibility; externally fed')
+                 title='c  One-sided source sees both paths')
     axs[0,2].legend(fontsize=8)
     for frac,ph,label in [(0,0,'Surface seed only'),(.5,0,'Balanced, in phase'),(.5,np.pi,'Balanced, opposite phase')]:
         p = PathParameters(throat_seed_fraction=frac, throat_seed_phase=ph, periods=32)
@@ -208,21 +219,21 @@ def main():
         axs[1,0].plot(data[:,0]/np.pi,data[:,1]+data[:,2],label=label)
     axs[1,0].axhline(0,color='k',lw=.6)
     axs[1,0].set(xlabel='Elapsed time / π',ylabel='Cumulative port impulse / seed energy',
-                 title='d  Finite seed, fixed supports (no mouth motion)')
+                 title='d  Carrier envelopes; normal stress only')
     axs[1,0].legend(fontsize=8)
     for v in [0,.3]:
         rows=[x for x in mass_rows if x['velocity']==v and
               abs(x['neck_over_mouth']-(np.sqrt(2)-1))<1e-12 and x['relative_phase']==np.pi]
         axs[1,1].plot([x['energy_over_mass'] for x in rows],[-x['impulse']/x['energy_over_mass'] for x in rows],
-                       'o-',label=f'Initial v={v}c')
+                       'o-',label=f'Neck-axis v={v}c')
     axs[1,1].set(xscale='log',xlabel='Incident wave energy / mouth rest energy',
-                 ylabel='−Δp / incident energy',title='e  One finite-mass encounter, exact E/p balance')
+                 ylabel='−Δp / incident energy',title='e  Axial collision, not orbital braking')
     axs[1,1].legend(fontsize=8)
     x=np.linspace(0,4,150)
     axs[1,2].plot(x,focus_overlap(x),color='#346a8b')
     axs[1,2].set(xlabel='Mouth radius / focal width',ylabel='Captured energy fraction',ylim=(0,1.05),
                  title='f  Gaussian aperture overlap (assumed profile)')
-    fig.supxlabel('Port stress ≠ global orbital recoil. Klein sign, impedance law and coherent preparation are explicit assumptions.',fontsize=10)
+    fig.supxlabel('Centred m=0 mode: tangential force = 0. Charged static–wave cross stress is a separate, unresolved global coupling.',fontsize=10)
     IMAGE.parent.mkdir(parents=True,exist_ok=True)
     fig.savefig(IMAGE,dpi=145);plt.close(fig)
     write_manifest()

@@ -1,13 +1,34 @@
 """Conservative local recoil and a fixed antipodal two-port path experiment.
 
 This is a mechanism discriminator, not a moving-mouth GR solution. The two
-ports are energy-normalized scalar travelling modes. Their longitudinal stress
-is NOT the S3 orbital/spin transport tensor. In particular the optional Klein
+ports are energy-normalized scalar travelling modes. In the centred m=0
+reduction their resultant is neck-normal: the tangential force is ZERO by
+azimuthal symmetry, not merely uncomputed. In particular the optional Klein
 compression sign does not implement the tube's angular-momentum map.
 """
 from dataclasses import dataclass
 
 import numpy as np
+
+
+def size_impedance(neck_over_mouth, spatial_dimension):
+    """Equal-speed one-mode admittance: rim length in 2D, area in 3D."""
+    ratio = float(neck_over_mouth)
+    if not np.isfinite(ratio) or ratio <= 0 or spatial_dimension not in (2, 3):
+        raise ValueError('Positive radius ratio and dimension 2 or 3 required')
+    return ratio**(spatial_dimension-1)
+
+
+def electric_stress_cross(static_field, wave_field):
+    """Electric Maxwell-stress cross term in units epsilon=1.
+
+    T(E0+e)-T(E0)-T(e). This local field identity does not supply the global
+    static field or its dynamical exchange with the BAM throat.
+    """
+    e0, e = np.asarray(static_field, float), np.asarray(wave_field, float)
+    if e0.shape != e.shape or e.shape not in ((2,), (3,)) or not np.isfinite([e0,e]).all():
+        raise ValueError('Finite matching two- or three-component fields required')
+    return np.outer(e0,e)+np.outer(e,e0)-np.eye(len(e))*np.dot(e0,e)
 
 
 def junction(impedance_ratio):
@@ -145,9 +166,11 @@ def closed_paths(parameters=PathParameters(), coherent=True, sample=False):
     Empty-focus geometry and moving aperture hits are handled by #347, not by
     this aligned-node reduction. Delays are exact integer multiples of dt.
 
-    The recorded impulses are local PORT stresses on fixed nodes; supports
-    absorb them. Do not interpret their sum as orbital momentum or insert them
-    into moving-mouth histories without the full ray/tube stress projection.
+    Bins are complex envelopes of a positive-frequency carrier, NOT real
+    broadband flashes. For a real pulse the caustic is a Hilbert transform;
+    its reshaping and the resulting overlap are absent from this envelope map.
+    The recorded impulses are neck-normal stresses on fixed centred m=0 nodes;
+    their tangential resultant is zero. Supports absorb their normal impulse.
     The incoherent control transports intensities with |S|^2, also conserving
     the initial energy. It is an ensemble dephasing control, not absorption.
     """
@@ -205,7 +228,7 @@ def closed_paths(parameters=PathParameters(), coherent=True, sample=False):
 
 
 def path_sum(omega, impedance_ratio, length, survival=.9, handle='klein',
-             capture_phase='after_caustic', source=(1., 0., -1., 0.), terms=256,
+             capture_phase='after_caustic', source=(1., 0., 0., 0.), terms=256,
              clock_offset=0.):
     """Frequency-domain sum of ALL walks; externally fed diagnostic only.
 
@@ -213,6 +236,9 @@ def path_sum(omega, impedance_ratio, length, survival=.9, handle='klein',
     whose power is reported. It is NOT a closed steady-state free-energy source.
     The finite-seed closed_paths experiment is the no-drive check. A unitary
     closed loop at survival=1 needs a homogeneous eigenmode/boundary solution.
+    The default source is one-sided. The former antisymmetric surface-only
+    source makes impulse/exposure blind to the surface phase at zero offset;
+    it is retained in the probe as a degeneracy control, not the main source.
     sigma_A=t, sigma_B=t+offset give directed throat delays L-offset and
     L+offset. Negative delays are permitted ONLY in this frequency-domain
     boundary diagnostic, never inserted as events in closed_paths. Reversing
@@ -241,6 +267,8 @@ def path_sum(omega, impedance_ratio, length, survival=.9, handle='klein',
     energy = float(np.vdot(a, a).real)
     dp = [scatter(a[i:i+2], impedance_ratio)['impulse'] for i in (0, 2)]
     return dict(incident=a, impulse=dp, exposure=energy,
+                source_energy=float(np.vdot(b,b).real),
+                impulse_per_source_energy=float(sum(dp)/np.vdot(b,b).real),
                 impulse_per_exposure=float(sum(dp)/energy),
                 walk_sum_relative_error=float(np.linalg.norm(total-a)/np.linalg.norm(a)),
                 escape_power=float((1-survival**2)*np.vdot(outgoing, outgoing).real),

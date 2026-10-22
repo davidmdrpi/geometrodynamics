@@ -6,6 +6,7 @@ import pytest
 from geometrodynamics.waves.coherent_mouth_recoil import (
     PathParameters, closed_paths, finite_mass_scatter, focus_overlap,
     junction, path_sum, recoil_operator, scatter, translated_junction,
+    size_impedance, electric_stress_cross,
 )
 
 
@@ -140,3 +141,99 @@ def test_advanced_clock_delays_match_history_map_without_energy_gain():
     assert result['advanced_boundary']
     assert result['unitary_error'] < 1e-15
     assert result['walk_sum_relative_error'] < 1e-14
+
+
+def test_symmetric_source_degeneracy_and_asymmetric_surface_sensitivity():
+    differences={}
+    for name,source in [('old',[1,0,-1,0]),('one_sided',[1,0,0,0])]:
+        values=[]
+        for omega in [.7,1.137,2.43,5.16]:
+            pre=path_sum(omega,.17,.565,survival=.8,source=source,capture_phase='before_caustic')
+            post=path_sum(omega,.17,.565,survival=.8,source=source,capture_phase='after_caustic')
+            values.append(abs(pre['impulse_per_exposure']-post['impulse_per_exposure']))
+        differences[name]=max(values)
+    assert differences['old'] < 2e-15
+    assert differences['one_sided'] > .1
+
+
+def test_symmetric_source_reduces_to_throat_only_formula():
+    rho,z,length=.8,.17,.565
+    r,t=junction(z)[0]
+    for omega in [.37,1.137,3.1]:
+        dt=-rho*(-1)*np.exp(1j*omega*length)
+        a=np.array([1+r*dt,t*dt])
+        expected=scatter(a,z)['impulse']/np.vdot(a,a).real
+        result=path_sum(omega,z,length,survival=rho,source=[1,0,-1,0])
+        assert result['impulse_per_exposure']==pytest.approx(expected)
+        periodic=path_sum(omega+2*np.pi/length,z,length,survival=rho,source=[1,0,-1,0])
+        assert periodic['impulse_per_exposure']==pytest.approx(expected)
+
+
+def test_balanced_optima_depend_on_spatial_dimension():
+    for dimension,ratio in [(2,3-2*np.sqrt(2)),(3,np.sqrt(2)-1)]:
+        z=size_impedance(ratio,dimension)
+        r,t=junction(z)[0]
+        assert r*r == pytest.approx(.5)
+        assert t*t == pytest.approx(.5)
+    from geometrodynamics.waves.physical_throat import VacuumThroat
+    g=VacuumThroat(.3);ratio=g.neck_radius()/g.mouth_f()
+    mix=[]
+    for dimension in [2,3]:
+        r,t=junction(size_impedance(ratio,dimension))[0];mix.append(2*r*t)
+    assert mix[0]>.9
+    assert mix[1]<.35
+
+
+def test_static_wave_cross_stress_is_linear_and_matches_total_tensor():
+    def stress(e): return np.outer(e,e)-np.eye(len(e))*np.dot(e,e)/2
+    for e0,e in [(np.array([1.,-.4]),np.array([.2,.3])),
+                  (np.array([.2,1.,-.4]),np.array([-.5,.2,.3]))]:
+        cross=electric_stress_cross(e0,e)
+        np.testing.assert_allclose(cross,stress(e0+e)-stress(e0)-stress(e),atol=3e-16)
+        np.testing.assert_allclose(electric_stress_cross(e0,-e),-cross)
+
+
+def test_charged_tangent_patch_cross_stress_integrates_to_qE():
+    theta=2*np.pi*(np.arange(256)+.5)/256
+    radial=np.stack([np.cos(theta),np.sin(theta)],axis=1)
+    for radius in [.03,.7]:
+        for q in [-.75,.75]:
+            external=np.array([.4,-.2])
+            force=sum(electric_stress_cross(q/(2*np.pi*radius)*n,external)@n for n in radial)
+            force*=2*np.pi*radius/len(theta)
+            np.testing.assert_allclose(force,q*external,atol=1e-14)
+
+
+def test_centred_mode_has_zero_tangent_resultant_but_dipole_does_not():
+    theta=2*np.pi*(np.arange(512)+.5)/512
+    direction=np.stack([np.cos(theta),np.sin(theta)],axis=1)
+    np.testing.assert_allclose(direction.mean(axis=0),[0,0],atol=1e-15)
+    # A cos(phi) (m=+/-1) perturbation breaks the cancellation. This is a
+    # symmetry check, not a derived mode conversion coefficient for the mouth.
+    dipole=((1+.2*np.cos(theta))[:,None]*direction).mean(axis=0)
+    np.testing.assert_allclose(dipole,[.1,0],atol=1e-15)
+
+
+def test_flash_shell_weights_reproduce_actual_total_field_energy():
+    from experiments.closure_ledger.coherent_recoil_review import flash_spectrum
+    from geometrodynamics.waves.pair_birth import PairBirth,Parameters
+    model=PairBirth(Parameters(mouth_angle=.3,cutoff=16))
+    state=model.initial(v=1/3);state.Q,state.P=model.flash(state)
+    data=flash_spectrum(.3,cutoff=16)
+    assert data['total_energy']==pytest.approx(model.transverse_energy(state))
+    assert sum(data['weights'])==pytest.approx(1.)
+    assert data['neck_length']==pytest.approx(np.sin(.6))
+    np.testing.assert_allclose(data['omega'],np.sqrt(np.arange(1,17)*np.arange(2,18)))
+
+
+def test_exposure_weighting_and_source_scaling_are_distinct_from_ratio_average():
+    rows=[path_sum(w,.17,.565,survival=.8) for w in [.7,1.137,2.43]]
+    weights=np.array([.1,.2,.7])
+    exposures=np.array([r['exposure'] for r in rows])
+    ratios=np.array([r['impulse_per_exposure'] for r in rows])
+    raw=np.array([r['impulse_per_source_energy'] for r in rows])
+    assert weights@raw/(weights@exposures)==pytest.approx((weights*exposures)@ratios/(weights@exposures))
+    assert abs(weights@ratios-weights@raw/(weights@exposures))>1e-3
+    scaled=path_sum(.7,.17,.565,survival=.8,source=[3j,0,0,0])
+    assert scaled['impulse_per_source_energy']==pytest.approx(rows[0]['impulse_per_source_energy'])
+    assert scaled['exposure']==pytest.approx(9*rows[0]['exposure'])
