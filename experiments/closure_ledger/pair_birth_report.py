@@ -668,8 +668,8 @@ ANTIPODAL_NAMES = dict(symmetric='symmetric, v = 0.30', symmetric_third='symmetr
                       fast_lopsided='fast lopsided (0.85 / 0.15)')
 
 
-def load_antipodal():
-    path = RUNS/'antipodal.json'
+def load_antipodal(part='antipodal'):
+    path = RUNS/f'{part}.json'
     if not path.exists():
         return []
     runs = json.loads(path.read_text())['runs']
@@ -678,7 +678,13 @@ def load_antipodal():
             r[k] = np.array([np.nan if v is None else v for v in r[k]], dtype=float if k != 'alive' else bool)
         r['x'] = np.array(r['x'])
         r['energy'] = {k: np.array(v, float) for k, v in r['energy'].items()}
-        r['birth_name'] = r['tag'][len('antipodal_'):].rsplit('_', 2 if r['tag'].endswith('torus') else 1)[0]
+        if part == 'antipodal':
+            r['birth_name'] = r['tag'][len('antipodal_'):].rsplit('_', 2 if r['tag'].endswith('torus') else 1)[0]
+        else:                       # klein_<birth>_<handle> or klein_sweep_<birth>_<handle>_x<scale>
+            name = r['tag'][len('klein_'):]
+            r['sweep'] = name.startswith('sweep_')
+            r['birth_name'] = name[len('sweep_'):].split(f"_{r['handle']}")[0] if r['sweep'] else \
+                name[:-len(r['handle'])-1]
     return runs
 
 
@@ -822,6 +828,181 @@ def figure_antipodal(runs, history, path):
     plt.close(fig)
 
 
+KLEIN_COLORS = dict(klein='#8e44ad', torus='#16a085')
+KLEIN_ORDER = ['symmetric', 'symmetric_third', 'independent', 'lopsided', 'fast_lopsided']
+
+
+def klein_rows(runs):
+    rows = []
+    for r in runs:
+        ev = r['events']
+        caps = [e for e in ev if e['kind'] == 'capture']
+        exits = [e for e in ev if e['kind'] == 'throat_exit']
+        i = int(np.searchsorted(r['t'], .1))
+        rows.append(dict(
+            tag=r['tag'], birth=r['birth_name'], handle=r['handle'], scale=r['flash_scale'], sweep=r['sweep'],
+            end=r['end'], speeds=r['birth_speed'],
+            contacts=[(e['time'], place(e['point'])) for e in ev if e['kind'] == 'contact'],
+            push=sum(e['coupling'] > 0 for e in caps), pull=sum(e['coupling'] < 0 for e in caps),
+            quadrature=sum(e['coupling'] == 0 for e in caps), exits=len(exits),
+            capped=sum(bool(e.get('saturated')) for e in caps + exits),
+            capture_drate=float(sum(e['drate'] for e in caps)), exit_drate=float(sum(e['drate'] for e in exits)),
+            birth_rate=float((r['d'][i] - r['d'][0])/(r['t'][i] - r['t'][0])),
+            flash=float(r['energy']['fronts'][0]),
+            max_kick=float(max([np.linalg.norm(e['kick']) for e in caps] or [0])),
+            energy_drift=r['energy_drift'], angular_drift=r['angular_drift']))
+    return rows
+
+
+def klein_table(runs):
+    lines = ['| birth | throat | birth speeds | contacts (t, place) | captures: push / pull / quadrature | '
+             'Σ Δḋ at captures | Σ Δḋ at exits | net Σ Δḋ | ḋ at birth |',
+             '|---|---|---|---|---|---|---|---|---|']
+    rows = [q for q in klein_rows(runs) if not q['sweep']]
+    for name in KLEIN_ORDER:
+        label = ANTIPODAL_NAMES[name]
+        for q in sorted((q for q in rows if q['birth'] == name), key=lambda q: q['handle']):
+            cs = ', '.join(f'{t:.2f} {p}' for t, p in q['contacts'])
+            capped = f" ({q['capped']} capped)" if q['capped'] else ''
+            lines.append(f"| {label} | {q['handle']} | {q['speeds'][0]:.3f} / {q['speeds'][1]:.3f} | {cs} | "
+                         f"{q['push']} / {q['pull']} / {q['quadrature']}{capped} | {q['capture_drate']:+.4f} | "
+                         f"{q['exit_drate']:+.4f} | {q['capture_drate'] + q['exit_drate']:+.4f} | "
+                         f"{q['birth_rate']:.3f} |")
+            label = ''
+    return '\n'.join(lines)
+
+
+def klein_sweep_table(runs):
+    lines = ['| birth | flash × | throat | birth speeds | flash energy | contacts to t = 30 | '
+             'captures: push / pull / quadrature | net Σ Δḋ |', '|---|---|---|---|---|---|---|---|']
+    rows = sorted((q for q in klein_rows(runs) if q['sweep']), key=lambda q: (q['birth'], q['scale'], q['handle']))
+    for q in rows:
+        cs = ', '.join(f'{t:.2f} {p}' for t, p in q['contacts'])
+        lines.append(f"| {ANTIPODAL_NAMES[q['birth']]} | {q['scale']:g} | {q['handle']} | {q['speeds'][0]:.3f} / "
+                     f"{q['speeds'][1]:.3f} | {q['flash']:.4f} | {cs} | "
+                     f"{q['push']} / {q['pull']} / {q['quadrature']} | "
+                     f"{q['capture_drate'] + q['exit_drate']:+.4f} |")
+    return '\n'.join(lines)
+
+
+def handle_turns():
+    """A front in quadrature captured at the south pole and leaving the north pole, for each handle
+    and each component of its angular momentum: the factor the throat applies (cf. the tests)."""
+    from geometrodynamics.waves.antipodal_pair_birth import AntipodalPairBirth, AntipodalState, Front
+    from geometrodynamics.waves.pair_birth import birth_frames
+    out = {}
+    for handle in ('klein', 'torus'):
+        m = AntipodalPairBirth(Parameters(cutoff=12, footprint=.2), handle=handle, exchange='signed')
+        factors = []
+        for axis in range(3):
+            x = np.array([[0., 0., 1.], [0., 0., -1.]])
+            s = AntipodalState(0., x, np.zeros((2, 3)), np.zeros(2), birth_frames(x, np.array([0., 1., 0.])),
+                               np.zeros(2))
+            J = .002*np.eye(3)[axis]
+            s.fronts = [Front(x[0].copy(), 0., .01, J.copy(), -1j, 'probe', 1, 1.)]
+            _, info = m.run(s, np.pi + m.length + .05, dt=.01)
+            f = next(f for f in info['final_state'].fronts if f.kind.startswith('exit'))
+            factors.append(float(f.J @ J/(J @ J)))
+        out[handle] = factors + [float(f.sign)]
+    return out
+
+
+def figure_klein(runs, path):
+    fig, axes = plt.subplots(2, 2, figsize=(15, 9), gridspec_kw=dict(hspace=.45, wspace=.22))
+    by = {r['tag']: r for r in runs}
+
+    def cumulative(r):
+        ev = [e for e in r['events'] if e['kind'] in ('capture', 'throat_exit')]
+        ev = sorted(ev, key=lambda e: e['time'])
+        t = np.r_[0., [e['time'] for e in ev], r['end']]
+        y = np.r_[0., np.cumsum([e['drate'] for e in ev]), 0.]
+        y[-1] = y[-2]
+        return t, y
+
+    ax = axes[0, 0]
+    for name, ls in (('symmetric', '-'), ('symmetric_third', '--')):
+        for handle in ('klein', 'torus'):
+            r = by[f'klein_{name}_{handle}']
+            t, y = cumulative(r)
+            ax.step(t, y, where='post', color=KLEIN_COLORS[handle], ls=ls, lw=1.4,
+                    label=f"{handle}, {ANTIPODAL_NAMES[name]}")
+            for e in r['events']:
+                if e['kind'] == 'contact':
+                    ax.plot(e['time'], .012 if handle == 'klein' else .016, 'v', color=KLEIN_COLORS[handle],
+                            ms=5, alpha=.8 if ls == '-' else .4)
+    ax.axhline(0, color='k', lw=.5)
+    ax.set_ylim(-.06, .02)
+    ax.set_xlabel('time t')
+    ax.set_ylabel('accumulated change of separation rate Σ Δḋ')
+    ax.set_title('(a) Symmetric births: Klein exchange accumulates approach, torus about none;\n'
+                 'stopping the pair would need Σ Δḋ ≈ −0.57 (triangles: contacts at −P)', fontsize=10)
+    ax.legend(fontsize=8, loc='lower left')
+
+    ax = axes[0, 1]
+    r_k, r_t = by['klein_symmetric_klein'], by['klein_symmetric_torus']
+    for r, dx in ((r_k, -.25), (r_t, .25)):
+        c = KLEIN_COLORS[r['handle']]
+        for e in r['events']:
+            if e['kind'] not in ('capture', 'throat_exit') or e.get('mouth') != 0:
+                continue                                  # the run is mirror-symmetric: show mouth A's events
+            t = e['time'] + dx
+            ax.plot([t, t], [0, e['drate']], color=c, lw=1)
+            if e['kind'] == 'capture':
+                face = c if e['coupling'] > 0 else 'white'
+                ax.plot(t, e['drate'], 'o' if e['coupling'] != 0 else 'x', color=c, mfc=face, ms=6)
+            else:
+                ax.plot(t, e['drate'], '^', color=c, ms=7)
+    ax.axhline(0, color='k', lw=.5)
+    ax.annotate('the first exit front comes back:\ntorus: same sign, pushes\nKlein: flipped, pulls, and the\n'
+                'throat then holds 2J', xy=(25.8, -.0061), xytext=(11.5, -.0068), fontsize=8, va='top',
+                arrowprops=dict(arrowstyle='->', lw=.7))
+    ax.plot([], [], 'o', color='k', ms=6, label='capture, push')
+    ax.plot([], [], 'o', color='k', mfc='white', ms=6, label='capture, pull')
+    ax.plot([], [], 'x', color='k', ms=6, label='capture in quadrature')
+    ax.plot([], [], '^', color='k', ms=7, label='throat exit (recoil)')
+    for handle in ('klein', 'torus'):
+        ax.plot([], [], color=KLEIN_COLORS[handle], lw=3, label=handle)
+    ax.set_ylim(-.0125, .0036)
+    ax.set_xlabel('time t (Klein drawn left, torus right)')
+    ax.set_ylabel('Δḋ at the event')
+    ax.set_title('(b) Symmetric v = 0.30, each exchange at mouth A (B mirrors it)', fontsize=10)
+    ax.legend(fontsize=7, loc='lower right', ncol=2)
+
+    ax = axes[1, 0]
+    turns = handle_turns()
+    labels = ['orbital,\nmotion along e1\n(the birth circle)', 'orbital,\nmotion along e2',
+              'spin about\nthe mouth axis', 'amplitude sign\n(compression)']
+    xs = np.arange(4)
+    for i, handle in enumerate(('klein', 'torus')):
+        ax.bar(xs + (i - .5)*.36, turns[handle], .34, color=KLEIN_COLORS[handle], label=handle)
+    ax.axhline(0, color='k', lw=.5)
+    ax.set_xticks(xs, labels, fontsize=8)
+    ax.set_yticks([-1, 0, 1], ['reversed', '', 'kept'])
+    ax.set_title('(c) What one passage does (mouths antipodal, measured): each handle turns J by π;\n'
+                 'Klein flips spin and sign, torus the sideways orbital part', fontsize=10)
+    ax.legend(fontsize=8, loc='lower right')
+
+    ax = axes[1, 1]
+    rows = [q for q in klein_rows(runs) if q['sweep']]
+    for name, marker in (('symmetric', 'o'), ('lopsided', 's')):
+        for handle, dx in (('klein', -.04), ('torus', .04)):
+            q = sorted((q for q in rows if q['birth'] == name and q['handle'] == handle), key=lambda q: q['scale'])
+            sc = np.array([q_['scale'] for q_ in q])
+            ax.plot(sc*(1 + dx), [q_['capture_drate'] + q_['exit_drate'] for q_ in q], marker=marker, ls='-',
+                    color=KLEIN_COLORS[handle], mfc=KLEIN_COLORS[handle] if name == 'symmetric' else 'white',
+                    label=f'{handle}, {ANTIPODAL_NAMES[name]}')
+    ax.axhline(0, color='k', lw=.5)
+    ax.set_xscale('log', base=2)
+    ax.set_xticks([1, 2, 4], ['1', '2', '4'])
+    ax.set_xlabel('flash scale (the pair pays for it: birth speed falls)')
+    ax.set_ylabel('net Σ Δḋ to t = 30')
+    ax.set_title('(d) A stronger flash: no trend, no binding; the two handles differ\n'
+                 'only where a returning exit front is captured in phase', fontsize=10)
+    ax.legend(fontsize=7, loc='upper left')
+    fig.savefig(path, dpi=110, bbox_inches='tight')
+    plt.close(fig)
+
+
 HISTORY_END = 60.
 
 
@@ -834,6 +1015,9 @@ def main():
     antipodal = load_antipodal()
     if antipodal:
         figure_antipodal(antipodal, history, IMAGES/'antipodal.png')
+    klein = load_antipodal('klein')
+    if klein:
+        figure_klein(klein, IMAGES/'klein.png')
     IMAGES.mkdir(parents=True, exist_ok=True)
     if history:
         figure_history(history, IMAGES/'history.png')
@@ -877,16 +1061,20 @@ def main():
                              off=[c['time'] for c in contacts(pick(neck, tag='neck_lopsided_torus_off'))]),
                   calibration=calibration_rows(neck_checks)) if neck and neck_checks else None,
         antipodal=dict(rows=antipodal_rows(antipodal)) if antipodal else None,
+        klein=dict(rows=klein_rows(klein), turns=handle_turns()) if klein else None,
         tables=dict(outcomes=outcome_table(scan), ledger=ledger_table(scan), retimed=retimed_table(retimed, featured),
                     history=history_table(history_rows(history)) if history else None,
                     neck=neck_table(neck_rows(neck)) if neck else None,
                     calibration=calibration_table(calibration_rows(neck_checks)) if neck_checks else None,
-                    antipodal=antipodal_table(antipodal, history) if antipodal else None))
+                    antipodal=antipodal_table(antipodal, history) if antipodal else None,
+                    klein=klein_table(klein) if klein else None,
+                    klein_sweep=klein_sweep_table(klein) if klein else None))
     (RUNS/'summary.json').write_text(json.dumps(report, indent=2, sort_keys=True)+'\n')
     files = sorted(RUNS.glob('*.json')) + sorted(p for ext in ('png', 'gif', 'mp4') for p in IMAGES.glob(f'*.{ext}'))
     (RUNS/'sha256.json').write_text(json.dumps({p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                                                 for p in files if p.name != 'sha256.json'}, indent=2)+'\n')
-    for k in ('outcomes', 'ledger', 'retimed', 'history', 'neck', 'calibration', 'antipodal'):
+    for k in ('outcomes', 'ledger', 'retimed', 'history', 'neck', 'calibration', 'antipodal', 'klein',
+              'klein_sweep'):
         print(report['tables'][k], '\n')
     if report['neck']:
         print(json.dumps(dict(feedback=report['neck']['feedback'], torus=report['neck']['torus']), indent=1))

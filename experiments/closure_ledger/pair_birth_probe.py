@@ -9,6 +9,7 @@
     python experiments/closure_ledger/pair_birth_probe.py neck       # neck channel: clock history, off, reversed
     python experiments/closure_ledger/pair_birth_probe.py neck_checks    # port stiffness, nodes, step
     python experiments/closure_ledger/pair_birth_probe.py antipodal  # the history under the antipodal-only rule
+    python experiments/closure_ledger/pair_birth_probe.py klein      # signed exchange: Klein against torus throats
 
 Each part writes JSON to experiments/closure_ledger/runs/20261019_pair_birth/.
 Model: geometrodynamics/waves/pair_birth.py. Write-up: docs/pair_birth_timeline.md.
@@ -237,6 +238,15 @@ def jobs_for(part):
             for static in ('none', 'coulomb'):
                 out.append((f'antipodal_{name}_{static}', v, vel, static, 'klein'))
         return out + [('antipodal_lopsided_none_torus', .30, births['lopsided'], 'none', 'torus')]
+    if part == 'klein':
+        births = dict(history_births(), symmetric_third=None)
+        _, slow, _, _ = birth_positions(.3, .15, PLANE)
+        _, fast, _, _ = birth_positions(.3, .85, PLANE)
+        births['fast_lopsided'] = np.array([fast[0], slow[1]]).tolist()
+        out = [(f'klein_{name}_{handle}', 1/3 if name == 'symmetric_third' else .30, vel, 'none', handle, 'signed')
+               for name, vel in births.items() for handle in ('klein', 'torus')]
+        return out + [(f'klein_sweep_{name}_{handle}_x{scale:g}', .30, births[name], 'none', handle, 'signed', scale, 30.)
+                      for name in ('symmetric', 'lopsided') for scale in (1., 2., 4.) for handle in ('klein', 'torus')]
     if part in ('neck', 'neck_checks'):
         births = history_births()
         if part == 'neck':
@@ -254,12 +264,14 @@ def jobs_for(part):
 
 
 def antipodal_job(args):
-    """One history under the antipodal-only rule (strict, or with the static field kept)."""
-    tag, v, velocities, static, handle = args
-    m = AntipodalPairBirth(Parameters(), static=static, handle=handle)
+    """One history under the antipodal-only rule (strict, or with the static field kept; the
+    exchange at rest, or signed with Klein or torus reversal)."""
+    tag, v, velocities, static, handle, *more = args
+    exchange, scale, end = (more + ['rest', 1., HISTORY_END][len(more):])[:3]
+    m = AntipodalPairBirth(Parameters(), static=static, handle=handle, exchange=exchange, flash_scale=scale)
     s0 = m.initial(v) if velocities is None else m.initial(velocities=velocities)
     t0 = time.time()
-    h, info = m.run(s0, HISTORY_END, cycles=5, dt=DT, output_dt=OUTPUT_DT)
+    h, info = m.run(s0, end, cycles=5, dt=DT, output_dt=OUTPUT_DT)
     keep = np.zeros(len(h['t']), bool)
     keep[::5] = True
     keep[-1] = True
@@ -270,7 +282,8 @@ def antipodal_job(args):
     def clean(e):
         return {k: (np.asarray(x).tolist() if isinstance(x, np.ndarray) else float(x) if isinstance(x, np.floating)
                     else x) for k, x in e.items()}
-    return dict(tag=tag, v=v, mode='antipodal', static=static, handle=handle, retime=None, end=HISTORY_END,
+    return dict(tag=tag, v=v, mode='antipodal', static=static, handle=handle, exchange=exchange, flash_scale=scale,
+                retime=None, end=end,
                 velocities=None if velocities is None else np.asarray(velocities).tolist(),
                 birth_speed=np.linalg.norm(m.velocity(s0), axis=1).tolist(),
                 t=r(h['t'], 6), d=r(h['d'], 6), x=np.round(h['x'][keep], 6).tolist(), tau=np.round(h['tau'][keep], 8).tolist(),
@@ -299,7 +312,7 @@ def main(part):
     t0, runs = time.time(), []
     with Pool(4) as pool:
         worker = (job if part in ('scan', 'featured', 'retimed', 'checks') else
-                  antipodal_job if part == 'antipodal' else history_job)
+                  antipodal_job if part in ('antipodal', 'klein') else history_job)
         for r in pool.imap_unordered(worker, jobs):
             runs.append(r)
             print(f"{len(runs)}/{len(jobs)} {r['tag']} v={r['v']:.3f} {r['mode']} retime={r['retime']} "

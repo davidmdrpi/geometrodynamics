@@ -48,6 +48,17 @@ on its way feel nothing.
     where the next pair is re-born, carrying the pulse's energy and angular momentum less
     those of the new flash.
 - **Clocks.** Each mouth's proper time since its own birth, as in #345.
+- **Signed exchange** (exchange='signed'; the rules above are exchange='rest'). It tests the
+  Klein throat as a reversal:
+  - The flash is emitted by the moving mouths, isotropically in each mouth's rest frame, so each
+    half carries momentum E v. Its amplitude has the sign of its mouth's charge.
+  - At capture the mouth takes c J, with c = sign(q) x sign(front) x Re(phase): a like-signed
+    front pushes, an opposite-signed one pulls, and one in quadrature does neither. The throat
+    holds the rest, (1 - c) J. A pull is capped where that front would carry more angular
+    momentum than energy.
+  - At exit the front leaves with its momentum mapped through the tube (`tube_map`). The Klein
+    handle flips its sign; the torus does not. The exit mouth recoils by the angular momentum
+    the map turned. The exit is capped in the same way.
 
 Everything is classical. The amplitude phases are bookkeeping for interference, which is not
 modelled. The front-capture rules are stated rules, not derived from a field solution.
@@ -69,6 +80,7 @@ class Front:
     phase: complex = 1.
     kind: str = ''
     foci: int = 0            # caustics passed
+    sign: float = 1.         # orientation-sensitive amplitude: compression +1, rarefaction -1
 
 
 @dataclass(eq=False)
@@ -81,6 +93,9 @@ class ThroatFront:
     phase: complex
     kind: str
     t_in: float
+    J: np.ndarray = None     # angular momentum the throat holds for it
+    momentum: np.ndarray = None   # (a, b, s): momentum in the capturing mouth's frame and spin about its normal
+    sign: float = 1.
 
 
 @dataclass
@@ -98,15 +113,19 @@ class AntipodalState:
     throat: list = field(default_factory=list)
     pulse: dict = None
     unresolved: float = 0.
+    unresolved_J: np.ndarray = field(default_factory=lambda: np.zeros(3))
 
     def copy(self):
         return AntipodalState(self.t, self.x.copy(), self.L.copy(), self.tau.copy(), self.frames.copy(),
                               self.spin.copy(), self.alive, self.birth, self.cycle,
-                              [Front(f.origin.copy(), f.t, f.energy, f.J.copy(), f.phase, f.kind, f.foci)
+                              [Front(f.origin.copy(), f.t, f.energy, f.J.copy(), f.phase, f.kind, f.foci, f.sign)
                                for f in self.fronts],
                               [ThroatFront(f.source, f.dest, f.sigma_out, f.local.copy(), f.energy, f.phase, f.kind,
-                                           f.t_in) for f in self.throat],
-                              None if self.pulse is None else dict(self.pulse), self.unresolved)
+                                           f.t_in, None if f.J is None else f.J.copy(),
+                                           None if f.momentum is None else f.momentum.copy(), f.sign)
+                               for f in self.throat],
+                              None if self.pulse is None else dict(self.pulse), self.unresolved,
+                              self.unresolved_J.copy())
 
 
 def angular_distance(x, y):
@@ -133,10 +152,15 @@ def from_local(centre, frame, local):
 
 
 class AntipodalPairBirth:
-    def __init__(self, parameters=Parameters(), static='none', handle='klein', reflection_phase=-1j):
-        if static not in ('none', 'coulomb') or handle not in ('klein', 'torus'):
-            raise ValueError("static must be 'none' or 'coulomb', handle 'klein' or 'torus'")
+    def __init__(self, parameters=Parameters(), static='none', handle='klein', reflection_phase=-1j,
+                 exchange='rest', flash_scale=1.):
+        if static not in ('none', 'coulomb') or handle not in ('klein', 'torus') or exchange not in ('rest', 'signed') \
+                or flash_scale <= 0:
+            raise ValueError("static 'none' or 'coulomb', handle 'klein' or 'torus', exchange 'rest' or 'signed', "
+                             "flash_scale > 0")
         self.par = parameters
+        self.exchange = exchange
+        self.flash_scale = flash_scale
         self.field = PairBirth(parameters)       # flash, Coulomb energy and charges
         self.static = static
         self.handle = handle
@@ -148,15 +172,25 @@ class AntipodalPairBirth:
 
     # ---- births and fronts ----------------------------------------------------------------------
     def flash_fronts(self, x, vel, t):
-        """#345's birth flash, the free wave of -Q_qs launched at rest, split into one front per
-        mouth: energy (self part plus half the cross term) and angular momentum."""
+        """#345's birth flash, the free wave of -Q_qs, split into one front per mouth: energy (self
+        part plus half the cross term, times flash_scale) and angular momentum.
+        - exchange='rest': launched at rest, as the field is, so it carries no angular momentum.
+        - exchange='signed': each half is emitted by its moving mouth, isotropically in the mouth's
+          rest frame, so it carries momentum E v and angular momentum E x cross v. Its amplitude
+          carries the sign of its mouth's charge: compression from +q, rarefaction from -q."""
         f = self.field
         Q = -f.quasi_static(x, vel)
         e = [.5*np.vdot(f.omega*Q[k], f.omega*Q[k]).real for k in range(2)]
         cross = np.vdot(f.omega*Q[0], f.omega*Q[1]).real
-        zero = np.zeros(f.n, complex)
-        J = [f.field_angular(Q[k], zero) for k in range(2)]           # zero: the flash starts at rest
-        return [Front(x[k].copy(), t, e[k] + cross/2, J[k], 1., f'flash {"AB"[k]}') for k in range(2)]
+        e = [self.flash_scale*(e[k] + cross/2) for k in range(2)]
+        if self.exchange == 'signed':
+            J = [e[k]*np.cross(x[k], vel[k]) for k in range(2)]
+            signs = np.sign(f.charges)
+        else:
+            zero = np.zeros(f.n, complex)
+            J = [self.flash_scale*f.field_angular(Q[k], zero) for k in range(2)]      # zero: it starts at rest
+            signs = np.ones(2)
+        return [Front(x[k].copy(), t, e[k], J[k], 1., f'flash {"AB"[k]}', 0, float(signs[k])) for k in range(2)]
 
     def initial(self, v=1/3, plane=((0., 0., 1.), (1., 0., 0.)), velocities=None):
         """Mouths in rim contact at P, kicked apart with speed v each (or `velocities`). As in
@@ -202,6 +236,7 @@ class AntipodalPairBirth:
 
     def angular_momentum(self, s):
         J = sum((f.J for f in s.fronts), np.zeros(3))
+        J = J + sum((f.J for f in s.throat if f.J is not None), np.zeros(3)) + s.unresolved_J
         if s.pulse is not None:
             J = J + s.pulse['J']
         if s.alive:
@@ -210,6 +245,10 @@ class AntipodalPairBirth:
 
     def separation(self, s):
         return angular_distance(s.x[0], s.x[1])
+
+    def separation_rate(self, s):
+        v = self.velocity(s)
+        return float(-(v[0] @ s.x[1] + v[1] @ s.x[0])/max(np.sin(self.separation(s)), 1e-300))
 
     def _kick(self, s, h):
         if self.static == 'coulomb':
@@ -246,18 +285,52 @@ class AntipodalPairBirth:
         s.t += h
 
     # ---- interactions at foci ---------------------------------------------------------------
-    def capture(self, s, front, k, focus):
-        """Mouth k captures `front` at its focus: J into the mouth, the remaining energy into the
-        throat. Returns the energy that entered the throat and the aperture coordinates."""
-        before = self.energies(s)[k] + s.spin[k]**2/(2*self.inertia)
+    def coupling(self, front, k):
+        """Share of the front's angular momentum mouth k takes at capture.
+        - 'rest': all of it.
+        - 'signed': c = sign(q_k) x sign(front) x Re(Gouy phase). A same-sign front pushes the
+          mouth along its arrival, an opposite-sign front pulls it back, as #345's own returns
+          and partner flash did. A front in quadrature (one empty focus behind it) does neither."""
+        if self.exchange == 'rest':
+            return 1.
+        return float(np.sign(self.field.charges[k])*front.sign*np.real(front.phase))
+
+    def _gain(self, s, k, J):
+        """Kinetic and spin energy mouth k would gain by taking angular momentum J."""
+        x, M = s.x[k], self.par.mass
+        Lk = s.L[k] + J - np.dot(J, x)*x
+        spin = s.spin[k] + np.dot(J, x)
+        return (np.sqrt(M**2 + Lk @ Lk) - self.energies(s)[k]
+                + (spin**2 - s.spin[k]**2)/(2*self.inertia))
+
+    def _transfer(self, s, k, J, energy):
+        """Give angular momentum J to mouth k (orbit across its normal, spin along it); returns
+        the energy left over from `energy` after the mouth's kinetic and spin energy change."""
+        left = energy - self._gain(s, k, J)
+        if left < -1e-12:
+            raise RuntimeError('A front cannot pay for the mouth it moves')
         x = s.x[k]
-        s.L[k] += front.J - np.dot(front.J, x)*x
-        s.spin[k] += np.dot(front.J, x)
-        after = self.energies(s)[k] + s.spin[k]**2/(2*self.inertia)
-        inside = front.energy - (after - before)
-        if inside < -1e-12:
-            raise RuntimeError('Captured front cannot pay for the mouth it pushes')
-        return max(inside, 0.), local_coordinates(x, s.frames[k], focus)
+        s.L[k] += J - np.dot(J, x)*x
+        s.spin[k] += np.dot(J, x)
+        return max(left, 0.)
+
+    def capture(self, s, front, k, focus):
+        """Mouth k captures `front` at its focus. It takes c J (see `coupling`); the throat takes the
+        rest of the angular momentum and of the energy. A pull is limited by the throat: the front
+        it holds cannot carry more angular momentum than energy, so if c J would leave it more, c
+        is raised to that bound (saturated). Returns (energy into the throat, aperture coordinates,
+        angular momentum into the throat, c, saturated)."""
+        J, E = front.J, front.energy
+
+        def room(c):
+            return E - self._gain(s, k, c*J) - abs(1 - c)*np.linalg.norm(J)
+
+        c = self.coupling(front, k)
+        saturated = bool(room(c) < 0)
+        if saturated:
+            c = optimize.brentq(room, c, 1., xtol=1e-15)
+        inside = self._transfer(s, k, c*J, E)
+        return inside, local_coordinates(s.x[k], s.frames[k], focus), (1 - c)*J, c, saturated
 
     def rebirth_momenta(self, t, x, point, E_target, J_target, p0):
         """Least-squares momenta at a birth at time t: the pair and its flash carry exactly the
@@ -385,21 +458,63 @@ class AntipodalPairBirth:
         events.append(dict(kind='contact', time=s.t, cycle=s.cycle, point=c.tolist(), clocks=s.tau.tolist(),
                            energy=released, throat_released=E['throat'], speed=np.linalg.norm(self.velocity(s),
                                                                                               axis=1).tolist()))
-        s.pulse = dict(point=c, time=s.t, energy=released, J=s.L.sum(0) + s.spin @ s.x, x=s.x.copy(),
+        held = sum((f.J for f in s.throat if f.J is not None), np.zeros(3))
+        s.pulse = dict(point=c, time=s.t, energy=released, J=s.L.sum(0) + s.spin @ s.x + held, x=s.x.copy(),
                        p=np.cross(s.L, s.x))
         s.alive, s.throat, s.spin, s.L = False, [], np.zeros(2), np.zeros((2, 3))
         return s.t + np.pi if s.cycle + 1 < cycles else None
 
+    def tube_map(self, momentum, sign):
+        """How a front leaves the tube, in sphere-oriented rim frames, from its momentum (a, b) in
+        the capturing mouth's frame and its spin s about that mouth's outward normal. Following
+        its rays through the tube (in radially, out radially at the mapped rim angle):
+        - Klein: (a, b, s) unchanged, and the amplitude sign flips, because the surface normal
+          reverses along any loop through a Klein handle (compression becomes rarefaction).
+        - Torus: (a, b, s) -> (a, -b, -s) and the sign is kept.
+        In ambient terms, for antipodal mouths with birth frames (e1 along the birth circle), both
+        maps turn J by pi; neither reverses it as a whole. The Klein map reverses the spin and the
+        orbital part from motion along e1, and keeps the part from motion along e2. The torus
+        reverses both orbital parts and keeps the spin. So both reverse the orbital angular
+        momentum of a front moving along the birth circle, and there they differ only in sign."""
+        a, b, sp = momentum
+        if self.handle == 'klein':
+            return np.array([a, b, sp]), -sign
+        return np.array([a, -b, -sp]), sign
+
     def _exit(self, s, tf, events, t_exit=None, x_exit=None, frame_exit=None, advanced=False, t_in=None):
+        """A front leaves the throat at mouth j. With exchange='signed' it leaves with the tube-mapped
+        momentum and sign, and mouth j recoils by the angular momentum the handle turned (the throat
+        held tf.J). For an advanced exit the recoil is applied when the exit is resolved. Like a pull
+        at capture, the exit is capped where the front would carry more angular momentum than energy."""
+        j = tf.dest
         t_exit = s.t if t_exit is None else t_exit
-        x_exit = s.x[tf.dest] if x_exit is None else x_exit
-        frame_exit = s.frames[tf.dest] if frame_exit is None else frame_exit
-        f = Front(from_local(x_exit, frame_exit, tf.local), t_exit, tf.energy, np.zeros(3), tf.phase,
-                  f'exit {"AB"[tf.dest]} ({tf.kind})')
+        x_exit = s.x[j] if x_exit is None else x_exit
+        frame_exit = s.frames[j] if frame_exit is None else frame_exit
+        energy, J_out, sign, recoil, saturated = tf.energy, np.zeros(3), tf.sign, np.zeros(3), False
+        rate = self.separation_rate(s)
+        if self.exchange == 'signed' and tf.momentum is not None:
+            (a, b, sp), sign = self.tube_map(tf.momentum, tf.sign)
+            pi = a*frame_exit[0] + b*frame_exit[1]
+            J_map = np.cross(x_exit, pi) + sp*x_exit
+
+            def room(w):
+                return tf.energy - self._gain(s, j, tf.J - w*J_map) - w*np.linalg.norm(J_map)
+
+            # The front leaves with the mapped momentum, scaled down only if, after paying for the
+            # recoil, it would carry more angular momentum than energy (saturated).
+            saturated = bool(room(1.) < 0)
+            if saturated and room(0.) < 0:
+                raise RuntimeError('The throat front cannot pay for the exit recoil')
+            J_out = (optimize.brentq(room, 0., 1., xtol=1e-15) if saturated else 1.)*J_map
+            recoil = tf.J - J_out
+            energy = self._transfer(s, j, recoil, tf.energy)
+        f = Front(from_local(x_exit, frame_exit, tf.local), t_exit, energy, J_out, tf.phase,
+                  f'exit {"AB"[j]} ({tf.kind})', 0, sign)
         s.fronts.append(f)
-        events.append(dict(kind='throat_exit', time=t_exit, t_in=tf.t_in, mouth=tf.dest, cycle=s.cycle,
-                           energy=tf.energy, phase=[tf.phase.real, tf.phase.imag], advanced=advanced,
-                           origin=f.origin.tolist(), front=tf.kind))
+        events.append(dict(kind='throat_exit', time=t_exit, t_in=tf.t_in, mouth=j, cycle=s.cycle,
+                           energy=energy, phase=[tf.phase.real, tf.phase.imag], advanced=advanced,
+                           origin=f.origin.tolist(), front=tf.kind, sign=sign, recoil=recoil.tolist(),
+                           saturated=saturated, drate=self.separation_rate(s) - rate))
 
     def _focus(self, s, f, track, events):
         """A front at its antipodal focus: captured by an open mouth there, else reflected."""
@@ -416,11 +531,18 @@ class AntipodalPairBirth:
         k = min(hits, key=lambda k: angular_distance(s.x[k], focus))
         j = 1 - k
         s.fronts = [g for g in s.fronts if g is not f]
-        energy, local = self.capture(s, f, k, focus)
-        tf = ThroatFront(k, j, s.tau[k] + self.length, local*self.map, energy, f.phase, f.kind, s.t)
+        L_before = s.L[k].copy()
+        rate = self.separation_rate(s)
+        energy, local, J_in, c, saturated = self.capture(s, f, k, focus)
+        x, frame = s.x[k], s.frames[k]
+        pi = np.cross(J_in - np.dot(J_in, x)*x, x)
+        tf = ThroatFront(k, j, s.tau[k] + self.length, local*self.map, energy, f.phase, f.kind, s.t, J_in,
+                         np.array([pi @ frame[0], pi @ frame[1], np.dot(J_in, x)]), f.sign)
         event = dict(kind='capture', time=s.t, mouth=k, cycle=s.cycle, front=f.kind, energy=f.energy,
                      into_throat=energy, offset=float(s.tau[0] - s.tau[1]), J=f.J.tolist(),
-                     phase=[f.phase.real, f.phase.imag], local=local.tolist())
+                     phase=[f.phase.real, f.phase.imag], local=local.tolist(), sign=f.sign, coupling=c,
+                     saturated=saturated,
+                     kick=np.cross(s.L[k] - L_before, x).tolist(), drate=self.separation_rate(s) - rate)
         events.append(event)
         if s.tau[j] < tf.sigma_out:
             s.throat.append(tf)
@@ -443,6 +565,7 @@ class AntipodalPairBirth:
         else:
             event['exit'] = 'causality_boundary'
             s.unresolved += energy
+            s.unresolved_J = s.unresolved_J + J_in
 
     def _rebirth(self, s, events):
         pulse = s.pulse

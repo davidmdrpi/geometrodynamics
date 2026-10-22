@@ -90,6 +90,18 @@ A classical experiment on #345, answering the acceptance test set in its review 
     - **Clock offsets.** Without the attraction to reverse them, lopsided offsets grow past L,
       and throat exits land in the past. A fast lopsided pair drives the chronology margin
       negative.
+11. **The Klein throat sets the sign of the exchange, not its size** (§10).
+    - **The test.** Flash fronts carry momentum and a compression sign, and a capture pushes or
+      pulls with that sign. Fronts leave the throat through the handle's map.
+    - **What each handle does.** Each turns a front's angular momentum by π; neither reverses
+      it as a whole. Both reverse the orbital part along the birth circle. The Klein handle
+      also reverses the spin and flips compression into rarefaction; the torus keeps both.
+    - **The flip makes the exchange attractive.** A returning front that pushes through a torus
+      pulls through a Klein throat. Over 60 time units symmetric Klein pairs gain −0.019 and
+      −0.051 in separation rate, against +0.007 and −0.002 through a torus.
+    - **Nothing binds.** That is 3–8% of the 0.57–0.63 needed to stop the pair. The flash
+      carries momentum E v ≈ 0.002 per mouth against the mouths' 0.3, and the rule allows about
+      one exchange per flight. Every pair still meets at −P, and a 2× or 4× flash shows no trend.
 
 **What this is not.**
 - **The field and mouths are effective.** The sphere-side field is 2+1 Maxwell on the round
@@ -723,7 +735,123 @@ flash).
     captures, exits, releases and re-births are exact.
   - With the static field: energy to 1 × 10⁻⁷ (the integrator).
 
-## 10. Checks
+## 10. The Klein throat as a reversal
+![Klein against torus](images/pair_birth/klein.png)
+
+The proposal from the #346/#347 discussion: the Klein throat is not the symmetric mouth pair
+of §9. A loop through it reverses orientation, so a front crossing it should come out
+reversed, with its angular momentum turned around and its compression wave flipped into
+rarefaction. A torus handle does neither. If a reversed front pulls where an unreversed one
+pushes, the topology supplies the attraction that §9 lost.
+
+Testing that under the antipodal-only rule needs two things §9 lacks: fronts that carry
+momentum, and a capture that depends on the front's sign. `exchange='signed'` adds both.
+Everything else is §9's strict rule, with no static field.
+
+**Rules.**
+- **A moving, signed flash.** Each mouth emits its half of the flash isotropically in its own
+  rest frame, so the half carries momentum E v and angular momentum E x × v. Its amplitude has
+  the sign of the mouth's charge: compression from +q, rarefaction from −q.
+- **A signed capture.** The capturing mouth takes c J, with c = sign(q) × sign(front) ×
+  Re(phase); the throat holds (1 − c) J.
+  - A like-signed front pushes the mouth along its arrival, and an opposite-signed one pulls it
+    back. That is the sense of #345's own returns and partner flash (§4).
+  - A front in quadrature, after an odd number of empty foci, does neither.
+  - A pull is capped where the front left in the throat would carry more angular momentum than
+    energy. That happened once in each lopsided run, at t = 47.15.
+- **The tube map.** The front's rays are followed through the tube: in radially at the rim,
+  out radially at the mapped rim point. In the sphere-oriented rim frames:
+  - Klein: the front's momentum (a, b) and its spin s about the outward normal are unchanged,
+    and its sign flips. The normal reverses along any loop through the handle, so compression
+    becomes rarefaction.
+  - Torus: (a, b, s) → (a, −b, −s), and the sign is kept.
+  - The exit mouth recoils by the angular momentum the map turned. The exit is capped like a
+    pull.
+
+**What one passage does** (panel c; measured, and tested). Take antipodal mouths, with e1 along
+the birth circle.
+- **Each handle turns J by π.** Neither reverses it as a whole, which would be a reflection.
+  - Klein reverses the spin and the orbital part from motion along e1. It keeps the part from
+    sideways motion, and it flips the sign.
+  - The torus reverses both orbital parts and keeps the spin and the sign.
+- **Along the birth circle the handles differ only in sign.** In these runs all of the flash
+  moves along the birth circle. There, both handles reverse the orbital angular momentum, and
+  the exit mouth recoils by about 2J with either. This corrects the expectation in the
+  #346/#347 comments that only the Klein handle reverses a front's angular momentum.
+
+**Results** (five births, 60 time units, strict rule, flash scale 1). Δḋ is the change in the
+separation rate at an event; a negative value moves the mouths toward each other.
+
+| birth | throat | birth speeds | contacts (t, place) | captures: push / pull / quadrature | Σ Δḋ at captures | Σ Δḋ at exits | net Σ Δḋ | ḋ at birth |
+|---|---|---|---|---|---|---|---|---|
+| symmetric, v = 0.30 | klein | 0.283 / 0.283 | 8.98 −P, 21.75 −P, 34.75 −P, 47.95 −P | 8 / 2 / 4 | +0.0100 | -0.0289 | -0.0190 | 0.566 |
+|  | torus | 0.283 / 0.283 | 8.98 −P, 21.75 −P, 34.47 −P, 47.19 −P, 59.91 −P | 10 / 2 / 4 | +0.0124 | -0.0058 | +0.0066 | 0.566 |
+| symmetric, v = 1/3 | klein | 0.315 / 0.315 | 8.07 −P, 19.76 −P, 32.06 −P, 45.29 −P, 59.90 −P | 4 / 4 / 8 | +0.0002 | -0.0510 | -0.0509 | 0.630 |
+|  | torus | 0.315 / 0.315 | 8.07 −P, 19.76 −P, 32.06 −P, 44.98 −P, 57.85 −P | 8 / 0 / 8 | +0.0107 | -0.0122 | -0.0015 | 0.630 |
+| unequal + off-circle kick | klein | 0.328 / 0.251 | 8.83 off circle, 21.28 off circle, 34.36 off circle, 48.07 off circle | 2 / 1 / 3 | -0.0005 | -0.0017 | -0.0022 | 0.566 |
+|  | torus | 0.328 / 0.251 | 8.83 off circle, 21.28 off circle, 34.35 off circle, 48.06 off circle | 2 / 0 / 3 | -0.0008 | -0.0011 | -0.0020 | 0.566 |
+| lopsided (0.45 / 0.15) | klein | 0.434 / 0.133 | 8.96 -103°, 21.81 -16°, 35.39 79°, 49.41 174° | 4 / 3 / 6 (1 capped) | +0.0007 | -0.0213 | -0.0206 | 0.567 |
+|  | torus | 0.434 / 0.133 | 8.96 -103°, 21.81 -16°, 35.39 79°, 49.41 174° | 5 / 2 / 6 (1 capped) | +0.0007 | -0.0213 | -0.0206 | 0.567 |
+| fast lopsided (0.85 / 0.15) | klein | 0.844 / 0.136 | 5.18 -75°, 13.61 33°, 22.13 143°, 30.78 -103°, 39.56 16° | 1 / 5 / 1 | +0.0262 | -0.0075 | +0.0187 | 0.980 |
+|  | torus | 0.844 / 0.136 | 5.18 -75°, 13.61 33°, 22.13 143°, 30.78 -103°, 39.56 16° | 1 / 5 / 1 | +0.0262 | -0.0075 | +0.0187 | 0.980 |
+
+A stronger flash, to t = 30. The pair pays for the flash, so it is born slower:
+
+| birth | flash × | throat | birth speeds | flash energy | contacts to t = 30 | captures: push / pull / quadrature | net Σ Δḋ |
+|---|---|---|---|---|---|---|---|
+| lopsided (0.45 / 0.15) | 1 | klein | 0.434 / 0.133 | 0.0121 | 8.96 -103°, 21.81 -16° | 1 / 1 / 0 | -0.0199 |
+| lopsided (0.45 / 0.15) | 1 | torus | 0.434 / 0.133 | 0.0121 | 8.96 -103°, 21.81 -16° | 1 / 1 / 0 | -0.0199 |
+| lopsided (0.45 / 0.15) | 2 | klein | 0.421 / 0.118 | 0.0219 | 9.44 -98°, 23.07 -5° | 2 / 0 / 1 | -0.0122 |
+| lopsided (0.45 / 0.15) | 2 | torus | 0.421 / 0.118 | 0.0219 | 9.44 -98°, 23.07 -5° | 2 / 0 / 1 | -0.0122 |
+| lopsided (0.45 / 0.15) | 4 | klein | 0.398 / 0.093 | 0.0369 | 10.36 -90°, 26.73 30° | 1 / 1 / 1 | +0.0386 |
+| lopsided (0.45 / 0.15) | 4 | torus | 0.398 / 0.093 | 0.0369 | 10.36 -90°, 26.73 30° | 1 / 1 / 1 | +0.0386 |
+| symmetric, v = 0.30 | 1 | klein | 0.283 / 0.283 | 0.0114 | 8.98 −P, 21.75 −P | 2 / 2 / 2 | -0.0178 |
+| symmetric, v = 0.30 | 1 | torus | 0.283 / 0.283 | 0.0114 | 8.98 −P, 21.75 −P | 4 / 0 / 2 | -0.0005 |
+| symmetric, v = 0.30 | 2 | klein | 0.268 / 0.268 | 0.0204 | 9.47 −P, 22.08 −P | 4 / 0 / 0 | +0.0098 |
+| symmetric, v = 0.30 | 2 | torus | 0.268 / 0.268 | 0.0204 | 9.47 −P, 22.08 −P | 4 / 0 / 0 | +0.0098 |
+| symmetric, v = 0.30 | 4 | klein | 0.245 / 0.245 | 0.0339 | 10.41 −P, 26.59 −P | 2 / 0 / 0 | +0.0076 |
+| symmetric, v = 0.30 | 4 | torus | 0.245 / 0.245 | 0.0339 | 10.41 −P, 26.59 −P | 2 / 0 / 0 | +0.0076 |
+
+**What the reversal does.**
+- **The sign flip turns a push into a pull** (panel b). In the symmetric run at v = 0.30, the
+  first exit front comes back at t = 25.72.
+  - Through the torus it keeps its sign and pushes: Δḋ = +0.0014.
+  - Through the Klein throat it is flipped and pulls: −0.0014. The throat then holds 2J, and
+    the exit recoil, the orbital reversal both handles share, adds −0.0058.
+- **Over 60 time units the Klein exchange is attractive and the torus's is not.**
+  - At v = 0.30 the net Σ Δḋ is −0.019 through the Klein throat and +0.007 through the torus.
+  - At v = 1/3 it is −0.051 and −0.002.
+  - The Klein contacts come later (34.75 against 34.47, and 47.95 against 47.19; at v = 1/3,
+    45.29 against 44.98 and 59.90 against 57.85): the reversed fronts slow the receding mouths.
+- **No pair comes back.** Every symmetric pair still meets at −P every cycle, with either handle.
+  - Stopping the pair needs Σ Δḋ ≈ −0.57 at v = 0.30 and −0.63 at v = 1/3.
+  - The Klein exchange gives 3% and 8% of that, summed over four or five cycles.
+- **Elsewhere the handles agree.** In the lopsided, fast lopsided and off-circle runs, contacts
+  agree to 0.01. Their returning exit fronts are captured in quadrature or carry almost no
+  angular momentum, so the sign never acts.
+- **Why it is so weak.**
+  - A front carries momentum at most equal to its energy. The flash, 0.006 per mouth at
+    v = 0.30, is 13% of the pair's kinetic energy, but its momentum is only E v ≈ 0.0016,
+    against each mouth's 0.295.
+  - A capture or exit moves a mouth's momentum by at most 0.006 in the symmetric runs (0.03 in
+    the lopsided ones). The antipodal rule allows about one exchange per mouth per flight.
+    Turning the pair around needs about 0.6 per mouth.
+  - With event-only emission, the topology sets the sign of the exchange but not its size.
+- **A stronger flash does not help.** At 2× and 4× the pair is born slower, and the antipodal
+  coincidences that allow captures move.
+  - The net Σ Δḋ to t = 30 shows no trend: −0.018, +0.010 and +0.008 for symmetric Klein
+    pairs; −0.020, −0.012 and +0.039 for lopsided ones.
+  - At 2× and 4× the handles agree exactly: no exit front was captured in phase.
+- **What would bind.** The exchange would have to carry momentum on the mouths' scale. One
+  candidate is the mouths' own static flux, routed through the throat at each antipodal focus,
+  rather than only the birth flash. The Klein sign flip would make such an exchange attractive
+  where the torus's pushes. That is the next model to build.
+- **Conservation.**
+  - Energy to 7 × 10⁻¹⁵ in all runs.
+  - Angular momentum to 2 × 10⁻¹⁵ in the planar runs. In the off-circle run it holds to
+    2 × 10⁻¹⁰, because captures spin the mouths and the gyroscopic step is second order.
+
+## 11. Checks
 
 | check | result |
 |---|---|
@@ -749,7 +877,11 @@ flash).
 | antipodal rule: throat | exits on the clock histories, τ_dest = τ_capture + L, to 10⁻⁹ for moving mouths; Klein exits rotate the aperture coordinates and torus exits reflect them |
 | antipodal rule: conservation | angular momentum carried by a front is transferred exactly at capture; strict runs conserve energy to 5 × 10⁻¹⁵ through releases and re-births |
 | antipodal rule: free flight | strict symmetric pairs meet at −P at exactly (π − 2a)/v after paying for the flash |
-| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 9 checks |
+| signed exchange: one passage | for antipodal mouths each handle turns J by π (Klein −, +, − on the e1-orbital, e2-orbital and spin parts; torus −, −, +); Klein flips the sign; the exit mouth takes exactly the turned angular momentum |
+| signed exchange: capture | like signs push, opposite signs pull, quadrature does neither, two foci flip the sign; the mouth takes exactly c J |
+| signed exchange: caps | a capped pull leaves the throat front with \|J\| equal to its energy, and a capped exit leaves the front null; no front ever carries more angular momentum than energy |
+| signed exchange: conservation | energy to 7 × 10⁻¹⁵ in all 22 runs; angular momentum to 2 × 10⁻¹⁵ (planar) and 2 × 10⁻¹⁰ (off-circle, with spin) |
+| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 19 checks |
 
 ## Against the acceptance test
 
@@ -776,8 +908,10 @@ flash).
     solution with the restricted support. Interference between coincident fronts is not
     modelled; phases are bookkeeping.
   - Under it, nothing pushes the mouths in flight and the static attraction is gone. So BAM
-    needs an attraction mechanism built from antipodal events. Momentum-carrying fronts, for
-    example from a non-symmetric birth or a recoil law at the ports, are the open question.
+    needs an attraction mechanism built from antipodal events.
+  - The signed exchange (§10) is one such mechanism. Its push/pull rule (c = ±1, 0) and its
+    ray-traced tube map are stated rules, not derived from a field solution. They give the
+    Klein throat the right sign, but the flash is far too weak to bind.
 - **The neck channel is a hybrid.**
   - The sphere stays whole, including the disc inside each rim. The neck is attached by port
     springs rather than glued, and only its m = 0 and m = 1 parts are kept.
@@ -796,6 +930,7 @@ python experiments/closure_ledger/pair_birth_probe.py neck_checks    # port stif
 python experiments/closure_ledger/pair_birth_probe.py neck       # neck channel, four clock modes, ~13 min
 python experiments/closure_ledger/pair_birth_neck_animation.py   # neck_channel.mp4 and .gif, ~3 min (MP4 needs imageio-ffmpeg)
 python experiments/closure_ledger/pair_birth_probe.py antipodal  # the history under the antipodal-only rule, ~15 s
+python experiments/closure_ledger/pair_birth_probe.py klein      # signed exchange, Klein against torus, ~20 s
 python experiments/closure_ledger/pair_birth_report.py           # tables, figures, summary.json, sha256.json
 python -m pytest -q tests/test_pair_birth.py tests/test_antipodal_pair_birth.py
 ```
