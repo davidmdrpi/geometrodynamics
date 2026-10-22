@@ -1,0 +1,63 @@
+{
+  "case": "no_wave",
+  "parameters": {
+    "lmax": 10,
+    "nodes": 17,
+    "sigma": 0.3,
+    "footprint": 0.2,
+    "length": 0.565,
+    "radius0": 0.08733219254516084,
+    "mass": 0.3,
+    "radial_mass": 0.2,
+    "stiffness": 10.0,
+    "coupling": 1.0,
+    "energy": 0.0,
+    "qa": 0.35,
+    "qb": 2.791592653589793,
+    "source": 1.1,
+    "offset": -1.2,
+    "fixed_mouths": false,
+    "fixed_radius": false
+  },
+  "rtol": 2e-08,
+  "stop": "horizon",
+  "final_time": 25.132741228718345,
+  "initial_separation": 2.441592653589793,
+  "final_separation": 2.441592653589793,
+  "minimum_radius_ratio": 1.0,
+  "maximum_speed": 0.0,
+  "maximum_energy_relative_residual": 0.0,
+  "maximum_angular_balance_residual": 0.0,
+  "maximum_throat_energy_fraction": 0.0,
+  "initial_energy": 0.0,
+  "final_clock_constraint_reaction": 0.0,
+  "return_windows": [
+    {
+      "start": 0.0,
+      "end": 6.283185307179586,
+      "separation_change": 0.0,
+      "speed_change": 0.0,
+      "passes": false
+    },
+    {
+      "start": 6.283185307179586,
+      "end": 12.566370614359172,
+      "separation_change": 0.0,
+      "speed_change": 0.0,
+      "passes": false
+    },
+    {
+      "start": 12.566370614359172,
+      "end": 18.84955592153876,
+      "separation_change": 0.0,
+      "speed_change": 0.0,
+      "passes": false
+    }
+  ],
+  "acceleration_gate": false,
+  "shrinkage_gate": false,
+  "cutoff_reached": false,
+  "energy_gate": true,
+  "complete_mechanism": false,
+  "scope": "Unholed sphere with constitutive finite ports; not glued MTY worldtubes or a GR solution."
+}
