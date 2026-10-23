@@ -90,6 +90,8 @@ A classical experiment on #345, answering the acceptance test set in its review 
     - **Clock offsets.** Without the attraction to reverse them, lopsided offsets grow past L,
       and throat exits land in the past. A fast lopsided pair drives the chronology margin
       negative.
+    - **Where captures happen.** A first flight meets its own flash only within a/u of birth
+      or contact; captures in later cycles come from earlier flashes and throat exits.
 11. **The Klein throat sets the sign of the exchange, not its size** (§10).
     - **The test.** Flash fronts carry momentum and a compression sign, and a capture pushes or
       pulls with that sign. Fronts leave the throat through the handle's map.
@@ -727,6 +729,18 @@ flash).
   - Every capture by the fast mouth exits in the past, by 0.81–0.88.
 - **The handle changes exit points only.** Klein and torus give identical contacts and event
   counts in the lopsided run: no exit point moved a later capture.
+- **Where captures can happen.** A flash front's foci alternate between its birth point (even
+  returns) and that point's antipode (odd returns). For a pair coasting apart at u, before
+  contact:
+  - the partner catches odd return n only if π − 3a ≤ nuπ < π − 2a, the last a/u of the
+    flight (at a = 0.3 the first return needs 0.714 ≤ u < 0.809);
+  - the source's own mouth catches even return n only if nuπ ≤ a, the first a/u.
+  - So a first flight meets its own flash only next to birth or contact, where the surgery
+    governs. At v = 0.30 and 1/3 it meets none (§11; #349 derives the same rule).
+  - Later cycles do capture. Re-birth is back at the old birth point, where even returns
+    refocus: at v = 0.30 the re-born pair catches both first flashes at 4π, 0.44 after re-birth.
+    Exit fronts start wherever the mouths are, so symmetric captures fall within 3.5 a/u of a
+    birth or contact (a flight is 8.5 a/u long), and lopsided ones also mid-flight.
 - **Scope.** §§3–8 describe the continuous model only, including the neck channel's clock
   feedback (a continuous port coupling). Under the rule there is no in-flight force for a
   clock offset to modify.
@@ -846,6 +860,17 @@ A stronger flash, to t = 30. The pair pays for the flash, so it is born slower:
   candidate is the mouths' own static flux, routed through the throat at each antipodal focus,
   rather than only the birth flash. The Klein sign flip would make such an exchange attractive
   where the torus's pushes. That is the next model to build.
+- **What the signed rule rests on** (after #348 and #349).
+  - At an uncharged, passive junction the stress is quadratic in the wave, so a lone front's
+    sign cannot matter (#348). A force linear in the front's sign needs the mouth's charge: it
+    is the cross term between the mouth's static field and the wave, an impulse q∫E dt.
+  - The factor Re(phase) was motivated by a sharp front's pulse area under the Gouy phase:
+    zero after one focus, reversed after two. The actual flash does not behave that way at
+    a = 0.3, v = 1/3. The field at source A's n-th focus, integrated over the whole passage
+    (± π/2), is 0.011, −0.008, −0.005 and 0.013 for n = 1–4 (#349's propagator). Odd and even
+    passages are of the same order; only the reversal from n to n + 2 survives.
+  - So c = ±1, 0 and its scaling by the front's angular momentum are stated rules. A derived
+    version needs the charged boundary solution that fixes the interaction's duration.
 - **Conservation.**
   - Energy to 7 × 10⁻¹⁵ in all runs.
   - Angular momentum to 2 × 10⁻¹⁵ in the planar runs. In the off-circle run it holds to
@@ -881,7 +906,8 @@ A stronger flash, to t = 30. The pair pays for the flash, so it is born slower:
 | signed exchange: capture | like signs push, opposite signs pull, quadrature does neither, two foci flip the sign; the mouth takes exactly c J |
 | signed exchange: caps | a capped pull leaves the throat front with \|J\| equal to its energy, and a capped exit leaves the front null; no front ever carries more angular momentum than energy |
 | signed exchange: conservation | energy to 7 × 10⁻¹⁵ in all 22 runs; angular momentum to 2 × 10⁻¹⁵ (planar) and 2 × 10⁻¹⁰ (off-circle, with spin) |
-| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 19 checks |
+| antipodal rule: capture windows | first-flight flash captures match the analytic windows (own even returns within a/u of birth, partner odd returns within a/u of contact) at three speeds; the same rule reproduces all 24 captures and 548 empty foci in #349's audit |
+| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 22 checks |
 
 ## Against the acceptance test
 
@@ -912,6 +938,13 @@ A stronger flash, to t = 30. The pair pays for the flash, so it is born slower:
   - The signed exchange (§10) is one such mechanism. Its push/pull rule (c = ±1, 0) and its
     ray-traced tube map are stated rules, not derived from a field solution. They give the
     Klein throat the right sign, but the flash is far too weak to bind.
+  - **The flash is not a sharp front at this aperture.** At a = 0.3 it carries 46% of its
+    energy in l = 1 and 80% in l ≤ 3. Their wavelengths, 4.4, 2.6 and 1.8, exceed the
+    aperture's diameter of 0.6. A centred aperture holds only 6.4%, 9.8% and 11.9% of the
+    energy of those modes' axisymmetric parts.
+  - So the capture rule, under which the whole front enters the throat when its focus lies in
+    the aperture, overstates capture for this flash. The results of §§9–10 hold for the stated
+    ray rule, not for the diffraction-limited field.
 - **The neck channel is a hybrid.**
   - The sphere stays whole, including the disc inside each rim. The neck is attached by port
     springs rather than glued, and only its m = 0 and m = 1 parts are kept.

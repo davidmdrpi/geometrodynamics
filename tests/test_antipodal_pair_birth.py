@@ -205,3 +205,28 @@ def test_a_pull_and_its_exit_are_capped_so_no_front_outruns_its_energy():
     out = next(f for f in info['final_state'].fronts if f.kind.startswith('exit'))
     assert ex['saturated'] and np.linalg.norm(out.J) == pytest.approx(out.energy, abs=1e-14)
     assert info['energy_drift'] < 1e-14 and info['angular_drift'] < 1e-15
+
+
+@pytest.mark.parametrize('v', [.04, 1/3, .8])
+def test_first_flight_captures_only_near_birth_or_contact(v):
+    # Coasting at u, source k's n-th focus is its birth point (n even) or that point's antipode
+    # (n odd). Before contact the partner catches an odd return only if pi - 3a <= n u pi, the
+    # last a/u of the flight; the source's own mouth an even return only if n u pi <= a, the first.
+    m = AntipodalPairBirth(COARSE)
+    s = m.initial(v)
+    u, a = np.linalg.norm(m.velocity(s), axis=1)[0], m.par.mouth_angle
+    contact = (np.pi - 2*a)/u
+    h, info = m.run(s, contact - 1e-6, dt=.02)
+    got = sorted({(round(e['time']/np.pi), e['mouth'], e['front']) for e in info['events']
+                  if e['kind'] == 'capture' and e['front'].startswith('flash')})
+    expected = []
+    for k in range(2):
+        for n in range(1, int(contact/np.pi) + 1):
+            if n % 2 and np.pi - 3*a <= n*u*np.pi < np.pi - 2*a:
+                expected.append((n, 1 - k, f'flash {"AB"[k]}'))
+                break
+            if not n % 2 and n*u*np.pi <= a:
+                expected.append((n, k, f'flash {"AB"[k]}'))
+                break
+    assert got == sorted(expected)
+    assert bool(got) == (v != 1/3)                      # own second return; none; partner first return
