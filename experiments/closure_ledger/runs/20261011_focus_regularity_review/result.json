@@ -1,0 +1,522 @@
+{
+  "label": "VACUUM_COLLAPSES_SMOOTH_REGULARITY_UNDERDETERMINED",
+  "scope": "Analytic vacuum baseline plus inverse-engineered smooth static controls; no matter law or nonlinear event evolution",
+  "registration": "Review supplement with disclosed collar/bump inputs; not a preregistered held-out test",
+  "radius": 1.0,
+  "mouth_angle": 0.5,
+  "production_rtol": 2e-13,
+  "refinement_rtol": 5e-14,
+  "pilot_precision_failure": {
+    "rtol": 1e-11,
+    "refinement_rtol": 2e-13,
+    "collar_fraction": 0.2,
+    "epsilon": 0.1,
+    "ell": 1,
+    "omega_S": 0.5,
+    "max_entry_error": 1.008708636618394e-07,
+    "gate": 1e-08,
+    "response": "Tightened integration; absolute error gate unchanged"
+  },
+  "gates": {
+    "vacuum_control_shielded": true,
+    "causal_countercontrol_not_shielded": true,
+    "finite_positive_necks": true,
+    "different_transport": true,
+    "different_transit": true,
+    "integration_accuracy": true
+  },
+  "vacuum_controls": [
+    {
+      "mouth_angle": 0.5,
+      "neck_radius": 0.22984884706593015,
+      "half_length": 0.42073549240394825,
+      "waist_proper_time_to_singularity": 0.22984884706593015,
+      "log_kruskal_mouth_x": 1.5635915396550477,
+      "exterior_causally_excluded": true,
+      "initial_waist_kretschmann": 25796.642069612815
+    },
+    {
+      "mouth_angle": 1.3,
+      "neck_radius": 0.9284443766844737,
+      "half_length": 0.2577506859107321,
+      "waist_proper_time_to_singularity": 0.9284443766844737,
+      "log_kruskal_mouth_x": -0.9555782740715734,
+      "exterior_causally_excluded": false,
+      "initial_waist_kretschmann": 96.89668865566797
+    }
+  ],
+  "smooth_families": [
+    {
+      "collar_fraction": 0.1,
+      "profiles": [
+        {
+          "epsilon": 0.0,
+          "transit_time": 0.8414709848078965,
+          "max_sampled_kretschmann": 8598.88068987094,
+          "min_sampled_radius": 0.22984884706593015,
+          "min_sampled_kappa_rho": -10.49212035656229,
+          "max_sampled_kappa_rho": 14.834190022580657,
+          "waist_radial_nec": -56.78538772168068,
+          "future_trapped_samples": 0,
+          "transfers": [
+            {
+              "ell": 0,
+              "omega_S": 0.5,
+              "matrix": [
+                [
+                  0.2604690090469167,
+                  1.5842857940996573
+                ],
+                [
+                  -0.5883760990584969,
+                  0.2604690090468051
+                ]
+              ],
+              "determinant_error": 3.1086244689504383e-15,
+              "refinement_error": 8.337774914934926e-14
+            },
+            {
+              "ell": 0,
+              "omega_S": 2.0,
+              "matrix": [
+                [
+                  -2.1743980657830733,
+                  0.19974466838032132
+                ],
+                [
+                  18.663862113119425,
+                  -2.174398065783033
+                ]
+              ],
+              "determinant_error": 4.440892098500626e-16,
+              "refinement_error": 2.327027459614328e-12
+            },
+            {
+              "ell": 0,
+              "omega_S": 5.0,
+              "matrix": [
+                [
+                  -0.989110260412921,
+                  -0.0016389570353256622
+                ],
+                [
+                  13.216266368827265,
+                  -0.9891102604128819
+                ]
+              ],
+              "determinant_error": 4.884981308350689e-15,
+              "refinement_error": 3.0198066269804258e-12
+            },
+            {
+              "ell": 1,
+              "omega_S": 0.5,
+              "matrix": [
+                [
+                  58.46916865127823,
+                  12.626406366059047
+                ],
+                [
+                  270.67429826733826,
+                  58.46916865127258
+                ]
+              ],
+              "determinant_error": 1.7577050925865478e-12,
+              "refinement_error": 1.3812950783176348e-11
+            },
+            {
+              "ell": 1,
+              "omega_S": 2.0,
+              "matrix": [
+                [
+                  0.763297068918021,
+                  4.1012273639230505
+                ],
+                [
+                  -0.1017689456218027,
+                  0.763297068917573
+                ]
+              ],
+              "determinant_error": 2.3425705819590803e-13,
+              "refinement_error": 3.9734882051334353e-13
+            },
+            {
+              "ell": 1,
+              "omega_S": 5.0,
+              "matrix": [
+                [
+                  -0.4968313022535047,
+                  0.04796030673807436
+                ],
+                [
+                  -15.703791496043852,
+                  -0.49683130225362077
+                ]
+              ],
+              "determinant_error": 2.220446049250313e-15,
+              "refinement_error": 1.5987211554602254e-12
+            }
+          ]
+        },
+        {
+          "epsilon": 0.1,
+          "transit_time": 0.797579345456155,
+          "max_sampled_kretschmann": 8606.663086231032,
+          "min_sampled_radius": 0.22984884706593015,
+          "min_sampled_kappa_rho": -10.49212035656229,
+          "max_sampled_kappa_rho": 14.834190022580657,
+          "waist_radial_nec": -56.78538772168068,
+          "future_trapped_samples": 0,
+          "transfers": [
+            {
+              "ell": 0,
+              "omega_S": 0.5,
+              "matrix": [
+                [
+                  0.32858109461129037,
+                  1.483194566394183
+                ],
+                [
+                  -0.6014278129623367,
+                  0.32858109461120183
+                ]
+              ],
+              "determinant_error": 5.551115123125783e-16,
+              "refinement_error": 8.08242361927114e-14
+            },
+            {
+              "ell": 0,
+              "omega_S": 2.0,
+              "matrix": [
+                [
+                  -2.3724257164514655,
+                  0.2526807335603215
+                ],
+                [
+                  18.317200978742285,
+                  -2.372425716451545
+                ]
+              ],
+              "determinant_error": 1.3322676295501878e-15,
+              "refinement_error": 8.597567102697212e-13
+            },
+            {
+              "ell": 0,
+              "omega_S": 5.0,
+              "matrix": [
+                [
+                  -1.001186948172204,
+                  0.02006829257312355
+                ],
+                [
+                  0.11836110026763583,
+                  -1.0011869481712998
+                ]
+              ],
+              "determinant_error": 1.865174681370263e-14,
+              "refinement_error": 2.217760697309501e-10
+            },
+            {
+              "ell": 1,
+              "omega_S": 0.5,
+              "matrix": [
+                [
+                  57.65105657921878,
+                  12.162487283435311
+                ],
+                [
+                  273.1878971192045,
+                  57.65105657922701
+                ]
+              ],
+              "determinant_error": 1.0516032489249483e-12,
+              "refinement_error": 3.728928277269006e-11
+            },
+            {
+              "ell": 1,
+              "omega_S": 2.0,
+              "matrix": [
+                [
+                  2.0874064082013635,
+                  4.489540242186483
+                ],
+                [
+                  0.7477971756341015,
+                  2.0874064082026065
+                ]
+              ],
+              "determinant_error": 1.9761969838327786e-14,
+              "refinement_error": 1.2350120925930241e-12
+            },
+            {
+              "ell": 1,
+              "omega_S": 5.0,
+              "matrix": [
+                [
+                  0.21511960674932143,
+                  0.05117473258036581
+                ],
+                [
+                  -18.636610426717777,
+                  0.21511960675062802
+                ]
+              ],
+              "determinant_error": 3.1086244689504383e-15,
+              "refinement_error": 4.0113690147336456e-11
+            }
+          ]
+        }
+      ],
+      "transit_reduction_percent": 5.216060939018796,
+      "transfer_max_entry_differences": [
+        0.1010912277054743,
+        0.34666113437713975,
+        13.097905268559629,
+        2.5135988518662202,
+        1.3241093392850334,
+        2.9328189306739247
+      ]
+    },
+    {
+      "collar_fraction": 0.2,
+      "profiles": [
+        {
+          "epsilon": 0.0,
+          "transit_time": 0.8414709848078965,
+          "max_sampled_kretschmann": 8598.88068987094,
+          "min_sampled_radius": 0.22984884706593015,
+          "min_sampled_kappa_rho": -11.10271856434205,
+          "max_sampled_kappa_rho": 16.37847662187189,
+          "waist_radial_nec": -56.78538772168068,
+          "future_trapped_samples": 0,
+          "transfers": [
+            {
+              "ell": 0,
+              "omega_S": 0.5,
+              "matrix": [
+                [
+                  0.2607846132330288,
+                  1.584353918184106
+                ],
+                [
+                  -0.5882469660365712,
+                  0.26078461323666746
+                ]
+              ],
+              "determinant_error": 3.774758283725532e-15,
+              "refinement_error": 3.209987831098715e-12
+            },
+            {
+              "ell": 0,
+              "omega_S": 2.0,
+              "matrix": [
+                [
+                  -2.1727427742400027,
+                  0.19958062187405126
+                ],
+                [
+                  18.643148458370458,
+                  -2.172742774239861
+                ]
+              ],
+              "determinant_error": 4.440892098500626e-16,
+              "refinement_error": 9.237055564881302e-14
+            },
+            {
+              "ell": 0,
+              "omega_S": 5.0,
+              "matrix": [
+                [
+                  -0.9886836469300045,
+                  -0.0017084182078974206
+                ],
+                [
+                  13.17279702930433,
+                  -0.9886836469293941
+                ]
+              ],
+              "determinant_error": 1.0658141036401503e-14,
+              "refinement_error": 5.965006266706041e-12
+            },
+            {
+              "ell": 1,
+              "omega_S": 0.5,
+              "matrix": [
+                [
+                  58.47724662181689,
+                  12.631613135080812
+                ],
+                [
+                  270.63751366596796,
+                  58.47724662181448
+                ]
+              ],
+              "determinant_error": 1.8385293287792592e-13,
+              "refinement_error": 5.7411853049416095e-12
+            },
+            {
+              "ell": 1,
+              "omega_S": 2.0,
+              "matrix": [
+                [
+                  0.7742709465469152,
+                  4.1021510903702705
+                ],
+                [
+                  -0.09763280106228467,
+                  0.7742709465469562
+                ]
+              ],
+              "determinant_error": 2.424727085781342e-13,
+              "refinement_error": 4.674038933671909e-13
+            },
+            {
+              "ell": 1,
+              "omega_S": 5.0,
+              "matrix": [
+                [
+                  -0.49688054032426443,
+                  0.04801215016041251
+                ],
+                [
+                  -15.685815489016104,
+                  -0.4968805403240648
+                ]
+              ],
+              "determinant_error": 8.881784197001252e-16,
+              "refinement_error": 3.836930773104541e-12
+            }
+          ]
+        },
+        {
+          "epsilon": 0.1,
+          "transit_time": 0.8024561942730153,
+          "max_sampled_kretschmann": 8611.346584040512,
+          "min_sampled_radius": 0.22984884706593015,
+          "min_sampled_kappa_rho": -11.10271856434205,
+          "max_sampled_kappa_rho": 16.37847662187189,
+          "waist_radial_nec": -56.78538772168068,
+          "future_trapped_samples": 0,
+          "transfers": [
+            {
+              "ell": 0,
+              "omega_S": 0.5,
+              "matrix": [
+                [
+                  0.32246218172739727,
+                  1.4882587143779162
+                ],
+                [
+                  -0.6020580512644091,
+                  0.32246218172727636
+                ]
+              ],
+              "determinant_error": 2.886579864025407e-15,
+              "refinement_error": 1.3378187446733136e-13
+            },
+            {
+              "ell": 0,
+              "omega_S": 2.0,
+              "matrix": [
+                [
+                  -2.3454669089914417,
+                  0.24494001214210945
+                ],
+                [
+                  18.37680574034793,
+                  -2.3454669089915043
+                ]
+              ],
+              "determinant_error": 6.661338147750939e-15,
+              "refinement_error": 1.538325022920617e-12
+            },
+            {
+              "ell": 0,
+              "omega_S": 5.0,
+              "matrix": [
+                [
+                  -1.0164244751191294,
+                  0.018101634173824575
+                ],
+                [
+                  1.8295979960799087,
+                  -1.0164244751083251
+                ]
+              ],
+              "determinant_error": 1.4876988529977098e-14,
+              "refinement_error": 5.938523006676633e-10
+            },
+            {
+              "ell": 1,
+              "omega_S": 0.5,
+              "matrix": [
+                [
+                  57.553398203439244,
+                  12.221890938767931
+                ],
+                [
+                  270.9395511179691,
+                  57.55339820342037
+                ]
+              ],
+              "determinant_error": 4.60964599824365e-13,
+              "refinement_error": 1.9753088054130785e-11
+            },
+            {
+              "ell": 1,
+              "omega_S": 2.0,
+              "matrix": [
+                [
+                  1.781917965957442,
+                  4.445953276667335
+                ],
+                [
+                  0.489261020537234,
+                  1.7819179659581215
+                ]
+              ],
+              "determinant_error": 1.6653345369377348e-15,
+              "refinement_error": 2.460254222569347e-13
+            },
+            {
+              "ell": 1,
+              "omega_S": 5.0,
+              "matrix": [
+                [
+                  0.1374535338299257,
+                  0.053495257927986525
+                ],
+                [
+                  -18.34006534482706,
+                  0.13745353383016232
+                ]
+              ],
+              "determinant_error": 1.7763568394002505e-14,
+              "refinement_error": 2.510347485440434e-11
+            }
+          ]
+        }
+      ],
+      "transit_reduction_percent": 4.636498612461137,
+      "transfer_max_entry_differences": [
+        0.09609520380618974,
+        0.2663427180225284,
+        11.343199033224423,
+        0.9238484183941083,
+        1.0076470194111653,
+        2.6542498558109564
+      ]
+    }
+  ],
+  "sources": {
+    "geometrodynamics/bulk/focus_regularity_review.py": "4301ec45542c34f0e2eb8178c3bfb9382d8c8878567496c52b83937f8d08bf48",
+    "geometrodynamics/bulk/focus_regularity.py": "329e575af1655f066bd34545cf69f344825120d5d1467f42f9423edf14a0b977",
+    "geometrodynamics/bulk/finite_mouth.py": "d5627763865f8fa1c495b693a2377cf72c6902efe7e64f3b45540455025ec93c",
+    "experiments/closure_ledger/focus_regularity_review_probe.py": "2c177593f5842b167aba420b8f2c04776207265a6b0fc94fb377c32f0978e5e5",
+    "tests/test_focus_regularity_review.py": "c7e94c969bd4a668aa9d96d877fee4d768b8147a56b739af36f9e2cf72af6f8b"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  }
+}

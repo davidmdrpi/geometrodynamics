@@ -4,8 +4,9 @@ This document describes the foundational thesis of **Bulk Antipodal
 Mechanics (BAM)**, a research program in classical-geometric physics on
 a closed `S³` universe.
 
-The name foregrounds the channels by which discrete quantum-mechanical
-spectra arise from continuous, GR-consistent geometry. *Bulk* refers to
+The name foregrounds proposed channels by which quantum-mechanical
+behavior might arise from classical bulk geometry and an added antipodal
+regularity postulate. *Bulk* refers to
 the 5D Tangherlini extension and the non-orientable wormhole throats
 that live in it; *antipodal* refers to `S³` closure with antipodal wave
 focusing; *mechanics* signals a quantitative framework for computing
@@ -16,23 +17,31 @@ when the global and topological machinery Wheeler did not have is added
 to the geometrodynamic instinct that *matter is a property of
 spacetime, not an independent field attached to it*.
 
-One framing point should be stated at the outset, because it is easy to invert.
-**BAM derives quantum field theory from continuous, classical general
-relativity; it is the opposite of a quantum-gravity program, and it does not
-quantise gravity.** The foundational layer is a *classical* GR geometry — the
-`S³` slice, the wormhole throat, the 5D Tangherlini bulk and its metric `f(r)` —
-and the quantum structure (the discrete matter spectrum, the propagator and
-exchange kernel, the self-energy, the interaction vertices) is *reconstructed
-on that fixed classical background*, in the precise sense of quantum field
-theory on a curved spacetime. The arrow runs geometry → fields and never the
-reverse: the metric is a classical input, not a quantised dynamical variable.
-Consequently, asking BAM to address quantum gravity is a category error that
-would turn the program upside down — gravity is the foundational classical layer
-*from which* quantum matter is derived, not an object the program seeks to
-quantise. Where this thesis later speaks of a path-integral measure `S_BAM`, a
-one-loop fluctuation determinant, or a bounded interacting vacuum, those are
-statements about the emergent *matter* field theory, read off the classical
-throat geometry — not about a quantum theory of the metric.
+## Foundational revision: the antipodal regularity postulate
+
+**BAM is a proposed classical geometric theory with Einstein dynamics away
+from focal regions and an additional regularity/matching postulate at foci.
+It has not derived QFT from unmodified continuous classical GR.** The postulate
+requires a nonsingular bulk continuation of the inner/outer encounter. An ER
+bridge, a non-orientable handle, and an Alice bundle operation must each have
+explicit geometry and field matching; their names do not provide an evolution
+law. Quantizing the metric is not assumed. Classical backreaction is required.
+
+The earlier fixed-background framing described the scope of many individual
+calculations, but cannot describe the uncomputed antipodal event. Ray focusing,
+curvature blow-up, geodesic incompleteness and topology change are distinct.
+Trapped mouths remain admissible if the proposed continuation is regular.
+The [regularity specification](antipodal_focus_regularity.md) gives equations,
+conditions, an explicit 5D control and the remaining closure requirements.
+It demonstrates that regularity alone leaves different transport laws possible.
+
+All downstream quantum-event claims are conditional on a specified focus law
+and its independent tests. Existing spectra and QFT-on-background calculations
+retain their individual assumptions; they do not supply that missing law or
+derive the quantum rules they use. Historical claims in this thesis, including
+claims of regular cores, do not constitute a proof of nonsingular coupled
+spacetime evolution. This revision takes precedence over stronger historical
+framing below.
 
 ## The BAM conjecture
 
@@ -49,24 +58,16 @@ that were not available in the 1960s.
 
 ## What BAM is trying to demonstrate
 
-The aim is to test, computationally, whether quantum-mechanical
-observables can be computed from purely geometric inputs on a closed
-`S³`, without canonical quantization as an independent postulate. BAM
-does **not** claim to have shown this in full. It claims to have
-demonstrated that several of the most distinctive observables — charge
-quantization, spin-½, the Coulomb radial response, the charged-lepton
-mass ladder, the six-quark mass ladder, Bell's inequality saturation,
-regular black-hole interiors — can each be derived from, or made
-consistent with, classical geometry on `S³` alone. (The
-finite-separation Coulomb claim — that two throat mouths on `S³`
-produce `F(ψ) ∝ 1/sin²(ψ)` — has now been **demonstrated**: the S³
-Green response reproduces the Coulomb potential and inverse-square
-force in the flat-space limit, with the `1/sin²ψ` form confirmed as
-the leading behaviour and refined by a compact-`S³` antipodal-image
-modulation; see `docs/two_throat_coulomb_research_plan.md` and the
-`two_throat_coulomb_probe`.) Whether this set is closeable into a
-complete derivation of quantum field theory is the open question BAM
-exists to test.
+The aim is to test whether quantum-mechanical observables follow from
+classical bulk geometry together with the additional focus law, without
+canonical quantization as an independent postulate. This has not been shown
+in full. The historical studies below report spectra, charge and transport
+constructions, interaction models and regular static cores under their own
+assumptions. They must be assessed individually; agreement with a quantum
+formula, or use of QFT on a classical background, does not establish the
+proposed event mechanism. Closing those conditional calculations into a
+predictive theory depends on specifying and testing the focus law and
+accounting for every inserted quantum ingredient.
 
 A reader looking for "BAM replaces QFT" should read the program as a
 falsification campaign for that claim. A reader looking for "geometric
@@ -146,14 +147,14 @@ it reproduces the Coulomb potential and inverse-square force in the
 flat-space limit and confirms the `F(ψ) ∝ 1/sin²(ψ)` leading form, so
 this particular falsification test is **passed** rather than open.
 
-Third, BAM **rests on classical geometric machinery only**. No canonical
-commutators are imposed, no Hilbert space is assumed at the outset, and
-no path integral is performed. Any recovery of quantum-like observables
-therefore constrains the geometry, not a hidden quantization step.
-Where Planck's constant enters the quantitative comparisons (lepton and
-quark masses in MeV, for example) is itself an open question called out
-in the validation table — the absolute MeV scale is set by anchoring
-the electron mass; the *ratios* are derived.
+Third, the target is a classical geometric account, but several existing
+calculations use supplied Hilbert-space states, squared-amplitude readout,
+spinor bundles or QFT rules. Those calculations test conditional models;
+they do not yet recover those ingredients from Einstein–focus evolution.
+The [historical foundation audit](historical_foundation_claims_audit.md)
+records the dependencies and the #58 energy-normalization mismatch. The
+[first explicit support-action test](focus_action_admission.md) rejects its
+candidate without claiming that all regular focus mechanisms fail.
 
 A compact status map, expressed at the level of *claim classes* rather
 than per-test rows (the README's validation table covers the per-test
@@ -163,7 +164,7 @@ detail):
 |---|---|
 | Hopf charge / Chern structure | exact geometric identities |
 | Spinor transport from `T = iσ_y` | verified throat-orientation structure |
-| Bell correlations / CHSH | derived from throat transport; `2√2` verified |
+| Bell correlations / CHSH | singlet/Born-readout calculation verified; classical outcome selection uncomputed |
 | Lepton mass ladder | locked spectral model; `β_lepton = k_5²·(2π) = 50π` now derived from the topological charge (PR #71) |
 | Quark mass ladder | 1.6% fitted ladder; residual sector geometrized — and **improved** by PR #271's operator correction (all three residuals move toward their locks; PR #272), though the derived triple was never shown to reproduce the ladder (`3.8%` against the lock's `1.6%`); quark `β = 233π` (with `n_part = 233`) diagnosed as phenomenological compensator absorbing the inter-generation mass hierarchy (PR #76) and still drifting after the correction; shell-waveguide arc PRs #77–#80 reframes the sector structurally |
 | Quark sector reframed as cavity wavefronts | PR #76 diagnosis + four-PR shell arc (PRs #77–#80): quarks are the shell-saturated wavefronts that resolve the cavity (not throat traversals like leptons); 6-state `(l, n, p)` basis; `χ_n` derived from cavity-mouth boundary stress (no free parameter, PR #79); BAM-native color algebra `SU(2) × Z₂` from B2 + Hopf + PR #63 (PR #80) |
@@ -171,14 +172,14 @@ detail):
 | **Lepton + quark mass operators unified** | The lepton `β·k²` (PR #71) and quark `ω²(l, n)` (PR #77) mass operators are **one Bohr-Sommerfeld operator** `m² = (S/L_eff)²` (PR #83): `m²(k,n) = (k·2π/L_throat)² + ((n+1)·π/L_cavity)²`, `L_throat = √(2π)/k_5`. Leptons wind (`k ∈ {1,3,5}`); quarks resolve the cavity (`k = 0`). Cavity Bohr-Sommerfeld verified to machine precision; `β_lepton = k_5²·(2π)` recovered. Throat↔shell `n+3` Pati-Salam bridge built (PR #82); inter-generation hierarchy still open |
 | Coulomb radial response | verified by Tangherlini/Maxwell BVP |
 | Coulomb force at finite separation | verified (`two_throat_coulomb_probe`) |
-| Black-hole interior / entropy | regular metric derived; entropy currently a consistency check |
+| Black-hole interior / entropy | prescribed regular static metric; formation/stability uncomputed; entropy remains a consistency check |
 | Compton tree amplitude (Klein-Nishina) | reproduced exactly via closed-form F² (PRs #25–#35); F² = K²·Q from one C×S³ master functional (B5 closed, PR #51) |
 | Tree QED (BW, annihilation, Bhabha, Møller) | reproduced from BAM-geometric primitives (PRs #36–#46); see `docs/tree_qed_status.md` |
 | BAM effective-action scaffold (B1–B5) | four closed (B1+B2, B3, B5); B4 audited as irreducible-by-dimensional-necessity (PRs #49–#53); `docs/bam_scaffold_status.md` |
-| Throat as finite-self-energy equilibrium | derived `R* = (A/2B)^{1/3}` (PR #55); cohesive `B·R²` = brane tension (PR #56); bulk-gravity tuning √6 (PR #57); pair threshold `2m_e c²` (PR #58) |
+| Throat as finite-self-energy equilibrium | toy minimum verified; #55/#58 implemented energy is `(3 alpha/4)m_e c²`, so its claimed electron/pair normalization fails |
 | Throat = relativistic spin-½ particle | dispersion `E²−(pc)²=(mc²)²` (PR #59), Hopf-holonomy Wigner rotation (PR #60), `g = 2` from Pauli + Hopf monopole (PR #61), Schwinger `a = α/2π` reconstructed (PR #62), `1/(2π)` = BAM closure quantum (PR #74) |
-| C / CPT / throat Dirac spinor | `C` = inner/outer swap `c₁ → −c₁` (PR #63), CPT on throat histories (PR #64), explicit `Θ = −iγ⁵` on throat spinor (PR #65), throat 4-spinor from `S_BAM` SUSY (PR #66) |
-| Even-`k` absence → QCD shell | classified as spin-statistics selection rule (PR #67); higher-`k` excitations transition into QCD shell channel (PR #68); shell ↔ QCD structural match (PR #69) |
+| C / CPT / throat Dirac spinor | oriented-flux, supplied bundle and scalar-factorization calculations; physical conjugation/Dirac/statistics interpretation remains conditional |
+| Even-`k` absence → QCD shell | sector selection within the supplied spectral/spin assumptions; not an independently derived event/statistics law |
 | Three generations / `k_5 = 5` | sharp `k ≤ 5` boundary (PR #70), `β_lepton = k_5²·(2π)` (PR #71), `#gen = (k_5+1)/2 = 3` (PR #72), `k_5 = D_bulk = dim(S³)+2 = 5` (PR #73) |
 | `ℏ` origin | B4 audited (#52): closure-ledger machinery scale-free, so exactly one external dimensionful anchor required; relocatable to invariant bulk separation `ΔR` (#53), giving `m_e = 0.52·ℏ/(ΔR·c)`. Predicting ℏ in SI is gated solely by the value of that single geometric anchor |
 | Full QFT / loop measure | `1/(2π)` in Schwinger anomaly identified as BAM closure quantum (PR #74); the full `S_BAM` path-integral measure is then **structurally constructed** as a loop-measure — a closure-ledger sector sum over a `Diff(S¹)`-gauge-fixed loop-space integral, with odd-k upgraded to the `Z₂` orientation-anomaly condition and the bounces as leading saddle (PR #115) — but its **analytic core remains open**: the bare fluctuation determinant diverges, so the normalisation needs regularization and is not yet rigorously constructed |
@@ -308,7 +309,7 @@ NEC/WEC-violating *exotic* surface matter — the Israel/Lanczos surface
 density `σ = −√f(a)/(2πa) < 0` — which the non-orientable (antipodal `Z₂` /
 C-swap) gluing does **not** rescue. The honest resolution is *consistent
 with* braneworld. The BAM throat metric `f(r) = 1 − (r_s/r)²` is
-**Ricci-flat** (`R = 0`), and its effective 4D stress is **traceless** with
+**scalar-flat, not Ricci-flat** (`R = 0`), and its effective 4D stress is **traceless** with
 the `r⁻⁴` form `ρ_eff = −r_s²/(8πG r⁴) < 0`, `p_r = −ρ_eff`, `p_t = +ρ_eff`
 — the **tidal-charge / bulk-Weyl form**: exactly what a projected bulk Weyl
 tensor `E_μν` (traceless by construction) takes. Crucially it is *also*
@@ -328,27 +329,29 @@ relocating σ rather than removing it. This is the strongest "consistent-
 with" the audits have reached — narrow, specific, and closable by a 5D
 embedding calculation (`israel_junction_weyl_split_probe`, PR #167).
 
-**The embedding, supplied — the gap closes (PR #168).** That 5D
-calculation is now done, as an explicit **global regular** embedding (not
-a Campbell–Magaard local-existence series). The BAM throat is the
-**equatorial (`χ = π/2`) totally-geodesic slice** of the 5D
-Schwarzschild–Tangherlini bulk `ds²₅ = −F dt² + dρ²/F + ρ²dΩ₃²`,
-`F = 1 − μ/ρ²`, with `μ = r_s²`. The equator is a Z₂ fixed-point set, so
-`K_μν = 0` (a tension-free, matter-free brane); the induced 4D metric is
-exactly `f = 1 − (r_s/r)²`; the projected bulk Weyl equals the brane tidal
-stress, `E_μν = −G⁴_μν` (verified to `~10⁻⁸`); the bulk is Ricci-flat (an
-ordinary 5D vacuum); and the 5D Kretschmann `K₅ = 72 μ²/ρ⁸` is **finite
-throughout** the exterior `ρ ≥ r_s` (max `72/r_s⁴` at the throat), the only
-singularity `ρ = 0` lying behind the regular 5D Killing horizon `ρ = r_s`,
-with the extra dimension `χ` compact and regular. Three checks and the
-regularity gate pass: the bulk-Weyl reading is **realised**, not merely
-consistent-with — no exotic brane matter, no brane gauge field — and the
-`f = 0` throat is identified as the **regular 5D Killing horizon** (an
-improvement on the #167 caveat: regular, not singular). The honest residue
-is that the throat sits at that (regular) horizon, the brane is the
-tension-free totally-geodesic slice (`μ = r_s²` fixing the bulk mass), and
-it is the exterior embedding `ρ ≥ r_s`
-(`global_regular_5d_embedding_probe`, PR #168).
+**The exterior embedding is supplied; a regular interior is not (#168,
+corrected in #328).** The equatorial (`χ=π/2`) slice of the 5D
+Schwarzschild–Tangherlini metric `ds²₅=−F dt²+dρ²/F+ρ²dΩ₃²`,
+`F=1−μ/ρ²`, `μ=r_s²`, is totally geodesic (`K_μν=0`). It induces the
+pure-tidal 4D metric and realizes `E_μν=−G⁴_μν` without physical brane
+matter. These exterior embedding and Weyl-projection checks remain valid.
+
+The five-dimensional bulk is Ricci-flat, but its Kretschmann scalar
+`K₅=72μ²/ρ⁸` diverges at `ρ=0`. Its horizon `ρ=r_s` is regular in an
+appropriate chart; regularity of the exterior and horizon does not imply
+geodesic completeness or a globally nonsingular development. The old
+**global regular** label was too strong. In particular, projected 4D Weyl
+stress supplies no physical 5D stress to hold open a 5D static neck.
+
+The original finite-mouth spatial neck is the time-symmetric Tangherlini
+slice. Its vacuum waist reaches the singular boundary after proper time
+`b`. For the current `a=0.5` control, the causal condition `X_m>1` places
+the entire approach inside the neck's vacuum domain of dependence; changing
+only exterior data cannot avert it. That condition is not true at all mouth
+angles. See the [vacuum baseline and smooth regular alternatives](antipodal_focus_regularity.md#4a-review-control-the-vacuum-development-is-singular).
+A predictive regularity law remains necessary to complete this proposed
+BAM continuation, and regularity alone does not select one. The historical
+producer name is unchanged (`global_regular_5d_embedding_probe`, PR #168).
 
 **Why the throat is non-orientable but the bulk is not (PR #169).** The
 non-orientability of the throat is not an extra assumption — it is forced
@@ -2819,102 +2822,32 @@ pairing), ratios from dynamics (the phase budget), the #193/#197
 division of labor realized in the mass model itself
 (`dirac_tower_mass_ladder_probe`, PR #201).
 
-**PR #200 — the pair-creation cobordism, constructed: the capstone.**
-The one open construction of the #196 adjudication is closed: the BAM
-pair-creation cobordism is exhibited explicitly —
-`M = (S³×I) + H²₍₊₂₎ + H²₍₋₂₎`, two 2-handles attached along a
-two-component unlink with framings ±2, boundary
-`S³ → L(2,1) # L(−2,1) = RP³ # RP³` — **pair creation from the actual
-closed S³ background** (integer surgery on an unknot = L(n,1); split
-link = connected sum). Machine-checked: linking matrix `diag(2,−2)`
-with `|det| = 4 = |H₁(RP³#RP³)|` and Smith form `diag(2,2)` (coker
-= Z₂⊕Z₂ exactly); **even framings ⟹ spin cobordism** (the structure the
-Pin⁻-framed SSC theorem requires); signature 0; **only index-2 Morse
-points** — causally continuous, avoiding the proven-discontinuous
-classes {1, 3} (Dowker–Garcia–Surya): the Sorkin selection rule
-*selects* pair creation, the channel the #58 threshold always assumed,
-and the ±2 mirror structure *is* the C-conjugate throat–antithroat
-pair (Σc₁ = 0). With this, the exchange-statistics chain runs end to
-end with no unconstructed step — 5D Einstein equations → RP³ geon →
-SSC hypotheses → the explicit spin, causally-continuous 4-manifold →
-SOH abelian weights → the forced Pin⁻ lift `−I` → **Fermi, Pauli** —
-and **"Pauli from GR + the forced Pin⁻ framing" is a constructed
-theorem**. The capstone probe also re-verifies the release ledger green
-in one run (the #183/#196 algebra, the #193 scalar ladder, the #195
-index zero mode, the #197 Dirac ladder, the #198/#199 guidance-current
-identity) and encodes the open-items register (the Dirac-tower mass
-ladder; the nonlinear measurement theory; the 5D core; the standing
-negative results #165 and #160; the Borde–Sorkin remainder). The
-defining claim at #200: the program's deepest steps are theorems with
-hypotheses, not imports
-(`pair_creation_cobordism_capstone_probe`, PR #200).
+**#200: topological cobordism, with the physical event reopened.**
+The two framed 2-handles and their linking/homology arithmetic supply an
+abstract cobordism. They do not supply a nondegenerate regular Lorentzian
+metric satisfying the focus equations, a physical charge bundle, or a
+statistical weighting law. The assertion that single-geon creation must
+use index 1 or 3 is incorrect: a single +2 handle is itself index two.
+Avoiding those indices therefore does not by itself select pair creation.
+The earlier “Pauli chain complete” conclusion is withdrawn at that scope;
+conditional framing/representation calculations remain.
 
-**The guidance law from the 5D bulk (PR #199 — discharging #198's
-condition 1).** The #198 Born rule was conditional on the guidance
-identification `v = ∇S`; it is here **derived** from the bulk field
-equations (`docs/guidance_law_from_5d.md`). The chain: (1) the throat
-mode is the fiber-winding KK mode `Ψ = ψe^{ikχ}` (#83/#193); (2) the de
-Broglie current **is** bulk stress-energy — `T_{μχ} = k·Im(ψ*∂_μψ)`
-identically (verified to `1e-12`; winding = charge, #42–#44); (3) its
-conservation is the χ-component of the **contracted Bianchi identity**
-of the 5D Einstein equations — `∇·G ≡ 0` verified symbolically and
-*exactly* on the weak-field KK metric with arbitrary Φ(t,x), all five
-components — so the continuity equation behind the Born rule is a
-Bianchi identity of the bulk, not a model assumption; (4) the throat is
-the quantized, topologically conserved unit of winding (#178/#181/#182)
-and must ride its own conserved current: `v = 𝒥^i/𝒥^0 = ∇S` —
-demonstrated **pointwise**: quantized 2D cores transported through the
-live nonlinear dynamics move with the ambient `J/ρ` at the core
-(background and partner-induced parts both reproduced; winding exactly
-±1 throughout). GR taken whole **selects the Bohmian flow**: the
-transport differs from geodesic motion exactly by the quantum potential
-Q, which sits inside the same wave stress tensor (Madelung balance
-verified at `1e-3`; the quantum force dominates ×27 on the live
-dynamics) — geodesic transport is precisely the wrong flow #198 showed
-destroys equivariance. The law is species-universal (k cancels in the
-ratio). The chain now runs: **5D Einstein equations → Bianchi →
-conserved fiber current → topological transport → `v = ∇S` → (#198)
-`|ψ|²` equivariant and unique → Born rule** — the dBB-grade
-interpretation as a consequence of the bulk field equations,
-conditional only on the #198 equilibrium/measurement conditions and the
-throat-core scale identification (the full 5D core dynamics is
-constrained by its charge, not solved)
-(`guidance_law_from_5d_probe`, PR #199).
+**#199: current identity, with finite-core guidance still missing.**
+For a supplied fiber-winding scalar, the mixed stress/current identity is
+valid, and the Bianchi identity enforces conservation on solutions. This
+does not derive that scalar sector from vacuum GR or select the worldline
+of an independently tracked, regular five-dimensional core. The reduced
+transport demonstrations retain their own equations and assumptions.
 
-**The Born-rule equivariance test (PR #198 — the deepest import
-replaced by a theorem).** Item 3 of the theorem-shaped program. For a
-classical-field-foundational theory the one honest route to the Born
-rule is **equivariance** (Dürr–Goldstein–Zanghì): is `|ψ|²` the measure
-preserved by the BAM transport flow, or does the ψ–Φ–q dynamics
-equivariantly transport some other functional? Anything else would
-refute BAM at its foundation. The answer
-(`docs/born_rule_equivariance.md`): **Theorem 1** — the real-time
-Hamiltonian flow of the #179/#180 functional (`i∂ₜψ = −½∇²ψ +
-[Φ + ½gq²]ψ`, self-consistent Poisson gravity, live real order field)
-satisfies `∂ₜρ + ∇·(ρ∇S) = 0` **exactly**, because every BAM coupling
-enters as a *real* potential — the nonlinearity of Φ[ρ] and q is
-irrelevant; verified on the live dynamics (residual `3e-4`; a
-20 000-throat Born ensemble stays at sampling noise through a
-two-soliton collision, KS ≤ 0.009 vs noise 0.007). The throat transport
-is the local momentum field `v = ∇S` (Galilean structure; the exact
-Ehrenfest relation verified on the nonlinear dynamics; the unique
-current closing continuity). **Theorem 2** — `∂ₜh + ∇·(hv) =
-(h−ρh′)∇·v`: only `h ∝ ρ` is equivariant (compressible flow, verified;
-`√ρ`/`ρ²` ensembles and wrong flows all fail demonstrably).
-**Falsifiable:** a dissipative deformation `iγWψ` produces exactly the
-predicted continuity source `−2γWρ` (0.1% match) and breaks the
-transport — the repo's own imaginary-time *relaxation* flow is of
-precisely this non-equivariant type; only the Hamiltonian flow carries
-the Born rule. **Relaxation:** a uniform ensemble falls 3.48 nats in
-the coarse-grained H-function toward Born (the subquantum H-theorem on
-the BAM dynamics) — fixed point *and* attractor. The label: the Born
-rule enters BAM at **dBB grade** — equivariance + uniqueness +
-relaxation, the same epistemic status as in Bohmian mechanics —
-conditional on the guidance identification (throat velocity = phase
-gradient; its 5D derivation is its own program) and the linear
-measurement regime (test throat in an external pilot wave). The
-`bell`-module import is now labeled: derived at dBB grade with stated
-hypotheses (`born_rule_equivariance_probe`, PR #198).
+**#198: conditional equivariance, not a completed Born derivation.**
+For the specified real-potential wave equation and velocity `v=J/rho`,
+`rho=abs(psi)^2` obeys continuity. The uniqueness argument is restricted to
+local functions `h(rho)` under the stated compressibility condition.
+Guidance, equilibrium, detector records and general many-body probabilities
+remain separate dependencies. A coarse-grained relaxation example does
+not prove universal attraction. These conditional results survive;
+“the deepest import replaced” and “conditional only on measurement” were
+too strong. See the [source-based audit](historical_foundation_claims_audit.md).
 
 **The analytic Berger–Dirac ladder (closed-form spectral geometry,
 PR #197).** Item 2 of the theorem-shaped program: the Dirac spectrum on

@@ -1,5 +1,7 @@
 # PR #200 — the pair-creation cobordism, constructed: completing "Pauli from GR" (the capstone)
 
+> **Current dependency audit (12 October 2026).** The handle/homology construction survives. The conclusions that index-two handles alone select pair creation, that single-geon creation requires index 1 or 3, and that the physical Pauli/event chain is complete are withdrawn. No regular Lorentzian Einstein–focus solution is supplied. See [the audited source chain](historical_foundation_claims_audit.md). Historical wording below is superseded where it asserts the stronger conclusion.
+
 > **Framing.** QFT on the *fixed classical* throat geometry — geometry →
 > fields, **not** quantum gravity. This is the milestone PR: it closes
 > the one open construction of the deepest theorem in the program
