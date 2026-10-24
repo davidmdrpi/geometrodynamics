@@ -1,0 +1,1442 @@
+[
+  {
+    "angle": 0.16,
+    "return_number": 1,
+    "source": "A",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.015034989445031862,
+      1.132093642880486e-28
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 1,
+    "source": "A",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.028065657825237348,
+      2.4299214126190463e-30
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 1,
+    "source": "A",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.04377645638772047,
+      -5.043872688477603e-30
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 1,
+    "source": "A",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.04467080008471654,
+      -6.292289680251242e-30
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 1,
+    "source": "B",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.010236009232344023,
+      8.336131726420907e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 1,
+    "source": "B",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.019825897811577158,
+      1.505954749546667e-18
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 1,
+    "source": "B",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.03490396948671094,
+      1.9799828376304894e-18
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 1,
+    "source": "B",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.04391790137090419,
+      6.280334715845099e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 1,
+    "source": "coherent_pair",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.025270998677375887,
+      8.3361317275530005e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 1,
+    "source": "coherent_pair",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.047891555636814506,
+      1.5059547495490971e-18
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 1,
+    "source": "coherent_pair",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.07868042587443141,
+      1.9799828376254454e-18
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 1,
+    "source": "coherent_pair",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.08858870145562073,
+      6.280334715782176e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 2,
+    "source": "A",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.003416186933667142,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 2,
+    "source": "A",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.006616205222528559,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 2,
+    "source": "A",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.011779532167191784,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 2,
+    "source": "A",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.016825615494372066,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 2,
+    "source": "B",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.0028805339348532883,
+      6.530510655100313e-20
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 2,
+    "source": "B",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.005655188128017779,
+      1.2251059511852092e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 2,
+    "source": "B",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.010521676566666974,
+      1.911103841851562e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 2,
+    "source": "B",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.016290151043442492,
+      1.6777181582410318e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 2,
+    "source": "coherent_pair",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.0062967208685204305,
+      6.530510655100313e-20
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 2,
+    "source": "coherent_pair",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.012271393350546337,
+      1.2251059511852092e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 2,
+    "source": "coherent_pair",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.022301208733858758,
+      1.911103841851562e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 2,
+    "source": "coherent_pair",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.033115766537814555,
+      1.6777181582410318e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 3,
+    "source": "A",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.013909640418637927,
+      -1.1309940317412367e-28
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 3,
+    "source": "A",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.02584725986365732,
+      -2.413948962246932e-30
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 3,
+    "source": "A",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.03957367104563037,
+      5.019453863103838e-30
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 3,
+    "source": "A",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.03763688422276975,
+      6.275296604408707e-30
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 3,
+    "source": "B",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.009184294466642122,
+      -8.123325977444417e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 3,
+    "source": "B",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.017744415037979838,
+      -1.4652010999761516e-18
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 3,
+    "source": "B",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.030908284054095635,
+      -1.9109426891644817e-18
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 3,
+    "source": "B",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.037042720485469346,
+      -5.479050526377463e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 3,
+    "source": "coherent_pair",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.023093934885280047,
+      -8.123325978575412e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 3,
+    "source": "coherent_pair",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.04359167490163716,
+      -1.4652010999785656e-18
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 3,
+    "source": "coherent_pair",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.070481955099726,
+      -1.9109426891594624e-18
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 3,
+    "source": "coherent_pair",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.0746796047082391,
+      -5.479050526314711e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 4,
+    "source": "A",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.006363696192912728,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 4,
+    "source": "A",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.012302305059044543,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 4,
+    "source": "A",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.02175416280472097,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 4,
+    "source": "A",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.03042022655541306,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 4,
+    "source": "B",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.005304942079186467,
+      -1.2649518785975876e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 4,
+    "source": "B",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.010404213839290601,
+      -2.3693204740118654e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 4,
+    "source": "B",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.019278386541911333,
+      -3.670686346107684e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 4,
+    "source": "B",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.02939160059279491,
+      -3.111529681236634e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 4,
+    "source": "coherent_pair",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.011668638272099194,
+      -1.2649518785975876e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 4,
+    "source": "coherent_pair",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.022706518898335144,
+      -2.3693204740118654e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 4,
+    "source": "coherent_pair",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.041032549346632294,
+      -3.670686346107684e-19
+    ]
+  },
+  {
+    "angle": 0.16,
+    "return_number": 4,
+    "source": "coherent_pair",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.05981182714820798,
+      -3.111529681236634e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 1,
+    "source": "A",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.015034989445031857,
+      4.900265220778003e-24
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 1,
+    "source": "A",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.02806565782523744,
+      1.3836224321043035e-24
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 1,
+    "source": "A",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.04377645638772045,
+      -2.1147296488988574e-24
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 1,
+    "source": "A",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.04467080008471652,
+      -1.3571944369013262e-24
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 1,
+    "source": "B",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.005929742032670855,
+      8.1076204391621315e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 1,
+    "source": "B",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.011756928170188051,
+      1.5813930018158107e-18
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 1,
+    "source": "B",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.02265828783989916,
+      2.8261733157660887e-18
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 1,
+    "source": "B",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.03770772633213045,
+      2.9612201184210715e-18
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 1,
+    "source": "coherent_pair",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.02096473147770271,
+      8.10766944181434e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 1,
+    "source": "coherent_pair",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.0398225859954255,
+      1.5813943854382427e-18
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 1,
+    "source": "coherent_pair",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.06643474422761961,
+      2.826171201036439e-18
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 1,
+    "source": "coherent_pair",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.08237852641684697,
+      2.961218761226635e-18
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 2,
+    "source": "A",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.003416186933667132,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 2,
+    "source": "A",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.0066162052225285555,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 2,
+    "source": "A",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.01177953216719175,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 2,
+    "source": "A",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.016825615494372045,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 2,
+    "source": "B",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.002219501415804512,
+      1.0514501174792451e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 2,
+    "source": "B",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.004401782386827524,
+      2.0591042380103704e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 2,
+    "source": "B",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.008506843648321973,
+      3.7743107022883146e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 2,
+    "source": "B",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.014721072184111365,
+      5.158931939627902e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 2,
+    "source": "coherent_pair",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.005635688349471644,
+      1.0514501174792451e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 2,
+    "source": "coherent_pair",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.01101798760935608,
+      2.0591042380103704e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 2,
+    "source": "coherent_pair",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.020286375815513718,
+      3.7743107022883146e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 2,
+    "source": "coherent_pair",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.03154668767848341,
+      5.158931939627902e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 3,
+    "source": "A",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.01390964041863791,
+      -4.894598157095666e-24
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 3,
+    "source": "A",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.02584725986365738,
+      -1.3814207034550627e-24
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 3,
+    "source": "A",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.039573671045630324,
+      2.1115085097057122e-24
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 3,
+    "source": "A",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.03763688422276972,
+      1.3555630768441477e-24
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 3,
+    "source": "B",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.004994485944114778,
+      -7.644974072472154e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 3,
+    "source": "B",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.009898974660381638,
+      -1.4906275508228226e-18
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 3,
+    "source": "B",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.019041511452955562,
+      -2.6582155658752616e-18
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 3,
+    "source": "B",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.031221049972993565,
+      -2.7157847840726928e-18
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 3,
+    "source": "coherent_pair",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.018904126362752682,
+      -7.645023018453726e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 3,
+    "source": "coherent_pair",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.03574623452403902,
+      -1.4906289322435261e-18
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 3,
+    "source": "coherent_pair",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.05861518249858588,
+      -2.658213454366752e-18
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 3,
+    "source": "coherent_pair",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.06885793419576328,
+      -2.7157834285096162e-18
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 4,
+    "source": "A",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.006363696192912729,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 4,
+    "source": "A",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.012302305059044534,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 4,
+    "source": "A",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.021754162804720957,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 4,
+    "source": "A",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.030420226555413075,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 4,
+    "source": "B",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.0040065005636454026,
+      -1.9869772275714267e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 4,
+    "source": "B",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.007943209176579794,
+      -3.8886160919738794e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 4,
+    "source": "B",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.015329689767976018,
+      -7.106893938298769e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 4,
+    "source": "B",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.02635273568009141,
+      -9.556699320522067e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 4,
+    "source": "coherent_pair",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.01037019675655813,
+      -1.9869772275714267e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 4,
+    "source": "coherent_pair",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.020245514235624328,
+      -3.8886160919738794e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 4,
+    "source": "coherent_pair",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.037083852572696974,
+      -7.106893938298769e-19
+    ]
+  },
+  {
+    "angle": 0.3,
+    "return_number": 4,
+    "source": "coherent_pair",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.05677296223550449,
+      -9.556699320522067e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 1,
+    "source": "A",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.015034989445031854,
+      2.3529840855146712e-21
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 1,
+    "source": "A",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.02806565782523738,
+      1.888755691993379e-21
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 1,
+    "source": "A",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.04377645638772048,
+      -2.2824085539954346e-21
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 1,
+    "source": "A",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.04467080008471666,
+      2.530793013226496e-22
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 1,
+    "source": "B",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.003343294630321828,
+      5.116628219706168e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 1,
+    "source": "B",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.006665362131669147,
+      1.0209443606844023e-18
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 1,
+    "source": "B",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.013158932786444786,
+      1.998027644303629e-18
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 1,
+    "source": "B",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.0248699916058507,
+      3.524603628330148e-18
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 1,
+    "source": "coherent_pair",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.018378284075353683,
+      5.140158060561314e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 1,
+    "source": "coherent_pair",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.03473101995690652,
+      1.0228331163763959e-18
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 1,
+    "source": "coherent_pair",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.05693538917416527,
+      1.9957452357496333e-18
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 1,
+    "source": "coherent_pair",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.06954079169056736,
+      3.524856707631471e-18
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 2,
+    "source": "A",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.0034161869336671435,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 2,
+    "source": "A",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.006616205222528558,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 2,
+    "source": "A",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.011779532167191797,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 2,
+    "source": "A",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.016825615494372087,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 2,
+    "source": "B",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.0016147690743869487,
+      1.1508744754194904e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 2,
+    "source": "B",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.0032158079650951906,
+      2.287165800939206e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 2,
+    "source": "B",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.006321725843454262,
+      4.454665931947777e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 2,
+    "source": "B",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.01176281971655933,
+      7.94019014871003e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 2,
+    "source": "coherent_pair",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.005030956008054093,
+      1.1508744754194904e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 2,
+    "source": "coherent_pair",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.009832013187623749,
+      2.287165800939206e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 2,
+    "source": "coherent_pair",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.01810125801064606,
+      4.454665931947777e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 2,
+    "source": "coherent_pair",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.028588435210931417,
+      7.94019014871003e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 3,
+    "source": "A",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.013909640418637927,
+      -2.348920774777348e-21
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 3,
+    "source": "A",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.025847259863657386,
+      -1.885292078318142e-21
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 3,
+    "source": "A",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.03957367104563035,
+      2.2785466266297217e-21
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 3,
+    "source": "A",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.0376368842227697,
+      -2.5199236766887507e-22
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 3,
+    "source": "B",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.0025534284522391484,
+      -4.444485134764201e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 3,
+    "source": "B",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.005092551717390593,
+      -8.876091309551395e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 3,
+    "source": "B",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.010068429780005118,
+      -1.740060284791108e-18
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 3,
+    "source": "B",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.019121448501700996,
+      -3.0756668774333496e-18
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 3,
+    "source": "coherent_pair",
+    "half_width": 0.06,
+    "integral_electric": [
+      -0.016463068870877076,
+      -4.467974342511973e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 3,
+    "source": "coherent_pair",
+    "half_width": 0.12,
+    "integral_electric": [
+      -0.030939811581047975,
+      -8.894944230334576e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 3,
+    "source": "coherent_pair",
+    "half_width": 0.24,
+    "integral_electric": [
+      -0.049642100825635464,
+      -1.7377817381644785e-18
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 3,
+    "source": "coherent_pair",
+    "half_width": 0.48,
+    "integral_electric": [
+      -0.0567583327244707,
+      -3.0759188698010185e-18
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 4,
+    "source": "A",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.006363696192912738,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 4,
+    "source": "A",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.012302305059044515,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 4,
+    "source": "A",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.021754162804720974,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 4,
+    "source": "A",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.030420226555413075,
+      0.0
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 4,
+    "source": "B",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.002833727001092224,
+      -2.0784299554731467e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 4,
+    "source": "B",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.005643327210800313,
+      -4.1301056757515e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 4,
+    "source": "B",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.011093372496544636,
+      -8.039989362627291e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 4,
+    "source": "B",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.020632005224997023,
+      -1.428843110911489e-18
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 4,
+    "source": "coherent_pair",
+    "half_width": 0.06,
+    "integral_electric": [
+      0.009197423194004963,
+      -2.0784299554731467e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 4,
+    "source": "coherent_pair",
+    "half_width": 0.12,
+    "integral_electric": [
+      0.017945632269844827,
+      -4.1301056757515e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 4,
+    "source": "coherent_pair",
+    "half_width": 0.24,
+    "integral_electric": [
+      0.03284753530126561,
+      -8.039989362627291e-19
+    ]
+  },
+  {
+    "angle": 0.5,
+    "return_number": 4,
+    "source": "coherent_pair",
+    "half_width": 0.48,
+    "integral_electric": [
+      0.051052231780410094,
+      -1.428843110911489e-18
+    ]
+  }
+]

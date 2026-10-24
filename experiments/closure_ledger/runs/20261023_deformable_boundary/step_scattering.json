@@ -1,0 +1,167 @@
+[
+  {
+    "omega": 2.3,
+    "coupling": -1.0,
+    "reflection": 0.030923402750244765,
+    "transmission": 0.9690765975664566,
+    "flux_residual": 3.1670133182615245e-10,
+    "analytic_reflection": 0.03092340275049607,
+    "impulse_per_energy": -0.45139411997961093,
+    "k_left": 0.5385164807134496,
+    "k_right": 1.5132745950421553
+  },
+  {
+    "omega": 2.5,
+    "coupling": -1.0,
+    "reflection": 0.0006947287468374281,
+    "transmission": 0.9993052717202333,
+    "flux_residual": 4.670708264598034e-10,
+    "analytic_reflection": 0.0006947287468374854,
+    "impulse_per_energy": -0.27470832754858215,
+    "k_left": 1.118033988749895,
+    "k_right": 1.8027756377319946
+  },
+  {
+    "omega": 2.8,
+    "coupling": -1.0,
+    "reflection": 1.6191437664961233e-05,
+    "transmission": 0.9999838091755393,
+    "flux_residual": 6.132043761652994e-10,
+    "analytic_reflection": 1.6191437664951106e-05,
+    "impulse_per_energy": -0.18386891135355815,
+    "k_left": 1.6852299546352714,
+    "k_right": 2.1999999999999997
+  },
+  {
+    "omega": 3.5,
+    "coupling": -1.0,
+    "reflection": 1.991567471383784e-08,
+    "transmission": 0.9999999809784482,
+    "flux_residual": 8.941229978631782e-10,
+    "analytic_reflection": 1.9915674714429813e-08,
+    "impulse_per_energy": -0.09965684953431797,
+    "k_left": 2.692582403567252,
+    "k_right": 3.0413812651491097
+  },
+  {
+    "omega": 5.0,
+    "coupling": -1.0,
+    "reflection": 1.5420931052347837e-13,
+    "transmission": 1.0000000014168127,
+    "flux_residual": 1.416966766143446e-09,
+    "analytic_reflection": 1.5420931156875714e-13,
+    "impulse_per_energy": -0.04365595969767888,
+    "k_left": 4.47213595499958,
+    "k_right": 4.69041575982343
+  },
+  {
+    "omega": 2.3,
+    "coupling": 0.0,
+    "reflection": 7.002952114230136e-31,
+    "transmission": 1.0000000003626637,
+    "flux_residual": 3.6266367686721424e-10,
+    "analytic_reflection": 0.0,
+    "impulse_per_energy": 1.7908988302001887e-10,
+    "k_left": 1.1357816691600544,
+    "k_right": 1.1357816691600544
+  },
+  {
+    "omega": 2.5,
+    "coupling": 0.0,
+    "reflection": 9.429353012191035e-31,
+    "transmission": 1.0000000004741714,
+    "flux_residual": 4.74171368836096e-10,
+    "analytic_reflection": 0.0,
+    "impulse_per_energy": 2.845028213016576e-10,
+    "k_left": 1.5,
+    "k_right": 1.5
+  },
+  {
+    "omega": 2.8,
+    "coupling": 0.0,
+    "reflection": 3.0383470821332292e-30,
+    "transmission": 1.0000000006147831,
+    "flux_residual": 6.147831133063164e-10,
+    "analytic_reflection": 0.0,
+    "impulse_per_energy": 4.3025852721915013e-10,
+    "k_left": 1.9595917942265422,
+    "k_right": 1.9595917942265422
+  },
+  {
+    "omega": 3.5,
+    "coupling": 0.0,
+    "reflection": 2.5133385796715218e-31,
+    "transmission": 1.0000000008937031,
+    "flux_residual": 8.937031115152649e-10,
+    "analytic_reflection": 0.0,
+    "impulse_per_energy": 7.334190397857907e-10,
+    "k_left": 2.8722813232690143,
+    "k_right": 2.8722813232690143
+  },
+  {
+    "omega": 5.0,
+    "coupling": 0.0,
+    "reflection": 1.677562021134947e-29,
+    "transmission": 1.0000000014162749,
+    "flux_residual": 1.4162748751544996e-09,
+    "analytic_reflection": 0.0,
+    "impulse_per_energy": 1.298037410890629e-09,
+    "k_left": 4.58257569495584,
+    "k_right": 4.58257569495584
+  },
+  {
+    "omega": 2.3,
+    "coupling": 1.0,
+    "reflection": 0.030923402750754295,
+    "transmission": 0.9690765975560737,
+    "flux_residual": 3.06827896423556e-10,
+    "analytic_reflection": 0.03092340275049607,
+    "impulse_per_energy": 0.39622163173783775,
+    "k_left": 1.5132745950421553,
+    "k_right": 0.5385164807134496
+  },
+  {
+    "omega": 2.5,
+    "coupling": 1.0,
+    "reflection": 0.000694728746838432,
+    "transmission": 0.9993052717103337,
+    "flux_residual": 4.5717207797224546e-10,
+    "analytic_reflection": 0.0006947287468374854,
+    "impulse_per_energy": 0.2730849917578876,
+    "k_left": 1.8027756377319946,
+    "k_right": 1.118033988749895
+  },
+  {
+    "omega": 2.8,
+    "coupling": 1.0,
+    "reflection": 1.6191437664966275e-05,
+    "transmission": 0.9999838091690455,
+    "flux_residual": 6.06710459649662e-10,
+    "analytic_reflection": 1.6191437664951106e-05,
+    "impulse_per_energy": 0.18382397830030953,
+    "k_left": 2.1999999999999997,
+    "k_right": 1.6852299546352714
+  },
+  {
+    "omega": 3.5,
+    "coupling": 1.0,
+    "reflection": 1.9915674713796054e-08,
+    "transmission": 0.9999999809747843,
+    "flux_residual": 8.904590398373102e-10,
+    "analytic_reflection": 1.9915674714429813e-08,
+    "impulse_per_energy": 0.09965678574123656,
+    "k_left": 3.0413812651491097,
+    "k_right": 2.692582403567252
+  },
+  {
+    "omega": 5.0,
+    "coupling": 1.0,
+    "reflection": 1.5420930933658435e-13,
+    "transmission": 1.000000001414851,
+    "flux_residual": 1.4150050020589333e-09,
+    "analytic_reflection": 1.5420931156875714e-13,
+    "impulse_per_energy": 0.04365596229188,
+    "k_left": 4.69041575982343,
+    "k_right": 4.47213595499958
+  }
+]
