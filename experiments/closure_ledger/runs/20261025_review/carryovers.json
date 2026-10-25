@@ -1,0 +1,119 @@
+{
+  "kick_speed": 0.3333333333333333,
+  "flash_paid_speed": 0.3149714096964954,
+  "flash_energy": 0.014063409080586179,
+  "paid_first_flight": {
+    "angle": 0.3,
+    "speed": 0.3149714096964954,
+    "contact_time": 8.069280497677097,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  "source_projections": [
+    {
+      "angle": 0.3,
+      "return_number": 1,
+      "offset_ratio": 0.0,
+      "source": "A",
+      "center_electric": [
+        0.12828852135801683,
+        5.987207531717309e-23
+      ],
+      "radial_m0": -7.806255641895632e-18,
+      "azimuthal_m0": 1.0232158002831948e-18,
+      "radial_m1": [
+        0.08975681307877878,
+        4.323256162785949e-18
+      ],
+      "azimuthal_m1": [
+        1.0842021724855044e-19,
+        -0.032895279588415
+      ],
+      "transported_mean": [
+        0.06132604633359689,
+        2.2158381900172497e-18
+      ]
+    },
+    {
+      "angle": 0.3,
+      "return_number": 1,
+      "offset_ratio": 0.0,
+      "source": "B",
+      "center_electric": [
+        0.049555288125586384,
+        6.811199246403092e-18
+      ],
+      "radial_m0": -2.710505431213761e-18,
+      "azimuthal_m0": 1.9591872069991967e-18,
+      "radial_m1": [
+        0.04783461576689222,
+        6.2680438096818225e-19
+      ],
+      "azimuthal_m1": [
+        6.437450399132683e-19,
+        -0.041920174968080315
+      ],
+      "transported_mean": [
+        0.044877395367486264,
+        6.352747104407253e-19
+      ]
+    },
+    {
+      "angle": 0.3,
+      "return_number": 1,
+      "offset_ratio": 0.0,
+      "source": "coherent_pair",
+      "center_electric": [
+        0.1778438094836032,
+        6.811259118478409e-18
+      ],
+      "radial_m0": -1.6588293239028218e-17,
+      "azimuthal_m0": 2.425902360936316e-18,
+      "radial_m1": [
+        0.137591428845671,
+        1.07742590890747e-17
+      ],
+      "azimuthal_m1": [
+        5.1228552649940085e-18,
+        -0.07481545455649534
+      ],
+      "transported_mean": [
+        0.10620344170108317,
+        7.948557177034354e-18
+      ]
+    }
+  ],
+  "note": "Flash-paid scalar energy balance uses existing PairBirth coefficients; not a replay of the #345 multicyle run"
+}
