@@ -1003,6 +1003,136 @@ def figure_klein(runs, path):
     plt.close(fig)
 
 
+def load_elliptic():
+    path = RUNS/'elliptic.json'
+    return json.loads(path.read_text()) if path.exists() else None
+
+
+def elliptic_rows(data):
+    rows = []
+    for c in data['cycles']:
+        caps = {}
+        for e in c['captures']:
+            i = sum(b['time'] <= e['time'] + 1e-9 for b in c['births']) - 1
+            caps.setdefault(i, []).append(e)
+        rows.append(dict(label=c['label'], kick=c['kick'], speeds=[b['speed'] for b in c['births']],
+                         flash=[b['flash'] for b in c['births']], contacts=c['contacts'],
+                         fronts_after_contact=c['fronts_after_contact'],
+                         captures_before_contact=[sum(e['time'] <= tc + 1e-9 and e['time'] >= (c['births'][i]['time'])
+                                                      for e in caps.get(i, [])) for i, tc in enumerate(c['contacts'])],
+                         energy_drift=c['energy_drift'], angular_drift=c['angular_drift']))
+    return rows
+
+
+ELLIPTIC_NAMES = dict(resonant_k1='resonant, k = 1 (u₁ less 0.02%)', resonant_k2='resonant, k = 2 (u₂ less 0.02%)',
+                      off_resonance_v030='off resonance (kick 0.30)')
+
+
+def elliptic_table(data):
+    lines = ['| cycle | birth speeds, cycles 1–4 | flash at each birth | contacts | flash captures before each '
+             'contact | fronts in flight after each contact |', '|---|---|---|---|---|---|']
+    for q in elliptic_rows(data):
+        lines.append(f"| {ELLIPTIC_NAMES[q['label']]} | {', '.join(f'{v:.5f}' for v in q['speeds'])} | "
+                     f"{', '.join(f'{f:.5f}' for f in q['flash'])} | {', '.join(f'{t:.3f}' for t in q['contacts'])} | "
+                     f"{', '.join(str(n) for n in q['captures_before_contact'])} | "
+                     f"{', '.join(str(n) for n in q['fronts_after_contact'])} |")
+    return '\n'.join(lines)
+
+
+def figure_elliptic(data, path):
+    fig, axes = plt.subplots(2, 2, figsize=(15, 10), gridspec_kw=dict(hspace=.38, wspace=.22))
+    by = {c['label']: c for c in data['cycles']}
+
+    def theta(x):
+        x = np.asarray(x)
+        return np.arctan2(x[..., 0], x[..., 2])
+
+    def flight(ax, c, title):
+        h = c['history']
+        t, x, alive = np.asarray(h['t']), np.asarray(h['x']), np.asarray(h['alive'])
+        tc = c['contacts'][0]
+        keep = (t <= tc + 1e-9) & alive
+        for k, (col, name) in enumerate((('#117a3a', 'A (+q)'), ('#7d2fa5', 'B (−q)'))):
+            ax.plot(theta(x[keep, k]), t[keep], color=col, lw=2.6, label=f'mouth {name}')
+        for k in range(2):                                      # each mouth's image lies on the other
+            ax.plot(np.angle(np.exp(1j*(theta(x[keep, k]) + np.pi))), tc - t[keep], color='k', lw=1., ls='--',
+                    label='image of the other mouth under (n, t, q) → (−n, t_c − t, −q)' if k == 0 else None)
+        for n in range(1, int(tc/np.pi) + 2):
+            for k, col in enumerate(('#117a3a', '#7d2fa5')):
+                th0 = theta(x[0, k]) + (np.pi if n % 2 else 0.)
+                th0 = np.angle(np.exp(1j*th0))
+                ax.plot(th0, n*np.pi, 'o', mfc='white', mec=col, ms=8, mew=1.6)
+        for e in c['captures']:
+            if e['time'] <= tc + 1e-9:
+                ax.plot(theta(x[keep, e['mouth']])[-1], e['time'], 'o', color=('#117a3a', '#7d2fa5')[1 - e['mouth']],
+                        mec='k', ms=10, zorder=6)
+        ax.axhline(tc/2, color='#b9770e', lw=.8, ls=':')
+        ax.text(-3.05, tc/2 + .1, 'mid-flight: mouths antipodal, the involution’s fixed slice', fontsize=7, color='#b9770e')
+        ax.axhline(tc, color='k', lw=.6)
+        ax.text(-3.05, tc + .1, f'contact at −P, t_c = {tc:.3f} = {tc/np.pi:.3f} π', fontsize=7)
+        ax.set_xlim(-np.pi, np.pi)
+        ax.set_ylim(0, max(tc, 3*np.pi) + 2.4)
+        ax.set_xticks([-np.pi, -np.pi/2, 0, np.pi/2, np.pi], ['−P', '−π/2', 'P', 'π/2', '−P'])
+        ax.set_xlabel('position on the birth circle')
+        ax.set_ylabel('time t')
+        ax.set_title(title, fontsize=10)
+        ax.legend(fontsize=7, loc='upper center')
+
+    flight(axes[0, 0], by['off_resonance_v030'],
+           '(a) Off resonance (birth speed 0.283): the mouths are each other’s image,\n'
+           'but each flash focuses (open circles: A’s green, B’s purple) away from contact')
+    flight(axes[0, 1], by['resonant_k1'],
+           '(b) Resonant u₁: each flash focuses on the partner at contact (filled, the flash’s colour):\n'
+           'emission at birth and absorption at contact are images of each other')
+
+    ax = axes[1, 0]
+    scan = data['scan']
+    u = np.array([r['speed'] for r in scan])
+    mis = np.array([r['flash_mismatch'] for r in scan])
+    early = np.array([any(abs(c['time'] - r['contact']) > 1e-3 for c in r['captures']) for r in scan])
+    ax.plot(u, mis, '-', color='#7f8c8d', lw=1)
+    ax.plot(u[~early], mis[~early], 'o', color='#1f5fa8', ms=4, label='no flash capture before contact')
+    ax.plot(u[early], mis[early], 's', color='#c0392b', ms=4, label='a flash captured before contact, not at it')
+    for k, uk in enumerate(data['meta']['resonant_speeds']):
+        if uk > u.min() - .01:
+            ax.axvline(uk, color='k', lw=.6, ls='--')
+            ax.text(uk, 3.25, f'u{"₀₁₂₃"[k]}', ha='center', fontsize=9)
+    ax.set_ylim(0, 3.45)
+    ax.set_xlabel('birth speed u (after paying for the flash)')
+    ax.set_ylabel('|t_c − nearest odd multiple of π|')
+    ax.set_title('(c) The flash closes on its own image only at u_k = (π − 2a)/((2k + 1)π);\n'
+                 'trajectories are invariant at every speed (mismatch ≤ 3 × 10⁻¹³)', fontsize=10)
+    ax.legend(fontsize=8, loc='upper center', bbox_to_anchor=(.5, -.13), ncol=2)
+
+    ax = axes[1, 1]
+    st = data['static']
+    E = np.geomspace(1e-3, 3, 200)
+    us = st['birth_speed']
+    for slope, style, label in ((1., '-', 'one front absorbed, fully directed: Δp ≤ E'),
+                                (2., '--', 'one in, one out, both directed (a mirror): Δp ≤ 2E'),
+                                (2*us, ':', f'one in, one out, emitted isotropically at u = {us:.3f}: Δp ≈ 2uE')):
+        ax.plot(E, slope*E, style, color='#1f5fa8', lw=1.2, label=label)
+    need = st['momentum_change_per_mouth']
+    ax.axhline(need, color='#c0392b', lw=1)
+    ax.text(1.1e-3, need*1.15, f'turning a mouth around: Δp = 2γMu = {need:.3f}', fontsize=8, color='#c0392b')
+    ax.plot(st['energy_exchanged_per_mouth'], need, '*', color='#c0392b', ms=14,
+            label=f"static field: Δp = {need:.3f} for ΔE = {st['energy_exchanged_per_mouth']:.4f}")
+    ef = st['flash_energy_per_mouth']
+    ax.plot([ef, ef], [2*us*ef, 2*ef], color='#117a3a', lw=3, solid_capstyle='butt')
+    ax.plot(ef, 2*ef, 'o', color='#117a3a', ms=7, label=f'the birth flash, {ef:.4f} per mouth: at most {2*ef:.4f}')
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+    ax.set_xlim(1e-3, 3)
+    ax.set_ylim(1e-4, 3)
+    ax.set_xlabel('energy exchanged per mouth per flight')
+    ax.set_ylabel('momentum moved per mouth')
+    ax.set_title('(d) Why fronts cannot do what the static field does: it moves 14× more momentum\n'
+                 'than energy; fronts move at most 2× (two-way), or 2u× if emitted at rest', fontsize=10)
+    ax.legend(fontsize=7, loc='lower right')
+    fig.savefig(path, dpi=110, bbox_inches='tight')
+    plt.close(fig)
+
+
 HISTORY_END = 60.
 
 
@@ -1018,6 +1148,9 @@ def main():
     klein = load_antipodal('klein')
     if klein:
         figure_klein(klein, IMAGES/'klein.png')
+    elliptic = load_elliptic()
+    if elliptic:
+        figure_elliptic(elliptic, IMAGES/'elliptic.png')
     IMAGES.mkdir(parents=True, exist_ok=True)
     if history:
         figure_history(history, IMAGES/'history.png')
@@ -1062,19 +1195,24 @@ def main():
                   calibration=calibration_rows(neck_checks)) if neck and neck_checks else None,
         antipodal=dict(rows=antipodal_rows(antipodal)) if antipodal else None,
         klein=dict(rows=klein_rows(klein), turns=handle_turns()) if klein else None,
+        elliptic=dict(rows=elliptic_rows(elliptic), static=elliptic['static'],
+                      resonant_speeds=elliptic['meta']['resonant_speeds'],
+                      max_trajectory_mismatch=max(r['trajectory_mismatch'] for r in elliptic['scan']))
+        if elliptic else None,
         tables=dict(outcomes=outcome_table(scan), ledger=ledger_table(scan), retimed=retimed_table(retimed, featured),
                     history=history_table(history_rows(history)) if history else None,
                     neck=neck_table(neck_rows(neck)) if neck else None,
                     calibration=calibration_table(calibration_rows(neck_checks)) if neck_checks else None,
                     antipodal=antipodal_table(antipodal, history) if antipodal else None,
                     klein=klein_table(klein) if klein else None,
-                    klein_sweep=klein_sweep_table(klein) if klein else None))
+                    klein_sweep=klein_sweep_table(klein) if klein else None,
+                    elliptic=elliptic_table(elliptic) if elliptic else None))
     (RUNS/'summary.json').write_text(json.dumps(report, indent=2, sort_keys=True)+'\n')
     files = sorted(RUNS.glob('*.json')) + sorted(p for ext in ('png', 'gif', 'mp4') for p in IMAGES.glob(f'*.{ext}'))
     (RUNS/'sha256.json').write_text(json.dumps({p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                                                 for p in files if p.name != 'sha256.json'}, indent=2)+'\n')
     for k in ('outcomes', 'ledger', 'retimed', 'history', 'neck', 'calibration', 'antipodal', 'klein',
-              'klein_sweep'):
+              'klein_sweep', 'elliptic'):
         print(report['tables'][k], '\n')
     if report['neck']:
         print(json.dumps(dict(feedback=report['neck']['feedback'], torus=report['neck']['torus']), indent=1))

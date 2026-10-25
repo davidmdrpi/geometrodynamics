@@ -104,6 +104,15 @@ A classical experiment on #345, answering the acceptance test set in its review 
     - **Nothing binds.** That is 3–8% of the 0.57–0.63 needed to stop the pair. The flash
       carries momentum E v ≈ 0.002 per mouth against the mouths' 0.3, and the rule allows about
       one exchange per flight. Every pair still meets at −P, and a 2× or 4× flash shows no trend.
+12. **Under antipodal time reversal, the strict cycle is one mouth's history** (§11).
+    - **The identification.** (n, t, q) → (−n, t_c − t, −q) maps every symmetric strict flight
+      onto itself: birth at P onto contact at −P, mouth A onto mouth B.
+    - **Closure.** With the flash included, the history is invariant only at the birth speeds
+      u_k = (π − 2a)/((2k + 1)π), where each flash is caught by the partner exactly at contact.
+      There the cycle repeats exactly with nothing left over.
+    - **No return needed.** In the quotient the pair is one mouth, so its coasting to −P is a
+      closure, not a failure to bind. Turning the mouths around with fronts would need about as
+      much exchanged energy as the mouths have. The static field does it with 14 times less.
 
 **What this is not.**
 - **The field and mouths are effective.** The sphere-side field is 2+1 Maxwell on the round
@@ -736,7 +745,7 @@ flash).
     flight (at a = 0.3 the first return needs 0.714 ≤ u < 0.809);
   - the source's own mouth catches even return n only if nuπ ≤ a, the first a/u.
   - So a first flight meets its own flash only next to birth or contact, where the surgery
-    governs. At v = 0.30 and 1/3 it meets none (§11; #349 derives the same rule).
+    governs. At v = 0.30 and 1/3 it meets none (§12; #349 derives the same rule).
   - Later cycles do capture. Re-birth is back at the old birth point, where even returns
     refocus: at v = 0.30 the re-born pair catches both first flashes at 4π, 0.44 after re-birth.
     Exit fronts start wherever the mouths are, so symmetric captures fall within 3.5 a/u of a
@@ -876,7 +885,92 @@ A stronger flash, to t = 30. The pair pays for the flash, so it is born slower:
   - Angular momentum to 2 × 10⁻¹⁵ in the planar runs. In the off-circle run it holds to
     2 × 10⁻¹⁰, because captures spin the mouths and the gyroscopic step is second order.
 
-## 11. Checks
+## 11. Antipodal time reversal: one mouth, closed by its flash
+![Antipodal time reversal](images/pair_birth/elliptic.png)
+
+Under the strict rule (§9), symmetric pairs coast to −P and do not come back. This section does
+not look for a force to bring them back. It asks instead whether that history is consistent as it
+stands under a time-reversing identification of the kind #349 constructs.
+
+**The identification.** On the sphere × time take
+
+    (n, t, q) → (−n, t_c − t, −q):
+
+the antipodal map, a time reflection about the mid-flight slice t_c/2, and charge conjugation,
+which exchanges the mouths.
+- It has no fixed points, because the antipodal map has none. It reverses time orientation, and
+  applied twice it is the identity for any t_c. The quotient is a smooth spacetime with no global
+  future, as in the elliptic (dS/Z₂) identification.
+- #349's flat quotient (t, x, u) ∼ (−t, x + 200, Du) is the same construction on a circle. Given a
+  velocity, its defect and the defect's image coast together and meet at the point opposite
+  their birth (#349 review).
+
+**Results** (`elliptic.json`; 79 birth speeds from 0.10 to 0.84, flash paid, rest exchange).
+- **Every symmetric strict flight is its own image.** With θ_A = a + ut and θ_B = −a − ut, the
+  image of A is B exactly when t_c = (π − 2a)/u, which is the contact time. The measured mismatch
+  is at most 3 × 10⁻¹³ at every speed. Birth at P maps to contact at −P, and at mid-flight the
+  mouths are antipodal.
+- **The flash closes on itself only at the resonant speeds.** The image of a mouth emitting its
+  flash at birth is its partner absorbing a wave at contact. A flash is at the partner's contact
+  position only at odd multiples of π. So the history, flash included, is invariant only if
+  t_c = (2k + 1)π:
+
+      u_k = (π − 2a)/((2k + 1)π) = 0.809, 0.2697, 0.1618, 0.1156, …  at a = 0.3.
+
+  - At u_k the partner catches each flash exactly at contact (panel b).
+  - In the first-return band below u₀ the flash is caught at π, before contact, so those flights
+    are not invariant (panel c).
+- **Resonant cycles repeat exactly; others drift.**
+
+  | cycle | birth speeds, cycles 1–4 | flash at each birth | contacts | flash captures before each contact | fronts in flight after each contact |
+  |---|---|---|---|---|---|
+  | resonant, k = 1 (u₁ less 0.02%) | 0.26962, 0.26962, 0.26962, 0.26962 | 0.01030, 0.01030, 0.01030, 0.01030 | 9.427, 21.995, 34.563, 47.131 | 2, 2, 2, 2 | 0, 0, 0, 0 |
+  | resonant, k = 2 (u₂ less 0.02%) | 0.16177, 0.16177, 0.16177, 0.16177 | 0.00371, 0.00371, 0.00371, 0.00371 | 15.711, 34.564, 53.417, 72.269 | 2, 2, 2, 2 | 0, 0, 0, 0 |
+  | off resonance (kick 0.30) | 0.28296, 0.26666, 0.26666, 0.26666 | 0.01135, 0.01008, 0.01008, 0.01008 | 8.982, 21.655, 34.328, 47.001 | 0, 4, 4, 4 | 2, 2, 2, 2 |
+
+  - At u₁ and u₂ every flash is caught within its own cycle. Every re-birth repeats the same
+    speed and flash to 10⁻¹⁶, no front is left in flight, and the energy drift is 0.
+  - Off resonance the second birth speed drops from 0.283 to 0.267, and two fronts stay in
+    flight every cycle.
+- **The re-birth rule is the flash's time-symmetric half.** A front launched at (n, t) has its
+  advanced focus at (−n, t − π). For every re-birth flash, that is exactly the previous contact
+  (a test checks it). So the release pulse already carries what a time-symmetric flash needs.
+- **Consequence.** In the quotient, A and B are one mouth. Its worldline runs from the birth
+  event to the mid-flight slice, where it meets its own image.
+  - "Coasting to −P" is then the closure of one mouth's history, not a failure to bind.
+  - The strict cycle is self-consistent at the resonant speeds. This is a classical closure
+    condition on the birth speed, not a quantization assumption.
+
+**Why fronts cannot turn the pair around instead** (panel d).
+- **The static field's ratio.** The static field (the §9 control) turns each mouth around. It
+  moves 0.590 of momentum per mouth while exchanging 0.0426 of energy: about 14 times more
+  momentum than energy.
+- **The fronts' ratio.**
+  - A front carries at most as much momentum as energy, so one absorbed front moves a mouth by
+    at most its energy E.
+  - Moving more momentum than energy needs two-way exchange: a mouth absorbing one front and
+    emitting another, as a mirror does. That gives at most 2E, and about 2uE when the emitted
+    front leaves isotropically from a mouth moving at u.
+- **The requirement.** Turning a mouth around therefore needs about 0.3 of energy exchanged per
+  mouth per flight if every front is perfectly directed. If emission is isotropic it needs
+  γM ≈ 1.04, the mouth's whole energy. The flash supplies 0.0057 per mouth.
+- **Time symmetry does not relax this.**
+  - Time-symmetric (half-advanced) fronts are one form of two-way exchange.
+  - For event-launched fronts they add no exchange in flight, because their advanced foci are
+    earlier events: for a flash, the previous contact.
+  - This corrects the suggestion in the #349 discussion that only time-symmetric pairs can move
+    more momentum than energy. Any two-way exchange can.
+
+**Open.**
+- **The handle under the identification.** In sphere-oriented rim frames the antipodal map acts
+  on the rim as a reflection. So a loop through the handle and back through the identification
+  is orientation-reversing for one handle type and orientation-preserving for the other. Which
+  one the quotient admits is not settled here.
+- **Ray rule only.** The closure is exact for the routing rule's exact refocusing. The 2+1
+  Maxwell flash, with ω_l = √(l(l+1)) and low-l content wider than the aperture (§10, limits),
+  refocuses only approximately.
+
+## 12. Checks
 
 | check | result |
 |---|---|
@@ -907,7 +1001,9 @@ A stronger flash, to t = 30. The pair pays for the flash, so it is born slower:
 | signed exchange: caps | a capped pull leaves the throat front with \|J\| equal to its energy, and a capped exit leaves the front null; no front ever carries more angular momentum than energy |
 | signed exchange: conservation | energy to 7 × 10⁻¹⁵ in all 22 runs; angular momentum to 2 × 10⁻¹⁵ (planar) and 2 × 10⁻¹⁰ (off-circle, with spin) |
 | antipodal rule: capture windows | first-flight flash captures match the analytic windows (own even returns within a/u of birth, partner odd returns within a/u of contact) at three speeds; the same rule reproduces all 24 captures and 548 empty foci in #349's audit |
-| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 22 checks |
+| antipodal time reversal | every symmetric strict flight maps onto itself under (n, t, q) → (−n, t_c − t, −q) to 3 × 10⁻¹³ at 79 speeds; the flash closes on its image only at u_k; resonant cycles repeat speed and flash to 10⁻¹⁶ with no front left; each re-birth sits at its flash's advanced focus |
+| null bound | every capture moves its mouth by at most the front's energy, in the rest and signed exchanges |
+| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 30 checks |
 
 ## Against the acceptance test
 
@@ -964,6 +1060,7 @@ python experiments/closure_ledger/pair_birth_probe.py neck       # neck channel,
 python experiments/closure_ledger/pair_birth_neck_animation.py   # neck_channel.mp4 and .gif, ~3 min (MP4 needs imageio-ffmpeg)
 python experiments/closure_ledger/pair_birth_probe.py antipodal  # the history under the antipodal-only rule, ~15 s
 python experiments/closure_ledger/pair_birth_probe.py klein      # signed exchange, Klein against torus, ~20 s
+python experiments/closure_ledger/pair_birth_probe.py elliptic   # antipodal time reversal and resonant speeds, ~70 s
 python experiments/closure_ledger/pair_birth_report.py           # tables, figures, summary.json, sha256.json
 python -m pytest -q tests/test_pair_birth.py tests/test_antipodal_pair_birth.py
 ```

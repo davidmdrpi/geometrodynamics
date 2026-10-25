@@ -595,3 +595,51 @@ class AntipodalPairBirth:
             self.step(q, hi)
             fhi = f(q)
         return hi
+
+
+# ---- antipodal time reversal ---------------------------------------------------------------------
+def resonant_speeds(mouth_angle, count=4):
+    """Birth speeds u_k = (pi - 2a)/((2k + 1) pi), k = 0, 1, ... A symmetric pair coasting at u_k
+    reaches contact, at t_c = (pi - 2a)/u_k = (2k + 1) pi, exactly when each mouth's birth flash
+    refocuses on its partner (a flash focuses at the antipode of its birth point at odd multiples
+    of pi, and that is where the partner meets contact)."""
+    return (np.pi - 2*mouth_angle)/((2*np.arange(count) + 1)*np.pi)
+
+
+def _slerp_history(t, x, when):
+    """Position at time `when` on a recorded strict history. Between events the strict flight is
+    a constant-speed geodesic, so slerp between consecutive samples is exact there."""
+    i = int(np.clip(np.searchsorted(t, when, side='right') - 1, 0, len(t) - 2))
+    while i + 1 < len(t) - 1 and t[i + 1] <= t[i]:
+        i += 1
+    span = t[i + 1] - t[i]
+    w = 0. if span <= 0 else (when - t[i])/span
+    angle = angular_distance(x[i], x[i + 1])
+    if angle < 1e-15:
+        return x[i].copy()
+    p = (np.sin((1 - w)*angle)*x[i] + np.sin(w*angle)*x[i + 1])/np.sin(angle)
+    return p/np.linalg.norm(p)
+
+
+def elliptic_mismatch(h, info):
+    """How far the first flight of a strict history is from being invariant under the free
+    involution (n, t, q) -> (-n, t_c - t, -q), with t_c the first rim contact: the antipodal map,
+    a time reflection about mid-flight and charge conjugation, which exchanges the mouths.
+    - trajectory: max over the flight of |x_A(t) + x_B(t_c - t)| (the image of A must be B);
+    - flash: the image of a mouth emitting its birth flash at (x_k(0), 0) is its partner
+      absorbing a wave at (-x_k(0), t_c). The flash is at that point only at odd multiples of pi,
+      so the flash mismatch is the distance from t_c to the nearest one.
+    Returns (trajectory mismatch, flash mismatch, t_c, captures of a birth flash in the flight)."""
+    contact = next(e['time'] for e in info['events'] if e['kind'] == 'contact')
+    t, x = np.asarray(h['t']), np.asarray(h['x'])
+    keep = t <= contact + 1e-12
+    worst = 0.
+    for when in t[keep]:
+        a = _slerp_history(t, x[:, 0], when)
+        b = _slerp_history(t, x[:, 1], contact - when)
+        worst = max(worst, float(np.linalg.norm(a + b)))
+    n = max(1, 2*int(np.floor(contact/(2*np.pi))) + 1)
+    flash = min(abs(contact - k*np.pi) for k in (n - 2, n, n + 2) if k > 0)
+    captures = [e for e in info['events'] if e['kind'] == 'capture' and e['front'].startswith('flash')
+                and e['time'] <= contact]
+    return worst, float(flash), float(contact), captures

@@ -10,6 +10,7 @@
     python experiments/closure_ledger/pair_birth_probe.py neck_checks    # port stiffness, nodes, step
     python experiments/closure_ledger/pair_birth_probe.py antipodal  # the history under the antipodal-only rule
     python experiments/closure_ledger/pair_birth_probe.py klein      # signed exchange: Klein against torus throats
+    python experiments/closure_ledger/pair_birth_probe.py elliptic   # antipodal time reversal, resonant speeds
 
 Each part writes JSON to experiments/closure_ledger/runs/20261019_pair_birth/.
 Model: geometrodynamics/waves/pair_birth.py. Write-up: docs/pair_birth_timeline.md.
@@ -28,7 +29,7 @@ from pathlib import Path
 
 import numpy as np
 
-from geometrodynamics.waves.antipodal_pair_birth import AntipodalPairBirth
+from geometrodynamics.waves.antipodal_pair_birth import AntipodalPairBirth, elliptic_mismatch, resonant_speeds
 from geometrodynamics.waves.pair_birth import (NeckChannel, PairBirth, Parameters, birth_positions, circle_angle,
                                                front_crossings)
 
@@ -323,5 +324,78 @@ def main(part):
     (OUT/f'{part}.json').write_text(json.dumps(dict(meta=meta, runs=runs), separators=(',', ':'))+'\n')
 
 
+def elliptic_part():
+    """The strict history under (n, t, q) -> (-n, t_c - t, -q): a speed scan of the first flight,
+    resonant against off-resonant cycles, and the momentum the static field moves per unit energy."""
+    from scipy.optimize import brentq
+    m = AntipodalPairBirth(Parameters())
+    a = m.par.mouth_angle
+
+    def birth_speed(v):
+        return float(np.linalg.norm(m.velocity(m.initial(v)), axis=1)[0])
+
+    def kick_for(u):
+        return brentq(lambda v: birth_speed(v) - u, .02, .95, xtol=1e-14)
+
+    def compact(h, keep_every=5):
+        idx = np.unique(np.r_[np.arange(0, len(h['t']), keep_every), len(h['t']) - 1])
+        return dict(t=np.round(h['t'][idx], 6).tolist(), x=np.round(h['x'][idx], 7).tolist(),
+                    alive=h['alive'][idx].tolist())
+
+    resonant = resonant_speeds(a, 4)
+    speeds = sorted(set(np.round(np.arange(.10, .845, .01), 4).tolist() + (resonant*(1 - 1e-4)).tolist()))
+    scan = []
+    for u in speeds:
+        v = kick_for(u)
+        s = m.initial(v)
+        h, info = m.run(s, (np.pi - 2*a)/u + .02, dt=DT, output_dt=OUTPUT_DT)
+        trajectory, flash, contact, captures = elliptic_mismatch(h, info)
+        scan.append(dict(kick=v, speed=u, contact=contact, trajectory_mismatch=trajectory, flash_mismatch=flash,
+                         captures=[dict(time=c['time'], front=c['front'], mouth=c['mouth']) for c in captures],
+                         energy_drift=info['energy_drift']))
+        print(f'u={u:.5f} t_c={contact:.4f} trajectory {trajectory:.1e} flash {flash:.4f} '
+              f'captures {[(round(c["time"], 4), c["front"]) for c in captures]}', flush=True)
+    cycles = []
+    for label, v in [('resonant_k1', kick_for(resonant[1]*(1 - 2e-4))),
+                     ('resonant_k2', kick_for(resonant[2]*(1 - 2e-4))), ('off_resonance_v030', .30)]:
+        s = m.initial(v)
+        end = 4*((np.pi - 2*a)/birth_speed(v) + np.pi) - .5
+        h, info = m.run(s, end, cycles=4, dt=DT, output_dt=OUTPUT_DT)
+        ev = info['events']
+        births = [dict(time=0., speed=birth_speed(v), flash=float(sum(f.energy for f in s.fronts)))] + \
+            [dict(time=e['time'], speed=e['speed'][0], flash=float(sum(e['flash'])))
+             for e in ev if e['kind'] == 'birth']
+        contacts = [e['time'] for e in ev if e['kind'] == 'contact']
+        n_fronts = np.asarray(h['n_fronts'])
+        left = [int(n_fronts[np.flatnonzero(np.abs(np.asarray(h['t']) - tc) < 1e-12)[-1]]) for tc in contacts]
+        cycles.append(dict(label=label, kick=v, births=births, contacts=contacts, fronts_after_contact=left,
+                           captures=[dict(time=e['time'], front=e['front'], mouth=e['mouth']) for e in ev
+                                     if e['kind'] == 'capture'],
+                           energy_drift=info['energy_drift'], angular_drift=info['angular_drift'], history=compact(h)))
+        print(label, [round(b['speed'], 6) for b in births], 'fronts left', left, flush=True)
+    # The static field: momentum moved per unit energy exchanged, first flight of a v = 0.30 kick.
+    ms = AntipodalPairBirth(Parameters(), static='coulomb')
+    s = ms.initial(.30)
+    h, info = ms.run(s, 12., dt=DT, output_dt=OUTPUT_DT)
+    contact = next(e for e in info['events'] if e['kind'] == 'contact')
+    alive = np.asarray(h['alive'])
+    L = np.asarray(h['L'])[alive]
+    p_birth, p_contact = np.linalg.norm(L[0], axis=1), np.linalg.norm(L[-1], axis=1)
+    kinetic = np.asarray(h['ledger']['kinetic'])[alive]
+    v_birth = ms.velocity(s)
+    turned = bool(np.all(np.sum(np.cross(L[-1], np.asarray(h['x'])[alive][-1])*v_birth, axis=1) < 0))
+    flash = float(sum(f.energy for f in s.fronts))/2
+    static = dict(kick=.30, contact=contact['time'], momentum_birth=p_birth.tolist(),
+                  momentum_contact=p_contact.tolist(),
+                  reversed=turned, momentum_change_per_mouth=float(np.mean(p_birth + p_contact)),
+                  energy_exchanged_per_mouth=float((kinetic.max() - kinetic.min())/2),
+                  flash_energy_per_mouth=flash, birth_speed=float(np.linalg.norm(v_birth[0])))
+    print('static field', static, flush=True)
+    meta = dict(part='elliptic', DT=DT, output_dt=OUTPUT_DT, resonant_speeds=resonant.tolist(), numpy=np.__version__)
+    (OUT/'elliptic.json').write_text(json.dumps(dict(meta=meta, scan=scan, cycles=cycles, static=static),
+                                                separators=(',', ':'))+'\n')
+
+
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else 'scan')
+    part = sys.argv[1] if len(sys.argv) > 1 else 'scan'
+    elliptic_part() if part == 'elliptic' else main(part)

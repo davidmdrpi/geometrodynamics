@@ -2,8 +2,11 @@
 import numpy as np
 import pytest
 
+from scipy.optimize import brentq
+
 from geometrodynamics.waves.antipodal_pair_birth import (AntipodalPairBirth, AntipodalState, Front,
-                                                         from_local, local_coordinates)
+                                                         elliptic_mismatch, from_local, local_coordinates,
+                                                         resonant_speeds)
 from geometrodynamics.waves.pair_birth import Parameters, bare_timeline, birth_frames, birth_positions
 
 COARSE = Parameters(cutoff=12, footprint=.2)
@@ -230,3 +233,76 @@ def test_first_flight_captures_only_near_birth_or_contact(v):
                 break
     assert got == sorted(expected)
     assert bool(got) == (v != 1/3)                      # own second return; none; partner first return
+
+
+# ---- antipodal time reversal ------------------------------------------------------------------
+def kick_for(m, u):
+    """The kick whose birth speed, after paying for the flash, is u."""
+    return brentq(lambda v: np.linalg.norm(m.velocity(m.initial(v)), axis=1)[0] - u, .02, .95, xtol=1e-14)
+
+
+@pytest.mark.parametrize('v', [.2, .3, 1/3])
+def test_strict_flight_is_its_own_antipodal_time_reversed_image(v):
+    # (n, t, q) -> (-n, t_c - t, -q) maps mouth A onto mouth B for any symmetric birth speed.
+    m = AntipodalPairBirth(COARSE)
+    s = m.initial(v)
+    u = np.linalg.norm(m.velocity(s), axis=1)[0]
+    h, info = m.run(s, (np.pi - 2*m.par.mouth_angle)/u + .01, dt=.01)
+    trajectory, flash, contact, captures = elliptic_mismatch(h, info)
+    assert trajectory < 1e-12
+    assert flash > .2 and not captures                 # but the flash is elsewhere at contact
+
+
+def test_flash_closes_on_its_image_only_at_the_resonant_speeds():
+    m = AntipodalPairBirth(COARSE)
+    a = m.par.mouth_angle
+    np.testing.assert_allclose(resonant_speeds(a, 3), (np.pi - 2*a)/(np.array([1, 3, 5])*np.pi))
+    for k in (1, 2):
+        u = resonant_speeds(a, 3)[k]*(1 - 1e-4)          # refocus just before contact
+        s = m.initial(kick_for(m, u))
+        h, info = m.run(s, (2*k + 1)*np.pi + .05, dt=.01)
+        trajectory, flash, contact, captures = elliptic_mismatch(h, info)
+        assert trajectory < 1e-12 and flash < 2e-3
+        assert sorted((c['front'], c['mouth']) for c in captures) == [('flash A', 1), ('flash B', 0)]
+        assert all(abs(c['time'] - (2*k + 1)*np.pi) < 1e-9 for c in captures)   # emission <-> image
+
+
+def test_resonant_cycle_repeats_exactly_and_off_resonance_drifts():
+    m = AntipodalPairBirth(COARSE)
+    u = resonant_speeds(m.par.mouth_angle, 2)[1]*(1 - 2e-4)
+    for kick, periodic in ((kick_for(m, u), True), (.3, False)):
+        h, info = m.run(m.initial(kick), 40., cycles=3, dt=.01)
+        births = [e for e in info['events'] if e['kind'] == 'birth']
+        speeds = [np.linalg.norm(m.velocity(m.initial(kick)), axis=1)[0]] + [e['speed'][0] for e in births]
+        assert len(births) == 2 and info['energy_drift'] < 1e-14
+        if periodic:
+            assert max(speeds) - min(speeds) < 1e-12        # every flash closes inside its own cycle
+        else:
+            assert max(speeds) - min(speeds) > 1e-2
+
+
+def test_rebirth_sits_at_the_advanced_focus_of_its_flash():
+    # A front launched at (n, t) has its advanced focus at (-n, t - pi). For every re-birth flash
+    # that is the previous contact: the release and re-birth rule is the flash's time-symmetric half.
+    m = AntipodalPairBirth(COARSE)
+    h, info = m.run(m.initial(.3), 40., cycles=3, dt=.01)
+    t, x, alive = np.asarray(h['t']), np.asarray(h['x']), np.asarray(h['alive'])
+    contacts = [e['time'] for e in info['events'] if e['kind'] == 'contact']
+    births = [e['time'] for e in info['events'] if e['kind'] == 'birth']
+    for tc, tb in zip(contacts, births):
+        assert tb - np.pi == pytest.approx(tc, abs=1e-9)
+        at_contact = x[np.flatnonzero((abs(t - tc) < 1e-12) & alive)[-1]]
+        at_birth = x[np.flatnonzero((abs(t - tb) < 1e-12) & alive)[0]]
+        for k in range(2):
+            assert min(np.linalg.norm(-at_birth[k] - at_contact[j]) for j in range(2)) < 1e-9
+
+
+@pytest.mark.parametrize('exchange', ['rest', 'signed'])
+def test_a_captured_front_moves_a_mouth_by_at_most_its_energy(exchange):
+    # Null bound: |delta p| <= E for every capture, so one-way front exchange cannot transfer more
+    # momentum than energy, as the static field does.
+    m = AntipodalPairBirth(COARSE, exchange=exchange)
+    h, info = m.run(m.initial(.3), 40., cycles=3, dt=.01)
+    caps = [e for e in info['events'] if e['kind'] == 'capture']
+    assert caps
+    assert all(np.linalg.norm(e['kick']) <= e['energy'] + 1e-12 for e in caps)
