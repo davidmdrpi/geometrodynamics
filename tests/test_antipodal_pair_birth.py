@@ -5,8 +5,8 @@ import pytest
 from scipy.optimize import brentq
 
 from geometrodynamics.waves.antipodal_pair_birth import (AntipodalPairBirth, AntipodalState, Front,
-                                                         elliptic_mismatch, from_local, local_coordinates,
-                                                         resonant_speeds)
+                                                         closure_band, elliptic_mismatch, from_local,
+                                                         local_coordinates, resonant_speeds)
 from geometrodynamics.waves.pair_birth import Parameters, bare_timeline, birth_frames, birth_positions
 
 COARSE = Parameters(cutoff=12, footprint=.2)
@@ -306,3 +306,18 @@ def test_a_captured_front_moves_a_mouth_by_at_most_its_energy(exchange):
     caps = [e for e in info['events'] if e['kind'] == 'capture']
     assert caps
     assert all(np.linalg.norm(e['kick']) <= e['energy'] + 1e-12 for e in caps)
+
+
+def test_cycle_closes_only_while_the_caught_flash_is_still_in_the_throat_at_contact():
+    # Below u_k the partner still catches the flash at 3 pi, but if the throat releases it before
+    # contact it flies on and the cycle drifts; within the closure band nothing is left over.
+    m = AntipodalPairBirth(COARSE)
+    low, uk = closure_band(m.par.mouth_angle, 1)
+    assert low < uk and (np.pi - 3*m.par.mouth_angle)/(3*np.pi) < low
+    for u, closes in ((low*(1 + 3e-3), True), (low*(1 - 3e-3), False)):
+        h, info = m.run(m.initial(kick_for(m, u)), 3*((np.pi - 2*m.par.mouth_angle)/u + np.pi) - .5, cycles=3, dt=.01)
+        births = [e for e in info['events'] if e['kind'] == 'birth']
+        first = [e for e in info['events'] if e['kind'] == 'capture' and e['front'].startswith('flash')][:2]
+        assert [round(e['time']/np.pi, 9) for e in first] == [3., 3.]     # caught at 3 pi either way
+        spread = max(abs(e['speed'][0] - u) for e in births)
+        assert (spread < 1e-12) == closes

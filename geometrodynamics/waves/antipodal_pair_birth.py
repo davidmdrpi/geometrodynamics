@@ -606,6 +606,22 @@ def resonant_speeds(mouth_angle, count=4):
     return (np.pi - 2*mouth_angle)/((2*np.arange(count) + 1)*np.pi)
 
 
+def closure_band(mouth_angle, k, length=None):
+    """Birth speeds (u_low, u_k] at which a symmetric strict cycle closes on itself: the partner
+    catches each flash at its (2k + 1)-th focus, (2k + 1) pi <= t_c <= (2k + 1) pi + a/u (inside
+    the aperture, before contact), and the caught energy is still
+    inside the throat when the rims touch, t_c < (2k + 1) pi + L/sqrt(1 - u^2), so it leaves with
+    the release pulse. Only the upper end, u_k, makes emission and absorption exact images; there
+    focus and contact coincide, and the front counts as caught just before contact."""
+    from scipy.optimize import brentq
+    a = mouth_angle
+    L = np.sin(2*a) if length is None else length
+    uk = (np.pi - 2*a)/((2*k + 1)*np.pi)
+    throat = brentq(lambda u: (np.pi - 2*a)/u - (2*k + 1)*np.pi - L/np.sqrt(1 - u*u), 1e-6, uk*(1 - 1e-12),
+                    xtol=1e-15)
+    return max(throat, (np.pi - 3*a)/((2*k + 1)*np.pi)), uk     # and the flash must be caught at all
+
+
 def _slerp_history(t, x, when):
     """Position at time `when` on a recorded strict history. Between events the strict flight is
     a constant-speed geodesic, so slerp between consecutive samples is exact there."""

@@ -1093,15 +1093,19 @@ def figure_elliptic(data, path):
     ax.plot(u, mis, '-', color='#7f8c8d', lw=1)
     ax.plot(u[~early], mis[~early], 'o', color='#1f5fa8', ms=4, label='no flash capture before contact')
     ax.plot(u[early], mis[early], 's', color='#c0392b', ms=4, label='a flash captured before contact, not at it')
+    from geometrodynamics.waves.antipodal_pair_birth import closure_band
     for k, uk in enumerate(data['meta']['resonant_speeds']):
         if uk > u.min() - .01:
+            low, _ = closure_band(A, k)
+            ax.axvspan(low, uk, color='#117a3a', alpha=.18, lw=0,
+                       label='cycle closes: the caught flash is still in the throat at contact' if k == 0 else None)
             ax.axvline(uk, color='k', lw=.6, ls='--')
             ax.text(uk, 3.25, f'u{"₀₁₂₃"[k]}', ha='center', fontsize=9)
     ax.set_ylim(0, 3.45)
     ax.set_xlabel('birth speed u (after paying for the flash)')
     ax.set_ylabel('|t_c − nearest odd multiple of π|')
-    ax.set_title('(c) The flash closes on its own image only at u_k = (π − 2a)/((2k + 1)π);\n'
-                 'trajectories are invariant at every speed (mismatch ≤ 3 × 10⁻¹³)', fontsize=10)
+    ax.set_title('(c) Emission and absorption are exact images only at u_k = (π − 2a)/((2k + 1)π);\n'
+                 'cycles close just below it (shaded); trajectories are invariant at every speed', fontsize=10)
     ax.legend(fontsize=8, loc='upper center', bbox_to_anchor=(.5, -.13), ncol=2)
 
     ax = axes[1, 1]

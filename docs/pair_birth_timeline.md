@@ -107,9 +107,10 @@ A classical experiment on #345, answering the acceptance test set in its review 
 12. **Under antipodal time reversal, the strict cycle is one mouth's history** (§11).
     - **The identification.** (n, t, q) → (−n, t_c − t, −q) maps every symmetric strict flight
       onto itself: birth at P onto contact at −P, mouth A onto mouth B.
-    - **Closure.** With the flash included, the history is invariant only at the birth speeds
-      u_k = (π − 2a)/((2k + 1)π), where each flash is caught by the partner exactly at contact.
-      There the cycle repeats exactly with nothing left over.
+    - **Closure.** With the flash included, the history is an exact image of itself only at the
+      birth speeds u_k = (π − 2a)/((2k + 1)π), where each flash is caught by the partner at
+      contact. Cycles repeat exactly, with nothing left over, in a band just below each u_k whose
+      width the neck length sets.
     - **No return needed.** In the quotient the pair is one mouth, so its coasting to −P is a
       closure, not a failure to bind. Turning the mouths around with fronts would need about as
       much exchanged energy as the mouths have. The static field does it with 14 times less.
@@ -917,10 +918,22 @@ which exchanges the mouths.
 
       u_k = (π − 2a)/((2k + 1)π) = 0.809, 0.2697, 0.1618, 0.1156, …  at a = 0.3.
 
-  - At u_k the partner catches each flash exactly at contact (panel b).
-  - In the first-return band below u₀ the flash is caught at π, before contact, so those flights
-    are not invariant (panel c).
-- **Resonant cycles repeat exactly; others drift.**
+  - At u_k the partner catches each flash exactly at contact (panel b). Focus and contact then
+    coincide, so the model needs an ordering rule: the front counts as caught just before contact
+    (the runs sit 0.02% below u_k).
+  - With the finite aperture, the partner also catches the flash before contact over a band below
+    each u_k, from (π − 3a)/((2k + 1)π) (#349 assessment). Those flights are not exact images.
+- **Cycles close in a band just below each u_k, and drift elsewhere.** A caught flash enters the
+  throat and leaves the other mouth L/√(1 − u²) later. If that is after contact, its energy leaves
+  with the release pulse and the cycle repeats exactly. If it is before contact, the front flies
+  on and fronts accumulate.
+  - So a cycle closes when the flash is caught at all, (2k + 1)π ≤ t_c ≤ (2k + 1)π + a/u, and
+    its energy is still in the throat at contact, t_c < (2k + 1)π + L/√(1 − u²).
+  - At a = 0.3 that is u in [0.7135, 0.8090] at k = 0, where the throat time exceeds the window
+    (0.7135 is the capture edge). It is (0.2539, 0.2697] at k = 1, (0.1561, 0.1618] at k = 2 and
+    (0.1127, 0.1156] at k = 3.
+  - The measured band edges at k = 1 and 2, and spot checks at k = 0, match this (shaded in
+    panel c).
 
   | cycle | birth speeds, cycles 1–4 | flash at each birth | contacts | flash captures before each contact | fronts in flight after each contact |
   |---|---|---|---|---|---|
@@ -938,8 +951,9 @@ which exchanges the mouths.
 - **Consequence.** In the quotient, A and B are one mouth. Its worldline runs from the birth
   event to the mid-flight slice, where it meets its own image.
   - "Coasting to −P" is then the closure of one mouth's history, not a failure to bind.
-  - The strict cycle is self-consistent at the resonant speeds. This is a classical closure
-    condition on the birth speed, not a quantization assumption.
+  - The strict cycle closes on itself in the bands above, and is an exact image of itself at u_k.
+    This is a classical closure condition on the birth speed, not a quantization assumption. The
+    band width comes from the neck length.
 
 **Why fronts cannot turn the pair around instead** (panel d).
 - **The static field's ratio.** The static field (the §9 control) turns each mouth around. It
@@ -962,6 +976,9 @@ which exchanges the mouths.
     more momentum than energy. Any two-way exchange can.
 
 **Open.**
+- **The field is not fixed by the quotient.** A time-nonorientable quotient does not by itself
+  force the half-retarded, half-advanced field: invariant homogeneous solutions can be added, and
+  boundary data or an absorber condition must fix them (#349 assessment).
 - **The handle under the identification.** In sphere-oriented rim frames the antipodal map acts
   on the rim as a reflection. So a loop through the handle and back through the identification
   is orientation-reversing for one handle type and orientation-preserving for the other. Which
@@ -1001,9 +1018,9 @@ which exchanges the mouths.
 | signed exchange: caps | a capped pull leaves the throat front with \|J\| equal to its energy, and a capped exit leaves the front null; no front ever carries more angular momentum than energy |
 | signed exchange: conservation | energy to 7 × 10⁻¹⁵ in all 22 runs; angular momentum to 2 × 10⁻¹⁵ (planar) and 2 × 10⁻¹⁰ (off-circle, with spin) |
 | antipodal rule: capture windows | first-flight flash captures match the analytic windows (own even returns within a/u of birth, partner odd returns within a/u of contact) at three speeds; the same rule reproduces all 24 captures and 548 empty foci in #349's audit |
-| antipodal time reversal | every symmetric strict flight maps onto itself under (n, t, q) → (−n, t_c − t, −q) to 3 × 10⁻¹³ at 79 speeds; the flash closes on its image only at u_k; resonant cycles repeat speed and flash to 10⁻¹⁶ with no front left; each re-birth sits at its flash's advanced focus |
+| antipodal time reversal | every symmetric strict flight maps onto itself under (n, t, q) → (−n, t_c − t, −q) to 3 × 10⁻¹³ at 79 speeds; the flash closes on its image only at u_k; cycles repeat speed and flash to 10⁻¹⁶ with no front left exactly within (2k + 1)π ≤ t_c < (2k + 1)π + L/√(1 − u²) (band edges at k = 1, 2 match to the bisection's precision; k = 0 spot-checked); each re-birth sits at its flash's advanced focus |
 | null bound | every capture moves its mouth by at most the front's energy, in the rest and signed exchanges |
-| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 30 checks |
+| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 31 checks |
 
 ## Against the acceptance test
 
