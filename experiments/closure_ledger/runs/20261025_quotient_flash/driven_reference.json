@@ -1,0 +1,194 @@
+[
+  {
+    "cutoff": 24,
+    "case": "endpoint",
+    "speed": 0.26967135609657517,
+    "order": 64,
+    "initial_energy": 0.0028546306043687577,
+    "relative_endpoint_defect": 1.8334151720953228e-14,
+    "relative_initial_change": null,
+    "relative_interior_defects": [],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 24,
+    "case": "endpoint",
+    "speed": 0.26967135609657517,
+    "order": 128,
+    "initial_energy": 0.0028253922760635088,
+    "relative_endpoint_defect": 1.4931237411687732e-14,
+    "relative_initial_change": 0.10216038137157804,
+    "relative_interior_defects": [],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 24,
+    "case": "endpoint",
+    "speed": 0.26967135609657517,
+    "order": 256,
+    "initial_energy": 0.0028253922760627915,
+    "relative_endpoint_defect": 1.4718697044772738e-14,
+    "relative_initial_change": 1.4398403616925988e-13,
+    "relative_interior_defects": [],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 24,
+    "case": "endpoint",
+    "speed": 0.26967135609657517,
+    "order": 512,
+    "initial_energy": 0.002825392276063083,
+    "relative_endpoint_defect": 1.0976574243379312e-14,
+    "relative_initial_change": 6.611364109416566e-14,
+    "relative_interior_defects": [
+      2.1068004758805558e-13,
+      1.7227695441608887e-13,
+      2.1068004758805558e-13
+    ],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 24,
+    "case": "interior",
+    "speed": 0.26180666128769114,
+    "order": 64,
+    "initial_energy": 0.0056189625892310215,
+    "relative_endpoint_defect": 1.5964760022841982e-14,
+    "relative_initial_change": null,
+    "relative_interior_defects": [],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 24,
+    "case": "interior",
+    "speed": 0.26180666128769114,
+    "order": 128,
+    "initial_energy": 0.00557256348110797,
+    "relative_endpoint_defect": 1.0582077582536799e-14,
+    "relative_initial_change": 0.09099784168002636,
+    "relative_interior_defects": [],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 24,
+    "case": "interior",
+    "speed": 0.26180666128769114,
+    "order": 256,
+    "initial_energy": 0.0055725634811074854,
+    "relative_endpoint_defect": 9.350813734063367e-15,
+    "relative_initial_change": 5.962786600588129e-14,
+    "relative_interior_defects": [],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 24,
+    "case": "interior",
+    "speed": 0.26180666128769114,
+    "order": 512,
+    "initial_energy": 0.005572563481107419,
+    "relative_endpoint_defect": 6.297736290486946e-15,
+    "relative_initial_change": 8.25866992174362e-14,
+    "relative_interior_defects": [
+      1.6918683534244432e-13,
+      1.587746772729006e-13,
+      1.6949386015585928e-13
+    ],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 48,
+    "case": "endpoint",
+    "speed": 0.26967135609657517,
+    "order": 64,
+    "initial_energy": 0.0028637938690331773,
+    "relative_endpoint_defect": 1.833164349733874e-14,
+    "relative_initial_change": null,
+    "relative_interior_defects": [],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 48,
+    "case": "endpoint",
+    "speed": 0.26967135609657517,
+    "order": 128,
+    "initial_energy": 0.0028254025981839987,
+    "relative_endpoint_defect": 1.494534386060234e-14,
+    "relative_initial_change": 0.11694197209053844,
+    "relative_interior_defects": [],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 48,
+    "case": "endpoint",
+    "speed": 0.26967135609657517,
+    "order": 256,
+    "initial_energy": 0.0028254025981670054,
+    "relative_endpoint_defect": 1.4725820503805562e-14,
+    "relative_initial_change": 2.419532169592607e-06,
+    "relative_interior_defects": [],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 48,
+    "case": "endpoint",
+    "speed": 0.26967135609657517,
+    "order": 512,
+    "initial_energy": 0.002825402598167297,
+    "relative_endpoint_defect": 1.0979629727887173e-14,
+    "relative_initial_change": 6.612999116120009e-14,
+    "relative_interior_defects": [
+      2.107184015229167e-13,
+      1.72331307714206e-13,
+      2.107184015229167e-13
+    ],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 48,
+    "case": "interior",
+    "speed": 0.26180666128769114,
+    "order": 64,
+    "initial_energy": 0.0056284972248137185,
+    "relative_endpoint_defect": 1.5975531447937877e-14,
+    "relative_initial_change": null,
+    "relative_interior_defects": [],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 48,
+    "case": "interior",
+    "speed": 0.26180666128769114,
+    "order": 128,
+    "initial_energy": 0.005572581764916272,
+    "relative_endpoint_defect": 1.0584654770891667e-14,
+    "relative_initial_change": 0.09994352069153001,
+    "relative_interior_defects": [],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 48,
+    "case": "interior",
+    "speed": 0.26180666128769114,
+    "order": 256,
+    "initial_energy": 0.0055725817648566685,
+    "relative_endpoint_defect": 9.355689774169062e-15,
+    "relative_initial_change": 3.265319116717555e-06,
+    "relative_interior_defects": [],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  },
+  {
+    "cutoff": 48,
+    "case": "interior",
+    "speed": 0.26180666128769114,
+    "order": 512,
+    "initial_energy": 0.005572581764856602,
+    "relative_endpoint_defect": 6.300578588413477e-15,
+    "relative_initial_change": 8.2587627680831e-14,
+    "relative_interior_defects": [
+      1.6920442738101209e-13,
+      1.5879353091662944e-13,
+      1.695114463550782e-13
+    ],
+    "scope": "Symmetrized forced Maxwell reference with prescribed continuous currents and selected homogeneous data; no strict-boundary matching or mouth backreaction"
+  }
+]
