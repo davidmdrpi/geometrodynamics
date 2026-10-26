@@ -392,6 +392,11 @@ class AntipodalPairBirth:
             self.step(s, h)
             if s.alive:
                 event = self._continuous_event(prev, s, h)
+                if event is not None and event[0] == 'contact' and focus_time - prev.t <= event[1] + 1e-9:
+                    # A front focusing as the rims touch is caught first, and leaves with the release.
+                    s = prev.copy()
+                    self.step(s, focus_time - prev.t)
+                    event = None
                 if event is not None:
                     kind, h_event = event
                     s = prev.copy()

@@ -283,7 +283,7 @@ def test_resonant_cycle_repeats_exactly_and_off_resonance_drifts():
 
 def test_rebirth_sits_at_the_advanced_focus_of_its_flash():
     # A front launched at (n, t) has its advanced focus at (-n, t - pi). For every re-birth flash
-    # that is the previous contact: the release and re-birth rule is the flash's time-symmetric half.
+    # that is the previous contact (a coincidence of place and time, not a field identity).
     m = AntipodalPairBirth(COARSE)
     h, info = m.run(m.initial(.3), 40., cycles=3, dt=.01)
     t, x, alive = np.asarray(h['t']), np.asarray(h['x']), np.asarray(h['alive'])
@@ -321,3 +321,21 @@ def test_cycle_closes_only_while_the_caught_flash_is_still_in_the_throat_at_cont
         assert [round(e['time']/np.pi, 9) for e in first] == [3., 3.]     # caught at 3 pi either way
         spread = max(abs(e['speed'][0] - u) for e in births)
         assert (spread < 1e-12) == closes
+
+
+@pytest.mark.parametrize('k', [1, 2])
+@pytest.mark.parametrize('dt', [.02, .01, .005])
+@pytest.mark.parametrize('delta', [-1e-9, 0., 1e-9])
+def test_a_flash_focusing_as_the_rims_touch_is_caught_before_the_release(k, dt, delta):
+    # At u_k focus and contact coincide; the focus is processed first, at every step size. Just
+    # outside u_k contact comes first and the flashes fly on.
+    m = AntipodalPairBirth(COARSE)
+    u = resonant_speeds(m.par.mouth_angle, 3)[k] + delta
+    s = m.initial(kick_for(m, u))
+    h, info = m.run(s, (2*k + 1)*np.pi + .05, dt=dt, output_dt=.5)
+    near = [e['kind'] for e in info['events'] if abs(e['time'] - (2*k + 1)*np.pi) < .01]
+    if delta <= 0:
+        assert near == ['capture', 'capture', 'contact'] and not info['final_state'].fronts
+    else:
+        assert near == ['contact', 'reflection', 'reflection'] and len(info['final_state'].fronts) == 2
+    assert info['energy_drift'] < 1e-14

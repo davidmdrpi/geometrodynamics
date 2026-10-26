@@ -919,8 +919,11 @@ which exchanges the mouths.
       u_k = (π − 2a)/((2k + 1)π) = 0.809, 0.2697, 0.1618, 0.1156, …  at a = 0.3.
 
   - At u_k the partner catches each flash exactly at contact (panel b). Focus and contact then
-    coincide, so the model needs an ordering rule: the front counts as caught just before contact
-    (the runs sit 0.02% below u_k).
+    coincide, and the model applies an explicit rule: a focus within 10⁻⁹ of contact is processed
+    first, so the front is caught and leaves with the release pulse.
+    - #349 found that the earlier code handled contact first at u_k in five of six runs.
+    - Tests now run at u_k, 10⁻⁹ inside it and 10⁻⁹ outside it, at three step sizes.
+    - The cycle runs here sit 0.02% below u_k.
   - With the finite aperture, the partner also catches the flash before contact over a band below
     each u_k, from (π − 3a)/((2k + 1)π) (#349 assessment). Those flights are not exact images.
 - **Cycles close in a band just below each u_k, and drift elsewhere.** A caught flash enters the
@@ -945,9 +948,13 @@ which exchanges the mouths.
     speed and flash to 10⁻¹⁶, no front is left in flight, and the energy drift is 0.
   - Off resonance the second birth speed drops from 0.283 to 0.267, and two fronts stay in
     flight every cycle.
-- **The re-birth rule is the flash's time-symmetric half.** A front launched at (n, t) has its
+- **Each re-birth sits at its flash's advanced focus.** A front launched at (n, t) has its
   advanced focus at (−n, t − π). For every re-birth flash, that is exactly the previous contact
-  (a test checks it). So the release pulse already carries what a time-symmetric flash needs.
+  (a test checks it).
+  - This is a coincidence of place and time only. The release pulse carries the pair's whole
+    energy through the deformation operator, while the flash is a Maxwell wave.
+  - So the release is not the flash's advanced half (#349 assessment). Making it so would need
+    a field conversion, with normalization, polarization and phase.
 - **Consequence.** In the quotient, A and B are one mouth. Its worldline runs from the birth
   event to the mid-flight slice, where it meets its own image.
   - "Coasting to −P" is then the closure of one mouth's history, not a failure to bind.
@@ -976,6 +983,15 @@ which exchanges the mouths.
     more momentum than energy. Any two-way exchange can.
 
 **Open.**
+- **The field closure needs the flash's birth phase.** The flash starts with P = 0. The focus
+  turns displacement into velocity (the Gouy quarter phase), so P = 0 data are exactly half their
+  energy away from being their own image, even in the conformal routing (#349's projection).
+  - Data with P = (−1)^(k+1) ωQ in every mode close exactly there: each mode's phase advanced by
+    (−1)^k · 45°, half the caustic phase.
+  - For the Maxwell flash the best such phase leaves 0.2%, 1.5%, 4.2% and 8.0% of its energy for
+    k = 0–3, against 59%, 24%, 87% and 9% at P = 0. The remainder is the dispersion, since
+    √(l(l + 1)) does not refocus.
+  - Whether a derived birth launches the flash at that phase is open.
 - **The field is not fixed by the quotient.** A time-nonorientable quotient does not by itself
   force the half-retarded, half-advanced field: invariant homogeneous solutions can be added, and
   boundary data or an absorber condition must fix them (#349 assessment).
@@ -1018,9 +1034,9 @@ which exchanges the mouths.
 | signed exchange: caps | a capped pull leaves the throat front with \|J\| equal to its energy, and a capped exit leaves the front null; no front ever carries more angular momentum than energy |
 | signed exchange: conservation | energy to 7 × 10⁻¹⁵ in all 22 runs; angular momentum to 2 × 10⁻¹⁵ (planar) and 2 × 10⁻¹⁰ (off-circle, with spin) |
 | antipodal rule: capture windows | first-flight flash captures match the analytic windows (own even returns within a/u of birth, partner odd returns within a/u of contact) at three speeds; the same rule reproduces all 24 captures and 548 empty foci in #349's audit |
-| antipodal time reversal | every symmetric strict flight maps onto itself under (n, t, q) → (−n, t_c − t, −q) to 3 × 10⁻¹³ at 79 speeds; the flash closes on its image only at u_k; cycles repeat speed and flash to 10⁻¹⁶ with no front left exactly within (2k + 1)π ≤ t_c < (2k + 1)π + L/√(1 − u²) (band edges at k = 1, 2 match to the bisection's precision; k = 0 spot-checked); each re-birth sits at its flash's advanced focus |
+| antipodal time reversal | every symmetric strict flight maps onto itself under (n, t, q) → (−n, t_c − t, −q) to 3 × 10⁻¹³ at 79 speeds; the flash closes on its image only at u_k; cycles repeat speed and flash to 10⁻¹⁶ with no front left exactly within (2k + 1)π ≤ t_c < (2k + 1)π + L/√(1 − u²) (band edges at k = 1, 2 match to the bisection's precision; k = 0 spot-checked); each re-birth sits at its flash's advanced focus; a focus within 10⁻⁹ of contact is processed first (18 cases: u_k and 10⁻⁹ either side, three steps) |
 | null bound | every capture moves its mouth by at most the front's energy, in the rest and signed exchanges |
-| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 31 checks |
+| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 49 checks |
 
 ## Against the acceptance test
 
