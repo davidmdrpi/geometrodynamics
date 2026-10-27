@@ -1,5 +1,7 @@
 # The guidance law from the 5D bulk: the throat rides its own conserved charge (PR #199)
 
+> **Current dependency audit (12 October 2026).** The supplied winding-scalar stress/current identity survives. Conservation and reduced vortex examples do not establish the motion of a regular five-dimensional gravitating core or derive that scalar from pure GR. The full core guidance calculation remains open. See [the audited source chain](historical_foundation_claims_audit.md). Historical wording below is superseded where it asserts the stronger conclusion.
+
 > **Framing.** QFT on the *fixed classical* throat geometry — geometry →
 > fields, **not** quantum gravity. This document discharges condition (1)
 > of PR #198: it derives the guidance law v = ∇S — there an input

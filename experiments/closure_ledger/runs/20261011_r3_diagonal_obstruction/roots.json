@@ -1,0 +1,28 @@
+{
+ "bindings": {
+  "geometrodynamics/waves/r3_diagonal_taylor.py": "90deccc98f1826ac263e96046879d29a8ce78c21ead4132c427750f3a31f8c67",
+  "geometrodynamics/waves/r3_high_precision_shooting.py": "3a91618c5ce2b6fc55fc15fdafb3702996eb949c236c7cca04f0de7f7c8a9adb",
+  "geometrodynamics/waves/r3_diagonal_symmetry.py": "50950118ef0ae4dbe4b9b8a1cf72ce24bdd7cb036122ab77e7e5128d4a9e7824",
+  "geometrodynamics/waves/r3_breaking.py": "a445fdfedd0230f91d9f74bb1f09e0c976d7c84b9e5672e0bee4a09ded821c74",
+  "experiments/closure_ledger/r3_breaking_probe.py": "5e9b31e8045ef53a9a29101bd67c679e0b474619685032bfafc8c286e38fcf1d",
+  "experiments/closure_ledger/r3_diagonal_obstruction_probe.py": "20d45a520dbe76cb7eb6170e1a6df0ed29573acdd052c449dee391852399748c",
+  "experiments/closure_ledger/r3_diagonal_obstruction_controls.py": "aa7fec4c59fe982d2435c19a8601c793fa4e48c9148fe0118dbe2e6bfde412df",
+  "docs/r3_diagonal_obstruction_prereg.md": "e610413a6483b1c2d362f09c0089bd6ee296ae3d0dd1a30090be1ddb4aad3ffe",
+  "tests/test_r3_diagonal_obstruction.py": "1ed74f8e565a1e6952287ef10e4dc671ccd383e3e4a385e5e8f03fae40deee33",
+  "experiments/closure_ledger/runs/20261001_r3_family/stage_F.json": "2f8c1e57aab3ded64fba82c0889f6a09abf60f92b92cad95e0a357adde6a53dd",
+  "experiments/closure_ledger/runs/20261011_r3_diagonal_obstruction/controls.json": "8fe9abba83bb72996e13b0cc3394afccde1ff70aa1ca14a85f55aa800c0042a2"
+ },
+ "rows": [],
+ "equivalence": {
+  "P_C": {
+   "classes": [],
+   "max_match_error": null,
+   "min_distinct_separation": null
+  },
+  "H_C": {
+   "classes": [],
+   "max_match_error": null,
+   "min_distinct_separation": null
+  }
+ }
+}

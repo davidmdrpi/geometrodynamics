@@ -1,0 +1,279 @@
+{
+  "label": "REGULARITY_DOES_NOT_SELECT_EVENT_LAW",
+  "scope": "Static prescribed-metric scalar transport control; no nonlinear Einstein event evolution",
+  "registration": "Analytic counterexample and numerical verification, not a held-out preregistered experiment",
+  "gates": {
+    "regular_necks": true,
+    "constraints": true,
+    "transport_accuracy": true,
+    "different_transport": true,
+    "different_transit": true
+  },
+  "profiles": [
+    {
+      "epsilon": 0.0,
+      "transit_time": 0.8414709848078965,
+      "neck_radius": 0.22984884706593015,
+      "half_length": 0.42073549240394825,
+      "max_sampled_kretschmann": 8598.88068987094,
+      "max_constraint_density": 2.1316282072803006e-14,
+      "neck_radial_nec": -56.78538772168068,
+      "future_trapped_samples": 0,
+      "transfers": [
+        {
+          "ell": 0,
+          "omega_S": 0.5,
+          "matrix": [
+            [
+              0.26041909494622534,
+              1.5842798513047285
+            ],
+            [
+              -0.5883947171453497,
+              0.2604190949463111
+            ]
+          ],
+          "determinant_error": 1.5587531265737198e-13,
+          "refinement_error": 1.1852741010898171e-12
+        },
+        {
+          "ell": 0,
+          "omega_S": 2.0,
+          "matrix": [
+            [
+              -2.1746320436985216,
+              0.1997696552241902
+            ],
+            [
+              18.666621421024885,
+              -2.174632043697656
+            ]
+          ],
+          "determinant_error": 9.814371537686384e-14,
+          "refinement_error": 1.1397105481592007e-11
+        },
+        {
+          "ell": 0,
+          "omega_S": 5.0,
+          "matrix": [
+            [
+              -0.9891867295604437,
+              -0.0016265613247933323
+            ],
+            [
+              13.223979775064645,
+              -0.989186729560025
+            ]
+          ],
+          "determinant_error": 4.1300296516055823e-14,
+          "refinement_error": 4.262190600456961e-11
+        },
+        {
+          "ell": 1,
+          "omega_S": 0.5,
+          "matrix": [
+            [
+              58.46830224854285,
+              12.625694360060717
+            ],
+            [
+              270.6815380101782,
+              58.4683022485548
+            ]
+          ],
+          "determinant_error": 7.72892860823049e-12,
+          "refinement_error": 2.956994649139233e-10
+        },
+        {
+          "ell": 1,
+          "omega_S": 2.0,
+          "matrix": [
+            [
+              0.7615338957084358,
+              4.101160890494534
+            ],
+            [
+              -0.10242615125887639,
+              0.7615338956976463
+            ]
+          ],
+          "determinant_error": 1.1431522395355387e-11,
+          "refinement_error": 1.3775647289548942e-11
+        },
+        {
+          "ell": 1,
+          "omega_S": 5.0,
+          "matrix": [
+            [
+              -0.496873979558824,
+              0.0479601834359979
+            ],
+            [
+              -15.7029476220044,
+              -0.4968739795588284
+            ]
+          ],
+          "determinant_error": 1.7719159473017498e-13,
+          "refinement_error": 9.896083952298795e-12
+        }
+      ]
+    },
+    {
+      "epsilon": 0.1,
+      "transit_time": 0.8043994724669175,
+      "neck_radius": 0.22984884706593015,
+      "half_length": 0.42073549240394825,
+      "max_sampled_kretschmann": 8644.834962137642,
+      "max_constraint_density": 2.1316282072803006e-14,
+      "neck_radial_nec": -56.78538772168068,
+      "future_trapped_samples": 0,
+      "transfers": [
+        {
+          "ell": 0,
+          "omega_S": 0.5,
+          "matrix": [
+            [
+              0.31955057232464373,
+              1.4936566414255346
+            ],
+            [
+              -0.6011337591416677,
+              0.3195505723245088
+            ]
+          ],
+          "determinant_error": 1.3766765505351941e-14,
+          "refinement_error": 2.4646951146678475e-13
+        },
+        {
+          "ell": 0,
+          "omega_S": 2.0,
+          "matrix": [
+            [
+              -2.3365930948896567,
+              0.2428891025255918
+            ],
+            [
+              18.360919632506853,
+              -2.336593094888881
+            ]
+          ],
+          "determinant_error": 1.0436096431476471e-13,
+          "refinement_error": 1.1322498494337196e-11
+        },
+        {
+          "ell": 0,
+          "omega_S": 5.0,
+          "matrix": [
+            [
+              -1.0222361659843378,
+              0.01737886011285899
+            ],
+            [
+              2.5874412219672056,
+              -1.022236165984566
+            ]
+          ],
+          "determinant_error": 2.212674488077937e-13,
+          "refinement_error": 4.264233410822271e-11
+        },
+        {
+          "ell": 1,
+          "omega_S": 0.5,
+          "matrix": [
+            [
+              57.63833148633198,
+              12.228170102444034
+            ],
+            [
+              271.6005116631974,
+              57.638331486334
+            ]
+          ],
+          "determinant_error": 7.0174976940506895e-12,
+          "refinement_error": 3.041122909053229e-10
+        },
+        {
+          "ell": 1,
+          "omega_S": 2.0,
+          "matrix": [
+            [
+              1.7740969641055007,
+              4.4242617124428145
+            ],
+            [
+              0.48537364595516586,
+              1.7740969640974156
+            ]
+          ],
+          "determinant_error": 5.795808277753167e-12,
+          "refinement_error": 2.1393553595316916e-11
+        },
+        {
+          "ell": 1,
+          "omega_S": 5.0,
+          "matrix": [
+            [
+              0.09773296211578895,
+              0.053659724223344224
+            ],
+            [
+              -18.45794555323088,
+              0.09773296211574489
+            ]
+          ],
+          "determinant_error": 2.0650148258027912e-13,
+          "refinement_error": 2.085442929455894e-12
+        }
+      ]
+    }
+  ],
+  "transfer_differences": [
+    {
+      "ell": 0,
+      "omega_S": 0.5,
+      "matrix_max_difference": 0.09062320987919392
+    },
+    {
+      "ell": 0,
+      "omega_S": 2.0,
+      "matrix_max_difference": 0.3057017885180322
+    },
+    {
+      "ell": 0,
+      "omega_S": 5.0,
+      "matrix_max_difference": 10.63653855309744
+    },
+    {
+      "ell": 1,
+      "omega_S": 0.5,
+      "matrix_max_difference": 0.9189736530191794
+    },
+    {
+      "ell": 1,
+      "omega_S": 2.0,
+      "matrix_max_difference": 1.0125630683997693
+    },
+    {
+      "ell": 1,
+      "omega_S": 5.0,
+      "matrix_max_difference": 2.7549979312264785
+    }
+  ],
+  "round_caustic": {
+    "focal_affine_parameter": 3.141592653589793,
+    "jacobi_factor": 1.2246467991473532e-16,
+    "kretschmann": 24.0,
+    "kappa_rho": 6.0,
+    "kappa_pressure": -3.0
+  },
+  "sources": {
+    "geometrodynamics/bulk/focus_regularity.py": "329e575af1655f066bd34545cf69f344825120d5d1467f42f9423edf14a0b977",
+    "geometrodynamics/bulk/finite_mouth.py": "d5627763865f8fa1c495b693a2377cf72c6902efe7e64f3b45540455025ec93c",
+    "experiments/closure_ledger/focus_regularity_probe.py": "ff5fe0304ce786c4fa77deba6fc7ba6cd38192f076aa11a53292c917cf04b6f7"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  }
+}

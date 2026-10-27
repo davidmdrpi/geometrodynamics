@@ -1,5 +1,7 @@
 # The Born-rule equivariance test: what measure does the BAM transport preserve? (PR #198)
 
+> **Current dependency audit (12 October 2026).** Equivariance survives for the specified pilot equation and guidance flow; uniqueness is within the stated local h(rho) class. This does not derive guidance, equilibrium, detector records or general many-body Born statistics from the uncomputed focus event. See [the audited source chain](historical_foundation_claims_audit.md). Historical wording below is superseded where it asserts the stronger conclusion.
+
 > **Framing.** QFT on the *fixed classical* throat geometry — geometry →
 > fields, **not** quantum gravity. This document is item 3 of the
 > theorem-shaped program: the deepest refutation vector. It derives the
