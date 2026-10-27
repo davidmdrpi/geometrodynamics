@@ -1,0 +1,66 @@
+[
+  {
+    "k": 0,
+    "operator": "s2_maxwell",
+    "theta_degrees": 50.33837982482237,
+    "minimum_correction_fraction": 0.0017017242826174064,
+    "analytic_minimum": 0.0017017242826172785,
+    "scope": "Optimized prepared phase; not a derived birth law; S2, not S3"
+  },
+  {
+    "k": 0,
+    "operator": "s2_conformal",
+    "theta_degrees": 45.00000000000001,
+    "minimum_correction_fraction": 1.128974684708281e-31,
+    "analytic_minimum": 0.0,
+    "scope": "Optimized prepared phase; not a derived birth law; S2, not S3"
+  },
+  {
+    "k": 1,
+    "operator": "s2_maxwell",
+    "theta_degrees": -28.96914550724486,
+    "minimum_correction_fraction": 0.015211480044675587,
+    "analytic_minimum": 0.015211480044675596,
+    "scope": "Optimized prepared phase; not a derived birth law; S2, not S3"
+  },
+  {
+    "k": 1,
+    "operator": "s2_conformal",
+    "theta_degrees": -44.999999999999964,
+    "minimum_correction_fraction": 6.8350137029247e-31,
+    "analytic_minimum": -1.1102230246251565e-16,
+    "scope": "Optimized prepared phase; not a derived birth law; S2, not S3"
+  },
+  {
+    "k": 2,
+    "operator": "s2_maxwell",
+    "theta_degrees": 71.77298514077314,
+    "minimum_correction_fraction": 0.041680999349317134,
+    "analytic_minimum": 0.04168099934931707,
+    "scope": "Optimized prepared phase; not a derived birth law; S2, not S3"
+  },
+  {
+    "k": 2,
+    "operator": "s2_conformal",
+    "theta_degrees": 45.000000000000064,
+    "minimum_correction_fraction": 1.6061883644712893e-30,
+    "analytic_minimum": 1.1102230246251565e-16,
+    "scope": "Optimized prepared phase; not a derived birth law; S2, not S3"
+  },
+  {
+    "k": 3,
+    "operator": "s2_maxwell",
+    "theta_degrees": -7.39266283094964,
+    "minimum_correction_fraction": 0.08003314627556261,
+    "analytic_minimum": 0.08003314627556257,
+    "scope": "Optimized prepared phase; not a derived birth law; S2, not S3"
+  },
+  {
+    "k": 3,
+    "operator": "s2_conformal",
+    "theta_degrees": -44.99999999999995,
+    "minimum_correction_fraction": 4.264091431730884e-30,
+    "analytic_minimum": 0.0,
+    "scope": "Optimized prepared phase; not a derived birth law; S2, not S3"
+  }
+]
